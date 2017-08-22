@@ -50,6 +50,8 @@ function Network_platform_issueRcode(game_id, fuid, rcode, os, game_push, pushTo
     t_request['method'] = 'POST'
     t_request['data'] = t_data
 
+    t_request['check_hmac_md5'] = true
+
     -- 성공 시 콜백 함수
     t_request['success'] = success_cb
 
@@ -80,6 +82,8 @@ function Network_platform_updateTerms(game_id, uid, terms, success_cb, fail_cb)
     t_request['full_url'] = Network:getPlatformApiUrl() .. '/user/updateTerms'
     t_request['method'] = 'POST'
     t_request['data'] = t_data
+
+    t_request['check_hmac_md5'] = true
 
     -- 성공 시 콜백 함수
     t_request['success'] = success_cb

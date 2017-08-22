@@ -9,7 +9,9 @@ Network = {
 -- 암호화 키
 CONSTANT = {}
 CONSTANT['HMAC_KEY'] = 'Vjpmgg6MhKSBkSj4k36MQNyUwqS68qJCzRaXmID+45RQO07myxHJakFYY4i7Af6B'
+CONSTANT['MD5_KEY'] = 'bd09b49ad742473a9663b0df11521927'
 CONSTANT['AES_KEY'] = '809AF879E5A3CEAC82FF7E4584939E8D'
+
 
 -- !! '\n'이 혹시 있어서 문제가 발생한다면 '%0A'로 인코딩하자
 --function urlencode(s) return s and (s:gsub("[^a-zA-Z0-9.~_-]", function (c) return format("%%%02x", c:byte()); end)); end
@@ -165,9 +167,15 @@ function Network:start(req, delay)
 		    request:setRequestHeader("sessionkey", session_key)
         end
 
+        -- game server 암호화(HMAC SHA1)
 		if req.hmac then
 			request:setRequestHeader("hmac", tostring(req.hmac))
 		end
+        -- platform server 암호화(HMAC MD5)
+        if req.hmac_md5 then
+			request:setRequestHeader("HMAC", tostring(req.hmac_md5))
+        end
+
 		request:send(form)
 	end
 
@@ -214,6 +222,7 @@ function Network:SimpleRequest(t, do_decode)
 	local success = t['success'] or function(ret) end
 	local fail = t['fail'] or function(ret) end
 	local do_decode = do_decode or false
+    local check_hmac_md5 = t['check_hmac_md5'] or false
 
     -- 모든 요청은 파라미터로 uid가 들어간다.
     if self['uid'] then
@@ -222,6 +231,20 @@ function Network:SimpleRequest(t, do_decode)
 
     -- 패치 정보 삽입
     g_patchChecker:addPatchInfo(data)
+
+    -- platform server 암호화
+    local hmac_md5 = nil
+    if check_hmac_md5 == true then
+
+        -- 플랫폼 서버에서 json 엔코딩시 number를 모두 string 처리함,
+        -- 따라서 data 의 number 를 모두 string으로 바꿔서 encrypt 해야 함
+       	for k in pairs(data) do
+            data[k] = tostring(data[k])
+        end
+
+        local text = dkjson.encode(data)
+        hmac_md5 = HMAC('md5', text, CONSTANT['MD5_KEY'], false)
+    end
 
 	local r = Network:request(url, data, method)
 	r['finishHandler'] = function(data)
@@ -248,6 +271,12 @@ function Network:SimpleRequest(t, do_decode)
 	r['failHandler'] = function()
 		fail()
 	end
+
+    -- platform server 암호화
+    if hmac_md5 then
+        r.hmac_md5 = hmac_md5
+    end
+
 	Network:start(r)
 end
 
@@ -402,10 +431,11 @@ function Network:getPlatformApiUrl()
 
     local target_server = CppFunctions:getTargetServer()
     local api_url = 'http://dev.platform.perplelab.com/1003'
+    --local api_url = 'http://192.168.1.44:3000/1003'
 
     -- nil == default
     if (target_server == 'QA') then
-        api_url = 'platform.perplelab.com'
+        api_url = 'http://platform.perplelab.com/1003'
     end
 
     return api_url
