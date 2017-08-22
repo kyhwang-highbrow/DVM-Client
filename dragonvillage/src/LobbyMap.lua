@@ -29,9 +29,6 @@ LobbyMap = class(PARENT, {
         m_touchTamer = '',
         m_dragonTouchIndicator = '',
 
-        m_lLobbyObject = '',
-        m_lNearLobbyObjectList = 'list',
-
         -- 채팅서버와의 position 동기화 최적화
         m_chatServer_bDirtyPos = 'bool',
         m_chatServer_posSyncTimer = 'bool',
@@ -56,7 +53,6 @@ function LobbyMap:init(parent, z_order)
     self.m_bUserPosDirty = true
     self.m_lChangedPosTamers = {}
     self.m_lNearUserList = {}
-    self.m_lNearLobbyObjectList = {}
 
     -- 채팅서버와의 position 동기화 최적화
     self.m_chatServer_bDirtyPos = false
@@ -80,15 +76,6 @@ function LobbyMap:addLayer_lobbyGround(node, perspective_ratio, perspective_rati
     self.m_dragonTouchIndicator:changeAni('idle_ally', true)
     node:addChild(self.m_dragonTouchIndicator.m_node, 1)
     self.m_dragonTouchIndicator.m_node:retain()
-
-    do -- 오브젝트 버튼
-        self.m_lLobbyObject = {}
-        table.insert(self.m_lLobbyObject, MakeLobbyObjectUI(node, ui_lobby, UI_LobbyObject.BATTLE))
-        table.insert(self.m_lLobbyObject, MakeLobbyObjectUI(node, ui_lobby, UI_LobbyObject.BOARD))
-        table.insert(self.m_lLobbyObject, MakeLobbyObjectUI(node, ui_lobby, UI_LobbyObject.DRAGON_MANAGE))
-        table.insert(self.m_lLobbyObject, MakeLobbyObjectUI(node, ui_lobby, UI_LobbyObject.SHIP))
-        table.insert(self.m_lLobbyObject, MakeLobbyObjectUI(node, ui_lobby, UI_LobbyObject.SHOP))
-    end
 end
 
 -------------------------------------
@@ -325,7 +312,6 @@ function LobbyMap:update(dt)
         self:setPosition(x, y, true)
     end
 
-    self:updateLobbyObjectArea()
     self:updateUserTamerArea()
 end
 
@@ -700,52 +686,6 @@ function LobbyMap:onEvent(event_name, t_event, ...)
     elseif (event_name == 'lobby_character_move_end') then
         self.m_lobbyIndicator:setVisible(false)
         
-    end
-end
-
--------------------------------------
--- function updateLobbyObjectArea
--- @brief
--------------------------------------
-function LobbyMap:updateLobbyObjectArea()
-    if (not self.m_bUserPosDirty) then
-        return
-    end
-
-    -- 유저 테이머의 위치
-    local user_x, user_y = self.m_targetTamer.m_rootNode:getPosition()
-
-    local rate = 0.66
-    local reaction_distance = 600 * rate
-    local opacity_reaction_distance_min = 300 * rate
-    local opacity_reaction_distance_max = 550 * rate
-
-    for i,v in ipairs(self.m_lLobbyObject) do
-        local x, y = v.root:getPosition()
-        local distance = math_abs(user_x - x)
-
-        if (distance <= reaction_distance) then
-            if (not self.m_lNearLobbyObjectList[v.m_type]) then
-                v:setActive(true)
-            end
-            self.m_lNearLobbyObjectList[v.m_type] = v
-        else
-            if (self.m_lNearLobbyObjectList[v.m_type]) then
-                v:setActive(false)
-            end
-            self.m_lNearLobbyObjectList[v.m_type] = nil
-        end
-        
-
-        if (distance <= reaction_distance) then
-            local min = opacity_reaction_distance_min
-            local max = opacity_reaction_distance_max
-            distance = math_clamp(distance, min, max)
-            local n = (distance - min)
-            local range = (max-min)
-            local opacity = 255 * ((range-n) / range)
-            v.vars['image']:setOpacity(opacity)
-        end
     end
 end
 

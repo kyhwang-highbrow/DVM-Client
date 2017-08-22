@@ -1034,7 +1034,6 @@ xcopy /Y /Q "$(ProjectDir)..\..\libraries\pati\prebuilt\windows\*.dll" "$(OutDir
     <None Include="..\src\UI_ItemCard.lua" />
     <None Include="..\src\UI_ItemInfoPopup.lua" />
     <None Include="..\src\UI_Lobby.lua" />
-    <None Include="..\src\UI_LobbyObject.lua" />
     <None Include="..\src\UI_MailListItem.lua" />
     <None Include="..\src\UI_MailPopup.lua" />
     <None Include="..\src\UI_MonsterCard.lua" />

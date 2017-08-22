@@ -369,9 +369,6 @@
     <None Include="..\src\UI_UserDeckInfoPopup.lua">
       <Filter>lua\UI</Filter>
     </None>
-    <None Include="..\src\UI_LobbyObject.lua">
-      <Filter>lua\UI</Filter>
-    </None>
     <None Include="..\src\UI_AutoPlaySettingPopup.lua">
       <Filter>lua\UI</Filter>
     </None>
