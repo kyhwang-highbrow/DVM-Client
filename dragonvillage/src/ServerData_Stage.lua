@@ -261,7 +261,7 @@ end
 -------------------------------------
 function ServerData_Stage:response_ingameDropInfo(ret)
     -- 서버에서 관리하는 일일 획득 최대치
-    local t_max_info = ret['ingame_drop']
+    local t_max_info = ret['ingame_drop'] or {}
     --"ingame_drop":{
     --    "cash":298,
     --    "amethyst":494,
@@ -269,7 +269,7 @@ function ServerData_Stage:response_ingameDropInfo(ret)
     --  }
 
     -- 드랍될 아이템 정보
-    local l_reward = ret['ingame_reward']
+    local l_reward = ret['ingame_reward'] or {}
     --"ingame_reward":[{
     --      "cash":2
     --    },{
