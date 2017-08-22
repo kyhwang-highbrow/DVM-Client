@@ -138,7 +138,7 @@ function GameWorldColosseum:initTamer()
 
         if (self.m_bDevelopMode) then
             local user_info = g_colosseumData.m_playerUserInfo
-            t_tamer_data = clone(user_info:getAtkDeckTamerInfo())
+            t_tamer_data = clone(user_info:getDefDeckTamerInfo())
         else
             local user_info = g_colosseumData:getMatchUserInfo()
             t_tamer_data = clone(user_info:getDefDeckTamerInfo())
