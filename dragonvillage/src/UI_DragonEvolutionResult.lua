@@ -24,6 +24,8 @@ function UI_DragonEvolutionResult:init(dragon_object)
 
     self:setResultText(dragon_object)
     self:showEvolutionEffect(dragon_object)
+
+    SoundMgr:playBGM('ui_dragon_evolution', false)
 end
 
 -------------------------------------
@@ -183,5 +185,8 @@ function UI_DragonEvolutionResult:onClose()
     local t_data = {clear_key = 'd_evup'}
     g_masterRoadData:updateMasterRoad(t_data)
 
-    self:sceneFadeOutAction(function() self:close() end)
+    self:sceneFadeOutAction(function() 
+        SoundMgr:playPrevBGM(true)
+        self:close() 
+    end)
 end

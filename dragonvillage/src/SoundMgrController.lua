@@ -28,6 +28,15 @@ function SoundMgr:playBGM(sound, loop)
 end
 
 -------------------------------------
+-- function playBGM
+-- @param sound
+-- @param loop
+-------------------------------------
+function SoundMgr:playPrevBGM(loop)
+    self:playBGM(self.m_prevBgm, loop)
+end
+
+-------------------------------------
 -- function setTitleBgm
 -------------------------------------
 function SoundMgr:setTitleBgm()
@@ -55,18 +64,18 @@ end
 -- function pauseBGM
 -------------------------------------
 function SoundMgr:pauseBGM()
-  if self.m_currBgm then
-    cc.SimpleAudioEngine:getInstance():pauseBackgroundMusic()
-  end
+    if self.m_currBgm then
+        cc.SimpleAudioEngine:getInstance():pauseBackgroundMusic()
+    end
 end
 
 -------------------------------------
 -- function resumeBGM
 -------------------------------------
 function SoundMgr:resumeBGM()
-  if self.m_currBgm then
-    cc.SimpleAudioEngine:getInstance():resumeBackgroundMusic()
-  end
+    if self.m_currBgm then
+        cc.SimpleAudioEngine:getInstance():resumeBackgroundMusic()
+    end
 end
 
 -------------------------------------
