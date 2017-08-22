@@ -75,9 +75,9 @@ function TableDrop:getStageBonusGoldInfo(stage_id)
         gold_per_limit = 0
     else
         local t_table = self:get(stage_id)
-        gold_per_hit = t_table['gph']
-        gold_per_damage = t_table['gpd']
-        gold_per_limit = t_table['gpl']
+        gold_per_hit = tonumber(t_table['gph']) or 0
+        gold_per_damage = tonumber(t_table['gpd']) or 0
+        gold_per_limit = tonumber(t_table['gpl']) or 0
     end
 
     return gold_per_hit, gold_per_damage, gold_per_limit

@@ -305,7 +305,7 @@ end
 -- @brief 도전 횟수를 얻음
 -------------------------------------
 function ServerData_AncientTower:getChallengingCount()
-    return self.m_challengingCount
+    return self.m_challengingCount or 0
 end
 
 -------------------------------------
