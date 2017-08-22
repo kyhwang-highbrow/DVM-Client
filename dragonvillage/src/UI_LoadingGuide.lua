@@ -49,9 +49,11 @@ function UI_LoadingGuide:initUI(guide_type)
 		vars['loadingGauge']:setPercentage(0)
 	end
 
-    -- 일반 로딩 간에는 dragon 사용하지 않는중
+    -- 일반 로딩 세팅을 한다.
     vars['dragonMenu']:setVisible(false)
     vars['tipMenu']:setVisible(true)
+    vars['prevBtn']:setVisible(false)
+	vars['nextBtn']:setVisible(false)
 end
 
 -------------------------------------
