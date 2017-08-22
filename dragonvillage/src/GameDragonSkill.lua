@@ -255,7 +255,8 @@ function GameDragonSkill.st_playDragSkill(self, dt)
         end
 
     elseif (self:getStep() == 4) then
-        if (self:isBeginningStep()) then
+        --if (self:isBeginningStep()) then
+        if (self.m_dragon.m_state ~= 'delegate') then
             self:releaseFocusingDragon()
 
             self:changeState(STATE.WAIT)
