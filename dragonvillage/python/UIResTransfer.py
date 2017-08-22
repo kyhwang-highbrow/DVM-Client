@@ -14,6 +14,9 @@ T_TARGET_UI = None
 T_TARGET_RES = None
 REG_EXP = None
 REG_SUB_PATTERN = None
+
+ROOT_PATH = '../res'
+UI_PATH = '../res/ui/'
 #######################################
 
 ## define loopAllFile
@@ -31,8 +34,7 @@ def initGlobalVars(old_path, trans_path):
 ## define loopAllFile
 ## 파일들을 순회시킨다.
 def loopAllFile():
-    path = '../res'
-    for root, _, files in os.walk(path):
+    for root, _, files in os.walk(ROOT_PATH):
         for filename in files:
             if filename.endswith('.ui'):
                 file_path = os.path.join(root, filename)
@@ -76,16 +78,16 @@ def changeDotUI(file_path):
 ## define moveResFile
 ## 대상 파일들을 새로운 경로로 이동시킨다.
 def moveResFile(file_path):
-    src_path = '../res/ui/' + file_path
+    src_path = UI_PATH + file_path
     org_path = REG_EXP.sub(REG_SUB_PATTERN, src_path)
     shutil.move(src_path, org_path)
     print '## move to :' + org_path
 
 
-## define main
+## define doTransfer
 ## 실행부
-def doTransfer():
-    initGlobalVars('btn/', 'buttons/temp/')
+def doTransfer(old_path, transfer_path):
+    initGlobalVars(old_path, transfer_path)
     loopAllFile()
 
     # UI 변경
@@ -93,7 +95,9 @@ def doTransfer():
         print '##' + file_path
         changeDotUI(file_path)
     
-    os.mkdir('../res/ui/' + 'buttons/temp/')
+    # 리소스 이동할 곳의 폴더 생성
+    # 예외처리 필요
+    os.mkdir(UI_PATH + transfer_path)
 
     # 리소스 이동
     for file_name in T_TARGET_RES.keys():
@@ -104,7 +108,7 @@ def doTransfer():
 # MAIN
 ###################################
 if __name__ == '__main__':
-    doTransfer()
+    doTransfer('frame/', 'frames/temp/')
 
 else:
     print '## I am being imported from another module'
