@@ -52,7 +52,7 @@ function SkillHitEffectDirector:init(owner)
     self.root:setDockPoint(cc.p(0.5, 1))
     self.root:setAnchorPoint(cc.p(0.5, 0.5))
     self.root:setPosition(0, -160)
-    owner.m_world.m_inGameUI.root:addChild(self.root)
+    owner.m_world.m_inGameUI.root:addChild(self.root, 9)
 
     self.root:setVisible(false)
 

@@ -282,7 +282,7 @@ function Monster:makeHPGauge(hp_ui_offset, force)
             self.m_actionGauge = ui.vars['bossSKillGauge']
         end
         
-        self.m_world.m_inGameUI.root:addChild(self.m_hpNode)
+        self.m_world.m_inGameUI.root:addChild(self.m_hpNode, 2)
 
         self.m_infoUI = ui
 

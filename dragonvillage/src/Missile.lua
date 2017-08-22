@@ -67,6 +67,7 @@ Missile = class(PARENT, {
         -------------------------------------------------------
 
         m_activityCarrier = '',
+        m_bPassType = 'boolean',        -- 관통 타입인지 여부
 		
 		-- 확정 타겟 개념 추가 후 필요한 변수들
 		m_target = '',
@@ -122,6 +123,7 @@ function Missile:init(file_name, body, ...)
 
     -- 드래곤빌리지에서 추가
     self.m_afterimageMove = 0
+    self.m_bPassType = false
 
 	self.m_isFadeOut = false
 	self.m_fadeoutTime = nil
@@ -177,19 +179,21 @@ function Missile:updatePhys(dt)
     local ogr_speed = self.speed
 
     -- 목표 대상이 존재하는 경우 대상을 지나치지 않도록 속도를 조절
-    if (dt > 0 and self.m_target) then
-        local pos_x, pos_y = self:getCenterPos()
-        local target_x, target_y
+    if (not self.m_bPassType) then
+        if (dt > 0 and self.m_target) then
+            local pos_x, pos_y = self:getCenterPos()
+            local target_x, target_y
 
-        if (self.m_targetBody) then
-            target_x = self.m_target.pos.x + self.m_targetBody['x']
-            target_y = self.m_target.pos.y + self.m_targetBody['y']
-        else
-            target_x, target_y = self.m_target:getCenterPos()
+            if (self.m_targetBody) then
+                target_x = self.m_target.pos.x + self.m_targetBody['x']
+                target_y = self.m_target.pos.y + self.m_targetBody['y']
+            else
+                target_x, target_y = self.m_target:getCenterPos()
+            end
+
+            local distance = getDistance(pos_x, pos_y, target_x, target_y)
+            self.speed = math_min(self.speed, distance / dt)
         end
-
-        local distance = getDistance(pos_x, pos_y, target_x, target_y)
-        self.speed = math_min(self.speed, distance / dt)
     end
     
     PARENT.updatePhys(self, dt)

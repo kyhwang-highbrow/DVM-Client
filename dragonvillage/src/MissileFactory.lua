@@ -420,8 +420,10 @@ function MissileFactory:makeMissile_(t_option, is_hero)
             missile:addAtkCallback(MissileHitCB.pass)
 
             missile.m_remainHitCount = max_hit_count
+            missile.m_bPassType = true
 
         elseif missile_type == MISSILE_TYPE['PASS_LASER'] then
+            missile.m_bPassType = true
 
         elseif missile_type == MISSILE_TYPE['SPLASH'] then
             missile:addAtkCallback(MissileHitCB.splash)
