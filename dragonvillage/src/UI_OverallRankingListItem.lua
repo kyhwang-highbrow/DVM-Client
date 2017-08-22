@@ -30,10 +30,18 @@ function UI_OverallRankingListItem:initUI()
     local vars = self.vars
 
 	-- 랭킹
-	vars['rankingLabel'] = NumberLabel(vars['rankingLabel'], 0, COMMON_UI_ACTION_TIME)
-	local rank = self.m_tRankInfo['rank']
-	vars['rankingLabel']:setNumber(rank)
+    local rank = self.m_tRankInfo['rank']
 
+    if (rank <= 3) then
+        local rank_icon = cc.Sprite:create(string.format('res/ui/icons/rank/rank_%02d.png', rank))
+        rank_icon:setDockPoint(ZERO_POINT)
+        rank_icon:setAnchorPoint(ZERO_POINT)
+	    vars['rankNode']:addChild(rank_icon)
+    else
+        vars['rankingLabel'] = NumberLabel(vars['rankingLabel'], 0, COMMON_UI_ACTION_TIME)
+	    vars['rankingLabel']:setNumber(rank)
+    end
+	
 	-- 리더 드래곤 아이콘
 	local dragon_icon = UI_DragonCard(self.m_tRankInfo['leader'])
 	vars['iconNode']:addChild(dragon_icon.root)
