@@ -9,8 +9,6 @@ DropItemMgr = class(PARENT, {
     m_touchNode = 'cc.Node',
     m_lItemlist = 'table',
 
-    m_chapterID = 'number',
-    m_tableDropIngame = 'TableDropIngame',
     m_remainItemCnt = 'number',
     m_dropCount = 'number',
     m_obtainedItemList = 'list',
@@ -47,14 +45,6 @@ end
 -------------------------------------
 function DropItemMgr:designateDropMonster()
     local stage_id = self.m_world.m_stageID
-    self.m_chapterID = TableDropIngame:makeChapterIDFromStageID(stage_id)
-    
-
-    self.m_tableDropIngame = TableDropIngame()
-    local t_drop_ingame = self.m_tableDropIngame:getDropIngameTable(self.m_chapterID)
-    if (not t_drop_ingame) then
-        return
-    end
 
     local gamekey = self.m_world:getGameKey()
     local l_item_list =  g_stageData:getIngameDropInfo(gamekey) or {}

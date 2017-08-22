@@ -757,7 +757,6 @@ xcopy /Y /Q "$(ProjectDir)..\..\libraries\pati\prebuilt\windows\*.dll" "$(OutDir
     <None Include="..\src\TableDragonType.lua" />
     <None Include="..\src\TableDragonUnit.lua" />
     <None Include="..\src\TableDrop.lua" />
-    <None Include="..\src\TableDropIngame.lua" />
     <None Include="..\src\TableEnemyMove.lua" />
     <None Include="..\src\TableEvolutionInfo.lua" />
     <None Include="..\src\TableFormation.lua" />

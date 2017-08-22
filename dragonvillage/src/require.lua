@@ -246,7 +246,6 @@ local t_module = {
     'TableStageMission',
     'TableCalendar',
     'TableOption',
-    'TableDropIngame',
     'TableStaminaInfo',
     'TableScenarioResource',
     'TableDragonPhrase',

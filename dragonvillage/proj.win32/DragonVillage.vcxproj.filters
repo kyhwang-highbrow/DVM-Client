@@ -1770,9 +1770,6 @@
     <None Include="..\src\TableDrop.lua">
       <Filter>lua\src</Filter>
     </None>
-    <None Include="..\src\TableDropIngame.lua">
-      <Filter>lua\src</Filter>
-    </None>
     <None Include="..\src\TableEnemyMove.lua">
       <Filter>lua\src</Filter>
     </None>

@@ -37,9 +37,6 @@ function ServerData_Adventure:request_adventureInfo(finish_cb, fail_cb)
         self:organizeChapterAchieveInfoList(ret['chapter_list'])
         self:organizeChapterAchieveDataTable(ret['chapter_archievement'])
         g_adventureFirstRewardData:organizeFirstRewardDataTable(ret['first_reward_list'])
-        
-        -- 인게임 드랍 정보 테이블
-        TABLE:setServerTable('table_drop_ingame', ret['table_drop_ingame'])
 
         if finish_cb then
             return finish_cb(ret)

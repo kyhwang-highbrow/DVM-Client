@@ -89,7 +89,6 @@ local TableInfo_fromServer = {
         ['table_rune_enhance'] = {'table_rune_enhance', 'rune_lv'},
         ['table_rune_grade'] = {'table_rune_grade', 'grade'},
         ['table_rune_mopt_status'] = {'table_rune_mopt_status', 'vid'},
-        ['table_drop_ingame'] = {'table_drop_ingame', 'chapter_id'}, -- 인게임에서 아이템 드랍을 관리하는 테이블
         ['table_req_gold'] = {'table_req_gold', 'lv'},
         ['table_stamina_info'] = {'table_stamina_info', 'stamina_type'},
         ['table_exploration_list'] = {'table_exploration_list', 'epr_id'},
