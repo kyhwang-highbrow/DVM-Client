@@ -44,7 +44,10 @@ end
 -- function click_homepageBtn
 -------------------------------------
 function UI_EventPopupTab_HBAttendance:click_homepageBtn()
-   local url = URL['HIGHBROW'] .. 'interop/Interop.php?uid=' .. g_userData:get('uid')
-   --SDKManager:gotoWeb(url)
-   UI_WebView(url)
+    local highbrow_un = g_serverData:get('user','highbrow_un')
+    local url = 'http://account.game.highbrow-inc.com:8080/interop/Interop.php?uid=' .. tostring(highbrow_un)
+    
+    -- 구글 로그인 인증이 웹뷰를 통한 OAuth 인증을 허용하지 않으므로 브라우저로 처리
+    --UI_WebView(url)
+    SDKManager:goToWeb(url)
 end
