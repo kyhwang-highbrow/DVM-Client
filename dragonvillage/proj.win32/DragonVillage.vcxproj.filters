@@ -2664,6 +2664,9 @@
     <None Include="..\src\BenchmarkManager.lua">
       <Filter>lua\src</Filter>
     </None>
+    <None Include="..\src\ConstantUrl.lua">
+      <Filter>lua\src</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Classes">
