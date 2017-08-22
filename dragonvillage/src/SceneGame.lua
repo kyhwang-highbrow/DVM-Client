@@ -710,7 +710,7 @@ function SceneGame:networkGameFinish_response_drop_reward(ret, t_result_ref)
                 end
 
                 -- 룬에서 정보 검색
-                if (not obj_data) then
+                if (not data) then
                     for _,obj_data in ipairs(ret['added_items']['runes']) do
                         if (obj_data['id'] == oid) then
                             data = StructRuneObject(obj_data)

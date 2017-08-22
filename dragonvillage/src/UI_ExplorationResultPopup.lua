@@ -57,7 +57,33 @@ function UI_ExplorationResultPopup:initUI()
         local l_pos = getSortPosList(150 * scale + 3, #l_item_list)
 
         for i,v in ipairs(l_item_list) do
-            local ui = UI_ItemCard(v['item_id'], v['count'])
+
+            local t_sub_data = nil
+            if v['oids'] then
+                -- Object는 하나만 리턴한다고 가정 (dragon or rune)
+                local oid = v['oids'][1]
+                if oid then
+                    -- 드래곤에서 정보 검색
+                    for _,obj_data in ipairs(self.m_data['added_items']['dragons']) do
+                        if (obj_data['id'] == oid) then
+                            t_sub_data = StructDragonObject(obj_data)
+                            break
+                        end
+                    end
+
+                    -- 룬에서 정보 검색
+                    if (not t_sub_data) then
+                        for _,obj_data in ipairs(self.m_data['added_items']['runes']) do
+                            if (obj_data['id'] == oid) then
+                                t_sub_data = StructRuneObject(obj_data)
+                                break
+                            end
+                        end
+                    end
+                end
+            end
+
+            local ui = UI_ItemCard(v['item_id'], v['count'], t_sub_data)
             vars['rewardNode']:addChild(ui.root)
             ui.root:setScale(0)
             ui.root:setPosition(l_pos[i], 0)
