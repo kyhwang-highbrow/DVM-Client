@@ -468,9 +468,9 @@ function ServerData_Shop:request_checkReceiptValidation(struct_product, validati
         g_serverData:networkCommonRespone_addedItems(ret)
     
         -- @analytics
-        do
-            Analytics:purchase(product_id, sku, price)
+        Analytics:purchase(product_id, sku, price)
 
+        if (struct_product) then
             local category = struct_product:getTabCategory()
             local t_product = self:getProductList(category)
             local t_info = t_product[product_id]
