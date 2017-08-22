@@ -16,6 +16,8 @@ DropItemMgr = class(PARENT, {
     m_obtainedItemList = 'list',
     m_bImmediatelyObtain = 'boolean',
     m_bActiveAutoItemPick = 'boolean',
+
+    m_lDropItemStack = '',
 })
 
 -------------------------------------
@@ -54,33 +56,12 @@ function DropItemMgr:designateDropMonster()
         return
     end
 
-    -- 하루 최대 재화 드랍 체크
-    local is_max = false
-    local drop_item_max = g_stageData:getIngameMaxDropTable(stage_id)
-    if (drop_item_max) then
-        local str_type = self.m_tableDropIngame:getDropItemType(self.m_chapterID)
-        local n_spare = 0
-
-        -- 해당 챕터에서 드랍되는 재화에서만 최대치 체크
-        for k, v in pairs(drop_item_max) do
-            if string.find(str_type, k) then
-                n_spare = n_spare + math_max(tonumber(v), 0)
-            end
-        end
-        
-        if (n_spare <= 0) then
-            is_max = true
-        end
-    end
-
-    -- 최대치를 넘은 경우 지정하지 않음
-    if (is_max) then
-        self.m_remainItemCnt = 0
-        return
-    end
+    local gamekey = self.m_world:getGameKey()
+    local l_item_list =  g_stageData:getIngameDropInfo(gamekey) or {}
+    self.m_lDropItemStack = l_item_list
 
     -- 총 드랍할 개수를 지정
-    local drop_item_count = self.m_tableDropIngame:getDropItemCount(self.m_chapterID)
+    local drop_item_count = #l_item_list
     self.m_remainItemCnt = drop_item_count
 
     -- 웨이브 갯수 얻어옴
@@ -96,6 +77,8 @@ function DropItemMgr:designateDropMonster()
     local l_drop_count = {}
     do
         local remain_count = drop_item_count
+
+        -- 아이템 갯수가 웨이브보다 많은 경우 균등하게 배분
         if (wave_cnt <= drop_item_count) then
             local cnt = math_floor(drop_item_count / wave_cnt)
             for i=1, wave_cnt do
@@ -104,6 +87,7 @@ function DropItemMgr:designateDropMonster()
             end
         end
 
+        -- 남은 아이템은 랜덤하게 배분
         if (0 < remain_count) then
             local sum_random = SumRandom()
             for i=1, wave_cnt do
@@ -117,7 +101,7 @@ function DropItemMgr:designateDropMonster()
         end
     end
 
-    -- 몬스터에 드랍 여부를 지정    
+    -- 웨이브별 몬스터에게 드랍 여부를 지정    
     for wave_idx,t_wave in ipairs(wave_list) do
         local time_list = t_wave['wave']
         local monster_cnt = 0
@@ -358,14 +342,13 @@ function DropItemMgr:obtainItem(item)
         return
     end
 
-    local stage_id = self.m_world.m_stageID
-    local drop_item_max = g_stageData:getIngameMaxDropTable(stage_id)
+    local t_data = self.m_lDropItemStack[1]
+    table.remove(self.m_lDropItemStack, 1)
 
-    local type, count = self.m_tableDropIngame:decideDropItem(self.m_chapterID, drop_item_max)
-    item:setObtained(type, count)
-
-    -- 정보 저장
-    table.insert(self.m_obtainedItemList, {type, count})
+    local type = t_data['type']
+    local value = t_data['value']
+    item:setObtained(type, value)
+    table.insert(self.m_obtainedItemList, {type, value})
 end
 
 -------------------------------------

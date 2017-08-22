@@ -1452,3 +1452,11 @@ function GameWorld:getManaAccelValue(left_formation)
         return self.m_enemyMana.m_accelValue
     end
 end
+
+-------------------------------------
+-- function getGameKey
+-------------------------------------
+function GameWorld:getGameKey()
+    local gamekey = g_gameScene.m_gameKey
+    return gamekey
+end

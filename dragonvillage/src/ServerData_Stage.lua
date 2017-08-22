@@ -3,7 +3,10 @@
 -------------------------------------
 ServerData_Stage = class({
         m_serverData = 'ServerData',
-        m_ingameMaxDrop = '',
+
+        -- 인게임 드랍 아이템 정보 저장
+        m_ingameDropItemGameKey = 'number',
+        m_ingameDropItemList = 'list',
     })
 
 -------------------------------------
@@ -223,10 +226,8 @@ function ServerData_Stage:requestGameStart(stage_id, deck_name, combat_power, fi
         local game_key = ret['gamekey']
         finish_cb(game_key)
 
-        -- 인게임 하루 최대 드랍 정보 저장
-        if ret['ingame_drop'] then
-            self.m_ingameMaxDrop = ret['ingame_drop']
-        end
+        -- 인게임 아이템 드랍 정보 설정
+        self:response_ingameDropInfo(ret)
 
         -- 핫타임 정보 저장
         g_hotTimeData:setIngameHotTimeList(game_key, ret['hottime'])
@@ -251,6 +252,87 @@ function ServerData_Stage:requestGameStart(stage_id, deck_name, combat_power, fi
     ui_network:setParam('oid', oid)
     ui_network:setSuccessCB(success_cb)
     ui_network:request()
+end
+
+-------------------------------------
+-- function response_ingameDropInfo
+-- @brief 인게임 아이템 드랍 정보 설정
+-- 2017-08-22 sgkim
+-------------------------------------
+function ServerData_Stage:response_ingameDropInfo(ret)
+    -- 서버에서 관리하는 일일 획득 최대치
+    local t_max_info = ret['ingame_drop']
+    --"ingame_drop":{
+    --    "cash":298,
+    --    "amethyst":494,
+    --    "gold":24960
+    --  }
+
+    -- 드랍될 아이템 정보
+    local l_reward = ret['ingame_reward']
+    --"ingame_reward":[{
+    --      "cash":2
+    --    },{
+    --      "amethyst":1
+    --    },{
+    --      "amethyst":1
+    --    },{
+    --      "cash":1
+    --    },{
+    --      "gold":12
+    --    }]
+    local l_drop_list = {}
+    for _,v in ipairs(l_reward) do
+        for type,value in pairs(v) do
+            table.insert(l_drop_list, {['type']=type, ['value']=value})
+        end
+    end
+
+    local t_accumulate = {} -- 드랍량 누적치 저장
+    local l_remove_idx = {} -- 최대치가 넘어서 드랍하지 말아야할 list의 idx
+    for i,t_data in ipairs(l_drop_list) do
+        local type = t_data['type']
+        local value = t_data['value']
+
+        -- 최초에 해당 타입이 없을 경우 초기화
+        if (not t_accumulate[type]) then
+            t_accumulate[type] = 0
+        end
+
+        -- 해당 타입의 최대치 확인
+        local max_cnt = (t_max_info[type] or 0)
+        if ((t_accumulate[type] + value) > max_cnt) then
+            t_data['value'] = (max_cnt - t_accumulate[type])
+        end
+
+        -- 최대치 확인 후 드랍 여부와 갯수 결정
+        if (t_data['value'] > 0) then
+            t_accumulate[type] = (t_accumulate[type] + t_data['value'])
+        else
+            table.insert(l_remove_idx, 1, i)
+        end
+    end
+
+    -- 최대 갯수가 넘어서 드랍하지 않는 리스트 제거
+    for _,remove_idx in ipairs(l_remove_idx) do
+        table.remove(l_drop_list, remove_idx)
+    end
+
+    self.m_ingameDropItemGameKey = ret['gamekey']
+    self.m_ingameDropItemList = l_drop_list
+end
+
+-------------------------------------
+-- function getIngameDropInfo
+-- @brief 인게임 아이템 드랍 정보
+-- 2017-08-22 sgkim
+-------------------------------------
+function ServerData_Stage:getIngameDropInfo(gamekey)
+    if (self.m_ingameDropItemGameKey == gamekey) then
+        return self.m_ingameDropItemList
+    end
+
+    return nil
 end
 
 -------------------------------------
@@ -376,28 +458,5 @@ function ServerData_Stage:goToStage(stage_id)
     elseif (game_mode == GAME_MODE_SECRET_DUNGEON) then
         UINavigator:goTo('secret_relation', stage_id)
 
-    end
-end
-
--------------------------------------
--- function getNumOfStarsAchieved
--------------------------------------
-function ServerData_Stage:getNumOfStarsAchieved(stage_id)
-    local game_mode = self:getGameMode(stage_id)
-
-
-end
-
--------------------------------------
--- function getIngameMaxDropTable
--------------------------------------
-function ServerData_Stage:getIngameMaxDropTable(stage_id)
-    local game_mode = self:getGameMode(stage_id)
-
-    -- 모험 모드에서만 사용
-    if (game_mode == GAME_MODE_ADVENTURE) then
-        return self.m_ingameMaxDrop
-    else
-        return nil
     end
 end
