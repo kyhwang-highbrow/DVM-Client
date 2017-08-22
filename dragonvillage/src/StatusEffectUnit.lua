@@ -79,11 +79,13 @@ function StatusEffectUnit:update(dt, modified_dt)
         end
 
         -- 유지 시간 체크
-        self.m_durationTimer = (self.m_durationTimer - modified_dt)
+        if (self.m_duration ~= -1) then
+            self.m_durationTimer = (self.m_durationTimer - modified_dt)
 
-        if (self.m_durationTimer <= 0) then
-            self.m_durationTimer = 0
-            return true
+            if (self.m_durationTimer <= 0) then
+                self.m_durationTimer = 0
+                return true
+            end
         end
     end
     
