@@ -486,6 +486,10 @@ function UI_DragonManage_Base:init_mtrDragonSortMgr(slime_first)
         end
     end)
 
+    -- 재료드래곤 정렬은 등급 역순이 기본
+    sort_mgr:setAllAscending(true)
+    uic_sort_list:setSelectSortType('grade')
+
 	-- 기본값으로 정렬 적용
 	self:apply_mtrlDragonSort()
 end

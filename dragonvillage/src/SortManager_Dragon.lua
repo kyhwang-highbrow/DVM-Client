@@ -65,6 +65,8 @@ function SortManager_Dragon:init()
     self:addSortType('rarity', false, function(a, b, ascending) return self:sort_rarity(a, b, ascending) end)
     self:addSortType('grade', false, function(a, b, ascending) return self:sort_grade(a, b, ascending) end)
     self:addSortType('lv', false, function(a, b, ascending) return self:sort_lv(a, b, ascending) end)
+    self:addSortType('created_at', false, function(a, b, ascending) return self:sort_created_at(a, b, ascending) end)
+
     self:setDefaultSortFunc(function(a, b, ascending) return self:sort_doid(a, b, ascending) end)
 end
 
@@ -79,6 +81,7 @@ T_DRAGON_SORT_TYPE_NAME['friendship'] = Str('친밀도')
 T_DRAGON_SORT_TYPE_NAME['rarity'] = Str('희귀도')
 T_DRAGON_SORT_TYPE_NAME['grade'] = Str('등급')
 T_DRAGON_SORT_TYPE_NAME['lv'] = Str('레벨')
+T_DRAGON_SORT_TYPE_NAME['created_at'] = Str('획득순')
 
 -------------------------------------
 -- function getTopSortingName
@@ -399,6 +402,26 @@ function SortManager_Dragon:sort_lv(a, b, ascending)
 end
 
 -------------------------------------
+-- function sort_created_at
+-- @brief 획득순
+-------------------------------------
+function SortManager_Dragon:sort_created_at(a, b, ascending)
+    local a_data = a['data']
+    local b_data = b['data']
+
+    local a_value = a_data['created_at']
+    local b_value = b_data['created_at']
+    
+    -- 같을 경우 리턴
+    if (a_value == b_value) then return nil end
+
+    -- 오름차순 or 내림차순
+    if ascending then return a_value < b_value
+    else              return a_value > b_value
+    end
+end
+
+-------------------------------------
 -- function sort_doid
 -- @brief 오브젝트 ID
 -------------------------------------
@@ -446,6 +469,9 @@ function SortManager_Dragon:getSortName(type)
 
     elseif (type == 'friendship') then
         str = Str('친밀도')
+
+    elseif (type == 'created_at') then
+        str = Str('획득순')
 
     else
         error('type : ' .. type)

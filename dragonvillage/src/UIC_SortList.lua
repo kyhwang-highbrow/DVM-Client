@@ -475,7 +475,7 @@ function MakeUICSortList_dragonManage(button, label, direction)
     uic:addSortType('grade', Str('등급'))
     uic:addSortType('rarity', Str('희귀도'))
     uic:addSortType('friendship', Str('친밀도'))
-
+    uic:addSortType('created_at', Str('획득순'))
     --uic:show()
 
     return uic

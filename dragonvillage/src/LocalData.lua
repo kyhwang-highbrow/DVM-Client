@@ -90,7 +90,7 @@ function LocalData:makeDefaultLocalData()
         root_table['option_rune_bulk_sell'] = t_data
     end
 
-    do -- 드래곤 정렬
+    do -- 드래곤 정렬 (관리)
         local t_data = {}
         do
             local t_list = {}
@@ -112,6 +112,30 @@ function LocalData:makeDefaultLocalData()
         end
         root_table['dragon_sort_order'] = t_list
         root_table['dragon_sort'] = t_data
+    end
+
+    do -- 드래곤 정렬 (전투)
+        local t_data = {}
+        do
+            local t_list = {}
+            table.insert(t_list, 'lv')
+            table.insert(t_list, 'grade')
+            table.insert(t_list, 'rarity')
+            table.insert(t_list, 'friendship')
+            table.insert(t_list, 'attr')
+            table.insert(t_list, 'hp')
+            table.insert(t_list, 'def')
+            table.insert(t_list, 'atk')
+            table.insert(t_list, 'role')
+            table.insert(t_list, 'did')
+            t_data['order'] = t_list
+        end
+
+        do
+            t_data['ascending'] = false
+        end
+        root_table['dragon_sort_order_fight'] = t_list
+        root_table['dragon_sort_fight'] = t_data
     end
 
     -- 스테이지

@@ -759,6 +759,15 @@ function ServerData_Friend:checkUseEnableDragon(doid)
 end
 
 -------------------------------------
+-- function delSettedFriendDragon
+-- @brief 친구 드래곤, 정보 초기화
+-------------------------------------
+function ServerData_Friend:delSettedFriendDragon()
+    self.m_selectedSharedFriendDragon = nil
+    self.m_selectedShareFriendData = nil
+end
+
+-------------------------------------
 -- function delSettedFriendDragonCard
 -- @brief 친구 드래곤 슬롯 해제
 -------------------------------------
