@@ -487,3 +487,16 @@ function GameWorld:removeAllEnemy()
 	
     self.m_waveMgr:clearDynamicWave()
 end
+
+-------------------------------------
+-- function initActiveSkillCool
+-- @brief 초기 쿨타임 설정
+-------------------------------------
+function GameWorld:initActiveSkillCool(list)
+    local temp = { 0, 0.2, 0.4, 0.6, 0.8 }
+    temp = randomShuffle(temp)
+
+    for i, v in ipairs(list) do
+        v:initActiveSkillCool(temp[i])
+    end
+end

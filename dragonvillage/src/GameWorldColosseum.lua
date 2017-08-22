@@ -62,6 +62,10 @@ function GameWorldColosseum:initGame(stage_name)
     -- 적군 덱에 세팅된 드래곤 생성
     self:makeEnemyDeck()
 
+    -- 초기 쿨타임 설정
+    self:initActiveSkillCool(self:getDragonList())
+    self:initActiveSkillCool(self:getEnemyList())
+
     -- 초기 마나 설정
     self.m_heroMana:addMana(START_MANA)
     self.m_enemyMana:addMana(START_MANA)

@@ -450,18 +450,21 @@ end
 -- function initActiveSkillCool
 -- @brief 드래그 쿨타임은 세팅
 -------------------------------------
-function Dragon:initActiveSkillCool()
+function Dragon:initActiveSkillCool(ratio)
     local active_skill_id = self:getSkillID('active')
     if (active_skill_id == 0) then return end
 
+    local ratio = ratio or 0
     local t_skill = GetSkillTable(self.m_charType):get(active_skill_id)
     if (not t_skill) then
         cclog('no skill table : ' .. active_skill_id)
         return
     end
 
-    self.m_activeSkillCoolTimer = 0
-    self.m_activeSkillCoolTime = tonumber(t_skill['cooldown'])
+    local cooldown = tonumber(t_skill['cooldown'])
+
+    self.m_activeSkillCoolTimer = cooldown * ratio
+    self.m_activeSkillCoolTime = cooldown
 end
 
 -------------------------------------
@@ -500,10 +503,8 @@ end
 -------------------------------------
 -- function startActiveSkillCoolTime
 -------------------------------------
-function Dragon:startActiveSkillCoolTime(ratio)
-    local ratio = ratio or 1
-
-    self.m_activeSkillCoolTimer = self.m_activeSkillCoolTime * ratio
+function Dragon:startActiveSkillCoolTime()
+    self.m_activeSkillCoolTimer = self.m_activeSkillCoolTime
 
     self:dispatch('set_global_cool_time_active')
 end

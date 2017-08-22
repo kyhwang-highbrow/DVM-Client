@@ -31,15 +31,62 @@ end
 -- function initGame
 -------------------------------------
 function GameWorldIntro:initGame(stage_name)
-    PARENT.initGame(self, stage_name)
+    self.m_waveMgr = WaveMgr(self, stage_name, self.m_bDevelopMode)
 
-    -- 튜토리얼에서는 시작마나를 없앰
-    self.m_heroMana:subtractMana(START_MANA)
+    -- 배경 생성
+    self:initBG(self.m_waveMgr)
 
-    self.m_skillIndicatorMgr = SkillIndicatorMgr_Intro(self)
+    -- 월드 크기 설정
+    self:changeWorldSize(1)
+        
+    -- 위치 표시 이펙트 생성
+    self:init_formation()
 
-    self.m_dropItemMgr = DropItemMgr_Intro(self)
-    self:addListener('dragon_summon', self)
+	-- Game Log Recorder 생성
+	self.m_logRecorder = LogRecorderWorld(self)
+		
+	-- 테이머 생성
+    self:initTamer()
+
+    -- 덱에 셋팅된 드래곤 생성
+    self:makeHeroDeck()
+
+    -- 친구 드래곤 생성
+    self:makeFriendHero()
+    
+    do -- 진형 시스템 초기화
+        self:setBattleZone(self.m_deckFormation, true)
+    end
+
+    -- 스킬 조작계 초기화
+    do
+        self.m_skillIndicatorMgr = SkillIndicatorMgr_Intro(self)
+    end
+    
+    -- 드랍 아이템 매니져 생성
+    do
+        self.m_dropItemMgr = DropItemMgr_Intro(self)
+    end
+
+    do -- 카메라 초기 위치 설정이 있다면 적용
+        local t_camera = self.m_waveMgr:getBaseCameraScriptData()
+        if (t_camera) then
+            t_camera['time'] = 0
+            self:changeCameraOption(t_camera)
+            self:changeHeroHomePosByCamera()
+        end
+    end
+
+    -- 적 이동 처리를 위한 매니져 생성
+    do
+        local t_movement = self.m_waveMgr:getMovementScriptData()
+        if (t_movement) then
+            self.m_enemyMovementMgr = EnemyMovementMgr(self, t_movement)
+        end
+    end
+    
+    -- UI
+    self.m_inGameUI:doActionReset()
 end
 
 -------------------------------------

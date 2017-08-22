@@ -353,6 +353,9 @@ function GameWorld:initGame(stage_name)
     -- 친구 드래곤 생성
     self:makeFriendHero()
 
+    -- 초기 쿨타임 설정
+    self:initActiveSkillCool(self:getDragonList())
+    
     -- 초기 마나 설정
     self.m_heroMana:addMana(START_MANA)
 
@@ -361,7 +364,7 @@ function GameWorld:initGame(stage_name)
     end
 
     -- 스킬 조작계 초기화
-    if (self.m_gameMode ~= GAME_MODE_INTRO) then
+    do
         self.m_skillIndicatorMgr = SkillIndicatorMgr(self)
     end
 
