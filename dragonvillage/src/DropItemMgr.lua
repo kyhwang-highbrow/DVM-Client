@@ -65,6 +65,9 @@ function DropItemMgr:designateDropMonster()
 
     -- 웨이브 별 아이템 리턴 갯수
     local l_drop_count = {}
+    for i=1, wave_cnt do
+        l_drop_count[i] = 0
+    end
     do
         local remain_count = drop_item_count
 
