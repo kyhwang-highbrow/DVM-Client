@@ -3,7 +3,7 @@ URL = {}
 -- Game server 
 URL['SERVER_DEV'] = 'http://dv-test.perplelab.com:9003'
 URL['SERVER_QA'] = 'http://dv-qa.perplelab.com:9003'
-URL['SERVER_LIVE'] = ''
+URL['SERVER_LIVE'] = 'http://dvm-api.perplelab.com'
 
 -- Platform server 
 URL['PLATFORM_DEV'] = 'http://dev.platform.perplelab.com/1003'
@@ -16,7 +16,7 @@ URL['PATCH_QA'] = ''
 URL['PATCH_LIVE'] = ''
 
 -- Perplelab
-URL['PERPLELAB_AGREEMENT'] = 'http://www.perplelab.com/agreement'
+URL['PERPLELAB_AGREEMENT'] = 'http://s3.dvm.perplelab.com/perplelab/agreement.html'
 URL['PERPLELAB_PI'] = 'http://www.perplelab.com/personalinformation'
 
 -- Highbrow
