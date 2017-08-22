@@ -173,16 +173,26 @@ function UI_Lobby:initLobbyWorldAdapter()
 
     self.m_lobbyWorldAdapter = LobbyWorldAdapter(self, parent_node, chat_client_socket, lobby_manager)
 
-    do -- 로비에서 테이머가 걸어가면 UI들이 숨겨지도록 설정
+    do -- 로비에서 테이머의 이동 상태에 따라 UI를 숨김
         local lobby_map = self.m_lobbyWorldAdapter.m_lobbyMap
-        lobby_map:setMoveStartCB(function()
-            self:doActionReverse()
-            g_topUserInfo:doActionReverse()
-        end)
 
-        lobby_map:setMoveEndCB(function()
+        -- 이동하면 UI 노출
+        lobby_map:setMoveStartCB(function()
+            parent_node:stopAllActions()
             self:doAction(nil, nil, 0.5)
             g_topUserInfo:doAction(nil, nil, 0.5)
+        end)
+
+        -- 정지 후 5초 후에 UI를 숨김
+        lobby_map:setMoveEndCB(function()
+            parent_node:stopAllActions()
+
+            local function func()
+                self:doActionReverse()
+                g_topUserInfo:doActionReverse()
+            end
+
+            cca.reserveFunc(parent_node, 5, func)
         end)
     end
 end
