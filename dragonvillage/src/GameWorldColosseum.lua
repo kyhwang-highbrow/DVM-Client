@@ -291,6 +291,55 @@ function GameWorldColosseum:onEvent(event_name, t_event, ...)
 end
 
 -------------------------------------
+-- function makeHeroDeck
+-------------------------------------
+function GameWorldColosseum:makeHeroDeck()
+    -- 서버에 저장된 드래곤 덱 사용
+    local t_pvp_deck = g_colosseumData.m_playerUserInfo:getPvpAtkDeck()
+    local l_deck = g_colosseumData.m_playerUserInfo:getAtkDeck_dragonList(true)
+    local formation = t_pvp_deck['formation']
+    local formation_lv = t_pvp_deck['formationlv']
+    local leader = t_pvp_deck['leader']
+
+    self.m_deckFormation = formation
+    self.m_deckFormationLv = formation_lv
+
+    -- 출전 중인 드래곤 객체를 저장하는 용도 key : 출전 idx, value :Dragon
+    self.m_myDragons = {}
+
+    for i, doid in pairs(l_deck) do
+        local t_dragon_data = g_dragonsData:getDragonDataFromUid(doid)
+        if (t_dragon_data) then
+            local status_calc = MakeOwnDragonStatusCalculator(doid)
+            local is_right = false
+            local hero = self:makeDragonNew(t_dragon_data, is_right, status_calc)
+            if (hero) then
+                self.m_myDragons[i] = hero
+                hero:setPosIdx(tonumber(i))
+
+                self.m_worldNode:addChild(hero.m_rootNode, WORLD_Z_ORDER.HERO)
+                self.m_physWorld:addObject(PHYS.HERO, hero)
+                self:addHero(hero)
+
+                self.m_leftFormationMgr:setChangePosCallback(hero)
+
+                -- 진형 버프 적용
+                hero.m_statusCalc:applyFormationBonus(formation, formation_lv, i)
+
+                -- 스테이지 버프 적용
+                hero.m_statusCalc:applyStageBonus(self.m_stageID)
+                hero:setStatusCalc(hero.m_statusCalc)
+
+				-- 리더 등록
+				if (i == leader) then
+					self.m_leaderDragon = hero
+				end
+            end
+        end
+    end
+end
+
+-------------------------------------
 -- function makeEnemyDeck
 -------------------------------------
 function GameWorldColosseum:makeEnemyDeck()
