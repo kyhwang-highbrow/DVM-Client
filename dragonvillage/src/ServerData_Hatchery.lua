@@ -139,7 +139,7 @@ function ServerData_Hatchery:request_summonCash(is_bundle, is_sale, finish_cb, f
                 Analytics:trackUseGoodsWithRet(ret, '11회 소환')
                 Analytics:firstTimeExperience('DragonSummonCash_11')
             else
-                TrackUseGoodsWithRet(ret, '1회 소환')
+                Analytics:trackUseGoodsWithRet(ret, '1회 소환')
             end
         end
 
@@ -194,9 +194,12 @@ function ServerData_Hatchery:request_summonCashEvent(is_bundle, is_sale, finish_
         
         if (is_bundle) then
             -- @analytics
+            Analytics:trackUseGoodsWithRet(ret, '11회 소환')
             Analytics:firstTimeExperience('DragonSummonEvent_11')
+        else
+            Analytics:trackUseGoodsWithRet(ret, '1회 소환')
         end
-
+            
         -- cash(캐시) 갱신
         g_serverData:networkCommonRespone(ret)
 

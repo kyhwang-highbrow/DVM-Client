@@ -215,8 +215,12 @@ function ServerData_Mail:request_mailRead(mail_id_list, mail_type_list, finish_c
         for _, type in ipairs(mail_type_list) do
             if (type == 'q_daily') then
                 Analytics:trackGetGoodsWithRet(ret, '일일 퀘스트')
+
             elseif (type == 'chlg') then
                 Analytics:trackGetGoodsWithRet(ret, '업적')
+
+            elseif (type == 'advertising') then
+                Analytics:trackGetGoodsWithRet(ret, '광고 보상')
             end
         end
 
