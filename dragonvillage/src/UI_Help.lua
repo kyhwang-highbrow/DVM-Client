@@ -168,25 +168,18 @@ end
 function UI_Help.adjustCellHeight(ui)
 	local vars = ui.vars
 
-	vars['contentLabel']:setLineBreakWithoutSpace(true)
-	local line = vars['contentLabel']:getStringNumLines()
-
-	-- line수에 따라 label 영역 계산
-	local label_size = vars['contentLabel'].m_node:getContentSize()
+	-- content 영역의 높이를 가져온다.
 	local label_height = vars['contentLabel']:getTotalHeight()
-	vars['contentLabel'].m_node:setDimensions(label_size['width'], label_height)
 
-    -- titleLabel 영역 구함
-    local title_size = vars['titleLabel'].m_node:getContentSize()
-    local title_height = title_size['height']
+    -- titleLabel 영역 높이를 가져옴
+    local title_height = vars['titleLabel']:getTotalHeight()
 
 	-- titleLabel을 포함하여 container 사이즈 조정
 	local con_size = vars['container']:getContentSize()
-	local con_height = label_height + title_height + 30
+	local con_height = label_height + title_height + 50
 	local new_size = cc.size(con_size['width'], con_height)
 	vars['container']:setNormalSize(con_size['width'], con_height)
 
-    cclog(line, con_height)
 	-- cell size 저장
 	ui:setCellSize(new_size)
 end

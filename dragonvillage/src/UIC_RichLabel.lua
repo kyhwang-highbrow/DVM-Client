@@ -595,6 +595,14 @@ function UIC_RichLabel:getStringHeight()
 end
 
 -------------------------------------
+-- function getTotalHeight
+-- @brief ccLabel과 호환성을 위해 추가
+-------------------------------------
+function UIC_RichLabel:getTotalHeight()
+    return self:getStringHeight()
+end
+
+-------------------------------------
 -- function findContentNodeWithkey
 -- @brief 
 -------------------------------------
