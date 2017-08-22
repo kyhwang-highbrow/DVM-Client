@@ -185,19 +185,17 @@ function ServerData:loadServerDataFile()
     self.m_rootTable = {}
     self.m_rootTable['local'] = {}
 
-    -- 기본 설정 데이터
-    self.m_rootTable['local']['lowResMode'] = false
-    self.m_rootTable['local']['bgm'] = true
-    self.m_rootTable['local']['sfx'] = true
-    self.m_rootTable['local']['fps'] = false
-
     self:saveServerDataFile()
 end
 
 -------------------------------------
 -- function saveServerDataFile
 -------------------------------------
-function ServerData:saveServerDataFile()
+function ServerData:saveServerDataFile(force)
+    if (not force) then
+        return
+    end
+
     if (self.m_nLockCnt > 0) then
         self.m_bDirtyDataTable = true
         return
@@ -232,23 +230,32 @@ function ServerData:applyServerData(data, ...)
     local args = {...}
     local cnt = #args
 
+    local dirty = false
+
     local container = self.m_rootTable
     for i,key in ipairs(args) do
         if (i < cnt) then
             if (type(container[key]) ~= 'table') then
                 container[key] = {}
+                dirty = true
             end
             container = container[key]
         else
-            if (data ~= nil) then
-                container[key] = clone(data)
-            else
-                container[key] = nil
+            if (container[key] ~= data) then
+                if (data ~= nil) then
+                    container[key] = clone(data)
+                else
+                    container[key] = nil
+                end
+                dirty = true
             end
         end
     end
 
-    self:saveServerDataFile()
+    -- 변경사항이 있을 때에만 저장
+    if dirty then
+        self:saveServerDataFile()
+    end
 end
 
 -------------------------------------
@@ -299,32 +306,6 @@ function ServerData:getRef(...)
     end
 
     return nil
-end
-
-
--------------------------------------
--- function applySetting
--------------------------------------
-function ServerData:applySetting()
-    -- fps 출력
-    local fps = self:get('local', 'fps')
-    cc.Director:getInstance():setDisplayStats(fps)
-
-    -- 저사양모드
-    local lowResMode = self:get('local', 'lowResMode')
-    setLowEndMode(lowResMode)
-
-    -- 배경음
-    local bgm = self:get('local', 'bgm')
-    SoundMgr:setBgmOnOff(bgm)
-
-    -- 효과음
-    local sfx = self:get('local', 'sfx')
-    SoundMgr:setSfxOnOff(sfx)
-
-    -- 사운드 엔진
-    local engine_mode = self:get('local', 'sound_module') or cc.SimpleAudioEngine:getInstance():getEngineMode()
-    cc.SimpleAudioEngine:getInstance():setEngineMode(engine_mode)
 end
 
 -------------------------------------

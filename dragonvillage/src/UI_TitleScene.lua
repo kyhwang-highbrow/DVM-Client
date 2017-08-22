@@ -830,6 +830,7 @@ function UI_TitleScene:makeRandomUid()
     end) 
 
     g_serverData:applyServerData(uuid, 'local', 'uid')
+    g_serverData:saveServerDataFile(true)
 
     if isWin32() then
         g_serverData:applyServerData('', 'local', 'push_token')

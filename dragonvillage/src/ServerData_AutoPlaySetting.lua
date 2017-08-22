@@ -13,7 +13,7 @@ ServerData_AutoPlaySetting = class({
 function ServerData_AutoPlaySetting:init(server_data)
     self.m_serverData = server_data
 
-    local t_auto_play_setting = self.m_serverData:get('auto_play_setting')
+    local t_auto_play_setting = g_localData:get('auto_play_setting')
 
     if (not t_auto_play_setting) then
         t_auto_play_setting = {}
@@ -49,7 +49,7 @@ function ServerData_AutoPlaySetting:init(server_data)
         -- 연출 스킵 모드 사용
         t_auto_play_setting['skip_mode'] = false
 
-        self.m_serverData:applyServerData(t_auto_play_setting, 'auto_play_setting')
+        g_localData:applyLocalData(t_auto_play_setting, 'auto_play_setting')
     end
 
     self.m_bAutoPlay = false
@@ -60,7 +60,7 @@ end
 -- function get
 -------------------------------------
 function ServerData_AutoPlaySetting:get(key)
-    local ret = self.m_serverData:get('auto_play_setting', key)
+    local ret = g_localData:get('auto_play_setting', key)
 
     if (ret == nil) then
         if (key == 'dragon_panel') then
@@ -77,7 +77,7 @@ end
 -- function set
 -------------------------------------
 function ServerData_AutoPlaySetting:set(key, data)
-    return self.m_serverData:applyServerData(data, 'auto_play_setting', key)
+    return g_localData:applyLocalData(data, 'auto_play_setting', key)
 end
 
 -------------------------------------

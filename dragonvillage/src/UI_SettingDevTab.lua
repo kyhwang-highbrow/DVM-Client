@@ -28,9 +28,9 @@ end
 -- @brief fps 출력
 -------------------------------------
 function UI_Setting:click_fpsBtn()
-    local value = g_serverData:get('local', 'fps')
-    g_serverData:applyServerData(not value, 'local', 'fps')
-    g_serverData:applySetting()
+    local value = g_localData:get('fps')
+    g_localData:applyLocalData(not value, 'fps')
+    g_localData:applySetting()
     self:refresh_devTap()
 end
 
@@ -517,8 +517,8 @@ end
 function UI_Setting:click_soundModuleBtn()
     local value = 1 - cc.SimpleAudioEngine:getInstance():getEngineMode()
 
-    g_serverData:applyServerData(value, 'local', 'sound_module')
-    g_serverData:applySetting()
+    g_localData:applyLocalData(value, 'sound_module')
+    g_localData:applySetting()
 
     self:refresh_devTap()
 end

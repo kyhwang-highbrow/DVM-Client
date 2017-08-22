@@ -172,14 +172,17 @@ local function main()
     LocalData:getInstance()
     stopwatch:record('LocalData:getInstance()')
 
+    ServerData:getInstance()
+    stopwatch:record('ServerData:getInstance()')
+
     ChatIgnoreList:getInstance()
     stopwatch:record('ChatIgnoreList:getInstance()')
 
     ScenarioViewingHistory:getInstance()
     stopwatch:record('ScenarioViewingHistory:getInstance()')
 
-    ServerData:getInstance():applySetting()
-    stopwatch:record('ServerData:getInstance():applySetting()')
+    LocalData:getInstance():applySetting()
+    stopwatch:record('LocalData:getInstance():applySetting()')
 
     UserData:getInstance()
     stopwatch:record('UserData:getInstance()')

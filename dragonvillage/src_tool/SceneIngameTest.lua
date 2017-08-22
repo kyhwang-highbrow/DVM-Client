@@ -20,7 +20,7 @@ function SceneIngameTest:onEnter()
     TABLE:init()
     SoundMgr:entry()
     ShaderCache:init()
-    ServerData:getInstance():applySetting()
+    LocalData:getInstance():applySetting()
     UserData:getInstance()
 	
     local scene = SceneGame(nil, DEV_STAGE_ID, 'stage_dev', true)

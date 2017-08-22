@@ -37,7 +37,7 @@ function UI_Setting:init_bgmSetting()
     radio_button:addButton('on', vars['bgmOnBtn'])
     radio_button:addButton('off', vars['bgmOffBtn'])
 
-    if g_serverData:get('local', 'bgm') then
+    if g_localData:get('bgm') then
         radio_button:setSelectedButton('on')
     else
         radio_button:setSelectedButton('off')
@@ -45,11 +45,11 @@ function UI_Setting:init_bgmSetting()
 
     local function change_cb(selected)
         if (selected == 'on') then
-            g_serverData:applyServerData(true, 'local', 'bgm')
+            g_localData:applyLocalData(true, 'bgm')
         elseif (selected == 'off') then
-            g_serverData:applyServerData(false, 'local', 'bgm')
+            g_localData:applyLocalData(false, 'bgm')
         end
-        g_serverData:applySetting()
+        g_localData:applySetting()
     end
 
     radio_button:setChangeCB(change_cb)
@@ -66,7 +66,7 @@ function UI_Setting:init_sfxSetting()
     radio_button:addButton('on', vars['effectOnBtn'])
     radio_button:addButton('off', vars['effectOffBtn'])
 
-    if g_serverData:get('local', 'sfx') then
+    if g_localData:get('sfx') then
         radio_button:setSelectedButton('on')
     else
         radio_button:setSelectedButton('off')
@@ -74,11 +74,11 @@ function UI_Setting:init_sfxSetting()
 
     local function change_cb(selected)
         if (selected == 'on') then
-            g_serverData:applyServerData(true, 'local', 'sfx')
+            g_localData:applyLocalData(true, 'sfx')
         elseif (selected == 'off') then
-            g_serverData:applyServerData(false, 'local', 'sfx')
+            g_localData:applyLocalData(false, 'sfx')
         end
-        g_serverData:applySetting()
+        g_localData:applySetting()
     end
 
     radio_button:setChangeCB(change_cb)
@@ -95,7 +95,7 @@ function UI_Setting:init_lowResModeSetting()
     radio_button:addButton('on', vars['lowQualOnBtn'])
     radio_button:addButton('off', vars['lowQualOffBtn'])
 
-    if g_serverData:get('local', 'lowResMode') then
+    if g_localData:get('lowResMode') then
         radio_button:setSelectedButton('on')
     else
         radio_button:setSelectedButton('off')
@@ -103,11 +103,11 @@ function UI_Setting:init_lowResModeSetting()
 
     local function change_cb(selected)
         if (selected == 'on') then
-            g_serverData:applyServerData(true, 'local', 'lowResMode')
+            g_localData:applyLocalData(true, 'lowResMode')
         elseif (selected == 'off') then
-            g_serverData:applyServerData(false, 'local', 'lowResMode')
+            g_localData:applyLocalData(false, 'lowResMode')
         end
-        g_serverData:applySetting()
+        g_localData:applySetting()
     end
 
     radio_button:setChangeCB(change_cb)

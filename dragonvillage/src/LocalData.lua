@@ -147,6 +147,12 @@ function LocalData:makeDefaultLocalData()
     -- 테스트 모드 on/off (빌드 자체에서 테스트 모드가 막혀있으면 무시하는 값)
     root_table['test_mode'] = nil
 
+    -- 기본 설정 데이터
+    root_table['lowResMode'] = false
+    root_table['bgm'] = true
+    root_table['sfx'] = true
+    root_table['fps'] = false
+
     return root_table
 end
 
@@ -188,23 +194,32 @@ function LocalData:applyLocalData(data, ...)
     local args = {...}
     local cnt = #args
 
+    local dirty = false
+
     local container = self.m_rootTable
     for i,key in ipairs(args) do
         if (i < cnt) then
             if (type(container[key]) ~= 'table') then
                 container[key] = {}
+                dirty = true
             end
             container = container[key]
         else
-            if (data ~= nil) then
-                container[key] = clone(data)
-            else
-                container[key] = nil
+            if (container[key] ~= data) then
+                if (data ~= nil) then
+                    container[key] = clone(data)
+                else
+                    container[key] = nil
+                end
+                dirty = true
             end
         end
     end
 
-    self:saveLocalDataFile()
+    -- 변경사항이 있을 때에만 저장
+    if dirty then
+        self:saveLocalDataFile()
+    end
 end
 
 -------------------------------------
@@ -308,4 +323,29 @@ end
 -------------------------------------
 function LocalData:setExplorationDec(epr_id, l_doid)
     self:applyLocalData(l_doid, 'exploration_deck', tostring(epr_id))
+end
+
+-------------------------------------
+-- function applySetting
+-------------------------------------
+function LocalData:applySetting()
+    -- fps 출력
+    local fps = self:get('fps')
+    cc.Director:getInstance():setDisplayStats(fps)
+
+    -- 저사양모드
+    local lowResMode = self:get('lowResMode')
+    setLowEndMode(lowResMode)
+
+    -- 배경음
+    local bgm = self:get('bgm')
+    SoundMgr:setBgmOnOff(bgm)
+
+    -- 효과음
+    local sfx = self:get('sfx')
+    SoundMgr:setSfxOnOff(sfx)
+
+    -- 사운드 엔진
+    local engine_mode = self:get('sound_module') or cc.SimpleAudioEngine:getInstance():getEngineMode()
+    cc.SimpleAudioEngine:getInstance():setEngineMode(engine_mode)
 end

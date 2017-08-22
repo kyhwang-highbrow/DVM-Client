@@ -360,6 +360,14 @@ function UI_Network:request()
 	g_errorTracker:appendAPI(self.m_url)
 end
 
+-------------------------------------
+-- function close
+-------------------------------------
+function UI_Network:close()
+    if (not self.closed) then
+        PARENT.close(self)
+    end
+end
 
 
 

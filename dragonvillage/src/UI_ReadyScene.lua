@@ -199,6 +199,7 @@ function UI_ReadyScene:init_sortMgr(stage_id)
         self.m_sortManagerFriendDragon:addPreSortType('deck_idx', false, cond)
 	end
 
+    --[[
 	if SensitivityHelper:isPassedBattleGiftSeenOnce() then
 		-- 최적화에 필요한것이 많음
 		local function cond(a, b)
@@ -206,6 +207,7 @@ function UI_ReadyScene:init_sortMgr(stage_id)
 		end
 		self.m_sortManagerDragon:addPreSortType('battle_gift', false, cond)
 	end
+    --]]
 
     -- 친구 드래곤인 경우 쿨타임 정렬 추가
     local function cond(a, b)
