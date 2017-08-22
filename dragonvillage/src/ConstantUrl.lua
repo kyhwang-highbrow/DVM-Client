@@ -11,9 +11,14 @@ URL['PLATFORM_QA'] = 'http://platform.perplelab.com/1003'
 URL['PLATFORM_LIVE'] = ''
 
 -- Patch server
-URL['PATCH_DEV'] = 'http://patch-12.perplelab.net/dv_test/'
-URL['PATCH_QA'] = ''
-URL['PATCH_LIVE'] = ''
+URL['PATCH_DEV'] = 'http://patch-12.perplelab.net/dv_test'
+URL['PATCH_QA'] = 'http://patch-12.perplelab.net/dv_test'
+URL['PATCH_LIVE'] = 'http://s3.dvm.perplelab.com'
+
+-- Chatting server 
+URL['CHAT_DEV'] = 'dv-test.perplelab.com:9013'
+URL['CHAT_QA'] = 'dv-qa.perplelab.com:9013'
+URL['CHAT_LIVE'] = 'dvm-ch1.perplelab.com:2222'
 
 -- Perplelab
 URL['PERPLELAB_AGREEMENT'] = 'http://s3.dvm.perplelab.com/perplelab/agreement.html'

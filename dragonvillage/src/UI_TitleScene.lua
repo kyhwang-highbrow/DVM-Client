@@ -128,20 +128,20 @@ function UI_TitleScene:initChatClientSocket()
 
     -- 테스트 채팅 서버
     local target_server = CppFunctions:getTargetServer()
-    local ip, port
+    local l_address = {}
     if (target_server == 'DEV') then
-        ip = 'dv-test.perplelab.com'
-        port = '9013'
+        l_address = plSplit(URL['CHAT_DEV'], ':')
 
     elseif (target_server == 'QA') then
-        ip = 'dv-qa.perplelab.com'
-        port = '9013'
+        l_address = plSplit(URL['CHAT_QA'], ':')
 
     elseif (target_server == 'LIVE') then
-        error('LIVE 채팅 서버 주소 입력!')
+        l_address = plSplit(URL['CHAT_LIVE'], ':')
 
     end
 
+    local ip = l_address[1]
+    local port = l_address[2]
     local chat_client_socket = ChatClientSocket(ip, port)
 
     -- 유저 정보 입력
