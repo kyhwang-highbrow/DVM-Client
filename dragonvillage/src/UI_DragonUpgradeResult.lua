@@ -20,6 +20,8 @@ function UI_DragonUpgradeResult:init(dragon_object)
 
     -- 백키 지정
     g_currScene:pushBackKeyListener(self, function() self:click_exitBtn() end, 'UI_DragonUpgradeResult')
+    -- 백키 블럭
+    UIManager:blockBackKey(true)
 
     vars['okBtn']:registerScriptTapHandler(function() self:click_exitBtn() end)
 
@@ -65,7 +67,8 @@ function UI_DragonUpgradeResult:refresh(dragon_object)
         vars['dragonNode']:addChild(dragon_animator.m_node)
         dragon_animator:setDragonAnimator(dragon_object['did'], dragon_object['evolution'], dragon_object['friendship']['flv'])
         local function cb()
-            self:doAction(nil, false)
+            -- 액션 후 백키 블럭 해제
+            self:doAction(function() UIManager:blockBackKey(false) end, false)
 			SoundMgr:playEffect('UI', 'ui_grow_result')
             
             -- @ MASTER ROAD

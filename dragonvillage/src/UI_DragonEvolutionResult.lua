@@ -182,6 +182,7 @@ end
 
 -------------------------------------
 -- function onClose
+-- @TODO onClose 사용하기에 적합하지 않으니 나중에 수정
 -------------------------------------
 function UI_DragonEvolutionResult:onClose()
     -- @ MASTER ROAD
