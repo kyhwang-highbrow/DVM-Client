@@ -48,6 +48,7 @@ function UI_EventPopupTab_Shop:initButton()
 	local vars = self.vars
     vars['buyBtn']:registerScriptTapHandler(function() self:click_buyBtn() end)
 	vars['closeBtn']:setVisible(false)
+    vars['infoBtn']:registerScriptTapHandler(function() self:click_infoBtn() end)
 end
 
 -------------------------------------
@@ -68,4 +69,14 @@ end
 -------------------------------------
 function UI_EventPopupTab_Shop:onEnterTab()
     local vars = self.vars
+end
+
+-------------------------------------
+-- function click_infoBtn
+-------------------------------------
+function UI_EventPopupTab_Shop:click_infoBtn()
+    cclog('## UI_EventPopupTab_Shop:click_infoBtn()')
+    local url = 'http://www.perplelab.com/agreement'
+    --SDKManager:goToWeb(url)
+    UI_WebView(url)
 end
