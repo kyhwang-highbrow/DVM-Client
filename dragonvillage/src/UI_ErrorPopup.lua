@@ -39,7 +39,7 @@ function UI_ErrorPopup:initUI(str)
 	-- 검은색 배경
 	do
 		local rect = cc.rect(0, 0, 0, 0)
-		self.m_backLayer = cc.Scale9Sprite:create(rect, 'res/ui/toast_notification.png')
+		self.m_backLayer = cc.Scale9Sprite:create(rect, 'res/ui/temp/toast_notification.png')
 		self.m_backLayer:setDockPoint(CENTER_POINT)
 		self.m_backLayer:setAnchorPoint(CENTER_POINT)
 		self.m_backLayer:setNormalSize(scr_size)

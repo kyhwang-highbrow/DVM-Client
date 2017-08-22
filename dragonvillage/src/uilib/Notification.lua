@@ -14,7 +14,7 @@ function Notification:init(msg, color)
     --local msg = self:getSampleMsg()
 
     local rect = cc.rect(0, 0, 0, 0)
-    local node = cc.Scale9Sprite:create(rect, 'res/ui/toast_notification.png')
+    local node = cc.Scale9Sprite:create(rect, 'res/ui/temp/toast_notification.png')
     node:setAnchorPoint(cc.p(0.5, 0.5))
     node:setDockPoint(cc.p(0.5, 0.5))
 

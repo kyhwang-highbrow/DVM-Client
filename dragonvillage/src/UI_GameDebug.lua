@@ -47,7 +47,7 @@ function UI_GameDebug:init(world)
 
     do -- 배경
         local rect = cc.rect(0, 0, 0, 0)
-        local node = cc.Scale9Sprite:create(rect, 'res/ui/frame_debug_01.png')
+        local node = cc.Scale9Sprite:create(rect, 'res/ui/temp/frame_debug_01.png')
         node:setAnchorPoint(cc.p(0.5, 0.5))
         node:setDockPoint(cc.p(0.5, 0.5))
         node:setRelativeSizeAndType(cc.size(0, 0), 3, false)
@@ -65,7 +65,7 @@ function UI_GameDebug:init(world)
     end
 
     do -- 열고 닫는 버튼
-        local node = cc.MenuItemImage:create('res/ui/btn_debug_01.png', 'res/ui/btn_debug_02.png', 1)
+        local node = cc.MenuItemImage:create('res/ui/temp/btn_debug_01.png', 'res/ui/temp/btn_debug_02.png', 1)
         node:setDockPoint(cc.p(1, 0.5))
         node:setAnchorPoint(cc.p(0.5, 0.5))
         node:setPosition(10, 0)
@@ -77,7 +77,7 @@ function UI_GameDebug:init(world)
         self.vars['openButton'] = node
 
         do
-            local sprite = cc.Sprite:create('res/ui/btn_debug_03.png')
+            local sprite = cc.Sprite:create('res/ui/temp/btn_debug_03.png')
             sprite:setDockPoint(cc.p(0.5, 0.5))
             sprite:setAnchorPoint(cc.p(0.5, 0.5))
             node:addChild(sprite)
@@ -130,7 +130,7 @@ function UI_GameDebug:makeTableView()
         cell_menu:setSwallowTouch(true)
 
         if data['cb1'] then
-            local node = cc.MenuItemImage:create('res/ui/btn_debug_04.png', 'res/ui/btn_debug_05.png', 1)
+            local node = cc.MenuItemImage:create('res/ui/temp/btn_debug_04.png', 'res/ui/temp/btn_debug_05.png', 1)
             node:setDockPoint(cc.p(1, 0.5))
             node:setPositionX(-40)
             node:setAnchorPoint(cc.p(0.5, 0.5))
@@ -143,7 +143,7 @@ function UI_GameDebug:makeTableView()
         end
 
         if data['cb2'] then
-            local node = cc.MenuItemImage:create('res/ui/btn_debug_04.png', 'res/ui/btn_debug_05.png', 1)
+            local node = cc.MenuItemImage:create('res/ui/temp/btn_debug_04.png', 'res/ui/temp/btn_debug_05.png', 1)
             node:setDockPoint(cc.p(1, 0.5))
             node:setPositionX(-(40 + 67))
             node:setAnchorPoint(cc.p(0.5, 0.5))

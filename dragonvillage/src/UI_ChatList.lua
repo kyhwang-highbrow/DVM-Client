@@ -83,7 +83,7 @@ function UI_ChatList:init(parent, width, height, max_count)
 
     -- 스크롤바 사용
     self.m_bUseScrollBar = true
-    --self.m_scrollBar = cc.Scale9Sprite:create('res/ui/btn_debug_02.png')
+    --self.m_scrollBar = cc.Scale9Sprite:create('res/ui/temp/btn_debug_02.png')
     self.m_scrollBar = cc.Scale9Sprite:create('res/common/empty.png')
     self.m_scrollBar:setDockPoint(cc.p(1, 0))
     self.m_scrollBar:setAnchorPoint(cc.p(0.5, 0))
