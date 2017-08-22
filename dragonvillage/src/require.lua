@@ -519,7 +519,6 @@ local t_module = {
     'StatusCalculatorFormula',
     'TriggerHpPercent',
     'TriggerTime',
-    'EffectTimer',
 
     -- UIC (UI Component)
     'UIC_Node',

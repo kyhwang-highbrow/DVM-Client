@@ -562,7 +562,6 @@ xcopy /Y /Q "$(ProjectDir)..\..\libraries\pati\prebuilt\windows\*.dll" "$(OutDir
     <None Include="..\src\EffectBezierLink.lua" />
     <None Include="..\src\EffectHeal.lua" />
     <None Include="..\src\EffectLinearDot.lua" />
-    <None Include="..\src\EffectTimer.lua" />
     <None Include="..\src\Monster.lua" />
     <None Include="..\src\MonsterLua_Boss.lua" />
     <None Include="..\src\EnemyAppear.lua" />

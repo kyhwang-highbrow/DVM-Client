@@ -1023,9 +1023,6 @@
     <None Include="..\src\EffectMotionStreak.lua">
       <Filter>lua\src</Filter>
     </None>
-    <None Include="..\src\EffectTimer.lua">
-      <Filter>lua\src</Filter>
-    </None>
     <None Include="..\src\EnemyAppear.lua">
       <Filter>lua\src</Filter>
     </None>
