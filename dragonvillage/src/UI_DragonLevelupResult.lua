@@ -155,6 +155,7 @@ function UI_DragonLevelupResult:direct_levelup(dragon_object)
     end
     levelup_director.m_cbLevelUp = function(lv)
         self:refresh_status(dragon_object, lv)
+        SoundMgr:playEffect('UI', 'ui_dragon_level_up')
     end
     levelup_director.m_cbMaxLevel = function()
         vars['expLabel']:setString(Str('최대레벨'))
