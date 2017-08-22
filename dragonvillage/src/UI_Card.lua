@@ -34,8 +34,6 @@ function UI_Card:getUIInfo()
         return
     end
 
-    --cclog('################ UI_Card:getUIInfo(res)')
-
     G_CARD_UI[res] = {}
 
     local ui = UI()

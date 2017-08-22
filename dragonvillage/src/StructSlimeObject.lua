@@ -132,7 +132,7 @@ function StructSlimeObject:getIconRes()
     local res = t_slime['icon']
     local evolution = self['evolution']
     local attr = t_slime['attr']
-    cclog(res, evolution, attr)
+
     res = string.gsub(res, '#', '0' .. evolution)
     res = string.gsub(res, '@', attr)
 
