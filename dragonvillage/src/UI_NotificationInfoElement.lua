@@ -27,7 +27,7 @@ function UI_NotificationInfoElement:init()
 
     self.vars = {}
 
-    local sprite = cc.Scale9Sprite:create('res/ui/frame/base_frame_08.png')
+    local sprite = cc.Scale9Sprite:create('res/ui/frames/temp/base_frame_08.png')
     sprite:setDockPoint(cc.p(0.5, 0.5))
     sprite:setAnchorPoint(cc.p(0.5, 0.5))
     sprite:setRelativeSizeAndType(cc.size(0, 0), 3, true)

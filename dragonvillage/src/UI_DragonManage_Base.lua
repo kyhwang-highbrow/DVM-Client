@@ -148,7 +148,7 @@ end
 function UI_DragonManage_Base:changeDragonSelectFrame(ui)
     -- 없으면 새로 생성
     if (not self.m_dragonSelectFrame) then
-        self.m_dragonSelectFrame = cc.Sprite:create('res/ui/frame/dragon_select_frame.png')
+        self.m_dragonSelectFrame = cc.Sprite:create('res/ui/frames/temp/dragon_select_frame.png')
         self.m_dragonSelectFrame:setDockPoint(cc.p(0.5, 0.5))
         self.m_dragonSelectFrame:setAnchorPoint(cc.p(0.5, 0.5))
         self.m_dragonSelectFrame:retain()

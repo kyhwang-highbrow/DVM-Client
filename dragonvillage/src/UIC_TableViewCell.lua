@@ -138,7 +138,7 @@ function ITableViewCell:setHighlightFrame(visible)
 
 	else
 		local rect = cc.rect(0, 0, 0, 0)
-		local sprite = cc.Scale9Sprite:create(rect, 'res/ui/frame/list_frame_0202.png')
+		local sprite = cc.Scale9Sprite:create(rect, 'res/ui/frames/temp/icon_frame_02.png')
 		sprite:setContentSize(self.m_cellSize['width'], self.m_cellSize['height'])
 		sprite:setDockPoint(CENTER_POINT)
 		sprite:setAnchorPoint(CENTER_POINT)

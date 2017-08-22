@@ -84,7 +84,7 @@ function UIC_IndivisualStats:initUIComponent()
     end
 
     do -- 화살표 아이콘
-        local animator = MakeAnimator('res/ui/frame/dragon_reserch_next.png')
+        local animator = MakeAnimator('res/ui/frames/temp/dragon_reserch_next.png')
         animator:setDockPoint(0, 0.5)
         animator:setAnchorPoint(cc.p(0.5, 0.5))
         self.m_node:addChild(animator.m_node)

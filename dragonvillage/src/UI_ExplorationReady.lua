@@ -69,7 +69,7 @@ function UI_ExplorationReady:initUI()
     self:init_dragonSortMgr()
 
     do
-        self.m_focusDeckSlotEffect = cc.Sprite:create('res/ui/frame/dragon_select_frame.png')
+        self.m_focusDeckSlotEffect = cc.Sprite:create('res/ui/frames/temp/dragon_select_frame.png')
         self.m_focusDeckSlotEffect:setDockPoint(cc.p(0.5, 0.5))
         self.m_focusDeckSlotEffect:setAnchorPoint(cc.p(0.5, 0.5))
         self.vars['subRoot']:addChild(self.m_focusDeckSlotEffect, 2)

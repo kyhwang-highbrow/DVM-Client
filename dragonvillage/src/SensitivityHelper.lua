@@ -76,16 +76,9 @@ function SensitivityHelper:getBubbleText(txt_str)
 	node:setAnchorPoint(CENTER_POINT)
 
 	-- 말풍선 프레임
-	local frame = cc.Scale9Sprite:create('res/ui/frame/a_dialogue_0102.png')
+	local frame = cc.Scale9Sprite:create('res/ui/frames/master_road_navi_0101.png')
 	frame:setDockPoint(CENTER_POINT)
 	frame:setAnchorPoint(CENTER_POINT)
-
-	-- 말풍선 꼭지
-	local sprite = cc.Sprite:create('res/ui/frame/a_dialogue_0102_3.png')
-	sprite:setDockPoint(cc.p(0.5, 0))
-	sprite:setAnchorPoint(cc.p(0.5, 0))
-	sprite:setPositionY(-8)
-	frame:addChild(sprite)
 
 	-- 텍스트 (rich_label)
 	local rich_label = UIC_RichLabel()
@@ -95,7 +88,7 @@ function SensitivityHelper:getBubbleText(txt_str)
     rich_label:setAlignment(cc.TEXT_ALIGNMENT_CENTER, cc.VERTICAL_TEXT_ALIGNMENT_CENTER)
 	rich_label:setDockPoint(CENTER_POINT)
     rich_label:setAnchorPoint(CENTER_POINT)
-	rich_label:setPosition(0, 0)
+	rich_label:setPosition(0, 10)
 
 	-- label 사이즈로 프레임 조정
 	local width = rich_label:getStringWidth() + 50

@@ -343,7 +343,7 @@ function SceneDV:tableViewTDDevelopment()
     ServerData:getInstance()
 
     -- 테이블뷰의 부모노드 생성
-    local parent_node = cc.Scale9Sprite:create('res/ui/frame/base_frame_01.png')
+    local parent_node = cc.Scale9Sprite:create('res/ui/frames/base_frame_0101.png')
     parent_node:setDockPoint(cc.p(0.5, 0.5))
     parent_node:setAnchorPoint(cc.p(0.5, 0.5))
     self.m_scene:addChild(parent_node)
@@ -380,14 +380,14 @@ function SceneDV:dockPointTest()
     cclog('## SceneDV:dockPointTest()')
 
     -- 부모노드 생성
-    local parent_node = cc.Scale9Sprite:create('res/ui/frame/base_frame_01.png')
+    local parent_node = cc.Scale9Sprite:create('res/ui/frames/base_frame_01.png')
     parent_node:setDockPoint(cc.p(0, 0.5))
     parent_node:setAnchorPoint(cc.p(0, 0.5))
     self.m_scene:addChild(parent_node)
     parent_node:setNormalSize(800, 600)
 
     -- 자식노드 생성
-    local sprite = cc.Sprite:create('res/ui/frame/base_frame_01.png')
+    local sprite = cc.Sprite:create('res/ui/frames/base_frame_0101.png')
     sprite:setDockPoint(cc.p(0.5, 0.5))
     sprite:setAnchorPoint(cc.p(0.5, 0.5))
     parent_node:addChild(sprite)
