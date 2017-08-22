@@ -69,6 +69,7 @@ end
 -- function response_colosseumInfo
 -------------------------------------
 function ServerData_Colosseum:response_colosseumInfo(ret)
+    
     -- 주간 보상이 넘어왔을 경우
     g_serverData:networkCommonRespone_addedItems(ret)
 
@@ -418,6 +419,9 @@ function ServerData_Colosseum:request_colosseumStart(is_cash, vsuid, finish_cb, 
     
     -- 성공 콜백
     local function success_cb(ret)
+        -- @analytics
+        Analytics:trackEvent(CUS_CATEGORY.PLAY, CUS_EVENT.TRY_COL, 1, '콜로세움')
+
         -- staminas, cash 동기화
         g_serverData:networkCommonRespone(ret)
 
@@ -600,6 +604,9 @@ function ServerData_Colosseum:setSeasonRewardInfo(ret)
         added_items['items_list'] = ret['reward_info'] or {}
         local t_item_id_cnt, t_iten_type_cnt = ServerData_Item:parseAddedItems(added_items)
         struct_user_info.m_userData = t_iten_type_cnt
+
+        -- @analytics
+        Analytics:trackGetGoodsWithRet(ret, '콜로세움(주간보상)')
     end
 end
 

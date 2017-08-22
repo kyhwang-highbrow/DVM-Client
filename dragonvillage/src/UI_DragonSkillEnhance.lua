@@ -326,6 +326,9 @@ function UI_DragonSkillEnhance:click_enhanceBtn()
 	end
 
     local function success_cb(ret)
+        -- @analytics
+        Analytics:trackUseGoodsWithRet(ret, '드래곤 스킬 레벨업')
+
         local t_prev_dragon_data = self.m_selectDragonData
 
         -- 재료로 사용된 드래곤 삭제

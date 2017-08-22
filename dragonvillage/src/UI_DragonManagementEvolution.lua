@@ -447,7 +447,11 @@ function UI_DragonManagementEvolution:click_evolutionBtn()
 
     local function success_cb(ret)
         -- @analytics
+        Analytics:trackUseGoodsWithRet(ret, '드래곤 진화')
         Analytics:firstTimeExperience('DragonEvolution')
+        if (ret['dragon']) and (ret['dragon']['evolution'] == 3) then
+            Analytics:trackEvent(CUS_CATEGORY.GROWTH, CUS_EVENT.DRA_EV, 1, '성룡 진화')
+        end
 
         -- 진화 재료 갱신
         if ret['evolution_stones'] then

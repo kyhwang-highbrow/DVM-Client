@@ -203,13 +203,23 @@ end
 -- function request_mailRead
 -- @brief 우편 읽기 (받기)
 -------------------------------------
-function ServerData_Mail:request_mailRead(mail_id_list, finish_cb)
+function ServerData_Mail:request_mailRead(mail_id_list, mail_type_list, finish_cb)
     -- 파라미터
     local uid = g_userData:get('uid')
     local mids = listToCsv(mail_id_list)
 
     -- 콜백 함수
     local function success_cb(ret)
+
+        -- @analytics
+        for _, type in ipairs(mail_type_list) do
+            if (type == 'q_daily') then
+                Analytics:trackGetGoodsWithRet(ret, '일일 퀘스트')
+            elseif (type == 'chlg') then
+                Analytics:trackGetGoodsWithRet(ret, '업적')
+            end
+        end
+
         g_serverData:networkCommonRespone_addedItems(ret)
 
         for i,v in ipairs(mail_id_list) do
@@ -240,13 +250,15 @@ function ServerData_Mail:request_mailReadAll(type, finish_cb)
     -- 적절한 우편 id list 추출
 	local mail_list = self:getMailList(type)
 	local mail_id_list = {}
+    local mail_type_list = {}
 	for i, struct_mail in pairs(mail_list) do
 		-- 모두 받기 가능한 메일만 테이블에 추가
 		if (struct_mail:isMailCanReadAll()) then 
 			table.insert(mail_id_list, struct_mail:getMid())
+            table.insert(mail_type_list, struct_mail:getMailType())
 		end
 	end
 
 	-- api로 보냄
-	g_mailData:request_mailRead(mail_id_list, finish_cb)
+	g_mailData:request_mailRead(mail_id_list, mail_type_list, finish_cb)
 end

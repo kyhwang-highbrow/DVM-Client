@@ -264,12 +264,13 @@ function ServerData_Book:request_bookReward(did, evolution, finish_cb)
     
     -- 성공 콜백
     local function success_cb(ret)
+        -- @analytics
+        Analytics:trackGetGoodsWithRet(ret, '도감 보상')
+        Analytics:firstTimeExperience('Book_Rewrad')
+
 		-- 들어온 재화 적용
 		g_serverData:networkCommonRespone(ret)
-		
-        -- @analytics
-        Analytics:firstTimeExperience('Book_Rewrad')
-		
+
         -- 보상 수령한 정보 처리
 		self.m_tBookReward = ret['reward_info']
 

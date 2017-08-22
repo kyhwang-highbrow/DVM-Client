@@ -344,7 +344,12 @@ function UI_DragonFriendship:request_friendshipUp(fid, fcnt, fcnt_120p, fcnt_150
     local function success_cb(ret)
         -- @analytics
         Analytics:firstTimeExperience('FriendshipUp')
-
+        local flv = ret['dragon']['friendship']['lv']
+        if (flv >= 8) then
+            local desc = (flv == 8) and '행복 상태' or '일심동체 상태'
+            Analytics:trackEvent(CUS_CATEGORY.GROWTH, CUS_EVENT.DRA_FR_MAX, 1, desc)
+        end
+        
         -- @ MASTER ROAD
         local t_data = {clear_key = 'fruit'}
         g_masterRoadData:updateMasterRoad(t_data)

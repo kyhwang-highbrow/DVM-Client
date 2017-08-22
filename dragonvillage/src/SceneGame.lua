@@ -476,7 +476,9 @@ function SceneGame:networkGameFinish(t_param, t_result_ref, next_func)
     local send_score = false
 
     local function success_cb(ret)
-        self:networkGameFinish_response(ret, t_result_ref)
+        -- 클리어 타입은 서버에서 안줌
+        local is_success = (t_param['clear_type'] == 1) and true or false
+        self:networkGameFinish_response(ret, t_result_ref, is_success)
 
         if next_func then
             next_func()
@@ -542,7 +544,10 @@ end
 --        t_result_ref['user_levelup_data'] = {}
 --        t_result_ref['dragon_levelu_data_list'] = {}
 -------------------------------------
-function SceneGame:networkGameFinish_response(ret, t_result_ref)
+function SceneGame:networkGameFinish_response(ret, t_result_ref, is_success)
+    -- 스테이지 관련 통계 (증가된 재화 체크 하기 위해 networkCommonRespone 앞에 호출!)
+    self:networkGameFinish_response_analytics(ret, is_success)
+
     -- server_info, staminas 정보를 갱신
     g_serverData:networkCommonRespone(ret)
     g_serverData:networkCommonRespone_addedItems(ret)
@@ -808,6 +813,74 @@ function SceneGame:networkGameFinish_response_chapter_achievement_info(ret)
         local chapter_id = data['chapter_id']
         local chapter_achieve_info = g_adventureData:getChapterAchieveInfo(chapter_id)
         chapter_achieve_info:applyTableData(data)
+    end
+end
+
+-------------------------------------
+-- function networkGameFinish_response_analytics
+-- @breif
+-------------------------------------
+function SceneGame:networkGameFinish_response_analytics(ret, is_success)
+    -- @analytics
+    local added_items = ret['added_items']
+    if (not added_items) then return end
+
+    Analytics:trackGetGoodsWithRet(ret, '인게임 드랍', 'bonus')
+
+    local stage_id = self.m_stageID
+
+    if (self.m_gameMode == GAME_MODE_ADVENTURE) then
+        local desc = string.format('모험 : %d', stage_id)
+        Analytics:trackGetGoodsWithRet(ret, desc, 'default')
+        Analytics:trackGetGoodsWithRet(ret, desc, 'drop')
+
+        -- 도전 / 클리어
+        local difficulty, chapter, stage = parseAdventureID(stage_id)
+        local str_difficulty = ''
+        if (difficulty == 1) then
+            str_difficulty = 'easy'
+
+        elseif (difficulty == 2) then
+            str_difficulty = 'normal'
+
+        elseif (difficulty == 3) then
+            str_difficulty = 'hard'
+        end
+        local desc = string.format('%s %d-%d', str_difficulty, chapter, stage)
+        Analytics:trackEvent(CUS_CATEGORY.PLAY, CUS_EVENT.TRY_ADV, 1, desc)
+        if (is_success) then
+            Analytics:trackEvent(CUS_CATEGORY.PLAY, CUS_EVENT.CLR_ADV, 1, desc)
+        end
+
+    elseif (self.m_gameMode == GAME_MODE_NEST_DUNGEON) then
+        local t_dungeon = g_nestDungeonData:parseNestDungeonID(stage_id)
+        local dungeonMode = t_dungeon['dungeon_mode']
+
+        local desc 
+        if (dungeonMode == NEST_DUNGEON_EVO_STONE) then
+            desc = string.format('거대용 : %d', stage_id)
+        elseif (dungeonMode == NEST_DUNGEON_NIGHTMARE) then
+            desc = string.format('악몽 : %d', stage_id)
+        elseif (dungeonMode == NEST_DUNGEON_TREE) then
+            desc = string.format('거목 : %d', stage_id)
+        end
+
+        Analytics:trackGetGoodsWithRet(ret, desc, 'default')
+        Analytics:trackGetGoodsWithRet(ret, desc, 'drop')
+
+        Analytics:trackEvent(CUS_CATEGORY.PLAY, CUS_EVENT.TRY_DGN, 1, desc)
+        if (is_success) then
+            Analytics:trackEvent(CUS_CATEGORY.PLAY, CUS_EVENT.CLR_DGN, 1, desc)
+        end
+
+    elseif (self.m_gameMode == GAME_MODE_ANCIENT_TOWER) then
+        local desc = string.format('고대의 탑 : %d', stage_id)
+        Analytics:trackGetGoodsWithRet(ret, desc)
+
+        Analytics:trackEvent(CUS_CATEGORY.PLAY, CUS_EVENT.TRY_DGN, 1, desc)
+        if (is_success) then
+            Analytics:trackEvent(CUS_CATEGORY.PLAY, CUS_EVENT.CLR_DGN, 1, desc)
+        end
     end
 end
 

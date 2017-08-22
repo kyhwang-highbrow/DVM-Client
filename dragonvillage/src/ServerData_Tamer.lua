@@ -210,6 +210,10 @@ function ServerData_Tamer:request_setTamer(tid, cb_func)
     local function success_cb()
         -- @analytics
         Analytics:firstTimeExperience('Change_Tamer')
+        local t_tamer = TableTamer():get(tid)
+        if (t_tamer) then
+            Analytics:trackEvent(CUS_CATEGORY.GROWTH, CUS_EVENT.TMR_SEL, 1, t_tamer['t_name'])
+        end
 
         -- 바뀐 테이머 저장
         self.m_serverData:applyServerData(tid, 'user', 'tamer')
@@ -245,6 +249,13 @@ function ServerData_Tamer:request_getTamer(tid, type, cb_func)
 
     -- 콜백 함수
     local function success_cb(ret)
+        -- @analytics
+        Analytics:trackUseGoodsWithRet(ret, '테이머 구매')
+        local t_tamer = TableTamer():get(tid)
+        if (t_tamer) then
+            Analytics:trackEvent(CUS_CATEGORY.GROWTH, CUS_EVENT.TMR_GET, 1, t_tamer['t_name'])
+        end
+
 		-- 테이머 정보 갱신
 		table.insert(self:getTamerList(), ret['tamer'])
 		self:reMappingTamerInfo()
@@ -288,6 +299,9 @@ function ServerData_Tamer:request_tamerSkillEnhance(tid, skill_idx, enhance_leve
 
     -- 콜백 함수
     local function success_cb(ret)
+        -- @analytics
+        Analytics:trackUseGoodsWithRet(ret, '테이머 스킬 레벨업')
+
 		-- 테이머 정보 갱신
 		self:applyTamerInfo(ret['tamer'])
 		self:reMappingTamerInfo()

@@ -380,6 +380,9 @@ function UI_DragonLevelUp:click_levelupBtn()
     end
 
     local function success_cb(ret)
+        -- @analytics
+        Analytics:trackUseGoodsWithRet(ret, '드래곤 레벨업')
+
         local prev_lv = self.m_selectDragonData['lv']
         local prev_exp = self.m_selectDragonData['exp']
         local curr_lv = ret['modified_dragon']['lv']

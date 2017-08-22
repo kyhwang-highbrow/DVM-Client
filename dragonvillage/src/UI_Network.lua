@@ -185,6 +185,7 @@ local S_ERROR_STATUS = {
     [-1266] = Str('콜로세움 입장권이 부족합니다.'), -- not enough st_pvp
 
     -- invalid
+    [-1350] = Str('이미 종료된 던전입니다.'), -- invalid stage
     [-1351] = Str('잘못된 시간 정보입니다.'), -- invalid time
     [-1364] = Str('시즌이 종료되었습니다.'), -- invalid season
 

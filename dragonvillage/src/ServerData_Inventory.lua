@@ -186,6 +186,10 @@ function ServerData_Inventory:request_extendInventory(inven_type, finish_cb)
     
     -- 콜백 함수
     local function success_cb(ret)
+        -- @analytics
+        local desc = (inven_type == 'dragon') and '인벤 확장 (드래곤)' or '인벤 확장 (룬)'
+        Analytics:trackUseGoodsWithRet(ret, desc)
+
         g_serverData:networkCommonRespone(ret)
 
         local str_target = self:getTargetInventoryName(inven_type)

@@ -117,6 +117,9 @@ function ServerData_AccessTime:request_reward(step, finish_cb, fail_cb)
 
     -- 성공 콜백
     local function success_cb(ret)
+        -- @analytics
+        Analytics:trackGetGoodsWithRet(ret, '일일 접속 보상')
+
         g_serverData:networkCommonRespone_addedItems(ret)
         self:networkCommonRespone(ret)
         self.m_lRewardData = ret['reward'] or nil

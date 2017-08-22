@@ -189,6 +189,9 @@ function ServerData_Advertising:request_adv_reward(ad_type, finish_cb, fail_cb)
 
     -- 성공 콜백
     local function success_cb(ret)
+        -- @analytics
+        Analytics:trackGetGoodsWithRet(ret, '광고 보상')
+
         g_serverData:networkCommonRespone(ret)
         g_serverData:networkCommonRespone_addedItems(ret)
         

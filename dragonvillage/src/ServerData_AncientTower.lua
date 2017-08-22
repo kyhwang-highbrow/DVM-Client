@@ -462,5 +462,8 @@ function ServerData_AncientTower:setSeasonRewardInfo(ret)
 
         -- 보상 정보 저장
         struct_user_info.m_userData = ret['reward_info']
+
+        -- @analytics
+        Analytics:trackGetGoodsWithRet(ret, '고대의 탑(랭킹)')
     end
 end

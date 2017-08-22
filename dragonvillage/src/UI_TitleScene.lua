@@ -796,7 +796,7 @@ function UI_TitleScene:workFinish_click()
     
     -- @analytics
     Analytics:userInfo()
-    FiveRocks:setAppDataVersion()
+    Analytics:setAppDataVersion()
 
     -- 로비 진입
     lobby_func = function()

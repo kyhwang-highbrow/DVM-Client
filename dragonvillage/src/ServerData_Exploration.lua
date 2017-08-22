@@ -177,6 +177,10 @@ function ServerData_Exploration:request_explorationStart(epr_id, doids, finish_c
 
     -- 성공 콜백
     local function success_cb(ret)
+        -- @analytics
+        local desc = TableExplorationList():get(epr_id)['t_name']
+        Analytics:trackEvent(CUS_CATEGORY.PLAY, CUS_EVENT.TRY_EXP, 1, desc)
+
         self:organizeData(ret)
 
         -- 추후에 드래곤의 lock값이 필요해질때 사용
@@ -248,6 +252,12 @@ function ServerData_Exploration:request_explorationImmediatelyComplete(epr_id, f
 
     -- 성공 콜백
     local function success_cb(ret)
+        -- @analytics
+        Analytics:trackUseGoodsWithRet(ret, '탐험 즉시 완료')
+
+        local desc = TableExplorationList():get(epr_id)['t_name']
+        Analytics:trackEvent(CUS_CATEGORY.PLAY, CUS_EVENT.CLR_EXP, 1, desc)
+
         local before_dragons = {}
         for i,v in pairs(ret['modified_dragons']) do
             local doid = v['id']

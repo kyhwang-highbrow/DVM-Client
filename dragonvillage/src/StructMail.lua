@@ -184,6 +184,9 @@ function StructMail:readMe(cb_func)
 	local mail_id_list = {
         self:getMid()
     }
+    local mail_type_list = {
+        self:getMailType()
+    }
 	local function finish_cb(ret)
 		if (ret['status'] ~= 0) then
             return
@@ -201,7 +204,7 @@ function StructMail:readMe(cb_func)
         end
 	end
     
-	g_mailData:request_mailRead(mail_id_list, finish_cb)
+	g_mailData:request_mailRead(mail_id_list, mail_type_list, finish_cb)
 end
 
 -------------------------------------

@@ -133,9 +133,14 @@ function ServerData_Hatchery:request_summonCash(is_bundle, is_sale, finish_cb, f
     -- 성공 콜백
     local function success_cb(ret)
         
-        if (is_bundle) then
-            -- @analytics
-            Analytics:firstTimeExperience('DragonSummonCash_11')
+        -- @analytics
+        do
+            if (is_bundle) then
+                Analytics:trackUseGoodsWithRet(ret, '11회 소환')
+                Analytics:firstTimeExperience('DragonSummonCash_11')
+            else
+                TrackUseGoodsWithRet(ret, '1회 소환')
+            end
         end
 
         -- cash(캐시) 갱신

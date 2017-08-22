@@ -8,6 +8,11 @@ TableItem = class(PARENT, {
 
 local THIS = TableItem
 
+ITEM_ID_CASH = 700001
+ITEM_ID_GOLD = 700002
+ITEM_ID_AMET = 700007
+ITEM_ID_ST = 700101
+
 -------------------------------------
 -- function init
 -------------------------------------

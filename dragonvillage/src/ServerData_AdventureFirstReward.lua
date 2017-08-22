@@ -38,6 +38,10 @@ function ServerData_AdventureFirstReward:request_firstClearReward(stage_id, fini
 
     -- 콜백 함수
     local function success_cb(ret)
+        -- @analytics
+        local desc = string.format('모험 달성도 : %d', stage_id)
+        Analytics:trackGetGoodsWithRet(ret, desc)
+
         -- 아이템 수령
         g_serverData:networkCommonRespone_addedItems(ret)
 

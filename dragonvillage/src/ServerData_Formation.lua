@@ -72,6 +72,9 @@ function ServerData_Formation:request_lvupFormation(formation_type, enhance_leve
 
     -- 콜백 함수
     local function success_cb(ret)
+        -- @analytics
+        Analytics:trackUseGoodsWithRet(ret, '진형 레벨업')
+
 		-- 골드 적용
         self.m_serverData:networkCommonRespone(ret)
         -- 진형 레벨 적용

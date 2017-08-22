@@ -367,6 +367,42 @@ function ServerData_Shop:request_buy(struct_product, finish_cb, fail_cb)
 
     -- 성공 콜백
     local function success_cb(ret)
+        -- @analytics
+        do
+            local category = struct_product:getTabCategory()
+            local t_product = self:getProductList(category)
+            local t_info = t_product[product_id]
+
+            if (t_info) then
+                local str_product = t_info['product_content']
+                local l_product = TableExchange:makeProductList(str_product)
+                
+                local gold = tonumber(l_product['gold'] or 0)
+                if (gold > 0) then
+                    Analytics:trackEvent(CUS_CATEGORY.GOLD, CUS_EVENT.GET_GOLD, gold, string.format('상품 구매 : %d', product_id))
+                    Analytics:trackUseGoodsWithRet(ret, '골드 구매')
+                end
+                
+                local staminas = tonumber(l_product['staminas_st'] or 0)
+                if (staminas > 0) then
+                    Analytics:trackEvent(CUS_CATEGORY.STAMINA, CUS_EVENT.GET_STAMINA, staminas, string.format('상품 구매 : %d', product_id))
+                    Analytics:trackUseGoodsWithRet(ret, '날개 구매')
+                end
+
+                local rune = tonumber(l_product['rune'] or 0)
+                if (rune > 0) then
+                    local name = TableItem:getItemName(rune)
+                    Analytics:trackUseGoodsWithRet(ret, string.format('룬 구매 (%s)', name))
+                end
+
+                local egg = tonumber(l_product['egg'] or 0)
+                if (egg > 0) then
+                    local name = TableItem:getItemName(egg)
+                    Analytics:trackUseGoodsWithRet(ret, string.format('알 구매 (%s)', name))
+                end
+            end
+        end
+
         g_serverData:networkCommonRespone(ret)
         g_serverData:networkCommonRespone_addedItems(ret)
 
@@ -430,9 +466,25 @@ function ServerData_Shop:request_checkReceiptValidation(struct_product, validati
     local function success_cb(ret)
         g_serverData:networkCommonRespone(ret)
         g_serverData:networkCommonRespone_addedItems(ret)
-  
+    
         -- @analytics
-        Analytics:purchase(product_id, sku, price)
+        do
+            Analytics:purchase(product_id, sku, price)
+
+            local category = struct_product:getTabCategory()
+            local t_product = self:getProductList(category)
+            local t_info = t_product[product_id]
+
+            if (t_info) then
+                local str_product = t_info['product_content']
+                local l_product = TableExchange:makeProductList(str_product)
+                
+                local cash = tonumber(l_product['cash'] or 0)
+                if (cash > 0) then
+                    Analytics:trackEvent(CUS_CATEGORY.CASH, CUS_EVENT.GET_CASH, cash, string.format('상품 구매 : %d', product_id))
+                end
+            end
+        end
 
         -- 상품 구매 후 갱신이 필요한지 여부 체크
         if struct_product and struct_product:needRenewAfterBuy() then

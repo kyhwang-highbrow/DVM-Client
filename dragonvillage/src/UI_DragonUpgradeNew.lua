@@ -399,10 +399,15 @@ function UI_DragonUpgradeNew:click_upgradeBtn()
 
         -- @analytics
         do
+            Analytics:trackUseGoodsWithRet(ret, '드래곤 승급')
+
             local pre_grade = tostring(t_prev_dragon_data['grade'])
             local grade = tostring(pre_grade + 1)
             local msg = string.format('DragonUpgrade_%sto%s', pre_grade, grade)
             Analytics:firstTimeExperience(msg)
+
+            local desc = string.format('%d성 드래곤', grade)
+            Analytics:trackEvent(CUS_CATEGORY.GROWTH, CUS_EVENT.DRA_UP, 1, desc)
         end
 
         -- 재료로 사용된 드래곤 삭제

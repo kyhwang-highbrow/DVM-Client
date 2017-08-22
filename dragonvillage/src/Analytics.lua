@@ -2,6 +2,70 @@ Analytics = {}
 Adbrix = {}
 FiveRocks = {}
 
+-- 출시직전까지는 카테고리에 TEST 붙임 (커스텀 이벤트 확인), 출시후에 TEST 붙여져 있던 카테고리는 숨김
+-- 런칭때 category_test 함수 삭제하기!!
+local function category_test(category)
+    return 'TEST_'..category
+end
+
+CUS_CATEGORY = {
+
+    FIRST   = '001.초기 안착',
+
+    CASH    = '101.캐쉬',
+    AMET    = '102.자수정',
+    GOLD    = '103.골드',
+    STAMINA = '104.날개',
+    MILEAGE = '105.마일리지',
+    TOPAZ   = '106.토파즈',
+    HONOR   = '107.명예',
+
+    PLAY    = '201.플레이',
+
+    GROWTH  = '301.성장/육성',
+}
+
+-- event name, value name
+CUS_EVENT = {
+
+    MASTER_ROAD = {'모험가의 길', '모험가의 길 클리어 유저수'},
+    GET_CASH    = {'획득', '획득한 모든 다이아 수량'},
+    USE_CASH    = {'소진', '소진한 모든 다이아 수량'},
+
+    GET_AMET    = {'획득', '획득한 모든 자수정 수량'},
+    USE_AMET    = {'소진', '소진한 모든 자수정 수량'},
+
+    GET_GOLD    = {'획득', '획득한 모든 골드 수량'},
+    USE_GOLD    = {'소진', '소진한 모든 골드 수량'},
+
+    GET_STAMINA = {'획득', '획득한 모든 날개 수량'},
+    USE_STAMINA = {'소진', '소진한 모든 날개 수량'},
+
+    USE_MILEAGE = {'소진', '소진한 모든 마일리지 수량'},
+    USE_TOPAZ   = {'소진', '소진한 모든 토파즈 수량'},
+    USE_HONOR   = {'소진', '소진한 모든 명예 수량'},
+
+    TRY_ADV     = {'모험', '모험모드 도전 횟수'},
+    CLR_ADV     = {'모험', '모험모드 클리어 횟수'},
+
+    TRY_EXP     = {'탐험', '탐험모드 도전 횟수'},
+    CLR_EXP     = {'탐험', '탐험모드 클리어 횟수'},
+
+    TRY_DGN     = {'던전', '던전 도전 횟수'},
+    CLR_DGN     = {'던전', '던전 클리어 횟수'},
+
+    TRY_COL     = {'콜로세움', '콜로세움 도전 횟수'},
+
+    DRA_UP      = {'드래곤 승급', '고등급 드래곤 획득 수량'},
+    DRA_EV      = {'드래곤 진화', '성룡 진화한 드래곤 개수'},
+    DRA_FR_MAX  = {'드래곤 친밀도', '친밀도 고등급 상태 드래곤 개수'},
+
+    TMR_SEL     = {'테이머', '테이머 선택'},
+    TMR_GET     = {'테이머', '테이머 획득'},
+
+    RUNE_GET    = {'룬', '고등급 룬 획득 수량'},
+}
+
 -------------------------------------
 -- function userInfo
 -------------------------------------
@@ -13,6 +77,14 @@ function Analytics:userInfo()
     FiveRocks:userInfo(uid)
 end
 
+-------------------------------------
+-- function setAppDataVersion
+-------------------------------------
+function Analytics:setAppDataVersion()
+    if (not IS_ENABLE_ANALYTICS()) then return end
+
+    FiveRocks:setAppDataVersion()
+end
 -------------------------------------
 -- function cohort
 -------------------------------------
@@ -34,6 +106,15 @@ end
 -------------------------------------
 -- function purchase
 -------------------------------------
+function Analytics:trackEvent(category, event, value, param1)
+    if (not IS_ENABLE_ANALYTICS()) then return end
+
+    FiveRocks:trackEvent(category, event, value, param1)
+end
+
+-------------------------------------
+-- function purchase
+-------------------------------------
 function Analytics:purchase(productId, productName, price)
     if (not IS_ENABLE_ANALYTICS()) then return end
 
@@ -42,6 +123,122 @@ function Analytics:purchase(productId, productName, price)
     Adbrix:buy(productId, price)
     FiveRocks:trackPurchase(productName, currencyCode, price)
 end
+
+-------------------------------------
+-- function trackGetGoodsWithRet
+-- @brief 재화 증가량 체크 (type 체크함)
+-------------------------------------
+function Analytics:trackGetGoodsWithRet(ret, desc, from_type)
+    local added_items = ret['added_items']
+    local reward_items = ret['reward_info']
+
+    if (added_items) then 
+        local item_list = added_items['items_list']
+        Analytics:trackGetGoodsWithItemList(item_list, desc, from_type)
+
+    elseif (reward_items) then
+        local item_list = reward_items
+        Analytics:trackGetGoodsWithItemList(item_list, desc, from_type)
+
+    -- ret에 있는 재화로 바로 검색
+    else
+        local l_goods = {'cash', 'gold', 'amethyst'}
+
+        for _, value in ipairs(l_goods) do
+            if (ret[value]) then
+                local get_cnt = 0
+                local pre_cnt = g_userData:get(value) or 0
+                get_cnt = ret[value] - pre_cnt 
+   
+                if (get_cnt > 0) then
+                    if (value == 'cash') then
+                        Analytics:trackEvent(CUS_CATEGORY.CASH, CUS_EVENT.GET_CASH, get_cnt, desc)
+
+                    elseif (value == 'gold') then
+                        Analytics:trackEvent(CUS_CATEGORY.GOLD, CUS_EVENT.GET_GOLD, get_cnt, desc)
+
+                    elseif (value == 'amethyst') then
+                        Analytics:trackEvent(CUS_CATEGORY.AMET, CUS_EVENT.GET_AMET, get_cnt, desc)
+
+                    end
+                end
+            end
+        end
+    end
+end
+
+-------------------------------------
+-- function trackGetGoodsWithItemList
+-- @breif 재화 증가량 체크 (item_list)
+-------------------------------------
+function Analytics:trackGetGoodsWithItemList(item_list, desc, from_type)
+    if (not item_list) then 
+        return
+    end
+
+    local from_type = from_type or nil
+    for _, v in ipairs(item_list) do
+        local item_id = v['item_id']
+        local item_cnt = v['count']
+        local from = v['from']
+
+        -- type 지정한 경우만 type 검사 ()
+        if (from == nil) or (from_type == nil) or (from_type and from == from_type) then
+            if (item_id == ITEM_ID_CASH) then
+                Analytics:trackEvent(CUS_CATEGORY.CASH, CUS_EVENT.GET_CASH, item_cnt, desc)
+
+            elseif (item_id == ITEM_ID_GOLD) then
+                Analytics:trackEvent(CUS_CATEGORY.GOLD, CUS_EVENT.GET_GOLD, item_cnt, desc)
+
+            elseif (item_id == ITEM_ID_AMET) then
+                Analytics:trackEvent(CUS_CATEGORY.AMET, CUS_EVENT.GET_AMET, item_cnt, desc)
+
+            elseif (item_id == ITEM_ID_ST) then
+                Analytics:trackEvent(CUS_CATEGORY.STAMINA, CUS_EVENT.GET_STAMINA, item_cnt, desc)
+            end
+        end
+    end
+end
+
+-------------------------------------
+-- function trackUseGoodsWithRet
+-- @breif 재화 소모량 체크
+-------------------------------------
+function Analytics:trackUseGoodsWithRet(ret, desc)
+    local l_goods = {'cash', 'gold', 'amethyst', 'mileage', 'topaz', 'honor'}
+
+    for _, value in ipairs(l_goods) do
+        if (ret[value]) then
+            local use_cnt = 0
+            local pre_cnt = g_userData:get(value) or 0
+            use_cnt = pre_cnt - ret[value]
+   
+            if (use_cnt > 0) then
+                if (value == 'cash') then
+                    Analytics:trackEvent(CUS_CATEGORY.CASH, CUS_EVENT.USE_CASH, use_cnt, desc)
+
+                elseif (value == 'gold') then
+                    Analytics:trackEvent(CUS_CATEGORY.GOLD, CUS_EVENT.USE_GOLD, use_cnt, desc)
+
+                elseif (value == 'amethyst') then
+                    Analytics:trackEvent(CUS_CATEGORY.AMET, CUS_EVENT.USE_AMET, use_cnt, desc)
+
+                elseif (value == 'mileage') then
+                    Analytics:trackEvent(CUS_CATEGORY.MILEAGE, CUS_EVENT.USE_MILEAGE, use_cnt, desc)
+
+                elseif (value == 'topaz') then
+                    Analytics:trackEvent(CUS_CATEGORY.TOPAZ, CUS_EVENT.USE_TOPAZ, use_cnt, desc)
+
+                elseif (value == 'honor') then
+                    Analytics:trackEvent(CUS_CATEGORY.HONOR, CUS_EVENT.USE_HONOR, use_cnt, desc)
+                end
+            end
+        end
+    end
+end
+
+
+
 
 -------------------------------------
 -- function userInfo
@@ -60,8 +257,6 @@ end
 -- function buy
 -------------------------------------
 function Adbrix:buy(productId, price)
-    if (not IS_ENABLE_ANALYTICS()) then return end
-
     local arg1 = tostring(productId)
     local arg2 = tostring(price)
 
@@ -79,8 +274,6 @@ end
 -- 3 : 인게임에서 자수정의 수
 -------------------------------------
 function Adbrix:customCohort(cohortNo, cohortDesc)
-    if (not IS_ENABLE_ANALYTICS()) then return end
-
     local arg1 = 'COHORT_'..tostring(cohortNo)
     local arg2 = tostring(cohortDesc)
 
@@ -93,8 +286,6 @@ end
 -- function retention
 -------------------------------------
 function Adbrix:retention(arg1, arg2)
-    if (not IS_ENABLE_ANALYTICS()) then return end
-
     local arg1 = tostring(arg1)
     local arg2 = arg2 or ''
 
@@ -141,8 +332,6 @@ end
 -- 6성 60레벨 달성(DragonLevelUp_6_60) 
 -------------------------------------
 function Adbrix:firstTimeExperience(arg1, arg2)
-    if (not IS_ENABLE_ANALYTICS()) then return end
-
     local arg1 = tostring(arg1)
     local arg2 = arg2 or ''
 
@@ -152,17 +341,18 @@ function Adbrix:firstTimeExperience(arg1, arg2)
 end
 
 
+
+
+
 -------------------------------------
 -- function userInfo
 -------------------------------------
 function FiveRocks:userInfo(userId)
-    if (not IS_ENABLE_ANALYTICS()) then return end
+    local arg1 = tostring(userId)
 
-    local arg0 = tostring(userId)
+    cclog('FiveRocks:userInfo : ' .. arg1)
 
-    cclog('FiveRocks:userInfo : ' .. arg0)
-
-    PerpleSDK:tapjoyEvent('userID', arg0, '', function(ret)
+    PerpleSDK:tapjoyEvent('userID', arg1, '', function(ret)
     end)
 end
 
@@ -170,15 +360,13 @@ end
 -- function trackPurchase
 -------------------------------------
 function FiveRocks:trackPurchase(productName, currencyCode, price)
-    if (not IS_ENABLE_ANALYTICS()) then return end
+    local arg1 = tostring(productName)
+    arg1 = arg1 .. ';' .. tostring(currencyCode)
+    arg1 = arg1 .. ';' .. tostring(price)
 
-    local arg0 = tostring(productName)
-    arg0 = arg0 .. ';' .. tostring(currencyCode)
-    arg0 = arg0 .. ';' .. tostring(price)
+    cclog('FiveRocks:trackPurchase : ' .. arg1)
 
-    cclog('FiveRocks:trackPurchase : ' .. arg0)
-
-    PerpleSDK:tapjoyEvent('trackPurchase', arg0, '', function(ret)
+    PerpleSDK:tapjoyEvent('trackPurchase', arg1, '', function(ret)
     end)
 end
 
@@ -186,14 +374,12 @@ end
 -- function customCohort
 -------------------------------------
 function FiveRocks:customCohort(cohortNo, cohortDesc)
-    if (not IS_ENABLE_ANALYTICS()) then return end
+    local arg1 = tostring(cohortNo)
+    local arg2 = cohortDesc
 
-    local arg0 = tostring(cohortNo)
-    local arg1 = cohortDesc
+    cclog('FiveRocks:customCohort : ' .. arg1 .. ',' .. arg2)
 
-    cclog('FiveRocks:customCohort : ' .. arg0 .. ',' .. arg1)
-
-    PerpleSDK:tapjoyEvent('userCohortVariable', arg0, arg1, function(ret)
+    PerpleSDK:tapjoyEvent('userCohortVariable', arg1, arg2, function(ret)
     end)
 end
 
@@ -201,40 +387,32 @@ end
 -- function setAppDataVersion
 -------------------------------------
 function FiveRocks:setAppDataVersion()
-    if (not IS_ENABLE_ANALYTICS()) then return end
+    local arg1 = getAppVer()
 
-    local arg0 = getAppVer()
+    cclog('FiveRocks:setAppDataVersion : ' .. arg1)
 
-    cclog('FiveRocks:setAppDataVersion : ' .. arg0)
-
-    PerpleSDK:tapjoyEvent('appDataVersion', arg0, '', function(ret)
+    PerpleSDK:tapjoyEvent('appDataVersion', arg1, '', function(ret)
     end)
 end
 
 -------------------------------------
--- function setAppDataVersion
+-- function trackEvent
 -------------------------------------
-function FiveRocks:trackEvent(category, name, param1, param2, value1Name, value1, value2Name, value2, value3Name, value3)
-    if (not IS_ENABLE_ANALYTICS()) then return end
+function FiveRocks:trackEvent(category, event, value, param1)
+    -- @format : category;event;event_name;param1;param2;value;
+     
+    local category = category_test(category) -- 테스트 후에 삭제!!
+    local value = tostring(value)
+    local event_name = event[1]
+    local value_name = event[2]
+    local param1 = tostring(param1)
+    local param2 = string.format('User Lv : %d', (g_userData:get('lv') or 0))
+    
+    local arg1 = category..';'..event_name..';'..param1..';'..param2..';'..value_name..';'..value 
 
-    local arg0 = category .. ';' .. name .. ';' .. param1 .. ';' .. param2
+    cclog('FiveRocks:trackEvent : ' .. arg1)
 
-    if value1Name ~= nil and value1 ~= nil then
-        arg0 = arg0 .. ';' .. value1Name .. ';' .. value1
-    end
-
-    if value2Name ~= nil and value2 ~= nil then
-        arg0 = arg0 .. ';' .. value2Name .. ';' .. value2
-    end
-
-    if value3Name ~= nil and value3 ~= nil then
-        arg0 = arg0 .. ';' .. value3Name .. ';' .. value3
-    end
-
-    cclog('FiveRocks:trackEvent : ' .. arg0)
-
-    PerpleSDK:tapjoyEvent('trackEvent', arg0, '', function(ret)
+    PerpleSDK:tapjoyEvent('trackEvent', arg1, '', function(ret)
     end)
 end
-
 
