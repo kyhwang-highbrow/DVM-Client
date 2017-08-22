@@ -391,16 +391,6 @@ function IconHelper:getRarityIcon(role)
 end
 
 -------------------------------------
--- function getDragonNamePng
--- @brief 드래곤 이름 png
--------------------------------------
-function IconHelper:getDragonNamePng(dragon_id)
-    local res_name = string.format('res/ui/dragon_card/dc_dragon_' .. dragon_id .. '.png')
-    local sprite = self:getIcon(res_name)
-    return sprite
-end
-
--------------------------------------
 -- function getStatusEffectIcon
 -- @brief 상태효과 아이콘 생성
 -------------------------------------
