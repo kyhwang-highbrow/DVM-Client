@@ -44,8 +44,10 @@ MAP_KEY_FUNC[KEY_UP_ARROW] = 'camera_move_up'
 MAP_KEY_FUNC[KEY_DOWN_ARROW] = 'camera_move_down'
 
 -- 테스트
-MAP_KEY_FUNC[KEY_5] = 'resurrect_dragon'
-MAP_KEY_FUNC[KEY_6] = 'kill_one_dragon'
+MAP_KEY_FUNC[KEY_5] = 'ingame_test_a'
+MAP_KEY_FUNC[KEY_6] = 'ingame_test_b'
+--MAP_KEY_FUNC[KEY_5] = 'resurrect_dragon'
+--MAP_KEY_FUNC[KEY_6] = 'kill_one_dragon'
 MAP_KEY_FUNC[KEY_7] = 'print_skill_info'
 MAP_KEY_FUNC[KEY_8] = 'camera_info'
 MAP_KEY_FUNC[KEY_9] = 'auto_info'
@@ -159,8 +161,8 @@ function GameWorld:se_on_dragon()
 	local dragon_list = self:getDragonList()
     local enemy_list = self:getEnemyList()
 
-    --StatusEffectHelper:doStatusEffect(enemy_list[1], dragon_list, 'stun', 'target', 1, 3, 100, 100)
-    StatusEffectHelper:doStatusEffect(dragon_list[1], dragon_list, 'aspd_up', 'ally_none', 5, 5, 100, 200)
+    StatusEffectHelper:doStatusEffect(enemy_list[1], dragon_list, 'silence', 'target', 1, 3, 100, 100)
+    --StatusEffectHelper:doStatusEffect(dragon_list[1], dragon_list, 'aspd_up', 'ally_none', 5, 5, 100, 200)
 end
 
 -------------------------------------
@@ -369,6 +371,31 @@ end
 function GameWorld:add_dmg_yellow_font()
 	local b = g_constant:get('DEBUG', 'ADD_DMG_YELLOW_FONT')
 	g_constant:set(not b1, 'DEBUG', 'ADD_DMG_YELLOW_FONT')
+end
+
+-------------------------------------
+-- function ingame_test_a
+-------------------------------------
+function GameWorld:ingame_test_a()
+    if (g_gameScene) then
+        local b = g_gameScene.m_viewLayer:isVisible()
+        g_gameScene.m_viewLayer:setVisible(not b)
+
+        -- 웨이브 표시 숨김
+        self.m_inGameUI.vars['waveVisual']:setVisible(not b)
+    end
+end
+
+-------------------------------------
+-- function ingame_test_b
+-------------------------------------
+function GameWorld:ingame_test_b()
+    if (g_gameScene) then
+        local b = self.m_inGameUI.m_panelUI.root:isVisible()
+
+        -- 패널
+        self.m_inGameUI.m_panelUI.root:setVisible(not b)
+    end
 end
 
 -------------------------------------

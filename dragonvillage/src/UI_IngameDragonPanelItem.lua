@@ -42,7 +42,7 @@ function UI_IngameDragonPanelItem:init(world, dragon, dragon_idx)
         self.m_bAttackSkill = SkillHelper:isEnemyTargetingType(t_skill)
     end
 
-	local vars = self:load('ingame_panel.ui', false, true)
+	local vars = self:load('ingame_panel.ui', false, true, true)
 
     dragon:addListener('character_set_hp', self)
     dragon:addListener('dragon_skill_gauge', self)
@@ -83,7 +83,7 @@ function UI_IngameDragonPanelItem:initUI()
     vars['skillFullVisual2']:changeAni('dragon_full_' .. str_target .. '_idle_2', true)
 
     vars['cooltimeLabel']:setString('')
-
+    
     -- 속성 아이콘
     if (vars['attrNode']) then
         local attr_str = dragon:getAttribute()
@@ -119,6 +119,7 @@ function UI_IngameDragonPanelItem:initUI()
         skill_icon:setAnchorPoint(CENTER_POINT)
         vars['skillNode']:addChild(skill_icon)
     end
+    
 
     -- 인디케이터 아이콘
     if (t_skill) then

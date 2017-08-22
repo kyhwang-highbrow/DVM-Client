@@ -20,7 +20,7 @@ function UI_IngameTamerPanelItem:init(world, tamer)
     self.m_world = world
     self.m_tamer = tamer
     
-    local vars = self:load('ingame_tamer_panel.ui')
+    local vars = self:load('ingame_tamer_panel.ui', false, true, true)
     self.m_bVisible = true
     self.m_menuPosX = vars['panelMenu']:getPositionX()
     self.m_menuPosY = vars['panelMenu']:getPositionY()
