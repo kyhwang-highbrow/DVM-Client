@@ -28,12 +28,13 @@ function SoundMgr:playBGM(sound, loop)
 end
 
 -------------------------------------
--- function playBGM
--- @param sound
--- @param loop
+-- function playPrevBGM
+-- @brief 이전 bgm을 재생한다.
 -------------------------------------
 function SoundMgr:playPrevBGM(loop)
-    self:playBGM(self.m_prevBgm, loop)
+    if (self.m_prevBgm) then
+        self:playBGM(self.m_prevBgm, loop)
+    end
 end
 
 -------------------------------------

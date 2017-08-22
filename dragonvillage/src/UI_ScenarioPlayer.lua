@@ -13,8 +13,7 @@ UI_ScenarioPlayer = class(PARENT,{
         m_bgName = 'bg',
         m_bgAnimator = 'Animator',
 
-        m_prevBgm = '',
-        m_currBgm = '',
+        m_bgm = '',
 
         m_autoSkipActionNode = '',
 
@@ -34,7 +33,6 @@ function UI_ScenarioPlayer:init(scenario_name)
 
 	-- 멤버 변수
     self.m_scenarioPlayerTalk = UI_ScenarioPlayer_Talk(self)
-    self.m_prevBgm = SoundMgr.m_currBgm 
     self.m_currPage = 0
 
 	self:loadScenario(scenario_name)
@@ -138,7 +136,6 @@ end
 -- function showPage
 -------------------------------------
 function UI_ScenarioPlayer:showPage()
-    cclog('#UI_ScenarioPlayer page : ' .. self.m_currPage)
     local vars = self.vars
 
     do -- 이전 페이지에서 끊어줘야할 행동들
@@ -209,7 +206,7 @@ function UI_ScenarioPlayer:showPage()
                 SoundMgr:stopBGM()
             else
                 SoundMgr:playBGM(bgm)
-                self.m_currBgm = bgm
+                self.m_bgm = bgm
             end
         end
 
@@ -265,8 +262,6 @@ function UI_ScenarioPlayer:applyEffect(effect)
         return
     end
 
-    cclog('#UI_ScenarioPlayer effect : ' .. effect)
-    
     local l_str = TableClass:seperate(effect, ';')
     local effect = l_str[1]
     local val_1 = l_str[2]
@@ -319,12 +314,8 @@ function UI_ScenarioPlayer:onClose()
     -- 볼륨 원복 (시나리오 재생 중 volume_down으로 50%로 줄었을 수 있음)
     SoundMgr:setMusicVolume(1)
 
-    -- 시나리오 재생 전 BGM이 있었으면 다시 재생
-    if self.m_prevBgm then
-        SoundMgr:playBGM(self.m_prevBgm)
-
     -- 시나리오에서 재생된 BGM이면 stop
-    elseif self.m_currBgm then
+    if self.m_bgm then
         SoundMgr:stopBGM()
     end
 
