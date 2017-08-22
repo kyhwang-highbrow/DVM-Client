@@ -104,8 +104,8 @@ function UI_GameResultNew:initUI()
     -- 자동 재화 줍기 
     local game_mode = g_stageData:getGameMode(stage_id)
     if (game_mode == GAME_MODE_ADVENTURE) then
-        vars['itemAutoBtn']:setVisible(true)
-        vars['itemAutoLabel']:setVisible(true)
+        vars['itemAutoBtn']:setVisible(false)
+        vars['itemAutoLabel']:setVisible(false)
         
         local function update(dt)
             vars['itemAutoLabel']:setString(g_advertisingData:getCoolTimeStr(AD_TYPE.AUTO_ITEM_PICK))
@@ -322,6 +322,12 @@ function UI_GameResultNew:direction_start()
     vars['skipLabel']:setVisible(false)
     vars['againBtn']:setVisible(false)
 
+    -- 자동 줍기 보여줌
+    vars['itemAutoBtn']:setVisible(true)
+    vars['itemAutoLabel']:setVisible(true)
+    cca.stampShakeAction(vars['itemAutoBtn'], 1.8, 0.2, 0, 0)
+    cca.stampShakeAction(vars['itemAutoLabel'], 1.8, 0.2, 0, 0)
+
     -- 드래곤 레벨업 연출 node
     vars['dragonResultNode']:setVisible(true)
 
@@ -391,7 +397,7 @@ function UI_GameResultNew:direction_end()
     end
 
     if (is_success == true) then
-        local duration = 2
+        local duration = 1.5
         if g_autoPlaySetting:isAutoPlay() then
             duration = 0.5
         end
