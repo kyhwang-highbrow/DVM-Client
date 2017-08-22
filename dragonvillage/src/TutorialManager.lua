@@ -125,7 +125,7 @@ function TutorialManager:setGlobalLock(b)
     g_broadcastManager:setEnable(not b)
     g_broadcastManager:setEnableNotice(not b)
     g_topUserInfo:clearBroadcast()
-    g_currScene:blockBackkey(b)
+    UIManager:blockBackKey(b)
 end
 
 -------------------------------------

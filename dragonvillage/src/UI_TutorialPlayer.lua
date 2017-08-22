@@ -35,6 +35,7 @@ end
 function UI_TutorialPlayer:close()
     -- pointingHand는 retain걸려있는 상태이므로 release해줌
     if (self.m_pointingHand) then
+        self.m_pointingHand.m_node:removeFromParent()
         self.m_pointingHand.m_node:release()
         self.m_pointingHand = nil
     end

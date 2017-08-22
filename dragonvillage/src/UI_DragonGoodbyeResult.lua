@@ -21,11 +21,18 @@ function UI_DragonGoodbyeResult:init(dragon_data, info_data)
     self:doActionReset()
     self:doAction(nil, false)
 
+    -- backkey 지정
+    g_currScene:pushBackKeyListener(self, function() self:close() end, 'UI_DragonGoodbyeResult')
+    -- 백키 블럭
+    UIManager:blockBackKey(true)
+
     self:sceneFadeInAction()
 
     self:initUI()
     self:initButton()
     self:refresh()
+
+    SoundMgr:playBGM('ui_dragon_farewell', false)
 end
 
 -------------------------------------
@@ -51,6 +58,9 @@ function UI_DragonGoodbyeResult:initUI()
 		    local ui = UI_ObtainPopup(l_item_list, goodbye_str_3)
             ui:setCloseCB(function() self:onClose() end)
 	    end
+
+        -- 블럭 해제
+        UIManager:blockBackKey(false)
     end
 
     -- 배경
@@ -87,9 +97,13 @@ end
 
 -------------------------------------
 -- function onClose
+-- @TODO onClose 사용하기에 적합하지 않으니 나중에 수정
 -------------------------------------
 function UI_DragonGoodbyeResult:onClose()
-    self:sceneFadeOutAction(function() self:close() end)
+    self:sceneFadeOutAction(function()
+        SoundMgr:playPrevBGM()
+        self:close()
+    end)
 end
 
 --@CHECK

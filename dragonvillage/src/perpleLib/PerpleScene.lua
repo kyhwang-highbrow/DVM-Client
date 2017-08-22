@@ -404,7 +404,7 @@ function PerpleScene:makeWatermark()
 end
 
 -------------------------------------
--- function backkeyOn
+-- function blockBackkey
 -------------------------------------
 function PerpleScene:blockBackkey(flag)
     self.m_bBlockBackkey = flag or false

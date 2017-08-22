@@ -17,9 +17,12 @@ function UI_DragonEvolutionResult:init(dragon_object)
 
     -- @UI_ACTION
     self:doActionReset()
-    
-    -- 백키 지정
-    g_currScene:pushBackKeyListener(self, function() end, 'UI_DragonEvolutionResult')
+
+    -- backkey 지정
+    g_currScene:pushBackKeyListener(self, function() self:click_exitBtn() end, 'UI_DragonEvolutionResult')
+    -- 백키 블럭
+    UIManager:blockBackKey(true)
+
     vars['okBtn']:registerScriptTapHandler(function() self:click_exitBtn() end)
 
     self:setResultText(dragon_object)
@@ -161,7 +164,7 @@ function UI_DragonEvolutionResult:showEvolutionEffect(dragon_object)
 
             SoundMgr:playEffect('UI', 'ui_grow_result')
             self:doActionReset()
-            self:doAction(nil, false)
+            self:doAction(function() UIManager:blockBackKey(false) end, false)
         end)
 
         local action = cc.Sequence:create(delay_action1, show_action1,
@@ -186,7 +189,7 @@ function UI_DragonEvolutionResult:onClose()
     g_masterRoadData:updateMasterRoad(t_data)
 
     self:sceneFadeOutAction(function() 
-        SoundMgr:playPrevBGM(true)
+        SoundMgr:playPrevBGM()
         self:close() 
     end)
 end

@@ -37,6 +37,7 @@ UIManager = {
     m_uiLayer = 'cc.Node',
     m_uiList = {},
     m_scene = 'cc.Scene',
+    m_perpleScene = 'PerpleScene',
 
     m_toastNotiList = 'table',
     m_toastNotiTime = 'number',
@@ -61,6 +62,7 @@ function UIManager:init(perple_scene)
     end
 
     self.m_scene = scene
+    self.m_perpleScene = perple_scene
     self.m_uiLayer = cc.Node:create()
     self.m_scene:addChild(self.m_uiLayer, SCENE_ZORDER.UI)
     self.m_uiList = {}
@@ -480,6 +482,16 @@ function UIManager:removeDebugUI()
 		self.m_debugUI.m_debugLayer:removeFromParent(true)
 		self.m_debugUI = nil
 	end
+end
+
+-------------------------------------
+-- function blockBackKey
+-- @brief debug 영역을 cleanUp() 호출 시 같이 내려준다.
+-------------------------------------
+function UIManager:blockBackKey(b)
+    if (self.m_perpleScene) then
+        self.m_perpleScene:blockBackkey(b)
+    end
 end
 
 -------------------------------------
