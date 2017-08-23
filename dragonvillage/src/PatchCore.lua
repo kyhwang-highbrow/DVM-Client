@@ -481,7 +481,7 @@ function PatchCore:st_downloadPatchFile_setCurrDownloadRes()
     do
         --local에 파일로 저장할땐 web에 업로드된 패스와 상관없이
 	    --writeable경로에 저장하기 위해 파일명만 추출
-        local web_path = URL['PATCH_DEV'] .. self.m_currDownloadRes['name']
+        local web_path = GetPatchServer() .. '/' .. self.m_currDownloadRes['name']
 	    local local_path = self:makeLocalPath(self.m_currDownloadRes['name'])
         self.m_currDownloadRes['web_path'] = web_path
         self.m_currDownloadRes['local_path'] = local_path

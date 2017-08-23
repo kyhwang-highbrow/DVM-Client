@@ -46,7 +46,7 @@ function Network_platform_issueRcode(game_id, fuid, rcode, os, game_push, pushTo
 
     -- 요청 정보 설정
     local t_request = {}
-    t_request['full_url'] = Network:getPlatformApiUrl() .. '/user/issueRcode'
+    t_request['full_url'] = GetPlatformApiUrl() .. '/user/issueRcode'
     t_request['method'] = 'POST'
     t_request['data'] = t_data
 
@@ -79,7 +79,7 @@ function Network_platform_updateTerms(game_id, uid, terms, success_cb, fail_cb)
 
     -- 요청 정보 설정
     local t_request = {}
-    t_request['full_url'] = Network:getPlatformApiUrl() .. '/user/updateTerms'
+    t_request['full_url'] = GetPlatformApiUrl() .. '/user/updateTerms'
     t_request['method'] = 'POST'
     t_request['data'] = t_data
 

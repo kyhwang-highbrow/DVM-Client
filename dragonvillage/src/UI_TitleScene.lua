@@ -126,22 +126,7 @@ function UI_TitleScene:initChatClientSocket()
     --local ip = '192.168.1.63'
     --local port = '3927'
 
-    -- 테스트 채팅 서버
-    local target_server = CppFunctions:getTargetServer()
-    local l_address = {}
-    if (target_server == 'DEV') then
-        l_address = plSplit(URL['CHAT_DEV'], ':')
-
-    elseif (target_server == 'QA') then
-        l_address = plSplit(URL['CHAT_QA'], ':')
-
-    elseif (target_server == 'LIVE') then
-        l_address = plSplit(URL['CHAT_LIVE'], ':')
-
-    end
-
-    local ip = l_address[1]
-    local port = l_address[2]
+    local ip, port = GetChatServerUrl()
     local chat_client_socket = ChatClientSocket(ip, port)
 
     -- 유저 정보 입력
@@ -748,7 +733,7 @@ function UI_TitleScene:workBillingSetup()
     end
 
     -- 영수증 검증 API 주소
-    local url = Network:getPlatformApiUrl() .. '/payment/receiptValidation/'
+    local url = GetPlatformApiUrl() .. '/payment/receiptValidation/'
     PerpleSDK:billingSetup(url, call_back)
 end
 function UI_TitleScene:workBillingSetup_click()

@@ -216,7 +216,7 @@ end
 
 function Network:SimpleRequest(t, do_decode)
     local full_url = t['full_url']
-	local url = full_url or (self:getApiUrl() .. t['url'])
+	local url = full_url or (GetApiUrl() .. t['url'])
 	local data = t['data'] or {}
 	local method = t['method'] or 'GET'
 	local success = t['success'] or function(ret) end
@@ -327,7 +327,7 @@ end
 function Network:HMacRequest(t, do_decode)
 
     local full_url = t['full_url']
-	local url = full_url or (self:getApiUrl() .. t['url'])
+	local url = full_url or (GetApiUrl() .. t['url'])
 	local data = t['data'] or {}
 	local method = t['method'] or 'POST'
 	local success = t['success'] or function(ret) end
@@ -384,43 +384,6 @@ function Network:HMacRequest(t, do_decode)
 end
 
 -------------------------------------
--- function getApiUrl
--- @brief 서버 API URL
--------------------------------------
-function Network:getApiUrl()
-    local target_server = CppFunctions:getTargetServer()
-    local api_url = URL['SERVER_DEV']
-    
-    if (target_server == 'QA') then
-        api_url = URL['SERVER_QA']
-
-    elseif (target_server == 'LIVE') then
-        api_url = URL['SERVER_LIVE']
-    end
-
-    return api_url
-end
-
--------------------------------------
--- function getPlatformApiUrl
--- @brief 플랫폼 서버 API URL
--------------------------------------
-function Network:getPlatformApiUrl()
-    local target_server = CppFunctions:getTargetServer()
-    local api_url = URL['PLATFORM_DEV']
-
-    if (target_server == 'QA') then
-        api_url = URL['PLATFORM_QA']
-    
-    elseif (target_server == 'LIVE') then
-        api_url = URL['PLATFORM_LIVE']
-
-    end
-
-    return api_url
-end
-
--------------------------------------
 -- function Network_saveDump
 -- @breif 
 -------------------------------------
@@ -460,7 +423,7 @@ function Network:saveDump(t_request, ret)
     local request = dkjson.encode(t_request['data'], {indent=true})
     local response = dkjson.encode(ret, {indent=true})
 
-    local full_url = t_request['full_url'] or (self:getApiUrl() .. t_request['url'])
+    local full_url = t_request['full_url'] or (GetApiUrl() .. t_request['url'])
     local str = '# time(m/d/y h:m:s)\n' .. time .. '\n\n# url\n' .. full_url .. '\n\n# request\n' .. request .. '\n\n# response\n' .. response
     
     f:write(str)
