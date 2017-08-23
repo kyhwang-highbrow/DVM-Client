@@ -332,6 +332,7 @@ xcopy /Y /Q "$(ProjectDir)..\..\libraries\pati\prebuilt\windows\*.dll" "$(OutDir
     <None Include="..\src\IEventListener.lua" />
     <None Include="..\src\IHighlight.lua" />
     <None Include="..\src\ISkillMultiAttack.lua" />
+    <None Include="..\src\ISkillSound.lua" />
     <None Include="..\src\IStateHelper.lua" />
     <None Include="..\src\ITabUI.lua" />
     <None Include="..\src\LobbyCharacter.lua" />
@@ -777,6 +778,7 @@ xcopy /Y /Q "$(ProjectDir)..\..\libraries\pati\prebuilt\windows\*.dll" "$(OutDir
     <None Include="..\src\TableRuneSet.lua" />
     <None Include="..\src\TableScenarioResource.lua" />
     <None Include="..\src\TableSecretDungeon.lua" />
+    <None Include="..\src\TableSkillSound.lua" />
     <None Include="..\src\TableSlime.lua" />
     <None Include="..\src\TableSlimeExp.lua" />
     <None Include="..\src\TableStageData.lua" />

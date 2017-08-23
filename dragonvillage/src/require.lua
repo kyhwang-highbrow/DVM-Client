@@ -132,6 +132,7 @@ local t_module = {
     'ITopUserInfo_EventListener',
     'ITabUI',
 	'ISkillMultiAttack',
+    'ISkillSound',
 
     -- Util
     'SDKManager',
@@ -264,6 +265,7 @@ local t_module = {
     'TableSummonGacha',
     'TableUILocation',
     'TableHighbrow',
+    'TableSkillSound',
 
     -- Scene
     'SceneCommon',

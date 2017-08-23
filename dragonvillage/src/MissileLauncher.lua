@@ -1,7 +1,9 @@
+local PARENT = class(Entity, ISkillSound:getCloneTable())
+
 -------------------------------------
 -- class MissileLauncher
 -------------------------------------
-MissileLauncher = class(Entity, {
+MissileLauncher = class(PARENT, {
         m_owner = 'Character',
         m_attackOffsetX = 'number',
         m_attackOffsetY = 'number',
@@ -56,6 +58,7 @@ function MissileLauncher:init_missileLauncher(t_skill, object_key, activity_carr
 
     -- 상태 생성
     self:addState('attack', MissileLauncher.st_attack, 'idle', true)
+    self:addState('dying_wait', MissileLauncher.st_dying_wait, nil, nil, 3)
     self:addState('dying', function(owner, dt) return true end, nil, true, 3)
     self:changeState('attack')
 
@@ -117,6 +120,11 @@ function MissileLauncher:init_missileLauncher(t_skill, object_key, activity_carr
 
     -- 미사일 패턴 초기화
     self:init_missilePattern(self.m_attackIdx)
+
+    -- 사운드 설정
+    if (t_skill) then
+        self:initSkillSound(t_skill['sid'])
+    end
 end
 
 -------------------------------------
@@ -129,7 +137,7 @@ function MissileLauncher:init_missileLauncherByScript(script_data, object_key, a
 
     -- 상태 생성
     self:addState('attack', MissileLauncher.st_attack, 'idle', true)
-    self:addState('dying', function(owner, dt) return true end, nil, true, 3)
+    self:addState('dying', function(owner, dt) return true end, nil, nil, 3)
     self:changeState('attack')
     
     self.m_tAttackValueBase = script_data or {}
@@ -176,6 +184,16 @@ function MissileLauncher:setLauncherOwner(owner, attack_offset_x, attack_offset_
     self.m_owner = owner
     self.m_attackOffsetX = attack_offset_x
     self.m_attackOffsetY = attack_offset_y
+end
+
+-------------------------------------
+-- function update
+-------------------------------------
+function MissileLauncher:update(dt)
+    PARENT.update(self, dt)
+
+    -- 사운드 업데이트
+    self:updateSkillSound(dt)
 end
 
 -------------------------------------
@@ -239,9 +257,18 @@ function MissileLauncher.st_attack(owner, dt, pattern_idx)
 
         -- 공격이 종료되었고 에니메이션 재생이 완료되었으면
         if (#owner.m_tAttackIdxCache <= 0) and (owner.m_stateTimer >= owner.m_endTime) then
-            owner:changeState('dying')
+            owner:changeState('dying_wait')
             return true
         end
+    end
+end
+
+-------------------------------------
+-- function st_dying_wait
+-------------------------------------
+function MissileLauncher.st_dying_wait(owner, dt)
+    if (owner:isEndSkillSound()) then
+        owner:changeState('dying', true)
     end
 end
 

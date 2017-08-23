@@ -40,6 +40,7 @@ local TableInfo = {
         status              = {'table_status',              'type',         false},
         status_effect       = {'table_status_effect',       'name',         false},
         formation           = {'table_formation',           'fmid',         false},
+        skill_sound         = {'table_skill_sound',         'sid',          false},
 
 		quest			    = {'table_quest',			    'qid',			false},
 		master_road			= {'table_master_road',			'rid',			false},

@@ -2664,6 +2664,12 @@
     <None Include="..\src\ConstantUrl.lua">
       <Filter>lua\src</Filter>
     </None>
+    <None Include="..\src\TableSkillSound.lua">
+      <Filter>lua\src</Filter>
+    </None>
+    <None Include="..\src\ISkillSound.lua">
+      <Filter>lua\src</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Classes">

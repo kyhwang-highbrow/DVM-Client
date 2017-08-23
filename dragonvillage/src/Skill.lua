@@ -1,4 +1,8 @@
-local PARENT = class(Entity, IEventListener:getCloneTable(), IEventDispatcher:getCloneTable())
+local PARENT = class(Entity,
+    IEventListener:getCloneTable(),
+    IEventDispatcher:getCloneTable(),
+    ISkillSound:getCloneTable()
+)
 
 -------------------------------------
 -- class Skill
@@ -191,6 +195,9 @@ function Skill:update(dt)
         end
     end
 
+    -- 사운드 업데이트
+    self:updateSkillSound(dt)
+
     return PARENT.update(self, dt)
 end
 
@@ -251,9 +258,14 @@ function Skill:setSkillParams(owner, t_skill, t_data)
 
 	self.m_bSkillHitEffect = owner.m_bLeftFormation and (t_skill['chance_type'] == 'active')
         
-    -- 생성
+    -- 콤보 이펙트 생성
     if (self.m_bSkillHitEffect) then
         self.m_skillHitEffctDirector = SkillHitEffectDirector(self.m_owner)
+    end
+
+    -- 사운드 설정
+    if (t_skill) then
+        self:initSkillSound(t_skill['sid'])
     end
 end
 
