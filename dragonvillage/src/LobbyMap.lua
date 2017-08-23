@@ -381,7 +381,7 @@ function LobbyMap:makeLobbyTamerBot(struct_user_info)
 
     local lobby_map = self
     local lobby_ground = self.m_groudNode
-    local player_uid = g_serverData:get('local', 'uid')
+    local player_uid = g_userData:get('uid')
     local uid = struct_user_info:getUid()
     local is_bot = (tostring(player_uid) ~= uid)
 	

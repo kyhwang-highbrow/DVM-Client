@@ -374,7 +374,7 @@ end
 function UI_Lobby:refresh_google()
     local vars = self.vars
 
-    if (g_serverData:isGooglePlayConnected()) then
+    if (g_localData:isGooglePlayConnected()) then
         vars['googleGameBtn']:setVisible(true)
     else
         vars['googleGameBtn']:setVisible(false)

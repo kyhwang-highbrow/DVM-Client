@@ -570,11 +570,3 @@ function ServerData:request_serverTables(finish_cb, fail_cb)
 
     return ui_network
 end
-
--------------------------------------
--- function isGooglePlayConnected
--- @breif
--------------------------------------
-function ServerData:isGooglePlayConnected()
-    return (self:get('local', 'googleplay_connected') == 'on')
-end

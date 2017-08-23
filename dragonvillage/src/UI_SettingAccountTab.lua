@@ -23,7 +23,7 @@ end
 -- function click_copyBtn
 -------------------------------------
 function UI_Setting:click_copyBtn()
-    local recovery_code = g_serverData:get('local', 'recovery_code')
+    local recovery_code = g_localData:get('local', 'recovery_code')
 
     SDKManager:copyOntoClipBoard(tostring(recovery_code))
     UIManager:toastNotificationGreen(Str('복구코드를 복사하였습니다.'))
@@ -40,7 +40,7 @@ function UI_Setting:click_gamecenterBtn()
 
     self.m_loadingUI:showLoading(Str('계정 연결 중...'))
 
-    local old_platform_id = g_serverData:get('local', 'platform_id')
+    local old_platform_id = g_localData:get('local', 'platform_id')
 
     PerpleSDK:linkWithGameCenter(GetPlatformApiUrl() .. '/user/customToken', function(ret, info)
 
@@ -150,7 +150,7 @@ function UI_Setting:click_facebookBtn()
 
     self.m_loadingUI:showLoading(Str('계정 연결 중...'))
 
-    local old_platform_id = g_serverData:get('local', 'platform_id')
+    local old_platform_id = g_localData:get('local', 'platform_id')
 
     PerpleSDK:linkWithFacebook(function(ret, info)
 
@@ -260,7 +260,7 @@ function UI_Setting:click_googleBtn()
 
     self.m_loadingUI:showLoading(Str('계정 연결 중...'))
 
-    local old_platform_id = g_serverData:get('local', 'platform_id')
+    local old_platform_id = g_localData:get('local', 'platform_id')
 
     PerpleSDK:linkWithGoogle(function(ret, info)
         if ret == 'success' then
@@ -470,15 +470,16 @@ function UI_Setting:loginSuccess(info)
     cclog('platform_id:' .. tostring(platform_id))
     cclog('account_info:' .. tostring(account_info))
 
-    g_serverData:applyServerData(fuid, 'local', 'uid')
-    g_serverData:applyServerData(push_token, 'local', 'push_token')
-    g_serverData:applyServerData(platform_id, 'local', 'platform_id')
-    g_serverData:applyServerData(account_info, 'local', 'account_info')
+    g_localData:applyLocalData(fuid, 'local', 'uid')
+
+    g_localData:applyLocalData(push_token, 'local', 'push_token')
+    g_localData:applyLocalData(platform_id, 'local', 'platform_id')
+    g_localData:applyLocalData(account_info, 'local', 'account_info')
 
     if platform_id == 'google.com' then
-        g_serverData:applyServerData('on', 'local', 'googleplay_connected')
+        g_localData:applyLocalData('on', 'local', 'googleplay_connected')
     else
-        g_serverData:applyServerData('off', 'local', 'googleplay_connected')
+        g_localData:applyLocalData('off', 'local', 'googleplay_connected')
     end
 
     self:updateInfo()
@@ -501,9 +502,9 @@ end
 -------------------------------------
 function UI_Setting:updateInfo()
 
-    local platform_id = g_serverData:get('local', 'platform_id') or 'firebase'
-    local account_info = g_serverData:get('local', 'account_info') or 'Guest'
-    local recovery_code = g_serverData:get('local', 'recovery_code')
+    local platform_id = g_localData:get('local', 'platform_id') or 'firebase'
+    local account_info = g_localData:get('local', 'account_info') or 'Guest'
+    local recovery_code = g_localData:get('local', 'recovery_code')
 
     -- 버튼 상태 업데이트
     self.vars['googleBtn']:setEnabled(platform_id ~= 'google.com')

@@ -130,7 +130,7 @@ function UI_TitleScene:initChatClientSocket()
     local chat_client_socket = ChatClientSocket(ip, port)
 
     -- 유저 정보 입력
-    local uid = g_serverData:get('local', 'uid')
+    local uid = g_localData:get('local', 'uid')
     local tamer = g_userData:get('tamer')
     local nickname = g_userData:get('nick')
     local lv = g_userData:get('lv')
@@ -309,7 +309,7 @@ function UI_TitleScene:workCheckUserID()
 
     if isWin32() then
 
-        local uid = g_serverData:get('local', 'uid')
+        local uid = g_localData:get('local', 'uid')
    
         if uid then
             self:doNextWork()
@@ -337,8 +337,8 @@ function UI_TitleScene:workCheckUserID()
 
             local app_ver = getAppVer()
             if app_ver == '0.2.2' then
-                platform_id = g_serverData:get('local', 'platform_id') or 'firebase'
-                account_info = g_serverData:get('local', 'account_info') or 'Guest'
+                platform_id = g_localData:get('local', 'platform_id') or 'firebase'
+                account_info = g_localData:get('local', 'account_info') or 'Guest'
             end
 
             cclog('fuid: ' .. tostring(fuid))
@@ -348,20 +348,20 @@ function UI_TitleScene:workCheckUserID()
 
             -- Firebase에서 발급하는 uid
             -- 게임 uid로 그대로 사용하면 됨
-            g_serverData:applyServerData(fuid, 'local', 'uid')
+            g_localData:applyLocalData(fuid, 'local', 'uid')
 
             -- 푸시 발송을 위한 푸시토큰
             -- 로그인할 때마다 플랫폼 서버에 저장해야 함
-            g_serverData:applyServerData(push_token, 'local', 'push_token')
+            g_localData:applyLocalData(push_token, 'local', 'push_token')
 
             -- 현재 로그인된 계정의 플랫폼ID
             -- Google: 'google.com'
             -- Facebook: 'facebook.com'
             -- Guest: 'firebase'
-            g_serverData:applyServerData(platform_id, 'local', 'platform_id')
+            g_localData:applyLocalData(platform_id, 'local', 'platform_id')
 
             -- 계정 정보(이름 or 이메일)
-            g_serverData:applyServerData(account_info, 'local', 'account_info')
+            g_localData:applyLocalData(account_info, 'local', 'account_info')
 
             -- 혹시 시스템 오류로 멀티연동이 된 경우 현재 로그인한 플랫폼 이외의 연결은 해제한다.
             UnlinkBrokenPlatform(t_info, platform_id)
@@ -370,17 +370,17 @@ function UI_TitleScene:workCheckUserID()
                 local app_ver = getAppVer()
                 if app_ver == '0.2.2' then
                     PerpleSDK:googleLogin(function(ret, info)
-                        g_serverData:applyServerData('on', 'local', 'googleplay_connected')
+                        g_localData:applyLocalData('on', 'local', 'googleplay_connected')
                         self:doNextWork()
                     end)
                 else
                     PerpleSDK:googleLogin(1, function(ret, info)
-                        g_serverData:applyServerData('on', 'local', 'googleplay_connected')
+                        g_localData:applyLocalData('on', 'local', 'googleplay_connected')
                         self:doNextWork()
                     end)
                 end
             else
-                g_serverData:applyServerData('off', 'local', 'googleplay_connected')
+                g_localData:applyLocalData('off', 'local', 'googleplay_connected')
                 self:doNextWork()
             end
 
@@ -417,14 +417,14 @@ function UI_TitleScene:workPlatformLogin()
             ccdump(ret)
 
             -- 복구코드 저장            
-            g_serverData:applyServerData(ret['rcode'], 'local', 'recovery_code')
+            g_localData:applyLocalData(ret['rcode'], 'local', 'recovery_code')
 
             local terms = (ret['terms'] or 1)
             if (terms == 0) then
                 -- 약관 동의 팝업
                 local ui = UI_TermsPopup()
                 local function close_cb()
-                    local agree_terms = g_serverData:get('local', 'agree_terms')
+                    local agree_terms = g_localData:get('local', 'agree_terms')
                     if (agree_terms == 0) then
                         -- 약관 동의 창에서 백키를 누르면 로그인 팝업 단계로 돌아간다.
                         -- 이때 바로 이전 단계로 돌아가면 autoLogin 이 성공하면서 로그인 팝업이 뜨지 않으므로
@@ -451,11 +451,11 @@ function UI_TitleScene:workPlatformLogin()
     end
 
     local game_id = 1003
-    local fuid = g_serverData:get('local', 'uid')
-    local rcode = g_serverData:get('local', 'recovery_code')
+    local fuid = g_localData:get('local', 'uid')
+    local rcode = g_localData:get('local', 'recovery_code')
     local os = 0 -- ( 0 : Android / 1 : iOS )
     local game_push = 1 -- on - 1, off - 0
-    local pushToken = g_serverData:get('local', 'push_token')
+    local pushToken = g_localData:get('local', 'push_token')
     Network_platform_issueRcode(game_id, fuid, rcode, os, game_push, pushToken, success_cb, fail_cb)
 end
 function UI_TitleScene:workPlatformLogin_click()
@@ -468,7 +468,7 @@ end
 function UI_TitleScene:workGameLogin()
     self.m_loadingUI:showLoading(Str('게임 서버에 로그인 중...'))
 
-    local uid = g_serverData:get('local', 'uid')
+    local uid = g_localData:get('local', 'uid')
     local success_cb = function(ret)
         -- @analytics
         Analytics:firstTimeExperience('Login')
@@ -485,7 +485,7 @@ function UI_TitleScene:workGameLogin()
         g_serverData:lockSaveData()
         
 		g_serverData:applyServerData(ret['user'], 'user')
-		g_serverData:applyServerData(ret['tamers'], 'tamers')
+		g_localData:applyLocalData(ret['tamers'], 'tamers')
         
 		g_tamerData:reMappingTamerInfo(ret['tamers'])
 		--g_questData:refreshQuestData(ret['quest_info'])
@@ -522,7 +522,7 @@ end
 function UI_TitleScene:workGetDeck()
     self.m_loadingUI:showLoading(Str('덱 정보 요청 중...'))
 
-    local uid = g_serverData:get('local', 'uid')
+    local uid = g_localData:get('local', 'uid')
 
     local success_cb = function(ret)
         g_serverData:applyServerData(ret['deck'], 'deck')
@@ -814,13 +814,12 @@ function UI_TitleScene:makeRandomUid()
         return string.format('%x', v)
     end) 
 
-    g_serverData:applyServerData(uuid, 'local', 'uid')
-    g_serverData:saveServerDataFile(true)
+    g_localData:applyLocalData(uuid, 'local', 'uid')
 
     if isWin32() then
-        g_serverData:applyServerData('', 'local', 'push_token')
-        g_serverData:applyServerData('firebase', 'local', 'platform_id')
-        g_serverData:applyServerData('Guest', 'local', 'account_info')
+        g_localData:applyLocalData('', 'local', 'push_token')
+        g_localData:applyLocalData('firebase', 'local', 'platform_id')
+        g_localData:applyLocalData('Guest', 'local', 'account_info')
     end
 
 end

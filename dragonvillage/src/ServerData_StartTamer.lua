@@ -42,7 +42,7 @@ end
 -------------------------------------
 function ServerData_StartTamer:request_createAccount(user_type, nick, finish_cb)
     -- 파라미터
-    local uid = g_serverData:get('local', 'uid')
+    local uid = g_userData:get('uid')
 
     -- 콜백 함수
     local function success_cb(ret)

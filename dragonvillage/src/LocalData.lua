@@ -349,3 +349,11 @@ function LocalData:applySetting()
     local engine_mode = self:get('sound_module') or cc.SimpleAudioEngine:getInstance():getEngineMode()
     cc.SimpleAudioEngine:getInstance():setEngineMode(engine_mode)
 end
+
+-------------------------------------
+-- function isGooglePlayConnected
+-- @breif
+-------------------------------------
+function LocalData:isGooglePlayConnected()
+    return (self:get('local', 'googleplay_connected') == 'on')
+end

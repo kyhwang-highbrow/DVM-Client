@@ -16,7 +16,7 @@ function GoogleHelper.updateAchievement(t_data)
         return
     end
     -- 구글 로그인 상태인지 체크
-    if (not g_serverData:isGooglePlayConnected()) then
+    if (not g_localData:isGooglePlayConnected()) then
         return
     end
 
@@ -74,7 +74,7 @@ function GoogleHelper.showAchievement()
             -- @code 가 '-1210' 일 경우 로그아웃한 것임
             local t_info = dkjson.decode(info)
             if t_info.code == '-1210' then
-                g_serverData:applyServerData('off', 'local', 'googleplay_connected')
+                g_localData:applyLocalData('off', 'local', 'googleplay_connected')
                 GoogleHelper.setDirty(true)
             end
         end

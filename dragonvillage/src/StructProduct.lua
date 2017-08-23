@@ -388,7 +388,7 @@ function StructProduct:payment(cb_func)
 
             -- 페이로드 생성
             local payload_table = {}
-            payload_table['uid'] = g_serverData:get('local', 'uid')
+            payload_table['uid'] = g_userData:get('uid')
             payload_table['validation_key'] = validation_key
             payload_table['product_id'] = product_id
             payload_table['price'] = price

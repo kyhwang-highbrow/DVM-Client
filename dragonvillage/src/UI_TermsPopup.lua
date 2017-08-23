@@ -68,7 +68,7 @@ end
 -- function click_closeBtn
 -------------------------------------
 function UI_TermsPopup:click_closeBtn()
-    g_serverData:applyServerData(0, 'local', 'agree_terms')
+    g_localData:applyLocalData(0, 'local', 'agree_terms')
     self:close()
 end
 
@@ -114,16 +114,16 @@ end
 function UI_TermsPopup:checkAgreeState()
     if self.m_agree1 == 1 and self.m_agree2 == 1 then
         local success_cb = function(ret)
-            g_serverData:applyServerData(1, 'local', 'agree_terms')
+            g_localData:applyLocalData(1, 'local', 'agree_terms')
             self:close()
         end
         local fail_cb = function(ret)
             ccdump(ret)
-            g_serverData:applyServerData(1, 'local', 'agree_terms')
+            g_localData:applyLocalData(1, 'local', 'agree_terms')
             self:close()
         end
         local game_id = 1003
-        local uid = g_serverData:get('local', 'uid')
+        local uid = g_localData:get('local', 'uid')
         local terms = 1
         Network_platform_updateTerms(game_id, uid, terms, success_cb, fail_cb)
     end

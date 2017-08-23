@@ -475,14 +475,14 @@ function UI_Setting:refresh_devTap()
     local vars = self.vars
 
     -- fps
-    if g_serverData:get('local', 'fps') then
+    if g_localData:get('fps') then
         vars['fpsLabel']:setString('ON')
     else
         vars['fpsLabel']:setString('OFF')
     end
 
     -- new sound module
-    local engine_mode = g_serverData:get('local', 'sound_module') or cc.SimpleAudioEngine:getInstance():getEngineMode()
+    local engine_mode = g_localData:get('sound_module') or cc.SimpleAudioEngine:getInstance():getEngineMode()
     if engine_mode == 1 then
         vars['soundModuleLabel']:setString('ON')
     else

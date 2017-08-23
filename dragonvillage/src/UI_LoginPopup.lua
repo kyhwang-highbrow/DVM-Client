@@ -197,15 +197,15 @@ function UI_LoginPopup:loginSuccess(info)
     cclog('platform_id:' .. tostring(platform_id))
     cclog('account_info:' .. tostring(account_info))
 
-    g_serverData:applyServerData(fuid, 'local', 'uid')
-    g_serverData:applyServerData(push_token, 'local', 'push_token')
-    g_serverData:applyServerData(platform_id, 'local', 'platform_id')
-    g_serverData:applyServerData(account_info, 'local', 'account_info')
+    g_localData:applyLocalData(fuid, 'local', 'uid')
+    g_localData:applyLocalData(push_token, 'local', 'push_token')
+    g_localData:applyLocalData(platform_id, 'local', 'platform_id')
+    g_localData:applyLocalData(account_info, 'local', 'account_info')
 
     if platform_id == 'google.com' then
-        g_serverData:applyServerData('on', 'local', 'googleplay_connected')
+        g_localData:applyLocalData('on', 'local', 'googleplay_connected')
     else
-        g_serverData:applyServerData('off', 'local', 'googleplay_connected')
+        g_localData:applyLocalData('off', 'local', 'googleplay_connected')
     end
 
     -- 혹시 시스템 오류로 멀티연동이 된 경우 현재 로그인한 플랫폼 이외의 연결은 해제한다.
