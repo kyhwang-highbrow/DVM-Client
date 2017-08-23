@@ -415,6 +415,12 @@ end
 -- @brief 재료 카드 만든 후..
 -------------------------------------
 function UI_DragonManage_Base:createMtrlDragonCardCB(ui, data)
+    local possible, msg = g_dragonsData:possibleMaterialDragon(data['id'])
+    if (not possible) then
+        if ui then
+            ui:setShadowSpriteVisible(true)
+        end
+    end
 end
 
 -------------------------------------

@@ -730,10 +730,10 @@ function ServerData_Dragons:impossibleLevelupForever(doid)
 end
 
 -------------------------------------
--- function checkUpgradeable
+-- function possibleUpgradeable
 -- @brief
 -------------------------------------
-function ServerData_Dragons:checkUpgradeable(doid)
+function ServerData_Dragons:possibleUpgradeable(doid)
     local t_dragon_data = self:getDragonObject(doid)
 
     if (not t_dragon_data) then
@@ -763,28 +763,28 @@ function ServerData_Dragons:checkUpgradeable(doid)
 end
 
 -------------------------------------
--- function checkMaxUpgrade
+-- function impossibleUpgradeForever
 -- @brief
 -------------------------------------
-function ServerData_Dragons:checkMaxUpgrade(doid)
+function ServerData_Dragons:impossibleUpgradeForever(doid)
     local t_dragon_data = self:getDragonObject(doid)
 
     if (not t_dragon_data) then
-        return false
+        return true
     end
 
     if (t_dragon_data.m_objectType == 'slime') then
-        return false, Str('슬라임은 승급 할 수 없습니다.')
+        return true, Str('슬라임은 승급 할 수 없습니다.')
     end
 
     local grade = t_dragon_data['grade']
 
     -- 최대 등급 체크
     if TableGradeInfo:isMaxGrade(grade) then
-        return false, Str('최고 등급의 드래곤입니다.')
+        return true, Str('최고 등급의 드래곤입니다.')
     end
 
-    return true
+    return false
 end
 
 -------------------------------------

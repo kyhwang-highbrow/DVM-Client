@@ -1,9 +1,9 @@
 local PARENT = UI_DragonManage_Base
 
 -------------------------------------
--- class UI_DragonUpgradeNew
+-- class UI_DragonUpgrade
 -------------------------------------
-UI_DragonUpgradeNew = class(PARENT,{
+UI_DragonUpgrade = class(PARENT,{
         --- 재료 중에서 선택된 드래곤
         m_lSelectedMtrlList = 'list',
         m_mSelectedMtrMap = 'map',
@@ -17,9 +17,9 @@ UI_DragonUpgradeNew = class(PARENT,{
 -- function initParentVariable
 -- @brief 자식 클래스에서 반드시 구현할 것
 -------------------------------------
-function UI_DragonUpgradeNew:initParentVariable()
+function UI_DragonUpgrade:initParentVariable()
     -- ITopUserInfo_EventListener의 맴버 변수들 설정
-    self.m_uiName = 'UI_DragonUpgradeNew'
+    self.m_uiName = 'UI_DragonUpgrade'
     self.m_bVisible = true or false
     self.m_titleStr = Str('승급')
     self.m_bUseExitBtn = true or false -- click_exitBtn()함구 구현이 반드시 필요함
@@ -28,12 +28,12 @@ end
 -------------------------------------
 -- function init
 -------------------------------------
-function UI_DragonUpgradeNew:init(doid)
+function UI_DragonUpgrade:init(doid)
     local vars = self:load('dragon_upgrade.ui')
     UIManager:open(self, UIManager.SCENE)
 
     -- backkey 지정
-    g_currScene:pushBackKeyListener(self, function() self:close() end, 'UI_DragonUpgradeNew')
+    g_currScene:pushBackKeyListener(self, function() self:close() end, 'UI_DragonUpgrade')
 	
     self:sceneFadeInAction()
 	
@@ -56,7 +56,7 @@ end
 -------------------------------------
 -- function initUI
 -------------------------------------
-function UI_DragonUpgradeNew:initUI()
+function UI_DragonUpgrade:initUI()
     local vars = self.vars
 
     self:init_dragonTableView()
@@ -89,7 +89,7 @@ end
 -- function initButton
 -- @brief 버튼 UI 초기화
 -------------------------------------
-function UI_DragonUpgradeNew:initButton()
+function UI_DragonUpgrade:initButton()
     local vars = self.vars
     vars['upgradeBtn']:registerScriptTapHandler(function() self:click_upgradeBtn() end)
 end
@@ -97,7 +97,7 @@ end
 -------------------------------------
 -- function refresh
 -------------------------------------
-function UI_DragonUpgradeNew:refresh()
+function UI_DragonUpgrade:refresh()
     local t_dragon_data = self.m_selectDragonData
 
     if (not t_dragon_data) then
@@ -174,7 +174,7 @@ function UI_DragonUpgradeNew:refresh()
     end
 
 	-- 승급 가능 여부 처리
-	local upgradeable = g_dragonsData:checkUpgradeable(self.m_selectDragonOID)
+	local upgradeable = g_dragonsData:possibleUpgradeable(self.m_selectDragonOID)
 	vars['infoLabel']:setVisible(not upgradeable)
 
     self:refresh_upgrade(table_dragon, t_dragon_data)
@@ -187,7 +187,7 @@ end
 -- function refresh_stats
 -- @brief 능력치
 -------------------------------------
-function UI_DragonUpgradeNew:refresh_stats(t_dragon_data)
+function UI_DragonUpgrade:refresh_stats(t_dragon_data)
     local vars = self.vars
     local doid = t_dragon_data['id']
 
@@ -225,7 +225,7 @@ end
 -------------------------------------
 -- function refresh_upgrade
 -------------------------------------
-function UI_DragonUpgradeNew:refresh_upgrade(table_dragon, t_dragon_data)
+function UI_DragonUpgrade:refresh_upgrade(table_dragon, t_dragon_data)
     local vars = self.vars
 
     -- 등급 테이블
@@ -241,22 +241,16 @@ function UI_DragonUpgradeNew:refresh_upgrade(table_dragon, t_dragon_data)
 end
 
 -------------------------------------
--- function getDragonMaterialList
--- @brief 재료리스트 : 승급
+-- function getDragonList
+-- @breif 하단 리스트뷰에 노출될 드래곤 리스트
 -- @override
 -------------------------------------
-function UI_DragonUpgradeNew:getDragonMaterialList(doid)
-    local t_dragon_data = g_dragonsData:getDragonDataFromUid(doid)
-    
+function UI_DragonUpgrade:getDragonList()
     local dragon_dic = g_dragonsData:getDragonListWithSlime()
 
-    -- 자기 자신 드래곤 제외
-    dragon_dic[doid] = nil
-
-    for oid,v in pairs(dragon_dic) do
-        if (v['grade'] < t_dragon_data['grade']) then
-            dragon_dic[oid] = nil
-        elseif (not g_dragonsData:possibleMaterialDragon(oid)) and (not g_slimesData:possibleMaterialSlime_upgrade(oid)) then
+    -- 절대 레벨업 불가능한 드래곤 제외
+    for oid, v in pairs(dragon_dic) do
+        if (g_dragonsData:impossibleUpgradeForever(oid)) then
             dragon_dic[oid] = nil
         end
     end
@@ -265,45 +259,49 @@ function UI_DragonUpgradeNew:getDragonMaterialList(doid)
 end
 
 -------------------------------------
--- function createDragonCardCB
--- @brief 드래곤 생성 콜백
+-- function getDragonMaterialList
+-- @brief 재료리스트 : 승급
 -- @override
 -------------------------------------
-function UI_DragonUpgradeNew:createDragonCardCB(ui, data)
-    local doid = data['id']
+function UI_DragonUpgrade:getDragonMaterialList(doid)
+    local dragon_dic = g_dragonsData:getDragonListWithSlime()
 
-    local upgradeable, msg = g_dragonsData:checkMaxUpgrade(doid)
-    if (not upgradeable) then
-        if ui then
-            ui:setShadowSpriteVisible(true)
+    -- 자기 자신 드래곤 제외
+    if (doid) then
+        dragon_dic[doid] = nil
+    end
+
+    -- 예외적으로 보다 낮은 등급 드래곤은 아예 빼버림
+    -- 승급용이 아닌 슬라임도 제외
+    local t_dragon_data = g_dragonsData:getDragonDataFromUid(doid)
+    for oid,v in pairs(dragon_dic) do
+        if (v['grade'] < t_dragon_data['grade']) then
+            dragon_dic[oid] = nil
+        elseif (v:getObjectType() == 'slime') then
+            if (not g_slimesData:possibleMaterialSlime_upgrade(oid)) then
+                dragon_dic[oid] = nil
+            end
         end
     end
-end
 
--------------------------------------
--- function checkDragonSelect
--- @brief 선택이 가능한 드래곤인지 여부
--- @override
--------------------------------------
-function UI_DragonUpgradeNew:checkDragonSelect(doid)
-	local upgradeable, msg = g_dragonsData:checkMaxUpgrade(doid)
-
-    if upgradeable then
-        return true
-    else
-        UIManager:toastNotificationRed(msg)
-        return false
-    end
+    return dragon_dic
 end
 
 -------------------------------------
 -- function click_dragonMaterial
 -- @override
 -------------------------------------
-function UI_DragonUpgradeNew:click_dragonMaterial(data)
+function UI_DragonUpgrade:click_dragonMaterial(data)
     local vars = self.vars
 
     local doid = data['id']
+
+    -- 선택가능한 재료인지 체크
+    local possible, msg = g_dragonsData:possibleMaterialDragon(doid)
+    if (not possible) then
+        UIManager:toastNotificationRed(msg)
+        return 
+    end
 
     local list_item = self.m_mtrlTableViewTD:getItem(doid)
     local list_item_ui = list_item['ui']
@@ -349,9 +347,9 @@ end
 -------------------------------------
 -- function click_upgradeBtn
 -------------------------------------
-function UI_DragonUpgradeNew:click_upgradeBtn()
+function UI_DragonUpgrade:click_upgradeBtn()
 	-- 승급 가능 여부
-	local upgradeable, msg = g_dragonsData:checkUpgradeable(self.m_selectDragonOID)
+	local upgradeable, msg = g_dragonsData:possibleUpgradeable(self.m_selectDragonOID)
 	if (not upgradeable) then
 		UIManager:toastNotificationRed(msg)
         return
@@ -459,7 +457,7 @@ end
 -- function upgradeDirecting
 -- @brief 강화 연출
 -------------------------------------
-function UI_DragonUpgradeNew:upgradeDirecting(doid, t_prev_dragon_data, t_next_dragon_data)
+function UI_DragonUpgrade:upgradeDirecting(doid, t_prev_dragon_data, t_next_dragon_data)
     local block_ui = UI_BlockPopup()
 
     local directing_animation
@@ -496,4 +494,4 @@ end
 
 
 --@CHECK
-UI:checkCompileError(UI_DragonUpgradeNew)
+UI:checkCompileError(UI_DragonUpgrade)

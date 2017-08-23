@@ -401,14 +401,14 @@ function UI_DragonManageInfo:click_upgradeBtn()
     local doid = self.m_selectDragonOID
 
     do -- 최대 등급인지 확인
-        local upgradeable, msg = g_dragonsData:checkMaxUpgrade(doid)
-        if (not upgradeable) then
+        local upgradeable, msg = g_dragonsData:impossibleUpgradeForever(doid)
+        if (upgradeable) then
             UIManager:toastNotificationRed(msg)
             return
         end
     end
 
-    self:openSubManageUI(UI_DragonUpgradeNew)
+    self:openSubManageUI(UI_DragonUpgrade)
 end
 
 -------------------------------------
