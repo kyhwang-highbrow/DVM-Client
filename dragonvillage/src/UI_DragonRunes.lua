@@ -327,9 +327,12 @@ function UI_DragonRunes:refreshTableViewList()
         local set_id = 0
         for slot=1, 6 do
             local l_item_list = g_runesData:getFilteredRuneList(unequipped, slot, set_id)
+            local count = table.count(l_item_list)
 
-            local is_empty = (table.count(l_item_list) <= 0)
+            local is_empty = (count <= 0)
             vars['emptySlot' .. slot]:setVisible(is_empty)
+
+            vars['runeNumLabel'..slot]:setString(Str('{1}개', count))
         end
     end
 

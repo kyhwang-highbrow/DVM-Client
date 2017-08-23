@@ -368,7 +368,7 @@ function UI_DragonInfoBoard:refresh_dragonRunes(t_dragon_data)
         local active_set_list = rune_set_obj:getActiveRuneSetList()
         vars['runeSetNode']:removeAllChildren()
 
-        local l_pos = getSortPosList(70, #active_set_list)
+        local l_pos = getSortPosList(35, #active_set_list)
         for i,set_id in ipairs(active_set_list) do
             local ui = UI()
             ui:load('dragon_manage_rune_set.ui')
@@ -383,7 +383,7 @@ function UI_DragonInfoBoard:refresh_dragonRunes(t_dragon_data)
 
             -- AddCHild, 위치 지정
             vars['runeSetNode']:addChild(ui.root)
-            ui.root:setPositionX(l_pos[i])
+            ui.root:setPositionY(l_pos[i])
         end
     end
 end
