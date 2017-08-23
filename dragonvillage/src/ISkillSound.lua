@@ -87,7 +87,7 @@ function ISkillSound:playSkillSound(res)
         return
     end
 
-    cclog('ISkillSound:playSkillSound res = ' .. res)
+    --cclog('ISkillSound:playSkillSound res = ' .. res)
     SoundMgr:playEffect(category, res)
 end
 

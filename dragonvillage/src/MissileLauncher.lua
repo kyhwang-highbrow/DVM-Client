@@ -249,7 +249,8 @@ function MissileLauncher.st_attack(owner, dt, pattern_idx)
             local time = cache[1]
             if owner.m_stateTimer >= time then
                 local sound = cache[2]
-                SoundMgr:playEffect('EFFECT', sound)
+                --SoundMgr:playEffect('EFFECT', sound)
+                ISkillSound:playSkillSound(sound)
                 table.remove(owner.m_tSoundIdxCache, 1)
             else
                 break
