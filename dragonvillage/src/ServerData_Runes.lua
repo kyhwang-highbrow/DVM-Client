@@ -219,6 +219,11 @@ end
 function ServerData_Runes:applyRuneData(t_rune_data)
     local roid = t_rune_data['id']
 
+    -- 룬 아이디가 정상적이지 않은 값은 예외처리
+    if (not t_rune_data['rid']) or (t_rune_data['rid'] == 0) then
+        return
+    end
+
     -- 추가일 경우 count 증가
     if (not self.m_mRuneObjects[roid]) then
         self.m_runeCount = (self.m_runeCount + 1)
