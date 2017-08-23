@@ -77,11 +77,11 @@ function UI_Shop:click_exitBtn()
 end
 
 -------------------------------------
--- function addTabWidthTabUI
+-- function addTabWithTabUIAuto
 -------------------------------------
-function UI_Shop:addTabWidthTabUI(tab, button, ui, ...)
+function UI_Shop:addTabWithTabUIAuto(tab, vars, ui, ...)
     ui:setBuyCB(function(ret) self:buyResult(ret) end)
-    return PARENT.addTabWidthTabUI(self, tab, button, ui, ...)
+    return PARENT.addTabWithTabUIAuto(self, tab, vars, ui, ...)
 end
 
 -------------------------------------
