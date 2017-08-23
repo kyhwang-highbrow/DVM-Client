@@ -6,114 +6,100 @@ filter: Linear,Linear
 repeat: none
 darknix_effect_01
   rotate: false
-  xy: 1886, 439
+  xy: 1867, 35
   size: 157, 208
   orig: 157, 208
   offset: 0, 0
   index: -1
-darknix_effect_02
-  rotate: false
-  xy: 1125, 52
-  size: 377, 450
-  orig: 377, 450
-  offset: 0, 0
-  index: -1
 darknix_head_01
   rotate: false
-  xy: 2, 27
+  xy: 2, 26
   size: 571, 475
   orig: 571, 475
   offset: 0, 0
   index: -1
-darknix_neck_01
-  rotate: false
-  xy: 1344, 527
-  size: 338, 448
-  orig: 338, 448
-  offset: 0, 0
-  index: -1
 darknix_wing_01
   rotate: false
-  xy: 2, 504
+  xy: 2, 503
   size: 1340, 721
   orig: 1340, 721
   offset: 0, 0
   index: -1
 darknix_wing_02
-  rotate: true
-  xy: 1504, 6
+  rotate: false
+  xy: 1344, 594
   size: 519, 380
   orig: 519, 380
   offset: 0, 0
   index: -1
-gode_body_01
-  rotate: false
-  xy: 1684, 649
-  size: 362, 326
-  orig: 362, 326
-  offset: 0, 0
-  index: -1
-gode_foot_01
-  rotate: false
-  xy: 1684, 531
-  size: 102, 116
-  orig: 102, 116
-  offset: 0, 0
-  index: -1
-title_acc_01
+gode_arm_01
   rotate: true
-  xy: 1886, 21
-  size: 123, 105
-  orig: 123, 105
+  xy: 1867, 245
+  size: 121, 165
+  orig: 121, 165
   offset: 0, 0
   index: -1
-title_acc_02
+gode_wing_01
   rotate: false
-  xy: 1886, 146
-  size: 140, 107
-  orig: 140, 107
+  xy: 1867, 664
+  size: 178, 310
+  orig: 178, 310
   offset: 0, 0
   index: -1
-title_acc_04
+sunder_01
   rotate: true
-  xy: 1886, 255
-  size: 182, 142
-  orig: 182, 142
+  xy: 1867, 368
+  size: 294, 172
+  orig: 294, 172
   offset: 0, 0
   index: -1
 title_bg_01
   rotate: false
-  xy: 1344, 1506
+  xy: 1344, 1505
   size: 700, 540
   orig: 700, 540
   offset: 0, 0
   index: -1
 title_bg_02
   rotate: false
-  xy: 1344, 977
+  xy: 1344, 976
   size: 700, 527
   orig: 700, 527
   offset: 0, 0
   index: -1
 title_effect_08
   rotate: false
-  xy: 2, 1227
+  xy: 2, 1226
   size: 1340, 819
   orig: 1340, 819
   offset: 0, 0
   index: -1
 title_effect_10
   rotate: false
-  xy: 575, 48
+  xy: 1317, 47
   size: 548, 454
   orig: 548, 454
   offset: 0, 0
   index: -1
-title_logo_05
+title_logo_01
   rotate: false
-  xy: 1788, 588
+  xy: 575, 45
+  size: 740, 456
+  orig: 740, 456
+  offset: 0, 0
+  index: -1
+title_logo_05
+  rotate: true
+  xy: 1469, 531
   size: 61, 59
   orig: 61, 59
+  offset: 0, 0
+  index: -1
+title_logo_06
+  rotate: false
+  xy: 1344, 508
+  size: 123, 84
+  orig: 123, 84
   offset: 0, 0
   index: -1
 
@@ -123,204 +109,218 @@ format: RGBA8888
 filter: Linear,Linear
 repeat: none
 darknix_arm_01
-  rotate: true
-  xy: 1577, 9
+  rotate: false
+  xy: 1616, 1243
   size: 349, 338
   orig: 349, 338
   offset: 0, 0
   index: -1
 darknix_body_01
   rotate: false
-  xy: 1166, 1174
+  xy: 2, 854
   size: 790, 647
   orig: 790, 647
   offset: 0, 0
   index: -1
+darknix_effect_02
+  rotate: false
+  xy: 621, 402
+  size: 377, 450
+  orig: 377, 450
+  offset: 0, 0
+  index: -1
 darknix_finger_01
-  rotate: true
-  xy: 728, 416
+  rotate: false
+  xy: 1129, 796
   size: 446, 445
   orig: 446, 445
   offset: 0, 0
   index: -1
 darknix_hand_01
-  rotate: true
-  xy: 1604, 651
+  rotate: false
+  xy: 1702, 73
   size: 291, 363
   orig: 291, 363
   offset: 0, 0
   index: -1
 darknix_hand_02
   rotate: true
-  xy: 1157, 27
+  xy: 1000, 407
   size: 387, 418
   orig: 387, 418
   offset: 0, 0
   index: -1
+darknix_neck_01
+  rotate: true
+  xy: 1166, 1243
+  size: 338, 448
+  orig: 338, 448
+  offset: 0, 0
+  index: -1
 darknix_tail_01
   rotate: false
-  xy: 1166, 1823
+  xy: 1166, 1824
   size: 826, 222
   orig: 826, 222
   offset: 0, 0
   index: -1
 darknix_wing_03
   rotate: false
-  xy: 886, 4
+  xy: 1420, 384
   size: 269, 410
   orig: 269, 410
   offset: 0, 0
   index: -1
-gode_arm_01
-  rotate: false
-  xy: 621, 1094
-  size: 121, 165
-  orig: 121, 165
-  offset: 0, 0
-  index: -1
-sunder_01
+gode_body_01
   rotate: true
-  xy: 1430, 878
-  size: 294, 172
-  orig: 294, 172
+  xy: 1374, 20
+  size: 362, 326
+  orig: 362, 326
   offset: 0, 0
   index: -1
-title_acc_03
+gode_foot_01
   rotate: false
-  xy: 118, 9
-  size: 333, 316
-  orig: 333, 316
+  xy: 1905, 1000
+  size: 102, 116
+  orig: 102, 116
+  offset: 0, 0
+  index: -1
+title_acc_01
+  rotate: true
+  xy: 1905, 1118
+  size: 123, 105
+  orig: 123, 105
+  offset: 0, 0
+  index: -1
+title_acc_02
+  rotate: true
+  xy: 1920, 1682
+  size: 140, 107
+  orig: 140, 107
   offset: 0, 0
   index: -1
 title_bg_03
   rotate: true
-  xy: 2, 327
+  xy: 794, 991
   size: 510, 333
   orig: 510, 333
   offset: 0, 0
   index: -1
 title_effect_01
-  rotate: false
-  xy: 1175, 423
+  rotate: true
+  xy: 505, 32
   size: 368, 441
   orig: 368, 441
   offset: 0, 0
   index: -1
-title_effect_02
-  rotate: false
-  xy: 1545, 422
-  size: 219, 227
-  orig: 219, 227
-  offset: 0, 0
-  index: -1
 title_effect_03
   rotate: false
-  xy: 2, 1261
+  xy: 1166, 1583
   size: 752, 239
   orig: 752, 239
   offset: 0, 0
   index: -1
 title_effect_05
   rotate: false
-  xy: 2, 839
+  xy: 2, 432
   size: 617, 420
   orig: 617, 420
   offset: 0, 0
   index: -1
 title_effect_06
-  rotate: false
-  xy: 453, 8
+  rotate: true
+  xy: 1577, 810
   size: 431, 326
   orig: 431, 326
   offset: 0, 0
   index: -1
 title_effect_07
   rotate: false
-  xy: 2, 1502
+  xy: 2, 1503
   size: 1162, 543
   orig: 1162, 543
   offset: 0, 0
   index: -1
-title_effect_09
-  rotate: true
-  xy: 1161, 866
-  size: 306, 267
-  orig: 306, 267
-  offset: 0, 0
-  index: -1
 title_effect_11
-  rotate: false
-  xy: 756, 1128
+  rotate: true
+  xy: 1000, 2
   size: 403, 372
   orig: 403, 372
   offset: 0, 0
   index: -1
 title_effect_12
-  rotate: true
-  xy: 337, 336
+  rotate: false
+  xy: 2, 41
   size: 501, 389
   orig: 501, 389
   offset: 0, 0
   index: -1
-title_effect_14
-  rotate: true
-  xy: 1766, 360
-  size: 289, 279
-  orig: 289, 279
-  offset: 0, 0
-  index: -1
-title_logo_01
-  rotate: false
-  xy: 621, 864
-  size: 370, 228
-  orig: 370, 228
-  offset: 0, 0
-  index: -1
 title_logo_02
-  rotate: false
-  xy: 1604, 944
+  rotate: true
+  xy: 1691, 438
   size: 370, 228
   orig: 370, 228
   offset: 0, 0
   index: -1
 title_logo_03
-  rotate: true
-  xy: 2, 8
+  rotate: false
+  xy: 794, 875
   size: 317, 114
   orig: 317, 114
   offset: 0, 0
   index: -1
-title_logo_06
-  rotate: true
-  xy: 1958, 1698
-  size: 123, 84
-  orig: 123, 84
-  offset: 0, 0
-  index: -1
 
 title3.png
-size: 512,512
+size: 1024,1024
 format: RGBA8888
 filter: Linear,Linear
 repeat: none
-gode_wing_01
-  rotate: true
-  xy: 2, 13
-  size: 178, 310
-  orig: 178, 310
+title_acc_03
+  rotate: false
+  xy: 2, 683
+  size: 333, 316
+  orig: 333, 316
+  offset: 0, 0
+  index: -1
+title_acc_04
+  rotate: false
+  xy: 2, 2
+  size: 182, 142
+  orig: 182, 142
+  offset: 0, 0
+  index: -1
+title_effect_02
+  rotate: false
+  xy: 263, 185
+  size: 219, 227
+  orig: 219, 227
   offset: 0, 0
   index: -1
 title_effect_04
   rotate: false
-  xy: 263, 193
+  xy: 628, 731
   size: 198, 268
   orig: 198, 268
   offset: 0, 0
   index: -1
+title_effect_09
+  rotate: false
+  xy: 2, 414
+  size: 306, 267
+  orig: 306, 267
+  offset: 0, 0
+  index: -1
 title_effect_13
   rotate: false
-  xy: 2, 195
+  xy: 2, 146
   size: 259, 266
   orig: 259, 266
+  offset: 0, 0
+  index: -1
+title_effect_14
+  rotate: false
+  xy: 337, 720
+  size: 289, 279
+  orig: 289, 279
   offset: 0, 0
   index: -1
