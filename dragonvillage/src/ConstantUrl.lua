@@ -56,7 +56,7 @@ function GetChatServerUrl()
     local l_address = plSplit(url, ':')
     local ip = l_address[1]
     local port = l_address[2]
-    return ip
+    return ip, port
 end
 
 -- Perplelab
