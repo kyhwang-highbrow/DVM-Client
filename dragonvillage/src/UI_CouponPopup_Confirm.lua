@@ -34,14 +34,10 @@ end
 function UI_CouponPopup_Confirm:initUI()
     local vars = self.vars
     
-    -- @todo-coupon, 쿠폰 정보 표시
-    --self.m_couponData['type']
-    --self.m_couponData['no']
-    --self.m_couponData['cnt']
-    
+    -- self.m_couponData['item_id'] 가 nil 이거나 0 인 경우에 대한 예외 처리 필요
     local t_item = {
-        ['item_id'] = self.m_couponData['type'],
-        ['count'] = self.m_couponData['cnt']
+        ['item_id'] = self.m_couponData['item_id'],
+        ['count'] = self.m_couponData['count']
     }
     local desc = UIHelper:makeItemName(t_item)
     vars['itemLabel']:setString(desc)

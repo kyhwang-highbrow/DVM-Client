@@ -495,3 +495,23 @@ function ServerData_Shop:request_checkReceiptValidation(struct_product, validati
     ui_network:setReuse(false)
     ui_network:request()
 end
+
+-------------------------------------
+-- function request_useCoupon
+-- @breif 쿠폰 사용
+-------------------------------------
+function ServerData_Shop:request_useCoupon(coupon, success_cb, result_cb)
+    -- 파라미터
+    local uid = g_userData:get('uid')
+
+    -- 네트워크 통신 UI 생성
+    local ui_network = UI_Network()
+    ui_network:setUrl('/shop/coupon_use')
+    ui_network:setParam('uid', uid)
+    ui_network:setParam('coupon', coupon)
+    ui_network:setSuccessCB(success_cb)
+    ui_network:setResponseStatusCB(result_cb)
+    ui_network:setRevocable(false)
+    ui_network:setReuse(false)
+    ui_network:request()
+end

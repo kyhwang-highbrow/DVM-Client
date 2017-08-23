@@ -38,7 +38,8 @@ end
 -- @brief 쿠폰 입력
 -------------------------------------
 function UI_Setting:click_couponBtn()
-    -- UI_CouponPopup() 은 하이브로 상점내로 옮기고 여기선 자체 쿠폰 처리만 한다.
+    -- 하이브로 쿠폰의 경우 하이브로 상점내에서 UI_CouponPopup('highbrow')로 호출해야 함
+    UI_CouponPopup()
 end
 
 -------------------------------------
