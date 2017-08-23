@@ -37,6 +37,7 @@ MAP_KEY_FUNC[KEY_A] = 'pause_on_off_auto'
 MAP_KEY_FUNC[KEY_1] = 'tamer_active_skill'
 MAP_KEY_FUNC[KEY_2] = 'tamer_event_skill'
 MAP_KEY_FUNC[KEY_3] = 'print_total_damage_to_hero'
+MAP_KEY_FUNC[KEY_4] = 'reload_skill_sound_table'
 
 MAP_KEY_FUNC[KEY_LEFT_ARROW] = 'camera_move_left'
 MAP_KEY_FUNC[KEY_RIGHT_ARROW] = 'camera_move_right'
@@ -48,6 +49,7 @@ MAP_KEY_FUNC[KEY_5] = 'ingame_test_a'
 MAP_KEY_FUNC[KEY_6] = 'ingame_test_b'
 --MAP_KEY_FUNC[KEY_5] = 'resurrect_dragon'
 --MAP_KEY_FUNC[KEY_6] = 'kill_one_dragon'
+
 MAP_KEY_FUNC[KEY_7] = 'print_skill_info'
 MAP_KEY_FUNC[KEY_8] = 'camera_info'
 MAP_KEY_FUNC[KEY_9] = 'auto_info'
@@ -161,7 +163,7 @@ function GameWorld:se_on_dragon()
 	local dragon_list = self:getDragonList()
     local enemy_list = self:getEnemyList()
 
-    StatusEffectHelper:doStatusEffect(enemy_list[1], dragon_list, 'silence', 'target', 1, 3, 100, 100)
+    StatusEffectHelper:doStatusEffect(enemy_list[1], { dragon_list[1] }, 'stun', 'target', 1, 10, 100, 100)
     --StatusEffectHelper:doStatusEffect(dragon_list[1], dragon_list, 'aspd_up', 'ally_none', 5, 5, 100, 200)
 end
 
@@ -270,6 +272,14 @@ function GameWorld:print_total_damage_to_hero()
     
     self.m_logRecorder.m_totalDamageToHero = 0
     cclog('아군이 받은 누적 피해량 리셋')
+end
+
+-------------------------------------
+-- function reload_skill_sound_table
+-- @brief 스킬 사운드 테이블을 다시 가져옴(파일로부터)
+-------------------------------------
+function GameWorld:reload_skill_sound_table()
+    TABLE:reloadSkillSoundTable()
 end
 
 -------------------------------------

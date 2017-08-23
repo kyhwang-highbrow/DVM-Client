@@ -26,11 +26,17 @@ function ISkillSound:initSkillSound(sid)
 
     for i = 1, 2 do
         local res = t_info['s_res_' .. i]
-        local str_delay = t_info['delay_' .. i]
-        if (res and res ~= '' and str_delay ~= '') then
+        local delay = t_info['delay_' .. i]
+        if (res and res ~= '' and delay ~= '') then
             self.m_mPlayTimesPerRes[res] = {}
 
-            local l_time = pl.stringx.split(t_info['delay_' .. i], ';')
+            local l_time = {}
+
+            if (type(delay) == 'string') then
+                l_time = pl.stringx.split(delay, ';')
+            else
+                l_time = { delay }
+            end
             
             for _, v in ipairs(l_time) do
                 local time = tonumber(v)
@@ -80,6 +86,7 @@ function ISkillSound:playSkillSound(res)
         cclog('invalid skill sound : ' .. res)
         return
     end
+
     cclog('ISkillSound:playSkillSound res = ' .. res)
     SoundMgr:playEffect(category, res)
 end

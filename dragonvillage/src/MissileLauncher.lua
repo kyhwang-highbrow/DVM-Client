@@ -137,6 +137,7 @@ function MissileLauncher:init_missileLauncherByScript(script_data, object_key, a
 
     -- 상태 생성
     self:addState('attack', MissileLauncher.st_attack, 'idle', true)
+    self:addState('dying_wait', MissileLauncher.st_dying_wait, nil, nil, 3)
     self:addState('dying', function(owner, dt) return true end, nil, nil, 3)
     self:changeState('attack')
     

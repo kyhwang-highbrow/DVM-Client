@@ -482,12 +482,26 @@ function TABLE:reloadForGame()
         'drop',
     }
 
-    for k,v in pairs(TableInfo) do
-        TABLE:loadCSVTable(v[1], k, v[2], v[3])
+    for _, v in ipairs(l_table) do
+        local v = TableInfo[k]
+        if (v) then
+            TABLE:loadCSVTable(v[1], k, v[2], v[3])
+        end
     end
 
     TableDragonSkill:initGlobal()
     TableMonsterSkill:initGlobal()
+end
+
+-------------------------------------
+-- function reloadSkillSoundTable
+-------------------------------------
+function TABLE:reloadSkillSoundTable()
+    local k = 'skill_sound'
+    local v = TableInfo[k]
+    if (v) then
+        TABLE:loadCSVTable(v[1], k, v[2], v[3])
+    end
 end
 
 -------------------------------------
