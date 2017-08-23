@@ -74,3 +74,19 @@ function ServerData_ContentLock:checkContentLock(content_name, excute_func)
 
     return false
 end
+
+-------------------------------------
+-- function getOpenContentNameWithLv
+-------------------------------------
+function ServerData_ContentLock:getOpenContentNameWithLv(lv)
+    local table_content_lock = TABLE:get('table_content_lock')
+
+    for _, t_content_lock in pairs(table_content_lock) do
+        local req_user_lv = t_content_lock['req_user_lv']
+        if (req_user_lv == lv) then
+            return t_content_lock['content_name']
+        end
+    end
+
+    return nil
+end

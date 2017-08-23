@@ -182,14 +182,14 @@ function UI_BattleMenu:initDungeonTab()
 
     local l_btn_ui = {}
 
-    -- 진화재료 던전
-    local ui = UI_BattleMenuItem('nest_evo_stone')
+    -- 거목 던전
+    local ui = UI_BattleMenuItem('nest_tree')
     ui.root:setPosition(-472, -94)
     vars['dungeonMenu']:addChild(ui.root)
     table.insert(l_btn_ui, {['ui']=ui, ['x']=-472, ['y']=-94})
 
-    -- 거목 던전
-    local ui = UI_BattleMenuItem('nest_tree')
+    -- 진화재료 던전
+    local ui = UI_BattleMenuItem('nest_evo_stone')
     ui.root:setPosition(-158, -94)
     vars['dungeonMenu']:addChild(ui.root)
     table.insert(l_btn_ui, {['ui']=ui, ['x']=-158, ['y']=-94})
@@ -218,14 +218,14 @@ function UI_BattleMenu:initCompetitionTab()
 
     local l_btn_ui = {}
 
-    -- 콜로세움
-    local ui = UI_BattleMenuItem('colosseum')
+    -- 고대의 탑
+    local ui = UI_BattleMenuItem('ancient')
     ui.root:setPosition(-184, -94)
     vars['competitionMenu']:addChild(ui.root)
     table.insert(l_btn_ui, {['ui']=ui, ['x']=-184, ['y']=-94})
 
-    -- 고대의 탑
-    local ui = UI_BattleMenuItem('ancient')
+    -- 콜로세움
+    local ui = UI_BattleMenuItem('colosseum')
     ui.root:setPosition(184, -94)
     vars['competitionMenu']:addChild(ui.root)
     table.insert(l_btn_ui, {['ui']=ui, ['x']=184, ['y']=-94})

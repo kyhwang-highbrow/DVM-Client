@@ -8,6 +8,7 @@ UI_UserLevelUp = class(PARENT,{
     })
 
 local AUTO_CLOSE_TIME = 3
+local OPEN_CONTENT_TIME = 2.5
 
 -------------------------------------
 -- function init
@@ -18,20 +19,11 @@ function UI_UserLevelUp:init(t_levelup_data)
     UIManager:open(self, UIManager.POPUP)
 
     -- backkey 지정
-    --g_currScene:pushBackKeyListener(self, function() self:close() end, 'UI_UserLevelUp')
+    g_currScene:pushBackKeyListener(self, function() self:close() end, 'UI_UserLevelUp')
 
     self:initUI()
     self:initButton()
     self:refresh()
-
-    -- 자동전투일 경우에는 자동으로 닫힘
-    if (g_autoPlaySetting:isAutoPlay()) then
-        local delay = cc.DelayTime:create(AUTO_CLOSE_TIME)
-	    local callback = cc.CallFunc:create(function()
-		    self:close()
-	    end)
-	    cca.runAction(self.root, cc.Sequence:create(delay, callback))
-    end
 end
 
 -------------------------------------
@@ -78,6 +70,51 @@ function UI_UserLevelUp:initUI()
         -- 증가분인지 회복량인지 미정. 혹은 삭제 될 수 있음
         local add_stamina = curr_stamina - prev_stamina
         bonus_label:setNumber(add_stamina)
+    end
+
+    -- 컨텐츠 오픈 팝업
+    local function open_content_popup(content_type)
+        local ui = UI()
+        ui:load('popup_contents_open.ui')
+        ui.vars['contentsVisual']:changeAni(content_type, true)
+        ui.vars['contentsLabel']:setString(getContentName(content_type))
+        ui:sceneFadeInAction()
+        UIManager:open(ui, UIManager.POPUP)
+
+        local delay1 = cc.DelayTime:create(OPEN_CONTENT_TIME)
+	    local fade_out = cc.CallFunc:create(function()
+		    doAllChildren(ui.root, function(node) node:runAction(cc.FadeOut:create(0.5)) end)
+	    end)
+        local delay2 = cc.DelayTime:create(0.5)
+        local close = cc.CallFunc:create(function()
+		    ui:close()
+	    end)
+
+        cca.runAction(ui.root, cc.Sequence:create(delay1, fade_out, delay2, close))
+    end
+
+    -- 연속전투, 컨텐츠 오픈 체크 액션
+    do
+        local delay1 = cc.DelayTime:create(1.5)
+	    local check_open = cc.CallFunc:create(function()
+            for lv = prev_lv + 1, curr_lv do
+                local content_type = g_contentLockData:getOpenContentNameWithLv(lv)
+                if (content_type) then
+                    open_content_popup(content_type)
+                    break
+                end
+            end
+	    end)
+
+        local delay2 = cc.DelayTime:create(AUTO_CLOSE_TIME)
+        local check_auto = cc.CallFunc:create(function()
+            -- 연속전투일 경우에는 자동으로 닫힘
+            if (g_autoPlaySetting:isAutoPlay()) then
+		        self:close()
+            end
+	    end)
+
+	    cca.runAction(self.root, cc.Sequence:create(delay1, check_open, delay2, check_auto))
     end
 end
 
