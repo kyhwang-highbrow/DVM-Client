@@ -45,7 +45,9 @@ function UI_AcquisitionRegionListItem:initUI()
 		do -- 보스 썸네일 표시
 			local table_stage_desc = TableStageDesc()
 			local icon = table_stage_desc:getLastMonsterIcon(stage_id)
-			vars['iconNode']:addChild(icon.root)
+            if icon then
+			    vars['iconNode']:addChild(icon.root)
+            end
 		end
 
 	-- 드래곤 획득 방법
