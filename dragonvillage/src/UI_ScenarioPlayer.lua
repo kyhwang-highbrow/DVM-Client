@@ -228,7 +228,7 @@ function UI_ScenarioPlayer:showPage()
     do -- 사운드
         local sound = t_page['sound']
         if sound then
-            SoundMgr:playEffect('EFFECT', sound)
+            SoundMgr:playEffect('EFX', sound)
         end
     end
 
