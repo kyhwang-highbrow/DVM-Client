@@ -167,12 +167,23 @@ function UI_CouponPopup:normal_coupon(couponCode)
     end
 
     local function result_cb(ret)
+        local msg = ''
         if (ret['status'] == -3167) then
-            local msg = Str('이미 사용된 쿠폰 번호입니다. 새로운 쿠폰 번호를 입력해 주세요.')
-            MakeSimplePopup(POPUP_TYPE.OK, msg)
-            return true;
+            msg = Str('이미 사용된 쿠폰 번호입니다.\n다시 입력해 주세요.')
+        elseif (ret['status'] == -1167) then
+            msg = Str('유효하지 않은 쿠폰 번호입니다.\n다시 입력해 주세요.')
+        elseif (ret['status'] == -1667) then
+            msg = Str('사용 기한이 만료된 쿠폰 번호입니다.\n다시 입력해 주세요.')
+        elseif (ret['status'] == -1767) then
+            msg = Str('사용 가능한 횟수가 초과된 쿠폰 번호입니다.\n다시 입력해 주세요.')
+        elseif (ret['status'] == -1367) then
+            msg = Str('쿠폰 번호를 처리하는 과정에 오류가 발생하였습니다.\n다시 시도해 주세요.')
+        else
+            return false;
         end
-        return false;
+
+        MakeSimplePopup(POPUP_TYPE.OK, msg)
+        return true;
     end
 
     ServerData_Shop:request_useCoupon(couponCode, success_cb, result_cb)
