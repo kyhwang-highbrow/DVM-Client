@@ -62,4 +62,8 @@ if false then
 
     -- @brief 친구 관리로 이동
     UINavigator:goTo('friend')
+
+    -- @brief 드래곤 관리로 이동
+    -- @param optional sub_menu (level_up, grade, evolution, friendship, skill_enc, rune)
+    UINavigator:goTo('dragon_manage', sub_menu)
 end
