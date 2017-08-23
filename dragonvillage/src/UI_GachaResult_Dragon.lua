@@ -353,4 +353,5 @@ end
 -------------------------------------
 function UI_GachaResult_Dragon:onClose()
     SoundMgr:playPrevBGM()
+    PARENT.onClose(self)
 end
