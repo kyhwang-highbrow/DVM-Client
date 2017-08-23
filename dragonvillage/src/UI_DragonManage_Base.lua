@@ -422,7 +422,14 @@ end
 -- @brief 재료 리스트를 반환
 -------------------------------------
 function UI_DragonManage_Base:getDragonMaterialList(doid)
-	error('미정의된 함수 getDragonMaterialList')
+    local dragon_dic = g_dragonsData:getDragonListWithSlime()
+
+    -- 자기 자신 드래곤 제외
+    if doid then
+        dragon_dic[doid] = nil
+    end
+
+    return dragon_dic
 end
 
 -------------------------------------

@@ -420,8 +420,8 @@ function UI_DragonManageInfo:click_evolutionBtn()
 	local did = self.m_selectDragonData['did']
 	
 	do -- 진화 가능 여부
-        local possible, msg = g_dragonsData:checkDragonEvolution(doid)
-        if (not possible) then
+        local possible, msg = g_dragonsData:impossibleEvolutionForever(doid)
+        if (possible) then
             UIManager:toastNotificationRed(msg)
             return
         end

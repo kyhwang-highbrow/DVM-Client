@@ -441,106 +441,6 @@ function ServerData_Dragons:isMaxGrade(dragon_object_id)
 end
 
 -------------------------------------
--- function checkUpgradeable
--- @brief
--------------------------------------
-function ServerData_Dragons:checkUpgradeable(doid)
-    local t_dragon_data = self:getDragonObject(doid)
-
-    if (not t_dragon_data) then
-        return false
-    end
-
-    if (t_dragon_data.m_objectType == 'slime') then
-        return false, Str('슬라임은 승급 할 수 없습니다.')
-    end
-
-    local grade = t_dragon_data['grade']
-    local eclv = t_dragon_data['eclv']
-    local level = t_dragon_data['lv']
-
-    -- 최대 등급 체크
-    if TableGradeInfo:isMaxGrade(grade) then
-        return false, Str('최고 등급의 드래곤입니다.')
-    end
-
-    -- 최대 레벨 체크
-    local is_max_level, max_lv = TableGradeInfo:isMaxLevel(grade, level)
-    if (not is_max_level) then
-        return false, Str('등급별 최대 레벨 {1}에서 승급이 가능합니다.', max_lv)
-    end
-
-    return true
-end
-
--------------------------------------
--- function checkMaxUpgrade
--- @brief
--------------------------------------
-function ServerData_Dragons:checkMaxUpgrade(doid)
-    local t_dragon_data = self:getDragonObject(doid)
-
-    if (not t_dragon_data) then
-        return false
-    end
-
-    if (t_dragon_data.m_objectType == 'slime') then
-        return false, Str('슬라임은 승급 할 수 없습니다.')
-    end
-
-    local grade = t_dragon_data['grade']
-
-    -- 최대 등급 체크
-    if TableGradeInfo:isMaxGrade(grade) then
-        return false, Str('최고 등급의 드래곤입니다.')
-    end
-
-    return true
-end
-
--------------------------------------
--- function checkDragonEvolution
--- @brief 진화 가능 여부
--------------------------------------
-function ServerData_Dragons:checkDragonEvolution(doid)
-    local t_dragon_data = self:getDragonObject(doid)
-
-    if (not t_dragon_data) then
-        return false
-    end
-
-	local did = t_dragon_data['did']
-	if (TableDragon:isUnderling(did)) then
-		return false, Str('몬스터는 진화 할 수 없습니다.') 
-	end
-
-    if (t_dragon_data.m_objectType == 'slime') then
-        return false, Str('슬라임은 진화 할 수 없습니다.')
-    end
-
-	local grade = t_dragon_data:getGrade()
-	local evolution = t_dragon_data:getEvolution()
-	local birth_grade = TableDragon():getValue(did, 'birthgrade')
-
-	-- 해치는 태생등급 이상인 경우 진화 가능
-	if (evolution == 1) and (grade < birth_grade) then
-		return false, Str('{1}성으로 승급해야 진화가 가능합니다.', birth_grade)
-
-	-- 해츨링은 태생등급 + 1 이상인 경우 진화 가능
-	elseif (evolution == 2) and (grade < birth_grade + 1) then
-		return false, Str('{1}성으로 승급해야 진화가 가능합니다.', birth_grade + 1)
-
-	end
-
-	-- 성룡 체크
-	if (evolution >= MAX_DRAGON_EVOLUTION) then
-		return false, Str('더이상 진화 할 수 없습니다.')
-	end
-
-    return true
-end
-
--------------------------------------
 -- function getDragonsSortData
 -------------------------------------
 function ServerData_Dragons:getDragonsSortData(doid)
@@ -825,6 +725,136 @@ function ServerData_Dragons:impossibleLevelupForever(doid)
             return true, Str('{1}등급 최대레벨 {2}에 달성하였습니다.', grade, max_lv)
         end
     end
+
+    return false
+end
+
+-------------------------------------
+-- function checkUpgradeable
+-- @brief
+-------------------------------------
+function ServerData_Dragons:checkUpgradeable(doid)
+    local t_dragon_data = self:getDragonObject(doid)
+
+    if (not t_dragon_data) then
+        return false
+    end
+
+    if (t_dragon_data.m_objectType == 'slime') then
+        return false, Str('슬라임은 승급 할 수 없습니다.')
+    end
+
+    local grade = t_dragon_data['grade']
+    local eclv = t_dragon_data['eclv']
+    local level = t_dragon_data['lv']
+
+    -- 최대 등급 체크
+    if TableGradeInfo:isMaxGrade(grade) then
+        return false, Str('최고 등급의 드래곤입니다.')
+    end
+
+    -- 최대 레벨 체크
+    local is_max_level, max_lv = TableGradeInfo:isMaxLevel(grade, level)
+    if (not is_max_level) then
+        return false, Str('등급별 최대 레벨 {1}에서 승급이 가능합니다.', max_lv)
+    end
+
+    return true
+end
+
+-------------------------------------
+-- function checkMaxUpgrade
+-- @brief
+-------------------------------------
+function ServerData_Dragons:checkMaxUpgrade(doid)
+    local t_dragon_data = self:getDragonObject(doid)
+
+    if (not t_dragon_data) then
+        return false
+    end
+
+    if (t_dragon_data.m_objectType == 'slime') then
+        return false, Str('슬라임은 승급 할 수 없습니다.')
+    end
+
+    local grade = t_dragon_data['grade']
+
+    -- 최대 등급 체크
+    if TableGradeInfo:isMaxGrade(grade) then
+        return false, Str('최고 등급의 드래곤입니다.')
+    end
+
+    return true
+end
+
+-------------------------------------
+-- function possibleDragonEvolution
+-- @brief 진화 가능 여부
+-------------------------------------
+function ServerData_Dragons:possibleDragonEvolution(doid)
+    local t_dragon_data = self:getDragonObject(doid)
+
+    if (not t_dragon_data) then
+        return false
+    end
+
+	local did = t_dragon_data['did']
+	if (TableDragon:isUnderling(did)) then
+		return false, Str('몬스터는 진화 할 수 없습니다.') 
+	end
+
+    if (t_dragon_data.m_objectType == 'slime') then
+        return false, Str('슬라임은 진화 할 수 없습니다.')
+    end
+
+	local grade = t_dragon_data:getGrade()
+	local evolution = t_dragon_data:getEvolution()
+	local birth_grade = TableDragon:getValue(did, 'birthgrade')
+
+	-- 해치는 태생등급 이상인 경우 진화 가능
+	if (evolution == 1) and (grade < birth_grade) then
+		return false, Str('{1}성으로 승급해야 진화가 가능합니다.', birth_grade)
+
+	-- 해츨링은 태생등급 + 1 이상인 경우 진화 가능
+	elseif (evolution == 2) and (grade < birth_grade + 1) then
+		return false, Str('{1}성으로 승급해야 진화가 가능합니다.', birth_grade + 1)
+
+	end
+
+	-- 성룡 체크
+	if (evolution >= MAX_DRAGON_EVOLUTION) then
+		return false, Str('더이상 진화 할 수 없습니다.')
+	end
+
+    return true
+end
+
+-------------------------------------
+-- function impossibleEvolutionForever
+-- @brief 진화 절대 불가
+-------------------------------------
+function ServerData_Dragons:impossibleEvolutionForever(doid)
+    local t_dragon_data = self:getDragonObject(doid)
+
+    if (not t_dragon_data) then
+        return true
+    end
+
+	local did = t_dragon_data['did']
+	if (TableDragon:isUnderling(did)) then
+		return true, Str('몬스터는 진화 할 수 없습니다.') 
+	end
+
+    if (t_dragon_data.m_objectType == 'slime') then
+        return true, Str('슬라임은 진화 할 수 없습니다.')
+    end
+
+
+	-- 성룡 체크
+    local evolution = t_dragon_data:getEvolution()
+	if (evolution >= MAX_DRAGON_EVOLUTION) then
+		return true, Str('더이상 진화 할 수 없습니다.')
+	end
 
     return false
 end

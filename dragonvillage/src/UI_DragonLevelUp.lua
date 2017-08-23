@@ -202,22 +202,6 @@ function UI_DragonLevelUp:getDragonList()
 end
 
 -------------------------------------
--- function getDragonMaterialList
--- @brief 재료리스트 : 레벨업
--- @override
--------------------------------------
-function UI_DragonLevelUp:getDragonMaterialList(doid)
-    local dragon_dic = g_dragonsData:getDragonListWithSlime()
-
-    -- 자기 자신 드래곤 제외
-    if doid then
-        dragon_dic[doid] = nil
-    end
-
-    return dragon_dic
-end
-
--------------------------------------
 -- function click_dragonMaterial
 -- @override
 -------------------------------------
