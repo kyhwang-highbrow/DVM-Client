@@ -1,4 +1,4 @@
-local PARENT = Entity
+local PARENT = class(Entity, ISkillSound:getCloneTable())
 
 -------------------------------------
 -- class CommonMissile
@@ -75,6 +75,11 @@ function CommonMissile:initCommonMissile(owner, t_skill)
 	if (self.m_motionStreakRes == '') then 
 		self.m_motionStreakRes = nil 
 	end
+
+    -- 사운드 설정
+    if (t_skill) then
+        self:initSkillSound(t_skill['sid'])
+    end
 end
 
 -------------------------------------
@@ -97,8 +102,9 @@ end
 -- function initState
 -------------------------------------
 function CommonMissile:initState()    
-    self:addState('attack', CommonMissile.st_attack, nil, true)
-    self:addState('dying', function(owner, dt) return true end, nil, true, 3)
+    self:addState('attack', CommonMissile.st_attack, nil, nil)
+    self:addState('dying_wait', CommonMissile.st_dying_wait, nil, nil, 3)
+    self:addState('dying', function(owner, dt) return true end, nil, nil, 3)
 end
 
 -------------------------------------
@@ -210,6 +216,16 @@ function CommonMissile:fireMissile()
 end
 
 -------------------------------------
+-- function update
+-------------------------------------
+function CommonMissile:update(dt)
+    PARENT.update(self, dt)
+
+    -- 사운드 업데이트
+    self:updateSkillSound(dt)
+end
+
+-------------------------------------
 -- function st_attack
 -------------------------------------
 function CommonMissile.st_attack(owner, dt)
@@ -240,11 +256,20 @@ function CommonMissile.st_attack(owner, dt)
 	
 	-- 4. 탈출 조건 : 기준 시간 경과 또는 발사수가 1
 	if (owner.m_stateTimer >= owner.m_fireLimitTime) or (owner.m_maxFireCnt == 1) then 
-		owner:changeState('dying')
+		owner:changeState('dying_wait')
         return true
     end
 
     return false
+end
+
+-------------------------------------
+-- function st_dying_wait
+-------------------------------------
+function CommonMissile.st_dying_wait(owner, dt)
+    if (owner:isEndSkillSound()) then
+        owner:changeState('dying', true)
+    end
 end
 
 -------------------------------------
