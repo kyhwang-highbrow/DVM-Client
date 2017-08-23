@@ -61,7 +61,7 @@ end
 
 -- Perplelab
 URL['PERPLELAB_AGREEMENT'] = 'http://s3.dvm.perplelab.com/perplelab/agreement.html'
-URL['PERPLELAB_PI'] = 'http://www.perplelab.com/personalinformation'
+URL['PERPLELAB_PI'] = 'http://s3.dvm.perplelab.com/perplelab/personalinformation.html'
 
 -- Highbrow
 URL['HIGHBROW'] = 'http://account.game.highbrow-inc.com:8080/'
