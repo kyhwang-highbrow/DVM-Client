@@ -70,14 +70,24 @@ end
 -------------------------------------
 -- function refresh
 -------------------------------------
-function UI_QuestPopup:refresh()
+function UI_QuestPopup:refresh(t_quest_data)
 	-- 받을수 있는 보상이 있는지 검사하여 UI에 표시
 	self:setNotiRewardable()
-
+    
     -- 일일 보상 올클 갱신
     if (self.m_currTab == TableQuest.DAILY) then
         self:refreshAllClearQuest()
     end
+
+    -- 테이블뷰 아이템 데이터 교체
+    if (t_quest_data) then
+        local t_item = self.m_tableView:getItem(t_quest_data['idx'])
+        t_item['data'] = t_quest_data
+    end
+    
+    -- 정렬
+    ccdisplay('SORT')
+    self.m_tableView:sortTableView('sort', 'force')
 end
 
 -------------------------------------
@@ -104,13 +114,17 @@ function UI_QuestPopup:makeQuestTableView(tab, node)
     local vars = self.vars
 
 	-- 퀘스트 뭉치
-	local t_quest = g_questData:getQuestListByType(tab)
+	local l_quest = g_questData:getQuestListByType(tab)
+    for idx, v in pairs(l_quest) do
+        v['idx'] = idx
+    end
 
     do -- 테이블 뷰 생성
         node:removeAllChildren()
 
 		-- 퀘스트 팝업 자체를 각 아이템이 가지기 위한 생성 콜백
 		local create_cb_func = function(ui, data)
+            ccdump(data)
             self:cellCreateCB(ui, data)
 		end
          
@@ -119,7 +133,21 @@ function UI_QuestPopup:makeQuestTableView(tab, node)
         table_view.m_defaultCellSize = cc.size(1160 + 10, 108)
         table_view:setCellUIClass(UI_QuestListItem, create_cb_func)
         table_view:setDirection(cc.SCROLLVIEW_DIRECTION_VERTICAL)
-        table_view:setItemList(t_quest)
+        table_view:setItemList(l_quest)
+
+        table_view:insertSortInfo('sort', function(a, b)
+            if (a['data']:isEnd() and not b['data']:isEnd()) then
+                return false
+            elseif (not a['data']:isEnd() and b['data']:isEnd()) then
+                return true
+            elseif (a['data']:hasReward() and not b['data']:hasReward()) then
+                return true
+            elseif (not a['data']:hasReward() and b['data']:hasReward()) then
+                return false
+            else
+                return a['data']['qid'] < b['data']['qid']
+            end
+        end)
 
         self.m_tableView = table_view
     end

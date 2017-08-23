@@ -185,10 +185,10 @@ function ServerData_Quest:getQuestListByType(quest_type)
 	end)
 
 	-- merge 해서 리턴
-	local t_ret = table.merge(l_reward_quest, l_normal_quest)
-	t_ret = table.merge(t_ret, l_completed_quest)
+	local l_ret = table.merge(l_reward_quest, l_normal_quest)
+	l_ret = table.merge(l_ret, l_completed_quest)
     
-	return t_ret
+	return l_ret
 end
 
 -------------------------------------

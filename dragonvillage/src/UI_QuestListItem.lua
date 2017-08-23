@@ -174,8 +174,9 @@ function UI_QuestListItem:click_rewardBtn(ui_quest_popup)
         UI_ToastPopup(toast_msg)
 		
 		-- 갱신
+        t_quest_data['idx'] = self.m_questData['idx']
 		self:refresh(t_quest_data)
-		ui_quest_popup:refresh()
+		ui_quest_popup:refresh(t_quest_data)
 	end
 
 	g_questData:requestQuestReward(self.m_questData, cb_function)

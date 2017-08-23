@@ -9,6 +9,7 @@ StructQuestData = class({
         t_quest = 'quest table info',
         reward = 'bool',
         is_end = 'bool',
+        idx = 'number',
     })
 
 -------------------------------------
