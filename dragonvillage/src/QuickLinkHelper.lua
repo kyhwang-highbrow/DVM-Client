@@ -263,50 +263,50 @@ T_LINK_FUNC = {
     
     -- 알 부화
     ['egg'] = function()
-        g_hatcheryData:openHatcheryUI(nil, 'incubate')
+        UINavigator:goTo('hatchery', 'incubate')
     end,
     -- 드래곤 n종 획득
     ['did_u'] = function()
-        g_hatcheryData:openHatcheryUI(nil)
+        UINavigator:goTo('hatchery')
     end,
     -- X 속성 드래곤 n종 획득
     ['attr_u_e'] = function()
-        g_hatcheryData:openHatcheryUI(nil)
+        UINavigator:goTo('hatchery')
     end,
     ['attr_u_w'] = function()
-        g_hatcheryData:openHatcheryUI(nil)
+        UINavigator:goTo('hatchery')
     end,
     ['attr_u_f'] = function()
-        g_hatcheryData:openHatcheryUI(nil)
+        UINavigator:goTo('hatchery')
     end,
     ['attr_u_l'] = function()
-        g_hatcheryData:openHatcheryUI(nil)
+        UINavigator:goTo('hatchery')
     end,
     ['attr_u_d'] = function()
-        g_hatcheryData:openHatcheryUI(nil)
+        UINavigator:goTo('hatchery')
     end,
     -- X 소환 하기
     ['smn'] = function()
-        g_hatcheryData:openHatcheryUI(nil)
+        UINavigator:goTo('hatchery')
     end,
     ['smn_fp'] = function()
-        g_hatcheryData:openHatcheryUI(nil)
+        UINavigator:goTo('hatchery')
     end,
     ['smn_rel'] = function()
-        g_hatcheryData:openHatcheryUI(nil)
+        UINavigator:goTo('hatchery')
     end,
     -- 조합 하기
     ['comb'] = function()
-        g_hatcheryData:openHatcheryUI(nil, 'combination')
+        UINavigator:goTo('hatchery', 'combination')
     end,
     ['comb_120101'] = function()
-        g_hatcheryData:openHatcheryUI(nil, 'combination')
+        UINavigator:goTo('hatchery', 'combination')
     end,
     ['comb_120345'] = function()
-        g_hatcheryData:openHatcheryUI(nil, 'combination')
+        UINavigator:goTo('hatchery', 'combination')
     end,
     ['comb_120404'] = function()
-        g_hatcheryData:openHatcheryUI(nil, 'combination')
+        UINavigator:goTo('hatchery', 'combination')
     end,
 
     -- 바로가기 키를 띄우지 않을 것들

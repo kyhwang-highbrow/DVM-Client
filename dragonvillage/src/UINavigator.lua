@@ -55,4 +55,8 @@ end
 if false then
     -- @brief 드래곤 관리로 이동
     UINavigator:goTo('dragon')
+
+    -- @brief 부화소로 이동
+    -- @param optional tab  (summon, combination, incubate, relation)
+    UINavigator:goTo('hatchery', tab)
 end

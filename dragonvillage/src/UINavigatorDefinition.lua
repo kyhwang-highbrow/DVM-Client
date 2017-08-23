@@ -549,6 +549,44 @@ function UINavigatorDefinition:goTo_dragon(...)
     end
 end
 
+-------------------------------------
+-- function goTo_hatchery
+-- @brief 부화소로 이동
+-- @usage UINavigatorDefinition:goTo('hatchery', tab)
+-------------------------------------
+function UINavigatorDefinition:goTo_hatchery(...)
+    local args = {...}
+    local tab = args[1]
+
+    -- 해당 UI가 열려있을 경우
+    local is_opend, idx, ui = self:findOpendUI('UI_Hatchery')
+    if (is_opend == true) then
+        self:closeUIList(idx, false) -- param : idx, include_idx
+        return
+    end
+
+    local function finish_cb()
+        -- 로비가 열려있을 경우
+        local is_opend, idx, ui = self:findOpendUI('UI_Lobby')
+        if (is_opend == true) then
+            self:closeUIList(idx)
+            UI_Hatchery(tab)
+            return
+        end
+
+        do-- Scene으로 동작
+            local function close_cb()
+                UINavigatorDefinition:goTo('lobby')
+            end
+
+            local scene = SceneCommon(UI_Hatchery, close_cb, tab)
+            scene:runScene()
+        end
+    end
+
+    g_hatcheryData:update_hatcheryInfo(finish_cb)
+end
+
 
 
 

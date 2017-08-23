@@ -431,21 +431,6 @@ function ServerData_Hatchery:getSummonFreeInfo(with_str)
 end
 
 -------------------------------------
--- function openHatcheryUI
--------------------------------------
-function ServerData_Hatchery:openHatcheryUI(close_cb, tab)
-    local function finish_cb()
-        local ui = UI_Hatchery()
-		if (tab) then
-			ui:setTab(tab)
-		end
-        ui:setCloseCB(close_cb)
-    end
-
-    self:update_hatcheryInfo(finish_cb)
-end
-
--------------------------------------
 -- function checkDirty
 -------------------------------------
 function ServerData_Hatchery:checkDirty()

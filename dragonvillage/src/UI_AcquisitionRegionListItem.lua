@@ -125,22 +125,22 @@ function UI_AcquisitionRegionListItem:click_locationBtn()
 		local get_type = self.m_region
 
 		if (get_type == 'combine') then
-			g_hatcheryData:openHatcheryUI(close_cb, get_type)
+			UINavigator:goTo('hatchery', get_type)
 
 		elseif (get_type == 'pick_low') then
-			g_hatcheryData:openHatcheryUI(close_cb)
+			UINavigator:goTo('hatchery')
 
 		elseif (get_type == 'pick_high') then
-			g_hatcheryData:openHatcheryUI(close_cb)
+			UINavigator:goTo('hatchery')
 
 		elseif (get_type == 'mileage') then
-			g_hatcheryData:openHatcheryUI(close_cb)
+			UINavigator:goTo('hatchery')
 
 		elseif (get_type == 'friend') then
-			g_hatcheryData:openHatcheryUI(close_cb)
+			UINavigator:goTo('hatchery')
 
 		elseif (get_type == 'relation') then
-			g_hatcheryData:openHatcheryUI(close_cb, get_type)
+			UINavigator:goTo('hatchery', get_type)
 
         elseif string.find(get_type, 'coupon') then
             ccdisplay('쿠폰 등록 팝업으로 이동!')

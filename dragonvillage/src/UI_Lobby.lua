@@ -427,10 +427,7 @@ end
 -- @brief 마스터의 길 버튼
 -------------------------------------
 function UI_Lobby:click_masterRoadBtn()
-    UI_MasterRoadPopup():setCloseCB(function()
-        -- 노티 정보를 갱신하기 위해서 호출
-        g_highlightData:setLastUpdateTime()
-    end)
+    UI_MasterRoadPopup()
 end
 
 -------------------------------------
@@ -463,11 +460,7 @@ end
 -- @brief 드래곤 소환 (가챠)
 -------------------------------------
 function UI_Lobby:click_drawBtn()
-    local function close_cb()
-        -- 노티 정보를 갱신하기 위해서 호출
-        g_highlightData:setLastUpdateTime()
-    end
-    g_hatcheryData:openHatcheryUI(close_cb)
+    UINavigator:goTo('hatchery', nil)
 end
 
 -------------------------------------

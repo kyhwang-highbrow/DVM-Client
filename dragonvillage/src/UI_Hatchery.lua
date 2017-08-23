@@ -10,7 +10,7 @@ UI_Hatchery = class(PARENT,{
 -------------------------------------
 -- function init
 -------------------------------------
-function UI_Hatchery:init()
+function UI_Hatchery:init(tab)
     local vars = self:load('hatchery.ui')
     UIManager:open(self, UIManager.SCENE)
 
@@ -27,6 +27,10 @@ function UI_Hatchery:init()
     self:refresh()
 
     self:sceneFadeInAction()
+
+    if tab then
+        self:setTab(tab)
+    end
 end
 
 -------------------------------------
