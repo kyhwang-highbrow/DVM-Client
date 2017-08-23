@@ -90,7 +90,7 @@ function UI_MailPopup:refresh(tab)
     vars['emptySprite']:setVisible(self.m_mTableView[tab]:getItemCount() == 0)
     
     -- 아이템 탭은 모두받기 불가능
-    local can_real_all = not((tab == 'item') or (tab == 'coupon'))
+    local can_real_all = (tab ~= 'item')
     vars['rewardAllBtn']:setVisible(can_real_all)
 
     -- noti 갱신
@@ -126,18 +126,12 @@ function UI_MailPopup:makeMailTableView(tab, node)
 
 	-- item ui에 보상 수령 함수 등록하는 콜백 함수
 	local create_cb_func = function(ui, data)
-        -- 쿠폰은 수령시키지 않는다.
-        if (tab == 'coupon') then
-            ui.vars['rewardBtn']:setVisible(false)
-
         -- 보상 버튼 등록
-        else
-            local function click_rewardBtn()
-                local struct_mail = data
-                self:click_rewardBtn(struct_mail)
-            end
-            ui.vars['rewardBtn']:registerScriptTapHandler(click_rewardBtn)
+        local function click_rewardBtn()
+            local struct_mail = data
+            self:click_rewardBtn(struct_mail)
         end
+        ui.vars['rewardBtn']:registerScriptTapHandler(click_rewardBtn)
 	end
 
     -- 테이블 뷰 인스턴스 생성

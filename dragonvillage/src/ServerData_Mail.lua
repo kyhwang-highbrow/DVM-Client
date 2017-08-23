@@ -14,7 +14,7 @@ ServerData_Mail = class({
 -------------------------------------
 function ServerData_Mail:init(server_data)
     self.m_serverData = server_data
-	self.m_lCategory = {'goods', 'st', 'friend', 'item', 'coupon'}
+	self.m_lCategory = {'goods', 'st', 'friend', 'item'}
 end
 
 -------------------------------------
@@ -151,15 +151,7 @@ function ServerData_Mail:makeMailMap(l_mail_list)
 
 			-- 클라에서 미리 정의 하지 않은 것
 			else
-                item_type = table_item:getItemType(item_id)
-
-                if (item_type == 'coupon') then
-                    category = 'coupon'
-
-                else
-				    category = 'item'
-
-                end
+                category = 'item'
 			end
 
 		end
