@@ -2670,6 +2670,9 @@
     <None Include="..\src\ISkillSound.lua">
       <Filter>lua\src</Filter>
     </None>
+    <None Include="..\src\UI_EventPopupTab_HBShop_Coupon.lua">
+      <Filter>lua\UI</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Classes">

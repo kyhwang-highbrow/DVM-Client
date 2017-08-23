@@ -18,15 +18,16 @@ function TableHighbrow:init()
 end
 
 -------------------------------------
--- function init
+-- function find
+-- @param v2 : code or name
 -------------------------------------
-function TableHighbrow:find(game, code)
+function TableHighbrow:find(game, v2)
     if (self == THIS) then
         self = THIS()
     end
 
     for i, v in pairs(self.m_orgTable) do
-        if (v['game'] == game) and (v['code'] == code) then
+        if (v['game'] == game) and ((v['code'] == v2) or (v['name'] == v2))then
             return v
         end
     end

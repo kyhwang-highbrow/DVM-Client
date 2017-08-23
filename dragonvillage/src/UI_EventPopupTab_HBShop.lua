@@ -29,11 +29,6 @@ end
 function UI_EventPopupTab_HBShop:initUI()
     local vars = self.vars
     self:init_tableView()
-
-    -- 시간 표시하지 않는다.
-    vars['timeLabel']:setVisible(false)
-
-    vars['capsuleLabel'] = NumberLabel(vars['capsuleLabel'], 0, 0.3)
 end
 
 -------------------------------------
@@ -43,6 +38,7 @@ function UI_EventPopupTab_HBShop:initButton()
 	local vars = self.vars
     vars['homepageBtn']:registerScriptTapHandler(function() self:click_homepageBtn() end)
     vars['couponBtn']:registerScriptTapHandler(function() self:click_couponBtn() end)
+    vars['codeBtn']:registerScriptTapHandler(function() self:click_codeBtn() end)
 end
 
 -------------------------------------
@@ -50,10 +46,6 @@ end
 -------------------------------------
 function UI_EventPopupTab_HBShop:refresh()
 	local vars = self.vars
-    
-    -- 캡슐 수
-    local capsule = g_userData:get('capsule')
-    vars['capsuleLabel']:setNumber(capsule)
 end
 
 -------------------------------------
@@ -104,14 +96,23 @@ function UI_EventPopupTab_HBShop:click_homepageBtn()
     -- 구글 로그인 인증이 웹뷰를 통한 OAuth 인증을 허용하지 않으므로 브라우저로 처리
     --UI_WebView(url)
     SDKManager:goToWeb(url)
-    cclog(url)
 end
 
 -------------------------------------
 -- function click_couponBtn
 -------------------------------------
 function UI_EventPopupTab_HBShop:click_couponBtn()
-    
+    local function cb_func(coupon_list)
+        UI_EventPopupTab_HBShop_Coupon(coupon_list)
+    end
+    g_shopDataNew:request_couponList(cb_func)
+end
+
+-------------------------------------
+-- function click_couponBtn
+-------------------------------------
+function UI_EventPopupTab_HBShop:click_codeBtn()
+    UI_CouponPopup()
 end
 
 -------------------------------------

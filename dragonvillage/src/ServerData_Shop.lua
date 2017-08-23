@@ -511,7 +511,59 @@ function ServerData_Shop:request_useCoupon(coupon, success_cb, result_cb)
     ui_network:setParam('coupon', coupon)
     ui_network:setSuccessCB(success_cb)
     ui_network:setResponseStatusCB(result_cb)
-    ui_network:setRevocable(false)
+    ui_network:setRevocable(true)
+    ui_network:setReuse(false)
+    ui_network:request()
+end
+
+-------------------------------------
+-- function request_delCoupon
+-- @breif 쿠폰 삭제
+-------------------------------------
+function ServerData_Shop:request_delCoupon(coupon_id, cb_func)
+    -- 파라미터
+    local uid = g_userData:get('uid')
+
+    -- 콜백 함수
+    local function success_cb(ret)
+        if (cb_func) then
+            cb_func()
+        end
+    end
+
+    -- 네트워크 통신 UI 생성
+    local ui_network = UI_Network()
+    ui_network:setUrl('/shop/coupon_del')
+    ui_network:setParam('uid', uid)
+    ui_network:setParam('couponid', coupon_id)
+    ui_network:setSuccessCB(success_cb)
+    ui_network:setRevocable(true)
+    ui_network:setReuse(false)
+    ui_network:request()
+end
+
+
+-------------------------------------
+-- function request_couponList
+-- @breif 쿠폰 리스트 받음
+-------------------------------------
+function ServerData_Shop:request_couponList(cb_func)
+    -- 파라미터
+    local uid = g_userData:get('uid')
+
+    -- 콜백 함수
+    local function success_cb(ret)
+        if (cb_func) then
+            cb_func(ret['coupons_list'])
+        end
+    end
+
+    -- 네트워크 통신 UI 생성
+    local ui_network = UI_Network()
+    ui_network:setUrl('/shop/coupon_list')
+    ui_network:setParam('uid', uid)
+    ui_network:setSuccessCB(success_cb)
+    ui_network:setRevocable(true)
     ui_network:setReuse(false)
     ui_network:request()
 end
