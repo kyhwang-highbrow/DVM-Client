@@ -709,11 +709,16 @@ end
 function UI_DragonManageInfo:click_sellBtn()
     -- 작별 가능한지 체크
     if self.m_selectDragonOID then
-	    local possible, msg = g_dragonsData:possibleMaterialDragon(self.m_selectDragonOID)
-	    if (not possible) then
-		    UIManager:toastNotificationRed(msg)
-            return
-	    end
+
+		-- 슬라임은 판매 가능
+        local object = g_dragonsData:getDragonObject(self.m_selectDragonOID)
+        if (object.m_objectType ~= 'slime') then
+	        local possible, msg = g_dragonsData:possibleMaterialDragon(self.m_selectDragonOID)
+	        if (not possible) then
+		        UIManager:toastNotificationRed(msg)
+                return
+	        end
+        end
     end
 
 	local ui = UI_DragonSell()
