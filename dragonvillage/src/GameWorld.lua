@@ -238,7 +238,7 @@ function GameWorld:init(game_mode, stage_id, world_node, game_node1, game_node2,
         -- "진화 재료 던전"
         if (dungeonMode == NEST_DUNGEON_EVO_STONE) then
             -- "보석 던전"
-            if (detail_mode == 0) then
+            if (detail_mode == NEST_DUNGEON_SUB_MODE_JEWEL) then
                 self.m_gameState = GameState_NestDungeon_Jewel(self)
             -- "거대용 던전"
             else

@@ -10,6 +10,8 @@ SceneGame = class(PerpleScene, {
 
         m_gameMode = 'GAME_MODE',
         m_dungeonMode = 'NEST_DUNGEON_MODE',
+        m_dungeonSubMode = 'NEST_DUNGEON_SUB_MODE',
+
         m_bgmName = '',
 
         m_scheduleNode = 'cc.Node',
@@ -87,12 +89,17 @@ function SceneGame:init_gameMode(stage_id)
         if (self.m_gameMode == GAME_MODE_NEST_DUNGEON) then
             local t_dungeon = g_nestDungeonData:parseNestDungeonID(self.m_stageID)
             self.m_dungeonMode = t_dungeon['dungeon_mode']
+            self.m_dungeonSubMode = t_dungeon['detail_mode']
         end
     end
 
     -- bgm
     if (self.m_gameMode == GAME_MODE_NEST_DUNGEON) then
-        self.m_bgmName = 'bgm_dungeon_special'
+        if (self.m_dungeonSubMode == NEST_DUNGEON_SUB_MODE_JEWEL) then
+            self.m_bgmName = 'bgm_dungeon_boss'
+        else
+            self.m_bgmName = 'bgm_dungeon_special'
+        end
             	
 	elseif (self.m_gameMode == GAME_MODE_SECRET_DUNGEON) then
         self.m_bgmName = 'bgm_dungeon_special'
