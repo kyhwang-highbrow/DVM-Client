@@ -19,18 +19,18 @@
 		373E2D861A038712004EF0DB /* PerpSupportPatch.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 373E2D821A038712004EF0DB /* PerpSupportPatch.cpp */; };
 		374376861F3A7FE100AC6C7C /* SafariServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 374376851F3A7FE100AC6C7C /* SafariServices.framework */; };
 		374376881F3A800F00AC6C7C /* libPerpleSDK.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 374376871F3A800F00AC6C7C /* libPerpleSDK.a */; };
-		3743768A1F3A830900AC6C7C /* translate in Resources */ = {isa = PBXBuildFile; fileRef = 374376891F3A830900AC6C7C /* translate */; };
-		3743768C1F3A831A00AC6C7C /* sound in Resources */ = {isa = PBXBuildFile; fileRef = 3743768B1F3A831A00AC6C7C /* sound */; };
-		3743768E1F3A832700AC6C7C /* res in Resources */ = {isa = PBXBuildFile; fileRef = 3743768D1F3A832700AC6C7C /* res */; };
-		374376901F3A833600AC6C7C /* ps in Resources */ = {isa = PBXBuildFile; fileRef = 3743768F1F3A833600AC6C7C /* ps */; };
-		374376921F3A834400AC6C7C /* data_dat in Resources */ = {isa = PBXBuildFile; fileRef = 374376911F3A834400AC6C7C /* data_dat */; };
-		374376951F3A835800AC6C7C /* entry_main.lua in Resources */ = {isa = PBXBuildFile; fileRef = 374376931F3A835800AC6C7C /* entry_main.lua */; };
-		374376961F3A835800AC6C7C /* entry_patch.lua in Resources */ = {isa = PBXBuildFile; fileRef = 374376941F3A835800AC6C7C /* entry_patch.lua */; };
-		374376981F3A836700AC6C7C /* fixed_constant.lua in Resources */ = {isa = PBXBuildFile; fileRef = 374376971F3A836700AC6C7C /* fixed_constant.lua */; };
-		3743769A1F3A837300AC6C7C /* config.json in Resources */ = {isa = PBXBuildFile; fileRef = 374376991F3A837300AC6C7C /* config.json */; };
 		3744D21519FDD5DE003D7120 /* ioapi.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3744D20C19FDD5DE003D7120 /* ioapi.cpp */; };
 		3744D21719FDD5DE003D7120 /* unzip.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3744D21119FDD5DE003D7120 /* unzip.cpp */; };
 		374D47A71F42E70600D5AC0F /* DeviceDetector.m in Sources */ = {isa = PBXBuildFile; fileRef = 374D47A61F42E70600D5AC0F /* DeviceDetector.m */; };
+		374E10941F4DA339008C32F1 /* config.json in Resources */ = {isa = PBXBuildFile; fileRef = 374E10931F4DA339008C32F1 /* config.json */; };
+		374E10961F4DA351008C32F1 /* fixed_constant.lua in Resources */ = {isa = PBXBuildFile; fileRef = 374E10951F4DA351008C32F1 /* fixed_constant.lua */; };
+		374E10991F4DA35C008C32F1 /* entry_main.lua in Resources */ = {isa = PBXBuildFile; fileRef = 374E10971F4DA35B008C32F1 /* entry_main.lua */; };
+		374E109A1F4DA35C008C32F1 /* entry_patch.lua in Resources */ = {isa = PBXBuildFile; fileRef = 374E10981F4DA35C008C32F1 /* entry_patch.lua */; };
+		374E10A01F4DA377008C32F1 /* data_dat in Resources */ = {isa = PBXBuildFile; fileRef = 374E109B1F4DA377008C32F1 /* data_dat */; };
+		374E10A11F4DA377008C32F1 /* ps in Resources */ = {isa = PBXBuildFile; fileRef = 374E109C1F4DA377008C32F1 /* ps */; };
+		374E10A21F4DA377008C32F1 /* res in Resources */ = {isa = PBXBuildFile; fileRef = 374E109D1F4DA377008C32F1 /* res */; };
+		374E10A31F4DA377008C32F1 /* sound in Resources */ = {isa = PBXBuildFile; fileRef = 374E109E1F4DA377008C32F1 /* sound */; };
+		374E10A41F4DA377008C32F1 /* translate in Resources */ = {isa = PBXBuildFile; fileRef = 374E109F1F4DA377008C32F1 /* translate */; };
 		37519C041A6657A200406F47 /* PerpLua.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 37519C031A6657A200406F47 /* PerpLua.cpp */; };
 		37519C101A6657B300406F47 /* PerpUtils.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 37519C0E1A6657B300406F47 /* PerpUtils.cpp */; };
 		375E097A1F4498B10085A2FE /* UnityAds.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 375E09791F4498B10085A2FE /* UnityAds.framework */; };
@@ -322,15 +322,6 @@
 		373E2D831A038712004EF0DB /* PerpSupportPatch.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PerpSupportPatch.h; path = ../Classes/PerpSupportPatch.h; sourceTree = "<group>"; };
 		374376851F3A7FE100AC6C7C /* SafariServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SafariServices.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS10.3.sdk/System/Library/Frameworks/SafariServices.framework; sourceTree = DEVELOPER_DIR; };
 		374376871F3A800F00AC6C7C /* libPerpleSDK.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libPerpleSDK.a; path = ../../libraries/perplesdk/prebuilt/ios/libPerpleSDK.a; sourceTree = "<group>"; };
-		374376891F3A830900AC6C7C /* translate */ = {isa = PBXFileReference; lastKnownFileType = folder; name = translate; path = ../proj.android/assets/translate; sourceTree = "<group>"; };
-		3743768B1F3A831A00AC6C7C /* sound */ = {isa = PBXFileReference; lastKnownFileType = folder; name = sound; path = ../proj.android/assets/sound; sourceTree = "<group>"; };
-		3743768D1F3A832700AC6C7C /* res */ = {isa = PBXFileReference; lastKnownFileType = folder; name = res; path = ../proj.android/assets/res; sourceTree = "<group>"; };
-		3743768F1F3A833600AC6C7C /* ps */ = {isa = PBXFileReference; lastKnownFileType = folder; name = ps; path = ../proj.android/assets/ps; sourceTree = "<group>"; };
-		374376911F3A834400AC6C7C /* data_dat */ = {isa = PBXFileReference; lastKnownFileType = folder; name = data_dat; path = ../proj.android/assets/data_dat; sourceTree = "<group>"; };
-		374376931F3A835800AC6C7C /* entry_main.lua */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = entry_main.lua; path = ../proj.android/assets/entry_main.lua; sourceTree = "<group>"; };
-		374376941F3A835800AC6C7C /* entry_patch.lua */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = entry_patch.lua; path = ../proj.android/assets/entry_patch.lua; sourceTree = "<group>"; };
-		374376971F3A836700AC6C7C /* fixed_constant.lua */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = fixed_constant.lua; path = ../proj.android/assets/fixed_constant.lua; sourceTree = "<group>"; };
-		374376991F3A837300AC6C7C /* config.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = config.json; path = ../proj.android/assets/config.json; sourceTree = "<group>"; };
 		3744D20B19FDD5DE003D7120 /* e_os2.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = e_os2.h; path = ../Classes/e_os2.h; sourceTree = "<group>"; };
 		3744D20C19FDD5DE003D7120 /* ioapi.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = ioapi.cpp; path = ../Classes/ioapi.cpp; sourceTree = "<group>"; };
 		3744D20D19FDD5DE003D7120 /* ioapi.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ioapi.h; path = ../Classes/ioapi.h; sourceTree = "<group>"; };
@@ -341,6 +332,15 @@
 		3744D21419FDD5DE003D7120 /* zlib.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = zlib.h; path = ../Classes/zlib.h; sourceTree = "<group>"; };
 		374D47A51F42E70600D5AC0F /* DeviceDetector.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DeviceDetector.h; sourceTree = "<group>"; };
 		374D47A61F42E70600D5AC0F /* DeviceDetector.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DeviceDetector.m; sourceTree = "<group>"; };
+		374E10931F4DA339008C32F1 /* config.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = config.json; path = ../../assets/full/config.json; sourceTree = "<group>"; };
+		374E10951F4DA351008C32F1 /* fixed_constant.lua */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = fixed_constant.lua; path = ../../assets/full/fixed_constant.lua; sourceTree = "<group>"; };
+		374E10971F4DA35B008C32F1 /* entry_main.lua */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = entry_main.lua; path = ../../assets/full/entry_main.lua; sourceTree = "<group>"; };
+		374E10981F4DA35C008C32F1 /* entry_patch.lua */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = entry_patch.lua; path = ../../assets/full/entry_patch.lua; sourceTree = "<group>"; };
+		374E109B1F4DA377008C32F1 /* data_dat */ = {isa = PBXFileReference; lastKnownFileType = folder; name = data_dat; path = ../../assets/full/data_dat; sourceTree = "<group>"; };
+		374E109C1F4DA377008C32F1 /* ps */ = {isa = PBXFileReference; lastKnownFileType = folder; name = ps; path = ../../assets/full/ps; sourceTree = "<group>"; };
+		374E109D1F4DA377008C32F1 /* res */ = {isa = PBXFileReference; lastKnownFileType = folder; name = res; path = ../../assets/full/res; sourceTree = "<group>"; };
+		374E109E1F4DA377008C32F1 /* sound */ = {isa = PBXFileReference; lastKnownFileType = folder; name = sound; path = ../../assets/full/sound; sourceTree = "<group>"; };
+		374E109F1F4DA377008C32F1 /* translate */ = {isa = PBXFileReference; lastKnownFileType = folder; name = translate; path = ../../assets/full/translate; sourceTree = "<group>"; };
 		37519C031A6657A200406F47 /* PerpLua.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = PerpLua.cpp; path = ../Classes/PerpLua.cpp; sourceTree = "<group>"; };
 		37519C0E1A6657B300406F47 /* PerpUtils.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = PerpUtils.cpp; path = ../Classes/PerpExt/PerpUtils.cpp; sourceTree = "<group>"; };
 		37519C0F1A6657B300406F47 /* PerpUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PerpUtils.h; path = ../Classes/PerpExt/PerpUtils.h; sourceTree = "<group>"; };
@@ -733,15 +733,15 @@
 		F293BC4615EB859D00256477 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
-				374376991F3A837300AC6C7C /* config.json */,
-				374376971F3A836700AC6C7C /* fixed_constant.lua */,
-				374376931F3A835800AC6C7C /* entry_main.lua */,
-				374376941F3A835800AC6C7C /* entry_patch.lua */,
-				374376911F3A834400AC6C7C /* data_dat */,
-				3743768F1F3A833600AC6C7C /* ps */,
-				3743768D1F3A832700AC6C7C /* res */,
-				3743768B1F3A831A00AC6C7C /* sound */,
-				374376891F3A830900AC6C7C /* translate */,
+				374E10931F4DA339008C32F1 /* config.json */,
+				374E10951F4DA351008C32F1 /* fixed_constant.lua */,
+				374E10971F4DA35B008C32F1 /* entry_main.lua */,
+				374E10981F4DA35C008C32F1 /* entry_patch.lua */,
+				374E109B1F4DA377008C32F1 /* data_dat */,
+				374E109C1F4DA377008C32F1 /* ps */,
+				374E109D1F4DA377008C32F1 /* res */,
+				374E109E1F4DA377008C32F1 /* sound */,
+				374E109F1F4DA377008C32F1 /* translate */,
 				C23B44361A90264F00529743 /* Images.xcassets */,
 			);
 			name = Resources;
@@ -1025,37 +1025,37 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				374376961F3A835800AC6C7C /* entry_patch.lua in Resources */,
-				374376921F3A834400AC6C7C /* data_dat in Resources */,
 				C23B44371A90264F00529743 /* Images.xcassets in Resources */,
 				37EF84261B268F3B00EFA299 /* InfoPlist.strings in Resources */,
-				3743768E1F3A832700AC6C7C /* res in Resources */,
 				C03781CF18BF656A00FE4F13 /* AudioEngine.lua in Resources */,
 				7D50CB851C04459600F8FE3E /* Info.plist in Resources */,
 				C03781D118BF656A00FE4F13 /* CCBReaderLoad.lua in Resources */,
 				C03781D318BF656A00FE4F13 /* Cocos2d.lua in Resources */,
-				374376901F3A833600AC6C7C /* ps in Resources */,
 				C03781D518BF656A00FE4F13 /* Cocos2dConstants.lua in Resources */,
 				C03781D718BF656A00FE4F13 /* CocoStudio.lua in Resources */,
 				C03781D918BF656A00FE4F13 /* Deprecated.lua in Resources */,
+				374E10A41F4DA377008C32F1 /* translate in Resources */,
 				C03781DB18BF656A00FE4F13 /* DeprecatedClass.lua in Resources */,
 				C03781DD18BF656A00FE4F13 /* DeprecatedEnum.lua in Resources */,
+				374E10991F4DA35C008C32F1 /* entry_main.lua in Resources */,
 				37FB64B71F3AF73300378EE8 /* GoogleService-Info.plist in Resources */,
+				374E10A11F4DA377008C32F1 /* ps in Resources */,
 				C03781DF18BF656A00FE4F13 /* DeprecatedOpenglEnum.lua in Resources */,
-				374376981F3A836700AC6C7C /* fixed_constant.lua in Resources */,
 				C03781E118BF656A00FE4F13 /* DrawPrimitives.lua in Resources */,
-				3743769A1F3A837300AC6C7C /* config.json in Resources */,
 				C03781E318BF656A00FE4F13 /* extern.lua in Resources */,
-				374376951F3A835800AC6C7C /* entry_main.lua in Resources */,
+				374E10961F4DA351008C32F1 /* fixed_constant.lua in Resources */,
+				374E10A31F4DA377008C32F1 /* sound in Resources */,
 				C03781E518BF656A00FE4F13 /* GuiConstants.lua in Resources */,
 				C03781E718BF656A00FE4F13 /* json.lua in Resources */,
-				3743768C1F3A831A00AC6C7C /* sound in Resources */,
+				374E10941F4DA339008C32F1 /* config.json in Resources */,
 				C03781E918BF656A00FE4F13 /* luaj.lua in Resources */,
 				C03781EB18BF656A00FE4F13 /* luaoc.lua in Resources */,
+				374E10A21F4DA377008C32F1 /* res in Resources */,
+				374E10A01F4DA377008C32F1 /* data_dat in Resources */,
+				374E109A1F4DA35C008C32F1 /* entry_patch.lua in Resources */,
 				C03781ED18BF656A00FE4F13 /* Opengl.lua in Resources */,
 				C03781EF18BF656A00FE4F13 /* OpenglConstants.lua in Resources */,
 				C03781F118BF656A00FE4F13 /* StudioConstants.lua in Resources */,
-				3743768A1F3A830900AC6C7C /* translate in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
