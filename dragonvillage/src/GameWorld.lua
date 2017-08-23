@@ -17,6 +17,7 @@ GameWorld = class(IEventDispatcher:getCloneClass(), IEventListener:getCloneTable
         m_darkLayer = 'cc.LayerColor',
         m_dragonSkillBgNode = 'cc.Node',
         m_groundNode = 'cc.Node',
+        m_bottomNode = 'cc.Node',       -- 미사일 또는 이펙트에서 사용
         m_worldNode = 'cc.Node',
         m_missiledNode = 'cc.Node',
 
@@ -151,6 +152,9 @@ function GameWorld:init(game_mode, stage_id, world_node, game_node1, game_node2,
     self.m_gridNode = cc.Node:create()
     self.m_gridNode:setVisible(false)
     self.m_gameNode1:addChild(self.m_gridNode, INGAME_LAYER_Z_ORDER.GRID_LAYER)
+
+    self.m_bottomNode = cc.Node:create()
+    self.m_gameNode1:addChild(self.m_bottomNode, INGAME_LAYER_Z_ORDER.BOTTOM_LAYER)
 
     self.m_worldNode = cc.Node:create()
     self.m_gameNode1:addChild(self.m_worldNode, INGAME_LAYER_Z_ORDER.WORLD_LAYER)
@@ -724,7 +728,8 @@ function GameWorld:getMissileNode(depth_type)
     local missile_node
 
     if (depth_type == 'bottom') then
-		missile_node = self.m_worldNode
+		--missile_node = self.m_worldNode
+        missile_node = self.m_bottomNode
 	else
 		missile_node = self.m_missiledNode
 	end	
