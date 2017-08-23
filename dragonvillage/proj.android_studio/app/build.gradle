@@ -181,7 +181,7 @@ android {
         live100mb{
 			versionCode 14
 			versionName "1.0.0"
-            signingConfig signingConfigs.upload_keystores
+            signingConfig signingConfigs.upload_keystore
             externalNativeBuild {
                 ndkBuild {
                     cppFlags.add("-DTARGET_SERVER=SERVER_LIVE")
