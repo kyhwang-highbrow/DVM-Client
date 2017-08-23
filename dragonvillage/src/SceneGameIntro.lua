@@ -144,42 +144,40 @@ function SceneGameIntro:update(dt)
     end
 
     -- 세번째 웨이브 - 빙하고룡 스킬
-    if (idx == 4) and (world.m_gameState.m_stateTimer > 17) then
-        self:play_tutorialTalk(false, true)
-
+    if (idx == 4) and (world.m_heroMana:getCurrMana() > 1) then
         -- 미리 암전 처리후 리더 드래곤만 하이라이트 시킴
         self.m_focusingDragon = world:getDragonList()[2]
         world.m_heroMana:addMana(self.m_focusingDragon:getSkillManaCost() - 1)
         world.m_gameHighlight:setToForced(true)
         world.m_gameHighlight:addForcedHighLightList(self.m_focusingDragon)
+
+        self:play_tutorialTalk(false, true)
     end
 
     -- 세번째 웨이브 - 파워드래곤 스킬
     if (idx == 5) and (recorder:getLog('use_skill') > 0 and self.m_focusingDragon.m_state == 'attackDelay') then
-        self:play_tutorialTalk(false, true)
-
         -- 미리 암전 처리후 리더 드래곤만 하이라이트 시킴
         self.m_focusingDragon = world:getDragonList()[1]
         world.m_heroMana:addMana(self.m_focusingDragon:getSkillManaCost())
         world.m_gameHighlight:setToForced(true)
         world.m_gameHighlight:addForcedHighLightList(self.m_focusingDragon)
+
+        self:play_tutorialTalk(false, true)
     end
 
     -- 세번째 웨이브 - 번개고룡 스킬
     if (idx == 6) and (recorder:getLog('use_skill') > 1 and self.m_focusingDragon.m_state == 'attackDelay' and not world.m_gameDragonSkill:isPlaying()) then
-        self:play_tutorialTalk(false, true)
-
         -- 미리 암전 처리후 리더 드래곤만 하이라이트 시킴
         self.m_focusingDragon = world:getDragonList()[4]
         world.m_heroMana:addMana(self.m_focusingDragon:getSkillManaCost())
         world.m_gameHighlight:setToForced(true)
         world.m_gameHighlight:addForcedHighLightList(self.m_focusingDragon)
+
+        self:play_tutorialTalk(false, true)
     end
 
     -- 세번째 웨이브 - 보스 스킬 사용 직전
     if (idx == 7) and (boss.m_patternAtkIdx == '1' and boss.m_state == 'attack') then
-        self:play_tutorialTalk()
-
         -- 보스의 공격력을 증가 시킴
         boss.m_statusCalc:addBuffMulti('atk', 9999)
 
@@ -187,6 +185,8 @@ function SceneGameIntro:update(dt)
         for _, hero in ipairs(world:getDragonList()) do
             hero:setInvincibility(false)
         end
+
+        self:play_tutorialTalk()
     end
 
     -- 세번째 웨이브 - 아군이 모두 죽었을 때
