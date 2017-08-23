@@ -163,6 +163,10 @@ function UI_TamerManagePopup:setTamerText()
 	local tamer_name = t_tamer['t_name']
 	vars['tamerNameLabel']:setString(Str(tamer_name))
 
+	-- 테이머 타입
+	local tamer_type = t_tamer['t_title_desc']
+	vars['tamerTypeLabel']:setString(Str(tamer_type))
+
 	-- 테이머 설명
 	local tamer_desc = t_tamer['t_desc']
 	vars['tamerDscLabel']:setString(Str(tamer_desc))
