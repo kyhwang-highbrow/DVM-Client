@@ -1123,7 +1123,7 @@ function UI_GameResultNew:checkAutoPlay()
         return
     end
 
-    self:countAutoPlay() 
+    self.root:runAction(cc.Sequence:create(cc.DelayTime:create(1), cc.CallFunc:create(function() self:countAutoPlay()  end)))
 end
 
 -------------------------------------
@@ -1166,7 +1166,8 @@ end
 function UI_GameResultNew:countAutoPlay()
     self.m_autoCount = true
     local vars = self.vars
-    vars['autoBattleNode']:setVisible(true)
+    local node = vars['autoBattleNode']
+    node:setVisible(true)
 
     local count_label = vars['countLabel']
     
@@ -1189,7 +1190,10 @@ function UI_GameResultNew:countAutoPlay()
     -- close
     do
         local act1 = cc.DelayTime:create(count_num * count_time)
-        local act2 = cc.CallFunc:create(function() self:click_quickBtn() end)
+        local act2 = cc.CallFunc:create(function()
+            node:setVisible(false) 
+            self:click_quickBtn() 
+        end)
         self.root:runAction(cc.Sequence:create(act1, act2))
     end
 end

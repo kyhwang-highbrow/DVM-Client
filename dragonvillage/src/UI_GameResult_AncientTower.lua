@@ -204,7 +204,8 @@ end
 -- @brief 다시하기
 -------------------------------------
 function UI_GameResult_AncientTower:click_againBtn()
-    UINavigator:goTo('ancient')
+    local stage_id = self.m_stageID
+    UINavigator:goTo('ancient', stage_id)
 end
 
 -------------------------------------

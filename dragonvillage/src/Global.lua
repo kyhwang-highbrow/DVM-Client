@@ -29,14 +29,16 @@ end
 -- @brief 지표 수집 활성화 (true면 활성화, win32에서는 활성화할 경우 PerpleSDK 오류남)
 -------------------------------------
 function IS_ENABLE_ANALYTICS()
-    if (getAppVer() ~= '9.9.9') then
-        return false
-    end
-
     if (isWin32()) then 
         return false
     end
-    
+
+    -- 0.3.4 버전 미만에서는 skip
+    local app_ver_num = getAppVerNum()
+    if (app_ver_num < AppVer_strToNum('0.3.4')) then
+        return false
+    end
+
     return true
 end
 

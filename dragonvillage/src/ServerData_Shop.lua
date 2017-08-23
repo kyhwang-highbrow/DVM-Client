@@ -464,28 +464,13 @@ function ServerData_Shop:request_checkReceiptValidation(struct_product, validati
 
     -- 콜백 함수
     local function success_cb(ret)
+        -- @analytics
+        Analytics:purchase(product_id, sku, price)
+        Analytics:trackGetGoodsWithRet(ret, string.format('상품 구매 : %d', product_id))
+
         g_serverData:networkCommonRespone(ret)
         g_serverData:networkCommonRespone_addedItems(ret)
     
-        -- @analytics
-        Analytics:purchase(product_id, sku, price)
-
-        if (struct_product) then
-            local category = struct_product:getTabCategory()
-            local t_product = self:getProductList(category)
-            local t_info = t_product[product_id]
-
-            if (t_info) then
-                local str_product = t_info['product_content']
-                local l_product = TableExchange:makeProductList(str_product)
-                
-                local cash = tonumber(l_product['cash'] or 0)
-                if (cash > 0) then
-                    Analytics:trackEvent(CUS_CATEGORY.CASH, CUS_EVENT.GET_CASH, cash, string.format('상품 구매 : %d', product_id))
-                end
-            end
-        end
-
         -- 상품 구매 후 갱신이 필요한지 여부 체크
         if struct_product and struct_product:needRenewAfterBuy() then
             self.m_bDirty = true
