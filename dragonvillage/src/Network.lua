@@ -11,6 +11,7 @@ function Network_get_patch_info(app_ver, success_cb, fail_cb)
     local t_request = {}
     t_request['url'] = '/get_patch_info'
     t_request['data'] = t_data
+    t_request['method'] = 'GET'
 
     -- 성공 시 콜백 함수
     t_request['success'] = success_cb
@@ -19,7 +20,7 @@ function Network_get_patch_info(app_ver, success_cb, fail_cb)
     t_request['fail'] = fail_cb
 
     -- 네트워크 통신
-    Network:SimpleRequest(t_request)
+    Network:HMacRequest(t_request)
 end
 
 -------------------------------------
@@ -121,7 +122,7 @@ function Network_login(uid, nickname, success_cb, fail_cb)
     t_request['fail'] = fail_cb
 
     -- 네트워크 통신
-    Network:SimpleRequest(t_request)
+    Network:HMacRequest(t_request)
 end
 
 -------------------------------------
@@ -146,7 +147,7 @@ function Network_get_deck(uid, success_cb, fail_cb)
     t_request['fail'] = fail_cb
 
     -- 네트워크 통신
-    Network:SimpleRequest(t_request)
+    Network:HMacRequest(t_request)
 end
 
 function getTargetOSName()

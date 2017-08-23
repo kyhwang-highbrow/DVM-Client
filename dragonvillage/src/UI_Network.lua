@@ -351,9 +351,12 @@ function UI_Network:request()
     t_request['fail'] = function(ret) UI_Network.fail(self, ret) end
     
     if (self.m_bHmac == true) then
-        Network:HMacRequest(t_request, true)
+        Network:HMacRequest(t_request)
     else
-        Network:SimpleRequest(t_request)
+		-- 클라이언트에서는 모든 통신에 hmac을 전달하는 것으로 결정
+		-- 2017-08-23 sgkim (검증 여부는 서버에서 판단하기 때문)
+        Network:HMacRequest(t_request)
+        --Network:SimpleRequest(t_request)
     end
 
 	-- @E.T.
