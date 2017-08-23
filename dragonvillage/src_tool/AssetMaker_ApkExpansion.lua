@@ -57,6 +57,8 @@ function AssetMaker_ApkExpansion:moveToExpansion()
     self:move('\\res\\character\\tamer')
     self:move('\\res\\character\\npc')
     self:move('\\res\\character\\monster')
+    self:move('\\res\\ui\\event')
+    self:move('\\res\\ui\\package')
     self:moveDragonRes()
     self:checkAssetsUnder100MB()
 end
