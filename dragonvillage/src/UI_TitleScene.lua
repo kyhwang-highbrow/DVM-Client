@@ -784,7 +784,10 @@ function UI_TitleScene:workFinish_click()
     Analytics:setAppDataVersion()
 
     -- 로비 진입
-    lobby_func = function()
+    lobby_func = function() 
+        -- 시작이 두번 되지 않도록 하기 위함
+        UI_BlockPopup()
+
         local is_use_loading = true
         local scene = SceneLobby(is_use_loading)
         scene:runScene()
