@@ -192,11 +192,6 @@ function UI_EventPopup:makeEventPopupTab(tab)
     elseif (tab == 'highbrow_shop') then
         ui = UI_EventPopupTab_HBShop()
 
-    -- 하이브로 출석체크
-    elseif (tab == 'highbrow_atdc') then
-        ui = UI_EventPopupTab_HBAttendance()
-
-
     -- * shop, banner는 중복가능 (string.find로 처리해야함)
     -- 상점
     elseif (string.find(tab, 'shop')) then

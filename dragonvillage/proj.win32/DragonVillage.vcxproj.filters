@@ -2616,9 +2616,6 @@
     <None Include="..\src\UI_EventPopupTab_HBShop.lua">
       <Filter>lua\UI</Filter>
     </None>
-    <None Include="..\src\UI_EventPopupTab_HBAttendance.lua">
-      <Filter>lua\UI</Filter>
-    </None>
     <None Include="..\src\StructHighbrowProduct.lua">
       <Filter>lua\src</Filter>
     </None>

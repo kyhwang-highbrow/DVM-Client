@@ -19,6 +19,8 @@ function UI_EventPopupTab_HBShop:init()
     self:initUI()
 	self:initButton()
     self:refresh()
+
+    g_topUserInfo:setSubCurrency('capsule')
 end
 
 -------------------------------------
@@ -39,6 +41,8 @@ end
 -------------------------------------
 function UI_EventPopupTab_HBShop:initButton()
 	local vars = self.vars
+    vars['homepageBtn']:registerScriptTapHandler(function() self:click_homepageBtn() end)
+    vars['couponBtn']:registerScriptTapHandler(function() self:click_couponBtn() end)
 end
 
 -------------------------------------
@@ -91,6 +95,26 @@ function UI_EventPopupTab_HBShop:onEnterTab()
 end
 
 -------------------------------------
+-- function click_homepageBtn
+-------------------------------------
+function UI_EventPopupTab_HBShop:click_homepageBtn()
+    local highbrow_un = g_serverData:get('user','highbrow_un')
+    local url = URL['HIGHBROW']  .. 'interop/Interop.php?uid=' .. tostring(highbrow_un)
+    
+    -- 구글 로그인 인증이 웹뷰를 통한 OAuth 인증을 허용하지 않으므로 브라우저로 처리
+    --UI_WebView(url)
+    SDKManager:goToWeb(url)
+    cclog(url)
+end
+
+-------------------------------------
+-- function click_couponBtn
+-------------------------------------
+function UI_EventPopupTab_HBShop:click_couponBtn()
+    
+end
+
+-------------------------------------
 -- function makeCellUI
 -- @static
 -- @brief 테이블 셀 생성
@@ -125,6 +149,10 @@ function UI_EventPopupTab_HBShop.refreshCell(ui, struct_product)
         vars['buyBtn']:setEnabled(false)
         vars['priceLabel']:setString(Str('수령 완료'))
     else
-        vars['priceLabel']:setString(struct_product:getPrice())
+        local price = struct_product:getPrice()
+        if (price == 0) then
+            price = Str('무료')
+        end
+        vars['priceLabel']:setString(price)
     end
 end
