@@ -83,22 +83,6 @@ function ServerData_Slimes:getSlimeList()
 end
 
 -------------------------------------
--- function possibleMaterialSlime_exp
--- @brief
--------------------------------------
-function ServerData_Slimes:possibleMaterialSlime_exp(soid)
-    return self:possibleMaterialSlime(soid, 'exp')
-end
-
--------------------------------------
--- function possibleMaterialSlime_upgrade
--- @brief
--------------------------------------
-function ServerData_Slimes:possibleMaterialSlime_upgrade(soid)
-    return self:possibleMaterialSlime(soid, 'upgrade')
-end
-
--------------------------------------
 -- function possibleMaterialSlime
 -- @brief
 -------------------------------------

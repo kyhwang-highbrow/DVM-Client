@@ -278,7 +278,7 @@ function UI_DragonUpgrade:getDragonMaterialList(doid)
         if (v['grade'] < t_dragon_data['grade']) then
             dragon_dic[oid] = nil
         elseif (v:getObjectType() == 'slime') then
-            if (not g_slimesData:possibleMaterialSlime_upgrade(oid)) then
+            if (not g_slimesData:possibleMaterialSlime(oid, 'upgrade')) then
                 dragon_dic[oid] = nil
             end
         end

@@ -427,7 +427,7 @@ function UI_DragonManageInfo:click_evolutionBtn()
         end
     end
 
-    self:openSubManageUI(UI_DragonManagementEvolution)
+    self:openSubManageUI(UI_DragonEvolution)
 end
 
 -------------------------------------

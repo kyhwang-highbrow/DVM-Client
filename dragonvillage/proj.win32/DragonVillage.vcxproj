@@ -920,7 +920,7 @@ xcopy /Y /Q "$(ProjectDir)..\..\libraries\pati\prebuilt\windows\*.dll" "$(OutDir
     <None Include="..\src\UI_DragonLevelupResult.lua" />
     <None Include="..\src\UI_DragonManageFriendshipResult.lua" />
     <None Include="..\src\UI_DragonManageInfo.lua" />
-    <None Include="..\src\UI_DragonManagementEvolution.lua" />
+    <None Include="..\src\UI_DragonEvolution.lua" />
     <None Include="..\src\UI_DragonManage_Base.lua" />
     <None Include="..\src\UI_DragonRunes.lua" />
     <None Include="..\src\UI_DragonRunesEnhance.lua" />
@@ -957,7 +957,7 @@ xcopy /Y /Q "$(ProjectDir)..\..\libraries\pati\prebuilt\windows\*.dll" "$(OutDir
     <None Include="..\src\UI_ReadyScene_LeaderPopup.lua" />
     <None Include="..\src\UI_ReadyScene_Select.lua" />
     <None Include="..\src\UI_RecommendedDragonInfoPopup.lua" />
-    <None Include="..\src\UI_DragonUpgradeNew.lua" />
+    <None Include="..\src\UI_DragonUpgrade.lua" />
     <None Include="..\src\UI_DragonUpgradeResult.lua" />
     <None Include="..\src\UI_EditBoxPopup.lua" />
     <None Include="..\src\UI_ErrorPopup.lua" />

@@ -217,8 +217,8 @@ function UI_DragonLevelUp:click_dragonMaterial(t_dragon_data)
         end
     -- 재료로 사용 가능한 슬라임 검증
     elseif (t_dragon_data:getObjectType() == 'slime') then
-        possible, noti_str = g_slimesData:possibleMaterialSlime_exp(doid)
-        if (not g_slimesData:possibleMaterialSlime_exp(doid)) then
+        local possible, noti_str = g_slimesData:possibleMaterialSlime(doid, 'exp')
+        if (not possible) then
             UIManager:toastNotificationRed(noti_str)
             return
         end

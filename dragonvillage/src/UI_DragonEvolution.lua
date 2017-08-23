@@ -1,9 +1,9 @@
 local PARENT = UI_DragonManage_Base
 
 -------------------------------------
--- class UI_DragonManagementEvolution
+-- class UI_DragonEvolution
 -------------------------------------
-UI_DragonManagementEvolution = class(PARENT,{
+UI_DragonEvolution = class(PARENT,{
         m_bEnoughSvolutionStones = 'boolean',
 
         m_itemID1 = '',
@@ -15,9 +15,9 @@ UI_DragonManagementEvolution = class(PARENT,{
 -- function initParentVariable
 -- @brief 자식 클래스에서 반드시 구현할 것
 -------------------------------------
-function UI_DragonManagementEvolution:initParentVariable()
+function UI_DragonEvolution:initParentVariable()
     -- ITopUserInfo_EventListener의 맴버 변수들 설정
-    self.m_uiName = 'UI_DragonManagementEvolution'
+    self.m_uiName = 'UI_DragonEvolution'
     self.m_bVisible = true or false
     self.m_titleStr = Str('진화') or nil
     self.m_bUseExitBtn = true or false -- click_exitBtn()함구 구현이 반드시 필요함
@@ -26,12 +26,12 @@ end
 -------------------------------------
 -- function init
 -------------------------------------
-function UI_DragonManagementEvolution:init(doid)
+function UI_DragonEvolution:init(doid)
     local vars = self:load('dragon_evolution.ui')
     UIManager:open(self, UIManager.SCENE)
 
     -- backkey 지정
-    g_currScene:pushBackKeyListener(self, function() self:close() end, 'UI_DragonManagementEvolution')
+    g_currScene:pushBackKeyListener(self, function() self:close() end, 'UI_DragonEvolution')
 
     self:sceneFadeInAction()
 
@@ -49,7 +49,7 @@ end
 -------------------------------------
 -- function initUI
 -------------------------------------
-function UI_DragonManagementEvolution:initUI()
+function UI_DragonEvolution:initUI()
     local vars = self.vars
     self:init_dragonTableView()
 
@@ -81,7 +81,7 @@ end
 -- function initButton
 -- @brief 버튼 UI 초기화
 -------------------------------------
-function UI_DragonManagementEvolution:initButton()
+function UI_DragonEvolution:initButton()
     local vars = self.vars
     vars['evolutionBtn']:registerScriptTapHandler(function() self:click_evolutionBtn() end)
 
@@ -94,7 +94,7 @@ end
 -- function refresh
 -- @brief 선택된 드래곤이 변경되거나 갱신되었을 때 호출
 -------------------------------------
-function UI_DragonManagementEvolution:refresh()
+function UI_DragonEvolution:refresh()
     local t_dragon_data = self.m_selectDragonData
 
     if (not t_dragon_data) then
@@ -145,7 +145,7 @@ end
 -- function refresh_stats
 -- @brief 능력치
 -------------------------------------
-function UI_DragonManagementEvolution:refresh_stats(t_dragon_data, t_dragon, is_max_evolution)
+function UI_DragonEvolution:refresh_stats(t_dragon_data, t_dragon, is_max_evolution)
     local vars = self.vars
     local doid = t_dragon_data['id']
 
@@ -183,7 +183,7 @@ end
 -- function refresh_currDragonInfo
 -- @brief 왼쪽 정보(현재 진화 단계)
 -------------------------------------
-function UI_DragonManagementEvolution:refresh_currDragonInfo(t_dragon_data, t_dragon)
+function UI_DragonEvolution:refresh_currDragonInfo(t_dragon_data, t_dragon)
     local vars = self.vars
 
     -- 드래곤 이름
@@ -211,7 +211,7 @@ end
 -------------------------------------
 -- function refresh_nextDragonInfo
 -------------------------------------
-function UI_DragonManagementEvolution:refresh_nextDragonInfo(t_dragon_data, t_dragon, is_max_evolution)
+function UI_DragonEvolution:refresh_nextDragonInfo(t_dragon_data, t_dragon, is_max_evolution)
     local vars = self.vars
 
     -- 진화도 (해치, 해츨링, 성룡)
@@ -235,7 +235,7 @@ end
 -- function refresh_nextSkillInfo
 -- @brief 오른쪽 정보(스킬)
 -------------------------------------
-function UI_DragonManagementEvolution:refresh_nextSkillInfo(t_dragon_data, t_dragon, is_max_evolution)
+function UI_DragonEvolution:refresh_nextSkillInfo(t_dragon_data, t_dragon, is_max_evolution)
     local vars = self.vars
 
     vars['skillNode']:removeAllChildren()
@@ -288,7 +288,7 @@ end
 -- function refresh_evolutionStones
 -- @brief 진화재료
 -------------------------------------
-function UI_DragonManagementEvolution:refresh_evolutionStones(t_dragon_data, t_dragon, is_max_evolution)
+function UI_DragonEvolution:refresh_evolutionStones(t_dragon_data, t_dragon, is_max_evolution)
     local vars = self.vars
 
     local did = t_dragon['did']
@@ -361,7 +361,7 @@ end
 -- function refresh_evolutionButton
 -- @brief 진화하기 버튼 갱신
 -------------------------------------
-function UI_DragonManagementEvolution:refresh_evolutionButton(t_dragon_data, t_dragon, is_max_evolution)
+function UI_DragonEvolution:refresh_evolutionButton(t_dragon_data, t_dragon, is_max_evolution)
     local vars = self.vars
     local did = t_dragon['did']
     local doid = self.m_selectDragonOID
@@ -405,7 +405,7 @@ end
 -- @breif 하단 리스트뷰에 노출될 드래곤 리스트
 -- @override
 -------------------------------------
-function UI_DragonManagementEvolution:getDragonList()
+function UI_DragonEvolution:getDragonList()
     local dragon_dic = g_dragonsData:getDragonListWithSlime()
 
     -- 절대 진화 불가능한 드래곤 제외
@@ -421,7 +421,7 @@ end
 -------------------------------------
 -- function click_evolutionBtn
 -------------------------------------
-function UI_DragonManagementEvolution:click_evolutionBtn()
+function UI_DragonEvolution:click_evolutionBtn()
     local doid = self.m_selectDragonOID
     
     -- 진화 조건 불충족
@@ -492,10 +492,10 @@ end
 -------------------------------------
 -- function click_evolutionStone
 -------------------------------------
-function UI_DragonManagementEvolution:click_evolutionStone(i)
+function UI_DragonEvolution:click_evolutionStone(i)
     local item_id = self['m_itemID' .. i]
     UI_ItemInfoPopup(item_id)
 end
 
 --@CHECK
-UI:checkCompileError(UI_DragonManagementEvolution)
+UI:checkCompileError(UI_DragonEvolution)

@@ -228,9 +228,6 @@
     <None Include="..\src\UI_DragonManageInfo.lua">
       <Filter>lua\UI</Filter>
     </None>
-    <None Include="..\src\UI_DragonManagementEvolution.lua">
-      <Filter>lua\UI</Filter>
-    </None>
     <None Include="..\src\UI_EditBoxPopup.lua">
       <Filter>lua\UI</Filter>
     </None>
@@ -584,9 +581,6 @@
     </None>
     <None Include="..\src\UIC_IndivisualStats.lua">
       <Filter>lua\UIC</Filter>
-    </None>
-    <None Include="..\src\UI_DragonUpgradeNew.lua">
-      <Filter>lua\UI</Filter>
     </None>
     <None Include="..\src\UI_DragonInfoBoard.lua">
       <Filter>lua\UI</Filter>
@@ -2671,6 +2665,12 @@
       <Filter>lua\src</Filter>
     </None>
     <None Include="..\src\UI_EventPopupTab_HBShop_Coupon.lua">
+      <Filter>lua\UI</Filter>
+    </None>
+    <None Include="..\src\UI_DragonUpgrade.lua">
+      <Filter>lua\UI</Filter>
+    </None>
+    <None Include="..\src\UI_DragonEvolution.lua">
       <Filter>lua\UI</Filter>
     </None>
   </ItemGroup>
