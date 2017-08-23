@@ -280,8 +280,8 @@ function UI_Lobby:refresh_highlight()
     local etc_vars = self.m_etcExpendedUI.vars
 
     local function highlight_func()
-        -- 탐험
-        --vars['explorationNotiSprite']:setVisible(g_highlightData:isHighlightExploration())
+        -- 전투 메뉴
+        vars['battleHotSprite']:setVisible(g_highlightData:isHighlightExploration() or g_hotTimeData:isHighlightHotTime())
 
         -- 퀘스트
         vars['questNotiSprite']:setVisible(g_highlightData:isHighlightQuest())
@@ -298,19 +298,12 @@ function UI_Lobby:refresh_highlight()
 
     g_highlightData:request_highlightInfo(highlight_func)
 
-    do -- 드래곤 소환
-        local highlight, t_highlight = g_hatcheryData:checkHighlight()
-        vars['drawNotiSprite']:setVisible(highlight)
-    end
+    -- 드래곤 소환
+    local highlight, t_highlight = g_hatcheryData:checkHighlight()
+    vars['drawNotiSprite']:setVisible(highlight)
 
     -- 테이머
     vars['tamerNotiSprite']:setVisible(g_tamerData:isHighlightTamer())
-
-	-- 도감
-	etc_vars['bookNotiSprite']:setVisible(g_bookData:isHighlightBook())
-
-    -- 모험 핫타임 
-    --vars['adventureHotSprite']:setVisible(g_hotTimeData:isHighlightHotTime())
 
     -- 이벤트
     vars['eventManageNotiSprite']:setVisible(g_eventData:isHighlightEvent())
@@ -318,6 +311,13 @@ function UI_Lobby:refresh_highlight()
     -- 마스터의 길
     local has_reward, _ = g_masterRoadData:hasRewardRoad()
     vars['masterRoadNotiSprite']:setVisible(has_reward)
+
+	-- 도감
+	etc_vars['bookNotiSprite']:setVisible(g_bookData:isHighlightBook())
+
+    -- 기타 (도감과 친구의 합)
+    local is_etc_noti = (etc_vars['friendNotiSprite']:isVisible() or etc_vars['bookNotiSprite']:isVisible())
+    vars['etcNotiSprite']:setVisible(is_etc_noti)
 end
 
 -------------------------------------
