@@ -142,6 +142,9 @@ function UI_EventPopup:onChangeTab(tab, first)
     if (self.m_webView) then 
         self.m_webView:setVisible(false)
     end
+    
+    -- 공지(전면 웹뷰가 아닌 부분 웹뷰일때는 방송, 채팅 꺼줌)
+    g_topUserInfo:setEnabledBraodCast(tab ~= 'notice')
 
     if first then
         local container = self.m_lContainerForEachType[tab]
@@ -229,6 +232,9 @@ function UI_EventPopup:click_exitBtn()
 
         -- 노티 정보를 갱신하기 위해서 호출
         g_highlightData:setLastUpdateTime()
+
+        -- 방송 활성화
+        g_topUserInfo:setEnabledBraodCast(true)
     end
 end
 

@@ -218,6 +218,21 @@ function UI_TopUserInfo:setGoldNumber(gold)
 end
 
 -------------------------------------
+-- function setEnabledBraodCast
+-- @brief 방송 관련 라벨 꺼줌 (채팅 버튼 비활성화)
+-------------------------------------
+function UI_TopUserInfo:setEnabledBraodCast(enable)
+    self.vars['quickBtn']:setEnabled(enable)   
+    self.vars['chatBtn']:setEnabled(enable)  
+
+    self.m_broadcastLabel:setVisible(enable)
+    self.m_chatBroadcastLabel:setVisible(enable)
+
+    self.m_broadcastLabel.m_bEnabled = enable
+    self.m_chatBroadcastLabel.m_bEnabled = enable
+end
+
+-------------------------------------
 -- function setSubCurrency
 -------------------------------------
 function UI_TopUserInfo:setSubCurrency(subCurrency)

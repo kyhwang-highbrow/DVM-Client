@@ -8,12 +8,15 @@ UIC_BroadcastLabel = class(PARENT, {
         m_richLabel = 'UIC_RichLabel',
 
         m_defalutSize = 'cc.size',
+
+        m_bEnabled = 'boolean',
     })
 
 -------------------------------------
 -- function init
 -------------------------------------
 function UIC_BroadcastLabel:init()
+    self.m_bEnabled = true
 end
 
 -------------------------------------
@@ -74,6 +77,10 @@ end
 -- function setString
 -------------------------------------
 function UIC_BroadcastLabel:setString(str)
+    if (not self.m_bEnabled) then 
+        return 
+    end
+
     -- RichLabel에 문자열 설정
     self.m_richLabel:setString(str)
 
