@@ -312,6 +312,7 @@ function Network:makeQueryStr(t_data)
 				end
 			end
 		else
+            v = tostring(v)
 			if (string.len(query_str) == 0) then
 				query_str	= k .. '=' .. v
 			else
