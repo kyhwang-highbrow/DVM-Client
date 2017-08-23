@@ -88,7 +88,7 @@ function ServerData_HotTime:refreshActiveList()
         -- 핫타임 종료 후
         elseif ((v['enddate'] / 1000) < curr_time) then
 
-        -- 이벤트 내용 없음
+        -- 이벤트 내용 있을 경우
         elseif (v['contents']) and (table.count(v['contents']) > 0) then
             local key = v['event']
             self.m_activeEventList[key] = v
