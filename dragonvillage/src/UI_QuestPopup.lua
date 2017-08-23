@@ -86,7 +86,6 @@ function UI_QuestPopup:refresh(t_quest_data)
     end
     
     -- 정렬
-    ccdisplay('SORT')
     self.m_tableView:sortTableView('sort', 'force')
 end
 
@@ -124,7 +123,6 @@ function UI_QuestPopup:makeQuestTableView(tab, node)
 
 		-- 퀘스트 팝업 자체를 각 아이템이 가지기 위한 생성 콜백
 		local create_cb_func = function(ui, data)
-            ccdump(data)
             self:cellCreateCB(ui, data)
 		end
          
