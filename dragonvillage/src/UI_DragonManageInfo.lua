@@ -8,6 +8,8 @@ UI_DragonManageInfo = class(PARENT,{
         m_dragonListLastChangeTime = 'timestamp',
 
         m_dragonInfoBoardUI = 'UI_DragonInfoBoard',
+
+        m_startSubMenu = '',
     })
 
 -------------------------------------
@@ -46,6 +48,16 @@ function UI_DragonManageInfo:init(doid, sub_menu)
 
     self.m_dragonListLastChangeTime = g_dragonsData:getLastChangeTimeStamp()
 
+    self.m_startSubMenu = sub_menu
+end
+
+-------------------------------------
+-- function init_after
+-------------------------------------
+function UI_DragonManageInfo:init_after()
+    PARENT.init_after(self)
+
+    local sub_menu = self.m_startSubMenu
     if sub_menu then
         self:clickSubMenu(sub_menu)
     end
