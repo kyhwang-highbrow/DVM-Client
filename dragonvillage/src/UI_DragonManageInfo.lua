@@ -444,8 +444,8 @@ end
 -------------------------------------
 function UI_DragonManageInfo:click_skillEnhanceBtn()
 	-- 스킬 강화 가능 여부
-	local possible, msg = g_dragonsData:checkDragonSkillEnhancable(self.m_selectDragonOID)
-	if (not possible) then
+	local possible, msg = g_dragonsData:impossibleSkillEnhanceForever(self.m_selectDragonOID)
+	if (possible) then
 		UIManager:toastNotificationRed(msg)
         return
 	end

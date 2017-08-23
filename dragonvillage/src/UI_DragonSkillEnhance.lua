@@ -156,6 +156,24 @@ function UI_DragonSkillEnhance:refresh_skillIcon()
 end
 
 -------------------------------------
+-- function getDragonList
+-- @breif 하단 리스트뷰에 노출될 드래곤 리스트
+-- @override
+-------------------------------------
+function UI_DragonSkillEnhance:getDragonList()
+    local dragon_dic = g_dragonsData:getDragonListWithSlime()
+
+    -- 절대 레벨업 불가능한 드래곤 제외
+    for oid, v in pairs(dragon_dic) do
+        if (g_dragonsData:impossibleSkillEnhanceForever(oid)) then
+            dragon_dic[oid] = nil
+        end
+    end
+
+    return dragon_dic
+end
+
+-------------------------------------
 -- function getDragonMaterialList
 -- @brief 재료리스트 : 스킬강화
 -- @override
@@ -195,40 +213,6 @@ function UI_DragonSkillEnhance:getDragonMaterialList(doid)
     end
 
     return ret_dic
-end
-
--------------------------------------
--- function createDragonCardCB
--- @brief 드래곤 생성 콜백
--- @override
--------------------------------------
-function UI_DragonSkillEnhance:createDragonCardCB(ui, data)
-	local doid = data['id']
-
-    local enhancable, msg = g_dragonsData:checkDragonSkillEnhancable(doid)
-    if (not enhancable) then
-        if ui then
-            ui:setShadowSpriteVisible(true)
-        end
-    end
-end
-
--------------------------------------
--- function checkDragonSelect
--- @brief 선택이 가능한 드래곤인지 여부
--- @override
--------------------------------------
-function UI_DragonSkillEnhance:checkDragonSelect(doid)
-	local possible, msg = g_dragonsData:checkDragonSkillEnhancable(doid)
-
-    if possible then
-        return true
-    else
-        UIManager:toastNotificationRed(msg)
-        return false
-    end
-
-	return true
 end
 
 -------------------------------------
@@ -287,7 +271,7 @@ end
 -------------------------------------
 function UI_DragonSkillEnhance:click_enhanceBtn()
 	-- 스킬 강화 가능 여부
-	local possible, msg = g_dragonsData:checkDragonSkillEnhancable(self.m_selectDragonOID)
+	local possible, msg = g_dragonsData:possibleDragonSkillEnhance(self.m_selectDragonOID)
 	if (not possible) then
 		UIManager:toastNotificationRed(msg)
         return
@@ -371,7 +355,7 @@ function UI_DragonSkillEnhance:click_enhanceBtn()
         local ui = UI_DragonSkillEnhance_Result(self.m_selectDragonData, mod_struct_dragon)
 		ui:setCloseCB(function()
 			-- 스킬 강화 가능 여부 판별하여 가능하지 않으면 닫아버림
-			local possible, msg = g_dragonsData:checkDragonSkillEnhancable(self.m_selectDragonOID)
+			local possible, msg = g_dragonsData:impossibleSkillEnhanceForever(self.m_selectDragonOID)
 			if (not possible) then
 				UIManager:toastNotificationRed(msg)
 				self:close()

@@ -332,74 +332,6 @@ function ServerData_Dragons:request_setLeaderDragon(type, doid, cb_func)
 end
 
 -------------------------------------
--- function possibleGoodbye
--- @brief 작별 가능한지 체크
--------------------------------------
-function ServerData_Dragons:possibleGoodbye(doid)
-	local possible, msg = g_dragonsData:possibleMaterialDragon(doid)
-	if (not possible) then
-		return possible, msg
-	end
-
-    local t_dragon_data = self:getDragonDataFromUid(doid)
-	local did = t_dragon_data['did']
-	
-	-- 슬라임 체크
-	if (t_dragon_data.m_objectType == 'slime') then
-        return false, Str('작별할 수 없는 드래곤입니다.')
-    end
-
-	-- 자코 체크
-	if (TableDragon:isUnderling(did)) then
-		return false, Str('작별할 수 없는 드래곤입니다.') 
-	end
-
-    return true
-end
-
--------------------------------------
--- function possibleMaterialDragon
--- @brief 재료 드래곤으로 사용 가능한지 여부 : 리더나 잠금 상태를 제외한다
--------------------------------------
-function ServerData_Dragons:possibleMaterialDragon(doid)
-    local t_dragon_data = self:getDragonDataFromUid(doid)
-
-    if (not t_dragon_data) then
-        return false, ''
-    end
-
-	-- 잠금 체크
-	if (self:isLockDragon(doid)) then
-		return false, Str('잠금 상태입니다.')
-	end
-
-    -- 리더로 설정된 드래곤인지 체크
-    if self:isLeaderDragon(doid) then
-        return false, Str('리더로 설정된 드래곤입니다.')
-    end
-
-    -- 콜로세움 정보 확인
-    if g_colosseumData then
-        local struct_user_info = g_colosseumData:getPlayerColosseumUserInfo() -- return : StructUserInfoColosseum
-        if struct_user_info then
-            -- 공격 덱
-            local l_pvp_atk = struct_user_info:getAtkDeck_dragonList(true) -- param : use_doid
-            if table.find(l_pvp_atk, doid) then
-                return false, Str('콜로세움 공격덱에 설정된 드래곤입니다.')
-            end
-
-            -- 방어 덱
-            local l_pvp_def =struct_user_info:getDefDeck_dragonList(true) -- param : use_doid
-            if table.find(l_pvp_def, doid) then
-                return false, Str('콜로세움 방어덱에 설정된 드래곤입니다.')
-            end
-        end
-    end
-
-    return true
-end
-
--------------------------------------
 -- function isSameTypeDragon
 -- @brief 드래곤들의 원종(dragon 테이블의 type컬럼)이 같은지 확인
 -------------------------------------
@@ -676,6 +608,74 @@ function ServerData_Dragons:checkMaximumDragons(ignore_func, manage_func)
 end
 
 -------------------------------------
+-- function possibleGoodbye
+-- @brief 작별 가능한지 체크
+-------------------------------------
+function ServerData_Dragons:possibleGoodbye(doid)
+	local possible, msg = g_dragonsData:possibleMaterialDragon(doid)
+	if (not possible) then
+		return possible, msg
+	end
+
+    local t_dragon_data = self:getDragonDataFromUid(doid)
+	local did = t_dragon_data['did']
+	
+	-- 슬라임 체크
+	if (t_dragon_data.m_objectType == 'slime') then
+        return false, Str('작별할 수 없는 드래곤입니다.')
+    end
+
+	-- 자코 체크
+	if (TableDragon:isUnderling(did)) then
+		return false, Str('작별할 수 없는 드래곤입니다.') 
+	end
+
+    return true
+end
+
+-------------------------------------
+-- function possibleMaterialDragon
+-- @brief 재료 드래곤으로 사용 가능한지 여부 : 리더나 잠금 상태를 제외한다
+-------------------------------------
+function ServerData_Dragons:possibleMaterialDragon(doid)
+    local t_dragon_data = self:getDragonDataFromUid(doid)
+
+    if (not t_dragon_data) then
+        return false, ''
+    end
+
+	-- 잠금 체크
+	if (self:isLockDragon(doid)) then
+		return false, Str('잠금 상태입니다.')
+	end
+
+    -- 리더로 설정된 드래곤인지 체크
+    if self:isLeaderDragon(doid) then
+        return false, Str('리더로 설정된 드래곤입니다.')
+    end
+
+    -- 콜로세움 정보 확인
+    if g_colosseumData then
+        local struct_user_info = g_colosseumData:getPlayerColosseumUserInfo() -- return : StructUserInfoColosseum
+        if struct_user_info then
+            -- 공격 덱
+            local l_pvp_atk = struct_user_info:getAtkDeck_dragonList(true) -- param : use_doid
+            if table.find(l_pvp_atk, doid) then
+                return false, Str('콜로세움 공격덱에 설정된 드래곤입니다.')
+            end
+
+            -- 방어 덱
+            local l_pvp_def =struct_user_info:getDefDeck_dragonList(true) -- param : use_doid
+            if table.find(l_pvp_def, doid) then
+                return false, Str('콜로세움 방어덱에 설정된 드래곤입니다.')
+            end
+        end
+    end
+
+    return true
+end
+
+-------------------------------------
 -- function possibleDragonLevelUp
 -- @breif 레벨업이 가능한 상태인지 여부
 -------------------------------------
@@ -860,6 +860,74 @@ function ServerData_Dragons:impossibleEvolutionForever(doid)
 end
 
 -------------------------------------
+-- function possibleDragonSkillEnhance
+-- @brief 스킬 업그레이드 가능 여부
+-------------------------------------
+function ServerData_Dragons:possibleDragonSkillEnhance(doid)
+	if (not self:haveSkillSpareLV(doid)) then
+		return false, Str('현재 스킬이 최대 레벨입니다.')
+	end
+
+    local impossible, msg = self:impossibleSkillEnhanceForever(doid)
+    return (not impossible), msg
+end
+
+-------------------------------------
+-- function impossibleSkillEnhanceForever
+-- @brief 스킬 업그레이드 가능 여부
+-------------------------------------
+function ServerData_Dragons:impossibleSkillEnhanceForever(doid)
+    local t_dragon_data = self:getDragonObject(doid)
+
+    if (not t_dragon_data) then
+        return true
+    end
+
+    if (t_dragon_data.m_objectType == 'slime') then
+        return true, Str('슬라임은 스킬 강화 할 수 없습니다.')
+    end
+
+	if (not self:haveSkillSpareLV(doid) and self:isMaxEvolution(doid)) then
+		return true, Str('모든 스킬이 최대 레벨입니다.')
+	end
+
+    return false
+end
+
+-------------------------------------
+-- function haveSkillSpareLV
+-- @brief 여분의 스킬 레벨 공간이 있는지..
+-------------------------------------
+function ServerData_Dragons:haveSkillSpareLV(doid)
+    local t_dragon_data = self:getDragonDataFromUid(doid)
+	local t_dragon = TableDragon():get(t_dragon_data['did'])
+	local table_dragon_skill_modify = TableDragonSkillModify()
+
+    local evolution = t_dragon_data['evolution']
+	
+	-- active 부터 진화도까지
+	for i = 0, evolution do
+		local key = i
+
+		-- 애초에 0이었으면... 
+		if (key == 0) then
+			key = 'active'
+		end
+
+		local skill_id = t_dragon['skill_' .. key]
+		local max_lv = table_dragon_skill_modify:getMaxLV(skill_id)
+		local curr_lv = t_dragon_data['skill_' .. i]
+
+		-- 한개라도 현재 레밸이 최대레벨보다 낮은것이 있다면 여분 스킬 있는것으로 판명
+		if (curr_lv < max_lv) then
+			return true
+		end
+	end
+ 
+	return false
+end
+
+-------------------------------------
 -- function request_dragonsInfo
 -- @breif
 -------------------------------------
@@ -1031,61 +1099,6 @@ function ServerData_Dragons:request_battleGift(did, cb_func)
     ui_network:setRevocable(true)
     ui_network:setReuse(false)
     ui_network:request()
-end
-
--------------------------------------
--- function checkDragonSkillEnhancable
--- @brief 스킬 업그레이드 가능 여부
--------------------------------------
-function ServerData_Dragons:checkDragonSkillEnhancable(doid)
-    local t_dragon_data = self:getDragonObject(doid)
-
-    if (not t_dragon_data) then
-        return false
-    end
-
-    if (t_dragon_data.m_objectType == 'slime') then
-        return false, Str('슬라임은 스킬 강화 할 수 없습니다.')
-    end
-
-	if (not self:haveSkillSpareLV(doid)) then
-		return false, Str('모든 스킬이 최대 레벨입니다.')
-	end
-
-    return true
-end
-
--------------------------------------
--- function haveSkillSpareLV
--- @brief 여분의 스킬 레벨 공간이 있는지..
--------------------------------------
-function ServerData_Dragons:haveSkillSpareLV(doid)
-    local t_dragon_data = self:getDragonDataFromUid(doid)
-	local t_dragon = TableDragon():get(t_dragon_data['did'])
-	local table_dragon_skill_modify = TableDragonSkillModify()
-
-    local evolution = t_dragon_data['evolution']
-	
-	-- active 부터 진화도까지
-	for i = 0, evolution do
-		local key = i
-
-		-- 애초에 0이었으면... 
-		if (key == 0) then
-			key = 'active'
-		end
-
-		local skill_id = t_dragon['skill_' .. key]
-		local max_lv = table_dragon_skill_modify:getMaxLV(skill_id)
-		local curr_lv = t_dragon_data['skill_' .. i]
-
-		-- 한개라도 현재 레밸이 최대레벨보다 낮은것이 있다면 여분 스킬 있는것으로 판명
-		if (curr_lv < max_lv) then
-			return true
-		end
-	end
- 
-	return false
 end
 
 -------------------------------------
