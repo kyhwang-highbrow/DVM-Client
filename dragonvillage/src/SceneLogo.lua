@@ -19,9 +19,6 @@ function SceneLogo:init(class_ui)
     self.m_currLogoIdx = 0
     self.m_finishCB = nil
     self.m_bCallStartCB = false
-
-    -- @analytics
-    Analytics:firstTimeExperience('StartApp')
 end
 
 -------------------------------------

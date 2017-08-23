@@ -99,6 +99,9 @@ local function main()
 
     local function start_cb()
         loadModule()
+
+        -- @analytics
+        Analytics:firstTimeExperience('StartApp')
     end
 
     local function finish_cb()
