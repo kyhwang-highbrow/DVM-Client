@@ -27,7 +27,7 @@ function TableHighbrow:find(game, v2)
     end
 
     for i, v in pairs(self.m_orgTable) do
-        if (v['game'] == game) and ((v['code'] == v2) or (v['name'] == v2))then
+        if (v['game'] == game) and ((v['code'] == v2) or (v['t_name'] == v2)) then
             return v
         end
     end

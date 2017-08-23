@@ -71,6 +71,7 @@ function StructHighbrowProduct:buyProduct(finish_cb)
     -- 튜토리얼 보상 구매
     if (self:isTutorialProduct()) then
         g_highbrowData:request_buyHBProductTutorial(code, game_key, finish_cb)
+        self.done = true
 
     -- 일반 상품 구매
     else

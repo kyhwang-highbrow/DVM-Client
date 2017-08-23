@@ -54,7 +54,6 @@ end
 -------------------------------------
 function UI_EventPopupTab_HBShop_Coupon:initButton()
 	local vars = self.vars
-    vars['closeBtn']:registerScriptTapHandler(function() self:click_exitBtn() end)
 end
 
 -------------------------------------
@@ -131,13 +130,16 @@ function UI_EventPopupTab_HBShop_Coupon.makeCellUI(t_data)
     vars['couponLabel']:setString(coupon_str)
     
     -- 발행일
-    vars['timeLabel']:setString(datetime.makeTimeDesc(t_data['received_at']))
+    local date = os.date('%Y년 %m월 %d일', t_data['received_at']/1000)
+    vars['timeLabel']:setString(date)
 
     -- 아이콘
     local t_item = TableHighbrow:find(t_data['game'], t_data['name'])
-    local res = t_item['res']
-    local product_icon = IconHelper:getIcon(res)
-    vars['itemNode']:addChild(product_icon)
+    if (t_item) then
+        local res = t_item['res']
+        local product_icon = IconHelper:getIcon(res)
+        vars['itemNode']:addChild(product_icon)
+    end
 
     -- 쿠폰 번호 복사 버튼
     vars['copyBtn']:registerScriptTapHandler(function()
