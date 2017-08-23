@@ -148,14 +148,14 @@ T_LINK_FUNC = {
 
     -- 친구 n명 달성
     ['make_frd'] = function()
-        UI_FriendPopup()
+        UINavigator:goTo('friend')
     end,
     -- 우정포인트 주고 받기
     ['send_fp'] = function()
-        UI_FriendPopup()
+        UINavigator:goTo('friend')
     end,
     ['get_fp'] = function()
-        UI_FriendPopup()
+        UINavigator:goTo('friend')
     end,
 
     -- 테이머 겟

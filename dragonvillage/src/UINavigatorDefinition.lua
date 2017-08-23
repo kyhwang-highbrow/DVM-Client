@@ -587,6 +587,39 @@ function UINavigatorDefinition:goTo_hatchery(...)
     g_hatcheryData:update_hatcheryInfo(finish_cb)
 end
 
+-------------------------------------
+-- function goTo_friend
+-- @brief 친구UI로 이동
+-- @usage UINavigatorDefinition:goTo('friend')
+-------------------------------------
+function UINavigatorDefinition:goTo_friend(...)
+    local args = {...}
+
+    -- 해당 UI가 열려있을 경우
+    local is_opend, idx, ui = self:findOpendUI('UI_FriendPopup')
+    if (is_opend == true) then
+        self:closeUIList(idx, false) -- param : idx, include_idx
+        return
+    end
+
+    -- 로비가 열려있을 경우
+    local is_opend, idx, ui = self:findOpendUI('UI_Lobby')
+    if (is_opend == true) then
+        self:closeUIList(idx)
+        UI_FriendPopup()
+        return
+    end
+
+    do-- Scene으로 동작
+        local function close_cb()
+            UINavigatorDefinition:goTo('lobby')
+        end
+
+        local scene = SceneCommon(UI_FriendPopup, close_cb, tab)
+        scene:runScene()
+    end
+end
+
 
 
 

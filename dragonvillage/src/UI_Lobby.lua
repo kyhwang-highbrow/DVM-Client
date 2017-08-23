@@ -452,7 +452,7 @@ end
 -- @brief 친구
 -------------------------------------
 function UI_Lobby:click_friendBtn()
-    UI_FriendPopup()
+    UINavigator:goTo('friend')
 end
 
 -------------------------------------
