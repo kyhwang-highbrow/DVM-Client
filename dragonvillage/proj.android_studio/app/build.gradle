@@ -95,14 +95,14 @@ android {
 
     signingConfigs {
         // live 용 릴리즈키
-        live_key {
+        upload_keystore {
             storeFile file(UPLOAD_RELEASE_STORE_FILE)
             storePassword UPLOAD_RELEASE_STORE_PASSWORD
             keyAlias UPLOAD_RELEASE_KEY_ALIAS
             keyPassword UPLOAD_RELEASE_KEY_PASSWORD
         }
         // test 용 릴리즈키
-        test_key {
+        keystore {
             storeFile file(RELEASE_STORE_FILE)
             storePassword RELEASE_STORE_PASSWORD
             keyAlias RELEASE_KEY_ALIAS
@@ -121,7 +121,7 @@ android {
         dev100mbTest{
 			versionCode 1
 			versionName "9.9.9"
-            signingConfig signingConfigs.test_key
+            signingConfig signingConfigs.keystore
             externalNativeBuild {
                 ndkBuild {
                     cppFlags.add("-DTARGET_SERVER=SERVER_DEV")
@@ -135,7 +135,7 @@ android {
         devFullTest{
 			versionCode 1
 			versionName "9.9.9"
-            signingConfig signingConfigs.test_key
+            signingConfig signingConfigs.keystore
             externalNativeBuild {
                 ndkBuild {
                     cppFlags.add("-DTARGET_SERVER=SERVER_DEV")
@@ -151,7 +151,7 @@ android {
         qa100mbTest{
 			versionCode 14
 			versionName "0.3.4"
-            signingConfig signingConfigs.test_key
+            signingConfig signingConfigs.keystore
             externalNativeBuild {
                 ndkBuild {
                     cppFlags.add("-DTARGET_SERVER=SERVER_QA")
@@ -165,7 +165,7 @@ android {
         qaFullTest{
 			versionCode 14
 			versionName "0.3.4"
-            signingConfig signingConfigs.test_key
+            signingConfig signingConfigs.keystore
             externalNativeBuild {
                 ndkBuild {
                     cppFlags.add("-DTARGET_SERVER=SERVER_QA")
@@ -179,9 +179,9 @@ android {
 
         // LIVE
         live100mb{
-			versionCode 100 + 1
-			versionName "1.0.1"
-            signingConfig signingConfigs.test_key
+			versionCode 14
+			versionName "1.0.0"
+            signingConfig signingConfigs.upload_keystores
             externalNativeBuild {
                 ndkBuild {
                     cppFlags.add("-DTARGET_SERVER=SERVER_LIVE")
@@ -193,9 +193,9 @@ android {
             }
         }
         liveFull{
-			versionCode 100 + 1
-			versionName "1.0.1"
-            signingConfig signingConfigs.test_key
+			versionCode 14
+			versionName "1.0.0"
+            signingConfig signingConfigs.keystore
             externalNativeBuild {
                 ndkBuild {
                     cppFlags.add("-DTARGET_SERVER=SERVER_LIVE")
