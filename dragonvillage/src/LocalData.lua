@@ -355,5 +355,9 @@ end
 -- @breif
 -------------------------------------
 function LocalData:isGooglePlayConnected()
-    return (self:get('local', 'googleplay_connected') == 'on')
+    if isAndroid() then
+        return (self:get('local', 'googleplay_connected') == 'on')
+    else
+        return false
+    end
 end
