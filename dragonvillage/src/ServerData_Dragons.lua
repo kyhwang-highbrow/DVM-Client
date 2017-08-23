@@ -793,12 +793,40 @@ function ServerData_Dragons:possibleDragonLevelUp(doid)
     local lv = t_dragon_data['lv']
     local grade = t_dragon_data['grade']
     local max_lv = TableGradeInfo:getMaxLv(grade)
-
-    if (lv < max_lv) then
-        return true
-    else
+    
+    if (lv >= max_lv) then
         return false, Str('{1}등급 최대레벨 {2}에 달성하였습니다.', grade, max_lv)
     end
+
+    return true
+end
+
+-------------------------------------
+-- function impossibleLevelupForever
+-- @breif 레벨업이 절대 불가능한지 판별 -> 6성 60렙
+-------------------------------------
+function ServerData_Dragons:impossibleLevelupForever(doid)
+    local t_dragon_data = self:getDragonObject(doid)
+
+    if (not t_dragon_data) then
+        return true
+    end
+
+    if (t_dragon_data.m_objectType == 'slime') then
+        return true, Str('슬라임은 레벨업 할 수 없습니다.')
+    end
+
+    local lv = t_dragon_data['lv']
+    local grade = t_dragon_data['grade']
+    local max_lv = TableGradeInfo:getMaxLv(grade)
+
+    if (grade >= MAX_DRAGON_GRADE) then
+        if (lv >= max_lv) then
+            return true, Str('{1}등급 최대레벨 {2}에 달성하였습니다.', grade, max_lv)
+        end
+    end
+
+    return false
 end
 
 -------------------------------------

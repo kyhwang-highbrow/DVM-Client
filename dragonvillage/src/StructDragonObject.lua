@@ -432,6 +432,14 @@ function StructDragonObject:isLeader()
 end
 
 -------------------------------------
+-- function getObjectType
+-- @breif
+-------------------------------------
+function StructDragonObject:getObjectType()
+    return self['m_objectType']
+end
+
+-------------------------------------
 -- function getDragonSortData
 -- @breif
 -------------------------------------

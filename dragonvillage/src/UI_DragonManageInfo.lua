@@ -383,8 +383,8 @@ function UI_DragonManageInfo:click_levelupBtn()
     local doid = self.m_selectDragonOID
 
     do -- 레벨업이 가능한지 확인
-        local possible, msg = g_dragonsData:possibleDragonLevelUp(doid)
-        if (not possible) then
+        local possible, msg = g_dragonsData:impossibleLevelupForever(doid)
+        if (possible) then
             UIManager:toastNotificationRed(msg)
             return
         end

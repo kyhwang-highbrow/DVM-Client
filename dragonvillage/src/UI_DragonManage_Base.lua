@@ -255,20 +255,7 @@ end
 -- @breif 하단 리스트뷰에 노출될 드래곤 리스트
 -------------------------------------
 function UI_DragonManage_Base:getDragonList()
-    local l_item_list = g_dragonsData:getDragonsList()
-
-    local l_slime_list = g_slimesData:getSlimeList()
-
-    local ret = {}
-    for key,value in pairs(l_item_list) do
-        ret[key] = value
-    end
-
-    for key,value in pairs(l_slime_list) do
-        ret[key] = value
-    end
-
-    return ret
+    return g_dragonsData:getDragonListWithSlime()
 end
 
 -------------------------------------

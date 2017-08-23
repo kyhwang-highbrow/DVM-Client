@@ -184,6 +184,24 @@ function UI_DragonLevelUp:setAttrBonusLabel(dragon_card)
 end
 
 -------------------------------------
+-- function getDragonList
+-- @breif 하단 리스트뷰에 노출될 드래곤 리스트
+-- @override
+-------------------------------------
+function UI_DragonLevelUp:getDragonList()
+    local dragon_dic = g_dragonsData:getDragonListWithSlime()
+
+    -- 절대 레벨업 불가능한 드래곤 제외
+    for oid, v in pairs(dragon_dic) do
+        if (g_dragonsData:impossibleLevelupForever(oid)) then
+            dragon_dic[oid] = nil
+        end
+    end
+
+    return dragon_dic
+end
+
+-------------------------------------
 -- function getDragonMaterialList
 -- @brief 재료리스트 : 레벨업
 -- @override
@@ -196,13 +214,6 @@ function UI_DragonLevelUp:getDragonMaterialList(doid)
         dragon_dic[doid] = nil
     end
 
-    -- 재료로 사용 불가능한 드래곤 제외
-    for oid,v in pairs(dragon_dic) do
-        if (not g_dragonsData:possibleMaterialDragon(oid)) and (not g_slimesData:possibleMaterialSlime_exp(oid)) then
-            dragon_dic[oid] = nil
-        end
-    end
-
     return dragon_dic
 end
 
@@ -213,8 +224,23 @@ end
 function UI_DragonLevelUp:click_dragonMaterial(t_dragon_data)
     local doid = t_dragon_data['id']
 
-    local helper = self.m_dragonLevelUpUIHelper
+    -- 재료로 사용 가능한 드래곤 검증
+    if (t_dragon_data:getObjectType() == 'dragon') then
+        local possible, noti_str = g_dragonsData:possibleMaterialDragon(doid)
+        if (not possible) then
+            UIManager:toastNotificationRed(noti_str)
+            return
+        end
+    -- 재료로 사용 가능한 슬라임 검증
+    elseif (t_dragon_data:getObjectType() == 'slime') then
+        possible, noti_str = g_slimesData:possibleMaterialSlime_exp(doid)
+        if (not g_slimesData:possibleMaterialSlime_exp(doid)) then
+            UIManager:toastNotificationRed(noti_str)
+            return
+        end
+    end
 
+    local helper = self.m_dragonLevelUpUIHelper
     if (not helper:isSelectedDragon(doid)) then
         local is_can_add, fail_type = helper:isCanAdd()
 
@@ -271,23 +297,24 @@ function UI_DragonLevelUp:refresh_selectedMaterial()
 
     local t_dragon_data = self.m_selectDragonData
     local doid = t_dragon_data['id']
-    local possible, msg = g_dragonsData:possibleDragonLevelUp(doid)
 
     vars['selectLabel']:setString(helper:getMaterialCountString())
-    vars['priceLabel']:setString(comma_value(helper.m_price))
     vars['expGauge']:runAction(cc.ProgressTo:create(0.2, (helper.m_expPercentage)))
 
     vars['levelLabel']:setString(Str('레벨{1}/{2}', helper.m_changedLevel, helper.m_maxLevel))
-
-    if possible then
-        vars['expLabel']:setString(Str('{1}/{2}', helper.m_changedExp, helper.m_changedMaxExp))
-    else
-        vars['expLabel']:setString('')
-        vars['expGauge']:runAction(cc.ProgressTo:create(0.2, 100))
-    end
+    vars['expLabel']:setString(Str('{1}/{2}', helper.m_changedExp, helper.m_changedMaxExp))
 
     local plus_level = helper:getPlusLevel()
     vars['gradeLabel']:setString(Str('+{1}', plus_level))
+    
+    -- 레벨업 가능 여부에 따라 금액에 불가 표시
+    local price = ''
+    if (g_dragonsData:possibleDragonLevelUp(doid)) then
+        price = comma_value(helper.m_price)
+    else
+        price = Str('불가')
+    end
+    vars['priceLabel']:setString(price)
 
     -- 능력치 정보 갱신
     self:refresh_stats(t_dragon_data, helper.m_changedLevel)
@@ -336,14 +363,6 @@ end
 -- @override
 -------------------------------------
 function UI_DragonLevelUp:createDragonCardCB(ui, data)
-    local doid = data['id']
-
-    local possible, msg = g_dragonsData:possibleDragonLevelUp(doid)
-    if (not possible) then
-        if ui then
-            ui:setShadowSpriteVisible(true)
-        end
-    end
 end
 
 -------------------------------------
@@ -352,14 +371,7 @@ end
 -- @override
 -------------------------------------
 function UI_DragonLevelUp:checkDragonSelect(doid)
-    local possible, msg = g_dragonsData:possibleDragonLevelUp(doid)
-
-    if possible then
-        return true
-    else
-        UIManager:toastNotificationRed(msg)
-        return false
-    end
+    return true
 end
 
 -------------------------------------
@@ -367,6 +379,15 @@ end
 -- @brief
 -------------------------------------
 function UI_DragonLevelUp:click_levelupBtn()
+    local doid = self.m_selectDragonOID
+
+    -- 현재 레벨업 가능한 드래곤인지 검증
+    local possible, msg = g_dragonsData:possibleDragonLevelUp(doid)
+    if (not possible) then
+        UIManager:toastNotificationRed(msg)
+        return
+    end
+
     local helper = self.m_dragonLevelUpUIHelper
 
     if (helper.m_materialCount <= 0) then
@@ -403,7 +424,6 @@ function UI_DragonLevelUp:click_levelupBtn()
     end
 
     local uid = g_userData:get('uid')
-    local doid = self.m_selectDragonOID
     local src_doids = ''
     local src_soids = ''
     do
@@ -487,12 +507,6 @@ function UI_DragonLevelUp:response_levelup(ret, bonus_rate)
     -- @ MASTER ROAD
     local t_data = {clear_key = 'd_lvup'}
     g_masterRoadData:updateMasterRoad(t_data)
-
-    local possible, msg = g_dragonsData:possibleDragonLevelUp(doid)
-    if (not possible) then
-        MakeSimplePopup(POPUP_TYPE.OK, msg, function() self:close() end)
-    end
-
 end
 
 --@CHECK

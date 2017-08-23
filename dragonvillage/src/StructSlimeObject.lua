@@ -199,6 +199,14 @@ function StructSlimeObject:getSlimeType()
 end
 
 -------------------------------------
+-- function getObjectType
+-- @breif
+-------------------------------------
+function StructSlimeObject:getObjectType()
+    return self['m_objectType']
+end
+
+-------------------------------------
 -- function makeSlimeSkillIcon
 -- @breif
 -------------------------------------
