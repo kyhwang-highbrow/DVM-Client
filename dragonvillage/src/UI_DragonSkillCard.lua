@@ -23,7 +23,7 @@ function UI_DragonSkillCard:init(skill_indivisual_info)
     vars['skillNode']:addChild(icon)
 
     do -- 스킬 타입 표시
-        self:setTypeText(skill_type)
+        self:setTypeText(char_type, skill_type)
     end    
 
     do -- 스킬 lock
@@ -153,26 +153,28 @@ end
 -- function setSkillTypeText
 -- @brief skill_type
 -------------------------------------
-function UI_DragonSkillCard:setTypeText(skill_type)
+function UI_DragonSkillCard:setTypeText(char_type, skill_type)
     local vars = self.vars
 
     if (skill_type == 'basic') then
-        vars['typeLabel']:setString('기본')
+        vars['typeLabel']:setString(Str('기본'))
 
     elseif (skill_type == 'leader') then
-        vars['typeLabel']:setString('리더')
+        vars['typeLabel']:setString(Str('리더'))
 
     elseif (skill_type == 'active') then
-        vars['typeLabel']:setString('드래그')
+        if (char_type == 'tamer') then vars['typeLabel']:setString(Str('액티브'))
+        else vars['typeLabel']:setString(Str('드래그'))
+        end
 
     elseif (skill_type == 'passive') then
-        vars['typeLabel']:setString('패시브')
+        vars['typeLabel']:setString(Str('패시브'))
 
     elseif (skill_type == 'colosseum') then
-        vars['typeLabel']:setString('콜로세움')
+        vars['typeLabel']:setString(Str('콜로세움'))
 
     else
-        vars['typeLabel']:setString('패시브')
+        vars['typeLabel']:setString(Str('패시브'))
         vars['typeLabel']:setColor(cc.c3b(255,231,160))
     end
 
