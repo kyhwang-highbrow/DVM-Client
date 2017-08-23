@@ -172,19 +172,19 @@ T_LINK_FUNC = {
 
     -- 룬 장착
     ['r_eq'] = function()
-        UI_DragonManageInfo.goToDragonManage('rune')
+        UINavigator:goTo('dragon_manage', 'rune')
     end,    
 
     -- 룬 강화
     ['r_enc'] = function()
-        UI_DragonManageInfo.goToDragonManage('rune')
+        UINavigator:goTo('dragon_manage', 'rune')
     end,
     -- 룬 강화 성공/실패
     ['r_enc_scs'] = function()
-        UI_DragonManageInfo.goToDragonManage('rune')
+        UINavigator:goTo('dragon_manage', 'rune')
     end,
     ['r_enc_fail'] = function()
-        UI_DragonManageInfo.goToDragonManage('rune')
+        UINavigator:goTo('dragon_manage', 'rune')
     end,
 
 
@@ -192,70 +192,70 @@ T_LINK_FUNC = {
 
     -- 드래곤 스킬 레벨 업
     ['d_sklvup'] = function()
-        UI_DragonManageInfo.goToDragonManage('skill_enc')
+        UINavigator:goTo('dragon_manage', 'skill_enc')
     end,
     -- X 등급 드래곤 스킬레벨업
     ['d_sklvup_r'] = function()
-        UI_DragonManageInfo.goToDragonManage('skill_enc')
+        UINavigator:goTo('dragon_manage', 'skill_enc')
     end,
     ['d_sklvup_h'] = function()
-        UI_DragonManageInfo.goToDragonManage('skill_enc')
+        UINavigator:goTo('dragon_manage', 'skill_enc')
     end,
     ['d_sklvup_l'] = function()
-        UI_DragonManageInfo.goToDragonManage('skill_enc')
+        UINavigator:goTo('dragon_manage', 'skill_enc')
     end,
 
     -- 드래곤 진화
     ['d_evup'] = function()
-        UI_DragonManageInfo.goToDragonManage('evolution')
+        UINavigator:goTo('dragon_manage', 'evolution')
     end,
     -- 진화로 X 드래곤 n종 획득
     ['d_evol_2'] = function()
-        UI_DragonManageInfo.goToDragonManage('evolution')
+        UINavigator:goTo('dragon_manage', 'evolution')
     end,
     ['d_evol_3'] = function()
-        UI_DragonManageInfo.goToDragonManage('evolution')
+        UINavigator:goTo('dragon_manage', 'evolution')
     end,
 
     -- 드래곤 레벨업
     ['d_lvup'] = function()
-        UI_DragonManageInfo.goToDragonManage('level_up')
+        UINavigator:goTo('dragon_manage', 'level_up')
     end,
     -- 레벨업 재료 사용
     ['d_use_mtrl'] = function()
-        UI_DragonManageInfo.goToDragonManage('level_up')
+        UINavigator:goTo('dragon_manage', 'level_up')
     end,
 
     -- 드래곤 등급업
     ['d_grup'] = function()
-        UI_DragonManageInfo.goToDragonManage('grade')
+        UINavigator:goTo('dragon_manage', 'grade')
     end,
     -- 승급으로 드래곤 n종 획득
     ['d_grup_4'] = function()
-        UI_DragonManageInfo.goToDragonManage('grade')
+        UINavigator:goTo('dragon_manage', 'grade')
     end,
     ['d_grup_5'] = function()
-        UI_DragonManageInfo.goToDragonManage('grade')
+        UINavigator:goTo('dragon_manage', 'grade')
     end,
     ['d_grup_6'] = function()
-        UI_DragonManageInfo.goToDragonManage('grade')
+        UINavigator:goTo('dragon_manage', 'grade')
     end,
 
     -- 친밀도 과일 먹임
     ['fruit'] = function()
-        UI_DragonManageInfo.goToDragonManage('friendship')
+        UINavigator:goTo('dragon_manage', 'friendship')
     end,
     ['feed'] = function()
-        UI_DragonManageInfo.goToDragonManage('friendship')
+        UINavigator:goTo('dragon_manage', 'friendship')
     end,
     -- 친밀도 일심동체 만들기
     ['d_flv_9'] = function()
-        UI_DragonManageInfo.goToDragonManage('friendship')
+        UINavigator:goTo('dragon_manage', 'friendship')
     end,
 
     -- 작별
     ['goodbye'] = function()
-        UI_DragonManageInfo.goToDragonManage()
+        UINavigator:goTo('dragon_manage')
     end,
 
 

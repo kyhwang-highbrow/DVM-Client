@@ -25,7 +25,7 @@ end
 -------------------------------------
 -- function init
 -------------------------------------
-function UI_DragonManageInfo:init(doid)
+function UI_DragonManageInfo:init(doid, sub_menu)
     local vars = self:load('dragon_manage.ui')
     UIManager:open(self, UIManager.SCENE)
 
@@ -45,6 +45,10 @@ function UI_DragonManageInfo:init(doid)
     self:setDefaultSelectDragon(doid)
 
     self.m_dragonListLastChangeTime = g_dragonsData:getLastChangeTimeStamp()
+
+    if sub_menu then
+        self:clickSubMenu(sub_menu)
+    end
 end
 
 -------------------------------------
@@ -768,32 +772,30 @@ function UI_DragonManageInfo:checkDragonListRefresh()
 end
 
 -------------------------------------
--- function goToDragonManage
--- @brief 드래곤 관리창 + 드래곤 관리 서브메뉴로 진입
+-- function clickSubMenu
+-- @brief
 -------------------------------------
-function UI_DragonManageInfo.goToDragonManage(sub_menu)
-    local ui = UI_DragonManageInfo()
-
+function UI_DragonManageInfo:clickSubMenu(sub_menu)
     if (not sub_menu) then
         -- nothing to do
 
     elseif (sub_menu == 'level_up') then
-        ui:click_levelupBtn()
+        self:click_levelupBtn()
 
     elseif (sub_menu == 'grade') then
-        ui:click_upgradeBtn()
+        self:click_upgradeBtn()
 
     elseif (sub_menu == 'evolution') then
-        ui:click_evolutionBtn()
+        self:click_evolutionBtn()
 
     elseif (sub_menu == 'friendship') then
-        ui:click_friendshipBtn()
+        self:click_friendshipBtn()
 
     elseif (sub_menu == 'skill_enc') then
-        ui:click_skillEnhanceBtn()
+        self:click_skillEnhanceBtn()
 
     elseif (sub_menu == 'rune') then
-        ui:click_runeBtn()
+        self:click_runeBtn()
 
     end
 end

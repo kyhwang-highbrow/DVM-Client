@@ -615,7 +615,43 @@ function UINavigatorDefinition:goTo_friend(...)
             UINavigatorDefinition:goTo('lobby')
         end
 
-        local scene = SceneCommon(UI_FriendPopup, close_cb, tab)
+        local scene = SceneCommon(UI_FriendPopup, close_cb)
+        scene:runScene()
+    end
+end
+
+-------------------------------------
+-- function goTo_dragon_manage
+-- @brief 드래곤 관리로 이동
+-- @usage UINavigatorDefinition:goTo('dragon_manage')
+-------------------------------------
+function UINavigatorDefinition:goTo_dragon_manage(...)
+    local args = {...}
+    local sub_menu = args[1]
+
+    -- 해당 UI가 열려있을 경우
+    local is_opend, idx, ui = self:findOpendUI('UI_DragonManageInfo')
+    if (is_opend == true) then
+        self:closeUIList(idx, false) -- param : idx, include_idx
+        ui:clickSubMenu(sub_menu)
+        return
+    end
+
+    -- 로비가 열려있을 경우
+    local is_opend, idx, ui = self:findOpendUI('UI_Lobby')
+    if (is_opend == true) then
+        self:closeUIList(idx)
+        local ui = UI_DragonManageInfo()
+        ui:clickSubMenu(sub_menu)
+        return
+    end
+
+    do-- Scene으로 동작
+        local function close_cb()
+            UINavigatorDefinition:goTo('lobby')
+        end
+
+        local scene = SceneCommon(UI_DragonManageInfo, close_cb, nil, sub_menu)
         scene:runScene()
     end
 end
