@@ -219,17 +219,19 @@ end
 
 -------------------------------------
 -- function setEnabledBraodCast
--- @brief 방송 관련 라벨 꺼줌 (채팅 버튼 비활성화)
+-- @brief 방송, 채팅 라벨, 채팅 버튼 활성화/비활성화 
 -------------------------------------
 function UI_TopUserInfo:setEnabledBraodCast(enable)
     self.vars['quickBtn']:setEnabled(enable)   
     self.vars['chatBtn']:setEnabled(enable)  
 
-    self.m_broadcastLabel:setVisible(enable)
-    self.m_chatBroadcastLabel:setVisible(enable)
-
     self.m_broadcastLabel.m_bEnabled = enable
     self.m_chatBroadcastLabel.m_bEnabled = enable
+
+    if (not enable) then
+        self.m_broadcastLabel:setVisible(false)
+        self.m_chatBroadcastLabel:setVisible(false)
+    end
 end
 
 -------------------------------------
