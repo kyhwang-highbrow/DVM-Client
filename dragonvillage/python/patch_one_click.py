@@ -86,6 +86,8 @@ def init_global_var():
         SERVER_PATH = 'http://dv-test.perplelab.com:9003'
     elif tar_server == 'QA':
         SERVER_PATH = 'http://dv-qa.perplelab.com:9003'
+    elif tar_server == 'LIVE':
+        SERVER_PATH = 'http://dvm-api.perplelab.com'
 
     # 패치를 진행할 앱 버전
     app_ver = sys.argv[2]
