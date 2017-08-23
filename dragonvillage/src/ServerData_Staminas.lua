@@ -280,24 +280,29 @@ function ServerData_Staminas:staminaCharge(stage_id, finish_cb)
     else
         local charge_limit = TableStaminaInfo:getDailyChargeLimit(stamina_type)
 
+        local price, cnt = TableStaminaInfo:getDailyChargeInfo(stamina_type, charge_cnt)
+        local function ok_btn_cb()
+            -- 캐쉬가 충분히 있는지 확인
+            if (not ConfirmPrice('cash', price)) then
+                return
+            end
+                
+            self:request_staminaCharge(stamina_type, finish_cb)
+        end
+        
         if self:canDailyCharge(stamina_type) then
             local t_stamina_info = self:getRef(stamina_type)
             local charge_cnt = (t_stamina_info['charge_cnt'] or 0)
-            local price, cnt = TableStaminaInfo:getDailyChargeInfo(stamina_type, charge_cnt)
             local msg = Str('입장권이 부족합니다.\n{@possible}입장권 {1}개{@default}를 충전하시겠습니까?\n{@impossible}(1일 {2}회 구매 가능. 현재 {3}회 구매)', cnt, charge_limit, charge_cnt)
-            
-            local function ok_btn_cb()
-                -- 캐쉬가 충분히 있는지 확인
-                if (not ConfirmPrice('cash', price)) then
-                    return
-                end
-                
-                self:request_staminaCharge(stamina_type, finish_cb)
-            end
-
             UI_ConfirmPopup('cash', price, msg, ok_btn_cb)
+
+        -- 구매제한 없는 경우 처리
+        elseif (not charge_limit) or (charge_limit == 0) then
+            local msg = Str('입장권이 부족합니다.\n{@possible}입장권 {1}개{@default}를 충전하시겠습니까?', cnt)
+            UI_ConfirmPopup('cash', price, msg, ok_btn_cb)
+
         else
-            local msg = Str('입장권을 모두 소모하였습니다.\n오늘은 더 이상 구매할 수 없습니다.\n{@impossible}(1일 {1}회 구매 가능)', charge_limit)
+            local msg = Str('{입장권을 모두 소모하였습니다.\n오늘은 더 이상 구매할 수 없습니다.\n{@impossible}(1일 {1}회 구매 가능)', charge_limit)
             MakeSimplePopup(POPUP_TYPE.OK, msg)
         end
     end
