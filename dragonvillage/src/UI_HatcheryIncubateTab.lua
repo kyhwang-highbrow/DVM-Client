@@ -59,7 +59,11 @@ function UI_HatcheryIncubateTab:click_eggItem(t_item, idx)
     local t_data = t_item['data']
 
     if t_data['is_shop'] then
-        UIManager:toastNotificationRed(Str('"알 상점"은 준비 중입니다.'))
+        local function close_cb()
+            -- 리스트 갱신
+            self:refreshEggList()
+        end
+        g_shopDataNew:openShopPopup('mileage', close_cb)
         return
     end
 
@@ -142,7 +146,7 @@ function UI_HatcheryIncubateTab:onChangeCurrEgg(t_item, idx)
 
     if t_data['is_shop'] then
         vars['nameLabel']:setString('상점')
-        vars['descLabel']:setString('')
+        vars['descLabel']:setString(Str('토파즈, 마일리지, 명예를 사용하여 알을 구매할 수 있습니다'))
         return
     end
 
@@ -177,7 +181,7 @@ function UI_HatcheryIncubateTab:refreshEggList()
         local scale = 0.8
         local animator = MakeAnimator('res/item/egg/egg_shop/egg_shop.vrp')
         animator:setScale(scale)
-        animator:changeAni('egg')
+        animator:changeAni('egg', true)
 
         local data = {['is_shop']=true}
 

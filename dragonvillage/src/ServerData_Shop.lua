@@ -296,7 +296,7 @@ end
 --        2. 상점 UI를 생성
 --        3. 지정된 상점 tab이 있을 경우 경우 tab 설정
 -------------------------------------
-function ServerData_Shop:openShopPopup(tab_type)
+function ServerData_Shop:openShopPopup(tab_type, close_cb)
     self:ckechDirty()
 
     local function cb_func()
@@ -305,6 +305,10 @@ function ServerData_Shop:openShopPopup(tab_type)
 
         if tab_type then
             ui_shop_popup:setTab(tab_type)
+        end
+
+        if close_cb then
+            ui_shop_popup:setCloseCB(close_cb)
         end
     end
 
