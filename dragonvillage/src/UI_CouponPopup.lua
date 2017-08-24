@@ -53,7 +53,7 @@ function UI_CouponPopup:initUI()
     if self.m_couponType == 'highbrow' then
         self.m_titleText = Str("'아이템 코드' 입력")
         self.m_editText = Str('16자리의 아이템 코드를 입력하세요.')
-        self.m_dscText = Str("구매하신 '드래곤빌리지 콜렉션게임카드'의 '아이템코드'를 입력하시면,\n드래곤빌리지M에서 획득 가능한 보상을 확인할 수 있습니다.\n(단, 드래곤빌리지 콜렉션게임카드 16탄 부터 적용되며, 1~15탄 카드, 특별카드 및 기타상품은 사용불가능합니다.)")
+        self.m_dscText = Str("구매하신 '드래곤빌리지 콜렉션 게임 카드'의 '아이템코드'를 입력하시면,\n드래곤빌리지M에서 획득 가능한 보상을 확인할 수 있습니다.\n(단, 드래곤빌리지 콜렉션 게임 카드 16탄 부터 적용되며, 1~15탄 카드, 특별카드 및 기타상품은 사용불가능합니다.)")
         self.m_errText = Str('아이템 코드의 길이가 맞지 않습니다.')
         self.m_errSubText = Str('16자리의 아이템 코드를 입력해 주세요.')
         self.m_maxCodeLength = 16
