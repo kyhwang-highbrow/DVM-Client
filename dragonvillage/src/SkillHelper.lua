@@ -258,7 +258,7 @@ end
 function SkillHelper:makePassiveSkillSpeech(dragon, str)
     local animatorWindow = MakeAnimator('res/ui/a2d/ingame_dragon_skill/ingame_dragon_skill.vrp')
     animatorWindow:setVisual('skill_gauge', 'bubble')
-    animatorWindow:setTimeScale(.5)
+    animatorWindow:setTimeScale(0.5)
     animatorWindow:setRepeat(false)
     animatorWindow:setPosition(0, 50)
     dragon:getDragonSpeechNode():addChild(animatorWindow.m_node, 10)
@@ -267,12 +267,22 @@ function SkillHelper:makePassiveSkillSpeech(dragon, str)
     animatorWindow:runAction(cc.Sequence:create(cc.DelayTime:create(duration), cc.RemoveSelf:create()))
     -- 대사
     do
-        self.m_speechLabel = cc.Label:createWithTTF(str, 'res/font/common_font_01.ttf', 24, 0, cc.size(340, 100), 1, 1)
+        --self.m_speechLabel = cc.Label:createWithTTF(str, 'res/font/common_font_01.ttf', 24, 0, cc.size(340, 100), 1, 1)
+        self.m_speechLabel = cc.Label:createWithTTF(str, 'res/font/common_font_01.ttf', 24, 2)
         self.m_speechLabel:setAnchorPoint(cc.p(0.5, 0.5))
 	    self.m_speechLabel:setDockPoint(cc.p(0, 0))
 	    self.m_speechLabel:setColor(cc.c3b(255, 255, 255))
+        self.m_speechLabel:enableOutline(cc.c4b(0, 0, 0, 255), 2)
+        self.m_speechLabel:setAlignment(cc.TEXT_ALIGNMENT_LEFT, cc.VERTICAL_TEXT_ALIGNMENT_TOP)
 
         local socketNode = animatorWindow.m_node:getSocketNode('skill_bubble')
         socketNode:addChild(self.m_speechLabel, 1)
+
+        local size = self.m_speechLabel:getContentSize()
+        if (size['width'] > 110) then
+            animatorWindow:setScaleX(2)
+            self.m_speechLabel:setScaleX(0.5)
+        end
+        
     end
 end
