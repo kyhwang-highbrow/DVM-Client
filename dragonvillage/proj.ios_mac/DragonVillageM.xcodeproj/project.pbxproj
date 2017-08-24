@@ -31,6 +31,24 @@
 		374E10A21F4DA377008C32F1 /* res in Resources */ = {isa = PBXBuildFile; fileRef = 374E109D1F4DA377008C32F1 /* res */; };
 		374E10A31F4DA377008C32F1 /* sound in Resources */ = {isa = PBXBuildFile; fileRef = 374E109E1F4DA377008C32F1 /* sound */; };
 		374E10A41F4DA377008C32F1 /* translate in Resources */ = {isa = PBXBuildFile; fileRef = 374E109F1F4DA377008C32F1 /* translate */; };
+		374E10AB1F4DA63F008C32F1 /* AudioEngine.lua in Resources */ = {isa = PBXBuildFile; fileRef = 374E10A61F4DA63E008C32F1 /* AudioEngine.lua */; };
+		374E10AC1F4DA63F008C32F1 /* CCBReaderLoad.lua in Resources */ = {isa = PBXBuildFile; fileRef = 374E10A71F4DA63E008C32F1 /* CCBReaderLoad.lua */; };
+		374E10AD1F4DA63F008C32F1 /* Cocos2d.lua in Resources */ = {isa = PBXBuildFile; fileRef = 374E10A81F4DA63F008C32F1 /* Cocos2d.lua */; };
+		374E10AE1F4DA63F008C32F1 /* Cocos2dConstants.lua in Resources */ = {isa = PBXBuildFile; fileRef = 374E10A91F4DA63F008C32F1 /* Cocos2dConstants.lua */; };
+		374E10AF1F4DA63F008C32F1 /* CocoStudio.lua in Resources */ = {isa = PBXBuildFile; fileRef = 374E10AA1F4DA63F008C32F1 /* CocoStudio.lua */; };
+		374E10B51F4DA653008C32F1 /* Deprecated.lua in Resources */ = {isa = PBXBuildFile; fileRef = 374E10B01F4DA652008C32F1 /* Deprecated.lua */; };
+		374E10B61F4DA653008C32F1 /* DeprecatedClass.lua in Resources */ = {isa = PBXBuildFile; fileRef = 374E10B11F4DA652008C32F1 /* DeprecatedClass.lua */; };
+		374E10B71F4DA653008C32F1 /* DeprecatedEnum.lua in Resources */ = {isa = PBXBuildFile; fileRef = 374E10B21F4DA652008C32F1 /* DeprecatedEnum.lua */; };
+		374E10B81F4DA653008C32F1 /* DeprecatedOpenglEnum.lua in Resources */ = {isa = PBXBuildFile; fileRef = 374E10B31F4DA652008C32F1 /* DeprecatedOpenglEnum.lua */; };
+		374E10B91F4DA653008C32F1 /* DrawPrimitives.lua in Resources */ = {isa = PBXBuildFile; fileRef = 374E10B41F4DA652008C32F1 /* DrawPrimitives.lua */; };
+		374E10BB1F4DA65D008C32F1 /* extern.lua in Resources */ = {isa = PBXBuildFile; fileRef = 374E10BA1F4DA65C008C32F1 /* extern.lua */; };
+		374E10C21F4DA669008C32F1 /* GuiConstants.lua in Resources */ = {isa = PBXBuildFile; fileRef = 374E10BC1F4DA668008C32F1 /* GuiConstants.lua */; };
+		374E10C31F4DA669008C32F1 /* json.lua in Resources */ = {isa = PBXBuildFile; fileRef = 374E10BD1F4DA668008C32F1 /* json.lua */; };
+		374E10C41F4DA669008C32F1 /* luaj.lua in Resources */ = {isa = PBXBuildFile; fileRef = 374E10BE1F4DA668008C32F1 /* luaj.lua */; };
+		374E10C51F4DA669008C32F1 /* luaoc.lua in Resources */ = {isa = PBXBuildFile; fileRef = 374E10BF1F4DA668008C32F1 /* luaoc.lua */; };
+		374E10C61F4DA669008C32F1 /* Opengl.lua in Resources */ = {isa = PBXBuildFile; fileRef = 374E10C01F4DA668008C32F1 /* Opengl.lua */; };
+		374E10C71F4DA669008C32F1 /* OpenglConstants.lua in Resources */ = {isa = PBXBuildFile; fileRef = 374E10C11F4DA669008C32F1 /* OpenglConstants.lua */; };
+		374E10C91F4DA675008C32F1 /* StudioConstants.lua in Resources */ = {isa = PBXBuildFile; fileRef = 374E10C81F4DA675008C32F1 /* StudioConstants.lua */; };
 		37519C041A6657A200406F47 /* PerpLua.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 37519C031A6657A200406F47 /* PerpLua.cpp */; };
 		37519C101A6657B300406F47 /* PerpUtils.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 37519C0E1A6657B300406F47 /* PerpUtils.cpp */; };
 		375E097A1F4498B10085A2FE /* UnityAds.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 375E09791F4498B10085A2FE /* UnityAds.framework */; };
@@ -341,6 +359,25 @@
 		374E109D1F4DA377008C32F1 /* res */ = {isa = PBXFileReference; lastKnownFileType = folder; name = res; path = ../../assets/full/res; sourceTree = "<group>"; };
 		374E109E1F4DA377008C32F1 /* sound */ = {isa = PBXFileReference; lastKnownFileType = folder; name = sound; path = ../../assets/full/sound; sourceTree = "<group>"; };
 		374E109F1F4DA377008C32F1 /* translate */ = {isa = PBXFileReference; lastKnownFileType = folder; name = translate; path = ../../assets/full/translate; sourceTree = "<group>"; };
+		374E10A51F4DA58B008C32F1 /* PerpConstant.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = PerpConstant.h; path = ../Classes/PerpConstant.h; sourceTree = "<group>"; };
+		374E10A61F4DA63E008C32F1 /* AudioEngine.lua */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = AudioEngine.lua; path = ../../assets/full/AudioEngine.lua; sourceTree = "<group>"; };
+		374E10A71F4DA63E008C32F1 /* CCBReaderLoad.lua */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = CCBReaderLoad.lua; path = ../../assets/full/CCBReaderLoad.lua; sourceTree = "<group>"; };
+		374E10A81F4DA63F008C32F1 /* Cocos2d.lua */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = Cocos2d.lua; path = ../../assets/full/Cocos2d.lua; sourceTree = "<group>"; };
+		374E10A91F4DA63F008C32F1 /* Cocos2dConstants.lua */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = Cocos2dConstants.lua; path = ../../assets/full/Cocos2dConstants.lua; sourceTree = "<group>"; };
+		374E10AA1F4DA63F008C32F1 /* CocoStudio.lua */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = CocoStudio.lua; path = ../../assets/full/CocoStudio.lua; sourceTree = "<group>"; };
+		374E10B01F4DA652008C32F1 /* Deprecated.lua */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = Deprecated.lua; path = ../../assets/full/Deprecated.lua; sourceTree = "<group>"; };
+		374E10B11F4DA652008C32F1 /* DeprecatedClass.lua */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = DeprecatedClass.lua; path = ../../assets/full/DeprecatedClass.lua; sourceTree = "<group>"; };
+		374E10B21F4DA652008C32F1 /* DeprecatedEnum.lua */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = DeprecatedEnum.lua; path = ../../assets/full/DeprecatedEnum.lua; sourceTree = "<group>"; };
+		374E10B31F4DA652008C32F1 /* DeprecatedOpenglEnum.lua */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = DeprecatedOpenglEnum.lua; path = ../../assets/full/DeprecatedOpenglEnum.lua; sourceTree = "<group>"; };
+		374E10B41F4DA652008C32F1 /* DrawPrimitives.lua */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = DrawPrimitives.lua; path = ../../assets/full/DrawPrimitives.lua; sourceTree = "<group>"; };
+		374E10BA1F4DA65C008C32F1 /* extern.lua */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = extern.lua; path = ../../assets/full/extern.lua; sourceTree = "<group>"; };
+		374E10BC1F4DA668008C32F1 /* GuiConstants.lua */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = GuiConstants.lua; path = ../../assets/full/GuiConstants.lua; sourceTree = "<group>"; };
+		374E10BD1F4DA668008C32F1 /* json.lua */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = json.lua; path = ../../assets/full/json.lua; sourceTree = "<group>"; };
+		374E10BE1F4DA668008C32F1 /* luaj.lua */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = luaj.lua; path = ../../assets/full/luaj.lua; sourceTree = "<group>"; };
+		374E10BF1F4DA668008C32F1 /* luaoc.lua */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = luaoc.lua; path = ../../assets/full/luaoc.lua; sourceTree = "<group>"; };
+		374E10C01F4DA668008C32F1 /* Opengl.lua */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = Opengl.lua; path = ../../assets/full/Opengl.lua; sourceTree = "<group>"; };
+		374E10C11F4DA669008C32F1 /* OpenglConstants.lua */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = OpenglConstants.lua; path = ../../assets/full/OpenglConstants.lua; sourceTree = "<group>"; };
+		374E10C81F4DA675008C32F1 /* StudioConstants.lua */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = StudioConstants.lua; path = ../../assets/full/StudioConstants.lua; sourceTree = "<group>"; };
 		37519C031A6657A200406F47 /* PerpLua.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = PerpLua.cpp; path = ../Classes/PerpLua.cpp; sourceTree = "<group>"; };
 		37519C0E1A6657B300406F47 /* PerpUtils.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = PerpUtils.cpp; path = ../Classes/PerpExt/PerpUtils.cpp; sourceTree = "<group>"; };
 		37519C0F1A6657B300406F47 /* PerpUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PerpUtils.h; path = ../Classes/PerpExt/PerpUtils.h; sourceTree = "<group>"; };
@@ -352,7 +389,6 @@
 		377033A3198F5FF00091C231 /* VisibleRect.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = VisibleRect.cpp; path = ../Classes/VisibleRect.cpp; sourceTree = "<group>"; };
 		377033A4198F5FF00091C231 /* VisibleRect.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VisibleRect.h; path = ../Classes/VisibleRect.h; sourceTree = "<group>"; };
 		377033AA198F60A50091C231 /* Runtime_ios-mac.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; lineEnding = 0; path = "Runtime_ios-mac.mm"; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
-		37CB753A1B676EA5002BF6F6 /* LoginPlatform.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LoginPlatform.h; path = ../Classes/LoginPlatform.h; sourceTree = "<group>"; };
 		37D8E3EF1A304EB9005E479B /* PerpSocial.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = PerpSocial.cpp; path = ../Classes/PerpSocial.cpp; sourceTree = "<group>"; };
 		37D8E3F01A304EB9005E479B /* PerpSocial.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PerpSocial.h; path = ../Classes/PerpSocial.h; sourceTree = "<group>"; };
 		37E0007E1B26905C00F23F9E /* ja */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ja; path = ja.lproj/InfoPlist.strings; sourceTree = "<group>"; };
@@ -701,12 +737,12 @@
 			isa = PBXGroup;
 			children = (
 				37519C111A6657BA00406F47 /* PerpExt */,
+				374E10A51F4DA58B008C32F1 /* PerpConstant.h */,
 				373E2D7F1A038712004EF0DB /* AppDelegate_Custom.cpp */,
 				F293BB7E15EB831F00256477 /* AppDelegate.cpp */,
 				F293BB7F15EB831F00256477 /* AppDelegate.h */,
 				3770339F198F5FF00091C231 /* ConfigParser.cpp */,
 				377033A0198F5FF00091C231 /* ConfigParser.h */,
-				37CB753A1B676EA5002BF6F6 /* LoginPlatform.h */,
 				37519C031A6657A200406F47 /* PerpLua.cpp */,
 				37D8E3EF1A304EB9005E479B /* PerpSocial.cpp */,
 				37D8E3F01A304EB9005E479B /* PerpSocial.h */,
@@ -737,6 +773,24 @@
 				374E10951F4DA351008C32F1 /* fixed_constant.lua */,
 				374E10971F4DA35B008C32F1 /* entry_main.lua */,
 				374E10981F4DA35C008C32F1 /* entry_patch.lua */,
+				374E10A61F4DA63E008C32F1 /* AudioEngine.lua */,
+				374E10A71F4DA63E008C32F1 /* CCBReaderLoad.lua */,
+				374E10A81F4DA63F008C32F1 /* Cocos2d.lua */,
+				374E10A91F4DA63F008C32F1 /* Cocos2dConstants.lua */,
+				374E10AA1F4DA63F008C32F1 /* CocoStudio.lua */,
+				374E10B01F4DA652008C32F1 /* Deprecated.lua */,
+				374E10B11F4DA652008C32F1 /* DeprecatedClass.lua */,
+				374E10B21F4DA652008C32F1 /* DeprecatedEnum.lua */,
+				374E10B31F4DA652008C32F1 /* DeprecatedOpenglEnum.lua */,
+				374E10B41F4DA652008C32F1 /* DrawPrimitives.lua */,
+				374E10BA1F4DA65C008C32F1 /* extern.lua */,
+				374E10BC1F4DA668008C32F1 /* GuiConstants.lua */,
+				374E10BD1F4DA668008C32F1 /* json.lua */,
+				374E10BE1F4DA668008C32F1 /* luaj.lua */,
+				374E10BF1F4DA668008C32F1 /* luaoc.lua */,
+				374E10C01F4DA668008C32F1 /* Opengl.lua */,
+				374E10C11F4DA669008C32F1 /* OpenglConstants.lua */,
+				374E10C81F4DA675008C32F1 /* StudioConstants.lua */,
 				374E109B1F4DA377008C32F1 /* data_dat */,
 				374E109C1F4DA377008C32F1 /* ps */,
 				374E109D1F4DA377008C32F1 /* res */,
@@ -1029,20 +1083,36 @@
 				37EF84261B268F3B00EFA299 /* InfoPlist.strings in Resources */,
 				C03781CF18BF656A00FE4F13 /* AudioEngine.lua in Resources */,
 				7D50CB851C04459600F8FE3E /* Info.plist in Resources */,
+				374E10B91F4DA653008C32F1 /* DrawPrimitives.lua in Resources */,
 				C03781D118BF656A00FE4F13 /* CCBReaderLoad.lua in Resources */,
 				C03781D318BF656A00FE4F13 /* Cocos2d.lua in Resources */,
+				374E10AC1F4DA63F008C32F1 /* CCBReaderLoad.lua in Resources */,
 				C03781D518BF656A00FE4F13 /* Cocos2dConstants.lua in Resources */,
+				374E10B61F4DA653008C32F1 /* DeprecatedClass.lua in Resources */,
+				374E10C31F4DA669008C32F1 /* json.lua in Resources */,
+				374E10BB1F4DA65D008C32F1 /* extern.lua in Resources */,
+				374E10AB1F4DA63F008C32F1 /* AudioEngine.lua in Resources */,
 				C03781D718BF656A00FE4F13 /* CocoStudio.lua in Resources */,
+				374E10B81F4DA653008C32F1 /* DeprecatedOpenglEnum.lua in Resources */,
 				C03781D918BF656A00FE4F13 /* Deprecated.lua in Resources */,
+				374E10AE1F4DA63F008C32F1 /* Cocos2dConstants.lua in Resources */,
 				374E10A41F4DA377008C32F1 /* translate in Resources */,
 				C03781DB18BF656A00FE4F13 /* DeprecatedClass.lua in Resources */,
+				374E10C21F4DA669008C32F1 /* GuiConstants.lua in Resources */,
+				374E10B51F4DA653008C32F1 /* Deprecated.lua in Resources */,
+				374E10C71F4DA669008C32F1 /* OpenglConstants.lua in Resources */,
+				374E10AF1F4DA63F008C32F1 /* CocoStudio.lua in Resources */,
 				C03781DD18BF656A00FE4F13 /* DeprecatedEnum.lua in Resources */,
 				374E10991F4DA35C008C32F1 /* entry_main.lua in Resources */,
+				374E10C91F4DA675008C32F1 /* StudioConstants.lua in Resources */,
 				37FB64B71F3AF73300378EE8 /* GoogleService-Info.plist in Resources */,
+				374E10C41F4DA669008C32F1 /* luaj.lua in Resources */,
 				374E10A11F4DA377008C32F1 /* ps in Resources */,
 				C03781DF18BF656A00FE4F13 /* DeprecatedOpenglEnum.lua in Resources */,
 				C03781E118BF656A00FE4F13 /* DrawPrimitives.lua in Resources */,
+				374E10C51F4DA669008C32F1 /* luaoc.lua in Resources */,
 				C03781E318BF656A00FE4F13 /* extern.lua in Resources */,
+				374E10B71F4DA653008C32F1 /* DeprecatedEnum.lua in Resources */,
 				374E10961F4DA351008C32F1 /* fixed_constant.lua in Resources */,
 				374E10A31F4DA377008C32F1 /* sound in Resources */,
 				C03781E518BF656A00FE4F13 /* GuiConstants.lua in Resources */,
@@ -1051,6 +1121,8 @@
 				C03781E918BF656A00FE4F13 /* luaj.lua in Resources */,
 				C03781EB18BF656A00FE4F13 /* luaoc.lua in Resources */,
 				374E10A21F4DA377008C32F1 /* res in Resources */,
+				374E10C61F4DA669008C32F1 /* Opengl.lua in Resources */,
+				374E10AD1F4DA63F008C32F1 /* Cocos2d.lua in Resources */,
 				374E10A01F4DA377008C32F1 /* data_dat in Resources */,
 				374E109A1F4DA35C008C32F1 /* entry_patch.lua in Resources */,
 				C03781ED18BF656A00FE4F13 /* Opengl.lua in Resources */,
