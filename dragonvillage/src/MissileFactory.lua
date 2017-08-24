@@ -330,9 +330,12 @@ function MissileFactory:makeMissile_(t_option, is_hero)
             end
 
             -- 모션스트릭(MotionStreak) 효과
-            if effect['motion_streak'] then
-				local motion_streak = string.gsub(effect['motion_streak'], '@', t_option['attr_name'])
-                missile:setMotionStreak(self.m_world.m_missiledNode, motion_streak)
+            if (not isLowEndMode()) then
+                if effect['motion_streak'] then
+                    print('123')
+				    local motion_streak = string.gsub(effect['motion_streak'], '@', t_option['attr_name'])
+                    missile:setMotionStreak(self.m_world.m_missiledNode, motion_streak)
+                end
             end
         end
 
