@@ -44,18 +44,20 @@ function UI_QuickPopup:initButton()
     local vars = self.vars
     vars['closeBtn']:registerScriptTapHandler(function() self:click_closeBtn() end)
     vars['settingBtn']:registerScriptTapHandler(function() self:click_settingBtn() end)
-
     vars['homeBtn']:registerScriptTapHandler(function() UINavigator:goTo('lobby') end)
-    vars['adventureBtn']:registerScriptTapHandler(function() UINavigator:goTo('adventure') end)
-    vars['explorationBtn']:registerScriptTapHandler(function() UINavigator:goTo('exploration') end)
 
-    vars['nest_evo_stoneBtn']:registerScriptTapHandler(function() UINavigator:goTo('nest_evo_stone') end)
-    vars['nest_treeBtn']:registerScriptTapHandler(function() UINavigator:goTo('nest_tree') end)
-    vars['nest_nightmareBtn']:registerScriptTapHandler(function() UINavigator:goTo('nest_nightmare') end)
-    vars['secret_relationBtn']:registerScriptTapHandler(function() UINavigator:goTo('secret_relation') end)
-
-    vars['colosseumBtn']:registerScriptTapHandler(function() UINavigator:goTo('colosseum') end)
-    vars['ancientBtn']:registerScriptTapHandler(function() UINavigator:goTo('ancient') end)
+    -- 버튼 핸들러 등록과 컨텐츠 락 처리를 겸함
+    local l_content = {'adventure', 'exploration', 'nest_evo_stone', 'nest_nightmare', 'secret_relation', 'colosseum', 'ancient'}
+    for i, content in ipairs(l_content) do
+        local is_content_lock, req_user_lv = g_contentLockData:isContentLock(content)
+        if (is_content_lock) then
+            vars[content .. 'LockSprite']:setVisible(true)
+            vars[content .. 'LockLabel']:setString(Str('레벨 {1}', req_user_lv))
+            vars[content .. 'Btn']:setEnabled(false)
+        else
+            vars[content .. 'Btn']:registerScriptTapHandler(function() UINavigator:goTo(content) end)
+        end
+    end
 end
 
 -------------------------------------
