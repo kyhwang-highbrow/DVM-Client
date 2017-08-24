@@ -285,17 +285,28 @@ function GameAuto:findTarget(unit, t_skill)
     local target_formation = t_skill['target_formation']
     local ai_division = t_skill['ai_division']
 
-    if (not string.find(target_type, 'enemy')) then
+    local ret
+
+    -- 공격형
+    if (string.find(target_type, 'enemy')) then
+        local l_target = unit:getTargetListByType(target_type, target_count, target_formation)
+
+        -- 가장 타겟이 많은 케이스를 찾음
+        ret = unit.m_skillIndicator:getBestTargetForAuto(l_target)
+
+    else
         -- AI 대상으로 변경
         target_type = SKILL_AI_ATTR_TARGET[ai_division]
 
         if (not target_type) then
             error('invalid ai_division : ' .. ai_division)
         end
+
+        local l_target = unit:getTargetListByType(target_type, target_count, target_formation)
+        ret = l_target[1]
     end
 
-    local l_target = unit:getTargetListByType(target_type, target_count, target_formation)
-    return l_target[1]
+    return ret
 end
 
 -------------------------------------

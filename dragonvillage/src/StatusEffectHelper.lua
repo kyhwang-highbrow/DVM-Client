@@ -237,7 +237,6 @@ function StatusEffectHelper:invokeStatusEffect(caster, target_char, status_effec
         return nil
     end
 
-
     -- 적용값(status_effect_value)이 수식인 경우 수식을 계산
     if (type(status_effect_value) == 'function') then
         status_effect_value = status_effect_value(caster, target_char, add_param)
@@ -254,7 +253,6 @@ function StatusEffectHelper:invokeStatusEffect(caster, target_char, status_effec
         -- 상태 효과 생성
 		status_effect = StatusEffectHelper:makeStatusEffectInstance(caster, target_char, status_effect_type, status_effect_value, status_effect_source, duration, skill_id, add_param)
     end
-
     
     -- 해로운 상태효과 걸렸을 시
 	if (self:isHarmful(status_effect)) then
@@ -264,7 +262,6 @@ function StatusEffectHelper:invokeStatusEffect(caster, target_char, status_effec
 		t_event['status_effect_name'] = status_effect.m_statusEffectName
 		target_char:dispatch('get_debuff', t_event)
 	end
-
 
 	return status_effect
 end

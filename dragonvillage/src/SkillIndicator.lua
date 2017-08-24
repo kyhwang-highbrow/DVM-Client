@@ -50,6 +50,7 @@ SkillIndicator = class({
         m_attackPosOffsetY = 'number',
 
 		m_highlightList = '',
+        m_collisionList = '',
         
 		-- 인디케이터의 보너스 효과 레벨 관련
 		m_preBonusLevel = 'number',
@@ -139,6 +140,7 @@ function SkillIndicator:changeSIState(state)
 
         self.m_bDirty = true
         self.m_highlightList = nil
+        self.m_collisionList = nil
         
         self.m_targetDir = nil
         self.m_targetPosX = nil
@@ -174,6 +176,7 @@ function SkillIndicator:changeSIState(state)
             end
             self.m_highlightList = nil
         end
+        self.m_collisionList = nil
     end
 end
 
@@ -345,6 +348,7 @@ function SkillIndicator:setHighlightEffect(l_collision)
     end
 
     self.m_highlightList = highlightList
+    self.m_collisionList = l_collision
 
     local cur_target_count = #self.m_highlightList
     self:onChangeTargetCount(old_target_count, cur_target_count)
@@ -632,24 +636,36 @@ function SkillIndicator:getTargetForHighlight()
     else
         cclog('getTargetForHighlight no target')
         return {}
-        --[[
-        local l_target = self.m_hero:getProperTargetList()
-	    local target = l_target[1]
-
-	    if target then
-		    x = target.pos.x
-            y = target.pos.y
-        else
-            x = self.m_owner.pos.x
-            y = self.m_owner.pos.y
-        end
-        ]]--
     end
 
     self:onTouchMoved(x, y)
 
     local l_ret = self.m_highlightList or {}
     return l_ret
+end
+
+-------------------------------------
+-- function getBestTargetForAuto
+-- @brief l_target의 대상들 중에서 가장 많이 피격할 수 있는 경우의 대상을 가져옴
+-------------------------------------
+function SkillIndicator:getBestTargetForAuto(l_target)
+    local max_count = -1
+    local ret
+
+    for _, target in ipairs(l_target) do
+        self:setIndicatorDataByChar(target)
+        self:getTargetForHighlight() -- 타겟 리스트를 사용하지 않고 충돌리스트 수로 체크
+
+        local list = self.m_collisionList or {}
+        local count = #list
+        
+        if (max_count < count) then
+            max_count = count
+            ret = target
+        end
+    end
+
+    return ret
 end
 
 -------------------------------------
