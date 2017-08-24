@@ -134,7 +134,7 @@ end
 -- @brief ok~
 -------------------------------------
 function UI_CouponPopup:highbrow_coupon(couponCode)
-    local function cb_func(t_ret)
+    local function success_cb(t_ret)
 
         --ccdump(t_ret)
         --[[
@@ -161,7 +161,19 @@ function UI_CouponPopup:highbrow_coupon(couponCode)
         end
     end
 
-    g_highbrowData:request_couponCheck(couponCode, cb_func)
+    local function result_cb(t_ret)
+        if t_ret['web'] then
+            local function yes_cb()
+                SDKManager:goToWeb(t_ret['web'])
+            end
+            MakeSimplePopup(POPUP_TYPE.YES_NO, Str('드빌.net에서 사용 가능한 코드입니다. 드빌.net으로 이동하시겠습니까?'), yes_cb)
+            self:close()
+            return true
+        end
+        return false
+    end
+
+    g_highbrowData:request_couponCheck(couponCode, success_cb, result_cb)
 end
 
 -------------------------------------
