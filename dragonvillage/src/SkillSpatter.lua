@@ -22,6 +22,7 @@ SkillSpatter = class(PARENT, {
         m_prevPosY = 'number',
 
         m_targetIdx = 'number',
+        m_onlyAlly = 'bool',
 
         m_lTargetCollisions = 'table',
      })
@@ -38,7 +39,7 @@ end
 -------------------------------------
 -- function init_skill
 -------------------------------------
-function SkillSpatter:init_skill(motionstreak_res, count)
+function SkillSpatter:init_skill(motionstreak_res, count, target_range)
     PARENT.init_skill(self)
 
 	-- 멤버 변수
@@ -55,7 +56,11 @@ function SkillSpatter:init_skill(motionstreak_res, count)
     if (not self.m_lTargetChar) then
 	    self.m_lTargetChar = self:findTarget()
     end
-
+    if (tonumber(target_range) == 2) then
+        self.m_onlyAlly = false
+    else
+        self.m_onlyAlly = true
+    end
     self.m_lTargetChar = self:makeSpatterTargetList()
 
 
@@ -126,6 +131,7 @@ end
 -- function trySpatter
 -------------------------------------
 function SkillSpatter:trySpatter()
+    print (self.m_spatterCount, self.m_spatterMaxCount)
 	if (self.m_spatterCount >= self.m_spatterMaxCount) then
         self:changeState('dying')
         return false
@@ -179,6 +185,7 @@ function SkillSpatter:makeSkillInstance(owner, t_skill)
     local missile_res = SkillHelper:getAttributeRes(t_skill['res_1'], owner)
     local motionstreak_res = SkillHelper:getAttributeRes(t_skill['res_2'], owner)
     local count = t_skill['hit']
+    local target_range = t_skill['val_1']
 
 	-- 인스턴스 생성부
 	------------------------------------------------------
@@ -187,7 +194,7 @@ function SkillSpatter:makeSkillInstance(owner, t_skill)
 
 	-- 2. 초기화 관련 함수
 	skill:setSkillParams(owner, t_skill, {})
-    skill:init_skill(motionstreak_res, count)
+    skill:init_skill(motionstreak_res, count, target_range)
 	skill:initState()
 
 	-- 3. state 시작 
@@ -221,8 +228,12 @@ function SkillSpatter:makeSpatterTargetList()
             table.insert(l_enemy_target, v)
         end
     end
-
-    local b_next_formation = not self.m_owner.m_bLeftFormation
+    local b_next_formation
+    if (self.m_onlyAlly) then
+        b_next_formation = self.m_owner.m_bLeftFormation
+    else
+        b_next_formation = not self.m_owner.m_bLeftFormation
+    end
     local t_temp_target = {}
 
     for _ = 1, #self.m_lTargetChar do
@@ -239,7 +250,9 @@ function SkillSpatter:makeSpatterTargetList()
             table.insert(t_temp_target, l_enemy_target[enemy_target_idx])
             enemy_target_idx = enemy_target_idx + 1
         end
-        b_next_formation = not b_next_formation
+        if (not self.m_onlyAlly) then
+            b_next_formation = not b_next_formation
+        end
     end
     
     return t_temp_target
