@@ -102,24 +102,16 @@ function UI_BattleMenuItem:refresh()
     end
 
     if (has_noti) then
-        self:setNoti()
+        local noti_icon = IconHelper:getNotiIcon()
+        noti_icon:setPosition(125, -100)
+        self.root:addChild(noti_icon)
+        self.m_notiIcon = noti_icon
     else
         if (self.m_notiIcon) then
             self.m_notiIcon:removeFromParent(true)
             self.m_notiIcon = nil
         end
     end
-end
-
--------------------------------------
--- function setNoti
--------------------------------------
-function UI_BattleMenuItem:setNoti()
-    local noti_icon = IconHelper:getNotiIcon()
-    noti_icon:setPosition(125, -100)
-    self.root:addChild(noti_icon)
-
-    self.m_notiIcon = noti_icon
 end
 
 -------------------------------------
