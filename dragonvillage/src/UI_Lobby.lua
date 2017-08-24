@@ -97,12 +97,7 @@ function UI_Lobby:entryCoroutine()
         working = true
         g_friendData:request_friendList(function() working = false end, true)
         while (working) do dt = coroutine.yield() end
-        
-        --cclog('# 하일라이트 정보 받는 중')
-        --working = true
-        --g_highlightData:request_highlightInfo(function(ret) working = false end, fail_cb)
-        --while (working) do dt = coroutine.yield() end
-		
+
         cclog('# 출석 정보 받는 중')
         working = true
         g_attendanceData:request_attendanceInfo(function(ret) working = false end)
@@ -113,11 +108,6 @@ function UI_Lobby:entryCoroutine()
         g_eventData:request_eventList(function(ret) working = false end)
         while (working) do dt = coroutine.yield() end
 
-        cclog('# 교환소 정보 받는 중')
-        working = true
-        g_exchangeData:request_exchangeInfo(function(ret) working = false end)
-        while (working) do dt = coroutine.yield() end
-
         cclog('# 접속시간 저장 중')
         working = true
         g_accessTimeData:request_saveTime(function(ret) working = false end, fail_cb)
@@ -126,6 +116,11 @@ function UI_Lobby:entryCoroutine()
         cclog('# 드래곤 전투력 저장 중')
         working = true
         g_dragonsData:request_updatePower(function(ret) working = false end, fail_cb)
+        while (working) do dt = coroutine.yield() end
+
+        cclog('# 인연의 흔적을 흝어보는 중')
+        working = true
+        g_secretDungeonData:requestSecretDungeonInfo(function(ret) working = false end)
         while (working) do dt = coroutine.yield() end
 
         -- @ MASTER ROAD
