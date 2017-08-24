@@ -41,6 +41,17 @@ function UI_ItemInfoPopup:initUI()
 
     local type = TableItem:getItemType(self.m_itemID)
 
+    
+    -- 아이템명 출력
+    if (type == 'rune') and self.m_tSubData then
+        vars['titleLabel']:setString(self.m_tSubData['name'])
+    else
+        
+        local item_name = TableItem:getItemName(self.m_itemID)
+        vars['titleLabel']:setString(item_name)
+    end
+    
+
     do -- 아이템 아이콘    
         if (type == 'dragon') and self.m_tSubData then
             local item_card = UI_DragonCard(self.m_tSubData)

@@ -225,7 +225,7 @@ end
 -- @brief
 -- @param t_ret
 -------------------------------------
-function ItemObtainResult(t_ret)
+function ItemObtainResult(t_ret, is_mail)
     if (not t_ret) then
         return
     end
@@ -260,6 +260,11 @@ function ItemObtainResult(t_ret)
             return
         end
 
+        -- 메일로 받은 아이템일경우 룬만 팝업을 표시
+        if (is_mail and (item_type ~= 'rune')) then
+            return
+        end
+
         -- 아이템 정보창 띄움
         UI_ItemInfoPopup(item_id, count, t_sub_data)
         return
@@ -270,6 +275,15 @@ function ItemObtainResult(t_ret)
     local msg = Str('보상 획득')
     local ok_btn_cb = nil
     UI_ObtainPopup(l_item, msg, ok_btn_cb)
+end
+
+-------------------------------------
+-- function ItemObtainResult_Mail
+-- @brief
+-- @param t_ret
+-------------------------------------
+function ItemObtainResult_Mail(t_ret)
+    ItemObtainResult(t_ret, true) -- t_ret, is_mail
 end
 
 --@CHECK

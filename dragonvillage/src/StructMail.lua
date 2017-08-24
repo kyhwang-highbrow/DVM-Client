@@ -196,7 +196,7 @@ function StructMail:readMe(cb_func)
 		if (self:checkTicket()) and (#ret['added_items']['dragons'] > 0) then
             UI_GachaResult_Dragon(ret['added_items']['dragons'])
         else
-            ItemObtainResult(ret)
+            ItemObtainResult_Mail(ret)
         end
 
         if (cb_func) then
