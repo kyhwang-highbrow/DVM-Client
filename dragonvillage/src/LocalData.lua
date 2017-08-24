@@ -211,7 +211,7 @@ function LocalData:getFunc(target_table, ...)
     local args = {...}
     local cnt = #args
 
-    if (not container) then
+    if (not target_table) then
         return nil
     end
 
