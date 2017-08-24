@@ -49,9 +49,9 @@ function CsvToLuaTableStr:encodeString(s)
 end
 
 -------------------------------------
--- function luadump
+-- function luadump_old
 -------------------------------------
-function CsvToLuaTableStr:luadump(value, depth)
+function CsvToLuaTableStr:luadump_old(value, depth)
     local t = type(value)
     if t == 'table' then
         depth = depth or ''
@@ -66,6 +66,37 @@ function CsvToLuaTableStr:luadump(value, depth)
                 s = s .. newdepth .. "[" .. k .. "]=" .. self:luadump(value[k], newdepth) .. ';\n'
             elseif type(k) ~= 'number' or k <= 0 or k > n then
                 s = s .. newdepth .. "['" .. k .. "']=" .. self:luadump(value[k], newdepth) .. ';\n'
+            end
+        end
+        return s .. depth .. '}'
+
+    elseif t == 'string' then
+        -- 개행 처리를 '\n'으로 저장히가 위한 처리
+        value = self:encodeString(value)
+        return "'" .. value .. "'"
+    else
+        return tostring(value)
+    end
+end
+
+-------------------------------------
+-- function luadump
+-------------------------------------
+function CsvToLuaTableStr:luadump(value, depth)
+    local t = type(value)
+    if t == 'table' then
+        depth = depth or ''
+        local newdepth = depth
+
+        local s = '{'--\n'
+        local n = #value
+
+        for k, v in pairs(value) do
+            -- key타입이 숫자일 경우 그냥 숫자로 사용
+            if type(k) == 'number' then
+                s = s .. newdepth .. "[" .. k .. "]=" .. self:luadump(value[k], newdepth) .. ';'--\n'
+            elseif type(k) ~= 'number' or k <= 0 or k > n then
+                s = s .. newdepth .. "['" .. k .. "']=" .. self:luadump(value[k], newdepth) .. ';'--\n'
             end
         end
         return s .. depth .. '}'
@@ -108,6 +139,7 @@ function CsvToLuaTableStr:work()
         io.write(percent_str .. ' Working : ' .. v[1], '\r')
 
         local t_table = TABLE:get(i)
+        self:dietTable(t_table)
         local table_str = self:luadump(t_table)
         local content = 'return ' .. table_str
 
@@ -118,6 +150,21 @@ function CsvToLuaTableStr:work()
     io.write('', '\n')
     cclog('#### END')
     cclog('output : ' .. 'src/table/')
+end
+
+-------------------------------------
+-- function dietTable
+-------------------------------------
+function CsvToLuaTableStr:dietTable(t_table)
+    for _,t_line in pairs(t_table) do
+        for key,value in pairs(t_line) do
+            if pl.stringx.startswith(key, 's_') or pl.stringx.startswith(key, 'r_') then
+                t_line[key] = nil
+            end
+        end
+    end
+    
+    return t_table
 end
 
 -------------------------------------
