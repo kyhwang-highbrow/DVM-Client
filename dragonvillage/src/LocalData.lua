@@ -211,6 +211,10 @@ function LocalData:getFunc(target_table, ...)
     local args = {...}
     local cnt = #args
 
+    if (not container) then
+        return nil
+    end
+
     local container = target_table
     for i,key in ipairs(args) do
         if (i < cnt) then
