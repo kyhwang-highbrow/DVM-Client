@@ -153,7 +153,6 @@ local t_module = {
     'LocalData',
     'ChatIgnoreList',
     'ScenarioViewingHistory',
-    'UserData',
 	'ConstantData',
     'CollisionHelper',
     'DropHelper',

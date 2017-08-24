@@ -184,9 +184,6 @@ local function main()
     LocalData:getInstance():applySetting()
     stopwatch:record('LocalData:getInstance():applySetting()')
 
-    UserData:getInstance()
-    stopwatch:record('UserData:getInstance()')
-
 	ErrorTracker:getInstance()
     stopwatch:record('ErrorTracker:getInstance()')
 
@@ -217,7 +214,6 @@ end
 function removeLocalFiles()
     LocalData:getInstance():clearLocalDataFile()
     ServerData:getInstance():clearServerDataFile()
-    UserData:getInstance():clearServerDataFile()
 
     -- 채팅 차단
     ChatIgnoreList:clearChatIgnoreListFile()

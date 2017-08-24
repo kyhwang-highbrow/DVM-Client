@@ -1869,9 +1869,6 @@
     <None Include="..\src\UINavigator.lua">
       <Filter>lua\src</Filter>
     </None>
-    <None Include="..\src\UserData.lua">
-      <Filter>lua\src</Filter>
-    </None>
     <None Include="..\src\ValidationAssistant.lua">
       <Filter>lua\src</Filter>
     </None>

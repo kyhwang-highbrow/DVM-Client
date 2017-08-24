@@ -21,7 +21,6 @@ function SceneIngameTest:onEnter()
     SoundMgr:entry()
     ShaderCache:init()
     LocalData:getInstance():applySetting()
-    UserData:getInstance()
 	
     local scene = SceneGame(nil, DEV_STAGE_ID, 'stage_dev', true)
     scene:runScene()

@@ -72,7 +72,6 @@ local function main()
 	
 	TABLE:init()
 	SoundMgr:entry()
-	UserData:getInstance()
 
     local logoScene = SceneLogo()
     logoScene:runScene()
