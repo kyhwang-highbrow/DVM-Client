@@ -82,9 +82,10 @@ function ISkillSound:playSkillSound(res)
         category = 'SFX'
     elseif (pl.stringx.startswith(res, 'efx_')) then
         category = 'EFX'
+    elseif (pl.stringx.startswith(res, 'ui_')) then
+        category = 'UI'
     else
-        cclog('invalid skill sound : ' .. res)
-        return
+        category = 'EFFECT'
     end
 
     --cclog('ISkillSound:playSkillSound res = ' .. res)
