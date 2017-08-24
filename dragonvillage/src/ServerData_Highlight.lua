@@ -166,16 +166,10 @@ end
 function ServerData_Highlight:loadNewDoidMap()
     self.m_newDoidMap = {}
 
-    local f = io.open(self:getNewDoidMapFileName(), 'r')
-    if f then
-        local content = f:read('*all')
-
-        if (#content > 0) then
-            self.m_newDoidMap = json_decode(content)
-        end
-        f:close()
+    local ret_json, success_load = LoadLocalSaveJson(self:getNewDoidMapFileName())
+    if (success_load == true) then
+        self.m_newDoidMap = ret_json
     end
-
 
     local dragons_map = g_dragonsData:getDragonsListRef()
 
@@ -194,17 +188,7 @@ end
 -- function saveNewDoidMap
 -------------------------------------
 function ServerData_Highlight:saveNewDoidMap()
-    local f = io.open(self:getNewDoidMapFileName(),'w')
-    if (not f) then
-        return false
-    end
-
-    -- cclog(luadump(self.m_newDoidMap))
-    local content = dkjson.encode(self.m_newDoidMap, {indent=true})
-    f:write(content)
-    f:close()
-
-    return true
+    return SaveLocalSaveJson(self:getNewDoidMapFileName(), self.m_newDoidMap)
 end
 
 -------------------------------------
