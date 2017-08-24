@@ -38,6 +38,8 @@ function SceneGameColosseum:onEnter()
 
     SoundMgr:playBGM(self.m_bgmName)
     
+    g_autoPlaySetting:setMode(AUTO_COLOSSEUM)
+    
     self.m_inGameUI = UI_GameColosseum(self)
     self.m_resPreloadMgr = ResPreloadMgr()
 end

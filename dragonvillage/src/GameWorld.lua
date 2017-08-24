@@ -225,7 +225,6 @@ function GameWorld:init(game_mode, stage_id, world_node, game_node1, game_node2,
 	self.m_shakeMgr = ShakeManager(self, g_gameScene.m_shakeLayer)
 
 	-- ## 모드별 분기 처리
-
     local display_wave = true
     local display_time = nil
 

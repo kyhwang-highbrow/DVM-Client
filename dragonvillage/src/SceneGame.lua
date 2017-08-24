@@ -226,6 +226,8 @@ end
 function SceneGame:onEnter()
     g_gameScene = self
     PerpleScene.onEnter(self)
+    
+    g_autoPlaySetting:setMode(AUTO_NORMAL)
 
     self.m_inGameUI = UI_Game(self)
     self.m_resPreloadMgr = ResPreloadMgr()
