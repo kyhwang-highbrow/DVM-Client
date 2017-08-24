@@ -33,6 +33,7 @@ local t_module = {
     'AdsManager',
     'ScriptCache',
     'CppFunctions',
+    'XorCipher',
 
 	-- CONSTANT 
     'Constant',

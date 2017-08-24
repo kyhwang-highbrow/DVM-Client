@@ -34,7 +34,7 @@ function ServerData_Tamer:reMappingTamerInfo(t_info)
 end
 
 -------------------------------------
--- function reMappingTamerInfo
+-- function applyTamerInfo
 -------------------------------------
 function ServerData_Tamer:applyTamerInfo(t_tamer)
 	local tamer_list = self:getTamerList()

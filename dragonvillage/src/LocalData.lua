@@ -48,20 +48,11 @@ end
 -- function loadLocalDataFile
 -------------------------------------
 function LocalData:loadLocalDataFile()
-    local f = io.open(self:getLocalDataSaveFileName(), 'r')
+    local ret_json, success_load = LoadLocalSaveJson(self:getLocalDataSaveFileName())
 
-    local success_load = false
-    if f then
-        local content = f:read('*all')
-        f:close()
-
-        if (#content > 0) then
-            self.m_rootTable = json_decode(content)
-            success_load = true
-        end
-    end
-        
-    if (success_load == false) then
+    if (success_load == true) then
+        self.m_rootTable = ret_json
+    else
         self.m_rootTable = self:makeDefaultLocalData()
         self:saveLocalDataFile()
     end
@@ -165,17 +156,7 @@ function LocalData:saveLocalDataFile()
         return
     end
 
-    local f = io.open(self:getLocalDataSaveFileName(),'w')
-    if (not f) then
-        return false
-    end
-
-    -- cclog(luadump(self.m_rootTable))
-    local content = dkjson.encode(self.m_rootTable, {indent=true})
-    f:write(content)
-    f:close()
-
-    return true
+    return SaveLocalSaveJson(self:getLocalDataSaveFileName(), self.m_rootTable)
 end
 
 -------------------------------------

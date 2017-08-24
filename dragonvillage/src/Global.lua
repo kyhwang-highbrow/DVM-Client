@@ -292,3 +292,59 @@ function getAppVerNum()
     local app_ver_num = AppVer_strToNum(app_ver)
     return app_ver_num
 end
+
+
+-------------------------------------
+-- function LoadLocalSaveJson
+-- @brief 로컬에 저장하는 세이브 데이터 json으로 읽기
+-------------------------------------
+function LoadLocalSaveJson(filename)
+    local f = io.open(filename, 'r')
+
+    local success_load = false
+    local ret_json = nil
+    if f then
+        local content = f:read('*all')
+        f:close()
+
+        if (#content > 0) then
+            -- '{'와 '['로 시작되지 않으면 암호화된 파일로 간주
+            if (not pl.stringx.startswith(content, '{')) and (not pl.stringx.startswith(content, '[')) then
+                -- xor 복호화
+                content = XorCipher:E(content)
+            end
+
+            -- json 데이터 생성
+            ret_json = json_decode(content)
+        end
+
+        if (ret_json) then
+            success_load = true
+        end
+    end
+
+    return ret_json, success_load
+end
+
+-------------------------------------
+-- function SaveLocalSaveJson
+-- @brief
+-------------------------------------
+function SaveLocalSaveJson(filename, t_data)
+    local f = io.open(filename,'w')
+    if (not f) then
+        return false
+    end
+
+    local content = dkjson.encode(t_data, {indent=true})
+
+    -- 테스트 모드에서는 암호화 skip
+    if (not IS_TEST_MODE()) then
+        -- xor 암호화
+        content = XorCipher:E(content)
+    end
+
+    f:write(content)
+    f:close()
+    return true
+end

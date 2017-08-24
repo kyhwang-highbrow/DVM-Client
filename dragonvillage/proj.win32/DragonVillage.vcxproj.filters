@@ -2667,6 +2667,9 @@
     <None Include="..\src\UI_DragonEvolution.lua">
       <Filter>lua\UI</Filter>
     </None>
+    <None Include="..\src\XorCipher.lua">
+      <Filter>lua\src</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Classes">

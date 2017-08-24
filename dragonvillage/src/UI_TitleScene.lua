@@ -485,7 +485,6 @@ function UI_TitleScene:workGameLogin()
         g_serverData:lockSaveData()
         
 		g_serverData:applyServerData(ret['user'], 'user')
-		g_localData:applyLocalData(ret['tamers'], 'tamers')
         
 		g_tamerData:reMappingTamerInfo(ret['tamers'])
 		--g_questData:refreshQuestData(ret['quest_info'])

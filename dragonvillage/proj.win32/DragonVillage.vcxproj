@@ -1095,6 +1095,7 @@ xcopy /Y /Q "$(ProjectDir)..\..\libraries\pati\prebuilt\windows\*.dll" "$(OutDir
     <None Include="..\src\WaveMgr_AncientTower.lua" />
     <None Include="..\src\WaveMgr_Colosseum.lua" />
     <None Include="..\src\WaveMgr_SecretRelation.lua" />
+    <None Include="..\src\XorCipher.lua" />
     <None Include="..\src_tool\AssetMaker.lua" />
     <None Include="..\src_tool\AssetMaker_ApkExpansion.lua" />
     <None Include="..\src_tool\AssetRemover_100MB.lua" />
