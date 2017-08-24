@@ -34,8 +34,6 @@ end
 function UI_CouponPopup_Confirm:initUI()
     local vars = self.vars
     
-    -- @todo
-    -- self.m_couponData['item_id'] 가 nil 이거나 0 인 경우에 대한 예외 처리 필요
     local t_item = {
         ['item_id'] = self.m_couponData['item_id'],
         ['count'] = self.m_couponData['count']
@@ -63,9 +61,19 @@ end
 -- @brief ok~
 -------------------------------------
 function UI_CouponPopup_Confirm:click_okBtn()
-    local function cb_func(t_ret)
+    local function success_cb(t_ret)
         UI_ToastPopup()
         self:close()
     end
-    g_highbrowData:request_couponUse(self.m_couponId, cb_func)
+
+    local function result_cb(t_ret)
+        --ccdump(t_ret)
+        self:close()
+        return false
+    end
+
+    local t_data = {}
+    t_data['couponId'] = self.m_couponId
+    --t_data['payload'] = self.m_couponData['payload']
+    g_highbrowData:request_couponUse(t_data, success_cb, result_cb)
 end

@@ -136,6 +136,7 @@ end
 function UI_CouponPopup:highbrow_coupon(couponCode)
     local function cb_func(t_ret)
 
+        --ccdump(t_ret)
         --[[
         ['item_info']={
                 ['oids']={
@@ -149,9 +150,17 @@ function UI_CouponPopup:highbrow_coupon(couponCode)
         --]]
 
         local couponData = t_ret['item_info'] or {}
-        UI_CouponPopup_Confirm(couponCode, couponData)
-        self:close()
+        --couponData['payload'] = t_ret['payload']
+
+        local itemId = couponData['item_id'] or 0
+        if itemId > 0 then
+            UI_CouponPopup_Confirm(couponCode, couponData)
+            self:close()
+        else
+            MakeSimplePopup(POPUP_TYPE.OK, Str('유효하지 않은 아이템 코드입니다. 다시 입력해 주세요.'))
+        end
     end
+
     g_highbrowData:request_couponCheck(couponCode, cb_func)
 end
 
