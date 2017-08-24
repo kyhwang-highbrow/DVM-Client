@@ -140,6 +140,13 @@ function UI_GamePause:click_continueButton()
 end
 
 -------------------------------------
+-- function click_settingButton
+-------------------------------------
+function UI_GamePause:click_settingButton()
+    UI_Setting()
+end
+
+-------------------------------------
 -- function click_debug_heroInfoButton
 -- @brief 아군 상세 정보를 표시
 -------------------------------------
