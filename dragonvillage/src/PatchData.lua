@@ -10,6 +10,8 @@ PatchData = class({
 -- function init
 -------------------------------------
 function PatchData:init()
+    self.m_tData = {}
+
     self:load()
 
     -- APK 확장 파일 정보
@@ -80,47 +82,29 @@ end
 -- function save
 -------------------------------------
 function PatchData:save()
-	local f = io.open(self:getFilePath(),'w')
-	if (not f) then
-        return false
-    end
-
-	local content = json.encode(self.m_tData)
-	f:write(content)
-	f:close()
-
-	return true
+    return SaveLocalSaveJson(self:getFilePath(), self.m_tData)
 end
 
 -------------------------------------
 -- function load
 -------------------------------------
 function PatchData:load()
-	local f = io.open(self:getFilePath(),'r')
-	if f then
-        self.m_tData = {}
-		local t_data = {}
-		local content = f:read('*all')
-        f:close()
+    local ret_json, success_load = LoadLocalSaveJson(self:getFilePath())
 
-		if (#content > 0) then
-			t_data = json_decode(content)
-
-            for k,v in pairs(t_data) do
-			    self.m_tData[k] = v
-		    end
-
-            return
+    if success_load then
+        for k,v in pairs(ret_json) do
+			self.m_tData[k] = v
 		end
-	end
 
-    do -- 초기화
+        return
+    else
+        -- 초기화
         local t_data = {}
 	    t_data['latest_app_ver'] = '0.0.0'
 	    t_data['patch_ver'] = 0
         t_data['res_ver'] = 0
         self.m_tData = t_data
-	end
+    end
 end
 
 -------------------------------------
