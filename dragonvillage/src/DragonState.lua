@@ -162,11 +162,13 @@ function Dragon.st_skillIdle(owner, dt)
             owner.m_animator:setEventHandler(nil)
             owner.m_bFinishAttack = true
 
-            -- 사운드
+            --[[
+            -- 임시 사운드
             local sound_name = owner:getSoundNameForSkill(owner.m_charTable['type'])
             if sound_name then
                 SoundMgr:playEffect('EFFECT', sound_name)
             end
+            ]]--
         end
 
         -- 모션 타입 처리
