@@ -119,7 +119,7 @@ function UIC_BroadcastLabel:runScrollAction()
     self:setVisible(true)
     local call_func = cc.CallFunc:create(function() self:setVisible(false) end)
 
-    local sequence = cc.Sequence:create(cc.DelayTime:create(1), cc.MoveTo:create(2, pos), cc.DelayTime:create(2), call_func)
+    local sequence = cc.Sequence:create(cc.DelayTime:create(1), cc.MoveTo:create(2, pos), cc.DelayTime:create(6), call_func)
     container:runAction(sequence)
 end
 
