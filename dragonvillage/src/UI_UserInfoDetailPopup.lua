@@ -106,10 +106,6 @@ function UI_UserInfoDetailPopup:initUI()
 	local nick_name = self.m_tUserInfo['nick']
 	vars['nameLabel']:setString(nick_name)
 
-	-- 칭호
-    local title_str = '수습 테이머'
-	vars['titleLabel']:setString(title_str)
-
 	-- 길드
 	local guild_name = self.m_tUserInfo['guild'] or ''
 	vars['guildLabel']:setString(guild_name)
@@ -172,7 +168,8 @@ end
 function UI_UserInfoDetailPopup:refresh_title()
 	local vars = self.vars
 
-    local title = g_userData:getTamerTitleStr()
+    local title_id = self.m_tUserInfo['tamer_title']
+    local title = TableTamerTitle:getTamerTitleStr(title_id)
     if (not title) or (title == '') then
         title = Str('칭호가 설정되어있지 않습니다.')
     end
@@ -437,7 +434,9 @@ end
 -------------------------------------
 function UI_UserInfoDetailPopup:click_titleChangeBtn()
     local function cb_func(l_title_list)
-        UI_UserInfoDetailPopup_SetTitle(l_title_list):setCloseCB(function()
+        local ui = UI_UserInfoDetailPopup_SetTitle(l_title_list)
+        ui:setCloseCB(function(title_id)
+            self.m_tUserInfo['tamer_title'] = title_id
             self:refresh_title()
         end)
     end

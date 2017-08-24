@@ -148,6 +148,8 @@ function UI_UserInfoDetailPopup_SetTitle:makeCellUI(t_data)
         vars['selectBtn']:registerScriptTapHandler(function()
             local function cb_func()
                 UI_ToastPopup(Str('칭호가 변경되었습니다.'))
+                self.m_closeCB(title_id)
+                self.m_closeCB = nil
                 self:close()
             end
             g_userData:request_setTitle(title_id, cb_func)
