@@ -69,6 +69,7 @@ function UI_ItemInfoPopup:initUI()
     local l_region = UI_AcquisitionRegionInformation:makeRegionList(self.m_itemID)
     if (table.count(l_region) == 0) then
         vars['locationBtn']:setVisible(false)
+        vars['okBtn']:setVisible(true)
     end
 end
 
@@ -79,6 +80,7 @@ function UI_ItemInfoPopup:initButton()
     local vars = self.vars
     vars['closeBtn']:registerScriptTapHandler(function() self:close() end)
     vars['locationBtn']:registerScriptTapHandler(function() self:click_locationBtn() end)
+    vars['okBtn']:registerScriptTapHandler(function() self:click_okBtn() end)
 end
 
 -------------------------------------
@@ -94,6 +96,18 @@ function UI_ItemInfoPopup:click_locationBtn()
     local item_id = self.m_itemID
     UI_AcquisitionRegionInformation:create(item_id)
 end
+
+-------------------------------------
+-- function click_okBtn
+-------------------------------------
+function UI_ItemInfoPopup:click_okBtn()
+    self:close()
+end
+
+
+
+
+
 
 
 function MakeSimpleRewarPopup(title_str, item_id, count, t_sub_data)
