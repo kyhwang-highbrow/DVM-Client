@@ -91,7 +91,14 @@ function AdsManager:showPlacement(placementId, result_cb)
     local function _result_cb(ret, info)
         if (ret == 'ready') then
             if (info == placementId) then
+                SoundMgr:stopBGM()
+                local started = true
                 self:show(placementId, function(ret, info)
+                    if ret == 'finish' or ret == 'error' then
+                        if started == true then
+                            SoundMgr:playPrevBGM()
+                        end
+                    end
                     __result_cb(ret, info)
                 end)
             end
