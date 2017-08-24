@@ -63,17 +63,33 @@ end
 function UI_CouponPopup_Confirm:click_okBtn()
     local function success_cb(t_ret)
         --ccdump(t_ret)
-        UIManager:toastNotificationGreen(Str('아이템 코드에 대한 상품이 우편함으로 지급되었습니다.'))
+        UIManager:toastNotificationGreen(Str('아이템 코드의 상품이 우편함으로 지급되었습니다.'))
         MakeSimplePopup(POPUP_TYPE.OK, Str('아이템 코드 사용에 성공하였습니다.'))
         self:close()
     end
 
     local function result_cb(t_ret)
         --ccdump(t_ret)
-        if t_ret['status'] ~= 0 then
-            self:close()
+        if t_ret['status'] == 0 then
+            return false
         end
-        return false
+
+        local msg = ''
+        if t_ret['rs'] == 1 then
+            msg = Str('유효하지 않은 아이템 코드입니다.\n다시 입력해 주세요.')
+        elseif t_ret['rs'] == 2 then
+            msg = Str('이미 사용된 아이템 코드입니다.\n다시 입력해 주세요.')
+        elseif t_ret['rs'] == 3 then
+            msg = Str('본 게임에서 사용할 수 없는 아이템 코드입니다.\n카드를 다시 확인해 주세요.')
+        elseif t_ret['rs'] == 6 then
+            msg = Str('서버 점검 중입니다.\n잠시 후 다시 시도해 주세요.')
+        else
+            self:close()
+            return false
+        end
+        MakeSimplePopup(POPUP_TYPE.OK, msg)
+        self:close()
+        return true
     end
 
     g_highbrowData:request_couponUse(self.m_couponId, success_cb, result_cb)

@@ -44,7 +44,7 @@ function UI_CouponPopup:initUI()
     -- normal
     self.m_titleText = Str("'드래곤빌리지M' 쿠폰 입력")
     self.m_editText = Str('12자리의 쿠폰 번호를 입력하세요.')
-    self.m_dscText = Str("지급되는 상품은 '우편함'에서 수령 가능하며,\n입력 시 쿠폰의 유효기간 및 횟수 제한을 확인하시기 바랍니다.\n('드래곤빌리지 콜렉션게임카드'의 '아이템 코드'는 '드빌전용관'을 통해 이용 가능합니다.)")
+    self.m_dscText = Str("지급되는 상품은 '우편함'에서 수령 가능하며,\n입력 시 쿠폰의 유효기한 및 횟수 제한을 확인하시기 바랍니다.\n('드래곤빌리지 콜렉션게임카드'의 '아이템 코드'는 '드빌전용관'을 통해 이용 가능합니다.)")
     self.m_errText = Str('쿠폰 번호의 길이가 맞지 않습니다.')
     self.m_errSubText = Str('12자리의 쿠폰 번호를 입력해 주세요.')
     self.m_maxCodeLength = 12
@@ -53,7 +53,7 @@ function UI_CouponPopup:initUI()
     if self.m_couponType == 'highbrow' then
         self.m_titleText = Str("'아이템 코드' 입력")
         self.m_editText = Str('16자리의 아이템 코드를 입력하세요.')
-        self.m_dscText = Str("구매하신 드래곤빌리지 콜렉션 게임 카드의 '아이템코드'를 입력하시면,\n드래곤빌리지M에서 획득 가능한 보상을 확인할 수 있습니다.\n(단, 드래곤빌리지 콜렉션게임카드 16탄 부터 적용되며, 1~15탄 카드, 특별카드 및 기타상품은 입력 불가 합니다.)")
+        self.m_dscText = Str("구매하신 '드래곤빌리지 콜렉션게임카드'의 '아이템코드'를 입력하시면,\n드래곤빌리지M에서 획득 가능한 보상을 확인할 수 있습니다.\n(단, 드래곤빌리지 콜렉션게임카드 16탄 부터 적용되며, 1~15탄 카드, 특별카드 및 기타상품은 사용불가능합니다.)")
         self.m_errText = Str('아이템 코드의 길이가 맞지 않습니다.')
         self.m_errSubText = Str('16자리의 아이템 코드를 입력해 주세요.')
         self.m_maxCodeLength = 16
@@ -150,20 +150,36 @@ function UI_CouponPopup:highbrow_coupon(couponCode)
             UI_CouponPopup_Confirm(couponCode, couponData)
             self:close()
         else
-            MakeSimplePopup(POPUP_TYPE.OK, Str('유효하지 않은 아이템 코드입니다. 다시 입력해 주세요.'))
+            MakeSimplePopup(POPUP_TYPE.OK, Str('유효하지 않은 아이템 코드입니다.\n다시 입력해 주세요.'))
         end
     end
 
     local function result_cb(t_ret)
+        --ccdump(t_ret)
         if t_ret['web'] then
             local function yes_cb()
                 SDKManager:goToWeb(t_ret['web'])
             end
-            MakeSimplePopup(POPUP_TYPE.YES_NO, Str('드빌.net에서 사용 가능한 코드입니다. 드빌.net으로 이동하시겠습니까?'), yes_cb)
+            MakeSimplePopup(POPUP_TYPE.YES_NO, Str("'드빌.net'에서 사용 가능한 코드입니다.\n'드빌.net'으로 이동하시겠습니까?"), yes_cb)
             self:close()
             return true
         end
-        return false
+
+        local msg = ''
+        if t_ret['rs'] == 1 then
+            msg = Str('유효하지 않은 아이템 코드입니다.\n다시 입력해 주세요.')
+        elseif t_ret['rs'] == 2 then
+            msg = Str('이미 사용된 아이템 코드입니다.\n다시 입력해 주세요.')
+        elseif t_ret['rs'] == 3 then
+            msg = Str('본 게임에서 사용할 수 없는 아이템 코드입니다.\n카드를 다시 확인해 주세요.')
+        elseif t_ret['rs'] == 6 then
+            msg = Str('서버 점검 중입니다.\n잠시 후 다시 시도해 주세요.')
+        else
+            return false
+        end
+
+        MakeSimplePopup(POPUP_TYPE.OK, msg)
+        return true
     end
 
     g_highbrowData:request_couponCheck(couponCode, success_cb, result_cb)
@@ -175,7 +191,7 @@ end
 -------------------------------------
 function UI_CouponPopup:normal_coupon(couponCode)
     local function success_cb(ret)
-        UIManager:toastNotificationGreen(Str('쿠폰에 대한 상품이 우편함으로 지급되었습니다.'))
+        UIManager:toastNotificationGreen(Str('쿠폰의 상품이 우편함으로 지급되었습니다.'))
         MakeSimplePopup(POPUP_TYPE.OK, Str('쿠폰 사용에 성공하였습니다.'))
         self:close()
     end
