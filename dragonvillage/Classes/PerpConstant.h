@@ -10,6 +10,10 @@
 #define SERVER_QA "QA"
 #define SERVER_DEV "DEV"
 
+#if (CC_TARGET_PLATFORM == CC_PLATFORM_IOS)
+#define TARGET_SERVER SERVER_LIVE
+#endif
+
 // TARGET SERVER는 NDK에서 넘겨준다. 없으면 'DEV'로 설정
 #ifndef TARGET_SERVER
 #define TARGET_SERVER SERVER_DEV
