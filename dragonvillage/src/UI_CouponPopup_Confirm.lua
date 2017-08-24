@@ -34,6 +34,7 @@ end
 function UI_CouponPopup_Confirm:initUI()
     local vars = self.vars
     
+    -- @todo
     -- self.m_couponData['item_id'] 가 nil 이거나 0 인 경우에 대한 예외 처리 필요
     local t_item = {
         ['item_id'] = self.m_couponData['item_id'],
@@ -62,7 +63,6 @@ end
 -- @brief ok~
 -------------------------------------
 function UI_CouponPopup_Confirm:click_okBtn()
-    -- @todo-coupon, 서버에 쿠폰 사용 요청
     local function cb_func(t_ret)
         UI_ToastPopup()
         self:closeWithAction()
