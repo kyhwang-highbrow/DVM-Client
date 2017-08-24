@@ -447,6 +447,7 @@ function ServerData_Colosseum:request_colosseumStart(is_cash, vsuid, finish_cb, 
     ui_network:setParam('is_cash', is_cash)
     ui_network:setParam('vsuid', vsuid)
     ui_network:setParam('combat_power', combat_power)
+    ui_network:setParam('token', self:makeDragonToken())
     ui_network:setMethod('POST')
     ui_network:setSuccessCB(success_cb)
     ui_network:setFailCB(fail_cb)
@@ -718,4 +719,90 @@ function ServerData_Colosseum:request_playerColosseumDeck(deckname, finish_cb, f
     ui_network:request()
     
     return ui_network
+end
+
+
+-------------------------------------
+-- function makeDragonToken
+-------------------------------------
+function ServerData_Colosseum:makeDragonToken()
+    local token = ''
+
+    local l_deck = g_colosseumData.m_playerUserInfo:getAtkDeck_dragonList(true)
+
+    local toStringData = function(t_dragon_data)
+        --cclog('t_dragon_data = ' .. luadump(t_dragon_data))
+
+        -- [ 드래곤 정보 ]
+        -- did;lv;exp;eclv;evolution;grade;skill_0;skill_1;skill_2;skill_3
+        local t1 = string.format('%d;%d;%d;%d;%d;%d;%d;%d;%d;%d', 
+            t_dragon_data['did'],
+            t_dragon_data['lv'],
+            t_dragon_data['exp'],
+            t_dragon_data['eclv'],
+            t_dragon_data['evolution'],
+            t_dragon_data['grade'],
+            t_dragon_data['skill_0'],
+            t_dragon_data['skill_1'],
+            t_dragon_data['skill_2'],
+            t_dragon_data['skill_3']
+        )
+
+        -- [ 친밀도 정보 ]
+        -- flv;fexp;fatk;fhp;fdef;ffeel
+        local friendship = t_dragon_data['friendship']
+        local t2 = string.format('%d;%d;%d;%d;%d;%d', 
+            friendship['flv'],
+            friendship['fexp'],
+            friendship['fhp'],
+            friendship['fatk'],
+            friendship['fdef'],
+            friendship['ffeel']
+        )
+
+        -- [ 룬 정보 ]
+        -- runes[1];runes[2];runes[3];runes[4];runes[5];runes[6]
+        local runes = t_dragon_data['runes']
+        local is_first = true
+        local t3 = ''
+
+        for i = 1, 6 do
+            if (not is_first) then
+                t3 = t3 .. ';'
+            end
+
+            if (runes[i]) then
+                t3 = t3 .. runes[i]
+            end
+
+            is_first = false
+	    end
+
+        -- t1 + t2 + t3
+        return t1 .. ';' .. t2 .. ';' .. t3
+    end
+
+    for i = 1, 5 do
+        local t_dragon_data
+        local doid = l_deck[i]
+        if (doid) then
+            t_dragon_data = g_dragonsData:getDragonDataFromUid(doid)
+        end
+
+        if (t_dragon_data) then
+            token = token .. toStringData(t_dragon_data)
+        else
+            token = token .. '0'
+        end
+
+        if (i < 5) then
+            token = token .. ','
+        end
+    end
+
+    --cclog('token = ' .. token)
+
+    token = HEX(AES_Encrypt(HEX2BIN(CONSTANT['AES_KEY']), token))
+    
+    return token
 end
