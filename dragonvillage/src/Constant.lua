@@ -237,20 +237,6 @@ function isMonster(id)
 end
 
 -------------------------------------
--- function playDragonVoice
--- @brief id를 가지고 dragon인지 판별
--------------------------------------
-function playDragonVoice(type)
-    local name = 'vo_' .. type
-
-    if (SoundMgr:isExistSound('VOICE', name)) then
-        SoundMgr:playEffect('VOICE', name)
-    else
-        SoundMgr:playEffect('VOICE', 'vo_silent')
-    end
-end
-
--------------------------------------
 -- function getRelationItemId
 -- @brief 드래곤 아이디(did)로부터 해당 드래곤 인연 포인트 아이템id를 얻음
 -------------------------------------

@@ -47,7 +47,7 @@ function Monster_GiantDragon.st_attack(owner, dt)
             local sequence = cc.Sequence:create(
                 cc.DelayTime:create(duration),
                 cc.CallFunc:create(function()
-                    SoundMgr:playEffect('VOICE', 'vo_gdragon_breath')
+                    --SoundMgr:playEffect('VOICE', 'vo_gdragon_breath')
                 end),
                 cc.RemoveSelf:create()
             )

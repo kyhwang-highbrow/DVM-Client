@@ -334,7 +334,7 @@ function EnemyAppear.NestDragon(owner, luaValue1, luaValue2, luaValue3)
             owner:dispatch('enemy_appear_done', {}, owner)
         end)
 
-        SoundMgr:playEffect('VOICE', 'vo_gdragon_appear')
+        --SoundMgr:playEffect('VOICE', 'vo_gdragon_appear')
     end
 
     owner.m_animator:runAction(cc.Sequence:create(
@@ -381,7 +381,7 @@ function EnemyAppear.NestTree(owner, luaValue1, luaValue2, luaValue3)
         cc.CallFunc:create(function()
             owner.m_world.m_shakeMgr:doShake(50, 50, 2, false, 0.1)
 
-            SoundMgr:playEffect('VOICE', 'vo_treant_appear')
+            --SoundMgr:playEffect('VOICE', 'vo_treant_appear')
         end)
     ))
 end
