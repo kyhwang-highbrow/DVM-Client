@@ -41,6 +41,7 @@ GameState = class(PARENT, {
         m_nAppearedEnemys = 'number',
 
         m_waveEffect = 'Animator',
+        m_bossTextVisual = 'Animator',
         m_nextWaveDirectionType = 'string',
 
 		m_bgmBoss = 'string',
@@ -82,8 +83,12 @@ function GameState:initUI()
     -- 보스 등장시 연출
     self.m_waveEffect = MakeAnimator('res/ui/a2d/ingame_text/ingame_text.vrp')
     self.m_waveEffect:setVisible(false)
-    --g_gameScene.m_containerLayer:addChild(self.m_waveEffect.m_node)
     self.m_world.m_inGameUI.root:addChild(self.m_waveEffect.m_node, 9)
+
+    self.m_bossTextVisual = MakeAnimator('res/ui/a2d/ingame_text/ingame_text.vrp')
+    self.m_bossTextVisual:changeAni('boss_text', false)
+    self.m_bossTextVisual:setVisible(false)
+    self.m_world.m_inGameUI.root:addChild(self.m_bossTextVisual.m_node, 10)
 
     -- 보스 이름
     do
@@ -94,7 +99,7 @@ function GameState:initUI()
         rich_label:setAlignment(cc.TEXT_ALIGNMENT_CENTER, cc.VERTICAL_TEXT_ALIGNMENT_CENTER)
         rich_label:enableOutline(cc.c4b(0, 0, 0, 255), 2)
 
-        local socket_node = self.m_waveEffect.m_node:getSocketNode('ingame_text_boss_name')
+        local socket_node = self.m_bossTextVisual.m_node:getSocketNode('ingame_text_boss_name')
         socket_node:addChild(rich_label.m_node)
 
         doAllChildren(socket_node, function(node) node:setCascadeOpacityEnabled(true) end)
@@ -540,6 +545,12 @@ function GameState.update_boss_wave(self, dt)
             self.m_nodeBoss:removeAllChildren(true)
 
             self:changeState(GAME_STATE_ENEMY_APPEAR)
+        end)
+
+        self.m_bossTextVisual:setVisible(true)
+        self.m_bossTextVisual:setFrame(0)
+        self.m_bossTextVisual:addAniHandler(function()
+            self.m_bossTextVisual:setVisible(false)
         end)
 
         local duration = self.m_waveEffect:getDuration()

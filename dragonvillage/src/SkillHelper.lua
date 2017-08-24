@@ -265,9 +265,9 @@ function SkillHelper:makePassiveSkillSpeech(dragon, str)
 
     local duration = animatorWindow:getDuration() * 2
     animatorWindow:runAction(cc.Sequence:create(cc.DelayTime:create(duration), cc.RemoveSelf:create()))
+
     -- 대사
     do
-        --self.m_speechLabel = cc.Label:createWithTTF(str, 'res/font/common_font_01.ttf', 24, 0, cc.size(340, 100), 1, 1)
         self.m_speechLabel = cc.Label:createWithTTF(str, 'res/font/common_font_01.ttf', 24, 2)
         self.m_speechLabel:setAnchorPoint(cc.p(0.5, 0.5))
 	    self.m_speechLabel:setDockPoint(cc.p(0, 0))
