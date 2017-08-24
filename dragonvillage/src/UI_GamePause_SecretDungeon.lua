@@ -11,7 +11,7 @@ UI_GamePause_SecretDungeon = class(PARENT, {
 -- @param file_name
 -- @param body
 -------------------------------------
-function UI_GamePause_SecretDungeon:init(stage_id, start_cb, end_cb)
+function UI_GamePause_SecretDungeon:init(stage_id, gamekey, start_cb, end_cb)
 end
 
 -------------------------------------

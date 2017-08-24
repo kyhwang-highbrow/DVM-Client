@@ -227,6 +227,7 @@ function UI_Game:click_pauseButton()
 
     local stage_id = self.m_gameScene.m_stageID
     local game_mode = self.m_gameScene.m_gameMode
+    local gamekey = self.m_gameScene.m_gameKey
 
     local function start_cb()
         self.m_gameScene:gamePause()
@@ -239,13 +240,13 @@ function UI_Game:click_pauseButton()
     if (game_mode == GAME_MODE_INTRO) then
         -- 인트로 스테이지에서는 백키를 동작시키지 않음
     elseif (game_mode == GAME_MODE_NEST_DUNGEON) then
-        UI_GamePause_NestDungeon(stage_id, start_cb, end_cb)
+        UI_GamePause_NestDungeon(stage_id, gamekey, start_cb, end_cb)
     elseif (game_mode == GAME_MODE_SECRET_DUNGEON) then
-        UI_GamePause_SecretDungeon(stage_id, start_cb, end_cb)
+        UI_GamePause_SecretDungeon(stage_id, gamekey, start_cb, end_cb)
     elseif (game_mode == GAME_MODE_ANCIENT_TOWER) then
-        UI_GamePause_AncientTower(stage_id, start_cb, end_cb)
+        UI_GamePause_AncientTower(stage_id, gamekey, start_cb, end_cb)
     else
-        UI_GamePause(stage_id, start_cb, end_cb)
+        UI_GamePause(stage_id, gamekey, start_cb, end_cb)
     end
 end
 

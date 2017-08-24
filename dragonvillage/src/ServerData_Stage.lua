@@ -257,6 +257,30 @@ function ServerData_Stage:requestGameStart(stage_id, deck_name, combat_power, fi
 end
 
 -------------------------------------
+-- function requestGameCancel
+-- @brief 게임 중도 포기
+--        모험, 네스트, 인연, 고대의 탑 등에서 사용
+-------------------------------------
+function ServerData_Stage:requestGameCancel(stage_id, gamekey, finish_cb)
+    local uid = g_userData:get('uid')
+
+    local function success_cb(ret)
+        if finish_cb then
+            finish_cb(ret)
+        end
+    end
+
+    local ui_network = UI_Network()
+    ui_network:setUrl('/game/stage/cancel')
+    ui_network:setRevocable(true)
+    ui_network:setParam('uid', uid)
+    ui_network:setParam('stage', stage_id)
+    ui_network:setParam('gamekey', gamekey)
+    ui_network:setSuccessCB(success_cb)
+    ui_network:request()
+end
+
+-------------------------------------
 -- function response_ingameDropInfo
 -- @brief 인게임 아이템 드랍 정보 설정
 -- 2017-08-22 sgkim

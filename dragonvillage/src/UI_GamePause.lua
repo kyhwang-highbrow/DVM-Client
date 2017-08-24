@@ -3,6 +3,7 @@
 -------------------------------------
 UI_GamePause = class(UI, {
         m_stageID = 'number',
+        m_gameKey = 'number',
         m_startCB = 'function',
         m_endCB = 'function',
      })
@@ -12,8 +13,9 @@ UI_GamePause = class(UI, {
 -- @param file_name
 -- @param body
 -------------------------------------
-function UI_GamePause:init(stage_id, start_cb, end_cb)
+function UI_GamePause:init(stage_id, gamekey, start_cb, end_cb)
     self.m_stageID = stage_id
+    self.m_gameKey = gamekey
     self.m_startCB = start_cb
     self.m_endCB = end_cb
 
@@ -191,5 +193,10 @@ end
 -------------------------------------
 function UI_GamePause:confirmExit(exit_cb)
     local msg = Str('지금 종료하면 드래곤 경험치와 보상을 받을 수 없습니다.\n그래도 나가시겠습니까?')
-    MakeSimplePopup(POPUP_TYPE.YES_NO, msg, exit_cb)
+
+    local function ok_cb()
+        g_stageData:requestGameCancel(self.m_stageID, self.m_gameKey, exit_cb)
+    end
+
+    MakeSimplePopup(POPUP_TYPE.YES_NO, msg, ok_cb)
 end
