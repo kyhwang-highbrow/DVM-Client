@@ -501,7 +501,15 @@ function UI_TitleScene:workGameLogin()
         self:makeFailPopup(nil, ret)
     end
 
-    Network_login(uid, nickname, success_cb, fail_cb)
+    -- 디바이스 정보를 받음
+    local function cb_func(ret, info)
+
+        -- ret의 값에 상관없이 로그인 진행
+        local device_info_json = json_decode(info) or {}
+        Network_login(uid, nickname, device_info_json, success_cb, fail_cb)
+    end
+
+    SDKManager:deviceInfo(cb_func)
 end
 
 -------------------------------------

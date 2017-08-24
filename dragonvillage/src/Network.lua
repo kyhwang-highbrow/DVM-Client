@@ -100,7 +100,7 @@ end
 -- function Network_login
 -- @breif 로그인
 -------------------------------------
-function Network_login(uid, nickname, success_cb, fail_cb)
+function Network_login(uid, nickname, device_info_json, success_cb, fail_cb)
     -- 파라미터 셋팅
     local t_data = {}
     t_data['uid'] = uid
@@ -108,6 +108,28 @@ function Network_login(uid, nickname, success_cb, fail_cb)
     t_data['hashed_uid'] = nil
     t_data['imei'] = nil
     t_data['market'] = nil
+
+    -- 단말 정보 추가
+    for key,value in pairs(device_info_json) do
+        if (t_data[key] == nil) then
+            t_data[key] = value
+        end
+    end
+    -- device_info_json은 android에서 아래와 같은 형태로 넘어옴
+    -- 2017-17-08-24 sgkim
+    --{
+    --    ['OS_VERSION']='3.10.61-11396000';
+    --    ['DISPLAY']='NRD90M.N920SKSU2DQE1';
+    --    ['MANUFACTURER']='samsung';
+    --    ['VERSION_SDK_INT']=24;
+    --    ['desc']='samsung SM-N920S(Android 7.0, API 24)';
+    --    ['VERSION_RELEASE']='7.0';
+    --    ['DEVICE']='noblelteskt';
+    --    ['BOARD']='universal7420';
+    --    ['VERSION_INCREMENTAL']='N920SKSU2DQE1';
+    --    ['BRAND']='samsung';
+    --}
+
 
     -- 요청 정보 설정
     local t_request = {}

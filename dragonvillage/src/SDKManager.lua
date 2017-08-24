@@ -21,6 +21,7 @@ end
 -------------------------------------
 -- function deviceInfo
 -- @brief 
+-- @param cb_func function(ret, info) end
 -------------------------------------
 function SDKManager:deviceInfo(cb_func)
     self:sendEvent('app_deviceInfo', '', '', cb_func)
