@@ -36,7 +36,9 @@ function DropItemMgr:init(world)
     self.m_bImmediatelyObtain = false
 
     -- 아이템을 드랍할 몬스터 지정
-    self:designateDropMonster()
+    if (not self.m_world.m_bDevelopMode) then
+        self:designateDropMonster()
+    end
 end
 
 -------------------------------------

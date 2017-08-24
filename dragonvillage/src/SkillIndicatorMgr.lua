@@ -39,7 +39,7 @@ SkillIndicatorMgr = class({
         m_touchNode = 'cc.Node',
         m_touchedHero = 'Hero',
         m_selectHero = 'Hero',
-        m_bSlowMode = 'boolean',
+        m_bPauseMode = 'boolean',
         m_startTimer = 'number',
         m_firstTouchPos = '',
         m_firstTouchUIPos = '',
@@ -59,7 +59,7 @@ function SkillIndicatorMgr:init(world)
 
     self.m_touchedHero = nil
     self.m_selectHero = nil
-    self.m_bSlowMode = false
+    self.m_bPauseMode = false
     self.m_startTimer = 0
     self.m_firstTouchPos = nil
     self.m_firstTouchUIPos = nil
@@ -184,11 +184,9 @@ function SkillIndicatorMgr:onTouchMoved(touch, event)
     if (hero.m_skillIndicator) then
         hero.m_skillIndicator:setIndicatorTouchPos(node_pos['x'], node_pos['y'])
 
-        if (self.m_bSlowMode == false) then
+        if (not self:isControlling()) then
             if (distance >= 50) then
                 if (hero:isPossibleSkill()) then
-                    self.m_bSlowMode = true
-
                     self:setSelectHero(hero)
                     event:stopPropagation()
                 end
@@ -289,9 +287,10 @@ function SkillIndicatorMgr:clear(keep_pause)
     if (self.m_selectHero) then
         if (not keep_pause) then
             self.m_world:setTemporaryPause(false, self.m_selectHero)
+            self.m_bPauseMode = false
         end
         self:setSelectHero(nil)
-        self.m_bSlowMode = false
+        self.m_bPauseMode = false
     end
 end
 
@@ -299,10 +298,16 @@ end
 -- function update
 -------------------------------------
 function SkillIndicatorMgr:update(dt)
-    if (self.m_selectHero) then
+    if (self:isControlling()) then
         if (self.m_selectHero:isDead()) or (not self.m_world:isPossibleControl()) then
             self:clear()
             return
+        
+        -- 매우 낮은 빈도로 인디케이터 조작 중 일시정지가 풀리는 현상이 있었음... 정확한 원인은 찾지 못해 임시 처리
+        elseif (not self.m_bPauseMode) then
+            self.m_world:setTemporaryPause(true, self.m_selectHero)
+            self.m_bPauseMode = true
+            
         end
     end
 end
@@ -328,6 +333,7 @@ function SkillIndicatorMgr:setSelectHero(hero)
 
         -- 일시정지
         self.m_world:setTemporaryPause(true, hero)
+        self.m_bPauseMode = true
 
         -- 화면 쉐이킹 멈춤
         self.m_world.m_shakeMgr:stopShake()

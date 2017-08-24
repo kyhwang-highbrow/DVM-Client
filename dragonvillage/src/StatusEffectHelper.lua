@@ -245,7 +245,7 @@ function StatusEffectHelper:invokeStatusEffect(caster, target_char, status_effec
         status_effect_value = tonumber(status_effect_value)
     end
 
-    local status_effect = target_char:getStatusEffect(status_effect_type)
+    local status_effect = target_char:getStatusEffect(status_effect_type, true)
     if (status_effect) then
         -- 상태 효과 중첩 혹은 갱신
         local duration = tonumber(duration) or tonumber(t_status_effect['duration'])

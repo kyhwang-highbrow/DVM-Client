@@ -100,8 +100,14 @@ end
 -------------------------------------
 -- function getStatusEffect
 -------------------------------------
-function ICharacterStatusEffect:getStatusEffect(status_effect_type)
-	return self.m_mStatusEffect[status_effect_type]
+function ICharacterStatusEffect:getStatusEffect(status_effect_type, check_hidden)
+    local status_effect = self.m_mStatusEffect[status_effect_type]
+
+    if (not status_effect and check_hidden) then
+        status_effect = self.m_mHiddenStatusEffect[status_effect_type]
+    end
+
+	return status_effect
 end
 
 -------------------------------------
@@ -132,25 +138,27 @@ function ICharacterStatusEffect:getStatusEffectCount(column, value)
                 count = count + status_effect:getOverlabCount()
             end
         end
-
+        --[[
         for type, status_effect in pairs(self:getHiddenStatusEffectList()) do
             local t_status_effect = TableStatusEffect():get(type)
             if (t_status_effect and t_status_effect[column] == value) then
                 count = count + status_effect:getOverlabCount()
             end
         end
+        ]]--
     else
         for type, status_effect in pairs(self:getStatusEffectList()) do
             if (string.find(type, value)) then
                 count = count + status_effect:getOverlabCount()
             end
         end
-
+        --[[
         for type, status_effect in pairs(self:getHiddenStatusEffectList()) do
             if (string.find(type, value)) then
                 count = count + status_effect:getOverlabCount()
             end
         end
+        ]]--
     end
 
     return count
@@ -160,7 +168,7 @@ end
 -- function isExistStatusEffectName
 -- @breif 해당 이름을 포함한 상태효과가 존재하는지 여부
 -------------------------------------
-function ICharacterStatusEffect:isExistStatusEffectName(name, except_name)
+function ICharacterStatusEffect:isExistStatusEffectName(name, except_name, check_hidden)
     local b = false
 
     for type, status_effect in pairs(self:getStatusEffectList()) do
@@ -170,10 +178,12 @@ function ICharacterStatusEffect:isExistStatusEffectName(name, except_name)
         end
     end
 
-    for type, status_effect in pairs(self:getHiddenStatusEffectList()) do
-        if (string.find(type, name) and type ~= except_name) then
-            b = true
-            break
+    if (check_hidden) then
+        for type, status_effect in pairs(self:getHiddenStatusEffectList()) do
+            if (string.find(type, name) and type ~= except_name) then
+                b = true
+                break
+            end
         end
     end
 
@@ -184,7 +194,7 @@ end
 -- function isExistStatusEffect
 -- @breif 파라미터의 칼럼과 값으로부터 동일한 상태효과가 존재하는지 여부
 -------------------------------------
-function ICharacterStatusEffect:isExistStatusEffect(column, value)
+function ICharacterStatusEffect:isExistStatusEffect(column, value, check_hidden)
     local b = false
 
     for type, status_effect in pairs(self:getStatusEffectList()) do
@@ -195,11 +205,13 @@ function ICharacterStatusEffect:isExistStatusEffect(column, value)
         end
     end
 
-    for type, status_effect in pairs(self:getHiddenStatusEffectList()) do
-        local t_status_effect = TableStatusEffect():get(type)
-        if (t_status_effect and t_status_effect[column] == value) then
-            b = true
-            break
+    if (check_hidden) then
+        for type, status_effect in pairs(self:getHiddenStatusEffectList()) do
+            local t_status_effect = TableStatusEffect():get(type)
+            if (t_status_effect and t_status_effect[column] == value) then
+                b = true
+                break
+            end
         end
     end
 

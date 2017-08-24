@@ -140,21 +140,14 @@ function UI_GamePause:click_continueButton()
 end
 
 -------------------------------------
--- function click_settingButton
+-- function click_debug_heroInfoButton
+-- @brief 아군 상세 정보를 표시
 -------------------------------------
-function UI_GamePause:click_settingButton()
-    UI_Setting()
-end
-
--------------------------------------
--- function click_debug_enemyInfoButton
--- @brief 적군 상세 정보를 표시
--------------------------------------
-function UI_GamePause:click_debug_enemyInfoButton()
+function UI_GamePause:click_debug_heroInfoButton()
     local world = g_gameScene.m_gameWorld
     local str = ''
 
-    for _, v in ipairs(world:getEnemyList()) do
+    for _, v in ipairs(world:getDragonList()) do
         local str_info = v:getAllInfomationString()
         str = str .. str_info
     end
@@ -165,6 +158,7 @@ function UI_GamePause:click_debug_enemyInfoButton()
         self.root:setVisible(true)
     end)
 end
+
 -------------------------------------
 -- function click_debug_enemyInfoButton
 -- @brief 적군 상세 정보를 표시
