@@ -358,22 +358,32 @@ end
 -- @brief 재료 카드 만든 후..
 -------------------------------------
 function UI_DragonLevelUp:createMtrlDragonCardCB(ui, data)
+    if (not ui) then
+        return
+    end
+
     -- 선택한 드래곤이 레벨업 가능한지 판단
     local doid = self.m_selectDragonOID
     if (not g_dragonsData:possibleDragonLevelUp(doid)) then
-        if ui then
+        ui:setShadowSpriteVisible(true)
+        return
+    end
+
+    -- 재료 드래곤이 재료 가능한지 판별
+    doid = data['id']
+    if (data:getObjectType() == 'dragon') then
+        if (not g_dragonsData:possibleMaterialDragon(doid)) then
             ui:setShadowSpriteVisible(true)
+            return
+        end
+
+    elseif (data:getObjectType() == 'slime') then
+        if (not g_slimesData:possibleMaterialSlime(doid, 'exp')) then
+            ui:setShadowSpriteVisible(true)
+            return
         end
     end
-end
 
--------------------------------------
--- function checkDragonSelect
--- @brief 선택이 가능한 드래곤인지 여부
--- @override
--------------------------------------
-function UI_DragonLevelUp:checkDragonSelect(doid)
-    return true
 end
 
 -------------------------------------

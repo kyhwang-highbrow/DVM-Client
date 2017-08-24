@@ -153,13 +153,12 @@ function UI_DragonUpgrade:refresh()
     end
 
     do -- 선택된 드래곤별 재료 슬롯 정렬
-        local grade = t_dragon_data['grade']
-        local l_pos = getSortPosList(100, grade)
+        local l_pos = getSortPosList(100, self.m_selectedDragonGrade)
         for i=1, 5 do
             local material_node = vars['materialNode' .. i]
             material_node:setPositionX(0)
             material_node:stopAllActions()
-            if (i <= grade) then
+            if (i <= self.m_selectedDragonGrade) then
                 material_node:setVisible(true)
 
                 -- 이즈액션으로 이동
@@ -175,7 +174,11 @@ function UI_DragonUpgrade:refresh()
 
 	-- 승급 가능 여부 처리
 	local upgradeable = g_dragonsData:possibleUpgradeable(self.m_selectDragonOID)
-	vars['infoLabel']:setVisible(not upgradeable)
+    if (not upgradeable) then
+        local max_lv = TableGradeInfo:getMaxLv(self.m_selectedDragonGrade)
+	    vars['lockSprite']:setVisible(true)
+        vars['infoLabel2']:setString(Str('{1}레벨 달성시 승급할 수 있어요', max_lv))
+    end
 
     self:refresh_upgrade(table_dragon, t_dragon_data)
     self:refresh_stats(t_dragon_data)
@@ -292,11 +295,29 @@ end
 -- @brief 재료 카드 만든 후..
 -------------------------------------
 function UI_DragonUpgrade:createMtrlDragonCardCB(ui, data)
+    if (not ui) then
+        return
+    end
+
     -- 선택한 드래곤이 승급 가능한지 판단
     local doid = self.m_selectDragonOID
     if (not g_dragonsData:possibleUpgradeable(doid)) then
-        if ui then
+        ui:setShadowSpriteVisible(true)
+        return
+    end
+
+    -- 재료 드래곤이 재료 가능한지 판별
+    doid = data['id']
+    if (data:getObjectType() == 'dragon') then
+        if (not g_dragonsData:possibleMaterialDragon(doid)) then
             ui:setShadowSpriteVisible(true)
+            return
+        end
+
+    elseif (data:getObjectType() == 'slime') then
+        if (not g_slimesData:possibleMaterialSlime(doid, 'upgrade')) then
+            ui:setShadowSpriteVisible(true)
+            return
         end
     end
 end
@@ -309,6 +330,13 @@ function UI_DragonUpgrade:click_dragonMaterial(data)
     local vars = self.vars
 
     local doid = data['id']
+
+    -- 선택한 드래곤이 승급 가능한지 판단
+    local possible, msg = g_dragonsData:possibleUpgradeable(self.m_selectDragonOID)
+    if (not possible) then
+        UIManager:toastNotificationRed(msg)
+        return
+    end
 
     -- 선택가능한 재료인지 체크
     local possible, msg = g_dragonsData:possibleMaterialDragon(doid)
