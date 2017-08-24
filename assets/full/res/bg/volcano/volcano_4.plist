@@ -7,50 +7,50 @@
             <key>bg_volcano_4_a.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{2,546},{952,1126}}</string>
+                <string>{{278,2},{478,566}}</string>
                 <key>offset</key>
-                <string>{-317,-237}</string>
+                <string>{-159,-117}</string>
                 <key>rotated</key>
-                <false/>
+                <true/>
                 <key>sourceColorRect</key>
-                <string>{{231,474},{952,1126}}</string>
+                <string>{{114,234},{478,566}}</string>
                 <key>sourceSize</key>
-                <string>{2048,1600}</string>
+                <string>{1024,800}</string>
             </dict>
             <key>bg_volcano_4_b.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{2,2},{2024,542}}</string>
+                <string>{{2,2},{1018,274}}</string>
                 <key>offset</key>
-                <string>{-8,-529}</string>
+                <string>{-3,-263}</string>
                 <key>rotated</key>
-                <false/>
+                <true/>
                 <key>sourceColorRect</key>
-                <string>{{4,1058},{2024,542}}</string>
+                <string>{{0,526},{1018,274}}</string>
                 <key>sourceSize</key>
-                <string>{2048,1600}</string>
+                <string>{1024,800}</string>
             </dict>
             <key>bg_volcano_4_c.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{956,546},{850,852}}</string>
+                <string>{{696,518},{424,426}}</string>
                 <key>offset</key>
-                <string>{342,-374}</string>
+                <string>{174,-187}</string>
                 <key>rotated</key>
-                <true/>
+                <false/>
                 <key>sourceColorRect</key>
-                <string>{{941,748},{850,852}}</string>
+                <string>{{474,374},{424,426}}</string>
                 <key>sourceSize</key>
-                <string>{2048,1600}</string>
+                <string>{1024,800}</string>
             </dict>
             <key>bg_volcano_spiderweb_01.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{1810,742},{162,153}}</string>
+                <string>{{1049,298},{162,153}}</string>
                 <key>offset</key>
                 <string>{8,8}</string>
                 <key>rotated</key>
-                <false/>
+                <true/>
                 <key>sourceColorRect</key>
                 <string>{{55,34},{162,153}}</string>
                 <key>sourceSize</key>
@@ -59,7 +59,7 @@
             <key>bg_volcano_spiderweb_02.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{1810,546},{194,201}}</string>
+                <string>{{846,298},{194,201}}</string>
                 <key>offset</key>
                 <string>{-3,-6}</string>
                 <key>rotated</key>
@@ -72,11 +72,11 @@
             <key>bg_volcano_spiderweb_03.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{956,1398},{514,416}}</string>
+                <string>{{278,482},{514,416}}</string>
                 <key>offset</key>
                 <string>{18,-14}</string>
                 <key>rotated</key>
-                <false/>
+                <true/>
                 <key>sourceColorRect</key>
                 <string>{{36,38},{514,416}}</string>
                 <key>sourceSize</key>
@@ -85,11 +85,11 @@
             <key>bg_volcano_spiderweb_04.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{1472,1398},{329,294}}</string>
+                <string>{{846,2},{329,294}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
-                <true/>
+                <false/>
                 <key>sourceColorRect</key>
                 <string>{{50,51},{329,294}}</string>
                 <key>sourceSize</key>
@@ -98,11 +98,11 @@
             <key>bg_volcano_spiderweb_06.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{2,1674},{64,50}}</string>
+                <string>{{1049,462},{64,50}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
-                <true/>
+                <false/>
                 <key>sourceColorRect</key>
                 <string>{{193,187},{64,50}}</string>
                 <key>sourceSize</key>
@@ -111,7 +111,7 @@
             <key>bg_volcano_spiderweb_07.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{54,1674},{48,54}}</string>
+                <string>{{696,946},{48,54}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
@@ -124,7 +124,7 @@
             <key>bg_volcano_spiderweb_08.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{2,1740},{54,54}}</string>
+                <string>{{1115,462},{54,54}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
@@ -142,9 +142,9 @@
             <key>realTextureFileName</key>
             <string>volcano_4.png</string>
             <key>size</key>
-            <string>{2028,1816}</string>
+            <string>{1204,1022}</string>
             <key>smartupdate</key>
-            <string>$TexturePacker:SmartUpdate:8445890611bba577af2e0dc8bc854ba5:742c4bf1fabb4e175347d9a57a5ce6c6:407a1cd634c31df7e8309b2be5c2cfa3$</string>
+            <string>$TexturePacker:SmartUpdate:f9fbcc182dd88cedfdb3e8e549f0d77d:d541f6a9d94956a9c6888f7043a087a9:407a1cd634c31df7e8309b2be5c2cfa3$</string>
             <key>textureFileName</key>
             <string>volcano_4.png</string>
         </dict>

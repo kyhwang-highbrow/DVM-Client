@@ -6,280 +6,280 @@ filter: Linear,Linear
 repeat: none
 verus_fire_02_acc_02
   rotate: true
-  xy: 1970, 1565
+  xy: 1633, 1609
   size: 106, 75
   orig: 106, 75
   offset: 0, 0
   index: -1
 verus_fire_02_acc_03
   rotate: true
-  xy: 975, 1505
+  xy: 1963, 1722
   size: 106, 60
   orig: 106, 60
   offset: 0, 0
   index: -1
 verus_fire_02_arm_01
   rotate: false
-  xy: 1654, 1829
+  xy: 1655, 1830
   size: 215, 216
   orig: 215, 216
   offset: 0, 0
   index: -1
 verus_fire_02_arm_02
   rotate: true
-  xy: 861, 1613
+  xy: 1134, 1690
   size: 138, 216
   orig: 138, 216
   offset: 0, 0
   index: -1
 verus_fire_02_body_01
   rotate: false
-  xy: 237, 1441
+  xy: 238, 1442
   size: 264, 248
   orig: 264, 248
   offset: 0, 0
   index: -1
 verus_fire_02_body_02
-  rotate: true
-  xy: 942, 1447
+  rotate: false
+  xy: 1786, 1636
   size: 56, 75
   orig: 56, 75
   offset: 0, 0
   index: -1
 verus_fire_02_effect_01
   rotate: true
-  xy: 569, 1599
+  xy: 570, 1600
   size: 140, 290
   orig: 140, 290
   offset: 0, 0
   index: -1
 verus_fire_02_effect_02
   rotate: false
-  xy: 569, 1741
+  xy: 570, 1742
   size: 284, 304
   orig: 284, 304
   offset: 0, 0
   index: -1
 verus_fire_02_effect_03
   rotate: false
-  xy: 237, 1691
+  xy: 238, 1692
   size: 330, 354
   orig: 330, 354
   offset: 0, 0
   index: -1
 verus_fire_02_effect_04
   rotate: true
-  xy: 697, 1442
+  xy: 698, 1443
   size: 155, 160
   orig: 155, 160
   offset: 0, 0
   index: -1
 verus_fire_02_effect_05
-  rotate: false
-  xy: 1524, 1661
+  rotate: true
+  xy: 1085, 1533
   size: 155, 160
   orig: 155, 160
   offset: 0, 0
   index: -1
 verus_fire_02_effect_06
   rotate: true
-  xy: 1470, 1534
+  xy: 1229, 1402
   size: 125, 130
   orig: 125, 130
   offset: 0, 0
   index: -1
 verus_fire_02_effect_07
   rotate: false
-  xy: 1421, 1823
+  xy: 1422, 1824
   size: 231, 222
   orig: 231, 222
   offset: 0, 0
   index: -1
 verus_fire_02_effect_08
   rotate: false
-  xy: 1726, 1436
+  xy: 1361, 1411
   size: 115, 116
   orig: 115, 116
   offset: 0, 0
   index: -1
 verus_fire_02_effect_09
-  rotate: false
-  xy: 1843, 1441
+  rotate: true
+  xy: 1732, 1713
   size: 115, 116
   orig: 115, 116
   offset: 0, 0
   index: -1
 verus_fire_02_effect_10
   rotate: false
-  xy: 1, 1433
+  xy: 2, 1434
   size: 234, 612
   orig: 234, 612
   offset: 0, 0
   index: -1
 verus_fire_02_finger_01
   rotate: false
-  xy: 503, 1632
+  xy: 504, 1633
   size: 64, 57
   orig: 64, 57
   offset: 0, 0
   index: -1
 verus_fire_02_finger_02
   rotate: false
-  xy: 1037, 1510
+  xy: 1850, 1682
   size: 64, 57
   orig: 64, 57
   offset: 0, 0
   index: -1
 verus_fire_02_fire_03_acc_01
   rotate: false
-  xy: 1602, 1533
+  xy: 1352, 1696
   size: 122, 126
   orig: 122, 126
   offset: 0, 0
   index: -1
 verus_fire_02_hair_01
   rotate: true
-  xy: 861, 1506
+  xy: 1618, 1717
   size: 105, 112
   orig: 105, 112
   offset: 0, 0
   index: -1
 verus_fire_02_hair_02
-  rotate: false
-  xy: 1842, 1559
+  rotate: true
+  xy: 1403, 1568
   size: 126, 112
   orig: 126, 112
   offset: 0, 0
   index: -1
 verus_fire_02_hand_01
   rotate: false
-  xy: 1726, 1554
+  xy: 1517, 1589
   size: 114, 126
   orig: 114, 126
   offset: 0, 0
   index: -1
 verus_fire_02_head_01
   rotate: false
-  xy: 1133, 1697
+  xy: 860, 1443
   size: 207, 130
   orig: 207, 130
   offset: 0, 0
   index: -1
 verus_fire_02_head_02
-  rotate: false
-  xy: 1860, 1673
+  rotate: true
+  xy: 1247, 1529
   size: 159, 154
   orig: 159, 154
   offset: 0, 0
   index: -1
 verus_fire_02_head_03
   rotate: true
-  xy: 1328, 1575
+  xy: 1476, 1717
   size: 105, 140
   orig: 105, 140
   offset: 0, 0
   index: -1
 verus_fire_02_head_04
-  rotate: true
-  xy: 859, 1430
+  rotate: false
+  xy: 1710, 1630
   size: 74, 81
   orig: 74, 81
   offset: 0, 0
   index: -1
 verus_fire_02_head_05
   rotate: false
-  xy: 1079, 1705
+  xy: 1085, 1706
   size: 25, 46
   orig: 25, 46
   offset: 0, 0
   index: -1
 verus_fire_02_lag_01
   rotate: true
-  xy: 503, 1445
+  xy: 504, 1446
   size: 152, 192
   orig: 152, 192
   offset: 0, 0
   index: -1
 verus_fire_02_lag_02
   rotate: true
-  xy: 1079, 1569
+  xy: 1069, 1405
   size: 126, 158
   orig: 126, 158
   offset: 0, 0
   index: -1
 verus_fire_02_tail_01
   rotate: false
-  xy: 855, 1753
+  xy: 856, 1754
   size: 276, 292
   orig: 276, 292
   offset: 0, 0
   index: -1
 verus_fire_02_wing_01
   rotate: false
-  xy: 1871, 1829
+  xy: 1872, 1830
   size: 148, 216
   orig: 148, 216
   offset: 0, 0
   index: -1
 verus_fire_02_wing_02
   rotate: false
-  xy: 1133, 1829
+  xy: 1134, 1830
   size: 286, 216
   orig: 286, 216
   offset: 0, 0
   index: -1
 verus_fire_02_wing_03
   rotate: true
-  xy: 1, 4
+  xy: 862, 1575
   size: 177, 221
   orig: 177, 221
   offset: 0, 0
   index: -1
 verus_fire_02_wing_04
-  rotate: false
-  xy: 1342, 1682
+  rotate: true
+  xy: 2, 2
   size: 180, 139
   orig: 180, 139
   offset: 0, 0
   index: -1
 verus_fire_02_wing_05
-  rotate: true
-  xy: 1239, 1584
+  rotate: false
+  xy: 1850, 1741
   size: 111, 87
   orig: 111, 87
   offset: 0, 0
   index: -1
 verus_fire_02_wingeff_01
   rotate: false
-  xy: 1, 999
+  xy: 2, 1000
   size: 222, 432
   orig: 222, 432
   offset: 0, 0
   index: -1
 verus_fire_02_wingeff_02
   rotate: false
-  xy: 1, 659
+  xy: 2, 660
   size: 222, 338
   orig: 222, 338
   offset: 0, 0
   index: -1
 verus_fire_02_wingeff_03
   rotate: false
-  xy: 1, 421
+  xy: 2, 422
   size: 222, 236
   orig: 222, 236
   offset: 0, 0
   index: -1
 verus_fire_02_wingeff_04
   rotate: false
-  xy: 1, 183
+  xy: 2, 184
   size: 222, 236
   orig: 222, 236
   offset: 0, 0
   index: -1
 verus_fire_02_wingeff_05
-  rotate: false
-  xy: 1681, 1682
+  rotate: true
+  xy: 143, 5
   size: 177, 145
   orig: 177, 145
   offset: 0, 0

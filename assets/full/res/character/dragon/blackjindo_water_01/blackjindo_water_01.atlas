@@ -1,145 +1,145 @@
 
 blackjindo_water_01.png
-size: 1024,1024
+size: 1024,512
 format: RGBA8888
 filter: Linear,Linear
 repeat: none
 blackjindo_water_01_arm_01
   rotate: false
-  xy: 555, 703
+  xy: 779, 443
   size: 60, 67
   orig: 60, 67
   offset: 0, 0
   index: -1
 blackjindo_water_01_arm_02
-  rotate: false
-  xy: 498, 606
+  rotate: true
+  xy: 329, 97
   size: 54, 63
   orig: 54, 63
   offset: 0, 0
   index: -1
 blackjindo_water_01_body_02
-  rotate: false
-  xy: 414, 671
+  rotate: true
+  xy: 2, 12
   size: 139, 168
   orig: 139, 168
   offset: 0, 0
   index: -1
 blackjindo_water_01_effect_02
   rotate: false
-  xy: 1, 482
+  xy: 2, 153
   size: 411, 357
   orig: 411, 357
   offset: 0, 0
   index: -1
 blackjindo_water_01_eye_01
   rotate: false
-  xy: 301, 448
+  xy: 557, 199
   size: 38, 32
   orig: 38, 32
   offset: 0, 0
   index: -1
 blackjindo_water_01_eye_01_01
   rotate: false
-  xy: 414, 488
+  xy: 893, 478
   size: 38, 32
   orig: 38, 32
   offset: 0, 0
   index: -1
 blackjindo_water_01_eye_02
-  rotate: true
-  xy: 143, 268
+  rotate: false
+  xy: 415, 158
   size: 23, 22
   orig: 23, 22
   offset: 0, 0
   index: -1
 blackjindo_water_01_eye_02_01
   rotate: false
-  xy: 167, 278
+  xy: 617, 299
   size: 23, 22
   orig: 23, 22
   offset: 0, 0
   index: -1
 blackjindo_water_01_foot_01
   rotate: false
-  xy: 245, 394
+  xy: 659, 424
   size: 54, 86
   orig: 54, 86
   offset: 0, 0
   index: -1
 blackjindo_water_01_foot_02
   rotate: false
-  xy: 167, 302
+  xy: 715, 440
   size: 62, 70
   orig: 62, 70
   offset: 0, 0
   index: -1
 blackjindo_water_01_hand_01
-  rotate: false
-  xy: 555, 772
+  rotate: true
+  xy: 581, 323
   size: 79, 67
   orig: 79, 67
   offset: 0, 0
   index: -1
 blackjindo_water_01_hand_02
   rotate: false
-  xy: 414, 522
+  xy: 256, 94
   size: 71, 57
   orig: 71, 57
   offset: 0, 0
   index: -1
 blackjindo_water_01_head_01
   rotate: false
-  xy: 1, 152
+  xy: 415, 182
   size: 140, 139
   orig: 140, 139
   offset: 0, 0
   index: -1
 blackjindo_water_01_head_02
   rotate: false
-  xy: 414, 581
+  xy: 172, 63
   size: 82, 88
   orig: 82, 88
   offset: 0, 0
   index: -1
 blackjindo_water_01_head_03
   rotate: false
-  xy: 636, 774
+  xy: 841, 445
   size: 50, 65
   orig: 50, 65
   offset: 0, 0
   index: -1
 blackjindo_water_01_leg_01
   rotate: false
-  xy: 167, 374
+  xy: 581, 404
   size: 76, 106
   orig: 76, 106
   offset: 0, 0
   index: -1
 blackjindo_water_01_leg_02
   rotate: false
-  xy: 1, 62
+  xy: 557, 233
   size: 58, 88
   orig: 58, 88
   offset: 0, 0
   index: -1
 blackjindo_water_01_mouth_01
   rotate: true
-  xy: 1, 1
+  xy: 172, 2
   size: 59, 42
   orig: 59, 42
   offset: 0, 0
   index: -1
 blackjindo_water_01_mouth_02
-  rotate: false
-  xy: 61, 108
+  rotate: true
+  xy: 216, 2
   size: 59, 42
   orig: 59, 42
   offset: 0, 0
   index: -1
 blackjindo_water_01_tail_01
   rotate: false
-  xy: 1, 293
+  xy: 415, 323
   size: 164, 187
   orig: 164, 187
   offset: 0, 0

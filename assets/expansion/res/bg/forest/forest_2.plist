@@ -7,28 +7,15 @@
             <key>bg_forest_2_a.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{2,2},{898,712}}</string>
+                <string>{{2,2},{1648,714}}</string>
                 <key>offset</key>
-                <string>{3,-44}</string>
+                <string>{-1,-43}</string>
                 <key>rotated</key>
                 <false/>
                 <key>sourceColorRect</key>
-                <string>{{60,88},{898,712}}</string>
+                <string>{{135,86},{1648,714}}</string>
                 <key>sourceSize</key>
-                <string>{1012,800}</string>
-            </dict>
-            <key>bg_forest_2_b.png</key>
-            <dict>
-                <key>frame</key>
-                <string>{{902,2},{732,582}}</string>
-                <key>offset</key>
-                <string>{8,-109}</string>
-                <key>rotated</key>
-                <false/>
-                <key>sourceColorRect</key>
-                <string>{{16,218},{732,582}}</string>
-                <key>sourceSize</key>
-                <string>{748,800}</string>
+                <string>{1920,800}</string>
             </dict>
         </dict>
         <key>metadata</key>
@@ -38,9 +25,9 @@
             <key>realTextureFileName</key>
             <string>forest_2.png</string>
             <key>size</key>
-            <string>{1636,716}</string>
+            <string>{1652,718}</string>
             <key>smartupdate</key>
-            <string>$TexturePacker:SmartUpdate:c534451d447ff02cad7a97e260ce5cda:3f472c2f83fced814e51e80dd2e46f86:ffdabd9cd2e3a21aaf6db07f148a71bc$</string>
+            <string>$TexturePacker:SmartUpdate:8da0e082be0a8619850c9e8e72dbb290:e46efb4243554a480038681e0727c4bb:ffdabd9cd2e3a21aaf6db07f148a71bc$</string>
             <key>textureFileName</key>
             <string>forest_2.png</string>
         </dict>

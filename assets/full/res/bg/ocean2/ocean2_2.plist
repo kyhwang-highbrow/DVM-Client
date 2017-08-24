@@ -7,37 +7,37 @@
             <key>bg_ocean2_2_b.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{516,728},{1296,564}}</string>
+                <string>{{2,2},{1034,322}}</string>
                 <key>offset</key>
-                <string>{-7,-61}</string>
+                <string>{4,-9}</string>
                 <key>rotated</key>
                 <false/>
                 <key>sourceColorRect</key>
-                <string>{{188,579},{1296,564}}</string>
+                <string>{{284,248},{1034,322}}</string>
                 <key>sourceSize</key>
-                <string>{1686,1600}</string>
+                <string>{1594,800}</string>
             </dict>
             <key>bg_ocean2_2_c.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{516,2},{1320,724}}</string>
+                <string>{{2,326},{661,362}}</string>
                 <key>offset</key>
-                <string>{4,-64}</string>
+                <string>{1,-32}</string>
                 <key>rotated</key>
                 <false/>
                 <key>sourceColorRect</key>
-                <string>{{187,502},{1320,724}}</string>
+                <string>{{92,251},{661,362}}</string>
                 <key>sourceSize</key>
-                <string>{1686,1600}</string>
+                <string>{843,800}</string>
             </dict>
             <key>bg_ocean2_2_smoke_01.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{2,2},{512,932}}</string>
+                <string>{{1038,2},{512,932}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
-                <false/>
+                <true/>
                 <key>sourceColorRect</key>
                 <string>{{544,334},{512,932}}</string>
                 <key>sourceSize</key>
@@ -51,9 +51,9 @@
             <key>realTextureFileName</key>
             <string>ocean2_2.png</string>
             <key>size</key>
-            <string>{1838,1294}</string>
+            <string>{1972,690}</string>
             <key>smartupdate</key>
-            <string>$TexturePacker:SmartUpdate:391e814c2e0e1e1d83bc5aab47e3985c:d7b393dc3d9c2f6f9fa4bce7c583e9c3:07e78803e1c9c6eec38311fbf68352a2$</string>
+            <string>$TexturePacker:SmartUpdate:a3fc48922a3d9eff1f805a971eb3399d:51ddf9486e7d116a355c763261d0aa94:07e78803e1c9c6eec38311fbf68352a2$</string>
             <key>textureFileName</key>
             <string>ocean2_2.png</string>
         </dict>

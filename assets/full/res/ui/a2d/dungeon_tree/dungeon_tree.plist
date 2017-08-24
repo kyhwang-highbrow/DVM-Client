@@ -15,7 +15,7 @@
                 <key>spriteSourceSize</key>
                 <string>{280,280}</string>
                 <key>textureRect</key>
-                <string>{{1,569},{280,280}}</string>
+                <string>{{1,273},{280,280}}</string>
                 <key>textureRotated</key>
                 <false/>
             </dict>
@@ -30,7 +30,7 @@
                 <key>spriteSourceSize</key>
                 <string>{204,48}</string>
                 <key>textureRect</key>
-                <string>{{583,1},{204,48}}</string>
+                <string>{{565,579},{204,48}}</string>
                 <key>textureRotated</key>
                 <false/>
             </dict>
@@ -45,7 +45,7 @@
                 <key>spriteSourceSize</key>
                 <string>{280,280}</string>
                 <key>textureRect</key>
-                <string>{{283,569},{280,280}}</string>
+                <string>{{283,273},{280,280}}</string>
                 <key>textureRotated</key>
                 <false/>
             </dict>
@@ -60,7 +60,7 @@
                 <key>spriteSourceSize</key>
                 <string>{204,48}</string>
                 <key>textureRect</key>
-                <string>{{789,1},{204,48}}</string>
+                <string>{{771,579},{204,48}}</string>
                 <key>textureRotated</key>
                 <true/>
             </dict>
@@ -75,7 +75,7 @@
                 <key>spriteSourceSize</key>
                 <string>{280,280}</string>
                 <key>textureRect</key>
-                <string>{{297,273},{280,280}}</string>
+                <string>{{565,297},{280,280}}</string>
                 <key>textureRotated</key>
                 <false/>
             </dict>
@@ -90,9 +90,9 @@
                 <key>spriteSourceSize</key>
                 <string>{204,48}</string>
                 <key>textureRect</key>
-                <string>{{583,51},{204,48}}</string>
+                <string>{{821,579},{204,48}}</string>
                 <key>textureRotated</key>
-                <false/>
+                <true/>
             </dict>
             <key>dungeon_tree_frame.png</key>
             <dict>
@@ -120,7 +120,7 @@
                 <key>spriteSourceSize</key>
                 <string>{294,294}</string>
                 <key>textureRect</key>
-                <string>{{1,273},{294,294}}</string>
+                <string>{{583,1},{294,294}}</string>
                 <key>textureRotated</key>
                 <false/>
             </dict>
@@ -135,7 +135,7 @@
                 <key>spriteSourceSize</key>
                 <string>{280,280}</string>
                 <key>textureRect</key>
-                <string>{{579,273},{280,280}}</string>
+                <string>{{1,555},{280,280}}</string>
                 <key>textureRotated</key>
                 <false/>
             </dict>
@@ -150,7 +150,7 @@
                 <key>spriteSourceSize</key>
                 <string>{204,48}</string>
                 <key>textureRect</key>
-                <string>{{583,101},{204,48}}</string>
+                <string>{{565,785},{204,48}}</string>
                 <key>textureRotated</key>
                 <false/>
             </dict>
@@ -165,7 +165,7 @@
                 <key>spriteSourceSize</key>
                 <string>{280,280}</string>
                 <key>textureRect</key>
-                <string>{{565,555},{280,280}}</string>
+                <string>{{283,555},{280,280}}</string>
                 <key>textureRotated</key>
                 <false/>
             </dict>
@@ -180,7 +180,7 @@
                 <key>spriteSourceSize</key>
                 <string>{204,48}</string>
                 <key>textureRect</key>
-                <string>{{583,151},{204,48}}</string>
+                <string>{{565,629},{204,48}}</string>
                 <key>textureRotated</key>
                 <false/>
             </dict>
@@ -196,9 +196,9 @@
             <key>realTextureFileName</key>
             <string>dungeon_tree.png</string>
             <key>size</key>
-            <string>{860,850}</string>
+            <string>{878,836}</string>
             <key>smartupdate</key>
-            <string>$TexturePacker:SmartUpdate:33fc5724b09d5fcbcc77777c4ed53e1e:da2ac0f0eaefdd20d8b25a01644fd14b:c770335eff9fa2388df7ffff2ec0e162$</string>
+            <string>$TexturePacker:SmartUpdate:7549456cd97092d0f46fc2e2d6aa7c0c:1dfff4e07df7cd94264f49f829a8aa74:c770335eff9fa2388df7ffff2ec0e162$</string>
             <key>textureFileName</key>
             <string>dungeon_tree.png</string>
         </dict>

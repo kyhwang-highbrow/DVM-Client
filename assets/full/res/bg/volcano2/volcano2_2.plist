@@ -7,37 +7,37 @@
             <key>bg_volcano2_2_b.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{2,2},{2012,1028}}</string>
+                <string>{{2,2},{1007,518}}</string>
                 <key>offset</key>
-                <string>{-1,16}</string>
+                <string>{0,9}</string>
                 <key>rotated</key>
                 <false/>
                 <key>sourceColorRect</key>
-                <string>{{14,270},{2012,1028}}</string>
+                <string>{{7,132},{1007,518}}</string>
                 <key>sourceSize</key>
-                <string>{2042,1600}</string>
+                <string>{1021,800}</string>
             </dict>
             <key>bg_volcano2_herb_03_01.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{2,1032},{396,642}}</string>
+                <string>{{2,522},{200,322}}</string>
                 <key>offset</key>
-                <string>{13,-85}</string>
+                <string>{6,-42}</string>
                 <key>rotated</key>
-                <true/>
+                <false/>
                 <key>sourceColorRect</key>
-                <string>{{315,564},{396,642}}</string>
+                <string>{{156,281},{200,322}}</string>
                 <key>sourceSize</key>
-                <string>{1000,1600}</string>
+                <string>{500,800}</string>
             </dict>
             <key>bg_volcano2_herb_03_02.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{1380,1032},{166,230}}</string>
+                <string>{{204,812},{166,230}}</string>
                 <key>offset</key>
                 <string>{6,-71}</string>
                 <key>rotated</key>
-                <false/>
+                <true/>
                 <key>sourceColorRect</key>
                 <string>{{423,756},{166,230}}</string>
                 <key>sourceSize</key>
@@ -46,7 +46,7 @@
             <key>bg_volcano2_herb_03_03.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{1380,1264},{134,214}}</string>
+                <string>{{436,812},{134,214}}</string>
                 <key>offset</key>
                 <string>{-64,-75}</string>
                 <key>rotated</key>
@@ -59,7 +59,7 @@
             <key>bg_volcano2_herb_03_04.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{646,1032},{732,288}}</string>
+                <string>{{204,522},{732,288}}</string>
                 <key>offset</key>
                 <string>{133,-398}</string>
                 <key>rotated</key>
@@ -77,9 +77,9 @@
             <key>realTextureFileName</key>
             <string>volcano2_2.png</string>
             <key>size</key>
-            <string>{2016,1430}</string>
+            <string>{1011,980}</string>
             <key>smartupdate</key>
-            <string>$TexturePacker:SmartUpdate:6ed609816010fd54f76134d314ff0f11:8c3dcce39f211ae6062f53995a4d3b50:22ec429a8469a6a63e3725643542d8f0$</string>
+            <string>$TexturePacker:SmartUpdate:9f7f78f0c2f470e91e11abb7be293196:ef986d5489dd1bff942ad573be8cdea2:22ec429a8469a6a63e3725643542d8f0$</string>
             <key>textureFileName</key>
             <string>volcano2_2.png</string>
         </dict>

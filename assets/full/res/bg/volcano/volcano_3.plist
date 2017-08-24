@@ -7,28 +7,28 @@
             <key>bg_volcano_3_a.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{2,2},{1833,918}}</string>
+                <string>{{2,2},{917,462}}</string>
                 <key>offset</key>
-                <string>{0,-341}</string>
+                <string>{0,-169}</string>
                 <key>rotated</key>
                 <false/>
                 <key>sourceColorRect</key>
-                <string>{{0,682},{1833,918}}</string>
+                <string>{{0,338},{917,462}}</string>
                 <key>sourceSize</key>
-                <string>{1833,1600}</string>
+                <string>{917,800}</string>
             </dict>
             <key>bg_volcano_3_b.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{2,922},{1048,832}}</string>
+                <string>{{921,2},{530,420}}</string>
                 <key>offset</key>
-                <string>{176,-384}</string>
+                <string>{88,-190}</string>
                 <key>rotated</key>
                 <false/>
                 <key>sourceColorRect</key>
-                <string>{{676,768},{1048,832}}</string>
+                <string>{{335,380},{530,420}}</string>
                 <key>sourceSize</key>
-                <string>{2048,1600}</string>
+                <string>{1024,800}</string>
             </dict>
         </dict>
         <key>metadata</key>
@@ -38,9 +38,9 @@
             <key>realTextureFileName</key>
             <string>volcano_3.png</string>
             <key>size</key>
-            <string>{1837,1756}</string>
+            <string>{1453,466}</string>
             <key>smartupdate</key>
-            <string>$TexturePacker:SmartUpdate:42d35c9a96c813e69725119f08622f39:140413a0cd81fffa9486531d4f765232:63eb83d53f289cb82a19295775484837$</string>
+            <string>$TexturePacker:SmartUpdate:93f013c0155a6b9a6b485f59f1c02beb:5a031b8f67590754b6f17f383dff0061:63eb83d53f289cb82a19295775484837$</string>
             <key>textureFileName</key>
             <string>volcano_3.png</string>
         </dict>

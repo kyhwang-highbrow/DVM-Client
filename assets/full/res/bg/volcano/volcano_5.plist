@@ -7,41 +7,15 @@
             <key>bg_volcano_5_a.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{2,2},{1108,762}}</string>
+                <string>{{2,2},{1018,384}}</string>
                 <key>offset</key>
-                <string>{-192,-419}</string>
+                <string>{3,-208}</string>
                 <key>rotated</key>
                 <false/>
                 <key>sourceColorRect</key>
-                <string>{{278,838},{1108,762}}</string>
+                <string>{{6,416},{1018,384}}</string>
                 <key>sourceSize</key>
-                <string>{2048,1600}</string>
-            </dict>
-            <key>bg_volcano_5_b.png</key>
-            <dict>
-                <key>frame</key>
-                <string>{{1112,2},{784,504}}</string>
-                <key>offset</key>
-                <string>{-596,-548}</string>
-                <key>rotated</key>
-                <false/>
-                <key>sourceColorRect</key>
-                <string>{{36,1096},{784,504}}</string>
-                <key>sourceSize</key>
-                <string>{2048,1600}</string>
-            </dict>
-            <key>bg_volcano_5_c.png</key>
-            <dict>
-                <key>frame</key>
-                <string>{{1112,508},{594,524}}</string>
-                <key>offset</key>
-                <string>{245,-538}</string>
-                <key>rotated</key>
-                <false/>
-                <key>sourceColorRect</key>
-                <string>{{972,1076},{594,524}}</string>
-                <key>sourceSize</key>
-                <string>{2048,1600}</string>
+                <string>{1024,800}</string>
             </dict>
         </dict>
         <key>metadata</key>
@@ -51,9 +25,9 @@
             <key>realTextureFileName</key>
             <string>volcano_5.png</string>
             <key>size</key>
-            <string>{1898,1034}</string>
+            <string>{1022,388}</string>
             <key>smartupdate</key>
-            <string>$TexturePacker:SmartUpdate:50548aa2a882fb35216777dabbe3caf0:a9b8482876ca16b3731165d6181f3c85:efcd9afcac5bf7a1ef4493eca0f5ccfb$</string>
+            <string>$TexturePacker:SmartUpdate:be35aecb36e8ecc2002b1dee1561d04c:8d49b397d0abacc500ab2f81bc9cbaec:efcd9afcac5bf7a1ef4493eca0f5ccfb$</string>
             <key>textureFileName</key>
             <string>volcano_5.png</string>
         </dict>

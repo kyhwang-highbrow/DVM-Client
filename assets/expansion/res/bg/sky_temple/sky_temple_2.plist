@@ -7,119 +7,119 @@
             <key>sky_temple_1_cloud_01.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{2,2},{1556,574}}</string>
+                <string>{{2,2},{1628,582}}</string>
                 <key>offset</key>
-                <string>{-47,62}</string>
+                <string>{-46,71}</string>
                 <key>rotated</key>
-                <false/>
+                <true/>
                 <key>sourceColorRect</key>
-                <string>{{135,51},{1556,574}}</string>
+                <string>{{100,38},{1628,582}}</string>
                 <key>sourceSize</key>
                 <string>{1920,800}</string>
             </dict>
             <key>sky_temple_2_object_01.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{2,578},{386,512}}</string>
+                <string>{{2,1632},{194,256}}</string>
                 <key>offset</key>
-                <string>{504,385}</string>
+                <string>{252,192}</string>
                 <key>rotated</key>
                 <true/>
                 <key>sourceColorRect</key>
-                <string>{{1111,159},{386,512}}</string>
+                <string>{{555,80},{194,256}}</string>
                 <key>sourceSize</key>
-                <string>{1600,1600}</string>
+                <string>{800,800}</string>
             </dict>
             <key>sky_temple_2_object_01_01.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{930,578},{174,228}}</string>
+                <string>{{490,1714},{90,116}}</string>
                 <key>offset</key>
-                <string>{673,284}</string>
+                <string>{336,142}</string>
                 <key>rotated</key>
                 <false/>
                 <key>sourceColorRect</key>
-                <string>{{1386,402},{174,228}}</string>
+                <string>{{691,200},{90,116}}</string>
                 <key>sourceSize</key>
-                <string>{1600,1600}</string>
+                <string>{800,800}</string>
             </dict>
             <key>sky_temple_2_object_01_02.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{930,808},{130,152}}</string>
+                <string>{{346,1772},{68,78}}</string>
                 <key>offset</key>
-                <string>{275,248}</string>
+                <string>{137,124}</string>
                 <key>rotated</key>
                 <false/>
                 <key>sourceColorRect</key>
-                <string>{{1010,476},{130,152}}</string>
+                <string>{{503,237},{68,78}}</string>
                 <key>sourceSize</key>
-                <string>{1600,1600}</string>
+                <string>{800,800}</string>
             </dict>
             <key>sky_temple_2_object_02.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{672,578},{256,272}}</string>
+                <string>{{260,1632},{130,138}}</string>
                 <key>offset</key>
-                <string>{-134,167}</string>
+                <string>{-67,83}</string>
                 <key>rotated</key>
                 <false/>
                 <key>sourceColorRect</key>
-                <string>{{538,497},{256,272}}</string>
+                <string>{{268,248},{130,138}}</string>
                 <key>sourceSize</key>
-                <string>{1600,1600}</string>
+                <string>{800,800}</string>
             </dict>
             <key>sky_temple_2_object_02_01.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{706,852},{158,96}}</string>
+                <string>{{416,1768},{82,50}}</string>
                 <key>offset</key>
-                <string>{-440,30}</string>
+                <string>{-220,15}</string>
                 <key>rotated</key>
-                <false/>
+                <true/>
                 <key>sourceColorRect</key>
-                <string>{{281,722},{158,96}}</string>
+                <string>{{139,360},{82,50}}</string>
                 <key>sourceSize</key>
-                <string>{1600,1600}</string>
+                <string>{800,800}</string>
             </dict>
             <key>sky_temple_2_object_02_02.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{516,578},{288,154}}</string>
+                <string>{{392,1632},{146,80}}</string>
                 <key>offset</key>
-                <string>{-343,68}</string>
+                <string>{-172,34}</string>
                 <key>rotated</key>
-                <true/>
+                <false/>
                 <key>sourceColorRect</key>
-                <string>{{313,655},{288,154}}</string>
+                <string>{{155,326},{146,80}}</string>
                 <key>sourceSize</key>
-                <string>{1600,1600}</string>
+                <string>{800,800}</string>
             </dict>
             <key>sky_temple_2_object_02_03.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{1106,578},{206,164}}</string>
+                <string>{{260,1772},{64,84}}</string>
                 <key>offset</key>
-                <string>{136,160}</string>
+                <string>{46,80}</string>
                 <key>rotated</key>
                 <true/>
                 <key>sourceColorRect</key>
-                <string>{{833,558},{206,164}}</string>
+                <string>{{414,278},{64,84}}</string>
                 <key>sourceSize</key>
-                <string>{1600,1600}</string>
+                <string>{800,800}</string>
             </dict>
             <key>sky_temple_2_object_03.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{516,868},{188,96}}</string>
+                <string>{{392,1714},{96,52}}</string>
                 <key>offset</key>
-                <string>{-660,37}</string>
+                <string>{-330,19}</string>
                 <key>rotated</key>
                 <false/>
                 <key>sourceColorRect</key>
-                <string>{{46,715},{188,96}}</string>
+                <string>{{22,355},{96,52}}</string>
                 <key>sourceSize</key>
-                <string>{1600,1600}</string>
+                <string>{800,800}</string>
             </dict>
         </dict>
         <key>metadata</key>
@@ -129,9 +129,9 @@
             <key>realTextureFileName</key>
             <string>sky_temple_2.png</string>
             <key>size</key>
-            <string>{1560,966}</string>
+            <string>{586,1852}</string>
             <key>smartupdate</key>
-            <string>$TexturePacker:SmartUpdate:9f3812c29b50b20dc0371d87eff64951:f12bfb1390644cb8bea535adead4bcb0:834d5793fb87513b330d9da2dd1e6f69$</string>
+            <string>$TexturePacker:SmartUpdate:58e1eb99511931be3eeb8241df342096:54fa6e97529d81bd93863ea804d998dd:834d5793fb87513b330d9da2dd1e6f69$</string>
             <key>textureFileName</key>
             <string>sky_temple_2.png</string>
         </dict>

@@ -7,15 +7,15 @@
             <key>bg_ocean_2_a.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{2,2},{1994,750}}</string>
+                <string>{{2,2},{983,380}}</string>
                 <key>offset</key>
-                <string>{0,91}</string>
+                <string>{8,47}</string>
                 <key>rotated</key>
                 <false/>
                 <key>sourceColorRect</key>
-                <string>{{18,334},{1994,750}}</string>
+                <string>{{24,163},{983,380}}</string>
                 <key>sourceSize</key>
-                <string>{2030,1600}</string>
+                <string>{1015,800}</string>
             </dict>
         </dict>
         <key>metadata</key>
@@ -25,9 +25,9 @@
             <key>realTextureFileName</key>
             <string>ocean_2.png</string>
             <key>size</key>
-            <string>{1998,754}</string>
+            <string>{987,384}</string>
             <key>smartupdate</key>
-            <string>$TexturePacker:SmartUpdate:064638c21d032bf5169472f0dd1950ce:f206a9eee959a2563ad79280a60f5ba0:1bf8b77410509432f5f36b02b83ee5ef$</string>
+            <string>$TexturePacker:SmartUpdate:9c7e0e4b072ee477d63d7a54a3890d37:e6764ee3cd2012e063aa4a06fc64412d:1bf8b77410509432f5f36b02b83ee5ef$</string>
             <key>textureFileName</key>
             <string>ocean_2.png</string>
         </dict>

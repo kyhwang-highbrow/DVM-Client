@@ -7,130 +7,39 @@
             <key>bg_volcano2_3_a.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{2,2},{1833,918}}</string>
+                <string>{{2,2},{917,460}}</string>
                 <key>offset</key>
-                <string>{0,-341}</string>
+                <string>{0,-170}</string>
                 <key>rotated</key>
                 <false/>
                 <key>sourceColorRect</key>
-                <string>{{0,682},{1833,918}}</string>
+                <string>{{0,340},{917,460}}</string>
                 <key>sourceSize</key>
-                <string>{1833,1600}</string>
+                <string>{917,800}</string>
             </dict>
             <key>bg_volcano2_3_b.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{2,922},{1048,818}}</string>
+                <string>{{921,2},{528,412}}</string>
                 <key>offset</key>
-                <string>{176,-391}</string>
+                <string>{88,-194}</string>
                 <key>rotated</key>
                 <false/>
                 <key>sourceColorRect</key>
-                <string>{{676,782},{1048,818}}</string>
+                <string>{{336,388},{528,412}}</string>
                 <key>sourceSize</key>
-                <string>{2048,1600}</string>
+                <string>{1024,800}</string>
             </dict>
             <key>bg_volcano2_herb_01.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{1052,922},{178,184}}</string>
+                <string>{{1451,2},{180,186}}</string>
                 <key>offset</key>
-                <string>{12,5}</string>
-                <key>rotated</key>
-                <true/>
-                <key>sourceColorRect</key>
-                <string>{{423,703},{178,184}}</string>
-                <key>sourceSize</key>
-                <string>{1000,1600}</string>
-            </dict>
-            <key>bg_volcano2_herb_01_01.png</key>
-            <dict>
-                <key>frame</key>
-                <string>{{1356,922},{84,106}}</string>
-                <key>offset</key>
-                <string>{12,44}</string>
-                <key>rotated</key>
-                <true/>
-                <key>sourceColorRect</key>
-                <string>{{470,703},{84,106}}</string>
-                <key>sourceSize</key>
-                <string>{1000,1600}</string>
-            </dict>
-            <key>bg_volcano2_herb_01_02.png</key>
-            <dict>
-                <key>frame</key>
-                <string>{{1464,922},{102,96}}</string>
-                <key>offset</key>
-                <string>{-26,-30}</string>
+                <string>{12,4}</string>
                 <key>rotated</key>
                 <false/>
                 <key>sourceColorRect</key>
-                <string>{{423,782},{102,96}}</string>
-                <key>sourceSize</key>
-                <string>{1000,1600}</string>
-            </dict>
-            <key>bg_volcano2_herb_01_03.png</key>
-            <dict>
-                <key>frame</key>
-                <string>{{1356,1008},{50,72}}</string>
-                <key>offset</key>
-                <string>{14,-25}</string>
-                <key>rotated</key>
-                <true/>
-                <key>sourceColorRect</key>
-                <string>{{489,789},{50,72}}</string>
-                <key>sourceSize</key>
-                <string>{1000,1600}</string>
-            </dict>
-            <key>bg_volcano2_herb_01_04.png</key>
-            <dict>
-                <key>frame</key>
-                <string>{{1238,922},{92,116}}</string>
-                <key>offset</key>
-                <string>{55,-29}</string>
-                <key>rotated</key>
-                <true/>
-                <key>sourceColorRect</key>
-                <string>{{509,771},{92,116}}</string>
-                <key>sourceSize</key>
-                <string>{1000,1600}</string>
-            </dict>
-            <key>bg_volcano2_herb_01_05.png</key>
-            <dict>
-                <key>frame</key>
-                <string>{{1238,1016},{54,24}}</string>
-                <key>offset</key>
-                <string>{-9,17}</string>
-                <key>rotated</key>
-                <false/>
-                <key>sourceColorRect</key>
-                <string>{{464,771},{54,24}}</string>
-                <key>sourceSize</key>
-                <string>{1000,1600}</string>
-            </dict>
-            <key>bg_volcano2_herb_01_06.png</key>
-            <dict>
-                <key>frame</key>
-                <string>{{1294,1016},{38,34}}</string>
-                <key>offset</key>
-                <string>{-6,3}</string>
-                <key>rotated</key>
-                <false/>
-                <key>sourceColorRect</key>
-                <string>{{475,780},{38,34}}</string>
-                <key>sourceSize</key>
-                <string>{1000,1600}</string>
-            </dict>
-            <key>bg_volcano2_herb_01_07.png</key>
-            <dict>
-                <key>frame</key>
-                <string>{{1430,1008},{50,32}}</string>
-                <key>offset</key>
-                <string>{22,-2}</string>
-                <key>rotated</key>
-                <true/>
-                <key>sourceColorRect</key>
-                <string>{{497,786},{50,32}}</string>
+                <string>{{422,703},{180,186}}</string>
                 <key>sourceSize</key>
                 <string>{1000,1600}</string>
             </dict>
@@ -142,9 +51,9 @@
             <key>realTextureFileName</key>
             <string>volcano2_3.png</string>
             <key>size</key>
-            <string>{1837,1742}</string>
+            <string>{1633,464}</string>
             <key>smartupdate</key>
-            <string>$TexturePacker:SmartUpdate:4ba6d95a22352078c5fe67915fbbc89b:6c36d2ad0f178eb05e1c873847f41548:49c5d830a2d139cd2623a790d892486a$</string>
+            <string>$TexturePacker:SmartUpdate:c045fb64430c6227b412a4a076e66939:c8ae3832dfbe2233352fcad8267077d6:49c5d830a2d139cd2623a790d892486a$</string>
             <key>textureFileName</key>
             <string>volcano2_3.png</string>
         </dict>

@@ -7,33 +7,33 @@
             <key>bg_canyon2_2_a.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{750,2},{1220,804}}</string>
+                <string>{{370,2},{610,404}}</string>
                 <key>offset</key>
-                <string>{-11,-398}</string>
+                <string>{-7,-198}</string>
                 <key>rotated</key>
                 <false/>
                 <key>sourceColorRect</key>
-                <string>{{121,796},{1220,804}}</string>
+                <string>{{59,396},{610,404}}</string>
                 <key>sourceSize</key>
-                <string>{1484,1600}</string>
+                <string>{742,800}</string>
             </dict>
             <key>bg_canyon2_2_b.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{2,2},{862,746}}</string>
+                <string>{{2,2},{431,366}}</string>
                 <key>offset</key>
-                <string>{0,-427}</string>
+                <string>{0,-217}</string>
                 <key>rotated</key>
                 <true/>
                 <key>sourceColorRect</key>
-                <string>{{0,854},{862,746}}</string>
+                <string>{{0,434},{431,366}}</string>
                 <key>sourceSize</key>
-                <string>{862,1600}</string>
+                <string>{431,800}</string>
             </dict>
             <key>bg_canyon2_windmill_01.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{750,808},{92,90}}</string>
+                <string>{{370,408},{92,90}}</string>
                 <key>offset</key>
                 <string>{1,-1}</string>
                 <key>rotated</key>
@@ -46,7 +46,7 @@
             <key>bg_canyon2_windmill_02.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{2,866},{24,24}}</string>
+                <string>{{2,435},{24,24}}</string>
                 <key>offset</key>
                 <string>{-3,0}</string>
                 <key>rotated</key>
@@ -64,9 +64,9 @@
             <key>realTextureFileName</key>
             <string>canyon2_2.png</string>
             <key>size</key>
-            <string>{1972,900}</string>
+            <string>{982,500}</string>
             <key>smartupdate</key>
-            <string>$TexturePacker:SmartUpdate:d071dd8d01e5edc21b7a9139a9b48d8b:fe45e4facad84027972022572f2ddf24:ae1c76e5f07fd1f67282b6f6afcbb838$</string>
+            <string>$TexturePacker:SmartUpdate:f26c54e6ac146a365c8da35d78063686:3e2de0e6cb830d0a6a5f7736484ab8b9:ae1c76e5f07fd1f67282b6f6afcbb838$</string>
             <key>textureFileName</key>
             <string>canyon2_2.png</string>
         </dict>

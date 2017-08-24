@@ -4,27 +4,14 @@
     <dict>
         <key>frames</key>
         <dict>
-            <key>bg_canyon2_5_c.png</key>
-            <dict>
-                <key>frame</key>
-                <string>{{2,2},{1332,560}}</string>
-                <key>offset</key>
-                <string>{-115,-519}</string>
-                <key>rotated</key>
-                <false/>
-                <key>sourceColorRect</key>
-                <string>{{167,1039},{1332,560}}</string>
-                <key>sourceSize</key>
-                <string>{1896,1600}</string>
-            </dict>
             <key>bg_canyon2_light_01.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{2,564},{406,486}}</string>
+                <string>{{2,2},{406,486}}</string>
                 <key>offset</key>
                 <string>{30,-20}</string>
                 <key>rotated</key>
-                <true/>
+                <false/>
                 <key>sourceColorRect</key>
                 <string>{{139,83},{406,486}}</string>
                 <key>sourceSize</key>
@@ -33,7 +20,7 @@
             <key>bg_canyon2_light_2.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{1592,28},{22,22}}</string>
+                <string>{{384,514},{22,22}}</string>
                 <key>offset</key>
                 <string>{-1,3}</string>
                 <key>rotated</key>
@@ -46,11 +33,11 @@
             <key>bg_canyon2_nest_02.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{1592,2},{24,22}}</string>
+                <string>{{384,490},{24,22}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
-                <true/>
+                <false/>
                 <key>sourceColorRect</key>
                 <string>{{138,139},{24,22}}</string>
                 <key>sourceSize</key>
@@ -59,7 +46,7 @@
             <key>bg_canyon2_sand_01.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{1336,2},{254,690}}</string>
+                <string>{{2,1158},{254,690}}</string>
                 <key>offset</key>
                 <string>{6,-27}</string>
                 <key>rotated</key>
@@ -72,11 +59,11 @@
             <key>bg_canyon2_text_01.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{836,564},{354,320}}</string>
+                <string>{{2,836},{354,320}}</string>
                 <key>offset</key>
                 <string>{-15,2}</string>
                 <key>rotated</key>
-                <true/>
+                <false/>
                 <key>sourceColorRect</key>
                 <string>{{58,88},{354,320}}</string>
                 <key>sourceSize</key>
@@ -85,11 +72,11 @@
             <key>bg_canyon2_text_02.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{490,564},{344,380}}</string>
+                <string>{{2,490},{344,380}}</string>
                 <key>offset</key>
                 <string>{-31,7}</string>
                 <key>rotated</key>
-                <false/>
+                <true/>
                 <key>sourceColorRect</key>
                 <string>{{47,53},{344,380}}</string>
                 <key>sourceSize</key>
@@ -98,11 +85,11 @@
             <key>bg_canyon2_text_light_01.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{1158,694},{150,432}}</string>
+                <string>{{258,1158},{150,432}}</string>
                 <key>offset</key>
                 <string>{18,34}</string>
                 <key>rotated</key>
-                <true/>
+                <false/>
                 <key>sourceColorRect</key>
                 <string>{{193,0},{150,432}}</string>
                 <key>sourceSize</key>
@@ -116,9 +103,9 @@
             <key>realTextureFileName</key>
             <string>canyon2_7.png</string>
             <key>size</key>
-            <string>{1617,972}</string>
+            <string>{410,1850}</string>
             <key>smartupdate</key>
-            <string>$TexturePacker:SmartUpdate:3887f147a3d34026b9a33246e82f3b68:745884ecac2fb62250c1e93375ebf022:d1b3168c009832e9e1711d446d9757c4$</string>
+            <string>$TexturePacker:SmartUpdate:be02f743f3c2e9aa6c2c834cf70469d7:26a969dec656ce478b32682450515f8d:d1b3168c009832e9e1711d446d9757c4$</string>
             <key>textureFileName</key>
             <string>canyon2_7.png</string>
         </dict>

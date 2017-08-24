@@ -7,41 +7,15 @@
             <key>bg_canyon_5_a_1.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{782,408},{554,808}}</string>
+                <string>{{2,2},{1154,404}}</string>
                 <key>offset</key>
-                <string>{-1,-396}</string>
-                <key>rotated</key>
-                <true/>
-                <key>sourceColorRect</key>
-                <string>{{22,792},{554,808}}</string>
-                <key>sourceSize</key>
-                <string>{600,1600}</string>
-            </dict>
-            <key>bg_canyon_5_a_2.png</key>
-            <dict>
-                <key>frame</key>
-                <string>{{2,2},{1582,404}}</string>
-                <key>offset</key>
-                <string>{-7,-598}</string>
+                <string>{22,-198}</string>
                 <key>rotated</key>
                 <false/>
                 <key>sourceColorRect</key>
-                <string>{{150,1196},{1582,404}}</string>
+                <string>{{69,396},{1154,404}}</string>
                 <key>sourceSize</key>
-                <string>{1896,1600}</string>
-            </dict>
-            <key>bg_canyon_5_a_3.png</key>
-            <dict>
-                <key>frame</key>
-                <string>{{2,408},{778,732}}</string>
-                <key>offset</key>
-                <string>{-15,-434}</string>
-                <key>rotated</key>
-                <false/>
-                <key>sourceColorRect</key>
-                <string>{{63,868},{778,732}}</string>
-                <key>sourceSize</key>
-                <string>{934,1600}</string>
+                <string>{1248,800}</string>
             </dict>
         </dict>
         <key>metadata</key>
@@ -51,9 +25,9 @@
             <key>realTextureFileName</key>
             <string>canyon_5.png</string>
             <key>size</key>
-            <string>{1592,1142}</string>
+            <string>{1158,408}</string>
             <key>smartupdate</key>
-            <string>$TexturePacker:SmartUpdate:d511be97c216b960bb8f1c7b1ac89ba4:132e0eb1b71e9fce868c53f0219b03f5:0a6229ed28f8f22985b8e2060f41ca0b$</string>
+            <string>$TexturePacker:SmartUpdate:ab3192e9bf281016883fc891d47a3509:d26819c229d53b24117e29f5f8cfd7cd:0a6229ed28f8f22985b8e2060f41ca0b$</string>
             <key>textureFileName</key>
             <string>canyon_5.png</string>
         </dict>
