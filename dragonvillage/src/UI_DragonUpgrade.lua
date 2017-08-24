@@ -288,6 +288,20 @@ function UI_DragonUpgrade:getDragonMaterialList(doid)
 end
 
 -------------------------------------
+-- function createMtrlDragonCardCB
+-- @brief 재료 카드 만든 후..
+-------------------------------------
+function UI_DragonUpgrade:createMtrlDragonCardCB(ui, data)
+    -- 선택한 드래곤이 승급 가능한지 판단
+    local doid = self.m_selectDragonOID
+    if (not g_dragonsData:possibleUpgradeable(doid)) then
+        if ui then
+            ui:setShadowSpriteVisible(true)
+        end
+    end
+end
+
+-------------------------------------
 -- function click_dragonMaterial
 -- @override
 -------------------------------------
@@ -313,7 +327,7 @@ function UI_DragonUpgrade:click_dragonMaterial(data)
 
         ui.root:removeFromParent()
 
-        list_item_ui:setShadowSpriteVisible(false)
+        list_item_ui:setCheckSpriteVisible(false)
         self.m_selectedMaterialCnt = (self.m_selectedMaterialCnt - 1)
     else
         if self.m_currSlotIdx then
@@ -330,7 +344,7 @@ function UI_DragonUpgrade:click_dragonMaterial(data)
             cca.uiReactionSlow(ui.root, scale, scale, scale * 0.7)
             vars['materialNode' .. self.m_currSlotIdx]:addChild(ui.root)
 
-            list_item_ui:setShadowSpriteVisible(true)
+            list_item_ui:setCheckSpriteVisible(true)
             self.m_selectedMaterialCnt = (self.m_selectedMaterialCnt + 1)
         end
     end

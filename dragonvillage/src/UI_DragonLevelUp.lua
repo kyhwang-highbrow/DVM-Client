@@ -291,14 +291,18 @@ function UI_DragonLevelUp:refresh_selectedMaterial()
     local plus_level = helper:getPlusLevel()
     vars['gradeLabel']:setString(Str('+{1}', plus_level))
     
-    -- 레벨업 가능 여부에 따라 금액에 불가 표시
+    -- 레벨업 가능 여부에 따라 문구 변경
     local price = ''
+    local info_str = ''
     if (g_dragonsData:possibleDragonLevelUp(doid)) then
         price = comma_value(helper.m_price)
+        info_str = Str('TIP. 대상 드래곤의 친밀도가 높으면 보너스 경험치 획득 확률이 높아져요')
     else
         price = Str('불가')
+        info_str = Str('TIP. 승급을 하면 레벨을 올릴 수 있습니다.')
     end
     vars['priceLabel']:setString(price)
+    vars['infoLabel']:setString(info_str)
 
     -- 능력치 정보 갱신
     self:refresh_stats(t_dragon_data, helper.m_changedLevel)
@@ -347,6 +351,20 @@ end
 -- @override
 -------------------------------------
 function UI_DragonLevelUp:createDragonCardCB(ui, data)
+end
+
+-------------------------------------
+-- function createMtrlDragonCardCB
+-- @brief 재료 카드 만든 후..
+-------------------------------------
+function UI_DragonLevelUp:createMtrlDragonCardCB(ui, data)
+    -- 선택한 드래곤이 레벨업 가능한지 판단
+    local doid = self.m_selectDragonOID
+    if (not g_dragonsData:possibleDragonLevelUp(doid)) then
+        if ui then
+            ui:setShadowSpriteVisible(true)
+        end
+    end
 end
 
 -------------------------------------
