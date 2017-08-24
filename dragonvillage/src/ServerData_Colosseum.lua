@@ -26,6 +26,8 @@ ServerData_Colosseum = class({
         m_tSeasonRewardInfo = 'table',
         m_tRet = 'table',
         m_buffTime = 'timestamp', -- 버프 유효 시간 (0일 경우 버프 발동 x, 값이 있을 경우 해당 시간까지 버프 적용)
+
+        m_bOpen = 'boolean',
     })
 
 -------------------------------------
@@ -33,6 +35,7 @@ ServerData_Colosseum = class({
 -------------------------------------
 function ServerData_Colosseum:init(server_data)
     self.m_serverData = server_data
+    self.m_bOpen = true
 end
 
 -------------------------------------
@@ -45,6 +48,7 @@ function ServerData_Colosseum:request_colosseumInfo(finish_cb, fail_cb)
     -- 성공 콜백
     local function success_cb(ret)
         self:response_colosseumInfo(ret)
+        self.m_bOpen = ret['open']
 
         if finish_cb then
             finish_cb(ret)
@@ -127,6 +131,14 @@ function ServerData_Colosseum:refresh_matchList(l_match_list)
             self.m_matchList[uid] = struct_user_info
         end
     end
+end
+
+-------------------------------------
+-- function isOpen
+-- @breif 콜로세움 오픈 여부 (시간 체크와 별도로 진입시 검사)
+-------------------------------------
+function ServerData_Colosseum:isOpen()
+    return self.m_bOpen
 end
 
 -------------------------------------

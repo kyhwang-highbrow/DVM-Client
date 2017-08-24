@@ -36,7 +36,7 @@ ServerData_AncientTower = class({
         m_tSeasonRewardInfo = 'table', -- 시즌 보상 정보
         m_tRet = 'table',
 
-        m_bClose = 'booelan', -- 긴급 종료
+        m_bOpen = 'booelan', 
     })
 
 -------------------------------------
@@ -46,6 +46,7 @@ function ServerData_AncientTower:init(server_data)
     self.m_serverData = server_data
     self.m_lStage = nil
     self.m_nStage = 0
+    self.m_bOpen = true
 
     self:setWeakGradeCountList()
 end
@@ -144,6 +145,8 @@ function ServerData_AncientTower:request_ancientTowerInfo(stage, finish_cb, fail
 
         self.m_nTotalRank = ret['myrank']
         self.m_nTotalScore = ret['total_score']
+
+        self.m_bOpen = ret['open']
 
         -- 시즌 보상
         self:setSeasonRewardInfo(ret)
@@ -413,11 +416,11 @@ function ServerData_AncientTower:getEnemyDeBuffValue()
 end
 
 -------------------------------------
--- function isEmergencyStop
--- @breif 고대의탑 오픈 여부 (시간 체크와 별도로 긴급 종료)
+-- function isOpen
+-- @breif 고대의탑 오픈 여부 (시간 체크와 별도로 진입시 검사)
 -------------------------------------
-function ServerData_AncientTower:isEmergencyStop()
-    
+function ServerData_AncientTower:isOpen()
+    return self.m_bOpen
 end
 
 -------------------------------------
