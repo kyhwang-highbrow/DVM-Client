@@ -998,7 +998,6 @@ xcopy /Y /Q "$(ProjectDir)..\..\libraries\pati\prebuilt\windows\*.dll" "$(OutDir
     <None Include="..\src\UI_SecretDungeonListItem.lua" />
     <None Include="..\src\UI_Setting.lua" />
     <None Include="..\src\UI_SettingAccountTab.lua" />
-    <None Include="..\src\UI_SettingAlarmTab.lua" />
     <None Include="..\src\UI_SettingDevTab.lua" />
     <None Include="..\src\UI_SettingGameTab.lua" />
     <None Include="..\src\UI_SettingInfoTab.lua" />

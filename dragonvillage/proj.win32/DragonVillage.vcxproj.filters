@@ -666,9 +666,6 @@
     <None Include="..\src\UI_SettingDevTab.lua">
       <Filter>lua\UI</Filter>
     </None>
-    <None Include="..\src\UI_SettingAlarmTab.lua">
-      <Filter>lua\UI</Filter>
-    </None>
     <None Include="..\src\UI_SettingGameTab.lua">
       <Filter>lua\UI</Filter>
     </None>

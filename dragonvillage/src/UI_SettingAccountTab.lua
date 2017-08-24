@@ -16,6 +16,15 @@ function UI_Setting:init_accountTab()
     vars['gamecenterBtn']:setVisible(isIos())
     vars['googleBtn']:setVisible(isAndroid() or isWin32())
 
+    -- 테스트 모드에서만 로그아웃, 초기화 버튼을 노출한다
+    if IS_TEST_MODE() then
+        vars['clearBtn']:setVisible(true)
+        vars['logoutBtn']:setVisible(true)
+    else
+        vars['clearBtn']:setVisible(false)
+        vars['logoutBtn']:setVisible(false)
+    end
+
     self:updateInfo()
 end
 

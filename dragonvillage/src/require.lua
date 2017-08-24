@@ -862,7 +862,6 @@ local t_module = {
 	-- UI : 설정
 	'UI_Setting',
     'UI_SettingAccountTab',
-    'UI_SettingAlarmTab',
     'UI_SettingDevTab',
     'UI_SettingGameTab',
     'UI_SettingInfoTab',

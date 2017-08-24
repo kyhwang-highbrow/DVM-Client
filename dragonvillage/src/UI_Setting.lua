@@ -98,7 +98,6 @@ function UI_Setting:initTab()
     local tab_list = {}
     table.insert(tab_list, 'game')
     table.insert(tab_list, 'account')
-    table.insert(tab_list, 'alarm')
     table.insert(tab_list, 'info')
     
     if (IS_TEST_MODE()) then
