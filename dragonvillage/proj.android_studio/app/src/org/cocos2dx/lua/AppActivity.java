@@ -427,7 +427,6 @@ public class AppActivity extends Cocos2dxActivity{
             obj.put("BRAND", Build.BRAND);
             obj.put("BOARD", Build.BOARD);
             obj.put("DEVICE", Build.DEVICE);
-            obj.put("FINGERPRINT", Build.FINGERPRINT);
             obj.put("HARDWARE", Build.HARDWARE);
             obj.put("HOST", Build.HOST);
             obj.put("ID", Build.ID);
