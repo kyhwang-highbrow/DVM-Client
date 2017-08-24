@@ -25,7 +25,7 @@ function ISkillSound:initSkillSound(sid)
     if (not t_info) then return end
 
     for i = 1, 2 do
-        local res = t_info['s_res_' .. i]
+        local res = t_info['res_' .. i]
         local delay = t_info['delay_' .. i]
         if (res and res ~= '' and delay ~= '') then
             self.m_mPlayTimesPerRes[res] = {}
