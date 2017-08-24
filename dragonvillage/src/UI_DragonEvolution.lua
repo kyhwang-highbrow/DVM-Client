@@ -84,6 +84,7 @@ end
 function UI_DragonEvolution:initButton()
     local vars = self.vars
     vars['evolutionBtn']:registerScriptTapHandler(function() self:click_evolutionBtn() end)
+    vars['combineBtn']:registerScriptTapHandler(function() self:click_combineBtn() end)
 
     vars['moveBtn1']:registerScriptTapHandler(function() self:click_evolutionStone(1) end)
     vars['moveBtn2']:registerScriptTapHandler(function() self:click_evolutionStone(2) end)
@@ -495,6 +496,13 @@ end
 function UI_DragonEvolution:click_evolutionStone(i)
     local item_id = self['m_itemID' .. i]
     UI_ItemInfoPopup(item_id)
+end
+
+-------------------------------------
+-- function click_combineBtn
+-------------------------------------
+function UI_DragonEvolution:click_combineBtn(i)
+    UI_EvolutionStoneCombine()
 end
 
 --@CHECK

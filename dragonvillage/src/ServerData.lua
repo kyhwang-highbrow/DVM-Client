@@ -152,6 +152,9 @@ function ServerData:getInstance()
     -- 광고
     g_advertisingData = ServerData_Advertising(g_serverData)
 
+    -- 진화재료
+    g_evolutionStoneData = ServerData_EvolutionStone(g_serverData)
+
     return g_serverData
 end
 

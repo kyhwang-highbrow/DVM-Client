@@ -35,6 +35,8 @@ ServerData_AncientTower = class({
 
         m_tSeasonRewardInfo = 'table', -- 시즌 보상 정보
         m_tRet = 'table',
+
+        m_bClose = 'booelan', -- 긴급 종료
     })
 
 -------------------------------------
@@ -411,6 +413,14 @@ function ServerData_AncientTower:getEnemyDeBuffValue()
 end
 
 -------------------------------------
+-- function isEmergencyStop
+-- @breif 고대의탑 오픈 여부 (시간 체크와 별도로 긴급 종료)
+-------------------------------------
+function ServerData_AncientTower:isEmergencyStop()
+    
+end
+
+-------------------------------------
 -- function isOpenAncientTower
 -- @breif 고대의탑 오픈 여부
 -------------------------------------
@@ -432,7 +442,11 @@ function ServerData_AncientTower:getAncientTowerStatusText()
     local end_time = (self.m_endTime / 1000)
 
     local str = ''
-    if (curr_time < start_time) then
+    if (not self:isOpenAncientTower()) then
+        local time = (start_time - curr_time)
+        str = Str('{1} 남았습니다.', datetime.makeTimeDesc(time, true))
+
+    elseif (curr_time < start_time) then
         local time = (start_time - curr_time)
         str = Str('{1} 후 열림', datetime.makeTimeDesc(time, true))
 

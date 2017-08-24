@@ -160,6 +160,7 @@ function UI_Inventory:clearItemInfo()
     vars['sellBtn']:setVisible(false)
     vars['enhanceBtn']:setVisible(false)
     vars['locationBtn']:setVisible(false)
+    vars['combineBtn']:setVisible(false)
     vars['useBtn']:setVisible(false)
 
     vars['itemNode']:removeAllChildren()

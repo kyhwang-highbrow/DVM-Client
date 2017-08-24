@@ -123,6 +123,7 @@ local t_module = {
     'ServerData_Tutorial',
     'ServerData_Highbrow',
     'ServerData_Advertising',
+    'ServerData_EvolutionStone',
 
     -- Interface
     'IEventDispatcher',
@@ -266,6 +267,7 @@ local t_module = {
     'TableUILocation',
     'TableHighbrow',
     'TableSkillSound',
+    'TableEvolutionItemCombine',
 
     -- Scene
     'SceneCommon',
@@ -755,6 +757,8 @@ local t_module = {
     'UI_InventoryTabEvolutionStone',
     'UI_InventorySellItems',
     'UI_RuneBulkSalePopup',
+    'UI_EvolutionStoneCombine',
+    'UI_EvolutionStoneCombineListItem',
 
 	-- UI : 각종 랭킹
     'UI_RecommendedDragonInfoPopup',

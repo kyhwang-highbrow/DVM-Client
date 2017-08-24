@@ -1,13 +1,14 @@
 URL = {}
 
 -- Game server 
-URL['SERVER_DEV'] = 'http://dv-test.perplelab.com:9003'
+URL['SERVER_DEV'] = 'http://192.168.1.42:9003'
 URL['SERVER_QA'] = 'http://dv-qa.perplelab.com:9003'
 URL['SERVER_LIVE'] = 'http://dvm-api.perplelab.com'
 function GetApiUrl()
     local target_server = CppFunctions:getTargetServer()
     local key = 'SERVER_' .. target_server
     local url = URL[key]
+    url = 'http://192.168.1.42:9003'
     if (not url) then
         error('key(Game server) : ' .. key)
     end

@@ -26,7 +26,13 @@ function UI_InventoryTabEvolutionStone:init_evolutionStoneTableView()
     local node = self.vars['materialTableViewNode']
     --node:removeAllChildren()
 
-    local l_item_list = g_userData:getEvolutionStoneList()
+--    local l_item_list = g_userData:getEvolutionStoneList()
+    local l_item_list = g_evolutionStoneData:getEvolutionStoneList()
+
+    local function make_func(data)
+        ccdump(data)
+        return EvolutionStoneCard(data)
+    end
 
     -- 생성 콜백
     local function create_func(ui, data)
@@ -123,6 +129,10 @@ function UI_InventoryTabEvolutionStone:onChangeSelectedItem(ui, data)
     vars['locationBtn']:setVisible(true)
     vars['locationBtn']:registerScriptTapHandler(function() self:openAcuisitionRegionInformation(data['esid']) end)
 
+    -- 조합/분해
+    vars['combineBtn']:setVisible(true)
+    vars['combineBtn']:registerScriptTapHandler(function() self:click_combineBtn(data['esid']) end)
+
     do -- 아이템 이름
         vars['itemNameLabel']:setVisible(true)
         local name = TableItem():getValue(data['esid'], 't_name')
@@ -141,6 +151,8 @@ function UI_InventoryTabEvolutionStone:onChangeSelectedItem(ui, data)
         vars['sellBtn']:setVisible(true)
     end
     vars['sellBtn']:registerScriptTapHandler(function() self:sellBtn(data) end)
+
+
 end
 
 -------------------------------------
@@ -179,28 +191,43 @@ function UI_InventoryTabEvolutionStone:refresh_tableView()
         return
     end
 
+    local function refresh_func(item, new_data)
+        item['ui']:setString(Str('{1}', comma_value(new_data['count'])))
+    end
+
     local l_item_list = g_userData:getEvolutionStoneList()
-    local l_item_map = {}
-    for i,v in pairs(l_item_list) do
-        local esid = tonumber(v['esid'])
-        local count = v['count']
-        l_item_map[esid] = count
-    end
+    self.m_evolutionStoneTableView:mergeItemList(l_item_list, refresh_func)
 
-    local table_view = self.m_evolutionStoneTableView
+--    local l_item_list = g_userData:getEvolutionStoneList()
+--    local l_item_map = {}
+--    for i,v in pairs(l_item_list) do
+--        local esid = tonumber(v['esid'])
+--        local count = v['count']
+--        l_item_map[esid] = count
+--    end
 
-    for idx,item in pairs(table_view.m_itemMap) do
-        local esid = tonumber(item['data']['esid'])
-        if (not l_item_map[esid]) or (l_item_map[esid] == 0) then
-            table_view:delItem(idx)
-        else
-            local count = l_item_map[esid]
-            if (item['data']['count'] ~= count) then
-                item['data']['count'] = count
-                if item['ui'] then
-                    item['ui']:setString(Str('{1}', comma_value(count)))
-                end
-            end
-        end
-    end
+--    local table_view = self.m_evolutionStoneTableView
+
+--    for idx,item in pairs(table_view.m_itemMap) do
+--        local esid = tonumber(item['data']['esid'])
+--        if (not l_item_map[esid]) or (l_item_map[esid] == 0) then
+--            table_view:delItem(idx)
+--        else
+--            local count = l_item_map[esid]
+--            if (item['data']['count'] ~= count) then
+--                item['data']['count'] = count
+--                if item['ui'] then
+--                    item['ui']:setString(Str('{1}', comma_value(count)))
+--                end
+--            end
+--        end
+--    end
+end
+
+-------------------------------------
+-- function click_combineBtn
+-------------------------------------
+function UI_InventoryTabEvolutionStone:click_combineBtn(item_id)
+    local ui = UI_EvolutionStoneCombine(item_id)
+    ui:setCloseCB(function() self:refresh_tableView() end)
 end

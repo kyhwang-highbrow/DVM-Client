@@ -252,7 +252,11 @@ function ServerData_Colosseum:getColosseumStatusText()
     local end_time = (self.m_endTime / 1000)
 
     local str = ''
-    if (curr_time < start_time) then
+    if (not self:isOpenColosseum()) then
+        local time = (start_time - curr_time)
+        str = Str('{1} 남았습니다.', datetime.makeTimeDesc(time, true))
+
+    elseif (curr_time < start_time) then
         --str = Str('시즌이 종료되었습니다.')
         local time = (start_time - curr_time)
         str = Str('{1} 후 열림', datetime.makeTimeDesc(time, true))

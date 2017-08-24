@@ -37,6 +37,7 @@ function SortManager_EvolutionStone:init()
     self.m_mAttrSortLevel['water'] = 4
     self.m_mAttrSortLevel['fire'] = 5
     self.m_mAttrSortLevel['global'] = 6
+    self.m_mAttrSortLevel['all'] = 7
 
     -- 희귀도별 정렬 레벨
     self.m_mRaritySortLevel = {}

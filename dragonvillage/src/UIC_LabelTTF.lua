@@ -24,6 +24,13 @@ function UIC_LabelTTF:setString(str)
 end
 
 -------------------------------------
+-- function getString
+-------------------------------------
+function UIC_LabelTTF:getString()
+    return self.m_node:getString()
+end
+
+-------------------------------------
 -- function enableOutline
 -------------------------------------
 function UIC_LabelTTF:enableOutline(color, stroke_tickness)

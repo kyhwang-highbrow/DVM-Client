@@ -432,6 +432,7 @@ xcopy /Y /Q "$(ProjectDir)..\..\libraries\pati\prebuilt\windows\*.dll" "$(OutDir
     <None Include="..\src\ServerData_DragonBoard.lua" />
     <None Include="..\src\ServerData_Eggs.lua" />
     <None Include="..\src\ServerData_Event.lua" />
+    <None Include="..\src\ServerData_EvolutionStone.lua" />
     <None Include="..\src\ServerData_Exchange.lua" />
     <None Include="..\src\ServerData_Exploration.lua" />
     <None Include="..\src\ServerData_Formation.lua" />
@@ -747,6 +748,7 @@ xcopy /Y /Q "$(ProjectDir)..\..\libraries\pati\prebuilt\windows\*.dll" "$(OutDir
     <None Include="..\src\TableDragonExp.lua" />
     <None Include="..\src\TableDragonSkill.lua" />
     <None Include="..\src\TableDragonSkillModify.lua" />
+    <None Include="..\src\TableEvolutionItemCombine.lua" />
     <None Include="..\src\TableExchange.lua" />
     <None Include="..\src\TableExplorationList.lua" />
     <None Include="..\src\TableGoogleQuest.lua" />
@@ -866,6 +868,8 @@ xcopy /Y /Q "$(ProjectDir)..\..\libraries\pati\prebuilt\windows\*.dll" "$(OutDir
     <None Include="..\src\UI_CouponPopup_Confirm.lua" />
     <None Include="..\src\UI_EventPopupTab_HBShop.lua" />
     <None Include="..\src\UI_EventPopupTab_HBShop_Coupon.lua" />
+    <None Include="..\src\UI_EvolutionStoneCombine.lua" />
+    <None Include="..\src\UI_EvolutionStoneCombineListItem.lua" />
     <None Include="..\src\UI_GameDebug_InfoPopup.lua" />
     <None Include="..\src\UI_DragonGoodbyeResult.lua" />
     <None Include="..\src\UI_Game_Mana.lua" />

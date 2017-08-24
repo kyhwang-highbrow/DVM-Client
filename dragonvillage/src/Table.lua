@@ -105,6 +105,9 @@ local TableInfo_fromServer = {
 
         -- 드래곤 가차
         ['table_gacha_probability'] = {'table_gacha_probability', 'item_id'},
+
+        -- 진화재료 조합
+        ['table_item_evolution_combine'] = {'table_item_evolution_combine', 'id'},
     }
 
 -------------------------------------
