@@ -408,7 +408,6 @@ function UI_GameResultNew:direction_end()
             end)))
     else
         vars['skipLabel']:setVisible(false)
-        vars['noRewardMenu']:setVisible(true)
         vars['prevBtn']:setVisible(true)
 		vars['statsBtn']:setVisible(true)
         vars['againBtn']:setVisible(true)
@@ -505,27 +504,17 @@ end
 -------------------------------------
 function UI_GameResultNew:direction_dropItem()
     local vars = self.vars
-    local is_success = self.m_bSuccess
-    if (not is_success) then 
+    local count = #self.m_lDropItemList
+    
+    -- 보상이 없을때
+    if (count <= 0) then
         self:doNextWork()
+        vars['noRewardMenu']:setVisible(true)
         return
     end
 
     local interval = 95
-    local count = #self.m_lDropItemList
     local l_pos = getSortPosList(interval, count)
-
-    -- 보상이 없을때
-    if (count <= 0) then
-        vars['noRewardMenu']:setVisible(true)
-
-        local animator = MakeAnimator('res/character/monster/common_elemental_lava_fire/common_elemental_lava_fire.spine')
-        vars['noRewardMenu']:addChild(animator.m_node)
-        animator:setAnchorPoint(cc.p(0.5, 0.5))
-        animator:setDockPoint(cc.p(0.5, 0.5))
-        animator:setPositionY(50)
-        animator:setScale(1.5)
-    end
 
     for i,v in ipairs(self.m_lDropItemList) do
         --self:makeRewardItem(i, v)
