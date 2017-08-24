@@ -114,7 +114,7 @@ end
 -------------------------------------
 function SkillCross:findCollision()
 	local l_target = self:getProperTargetList()
-	
+    	
     local std_width = CRITERIA_RESOLUTION_X
 	local std_height = CRITERIA_RESOLUTION_Y
 	
@@ -223,9 +223,7 @@ end
 function SkillCross:makeNewInstance(owner, target)
     if (owner.m_isUpgraded) then
         local t_data = {}
-        t_data['bonus'] = owner.m_tData['bonus']
-        t_data['target'] = owner.m_tData['target']
-        t_data['target_list'] = owner.m_tData['target_list']
+        t_data['target'] = target
         t_data['x'] = target.m_posX
         t_data['y'] = target.m_posY
 

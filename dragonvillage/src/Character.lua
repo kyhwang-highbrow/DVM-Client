@@ -591,13 +591,13 @@ function Character:undergoAttack(attacker, defender, i_x, i_y, body_key, no_even
 
         damage = (damage * damage_multifly)
 
-        -- 음수일 경우 0으로 변경
-        damage = math_max(damage, 0)
-
         -- nan 체크
         if (damage ~= damage) then
             damage = 0
         end
+
+        -- 음수일 경우 0으로 변경
+        damage = math_max(damage, 1)
     end
 
     -- Event Carrier 세팅

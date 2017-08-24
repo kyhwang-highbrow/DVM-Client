@@ -31,7 +31,7 @@ Skill = class(PARENT, {
 		m_targetType = 'str', -- 타겟 선택하는 룰
 		m_targetLimit = 'num', -- 선택할 타겟의 최대 수
 		m_targetChar = 'Character', 
-        m_lTargetChar = 'table', 
+        m_lTargetChar = 'table', -- 인디케이터에서 보낸 타겟 리스트 
 		m_targetPos = 'pos', -- 인디케이터에서 보낸 x, y 좌표
 		
 		-- 상태 효과 관련 변수들
@@ -606,10 +606,16 @@ end
 -- @brief 타겟룰에 의해 적절한 타겟리스트 가져옴
 -------------------------------------
 function Skill:getProperTargetList()
-    local target_count = self.m_targetLimit
+    local target_count
 
     if (self.m_chanceType == 'active') then
+        if (self.m_lTargetChar) then
+            return self.m_lTargetChar
+        end
+
         target_count = nil
+    else
+        target_count = self.m_targetLimit
     end
 
 	return self.m_owner:getTargetListByType(self.m_targetType, target_count, self.m_targetFormation)

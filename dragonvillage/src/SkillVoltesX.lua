@@ -219,7 +219,7 @@ end
 -- function findCollisionEachLine
 -------------------------------------
 function SkillVoltesX:findCollisionEachLine(idx)
-    local l_target = self.m_lTargetChar or self:getProperTargetList()
+    local l_target = self:getProperTargetList()
 		
     local std_width = CRITERIA_RESOLUTION_X
 	local std_height = CRITERIA_RESOLUTION_Y
