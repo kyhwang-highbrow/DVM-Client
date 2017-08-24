@@ -41,16 +41,11 @@ end
 -- function loadScenarioViewingHistoryFile
 -------------------------------------
 function ScenarioViewingHistory:loadScenarioViewingHistoryFile()
-    local f = io.open(self:getScenarioViewingHistorySaveFileName(), 'r')
+    local ret_json, success_load = LoadLocalSaveJson(self:getScenarioViewingHistorySaveFileName())
 
-    if f then
-        local content = f:read('*all')
-        f:close()
-
-        if (#content > 0) then
-            self.m_rootTable = json_decode(content)
-            return
-        end
+    if (success_load == true) then
+        self.m_rootTable = ret_json
+        return
     end
 
     do -- 초기화
@@ -71,17 +66,7 @@ end
 -- function saveScenarioViewingHistoryFile
 -------------------------------------
 function ScenarioViewingHistory:saveScenarioViewingHistoryFile()
-    local f = io.open(self:getScenarioViewingHistorySaveFileName(),'w')
-    if (not f) then
-        return false
-    end
-
-    -- cclog(luadump(self.m_rootTable))
-    local content = dkjson.encode(self.m_rootTable, {indent=true})
-    f:write(content)
-    f:close()
-
-    return true
+    return SaveLocalSaveJson(self:getScenarioViewingHistorySaveFileName(), self.m_rootTable)
 end
 
 -------------------------------------
