@@ -2457,6 +2457,8 @@ end
 -- function addGroggy
 -------------------------------------
 function Character:addGroggy(statusEffectName)
+    if (not self.m_world.m_gameState:isFight()) then return end
+
     PARENT.addGroggy(self, statusEffectName)
     
     if (self.m_state ~= 'stun') then

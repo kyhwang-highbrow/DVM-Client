@@ -154,7 +154,7 @@ function SkillIndicatorMgr_Intro:clear()
     
     if (self.m_selectHero) then
         self:setSelectHero(nil)
-        self.m_bSlowMode = false
+        self.m_bPauseMode = false
     end
 end
 
