@@ -178,7 +178,7 @@ end
 -------------------------------------
 -- function request_couponUse
 -------------------------------------
-function ServerData_Highbrow:request_couponUse(data, success_cb, result_cb)
+function ServerData_Highbrow:request_couponUse(coupon, success_cb, result_cb)
     -- 유저 ID
     local uid = g_userData:get('uid')
 
@@ -186,8 +186,7 @@ function ServerData_Highbrow:request_couponUse(data, success_cb, result_cb)
     local ui_network = UI_Network()
     ui_network:setUrl('/highbrow/coupon_use')
     ui_network:setParam('uid', uid)
-    ui_network:setParam('coupon', data['couponId'])
-    --ui_network:setParam('payload', data['payload'])
+    ui_network:setParam('coupon', coupon)
     ui_network:setSuccessCB(success_cb)
     ui_network:setResponseStatusCB(result_cb)
     ui_network:setRevocable(true)

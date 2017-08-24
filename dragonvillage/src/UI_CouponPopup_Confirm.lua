@@ -62,18 +62,19 @@ end
 -------------------------------------
 function UI_CouponPopup_Confirm:click_okBtn()
     local function success_cb(t_ret)
-        UI_ToastPopup()
+        --ccdump(t_ret)
+        UIManager:toastNotificationGreen(Str('아이템 코드에 대한 상품이 우편함으로 지급되었습니다.'))
+        MakeSimplePopup(POPUP_TYPE.OK, Str('아이템 코드 사용에 성공하였습니다.'))
         self:close()
     end
 
     local function result_cb(t_ret)
         --ccdump(t_ret)
-        self:close()
+        if t_ret['status'] ~= 0 then
+            self:close()
+        end
         return false
     end
 
-    local t_data = {}
-    t_data['couponId'] = self.m_couponId
-    --t_data['payload'] = self.m_couponData['payload']
-    g_highbrowData:request_couponUse(t_data, success_cb, result_cb)
+    g_highbrowData:request_couponUse(self.m_couponId, success_cb, result_cb)
 end

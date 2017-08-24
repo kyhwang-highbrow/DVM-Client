@@ -10,8 +10,6 @@ UI_CouponPopup = class(UI, {
         m_dscText = 'string',
         m_errText = 'string',
         m_errSubText = 'string',
-        m_resultTextSuccess = 'string',
-        m_resultTextFail = 'string',
      })
 
 -------------------------------------
@@ -49,8 +47,6 @@ function UI_CouponPopup:initUI()
     self.m_dscText = Str("지급되는 상품은 '우편함'에서 수령 가능하며,\n입력 시 쿠폰의 유효기간 및 횟수 제한을 확인하시기 바랍니다.\n('드래곤빌리지 콜렉션게임카드'의 '아이템 코드'는 '드빌전용관'을 통해 이용 가능합니다.)")
     self.m_errText = Str('쿠폰 번호의 길이가 맞지 않습니다.')
     self.m_errSubText = Str('12자리의 쿠폰 번호를 입력해 주세요.')
-    self.m_resultTextSuccess = Str('쿠폰 사용에 성공하였습니다.')
-    self.m_resultTextFail = Str('쿠폰 번호를 잘못 입력하셨거나, 드래곤빌리지M에서는 적용 불가능한 쿠폰 번호입니다.')
     self.m_maxCodeLength = 12
 
     -- highbrow
@@ -60,8 +56,6 @@ function UI_CouponPopup:initUI()
         self.m_dscText = Str("구매하신 드래곤빌리지 콜렉션 게임 카드의 '아이템코드'를 입력하시면,\n드래곤빌리지M에서 획득 가능한 보상을 확인할 수 있습니다.\n(단, 드래곤빌리지 콜렉션게임카드 16탄 부터 적용되며, 1~15탄 카드, 특별카드 및 기타상품은 입력 불가 합니다.)")
         self.m_errText = Str('아이템 코드의 길이가 맞지 않습니다.')
         self.m_errSubText = Str('16자리의 아이템 코드를 입력해 주세요.')
-        self.m_resultTextSuccess = Str('아이템 코드 사용에 성공하였습니다.')
-        self.m_resultTextFail = Str('아이템 코드를 잘못 입력하셨거나, 드래곤빌리지M에서는 적용 불가능한 아이템 코드입니다.')
         self.m_maxCodeLength = 16
     end
 
@@ -150,7 +144,6 @@ function UI_CouponPopup:highbrow_coupon(couponCode)
         --]]
 
         local couponData = t_ret['item_info'] or {}
-        --couponData['payload'] = t_ret['payload']
 
         local itemId = couponData['item_id'] or 0
         if itemId > 0 then
@@ -183,7 +176,7 @@ end
 function UI_CouponPopup:normal_coupon(couponCode)
     local function success_cb(ret)
         UIManager:toastNotificationGreen(Str('쿠폰에 대한 상품이 우편함으로 지급되었습니다.'))
-        MakeSimplePopup(POPUP_TYPE.OK, self.m_resultTextSuccess)
+        MakeSimplePopup(POPUP_TYPE.OK, Str('쿠폰 사용에 성공하였습니다.'))
         self:close()
     end
 
