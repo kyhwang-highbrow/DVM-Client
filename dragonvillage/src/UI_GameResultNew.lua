@@ -273,7 +273,7 @@ end
 function UI_GameResultNew:direction_hideTamer()
     local vars = self.vars
     local tamer_node = vars['tamerNode']
-    local hide_act = cc.EaseExponentialOut:create(cc.MoveTo:create(1, cc.p(0, -1000)))
+    local hide_act = cc.EaseExponentialOut:create(cc.MoveTo:create(0.8, cc.p(0, -1000)))
     local after_act = cc.CallFunc:create(function()
 		tamer_node:setVisible(false)
         self:doNextWork()
@@ -980,7 +980,7 @@ end
 -- @brief 자동재화 버튼 (광고 보기)
 -------------------------------------
 function UI_GameResultNew:click_itemAutoBtn()
-    if (not g_autoPlaySetting:isAutoPlay()) then return false end
+    if (self:checkAutoPlayRelease()) then return end
     g_advertisingData:showAdvPopup(AD_TYPE.AUTO_ITEM_PICK)
 end
 
@@ -1002,8 +1002,9 @@ end
 -- function click_switchBtn
 -------------------------------------
 function UI_GameResultNew:click_switchBtn()
+    if (self:checkAutoPlayRelease()) then return end
+
     local vars = self.vars
-    local switch_btn = vars['switchBtn']
     self:action_switchBtn()
 end
 
@@ -1023,8 +1024,8 @@ function UI_GameResultNew:action_switchBtn(callback)
     
     local move_act = cca.makeBasicEaseMove(0.5, 0, move_y)
     local after_act = cc.CallFunc:create(function()
-		if (callback) then callback() end
         switch_btn:setEnabled(true)
+		if (callback) then callback() end
 	end)
 
     switch_sprite:runAction(cc.RotateTo:create(0.1, angle))
