@@ -269,6 +269,12 @@ function SceneGame:prepare()
     end)
     
     self:addLoading(function()
+        -- 테이머 애니메이션 리소스 프리로드
+        local ret = resCaching( g_tamerData:getCurrTamerTable()['res'] )
+        return ret
+    end)
+
+    self:addLoading(function()
 		-- 테스트 모드에서만 디버그패널 on
 		if (IS_TEST_MODE()) then
 			self.m_inGameUI:init_debugUI()
