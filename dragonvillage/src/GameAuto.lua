@@ -158,6 +158,7 @@ function GameAuto:doCheck()
     -- 상태가 갱신되었으면
     if (self.m_teamState ~= nextState) then
         self.m_teamState = nextState
+        self.m_curUnit = nil
 
         -- 상태에 맞는 우선순위의 스킬에 따른 유닛 리스트 테이블을 생성
         self.m_lUnitListPerPriority = self:makeUnitListSortedByPriority(nextState)
