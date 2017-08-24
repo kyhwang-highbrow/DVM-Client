@@ -393,3 +393,23 @@ function StructRuneObject:getRuneStatus()
 
     return l_add_status, l_multi_status
 end
+
+
+-------------------------------------
+-- function getStringData
+-------------------------------------
+function StructRuneObject:getStringData()
+    local str = string.format('%d:%d:%d:%s:%s:%s:%s:%s:%s',
+        self['rid'],
+        self['lv'],
+        self['rarity'],
+        self['mopt'],
+        self['uopt'],
+        self['sopt_1'],
+        self['sopt_2'],
+        self['sopt_3'],
+        self['sopt_4']
+    )
+
+    return str
+end

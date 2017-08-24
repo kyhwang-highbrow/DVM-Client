@@ -460,3 +460,48 @@ function StructDragonObject:getDragonSortData()
 
     return g_dragonsData:getDragonsSortData(doid)
 end
+
+-------------------------------------
+-- function getStringData
+-------------------------------------
+function StructDragonObject:getStringData() 
+    -- [ 드래곤 정보 ]
+    -- did;lv;exp;eclv;evolution;grade;skill_0;skill_1;skill_2;skill_3
+    local t1 = string.format('%d;%d;%d;%d;%d;%d;%d;%d;%d;%d', 
+        self['did'],
+        self['lv'],
+        self['exp'],
+        self['eclv'],
+        self['evolution'],
+        self['grade'],
+        self['skill_0'],
+        self['skill_1'],
+        self['skill_2'],
+        self['skill_3']
+    )
+
+    -- [ 친밀도 정보 ]
+    -- flv;fexp;fatk;fhp;fdef;ffeel
+    local t2 = self['friendship']:getStringData()
+
+    -- [ 룬 정보 ]
+    -- rid:lv:rarity:mopt:uopt:sopt_1:sopt_2:sopt_3:sopt_4
+    local is_first = true
+    local t3 = ''
+
+    for i = 1, 6 do
+        if (not is_first) then
+            t3 = t3 .. ';'
+        end
+
+        local rune = self:getRuneObjectBySlot(i)
+        if (rune) then
+            t3 = t3 .. rune:getStringData()
+        end
+
+        is_first = false
+	end
+
+    -- t1 + t2 + t3
+    return t1 .. ';' .. t2 .. ';' .. t3
+end
