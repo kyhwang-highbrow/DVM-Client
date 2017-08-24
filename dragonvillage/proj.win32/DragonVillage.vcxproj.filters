@@ -465,9 +465,6 @@
     <None Include="..\src\UI_MailListItem.lua">
       <Filter>lua\UI</Filter>
     </None>
-    <None Include="..\src\UI_FriendPopupTabInvite.lua">
-      <Filter>lua\UI</Filter>
-    </None>
     <None Include="..\src\UI_GamePause_SecretDungeon.lua">
       <Filter>lua\UI</Filter>
     </None>
