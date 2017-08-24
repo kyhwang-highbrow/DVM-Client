@@ -201,18 +201,44 @@ function UI_DragonSkillEnhance:getDragonMaterialList(doid)
 
 		-- 스킬 강화 슬라임 추가
 		elseif (g_slimesData:possibleMaterialSlime(oid, 'skill')) then
-		--[[
-			local dragon_rarity = dragonRarityStrToNum(t_dragon_data:getRarity())
-			local slime_rarity = dragonRarityStrToNum(v:getRarity())
-			if (slime_rarity >= dragon_rarity) then
-				ret_dic[oid] = v
-			end
-			]]
 			ret_dic[oid] = v
 		end
     end
 
     return ret_dic
+end
+
+-------------------------------------
+-- function createMtrlDragonCardCB
+-- @brief 재료 카드 만든 후..
+-------------------------------------
+function UI_DragonSkillEnhance:createMtrlDragonCardCB(ui, data)
+    if (not ui) then
+        return
+    end
+
+    -- 선택한 드래곤이 레벨업 가능한지 판단
+    local doid = self.m_selectDragonOID
+    if (not g_dragonsData:possibleDragonSkillEnhance(doid)) then
+        ui:setShadowSpriteVisible(true)
+        return
+    end
+
+    -- 재료 드래곤이 재료 가능한지 판별
+    doid = data['id']
+    if (data:getObjectType() == 'dragon') then
+        if (not g_dragonsData:possibleMaterialDragon(doid)) then
+            ui:setShadowSpriteVisible(true)
+            return
+        end
+
+    elseif (data:getObjectType() == 'slime') then
+        if (not g_slimesData:possibleMaterialSlime(doid, 'exp')) then
+            ui:setShadowSpriteVisible(true)
+            return
+        end
+    end
+
 end
 
 -------------------------------------
@@ -223,6 +249,13 @@ function UI_DragonSkillEnhance:click_dragonMaterial(data)
     local vars = self.vars
 
     local doid = data['id']
+
+    -- 현재 스킬 강화 가능한 드래곤인지 검증
+    local possible, msg = g_dragonsData:possibleDragonSkillEnhance(self.m_selectDragonOID)
+    if (not possible) then
+        UIManager:toastNotificationRed(msg)
+        return
+    end
 
     local list_item = self.m_mtrlTableViewTD:getItem(doid)
     local list_item_ui = list_item['ui']
