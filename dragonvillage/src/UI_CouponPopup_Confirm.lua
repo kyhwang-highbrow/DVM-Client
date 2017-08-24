@@ -43,9 +43,9 @@ function UI_CouponPopup_Confirm:initUI()
     local desc = UIHelper:makeItemName(t_item)
     vars['itemLabel']:setString(desc)
 
-    local icon = IconHelper:getIcon('res/ui/icons/item/shop_gold_06.png')
-    if (icon) then
-        vars['itemNode']:addChild(icon)
+    local item_card = UI_ItemCard(t_item['item_id'], t_item['count'])
+    if (item_card) then
+        vars['itemNode']:addChild(item_card.root)
     end
 end
 
@@ -65,7 +65,7 @@ end
 function UI_CouponPopup_Confirm:click_okBtn()
     local function cb_func(t_ret)
         UI_ToastPopup()
-        self:closeWithAction()
+        self:close()
     end
     g_highbrowData:request_couponUse(self.m_couponId, cb_func)
 end
