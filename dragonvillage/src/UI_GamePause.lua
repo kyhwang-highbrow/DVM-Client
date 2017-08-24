@@ -26,7 +26,9 @@ function UI_GamePause:init(stage_id, start_cb, end_cb)
 
     vars['retryButton']:registerScriptTapHandler(function() self:click_retryButton() end)
     vars['homeButton']:registerScriptTapHandler(function() self:click_homeButton() end)
+    vars['contentsButton']:registerScriptTapHandler(function() self:click_homeButton() end)
     vars['continueButton']:registerScriptTapHandler(function() self:click_continueButton() end)
+    vars['settingButton']:registerScriptTapHandler(function() self:click_settingButton() end)
 
     -- 디버그용 버튼
     if (IS_TEST_MODE()) then
@@ -82,6 +84,16 @@ function UI_GamePause:init(stage_id, start_cb, end_cb)
         vars['starMenu']:setVisible(false)
         vars['difficultyLabel']:setVisible(false)
     end
+
+    -- 모험 버튼 설정
+    if (game_mode ~= GAME_MODE_ADVENTURE) then
+        vars['homeButton']:setVisible(false)
+        vars['contentsButton']:setVisible(true)
+
+        local table_drop = TableDrop()
+        local t_drop = table_drop:get(stage_id)
+        vars['contentsLabel']:setString(Str(t_drop['t_name']))
+    end
     
     self:doActionReset()
     self:doAction()
@@ -95,9 +107,10 @@ end
 -------------------------------------
 function UI_GamePause:click_homeButton()
     local function home_func()
-        local is_use_loading = true
-        local scene = SceneLobby(is_use_loading)
-        scene:runScene()
+        local game_mode = g_gameScene.m_gameMode
+        local dungeon_mode = g_gameScene.m_dungeonMode
+        local condition = self.m_stageID
+        QuickLinkHelper.gameModeLink(game_mode, dungeon_mode, condition)
     end
     
     self:confirmExit(home_func)
@@ -127,14 +140,21 @@ function UI_GamePause:click_continueButton()
 end
 
 -------------------------------------
--- function click_debug_heroInfoButton
--- @brief 아군 상세 정보를 표시
+-- function click_settingButton
 -------------------------------------
-function UI_GamePause:click_debug_heroInfoButton()
+function UI_GamePause:click_settingButton()
+    UI_Setting()
+end
+
+-------------------------------------
+-- function click_debug_enemyInfoButton
+-- @brief 적군 상세 정보를 표시
+-------------------------------------
+function UI_GamePause:click_debug_enemyInfoButton()
     local world = g_gameScene.m_gameWorld
     local str = ''
 
-    for _, v in ipairs(world:getDragonList()) do
+    for _, v in ipairs(world:getEnemyList()) do
         local str_info = v:getAllInfomationString()
         str = str .. str_info
     end
@@ -145,7 +165,6 @@ function UI_GamePause:click_debug_heroInfoButton()
         self.root:setVisible(true)
     end)
 end
-
 -------------------------------------
 -- function click_debug_enemyInfoButton
 -- @brief 적군 상세 정보를 표시
