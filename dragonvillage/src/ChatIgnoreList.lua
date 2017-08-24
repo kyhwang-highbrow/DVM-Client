@@ -41,22 +41,17 @@ end
 -- function loadChatIgnoreListFile
 -------------------------------------
 function ChatIgnoreList:loadChatIgnoreListFile()
-    local f = io.open(self:getChatIgnoreListSaveFileName(), 'r')
+    local ret_json, success_load = LoadLocalSaveJson(self:getChatIgnoreListSaveFileName())
 
-    if f then
-        local content = f:read('*all')
-        f:close()
-
-        if #content > 0 then
-            self.m_rootTable = json_decode(content)
-            if (not self.m_rootTable['user_list']) then
-                self.m_rootTable = self:makeDefaultChatIgnoreList()
-                self:saveChatIgnoreListFile()
-            end
-            return
+    if (success_load == true) then
+        self.m_rootTable = ret_json
+        if (not self.m_rootTable['user_list']) then
+            self.m_rootTable = self:makeDefaultChatIgnoreList()
+            self:saveChatIgnoreListFile()
         end
+        return
     end
-    
+
     self.m_rootTable = self:makeDefaultChatIgnoreList()
     self:saveChatIgnoreListFile()
 end
@@ -75,17 +70,7 @@ end
 -- function saveChatIgnoreListFile
 -------------------------------------
 function ChatIgnoreList:saveChatIgnoreListFile()
-    local f = io.open(self:getChatIgnoreListSaveFileName(),'w')
-    if (not f) then
-        return false
-    end
-
-    -- cclog(luadump(self.m_rootTable))
-    local content = dkjson.encode(self.m_rootTable, {indent=true})
-    f:write(content)
-    f:close()
-
-    return true
+    return SaveLocalSaveJson(self:getChatIgnoreListSaveFileName(), self.m_rootTable)
 end
 
 -------------------------------------
