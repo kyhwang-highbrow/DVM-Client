@@ -159,6 +159,7 @@ end
 function UI_GameColosseum:click_pauseButton()
     local stage_id = self.m_gameScene.m_stageID
     local game_mode = self.m_gameScene.m_gameMode
+    local gamekey = self.m_gameScene.m_gameKey
 
     local function start_cb()
         self.m_gameScene:gamePause()
@@ -168,7 +169,7 @@ function UI_GameColosseum:click_pauseButton()
         self.m_gameScene:gameResume()
     end
 
-    UI_GamePause_Colosseum(stage_id, start_cb, end_cb)
+    UI_GamePause_Colosseum(stage_id, gamekey, start_cb, end_cb)
 end
 
 -------------------------------------

@@ -92,9 +92,13 @@ function UI_GamePause:init(stage_id, gamekey, start_cb, end_cb)
         vars['homeButton']:setVisible(false)
         vars['contentsButton']:setVisible(true)
 
-        local table_drop = TableDrop()
-        local t_drop = table_drop:get(stage_id)
-        vars['contentsLabel']:setString(Str(t_drop['t_name']))
+        if (stage_id == COLOSSEUM_STAGE_ID) then
+            vars['contentsLabel']:setString(Str('콜로세움'))
+        else
+            local table_drop = TableDrop()
+            local t_drop = table_drop:get(stage_id)
+            vars['contentsLabel']:setString(Str(t_drop['t_name']))
+        end
     end
     
     self:doActionReset()

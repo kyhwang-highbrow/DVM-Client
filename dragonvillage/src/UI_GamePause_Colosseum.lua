@@ -11,7 +11,7 @@ UI_GamePause_Colosseum = class(PARENT, {
 -- @param file_name
 -- @param body
 -------------------------------------
-function UI_GamePause_Colosseum:init(stage_id, start_cb, end_cb)
+function UI_GamePause_Colosseum:init(stage_id, gamekey, start_cb, end_cb)
 end
 
 -------------------------------------
@@ -45,7 +45,12 @@ end
 -- @brief 콜로세움에서 중도에 나가면 패배로 처리됨
 --        유저에게 패배처리가 되어도 나가겠냐는 확인 팝업
 -------------------------------------
-function UI_GamePause_Colosseum:confirmExit(ok_cb)
+function UI_GamePause_Colosseum:confirmExit(exit_cb)
     local msg = Str('지금 콜로세움에서 퇴장하면 {@RED}패배로 처리{@default}됩니다.\n퇴장하시겠습니까?')
+
+    local function ok_cb(ret)
+        g_colosseumData:request_colosseumCancel(self.m_gameKey, exit_cb)
+    end
+
     MakeSimplePopup(POPUP_TYPE.YES_NO, msg, ok_cb)
 end

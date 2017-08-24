@@ -469,6 +469,29 @@ function ServerData_Colosseum:request_colosseumStart(is_cash, vsuid, finish_cb, 
 end
 
 -------------------------------------
+-- function request_colosseumCancel
+-- @brief 게임 중도 포기
+-------------------------------------
+function ServerData_Colosseum:request_colosseumCancel(gamekey, finish_cb)
+    local uid = g_userData:get('uid')
+
+    local function success_cb(ret)
+        if finish_cb then
+            finish_cb(ret)
+        end
+    end
+
+    local ui_network = UI_Network()
+    ui_network:setUrl('/game/stage/cancel')
+    ui_network:setRevocable(true)
+    ui_network:setParam('uid', uid)
+    ui_network:setParam('stage', 11) -- 콜로세움은 서버에서 stage를 11로 처리 중
+    ui_network:setParam('gamekey', gamekey)
+    ui_network:setSuccessCB(success_cb)
+    ui_network:request()
+end
+
+-------------------------------------
 -- function request_colosseumFinish
 -------------------------------------
 function ServerData_Colosseum:request_colosseumFinish(is_win, finish_cb, fail_cb)
