@@ -581,7 +581,14 @@ end
 -------------------------------------
 function Dragon:setMovingAfterImage(b)
     self.m_afterimageTimer = 0
+
+    if (isLowEndMode()) then
+        self.m_isUseMovingAfterImage = false
+        return
+    end
+
     self.m_isUseMovingAfterImage = b
+
 end
 
 -------------------------------------
@@ -594,8 +601,7 @@ function Dragon:updateMovingAfterImage(dt)
     -- 에프터이미지
     self.m_afterimageTimer = self.m_afterimageTimer + (speed * dt)
 
-    local interval = -30
-
+    local interval = -60
     if (self.m_afterimageTimer <= interval) then
         self.m_afterimageTimer = self.m_afterimageTimer - interval
 
