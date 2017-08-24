@@ -7,7 +7,7 @@ UI_DragonRunes = class(PARENT,{
         m_listFilterSetID = 'number', -- 0번은 전체 1~8은 해당 세트만
         m_tableViewTD = 'UIC_TableViewTD',
         m_sortManagerRune = 'SortManager_Rune', -- 룬 정렬
-
+        m_sortListRuneSet = 'UIC_SortList', 
         m_equippedRuneObject = 'StructRuneObject',
         m_selectedRuneObject = 'StructRuneObject',
 
@@ -82,6 +82,7 @@ function UI_DragonRunes:initUI_runeSetFilter()
 
 
     local uic_sort_list = MakeUICSortList_runeManageFilter(vars['setSortBtn'], vars['setSortLabel'])
+    self.m_sortListRuneSet = uic_sort_list
 
     -- 버튼을 통해 정렬이 변경되었을 경우
     local function sort_change_cb(sort_type)
@@ -98,10 +99,13 @@ function UI_DragonRunes:initUI_runeSetFilter()
             vars['setSortEffectLabel']:setString('')
             vars['setSortLabel']:setPositionX(0)
         end
+  
+        -- 룬 개수 갱신
+        self:refreshRunesCount()
     end
     uic_sort_list:setSortChangeCB(sort_change_cb)
 
-    -- 전체를 선택
+    -- 전체를 선택하고 룬 갯수 입력해줌
     uic_sort_list:setSelectSortType(0)
 end
 
@@ -321,7 +325,6 @@ function UI_DragonRunes:refreshTableViewList()
     -- 드래곤이 장착 중인 6개의 룬 정보 갱신
     self:refreshEquippedRunes()
 
-
     do -- 슬롯별 룬이 있는지 없는지 여부
         local unequipped = true
         local set_id = 0
@@ -331,12 +334,27 @@ function UI_DragonRunes:refreshTableViewList()
 
             local is_empty = (count <= 0)
             vars['emptySlot' .. slot]:setVisible(is_empty)
-
-            vars['runeNumLabel'..slot]:setString(Str('{1}개', count))
         end
     end
+end
 
-    
+-------------------------------------
+-- function refreshRunesCount
+-- @brief 룬 개수 갱신
+-------------------------------------
+function UI_DragonRunes:refreshRunesCount()
+    if (not self.m_sortListRuneSet) then
+        --return
+    end
+
+    local vars = self.vars
+    local unequipped = true
+    local set_id = self.m_sortListRuneSet.m_selectSortType
+    for slot= 1, 6 do
+        local l_item_list = g_runesData:getFilteredRuneList(unequipped, slot, set_id)
+        local count = table.count(l_item_list)
+        vars['runeNumLabel'..slot]:setString(Str('{1}개', count))
+    end
 end
 
 -------------------------------------
