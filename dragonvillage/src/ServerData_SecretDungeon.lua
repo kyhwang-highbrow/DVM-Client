@@ -450,3 +450,10 @@ function ServerData_SecretDungeon:getSelectedSecretDungeonInfo()
     local t_dungeon_info = self.m_secretDungeonInfoMap[id]
     return t_dungeon_info
 end
+
+-------------------------------------
+-- function isSecretDungeonExist
+-------------------------------------
+function ServerData_SecretDungeon:isSecretDungeonExist()
+    return (table.count(self.m_secretDungeonInfo) > 0)
+end

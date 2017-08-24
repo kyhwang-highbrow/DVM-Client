@@ -42,6 +42,8 @@ function UI_BattleMenu:init()
     self:refresh()
 
     self:sceneFadeInAction()
+
+    self.root:scheduleUpdateWithPriorityLua(function(dt) return self:update(dt) end, 0)
 end
 
 -------------------------------------
@@ -69,6 +71,22 @@ end
 -- function refresh
 -------------------------------------
 function UI_BattleMenu:refresh()
+end
+
+-------------------------------------
+-- function update
+-------------------------------------
+function UI_BattleMenu:update(dt)
+    if (self.m_lAdventureBtnUI) then
+        for i, v in pairs(self.m_lAdventureBtnUI) do
+            v['ui']:refresh()
+        end
+    end
+    if (self.m_lDungeonBtnUI) then
+        for i, v in pairs(self.m_lDungeonBtnUI) do
+            v['ui']:refresh()
+        end
+    end
 end
 
 -------------------------------------

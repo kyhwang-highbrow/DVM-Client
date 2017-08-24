@@ -15,6 +15,8 @@ UI_BattleMenuItem = class(PARENT, {
         -- colosseum	콜로세움
         -- nest_nightmare	[네스트] 악몽 던전
         -- secret_relation 인연던전
+
+        m_notiIcon = 'cc.Sprite',
      })
 
 local THIS = UI_BattleMenuItem
@@ -87,6 +89,37 @@ end
 -- function refresh
 -------------------------------------
 function UI_BattleMenuItem:refresh()
+    -- noti를 관리
+    local content_type = self.m_contentType
+    local has_noti = false
+
+    if (content_type == 'exploation') then
+        has_noti = g_highlightData:isHighlightExploration()
+
+    elseif (content_type == 'secret_relation') then
+        has_noti = g_secretDungeonData:isSecretDungeonExist()
+
+    end
+
+    if (has_noti) then
+        self:setNoti()
+    else
+        if (self.m_notiIcon) then
+            self.m_notiIcon:removeFromParent(true)
+            self.m_notiIcon = nil
+        end
+    end
+end
+
+-------------------------------------
+-- function setNoti
+-------------------------------------
+function UI_BattleMenuItem:setNoti()
+    local noti_icon = IconHelper:getNotiIcon()
+    noti_icon:setPosition(125, -100)
+    self.root:addChild(noti_icon)
+
+    self.m_notiIcon = noti_icon
 end
 
 -------------------------------------

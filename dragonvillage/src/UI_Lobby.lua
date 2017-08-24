@@ -281,7 +281,10 @@ function UI_Lobby:refresh_highlight()
 
     local function highlight_func()
         -- 전투 메뉴
-        vars['battleHotSprite']:setVisible(g_highlightData:isHighlightExploration() or g_hotTimeData:isHighlightHotTime())
+        vars['battleNotiSprite']:setVisible(g_highlightData:isHighlightExploration() or g_secretDungeonData:isSecretDungeonExist())
+
+        -- 핫타임
+        vars['battleHotSprite']:setVisible(g_hotTimeData:isHighlightHotTime())
 
         -- 퀘스트
         vars['questNotiSprite']:setVisible(g_highlightData:isHighlightQuest())
