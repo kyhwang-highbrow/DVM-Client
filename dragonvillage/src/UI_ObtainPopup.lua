@@ -262,6 +262,8 @@ function ItemObtainResult(t_ret, is_mail)
 
         -- 메일로 받은 아이템일경우 룬만 팝업을 표시
         if (is_mail and (item_type ~= 'rune')) then
+            local toast_msg = Str('아이템을 지급받았습니다.')
+            UI_ToastPopup(toast_msg)
             return
         end
 
