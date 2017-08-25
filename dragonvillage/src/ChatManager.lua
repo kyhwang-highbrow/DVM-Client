@@ -439,7 +439,18 @@ function ChatManager:chatContentQueue(chat_content)
         table.remove(self.m_lMessage, 1)
     end
 
-    if g_topUserInfo then
+    local is_broadcast = false
+    -- 인게임에서도 추가 (먼저 검사, 한쪽만 방송해줘야함)
+    if (g_currScene) then
+        if (g_currScene.m_sceneName == 'SceneGame' or g_currScene.m_sceneName == 'SceneGameColosseum') then
+            if (g_currScene.m_inGameUI) then
+                is_broadcast = true
+                g_currScene.m_inGameUI:chatBroadcast(chat_content)
+            end
+        end 
+    end
+
+    if (g_topUserInfo) and (not is_broadcast) then
         g_topUserInfo:chatBroadcast(chat_content)
     end
 

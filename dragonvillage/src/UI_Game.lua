@@ -30,6 +30,9 @@ UI_Game = class(PARENT, {
         
         -- 방송 라벨
         m_broadcastLabel = 'UIC_BroadcastLabel',
+
+        -- 채팅 라벨 (추가)
+        m_chatBroadcastLabel = 'UIC_BroadcastLabel',
      })
 
 -------------------------------------
@@ -55,6 +58,7 @@ function UI_Game:init(game_scene)
 	self:initButton()
 
     self.m_broadcastLabel = UIC_BroadcastLabel:create(vars['noticeBroadcastNode'], vars['noticeBroadcastLabel'])
+    self.m_chatBroadcastLabel = UIC_BroadcastLabel:create(vars['chatBroadcastNode'], vars['chatBroadcastLabel'])
 end
 
 -------------------------------------
@@ -634,6 +638,24 @@ function UI_Game:noticeBroadcast(msg, duration)
 end
 
 -------------------------------------
+-- function chatBroadcast
+-------------------------------------
+function UI_Game:chatBroadcast(t_data)
+    local vars = self.vars
+
+    local msg = t_data['message']
+    local nickname = t_data['nickname']
+    local uid = t_data['uid']
+
+    if (not msg) or (not nickname) or (not uid) then
+        return
+    end
+
+    local rich_str = '{@SKILL_NAME}[' .. nickname .. '] {@SKILL_DESC}' .. msg
+    self.m_chatBroadcastLabel:setString(rich_str)
+end
+
+-------------------------------------
 -- function initIntroFight
 -- @brief 인트로 전투 - 필요없는 UI 비지블 꺼줌
 -------------------------------------
@@ -700,3 +722,4 @@ function UI_Game:arrangeItemUI(l_hottime)
         ui:setPositionY(pos_y)
     end
 end
+
