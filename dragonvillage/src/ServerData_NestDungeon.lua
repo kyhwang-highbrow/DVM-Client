@@ -418,6 +418,14 @@ function ServerData_NestDungeon:getNestDungeonStageClearInfoRef(stage_id)
 end
 
 -------------------------------------
+-- function applyNestStageClearCnt
+-- @brief 스테이지 클리어 횟수 저장
+-------------------------------------
+function ServerData_NestDungeon:applyNestStageClearCnt(stage_id, cnt)
+    self.m_serverData:applyServerData(cnt, 'nest_dungeon_stage_list', tostring(stage_id), 'clear_cnt')
+end
+
+-------------------------------------
 -- function isOpenStage
 -- @brief
 -------------------------------------
