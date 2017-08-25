@@ -408,6 +408,7 @@ function UI_GameResultNew:direction_end()
             end)))
     else
         vars['skipLabel']:setVisible(false)
+        vars['noRewardMenu']:setVisible(true)
         vars['prevBtn']:setVisible(true)
 		vars['statsBtn']:setVisible(true)
         vars['againBtn']:setVisible(true)
@@ -504,17 +505,27 @@ end
 -------------------------------------
 function UI_GameResultNew:direction_dropItem()
     local vars = self.vars
-    local count = #self.m_lDropItemList
-    
-    -- 보상이 없을때
-    if (count <= 0) then
+    local is_success = self.m_bSuccess
+    if (not is_success) then 
         self:doNextWork()
-        vars['noRewardMenu']:setVisible(true)
         return
     end
 
     local interval = 95
+    local count = #self.m_lDropItemList
     local l_pos = getSortPosList(interval, count)
+
+    -- 보상이 없을때
+    if (count <= 0) then
+        vars['noRewardMenu']:setVisible(true)
+
+        local animator = MakeAnimator('res/character/monster/common_elemental_lava_fire/common_elemental_lava_fire.spine')
+        vars['noRewardMenu']:addChild(animator.m_node)
+        animator:setAnchorPoint(cc.p(0.5, 0.5))
+        animator:setDockPoint(cc.p(0.5, 0.5))
+        animator:setPositionY(50)
+        animator:setScale(1.5)
+    end
 
     for i,v in ipairs(self.m_lDropItemList) do
         --self:makeRewardItem(i, v)
@@ -668,20 +679,30 @@ end
 -- function direction_masterRoad
 -------------------------------------
 function UI_GameResultNew:direction_masterRoad()
-    if (self.m_bSuccess) then
+    -- 마스터의 길 : 스테이지 체크
+    do
         -- @ MASTER ROAD
-        local t_data = {game_mode = g_gameScene.m_gameMode, stage_id = self.m_stageID, dungeon_mode = g_gameScene.m_dungeonMode}
+        local t_data = {
+            game_mode = g_gameScene.m_gameMode, 
+            stage_id = self.m_stageID, 
+            dungeon_mode = g_gameScene.m_dungeonMode, 
+            is_success = self.m_bSuccess
+        }
         g_masterRoadData:updateMasterRoad(t_data)
 
         -- @ GOOGLE ACHIEVEMENT
         GoogleHelper.updateAchievement(t_data)
     end
-    -- @ MASTER ROAD
-    local t_data = {clear_key = 'u_lv'}
-    g_masterRoadData:updateMasterRoad(t_data)
 
-    -- @ GOOGLE ACHIEVEMENT
-    GoogleHelper.updateAchievement(t_data)
+    -- 마스터의 길 : 유저 레벨 체크
+    do
+        -- @ MASTER ROAD
+        local t_data = {clear_key = 'u_lv'}
+        g_masterRoadData:updateMasterRoad(t_data)
+
+        -- @ GOOGLE ACHIEVEMENT
+        GoogleHelper.updateAchievement(t_data)
+    end
 
     -- 마스터 로드 기록 후 연속 전투 체크
     self:checkAutoPlay()
@@ -691,7 +712,6 @@ end
 -- function direction_masterRoad_click
 -------------------------------------
 function UI_GameResultNew:direction_masterRoad_click()
-    cclog('direction_masterRoad_click')
     if (self:checkAutoPlayRelease()) then return end
 end
 

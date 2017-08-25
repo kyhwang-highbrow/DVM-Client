@@ -5,6 +5,9 @@ ServerData_MasterRoad = class({
         m_serverData = 'ServerData',
         m_focusRoad = 'number',
         m_tRewardInfo = 'table',
+        
+        -- 서버 검증을 위한..
+        m_tRawData = 'table',
 
         m_bDirtyMasterRoad = 'boolean',
     })
@@ -15,6 +18,7 @@ ServerData_MasterRoad = class({
 function ServerData_MasterRoad:init(server_data)
     self.m_serverData = server_data
     self.m_tRewardInfo = {}
+    self.m_tRawData = {}
 end
 
 -------------------------------------
@@ -28,7 +32,10 @@ function ServerData_MasterRoad:applyInfo(ret)
     if (ret['focus_road']) then
         self.m_focusRoad = ret['focus_road']
     end
-   
+    if (ret['raw_data']) then
+        self.m_tRawData = ret['raw_data']
+    end
+
     -- 외부에서 정보 갱신 필요할 경우 사용
     g_masterRoadData.m_bDirtyMasterRoad = true
 end
@@ -206,7 +213,6 @@ function ServerData_MasterRoad:request_roadInfo(finish_cb, fail_cb)
     local function success_cb(ret)
         self:applyInfo(ret)
 
-
         if (finish_cb) then
             finish_cb()
         end
@@ -328,17 +334,35 @@ function ServerData_MasterRoad.checkClear(clear_type, clear_cond, t_data)
             return (t_data['clear_value'] >= rune_lv)
 
         -----------------------------------
+        -- 서버에서 준 값 사용
+        -----------------------------------
+        -- 드래곤 진화
+        elseif (clear_type == 'd_evup') then
+            local evup_cnt = clear_cond
+            local raw_cnt = self.m_tRawData['d_evup']
+            return (raw_cnt >= evup_cnt)
+
+        -- 드래곤 스킬 레벨 업
+        elseif (clear_type == 'd_sklvup') then
+            local sklvup_cnt = clear_cond
+            local raw_cnt = self.m_tRawData['d_sklvup']
+            return (raw_cnt >= sklvup_cnt)
+
+        -- 드래곤 등급업
+        elseif (clear_type == 'd_grup') then
+            local grup_cnt = clear_cond
+            local raw_cnt = self.m_tRawData['d_grup']
+            return (raw_cnt >= grup_cnt)
+
+        -----------------------------------
         -- 별도의 비교값이 필요없는 타입
         -----------------------------------
         else
-            -- 드래곤 스킬 레벨 업 d_sklvup
             -- 테이머 스킬 레벨 업 t_sklvup
-            -- 드래곤 진화 d_evup
             -- 룬 장착 r_eq
             -- 알 부화 egg
             -- 친밀도 과일 먹임 fruit
             -- 드래곤 레벨업 d_lvup
-            -- 드래곤 등급업 d_grup
             -- 탐험 보내기 ply_epl
             return true
         end
@@ -346,7 +370,7 @@ function ServerData_MasterRoad.checkClear(clear_type, clear_cond, t_data)
     -- clear_key를 넘기지 않음 -> 인게임 클리어 타입
     else
         -- stage clear
-        if (clear_type == 'clr_stg') then
+        if (clear_type == 'clr_stg') and (t_data['is_success'] == true) then
             local stage_id = t_data['stage_id']
             return (stage_id == clear_cond)
 
