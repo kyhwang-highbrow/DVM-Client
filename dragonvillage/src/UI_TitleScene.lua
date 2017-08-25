@@ -880,7 +880,7 @@ function UI_TitleScene:makeFailPopup(msg, ret)
         self:retryCurrWork()
     end
 
-    local msg = msg or '네트워크 연결에 실패하였습니다. 다시 시도하시겠습니까?'
+    local msg = msg or '오류가 발생하였습니다. 다시 시도하시겠습니까?'
 
     if ret then
         local add_msg = '(status : ' .. tostring(ret['status']) .. ', message : ' .. tostring(ret['message']) .. ')'
