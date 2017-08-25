@@ -638,11 +638,13 @@ function UI_TitleScene:workGetServerInfo()
             co:work()
             self.m_loadingUI:showLoading(Str('간식을 챙기는 중...'))
             local ui_network = g_colosseumData:request_playerColosseumDeck('atk', co.NEXT, fail_cb)
+            ui_network:hideLoading()
             if co:waitWork() then return end
 
             co:work()
             self.m_loadingUI:showLoading(Str('신발을 신는 중...'))
             local ui_network = g_colosseumData:request_playerColosseumDeck('def', co.NEXT, fail_cb)
+            ui_network:hideLoading()
             if co:waitWork() then return end
         end
 

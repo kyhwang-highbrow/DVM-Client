@@ -93,6 +93,7 @@ function ServerData_AccessTime:request_saveTime(finish_cb, fail_cb)
     -- 네트워크 통신
     local ui_network = UI_Network()
     ui_network:setUrl('/users/access_time/update')
+    ui_network:setLoadingMsg('접속 동기화 중...')
     ui_network:setParam('uid', uid)
     ui_network:setParam('time', time)
     ui_network:hideLoading()

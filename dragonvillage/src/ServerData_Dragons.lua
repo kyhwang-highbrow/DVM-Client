@@ -1319,9 +1319,12 @@ function ServerData_Dragons:request_updatePower(cb_func)
 
     local ui_network = UI_Network()
     ui_network:setUrl('/dragons/update_power')
+    ui_network:setLoadingMsg('전투 능력 동기화 중...')
     ui_network:setParam('uid', uid)
     ui_network:setParam('dragon_power', combat_power)
     ui_network:setRevocable(true)
     ui_network:setSuccessCB(function(ret) success_cb(ret) end)
     ui_network:request()
+
+    return ui_network
 end

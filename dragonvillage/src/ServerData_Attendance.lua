@@ -70,6 +70,7 @@ function ServerData_Attendance:request_attendanceInfo(finish_cb, fail_cb)
     -- 네트워크 통신
     local ui_network = UI_Network()
     ui_network:setUrl('/users/attendance/info')
+    ui_network:setLoadingMsg('출석 정보 받는 중...')
     ui_network:setParam('uid', uid)
     ui_network:setMethod('POST')
     ui_network:hideLoading()
@@ -78,6 +79,7 @@ function ServerData_Attendance:request_attendanceInfo(finish_cb, fail_cb)
     ui_network:setRevocable(true)
     ui_network:setReuse(false)
     ui_network:request()
+    return ui_network
 end
 
 -------------------------------------

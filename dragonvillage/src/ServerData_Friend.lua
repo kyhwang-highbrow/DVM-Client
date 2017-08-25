@@ -196,11 +196,13 @@ function ServerData_Friend:request_friendList(finish_cb, force)
     -- 네트워크 통신 UI 생성
     local ui_network = UI_Network()
     ui_network:setUrl('/socials/friend_list')
+    ui_network:setLoadingMsg('친구 정보 받는 중...')
     ui_network:setParam('uid', uid)
     ui_network:setSuccessCB(success_cb)
     ui_network:setRevocable(true)
     ui_network:setReuse(false)
     ui_network:request()
+    return ui_network
 end
 
 -------------------------------------

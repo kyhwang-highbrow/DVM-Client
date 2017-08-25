@@ -11,7 +11,7 @@ UI_TitleSceneLoading = class(PARENT,{
 -------------------------------------
 function UI_TitleSceneLoading:init()
     local vars = self:load('network_loading.ui')
-    UIManager:open(self, UIManager.LOADING)
+    UIManager:open(self, UIManager.POPUP)
 
     -- 타이틀에서는 로딩 배경을 출력하지 않음
     vars['bgLayerColor']:setVisible(false)

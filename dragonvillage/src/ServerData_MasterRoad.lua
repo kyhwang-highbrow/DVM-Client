@@ -131,6 +131,7 @@ end
 -------------------------------------
 -- function updateMasterRoad
 -- @brief 매프레임 도는 것이 아님
+-- @return bool, UI_Network
 -------------------------------------
 function ServerData_MasterRoad:updateMasterRoad(t_data, cb_func)
     -- 클리어 체크
@@ -142,15 +143,15 @@ function ServerData_MasterRoad:updateMasterRoad(t_data, cb_func)
                 UI_MasterRoadPopup_Link()
             end
         end
-        self:request_roadClear(self.m_focusRoad, after_func)
-        return true
+        local ui_network = self:request_roadClear(self.m_focusRoad, after_func)
+        return true, ui_network
     end
 
     if (cb_func) then
         cb_func()
     end
 
-    return false
+    return false, nil
 end
 
 -------------------------------------
@@ -244,12 +245,15 @@ function ServerData_MasterRoad:request_roadClear(rid, finish_cb)
     -- 네트워크 통신 UI 생성
     local ui_network = UI_Network()
     ui_network:setUrl('/users/master_road/clear')
+    ui_network:setLoadingMsg('마스터의 길 확인 중...')
     ui_network:setParam('uid', uid)
     ui_network:setParam('rid', rid)
     ui_network:setSuccessCB(success_cb)
     ui_network:setRevocable(false)
     ui_network:setReuse(false)
     ui_network:request()
+
+    return ui_network
 end
 
 -------------------------------------

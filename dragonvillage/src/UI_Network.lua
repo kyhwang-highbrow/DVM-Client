@@ -142,6 +142,13 @@ function UI_Network:hideLoading()
 end
 
 -------------------------------------
+-- function hideBGLayerColor
+-------------------------------------
+function UI_Network:hideBGLayerColor()
+    self.vars['bgLayerColor']:setVisible(false)
+end
+
+-------------------------------------
 -- function success
 -------------------------------------
 function UI_Network.success(self, ret)
