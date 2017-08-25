@@ -20,6 +20,8 @@ end
 -------------------------------------
 function SceneLobby:onEnter()
     PerpleScene.onEnter(self)
+
+    -- title 이후 끊기는것을 방지하기 위해..!
     SoundMgr:playBGM('bgm_lobby')
 
     -- UI 캐싱

@@ -19,7 +19,6 @@ end
 -------------------------------------
 function SceneSecretDungeon:onEnter()
     PerpleScene.onEnter(self)
-    SoundMgr:playBGM('bgm_lobby')
 
     if self.m_startDungeonID then
         local dungeon_id = self.m_startDungeonID

@@ -199,6 +199,11 @@ function UI_TopUserInfo:changeOwnerUI(ui)
     -- 서브 재화
     self:setSubCurrency(ui.m_subCurrency)
     
+    -- UI BGM 재생
+    if (ui.m_uiBgm) then
+        SoundMgr:playBGM(ui.m_uiBgm)
+    end
+
     self:refreshData()
     self:doAction()
 end

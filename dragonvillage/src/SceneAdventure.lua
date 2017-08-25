@@ -22,8 +22,7 @@ end
 -------------------------------------
 function SceneAdventure:onEnter()
     PerpleScene.onEnter(self)
-    SoundMgr:playBGM('bgm_dungeon_ready')
-	
+
     local ui = nil
 
 	-- self.m_bUseLoadingUI가 false라면 prepare가 동작하지 않으므로 별도로 선언

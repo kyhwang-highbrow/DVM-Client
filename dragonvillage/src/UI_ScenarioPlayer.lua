@@ -104,7 +104,7 @@ function UI_ScenarioPlayer:click_skip()
     if (not self.m_bSkipEnable) then
         return
     end
-
+    SoundMgr:playPrevBGM()
     self:_close()
 end
 

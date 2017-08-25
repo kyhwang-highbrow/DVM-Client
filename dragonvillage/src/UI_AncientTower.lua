@@ -48,9 +48,6 @@ function UI_AncientTower:init()
 
     self.root:scheduleUpdateWithPriorityLua(function(dt) self:update(dt) end, 0)
 
-	-- 필요한 부분은 중복처리 되어있으므로 다 박아야할듯 (게임 결과 화면에서 돌아올 경우 재생을 안한다)
-	SoundMgr:playBGM('bgm_lobby')
-
     -- @ TUTORIAL
     TutorialManager.getInstance():startTutorial(TUTORIAL.ANCIENT, self)
 end
@@ -67,6 +64,8 @@ function UI_AncientTower:initParentVariable()
 
     -- 입장권 타입 설정
     self.m_staminaType = 'tower'
+
+    self.m_uiBgm = 'bgm_lobby'
 end
 
 -------------------------------------

@@ -24,8 +24,7 @@ end
 -------------------------------------
 function SceneNestDungeon:onEnter()
     PerpleScene.onEnter(self)
-    SoundMgr:playBGM('bgm_lobby')
-    
+
     if self.m_startStageID then
         local stage_id = self.m_startStageID
         UI_NestDungeonScene(stage_id, self.m_dungeonType)

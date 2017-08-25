@@ -40,6 +40,7 @@ function UI_SecretDungeonScene:initParentVariable()
     self.m_uiName = 'UI_SecretDungeonScene'
     self.m_bUseExitBtn = true
     self.m_titleStr = Str('인연 던전')
+    self.m_uiBgm = 'bgm_lobby'
 end
 
 -------------------------------------

@@ -59,6 +59,7 @@ function UI_NestDungeonScene:initParentVariable()
 	elseif (self.m_dungeonType == NEST_DUNGEON_GOLD) then
 		self.m_titleStr = Str('황금 던전')
 	end
+    self.m_uiBgm = 'bgm_lobby'
 end
 
 -------------------------------------

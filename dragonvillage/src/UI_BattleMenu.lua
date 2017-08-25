@@ -21,6 +21,7 @@ function UI_BattleMenu:initParentVariable()
     self.m_bVisible = true
     self.m_titleStr = Str('전투')
     self.m_bUseExitBtn = true
+    self.m_uiBgm = 'bgm_lobby'
 end
 
 -------------------------------------

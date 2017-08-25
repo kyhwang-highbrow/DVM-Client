@@ -217,7 +217,6 @@ end
 function UI_DragonInfoBoard:refresh_icons(t_dragon_data, t_dragon)
     local vars = self.vars
 
-
     do -- 희귀도
         local rarity = t_dragon_data:getRarity()
         vars['rarityNode']:removeAllChildren()

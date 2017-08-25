@@ -22,6 +22,7 @@ function UI_Lobby:initParentVariable()
     self.m_titleStr = nil
     self.m_bUseExitBtn = false
     self.m_bShowChatBtn = true
+    self.m_uiBgm = 'bgm_lobby'
 end
 
 -------------------------------------

@@ -32,7 +32,7 @@ end
 function SceneGameIntro:init_gameMode()
     self.m_stageID = INTRO_STAGE_ID
     self.m_gameMode = GAME_MODE_INTRO
-    self.m_bgmName = 'bgm_colosseum'
+    self.m_bgmName = 'bgm_dungeon'
 end
 
 -------------------------------------
@@ -41,8 +41,6 @@ end
 function SceneGameIntro:onEnter()
     g_gameScene = self
     PerpleScene.onEnter(self)
-
-    SoundMgr:playBGM(self.m_bgmName)
 
     self.m_inGameUI = UI_Game(self)
     self.m_resPreloadMgr = ResPreloadMgr()
@@ -92,6 +90,7 @@ end
 -------------------------------------
 function SceneGameIntro:prepareDone()
     local function start()
+        SoundMgr:playBGM(self.m_bgmName)
         self.m_containerLayer:setVisible(true)
         self.m_scheduleNode = cc.Node:create()
         self.m_scene:addChild(self.m_scheduleNode)

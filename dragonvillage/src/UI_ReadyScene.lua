@@ -37,14 +37,6 @@ function UI_ReadyScene:init(stage_id, with_friend, sub_info)
     local vars = self:load('battle_ready.ui')
     UIManager:open(self, UIManager.SCENE)
 
-	-- 들어온 경로에 따라 sound가 다름
-	local game_mode = g_stageData:getGameMode(self.m_stageID)
-	if (game_mode == GAME_MODE_ADVENTURE) then
-		SoundMgr:playBGM('bgm_dungeon_ready')
-	else
-		SoundMgr:playBGM('bgm_lobby')
-	end
-
     -- 레디씬 진입시 선택된 친구정보 초기화
     g_friendData:delSettedFriendDragon()
 
@@ -92,6 +84,16 @@ function UI_ReadyScene:initParentVariable()
 
     -- 입장권 타입 설정
     self.m_staminaType = TableDrop:getStageStaminaType(self.m_stageID)
+
+    
+	-- 들어온 경로에 따라 sound가 다름
+	local game_mode = g_stageData:getGameMode(self.m_stageID)
+	if (game_mode == GAME_MODE_ADVENTURE) then
+		self.m_uiBgm = 'bgm_dungeon_ready'
+	else
+		self.m_uiBgm = 'bgm_lobby'
+	end
+
 end
 
 -------------------------------------
@@ -673,14 +675,6 @@ end
 function UI_ReadyScene:click_exitBtn()
     local function next_func()
         self:close()
-
-		-- 들어온 경로에 따라 sound가 다름
-		local game_mode = g_stageData:getGameMode(self.m_stageID)
-		if (game_mode == GAME_MODE_ADVENTURE) then
-			SoundMgr:playBGM('bgm_dungeon_ready')
-		else
-			SoundMgr:playBGM('bgm_lobby')
-		end
     end
 
     self:checkChangeDeck(next_func)

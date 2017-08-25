@@ -38,6 +38,7 @@ function UI_AdventureSceneNew:initParentVariable()
     -- ITopUserInfo_EventListener의 맴버 변수들 설정
     self.m_uiName = 'UI_AdventureSceneNew'
     self.m_bUseExitBtn = true
+    self.m_uiBgm = 'bgm_dungeon_ready'
 end
 
 -------------------------------------
@@ -48,7 +49,6 @@ function UI_AdventureSceneNew:init(stage_id)
 
     local vars = self:load('adventure_scene.ui')
     UIManager:open(self, UIManager.SCENE)
-    SoundMgr:playBGM('bgm_dungeon_ready')
 
     -- 백키 지정
     g_currScene:pushBackKeyListener(self, function() self:click_exitBtn() end, 'UI_AdventureSceneNew')

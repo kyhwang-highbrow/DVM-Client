@@ -31,13 +31,13 @@ function UI_Colosseum:initParentVariable()
     self.m_bVisible = true
     self.m_bUseExitBtn = true
     self.m_subCurrency = 'honor'
+    self.m_uiBgm = 'bgm_lobby'
 end
 
 -------------------------------------
 -- function init
 -------------------------------------
 function UI_Colosseum:init()
-    SoundMgr:playBGM('bgm_lobby')
     self.m_rankOffset = 1 -- 최상위 랭크를 받겠다는 뜻
 
     local vars = self:load_keepZOrder('colosseum_scene.ui')
