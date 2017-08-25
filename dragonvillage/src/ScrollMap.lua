@@ -227,6 +227,8 @@ function ScrollMap:setBg(res, attr)
         if (bFixedLayer) then
             for i, data in ipairs(v['list']) do
                 local res = data['res']
+                local res_low = string.gsub(data['res'], 'res/bg/(%w+)/(%w+).vrp', 'res/bg/low_%1/low_%2.vrp')
+
                 local real_offset_x = (data['pos_x'] or 0)
                 local real_offset_y = (data['pos_y'] or 0)
                 local animation = data['animation'] or 'idle'
@@ -236,9 +238,12 @@ function ScrollMap:setBg(res, attr)
 
                 if (attr) then
                     res = string.gsub(res, '@', attr)
+                    res_low = string.gsub(res_low, '@', attr)
                     animation = string.gsub(animation, '@', attr)
                 end
-
+                if (isLowEndMode()) then
+                    res = res_low
+                end
                 self:makeLayer({
                     res = res,
                     animation = animation,
@@ -274,13 +279,17 @@ function ScrollMap:setBg(res, attr)
             
             for i, data in ipairs(v['list']) do
                 local res = data['res']
+                local res_low = string.gsub(data['res'], 'res/bg/(%w+)/(%w+).vrp', 'res/bg/low_%1/low_%2.vrp')
                 local animation = data['animation'] or 'idle'
                 
                 if (attr) then
                     res = string.gsub(res, '@', attr)
+                    res_low = string.gsub(res_low, '@', attr)
                     animation = string.gsub(animation, '@', attr)
                 end
-
+                if (isLowEndMode()) then
+                    res = res_low
+                end
                 local real_offset_x = (data['pos_x'] or 0)
                 local real_offset_y = (data['pos_y'] or 0)
                 local scale = (data['scale'] or 1)
