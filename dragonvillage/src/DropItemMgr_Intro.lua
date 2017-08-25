@@ -97,10 +97,8 @@ end
 function DropItemMgr_Intro:onTouchBegan(touch, event)
     if (not self.m_bEnableTouch) then return false end
 
-    if (g_gameScene.m_nIdx <= 3) then
+    if (g_gameScene.m_nIdx == 3) then
         self:onTouchBeganForIntro(touch, event)
-    else
-        return PARENT.onTouchBegan(self, touch, event)
     end
 end
 
