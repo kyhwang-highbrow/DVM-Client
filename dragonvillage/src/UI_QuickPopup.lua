@@ -47,7 +47,7 @@ function UI_QuickPopup:initButton()
     vars['homeBtn']:registerScriptTapHandler(function() UINavigator:goTo('lobby') end)
 
     -- 버튼 핸들러 등록과 컨텐츠 락 처리를 겸함
-    local l_content = {'adventure', 'exploration', 'nest_evo_stone', 'nest_nightmare', 'secret_relation', 'colosseum', 'ancient'}
+    local l_content = {'adventure', 'exploration', 'nest_evo_stone', 'nest_tree', 'nest_nightmare', 'secret_relation', 'colosseum', 'ancient'}
     for i, content in ipairs(l_content) do
         local is_content_lock, req_user_lv = g_contentLockData:isContentLock(content)
         if (is_content_lock) then
