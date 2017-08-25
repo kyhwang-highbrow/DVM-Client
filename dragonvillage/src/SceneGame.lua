@@ -1001,3 +1001,12 @@ function SceneGame:startIngameScenario(scenario_type, cb_func)
     -- 시나리오를 재생 못하고 콜백 콜
     start()       
 end
+
+-------------------------------------
+-- function applicationDidEnterBackground
+-------------------------------------
+function SceneGame:applicationDidEnterBackground()
+	if (not self.m_bPause) then
+		self.m_inGameUI:click_pauseButton()
+	end
+end

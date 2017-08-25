@@ -71,6 +71,10 @@ function applicationDidEnterBackground()
     if (g_accessTimeData) then
         g_accessTimeData:setRecordTime(false)
     end
+
+    if g_gameScene then
+        g_gameScene:applicationDidEnterBackground()
+    end
 end
 
 -------------------------------------
