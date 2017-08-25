@@ -32,7 +32,7 @@ function TableHelp:makeArrangedList()
     local t_ret = {}
     local idx = 1
     local category, t_temp
-    for i, t_help in pairs(self.m_orgTable) do
+    for i, t_help in ipairs(self.m_orgTable) do
         category = t_help['category']
         t_temp = {
             ['title'] = t_help['t_title'],

@@ -132,7 +132,7 @@ end
 
 
 -------------------------------------
--- function makeCellUI
+-- function makeCellUI_category
 -- @static
 -- @brief 테이블 셀 생성
 -------------------------------------
@@ -148,7 +148,7 @@ function UI_Help.makeCellUI_category(t_data)
 end
 
 -------------------------------------
--- function makeCellUI
+-- function makeCellUI_content
 -- @static
 -- @brief 테이블 셀 생성
 -------------------------------------
