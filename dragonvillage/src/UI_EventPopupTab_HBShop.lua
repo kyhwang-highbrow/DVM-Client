@@ -29,6 +29,7 @@ end
 function UI_EventPopupTab_HBShop:initUI()
     local vars = self.vars
     self:init_tableView()
+    self:init_bannerWebView()
 end
 
 -------------------------------------
@@ -46,6 +47,27 @@ end
 -------------------------------------
 function UI_EventPopupTab_HBShop:refresh()
 	local vars = self.vars
+    
+    local url = g_highbrowData:getBannerUrl()
+    
+    -- url 없으면 실행안함
+    if (not url) then
+        return
+    end
+    -- window에 ccexp가 없음
+    if isWin32() then 
+        return 
+    end
+
+    local node = vars['bannerNode']
+    local content_size = node:getContentSize()
+    local webview = ccexp.WebView:create()
+    webview:setContentSize(content_size.width, content_size.height)
+    webview:loadURL(url)
+    webview:setBounces(false)
+    webview:setAnchorPoint(cc.p(0,0))
+    webview:setDockPoint(cc.p(0,0))
+    node:addChild(webview)
 end
 
 -------------------------------------
@@ -76,6 +98,13 @@ function UI_EventPopupTab_HBShop:init_tableView()
     table_view:setItemList(l_item_list, make_item)
 
     self.m_tableView = table_view
+end
+
+-------------------------------------
+-- function init_bannerWebView
+-------------------------------------
+function UI_EventPopupTab_HBShop:init_bannerWebView()
+    local vars = self.vars
 end
 
 -------------------------------------

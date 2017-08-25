@@ -4,6 +4,7 @@
 ServerData_Highbrow = class({
         m_serverData = 'ServerData',
         m_hbItemList = 'list',
+        m_hbBannerUrl = 'string',
     })
 
 -------------------------------------
@@ -63,6 +64,14 @@ function ServerData_Highbrow:getHBItemList()
 end
 
 -------------------------------------
+-- function getBannerUrl
+-- @brief 하이브로 배너 url
+-------------------------------------
+function ServerData_Highbrow:getBannerUrl()
+    return self.m_hbBannerUrl
+end
+
+-------------------------------------
 -- function request_getHbProductList
 -------------------------------------
 function ServerData_Highbrow:request_getHbProductList(finish_cb, fail_cb)
@@ -72,7 +81,10 @@ function ServerData_Highbrow:request_getHbProductList(finish_cb, fail_cb)
     -- 콜백
     local function success_cb(ret)
         self:applyHBItemList(ret['hb_items'])
-
+        
+        -- url도 같이 받는게 좀 이상하지만 나중에 따로 필요하면 분리..
+        self.m_hbBannerUrl = ret['banner_url']
+        
         if finish_cb then
             finish_cb(ret)
         end
