@@ -88,6 +88,8 @@ end
 -------------------------------------
 function Dragon.st_skillAppear(owner, dt)
     if (owner:getStep() == 0 and not owner.m_world.m_gameDragonSkill:isPlaying()) then
+        owner:nextStep()
+
         -- 경직 불가능 상태 설정
         owner.m_bEnableSpasticity = false
 
@@ -122,8 +124,6 @@ function Dragon.st_skillAppear(owner, dt)
                 owner:dispatch('enemy_active_skill', { is_critical = is_critical }, owner)
             end
         end
-
-        owner:nextStep()
     end
 end
 

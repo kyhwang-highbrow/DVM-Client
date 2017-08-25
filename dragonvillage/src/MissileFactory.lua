@@ -292,9 +292,6 @@ function MissileFactory:makeMissile_(t_option, is_hero)
         missile = MissileBounce(missile_res_name, physics_body, target, is_hero)
         missile.m_bounceCountMax = 6
 
-    elseif (movement == 'laser_missile') then
-        missile = LaserMissile(missile_res_name, physics_body)
-
     -- 확정 미사일
     elseif (movement == 'fix') then
         missile = MissileFix(missile_res_name, physics_body, target)

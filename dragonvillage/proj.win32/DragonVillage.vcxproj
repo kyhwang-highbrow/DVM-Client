@@ -581,7 +581,6 @@ xcopy /Y /Q "$(ProjectDir)..\..\libraries\pati\prebuilt\windows\*.dll" "$(OutDir
     <None Include="..\src\IconHelper.lua" />
     <None Include="..\src\IEventDispatcher.lua" />
     <None Include="..\src\ITopUserInfo_EventListener.lua" />
-    <None Include="..\src\LaserMissile.lua" />
     <None Include="..\src\LevelupDirector.lua" />
     <None Include="..\src\LevelupDirector_GameResult.lua" />
     <None Include="..\src\lib\class.lua" />

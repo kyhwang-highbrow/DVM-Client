@@ -355,7 +355,6 @@ local t_module = {
     'MissileBounce',
     'MissileFix',
     'require_MissileLua',
-    'LaserMissile',
 	'MissileGuide',
 
 	-- CHARACTER

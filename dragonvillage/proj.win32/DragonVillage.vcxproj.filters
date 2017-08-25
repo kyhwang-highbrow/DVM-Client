@@ -1122,9 +1122,6 @@
     <None Include="..\src\ITopUserInfo_EventListener.lua">
       <Filter>lua\src</Filter>
     </None>
-    <None Include="..\src\LaserMissile.lua">
-      <Filter>lua\src</Filter>
-    </None>
     <None Include="..\src\LevelupDirector.lua">
       <Filter>lua\src</Filter>
     </None>
