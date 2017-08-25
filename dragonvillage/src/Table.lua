@@ -485,7 +485,7 @@ function TABLE:reloadForGame()
         'drop',
     }
 
-    for _, v in ipairs(l_table) do
+    for _, k in ipairs(l_table) do
         local v = TableInfo[k]
         if (v) then
             TABLE:loadCSVTable(v[1], k, v[2], v[3])
