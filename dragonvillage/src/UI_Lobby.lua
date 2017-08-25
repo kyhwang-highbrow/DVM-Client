@@ -99,37 +99,49 @@ function UI_Lobby:entryCoroutine()
         cclog('# 친구 정보 받는 중')
         working = true
         local ui_network = g_friendData:request_friendList(function() working = false end, true)
-        ui_network:hideBGLayerColor()
+        if ui_network then
+            ui_network:hideBGLayerColor()
+        end
         while (working) do dt = coroutine.yield() end
 
         cclog('# 출석 정보 받는 중')
         working = true
         local ui_network = g_attendanceData:request_attendanceInfo(function(ret) working = false end)
-        ui_network:hideBGLayerColor()
+        if ui_network then
+            ui_network:hideBGLayerColor()
+        end
         while (working) do dt = coroutine.yield() end
 
         cclog('# 이벤트 정보 받는 중')
         working = true
         local ui_network =g_eventData:request_eventList(function(ret) working = false end)
-        ui_network:hideBGLayerColor()
+        if ui_network then
+            ui_network:hideBGLayerColor()
+        end
         while (working) do dt = coroutine.yield() end
 
         cclog('# 접속시간 저장 중')
         working = true
         local ui_network = g_accessTimeData:request_saveTime(function(ret) working = false end, fail_cb)
-        ui_network:hideBGLayerColor()
+        if ui_network then
+            ui_network:hideBGLayerColor()
+        end
         while (working) do dt = coroutine.yield() end
 
         cclog('# 드래곤 전투력 저장 중')
         working = true
         local ui_network = g_dragonsData:request_updatePower(function(ret) working = false end, fail_cb)
-        ui_network:hideBGLayerColor()
+        if ui_network then
+            ui_network:hideBGLayerColor()
+        end
         while (working) do dt = coroutine.yield() end
 
         cclog('# 인연의 흔적을 흝어보는 중')
         working = true
         local ui_network = g_secretDungeonData:requestSecretDungeonInfo(function(ret) working = false end)
-        ui_network:hideBGLayerColor()
+        if ui_network then
+            ui_network:hideBGLayerColor()
+        end
         while (working) do dt = coroutine.yield() end
 
         -- @ MASTER ROAD
