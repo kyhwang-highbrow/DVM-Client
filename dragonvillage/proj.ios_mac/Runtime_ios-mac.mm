@@ -90,6 +90,12 @@ string getAndroidID()
     return "";
 }
 
+void sdkEventResult(const char *id, const char *result, const char *info)
+{
+    AppDelegate *pDelegate = (AppDelegate *)Application::getInstance();
+    pDelegate->sdkEventHandler(id, result, info);
+}
+
 void sdkEvent(const char *id, const char *arg0, const char *arg1)
 {
     if (strcmp(id, "app_restart") == 0) {
@@ -136,7 +142,7 @@ void sdkEvent(const char *id, const char *arg0, const char *arg1)
         [[UIPasteboard generalPasteboard] setString:_arg0];
     } else if (strcmp(id, "clipboard_getText") == 0) {
         NSString *text = [[UIPasteboard generalPasteboard] string];
-        sdkEvent(id, "success", [text UTF8String]);
+        sdkEventResult(id, "success", [text UTF8String]);
     } else if (strcmp(id, "app_deviceInfo") == 0) {
         NSString *systemName = [UIDevice currentDevice].systemName;
         NSString *systemVersion = [UIDevice currentDevice].systemVersion;
@@ -150,14 +156,8 @@ void sdkEvent(const char *id, const char *arg0, const char *arg1)
                                 @"systemName":systemName,
                                 @"systemVersion":systemVersion };
         NSString *info = [AppController getJSONStringFromNSDictionary:dict];
-        sdkEvent(id, "success", [info UTF8String]);
+        sdkEventResult(id, "success", [info UTF8String]);
     }
-}
-
-void sdkEventResult(const char *id, const char *result, const char *info)
-{
-    AppDelegate *pDelegate = (AppDelegate *)Application::getInstance();
-    pDelegate->sdkEventHandler(id, result, info);
 }
 
 // Fix iOS simulator link error
