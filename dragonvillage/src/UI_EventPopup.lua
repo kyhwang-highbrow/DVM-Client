@@ -50,6 +50,8 @@ end
 function UI_EventPopup:initUI()
     self:init_tableView()
     self:initTab()
+
+    g_broadcastManager:setEnableNotice(false) -- 운영 공지는 비활성화 - 웹뷰때문에 뎁스 꼬임
 end
 
 -------------------------------------
@@ -142,9 +144,13 @@ function UI_EventPopup:onChangeTab(tab, first)
     if (self.m_webView) then 
         self.m_webView:setVisible(false)
     end
-    
-    -- 공지(전면 웹뷰가 아닌 부분 웹뷰일때는 방송, 채팅 꺼줌)
-    g_topUserInfo:setEnabledBraodCast(tab ~= 'notice')
+
+    --전면 웹뷰가 아닌 부분 웹뷰일때는 방송, 채팅 꺼줌
+    do
+        local enable = (tab ~= 'notice') and (tab ~= 'highbrow_shop')
+        -- 공지, 하이브로 상점
+        g_topUserInfo:setEnabledBraodCast(enable)
+    end
 
     if first then
         local container = self.m_lContainerForEachType[tab]
@@ -230,6 +236,9 @@ function UI_EventPopup:click_exitBtn()
 
         -- 방송 활성화
         g_topUserInfo:setEnabledBraodCast(true)
+
+        -- 운영공지 활성화
+        g_broadcastManager:setEnableNotice(true) 
     end
 end
 
