@@ -139,7 +139,7 @@ function SceneGameIntro:update(dt)
 
         -- 마나 게이지 활성화 시키면서 회복속도를 조절
         world.m_heroMana:setEnable(true)
-        world.m_heroMana.m_incValuePerSec = 1 / 17
+        world.m_heroMana.m_incValuePerSec = 1 / 8
     end
 
     -- 세번째 웨이브 - 빙하고룡 스킬
