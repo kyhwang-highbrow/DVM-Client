@@ -7,7 +7,6 @@ UI_EventPopup = class(PARENT,{
         m_tableView = 'UIC_TableView',
         m_lContainerForEachType = 'list[node]', -- (tab)타입별 컨테이너
         m_mTabUI = 'map',
-        m_webView = '',
     })
 
 -------------------------------------
@@ -124,7 +123,6 @@ function UI_EventPopup:initTab()
         continer_node:setAnchorPoint(cc.p(0.5, 0.5))
         vars['eventNode']:addChild(continer_node)
         self.m_lContainerForEachType[type] = continer_node
-
         self:addTab(type, ui.vars['listBtn'], continer_node, ui.vars['selectSprite'])
 
         if (not initial_tab) then
@@ -141,10 +139,6 @@ end
 -- function onChangeTab
 -------------------------------------
 function UI_EventPopup:onChangeTab(tab, first)
-    if (self.m_webView) then 
-        self.m_webView:setVisible(false)
-    end
-
     --전면 웹뷰가 아닌 부분 웹뷰일때는 방송, 채팅 꺼줌
     do
         local enable = (tab ~= 'notice') and (tab ~= 'highbrow_shop')
@@ -197,6 +191,7 @@ function UI_EventPopup:makeEventPopupTab(tab)
     -- 하이브로 상점
     elseif (tab == 'highbrow_shop') then
         ui = UI_EventPopupTab_HBShop()
+        self:addNodeToTabNodeList(tab, ui.m_webView)
 
     -- * shop, banner는 중복가능 (string.find로 처리해야함)
     -- 상점
@@ -211,7 +206,7 @@ function UI_EventPopup:makeEventPopupTab(tab)
     -- 업데이트 공지 
     elseif (string.find(tab, 'notice')) then
         ui = UI_EventPopupTab_Notice(self, struct_event_popup_tab)
-        self.m_webView = ui.m_webView or nil
+        self:addNodeToTabNodeList(tab, ui.m_webView)
 
     -- 배너
     elseif (string.find(tab, 'banner')) then

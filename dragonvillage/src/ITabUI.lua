@@ -222,6 +222,18 @@ function ITabUI:existTab(tab)
     end
 end
 
+-------------------------------------
+-- function addNodeToTabNodeList
+-------------------------------------
+function ITabUI:addNodeToTabNodeList(tab, node)
+    if (not self.m_mTabData[tab]) then
+        return
+    end
+    if (not node) then
+        return
+    end
+    table.insert(self.m_mTabData[tab]['tab_node_list'], node)
+end
 
 -------------------------------------
 -- function getCloneTable

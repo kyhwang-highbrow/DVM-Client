@@ -42,8 +42,4 @@ end
 -- @brief
 -------------------------------------
 function UI_EventPopupTab_Notice:onEnterTab()
-    local vars = self.vars
-    if (self.m_webView) then
-        self.m_webView:setVisible(true)
-    end
 end
