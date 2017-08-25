@@ -228,15 +228,6 @@ public class AppActivity extends Cocos2dxActivity{
     }
 
     // @obb
-    private static boolean checkAPKExpansionDownloader(final int versionCode, long fileSize, String md5, long crc32) {
-        // for Main, Patch OBB files
-        String[] md5s = { md5, "" };
-        long[] crc32s = { crc32, 0 };
-
-        return APKExpansionDownloader.isNeedToDownloadObbFile(sActivity, versionCode, fileSize, md5s, crc32s);
-    }
-
-    // @obb
     private static void startAPKExpansionDownloader(final int versionCode, long fileSize, String md5, long crc32) {
         // for Main, Patch OBB files
         String[] md5s = { md5, "" };
@@ -460,21 +451,7 @@ public class AppActivity extends Cocos2dxActivity{
             @Override
             public void run() {
 
-                if (id.equals("apkexp_check")) {
-                    String[] array1 = arg0.split(";");
-                    mVersionCode = Integer.parseInt(array1[0]);
-                    mFileSize = Long.parseLong(array1[1]);
-                    mMd5 = arg1;
-                    mCrc32 = 0;
-
-                    boolean result = AppActivity.checkAPKExpansionDownloader(mVersionCode, mFileSize, mMd5, mCrc32);
-                    if (result) {
-                        sdkEventResult(id, "download", "");
-                    } else {
-                        sdkEventResult(id, "pass", "");
-                    }
-                } else if (id.equals("apkexp_start")) {
-
+                if (id.equals("apkexp_start")) {
                     String[] array1 = arg0.split(";");
                     mVersionCode = Integer.parseInt(array1[0]);
                     mFileSize = Long.parseLong(array1[1]);
@@ -486,6 +463,19 @@ public class AppActivity extends Cocos2dxActivity{
                         ActivityCompat.requestPermissions(sActivity, permissions, RC_WRITE_STORAGE_PERMISSION);
                     } else {
                         AppActivity.startAPKExpansionDownloader(mVersionCode, mFileSize, mMd5, mCrc32);
+                    }
+                } else if (id.equals("apkexp_check")) {
+                    String[] array1 = arg0.split(";");
+                    int versionCode = Integer.parseInt(array1[0]);
+                    long fileSize = Long.parseLong(array1[1]);
+                    String[] md5s = { arg1, "" };
+                    long[] crc32s = { 0, 0 };
+
+                    boolean result = APKExpansionDownloader.isNeedToDownloadObbFile(sActivity, versionCode, fileSize, md5s, crc32s);
+                    if (result) {
+                        sdkEventResult(id, "download", "");
+                    } else {
+                        sdkEventResult(id, "pass", "");
                     }
                 } else if (id.equals("apkexp_continue")) {
 
