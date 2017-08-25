@@ -68,7 +68,16 @@ end
 -- @brief 하이브로 배너 url
 -------------------------------------
 function ServerData_Highbrow:getBannerUrl()
-    return self.m_hbBannerUrl
+    local url
+    if (CppFunctions:isAndroid()) then
+        url = 'http://gate.game.highbrow-inc.com/_intro.php?gameType=dvm&marketType=google&la=ko'
+        --'http://gate.game.highbrow-inc.com/_intro.php?gameType=dvm&marketType=google&la=en'
+    elseif (CppFunctions:isIos()) then
+        url = 'http://gate.game.highbrow-inc.com/_intro.php?gameType=dvm&marketType=ios&la=ko'
+        --'http://gate.game.highbrow-inc.com/_intro.php?gameType=dvm&marketType=ios&la=en'
+    end
+
+    return url
 end
 
 -------------------------------------
