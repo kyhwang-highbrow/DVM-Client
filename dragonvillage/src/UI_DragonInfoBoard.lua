@@ -300,7 +300,6 @@ end
 function UI_DragonInfoBoard:click_detailBtn(t_dragon_data, t_dragon)
     local vars = self.vars
     vars['detailNode']:runAction(cc.ToggleVisibility:create())
-    vars['infoNode']:runAction(cc.ToggleVisibility:create())
 end
 
 -------------------------------------
