@@ -32,3 +32,24 @@ function TableHighbrow:find(game, v2)
         end
     end
 end
+
+local t_game_key_str = {
+    ['dv1'] = Str('드빌1'),
+    ['dv2'] = Str('드빌2'),
+}
+-------------------------------------
+-- function find
+-- @param v2 : code or name
+-------------------------------------
+function TableHighbrow:getGameKeyStr(game_key)
+    return t_game_key_str[game_key]
+end
+
+-------------------------------------
+-- function find
+-- @param v2 : code or name
+-------------------------------------
+function TableHighbrow:getFullName(game_key, item_name) 
+    local game_name = TableHighbrow:getGameKeyStr(game_key)
+    return string.format('[%s] %s', game_name, item_name) 
+end

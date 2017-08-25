@@ -98,6 +98,12 @@ end
 
 
 
+-------------------------------------
+-- function getGameKey
+-------------------------------------
+function StructHighbrowProduct:getFullName()
+    return TableHighbrow:getFullName(self.game_key, self.name) 
+end
 
 -------------------------------------
 -- function getName

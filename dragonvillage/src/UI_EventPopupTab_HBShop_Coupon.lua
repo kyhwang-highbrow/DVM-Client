@@ -121,8 +121,8 @@ function UI_EventPopupTab_HBShop_Coupon.makeCellUI(t_data)
 	local vars = ui:load('event_capsule_coupon_item.ui')
 
     -- 보상 이름
-    local name = t_data['name']
-    vars['itemLabel']:setString(name)
+    local full_name = TableHighbrow:getFullName(t_data['game'], t_data['name']) 
+    vars['itemLabel']:setString(full_name)
 
     -- 쿠폰 번호
     local coupon = t_data['coupon']

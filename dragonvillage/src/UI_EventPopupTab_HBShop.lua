@@ -154,7 +154,7 @@ function UI_EventPopupTab_HBShop.makeCellUI(struct_product)
 	local vars = ui:load('event_capsule_item.ui')
 
     -- 상품에 관한 정보
-    vars['itemLabel']:setString(struct_product:getName())
+    vars['itemLabel']:setString(struct_product:getFullName())
     vars['dscLabel']:setString(struct_product:getDesc())
 
     local product_icon = struct_product:getIcon()
