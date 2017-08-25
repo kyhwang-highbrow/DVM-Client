@@ -10,6 +10,9 @@ UI_EvolutionStoneCombine = class(PARENT,{
         m_selID = 'number',
         m_selCard = 'table',
         m_selMulti = 'number',
+
+        m_bUpdate = 'boolean',
+        m_finishCB = 'function',
     })
 
 local MODE = {
@@ -32,9 +35,11 @@ end
 -------------------------------------
 -- function init
 -------------------------------------
-function UI_EvolutionStoneCombine:init(item_id)
+function UI_EvolutionStoneCombine:init(item_id, finish_cb)
     local vars = self:load('evolution_stone_combine.ui')
     UIManager:open(self, UIManager.POPUP)
+
+    self.m_finishCB = finish_cb
 
     -- 선택되지 않았다면 중급 진화의 보석 기본 선택
     self.m_selID = item_id or 701012 
@@ -330,6 +335,8 @@ function UI_EvolutionStoneCombine:showEffect()
     bottom_node:setVisible(true)
     bottom_node:changeAni('success_bottom', false)
     bottom_node:addAniHandler(function()
+        self.m_bUpdate = true
+
         self.m_selMulti = 1
         self:refresh_mtrIcon()
         self:refresh_mtrTableView(true)
@@ -417,6 +424,9 @@ end
 -------------------------------------
 function UI_EvolutionStoneCombine:click_exitBtn()
     self:close()
+    if (self.m_finishCB) then
+        self.m_finishCB(self.m_bUpdate)
+    end
 end
 
 --@CHECK

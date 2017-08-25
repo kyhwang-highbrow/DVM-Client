@@ -33,9 +33,12 @@ function ServerData_EvolutionStone:getEvolutionStoneList()
     local map_ev_stone = {}
 
     for stone_id, v in pairs(l_evolution_stone) do
-        map_ev_stone[stone_id] = {}
-        map_ev_stone[stone_id]['esid'] = stone_id
-        map_ev_stone[stone_id]['count'] = self:getCount(stone_id)
+        local count = self:getCount(stone_id)
+        if (count > 0) then
+            map_ev_stone[stone_id] = {}
+            map_ev_stone[stone_id]['esid'] = stone_id
+            map_ev_stone[stone_id]['count'] = count
+        end
     end
 
     return map_ev_stone
