@@ -516,6 +516,8 @@ end
 -------------------------------------
 function UI_Game:setTemporaryPause(pause)
     local vars = self.vars
+
+    self.m_tamerUI:setTemporaryPause(pause)
     --[[
     if (pause) then
         -- 패널 UI 숨김

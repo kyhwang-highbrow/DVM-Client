@@ -164,7 +164,10 @@ function UI_IngameTamerPanelItem:click_tamerSkillBtn()
 	local vars = self.vars
 
     -- 조작 가능 상태인지 확인
-    if (not world:isPossibleControl()) then return end
+    if (not world:isPossibleControl()) then
+        UIManager:toastNotificationRed(Str('지금은 사용 할 수 없습니다.'))
+        return
+    end
 
 	if (tamer.m_bActiveSKillUsable and tamer.m_state ~= 'active') then
         vars['tamerSkillVisual']:setVisible(false)
@@ -174,4 +177,18 @@ function UI_IngameTamerPanelItem:click_tamerSkillBtn()
 	else
 		UIManager:toastNotificationRed(Str('더 이상 사용 할 수 없습니다.'))
 	end
+end
+
+-------------------------------------
+-- function setTemporaryPause
+-------------------------------------
+function UI_IngameTamerPanelItem:setTemporaryPause(pause)
+    local tamer = self.m_tamer
+    local vars = self.vars
+
+    if (pause) then
+        vars['tamerSkillVisual']:setVisible(false)
+    else
+        vars['tamerSkillVisual']:setVisible(tamer.m_bActiveSKillUsable)
+    end 
 end
