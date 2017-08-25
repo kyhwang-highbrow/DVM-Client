@@ -1,3 +1,4 @@
+
 local PARENT = class(UI_DragonManage_Base, ITabUI:getCloneTable())
 
 -------------------------------------
@@ -336,6 +337,9 @@ function UI_DragonRunes:refreshTableViewList()
             vars['emptySlot' .. slot]:setVisible(is_empty)
         end
     end
+
+    -- 룬 개수 갱신
+    self:refreshRunesCount()
 end
 
 -------------------------------------
@@ -344,7 +348,7 @@ end
 -------------------------------------
 function UI_DragonRunes:refreshRunesCount()
     if (not self.m_sortListRuneSet) then
-        --return
+        return
     end
 
     local vars = self.vars
@@ -568,6 +572,8 @@ function UI_DragonRunes:click_sellBtn()
         local function finish_cb(ret)
             -- 판매된 룬을 리스트에서 제거하기 위해 refresh
             self:refreshTableViewList()
+            
+
         end
 
         g_runesData:request_runeSell(roid, finish_cb)
