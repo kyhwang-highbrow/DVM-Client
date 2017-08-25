@@ -4337,9 +4337,8 @@ int lua_cocos2dx_Node_updateDisplayedOpacity(lua_State* tolua_S)
     argc = lua_gettop(tolua_S)-1;
     if (argc == 1) 
     {
-        uint16_t arg0;
-
-        ok &= luaval_to_uint16(tolua_S, 2,&arg0);
+        double arg0;
+        ok &= luaval_to_number(tolua_S, 2, &arg0);
         if(!ok)
             return 0;
         cobj->updateDisplayedOpacity(arg0);
@@ -8469,9 +8468,8 @@ int lua_cocos2dx_Node_setOpacity(lua_State* tolua_S)
     argc = lua_gettop(tolua_S)-1;
     if (argc == 1) 
     {
-        uint16_t arg0;
-
-        ok &= luaval_to_uint16(tolua_S, 2,&arg0);
+        double arg0;
+        ok &= luaval_to_number(tolua_S, 2, &arg0);
         if(!ok)
             return 0;
         cobj->setOpacity(arg0);
@@ -38851,9 +38849,8 @@ int lua_cocos2dx_LayerGradient_setStartOpacity(lua_State* tolua_S)
     argc = lua_gettop(tolua_S)-1;
     if (argc == 1) 
     {
-        uint16_t arg0;
-
-        ok &= luaval_to_uint16(tolua_S, 2,&arg0);
+        double arg0;
+        ok &= luaval_to_number(tolua_S, 2, &arg0);
         if(!ok)
             return 0;
         cobj->setStartOpacity(arg0);
@@ -38943,9 +38940,8 @@ int lua_cocos2dx_LayerGradient_setEndOpacity(lua_State* tolua_S)
     argc = lua_gettop(tolua_S)-1;
     if (argc == 1) 
     {
-        uint16_t arg0;
-
-        ok &= luaval_to_uint16(tolua_S, 2,&arg0);
+        double arg0;
+        ok &= luaval_to_number(tolua_S, 2, &arg0);
         if(!ok)
             return 0;
         cobj->setEndOpacity(arg0);

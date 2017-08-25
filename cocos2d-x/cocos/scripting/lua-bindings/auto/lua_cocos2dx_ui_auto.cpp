@@ -4060,9 +4060,8 @@ int lua_cocos2dx_ui_Layout_setBackGroundImageOpacity(lua_State* tolua_S)
     argc = lua_gettop(tolua_S)-1;
     if (argc == 1) 
     {
-        uint16_t arg0;
-
-        ok &= luaval_to_uint16(tolua_S, 2,&arg0);
+        double arg0;
+        ok &= luaval_to_number(tolua_S, 2, &arg0);
         if(!ok)
             return 0;
         cobj->setBackGroundImageOpacity(arg0);
@@ -4575,9 +4574,8 @@ int lua_cocos2dx_ui_Layout_setBackGroundColorOpacity(lua_State* tolua_S)
     argc = lua_gettop(tolua_S)-1;
     if (argc == 1) 
     {
-        uint16_t arg0;
-
-        ok &= luaval_to_uint16(tolua_S, 2,&arg0);
+        double arg0;
+        ok &= luaval_to_number(tolua_S, 2, &arg0);
         if(!ok)
             return 0;
         cobj->setBackGroundColorOpacity(arg0);
