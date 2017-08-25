@@ -393,8 +393,8 @@ function UI_UserInfoDetailPopup:click_dragonBtn()
 	local function close_cb()
 		local curr_doid = self.m_tUserInfo['leader']['id']
 
-        cclog('before_doid : ' .. before_doid)
-        cclog('curr_doid : ' .. curr_doid)
+        --cclog('before_doid : ' .. before_doid)
+        --cclog('curr_doid : ' .. curr_doid)
 
 		if (before_doid ~= curr_doid) then
 			self:refresh_dragon()

@@ -188,9 +188,16 @@ end
 -- function click_closeBtn
 -------------------------------------
 function UI_UserInfoDetailPopup_SetLeader:click_closeBtn()
+    -- 닫히는 동안 버튼이 동작하지 않도록 처리
+    local vars = self.vars
+    vars['closeBtn']:setEnabled(false)
+    vars['selectBtn']:setEnabled(false)
+
 	-- 저장된 closeCB를 먼저 실행
-	self.m_closeCB()
-	self.m_closeCB = nil
+    if self.m_closeCB then
+	    self.m_closeCB()
+	    self.m_closeCB = nil
+    end
 
     local function finish_cb()
         self:close()
