@@ -4,7 +4,7 @@ local PARENT = UI
 -- class UI_Help
 -------------------------------------
 UI_Help = class(PARENT,{
-        m_preSelectedCategory = 'cell',
+        m_preSelectedCategoryUI = 'cell',
 
         m_focusCategory = 'stirng',
     })
@@ -75,12 +75,16 @@ function UI_Help:makeTableView_category()
                 -- 도움말 내용 생성
                 self:makeTableView_content(t_data['l_content'])
                 
-                -- 현재 버튼 enabled 및 이전 버튼 활성화
-                ui.vars['helpBtn']:setEnabled(false)
-                if (self.m_preSelectedCategory) then
-                    self.m_preSelectedCategory:setEnabled(true)
+                -- 이전 버튼 활성화
+                if (self.m_preSelectedCategoryUI) then
+                    self.m_preSelectedCategoryUI.vars['helpBtn']:setEnabled(true)
+                    self.m_preSelectedCategoryUI.vars['btnLabel']:setTextColor(cc.c4b(240, 215, 159, 255))
                 end
-                self.m_preSelectedCategory = ui.vars['helpBtn']
+
+                -- 현재 버튼 비활성화
+                ui.vars['helpBtn']:setEnabled(false)
+                ui.vars['btnLabel']:setTextColor(cc.c4b(0, 0, 0, 255))
+                self.m_preSelectedCategoryUI = ui
             end
 
             -- 버튼 등록
@@ -138,6 +142,7 @@ function UI_Help.makeCellUI_category(t_data)
 	
     local category = t_data['t_category']
     vars['btnLabel']:setString(category)
+    vars['btnLabel']:setTextColor(cc.c4b(240, 215, 159, 255))
 
 	return ui
 end
