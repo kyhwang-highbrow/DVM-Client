@@ -162,6 +162,8 @@ public class Cocos2dxEditBoxDialog extends Dialog {
         final LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
 
         this.mTextViewTitle = new TextView(this.getContext());
+        this.mTextViewTitle.setTextColor(Color.LTGRAY);
+
         final LinearLayout.LayoutParams textviewParams = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
         textviewParams.leftMargin = textviewParams.rightMargin = this.convertDipsToPixels(10);
         this.mTextViewTitle.setTextSize(TypedValue.COMPLEX_UNIT_DIP, 20);
@@ -172,7 +174,6 @@ public class Cocos2dxEditBoxDialog extends Dialog {
 
         final LinearLayout.LayoutParams editTextParams = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
         editTextParams.leftMargin = editTextParams.rightMargin = this.convertDipsToPixels(10);
-
         layout.addView(this.mInputEditText, editTextParams);
 
         this.setContentView(layout, layoutParams);
