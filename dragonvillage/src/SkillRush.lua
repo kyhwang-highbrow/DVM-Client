@@ -208,10 +208,10 @@ function SkillRush:makeCrashPhsyObject()
 
     t_option['object_key'] = owner:getAttackPhysGroup()
     t_option['physics_body'] = { 0, 0, self.m_atkPhysSize / 2 }
-    
+        
     t_option['speed'] = 0
     t_option['missile_type'] = 'PASS'
-    t_option['movement'] ='normal' 
+    t_option['movement'] = 'normal'
     t_option['no_check_range'] = true
     
     local missile = self:makeMissile(t_option)

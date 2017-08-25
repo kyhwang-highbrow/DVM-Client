@@ -87,7 +87,7 @@ end
 -- function st_skillAppear
 -------------------------------------
 function Dragon.st_skillAppear(owner, dt)
-    if (owner.m_stateTimer == 0) then
+    if (owner:getStep() == 0 and not owner.m_world.m_gameDragonSkill:isPlaying()) then
         -- 경직 불가능 상태 설정
         owner.m_bEnableSpasticity = false
 
@@ -123,6 +123,7 @@ function Dragon.st_skillAppear(owner, dt)
             end
         end
 
+        owner:nextStep()
     end
 end
 

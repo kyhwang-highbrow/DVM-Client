@@ -144,6 +144,8 @@ function MissileFactory:makeMissile_(t_option, is_hero)
     local target =           t_option['target']
     local target_body =      t_option['target_body']
     local target_idx =       t_option['target_idx']
+    local collision_list =   t_option['collision_list']
+
     local rotate_time =      t_option['rotate_time'] or nil
     local angular_velocity = t_option['angular_velocity'] or nil
     local angular_velocity_time = t_option['angular_velocity_time'] or nil
@@ -414,6 +416,7 @@ function MissileFactory:makeMissile_(t_option, is_hero)
 		if is_fixed_attack then 
 			missile:setFixedAttack(true)
 			missile.m_target = target
+            missile.m_lFixedTargetCollision = collision_list
 		end
 
         -- 미사일 타입 지정, 타입별 히트 콜백 함수 등록

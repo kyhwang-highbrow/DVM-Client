@@ -32,6 +32,7 @@ Skill = class(PARENT, {
 		m_targetLimit = 'num', -- 선택할 타겟의 최대 수
 		m_targetChar = 'Character', 
         m_lTargetChar = 'table', -- 인디케이터에서 보낸 타겟 리스트 
+        m_lTargetCollision = 'table', -- 인디케이터에서 보낸 충돌정보 리스트
 		m_targetPos = 'pos', -- 인디케이터에서 보낸 x, y 좌표
 		
 		-- 상태 효과 관련 변수들
@@ -252,6 +253,8 @@ function Skill:setSkillParams(owner, t_skill, t_data)
 	self.m_targetPos = {x = t_data['x'], y = t_data['y']}
 	self.m_targetChar = t_data['target'] or self.m_targetChar
     self.m_lTargetChar = t_data['target_list']
+    self.m_lTargetCollision = t_data['collision_list']
+    
 	self.m_targetType = SkillHelper:getValid(t_skill['target_type'])
 	self.m_targetLimit = SkillHelper:getValid(t_skill['target_count'])
 	self.m_targetFormation = SkillHelper:getValid(t_skill['target_formation'])
@@ -831,6 +834,17 @@ end
 -------------------------------------
 function Skill:makeMissile(t_option)
     self.m_bUseMissile = true
+
+    -- 인디케이터로부터 충돌 정보를 받은 경우
+    if (self.m_lTargetCollision) then
+        t_option['bFixedAttack'] = true
+        t_option['collision_list'] = self.m_lTargetCollision
+
+        -- body 크기를 일괄적으로 키운다
+        if (t_option['physics_body']) then
+            t_option['physics_body'][3] = t_option['physics_body'][3] * 1.25
+        end
+    end
 
     -- 발사
 	return self.m_world.m_missileFactory:makeMissile(t_option)

@@ -90,6 +90,7 @@ function Monster_WorldOrderMachine:doMagicAttack()
 
 	local world = self.m_world
 	local l_dragon = world:getDragonList()
+    local count = table.count(l_dragon)
 
 	local state = self.m_magicState
 	if (state == STATE_HUGE_ATTACK) then 
@@ -97,7 +98,9 @@ function Monster_WorldOrderMachine:doMagicAttack()
 		self.m_activityCarrier:setPowerRate(self:getValue())
 		
 		-- attack
-		local target_char = l_dragon[math_random(1, table.count(l_dragon))]
+        if (count == 0) then return end
+
+		local target_char = l_dragon[math_random(1, count)]
         if (not target_char) then return end
 
 		self:attack(target_char)
@@ -119,7 +122,9 @@ function Monster_WorldOrderMachine:doMagicAttack()
 
 	elseif (state == STATE_STUN_ATTACK) then 
 		-- status effect
-		local target_char = l_dragon[math_random(1, table.count(l_dragon))]
+        if (count == 0) then return end
+
+		local target_char = l_dragon[math_random(1, count)]
         if (not target_char) then return end
 
 		-- effect

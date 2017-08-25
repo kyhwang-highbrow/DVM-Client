@@ -74,6 +74,8 @@ Missile = class(PARENT, {
 		m_target = '',
         m_targetBody = '',
 		m_isFadeOut = 'bool',
+        m_lFixedTargetCollision = 'table',  -- 확정된 타겟 충돌 정보 리스트
+
 
 		-- 미사일이 미사일을 쏜다
 		m_addScript = 'table',

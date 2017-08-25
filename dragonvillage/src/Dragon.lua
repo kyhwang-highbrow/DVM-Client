@@ -491,11 +491,8 @@ function Dragon:updateActiveSkillCool(dt)
 	    t_event['owner'] = self
         t_event['cool_time'] = self.m_activeSkillCoolTimer
 	    t_event['percentage'] = (self.m_activeSkillCoolTime - self.m_activeSkillCoolTimer) / self.m_activeSkillCoolTime * 100
+        t_event['enough_mana'] = (self.m_activeSkillManaCost:get() <= self.m_world.m_heroMana:getCurrMana())
         
-        if (self.m_bLeftFormation) then
-            t_event['enough_mana'] = (self.m_activeSkillManaCost:get() <= self.m_world.m_heroMana:getCurrMana())
-        end
-
         self:dispatch('dragon_skill_gauge', t_event)
     end
 end
