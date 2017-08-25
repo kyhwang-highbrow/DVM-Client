@@ -270,18 +270,59 @@ function SceneGame:prepare()
         return ret
     end)
     
+    -- 인게임에서 높은 확률로 사용되거나 확실히 사용되는 작은 크기의 리소스들 프리로드.
+    local l_common_ingame_res = {}
+    table.insert(l_common_ingame_res, 'res/effect/effect_melee_charge/effect_melee_charge.vrp')
+    table.insert(l_common_ingame_res, 'res/effect/tamer_magic_1/tamer_magic_1.vrp')
+    table.insert(l_common_ingame_res, 'res/effect/effect_tamer_shield/effect_tamer_shield.vrp')
+    table.insert(l_common_ingame_res, 'res/effect/effect_attack_ready/effect_attack_ready.vrp')
+    table.insert(l_common_ingame_res, 'res/effect/effect_passive_common/effect_passive_common.vrp')
+    table.insert(l_common_ingame_res, 'res/ui/a2d/enemy_skill_speech/enemy_skill_speech.vrp')
+    table.insert(l_common_ingame_res, 'res/ui/a2d/card/card.vrp')
+    table.insert(l_common_ingame_res, 'res/item/item_marble/item_marble.vrp')
+    table.insert(l_common_ingame_res, 'res/effect/effect_skillcasting/effect_skillcasting.vrp')
+    table.insert(l_common_ingame_res, 'res/effect/effect_hit_01/effect_hit_01.vrp')
+    table.insert(l_common_ingame_res, 'res/effect/effect_hit_melee/effect_hit_melee.vrp')
+    table.insert(l_common_ingame_res, 'res/effect/effect_appear/effect_appear.json')
+
+    self:addLoading(function()
+        if (not l_common_ingame_res[1]) then
+            return true
+        end
+        resCaching(l_common_ingame_res[1])
+        table.remove(l_common_ingame_res, 1)
+        return false
+    end)
+
+
     self:addLoading(function()
         -- 테이머 애니메이션 리소스 프리로드
         local ret = resCaching( g_tamerData:getCurrTamerTable()['res'] )
         return ret
     end)
 
+    -- 결과창으로 이동하는 과정에 필요한 리소스 프리로드
+    
+    local l_result_ui_res = {}
+    table.insert(l_result_ui_res, 'res/ui/a2d/result_box/result_box.vrp')
+    table.insert(l_result_ui_res, 'res/ui/a2d/result/result.vrp')
+    table.insert(l_result_ui_res, 'res/ui/a2d/result_level_up/result_level_up.vrp')
+    table.insert(l_result_ui_res, 'res/ui/a2d/loading/loading.vrp')
+    table.insert(l_result_ui_res, 'res/ui/a2d/rarity_light/rarity_light.vrp')
+
     self:addLoading(function()
-        -- 결과창 관련 리소스 프리로드
-        resCaching('res/ui/a2d/result_box/result_box.vrp')
-        resCaching('res/ui/a2d/result/result.vrp')
-        resCaching('res/ui/a2d/result_level_up/result_level_up.vrp')
+        if (not l_result_ui_res[1]) then
+            return true
+        end
+        resCaching(l_result_ui_res[1])
+        table.remove(l_result_ui_res, 1)
+        return false
+    end)
+
+    self:addLoading(function()
         UILoader.cache('ingame_result.ui')
+        UILoader.cache('ingame_pause.ui')
+        return true
     end)
 
     self:addLoading(function()
