@@ -136,7 +136,8 @@ function MissileFactory:makeMissile_(t_option, is_hero)
     local fadeout_time =	 t_option['fadeout_time'] or nil
 	local map_shake_time =	 t_option['map_shake_time'] or nil
     local collision_check_time =t_option['collision_check_time'] or nil
-
+    local no_check_range =	 t_option['no_check_range'] or nil
+    
     local depth =            t_option['depth'] or 0
     local missile_type =     MISSILE_TYPE[t_option['missile_type']]
     local visual =           t_option['visual'] or nil
@@ -360,6 +361,7 @@ function MissileFactory:makeMissile_(t_option, is_hero)
 		missile.m_fadeoutTime = fadeout_time
 		missile.m_collisionCheckTime = collision_check_time
 		missile.m_mapShakeTime = map_shake_time
+        missile.m_bNoCheckRange = no_check_range
 
         -- 각속도 지정
         if angular_velocity and (angular_velocity~=0) then

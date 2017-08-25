@@ -73,18 +73,6 @@ end
 -- function st_dead
 -------------------------------------
 function Character.st_dead(owner, dt)
-    local setDead = function()
-        owner:setDead()
-        		
-		if owner.m_bInitAdditionalPhysObject then
-			for phys_obj, _  in pairs(owner.m_lAdditionalPhysObject) do 
-				phys_obj:dispatch('dead', {}, phys_obj)
-				phys_obj:setDead()
-				phys_obj:changeState('dying')
-			end
-		end
-    end
-
     if (owner.m_bPossibleRevive) then
         if (owner.m_stateTimer == 0) then
             if (owner.m_bLeftFormation) then
@@ -93,10 +81,10 @@ function Character.st_dead(owner, dt)
                 owner.m_world:removeEnemy(owner)
             end
 
-            setDead()
+            owner:setDead()
         end
     else
-        setDead()
+        owner:setDead()
 
         return true
     end

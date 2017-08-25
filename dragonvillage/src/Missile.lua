@@ -68,6 +68,7 @@ Missile = class(PARENT, {
 
         m_activityCarrier = '',
         m_bPassType = 'boolean',        -- 관통 타입인지 여부
+        m_bNoCheckRange = 'boolean',    -- 범위 체크를 하지 않는지 여부(체크할 경우 일정 범위 밖으로 나가면 자동 삭제됨)
 		
 		-- 확정 타겟 개념 추가 후 필요한 변수들
 		m_target = '',
@@ -124,6 +125,7 @@ function Missile:init(file_name, body, ...)
     -- 드래곤빌리지에서 추가
     self.m_afterimageMove = 0
     self.m_bPassType = false
+    self.m_bNoCheckRange = false
 
 	self.m_isFadeOut = false
 	self.m_fadeoutTime = nil
@@ -207,8 +209,8 @@ end
 function Missile:setPosition(x, y)
     Entity.setPosition(self, x, y)
 
-    if self.m_world then
-        if self.m_world:checkMissileRange(x, y) then
+    if (self.m_world) then
+        if (not self.m_bNoCheckRange and self.m_world:checkMissileRange(x, y)) then
             self:changeState('dying')
         end
     end

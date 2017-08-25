@@ -833,7 +833,7 @@ function Skill:makeMissile(t_option)
     self.m_bUseMissile = true
 
     -- 발사
-	self.m_world.m_missileFactory:makeMissile(t_option)
+	return self.m_world.m_missileFactory:makeMissile(t_option)
 end
 
 -------------------------------------

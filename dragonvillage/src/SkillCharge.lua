@@ -147,21 +147,46 @@ end
 -- function makeCrashPhsyObject
 -------------------------------------
 function SkillCharge:makeCrashPhsyObject()
-    if (self.m_physObject) then
-        error('이미 충돌박스가 존재')
-    end
+    if (self.m_physObject) then return end
 
-    local char = self.m_owner
-    local object_key = char:getAttackPhysGroup()
-	local coll_size = g_constant:get('SKILL', 'CHARGE_PHYS_SIZE') or char.body.size * 2
+    local owner = self.m_owner
+    local coll_size = g_constant:get('SKILL', 'CHARGE_PHYS_SIZE') or char.body.size * 2
+    local t_option = {}
 
-    local phys_object = char:addPhysObject(char, object_key, {0, 0, coll_size}, self.m_atkPhysPosX, 0)
-    phys_object:addAtkCallback(function(attacker, defender, i_x, i_y, body_key)
+    t_option['owner'] = owner
+    t_option['pos_x'] = owner.pos.x + self.m_atkPhysPosX
+	t_option['pos_y'] = owner.pos.y
+
+    t_option['object_key'] = owner:getAttackPhysGroup()
+    t_option['physics_body'] = { 0, 0, coll_size }
+    
+    t_option['speed'] = 0
+    t_option['missile_type'] = 'PASS'
+    t_option['movement'] ='normal' 
+    t_option['no_check_range'] = true
+    
+    local missile = self:makeMissile(t_option)
+
+    missile:addAtkCallback(function(attacker, defender, x, y, body_key)
         self:doChargeAttack(defender, body_key)
-		phys_object:clearCollisionObjectList()
+		attacker:clearCollisionObjectList()
     end)
 
-    self.m_physObject = phys_object
+    missile.m_rootNode:scheduleUpdateWithPriorityLua(function()
+        missile:setPosition(owner.pos.x + self.m_atkPhysPosX, owner.pos.y)
+    end, 0)
+
+    self.m_physObject = missile
+end
+
+-------------------------------------
+-- function releaseCrashPhsyObject
+-------------------------------------
+function SkillCharge:releaseCrashPhsyObject()
+    if (self.m_physObject) then
+        self.m_physObject:changeState('dying')
+        self.m_physObject = nil
+    end
 end
 
 -------------------------------------
@@ -220,14 +245,6 @@ function SkillCharge:doChargeAttack(defender, body_key)
 
 	-- 충돌 시간 저장
 	self.m_prevCollisionTime = self.m_stateTimer
-end
-
--------------------------------------
--- function releaseCrashPhsyObject
--------------------------------------
-function SkillCharge:releaseCrashPhsyObject()
-    self.m_owner:removePhysObject(self.m_physObject)
-    self.m_physObject = nil
 end
 
 -------------------------------------

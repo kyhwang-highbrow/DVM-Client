@@ -34,9 +34,11 @@ end
 -- function onEnd
 -------------------------------------
 function StatusEffect_AddDmgOneTime:onEnd()
-    self.m_activityCarrier:setAtkDmgStat(self.m_savedDmg)
+    if (self.m_savedDmg > 0) then
+        self.m_activityCarrier:setAtkDmgStat(self.m_savedDmg)
     
-    self.m_owner:undergoAttack(self, self.m_owner, self.m_owner.pos.x, self.m_owner.pos.y, 0, true)
+        self.m_owner:undergoAttack(self, self.m_owner, self.m_owner.pos.x, self.m_owner.pos.y, 0, true)
+    end
 end
 
 -------------------------------------
