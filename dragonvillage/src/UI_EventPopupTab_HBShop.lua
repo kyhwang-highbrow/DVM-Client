@@ -92,7 +92,7 @@ function UI_EventPopupTab_HBShop:init_tableView()
 
     -- 테이블 뷰 인스턴스 생성
     local table_view = UIC_TableView(node)
-    table_view.m_defaultCellSize = cc.size(920, 170 + 3)
+    table_view.m_defaultCellSize = cc.size(920, 128 + 3)
     table_view:setCellUIClass(self.makeCellUI, create_func)
     table_view:setDirection(cc.SCROLLVIEW_DIRECTION_VERTICAL)
     table_view:setItemList(l_item_list, make_item)
@@ -176,8 +176,9 @@ function UI_EventPopupTab_HBShop.refreshCell(ui, struct_product)
     
     -- 튜토리얼 보상은 1회만 수령 가능하므로 따로 처리
     if (struct_product:isDone()) then
+        vars['completeNode']:setVisible(true)
         vars['buyBtn']:setEnabled(false)
-        vars['priceLabel']:setString(Str('수령 완료'))
+
     else
         local price = struct_product:getPrice()
         if (price == 0) then
