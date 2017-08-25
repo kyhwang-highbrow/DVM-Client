@@ -308,93 +308,101 @@ function UI_TitleScene:workCheckUserID()
     SoundMgr.m_bStopPreload = false
 
     if isWin32() then
-
         local uid = g_localData:get('local', 'uid')
-   
         if uid then
             self:doNextWork()
         else
             self:makeRandomUid()
             self:doNextWork()
         end
-
         return
     end
 
-    -- @perplesdk
-    PerpleSDK:autoLogin(function(ret, info)
+    local function success_cb(info)
+        local t_info = dkjson.decode(info)
+        local fuid = t_info.fuid
+        local push_token = t_info.pushToken
+        local platform_id = t_info.providerId
+        local account_info = t_info.name
 
-        self.m_loadingUI:hideLoading()
+        local app_ver = getAppVer()
+        if app_ver == '0.2.2' then
+            platform_id = g_localData:get('local', 'platform_id') or 'firebase'
+            account_info = g_localData:get('local', 'account_info') or 'Guest'
+        end
 
-        if ret == 'success' then
-            cclog('Firebase autoLogin was successful.')
+        cclog('fuid: ' .. tostring(fuid))
+        cclog('push_token: ' .. tostring(push_token))
+        cclog('platform_id:' .. tostring(platform_id))
+        cclog('account_info:' .. tostring(account_info))
 
-            local t_info = dkjson.decode(info)
-            local fuid = t_info.fuid
-            local push_token = t_info.pushToken
-            local platform_id = t_info.providerId
-            local account_info = t_info.name
+        -- Firebase에서 발급하는 uid
+        -- 게임 uid로 그대로 사용하면 됨
+        g_localData:applyLocalData(fuid, 'local', 'uid')
 
+        -- 푸시 발송을 위한 푸시토큰
+        -- 로그인할 때마다 플랫폼 서버에 저장해야 함
+        g_localData:applyLocalData(push_token, 'local', 'push_token')
+
+        -- 현재 로그인된 계정의 플랫폼ID
+        -- Google: 'google.com'
+        -- Facebook: 'facebook.com'
+        -- Guest: 'firebase'
+        g_localData:applyLocalData(platform_id, 'local', 'platform_id')
+
+        -- 계정 정보(이름 or 이메일)
+        g_localData:applyLocalData(account_info, 'local', 'account_info')
+
+        -- 혹시 시스템 오류로 멀티연동이 된 경우 현재 로그인한 플랫폼 이외의 연결은 해제한다.
+        UnlinkBrokenPlatform(t_info, platform_id)
+
+        if platform_id == 'google.com' then
             local app_ver = getAppVer()
             if app_ver == '0.2.2' then
-                platform_id = g_localData:get('local', 'platform_id') or 'firebase'
-                account_info = g_localData:get('local', 'account_info') or 'Guest'
-            end
-
-            cclog('fuid: ' .. tostring(fuid))
-            cclog('push_token: ' .. tostring(push_token))
-            cclog('platform_id:' .. tostring(platform_id))
-            cclog('account_info:' .. tostring(account_info))
-
-            -- Firebase에서 발급하는 uid
-            -- 게임 uid로 그대로 사용하면 됨
-            g_localData:applyLocalData(fuid, 'local', 'uid')
-
-            -- 푸시 발송을 위한 푸시토큰
-            -- 로그인할 때마다 플랫폼 서버에 저장해야 함
-            g_localData:applyLocalData(push_token, 'local', 'push_token')
-
-            -- 현재 로그인된 계정의 플랫폼ID
-            -- Google: 'google.com'
-            -- Facebook: 'facebook.com'
-            -- Guest: 'firebase'
-            g_localData:applyLocalData(platform_id, 'local', 'platform_id')
-
-            -- 계정 정보(이름 or 이메일)
-            g_localData:applyLocalData(account_info, 'local', 'account_info')
-
-            -- 혹시 시스템 오류로 멀티연동이 된 경우 현재 로그인한 플랫폼 이외의 연결은 해제한다.
-            UnlinkBrokenPlatform(t_info, platform_id)
-
-            if platform_id == 'google.com' then
-                local app_ver = getAppVer()
-                if app_ver == '0.2.2' then
-                    PerpleSDK:googleLogin(function(ret, info)
-                        g_localData:applyLocalData('on', 'local', 'googleplay_connected')
-                        self:doNextWork()
-                    end)
-                else
-                    PerpleSDK:googleLogin(1, function(ret, info)
-                        g_localData:applyLocalData('on', 'local', 'googleplay_connected')
-                        self:doNextWork()
-                    end)
-                end
+                PerpleSDK:googleLogin(function(ret, info)
+                    g_localData:applyLocalData('on', 'local', 'googleplay_connected')
+                    self:doNextWork()
+                end)
             else
-                g_localData:applyLocalData('off', 'local', 'googleplay_connected')
-                self:doNextWork()
+                PerpleSDK:googleLogin(1, function(ret, info)
+                    g_localData:applyLocalData('on', 'local', 'googleplay_connected')
+                    self:doNextWork()
+                end)
             end
+        else
+            g_localData:applyLocalData('off', 'local', 'googleplay_connected')
+            self:doNextWork()
+        end
+    end
 
+    local function fail_cb()
+        -- 자동로그인에 실패한 경우 로그인 팝업 출력
+        local ui = UI_LoginPopup()
+        local function close_cb()
+            self:doNextWork()
+        end
+        ui:setCloseCB(close_cb)
+    end
+
+    -- 앱을 재설치한 경우
+    -- 이전 플랫폼 관련 로그인 세션을 모두 로그아웃하고 로그인 팝업 출력
+    if (g_localData:get('local', 'platform_id') == nil) then
+        PerpleSDK:logout()
+        PerpleSDK:googleLogout(0)
+        PerpleSDK:facebookLogout()
+
+        fail_cb()
+        return
+    end
+
+    PerpleSDK:autoLogin(function(ret, info)
+        self.m_loadingUI:hideLoading()
+        if ret == 'success' then
+            cclog('Firebase autoLogin was successful.')
+            success_cb()
         elseif ret == 'fail' then
             cclog('Firebase autoLogin failed.')
-
-            -- 자동로그인에 실패한 경우 로그인 팝업 출력
-            -- 앱을 처음으로 설치한 경우임
-            local ui = UI_LoginPopup()
-            local function close_cb()
-                self:doNextWork()
-            end
-            ui:setCloseCB(close_cb)
-
+            fail_cb()
         end
     end)
 
