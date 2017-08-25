@@ -77,6 +77,12 @@ end
 -- function requestIncubate
 -------------------------------------
 function UI_HatcheryIncubateTab:requestIncubate(egg_id, cnt, old_ui)
+    -- 드래곤 최대치 보유가 넘었는지 체크
+    local summon_cnt = cnt
+    if (not g_dragonsData:checkDragonSummonMaximum(summon_cnt)) then
+        return
+    end
+
     local function finish_cb(ret)
 
         -- 이어서 뽑기를 했을 때 이전 결과 UI가 통신 후에 닫히도록 처리

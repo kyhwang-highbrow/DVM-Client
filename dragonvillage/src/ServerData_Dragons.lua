@@ -608,6 +608,25 @@ function ServerData_Dragons:checkMaximumDragons(ignore_func, manage_func)
 end
 
 -------------------------------------
+-- function checkDragonSummonMaximum
+-- @brief 드래곤 소환 최대치 확인
+-- @return bool true : 소환 가능
+--              false : 소환 불가능 (안내 팝업 띄움)
+-------------------------------------
+function ServerData_Dragons:checkDragonSummonMaximum(summon_cnt)
+    local summon_cnt = (summon_cnt or 0)
+    local dragons_cnt = self:getDragonsCnt()
+    local MAXIMUM = 600
+    if (MAXIMUM < (dragons_cnt + summon_cnt)) then
+        local msg = Str('더는 드래곤을 획득 할 수 없습니다.\n드래곤 보유 공간을 확보해 주세요.')
+        MakeSimplePopup(POPUP_TYPE.OK, msg)
+        return false
+    end
+
+    return true
+end
+
+-------------------------------------
 -- function possibleGoodbye
 -- @brief 작별 가능한지 체크
 -------------------------------------

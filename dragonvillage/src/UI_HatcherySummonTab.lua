@@ -83,6 +83,15 @@ end
 -- @brief 확률업
 -------------------------------------
 function UI_HatcherySummonTab:click_eventSummonBtn(is_bundle, is_sale, t_egg_data, old_ui)
+    -- 드래곤 최대치 보유가 넘었는지 체크
+    local summon_cnt = 1
+    if (is_bundle == true) then
+        summon_cnt = 11
+    end
+    if (not g_dragonsData:checkDragonSummonMaximum(summon_cnt)) then
+        return
+    end
+
     local function finish_cb(ret)
         -- 이어서 뽑기를 했을 때 이전 결과 UI가 통신 후에 닫히도록 처리
         if (old_ui) then
@@ -120,6 +129,16 @@ end
 -- @brief 캐시 뽑기
 -------------------------------------
 function UI_HatcherySummonTab:click_cashSummonBtn(is_bundle, is_sale, t_egg_data, old_ui)
+
+    -- 드래곤 최대치 보유가 넘었는지 체크
+    local summon_cnt = 1
+    if (is_bundle == true) then
+        summon_cnt = 11
+    end
+    if (not g_dragonsData:checkDragonSummonMaximum(summon_cnt)) then
+        return
+    end
+
     local function finish_cb(ret)
         -- 이어서 뽑기를 했을 때 이전 결과 UI가 통신 후에 닫히도록 처리
         if (old_ui) then
@@ -157,6 +176,15 @@ end
 -- @brief 우정포인트 뽑기
 -------------------------------------
 function UI_HatcherySummonTab:click_friendSummonBtn(is_bundle, t_egg_data, old_ui)
+    -- 드래곤 최대치 보유가 넘었는지 체크
+    local summon_cnt = 1
+    if (is_bundle == true) then
+        summon_cnt = 10 -- 우정 포인트는 소환은 bundle이 10개임 보너스 1개가 없음
+    end
+    if (not g_dragonsData:checkDragonSummonMaximum(summon_cnt)) then
+        return
+    end
+
     local function finish_cb(ret)
         -- 이어서 뽑기를 했을 때 이전 결과 UI가 통신 후에 닫히도록 처리
         if (old_ui) then

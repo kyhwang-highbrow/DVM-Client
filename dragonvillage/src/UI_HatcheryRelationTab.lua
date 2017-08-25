@@ -271,6 +271,13 @@ function UI_HatcheryRelationTab:click_summonBtn()
         return
     end
 
+    -- 드래곤 최대치 보유가 넘었는지 체크
+    local summon_cnt = 1
+    if (not g_dragonsData:checkDragonSummonMaximum(summon_cnt)) then
+        return
+    end
+
+
     local function finish_cb(ret)
         local added_dragons = {}
         if (ret['added_items'] and ret['added_items']['dragons']) then

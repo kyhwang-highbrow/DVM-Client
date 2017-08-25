@@ -256,7 +256,7 @@ function ServerData_Book:haveBookReward(did, evolution)
 end
 
 -------------------------------------
--- function request_useRelationPoint
+-- function request_bookReward
 -------------------------------------
 function ServerData_Book:request_bookReward(did, evolution, finish_cb)
     -- 유저 ID
