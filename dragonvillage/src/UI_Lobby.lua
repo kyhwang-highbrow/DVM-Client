@@ -64,6 +64,8 @@ function UI_Lobby:initUI()
     -- 임시 처리
     local vars = self.vars
     vars['subscriptionLabel']:setVisible(false) -- 월정액 시간 표기 label
+
+    g_topUserInfo:clearBroadcast()
 end
 
 -------------------------------------

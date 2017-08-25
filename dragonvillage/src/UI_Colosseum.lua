@@ -417,10 +417,16 @@ function UI_Colosseum:update(dt)
     local str = g_colosseumData:getColosseumStatusText()
     vars['timeLabel']:setString(str)
 
-    local str = g_colosseumData:getRefreshStatusText()
-    vars['refreshTimeLabel']:setString(str)
-
-
+    if (g_colosseumData:isFreeRefresh()) then
+        -- 무료 새로고침
+        local str = g_colosseumData:getRefreshStatusText()
+        vars['cashLabel']:setString(str)
+    else
+        -- 유료 새로고침
+        local cash = 10
+        vars['cashLabel']:setString(comma_value(cash))
+    end
+   
     do -- 연승 버프
         local str, active = g_colosseumData:getStraightTimeText()
         if active then

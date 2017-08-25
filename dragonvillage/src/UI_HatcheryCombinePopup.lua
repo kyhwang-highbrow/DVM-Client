@@ -59,6 +59,30 @@ function UI_HatcheryCombinePopup:initUI()
         vars['dragonNameLabel']:setString(name)
     end
 
+    local table_dragon = TABLE:get('dragon')
+    local t_dragon = table_dragon[self.m_dragonID]
+
+    do -- 드래곤 속성
+        local attr = t_dragon['attr']
+        local icon = IconHelper:getAttributeIcon(attr)
+        vars['attrNode']:addChild(icon)
+        vars['attrLabel']:setString(dragonAttributeName(attr))
+    end
+
+    do -- 드래곤 역할
+        local role_type = t_dragon['role']
+        local icon = IconHelper:getRoleIcon(role_type)
+        vars['typeNode']:addChild(icon)
+        vars['typeLabel']:setString(dragonRoleName(role_type))
+    end
+
+    do -- 드래곤 희귀도
+        local rarity = t_dragon['rarity']
+        local icon = IconHelper:getRarityIcon(rarity)
+        vars['rarityNode']:addChild(icon)
+        vars['rarityLabel']:setString(dragonRarityName(rarity))
+    end
+
     do
         local table_dragon_combine = TableDragonCombine()
         local t_dragon_combine = table_dragon_combine:get(self.m_dragonID)

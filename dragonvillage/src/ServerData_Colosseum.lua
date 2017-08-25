@@ -304,12 +304,9 @@ function ServerData_Colosseum:getRefreshStatusText()
     local refresh_free_time = (self.m_refreshFreeTime / 1000)
     local str = ''
 
+    -- 시간 표시 안하는 걸로 변경
     if (refresh_free_time <= curr_time) then
-        str = Str('무료 가능')
-
-    else
-        local time = (refresh_free_time - curr_time)
-        str = Str('{1} 후 무료', datetime.makeTimeDesc(time, true))
+        str = Str('무료')
     end
 
     return str

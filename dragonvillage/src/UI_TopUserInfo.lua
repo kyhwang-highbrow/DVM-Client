@@ -309,6 +309,7 @@ end
 -------------------------------------
 function UI_TopUserInfo:clearBroadcast()
     self.m_broadcastLabel:clear()
+    self.m_chatBroadcastLabel:clear()
 end
 
 -------------------------------------

@@ -230,6 +230,33 @@ function UI_HatcheryRelationTab:refresh()
         vars['dragonNode']:addChild(animator.m_node)
     end
 
+    do -- 희귀도
+        local rarity = struct_dragon_object:getRarity()
+        vars['rarityNode']:removeAllChildren()
+        local icon = IconHelper:getRarityIcon(rarity)
+        vars['rarityNode']:addChild(icon)
+
+        vars['rarityLabel']:setString(dragonRarityName(rarity))
+    end
+
+    do -- 드래곤 속성
+        local attr = struct_dragon_object:getAttr()
+        vars['attrNode']:removeAllChildren()
+        local icon = IconHelper:getAttributeIcon(attr)
+        vars['attrNode']:addChild(icon)
+
+        vars['attrLabel']:setString(dragonAttributeName(attr))
+    end
+
+    do -- 드래곤 역할(role)
+        local role_type = struct_dragon_object:getRole()
+        vars['typeNode']:removeAllChildren()
+        local icon = IconHelper:getRoleIcon(role_type)
+        vars['typeNode']:addChild(icon)
+
+        vars['typeLabel']:setString(dragonRoleName(role_type))
+    end
+
     -- 드래곤 이름
     if vars['dragonNameLabel'] then
         vars['dragonNameLabel']:setString(struct_dragon_object:getDragonNameWithEclv())
