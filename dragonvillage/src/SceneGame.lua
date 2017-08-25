@@ -277,6 +277,14 @@ function SceneGame:prepare()
     end)
 
     self:addLoading(function()
+        -- 결과창 관련 리소스 프리로드
+        resCaching('res/ui/a2d/result_box/result_box.vrp')
+        resCaching('res/ui/a2d/result/result.vrp')
+        resCaching('res/ui/a2d/result_level_up/result_level_up.vrp')
+        UILoader.cache('ingame_result.ui')
+    end)
+
+    self:addLoading(function()
 		-- 테스트 모드에서만 디버그패널 on
 		if (IS_TEST_MODE()) then
 			self.m_inGameUI:init_debugUI()
