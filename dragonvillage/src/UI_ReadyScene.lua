@@ -506,9 +506,24 @@ function UI_ReadyScene:refresh_combatPower()
 
 	else
 		local recommend = TableStageDesc:getRecommendedCombatPower(stage_id)
-		vars['cp_Label2']:setString(comma_value(recommend))
+        vars['cp_Label2']:setString(comma_value(recommend))
 
 		local deck = self.m_readySceneDeck:getDeckCombatPower()
+
+        -- 테이머
+        do
+            local tamer_id = self:getCurrTamerID()
+            local t_tamer_data = g_tamerData:getTamerServerInfo(tamer_id)
+            local table = g_constant:get('UI', 'TAMER_SKILL_COMBAT_POWER')
+            
+            for i = 1, 3 do
+                local lv = t_tamer_data['skill_lv' .. i]
+                if (lv and lv > 0) then
+                    deck = deck + table[i] * (lv - 1)
+                end
+            end
+        end
+
 		vars['cp_Label']:setString(comma_value(deck))
 
 	end
@@ -913,6 +928,7 @@ function UI_ReadyScene:click_fomationBtn()
 	-- 종료하면서 선택된 formation을 m_readySceneDeck으로 전달
 	local function close_cb(formation_type)
 		self.m_readySceneDeck:setFormation(formation_type)
+        self:refresh_combatPower()
 		self:refresh_buffInfo()
 	end
 	ui:setCloseCB(close_cb)
@@ -926,6 +942,7 @@ function UI_ReadyScene:click_tamerBtn()
     local ui = UI_TamerManagePopup()
 	ui:setCloseCB(function() 
 		self:refresh_tamer()
+        self:refresh_combatPower()
 		self:refresh_buffInfo()
 	end)
 end
@@ -951,6 +968,7 @@ function UI_ReadyScene:click_leaderBtn()
 	local ui = UI_ReadyScene_LeaderPopup(l_doid, leader_idx)
 	ui:setCloseCB(function() 
 		self.m_readySceneDeck.m_currLeader = ui.m_leaderIdx
+        self:refresh_combatPower()
 		self:refresh_buffInfo()
 	end)
 end

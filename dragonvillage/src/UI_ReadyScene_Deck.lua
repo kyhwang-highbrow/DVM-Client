@@ -996,6 +996,15 @@ function UI_ReadyScene_Deck:getDeckCombatPower()
         end
     end
 
+    -- 진형
+    do
+        local l_formation = g_formationData:getFormationInfoList()
+	    local curr_formation = self.m_currFormation
+	    local formation_data = l_formation[curr_formation]
+
+        combat_power = combat_power + (formation_data['formation_lv'] * g_constant:get('UI', 'FORMATION_LEVEL_COMBAT_POWER'))
+    end
+
     return combat_power
 end
 

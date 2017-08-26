@@ -240,6 +240,56 @@ end
 function StructDragonObject:getCombatPower()
     local status_calc = MakeDragonStatusCalculator_fromDragonDataTable(self)
     local combat_power = status_calc:getCombatPower()
+    
+    -- 스킬 레벨에 따른 전투력 추가
+    do
+        local t_dragon = TableDragon():get(self['did'])
+        local table = g_constant:get('UI', 'DRAGON_SKILL_COMBAT_POWER')
+        local str_rarity = self:getRarity()
+        local modified_rarity = 5 - evolutionStoneRarityStrToNum(str_rarity)
+
+        local dragon_skill_mgr = MakeDragonSkillFromDragonData(self)
+        local skill_indivisual_info
+    
+        -- 리더
+        skill_indivisual_info = dragon_skill_mgr:getSkillIndivisualInfo('leader')
+        if (skill_indivisual_info) then
+            combat_power = combat_power + table['LEADER'][modified_rarity]
+        end
+
+        -- 드래그
+        skill_indivisual_info = dragon_skill_mgr:getSkillIndivisualInfo('active')
+        if (skill_indivisual_info) then
+            local lv = self['skill_0']
+            combat_power = combat_power + table['DRAG'][modified_rarity] + table['DRAG_ADD'][modified_rarity] * (lv - 1)
+        
+            -- 드래그 강화된 경우
+            if (self['skill_3'] > 0 and t_dragon['skill_3_type'] == 'skill_active') then
+                combat_power = combat_power + table['DRAG_UPGRADE'][modified_rarity]
+            end
+        end
+
+        -- 패시브 1
+        if (self['skill_1'] > 0) then
+            local lv = self['skill_1']
+            combat_power = combat_power + table['PASSIVE1'][modified_rarity] + table['PASSIVE1_ADD'][modified_rarity] * (lv - 1)
+        end
+
+        -- 패시브 2
+        if (self['skill_2'] > 0) then
+            local lv = self['skill_2']
+            combat_power = combat_power + table['PASSIVE2'][modified_rarity] + table['PASSIVE2_ADD'][modified_rarity] * (lv - 1)
+        end
+
+        -- 패시브 3
+        if (t_dragon['skill_3_type'] == 'new' and t_dragon['skill_3'] ~= t_dragon['skill_leader']) then
+            if (self['skill_3'] > 0) then
+                local lv = self['skill_3']
+                combat_power = combat_power + table['PASSIVE2'][modified_rarity] + table['PASSIVE2_ADD'][modified_rarity] * (lv - 1)
+            end
+        end
+    end
+
     return combat_power
 end
 
