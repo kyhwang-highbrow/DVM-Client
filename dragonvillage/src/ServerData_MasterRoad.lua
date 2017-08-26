@@ -170,13 +170,17 @@ function ServerData_MasterRoad:updateMasterRoadAfterReward(cb_func)
 
         local t_data = {['clear_key'] = key}
         if (self:checkFocusRoadClear(t_data)) then
-            self:request_roadClear(self.m_focusRoad, cb_func)
-            return true
+            local ui_network = self:request_roadClear(self.m_focusRoad, cb_func)
+            return true, ui_network
         end
 
     end
 
-    return false
+    if cb_func then
+        cb_func()
+    end
+
+    return false, nil
 end
 
 -------------------------------------
