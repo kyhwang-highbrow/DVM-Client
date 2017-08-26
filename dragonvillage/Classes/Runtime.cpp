@@ -248,6 +248,12 @@ void showCurRcvFile(string fileName)
 
 #define bzero(a, b) memset(a, 0, b);
 
+/* Macros for access() */
+#define R_OK  4  /* Read */
+#define W_OK  2  /* Write */
+#define X_OK  1  /* Execute */
+#define F_OK  0  /* Existence */
+
 #else
 #include <netdb.h>
 #include <unistd.h>
@@ -395,7 +401,7 @@ bool CreateDir(const char *sPathName)
         if (DirName[i] == '/')
         {
             DirName[i] = 0;
-            if (access(DirName, 0) != 0)
+            if (access(DirName, F_OK) != 0)
             {
 #ifdef _WIN32
                 if (mkdir(DirName/*, 0755*/) == -1)
