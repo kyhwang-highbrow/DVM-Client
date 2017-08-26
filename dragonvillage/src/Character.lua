@@ -1099,7 +1099,7 @@ function Character:makeHealFont(heal, is_critical)
         local sprite
 
         if (is_critical) then
-            sprite = cc.Sprite:create('res/font/ingame_maximization.png')
+            sprite = self:createWithSpriteFrameName('ingame_damage_maximization.png')
         end
 
         if (sprite) then
@@ -1140,29 +1140,12 @@ function Character:makeDamageNumber(damage, r, g, b)
 end
 
 -------------------------------------
--- function makeSkillChanceFont
--------------------------------------
-function Character:makeSkillChanceFont(str, x, y)
-    -- 일반 데미지
-    local label = nil
-    local scale = 1
-
-    label = cc.Label:createWithBMFont('res/font/normal.fnt', str)
-    label:setColor(cc.c3b(100,100,255))
-    label:setPosition(x, y)
-    label:runAction( cc.Sequence:create(cc.ScaleTo:create(0.05, 1.5 * scale), cc.ScaleTo:create(0.1, 1 * scale), cc.DelayTime:create(0.2), cc.FadeOut:create(0.3), cc.RemoveSelf:create()))
-    label:runAction(cc.EaseIn:create(cc.MoveTo:create(1, cc.p(x, y + 170)), 0.5))
-    self.m_world:addChild3(label, DEPTH_MISS_FONT)
-end
-
-
--------------------------------------
 -- function makeMissFont
 -------------------------------------
 function Character:makeMissFont(x, y)
 
     -- 일반 데미지
-    local sprite = cc.Sprite:create('res/font/dodge.png')
+    local sprite = self:createWithSpriteFrameName('ingame_damage_dodge.png')
 
     local scale = 1
 
@@ -1177,7 +1160,7 @@ end
 -------------------------------------
 function Character:makeShieldFont(x, y)
 
-    local sprite = cc.Sprite:create('res/font/shield.png')
+    local sprite = self:createWithSpriteFrameName('ingame_damage_shield.png')
 
     local scale = 1
 
@@ -1192,7 +1175,7 @@ end
 -------------------------------------
 function Character:makeImmuneFont(x, y, scale)
 
-    local sprite = cc.Sprite:create('res/font/ingame_immunity.png')
+    local sprite = self:createWithSpriteFrameName('ingame_damage_immunity.png')
 
     scale = scale or 1
 
