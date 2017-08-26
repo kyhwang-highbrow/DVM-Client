@@ -146,8 +146,8 @@ function ServerData_Shop:getProductList_(l_product)
     for i,v in pairs(l_product) do
         local product_id = v['product_id']
 
-        -- 구매 가능한 상품만 추가
-        if v:isItBuyable() then
+        -- 노출 가능한 상품만 추가
+        if v:isDisplayed() then
             product_map[product_id] = v
         end
     end

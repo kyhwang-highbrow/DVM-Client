@@ -134,6 +134,27 @@ function StructProduct:isItBuyable()
 end
 
 -------------------------------------
+-- function isDisplayed
+-- @brief 상품 노출 여부
+-------------------------------------
+function StructProduct:isDisplayed()
+    local max_buy_term = self['max_buy_term']
+
+    if (max_buy_term == 'weekly') then
+        return true
+
+    elseif (max_buy_term == 'monthly') then
+        return true
+   
+    elseif (max_buy_term == 'permanent') then
+        return self:isItBuyable()
+
+    else
+        return true
+    end
+end
+
+-------------------------------------
 -- function needRenewAfterBuy
 -- @brief 구매 후에 상점 정보 갱신이 필요한지 여부
 -------------------------------------

@@ -65,7 +65,7 @@ function UI_EventPopupTab_HBShop:init_tableView()
                 self:refresh()
                 self.refreshCell(ui, data)
 
-                UI_ToastPopup(Str('우편으로 쿠폰이 발송되었습니다.'))
+                UI_ToastPopup(Str('우편함으로 쿠폰이 발송되었습니다.'))
             end)
         end)
     end
