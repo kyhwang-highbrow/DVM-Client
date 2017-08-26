@@ -108,7 +108,7 @@ function UI_EventPopupTab_HBShop:init_bannerWebView()
     node:addChild(webview)
     node:setVisible(true)
 
-    vasr['bannerCloseBtn']:registerScriptTapHandler(function()
+    vars['bannerCloseBtn']:registerScriptTapHandler(function()
         vars['bannerNode']:setVisible(false)
     end)
 
