@@ -149,7 +149,7 @@ namespace experimental{
             return WebView::create();
         }
 
-        void WebView::copySpecialProperties(Widget* model)
+        void WebView::copySpecialProperties(cocos2d::ui::Widget* model)
         {
             WebView* webView = dynamic_cast<WebView*>(model);
             if (webView)

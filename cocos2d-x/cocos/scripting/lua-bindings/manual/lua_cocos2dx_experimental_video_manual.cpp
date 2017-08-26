@@ -1,3 +1,4 @@
+#include "lua_cocos2dx_experimental_video_manual.hpp"
 #if (CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID || CC_TARGET_PLATFORM == CC_PLATFORM_IOS)
 
 #include "UIVideoPlayer.h"

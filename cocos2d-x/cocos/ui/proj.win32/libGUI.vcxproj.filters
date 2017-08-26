@@ -87,6 +87,12 @@
     <ClInclude Include="..\UIVBox.h">
       <Filter>Layouts</Filter>
     </ClInclude>
+    <ClInclude Include="..\UIWebView.h">
+      <Filter>UIWidgets</Filter>
+    </ClInclude>
+    <ClInclude Include="..\UIVideoPlayer.h">
+      <Filter>UIWidgets</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\UIScrollView.cpp">
@@ -154,6 +160,9 @@
     </ClCompile>
     <ClCompile Include="..\UIVBox.cpp">
       <Filter>Layouts</Filter>
+    </ClCompile>
+    <ClCompile Include="..\UIWebView.cpp">
+      <Filter>UIWidgets</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

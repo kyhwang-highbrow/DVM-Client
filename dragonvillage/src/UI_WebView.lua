@@ -44,10 +44,14 @@ function UI_WebView:initUI()
     local content_size = node:getContentSize()
     local webview = ccexp.WebView:create()
     webview:setContentSize(content_size.width, content_size.height)
+
+    if (getAppVerNum() > AppVer_strToNum('1.0.1')) then
+        webview:setOnDidFinishLoading(function(index, url)
+            ui_wloading_node:setVisible(false)
+        end)
+    end
+
     webview:loadURL(url)
---    webview:setOnDidFinishLoading(function(index, url)
---        loading_node:setVisible(false)
---    end)
     webview:setBounces(false)
     webview:setAnchorPoint(cc.p(0,0))
     webview:setDockPoint(cc.p(0,0))

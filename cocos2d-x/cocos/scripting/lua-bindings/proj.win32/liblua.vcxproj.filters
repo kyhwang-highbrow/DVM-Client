@@ -237,6 +237,12 @@
     <ClCompile Include="..\auto\lua_cocos2dx_experimental_webview_auto.cpp">
       <Filter>auto</Filter>
     </ClCompile>
+    <ClCompile Include="..\manual\lua_cocos2dx_experimental_video_manual.cpp">
+      <Filter>manual</Filter>
+    </ClCompile>
+    <ClCompile Include="..\manual\lua_cocos2dx_experimental_webview_manual.cpp">
+      <Filter>manual</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\auto\lua_cocos2dx_auto.hpp">
@@ -451,6 +457,12 @@
     </ClInclude>
     <ClInclude Include="..\auto\lua_cocos2dx_experimental_webview_auto.hpp">
       <Filter>auto</Filter>
+    </ClInclude>
+    <ClInclude Include="..\manual\lua_cocos2dx_experimental_video_manual.hpp">
+      <Filter>manual</Filter>
+    </ClInclude>
+    <ClInclude Include="..\manual\lua_cocos2dx_experimental_webview_manual.hpp">
+      <Filter>manual</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

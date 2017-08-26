@@ -59,7 +59,8 @@ static std::string getFixedBaseUrl(const std::string& baseUrl)
     }
     else if (baseUrl.c_str()[0] != '/') {
         if(baseUrl.find("assets/") == 0) {
-            fixedBaseUrl = s_defaultBaseUrl + baseUrl.c_str()[7];
+            fixedBaseUrl = s_defaultBaseUrl;
+            fixedBaseUrl += baseUrl.c_str()[7];
         }
         else {
             fixedBaseUrl = s_defaultBaseUrl + baseUrl;
@@ -360,13 +361,13 @@ namespace cocos2d {
 
             WebViewImpl::WebViewImpl(WebView *webView) : _viewTag(-1), _webView(webView) {
                 _viewTag = createWebViewJNI();
-                s_WebViewImpls[_viewTag] = this;
-            }
+                    s_WebViewImpls[_viewTag] = this;
+                }
 
             WebViewImpl::~WebViewImpl() {
                 removeWebViewJNI(_viewTag);
-                s_WebViewImpls.erase(_viewTag);
-            }
+                    s_WebViewImpls.erase(_viewTag);
+                }
 
             void WebViewImpl::loadData(const Data &data, const std::string &MIMEType, const std::string &encoding, const std::string &baseURL) {
                 std::string dataString(reinterpret_cast<char *>(data.getBytes()), static_cast<unsigned int>(data.getSize()));

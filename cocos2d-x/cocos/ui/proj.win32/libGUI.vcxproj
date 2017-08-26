@@ -33,6 +33,8 @@
     <ClInclude Include="..\UITextBMFont.h" />
     <ClInclude Include="..\UITextField.h" />
     <ClInclude Include="..\UIVBox.h" />
+    <ClInclude Include="..\UIVideoPlayer.h" />
+    <ClInclude Include="..\UIWebView.h" />
     <ClInclude Include="..\UIWidget.h" />
   </ItemGroup>
   <ItemGroup>
@@ -57,6 +59,7 @@
     <ClCompile Include="..\UITextBMFont.cpp" />
     <ClCompile Include="..\UITextField.cpp" />
     <ClCompile Include="..\UIVBox.cpp" />
+    <ClCompile Include="..\UIWebView.cpp" />
     <ClCompile Include="..\UIWidget.cpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">

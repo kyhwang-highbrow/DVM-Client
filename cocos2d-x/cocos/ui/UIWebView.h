@@ -212,7 +212,7 @@ public:
 
 protected:
     virtual cocos2d::ui::Widget* createCloneInstance() override;
-    virtual void copySpecialProperties(Widget* model) override;
+    virtual void copySpecialProperties(cocos2d::ui::Widget* model) override;
 
     std::function<bool(WebView *sender, const std::string &url)> _onShouldStartLoading;
 
