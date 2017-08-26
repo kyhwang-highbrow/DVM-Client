@@ -247,7 +247,8 @@ function UI_BookDetailPopup:addSameTypeDragon(t_dragon)
     for _, v in pairs(dragon_list) do
         local t_data = v
         local attr = t_data['attr']
-        
+        vars['emptyNode_'..attr]:setVisible(true)
+
         if (t_data) then
             local node = vars['dragonCardNode_'..attr]
             local card_data = self:makeDragonData(t_data)
@@ -266,8 +267,6 @@ function UI_BookDetailPopup:addSameTypeDragon(t_dragon)
             node:addChild(dragon_card.root)
 
             vars['emptyNode_'..attr]:setVisible(false)
-        else
-            vars['emptyNode_'..attr]:setVisible(true)
         end
     end
 end
