@@ -1743,9 +1743,6 @@
     <None Include="..\src\TableDragonType.lua">
       <Filter>lua\src</Filter>
     </None>
-    <None Include="..\src\TableDragonUnit.lua">
-      <Filter>lua\src</Filter>
-    </None>
     <None Include="..\src\TableDrop.lua">
       <Filter>lua\src</Filter>
     </None>

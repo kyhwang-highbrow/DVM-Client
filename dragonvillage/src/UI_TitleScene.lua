@@ -306,6 +306,8 @@ end
 -- @brief 로딩
 -------------------------------------
 function UI_TitleScene:workLoading()
+    self.m_loadingUI:showLoading(Str('로딩 중...'))
+
     local function coroutine_function(dt)
         local co = CoroutineHelper()
 
@@ -319,7 +321,7 @@ function UI_TitleScene:workLoading()
             local count = 0
             for k,v in pairs(t_tale_info) do
                 count = (count + 1)
-                self.m_loadingUI:showLoading(Str('로딩 중... (' .. count .. '/' .. max_count .. ')'), false)
+                --self.m_loadingUI:showLoading(Str('로딩 중... (' .. count .. '/' .. max_count .. ')'), false)
                 co:yield()
 
                 TABLE:loadCSVTable(v[1], k, v[2], v[3])
