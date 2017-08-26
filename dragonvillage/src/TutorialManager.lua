@@ -316,7 +316,6 @@ end
 function TutorialManager:findTargetUI()
     local tar_ui
     for _, ui in pairs(table.reverse(UIManager.m_uiList)) do
-        cclog(ui.m_uiName)
         if (not isExistValue(ui.m_uiName, 'UI_Network', 'untitled')) then
             return ui
         end
