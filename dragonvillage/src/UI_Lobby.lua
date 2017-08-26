@@ -228,6 +228,11 @@ function UI_Lobby:refresh_userTamer()
         vars['userNode']:removeAllChildren()
         vars['userNode']:addChild(icon)
     end
+
+    do -- 유저 칭호 갱신
+        local title = g_userData:getTamerTitleStr()
+        vars['userTitleLabel']:setString(title)
+    end
 end
 
 -------------------------------------
