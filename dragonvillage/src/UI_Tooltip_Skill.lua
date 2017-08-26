@@ -8,6 +8,7 @@ local MAX_HEIGHT = 200
 
 -------------------------------------
 -- class UI_Tooltip_Skill
+-- @brief 사실 이제 스킬에서는 사용하지 않지만.. 출시전이라 바꾸지 않으려고 함
 -------------------------------------
 UI_Tooltip_Skill = class(PARENT, {
         m_bubbleImage = 'cc.Scale9Sprite',
@@ -113,8 +114,6 @@ function UI_Tooltip_Skill:makeRichLabel(text)
     rich_label:setFontSize(font_size)
     rich_label:setDimension(dimensions_width, dimensions_height)
     rich_label:setAlignment(cc.TEXT_ALIGNMENT_LEFT, cc.VERTICAL_TEXT_ALIGNMENT_CENTER)
-    --rich_label:enableOutline(cc.c4b(255, 0, 0, 127), 3)
-    --rich_label:enableShadow(cc.c4b(0,0,0,255), cc.size(-3, 3), 0)
 
     local width = rich_label:getStringWidth()
     local height = rich_label:getStringHeight()
@@ -128,6 +127,9 @@ function UI_Tooltip_Skill:makeRichLabel(text)
 
     rich_label:setAnchorPoint(cc.p(0, 0.5))
     rich_label:setDockPoint(cc.p(0, 0.5))
+
+    -- 좌우 여백이 똑같이 보이도록 추가
+    rich_label:setPosition(FONT_SIZE/2, 0)
 
    return rich_label
 end
@@ -190,29 +192,4 @@ function UI_Tooltip_Skill:autoRelease(duration)
     local duration = duration or 3
     local action = cc.Sequence:create(cc.DelayTime:create(duration), cc.FadeOut:create(1), cc.CallFunc:create(function() self:close() end))
     self.root:runAction(action)
-end
-
--------------------------------------
--- function getSkillDescStr
--------------------------------------
-function UI_Tooltip_Skill:getSkillDescStr(char_type, skill_id, skill_type)
-    local t_skill
-        
-    if (char_type == 'tamer') then
-        t_skill = TableTamerSkill():getTamerSkill(skill_id)
-
-    else
-        local table_name = char_type .. '_skill'    
-        local table_skill = TABLE:get(table_name)
-        t_skill = table_skill[skill_id]
-    end
-    
-    local skill_type = skill_type or t_skill['chance_type']
-
-    local skill_type_str = getSkillTypeStr(skill_type, true)
-
-    local desc = DragonSkillCore.getSimpleSkillDesc(t_skill)
-
-    local str = '{@SKILL_NAME} ' .. t_skill['t_name'] .. skill_type_str .. '\n {@SKILL_DESC}' .. desc
-    return str
 end
