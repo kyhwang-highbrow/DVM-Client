@@ -416,8 +416,8 @@ function UI_DragonSkillEnhance:click_enhanceBtn()
         local ui = UI_DragonSkillEnhance_Result(self.m_selectDragonData, mod_struct_dragon)
 		ui:setCloseCB(function()
 			-- 스킬 강화 가능 여부 판별하여 가능하지 않으면 닫아버림
-			local possible, msg = g_dragonsData:impossibleSkillEnhanceForever(self.m_selectDragonOID)
-			if (not possible) then
+			local impossible, msg = g_dragonsData:impossibleSkillEnhanceForever(self.m_selectDragonOID)
+			if (impossible) then
 				UIManager:toastNotificationRed(msg)
 				self:close()
 			end
