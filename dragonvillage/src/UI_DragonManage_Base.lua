@@ -241,8 +241,8 @@ function UI_DragonManage_Base:init_dragonTableView()
             end
 
             -- 승급/진화/스킬강화 
-            local is_noti_dragon = data:isNotiDragon()
-            ui:setNotiSpriteVisible(is_noti_dragon)
+            -- local is_noti_dragon = data:isNotiDragon()
+            -- ui:setNotiSpriteVisible(is_noti_dragon)
 
             -- 새로 획득한 드래곤 뱃지
             local is_new_dragon = data:isNewDragon()

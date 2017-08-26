@@ -191,7 +191,7 @@ function UI_DragonManageInfo:refresh()
     self:refresh_inventoryLabel()
 
     -- 진화/승급/스킬강화 알림
-    self:refresh_buttonNoti()
+    --self:refresh_buttonNoti()
 
 	-- 잠금 표시
 	self.vars['lockSprite']:setVisible(t_dragon_data:getLock())
