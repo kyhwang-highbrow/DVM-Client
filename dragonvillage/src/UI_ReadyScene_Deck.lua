@@ -237,7 +237,7 @@ function UI_ReadyScene_Deck:refreshLeader()
 		else
 			-- 덱에 드래곤이 없으므로 leader표시를 없앤다.
 			vars['leaderSprite']:setVisible(false)
-
+            self.m_currLeader = nil
 		end
 
 	end

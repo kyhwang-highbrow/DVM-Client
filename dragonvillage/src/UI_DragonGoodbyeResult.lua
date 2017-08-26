@@ -56,7 +56,7 @@ function UI_DragonGoodbyeResult:initUI()
 
 		    -- 획득 팝업 출력
 		    local ui = UI_ObtainPopup(l_item_list, goodbye_str_3)
-            ui:setCloseCB(function() self:onClose() end)
+            ui:setCloseCB(function() self:fadeOutClose() end)
 	    end
 
         -- 블럭 해제
@@ -96,10 +96,9 @@ function UI_DragonGoodbyeResult:refresh()
 end
 
 -------------------------------------
--- function onClose
--- @TODO onClose 사용하기에 적합하지 않으니 나중에 수정
+-- function fadeOutClose
 -------------------------------------
-function UI_DragonGoodbyeResult:onClose()
+function UI_DragonGoodbyeResult:fadeOutClose()
     self:sceneFadeOutAction(function()
         SoundMgr:playPrevBGM()
         self:close()
