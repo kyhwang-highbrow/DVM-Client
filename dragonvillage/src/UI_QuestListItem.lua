@@ -173,8 +173,12 @@ function UI_QuestListItem:click_rewardBtn(ui_quest_popup)
 		local toast_msg = Str('보상이 우편함으로 전송되었습니다.')
         UI_ToastPopup(toast_msg)
 		
+        -- idx 교체 (테이블뷰의 아이템을 찾기위해 현재것으로 idx 지정)
+        if (t_quest_data) then
+            t_quest_data['idx'] = self.m_questData['idx']
+        end
+
 		-- 갱신
-        t_quest_data['idx'] = self.m_questData['idx']
 		self:refresh(t_quest_data)
 		ui_quest_popup:refresh(t_quest_data)
 	end
