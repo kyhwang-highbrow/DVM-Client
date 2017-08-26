@@ -78,14 +78,17 @@ end
 -- function update
 -------------------------------------
 function UI_BattleMenu:update(dt)
-    if (self.m_lAdventureBtnUI) then
-        for i, v in pairs(self.m_lAdventureBtnUI) do
-            v['ui']:refresh()
+    -- noti update
+    do
+        if (self.m_lAdventureBtnUI) then
+            for i, v in pairs(self.m_lAdventureBtnUI) do
+                v['ui']:refresh()
+            end
         end
-    end
-    if (self.m_lDungeonBtnUI) then
-        for i, v in pairs(self.m_lDungeonBtnUI) do
-            v['ui']:refresh()
+        if (self.m_lDungeonBtnUI) then
+            for i, v in pairs(self.m_lDungeonBtnUI) do
+                v['ui']:refresh()
+            end
         end
     end
 end
@@ -157,7 +160,10 @@ function UI_BattleMenu:onChangeTab(tab, first)
     end
 
     if (tab == 'adventure') then
-        self:runBtnAppearAction(self.m_lAdventureBtnUI)
+        -- tutorial 실행중이라면
+        if (not TutorialManager.getInstance():isDoing()) then
+            self:runBtnAppearAction(self.m_lAdventureBtnUI)
+        end
 
     elseif (tab == 'dungeon') then
         self:runBtnAppearAction(self.m_lDungeonBtnUI)
@@ -182,6 +188,11 @@ function UI_BattleMenu:initAdventureTab()
     ui.root:setPosition(-184, -94)
     vars['adventureMenu']:addChild(ui.root)
     table.insert(l_btn_ui, {['ui']=ui, ['x']=-184, ['y']=-94})
+
+    -- tutorial 실행중이라면
+    if TutorialManager.getInstance():isDoing() then
+        vars['tutorialAdventureBtn'] = ui.vars['enterBtn']
+    end
 
     -- 탐험
     local ui = UI_BattleMenuItem('exploation')

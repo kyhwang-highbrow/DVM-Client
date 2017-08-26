@@ -77,8 +77,6 @@ function UI_ScenarioPlayer:applyEffect(effect)
         return
     end
 
-    cclog('#UI_ScenarioPlayer effect : ' .. effect)
-
     local l_str = TableClass:seperate(effect, ';')
     local effect = l_str[1]
     local val_1 = l_str[2]

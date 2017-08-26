@@ -1,5 +1,7 @@
 TUTORIAL = {
     INTRO_FIGHT = 'intro',
+    FIRST_START = 'tutorial_first_adv_start',
+    FIRST_END = 'tutorial_first_adv_end',
     COLOSSEUM = 'tutorial_colosseum',
     ANCIENT = 'tutorial_ancient_tower',
 }
@@ -31,10 +33,14 @@ function ServerData_Tutorial:isTutorialDone(tutorial_key, cb_func)
         -- nothing to do
 
     elseif (is_done == false) then
-        cb_func()
+        if (cb_func) then
+            cb_func()
+        end
 
     elseif (is_done == nil) then
-        self:request_tutorialInfo(tutorial_key, cb_func)
+        if (cb_func) then
+            self:request_tutorialInfo(tutorial_key, cb_func)
+        end
 
     end
 end

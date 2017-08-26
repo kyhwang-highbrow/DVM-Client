@@ -374,6 +374,10 @@ function UI_AdventureSceneNew:refreshChapter(chapter, difficulty, stage, force)
             self.m_lStageButton[i] = button
         end
     end
+    -- tutorial 실행중이라면
+    if TutorialManager.getInstance():isDoing() then
+        vars['tutorialStageBtn'] = self.m_lStageButton[1].vars['stageBtn']
+    end
 
     do -- 최초 보상 클리어 관련
         self.m_lFirstRewardButtons = {}

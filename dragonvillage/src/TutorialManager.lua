@@ -44,7 +44,7 @@ function TutorialManager:startTutorial(tutorial_key, tar_ui)
     local function cb_func(ret)
         -- 이미 완료한 튜토리얼이라면 실행하지 않는다.
         if (ret['tutorial']) then
-            return
+            --return
         end
         
         -- 튜토리얼 실행 : UI세팅
@@ -199,7 +199,7 @@ function TutorialManager:setStencilEffect(node)
     size = {['width'] = size['width'] + 10, ['height'] = size['height'] + 10}
     effect:setContentSize(size)
 
-    self.m_tutorialNode:addChild(effect, 2)
+    self.m_tutorialNode:addChild(effect, 1)
 
     -- tutorialNode에 맞는 좌표 계산
     local world_pos = TutorialHelper:convertToWorldSpace(self.m_tutorialNode, node)
@@ -213,7 +213,7 @@ function TutorialManager:setStencilEffect(node)
 end
 
 -------------------------------------
--- function setTutorialStencil
+-- function releaseTutorialStencil
 -- @brief 튜토리얼 스텐실 해제
 -------------------------------------
 function TutorialManager:releaseTutorialStencil()
@@ -232,7 +232,7 @@ end
 -- @brief m_tutorialNode에 받아온 uic_node를 붙인다.
 -------------------------------------
 function TutorialManager:attachToTutorialNode(uic_node)
-	local node = uic_node.m_node
+	local node = uic_node.m_node or uic_node
 
     -- tutorialNode에 맞는 좌표 계산
     local world_pos = TutorialHelper:convertToWorldSpace(self.m_tutorialNode, node)
@@ -329,6 +329,24 @@ function TutorialManager:findTargetUI()
     end
 end
 
+-------------------------------------
+-- function refreshTargetUI
+-- @brief 최상위 UI로 targetUI를 변경한다.
+-------------------------------------
+function TutorialManager:refreshTargetUI()
+    local old_tar_ui = self.m_tutorialPlayer.m_targetUI
+    local new_tar_ui = self:findTargetUI()
+    cclog(old_tar_ui.m_uiName, new_tar_ui.m_uiName)
+
+    -- ui가 바뀐 경우
+    if (old_tar_ui ~= new_tar_ui) then
+        -- 기존 UI가 닫힌 경우라면 활성화 시킨 버튼을 날려버린다.
+        if (old_tar_ui:isClosed()) then
+            self:deleteNodeAll()
+        end    
+        self:changeTargetUI(new_tar_ui)
+    end
+end
 
 -------------------------------------
 -- function isDoing

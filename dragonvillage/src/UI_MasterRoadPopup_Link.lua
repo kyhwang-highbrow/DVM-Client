@@ -21,7 +21,10 @@ function UI_MasterRoadPopup_Link:init()
 
 	-- @UI_ACTION
 	self:doActionReset()
-	self:doAction(nil, false)
+	self:doAction(function()
+        -- @ TUTORIAL
+        TutorialManager.getInstance():startTutorial(TUTORIAL.FIRST_END, self)
+    end, false)
 
 	self:initUI()
 	self:initButton()
@@ -68,9 +71,13 @@ function UI_MasterRoadPopup_Link:click_questLinkBtn()
         local function close_cb()
             SceneLobby():runScene()
         end
-        local scene = SceneCommon(UI_MasterRoadPopup, close_cb)
-        scene:runScene()
-
+        if (TutorialManager.getInstance():isDoing()) then
+            local ui = UI_MasterRoadPopup()
+            ui:setCloseCB(close_cb)
+        else
+            local scene = SceneCommon(UI_MasterRoadPopup, close_cb)
+            scene:runScene()
+        end
     end)
     self:click_exitBtn()
 end

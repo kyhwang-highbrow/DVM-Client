@@ -76,9 +76,12 @@ function UI_TutorialPlayer:next(next_effect)
     end
 
     if (self.m_currPage <= self.m_maxPage) then
+        -- traget UI 갱신
+        TutorialManager.getInstance():refreshTargetUI()
+
         local effect = self.m_nextEffectName
         self:showPage()
-
+  
         -- 페이지에 해당 이펙트 있을 경우에만 next_func 실행
         if (effect) then
             if (self:isExistEffect(self.m_currPage, effect)) then
@@ -133,14 +136,16 @@ end
 -- @brief 지정된 노드를 스텐실로 만든다.
 -------------------------------------
 function UI_TutorialPlayer:setStencil(node_name)
+    local tutorial_mgr = TutorialManager.getInstance()
+
     if (node_name == 'release') then
-        TutorialManager.getInstance():releaseTutorialStencil()
+        tutorial_mgr:releaseTutorialStencil()
         return
     end
 
     local tar_node = self.m_targetUI.vars[node_name]
     if (tar_node) then
-        TutorialManager.getInstance():setTutorialStencil(tar_node)
+        tutorial_mgr:setTutorialStencil(tar_node)
     end
 end
 
@@ -172,13 +177,14 @@ end
 -- @brief 지정된 노드를 활성화 한다.
 -------------------------------------
 function UI_TutorialPlayer:activeNode(node_name)
+    local tutorial_mgr = TutorialManager.getInstance()
+    
     if (node_name == 'release') then
-        TutorialManager.getInstance():revertNodeAll()
+        tutorial_mgr:revertNodeAll()
         return
     end
 
     local tar_node = self.m_targetUI.vars[node_name]
-    local tutorial_mgr = TutorialManager.getInstance()
 
     if (tar_node) then
         tutorial_mgr:attachToTutorialNode(tar_node)
@@ -188,15 +194,6 @@ function UI_TutorialPlayer:activeNode(node_name)
     if (isInstanceOf(tar_node, UIC_Button)) then 
         tar_node:addScriptTapHandler(function()
             if (tutorial_mgr:isDoing()) then
-                -- 가장 상위의 UI가 변경되었다면 targetUI 교체
-                local new_tar_ui = tutorial_mgr:findTargetUI()
-                if (self.m_targetUI.m_uiName ~= new_tar_ui.m_uiName) then
-                    -- 기존 UI가 닫힌 경우라면 활성화 시킨 버튼을 날려버린다.
-                    if (self.m_targetUI:isClosed()) then
-                        tutorial_mgr:deleteNodeAll()
-                    end    
-                    tutorial_mgr:changeTargetUI(new_tar_ui)
-                end
                 -- 다음페이지
                 self:next()
             end

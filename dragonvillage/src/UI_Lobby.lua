@@ -169,16 +169,26 @@ function UI_Lobby:entryCoroutine()
         end
         while (working) do dt = coroutine.yield() end
 
-        if g_eventData:hasReward() then
-            working = true
-            local ui = UI_EventPopup()
-            ui:setCloseCB(function(ret) working = false end)
-            while (working) do dt = coroutine.yield() end
+        -- 이벤트 보상 정보가 있다면 팝업을 띄운다.
+        if (g_tutorialData:isTutorialDone(TUTORIAL.FIRST_START) and g_tutorialData:isTutorialDone(TUTORIAL.FRIST_END)) then
+            if g_eventData:hasReward() then
+                working = true
+                local ui = UI_EventPopup()
+                ui:setCloseCB(function(ret) working = false end)
+                while (working) do dt = coroutine.yield() end
+            end
         end
 
         -- @UI_ACTION
         working = true
-        self:doAction(function() working = false end, false)
+        self:doAction(function() 
+            working = false
+            -- @ TUTORIAL
+            local function cb_func()
+                TutorialManager.getInstance():startTutorial(TUTORIAL.FIRST_START, self)
+            end
+            g_tutorialData:isTutorialDone(TUTORIAL.INTRO_FIGHT, cb_func)
+        end, false)
         g_topUserInfo:doAction()
 		self.root:scheduleUpdateWithPriorityLua(function(dt) self:update(dt) end, 0)
         while (working) do dt = coroutine.yield() end
