@@ -650,3 +650,18 @@ function SceneDV:richLabelTest()
     -- rich label 영역 그리기
     rich_label:initGLNode()
 end
+
+-------------------------------------
+-- function mystery
+-------------------------------------
+function SceneDV:mystery()
+    local table_help = TableHelp().m_orgTable
+    for i, v in pairs(table_help) do
+        cclog(i, v)
+    end
+    cclog('################## LUA')
+    local tttt = require 'table/table_help.lua'
+    for i, v in pairs(tttt) do
+        cclog(i, v)
+    end
+end
