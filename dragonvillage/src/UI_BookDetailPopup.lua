@@ -21,6 +21,7 @@ UI_BookDetailPopup = class(PARENT,{
 		m_pressBtn = 'UIC_Button',
 
         m_dragonAnimator = 'UIC_DragonAnimator',
+        m_originDid = 'number',
     })
 
 -------------------------------------
@@ -40,7 +41,7 @@ function UI_BookDetailPopup:init(t_dragon)
     self:sceneFadeInAction()
 
 	-- initialize
-	self:setDragon(t_dragon)
+	self:setDragon(t_dragon, true)
 
     self.m_bookLastChangeTime = g_bookData:getLastChangeTimeStamp()
 	self.m_pressTimer = 0
@@ -222,6 +223,53 @@ function UI_BookDetailPopup:onChangeDragon()
         local story_str = t_dragon['t_desc']
         vars['storyLabel']:setString(story_str)
     end
+
+    self:addSameTypeDragon(t_dragon)
+end
+
+-------------------------------------
+-- function addSameTypeDragon
+-- @brief 같은 타입 드래곤 리스트
+-------------------------------------
+function UI_BookDetailPopup:addSameTypeDragon(t_dragon)
+    local vars = self.vars
+
+    vars['dragonCardNode_fire']:removeAllChildren()
+    vars['dragonCardNode_water']:removeAllChildren()
+    vars['dragonCardNode_earth']:removeAllChildren()
+    vars['dragonCardNode_light']:removeAllChildren()
+    vars['dragonCardNode_dark']:removeAllChildren()
+
+    local type = t_dragon['type']
+    local dragon_list = TableDragon():filterList('type', type)
+    if (not dragon_list) then return end
+
+    for _, v in pairs(dragon_list) do
+        local t_data = v
+        local attr = t_data['attr']
+        
+        if (t_data) then
+            local node = vars['dragonCardNode_'..attr]
+            local card_data = self:makeDragonData(t_data)
+            local dragon_card = UI_DragonCard(card_data)
+            local is_select = (t_data['did'] == t_dragon['did'])
+            
+            -- 선택된 카드 프레임 추가
+            if (is_select) then
+                local sel_img = cc.Sprite:create('res/ui/frames/temp/dragon_select_frame.png')
+                sel_img:setDockPoint(CENTER_POINT)
+                sel_img:setAnchorPoint(CENTER_POINT)
+                dragon_card.root:addChild(sel_img)
+            end
+
+            dragon_card.vars['clickBtn']:registerScriptTapHandler(function() self:click_sameTypeCard(t_data) end)
+            node:addChild(dragon_card.root)
+
+            vars['emptyNode_'..attr]:setVisible(false)
+        else
+            vars['emptyNode_'..attr]:setVisible(true)
+        end
+    end
 end
 
 -------------------------------------
@@ -375,7 +423,8 @@ end
 -------------------------------------
 function UI_BookDetailPopup:click_nextBtn(is_next)
 	local t_dragon = self.m_tDragon
-	local did = t_dragon['did']
+    -- 다음, 이전 버튼에서는 origin did 사용, (같은 타입 드래곤 선택 추가되면서 did 변경될 수 있음)
+	local did = self.m_originDid
 	local evolution = self.m_evolution
     
 	-- 현재의 인덱스 탐색
@@ -397,7 +446,7 @@ function UI_BookDetailPopup:click_nextBtn(is_next)
 	local new_idx = is_next and number_loop:next() or number_loop:prev()
 	local new_t_dragon = self.m_lBookList[new_idx]['data']
 	if (new_t_dragon) then
-		self:setDragon(new_t_dragon)
+		self:setDragon(new_t_dragon, true)
 		self:refresh()
 		self.m_bookIdx = new_idx
 
@@ -555,20 +604,41 @@ function UI_BookDetailPopup:click_getBtn()
 end
 
 -------------------------------------
+-- function click_sameTypeCard
+-- @brief 같은 타입 드래곤 클릭시
+-------------------------------------
+function UI_BookDetailPopup:click_sameTypeCard(t_dragon)
+    if (not t_dragon) then return end
+
+    -- 기존 값 그대로 유지
+    t_dragon['bookType'] = self.m_tDragon['bookType'] 
+    t_dragon['grade'] = self.m_tDragon['grade'] 
+	t_dragon['evolution'] = self.m_tDragon['evolution'] 
+
+	self:setDragon(t_dragon)
+
+    -- refresh
+    self:refresh()
+end
+
+-------------------------------------
 -- function setDragon
 -------------------------------------
-function UI_BookDetailPopup:setDragon(t_dragon)
+function UI_BookDetailPopup:setDragon(t_dragon, is_origin)
 	self.m_tDragon = t_dragon
 	self.m_evolution = t_dragon['evolution']
 	self.m_grade = t_dragon['grade']
 	self.m_lv = 1
+    if (is_origin) then
+        self.m_originDid = t_dragon['did']
+    end
 end
 
 -------------------------------------
 -- function makeDragonData
 -------------------------------------
-function UI_BookDetailPopup:makeDragonData()
-    local t_dragon = self.m_tDragon
+function UI_BookDetailPopup:makeDragonData(data)
+    local t_dragon = (data) and data or self.m_tDragon
     if (not t_dragon) then
         return nil
     end
