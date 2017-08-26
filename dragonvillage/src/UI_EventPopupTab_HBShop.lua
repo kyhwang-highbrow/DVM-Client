@@ -125,7 +125,9 @@ end
 function UI_EventPopupTab_HBShop:onEnterTab()
     -- 다른탭 갔다가 들어왔을때 웹뷰가 다시 나와서 처리
     if (not self.vars['bannerCloseBtn']:isVisible()) then
-        self.m_webView:setVisible(false)
+        if (self.m_webView) then
+            self.m_webView:setVisible(false)
+        end
     end
 end
 
