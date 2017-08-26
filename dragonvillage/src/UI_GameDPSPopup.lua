@@ -22,7 +22,7 @@ UI_GameDPSPopup = class(PARENT, {
 -- function init
 -------------------------------------
 function UI_GameDPSPopup:init(world)
-	local vars = self:load('ingame_dps_info.ui')
+	local vars = self:load('ingame_dps_info.ui', false, true, true)
 
 	-- @UI_ACTION
 	self:doActionReset()

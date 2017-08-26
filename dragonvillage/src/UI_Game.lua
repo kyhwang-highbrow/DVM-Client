@@ -47,8 +47,10 @@ end
 -------------------------------------
 function UI_Game:init(game_scene)
     self.m_gameScene = game_scene
-	
-	local vars = self:load(self:getUIFileName())
+
+    cc.SpriteFrameCache:getInstance():addSpriteFrames('res/ui/a2d/ingame_btn/ingame_btn.plist')
+
+    local vars = self:load(self:getUIFileName(), false, true, true)
     UIManager:open(self, UIManager.NORMAL)
 
 	 -- 백키 지정
@@ -159,20 +161,21 @@ function UI_Game:initButton()
         self.m_panelBtnIcon2:setVisible(b)
         vars['panelBtn']:addChild(self.m_panelBtnIcon2.m_node)
         ]]--
-        if (vars['panelBtn']) then
-            vars['panelBtn']:setVisible(false)
-        end
     end
 
     -- 연출 버튼 이미지
     do
         local skip_mode = g_autoPlaySetting:get('skip_mode') or false
 
-        self.m_effectBtnIcon1 = MakeAnimator('res/ui/buttons/ingame_top_effect_0101.png')
-        vars['effectBtn']:addChild(self.m_effectBtnIcon1.m_node)
+        self.m_effectBtnIcon1 = cc.Sprite:createWithSpriteFrameName('ingame_btn_effect_0101.png')
+        self.m_effectBtnIcon1:setDockPoint(CENTER_POINT)
+        self.m_effectBtnIcon1:setAnchorPoint(CENTER_POINT)
+        vars['effectBtn']:addChild(self.m_effectBtnIcon1)
 
-        self.m_effectBtnIcon2 = MakeAnimator('res/ui/buttons/ingame_top_effect_0102.png')
-        vars['effectBtn']:addChild(self.m_effectBtnIcon2.m_node)
+        self.m_effectBtnIcon2 = cc.Sprite:createWithSpriteFrameName('ingame_btn_effect_0102.png')
+        self.m_effectBtnIcon2:setDockPoint(CENTER_POINT)
+        self.m_effectBtnIcon2:setAnchorPoint(CENTER_POINT)
+        vars['effectBtn']:addChild(self.m_effectBtnIcon2)
 
         self.m_effectBtnIcon1:setVisible(skip_mode)
         self.m_effectBtnIcon2:setVisible(not skip_mode)
