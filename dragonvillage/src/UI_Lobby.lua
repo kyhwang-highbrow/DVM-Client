@@ -128,6 +128,22 @@ function UI_Lobby:entryCoroutine()
         end
         while (working) do dt = coroutine.yield() end
 
+        cclog('# 상점 정보 받는 중')
+        working = true
+        local ui_network = g_shopDataNew:request_shopInfo(function(ret) working = false end, fail_cb)
+        if ui_network then
+            ui_network:hideBGLayerColor()
+        end
+        while (working) do dt = coroutine.yield() end
+
+        cclog('# 드빌전용관 정보 받는 중')
+        working = true
+        local ui_network = g_highbrowData:request_getHbProductList(function(ret) working = false end, fail_cb)
+        if ui_network then
+            ui_network:hideBGLayerColor()
+        end
+        while (working) do dt = coroutine.yield() end
+
         cclog('# 드래곤 전투력 저장 중')
         working = true
         local ui_network = g_dragonsData:request_updatePower(function(ret) working = false end, fail_cb)

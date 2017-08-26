@@ -200,7 +200,7 @@ end
 -------------------------------------
 -- function request_shopInfo
 -------------------------------------
-function ServerData_Shop:request_shopInfo(cb_func)
+function ServerData_Shop:request_shopInfo(cb_func, fail_cb)
     -- 파라미터
     local uid = g_userData:get('uid')
 
@@ -224,9 +224,12 @@ function ServerData_Shop:request_shopInfo(cb_func)
     ui_network:setParam('uid', uid)
     ui_network:hideLoading()
     ui_network:setSuccessCB(success_cb)
+    ui_network:setFailCB(fail_cb)
     ui_network:setRevocable(true)
     ui_network:setReuse(false)
     ui_network:request()
+
+    return ui_network
 end
 
 -------------------------------------
