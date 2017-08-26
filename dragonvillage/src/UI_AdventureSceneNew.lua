@@ -327,6 +327,11 @@ function UI_AdventureSceneNew:refreshChapter(chapter, difficulty, stage, force)
         return
     end
 
+    -- tutorial 실행중이라면
+    if TutorialManager.getInstance():isDoing() then
+        chapter = 1
+    end
+
     local vars = self.vars
     self.m_currChapter = chapter
     self.m_currDifficulty = difficulty or self.m_currDifficulty
