@@ -177,14 +177,13 @@ end
 -- function click_exitBtn
 -------------------------------------
 function UI_DragonEvolutionResult:click_exitBtn()
-    self:onClose()
+    self:fadeOutClose()
 end
 
 -------------------------------------
--- function onClose
--- @TODO onClose 사용하기에 적합하지 않으니 나중에 수정
+-- function fadeOutClose
 -------------------------------------
-function UI_DragonEvolutionResult:onClose()
+function UI_DragonEvolutionResult:fadeOutClose()
     -- @ MASTER ROAD
     local t_data = {clear_key = 'd_evup'}
     g_masterRoadData:updateMasterRoad(t_data)
