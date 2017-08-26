@@ -740,7 +740,35 @@ function StructProduct:isContain(item_type)
     return false
 end
 
+-------------------------------------
+-- function getMaxBuyTermStr
+-- @brief 구매 제한 설명 텍스트
+-------------------------------------
+function StructProduct:getMaxBuyTermStr()
+    -- 구매 제한 횟수가 설정되지 않으면 return
+    local max_buy_cnt = tonumber(self['max_buy_count'])
+    if (not max_buy_cnt) or (max_buy_cnt <= 0) then
+        return ''
+    end
 
+    local max_buy_term = self['max_buy_term']
+    local product_id = self['product_id']
+    local buy_cnt = g_shopDataNew:getBuyCount(product_id)    
+
+    local str = ''
+    if (max_buy_term == 'permanent') then
+        str = Str('구매제한 {1}/{2}', buy_cnt, max_buy_cnt)
+
+    elseif (max_buy_term == 'monthly') then
+        str = Str('월간 구매제한 {1}/{2}', buy_cnt, max_buy_cnt)
+
+    elseif (max_buy_term == 'weekly') then
+        str = Str('주간 구매제한 {1}/{2}', buy_cnt, max_buy_cnt)
+
+    end
+
+    return str
+end
 
 
 

@@ -81,6 +81,10 @@ end
 function UI_Product:refresh()
 	local vars = self.vars
 	local struct_product = self.m_structProduct
+
+    -- 구매 제한 설명 텍스트
+    local str = struct_product:getMaxBuyTermStr()
+    vars['maxBuyTermLabel']:setString(str)
 end
 
 -------------------------------
