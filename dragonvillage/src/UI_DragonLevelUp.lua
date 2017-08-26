@@ -182,14 +182,6 @@ function UI_DragonLevelUp:refresh_dragonInfo()
 end
 
 -------------------------------------
--- function createMtrlDragonCardCB
--- @override
--------------------------------------
-function UI_DragonLevelUp:createMtrlDragonCardCB(ui, data)
-	self:setAttrBonusLabel(ui)
-end
-
--------------------------------------
 -- function setAttrBonusLabel
 -- @brief 레벨업 할 드래곤과 재료 드래곤의 속성이 같으면 50% 추가 텍스트 표시
 -------------------------------------
@@ -412,6 +404,7 @@ function UI_DragonLevelUp:createMtrlDragonCardCB(ui, data)
         end
     end
 
+    self:setAttrBonusLabel(ui)
 end
 
 -------------------------------------
