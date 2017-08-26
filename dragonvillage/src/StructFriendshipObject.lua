@@ -150,8 +150,8 @@ function StructFriendshipObject:getStringData()
     local str = string.format('%d;%d;%d;%d;%d', 
         self['flv'],
         self['fexp'],
-        self['fhp'],
         self['fatk'],
+        self['fhp'],
         self['fdef']
     )
 
