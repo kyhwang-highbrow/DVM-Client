@@ -710,6 +710,15 @@ function UI_TitleScene:workGetServerInfo()
         ui_network:hideLoading()
         if co:waitWork() then return end
 
+        -- 네스트 던전 정보
+        co:work()
+        self.m_loadingUI:showLoading(Str('던전 정보를 확인 중...'))
+        local ui_network = g_nestDungeonData:requestNestDungeonInfo(co.NEXT)
+        ui_network:setRevocable(false)
+        ui_network:setFailCB(fail_cb)
+        ui_network:hideLoading()
+        if co:waitWork() then return end
+
         -- 튜토리얼
         co:work()
         self.m_loadingUI:showLoading(Str('튜토리얼 정보를 가져오는 중...'))

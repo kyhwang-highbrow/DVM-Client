@@ -359,6 +359,12 @@ function UINavigatorDefinition:goTo_nestdungeon(...)
         if (not self:checkContentLock(location_name)) then
             return
         end
+
+        -- 요일 던전의 경우 열려있는지 확인
+        if (not g_nestDungeonData:checkNestDungeonOpen(stage_id)) then
+            MakeSimplePopup(POPUP_TYPE.OK, Str('입장 가능한 시간이 아닙니다.'))
+            return
+        end
     end
 
     self:goTo_nestdungeon_core(stage_id, dungeon_type)

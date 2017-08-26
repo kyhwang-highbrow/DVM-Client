@@ -166,6 +166,8 @@ function ServerData_NestDungeon:requestNestDungeonInfo(cb_func)
     ui_network:setRevocable(true)
     ui_network:setSuccessCB(success_cb)
     ui_network:request()
+
+    return ui_network
 end
 
 -------------------------------------
@@ -311,6 +313,30 @@ function ServerData_NestDungeon:updateNestDungeonTimer(dungeon_id)
 
 
     return t_dungeon_info
+end
+
+-------------------------------------
+-- function checkNeedUpdateNestDungeonInfo
+-- @brief 네스트 던전 항목을 갱신해야 하는지 확인하는 함수
+-------------------------------------
+function ServerData_NestDungeon:checkNestDungeonOpen(stage_id)
+    local dungeon_id = self:getDungeonIDFromStateID(stage_id)
+    local t_dungeon_info = self.m_nestDungeonInfoMap[dungeon_id]
+
+    local server_time = Timer:getServerTime()
+
+    local time_stamp
+    if (t_dungeon_info['is_open'] == 1) then
+        -- 닫히는 시간
+        time_stamp = (t_dungeon_info['next_invalid_at'] / 1000)
+        return (server_time < time_stamp)
+    else
+        -- 열리는 시간
+        time_stamp = (t_dungeon_info['next_valid_at'] / 1000)
+        return (server_time > time_stamp)
+    end
+
+    return false
 end
 
 -------------------------------------
