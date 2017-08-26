@@ -78,24 +78,14 @@ function UI_UserLevelUp:initUI()
         ui:load('popup_contents_open.ui')
         ui.vars['contentsVisual']:changeAni(content_type, true)
         ui.vars['contentsLabel']:setString(getContentName(content_type))
+        ui.vars['okBtn']:registerScriptTapHandler(function() ui:close() end)
         ui:sceneFadeInAction()
         UIManager:open(ui, UIManager.POPUP)
-
-        local delay1 = cc.DelayTime:create(OPEN_CONTENT_TIME)
-	    local fade_out = cc.CallFunc:create(function()
-		    doAllChildren(ui.root, function(node) node:runAction(cc.FadeOut:create(0.5)) end)
-	    end)
-        local delay2 = cc.DelayTime:create(0.5)
-        local close = cc.CallFunc:create(function()
-		    ui:close()
-	    end)
-
-        cca.runAction(ui.root, cc.Sequence:create(delay1, fade_out, delay2, close))
     end
 
     -- 연속전투, 컨텐츠 오픈 체크 액션
     do
-        local delay1 = cc.DelayTime:create(1.5)
+        local delay1 = cc.DelayTime:create(0.5)
 	    local check_open = cc.CallFunc:create(function()
             for lv = prev_lv + 1, curr_lv do
                 local content_type = g_contentLockData:getOpenContentNameWithLv(lv)
