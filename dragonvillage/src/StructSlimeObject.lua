@@ -159,6 +159,14 @@ function StructSlimeObject:isLeader()
 end
 
 -------------------------------------
+-- function isNotiDragon
+-- @breif
+-------------------------------------
+function StructSlimeObject:isNotiDragon()
+    return false
+end
+
+-------------------------------------
 -- function isNewDragon
 -- @breif
 -------------------------------------
