@@ -165,7 +165,13 @@ function IconHelper:getItemIcon(item_id, t_sub_data)
 
     -- 아이콘 리소스가 지정되어 있을 경우
     if t_item['icon'] and (t_item['icon'] ~= '') then
-        sprite = self:getIcon(t_item['icon'])
+        -- 룬 세트 아이콘 생성
+        if (pl.stringx.startswith(t_item['full_type'], 'rune_rand_')) then
+            local grade = string.gsub(t_item['full_type'], 'rune_rand_', '')
+            sprite = self:getRuneSetIcon(t_item['icon'], grade)
+        else
+            sprite = self:getIcon(t_item['icon'])
+        end
 
     -- 드래곤 아이콘 생성
     elseif (item_type == 'dragon') then
@@ -290,6 +296,26 @@ function IconHelper:getRuneIcon(slot, rarity, grade, set_id, lv)
     end
 
     return bg
+end
+
+-------------------------------------
+-- function getRuneSetIcon
+-- @brief 룬 아이콘 생성
+-------------------------------------
+function IconHelper:getRuneSetIcon(res_name, grade)
+    -- 룬 아이콘
+    local rune_icon = self:getIcon(res_name)
+
+    -- 룬 등급 (1성~5성)
+    local grade_sprite = self:getIcon(string.format('res/ui/icons/rune/rune_star_%.2d.png', grade))
+    if grade_sprite then
+        grade_sprite:setDockPoint(CENTER_POINT)
+        grade_sprite:setAnchorPoint(CENTER_POINT)
+        grade_sprite:setPosition(0, -51)
+        rune_icon:addChild(grade_sprite)
+    end
+
+    return rune_icon
 end
 
 -------------------------------------
