@@ -988,8 +988,12 @@ end
 -- function makeDamageFont
 -------------------------------------
 function Character:makeDamageFont(damage, x, y, tParam)
+    
+
     local y = y + 60
+    local x_offset = 0
     local tParam = tParam or {}
+    local r, g, b = nil, nil, nil
 
     local is_critical = tParam['is_critical'] or false
     local is_indicator_critical = tParam['is_indicator_critical'] or false
@@ -1005,10 +1009,34 @@ function Character:makeDamageFont(damage, x, y, tParam)
         return
     end
     
-    -- root node 생성
+    -- 색상 설정
+    if (g_constant:get('DEBUG', 'ADD_DMG_YELLOW_FONT') and is_add_dmg) then
+		    r, g, b = 225, 229, 0 -- 노랑
+
+        elseif (is_critical) then
+            -- 치명타
+            r, g, b = 233, 84, 255
+        
+        elseif (is_miss) then
+            -- 빚맞힘
+            r, g, b = 198, 198, 198	-- 회색
+	    
+	    elseif (is_bash) then
+            -- 강타
+            r, g, b = 235, 71, 42	-- 빨강
+
+        elseif (is_indicator_critical) then
+            -- 치명 회피
+            r, g, b = 0, 190, 245 -- 하늘색
+        
+        else
+            r, g, b = 255, 255, 255
+        end
+
     local node = cc.Node:create()
     node:setPosition(x, y)
-    
+
+    -- 애니메이션 적용
     if (is_critical) then
         node:runAction( cc.Sequence:create(cc.ScaleTo:create(0.05, 3.5), cc.ScaleTo:create(0.3, 1), cc.DelayTime:create(0.4), cc.FadeOut:create(0.3), cc.RemoveSelf:create()))
         --node:runAction( cc.Sequence:create(cc.FadeIn:create(0.3), cc.DelayTime:create(0.4), cc.FadeOut:create(0.5), cc.RemoveSelf:create()))
@@ -1019,62 +1047,28 @@ function Character:makeDamageFont(damage, x, y, tParam)
     end
 
     self.m_world:addChild3(node, DEPTH_DAMAGE_FONT)
-    
-	-- label 생성
-    do
-        local font_res = 'res/font/normal.fnt'
-	    if (is_critical) then
-		    font_res = 'res/font/critical.fnt'	-- 보라계열
-	    end
-     
-        local label = cc.Label:createWithBMFont(font_res, comma_value(damage))
 
-        
-	    -- 추가 데미지
-        if (g_constant:get('DEBUG', 'ADD_DMG_YELLOW_FONT') and is_add_dmg) then
-		    label:setColor(cc.c3b(225, 229, 0))	-- 노랑
+    node:addChild(self:makeDamageNumber(damage, r, g, b))
 
-        elseif (is_critical) then
-            -- 치명타
-            label:setColor(cc.c3b(233, 84, 255))
-        
-        elseif (is_miss) then
-            -- 빚맞힘
-            label:setColor(cc.c3b(198, 198, 198))	-- 회색
-	    
-	    elseif (is_bash) then
-            -- 강타
-            label:setColor(cc.c3b(235, 71, 42))	-- 빨강
-
-        elseif (is_indicator_critical) then
-            -- 치명 회피
-            label:setColor(cc.c3b(0, 190, 245)) -- 하늘색
-        end
-               
-	    node:addChild(label)
+    -- 숫자 위에 뜰 문자열 (치명타, 강타, 빚맟힘, 치명회피)
+    local option_sprite = nil
+    if (is_critical) then
+        option_sprite = self:createWithSpriteFrameName('ingame_damage_critical.png')
+    elseif (is_bash) then
+        option_sprite = self:createWithSpriteFrameName('ingame_damage_bash.png')
+    elseif (is_miss) then
+        option_sprite = self:createWithSpriteFrameName('ingame_damage_miss.png')
+    elseif (is_indicator_critical) then
+        option_sprite = self:createWithSpriteFrameName('ingame_damage_critical_dodge.png')
     end
 
-    -- 판정 표시
-    do
-        local sprite
-
-        if (is_critical) then
-            sprite = cc.Sprite:create('res/font/ingame_critical.png')
-        elseif (is_bash) then
-            sprite = cc.Sprite:create('res/font/bash.png')
-        elseif (is_miss) then
-            sprite = cc.Sprite:create('res/font/miss.png')
-        elseif (is_indicator_critical) then
-            sprite = cc.Sprite:create('res/font/ingame_critical_dodge.png')
-        end
-
-        if (sprite) then
-            sprite:setAnchorPoint(cc.p(0.5, 0.5))
-            sprite:setDockPoint(cc.p(0.5, 0.5))
-            sprite:setPosition(0, 25)
-            node:addChild(sprite)
-        end
+    if (option_sprite) then
+        option_sprite:setAnchorPoint(cc.p(0.5, 0.5))
+        option_sprite:setDockPoint(cc.p(0.5, 0.5))
+        option_sprite:setPosition(0, 27.5)
+        node:addChild(option_sprite)
     end
+
 end
 
 -------------------------------------
@@ -1096,21 +1090,9 @@ function Character:makeHealFont(heal, is_critical)
 
     self.m_world:addChild3(node, DEPTH_HEAL_FONT)
 
-    -- label 생성
-    do
-        local font_res = 'res/font/heal.fnt'
-	    if (is_critical) then
-		    font_res = 'res/font/critical.fnt'	-- 보라계열
-	    end
 
-        local label = cc.Label:createWithBMFont(font_res, tostring(heal))
+    node:addChild(self:makeDamageNumber(heal, 102, 255, 0))
 
-        if (is_critical) then
-            label:setColor(cc.c3b(102, 255, 0))
-        end
-
-        node:addChild(label)
-    end
 
     -- 판정 표시
     do
@@ -1129,6 +1111,33 @@ function Character:makeHealFont(heal, is_critical)
     end
 end
 
+-------------------------------------
+-- function makeDamageNumber
+-------------------------------------
+function Character:makeDamageNumber(damage, r, g, b)
+    local x_offset = 0
+    local str = comma_value(damage)
+    local length = #str
+    local damage_node = cc.Node:create()
+    for i = 1, #str do
+        local v = str:sub(i, i)
+        local sprite = nil
+        if (v == ',') then  -- comma
+            sprite = self:createWithSpriteFrameName('ingame_damage_comma.png')
+        else                -- number
+            sprite = self:createWithSpriteFrameName('ingame_damage_'.. v.. '.png')
+        end
+
+        sprite:setPosition(x_offset, 0)
+        sprite:setColor(cc.c3b(r, g, b))
+        sprite:setScale(0.75)
+        damage_node:addChild(sprite)
+        x_offset = x_offset + (sprite:getContentSize()['width'] / 2)
+    end
+    
+    damage_node:setPosition(-(x_offset/2), 0)
+    return damage_node
+end
 
 -------------------------------------
 -- function makeSkillChanceFont
@@ -1193,6 +1202,20 @@ function Character:makeImmuneFont(x, y, scale)
     self.m_world:addChild3(sprite, DEPTH_IMMUNE_FONT)
 end
 
+-------------------------------------
+-- function createWithSpriteFrameName
+-------------------------------------
+function Character:createWithSpriteFrameName(res_name)
+	local sprite = cc.Sprite:createWithSpriteFrameName(res_name)
+    if (not sprite) then
+        -- @E.T.
+		g_errorTracker:appendFailedRes(res_name)
+    end
+
+	sprite:setDockPoint(CENTER_POINT)
+	sprite:setAnchorPoint(CENTER_POINT)
+	return sprite
+end
 -------------------------------------
 -- function healPercent
 -------------------------------------

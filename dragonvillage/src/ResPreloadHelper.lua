@@ -184,6 +184,7 @@ function getPreloadList_Common()
         'res/ui/a2d/enemy_skill_speech/enemy_skill_speech.plist',
         'res/ui/a2d/ingame_enemy/ingame_enemy.plist',
         'res/effect/effect_monsterdragon/effect_monsterdragon.plist',
+        'res/ui/a2d/ingame_damage/ingame_damage.plist',
     }
     return ret
 end
@@ -239,11 +240,11 @@ function getPreloadList_Dragon(t_dragon_data)
 
     local evolution = evolution or 1
     local attr = t_dragon['attr']
-
+    -- 드래곤 테이블에서 드래곤의 res(spine)를 가져온다.
     local res_name = AnimatorHelper:getDragonResName(t_dragon['res'], evolution, attr)
     table.insert(ret, res_name)
      
-    -- 스킬
+    -- 스킬 테이블에서 해당 드래곤의 스킬들 res를 가져온다.
     local t_skillIdx = { 'Leader', 'Basic', 0, 1, 2, 3 }
 
 	for _, idx in pairs(t_skillIdx) do
@@ -262,7 +263,7 @@ function getPreloadList_Dragon(t_dragon_data)
                 end
             end
             
-            -- 상태효과
+            -- 스킬에서 사용되는 상태효과의 res를 가져온다.
             for i = 1, 2 do
                 local type = t_skill['add_option_type_' .. i]
                 if (type ~= '') then
