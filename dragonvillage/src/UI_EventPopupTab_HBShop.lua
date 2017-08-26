@@ -97,6 +97,7 @@ function UI_EventPopupTab_HBShop:init_bannerWebView()
         return 
     end
 
+    -- 배너 웹뷰 생성
     local node = vars['bannerNode']
     local content_size = node:getContentSize()
     local webview = ccexp.WebView:create()
@@ -106,9 +107,11 @@ function UI_EventPopupTab_HBShop:init_bannerWebView()
     webview:setAnchorPoint(cc.p(0,0))
     webview:setDockPoint(cc.p(0,0))
     node:addChild(webview)
-    node:setVisible(true)
-
+    
+    -- 배너 닫기 버튼 처리
+    vars['bannerCloseBtn']:setVisible(true)
     vars['bannerCloseBtn']:registerScriptTapHandler(function()
+        vars['bannerCloseBtn']:setVisible(false)
         vars['bannerNode']:setVisible(false)
     end)
 
