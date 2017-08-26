@@ -34,7 +34,6 @@ local TableInfo = {
         fruit               = {'table_fruit',               'fid',          false},
         friendbuff          = {'table_dragon_friendbuff',   'rarity',       false},
 
-        item_sort_by_type   = {'table_item',                'full_type',    false},
         first_reward        = {'table_first_reward',        'stage_id',     false},
         attribute           = {'table_attribute',           'attr_id',      false},
         status              = {'table_status',              'type',         false},
@@ -68,7 +67,6 @@ local TableInfo = {
         evolution_info      = {'table_dragon_evolution_info','evolution',    false},
         enemy_move          = {'table_enemy_move',           'type',         true},
         table_rune_set      = {'table_rune_set',             'set_id',       false},
-        dragon_unit         = {'table_dragon_unit',          'unit_id',      false},
         table_dragon_phrase = {'table_dragon_phrase',        'did',          false},
 
         scenario_resource   = {'scenario/scenario_resource', 'key',         false},

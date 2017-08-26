@@ -245,7 +245,6 @@ local t_module = {
 	'TableQuest',
 	'TableMasterRoad',
     'TableSecretDungeon',
-    'TableDragonUnit',
     'TableStageMission',
     'TableCalendar',
     'TableOption',
