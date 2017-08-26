@@ -652,6 +652,7 @@ local t_module = {
     'UI_CouponPopup',
     'UI_CouponPopup_Confirm',
     'UI_AdvertisingPopup',
+    'UI_FormationDetailPopup',
 
     -- UI : 약관 동의
     'UI_TermsPopup',

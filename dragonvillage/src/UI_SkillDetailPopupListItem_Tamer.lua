@@ -92,12 +92,13 @@ function UI_SkillDetailPopupListItem_Tamer:refresh()
 		vars['maxSprite']:setVisible(false)
 		vars['enhanceBtn']:setVisible(false)
 
+        local user_lv = g_userData:get('lv')
 		-- 미습득 상황
 		if (skill_level <= 0) then
 			vars['lockSprite']:setVisible(true)
 
-		-- 최대 레벨
-		elseif (max_skill_lv <= skill_level) then
+		-- 최대 레벨 (유저 레벨이 max인 경우에만 max 표시)
+		elseif (max_skill_lv <= skill_level) and (user_lv >= 70) then
 			vars['maxSprite']:setVisible(true)
 
 		-- 강화가 가능한 상태

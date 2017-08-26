@@ -92,7 +92,7 @@ function ServerData_Formation:request_lvupFormation(formation_type, enhance_leve
 	ui_network:setParam('formation', formation_type)
 	ui_network:setParam('level', enhance_level)
     ui_network:setSuccessCB(success_cb)
-    ui_network:setRevocable(false)
+    ui_network:setRevocable(true)
     ui_network:setReuse(false)
     ui_network:request()
 end

@@ -74,7 +74,7 @@ function UI_FormationListItem:refresh()
 	vars['enhanceBtn']:setVisible(false)
 	
 	-- 최대 레벨
-	if (g_userData:get('lv') <= formation_lv) then
+	if (g_userData:get('lv') <= formation_lv and g_userData:get('lv') >= 70) then
 		vars['maxSprite']:setVisible(true)
 
 	-- 강화가 가능한 상태
@@ -113,8 +113,8 @@ function UI_FormationListItem:click_enhanceBtn()
 		self:refresh()
 	end
 
-    local formation_level = self.m_tFormationInfo['formation_lv'] + 1
-    g_formationData:request_lvupFormation(self.m_formation, formation_level, cb_func)
+    local ui = UI_FormationDetailPopup(self.m_tFormationInfo)
+    ui:setCloseCB(cb_func)
 end
 
 --@CHECK
