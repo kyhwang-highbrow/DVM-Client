@@ -1004,11 +1004,7 @@ function Character:makeDamageFont(damage, x, y, tParam)
     if (damage <= 0) then
         return
     end
-
-    if (type(damage) ~= 'number') then
-        error('invalid damage value = ' .. damage)
-    end
-
+    
     -- root node 생성
     local node = cc.Node:create()
     node:setPosition(x, y)

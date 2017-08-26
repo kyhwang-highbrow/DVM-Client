@@ -89,7 +89,7 @@ function UI_Game:initUI()
 
     -- 버프 정보
     do
-        self:initInfoBoard()
+        --self:initInfoBoard()
     end
     
     -- 하단 패널
@@ -141,7 +141,7 @@ function UI_Game:initButton()
     vars['pauseButton']:registerScriptTapHandler(function() self:click_pauseButton() end)  
     vars['autoButton']:registerScriptTapHandler(function() self:click_autoButton() end)
     vars['speedButton']:registerScriptTapHandler(function() self:click_speedButton() end)
-    vars['buffBtn']:registerScriptTapHandler(function() self:click_buffButton() end)
+    --vars['buffBtn']:registerScriptTapHandler(function() self:click_buffButton() end)
     --vars['panelBtn']:registerScriptTapHandler(function() self:click_panelBtn() end)
     vars['effectBtn']:registerScriptTapHandler(function() self:click_effectBtn() end)
     vars['chatBtn']:registerScriptTapHandler(function() self:click_chatBtn() end)

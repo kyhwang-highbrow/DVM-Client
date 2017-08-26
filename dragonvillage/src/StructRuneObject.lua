@@ -399,16 +399,17 @@ end
 -- function getStringData
 -------------------------------------
 function StructRuneObject:getStringData()
+    -- 클라에서 파싱하기 위해 룬 옵션 정보의 ';'을 '|'로 변환해서 저장
     local str = string.format('%d:%d:%d:%s:%s:%s:%s:%s:%s',
         self['rid'],
         self['lv'],
         self['rarity'],
-        self['mopt'],
-        self['uopt'],
-        self['sopt_1'],
-        self['sopt_2'],
-        self['sopt_3'],
-        self['sopt_4']
+        string.gsub(self['mopt'], ';', '|'),
+        string.gsub(self['uopt'], ';', '|'),
+        string.gsub(self['sopt_1'], ';', '|'),
+        string.gsub(self['sopt_2'], ';', '|'),
+        string.gsub(self['sopt_3'], ';', '|'),
+        string.gsub(self['sopt_4'], ';', '|')
     )
 
     return str
