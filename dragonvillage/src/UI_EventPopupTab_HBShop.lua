@@ -75,7 +75,7 @@ function UI_EventPopupTab_HBShop:init_tableView()
     table_view.m_defaultCellSize = cc.size(920, 128 + 3)
     table_view:setCellUIClass(self.makeCellUI, create_func)
     table_view:setDirection(cc.SCROLLVIEW_DIRECTION_VERTICAL)
-    table_view:setItemList(l_item_list, make_item)
+    table_view:setItemList(l_item_list)
 
     self.m_tableView = table_view
 end
@@ -106,6 +106,11 @@ function UI_EventPopupTab_HBShop:init_bannerWebView()
     webview:setAnchorPoint(cc.p(0,0))
     webview:setDockPoint(cc.p(0,0))
     node:addChild(webview)
+    node:setVisible(true)
+
+    vasr['bannerCloseBtn']:registerScriptTapHandler(function()
+        vars['bannerNode']:setVisible(false)
+    end)
 
     self.m_webView = webview
 end

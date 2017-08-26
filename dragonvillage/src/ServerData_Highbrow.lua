@@ -77,7 +77,7 @@ function ServerData_Highbrow:getBannerUrl()
         --'http://gate.game.highbrow-inc.com/_intro.php?gameType=dvm&marketType=ios&la=en'
     end
 
-    return url
+    return 'http://www.perplelab.com'
 end
 
 -------------------------------------
