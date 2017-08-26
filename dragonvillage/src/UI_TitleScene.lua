@@ -399,7 +399,7 @@ function UI_TitleScene:workCheckUserID()
         self.m_loadingUI:hideLoading()
         if ret == 'success' then
             cclog('Firebase autoLogin was successful.')
-            success_cb()
+            success_cb(info)
         elseif ret == 'fail' then
             cclog('Firebase autoLogin failed.')
             fail_cb()
