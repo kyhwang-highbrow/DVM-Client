@@ -190,6 +190,26 @@ function UI_DragonEvolution:refresh_currDragonInfo(t_dragon_data, t_dragon)
     -- 드래곤 이름
     vars['dragonNameLabel']:setString(t_dragon_data:getDragonNameWithEclv())
 
+    do -- 드래곤 속성
+        local attr = t_dragon_data:getAttr()
+        vars['attrNode']:removeAllChildren()
+        local icon = IconHelper:getAttributeIcon(attr)
+        vars['attrNode']:addChild(icon)
+
+        -- 여기선 attrLabel이 없음
+        --vars['attrLabel']:setString(dragonAttributeName(attr))
+    end
+
+    do -- 드래곤 역할(role)
+        local role_type = t_dragon_data:getRole()
+        -- 여기선 typeNode가 없음
+        --vars['typeNode']:removeAllChildren()
+        --local icon = IconHelper:getRoleIcon(role_type)
+        --vars['typeNode']:addChild(icon)
+
+        vars['typeLabel']:setString(dragonRoleName(role_type))
+    end
+
     do -- 드래곤 리소스
         local evolution = t_dragon_data['evolution']
         vars['dragonBeforeNode']:removeAllChildren()
