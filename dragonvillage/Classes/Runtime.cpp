@@ -395,7 +395,7 @@ bool CreateDir(const char *sPathName)
         if (DirName[i] == '/')
         {
             DirName[i] = 0;
-            if (access(DirName, NULL) != 0)
+            if (access(DirName, F_OK) != 0)
             {
 #ifdef _WIN32
                 if (mkdir(DirName/*, 0755*/) == -1)
