@@ -26,6 +26,9 @@ end
 -- function init
 -------------------------------------
 function ServerData_Tutorial:applyData(l_tutorial)
+    if (not l_tutorial) then
+        return
+    end
     for _, tutorial_key in pairs(l_tutorial) do
         self.m_tTutorialClearInfo[tutorial_key] = true
     end
