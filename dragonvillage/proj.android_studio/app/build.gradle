@@ -193,8 +193,8 @@ android {
             }
         }
         liveFull{
-			versionCode 14
-			versionName "1.0.0"
+            versionCode 14
+            versionName "1.0.0"
             signingConfig signingConfigs.keystore
             externalNativeBuild {
                 ndkBuild {
@@ -206,32 +206,32 @@ android {
                 }
             }
         }
-		
-		/* dimension 활용하여 다음과 같이 구성하는 것도 고민중
-		dev{
-			dimension "server"
-		}
-		qa{
-			dimension "server"
-		}
-		live{
-			dimension "server"
-		}
-		
-		100mb{
-			dimension "assets"
-		}
-		market{
-			dimension "assets"
-		}
-		
-		test{
-			dimension "mode"
-		}
-		normal{
-			dimension "mode"
-		}
-		*/
+
+        /* dimension 활용하여 다음과 같이 구성하는 것도 고민중
+        dev{
+            dimension "server"
+        }
+        qa{
+            dimension "server"
+        }
+        live{
+            dimension "server"
+        }
+
+        100mb{
+            dimension "assets"
+        }
+        market{
+            dimension "assets"
+        }
+
+        test{
+            dimension "mode"
+        }
+        normal{
+            dimension "mode"
+        }
+        */
     }
 
     buildTypes {
