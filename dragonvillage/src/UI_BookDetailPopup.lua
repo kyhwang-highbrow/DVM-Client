@@ -234,11 +234,11 @@ end
 function UI_BookDetailPopup:addSameTypeDragon(t_dragon)
     local vars = self.vars
 
-    vars['dragonCardNode_fire']:removeAllChildren()
-    vars['dragonCardNode_water']:removeAllChildren()
-    vars['dragonCardNode_earth']:removeAllChildren()
-    vars['dragonCardNode_light']:removeAllChildren()
-    vars['dragonCardNode_dark']:removeAllChildren()
+    local t_attr = {'fire', 'water', 'earth', 'light', 'dark'}
+    for _, attr in ipairs(t_attr) do
+        vars['emptyNode_'..attr]:setVisible(true)
+        vars['dragonCardNode_'..attr]:removeAllChildren()
+    end
 
     local type = t_dragon['type']
     local dragon_list = TableDragon():filterList('type', type)
