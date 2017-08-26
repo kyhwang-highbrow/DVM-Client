@@ -258,7 +258,7 @@ function ActivityCarrier:getFinalAtkDmg(target)
     local atk_dmg = self:getAtkDmg(target)
 
     -- 스킬 계수 적용
-	atk_dmg = atk_dmg * self:getPowerRate()
+	atk_dmg = atk_dmg * self:getPowerRate() / 100
         
 	-- 스킬 추가 공격력 적용
     atk_dmg = atk_dmg + self:getAbsAttack()
@@ -288,15 +288,7 @@ function ActivityCarrier:setPowerRate(power_rate)
 		error('power_rate 가 nil입니다.')
 	end
 
-	-- 0~1 사이값
-    --[[
-	if (power_rate >= 1) then 
-		self.m_skillCoefficient = (power_rate / 100)
-	else
-		self.m_skillCoefficient = power_rate
-	end
-    ]]--
-    self.m_skillCoefficient = (power_rate / 100)
+	self.m_skillCoefficient = power_rate
 end
 
 -------------------------------------

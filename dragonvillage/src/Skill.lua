@@ -452,7 +452,7 @@ function Skill:heal(target_char, b_make_effect)
     if (b_make_effect ~= nil) then make_effect = b_make_effect end
 
     local atk_dmg = self.m_activityCarrier:getAtkDmg(target_char)
-    local heal = HealCalc_M(atk_dmg) * self.m_activityCarrier:getPowerRate()
+    local heal = HealCalc_M(atk_dmg) * self.m_activityCarrier:getPowerRate() / 100
     local is_critical = self.m_activityCarrier:getCritical() 
 
     target_char:healAbs(self.m_owner, heal, is_critical, make_effect)
