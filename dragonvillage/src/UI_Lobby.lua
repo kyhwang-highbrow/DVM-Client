@@ -540,6 +540,10 @@ function UI_Lobby:click_userInfoBtn()
     -- 매번 교체한다고 하여도 부하가 크지 않으니 가독성을 위해서 항상 교체
 	local function close_cb()
         self:refresh_userTamer()
+
+        -- 닉네임
+        local nickname = g_userData:get('nick')
+        self.vars['userNameLabel']:setString(nickname)
 	end
     RequestUserInfoDetailPopup(g_userData:get('uid'), false, close_cb) -- uid, is_visit, close_cb
 end

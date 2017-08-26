@@ -261,9 +261,18 @@ end
 -------------------------------------
 -- function request_changeNick
 -------------------------------------
-function ServerData_User:request_changeNick(mid, nick, cb_func)
+function ServerData_User:request_changeNick(mid, code, nick, cb_func)
     -- 파라미터
     local uid = g_userData:get('uid')
+
+    -- 에러코드 처리
+    local function result_cb(ret)
+        if (ret['status'] == -1126) then
+            local msg = Str('이미 존재하는 닉네임입니다.')
+            MakeSimplePopup(POPUP_TYPE.OK, msg)
+            return true -- 자체적으로 통신 처리를 완료했다는 뜻
+        end
+    end
 
     -- 콜백 함수
     local function success_cb(ret)
@@ -286,6 +295,8 @@ function ServerData_User:request_changeNick(mid, nick, cb_func)
     ui_network:setParam('uid', uid)
 	ui_network:setParam('nick', nick)
     ui_network:setParam('mid', mid)
+    ui_network:setParam('code', code)
+    ui_network:setResponseStatusCB(result_cb)
     ui_network:setSuccessCB(success_cb)
     ui_network:setRevocable(true)
     ui_network:setReuse(false)

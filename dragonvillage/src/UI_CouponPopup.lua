@@ -28,7 +28,7 @@ function UI_CouponPopup:init(couponType)
     self:doAction()
 
     -- 백키 지정
-    g_currScene:pushBackKeyListener(self, function() self:closeWithAction() end, 'UI_CouponPopup')
+    g_currScene:pushBackKeyListener(self, function() self:close() end, 'UI_CouponPopup')
 
     self:initUI()
     self:initButton()
@@ -71,7 +71,7 @@ end
 -------------------------------------
 function UI_CouponPopup:initButton()
     local vars = self.vars
-    vars['closeBtn']:registerScriptTapHandler(function() self:closeWithAction() end)
+    vars['closeBtn']:registerScriptTapHandler(function() self:close() end)
 	vars['okBtn']:registerScriptTapHandler(function() self:click_okBtn() end)
 	vars['editBtn']:registerScriptTapHandler(function() self:click_editBtn() end)
 end

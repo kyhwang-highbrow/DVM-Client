@@ -134,6 +134,12 @@ function UI_UserInfoDetailPopup:initButton()
     vars['deckBtn']:registerScriptTapHandler(function() self:click_deckBtn() end)
     vars['requestBtn']:registerScriptTapHandler(function() self:click_requestBtn() end)
     vars['titleChangeBtn']:registerScriptTapHandler(function() self:click_titleChangeBtn() end)
+
+    -- 사전 등록 닉네임
+    if (not self.m_isVisit) then
+        vars['couponBtn']:setVisible(true)
+        vars['couponBtn']:registerScriptTapHandler(function() self:click_nicknameCouponBtn() end)
+    end
 end
 
 -------------------------------------
@@ -442,6 +448,31 @@ function UI_UserInfoDetailPopup:click_titleChangeBtn()
     end
     g_userData:request_getTitleList(cb_func)
 end
+
+-------------------------------------
+-- function click_nicknameCouponBtn
+-- @brief 사전 등록 닉네임
+-------------------------------------
+function UI_UserInfoDetailPopup:click_nicknameCouponBtn()
+    local ui = UI_CouponPopupPreOccupancyNick()
+
+    local function close_cb()
+        if (ui.m_couponCode and ui.m_retNick) then
+            local function cb_func(ret)
+                UI_ToastPopup(Str('{1}(으)로 변경되었습니다.', ret['nick']))
+
+                -- 닉네임
+	            local nick_name = self.m_tUserInfo['nick']
+	            self.vars['nameLabel']:setString(ret['nick'])
+            end
+
+            g_userData:request_changeNick(nil, ui.m_couponCode, ui.m_retNick, cb_func)
+        end
+    end
+
+    ui:setCloseCB(close_cb)
+end
+
 
 -------------------------------------
 -- function RequestUserInfoDetailPopup

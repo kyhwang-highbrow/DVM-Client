@@ -93,5 +93,5 @@ function UI_ChangeNickPopup:click_okBtn()
         UI_ToastPopup(Str('{1}(으)로 변경되었습니다.', nick))
     end
 
-    g_userData:request_changeNick(mid, nick, cb_func)
+    g_userData:request_changeNick(mid, nil, nick, cb_func)
 end

@@ -650,6 +650,7 @@ local t_module = {
     'UI_QuickPopup',
     'UI_CouponPopup',
     'UI_CouponPopup_Confirm',
+    'UI_CouponPopupPreOccupancyNick',
     'UI_AdvertisingPopup',
     'UI_FormationDetailPopup',
 
