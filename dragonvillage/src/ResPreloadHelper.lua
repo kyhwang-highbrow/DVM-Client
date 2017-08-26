@@ -185,6 +185,7 @@ function getPreloadList_Common()
         'res/ui/a2d/ingame_enemy/ingame_enemy.plist',
         'res/effect/effect_monsterdragon/effect_monsterdragon.plist',
         'res/ui/a2d/ingame_damage/ingame_damage.plist',
+        'res/ui/a2d/ingame_btn/ingame_btn.plist',
     }
     return ret
 end

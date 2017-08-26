@@ -147,13 +147,12 @@ end
 -- function getStringData
 -------------------------------------
 function StructFriendshipObject:getStringData()
-    local str = string.format('%d;%d;%d;%d;%d;%d', 
+    local str = string.format('%d;%d;%d;%d;%d', 
         self['flv'],
         self['fexp'],
         self['fhp'],
         self['fatk'],
-        self['fdef'],
-        self['ffeel']
+        self['fdef']
     )
 
     return str

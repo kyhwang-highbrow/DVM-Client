@@ -481,7 +481,7 @@ function StructDragonObject:getStringData()
     )
 
     -- [ 친밀도 정보 ]
-    -- flv;fexp;fatk;fhp;fdef;ffeel
+    -- flv;fexp;fatk;fhp;fdef
     local t2 = self['friendship']:getStringData()
 
     -- [ 룬 정보 ]
