@@ -193,7 +193,7 @@ function UI_TutorialPlayer:activeNode(node_name)
     end
 
     -- 버튼이라면 스크립트를 추가한다.
-    if (isInstanceOf(tar_node, UIC_Button)) then 
+    if (isInstanceOf(tar_node, UIC_Button)) then
         tar_node:addScriptTapHandler(function()
             if (tutorial_mgr:isDoing()) then
                 -- 다음페이지

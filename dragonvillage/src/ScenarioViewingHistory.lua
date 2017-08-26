@@ -109,6 +109,11 @@ function ScenarioViewingHistory:checkIntroScenario(finish_cb)
         finish_cb()
     end
 
+    -- 이미 완료 했다면 패스
+    if (g_tutorialData:isTutorialDone(TUTORIAL.INTRO_FIGHT)) then
+        finish_cb()
+    end
+
     local check_tutorial 
     local play_intro_start
     local play_intro_fight
@@ -127,7 +132,7 @@ function ScenarioViewingHistory:checkIntroScenario(finish_cb)
 
     -- 같은 계정으로 다른 기기에 접속한 경우 서버에서 준 튜토리얼 정보로 검사
     check_tutorial = function(ret)
-        local is_viewed = ret['tutorial']
+        local is_viewed = g_tutorialData:isTutorialDone(TUTORIAL.INTRO_FIGHT)
 
         if (not is_viewed) then
             play_intro_start()
@@ -137,7 +142,7 @@ function ScenarioViewingHistory:checkIntroScenario(finish_cb)
         end
     end
 
-    g_tutorialData:request_tutorialInfo(TUTORIAL.INTRO_FIGHT, check_tutorial, finish_cb)
+    check_tutorial()
 end
 
 -------------------------------------

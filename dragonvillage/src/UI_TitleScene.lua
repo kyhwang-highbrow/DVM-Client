@@ -710,6 +710,15 @@ function UI_TitleScene:workGetServerInfo()
         ui_network:hideLoading()
         if co:waitWork() then return end
 
+        -- 튜토리얼
+        co:work()
+        self.m_loadingUI:showLoading(Str('튜토리얼 정보를 가져오는 중...'))
+        local ui_network = g_tutorialData:request_tutorialInfo(co.NEXT, fail_cb)
+        ui_network:setRevocable(false)
+        ui_network:setFailCB(fail_cb)
+        ui_network:hideLoading()
+        if co:waitWork() then return end
+
         -- 마스터의 길
         co:work()
         self.m_loadingUI:showLoading(Str('마스터의 길을 닦는 중...'))

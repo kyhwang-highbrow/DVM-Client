@@ -41,12 +41,7 @@ end
 -- @param tutorial_key : tutorial_key이자 tutorial_script이름
 -------------------------------------
 function TutorialManager:startTutorial(tutorial_key, tar_ui)
-    local function cb_func(ret)
-        -- 이미 완료한 튜토리얼이라면 실행하지 않는다.
-        if (ret['tutorial']) then
-            --return
-        end
-        
+    if (not g_tutorialData:isTutorialDone(tutorial_key)) then
         -- 튜토리얼 실행 : UI세팅
         self:doTutorial()
 
@@ -57,8 +52,6 @@ function TutorialManager:startTutorial(tutorial_key, tar_ui)
         ui:setCloseCB(function() g_tutorialData:request_tutorialSave(tutorial_key) end)
         ui:next()
     end
-
-    g_tutorialData:isTutorialDone(tutorial_key, cb_func)
 end
 
 -------------------------------------
@@ -323,7 +316,8 @@ end
 function TutorialManager:findTargetUI()
     local tar_ui
     for _, ui in pairs(table.reverse(UIManager.m_uiList)) do
-        if (ui.m_uiName ~= 'UI_Network') then
+        cclog(ui.m_uiName)
+        if (not isExistValue(ui.m_uiName, 'UI_Network', 'untitled')) then
             return ui
         end
     end

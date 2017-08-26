@@ -16,6 +16,8 @@ function UI_MasterRoadPopup_Link:init()
 	local vars = self:load('master_road_popup_link.ui')
 	UIManager:open(self, UIManager.POPUP)
 
+        -- UI 클래스명 지정
+    self.m_uiName = 'UI_MasterRoadPopup_Link'
 	-- backkey 지정
 	g_currScene:pushBackKeyListener(self, function() self:click_exitBtn() end, 'UI_MasterRoadPopup_Link')
 

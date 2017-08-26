@@ -23,33 +23,27 @@ function ServerData_Tutorial:init(server_data)
 end
 
 -------------------------------------
+-- function init
+-------------------------------------
+function ServerData_Tutorial:applyData(l_tutorial)
+    for _, tutorial_key in pairs(l_tutorial) do
+        self.m_tTutorialClearInfo[tutorial_key] = true
+    end
+end
+
+-------------------------------------
 -- function checkTutorialDone
 -- @brief 해당 튜토리얼 클리어 여부
 -------------------------------------
 function ServerData_Tutorial:isTutorialDone(tutorial_key, cb_func)
-    local is_done = self.m_tTutorialClearInfo[tutorial_key]
-
-    if (is_done == true) then
-        -- nothing to do
-
-    elseif (is_done == false) then
-        if (cb_func) then
-            cb_func()
-        end
-
-    elseif (is_done == nil) then
-        if (cb_func) then
-            self:request_tutorialInfo(tutorial_key, cb_func)
-        end
-
-    end
+    return self.m_tTutorialClearInfo[tutorial_key]
 end
 
 -------------------------------------
 -- function request_tutorialInfo
 -- @brief 해당 튜토리얼 정보
 -------------------------------------
-function ServerData_Tutorial:request_tutorialInfo(tutorial_key, finish_cb, fail_cb)
+function ServerData_Tutorial:request_tutorialInfo(finish_cb, fail_cb)
     -- 유저 ID
     local uid = g_userData:get('uid')
 
@@ -57,8 +51,8 @@ function ServerData_Tutorial:request_tutorialInfo(tutorial_key, finish_cb, fail_
 
     -- 성공 콜백
     local function success_cb(ret)
-        -- 다시 호출하지 않도록 저장해둠
-        self.m_tTutorialClearInfo[tutorial_key] = ret['tutorial']
+        -- 튜토리얼 클리어 정보 저장
+        self:applyData(ret['tutorial_list'])
 
         if finish_cb then
             finish_cb(ret)
@@ -92,7 +86,7 @@ function ServerData_Tutorial:request_tutorialSave(tutorial_key, finish_cb)
 
     -- 성공 콜백
     local function success_cb(ret)
-        self.m_tTutorialClearInfo[tutorial_key] = ret['tutorial']
+        self.m_tTutorialClearInfo[tutorial_key] = true
 
         if (tutorial_key == TUTORIAL.INTRO_FIGHT) then
             -- @analytics

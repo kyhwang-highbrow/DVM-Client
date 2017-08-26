@@ -184,10 +184,7 @@ function UI_Lobby:entryCoroutine()
         self:doAction(function() 
             working = false
             -- @ TUTORIAL
-            local function cb_func()
-                TutorialManager.getInstance():startTutorial(TUTORIAL.FIRST_START, self)
-            end
-            g_tutorialData:isTutorialDone(TUTORIAL.INTRO_FIGHT, cb_func)
+            TutorialManager.getInstance():startTutorial(TUTORIAL.FIRST_START, self)
         end, false)
         g_topUserInfo:doAction()
 		self.root:scheduleUpdateWithPriorityLua(function(dt) self:update(dt) end, 0)

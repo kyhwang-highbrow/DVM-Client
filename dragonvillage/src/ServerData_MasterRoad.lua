@@ -132,6 +132,12 @@ function ServerData_MasterRoad:isClearAllRoad()
     return (last_road < focus_road)
 end
 
+-------------------------------------
+-- function addRawData
+-------------------------------------
+function ServerData_MasterRoad:addRawData(raw_key)
+    self.m_tRawData[raw_key] = self.m_tRawData[raw_key] + 1
+end
 
 
 

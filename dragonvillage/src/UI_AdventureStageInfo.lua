@@ -25,6 +25,8 @@ function UI_AdventureStageInfo:init(stage_id)
     local vars = self:load('adventure_stage_info.ui')
     UIManager:open(self, UIManager.POPUP)
 
+    -- UI 클래스명 지정
+    self.m_uiName = 'UI_AdventureStageInfo'
     -- backkey 지정
     g_currScene:pushBackKeyListener(self, function() self:close() end, 'UI_AdventureStageInfo')
 
