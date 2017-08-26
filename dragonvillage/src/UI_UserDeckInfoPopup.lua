@@ -107,6 +107,14 @@ function UI_UserDeckInfoPopup:refresh_dragon(idx, t_dragon_data)
         vars['dragonNameLabel' .. idx]:setString(Str(t_dragon['t_name']))
     end
 
+    do -- 드래곤 등급
+        vars['starNode' .. idx]:removeAllChildren()
+        local sprite = IconHelper:getDragonGradeIcon(t_dragon_data, 1)
+        if sprite then
+            vars['starNode' .. idx]:addChild(sprite)
+        end
+    end
+
     do -- 드래곤 레벨
         vars['dragonLvLabel' .. idx]:setString(Str('레벨 {1}', t_dragon_data['lv']))
     end
