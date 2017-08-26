@@ -350,7 +350,8 @@ function StructProduct:buy(cb_func)
         end
 	end
 
-    MakeSimplePopup_Confirm(self['price_type'], self['price'], nil, ok_cb, nil)
+    local msg = Str('{@item_name}"{1}"\n{@default}구매하시겠습니까?', self['t_name'])
+    MakeSimplePopup_Confirm(self['price_type'], self['price'], msg, ok_cb, nil)
 end
 
 -------------------------------------
@@ -745,6 +746,11 @@ end
 -- @brief 구매 제한 설명 텍스트
 -------------------------------------
 function StructProduct:getMaxBuyTermStr()
+    -- 구매 제한이 있지만 대체상품이 있는 경우 출력하지 않음
+    if (self:getDependency()) then
+        return ''
+    end
+
     -- 구매 제한 횟수가 설정되지 않으면 return
     local max_buy_cnt = tonumber(self['max_buy_count'])
     if (not max_buy_cnt) or (max_buy_cnt <= 0) then
