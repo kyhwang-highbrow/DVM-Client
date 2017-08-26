@@ -4,7 +4,6 @@
 ServerData_Highbrow = class({
         m_serverData = 'ServerData',
         m_hbItemList = 'list',
-        m_hbBannerUrl = 'string',
     })
 
 -------------------------------------
@@ -69,6 +68,7 @@ end
 -------------------------------------
 function ServerData_Highbrow:getBannerUrl()
     local url
+    -- 언어별 처리는 언어 정책이 정해진 후에
     if (CppFunctions:isAndroid()) then
         url = 'http://gate.game.highbrow-inc.com/_intro.php?gameType=dvm&marketType=google&la=ko'
         --'http://gate.game.highbrow-inc.com/_intro.php?gameType=dvm&marketType=google&la=en'
@@ -77,7 +77,7 @@ function ServerData_Highbrow:getBannerUrl()
         --'http://gate.game.highbrow-inc.com/_intro.php?gameType=dvm&marketType=ios&la=en'
     end
 
-    return 'http://www.perplelab.com'
+    return url
 end
 
 -------------------------------------
@@ -90,10 +90,7 @@ function ServerData_Highbrow:request_getHbProductList(finish_cb, fail_cb)
     -- 콜백
     local function success_cb(ret)
         self:applyHBItemList(ret['hb_items'])
-        
-        -- url도 같이 받는게 좀 이상하지만 나중에 따로 필요하면 분리..
-        self.m_hbBannerUrl = ret['banner_url']
-        
+                
         if finish_cb then
             finish_cb(ret)
         end
