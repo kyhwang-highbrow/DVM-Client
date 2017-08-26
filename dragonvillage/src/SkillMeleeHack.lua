@@ -151,7 +151,7 @@ function SkillMeleeHack:attackMelee()
 
 	t_option['missile_res_name'] = nil
     
-	t_option['damage_rate'] = self.m_powerRate / 100
+	t_option['damage_rate'] = self.m_powerRate
     t_option['movement'] = 'instant'
     t_option['missile_type'] = 'NORMAL'
 

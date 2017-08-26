@@ -35,7 +35,7 @@ ActivityCarrier = class({
 function ActivityCarrier:init()
     self.m_lFinalStat = {}
     self.m_skillId = nil
-    self.m_skillCoefficient = 1
+    self.m_skillCoefficient = 100
     self.m_skillAddAtk = 0
     self.m_lStatusEffectRate = {}
 	self.m_atkDmgStat = 'atk'
