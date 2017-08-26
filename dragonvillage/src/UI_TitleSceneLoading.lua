@@ -27,8 +27,9 @@ end
 -------------------------------------
 -- function showLoading
 -------------------------------------
-function UI_TitleSceneLoading:showLoading(msg)
+function UI_TitleSceneLoading:showLoading(msg, only_msg)
     self.root:setVisible(true)
+    self.vars['visual']:setVisible(not only_msg)
     if msg then
         self:setLoadingMsg(msg)
     end

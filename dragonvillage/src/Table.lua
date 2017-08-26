@@ -136,8 +136,27 @@ function TABLE:loadCSVTable(filename, tablename, key, toString)
     -- lua파일에서 읽는 부분 테스트
     if (isAndroid and isAndroid()) or (isIos and isIos()) then
         local tables = nil
+        local headers = nil
         local function load_func()
-            tables = require ('table/' .. filename)
+            local _data = require ('table/' .. filename)
+
+            -- csv to lua로 변환된 데이터에서 해더 정보가 있는지 여부 체크
+            if _data['__data'] and _data['__header'] then
+                tables = _data['__data']
+                headers = _data['__header']
+
+                -- 테이블 값에 nil이 있을 경우 ''로 대체
+                for _,head in pairs(headers) do
+                    for _,v in pairs(tables) do
+                        if (v[head] == nil) then
+                            v[head] = ''
+                        end
+                    end
+                end
+            else
+                tables = _data
+            end
+
             if tablename then
                 TABLE[tablename] = tables
             end

@@ -100,6 +100,10 @@ function CoroutineHelper:waitWork()
     return self:escape()
 end
 
+function CoroutineHelper:yield()
+    coroutine.yield()
+end
+
 function CoroutineHelper:waitTime(time)
     local timer = 0
     while (timer < time) do

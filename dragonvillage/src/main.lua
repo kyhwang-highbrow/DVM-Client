@@ -159,41 +159,8 @@ local function main()
         end
     end
 
-    TABLE:init()
-    stopwatch:record('TABLE:init()')
-
-	ConstantData:getInstance()
-    stopwatch:record('ConstantData:getInstance()')
-
-    SoundMgr:entry()
-    stopwatch:record('SoundMgr:entry()')
-
-    ShaderCache:init()
-    stopwatch:record('ShaderCache:init()')
-
-    TimeLib:initInstance()
-    stopwatch:record('TimeLib:initInstance()')
-
-    LocalData:getInstance()
-    stopwatch:record('LocalData:getInstance()')
-
-    ServerData:getInstance()
-    stopwatch:record('ServerData:getInstance()')
-
-    ChatIgnoreList:getInstance()
-    stopwatch:record('ChatIgnoreList:getInstance()')
-
-    ScenarioViewingHistory:getInstance()
-    stopwatch:record('ScenarioViewingHistory:getInstance()')
-
-    LocalData:getInstance():applySetting()
-    stopwatch:record('LocalData:getInstance():applySetting()')
-
-	ErrorTracker:getInstance()
+    ErrorTracker:getInstance()
     stopwatch:record('ErrorTracker:getInstance()')
-
-    PatchChecker:getInstance()
-    stopwatch:record('PatchChecker:getInstance()')
 
     -- 광고 프리로드
     AdsManager:prepare()

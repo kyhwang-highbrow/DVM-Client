@@ -92,11 +92,15 @@ function CsvToLuaTableStr:luadump(value, depth)
         local n = #value
 
         for k, v in pairs(value) do
-            -- key타입이 숫자일 경우 그냥 숫자로 사용
-            if type(k) == 'number' then
-                s = s .. newdepth .. "[" .. k .. "]=" .. self:luadump(value[k], newdepth) .. ';'--\n'
-            elseif type(k) ~= 'number' or k <= 0 or k > n then
-                s = s .. newdepth .. "['" .. k .. "']=" .. self:luadump(value[k], newdepth) .. ';'--\n'
+            local _value = self:luadump(value[k], newdepth)
+
+            if (_value ~= "''") and (_value ~= nil) then
+                -- key타입이 숫자일 경우 그냥 숫자로 사용
+                if type(k) == 'number' then
+                    s = s .. newdepth .. "[" .. k .. "]=" .. _value .. ';'--\n'
+                elseif type(k) ~= 'number' or k <= 0 or k > n then
+                    s = s .. newdepth .. "['" .. k .. "']=" .. _value .. ';'--\n'
+                end
             end
         end
         return s .. depth .. '}'
@@ -141,7 +145,11 @@ function CsvToLuaTableStr:work()
         local t_table = TABLE:get(i)
         self:dietTable(t_table)
         local table_str = self:luadump(t_table)
-        local content = 'return ' .. table_str
+
+        local l_header = self:makeHeaderLlist(t_table)
+        local header_str = self:luadump(l_header)
+
+        local content = "return {['__data']=" .. table_str .. ";['__header']=" .. header_str .. "}"
 
         local file_name = v[1] .. '.lua'
         pl.file.write('../src/table/' .. file_name, content)
@@ -150,6 +158,25 @@ function CsvToLuaTableStr:work()
     io.write('', '\n')
     cclog('#### END')
     cclog('output : ' .. 'src/table/')
+end
+
+-------------------------------------
+-- function makeHeaderLlist
+-------------------------------------
+function CsvToLuaTableStr:makeHeaderLlist(t_table)
+    local first_data = nil
+
+    for i,v in pairs(t_table) do
+        first_data = v
+        break
+    end
+
+    local l_header = {}
+    for key,_ in pairs(first_data) do
+        table.insert(l_header, key)
+    end
+
+    return l_header
 end
 
 -------------------------------------

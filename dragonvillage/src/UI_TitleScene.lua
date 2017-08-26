@@ -20,11 +20,6 @@ function UI_TitleScene:init()
     -- backkey 지정
     g_currScene:pushBackKeyListener(self, function() self:click_exitBtn() end, 'UI_TitleScene')
 
-    -- @UI_ACTION
-    --self:addAction(vars['rootNode'], UI_ACTION_TYPE_LEFT, 0, 0.2)
-    self:doActionReset()
-    self:doAction(nil, false)
-
     self:initUI()
     self:initButton()
     self:refresh() 
@@ -44,6 +39,7 @@ function UI_TitleScene:initUI()
         local animator = MakeAnimator('res/ui/spine/title/title.spine')
         vars['animatorNode']:addChild(animator.m_node)
         vars['animator'] = animator
+        animator:changeAni('02_scene_replace', true)
     end
 
     vars['messageLabel']:setVisible(false)
@@ -57,6 +53,9 @@ function UI_TitleScene:initUI()
 
     self.m_loadingUI = UI_TitleSceneLoading()
     self.m_loadingUI:hideLoading()
+
+    -- @UI_ACTION
+    self:doActionReset()
 end
 
 -------------------------------------
@@ -199,7 +198,9 @@ function UI_TitleScene:setWorkList()
     self.m_workIdx = 0
 
     self.m_lWorkList = {}
+    
     table.insert(self.m_lWorkList, 'workTitleAni')
+    table.insert(self.m_lWorkList, 'workLoading')
     table.insert(self.m_lWorkList, 'workCheckUserID')
     table.insert(self.m_lWorkList, 'workPlatformLogin')
     table.insert(self.m_lWorkList, 'workGameLogin')
@@ -273,6 +274,9 @@ end
 -- @brief 타이틀 연출 화면 (패치 종료 후 로그인 직전)
 -------------------------------------
 function UI_TitleScene:workTitleAni()
+    -- @UI_ACTION
+    self:doAction(nil, false)
+
     local vars = self.vars
 
     SoundMgr:playBGM('bgm_title')
@@ -295,6 +299,80 @@ function UI_TitleScene:workTitleAni_click()
     local vars = self.vars
     vars['animator']:changeAni('04_title_idle', true)
     self:doNextWork()
+end
+
+-------------------------------------
+-- function workLoading
+-- @brief 로딩
+-------------------------------------
+function UI_TitleScene:workLoading()
+    local function coroutine_function(dt)
+        local co = CoroutineHelper()
+
+        local stopwatch = Stopwatch()
+        stopwatch:start()
+        co:yield()
+
+        do -- TABLE:init의 기능을 여기서 수행
+            local t_tale_info = TABLE:getTableInfo()
+            local max_count = table.count(t_tale_info)
+            local count = 0
+            for k,v in pairs(t_tale_info) do
+                count = (count + 1)
+                self.m_loadingUI:showLoading(Str('로딩 중... (' .. count .. '/' .. max_count .. ')'), false)
+                co:yield()
+
+                TABLE:loadCSVTable(v[1], k, v[2], v[3])
+                stopwatch:record(k)
+            end
+            TableGradeInfo:initGlobal()
+        end
+
+        stopwatch:stop()
+        stopwatch:print()
+        co:yield()
+
+	    ConstantData:getInstance()
+        co:yield()
+
+        SoundMgr:entry()
+        co:yield()
+
+        ShaderCache:init()
+        co:yield()
+
+        TimeLib:initInstance()
+        co:yield()
+
+        LocalData:getInstance()
+        co:yield()
+        
+        ServerData:getInstance()
+        co:yield()
+
+        ChatIgnoreList:getInstance()
+        co:yield()
+
+        ScenarioViewingHistory:getInstance()
+        co:yield()
+
+        LocalData:getInstance():applySetting()
+        co:yield()
+
+        PatchChecker:getInstance()
+        co:yield()
+
+        -- 다음 work로 이동
+        self.m_loadingUI:hideLoading()
+        self:doNextWork()
+    end
+
+    Coroutine(coroutine_function)
+end
+-------------------------------------
+-- function workLoading_click
+-------------------------------------
+function UI_TitleScene:workLoading_click()
 end
 
 -------------------------------------
