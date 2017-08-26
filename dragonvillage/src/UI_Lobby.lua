@@ -147,7 +147,7 @@ function UI_Lobby:entryCoroutine()
         -- @ MASTER ROAD
         cclog('# 마스터의 길 확인 중')
         working = true
-        local _,ui_network = g_masterRoadData:updateMasterRoad({clear_key = 'make_frd'}, (function(ret) working = false end))
+        local _,ui_network = g_masterRoadData:updateMasterRoadAfterReward((function(ret) working = false end))
         if ui_network then
             ui_network:hideBGLayerColor()
         end

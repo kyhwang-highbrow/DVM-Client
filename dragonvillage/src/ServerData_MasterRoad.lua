@@ -166,7 +166,7 @@ end
 -- @brief 보상 수령 후에 기본 항목 체크
 -------------------------------------
 function ServerData_MasterRoad:updateMasterRoadAfterReward(cb_func)
-    for _, key in pairs({'t_get', 'make_frd', 'u_lv'}) do
+    for _, key in pairs({'t_get', 'make_frd', 'u_lv', 'd_evup', 'd_sklvup', 'd_grup'}) do
 
         local t_data = {['clear_key'] = key}
         if (self:checkFocusRoadClear(t_data)) then
@@ -193,8 +193,9 @@ function ServerData_MasterRoad:checkFocusRoadClear(t_data)
     
     local clear_type = t_road['clear_type']
     local clear_cond = t_road['clear_value']
+    local raw_data = self.m_tRawData
 
-    local is_clear = self.checkClear(clear_type, clear_cond, t_data)
+    local is_clear = self.checkClear(clear_type, clear_cond, t_data, raw_data)
     return is_clear
 end
 
@@ -300,11 +301,17 @@ end
 -------------------------------------
 -- function checkClear
 -------------------------------------
-function ServerData_MasterRoad.checkClear(clear_type, clear_cond, t_data)
+function ServerData_MasterRoad.checkClear(clear_type, clear_cond, t_data, raw_data)
     if (not clear_type) then
         return false
     end
-    
+    if (not t_data) then
+        return false
+    end
+    if (not raw_data) then
+        return false
+    end
+
     -- clear_key 사용
     if (clear_type == t_data['clear_key']) then
         -----------------------------------
@@ -339,19 +346,19 @@ function ServerData_MasterRoad.checkClear(clear_type, clear_cond, t_data)
         -- 드래곤 진화
         elseif (clear_type == 'd_evup') then
             local evup_cnt = clear_cond
-            local raw_cnt = self.m_tRawData['d_evup']
+            local raw_cnt = raw_data['d_evup']
             return (raw_cnt >= evup_cnt)
 
         -- 드래곤 스킬 레벨 업
         elseif (clear_type == 'd_sklvup') then
             local sklvup_cnt = clear_cond
-            local raw_cnt = self.m_tRawData['d_sklvup']
+            local raw_cnt = raw_data['d_sklvup']
             return (raw_cnt >= sklvup_cnt)
 
         -- 드래곤 등급업
         elseif (clear_type == 'd_grup') then
             local grup_cnt = clear_cond
-            local raw_cnt = self.m_tRawData['d_grup']
+            local raw_cnt = raw_data['d_grup']
             return (raw_cnt >= grup_cnt)
 
         -----------------------------------
