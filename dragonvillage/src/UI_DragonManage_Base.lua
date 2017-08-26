@@ -235,9 +235,18 @@ function UI_DragonManage_Base:init_dragonTableView()
             ui.root:setScale(0.66)
             ui.vars['clickBtn']:registerScriptTapHandler(function() self:setSelectDragonData(data['id']) end)
 
+            -- 선택한 드래곤
             if (data['id'] == self.m_selectDragonOID) then
                 self:changeDragonSelectFrame(ui)
             end
+
+            -- 승급/진화/스킬강화 
+            local is_noti_dragon = data:isNotiDragon()
+            ui:setNotiSpriteVisible(is_noti_dragon)
+
+            -- 새로 획득한 드래곤 뱃지
+            local is_new_dragon = data:isNewDragon()
+            ui:setNewSpriteVisible(is_new_dragon)
         end
 
         local table_view = UIC_TableView(list_table_node)

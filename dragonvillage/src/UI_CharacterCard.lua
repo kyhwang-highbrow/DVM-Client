@@ -2,6 +2,7 @@ local PARENT = UI_Card
 
 --[[ 
 # card_char.ui 일람
+    newSprite
     bookRewardVisual    
     notiSprite
     arrowVisual
@@ -363,7 +364,7 @@ end
 
 -------------------------------------
 -- function setNotiSpriteVisible
--- @brief 신규 드래곤 표시
+-- @brief 진화/승급/스킬강화 가능한 드래곤 알림
 -- @external call
 -------------------------------------
 function UI_CharacterCard:setNotiSpriteVisible(visible)
@@ -390,6 +391,16 @@ function UI_CharacterCard:setHighlightSpriteVisible(visible)
     end
 end
 
+-------------------------------------
+-- function setNewSpriteVisible
+-- @brief 신규 드래곤 표시
+-- @external call
+-------------------------------------
+function UI_CharacterCard:setNewSpriteVisible(visible)
+    local res = 'card_cha_new.png'
+    local lua_name = 'newSprite'
+    self:setSpriteVisible(lua_name, res, visible)
+end
 
 -- @ Animator 사용
 
@@ -481,10 +492,6 @@ function UI_DragonCard(t_dragon_data, struct_user_info)
         end
     end
     ui.vars['clickBtn']:registerScriptPressHandler(func)
-
-    -- 새로 획득한 드래곤 뱃지
-    local is_new_dragon = t_dragon_data:isNewDragon()
-    ui:setNotiSpriteVisible(is_new_dragon)
 
     -- 친구 드래곤일 경우 친구 마크 추가
     local is_friend_dragon = g_friendData:checkFriendDragonFromDoid(t_dragon_data['id'])

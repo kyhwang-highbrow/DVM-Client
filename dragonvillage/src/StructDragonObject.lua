@@ -272,6 +272,16 @@ function StructDragonObject:isNewDragon()
 end
 
 -------------------------------------
+-- function isNotiDragon
+-- @breif
+-------------------------------------
+function StructDragonObject:isNotiDragon()
+    local doid = self['id']
+
+    return g_dragonsData:possibleUpgradeable(doid) or g_dragonsData:possibleDragonEvolution(doid) or g_dragonsData:possibleDragonSkillEnhance(doid)
+end
+
+-------------------------------------
 -- function getRole
 -- @breif
 -------------------------------------

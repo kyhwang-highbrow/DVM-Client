@@ -10,6 +10,7 @@ UI_DragonManageInfo = class(PARENT,{
         m_dragonInfoBoardUI = 'UI_DragonInfoBoard',
 
         m_startSubMenu = '',
+        m_tNotiIcon = 'table<Sprite>',
     })
 
 -------------------------------------
@@ -35,6 +36,8 @@ function UI_DragonManageInfo:init(doid, sub_menu)
     g_currScene:pushBackKeyListener(self, function() self:click_exitBtn() end, 'UI_DragonManageInfo')
 
     self:sceneFadeInAction()
+
+    self.m_tNotiIcon = {}
 
     self:initUI()
     self:initButton()
@@ -165,6 +168,7 @@ end
 -------------------------------------
 function UI_DragonManageInfo:refresh()
     self:refresh_buttonState()
+
     local t_dragon_data = self.m_selectDragonData
 
     self.m_dragonInfoBoardUI:refresh(t_dragon_data)
@@ -179,12 +183,15 @@ function UI_DragonManageInfo:refresh()
     -- 드래곤이 장착 중인 룬 정보 갱신
     --self:refresh_dragonRunes(t_dragon_data)
     -- @TODO77
-
+    
     -- 리더 드래곤 여부 표시
     self:refresh_leaderDragon(t_dragon_data)
 
     -- 가방
     self:refresh_inventoryLabel()
+
+    -- 진화/승급/스킬강화 알림
+    self:refresh_buttonNoti()
 
 	-- 잠금 표시
 	self.vars['lockSprite']:setVisible(t_dragon_data:getLock())
@@ -257,6 +264,42 @@ function UI_DragonManageInfo:refresh_buttonState()
     self.m_dragonInfoBoardUI.vars['equipmentBtn']:setEnabled(not is_slime_object)
 end
 
+-------------------------------------
+-- function refresh_buttonNoti
+-------------------------------------
+function UI_DragonManageInfo:refresh_buttonNoti()
+    local doid = self.m_selectDragonOID
+    local vars = self.vars
+
+    local l_target_content = {'upgrade', 'evolution', 'skillEnhance'}
+    local t_possible = {
+        ['upgrade'] = g_dragonsData:possibleUpgradeable(doid),
+        ['evolution'] = g_dragonsData:possibleDragonEvolution(doid),
+        ['skillEnhance'] = g_dragonsData:possibleDragonSkillEnhance(doid),
+    }
+
+    for i, content in pairs(l_target_content) do
+        if t_possible[content] then
+            if (self.m_tNotiIcon[content]) then
+                self.m_tNotiIcon[content]:setVisible(true)
+
+            else
+                local icon = IconHelper:getNotiIcon()
+	            icon:setDockPoint(cc.p(1, 1))
+	            icon:setPosition(-13, -5)
+	            vars[content .. 'Btn']:addChild(icon)
+	            self.m_tNotiIcon[content] = icon
+
+            end
+
+        else
+            if (self.m_tNotiIcon[content]) then
+                self.m_tNotiIcon[content]:setVisible(false)
+            end
+        end
+    end
+    
+end
 
 -------------------------------------
 -- function refresh_dragonBasicInfo
