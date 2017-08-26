@@ -90,7 +90,8 @@ function UI_Product:click_buyBtn()
 	local struct_product = self.m_structProduct
 
 	if (struct_product:getTabCategory() == 'package') then
-		UI_Package(struct_product)
+		local ui = UI_Package(struct_product)
+        ui:setCloseCB(self.m_cbBuy) -- 상품 리스트 갱신을 위해 필요함
 
     -- 광고 시청
     elseif (struct_product.price_type == 'advertising') then

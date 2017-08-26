@@ -29,7 +29,7 @@ function ServerData_Shop:init(server_data)
     self.m_dicProduct['package'] = {}
     self.m_dicBuyCnt = {}
 
-    self.m_bDirty = true
+    self:setDirty()
 end
 
 -------------------------------------
@@ -344,7 +344,7 @@ function ServerData_Shop:ckechDirty()
 
     -- 만료 시간 체크 할 것!
     --self.m_expirationData
-    self.m_bDirty = true
+    self:setDirty()
 end
 
 -------------------------------------
@@ -415,7 +415,7 @@ function ServerData_Shop:request_buy(struct_product, finish_cb, fail_cb)
 
         -- 상품 구매 후 갱신이 필요한지 여부 체크
         if struct_product:needRenewAfterBuy() then
-            self.m_bDirty = true
+            self:setDirty()
         end
 
         if (finish_cb) then
@@ -480,7 +480,7 @@ function ServerData_Shop:request_checkReceiptValidation(struct_product, validati
     
         -- 상품 구매 후 갱신이 필요한지 여부 체크
         if struct_product and struct_product:needRenewAfterBuy() then
-            self.m_bDirty = true
+            self:setDirty()
         end
 
 		if (cb_func) then

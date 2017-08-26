@@ -138,6 +138,19 @@ end
 -- @brief 구매 후에 상점 정보 갱신이 필요한지 여부
 -------------------------------------
 function StructProduct:needRenewAfterBuy()
+
+	-- 2017-08-26 sgkim 이 함수가 불려지는 케이스는 해당 상품을 구매 후이므로
+    -- 구매제한이 걸려있는 상품이라면 무조건 갱신하도록 변경함
+	
+    local max_buy_count = tonumber(self['max_buy_count'])
+    if (max_buy_count and (0 < max_buy_count)) then
+        -- 구매 횟수 제한이 지정되어 있을 경우
+        return true
+    end
+
+    return false
+
+    --[[
     -- 숫자가 아니라면 구매 횟수 제한이 없는 것
 	if (not isNumber(self['max_buy_count'])) then
 		return false
@@ -146,6 +159,7 @@ function StructProduct:needRenewAfterBuy()
     -- 구매 제한 횟수 체크 (판매 시간은 상품 리스트 구성 시 확인한다고 가정)
     local buy_cnt = g_shopDataNew:getBuyCount(self['product_id'])
     return (buy_cnt < self['max_buy_count'] + 1)
+    --]]
 end
 
 

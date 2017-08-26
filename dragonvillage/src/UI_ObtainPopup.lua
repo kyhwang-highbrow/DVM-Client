@@ -161,8 +161,6 @@ function UI_ObtainPopup:createListUI(t_data)
         item_str = item_name
     end
 
-    ccdump(item_str)
-
 	vars['countLabel']:setString(item_str)
 
 	return ui
