@@ -336,7 +336,6 @@ end
 function TutorialManager:refreshTargetUI()
     local old_tar_ui = self.m_tutorialPlayer.m_targetUI
     local new_tar_ui = self:findTargetUI()
-    cclog(old_tar_ui.m_uiName, new_tar_ui.m_uiName)
 
     -- ui가 바뀐 경우
     if (old_tar_ui ~= new_tar_ui) then

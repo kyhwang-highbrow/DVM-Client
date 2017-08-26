@@ -77,7 +77,9 @@ function UI_TutorialPlayer:next(next_effect)
 
     if (self.m_currPage <= self.m_maxPage) then
         -- traget UI 갱신
-        TutorialManager.getInstance():refreshTargetUI()
+        if (self.m_targetUI) then
+            TutorialManager.getInstance():refreshTargetUI()
+        end
 
         local effect = self.m_nextEffectName
         self:showPage()
