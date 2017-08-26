@@ -76,8 +76,18 @@ function ApkExpansion:doStep()
         end
     end
 
-    -- APK 확장 파일 다운로드 초기화 및 시작
-    SDKManager:apkExpansionStart(param_str, md5, callback)
+    -- APK 확장 파일 다운로드 체크 및 시작
+    SDKManager:apkExpansionCheck(param_str, md5, function(ret, info)
+        if ret == 'download' then
+            local function ok_cb()
+                SDKManager:apkExpansionStart(param_str, md5, callback)
+            end
+            MakeSimplePopup2(POPUP_TYPE.OK, "게임 실행에 필요한 추가 데이터 파일이 손상되었습니다.\n손상된 파일을 다시 설치하기 위해 '사진/미디어/파일 액세스' 접근 권한이 필요합니다.", "권한 요청을 거부할 경우 정상적인 게임 실행이 불가능하며\n앱을 삭제한 후 다시 설치하셔야 합니다.", ok_cb)
+        else
+            self:finish()
+        end
+    end)
+
 end
 
 -------------------------------------
@@ -199,7 +209,7 @@ end
 -- @param info_str string "{'code':@code, 'msg':'@message'}"
 -------------------------------------
 function ApkExpansion:apkExpansionErrorHandler(info_str)
-    local msg = Str('APK 확장 파일 다운로드에 실패하였습니다.\n다시 시도하시겠습니까?')
+    local msg = Str('추가 데이터 파일 다운로드에 실패하였습니다.\n다시 시도하시겠습니까?')
 
     if (not info_str) then
         msg = msg .. '\n (info_str is null)'
@@ -225,6 +235,7 @@ function ApkExpansion:apkExpansionErrorHandler(info_str)
     local STATE_PAUSED_ROAMING = 12             -- 로밍 중, 로밍 중이므로 요금에 대한 경고를 하고 계속 진행/중단 처리한다.
     local STATE_FAILED_UNLICENSED = 15          -- 정식으로 앱을 다운로드 받지 않은 경우, APK를 별도로 설치하여 테스트하는 개발 버전에선 실패 처리하지 않고 그대로 진행시킨다.
     local STATE_FAILED_SDCARD_FULL = 17         -- 외부 저장 장치의 용량이 부족한 경우
+    local STATE_FAILED_PERMISSION_DENIED = 19   -- '사진/미디어/파일 액세스' 접근 권한을 거부한 경우
 
     -- 6 네트워크가 연결되어 있지 않은 경우
     if (code == STATE_PAUSED_NETWORK_UNAVAILABLE) then
@@ -254,7 +265,11 @@ function ApkExpansion:apkExpansionErrorHandler(info_str)
     -- 17 외부 저장 장치의 용량이 부족한 경우
     elseif (code == STATE_FAILED_SDCARD_FULL) then
         self:openFailPopup_sdcardFull()
-    
+
+    elseif (code == STATE_FAILED_PERMISSION_DENIED) then
+        msg = '파일 설치를 위한 접근 권한 거부로\n추가 데이터 파일의 다운로드 및 설치를\n진행하지 못했습니다.\n다시 시도하시겠습니까?'
+        return self:errorHandler(msg)
+
     else
         if info_str then
             msg = msg .. '\n(' .. info_str .. ')'
@@ -278,10 +293,12 @@ function ApkExpansion:errorHandler(msg)
     end
 
     local function cancel_btn_cb()
-        self:finish()
+        MakeSimplePopup(POPUP_TYPE.OK, '정상적인 시작이 불가능하여 앱을 종료합니다.\n종료 후 다시 실행해 주세요.', function()
+            closeApplication()
+        end)
     end
 
-    MakeSimplePopup(POPUP_TYPE.OK, msg, ok_btn_cb, cancel_btn_cb)
+    MakeSimplePopup(POPUP_TYPE.YES_NO, msg, ok_btn_cb, cancel_btn_cb)
 end
 
 -------------------------------------
@@ -297,6 +314,10 @@ end
 function ApkExpansion:openFailPopup()
     self:close_patch_guide()
 
+    local function ok_btn_cb()
+        closeApplication()
+    end
+
     local msg = Str('추가 리소스 다운로드에 실패하여 게임을 시작할 수 없습니다.\n앱을 완전 종료 후 다시 접속해주세요.')
     MakeSimplePopup(POPUP_TYPE.OK, msg, ok_btn_cb)
 end
@@ -305,6 +326,8 @@ end
 -- function openFailPopup_sdcardFull
 -------------------------------------
 function ApkExpansion:openFailPopup_sdcardFull()
+    self:close_patch_guide()
+
     local function ok_btn_cb()
         closeApplication()
     end

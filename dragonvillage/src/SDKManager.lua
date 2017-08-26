@@ -77,6 +77,14 @@ end
 -- function apkExpansionStart
 -- @brief 
 -------------------------------------
+function SDKManager:apkExpansionCheck(param_str, md5, cb_func)
+    self:sendEvent('apkexp_check', param_str, md5, cb_func)
+end
+
+-------------------------------------
+-- function apkExpansionStart
+-- @brief 
+-------------------------------------
 function SDKManager:apkExpansionStart(param_str, md5, cb_func)
     self:sendEvent('apkexp_start', param_str, md5, cb_func)
 end
