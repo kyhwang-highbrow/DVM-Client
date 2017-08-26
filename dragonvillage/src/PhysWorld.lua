@@ -226,8 +226,8 @@ function PhysWorld:update(dt)
         if (target_collisions) then
             for i, collision in ipairs(target_collisions) do
                 target = collision:getTarget()
-                x = collision:getPosX()
-                y = collision:getPosY()
+                x = target.pos.x
+                y = target.pos.y
 
                 body_key = collision:getBodyKey()
                 body = target:getBody(body_key)
