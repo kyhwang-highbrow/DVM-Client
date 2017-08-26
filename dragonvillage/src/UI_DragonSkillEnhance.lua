@@ -347,8 +347,7 @@ function UI_DragonSkillEnhance:click_enhanceBtn()
     end
 
 	-- 골드 충족 여부
-	if (self:getSkillEnhancePrice() > g_userData:get('gold')) then
-		UIManager:toastNotificationRed(Str('골드가 모잘라요'))
+    if (not ConfirmPrice('gold', self:getSkillEnhancePrice())) then
         cca.uiImpossibleAction(self.vars['enhanceBtn'])
         return
 	end
