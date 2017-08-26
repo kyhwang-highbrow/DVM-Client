@@ -162,6 +162,9 @@ local function main()
     ErrorTracker:getInstance()
     stopwatch:record('ErrorTracker:getInstance()')
 
+    PatchChecker:getInstance()
+    stopwatch:record('PatchChecker:getInstance()')
+
     -- 광고 프리로드
     AdsManager:prepare()
     stopwatch:record('AdsManager:prepare()')

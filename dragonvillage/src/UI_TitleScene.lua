@@ -361,9 +361,6 @@ function UI_TitleScene:workLoading()
         LocalData:getInstance():applySetting()
         co:yield()
 
-        PatchChecker:getInstance()
-        co:yield()
-
         -- 다음 work로 이동
         self.m_loadingUI:hideLoading()
         self:doNextWork()
