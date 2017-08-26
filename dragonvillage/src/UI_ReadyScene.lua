@@ -148,17 +148,27 @@ end
 
 -------------------------------------
 -- function condition_deck_idx
+-- @breif 덱에 설정된 드래곤을 정렬 우선순위로 사용
 -------------------------------------
 function UI_ReadyScene:condition_deck_idx(a, b)
-	for doid, v in pairs(self.m_readySceneDeck.m_tDeckMap) do
-	end
-
-    local a_deck_idx = self.m_readySceneDeck.m_tDeckMap[a['data']['id']] or 999
-    local b_deck_idx = self.m_readySceneDeck.m_tDeckMap[b['data']['id']]  or 999
+    local a_deck_idx = self.m_readySceneDeck.m_tDeckMap[a['data']['id']] or nil
+    local b_deck_idx = self.m_readySceneDeck.m_tDeckMap[b['data']['id']] or nil
 	 
-    -- 덱에 설정된 데이터로 우선 정렬
-    if (a_deck_idx ~= b_deck_idx) then
-        return a_deck_idx < b_deck_idx
+    -- 둘 다 덱에 설정된 경우 우열을 가리지 않음
+    if (a_deck_idx and b_deck_idx) then
+        return nil
+
+    -- A드래곤만 덱에 설정된 경우
+    elseif a_deck_idx then
+        return true
+
+    -- B드래곤만 덱에 설정된 경우
+    elseif b_deck_idx then
+        return false
+
+    -- 둘 다 덱에 설정되지 않은 경우
+    else
+        return nil
     end
 end
 
