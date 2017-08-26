@@ -502,6 +502,9 @@ function UI_DragonUpgrade:click_upgradeBtn()
 
         -- 연출 시작
         self:upgradeDirecting(doid, t_prev_dragon_data, t_next_dragon_data)
+
+        -- @ master road
+        g_masterRoadData:addRawData('d_grup')
     end
 
     local ui_network = UI_Network()

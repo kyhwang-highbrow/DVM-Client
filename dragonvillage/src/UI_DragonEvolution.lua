@@ -499,6 +499,9 @@ function UI_DragonEvolution:click_evolutionBtn()
 			-- UI 종료한다. 진화후 남아있을 이유가 없음
 			self:close()
 		end)
+
+        -- @ master road
+        g_masterRoadData:addRawData('d_evup')
     end
 
     local ui_network = UI_Network()
