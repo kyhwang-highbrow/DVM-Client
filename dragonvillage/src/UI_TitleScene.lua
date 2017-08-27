@@ -451,7 +451,7 @@ function UI_TitleScene:workCheckUserID()
     -- 로컬데이터가 없는 경우를 재설치 경우로 보고,
     -- 이전 플랫폼 관련 로그인 세션을 모두 로그아웃하고 로그인 팝업 출력
     if isIos() then
-        if g_localData:get('local', 'platform_id') == nil) then
+        if (g_localData:get('local', 'platform_id') == nil) then
             self.m_loadingUI:hideLoading()
 
             PerpleSDK:logout()
