@@ -447,15 +447,18 @@ function UI_TitleScene:workCheckUserID()
         ui:setCloseCB(close_cb)
     end
 
-    -- 앱을 재설치한 경우
+    -- iOS의 경우 앱을 재설치해도 autoLogin이 성공하므로
+    -- 로컬데이터가 없는 경우를 재설치 경우로 보고,
     -- 이전 플랫폼 관련 로그인 세션을 모두 로그아웃하고 로그인 팝업 출력
-    if (g_localData:get('local', 'platform_id') == nil) then
-        PerpleSDK:logout()
-        PerpleSDK:googleLogout(0)
-        PerpleSDK:facebookLogout()
+    if isIos() then
+        if g_localData:get('local', 'platform_id') == nil) then
+            PerpleSDK:logout()
+            PerpleSDK:googleLogout(0)
+            PerpleSDK:facebookLogout()
 
-        fail_cb()
-        return
+            fail_cb()
+            return
+        end
     end
 
     PerpleSDK:autoLogin(function(ret, info)
