@@ -262,7 +262,7 @@ function UI_DragonSkillEnhance:createMtrlDragonCardCB(ui, data)
         end
 
     elseif (data:getObjectType() == 'slime') then
-        if (not g_slimesData:possibleMaterialSlime(doid, 'exp')) then
+        if (not g_slimesData:possibleMaterialSlime(doid, 'skill')) then
             ui:setShadowSpriteVisible(true)
             return
         end
