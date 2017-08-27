@@ -488,6 +488,9 @@ function StatusEffect:apply()
 
     self:onStart()
 
+    -- 효과음
+    self:playEffect()
+
     return true
 end
 
@@ -698,6 +701,17 @@ function StatusEffect:calcLatestTime()
     end
 
     return latestTimer
+end
+
+-------------------------------------
+-- function playEffect
+-------------------------------------
+function StatusEffect:playEffect()
+    local res_sound = self.m_statusEffectTable['sound'] or ''
+
+    if (res_sound ~= '') then
+        ISkillSound:playSkillSound(res_sound)
+    end
 end
 
 -------------------------------------
