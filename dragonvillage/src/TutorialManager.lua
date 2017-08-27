@@ -320,6 +320,8 @@ function TutorialManager:findTargetUI()
             return ui
         end
     end
+
+    return false
 end
 
 -------------------------------------
@@ -329,7 +331,12 @@ end
 function TutorialManager:refreshTargetUI()
     local old_tar_ui = self.m_tutorialPlayer.m_targetUI
     local new_tar_ui = self:findTargetUI()
-
+    
+    -- 바뀐 ui가 없는 경우
+    if (not new_tar_ui) then
+        return
+    end
+      
     -- ui가 바뀐 경우
     if (old_tar_ui ~= new_tar_ui) then
         -- 기존 UI가 닫힌 경우라면 활성화 시킨 버튼을 날려버린다.
