@@ -441,9 +441,13 @@ end
 function UI_UserInfoDetailPopup:click_titleChangeBtn()
     local function cb_func(l_title_list)
         local ui = UI_UserInfoDetailPopup_SetTitle(l_title_list)
+        local curr_title_id = self.m_tUserInfo['tamer_title']
+
         ui:setCloseCB(function(title_id)
-            self.m_tUserInfo['tamer_title'] = title_id
-            self:refresh_title()
+            if (curr_title_id ~= title_id) then
+                self.m_tUserInfo['tamer_title'] = title_id
+                self:refresh_title()
+            end
         end)
     end
     g_userData:request_getTitleList(cb_func)
