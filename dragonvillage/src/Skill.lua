@@ -835,6 +835,9 @@ end
 function Skill:makeMissile(t_option)
     self.m_bUseMissile = true
 
+    -- t_option 테이블을 반복적으로 사용하는 경우 참조로 인한 문제 해결을 위한 처리
+    local prev_body_size
+
     -- 인디케이터로부터 충돌 정보를 받은 경우
     if (self.m_lTargetCollision) then
         t_option['bFixedAttack'] = true
@@ -842,12 +845,21 @@ function Skill:makeMissile(t_option)
 
         -- body 크기를 일괄적으로 키운다
         if (t_option['physics_body']) then
-            t_option['physics_body'][3] = t_option['physics_body'][3] * 1.25
+            local body_size = t_option['physics_body'][3]
+            prev_body_size = body_size
+
+            t_option['physics_body'][3] = body_size * 1.25
         end
     end
 
     -- 발사
-	return self.m_world.m_missileFactory:makeMissile(t_option)
+    local missile = self.m_world.m_missileFactory:makeMissile(t_option)
+
+    if (prev_body_size) then
+        t_option['physics_body'][3] = prev_body_size
+    end
+
+	return missile
 end
 
 -------------------------------------

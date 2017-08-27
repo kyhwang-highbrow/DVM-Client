@@ -31,6 +31,7 @@ PRIORITY_AI_ATTR[TEAM_STATE.DANGER][3] = SKILL_AI_ATTR__RECOVERY
 -------------------------------------
 GameAuto = class(IEventListener:getCloneClass(), {
         m_world = 'GameWorld',
+        m_gameMana = 'GameMana',
         m_bActive = 'boolean',
 
         m_teamState = 'TEAM_STATE',
@@ -52,8 +53,9 @@ GameAuto = class(IEventListener:getCloneClass(), {
 -------------------------------------
 -- function init
 -------------------------------------
-function GameAuto:init(world)
+function GameAuto:init(world, game_mana)
     self.m_world = world
+    self.m_gameMana = game_mana
     self.m_bActive = false
 
     self.m_teamState = 0
@@ -245,6 +247,7 @@ end
 
 -------------------------------------
 -- function doWork_skill
+-- @brief 리턴값이  true일 경우 다음 우선순위의 대상 스킬을 사용하게 됨
 -------------------------------------
 function GameAuto:doWork_skill(unit, priority)
     local target
@@ -258,6 +261,11 @@ function GameAuto:doWork_skill(unit, priority)
 
         -- 대상을 찾는다
         target = self:findTarget(unit, t_skill)
+
+    elseif (self.m_teamState == TEAM_STATE.DANGER and self.m_gameMana:getCurrMana() > 3) then
+        -- 위급상황에서 마나가 3이상일때 스킬 사용을 못하는 경우 랜덤 대상의 스킬을 대신 사용
+        self.m_curUnit = self:getRandomSkillUnit()
+        return false
 
     elseif (priority == 1) then
         if (reason == REASON_TO_DO_NOT_USE_SKILL.MANA_LACK or reason == REASON_TO_DO_NOT_USE_SKILL.COOL_TIME) then
@@ -382,6 +390,29 @@ end
 -------------------------------------
 function GameAuto:setWorkTimer()
     self.m_workTimer = WORK_INTERVAL_TIME
+end
+
+-------------------------------------
+-- function getRandomSkillUnit
+-- @breif 스킬 사용 가능한 랜덤한 유닛을 가져옴
+-------------------------------------
+function GameAuto:getRandomSkillUnit()
+    local t_idx = {}
+
+    for i, unit in ipairs(self.m_lUnitList) do
+        if (unit:isPossibleSkill()) then
+            table.insert(t_idx, i)
+        end
+    end
+
+    if (#t_idx > 1) then
+        t_idx = randomShuffle(t_idx)
+    end
+    
+    local idx = t_idx[1]
+    if (not idx) then return end
+    
+    return self.m_lUnitList[idx]
 end
 
 -------------------------------------

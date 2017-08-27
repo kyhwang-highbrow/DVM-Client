@@ -8,7 +8,7 @@ GameAuto_Enemy = class(PARENT, {})
 -------------------------------------
 -- function init
 -------------------------------------
-function GameAuto_Enemy:init(world)
+function GameAuto_Enemy:init(world, game_mana)
     self:onStart()
 end
 

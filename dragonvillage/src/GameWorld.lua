@@ -210,17 +210,17 @@ function GameWorld:init(game_mode, stage_id, world_node, game_node1, game_node2,
     self:addListener('set_global_cool_time_passive', self.m_gameCoolTime)
     self:addListener('set_global_cool_time_active', self.m_gameCoolTime)
         
+    -- 마나 관리자 생성
+    self.m_heroMana = GameMana(self, true)
+    self.m_enemyMana = GameMana(self, false)
+
     -- 아군 자동시 AI
-    self.m_gameAutoHero = GameAuto_Hero(self)
+    self.m_gameAutoHero = GameAuto_Hero(self, self.m_heroMana)
     self:addListener('auto_start', self.m_gameAutoHero)
     self:addListener('auto_end', self.m_gameAutoHero)
 
     -- 적군(드래곤) AI
-    self.m_gameAutoEnemy = GameAuto_Enemy(self, false)
-
-    -- 마나 관리자 생성
-    self.m_heroMana = GameMana(self, true)
-    self.m_enemyMana = GameMana(self, false)
+    self.m_gameAutoEnemy = GameAuto_Enemy(self, self.m_enemyMana)
 
     -- shake manager 생성
 	self.m_shakeMgr = ShakeManager(self, g_gameScene.m_shakeLayer)

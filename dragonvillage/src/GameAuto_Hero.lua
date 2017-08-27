@@ -11,7 +11,7 @@ GameAuto_Hero = class(PARENT, {
 -------------------------------------
 -- function init
 -------------------------------------
-function GameAuto_Hero:init(world)
+function GameAuto_Hero:init(world, game_mana)
     self:initUI()
     
     if (g_autoPlaySetting:isAutoPlay()) then
@@ -85,4 +85,16 @@ function GameAuto_Hero:onEvent(event_name, t_event, ...)
         self:setWorkTimer()
 
     end
+end
+
+-------------------------------------
+-- function doWork_skill
+-------------------------------------
+function GameAuto_Hero:doWork_skill(unit, priority)
+    local b = PARENT.doWork_skill(self, unit, priority)
+
+    if (not b) then
+    end
+
+    return b
 end

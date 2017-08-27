@@ -94,6 +94,8 @@ function TableStageData:getRecommendedCombatPower(stage_id)
     local wave_mgr = WaveMgr(nil, 'stage_' .. stage_id, stage_id)
 
     local boss_id, boss_lv = wave_mgr:getFinalBossInfo()
+    if (not boss_id) then return 0 end
+
     boss_lv = boss_lv + 20
 
     local boss_type = isMonster(boss_id) and 'monster' or 'dragon'

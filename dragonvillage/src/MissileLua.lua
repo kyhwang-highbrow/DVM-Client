@@ -40,20 +40,28 @@ function MissileLua.st_move(owner, dt)
     local is_change_pos = false
 
     if owner.m_beforePosX ~= x then
-        owner.m_beforePosX = owner.pos.x
+        if (not owner.m_beforePosX) then
+            owner.m_beforePosX = owner.pos.x
+        end
         is_change_pos = true
     end
 
     if owner.m_beforePosY ~= y then
-        owner.m_beforePosY = owner.pos.y
+        if (not owner.m_beforePosY) then
+            owner.m_beforePosY = owner.pos.y
+        end
         is_change_pos = true
     end
 
     owner:setPosition(x, y)
 
     if is_change_pos then
-        local degree = getDegree(owner.m_beforePosX, owner.m_beforePosY, owner.pos.x, owner.pos.y)
+        --local degree = getDegree(owner.m_beforePosX, owner.m_beforePosY, owner.pos.x, owner.pos.y)
+        local degree = getDegree(owner.m_beforePosX, owner.m_beforePosY, x, y)
         owner:setRotation(degree)
+
+        owner.m_beforePosX = x
+        owner.m_beforePosY = y
     end
 end
 

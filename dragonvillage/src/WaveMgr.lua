@@ -560,6 +560,8 @@ end
 -- function getFinalBossInfo
 -------------------------------------
 function WaveMgr:getFinalBossInfo()
+    if (not self.m_scriptData) then return end
+
     local t_data = self.m_scriptData['wave'][self.m_maxWave]
     self:newScenario_dynamicWave(t_data)
 

@@ -26,9 +26,6 @@ function GameWorldColosseum:init(game_mode, stage_id, world_node, game_node1, ga
     end
     self.m_gameTimeScale:setBase(baseTimeScale)
 
-    -- 적군 AI
-    self.m_gameAutoEnemy = GameAuto_Enemy(self, false)
-
     self.m_gameState = GameState_Colosseum(self)
     self.m_inGameUI:init_timeUI(false, self.m_gameState.m_limitTime)
 end

@@ -15,9 +15,6 @@ GameWorldIntro = class(PARENT, {
 function GameWorldIntro:init(game_mode, stage_id, world_node, game_node1, game_node2, game_node3, ui, develop_mode)
     self.m_lEnemyDragons = {}
 
-    -- 적군 AI
-    self.m_gameAutoEnemy = GameAuto_Enemy(self, false)
-
     self.m_gameState = GameState_Intro(self)
 
     self.m_heroMana:setEnable(false)
