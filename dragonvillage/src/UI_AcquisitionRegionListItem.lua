@@ -69,7 +69,7 @@ function UI_AcquisitionRegionListItem:initUI()
 
 		elseif (get_type == 'mileage') then
 			title_str = Str('[특수 알 부화]')
-			content_str = Str('신화, 기적, 초월, 환상의 알에서 획득')
+			content_str = Str('한정 드래곤 포함 알에서 획득')
 
 		elseif (get_type == 'friend') then
 			title_str = Str('[우정 알 부화]')
