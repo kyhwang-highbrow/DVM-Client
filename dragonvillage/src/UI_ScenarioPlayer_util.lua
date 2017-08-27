@@ -149,15 +149,13 @@ function UI_ScenarioPlayer:applyEffect(effect)
         self.vars['skipBtn']:setVisible(true)
         self.vars['nextVisual']:setVisible(true)
 
-    -- 스킵만 가능하고 화면넘김 불가능한 상태
     elseif effect == 'next_disable' then
-        self.m_bSkipEnable = true
-        self.vars['skipBtn']:setVisible(true)
-
+        self.m_bNextEnable = false
         self.vars['nextBtn']:setEnabled(false)
         self.vars['nextVisual']:setVisible(false)
 
     elseif effect == 'next_enable' then
+        self.m_bNextEnable = true
         self.vars['nextBtn']:setEnabled(true)
         self.vars['nextVisual']:setVisible(true)
 

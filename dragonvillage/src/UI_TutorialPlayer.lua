@@ -15,6 +15,11 @@ UI_TutorialPlayer = class(PARENT,{
 -- function init
 -------------------------------------
 function UI_TutorialPlayer:init(scenario_name, tar_ui)
+    -- target ui 가 없는 경우 강제 종료
+    if (not tar_ui) then
+        return
+    end
+
     self:setTargetUI(tar_ui)
 end
 
@@ -23,10 +28,6 @@ end
 -------------------------------------
 function UI_TutorialPlayer:init_player()
     local vars = self:load_keepZOrder('scenario_talk.ui', false)
-
-	--UIManager:open(self)
-	vars['skipBtn']:setVisible(false)
-	self.m_bSkipEnable = false
 end
 
 -------------------------------------
@@ -106,11 +107,6 @@ end
 function UI_TutorialPlayer:applyEffect(effect)
     -- UI_ScenarioPlayer_util 에 있다면 굳이 또 통과하지 않는다.
     if (not PARENT.applyEffect(self, effect)) then
-        return
-    end
-
-    -- target ui 가 없다면 패스
-    if (not self.m_targetUI) then
         return
     end
 

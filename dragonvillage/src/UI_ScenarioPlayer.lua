@@ -19,7 +19,9 @@ UI_ScenarioPlayer = class(PARENT,{
 
         m_focusCharacter = '',
         m_mCharacter = '',
-        m_bSkipEnable = '',
+
+        m_bSkipEnable = 'bool',
+        m_bNextEnable = 'bool',
 
         m_scenarioPlayerTalk = '',
         m_sceneCB = 'function',
@@ -56,6 +58,7 @@ function UI_ScenarioPlayer:init_player()
 	-- backkey 지정
 	g_currScene:pushBackKeyListener(self, function() self:click_skip() end, 'UI_ScenarioPlayer')
 	self.m_bSkipEnable = true
+    self.m_bNextEnable = true
 end
 
 -------------------------------------
@@ -101,6 +104,8 @@ end
 -- function click_skip
 -------------------------------------
 function UI_ScenarioPlayer:click_skip()
+    cclog('SKIP .. !')
+    cclog(self.m_bSkipEnable)
     if (not self.m_bSkipEnable) then
         return
     end
@@ -112,7 +117,7 @@ end
 -- function click_next
 -------------------------------------
 function UI_ScenarioPlayer:click_next()
-    if (not self.m_bSkipEnable) then
+    if (not self.m_bNextEnable) then
         return
     end
 
@@ -234,13 +239,18 @@ function UI_ScenarioPlayer:showPage()
 
     do -- 이전에 disable시킨 것 해제
         self.m_bSkipEnable = true
+        self.m_bNextEnable = true
         self.vars['skipBtn']:setVisible(true)
+        self.vars['nextBtn']:setEnabled(true)
         self.vars['nextVisual']:setVisible(true)
     end
 
     -- 지정된 효과 실행
-    for i = 1, 3 do
-        self:applyEffect(t_page['effect_' .. i])
+    for i = 1, 5 do
+        local effect = t_page['effect_' .. i]
+        if (effect) and (effect ~= '') then
+            self:applyEffect(t_page['effect_' .. i])
+        end
     end 
 
     -- 자동 넘김

@@ -43,6 +43,7 @@ function UI_Colosseum:init()
     local vars = self:load_keepZOrder('colosseum_scene.ui')
     UIManager:open(self, UIManager.SCENE)
 
+    self.m_uiName = 'UI_Colosseum'
     -- backkey 지정
     g_currScene:pushBackKeyListener(self, function() self:click_exitBtn() end, 'UI_Colosseum')
 

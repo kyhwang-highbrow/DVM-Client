@@ -66,7 +66,7 @@ function applicationDidEnterBackground()
 	LocalPushMgr():applyLocalPush()
 
     -- 백그라운드에서 30분간 있을 경우 재시작
-    GAME_RESTART_TIME = os.time() + 1800
+    GAME_RESTART_TIME = os.time() + 10
 
     if (g_accessTimeData) then
         g_accessTimeData:setRecordTime(false)
