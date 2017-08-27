@@ -1227,15 +1227,6 @@ function UI_GameResultNew:click_manageBtn()
     ui:setCloseCB(close_cb)
 end
 
--------------------------------------
--- function onDestroyUI
--- @brief
--------------------------------------
-function UI_GameResultNew:onDestroyUI()
-    PARENT.onDestroyUI(self)
 
-    -- 접속 시간 저장
-    g_accessTimeData:request_saveTime()
-end
 
         
