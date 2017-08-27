@@ -7,7 +7,6 @@ import java.util.concurrent.CountDownLatch;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.util.Log;
-import android.content.Intent;
 import android.view.Gravity;
 import android.view.View;
 import android.webkit.WebChromeClient;
@@ -15,7 +14,6 @@ import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.FrameLayout;
 import android.widget.LinearLayout;
-import android.net.Uri;
 
 class ShouldStartLoadingWorker implements Runnable {
     private CountDownLatch mLatch;
@@ -114,26 +112,15 @@ public class Cocos2dxWebView extends WebView {
             Cocos2dxActivity activity = (Cocos2dxActivity)getContext();
 
             try {
-                // 웹뷰에서 url http 포함된 경우 브라우저로 연결 
-                
-                if (urlString != null && urlString.startsWith("http://")) {
-                    view.getContext().startActivity(
-                    new Intent(Intent.ACTION_VIEW, Uri.parse(urlString)));
+                URI uri = URI.create(urlString);
+                if (uri != null && uri.getScheme().equals(mJSScheme)){
+                    activity.runOnGLThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            Cocos2dxWebViewHelper._onJsCallback(mViewTag, urlString);
+                        }
+                    });
                     return true;
-                }
-                else
-                {
-                    URI uri = URI.create(urlString);
-                    
-                    if (uri != null && uri.getScheme().equals(mJSScheme)){
-                        activity.runOnGLThread(new Runnable() {
-                            @Override
-                            public void run() {
-                                Cocos2dxWebViewHelper._onJsCallback(mViewTag, urlString);
-                            }
-                        });
-                        return true;
-                    }
                 }
             } catch (Exception e) {
                 Log.d(TAG, "Failed to create URI from url");
