@@ -127,7 +127,7 @@ function UI_SkillDetailPopup:refresh(idx)
 	-- 스킬 레벨 미리보기용 변수
 	do
 		self.m_currIdx = idx
-		self.m_currLV = skill_indivisual_info:getSkillLevel()
+		self.m_currLV = math_max(1, skill_indivisual_info:getSkillLevel())
 		self.m_maxLV = TableDragonSkillModify:getMaxLV(skill_id)
 		self.m_numberLoop = NumberLoop(self.m_maxLV)
 		self.m_numberLoop:setCurr(self.m_currLV)
@@ -148,6 +148,15 @@ function UI_SkillDetailPopup:refresh(idx)
         vars['cooltimeLabel']:setString(cooltime)
     else
         vars['skillCoolTimeNode']:setVisible(false)
+    end
+
+    -- 비활성화 인 경우 잠금 해제에 대한 안내 표시
+    if (skill_indivisual_info:isActivated()) then
+        vars['lockNode']:setVisible(false)
+    else
+        vars['lockNode']:setVisible(true)
+        local evo_str = evolutionName(idx)
+        vars['lockLabel']:setString(Str('{1} 단계에서 해제', evo_str))
     end
 end
 
