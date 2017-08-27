@@ -143,6 +143,11 @@ function UI_AdventureStageInfo:refresh()
 
     do -- 스테이지 설명
         local desc = table_stage_desc:getStageDesc(stage_id)
+
+        -- 지정된 설명이 없을 경우 랜덤한 모험모드 설명을 출력
+        if (not desc) or (desc == '') then
+            desc = TableLoadingGuide:getRandomStageGuid()
+        end
         vars['dscLabel']:setString(desc)
     end
 

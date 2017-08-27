@@ -84,3 +84,18 @@ function TableLoadingGuide:getLoadingDesc(gid)
 
 	return tip_str
 end
+
+-------------------------------------
+-- function getRandomStageGuid
+-- @breif 모험모드에서 랜덤으로 가이드 설명 리턴
+-------------------------------------
+function TableLoadingGuide:getRandomStageGuid()
+    if (self == THIS) then
+        self = THIS()
+    end
+
+    local l_guid_list = self:filterList('type', 'in_adventure')
+    local idx = math_random(1, #l_guid_list)
+    local str = Str(l_guid_list[idx]['t_desc'])
+    return str
+end
