@@ -183,8 +183,10 @@ function UI_Lobby:entryCoroutine()
         working = true
         self:doAction(function() 
             working = false
-            -- @ TUTORIAL
-            TutorialManager.getInstance():startTutorial(TUTORIAL.FIRST_START, self)
+            if (not CppFunctions:isTestMode()) then
+                -- @ TUTORIAL
+                TutorialManager.getInstance():startTutorial(TUTORIAL.FIRST_START, self)
+            end
         end, false)
         g_topUserInfo:doAction()
 		self.root:scheduleUpdateWithPriorityLua(function(dt) self:update(dt) end, 0)
@@ -194,7 +196,6 @@ function UI_Lobby:entryCoroutine()
         block_popup:close()
         coroutine.yield()
     end
-
 
     Coroutine(coroutine_function, '로비 코루틴')
 end
