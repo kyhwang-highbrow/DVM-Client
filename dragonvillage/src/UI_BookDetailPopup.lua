@@ -611,8 +611,9 @@ function UI_BookDetailPopup:click_sameTypeCard(t_dragon)
 
     -- 기존 값 그대로 유지
     t_dragon['bookType'] = self.m_tDragon['bookType'] 
-    t_dragon['grade'] = self.m_tDragon['grade'] 
-	t_dragon['evolution'] = self.m_tDragon['evolution'] 
+    t_dragon['grade'] = self.m_grade
+	t_dragon['evolution'] = self.m_evolution
+    t_dragon['lv'] = self.m_lv
 
 	self:setDragon(t_dragon)
 
@@ -627,7 +628,7 @@ function UI_BookDetailPopup:setDragon(t_dragon, is_origin)
 	self.m_tDragon = t_dragon
 	self.m_evolution = t_dragon['evolution']
 	self.m_grade = t_dragon['grade']
-	self.m_lv = 1
+	self.m_lv = t_dragon['lv'] or 1
     if (is_origin) then
         self.m_originDid = t_dragon['did']
     end
