@@ -85,3 +85,45 @@ function TableStageData:getStageLevel(stage_id)
     local level = self:getValue(stage_id, 'level') or 0
     return level + 1
 end
+
+-------------------------------------
+-- function getRecommendedCombatPower
+-- @brief 스테이지 권장 전투력
+-------------------------------------
+function TableStageData:getRecommendedCombatPower(stage_id)
+    local wave_mgr = WaveMgr(nil, 'stage_' .. stage_id, stage_id)
+
+    local boss_id, boss_lv = wave_mgr:getFinalBossInfo()
+    boss_lv = boss_lv + 20
+
+    local boss_type = isMonster(boss_id) and 'monster' or 'dragon'
+    local status_calc
+
+    if (boss_type == 'dragon') then
+        status_calc = StatusCalculator('dragon', boss_id, boss_lv, 1, 3, 0)
+
+    else
+        status_calc = StatusCalculator('monster', boss_id, boss_lv, 0, 0, 0)
+    
+        -- 몬스터의 경우만 rarity별로 hp를 낮춤
+        local rarity = TableMonster():getValue(boss_id, 'rarity')
+
+        if (rarity == 'boss') then
+            local param = g_constant:get('UI', 'BOSS_COMBAT_POWER_PARAMETER_PER_RARITY')[1]
+            status_calc:addBuffMulti('hp', (100 / param) - 100)
+        elseif (rarity == 'subboss') then
+            local param = g_constant:get('UI', 'BOSS_COMBAT_POWER_PARAMETER_PER_RARITY')[2]
+            status_calc:addBuffMulti('hp', (100 / param) - 100)
+        elseif (rarity == 'elite') then
+            local param = g_constant:get('UI', 'BOSS_COMBAT_POWER_PARAMETER_PER_RARITY')[3]
+            status_calc:addBuffMulti('hp', (100 / param) - 100)
+        end
+    end
+
+    local t_value = g_constant:get('UI', 'BOSS_COMBAT_POWER_VALUE')
+    local combat_power = status_calc:getCombatPower()
+    combat_power = combat_power + (t_value[1] + (boss_lv - 1 / t_value[2]) * t_value[3])
+    combat_power = combat_power * 5
+    
+    return math_floor(combat_power)
+end

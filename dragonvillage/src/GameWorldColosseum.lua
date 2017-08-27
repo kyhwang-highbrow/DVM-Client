@@ -39,7 +39,7 @@ end
 -------------------------------------
 function GameWorldColosseum:initGame(stage_name)
     -- 웨이브 매니져 생성
-    self.m_waveMgr = WaveMgr_Colosseum(self, stage_name, self.m_bDevelopMode)
+    self.m_waveMgr = WaveMgr_Colosseum(self, stage_name, self.m_stageID, self.m_bDevelopMode)
         
 	-- 배경 생성
     self:initBG(self.m_waveMgr)

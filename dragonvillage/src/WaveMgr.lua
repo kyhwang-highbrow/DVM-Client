@@ -22,7 +22,8 @@ WaveMgr = class(IEventDispatcher:getCloneClass(), {
 
         -- 보스 정보
         m_bossId = 'number',
-        m_boss = '',
+        m_bossLv = 'number',
+        m_lBoss = '',
 
 		-- regen 전용
         m_mRegenGroup = 'table',
@@ -35,7 +36,7 @@ WaveMgr = class(IEventDispatcher:getCloneClass(), {
 -------------------------------------
 -- function init
 -------------------------------------
-function WaveMgr:init(world, stage_name, develop_mode)
+function WaveMgr:init(world, stage_name, stage_id, develop_mode)
     self.m_world = world
 
     self.m_stageName = stage_name
@@ -66,8 +67,8 @@ function WaveMgr:init(world, stage_name, develop_mode)
     self.m_isRegenWave = false
 
     -- 스테이지별 추가 레벨
-    self.m_addLevel = TableStageData():getValue(self.m_world.m_stageID, 'level') or 0
-
+    self.m_addLevel = TableStageData():getValue(stage_id, 'level') or 0
+    
     -- 리스너 등록
     self:addListener('change_wave', self.m_world)
 end
@@ -254,6 +255,7 @@ function WaveMgr:setDynamicWave(l_wave, l_data, group_key)
 	            if (rarity > self.m_highestRarity) then
 		            self.m_highestRarity = rarity
                     self.m_bossId = enemy_id
+                    self.m_bossLv = enemy_lv
 	            end
             end
 
@@ -317,7 +319,7 @@ function WaveMgr:newScenario_dynamicWave(t_data)
     self.m_highestRarity = -1
     self.m_bDeadHighestRarity = false
     self.m_bossId = nil
-    self.m_boss = nil
+    self.m_lBoss = nil
 
     -- wave 정보를 읽어 dynamic wave 세팅
 	self:setDynamicWave(self.m_lDynamicWave, t_data['wave'])
@@ -366,9 +368,16 @@ end
 -------------------------------------
 function WaveMgr:checkToDieHighestRariry()
     if (self.m_bDeadHighestRarity) then return true end
-    if (not self.m_boss) then return false end
+    if (not self.m_lBoss) then return false end
 
-    local is_dead = self.m_boss:isDead()
+    local is_dead = true
+
+    for i, boss in ipairs(self.m_lBoss) do
+        if (not boss:isDead()) then
+            is_dead = false
+            break
+        end
+    end
 
     self.m_bDeadHighestRarity = is_dead
     
@@ -407,7 +416,10 @@ function WaveMgr:spawnEnemy_dynamic(enemy_id, level, appear_type, value1, value2
 
     -- 스테이지별 boss_hp_ratio 적용.
     if (isBoss) then
-        self.m_boss = enemy
+        if (not self.m_lBoss) then
+            self.m_lBoss = {}
+        end
+        table.insert(self.m_lBoss, enemy)
 
         local boss_hp_ratio = TableStageData():getValue(self.m_world.m_stageID, 'boss_hp_ratio') or 1
         enemy.m_statusCalc:appendHpRatio(boss_hp_ratio)
@@ -542,4 +554,14 @@ end
 -------------------------------------
 function WaveMgr:getBossId()
     return self.m_bossId
+end
+
+-------------------------------------
+-- function getFinalBossInfo
+-------------------------------------
+function WaveMgr:getFinalBossInfo()
+    local t_data = self.m_scriptData['wave'][self.m_maxWave]
+    self:newScenario_dynamicWave(t_data)
+
+    return self.m_bossId, self.m_bossLv + self.m_addLevel
 end

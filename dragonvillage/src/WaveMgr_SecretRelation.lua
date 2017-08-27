@@ -10,7 +10,7 @@ WaveMgr_SecretRelation = class(PARENT, {
 -------------------------------------
 -- function init
 -------------------------------------
-function WaveMgr_SecretRelation:init(world, stage_name, develop_mode)
+function WaveMgr_SecretRelation:init(world, stage_name, stage_id, develop_mode)
     -- 해당 스테이지에서 가능한 적드래곤을 하나 지정
     local t_dungeon_info = g_secretDungeonData:getSelectedSecretDungeonInfo()
 

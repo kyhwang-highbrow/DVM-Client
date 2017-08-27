@@ -104,19 +104,6 @@ function TableStageDesc:isBossStage(stage_id)
 end
 
 -------------------------------------
--- function getRecommendedCombatPower
--- @brief 스테이지 권장 전투력
--------------------------------------
-function TableStageDesc:getRecommendedCombatPower(stage_id)
-    if (self == THIS) then
-        self = THIS()
-    end
-
-    local recomm_power = self:getValue(stage_id, 'recomm_power')
-    return recomm_power
-end
-
--------------------------------------
 -- function getScenarioName
 -- @brief
 -------------------------------------

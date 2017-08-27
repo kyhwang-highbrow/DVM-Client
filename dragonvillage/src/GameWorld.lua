@@ -324,11 +324,11 @@ function GameWorld:initGame(stage_name)
 
     -- 웨이브 매니져 생성
     if (self.m_gameMode == GAME_MODE_ANCIENT_TOWER) then
-        self.m_waveMgr = WaveMgr_AncientTower(self, stage_name, self.m_bDevelopMode)
+        self.m_waveMgr = WaveMgr_AncientTower(self, stage_name, self.m_stageID, self.m_bDevelopMode)
     elseif (self.m_gameMode == GAME_MODE_SECRET_DUNGEON and dungeonMode == SECRET_DUNGEON_RELATION) then
-        self.m_waveMgr = WaveMgr_SecretRelation(self, stage_name, self.m_bDevelopMode)
+        self.m_waveMgr = WaveMgr_SecretRelation(self, stage_name, self.m_stageID, self.m_bDevelopMode)
     else
-        self.m_waveMgr = WaveMgr(self, stage_name, self.m_bDevelopMode)
+        self.m_waveMgr = WaveMgr(self, stage_name, self.m_stageID, self.m_bDevelopMode)
     end
 
 	-- 배경 생성

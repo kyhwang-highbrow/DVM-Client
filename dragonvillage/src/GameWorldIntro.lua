@@ -31,7 +31,7 @@ end
 -- function initGame
 -------------------------------------
 function GameWorldIntro:initGame(stage_name)
-    self.m_waveMgr = WaveMgr(self, stage_name, self.m_bDevelopMode)
+    self.m_waveMgr = WaveMgr(self, stage_name, self.m_stageID, self.m_bDevelopMode)
 
     -- 배경 생성
     self:initBG(self.m_waveMgr)
