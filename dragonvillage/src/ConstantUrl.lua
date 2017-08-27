@@ -66,3 +66,4 @@ URL['PERPLELAB_PI'] = 'http://s3.dvm.perplelab.com/perplelab/personalinformation
 -- Highbrow
 URL['HIGHBROW'] = 'http://account.game.highbrow-inc.com:8080/'
 URL['HIGHBROW_CS'] = 'http://m.dragonvillage.net/support/customer/faq'
+URL['DVM_COMMUNITY'] = 'http://m.dragonvillage.net/dvm'

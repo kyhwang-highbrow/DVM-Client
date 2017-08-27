@@ -13,6 +13,7 @@ function UI_Setting:init_infoTab()
 
     vars['couponBtn']:registerScriptTapHandler(function() self:click_couponBtn() end)
     vars['serviceBtn']:registerScriptTapHandler(function() self:click_serviceBtn() end) 
+    vars['communityBtn']:registerScriptTapHandler(function() self:click_communityBtn() end) 
 end
 
 -------------------------------------
@@ -48,6 +49,16 @@ end
 -------------------------------------
 function UI_Setting:click_serviceBtn()
     local url = URL['HIGHBROW_CS']
+    SDKManager:goToWeb(url)
+    --UI_WebView(url)
+end
+
+-------------------------------------
+-- function click_communityBtn
+-- @brief 커뮤니티 (브라우저)
+-------------------------------------
+function UI_Setting:click_communityBtn()
+    local url = URL['DVM_COMMUNITY']
     SDKManager:goToWeb(url)
     --UI_WebView(url)
 end
