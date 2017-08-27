@@ -179,14 +179,14 @@ function ServerData_AccessTime:recordTime(scene)
         end
 
         -- 로비에 있는 경우에만 자동 저장
-        if (self.m_oriTime <= MAX_SAVE_SEC) and
+        --[[if (self.m_oriTime <= MAX_SAVE_SEC) and
            (g_currScene) and
            (g_currScene.m_sceneName) and 
            (g_currScene.m_sceneName == 'SceneLobby') and 
            (self.m_addTime >= AUTO_SAVE_SEC) then
             self.m_bRecord = false 
             self:request_saveTime(function() self.m_bRecord = true end)
-        end
+        end]]--
     end
 
     scene:scheduleUpdateWithPriorityLua(update, 0)
