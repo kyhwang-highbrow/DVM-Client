@@ -205,12 +205,12 @@ function UI_SkillDetailPopup:toggleButton()
 	vars['prevBtn']:setEnabled(true)
 	vars['nextBtn']:setEnabled(true)
 
-	if (self.m_currLV == self.m_maxLV) then
+	if (self.m_currLV >= self.m_maxLV) then
 		vars['nextBtn']:setEnabled(false)
+    end
 
-	elseif (self.m_currLV <= 1) then
+	if (self.m_currLV <= 1) then
 		vars['prevBtn']:setEnabled(false)
-
 	end
 end
 
