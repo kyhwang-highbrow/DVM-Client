@@ -400,7 +400,8 @@ function GameAuto:getRandomSkillUnit()
     local t_idx = {}
 
     for i, unit in ipairs(self.m_lUnitList) do
-        if (unit:isPossibleSkill()) then
+        local skill_indivisual_info = unit:getSkillIndivisualInfo('active')
+        if (skill_indivisual_info and unit:isPossibleSkill()) then
             table.insert(t_idx, i)
         end
     end
