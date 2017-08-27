@@ -109,6 +109,11 @@ function UI_TutorialPlayer:applyEffect(effect)
         return
     end
 
+    -- target ui 가 없다면 패스
+    if (not self.m_targetUI) then
+        return
+    end
+
     local l_str = TableClass:seperate(effect, ';')
     local effect = l_str[1]
     local val_1 = l_str[2]
