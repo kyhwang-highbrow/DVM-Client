@@ -24,6 +24,9 @@ function UI_TitleScene:init()
     self:initButton()
     self:refresh() 
 
+	-- 사운드는 타이틀에서 사용하기 때문에 여기서 초기화
+    SoundMgr:entry()
+
     -- @brief work초기화 용도로 사용함
     self:setWorkList()
     self:doNextWork()
@@ -335,9 +338,6 @@ function UI_TitleScene:workLoading()
         co:yield()
 
 	    ConstantData:getInstance()
-        co:yield()
-
-        SoundMgr:entry()
         co:yield()
 
         ShaderCache:init()
