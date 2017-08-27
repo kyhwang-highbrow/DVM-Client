@@ -193,13 +193,3 @@ function SensitivityHelper:doRepeatBubbleText(parent, did, flv, case_type)
 
 	return bubble_text
 end
-
--------------------------------------
--- function doRepeatBubbleText
--------------------------------------
-function SensitivityHelper:isPassedBattleGiftSeenOnce()
-	local seen_at = g_localData:get('battle_gift_dragon_seen_at') or 0
-	local curr_time = Timer:getServerTime()
-	local hour_gap = (curr_time - seen_at) / 60 / 60
-	return hour_gap > 24
-end

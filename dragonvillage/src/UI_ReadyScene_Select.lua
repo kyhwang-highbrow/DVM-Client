@@ -65,23 +65,12 @@ function UI_ReadyScene_Select:init_dragonTableView()
     local list_table_node = (not self.m_bFriend) and vars['listView'] or vars['listView2']
     list_table_node:removeAllChildren()
 
-	local gift_dragon = g_dragonsData:getBattleGiftDragon()
     local is_mine = not self.m_bFriend
 
     local function create_func(ui, data)
         ui.root:setScale(DC_SCALE)	-- UI 테이블뷰 사이즈가 변경될 시 조정
         local unique_id = data['id']
         self.m_uiReadyScene:refresh_dragonCard(unique_id)
-
-		-- 감성 쉐이크
-		if (gift_dragon) then
-			if SensitivityHelper:isPassedBattleGiftSeenOnce() then
-				if (unique_id == gift_dragon['id']) then
-					local repeat_action = cca.buttonShakeAction(3)
-					ui.root:runAction(repeat_action)
-				end
-			end
-		end
 
         -- 드래곤 클릭 콜백 함수
         local function click_dragon_item()

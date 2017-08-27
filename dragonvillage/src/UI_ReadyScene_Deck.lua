@@ -128,20 +128,6 @@ function UI_ReadyScene_Deck:dragonPick(t_dragon_data, focus_deck_slot, delay_rat
 	    local action = cc.Sequence:create(delay_action, cb_action)
 	    ui.root:runAction(action)
     end
-
-    -- 감성 쪼르기 대상 드래곤이 선택되었으면 giftNode 숨김
-    if self.m_uiReadyScene.vars['giftNode'] then
-        local doid = t_dragon_data['id']
-        local gift_dragon = g_dragonsData:getBattleGiftDragon()
-        if (gift_dragon and (doid == gift_dragon['id'])) then
-
-            -- 페이드 아웃 후 hide처리
-            local fade_action = cc.FadeOut:create(1)
-            local hide = cc.Hide:create()
-            local sequence = cc.Sequence:create(fade_action, hide)
-            self.m_uiReadyScene.vars['giftNode']:runAction(sequence)
-        end
-    end
 end
 
 -------------------------------------

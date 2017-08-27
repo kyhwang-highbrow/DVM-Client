@@ -64,9 +64,6 @@ function UI_ReadyScene:init(stage_id, with_friend, sub_info)
 
 	self:init_sortMgr()
 
-    -- @TODO 감성 조르기 삭제 예정 (아마 확정인듯) mskim
-	--self:init_battleGift()
-
     -- 자동 전투 off
     g_autoPlaySetting:setAutoPlay(false)
 end
@@ -123,26 +120,6 @@ function UI_ReadyScene:checkDeckProper()
 	local curr_deck_name = g_deckData:getSelectedDeckName()
 	if not (curr_mode == curr_deck_name) then
 		g_deckData:setSelectedDeck(curr_mode)
-	end
-end
-
--------------------------------------
--- function condition_battle_gift
--------------------------------------
-function UI_ReadyScene:condition_battle_gift(a, b)
-	local gift_dragon = g_dragonsData:getBattleGiftDragon()
-	if (not gift_dragon) then
-		return nil
-	end
-
-	if (a['data']['id'] == gift_dragon['id']) then
-		return true
-
-	elseif (b['data']['id'] == gift_dragon['id']) then
-		return false
-
-	else
-		return nil
 	end
 end
 
@@ -210,16 +187,6 @@ function UI_ReadyScene:init_sortMgr(stage_id)
 		self.m_sortManagerDragon:addPreSortType('deck_idx', false, cond)
         self.m_sortManagerFriendDragon:addPreSortType('deck_idx', false, cond)
 	end
-
-    --[[
-	if SensitivityHelper:isPassedBattleGiftSeenOnce() then
-		-- 최적화에 필요한것이 많음
-		local function cond(a, b)
-			return self:condition_battle_gift(a, b)
-		end
-		self.m_sortManagerDragon:addPreSortType('battle_gift', false, cond)
-	end
-    --]]
 
     -- 친구 드래곤인 경우 쿨타임 정렬 추가
     local function cond(a, b)
@@ -613,81 +580,6 @@ function UI_ReadyScene:refresh_buffInfo_TamerBuff()
 end
 
 -------------------------------------
--- function init_battleGift
--------------------------------------
-function UI_ReadyScene:init_battleGift()
-	-- 대상 드래곤
-	local gift_dragon = g_dragonsData:getBattleGiftDragon()
-
-	-- 없다면 탈출
-	if (not gift_dragon) then
-		return
-	end
-
-	-- 이미 덱에 있다면 탈출
-	for doid, v in pairs(self.m_readySceneDeck.m_tDeckMap) do
-		if (doid == gift_dragon['id']) then
-			return
-		end
-	end
-	
-	-- 선물 드래곤 본 시간 : 24시간 이내라면 탈출
-	if not SensitivityHelper:isPassedBattleGiftSeenOnce() then
-		return
-	end
-
-	-- UI에 감성 쪼르기 
-	if (gift_dragon) then
-		local did = gift_dragon['did']
-		local animator = AnimatorHelper:makeDragonAnimator_usingDid(did, gift_dragon['evolution'])
-		self.vars['giftNode']:addChild(animator.m_node)
-		self.vars['giftNode']:setCascadeOpacityEnabled(true)
-		self.vars['giftNode']:setScale(0.7)
-		animator:setScale(0.4)
-		animator:setFlip(true)
-		cca.pickMePickMe(animator)
-		SensitivityHelper:doRepeatBubbleText(self.vars['giftNode'], did, nil, 'party_in_induce')
-
-		-- 현재 본 시간을 저장
-		g_localData:applyLocalData(Timer:getServerTime(), 'battle_gift_dragon_seen_at')
-	end
-end
-
--------------------------------------
--- function checkBattleGift
--------------------------------------
-function UI_ReadyScene:checkBattleGift(cb_func)
-    -- 대상 드래곤
-	local gift_dragon = g_dragonsData:getBattleGiftDragon()
-	
-	-- 없다면 콜백 호출하고 탈출
-	if (not gift_dragon) then
-		if (cb_func) then
-			cb_func()
-		end
-		return
-	end
-	
-	-- 이미 덱에 있다면 선물을 요청한다~~
-	local has_gift = false
-	for doid, v in pairs(self.m_readySceneDeck.m_tDeckMap) do
-		if (doid == gift_dragon['id']) then
-			has_gift = true
-			break
-		end
-	end
-
-	-- 게임 스타트
-	if (has_gift) then
-		g_dragonsData:request_battleGift(gift_dragon['did'], cb_func)
-	else
-		if (cb_func) then
-			cb_func()
-		end
-	end
-end
-
--------------------------------------
 -- function click_backBtn
 -------------------------------------
 function UI_ReadyScene:click_backBtn()
@@ -839,7 +731,6 @@ function UI_ReadyScene:click_startBtn()
         local check_deck
         local check_dragon_inven
         local check_item_inven
-		local check_battle_gift
         local start_game
 
         -- 덱 변경 유무 확인 후 저장
@@ -860,12 +751,7 @@ function UI_ReadyScene:click_startBtn()
             local function manage_func()
                 UI_Inventory()
             end
-            g_inventoryData:checkMaximumItems(check_battle_gift, manage_func)
-        end
-
-		-- 감성 조르기 성공 체크
-        check_battle_gift = function()
-            self:checkBattleGift(start_game)
+            g_inventoryData:checkMaximumItems(start_game, manage_func)
         end
 
         -- 게임 시작
