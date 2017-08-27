@@ -596,9 +596,9 @@ function UI_DragonManageInfo:refreshDragonCard(modified_dragons, modified_slimes
         local item = self.m_tableViewExt:getItem(doid)
 
         if item then
-            item['data'] = clone(v)
+            item['data'] = StructDragonObject(v)
             if item['ui'] then
-				item['ui'].m_dragonData = StructDragonObject(v)
+				item['ui'].m_dragonData = item['data']
 				
 				if (ref_type == 'leader') then
 					item['ui']:refresh_LeaderIcon()
@@ -617,9 +617,9 @@ function UI_DragonManageInfo:refreshDragonCard(modified_dragons, modified_slimes
         local item = self.m_tableViewExt:getItem(doid)
 
         if item then
-            item['data'] = clone(v)
+            item['data'] = StructSlimeObject(v)
             if item['ui'] then
-				item['ui'].m_dragonData = StructSlimeObject(v)
+				item['ui'].m_dragonData = item['data']
 				
 				if (ref_type == 'lock') then
 					item['ui']:refresh_Lock()
