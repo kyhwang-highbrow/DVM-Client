@@ -138,7 +138,7 @@ function AdsManager:showErrorPopup(errorCode, result_cb)
         msg = Str('광고 모듈에 오류가 발생하였습니다. 잠시 후 다시 시도해 주세요.')
     else
         -- 'NOT_READY'
-        result_cb()
+        msg = Str('광고가 준비되지 않은 상태이거나 일시적인 오류로 광고를 받아오지 못했습니다.')
     end
 
     MakeSimplePopup(POPUP_TYPE.OK, msg, result_cb)
