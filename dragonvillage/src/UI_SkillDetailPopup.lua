@@ -233,6 +233,15 @@ function UI_SkillDetailPopup:click_skillLvBtn(is_next)
         vars['skillDscLabel']:setString(desc)
     end
 
+    -- 스킬 쿨타임 표시
+    local cooltime = new_info:getCoolTimeDesc()
+    if (cooltime) then
+        vars['skillCoolTimeNode']:setVisible(true)
+        vars['cooltimeLabel']:setString(cooltime)
+    else
+        vars['skillCoolTimeNode']:setVisible(false)
+    end
+
 	self:toggleButton()
 end
 
