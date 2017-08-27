@@ -137,6 +137,7 @@ function AdsManager:showErrorPopup(errorCode, result_cb)
     elseif (errorCode == 'INTERNAL_ERROR') then
         msg = Str('광고 모듈에 오류가 발생하였습니다. 잠시 후 다시 시도해 주세요.')
     else
+        -- 'NOT_READY'
         result_cb()
     end
 
