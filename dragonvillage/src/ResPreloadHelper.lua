@@ -183,9 +183,7 @@ function getPreloadList_Common()
         'res/indicator/indicator_effect_target/indicator_effect_target.plist',
         'res/ui/a2d/enemy_skill_speech/enemy_skill_speech.plist',
         'res/ui/a2d/ingame_enemy/ingame_enemy.plist',
-        'res/effect/effect_monsterdragon/effect_monsterdragon.plist',
-        'res/ui/a2d/ingame_damage/ingame_damage.plist',
-        'res/ui/a2d/ingame_btn/ingame_btn.plist',
+        'res/effect/effect_monsterdragon/effect_monsterdragon.plist'
     }
     return ret
 end
