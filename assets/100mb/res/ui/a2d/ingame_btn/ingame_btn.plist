@@ -4,22 +4,37 @@
     <dict>
         <key>frames</key>
         <dict>
-            <key>ingame_btn_idle.png</key>
+            <key>ingame_btn_auto_0101.png</key>
             <dict>
                 <key>aliases</key>
                 <array/>
                 <key>spriteOffset</key>
-                <string>{-19,5}</string>
+                <string>{0,0}</string>
                 <key>spriteSize</key>
-                <string>{24,52}</string>
+                <string>{70,70}</string>
                 <key>spriteSourceSize</key>
-                <string>{72,72}</string>
+                <string>{70,70}</string>
                 <key>textureRect</key>
-                <string>{{103,71},{24,52}}</string>
+                <string>{{1121,36},{70,70}}</string>
                 <key>textureRotated</key>
-                <true/>
+                <false/>
             </dict>
-            <key>ingame_top_auto_0101.png</key>
+            <key>ingame_btn_auto_0102.png</key>
+            <dict>
+                <key>aliases</key>
+                <array/>
+                <key>spriteOffset</key>
+                <string>{0,0}</string>
+                <key>spriteSize</key>
+                <string>{68,68}</string>
+                <key>spriteSourceSize</key>
+                <string>{68,68}</string>
+                <key>textureRect</key>
+                <string>{{1102,108},{68,68}}</string>
+                <key>textureRotated</key>
+                <false/>
+            </dict>
+            <key>ingame_btn_auto_0103.png</key>
             <dict>
                 <key>aliases</key>
                 <array/>
@@ -30,41 +45,191 @@
                 <key>spriteSourceSize</key>
                 <string>{43,16}</string>
                 <key>textureRect</key>
-                <string>{{211,1},{43,16}}</string>
-                <key>textureRotated</key>
-                <true/>
-            </dict>
-            <key>ingame_top_auto_0102.png</key>
-            <dict>
-                <key>aliases</key>
-                <array/>
-                <key>spriteOffset</key>
-                <string>{0,0}</string>
-                <key>spriteSize</key>
-                <string>{43,16}</string>
-                <key>spriteSourceSize</key>
-                <string>{43,16}</string>
-                <key>textureRect</key>
-                <string>{{211,46},{43,16}}</string>
-                <key>textureRotated</key>
-                <true/>
-            </dict>
-            <key>ingame_top_auto_0103.png</key>
-            <dict>
-                <key>aliases</key>
-                <array/>
-                <key>spriteOffset</key>
-                <string>{0,0}</string>
-                <key>spriteSize</key>
-                <string>{68,68}</string>
-                <key>spriteSourceSize</key>
-                <string>{68,68}</string>
-                <key>textureRect</key>
-                <string>{{1,1},{68,68}}</string>
+                <string>{{958,190},{43,16}}</string>
                 <key>textureRotated</key>
                 <false/>
             </dict>
-            <key>ingame_top_repeat_0101.png</key>
+            <key>ingame_btn_chat_0101.png</key>
+            <dict>
+                <key>aliases</key>
+                <array/>
+                <key>spriteOffset</key>
+                <string>{0,0}</string>
+                <key>spriteSize</key>
+                <string>{70,70}</string>
+                <key>spriteSourceSize</key>
+                <string>{70,70}</string>
+                <key>textureRect</key>
+                <string>{{1193,36},{70,70}}</string>
+                <key>textureRotated</key>
+                <false/>
+            </dict>
+            <key>ingame_btn_effect_0101.png</key>
+            <dict>
+                <key>aliases</key>
+                <array/>
+                <key>spriteOffset</key>
+                <string>{0,0}</string>
+                <key>spriteSize</key>
+                <string>{70,70}</string>
+                <key>spriteSourceSize</key>
+                <string>{70,70}</string>
+                <key>textureRect</key>
+                <string>{{742,110},{70,70}}</string>
+                <key>textureRotated</key>
+                <false/>
+            </dict>
+            <key>ingame_btn_effect_0102.png</key>
+            <dict>
+                <key>aliases</key>
+                <array/>
+                <key>spriteOffset</key>
+                <string>{0,0}</string>
+                <key>spriteSize</key>
+                <string>{70,70}</string>
+                <key>spriteSourceSize</key>
+                <string>{70,70}</string>
+                <key>textureRect</key>
+                <string>{{1265,47},{70,70}}</string>
+                <key>textureRotated</key>
+                <false/>
+            </dict>
+            <key>ingame_btn_hot_exp.png</key>
+            <dict>
+                <key>aliases</key>
+                <array/>
+                <key>spriteOffset</key>
+                <string>{0,0}</string>
+                <key>spriteSize</key>
+                <string>{64,64}</string>
+                <key>spriteSourceSize</key>
+                <string>{64,64}</string>
+                <key>textureRect</key>
+                <string>{{1312,119},{64,64}}</string>
+                <key>textureRotated</key>
+                <false/>
+            </dict>
+            <key>ingame_btn_hot_gold.png</key>
+            <dict>
+                <key>aliases</key>
+                <array/>
+                <key>spriteOffset</key>
+                <string>{0,0}</string>
+                <key>spriteSize</key>
+                <string>{64,64}</string>
+                <key>spriteSourceSize</key>
+                <string>{64,64}</string>
+                <key>textureRect</key>
+                <string>{{1378,119},{64,64}}</string>
+                <key>textureRotated</key>
+                <false/>
+            </dict>
+            <key>ingame_btn_hot_marble.png</key>
+            <dict>
+                <key>aliases</key>
+                <array/>
+                <key>spriteOffset</key>
+                <string>{0,0}</string>
+                <key>spriteSize</key>
+                <string>{64,64}</string>
+                <key>spriteSourceSize</key>
+                <string>{64,64}</string>
+                <key>textureRect</key>
+                <string>{{1440,1},{64,64}}</string>
+                <key>textureRotated</key>
+                <false/>
+            </dict>
+            <key>ingame_btn_hot_staminas.png</key>
+            <dict>
+                <key>aliases</key>
+                <array/>
+                <key>spriteOffset</key>
+                <string>{0,0}</string>
+                <key>spriteSize</key>
+                <string>{64,64}</string>
+                <key>spriteSourceSize</key>
+                <string>{64,64}</string>
+                <key>textureRect</key>
+                <string>{{1444,67},{64,64}}</string>
+                <key>textureRotated</key>
+                <false/>
+            </dict>
+            <key>ingame_btn_panel_0101.png</key>
+            <dict>
+                <key>aliases</key>
+                <array/>
+                <key>spriteOffset</key>
+                <string>{0,0}</string>
+                <key>spriteSize</key>
+                <string>{70,70}</string>
+                <key>spriteSourceSize</key>
+                <string>{70,70}</string>
+                <key>textureRect</key>
+                <string>{{1337,47},{70,70}}</string>
+                <key>textureRotated</key>
+                <false/>
+            </dict>
+            <key>ingame_btn_panel_0102.png</key>
+            <dict>
+                <key>aliases</key>
+                <array/>
+                <key>spriteOffset</key>
+                <string>{0,0}</string>
+                <key>spriteSize</key>
+                <string>{70,70}</string>
+                <key>spriteSourceSize</key>
+                <string>{70,70}</string>
+                <key>textureRect</key>
+                <string>{{814,132},{70,70}}</string>
+                <key>textureRotated</key>
+                <false/>
+            </dict>
+            <key>ingame_btn_pause_0101.png</key>
+            <dict>
+                <key>aliases</key>
+                <array/>
+                <key>spriteOffset</key>
+                <string>{0,0}</string>
+                <key>spriteSize</key>
+                <string>{70,70}</string>
+                <key>spriteSourceSize</key>
+                <string>{70,70}</string>
+                <key>textureRect</key>
+                <string>{{886,132},{70,70}}</string>
+                <key>textureRotated</key>
+                <false/>
+            </dict>
+            <key>ingame_btn_repeat_0101.png</key>
+            <dict>
+                <key>aliases</key>
+                <array/>
+                <key>spriteOffset</key>
+                <string>{0,0}</string>
+                <key>spriteSize</key>
+                <string>{70,70}</string>
+                <key>spriteSourceSize</key>
+                <string>{70,70}</string>
+                <key>textureRect</key>
+                <string>{{958,104},{70,70}}</string>
+                <key>textureRotated</key>
+                <false/>
+            </dict>
+            <key>ingame_btn_repeat_0102.png</key>
+            <dict>
+                <key>aliases</key>
+                <array/>
+                <key>spriteOffset</key>
+                <string>{0,0}</string>
+                <key>spriteSize</key>
+                <string>{68,68}</string>
+                <key>spriteSourceSize</key>
+                <string>{68,68}</string>
+                <key>textureRect</key>
+                <string>{{1172,108},{68,68}}</string>
+                <key>textureRotated</key>
+                <false/>
+            </dict>
+            <key>ingame_btn_repeat_0103.png</key>
             <dict>
                 <key>aliases</key>
                 <array/>
@@ -75,26 +240,26 @@
                 <key>spriteSourceSize</key>
                 <string>{28,28}</string>
                 <key>textureRect</key>
-                <string>{{1,71},{28,28}}</string>
+                <string>{{1038,176},{28,28}}</string>
                 <key>textureRotated</key>
                 <false/>
             </dict>
-            <key>ingame_top_repeat_0102.png</key>
+            <key>ingame_btn_speed_0101.png</key>
             <dict>
                 <key>aliases</key>
                 <array/>
                 <key>spriteOffset</key>
                 <string>{0,0}</string>
                 <key>spriteSize</key>
-                <string>{28,28}</string>
+                <string>{70,70}</string>
                 <key>spriteSourceSize</key>
-                <string>{28,28}</string>
+                <string>{70,70}</string>
                 <key>textureRect</key>
-                <string>{{31,71},{28,28}}</string>
+                <string>{{1030,104},{70,70}}</string>
                 <key>textureRotated</key>
                 <false/>
             </dict>
-            <key>ingame_top_repeat_0103.png</key>
+            <key>ingame_btn_speed_0102.png</key>
             <dict>
                 <key>aliases</key>
                 <array/>
@@ -105,11 +270,11 @@
                 <key>spriteSourceSize</key>
                 <string>{68,68}</string>
                 <key>textureRect</key>
-                <string>{{71,1},{68,68}}</string>
+                <string>{{1242,119},{68,68}}</string>
                 <key>textureRotated</key>
                 <false/>
             </dict>
-            <key>ingame_top_speed_0101.png</key>
+            <key>ingame_btn_speed_0103.png</key>
             <dict>
                 <key>aliases</key>
                 <array/>
@@ -120,37 +285,247 @@
                 <key>spriteSourceSize</key>
                 <string>{27,19}</string>
                 <key>textureRect</key>
-                <string>{{61,71},{27,19}}</string>
+                <string>{{715,153},{27,19}}</string>
                 <key>textureRotated</key>
                 <true/>
             </dict>
-            <key>ingame_top_speed_0102.png</key>
+            <key>ingame_frame_base.png</key>
             <dict>
                 <key>aliases</key>
                 <array/>
                 <key>spriteOffset</key>
                 <string>{0,0}</string>
                 <key>spriteSize</key>
-                <string>{27,19}</string>
+                <string>{40,40}</string>
                 <key>spriteSourceSize</key>
-                <string>{27,19}</string>
+                <string>{40,40}</string>
                 <key>textureRect</key>
-                <string>{{82,71},{27,19}}</string>
+                <string>{{1444,133},{40,40}}</string>
                 <key>textureRotated</key>
-                <true/>
+                <false/>
             </dict>
-            <key>ingame_top_speed_0103.png</key>
+            <key>ingame_frame_panel.png</key>
             <dict>
                 <key>aliases</key>
                 <array/>
                 <key>spriteOffset</key>
                 <string>{0,0}</string>
                 <key>spriteSize</key>
-                <string>{68,68}</string>
+                <string>{1280,33}</string>
                 <key>spriteSourceSize</key>
-                <string>{68,68}</string>
+                <string>{1280,33}</string>
                 <key>textureRect</key>
-                <string>{{141,1},{68,68}}</string>
+                <string>{{1,1},{1280,33}}</string>
+                <key>textureRotated</key>
+                <false/>
+            </dict>
+            <key>ingame_gg_boss_0101.png</key>
+            <dict>
+                <key>aliases</key>
+                <array/>
+                <key>spriteOffset</key>
+                <string>{0,0}</string>
+                <key>spriteSize</key>
+                <string>{739,41}</string>
+                <key>spriteSourceSize</key>
+                <string>{739,41}</string>
+                <key>textureRect</key>
+                <string>{{1,110},{739,41}}</string>
+                <key>textureRotated</key>
+                <false/>
+            </dict>
+            <key>ingame_gg_boss_0102.png</key>
+            <dict>
+                <key>aliases</key>
+                <array/>
+                <key>spriteOffset</key>
+                <string>{0,0}</string>
+                <key>spriteSize</key>
+                <string>{712,18}</string>
+                <key>spriteSourceSize</key>
+                <string>{712,18}</string>
+                <key>textureRect</key>
+                <string>{{1,153},{712,18}}</string>
+                <key>textureRotated</key>
+                <false/>
+            </dict>
+            <key>ingame_gg_boss_0103.png</key>
+            <dict>
+                <key>aliases</key>
+                <array/>
+                <key>spriteOffset</key>
+                <string>{0,0}</string>
+                <key>spriteSize</key>
+                <string>{712,18}</string>
+                <key>spriteSourceSize</key>
+                <string>{712,18}</string>
+                <key>textureRect</key>
+                <string>{{1,173},{712,18}}</string>
+                <key>textureRotated</key>
+                <false/>
+            </dict>
+            <key>ingame_gg_boss_0104.png</key>
+            <dict>
+                <key>aliases</key>
+                <array/>
+                <key>spriteOffset</key>
+                <string>{0,0}</string>
+                <key>spriteSize</key>
+                <string>{694,6}</string>
+                <key>spriteSourceSize</key>
+                <string>{694,6}</string>
+                <key>textureRect</key>
+                <string>{{1,193},{694,6}}</string>
+                <key>textureRotated</key>
+                <false/>
+            </dict>
+            <key>ingame_gg_dps_0101.png</key>
+            <dict>
+                <key>aliases</key>
+                <array/>
+                <key>spriteOffset</key>
+                <string>{0,0}</string>
+                <key>spriteSize</key>
+                <string>{155,16}</string>
+                <key>spriteSourceSize</key>
+                <string>{155,16}</string>
+                <key>textureRect</key>
+                <string>{{1283,1},{155,16}}</string>
+                <key>textureRotated</key>
+                <false/>
+            </dict>
+            <key>ingame_gg_dps_0102.png</key>
+            <dict>
+                <key>aliases</key>
+                <array/>
+                <key>spriteOffset</key>
+                <string>{0,0}</string>
+                <key>spriteSize</key>
+                <string>{78,12}</string>
+                <key>spriteSourceSize</key>
+                <string>{78,12}</string>
+                <key>textureRect</key>
+                <string>{{958,176},{78,12}}</string>
+                <key>textureRotated</key>
+                <false/>
+            </dict>
+            <key>ingame_gg_dps_0103.png</key>
+            <dict>
+                <key>aliases</key>
+                <array/>
+                <key>spriteOffset</key>
+                <string>{0,0}</string>
+                <key>spriteSize</key>
+                <string>{78,12}</string>
+                <key>spriteSourceSize</key>
+                <string>{78,12}</string>
+                <key>textureRect</key>
+                <string>{{1312,185},{78,12}}</string>
+                <key>textureRotated</key>
+                <false/>
+            </dict>
+            <key>ingame_gg_pvp_0101.png</key>
+            <dict>
+                <key>aliases</key>
+                <array/>
+                <key>spriteOffset</key>
+                <string>{0,0}</string>
+                <key>spriteSize</key>
+                <string>{824,72}</string>
+                <key>spriteSourceSize</key>
+                <string>{824,72}</string>
+                <key>textureRect</key>
+                <string>{{1,36},{824,72}}</string>
+                <key>textureRotated</key>
+                <false/>
+            </dict>
+            <key>ingame_gg_pvp_0102.png</key>
+            <dict>
+                <key>aliases</key>
+                <array/>
+                <key>spriteOffset</key>
+                <string>{0,0}</string>
+                <key>spriteSize</key>
+                <string>{292,18}</string>
+                <key>spriteSourceSize</key>
+                <string>{292,18}</string>
+                <key>textureRect</key>
+                <string>{{827,36},{292,18}}</string>
+                <key>textureRotated</key>
+                <false/>
+            </dict>
+            <key>ingame_gg_pvp_0103.png</key>
+            <dict>
+                <key>aliases</key>
+                <array/>
+                <key>spriteOffset</key>
+                <string>{0,0}</string>
+                <key>spriteSize</key>
+                <string>{292,18}</string>
+                <key>spriteSourceSize</key>
+                <string>{292,18}</string>
+                <key>textureRect</key>
+                <string>{{827,56},{292,18}}</string>
+                <key>textureRotated</key>
+                <false/>
+            </dict>
+            <key>ingame_gg_pvp_0104.png</key>
+            <dict>
+                <key>aliases</key>
+                <array/>
+                <key>spriteOffset</key>
+                <string>{0,0}</string>
+                <key>spriteSize</key>
+                <string>{292,18}</string>
+                <key>spriteSourceSize</key>
+                <string>{292,18}</string>
+                <key>textureRect</key>
+                <string>{{827,76},{292,18}}</string>
+                <key>textureRotated</key>
+                <false/>
+            </dict>
+            <key>ingame_gg_pvp_0105.png</key>
+            <dict>
+                <key>aliases</key>
+                <array/>
+                <key>spriteOffset</key>
+                <string>{0,0}</string>
+                <key>spriteSize</key>
+                <string>{274,6}</string>
+                <key>spriteSourceSize</key>
+                <string>{274,6}</string>
+                <key>textureRect</key>
+                <string>{{827,96},{274,6}}</string>
+                <key>textureRotated</key>
+                <false/>
+            </dict>
+            <key>ingame_info_dps.png</key>
+            <dict>
+                <key>aliases</key>
+                <array/>
+                <key>spriteOffset</key>
+                <string>{0,0}</string>
+                <key>spriteSize</key>
+                <string>{99,26}</string>
+                <key>spriteSourceSize</key>
+                <string>{99,26}</string>
+                <key>textureRect</key>
+                <string>{{827,104},{99,26}}</string>
+                <key>textureRotated</key>
+                <false/>
+            </dict>
+            <key>ingame_info_hps.png</key>
+            <dict>
+                <key>aliases</key>
+                <array/>
+                <key>spriteOffset</key>
+                <string>{0,0}</string>
+                <key>spriteSize</key>
+                <string>{100,26}</string>
+                <key>spriteSourceSize</key>
+                <string>{100,26}</string>
+                <key>textureRect</key>
+                <string>{{1283,19},{100,26}}</string>
                 <key>textureRotated</key>
                 <false/>
             </dict>
@@ -166,9 +541,9 @@
             <key>realTextureFileName</key>
             <string>ingame_btn.png</string>
             <key>size</key>
-            <string>{228,100}</string>
+            <string>{1509,207}</string>
             <key>smartupdate</key>
-            <string>$TexturePacker:SmartUpdate:eb3be1a015a78bdcc277fa9d5b198950:98ad8246e84f089da9bf3cf019cde5e7:ce14db38d7e3885d010e29391a279102$</string>
+            <string>$TexturePacker:SmartUpdate:e9411fb83ce54664d6a141fab6be6399:fce9fd30c88f76d974cbeff827348915:ce14db38d7e3885d010e29391a279102$</string>
             <key>textureFileName</key>
             <string>ingame_btn.png</string>
         </dict>

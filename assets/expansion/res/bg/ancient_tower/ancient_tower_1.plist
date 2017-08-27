@@ -7,15 +7,15 @@
             <key>ancient_tower_room_01.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{2,2},{2042,1600}}</string>
+                <string>{{2,2},{1021,800}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
-                <true/>
+                <false/>
                 <key>sourceColorRect</key>
-                <string>{{0,0},{2042,1600}}</string>
+                <string>{{0,0},{1021,800}}</string>
                 <key>sourceSize</key>
-                <string>{2042,1600}</string>
+                <string>{1021,800}</string>
             </dict>
         </dict>
         <key>metadata</key>
@@ -25,9 +25,9 @@
             <key>realTextureFileName</key>
             <string>ancient_tower_1.png</string>
             <key>size</key>
-            <string>{1604,2046}</string>
+            <string>{1025,804}</string>
             <key>smartupdate</key>
-            <string>$TexturePacker:SmartUpdate:3b08c01561e9de1f4e2a1130250ced1b:0690c2580da43a05a940b6ae30cdc0cc:9cf02bb320f5dd2a8758603651544fcc$</string>
+            <string>$TexturePacker:SmartUpdate:b43c1fd0d14f4c204fb3840caed5f835:b2a6076ac3c60bbd7ae2816a4e822164:9cf02bb320f5dd2a8758603651544fcc$</string>
             <key>textureFileName</key>
             <string>ancient_tower_1.png</string>
         </dict>

@@ -5,6 +5,31 @@
 	{
 		[1] =
 		{
+			type = 'Visual';
+			ui_name = 'damageFont';
+			x = 0.000000;
+			y = 0.000000;
+			dock_point = { 0.500000; 0.500000; };
+			anchor_point = { 0.500000; 0.500000; };
+			relative_size_type = 0;
+			width = 0;
+			height = 0;
+			scale_x = 1.000000;
+			scale_y = 1.000000;
+			skew_x = 0.000000;
+			skew_y = 0.000000;
+			rotation = 0.000000;
+			visible = false;
+			lua_name = '';
+			file_name = 'ui/a2d/ingame_damage/ingame_damage.vrp';
+			auto_play = false;
+			is_repeat = false;
+			visual_id = '';
+			color = { 255; 255; 255; };
+			opacity = 255;
+		};
+		[2] =
+		{
 			type = 'Sprite';
 			ui_name = '';
 			x = 0.000000;
@@ -25,7 +50,7 @@
 			action_delay_2 = 0.000000;
 			action_duration = 0.500000;
 			lua_name = 'panelBgSprite';
-			file_name = 'ui/frames/ingame_panel_bg.png';
+			file_name = 'ui/a2d/ingame_btn/ingame_frame_panel.png';
 			color = { 255; 255; 255; };
 			opacity = 255;
 			flip_x = false;
@@ -33,7 +58,7 @@
 			src_blend = 770;
 			dest_blend = 771;
 		};
-		[2] =
+		[3] =
 		{
 			type = 'Button';
 			ui_name = '';
@@ -56,12 +81,12 @@
 			action_duration = 0.500000;
 			lua_name = 'pauseButton';
 			enable = true;
-			normal = 'ui/buttons/ingame_top_pause_0101.png';
+			normal = 'ui/a2d/ingame_btn/ingame_btn_pause_0101.png';
 			selected = '';
 			disable = '';
 			image_type = 0;
 		};
-		[3] =
+		[4] =
 		{
 			[1] =
 			{
@@ -81,7 +106,7 @@
 				rotation = 0.000000;
 				visible = true;
 				lua_name = '';
-				file_name = 'ui/frames/base_frame_0202.png';
+				file_name = 'ui/a2d/ingame_btn/ingame_frame_base.png';
 				color = { 255; 255; 255; };
 				opacity = 150;
 				center_rect_x = 0;
@@ -150,7 +175,7 @@
 			action_duration = 0.500000;
 			lua_name = 'timeNode';
 		};
-		[4] =
+		[5] =
 		{
 			[1] =
 			{
@@ -223,7 +248,7 @@
 			color = { 255; 255; 255; };
 			opacity = 255;
 		};
-		[5] =
+		[6] =
 		{
 			[1] =
 			{
@@ -707,7 +732,7 @@
 			color = { 255; 255; 255; };
 			opacity = 255;
 		};
-		[6] =
+		[7] =
 		{
 			[1] =
 			{
@@ -867,7 +892,7 @@
 			src_blend = 770;
 			dest_blend = 771;
 		};
-		[7] =
+		[8] =
 		{
 			type = 'Node';
 			ui_name = 'tamer';
@@ -890,7 +915,7 @@
 			action_duration = 0.500000;
 			lua_name = 'tamerNode';
 		};
-		[8] =
+		[9] =
 		{
 			type = 'Button';
 			ui_name = '';
@@ -913,12 +938,12 @@
 			action_duration = 0.500000;
 			lua_name = 'autoStartButton';
 			enable = true;
-			normal = 'ui/buttons/ingame_repeat_btn_0101.png';
+			normal = 'ui/a2d/ingame_btn/ingame_btn_repeat_0101.png';
 			selected = '';
 			disable = '';
 			image_type = 0;
 		};
-		[9] =
+		[10] =
 		{
 			type = 'Visual';
 			ui_name = '';
@@ -947,7 +972,7 @@
 			color = { 255; 255; 255; };
 			opacity = 255;
 		};
-		[10] =
+		[11] =
 		{
 			type = 'Button';
 			ui_name = '';
@@ -970,12 +995,12 @@
 			action_duration = 0.500000;
 			lua_name = 'autoButton';
 			enable = true;
-			normal = 'ui/buttons/ingame_top_auto_0101.png';
+			normal = 'ui/a2d/ingame_btn/ingame_btn_auto_0101.png';
 			selected = '';
 			disable = '';
 			image_type = 0;
 		};
-		[11] =
+		[12] =
 		{
 			type = 'Visual';
 			ui_name = '';
@@ -1004,7 +1029,7 @@
 			color = { 255; 255; 255; };
 			opacity = 255;
 		};
-		[12] =
+		[13] =
 		{
 			type = 'Button';
 			ui_name = '';
@@ -1027,12 +1052,12 @@
 			action_duration = 0.500000;
 			lua_name = 'speedButton';
 			enable = true;
-			normal = 'ui/buttons/ingame_top_speed_0101.png';
+			normal = 'ui/a2d/ingame_btn/ingame_btn_speed_0101.png';
 			selected = '';
 			disable = '';
 			image_type = 0;
 		};
-		[13] =
+		[14] =
 		{
 			type = 'Visual';
 			ui_name = '';
@@ -1060,34 +1085,6 @@
 			visual_id = 'group;top_speed_idle';
 			color = { 255; 255; 255; };
 			opacity = 255;
-		};
-		[14] =
-		{
-			type = 'Button';
-			ui_name = '';
-			x = -181.000000;
-			y = -36.000000;
-			dock_point = { 1.000000; 1.000000; };
-			anchor_point = { 0.500000; 0.500000; };
-			relative_size_type = 0;
-			width = 72;
-			height = 72;
-			scale_x = 1.000000;
-			scale_y = 1.000000;
-			skew_x = 0.000000;
-			skew_y = 0.000000;
-			rotation = 0.000000;
-			visible = true;
-			action_type = 3;
-			action_delay_1 = 0.000000;
-			action_delay_2 = 0.000000;
-			action_duration = 0.500000;
-			lua_name = 'panelBtn';
-			enable = true;
-			normal = 'ui/temp/empty.png';
-			selected = '';
-			disable = '';
-			image_type = 0;
 		};
 		[15] =
 		{
@@ -1182,57 +1179,6 @@
 		};
 		[17] =
 		{
-			type = 'Button';
-			ui_name = '';
-			x = -43.000000;
-			y = -111.000000;
-			dock_point = { 1.000000; 1.000000; };
-			anchor_point = { 0.500000; 0.500000; };
-			relative_size_type = 0;
-			width = 80;
-			height = 80;
-			scale_x = 1.000000;
-			scale_y = 1.000000;
-			skew_x = 0.000000;
-			skew_y = 0.000000;
-			rotation = 0.000000;
-			visible = false;
-			action_type = 2;
-			action_delay_1 = 0.000000;
-			action_delay_2 = 0.000000;
-			action_duration = 0.500000;
-			lua_name = 'buffBtn';
-			enable = true;
-			normal = 'ui/buttons/temp/lobby_side_buff_0101.png';
-			selected = '';
-			disable = '';
-			image_type = 1;
-		};
-		[18] =
-		{
-			type = 'Node';
-			ui_name = '';
-			x = -110.000000;
-			y = -111.000000;
-			dock_point = { 1.000000; 1.000000; };
-			anchor_point = { 0.500000; 0.500000; };
-			relative_size_type = 0;
-			width = 50;
-			height = 50;
-			scale_x = 1.000000;
-			scale_y = 1.000000;
-			skew_x = 0.000000;
-			skew_y = 0.000000;
-			rotation = 0.000000;
-			visible = false;
-			action_type = 2;
-			action_delay_1 = 0.000000;
-			action_delay_2 = 0.000000;
-			action_duration = 0.500000;
-			lua_name = 'buffNode';
-		};
-		[19] =
-		{
 			type = 'Menu';
 			ui_name = '';
 			x = 0.000000;
@@ -1254,7 +1200,7 @@
 			action_duration = 0.500000;
 			lua_name = 'dpsInfoNode';
 		};
-		[20] =
+		[18] =
 		{
 			type = 'Button';
 			ui_name = '';
@@ -1277,12 +1223,12 @@
 			action_duration = 0.500000;
 			lua_name = 'chatBtn';
 			enable = true;
-			normal = 'ui/buttons/ingame_top_chat_0101.png';
+			normal = 'ui/a2d/ingame_btn/ingame_btn_chat_0101.png';
 			selected = '';
 			disable = '';
 			image_type = 0;
 		};
-		[21] =
+		[19] =
 		{
 			[1] =
 			{
@@ -1327,7 +1273,7 @@
 			type = 'Scale9Sprite';
 			ui_name = '';
 			x = -10.000000;
-			y = -82.000000;
+			y = -90.000000;
 			dock_point = { 1.000000; 1.000000; };
 			anchor_point = { 1.000000; 0.500000; };
 			relative_size_type = 0;
@@ -1340,15 +1286,81 @@
 			rotation = 0.000000;
 			visible = false;
 			lua_name = 'noticeBroadcastNode';
-			file_name = 'ui/temp/toast_notification.png';
+			file_name = 'ui/a2d/ingame_btn/ingame_frame_base.png';
 			color = { 255; 255; 255; };
-			opacity = 255;
+			opacity = 200;
 			center_rect_x = 0;
 			center_rect_y = 0;
 			center_rect_width = 0;
 			center_rect_height = 0;
 		};
-		[22] =
+		[20] =
+		{
+			[1] =
+			{
+				type = 'LabelTTF';
+				ui_name = 'rich';
+				x = 0.000000;
+				y = 0.000000;
+				dock_point = { 0.500000; 0.500000; };
+				anchor_point = { 0.500000; 0.500000; };
+				relative_size_type = 0;
+				width = 300;
+				height = 25;
+				scale_x = 1.000000;
+				scale_y = 1.000000;
+				skew_x = 0.000000;
+				skew_y = 0.000000;
+				rotation = 0.000000;
+				visible = true;
+				lua_name = 'chatBroadcastLabel';
+				font_name = 'font/common_font_01.ttf';
+				font_size = 20;
+				text = 'message';
+				h_alignment = 1;
+				v_alignment = 1;
+				color = { 255; 255; 255; };
+				opacity = 255;
+				dimension_width = 300;
+				dimension_height = 25;
+				letter_spacing = 0.000000;
+				has_stroke = true;
+				stroke_type = 0;
+				stroke_detail_level = 0;
+				is_sharp_text = true;
+				stroke_tickness = 1.000000;
+				stroke_color = { 0; 0; 0; };
+				has_shadow = false;
+				shadow_color = { 0; 0; 0; };
+				shadow_opacity = 255;
+				shadow_direction = 0;
+				shadow_distance = 5.000000;
+			};
+			type = 'Scale9Sprite';
+			ui_name = '';
+			x = -10.000000;
+			y = -122.000000;
+			dock_point = { 1.000000; 1.000000; };
+			anchor_point = { 1.000000; 0.500000; };
+			relative_size_type = 0;
+			width = 400;
+			height = 30;
+			scale_x = 1.000000;
+			scale_y = 1.000000;
+			skew_x = 0.000000;
+			skew_y = 0.000000;
+			rotation = 0.000000;
+			visible = false;
+			lua_name = 'chatBroadcastNode';
+			file_name = 'ui/a2d/ingame_btn/ingame_frame_base.png';
+			color = { 255; 255; 255; };
+			opacity = 200;
+			center_rect_x = 0;
+			center_rect_y = 0;
+			center_rect_width = 0;
+			center_rect_height = 0;
+		};
+		[21] =
 		{
 			[1] =
 			{
@@ -1369,7 +1381,7 @@
 				visible = true;
 				lua_name = 'hotTimeMarbleBtn';
 				enable = true;
-				normal = 'ui/icons/hot_time/hot_time_marble.png';
+				normal = 'ui/a2d/ingame_btn/ingame_btn_hot_marble.png';
 				selected = '';
 				disable = '';
 				image_type = 0;
@@ -1393,7 +1405,7 @@
 				visible = true;
 				lua_name = 'hotTimeStBtn';
 				enable = true;
-				normal = 'ui/icons/hot_time/hot_time_staminas.png';
+				normal = 'ui/a2d/ingame_btn/ingame_btn_hot_staminas.png';
 				selected = '';
 				disable = '';
 				image_type = 0;
@@ -1417,7 +1429,7 @@
 				visible = true;
 				lua_name = 'hotTimeGoldBtn';
 				enable = true;
-				normal = 'ui/icons/hot_time/hot_time_gold.png';
+				normal = 'ui/a2d/ingame_btn/ingame_btn_hot_gold.png';
 				selected = '';
 				disable = '';
 				image_type = 0;
@@ -1441,7 +1453,7 @@
 				visible = true;
 				lua_name = 'hotTimeExpBtn';
 				enable = true;
-				normal = 'ui/icons/hot_time/hot_time_exp.png';
+				normal = 'ui/a2d/ingame_btn/ingame_btn_hot_exp.png';
 				selected = '';
 				disable = '';
 				image_type = 0;

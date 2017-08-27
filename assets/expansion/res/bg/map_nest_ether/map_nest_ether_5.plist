@@ -4,83 +4,57 @@
     <dict>
         <key>frames</key>
         <dict>
-            <key>map_nest_ether_2_a.png</key>
+            <key>map_nest_ether_5_a.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{1244,2},{1188,490}}</string>
+                <string>{{2,2},{775,456}}</string>
                 <key>offset</key>
-                <string>{0,0}</string>
+                <string>{-44,-165}</string>
                 <key>rotated</key>
                 <true/>
                 <key>sourceColorRect</key>
-                <string>{{367,555},{1188,490}}</string>
+                <string>{{49,337},{775,456}}</string>
                 <key>sourceSize</key>
-                <string>{1922,1600}</string>
+                <string>{961,800}</string>
             </dict>
-            <key>map_nest_ether_3_c.png</key>
+            <key>map_nest_ether_5_b.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{2,1604},{794,298}}</string>
+                <string>{{460,2},{715,382}}</string>
                 <key>offset</key>
-                <string>{-470,-124}</string>
+                <string>{-17,-202}</string>
                 <key>rotated</key>
-                <false/>
+                <true/>
                 <key>sourceColorRect</key>
-                <string>{{94,775},{794,298}}</string>
+                <string>{{106,411},{715,382}}</string>
                 <key>sourceSize</key>
-                <string>{1922,1600}</string>
-            </dict>
-            <key>map_nest_ether_4_a.png</key>
-            <dict>
-                <key>frame</key>
-                <string>{{2,516},{1148,494}}</string>
-                <key>offset</key>
-                <string>{-377,-460}</string>
-                <key>rotated</key>
-                <false/>
-                <key>sourceColorRect</key>
-                <string>{{10,1013},{1148,494}}</string>
-                <key>sourceSize</key>
-                <string>{1922,1600}</string>
-            </dict>
-            <key>map_nest_ether_4_c.png</key>
-            <dict>
-                <key>frame</key>
-                <string>{{2,2},{1240,512}}</string>
-                <key>offset</key>
-                <string>{200,-382}</string>
-                <key>rotated</key>
-                <false/>
-                <key>sourceColorRect</key>
-                <string>{{541,926},{1240,512}}</string>
-                <key>sourceSize</key>
-                <string>{1922,1600}</string>
+                <string>{961,800}</string>
             </dict>
             <key>map_nest_ether_5_c.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{2,1012},{1016,590}}</string>
+                <string>{{844,2},{503,258}}</string>
                 <key>offset</key>
-                <string>{330,-394}</string>
+                <string>{167,-210}</string>
                 <key>rotated</key>
-                <false/>
+                <true/>
                 <key>sourceColorRect</key>
-                <string>{{783,899},{1016,590}}</string>
+                <string>{{396,481},{503,258}}</string>
                 <key>sourceSize</key>
-                <string>{1922,1600}</string>
+                <string>{961,800}</string>
             </dict>
-            <key>map_nest_ether_light_01.png</key>
+            <key>map_nest_ether_6_a.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{1020,1192},{678,764}}</string>
+                <string>{{2,779},{901,214}}</string>
                 <key>offset</key>
-                <string>{-30,-10}</string>
+                <string>{-6,-256}</string>
                 <key>rotated</key>
                 <false/>
                 <key>sourceColorRect</key>
-                <string>{{9,428},{678,764}}</string>
+                <string>{{24,549},{901,214}}</string>
                 <key>sourceSize</key>
-                <string>{756,1600}</string>
+                <string>{961,800}</string>
             </dict>
         </dict>
         <key>metadata</key>
@@ -90,9 +64,9 @@
             <key>realTextureFileName</key>
             <string>map_nest_ether_5.png</string>
             <key>size</key>
-            <string>{1736,1958}</string>
+            <string>{1104,995}</string>
             <key>smartupdate</key>
-            <string>$TexturePacker:SmartUpdate:9136ce09b61c8b7e2ae12555a9c6a3a8:a501ccbfe34e4ab81b9c333f07172848:9f4092d07518b968531c67123a2fd637$</string>
+            <string>$TexturePacker:SmartUpdate:91fa2afb9640b3a4df05bbc986dc47d2:999497bbe86953c061ae2b17fca01395:df5f013ad54d60b1760955fd500bacd9$</string>
             <key>textureFileName</key>
             <string>map_nest_ether_5.png</string>
         </dict>

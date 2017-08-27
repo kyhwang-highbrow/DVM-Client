@@ -23,7 +23,7 @@
 				rotation = 0.000000;
 				visible = true;
 				lua_name = '';
-				file_name = 'ui/gauges/ingame_boss_hp_0101.png';
+				file_name = 'ui/a2d/ingame_btn/ingame_gg_boss_0101.png';
 				color = { 255; 255; 255; };
 				opacity = 255;
 				flip_x = false;
@@ -49,7 +49,7 @@
 				rotation = 0.000000;
 				visible = true;
 				lua_name = 'bossHpGauge2';
-				file_name = 'ui/gauges/ingame_boss_hp_0103.png';
+				file_name = 'ui/a2d/ingame_btn/ingame_gg_boss_0103.png';
 				color = { 255; 255; 255; };
 				opacity = 255;
 				flip_x = false;
@@ -79,7 +79,7 @@
 				rotation = 0.000000;
 				visible = true;
 				lua_name = 'bossHpGauge1';
-				file_name = 'ui/gauges/ingame_boss_hp_0102.png';
+				file_name = 'ui/a2d/ingame_btn/ingame_gg_boss_0102.png';
 				color = { 255; 255; 255; };
 				opacity = 255;
 				flip_x = false;
@@ -109,7 +109,7 @@
 				rotation = 0.000000;
 				visible = true;
 				lua_name = 'bossSKillGauge';
-				file_name = 'ui/gauges/ingame_boss_mana_0101.png';
+				file_name = 'ui/a2d/ingame_btn/ingame_gg_boss_0104.png';
 				color = { 255; 255; 255; };
 				opacity = 255;
 				flip_x = false;

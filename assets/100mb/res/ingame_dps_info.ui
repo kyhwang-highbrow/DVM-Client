@@ -86,7 +86,7 @@
 				visible = true;
 				lua_name = 'dpsBtn';
 				enable = true;
-				normal = 'ui/buttons/ingame_top_panel_0102.png';
+				normal = 'ui/a2d/ingame_btn/ingame_btn_panel_0102.png';
 				selected = '';
 				disable = '';
 				image_type = 0;

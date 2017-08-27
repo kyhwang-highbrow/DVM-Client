@@ -57,13 +57,13 @@
 			{
 				type = 'Node';
 				ui_name = '';
-				x = -474.000000;
-				y = 0.000000;
+				x = -470.000000;
+				y = -30.000000;
 				dock_point = { 0.500000; 0.500000; };
 				anchor_point = { 0.500000; 0.500000; };
 				relative_size_type = 0;
-				width = 268;
-				height = 620;
+				width = 320;
+				height = 640;
 				scale_x = 1.000000;
 				scale_y = 1.000000;
 				skew_x = 0.000000;
@@ -76,8 +76,8 @@
 			{
 				type = 'Node';
 				ui_name = '';
-				x = 145.000000;
-				y = 0.000000;
+				x = 165.000000;
+				y = -30.000000;
 				dock_point = { 0.500000; 0.500000; };
 				anchor_point = { 0.500000; 0.500000; };
 				relative_size_type = 0;
@@ -137,12 +137,12 @@
 			type = 'Menu';
 			ui_name = '';
 			x = 0.000000;
-			y = -30.000000;
+			y = 0.000000;
 			dock_point = { 0.500000; 0.500000; };
 			anchor_point = { 0.500000; 0.500000; };
 			relative_size_type = 0;
-			width = 1260;
-			height = 640;
+			width = 1280;
+			height = 720;
 			scale_x = 1.000000;
 			scale_y = 1.000000;
 			skew_x = 0.000000;

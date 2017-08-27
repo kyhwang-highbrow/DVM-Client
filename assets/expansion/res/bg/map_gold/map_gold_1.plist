@@ -20,20 +20,20 @@
             <key>map_gold_book_close.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{1964,180},{30,22}}</string>
+                <string>{{1964,180},{34,28}}</string>
                 <key>offset</key>
                 <string>{3,1}</string>
                 <key>rotated</key>
                 <false/>
                 <key>sourceColorRect</key>
-                <string>{{88,88},{30,22}}</string>
+                <string>{{86,85},{34,28}}</string>
                 <key>sourceSize</key>
                 <string>{200,200}</string>
             </dict>
             <key>map_gold_book_eye.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{1996,180},{10,10}}</string>
+                <string>{{2000,180},{10,10}}</string>
                 <key>offset</key>
                 <string>{3,-2}</string>
                 <key>rotated</key>
@@ -46,13 +46,13 @@
             <key>map_gold_book_open.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{1964,204},{30,22}}</string>
+                <string>{{1964,210},{34,28}}</string>
                 <key>offset</key>
                 <string>{3,1}</string>
                 <key>rotated</key>
                 <false/>
                 <key>sourceColorRect</key>
-                <string>{{88,88},{30,22}}</string>
+                <string>{{86,85},{34,28}}</string>
                 <key>sourceSize</key>
                 <string>{200,200}</string>
             </dict>
@@ -72,7 +72,7 @@
             <key>map_gold_eye_01.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{2008,180},{6,8}}</string>
+                <string>{{2000,192},{6,8}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
@@ -183,7 +183,7 @@
             <key>size</key>
             <string>{2018,1924}</string>
             <key>smartupdate</key>
-            <string>$TexturePacker:SmartUpdate:2bbe5d4e4865de1a1c4e30146e5e5ecf:9b66b4a5c88769240270e207d434f260:748e1c67151c3b4046bfb82890bd2096$</string>
+            <string>$TexturePacker:SmartUpdate:a0d30807f9e8940370078ebe2177e6d1:61374317b0af3cac60eb7ac4753dfb29:748e1c67151c3b4046bfb82890bd2096$</string>
             <key>textureFileName</key>
             <string>map_gold_1.png</string>
         </dict>

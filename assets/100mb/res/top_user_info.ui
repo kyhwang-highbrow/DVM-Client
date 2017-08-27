@@ -192,7 +192,7 @@
 				dock_point = { 1.000000; 1.000000; };
 				anchor_point = { 1.000000; 0.500000; };
 				relative_size_type = 0;
-				width = 300;
+				width = 400;
 				height = 30;
 				scale_x = 1.000000;
 				scale_y = 1.000000;

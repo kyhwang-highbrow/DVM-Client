@@ -60,7 +60,7 @@
 			skew_y = 0.000000;
 			rotation = 0.000000;
 			visible = true;
-			lua_name = '';
+			lua_name = 'visual';
 			file_name = 'ui/a2d/loading/loading.vrp';
 			auto_play = true;
 			is_repeat = true;

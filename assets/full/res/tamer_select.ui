@@ -93,8 +93,8 @@
 					dock_point = { 0.500000; 0.500000; };
 					anchor_point = { 0.500000; 0.500000; };
 					relative_size_type = 0;
-					width = 374;
-					height = 60;
+					width = 180;
+					height = 100;
 					scale_x = 1.000000;
 					scale_y = 1.000000;
 					skew_x = 0.000000;
@@ -107,10 +107,10 @@
 					text = '계정 생성하기';
 					h_alignment = 1;
 					v_alignment = 1;
-					color = { 240; 215; 159; };
+					color = { 255; 215; 0; };
 					opacity = 255;
-					dimension_width = 374;
-					dimension_height = 60;
+					dimension_width = 180;
+					dimension_height = 100;
 					letter_spacing = 0.000000;
 					has_stroke = true;
 					stroke_type = 0;
@@ -126,13 +126,13 @@
 				};
 				type = 'Button';
 				ui_name = '';
-				x = 0.000000;
-				y = 16.000000;
+				x = 100.000000;
+				y = -10.000000;
 				dock_point = { 0.500000; 0.000000; };
 				anchor_point = { 0.500000; 0.000000; };
 				relative_size_type = 0;
-				width = 390;
-				height = 70;
+				width = 200;
+				height = 100;
 				scale_x = 1.000000;
 				scale_y = 1.000000;
 				skew_x = 0.000000;
@@ -147,6 +147,70 @@
 				image_type = 1;
 			};
 			[4] =
+			{
+				[1] =
+				{
+					type = 'LabelTTF';
+					ui_name = '';
+					x = 0.000000;
+					y = 0.000000;
+					dock_point = { 0.500000; 0.500000; };
+					anchor_point = { 0.500000; 0.500000; };
+					relative_size_type = 0;
+					width = 180;
+					height = 100;
+					scale_x = 1.000000;
+					scale_y = 1.000000;
+					skew_x = 0.000000;
+					skew_y = 0.000000;
+					rotation = 0.000000;
+					visible = true;
+					lua_name = '';
+					font_name = 'font/common_font_01.ttf';
+					font_size = 26;
+					text = '사전등록\n닉네임 입력';
+					h_alignment = 1;
+					v_alignment = 1;
+					color = { 240; 215; 159; };
+					opacity = 255;
+					dimension_width = 180;
+					dimension_height = 100;
+					letter_spacing = 0.000000;
+					has_stroke = true;
+					stroke_type = 0;
+					stroke_detail_level = 0;
+					is_sharp_text = true;
+					stroke_tickness = 2.000000;
+					stroke_color = { 0; 0; 0; };
+					has_shadow = true;
+					shadow_color = { 0; 0; 0; };
+					shadow_opacity = 100;
+					shadow_direction = 0;
+					shadow_distance = 3.000000;
+				};
+				type = 'Button';
+				ui_name = '';
+				x = -100.000000;
+				y = -10.000000;
+				dock_point = { 0.500000; 0.000000; };
+				anchor_point = { 0.500000; 0.000000; };
+				relative_size_type = 0;
+				width = 200;
+				height = 100;
+				scale_x = 1.000000;
+				scale_y = 1.000000;
+				skew_x = 0.000000;
+				skew_y = 0.000000;
+				rotation = 0.000000;
+				visible = true;
+				lua_name = 'couponBtn';
+				enable = true;
+				normal = 'ui/buttons/base_btn_0101.png';
+				selected = 'ui/buttons/base_btn_0102.png';
+				disable = 'ui/buttons/base_btn_0102.png';
+				image_type = 1;
+			};
+			[5] =
 			{
 				type = 'EditBox';
 				ui_name = '';
@@ -181,7 +245,7 @@
 				pressed_bg = 'ui/frames/base_frame_0201.png';
 				disabled_bg = 'ui/frames/base_frame_0201.png';
 			};
-			[5] =
+			[6] =
 			{
 				type = 'LabelTTF';
 				ui_name = '';
@@ -221,7 +285,7 @@
 				shadow_direction = 0;
 				shadow_distance = 3.000000;
 			};
-			[6] =
+			[7] =
 			{
 				type = 'Scale9Sprite';
 				ui_name = '';
@@ -247,7 +311,7 @@
 				center_rect_width = 0;
 				center_rect_height = 0;
 			};
-			[7] =
+			[8] =
 			{
 				type = 'Sprite';
 				ui_name = '';
@@ -273,7 +337,7 @@
 				src_blend = 770;
 				dest_blend = 771;
 			};
-			[8] =
+			[9] =
 			{
 				type = 'LabelTTF';
 				ui_name = '';
@@ -313,7 +377,7 @@
 				shadow_direction = 0;
 				shadow_distance = 3.000000;
 			};
-			[9] =
+			[10] =
 			{
 				type = 'LabelTTF';
 				ui_name = '';
@@ -353,7 +417,7 @@
 				shadow_direction = 0;
 				shadow_distance = 3.000000;
 			};
-			[10] =
+			[11] =
 			{
 				type = 'Node';
 				ui_name = '';
@@ -372,7 +436,7 @@
 				visible = true;
 				lua_name = 'skillNode1';
 			};
-			[11] =
+			[12] =
 			{
 				type = 'Node';
 				ui_name = '';
@@ -391,7 +455,7 @@
 				visible = true;
 				lua_name = 'skillNode2';
 			};
-			[12] =
+			[13] =
 			{
 				type = 'Node';
 				ui_name = '';
@@ -410,7 +474,7 @@
 				visible = true;
 				lua_name = 'skillNode3';
 			};
-			[13] =
+			[14] =
 			{
 				type = 'LayerColor';
 				ui_name = '';
