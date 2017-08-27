@@ -40,7 +40,7 @@ end
 -------------------------------------
 -- function request_createAccount
 -------------------------------------
-function ServerData_StartTamer:request_createAccount(user_type, nick, finish_cb)
+function ServerData_StartTamer:request_createAccount(user_type, pre_occupancy_code, nick, finish_cb)
     -- 파라미터
     local uid = g_localData:get('local', 'uid')
 
@@ -57,6 +57,7 @@ function ServerData_StartTamer:request_createAccount(user_type, nick, finish_cb)
     local ui_network = UI_Network()
     ui_network:setUrl('/users/newuser_set')
     ui_network:setParam('uid', uid)
+    ui_network:setParam('code', pre_occupancy_code)
     ui_network:setParam('nick', nick)
     ui_network:setParam('user_type', user_type)
     ui_network:setSuccessCB(success_cb)

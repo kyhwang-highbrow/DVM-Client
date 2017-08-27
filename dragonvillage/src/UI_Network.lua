@@ -179,7 +179,7 @@ end
 
 local S_ERROR_STATUS = {
     -- not exist
-    [-1101] = Str('상대방을 검색하지 못하였습니다.\n잠시 후에 다시 시도해주세요.'), -- not exist user
+    [-1101] = Str('존재하지 않는 사용자입니다.'), -- not exist user
     [-1160] = Str('상대방의 방어덱이 없습니다.'), -- not exist deck
 
     -- not enough

@@ -13,6 +13,10 @@ UI_StartTamerSelect = class(PARENT,{
         m_nSelIdx = 'number',
         m_tamerItemList = 'list',
         m_cbSelectTamer = 'function',
+
+        -- 사전등록 닉네임
+        m_preOccupancyCode = 'string',
+        m_preOccupancyNick = 'string',
     })
 
 -------------------------------------
@@ -65,6 +69,7 @@ function UI_StartTamerSelect:initButton()
         table.insert(self.m_tamerItemList, tamer_item)
     end
 
+    vars['couponBtn']:registerScriptTapHandler(function() self:click_nicknameCouponBtn() end)
     vars['createBtn']:registerScriptTapHandler(function() self:click_createBtn() end)
 end
 
@@ -186,6 +191,24 @@ function UI_StartTamerSelect:setSkillIcon(tid)
 end
 
 -------------------------------------
+-- function click_nicknameCouponBtn
+-- @brief 사전 등록 닉네임
+-------------------------------------
+function UI_StartTamerSelect:click_nicknameCouponBtn()
+    local ui = UI_CouponPopupPreOccupancyNick()
+
+    local function close_cb()
+        if (ui.m_couponCode and ui.m_retNick) then
+            self.m_preOccupancyCode = ui.m_couponCode
+            self.m_preOccupancyNick = ui.m_retNick
+            self.vars['editBox']:setText(self.m_preOccupancyNick)
+        end
+    end
+
+    ui:setCloseCB(close_cb)
+end
+
+-------------------------------------
 -- function click_createBtn
 -- @brief 계정 생성
 -------------------------------------
@@ -201,6 +224,11 @@ function UI_StartTamerSelect:click_createBtn()
         return
     end
 
+    -- 사전등록 닉네임을 받아놓고 닉네임을 변경한 경우 code를 nil처리
+    if (self.m_preOccupancyCode) and (nick ~= self.m_preOccupancyNick) then
+        self.m_preOccupancyCode = nil
+    end
+
     local finish_cb = self.m_cbSelectTamer
-    g_startTamerData:request_createAccount(user_type, nick, finish_cb)
+    g_startTamerData:request_createAccount(user_type, self.m_preOccupancyCode, nick, finish_cb)
 end
