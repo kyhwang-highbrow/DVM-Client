@@ -452,6 +452,8 @@ function UI_TitleScene:workCheckUserID()
     -- 이전 플랫폼 관련 로그인 세션을 모두 로그아웃하고 로그인 팝업 출력
     if isIos() then
         if g_localData:get('local', 'platform_id') == nil) then
+            self.m_loadingUI:hideLoading()
+
             PerpleSDK:logout()
             PerpleSDK:googleLogout(0)
             PerpleSDK:facebookLogout()
