@@ -665,6 +665,15 @@ function UI_BookDetailPopup:setBookList(l_book)
 end
 
 -------------------------------------
+-- function setManagePopupMode
+-------------------------------------
+function UI_BookDetailPopup:setManagePopupMode()
+    local vars = self.vars
+    vars['nextBtn']:setVisible(false)
+    vars['prevBtn']:setVisible(false)
+end
+
+-------------------------------------
 -- function checkRefresh
 -- @brief
 -------------------------------------

@@ -147,7 +147,7 @@ function UI_DragonManageInfo:initButton()
 	-- 하단 버튼
     do 
         -- 도감
-        vars['collectionBtn']:registerScriptTapHandler(function() self:click_collectionBtn() end)
+        vars['bookBtn']:registerScriptTapHandler(function() self:click_bookBtn() end)
     end
 
     do -- 기타 버튼
@@ -790,14 +790,17 @@ function UI_DragonManageInfo:click_assessBtn()
 end
 
 -------------------------------------
--- function click_collectionBtn
+-- function click_bookBtn
 -- @brief 도감
 -------------------------------------
-function UI_DragonManageInfo:click_collectionBtn()
-    local function close_cb()
-        self:checkDragonListRefresh()
-    end
-    UI_Book():setCloseCB(close_cb)
+function UI_DragonManageInfo:click_bookBtn()
+    local t_dragon_data = self.m_selectDragonData
+	local did = self.m_selectDragonData['did']
+    local t_dragon = TableDragon():get(did)
+    t_dragon['evolution'] = t_dragon_data['evolution']
+    t_dragon['grade'] = t_dragon_data['grade']
+
+    UI_BookDetailPopup(t_dragon):setManagePopupMode()
 end
 
 -------------------------------------
