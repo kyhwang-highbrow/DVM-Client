@@ -19,11 +19,6 @@ end
 -- @brief 로컬 푸시 정보를 등록
 -------------------------------------
 function LocalPushMgr:applyLocalPush()
-    -- @ 0.2.2
-    if (Is022Ver()) then
-        return
-    end
-
     -- 기존 local push 삭제
     self:cancel()
 

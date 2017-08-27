@@ -174,24 +174,6 @@ function UI_LoginPopup:loginSuccess(info)
     local platform_id = t_info.providerId
     local account_info = t_info.name
 
-    local app_ver = getAppVer()
-    if app_ver == '0.2.2' then
-        local idx = #t_info.providerData
-        platform_id = t_info.providerData[idx].providerId
-        account_info = 'Guest'
-        if platform_id == 'google.com' then
-            account_info = 'Google'
-            if t_info.google then
-                account_info = t_info.google.name or account_info
-                end
-        elseif platform_id == 'facebook.com' then
-            account_info = 'Facebook'
-            if t_info.facebook then
-                account_info = t_info.facebook.name or account_info
-            end
-        end
-    end
-
     cclog('fuid: ' .. tostring(fuid))
     cclog('push_token: ' .. tostring(push_token))
     cclog('platform_id:' .. tostring(platform_id))

@@ -402,12 +402,6 @@ function UI_TitleScene:workCheckUserID()
         local platform_id = t_info.providerId
         local account_info = t_info.name
 
-        local app_ver = getAppVer()
-        if app_ver == '0.2.2' then
-            platform_id = g_localData:get('local', 'platform_id') or 'firebase'
-            account_info = g_localData:get('local', 'account_info') or 'Guest'
-        end
-
         cclog('fuid: ' .. tostring(fuid))
         cclog('push_token: ' .. tostring(push_token))
         cclog('platform_id:' .. tostring(platform_id))
@@ -434,18 +428,10 @@ function UI_TitleScene:workCheckUserID()
         UnlinkBrokenPlatform(t_info, platform_id)
 
         if platform_id == 'google.com' then
-            local app_ver = getAppVer()
-            if app_ver == '0.2.2' then
-                PerpleSDK:googleLogin(function(ret, info)
-                    g_localData:applyLocalData('on', 'local', 'googleplay_connected')
-                    self:doNextWork()
-                end)
-            else
-                PerpleSDK:googleLogin(1, function(ret, info)
-                    g_localData:applyLocalData('on', 'local', 'googleplay_connected')
-                    self:doNextWork()
-                end)
-            end
+            PerpleSDK:googleLogin(1, function(ret, info)
+                g_localData:applyLocalData('on', 'local', 'googleplay_connected')
+                self:doNextWork()
+            end)
         else
             g_localData:applyLocalData('off', 'local', 'googleplay_connected')
             self:doNextWork()

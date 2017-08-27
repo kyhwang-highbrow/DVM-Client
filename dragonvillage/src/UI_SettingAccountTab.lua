@@ -60,12 +60,7 @@ function UI_Setting:click_gamecenterBtn()
 
             -- 기존 구글 연결은 끊는다.
             if old_platform_id == 'google.com' then
-                local app_ver = getAppVer()
-                if app_ver == '0.2.2' then
-                    PerpleSDK:googleLogout()
-                else
-                    PerpleSDK:googleLogout(1)
-                end
+                PerpleSDK:googleLogout(1)
                 PerpleSDK:unlinkWithGoogle(function(ret, info)
                     self.m_loadingUI:hideLoading()
                     if ret == 'success' then
@@ -101,12 +96,7 @@ function UI_Setting:click_gamecenterBtn()
                         self:loginSuccess(info)
 
                         if (old_platform_id == 'google.com') then
-                            local app_ver = getAppVer()
-                            if app_ver == '0.2.2' then
-                                PerpleSDK:googleLogout()
-                            else
-                                PerpleSDK:googleLogout(1)
-                            end
+                            PerpleSDK:googleLogout(1)
                         end
 
                         -- 앱 재시작
@@ -170,12 +160,7 @@ function UI_Setting:click_facebookBtn()
 
             -- 기존 구글 연결은 끊는다.
             if old_platform_id == 'google.com' then
-                local app_ver = getAppVer()
-                if app_ver == '0.2.2' then
-                    PerpleSDK:googleLogout()
-                else
-                    PerpleSDK:googleLogout(1)
-                end
+                PerpleSDK:googleLogout(1)
                 PerpleSDK:unlinkWithGoogle(function(ret, info)
                     self.m_loadingUI:hideLoading()
                     if ret == 'success' then
@@ -211,12 +196,7 @@ function UI_Setting:click_facebookBtn()
                         self:loginSuccess(info)
 
                         if (old_platform_id == 'google.com') then
-                            local app_ver = getAppVer()
-                            if app_ver == '0.2.2' then
-                                PerpleSDK:googleLogout()
-                            else
-                                PerpleSDK:googleLogout(1)
-                            end
+                            PerpleSDK:googleLogout(1)
                         end
 
                         -- 앱 재시작
@@ -415,12 +395,7 @@ function UI_Setting:click_logoutBtn()
             else
                 PerpleSDK:logout()
 
-                local app_ver = getAppVer()
-                if app_ver == '0.2.2' then
-                    PerpleSDK:googleLogout()
-                else
-                    PerpleSDK:googleLogout(0)
-                end
+                PerpleSDK:googleLogout(0)
 
                 PerpleSDK:facebookLogout()
 
@@ -455,24 +430,6 @@ function UI_Setting:loginSuccess(info)
     local push_token = t_info.pushToken
     local platform_id = t_info.providerId
     local account_info = t_info.name
-
-    local app_ver = getAppVer()
-    if app_ver == '0.2.2' then
-        local idx = #t_info.providerData
-        platform_id = t_info.providerData[idx].providerId
-        account_info = 'Guest'
-        if platform_id == 'google.com' then
-            account_info = 'Google'
-            if t_info.google then
-                account_info = t_info.google.name or account_info
-                end
-        elseif platform_id == 'facebook.com' then
-            account_info = 'Facebook'
-            if t_info.facebook then
-                account_info = t_info.facebook.name or account_info
-            end
-        end
-    end
 
     cclog('fuid: ' .. tostring(fuid))
     cclog('push_token: ' .. tostring(push_token))

@@ -101,12 +101,6 @@ function ScenePatch:runApkExpansion()
         return
     end
 
-    -- 0.2.4버전부터 APK 확장 리소스 다운로드 기능이 제대로 들어감
-    if (app_ver == '0.2.2') then
-        self:finishPatch()
-        return
-    end
-
     -- 윈도우 에뮬레이터에서는 동작하지 않음
     if (isWin32() == true) then
         self:finishPatch()
