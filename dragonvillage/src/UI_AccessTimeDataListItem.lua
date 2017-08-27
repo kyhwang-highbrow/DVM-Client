@@ -71,8 +71,10 @@ function UI_AccessTimeDataListItem:refresh()
     -- 받은 보상인지
     local is_get = g_accessTimeData:isGetReward(step)
     vars['checkSprite']:setVisible(is_get)
+    
 
     -- 버튼 활성화
     local condition = (cur_time >= need_time) and (not is_get) 
     vars['receiveBtn']:setEnabled(condition)
+    vars['readySprite']:setVisible(not condition)
 end

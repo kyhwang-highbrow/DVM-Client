@@ -168,6 +168,9 @@ function UI_BookDetailPopup:onChangeTab(tab, first)
 	self:onChangeGrade()
     self:onChangeLV()
 	self:calculateStat()
+
+    -- 진화 버튼 클릭시 
+    self:addSameTypeDragon(t_dragon)
 end
 
 -------------------------------------
@@ -241,18 +244,26 @@ function UI_BookDetailPopup:addSameTypeDragon(t_dragon)
     end
 
     local type = t_dragon['type']
-    local dragon_list = TableDragon():filterList('type', type)
-    if (not dragon_list) then return end
+    local target_list 
 
-    for _, v in pairs(dragon_list) do
+    if (self.m_tDragon['bookType'] == 'slime') then
+        target_list = g_bookData:getSameTypeSlimeList(t_dragon['did'])
+    else
+        target_list = TableDragon():filterList('type', type)
+    end
+
+    if (not target_list) then return end
+
+    for _, v in pairs(target_list) do
+        
         local t_data = v
         local attr = t_data['attr']
         vars['emptyNode_'..attr]:setVisible(true)
-
+        
         if (t_data) then
             local node = vars['dragonCardNode_'..attr]
             local card_data = self:makeDragonData(t_data)
-            local dragon_card = UI_DragonCard(card_data)
+            local dragon_card = UI_BookDragonCard(card_data)
             local is_select = (t_data['did'] == t_dragon['did'])
             
             -- 선택된 카드 프레임 추가

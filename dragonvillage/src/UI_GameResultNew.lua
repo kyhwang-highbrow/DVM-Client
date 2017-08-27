@@ -224,6 +224,7 @@ function UI_GameResultNew:click_screenBtn()
 
     local func_name = self.m_lWorkList[self.m_workIdx] .. '_click'
     if func_name and (self[func_name]) then
+        if (self:checkAutoPlayRelease()) then return end
         self[func_name](self)
     end
 end
@@ -263,7 +264,6 @@ end
 -- function direction_showTamer_click
 -------------------------------------
 function UI_GameResultNew:direction_showTamer_click()
-    if (self:checkAutoPlayRelease()) then return end
     self:doNextWork()
 end
 
@@ -286,7 +286,6 @@ end
 -- function direction_hideTamer_click
 -------------------------------------
 function UI_GameResultNew:direction_hideTamer_click()
-    if (self:checkAutoPlayRelease()) then return end
 end
 
 -------------------------------------
@@ -300,7 +299,6 @@ end
 -- function direction_showScore_click
 -------------------------------------
 function UI_GameResultNew:direction_showScore_click()
-    if (self:checkAutoPlayRelease()) then return end
 end
 
 -------------------------------------
@@ -370,7 +368,6 @@ end
 -- function direction_start_click
 -------------------------------------
 function UI_GameResultNew:direction_start_click()
-    if (self:checkAutoPlayRelease()) then return end
     self:doNextWork()
 end
 
@@ -421,8 +418,6 @@ end
 -- function direction_end_click
 -------------------------------------
 function UI_GameResultNew:direction_end_click()
-    if (self:checkAutoPlayRelease()) then return end
-
     -- @개발 스테이지
     if (self.m_stageID == DEV_STAGE_ID) then
         return
@@ -465,7 +460,6 @@ end
 -- @brief 상자 연출 시작
 -------------------------------------
 function UI_GameResultNew:direction_showBox_click()
-    if (self:checkAutoPlayRelease()) then return end
     self:doNextWork()
 end
 
@@ -496,7 +490,6 @@ end
 -- @brief
 -------------------------------------
 function UI_GameResultNew:direction_openBox_click()
-    if (self:checkAutoPlayRelease()) then return end
 end
 
 -------------------------------------
@@ -563,7 +556,6 @@ end
 -- @brief
 -------------------------------------
 function UI_GameResultNew:direction_dropItem_click()
-    if (self:checkAutoPlayRelease()) then return end
 end
 
 -------------------------------------
@@ -652,7 +644,6 @@ end
 -- function direction_showButton_click
 -------------------------------------
 function UI_GameResultNew:direction_showButton_click()
-    if (self:checkAutoPlayRelease()) then return end
 end
 
 -------------------------------------
@@ -672,7 +663,6 @@ end
 -- function direction_moveMenu_click
 -------------------------------------
 function UI_GameResultNew:direction_moveMenu_click()
-    if (self:checkAutoPlayRelease()) then return end
 end
 
 -------------------------------------
@@ -712,7 +702,6 @@ end
 -- function direction_masterRoad_click
 -------------------------------------
 function UI_GameResultNew:direction_masterRoad_click()
-    if (self:checkAutoPlayRelease()) then return end
 end
 
 -------------------------------------
@@ -1237,3 +1226,16 @@ function UI_GameResultNew:click_manageBtn()
     end
     ui:setCloseCB(close_cb)
 end
+
+-------------------------------------
+-- function onDestroyUI
+-- @brief
+-------------------------------------
+function UI_GameResultNew:onDestroyUI()
+    PARENT.onDestroyUI(self)
+
+    -- 접속 시간 저장
+    g_accessTimeData:request_saveTime()
+end
+
+        

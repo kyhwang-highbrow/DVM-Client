@@ -98,6 +98,33 @@ function ServerData_Book:getBookList(role_type, attr_type)
 end
 
 -------------------------------------
+-- function getSameTypeSlimeList
+-- @brief 같은 타입 슬라임 도감 데이터로 반환
+-------------------------------------
+function ServerData_Book:getSameTypeSlimeList(slime_id)
+    local table_slime = TableSlime()
+    local attr_key = tostring(getDigit(slime_id, 10, 2))
+    local l_ret = {}
+
+    for i, v in pairs(table_slime.m_orgTable) do
+        local did = v['slime']
+        local key = tostring(getDigit(did, 10, 2))
+
+        if (attr_key == key) then
+            local t_slime = clone(v)
+			t_slime['did'] = did		
+			t_slime['evolution'] = 1
+			t_slime['grade'] = t_slime['birthgrade']
+			t_slime['bookType'] = 'slime'
+
+			l_ret[did] = t_slime
+        end
+	end
+    ccdump(l_ret)
+    return l_ret
+end
+
+-------------------------------------
 -- function request_BookInfo
 -------------------------------------
 function ServerData_Book:request_bookInfo(finish_cb)
