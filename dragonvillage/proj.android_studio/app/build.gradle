@@ -10,6 +10,8 @@ preBuild {
 
 // task android build
 android {
+    def curr_version_name = "tasks"
+
     compileSdkVersion 25
     buildToolsVersion "26.0.1"
 
@@ -110,6 +112,13 @@ android {
         }
     }
 
+    // Specifies the flavor dimensions you want to use. The order in which you
+    // list each dimension determines its priority, from highest to lowest,
+    // when Gradle merges variant sources and configurations. You must assign
+    // each product flavor you configure to one of the flavor dimensions.
+
+    // flavorDimensions "server", "assets", "mode"
+
     /**
     * The productFlavors {} block is where you can configure multiple product
     * flavors. This allows you to create different versions of your app that can
@@ -135,6 +144,7 @@ android {
         devFullTest{
 			versionCode 1
 			versionName "9.9.9"
+            curr_version_name = versionName
             signingConfig signingConfigs.keystore
             externalNativeBuild {
                 ndkBuild {
@@ -206,31 +216,88 @@ android {
                 }
             }
         }
+		
 
-        /* dimension 활용하여 다음과 같이 구성하는 것도 고민중
-        dev{
+		/* dimension 활용하여 다음과 같이 구성하는 것도 고민중
+        // dimension server
+		dev{
             dimension "server"
-        }
-        qa{
-            dimension "server"
-        }
-        live{
-            dimension "server"
-        }
-
-        100mb{
-            dimension "assets"
-        }
-        market{
-            dimension "assets"
-        }
-
-        test{
-            dimension "mode"
-        }
-        normal{
-            dimension "mode"
-        }
+            versionCode 1
+			versionName "9.9.9"
+            signingConfig signingConfigs.keystore
+            externalNativeBuild {
+                ndkBuild {
+                    cppFlags.add("-DTARGET_SERVER=SERVER_DEV")
+                    cppFlags.add("-DAPP_VER=" + versionName)
+                    cppFlags.add("-DUSE_PATCH=true")
+                    cppFlags.add("-DUSE_LUA_EXT=false")
+                }
+            }
+		}
+		qa{
+			dimension "server"
+            versionCode 2
+			versionName "0.3.7"
+            signingConfig signingConfigs.keystore
+            externalNativeBuild {
+                ndkBuild {
+                    cppFlags.add("-DTARGET_SERVER=SERVER_QA")
+                    cppFlags.add("-DAPP_VER=" + versionName)
+                    cppFlags.add("-DUSE_PATCH=true")
+                    cppFlags.add("-DUSE_LUA_EXT=false")
+                }
+            }
+		}
+		live{
+			dimension "server"
+            versionCode 16
+			versionName "1.0.1"
+            signingConfig signingConfigs.upload_keystore
+            externalNativeBuild {
+                ndkBuild {
+                    cppFlags.add("-DTARGET_SERVER=SERVER_LIVE")
+                    cppFlags.add("-DAPP_VER=" + versionName)
+                    cppFlags.add("-DUSE_PATCH=true")
+                    cppFlags.add("-DUSE_LUA_EXT=false")
+                }
+            }
+		}
+		
+        // dimension assets
+		market{
+			dimension "assets"
+            externalNativeBuild {
+                ndkBuild {
+                    cppFlags.add("-DUSE_OBB=true")
+                }
+            }
+		}
+		full{
+			dimension "assets"
+            externalNativeBuild {
+                ndkBuild {
+                    cppFlags.add("-DUSE_OBB=false")
+                }
+            }
+		}
+		
+        // dimension mode
+		mod{
+			dimension "mode"
+            externalNativeBuild {
+                ndkBuild {
+                    cppFlags.add("-DIS_TEST_MODE=true")
+                }
+            }
+		}
+		none{
+			dimension "mode"
+            externalNativeBuild {
+                ndkBuild {
+                    cppFlags.add("-DIS_TEST_MODE=false")
+                }
+            }
+		}
         */
     }
 
@@ -261,6 +328,8 @@ android {
             }
         }
     }
+
+    println curr_version_name
 }
 
 allprojects {
