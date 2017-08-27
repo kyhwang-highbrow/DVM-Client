@@ -122,7 +122,8 @@ function TableStageData:getRecommendedCombatPower(stage_id)
 
     local t_value = g_constant:get('UI', 'BOSS_COMBAT_POWER_VALUE')
     local combat_power = status_calc:getCombatPower()
-    combat_power = combat_power + (t_value[1] + (boss_lv - 1 / t_value[2]) * t_value[3])
+
+    combat_power = combat_power + (t_value[1] + ((boss_lv - 1) / t_value[2]) * t_value[3])
     combat_power = combat_power * 5
     
     return math_floor(combat_power)

@@ -60,9 +60,6 @@ function SkillRush:init_skill(hit, charge_res)
 		self.m_chargeEffect:setScale(1.5)
 
         if (not self.m_owner.m_bLeftFormation) then
-            self.m_chargeEffect:setPositionX(-100)
-
-        elseif (not self.m_owner.m_bLeftFormation) then
             self.m_chargeEffect:setPositionX(100)
             self.m_chargeEffect:setFlip(true)
         end
