@@ -12,7 +12,6 @@ UI_EvolutionStoneCombine = class(PARENT,{
         m_selMulti = 'number',
 
         m_bUpdate = 'boolean',
-        m_finishCB = 'function',
     })
 
 local MODE = {
@@ -35,11 +34,9 @@ end
 -------------------------------------
 -- function init
 -------------------------------------
-function UI_EvolutionStoneCombine:init(item_id, finish_cb)
+function UI_EvolutionStoneCombine:init(item_id)
     local vars = self:load('evolution_stone_combine.ui')
     UIManager:open(self, UIManager.POPUP)
-
-    self.m_finishCB = finish_cb
 
     -- 선택되지 않았다면 중급 진화의 보석 기본 선택
     self.m_selID = item_id or 701012 
@@ -424,8 +421,8 @@ end
 -------------------------------------
 function UI_EvolutionStoneCombine:click_exitBtn()
     self:close()
-    if (self.m_finishCB) then
-        self.m_finishCB(self.m_bUpdate)
+    if (not self.m_bUpdate) then
+        self:setCloseCB(nil)
     end
 end
 

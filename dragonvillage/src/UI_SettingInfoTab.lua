@@ -44,10 +44,10 @@ end
 
 -------------------------------------
 -- function click_serviceBtn
--- @brief 고객 센터
+-- @brief 고객 센터 (브라우저)
 -------------------------------------
 function UI_Setting:click_serviceBtn()
     local url = URL['HIGHBROW_CS']
-    --SDKManager:goToWeb(url)
-    UI_WebView(url)
+    SDKManager:goToWeb(url)
+    --UI_WebView(url)
 end

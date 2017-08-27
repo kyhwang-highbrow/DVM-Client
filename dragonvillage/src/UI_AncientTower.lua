@@ -204,10 +204,8 @@ function UI_AncientTower:refresh(floor_info)
     self.m_floorInfo:refresh(floor_info)
 
     -- 준비 버튼 활성화/비활성화
-    local challenge_floor = self.m_challengingFloor
     local select_floor = floor_info.m_floor
-
-    vars['readyBtn']:setEnabled(challenge_floor >= select_floor)
+    vars['readyBtn']:setEnabled(g_ancientTowerData:isOpenStage(select_floor))
 end
 
 -------------------------------------

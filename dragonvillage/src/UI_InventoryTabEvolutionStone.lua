@@ -192,10 +192,15 @@ function UI_InventoryTabEvolutionStone:refresh_tableView()
     end
 
     local function refresh_func(item, new_data)
+        local old_data = item['data']
+        if (old_data['esid'] == new_data['esid']) then
+            self.m_evolutionStoneTableView:replaceItemUI(new_data['esid'], new_data)
+        end
+
         item['ui']:setString(Str('{1}', comma_value(new_data['count'])))
     end
 
-    local l_item_list = g_userData:getEvolutionStoneList()
+    local l_item_list = g_evolutionStoneData:getEvolutionStoneList()
     self.m_evolutionStoneTableView:mergeItemList(l_item_list, refresh_func)
 end
 
@@ -203,12 +208,12 @@ end
 -- function click_combineBtn
 -------------------------------------
 function UI_InventoryTabEvolutionStone:click_combineBtn(item_id)
-    local function finish_cb(update) 
-        if (update) then
-            self.m_inventoryUI:clearSelectedItem()
-            self:refresh_tableView()
-        end
+    local function update_cb()
+        self.m_inventoryUI:clearSelectedItem()
+        self:refresh_tableView()
     end
-
-    UI_EvolutionStoneCombine(item_id, finish_cb)
+    
+    local ui = UI_EvolutionStoneCombine(item_id)
+    ui:setCloseCB(update_cb)
 end
+

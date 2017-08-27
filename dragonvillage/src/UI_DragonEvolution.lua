@@ -525,7 +525,13 @@ end
 -- function click_combineBtn
 -------------------------------------
 function UI_DragonEvolution:click_combineBtn(i)
-    UI_EvolutionStoneCombine()
+    local function update_cb()
+        self:refresh()
+    end
+
+    local ui = UI_EvolutionStoneCombine()
+    ui:setCloseCB(update_cb)
+
 end
 
 --@CHECK
