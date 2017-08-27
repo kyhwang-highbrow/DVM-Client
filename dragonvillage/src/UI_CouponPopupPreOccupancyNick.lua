@@ -112,7 +112,7 @@ end
 -------------------------------------
 function UI_CouponPopupPreOccupancyNick:request_preOccupancyNick(coupon_code)
     -- 파라미터
-    local uid = g_userData:get('uid')
+    local uid = g_localData:get('local', 'uid')
 
     -- 에러코드 처리
     local function result_cb(ret)
