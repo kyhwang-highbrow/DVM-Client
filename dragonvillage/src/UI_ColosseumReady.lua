@@ -74,7 +74,6 @@ function UI_ColosseumReady:initUI()
         local formation = 'attack'
         if t_pvp_deck then
             formation = t_pvp_deck['formation'] or 'attack'
-            formation = 'attack'
         end
         self.m_player3DDeck:setFormation(formation)
     end
