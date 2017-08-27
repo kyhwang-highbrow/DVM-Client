@@ -110,6 +110,7 @@ GameWorld = class(IEventDispatcher:getCloneClass(), IEventListener:getCloneTable
 		-- 덱의 리더 드래곤
 		m_leaderDragon = 'Dragon',
 
+        m_bGameFinish = 'bool',
     })
 
 -------------------------------------
@@ -309,6 +310,8 @@ function GameWorld:init(game_mode, stage_id, world_node, game_node1, game_node2,
     self.m_friendDragon = nil
 
     self:initGold()
+
+    self.m_bGameFinish = false
 end
 
 
@@ -1468,4 +1471,18 @@ end
 function GameWorld:getGameKey()
     local gamekey = g_gameScene.m_gameKey
     return gamekey
+end
+
+-------------------------------------
+-- function setGameFinish
+-------------------------------------
+function GameWorld:setGameFinish()
+    self.m_bGameFinish = true
+end
+
+-------------------------------------
+-- function isFinished
+-------------------------------------
+function GameWorld:isFinished()
+    return self.m_bGameFinish
 end

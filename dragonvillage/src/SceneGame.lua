@@ -1006,7 +1006,7 @@ end
 -- function applicationDidEnterBackground
 -------------------------------------
 function SceneGame:applicationDidEnterBackground()
-	if (not self.m_bPause) then
+	if (not self.m_bPause) and (not self.m_gameWorld:isFinished()) then
 		self.m_inGameUI:click_pauseButton()
 	end
 end

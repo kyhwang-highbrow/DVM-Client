@@ -593,8 +593,10 @@ end
 -------------------------------------
 function GameState.update_success_wait(self, dt)
     local world = self.m_world
+    
 
     if (self.m_stateTimer == 0) then
+        world:setGameFinish()
         if world.m_skillIndicatorMgr then
             world.m_skillIndicatorMgr:clear(true)
         end
@@ -647,6 +649,7 @@ function GameState.update_success(self, dt)
     
     if (self.m_stateTimer == 0) then
         local world = self.m_world
+        world:setGameFinish()
 
         -- 모든 적들을 죽임
         world:removeAllEnemy()
@@ -706,6 +709,7 @@ function GameState.update_failure(self, dt)
     local world = self.m_world
 
     if (self.m_stateTimer == 0) then
+        world:setGameFinish()
         if (world.m_tamer) then
             world.m_tamer:changeState('dying')
         end
@@ -841,6 +845,8 @@ end
 -- function makeResultUI
 -------------------------------------
 function GameState:makeResultUI(is_success)
+    self.m_world:setGameFinish()
+
     -- 작업 함수들
     local func_network_game_finish
     local func_ui_result
