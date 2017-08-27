@@ -104,8 +104,6 @@ end
 -- function click_skip
 -------------------------------------
 function UI_ScenarioPlayer:click_skip()
-    cclog('SKIP .. !')
-    cclog(self.m_bSkipEnable)
     if (not self.m_bSkipEnable) then
         return
     end
