@@ -46,6 +46,20 @@ function UI_WebView:initUI()
     webview:setContentSize(content_size.width, content_size.height)
 
     if (getAppVerNum() > AppVer_strToNum('1.0.1')) then
+        local mainUrl = nil
+        webview:setOnShouldStartLoading(function(index, url)
+            if mainUrl == nil then
+                mainUrl = url
+            else
+                if url ~= nil and string.sub(url, 1, string.len('http://')) == 'http://' then
+                    if mainUrl ~= url then
+                        SDKManager:goToWeb(url)
+                        return false
+                    end
+                end
+            end
+            return true
+        end)
         webview:setOnDidFinishLoading(function(index, url)
             ui_wloading_node:setVisible(false)
         end)
