@@ -91,6 +91,7 @@ function ServerData_Advertising:showAdv(ad_type, fnish_cb)
                 self.m_is_fail = true
 
                 -- 광고가 없는 경우 또는 못 가져오는 경우 (보상은 받음)
+                -- @todo 별도의 팝업UI 필요
                 self:request_adv_reward(ad_type, fnish_cb)
             end
         end

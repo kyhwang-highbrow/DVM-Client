@@ -134,9 +134,10 @@ function AdsManager:showErrorPopup(errorCode, result_cb)
         msg = Str('광고 API 호출시 잘못된 인자를 전달하였습니다.')
     elseif (errorCode == 'SHOW_ERROR') then
         msg = Str('광고 재생 과정에서 오류가 발생하였습니다. 잠시 후 다시 시도해 주세요.')
-    else
-        -- 'INTERNAL_ERROR'
+    elseif (errorCode == 'INTERNAL_ERROR') then
         msg = Str('광고 모듈에 오류가 발생하였습니다. 잠시 후 다시 시도해 주세요.')
+    else
+        result_cb()
     end
 
     MakeSimplePopup(POPUP_TYPE.OK, msg, result_cb)
