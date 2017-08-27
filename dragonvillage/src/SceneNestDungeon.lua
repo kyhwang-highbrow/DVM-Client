@@ -11,7 +11,6 @@ SceneNestDungeon = class(PerpleScene, {
 -- function init
 -------------------------------------
 function SceneNestDungeon:init(start_stage_id, dungeon_type, is_ready)
-    -- @TODO sgkim 넘어온 stage_id가 오픈되어있는지 검증할 필요가 있음
     self.m_startStageID = start_stage_id
 
 	self.m_dungeonType = dungeon_type or g_nestDungeonData:getDungeonMode(start_stage_id)

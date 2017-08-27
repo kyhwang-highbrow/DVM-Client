@@ -9,7 +9,6 @@ SceneAdventure = class(PerpleScene, {
 -- function init
 -------------------------------------
 function SceneAdventure:init(start_stage_id)
-    -- @TODO sgkim 넘어온 stage_id가 오픈되어있는지 검증할 필요가 있음
     self.m_startStageID = start_stage_id
 	
 	self.m_bUseLoadingUI = false

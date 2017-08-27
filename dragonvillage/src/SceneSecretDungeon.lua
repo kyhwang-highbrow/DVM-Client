@@ -9,7 +9,6 @@ SceneSecretDungeon = class(PerpleScene, {
 -- function init
 -------------------------------------
 function SceneSecretDungeon:init(dungeon_id)
-    -- @TODO sgkim 넘어온 stage_id가 오픈되어있는지 검증할 필요가 있음
     self.m_startDungeonID = dungeon_id
     self.m_sceneName = 'SceneSecretDungeon'
 end

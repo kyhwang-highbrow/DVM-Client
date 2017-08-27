@@ -142,14 +142,6 @@ function LobbyMap:onTouchEnded(touches, event)
     if self.m_touchTamer then
         if self:checkDragonTouch(touches[1]:getLocation(), self.m_touchTamer) then
             self.m_touchTamer:showEmotionEffect()
-            -- @TODO sgkim lobbychat
-            --[[
-            local t_dragon_data = self.m_touchTamer.m_userData['leader']
-            if (not t_dragon_data) then
-                t_dragon_data = UI_SimpleDragonInfoPopup:makeDragonData(self.m_touchTamer.m_dragon.m_dragonID)
-            end
-            UI_SimpleDragonInfoPopup(t_dragon_data)
-            --]]
         end
         self.m_touchTamer = nil
     end

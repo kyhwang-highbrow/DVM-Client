@@ -592,13 +592,6 @@ function SceneGame:networkGameFinish(t_param, t_result_ref, next_func)
 
     ui_network:setSuccessCB(success_cb)
     ui_network:request()
-
-    -- @TODO sgkim 남은 작업들
-    -- 0. 모험모드 전체 관련 데이터 stage_clear_info
-    -- 1. 드랍 아이템에 드래곤 드랍 처리하기
-    -- 2. 도전과제 구현하기
-    -- 3. 선택할 수 있는 덱이 여러개일 때 처리하기 (지금은 무조건 '1'번 덱으로 처리 중)
-    -- 4. 스테이지 진입 시 덱 검증(드히에 드래곤들 데이터가 유효한지 체크하는게 있음)
 end
 
 -------------------------------------
