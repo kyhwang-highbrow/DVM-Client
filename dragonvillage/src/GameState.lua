@@ -83,12 +83,12 @@ function GameState:initUI()
     -- 보스 등장시 연출
     self.m_waveEffect = MakeAnimator('res/ui/a2d/ingame_text/ingame_text.vrp')
     self.m_waveEffect:setVisible(false)
-    self.m_world.m_inGameUI.root:addChild(self.m_waveEffect.m_node, 9)
+    self.m_world.m_inGameUI.root:addChild(self.m_waveEffect.m_node, 109)
 
     self.m_bossTextVisual = MakeAnimator('res/ui/a2d/ingame_text/ingame_text.vrp')
     self.m_bossTextVisual:changeAni('boss_text', false)
     self.m_bossTextVisual:setVisible(false)
-    self.m_world.m_inGameUI.root:addChild(self.m_bossTextVisual.m_node, 10)
+    self.m_world.m_inGameUI.root:addChild(self.m_bossTextVisual.m_node, 110)
 
     -- 보스 이름
     do

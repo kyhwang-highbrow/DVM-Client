@@ -156,7 +156,7 @@ function SkillIndicatorMgr:onTouchBegan(touch, event)
         -- 튤팁 표시
         self:makeSkillToolTip(select_hero)
         -- 툴팁 y좌표 설정
-        self.m_uiToolTip:setRelativePosY(select_hero.pos.y)
+        --self.m_uiToolTip:setRelativePosY(select_hero.pos.y)
 
         event:stopPropagation()
 
