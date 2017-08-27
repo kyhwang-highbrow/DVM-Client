@@ -39,11 +39,6 @@ end
 -- @brief 해당 튜토리얼 클리어 여부
 -------------------------------------
 function ServerData_Tutorial:isTutorialDone(tutorial_key, cb_func)
-    -- FIRST_START는 FIRST_END까지 끝나야 끝난 것으로 처리
-    if (tutorial_key == TUTORIAL.FIRST_START) then
-        return self.m_tTutorialClearInfo[tutorial_key] and self.m_tTutorialClearInfo[TUTORIAL.FIRST_END]
-    end
-
     return self.m_tTutorialClearInfo[tutorial_key]
 end
 

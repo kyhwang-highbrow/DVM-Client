@@ -226,12 +226,6 @@ end
 -- function click_pauseButton
 -------------------------------------
 function UI_Game:click_pauseButton()
-    -- 최초 강제 튜토리얼 중에는 일시정지 막음
-    if (not g_tutorialData:isTutorialDone(TUTORIAL.FIRST_END)) then
-        UIManager:toastNotificationRed(Str('튜토리얼 도중에는 일시중지 하실 수 없습니다.'))
-        return
-    end
-
     local world = self.m_gameScene.m_gameWorld
     if (not world) then return end
 

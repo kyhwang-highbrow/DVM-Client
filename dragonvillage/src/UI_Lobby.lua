@@ -183,10 +183,8 @@ function UI_Lobby:entryCoroutine()
         working = true
         self:doAction(function() 
             working = false
-            if (not CppFunctions:isTestMode()) then
-                -- @ TUTORIAL
-                TutorialManager.getInstance():startTutorial(TUTORIAL.FIRST_START, self)
-            end
+            -- @ TUTORIAL
+            TutorialManager.getInstance():startTutorial(TUTORIAL.FIRST_START, self)
         end, false)
         g_topUserInfo:doAction()
 		self.root:scheduleUpdateWithPriorityLua(function(dt) self:update(dt) end, 0)
