@@ -171,7 +171,7 @@ function UIC_Button:onButtonStateChange(button_state)
 
     -- disable은 버튼의 액션에 관여하지 않음 (일단은.. Seong-goo Kim)
     if (button_state == UIC_BUTTON_DISABLE) then
-        return
+        --return
     end
 
     local node = self.m_node
@@ -281,6 +281,13 @@ function UIC_Button:setPositionY(y)
     self:setOriginData()
 end
 
+-------------------------------------
+-- function isSelected
+-- @brief
+-------------------------------------
+function UIC_Button:isEnabled()
+    return self.m_node:isEnabled()
+end
 
 -------------------------------------
 -- function isSelected
@@ -289,7 +296,6 @@ end
 function UIC_Button:isSelected()
     return (self.m_buttonState == UIC_BUTTON_SELECTED)
 end
-
 
 -------------------------------------
 -- function setNormalSpriteFrame

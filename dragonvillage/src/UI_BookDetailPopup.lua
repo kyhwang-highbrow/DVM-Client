@@ -149,6 +149,55 @@ function UI_BookDetailPopup:refresh_rate()
 end
 
 -------------------------------------
+-- function refresh_gradeBtnState
+-------------------------------------
+function UI_BookDetailPopup:refresh_gradeBtnState()
+	local t_dragon = self.m_tDragon
+	if (not t_dragon) then
+		return
+	end
+
+    local vars = self.vars
+
+    vars['gradePlusBtn']:setEnabled(true)
+    vars['gradeMinusBtn']:setEnabled(true)
+    
+	local factor = (self.m_evolution == 3) and 1 or 0
+	if (self.m_grade <= t_dragon['birthgrade'] + factor) then
+        vars['gradeMinusBtn']:setEnabled(false)
+
+	elseif (self.m_grade >= MAX_DRAGON_GRADE) then
+        vars['gradePlusBtn']:setEnabled(false)
+        
+	end
+end
+
+-------------------------------------
+-- function refresh_lvBtnState
+-------------------------------------
+function UI_BookDetailPopup:refresh_lvBtnState()
+	local t_dragon = self.m_tDragon
+	if (not t_dragon) then
+		return
+	end
+
+    local vars = self.vars
+
+    vars['lvPlusBtn']:setEnabled(true)
+    vars['lvMinusBtn']:setEnabled(true)
+    
+    local max_lv = TableGradeInfo:getMaxLv(self.m_grade)
+
+    if (self.m_lv <= 1) then
+        vars['lvMinusBtn']:setEnabled(false)
+
+	elseif (self.m_lv >= max_lv) then
+        vars['lvPlusBtn']:setEnabled(false)
+        
+	end
+end
+
+-------------------------------------
 -- function onChangeTab
 -------------------------------------
 function UI_BookDetailPopup:onChangeTab(tab, first)
@@ -368,6 +417,9 @@ function UI_BookDetailPopup:onChangeGrade()
 	local icon = IconHelper:getDragonGradeIcon(t_dragon, 3)
 	vars['starNode']:removeAllChildren(true)
 	vars['starNode']:addChild(icon)
+
+    -- 버튼 상태 갱신
+    self:refresh_gradeBtnState()
 end
 
 -------------------------------------
@@ -383,6 +435,9 @@ function UI_BookDetailPopup:onChangeLV()
 
 	local str = string.format('%d / %d', self.m_lv, max_lv)
 	vars['lvLabel']:setString(str)
+
+    -- 버튼 상태 갱신
+    self:refresh_lvBtnState()
 end
 
 -------------------------------------
@@ -544,7 +599,7 @@ function UI_BookDetailPopup:press_lvBtn(is_plus)
 
 	-- 꾹누르기 업데이트 / 매프레임 click_lvBtn 호출
 	local function update_lv(dt)
-		if (not self.m_pressBtn:isSelected()) then
+		if (not self.m_pressBtn:isSelected()) or (not self.m_pressBtn:isEnabled()) then
 			self.m_pressTimer = 0
 			self.m_pressBtn = nil
 			vars['starNode']:unscheduleUpdate()
