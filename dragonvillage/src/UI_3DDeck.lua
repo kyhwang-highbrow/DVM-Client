@@ -45,7 +45,7 @@ function UI_3DDeck:setDirection(direction, rotate)
     elseif (direction == 'right') then
         vars['formationNodeHelper']:setScaleY(0.7)
         vars['formationNodeHelper']:setScaleX(-1)
-        vars['formationNodeHelperXAxis']:setScaleY(-1)
+        vars['formationNodeHelperXAxis']:setScaleY(1)
 	    vars['formationNodeHelperXAxis']:setRotation3D(cc.Vertex3F(0, 0, -rotate)) -- 시계방향으로 돌림
 
     end

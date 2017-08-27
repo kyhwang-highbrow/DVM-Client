@@ -59,8 +59,8 @@ function UI_ColosseumReady:initUI()
 
     do -- 플레이어 유저 덱
         local player_3d_deck = UI_3DDeck()
-        player_3d_deck:setDirection('left', 50)
-        player_3d_deck.root:setPosition(-300, 76 - 80)
+        player_3d_deck:setDirection('left', 0)
+        player_3d_deck.root:setPosition(-300, 76 - 30)
         self.root:addChild(player_3d_deck.root)
         player_3d_deck:initUI()
 
@@ -80,8 +80,8 @@ function UI_ColosseumReady:initUI()
 
     do -- 상대방 유저 덱
         local player_3d_deck = UI_3DDeck()
-        player_3d_deck:setDirection('right', 50)
-        player_3d_deck.root:setPosition(300, 76- 80)
+        player_3d_deck:setDirection('right', 0)
+        player_3d_deck.root:setPosition(300, 76- 30)
         self.root:addChild(player_3d_deck.root)
         player_3d_deck:initUI()
 
