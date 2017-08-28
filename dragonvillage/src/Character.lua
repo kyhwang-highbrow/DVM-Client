@@ -503,12 +503,7 @@ function Character:undergoAttack(attacker, defender, i_x, i_y, body_key, no_even
         -- 히트 수 적용
         atk_dmg = atk_dmg * attack_hit_count
         
-        -- 방어 관통 적용
-        if(attacker) then
-            def_pwr = def_pwr - (def_pwr * attacker_char:getStat('pierce') / 100)
-            def_pwr = math_max(def_pwr, 0)
-        end
-		-- 스킬 계수 적용
+        -- 스킬 계수 적용
 		atk_dmg = atk_dmg * attack_activity_carrier:getPowerRate() / 100
         
 		-- 스킬 추가 공격력 적용
@@ -519,6 +514,12 @@ function Character:undergoAttack(attacker, defender, i_x, i_y, body_key, no_even
             local drag_dmg_rate = attack_activity_carrier:getStat('drag_dmg') / 100
             local drag_dmg = atk_dmg * drag_dmg_rate
             atk_dmg = atk_dmg + drag_dmg
+        end
+
+        -- 방어 관통 적용
+        if(attacker) then
+            def_pwr = def_pwr - (def_pwr * attacker_char:getStat('pierce') / 100)
+            def_pwr = math_max(def_pwr, 0)
         end
 		
 		-- 방어 무시 체크
@@ -1078,7 +1079,7 @@ end
 -------------------------------------
 function Character:makeHealFont(heal, is_critical)
     local heal = math_floor(heal)
-    if (heal == 0) then return end
+    if (heal <= 0) then return end
 
     local x = self.pos.x + math_random(-25, 25)
     local y = self.pos.y + math_random(-25, 25)
@@ -1217,7 +1218,7 @@ end
 -------------------------------------
 function Character:healAbs(caster, heal, is_critical, b_make_effect)
     local heal = math_floor(heal)
-    if (heal == 0) then return end
+    if (heal <= 0) then return end
 
     if (caster) then
         -- 크리 여부 검사
