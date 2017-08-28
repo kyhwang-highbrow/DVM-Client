@@ -85,9 +85,7 @@ function applicationWillEnterForeground()
 
     -- 백그라운드에서 일정 시간이 지난 후 들어오면 재시작
     if (0 < GAME_RESTART_TIME) and (GAME_RESTART_TIME < os.time()) then
-        MakeSimplePopup(POPUP_TYPE.OK, Str('장시간 사용을 하지 않아 앱을 다시 시작합니다.'), function() 
-            CppFunctions:restart()
-        end)
+        CppFunctions:restart()
         return
     end
 
