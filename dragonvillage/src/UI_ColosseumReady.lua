@@ -121,7 +121,7 @@ function UI_ColosseumReady:initUI_userInfo()
         vars['userLabel1']:setString(user_info:getUserText())
 
         -- 전투력
-        local str = user_info:getAtkDeckCombatPower()
+        local str = user_info:getAtkDeckCombatPower(true)
         vars['powerLabel1']:setString(Str('전투력 : {1}', str))
 
         -- 아이콘

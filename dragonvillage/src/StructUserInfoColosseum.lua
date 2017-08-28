@@ -375,11 +375,16 @@ end
 function StructUserInfoColosseum:getAtkDeckCombatPower(force)
     if (not self.m_pvpAtkDeckCombatPower) or force then
         local t_deck_dragon_list = self:getAtkDeck_dragonList()
+        local formation_lv = self.m_pvpAtkDeck['formationlv']
 
+        -- 드래곤
         local total_combat_power = 0
         for i,v in pairs(t_deck_dragon_list) do
             total_combat_power = (total_combat_power + v:getCombatPower())
         end
+
+        -- 진형
+        total_combat_power = total_combat_power + (formation_lv * g_constant:get('UI', 'FORMATION_LEVEL_COMBAT_POWER'))
 
         self.m_pvpAtkDeckCombatPower = total_combat_power
     end
@@ -420,11 +425,16 @@ end
 function StructUserInfoColosseum:getDefDeckCombatPower(force)
     if (not self.m_pvpDefDeckCombatPower) or force then
         local t_deck_dragon_list = self:getDefDeck_dragonList()
+        local formation_lv = self.m_pvpDefDeck['formationlv']
 
+        -- 드래곤
         local total_combat_power = 0
         for i,v in pairs(t_deck_dragon_list) do
             total_combat_power = (total_combat_power + v:getCombatPower())
         end
+
+        -- 진형
+        total_combat_power = total_combat_power + (formation_lv * g_constant:get('UI', 'FORMATION_LEVEL_COMBAT_POWER'))
 
         self.m_pvpDefDeckCombatPower = total_combat_power
     end
