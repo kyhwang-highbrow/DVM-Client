@@ -468,7 +468,8 @@ public class AppActivity extends Cocos2dxActivity{
                     mCrc32 = 0;
 
                     if (ContextCompat.checkSelfPermission(sActivity, Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
-                        String permissions[] = { Manifest.permission.WRITE_EXTERNAL_STORAGE };
+                        String permissions[] = new String[1];
+                        permissions[0] = Manifest.permission.WRITE_EXTERNAL_STORAGE;
                         ActivityCompat.requestPermissions(sActivity, permissions, RC_WRITE_STORAGE_PERMISSION);
                     } else {
                         AppActivity.startAPKExpansionDownloader(mVersionCode, mFileSize, mMd5, mCrc32);
