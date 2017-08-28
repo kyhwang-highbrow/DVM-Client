@@ -93,37 +93,13 @@ function UI_EventPopupTab_HBShop:init_bannerWebView()
         return
     end
     -- window에 ccexp가 없음
-    if isWin32() then 
+    if isWin32() then
         return 
     end
 
     -- 배너 웹뷰 생성
     local node = vars['bannerNode']
-    local content_size = node:getContentSize()
-    local webview = ccexp.WebView:create()
-    webview:setContentSize(content_size.width, content_size.height)
-
-    if (getAppVerNum() > AppVer_strToNum('1.0.1')) then
-        local mainUrl = nil
-        webview:setOnShouldStartLoading(function(index, url)
-            if mainUrl == nil then
-                mainUrl = url
-            else
-                if url ~= nil and string.sub(url, 1, string.len('http://')) == 'http://' then
-                    if mainUrl ~= url then
-                        SDKManager:goToWeb(url)
-                        return false
-                    end
-                end
-            end
-            return true
-        end)
-    end
-
-    webview:loadURL(url)
-    webview:setBounces(false)
-    webview:setAnchorPoint(cc.p(0,0))
-    webview:setDockPoint(cc.p(0,0))
+    local webview = UI_WebView(url, node)
     node:addChild(webview)
     
     -- 배너 닫기 버튼 처리

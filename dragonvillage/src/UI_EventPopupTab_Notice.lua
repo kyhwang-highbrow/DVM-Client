@@ -17,41 +17,17 @@ function UI_EventPopupTab_Notice:init(owner, struct_event_popup_tab)
     self.m_webView = nil
 
     do
-        if isWin32() then return end 
+        if isWin32() then 
+            return 
+        end 
+
         local loading_node = vars['emptySprite']
         loading_node:setVisible(true)
         cca.pickMePickMe(loading_node)
 
         local node = vars['webviewNode']
         local url = self.m_structBannerData['url']
-        local content_size = node:getContentSize()
-        local webview = ccexp.WebView:create()
-        webview:setContentSize(content_size.width, content_size.height)
-
-        if (getAppVerNum() > AppVer_strToNum('1.0.1')) then
-            local mainUrl = nil
-            webview:setOnShouldStartLoading(function(index, url)
-                if mainUrl == nil then
-                    mainUrl = url
-                else
-                    if url ~= nil and string.sub(url, 1, string.len('http://')) == 'http://' then
-                        if mainUrl ~= url then
-                            SDKManager:goToWeb(url)
-                            return false
-                        end
-                    end
-                end
-                return true
-            end)
-            webview:setOnDidFinishLoading(function(index, url)
-                loading_node:setVisible(false)
-            end)
-        end
-
-        webview:loadURL(url)
-        webview:setBounces(false)
-        webview:setAnchorPoint(cc.p(0,0))
-        webview:setDockPoint(cc.p(0,0))
+        local webview = UI_WebView(url, node)
         node:addChild(webview)
 
         self.m_webView = webview

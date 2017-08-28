@@ -10,36 +10,36 @@ UI_WebView = class(PARENT,{
 -------------------------------------
 -- function init
 -------------------------------------
-function UI_WebView:init(url)
+function UI_WebView:init(url, node)
     if isWin32() then return end 
-    local vars = self:load('popup_webview.ui')
-    UIManager:open(self, UIManager.SCENE)
-
     self.m_url = url
 
-    -- backkey 지정
-    g_currScene:pushBackKeyListener(self, function() self:close() end, 'UI_WebView')
+    -- node가 있는 경우 node content size로 생성한 웹뷰만 반환
+    if (node) then
+        return self:createWebview(node)
 
-    -- @UI_ACTION
-    --self:addAction(vars['rootNode'], UI_ACTION_TYPE_LEFT, 0, 0.2)
-    self:doActionReset()
-    self:doAction(nil, false)
+    -- 없는 경우 전면 웹뷰 UI
+    else
+        local vars = self:load('popup_webview.ui')
+        UIManager:open(self, UIManager.SCENE)
 
-    self:initUI()
-    self:initButton()
-    self:refresh()
+        -- backkey 지정
+        g_currScene:pushBackKeyListener(self, function() self:close() end, 'UI_WebView')
+        self:doActionReset()
+        self:doAction(nil, false)
+
+        self:initUI()
+        self:initButton()
+        self:refresh()
+    end
 end
 
 -------------------------------------
 -- function initUI
 -------------------------------------
-function UI_WebView:initUI()
-    local vars = self.vars
-    local loading_node = vars['emptySprite']
-    loading_node:setVisible(true)
-    cca.pickMePickMe(loading_node)
+function UI_WebView:createWebview(node)
+    if (not node) then return end
 
-    local node = vars['viewNode']
     local url = self.m_url
     local content_size = node:getContentSize()
     local webview = ccexp.WebView:create()
@@ -69,6 +69,21 @@ function UI_WebView:initUI()
     webview:setBounces(false)
     webview:setAnchorPoint(cc.p(0,0))
     webview:setDockPoint(cc.p(0,0))
+
+    return webview
+end
+
+-------------------------------------
+-- function initUI
+-------------------------------------
+function UI_WebView:initUI()
+    local vars = self.vars
+    local loading_node = vars['emptySprite']
+    loading_node:setVisible(true)
+    cca.pickMePickMe(loading_node)
+
+    local node = vars['viewNode']
+    local webview = self:createWebview(node)
     node:addChild(webview)
 end
 
