@@ -1,7 +1,7 @@
 local PARENT = UI
 
 local FONT_SIZE = 20
-local MIN_WIDTH = 60
+local MIN_WIDTH = 20
 local MAX_WIDTH = 600
 local MIN_HEIGHT = 70
 local MAX_HEIGHT = 200
