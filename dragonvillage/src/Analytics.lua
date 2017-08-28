@@ -28,7 +28,7 @@ CUS_CATEGORY = {
 -- event name, value name
 CUS_EVENT = {
 
-    MASTER_ROAD = {'모험가의 길', '모험가의 길 클리어 유저수'},
+    MASTER_ROAD = {'마스터의 길', '마스터의 길 클리어 유저수'},
     GET_CASH    = {'획득', '획득한 모든 다이아 수량'},
     USE_CASH    = {'소진', '소진한 모든 다이아 수량'},
 

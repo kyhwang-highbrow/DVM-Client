@@ -14,63 +14,17 @@ function UI_WebView:init(url, node)
     if isWin32() then return end 
     self.m_url = url
 
-    -- node가 있는 경우 node content size로 생성한 웹뷰만 반환
-    if (node) then
-        return self:createWebview(node)
+    local vars = self:load('popup_webview.ui')
+    UIManager:open(self, UIManager.SCENE)
 
-    -- 없는 경우 전면 웹뷰 UI
-    else
-        local vars = self:load('popup_webview.ui')
-        UIManager:open(self, UIManager.SCENE)
+    -- backkey 지정
+    g_currScene:pushBackKeyListener(self, function() self:close() end, 'UI_WebView')
+    self:doActionReset()
+    self:doAction(nil, false)
 
-        -- backkey 지정
-        g_currScene:pushBackKeyListener(self, function() self:close() end, 'UI_WebView')
-        self:doActionReset()
-        self:doAction(nil, false)
-
-        self:initUI()
-        self:initButton()
-        self:refresh()
-    end
-end
-
--------------------------------------
--- function initUI
--------------------------------------
-function UI_WebView:createWebview(node)
-    if (not node) then return end
-
-    local url = self.m_url
-    local content_size = node:getContentSize()
-    local webview = ccexp.WebView:create()
-    webview:setContentSize(content_size.width, content_size.height)
-
-    if (getAppVerNum() > AppVer_strToNum('1.0.1')) then
-        local mainUrl = nil
-        webview:setOnShouldStartLoading(function(index, url)
-            if mainUrl == nil then
-                mainUrl = url
-            else
-                if url ~= nil and string.sub(url, 1, string.len('http://')) == 'http://' then
-                    if mainUrl ~= url then
-                        SDKManager:goToWeb(url)
-                        return false
-                    end
-                end
-            end
-            return true
-        end)
-        webview:setOnDidFinishLoading(function(index, url)
-            ui_wloading_node:setVisible(false)
-        end)
-    end
-
-    webview:loadURL(url)
-    webview:setBounces(false)
-    webview:setAnchorPoint(cc.p(0,0))
-    webview:setDockPoint(cc.p(0,0))
-
-    return webview
+    self:initUI()
+    self:initButton()
+    self:refresh()
 end
 
 -------------------------------------
@@ -83,7 +37,7 @@ function UI_WebView:initUI()
     cca.pickMePickMe(loading_node)
 
     local node = vars['viewNode']
-    local webview = self:createWebview(node)
+    local webview = CreateWebview(self.m_url, node)
     node:addChild(webview)
 end
 
@@ -107,6 +61,37 @@ end
 function UI_WebView:click_closeBtn()
     self:close()
 end
+
+-------------------------------------
+-- function CreateWebview
+-------------------------------------
+function CreateWebview(url, node)
+    if (not node) then return end
+    local url = url
+    local content_size = node:getContentSize()
+    local webview = ccexp.WebView:create()
+    webview:setContentSize(content_size.width, content_size.height)
+
+    if (getAppVerNum() > AppVer_strToNum('1.0.1')) then
+        webview:setOnShouldStartLoading(function(index, url)
+            cclog('webview url '..url)
+            if (url ~= nil) and (string.sub(url, 1, string.len('http://')) == 'http://') then
+                SDKManager:goToWeb(url)
+                return false
+            end
+
+            return true
+        end)
+    end
+
+    webview:loadURL(url)
+    webview:setBounces(false)
+    webview:setAnchorPoint(cc.p(0,0))
+    webview:setDockPoint(cc.p(0,0))
+
+    return webview
+end
+
 
 --@CHECK
 UI:checkCompileError(UI_WebView)
