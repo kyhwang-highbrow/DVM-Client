@@ -28,13 +28,12 @@ function ICharacterStatusEffect:updateStatusEffect(dt)
         local status_effect_type = status_effect:getTypeName()
         local icon = self.m_lStatusIcon[status_effect_type]
         if (status_effect.m_bApply) then
-		    self:setStatusIcon(status_effect, count)
-		    count = count + 1
-            if (icon) then
+		    count = self:setStatusIcon(status_effect, count)
+            if (icon and icon.m_icon) then
                 icon.m_icon:setVisible(true)
             end
         else
-            if (icon) then
+            if (icon and icon.m_icon) then
                 icon.m_icon:setVisible(false)
             end
         end

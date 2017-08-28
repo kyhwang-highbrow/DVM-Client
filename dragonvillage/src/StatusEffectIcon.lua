@@ -26,7 +26,8 @@ function StatusEffectIcon:init(char, status_effect)
 	self.m_statusEffectName = status_effect_type
 
 	if (char.m_statusNode) then
-		local icon = IconHelper:getStatusEffectIcon(status_effect_type)
+		local icon, is_exist = IconHelper:getStatusEffectIcon(status_effect_type)
+        if (not is_exist) then return nil end
 		icon:setScale(0.375)
         char.m_statusNode:addChild(icon, 0)
 		self.m_icon = icon
@@ -60,9 +61,11 @@ end
 function StatusEffectIcon:setOverlabText()
 	local overlab_cnt = self.m_statusEffect.m_overlabCnt
 
-	if (overlab_cnt > 1) then
-		self.m_label:setString(overlab_cnt)
-	end
+    if (self.m_label) then
+	    if (overlab_cnt > 1) then
+		    self.m_label:setString(overlab_cnt)
+	    end
+    end
 end
 
 -------------------------------------
@@ -79,6 +82,7 @@ function StatusEffectIcon:checkDuration()
 
     -- 점멸 설정 함수
     local function setBlink(b)
+        if (not self.m_icon) then return end
         if (b == self.m_bBlink) then return end
 
         if (b) then
@@ -116,9 +120,12 @@ end
 -- function release
 -------------------------------------
 function StatusEffectIcon:release()
-	self.m_label:removeFromParent(true)
-	self.m_label = nil
-	
-	self.m_icon:removeFromParent(true)
-	self.m_icon = nil
+    if (self.m_label) then
+	    self.m_label:removeFromParent(true)
+	    self.m_label = nil
+    end
+	if (self.m_icon) then
+	    self.m_icon:removeFromParent(true)
+	    self.m_icon = nil
+    end
 end

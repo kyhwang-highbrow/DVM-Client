@@ -1962,17 +1962,21 @@ function Character:setStatusIcon(status_effect, idx)
 		icon = self.m_lStatusIcon[status_effect_type]
 	else
 		icon = StatusEffectIcon(self, status_effect)
-
-        self.m_lStatusIcon[status_effect_type] = icon
+        if (icon) then
+            self.m_lStatusIcon[status_effect_type] = icon
+        end
 	end
+    if (icon and icon.m_icon) then
+        if self.m_infoUI then
+            local x, y = self.m_infoUI:getPositionForStatusIcon(self.m_bLeftFormation, idx)
+            local scale = self.m_infoUI:getScaleForStatusIcon()
 
-    if self.m_infoUI then
-        local x, y = self.m_infoUI:getPositionForStatusIcon(self.m_bLeftFormation, idx)
-        local scale = self.m_infoUI:getScaleForStatusIcon()
-
-        icon.m_icon:setPosition(x, y)
-        icon.m_icon:setScale(scale)
+            icon.m_icon:setPosition(x, y)
+            icon.m_icon:setScale(scale)
+            idx = idx + 1
+        end
     end
+    return idx
 end
 
 -------------------------------------

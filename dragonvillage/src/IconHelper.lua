@@ -5,7 +5,9 @@ IconHelper = {}
 -------------------------------------
 function IconHelper:getIcon(res_name, default_res)
 	local sprite = cc.Sprite:create(res_name)
+    local is_exist = true
     if (not sprite) then
+        is_exist = false
         sprite = cc.Sprite:create(default_res or 'res/ui/icons/cha/developing.png')
         -- @E.T.
 		g_errorTracker:appendFailedRes(res_name)
@@ -13,7 +15,7 @@ function IconHelper:getIcon(res_name, default_res)
 
 	sprite:setDockPoint(CENTER_POINT)
 	sprite:setAnchorPoint(CENTER_POINT)
-	return sprite
+	return sprite, is_exist
 end
 
 -------------------------------------
@@ -422,8 +424,8 @@ end
 -------------------------------------
 function IconHelper:getStatusEffectIcon(status_effect_type)
 	local res = TableStatusEffect():get(status_effect_type)['res_icon']
-	local sprite = self:getIcon(res, 'res/ui/icons/noti_icon_0101.png' )
-    return sprite
+	local sprite, is_exist = self:getIcon(res, 'res/ui/icons/noti_icon_0101.png' )
+    return sprite, is_exist
 end
 
 -------------------------------------
