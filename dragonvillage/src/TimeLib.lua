@@ -25,6 +25,8 @@ function TimeLib:initInstance()
     end
     -- 인스턴스를 생성
     Timer = TimeLib()
+
+    return Timer
 end
 
 -------------------------------------

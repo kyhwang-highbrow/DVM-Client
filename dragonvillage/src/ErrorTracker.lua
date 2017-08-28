@@ -36,23 +36,50 @@ function ErrorTracker:getInstance()
 end
 
 -------------------------------------
--- function getTrackerText
+-- function getTrackerText_
 ------------------------------------- 
-function ErrorTracker:getTrackerText(msg)
-    local date = datetime.strformat(Timer:getServerTime()) or ''
-    local nick = g_userData:get('nick') or ''
-    local uid = tostring(g_userData:get('uid')) or ''
-    local os = getTargetOSName() or ''
-    local ver = PatchData:getInstance():getAppVersionAndPatchIdxString() or ''
+function ErrorTracker:getTrackerText_(msg)
+    -- 시간 기록
+    local date = datetime.strformat(TimeLib:initInstance():getServerTime()) or ''
 
+    -- 닉네임 기록
+    local nick = ''
+    if (g_userData and g_userData.get) then
+        nick = g_userData:get('nick') or ''
+    end
+
+    -- UID 기록
+    local uid = ''
+    if (g_userData and g_userData.get) then
+        uid = tostring(g_userData:get('uid')) or ''
+    end
+
+    -- OS 기록
+    local os = ''
+    if getTargetOSName then
+        os = getTargetOSName() or ''
+    end
+    
+    -- 버전 기록
+    local ver = ''
+    ver = PatchData:getInstance():getAppVersionAndPatchIdxString() or ''
+
+    -- 마지막 플레이 스테이지
     local last_stage = self:get_lastStage() or ''
+
+    -- 마지막 사용 스킬
     local skill_stack = self:getSkillHistoryStack() or ''
 
+    -- 마지막 사용 UI
 	local ui_stack = self:getUIStack() or ''
+
+    -- 마지막 사용 API
     local api_stack = self:getAPIStack() or ''
+    
+    -- 마지막 리소스 로드 실패
     local res_stack = self:getFailedResStack() or ''
 
-    local msg = msg or 'kkami'
+    local msg = msg or 'error'
    
     local template = 
 [[
@@ -90,6 +117,27 @@ function ErrorTracker:getTrackerText(msg)
         msg)
 
 	return text
+end
+
+-------------------------------------
+-- function getTrackerText
+------------------------------------- 
+function ErrorTracker:getTrackerText(msg)
+
+    -- 기본적으로 넘어온 메시지를 출력
+    local error_msg = msg
+
+    local function func()
+        -- 디테일한 에러 메시지를 받아옴
+        error_msg = self:getTrackerText_(msg)
+    end
+
+    -- 디테일한 에러 메시지를 받아오는 과정에서 에러가 발생했을 때 처리
+    local status, msg = xpcall(func, __G__TRACKBACK__)
+    if (not status) then
+    end
+
+    return error_msg
 end
 
 -------------------------------------
