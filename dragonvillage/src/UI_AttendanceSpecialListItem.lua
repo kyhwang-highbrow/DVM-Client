@@ -36,7 +36,7 @@ function UI_AttendanceSpecialListItem:initUI()
         vars['itemNode'..i]:addChild(item_icon)
 
         local item_name = TableItem():getValue(t_item_data['item_id'], 't_name')
-        vars['quantityLabel'..i]:setString(Str('{1} X{2}', item_name, comma_value(t_item_data['value'])))
+        vars['quantityLabel'..i]:setString(Str('{1}\n{2}개', item_name, comma_value(t_item_data['value'])))
 
         if (i <= today_step) then
             vars['checkSprite'..i]:setVisible(true)

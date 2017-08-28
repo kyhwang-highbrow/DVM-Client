@@ -99,11 +99,11 @@ function UI_EventPopupTab_HBShop:init_bannerWebView()
 
     -- 배너 웹뷰 생성
     local node = vars['bannerNode']
+    -- 웹뷰 생성
     local webview = CreateWebview(url, node)
     if (webview) then
         node:addChild(webview)
     end
-    
     
     -- 배너 닫기 버튼 처리
     vars['bannerCloseBtn']:setVisible(true)

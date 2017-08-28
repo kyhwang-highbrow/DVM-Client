@@ -74,7 +74,6 @@ function CreateWebview(url, node)
 
     if (getAppVerNum() > AppVer_strToNum('1.0.1')) then
         webview:setOnShouldStartLoading(function(index, url)
-            cclog('webview url '..url)
             if (url ~= nil) and (string.sub(url, 1, string.len('http://')) == 'http://') then
                 SDKManager:goToWeb(url)
                 return false
