@@ -348,7 +348,6 @@ end
 -------------------------------------
 function UI_DragonUpgrade:click_dragonMaterial(data)
     local vars = self.vars
-
     local doid = data['id']
 
     -- 선택한 드래곤이 승급 가능한지 판단
@@ -359,10 +358,19 @@ function UI_DragonUpgrade:click_dragonMaterial(data)
     end
 
     -- 선택가능한 재료인지 체크
-    local possible, msg = g_dragonsData:possibleMaterialDragon(doid)
-    if (not possible) then
-        UIManager:toastNotificationRed(msg)
-        return 
+    if (data:getObjectType() == 'dragon') then
+        local possible, msg = g_dragonsData:possibleMaterialDragon(doid)
+        if (not possible) then
+            UIManager:toastNotificationRed(msg)
+            return 
+        end
+
+    elseif (data:getObjectType() == 'slime') then
+        local possible, msg = g_slimesData:possibleMaterialSlime(doid, 'upgrade')
+        if (not possible) then
+            UIManager:toastNotificationRed(msg)
+            return 
+        end
     end
 
     local list_item = self.m_mtrlTableViewTD:getItem(doid)
