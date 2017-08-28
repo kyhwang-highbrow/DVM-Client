@@ -27,6 +27,7 @@ end
 function StatusEffect_AddDmgOneTime:init_statusEffect(caster)
     self.m_caster = caster
     self.m_activityCarrier = self.m_caster:makeAttackDamageInstance()
+    self.m_activityCarrier:setIgnoreDef(true)
     self.m_activityCarrier:setParam('add_dmg', true)
 end
 
@@ -48,6 +49,9 @@ end
 function StatusEffect_AddDmgOneTime:onApplyOverlab(unit)
     local activityCarrier = unit:getActivityCarrier()
 	local atk_dmg = activityCarrier:getFinalAtkDmg(self.m_owner)
+    local def_pwr = self.m_owner:getStat('def')
 
-    self.m_savedDmg = self.m_savedDmg + atk_dmg
+    local damage = DamageCalc_P(atk_dmg, def_pwr)
+    
+    self.m_savedDmg = self.m_savedDmg + damage
 end
