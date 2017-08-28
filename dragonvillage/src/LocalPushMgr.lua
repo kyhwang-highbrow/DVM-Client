@@ -22,11 +22,13 @@ function LocalPushMgr:applyLocalPush()
     -- 기존 local push 삭제
     self:cancel()
 
-	-- 탐험
-    for _, t_epr in pairs(g_explorationData:getPushTimeList()) do
-        local time = t_epr['time']
-        local msg = self:getPushString('epr')
-        self:addLocalPush('kami', time, msg)
+    if (g_explorationData) then
+	    -- 탐험
+        for _, t_epr in pairs(g_explorationData:getPushTimeList()) do
+            local time = t_epr['time']
+            local msg = self:getPushString('epr')
+            self:addLocalPush('kami', time, msg)
+        end
     end
 
     -- 푸시 디버그
