@@ -90,8 +90,14 @@ end
 -- function getRecommendedCombatPower
 -- @brief 스테이지 권장 전투력
 -------------------------------------
-function TableStageData:getRecommendedCombatPower(stage_id)
-    local wave_mgr = WaveMgr(nil, 'stage_' .. stage_id, stage_id)
+function TableStageData:getRecommendedCombatPower(stage_id, game_mode)
+    local wave_mgr
+
+    if (game_mode == GAME_MODE_SECRET_DUNGEON) then
+        wave_mgr = WaveMgr_SecretRelation(nil, 'stage_' .. stage_id, stage_id)
+    else
+        wave_mgr = WaveMgr(nil, 'stage_' .. stage_id, stage_id)
+    end
 
     local boss_id, boss_lv = wave_mgr:getFinalBossInfo()
     if (not boss_id) then return 0 end

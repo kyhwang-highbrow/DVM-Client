@@ -594,5 +594,5 @@ function WaveMgr:getFinalBossInfo()
     local t_data = self.m_scriptData['wave'][self.m_maxWave]
     self:newScenario_dynamicWave(t_data)
 
-    return self.m_bossId, self.m_bossLv
+    return self:getBossId(), self.m_bossLv
 end

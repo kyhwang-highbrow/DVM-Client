@@ -472,7 +472,8 @@ function UI_ReadyScene:refresh_combatPower()
 		vars['cp_Label']:setString(comma_value(deck))
 
 	else
-		local recommend = TableStageData():getRecommendedCombatPower(stage_id)
+        local game_mode = g_stageData:getGameMode(stage_id)
+		local recommend = TableStageData():getRecommendedCombatPower(stage_id, game_mode)
         vars['cp_Label2']:setString(comma_value(recommend))
 
 		local deck = self.m_readySceneDeck:getDeckCombatPower()

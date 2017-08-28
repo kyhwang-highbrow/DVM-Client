@@ -62,7 +62,10 @@ function WaveMgr_SecretRelation:spawnEnemy_dynamic(enemy_id, level, appear_type,
         }), true)
 
         if (isBoss) then
-            self.m_boss = enemy
+            if (not self.m_lBoss) then
+                self.m_lBoss = {}
+            end
+            table.insert(self.m_lBoss, enemy)
 
             enemy.m_animator:setScale(0.6)
 
