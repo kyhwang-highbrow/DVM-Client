@@ -27,6 +27,9 @@ function UI_TitleScene:init()
 	-- 사운드는 타이틀에서 사용하기 때문에 여기서 초기화
     SoundMgr:entry()
 
+    -- 로컬 데이터 초기화
+    LocalData:getInstance():applySetting()
+
     -- @brief work초기화 용도로 사용함
     self:setWorkList()
     self:doNextWork()
@@ -356,9 +359,6 @@ function UI_TitleScene:workLoading()
         co:yield()
 
         ScenarioViewingHistory:getInstance()
-        co:yield()
-
-        LocalData:getInstance():applySetting()
         co:yield()
 
         -- 다음 work로 이동
@@ -772,6 +772,7 @@ function UI_TitleScene:workBook()
     local ui_network = g_bookData:request_bookInfo(success_cb)
     ui_network:setFailCB(fail_cb)
     ui_network:setLoadingMsg('')
+    ui_network:hideLoading()
 end
 function UI_TitleScene:workBook_click()
 end
