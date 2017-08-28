@@ -32,8 +32,8 @@ void ReloadLuaHelper::onEnter()
 {
 	if (m_eEntryLua == ENTRY_TITLE)
 	{
-		Size visibleSize = CCDirector::getInstance()->getVisibleSize();
-		Vec2 origin = CCDirector::getInstance()->getVisibleOrigin();
+		Size visibleSize = Director::getInstance()->getVisibleSize();
+		Vec2 origin = Director::getInstance()->getVisibleOrigin();
 
         // 타이틀 화면이 VRP에서 spine으로 변경되어 교체
         SkeletonAnimation* _spine = SkeletonAnimation::createWithFile("res/ui/spine/title/title.json", "res/ui/spine/title/title.atlas", 1);
@@ -89,12 +89,12 @@ void ReloadLuaHelper::run()
     SkeletonAnimation::removeCacheAll();
 
 
-    CCFileUtils::getInstance()->purgeCachedEntries();
+    FileUtils::getInstance()->purgeCachedEntries();
 
     // Label Fallback폰트 정리
     cocos2d::Label::resetDefaultFallbackFontTTF();
 
-    AppDelegate* pDelegate = (AppDelegate*)CCApplication::getInstance();
+    AppDelegate* pDelegate = (AppDelegate*)Application::getInstance();
     pDelegate->initLuaEngine();
 
     switch (m_eEntryLua)

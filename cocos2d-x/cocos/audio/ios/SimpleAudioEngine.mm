@@ -226,7 +226,7 @@ static std::string ogg2mp3(const char *pszFilePath)
 namespace CocosDenshion {
 
 // AudioEngine
-static int s_EngineMode = 0;
+static int s_EngineMode = 1;
 static int s_BGMId = AudioEngine::INVALID_AUDIO_ID;
 static float s_BGMVolume = 1.0f;
 static std::list<int> s_SoundIds;
