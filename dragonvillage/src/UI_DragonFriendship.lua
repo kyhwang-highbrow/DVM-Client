@@ -95,12 +95,12 @@ function UI_DragonFriendship:refresh()
 
     local vars = self.vars
     -- 드래곤 테이블
-    local table_dragon = TABLE:get('dragon')
-    local t_dragon = table_dragon[t_dragon_data['did']]
+    local table_dragon = TableDragon()
     local did = t_dragon_data['did']
+    local t_dragon = table_dragon:get(did)
 
     -- 배경
-    local attr = TableDragon:getDragonAttr(did)
+    local attr = table_dragon:getDragonAttr(did)
     if self:checkVarsKey('bgNode', attr) then
         vars['bgNode']:removeAllChildren()
         local animator = ResHelper:getUIDragonBG(attr, 'idle')
@@ -109,7 +109,9 @@ function UI_DragonFriendship:refresh()
 
     -- 드래곤 실리소스
     if self.m_dragonAnimator then
-        self.m_dragonAnimator:setDragonAnimator(t_dragon['did'], t_dragon_data['evolution'], t_dragon_data['friendship']['flv'])
+        local evolution = t_dragon_data['evolution']
+        local flv = t_dragon_data['friendship']['flv']
+        self.m_dragonAnimator:setDragonAnimator(did, evolution, flv)
     end
 
     self:refreshFruits(attr)
@@ -205,6 +207,14 @@ function UI_DragonFriendship:refreshFriendship()
     else
         self:setHeartGauge(t_friendship_info['exp_percent'])
     end
+end
+
+-------------------------------------
+-- function getDragonList
+-- @breif 하단 리스트뷰에 노출될 드래곤 리스트
+-------------------------------------
+function UI_DragonFriendship:getDragonList()
+    return g_dragonsData:getDragonsList()
 end
 
 -------------------------------------
