@@ -51,6 +51,8 @@ import android.content.pm.PackageManager;
 //@perplesdk
 import com.perplelab.PerpleSDK;
 
+import java.security.Permission;
+
 public class AppActivity extends Cocos2dxActivity{
 
     // @perplesdk
@@ -83,6 +85,7 @@ public class AppActivity extends Cocos2dxActivity{
     static final String UNITY_ADS_GAME_ID = "1515686";
 
     static final int RC_WRITE_STORAGE_PERMISSION    = 100;  // must be 8bit value
+    static final int RC_APP_PERMISSION              = 101;  // must be 8bit value
 
     static final int RC_APP_RESTART                 = 1000;
     static final int RC_LOCAL_PUSH                  = 1001;
@@ -204,7 +207,14 @@ public class AppActivity extends Cocos2dxActivity{
     @Override
     public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
 
-        if (requestCode == RC_WRITE_STORAGE_PERMISSION) {
+        if (requestCode == RC_APP_PERMISSION) {
+            if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                sdkEventResult("app_requestPermission", "granted", "");
+            } else {
+                sdkEventResult("app_requestPermission", "denied", "");
+            }
+            return;
+        } else if (requestCode == RC_WRITE_STORAGE_PERMISSION) {
             if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                 AppActivity.startAPKExpansionDownloader(mVersionCode, mFileSize, mMd5, mCrc32);
             } else {
@@ -219,7 +229,6 @@ public class AppActivity extends Cocos2dxActivity{
                 }
                 sdkEventResult("apkexp_start", "error", info);
             }
-
             return;
         }
 
@@ -577,6 +586,22 @@ public class AppActivity extends Cocos2dxActivity{
 
                     String info = getDeviceInfo();
                     sdkEventResult(id, "success", info);
+
+                } else if (id.equals("app_checkPermission")) {
+
+                    // "android.permission.READ_EXTERNAL_STORAGE"
+                    String permission = arg0;
+                    if (ContextCompat.checkSelfPermission(sActivity, permission) != PackageManager.PERMISSION_GRANTED) {
+                        sdkEventResult(id, "denied", "");
+                    } else {
+                        sdkEventResult(id, "granted", "");
+                    }
+
+                } else if (id.equals("app_requestPermission")) {
+
+                    // "android.permission.READ_EXTERNAL_STORAGE"
+                    String permissions[] = { arg0 };
+                    ActivityCompat.requestPermissions(sActivity, permissions, RC_APP_PERMISSION);
 
                 }
             }
