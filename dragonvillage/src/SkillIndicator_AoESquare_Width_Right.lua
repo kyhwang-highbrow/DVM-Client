@@ -35,7 +35,7 @@ function SkillIndicator_AoESquare_Width_Right:setIndicatorPosition(touch_x, touc
     local camera_scale = self.m_world.m_gameCamera:getScale()
 	local scr_size = cc.Director:getInstance():getWinSize()
     
-	self.m_indicatorEffect:setPosition((cameraHomePosX - pos_x + scr_size['width']) / camera_scale, touch_y - pos_y)
+	self.m_indicatorEffect:setPosition(cameraHomePosX - pos_x + scr_size['width'], touch_y - pos_y)
 end
 
 -------------------------------------
