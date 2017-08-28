@@ -78,7 +78,9 @@ function SoundMgr:getResName(sound_info, quality)
         if not is_exist then
             cclog('ERROR : SoundMgr:getResName() - "' .. res .. '" 가 존재하지 않습니다.')
         end
-        self:assert(is_exist)
+        -- self:assert(is_exist)
+        -- sgkim 2017-08-28
+        -- APK Expansion적용 시 obb파일에 사운드 파일을 찾지 못하는 케이스가 있어서 일단 주석 처리
         return res
     -- 리소스명이 없을 경우 low, mid, high순으로 재귀적으로 검색한다.
     else
