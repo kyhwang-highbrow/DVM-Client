@@ -493,7 +493,7 @@ end
 -- @brief 초기 쿨타임 설정
 -------------------------------------
 function GameWorld:initActiveSkillCool(list)
-    local temp = { 0, 0.2, 0.4, 0.6, 0.8 }
+    local temp = { 3, 3, 7, 7, 7 }
     temp = randomShuffle(temp)
 
     for i, v in ipairs(list) do
