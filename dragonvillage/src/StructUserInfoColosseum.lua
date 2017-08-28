@@ -374,6 +374,10 @@ end
 -------------------------------------
 function StructUserInfoColosseum:getAtkDeckCombatPower(force)
     if (not self.m_pvpAtkDeckCombatPower) or force then
+        if (not self.m_pvpAtkDeck) then
+            return 0
+        end
+
         local t_deck_dragon_list = self:getAtkDeck_dragonList()
         local formation_lv = self.m_pvpAtkDeck['formationlv']
 
@@ -424,6 +428,10 @@ end
 -------------------------------------
 function StructUserInfoColosseum:getDefDeckCombatPower(force)
     if (not self.m_pvpDefDeckCombatPower) or force then
+        if (not self.m_pvpDefDeck) then
+            return 0
+        end
+
         local t_deck_dragon_list = self:getDefDeck_dragonList()
         local formation_lv = self.m_pvpDefDeck['formationlv']
 
