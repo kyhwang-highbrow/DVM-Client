@@ -582,7 +582,6 @@ end
 -- function getBossInfoList
 -------------------------------------
 function WaveMgr:getBossInfoList()
-    cclog('self.m_lBossInfo = ' .. luadump(self.m_lBossInfo))
     return self.m_lBossInfo
 end
 

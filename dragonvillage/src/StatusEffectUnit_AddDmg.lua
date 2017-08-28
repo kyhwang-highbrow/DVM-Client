@@ -17,6 +17,7 @@ StatusEffectUnit_AddDmg = class(PARENT, {
 -------------------------------------
 function StatusEffectUnit_AddDmg:init()
     self.m_activityCarrier = self:makeActivityCarrier()
+    self.m_activityCarrier:setIgnoreDef(true)
 	self.m_activityCarrier:setParam('add_dmg', true)
 
     if (string.match(self.m_statusEffectName, 'add_dmg_')) then

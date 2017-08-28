@@ -78,6 +78,7 @@ end
 -------------------------------------
 function StatusEffect_ConsumeToMissile:onApplyOverlab(unit)
     self.m_activityCarrier = unit:makeActivityCarrier()
+    self.m_activityCarrier:setIgnoreDef(true)
     self.m_activityCarrier:setParam('add_dmg', true)
 
     local delay_time = unit.m_duration  -- 미사일 대기 시간
