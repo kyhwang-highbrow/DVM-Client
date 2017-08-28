@@ -32,7 +32,7 @@ end
 -- @brief 필요한 특정 칼럼들의 값을 치환해서 리턴
 -------------------------------------
 function TableDragonSkill:get(key, skip_error_msg)
-    local t_table = PARENT.get(self, key)
+    local t_table = PARENT.get(self, key, skip_error_msg)
     local ret
 
     if (t_table and EQUATION_FUNC[self.m_tableName]) then
