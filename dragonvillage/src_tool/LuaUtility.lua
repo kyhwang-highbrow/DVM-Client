@@ -1,6 +1,3 @@
-require 'TableLoadingGuide'
-require 'TableDragon'
-
 -------------------------------------
 -- LuaUtility
 -------------------------------------
@@ -139,36 +136,30 @@ function util.mirrorDirectory(src_dir, tar_dir)
     os.execute(string.format('robocopy "%s" "%s" /MIR /NFL /NDL /NJH /NJS /XD .svn', src_dir, tar_dir))
 end
 
-
 -------------------------------------
--- function makeGuideDragonTable
--- @brief 패치 시 필요한 드래곤 리소스 추출
+-- function luadump
 -------------------------------------
-function util.makeGuideDragonTable()
-    cclog('## makeGuideDragonTable')
-    local l_loading_dragon = {}
-    
-    -- loading table에서 필요한 드래곤 id 가져온다.
-    local table_loading = TableLoadingGuide()
-    for i, t_loading in pairs(table_loading.m_orgTable) do
-        if (t_loading['did'] ~= '') then
-            table.insert(l_loading_dragon, t_loading['did'])
+function util.makeLuaTableStr(value)
+    local t = type(value)
+    if t == 'table' then
+        local s = '{'
+        local n = #value
+        -- 인덱스
+        for i = 1, n do
+            s = s .. luadump(value[i]) .. ';'
         end
+        -- 테이블 순회
+        for k, v in pairs(value) do
+            if type(k) ~= 'number' or k <= 0 or k > n then
+                local _value = util.makeLuaTableStr(value[k])
+                s = s .. "['" .. k .. "']=" .. _value .. ';'
+            end
+        end
+        return s .. '}'
+
+    elseif t == 'string' then
+        return "'" .. value .. "'"
+    else
+        return tostring(value)
     end
-
-    -- 해당 리소스 네임 추출하여 저장
-    local t_res = {}
-    local table_dragon = TableDragon()
-    local t_dragon, res, dragon_name, attr, evolution, complete_res
-    for i, did in pairs(l_loading_dragon) do
-        t_dragon = table_dragon:get(did)
-        dragon_name = t_dragon['type']
-        attr = t_dragon['attr']
-        evolution = 3
-
-        res = string.format('%s_%s_%02d', dragon_name, attr, evolution)
-        t_res[res] = true
-    end
-
-    return t_res
 end

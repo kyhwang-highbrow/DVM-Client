@@ -1,5 +1,4 @@
 require 'LuaStandAlone'
-require 'LuaGlobal'
 
 require 'TableDrop'
 require 'IEventDispatcher'

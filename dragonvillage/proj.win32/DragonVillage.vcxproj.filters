@@ -2514,9 +2514,6 @@
     <None Include="..\src_tool\AssetMaker.lua">
       <Filter>lua_tool</Filter>
     </None>
-    <None Include="..\src_tool\AssetRemover_100MB.lua">
-      <Filter>lua_tool</Filter>
-    </None>
     <None Include="..\src_tool\DataTableValidator.lua">
       <Filter>lua_tool</Filter>
     </None>
@@ -2653,6 +2650,12 @@
       <Filter>lua\UI</Filter>
     </None>
     <None Include="..\src_tool\ResourcePreloadMaker.lua">
+      <Filter>lua_tool</Filter>
+    </None>
+    <None Include="..\src_tool\LuaUtility.lua">
+      <Filter>lua_tool</Filter>
+    </None>
+    <None Include="..\src_tool\AssetRemover_100MB.lua">
       <Filter>lua_tool</Filter>
     </None>
   </ItemGroup>

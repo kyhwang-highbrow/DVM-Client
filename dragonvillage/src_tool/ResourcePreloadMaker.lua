@@ -1,10 +1,15 @@
 require 'LuaStandAlone'
-require 'LuaGlobal'
+
+require 'TableStageDesc'
+require 'TableDragon'
+require 'TableMonster'
+require 'TableStatusEffect'
+require 'AnimatorHelper'
 
 -------------------------------------
 -- class StageAnalysis
 -------------------------------------
-ResourcePreloadMaker = class({     
+ResourcePreloadMaker = class({
     })
 
 -------------------------------------
@@ -17,7 +22,7 @@ end
 -- function run
 -------------------------------------
 function ResourcePreloadMaker:run()
-    cclog('##### StageAnalysis:run')
+    cclog('##### ResourcePreloadMaker:run')
 
     local stopwatch = Stopwatch()
     stopwatch:start()
@@ -31,68 +36,49 @@ function ResourcePreloadMaker:run()
 end
 
 -------------------------------------
--- function countSkillResListFromScript
--- @brief 해당 스킬 타입의 스크립트에 포함된 리소스명을 list의 테이블에 포함시킴
--------------------------------------
-function ResourcePreloadMaker:countSkillResListFromScript(list, type, attr)
-    local script = TABLE:loadSkillScript(type)
-    if (not list or not script) then return end
-
-    local script_data = script[type]
-    if (not script_data) then return end
-    
-    local tAttackValueBase = script_data['attack_value']
-    local count = 1
-
-    while (tAttackValueBase[count]) do
-        local res = tAttackValueBase[count]['res']
-        if (res) then
-            local res_name = string.gsub(res, '@', attr)
-            table.insert(list, res_name)
-        end
-
-        count = count + 1
-    end
-end
-
--------------------------------------
 -- function makePreloadFile
 -------------------------------------
 function ResourcePreloadMaker:makePreloadFile()
     --cclog('savePreloadFile')
     
     -- 1. 스테이지별 리스트를 생성
-    local preloadList = {}
-    local t_stage_desc = TABLE:get('stage_desc')
+    local l_preload_list = {}
+    local table_stage_desc = TableStageDesc()
 
-    for stageID, _ in pairs(t_stage_desc) do
-        local stageName = string.format('stage_%s', stageID)
-        preloadList[stageName] = makeResListForGame(stageName, true)
+    for stage_id, _ in pairs(table_stage_desc.m_orgTable) do
+        l_preload_list[stage_id] = self:getPreloadList_Stage(stage_id)
     end
 
     -- 2. 파일로 저장
-    local path = cc.FileUtils:getInstance():fullPathForFilename(PRELOAD_FILE_NAME)
-    local f = io.open(path, 'wb')
-    local contents = dkjson.encode(preloadList, {indent=true})
-    f:write(contents)
-    f:close()
+    local preload_file_path = '../data/preload.lua'
+    local contents = util.makeLuaTableStr(l_preload_list)
+
+    local count = 0
+    for i, v in pairs(l_preload_list) do
+        for j, k in pairs(v) do
+            count = count + 1
+        end
+    end
+
+    cclog('RES COUNT .. ' .. count)
+    pl.file.write(preload_file_path, contents)
 end
 
 -------------------------------------
 -- function getPreloadList_Stage
 -------------------------------------
-function ResourcePreloadMaker:getPreloadList_Stage(stageName)
+function ResourcePreloadMaker:getPreloadList_Stage(stage_id)
     local ret = {}
 
-    local t_skillList = { 'skill_basic' }
+    local t_skill_list = {'skill_basic'}
     for i = 1, 9 do
-        table.insert(t_skillList, 'skill_' .. i)
+        table.insert(t_skill_list, 'skill_' .. i)
     end
 
     -- 스테이지 공통 리소스
     table.insert(ret, 'res/effect/effect_attack_ready/effect_attack_ready.plist')
 
-    local script = TABLE:loadStageScript(stageName)
+    local script = TABLE:loadStageScript('stage_' .. stage_id)
     if script and script['wave'] then
         for _, v in pairs(script['wave']) do
             if v['wave'] then
@@ -125,11 +111,11 @@ function ResourcePreloadMaker:getPreloadList_Stage(stageName)
                             table.insert(ret, res_name)
 
                             -- 스킬
-                            for _, k in pairs(t_skillList) do
+                            for _, k in pairs(t_skill_list) do
                                 local t_skill = TABLE:get('monster_skill')[t_enemy[k]]
                                 if t_skill then
                                     if t_skill['skill_form'] == 'script' then
-                                        countSkillResListFromScript(ret, t_skill['skill_type'], attr)
+                                        self:countSkillResListFromScript(ret, t_skill['skill_type'], attr)
                                     else
                                         for i = 1, 3 do
                                             if (t_skill['res_' .. i] ~= 'x') then
@@ -165,9 +151,52 @@ function ResourcePreloadMaker:getPreloadList_Stage(stageName)
 end
 
 -------------------------------------
+-- function countSkillResListFromScript
+-- @brief 해당 스킬 타입의 스크립트에 포함된 리소스명을 list의 테이블에 포함시킴
+-------------------------------------
+function ResourcePreloadMaker:countSkillResListFromScript(list, skill_type, attr)
+    local filename = 'skill/' .. skill_type
+    local script = TABLE:loadJsonTable(filename)
+    if (not list or not script) then return end
+
+    local script_data = script[type]
+    if (not script_data) then return end
+    
+    local tAttackValueBase = script_data['attack_value']
+    local count = 1
+
+    while (tAttackValueBase[count]) do
+        local res = tAttackValueBase[count]['res']
+        if (res) then
+            local res_name = string.gsub(res, '@', attr)
+            table.insert(list, res_name)
+        end
+
+        count = count + 1
+    end
+end
+
+-------------------------------------
+-- function isDragon
+-- @brief id를 가지고 dragon인지 판별
+-------------------------------------
+function isDragon(id)
+    return (math.floor(id / 10000) == 12)
+end
+
+-------------------------------------
+-- function loadSkillScript
+-------------------------------------
+function LoadSkillScript(filename, extention, remove_comment)
+    local filename = 'skill/' .. filename
+    return ScriptCache:get(filename, extention, remove_comment)
+    --return self:loadJsonTable(filename, extention, remove_comment)
+end
+
+-------------------------------------
 -- ############ RUN ################
 -- lua class 파일 자체에서 실행되도록 함
 -------------------------------------
 if (arg[1] == 'run') then
-    AssetMaker():run()
+    ResourcePreloadMaker():run()
 end

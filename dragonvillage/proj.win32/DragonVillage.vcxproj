@@ -1108,6 +1108,7 @@ xcopy /Y /Q "$(ProjectDir)..\..\libraries\pati\prebuilt\windows\*.dll" "$(OutDir
     <None Include="..\src_tool\LuaBridgeWindows.lua" />
     <None Include="..\src_tool\LuaGlobal.lua" />
     <None Include="..\src_tool\LuaStandAlone.lua" />
+    <None Include="..\src_tool\LuaUtility.lua" />
     <None Include="..\src_tool\ResourcePreloadMaker.lua" />
     <None Include="..\src_tool\SceneViewer.lua" />
     <None Include="..\src_tool\StageAnalysis.lua" />

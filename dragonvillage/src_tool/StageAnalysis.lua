@@ -1,5 +1,4 @@
 require 'LuaStandAlone'
-require 'LuaGlobal'
 
 require 'TableDrop'
 require 'IEventDispatcher'
@@ -24,29 +23,11 @@ end
 -------------------------------------
 function StageAnalysis:run()
     cclog('##### StageAnalysis:run')
-    
-    --[[
-    cclog('counting start')
-    for i=1,100 do 
-        --io.flush()
-        --io.write('', '\r')
-        io.write('개발 중인 idx : ' .. i, '\r')  --os.execute"sleep 1"
-        --io.flush()
-        if i==50 then
-            --error()
-        end
-        for z=1, 999999 do
-        end
-    end
-    io.write('\n')
-    cclog('counting end')
-    --]]
 
     local stopwatch = Stopwatch()
     stopwatch:start()
 
     self:test1()
-    --self:checkTheRegenform()
 
     stopwatch:stop()
     io.write('\n\n')

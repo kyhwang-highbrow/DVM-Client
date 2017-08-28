@@ -1,5 +1,8 @@
 require 'LuaStandAlone'
 
+require 'TableLoadingGuide'
+require 'TableDragon'
+
 -------------------------------------
 -- class AssetMaker_ApkExpansion
 -------------------------------------
@@ -80,7 +83,7 @@ function AssetMaker_ApkExpansion:moveDragonRes()
     cclog('## AssetMaker_ApkExpansion:moveNotUseDragonRes')
     
     -- 패치에서 사용하는 드래곤 가져옴
-    local t_loading_dragon_res = util.makeGuideDragonTable()
+    local t_loading_dragon_res = self:makeGuideDragonTable()
 
     -- 리소스 경로
     local dragon_path = '\\res\\character\\dragon'
@@ -93,6 +96,40 @@ function AssetMaker_ApkExpansion:moveDragonRes()
 
     -- robocopy move
     os.execute(string.format('robocopy "%s" "%s" /MOVE /E /NFL /NDL /NJH /NJS /XD .svn %s', ASSETS_PATH .. dragon_path, ASSETS_PATH_EXPANSION .. dragon_path, exception_list_str))
+end
+
+
+-------------------------------------
+-- function makeGuideDragonTable
+-- @brief 패치 시 필요한 드래곤 리소스 추출
+-------------------------------------
+function AssetMaker_ApkExpansion:makeGuideDragonTable()
+    cclog('## AssetMaker_ApkExpansion:makeGuideDragonTable')
+    local l_loading_dragon = {}
+    
+    -- loading table에서 필요한 드래곤 id 가져온다.
+    local table_loading = TableLoadingGuide()
+    for i, t_loading in pairs(table_loading.m_orgTable) do
+        if (t_loading['did'] ~= '') then
+            table.insert(l_loading_dragon, t_loading['did'])
+        end
+    end
+
+    -- 해당 리소스 네임 추출하여 저장
+    local t_res = {}
+    local table_dragon = TableDragon()
+    local t_dragon, res, dragon_name, attr, evolution, complete_res
+    for i, did in pairs(l_loading_dragon) do
+        t_dragon = table_dragon:get(did)
+        dragon_name = t_dragon['type']
+        attr = t_dragon['attr']
+        evolution = 3
+
+        res = string.format('%s_%s_%02d', dragon_name, attr, evolution)
+        t_res[res] = true
+    end
+
+    return t_res
 end
 
 -------------------------------------
