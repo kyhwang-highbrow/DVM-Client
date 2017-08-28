@@ -80,10 +80,77 @@ function ScenePatch:runPatchCore()
 	self.m_patch_core = patch_core
     local function finish_cb()
         self.m_patch_core = nil
-        self:runApkExpansion()
+        self:checkPermission()
     end
     patch_core:setFinishCB(finish_cb)
     patch_core:doStep()
+end
+
+-------------------------------------
+-- function checkPermission
+-- @brief aos 퍼미션 체크
+-------------------------------------
+function ScenePatch:checkPermission()
+    if (not isAndroid()) then
+        self:runApkExpansion()
+        return
+    end
+
+    local check = nil
+    local check_cb = nil
+    local info_popup = nil
+    local request = nil
+    local request_cb = nil
+    local error = nil
+
+    -- 퍼미션이 필요한지 확인
+    check = function()
+        SDKManager:app_checkPermission('android.permission.READ_EXTERNAL_STORAGE', check_cb)
+    end
+
+    -- 퍼미션 확인 결과
+    check_cb = function(result)
+        -- 퍼미션 필요한 경우
+        if (result == 'denied') then
+            info_popup()
+        -- 퍼미션이 필요하지 않은 경우
+        elseif (result == 'granted') then
+            self:runApkExpansion()
+        end
+    end
+
+    -- 안내 팝업
+    info_popup = function()
+        local msg = Str("게임 실행에 필요한 추가 파일를 읽기 위해 '사진/미디어/파일 액세스' 접근 권한이 필요합니다.", "권한 요청을 거부할 경우 정상적인 게임 실행이 불가능하며\n앱을 삭제한 후 다시 설치하셔야 합니다.")
+        MakeSimplePopup2(POPUP_TYPE.OK, msg, request)
+    end
+
+    -- 퍼미션 요청
+    request = function()
+        SDKManager:app_requestPermission('android.permission.READ_EXTERNAL_STORAGE', request_cb)
+    end
+
+    -- 퍼미션 요청 결과
+    request_cb = function(result)
+        -- 퍼미션을 거부한 경우
+        if (result == 'denied') then
+            error()
+        -- 퍼미션을 수락한 경우
+        elseif (result == 'granted') then
+            self:runApkExpansion()
+        end
+    end
+
+    -- 퍼미션을 수락하지 않은 경우
+    error = function()
+        local msg = Str('정상적인 시작이 불가능하여 앱을 종료합니다.\n종료 후 다시 실행해 주세요.')
+        MakeSimplePopup(POPUP_TYPE.OK, msg, function()
+                closeApplication()
+            end)
+    end
+
+    -- call
+    check()
 end
 
 -------------------------------------

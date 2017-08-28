@@ -145,3 +145,35 @@ function SDKManager:sendMail(info)
     -- recipient;title;body
     self:sendEvent('app_sendMail', info)
 end
+
+
+-------------------------------------
+-- function app_checkPermission
+-- @brief 
+-- @param permission_name ex) 'android.permission.READ_EXTERNAL_STORAGE'
+-- @param cb_func function(ret, info) end
+-------------------------------------
+function SDKManager:app_checkPermission(permission_name, cb_func)
+    self:sendEvent('app_checkPermission', permission_name, '', cb_func)
+
+    -- function cb_func(result)
+    --     if (result   == 'denied') then
+    --     elseif (result   == 'granted') then
+    --     end
+    -- end
+end
+
+-------------------------------------
+-- function app_requestPermission
+-- @brief 
+-- @param permission_name 'android.permission.READ_EXTERNAL_STORAGE'
+-------------------------------------
+function SDKManager:app_requestPermission(permission_name)
+    self:sendEvent('app_requestPermission', permission_name, '', cb_func)
+
+    -- function cb_func(result)
+    --     if (result   == 'denied') then
+    --     elseif (result   == 'granted') then
+    --     end
+    -- end
+end
