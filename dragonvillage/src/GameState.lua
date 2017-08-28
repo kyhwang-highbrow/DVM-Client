@@ -99,7 +99,7 @@ function GameState:initUI()
         rich_label:setAlignment(cc.TEXT_ALIGNMENT_CENTER, cc.VERTICAL_TEXT_ALIGNMENT_CENTER)
         rich_label:enableOutline(cc.c4b(0, 0, 0, 255), 2)
 
-        local socket_node = self.m_bossTextVisual.m_node:getSocketNode('ingame_text_boss_name')
+        local socket_node = self.m_bossTextVisual.m_node:getSocketNode('ingame_text_boss_name_1')
         socket_node:addChild(rich_label.m_node)
 
         doAllChildren(socket_node, function(node) node:setCascadeOpacityEnabled(true) end)
