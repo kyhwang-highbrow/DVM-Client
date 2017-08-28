@@ -116,6 +116,8 @@ typedef void(^PerpleSDKCallback)(NSString *result, NSString *info);
 - (void) setFCMPushOnForeground:(BOOL)isReceive;
 - (void) setFCMTokenRefreshWithCompletion:(PerpleSDKCallback)callback;
 - (void) getFCMTokenWithCompletion:(PerpleSDKCallback)callback;
+- (void) subscribeToTopic:(NSString *)topic;
+- (void) unsubscribeFromTopic:(NSString *)topic;
 - (void) logEvent:(NSString *)arg0 param:(NSString *)arg1;
 - (void) setUserProperty:(NSString *)arg0 param:(NSString *)arg1;
 - (void) autoLoginWithCompletion:(PerpleSDKCallback)callback;
