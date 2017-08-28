@@ -290,7 +290,7 @@ function ServerData_MasterRoad:request_roadReward(rid, finish_cb)
 		
         -- @analytics
         Analytics:firstTimeExperience('MasterRoad_Reward')
-        Analytics:trackEvent(CUS_CATEGORY.FIRST, CUS_EVENT.MASTER_ROAD, 1, string.format('모험가의길 퀘스트 번호 : %d', rid))
+        Analytics:trackEvent(CUS_CATEGORY.FIRST, CUS_EVENT.MASTER_ROAD, 1, string.format('퀘스트 번호 : %d', rid))
 
         if (finish_cb) then
             finish_cb(ret)

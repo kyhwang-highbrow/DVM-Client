@@ -29,7 +29,6 @@ end
 -------------------------------------
 function IS_LIVE_SERVER()
     local target_server = CppFunctions:getTargetServer()
-    ccdump(target_server)
     return (target_server == 'LIVE')
 end
 

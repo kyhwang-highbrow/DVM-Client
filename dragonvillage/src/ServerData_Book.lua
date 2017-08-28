@@ -120,7 +120,7 @@ function ServerData_Book:getSameTypeSlimeList(slime_id)
 			l_ret[did] = t_slime
         end
 	end
-    ccdump(l_ret)
+    
     return l_ret
 end
 
