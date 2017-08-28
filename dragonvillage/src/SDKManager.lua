@@ -168,7 +168,7 @@ end
 -- @brief 
 -- @param permission_name 'android.permission.READ_EXTERNAL_STORAGE'
 -------------------------------------
-function SDKManager:app_requestPermission(permission_name)
+function SDKManager:app_requestPermission(permission_name, cb_func)
     self:sendEvent('app_requestPermission', permission_name, '', cb_func)
 
     -- function cb_func(result)
