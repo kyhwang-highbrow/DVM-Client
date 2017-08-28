@@ -12,7 +12,6 @@ EVENT_CARRIER['is_handled'] = false
 ------------------------------
 EVENT_HIT_CARRIER = clone(EVENT_CARRIER)
 EVENT_HIT_CARRIER['damage'] = 0
-EVENT_HIT_CARRIER['reduced_damage'] = 0
 EVENT_HIT_CARRIER['is_critical'] = false
 EVENT_HIT_CARRIER['attacker'] = ''
 EVENT_HIT_CARRIER['defender'] = ''

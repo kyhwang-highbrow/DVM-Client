@@ -17,6 +17,9 @@ ActivityCarrier = class({
         -- 스킬 추가 공격력
         m_skillAddAtk = 'number',
 
+        -- 스킬 히트 수
+        m_skillHitCount = 'number',
+
         -- 상태이상 유발
         m_lStatusEffectRate = 'table',
 
@@ -37,6 +40,7 @@ function ActivityCarrier:init()
     self.m_skillId = nil
     self.m_skillCoefficient = 100
     self.m_skillAddAtk = 0
+    self.m_skillHitCount = 1
     self.m_lStatusEffectRate = {}
 	self.m_atkDmgStat = 'atk'
 	self.m_bIgnoreDef = false
@@ -360,6 +364,20 @@ end
 -------------------------------------
 function ActivityCarrier:getAbsAttack()
 	return self.m_skillAddAtk
+end
+
+-------------------------------------
+-- function setSkillHitCount
+-------------------------------------
+function ActivityCarrier:setSkillHitCount(count)
+    self.m_skillHitCount = count
+end
+
+-------------------------------------
+-- function getSkillHitCount
+-------------------------------------
+function ActivityCarrier:getSkillHitCount()
+    return self.m_skillHitCount
 end
 
 -------------------------------------

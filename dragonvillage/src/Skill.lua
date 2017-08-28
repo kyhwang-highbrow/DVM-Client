@@ -12,6 +12,7 @@ Skill = class(PARENT, {
         m_activityCarrier = 'ActivityCarrier',
 
         m_skillId = 'number', -- 스킬 아이디
+        m_skillHitCount = 'number',
 		m_skillName = 'str',  -- 스킬 타입 명 ex) skill_expolosion 
 		m_chanceType = 'str',  -- 스킬 종류.. active or basic etc.
 
@@ -108,6 +109,7 @@ function Skill:initActvityCarrier(power_rate, power_abs, critical)
 	self.m_activityCarrier:setAtkDmgStat(self.m_powerSource)
 	self.m_activityCarrier:setAttackType(self.m_chanceType)
     self.m_activityCarrier:setSkillId(self.m_skillId)
+    self.m_activityCarrier:setSkillHitCount(self.m_skillHitCount)
     self.m_activityCarrier:setPowerRate(self.m_powerRate)
     self.m_activityCarrier:setAbsAttack(power_abs)
     self.m_activityCarrier:setCritical(critical)
@@ -247,6 +249,7 @@ function Skill:setSkillParams(owner, t_skill, t_data)
 	self.m_skillSize = SkillHelper:getValid(t_skill['skill_size'])
 
     self.m_skillId = t_skill['sid']
+    self.m_skillHitCount = t_skill['hit']
 	self.m_skillName = t_skill['skill_type']
 	self.m_chanceType = t_skill['chance_type']
 	

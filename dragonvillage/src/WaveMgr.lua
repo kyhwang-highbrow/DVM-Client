@@ -23,7 +23,8 @@ WaveMgr = class(IEventDispatcher:getCloneClass(), {
         -- 보스 정보
         m_bossId = 'number',
         m_bossLv = 'number',
-        m_lBoss = '',
+        m_lBoss = 'table',
+        m_lBossInfo = 'table',
 
 		-- regen 전용
         m_mRegenGroup = 'table',
@@ -255,13 +256,33 @@ function WaveMgr:setDynamicWave(l_wave, l_data, group_key)
 	            if (rarity > self.m_highestRarity) then
 		            self.m_highestRarity = rarity
                     self.m_bossId = enemy_id
-                    self.m_bossLv = enemy_lv
+                    self.m_bossLv = enemy_lv + self.m_addLevel
 	            end
             end
 
             obj_key = obj_key + 1
 		end
 	end
+
+    -- 해당 웨이브의 보스를 찾아서 보스 정보를 저장
+    do
+        self.m_lBossInfo = {}
+
+        for i, v in ipairs(l_wave) do
+            local enemy_id = v.m_enemyID
+            local enemy_lv = v.m_enemyLevel + self.m_addLevel
+            local rarity = self:getRarity(enemy_id, enemy_lv)
+
+	        if (rarity >= self.m_highestRarity) then
+                local boss_info = {
+                    cid = enemy_id,
+                    lv = enemy_lv
+                }
+
+                table.insert(self.m_lBossInfo, boss_info)
+            end
+        end
+    end
 end
 
 -------------------------------------
@@ -318,6 +339,7 @@ function WaveMgr:newScenario_dynamicWave(t_data)
     self.m_lDynamicWave = {}
     self.m_highestRarity = -1
     self.m_bDeadHighestRarity = false
+    self.m_lBossInfo = {}
     self.m_bossId = nil
     self.m_lBoss = nil
 
@@ -414,13 +436,13 @@ function WaveMgr:spawnEnemy_dynamic(enemy_id, level, appear_type, value1, value2
     local rarity = self:getRarity(enemy_id, level)
     local isBoss = (rarity == self.m_highestRarity and self:isFinalWave())
 
-    -- 스테이지별 boss_hp_ratio 적용.
     if (isBoss) then
         if (not self.m_lBoss) then
             self.m_lBoss = {}
         end
         table.insert(self.m_lBoss, enemy)
 
+        -- 스테이지별 boss_hp_ratio 적용
         local boss_hp_ratio = TableStageData():getValue(self.m_world.m_stageID, 'boss_hp_ratio') or 1
         enemy.m_statusCalc:appendHpRatio(boss_hp_ratio)
         enemy:setStatusCalc(enemy.m_statusCalc)
@@ -557,6 +579,14 @@ function WaveMgr:getBossId()
 end
 
 -------------------------------------
+-- function getBossInfoList
+-------------------------------------
+function WaveMgr:getBossInfoList()
+    cclog('self.m_lBossInfo = ' .. luadump(self.m_lBossInfo))
+    return self.m_lBossInfo
+end
+
+-------------------------------------
 -- function getFinalBossInfo
 -------------------------------------
 function WaveMgr:getFinalBossInfo()
@@ -565,5 +595,5 @@ function WaveMgr:getFinalBossInfo()
     local t_data = self.m_scriptData['wave'][self.m_maxWave]
     self:newScenario_dynamicWave(t_data)
 
-    return self.m_bossId, self.m_bossLv + self.m_addLevel
+    return self.m_bossId, self.m_bossLv
 end

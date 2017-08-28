@@ -51,7 +51,7 @@ GameState = class(PARENT, {
         m_waveNum = 'Animator',
         m_waveMaxNum = 'Animator',
 
-        m_labelBossName = 'RichLabel',
+        m_lBossLabel = 'table',
         m_nodeBoss = '',
     })
 
@@ -82,6 +82,7 @@ end
 function GameState:initUI()
     -- 보스 등장시 연출
     self.m_waveEffect = MakeAnimator('res/ui/a2d/ingame_text/ingame_text.vrp')
+    self.m_waveEffect:changeAni('boss', false)
     self.m_waveEffect:setVisible(false)
     self.m_world.m_inGameUI.root:addChild(self.m_waveEffect.m_node, 109)
 
@@ -92,19 +93,23 @@ function GameState:initUI()
 
     -- 보스 이름
     do
-        local rich_label = UIC_RichLabel()
-        rich_label.m_defaultColor = cc.c3b(255, 255, 255)
-        rich_label:setString('')
-        rich_label:setFontSize(40)
-        rich_label:setAlignment(cc.TEXT_ALIGNMENT_CENTER, cc.VERTICAL_TEXT_ALIGNMENT_CENTER)
-        rich_label:enableOutline(cc.c4b(0, 0, 0, 255), 2)
+        self.m_lBossLabel = {}
 
-        local socket_node = self.m_bossTextVisual.m_node:getSocketNode('ingame_text_boss_name_1')
-        socket_node:addChild(rich_label.m_node)
+        for i = 1, 5 do
+            local rich_label = UIC_RichLabel()
+            rich_label.m_defaultColor = cc.c3b(255, 255, 255)
+            rich_label:setString('')
+            rich_label:setFontSize(40)
+            rich_label:setAlignment(cc.TEXT_ALIGNMENT_CENTER, cc.VERTICAL_TEXT_ALIGNMENT_CENTER)
+            rich_label:enableOutline(cc.c4b(0, 0, 0, 255), 2)
 
-        doAllChildren(socket_node, function(node) node:setCascadeOpacityEnabled(true) end)
-        
-        self.m_labelBossName = rich_label
+            local socket_node = self.m_bossTextVisual.m_node:getSocketNode('ingame_text_boss_name_' .. i)
+            socket_node:addChild(rich_label.m_node)
+
+            doAllChildren(socket_node, function(node) node:setCascadeOpacityEnabled(true) end)
+
+            table.insert(self.m_lBossLabel, rich_label)
+        end
     end
 
     -- 보스 노드
@@ -516,17 +521,21 @@ end
 -------------------------------------
 function GameState.update_final_wave(self, dt)
     if (self:isBeginningStep(0)) then
-        self.m_waveEffect:setVisible(true)
-        self.m_waveEffect:changeAni('leader', false)
-        self.m_waveEffect:addAniHandler(function()
-            self.m_waveEffect:setVisible(false)
+        self.m_bossTextVisual:setVisible(true)
+        self.m_bossTextVisual:changeAni('leader', false)
+        self.m_bossTextVisual:addAniHandler(function()
+            self.m_bossTextVisual:setVisible(false)
             self:changeState(GAME_STATE_ENEMY_APPEAR)
         end)
 
         -- 보스 이름
-        local boss_name = self:getBossName()
-        self.m_labelBossName:setString(boss_name)
-		
+        local l_boss_name = self:getBossNameList()
+        for i, boss_name in ipairs(l_boss_name) do
+            if (self.m_lBossLabel[i]) then
+                self.m_lBossLabel[i]:setString(boss_name)
+            end
+        end
+        	
 		-- 엘리트 배경음
         SoundMgr:playBGM('bgm_dungeon_midboss')
     end
@@ -539,18 +548,18 @@ end
 function GameState.update_boss_wave(self, dt)
     if (self:isBeginningStep(0)) then
         self.m_waveEffect:setVisible(true)
-        self.m_waveEffect:changeAni('boss', false)
+        self.m_waveEffect:setFrame(0)
         self.m_waveEffect:addAniHandler(function()
             self.m_waveEffect:setVisible(false)
-            self.m_nodeBoss:removeAllChildren(true)
-
-            self:changeState(GAME_STATE_ENEMY_APPEAR)
         end)
 
         self.m_bossTextVisual:setVisible(true)
-        self.m_bossTextVisual:setFrame(0)
+        self.m_bossTextVisual:changeAni('boss_text', false)
         self.m_bossTextVisual:addAniHandler(function()
             self.m_bossTextVisual:setVisible(false)
+            self.m_nodeBoss:removeAllChildren(true)
+
+            self:changeState(GAME_STATE_ENEMY_APPEAR)
         end)
 
         local duration = self.m_waveEffect:getDuration()
@@ -571,11 +580,11 @@ function GameState.update_boss_wave(self, dt)
         end
 
         -- 보스 이름
-        local boss_name = self:getBossName()
-        if (boss_name) then
-            self.m_labelBossName:setString(boss_name)
-
-            self.m_labelBossName:runAction(getFadeAction())
+        local l_boss_name = self:getBossNameList()
+        for i, boss_name in ipairs(l_boss_name) do
+            if (self.m_lBossLabel[i]) then
+                self.m_lBossLabel[i]:setString(boss_name)
+            end
         end
 
         -- 보스 배경음
@@ -1170,19 +1179,27 @@ function GameState:resume()
 end
 
 -------------------------------------
--- function getBossName
+-- function getBossNameList
 -------------------------------------
-function GameState:getBossName()
-    local boss_id = self.m_world.m_waveMgr:getBossId()
-    local name = ''
+function GameState:getBossNameList()
+    local l_ret = {}
 
-    if (isMonster(boss_id)) then
-        name = TableMonster():getMonsterName(boss_id)
-    elseif (isDragon(boss_id)) then
-        name = TableDragon():getDragonName(boss_id)
+    for i, v in ipairs(self.m_world.m_waveMgr:getBossInfoList()) do
+        local boss_id = v['cid']
+        local name
+
+        if (isMonster(boss_id)) then
+            name = TableMonster():getMonsterName(boss_id)
+        elseif (isDragon(boss_id)) then
+            name = TableDragon():getDragonName(boss_id)
+        end
+
+        if (name) then
+            table.insert(l_ret, name)
+        end
     end
 
-    return name
+    return l_ret
 end
 
 -------------------------------------

@@ -712,6 +712,7 @@ function Missile:fireAddScriptMissile()
     activity_carrier:setAtkDmgStat(self.m_activityCarrier.m_atkDmgStat)
     activity_carrier:setAttackType(self.m_activityCarrier:getAttackType())
     activity_carrier:setSkillId(self.m_activityCarrier:getSkillId())
+    activity_carrier:setSkillId(self.m_activityCarrier:getSkillHitCount())
 	activity_carrier:setPowerRate(self.m_activityCarrier:getPowerRate())
     missile_launcher.m_bHeroMissile = is_hero
 

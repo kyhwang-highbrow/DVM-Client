@@ -393,6 +393,7 @@ function Character:do_script_shot(t_skill, attr, phys_group, x, y, t_data)
     activity_carrier:setAtkDmgStat(t_skill['power_source'])
     activity_carrier:setAttackType(t_skill['chance_type'])
     activity_carrier:setSkillId(t_skill['sid'])
+    activity_carrier:setSkillHitCount(t_skill['hit'])
     activity_carrier:setPowerRate(t_skill['power_rate'])
 		
     missile_launcher.m_bHeroMissile = self.m_bLeftFormation

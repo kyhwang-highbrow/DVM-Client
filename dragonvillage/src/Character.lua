@@ -466,6 +466,7 @@ function Character:undergoAttack(attacker, defender, i_x, i_y, body_key, no_even
 	local attack_activity_carrier = attacker.m_activityCarrier
     local attacker_char = attack_activity_carrier:getActivityOwner()
     local attack_type, real_attack_type = attack_activity_carrier:getAttackType()
+    local attack_hit_count = attack_activity_carrier:getSkillHitCount()
     local is_critical = nil
     local is_indicator_critical = attack_activity_carrier:getCritical()
     local is_cri_avoid = false
@@ -492,13 +493,15 @@ function Character:undergoAttack(attacker, defender, i_x, i_y, body_key, no_even
     local atk_dmg = 0
     local def_pwr = 0
     local damage = 0
-	local reduced_damage = 0
-
+	
     -- 데미지 계산
     do
 		-- 공격력, 방어력 스탯
 		atk_dmg = attack_activity_carrier:getAtkDmg(defender)
         def_pwr = self:getStat('def')
+
+        -- 히트 수 적용
+        atk_dmg = atk_dmg * attack_hit_count
         
         -- 방어 관통 적용
         if(attacker) then
@@ -525,8 +528,8 @@ function Character:undergoAttack(attacker, defender, i_x, i_y, body_key, no_even
         
 		damage = DamageCalc_P(atk_dmg, def_pwr)
 
-		-- 방어에 의해 감소된 피해량 계산
-		reduced_damage = atk_dmg - damage
+        -- 히트 수 적용
+        damage = damage / attack_hit_count
     end
 
     -- 크리티컬 계산(ActivityCarrier에서 판정되지 않은 경우만)
@@ -604,7 +607,6 @@ function Character:undergoAttack(attacker, defender, i_x, i_y, body_key, no_even
 	local t_event = clone(EVENT_HIT_CARRIER)
     t_event['skill_id'] = attack_activity_carrier:getSkillId()
 	t_event['damage'] = damage
-	t_event['reduced_damage'] = reduced_damage
 	t_event['attacker'] = attacker_char
 	t_event['defender'] = self
 	t_event['is_critical'] = is_critical

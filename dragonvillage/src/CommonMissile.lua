@@ -89,6 +89,7 @@ function CommonMissile:initActvityCarrier()
     self.m_activityCarrier = self.m_owner:makeAttackDamageInstance()
 
     self.m_activityCarrier:setSkillId(self.m_skillId)
+    self.m_activityCarrier:setSkillHitCount(self.m_maxFireCnt)
     self.m_activityCarrier:setPowerRate(self.m_powerRate)
     self.m_activityCarrier:setAtkDmgStat(self.m_powerSource)
 	self.m_activityCarrier:setAttackType(self.m_chanceType)
