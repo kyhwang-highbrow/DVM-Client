@@ -93,7 +93,14 @@ function UIC_DragonAnimatorDirector_Summon:directingContinue()
     local is_fix = TableSummonGacha:isFixSummon(self.m_eggID)
     if (is_fix) then
         self:appearDragonAnimator()
-        return
+        local grade = TableSummonGacha:getMinGrade(self.m_eggID)
+        
+        -- 5등급 전설 알은 누리 연출 보여줌 
+        if (grade == 5) then
+            self.m_currStep = 1
+        else 
+            return
+        end
     end
 
     self.m_aniNum = self.m_currStep

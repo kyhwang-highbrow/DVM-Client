@@ -70,6 +70,10 @@ function UI_AdventureSceneNew:init(stage_id)
     local difficulty, chapter, stage = parseAdventureID(last_stage)
     self:refreshChapter(chapter, difficulty, stage)
 
+    if (g_stageData:isFirstOpenChapter(stage)) then
+        
+    end
+
     -- @TODO 임시 처리 mskim
     self.m_uicSortList:setSelectSortType(self.m_currDifficulty)
 end
