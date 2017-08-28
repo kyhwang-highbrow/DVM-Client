@@ -600,7 +600,8 @@ public class AppActivity extends Cocos2dxActivity{
                 } else if (id.equals("app_requestPermission")) {
 
                     // "android.permission.READ_EXTERNAL_STORAGE"
-                    String permissions[] = { arg0 };
+                    String permissions[] = new String[1];
+                    permissions[0] = arg0;
                     ActivityCompat.requestPermissions(sActivity, permissions, RC_APP_PERMISSION);
 
                 }
