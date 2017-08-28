@@ -153,6 +153,35 @@ function StructSubscribedInfo:getSubscriptionCategory()
 end
 
 -------------------------------------
+-- function makePopupTitle
+-- @brief
+-------------------------------------
+function StructSubscribedInfo:makePopupTitle()
+    local category = self:getSubscriptionCategory()
+
+    local res = ''
+
+    if (category == 'basic') then
+        res = 'res/ui/typo/kr/pakage/text_daily_dia_0101.png'
+
+    elseif (category == 'premium') then
+        res = 'res/ui/typo/kr/pakage/text_daily_dia_0102.png'
+
+    else
+        error('category : ' .. category)
+    end
+
+    local bg = cc.Sprite:create(res)
+    if (not bg) then
+        error('res : ' .. res)
+    end
+
+    bg:setDockPoint(cc.p(0.5, 0.5))
+    bg:setAnchorPoint(cc.p(0.5, 0.5))
+    return bg
+end
+
+-------------------------------------
 -- function makePopupBg
 -- @brief
 -------------------------------------
@@ -162,10 +191,10 @@ function StructSubscribedInfo:makePopupBg()
     local res = ''
 
     if (category == 'basic') then
-        res = 'res/ui/package/popup_daily_dia_02.png'
+        res = 'res/ui/package/bg_daily_dia_0101.png'
 
     elseif (category == 'premium') then
-        res = 'res/ui/package/popup_daily_dia_03.png'
+        res = 'res/ui/package/bg_daily_dia_0102.png'
 
     else
         error('category : ' .. category)

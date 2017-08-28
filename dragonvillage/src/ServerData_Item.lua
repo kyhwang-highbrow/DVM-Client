@@ -28,7 +28,7 @@ function ServerData_Item:parsePackageItemStr(package_item_str)
     package_item_str = string.gsub(package_item_str, '\n', '')
 
     -- ','로 분리
-    local l_item_str_list = TableClass:seperate(package_item_str, ',')
+    local l_item_str_list = pl.stringx.split(package_item_str, ',')
 
     -- ','로 분리된 아이템 개별의 문자열을 분석
     local l_item_list = {}
@@ -46,7 +46,7 @@ end
 -- @brief 아이템 1종류를 표현하는 문자열 분석
 -------------------------------------
 function ServerData_Item:parsePackageItemStrIndivisual(package_item_str)
-    local l_item_list = TableClass:seperate(package_item_str, ';')
+    local l_item_list = pl.stringx.split(package_item_str, ';')
 
     if (#l_item_list <= 1) then
         l_item_list = TableClass:seperate(package_item_str, ':')

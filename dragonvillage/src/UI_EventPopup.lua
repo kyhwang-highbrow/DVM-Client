@@ -200,7 +200,7 @@ function UI_EventPopup:makeEventPopupTab(tab)
         local l_item_list = g_shopDataNew:getProductList('package')
         local product = l_item_list[product_id]
         if (product) then
-            ui = UI_EventPopupTab_Shop(l_item_list[product_id])
+            ui = UI_EventPopupTab_Shop(product)
         end
         
     -- 업데이트 공지 
@@ -211,6 +211,10 @@ function UI_EventPopup:makeEventPopupTab(tab)
     -- 배너
     elseif (string.find(tab, 'banner')) then
         ui = UI_EventPopupTab_Banner(self, struct_event_popup_tab)
+
+    -- 성장 패키지 묶음 UI
+    elseif (string.find(tab, 'growth_package')) then
+        ui = UI_EventPopupTab_PackageGrowth()
 
     end
 

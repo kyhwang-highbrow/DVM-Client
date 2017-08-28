@@ -72,16 +72,14 @@ function CreateWebview(url, node)
     local webview = ccexp.WebView:create()
     webview:setContentSize(content_size.width, content_size.height)
 
-    if (getAppVerNum() > AppVer_strToNum('1.0.1')) then
-        webview:setOnShouldStartLoading(function(index, url)
-            if (url ~= nil) and (string.sub(url, 1, string.len('http://')) == 'http://') then
-                SDKManager:goToWeb(url)
-                return false
-            end
+    webview:setOnShouldStartLoading(function(index, url)
+        if (url ~= nil) and (string.sub(url, 1, string.len('http://')) == 'http://') then
+            SDKManager:goToWeb(url)
+            return false
+        end
 
-            return true
-        end)
-    end
+        return true
+    end)
 
     webview:loadURL(url)
     webview:setBounces(false)

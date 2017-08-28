@@ -12,7 +12,7 @@ UI_SubscriptionPopup = class(PARENT, {
 -- function init
 -------------------------------------
 function UI_SubscriptionPopup:init()
-    local vars = self:load('shop_package_daily_dia_01.ui')
+    local vars = self:load('package_daily_dia_reward.ui')
 	UIManager:open(self, UIManager.POPUP)
 
 	-- 백키 지정
@@ -63,6 +63,14 @@ function UI_SubscriptionPopup:initUI()
         -- 가격 아이콘 및 라벨, 배경 조정
         UIHelper:makePriceNodeVariable(vars['priceBg2'],  vars['priceNode2'], vars['priceLabel2'])
     end
+
+    -- 타이틀 이미지 출력
+    local title = info:makePopupTitle()
+    vars['titleNode']:addChild(title)
+
+    -- 배경 이미지 출력
+    local bg = info:makePopupBg()
+    vars['packageNode']:addChild(bg)
 end
 
 -------------------------------------

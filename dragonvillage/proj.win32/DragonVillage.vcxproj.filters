@@ -2658,6 +2658,21 @@
     <None Include="..\src_tool\AssetRemover_100MB.lua">
       <Filter>lua_tool</Filter>
     </None>
+    <None Include="..\src\UI_EventPopupTab_PackageGrowth.lua">
+      <Filter>lua\UI</Filter>
+    </None>
+    <None Include="..\src\UI_Package_Growth.lua">
+      <Filter>lua\UI</Filter>
+    </None>
+    <None Include="..\src\UI_Package_Monthly.lua">
+      <Filter>lua\UI</Filter>
+    </None>
+    <None Include="..\src\UI_Package_Weekly.lua">
+      <Filter>lua\UI</Filter>
+    </None>
+    <None Include="..\src\PackageManager.lua">
+      <Filter>lua\src</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Classes">

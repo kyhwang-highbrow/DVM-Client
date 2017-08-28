@@ -12,7 +12,7 @@ UI_SubscriptionDayListItem = class(PARENT, {
 -------------------------------------
 function UI_SubscriptionDayListItem:init(data)
     self.m_data = data
-    local vars = self:load('shop_package_daily_dia_item.ui')
+    local vars = self:load('package_daily_dia_reward_item.ui')
 
     self:initUI()
     self:initButton()

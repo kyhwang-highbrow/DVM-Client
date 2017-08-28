@@ -27,7 +27,7 @@ function UI_EventPopupTab_Notice:init(owner, struct_event_popup_tab)
 
         local node = vars['webviewNode']
         local url = self.m_structBannerData['url']
-        -- 웹뷰 생성 
+
         local webview = CreateWebview(url, node)
         if (webview) then
             node:addChild(webview)

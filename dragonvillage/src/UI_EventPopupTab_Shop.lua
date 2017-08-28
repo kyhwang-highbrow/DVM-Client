@@ -11,7 +11,7 @@ UI_EventPopupTab_Shop = class(PARENT,{
 -- function init
 -------------------------------------
 function UI_EventPopupTab_Shop:init(struct_product)
-    local vars = self:load('shop_package_popup_01.ui')
+    local vars = self:load('event_shop.ui')
     self.m_structProduct = struct_product
 
     self:initUI()
@@ -25,42 +25,18 @@ function UI_EventPopupTab_Shop:initUI()
     local vars = self.vars
 	local struct_product = self.m_structProduct
 
-	-- 패키지 구성은 어떻게 할지 안정해져 임시로 아이콘 넣음
-    local icon = struct_product:makePackageSprite()
-    vars['packageNode']:addChild(icon)
+    local is_popup = false
+    local ui = PackageManager:getTargetUI(struct_product, is_popup)
 
-	-- 가격
-	local price = struct_product:getPriceStr()
-    vars['priceLabel']:setString(price)
-
-	-- 가격 아이콘
-    local icon = struct_product:makePriceIcon()
-    vars['priceNode']:addChild(icon)
-	
-	-- 가격 아이콘 및 라벨, 배경 조정
-    UIHelper:makePriceNodeVariable(vars['priceBg'],  vars['priceNode'], vars['priceLabel'])
+    local node = vars['shopNode']
+    node:removeAllChildren()
+    node:addChild(ui.root)
 end
 
 -------------------------------------
 -- function initButton
 -------------------------------------
 function UI_EventPopupTab_Shop:initButton()
-	local vars = self.vars
-    vars['buyBtn']:registerScriptTapHandler(function() self:click_buyBtn() end)
-	vars['closeBtn']:setVisible(false)
-    vars['infoBtn']:registerScriptTapHandler(function() self:click_infoBtn() end)
-end
-
--------------------------------------
--- function click_buyBtn
--------------------------------------
-function UI_EventPopupTab_Shop:click_buyBtn()
-	local struct_product = self.m_structProduct
-	local function cb_func(ret)
-		-- 아이템 획득 결과창
-        ItemObtainResult_Shop(ret)
-	end
-	struct_product:buy(cb_func)
 end
 
 -------------------------------------
@@ -68,15 +44,4 @@ end
 -- @brief
 -------------------------------------
 function UI_EventPopupTab_Shop:onEnterTab()
-    local vars = self.vars
-end
-
--------------------------------------
--- function click_infoBtn
--------------------------------------
-function UI_EventPopupTab_Shop:click_infoBtn()
-    cclog('## UI_EventPopupTab_Shop:click_infoBtn()')
-    local url = 'http://www.perplelab.com/agreement'
-    --SDKManager:goToWeb(url)
-    UI_WebView(url)
 end

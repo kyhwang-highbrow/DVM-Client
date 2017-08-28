@@ -152,9 +152,7 @@ local function main()
     if isAndroid() or isIos() then
         PerpleSDK:resetLuaBinding()
         StartPerpleSDKScheduler()
-        if (getAppVerNum() > AppVer_strToNum('0.3.4')) then
-            PerpleSDK:setPlatformServerSecretKey(CONSTANT['MD5_KEY'], 'HmacMD5')
-        end
+        PerpleSDK:setPlatformServerSecretKey(CONSTANT['MD5_KEY'], 'HmacMD5')
     end
 
     ErrorTracker:getInstance()

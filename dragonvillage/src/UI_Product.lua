@@ -52,6 +52,30 @@ function UI_Product:initUI()
         price_node:setScale(0)
     end
     
+    -- 다이아 상점 (토파즈 추가)
+    if (struct_product:getTabCategory() == 'cash') then
+        local l_topaz_list = ServerData_Item:parsePackageItemStr(struct_product['mail_content'])
+        if (l_topaz_list) then
+            vars['topazNode']:setVisible(true)
+            for idx, data in ipairs(l_topaz_list) do
+                local cnt = data['count']
+                local str = Str('+{1}', comma_value(cnt))
+                vars['topazLabel']:setString(str)
+            end
+        end
+    end
+
+    -- 뱃지 아이콘 추가
+    local badge = struct_product['badge']
+    if (badge) then
+        local img = cc.Sprite:create(string.format('res/ui/package/badge_%s.png', badge))
+        if (img) then
+            img:setDockPoint(cc.p(0.5, 0.5))
+            img:setAnchorPoint(cc.p(0.5, 0.5))
+            vars['badgeNode']:addChild(img)
+        end
+    end
+
 	-- 가격 아이콘 및 라벨, 배경 조정
 	UIHelper:makePriceNodeVariable(vars['priceBg'],  vars['priceNode'], vars['priceLabel'])
 
@@ -94,8 +118,9 @@ function UI_Product:click_buyBtn()
 	local struct_product = self.m_structProduct
 
 	if (struct_product:getTabCategory() == 'package') then
-		local ui = UI_Package(struct_product)
-        ui:setCloseCB(self.m_cbBuy) -- 상품 리스트 갱신을 위해 필요함
+        local is_popup = true
+		local ui = PackageManager:getTargetUI(struct_product, is_popup)
+        ui:setCloseCB(self.m_cbBuy)
 
     -- 광고 시청
     elseif (struct_product.price_type == 'advertising') then

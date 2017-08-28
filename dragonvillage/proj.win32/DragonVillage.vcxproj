@@ -360,6 +360,7 @@ xcopy /Y /Q "$(ProjectDir)..\..\libraries\pati\prebuilt\windows\*.dll" "$(OutDir
     <None Include="..\src\Monster_WorldOrderMachine.lua" />
     <None Include="..\src\NumberLabel_Pumping.lua" />
     <None Include="..\src\NumberLoop.lua" />
+    <None Include="..\src\PackageManager.lua" />
     <None Include="..\src\packet\chat.proto" />
     <None Include="..\src\packet\session.proto" />
     <None Include="..\src\PatchChecker.lua" />
@@ -866,6 +867,7 @@ xcopy /Y /Q "$(ProjectDir)..\..\libraries\pati\prebuilt\windows\*.dll" "$(OutDir
     <None Include="..\src\UI_CouponPopup_Confirm.lua" />
     <None Include="..\src\UI_EventPopupTab_HBShop.lua" />
     <None Include="..\src\UI_EventPopupTab_HBShop_Coupon.lua" />
+    <None Include="..\src\UI_EventPopupTab_PackageGrowth.lua" />
     <None Include="..\src\UI_EvolutionStoneCombine.lua" />
     <None Include="..\src\UI_EvolutionStoneCombineListItem.lua" />
     <None Include="..\src\UI_FormationDetailPopup.lua" />
@@ -876,6 +878,9 @@ xcopy /Y /Q "$(ProjectDir)..\..\libraries\pati\prebuilt\windows\*.dll" "$(OutDir
     <None Include="..\src\UI_Help.lua" />
     <None Include="..\src\UI_IngameTamerPanelItem.lua" />
     <None Include="..\src\UI_MonsterSkillCard.lua" />
+    <None Include="..\src\UI_Package_Growth.lua" />
+    <None Include="..\src\UI_Package_Monthly.lua" />
+    <None Include="..\src\UI_Package_Weekly.lua" />
     <None Include="..\src\UI_QuickPopup.lua" />
     <None Include="..\src\UI_RelationCard.lua" />
     <None Include="..\src\UI_ChangeNickPopup.lua" />

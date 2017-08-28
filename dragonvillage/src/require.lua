@@ -34,6 +34,7 @@ local t_module = {
     'ScriptCache',
     'CppFunctions',
     'XorCipher',
+    'PackageManager',
 
 	-- CONSTANT 
     'Constant',
@@ -669,6 +670,8 @@ local t_module = {
     'UI_ShopPopup',
     'UI_Product',
 	'UI_Package',
+    'UI_Package_Weekly',
+    'UI_Package_Monthly',
     'UI_SubscriptionPopup',
     'UI_SubscriptionPopup_Ing',
     'UI_SubscriptionDayListItem',
@@ -846,6 +849,7 @@ local t_module = {
     'UI_EventPopupTab_Notice',
     'UI_EventPopupTab_HBShop',
     'UI_EventPopupTab_HBShop_Coupon',
+    'UI_EventPopupTab_PackageGrowth',
     'UI_ExchangeProductListItem',
     'UI_AccessTimeDataListItem',
 

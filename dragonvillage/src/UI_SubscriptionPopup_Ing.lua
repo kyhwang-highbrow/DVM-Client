@@ -10,7 +10,7 @@ UI_SubscriptionPopup_Ing = class(PARENT, {
 -- function init
 -------------------------------------
 function UI_SubscriptionPopup_Ing:init()
-    local vars = self:load('shop_package_daily_dia_02.ui')
+    local vars = self:load('package_daily_dia_reward.ui')
 	UIManager:open(self, UIManager.POPUP)
 
 	-- 백키 지정
@@ -34,6 +34,10 @@ function UI_SubscriptionPopup_Ing:initUI()
     self:init_tableView()
 
     local info = self:getSubscribedInfo() -- StructSubscribedInfo
+
+    -- 타이틀 이미지 출력
+    local title = info:makePopupTitle()
+    vars['titleNode']:addChild(title)
 
     -- 배경 이미지 출력
     local bg = info:makePopupBg()
@@ -178,7 +182,7 @@ function UI_SubscriptionPopup_Ing:refresh()
 	local price = struct_product:getPriceStr()
     vars['priceLabel']:setString(price)
 
-        -- 가격 아이콘
+    -- 가격 아이콘
     local icon = struct_product:makePriceIcon()
     vars['priceNode']:removeAllChildren()
     vars['priceNode']:addChild(icon)

@@ -113,9 +113,7 @@ function UI_FormationDetailPopup:refresh()
         vars['priceLabel']:setString(price)
     end
 
-    if (curr_lv >= USER_MAX_LV) then
-        vars['enhanceBtn']:setEnabled(false)
-    end
+    
 end
 
 -------------------------------------
@@ -132,6 +130,14 @@ end
 -- function click_enhanceBtn
 -------------------------------------
 function UI_FormationDetailPopup:click_enhanceBtn()
+    local curr_lv = self.m_formationLevel
+    local user_lv = g_userData:get('lv')
+
+    if (curr_lv >= USER_MAX_LV) or (curr_lv >= user_lv) then
+        UIManager:toastNotificationGreen(Str('유저 레벨 이상 강화 하실 수 없습니다.'))
+        return
+    end
+
 	local function cb_func()
         self.m_isActivated = true
         local new_data = g_formationData:getFormationInfo(self.m_formation)
