@@ -147,6 +147,11 @@ function StructSlimeObject:getGradeRes()
     local grade = tonumber(self['grade'] or 1)
 	local color = 'gray'
 
+    -- grade의 0을 넣는 경우도 있다..!
+    if (grade <= 0) then
+        return
+    end
+
     return string.format('card_star_%s_01%02d.png', color, grade)
 end
 
