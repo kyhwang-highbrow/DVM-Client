@@ -120,6 +120,7 @@ function UI_ErrorPopup:setErrorStr(str)
     cclog('############## setErrorStr start')
 	if (not str) then
 		cclog('UI_ErrorPopup:setErrorStr(str) : nil parameter')
+        str = 'null parameter'
 	end
     
 	local error_str = string.gsub(str, '\t', '    ') or '???'
