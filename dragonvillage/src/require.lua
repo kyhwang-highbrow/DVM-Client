@@ -144,7 +144,6 @@ local t_module = {
     'Table',
     'TableClass',
     'SecurityNumber',
-    'ResPreloadHelper',
     'ResPreloadMgr',
     'NumberLabel',
 	'NumberLabel_Pumping',
