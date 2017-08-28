@@ -165,8 +165,9 @@ function UI_BookDetailPopup:refresh_gradeBtnState()
 	local factor = (self.m_evolution == 3) and 1 or 0
 	if (self.m_grade <= t_dragon['birthgrade'] + factor) then
         vars['gradeMinusBtn']:setEnabled(false)
+    end
 
-	elseif (self.m_grade >= MAX_DRAGON_GRADE) then
+	if (self.m_grade >= MAX_DRAGON_GRADE) then
         vars['gradePlusBtn']:setEnabled(false)
         
 	end
@@ -190,8 +191,9 @@ function UI_BookDetailPopup:refresh_lvBtnState()
 
     if (self.m_lv <= 1) then
         vars['lvMinusBtn']:setEnabled(false)
+    end
 
-	elseif (self.m_lv >= max_lv) then
+	if (self.m_lv >= max_lv) then
         vars['lvPlusBtn']:setEnabled(false)
         
 	end
