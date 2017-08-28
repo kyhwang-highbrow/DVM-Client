@@ -1290,9 +1290,6 @@
     <None Include="..\src\ResHelper.lua">
       <Filter>lua\src</Filter>
     </None>
-    <None Include="..\src\ResPreloadHelper.lua">
-      <Filter>lua\src</Filter>
-    </None>
     <None Include="..\src\ResPreloadMgr.lua">
       <Filter>lua\src</Filter>
     </None>
@@ -2499,28 +2496,13 @@
     <None Include="..\src_tool\LuaGlobal.lua">
       <Filter>lua_tool</Filter>
     </None>
-    <None Include="..\src_tool\redefine.lua">
-      <Filter>lua_tool</Filter>
-    </None>
-    <None Include="..\src_tool\Scene_UIViewer.lua">
-      <Filter>lua_tool</Filter>
-    </None>
-    <None Include="..\src_tool\SceneIngameTest.lua">
-      <Filter>lua_tool</Filter>
-    </None>
     <None Include="..\src_tool\SceneViewer.lua">
-      <Filter>lua_tool</Filter>
-    </None>
-    <None Include="..\src_tool\SceneWaveMaker.lua">
       <Filter>lua_tool</Filter>
     </None>
     <None Include="..\src_tool\StageAnalysis.lua">
       <Filter>lua_tool</Filter>
     </None>
     <None Include="..\src_tool\TranslateExtractor.lua">
-      <Filter>lua_tool</Filter>
-    </None>
-    <None Include="..\src_tool\UI_WaveMaker.lua">
       <Filter>lua_tool</Filter>
     </None>
     <None Include="..\src_tool\UISourceCodeGenerator.lua">
@@ -2536,15 +2518,6 @@
       <Filter>lua_tool</Filter>
     </None>
     <None Include="..\src_tool\DataTableValidator.lua">
-      <Filter>lua_tool</Filter>
-    </None>
-    <None Include="..\src_tool\entry_ingame_test.lua">
-      <Filter>lua_tool</Filter>
-    </None>
-    <None Include="..\src_tool\entry_preload_generator.lua">
-      <Filter>lua_tool</Filter>
-    </None>
-    <None Include="..\src_tool\entry_ui_viewer.lua">
       <Filter>lua_tool</Filter>
     </None>
     <None Include="..\src_tool\entry_viewer.lua">
@@ -2678,6 +2651,9 @@
     </None>
     <None Include="..\src\UI_CouponPopupPreOccupancyNick.lua">
       <Filter>lua\UI</Filter>
+    </None>
+    <None Include="..\src_tool\ResourcePreloadMaker.lua">
+      <Filter>lua_tool</Filter>
     </None>
   </ItemGroup>
   <ItemGroup>
