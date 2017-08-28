@@ -1669,6 +1669,30 @@
 			{
 				[1] =
 				{
+					type = 'Button';
+					ui_name = '';
+					x = 50.000000;
+					y = -50.000000;
+					dock_point = { 0.500000; 0.500000; };
+					anchor_point = { 0.500000; 0.500000; };
+					relative_size_type = 0;
+					width = 80;
+					height = 80;
+					scale_x = 1.000000;
+					scale_y = 1.000000;
+					skew_x = 0.000000;
+					skew_y = 0.000000;
+					rotation = 0.000000;
+					visible = false;
+					lua_name = 'highbrowBtn';
+					enable = true;
+					normal = 'ui/temp/empty.png';
+					selected = '';
+					disable = '';
+					image_type = 0;
+				};
+				[2] =
+				{
 					type = 'LabelTTF';
 					ui_name = '';
 					x = 0.000000;
@@ -1707,7 +1731,7 @@
 					shadow_direction = 0;
 					shadow_distance = 2.000000;
 				};
-				[2] =
+				[3] =
 				{
 					[1] =
 					{
@@ -1780,7 +1804,7 @@
 					disable = '';
 					image_type = 1;
 				};
-				[3] =
+				[4] =
 				{
 					[1] =
 					{
@@ -1853,7 +1877,7 @@
 					disable = '';
 					image_type = 1;
 				};
-				[4] =
+				[5] =
 				{
 					[1] =
 					{
@@ -1926,7 +1950,7 @@
 					disable = '';
 					image_type = 1;
 				};
-				[5] =
+				[6] =
 				{
 					[1] =
 					{
@@ -2053,7 +2077,7 @@
 						visible = true;
 						lua_name = '';
 						font_name = 'font/common_font_01.ttf';
-						font_size = 28;
+						font_size = 26;
 						text = '복구코드';
 						h_alignment = 0;
 						v_alignment = 1;
@@ -2096,7 +2120,7 @@
 					disable = '';
 					image_type = 0;
 				};
-				[6] =
+				[7] =
 				{
 					[1] =
 					{
@@ -2143,7 +2167,7 @@
 						visible = true;
 						lua_name = 'accountLabel';
 						font_name = 'font/common_font_01.ttf';
-						font_size = 30;
+						font_size = 26;
 						text = 'GUEST';
 						h_alignment = 2;
 						v_alignment = 1;
@@ -2183,7 +2207,7 @@
 						visible = true;
 						lua_name = '';
 						font_name = 'font/common_font_01.ttf';
-						font_size = 28;
+						font_size = 26;
 						text = '계정';
 						h_alignment = 0;
 						v_alignment = 1;
@@ -2208,7 +2232,7 @@
 					{
 						type = 'Node';
 						ui_name = '';
-						x = 228.000000;
+						x = 348.000000;
 						y = 0.000000;
 						dock_point = { 0.500000; 0.500000; };
 						anchor_point = { 0.500000; 0.500000; };
@@ -2239,30 +2263,6 @@
 					rotation = 0.000000;
 					visible = true;
 					lua_name = '';
-				};
-				[7] =
-				{
-					type = 'Button';
-					ui_name = '';
-					x = 50.000000;
-					y = -12.000000;
-					dock_point = { 0.500000; 0.500000; };
-					anchor_point = { 0.500000; 0.500000; };
-					relative_size_type = 0;
-					width = 80;
-					height = 80;
-					scale_x = 1.000000;
-					scale_y = 1.000000;
-					skew_x = 0.000000;
-					skew_y = 0.000000;
-					rotation = 0.000000;
-					visible = false;
-					lua_name = 'highbrowBtn';
-					enable = true;
-					normal = 'ui/temp/empty.png';
-					selected = '';
-					disable = '';
-					image_type = 0;
 				};
 				[8] =
 				{

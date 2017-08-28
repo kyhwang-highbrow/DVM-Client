@@ -351,7 +351,7 @@
 				skew_y = 0.000000;
 				rotation = 0.000000;
 				visible = true;
-				lua_name = 'diaLabel';
+				lua_name = 'itemLabel1';
 				font_name = 'font/common_font_01.ttf';
 				font_size = 24;
 				text = '다이아\n{1}개';
@@ -391,7 +391,7 @@
 				skew_y = 0.000000;
 				rotation = 0.000000;
 				visible = true;
-				lua_name = 'goldLabel';
+				lua_name = 'itemLabel2';
 				font_name = 'font/common_font_01.ttf';
 				font_size = 24;
 				text = '골드\n{1}개';
@@ -431,7 +431,7 @@
 				skew_y = 0.000000;
 				rotation = 0.000000;
 				visible = true;
-				lua_name = 'ancientEggLabel';
+				lua_name = 'itemLabel3';
 				font_name = 'font/common_font_01.ttf';
 				font_size = 24;
 				text = '고대의 알\n4~5성\n{1}개';
@@ -471,7 +471,7 @@
 				skew_y = 0.000000;
 				rotation = 0.000000;
 				visible = true;
-				lua_name = 'lightEggLabel';
+				lua_name = 'itemLabel4';
 				font_name = 'font/common_font_01.ttf';
 				font_size = 24;
 				text = '신성의 알\n3~5성\n{1}개';
@@ -511,7 +511,7 @@
 				skew_y = 0.000000;
 				rotation = 0.000000;
 				visible = true;
-				lua_name = 'darkEggLabel';
+				lua_name = 'itemLabel5';
 				font_name = 'font/common_font_01.ttf';
 				font_size = 24;
 				text = '암흑의 알\n3~5성\n{1}개';
@@ -551,7 +551,7 @@
 				skew_y = 0.000000;
 				rotation = 0.000000;
 				visible = true;
-				lua_name = 'skillSlimeLabel';
+				lua_name = 'itemLabel6';
 				font_name = 'font/common_font_01.ttf';
 				font_size = 24;
 				text = '스킬 슬라임\n{1}개';

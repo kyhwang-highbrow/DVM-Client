@@ -7,6 +7,32 @@
 		{
 			[1] =
 			{
+				[1] =
+				{
+					type = 'Sprite';
+					ui_name = '';
+					x = -172.000000;
+					y = -56.000000;
+					dock_point = { 1.000000; 1.000000; };
+					anchor_point = { 0.500000; 0.500000; };
+					relative_size_type = 0;
+					width = 333;
+					height = 93;
+					scale_x = 1.000000;
+					scale_y = 1.000000;
+					skew_x = 0.000000;
+					skew_y = 0.000000;
+					rotation = 0.000000;
+					visible = true;
+					lua_name = '';
+					file_name = 'ui/typo/kr/event/text_attendance.png';
+					color = { 255; 255; 255; };
+					opacity = 255;
+					flip_x = false;
+					flip_y = false;
+					src_blend = 770;
+					dest_blend = 771;
+				};
 				type = 'Sprite';
 				ui_name = '';
 				x = 0.000000;
@@ -15,7 +41,7 @@
 				anchor_point = { 0.500000; 0.500000; };
 				relative_size_type = 0;
 				width = 930;
-				height = 630;
+				height = 640;
 				scale_x = 1.000000;
 				scale_y = 1.000000;
 				skew_x = 0.000000;
@@ -23,7 +49,7 @@
 				rotation = 0.000000;
 				visible = true;
 				lua_name = '';
-				file_name = 'ui/event/frame_attendence_01.png';
+				file_name = 'ui/event/bg_attendance.png';
 				color = { 255; 255; 255; };
 				opacity = 255;
 				flip_x = false;
@@ -35,8 +61,8 @@
 			{
 				type = 'Node';
 				ui_name = '-';
-				x = -390.000000;
-				y = 148.000000;
+				x = -387.000000;
+				y = 142.000000;
 				dock_point = { 0.500000; 0.500000; };
 				anchor_point = { 0.500000; 0.500000; };
 				relative_size_type = 0;
@@ -54,8 +80,8 @@
 			{
 				type = 'Node';
 				ui_name = '';
-				x = -260.000000;
-				y = 148.000000;
+				x = -258.000000;
+				y = 142.000000;
 				dock_point = { 0.500000; 0.500000; };
 				anchor_point = { 0.500000; 0.500000; };
 				relative_size_type = 0;
@@ -73,8 +99,8 @@
 			{
 				type = 'Node';
 				ui_name = '';
-				x = -130.000000;
-				y = 148.000000;
+				x = -129.000000;
+				y = 142.000000;
 				dock_point = { 0.500000; 0.500000; };
 				anchor_point = { 0.500000; 0.500000; };
 				relative_size_type = 0;
@@ -93,7 +119,7 @@
 				type = 'Node';
 				ui_name = '';
 				x = 0.000000;
-				y = 148.000000;
+				y = 142.000000;
 				dock_point = { 0.500000; 0.500000; };
 				anchor_point = { 0.500000; 0.500000; };
 				relative_size_type = 0;
@@ -111,8 +137,8 @@
 			{
 				type = 'Node';
 				ui_name = '';
-				x = 130.000000;
-				y = 148.000000;
+				x = 129.000000;
+				y = 142.000000;
 				dock_point = { 0.500000; 0.500000; };
 				anchor_point = { 0.500000; 0.500000; };
 				relative_size_type = 0;
@@ -130,8 +156,8 @@
 			{
 				type = 'Node';
 				ui_name = '';
-				x = 260.000000;
-				y = 148.000000;
+				x = 258.000000;
+				y = 142.000000;
 				dock_point = { 0.500000; 0.500000; };
 				anchor_point = { 0.500000; 0.500000; };
 				relative_size_type = 0;
@@ -149,8 +175,8 @@
 			{
 				type = 'Node';
 				ui_name = '';
-				x = 390.000000;
-				y = 148.000000;
+				x = 387.000000;
+				y = 142.000000;
 				dock_point = { 0.500000; 0.500000; };
 				anchor_point = { 0.500000; 0.500000; };
 				relative_size_type = 0;
@@ -168,8 +194,8 @@
 			{
 				type = 'Node';
 				ui_name = '-';
-				x = -390.000000;
-				y = 18.000000;
+				x = -387.000000;
+				y = 13.000000;
 				dock_point = { 0.500000; 0.500000; };
 				anchor_point = { 0.500000; 0.500000; };
 				relative_size_type = 0;
@@ -187,8 +213,8 @@
 			{
 				type = 'Node';
 				ui_name = '';
-				x = -260.000000;
-				y = 18.000000;
+				x = -258.000000;
+				y = 13.000000;
 				dock_point = { 0.500000; 0.500000; };
 				anchor_point = { 0.500000; 0.500000; };
 				relative_size_type = 0;
@@ -206,8 +232,8 @@
 			{
 				type = 'Node';
 				ui_name = '';
-				x = -130.000000;
-				y = 18.000000;
+				x = -129.000000;
+				y = 13.000000;
 				dock_point = { 0.500000; 0.500000; };
 				anchor_point = { 0.500000; 0.500000; };
 				relative_size_type = 0;
@@ -226,7 +252,7 @@
 				type = 'Node';
 				ui_name = '';
 				x = 0.000000;
-				y = 18.000000;
+				y = 13.000000;
 				dock_point = { 0.500000; 0.500000; };
 				anchor_point = { 0.500000; 0.500000; };
 				relative_size_type = 0;
@@ -244,8 +270,8 @@
 			{
 				type = 'Node';
 				ui_name = '';
-				x = 130.000000;
-				y = 18.000000;
+				x = 129.000000;
+				y = 13.000000;
 				dock_point = { 0.500000; 0.500000; };
 				anchor_point = { 0.500000; 0.500000; };
 				relative_size_type = 0;
@@ -263,8 +289,8 @@
 			{
 				type = 'Node';
 				ui_name = '';
-				x = 260.000000;
-				y = 18.000000;
+				x = 258.000000;
+				y = 13.000000;
 				dock_point = { 0.500000; 0.500000; };
 				anchor_point = { 0.500000; 0.500000; };
 				relative_size_type = 0;
@@ -282,8 +308,8 @@
 			{
 				type = 'Node';
 				ui_name = '';
-				x = 390.000000;
-				y = 18.000000;
+				x = 387.000000;
+				y = 13.000000;
 				dock_point = { 0.500000; 0.500000; };
 				anchor_point = { 0.500000; 0.500000; };
 				relative_size_type = 0;
@@ -301,8 +327,8 @@
 			{
 				type = 'Node';
 				ui_name = '-';
-				x = -390.000000;
-				y = -112.000000;
+				x = -387.000000;
+				y = -116.000000;
 				dock_point = { 0.500000; 0.500000; };
 				anchor_point = { 0.500000; 0.500000; };
 				relative_size_type = 0;
@@ -320,8 +346,8 @@
 			{
 				type = 'Node';
 				ui_name = '';
-				x = -260.000000;
-				y = -112.000000;
+				x = -258.000000;
+				y = -116.000000;
 				dock_point = { 0.500000; 0.500000; };
 				anchor_point = { 0.500000; 0.500000; };
 				relative_size_type = 0;
@@ -339,8 +365,8 @@
 			{
 				type = 'Node';
 				ui_name = '';
-				x = -130.000000;
-				y = -112.000000;
+				x = -129.000000;
+				y = -116.000000;
 				dock_point = { 0.500000; 0.500000; };
 				anchor_point = { 0.500000; 0.500000; };
 				relative_size_type = 0;
@@ -359,7 +385,7 @@
 				type = 'Node';
 				ui_name = '';
 				x = 0.000000;
-				y = -112.000000;
+				y = -116.000000;
 				dock_point = { 0.500000; 0.500000; };
 				anchor_point = { 0.500000; 0.500000; };
 				relative_size_type = 0;
@@ -377,8 +403,8 @@
 			{
 				type = 'Node';
 				ui_name = '';
-				x = 130.000000;
-				y = -112.000000;
+				x = 129.000000;
+				y = -116.000000;
 				dock_point = { 0.500000; 0.500000; };
 				anchor_point = { 0.500000; 0.500000; };
 				relative_size_type = 0;
@@ -396,8 +422,8 @@
 			{
 				type = 'Node';
 				ui_name = '';
-				x = 260.000000;
-				y = -112.000000;
+				x = 258.000000;
+				y = -116.000000;
 				dock_point = { 0.500000; 0.500000; };
 				anchor_point = { 0.500000; 0.500000; };
 				relative_size_type = 0;
@@ -415,8 +441,8 @@
 			{
 				type = 'Node';
 				ui_name = '';
-				x = 390.000000;
-				y = -112.000000;
+				x = 387.000000;
+				y = -116.000000;
 				dock_point = { 0.500000; 0.500000; };
 				anchor_point = { 0.500000; 0.500000; };
 				relative_size_type = 0;
@@ -434,8 +460,8 @@
 			{
 				type = 'Node';
 				ui_name = '-';
-				x = -390.000000;
-				y = -242.000000;
+				x = -387.000000;
+				y = -245.000000;
 				dock_point = { 0.500000; 0.500000; };
 				anchor_point = { 0.500000; 0.500000; };
 				relative_size_type = 0;
@@ -453,8 +479,8 @@
 			{
 				type = 'Node';
 				ui_name = '';
-				x = -260.000000;
-				y = -242.000000;
+				x = -258.000000;
+				y = -245.000000;
 				dock_point = { 0.500000; 0.500000; };
 				anchor_point = { 0.500000; 0.500000; };
 				relative_size_type = 0;
@@ -472,8 +498,8 @@
 			{
 				type = 'Node';
 				ui_name = '';
-				x = -130.000000;
-				y = -242.000000;
+				x = -129.000000;
+				y = -245.000000;
 				dock_point = { 0.500000; 0.500000; };
 				anchor_point = { 0.500000; 0.500000; };
 				relative_size_type = 0;
@@ -492,7 +518,7 @@
 				type = 'Node';
 				ui_name = '';
 				x = 0.000000;
-				y = -242.000000;
+				y = -245.000000;
 				dock_point = { 0.500000; 0.500000; };
 				anchor_point = { 0.500000; 0.500000; };
 				relative_size_type = 0;
@@ -510,8 +536,8 @@
 			{
 				type = 'Node';
 				ui_name = '';
-				x = 130.000000;
-				y = -242.000000;
+				x = 129.000000;
+				y = -245.000000;
 				dock_point = { 0.500000; 0.500000; };
 				anchor_point = { 0.500000; 0.500000; };
 				relative_size_type = 0;
@@ -529,8 +555,8 @@
 			{
 				type = 'Node';
 				ui_name = '';
-				x = 260.000000;
-				y = -242.000000;
+				x = 258.000000;
+				y = -245.000000;
 				dock_point = { 0.500000; 0.500000; };
 				anchor_point = { 0.500000; 0.500000; };
 				relative_size_type = 0;
@@ -548,8 +574,8 @@
 			{
 				type = 'Node';
 				ui_name = '';
-				x = 390.000000;
-				y = -242.000000;
+				x = 387.000000;
+				y = -245.000000;
 				dock_point = { 0.500000; 0.500000; };
 				anchor_point = { 0.500000; 0.500000; };
 				relative_size_type = 0;
@@ -565,78 +591,55 @@
 			};
 			[30] =
 			{
-				[1] =
-				{
-					type = 'LabelTTF';
-					ui_name = '';
-					x = 0.000000;
-					y = 0.000000;
-					dock_point = { 0.500000; 0.500000; };
-					anchor_point = { 0.500000; 0.500000; };
-					relative_size_type = 0;
-					width = 198;
-					height = 80;
-					scale_x = 1.000000;
-					scale_y = 1.000000;
-					skew_x = 0.000000;
-					skew_y = 0.000000;
-					rotation = 0.000000;
-					visible = true;
-					lua_name = 'dayLabel';
-					font_name = 'font/common_font_01.ttf';
-					font_size = 40;
-					text = '{0}일차';
-					h_alignment = 1;
-					v_alignment = 1;
-					color = { 255; 255; 0; };
-					opacity = 255;
-					dimension_width = 198;
-					dimension_height = 80;
-					letter_spacing = 0.000000;
-					has_stroke = true;
-					stroke_type = 0;
-					stroke_detail_level = 0;
-					is_sharp_text = true;
-					stroke_tickness = 2.000000;
-					stroke_color = { 0; 0; 0; };
-					has_shadow = true;
-					shadow_color = { 0; 0; 0; };
-					shadow_opacity = 150;
-					shadow_direction = 0;
-					shadow_distance = 3.000000;
-				};
-				type = 'LayerColor';
+				type = 'LabelTTF';
 				ui_name = '';
-				x = 13.000000;
-				y = -13.000000;
+				x = 15.000000;
+				y = 8.000000;
 				dock_point = { 0.000000; 1.000000; };
 				anchor_point = { 0.000000; 1.000000; };
 				relative_size_type = 0;
-				width = 140;
-				height = 80;
+				width = 198;
+				height = 72;
 				scale_x = 1.000000;
 				scale_y = 1.000000;
 				skew_x = 0.000000;
 				skew_y = 0.000000;
 				rotation = 0.000000;
 				visible = true;
-				lua_name = '';
-				color = { 0; 0; 0; };
-				opacity = 150;
-				src_blend = 770;
-				dest_blend = 771;
+				lua_name = 'dayLabel';
+				font_name = 'font/common_font_01.ttf';
+				font_size = 40;
+				text = '{0}일차';
+				h_alignment = 0;
+				v_alignment = 1;
+				color = { 255; 255; 0; };
+				opacity = 255;
+				dimension_width = 198;
+				dimension_height = 72;
+				letter_spacing = 0.000000;
+				has_stroke = true;
+				stroke_type = 0;
+				stroke_detail_level = 0;
+				is_sharp_text = true;
+				stroke_tickness = 2.000000;
+				stroke_color = { 0; 0; 0; };
+				has_shadow = false;
+				shadow_color = { 0; 0; 0; };
+				shadow_opacity = 150;
+				shadow_direction = 0;
+				shadow_distance = 3.000000;
 			};
 			[31] =
 			{
 				type = 'LabelTTF';
 				ui_name = '';
-				x = 164.000000;
-				y = -7.000000;
+				x = 15.000000;
+				y = -44.000000;
 				dock_point = { 0.000000; 1.000000; };
 				anchor_point = { 0.000000; 1.000000; };
 				relative_size_type = 0;
 				width = 714;
-				height = 60;
+				height = 40;
 				scale_x = 1.000000;
 				scale_y = 1.000000;
 				skew_x = 0.000000;
@@ -645,14 +648,14 @@
 				visible = true;
 				lua_name = 'descLabel';
 				font_name = 'font/common_font_01.ttf';
-				font_size = 26;
+				font_size = 20;
 				text = '오늘도 반가워!';
 				h_alignment = 0;
 				v_alignment = 1;
 				color = { 255; 255; 255; };
 				opacity = 255;
 				dimension_width = 714;
-				dimension_height = 60;
+				dimension_height = 40;
 				letter_spacing = 0.000000;
 				has_stroke = true;
 				stroke_type = 0;
@@ -660,7 +663,7 @@
 				is_sharp_text = true;
 				stroke_tickness = 2.000000;
 				stroke_color = { 0; 0; 0; };
-				has_shadow = true;
+				has_shadow = false;
 				shadow_color = { 0; 0; 0; };
 				shadow_opacity = 150;
 				shadow_direction = 0;
@@ -670,13 +673,13 @@
 			{
 				type = 'LabelTTF';
 				ui_name = '';
-				x = 164.000000;
-				y = -44.000000;
+				x = 15.000000;
+				y = -70.000000;
 				dock_point = { 0.000000; 1.000000; };
 				anchor_point = { 0.000000; 1.000000; };
 				relative_size_type = 0;
 				width = 714;
-				height = 60;
+				height = 40;
 				scale_x = 1.000000;
 				scale_y = 1.000000;
 				skew_x = 0.000000;
@@ -685,14 +688,14 @@
 				visible = true;
 				lua_name = '';
 				font_name = 'font/common_font_01.ttf';
-				font_size = 22;
-				text = '보상 아이템은 메일함에서 받으실 수 있습니다';
+				font_size = 20;
+				text = '보상 아이템은 우편함에서 받으실 수 있습니다';
 				h_alignment = 0;
 				v_alignment = 1;
 				color = { 192; 192; 192; };
 				opacity = 255;
 				dimension_width = 714;
-				dimension_height = 60;
+				dimension_height = 40;
 				letter_spacing = 0.000000;
 				has_stroke = true;
 				stroke_type = 0;

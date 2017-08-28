@@ -12,12 +12,12 @@
 					type = 'Scale9Sprite';
 					ui_name = '';
 					x = 0.000000;
-					y = -23.000000;
+					y = -30.000000;
 					dock_point = { 0.500000; 0.500000; };
 					anchor_point = { 0.500000; 0.500000; };
 					relative_size_type = 0;
-					width = 574;
-					height = 162;
+					width = 640;
+					height = 240;
 					scale_x = 1.000000;
 					scale_y = 1.000000;
 					skew_x = 0.000000;
@@ -61,11 +61,34 @@
 			{
 				[1] =
 				{
-					type = 'Scale9Sprite';
+					type = 'LayerColor';
 					ui_name = '';
-					x = -167.000000;
+					x = 0.000000;
 					y = 0.000000;
 					dock_point = { 0.500000; 0.500000; };
+					anchor_point = { 0.500000; 0.500000; };
+					relative_size_type = 3;
+					width = 0;
+					height = 0;
+					scale_x = 1.000000;
+					scale_y = 1.000000;
+					skew_x = 0.000000;
+					skew_y = 0.000000;
+					rotation = 0.000000;
+					visible = false;
+					lua_name = '';
+					color = { 255; 255; 255; };
+					opacity = 50;
+					src_blend = 770;
+					dest_blend = 771;
+				};
+				[2] =
+				{
+					type = 'Scale9Sprite';
+					ui_name = '';
+					x = 50.000000;
+					y = 0.000000;
+					dock_point = { 0.000000; 0.500000; };
 					anchor_point = { 0.500000; 0.500000; };
 					relative_size_type = 0;
 					width = 40;
@@ -85,13 +108,13 @@
 					center_rect_width = 0;
 					center_rect_height = 0;
 				};
-				[2] =
+				[3] =
 				{
 					type = 'Sprite';
 					ui_name = '';
-					x = -167.000000;
+					x = 50.000000;
 					y = 0.000000;
-					dock_point = { 0.500000; 0.500000; };
+					dock_point = { 0.000000; 0.500000; };
 					anchor_point = { 0.500000; 0.500000; };
 					relative_size_type = 0;
 					width = 36;
@@ -111,16 +134,16 @@
 					src_blend = 770;
 					dest_blend = 771;
 				};
-				[3] =
+				[4] =
 				{
 					type = 'LabelTTF';
 					ui_name = '';
-					x = 40.000000;
-					y = 7.000000;
-					dock_point = { 0.500000; 0.500000; };
+					x = 290.000000;
+					y = 12.000000;
+					dock_point = { 0.000000; 0.500000; };
 					anchor_point = { 0.500000; 0.500000; };
 					relative_size_type = 0;
-					width = 340;
+					width = 400;
 					height = 64;
 					scale_x = 1.000000;
 					scale_y = 1.000000;
@@ -130,13 +153,13 @@
 					visible = true;
 					lua_name = '';
 					font_name = 'font/common_font_01.ttf';
-					font_size = 22;
+					font_size = 24;
 					text = '이용약관에 동의합니다. (필수)';
 					h_alignment = 0;
 					v_alignment = 1;
 					color = { 255; 255; 255; };
 					opacity = 255;
-					dimension_width = 340;
+					dimension_width = 400;
 					dimension_height = 64;
 					letter_spacing = 0.000000;
 					has_stroke = true;
@@ -151,16 +174,16 @@
 					shadow_direction = 0;
 					shadow_distance = 5.000000;
 				};
-				[4] =
+				[5] =
 				{
 					type = 'LabelTTF';
 					ui_name = '';
-					x = 40.000000;
+					x = 290.000000;
 					y = -20.000000;
-					dock_point = { 0.500000; 0.500000; };
+					dock_point = { 0.000000; 0.500000; };
 					anchor_point = { 0.500000; 0.500000; };
 					relative_size_type = 0;
-					width = 340;
+					width = 400;
 					height = 40;
 					scale_x = 1.000000;
 					scale_y = 1.000000;
@@ -170,13 +193,13 @@
 					visible = true;
 					lua_name = '';
 					font_name = 'font/common_font_01.ttf';
-					font_size = 18;
+					font_size = 22;
 					text = '광고성 정보 수신 동의 포함';
 					h_alignment = 0;
 					v_alignment = 1;
 					color = { 192; 192; 192; };
 					opacity = 255;
-					dimension_width = 340;
+					dimension_width = 400;
 					dimension_height = 40;
 					letter_spacing = 0.000000;
 					has_stroke = true;
@@ -193,13 +216,13 @@
 				};
 				type = 'Button';
 				ui_name = '';
-				x = -75.000000;
-				y = 16.000000;
+				x = -50.000000;
+				y = 24.000000;
 				dock_point = { 0.500000; 0.500000; };
 				anchor_point = { 0.500000; 0.500000; };
 				relative_size_type = 0;
-				width = 400;
-				height = 64;
+				width = 500;
+				height = 100;
 				scale_x = 1.000000;
 				scale_y = 1.000000;
 				skew_x = 0.000000;
@@ -217,11 +240,34 @@
 			{
 				[1] =
 				{
-					type = 'Scale9Sprite';
+					type = 'LayerColor';
 					ui_name = '';
-					x = -167.000000;
+					x = 0.000000;
 					y = 0.000000;
 					dock_point = { 0.500000; 0.500000; };
+					anchor_point = { 0.500000; 0.500000; };
+					relative_size_type = 3;
+					width = 0;
+					height = 0;
+					scale_x = 1.000000;
+					scale_y = 1.000000;
+					skew_x = 0.000000;
+					skew_y = 0.000000;
+					rotation = 0.000000;
+					visible = false;
+					lua_name = '';
+					color = { 255; 255; 255; };
+					opacity = 50;
+					src_blend = 770;
+					dest_blend = 771;
+				};
+				[2] =
+				{
+					type = 'Scale9Sprite';
+					ui_name = '';
+					x = 50.000000;
+					y = 0.000000;
+					dock_point = { 0.000000; 0.500000; };
 					anchor_point = { 0.500000; 0.500000; };
 					relative_size_type = 0;
 					width = 40;
@@ -241,13 +287,13 @@
 					center_rect_width = 0;
 					center_rect_height = 0;
 				};
-				[2] =
+				[3] =
 				{
 					type = 'Sprite';
 					ui_name = '';
-					x = -167.000000;
+					x = 50.000000;
 					y = 0.000000;
-					dock_point = { 0.500000; 0.500000; };
+					dock_point = { 0.000000; 0.500000; };
 					anchor_point = { 0.500000; 0.500000; };
 					relative_size_type = 0;
 					width = 36;
@@ -267,16 +313,16 @@
 					src_blend = 770;
 					dest_blend = 771;
 				};
-				[3] =
+				[4] =
 				{
 					type = 'LabelTTF';
 					ui_name = '';
-					x = 41.000000;
+					x = 290.000000;
 					y = 0.000000;
-					dock_point = { 0.500000; 0.500000; };
+					dock_point = { 0.000000; 0.500000; };
 					anchor_point = { 0.500000; 0.500000; };
 					relative_size_type = 0;
-					width = 340;
+					width = 400;
 					height = 64;
 					scale_x = 1.000000;
 					scale_y = 1.000000;
@@ -286,13 +332,13 @@
 					visible = true;
 					lua_name = '';
 					font_name = 'font/common_font_01.ttf';
-					font_size = 22;
+					font_size = 24;
 					text = '개인정보 취급방침에 동의합니다. (필수)';
 					h_alignment = 0;
 					v_alignment = 1;
 					color = { 255; 255; 255; };
 					opacity = 255;
-					dimension_width = 340;
+					dimension_width = 400;
 					dimension_height = 64;
 					letter_spacing = 0.000000;
 					has_stroke = true;
@@ -309,13 +355,13 @@
 				};
 				type = 'Button';
 				ui_name = '';
-				x = -75.000000;
-				y = -60.000000;
+				x = -50.000000;
+				y = -86.000000;
 				dock_point = { 0.500000; 0.500000; };
 				anchor_point = { 0.500000; 0.500000; };
 				relative_size_type = 0;
-				width = 400;
-				height = 64;
+				width = 500;
+				height = 100;
 				scale_x = 1.000000;
 				scale_y = 1.000000;
 				skew_x = 0.000000;
@@ -334,7 +380,7 @@
 				type = 'Button';
 				ui_name = '';
 				x = 240.000000;
-				y = 16.000000;
+				y = 30.000000;
 				dock_point = { 0.500000; 0.500000; };
 				anchor_point = { 0.500000; 0.500000; };
 				relative_size_type = 0;
@@ -358,7 +404,7 @@
 				type = 'Button';
 				ui_name = '';
 				x = 240.000000;
-				y = -60.000000;
+				y = -80.000000;
 				dock_point = { 0.500000; 0.500000; };
 				anchor_point = { 0.500000; 0.500000; };
 				relative_size_type = 0;
@@ -382,8 +428,8 @@
 				type = 'LabelTTF';
 				ui_name = '';
 				x = 0.000000;
-				y = 98.000000;
-				dock_point = { 0.500000; 0.500000; };
+				y = -54.000000;
+				dock_point = { 0.500000; 1.000000; };
 				anchor_point = { 0.500000; 0.500000; };
 				relative_size_type = 0;
 				width = 1000;
@@ -425,7 +471,7 @@
 			anchor_point = { 0.500000; 0.500000; };
 			relative_size_type = 0;
 			width = 1300;
-			height = 290;
+			height = 380;
 			scale_x = 1.000000;
 			scale_y = 1.000000;
 			skew_x = 0.000000;

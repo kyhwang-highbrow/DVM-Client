@@ -188,7 +188,7 @@
 				type = 'Scale9Sprite';
 				ui_name = '';
 				x = -10.000000;
-				y = -122.000000;
+				y = -112.000000;
 				dock_point = { 1.000000; 1.000000; };
 				anchor_point = { 1.000000; 0.500000; };
 				relative_size_type = 0;
@@ -254,7 +254,7 @@
 				type = 'Scale9Sprite';
 				ui_name = '';
 				x = -10.000000;
-				y = -82.000000;
+				y = -80.000000;
 				dock_point = { 1.000000; 1.000000; };
 				anchor_point = { 1.000000; 0.500000; };
 				relative_size_type = 0;

@@ -49,7 +49,7 @@
                 <key>textureRotated</key>
                 <false/>
             </dict>
-            <key>skill_leaf_blade_lightr_01.png</key>
+            <key>skill_leaf_blade_light_01.png</key>
             <dict>
                 <key>aliases</key>
                 <array/>
@@ -93,7 +93,7 @@
             <key>size</key>
             <string>{128,512}</string>
             <key>smartupdate</key>
-            <string>$TexturePacker:SmartUpdate:9a522bcc0a7a03419fa0d57baf6a976d:09ef8989a0435dd372690ef0464fb855:630ea29ef5c3b06aaef0d9e32f3baf18$</string>
+            <string>$TexturePacker:SmartUpdate:615717ca5fc9dc3bd859f5c2838daf97:09ef8989a0435dd372690ef0464fb855:630ea29ef5c3b06aaef0d9e32f3baf18$</string>
             <key>textureFileName</key>
             <string>skill_leaf_blade.png</string>
         </dict>

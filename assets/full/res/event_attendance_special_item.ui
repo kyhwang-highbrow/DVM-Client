@@ -77,7 +77,7 @@
 				lua_name = '';
 				font_name = 'font/common_font_01.ttf';
 				font_size = 20;
-				text = '보상 아이템은 메일함에서 받으실 수 있습니다';
+				text = '보상 아이템은 우편함에서 받으실 수 있습니다';
 				h_alignment = 1;
 				v_alignment = 1;
 				color = { 192; 192; 192; };

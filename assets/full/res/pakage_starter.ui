@@ -351,7 +351,7 @@
 				skew_y = 0.000000;
 				rotation = 0.000000;
 				visible = true;
-				lua_name = 'diaLabel';
+				lua_name = 'itemLabel1';
 				font_name = 'font/common_font_01.ttf';
 				font_size = 24;
 				text = '다이아\n{1}개';
@@ -391,7 +391,7 @@
 				skew_y = 0.000000;
 				rotation = 0.000000;
 				visible = true;
-				lua_name = 'goldLabel';
+				lua_name = 'itemLabel2';
 				font_name = 'font/common_font_01.ttf';
 				font_size = 24;
 				text = '골드\n{1}개';
@@ -431,7 +431,7 @@
 				skew_y = 0.000000;
 				rotation = 0.000000;
 				visible = true;
-				lua_name = 'wingLabel';
+				lua_name = 'itemLabel3';
 				font_name = 'font/common_font_01.ttf';
 				font_size = 24;
 				text = '날개\n{1}개';
@@ -471,7 +471,7 @@
 				skew_y = 0.000000;
 				rotation = 0.000000;
 				visible = true;
-				lua_name = 'mysteryEggLabel';
+				lua_name = 'itemLabel4';
 				font_name = 'font/common_font_01.ttf';
 				font_size = 24;
 				text = '신비의 알\n3~5성\n{1}개';

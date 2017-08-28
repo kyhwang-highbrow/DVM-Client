@@ -13,7 +13,7 @@ blackjindo_dark_03_arm_01
   index: -1
 blackjindo_dark_03_arm_02
   rotate: true
-  xy: 895, 126
+  xy: 828, 126
   size: 54, 63
   orig: 54, 63
   offset: 0, 0
@@ -47,15 +47,15 @@ blackjindo_dark_03_effect_02
   offset: 0, 0
   index: -1
 blackjindo_dark_03_eye_01
-  rotate: false
-  xy: 172, 11
+  rotate: true
+  xy: 213, 5
   size: 38, 32
   orig: 38, 32
   offset: 0, 0
   index: -1
 blackjindo_dark_03_eye_01_01
-  rotate: true
-  xy: 212, 5
+  rotate: false
+  xy: 821, 92
   size: 38, 32
   orig: 38, 32
   offset: 0, 0
@@ -68,8 +68,8 @@ blackjindo_dark_03_eye_02
   offset: 0, 0
   index: -1
 blackjindo_dark_03_eye_02_01
-  rotate: true
-  xy: 970, 298
+  rotate: false
+  xy: 861, 102
   size: 23, 22
   orig: 23, 22
   offset: 0, 0
@@ -81,11 +81,25 @@ blackjindo_dark_03_foot_01
   orig: 54, 86
   offset: 0, 0
   index: -1
+blackjindo_dark_03_foot_01_01
+  rotate: false
+  xy: 172, 9
+  size: 39, 34
+  orig: 39, 34
+  offset: 0, 0
+  index: -1
 blackjindo_dark_03_foot_02
   rotate: true
   xy: 749, 89
   size: 62, 70
   orig: 62, 70
+  offset: 0, 0
+  index: -1
+blackjindo_dark_03_foot_02_01
+  rotate: true
+  xy: 945, 142
+  size: 38, 29
+  orig: 38, 29
   offset: 0, 0
   index: -1
 blackjindo_dark_03_hand_01
@@ -95,11 +109,25 @@ blackjindo_dark_03_hand_01
   orig: 79, 67
   offset: 0, 0
   index: -1
+blackjindo_dark_03_hand_01_01
+  rotate: false
+  xy: 970, 271
+  size: 52, 50
+  orig: 52, 50
+  offset: 0, 0
+  index: -1
 blackjindo_dark_03_hand_02
   rotate: false
   xy: 676, 94
   size: 71, 57
   orig: 71, 57
+  offset: 0, 0
+  index: -1
+blackjindo_dark_03_hand_02_01
+  rotate: false
+  xy: 893, 142
+  size: 50, 38
+  orig: 50, 38
   offset: 0, 0
   index: -1
 blackjindo_dark_03_head_01
@@ -117,8 +145,8 @@ blackjindo_dark_03_head_02
   offset: 0, 0
   index: -1
 blackjindo_dark_03_head_03
-  rotate: true
-  xy: 828, 130
+  rotate: false
+  xy: 970, 204
   size: 50, 65
   orig: 50, 65
   offset: 0, 0

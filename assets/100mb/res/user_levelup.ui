@@ -123,6 +123,32 @@
 		{
 			[1] =
 			{
+				type = 'Scale9Sprite';
+				ui_name = '';
+				x = 0.000000;
+				y = 0.000000;
+				dock_point = { 0.500000; 0.500000; };
+				anchor_point = { 0.500000; 0.500000; };
+				relative_size_type = 3;
+				width = 0;
+				height = 0;
+				scale_x = 1.000000;
+				scale_y = 1.000000;
+				skew_x = 0.000000;
+				skew_y = 0.000000;
+				rotation = 0.000000;
+				visible = true;
+				lua_name = '';
+				file_name = 'ui/frames/exploration_title_0101.png';
+				color = { 255; 255; 255; };
+				opacity = 255;
+				center_rect_x = 0;
+				center_rect_y = 0;
+				center_rect_width = 0;
+				center_rect_height = 0;
+			};
+			[2] =
+			{
 				[1] =
 				{
 					type = 'LabelTTF';
@@ -272,7 +298,7 @@
 				type = 'Scale9Sprite';
 				ui_name = '';
 				x = 20.000000;
-				y = -83.000000;
+				y = -82.000000;
 				dock_point = { 0.500000; 0.500000; };
 				anchor_point = { 0.500000; 0.500000; };
 				relative_size_type = 0;
@@ -293,7 +319,7 @@
 				center_rect_width = 0;
 				center_rect_height = 0;
 			};
-			[2] =
+			[3] =
 			{
 				[1] =
 				{
@@ -364,7 +390,7 @@
 				type = 'Scale9Sprite';
 				ui_name = '';
 				x = 20.000000;
-				y = -130.000000;
+				y = -129.000000;
 				dock_point = { 0.500000; 0.500000; };
 				anchor_point = { 0.500000; 0.500000; };
 				relative_size_type = 0;
@@ -385,12 +411,12 @@
 				center_rect_width = 0;
 				center_rect_height = 0;
 			};
-			[3] =
+			[4] =
 			{
 				type = 'LabelTTF';
 				ui_name = '';
 				x = 0.000000;
-				y = -39.000000;
+				y = -38.000000;
 				dock_point = { 0.500000; 0.500000; };
 				anchor_point = { 0.500000; 0.500000; };
 				relative_size_type = 0;
@@ -425,15 +451,15 @@
 				shadow_direction = 0;
 				shadow_distance = 3.000000;
 			};
-			type = 'Scale9Sprite';
+			type = 'Menu';
 			ui_name = '';
 			x = 0.000000;
-			y = -53.000000;
+			y = -54.000000;
 			dock_point = { 0.500000; 0.500000; };
 			anchor_point = { 0.500000; 0.500000; };
 			relative_size_type = 0;
 			width = 1300;
-			height = 369;
+			height = 370;
 			scale_x = 1.000000;
 			scale_y = 1.000000;
 			skew_x = 0.000000;
@@ -441,13 +467,6 @@
 			rotation = 0.000000;
 			visible = true;
 			lua_name = '';
-			file_name = 'ui/frames/exploration_title_0101.png';
-			color = { 255; 255; 255; };
-			opacity = 255;
-			center_rect_x = 0;
-			center_rect_y = 0;
-			center_rect_width = 600;
-			center_rect_height = 70;
 		};
 		[5] =
 		{
@@ -456,7 +475,7 @@
 				type = 'Node';
 				ui_name = '';
 				x = 0.000000;
-				y = 0.000000;
+				y = -12.000000;
 				dock_point = { 0.500000; 0.500000; };
 				anchor_point = { 0.500000; 0.500000; };
 				relative_size_type = 0;

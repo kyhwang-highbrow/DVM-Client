@@ -6,41 +6,49 @@
         <dict>
             <key>skill_thorns_star_01.png</key>
             <dict>
-                <key>frame</key>
-                <string>{{2,2},{90,90}}</string>
-                <key>offset</key>
+                <key>aliases</key>
+                <array/>
+                <key>spriteOffset</key>
                 <string>{3,0}</string>
-                <key>rotated</key>
-                <false/>
-                <key>sourceColorRect</key>
-                <string>{{43,39},{90,90}}</string>
-                <key>sourceSize</key>
+                <key>spriteSize</key>
+                <string>{92,92}</string>
+                <key>spriteSourceSize</key>
                 <string>{170,168}</string>
+                <key>textureRect</key>
+                <string>{{2,2},{92,92}}</string>
+                <key>textureRotated</key>
+                <false/>
             </dict>
             <key>skill_thorns_star_02.png</key>
             <dict>
-                <key>frame</key>
-                <string>{{94,2},{51,77}}</string>
-                <key>offset</key>
+                <key>aliases</key>
+                <array/>
+                <key>spriteOffset</key>
                 <string>{0,0}</string>
-                <key>rotated</key>
-                <false/>
-                <key>sourceColorRect</key>
-                <string>{{0,0},{51,77}}</string>
-                <key>sourceSize</key>
+                <key>spriteSize</key>
                 <string>{51,77}</string>
+                <key>spriteSourceSize</key>
+                <string>{51,77}</string>
+                <key>textureRect</key>
+                <string>{{96,2},{51,77}}</string>
+                <key>textureRotated</key>
+                <false/>
             </dict>
         </dict>
         <key>metadata</key>
         <dict>
             <key>format</key>
-            <integer>2</integer>
+            <integer>3</integer>
+            <key>pixelFormat</key>
+            <string>RGBA8888</string>
+            <key>premultiplyAlpha</key>
+            <false/>
             <key>realTextureFileName</key>
             <string>skill_thorns_star.png</string>
             <key>size</key>
-            <string>{147,94}</string>
+            <string>{149,96}</string>
             <key>smartupdate</key>
-            <string>$TexturePacker:SmartUpdate:828b477d2d27a7fe841d53053eef3182:5b16eae5a1522a2c9626b51e25e67477:6a6cc56125893a5cd5ca551df90d528e$</string>
+            <string>$TexturePacker:SmartUpdate:cc05bc37c594369c373fe11041507525:0e082c308321a0ae54344cee030d0ade:6a6cc56125893a5cd5ca551df90d528e$</string>
             <key>textureFileName</key>
             <string>skill_thorns_star.png</string>
         </dict>

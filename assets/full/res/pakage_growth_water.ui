@@ -351,7 +351,7 @@
 				skew_y = 0.000000;
 				rotation = 0.000000;
 				visible = true;
-				lua_name = 'stoneLabel1';
+				lua_name = 'itemLabel1';
 				font_name = 'font/common_font_01.ttf';
 				font_size = 24;
 				text = '{1}개';
@@ -391,7 +391,7 @@
 				skew_y = 0.000000;
 				rotation = 0.000000;
 				visible = true;
-				lua_name = 'stoneLabel2';
+				lua_name = 'itemLabel2';
 				font_name = 'font/common_font_01.ttf';
 				font_size = 24;
 				text = '{1}개';
@@ -431,7 +431,7 @@
 				skew_y = 0.000000;
 				rotation = 0.000000;
 				visible = true;
-				lua_name = 'stoneLabel3';
+				lua_name = 'itemLabel3';
 				font_name = 'font/common_font_01.ttf';
 				font_size = 24;
 				text = '{1}개';
@@ -471,7 +471,7 @@
 				skew_y = 0.000000;
 				rotation = 0.000000;
 				visible = true;
-				lua_name = 'stoneLabel4';
+				lua_name = 'itemLabel4';
 				font_name = 'font/common_font_01.ttf';
 				font_size = 24;
 				text = '{1}개';
@@ -511,7 +511,7 @@
 				skew_y = 0.000000;
 				rotation = 0.000000;
 				visible = true;
-				lua_name = 'slimeLabel1';
+				lua_name = 'itemLabel5';
 				font_name = 'font/common_font_01.ttf';
 				font_size = 24;
 				text = '{1}개';
@@ -551,7 +551,7 @@
 				skew_y = 0.000000;
 				rotation = 0.000000;
 				visible = true;
-				lua_name = 'allStoneLabel1';
+				lua_name = 'itemLabel6';
 				font_name = 'font/common_font_01.ttf';
 				font_size = 24;
 				text = '{1}개';
@@ -591,7 +591,7 @@
 				skew_y = 0.000000;
 				rotation = 0.000000;
 				visible = true;
-				lua_name = 'allStoneLabel2';
+				lua_name = 'itemLabel7';
 				font_name = 'font/common_font_01.ttf';
 				font_size = 24;
 				text = '{1}개';
@@ -631,7 +631,7 @@
 				skew_y = 0.000000;
 				rotation = 0.000000;
 				visible = true;
-				lua_name = 'allStoneLabel3';
+				lua_name = 'itemLabel8';
 				font_name = 'font/common_font_01.ttf';
 				font_size = 24;
 				text = '{1}개';
@@ -671,7 +671,7 @@
 				skew_y = 0.000000;
 				rotation = 0.000000;
 				visible = true;
-				lua_name = 'allStoneLabel4';
+				lua_name = 'itemLabel9';
 				font_name = 'font/common_font_01.ttf';
 				font_size = 24;
 				text = '{1}개';
@@ -711,7 +711,7 @@
 				skew_y = 0.000000;
 				rotation = 0.000000;
 				visible = true;
-				lua_name = 'slimeLabel2';
+				lua_name = 'itemLabel10';
 				font_name = 'font/common_font_01.ttf';
 				font_size = 24;
 				text = '{1}개';

@@ -91,7 +91,7 @@
 				lua_name = '';
 				font_name = 'font/common_font_01.ttf';
 				font_size = 20;
-				text = '스테에지에서 유리한 리더스킬을 선택하세요';
+				text = '스테이지에서 유리한 리더스킬을 선택하세요';
 				h_alignment = 1;
 				v_alignment = 1;
 				color = { 161; 125; 93; };
