@@ -145,7 +145,16 @@ end
 -------------------------------------
 function UI_EventPopupTab_HBShop:click_couponBtn()
     local function cb_func(coupon_list)
-        UI_EventPopupTab_HBShop_Coupon(coupon_list)
+        if (self.m_webView) and (self.m_webView:isVisible()) then
+            self.m_webView:setVisible(false)
+        end
+
+        local ui = UI_EventPopupTab_HBShop_Coupon(coupon_list)
+        ui:setCloseCB(function()
+            if (self.m_webView) and (self.vars['bannerCloseBtn']:isVisible()) then
+                self.m_webView:setVisible(true)
+            end
+        end)
     end
     g_shopDataNew:request_couponList(cb_func)
 end
