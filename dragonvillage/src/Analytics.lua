@@ -2,12 +2,6 @@ Analytics = {}
 Adbrix = {}
 FiveRocks = {}
 
--- 출시직전까지는 카테고리에 TEST 붙임 (커스텀 이벤트 확인), 출시후에 TEST 붙여져 있던 카테고리는 숨김
--- 런칭때 category_test 함수 삭제하기!!
-local function category_test(category)
-    return 'TEST_'..category
-end
-
 CUS_CATEGORY = {
 
     FIRST   = '001.초기 안착',
@@ -405,7 +399,7 @@ end
 function FiveRocks:trackEvent(category, event, value, param1)
     -- @format : category;event;event_name;param1;param2;value;
      
-    local category = category_test(category) -- 테스트 후에 삭제!!
+    local category = tostring(category)
     local value = tostring(value)
     local event_name = event[1]
     local value_name = event[2]
