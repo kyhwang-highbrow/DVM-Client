@@ -23,6 +23,8 @@ SkillVoltesX = class(PARENT, {
 		m_maxFinalAttackCnt = 'number',
 		m_attckInterval = 'number',
 		m_finalAttackTime = 'number',
+
+        m_lAlreadyAttack = 'table',
      })
 
 -------------------------------------
@@ -160,9 +162,20 @@ end
 -------------------------------------
 function SkillVoltesX:runAttack(idx)
 	local collisions = self:findCollisionEachLine(idx)
-	
+	if (idx == 1) then
+        self.m_lAlreadyAttack = collisions
+    end
     for _, collision in ipairs(collisions) do
-        self:attack(collision)
+        local flag = true
+        for k, target_col in ipairs(self.m_lAlreadyAttack) do
+            if (idx == 2 and collision.m_target == target_col.m_target and collision.m_bodyKey == target_col.m_bodyKey) then
+                flag = false
+                break
+            end
+        end
+        if (flag) then
+            self:attack(collision)
+        end
     end
     
 	self:doCommonAttackEffect()
