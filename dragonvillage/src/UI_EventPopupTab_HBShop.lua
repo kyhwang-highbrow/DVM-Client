@@ -126,6 +126,8 @@ end
 -- @brief
 -------------------------------------
 function UI_EventPopupTab_HBShop:onEnterTab()
+    g_topUserInfo:setSubCurrency('capsule')
+
     -- 다른탭 갔다가 들어왔을때 웹뷰가 다시 나와서 처리
     if (not self.vars['bannerCloseBtn']:isVisible()) then
         if (self.m_webView) then

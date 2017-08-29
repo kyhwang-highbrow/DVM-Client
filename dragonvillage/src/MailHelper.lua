@@ -15,6 +15,11 @@ function MailHelper.getMailText(struct_mail)
 		    return {title = '형식 없음', content = '내용 없음'}
 	    end
 
+        -- 순수하게 서버에서 주는 메세지만 사용
+        if (mail_type == 'custom') then
+            return MailHelper.makePureCustomMail(struct_mail)
+        end
+
 	    -- 테이블에 템플릿이 없다면 탈출
         t_template = table_template[mail_type]
 	    if (not t_template) then
@@ -26,9 +31,9 @@ function MailHelper.getMailText(struct_mail)
             return {title = Str(t_template['t_title']), content = struct_mail:getMessage() or Str(t_template['t_content'])}
         end
 
-        -- custom인 경우 별도 로직 태움
+        -- template_type이 custom인 경우 별도 로직 태움
         if (t_template['template_type'] == 'custom') then
-            return MailHelper.makeCustomMail(struct_mail, t_template)
+            return MailHelper.makeCustomValueMail(struct_mail, t_template)
         end
     end
 
@@ -70,10 +75,34 @@ function MailHelper.makeFormalMail(struct_mail, t_template)
 end
 
 -------------------------------------
--- function makeCustomMail
+-- function makePureCustomMail
+-- @brief 순수하게 서버에서 준 메세지만 사용하는 메일
+-------------------------------------
+function MailHelper.makePureCustomMail(struct_mail)
+    local t_custom = struct_mail:getCustom()
+    local title = Str(t_custom['title'] or '')
+	local content = ''
+    
+    if (t_custom['msg']) then
+        content = Str(t_custom['msg'])
+
+    -- msg가 없을 경우
+    else
+        local t_item = struct_mail:getItemList()[1]
+        if (t_item) then
+            local value = UIHelper:makeItemName(t_item)
+            content = Str('{1}{@default}(을)를 받았습니다.', value)
+        end
+    end
+
+	return {title = title, content = content}
+end
+
+-------------------------------------
+-- function makeCustomValueMail
 -- @brief custom 타입의 메일 문구를 생성해준다.
 -------------------------------------
-function MailHelper.makeCustomMail(struct_mail, t_template)
+function MailHelper.makeCustomValueMail(struct_mail, t_template)
     local t_custom = struct_mail:getCustom()
     MailHelper.translateText(t_custom)
 
