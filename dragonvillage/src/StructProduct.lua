@@ -42,8 +42,8 @@ local THIS = StructProduct
 -- function init
 -------------------------------------
 function StructProduct:init(data)
-    if (self.price_dolla == nil) then
-        self.price_dolla = 0
+    if (self.price_dollar == nil) then
+        self.price_dollar = 0
     end  
 
     if (self.m_uiPriority == nil) then
