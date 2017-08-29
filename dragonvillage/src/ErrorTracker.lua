@@ -9,6 +9,8 @@ ErrorTracker = class({
     m_lSkillHistoryList = 'list<table>',
     m_lAPIList = 'list<table>',
     m_lFailedResList = 'list<string>',
+    
+    m_bErrorPopupOpen = 'bool',
 })
 
 -------------------------------------
@@ -21,6 +23,8 @@ function ErrorTracker:init()
     self.m_lFailedResList = {}
     -- @ generator
     -- getsetGenerator(ErrorTracker, 'ErrorTracker')
+
+    self.m_bErrorPopupOpen = false
 end
 
 -------------------------------------
@@ -83,6 +87,9 @@ function ErrorTracker:getTrackerText_(msg)
    
     local template = 
 [[
+============[ERROR TRACEBACK]==============
+%s
+
 =============[DVM BUG REPORT]==============
 1. info
     - date : %s
@@ -103,18 +110,17 @@ function ErrorTracker:getTrackerText_(msg)
  
 5. failed res list
 %s
- 
-============[ERROR TRACEBACK]==============
-%s
 ]]
 
-	local text = string.format(template, 
+	local text = string.format(
+        template,
+        msg,
         date, nick, uid, os, ver, 
         last_stage, skill_stack, 
         ui_stack, 
         api_stack, 
-        res_stack, 
-        msg)
+        res_stack
+        )
 
 	return text
 end
@@ -123,6 +129,7 @@ end
 -- function getTrackerText
 ------------------------------------- 
 function ErrorTracker:getTrackerText(msg)
+    --HMAC('sha1', text, CONSTANT['HMAC_KEY'], false)
 
     -- 기본적으로 넘어온 메시지를 출력
     local error_msg = msg
@@ -211,10 +218,10 @@ end
 ------------------------------------- 
 function ErrorTracker:appendAPI(s)
     local time = Timer:getServerTime()
-    time = datetime.strformat(time)
+    time = os.date('%Y-%m-%d %H:%M:%S', time)
 
     table.insert(self.m_lAPIList, {api = s, time = time})
-    if (#self.m_lAPIList > 5) then
+    if (#self.m_lAPIList > 10) then
         table.remove(self.m_lAPIList, 1)
     end
 end
@@ -224,7 +231,7 @@ end
 ------------------------------------- 
 function ErrorTracker:appendFailedRes(s)
     table.insert(self.m_lFailedResList, s)
-    if (#self.m_lFailedResList > 5) then
+    if (#self.m_lFailedResList > 10) then
         table.remove(self.m_lFailedResList, 1)
     end
 end
@@ -257,12 +264,50 @@ function ErrorTracker:get_lastStage()
     return self.lastStage
 end
 
-
 -------------------------------------
--- function appendSkillHistory
+-- function cleanupIngameLog
 ------------------------------------- 
 function ErrorTracker:cleanupIngameLog()
     self.lastStage = ''
     self.m_lSkillHistoryList = {}
+    self.m_bErrorPopupOpen = false
+end
+
+-------------------------------------
+-- function openErrorPopup
+------------------------------------- 
+function ErrorTracker:openErrorPopup(error_msg)
+    cclog('############## openErrorPopup start')
+
+    -- 패치 또는 모듈 로딩 시 없을 수 있음
+    if (not UI_ErrorPopup) then
+        return
+    end
+
+    -- 이미 열려있는 경우 중복 호출 막음
+    if (self.m_bErrorPopupOpen) then
+        return
+    end
+
+    -- 중복 호출 막도록 설정
+    self.m_bErrorPopupOpen = true
+    
+    -- UI 종료 시 다시 호출 가능 상태로 전환
+    local function close_cb()
+        self.m_bErrorPopupOpen = false
+    end
+
+    -- error text 생성
+    error_msg = self:getTrackerText(error_msg)
+
+    -- 테스트 모드일 경우 상세 정보 출력
+    if (IS_TEST_MODE()) then
+		UI_ErrorPopup(error_msg):setCloseCB(close_cb)
+        
+    -- 라이브일 경우
+    else
+        
+    end
+    cclog('############## openErrorPopup end')
 end
 

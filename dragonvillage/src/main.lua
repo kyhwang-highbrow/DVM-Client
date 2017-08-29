@@ -32,9 +32,6 @@ function EndPerpleSDKScheduler()
     gPerpleSDKSchedulerID = 0
 end
 
-
-UI_ErrorPopup = nil
-IS_OPEN_ERROR_POPUP = false
 -------------------------------------
 -- function __G__TRACKBACK__
 -- @brief for CCLuaEngine traceback
@@ -45,15 +42,12 @@ function __G__TRACKBACK__(msg)
     cclog("----------------------------------------")
     cclog(error_msg)
     cclog("----------------------------------------")
-    	
-	-- 에러를 팝업으로 띄워서 출력
-	-- @TODO 디버깅 모드일 경우에만 출력되도록 수정해야함
-	if (not IS_OPEN_ERROR_POPUP) and UI_ErrorPopup then
-		IS_OPEN_ERROR_POPUP = true
-		UI_ErrorPopup(error_msg)
-	end
 
-    return mgs
+    if (ErrorTracker:getInstance()) then
+        ErrorTracker:getInstance():openErrorPopup(error_msg)
+    end
+
+    return msg
 end
 
 local GAME_RESTART_TIME = 0

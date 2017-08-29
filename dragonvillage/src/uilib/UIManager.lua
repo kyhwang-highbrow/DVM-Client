@@ -200,7 +200,7 @@ function UIManager:open(ui, mode, bNotBlendBGLayer)
 	end
 
     -- 임시 터치 블록 영역 생성
-    if (mode == UIManager.POPUP) or (mode == UIManager.LOADING) then
+    if (mode == UIManager.POPUP) or (mode == UIManager.LOADING) or (mode == UIManager.ERROR_POPUP) then
 		self:makeTouchBlock(ui, bNotBlendBGLayer)
     end
 

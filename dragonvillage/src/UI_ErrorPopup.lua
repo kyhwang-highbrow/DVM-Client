@@ -117,19 +117,13 @@ end
 -- @brief 여기서 발생한 에러는 trackback 출력이 안되어서 로그를 주절주절 남김
 -------------------------------------
 function UI_ErrorPopup:setErrorStr(str)
-    cclog('############## setErrorStr start')
 	if (not str) then
 		cclog('UI_ErrorPopup:setErrorStr(str) : nil parameter')
         str = 'null parameter'
 	end
-    
-	local error_str = string.gsub(str, '\t', '    ') or '???'
-	cclog('############## setErrorStr 1')
-    error_str = g_errorTracker:getTrackerText(error_str)
-    cclog('############## setErrorStr 2')
-	self.m_errorLabel:setString(error_str)
-    self.m_errorStr = error_str
-    cclog('############## setErrorStr end')
+
+	self.m_errorLabel:setString(str)
+    self.m_errorStr = str
 end
 
 -------------------------------------
@@ -154,5 +148,4 @@ end
 -------------------------------------
 function UI_ErrorPopup:click_exitBtn()
     self:close()
-	IS_OPEN_ERROR_POPUP = false
 end
