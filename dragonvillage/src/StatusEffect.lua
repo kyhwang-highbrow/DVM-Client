@@ -163,7 +163,7 @@ function StatusEffect:init_direction(direction_type)
     func['polygons'] = function()
         -- TODO: 연출을 위한 모듈 생성
         local res = self.m_statusEffectTable['res']
-        self.m_edgeDirector = StatusEffectEdgeDirector('polygons', self.m_rootNode, res, self.m_maxOverlab)
+        self.m_edgeDirector = StatusEffectEdgeDirector(self.m_owner.m_bLeftFormation, 'polygons', self.m_rootNode, res, self.m_maxOverlab)
     end
 
     if (func[direction_type]) then
@@ -742,9 +742,15 @@ function StatusEffect:setTemporaryPause(pause)
             if (self.m_animator) then
                 self.m_animator:setVisible(false)
             end
+            if (self.m_edgeDirector) then
+                self.m_edgeDirector:setVisible(false)
+            end
         else
             if (self.m_animator) then
                 self.m_animator:setVisible(true)
+            end
+            if (self.m_edgeDirector) then
+                self.m_edgeDirector:setVisible(true)
             end
         end
 
