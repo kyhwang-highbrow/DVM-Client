@@ -272,6 +272,11 @@ function ServerData_Quest:requestQuestReward(quest, cb_func)
             g_highlightData:applyHighlightInfo(ret)
         end
 
+        -- 구글 평점 유도 팝업 : 테이머 레벨 7 달성 업적 클리어시 1회 노출
+        if (tonumber(qid) == 10106) then
+            UI_CheersPopup()
+        end
+
         if (cb_func) then
             -- 업적 : 마지막 퀘스트인지 체크하여 아니라면 다음 qid로 진행
             if (quest['quest_type'] == TableQuest.CHALLENGE) then

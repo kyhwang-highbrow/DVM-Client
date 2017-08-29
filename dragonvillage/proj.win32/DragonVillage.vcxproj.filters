@@ -2676,6 +2676,12 @@
     <None Include="..\src\UI_EventFullPopup.lua">
       <Filter>lua\UI</Filter>
     </None>
+    <None Include="..\src\UI_CheersPopup.lua">
+      <Filter>lua\UI</Filter>
+    </None>
+    <None Include="..\src\UI_ErrorPopup_Live.lua">
+      <Filter>lua\UI</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Classes">
