@@ -95,18 +95,29 @@ function UI_Lobby:entryCoroutine()
 
         local fail_cb = function(ret) working = false end
 
+        -- 반드시 통신에 성공해야 하는 통신이 실패하면 로비로 재진입
+        local required_fail_cb = function(ret)
+            local msg = Str('마을에 진입 중 문제가 발생하였습니다.\n잠시 후에 다시 시도해주세요.')
+            local ok_cb = function()
+                local scene = SceneLobby()
+                scene:runScene()
+            end
+            MakeSimplePopup(POPUP_TYPE.OK, msg, ok_cb)
+        end
+
         --친구 정보 받아옴
         cclog('# 친구 정보 받는 중')
         working = true
         local ui_network = g_friendData:request_friendList(function() working = false end, true)
         if ui_network then
             ui_network:hideBGLayerColor()
+            ui_network:setFailCB(required_fail_cb)
         end
         while (working) do dt = coroutine.yield() end
 
         cclog('# 출석 정보 받는 중')
         working = true
-        local ui_network = g_attendanceData:request_attendanceInfo(function(ret) working = false end)
+        local ui_network = g_attendanceData:request_attendanceInfo(function(ret) working = false end, required_fail_cb)
         if ui_network then
             ui_network:hideBGLayerColor()
         end
@@ -114,7 +125,7 @@ function UI_Lobby:entryCoroutine()
 
         cclog('# 이벤트 정보 받는 중')
         working = true
-        local ui_network =g_eventData:request_eventList(function(ret) working = false end)
+        local ui_network =g_eventData:request_eventList(function(ret) working = false end, required_fail_cb)
         if ui_network then
             ui_network:hideBGLayerColor()
         end
@@ -157,6 +168,7 @@ function UI_Lobby:entryCoroutine()
         local ui_network = g_secretDungeonData:requestSecretDungeonInfo(function(ret) working = false end)
         if ui_network then
             ui_network:hideBGLayerColor()
+            ui_network:setFailCB(required_fail_cb)
         end
         while (working) do dt = coroutine.yield() end
 
@@ -166,6 +178,7 @@ function UI_Lobby:entryCoroutine()
         local _,ui_network = g_masterRoadData:updateMasterRoadAfterReward((function(ret) working = false end))
         if ui_network then
             ui_network:hideBGLayerColor()
+            ui_network:setFailCB(required_fail_cb)
         end
         while (working) do dt = coroutine.yield() end
 
