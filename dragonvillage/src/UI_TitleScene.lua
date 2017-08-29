@@ -585,6 +585,10 @@ function UI_TitleScene:workGameLogin()
 
         -- server_info 정보를 갱신
         g_serverData:networkCommonRespone(ret)
+
+        -- 최초 로그인 상태 저장
+        local first_login = ret['first_login'] or false
+        g_localData:applyLocalData(first_login, 'first_login')
         
         self:doNextWork()
     end

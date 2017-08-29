@@ -186,7 +186,7 @@ function UI_Lobby:entryCoroutine()
             -- 패키지 풀팝업 (하드코딩)
             local title_to_lobby = g_localData:get('title_to_lobby') or false
             if (title_to_lobby) then
-                local first_login = g_userData:get('first_login') or false
+                local first_login = g_localData:get('first_login') or false
 
                 local t_pid= {90007, 90013, 90012, 90006}
                 for _, pid in ipairs(t_pid) do
