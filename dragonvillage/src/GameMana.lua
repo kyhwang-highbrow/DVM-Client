@@ -34,7 +34,11 @@ function GameMana:init(world, left_formation)
     self.m_prevValue = -1
     self.m_value = security_key
     
-    self.m_incValuePerSec = 1 / g_constant:get('INGAME', 'MANA_INTERVAL')
+    if (self.m_world.m_gameMode == GAME_MODE_COLOSSEUM ) then
+        self.m_incValuePerSec = 1 / g_constant:get('INGAME', 'MANA_INTERVAL_COLOSSEUM')
+    else
+        self.m_incValuePerSec = 1 / g_constant:get('INGAME', 'MANA_INTERVAL')
+    end
     self.m_bEnable = true
     self.m_accelValue = 0
 end
