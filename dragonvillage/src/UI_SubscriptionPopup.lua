@@ -12,7 +12,7 @@ UI_SubscriptionPopup = class(PARENT, {
 -- function init
 -------------------------------------
 function UI_SubscriptionPopup:init()
-    local vars = self:load('package_daily_dia_reward.ui')
+    local vars = self:load('package_daily_dia.ui')
 	UIManager:open(self, UIManager.POPUP)
 
 	-- 백키 지정
@@ -36,21 +36,26 @@ function UI_SubscriptionPopup:initUI()
         local struct_product = g_subscriptionData:getBasicSubscriptionProductInfo()
         self.m_basicProduct = struct_product
 
+        -- 구성품
+        local full_str = struct_product:getDesc()
+        vars['itemLabel1']:setString(full_str)
+
         -- 가격
 	    local price = struct_product:getPriceStr()
         vars['priceLabel1']:setString(price)
 
-        	-- 가격 아이콘
+        -- 가격 아이콘
         local icon = struct_product:makePriceIcon()
         vars['priceNode1']:addChild(icon)
-
-        -- 가격 아이콘 및 라벨, 배경 조정
-        UIHelper:makePriceNodeVariable(vars['priceBg1'],  vars['priceNode1'], vars['priceLabel1'])
     end
 
     do -- Premium 월정액 패키지 (premium)
         local struct_product = g_subscriptionData:getPremiumSubscriptionProductInfo()
         self.m_premiumProduct = struct_product
+
+        -- 구성품
+        local full_str = struct_product:getDesc()
+        vars['itemLabel2']:setString(full_str)
 
         -- 가격
 	    local price = struct_product:getPriceStr()
@@ -60,17 +65,7 @@ function UI_SubscriptionPopup:initUI()
         local icon = struct_product:makePriceIcon()
         vars['priceNode2']:addChild(icon)
 
-        -- 가격 아이콘 및 라벨, 배경 조정
-        UIHelper:makePriceNodeVariable(vars['priceBg2'],  vars['priceNode2'], vars['priceLabel2'])
     end
-
-    -- 타이틀 이미지 출력
-    local title = info:makePopupTitle()
-    vars['titleNode']:addChild(title)
-
-    -- 배경 이미지 출력
-    local bg = info:makePopupBg()
-    vars['packageNode']:addChild(bg)
 end
 
 -------------------------------------

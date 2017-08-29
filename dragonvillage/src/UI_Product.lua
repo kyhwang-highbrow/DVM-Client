@@ -107,8 +107,14 @@ function UI_Product:refresh()
 	local struct_product = self.m_structProduct
 
     -- 구매 제한 설명 텍스트
+    local node = vars['maxBuyTermLabel']
     local str = struct_product:getMaxBuyTermStr()
-    vars['maxBuyTermLabel']:setString(str)
+    node:setString(str)
+
+    -- 구매 제한 설명이 있는 경우 기본 설명 라벨 안보이게 (포지션 겹침)
+    if (node:getString() ~= '') then
+        vars['dscLabel']:setString('')
+    end
 end
 
 -------------------------------

@@ -42,6 +42,24 @@ function ServerData_Item:parsePackageItemStr(package_item_str)
 end
 
 -------------------------------------
+-- function getPackageItemFullStr
+-- @brief 구성품 전체 문자열 반환 
+-------------------------------------
+function ServerData_Item:getPackageItemFullStr(package_item_str)
+    local full_str = ''
+    local l_item_list = self:parsePackageItemStr(package_item_str)
+    for idx, data in ipairs(l_item_list) do
+        local name = TableItem:getItemName(data['item_id'])
+        local cnt = data['count']
+
+        local str =  Str('\n{1} {2}개', name, comma_value(cnt))
+        full_str = full_str ~= '' and full_str .. str or str
+    end
+
+    return full_str
+end
+
+-------------------------------------
 -- function parsePackageItemStrIndivisual
 -- @brief 아이템 1종류를 표현하는 문자열 분석
 -------------------------------------

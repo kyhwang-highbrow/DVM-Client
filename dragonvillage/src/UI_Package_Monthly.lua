@@ -37,23 +37,12 @@ function UI_Package_Monthly:initUI()
 
     for idx, pid in ipairs(target_product) do
         local struct_product = l_item_list[pid]
-        local l_item_list = ServerData_Item:parsePackageItemStr(struct_product['product_content'])
 
         -- 구성품
-        if (l_item_list) then
-            local str = ''
-            for _idx, data in ipairs(l_item_list) do
-                local name = TableItem:getItemName(data['item_id'])
-                local cnt = data['count']
-                local msg = Str('\n{1} {2}개', name, cnt)
-
-                str =  str ~= '' and str .. msg or msg
-            end
-
-            local label = vars['itemLabel'..idx]
-            if (label) then
-                label:setString(str)
-            end
+        local full_str = ServerData_Item:getPackageItemFullStr(struct_product['product_content'])
+        local label = vars['itemLabel'..idx]
+        if (label) then
+            label:setString(full_str)
         end
 
         -- 구매 제한
