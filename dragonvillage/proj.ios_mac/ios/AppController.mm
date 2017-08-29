@@ -26,6 +26,7 @@
 #import <UIKit/UIKit.h>
 #import <SystemConfiguration/SystemConfiguration.h>
 #import <MessageUI/MessageUI.h>
+#import <AVFoundation/AVFoundation.h>
 
 #import "mach/mach.h"
 #import "cocos2d.h"
@@ -72,6 +73,9 @@ static AppDelegate s_sharedApplication;
     }
 
     ConfigParser::getInstance()->readConfig();
+
+    // 음악 재생 중 게임 실행 시 음악 중단되지 않도록 함
+    [[AVAudioSession sharedInstance] setCategory:AVAudioSessionCategoryAmbient error:nil];
 
     // Add the view controller's view to the window and display.
     window = [[UIWindow alloc] initWithFrame: [[UIScreen mainScreen] bounds]];
