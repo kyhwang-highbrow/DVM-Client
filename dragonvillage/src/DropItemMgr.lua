@@ -264,6 +264,8 @@ end
 -- function onEvent
 -------------------------------------
 function DropItemMgr:onEvent(event_name, t_event, ...)
+    if (self.m_world.m_bDevelopMode) then return end
+
     if (event_name == 'character_dead') then
         local arg = {...}
         local enemy = arg[1]

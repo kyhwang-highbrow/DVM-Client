@@ -208,10 +208,12 @@ function MissileLauncher.st_attack(owner, dt, pattern_idx)
         -- 발사 주체 정보 확인
         if (owner.m_owner) then
             -- 주체가 죽었으면 멈춤
+            --[[
             if (owner.m_owner:isDead()) then
                 owner:changeState('dying')
                 return true
             end
+            ]]--
 
             -- TODO: 주체와 위치 동기화
             do
