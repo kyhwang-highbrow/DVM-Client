@@ -156,14 +156,18 @@ function UI_Game:initButton()
         local skip_mode = g_autoPlaySetting:get('skip_mode') or false
 
         self.m_effectBtnIcon1 = cc.Sprite:createWithSpriteFrameName('ingame_btn_effect_0101.png')
-        self.m_effectBtnIcon1:setDockPoint(CENTER_POINT)
-        self.m_effectBtnIcon1:setAnchorPoint(CENTER_POINT)
-        vars['effectBtn']:addChild(self.m_effectBtnIcon1)
+        if (self.m_effectBtnIcon1) then
+            self.m_effectBtnIcon1:setDockPoint(CENTER_POINT)
+            self.m_effectBtnIcon1:setAnchorPoint(CENTER_POINT)
+            vars['effectBtn']:addChild(self.m_effectBtnIcon1)
+        end
 
         self.m_effectBtnIcon2 = cc.Sprite:createWithSpriteFrameName('ingame_btn_effect_0102.png')
-        self.m_effectBtnIcon2:setDockPoint(CENTER_POINT)
-        self.m_effectBtnIcon2:setAnchorPoint(CENTER_POINT)
-        vars['effectBtn']:addChild(self.m_effectBtnIcon2)
+        if (self.m_effectBtnIcon2) then
+            self.m_effectBtnIcon2:setDockPoint(CENTER_POINT)
+            self.m_effectBtnIcon2:setAnchorPoint(CENTER_POINT)
+            vars['effectBtn']:addChild(self.m_effectBtnIcon2)
+        end
 
         self.m_effectBtnIcon1:setVisible(skip_mode)
         self.m_effectBtnIcon2:setVisible(not skip_mode)
@@ -302,8 +306,12 @@ function UI_Game:click_effectBtn()
 
     g_autoPlaySetting:setWithoutSaving('skip_mode', new_skip_mode)
 
-    self.m_effectBtnIcon1:setVisible(new_skip_mode)
-    self.m_effectBtnIcon2:setVisible(not new_skip_mode)
+    if (self.m_effectBtnIcon1) then
+        self.m_effectBtnIcon1:setVisible(new_skip_mode)
+    end
+    if (self.m_effectBtnIcon2) then
+        self.m_effectBtnIcon2:setVisible(not new_skip_mode)
+    end
 end
 
 -------------------------------------

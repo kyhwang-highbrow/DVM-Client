@@ -51,7 +51,7 @@ function UI_IngameUnitInfo:initUI()
         local attr_str = unit:getAttribute()
         local res = 'ingame_cha_info_attr_' .. attr_str .. '_0101.png'
         local icon = cc.Sprite:createWithSpriteFrameName(res)
-        if icon then
+        if (icon) then
             icon:setDockPoint(cc.p(0.5, 0.5))
             icon:setAnchorPoint(cc.p(0.5, 0.5))
             vars['attrNode']:addChild(icon)

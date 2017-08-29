@@ -1204,6 +1204,9 @@ function Character:createWithSpriteFrameName(res_name)
     if (not sprite) then
         -- @E.T.
 		g_errorTracker:appendFailedRes(res_name)
+
+        cc.SpriteFrameCache:getInstance():addSpriteFrames('res/ui/a2d/ingame_damage/ingame_damage.plist')
+        sprite = cc.Sprite:createWithSpriteFrameName(res_name)
     end
 
 	sprite:setDockPoint(CENTER_POINT)

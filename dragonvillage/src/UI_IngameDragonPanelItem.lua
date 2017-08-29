@@ -89,7 +89,7 @@ function UI_IngameDragonPanelItem:initUI()
         local attr_str = dragon:getAttribute()
         local res = 'ingame_panel_attr_' .. attr_str .. '.png'
         local icon = cc.Sprite:createWithSpriteFrameName(res)
-        if icon then
+        if (icon) then
             icon:setDockPoint(CENTER_POINT)
             icon:setAnchorPoint(CENTER_POINT)
             vars['attrNode']:addChild(icon)
@@ -126,7 +126,7 @@ function UI_IngameDragonPanelItem:initUI()
         local indicator_type = t_skill['indicator']
         local res = 'ingame_panel_indicater_' .. str_target .. '_' .. indicator_type .. '.png'
         local icon = cc.Sprite:createWithSpriteFrameName(res)
-        if icon then
+        if (icon) then
             icon:setDockPoint(CENTER_POINT)
             icon:setAnchorPoint(CENTER_POINT)
             vars['indicaterNode']:addChild(icon)
@@ -239,7 +239,7 @@ function UI_IngameDragonPanelItem:refreshManaCost(mana_cost)
         if (mana_cost > 0) then
             local res = 'ingame_panel_mana_' .. mana_cost .. '.png'
             local icon = cc.Sprite:createWithSpriteFrameName(res)
-            if icon then
+            if (icon) then
                 icon:setDockPoint(cc.p(0.5, 0.5))
                 icon:setAnchorPoint(cc.p(0.5, 0.5))
                 vars['manaNode']:addChild(icon)
