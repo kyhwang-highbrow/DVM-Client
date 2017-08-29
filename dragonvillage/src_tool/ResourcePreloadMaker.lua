@@ -80,19 +80,21 @@ end
 -------------------------------------
 function ResourcePreloadMaker:getPreloadList_Common()
     return {
-        'res/effect/effect_attack_ready/effect_attack_ready.plist',
-        'res/effect/effect_melee_charge/effect_melee_charge.plist',
-        'res/effect/effect_missile_charge/effect_missile_charge.plist',
-        'res/effect/effect_hit_01/effect_hit_01.plist',
-        'res/effect/effect_skillcasting_dragon/effect_skillcasting_dragon.plist',
-        'res/effect/effect_skillcasting/effect_skillcasting.plist',
-        'res/effect/effect_passive_common/effect_passive_common.plist',
+        -- plist
         'res/effect/effect_skillcut_dragon/effect_skillcut_dragon.plist',
-
-        'res/indicator/indicator_effect_target/indicator_effect_target.plist',
-        'res/ui/a2d/enemy_skill_speech/enemy_skill_speech.plist',
-        'res/ui/a2d/ingame_enemy/ingame_enemy.plist',
         'res/effect/effect_monsterdragon/effect_monsterdragon.plist',
+
+        -- vrp
+        'res/effect/effect_attack_ready/effect_attack_ready.vrp',
+        'res/effect/effect_melee_charge/effect_melee_charge.vrp',
+        'res/effect/effect_hit_01/effect_hit_01.vrp',
+        'res/effect/effect_passive_common/effect_passive_common.vrp',
+        'res/indicator/indicator_effect_target/indicator_effect_target.vrp',
+        'res/ui/a2d/enemy_skill_speech/enemy_skill_speech.vrp',
+        'res/effect/effect_missile_charge/effect_missile_charge.vrp',
+        'res/effect/effect_skillcasting_dragon/effect_skillcasting_dragon.vrp',
+        'res/effect/effect_skillcasting/effect_skillcasting.vrp',
+        'res/ui/a2d/ingame_enemy/ingame_enemy.vrp',
 
         -- 인게임에서 높은 확률로 사용되거나 확실히 사용되는 작은 크기의 리소스들 프리로드.
         'res/effect/effect_melee_charge/effect_melee_charge.vrp',
@@ -170,7 +172,7 @@ function ResourcePreloadMaker:getPreloadList_Stage(stage_id)
                                 local t_skill = table_monster_skill:get(t_enemy[k], 'skip')
                                 if t_skill then
                                     if t_skill['skill_form'] == 'script' then
-                                        self:countSkillResListFromScript(ret, t_skill['skill_type'], attr)
+                                        self:countSkillResListFromScript(t_ret, t_skill['skill_type'], attr)
                                     else
                                         for i = 1, 3 do
                                             if (t_skill['res_' .. i] ~= '') then
@@ -215,22 +217,39 @@ end
 -- function countSkillResListFromScript
 -- @brief 해당 스킬 타입의 스크립트에 포함된 리소스명을 list의 테이블에 포함시킴
 -------------------------------------
-function ResourcePreloadMaker:countSkillResListFromScript(list, skill_type, attr)
+function ResourcePreloadMaker:countSkillResListFromScript(t_ret, skill_type, attr)
+    -- 스크립트 로드
     local filename = 'skill/' .. skill_type
     local script = TABLE:loadJsonTable(filename)
-    if (not list or not script) then return end
+    if (not t_ret or not script) then return end
 
-    local script_data = script[type]
+    -- 데이터 여부 확인
+    local script_data = script[skill_type]
     if (not script_data) then return end
     
-    local tAttackValueBase = script_data['attack_value']
+    -- 추출
+    local t_attack_value = script_data['attack_value']
     local count = 1
-
-    while (tAttackValueBase[count]) do
-        local res = tAttackValueBase[count]['res']
+    while (t_attack_value[count]) do
+        local attack_value = t_attack_value[count]
+        local res = attack_value['res']
         if (res) then
             local res_name = string.gsub(res, '@', attr)
-            table.insert(list, res_name)
+            t_ret[res_name] = true
+        end
+
+        -- add_script 영역도 추출
+        if (attack_value['add_script']) then
+            local l_add_script = attack_value['add_script']
+            for _, add_script in pairs(l_add_script) do
+                if (type(add_script) == 'table') then
+                    local res = add_script['res']
+                    if (res) then
+                        local res_name = string.gsub(res, '@', attr)
+                        t_ret[res_name] = true
+                    end
+                end
+            end
         end
 
         count = count + 1
