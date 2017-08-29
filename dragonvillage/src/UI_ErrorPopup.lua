@@ -114,7 +114,7 @@ end
 
 -------------------------------------
 -- function setErrorStr
--- @brief 여기서 발생한 에러는 trackback 출력이 안되어서 로그를 주절주절 남김
+-- @brief setstring 및 저장
 -------------------------------------
 function UI_ErrorPopup:setErrorStr(str)
 	if (not str) then

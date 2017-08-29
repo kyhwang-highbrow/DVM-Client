@@ -280,7 +280,7 @@ function ErrorTracker:openErrorPopup(error_msg)
     cclog('############## openErrorPopup start')
 
     -- 패치 또는 모듈 로딩 시 없을 수 있음
-    if (not UI_ErrorPopup) then
+    if (not UI_ErrorPopup) or (not UI_ErrorPopup_Live) then
         return
     end
 
@@ -297,16 +297,16 @@ function ErrorTracker:openErrorPopup(error_msg)
         self.m_bErrorPopupOpen = false
     end
 
-    -- error text 생성
-    error_msg = self:getTrackerText(error_msg)
-
     -- 테스트 모드일 경우 상세 정보 출력
     if (IS_TEST_MODE()) then
-		UI_ErrorPopup(error_msg):setCloseCB(close_cb)
+        local msg = self:getTrackerText(error_msg)
+		UI_ErrorPopup(msg):setCloseCB(close_cb)
         
     -- 라이브일 경우
     else
-        
+        local msg = self:getTrackerText(error_msg)
+        UI_ErrorPopup_Live(msg):setCloseCB(close_cb)
+
     end
     cclog('############## openErrorPopup end')
 end
