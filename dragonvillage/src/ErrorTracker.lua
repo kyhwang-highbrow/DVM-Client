@@ -315,7 +315,7 @@ end
 function ErrorTracker:getUINameList()
     local l_ret = {}
     for i, ui in pairs(UIManager.m_uiList) do
-        table.insert(l_ret, ui.m_uiName .. ' / ' .. ui.m_resName)
+        table.insert(l_ret, string.format('%s (%s)', ui.m_uiName, ui.m_resName))
     end
     return l_ret
 end
@@ -344,7 +344,9 @@ function ErrorTracker:sendErrorLog(msg, success_cb)
         ['error_stack'] = msg,
         ['api_call_list'] = self.m_lAPIList,
         ['failed_res_list'] = self.m_lFailedResList,
-        ['ui_list'] = self:getUINameList(),  
+        ['ui_list'] = self:getUINameList(),
+        ['last_scene'] = self.lastScene,
+        ['last_stage'] = self.lastStage,
     }
 
     local t_data = {
