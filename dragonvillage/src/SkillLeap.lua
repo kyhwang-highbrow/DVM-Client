@@ -22,8 +22,7 @@ function SkillLeap:init_skill(jump_res)
 	PARENT.init_skill(self)
 	
 	-- 멤버 변수
-    self.m_range = 100
-	self.m_jumpRes = jump_res
+    self.m_jumpRes = jump_res
 
 	self:setPosition(self.m_owner.pos.x, self.m_owner.pos.y)
 end
@@ -38,6 +37,8 @@ function SkillLeap:initSkillSize()
 		--self.m_resScale = t_data['scale']
 		self.m_range = t_data['size']
 	end
+
+    self.m_range = 100
 end
 
 -------------------------------------
