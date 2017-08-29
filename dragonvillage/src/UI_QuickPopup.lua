@@ -57,6 +57,16 @@ function UI_QuickPopup:initButton()
         else
             vars[content .. 'Btn']:registerScriptTapHandler(function() UINavigator:goTo(content) end)
         end
+
+        -- 베타 버튼 표시
+        local beta_label = vars[content .. 'BetaLabel']
+        if beta_label then
+            if g_contentLockData:isContentBeta(content) then
+                beta_label:setVisible(true) 
+            else
+                beta_label:setVisible(false)
+            end
+        end
     end
 end
 

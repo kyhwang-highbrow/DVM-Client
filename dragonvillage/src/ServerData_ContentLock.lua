@@ -45,6 +45,28 @@ function ServerData_ContentLock:isContentLock(content_name)
 end
 
 -------------------------------------
+-- function isContentBeta
+-- @param content_name string
+-------------------------------------
+function ServerData_ContentLock:isContentBeta(content_name)
+    local table_content_lock = TABLE:get('table_content_lock')
+    local t_content_lock = table_content_lock[content_name]
+
+    -- 지정되지 않은 콘텐츠 이름일 경우
+    if (not t_content_lock) then
+        --error('content_name : ' .. content_name)
+        return false
+    end
+
+    local beta = t_content_lock['beta']
+    if (beta == true) or (beta == 'true') then
+        return true
+    end
+
+    return false
+end
+
+-------------------------------------
 -- function checkContentLock
 -- @param content_name string
 -- @param excute_func function

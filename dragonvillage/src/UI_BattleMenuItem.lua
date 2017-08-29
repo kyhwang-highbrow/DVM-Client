@@ -70,6 +70,15 @@ function UI_BattleMenuItem:initUI()
         vars['lockSprite']:setVisible(false)
     end
 
+    -- 베타 버튼 표시
+    if vars['betaLabel'] then
+        if g_contentLockData:isContentBeta(content_type) then
+            vars['betaLabel']:setVisible(true) 
+        else
+            vars['betaLabel']:setVisible(false)
+        end
+    end
+
     -- 컨텐츠 타입별 지정
     vars['itemVisual']:changeAni(content_type, true)
     vars['titleLabel']:setString(getContentName(content_type))
