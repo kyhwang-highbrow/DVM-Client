@@ -128,8 +128,8 @@ android {
     productFlavors {
         // DEV
         dev100mbTest{
-			versionCode 21
-			versionName "0.3.9"
+			versionCode 22
+			versionName "0.4.1"
             signingConfig signingConfigs.keystore
             externalNativeBuild {
                 ndkBuild {
@@ -142,8 +142,8 @@ android {
             }
         }
         devFullTest{
-			versionCode 21
-			versionName "0.3.9"
+			versionCode 22
+			versionName "0.4.1"
             curr_version_name = versionName
             signingConfig signingConfigs.keystore
             externalNativeBuild {
@@ -159,8 +159,8 @@ android {
 
         // QA
         qa100mbTest{
-			versionCode 21
-			versionName "0.4.0"
+			versionCode 22
+			versionName "0.4.2"
             signingConfig signingConfigs.keystore
             externalNativeBuild {
                 ndkBuild {
@@ -168,13 +168,13 @@ android {
                     cppFlags.add("-DUSE_PATCH=true")
                     cppFlags.add("-DUSE_OBB=true")
                     cppFlags.add("-DUSE_LUA_EXT=false")
-                    cppFlags.add("-DIS_TEST_MODE=true")
+                    cppFlags.add("-DIS_TEST_MODE=false")
                 }
             }
         }
         qaFullTest{
-			versionCode 21
-			versionName "0.4.0"
+			versionCode 22
+			versionName "0.4.2"
             signingConfig signingConfigs.keystore
             externalNativeBuild {
                 ndkBuild {
@@ -182,15 +182,15 @@ android {
                     cppFlags.add("-DUSE_PATCH=true")
                     cppFlags.add("-DUSE_OBB=false")
                     cppFlags.add("-DUSE_LUA_EXT=false")
-                    cppFlags.add("-DIS_TEST_MODE=true")
+                    cppFlags.add("-DIS_TEST_MODE=false")
                 }
             }
         }
 
         // LIVE
         live100mb{
-			versionCode 21
-			versionName "1.0.4"
+			versionCode 22
+			versionName "1.0.5"
             signingConfig signingConfigs.upload_keystore
             externalNativeBuild {
                 ndkBuild {
@@ -203,8 +203,8 @@ android {
             }
         }
         liveFull{
-            versionCode 21
-            versionName "1.0.4"
+            versionCode 22
+            versionName "1.0.5"
             signingConfig signingConfigs.keystore
             externalNativeBuild {
                 ndkBuild {
@@ -222,8 +222,8 @@ android {
         // dimension server
 		dev{
             dimension "server"
-            versionCode 21
-			versionName "1.0.4"
+            versionCode 22
+			versionName "0.4.1"
             signingConfig signingConfigs.keystore
             externalNativeBuild {
                 ndkBuild {
@@ -236,8 +236,8 @@ android {
 		}
 		qa{
 			dimension "server"
-            versionCode 21
-			versionName "1.0.4"
+            versionCode 22
+			versionName "0.4.2"
             signingConfig signingConfigs.keystore
             externalNativeBuild {
                 ndkBuild {
@@ -250,8 +250,8 @@ android {
 		}
 		live{
 			dimension "server"
-            versionCode 21
-			versionName "1.0.4"
+            versionCode 22
+			versionName "1.0.5"
             signingConfig signingConfigs.upload_keystore
             externalNativeBuild {
                 ndkBuild {
