@@ -70,7 +70,7 @@ function SceneGameIntro:prepare()
         -- 리소스 프리로드
         self.m_resPreloadMgr:resCaching('res/ui/a2d/tutorial/tutorial.vrp')
 
-        local ret = self.m_resPreloadMgr:loadFromStageId(self.m_stageName)
+        local ret = self.m_resPreloadMgr:loadFromStageId(self.m_stageID)
         return ret
     end)
 
