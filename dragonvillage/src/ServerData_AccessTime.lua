@@ -199,9 +199,13 @@ end
 -- @brief 로컬에 저장된 시간이 지정된 시간 이상이면 저장
 -------------------------------------
 function ServerData_AccessTime:checkSaveTime(pass_cb)
+    if (not pass_cb) then return end
+
     if (self.m_oriTime <= MAX_SAVE_SEC) and
        (self.m_addTime >= AUTO_SAVE_SEC) then
         self:request_saveTime(function() pass_cb() end)
+    else
+        pass_cb()
     end
 end
 

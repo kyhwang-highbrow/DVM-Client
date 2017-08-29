@@ -25,7 +25,10 @@ end
 function UI_EventPopupTab_AccessTime:initUI()
     local vars = self.vars
     local event_data = g_accessTimeData.m_lEventData
-    
+    table.sort(event_data, function(a, b)
+        return tonumber(a['step']) < tonumber(b['step'])
+    end)
+ 
     -- 접속시간 이벤트 보상 리스트
     for i, v in ipairs(event_data) do
         local ui = UI_AccessTimeDataListItem(v)
