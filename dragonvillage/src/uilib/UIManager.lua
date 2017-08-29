@@ -498,6 +498,12 @@ end
 -- function onKeyReleased
 -------------------------------------
 function UIManager:onKeyReleased(keyCode, event)
+
+    -- 테스트 모드에서만 동작하도록 설정
+    if (not IS_TEST_MODE()) then
+        return
+    end
+
 	-- UI 클래스 이름 출력 및 클립보드 복사
 	if (keyCode == KEY_U) then
 		local last_ui = table.getLast(self.m_uiList)

@@ -58,6 +58,12 @@ MAP_KEY_FUNC[KEY_9] = 'auto_info'
 -- function onKeyReleased
 -------------------------------------
 function GameWorld:onKeyReleased(keyCode, event)
+    
+    -- 테스트 모드에서만 동작하도록 설정
+    if (not IS_TEST_MODE()) then
+        return
+    end
+
 	local key_func_name = MAP_KEY_FUNC[keyCode]
 	if (key_func_name) then
 		self[key_func_name](self)
