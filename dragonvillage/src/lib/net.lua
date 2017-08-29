@@ -114,7 +114,7 @@ function Network:start(req, delay)
 	--cclog('data: ' .. luadump(req.data))
 	local request = cc.XMLHttpRequest:new()
 	request.responseType = 5
-	request.timeoutForConnect = 2 --10 테섭이 회사 내부만 접속이 가능하므로 임시로 타임아웃을 2초로 변경 @TODO 향후 원복할 것!
+	request.timeoutForConnect = 10 --10 테섭이 회사 내부만 접속이 가능하므로 임시로 타임아웃을 2초로 변경 @TODO 향후 원복할 것!
     request.timeoutForRead = 60
 
 	-- 다운로드 경로 설정 및 recv콜백 설정
