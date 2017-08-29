@@ -11,7 +11,6 @@ UI_EventFullPopup = class(PARENT,{
 -- function init
 -------------------------------------
 function UI_EventFullPopup:init(product_id)
-    ccdump(product_id)
     local vars = self:load('event_popup.ui')
     UIManager:open(self, UIManager.POPUP)
 
@@ -20,14 +19,13 @@ function UI_EventFullPopup:init(product_id)
     -- backkey 지정
     g_currScene:pushBackKeyListener(self, function() self:close() end, 'UI_EventFullPopup')
 
-    -- @UI_ACTION
-    self:addAction(self.root, UI_ACTION_TYPE_TOP, 0, 0.2)
-    self:doActionReset()
-    self:doAction(nil, false)
-
     self:initUI()
     self:initButton()
     self:refresh()
+
+    -- @UI_ACTION
+    self:doActionReset()
+    self:doAction(nil, false)
 end
 
 -------------------------------------
@@ -48,7 +46,7 @@ function UI_EventFullPopup:initUI()
         node:addChild(ui.root)
     else
         -- 이벤트 프로덕트 정보 없을 경우 비활성화라고 생각하고 닫아줌 (주말 패키지)
-        self:closeWithAction()
+        self:close()
     end
 end
 
@@ -68,7 +66,7 @@ function UI_EventFullPopup:refresh()
 end
 
 -------------------------------------
--- function click_closeBtn
+-- function click_checkBtn
 -------------------------------------
 function UI_EventFullPopup:click_checkBtn()
     local vars = self.vars
@@ -79,14 +77,14 @@ function UI_EventFullPopup:click_checkBtn()
     local save_key = string.format('event_full_popup_%d', product_id)
     g_localData:applyLocalData(true, save_key)
 
-    self:closeWithAction()
+    self:close()
 end
 
 -------------------------------------
 -- function click_closeBtn
 -------------------------------------
 function UI_EventFullPopup:click_closeBtn()
-    self:closeWithAction()
+    self:close()
 end
 
 --@CHECK
