@@ -85,6 +85,12 @@ end
 -------------------------------------
 function UI_EventPopupTab_HBShop:init_bannerWebView()
     local vars = self.vars
+       
+    -- 아직 배너를 걸 필요가 없어 막음 mskim 17.08.29
+    if (true) then
+        vars['bannerCloseBtn']:setVisible(false)
+        return
+    end
         
     local url = g_highbrowData:getBannerUrl()
     
