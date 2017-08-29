@@ -169,8 +169,36 @@ function UI_Lobby:entryCoroutine()
         end
         while (working) do dt = coroutine.yield() end
 
-        -- 이벤트 보상 정보가 있다면 팝업을 띄운다.
         if (g_tutorialData:isTutorialDone(TUTORIAL.FIRST_START) and g_tutorialData:isTutorialDone(TUTORIAL.FRIST_END)) then
+            -- 패키지 풀팝업 (하드코딩)
+            local title_to_lobby = g_localData:get('title_to_lobby') or false
+            if (title_to_lobby) then
+                local first_login = g_userData:get('first_login') or false
+
+                local t_pid= {90007, 90013, 90012, 90006}
+                for _, pid in ipairs(t_pid) do
+                    local save_key = string.format('event_full_popup_%d', pid)
+
+                    -- 첫로그인시 봤던 기록 초기화
+                    if (first_login) then 
+                        g_localData:applyLocalData(false, save_key)
+                    end
+
+                    local is_view = g_localData:get(save_key) or false
+
+                    -- 봤던 기록 없는 이벤트 풀팝업 띄워줌
+                    if (not is_view) then
+                        working = true
+                        local ui = UI_EventFullPopup(pid)
+                        ui:setCloseCB(function(ret) working = false end)
+                        while (working) do dt = coroutine.yield() end
+                    end                
+                end
+
+                g_localData:applyLocalData(false, 'title_to_lobby')
+            end
+
+            -- 이벤트 보상 정보가 있다면 팝업을 띄운다.
             if g_eventData:hasReward() then
                 working = true
                 local ui = UI_EventPopup()

@@ -893,6 +893,9 @@ function UI_TitleScene:workFinish_click()
     Analytics:userInfo()
     Analytics:setAppDataVersion()
 
+    -- 계정 생성시에는 lobby_func 타지 않으므로 여기서 title_to_lobby 저장
+    g_localData:applyLocalData(true, 'title_to_lobby')
+
     -- 로비 진입
     lobby_func = function() 
         -- 시작이 두번 되지 않도록 하기 위함

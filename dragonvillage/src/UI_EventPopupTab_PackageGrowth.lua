@@ -46,11 +46,11 @@ end
 -- function click_openShop
 -------------------------------------
 function UI_EventPopupTab_PackageGrowth:click_openShop(product_id)
-    local is_popup = true
     local l_item_list = g_shopDataNew:getProductList('package')
     local struct_product = l_item_list[product_id]
 
     if (struct_product) then
+        local is_popup = true
         PackageManager:getTargetUI(struct_product, is_popup)
     end
 end

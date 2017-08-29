@@ -653,6 +653,7 @@ local t_module = {
     'UI_CouponPopupPreOccupancyNick',
     'UI_AdvertisingPopup',
     'UI_FormationDetailPopup',
+    'UI_EventFullPopup',
 
     -- UI : 약관 동의
     'UI_TermsPopup',

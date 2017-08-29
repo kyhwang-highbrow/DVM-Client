@@ -349,10 +349,14 @@ end
 -------------------------------------
 function FiveRocks:userInfo(userId)
     local arg1 = tostring(userId)
+    local arg2 = tostring((g_userData:get('lv') or 0))
 
     cclog('FiveRocks:userInfo : ' .. arg1)
 
     PerpleSDK:tapjoyEvent('userID', arg1, '', function(ret)
+    end)
+
+    PerpleSDK:tapjoyEvent('userLevel', arg2, '', function(ret)
     end)
 end
 

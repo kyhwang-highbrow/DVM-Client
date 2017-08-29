@@ -29,7 +29,6 @@ function UI_EventPopupTab_Shop:initUI()
     local ui = PackageManager:getTargetUI(struct_product, is_popup)
 
     local node = vars['shopNode']
-    node:removeAllChildren()
     node:addChild(ui.root)
 end
 
