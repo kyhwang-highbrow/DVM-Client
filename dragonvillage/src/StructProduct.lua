@@ -34,8 +34,6 @@ StructProduct = class(PARENT, {
 
         -- Google 결제 시 상품 ID
         sku = 'stock keeping unit', -- product id
-
-        badge = 'string',
     })
 
 local THIS = StructProduct
@@ -44,15 +42,17 @@ local THIS = StructProduct
 -- function init
 -------------------------------------
 function StructProduct:init(data)
-    local function nil_check(value, init_value)
-        if (value == nil) then
-            value = init_value
-        end
+    if (self.price_dolla == nil) then
+        self.price_dolla = 0
+    end  
+
+    if (self.m_uiPriority == nil) then
+        self.m_uiPriority = 0
     end
 
-    nil_check(self.price_dollar, 0)
-    nil_check(self.m_uiPriority, 0)
-    nil_check(self.mail_content, '')
+    if (self.mail_content == nil) then
+        self.mail_content = ''
+    end
 end
 
 -------------------------------------

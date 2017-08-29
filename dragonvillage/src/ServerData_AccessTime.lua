@@ -18,7 +18,8 @@ ServerData_AccessTime = class({
     })
 
 local TIMER_TICK = 1
-local AUTO_SAVE_SEC = 2 * 60
+--local AUTO_SAVE_SEC = 2 * 60
+local AUTO_SAVE_SEC = 10
 local MAX_SAVE_SEC = 60 * 60
 
 -------------------------------------
@@ -177,16 +178,6 @@ function ServerData_AccessTime:recordTime(scene)
             self.m_addTime = self.m_addTime + TIMER_TICK
             self.m_checkTime = self.m_checkTime + TIMER_TICK
         end
-
-        -- 로비에 있는 경우에만 자동 저장
-        --[[if (self.m_oriTime <= MAX_SAVE_SEC) and
-           (g_currScene) and
-           (g_currScene.m_sceneName) and 
-           (g_currScene.m_sceneName == 'SceneLobby') and 
-           (self.m_addTime >= AUTO_SAVE_SEC) then
-            self.m_bRecord = false 
-            self:request_saveTime(function() self.m_bRecord = true end)
-        end]]--
     end
 
     scene:scheduleUpdateWithPriorityLua(update, 0)
@@ -201,6 +192,17 @@ function ServerData_AccessTime:getTime(is_minute)
     if (is_minute) then access_time = math_floor(access_time/60) end
     
     return access_time
+end
+
+-------------------------------------
+-- function checkSaveTime
+-- @brief 로컬에 저장된 시간이 지정된 시간 이상이면 저장
+-------------------------------------
+function ServerData_AccessTime:checkSaveTime(pass_cb)
+    if (self.m_oriTime <= MAX_SAVE_SEC) and
+       (self.m_addTime >= AUTO_SAVE_SEC) then
+        self:request_saveTime(function() pass_cb() end)
+    end
 end
 
 -------------------------------------
