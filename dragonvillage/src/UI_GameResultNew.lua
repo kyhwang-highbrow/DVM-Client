@@ -368,7 +368,19 @@ end
 -- function direction_start_click
 -------------------------------------
 function UI_GameResultNew:direction_start_click()
-    self:doNextWork()
+    local is_level_up = false
+
+    local t_levelup_data = self.m_tTamerLevelupData
+    if (t_levelup_data) then
+        local prev_lv = t_levelup_data['prev_lv'] or 0 
+        local curr_lv = t_levelup_data['curr_lv'] or 0
+        is_level_up = (prev_lv ~= curr_lv) and true or false
+    end
+    
+    -- 레벨업 아닌 경우만 스킵 가능
+    if (not is_level_up) then
+        self:doNextWork()
+    end
 end
 
 -------------------------------------
