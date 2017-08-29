@@ -34,15 +34,39 @@ function WaveMgr_SecretRelation:init(world, stage_name, stage_id, develop_mode)
 end
 
 -------------------------------------
+-- function setDynamicWave
+-- @brief script를 읽어 dynamic wave를 저장
+-------------------------------------
+function WaveMgr_SecretRelation:setDynamicWave(l_wave, l_data, group_key)
+    PARENT.setDynamicWave(self, l_wave, l_data, group_key)
+
+    -- 웨이브 정보에서 드래곤의 경우는 did + evolution형식으로 아이디를 사용함
+    for i, v in ipairs(self.m_lBossInfo) do
+        local id = v['cid']
+        local cid
+        local evolution
+
+        if (isMonster(id)) then
+            cid = id
+        else
+            cid = math_floor(id / 10)
+            evolution = id % 10
+        end
+
+        self.m_lBossInfo[i]['cid'] = cid
+        self.m_lBossInfo[i]['evolution'] = evolution
+    end
+end
+
+-------------------------------------
 -- function spawnEnemy_dynamic
 -------------------------------------
 function WaveMgr_SecretRelation:spawnEnemy_dynamic(enemy_id, level, appear_type, value1, value2, value3, movement)
-    
     local enemy
 
     -- Enemy 생성
     if (isMonster(enemy_id)) then
-        enemy = self.m_world:makeMonsterNew(enemy_id, level + self.m_addLevel)
+        enemy = self.m_world:makeMonsterNew(enemy_id, level)
 
     else
         local evolution = enemy_id % 10
@@ -52,7 +76,7 @@ function WaveMgr_SecretRelation:spawnEnemy_dynamic(enemy_id, level, appear_type,
 
         enemy = self.m_world:makeDragonNew(StructDragonObject({
             did = enemy_id,
-            lv = level + self.m_addLevel,
+            lv = level,
             grade = 1,
             evolution = evolution,
             skill_0 = self.m_currWave,
@@ -99,17 +123,4 @@ function WaveMgr_SecretRelation:spawnEnemy_dynamic(enemy_id, level, appear_type,
     end
 
 	return enemy
-end
-
--------------------------------------
--- function getBossId
--------------------------------------
-function WaveMgr_SecretRelation:getBossId()
-    if (isMonster(self.m_bossId)) then
-        return self.m_bossId
-    end
-
-    local boss_id = math_floor(self.m_bossId / 10)
-    local evolution = self.m_bossId % 10
-    return boss_id, evolution
 end

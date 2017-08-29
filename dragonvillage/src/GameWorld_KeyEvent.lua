@@ -39,10 +39,12 @@ MAP_KEY_FUNC[KEY_2] = 'tamer_event_skill'
 MAP_KEY_FUNC[KEY_3] = 'print_total_damage_to_hero'
 MAP_KEY_FUNC[KEY_4] = 'reload_skill_sound_table'
 
+--[[
 MAP_KEY_FUNC[KEY_LEFT_ARROW] = 'camera_move_left'
 MAP_KEY_FUNC[KEY_RIGHT_ARROW] = 'camera_move_right'
 MAP_KEY_FUNC[KEY_UP_ARROW] = 'camera_move_up'
 MAP_KEY_FUNC[KEY_DOWN_ARROW] = 'camera_move_down'
+]]--
 
 -- 테스트
 MAP_KEY_FUNC[KEY_5] = 'ingame_test_a'
@@ -407,10 +409,22 @@ end
 -------------------------------------
 function GameWorld:ingame_test_b()
     if (g_gameScene) then
-        local b = self.m_inGameUI.m_panelUI.root:isVisible()
+        local b = self.m_inGameUI.vars['panelBgSprite']:isVisible()
 
-        -- 패널
-        self.m_inGameUI.m_panelUI.root:setVisible(not b)
+        -- 패널 UI
+        self.m_inGameUI:toggleVisibility_PanelUI(not b, true)
+        --[[
+        -- 테이머 UI
+        self.m_inGameUI:toggleVisibility_TamerUI(not b, true)
+
+        -- 마나 UI
+        self.m_inGameUI:toggleVisibility_ManaUI(not b, true)
+
+        -- 하단 프레임
+        self.m_inGameUI.vars['panelBgSprite']:setVisible(not b)
+
+        self.m_inGameUI.vars['timeLabel']:setVisible(not b)
+        ]]--
     end
 end
 

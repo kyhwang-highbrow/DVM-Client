@@ -9,20 +9,19 @@ WaveMgr_AncientTower = class(PARENT, {})
 -- function spawnEnemy_dynamic
 -------------------------------------
 function WaveMgr_AncientTower:spawnEnemy_dynamic(enemy_id, level, appear_type, value1, value2, value3, movement)
-    
+    local rarity = self:getRarity(enemy_id, level)
+    local isBoss = (rarity == self.m_highestRarity and self:isFinalWave())
     local enemy
 
     -- Enemy 생성
     if isMonster(enemy_id) then
-        enemy = self.m_world:makeMonsterNew(enemy_id, level + self.m_addLevel)
+        --enemy = self.m_world:makeMonsterNew(enemy_id, level, isBoss)
+        enemy = self.m_world:makeMonsterNew(enemy_id, level)
 
     else
-        local rarity = self:getRarity(enemy_id, level)
-        local isBoss = (rarity == self.m_highestRarity and self:isFinalWave())
-
         enemy = self.m_world:makeDragonNew(StructDragonObject({
             did = enemy_id,
-            lv = level + self.m_addLevel,
+            lv = level,
             grade = 1,
             evolution = 3,
             skill_0 = 1,
@@ -34,12 +33,15 @@ function WaveMgr_AncientTower:spawnEnemy_dynamic(enemy_id, level, appear_type, v
         enemy.m_animator:setScale(0.45)
 
         if (isBoss) then
+            if (not self.m_lBoss) then
+                self.m_lBoss = {}
+            end
+            table.insert(self.m_lBoss, enemy)
+
             -- 스테이지별 boss_hp_ratio 적용.
             local boss_hp_ratio = TableStageData():getValue(self.m_world.m_stageID, 'boss_hp_ratio') or 1
             enemy.m_statusCalc:appendHpRatio(boss_hp_ratio)
             enemy:setStatusCalc(enemy.m_statusCalc)
-
-            Monster.makeHPGauge(enemy, {0, -80}, true)
         end
     end
 

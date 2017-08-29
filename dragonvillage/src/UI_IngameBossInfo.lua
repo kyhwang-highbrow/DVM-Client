@@ -46,6 +46,9 @@ function UI_IngameBossInfo:initUI()
 
     vars['bossSKillGauge']:setPercentage(0)
 
+    -- 웨이브 표시 숨김
+    self.m_owner.m_world.m_inGameUI.vars['waveVisual']:setVisible(false)
+
     -- 스킬별 버튼 생성
     --[[
     for i = 1, 9 do

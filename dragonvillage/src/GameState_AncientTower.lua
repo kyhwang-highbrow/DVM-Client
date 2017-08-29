@@ -4,6 +4,7 @@ local PARENT = GameState
 -- class GameState_AncientTower
 -------------------------------------
 GameState_AncientTower = class(PARENT, {
+        m_uiBossHp = 'UI_IngameBossHp',
     })
 
 -------------------------------------
@@ -22,7 +23,9 @@ function GameState_AncientTower:initState()
     PARENT.initState(self)
     
     self:addState(GAME_STATE_WAVE_INTERMISSION, GameState_AncientTower.update_wave_intermission)
+    self:addState(GAME_STATE_FIGHT, GameState_AncientTower.update_fight)
     self:addState(GAME_STATE_FINAL_WAVE, GameState_AncientTower.update_final_wave)
+    self:addState(GAME_STATE_SUCCESS, GameState_AncientTower.update_success)
 end
 
 -------------------------------------
@@ -69,6 +72,25 @@ function GameState_AncientTower.update_wave_intermission(self, dt)
 end
 
 -------------------------------------
+-- function update_fight
+-------------------------------------
+function GameState_AncientTower.update_fight(self, dt)
+    local world = self.m_world
+    
+    if (self.m_stateTimer == 0) then
+        if (world.m_waveMgr:isFinalWave()) then
+            if (not self.m_uiBossHp) then
+                self.m_uiBossHp = UI_IngameBossHp(world.m_waveMgr.m_lBoss)
+                
+                world.m_inGameUI.root:addChild(self.m_uiBossHp.root, 102)
+            end
+        end
+    end
+
+    PARENT.update_fight(self, dt)
+end
+
+-------------------------------------
 -- function update_final_wave
 -------------------------------------
 function GameState_AncientTower.update_final_wave(self, dt)
@@ -78,6 +100,20 @@ function GameState_AncientTower.update_final_wave(self, dt)
         -- 웨이브 표시 숨김
         self.m_world.m_inGameUI.vars['waveVisual']:setVisible(false)
     end
+end
+
+-------------------------------------
+-- function update_success
+-------------------------------------
+function GameState_AncientTower.update_success_wait(self, dt)
+    if (self.m_stateTimer == 0) then
+        if (self.m_uiBossHp) then
+            self.m_uiBossHp.root:removeFromParent(true)
+            self.m_uiBossHp = nil
+        end
+    end
+
+    PARENT.update_success_wait(self, dt)
 end
 
 -------------------------------------

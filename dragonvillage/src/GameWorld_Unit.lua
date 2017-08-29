@@ -88,7 +88,7 @@ end
 -------------------------------------
 -- function makeMonsterNew
 -------------------------------------
-function GameWorld:makeMonsterNew(monster_id, level)
+function GameWorld:makeMonsterNew(monster_id, level, use_boss_gauge)
 
     local t_monster = TableMonster():get(monster_id)
 
@@ -107,7 +107,7 @@ function GameWorld:makeMonsterNew(monster_id, level)
 
     monster:init_monster(t_monster, monster_id, level)
     monster:initState()
-	monster:initFormation(body_size)
+	monster:initFormation(body_size, use_boss_gauge)
 
     local body_list = TableMonsterHitPos():getBodyList(monster_id)
     if (body_list) then
@@ -380,6 +380,7 @@ function GameWorld:removeHero(hero)
 
     -- 게임 종료 체크(모든 영웅이 죽었을 경우)
     local hero_count = #self:getDragonList()
+
     if (hero_count <= 0) then
         self.m_gameState:changeState(GAME_STATE_FAILURE)
     end

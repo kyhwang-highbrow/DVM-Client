@@ -124,8 +124,7 @@ function Dragon:initFormation()
     self:makeHPGauge({0, -80})
 
 	-- 진영에 따른 처리
-	if (self.m_bLeftFormation) then        
-    else
+	if (not self.m_bLeftFormation) then        
         self.m_animator:setFlip(true)
     end
 end

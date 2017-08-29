@@ -107,10 +107,8 @@ end
 -------------------------------------
 -- function initFormation
 -------------------------------------
-function Monster:initFormation(body_size)
-    local hp_ui_offset = {0, -(body_size[3] * 1.5)}
-
-	self:makeHPGauge(hp_ui_offset)
+function Monster:initFormation(body_size, use_boss_gauge)
+    self:makeHPGauge({0, -(body_size[3] * 1.5)}, use_boss_gauge)
     self.m_animator:setFlip(true)
 end
 
@@ -250,7 +248,7 @@ end
 -- function makeHPGauge
 -------------------------------------
 function Monster:makeHPGauge(hp_ui_offset, force)
-    if (self.m_charTable['rarity'] == 'boss' or force) then
+    if (force or (self.m_charTable['rarity'] == 'boss' and force == nil)) then
         self.m_unitInfoOffset = hp_ui_offset
 
         if (self.m_hpNode) then

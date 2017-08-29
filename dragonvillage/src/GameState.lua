@@ -52,7 +52,7 @@ GameState = class(PARENT, {
         m_waveMaxNum = 'Animator',
 
         m_lBossLabel = 'table',
-        m_nodeBoss = '',
+        m_bossNode = '',
     })
 
 -------------------------------------
@@ -114,7 +114,7 @@ function GameState:initUI()
 
     -- 보스 노드
     do
-        self.m_nodeBoss = self.m_waveEffect.m_node:getSocketNode('ingame_text_boss')
+        self.m_bossNode = self.m_waveEffect.m_node:getSocketNode('ingame_text_boss')
     end
 
     -- 웨이브
@@ -499,7 +499,7 @@ function GameState.update_enemy_appear(self, dt)
         if (world.m_gameAutoEnemy) then
             world.m_gameAutoEnemy:prepare(world:getEnemyList())
         end
-                
+
         self:changeState(GAME_STATE_FIGHT_WAIT)
     end
     
@@ -557,7 +557,7 @@ function GameState.update_boss_wave(self, dt)
         self.m_bossTextVisual:changeAni('boss_text', false)
         self.m_bossTextVisual:addAniHandler(function()
             self.m_bossTextVisual:setVisible(false)
-            self.m_nodeBoss:removeAllChildren(true)
+            self.m_bossNode:removeAllChildren(true)
 
             self:changeState(GAME_STATE_ENEMY_APPEAR)
         end)
@@ -573,8 +573,8 @@ function GameState.update_boss_wave(self, dt)
         -- 보스 이미지
         local boss_animator = self:getBossAnimator()
         if (boss_animator) then
-            self.m_nodeBoss:removeAllChildren(true)
-            self.m_nodeBoss:addChild(boss_animator.m_node)
+            self.m_bossNode:removeAllChildren(true)
+            self.m_bossNode:addChild(boss_animator.m_node)
 
             boss_animator:runAction(getFadeAction())
         end

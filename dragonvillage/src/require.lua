@@ -751,6 +751,7 @@ local t_module = {
     'UI_IngameUnitInfo',
     'UI_IngameDragonInfo',
     'UI_IngameBossInfo',
+    'UI_IngameBossHp',
     'UI_AutoPlaySettingPopup',
 
 	-- UI : 가방

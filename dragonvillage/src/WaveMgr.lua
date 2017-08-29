@@ -21,8 +21,6 @@ WaveMgr = class(IEventDispatcher:getCloneClass(), {
         m_bDeadHighestRarity = 'boolean',   -- 가장 높은 rarity가 죽었는지 여부
 
         -- 보스 정보
-        m_bossId = 'number',
-        m_bossLv = 'number',
         m_lBoss = 'table',
         m_lBossInfo = 'table',
 
@@ -234,6 +232,9 @@ function WaveMgr:setDynamicWave(l_wave, l_data, group_key)
 		for _, data in pairs(v) do
 			-- dynamic wave 생성 및 저장
 			local dynamic_wave = DynamicWave(self, data, time)
+
+            -- 스테이지별 추가 레벨 적용
+            dynamic_wave.m_enemyLevel = dynamic_wave.m_enemyLevel + self.m_addLevel
 			
 			if (group_key) then
 				-- regen wave라면 regen 정보를 저장
@@ -255,8 +256,6 @@ function WaveMgr:setDynamicWave(l_wave, l_data, group_key)
     
 	            if (rarity > self.m_highestRarity) then
 		            self.m_highestRarity = rarity
-                    self.m_bossId = enemy_id
-                    self.m_bossLv = enemy_lv + self.m_addLevel
 	            end
             end
 
@@ -270,7 +269,8 @@ function WaveMgr:setDynamicWave(l_wave, l_data, group_key)
 
         for i, v in ipairs(l_wave) do
             local enemy_id = v.m_enemyID
-            local enemy_lv = v.m_enemyLevel + self.m_addLevel
+            local enemy_lv = v.m_enemyLevel
+
             local rarity = self:getRarity(enemy_id, enemy_lv)
 
 	        if (rarity >= self.m_highestRarity) then
@@ -340,7 +340,6 @@ function WaveMgr:newScenario_dynamicWave(t_data)
     self.m_highestRarity = -1
     self.m_bDeadHighestRarity = false
     self.m_lBossInfo = {}
-    self.m_bossId = nil
     self.m_lBoss = nil
 
     -- wave 정보를 읽어 dynamic wave 세팅
@@ -417,7 +416,8 @@ end
 -- function spawnEnemy_dynamic
 -------------------------------------
 function WaveMgr:spawnEnemy_dynamic(enemy_id, level, appear_type, value1, value2, value3, movement)
-    
+    local rarity = self:getRarity(enemy_id, level)
+    local isBoss = (rarity == self.m_highestRarity and self:isFinalWave())
     local enemy
 
     -- Enemy 생성
@@ -425,16 +425,13 @@ function WaveMgr:spawnEnemy_dynamic(enemy_id, level, appear_type, value1, value2
         -- @TODO 드래곤일 경우 등급 및 진화, 친밀도의 데이터도 추가 정리 필요
         enemy = self.m_world:makeDragonNew(StructDragonObject({
             did = enemy_id,
-            lv = level + self.m_addLevel,
+            lv = level,
             grade = 1,
             skill_0 = 1
         }), true)
     else
-        enemy = self.m_world:makeMonsterNew(enemy_id, level + self.m_addLevel)
+        enemy = self.m_world:makeMonsterNew(enemy_id, level)
     end
-
-    local rarity = self:getRarity(enemy_id, level)
-    local isBoss = (rarity == self.m_highestRarity and self:isFinalWave())
 
     if (isBoss) then
         if (not self.m_lBoss) then
@@ -575,7 +572,10 @@ end
 -- function getBossId
 -------------------------------------
 function WaveMgr:getBossId()
-    return self.m_bossId
+    if (not self.m_lBossInfo or #self.m_lBossInfo == 0) then return end
+
+    local boss_info = self.m_lBossInfo[1]
+    return boss_info['cid']
 end
 
 -------------------------------------
@@ -594,5 +594,25 @@ function WaveMgr:getFinalBossInfo()
     local t_data = self.m_scriptData['wave'][self.m_maxWave]
     self:newScenario_dynamicWave(t_data)
 
-    return self:getBossId(), self.m_bossLv
+    local boss_info = self.m_lBossInfo[1]
+    local boss_id = self:getBossId()
+    local boss_lv = boss_info['lv']
+
+    return boss_id, boss_lv
+end
+
+-------------------------------------
+-- function getBossList
+-------------------------------------
+function WaveMgr:getBossList()
+    return self.m_lBoss
+end
+
+-------------------------------------
+-- function hasMultipleBosses
+-------------------------------------
+function WaveMgr:hasMultipleBosses()
+    if (not self.m_lBossInfo) then return false end
+
+    return (#self.m_lBossInfo > 1)
 end

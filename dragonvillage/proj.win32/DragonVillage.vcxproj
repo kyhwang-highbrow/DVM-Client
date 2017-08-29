@@ -879,6 +879,7 @@ xcopy /Y /Q "$(ProjectDir)..\..\libraries\pati\prebuilt\windows\*.dll" "$(OutDir
     <None Include="..\src\UI_Game_Mana.lua" />
     <None Include="..\src\UI_GoodsInfo.lua" />
     <None Include="..\src\UI_Help.lua" />
+    <None Include="..\src\UI_IngameBossHp.lua" />
     <None Include="..\src\UI_IngameTamerPanelItem.lua" />
     <None Include="..\src\UI_MonsterSkillCard.lua" />
     <None Include="..\src\UI_Package_Growth.lua" />
