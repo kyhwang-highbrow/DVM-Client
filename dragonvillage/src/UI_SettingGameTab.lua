@@ -22,6 +22,9 @@ function UI_Setting:init_gameTab()
     -- 채팅 on/off
     self:init_chatSetting()
 
+    -- 푸시 on/off
+    self:init_notification()
+
     -- 시나리오 재생 설정
     self:init_scenarioPlayerSetting()
 end
@@ -136,6 +139,39 @@ function UI_Setting:init_chatSetting()
         elseif (selected == 'off') then
             g_chatIgnoreList:setGlobalIgnore(true)
         end
+    end
+
+    radio_button:setChangeCB(change_cb)
+end
+
+-------------------------------------
+-- function init_notification
+-- @brief 푸시 On/Off
+-------------------------------------
+function UI_Setting:init_notification()
+    local vars = self.vars
+
+    local radio_button = UIC_RadioButton()
+    radio_button:addButton('on', vars['pushOnBtn'])
+    radio_button:addButton('off', vars['pushOffBtn'])
+
+    local push_state = g_localData:get('push_state') or 1
+    if push_state == 1 then
+        radio_button:setSelectedButton('on')
+    else
+        radio_button:setSelectedButton('off')
+    end
+
+    local function change_cb(selected)
+        local uid = g_localData:get('local', 'uid')
+        local pushToken = g_localData:get('local', 'push_token')
+        local game_push = 1 -- 1(on) or 0(off)
+        if (selected == 'off') then
+            game_push = 0
+            LocalPushMgr:cancel()
+        end
+        Network_platform_registerToken(uid, game_push, pushToken)
+        g_localData:applyLocalData(game_push, 'push_state')
     end
 
     radio_button:setChangeCB(change_cb)

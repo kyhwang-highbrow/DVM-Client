@@ -64,6 +64,39 @@ function Network_platform_issueRcode(game_id, fuid, rcode, os, game_push, pushTo
 end
 
 -------------------------------------
+-- function Network_platform_registerToken
+-- @breif   푸시 토큰 등록
+-- @param
+--          uid : player id
+--          game_push : on - 1, off - 0
+--          pushToken : firebase push token
+-------------------------------------
+function Network_platform_registerToken(uid, game_push, pushToken, success_cb, fail_cb)
+    -- 파라미터 셋팅
+    local t_data = {}
+    t_data['uid'] = uid
+    t_data['game_push'] = game_push
+    t_data['pushToken'] = pushToken
+
+    -- 요청 정보 설정
+    local t_request = {}
+    t_request['full_url'] = GetPlatformApiUrl() .. '/user/registerToken'
+    t_request['method'] = 'POST'
+    t_request['data'] = t_data
+
+    t_request['check_hmac_md5'] = false
+
+    -- 성공 시 콜백 함수
+    t_request['success'] = success_cb
+
+    -- 실패 시 콜백 함수
+    t_request['fail'] = fail_cb
+
+    -- 네트워크 통신
+    Network:SimpleRequest(t_request)
+end
+
+-------------------------------------
 -- function Network_platform_updateTerms
 -- @breif   약관 동의 여부 업데이트
 -- @param

@@ -530,8 +530,9 @@ function UI_TitleScene:workPlatformLogin()
     local fuid = g_localData:get('local', 'uid')
     local rcode = g_localData:get('local', 'recovery_code')
     local os = 0 -- ( 0 : Android / 1 : iOS )
-    local game_push = 1 -- on - 1, off - 0
     local pushToken = g_localData:get('local', 'push_token')
+    local game_push = g_localData:get('push_state') or 1    -- 1(on) or 0(off)
+
     Network_platform_issueRcode(game_id, fuid, rcode, os, game_push, pushToken, success_cb, fail_cb)
 end
 function UI_TitleScene:workPlatformLogin_click()

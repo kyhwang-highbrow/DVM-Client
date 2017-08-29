@@ -19,6 +19,13 @@ end
 -- @brief 로컬 푸시 정보를 등록
 -------------------------------------
 function LocalPushMgr:applyLocalPush()
+
+    -- 옵션에서 알림을 껐을 경우
+    local push_state = g_localData:get('push_state') or 1
+    if push_state == 0 then
+        return
+    end
+
     -- 기존 local push 삭제
     self:cancel()
 
