@@ -75,7 +75,7 @@ function GameDragonSkill:initUI()
     local titleNode = self.m_skillDescEffect.m_node:getSocketNode('skill_title')
     local descNode = self.m_skillDescEffect.m_node:getSocketNode('skill_dsc')
     
-    self.m_skillNameLabel = cc.Label:createWithTTF('', 'res/font/common_font_01.ttf', 60, 3, cc.size(800, 200), 1, 1)
+    self.m_skillNameLabel = cc.Label:createWithTTF('', 'res/font/common_font_01.ttf', 60, 3, cc.size(1000, 200), 1, 1)
     self.m_skillNameLabel:setAnchorPoint(cc.p(0.5, 0.5))
 	self.m_skillNameLabel:setDockPoint(cc.p(0, 0))
 	self.m_skillNameLabel:setColor(cc.c3b(84,244,87))
@@ -84,7 +84,7 @@ function GameDragonSkill:initUI()
 
 	local rich_label = UIC_RichLabel()
     rich_label:setFontSize(20)
-    rich_label:setDimension(800, 800)
+    rich_label:setDimension(1000, 800)
     rich_label:setAlignment(cc.TEXT_ALIGNMENT_CENTER, cc.VERTICAL_TEXT_ALIGNMENT_CENTER)
 	rich_label:setDockPoint(cc.p(0, 0))
     rich_label:setAnchorPoint(CENTER_POINT)
@@ -380,10 +380,32 @@ function GameDragonSkill:makeSkillDesc(dragon, delayTime)
     self.m_skillDescEffect:setVisible(true)
     self.m_skillDescEffect:setTimeScale(0.7)
 
-    self.m_skillNameLabel:setString(Str(t_skill['t_name']))
-
+    local name = active_skill_info:getSkillName()
 	local desc = active_skill_info:getSkillDesc()
 
+    -- 현재 skill_info 스킬아이디와 드래곤의 액티브스킬 아이디를 비교하여 다르다면
+    -- 스킬 강화 된것으로 보고 강화되기전 스킬을 꺼내온다.
+    local curr_skill_id = active_skill_info:getSkillID()
+    local active_skill_id = dragon.m_charTable['skill_active']
+    if (curr_skill_id ~= active_skill_id) then
+        local old_skill_info = dragon:getSkillInfoByID(active_skill_id)
+        -- 강화 되기 전 스킬 정보를 가져왔을 경우
+        if (old_skill_info) then
+            -- 이름
+            local old_skill_name = old_skill_info:getSkillName()
+            if (old_skill_name) then
+                name = string.format('%s (%s)', old_skill_name, name)
+            end
+
+            -- 설명
+            local old_skill_desc = old_skill_info:getSkillDesc()
+            if (old_skill_desc) then
+                desc = string.format('%s \n %s', old_skill_desc, desc)
+            end
+        end
+    end
+
+    self.m_skillNameLabel:setString(name)
     self.m_skillDescLabel:setString(desc)
 end
 
