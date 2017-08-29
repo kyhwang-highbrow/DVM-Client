@@ -252,17 +252,19 @@ function UI_Lobby:initLobbyWorldAdapter()
             g_topUserInfo:doAction(nil, nil, 0.5)
         end)
 
-        -- 정지 후 60초 후에 UI를 숨김
-        lobby_map:setMoveEndCB(function()
-            parent_node:stopAllActions()
+        -- 정지 후 60초 후에 UI를 숨김 (튜토리얼 중에는 설정하지 않음)
+        if (g_tutorialData:isTutorialDone(TUTORIAL.FIRST_START)) then
+            lobby_map:setMoveEndCB(function()
+                parent_node:stopAllActions()
 
-            local function func()
-                self:doActionReverse()
-                g_topUserInfo:doActionReverse()
-            end
+                local function func()
+                    self:doActionReverse()
+                    g_topUserInfo:doActionReverse()
+                end
 
-            cca.reserveFunc(parent_node, 60, func)
-        end)
+                cca.reserveFunc(parent_node, 60, func)
+            end)
+        end
     end
 end
 
