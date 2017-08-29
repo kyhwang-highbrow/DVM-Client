@@ -65,11 +65,32 @@
                     android:name="com.android.vending.INSTALL_REFERRER" />
             </intent-filter>
         </receiver>
-
-        <!-- @firebase -->
         <receiver
             android:name="com.google.android.gms.measurement.AppMeasurementInstallReferrerReceiver"
             tools:node="remove" />
+
+        <!-- @firebase -->
+        <service
+            android:name="com.perplelab.firebase.PerpleFirebaseMessagingService">
+            <intent-filter>
+                <action
+                    android:name="com.google.firebase.MESSAGING_EVENT" />
+            </intent-filter>
+        </service>
+        <service
+            android:name = "com.google.firebase.messaging.FirebaseMessagingService"
+            tools:node="remove" />
+        <service
+            android:name="com.perplelab.firebase.PerpleFirebaseInstanceIdService">
+            <intent-filter>
+                <action
+                    android:name="com.google.firebase.INSTANCE_ID_EVENT" />
+            </intent-filter>
+        </service>
+        <service
+            android:name = "com.google.firebase.iid.FirebaseInstanceIdService"
+            tools:node="remove" />
+
         <!-- Set custom default icon. This is used when no icon is set for incoming notification messages.
              See README(https://goo.gl/l4GJaQ) for more. -->
         <meta-data
@@ -80,7 +101,10 @@
         <meta-data
             android:name="com.google.firebase.messaging.default_notification_color"
             android:resource="@color/colorPush" />
-            
+        <meta-data
+            android:name="com.google.firebase.messaging.default_notification_channel"
+            android:value="@string/push_channel_id"/>
+
         <!-- @adbrix -->
         <meta-data
             android:name="igaworks_app_key"
