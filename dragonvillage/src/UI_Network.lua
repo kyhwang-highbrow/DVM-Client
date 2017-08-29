@@ -139,6 +139,10 @@ end
 function UI_Network:hideLoading()
 	self:setLoadingMsg('')
 	self.vars['bgLayerColor']:setVisible(false)
+    
+    if self.vars['visual'] then
+        self.vars['visual']:setVisible(false)
+    end
 end
 
 -------------------------------------

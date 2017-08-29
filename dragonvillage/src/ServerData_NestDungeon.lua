@@ -123,13 +123,14 @@ end
 -------------------------------------
 -- function requestNestDungeonInfo
 -- @brief 서버로부터 네스트던전 open정보를 받아옴
+-- @return ui_network
 -------------------------------------
 function ServerData_NestDungeon:requestNestDungeonInfo(cb_func)
     if (not self.m_bDirtyNestDungeonInfo) then
         if cb_func then
             cb_func()
         end
-        return
+        return nil
     end
 
     local uid = g_userData:get('uid')

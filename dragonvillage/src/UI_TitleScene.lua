@@ -8,6 +8,8 @@ UI_TitleScene = class(PARENT,{
         m_workIdx = 'number',
         m_loadingUI = 'UI_TitleSceneLoading',
         m_bNewUser = 'boolean',
+
+        m_currWorkRetry = 'number',
     })
 
 -------------------------------------
@@ -228,6 +230,7 @@ end
 -- function doNextWork
 -------------------------------------
 function UI_TitleScene:doNextWork()
+    self.m_currWorkRetry = 0
     self.m_workIdx = (self.m_workIdx + 1)
     local func_name = self.m_lWorkList[self.m_workIdx]
 
@@ -646,35 +649,43 @@ function UI_TitleScene:workGetServerInfo()
         local co = CoroutineHelper()
 
         local fail_cb = function(ret)
-            self:makeFailPopup(nil, ret)
+            self:retryCurrWork3Times(nil, ret)
         end
 
         -- (테이블 정보를 받는 중)
         co:work()
         self.m_loadingUI:showLoading(Str('지도를 챙기는 중...'))
         local ui_network = g_serverData:request_serverTables(co.NEXT, fail_cb)
-        ui_network:hideLoading()
+        if ui_network then
+            ui_network:hideLoading()
+        end
         if co:waitWork() then return end
 
         -- 룬 정보 받기
         co:work()
         self.m_loadingUI:showLoading(Str('룬을 챙기는 중...'))
         local ui_network = g_runesData:request_runesInfo(co.NEXT, fail_cb)
-        ui_network:hideLoading()
+        if ui_network then
+            ui_network:hideLoading()
+        end
         if co:waitWork() then return end
 
         -- 드래곤 정보 받기
         co:work()
         self.m_loadingUI:showLoading(Str('드래곤들을 부르는 중...'))
         local ui_network = g_dragonsData:request_dragonsInfo(co.NEXT, fail_cb)
-        ui_network:hideLoading()
+        if ui_network then
+            ui_network:hideLoading()
+        end
         if co:waitWork() then return end
 
 		-- 스테이지 리스트 받기
         co:work()
         self.m_loadingUI:showLoading(Str('지난 흔적을 찾는 중...'))
         local ui_network = g_adventureData:request_adventureInfo(co.NEXT, fail_cb)
-        ui_network:hideLoading()
+        if ui_network then
+            ui_network:hideLoading()
+        end
         if co:waitWork() then return end
 
         --[[
@@ -692,54 +703,66 @@ function UI_TitleScene:workGetServerInfo()
         co:work()
         self.m_loadingUI:showLoading(Str('알 부화를 준비 중...'))
         local ui_network = g_hatcheryData:request_hatcheryInfo(co.NEXT, fail_cb)
-        ui_network:setRevocable(false)
-        ui_network:setFailCB(fail_cb)
-        ui_network:hideLoading()
+        if ui_network then
+            ui_network:setRevocable(false)
+            ui_network:setFailCB(fail_cb)
+            ui_network:hideLoading()
+        end
         if co:waitWork() then return end
 
         -- 핫 타임
         co:work()
         self.m_loadingUI:showLoading(Str('핫타임 정보 요청 중...'))
         local ui_network = g_hotTimeData:request_hottime(co.NEXT, fail_cb)
-        ui_network:setRevocable(false)
-        ui_network:setFailCB(fail_cb)
-        ui_network:hideLoading()
+        if ui_network then
+            ui_network:setRevocable(false)
+            ui_network:setFailCB(fail_cb)
+            ui_network:hideLoading()
+        end
         if co:waitWork() then return end
 
         -- 접속시간 이벤트
         co:work()
         self.m_loadingUI:showLoading(Str('접속시간 정보 요청 중...'))
         local ui_network = g_accessTimeData:request_accessTime(co.NEXT, fail_cb)
-        ui_network:setRevocable(false)
-        ui_network:setFailCB(fail_cb)
-        ui_network:hideLoading()
+        if ui_network then
+            ui_network:setRevocable(false)
+            ui_network:setFailCB(fail_cb)
+            ui_network:hideLoading()
+        end
         if co:waitWork() then return end
 
         -- 네스트 던전 정보
         co:work()
         self.m_loadingUI:showLoading(Str('던전 정보를 확인 중...'))
         local ui_network = g_nestDungeonData:requestNestDungeonInfo(co.NEXT)
-        ui_network:setRevocable(false)
-        ui_network:setFailCB(fail_cb)
-        ui_network:hideLoading()
+        if ui_network then
+            ui_network:setRevocable(false)
+            ui_network:setFailCB(fail_cb)
+            ui_network:hideLoading()
+        end
         if co:waitWork() then return end
 
         -- 튜토리얼
         co:work()
         self.m_loadingUI:showLoading(Str('튜토리얼 정보를 가져오는 중...'))
         local ui_network = g_tutorialData:request_tutorialInfo(co.NEXT, fail_cb)
-        ui_network:setRevocable(false)
-        ui_network:setFailCB(fail_cb)
-        ui_network:hideLoading()
+        if ui_network then
+            ui_network:setRevocable(false)
+            ui_network:setFailCB(fail_cb)
+            ui_network:hideLoading()
+        end
         if co:waitWork() then return end
 
         -- 마스터의 길
         co:work()
         self.m_loadingUI:showLoading(Str('마스터의 길을 닦는 중...'))
         local ui_network = g_masterRoadData:request_roadInfo(co.NEXT, fail_cb)
-        ui_network:setRevocable(false)
-        ui_network:setFailCB(fail_cb)
-        ui_network:hideLoading()
+        if ui_network then
+            ui_network:setRevocable(false)
+            ui_network:setFailCB(fail_cb)
+            ui_network:hideLoading()
+        end
         if co:waitWork() then return end
 
         do -- 콜로세움 덱 정보 받기 (추후 통합 API 제작할 것!) sgkim
@@ -752,7 +775,9 @@ function UI_TitleScene:workGetServerInfo()
             co:work()
             self.m_loadingUI:showLoading(Str('신발을 신는 중...'))
             local ui_network = g_colosseumData:request_playerColosseumDeck('def', co.NEXT, fail_cb)
-            ui_network:hideLoading()
+            if ui_network then
+                ui_network:hideLoading()
+            end
             if co:waitWork() then return end
         end
 
@@ -985,6 +1010,21 @@ end
 ------------------------------------------------------------------------------------------------------------------------
 
 -------------------------------------
+-- function retryCurrWork3Times
+-- @brief
+-------------------------------------
+function UI_TitleScene:retryCurrWork3Times(msg, ret)
+    self.m_currWorkRetry = (self.m_currWorkRetry + 1)
+
+    if (self.m_currWorkRetry <= 3) then
+        self:retryCurrWork()
+    else
+        self.m_currWorkRetry = 0
+        self:makeFailPopup(msg, ret)
+    end
+end
+
+-------------------------------------
 -- function makeFailPopup
 -- @brief
 -------------------------------------
@@ -994,7 +1034,7 @@ function UI_TitleScene:makeFailPopup(msg, ret)
         self:retryCurrWork()
     end
 
-    local msg = msg or '오류가 발생하였습니다. 다시 시도하시겠습니까?'
+    local msg = msg or '오류가 발생하였습니다.\n다시 시도하시겠습니까?'
 
     if ret then
         local add_msg = '(status : ' .. tostring(ret['status']) .. ', message : ' .. tostring(ret['message']) .. ')'
