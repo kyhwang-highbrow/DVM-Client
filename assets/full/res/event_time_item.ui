@@ -214,7 +214,7 @@
 				lua_name = 'readySprite';
 				file_name = 'ui/frames/base_frame_0201.png';
 				color = { 0; 0; 0; };
-				opacity = 150;
+				opacity = 0;
 				center_rect_x = 0;
 				center_rect_y = 0;
 				center_rect_width = 0;
