@@ -20,7 +20,9 @@ function GameAuto_Hero:init(world, game_mana)
     end
 
     if (g_autoPlaySetting:get('auto_mode')) then
-        self:onStart()
+        if (self.m_world.m_gameMode ~= GAME_MODE_INTRO) then
+            self:onStart()
+        end
     end
 end
 

@@ -39,12 +39,21 @@ function SkillIndicatorMgr_Intro:onTouchBegan(touch, event)
     -- 월드상의 터치 위치 얻어옴
     local location = touch:getLocation()
     local node_pos = self.m_touchNode:convertToNodeSpace(location)
+    local t_event = {['touch']=false, ['location']=location}
 
     -- 터치된 캐릭터 결정
     local near_distance = nil
     local select_hero = nil
 
     for i, v in pairs(self.m_world:getDragonList()) do
+        v:dispatch('touch_began', t_event)
+        
+        if (t_event['touch']) then
+            near_distance = 0
+            select_hero = v
+            break
+        end
+        --[[
         local x, y = v:getCenterPos()
 	    local distance = math_distance(x, y, node_pos['x'], node_pos['y'])
 
@@ -54,6 +63,7 @@ function SkillIndicatorMgr_Intro:onTouchBegan(touch, event)
 				select_hero = v
 			end
 		end
+        ]]--
     end 
 
     if (select_hero and select_hero == self.m_introHero) then
@@ -202,14 +212,15 @@ function SkillIndicatorMgr_Intro:startIntro(hero)
 
     world:setTemporaryPause(true)
     world.m_gameHighlight:setToForced(true)
-    world.m_gameHighlight:addForcedHighLightList(self.m_introHero)
+    --world.m_gameHighlight:addForcedHighLightList(self.m_introHero)
 
     -- 가이드 비주얼
-    if (not self.m_animatorGuide) then
-        self.m_animatorGuide = MakeAnimator('res/ui/a2d/tutorial/tutorial.vrp')
-        self.m_animatorGuide:changeAni('hand_drag_01', true)
-        self.m_animatorGuide:setPosition(self.m_introHero.pos.x, self.m_introHero.pos.y - 50)
-
-        g_gameScene.m_gameIndicatorNode:addChild(self.m_animatorGuide.m_node)
+    if (self.m_animatorGuide) then
+        self.m_animatorGuide:removeFromParent(true)
     end
+    
+    self.m_animatorGuide = MakeAnimator('res/ui/a2d/tutorial/tutorial.vrp')
+    self.m_animatorGuide:changeAni('hand_drag_01', true)
+    
+    g_gameScene.m_inGameUI:bindPanelGuide(self.m_introHero, self.m_animatorGuide.m_node)
 end

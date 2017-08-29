@@ -78,9 +78,9 @@ function UI_Game:initUI()
     
     -- 연속 전투 정보
     do
-        vars['autoStartVisual'].m_node:setLocalZOrder(1)
-        vars['autoVisual'].m_node:setLocalZOrder(1)
-        vars['speedVisual'].m_node:setLocalZOrder(1)
+        --vars['autoStartVisual'].m_node:setLocalZOrder(1)
+        --vars['autoVisual'].m_node:setLocalZOrder(1)
+        --vars['speedVisual'].m_node:setLocalZOrder(1)
 
         self:setAutoPlayUI()
     end
@@ -96,7 +96,7 @@ function UI_Game:initUI()
     end
     
     -- 하단 패널
-    vars['panelBgSprite']:setLocalZOrder(-1)
+    --vars['panelBgSprite']:setLocalZOrder(-1)
 
     self:initManaUI()
     self:initHotTimeUI()
@@ -371,9 +371,11 @@ function UI_Game:init_panelUI()
     self:addAction(panel.root, UI_ACTION_TYPE_BOTTOM, 0, 0.5)
     self:doActionReset()
 
+    --[[
     if (not g_autoPlaySetting:get('dragon_panel')) then
         self:toggleVisibility_PanelUI(false, true)
     end
+    ]]--
 end
 
 -------------------------------------
@@ -667,7 +669,8 @@ function UI_Game:initIntroFight()
     local vars = self.vars
     local off_list = {'autoStartButton', 'autoButton', 'speedButton', 
                       'hottimeNode', 'chatBtn', 'pauseButton',
-                      'effectBtn', 'buffBtn', 'dpsInfoNode'}
+                      'effectBtn', 'buffBtn', 'dpsInfoNode',
+                      'speedVisual', 'autoVisual'}
 
     for i, v in ipairs(off_list) do
         if (vars[v]) then
@@ -727,3 +730,24 @@ function UI_Game:arrangeItemUI(l_hottime)
     end
 end
 
+-------------------------------------
+-- function bindPanelGuide
+-------------------------------------
+function UI_Game:bindPanelGuide(unit, guide_node)
+    local list = self.m_panelUI.m_lPanelItemList
+    local panel
+    
+    -- 해당 드래곤의 패널을 찾음...
+    for i, v in pairs(list) do
+        if (unit == v.m_dragon) then
+            panel = v
+            break
+        end
+    end
+
+    if (panel) then
+        local x, y = panel.root:getPosition()
+        guide_node:setPosition(x, y)
+        self.m_panelUI.vars['panelMenu']:addChild(guide_node)
+    end
+end

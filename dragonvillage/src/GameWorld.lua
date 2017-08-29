@@ -1275,6 +1275,8 @@ function GameWorld:onEvent(event_name, t_event, ...)
                 fellow:dispatch('under_teammate_hp', t_event, unit)
             end
         end
+
+
     
     elseif (event_name == 'character_dead') then
         local arg = {...}

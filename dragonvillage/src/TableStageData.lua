@@ -17,6 +17,15 @@ function TableStageData:init()
 end
 
 -------------------------------------
+-- function get
+-------------------------------------
+function TableStageData:get(key, skip_error_msg)
+    if (key == COLOSSEUM_STAGE_ID) then return end
+
+    return PARENT.get(self, key, skip_error_msg)
+end
+
+-------------------------------------
 -- function getStageBuff
 -------------------------------------
 function TableStageData:getStageBuff(stage_id, is_enemy)

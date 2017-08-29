@@ -17,6 +17,15 @@ function TableStageDesc:init()
 end
 
 -------------------------------------
+-- function get
+-------------------------------------
+function TableStageDesc:get(key, skip_error_msg)
+    if (key == COLOSSEUM_STAGE_ID) then return end
+
+    return PARENT.get(self, key, skip_error_msg)
+end
+
+-------------------------------------
 -- function getStageDesc
 -- @brief 스테이지 설명을 리턴
 -------------------------------------

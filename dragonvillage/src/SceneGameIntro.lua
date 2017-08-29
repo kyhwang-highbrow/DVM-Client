@@ -147,8 +147,8 @@ function SceneGameIntro:update(dt)
         -- 미리 암전 처리후 리더 드래곤만 하이라이트 시킴
         self.m_focusingDragon = world:getDragonList()[2]
         world.m_heroMana:addMana(self.m_focusingDragon:getSkillManaCost() - 1)
-        world.m_gameHighlight:setToForced(true)
-        world.m_gameHighlight:addForcedHighLightList(self.m_focusingDragon)
+        --world.m_gameHighlight:setToForced(true)
+        --world.m_gameHighlight:addForcedHighLightList(self.m_focusingDragon)
 
         self:play_tutorialTalk(false, true)
     end
@@ -158,8 +158,8 @@ function SceneGameIntro:update(dt)
         -- 미리 암전 처리후 리더 드래곤만 하이라이트 시킴
         self.m_focusingDragon = world:getDragonList()[1]
         world.m_heroMana:addMana(self.m_focusingDragon:getSkillManaCost())
-        world.m_gameHighlight:setToForced(true)
-        world.m_gameHighlight:addForcedHighLightList(self.m_focusingDragon)
+        --world.m_gameHighlight:setToForced(true)
+        --world.m_gameHighlight:addForcedHighLightList(self.m_focusingDragon)
 
         self:play_tutorialTalk(false, true)
     end
@@ -281,7 +281,6 @@ function SceneGameIntro:play_tutorialTalk(no_use_next_btn, no_color_layer)
     self.m_tutorialPlayer.vars['nextBtn']:setVisible(not no_use_next_btn)
     self.m_tutorialPlayer.vars['layerColor2']:setVisible(not no_color_layer)
 
-       
     -- 튜토리얼 대사 후 콜백 함수
     local function next_cb()
         if (self.m_nIdx == 5) then
