@@ -204,6 +204,7 @@ function UI_Lobby:entryCoroutine()
                         working = true
                         local ui = UI_EventFullPopup(pid)
                         ui:setCloseCB(function(ret) working = false end)
+                        ui:openEventFullPopup()
                         while (working) do dt = coroutine.yield() end
                     end                
                 end

@@ -11,10 +11,15 @@ UI_EventFullPopup = class(PARENT,{
 -- function init
 -------------------------------------
 function UI_EventFullPopup:init(product_id)
+    self.m_productID = product_id
+end
+
+-------------------------------------
+-- function openEventFullPopup
+-------------------------------------
+function UI_EventFullPopup:openEventFullPopup()
     local vars = self:load('event_popup.ui')
     UIManager:open(self, UIManager.POPUP)
-
-    self.m_productID = product_id
 
     -- backkey 지정
     g_currScene:pushBackKeyListener(self, function() self:close() end, 'UI_EventFullPopup')

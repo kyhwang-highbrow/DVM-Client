@@ -61,16 +61,22 @@ function UI_Package:initUI()
     end
 
     -- 구매 제한
-    local limit = struct_product:getMaxBuyTermStr()
-    vars['buyLabel']:setString(limit)
+    if vars['buyLabel'] then
+        local limit = struct_product:getMaxBuyTermStr()
+        vars['buyLabel']:setString(limit)
+    end
 
 	-- 가격
-	local price = struct_product:getPriceStr()
-    vars['priceLabel']:setString(price)
+    if vars['priceLabel'] then
+	    local price = struct_product:getPriceStr()
+        vars['priceLabel']:setString(price)
+    end
 
 	-- 가격 아이콘
-    local icon = struct_product:makePriceIcon()
-    vars['priceNode']:addChild(icon)
+    if vars['priceNode'] then
+        local icon = struct_product:makePriceIcon()
+        vars['priceNode']:addChild(icon)
+    end
 end
 
 -------------------------------------
@@ -80,7 +86,9 @@ function UI_Package:initButton(is_popup)
 	local vars = self.vars
     vars['buyBtn']:registerScriptTapHandler(function() self:click_buyBtn() end)
 	vars['closeBtn']:registerScriptTapHandler(function() self:click_closeBtn() end)
-    vars['contractBtn']:registerScriptTapHandler(function() self:click_infoBtn() end)
+    if vars['contractBtn'] then
+        vars['contractBtn']:registerScriptTapHandler(function() self:click_infoBtn() end)
+    end
 
     if (not is_popup) then
         vars['closeBtn']:setVisible(false)
