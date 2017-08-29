@@ -69,7 +69,7 @@ function ResPreloadMgr:loadFromStageId(stage_id)
             local l_preload_full_list = self:loadPreloadFile()
             if (l_preload_full_list) then
                 local l_common = l_preload_full_list['common']
-                local l_stage = l_preload_full_list[stage_id]
+                local l_stage = l_preload_full_list[tostring(stage_id)]
                 
                 -- 공통 리소스
                 if (l_common) then
