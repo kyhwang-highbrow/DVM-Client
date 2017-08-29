@@ -84,8 +84,8 @@ function ApkExpansion:doStep()
             end
             MakeSimplePopup2(POPUP_TYPE.OK, "게임 실행에 필요한 추가 파일를 내려받기 위해 '사진/미디어/파일 액세스' 접근 권한이 필요합니다.", "권한 요청을 거부할 경우 정상적인 게임 실행이 불가능하며\n앱을 삭제한 후 다시 설치하셔야 합니다.", ok_cb)
         else
-            SDKManager:apkExpansionStart(param_str, md5, callback)
-            --self:finish()
+            --SDKManager:apkExpansionStart(param_str, md5, callback)
+            self:finish()
         end
     end)
 end
