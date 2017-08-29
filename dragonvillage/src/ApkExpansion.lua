@@ -83,6 +83,50 @@ function ApkExpansion:doStep()
                 SDKManager:apkExpansionStart(param_str, md5, callback)
             end
             MakeSimplePopup2(POPUP_TYPE.OK, "게임 실행에 필요한 추가 파일를 내려받기 위해 '사진/미디어/파일 액세스' 접근 권한이 필요합니다.", "권한 요청을 거부할 경우 정상적인 게임 실행이 불가능하며\n앱을 삭제한 후 다시 설치하셔야 합니다.", ok_cb)
+
+        -- obb파일을 초기화 하지 못 한 상태 (READ_EXTERNAL_STORAGE 권한을 처리하지 않은 상태)
+        elseif ret == 'permission' then
+            local info_popup = nil
+            local request = nil
+            local request_cb = nil
+            local error = nil
+
+            -- 퍼미션 안내 팝업
+            info_popup = function()
+                cclog('## 1. 퍼미션 안내 팝업')
+                local msg = Str("게임 실행에 필요한 추가 파일를 읽기 위해 '사진/미디어/파일 액세스' 접근 권한이 필요합니다.")
+                local submsg =  Str("권한 요청을 거부할 경우 정상적인 게임 실행이 불가능하며\n앱을 삭제한 후 다시 설치하셔야 합니다.")
+                MakeSimplePopup2(POPUP_TYPE.OK, msg, submsg, request)
+            end
+
+            -- 퍼미션 요청
+            request = function()
+                cclog('## 2. 퍼미션 요청')
+                SDKManager:app_requestPermission('android.permission.READ_EXTERNAL_STORAGE', request_cb)
+            end
+
+            -- 퍼미션 요청 결과
+            request_cb = function(result)
+                cclog('## 3. 퍼미션 요청 결과' .. tostring(result))
+                -- 퍼미션을 거부한 경우
+                if (result == 'denied') then
+                    error()
+                -- 퍼미션을 수락한 경우
+                elseif (result == 'granted') then
+                    cclog('## apkExpansionCheck 퍼미션 수락 후 다시 check')
+                    self:doStep()
+                end
+            end
+
+            -- 퍼미션을 수락하지 않은 경우
+            error = function()
+                cclog('## 4. 퍼미션을 수락하지 않은 경우')
+                local msg = Str('정상적인 시작이 불가능하여 앱을 종료합니다.\n종료 후 다시 실행해 주세요.')
+                MakeSimplePopup(POPUP_TYPE.OK, msg, function()
+                        closeApplication()
+                    end)
+            end
+
         else
             --SDKManager:apkExpansionStart(param_str, md5, callback)
             self:finish()
