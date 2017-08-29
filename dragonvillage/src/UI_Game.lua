@@ -78,9 +78,9 @@ function UI_Game:initUI()
     
     -- 연속 전투 정보
     do
-        --vars['autoStartVisual'].m_node:setLocalZOrder(1)
-        --vars['autoVisual'].m_node:setLocalZOrder(1)
-        --vars['speedVisual'].m_node:setLocalZOrder(1)
+        vars['autoStartVisual'].m_node:setLocalZOrder(1)
+        vars['autoVisual'].m_node:setLocalZOrder(1)
+        vars['speedVisual'].m_node:setLocalZOrder(1)
 
         self:setAutoPlayUI()
     end
@@ -96,7 +96,7 @@ function UI_Game:initUI()
     end
     
     -- 하단 패널
-    --vars['panelBgSprite']:setLocalZOrder(-1)
+    vars['panelBgSprite']:setLocalZOrder(-1)
 
     self:initManaUI()
     self:initHotTimeUI()
@@ -140,28 +140,15 @@ end
 -------------------------------------
 function UI_Game:initButton()
 	local vars = self.vars
-    vars['autoStartButton']:registerScriptTapHandler(function() self:click_autoStartButton() end)
+    
     vars['pauseButton']:registerScriptTapHandler(function() self:click_pauseButton() end)  
     vars['autoButton']:registerScriptTapHandler(function() self:click_autoButton() end)
     vars['speedButton']:registerScriptTapHandler(function() self:click_speedButton() end)
-    --vars['buffBtn']:registerScriptTapHandler(function() self:click_buffButton() end)
-    --vars['panelBtn']:registerScriptTapHandler(function() self:click_panelBtn() end)
     vars['effectBtn']:registerScriptTapHandler(function() self:click_effectBtn() end)
     vars['chatBtn']:registerScriptTapHandler(function() self:click_chatBtn() end)
 
-    -- 패널 버튼 이미지
-    do
-        --[[
-        local b = g_autoPlaySetting:get('dragon_panel') or false
-
-        self.m_panelBtnIcon1 = MakeAnimator('res/ui/buttons/ingame_top_panel_0101.png')
-        self.m_panelBtnIcon1:setVisible(not b)
-        vars['panelBtn']:addChild(self.m_panelBtnIcon1.m_node)
-
-        self.m_panelBtnIcon2 = MakeAnimator('res/ui/buttons/ingame_top_panel_0102.png')
-        self.m_panelBtnIcon2:setVisible(b)
-        vars['panelBtn']:addChild(self.m_panelBtnIcon2.m_node)
-        ]]--
+    if (vars['autoStartButton']) then
+        vars['autoStartButton']:registerScriptTapHandler(function() self:click_autoStartButton() end)
     end
 
     -- 연출 버튼 이미지

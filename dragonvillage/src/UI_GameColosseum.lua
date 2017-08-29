@@ -55,33 +55,6 @@ function UI_GameColosseum:initUI()
 end
 
 -------------------------------------
--- function initButton
--------------------------------------
-function UI_GameColosseum:initButton()
-	local vars = self.vars
-
-    vars['pauseButton']:registerScriptTapHandler(function() self:click_pauseButton() end)  
-    vars['autoButton']:registerScriptTapHandler(function() self:click_autoButton() end)
-    vars['speedButton']:registerScriptTapHandler(function() self:click_speedButton() end)
-    vars['effectBtn']:registerScriptTapHandler(function() self:click_effectBtn() end)
-    vars['chatBtn']:registerScriptTapHandler(function() self:click_chatBtn() end)
-
-    -- 연출 버튼 이미지
-    do
-        local skip_mode = g_autoPlaySetting:get('skip_mode') or false
-
-        self.m_effectBtnIcon1 = MakeAnimator('res/ui/buttons/ingame_top_effect_0101.png')
-        vars['effectBtn']:addChild(self.m_effectBtnIcon1.m_node)
-
-        self.m_effectBtnIcon2 = MakeAnimator('res/ui/buttons/ingame_top_effect_0102.png')
-        vars['effectBtn']:addChild(self.m_effectBtnIcon2.m_node)
-
-        self.m_effectBtnIcon1:setVisible(skip_mode)
-        self.m_effectBtnIcon2:setVisible(not skip_mode)
-    end
-end
-
--------------------------------------
 -- function initTamerUI
 -------------------------------------
 function UI_GameColosseum:initTamerUI(hero_tamer, enemy_tamer)
