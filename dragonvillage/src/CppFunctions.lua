@@ -54,6 +54,13 @@ function CppFunctionsClass:isTestMode()
 end
 
 -------------------------------------
+-- function getAppVer
+-------------------------------------
+function CppFunctionsClass:getAppVer()
+    return getAppVer()
+end
+
+-------------------------------------
 -- function getTargetServer
 -- @return string 'DEV', 'QA', 'LIVE'
 -------------------------------------

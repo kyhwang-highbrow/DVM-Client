@@ -9,7 +9,7 @@ ErrorTracker = class({
     m_lSkillHistoryList = 'list<table>',
     m_lAPIList = 'list<table>',
     m_lFailedResList = 'list<string>',
-    
+    m_tDeviceInfo = 'table',
     m_bErrorPopupOpen = 'bool',
 })
 
@@ -21,10 +21,10 @@ function ErrorTracker:init()
     self.m_lSkillHistoryList = {}
     self.m_lAPIList = {}
     self.m_lFailedResList = {}
+    self.m_bErrorPopupOpen = false
+
     -- @ generator
     -- getsetGenerator(ErrorTracker, 'ErrorTracker')
-
-    self.m_bErrorPopupOpen = false
 end
 
 -------------------------------------
@@ -129,8 +129,6 @@ end
 -- function getTrackerText
 ------------------------------------- 
 function ErrorTracker:getTrackerText(msg)
-    --HMAC('sha1', text, CONSTANT['HMAC_KEY'], false)
-
     -- 기본적으로 넘어온 메시지를 출력
     local error_msg = msg
 
@@ -298,16 +296,81 @@ function ErrorTracker:openErrorPopup(error_msg)
     end
 
     -- 테스트 모드일 경우 상세 정보 출력
-    if (IS_TEST_MODE()) then
+    if false then --(IS_TEST_MODE()) then
         local msg = self:getTrackerText(error_msg)
 		UI_ErrorPopup(msg):setCloseCB(close_cb)
         
     -- 라이브일 경우
     else
-        local msg = self:getTrackerText(error_msg)
-        UI_ErrorPopup_Live(msg):setCloseCB(close_cb)
+        local msg = error_msg
+        UI_ErrorPopup_Live(error_msg):setCloseCB(close_cb)
 
     end
     cclog('############## openErrorPopup end')
 end
 
+-------------------------------------
+-- function getUINameList
+------------------------------------- 
+function ErrorTracker:getUINameList()
+    local l_ret = {}
+    for i, ui in pairs(UIManager.m_uiList) do
+        table.insert(l_ret, ui.m_uiName .. ' / ' .. ui.m_resName)
+    end
+    return l_ret
+end
+
+-------------------------------------
+-- function sendErrorLog
+------------------------------------- 
+function ErrorTracker:sendErrorLog(msg, success_cb)
+    if (not self.m_tDeviceInfo) then
+        -- 기기 정보 가져옴
+        local function cb_func(ret, info)
+            self.m_tDeviceInfo = json_decode(info) 
+        end
+        SDKManager:deviceInfo(cb_func)
+    end
+
+    -- 파라미터 셋팅
+    local t_json = {
+        ['id'] = HMAC('sha1', msg, CONSTANT['HMAC_KEY'], false), -- HMAC으로 고유ID 생성
+        ['uid'] = tostring(g_userData:get('uid')),
+        ['nick'] = g_userData:get('nick'),
+        ['os'] = getTargetOSName(),
+        ['ver_info'] = PatchData:getInstance():getAppVersionAndPatchIdxString(),
+        ['date'] = datetime.strformat(TimeLib:initInstance():getServerTime()),
+        ['device_info'] = self.m_tDeviceInfo,
+        ['error_stack'] = msg,
+        ['api_call_list'] = self.m_lAPIList,
+        ['failed_res_list'] = self.m_lFailedResList,
+        ['ui_list'] = self:getUINameList(),  
+    }
+
+    local t_data = {
+        ['json_str'] = dkjson.encode(t_json)
+    }
+
+    -- 요청 정보 설정
+    local t_request = {}
+    t_request['url'] = '/crashlog'
+    t_request['method'] = 'POST'
+    t_request['data'] = t_data
+
+    -- 성공 시 콜백 함수
+    t_request['success'] = function(ret)
+        if (success_cb) then
+            success_cb(ret)
+        end
+    end
+
+    -- 실패 시 콜백 함수
+    t_request['fail'] = function(ret)
+        if (success_cb) then
+            success_cb(ret)
+        end
+    end
+
+    -- 네트워크 통신
+    Network:SimpleRequest(t_request)
+end
