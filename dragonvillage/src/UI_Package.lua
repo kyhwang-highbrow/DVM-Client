@@ -5,6 +5,7 @@ local PARENT = UI
 -------------------------------------
 UI_Package = class(PARENT, {
         m_structProduct = 'StructProduct',
+        m_isPopup = 'boolean',
      })
 
 -------------------------------------
@@ -13,6 +14,8 @@ UI_Package = class(PARENT, {
 function UI_Package:init(struct_product, is_popup)
     local ui_name = struct_product['package_res']
     if (not ui_name) then return end
+
+    self.m_isPopup = is_popup or false
 
     local vars = self:load(ui_name)
     if (is_popup) then
@@ -29,12 +32,19 @@ function UI_Package:init(struct_product, is_popup)
 
     self:initUI()
 	self:initButton(is_popup)
+    self:refresh()
 end
 
 -------------------------------------
 -- function initUI
 -------------------------------------
 function UI_Package:initUI()
+end
+
+-------------------------------------
+-- function refresh
+-------------------------------------
+function UI_Package:refresh()
     local vars = self.vars
 	local struct_product = self.m_structProduct
 
@@ -99,12 +109,25 @@ end
 -------------------------------------
 function UI_Package:click_buyBtn()
 	local struct_product = self.m_structProduct
+
+	local function refresh_cb()
+        g_shopDataNew:request_shopInfo(function() self:refresh() end)
+    end
+
 	local function cb_func(ret)
-		self:closeWithAction()
+        -- 팝업이면 바로 창닫음
+        if (self.m_isPopup) then
+            self:closeWithAction()
+        
+        -- 갱신되었으면 샵 인포 다시 호출
+        elseif (g_shopDataNew:isDirty()) then
+            refresh_cb()
+        end
 
         -- 아이템 획득 결과창
         ItemObtainResult_Shop(ret)
 	end
+
 	struct_product:buy(cb_func)
 end
 

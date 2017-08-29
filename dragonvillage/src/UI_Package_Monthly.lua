@@ -4,6 +4,7 @@ local PARENT = UI
 -- class UI_Package_Monthly
 -------------------------------------
 UI_Package_Monthly = class(PARENT, {
+        m_isPopup = 'boolean',
      })
 
 -------------------------------------
@@ -11,28 +12,34 @@ UI_Package_Monthly = class(PARENT, {
 -------------------------------------
 function UI_Package_Monthly:init(is_popup)
     local vars = self:load('package_monthly.ui')
+    self.m_isPopup = is_popup or false
+
 	if (is_popup) then
         UIManager:open(self, UIManager.POPUP)
         -- 백키 지정
         g_currScene:pushBackKeyListener(self, function() self:click_closeBtn() end, 'UI_Package_Monthly')
     end
 
-	
-
 	-- @UI_ACTION
     self:doActionReset()
     self:doAction(nil, false)
 
     self:initUI()
-	self:initButton(is_popup)
+	self:initButton()
+    self:refresh()
 end
 
 -------------------------------------
 -- function initUI
 -------------------------------------
 function UI_Package_Monthly:initUI()
-    local vars = self.vars
+end
 
+-------------------------------------
+-- function refresh
+-------------------------------------
+function UI_Package_Monthly:refresh()
+    local vars = self.vars
     local l_item_list = g_shopDataNew:getProductList('package')
     local target_product = {90007, 90008, 90009}
 
@@ -65,12 +72,12 @@ end
 -------------------------------------
 -- function initButton
 -------------------------------------
-function UI_Package_Monthly:initButton(is_popup)
+function UI_Package_Monthly:initButton()
 	local vars = self.vars
 	vars['closeBtn']:registerScriptTapHandler(function() self:click_closeBtn() end)
     vars['contractBtn']:registerScriptTapHandler(function() self:click_infoBtn() end)
 
-    if (not is_popup) then
+    if (not self.m_isPopup) then
         vars['closeBtn']:setVisible(false)
     end
 end
@@ -79,13 +86,24 @@ end
 -- function click_buyBtn
 -------------------------------------
 function UI_Package_Monthly:click_buyBtn(struct_product)
+    local function refresh_cb()
+        g_shopDataNew:request_shopInfo(function() self:refresh() end)
+    end
 
 	local function cb_func(ret)
-		self:closeWithAction()
+        -- 팝업이면 바로 창닫음
+        if (self.m_isPopup) then
+            self:closeWithAction()
+        
+        -- 갱신되었으면 샵 인포 다시 호출
+        elseif (g_shopDataNew:isDirty()) then
+            refresh_cb()
+        end
 
         -- 아이템 획득 결과창
         ItemObtainResult_Shop(ret)
 	end
+
 	struct_product:buy(cb_func)
 end
 
