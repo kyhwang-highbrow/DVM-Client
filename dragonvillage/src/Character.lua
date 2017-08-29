@@ -796,17 +796,22 @@ function Character:setDamage(attacker, defender, i_x, i_y, damage, t_info)
             dir = attacker.movement_theta
         end
     end
+
+    -- 전방 유닛이 있을 경우 후방 유닛 데미지 감소 처리
     local formation_mgr = self:getFormationMgr(false)
     local cover_coef = g_constant:get('INGAME', 'COVER_COEF') or 0.5
     if (formation_mgr:isFrontLineAlive() and not formation_mgr:isFrontLine(self)) then
-        if (self.m_bLeftFormation) then
+        if (self.m_bLeftFormation or self.m_world.m_gameMode == GAME_MODE_COLOSSEUM) then
             damage = damage * cover_coef
-        else
-            if (self.m_world.m_gameMode == GAME_MODE_COLOSSEUM) then
-                damage = damage * cover_coef
-            end
         end
     end
+
+    -- 콜로세움에서 모든 데미지 배수 조정
+    if (self.m_world.m_gameMode == GAME_MODE_COLOSSEUM) then
+        damage = damage * g_constant:get('INGAME', 'COLOSSEUM_DAMAGE_MULTI')
+    end
+
+    damage = math_max(damage, 1)
 
     -- 데미지 폰트 출력
     self:makeDamageEffect(i_x, i_y, dir, t_info['is_critical'])

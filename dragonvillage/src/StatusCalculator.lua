@@ -223,7 +223,7 @@ function StatusCalculator:applyStageBonus(stage_id, is_enemy)
 
     if (stage_id == COLOSSEUM_STAGE_ID) then
         -- 콜로세움에서는 아군과 적군의 체력을 3배로
-        self.m_tHiddenInfo['hp_multi'] = g_constant:get('INGAME', 'HP_MULTI')
+        self.m_tHiddenInfo['hp_multi'] = g_constant:get('INGAME', 'COLOSSEUM_HP_MULTI')
 
     else
         local t_info = TableStageData():getStageBuff(stage_id, is_enemy)
