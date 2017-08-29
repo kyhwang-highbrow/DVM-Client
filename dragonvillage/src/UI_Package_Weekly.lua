@@ -13,10 +13,11 @@ function UI_Package_Weekly:init(is_popup)
     local vars = self:load('package_weekly.ui')
 	if (is_popup) then
         UIManager:open(self, UIManager.POPUP)
+        -- 백키 지정
+        g_currScene:pushBackKeyListener(self, function() self:click_closeBtn() end, 'UI_Package_Weekly')
     end
 
-	-- 백키 지정
-    g_currScene:pushBackKeyListener(self, function() self:click_closeBtn() end, 'UI_Package_Weekly')
+	
 
 	-- @UI_ACTION
     self:doActionReset()

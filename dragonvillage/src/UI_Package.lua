@@ -17,11 +17,10 @@ function UI_Package:init(struct_product, is_popup)
     local vars = self:load(ui_name)
     if (is_popup) then
         UIManager:open(self, UIManager.POPUP)
+        -- 백키 지정
+        g_currScene:pushBackKeyListener(self, function() self:click_closeBtn() end, 'UI_Package')
     end
 	
-	-- 백키 지정
-    g_currScene:pushBackKeyListener(self, function() self:click_closeBtn() end, 'UI_Package')
-
 	-- @UI_ACTION
     self:doActionReset()
     self:doAction(nil, false)
