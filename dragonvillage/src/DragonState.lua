@@ -17,8 +17,8 @@ function Dragon:initState()
     self:addState('wait', Dragon.st_wait, 'idle', true)
 
     -- success
-    self:addState('success_pose', Dragon.st_success_pose, 'pose_1', false)
-    self:addState('success_move', Dragon.st_success_move, 'idle', true)
+    self:addState('success_pose', Dragon.st_success_pose, 'pose_1', false, PRIORITY.SUCCESS_POSE)
+    self:addState('success_move', Dragon.st_success_move, 'idle', true, PRIORITY.SUCCESS_POSE)
 end
 
 -------------------------------------

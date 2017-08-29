@@ -117,8 +117,8 @@ function Tamer:initState()
     self:addState('wait', Tamer.st_wait, 'i_idle', true)
     self:addState('move', Tamer.st_move, 'i_idle', true)
 
-    self:addState('success_pose', Tamer.st_success_pose, 'i_idle', true)
-    self:addState('success_move', Tamer.st_success_move, 'i_idle', true)
+    self:addState('success_pose', Tamer.st_success_pose, 'i_idle', true, PRIORITY.SUCCESS_POSE)
+    self:addState('success_move', Tamer.st_success_move, 'i_idle', true, PRIORITY.SUCCESS_POSE)
 
     self:addState('dying', Tamer.st_dying, 'i_dying', false, PRIORITY.DYING)
     self:addState('dead', Tamer.st_dead, nil, nil, PRIORITY.DEAD)
