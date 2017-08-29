@@ -309,7 +309,9 @@ end
 -------------------------------------
 function UI_ScenarioPlayer:_close()
     if (self.m_sceneCB) then
+        UI_BlockPopup()
         self.m_sceneCB()
+        self.m_sceneCB = nil
     else
         self:close()
     end
