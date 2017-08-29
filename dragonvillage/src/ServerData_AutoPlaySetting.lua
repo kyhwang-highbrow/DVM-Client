@@ -5,6 +5,8 @@ ServerData_AutoPlaySetting = class({
         m_autoMode = 'string',              -- 콜로세움과 나머지를 구분
         m_bAutoPlay = 'boolean',        -- 연속 모드
         m_autoPlayCnt = 'number',
+
+        m_bDirty = 'boolean',
     })
 
 AUTO_NORMAL = 'normal'
@@ -22,7 +24,7 @@ function ServerData_AutoPlaySetting:init()
         for _, mode in pairs(l_mode) do
             self:setDefaultSetting(mode, t_auto_play_setting)
         end
-
+        
         g_localData:applyLocalData(t_auto_play_setting, 'auto_play_setting')
     end
 
@@ -72,6 +74,7 @@ end
 -------------------------------------
 function ServerData_AutoPlaySetting:setMode(mode)
     self.m_autoMode = mode
+    self.m_bDirty = false
 end
 
 -------------------------------------
@@ -79,15 +82,6 @@ end
 -------------------------------------
 function ServerData_AutoPlaySetting:get(key)
     local ret = g_localData:get('auto_play_setting', self.m_autoMode, key)
-
-    if (ret == nil) then
-        if (key == 'dragon_panel') then
-            self:set(key, true)
-        elseif (key == 'skip_level') then
-            self:set(key, 0)
-        end
-    end
-
     return ret
 end
 
@@ -96,6 +90,32 @@ end
 -------------------------------------
 function ServerData_AutoPlaySetting:set(key, data)
     return g_localData:applyLocalData(data, 'auto_play_setting', self.m_autoMode, key)
+end
+
+-------------------------------------
+-- function setWithoutSaving
+-------------------------------------
+function ServerData_AutoPlaySetting:setWithoutSaving(key, data)
+    local t_auto_play_setting = g_localData:getRef('auto_play_setting')
+
+    if (not t_auto_play_setting[self.m_autoMode]) then
+        self:setDefaultSetting(self.m_autoMode, t_auto_play_setting)
+    end
+
+    t_auto_play_setting[self.m_autoMode][key] = data
+
+    self.m_bDirty = true
+end
+
+-------------------------------------
+-- function save
+-------------------------------------
+function ServerData_AutoPlaySetting:save()
+    if (self.m_bDirty) then
+        self.m_bDirty = false
+
+        g_localData:saveLocalDataFile()
+    end
 end
 
 -------------------------------------

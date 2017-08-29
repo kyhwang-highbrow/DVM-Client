@@ -268,13 +268,13 @@ function UI_Game:click_speedButton()
 
         gameTimeScale:setBase(1)
 
-        g_autoPlaySetting:set('quick_mode', false)
+        g_autoPlaySetting:setWithoutSaving('quick_mode', false)
     else
         UIManager:toastNotificationGreen('빠른모드 활성화')
 
         gameTimeScale:setBase(quick_time_scale)
 
-        g_autoPlaySetting:set('quick_mode', true)
+        g_autoPlaySetting:setWithoutSaving('quick_mode', true)
     end
 
     self.vars['speedVisual']:setVisible((gameTimeScale:getBase() >= quick_time_scale))
@@ -285,26 +285,6 @@ end
 -------------------------------------
 function UI_Game:click_buffButton()
     self.m_buffBoard:show()
-end
-
--------------------------------------
--- function click_panelBtn
--------------------------------------
-function UI_Game:click_panelBtn()
-    if self.m_panelUI then
-        self.m_panelUI:toggleVisibility()
-
-        self.m_panelBtnIcon1:setVisible(not self.m_panelUI.m_bVisible)
-        self.m_panelBtnIcon2:setVisible(self.m_panelUI.m_bVisible)
-
-        g_autoPlaySetting:set('dragon_panel', self.m_panelUI.m_bVisible)
-
-        if (self.m_panelUI.m_bVisible) then
-            UIManager:toastNotificationGreen('하단 UI 표시')
-        else
-            UIManager:toastNotificationGreen('하단 UI 숨김')
-        end
-    end
 end
 
 -------------------------------------
@@ -320,7 +300,7 @@ function UI_Game:click_effectBtn()
         UIManager:toastNotificationGreen('연출 표시')
     end
 
-    g_autoPlaySetting:set('skip_mode', new_skip_mode)
+    g_autoPlaySetting:setWithoutSaving('skip_mode', new_skip_mode)
 
     self.m_effectBtnIcon1:setVisible(new_skip_mode)
     self.m_effectBtnIcon2:setVisible(not new_skip_mode)
@@ -357,12 +337,6 @@ function UI_Game:init_panelUI()
 	-- 액션 등록
     self:addAction(panel.root, UI_ACTION_TYPE_BOTTOM, 0, 0.5)
     self:doActionReset()
-
-    --[[
-    if (not g_autoPlaySetting:get('dragon_panel')) then
-        self:toggleVisibility_PanelUI(false, true)
-    end
-    ]]--
 end
 
 -------------------------------------
@@ -481,14 +455,14 @@ function UI_Game:setAutoMode(b)
 
         gameAuto:onStart() 
 
-        g_autoPlaySetting:set('auto_mode', true)
+        g_autoPlaySetting:setWithoutSaving('auto_mode', true)
 
     else
         UIManager:toastNotificationGreen('자동전투 비활성화')
 
         gameAuto:onEnd()
 
-        g_autoPlaySetting:set('auto_mode', false)
+        g_autoPlaySetting:setWithoutSaving('auto_mode', false)
     end
 end
 
@@ -532,10 +506,8 @@ function UI_Game:setTemporaryPause(pause)
         vars['panelBgSprite']:setVisible(false)
     else
         -- 패널 UI 표시
-        if (g_autoPlaySetting:get('dragon_panel')) then
-            self:toggleVisibility_PanelUI(true)
-        end
-
+        self:toggleVisibility_PanelUI(true)
+        
         -- 테이머 UI 표시
         self:toggleVisibility_TamerUI(true)
 

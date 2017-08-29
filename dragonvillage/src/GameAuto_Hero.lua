@@ -16,7 +16,7 @@ function GameAuto_Hero:init(world, game_mana)
     
     if (g_autoPlaySetting:isAutoPlay()) then
         -- 연속 전투가 활성화되어있다면 즉시 자동모드를 활성화시킴
-        g_autoPlaySetting:set('auto_mode', true)
+        g_autoPlaySetting:setWithoutSaving('auto_mode', true)
     end
 
     if (g_autoPlaySetting:get('auto_mode')) then

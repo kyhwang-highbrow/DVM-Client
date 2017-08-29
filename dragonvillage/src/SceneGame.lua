@@ -241,6 +241,8 @@ function SceneGame:onExit()
 
     ScriptCache:clear()
 
+    g_autoPlaySetting:save()
+
     PerpleScene.onExit(self)
 end
 
