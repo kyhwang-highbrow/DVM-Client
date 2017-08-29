@@ -953,7 +953,11 @@ function Character:doRevive(hp_rate, caster)
 
     self:changeState('revive', true)
 
-    self.m_world:addHero(self)
+    if (self.m_bLeftFormation) then
+        self.m_world:addHero(self)
+    else
+        self.m_world:addEnemy(self)
+    end
 
     self:dispatch('character_revive', {}, self)
 
