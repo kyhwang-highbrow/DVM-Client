@@ -407,6 +407,8 @@ function UI_TitleScene:workCheckUserID()
         cclog('platform_id:' .. tostring(platform_id))
         cclog('account_info:' .. tostring(account_info))
 
+        g_localData:lockSaveData()
+
         -- Firebase에서 발급하는 uid
         -- 게임 uid로 그대로 사용하면 됨
         g_localData:applyLocalData(fuid, 'local', 'uid')
@@ -423,6 +425,8 @@ function UI_TitleScene:workCheckUserID()
 
         -- 계정 정보(이름 or 이메일)
         g_localData:applyLocalData(account_info, 'local', 'account_info')
+
+        g_localData:unlockSaveData()
 
         -- 혹시 시스템 오류로 멀티연동이 된 경우 현재 로그인한 플랫폼 이외의 연결은 해제한다.
         UnlinkBrokenPlatform(t_info, platform_id)
