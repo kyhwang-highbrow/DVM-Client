@@ -485,7 +485,7 @@ public class AppActivity extends Cocos2dxActivity{
                     if (result) {
                         sdkEventResult(id, "download", "");
                     } else {
-                        Cocos2dxHelper.setupObbAssetFileInfo(mVersionCode);
+                        Cocos2dxHelper.setupObbAssetFileInfo(versionCode);
                         if (Cocos2dxHelper.getObbAssetFile() == null) {
                             sdkEventResult(id, "permission", "");
                         } else {
