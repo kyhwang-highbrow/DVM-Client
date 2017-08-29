@@ -28,18 +28,16 @@ end
 -- @breif firebase uid로 
 --        복구코드 생성 및pushToken저장
 -- @param
---          game_id
---          fuid : firebase uid
 --          rcode : platform에서 생성한 복구코드 
 --          os : ( 0 : Android / 1 : iOS )
 --          game_push : on - 1, off - 0
 --          pushToken : firebase push token
 -------------------------------------
-function Network_platform_issueRcode(game_id, fuid, rcode, os, game_push, pushToken, success_cb, fail_cb)
+function Network_platform_issueRcode(rcode, os, game_push, pushToken, success_cb, fail_cb)
     -- 파라미터 셋팅
     local t_data = {}
-    t_data['game_id'] = game_id
-    t_data['fuid'] = fuid
+    t_data['game_id'] = 1003
+    t_data['fuid'] = g_localData:get('local', 'uid')
     t_data['rcode'] = rcode
     t_data['os'] = os
     t_data['game_push'] = game_push
@@ -67,14 +65,13 @@ end
 -- function Network_platform_registerToken
 -- @breif   푸시 토큰 등록
 -- @param
---          uid : player id
 --          game_push : on - 1, off - 0
 --          pushToken : firebase push token
 -------------------------------------
-function Network_platform_registerToken(uid, game_push, pushToken, success_cb, fail_cb)
+function Network_platform_registerToken(game_push, pushToken, success_cb, fail_cb)
     -- 파라미터 셋팅
     local t_data = {}
-    t_data['uid'] = uid
+    t_data['uid'] = g_localData:get('local', 'uid')
     t_data['game_push'] = game_push
     t_data['pushToken'] = pushToken
 
@@ -100,20 +97,60 @@ end
 -- function Network_platform_updateTerms
 -- @breif   약관 동의 여부 업데이트
 -- @param
---          game_id
---          uid : player id
 --          terms : 동의 여부 (0 or 1)
 -------------------------------------
-function Network_platform_updateTerms(game_id, uid, terms, success_cb, fail_cb)
+function Network_platform_updateTerms(terms, success_cb, fail_cb)
     -- 파라미터 셋팅
     local t_data = {}
-    t_data['game_id'] = game_id
-    t_data['uid'] = uid
+    t_data['game_id'] = 1003
+    t_data['uid'] = g_localData:get('local', 'uid')
     t_data['terms'] = terms
 
     -- 요청 정보 설정
     local t_request = {}
     t_request['full_url'] = GetPlatformApiUrl() .. '/user/updateTerms'
+    t_request['method'] = 'POST'
+    t_request['data'] = t_data
+
+    t_request['check_hmac_md5'] = true
+
+    -- 성공 시 콜백 함수
+    t_request['success'] = success_cb
+
+    -- 실패 시 콜백 함수
+    t_request['fail'] = fail_cb
+
+    -- 네트워크 통신
+    Network:SimpleRequest(t_request)
+end
+
+-------------------------------------
+-- function Network_platform_updateId
+-- @breif   연동 플랫폼 아이디 업데이트
+-- @param
+--          platform_id : google.com, facebook.com, gamecenter, firebase
+--          account_info : id
+-------------------------------------
+function Network_platform_updateId(platform_id, account_info, success_cb, fail_cb)
+
+    -- 파라미터 셋팅
+    local t_data = {}
+    t_data['game_id'] = 1003
+    t_data['uid'] = g_localData:get('local', 'uid')
+
+    if platform_id == 'google.com' then
+        t_data['google_id'] = account_info
+    elseif platform_id == 'facebook.com' then
+        t_data['facebook_id'] = account_info
+    elseif platform_id == 'gamecenter' then
+        t_data['apple_id'] = account_info
+    else
+        return
+    end
+
+    -- 요청 정보 설정
+    local t_request = {}
+    t_request['full_url'] = GetPlatformApiUrl() .. '/user/updateId'
     t_request['method'] = 'POST'
     t_request['data'] = t_data
 

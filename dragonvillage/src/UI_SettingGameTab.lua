@@ -163,13 +163,12 @@ function UI_Setting:init_notification()
     end
 
     local function change_cb(selected)
-        local uid = g_localData:get('local', 'uid')
         local pushToken = g_localData:get('local', 'push_token')
         local game_push = 1 -- 1(on) or 0(off)
         if (selected == 'off') then
             game_push = 0
         end
-        Network_platform_registerToken(uid, game_push, pushToken)
+        Network_platform_registerToken(game_push, pushToken)
         g_localData:applyLocalData(game_push, 'push_state')
     end
 

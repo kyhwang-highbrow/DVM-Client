@@ -437,7 +437,6 @@ function UI_Setting:loginSuccess(info)
     cclog('account_info:' .. tostring(account_info))
 
     g_localData:applyLocalData(fuid, 'local', 'uid')
-
     g_localData:applyLocalData(push_token, 'local', 'push_token')
     g_localData:applyLocalData(platform_id, 'local', 'platform_id')
     g_localData:applyLocalData(account_info, 'local', 'account_info')
@@ -447,6 +446,8 @@ function UI_Setting:loginSuccess(info)
     else
         g_localData:applyLocalData('off', 'local', 'googleplay_connected')
     end
+
+    Network_platform_updateId(platform_id, account_info)
 
     self:updateInfo()
 end

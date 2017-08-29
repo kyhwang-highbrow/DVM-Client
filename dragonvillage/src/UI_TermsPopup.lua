@@ -122,10 +122,8 @@ function UI_TermsPopup:checkAgreeState()
             g_localData:applyLocalData(1, 'local', 'agree_terms')
             self:close()
         end
-        local game_id = 1003
-        local uid = g_localData:get('local', 'uid')
         local terms = 1
-        Network_platform_updateTerms(game_id, uid, terms, success_cb, fail_cb)
+        Network_platform_updateTerms(terms, success_cb, fail_cb)
     end
 end
 
