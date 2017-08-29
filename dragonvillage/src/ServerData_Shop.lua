@@ -361,6 +361,13 @@ function ServerData_Shop:isDirty()
     return self.m_bDirty
 end
 
+-------------------------------------
+-- function isExist
+-------------------------------------
+function ServerData_Shop:isExist(category, product_id)
+    local shop_list = self:getProductList(category)
+    return shop_list[product_id] and true or false
+end
 
 -------------------------------------
 -- function request_buy

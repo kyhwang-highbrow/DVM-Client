@@ -18,7 +18,7 @@ function StructEventPopupTab:init(event_data)
     self.m_eventData = event_data
     self.m_bAttendance = (event_data['attendance_type']) and true or false
 
-    local sortNum = 100
+    local sortNum = 10
 
     -- 출석 체크 고정 (기본출석, 이벤트출석)
     if (self.m_bAttendance) then
@@ -27,8 +27,7 @@ function StructEventPopupTab:init(event_data)
 
     -- 기타 가변적인 이벤트 (shop, banner, access_time)
     else        
-        self.m_sortIdx = event_data['ui_priority']
-        if (self.m_sortIdx == '') then self.m_sortIdx = sortNum + 1 end 
+        self.m_sortIdx = event_data['ui_priority'] or 99
     end
 end
 

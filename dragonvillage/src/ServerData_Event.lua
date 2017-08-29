@@ -20,7 +20,7 @@ function ServerData_Event:getEventPopupTabList()
     local item_list = {}
     local event_list = self.m_eventList
 
-    -- 출석 체크 고정 (기본출석, 이벤트출석)
+    -- 출석 체크 고정 (기본출석, 이벤트출석) -- 우선순위는 이벤트 리스트에서 가져오도록 변경함
     for i, v in pairs(g_attendanceData.m_structAttendanceDataList) do
         local event_popup_tab = StructEventPopupTab(v)
         item_list[event_popup_tab.m_type] = event_popup_tab
@@ -30,19 +30,28 @@ function ServerData_Event:getEventPopupTabList()
     -- 기타 가변적인 이벤트 (shop, banner, access_time)
     local idx = 1
     for i, v in ipairs(event_list) do
-        local event_popup_tab = StructEventPopupTab(v)
+        local is_exist = true
 
-        -- 키값은 중복되지 않게
-        local type = v['event_type']
-        if (item_list[type]) then
-            event_popup_tab.m_type = type .. idx
-            idx = idx + 1
-        else
-            event_popup_tab.m_type = type
+        -- shop 관련 이벤트는 오픈되지 않능 상품이라면 탭 등록 pass - ex) 주말패키지
+        if (v['event_type'] == 'shop') then
+            is_exist = g_shopDataNew:isExist('package', v['event_id'])
         end
 
-        item_list[event_popup_tab.m_type] = event_popup_tab
-        self:setEventTabNoti(event_popup_tab)
+        if (is_exist) then
+            local event_popup_tab = StructEventPopupTab(v)
+
+            -- 키값은 중복되지 않게
+            local type = v['event_type']
+            if (item_list[type]) then
+                event_popup_tab.m_type = type .. idx
+                idx = idx + 1
+            else
+                event_popup_tab.m_type = type
+            end
+
+            item_list[event_popup_tab.m_type] = event_popup_tab
+            self:setEventTabNoti(event_popup_tab)
+        end
     end
 
     return item_list
