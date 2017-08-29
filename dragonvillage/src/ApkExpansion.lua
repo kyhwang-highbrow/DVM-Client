@@ -127,6 +127,8 @@ function ApkExpansion:doStep()
                     end)
             end
 
+            info_popup()
+
         else
             --SDKManager:apkExpansionStart(param_str, md5, callback)
             self:finish()
