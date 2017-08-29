@@ -550,6 +550,10 @@ function UI_TitleScene:workGameLogin()
         -- @analytics
         Analytics:firstTimeExperience('Login')
 
+        do -- 사전 등록 닉네임 선점 정보 저장 (nil이면 비활성화)
+            g_serverData:applyServerData(ret['preoccupancy_nick'], 'preoccupancy_nick')
+        end
+
         -- 최초 로그인인 경우 계정 생성
         if ret['newuser'] then
             self.m_bNewUser = true

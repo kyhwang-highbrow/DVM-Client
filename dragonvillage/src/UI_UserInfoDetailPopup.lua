@@ -458,7 +458,10 @@ end
 -- @brief 사전 등록 닉네임
 -------------------------------------
 function UI_UserInfoDetailPopup:click_nicknameCouponBtn()
-    local ui = UI_CouponPopupPreOccupancyNick()
+    local ui = UI_CouponPopupPreOccupancyNick:open()
+    if (not ui) then
+        return
+    end
 
     local function close_cb()
         if (ui.m_couponCode and ui.m_retNick) then

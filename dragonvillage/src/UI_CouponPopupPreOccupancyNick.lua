@@ -35,6 +35,32 @@ function UI_CouponPopupPreOccupancyNick:init()
 end
 
 -------------------------------------
+-- function open
+-------------------------------------
+function UI_CouponPopupPreOccupancyNick:open()
+    local t_preoccupancy_nick = g_serverData:get('preoccupancy_nick')
+
+    -- 서버에서 정보가 오지 않으면 open된 것으로 간주
+    if (t_preoccupancy_nick) then
+
+        -- open값이 명시적으로 false로 되어있을 때에 기능을 제한함
+        if (t_preoccupancy_nick['open'] == false) then
+            local msg = t_preoccupancy_nick['msg']
+            if (not msg) then
+                msg = Str("- 닉네임 사전등록을 하신 경우에는 우선 임의의 닉네임을 사용 부탁 드리며,\n사전 등록 닉네임 코드 수령 후 변경 가능합니다.")
+            end
+            local submsg = "(자세한 내용은 '드빌M 커뮤니티'를 통해 확인 가능합니다.)"
+
+            MakeSimplePopup2(POPUP_TYPE.OK, msg, submsg)
+            return
+        end
+    end
+
+    local ui = UI_CouponPopupPreOccupancyNick()
+    return ui
+end
+
+-------------------------------------
 -- function initUI
 -------------------------------------
 function UI_CouponPopupPreOccupancyNick:initUI()
