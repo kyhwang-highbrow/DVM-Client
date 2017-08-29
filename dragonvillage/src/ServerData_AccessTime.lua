@@ -18,8 +18,7 @@ ServerData_AccessTime = class({
     })
 
 local TIMER_TICK = 1
---local AUTO_SAVE_SEC = 2 * 60
-local AUTO_SAVE_SEC = 10
+local AUTO_SAVE_SEC = 1 * 60
 local MAX_SAVE_SEC = 60 * 60
 
 -------------------------------------
@@ -98,7 +97,7 @@ function ServerData_AccessTime:request_saveTime(finish_cb, fail_cb)
     ui_network:setUrl('/users/access_time/update')
     ui_network:setLoadingMsg('접속 동기화 중...')
     ui_network:setParam('uid', uid)
-    ui_network:setParam('time', time)
+    ui_network:setParam('access_time', time)
     ui_network:hideLoading()
     ui_network:setSuccessCB(success_cb)
     ui_network:setFailCB(fail_cb)
@@ -137,7 +136,7 @@ function ServerData_AccessTime:request_reward(step, finish_cb, fail_cb)
     local ui_network = UI_Network()
     ui_network:setUrl('/users/access_time')
     ui_network:setParam('uid', uid)
-    ui_network:setParam('time', time)
+    ui_network:setParam('access_time', time)
     ui_network:setParam('step', step)
     ui_network:setSuccessCB(success_cb)
     ui_network:setFailCB(fail_cb)
@@ -198,14 +197,12 @@ end
 -- function checkSaveTime
 -- @brief 로컬에 저장된 시간이 지정된 시간 이상이면 저장
 -------------------------------------
-function ServerData_AccessTime:checkSaveTime(pass_cb)
-    if (not pass_cb) then return end
-
+function ServerData_AccessTime:getSaveTime()
     if (self.m_oriTime <= MAX_SAVE_SEC) and
        (self.m_addTime >= AUTO_SAVE_SEC) then
-        self:request_saveTime(function() pass_cb() end)
+        return self:getTime()
     else
-        pass_cb()
+        return nil
     end
 end
 

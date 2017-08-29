@@ -326,6 +326,11 @@ function ServerData:networkCommonRespone(ret)
         Timer:setServerTime(server_time)
     end
 
+    -- 접속 시간 동기화
+    if (ret['access_time']) then
+        g_accessTimeData:networkCommonRespone(ret)
+    end
+
        -- 스태미나 동기화
     if (ret['staminas']) then
         local data = ret['staminas']

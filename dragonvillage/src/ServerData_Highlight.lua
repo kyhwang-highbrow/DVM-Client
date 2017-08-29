@@ -58,6 +58,13 @@ function ServerData_Highlight:request_highlightInfo(finish_cb, fail_cb)
     local ui_network = UI_Network()
     ui_network:setUrl('/users/status')
     ui_network:setParam('uid', uid)
+
+    -- 접속시간 저장
+    local save_time = g_accessTimeData:getSaveTime()
+    if (save_time) then
+        ui_network:setParam('access_time', save_time)
+    end
+
     ui_network:setSuccessCB(success_cb)
     ui_network:setFailCB(fail_cb)
     ui_network:setRevocable(true)

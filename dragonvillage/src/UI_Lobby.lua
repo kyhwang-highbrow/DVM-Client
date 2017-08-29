@@ -169,7 +169,7 @@ function UI_Lobby:entryCoroutine()
         end
         while (working) do dt = coroutine.yield() end
 
-        if (g_tutorialData:isTutorialDone(TUTORIAL.FIRST_START) and g_tutorialData:isTutorialDone(TUTORIAL.FRIST_END)) then
+        if (g_tutorialData:isTutorialDone(TUTORIAL.FIRST_START) and g_tutorialData:isTutorialDone(TUTORIAL.FIRST_END)) then
             -- 패키지 풀팝업 (하드코딩)
             local title_to_lobby = g_localData:get('title_to_lobby') or false
             if (title_to_lobby) then

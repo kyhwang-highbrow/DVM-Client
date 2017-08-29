@@ -540,6 +540,12 @@ function SceneGame:networkGameFinish(t_param, t_result_ref, next_func)
     ui_network:setParam('clear_time', t_param['clear_time'])
     ui_network:setParam('check_time', g_accessTimeData:getCheckTime())
 
+    -- 접속시간 저장
+    local save_time = g_accessTimeData:getSaveTime()
+    if (save_time) then
+        ui_network:setParam('access_time', save_time)
+    end
+
     if (send_score) then
         ui_network:setParam('score', t_param['score'])
     end
