@@ -91,6 +91,13 @@ end
 -- @brief aos 퍼미션 체크
 -------------------------------------
 function ScenePatch:checkPermission()
+
+    -- sgkim 2017-08-28 안드로이드에서 APK Expansion을 사용할 때 READ_EXTERNAL_STORAGE 퍼미션을 요구하지 않는 것을 확인하고 skip함
+    if true then
+        self:runApkExpansion()
+        return
+    end
+
     if (not isAndroid()) then
         self:runApkExpansion()
         return
