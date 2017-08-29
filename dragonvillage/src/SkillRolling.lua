@@ -52,6 +52,10 @@ function SkillRolling:init_skill(spin_res, atk_count)
 
 	-- 스핀 이펙트 속도 조절
 	self.m_animator:setTimeScale(2)
+
+    if (not self.m_owner.m_bLeftFormation) then
+        self.m_animator:setFlip(true)
+    end
 end
 
 -------------------------------------
@@ -85,7 +89,7 @@ function SkillRolling:update(dt)
     do
 	    self.m_owner:syncAniAndPhys()
 	    self:setPosition(self.m_owner.pos.x, self.m_owner.pos.y)
-	    if (nil ~= self.m_spinAnimator) then
+	    if (self.m_spinAnimator) then
 		    self.m_spinAnimator:setPosition(self.m_owner.pos.x, self.m_owner.pos.y)
 	    end
     end
@@ -106,6 +110,10 @@ function SkillRolling.st_move(owner, dt)
 			animator:changeAni('idle', true)
 			animator.m_node:setPosition(owner.m_owner.pos.x, owner.m_owner.pos.y)
 
+            if (not owner.m_owner.m_bLeftFormation) then
+                animator:setFlip(true)
+            end
+
             local missileNode = owner.m_world:getMissileNode()
             missileNode:addChild(animator.m_node)
 
@@ -120,10 +128,20 @@ function SkillRolling.st_move(owner, dt)
             local body_key = owner.m_targetCollision:getBodyKey()
 
             local body = target:getBody(body_key)
-            local target_pos = cc.p(
-                target.pos.x - 40 + body.x, 
-                target.pos.y + body.y
-            )
+            local target_pos
+
+            if (owner.m_owner.m_bLeftFormation) then
+                target_pos = cc.p(
+                    target.pos.x + body.x - 40, 
+                    target.pos.y + body.y
+                )
+            else
+                target_pos = cc.p(
+                    target.pos.x + body.x + 40, 
+                    target.pos.y + body.y
+                )
+            end
+
             local action = cc.MoveTo:create(0.2, target_pos)
 		    local delay = cc.DelayTime:create(0.5)
 
