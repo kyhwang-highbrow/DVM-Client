@@ -201,8 +201,12 @@ function UI_MasterRoadPopup:click_questLinkBtn()
     local clear_cond = t_road['clear_value']
 
     QuickLinkHelper.quickLink(clear_type, clear_cond)
-    self:setCloseCB(nil)
-    self:closeWithAction()
+
+    -- SceneCommon 위에 있을 경우에는 닫지않음
+    if (g_currScene.m_sceneName ~= 'SceneCommon') then
+        self:setCloseCB(nil)
+        self:closeWithAction()
+    end
 end
 
 -------------------------------------

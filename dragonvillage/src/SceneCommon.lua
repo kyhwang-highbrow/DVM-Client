@@ -15,6 +15,7 @@ function SceneCommon:init(class_ui, close_cb, ...)
     self.m_classUI = class_ui
     self.m_args = {...}
     self.m_uiCloseCB = close_cb
+    self.m_sceneName = 'SceneCommon'
     assert(self.m_classUI, 'class_ui is nil')
 end
 
