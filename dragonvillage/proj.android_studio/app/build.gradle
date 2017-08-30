@@ -2,7 +2,6 @@ import org.apache.tools.ant.taskdefs.condition.Os
 
 apply plugin: 'com.android.application'
 
-
 // task preBuild excuted before android build 
 preBuild {
     println '[TASK preBuild] do it before build'
@@ -10,8 +9,6 @@ preBuild {
 
 // task android build
 android {
-    def curr_version_name = "tasks"
-
     compileSdkVersion 25
     buildToolsVersion "26.0.1"
 
@@ -128,7 +125,7 @@ android {
     productFlavors {
         // DEV
         dev100mbTest{
-			versionCode 22
+			versionCode 23
 			versionName "0.4.1"
             signingConfig signingConfigs.keystore
             externalNativeBuild {
@@ -142,9 +139,8 @@ android {
             }
         }
         devFullTest{
-			versionCode 22
+			versionCode 23
 			versionName "0.4.1"
-            curr_version_name = versionName
             signingConfig signingConfigs.keystore
             externalNativeBuild {
                 ndkBuild {
@@ -159,7 +155,7 @@ android {
 
         // QA
         qa100mbTest{
-			versionCode 22
+			versionCode 25
 			versionName "0.4.2"
             signingConfig signingConfigs.keystore
             externalNativeBuild {
@@ -168,12 +164,12 @@ android {
                     cppFlags.add("-DUSE_PATCH=true")
                     cppFlags.add("-DUSE_OBB=true")
                     cppFlags.add("-DUSE_LUA_EXT=false")
-                    cppFlags.add("-DIS_TEST_MODE=false")
+                    cppFlags.add("-DIS_TEST_MODE=true")
                 }
             }
         }
         qaFullTest{
-			versionCode 22
+			versionCode 25
 			versionName "0.4.2"
             signingConfig signingConfigs.keystore
             externalNativeBuild {
@@ -182,15 +178,15 @@ android {
                     cppFlags.add("-DUSE_PATCH=true")
                     cppFlags.add("-DUSE_OBB=false")
                     cppFlags.add("-DUSE_LUA_EXT=false")
-                    cppFlags.add("-DIS_TEST_MODE=false")
+                    cppFlags.add("-DIS_TEST_MODE=true")
                 }
             }
         }
 
         // LIVE
         live100mb{
-			versionCode 22
-			versionName "1.0.5"
+			versionCode 25
+			versionName "1.0.6"
             signingConfig signingConfigs.upload_keystore
             externalNativeBuild {
                 ndkBuild {
@@ -203,8 +199,8 @@ android {
             }
         }
         liveFull{
-            versionCode 22
-            versionName "1.0.5"
+            versionCode 25
+            versionName "1.0.6"
             signingConfig signingConfigs.keystore
             externalNativeBuild {
                 ndkBuild {
@@ -216,89 +212,6 @@ android {
                 }
             }
         }
-		
-
-		/* dimension 활용하여 다음과 같이 구성하는 것도 고민중
-        // dimension server
-		dev{
-            dimension "server"
-            versionCode 22
-			versionName "0.4.1"
-            signingConfig signingConfigs.keystore
-            externalNativeBuild {
-                ndkBuild {
-                    cppFlags.add("-DTARGET_SERVER=SERVER_DEV")
-                    cppFlags.add("-DAPP_VER=" + versionName)
-                    cppFlags.add("-DUSE_PATCH=true")
-                    cppFlags.add("-DUSE_LUA_EXT=false")
-                }
-            }
-		}
-		qa{
-			dimension "server"
-            versionCode 22
-			versionName "0.4.2"
-            signingConfig signingConfigs.keystore
-            externalNativeBuild {
-                ndkBuild {
-                    cppFlags.add("-DTARGET_SERVER=SERVER_QA")
-                    cppFlags.add("-DAPP_VER=" + versionName)
-                    cppFlags.add("-DUSE_PATCH=true")
-                    cppFlags.add("-DUSE_LUA_EXT=false")
-                }
-            }
-		}
-		live{
-			dimension "server"
-            versionCode 22
-			versionName "1.0.5"
-            signingConfig signingConfigs.upload_keystore
-            externalNativeBuild {
-                ndkBuild {
-                    cppFlags.add("-DTARGET_SERVER=SERVER_LIVE")
-                    cppFlags.add("-DAPP_VER=" + versionName)
-                    cppFlags.add("-DUSE_PATCH=true")
-                    cppFlags.add("-DUSE_LUA_EXT=false")
-                }
-            }
-		}
-		
-        // dimension assets
-		market{
-			dimension "assets"
-            externalNativeBuild {
-                ndkBuild {
-                    cppFlags.add("-DUSE_OBB=true")
-                }
-            }
-		}
-		full{
-			dimension "assets"
-            externalNativeBuild {
-                ndkBuild {
-                    cppFlags.add("-DUSE_OBB=false")
-                }
-            }
-		}
-		
-        // dimension mode
-		mod{
-			dimension "mode"
-            externalNativeBuild {
-                ndkBuild {
-                    cppFlags.add("-DIS_TEST_MODE=true")
-                }
-            }
-		}
-		none{
-			dimension "mode"
-            externalNativeBuild {
-                ndkBuild {
-                    cppFlags.add("-DIS_TEST_MODE=false")
-                }
-            }
-		}
-        */
     }
 
     buildTypes {
@@ -329,8 +242,7 @@ android {
         }
     }
 
-    println curr_version_name
-}
+} // end:android
 
 allprojects {
     repositories {
