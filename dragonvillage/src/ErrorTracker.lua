@@ -18,6 +18,7 @@ ErrorTracker = class({
 -- @brief 생성자
 -------------------------------------
 function ErrorTracker:init()
+    self.lastStage = 0
     self.m_lSkillHistoryList = {}
     self.m_lAPIList = {}
     self.m_lFailedResList = {}
@@ -252,7 +253,9 @@ end
 -- function set_lastStage
 ------------------------------------- 
 function ErrorTracker:set_lastStage(s)
-    self.lastStage = s
+    if (type(s) == 'number') then
+        self.lastStage = s
+    end
 end
 
 -------------------------------------
@@ -266,7 +269,7 @@ end
 -- function cleanupIngameLog
 ------------------------------------- 
 function ErrorTracker:cleanupIngameLog()
-    self.lastStage = ''
+    self.lastStage = 0
     self.m_lSkillHistoryList = {}
     self.m_bErrorPopupOpen = false
 end
@@ -296,7 +299,7 @@ function ErrorTracker:openErrorPopup(error_msg)
     end
 
     -- 테스트 모드일 경우 상세 정보 출력
-    if false then --(IS_TEST_MODE()) then
+    if (IS_TEST_MODE()) then
         local msg = self:getTrackerText(error_msg)
 		UI_ErrorPopup(msg):setCloseCB(close_cb)
         
