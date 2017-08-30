@@ -1046,9 +1046,10 @@ function Character:makeDamageFont(damage, x, y, tParam)
 
     local node = cc.Node:create()
     node:setPosition(x, y)
-
+    node:setCascadeOpacityEnabled(true)
     -- 애니메이션 적용
     if (is_critical) then
+        
         node:runAction( cc.Sequence:create(cc.ScaleTo:create(0.05, 3.5), cc.ScaleTo:create(0.3, 1), cc.DelayTime:create(0.4), cc.FadeOut:create(0.3), cc.RemoveSelf:create()))
         --node:runAction( cc.Sequence:create(cc.FadeIn:create(0.3), cc.DelayTime:create(0.4), cc.FadeOut:create(0.5), cc.RemoveSelf:create()))
         node:runAction(cc.EaseIn:create(cc.MoveTo:create(1, cc.p(x, y + 80)), 1))
@@ -1147,6 +1148,7 @@ function Character:makeDamageNumber(damage, r, g, b)
     end
     
     damage_node:setPosition(-(x_offset/2), 0)
+    damage_node:setCascadeOpacityEnabled(true)
     return damage_node
 end
 
