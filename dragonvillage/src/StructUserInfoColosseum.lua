@@ -379,7 +379,7 @@ function StructUserInfoColosseum:getAtkDeckCombatPower(force)
         end
 
         local t_deck_dragon_list = self:getAtkDeck_dragonList()
-        local formation_lv = self.m_pvpAtkDeck['formationlv']
+        local formation_lv = self.m_pvpAtkDeck['formationlv'] or 1
 
         -- 드래곤
         local total_combat_power = 0
