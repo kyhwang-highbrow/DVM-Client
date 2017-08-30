@@ -2673,7 +2673,9 @@ end
 -- function stopRoaming
 -------------------------------------
 function Character:stopRoaming()
-    cca.stopAction(self.m_rootNode, CHARACTER_ACTION_TAG__ROAM)
+    if (self.m_rootNode) then
+        cca.stopAction(self.m_rootNode, CHARACTER_ACTION_TAG__ROAM)
+    end
     self.m_roamTimer = 1
 end
 
