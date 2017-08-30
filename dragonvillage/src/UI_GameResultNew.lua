@@ -417,7 +417,6 @@ function UI_GameResultNew:direction_end()
             end)))
     else
         vars['skipLabel']:setVisible(false)
-        vars['noRewardMenu']:setVisible(true)
         vars['prevBtn']:setVisible(true)
 		vars['statsBtn']:setVisible(true)
         vars['againBtn']:setVisible(true)
@@ -510,9 +509,12 @@ end
 -------------------------------------
 function UI_GameResultNew:direction_dropItem()
     local vars = self.vars
-    local is_success = self.m_bSuccess
-    if (not is_success) then 
+   local count = #self.m_lDropItemList
+    
+    -- 보상이 없을때
+    if (count <= 0) then
         self:doNextWork()
+        vars['noRewardMenu']:setVisible(true)
         return
     end
 

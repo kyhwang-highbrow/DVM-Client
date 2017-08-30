@@ -7,6 +7,12 @@ MAX_DRAGON_EVOLUTION = 3
 -- @brief 드래곤 진화 단계별 표현 이름
 -------------------------------------
 function evolutionName(evolution_lv)
+    local evolution_lv = evolution_lv
+    -- 리더일때는 성룡으로 판단.
+    if (evolution_lv == 'Leader') then
+        evolution_lv = 3
+    end
+
     if (evolution_lv == 1) then
         return Str('해치')
     elseif (evolution_lv == 2) then
