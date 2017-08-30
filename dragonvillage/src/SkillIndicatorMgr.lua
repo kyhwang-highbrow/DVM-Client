@@ -184,7 +184,7 @@ function SkillIndicatorMgr:onTouchMoved(touch, event)
     if (hero.m_skillIndicator) then
         hero.m_skillIndicator:setIndicatorTouchPos(node_pos['x'], node_pos['y'])
 
-        if (not self:isControlling()) then
+        if (not self:isControlling() and self.m_world:isPossibleControl()) then
             if (distance >= 50) then
                 if (hero:isPossibleSkill()) then
                     self:setSelectHero(hero)

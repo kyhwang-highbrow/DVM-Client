@@ -885,6 +885,8 @@ end
 -------------------------------------
 function GameWorld:makeInstantEffect(res, ani_name, x, y)
     local effect = MakeAnimator(res)
+    if (not effect.m_node) then return end
+
     effect:setPosition(x, y)
     effect:changeAni(ani_name, false)
     local duration = effect:getDuration()
@@ -898,7 +900,9 @@ end
 -------------------------------------
 function GameWorld:addInstantEffect(res, ani_name, x, y)
     local effect = self:makeInstantEffect(res, ani_name, x, y)
-    self:addChild2(effect.m_node, DEPTH_INSTANT_EFFECT)
+    if (effect) then
+        self:addChild2(effect.m_node, DEPTH_INSTANT_EFFECT)
+    end
     return effect
 end
 
@@ -908,7 +912,9 @@ end
 -------------------------------------
 function GameWorld:addInstantEffectWorld(res, ani_name, x, y)
     local effect = self:makeInstantEffect(res, ani_name, x, y)
-    self:addChildWorld(effect.m_node, 0)
+    if (effect) then
+        self:addChildWorld(effect.m_node, 0)
+    end
     return effect
 end
 

@@ -259,10 +259,10 @@ function GameDragonSkill.st_playDragSkill(self, dt)
         if (self.m_dragon.m_state ~= 'delegate') then
             self:releaseFocusingDragon()
 
-            self:changeState(STATE.WAIT)
-
             -- 스킬 시전 드래곤을 제외한 게임 오브젝트 resume
             world:setTemporaryPause(false, dragon)
+
+            self:changeState(STATE.WAIT)
         end
     end
 
