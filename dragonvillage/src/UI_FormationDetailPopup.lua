@@ -186,8 +186,12 @@ end
 -------------------------------------
 function UI_FormationDetailPopup:click_maxBtn()
     local max_lv = g_userData:get('lv')
-	self.m_enhanceLevel = max_lv
+    if (max_lv == self.m_formationLevel) then
+        UIManager:toastNotificationGreen(Str('유저 레벨 이상 강화 하실 수 없습니다.'))
+        return
+    end
 
+	self.m_enhanceLevel = max_lv
 	self:refresh()
 end
 
