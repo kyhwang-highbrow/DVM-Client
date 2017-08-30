@@ -349,7 +349,7 @@ function ErrorTracker:sendErrorLog(msg, success_cb)
         ['failed_res_list'] = self.m_lFailedResList,
         ['ui_list'] = self:getUINameList(),
         ['last_scene'] = self.lastScene,
-        ['last_stage'] = self.lastStage,
+        ['last-stage'] = self.lastStage,
     }
 
     local t_data = {
