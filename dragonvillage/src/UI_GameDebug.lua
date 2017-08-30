@@ -1,4 +1,4 @@
-local UI_GAMEDEBUG_WIDTH = 300
+local UI_GAMEDEBUG_WIDTH = 350
 
 -------------------------------------
 -- class UI_GameDebug
@@ -117,7 +117,7 @@ end
 -- function makeTableView
 -------------------------------------
 function UI_GameDebug:makeTableView()
-    local size_width, size_height = 260, 50 
+    local size_width, size_height = (UI_GAMEDEBUG_WIDTH - 30), 64
 
     local function create_func(data)
         local ui = UIC_ChatTableViewCell(data)
@@ -130,11 +130,10 @@ function UI_GameDebug:makeTableView()
         cell_menu:setSwallowTouch(true)
 
         if data['cb1'] then
-            local node = cc.MenuItemImage:create('res/ui/temp/btn_debug_04.png', 'res/ui/temp/btn_debug_05.png', 1)
+            local node = cc.MenuItemImage:create('res/ui/buttons/64_base_btn_0101.png', 'res/ui/buttons/64_base_btn_0102.png', 1)
             node:setDockPoint(cc.p(1, 0.5))
             node:setPositionX(-40)
             node:setAnchorPoint(cc.p(0.5, 0.5))
-			node:setScale(-1)
             local uic_button = UIC_Button(node)
             uic_button:registerScriptTapHandler(function()
                 data['cb1'](self, data, 1)
@@ -143,9 +142,9 @@ function UI_GameDebug:makeTableView()
         end
 
         if data['cb2'] then
-            local node = cc.MenuItemImage:create('res/ui/temp/btn_debug_04.png', 'res/ui/temp/btn_debug_05.png', 1)
-            node:setDockPoint(cc.p(1, 0.5))
-            node:setPositionX(-(40 + 67))
+            local node = cc.MenuItemImage:create('res/ui/buttons/64_base_btn_0101.png', 'res/ui/buttons/64_base_btn_0102.png', 1)
+            node:setDockPoint(cc.p(0, 0.5))
+            node:setPositionX(40)
             node:setAnchorPoint(cc.p(0.5, 0.5))
             local uic_button = UIC_Button(node)
             uic_button:registerScriptTapHandler(function()
@@ -156,7 +155,7 @@ function UI_GameDebug:makeTableView()
 
         do -- label 생성
             -- left 0, center 1, right 2
-            local label = cc.Label:createWithTTF(data['str'] or 'label', 'res/font/common_font_01.ttf', 15, 2, cc.size(250, 100), 0, 1)
+            local label = cc.Label:createWithTTF(data['str'] or 'label', 'res/font/common_font_01.ttf', 20, 2, cc.size(size_width, size_height), 1, 1)
             label:setDockPoint(cc.p(0.5, 0.5))
             label:setAnchorPoint(cc.p(0.5, 0.5))
             cell_menu:addChild(label)
@@ -172,7 +171,7 @@ function UI_GameDebug:makeTableView()
 
     local node = self.vars['tableViewNode']
     local table_view = UIC_TableView(node)
-    table_view.m_defaultCellSize = cc.size(260, 50)
+    table_view.m_defaultCellSize = cc.size(size_width, size_height)
     table_view:setDirection(cc.SCROLLVIEW_DIRECTION_VERTICAL)
     table_view:setCellUIClass(create_func, nil)
 
