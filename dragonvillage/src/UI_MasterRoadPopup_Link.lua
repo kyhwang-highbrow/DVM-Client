@@ -77,7 +77,8 @@ function UI_MasterRoadPopup_Link:click_questLinkBtn()
             local ui = UI_MasterRoadPopup()
             ui:setCloseCB(close_cb)
         else
-            local scene = SceneCommon(UI_MasterRoadPopup, close_cb)
+            local auto_close = false
+            local scene = SceneCommon(UI_MasterRoadPopup, close_cb, auto_close)
             scene:runScene()
         end
     end)

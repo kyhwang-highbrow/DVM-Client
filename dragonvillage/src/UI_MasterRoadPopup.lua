@@ -7,12 +7,21 @@ UI_MasterRoadPopup = class(PARENT, {
         m_tableView = '',
 		m_currRid = 'number',
 		m_selectedSprite = 'cc.Sprite',
+
+        -- "바로 가기"버튼을 클릭했을 때 팝업이 자동으로 닫힐지 여부
+        m_bAutoClose = 'boolean',
     })
 
 -------------------------------------
 -- function init
 -------------------------------------
-function UI_MasterRoadPopup:init()
+function UI_MasterRoadPopup:init(auto_close)
+    if (auto_close == nil) then
+        self.m_bAutoClose = true
+    else
+        self.m_bAutoClose = auto_close
+    end
+
 	local vars = self:load('master_road_popup.ui')
 	UIManager:open(self, UIManager.SCENE)
 
@@ -202,8 +211,8 @@ function UI_MasterRoadPopup:click_questLinkBtn()
 
     QuickLinkHelper.quickLink(clear_type, clear_cond)
 
-    -- SceneCommon 위에 있을 경우에는 닫지않음
-    if (g_currScene.m_sceneName ~= 'SceneCommon') then
+    -- "바로 가기"버튼을 클릭했을 때 팝업이 자도응로 닫힐지 여부
+    if (self.m_bAutoClose) then
         self:setCloseCB(nil)
         self:closeWithAction()
     end
