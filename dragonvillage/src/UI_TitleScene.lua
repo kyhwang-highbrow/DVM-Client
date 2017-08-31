@@ -499,6 +499,9 @@ function UI_TitleScene:workPlatformLogin()
         if (t_status['retcode'] == 0) then
             ccdump(ret)
 
+            -- uid 저장
+            g_localData:applyLocalData(ret['fuid'], 'local', 'uid')
+
             -- 복구코드 저장            
             g_localData:applyLocalData(ret['rcode'], 'local', 'recovery_code')
 
