@@ -324,7 +324,7 @@ function DataTableValidator:makeInvalidStr()
         for _, t_temp in ipairs(self.m_lInvalidNA) do
             context_str = context_str .. string.format('path : %s / id : %s / column : %s\n', t_temp['path'], t_temp['id'], t_temp['column'])
         end
-        t_str['na'] = '## N/A 위치 \n' .. context_str
+        t_str['na'] = '## N/A LIST \n' .. context_str
     end
     
     do
@@ -332,7 +332,7 @@ function DataTableValidator:makeInvalidStr()
         for _, t_temp_dict in ipairs(self.m_tInvalidDragon) do
             context_str = context_str .. t_temp_dict['path'] .. '\t : \t' .. t_temp_dict['info'] .. '\n'
         end
-        t_str['dragon'] = '## 존재하지 않는 드래곤 ID\n' .. context_str
+        t_str['dragon'] = '## Dragon that do not exist ID\n' .. context_str
     end
 
     do
@@ -340,7 +340,7 @@ function DataTableValidator:makeInvalidStr()
         for _, t_temp_dict in ipairs(self.m_tInvalidMonster) do
             context_str = context_str .. t_temp_dict['path'] .. '\t : \t' .. t_temp_dict['info'] .. '\n'
         end
-        t_str['monster'] = '\n## 존재하지 않는 몬스터 ID\n' .. context_str
+        t_str['monster'] = '## Monster that do not exist ID\n' .. context_str
     end
 
     do    
@@ -348,7 +348,7 @@ function DataTableValidator:makeInvalidStr()
         for _, t_temp_dict in ipairs(self.m_tInvalidSkill) do
             context_str = context_str .. t_temp_dict['path'] .. '\t : \t' .. t_temp_dict['info'] .. '\n'
         end
-        t_str['skill'] = '\n## 존재하지 않는 스킬 ID\n' .. context_str
+        t_str['skill'] = '## Skill that do not exist\n' .. context_str
     end
 
     return t_str
