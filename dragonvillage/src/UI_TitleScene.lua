@@ -878,7 +878,14 @@ function UI_TitleScene:workBillingSetup()
             local function finish_cb()
                 self:doNextWork()
             end
-            self:makeFailPopup(Str(info_json.msg), finish_cb)
+
+            -- 인포에서 넘어온 msg는 무시
+            -- local desc = Str(info_json.msg)
+            local msg = Str('결제 시스템 초기화에 실패하였습니다.')
+            local submsg = Str('(결제 시도 시 결제에 실패할 경우 재접속 후 다시 시도해주세요)')
+            MakeSimplePopup2(POPUP_TYPE.OK, msg, submsg, finish_cb)
+        else
+            self:doNextWork()
         end
     end
 
