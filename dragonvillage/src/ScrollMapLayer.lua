@@ -31,6 +31,10 @@ IScrollMapLayer = class({
 
         -- 스프라이트 생성
         self.m_animator = MakeAnimator(res)
+        if (not self.m_animator.m_node) then
+            local res_not_low = string.gsub(res, 'low_', '')
+            self.m_animator = MakeAnimator(res_not_low)
+        end
         self.m_animator.m_node:setDockPoint(cc.p(0.0, 0.5))
         self.m_animator.m_node:setAnchorPoint(cc.p(0.0, 0.5))
         self.m_animator.m_node:setPosition(self.m_offsetX, self.m_offsetY)
@@ -155,6 +159,10 @@ local MAP_HEIGHT = 1600
             if count then
                 for i = 2, count do
                     local animator = MakeAnimator(res)
+                    if (not animator.m_node) then
+                        local res_not_low = string.gsub(res, 'low_', '')
+                        animator = MakeAnimator(res_not_low)
+                    end
 				    if animation then
 					    animator:changeAni(animation, true)
 				    end
