@@ -115,7 +115,7 @@ function ServerData_Inventory:getMaxCount(inven_type)
     local curr_slot = 0
 
     -- 인벤토리 레벨이 변경되기 전 생성된 계정을 위한 예외처리
-    for _lv=lv, 1, -1 do
+    for _lv=lv, 0, -1 do
         if t_inven[_lv] and t_inven[_lv][key_slot] then
             curr_slot = t_inven[_lv][key_slot]
             break
