@@ -39,6 +39,10 @@ public class PerpleIntentService extends IntentService {
     public int onStartCommand(Intent intent, int flags, int startId) {
         if(DEBUG) Log.d(TAG, "onStartCommand()");
 
+        if (intent == null) {
+            return super.onStartCommand(intent, flags, startId);
+        }
+
         mType = intent.getStringArrayListExtra("noti_type");
         long[] timeArr = intent.getLongArrayExtra("noti_time");
         mNotiTime = new ArrayList<Long>();
@@ -79,6 +83,10 @@ public class PerpleIntentService extends IntentService {
     @Override
     protected void onHandleIntent(Intent intent) {
         if(DEBUG) Log.d(TAG, "onHandleIntent() start");
+
+        if (intent == null) {
+            return;
+        }
 
         invalidate();
 
