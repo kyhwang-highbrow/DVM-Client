@@ -123,6 +123,8 @@ function UI_BattleMenuItem:refresh()
             self.m_notiIcon = nil
         end
     end
+
+    return has_noti
 end
 
 -------------------------------------

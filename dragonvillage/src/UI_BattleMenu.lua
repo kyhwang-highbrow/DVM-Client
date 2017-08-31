@@ -7,6 +7,8 @@ UI_BattleMenu = class(PARENT, {
         m_lAdventureBtnUI = '',
         m_lDungeonBtnUI = '',
         m_lCompetitionBtnUI = '',
+
+        m_tNotiSprite = '',
      })
 
 local THIS = UI_BattleMenu
@@ -37,6 +39,8 @@ function UI_BattleMenu:init()
     -- @UI_ACTION
     self:doActionReset()
     self:doAction(nil, false)
+
+    self.m_tNotiSprite = {}
 
     self:initUI()
     self:initButton()
@@ -78,19 +82,28 @@ end
 -- function update
 -------------------------------------
 function UI_BattleMenu:update(dt)
+    local t_noti = {}
+
     -- noti update
     do
         if (self.m_lAdventureBtnUI) then
             for i, v in pairs(self.m_lAdventureBtnUI) do
-                v['ui']:refresh()
+                if (v['ui']:refresh()) then
+                    t_noti['adventure'] = true
+                end 
             end
         end
         if (self.m_lDungeonBtnUI) then
             for i, v in pairs(self.m_lDungeonBtnUI) do
-                v['ui']:refresh()
+                if (v['ui']:refresh()) then
+                    t_noti['dungeon'] = true
+                end
             end
         end
     end
+
+    -- tab noti
+    UIHelper:autoNoti(t_noti, self.m_tNotiSprite, 'Btn', self.vars)
 end
 
 -------------------------------------
