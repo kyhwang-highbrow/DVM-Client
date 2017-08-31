@@ -422,17 +422,20 @@ function updateCoroutine(c, ...)
     if not c then
         return false, 'cannot resume nil value'
     end
+
     local s, r = coroutine.resume(c, ...)
+    local msg = ''
     if not s then
         -- 문제 상황 발생 (코루틴은 콜스택을 되돌리지 않기 때문에 여기서 바로 볼 수 있다)
         --_ErrorHandler(r, c)
+        msg = debug.traceback(c, r)
         cclog("----------------------------------------")
         cclog("LUA ERROR in coroutine\n")
-        cclog(debug.traceback(c, r))
+        cclog(msg)
         cclog("----------------------------------------")
     end
     s = coroutine.status(c) ~= 'dead'
-    return s, r
+    return s, r, msg
 end
 
 -- 코루틴을 만들고 한 번 실행해 준다.

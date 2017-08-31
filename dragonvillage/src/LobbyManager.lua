@@ -256,7 +256,7 @@ function LobbyManager:receiveData_S_LOBBY_CHANGE_CHANNEL(msg)
         self.m_lobbyChannelName = r['channelName']
         
         local user_list = self:getProtobuf('session').SLobbyUserList():Parse(r['user'])
-        self:setUserList(user_list['user'])
+        self:setUserList(user_list['user'] or {})
     else
 
     end

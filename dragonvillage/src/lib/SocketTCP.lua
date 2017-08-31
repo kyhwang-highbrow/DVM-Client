@@ -213,19 +213,10 @@ function SocketTCP:_onConnected()
     self.co = coroutine.create(__func)
     
     local __tick = function(dt)
-        --TODO: 코루틴 내부에서 에러가 났을 경우 처리가 필요
-        local ret = updateCoroutine(self.co, dt)
+        local ret, _, msg = updateCoroutine(self.co, dt)
 
-        -- 코루틴이 종료(에러??!!) 되었을 때 스케쥴러 해제
-        if (not ret) then
-            if self.connectTimeTickSchedulerID then
-                scheduler.unscheduleGlobal(self.connectTimeTickSchedulerID)
-                self.connectTimeTickSchedulerID = nil
-                return
-            end
-        end
-        
-        if self.status == STATUS_CLOSED or self.status == STATUS_NOT_CONNECTED then
+        --코루틴 내부에서 에러가 났을 경우 다시 연결
+        if (not ret) or self.status == STATUS_CLOSED or self.status == STATUS_NOT_CONNECTED then
             self.status = STATUS_OK
             self:close()
             if self.isConnected then
