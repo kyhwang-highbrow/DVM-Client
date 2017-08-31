@@ -1,6 +1,6 @@
 require 'LuaStandAlone'
 
-require 'slack'
+--require 'slack'
 
 -------------------------------------
 -- class DataTableValidator
@@ -9,6 +9,7 @@ DataTableValidator = class({
     m_dataRoot = '',
     m_numOfInvalidData = 'number',
 
+    m_lInvalidNA = 'table',
     m_tInvalidDragon = 'table',
     m_tInvalidMonster = 'table',
     m_tInvalidSkill = 'table',
@@ -23,6 +24,7 @@ function DataTableValidator:init()
     self.m_dataRoot = '..\\data\\'
     self.m_numOfInvalidData = 0
 
+    self.m_lInvalidNA = {}
     self.m_tInvalidDragon = {}
     self.m_tInvalidMonster = {}
     self.m_tInvalidSkill = {}
@@ -43,8 +45,10 @@ function DataTableValidator:validateData()
     -- 2. 전체 파일 리스트 자료 정리 (딕셔너리화)
     local t_data = self:makeDictAllData(file_path_list)
 
-
     -- 3. 파일 검증 시작
+    self:validateData_NA(t_data)
+    print("N/A Vliadation Finished\n")
+
     self:validateData_Dragon(t_data)
     print("Dragon Table Validation Finished\n")
 
@@ -56,8 +60,10 @@ function DataTableValidator:validateData()
 
     print("########### TABLE VALIDATION END ###########\n\n\n\n\n\n")
 
-    if(self.m_numOfInvalidData > 0 ) then
-        --self:sendToSlack()
+    -- 에러가 존재한다면
+    if (self.m_numOfInvalidData > 0 ) then
+        ccdump(self:makeInvalidStr())
+        os.exit(101)
     end
 end
 
@@ -77,7 +83,7 @@ function DataTableValidator:makeDictAllData(l_file_path)
     for _, file_path in ipairs(l_file_path) do
         local l_data = nil
         local relative_path = pl.path.relpath(getFileName(file_path), lfs.currentdir() .. self.m_dataRoot)
-        cclog(file_path)
+
         -- 파일 확장자로 구분하여 로드.
         if (getFileExtension(file_path) == '.csv') then
             l_data = TABLE:loadCSVTable(relative_path)
@@ -125,6 +131,29 @@ function DataTableValidator:makeDictCSV(file_path, key)
         line = target_file:read()
     end
     return t_csv
+end
+
+------------------------------------
+-- function validateData_NA
+-- @brief 전체 테이블에서 '#N/A' 문자열을 찾는다.
+------------------------------------
+function DataTableValidator:validateData_NA(t_data)
+    for file_path, l_data in pairs(t_data) do
+        if (getFileExtension(file_path) == '.csv') then
+            for id, t_row in pairs(l_data) do
+                for column, context in pairs(t_row) do
+                    if (string.find(context, '#N/A')) then
+                        table.insert(self.m_lInvalidNA, {
+                            ['path'] = file_path,
+                            ['id'] = id,
+                            ['column'] = column
+                        })
+                        self.m_numOfInvalidData = self.m_numOfInvalidData + 1
+                    end
+                end
+            end
+        end
+    end
 end
 
 ------------------------------------
@@ -191,7 +220,11 @@ function DataTableValidator:checkStageScript(t_data, file_path)
              for _, script in pairs(summon_info) do
                 local monster_id = pl.stringx.split(script, ';')[1]
                 if (find(monster_id, 'RandomDragon') == nil) then
-                    self:checkDictHasKey(self.m_tMonster, monster_id, file_path, 1) 
+                    if (math.floor(monster_id / 10000) == 12) then
+                        self:checkDictHasKey(self.m_tDragon, monster_id, file_path, 1)
+                    else
+                        self:checkDictHasKey(self.m_tMonster, monster_id, file_path, 1)
+                    end
                 end
              end
         end
@@ -284,25 +317,41 @@ end
 -- @return str      : string,   formatting된 string
 ------------------------------------
 function DataTableValidator:makeInvalidStr()
-    --str = "@hkkang @wjung @jykim\n"
-    local str = '## 존재하지 않는 드래곤 ID\n'
+    local t_str = {}
 
-    for _, t_temp_dict in ipairs(self.m_tInvalidDragon) do
-        str = str .. t_temp_dict['path'] .. '\t : \t' .. t_temp_dict['info'] .. '\n'
-    end
-
-    str = str .. '\n## 존재하지 않는 몬스터 ID\n'
-
-    for _, t_temp_dict in ipairs(self.m_tInvalidMonster) do
-        str = str .. t_temp_dict['path'] .. '\t : \t' .. t_temp_dict['info'] .. '\n'
+    do
+        local context_str = ''
+        for _, t_temp in ipairs(self.m_lInvalidNA) do
+            context_str = context_str .. string.format('path : %s / id : %s / column : %s\n', t_temp['path'], t_temp['id'], t_temp['column'])
+        end
+        t_str['na'] = '## N/A 위치 \n' .. context_str
     end
     
-    str = str .. '\n## 존재하지 않는 스킬 ID\n'
-
-    for _, t_temp_dict in ipairs(self.m_tInvalidSkill) do
-        str = str .. t_temp_dict['path'] .. '\t : \t' .. t_temp_dict['info'] .. '\n'
+    do
+        local context_str = ''
+        for _, t_temp_dict in ipairs(self.m_tInvalidDragon) do
+            context_str = context_str .. t_temp_dict['path'] .. '\t : \t' .. t_temp_dict['info'] .. '\n'
+        end
+        t_str['dragon'] = '## 존재하지 않는 드래곤 ID\n' .. context_str
     end
-    return str
+
+    do
+        local context_str = ''
+        for _, t_temp_dict in ipairs(self.m_tInvalidMonster) do
+            context_str = context_str .. t_temp_dict['path'] .. '\t : \t' .. t_temp_dict['info'] .. '\n'
+        end
+        t_str['monster'] = '\n## 존재하지 않는 몬스터 ID\n' .. context_str
+    end
+
+    do    
+        local context_str = ''
+        for _, t_temp_dict in ipairs(self.m_tInvalidSkill) do
+            context_str = context_str .. t_temp_dict['path'] .. '\t : \t' .. t_temp_dict['info'] .. '\n'
+        end
+        t_str['skill'] = '\n## 존재하지 않는 스킬 ID\n' .. context_str
+    end
+
+    return t_str
 end
 
 ------------------------------------
