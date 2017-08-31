@@ -488,7 +488,8 @@ end
 
 -------------------------------------
 -- function workPlatformLogin
--- @brief 플랫폼 서버에 게스트 로그인
+-- @brief 플랫폼 서버에 복구 코드 요청
+--        C/S 처리에 따라 이 과정에서 uid 가 변경될 수 있음
 -------------------------------------
 function UI_TitleScene:workPlatformLogin()
     self.m_loadingUI:showLoading(Str('플랫폼 서버에 로그인 중...'))
