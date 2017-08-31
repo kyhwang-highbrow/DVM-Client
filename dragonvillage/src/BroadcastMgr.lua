@@ -268,7 +268,11 @@ function BroadcastMgr:makeMessage(msg_info)
         -- 키값에 따라 필요한 문자열을 구성
         if (value == 'did') then
             -- 드래곤 이름
-            t_value[i] = TableDragon():getValue(data['did'], 't_name')
+            local name = TableDragon():getValue(data['did'], 't_name')
+            local attr = TableDragon():getValue(data['did'], 'attr')
+            local str = dragonAttributeName(attr) .. ' ' .. name
+
+            t_value[i] = str
                  
         elseif (value == 'rid') then
             -- 룬 이름
