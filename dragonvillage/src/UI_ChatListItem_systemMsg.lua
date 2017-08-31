@@ -55,6 +55,9 @@ function UI_ChatListItem_systemMsg:getBroadcastChannelRange(channel_name)
         end
     end
 
+    start_idx = math_clamp(start_idx, 1, 9999)
+    end_idx = math_clamp(end_idx, 1, 9999)
+
     return start_idx, end_idx
 end
 
