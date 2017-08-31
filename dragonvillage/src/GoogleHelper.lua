@@ -130,7 +130,9 @@ end
 -------------------------------------
 function GoogleHelper.allAchievementCheck(finish_cb)
     if (not GoogleHelper.isAvailable()) then
-        finish_cb()
+        if (finish_cb) then
+            finish_cb()
+        end
         return
     end
 
