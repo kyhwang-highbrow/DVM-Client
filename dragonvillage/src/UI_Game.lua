@@ -78,10 +78,6 @@ function UI_Game:initUI()
     
     -- 연속 전투 정보
     do
-        vars['autoStartVisual'].m_node:setLocalZOrder(1)
-        vars['autoVisual'].m_node:setLocalZOrder(1)
-        vars['speedVisual'].m_node:setLocalZOrder(1)
-
         self:setAutoPlayUI()
     end
 
@@ -264,6 +260,8 @@ end
 -- function click_speedButton
 -------------------------------------
 function UI_Game:click_speedButton()
+    if (not self.m_gameScene.m_gameWorld) then return end
+
 	local gameTimeScale = self.m_gameScene.m_gameWorld.m_gameTimeScale
 	local quick_time_scale = g_constant:get('INGAME', 'QUICK_MODE_TIME_SCALE')
 

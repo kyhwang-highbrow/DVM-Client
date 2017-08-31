@@ -352,6 +352,8 @@ end
 -- function gamePause
 -------------------------------------
 function SceneGame:gamePause()
+    if (not self.m_viewLayer) then return end
+
     self.m_bPause = true
 
     local function f_pause(node)
@@ -365,6 +367,8 @@ end
 -- function gameResume
 -------------------------------------
 function SceneGame:gameResume()
+    if (not self.m_viewLayer) then return end
+
     self.m_bPause = false
 
     local function f_resume(node)
