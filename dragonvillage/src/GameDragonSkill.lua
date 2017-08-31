@@ -249,14 +249,16 @@ function GameDragonSkill.st_playDragSkill(self, dt)
             -- 화면 쉐이킹 멈춤
             world.m_shakeMgr:stopShake()
 
-        elseif (self:isPassedStepTime(2)) then
             self:nextStep()
-
         end
 
     elseif (self:getStep() == 4) then
-        --if (self:isBeginningStep()) then
-        if (dragon.m_state ~= 'delegate' or self:isPassedStepTime(2)) then
+        if (self:isPassedStepTime(0.5)) then
+            self:nextStep()
+        end
+
+    elseif (self:getStep() == 5) then
+        if (dragon.m_state ~= 'delegate') then
             self:releaseFocusingDragon()
 
             -- 스킬 시전 드래곤을 제외한 게임 오브젝트 resume
