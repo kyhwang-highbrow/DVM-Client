@@ -256,7 +256,7 @@ function GameDragonSkill.st_playDragSkill(self, dt)
 
     elseif (self:getStep() == 4) then
         --if (self:isBeginningStep()) then
-        if (self.m_dragon.m_state ~= 'delegate') then
+        if (dragon.m_state ~= 'delegate' or self:isPassedStepTime(2)) then
             self:releaseFocusingDragon()
 
             -- 스킬 시전 드래곤을 제외한 게임 오브젝트 resume
@@ -276,46 +276,6 @@ function GameDragonSkill.st_playDragSkill(self, dt)
             self.m_skillOpeningCutBg:setFlip(false)
         else
             self.m_skillOpeningCutBg:setFlip(true)
-        end
-    end
-end
-
--------------------------------------
--- function st_playTimeSkill
--------------------------------------
-function GameDragonSkill.st_playTimeSkill(self, dt)
-    local world = self.m_world
-    local dragon = self.m_dragon
-    local timeScale = 1
-    local t_dragon_skill_time = g_constant:get('INGAME', 'DRAGON_TIME_SKILL_DIRECTION_DURATION')
-	local time1 = t_dragon_skill_time[1]
-    local time2 = t_dragon_skill_time[2]
-    
-    if (self:getStep() == 0) then
-        if (self:isBeginningStep()) then
-
-            if (not self.m_bSkipMode) then
-                -- 카메라 줌인
-                local cameraHomePosX, cameraHomePosY = world.m_gameCamera:getHomePos()
-            
-                world.m_gameCamera:setAction({
-                    pos_x = dragon.pos.x - (CRITERIA_RESOLUTION_X / 2),
-                    pos_y = dragon.pos.y,
-                    scale = 1.2,
-                    time = 0.25
-                })
-            end
-
-            -- 효과음
-            SoundMgr:playEffect('UI', 'ui_passive')
-
-        elseif (self:isPassedStepTime(time1 / 2)) then
-            world.m_gameCamera:reset()
-        
-        elseif (self:isPassedStepTime(time1)) then
-            self:releaseFocusingDragon()
-            
-            self:changeState(STATE.WAIT)
         end
     end
 end
