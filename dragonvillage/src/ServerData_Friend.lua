@@ -440,6 +440,11 @@ end
 -- @brief 친구 요청 수락 (받은 요청)
 -------------------------------------
 function ServerData_Friend:request_inviteResponseAccept(friend_uid, finish_cb)
+    if (self:getFriendCount() >= MAX_FRIEND_CNT) then
+        UIManager:toastNotificationRed(Str('친구 목록이 가득 찼습니다.'))
+        return
+    end
+
     -- 파라미터
     local uid = g_userData:get('uid')
 
