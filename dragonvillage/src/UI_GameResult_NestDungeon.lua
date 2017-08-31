@@ -65,7 +65,7 @@ end
 -------------------------------------
 function UI_GameResult_NestDungeon:click_quickBtn()
     if (not g_staminasData:checkStageStamina(self.m_stageID)) then
-        local msg = Str('입장권을 모두 소모하여 빠른 시작을 할 수 없습니다.')
+        local msg = Str('날개를 모두 소모하여 빠른 시작을 할 수 없습니다.')
         MakeSimplePopup(POPUP_TYPE.OK, msg)
         return
     end

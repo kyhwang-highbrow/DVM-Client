@@ -102,18 +102,6 @@ function UI_GameResultNew:initUI()
 
     self:doActionReset()
     self:doAction()
-
-    -- 자동 재화 줍기 
-    local game_mode = g_stageData:getGameMode(stage_id)
-    if (game_mode == GAME_MODE_ADVENTURE) then
-        vars['itemAutoBtn']:setVisible(false)
-        vars['itemAutoLabel']:setVisible(false)
-        
-        local function update(dt)
-            vars['itemAutoLabel']:setString(g_advertisingData:getCoolTimeStr(AD_TYPE.AUTO_ITEM_PICK))
-        end
-        self.root:scheduleUpdateWithPriorityLua(function(dt) update(dt) end, 0)
-    end
 end
 
 -------------------------------------
@@ -308,7 +296,7 @@ end
 function UI_GameResultNew:direction_start()
     local is_success = self.m_bSuccess
     local vars = self.vars
-
+    
     vars['titleNode']:setVisible(true)
     vars['resultMenu']:setVisible(true)
 
@@ -322,17 +310,35 @@ function UI_GameResultNew:direction_start()
     vars['skipLabel']:setVisible(false)
     vars['againBtn']:setVisible(false)
 
-    -- 자동 줍기 보여줌
-    vars['itemAutoBtn']:setVisible(true)
-    vars['itemAutoLabel']:setVisible(true)
-    cca.stampShakeAction(vars['itemAutoBtn'], 1.8, 0.2, 0, 0)
-
     -- 드래곤 레벨업 연출 node
     vars['dragonResultNode']:setVisible(true)
 
     -- 플레이 시간, 획득 골드
     self.m_lNumberLabel['time']:setNumber(self.m_time)
     self.m_lNumberLabel['gold']:setNumber(self.m_gold)
+
+    -- 자동 재화 회득 
+    local stage_id = self.m_stageID
+    local game_mode = g_stageData:getGameMode(stage_id)
+    local btn = vars['itemAutoBtn']
+    local label = vars['itemAutoLabel']
+
+    if (game_mode == GAME_MODE_ADVENTURE) then
+        btn:setVisible(true)
+        label:setVisible(true)
+
+        local function update(dt)
+            label:setString(g_advertisingData:getCoolTimeStr(AD_TYPE.AUTO_ITEM_PICK))
+            if (g_autoItemPickData:isActiveAutoItemPick()) then
+                btn:stopAllActions()
+            end
+        end
+        self.root:scheduleUpdateWithPriorityLua(function(dt) update(dt) end, 0)
+        
+        if (not g_autoItemPickData:isActiveAutoItemPick()) then
+            btn:setAutoShake(true)
+        end        
+    end
 
     -- 레벨업 연출 시작
     self:startLevelUpDirector()
