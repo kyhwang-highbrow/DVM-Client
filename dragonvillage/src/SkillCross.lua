@@ -89,14 +89,17 @@ function SkillCross.st_idle(owner, dt)
 		-- 일반 스킬이라면 ATK STEP FINAL 일떄 탈출
 	    if (owner.m_attackStep == CROSS_ATK_STEP_FINAL) then
             owner.m_animator:addAniHandler(function()
-                    owner:changeState('dying')
+                owner:changeState('dying')
 		    end)
 
             owner.m_attackStep = CROSS_ATK_STEP_END
 
-            if (owner.m_tData['repeat_count'] and owner.m_tData['repeat_count'] - 1 > 0) then
-                for _, v in ipairs(owner.m_lNextTarget) do  
-                    SkillCross:makeNewInstance(owner, v)
+            -- 강화 되었을 시 추가 스킬 효과 처리
+            if (owner.m_isUpgraded) then
+                if (owner.m_tData['repeat_count'] and owner.m_tData['repeat_count'] - 1 > 0) then
+                    for _, v in ipairs(owner.m_lNextTarget) do  
+                        SkillCross:makeNewInstance(owner, v)
+                    end
                 end
             end
 	    end	
