@@ -358,7 +358,7 @@ function UI_ExplorationReady:init_dragonSortMgr()
     local function sort_change_cb(sort_type)
         self.m_sortManagerDragon:pushSortOrder(sort_type)
         self:apply_dragonSort()
-        --self:save_dragonSortInfo()
+        self:save_dragonSortInfo()
     end
     uic_sort_list:setSortChangeCB(sort_change_cb)
 
@@ -367,7 +367,7 @@ function UI_ExplorationReady:init_dragonSortMgr()
             local ascending = (not self.m_sortManagerDragon.m_defaultSortAscending)
             self.m_sortManagerDragon:setAllAscending(ascending)
             self:apply_dragonSort()
-            --self:save_dragonSortInfo()
+            self:save_dragonSortInfo()
 
             vars['sortSelectOrderSprite']:stopAllActions()
             if ascending then
@@ -378,8 +378,36 @@ function UI_ExplorationReady:init_dragonSortMgr()
         end)
 
     -- 세이브데이터에 있는 정렬 값을 적용
-    --self:apply_dragonSort_saveData()
-    self:apply_dragonSort()
+    self:apply_dragonSort_saveData()
+end
+
+-------------------------------------
+-- function apply_dragonSort_saveData
+-- @brief 세이브데이터에 있는 정렬 순서 적용
+-------------------------------------
+function UI_ExplorationReady:apply_dragonSort_saveData()
+    local l_order = g_localData:get('dragon_sort_epr', 'order') or g_localData:get('dragon_sort_fight', 'order')
+    local ascending = g_localData:get('dragon_sort_epr', 'ascending')
+
+    local sort_type
+    for i=#l_order, 1, -1 do
+        sort_type = l_order[i]
+        self.m_sortManagerDragon:pushSortOrder(sort_type)
+    end
+    self.m_sortManagerDragon:setAllAscending(ascending)
+
+    self.m_uicSortList:setSelectSortType(sort_type)
+
+
+    do -- 오름차순, 내림차순 아이콘
+        local vars = self.vars
+        vars['sortSelectOrderSprite']:stopAllActions()
+        if ascending then
+            vars['sortSelectOrderSprite']:runAction(cc.RotateTo:create(0.15, 180))
+        else
+            vars['sortSelectOrderSprite']:runAction(cc.RotateTo:create(0.15, 0))
+        end
+    end
 end
 
 -------------------------------------
@@ -390,6 +418,24 @@ function UI_ExplorationReady:apply_dragonSort()
     local list = self.m_tableViewTD.m_itemList
     self.m_sortManagerDragon:sortExecution(list)
     self.m_tableViewTD:setDirtyItemList()
+end
+
+-------------------------------------
+-- function save_dragonSortInfo
+-- @brief 새로운 정렬 설정을 세이브 데이터에 적용
+-------------------------------------
+function UI_ExplorationReady:save_dragonSortInfo()
+    g_localData:lockSaveData()
+
+    -- 정렬 순서 저장
+    local sort_order = self.m_sortManagerDragon.m_lSortOrder
+    g_localData:applyLocalData(sort_order, 'dragon_sort_epr', 'order')
+
+    -- 오름차순, 내림차순 저장
+    local ascending = self.m_sortManagerDragon.m_defaultSortAscending
+    g_localData:applyLocalData(ascending, 'dragon_sort_epr', 'ascending')
+
+    g_localData:unlockSaveData()
 end
 
 --@CHECK

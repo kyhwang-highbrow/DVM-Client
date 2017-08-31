@@ -127,6 +127,9 @@ function LocalData:makeDefaultLocalData()
         end
         root_table['dragon_sort_order_fight'] = t_list
         root_table['dragon_sort_fight'] = t_data
+
+        -- 드래곤 정렬 탐험
+        root_table['dragon_sort_epr'] = t_data
     end
 
     -- 스테이지
