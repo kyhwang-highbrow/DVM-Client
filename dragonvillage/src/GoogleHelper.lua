@@ -18,8 +18,8 @@ function GoogleHelper.isAvailable()
     if (not g_localData:isGooglePlayConnected()) then
         return false
     end
-
-    return true
+    -- @TODO 항상 막도록 한다.
+    return false
 end
 
 -------------------------------------
@@ -150,11 +150,11 @@ function GoogleHelper.allAchievementCheck(finish_cb)
 
         -- 레벨 달성 체크
         elseif (clear_type == 'u_lv') then
-            is_clear = (clear_value < g_userData:get('lv'))
+            is_clear = (clear_value <= g_userData:get('lv'))
 
         -- 테이머 획득 체크
         elseif (clear_type == 't_get') then
-            is_clear = (clear_value < g_tamerData:getTamerCount())
+            is_clear = (clear_value <= g_tamerData:getTamerCount())
 
         end
 
