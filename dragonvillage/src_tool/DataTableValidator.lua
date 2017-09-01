@@ -334,7 +334,7 @@ function DataTableValidator:makeInvalidStr()
         for _, t_temp_dict in ipairs(self.m_tInvalidDragon) do
             context_str = context_str .. t_temp_dict['path'] .. '\t : \t' .. t_temp_dict['info'] .. '\n'
         end
-        t_str['dragon'] = '## Dragon that do not exist ID\n' .. context_str
+        t_str['dragon'] = '## not exist dragon ID\n' .. context_str
     end
 
     do
@@ -342,7 +342,7 @@ function DataTableValidator:makeInvalidStr()
         for _, t_temp_dict in ipairs(self.m_tInvalidMonster) do
             context_str = context_str .. t_temp_dict['path'] .. '\t : \t' .. t_temp_dict['info'] .. '\n'
         end
-        t_str['monster'] = '## Monster that do not exist ID\n' .. context_str
+        t_str['monster'] = '## not exist monster ID\n' .. context_str
     end
 
     do    
@@ -350,7 +350,7 @@ function DataTableValidator:makeInvalidStr()
         for _, t_temp_dict in ipairs(self.m_tInvalidSkill) do
             context_str = context_str .. t_temp_dict['path'] .. '\t : \t' .. t_temp_dict['info'] .. '\n'
         end
-        t_str['skill'] = '## Skill that do not exist\n' .. context_str
+        t_str['skill'] = '## not exist skill ID\n' .. context_str
     end
 
     return t_str
