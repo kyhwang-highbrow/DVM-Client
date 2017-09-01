@@ -67,7 +67,7 @@ function TableOption:getOptionDesc(option, val_1, val_2, val_3)
 end
 
 -------------------------------------
--- function getOptionDesc
+-- function getLevelingValue
 -- @brief
 -------------------------------------
 function TableOption:getLevelingValue(option_value, option_max_value, option_lv)

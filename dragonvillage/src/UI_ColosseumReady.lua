@@ -291,13 +291,15 @@ function UI_ColosseumReady:update(dt)
         local time_str, active = g_colosseumData:getStraightTimeText()
         local buff_str = g_colosseumData:getStraightBuffText()
 
+
         local text = nil
         if active then
-            text = string.format('%s (%s)', buff_str, time_str)
+            vars['winBuffLabel']:setString(buff_str)
+            vars['winBuffTimeLabel']:setString(time_str)
         else
             text = Str('연승 버프 없음')
+            vars['winBuffTimeLabel']:setString('')
         end
-        vars['winBuffLabel']:setString(Str('연승버프 : {1}', text))
     end
 end
 

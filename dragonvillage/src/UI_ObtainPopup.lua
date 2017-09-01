@@ -207,7 +207,8 @@ function ItemObtainResult_Shop(t_ret)
         end
 
         -- 아이템 정보창 띄움
-        UI_ItemInfoPopup(item_id, count, t_sub_data)
+        local ui = UI_ItemInfoPopup(item_id, count, t_sub_data)
+        ui:showItemInfoPopupOkBtn() -- "획득 장소"버튼은 끄고 "확인"버튼만 띄우도록 처리
         return
     end
 
@@ -266,7 +267,8 @@ function ItemObtainResult(t_ret, is_mail)
         end
 
         -- 아이템 정보창 띄움
-        UI_ItemInfoPopup(item_id, count, t_sub_data)
+        local ui = UI_ItemInfoPopup(item_id, count, t_sub_data)
+        ui:showItemInfoPopupOkBtn() -- "획득 장소"버튼은 끄고 "확인"버튼만 띄우도록 처리
         return
     end
 

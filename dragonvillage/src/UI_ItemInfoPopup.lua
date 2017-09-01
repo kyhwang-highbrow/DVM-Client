@@ -85,6 +85,23 @@ function UI_ItemInfoPopup:initUI()
 end
 
 -------------------------------------
+-- function showItemInfoPopupOkBtn
+-- @brief 특정 경우 (우편함에서 받았을 경우)
+--        "획득 장소"버튼은 끄고 "확인"버튼만 띄우도록 처리
+-------------------------------------
+function UI_ItemInfoPopup:showItemInfoPopupOkBtn()
+    local vars = self.vars
+
+    if vars['locationBtn'] then
+        vars['locationBtn']:setVisible(false)
+    end
+
+    if vars['okBtn'] then
+        vars['okBtn']:setVisible(true)
+    end
+end
+
+-------------------------------------
 -- function initButton
 -------------------------------------
 function UI_ItemInfoPopup:initButton()
