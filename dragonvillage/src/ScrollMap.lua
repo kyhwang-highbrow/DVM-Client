@@ -227,7 +227,9 @@ function ScrollMap:setBg(res, attr)
         if (bFixedLayer) then
             for i, data in ipairs(v['list']) do
                 local res = data['res']
-                local res_low = string.gsub(data['res'], 'res/bg/(%w+)/(%w+).vrp', 'res/bg/low_%1/low_%2.vrp')
+                -- 아래 정규표현식은 기존 리소스명에 저사양모드인 경우는 low_를 붙여주는 코드
+                -- ex) res/bg/sky_temple/sky_temple.vrp -> res/bg/low_sky_temple/low_sky_temple.vrp
+                local res_low = string.gsub(data['res'], 'res/bg/([%w|_]+)/([%w|_]+).vrp', 'res/bg/low_%1/low_%2.vrp')
 
                 local real_offset_x = (data['pos_x'] or 0)
                 local real_offset_y = (data['pos_y'] or 0)
@@ -279,7 +281,9 @@ function ScrollMap:setBg(res, attr)
             
             for i, data in ipairs(v['list']) do
                 local res = data['res']
-                local res_low = string.gsub(data['res'], 'res/bg/(%w+)/(%w+).vrp', 'res/bg/low_%1/low_%2.vrp')
+                -- 아래 정규표현식은 기존 리소스명에 저사양모드인 경우는 low_를 붙여주는 코드
+                -- ex) res/bg/sky_temple/sky_temple.vrp -> res/bg/low_sky_temple/low_sky_temple.vrp
+                local res_low = string.gsub(data['res'], 'res/bg/([%w|_]+)/([%w|_]+).vrp', 'res/bg/low_%1/low_%2.vrp')
                 local animation = data['animation'] or 'idle'
                 
                 if (attr) then
