@@ -687,7 +687,7 @@ function Character:undergoAttack(attacker, defender, i_x, i_y, body_key, no_even
         local hp_drain = attacker_char:getStat('hp_drain')
         if (hp_drain > 0) then
             local heal_abs = damage * (hp_drain / 100)
-			attacker_char:healAbs(attacker_char, heal_abs, false, true)
+			attacker_char:healAbs(attacker_char, heal_abs, nil, true)
         end
     end
 
@@ -1222,7 +1222,7 @@ function Character:healPercent(caster, percent, b_make_effect)
     local heal = max_hp * percent
     heal = math_min(max_hp - self.m_hp, heal)
 
-    self:healAbs(caster, heal, false, b_make_effect)
+    self:healAbs(caster, heal, nil, b_make_effect)
 end
 
 -------------------------------------
