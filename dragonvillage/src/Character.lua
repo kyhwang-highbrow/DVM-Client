@@ -556,12 +556,11 @@ function Character:undergoAttack(attacker, defender, i_x, i_y, body_key, no_even
         local damage_multifly = 1
 
         -- 크리티컬
-        if (is_indicator_critical == 1) then
-            if (is_critical) then
-                local cri_dmg = attack_activity_carrier:getStat('cri_dmg') or 0
-                damage_multifly = damage_multifly + (cri_dmg / 100)
-            end
+        if (is_critical) then
+            local cri_dmg = attack_activity_carrier:getStat('cri_dmg') or 0
+            damage_multifly = damage_multifly + (cri_dmg / 100)
         end
+        
 
         -- 속성
         if (t_attr_effect['damage']) then
