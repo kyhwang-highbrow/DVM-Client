@@ -102,7 +102,17 @@ function UI_BattleMenu:update(dt)
         end
     end
 
-    -- tab noti
+    -- tab noti (없을 경우에만 한번 더 검사)
+    if (not t_noti['adventure']) then
+        if (g_highlightData:isHighlightExploration()) then
+            t_noti['adventure'] = true
+        end
+    end
+    if (not t_noti['dungeon']) then
+        if (g_secretDungeonData:isSecretDungeonExist()) then
+            t_noti['dungeon'] = true
+        end
+    end
     UIHelper:autoNoti(t_noti, self.m_tNotiSprite, 'Btn', self.vars)
 end
 
