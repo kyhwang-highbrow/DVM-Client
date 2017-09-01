@@ -182,7 +182,7 @@ function UI_Lobby:entryCoroutine()
         end
         while (working) do dt = coroutine.yield() end
 
-        if (g_tutorialData:isTutorialDone(TUTORIAL.FIRST_START) and g_tutorialData:isTutorialDone(TUTORIAL.FIRST_END)) then
+        if (g_tutorialData:isTutorialDone(TUTORIAL.FIRST_START)) then
             -- 패키지 풀팝업 (하드코딩)
             local title_to_lobby = g_localData:get('title_to_lobby') or false
             if (title_to_lobby) then
@@ -221,7 +221,7 @@ function UI_Lobby:entryCoroutine()
             end
         end
 
-        -- @UI_ACTION
+        -- @UI_ACTION 액션 종료 후에는 튜토리얼 시작
         working = true
         self:doAction(function() 
             working = false

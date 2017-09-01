@@ -24,8 +24,10 @@ function UI_MasterRoadPopup_Link:init()
 	-- @UI_ACTION
 	self:doActionReset()
 	self:doAction(function()
-        -- @ TUTORIAL
-        TutorialManager.getInstance():startTutorial(TUTORIAL.FIRST_END, self)
+        if (g_masterRoadData:getFocusRoad() == 10001) then
+            -- @ TUTORIAL
+            TutorialManager.getInstance():startTutorial(TUTORIAL.FIRST_END, self)
+        end
     end, false)
 
 	self:initUI()
