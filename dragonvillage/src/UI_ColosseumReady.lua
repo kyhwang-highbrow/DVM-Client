@@ -297,7 +297,7 @@ function UI_ColosseumReady:update(dt)
         else
             text = Str('연승 버프 없음')
         end
-        vars['winBuffLabel']:setString(Str('연승버프 : {1}%', text))
+        vars['winBuffLabel']:setString(Str('연승버프 : {1}', text))
     end
 end
 
