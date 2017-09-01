@@ -34,30 +34,31 @@ function Monster_GiantDragon.st_attack(owner, dt)
         -- 브레스 스킬 사용시 차지 이펙트
         if (owner.m_animator.m_currAnimation == 'skill_3') then
             local attr = owner:getAttribute()
-            --local res = string.format('res/effect/effect_breath_charge/effect_breath_charge_%s.vrp', attr)
             local res = string.format('res/effect/effect_breath_charge/effect_breath_charge_fire.vrp')
             local animator = MakeAnimator(res)
-            animator:changeAni('idle', false)
-            animator:setScale(2)
-            animator.m_node:setRotation(-90)
-            animator:setPosition(-600, 300)
-            owner.m_rootNode:addChild(animator.m_node)
+            if (animator.m_node) then
+                animator:changeAni('idle', false)
+                animator:setScale(2)
+                animator.m_node:setRotation(-90)
+                animator:setPosition(-600, 300)
+                owner.m_rootNode:addChild(animator.m_node)
 
-            local duration = animator:getDuration()
-            local sequence = cc.Sequence:create(
-                cc.DelayTime:create(duration),
-                cc.CallFunc:create(function()
-                    --SoundMgr:playEffect('VOICE', 'vo_gdragon_breath')
-                end),
-                cc.RemoveSelf:create()
-            )
+                local duration = animator:getDuration()
+                local sequence = cc.Sequence:create(
+                    cc.DelayTime:create(duration),
+                    cc.CallFunc:create(function()
+                        --SoundMgr:playEffect('VOICE', 'vo_gdragon_breath')
+                    end),
+                    cc.RemoveSelf:create()
+                )
 
-            local sequence2 = cc.Sequence:create(
-                cc.MoveBy:create(1, cc.p(150, 250))
-            )
+                local sequence2 = cc.Sequence:create(
+                    cc.MoveBy:create(1, cc.p(150, 250))
+                )
 
-            local spawn = cc.Spawn:create(sequence, sequence2)
-            animator:runAction(spawn)
+                local spawn = cc.Spawn:create(sequence, sequence2)
+                animator:runAction(spawn)
+            end
         end
     end
 end

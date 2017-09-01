@@ -130,15 +130,14 @@ function Monster_WorldOrderMachine:doMagicAttack()
 		-- effect
 		local effect = self:makeEffect(STUN_EFFECT_RES, target_char.pos.x, target_char.pos.y)
 		effect:addAniHandler(function() 
-            local l_str = seperate(self:getValue(), ';')
             local struct_status_effect = StructStatusEffect({
-		        type = l_str[1],
-		        target_type = l_str[2],
+		        type = 'stun',
+		        target_type = 'target',
                 target_count = 1,
-		        trigger = l_str[3],
-		        duration = tonumber(l_str[4]),
-		        rate = tonumber(l_str[5]),
-		        value = tonumber(l_str[6])
+		        trigger = 'skill_hit',
+		        duration = 10,
+		        rate = 100,
+		        value = 100
 	        })
 
 			StatusEffectHelper:doStatusEffectByStruct(self, {target_char}, {struct_status_effect})

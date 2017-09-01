@@ -219,7 +219,7 @@ end
 -- function changeState
 -------------------------------------
 function Skill:changeState(state, forced)
-    if (self.m_bUseMissile or self.m_bSkillHitEffect) then
+    if (self.m_bUseMissile or self.m_chanceType == 'active') then
         if (state == 'dying' and not forced) then
             state = 'dying_wait'
         end
