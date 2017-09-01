@@ -182,16 +182,6 @@ function UI_Lobby:entryCoroutine()
         end
         while (working) do dt = coroutine.yield() end
 
-        -- @ google achievement
-        if (not g_localData:get('is_first_google_login')) then
-            g_localData:applyLocalData(true, 'is_first_google_login')
-
-            cclog('# 구글 업적 확인 중')
-            working = true
-            GoogleHelper.allAchievementCheck((function(ret) working = false end))
-            while (working) do dt = coroutine.yield() end
-        end
-
         if (g_tutorialData:isTutorialDone(TUTORIAL.FIRST_START) and g_tutorialData:isTutorialDone(TUTORIAL.FIRST_END)) then
             -- 패키지 풀팝업 (하드코딩)
             local title_to_lobby = g_localData:get('title_to_lobby') or false
@@ -245,6 +235,16 @@ function UI_Lobby:entryCoroutine()
         -- 터치 가능하도록 해제
         block_popup:close()
         coroutine.yield()
+
+        -- @ google achievement
+        if (not g_localData:get('is_first_google_login')) then
+            g_localData:applyLocalData(true, 'is_first_google_login')
+
+            cclog('# 구글 업적 확인 중')
+            working = true
+            GoogleHelper.allAchievementCheck((function(ret) working = false end))
+            while (working) do dt = coroutine.yield() end
+        end
     end
 
     Coroutine(coroutine_function, '로비 코루틴')
