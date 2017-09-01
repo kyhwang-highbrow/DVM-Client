@@ -1243,7 +1243,7 @@ function Character:healAbs(caster, heal, is_critical, b_make_effect)
 
             if (is_critical) then
                 local cri_dmg = caster:getStat('cri_dmg') or 0
-                local multifly = (cri_dmg / 100)
+                local multifly = 1 + (cri_dmg / 100)
 
                 heal = heal * multifly 
             end
