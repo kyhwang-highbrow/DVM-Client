@@ -56,11 +56,16 @@ function UI_Product:initUI()
     if (struct_product:getTabCategory() == 'cash') then
         local l_topaz_list = ServerData_Item:parsePackageItemStr(struct_product['mail_content'])
         if (l_topaz_list) then
+            local topaz_item_id = TableItem:getItemIDFromItemType('topaz')
             vars['topazNode']:setVisible(true)
             for idx, data in ipairs(l_topaz_list) do
-                local cnt = data['count']
-                local str = Str('+{1}', comma_value(cnt))
-                vars['topazLabel']:setString(str)
+
+                -- 토파즈 아이템 아이디만
+                if (topaz_item_id == data['item_id']) then
+                    local cnt = data['count']
+                    local str = Str('+{1}', comma_value(cnt))
+                    vars['topazLabel']:setString(str)
+                end
             end
         end
     end
