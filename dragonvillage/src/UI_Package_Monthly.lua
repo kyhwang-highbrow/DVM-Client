@@ -47,7 +47,7 @@ function UI_Package_Monthly:refresh()
         local struct_product = l_item_list[pid]
 
         -- 구성품
-        local full_str = ServerData_Item:getPackageItemFullStr(struct_product['product_content'])
+        local full_str = ServerData_Item:getPackageItemFullStr(struct_product['mail_content'])
         local label = vars['itemLabel'..idx]
         if (label) then
             label:setString(full_str)

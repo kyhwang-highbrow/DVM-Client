@@ -48,7 +48,7 @@ function UI_Package:refresh()
     local vars = self.vars
 	local struct_product = self.m_structProduct
 
-    local l_item_list = ServerData_Item:parsePackageItemStr(struct_product['product_content'])
+    local l_item_list = ServerData_Item:parsePackageItemStr(struct_product['mail_content'])
 
     -- 성장 패키지는 개수만 표시
     local is_only_cnt = string.find(struct_product['sku'], 'growthpack')

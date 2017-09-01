@@ -35,7 +35,7 @@ function UI_Package_Growth:initUI()
 
     for idx, pid in ipairs(target_product) do
         local struct_product = l_item_list[pid]
-        local l_item_list = ServerData_Item:parsePackageItemStr(struct_product['product_content'])
+        local l_item_list = ServerData_Item:parsePackageItemStr(struct_product['mail_content'])
 
         -- 구성품
         if (l_item_list) then

@@ -173,10 +173,10 @@ function UI_SubscriptionPopup_Ing:refresh()
     vars['dayLabel']:setString(text)
 
     if (not struct_product) then
-        vars['buyBtn']:setVisible(false)
+        vars['buyMenu']:setVisible(false)
         return
     end
-    vars['buyBtn']:setVisible(true)
+    vars['buyMenu']:setVisible(true)
 
     -- 가격
 	local price = struct_product:getPriceStr()

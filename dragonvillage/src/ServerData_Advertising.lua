@@ -142,6 +142,8 @@ function ServerData_Advertising:getCoolTimeStr(ad_type)
         local show_second = true
         local first_only = true
         str = Str('{1} 남음', datetime.makeTimeDesc(time, show_second, first_only))
+    else
+        str = Str('획득 가능')
     end
 
     return str
