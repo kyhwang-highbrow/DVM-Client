@@ -446,6 +446,10 @@ function UI_TitleScene:workCheckUserID()
     end
 
     local function fail_cb()
+        PerpleSDK:logout()
+        PerpleSDK:googleLogout(0)
+        PerpleSDK:facebookLogout()
+
         -- 자동로그인에 실패한 경우 로그인 팝업 출력
         local ui = UI_LoginPopup()
         local function close_cb()
@@ -460,10 +464,6 @@ function UI_TitleScene:workCheckUserID()
     if isIos() then
         if (g_localData:get('local', 'platform_id') == nil) then
             self.m_loadingUI:hideLoading()
-
-            PerpleSDK:logout()
-            PerpleSDK:googleLogout(0)
-            PerpleSDK:facebookLogout()
 
             fail_cb()
             return
