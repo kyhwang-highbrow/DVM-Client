@@ -142,13 +142,15 @@ function DataTableValidator:validateData_NA(t_data)
         if (getFileExtension(file_path) == '.csv') then
             for id, t_row in pairs(l_data) do
                 for column, context in pairs(t_row) do
-                    if (string.find(context, '#N/A')) then
-                        table.insert(self.m_lInvalidNA, {
-                            ['path'] = file_path,
-                            ['id'] = id,
-                            ['column'] = column
-                        })
-                        self.m_numOfInvalidData = self.m_numOfInvalidData + 1
+                    if (not pl.stringx.startswith(column, 'r_')) then
+                        if (string.find(context, '#N/A')) then
+                            table.insert(self.m_lInvalidNA, {
+                                ['path'] = file_path,
+                                ['id'] = id,
+                                ['column'] = column
+                            })
+                            self.m_numOfInvalidData = self.m_numOfInvalidData + 1
+                        end
                     end
                 end
             end
