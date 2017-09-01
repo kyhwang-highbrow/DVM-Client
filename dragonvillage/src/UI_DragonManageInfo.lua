@@ -795,12 +795,12 @@ end
 -------------------------------------
 function UI_DragonManageInfo:click_bookBtn()
     local t_dragon_data = self.m_selectDragonData
-	local did = self.m_selectDragonData['did']
-    local t_dragon = TableDragon():get(did)
-    t_dragon['evolution'] = t_dragon_data['evolution']
-    t_dragon['grade'] = t_dragon_data['grade']
 
-    UI_BookDetailPopup(t_dragon):setManagePopupMode()
+	local did = t_dragon_data['did']
+    local grade = t_dragon_data['grade']
+    local evolution = t_dragon_data['evolution']
+
+    UI_BookDetailPopup.open(did, grade, evolution)
 end
 
 -------------------------------------

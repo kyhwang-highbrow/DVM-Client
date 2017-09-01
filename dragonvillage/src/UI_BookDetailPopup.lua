@@ -733,15 +733,6 @@ function UI_BookDetailPopup:setBookList(l_book)
 end
 
 -------------------------------------
--- function setManagePopupMode
--------------------------------------
-function UI_BookDetailPopup:setManagePopupMode()
-    local vars = self.vars
-    vars['nextBtn']:setVisible(false)
-    vars['prevBtn']:setVisible(false)
-end
-
--------------------------------------
 -- function checkRefresh
 -- @brief
 -------------------------------------
@@ -754,19 +745,32 @@ function UI_BookDetailPopup:checkRefresh()
     end
 end
 
+-------------------------------------
+-- function setUnableIndex
+-------------------------------------
+function UI_BookDetailPopup:setUnableIndex()
+    local vars = self.vars
+    vars['nextBtn']:setVisible(false)
+    vars['prevBtn']:setVisible(false)
+end
+
+
+
 
 
 
 -------------------------------------
 -- function open
 -- @brief 외부에서 did 혹은 추가 정보만을 가지고 도감 상세페이지를 열어야할때 사용
+-- @brief 좌우 인덱스 이동은 불가하도록 함
 -------------------------------------
 function UI_BookDetailPopup.open(did, grade, evolution)
 	local table_dragon = TableDragon()
 	local t_dragon = table_dragon:get(did)
 	t_dragon['grade'] = grade or t_dragon['birthgrade']
 	t_dragon['evolution'] = evolution or 1
-	UI_BookDetailPopup(t_dragon)
+	local ui = UI_BookDetailPopup(t_dragon)
+    ui:setUnableIndex()
 end
 
 
