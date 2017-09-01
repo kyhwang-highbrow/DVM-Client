@@ -66,9 +66,12 @@ function UI_GameResult_AncientTower:setAnimationData()
 
     -- 현재 약화 등급 
     local weak_grade = g_ancientTowerData:getWeakGrade()
-    vars['weakLabel1']:setString(Str('약화 {1}등급', weak_grade))
     if (weak_grade > 0) then
+        vars['weakLabel1']:setString(Str('약화 등급 패널티', weak_grade))
         vars['weakLabel2']:setColor(cc.c3b(255, 96, 0))
+    else
+        vars['weakLabel1']:setVisible(false)
+        vars['weakLabel2']:setVisible(false)
     end
 
     local node_list = {}
