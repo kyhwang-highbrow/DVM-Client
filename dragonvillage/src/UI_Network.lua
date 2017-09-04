@@ -228,8 +228,14 @@ local S_ERROR_STATUS_RESTART = {
 
 -- 종료 
 local S_ERROR_STATUS_CLOSE = {
-    [-1386] = Str('불법적인 클라이언트 데이터 조작 프로그램 또는 매크로 프로그램이 감지되었습니다.\n\n회원번호가 수집되었으며 지속적인 클라이언트 조작 시도, 관련 파일 배포 등의 행위가 감지될 경우 고소 등 법적 처분의 대상이 될 수 있음을 알려 드립니다. 정상적인 방법으로 재접속해 주시기 바랍니다.'),
-    [-1397] = Str('다른 디바이스에서 현재 계정으로 다시 로그인되어 더 이상의 플레이가 불가능합니다.\n앱을 완전 종료 후 다시 접속해주세요.'),
+    [-1386] = {
+            ['msg'] = Str('불법적인 클라이언트 데이터 조작 프로그램 또는 매크로 프로그램이 감지되었습니다.\n\n회원번호가 수집되었으며 지속적인 클라이언트 조작 시도, 관련 파일 배포 등의 행위가 감지될 경우 고소 등 법적 처분의 대상이 될 수 있음을 알려 드립니다. 정상적인 방법으로 재접속해 주시기 바랍니다.'),
+            ['submsg'] = nil,
+        },
+    [-1397] = {
+            ['msg'] = Str('세션키가 만료되었습니다.\n앱을 완전 종료 후 다시 접속해주세요.'),
+            ['submsg'] = Str('세션키는 다른 기기에서 중복 로그인을 하거나 서버 점검 등으로 만료될 수 있습니다.'),
+        }
 }
  
 -------------------------------------
@@ -240,10 +246,6 @@ function UI_Network:statusHandler(ret)
     local message = ret['message']
 
     if (not status) then
-        return false
-    end
-
-    if (status == 0) then
         return false
     end
 
@@ -268,9 +270,17 @@ function UI_Network:statusHandler(ret)
         return true
     end
 
-    local error_str = S_ERROR_STATUS_CLOSE[status]
-    if (error_str) then
-        MakeNetworkPopup(POPUP_TYPE.OK, error_str, function() closeApplication() end)
+    
+    -- 앱을 종료하는 에러 메시지 처리
+    local t_error_msg = S_ERROR_STATUS_CLOSE[status]
+    if (t_error_msg) then
+        local msg = t_error_msg['msg'] or ''
+        local submsg = t_error_msg['submsg']
+        if submsg then
+            MakeNetworkPopup2(POPUP_TYPE.OK, msg, submsg, function() closeApplication() end)
+        else
+            MakeNetworkPopup(POPUP_TYPE.OK, msg, function() closeApplication() end)
+        end
         self:close()
         return true
     end
