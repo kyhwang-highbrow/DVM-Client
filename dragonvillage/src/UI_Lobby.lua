@@ -347,6 +347,7 @@ function UI_Lobby:initButton()
     vars['subscriptionBtn']:registerScriptTapHandler(function() self:click_subscriptionBtn() end) -- 월정액
     vars['capsuleBtn']:registerScriptTapHandler(function() self:click_capsuleBtn() end)
     vars['itemAutoBtn']:registerScriptTapHandler(function() self:click_itemAutoBtn() end) -- 자동재화(광고)
+    vars['giftBoxBtn']:registerScriptTapHandler(function() self:click_giftBoxBtn() end) -- 랜덤박스(광고)
 
     do -- 기타 UI
         local etc_vars = self.m_etcExpendedUI.vars
@@ -647,6 +648,14 @@ function UI_Lobby:click_itemAutoBtn()
 end
 
 -------------------------------------
+-- function click_giftBoxBtn
+-- @brief 선물상자 버튼 (광고 보기)
+-------------------------------------
+function UI_Lobby:click_giftBoxBtn()
+    g_advertisingData:showAdvPopup(AD_TYPE.RANDOM_BOX_LOBBY)
+end
+
+-------------------------------------
 -- function click_guildBtn
 -------------------------------------
 function UI_Lobby:click_guildBtn()
@@ -741,10 +750,16 @@ function UI_Lobby:update(dt)
         self:refresh_google()
     end
 
-    -- 자동 획득 처리
+    -- 광고 (자동재화, 선물상자 정보)
     do
-        local node = self.vars['itemAutoLabel']
-        node:setString(g_advertisingData:getCoolTimeStr(AD_TYPE.AUTO_ITEM_PICK))
+        local vars = self.vars
+        local msg1, enable1 = g_advertisingData:getCoolTimeStatus(AD_TYPE.AUTO_ITEM_PICK)
+        vars['itemAutoLabel']:setString(msg1)
+        vars['itemAutoBtn']:setEnabled(enable1)
+
+        local msg2, enable2 = g_advertisingData:getCoolTimeStatus(AD_TYPE.RANDOM_BOX_LOBBY)
+        vars['giftBoxLabel']:setString(msg2)
+        vars['giftBoxBtn']:setEnabled(enable2)
     end
 end
 

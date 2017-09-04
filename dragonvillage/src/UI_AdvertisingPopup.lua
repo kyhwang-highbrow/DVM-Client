@@ -40,9 +40,11 @@ end
 -------------------------------------
 function UI_AdvertisingPopup:initButton()
     local vars = self.vars
-    vars['adBtn']:registerScriptTapHandler(function() self:click_adBtn() end)
+    vars['adBtn1']:registerScriptTapHandler(function() self:click_adBtn() end)
+    vars['adBtn2']:registerScriptTapHandler(function() self:click_adBtn() end)
     vars['okBtn']:registerScriptTapHandler(function() self:click_okBtn() end)
-    vars['cancelBtn']:registerScriptTapHandler(function() self:click_cancelBtn() end)
+    vars['dailyDiaBtn']:registerScriptTapHandler(function() self:click_dailyDiaBtn() end)
+    vars['closeBtn']:registerScriptTapHandler(function() self:click_closeBtn() end)
 end
 
 -------------------------------------
@@ -51,21 +53,21 @@ end
 function UI_AdvertisingPopup:refresh()
     local vars = self.vars
     local ad_type = self.m_selType
+    if (ad_type == AD_TYPE.RANDOM_BOX_SHOP) then
+        ad_type = AD_TYPE.RANDOM_BOX_LOBBY
+    end
 
     vars['adMenu'..ad_type]:setVisible(true)
 
     local msg = {
         Str('동영상 광고를 보시면 보상을 획득할 수 있습니다.\n광고를 보시겠습니까?'),
         Str('동영상 광고를 보시면 위 보상중 한개를 획득할 수 있습니다.\n광고를 보시겠습니까?'),
+        Str('동영상 광고를 보시면 위 보상중 한개를 획득할 수 있습니다.\n광고를 보시겠습니까?'),
         Str('현재 참여 가능한 동영상 광고가 없다고라.\n동영상 광고가 없더라도 선물은 준다고라.'),
     }
     vars['dscLabel']:setString(msg[ad_type])
 
-    vars['adBtn']:setVisible(ad_type ~= AD_TYPE.NONE)
-    vars['cancelBtn']:setVisible(ad_type ~= AD_TYPE.NONE)
-    vars['okBtn']:setVisible(ad_type == AD_TYPE.NONE)
-
-    if (ad_type == AD_TYPE.RANDOM_BOX) then
+    if (ad_type == AD_TYPE.RANDOM_BOX_LOBBY) then
         self:setRewardList()
     end
 end
@@ -110,6 +112,16 @@ function UI_AdvertisingPopup:click_adBtn()
 end
 
 -------------------------------------
+-- function click_dailyDiaBtn
+-------------------------------------
+function UI_AdvertisingPopup:click_dailyDiaBtn()
+    self:close()
+
+    -- 월정액 바로가기 
+    g_subscriptionData:openSubscriptionPopup()
+end
+
+-------------------------------------
 -- function click_okBtn
 -------------------------------------
 function UI_AdvertisingPopup:click_okBtn()
@@ -119,7 +131,7 @@ end
 -------------------------------------
 -- function click_cancelBtn
 -------------------------------------
-function UI_AdvertisingPopup:click_cancelBtn()
+function UI_AdvertisingPopup:click_closeBtn()
     self:close()
 end
 

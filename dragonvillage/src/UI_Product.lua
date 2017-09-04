@@ -87,10 +87,12 @@ function UI_Product:initUI()
     -- 광고
     if (struct_product.price_type == 'advertising') then
         local function update(dt)
-            local visible = (not g_advertisingData:getEnableShopAdv())
+            local msg, enable = g_advertisingData:getCoolTimeStatus(AD_TYPE.RANDOM_BOX_SHOP)
+            local visible = (not enable)
             vars['timeNode']:setVisible(visible)
             vars['timeLabel']:setVisible(visible)
-            vars['timeLabel']:setString(g_advertisingData:getCoolTimeStr(AD_TYPE.RANDOM_BOX))
+            vars['timeLabel']:setString(msg)
+            vars['buyBtn']:setEnabled(enable)
         end
         self.root:scheduleUpdateWithPriorityLua(function(dt) update(dt) end, 0)
     end 
@@ -138,7 +140,7 @@ function UI_Product:click_buyBtn()
         if (not g_advertisingData:getEnableShopAdv()) then
             return
         end
-        g_advertisingData:showAdvPopup(AD_TYPE.RANDOM_BOX, function() self:refresh() end)
+        g_advertisingData:showAdvPopup(AD_TYPE.RANDOM_BOX_SHOP, function() self:refresh() end)
 
 	else
         local function cb_func(ret)

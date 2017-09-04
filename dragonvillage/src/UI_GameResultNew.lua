@@ -328,7 +328,10 @@ function UI_GameResultNew:direction_start()
         label:setVisible(true)
 
         local function update(dt)
-            label:setString(g_advertisingData:getCoolTimeStr(AD_TYPE.AUTO_ITEM_PICK))
+            local msg, enable = g_advertisingData:getCoolTimeStatus(AD_TYPE.AUTO_ITEM_PICK)
+            label:setString(msg)
+            btn:setEnabled(enable)
+
             if (g_autoItemPickData:isActiveAutoItemPick()) then
                 btn:stopAllActions()
             end
@@ -1183,6 +1186,8 @@ end
 -- @brief 연속 전투일 경우 재시작 하기전 카운트 해줌
 -------------------------------------
 function UI_GameResultNew:countAutoPlay()
+    if (not g_autoPlaySetting:isAutoPlay()) then return false end
+
     self.m_autoCount = true
     local vars = self.vars
     local node = vars['autoBattleNode']

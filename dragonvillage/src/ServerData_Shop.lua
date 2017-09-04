@@ -207,11 +207,7 @@ function ServerData_Shop:request_shopInfo(cb_func, fail_cb)
     -- 콜백 함수
     local function success_cb(ret)
         self:response_shopInfo(ret)
-
-        local adv_cool_time = ret['adv_cool_time']
-        if (adv_cool_time) then
-            g_advertisingData.m_adv_cool_time = adv_cool_time
-        end
+        g_advertisingData:networkCommonRespone(ret)
 
 		if (cb_func) then
 			cb_func(ret)

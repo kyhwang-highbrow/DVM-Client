@@ -1,7 +1,8 @@
 AD_TYPE = {
     AUTO_ITEM_PICK = 1,     -- 광고 보기 보상 : 자동획득
-    RANDOM_BOX = 2,         -- 광고 보기 보상 : 랜덤박스
-    NONE = 3,               -- 광고 없음(에러코드 처리) : 보상은 존재
+    RANDOM_BOX_LOBBY = 2,   -- 광고 보기 보상 : 랜덤박스 (로비 진입)
+    RANDOM_BOX_SHOP = 3,    -- 광고 보기 보상 : 랜덤박스 (상점 진입)
+    NONE = 4,               -- 광고 없음(에러코드 처리) : 보상은 존재
 }
 
 -------------------------------------
@@ -49,7 +50,7 @@ function ServerData_Advertising:showAdvPopup(ad_type, finish_cb)
             show_popup()
         end
     
-    elseif (ad_type == AD_TYPE.RANDOM_BOX) then
+    elseif (ad_type == AD_TYPE.RANDOM_BOX_LOBBY or ad_type == AD_TYPE.RANDOM_BOX_SHOP) then
         -- 보상 정보 있다면 호출 x
         if (self.m_rewardList) then
             show_popup()
@@ -75,11 +76,22 @@ function ServerData_Advertising:showAdv(ad_type, fnish_cb)
     self.m_is_fail = false
     ShowLoading(Str('광고 정보 요청중'))
 
-    AdsManager:showPlacement('rewardedVideo', function(ret, info)
+    local placement_id = ''
+    if (ad_type == AD_TYPE.AUTO_ITEM_PICK) then
+        placement_id = 'rewardedVideo'
+
+    elseif (ad_type == AD_TYPE.RANDOM_BOX_LOBBY) then
+        placement_id = 'lobbyGiftBox'
+
+    elseif (ad_type == AD_TYPE.RANDOM_BOX_SHOP) then
+        placement_id = 'storeGiffbox'
+    end
+
+    AdsManager:showPlacement(placement_id, function(ret, info)
         HideLoading()
         if ret == 'finish' then
             local t_info = dkjson.decode(info)
-            if t_info.placementId == 'rewardedVideo' then
+            if (t_info.placementId == placement_id) then
                 if t_info.result ~= 'SKIPPED' then
                     -- 보상 처리
                     self:request_adv_reward(ad_type, fnish_cb)
@@ -114,39 +126,36 @@ function ServerData_Advertising:getEnableShopAdv()
     return (time <= 0) 
 end
 
-
 -------------------------------------
--- function getCoolTimeStr
--- @brief 다음 광고 보기까지 쿨타임 텍스트
+-- function getCoolTimeStatus
+-- @brief 다음 광고 보기까지 쿨타임 정보
 -------------------------------------
-function ServerData_Advertising:getCoolTimeStr(ad_type)
-    local str = ''
+function ServerData_Advertising:getCoolTimeStatus(ad_type)
+    local msg = Str('획득 가능')
+    local enable = true
 
     -- 남은 시간
     local expired
     if (ad_type == AD_TYPE.AUTO_ITEM_PICK) then
         expired = g_autoItemPickData:getAutoItemPickExpired()
-        if (not expired) then 
-            return str
-        end
 
-    elseif (ad_type == AD_TYPE.RANDOM_BOX) then
+    elseif (ad_type == AD_TYPE.RANDOM_BOX_LOBBY or ad_type == AD_TYPE.RANDOM_BOX_SHOP) then
         expired = self.m_adv_cool_time
     end
 
     -- 서버상의 시간을 얻어옴
-    local server_time = Timer:getServerTime()
-    local time = (expired/1000 - server_time)
-
-    if (time > 0) then
-        local show_second = true
-        local first_only = true
-        str = Str('{1} 남음', datetime.makeTimeDesc(time, show_second, first_only))
-    else
-        str = Str('획득 가능')
+    if (expired) then
+        local server_time = Timer:getServerTime()
+        local time = (expired/1000 - server_time)
+        if (time > 0) then
+            enable = false
+            local show_second = true
+            local first_only = true
+            msg = Str('{1} 남음', datetime.makeTimeDesc(time, show_second, first_only))
+        end
     end
-
-    return str
+    
+    return msg, enable 
 end
 
 -------------------------------------
@@ -195,15 +204,9 @@ function ServerData_Advertising:request_adv_reward(ad_type, finish_cb, fail_cb)
     local function success_cb(ret)
         g_serverData:networkCommonRespone(ret)
         g_serverData:networkCommonRespone_addedItems(ret)
+        self:networkCommonRespone(ret)
+        self:showRewardResult(ret)
         
-        local adv_cool_time = ret['adv_cool_time']
-        if (adv_cool_time) then
-            self.m_adv_cool_time = adv_cool_time
-        end
-
-        local msg = Str('광고 보상을 받았습니다.')
-        UIManager:toastNotificationGreen(msg)
-
         if finish_cb then
             finish_cb(ret)
         end
@@ -222,6 +225,43 @@ function ServerData_Advertising:request_adv_reward(ad_type, finish_cb, fail_cb)
 
     return ui_network
 end
+
+-------------------------------------
+-- function networkCommonRespone
+-------------------------------------
+function ServerData_Advertising:networkCommonRespone(ret)
+    if (ret['adv_cool_time']) then
+        self.m_adv_cool_time = ret['adv_cool_time']
+    end
+end
+
+-------------------------------------
+-- function showRewardResult
+-------------------------------------
+function ServerData_Advertising:showRewardResult(ret)
+    local item_info = ret['item_info']
+
+    -- 아이템 정보가 있다면 팝업 처리
+    if (item_info) then
+        local id = item_info['item_id']
+        local cnt = item_info['count']
+        local item_card = UI_ItemCard(id, cnt)
+
+        if (item_card) then
+            local ui = UI()
+            ui:load('popup_ad_confirm.ui')
+            ui.vars['itemNode']:addChild(item_card.root)
+            ui.vars['okBtn']:registerScriptTapHandler(function() ui:close() end)
+            UIManager:open(ui, UIManager.POPUP)
+        end
+
+    -- 없다면 노티
+    else
+        local msg = Str('광고 보상을 받았습니다.')
+        UIManager:toastNotificationGreen(msg)
+    end
+end
+
 
 
 
