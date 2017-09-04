@@ -149,7 +149,7 @@ local function main()
         PerpleSDK:setPlatformServerSecretKey(CONSTANT['MD5_KEY'], 'HmacMD5')
     end
 
-    ErrorTracker:getInstance()
+    ErrorTracker:getInstance():callDeviceInfo()
     stopwatch:record('ErrorTracker:getInstance()')
 
     PatchChecker:getInstance()

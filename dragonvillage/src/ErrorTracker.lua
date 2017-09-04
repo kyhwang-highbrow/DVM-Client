@@ -299,7 +299,7 @@ function ErrorTracker:openErrorPopup(error_msg)
     end
 
     -- 테스트 모드일 경우 상세 정보 출력
-    if (IS_TEST_MODE()) then
+    if false then --(IS_TEST_MODE()) then
         local msg = self:getTrackerText(error_msg)
 		UI_ErrorPopup(msg):setCloseCB(close_cb)
         
@@ -312,28 +312,18 @@ function ErrorTracker:openErrorPopup(error_msg)
     cclog('############## openErrorPopup end')
 end
 
+
+
+
+
 -------------------------------------
--- function getUINameList
-------------------------------------- 
-function ErrorTracker:getUINameList()
-    local l_ret = {}
-    for i, ui in pairs(UIManager.m_uiList) do
-        table.insert(l_ret, string.format('%s (%s)', ui.m_uiName, ui.m_resName))
-    end
-    return l_ret
-end
+-- LIVE 용
+-------------------------------------
 
 -------------------------------------
 -- function sendErrorLog
 ------------------------------------- 
 function ErrorTracker:sendErrorLog(msg, success_cb)
-    if (not self.m_tDeviceInfo) then
-        -- 기기 정보 가져옴
-        local function cb_func(ret, info)
-            self.m_tDeviceInfo = json_decode(info) 
-        end
-        SDKManager:deviceInfo(cb_func)
-    end
 
     -- 파라미터 셋팅
     local t_json = {
@@ -343,14 +333,19 @@ function ErrorTracker:sendErrorLog(msg, success_cb)
         ['os'] = getTargetOSName(),
         ['ver_info'] = PatchData:getInstance():getAppVersionAndPatchIdxString(),
         ['date'] = datetime.strformat(TimeLib:initInstance():getServerTime()),
-        ['device_info'] = self.m_tDeviceInfo,
+        
         ['error_stack'] = msg,
-        ['api_call_list'] = self.m_lAPIList,
+        ['error_stack_header'] = self:getStackHeader(msg),
+        
+        ['device_info'] = self.m_tDeviceInfo,
         ['failed_res_list'] = self.m_lFailedResList,
-        ['ui_list'] = self:getUINameList(),
+        
+        ['api_call_list'] = self:getAPIStack_Kibana(),
+        ['ui_list'] = self:getUINameList_Kibana(),
+        
         ['last_scene'] = self.lastScene,
         ['last-stage'] = self.lastStage,
-    }
+    } 
 
     local t_data = {
         ['json_str'] = dkjson.encode(t_json)
@@ -378,4 +373,52 @@ function ErrorTracker:sendErrorLog(msg, success_cb)
 
     -- 네트워크 통신
     Network:SimpleRequest(t_request)
+end
+
+-------------------------------------
+-- function getAPIStack_Kibana
+------------------------------------- 
+function ErrorTracker:getAPIStack_Kibana()
+    local l_ret = {}
+    for i, t_api in pairs(self.m_lAPIList) do
+        table.insert(l_ret, string.format('%s : %s', t_api['timme'], t_api['api']))
+    end
+    return l_ret
+end
+
+-------------------------------------
+-- function getUINameList_Kibana
+------------------------------------- 
+function ErrorTracker:getUINameList_Kibana()
+    local l_ret = {}
+    for i, ui in pairs(UIManager.m_uiList) do
+        table.insert(l_ret, string.format('%s (%s)', ui.m_uiName, ui.m_resName))
+    end
+    return l_ret
+end
+
+-------------------------------------
+-- function getStackHeader
+------------------------------------- 
+function ErrorTracker:getStackHeader(msg)
+    local l_stack = plSplit(msg, '\n')
+    if (l_stack) and (type(l_stack) == 'table') then
+        return l_stack[1]
+    end
+    return nil
+end
+
+-------------------------------------
+-- function callDeviceInfo
+-- @brief 기기 정보 가져옴
+------------------------------------- 
+function ErrorTracker:callDeviceInfo()
+    if (not self.m_tDeviceInfo) then
+        if (SDKManager) then
+            local function cb_func(ret, info)
+                self.m_tDeviceInfo = json_decode(info)
+            end
+            SDKManager:deviceInfo(cb_func)
+        end
+    end
 end
