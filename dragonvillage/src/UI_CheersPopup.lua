@@ -17,7 +17,7 @@ function UI_CheersPopup:init(str)
     self.m_uiName = 'UI_CheersPopup'
 
     -- backkey 지정
-    g_currScene:pushBackKeyListener(self, function() self:click_exitBtn() end, 'UI_CheersPopup')
+    g_currScene:pushBackKeyListener(self, function() self:close() end, 'UI_CheersPopup')
 
 	self:initUI()
 	self:initButton()
