@@ -14,6 +14,7 @@ UI_Colosseum = class(PARENT, {
         m_topRankOffset = 'number', -- 서버에 랭킹 리스트 요청용
 
         m_rankOffset = 'number',
+        m_bClosedTag = 'boolean', -- 시즌이 종료되어 처리를 했는지 여부
      })
 
 UI_Colosseum.ATK = 'atk'
@@ -39,6 +40,7 @@ end
 -------------------------------------
 function UI_Colosseum:init()
     self.m_rankOffset = 1 -- 최상위 랭크를 받겠다는 뜻
+    self.m_bClosedTag = false
 
     local vars = self:load_keepZOrder('colosseum_scene.ui')
     UIManager:open(self, UIManager.SCENE)
@@ -415,6 +417,21 @@ end
 -------------------------------------
 function UI_Colosseum:update(dt)
     local vars = self.vars
+
+    -- UI내에서 시즌이 종료되는 경우 예외처리
+    if self.m_bClosedTag then
+        return
+
+    elseif (not g_colosseumData:isOpenColosseum()) then
+        local function ok_cb()
+            -- 로비로 이동
+            UINavigator:goTo('lobby')
+        end
+        MakeSimplePopup(POPUP_TYPE.OK, Str('시즌이 종료되었습니다.'), ok_cb)
+        self.m_bClosedTag = true
+        return
+    end
+
     local str = g_colosseumData:getColosseumStatusText()
     vars['timeLabel']:setString(str)
 

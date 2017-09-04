@@ -5,12 +5,15 @@ local PARENT = class(UI, ITopUserInfo_EventListener:getCloneTable())
 -------------------------------------
 UI_ColosseumReady = class(PARENT,{
         m_player3DDeck = 'UI_3Ddeck',
+        m_bClosedTag = 'boolean', -- 시즌이 종료되어 처리를 했는지 여부
     })
 
 -------------------------------------
 -- function init
 -------------------------------------
 function UI_ColosseumReady:init()
+    self.m_bClosedTag = nil
+
     local vars = self:load('colosseum_ready.ui')
     UIManager:open(self, UIManager.SCENE)
 
@@ -285,6 +288,20 @@ end
 -- function update
 -------------------------------------
 function UI_ColosseumReady:update(dt)
+    -- UI내에서 시즌이 종료되는 경우 예외처리
+    if self.m_bClosedTag then
+        return
+
+    elseif (not g_colosseumData:isOpenColosseum()) then
+        local function ok_cb()
+            -- 로비로 이동
+            UINavigator:goTo('lobby')
+        end
+        MakeSimplePopup(POPUP_TYPE.OK, Str('시즌이 종료되었습니다.'), ok_cb)
+        self.m_bClosedTag = true
+        return
+    end
+
     local vars = self.vars
 
     do -- 연승 버프 텍스트 출력
