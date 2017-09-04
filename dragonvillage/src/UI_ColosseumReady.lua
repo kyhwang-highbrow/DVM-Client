@@ -297,7 +297,7 @@ function UI_ColosseumReady:update(dt)
             -- 로비로 이동
             UINavigator:goTo('lobby')
         end
-        MakeSimplePopup(POPUP_TYPE.OK, Str('시즌이 종료되었습니다.'), ok_cb)
+        MakeSimplePopup(POPUP_TYPE.OK, Str('콜로세움 시즌이 종료되었습니다.'), ok_cb)
         self.m_bClosedTag = true
         return
     end
