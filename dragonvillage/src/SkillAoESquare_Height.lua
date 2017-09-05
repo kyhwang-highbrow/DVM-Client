@@ -23,17 +23,6 @@ function SkillAoESquare_Height:init_skill(hit)
 	-- Y좌표값 중심으로 세팅
 	local cameraHomePosX, cameraHomePosY = self.m_world.m_gameCamera:getHomePos()
 	self:setPosition(self.m_targetPos.x, cameraHomePosY)
-
-	-- @TODO 핑크벨 확인 위해 임시 처리
-	if (self.m_owner.m_charTable['type'] == 'pinkbell') then
-		local pos_x = cameraHomePosX + (CRITERIA_RESOLUTION_X / 2) - self.m_targetPos.x
-		self.m_animator:setPositionX(pos_x)
-
-		-- 진형에 따라 리소스를 뒤집어준다.
-		if (not self.m_owner.m_bLeftFormation) then
-			self.m_animator:setFlip(true)
-		end	
-	end
 end
 
 -------------------------------------

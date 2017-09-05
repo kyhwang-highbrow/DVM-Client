@@ -20,9 +20,9 @@ end
 function SkillHealAoESquare_Width:init_skill(hit)
     PARENT.init_skill(self, hit)
 
-	-- Y좌표값 중심으로 세팅
-	local cameraHomePosX, cameraHomePosY = self.m_world.m_gameCamera:getHomePos()
-	self:setPosition(cameraHomePosX, self.m_targetPos.y)
+    -- X좌표값은 화면의 중심으로 세팅
+    local cameraHomePosX, cameraHomePosY = self.m_world.m_gameCamera:getHomePos()
+	self:setPosition(cameraHomePosX + (CRITERIA_RESOLUTION_X / 2), self.m_targetPos.y)
 
 	-- 진형에 따라 리소스를 뒤집어준다.
 	if (not self.m_owner.m_bLeftFormation) then
@@ -69,7 +69,6 @@ function SkillHealAoESquare_Width:findCollision()
 	local y = self.pos.y
 	local width = (self.m_skillWidth / 2)
 	local height = (self.m_skillHeight / 2)
-
 
     local l_ret = SkillTargetFinder:findCollision_AoESquare(l_target, x, y, width, height, true)
 
