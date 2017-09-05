@@ -90,3 +90,10 @@ end
 function ITopUserInfo_EventListener:getCloneClass()
     return class(clone(ITopUserInfo_EventListener))
 end
+
+-------------------------------------
+-- function onFocus
+-- @brief 자식 클래스에서 구현할 것
+-------------------------------------
+function ITopUserInfo_EventListener:onFocus()
+end

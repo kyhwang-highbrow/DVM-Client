@@ -45,6 +45,50 @@ function IS_ENABLE_ANALYTICS()
 end
 
 -------------------------------------
+-- function AUTO_PURGE
+-- @brief 자동으로 cache데이터를 지울지 여부
+-------------------------------------
+function AUTO_PURGE()
+    if (not g_localData) then
+        return true
+    end
+
+    local auto_purge = g_localData:get('auto_purge')
+    if (auto_purge == nil) then
+        return true
+    end
+
+    if (type(auto_purge) == 'boolean') then
+        return auto_purge
+    end
+
+    return true
+end
+
+-------------------------------------
+-- function PURGE_CACHE_DATA
+-- @brief
+-------------------------------------
+function PURGE_CACHE_DATA()
+    UILoader.clearCache()
+    --cc.AzVisual:removeCacheAll()
+    --cc.AzVRP:removeCacheAll()
+    --sp.SkeletonAnimation:removeCacheAll()
+    --SoundMgr:stopAllEffects()
+
+    cc.Director:getInstance():purgeCachedData()
+    collectgarbage('collect')
+
+    --cclog('#########################################################')
+    --cclog('#########################################################')
+    --cclog('#########################################################')
+    --cclog('PURGE_CACHE_DATA()')
+    --cclog('#########################################################')
+    --cclog('#########################################################')
+    --cclog('#########################################################')
+end
+
+-------------------------------------
 -- function PrintClassName
 -- @brief instance의 클래스명을 리턴
 --        클래스명을 찍기 위해 instance는 m_className 변수를 가지고 있어야 한다.

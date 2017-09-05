@@ -203,6 +203,7 @@ function UI_TopUserInfo:changeOwnerUI(ui)
     if (ui.m_uiBgm) then
         SoundMgr:playBGM(ui.m_uiBgm)
     end
+    ui:onFocus()
 
     self:refreshData()
     self:doAction()

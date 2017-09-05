@@ -41,6 +41,11 @@ function PerpleScene:init(param)
     self.m_loadingUIDuration = 1
     self.m_bShowPushUI = true
     self.m_bRemoveCache = false
+    self.m_sceneName = 'PerpleScene'
+
+    if (AUTO_PURGE() == true) then
+        self.m_bRemoveCache = true
+    end
 
     self.m_tBackKeyListener = {}
     self.m_tTouchEndedListener = {}
@@ -229,7 +234,7 @@ end
 -- function onEnter
 -------------------------------------
 function PerpleScene:onEnter()
-
+    
     -- 캐시 메모리 정리
     if self.m_bRemoveCache then
         UILoader.clearCache()

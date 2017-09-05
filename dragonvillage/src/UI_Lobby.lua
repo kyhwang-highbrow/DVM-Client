@@ -776,6 +776,15 @@ function UI_Lobby:onDestroyUI()
     end
 end
 
+-------------------------------------
+-- function onFocus
+-- @brief 탑바가 Lobby UI에 포커싱 되었을 때
+-------------------------------------
+function UI_Lobby:onFocus()
+    if (AUTO_PURGE() == true) then
+        PURGE_CACHE_DATA()
+    end
+end
 
 
 --@CHECK
