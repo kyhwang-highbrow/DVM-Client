@@ -340,17 +340,16 @@ function IDragonSkillManager:getSkillIndivisualInfo_usingIdx(idx)
 
     else
         skill_id = t_character['skill_' .. idx]
-		
-		-- skill_3이 비어있고 skill_laeder가 있다면 UI에서 표현하기 위해 skill_3 위치에서 표현
-		if (idx == 3) then
-			if (skill_id == '') and (t_character['skill_leader']) then
-				skill_id = t_character['skill_leader']
-			end
-		end
+
     end
 
 	-- skill type
 	local skill_type = GetSkillTable(self.m_charType):getSkillType(skill_id)
+
+    -- 성룡될 경우 leader skill 생기는 타입은 UI에서 표시하지 않음
+    if (idx == 3) and (skill_type == 'leader') then
+        return nil
+    end
 
     -- 이미 skill_individual_info가 있는 경우
 	local skill_indivisual_info = self:getSkillInfoByID(skill_id)
