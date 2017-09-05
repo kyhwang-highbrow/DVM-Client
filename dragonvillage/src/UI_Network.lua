@@ -181,6 +181,7 @@ end
 function UI_Network.fail(self, ret)
     if self.m_failCB then
         self.m_failCB(ret)
+        self:close()
     else
         self:makeFailPopup(nil, ret)
     end
