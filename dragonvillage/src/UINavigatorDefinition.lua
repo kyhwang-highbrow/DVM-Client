@@ -335,33 +335,35 @@ function UINavigatorDefinition:goTo_nestdungeon(...)
     local dungeon_type = args[2]
 
     -- 던전 타입이 지정되지 않았을 경우 체크
-    if (not dungeon_type) then
+    if (not dungeon_type) and stage_id then
         local t_dungeon_id_info = g_nestDungeonData:parseNestDungeonID(stage_id)
         dungeon_type = t_dungeon_id_info['dungeon_mode']
     end
 
     do -- 네스트던전 세부 모드 잠금 확인
-        local location_name
-        if (dungeon_type == NEST_DUNGEON_EVO_STONE) then
-            location_name = 'nest_evo_stone'
+        if dungeon_type then
+            local location_name
+            if (dungeon_type == NEST_DUNGEON_EVO_STONE) then
+                location_name = 'nest_evo_stone'
 
-        elseif (dungeon_type == NEST_DUNGEON_NIGHTMARE) then
-            location_name = 'nest_nightmare'
+            elseif (dungeon_type == NEST_DUNGEON_NIGHTMARE) then
+                location_name = 'nest_nightmare'
 
-        elseif (dungeon_type == NEST_DUNGEON_TREE) then
-            location_name = 'nest_tree'
+            elseif (dungeon_type == NEST_DUNGEON_TREE) then
+                location_name = 'nest_tree'
 
-        else
-            error('location_name : ' .. location_name)
-        end
+            else
+                error('location_name : ' .. location_name)
+            end
 
-        -- 콘텐츠 잠금 상태를 확인하기 위함
-        if (not self:checkContentLock(location_name)) then
-            return
+            -- 콘텐츠 잠금 상태를 확인하기 위함
+            if (not self:checkContentLock(location_name)) then
+                return
+            end
         end
 
         -- 요일 던전의 경우 열려있는지 확인
-        if (not g_nestDungeonData:checkNestDungeonOpen(stage_id)) then
+        if stage_id and (not g_nestDungeonData:checkNestDungeonOpen(stage_id)) then
             MakeSimplePopup(POPUP_TYPE.OK, Str('입장 가능한 시간이 아닙니다.'))
             return
         end
@@ -540,6 +542,48 @@ function UINavigatorDefinition:goTo_secret_relation(...)
     end
 
     request_secret_dungeon_info()
+end
+
+-------------------------------------
+-- function goTo_battle_menu
+-- @brief 전투 메뉴로 이동
+-- @usage UINavigatorDefinition:goTo('battle_menu')
+-------------------------------------
+function UINavigatorDefinition:goTo_battle_menu(...)
+    local args = {...}
+    local tab_name = args[1]
+
+    -- 해당 UI가 열려있을 경우
+    local is_opend, idx, ui = self:findOpendUI('UI_BattleMenu')
+    if (is_opend == true) then
+        self:closeUIList(idx)
+        if tab_name then
+            ui:setTab(tab_name)
+            ui:resetButtonsPosition()
+        end
+        return
+    end
+
+    -- 로비가 열려있을 경우
+    local is_opend, idx, ui = self:findOpendUI('UI_Lobby')
+    if (is_opend == true) then
+        self:closeUIList(idx)
+        local battle_menu_ui = UI_BattleMenu()
+        if tab_name then
+            battle_menu_ui:setTab(tab_name)
+            battle_menu_ui:resetButtonsPosition()
+        end
+        return
+    end
+
+    do-- Scene으로 동작
+        local function close_cb()
+            UINavigatorDefinition:goTo('lobby')
+        end
+
+        local scene = SceneCommon(UI_BattleMenu, close_cb)
+        scene:runScene()
+    end
 end
 
 -------------------------------------

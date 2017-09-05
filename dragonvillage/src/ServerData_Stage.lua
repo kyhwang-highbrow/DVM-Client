@@ -201,6 +201,7 @@ end
 function ServerData_Stage:requestGameStart(stage_id, deck_name, combat_power, finish_cb)
     local uid = g_userData:get('uid')
     local oid
+    local response_status_cb
 
     -- 모드별 API 주소 분기처리
     local api_url = ''
@@ -209,12 +210,43 @@ function ServerData_Stage:requestGameStart(stage_id, deck_name, combat_power, fi
         api_url = '/game/stage/start'
     elseif (game_mode == GAME_MODE_NEST_DUNGEON) then
         api_url = '/game/nest/start'
+
+        -- true를 리턴하면 자체적으로 처리를 완료했다는 뜻
+        response_status_cb = function(ret)
+            if (ret['status'] == -1350) then
+                -- 전투 UI로 이동
+                local function ok_cb()
+                    UINavigator:goTo('battle_menu', 'dungeon')
+                end 
+                MakeSimplePopup(POPUP_TYPE.OK, Str('이미 종료된 던전입니다.'), ok_cb)
+                return true
+            end
+
+            return false
+        end
+
     elseif (game_mode == GAME_MODE_SECRET_DUNGEON) then
         api_url = '/game/secret/start'
 
         -- 던전 objectId
         local t_dungeon_info = g_secretDungeonData:getSelectedSecretDungeonInfo()
         oid = t_dungeon_info['id']
+
+        -- true를 리턴하면 자체적으로 처리를 완료했다는 뜻
+        response_status_cb = function(ret)
+            ret['status'] = -1350
+            if (ret['status'] == -1350) then
+                -- 전투 UI로 이동
+                local function ok_cb()
+                    UINavigator:goTo('battle_menu', 'dungeon')
+                end 
+                MakeSimplePopup(POPUP_TYPE.OK, Str('이미 종료된 던전입니다.'), ok_cb)
+                return true
+            end
+
+            return false
+        end
+
     elseif (game_mode == GAME_MODE_ANCIENT_TOWER) then
         api_url = '/game/ancient/start'
     end
@@ -251,7 +283,7 @@ function ServerData_Stage:requestGameStart(stage_id, deck_name, combat_power, fi
     ui_network:setParam('friend', friend_uid)
     ui_network:setParam('oid', oid)
     ui_network:setParam('token', self:makeDragonToken())
-
+    ui_network:setResponseStatusCB(response_status_cb)
     ui_network:setSuccessCB(success_cb)
     ui_network:request()
 end

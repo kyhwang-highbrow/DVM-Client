@@ -114,6 +114,11 @@ end
 
 -------------------------------------
 -- function setResponseStatusCB
+-- @breif 통신은 성공을 하고 ret['status']값을 제어하고 싶을 때 사용
+-- @param response_status_cb function(ret)
+--                              -- true를 리턴하면 처리를 직접 했다는 뜻
+--                              return true or false
+--                           end
 -------------------------------------
 function UI_Network:setResponseStatusCB(response_status_cb)
     self.m_responseStatusCB = response_status_cb

@@ -48,6 +48,10 @@ if false then
     -- @brief 인연 던전으로 이동
     -- @param optional stage_id(number) 
     UINavigator:goTo('secret_relation', stage_id)
+
+    -- @brief 전투 메뉴로 이동
+    -- @param optional tab_name(string) 'adventure', 'dungeon', 'competition'
+    UINavigator:goTo('battle_menu', tab_name)
 end
 
 
