@@ -129,9 +129,9 @@ end
 -------------------------------------
 -- function setFriend
 -------------------------------------
-function UI_ReadyScene_Select:setFriend(enable)
+function UI_ReadyScene_Select:setFriend(visible)
     local vars = self.m_uiReadyScene.vars
-    vars['friendToggleBtn']:setEnabled(enable)
+    vars['friendToggleBtn']:setVisible(visible)
 end
 
 -------------------------------------
