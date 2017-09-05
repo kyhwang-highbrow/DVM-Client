@@ -287,6 +287,12 @@ function UI_Network:statusHandler(ret)
     if (t_error_msg) then
         local msg = t_error_msg['msg'] or ''
         local submsg = t_error_msg['submsg']
+
+        -- 제한된 계정의 경우 서버에서 문구가 왔을 때 서버 문구로 처리
+        if (status == -9101) and (ret['ban_msg']) and (type(ret['ban_msg']) == 'string') then
+            msg = ret['ban_msg']
+        end
+
         if submsg then
             MakeNetworkPopup2(POPUP_TYPE.OK, msg, submsg, function() closeApplication() end)
         else
