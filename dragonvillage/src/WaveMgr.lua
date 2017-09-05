@@ -434,6 +434,8 @@ function WaveMgr:spawnEnemy_dynamic(enemy_id, level, appear_type, value1, value2
     end
 
     if (isBoss) then
+        enemy.m_isBoss = true
+
         if (not self.m_lBoss) then
             self.m_lBoss = {}
         end
@@ -599,13 +601,6 @@ function WaveMgr:getFinalBossInfo()
     local boss_lv = boss_info['lv']
 
     return boss_id, boss_lv
-end
-
--------------------------------------
--- function getBossList
--------------------------------------
-function WaveMgr:getBossList()
-    return self.m_lBoss
 end
 
 -------------------------------------

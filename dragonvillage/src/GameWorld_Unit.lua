@@ -88,7 +88,7 @@ end
 -------------------------------------
 -- function makeMonsterNew
 -------------------------------------
-function GameWorld:makeMonsterNew(monster_id, level, use_boss_gauge)
+function GameWorld:makeMonsterNew(monster_id, level)
 
     local t_monster = TableMonster():get(monster_id)
 
@@ -107,7 +107,7 @@ function GameWorld:makeMonsterNew(monster_id, level, use_boss_gauge)
 
     monster:init_monster(t_monster, monster_id, level)
     monster:initState()
-	monster:initFormation(body_size, use_boss_gauge)
+	monster:initFormation(body_size)
 
     local body_list = TableMonsterHitPos():getBodyList(monster_id)
     if (body_list) then

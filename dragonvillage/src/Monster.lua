@@ -107,8 +107,8 @@ end
 -------------------------------------
 -- function initFormation
 -------------------------------------
-function Monster:initFormation(body_size, use_boss_gauge)
-    self:makeHPGauge({0, -(body_size[3] * 1.5)}, use_boss_gauge)
+function Monster:initFormation(body_size)
+    self:makeHPGauge({0, -(body_size[3] * 1.5)})
     self.m_animator:setFlip(true)
 end
 

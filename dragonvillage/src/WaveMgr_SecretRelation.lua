@@ -86,6 +86,8 @@ function WaveMgr_SecretRelation:spawnEnemy_dynamic(enemy_id, level, appear_type,
         }), true)
 
         if (isBoss) then
+            enemy.m_isBoss = true
+
             if (not self.m_lBoss) then
                 self.m_lBoss = {}
             end

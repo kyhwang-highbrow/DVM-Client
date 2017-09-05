@@ -140,6 +140,9 @@ Character = class(PARENT, {
 		-- 몬스터가 아이템을 드랍하는지 여부
         m_hasItem = 'boolean',
 
+        -- 보스인지 여부
+        m_isBoss = 'boolean',
+
         -- 부활 가능한지 여부
         m_bPossibleRevive = 'boolean',
      })
@@ -193,6 +196,8 @@ function Character:init(file_name, body, ...)
     self.m_bRoam = false
     self.m_roamTimer = 0
     self.m_hasItem = false
+    self.m_isBoss = false
+
     self.m_bPossibleRevive = false
 
     self.m_mTargetEffect = {}
@@ -827,7 +832,24 @@ function Character:setDamage(attacker, defender, i_x, i_y, damage, t_info)
         -- NOTHING TO DO
     else
 		local damage = math_min(damage, self.m_hp)
+        local prev_hp = self.m_hp
+
 		self:setHp(self.m_hp - damage)
+
+        -- 체력을 0으로 만들었을 시 로그
+        if (prev_hp > 0 and self.m_hp <= 0) then
+            local attack_type = t_info['attack_type']
+
+            -- @LOG : 보스 막타 타입
+		    if (self:isBoss()) then
+			    self.m_world.m_logRecorder:recordLog('finish_atk', attack_type)
+		    end
+
+            -- @LOG : 드래그 스킬로 적 처치
+            if (attack_type == 'active') then
+                self.m_world.m_logRecorder:recordLog('active_kill_cnt', 1)
+            end
+        end
 	end
 
     -- @LOG_CHAR : 공격자 데미지
@@ -845,23 +867,13 @@ function Character:setDamage(attacker, defender, i_x, i_y, damage, t_info)
     -----------------------------------------------------------------
     -- 죽음 체크
     -----------------------------------------------------------------
-    local checkDie = function() return (not self:isDead() and self.m_hp <= 0 and not self.m_isZombie) end
+    local checkDie = function()
+        return (not self:isDead() and self.m_hp <= 0 and not self.m_isZombie)
+    end
 
     if (checkDie()) then
         -- 죽기 직전 이벤트(딱 한번만 호출됨)
         self:dispatch('dead_ago', {}, self)
-
-        local attack_type = t_info['attack_type']
-                
-        -- @LOG : 보스 막타 타입
-		if (self:isBoss()) then
-			self.m_world.m_logRecorder:recordLog('finish_atk', attack_type)
-		end
-
-        -- @LOG : 드래그 스킬로 적 처치
-        if (attack_type == 'active') then
-            self.m_world.m_logRecorder:recordLog('active_kill_cnt', 1)
-        end
     end
 
     -- 드래그 스킬시 일시동안 무적처리 및 골드 드래곤 금화 드랍을 위해 사용되는 이벤트
@@ -2496,13 +2508,7 @@ end
 -- @brief boss, sub_boss, elite 체크
 -------------------------------------
 function Character:isBoss()
-    -- 고대의 탑 드래곤 몬스터인 경우 보스처리
-    if (self.m_world.m_gameMode == GAME_MODE_ANCIENT_TOWER) then
-        return (self.m_charType == 'dragon')
-    else
-        local rarity = self.m_charTable['rarity']
-        return isExistValue(rarity, 'elite', 'subboss', 'boss') 
-    end
+    return self.m_isBoss
 end
 
 -------------------------------------

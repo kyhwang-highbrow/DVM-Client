@@ -15,7 +15,6 @@ function WaveMgr_AncientTower:spawnEnemy_dynamic(enemy_id, level, appear_type, v
 
     -- Enemy 생성
     if isMonster(enemy_id) then
-        --enemy = self.m_world:makeMonsterNew(enemy_id, level, isBoss)
         enemy = self.m_world:makeMonsterNew(enemy_id, level)
 
     else
@@ -33,6 +32,8 @@ function WaveMgr_AncientTower:spawnEnemy_dynamic(enemy_id, level, appear_type, v
         enemy.m_animator:setScale(0.45)
 
         if (isBoss) then
+            enemy.m_isBoss = true
+
             if (not self.m_lBoss) then
                 self.m_lBoss = {}
             end
