@@ -60,8 +60,10 @@ function UI_ColosseumHistoryListItem:initUI()
 
     -- 승, 패 여부
     if (user_info.m_matchResult == 1) then
+        vars['resultLabel']:setColor(cc.c3b(0, 255, 0))
         vars['resultLabel']:setString(Str('승리'))
     else--if (info.m_matchResult == 0) then
+        vars['resultLabel']:setColor(cc.c3b(223, 87, 87))
         vars['resultLabel']:setString(Str('패배'))
     end
 
