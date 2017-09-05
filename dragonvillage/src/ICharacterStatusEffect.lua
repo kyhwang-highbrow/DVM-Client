@@ -6,7 +6,13 @@ ICharacterStatusEffect = {
     m_mHiddenStatusEffect = 'table',-- 숨겨져서 노출되지 않는 상태효과(리더, 패시브)
 
     m_lStatusIcon = 'sprite table',
-    m_mStatusEffectCC = 'table',    -- 적용중인 cc효과를 가진 status effect
+
+    m_mStatusEffectGroggy = 'table',    -- 그로기 효과를 가진 status effect
+    
+    m_isGroggy      = 'boolean',    -- 그로기(행동 불가 상태)
+    m_isSilence     = 'boolean',    -- 침묵 (스킬 사용 불가 상태)
+	m_isImmortal    = 'boolean',    -- 불사 (체력이 1이하로 내려가지 않는 상태)
+    m_isZombie      = 'boolean',    -- 좀비 (죽지 않는 상태)
 }
 
 -------------------------------------
@@ -16,14 +22,24 @@ function ICharacterStatusEffect:init()
     self.m_mStatusEffect = {}
     self.m_mHiddenStatusEffect = {}
 	self.m_lStatusIcon = {}
-    self.m_mStatusEffectCC = {}
+
+    self.m_mStatusEffectGroggy = {}
+    
+    self.m_isGroggy = false
+    self.m_isSilence = false
+	self.m_isImmortal = false
+    self.m_isZombie = false
 end
 
 -------------------------------------
 -- function updateStatusEffect
 -------------------------------------
 function ICharacterStatusEffect:updateStatusEffect(dt)
+    -------------------------------------------------------
+    -- 아이콘
+    -------------------------------------------------------
 	local count = 1
+
 	for type, status_effect in pairs(self.m_mStatusEffect) do
         local status_effect_type = status_effect:getTypeName()
         local icon = self.m_lStatusIcon[status_effect_type]
@@ -249,7 +265,9 @@ end
 -- function addGroggy
 -------------------------------------
 function ICharacterStatusEffect:addGroggy(statusEffectName)
-    self.m_mStatusEffectCC[statusEffectName] = true
+    self.m_mStatusEffectGroggy[statusEffectName] = true
+
+    self:setGroggy(true)
 end
 
 -------------------------------------
@@ -257,18 +275,113 @@ end
 -------------------------------------
 function ICharacterStatusEffect:removeGroggy(statusEffectName)
     if (statusEffectName) then
-        self.m_mStatusEffectCC[statusEffectName] = nil
+        self.m_mStatusEffectGroggy[statusEffectName] = nil
     else
-        self.m_mStatusEffectCC = {}
+        self.m_mStatusEffectGroggy = {}
+    end
+
+    if (table.count(self.m_mStatusEffectGroggy) == 0) then
+        self:setGroggy(false)
     end
 end
 
 -------------------------------------
--- function hasGroggyStatusEffect
+-- function setGroggy
 -------------------------------------
-function ICharacterStatusEffect:hasGroggyStatusEffect()
-    return (table.count(self.m_mStatusEffectCC) > 0)
+function ICharacterStatusEffect:setGroggy(b)
+    if (self.m_isGroggy == b) then return end
+
+    local disable_skill = self:hasStatusEffectToDisableSkill()
+
+	self.m_isGroggy = b
+
+    if (disable_skill ~= self:hasStatusEffectToDisableSkill()) then
+        if (b) then
+            self:onDisabledSkill()
+        else
+            self:onEnabledSkill()
+        end
+    end
 end
+
+-------------------------------------
+-- function setSilence
+-------------------------------------
+function ICharacterStatusEffect:setSilence(b)
+    if (self.m_isSilence == b) then return end
+
+    local disable_skill = self:hasStatusEffectToDisableSkill()
+
+	self.m_isSilence = b
+
+    if (disable_skill ~= self:hasStatusEffectToDisableSkill()) then
+        if (b) then
+            self:onDisabledSkill()
+        else
+            self:onEnabledSkill()
+        end
+    end
+end
+
+-------------------------------------
+-- function setImmortal
+-------------------------------------
+function ICharacterStatusEffect:setImmortal(b)
+	self.m_isImmortal = b
+end
+
+-------------------------------------
+-- function setZombie
+-------------------------------------
+function ICharacterStatusEffect:setZombie(b)
+	self.m_isZombie = b
+end
+
+-------------------------------------
+-- function onEnabledSkill
+-- @brief 상태효과 해제로 스킬 사용 가능 상태가 되었을 때 호출
+-------------------------------------
+function ICharacterStatusEffect:onEnabledSkill()
+end
+
+-------------------------------------
+-- function onDisabledSkill
+-- @brief 상태효과 적용으로 스킬 사용 불가능 상태가 되었을 때 호출
+-------------------------------------
+function ICharacterStatusEffect:onDisabledSkill()
+end
+
+
+-------------------------------------
+-- function hasStatusEffectToDisableSkill
+-- @breif 스킬을 사용 못하게 하는 상태효과가 있는지 체크
+-------------------------------------
+function ICharacterStatusEffect:hasStatusEffectToDisableSkill()
+    if (self.m_isGroggy or self.m_isSilence) then
+        return true
+    end
+
+    return false
+end
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 -------------------------------------
 -- function getCloneTable

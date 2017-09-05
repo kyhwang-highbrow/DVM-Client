@@ -215,6 +215,12 @@ function StatusEffectHelper:invokeStatusEffect(caster, target_char, status_effec
 
 	local t_status_effect = TableStatusEffect():get(status_effect_type)
 	local status_effect_category = t_status_effect['category']
+    local world = target_char.m_world
+
+    -- 전투 중 검사
+    if (self:isHarmful(status_effect_category) and not world.m_gameState:isFight()) then
+        return nil
+    end
 
     -- status_effect_rate 검사
     if (self:checkRate(caster, target_char, status_effect_rate, add_param)) then
@@ -232,6 +238,7 @@ function StatusEffectHelper:invokeStatusEffect(caster, target_char, status_effec
 		return nil
 	end
 
+    -- 보스의 경우 cc타입의 상태효과는 면역 처리
     if (target_char:isBoss() and t_status_effect['type'] == 'cc') then
         target_char:makeImmuneFont(target_char.pos['x'], target_char.pos['y'], 1.5)
         return nil

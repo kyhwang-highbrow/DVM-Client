@@ -297,7 +297,6 @@ local t_module = {
     'GameWorld',
     'GameWorldColosseum',
     'GameWorldIntro',
-    'GameWorld_Touch',
     'GameWorld_Formation',
     'GameWorld_Unit',
     'GameWorld_Gold',

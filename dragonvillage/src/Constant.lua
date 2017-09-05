@@ -119,11 +119,11 @@ PHYS = {
 PRIORITY =
 {
 	STUN = 2,
-	STUN_ESC = 2,
     SUCCESS_POSE = 8,
 	DYING = 9,
 	DEAD = 10,
 }
+
 --------------------------------------------
 -- World Z-Order Priority
 --------------------------------------------

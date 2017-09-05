@@ -339,6 +339,7 @@ function GameState.update_wave_intermission(self, dt)
 
         -- 0. 스킬 및 미사일을 날린다
 	    world:removeMissileAndSkill()
+        world:removeHeroDebuffs()
         
         -- 변경된 카메라 위치에 맞게 아군 홈 위치 변경 및 이동
         for i, v in ipairs(world:getDragonList()) do

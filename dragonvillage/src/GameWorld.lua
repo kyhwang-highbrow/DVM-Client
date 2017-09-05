@@ -297,10 +297,6 @@ function GameWorld:init(game_mode, stage_id, world_node, game_node1, game_node2,
 
     g_currScene:addKeyKeyListener(self)
 
-    -- 모션 스트릭 터치 영역 
-    --self.makeTouchLayer_GameWorld(self, world_node)
-    --self.init_motionStreak(self)
-
     self.m_touchPrevPos = nil
     self.m_tCollisionTime = {}
 

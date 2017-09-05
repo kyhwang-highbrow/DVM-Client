@@ -1089,9 +1089,6 @@
     <None Include="..\src\GameWorld_Gold.lua">
       <Filter>lua\src</Filter>
     </None>
-    <None Include="..\src\GameWorld_Touch.lua">
-      <Filter>lua\src</Filter>
-    </None>
     <None Include="..\src\GameWorld_Unit.lua">
       <Filter>lua\src</Filter>
     </None>

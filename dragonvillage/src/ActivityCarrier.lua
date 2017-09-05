@@ -24,7 +24,9 @@ ActivityCarrier = class({
         m_lStatusEffectRate = 'table',
 
 		m_atkDmgStat = 'str',
+
 		m_bIgnoreDef = 'bool',
+        m_bIgnoreAvoid = 'bool',
         
         m_realAttackType = 'str',
 		m_attackType = 'str',		-- 일반공격인지 아닌지 구분
@@ -44,6 +46,7 @@ function ActivityCarrier:init()
     self.m_lStatusEffectRate = {}
 	self.m_atkDmgStat = 'atk'
 	self.m_bIgnoreDef = false
+    self.m_bIgnoreAvoid = false
     self.m_tParam = {}
 end
 
@@ -314,6 +317,21 @@ end
 -------------------------------------
 function ActivityCarrier:isIgnoreDef()
 	return self.m_bIgnoreDef
+end
+
+
+-------------------------------------
+-- function setIgnoreAvoid
+-------------------------------------
+function ActivityCarrier:setIgnoreAvoid(bool)
+	self.m_bIgnoreAvoid = bool
+end
+
+-------------------------------------
+-- function isIgnoreAvoid
+-------------------------------------
+function ActivityCarrier:isIgnoreAvoid()
+	return self.m_bIgnoreAvoid
 end
 
 -------------------------------------

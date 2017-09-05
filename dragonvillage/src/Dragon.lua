@@ -643,80 +643,6 @@ function Dragon:removeSkillPrepareEffect()
 end
 
 -------------------------------------
--- function getSoundNameForSkill
--------------------------------------
-function Dragon:getSoundNameForSkill(type)
-    local sound_name
-
-    if (type == 'powerdragon') then
-        sound_name = 'skill_powerdragon'
-
-    elseif (type == 'lambgon') then
-        sound_name = 'skill_lambgon'
-        
-    elseif (type == 'applecheek') then
-        sound_name = 'skill_applecheek'
-        
-    elseif (type == 'spine') then
-        sound_name = 'skill_spine'
-        
-    elseif (type == 'leafdragon') then
-        sound_name = 'skill_leafdragon'
-        
-    elseif (type == 'taildragon') then
-        sound_name = 'skill_taildragon'
-        
-    elseif (type == 'purplelipsdragon') then
-        sound_name = 'skill_purplelipsdragon'
-        
-    elseif (type == 'pinkbell') then
-        sound_name = 'skill_pinkbell'
-        
-    elseif (type == 'bluedragon') then
-        sound_name = 'skill_bluedragon'
-        
-    elseif (type == 'littio') then
-        sound_name = 'skill_littio'
-        
-    elseif (type == 'hurricane') then
-        sound_name = 'skill_hurricane'
-        
-    elseif (type == 'garuda') then
-        sound_name = 'skill_garuda'
-        
-    elseif (type == 'boomba') then
-        sound_name = 'skill_boomba'
-        
-    elseif (type == 'godaeshinryong') then
-        sound_name = 'skill_godaeshinryong'
-        
-    elseif (type == 'crescentdragon') then
-        sound_name = 'skill_crescentdragon'
-        
-    elseif (type == 'serpentdragon') then
-        sound_name = 'skill_serpentdragon'
-        
-    elseif (type == 'lightningdragon') then
-        sound_name = 'skill_lightningdragon'
-
-    elseif (type == 'optatio') then
-        sound_name = 'skill_optatio'
-
-    elseif (type == 'psykerdragon') then
-        sound_name = 'skill_psykerdragon'
-
-    elseif (type == 'mutanteggdragon') then
-        sound_name = 'skill_mutanteggdragon'
-
-    elseif (type == 'fairydragon') then
-        sound_name = 'skill_fairydragon'
-        
-    end
-
-    return sound_name
-end
-
--------------------------------------
 -- function runAction_Highlight
 -------------------------------------
 function Dragon:runAction_Highlight(duration, level)
@@ -725,6 +651,22 @@ function Dragon:runAction_Highlight(duration, level)
     if (self.m_unitInfoNode) then
         self.m_unitInfoNode:setVisible(level == 255)
     end
+end
+
+-------------------------------------
+-- function onEnabledSkill
+-- @brief 상태효과 해제로 스킬 사용 가능 상태가 되었을 때 호출
+-------------------------------------
+function Dragon:onEnabledSkill()
+    self:dispatch('skill_enabled')
+end
+
+-------------------------------------
+-- function onDisabledSkill
+-- @brief 상태효과 적용으로 스킬 사용 불가능 상태가 되었을 때 호출
+-------------------------------------
+function Dragon:onDisabledSkill()
+    self:dispatch('skill_disabled')
 end
 
 -------------------------------------

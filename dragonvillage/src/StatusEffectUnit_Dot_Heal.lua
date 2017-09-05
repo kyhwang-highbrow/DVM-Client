@@ -25,7 +25,7 @@ end
 -- function doDot
 -------------------------------------
 function StatusEffectUnit_Dot_Heal:doDot()
-    self.m_owner:healAbs(self.m_caster, self.m_dotHeal, nil, false)
+    self.m_owner:healAbs(self.m_caster, self.m_dotHeal, false)
 end
 
 -------------------------------------

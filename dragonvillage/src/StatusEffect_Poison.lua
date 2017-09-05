@@ -48,6 +48,9 @@ function StatusEffect_Poison:onApplyOverlab(unit)
         damage_org = damage_org * (unit:getValue() / 100)
     end
 
+    -- 게임 모드에 따른 데미지 배율 적용
+    damage_org = damage_org * CalcDamageRateDueToGameMode(self.m_owner)
+
 	-- 속성 효과
 	local t_attr_effect = self.m_owner:checkAttributeCounter(caster)
 	if t_attr_effect['damage'] then
@@ -81,18 +84,22 @@ end
 -- function doDamage
 -------------------------------------
 function StatusEffect_Poison:doDamage()
-	self.m_owner:setDamage(nil, self.m_owner, self.m_owner.pos.x, self.m_owner.pos.y, self.m_dmg, nil)
+    -- 진형에 따른 데미지 배율
+    local damage_rate = CalcDamageRateDueToFormation(self.m_owner)
+
+    local damage = self.m_dmg * damage_rate
+
+	self.m_owner:setDamage(nil, self.m_owner, self.m_owner.pos.x, self.m_owner.pos.y, damage, nil)
 
     -- 중첩별 로그 처리
     for _, unit in pairs(self.m_lUnit) do
         -- @LOG_CHAR : 공격자 데미지
-        local damage = unit:getParam('damage')
         local caster = unit:getCaster()
-	    caster.m_charLogRecorder:recordLog('damage', damage)
+	    caster.m_charLogRecorder:recordLog('damage', unit:getParam('damage') * damage_rate)
     end
 
     -- @LOG_CHAR : 방어자 피해량
-	self.m_owner.m_charLogRecorder:recordLog('be_damaged', self.m_dmg)
+	self.m_owner.m_charLogRecorder:recordLog('be_damaged', damage)
 
 	-- 중독 사운드
 	SoundMgr:playEffect('EFX', 'efx_poison')

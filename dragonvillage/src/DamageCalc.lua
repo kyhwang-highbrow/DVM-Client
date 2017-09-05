@@ -126,3 +126,40 @@ function CalcAccuracyChance(accuracy, resistance)
 
     return value
 end
+
+-------------------------------------
+-- function CalcDamageRateDueToFormation
+-- @brief 진형에 따른 데미지 배율 계산
+-------------------------------------
+function CalcDamageRateDueToFormation(unit)
+    local world = unit.m_world
+
+    local formation_mgr = unit:getFormationMgr(false)
+    local damage_rate = 1
+
+    -- 전방 유닛이 있을 경우 후방 유닛 데미지 감소 처리
+    if (formation_mgr:isFrontLineAlive() and not formation_mgr:isFrontLine(unit)) then
+        if (unit.m_bLeftFormation or world.m_gameMode == GAME_MODE_COLOSSEUM) then
+            damage_rate = damage_rate * g_constant:get('INGAME', 'COVER_COEF')
+        end
+    end
+
+    return damage_rate
+end
+
+-------------------------------------
+-- function CalcDamageRateDueToGameMode
+-- @brief 게임 모드에 따른 데미지 배율 계산
+-------------------------------------
+function CalcDamageRateDueToGameMode(unit)
+    local world = unit.m_world
+
+    local damage_rate = 1
+
+    -- 콜로세움에서 모든 데미지 배수 조정
+    if (world.m_gameMode == GAME_MODE_COLOSSEUM) then
+        damage_rate = damage_rate * g_constant:get('INGAME', 'COLOSSEUM_DAMAGE_MULTI')
+    end
+
+    return damage_rate
+end

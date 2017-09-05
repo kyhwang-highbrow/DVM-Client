@@ -17,7 +17,6 @@ function Character:initState()
     self:addState('move', Character.st_move, 'idle', true)
 
 	self:addState('stun', Character.st_stun, 'idle', true, PRIORITY.STUN)
-	self:addState('stun_esc', Character.st_stun_esc, 'idle', true, PRIORITY.STUN_ESC)
     self:addState('comeback', Character.st_comeback, 'idle', true)
 end
 
@@ -416,29 +415,21 @@ end
 -- function st_stun
 -------------------------------------
 function Character.st_stun(owner, dt)
-	if owner.m_stateTimer == 0 then
-		owner:setSilence(true)
-
-        -- 로밍 액션 해제
+	if (owner.m_stateTimer == 0) then
+		-- 로밍 액션 해제
         if (owner.m_bRoam) then
             owner:stopRoaming()
         end
 
         -- 캐스팅 게이지
-        if owner.m_castingNode then
+        if (owner.m_castingNode) then
             owner.m_castingNode:setVisible(false)
         end
-	end
-end
 
--------------------------------------
--- function st_stun_esc
--------------------------------------
-function Character.st_stun_esc(owner, dt)
-	if owner.m_stateTimer == 0 then
-		owner:setSilence(false)
+	elseif (not owner.m_isGroggy) then
         owner:changeStateWithCheckHomePos('attackDelay', true)
-	end
+
+    end
 end
 
 -------------------------------------
@@ -459,7 +450,7 @@ function Character.st_wait(owner, dt)
     if (owner.m_stateTimer == 0) then
         owner.speed = 0
 
-        if owner.m_castingNode then
+        if (owner.m_castingNode) then
             owner.m_castingNode:setVisible(false)
         end
     end

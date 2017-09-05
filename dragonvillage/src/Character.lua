@@ -31,11 +31,8 @@ Character = class(PARENT, {
         m_bActive = 'boolean',
         m_bDead = 'boolean',
         m_bInvincibility = 'boolean',   -- 무적 상태 여부
-		m_isSilence = 'boolean',		-- 침묵 (스킬 사용 불가 상태)
 		m_isImmuneSE = 'boolean',		-- 면역 (해로운 상태 효과 면역)
-        m_isImmortal = 'boolean',       -- 불사 (체력이 1이하로 내려가지 않는 상태)
-        m_isZombie = 'boolean',         -- 좀비 (죽지 않는 상태)
-
+        
         -- @ for FormationMgr
         m_bLeftFormation = 'boolean',   -- 왼쪽 진형일 경우 true, 오른쪽 진형일 경우 false
         m_currFormation = '',
@@ -176,11 +173,8 @@ function Character:init(file_name, body, ...)
     self.m_delaySpasticity = 0
 
     self.m_bInvincibility = false
-	self.m_isSilence = false
 	self.m_isImmuneSE = false
-    self.m_isImmortal = false
-    self.m_isZombie = false
-    
+        
 	self.m_isUseAfterImage = false
 
 	self.m_isSlaveCharacter = false
@@ -450,17 +444,6 @@ function Character:undergoAttack(attacker, defender, i_x, i_y, body_key, no_even
     if (not self.m_world.m_gameState:isFight()) then return end
     if (not attacker.m_activityCarrier) then return end
 
-    -- guard 상태 체크
-    if (self.m_guard) and (not is_guard) then
-		-- Event Carrier 세팅
-		local t_event = clone(EVENT_HIT_CARRIER)
-		t_event['attacker'] = attacker
-        t_event['defender'] = defender
-		-- @EVENT
-		self:dispatch('guardian', t_event)
-		return
-    end
-
 	-- 공격자 정보
 	local attack_activity_carrier = attacker.m_activityCarrier
     local attacker_char = attack_activity_carrier:getActivityOwner()
@@ -475,9 +458,31 @@ function Character:undergoAttack(attacker, defender, i_x, i_y, body_key, no_even
     local is_bash = (attr_synastry == 1)
     local is_miss = (attr_synastry == -1) and self:checkMiss(attacker_char)
 
+    -- 공격력 및 방어력 정보
+    local atk_dmg = attack_activity_carrier:getAtkDmg(defender)
+    local def_pwr = self:getStat('def')
+    local damage = 0
+
+    -- 공격력이 0일 경우 피격되지 않은 것처럼 처리
+    if (atk_dmg == 0) then return end
+
+    -- 수호(guard) 상태 체크
+    if (self.m_guard) and (not is_guard) then
+		-- Event Carrier 세팅
+		local t_event = clone(EVENT_HIT_CARRIER)
+		t_event['attacker'] = attacker
+        t_event['defender'] = defender
+		-- @EVENT
+		self:dispatch('guardian', t_event)
+		return
+    end
+
     -- 회피 계산(드래그 스킬의 경우는 회피 불가)
     if (attack_type ~= 'active') then
-        if (self:checkAvoid(attack_activity_carrier, t_attr_effect)) then
+        -- 회피 무시 체크
+		if (attack_activity_carrier:isIgnoreAvoid()) then
+
+        elseif (self:checkAvoid(attack_activity_carrier, t_attr_effect)) then
             self:makeMissFont(i_x, i_y)
 		    -- @EVENT
 		    self:dispatch('avoid_rate')
@@ -487,21 +492,13 @@ function Character:undergoAttack(attacker, defender, i_x, i_y, body_key, no_even
             return
         end
     end
-    
-    -- 공격력 계산, 크리티컬 계산
-    local atk_dmg = 0
-    local def_pwr = 0
-    local damage = 0
 	
     -- 데미지 계산
     do
-		-- 공격력, 방어력 스탯
-		atk_dmg = attack_activity_carrier:getAtkDmg(defender)
-        def_pwr = self:getStat('def')
-
-        -- 히트 수 적용
-        atk_dmg = atk_dmg * attack_hit_count
-        
+        --------------------------------------------------------------
+		-- 공격력 계산(atk_dmg)
+        --------------------------------------------------------------
+		
         -- 스킬 계수 적용
 		atk_dmg = atk_dmg * attack_activity_carrier:getPowerRate() / 100
         
@@ -515,24 +512,39 @@ function Character:undergoAttack(attacker, defender, i_x, i_y, body_key, no_even
             atk_dmg = atk_dmg + drag_dmg
         end
 
+        -- 히트 수 적용(테이블에서는 hit수만큼 나눈 값으로 입력되었기 때문에 여기서 곱해줌)
+        atk_dmg = atk_dmg * attack_hit_count
+
+        --------------------------------------------------------------
+        -- 방어력 계산(def_pwr)
+        --------------------------------------------------------------
+        
+        -- 방어 무시 체크
+		if (attack_activity_carrier:isIgnoreDef()) then 
+			def_pwr = 0 
+		
         -- 방어 관통 적용
-        if(attacker) then
+        elseif(attacker) then
             def_pwr = def_pwr - (def_pwr * attacker_char:getStat('pierce') / 100)
             def_pwr = math_max(def_pwr, 0)
         end
 		
-		-- 방어 무시 체크
-		if (attack_activity_carrier:isIgnoreDef()) then 
-			def_pwr = 0 
-		end
-        
+        --------------------------------------------------------------
+        -- 데미지 계산(damage)
+        --------------------------------------------------------------
 		damage = DamageCalc_P(atk_dmg, def_pwr)
 
+        -- 게임 모드에 따른 데미지 배율 적용
+        damage = damage * CalcDamageRateDueToGameMode(self)
+
+        -- 진형에 따른 데미지 배율 적용
+        damage = damage * CalcDamageRateDueToFormation(self)
+        
         -- 히트 수 적용
         damage = damage / attack_hit_count
     end
 
-    -- 크리티컬 계산(ActivityCarrier에서 판정되지 않은 경우만)
+    -- 크리티컬 계산
     do
         if (is_miss) then
             -- 빚맞힘일 경우 크리티컬 없도록 처리
@@ -555,14 +567,13 @@ function Character:undergoAttack(attacker, defender, i_x, i_y, body_key, no_even
     do -- 최종 데미지 계산
         local damage_multifly = 1
 
-        -- 크리티컬
+        -- 크리티컬 데미지
         if (is_critical) then
             local cri_dmg = attack_activity_carrier:getStat('cri_dmg') or 0
             damage_multifly = damage_multifly + (cri_dmg / 100)
         end
-        
 
-        -- 속성
+        -- 속성 데미지
         if (t_attr_effect['damage']) then
             local attr_dmg_multifly = (t_attr_effect['damage'] / 100)
             damage_multifly = damage_multifly + attr_dmg_multifly
@@ -570,8 +581,8 @@ function Character:undergoAttack(attacker, defender, i_x, i_y, body_key, no_even
 
         -- (피격/공격)시 상대가 (특정 상태효과)를 가진 적이면 피해량 증가
         local additional_dmg_adj_rate = 0
-        for k, v in pairs(attacker_char:getStatusEffectList()) do
 
+        for k, v in pairs(attacker_char:getStatusEffectList()) do
             if (v.m_type == 'modify_dmg' and v.m_branch == 0) then
                 if(defender:isExistStatusEffectName(v.m_targetStatusEffectName, nil, true)) then
                     additional_dmg_adj_rate = additional_dmg_adj_rate + v.m_totalValue
@@ -580,7 +591,6 @@ function Character:undergoAttack(attacker, defender, i_x, i_y, body_key, no_even
         end
 
         for k, v in pairs(defender:getStatusEffectList()) do
-
             if (v.m_type == 'modify_dmg' and v.m_branch == 1) then
                 if(attacker_char:isExistStatusEffectName(v.m_targetStatusEffectName, nil, true)) then
                     additional_dmg_adj_rate = additional_dmg_adj_rate - v.m_totalValue
@@ -592,13 +602,13 @@ function Character:undergoAttack(attacker, defender, i_x, i_y, body_key, no_even
 		damage_multifly = (damage_multifly + (self:getStat('dmg_adj_rate') + additional_dmg_adj_rate) / 100)
 
         damage = (damage * damage_multifly)
-
+        
         -- nan 체크
         if (damage ~= damage) then
             damage = 0
         end
-
-        -- 음수일 경우 0으로 변경
+        
+        -- 최소 데미지 1로 처리
         damage = math_max(damage, 1)
     end
 
@@ -669,17 +679,23 @@ function Character:undergoAttack(attacker, defender, i_x, i_y, body_key, no_even
 
     if (not no_event and attacker_char) then
         -- 공격자 반사 데미지 처리
-        if (attack_type == 'active') then 
-            local reflex_skill = self:getStat('reflex_skill')
-            if (reflex_skill > 0) then
-                local reflex_damage = damage * (reflex_skill / 100)
-			    attacker_char:setDamage(nil, attacker_char, attacker_char.pos.x, attacker_char.pos.y, reflex_damage)
-            end
-        else
-            local reflex_normal = self:getStat('reflex_normal')
-            if (reflex_normal > 0) then
-                local reflex_damage = damage * (reflex_normal / 100)
-			    attacker_char:setDamage(nil, attacker_char, attacker_char.pos.x, attacker_char.pos.y, reflex_damage)
+        if (damage > 0) then
+            if (attack_type == 'active') then 
+                local reflex_skill = self:getStat('reflex_skill')
+                if (reflex_skill > 0) then
+                    local reflex_damage = damage * (reflex_skill / 100)
+
+                    -- 진형에 따른 데미지 배율 적용
+                    reflex_damage = reflex_damage * CalcDamageRateDueToFormation(unit)
+
+			        attacker_char:setDamage(nil, attacker_char, attacker_char.pos.x, attacker_char.pos.y, reflex_damage)
+                end
+            else
+                local reflex_normal = self:getStat('reflex_normal')
+                if (reflex_normal > 0) then
+                    local reflex_damage = damage * (reflex_normal / 100)
+			        attacker_char:setDamage(nil, attacker_char, attacker_char.pos.x, attacker_char.pos.y, reflex_damage)
+                end
             end
         end
 
@@ -687,7 +703,7 @@ function Character:undergoAttack(attacker, defender, i_x, i_y, body_key, no_even
         local hp_drain = attacker_char:getStat('hp_drain')
         if (hp_drain > 0) then
             local heal_abs = damage * (hp_drain / 100)
-			attacker_char:healAbs(attacker_char, heal_abs, nil, true)
+			attacker_char:healAbs(attacker_char, heal_abs, true)
         end
     end
 
@@ -795,22 +811,6 @@ function Character:setDamage(attacker, defender, i_x, i_y, damage, t_info)
             dir = attacker.movement_theta
         end
     end
-
-    -- 전방 유닛이 있을 경우 후방 유닛 데미지 감소 처리
-    local formation_mgr = self:getFormationMgr(false)
-    local cover_coef = g_constant:get('INGAME', 'COVER_COEF') or 0.5
-    if (formation_mgr:isFrontLineAlive() and not formation_mgr:isFrontLine(self)) then
-        if (self.m_bLeftFormation or self.m_world.m_gameMode == GAME_MODE_COLOSSEUM) then
-            damage = damage * cover_coef
-        end
-    end
-
-    -- 콜로세움에서 모든 데미지 배수 조정
-    if (self.m_world.m_gameMode == GAME_MODE_COLOSSEUM) then
-        damage = damage * g_constant:get('INGAME', 'COLOSSEUM_DAMAGE_MULTI')
-    end
-
-    damage = math_max(damage, 1)
 
     -- 데미지 폰트 출력
     self:makeDamageEffect(i_x, i_y, dir, t_info['is_critical'])
@@ -935,7 +935,7 @@ function Character:doAttack(skill_id, x, y)
 end
 
 -------------------------------------
--- function checkDie
+-- function doDie
 -- @brief 죽임(좀비나 자폭 등의 죽기전 발동되는 스킬을 발동시킴)
 -------------------------------------
 function Character:doDie()
@@ -1222,33 +1222,33 @@ function Character:healPercent(caster, percent, b_make_effect)
     local heal = max_hp * percent
     heal = math_min(max_hp - self.m_hp, heal)
 
-    self:healAbs(caster, heal, nil, b_make_effect)
+    self:healAbs(caster, heal, b_make_effect)
 end
 
 -------------------------------------
 -- function healAbs
 -------------------------------------
-function Character:healAbs(caster, heal, is_critical, b_make_effect)
+function Character:healAbs(caster, heal, b_make_effect)
     local heal = math_floor(heal)
     if (heal <= 0) then return end
 
+    local is_critical = false
+
     if (caster) then
         -- 크리 여부 검사
-        if (is_critical == nil) then
-            local critical_chance = caster:getStat('cri_chance') or 0
-            local critical_avoid = 0
-            local final_critical_chance = CalcCriticalChance(critical_chance, critical_avoid)
+        local critical_chance = caster:getStat('cri_chance') or 0
+        local critical_avoid = 0
+        local final_critical_chance = CalcCriticalChance(critical_chance, critical_avoid)
 
-            is_critical = (math_random(1, 1000) <= (final_critical_chance * 10))
+        is_critical = (math_random(1, 1000) <= (final_critical_chance * 10))
 
-            if (is_critical) then
-                local cri_dmg = caster:getStat('cri_dmg') or 0
-                local multifly = 1 + (cri_dmg / 100)
+        if (is_critical) then
+            local cri_dmg = caster:getStat('cri_dmg') or 0
+            local multifly = 1 + (cri_dmg / 100)
 
-                heal = heal * multifly 
-            end
+            heal = heal * multifly 
         end
-
+        
         -- 시전자 회복 스킬 효과 증가 처리
         local heal_power = caster:getStat('heal_power')
         if (heal_power ~= 0) then
@@ -2293,8 +2293,13 @@ function Character:changeState(state, forced)
     local prev_state = self.m_state
     local ret = PARENT.changeState(self, state, forced)
 
-    if (ret == true) and (prev_state == 'delegate') then
-        self:killStateDelegate()
+    if (ret) then
+        if (prev_state == 'stun') then
+            
+
+        elseif (prev_state == 'delegate') then
+            self:killStateDelegate()
+        end
     end
 
     return ret
@@ -2421,19 +2426,6 @@ function Character:getBuffStat(stat_type)
 end
 
 -------------------------------------
--- function setSilence
--------------------------------------
-function Character:setSilence(b)
-	self.m_isSilence = b
-
-    if (b) then
-        self:dispatch('skill_disabled')
-    else
-        self:dispatch('skill_enabled')
-    end
-end
-
--------------------------------------
 -- function setImmuneSE
 -------------------------------------
 function Character:setImmuneSE(b)
@@ -2461,46 +2453,13 @@ function Character:isImmuneSE()
 end
 
 -------------------------------------
--- function setImmortal
--------------------------------------
-function Character:setImmortal(b)
-	self.m_isImmortal = b
-end
-
--------------------------------------
--- function setZombie
--------------------------------------
-function Character:setZombie(b)
-	self.m_isZombie = b
-end
-
--------------------------------------
 -- function addGroggy
 -------------------------------------
 function Character:addGroggy(statusEffectName)
-    if (not self.m_world.m_gameState:isFight()) then return end
-
     PARENT.addGroggy(self, statusEffectName)
     
-    if (self.m_state ~= 'stun') then
+    if (self.m_isGroggy) then
         self:changeState('stun')
-
-        self:dispatch('skill_disabled')
-    end
-end
-
--------------------------------------
--- function removeGroggy
--------------------------------------
-function Character:removeGroggy(statusEffectName)
-    PARENT.removeGroggy(self, statusEffectName)
-    
-    if (not self:hasGroggyStatusEffect()) then
-        if (self.m_state == 'stun') then
-            self:changeState('stun_esc')
-
-            self:dispatch('skill_enabled')
-        end
     end
 end
 
