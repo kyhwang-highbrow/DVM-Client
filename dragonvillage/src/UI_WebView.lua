@@ -67,13 +67,13 @@ end
 -------------------------------------
 function CreateWebview(url, node)
     if (not node) then return end
-    local url = url
+    local main_url = url
     local content_size = node:getContentSize()
     local webview = ccexp.WebView:create()
     webview:setContentSize(content_size.width, content_size.height)
 
     webview:setOnShouldStartLoading(function(index, url)
-        if (url ~= nil) and (string.sub(url, 1, string.len('http://')) == 'http://') then
+        if (main_url ~= url) and (url ~= nil) and (string.sub(url, 1, string.len('http://')) == 'http://') then
             SDKManager:goToWeb(url)
             return false
         end
@@ -81,7 +81,7 @@ function CreateWebview(url, node)
         return true
     end)
 
-    webview:loadURL(url)
+    webview:loadURL(main_url)
     webview:setBounces(false)
     webview:setAnchorPoint(cc.p(0,0))
     webview:setDockPoint(cc.p(0,0))
