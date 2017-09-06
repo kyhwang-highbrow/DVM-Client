@@ -100,6 +100,7 @@ function GameState:initUI()
             rich_label.m_defaultColor = cc.c3b(255, 255, 255)
             rich_label:setString('')
             rich_label:setFontSize(40)
+            rich_label:setDimension(1000, 800)
             rich_label:setAlignment(cc.TEXT_ALIGNMENT_CENTER, cc.VERTICAL_TEXT_ALIGNMENT_CENTER)
             rich_label:enableOutline(cc.c4b(0, 0, 0, 255), 2)
 
