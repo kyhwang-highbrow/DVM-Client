@@ -349,7 +349,7 @@ end
 -------------------------------------
 function PhysObject:setFixedAttack(bool)
     self.bFixedAttack = bool
-    --self.enable_body = not bool
+    self.enable_body = not bool
 end
 
 -------------------------------------

@@ -225,10 +225,6 @@ function PhysWorld:update(dt)
         -- 확정 타겟 충돌 리스트를 사용하는 경우
         if (target_collisions) then
             for i, collision in ipairs(target_collisions) do
-                if (not object.enable_body) then
-                    break
-                end
-
                 target = collision:getTarget()
                 x = target.pos.x
                 y = target.pos.y
