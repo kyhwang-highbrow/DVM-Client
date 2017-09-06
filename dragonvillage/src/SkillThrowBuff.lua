@@ -4,6 +4,9 @@ local PARENT = Skill
 -- class SkillThrowBuff
 -------------------------------------
 SkillThrowBuff = class(PARENT, {
+        m_missileRes = 'string',
+        m_duration = 'number',
+        m_lEffect = 'table',
     })
 
 -------------------------------------
@@ -18,10 +21,23 @@ end
 -------------------------------------
 -- function init_skill
 -------------------------------------
-function SkillThrowBuff:init_skill()
+function SkillThrowBuff:init_skill(res)
     PARENT.init_skill(self)
-	
-	self:setPosition(self.m_owner.pos.x, self.m_owner.pos.y)
+
+    -- 멤버 변수
+    self.m_missileRes = res
+    self.m_duration = 1
+    self.m_lEffect = {}
+
+    -- 타겟 리스트가 없을 경우(인디케이터로부터 받은 정보가 없을 경우)
+    if (not self.m_lTargetChar) then
+        self.m_lTargetChar = self.m_owner:getTargetListByType(self.m_targetType, nil, self.m_targetFormation)
+    end
+
+    -- 타겟 수만큼만 가져옴
+    self.m_lTargetChar = table.getPartList(self.m_lTargetChar, self.m_targetLimit)
+
+    self:setPosition(self.m_owner.pos.x, self.m_owner.pos.y)
 end
 
 -------------------------------------
@@ -39,38 +55,39 @@ end
 -------------------------------------
 function SkillThrowBuff.st_idle(owner, dt)
     if (owner.m_stateTimer == 0) then
-		owner:changeState('draw')
+        owner:throwEffect()
+    
+    elseif (owner.m_stateTimer > owner.m_duration) then
+        owner:changeState('dying')
+
     end
 end
 
 -------------------------------------
--- function st_draw
+-- function throwEffect
 -------------------------------------
-function SkillThrowBuff.st_draw(owner, dt)
-	if (owner.m_stateTimer == 0) then
-		-- 투사체 투척
-        local target_pos = cc.p(owner.m_targetPos.x, owner.m_targetPos.y)
-        local action = cc.JumpTo:create(0.5, target_pos, 250, 1)
+function SkillThrowBuff:throwEffect()
+    for _, v in pairs(self.m_lTargetChar) do
+        local x = v.pos.x - self.pos.x
+        local y = v.pos.y - self.pos.y
 
-		-- state chnage 함수 콜
-		local cbFunc = cc.CallFunc:create(function() owner:changeState('obtain') end)
+        local animator = MakeAnimator(self.m_missileRes)
+        animator:changeAni('idle', true)
+        self.m_rootNode:addChild(animator.m_node)
 
-		owner:runAction(cc.Sequence:create(cc.EaseIn:create(action, 1), cbFunc))
-    end
-end
+        -- 투척 액션
+        local action = cc.JumpTo:create(self.m_duration, cc.p(x, y), 250, 1)
+        local cbFunc = cc.CallFunc:create(function()
+            animator:setVisible(false)
 
--------------------------------------
--- function st_obtain
--------------------------------------
-function SkillThrowBuff.st_obtain(owner, dt)
-    if (owner.m_stateTimer == 0) then
-		-- 상태효과
-        owner:dispatch(CON_SKILL_HIT, {l_target = {owner.m_targetChar}})
+            -- 상태효과
+            self:dispatch(CON_SKILL_HIT, { l_target = {v} })
 
-		owner.m_animator:setPosition(0, 100)
-		owner.m_animator:addAniHandler(function()
-			owner:changeState('dying')
+            -- 이펙트
+            self.m_world:addInstantEffect(self.m_missileRes, 'obtain', v.pos.x, v.pos.y + 100)
         end)
+
+		animator:runAction(cc.Sequence:create(cc.EaseIn:create(action, self.m_duration), cbFunc))
     end
 end
 
@@ -85,11 +102,11 @@ function SkillThrowBuff:makeSkillInstance(owner, t_skill, t_data)
 	-- 인스턴스 생성부
 	------------------------------------------------------
 	-- 1. 스킬 생성
-    local skill = SkillThrowBuff(missile_res)
+    local skill = SkillThrowBuff(nil)
 
 	-- 2. 초기화 관련 함수
 	skill:setSkillParams(owner, t_skill, t_data)
-    skill:init_skill()
+    skill:init_skill(missile_res)
 	skill:initState()
 
 	-- 3. state 시작 

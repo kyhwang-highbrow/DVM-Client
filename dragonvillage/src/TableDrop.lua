@@ -17,6 +17,15 @@ function TableDrop:init()
 end
 
 -------------------------------------
+-- function get
+-------------------------------------
+function TableDrop:get(key, skip_error_msg)
+    if (key == COLOSSEUM_STAGE_ID) then return end
+
+    return PARENT.get(self, key, skip_error_msg)
+end
+
+-------------------------------------
 -- function getStageMissionList
 -------------------------------------
 function TableDrop:getStageMissionList(stage_id)
