@@ -26,7 +26,7 @@ function SkillThrowBuff:init_skill(res)
 
     -- 멤버 변수
     self.m_missileRes = res
-    self.m_duration = 1
+    self.m_duration = 0.5
     self.m_lEffect = {}
 
     -- 타겟 리스트가 없을 경우(인디케이터로부터 받은 정보가 없을 경우)
@@ -45,9 +45,8 @@ end
 -------------------------------------
 function SkillThrowBuff:initState()
 	self:setCommonState(self)
+
     self:addState('start', SkillThrowBuff.st_idle, nil, true)
-    self:addState('draw', SkillThrowBuff.st_draw, 'idle', true)
-	self:addState('obtain', SkillThrowBuff.st_obtain, 'obtain', false)
 end
 
 -------------------------------------

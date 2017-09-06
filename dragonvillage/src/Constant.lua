@@ -156,6 +156,8 @@ INGAME_LAYER_Z_ORDER =
 
     DRAGON_INFO_LAYER = 10,
     DRAGON_SPEECH_LAYER = 11,
+
+    LOCK_ON_LAYER = 12,
 }
 
 --------------------------------------------

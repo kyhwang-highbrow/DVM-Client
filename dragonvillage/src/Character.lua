@@ -70,6 +70,7 @@ Character = class(PARENT, {
 
         -- @node UI
         m_unitInfoNode = 'cc.Node',
+        m_lockOnNode = 'cc.Node',       -- 인디케이터 선택 대상 표시를 위한 노드
         m_enemySpeechNode = 'cc.Node',
         m_dragonSpeechNode = 'cc.Node',
 
@@ -119,10 +120,6 @@ Character = class(PARENT, {
 		m_isUseAfterImage = 'boolean',
 
 		---------------------------------------------------------------------------------------
-
-		-- @TODO 임시 추가 충돌박스
-		m_isSlaveCharacter = 'boolean', -- 이 물리객체가 다른 객체에 추가된 것인지 여부
-		m_masterCharacter = 'Character', -- 이 물리객체를 가진 Character
 
 		-- @TODO 수호 스킬 관련 .. 없애고 싶은데....
 		m_guard = 'SkillGuard',	-- guard 되고 있는 상태(damage hijack)
@@ -180,9 +177,6 @@ function Character:init(file_name, body, ...)
         
 	self.m_isUseAfterImage = false
 
-	self.m_isSlaveCharacter = false
-	self.m_masterCharacter = nil
-	
 	self.m_guard = false
 
     self.m_posIdx = 0
@@ -217,6 +211,11 @@ function Character:initWorld(game_world)
         
         -- 하이라이트 노드 설정
         self:addHighlightNode(self.m_unitInfoNode)
+    end
+
+    if (not self.m_lockOnNode) then
+        self.m_lockOnNode = cc.Node:create()
+        self.m_world.m_lockOnNode:addChild(self.m_lockOnNode)
     end
 end
 
@@ -1356,6 +1355,10 @@ function Character:release()
         self.m_unitInfoNode:removeFromParent(true)
     end
 
+    if (self.m_lockOnNode) then
+        self.m_lockOnNode:removeFromParent(true)
+    end
+
     if (self.m_enemySpeechNode) then
         self.m_enemySpeechNode:removeFromParent(true)
         self.m_enemySpeechNode = nil
@@ -1490,6 +1493,10 @@ function Character:setPosition(x, y)
 
     if (self.m_unitInfoNode) then
         self.m_unitInfoNode:setPosition(x, y)
+    end
+
+    if (self.m_lockOnNode) then
+        self.m_lockOnNode:setPosition(x, y)
     end
 
     if (self.m_hpNode and not self.m_bFixedPosHpNode) then
@@ -1834,16 +1841,10 @@ function Character:setTargetEffect(animator, k)
 
     if (animator) then
         local body = self:getBody(k)
-        local root_node = self:getRootNode()
-        
-		if (self.m_isSlaveCharacter) then 
-			animator:setPosition(self.m_unitInfoOffset[1] + body['x'], self.m_unitInfoOffset[2] + body['y'])
-			root_node:addChild(animator.m_node)
-		else
-			animator:setPosition(body['x'], body['y'])
-			root_node:addChild(animator.m_node)
-		end
-
+                
+		animator:setPosition(body['x'], body['y'])
+		self.m_lockOnNode:addChild(animator.m_node)
+		
 		-- 사운드
 		SoundMgr:playEffect('UI', 'ui_target')
     end
@@ -1892,15 +1893,9 @@ function Character:setNonTargetEffect(animator, k)
 
     if (animator) then
         local body = self:getBody(k)
-        local root_node = self:getRootNode()
-        
-		if (self.m_isSlaveCharacter) then 
-			animator:setPosition(self.m_unitInfoOffset[1] + body['x'], self.m_unitInfoOffset[2] + body['y'])
-			root_node:addChild(animator.m_node)
-		else
-			animator:setPosition(body['x'], body['y'])
-			root_node:addChild(animator.m_node)
-		end
+                
+		animator:setPosition(body['x'], body['y'])
+		self.m_lockOnNode:addChild(animator.m_node)
     end
 end
 
@@ -2531,17 +2526,6 @@ function Character:getAttackPhysGroup()
 end
 
 -------------------------------------
--- function getRootNode
--------------------------------------
-function Character:getRootNode()
-	if (self.m_isSlaveCharacter) then 
-		return self.m_masterCharacter.m_rootNode
-	else
-		return self.m_rootNode
-	end
-end
-
--------------------------------------
 -- function getFellowList
 -- @brief 어떤 진형이든 항상 아군을 가져온다.
 -------------------------------------
@@ -2563,35 +2547,6 @@ function Character:getOpponentList()
 	else
 		return self.m_world:getDragonList()
 	end
-end
-
--------------------------------------
--- function referenceForSlaveCharacter
--------------------------------------
-function Character:referenceForSlaveCharacter(t_body, adj_x, adj_y)
-	local char = Character(nil, t_body)
-
-	char.m_hp = self.m_hp
-	char.m_maxHp = self.m_maxHp
-	
-	char.m_infoUI = nil
-	char.m_hpNode = nil
-	char.m_castingUI = nil
-	char.m_castingNode = nil
-	char.m_unitInfoOffset = {0, 0}
-	char.m_charTable = {attr = self:getAttribute(), rarity = self.m_charTable['rarity']}
-	
-	char.m_bLeftFormation = self.m_bLeftFormation
-	char.m_world = self.m_world
-
-	char.m_isSlaveCharacter = true
-	char.m_masterCharacter = self
-	char.m_unitInfoOffset = {adj_x, adj_y}
-
-    char:addState('dying', Character.st_dying, 'idle', false, PRIORITY.DYING)
-    char:addState('dead', Character.st_dead, nil, nil, PRIORITY.DEAD)
-
-	return char
 end
 
 -------------------------------------

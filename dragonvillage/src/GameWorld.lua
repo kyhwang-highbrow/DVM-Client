@@ -21,7 +21,7 @@ GameWorld = class(IEventDispatcher:getCloneClass(), IEventListener:getCloneTable
         m_worldNode = 'cc.Node',
         m_missiledNode = 'cc.Node',
 
-
+        m_lockOnNode = 'cc.Node',
 		m_unitInfoNode = 'cc.Node',
         m_enemySpeechNode = 'cc.Node',
 
@@ -169,6 +169,9 @@ function GameWorld:init(game_mode, stage_id, world_node, game_node1, game_node2,
 
         self.m_enemySpeechNode = cc.Node:create()
         self.m_gameNode1:addChild(self.m_enemySpeechNode, INGAME_LAYER_Z_ORDER.ENEMY_SPEECH_LAYER)
+
+        self.m_lockOnNode = cc.Node:create()
+        self.m_gameNode1:addChild(self.m_lockOnNode, INGAME_LAYER_Z_ORDER.LOCK_ON_LAYER)
     end
 
     do -- 드래곤 공통 레이어
