@@ -133,7 +133,7 @@ function UI_Product:click_buyBtn()
 	if (struct_product:getTabCategory() == 'package') then
         local is_popup = true
 		local ui = PackageManager:getTargetUI(struct_product, is_popup)
-        ui:setCloseCB(self.m_cbBuy)
+        ui:setCloseCB(function() self:refresh() end)
 
     -- 광고 시청
     elseif (struct_product.price_type == 'advertising') then

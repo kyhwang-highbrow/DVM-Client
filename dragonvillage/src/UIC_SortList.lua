@@ -552,16 +552,7 @@ function MakeUICSortList_runeManageFilter(button, label)
     -- set_id는 자연수
     local table_rune_set = TableRuneSet()
 
-    -- table 순서와 다름 (일딴 하드코딩)
-    local t_rune = table_rune_set.m_orgTable
-    local priority = {1, 2, 6, 5, 7, 4, 3, 8}
-    table.sort(t_rune, function(a, b)
-        local a_id = tonumber(a['set_id'])
-        local b_id = tonumber(b['set_id'])
-        return priority[a_id] < priority[b_id]
-    end)
-
-    for i,v in ipairs(t_rune) do
+    for i,v in ipairs(table_rune_set.m_orgTable) do
         local set_id = i
         local text = TableRuneSet:makeRuneSetFullNameRichText(set_id)
         uic:addSortType(set_id, text, nil, true)
