@@ -4,6 +4,8 @@ local PARENT = SkillEnumrate
 -- class SkillEnumrate_Penetration
 -------------------------------------
 SkillEnumrate_Penetration = class(PARENT, {
+    m_size = 'number',
+    m_lDir = 'list'
      })
 
 -------------------------------------
@@ -68,6 +70,18 @@ function SkillEnumrate_Penetration:fireMissile(idx)
 		self:doSpecialEffect()
 	end
 
+    local l_target = self:getProperTargetList()
+    if(not self.m_lDir) then --TODO dir이 값으로 넘어오지 않은 경우
+
+    end
+    -- body 크기를 일괄적으로 키운다
+    if (t_option['physics_body']) then
+        local body_size = t_option['physics_body'][3]
+
+        t_option['physics_body'][3] = body_size * 1.5
+    end
+
+    t_option['collision_list'] = SkillTargetFinder:findCollision_Penetration(l_target, self.m_skillStartPosList[idx].x, self.m_skillStartPosList[idx].y, char, idx, self.m_targetLimit, self.m_size, self.m_lDir[idx])
 	-- fire!!
     self:makeMissile(t_option)
 end
@@ -85,11 +99,15 @@ function SkillEnumrate_Penetration:makeSkillInstance(owner, t_skill, t_data)
 	local pos_type = t_skill['val_1']
 	local target_type = t_skill['val_2']
 
+    
+
 	-- 인스턴스 생성부
 	------------------------------------------------------ 
 	-- 1. 스킬 생성
     local skill = SkillEnumrate_Penetration(nil)
 
+    skill.m_size = t_skill['skill_size']
+    skill.m_lDir = t_data['additional_info']
 	-- 2. 초기화 관련 함수
 	skill:setSkillParams(owner, t_skill, t_data)
     skill:init_skill(missile_res, motionstreak_res, line_num, pos_type, target_type)

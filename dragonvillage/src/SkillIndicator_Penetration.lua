@@ -96,6 +96,8 @@ function SkillIndicator_Penetration:onTouchMoved(x, y)
 
 		-- 하이라이트 갱신
 		local l_collision = self:findCollision(l_attack_pos, l_dir)
+        self.m_additionalInfo = l_dir
+
 		self:setHighlightEffect(l_collision)
 	end
 end
@@ -250,14 +252,12 @@ function SkillIndicator_Penetration:findCollision(l_attack_pos, l_dir)
 	local l_target = self:getProperTargetList()
 	
 	local m_temp = {}    	
-	
 	for i = 1, self.m_skillLineNum do
 		-- 각 줄의 충돌 체크
 		local collisions = self:findCollisionEachLine(l_target, l_attack_pos[i], l_dir[i])
 
         -- 타겟 수 만큼만 얻어옴(라인별)
         collisions = table.getPartList(collisions, self.m_targetLimit)
-
         -- 맵형태로 임시 저장(중복 제거를 위함)
         for _, collision in ipairs(collisions) do
             local target = collision:getTarget()

@@ -55,6 +55,8 @@ SkillIndicator = class({
 		-- 인디케이터의 보너스 효과 레벨 관련
 		m_preBonusLevel = 'number',
         m_bonus = 'number',
+
+        m_additionalInfo = 'map',
     })
 
 -------------------------------------
@@ -80,6 +82,8 @@ function SkillIndicator:init(hero, t_skill, ...)
 
 	-- indicator node 생성
     self:initIndicatorNode()
+
+    self.m_additionalInfo = {}
 end
 
 -------------------------------------
@@ -443,7 +447,8 @@ function SkillIndicator:getIndicatorData()
     t_data['collision_list'] = self.m_collisionList
     t_data['critical'] = self.m_critical
     t_data['bonus'] = self.m_bonus
-
+    t_data['additional_info'] = self.m_additionalInfo
+     
     -- 대상수가 1인 경우면 수식에서 skill_target을 사용할 수 있도록 설정
     if (self.m_targetLimit == 1 and self.m_highlightList) then
         t_data['target'] = self.m_highlightList[1]

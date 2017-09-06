@@ -844,7 +844,9 @@ function Skill:makeMissile(t_option)
     -- 인디케이터로부터 충돌 정보를 받은 경우
     if (self.m_lTargetCollision and not t_option['bFixedAttack']) then
         t_option['bFixedAttack'] = true
-        t_option['collision_list'] = self.m_lTargetCollision
+        if (not t_option['collision_list']) then
+            t_option['collision_list'] = self.m_lTargetCollision
+        end
 
         -- body 크기를 일괄적으로 키운다
         if (t_option['physics_body']) then
