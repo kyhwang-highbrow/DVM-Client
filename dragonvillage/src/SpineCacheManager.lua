@@ -119,10 +119,10 @@ function SpineCacheManager:purgeSpineCacheData()
 
     for _,name in ipairs(t_remove_key) do
         self.m_refCntMap[name] = nil
+        local _name = string.gsub(name, '.json', '.png')
+        cc.Director:getInstance():getTextureCache():removeTextureForKey(_name)
     end
 
-    cc.SpriteFrameCache:getInstance():removeUnusedSpriteFrames()
-    cc.Director:getInstance():getTextureCache():removeUnusedTextures()
     self:onChange()
 end
 
@@ -130,11 +130,10 @@ end
 -- function clean
 -------------------------------------
 function SpineCacheManager:clean()
+    self:purgeSpineCacheData()
+
     self.m_refCntMap = {}
     self.m_totalNumber = 0
     self.m_validNumber = 0
     sp.SkeletonAnimation:removeCacheAll()
-
-    cc.SpriteFrameCache:getInstance():removeUnusedSpriteFrames()
-    cc.Director:getInstance():getTextureCache():removeUnusedTextures()
 end
