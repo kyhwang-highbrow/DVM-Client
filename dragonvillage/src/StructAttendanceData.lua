@@ -53,35 +53,3 @@ end
 function StructAttendanceData:setReceived()
     self.received = true
 end
-
--------------------------------------
--- function getBannerImg
--- @brief
--------------------------------------
-function StructAttendanceData:getBannerImg()
-    local res
-
-    if (self.category == 'open_event') then
-        res = 'res/ui/event/attendance_banner_001.png'
-            
-    elseif (self.category == 'newbie') then
-        res = 'res/ui/event/attendance_banner_002.png'
-
-    elseif (self.category == 'comeback') then
-        res = 'res/ui/event/attendance_banner_003.png'
-
-    elseif (self.category == 'normal') then
-        res = 'res/ui/event/attendance_banner_004.png'
-
-    end
-
-    if (not res) then
-        return nil
-    end
-
-    local img = cc.Sprite:create(res)
-    img:setDockPoint(cc.p(0.5, 0.5))
-    img:setAnchorPoint(cc.p(0.5, 0.5))
-
-    return img
-end

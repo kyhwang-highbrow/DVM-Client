@@ -43,7 +43,7 @@ function UI_Lobby:init()
 
     -- 로비 진입 시
     self:entryCoroutine()
-
+    
     -- @ E.T.
     g_errorTracker:cleanupIngameLog()
 end
@@ -183,21 +183,22 @@ function UI_Lobby:entryCoroutine()
         while (working) do dt = coroutine.yield() end
 
         if (g_tutorialData:isTutorialDone(TUTORIAL.FIRST_START)) then
+
             -- 패키지 풀팝업 (하드코딩)
-            local title_to_lobby = g_localData:get('title_to_lobby') or false
+            local title_to_lobby = g_localData:get('event_full_popup', 'title_to_lobby') or false
             if (title_to_lobby) then
-                local first_login = g_localData:get('first_login') or false
+                local first_login = g_localData:get('event_full_popup', 'first_login') or false
 
-                local t_pid= {90007, 90013, 90012, 90006}
+                local t_pid = {'slime_package', '90020'}
                 for _, pid in ipairs(t_pid) do
-                    local save_key = string.format('event_full_popup_%d', pid)
+                    local save_key = tostring(pid)
 
-                    -- 첫로그인시 봤던 기록 초기화
+                    -- 첫 로그인시 봤던 기록 초기화
                     if (first_login) then 
-                        g_localData:applyLocalData(false, save_key)
+                        g_localData:applyLocalData(false, 'event_full_popup', save_key)
                     end
 
-                    local is_view = g_localData:get(save_key) or false
+                    local is_view = g_localData:get('event_full_popup', save_key) or false
 
                     -- 봤던 기록 없는 이벤트 풀팝업 띄워줌
                     if (not is_view) then
@@ -209,7 +210,7 @@ function UI_Lobby:entryCoroutine()
                     end                
                 end
 
-                g_localData:applyLocalData(false, 'title_to_lobby')
+                g_localData:applyLocalData(false, 'event_full_popup', 'title_to_lobby')
             end
 
             -- 이벤트 보상 정보가 있다면 팝업을 띄운다.

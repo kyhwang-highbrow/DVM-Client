@@ -4,7 +4,7 @@ local PARENT = UI
 -- class UI_EventFullPopup
 -------------------------------------
 UI_EventFullPopup = class(PARENT,{
-        m_productID = 'number',
+        m_productID = 'string',
     })
 
 -------------------------------------
@@ -41,7 +41,14 @@ function UI_EventFullPopup:initUI()
     local product_id = self.m_productID
 
     local l_item_list = g_shopDataNew:getProductList('package')
-    local struct_product = l_item_list[product_id]
+    local struct_product
+
+    -- 묶음 UI 별도 처리
+    if (product_id == 'slime_package') then
+        struct_product = {product_id = 'slime_package'}
+    else
+        struct_product = l_item_list[tonumber(product_id)]
+    end
 
     if (struct_product) then
         local is_popup = false
@@ -79,8 +86,8 @@ function UI_EventFullPopup:click_checkBtn()
 
     -- 다시보지않기
     local product_id = self.m_productID
-    local save_key = string.format('event_full_popup_%d', product_id)
-    g_localData:applyLocalData(true, save_key)
+    local save_key = tostring(product_id)
+    g_localData:applyLocalData(true, 'event_full_popup', save_key)
 
     self:close()
 end

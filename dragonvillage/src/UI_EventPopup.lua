@@ -171,7 +171,7 @@ function UI_EventPopup:makeEventPopupTab(tab)
     if (not self.m_mTabUI) then
         self.m_mTabUI = {}
     end
-
+    ccdump(tab)
     local ui = nil
     local item = self.m_tableView:getItem(tab)
     local struct_event_popup_tab = item['data']
@@ -214,7 +214,13 @@ function UI_EventPopup:makeEventPopupTab(tab)
 
     -- 성장 패키지 묶음 UI
     elseif (string.find(tab, 'growth_package')) then
-        ui = UI_EventPopupTab_PackageGrowth()
+        local product = {product_id = 'growth_package'}
+        ui = UI_EventPopupTab_Shop(product)
+
+    -- 슬라임 패키지 묶음 UI
+    elseif (string.find(tab, 'slime_package')) then
+        local product = {product_id = 'slime_package'}
+        ui = UI_EventPopupTab_Shop(product)
 
     end
 

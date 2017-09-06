@@ -1,23 +1,23 @@
 local PARENT = UI
 
 -------------------------------------
--- class UI_Package_Growth
+-- class UI_Package_Slime
 -------------------------------------
-UI_Package_Growth = class(PARENT,{
+UI_Package_Slime = class(PARENT,{
         m_isPopup = 'boolean',
     })
 
 -------------------------------------
 -- function init
 -------------------------------------
-function UI_Package_Growth:init(is_popup)
-    local vars = self:load('package_growth.ui')
+function UI_Package_Slime:init(is_popup)
+    local vars = self:load('package_slime.ui')
     self.m_isPopup = is_popup or false
 
     if (is_popup) then
         UIManager:open(self, UIManager.POPUP)
         -- 백키 지정
-        g_currScene:pushBackKeyListener(self, function() self:click_closeBtn() end, 'UI_Package_Growth')
+        g_currScene:pushBackKeyListener(self, function() self:click_closeBtn() end, 'UI_Package_Slime')
     end
 
     self:initUI()
@@ -27,20 +27,20 @@ end
 -------------------------------------
 -- function initUI
 -------------------------------------
-function UI_Package_Growth:initUI()
+function UI_Package_Slime:initUI()
     local vars = self.vars
 end
 
 -------------------------------------
 -- function initButton
 -------------------------------------
-function UI_Package_Growth:initButton()
+function UI_Package_Slime:initButton()
     local vars = self.vars
-    vars['fireBtn']:registerScriptTapHandler(function() self:click_openShop(90003) end)
-    vars['waterBtn']:registerScriptTapHandler(function() self:click_openShop(90002) end)
-    vars['earthBtn']:registerScriptTapHandler(function() self:click_openShop(90001) end)
-    vars['lightBtn']:registerScriptTapHandler(function() self:click_openShop(90004) end)
-    vars['darkBtn']:registerScriptTapHandler(function() self:click_openShop(90005) end)
+    vars['fireBtn']:registerScriptTapHandler(function() self:click_openShop(90017) end)
+    vars['waterBtn']:registerScriptTapHandler(function() self:click_openShop(90016) end)
+    vars['earthBtn']:registerScriptTapHandler(function() self:click_openShop(90015) end)
+    vars['lightBtn']:registerScriptTapHandler(function() self:click_openShop(90018) end)
+    vars['darkBtn']:registerScriptTapHandler(function() self:click_openShop(90019) end)
 
     if (not self.m_isPopup) then
         vars['closeBtn']:setVisible(false)
@@ -50,7 +50,7 @@ end
 -------------------------------------
 -- function click_openShop
 -------------------------------------
-function UI_Package_Growth:click_openShop(product_id)
+function UI_Package_Slime:click_openShop(product_id)
     local l_item_list = g_shopDataNew:getProductList('package')
     local struct_product = l_item_list[product_id]
 

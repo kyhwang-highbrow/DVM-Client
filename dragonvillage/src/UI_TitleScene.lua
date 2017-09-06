@@ -592,7 +592,7 @@ function UI_TitleScene:workGameLogin()
 
         -- 최초 로그인 상태 저장
         local first_login = ret['first_login'] or false
-        g_localData:applyLocalData(first_login, 'first_login')
+        g_localData:applyLocalData(first_login, 'event_full_popup', 'first_login')
         
         self:doNextWork()
     end
@@ -940,8 +940,8 @@ function UI_TitleScene:workFinish_click()
     Analytics:userInfo()
     Analytics:setAppDataVersion()
 
-    -- 계정 생성시에는 lobby_func 타지 않으므로 여기서 title_to_lobby 저장
-    g_localData:applyLocalData(true, 'title_to_lobby')
+    -- 계정 생성시에는 lobby_func 타지 않으므로 여기서 title_to_lobby 저장 - 후에 이벤트 팝업 구조 잡으면 삭제
+    g_localData:applyLocalData(true, 'event_full_popup', 'title_to_lobby')
 
     -- 로비 진입
     lobby_func = function() 

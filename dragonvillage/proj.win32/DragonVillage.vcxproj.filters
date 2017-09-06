@@ -2685,6 +2685,9 @@
     <None Include="..\src\SpineCacheManager.lua">
       <Filter>lua\src</Filter>
     </None>
+    <None Include="..\src\UI_Package_Slime.lua">
+      <Filter>lua\UI</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Classes">
