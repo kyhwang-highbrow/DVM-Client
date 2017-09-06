@@ -19,13 +19,6 @@ function UI_EventPopupTab_EventAttendance:init(owner, struct_event_popup_tab)
     self:initUI()
 
     self:checkTodayRewardPopup()
-
-    do
-        local banner_img = self.m_structAttendanceData:getBannerImg()
-        if banner_img then
-            vars['bannerNode']:addChild(banner_img)
-        end
-    end
 end
 
 -------------------------------------
