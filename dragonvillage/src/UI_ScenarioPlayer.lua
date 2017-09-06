@@ -31,6 +31,9 @@ UI_ScenarioPlayer = class(PARENT,{
 -- function init
 -------------------------------------
 function UI_ScenarioPlayer:init(scenario_name)
+    -- spine 캐시 정리 확인
+    SpineCacheManager:getInstance():purgeSpineCacheData()
+
     self:init_player()
 
 	-- 멤버 변수
@@ -330,6 +333,9 @@ function UI_ScenarioPlayer:onClose()
     end
 
     PARENT.onClose(self)
+
+    -- spine 캐시 정리 확인
+    SpineCacheManager:getInstance():purgeSpineCacheData()
 end
 
 

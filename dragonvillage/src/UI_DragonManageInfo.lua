@@ -29,6 +29,9 @@ end
 -- function init
 -------------------------------------
 function UI_DragonManageInfo:init(doid, sub_menu)
+    -- spine 캐시 정리 확인
+    SpineCacheManager:getInstance():purgeSpineCacheData()
+
     local vars = self:load('dragon_manage.ui')
     UIManager:open(self, UIManager.SCENE)
 
@@ -195,6 +198,9 @@ function UI_DragonManageInfo:refresh()
 
 	-- 잠금 표시
 	self.vars['lockSprite']:setVisible(t_dragon_data:getLock())
+
+    -- spine 캐시 정리 확인
+    SpineCacheManager:getInstance():purgeSpineCacheData_checkNumber()
 end
 
 -------------------------------------

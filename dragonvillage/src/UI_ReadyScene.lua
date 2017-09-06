@@ -26,6 +26,9 @@ UI_ReadyScene = class(PARENT,{
 -- function init
 -------------------------------------
 function UI_ReadyScene:init(stage_id, with_friend, sub_info)
+    -- spine 캐시 정리
+    SpineCacheManager:getInstance():purgeSpineCacheData()
+
     self.m_subInfo = sub_info
 	if (not stage_id) then
 		stage_id = COLOSSEUM_STAGE_ID

@@ -171,12 +171,8 @@ function ResPreloadMgr:resCaching(res_name)
 
     -- vrp
 	elseif string.match(res_name, '%.vrp') then
-		-- vrp를 생성(VRP 캐싱)
-		local node = cc.AzVRP:create(res_name)
-        if node then
-            node:loadPlistFiles('')
-		    node:buildSprite('')
-
+		local animator = MakeAnimator(res_name)
+        if animator.m_node then
             b = true
         else
             cclog('## ERROR!! resCaching() file not exist', res_name)
@@ -184,10 +180,8 @@ function ResPreloadMgr:resCaching(res_name)
 
     -- spine
     elseif string.match(res_name, '%.spine') then
-		local res_name = string.gsub(res_name, '%.spine', '')
-		
-		local node = sp.SkeletonAnimation:create(res_name .. '.json', res_name ..  '.atlas', 1)
-        if node then
+		local animator = MakeAnimator(res_name)
+        if animator.m_node then
             b = true
         else
             cclog('## ERROR!! resCaching() file not exist', res_name)

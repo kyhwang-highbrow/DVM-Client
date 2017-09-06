@@ -21,6 +21,10 @@ UI_GachaResult_Dragon = class(PARENT, {
 -- function init
 -------------------------------------
 function UI_GachaResult_Dragon:init(l_gacha_dragon_list, l_slime_list, egg_id, egg_res)
+
+    -- spine 캐시 정리 확인
+    SpineCacheManager:getInstance():purgeSpineCacheData_checkNumber()
+
     self.m_eggID = egg_id
     self.m_eggRes = egg_res
     self.m_bSkip = false

@@ -140,3 +140,15 @@ function SpineCacheManager:clean()
     self.m_validNumber = 0
     sp.SkeletonAnimation:removeCacheAll()
 end
+
+-------------------------------------
+-- function purgeSpineCacheData_checkNumber
+-------------------------------------
+function SpineCacheManager:purgeSpineCacheData_checkNumber()
+    local invalid_cnt = (self.m_totalNumber - self.m_validNumber)
+    if (invalid_cnt < 5) then
+        return
+    end
+
+    self:purgeSpineCacheData()
+end

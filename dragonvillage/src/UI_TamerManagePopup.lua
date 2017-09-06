@@ -79,6 +79,9 @@ function UI_TamerManagePopup:refresh()
 	self:setTamerSkill()
 	self:refreshButtonState()
 	self:refreshTamerItem()
+
+    -- spine 캐시 정리
+    SpineCacheManager:getInstance():purgeSpineCacheData()
 end
 
 -------------------------------------

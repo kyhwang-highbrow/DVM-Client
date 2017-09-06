@@ -762,6 +762,9 @@ function UI_Lobby:update(dt)
         vars['giftBoxLabel']:setString(msg2)
         vars['giftBoxBtn']:setEnabled(enable2)
     end
+
+    -- spine 캐시 정리 확인
+    SpineCacheManager:getInstance():purgeSpineCacheData_checkNumber()
 end
 
 -------------------------------------

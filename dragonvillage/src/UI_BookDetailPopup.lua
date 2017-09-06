@@ -522,6 +522,9 @@ function UI_BookDetailPopup:click_nextBtn(is_next)
             self:setTab(new_t_dragon['evolution'])
         end
 	end
+
+    -- spine 캐시 정리 확인
+    SpineCacheManager:getInstance():purgeSpineCacheData_checkNumber()
 end
 
 -------------------------------------

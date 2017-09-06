@@ -45,6 +45,9 @@ end
 -- function init
 -------------------------------------
 function UI_AdventureSceneNew:init(stage_id)
+    -- spine 캐시 정리
+    SpineCacheManager:getInstance():purgeSpineCacheData()
+
     self.m_lAchieveRewardButtons = {}
 
     local vars = self:load('adventure_scene.ui')
