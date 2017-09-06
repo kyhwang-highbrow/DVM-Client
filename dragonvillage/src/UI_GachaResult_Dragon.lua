@@ -107,9 +107,11 @@ function UI_GachaResult_Dragon:refresh()
 	-- 연출을 위한 준비
 	self.m_isDirecting = true
 	vars['starVisual']:setVisible(false)
+    vars['okBtn']:setEnabled(false)
 	vars['bgNode']:removeAllChildren()
 	local function start_directing_cb()
-		do -- 챕터 전환 연출
+        -- 플래시 연출
+		do
 			vars['splashLayer']:setLocalZOrder(1)
 			vars['splashLayer']:setVisible(true)
 			vars['splashLayer']:stopAllActions()
@@ -190,6 +192,7 @@ function UI_GachaResult_Dragon:refresh_dragon(t_dragon_data)
 		local dragon_animator = UIC_DragonAnimatorDirector_Summon()
 		vars['dragonNode']:addChild(dragon_animator.m_node)
         
+        -- 드래곤 등장 후의 연출
 		local function cb()
 			-- 등급
 			vars['starVisual']:setVisible(true)
@@ -207,6 +210,9 @@ function UI_GachaResult_Dragon:refresh_dragon(t_dragon_data)
 			-- ui 연출
 			local function directing_done()
 				self.m_isDirecting = false
+
+                -- 중복 클릭을 방지하기 위해 막았던 버튼을 풀어줌
+                vars['okBtn']:setEnabled(true)
 			end
             self:doAction(directing_done, false)
 
