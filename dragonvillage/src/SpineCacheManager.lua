@@ -121,7 +121,7 @@ function SpineCacheManager:purgeSpineCacheData()
         self.m_refCntMap[name] = nil
     end
 
-    --cc.SpriteFrameCache:getInstance():removeUnusedSpriteFrames()
+    cc.SpriteFrameCache:getInstance():removeUnusedSpriteFrames()
     cc.Director:getInstance():getTextureCache():removeUnusedTextures()
     self:onChange()
 end
@@ -135,6 +135,6 @@ function SpineCacheManager:clean()
     self.m_validNumber = 0
     sp.SkeletonAnimation:removeCacheAll()
 
-    --cc.SpriteFrameCache:getInstance():removeUnusedSpriteFrames()
+    cc.SpriteFrameCache:getInstance():removeUnusedSpriteFrames()
     cc.Director:getInstance():getTextureCache():removeUnusedTextures()
 end
