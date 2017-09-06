@@ -2,6 +2,7 @@
 -- class AnimatorSpine
 -------------------------------------
 AnimatorSpine = class(Animator, {
+        m_cacheName = 'string', -- Spine 리소스 캐시에 사용되는 key값
     })
 
 -------------------------------------
@@ -16,10 +17,14 @@ function AnimatorSpine:init(file_name, is_json)
         file_name_ = string.gsub(file_name, '%.spine', '')
     end
 
+    self.m_cacheName = file_name_ .. '.json'
     self.m_node = sp.SkeletonAnimation:create(file_name_ .. '.json', file_name_ ..  '.atlas', 1)
     self:changeAni('idle', true, true)
 
     self.m_type = ANIMATOR_TYPE_SPINE
+
+    -- Spine 리소스 캐시 매니저에 등록
+    SpineCacheManager:getInstance():registerSpineAnimator(self)
 end
 
 -------------------------------------

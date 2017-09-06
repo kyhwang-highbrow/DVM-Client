@@ -2682,6 +2682,9 @@
     <None Include="..\src\UI_ErrorPopup_Live.lua">
       <Filter>lua\UI</Filter>
     </None>
+    <None Include="..\src\SpineCacheManager.lua">
+      <Filter>lua\src</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Classes">

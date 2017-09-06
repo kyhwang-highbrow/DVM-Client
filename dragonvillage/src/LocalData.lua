@@ -140,7 +140,6 @@ function LocalData:makeDefaultLocalData()
 
     -- 테스트 모드 on/off (빌드 자체에서 테스트 모드가 막혀있으면 무시하는 값)
     root_table['test_mode'] = nil
-    root_table['auto_purge'] = true
 
     -- 기본 설정 데이터
     root_table['lowResMode'] = false

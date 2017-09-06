@@ -291,6 +291,7 @@ local t_module = {
     'AnimatorPng',
     'AnimatorSpine',
     'AnimatorVrp',
+    'SpineCacheManager',
 
 	-- Entity GameWorld
     'Entity',

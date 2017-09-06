@@ -40,12 +40,8 @@ function PerpleScene:init(param)
     self.m_bUseLoadingUI = false
     self.m_loadingUIDuration = 1
     self.m_bShowPushUI = true
-    self.m_bRemoveCache = false
+    self.m_bRemoveCache = true
     self.m_sceneName = 'PerpleScene'
-
-    if (AUTO_PURGE() == true) then
-        self.m_bRemoveCache = true
-    end
 
     self.m_tBackKeyListener = {}
     self.m_tTouchEndedListener = {}
@@ -241,6 +237,11 @@ function PerpleScene:onEnter()
         cc.AzVisual:removeCacheAll()
         cc.AzVRP:removeCacheAll()
         sp.SkeletonAnimation:removeCacheAll()
+
+        if SpineCacheManager then
+            SpineCacheManager:getInstance():clean()
+        end
+
         SoundMgr:stopAllEffects()
 
         cc.Director:getInstance():purgeCachedData()

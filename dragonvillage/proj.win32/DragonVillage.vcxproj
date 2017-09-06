@@ -522,6 +522,7 @@ xcopy /Y /Q "$(ProjectDir)..\..\libraries\pati\prebuilt\windows\*.dll" "$(OutDir
     <None Include="..\src\SortManager_Friend.lua" />
     <None Include="..\src\SortManager_Fruit.lua" />
     <None Include="..\src\SortManager_Rune.lua" />
+    <None Include="..\src\SpineCacheManager.lua" />
     <None Include="..\src\StageMissionMgr.lua" />
     <None Include="..\src\ICharacterStatusEffect.lua" />
     <None Include="..\src\StatusEffectEdgeDirector.lua" />
