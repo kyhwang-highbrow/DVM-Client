@@ -684,22 +684,27 @@ function Character:undergoAttack(attacker, defender, i_x, i_y, body_key, no_even
     if (not no_event and attacker_char) then
         -- 공격자 반사 데미지 처리
         if (damage > 0) then
+            local reflex_damage
+
             if (attack_type == 'active') then 
                 local reflex_skill = self:getStat('reflex_skill')
                 if (reflex_skill > 0) then
-                    local reflex_damage = damage * (reflex_skill / 100)
-
-                    -- 진형에 따른 데미지 배율 적용
-                    reflex_damage = reflex_damage * CalcDamageRateDueToFormation(unit)
-
-			        attacker_char:setDamage(nil, attacker_char, attacker_char.pos.x, attacker_char.pos.y, reflex_damage)
+                    reflex_damage = damage * (reflex_skill / 100)
                 end
             else
                 local reflex_normal = self:getStat('reflex_normal')
                 if (reflex_normal > 0) then
-                    local reflex_damage = damage * (reflex_normal / 100)
-			        attacker_char:setDamage(nil, attacker_char, attacker_char.pos.x, attacker_char.pos.y, reflex_damage)
+                    reflex_damage = damage * (reflex_normal / 100)
                 end
+            end
+
+            if (reflex_damage) then
+                -- 진형에 따른 데미지 배율 적용
+                reflex_damage = reflex_damage * CalcDamageRateDueToFormation(attacker_char)
+                -- 최소 데미지 1로 처리
+                reflex_damage = math_max(reflex_damage, 1)
+
+			    attacker_char:setDamage(nil, attacker_char, attacker_char.pos.x, attacker_char.pos.y, reflex_damage)
             end
         end
 
