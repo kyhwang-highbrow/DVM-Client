@@ -120,8 +120,11 @@ function SpineCacheManager:purgeSpineCacheData()
     for _,name in ipairs(t_remove_key) do
         self.m_refCntMap[name] = nil
         local _name = string.gsub(name, '.json', '.png')
-        cc.Director:getInstance():getTextureCache():removeTextureForKey(_name)
+        local texture = cc.Director:getInstance():getTextureCache():getTextureForKey(_name)
+        texture:release()
+        --cc.Director:getInstance():getTextureCache():removeTextureForKey(_name)
     end
+    cc.Director:getInstance():getTextureCache():removeUnusedTextures()
 
     self:onChange()
 end
