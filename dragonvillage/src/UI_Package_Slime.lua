@@ -57,5 +57,7 @@ function UI_Package_Slime:click_openShop(product_id)
     if (struct_product) then
         local is_popup = true
         PackageManager:getTargetUI(struct_product, is_popup)
+    else
+        UIManager:toastNotificationGreen(Str('이미 구매하신 상품입니다.'))
     end
 end

@@ -282,6 +282,16 @@ function UI_TopUserInfo:makeGoodsUI(goods_type, x_pos_idx)
 end
 
 -------------------------------------
+-- function deleteGoodsUI
+-- @brief 재화별 UI 삭제
+-------------------------------------
+function UI_TopUserInfo:deleteGoodsUI(goods_type)
+    if (self.m_mGoodsInfo[goods_type]) then
+        self.m_mGoodsInfo[goods_type].root:removeFromParent()
+    end
+end
+
+-------------------------------------
 -- function update
 -------------------------------------
 function UI_TopUserInfo:update(dt)

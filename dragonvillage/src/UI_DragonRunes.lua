@@ -363,13 +363,23 @@ function UI_DragonRunes:refreshEquippedRunes()
     local active_set_list = rune_set_obj:getActiveRuneSetList()
 
     -- 해당룬 세트 효과 활성화 되있다면 애니 재생
+    local t_equip = {}
     local function show_set_effect(slot_id, set_id)
         for _, v in ipairs(active_set_list) do
             local visual = vars['runeVisual'..slot_id]
             if (v == set_id) then
-                local ani_name = TableRuneSet:getRuneSetVisualName(slot_id, set_id)
-                visual:setVisible(true)
-                visual:changeAni(ani_name, true)
+                if (t_equip[set_id]) then
+                    t_equip[set_id] = t_equip[set_id] + 1
+                else
+                    t_equip[set_id] = 1
+                end
+
+                local need_equip = TableRuneSet:getRuneSetNeedEquip(set_id)
+                if (t_equip[set_id] <= need_equip) then
+                    local ani_name = TableRuneSet:getRuneSetVisualName(slot_id, set_id)
+                    visual:setVisible(true)
+                    visual:changeAni(ani_name, true)
+                end
             end
         end
     end

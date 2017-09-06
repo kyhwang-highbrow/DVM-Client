@@ -190,6 +190,14 @@ function UIHelper:checkPrice(price_type, price)
             return false
         end
 
+    -- 우정 포인트 확인
+    elseif (price_type == 'fp') then
+        local fp = g_userData:get('fp')
+        if (fp < price) then
+            MakeSimplePopup(POPUP_TYPE.OK, Str('우정포인트가 부족합니다.'))
+            return false
+        end
+
     else
         error('price_type : ' .. price_type)
     end
