@@ -362,6 +362,18 @@ function UI_DragonRunes:refreshEquippedRunes()
     local rune_set_obj = dragon_obj:getStructRuneSetObject()
     local active_set_list = rune_set_obj:getActiveRuneSetList()
 
+    -- 애니 재생 가능한 룬 갯수 설정 (2세트 5개 착용시 처음 슬롯부터 4개까지만)
+    local function get_need_equip(set_id)
+        local need_equip = 0
+        for _, v in ipairs(active_set_list) do
+            if (v == set_id) then
+                need_equip = need_equip + TableRuneSet:getRuneSetNeedEquip(set_id)
+            end
+        end
+
+        return need_equip
+    end
+
     -- 해당룬 세트 효과 활성화 되있다면 애니 재생
     local t_equip = {}
     local function show_set_effect(slot_id, set_id)
@@ -374,12 +386,13 @@ function UI_DragonRunes:refreshEquippedRunes()
                     t_equip[set_id] = 1
                 end
 
-                local need_equip = TableRuneSet:getRuneSetNeedEquip(set_id)
+                local need_equip = get_need_equip(set_id)
                 if (t_equip[set_id] <= need_equip) then
                     local ani_name = TableRuneSet:getRuneSetVisualName(slot_id, set_id)
                     visual:setVisible(true)
                     visual:changeAni(ani_name, true)
                 end
+                break
             end
         end
     end
