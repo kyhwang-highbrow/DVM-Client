@@ -82,6 +82,27 @@ function TableRuneSet:makeRuneSetDescRichText(set_id)
 end
 
 -------------------------------------
+-- function makeRuneSetFullNameRichText
+-------------------------------------
+function TableRuneSet:makeRuneSetFullNameRichText(set_id)
+    if (self == THIS) then
+        self = THIS()
+    end
+
+    local t_table = self:get(set_id)
+
+    local name = Str(t_table['t_name'])
+    local need_equip = t_table['need_equip']
+
+    local option = t_table['key']
+    local value = t_table['value']
+    local tag = self:getRuneSetColorRichTag(set_id)
+
+    local text = Str('{1}{2}{@DESC} ({3}세트 ', tag, name, need_equip)..TableOption:getOptionDesc(option, value)..')'  
+    return text
+end
+
+-------------------------------------
 -- function makeRuneSetEffectText
 -------------------------------------
 function TableRuneSet:makeRuneSetEffectText(set_id)
@@ -160,6 +181,19 @@ function TableRuneSet:getRuneSetColor(set_id)
 end
 
 -------------------------------------
+-- function getRuneSetNeedEquip
+-------------------------------------
+function TableRuneSet:getRuneSetNeedEquip(set_id)
+    if (self == THIS) then
+        self = THIS()
+    end
+
+    local need_equip = self:getValue(set_id, 'need_equip')
+
+    return need_equip
+end
+
+-------------------------------------
 -- function getRuneSetColorC3b
 -------------------------------------
 function TableRuneSet:getRuneSetColorC3b(set_id)
@@ -168,20 +202,20 @@ function TableRuneSet:getRuneSetColorC3b(set_id)
     end
 
     local set_color = self:getRuneSetColor(set_id)
+    local key = string.format('r_set_%s', set_color)
+    return COLOR[key]
+end
 
-    local c3b = cc.c3b(255, 255, 255)
-
-    if (set_color == 'blue') then c3b = cc.c3b(0, 255, 255)
-    elseif (set_color == 'purple') then c3b = cc.c3b(221, 177, 255)
-    elseif (set_color == 'pink') then c3b = cc.c3b(253, 128, 255)
-    elseif (set_color == 'red') then c3b = cc.c3b(255, 157, 157)
-    elseif (set_color == 'bluegreen') then c3b = cc.c3b(106, 246, 205)
-    elseif (set_color == 'green') then c3b = cc.c3b(201, 255, 157)
-    elseif (set_color == 'orange') then c3b = cc.c3b(255, 190, 87)
-    elseif (set_color == 'yellow') then c3b = cc.c3b(255, 253, 87)
+-------------------------------------
+-- function getRuneSetColorRichTag
+-------------------------------------
+function TableRuneSet:getRuneSetColorRichTag(set_id)
+    if (self == THIS) then
+        self = THIS()
     end
 
-    return c3b
+    local set_color = self:getRuneSetColor(set_id)
+    return string.format('{@r_set_%s}',set_color)
 end
 
 -------------------------------------
@@ -203,4 +237,17 @@ function TableRuneSet:getRuneSetStatus(set_id)
     local value = t_table['value']
 
     return stat_type, action, value
+end
+
+-------------------------------------
+-- function getRuneSetVisualName
+-------------------------------------
+function TableRuneSet:getRuneSetVisualName(slot_id, set_id)
+    if (self == THIS) then
+        self = THIS()
+    end
+
+    local color = self:getValue(set_id, 'color')
+
+    return string.format('%s_%02d', color, tonumber(slot_id))
 end

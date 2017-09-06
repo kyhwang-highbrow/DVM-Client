@@ -106,3 +106,16 @@ COLOR['subject'] = COLOR['ROSE']
 COLOR['condition'] = COLOR['ROSE']
 COLOR['item_name'] = COLOR['DEEPSKYBLUE']
 COLOR['count'] = COLOR['MUSTARD']
+
+-- 룬 세트 색상
+COLOR['r_set_blue'] = cc.c3b(0, 162, 255)
+COLOR['r_set_purple'] = cc.c3b(208, 80, 255)
+COLOR['r_set_pink'] = cc.c3b(255, 0, 228)
+COLOR['r_set_red'] = cc.c3b(255, 52, 52)
+COLOR['r_set_bluegreen'] = cc.c3b(23, 253, 133)
+COLOR['r_set_green'] = cc.c3b(147, 253, 53)
+COLOR['r_set_orange'] = cc.c3b(253, 166, 53)
+COLOR['r_set_yellow'] = cc.c3b(253, 241, 53)
+
+
+

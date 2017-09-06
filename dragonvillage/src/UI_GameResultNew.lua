@@ -1194,7 +1194,8 @@ function UI_GameResultNew:countAutoPlay()
     node:setVisible(true)
 
     local count_label = vars['countLabel']
-    
+    count_label:setString('')
+
     local count_num = 3
     local count_time = 1
 

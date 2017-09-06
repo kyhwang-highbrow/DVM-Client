@@ -146,6 +146,10 @@ function UI_DragonInfoBoard:refresh(t_dragon_data)
         vars['friendshipGauge']:runAction(cc.ProgressTo:create(0.3, t_friendship_info['exp_percent']))
     end
 
+    -- 룬슬롯 애니 
+    for i = 1, 6 do
+        vars['runeVisual'..i]:setVisible(false)
+    end
 
     self:refresh_dragonSkillsInfo(t_dragon_data, t_dragon)
     self:refresh_icons(t_dragon_data, t_dragon)
@@ -350,20 +354,37 @@ function UI_DragonInfoBoard:refresh_dragonRunes(t_dragon_data)
         return
     end
 
+    local rune_set_obj = t_dragon_data:getStructRuneSetObject()
+    local active_set_list = rune_set_obj:getActiveRuneSetList()
+
+    -- 해당룬 세트 효과 활성화 되있다면 애니 재생
+    local function show_set_effect(slot_id, set_id)
+        for _, v in ipairs(active_set_list) do
+            local visual = vars['runeVisual'..slot_id]
+            if (v == set_id) then
+                local ani_name = TableRuneSet:getRuneSetVisualName(slot_id, set_id)
+                visual:setVisible(true)
+                visual:changeAni(ani_name, true)
+            end
+        end
+    end
+
     do -- 장착된 룬 표시
         for slot=1, RUNE_SLOT_MAX do
+            vars['runeVisual' .. slot]:setVisible(false)
             vars['runeSlotNode' .. slot]:removeAllChildren()
             local rune_obj = t_dragon_data:getRuneObjectBySlot(slot)
             if rune_obj then
                 local icon = IconHelper:getItemIcon(rune_obj['item_id'], rune_obj)
                 vars['runeSlotNode' .. slot]:addChild(icon)
+
+                local set_id =  rune_obj['set_id'] 
+                show_set_effect(slot, set_id)
             end
         end
     end
 
     do -- 룬 세트
-        local rune_set_obj = t_dragon_data:getStructRuneSetObject()
-        local active_set_list = rune_set_obj:getActiveRuneSetList()
         vars['runeSetNode']:removeAllChildren()
 
         local l_pos = getSortPosList(35, #active_set_list)
@@ -372,8 +393,8 @@ function UI_DragonInfoBoard:refresh_dragonRunes(t_dragon_data)
             ui:load('dragon_manage_rune_set.ui')
 
             -- 색상 지정
-            --local c3b = TableRuneSet:getRuneSetColorC3b(set_id)
-            --ui.vars['runeBgSprite']:setColor(c3b)
+            local c3b = TableRuneSet:getRuneSetColorC3b(set_id)
+            ui.vars['runeSetLabel']:setColor(c3b)
 
             -- 세트 이름
             local set_name = TableRuneSet:getRuneSetName(set_id)

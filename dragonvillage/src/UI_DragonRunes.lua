@@ -23,7 +23,7 @@ function UI_DragonRunes:initParentVariable()
     -- ITopUserInfo_EventListener의 맴버 변수들 설정
     self.m_uiName = 'UI_DragonRunes'
     self.m_bVisible = true or false
-    self.m_titleStr = Str('룬')
+    self.m_titleStr = Str('')
     self.m_bUseExitBtn = true or false -- click_exitBtn()함구 구현이 반드시 필요함
 end
 
@@ -50,7 +50,7 @@ function UI_DragonRunes:init(doid, slot_idx)
 
     self:initUI()
     self:initButton()
-    --self:refresh()
+    self:refresh_inventoryLabel()
 
     -- 정렬 도우미
     self:init_dragonSortMgr()
@@ -89,17 +89,6 @@ function UI_DragonRunes:initUI_runeSetFilter()
     local function sort_change_cb(sort_type)
         self.m_listFilterSetID = sort_type
         self:refreshTableViewList()
-
-        -- 세트 효과 표기
-        local set_id = sort_type
-        if (set_id ~= 0) then
-            local text = TableRuneSet:makeRuneSetEffectText(set_id)
-            vars['setSortEffectLabel']:setString(text)
-            vars['setSortLabel']:setPositionX(-68)
-        else
-            vars['setSortEffectLabel']:setString('')
-            vars['setSortLabel']:setPositionX(0)
-        end
   
         -- 룬 개수 갱신
         self:refreshRunesCount()
@@ -115,6 +104,8 @@ end
 -------------------------------------
 function UI_DragonRunes:initButton()
     local vars = self.vars
+    -- 인벤 확장
+    vars['inventoryBtn']:registerScriptTapHandler(function() self:click_inventoryBtn() end)
 
     -- 장착된 룬
     vars['useEnhanceBtn']:registerScriptTapHandler(function() self:click_useEnhanceBtn() end)
@@ -368,10 +359,26 @@ end
 function UI_DragonRunes:refreshEquippedRunes()
     local vars = self.vars
     local dragon_obj = g_dragonsData:getDragonDataFromUid(self.m_selectDragonOID)
+    local rune_set_obj = dragon_obj:getStructRuneSetObject()
+    local active_set_list = rune_set_obj:getActiveRuneSetList()
+
+    -- 해당룬 세트 효과 활성화 되있다면 애니 재생
+    local function show_set_effect(slot_id, set_id)
+        for _, v in ipairs(active_set_list) do
+            local visual = vars['runeVisual'..slot_id]
+            if (v == set_id) then
+                local ani_name = TableRuneSet:getRuneSetVisualName(slot_id, set_id)
+                visual:setVisible(true)
+                visual:changeAni(ani_name, true)
+            end
+        end
+    end
 
     local slot_idx = self.m_currTab
 
     for i=1, 6 do
+        vars['runeVisual'..i]:setVisible(false)
+
         local equipeed_roid = dragon_obj['runes'][tostring(i)]
         if (equipeed_roid == '') then
             equipeed_roid = nil
@@ -401,6 +408,9 @@ function UI_DragonRunes:refreshEquippedRunes()
                 self:setEquipedRuneObject(rune_obj)
             end
 
+            local set_id = rune_obj['set_id']
+            show_set_effect(i, set_id)
+
         -- 둘 다 있을 경우
         else
             local before_rune_obj = self.m_mEquippedRuneObjects[i]
@@ -415,10 +425,25 @@ function UI_DragonRunes:refreshEquippedRunes()
                     self:setEquipedRuneObject(rune_obj)
                 end
             end
+
+            local set_id = rune_obj['set_id']
+            show_set_effect(i, set_id)
         end
         
     end
     
+end
+
+-------------------------------------
+-- function refresh_inventoryLabel
+-- @brief
+-------------------------------------
+function UI_DragonRunes:refresh_inventoryLabel()
+    local vars = self.vars
+    local inven_type = 'dragon'
+    local dragon_count = g_dragonsData:getDragonsCnt()
+    local max_count = g_inventoryData:getMaxCount(inven_type)
+    self.vars['inventoryLabel']:setString(Str('{1}/{2}', dragon_count, max_count))
 end
 
 -------------------------------------
@@ -690,6 +715,17 @@ function UI_DragonRunes:click_adventureBtn()
     UINavigator:goTo('adventure', stage_id)
 end
 
+-------------------------------------
+-- function click_inventoryBtn
+-------------------------------------
+function UI_DragonRunes:click_inventoryBtn()
+    local item_type = 'rune'
+    local function finish_cb()
+        self:refreshInventoryLabel()
+    end
+
+    g_inventoryData:extendInventory(item_type, finish_cb)
+end
 
 -------------------------------------
 -- function click_equipBtn

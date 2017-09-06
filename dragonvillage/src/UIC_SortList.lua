@@ -150,7 +150,7 @@ end
 -------------------------------------
 -- function addSortType
 -------------------------------------
-function UIC_SortList:addSortType(sort_type, sort_name, t_label_data)
+function UIC_SortList:addSortType(sort_type, sort_name, t_label_data, rich_label)
 
     local button = cc.MenuItemImage:create('res/ui/buttons/base_btn_0201.png', 'res/ui/buttons/base_btn_0202.png', 'res/ui/buttons/base_btn_0102.png', 1)
     local width, heigth = self.m_node:getNormalSize()
@@ -174,7 +174,21 @@ function UIC_SortList:addSortType(sort_type, sort_name, t_label_data)
 
     self.m_containerMenu:addChild(button)
 
-    do -- 라벨 생성
+    -- 라벨 생성
+    local font_size = (self.m_buttonHeight / 2 - 5) -- 버튼 사이즈의 반보다 조금 작게
+    if (rich_label) then
+        local rich_label = UIC_RichLabel()
+        rich_label:setString(sort_name)
+        rich_label:setFontSize(font_size)
+        rich_label:setDimension(284, 154)
+        rich_label:setPosition(0, 0)
+        rich_label:setDefualtColor(COLOR['white'])
+        rich_label:setDockPoint(CENTER_POINT)
+        rich_label:setAnchorPoint(CENTER_POINT)
+        rich_label:setAlignment(cc.TEXT_ALIGNMENT_CENTER, cc.VERTICAL_TEXT_ALIGNMENT_CENTER)
+        button:addChild(rich_label.m_node)
+ 
+    else
         local font_name = 'res/font/common_font_01.ttf'
         
         -- label 꾸미기
@@ -183,7 +197,6 @@ function UIC_SortList:addSortType(sort_type, sort_name, t_label_data)
         local outline_color = t_label_data['outline_color'] or cc.c4b(85, 44, 25,255)
         local stroke_tickness = t_label_data['stroke'] or 2
 
-        local font_size = (self.m_buttonHeight / 2 - 5) -- 버튼 사이즈의 반보다 조금 작게
         local size = cc.size(256, 256)
         local node = cc.Label:createWithTTF(sort_name, font_name, font_size, stroke_tickness, size, cc.TEXT_ALIGNMENT_CENTER, cc.VERTICAL_TEXT_ALIGNMENT_CENTER)
         node:setDockPoint(cc.p(0.5, 0.5))
@@ -538,10 +551,20 @@ function MakeUICSortList_runeManageFilter(button, label)
 
     -- set_id는 자연수
     local table_rune_set = TableRuneSet()
-    for i,v in ipairs(table_rune_set.m_orgTable) do
+
+    -- table 순서와 다름 (일딴 하드코딩)
+    local t_rune = table_rune_set.m_orgTable
+    local priority = {1, 2, 6, 5, 7, 4, 3, 8}
+    table.sort(t_rune, function(a, b)
+        local a_id = tonumber(a['set_id'])
+        local b_id = tonumber(b['set_id'])
+        return priority[a_id] < priority[b_id]
+    end)
+
+    for i,v in ipairs(t_rune) do
         local set_id = i
-        local name = Str(v['t_name'])
-        uic:addSortType(set_id, name)
+        local text = TableRuneSet:makeRuneSetFullNameRichText(set_id)
+        uic:addSortType(set_id, text, nil, true)
     end
 
     return uic
