@@ -119,7 +119,7 @@ function IDragonSkillManager:getLeaderSkillLevel()
 	if (leader_buff_type == 'hatch') then
 		skill_lv = 1
 	elseif (leader_buff_type == 'adult') then
-		if (evolution_lv == 3) then
+		if (evolution_lv == MAX_DRAGON_EVOLUTION) then
 			skill_lv = 1
 		else
 			skill_lv = 0
@@ -346,9 +346,16 @@ function IDragonSkillManager:getSkillIndivisualInfo_usingIdx(idx)
 	-- skill type
 	local skill_type = GetSkillTable(self.m_charType):getSkillType(skill_id)
 
-    -- 성룡될 경우 leader skill 생기는 타입은 UI에서 표시하지 않음
-    if (idx == 3) and (skill_type == 'leader') then
-        return nil
+    -- 성룡 진화 시 획득하는 스킬이 리더스킬인 경우 성룡 진화 전에는 뒤에 두고 진화 후에는 앞에 둔다.
+    local evolution_lv = self.m_evolutionLv
+    if (idx == 'Leader') and (skill_type == 'leader') then
+        if (self:getSkillLevel('Leader') == 0) then
+            return nil
+        end
+    elseif (idx == 3) and (skill_type == 'leader') then
+        if (evolution_lv >= MAX_DRAGON_EVOLUTION) then 
+            return nil
+        end
     end
 
     -- 이미 skill_individual_info가 있는 경우
