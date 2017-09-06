@@ -47,9 +47,6 @@ function UI_ColosseumHistoryListItem:initUI()
     local combat_power = user_info:getAtkDeckCombatPower()
     vars['powerLabel']:setString(Str('전투력 : {1}', comma_value(combat_power)))
 
-    -- sgkim 2017-08-31 서버에서 formation_lv값이 넘어오지 않아서 핫픽스로 전투력은 포함하지 않는 것으로 결정
-    vars['powerLabel']:setVisible(false)
-
     -- 드래곤 리스트
     local t_deck_dragon_list = user_info:getAtkDeck_dragonList()
     for i,v in pairs(t_deck_dragon_list) do
