@@ -107,7 +107,7 @@ function StructUserInfoColosseum:create_forHistory(t_data)
     user_info.m_matchTime = t_data['match_at']
 
     -- 승패 결과
-    user_info.m_matchResult = t_data['is_win']
+    user_info.m_matchResult = t_data['match']
 
     return user_info
 end
