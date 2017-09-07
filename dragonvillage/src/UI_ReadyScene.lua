@@ -629,7 +629,7 @@ function UI_ReadyScene:click_manageBtn()
         end
         ui:setCloseCB(close_cb)
     end
-
+    
     -- 덱 저장 후 이동
     self:checkChangeDeck(next_func)
 end
@@ -658,6 +658,9 @@ function UI_ReadyScene:click_autoBtn()
         self:click_dragonCard(t_dragon_data, skip_sort, i)
     end
 
+    -- 친구 드래곤 해제
+    g_friendData:delSettedFriendDragon()
+
     -- 정렬
     self:apply_dragonSort()
 end
@@ -667,6 +670,9 @@ end
 -- @breif
 -------------------------------------
 function UI_ReadyScene:click_removeBtn()
+    -- 친구 드래곤 해제
+    g_friendData:delSettedFriendDragon()
+
     self.m_readySceneDeck:clear_deck()
 end
 
