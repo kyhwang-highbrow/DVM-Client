@@ -907,6 +907,8 @@ function UI_GameResultNew:click_quickBtn()
     local stage_id = self.m_stageID
 
     local function finish_cb(game_key)
+        -- 시작이 두번 되지 않도록 하기 위함
+        UI_BlockPopup()
 
         -- 연속 전투일 경우 횟수 증가
         if (g_autoPlaySetting:isAutoPlay()) then
