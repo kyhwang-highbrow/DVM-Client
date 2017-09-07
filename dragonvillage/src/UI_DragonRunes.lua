@@ -463,10 +463,10 @@ end
 -------------------------------------
 function UI_DragonRunes:refresh_inventoryLabel()
     local vars = self.vars
-    local inven_type = 'dragon'
-    local dragon_count = g_dragonsData:getDragonsCnt()
+    local inven_type = 'rune'
+    local item_count = g_inventoryData:getItemCount()
     local max_count = g_inventoryData:getMaxCount(inven_type)
-    self.vars['inventoryLabel']:setString(Str('{1}/{2}', dragon_count, max_count))
+    self.vars['inventoryLabel']:setString(Str('{1}/{2}', item_count, max_count))
 end
 
 -------------------------------------
@@ -744,7 +744,7 @@ end
 function UI_DragonRunes:click_inventoryBtn()
     local item_type = 'rune'
     local function finish_cb()
-        self:refreshInventoryLabel()
+        self:refresh_inventoryLabel()
     end
 
     g_inventoryData:extendInventory(item_type, finish_cb)
