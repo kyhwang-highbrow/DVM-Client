@@ -150,6 +150,15 @@ function UI_DragonSell:getDragonMaterialList(doid)
 end
 
 -------------------------------------
+-- function createMtrlDragonCardCB
+-- @brief 재료 카드 만든 후..
+-- @override
+-------------------------------------
+function UI_DragonSell:createMtrlDragonCardCB(ui, data)
+    -- nothing to do
+end
+
+-------------------------------------
 -- function click_dragonMaterial
 -- @override
 -------------------------------------
@@ -232,22 +241,6 @@ function UI_DragonSell:refresh_inventoryLabel()
     local dragon_count = g_dragonsData:getDragonsCnt()
     local max_count = g_inventoryData:getMaxCount(inven_type)
     self.vars['inventoryLabel']:setString(Str('{1}/{2}', dragon_count, max_count))
-end
-
--------------------------------------
--- function createDragonCardCB
--- @brief 드래곤 생성 콜백
--- @override
--------------------------------------
-function UI_DragonSell:createDragonCardCB(ui, data)
-    local doid = data['id']
-
-    local possible, msg = g_dragonsData:possibleMaterialDragon(doid)
-    if (not possible) then
-        if ui then
-            ui:setShadowSpriteVisible(true)
-        end
-    end
 end
 
 -------------------------------------
