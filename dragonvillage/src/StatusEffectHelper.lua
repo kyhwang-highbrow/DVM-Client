@@ -327,9 +327,12 @@ function StatusEffectHelper:makeStatusEffectInstance(caster, target_char, status
     elseif (status_effect_group == 'modify_dmg') then
         status_effect = StatusEffect_ConditionalModify(res)
 
-    ----------- HP 보호막 ------------------
+    ----------- 보호막 ------------------
 	elseif (status_effect_group == 'barrier') then
 		status_effect = StatusEffect_Protection(res)
+
+    elseif (status_effect_group == 'barrier_time') then
+        status_effect = StatusEffect_ProtectionByTime(res)
 
     ------------ 도트 --------------------------
     elseif (status_effect_group == 'dot_dmg') then

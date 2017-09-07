@@ -13,6 +13,7 @@ ICharacterStatusEffect = {
     m_isSilence     = 'boolean',    -- 침묵 (스킬 사용 불가 상태)
 	m_isImmortal    = 'boolean',    -- 불사 (체력이 1이하로 내려가지 않는 상태)
     m_isZombie      = 'boolean',    -- 좀비 (죽지 않는 상태)
+    m_isProtection  = 'boolean',    -- 피해면역 (피격시 데미지 0)
 }
 
 -------------------------------------
@@ -335,6 +336,13 @@ end
 -------------------------------------
 function ICharacterStatusEffect:setZombie(b)
 	self.m_isZombie = b
+end
+
+-------------------------------------
+-- function setProtection
+-------------------------------------
+function ICharacterStatusEffect:setProtection(b)
+    set.m_isProtection = b
 end
 
 -------------------------------------
