@@ -200,6 +200,12 @@ function ServerData_Advertising:request_adv_reward(ad_type, finish_cb, fail_cb)
     -- 유저 ID
     local uid = g_userData:get('uid')
 
+    local ad_type = ad_type
+    -- shop과 lobby가 분리됬지만 서버에는 같은 값으로 보내줘야함.
+    if (ad_type == AD_TYPE.RANDOM_BOX_SHOP) then
+        ad_type = AD_TYPE.RANDOM_BOX_LOBBY
+    end
+
     -- 성공 콜백
     local function success_cb(ret)
         g_serverData:networkCommonRespone(ret)
