@@ -222,7 +222,7 @@ function UI_DragonSkillEnhance:getDragonMaterialList(doid)
     for oid, v in pairs(dragon_dic) do
 
 		-- 드래곤의 경우 동일종 추가
-		if (g_dragonsData:possibleMaterialDragon(oid)) then
+		if (v:getObjectType() == 'dragon') then
 			tar_digit = math_floor(v['did']/10)
 			if (tar_digit == did_digit) then
 				ret_dic[oid] = v
@@ -284,6 +284,15 @@ function UI_DragonSkillEnhance:click_dragonMaterial(data)
     if (not possible) then
         UIManager:toastNotificationRed(msg)
         return
+    end
+
+    -- 재료 드래곤이 재료 가능한지 판별
+    if (data:getObjectType() == 'dragon') then
+        local possible, msg = g_dragonsData:possibleMaterialDragon(doid)
+        if (not possible) then
+            UIManager:toastNotificationRed(msg)
+            return
+        end
     end
 
     local list_item = self.m_mtrlTableViewTD:getItem(doid)
