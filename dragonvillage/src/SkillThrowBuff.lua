@@ -57,8 +57,12 @@ function SkillThrowBuff.st_idle(owner, dt)
         owner:throwEffect()
     
     elseif (owner.m_stateTimer > owner.m_duration) then
-        owner:changeState('dying')
+        for _, v in pairs(owner.m_lTargetChar) do
+            -- 상태효과
+            owner:dispatch(CON_SKILL_HIT, { l_target = {v} })
+        end
 
+        owner:changeState('dying')
     end
 end
 
@@ -76,17 +80,7 @@ function SkillThrowBuff:throwEffect()
 
         -- 투척 액션
         local action = cc.JumpTo:create(self.m_duration, cc.p(x, y), 250, 1)
-        local cbFunc = cc.CallFunc:create(function()
-            animator:setVisible(false)
-
-            -- 상태효과
-            self:dispatch(CON_SKILL_HIT, { l_target = {v} })
-
-            -- 이펙트
-            self.m_world:addInstantEffect(self.m_missileRes, 'obtain', v.pos.x, v.pos.y + 100)
-        end)
-
-		animator:runAction(cc.Sequence:create(cc.EaseIn:create(action, self.m_duration), cbFunc))
+        animator:runAction(cc.EaseIn:create(action, self.m_duration))
     end
 end
 
