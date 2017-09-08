@@ -299,7 +299,7 @@ function ErrorTracker:openErrorPopup(error_msg)
     end
 
     -- 테스트 모드일 경우 상세 정보 출력
-    if false then --(IS_TEST_MODE()) then
+    if (IS_TEST_MODE()) then
         local msg = self:getTrackerText(error_msg)
 		UI_ErrorPopup(msg):setCloseCB(close_cb)
         
