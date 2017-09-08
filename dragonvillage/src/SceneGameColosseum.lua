@@ -96,17 +96,11 @@ end
 -- function prepareDone
 -------------------------------------
 function SceneGameColosseum:prepareDone()
-    local function cb_func()
-        self.m_containerLayer:setVisible(true)
-        self.m_scheduleNode = cc.Node:create()
-        self.m_scene:addChild(self.m_scheduleNode)
-        self.m_scheduleNode:scheduleUpdateWithPriorityLua(function(dt) return self:update(dt) end, 0)
+    self.m_scheduleNode = cc.Node:create()
+    self.m_scene:addChild(self.m_scheduleNode)
+    self.m_scheduleNode:scheduleUpdateWithPriorityLua(function(dt) return self:update(dt) end, 0)
     
-        self.m_gameWorld.m_gameState:changeState(GAME_STATE_START)
-    end
-    
-    -- 시나리오 체크 및 시작
-    g_gameScene:startIngameScenario('snro_start', cb_func)     
+    self.m_gameWorld.m_gameState:changeState(GAME_STATE_START)
 end
 
 -------------------------------------
