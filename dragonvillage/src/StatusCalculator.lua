@@ -232,21 +232,19 @@ function StatusCalculator:applyStageBonus(stage_id, is_enemy)
         local t_char = self.m_charTable[self.m_chapterID]
 
         for i, v in ipairs(t_info) do
-            if (v['condition_type'] ~= 'all'
-                and t_char[v['condition_type']] ~= v['condition_value']) then return end
+            if (v['condition_type'] == 'all' or v['condition_value'] == t_char[v['condition_type']]) then
+                local buff_type = v['buff_type']
+                local buff_value = v['buff_value']
 
-            local buff_type = v['buff_type']
-            local buff_value = v['buff_value']
-
-            local t_option = TableOption():get(buff_type)
-            if (not t_option) then return end
-
-            local status_type = t_option['status']
-            if (not status_type) then return end
-
-            self:addOption(t_option['action'], status_type, buff_value)
-    
-            --cclog('applyStageBonus ' .. Str(t_option['t_desc'], math_abs(buff_value)))
+                local t_option = TableOption():get(buff_type)
+                if (t_option) then
+                    local status_type = t_option['status']
+                    if (status_type) then
+                        self:addOption(t_option['action'], status_type, buff_value)
+                        cclog('applyStageBonus ' .. Str(t_option['t_desc'], math_abs(buff_value)))
+                    end
+                end
+            end
         end
     end
 end
