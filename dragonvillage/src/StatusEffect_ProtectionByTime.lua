@@ -21,5 +21,4 @@ end
 -- @brief 해당 상태 효과가 시작시 호출
 -------------------------------------
 function StatusEffect_ProtectionByTime:onStart()
-    self.m_owner
 end

@@ -1105,13 +1105,6 @@ function GameWorld:isPossibleControl()
 end
 
 -------------------------------------
--- function hasFriendHero
--------------------------------------
-function GameWorld:hasFriendHero()
-    return (not self.m_bUsedFriend and self.m_friendDragon)
-end
-
--------------------------------------
 -- function getTargetList
 -------------------------------------
 function GameWorld:getTargetList(char, x, y, team_type, formation_type, rule_type, t_data)

@@ -36,6 +36,10 @@ function Character.st_dying(owner, dt)
         -- 사망 처리 시 StateDelegate Kill!
         owner:killStateDelegate()
 
+        if (owner.m_cbDead) then
+            owner.m_cbDead(owner)
+        end
+
 	    -- 사망 사운드
 	    if (owner.m_charType == 'dragon') then
 		    if (owner.m_charTable['c_appearance'] == 2) then
@@ -51,20 +55,20 @@ function Character.st_dying(owner, dt)
 		    end
 	    end
 
-        
-        local action = cc.Sequence:create(cc.FadeTo:create(0.5, 0), cc.CallFunc:create(function()
-            owner:changeState('dead')
-        end))
-        owner.m_animator:runAction(action)
+        owner.m_animator:runAction(cc.FadeTo:create(0.5, 0))
         owner.m_animator:runAction(cc.RotateTo:create(0.5, -45))
 
-        if owner.m_hpNode then
+        if (owner.m_hpNode) then
             owner.m_hpNode:setVisible(false)
         end
 
-        if owner.m_castingNode then
+        if (owner.m_castingNode) then
             owner.m_castingNode:setVisible(false)
         end
+
+    elseif (owner.m_stateTimer > 0.5) then
+        owner:changeState('dead')
+
     end
 end
 
@@ -240,24 +244,27 @@ function Character.st_attackDelay(owner, dt)
         end
     end
 
-    if (not owner.m_world.m_gameCoolTime:isWaiting(GLOBAL_COOL_TIME.PASSIVE_SKILL)) then
-        if (not owner.m_isSilence) then
-            -- indie_time류 스킬
-            local skill_id = owner:getBasicTimeAttackSkillID()
-            if (skill_id) then
+    if (not owner.m_isSilence) then
+        -- indie_time류 스킬
+        local skill_id = owner:getBasicTimeAttackSkillID()
+        if (skill_id) then
+            local t_skill = owner:getSkillTable(skill_id)
+
+            if (owner:checkTarget(t_skill)) then
                 owner.m_prevReservedSkillId = owner.m_reservedSkillId
                 owner.m_prevIsAddSkill = owner.m_isAddSkill
                 owner.m_prevAttackDelayTimer = owner.m_stateTimer
 
                 owner:reserveSkill(skill_id)
                 owner.m_isAddSkill = false
-
-                -- 글로벌 쿨타임 적용
-                if (owner.m_bLeftFormation) then
-                    owner:dispatch('set_global_cool_time_passive')
-                end
-            
+                            
                 owner:changeState('attack')
+            else
+                -- 대상이 없을 경우
+                local skill_indivisual_info = owner:findSkillInfoByID(skill_id)
+                if (skill_indivisual_info) then
+                    skill_indivisual_info:startCoolTime()
+                end
             end
         end
     end

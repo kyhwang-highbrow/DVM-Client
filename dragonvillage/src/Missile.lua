@@ -660,7 +660,7 @@ function Missile:updateMissileOption(dt)
 				self:changeState('dying') 
 			end)
 			local fade_out_time = g_constant:get('INGAME', 'MISSILE_FADE_OUT_TIME')
-			self.m_animator.m_node:runAction(cc.Sequence:create(cc.FadeOut:create(fade_out_time), removeMissile))
+			self.m_animator:runAction(cc.Sequence:create(cc.FadeOut:create(fade_out_time), removeMissile))
             return true
         end
     end

@@ -24,7 +24,13 @@ end
 -- function onEvent
 -------------------------------------
 function Character:onEvent(event_name, t_event, ...)
-	if (event_name == 'under_atk_rate') then
+    if (event_name == 'dead') then
+		self:onEvent_dead(t_event)
+
+    elseif (self:isDead()) then
+        
+
+	elseif (event_name == 'under_atk_rate') then
 		self:onEvent_underAtkRate()
 
 	elseif (event_name == 'under_atk_turn') then
@@ -50,9 +56,6 @@ function Character:onEvent(event_name, t_event, ...)
     
 	elseif (event_name == 'stat_changed') then
 		self:onEvent_updateStat(t_event)
-
-    elseif (event_name == 'dead') then
-		self:onEvent_dead(t_event)
 
     elseif (event_name == 'enemy_last_attack') then
         self:onEvent_lastAttack(event_name, t_event)
@@ -316,7 +319,6 @@ function Character:onEvent_common(event_name)
     if (not self.m_lSkillIndivisualInfo[event_name]) then
         return
     end
-
 
     for i, v in pairs(self.m_lSkillIndivisualInfo[event_name]) do
         if (v:isEndCoolTime()) then

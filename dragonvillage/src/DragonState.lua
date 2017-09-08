@@ -35,6 +35,7 @@ function Dragon.st_attack(owner, dt)
                 -- 타겟이 없다면 스킬을 취소시킴
                 owner:doAttack(nil)
                 owner:changeState('attackDelay')
+
                 return
             end
         end

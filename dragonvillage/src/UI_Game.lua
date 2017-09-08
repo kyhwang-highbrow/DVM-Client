@@ -453,6 +453,8 @@ end
 -- @brief 자동 모드 설정
 -------------------------------------
 function UI_Game:setAutoMode(b)
+    if (not self.m_gameScene.m_gameWorld) then return end
+
     local gameAuto = self.m_gameScene.m_gameWorld.m_gameAutoHero
     if (gameAuto:isActive() == b) then return end
     

@@ -267,12 +267,7 @@ function Tamer:checkEventSkill(skill_idx, event_name)
 	if (event_name ~= t_skill['chance_type']) then
         return false
 	end
-
-	-- 글로벌 쿨타임 체크
-	if (self.m_world.m_gameCoolTime:isWaiting(GLOBAL_COOL_TIME.PASSIVE_SKILL)) then
-        return false
-	end
-
+    
 	-- 쿨타임 체크
     if (not skill_indivisual_info:isEndCoolTime()) then
         return false

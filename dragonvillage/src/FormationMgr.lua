@@ -35,6 +35,9 @@ FormationMgr = class(IEventListener:getCloneClass(), {
         -- x축만을 위한 리스트
         m_globalCharList = '',
         m_bDirtyGlobalCharList = 'boolean',
+
+        -- 죽은 캐릭터 리스트
+        m_diedCharList = '',
     })
 
 -------------------------------------
@@ -52,6 +55,8 @@ function FormationMgr:init(left_formation)
 
     self.m_globalCharList = {}
     self.m_bDirtyGlobalCharList = true
+
+    self.m_diedCharList = {}
 
     self.m_minY = -(720/2)
     self.m_maxY = (720/2)
@@ -212,7 +217,20 @@ function FormationMgr:setChangePosCallback(char)
         self.m_bDirtyGlobalCharList = true
     end
 
-    char:addListener('character_dead', self)
+    char.m_cbDead = function(char_)
+        self:removeChar(char.m_currFormation, char)
+        
+        local idx = table.find(self.m_globalCharList, char)
+        if (idx) then
+            table.remove(self.m_globalCharList, idx)
+        end
+
+        local idx = table.find(self.m_diedCharList, char)
+        if (not idx) then
+            table.insert(self.m_diedCharList, char)
+        end
+    end
+
     char:addListener('character_revive', self)
 end
 
@@ -500,25 +518,22 @@ end
 -- function onEvent
 -------------------------------------
 function FormationMgr:onEvent(event_name, t_event, ...)
-    -- 캐릭터 사망
-    if (event_name == 'character_dead') then
-        local arg = {...}
-        local char = arg[1]
-        self:removeChar(char.m_currFormation, char)
-        
-        -- TODO 나중에 위치를 옮길 것
-        local idx = table.find(self.m_globalCharList, char)
-        table.remove(self.m_globalCharList, idx)
-
     -- 캐릭터 부활
-    elseif (event_name == 'character_revive') then
+    if (event_name == 'character_revive') then
         local arg = {...}
         local char = arg[1]
         self:setFormation(char, char.m_currFormation)
         
-        -- TODO 나중에 위치를 옮길 것
-        table.insert(self.m_globalCharList, char)
-        self.m_bDirtyGlobalCharList = true
+        local idx = table.find(self.m_globalCharList, char)
+        if (not idx) then
+            table.insert(self.m_globalCharList, char)
+            self.m_bDirtyGlobalCharList = true
+        end
+
+        idx = table.find(self.m_diedCharList, char)
+        if (idx) then
+            table.remove(self.m_diedCharList, idx)
+        end
 
     -- 카메라 홈 위치가 변경되었을 경우
     elseif (event_name == 'camera_set_home') then
@@ -583,6 +598,9 @@ FormationMgrDelegate = class({
         
         -- x축만을 위한 리스트
         m_globalCharList = '',
+
+        -- 죽은 캐릭터 리스트
+        m_diedCharList = '',
     })
 
 -------------------------------------
@@ -597,11 +615,15 @@ function FormationMgrDelegate:init(mgr1, mgr2)
     -- x축만을 위한 리스트
     self.m_globalCharList = {}
 
+    -- 죽은 캐릭터 리스트
+    self.m_diedCharList = {}
+
     if mgr1 then
         self:addList(self.m_rearCharList, mgr1.m_rearCharList)
         self:addList(self.m_middleCharList, mgr1.m_middleCharList)
         self:addList(self.m_frontCharList, mgr1.m_frontCharList)
         self:addList(self.m_globalCharList, mgr1.m_globalCharList)
+        self:addList(self.m_diedCharList, mgr1.m_diedCharList)
     end
 
     if mgr2 then
@@ -609,6 +631,7 @@ function FormationMgrDelegate:init(mgr1, mgr2)
         self:addList(self.m_middleCharList, mgr2.m_middleCharList)
         self:addList(self.m_frontCharList, mgr2.m_frontCharList)
         self:addList(self.m_globalCharList, mgr2.m_globalCharList)
+        self:addList(self.m_diedCharList, mgr2.m_diedCharList)
     end
 end
 
@@ -634,6 +657,15 @@ function FormationMgrDelegate:getTargetList(x, y, team_type, formation_type, rul
 	if (team_type == 'self') then
 		local t_org_list_1 = self.m_globalCharList
         self:addList(t_ret, TargetRule_getTargetList('self', t_org_list_1, x, y, t_data))
+
+    -- 죽은 대상
+    elseif (rule_type == 'dead') then
+        for i, v in ipairs(self.m_diedCharList) do
+            -- 죽는 도중이 아닌 확실히 죽은 대상만 선별
+            if (v.m_bDead) then
+                table.insert(t_ret, v)
+            end
+        end
 
     -- 항목에 데이터가 없다면 전, 중, 후 구별을 하지 않고 모두를 타겟
 	elseif (formation_type == '') or (not formation_type) then

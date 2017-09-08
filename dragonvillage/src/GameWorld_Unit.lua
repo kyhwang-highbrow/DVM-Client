@@ -80,6 +80,14 @@ function GameWorld:makeDragonNew(t_dragon_data, bRightFormation, status_calc)
 	dragon:initState()
 	dragon:initFormation()
 
+    -- 스테이지별 hp_ratio 적용.
+    if (self.m_gameMode ~= GAME_MODE_COLOSSEUM and bRightFormation) then
+        local hp_ratio = TableStageData():getValue(self.m_stageID, 'hp_ratio') or 1
+        dragon.m_statusCalc:appendHpRatio(hp_ratio)
+    
+        dragon:setStatusCalc(dragon.m_statusCalc)
+    end
+
     self:dispatch('make_dragon', {['dragon']=dragon, ['is_right']=bRightFormation})
 
     return dragon
@@ -228,6 +236,11 @@ end
 -- function makeFriendHero
 -------------------------------------
 function GameWorld:makeFriendHero()
+    -- 이미 출전 드래곤이 5마리이면 패스시킴
+    if (self.m_leftParticipants and table.count(self.m_leftParticipants) >= 5) then
+        return
+    end
+
     local t_dragon_data, l_runes_data = g_friendData:getParticipationFriendDragon()
     if (not t_dragon_data) then return end
 

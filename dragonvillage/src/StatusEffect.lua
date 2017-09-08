@@ -323,17 +323,10 @@ function StatusEffect.st_end(owner, dt)
         -- 모든 효과 해제
 		owner:unapplyAll()
 		
-        -- 에니메이션이 0프레임일 경우 즉시 상태를 변경
-        local duration = owner.m_animator and owner.m_animator:getDuration() or 0
-        if (duration == 0) then
+        owner:addAniHandler(function()
             owner:setDead()
             owner:changeState('dying')
-        else
-            owner:addAniHandler(function()
-                owner:setDead()
-                owner:changeState('dying')
-            end)
-        end
+        end)
     end
 end
 

@@ -47,10 +47,8 @@ MAP_KEY_FUNC[KEY_DOWN_ARROW] = 'camera_move_down'
 ]]--
 
 -- 테스트
-MAP_KEY_FUNC[KEY_5] = 'ingame_test_a'
-MAP_KEY_FUNC[KEY_6] = 'ingame_test_b'
---MAP_KEY_FUNC[KEY_5] = 'resurrect_dragon'
---MAP_KEY_FUNC[KEY_6] = 'kill_one_dragon'
+MAP_KEY_FUNC[KEY_5] = 'resurrect_dragon'
+MAP_KEY_FUNC[KEY_6] = 'kill_one_dragon'
 
 MAP_KEY_FUNC[KEY_7] = 'print_skill_info'
 MAP_KEY_FUNC[KEY_8] = 'camera_info'
@@ -388,43 +386,6 @@ end
 function GameWorld:add_dmg_yellow_font()
 	local b = g_constant:get('DEBUG', 'ADD_DMG_YELLOW_FONT')
 	g_constant:set(not b1, 'DEBUG', 'ADD_DMG_YELLOW_FONT')
-end
-
--------------------------------------
--- function ingame_test_a
--------------------------------------
-function GameWorld:ingame_test_a()
-    if (g_gameScene) then
-        local b = g_gameScene.m_viewLayer:isVisible()
-        g_gameScene.m_viewLayer:setVisible(not b)
-
-        -- 웨이브 표시 숨김
-        self.m_inGameUI.vars['waveVisual']:setVisible(not b)
-    end
-end
-
--------------------------------------
--- function ingame_test_b
--------------------------------------
-function GameWorld:ingame_test_b()
-    if (g_gameScene) then
-        local b = self.m_inGameUI.vars['panelBgSprite']:isVisible()
-
-        -- 패널 UI
-        self.m_inGameUI:toggleVisibility_PanelUI(not b, true)
-        --[[
-        -- 테이머 UI
-        self.m_inGameUI:toggleVisibility_TamerUI(not b, true)
-
-        -- 마나 UI
-        self.m_inGameUI:toggleVisibility_ManaUI(not b, true)
-
-        -- 하단 프레임
-        self.m_inGameUI.vars['panelBgSprite']:setVisible(not b)
-
-        self.m_inGameUI.vars['timeLabel']:setVisible(not b)
-        ]]--
-    end
 end
 
 -------------------------------------

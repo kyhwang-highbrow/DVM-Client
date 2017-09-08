@@ -604,7 +604,6 @@ end
 -------------------------------------
 function GameState.update_success_wait(self, dt)
     local world = self.m_world
-    
 
     if (self.m_stateTimer == 0) then
         world:setGameFinish()
@@ -664,6 +663,11 @@ function GameState.update_success(self, dt)
 
         -- 모든 적들을 죽임
         world:removeAllEnemy()
+
+        -- 스킬과 미사일도 다 날려 버리자
+	    world:removeMissileAndSkill()
+        world:removeEnemyDebuffs()
+        world:cleanupItem()
 
         -- 기본 배속으로 변경
         world.m_gameTimeScale:setBase(1)

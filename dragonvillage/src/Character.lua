@@ -37,6 +37,7 @@ Character = class(PARENT, {
         m_bLeftFormation = 'boolean',   -- 왼쪽 진형일 경우 true, 오른쪽 진형일 경우 false
         m_currFormation = '',
         m_cbChangePos = 'function',
+        m_cbDead = 'function',
 
         -- @ 공격 속도
         m_chargeDuration = 'number',
@@ -1036,7 +1037,8 @@ function Character:makeDamageFont(damage, x, y, tParam)
     end
     
     -- 색상 설정
-    if (g_constant:get('DEBUG', 'ADD_DMG_YELLOW_FONT') and is_add_dmg) then
+    --if (g_constant:get('DEBUG', 'ADD_DMG_YELLOW_FONT') and is_add_dmg) then
+    if (is_add_dmg) then
 		    r, g, b = 225, 229, 0 -- 노랑
 
         elseif (is_critical) then
@@ -1313,8 +1315,10 @@ end
 -------------------------------------
 function Character:setHp(hp, bFixed)
 	-- 죽었을시 탈출
-	if (self:isDead()) then return end
-    if (not bFixed and self.m_hp == 0) then return end
+    if (not bFixed) then
+	    if (self:isDead()) then return end
+        if (self.m_hp == 0) then return end
+    end
 
     self.m_hp = math_min(hp, self.m_maxHp)
 
@@ -1386,6 +1390,7 @@ function Character:release()
 
     -- formationMgr
     self.m_cbChangePos = nil
+    self.m_cbDead = nil
 
 	-- 이벤트 해제
 	self:release_EventDispatcher()
@@ -2515,7 +2520,7 @@ end
 -- function isDead
 -------------------------------------
 function Character:isDead()
-    return (self.m_bDead or self.m_state == 'dying')
+    return (self.m_bDead or self.m_state == 'dying' or self.m_state == 'dead')
 end
 
 -------------------------------------
