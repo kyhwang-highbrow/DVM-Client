@@ -354,7 +354,7 @@ end
 -------------------------------------
 function UI_TamerManagePopup:click_buyBtn()
 	local tamer_id = self.m_selectedTamerID
-    local buy_type
+    local buy_type, price_type
     if (g_tamerData:isObtainable(self.m_selectedTamerID)) then
         buy_type = 'clear'
     else
@@ -375,8 +375,15 @@ function UI_TamerManagePopup:click_buyBtn()
 		self:refresh()
 	end
 
-	-- 서버에 저장
-	g_tamerData:request_getTamer(tamer_id, buy_type, cb_func)
+    local function buy_func()
+	    -- 서버에 저장
+	    g_tamerData:request_getTamer(tamer_id, buy_type, cb_func)
+    end
+
+    -- 재화 사용 확인 팝업
+    local t_tamer = self.m_lTamerItemList[self.m_selectedTamerID]:getTamerTable()
+    local l_price_info = seperate(t_tamer['price_' .. buy_type], ';')
+    MakeSimplePopup_Confirm(l_price_info[1], tonumber(l_price_info[2]), nil, buy_func)
 end
 
 -------------------------------------
