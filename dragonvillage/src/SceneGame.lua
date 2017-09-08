@@ -308,7 +308,6 @@ function SceneGame:prepareDone()
             SoundMgr:playBGM(self.m_bgmName)
         end
 
-        self.m_containerLayer:setVisible(true)
         self.m_scheduleNode = cc.Node:create()
         self.m_scene:addChild(self.m_scheduleNode)
         self.m_scheduleNode:scheduleUpdateWithPriorityLua(function(dt) return self:update(dt) end, 0)
@@ -317,7 +316,7 @@ function SceneGame:prepareDone()
     end
     
     -- 시나리오 체크 및 시작
-    g_gameScene:startIngameScenario('snro_start', cb_func)     
+    self:startIngameScenario('snro_start', cb_func)     
 end
 
 -------------------------------------

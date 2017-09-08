@@ -93,7 +93,6 @@ end
 function SceneGameIntro:prepareDone()
     local function start()
         SoundMgr:playBGM(self.m_bgmName)
-        self.m_containerLayer:setVisible(true)
         self.m_scheduleNode = cc.Node:create()
         self.m_scene:addChild(self.m_scheduleNode)
         self.m_scheduleNode:scheduleUpdateWithPriorityLua(function(dt) return self:update(dt) end, 0)
@@ -227,6 +226,7 @@ function SceneGameIntro:checkScenario()
     local lobby_func
 
     play_intro_finish = function()
+        self.m_containerLayer:setVisible(false)
         local ui = g_scenarioViewingHistory:playScenario(intro_finish_name)
         ui:setReplaceSceneCB(lobby_func)
         ui:next()
