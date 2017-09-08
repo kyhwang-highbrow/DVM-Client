@@ -53,6 +53,9 @@ GameState = class(PARENT, {
 
         m_lBossLabel = 'table',
         m_bossNode = '',
+
+        -- 전투 시간에 따른 버프 정보
+        m_tBuffInfoByFightTime = 'table',
     })
 
 -------------------------------------
@@ -73,6 +76,7 @@ function GameState:init(world)
 	self.m_bgmBoss = 'bgm_dungeon_boss'
 
     self:initUI()
+    --self:initBuffByFightTime()
     self:initState()
 end
 
@@ -128,6 +132,36 @@ function GameState:initUI()
                 
     self.m_waveMaxNum = MakeAnimator('res/ui/a2d/ingame_text/ingame_text.vrp')
     self.m_waveNoti.m_node:bindVRP('max_number', self.m_waveMaxNum.m_node)
+end
+
+-------------------------------------
+-- function initBuffByFightTime
+-------------------------------------
+function GameState:initBuffByFightTime()
+    local t_constant = g_constant:get('INGAME', 'FIGHT_BY_TIME_BUFF')
+    local str_mode = IN_GAME_MODE[self.m_world.m_gameMode]
+    local t_info = t_constant[str_mode] or t_constant['DEFAULT']
+    if (not t_info) then return end
+
+    self.m_tBuffInfoByFightTime = {}
+    self.m_tBuffInfoByFightTime['start_time'] = t_info['START_TIME'] or 3
+    self.m_tBuffInfoByFightTime['interval_time'] = t_info['INTERVAL_TIME'] or 1
+    self.m_tBuffInfoByFightTime['buff_list'] = {}   -- 시간마다 부여될 버프 정보
+    --self.m_tBuffInfoByFightTime['buff_list'] = {}   -- 시간마다 부여될 버프 정보
+
+    local list = t_info['BUFF'] or {}
+
+    for i, v in ipairs(list) do
+        local l_str = seperate(v, ';')
+        local buff_type = l_str[1]
+        local buff_value = l_str[2]
+
+        local t_buff = { type = buff_type, value = buff_value }
+
+        table.insert(self.m_tBuffInfoByFightTime['buff_list'], t_buff)
+    end
+
+    --cclog('self.m_tBuffInfoByFightTime = ' .. luadump(self.m_tBuffInfoByFightTime))
 end
 
 -------------------------------------
@@ -762,7 +796,7 @@ end
 -------------------------------------
 function GameState:changeState(state)
     -- 이미 Success, Failure상태가 되었을 때 상태를 변경할 수 없도록 처리
-    if (isExistValue(self.m_state, GAME_STATE_SUCCESS_WAIT, GAME_STATE_SUCCESS, GAME_STATE_FAILURE) and (state ~= GAME_STATE_RESULT)) then
+    if (isExistValue(self.m_state, GAME_STATE_SUCCESS, GAME_STATE_FAILURE) and (state ~= GAME_STATE_RESULT)) then
         return
     end
     
