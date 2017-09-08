@@ -762,7 +762,7 @@ end
 -------------------------------------
 function GameState:changeState(state)
     -- 이미 Success, Failure상태가 되었을 때 상태를 변경할 수 없도록 처리
-    if isExistValue(self.m_state, GAME_STATE_SUCCESS, GAME_STATE_FAILURE) and (state ~= GAME_STATE_RESULT) then
+    if (isExistValue(self.m_state, GAME_STATE_SUCCESS_WAIT, GAME_STATE_SUCCESS, GAME_STATE_FAILURE) and (state ~= GAME_STATE_RESULT)) then
         return
     end
     

@@ -84,26 +84,8 @@ function StatusEffectHelper:doStatusEffect(caster, l_skill_target, type, target_
         -- 부활의 경우는 죽은 대상들로부터 타겟 리스트를 설정
         if (status_effect_group == 'resurrect') then
             local target_count = tonumber(target_count) or 1
-
-            for i = 1, target_count do
-                local target_char
-                if (caster.m_bLeftFormation) then
-                    target_char = caster.m_world.m_leftNonparticipants[i]
-                else
-                    target_char = caster.m_world.m_rightNonparticipants[i]
-                end
-
-                if (target_char) then
-                    if (target_char == caster) then
-                        table.insert(l_target, 1, target_char)
-                    else
-                        table.insert(l_target, target_char)
-                    end
-                else
-                    break
-                end
-            end
-
+            l_target = caster:getTargetListByType('teammate_dead', target_count)
+            
         -- 좀비의 경우는 죽기 직전 대상들로부터 타겟 리스트를 설정
         elseif (status_effect_group == 'zombie') then
             if (target_type == 'self') then
