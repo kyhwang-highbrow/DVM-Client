@@ -11,13 +11,17 @@
 function SoundMgr:playBGM(sound, loop)
     local category, sound_info, res = self:getSoundInfo('BG', sound)
 
+    -- bgm off 상태
     if not self.m_enableBgm then
         self.m_prevBgm = self.m_currBgm
         self.m_currBgm = sound 
         return
     end
 
-    if self.m_currBgm == sound then return end
+    -- 이미 재생중인 bgm
+    if (self.m_currBgm == sound) then 
+        return 
+    end
 
     local loop = (loop==nil) and true
     cc.SimpleAudioEngine:getInstance():playMusic(res, loop)
@@ -161,14 +165,17 @@ end
 -- function setBgmOnOff
 -------------------------------------
 function SoundMgr:setBgmOnOff(is_on)
-    if self.m_enableBgm == is_on then
+    if (self.m_enableBgm == is_on) then
         return
     end
 
     self.m_enableBgm = is_on
-
-    if not self.m_enableBgm then
+    
+    -- bgm off
+    if (not self.m_enableBgm) then
         self:stopBGM()
+
+    -- bgm on
     else
         local sound = self.m_currBgm
 
@@ -176,10 +183,11 @@ function SoundMgr:setBgmOnOff(is_on)
             sound = self.m_prevBgm
         end
 
-        if sound then
-            if (IS_TEST_MODE()) then
-                ccdisplay(sound)
-            end
+        if (sound) then
+            -- bgm 재생 이력 초기화
+            self.m_currBgm = nil
+            self.m_prevBgm = nil
+
             SoundMgr:playBGM(sound)
         end
     end
