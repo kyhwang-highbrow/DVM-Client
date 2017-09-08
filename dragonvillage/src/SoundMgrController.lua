@@ -53,10 +53,6 @@ end
 -- @param bReleaseData
 -------------------------------------
 function SoundMgr:stopBGM(bReleaseData)
-
-    self.m_prevBgm = self.m_currBgm
-    self.m_currBgm = nil
-
     local bReleaseData = bReleaseData or false
     cc.SimpleAudioEngine:getInstance():stopMusic(bReleaseData)
 end
@@ -174,14 +170,16 @@ function SoundMgr:setBgmOnOff(is_on)
     if not self.m_enableBgm then
         self:stopBGM()
     else
-        local sound = self.m_prevBgm
+        local sound = self.m_currBgm
 
         if (not sound) then
-            sound = self.m_currBgm
+            sound = self.m_prevBgm
         end
 
         if sound then
-            SoundMgr:playBGM('bgm_dummy')
+            if (IS_TEST_MODE()) then
+                ccdisplay(sound)
+            end
             SoundMgr:playBGM(sound)
         end
     end
