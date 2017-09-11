@@ -189,7 +189,8 @@ function UI_Lobby:entryCoroutine()
             if (title_to_lobby) then
                 local first_login = g_localData:get('event_full_popup', 'first_login') or false
 
-                local t_pid = {'slime_package', '90020'}
+                -- 드빌 카드, 월간 패키지, 날개 패키지
+                local t_pid = {'banner', '90007', '90020'}
                 for _, pid in ipairs(t_pid) do
                     local save_key = tostring(pid)
 

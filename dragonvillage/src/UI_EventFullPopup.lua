@@ -5,6 +5,7 @@ local PARENT = UI
 -------------------------------------
 UI_EventFullPopup = class(PARENT,{
         m_productID = 'string',
+        m_url = 'string',
     })
 
 -------------------------------------
@@ -12,6 +13,7 @@ UI_EventFullPopup = class(PARENT,{
 -------------------------------------
 function UI_EventFullPopup:init(product_id)
     self.m_productID = product_id
+    self.m_url = ''
 end
 
 -------------------------------------
@@ -40,25 +42,42 @@ function UI_EventFullPopup:initUI()
     local vars = self.vars
     local product_id = self.m_productID
 
-    local l_item_list = g_shopDataNew:getProductList('package')
-    local struct_product
+    -- 홈페이지 이동
+    if (product_id == 'banner') then
+        self.m_url = 'http://storefarm.naver.com/highbrow/products/2166132038'
 
-    -- 묶음 UI 별도 처리
-    if (product_id == 'slime_package') then
-        struct_product = {product_id = 'slime_package'}
+        local img = cc.Sprite:create('res/ui/event/bg_game_card.png')
+        if (img) then
+            img:setDockPoint(ZERO_POINT)
+            img:setAnchorPoint(ZERO_POINT)
+
+            local node = vars['eventNode']
+            node:addChild(img)
+        end
+
+    -- 패키지 상품 
     else
-        struct_product = l_item_list[tonumber(product_id)]
-    end
+        local l_item_list = g_shopDataNew:getProductList('package')
+        local struct_product
 
-    if (struct_product) then
-        local is_popup = false
-        local ui = PackageManager:getTargetUI(struct_product, is_popup)
+        -- 묶음 UI 별도 처리
+        if (product_id == 'slime_package') then
+            struct_product = {product_id = 'slime_package'}
 
-        local node = vars['eventNode']
-        node:addChild(ui.root)
-    else
-        -- 이벤트 프로덕트 정보 없을 경우 비활성화라고 생각하고 닫아줌 (주말 패키지)
-        self:close()
+        else
+            struct_product = l_item_list[tonumber(product_id)]
+        end
+
+        if (struct_product) then
+            local is_popup = false
+            local ui = PackageManager:getTargetUI(struct_product, is_popup)
+
+            local node = vars['eventNode']
+            node:addChild(ui.root)
+        else
+            -- 이벤트 프로덕트 정보 없을 경우 비활성화라고 생각하고 닫아줌 (주말 패키지)
+            self:close()
+        end
     end
 end
 
@@ -69,6 +88,7 @@ function UI_EventFullPopup:initButton()
     local vars = self.vars
     vars['closeBtn']:registerScriptTapHandler(function() self:click_closeBtn() end)
     vars['checkBtn']:registerScriptTapHandler(function() self:click_checkBtn() end)
+    vars['clickBtn']:registerScriptTapHandler(function() self:click_clickBtn() end)
 end
 
 -------------------------------------
@@ -97,6 +117,17 @@ end
 -------------------------------------
 function UI_EventFullPopup:click_closeBtn()
     self:close()
+end
+
+-------------------------------------
+-- function click_clickBtn
+-------------------------------------
+function UI_EventFullPopup:click_clickBtn()
+    if (self.m_url == '') then 
+        return 
+    end
+
+    SDKManager:goToWeb(self.m_url)
 end
 
 --@CHECK
