@@ -51,6 +51,11 @@ function UI_DragonUpgrade:init(doid)
     -- 정렬 도우미
     self:init_dragonSortMgr()
 	self:init_mtrDragonSortMgr()
+
+    -- 마스터의 길 승급은 허들이 심해 입장만 시키도록 함
+    -- @ MASTER ROAD
+    local t_data = {clear_key = 'd_grup'}
+    g_masterRoadData:updateMasterRoad(t_data)
 end
 
 -------------------------------------

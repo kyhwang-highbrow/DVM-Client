@@ -71,10 +71,6 @@ function UI_DragonUpgradeResult:refresh(dragon_object)
             self:doAction(function() UIManager:blockBackKey(false) end, false)
 			SoundMgr:playEffect('UI', 'ui_star_up')
             
-            -- @ MASTER ROAD
-            local t_data = {clear_key = 'd_grup'}
-            g_masterRoadData:updateMasterRoad(t_data)
-
             -- 등급 비주얼
             vars['starVisual']:setVisible(true)
             local ani_name = TableDragon:getStarAniName(did, evolution)
