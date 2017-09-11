@@ -957,6 +957,7 @@ function ServerData_Dragons:request_dragonsInfo(finish_cb, fail_cb)
     -- 성공 콜백
     local function success_cb(ret)
         -- 드래곤 정보 갱신
+        self.m_dragonsCnt = 0
         g_serverData:applyServerData({}, 'dragons') -- 로컬 세이브 데이터 초기화
         self:applyDragonData_list(ret['dragons'])
         g_slimesData:applySlimeData_list(ret['slimes'] or {})
