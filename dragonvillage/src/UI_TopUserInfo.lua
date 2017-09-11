@@ -288,6 +288,7 @@ end
 function UI_TopUserInfo:deleteGoodsUI(goods_type)
     if (self.m_mGoodsInfo[goods_type]) then
         self.m_mGoodsInfo[goods_type].root:removeFromParent()
+        self.m_mGoodsInfo[goods_type] = nil
     end
 end
 
