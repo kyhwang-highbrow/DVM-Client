@@ -224,6 +224,10 @@ function UI_ExplorationReady:click_dragonBtn(doid, skip_msg)
             return
         end
 
+        -- 드래곤이 선택되면 new뱃지를 삭제
+        g_highlightData:removeNewDoid(doid)
+
+
         local item = table_view_td:getItem(doid)
         local ui = item['ui']
         if ui then

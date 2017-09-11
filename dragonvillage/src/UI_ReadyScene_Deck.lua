@@ -116,6 +116,11 @@ end
 -- function dragonPick
 -------------------------------------
 function UI_ReadyScene_Deck:dragonPick(t_dragon_data, focus_deck_slot, delay_rate)
+
+    -- 드래곤이 선택되면 new뱃지를 삭제
+    local doid = t_dragon_data['id']
+    g_highlightData:removeNewDoid(doid)
+
 	-- 감성 말풍선
     local ui = self.m_lSettedDragonCard[focus_deck_slot]
     if ui then
