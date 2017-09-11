@@ -16,7 +16,8 @@ android {
         applicationId "com.perplelab.dragonvillagem.kr"
         minSdkVersion 16
         targetSdkVersion PROP_TARGET_SDK_VERSION
-        
+        multiDexEnabled true
+
         externalNativeBuild {
             ndkBuild {
                 if (!project.hasProperty("PROP_NDK_MODE") || PROP_NDK_MODE.compareTo('none') != 0) {
@@ -277,6 +278,9 @@ dependencies {
 
     // @facebook
     compile 'com.facebook.android:facebook-android-sdk:[4,5)'
+
+    // @multidex below Android 6.0
+    compile 'com.android.support:multidex:1.0.1'
 }
 
 // @firebase
