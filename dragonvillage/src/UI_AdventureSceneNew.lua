@@ -104,6 +104,10 @@ function UI_AdventureSceneNew:initButton()
     else
         vars['devStageBtn']:setVisible(false)
     end
+
+    vars['chapterSelectBtn']:setVisible(true)
+    vars['chapterSelectBtn']:registerScriptTapHandler(function() self:click_chapterSelectBtn() end)
+
 end
 
 -------------------------------------
@@ -677,6 +681,23 @@ function UI_AdventureSceneNew:click_firstRewardBtn(stage_id)
     ui:setCloseCB(close_cb)
 end
 
+-------------------------------------
+-- function click_chapterSelectBtn
+-- @brief
+-------------------------------------
+function UI_AdventureSceneNew:click_chapterSelectBtn()
+    function move_to_chapter(stage_id)
+        if (not stage_id) then 
+            return 
+        end
+
+        local difficulty, chapter, stage = parseAdventureID(stage_id)
+        self:refreshChapter(chapter, difficulty, stage)
+        self.m_uicSortList:setSelectSortType(difficulty)
+    end
+
+    UI_ChapterSelect(self.m_currDifficulty, move_to_chapter)
+end
 
 -------------------------------------------------------------------------------------------------------------------
 -- 최초 클리어 보상 관련 end

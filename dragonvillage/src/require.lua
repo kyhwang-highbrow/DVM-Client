@@ -692,7 +692,9 @@ local t_module = {
     'UI_AdventureFirstRewardButton',
     'UI_AdventureStageInfo',
     'UI_AdventureStageMissionInfo',
-    
+    'UI_ChapterSelect',
+    'UI_ChapterSelectListItem',
+
 	-- UI : 모험 준비
 	'UI_ReadyScene',
     'UI_ReadyScene_Deck',

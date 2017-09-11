@@ -2691,6 +2691,12 @@
     <None Include="..\src\StatusEffect_ProtectionByTime.lua">
       <Filter>lua\src</Filter>
     </None>
+    <None Include="..\src\UI_ChapterSelect.lua">
+      <Filter>lua\UI</Filter>
+    </None>
+    <None Include="..\src\UI_ChapterSelectListItem.lua">
+      <Filter>lua\UI</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Classes">
