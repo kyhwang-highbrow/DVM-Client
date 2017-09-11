@@ -61,7 +61,7 @@ if false then
     UINavigator:goTo('dragon')
 
     -- @brief 부화소로 이동
-    -- @param optional tab  (summon, combination, incubate, relation)
+    -- @param optional tab  (summon, combine, incubate, relation)
     UINavigator:goTo('hatchery', tab)
 
     -- @brief 친구 관리로 이동

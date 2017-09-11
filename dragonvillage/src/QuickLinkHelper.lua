@@ -297,16 +297,16 @@ T_LINK_FUNC = {
     end,
     -- 조합 하기
     ['comb'] = function()
-        UINavigator:goTo('hatchery', 'combination')
+        UINavigator:goTo('hatchery', 'combine')
     end,
     ['comb_120101'] = function()
-        UINavigator:goTo('hatchery', 'combination')
+        UINavigator:goTo('hatchery', 'combine')
     end,
     ['comb_120345'] = function()
-        UINavigator:goTo('hatchery', 'combination')
+        UINavigator:goTo('hatchery', 'combine')
     end,
     ['comb_120404'] = function()
-        UINavigator:goTo('hatchery', 'combination')
+        UINavigator:goTo('hatchery', 'combine')
     end,
 
     -- 바로가기 키를 띄우지 않을 것들
