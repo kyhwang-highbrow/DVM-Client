@@ -19,7 +19,8 @@ ServerData_Highlight = class({
         ----------------------------------------------
 
         ----------------------------------------------
-        m_newDoidMap = '',
+        m_newDoidMap = 'map',
+        m_bDirtyNewDoidMap = 'boolean',
         ----------------------------------------------
     })
 
@@ -175,6 +176,14 @@ end
 -------------------------------------
 function ServerData_Highlight:cleanNewDoidMap()
     self.m_newDoidMap = nil
+    self.m_bDirtyNewDoidMap = false
+end
+
+-------------------------------------
+-- function setDirtyNewDoidMap
+-------------------------------------
+function ServerData_Highlight:setDirtyNewDoidMap()
+    self.m_bDirtyNewDoidMap = true
 end
 
 -------------------------------------
@@ -182,6 +191,7 @@ end
 -------------------------------------
 function ServerData_Highlight:loadNewDoidMap()
     self.m_newDoidMap = {}
+    self.m_bDirtyNewDoidMap = false
 
     local ret_json, success_load = LoadLocalSaveJson(self:getNewDoidMapFileName())
     if (success_load == true) then
@@ -221,7 +231,13 @@ end
 -- function saveNewDoidMap
 -------------------------------------
 function ServerData_Highlight:saveNewDoidMap()
-    return SaveLocalSaveJson(self:getNewDoidMapFileName(), self.m_newDoidMap)
+    if (not self.m_bDirtyNewDoidMap) then
+        return false
+    end
+
+    local ret = SaveLocalSaveJson(self:getNewDoidMapFileName(), self.m_newDoidMap)
+    self.m_bDirtyNewDoidMap = false
+    return ret
 end
 
 -------------------------------------
@@ -249,8 +265,12 @@ function ServerData_Highlight:addNewDoid(doid, created_at)
         end
     end
 
+    if (self.m_newDoidMap[doid] == true) then
+        return
+    end
+
     self.m_newDoidMap[doid] = true
-    self:saveNewDoidMap()
+    self:setDirtyNewDoidMap()
     self.m_lastUpdateTime = curr_time
 end
 
@@ -262,8 +282,12 @@ function ServerData_Highlight:removeNewDoid(doid)
         return
     end
 
+    if (not self.m_newDoidMap[doid]) then
+        return
+    end
+
     self.m_newDoidMap[doid] = nil
-    self:saveNewDoidMap()
+    self:setDirtyNewDoidMap()
 
     self.m_lastUpdateTime = Timer:getServerTime()
 end
@@ -298,4 +322,12 @@ function ServerData_Highlight:setHighlightMail()
         self['new_mail'] = 1
         self:setLastUpdateTime()
     end
+end
+
+-------------------------------------
+-- function onChangeScene
+-- @brief Scene이 변경될 때 호출
+-------------------------------------
+function ServerData_Highlight:onChangeScene()
+    self:saveNewDoidMap()
 end

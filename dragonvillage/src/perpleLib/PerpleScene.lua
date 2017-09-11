@@ -293,6 +293,11 @@ function PerpleScene:onEnter()
     if (g_accessTimeData) then
         g_accessTimeData:recordTime(self.m_scene)
     end
+
+
+    if (g_highlightData) then
+        g_highlightData:onChangeScene()
+    end
 end
 
 -------------------------------------
