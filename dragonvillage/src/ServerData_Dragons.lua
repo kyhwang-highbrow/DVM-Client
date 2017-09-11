@@ -154,7 +154,8 @@ function ServerData_Dragons:applyDragonData(t_dragon_data)
 
     if (not dragon_obj) then
         self.m_dragonsCnt = self.m_dragonsCnt + 1
-        g_highlightData:addNewDoid(doid)
+        local created_at = t_dragon_data['created_at'] or nil
+        g_highlightData:addNewDoid(doid, created_at)
     end
 
     -- 룬 효과 체크
@@ -956,6 +957,8 @@ function ServerData_Dragons:request_dragonsInfo(finish_cb, fail_cb)
 
     -- 성공 콜백
     local function success_cb(ret)
+        g_highlightData:cleanNewDoidMap()
+
         -- 드래곤 정보 갱신
         self.m_dragonsCnt = 0
         g_serverData:applyServerData({}, 'dragons') -- 로컬 세이브 데이터 초기화

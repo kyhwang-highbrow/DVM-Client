@@ -167,6 +167,16 @@ function ServerData_Highlight:getNewDoidMapFileName()
     return full_path
 end
 
+
+-------------------------------------
+-- function cleanNewDoidMap
+-- @brief 로그인 시점에서 드래곤 정보를 받아올 때
+--        m_newDoidMap이 nil이어야 새로운 드래곤으로 취급하지 않음
+-------------------------------------
+function ServerData_Highlight:cleanNewDoidMap()
+    self.m_newDoidMap = nil
+end
+
 -------------------------------------
 -- function loadNewDoidMap
 -------------------------------------
@@ -179,11 +189,27 @@ function ServerData_Highlight:loadNewDoidMap()
     end
 
     local dragons_map = g_dragonsData:getDragonsListRef()
+    local curr_time = Timer:getServerTime()
+
+    -- 24시간
+    local valid_sec = 60 * 60 * 24
 
     -- 신규 드래곤이라고 관리되는 doid의 드래곤이 삭제되었을 경우를 위해 보정
     for doid,_ in pairs(self.m_newDoidMap) do
-        if (not dragons_map[doid]) then
+        local t_dragon_data = dragons_map[doid]
+
+        -- 드래곤 정보가 없는 경우 삭제
+        if (not t_dragon_data) then
             self.m_newDoidMap[doid] = nil
+
+        -- 드래곤 생성 시간 확인
+        elseif t_dragon_data['created_at'] then
+            local _created_at = (t_dragon_data['created_at'] / 1000)
+
+            -- 24시간이 지난 드래곤은 new를 붙이지 않음
+            if (_created_at + valid_sec) <= curr_time then
+                self.m_newDoidMap[doid] = nil
+            end
         end
     end
     self:saveNewDoidMap()
@@ -201,15 +227,31 @@ end
 -------------------------------------
 -- function addNewDoid
 -------------------------------------
-function ServerData_Highlight:addNewDoid(doid)
+function ServerData_Highlight:addNewDoid(doid, created_at)
+    -- 로그인 시점에서 드래곤 정보를 받아올 때
+    -- m_newDoidMap이 nil이어야 새로운 드래곤으로 취급하지 않음
     if (not self.m_newDoidMap) then
         return
+    end
+    
+    local curr_time = Timer:getServerTime()
+
+    -- 생성 시간 정보가 있는 경우
+    if created_at then
+        local _created_at = (created_at / 1000)
+
+        -- 24시간
+        local valid_sec = 60 * 60 * 24
+        
+        -- 24시간이 지난 드래곤은 new를 붙이지 않음
+        if (_created_at + valid_sec) <= curr_time then
+            return
+        end
     end
 
     self.m_newDoidMap[doid] = true
     self:saveNewDoidMap()
-
-    self.m_lastUpdateTime = Timer:getServerTime()
+    self.m_lastUpdateTime = curr_time
 end
 
 -------------------------------------
