@@ -241,7 +241,7 @@ function StatusCalculator:applyStageBonus(stage_id, is_enemy)
                     local status_type = t_option['status']
                     if (status_type) then
                         self:addOption(t_option['action'], status_type, buff_value)
-                        cclog('applyStageBonus ' .. Str(t_option['t_desc'], math_abs(buff_value)))
+                        --cclog('applyStageBonus ' .. Str(t_option['t_desc'], math_abs(buff_value)))
                     end
                 end
             end

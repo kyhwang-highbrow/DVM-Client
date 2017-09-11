@@ -56,6 +56,7 @@ GameState = class(PARENT, {
 
         -- 전투 시간에 따른 버프 정보
         m_tBuffInfoByFightTime = 'table',
+        m_nextBuffTime = 'number',
     })
 
 -------------------------------------
@@ -76,7 +77,7 @@ function GameState:init(world)
 	self.m_bgmBoss = 'bgm_dungeon_boss'
 
     self:initUI()
-    --self:initBuffByFightTime()
+    self:initBuffByFightTime()
     self:initState()
 end
 
@@ -146,8 +147,8 @@ function GameState:initBuffByFightTime()
     self.m_tBuffInfoByFightTime = {}
     self.m_tBuffInfoByFightTime['start_time'] = t_info['START_TIME'] or 3
     self.m_tBuffInfoByFightTime['interval_time'] = t_info['INTERVAL_TIME'] or 1
-    self.m_tBuffInfoByFightTime['buff_list'] = {}   -- 시간마다 부여될 버프 정보
-    --self.m_tBuffInfoByFightTime['buff_list'] = {}   -- 시간마다 부여될 버프 정보
+    self.m_tBuffInfoByFightTime['cur_buff'] = {}   -- 현재까지 부여된 버프 정보
+    self.m_tBuffInfoByFightTime['add_buff'] = {}   -- 시간마다 부여될 버프 정보
 
     local list = t_info['BUFF'] or {}
 
@@ -156,10 +157,10 @@ function GameState:initBuffByFightTime()
         local buff_type = l_str[1]
         local buff_value = l_str[2]
 
-        local t_buff = { type = buff_type, value = buff_value }
-
-        table.insert(self.m_tBuffInfoByFightTime['buff_list'], t_buff)
+        self.m_tBuffInfoByFightTime['add_buff'][buff_type] = buff_value
     end
+
+    self.m_nextBuffTime = self.m_tBuffInfoByFightTime['start_time']
 
     --cclog('self.m_tBuffInfoByFightTime = ' .. luadump(self.m_tBuffInfoByFightTime))
 end
@@ -334,6 +335,13 @@ function GameState.update_fight(self, dt)
             if (isInstanceOf(enemy, Dragon)) then
                 enemy:updateActiveSkillCool(dt)
             end
+        end
+    end
+
+    do -- 전투 시간에 따른 버프
+        if (self.m_fightTimer > self.m_nextBuffTime) then
+            self:applyBuffByFightTime()
+            UIManager:toastNotificationRed(Str('공격력이 증가하고 방어력이 감소됩니다.'))
         end
     end
 
@@ -1272,4 +1280,62 @@ function GameState:getBossAnimator()
     animator.m_node:setCascadeOpacityEnabled(true)
 
     return animator
+end
+
+-------------------------------------
+-- function applyBuffByFightTime
+-- @brief 주기시간에 따른 추가 버프를 적용
+-------------------------------------
+function GameState:applyBuffByFightTime()
+    local world = self.m_world
+    local add_buff = self.m_tBuffInfoByFightTime['add_buff']
+    local cur_buff = self.m_tBuffInfoByFightTime['cur_buff']
+
+    for type, value in pairs(add_buff) do
+        -- 아군 및 적군에게 버프 적용
+        do
+            for i, v in ipairs(world.m_leftParticipants) do
+                local status, action = TableOption:parseOptionKey(type)
+                v.m_statusCalc:addOption(action, status, value)
+            end
+            for i, v in ipairs(world.m_leftNonparticipants) do
+                local status, action = TableOption:parseOptionKey(type)
+                v.m_statusCalc:addOption(action, status, value)
+            end
+            for i, v in ipairs(world.m_rightParticipants) do
+                local status, action = TableOption:parseOptionKey(type)
+                v.m_statusCalc:addOption(action, status, value)
+            end
+            for i, v in ipairs(world.m_rightNonparticipants) do
+                local status, action = TableOption:parseOptionKey(type)
+                v.m_statusCalc:addOption(action, status, value)
+            end
+        end
+
+        -- 현재까지 누적 버프 수치를 합산
+        do
+            if (not cur_buff[type]) then
+                cur_buff[type] = 0
+            end
+
+            cur_buff[type] = cur_buff[type] + value
+        end
+    end
+
+    -- 다음 버프 적용 시간 계산
+    self.m_nextBuffTime = self.m_nextBuffTime + self.m_tBuffInfoByFightTime['interval_time']
+end
+
+
+-------------------------------------
+-- function applyAccumBuffByFightTime
+-- @brief 현재까지의 누적 버프를 적용
+-------------------------------------
+function GameState:applyAccumBuffByFightTime(unit)
+    local cur_buff = self.m_tBuffInfoByFightTime['cur_buff']
+
+    for type, value in pairs(cur_buff) do
+        local status, action = TableOption:parseOptionKey(type)
+        unit.m_statusCalc:addOption(action, status, value)
+    end
 end

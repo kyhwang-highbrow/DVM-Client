@@ -2688,6 +2688,9 @@
     <None Include="..\src\UI_Package_Slime.lua">
       <Filter>lua\UI</Filter>
     </None>
+    <None Include="..\src\StatusEffect_ProtectionByTime.lua">
+      <Filter>lua\src</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Classes">

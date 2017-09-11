@@ -80,8 +80,11 @@ function GameWorld:makeDragonNew(t_dragon_data, bRightFormation, status_calc)
 	dragon:initState()
 	dragon:initFormation()
 
-    -- 스테이지별 hp_ratio 적용.
     if (self.m_gameMode ~= GAME_MODE_COLOSSEUM and bRightFormation) then
+        -- 전투 시간 버프 적용
+        self.m_gameState:applyAccumBuffByFightTime(dragon)
+
+        -- 스테이지별 hp_ratio 적용.
         local hp_ratio = TableStageData():getValue(self.m_stageID, 'hp_ratio') or 1
         dragon.m_statusCalc:appendHpRatio(hp_ratio)
     
@@ -124,6 +127,9 @@ function GameWorld:makeMonsterNew(monster_id, level)
 
     -- 스테이지 버프 적용
     monster.m_statusCalc:applyStageBonus(self.m_stageID, true)
+
+    -- 전투 시간 버프 적용
+    self.m_gameState:applyAccumBuffByFightTime(monster)
     
     -- 고대의 탑일 경우 도전횟수에 따른 디버프 적용
     if (self.m_gameMode == GAME_MODE_ANCIENT_TOWER) then

@@ -701,6 +701,7 @@ xcopy /Y /Q "$(ProjectDir)..\..\libraries\pati\prebuilt\windows\*.dll" "$(OutDir
     <None Include="..\src\StatusEffect_Modify.lua" />
     <None Include="..\src\StatusEffect_Poison.lua" />
     <None Include="..\src\StatusEffect_Protection.lua" />
+    <None Include="..\src\StatusEffect_ProtectionByTime.lua" />
     <None Include="..\src\StatusEffect_Resurrect.lua" />
     <None Include="..\src\StatusEffect_Silence.lua" />
     <None Include="..\src\StatusEffect_Sleep.lua" />
