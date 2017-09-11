@@ -260,6 +260,9 @@ dependencies {
     // @unity-ads
     compile(name:'unity-ads', ext:'aar')
 
+    // @naver-cafe
+    compile(name:'cafeSdk-1.7.2', ext:'aar')
+
     // @apk-expansion
     compile project(':downloader_library')
 

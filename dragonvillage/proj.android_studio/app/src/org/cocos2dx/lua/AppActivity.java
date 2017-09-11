@@ -84,6 +84,11 @@ public class AppActivity extends Cocos2dxActivity{
     // @unity-ads
     static final String UNITY_ADS_GAME_ID = "1515686";
 
+    // @naver-cafe
+    static final String NAVER_CAFE_CLIENT_ID = "";
+    static final String NAVER_CAFE_CLIENT_SECRET = "";
+    static final int NAVER_CAFE_ID = 0;
+
     static final int RC_WRITE_STORAGE_PERMISSION    = 100;  // must be 8bit value
     static final int RC_APP_PERMISSION              = 101;  // must be 8bit value
 
@@ -131,6 +136,9 @@ public class AppActivity extends Cocos2dxActivity{
 
         // @unity-ads
         PerpleSDK.getInstance().initUnityAds(UNITY_ADS_GAME_ID, isDebug);
+
+        // @naver-cafe
+        PerpleSDK.getInstance().initNaverCafe(NAVER_CAFE_CLIENT_ID, NAVER_CAFE_CLIENT_SECRET, NAVER_CAFE_ID);
     }
 
     @Override
