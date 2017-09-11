@@ -138,10 +138,12 @@ function UI_DragonSkillEnhance:refresh()
     -- 레벨업 가능 여부 처리
 	local possible = g_dragonsData:possibleDragonSkillEnhance(self.m_selectDragonOID)
     if (not possible) then
-        local next_evolution = t_dragon_data['evolution'] + 1
-        local tar_evolution = evolutionName(next_evolution)
-	    vars['lockSprite']:setVisible(true)
-        vars['infoLabel2']:setString(Str('{1} 진화시 스킬 강화 할 수 있어요 ', tar_evolution))
+        if (t_dragon_data['evolution'] < MAX_DRAGON_EVOLUTION) then
+            local next_evolution = t_dragon_data['evolution'] + 1
+            local tar_evolution = evolutionName(next_evolution)
+	        vars['lockSprite']:setVisible(true)
+            vars['infoLabel2']:setString(Str('{1} 진화시 스킬 강화 할 수 있어요 ', tar_evolution))
+        end
     end
 
 	-- 소모 골드 표시
