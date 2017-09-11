@@ -39,8 +39,11 @@ function ServerData_Book:getBookList(role_type, attr_type)
 
     local table_dragon = TableDragon()
     for i, v in pairs(table_dragon.m_orgTable) do
-		-- 직업군, 속성 걸러내기
-		if (role_type ~= 'all') and (role_type ~= v['role']) then
+        -- 개발 중인 드래곤은 도감에 나타내지 않는다.
+        if (v['test'] == 0) then
+		
+        -- 직업군, 속성 걸러내기
+		elseif (role_type ~= 'all') and (role_type ~= v['role']) then
         elseif (attr_type ~= 'all') and (attr_type ~= v['attr']) then
 
         -- 위 조건들에 해당하지 않은 경우만 추가
