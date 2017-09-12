@@ -382,7 +382,7 @@ function Skill:doStatusEffect(start_con, l_target)
     local lStatusEffect = self:getStatusEffectList(start_con)
     
     if (#lStatusEffect > 0) then
-        local l_target
+        local l_target = l_target
 		local add_param = self.m_activityCarrier.m_tParam
 
         -- 드래그 스킬의 경우엔 충돌 정보를 파라미터에 추가시킴
