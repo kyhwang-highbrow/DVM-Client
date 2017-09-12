@@ -38,12 +38,15 @@
 #import "ConfigParser.h"
 
 // @perplesdk
-#define SENDER_ID           @"983890984134"
-#define CLIENT_ID           @"983890984134-krrfuti1qgk3k09j87gobkq96322v48v.apps.googleusercontent.com"
-#define ADBRIX_APP_KEY      @"696293230"
-#define ADBRIX_HASH_KEY     @"5c67709eb5c349c6"
-#define TAPJOY_SDK_KEY      @"Ws1LafcqRzuuBd763wqDOAEBFg9MYTtlr04omXYpDVNJIVl4ivGW9cK37TA2"
-#define UNITY_ADS_GAME_ID   @"1515685"
+#define SENDER_ID                   @"983890984134"
+#define CLIENT_ID                   @"983890984134-krrfuti1qgk3k09j87gobkq96322v48v.apps.googleusercontent.com"
+#define ADBRIX_APP_KEY              @"696293230"
+#define ADBRIX_HASH_KEY             @"5c67709eb5c349c6"
+#define TAPJOY_SDK_KEY              @"Ws1LafcqRzuuBd763wqDOAEBFg9MYTtlr04omXYpDVNJIVl4ivGW9cK37TA2"
+#define UNITY_ADS_GAME_ID           @"1515685"
+#define NAVER_CAFE_CLIENT_ID        @""
+#define NAVER_CAFE_CLIENT_SECRET    @""
+#define NAVER_CAFE_ID               29168475
 
 // @idfa
 #import <AdSupport/ASIdentifierManager.h>
@@ -117,7 +120,7 @@ static AppDelegate s_sharedApplication;
     cocos2d::Director::getInstance()->setOpenGLView(glview);
 
     // @perplesdk
-    BOOL isDebug = YES;
+    BOOL isDebug = NO;
     if ([[PerpleSDK sharedInstance] initSDKWithGcmSenderId:SENDER_ID debug:isDebug]) {
         [[PerpleSDK sharedInstance] initGoogleWithClientId:CLIENT_ID view:viewController];
         [[PerpleSDK sharedInstance] initFacebookWithParentView:viewController];
@@ -127,6 +130,7 @@ static AppDelegate s_sharedApplication;
     [[PerpleSDK sharedInstance] initTapjoyWithAppKey:TAPJOY_SDK_KEY usePush:NO debug:isDebug];
     [[PerpleSDK sharedInstance] initUnityAdsWithParentView:viewController gameId:UNITY_ADS_GAME_ID debug:isDebug];
     [[PerpleSDK sharedInstance] initBilling];
+    [[PerpleSDK sharedInstance] initNaverWithParentView:viewController isLandspape:YES clientId:NAVER_CAFE_CLIENT_ID clientSecret:NAVER_CAFE_CLIENT_SECRET cafeId:NAVER_CAFE_ID];
     [[PerpleSDK sharedInstance] application:application didFinishLaunchingWithOptions:launchOptions];
 
     cocos2d::Application::getInstance()->run();
