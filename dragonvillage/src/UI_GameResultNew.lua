@@ -712,9 +712,6 @@ function UI_GameResultNew:direction_masterRoad()
         -- @ MASTER ROAD
         local t_data = {clear_key = 'u_lv'}
         g_masterRoadData:updateMasterRoad(t_data)
-
-        -- @ GOOGLE ACHIEVEMENT
-        GoogleHelper.updateAchievement(t_data)
     end
 
     -- 마스터 로드 기록 후 연속 전투 체크
@@ -785,7 +782,11 @@ function UI_GameResultNew:initTamer()
     if (is_level_up) then
         levelup_director.m_cbAniFinish = function()
             self.root:stopAllActions()
-             
+            
+            -- @ GOOGLE ACHIEVEMENT
+            local t_data = {clear_key = 'u_lv'}
+            GoogleHelper.updateAchievement(t_data)
+
             local ui = UI_UserLevelUp(t_levelup_data)
             ui:setCloseCB(function() self:doNextWork() end)
         end

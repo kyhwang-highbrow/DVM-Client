@@ -50,14 +50,24 @@ function GoogleHelper.checkAchievementClear(t_data)
     end)
 
     -- 업적을 클리어 여부 파악
+    local user_lv = g_userData:get('lv')
     for i, t_google in pairs(l_achievement) do
+        -- 레벨은 별도로 처리
+        if (achv_key == 'u_lv') then
+            if (t_google['clear_value'] == user_lv) then
+                t_data['achievement_id'] =  t_google['achievement_id']
+                return true
+            end
+
         -- 마스터의 길과 로직 공유
-        if (ServerData_MasterRoad.checkClear(t_google['clear_type'], t_google['clear_value'], t_data, {'raw_data'})) then
+        elseif (ServerData_MasterRoad.checkClear(t_google['clear_type'], t_google['clear_value'], t_data, {'raw_data'})) then
             -- id 전달
             t_data['achievement_id'] =  t_google['achievement_id']
             return true
         end
     end
+
+    return false
 end
 
 -------------------------------------
@@ -144,8 +154,7 @@ function GoogleHelper.allAchievementCheck(finish_cb)
 
         -- 스테이지 클리어 체크
         if (clear_type == 'clr_stg') then
-            local list = plSplit(clear_value, '-')
-            local stage_id = makeAdventureID(1, list[1], list[2])
+            local stage_id = clear_value
             is_clear = g_adventureData:isClearStage(stage_id)
 
         -- 레벨 달성 체크
