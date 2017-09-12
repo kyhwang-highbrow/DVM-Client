@@ -121,6 +121,9 @@ function SkillIndicator_Penetration:initIndicatorNode()
 		
 		root_node:addChild(indicator.m_node)
 		table.insert(self.m_lIndicatorEffectList, indicator)
+        for _, v in pairs(self.m_lIndicatorEffectList) do
+            v:setIgnoreLowEndMode(true)
+        end
     end
 
 	-- 겹치는 부분 가리는 추가 인디케이터
