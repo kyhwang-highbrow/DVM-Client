@@ -497,6 +497,12 @@ function UI_DragonManage_Base:init_mtrDragonSortMgr(slime_first)
 
     -- 재료드래곤 정렬은 등급 역순이 기본
     sort_mgr:setAllAscending(true)
+    -- 자코, 레벨, 진화도 순으로 정렬.
+    sort_mgr:pushSortOrder('underling')
+    sort_mgr:pushSortOrder('lv')
+    sort_mgr:pushSortOrder('evolution')
+    
+    -- 마지막으로 등급 넣어주며 uic_sortlist 세팅    
     uic_sort_list:setSelectSortType('grade')
 
 	-- 기본값으로 정렬 적용

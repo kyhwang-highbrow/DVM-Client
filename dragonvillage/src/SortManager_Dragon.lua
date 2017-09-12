@@ -64,7 +64,9 @@ function SortManager_Dragon:init()
     self:addSortType('friendship', false, function(a, b, ascending) return self:sort_friendship(a, b, ascending) end)
     self:addSortType('rarity', false, function(a, b, ascending) return self:sort_rarity(a, b, ascending) end)
     self:addSortType('grade', false, function(a, b, ascending) return self:sort_grade(a, b, ascending) end)
+    self:addSortType('evolution', false, function(a, b, ascending) return self:sort_evolution(a, b, ascending) end)
     self:addSortType('lv', false, function(a, b, ascending) return self:sort_lv(a, b, ascending) end)
+    self:addSortType('underling', false, function(a, b, ascending) return self:sort_underling(a, b, ascending) end)
     self:addSortType('created_at', false, function(a, b, ascending) return self:sort_created_at(a, b, ascending) end)
 
     self:setDefaultSortFunc(function(a, b, ascending) return self:sort_doid(a, b, ascending) end)
@@ -398,6 +400,26 @@ function SortManager_Dragon:sort_lv(a, b, ascending)
     -- 오름차순 or 내림차순
     if ascending then return a_value < b_value
     else              return a_value > b_value
+    end
+end
+
+-------------------------------------
+-- function sort_underling
+-- @brief 자코 여부.. 는 did를 역으로 활용
+-------------------------------------
+function SortManager_Dragon:sort_underling(a, b, ascending)
+    local a_data = a['data']
+    local b_data = b['data']
+
+    local a_value = a_data['did']
+    local b_value = b_data['did']
+
+    -- 같을 경우 리턴
+    if (a_value == b_value) then return nil end
+
+    -- 오름차순 or 내림차순
+    if ascending then return a_value > b_value
+    else              return a_value < b_value
     end
 end
 
