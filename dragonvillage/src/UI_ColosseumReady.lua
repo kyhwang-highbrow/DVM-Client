@@ -306,16 +306,18 @@ function UI_ColosseumReady:update(dt)
 
     do -- 연승 버프 텍스트 출력
         local time_str, active = g_colosseumData:getStraightTimeText()
-        local buff_str = g_colosseumData:getStraightBuffText()
-
 
         local text = nil
         if active then
-            vars['winBuffLabel']:setString(buff_str)
-            vars['winBuffTimeLabel']:setString(time_str)
+            local title = g_colosseumData:getStraightBuffTitle()
+            local text = g_colosseumData:getStraightBuffText()
+            vars['buffLabel1']:setString(title)
+            vars['buffLabel2']:setString(time_str)
+            vars['buffLabel3']:setString(text)
         else
-            vars['winBuffLabel']:setString(Str('연승 버프 없음'))
-            vars['winBuffTimeLabel']:setString('')
+            vars['buffLabel1']:setString(Str('연승 버프'))
+            vars['buffLabel2']:setString(Str('연승 버프 없음'))
+            vars['buffLabel3']:setString('')
         end
     end
 end

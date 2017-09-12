@@ -26,6 +26,7 @@ ServerData_Colosseum = class({
         m_tSeasonRewardInfo = 'table',
         m_tRet = 'table',
         m_buffTime = 'timestamp', -- 버프 유효 시간 (0일 경우 버프 발동 x, 값이 있을 경우 해당 시간까지 버프 적용)
+        m_buffWin = 'number', -- 연승버프에 사용되는 연승
 
         m_bOpen = 'boolean',
     })
@@ -93,6 +94,7 @@ function ServerData_Colosseum:response_colosseumInfo(ret)
 
     -- 버프 발동 종료 시간
     self.m_buffTime = ret['bufftime']
+    self.m_buffWin = ret['buffwin']
 end
 
 -------------------------------------
@@ -524,6 +526,7 @@ function ServerData_Colosseum:request_colosseumFinish(is_win, finish_cb, fail_cb
 
         -- 버프 발동 종료 시간
         self.m_buffTime = ret['bufftime']
+        self.m_buffWin = ret['buffwin']
 
         if finish_cb then
             finish_cb(ret)
@@ -651,16 +654,23 @@ function ServerData_Colosseum:setSeasonRewardInfo(ret)
 end
 
 -------------------------------------
+-- function getStraightBuffTitle
+-- @brief 연승 버프 타이틀
+-------------------------------------
+function ServerData_Colosseum:getStraightBuffTitle()
+    local wins = math_clamp(self.m_buffWin, 0, 10)
+    local step = math_floor(wins / 2)
+    local text = Str('연승 버프 {1}단계({2}연승)', step, wins)
+    return text
+end
+
+-------------------------------------
 -- function getStraightBuffText
 -- @brief 연승 버프 텍스트
 -------------------------------------
 function ServerData_Colosseum:getStraightBuffText()
-    --[[
-
-    --]]
-
     -- 연승 정보
-    local straight = self.m_playerUserInfo.m_straight
+    local straight = self.m_buffWin
     local t_ret = TableColosseumBuff:getStraightBuffData(straight)
 
     local text = nil
@@ -689,7 +699,7 @@ end
 -------------------------------------
 function ServerData_Colosseum:getStraightTimeText()
     -- 연승 정보
-    local straight = self.m_playerUserInfo.m_straight
+    local straight = self.m_buffWin
 
     if (straight <= 1) then
         return '', false

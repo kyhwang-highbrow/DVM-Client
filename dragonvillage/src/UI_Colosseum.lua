@@ -150,10 +150,6 @@ function UI_Colosseum:refresh()
             .. struct_user_info:getWinRateText()  .. '\n'
             .. struct_user_info:getWinstreakText()
         vars['rankingLabel']:setString(str)
-
-        -- 연승 버프
-        local buff_str = g_colosseumData:getStraightBuffText()
-        vars['winBuffLabel']:setString(buff_str)
     end
 end
 
@@ -451,12 +447,15 @@ function UI_Colosseum:update(dt)
     do -- 연승 버프
         local str, active = g_colosseumData:getStraightTimeText()
         if active then
+            local title = g_colosseumData:getStraightBuffTitle()
             local text = g_colosseumData:getStraightBuffText()
-            vars['winBuffLabel']:setString(text)
-            vars['winBuffTimeLabel']:setString(str)
+            vars['buffLabel1']:setString(title)
+            vars['buffLabel2']:setString(str)
+            vars['buffLabel3']:setString(text)
         else
-            vars['winBuffLabel']:setString(Str('연승 버프 없음'))
-            vars['winBuffTimeLabel']:setString('')
+            vars['buffLabel1']:setString(Str('연승 버프'))
+            vars['buffLabel2']:setString(Str('연승 버프 없음'))
+            vars['buffLabel3']:setString('')
         end
 
     end
