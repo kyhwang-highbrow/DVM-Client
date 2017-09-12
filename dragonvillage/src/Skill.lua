@@ -387,17 +387,15 @@ function Skill:doStatusEffect(start_con, l_target)
 
         -- 드래그 스킬의 경우엔 충돌 정보를 파라미터에 추가시킴
         if (self.m_chanceType == 'active') then
-            l_target = self.m_lTargetChar
-
-            add_param['skill_collision_list'] = self.m_lTargetCollision
-        else
-            l_target = l_target or self:findTarget()
-
             if (start_con == CON_SKILL_START) then
-                add_param['skill_collision_list'] = self:findCollision()
+                l_target = self.m_lTargetChar
+                add_param['skill_collision_list'] = self.m_lTargetCollision
             else
+                l_target = l_target or self:findTarget()
                 add_param['skill_collision_list'] = convertToListFrom2DArray(self.m_hitCollisionList)
             end
+        else
+            l_target = l_target or self:findTarget()
         end
 
         StatusEffectHelper:doStatusEffectByStruct(self.m_owner, l_target, lStatusEffect, nil, self.m_skillId, add_param)
