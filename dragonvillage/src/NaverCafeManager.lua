@@ -27,3 +27,15 @@ function NaverCafeManager:naverCafeShowWidgetWhenUnloadSdk(isShowWidget)
     -- @isShowWidget : 1(SDK unload 시 카페 위젯 보여주기) or 0(안 보여주기)
     PerpleSDK:naverCafeShowWidgetWhenUnloadSdk(isShowWidget)
 end
+
+-------------------------------------
+-- function naverCafeStart
+-------------------------------------
+function NaverCafeManager:naverCafeStart(tapNumber)
+    if (skip()) then 
+        return
+    end
+
+    -- @tapNumber : 0(Home) or 1(Notice) or 2(Event) or 3(Menu) or 4(Profile)
+    PerpleSDK:naverCafeStart(tapNumber)
+end

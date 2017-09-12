@@ -250,6 +250,9 @@ function UI_Lobby:entryCoroutine()
 
         -- @isShowWidget : 1(SDK unload 시 카페 위젯 보여주기) or 0(안 보여주기)
         NaverCafeManager:naverCafeShowWidgetWhenUnloadSdk(1)
+
+        -- @tapNumber : 0(Home) or 1(Notice) or 2(Event) or 3(Menu) or 4(Profile)
+        NaverCafeManager:naverCafeStart(0)
     end
 
     Coroutine(coroutine_function, '로비 코루틴')
