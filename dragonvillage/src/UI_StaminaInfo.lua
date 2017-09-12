@@ -85,7 +85,8 @@ function UI_StaminaInfo:refresh()
     local str = Str('{1}/{2}', st_ad, max_cnt)
     vars['label']:setString(str)
 
-    if (st_ad < max_cnt) then
+    local charging_time = TableStaminaInfo:getChargingTime(stamina_type)
+    if (charging_time ~= '' and st_ad < max_cnt) then
         vars['timeNode']:setVisible(true)
         local time_str = g_staminasData:getChargeRemainText(self.m_staminaType)
         vars['timeLabel']:setString(time_str)

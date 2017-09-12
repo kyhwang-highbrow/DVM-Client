@@ -515,7 +515,7 @@ function UI_ReadyScene_Deck:checkChangeDeck(next_func)
     local l_deck, formation, deckname, leader, tamer_id = g_deckData:getDeck()
 
     -- 최소 1명 출전 확인 (일단 콜로세움만)
-    if (deckname == 'pvp_atk') or (deckname == 'pvp_def') then
+    if (deckname == 'pvp_atk') or (deckname == 'pvp_def') or (deckname == 'fpvp_atk')  then
         local setted_number = table.count(self.m_lDeckList)
         if (setted_number <= 0) then
             local msg = Str('최소 1명 이상은 출전시켜야 합니다.')
@@ -557,7 +557,7 @@ function UI_ReadyScene_Deck:checkChangeDeck(next_func)
 	end
 
     -- pvp는 테이머까지 처리
-    if (deckname == 'pvp_atk') or (deckname == 'pvp_def') then
+    if (deckname == 'pvp_atk') or (deckname == 'pvp_def') or (deckname == 'fpvp_atk') then
         if (self.m_uiReadyScene:getCurrTamerID() ~= tamer_id) then
             b_change = true
         end
@@ -576,6 +576,19 @@ function UI_ReadyScene_Deck:checkChangeDeck(next_func)
             local tamer_id = self.m_uiReadyScene:getCurrTamerID()
             local fail_cb = nil
             g_colosseumData:request_setDeck(deckname, self.m_currFormation, self.m_currLeader, l_edoid, tamer_id, next_func, fail_cb)
+        
+        -- 친선전 전용 덱 처리
+        elseif (deckname == 'fpvp_atk') then
+            local l_edoid = {}
+            l_edoid[1] = self.m_lDeckList[1]
+            l_edoid[2] = self.m_lDeckList[2]
+            l_edoid[3] = self.m_lDeckList[3]
+            l_edoid[4] = self.m_lDeckList[4]
+            l_edoid[5] = self.m_lDeckList[5]
+            local tamer_id = self.m_uiReadyScene:getCurrTamerID()
+            local fail_cb = nil
+            g_friendMatchData:request_setDeck(deckname, self.m_currFormation, self.m_currLeader, l_edoid, tamer_id, next_func, fail_cb)
+
         else
             local uid = g_userData:get('uid')
 

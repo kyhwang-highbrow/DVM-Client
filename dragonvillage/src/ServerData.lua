@@ -155,6 +155,9 @@ function ServerData:getInstance()
     -- 진화재료
     g_evolutionStoneData = ServerData_EvolutionStone(g_serverData)
 
+    -- 친선전
+    g_friendMatchData = ServerData_FriendMatch(g_serverData)
+
     return g_serverData
 end
 

@@ -8,7 +8,7 @@ GameWorldColosseum = class(PARENT, {
 
         m_leaderEnemy = '',
 		m_lEnemyDragons = '',
-
+        m_bFriendMatch = 'boolean',
         m_enemyDeckFormation = 'string',
         m_enemyDeckFormationLv = 'number',
     })
@@ -16,9 +16,9 @@ GameWorldColosseum = class(PARENT, {
 -------------------------------------
 -- function init
 -------------------------------------
-function GameWorldColosseum:init(game_mode, stage_id, world_node, game_node1, game_node2, game_node3, ui, develop_mode)
+function GameWorldColosseum:init(game_mode, stage_id, world_node, game_node1, game_node2, game_node3, ui, develop_mode, friend_match)
     self.m_lEnemyDragons = {}
-    
+    self.m_bFriendMatch = friend_match or false
     -- 타임 스케일 설정
     local baseTimeScale = COLOSSEUM__TIME_SCALE
     if (g_autoPlaySetting:get('quick_mode')) then
@@ -119,10 +119,11 @@ function GameWorldColosseum:initTamer()
     local HERO_TAMER_POS_X = 320 - 50
     local ENEMY_TAMER_POS_X = 960 + 50
     local TAMER_POS_Y = -600
+    local is_friendMatch = g_gameScene.m_bFriendMatch
 
     -- 아군 테이머 생성
     do
-        local user_info = g_colosseumData.m_playerUserInfo
+        local user_info = (is_friendMatch) and g_friendMatchData.m_playerUserInfo or g_colosseumData.m_playerUserInfo
         local tamer_id = user_info:getAtkDeckTamerID()
         local t_tamer_data = clone(g_tamerData:getTamerServerInfo(tamer_id))
 
@@ -136,12 +137,12 @@ function GameWorldColosseum:initTamer()
     -- 적군 테이머 생성
     do
         local t_tamer_data
-
+        
         if (self.m_bDevelopMode) then
-            local user_info = g_colosseumData.m_playerUserInfo
+            local user_info = (is_friendMatch) and g_friendMatchData.m_playerUserInfo or g_colosseumData.m_playerUserInfo
             t_tamer_data = clone(user_info:getDefDeckTamerInfo())
         else
-            local user_info = g_colosseumData:getMatchUserInfo()
+            local user_info = (is_friendMatch) and g_friendMatchData.m_matchInfo or g_colosseumData:getMatchUserInfo()
             t_tamer_data = clone(user_info:getDefDeckTamerInfo())
         end
         
@@ -296,8 +297,11 @@ end
 -------------------------------------
 function GameWorldColosseum:makeHeroDeck()
     -- 서버에 저장된 드래곤 덱 사용
-    local t_pvp_deck = g_colosseumData.m_playerUserInfo:getPvpAtkDeck()
-    local l_deck = g_colosseumData.m_playerUserInfo:getAtkDeck_dragonList(true)
+    local is_friendMatch = g_gameScene.m_bFriendMatch
+    local user_info = (is_friendMatch) and g_friendMatchData.m_playerUserInfo or g_colosseumData.m_playerUserInfo
+
+    local t_pvp_deck = user_info:getPvpAtkDeck()
+    local l_deck = user_info:getAtkDeck_dragonList(true)
     local formation = t_pvp_deck['formation']
     local formation_lv = t_pvp_deck['formationlv']
     local leader = t_pvp_deck['leader']
@@ -347,15 +351,17 @@ function GameWorldColosseum:makeEnemyDeck()
     local t_pvp_deck
     local l_deck
     local getDragonObject
-    
+    local is_friendMatch = g_gameScene.m_bFriendMatch
+
     if (self.m_bDevelopMode) then
+        local user_info = (is_friendMatch) and g_friendMatchData.m_playerUserInfo or g_colosseumData.m_playerUserInfo
         -- 개발모드에선 자신의 방어덱을 상대로 설정
-        t_pvp_deck = g_colosseumData.m_playerUserInfo:getPvpDefDeck()
-        l_deck = g_colosseumData.m_playerUserInfo:getDefDeck_dragonList(true)
+        t_pvp_deck = user_info:getPvpDefDeck()
+        l_deck = user_info:getDefDeck_dragonList(true)
         getDragonObject = function(doid) return g_dragonsData:getDragonDataFromUid(doid) end
     else
         -- 상대방의 덱 정보를 얻어옴
-        local user_info = g_colosseumData:getMatchUserInfo()
+        local user_info =(is_friendMatch) and g_friendMatchData.m_matchInfo or g_colosseumData:getMatchUserInfo()
         t_pvp_deck = user_info:getPvpDefDeck()
         l_deck = user_info:getDefDeck_dragonList(true)
         getDragonObject = function(doid) return user_info:getDragonObject(doid) end

@@ -125,6 +125,7 @@ local t_module = {
     'ServerData_Highbrow',
     'ServerData_Advertising',
     'ServerData_EvolutionStone',
+    'ServerData_FriendMatch',
 
     -- Interface
     'IEventDispatcher',
@@ -721,6 +722,11 @@ local t_module = {
     'UI_ColosseumHistoryListItem',
     'UI_ColosseumDeckSettings',
     'UI_3DDeck',
+
+    -- UI : 친선전
+    'UI_FriendMatchReady',
+    'UI_FriendMatchResult',
+    'UI_FriendMatchDeckSettings',
 
 	-- UI : 고대의 탑
     'UI_AncientTower',

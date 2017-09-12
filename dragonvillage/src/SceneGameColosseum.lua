@@ -4,18 +4,25 @@ local PARENT = SceneGame
 -- class SceneGameColosseum
 -------------------------------------
 SceneGameColosseum = class(PARENT, {
+        m_bFriendMatch = 'boolean',
     })
 
 -------------------------------------
 -- function init
 -------------------------------------
-function SceneGameColosseum:init(game_key, stage_id, stage_name, develop_mode)
+function SceneGameColosseum:init(game_key, stage_id, stage_name, develop_mode, friend_match)
     self.m_stageName = 'stage_colosseum'
     self.m_bDevelopMode = develop_mode
+    self.m_bFriendMatch = friend_match or false
 
     self.m_sceneName = 'SceneGameColosseum'
 
-    g_deckData:setSelectedDeck('pvp_atk')
+    -- 친구대전 
+    if (self.m_bFriendMatch) then
+        g_deckData:setSelectedDeck('fpvp_atk')
+    else
+        g_deckData:setSelectedDeck('pvp_atk')
+    end
 end
 
 -------------------------------------
@@ -59,7 +66,7 @@ function SceneGameColosseum:prepare()
 
         -- 레이어 생성
         self:init_layer()
-        self.m_gameWorld = GameWorldColosseum(self.m_gameMode, self.m_stageID, self.m_worldLayer, self.m_gameNode1, self.m_gameNode2, self.m_gameNode3, self.m_inGameUI, self.m_bDevelopMode)
+        self.m_gameWorld = GameWorldColosseum(self.m_gameMode, self.m_stageID, self.m_worldLayer, self.m_gameNode1, self.m_gameNode2, self.m_gameNode3, self.m_inGameUI, self.m_bDevelopMode, self.m_bFriendMatch)
         self.m_gameWorld:initGame(self.m_stageName)
         
         -- 스크린 사이즈 초기화

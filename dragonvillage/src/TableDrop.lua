@@ -58,6 +58,9 @@ function TableDrop:getStageStaminaType(stage_id)
 
     if (stage_id == COLOSSEUM_STAGE_ID) then
         return 'pvp', 1
+
+    elseif (stage_id == FRIEND_MATCH_STAGE_ID) then
+        return 'fpvp', 1
     end
 
     local stamina_type = self:getValue(stage_id, 'cost_type')

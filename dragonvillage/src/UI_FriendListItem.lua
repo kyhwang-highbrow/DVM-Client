@@ -39,6 +39,11 @@ function UI_FriendListItem:initButton()
     local vars = self.vars
     local t_friend_info = self:getFriendInfo()
     vars['userNode']:addChild(t_friend_info:getDragonCard())
+
+    -- 친구 대전
+    local pvp_node = vars['friendshipBtn']
+    pvp_node:setVisible(true)
+    pvp_node:registerScriptTapHandler(function() self:click_friendshipBtn() end)
 end
 
 -------------------------------------
@@ -52,9 +57,11 @@ function UI_FriendListItem:refresh()
     if is_manage_mode then
         vars['sendBtn']:setVisible(false)
         vars['deleteBtn']:setVisible(true)
+        vars['friendshipBtn']:setVisible(false)
     else
         vars['sendBtn']:setVisible(true)
         vars['deleteBtn']:setVisible(false)
+        vars['friendshipBtn']:setVisible(true)
     end
 
     local t_friend_info = self:getFriendInfo()
@@ -62,7 +69,9 @@ function UI_FriendListItem:refresh()
     vars['timeLabel']:setString(t_friend_info:getPastActiveTimeText())
 
     -- 보내기 버튼
-    vars['sendBtn']:setEnabled(not g_friendData:isSentFp(self.m_friendUid))
+    local is_send = g_friendData:isSentFp(self.m_friendUid)
+    vars['sendBtn']:setEnabled(not is_send)
+    vars['sendDisableSprite']:setVisible(is_send)
 end
 
 -------------------------------------
@@ -72,3 +81,17 @@ function UI_FriendListItem:getFriendInfo()
     local t_friend_info = g_friendData:getFriendInfo(self.m_friendUid)
     return t_friend_info
 end
+
+-------------------------------------
+-- function click_friendshipBtn
+-------------------------------------
+function UI_FriendListItem:click_friendshipBtn()
+    local vs_uid = self.m_friendUid
+    local function goto_ready()
+        UI_FriendMatchReady()
+    end
+
+    g_friendMatchData:request_colosseumInfo(vs_uid, goto_ready)
+end
+
+

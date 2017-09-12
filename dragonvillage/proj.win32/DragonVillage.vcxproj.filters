@@ -2697,6 +2697,18 @@
     <None Include="..\src\UI_ChapterSelectListItem.lua">
       <Filter>lua\UI</Filter>
     </None>
+    <None Include="..\src\UI_FriendMatchResult.lua">
+      <Filter>lua\UI</Filter>
+    </None>
+    <None Include="..\src\UI_FriendMatchReady.lua">
+      <Filter>lua\UI</Filter>
+    </None>
+    <None Include="..\src\UI_FriendMatchDeckSettings.lua">
+      <Filter>lua\UI</Filter>
+    </None>
+    <None Include="..\src\ServerData_FriendMatch.lua">
+      <Filter>lua\src</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Classes">

@@ -37,13 +37,14 @@ function UI_GameColosseum:initUI()
 
     -- 닉네임
     do
-        local user_info = g_colosseumData.m_playerUserInfo
+        local is_friendMatch = self.m_gameScene.m_bFriendMatch
+        local user_info = (is_friendMatch) and g_friendMatchData.m_playerUserInfo or g_colosseumData.m_playerUserInfo
         vars['userNameLabel1']:setString(user_info.m_nickname)
 
         if (self.m_gameScene.m_bDevelopMode) then
             vars['userNameLabel2']:setString(user_info.m_nickname)
         else
-            user_info = g_colosseumData:getMatchUserInfo()
+            user_info = (is_friendMatch) and g_friendMatchData.m_matchInfo or g_colosseumData:getMatchUserInfo()
             vars['userNameLabel2']:setString(user_info.m_nickname)
         end
     end

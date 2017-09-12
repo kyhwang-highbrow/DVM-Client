@@ -461,7 +461,7 @@ function StructUserInfoColosseum:getDeck(type)
     local tamer_id = g_tamerData:getCurrTamerID()
 
     -- 공격덱
-    if (type == 'atk') or (type == 'pvp_atk') then
+    if (type == 'atk') or (type == 'pvp_atk') or (type == 'fatk') or (type == 'fpvp_atk')then
         local l_doid = self:getAtkDeck_dragonList(true)
         local formation = 'attack'
         local leader = 0

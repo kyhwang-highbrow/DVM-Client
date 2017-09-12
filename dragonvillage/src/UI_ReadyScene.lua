@@ -119,6 +119,16 @@ function UI_ReadyScene:checkDeckProper()
         return
     end
 
+    -- 친선대전 별도 처리
+    if (self.m_stageID == FRIEND_MATCH_STAGE_ID) then
+        cclog('fatk')
+        if (self.m_subInfo == 'fatk') then
+            cclog('fatk')
+            g_deckData:setSelectedDeck('fpvp_atk')
+        end
+        return
+    end
+
 	local curr_mode = TableDrop():getValue(self.m_stageID, 'mode')
 	local curr_deck_name = g_deckData:getSelectedDeckName()
 	if not (curr_mode == curr_deck_name) then
@@ -319,7 +329,7 @@ function UI_ReadyScene:initUI()
     end
 
 	-- 콜로세움 에외처리
-	if (self.m_stageID == COLOSSEUM_STAGE_ID) then
+	if (self.m_stageID == COLOSSEUM_STAGE_ID or self.m_stageID == FRIEND_MATCH_STAGE_ID) then
 		vars['friendToggleBtn']:setEnabled(false)
 		vars['autoStartOnBtn']:setEnabled(false)
 
@@ -402,7 +412,7 @@ function UI_ReadyScene:initButton()
 
 
     -- 콜로세움일 경우
-    if (self.m_stageID == COLOSSEUM_STAGE_ID) then
+    if (self.m_stageID == COLOSSEUM_STAGE_ID or self.m_stageID == FRIEND_MATCH_STAGE_ID) then
         vars['actingPowerNode']:setVisible(false)
         vars['startBtn']:registerScriptTapHandler(function() self:click_backBtn() end)
         vars['startBtnLabel']:setPositionX(0)
@@ -428,7 +438,10 @@ function UI_ReadyScene:refresh()
             else
                 str = Str('콜로세움 준비')
             end
-		end
+
+	    elseif (stage_id == FRIEND_MATCH_STAGE_ID) then
+            str = Str('친구대전 공격')
+        end
         self.m_titleStr = str
         g_topUserInfo:setTitleString(str)
     end
@@ -468,7 +481,7 @@ function UI_ReadyScene:refresh_combatPower()
     local vars = self.vars
 
     local stage_id = self.m_stageID
-	if (stage_id == COLOSSEUM_STAGE_ID) then
+	if (stage_id == COLOSSEUM_STAGE_ID or stage_id == FRIEND_MATCH_STAGE_ID) then
 		vars['cp_Label2']:setString('')
 
         local deck = self.m_readySceneDeck:getDeckCombatPower()
@@ -991,6 +1004,9 @@ function UI_ReadyScene:getStageStaminaInfo()
     local cost_type, cost_value
 	if (stage_id == COLOSSEUM_STAGE_ID) then
 		cost_type = 'pvp'
+		cost_value = 1
+    elseif (stage_id == FRIEND_MATCH_STAGE_ID) then
+		cost_type = 'fpvp'
 		cost_value = 1
 	else
 		cost_type = 'st'

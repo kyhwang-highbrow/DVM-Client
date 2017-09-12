@@ -438,6 +438,7 @@ xcopy /Y /Q "$(ProjectDir)..\..\libraries\pati\prebuilt\windows\*.dll" "$(OutDir
     <None Include="..\src\ServerData_Exploration.lua" />
     <None Include="..\src\ServerData_Formation.lua" />
     <None Include="..\src\ServerData_Friend.lua" />
+    <None Include="..\src\ServerData_FriendMatch.lua" />
     <None Include="..\src\ServerData_Hatchery.lua" />
     <None Include="..\src\ServerData_Highbrow.lua" />
     <None Include="..\src\ServerData_Highlight.lua" />
@@ -877,6 +878,9 @@ xcopy /Y /Q "$(ProjectDir)..\..\libraries\pati\prebuilt\windows\*.dll" "$(OutDir
     <None Include="..\src\UI_EvolutionStoneCombine.lua" />
     <None Include="..\src\UI_EvolutionStoneCombineListItem.lua" />
     <None Include="..\src\UI_FormationDetailPopup.lua" />
+    <None Include="..\src\UI_FriendMatchDeckSettings.lua" />
+    <None Include="..\src\UI_FriendMatchReady.lua" />
+    <None Include="..\src\UI_FriendMatchResult.lua" />
     <None Include="..\src\UI_GameDebug_InfoPopup.lua" />
     <None Include="..\src\UI_DragonGoodbyeResult.lua" />
     <None Include="..\src\UI_Game_Mana.lua" />

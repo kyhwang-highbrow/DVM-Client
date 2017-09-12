@@ -46,6 +46,7 @@ function UI_FriendPopup:initParentVariable()
     self.m_bUseExitBtn = true
     self.m_titleStr = Str('친구')
     self.m_subCurrency = 'fp'
+    self.m_staminaType = 'fpvp'
 end
 
 -------------------------------------

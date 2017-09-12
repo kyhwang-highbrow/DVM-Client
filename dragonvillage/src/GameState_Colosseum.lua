@@ -371,6 +371,9 @@ function GameState_Colosseum:makeResultUI(is_win)
         local t_data = { added_rp = 0, added_honor = 0 }
         UI_ColosseumResult(is_win, t_data)
 
+    elseif (self.m_world.m_bFriendMatch) then
+        UI_FriendMatchResult(is_win)
+
     else
         -- 작업 함수들
         local func_network_game_finish
