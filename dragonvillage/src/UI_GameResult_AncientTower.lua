@@ -51,7 +51,7 @@ function UI_GameResult_AncientTower:setAnimationData()
     table.insert(score_list, score_calc:calcClearTimeBonus())
     table.insert(score_list, score_calc:calcClearNoDeathBonus())
     table.insert(score_list, score_calc:calcKillBossBonus())
-    table.insert(score_list, score_calc:calcAcitveSkillBonus())
+    --table.insert(score_list, score_calc:calcAcitveSkillBonus())
     table.insert(score_list, score_calc:getWeakGradeMinusScore())
     table.insert(score_list, score_calc:getFinalScore())
 
@@ -60,7 +60,7 @@ function UI_GameResult_AncientTower:setAnimationData()
     {
         'clearLabel1',  'clearLabel2',  'timeLabel1',  'timeLabel2', 
         'injuryLabel1', 'injuryLabel2', 'dragLabel1',  'dragLabel2',
-        'skillLabel1',  'skillLabel2',  'weakLabel1',  'weakLabel2', 
+        'weakLabel1',  'weakLabel2', 
         'totalLabel1',  'totalLabel2'
     }
 
@@ -137,7 +137,7 @@ function UI_GameResult_AncientTower:runScoreAction(idx, node)
     number_func = function()
         if (not is_numbering) then return end
         local score = tonumber(score_list[idx/2])
-        local is_ani = (score < 10) and true or false
+        local is_ani = (score < #node_list - 2) and true or false
         node = NumberLabel(node, 0, number_time)
         node:setNumber(score, is_ani)
 

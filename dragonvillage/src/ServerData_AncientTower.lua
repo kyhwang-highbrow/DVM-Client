@@ -31,6 +31,7 @@ ServerData_AncientTower = class({
         m_playerUserInfo = 'StructUserInfoAncientTower', -- 내 랭킹 정보
 
         m_nTotalRank = 'number', -- 시즌 내 순위
+        m_nTotalRate = 'number', 
         m_nTotalScore = 'number', -- 시즌 내 총점수
 
         m_tSeasonRewardInfo = 'table', -- 시즌 보상 정보
@@ -144,6 +145,7 @@ function ServerData_AncientTower:request_ancientTowerInfo(stage, finish_cb, fail
         self.m_endTime = ret['end_time']
 
         self.m_nTotalRank = ret['myrank']
+        self.m_nTotalRate= ret['myrate']
         self.m_nTotalScore = ret['total_score']
 
         self.m_bOpen = ret['open']

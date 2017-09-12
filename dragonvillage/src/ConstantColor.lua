@@ -77,6 +77,7 @@ COLOR['DEEPSKYBLUE'] = cc.c3b(0,191,255)
 
 COLOR['LIGHTGREEN'] = cc.c3b(165, 224, 0)
 COLOR['MUSTARD'] = cc.c3b(255, 231, 48)
+COLOR['MUSTARD2'] = cc.c3b(255, 177, 1)
 COLOR['ROSE'] = cc.c3b(255, 48, 48)
 
 COLOR['YELLOW'] = cc.c3b(255,255,0)

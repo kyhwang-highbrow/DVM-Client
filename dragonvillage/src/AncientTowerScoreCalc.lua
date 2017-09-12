@@ -12,9 +12,9 @@ AncientTowerScoreCalc = class({
 
 local CLEAR_BONUS       = 500   -- 클리어 보너스
 local NODEATH_BONUS     = 700   -- 생존 보너스
-local BOSS_BONUS        = 500   -- 보스 제거 보너스
-local ACTIVE_BONUS      = 25    -- 드래그 스킬 보너스
-local WAVE_TOTAL_TIME   = 300
+local BOSS_BONUS        = 700    -- 보스 제거 보너스
+local ACTIVE_BONUS      = 0    -- 드래그 스킬 보너스
+local WAVE_TOTAL_TIME   = 240
 
 -------------------------------------
 -- function init
@@ -72,7 +72,7 @@ function AncientTowerScoreCalc:calcClearTimeBonus()
     local recorder_info = self.m_lrecorder
     local clear_time    = recorder_info:getLog('lap_time')
 
-    return math_max((WAVE_TOTAL_TIME - clear_time) * 5, 0)
+    return math_max((WAVE_TOTAL_TIME - clear_time) * 8, 0)
 end
 
 -------------------------------------

@@ -48,15 +48,18 @@ function UI_AncientTowerFloorInfo:refresh_floorData()
     local vars = self.m_uiScene.vars
     local info = self.m_floorInfo
 
-    vars['floorLabel']:setString(Str('고대의 탑 {1}층', info.m_floor))
+    vars['towerTabLabel']:setString(Str('고대의 탑 {1}층', info.m_floor))
 
     do -- 시즌 정보
         local season_score = math_max(g_ancientTowerData.m_nTotalScore, 0)
         local season_rank = g_ancientTowerData.m_nTotalRank
-        season_rank = (season_rank <= 0) and Str('순위 없음') or Str('{1}위', season_rank)
 
-        local str = Str('{1}점\n{2}', season_score, season_rank)
-        vars['totalScoreLabel']:setString(str)
+        season_rank = (season_rank <= 0) and Str('순위 없음') or Str('{1}위', season_rank)
+        local str_rank = Str('{1}', season_rank)    
+        vars['totalRankLabel']:setString(str_rank)
+
+        local str_score = Str('{1}점', season_score)
+        vars['totalScoreLabel']:setString(str_score)
     end
     
     do -- 층 정보
@@ -64,7 +67,7 @@ function UI_AncientTowerFloorInfo:refresh_floorData()
         local my_high_score = info.m_myHighScore
         local season_high_score = info.m_seasonHighScore
         local top_user = info:getTopUserNick()
-        local str = Str('{1}점\n{2}점\n{3}점\n{4}', my_score, my_high_score, season_high_score, top_user)
+        local str = Str('{@DESC2}{1}점\n{@DESC}{@MUSTARD2}{2}점\n{@DESC}{3}점\n{4}', my_high_score, my_score, season_high_score, top_user)
         vars['scoreLabel']:setString(str)
 
         local fail_cnt = info.m_failCnt
@@ -72,6 +75,10 @@ function UI_AncientTowerFloorInfo:refresh_floorData()
 
         local weak_grade = g_ancientTowerData:getWeakGrade(fail_cnt)
         vars['weakenLabel']:setString(Str('약화 등급 {1}/{2}', weak_grade, ANCIENT_TOWER_MAX_DEBUFF_LEVEL))
+
+        local stage_id = info.m_stage
+        local str_help = TableStageData():getValue(tonumber(stage_id), 't_help')
+        vars['towerDscLabel']:setString(str_help)
     end
     
     do -- 스테이지에 해당하는 스테미나 아이콘 생성
