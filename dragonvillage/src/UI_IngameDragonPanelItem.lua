@@ -124,11 +124,22 @@ function UI_IngameDragonPanelItem:initUI()
     -- 인디케이터 아이콘
     if (t_skill) then
         local indicator_type = t_skill['indicator']
+        local rotate = 0
+
+        if (pl.stringx.endswith(indicator_type, '_right')) then
+            indicator_type = string.gsub(indicator_type, '_right', '')
+            rotate = 180
+        elseif (pl.stringx.endswith(indicator_type, '_top')) then
+            indicator_type = string.gsub(indicator_type, '_top', '')
+            rotate = 180
+        end
+        
         local res = 'ingame_panel_indicater_' .. str_target .. '_' .. indicator_type .. '.png'
         local icon = cc.Sprite:createWithSpriteFrameName(res)
         if (icon) then
             icon:setDockPoint(CENTER_POINT)
             icon:setAnchorPoint(CENTER_POINT)
+            icon:setRotation(rotate)
             vars['indicaterNode']:addChild(icon)
         end
     end
