@@ -57,6 +57,8 @@
 		3765B4AA1F67AB760036B697 /* libNaverLogin.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3765B4A41F67AB750036B697 /* libNaverLogin.a */; };
 		3765B4AB1F67AB760036B697 /* NaverAuth.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 3765B4A51F67AB750036B697 /* NaverAuth.bundle */; };
 		3765B4AC1F67AB760036B697 /* NLoginThirdPartyOAuth20InAppBrowserViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3765B4A91F67AB760036B697 /* NLoginThirdPartyOAuth20InAppBrowserViewController.m */; };
+		3765B4CF1F67AEB60036B697 /* GameController.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3765B4CE1F67AEB60036B697 /* GameController.framework */; };
+		3765B4D11F67AEF80036B697 /* CoreMedia.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3765B4D01F67AEF80036B697 /* CoreMedia.framework */; };
 		377033A5198F5FF00091C231 /* ConfigParser.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3770339F198F5FF00091C231 /* ConfigParser.cpp */; };
 		377033A6198F5FF00091C231 /* Runtime.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 377033A1198F5FF00091C231 /* Runtime.cpp */; };
 		377033A7198F5FF00091C231 /* VisibleRect.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 377033A3198F5FF00091C231 /* VisibleRect.cpp */; };
@@ -395,6 +397,8 @@
 		3765B4A71F67AB760036B697 /* NaverThirdPartyLoginConnection.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = NaverThirdPartyLoginConnection.h; path = "../../libraries/perplesdk/external/naver-cafe-sdk/ios/NaverLogin-thirdPartyModule/NaverThirdPartyLoginConnection.h"; sourceTree = "<group>"; };
 		3765B4A81F67AB760036B697 /* NLoginThirdPartyOAuth20InAppBrowserViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = NLoginThirdPartyOAuth20InAppBrowserViewController.h; path = "../../libraries/perplesdk/external/naver-cafe-sdk/ios/NaverLogin-thirdPartyModule/NLoginThirdPartyOAuth20InAppBrowserViewController.h"; sourceTree = "<group>"; };
 		3765B4A91F67AB760036B697 /* NLoginThirdPartyOAuth20InAppBrowserViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = NLoginThirdPartyOAuth20InAppBrowserViewController.m; path = "../../libraries/perplesdk/external/naver-cafe-sdk/ios/NaverLogin-thirdPartyModule/NLoginThirdPartyOAuth20InAppBrowserViewController.m"; sourceTree = "<group>"; };
+		3765B4CE1F67AEB60036B697 /* GameController.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GameController.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS10.3.sdk/System/Library/Frameworks/GameController.framework; sourceTree = DEVELOPER_DIR; };
+		3765B4D01F67AEF80036B697 /* CoreMedia.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMedia.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS10.3.sdk/System/Library/Frameworks/CoreMedia.framework; sourceTree = DEVELOPER_DIR; };
 		3770339F198F5FF00091C231 /* ConfigParser.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = ConfigParser.cpp; path = ../Classes/ConfigParser.cpp; sourceTree = "<group>"; };
 		377033A0198F5FF00091C231 /* ConfigParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ConfigParser.h; path = ../Classes/ConfigParser.h; sourceTree = "<group>"; };
 		377033A1198F5FF00091C231 /* Runtime.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Runtime.cpp; path = ../Classes/Runtime.cpp; sourceTree = "<group>"; };
@@ -530,15 +534,17 @@
 				F293B3D515EB7BE500256477 /* AVFoundation.framework in Frameworks */,
 				37E128E61B4539C500200C23 /* CFNetwork.framework in Frameworks */,
 				37E128D21B45391900200C23 /* CoreData.framework in Frameworks */,
-				37FB64931F3AD0BF00378EE8 /* GameKit.framework in Frameworks */,
 				F293B3DB15EB7BE500256477 /* CoreGraphics.framework in Frameworks */,
 				37E128C21B4538B800200C23 /* CoreLocation.framework in Frameworks */,
 				37E128C41B4538C200200C23 /* CoreMotion.framework in Frameworks */,
+				3765B4D11F67AEF80036B697 /* CoreMedia.framework in Frameworks */,
 				37E128DC1B45397400200C23 /* CoreTelephony.framework in Frameworks */,
 				37E128D01B45390D00200C23 /* CoreText.framework in Frameworks */,
 				37E128B01B45380F00200C23 /* EventKit.framework in Frameworks */,
 				37E128B41B45384000200C23 /* EventKitUI.framework in Frameworks */,
 				F293B3D915EB7BE500256477 /* Foundation.framework in Frameworks */,
+				37FB64931F3AD0BF00378EE8 /* GameKit.framework in Frameworks */,
+				3765B4CF1F67AEB60036B697 /* GameController.framework in Frameworks */,
 				37E128CA1B4538DF00200C23 /* iAd.framework in Frameworks */,
 				37E128DA1B45396200200C23 /* ImageIO.framework in Frameworks */,
 				37E128E21B4539A900200C23 /* MediaPlayer.framework in Frameworks */,
@@ -721,7 +727,6 @@
 				374376871F3A800F00AC6C7C /* libPerpleSDK.a */,
 				3765B4901F67A9540036B697 /* NaverCafeSDK.framework */,
 				375E09791F4498B10085A2FE /* UnityAds.framework */,
-				37FB64921F3AD0BE00378EE8 /* GameKit.framework */,
 				374376851F3A7FE100AC6C7C /* SafariServices.framework */,
 				37E128DD1B45398400200C23 /* AdSupport.framework */,
 				37E128BF1B4538AE00200C23 /* AssetsLibrary.framework */,
@@ -734,11 +739,14 @@
 				F293B3DA15EB7BE500256477 /* CoreGraphics.framework */,
 				37E128C11B4538B800200C23 /* CoreLocation.framework */,
 				37E128C31B4538C200200C23 /* CoreMotion.framework */,
+				3765B4D01F67AEF80036B697 /* CoreMedia.framework */,
 				37E128DB1B45397400200C23 /* CoreTelephony.framework */,
 				37E128CF1B45390D00200C23 /* CoreText.framework */,
 				37E128AF1B45380F00200C23 /* EventKit.framework */,
 				37E128B31B45384000200C23 /* EventKitUI.framework */,
 				F293B3D815EB7BE500256477 /* Foundation.framework */,
+				37FB64921F3AD0BE00378EE8 /* GameKit.framework */,
+				3765B4CE1F67AEB60036B697 /* GameController.framework */,
 				37E128C91B4538DF00200C23 /* iAd.framework */,
 				37E128D91B45396200200C23 /* ImageIO.framework */,
 				50D7C96F17EBBEEC005D0B91 /* IOKit.framework */,
