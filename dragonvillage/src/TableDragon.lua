@@ -120,6 +120,12 @@ end
 -- function getImplementedDid
 -------------------------------------
 function TableDragon:getImplementedDid(did)
+    -- 기존에 개발 중인 드래곤은 파워드래곤으로 나오게 하던 부분
+    -- LIVE 환경으로 변경되면서 제거함
+    if true then
+        return did
+    end
+
     if (self == THIS) then
         self = THIS()
     end
