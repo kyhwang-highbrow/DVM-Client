@@ -635,40 +635,45 @@ function StatusEffect:addOverlabUnit(caster, skill_id, value, source, duration, 
     
     local t_status_effect = self.m_statusEffectTable
     
-    -- 갱신(삭제 후 새로 추가하는 방식으로 처리함. 리스트의 가장 뒤로 보내야하기 때문)
-    if (self.m_mUnit[char_id]) then
-        if (t_status_effect['overlab_option'] ~= 1) then
-            for i, unit in ipairs(self.m_mUnit[char_id]) do
-                if (unit.m_skillId == skill_id) then
-                    -- 주체와 스킬id가 같을 경우 삭제 후 추가 시킴
-                    local unit = table.remove(self.m_mUnit[char_id], i)
-                    self:unapplyOverlab(unit)
+    if (not self.m_mUnit[char_id]) then
+        self.m_mUnit[char_id] = {}
+    end
 
-                    local idx = table.find(self.m_lUnit, unit)
-                    table.remove(self.m_lUnit, idx)
+     -- 갱신(삭제 후 새로 추가하는 방식으로 처리함. 리스트의 가장 뒤로 보내야하기 때문)
+    if (t_status_effect['overlab_option'] ~= 1) then
+        for i, unit in ipairs(self.m_mUnit[char_id]) do
+            if (unit.m_skillId == skill_id) then
+                -- 주체와 스킬id가 같을 경우 삭제 후 추가 시킴
+                local unit = table.remove(self.m_mUnit[char_id], i)
+                self:unapplyOverlab(unit)
+
+                local idx = table.find(self.m_lUnit, unit)
+                table.remove(self.m_lUnit, idx)
                 
-                    break
-                end
+                break
             end
         end
-    else
-        self.m_mUnit[char_id] = {}
     end
 
     -- 중첩 정보 추가
     table.insert(self.m_mUnit[char_id], new_unit)
     table.insert(self.m_lUnit, new_unit)
-    
     -- 중첩시 효과 적용
     self:applyOverlab(new_unit)
     
     -- 최대 중첩 횟수를 넘을 경우 젤 앞의 unit을 삭제
     if (self.m_maxOverlab > 0 and self.m_overlabCnt > self.m_maxOverlab) then
-        local unit = table.remove(self.m_mUnit[char_id], 1)
-        self:unapplyOverlab(unit)
+        local unit = table.remove(self.m_lUnit, 1)
 
-        local idx = table.find(self.m_lUnit, unit)
-        table.remove(self.m_lUnit, idx)
+        for _, v in pairs(self.m_mUnit) do
+            local idx = table.find(v, unit)
+            if (idx) then
+                table.remove(v, idx)
+                break
+            end
+        end
+                            
+        self:unapplyOverlab(unit)
     end
 
     -- 해당 상태효과의 종료시간을 구해서 저장
