@@ -44,8 +44,8 @@
 #define ADBRIX_HASH_KEY             @"5c67709eb5c349c6"
 #define TAPJOY_SDK_KEY              @"Ws1LafcqRzuuBd763wqDOAEBFg9MYTtlr04omXYpDVNJIVl4ivGW9cK37TA2"
 #define UNITY_ADS_GAME_ID           @"1515685"
-#define NAVER_CAFE_CLIENT_ID        @""
-#define NAVER_CAFE_CLIENT_SECRET    @""
+#define NAVER_CAFE_CLIENT_ID        @"nQGxfwLZ1Rf4Lwhozq4G"
+#define NAVER_CAFE_CLIENT_SECRET    @"1yzbWtj_Cu"
 #define NAVER_CAFE_ID               29168475
 
 // @idfa
