@@ -105,6 +105,10 @@ function UI_Lobby:entryCoroutine()
             MakeSimplePopup(POPUP_TYPE.OK, msg, ok_cb)
         end
 
+        -- 최초 실행인지 확인
+        local title_to_lobby = g_localData:get('event_full_popup', 'title_to_lobby') or false
+        g_localData:applyLocalData(false, 'event_full_popup', 'title_to_lobby')
+
         --친구 정보 받아옴
         cclog('# 친구 정보 받는 중')
         working = true
@@ -185,7 +189,7 @@ function UI_Lobby:entryCoroutine()
         if (g_tutorialData:isTutorialDone(TUTORIAL.FIRST_START)) then
 
             -- 패키지 풀팝업 (하드코딩)
-            local title_to_lobby = g_localData:get('event_full_popup', 'title_to_lobby') or false
+            
             if (title_to_lobby) then
                 local first_login = g_localData:get('event_full_popup', 'first_login') or false
 
@@ -210,8 +214,6 @@ function UI_Lobby:entryCoroutine()
                         while (working) do dt = coroutine.yield() end
                     end                
                 end
-
-                g_localData:applyLocalData(false, 'event_full_popup', 'title_to_lobby')
             end
 
             -- 이벤트 보상 정보가 있다면 팝업을 띄운다.
@@ -248,11 +250,13 @@ function UI_Lobby:entryCoroutine()
             while (working) do dt = coroutine.yield() end
         end
 
-        -- @isShowWidget : 1(SDK unload 시 카페 위젯 보여주기) or 0(안 보여주기)
-        NaverCafeManager:naverCafeShowWidgetWhenUnloadSdk(1)
+        if title_to_lobby then
+            -- @isShowWidget : 1(SDK unload 시 카페 위젯 보여주기) or 0(안 보여주기)
+            NaverCafeManager:naverCafeShowWidgetWhenUnloadSdk(1)
 
-        -- @tapNumber : 0(Home) or 1(Notice) or 2(Event) or 3(Menu) or 4(Profile)
-        NaverCafeManager:naverCafeStart(0)
+            -- @tapNumber : 0(Home) or 1(Notice) or 2(Event) or 3(Menu) or 4(Profile)
+            NaverCafeManager:naverCafeStart(0)
+        end
     end
 
     Coroutine(coroutine_function, '로비 코루틴')
