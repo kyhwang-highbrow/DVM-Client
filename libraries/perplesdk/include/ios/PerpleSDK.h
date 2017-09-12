@@ -163,15 +163,17 @@ typedef void(^PerpleSDKCallback)(NSString *result, NSString *info);
 #ifdef USE_NAVER
 - (BOOL) naverCafeIsShowGlink;
 - (void) naverCafeShowWidgetWhenUnloadSdk:(BOOL)isShowWidget;
+- (void) naverCafeSetWidgetStartPosition:(NSString *)arg0 andY:(NSString *)arg1;
+- (void) naverCafeStartWidget;
 - (void) naverCafeStopWidget;
 - (void) naverCafeStart:(NSUInteger)tapIndex;
 - (void) naverCafeStop;
-- (void) naverCafePopBackStack;
-- (void) naverCafeStartWrite:(NSInteger)menuId subject:(NSString *)subject content:(NSString *)text;
-- (void) naverCafeStartImageWrite:(NSInteger)menuId subject:(NSString *)subject content:(NSString *)text filePath:(NSString *)filePath;
-- (void) naverCafeStartVideoWrite:(NSInteger)menuId subject:(NSString *)subject content:(NSString *)text filePath:(NSString *)filePath;
+- (void) naverCafeStartWrite;
+- (void) naverCafeStartImageWrite:(NSString *)filePath;
+- (void) naverCafeStartVideoWrite:(NSString *)filePath;
 - (void) naverCafeSyncGameUserId:(NSString *)gameUserId;
 - (void) naverCafeSetUseVideoRecord:(BOOL)isSetUseVideoRecord;
+- (void) naverCafeSetUseScreenshot:(BOOL)isSetUseScreenshot;
 - (void) naverCafeSetCallback:(PerpleSDKCallback)callback;
 #endif
 - (void) googleLogin:(int)connectOnly completion:(PerpleSDKCallback)callback;
