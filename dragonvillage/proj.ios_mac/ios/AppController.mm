@@ -120,7 +120,7 @@ static AppDelegate s_sharedApplication;
     cocos2d::Director::getInstance()->setOpenGLView(glview);
 
     // @perplesdk
-    BOOL isDebug = YES;
+    BOOL isDebug = NO;
     if ([[PerpleSDK sharedInstance] initSDKWithGcmSenderId:SENDER_ID debug:isDebug]) {
         [[PerpleSDK sharedInstance] initGoogleWithClientId:CLIENT_ID view:viewController];
         [[PerpleSDK sharedInstance] initFacebookWithParentView:viewController];
