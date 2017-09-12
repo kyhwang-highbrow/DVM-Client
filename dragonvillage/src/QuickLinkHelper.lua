@@ -241,6 +241,11 @@ T_LINK_FUNC = {
         UINavigator:goTo('dragon_manage', 'grade')
     end,
 
+    -- 드래곤 승급 확인하기
+    ['check_grup'] = function()
+        UINavigator:goTo('dragon_manage')
+    end,
+
     -- 친밀도 과일 먹임
     ['fruit'] = function()
         UINavigator:goTo('dragon_manage', 'friendship')
