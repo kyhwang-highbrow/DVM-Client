@@ -82,7 +82,7 @@ function GameWorld:makeDragonNew(t_dragon_data, bRightFormation, status_calc)
 
     if (self.m_gameMode ~= GAME_MODE_COLOSSEUM and bRightFormation) then
         -- 스테이지 버프 적용
-        dragon:applyStageBonus(self.m_stageID, true)
+        dragon.m_statusCalc:applyStageBonus(self.m_stageID, true)
 
         -- 전투 시간 버프 적용
         self.m_gameState:applyAccumBuffByFightTime(dragon)
