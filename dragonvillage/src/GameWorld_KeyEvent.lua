@@ -93,6 +93,11 @@ function GameWorld:skill_charge()
     if (self.m_heroMana) then
         self.m_heroMana:addMana(10)
     end
+
+    -- 쿨타임
+    for i, v in ipairs(self:getDragonList()) do
+        v:initActiveSkillCool()
+    end
 end
 
 -------------------------------------
@@ -130,6 +135,19 @@ function GameWorld:force_wait()
 
     for i,v in ipairs(self:getDragonList()) do
         v:setWaitState(true)
+    end
+end
+
+-------------------------------------
+-- function clear_wait
+-------------------------------------
+function GameWorld:clear_wait()
+    for i,v in ipairs(self:getEnemyList()) do
+        v:setWaitState(false)
+    end
+
+    for i,v in ipairs(self:getDragonList()) do
+        v:setWaitState(false)
     end
 end
 
@@ -441,5 +459,5 @@ end
 -- function auto_info
 -------------------------------------
 function GameWorld:auto_info()
-    self.m_gameAutoHero:printInfo()
+    self.m_gameAutoEnemy:printInfo()
 end

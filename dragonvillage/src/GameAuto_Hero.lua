@@ -88,15 +88,3 @@ function GameAuto_Hero:onEvent(event_name, t_event, ...)
 
     end
 end
-
--------------------------------------
--- function doWork_skill
--------------------------------------
-function GameAuto_Hero:doWork_skill(unit, priority)
-    local b = PARENT.doWork_skill(self, unit, priority)
-
-    if (not b) then
-    end
-
-    return b
-end

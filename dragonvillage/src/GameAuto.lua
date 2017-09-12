@@ -79,6 +79,7 @@ end
 -------------------------------------
 function GameAuto:prepare(unit_list)
     self.m_lUnitList = unit_list
+    self.m_teamState = 0
 
     -- 유닛별로 해당 유닛의 드래그 스킬의 AI 속성을 맵형태로 저장
     for i, unit in ipairs(self.m_lUnitList) do
