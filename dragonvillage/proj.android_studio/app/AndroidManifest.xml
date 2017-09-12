@@ -188,6 +188,10 @@
     <uses-permission
         android:name="android.permission.VIBRATE" />
 
+    <!-- @naver-cafe-sdk -->
+    <uses-permission
+        android:name="android.permission.RECORD_AUDIO" />
+
     <!-- @obb, APK expansion file downloading (+ INTERNET, WAKE_LOCK, ACCESS_NETWORK_STATE, ACCESS_WIFI_STATE, WRITE_EXTERNAL_STORAGE) -->
     <uses-permission
         android:name="com.android.vending.CHECK_LICENSE" />
