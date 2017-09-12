@@ -139,12 +139,15 @@ end
 -- function initBuffByFightTime
 -------------------------------------
 function GameState:initBuffByFightTime()
+    self.m_tBuffInfoByFightTime = {}
+
     local t_constant = g_constant:get('INGAME', 'FIGHT_BY_TIME_BUFF')
+    if (not t_constant['ENABLE']) then return end
+
     local str_mode = IN_GAME_MODE[self.m_world.m_gameMode]
     local t_info = t_constant[str_mode] or t_constant['DEFAULT']
     if (not t_info) then return end
 
-    self.m_tBuffInfoByFightTime = {}
     self.m_tBuffInfoByFightTime['start_time'] = t_info['START_TIME'] or 3
     self.m_tBuffInfoByFightTime['interval_time'] = t_info['INTERVAL_TIME'] or 1
     self.m_tBuffInfoByFightTime['cur_buff'] = {}   -- 현재까지 부여된 버프 정보
@@ -339,7 +342,7 @@ function GameState.update_fight(self, dt)
     end
 
     do -- 전투 시간에 따른 버프
-        if (self.m_fightTimer > self.m_nextBuffTime) then
+        if (self.m_nextBuffTime and self.m_fightTimer > self.m_nextBuffTime) then
             self:applyBuffByFightTime()
             UIManager:toastNotificationRed(Str('공격력이 증가하고 방어력이 감소됩니다.'))
         end
@@ -1333,6 +1336,7 @@ end
 -------------------------------------
 function GameState:applyAccumBuffByFightTime(unit)
     local cur_buff = self.m_tBuffInfoByFightTime['cur_buff']
+    if (not cur_buff) then return end
 
     for type, value in pairs(cur_buff) do
         local status, action = TableOption:parseOptionKey(type)
