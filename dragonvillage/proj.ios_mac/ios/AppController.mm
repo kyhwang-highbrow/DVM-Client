@@ -120,7 +120,7 @@ static AppDelegate s_sharedApplication;
     cocos2d::Director::getInstance()->setOpenGLView(glview);
 
     // @perplesdk
-    BOOL isDebug = NO;
+    BOOL isDebug = YES;
     if ([[PerpleSDK sharedInstance] initSDKWithGcmSenderId:SENDER_ID debug:isDebug]) {
         [[PerpleSDK sharedInstance] initGoogleWithClientId:CLIENT_ID view:viewController];
         [[PerpleSDK sharedInstance] initFacebookWithParentView:viewController];
@@ -129,8 +129,8 @@ static AppDelegate s_sharedApplication;
     [[PerpleSDK sharedInstance] initAdbrixWithAppKey:ADBRIX_APP_KEY hashKey:ADBRIX_HASH_KEY logLevel:0];
     [[PerpleSDK sharedInstance] initTapjoyWithAppKey:TAPJOY_SDK_KEY usePush:NO debug:isDebug];
     [[PerpleSDK sharedInstance] initUnityAdsWithParentView:viewController gameId:UNITY_ADS_GAME_ID debug:isDebug];
-    [[PerpleSDK sharedInstance] initBilling];
     [[PerpleSDK sharedInstance] initNaverWithParentView:viewController isLandspape:YES clientId:NAVER_CAFE_CLIENT_ID clientSecret:NAVER_CAFE_CLIENT_SECRET cafeId:NAVER_CAFE_ID];
+    [[PerpleSDK sharedInstance] initBilling];
     [[PerpleSDK sharedInstance] application:application didFinishLaunchingWithOptions:launchOptions];
 
     cocos2d::Application::getInstance()->run();
