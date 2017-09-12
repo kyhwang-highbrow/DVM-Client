@@ -31,6 +31,7 @@ local t_module = {
 	'LocalPushMgr',
     'Analytics',
     'AdsManager',
+    'NaverCafeManager',
     'ScriptCache',
     'CppFunctions',
     'XorCipher',

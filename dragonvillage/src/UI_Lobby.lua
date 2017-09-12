@@ -247,6 +247,9 @@ function UI_Lobby:entryCoroutine()
             GoogleHelper.allAchievementCheck((function(ret) working = false end))
             while (working) do dt = coroutine.yield() end
         end
+
+        -- @isShowWidget : 1(SDK unload 시 카페 위젯 보여주기) or 0(안 보여주기)
+        NaverCafeManager:naverCafeShowWidgetWhenUnloadSdk(1)
     end
 
     Coroutine(coroutine_function, '로비 코루틴')
