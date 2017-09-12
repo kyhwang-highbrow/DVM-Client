@@ -471,6 +471,8 @@ function Character:undergoAttack(attacker, defender, i_x, i_y, body_key, no_even
     -- 공격력이 0일 경우 피격되지 않은 것처럼 처리
     if (atk_dmg == 0) then return end
 
+
+
     -- 수호(guard) 상태 체크
     if (self.m_guard) and (not is_guard) then
 		-- Event Carrier 세팅
@@ -737,6 +739,12 @@ function Character:undergoAttack(attacker, defender, i_x, i_y, body_key, no_even
 		-- 크리로 피격
 		if (is_critical) then
 			self:dispatch('under_atk_cri', t_event)
+            for k, v in pairs(self:getFellowList()) do
+                v:dispatch('ally_under_atk_cri', t_event)
+                if (v ~= self) then
+                    v:dispatch('teammate_under_atk_cri', t_event)
+                end
+            end
 		end
 
 		-- 일반 피격
