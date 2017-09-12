@@ -1,4 +1,4 @@
-﻿#ifndef __PERP_CONSTANT_H__
+#ifndef __PERP_CONSTANT_H__
 #define __PERP_CONSTANT_H__
 
 
@@ -11,7 +11,8 @@
 #define SERVER_DEV "DEV"
 
 #if (CC_TARGET_PLATFORM == CC_PLATFORM_IOS)
-#define TARGET_SERVER SERVER_LIVE
+#define TARGET_SERVER SERVER_QA
+#define IS_TEST_MODE true
 #define USE_OBB false
 #endif
 
