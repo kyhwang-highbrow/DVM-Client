@@ -18,8 +18,8 @@ function GoogleHelper.isAvailable()
     if (not g_localData:isGooglePlayConnected()) then
         return false
     end
-    -- @TODO 항상 막도록 한다.
-    return false
+
+    return true
 end
 
 -------------------------------------
