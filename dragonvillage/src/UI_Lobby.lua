@@ -107,7 +107,7 @@ function UI_Lobby:entryCoroutine()
 
         -- 최초 실행인지 확인
         local title_to_lobby = g_localData:get('event_full_popup', 'title_to_lobby') or false
-        g_localData:applyLocalData(false, 'event_full_popup', 'title_to_lobby')
+        
 
         --친구 정보 받아옴
         cclog('# 친구 정보 받는 중')
@@ -214,6 +214,17 @@ function UI_Lobby:entryCoroutine()
                         while (working) do dt = coroutine.yield() end
                     end                
                 end
+
+                do -- 네이버 카페 초기화
+                    -- @isShowWidget : 1(SDK unload 시 카페 위젯 보여주기) or 0(안 보여주기)
+                    NaverCafeManager:naverCafeShowWidgetWhenUnloadSdk(1)
+
+                    -- @tapNumber : 0(Home) or 1(Notice) or 2(Event) or 3(Menu) or 4(Profile)
+                    NaverCafeManager:naverCafeStart(0)
+                    NaverCafeManager:naverCafeStop()
+                end
+
+                g_localData:applyLocalData(false, 'event_full_popup', 'title_to_lobby')
             end
 
             -- 이벤트 보상 정보가 있다면 팝업을 띄운다.
@@ -248,14 +259,6 @@ function UI_Lobby:entryCoroutine()
             working = true
             GoogleHelper.allAchievementCheck((function(ret) working = false end))
             while (working) do dt = coroutine.yield() end
-        end
-
-        if title_to_lobby then
-            -- @isShowWidget : 1(SDK unload 시 카페 위젯 보여주기) or 0(안 보여주기)
-            NaverCafeManager:naverCafeShowWidgetWhenUnloadSdk(1)
-
-            -- @tapNumber : 0(Home) or 1(Notice) or 2(Event) or 3(Menu) or 4(Profile)
-            NaverCafeManager:naverCafeStart(0)
         end
     end
 

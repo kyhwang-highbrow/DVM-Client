@@ -2709,6 +2709,9 @@
     <None Include="..\src\ServerData_FriendMatch.lua">
       <Filter>lua\src</Filter>
     </None>
+    <None Include="..\src\NaverCafeManager.lua">
+      <Filter>lua\src</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Classes">

@@ -39,3 +39,15 @@ function NaverCafeManager:naverCafeStart(tapNumber)
     -- @tapNumber : 0(Home) or 1(Notice) or 2(Event) or 3(Menu) or 4(Profile)
     PerpleSDK:naverCafeStart(tapNumber)
 end
+
+-------------------------------------
+-- function naverCafeStop
+-------------------------------------
+function NaverCafeManager:naverCafeStop()
+    if (skip()) then 
+        return
+    end
+
+    PerpleSDK:naverCafeStop()
+end
+
