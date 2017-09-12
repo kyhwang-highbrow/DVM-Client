@@ -145,6 +145,15 @@ function UI_DragonRunes:refresh()
 end
 
 -------------------------------------
+-- function getDragonList
+-- @breif 하단 리스트뷰에 노출될 드래곤 리스트
+-- @override
+-------------------------------------
+function UI_DragonRunes:getDragonList()
+    return g_dragonsData:getDragonsListRef()
+end
+
+-------------------------------------
 -- function initUI_runeTab
 -- @brief 룰 슬롯 버튼 처리
 -------------------------------------
