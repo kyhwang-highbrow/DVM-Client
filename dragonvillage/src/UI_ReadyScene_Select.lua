@@ -137,8 +137,18 @@ end
 -------------------------------------
 -- function getTableView
 -------------------------------------
-function UI_ReadyScene_Select:getTableView()
-    return (not self.m_bFriend) and self.m_tableViewExtMine or self.m_tableViewExtFriend
+function UI_ReadyScene_Select:getTableView(is_friend)
+    -- tableview 가 cell 을 생성중이라면 타입에 따라 테이블뷰를 지정해줘야 하기 때문에 아래와 같이 처리
+    local table_view
+    if (is_friend == nil) then
+        table_view = (not self.m_bFriend) and self.m_tableViewExtMine or self.m_tableViewExtFriend
+    elseif (is_friend == true) then
+        table_view = self.m_tableViewExtFriend
+    elseif (is_friend == false) then
+        table_view = self.m_tableViewExtMine
+    end
+
+    return table_view
 end
 
 

@@ -391,16 +391,7 @@ end
 -- @brief 장착여부에 따른 테이블뷰에 있는 카드 갱신
 -------------------------------------
 function UI_ReadyScene_Deck:refresh_dragonCard(doid, is_friend)
-    local table_view
-
-    -- tableview 가 cell 을 생성중이라면 타입에 따라 테이블뷰를 지정해줘야 하기 때문에 아래와 같이 처리
-    if (is_friend == nil) then
-        table_view = self.m_uiReadyScene.m_readySceneSelect:getTableView()
-    elseif (is_friend == true) then
-        table_view = self.m_uiReadyScene.m_readySceneSelect.m_tableViewExtFriend
-    elseif (is_friend == false) then
-        table_view = self.m_uiReadyScene.m_readySceneSelect.m_tableViewExtMine
-    end
+    local table_view = self.m_uiReadyScene.m_readySceneSelect:getTableView(is_friend)
     if (not table_view) then
         return
     end
