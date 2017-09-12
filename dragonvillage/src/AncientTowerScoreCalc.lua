@@ -14,7 +14,7 @@ local CLEAR_BONUS       = 500   -- 클리어 보너스
 local NODEATH_BONUS     = 700   -- 생존 보너스
 local BOSS_BONUS        = 500   -- 보스 제거 보너스
 local ACTIVE_BONUS      = 25    -- 드래그 스킬 보너스
-local WAVE_TOTAL_TIME   = 180
+local WAVE_TOTAL_TIME   = 300
 
 -------------------------------------
 -- function init
