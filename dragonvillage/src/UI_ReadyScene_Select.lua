@@ -70,7 +70,7 @@ function UI_ReadyScene_Select:init_dragonTableView()
     local function create_func(ui, data)
         ui.root:setScale(DC_SCALE)	-- UI 테이블뷰 사이즈가 변경될 시 조정
         local unique_id = data['id']
-        self.m_uiReadyScene:refresh_dragonCard(unique_id)
+        self.m_uiReadyScene:refresh_dragonCard(unique_id, self.m_bFriend)
 
         -- 드래곤 클릭 콜백 함수
         local function click_dragon_item()

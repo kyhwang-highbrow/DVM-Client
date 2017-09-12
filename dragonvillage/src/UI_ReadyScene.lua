@@ -902,12 +902,12 @@ end
 -- function refresh_dragonCard
 -- @brief 장착여부에 따른 카드 갱신
 -------------------------------------
-function UI_ReadyScene:refresh_dragonCard(doid)
+function UI_ReadyScene:refresh_dragonCard(doid, is_friend)
     if (not self.m_readySceneDeck) then
         return
     end
 
-    self.m_readySceneDeck:refresh_dragonCard(doid)
+    self.m_readySceneDeck:refresh_dragonCard(doid, is_friend)
 end
 
 -------------------------------------
