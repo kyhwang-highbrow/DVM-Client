@@ -142,46 +142,11 @@ end
 -------------------------------------
 function UI_Book:makeSortManager()
     local sort_manager = SortManager_Dragon()
-
-	-- 진화도는 무조건 우열을 가름
-    local function sort_evolution(a, b, ascending)
-		local a_data = a['data']
-		local b_data = b['data']
-
-		local a_value = a_data['evolution']
-		local b_value = b_data['evolution']
-
-		-- nil return 을 하지 않음
-		if (a_value == b_value) then return nil end
-
-		-- 오름차순 or 내림차순
-		if ascending then return a_value < b_value
-		else              return a_value > b_value
-		end
-    end
-    sort_manager:addSortType('evolution', false, sort_evolution)
 	
-    local function sort_grade(a, b, ascending)
-		local a_data = a['data']
-		local b_data = b['data']
-
-		local a_value = a_data['grade']
-		local b_value = b_data['grade']
-
-		-- nil return 을 하지 않음
-		-- if (a_value == b_value) then return nil end
-
-		-- 오름차순 or 내림차순
-		if ascending then return a_value < b_value
-		else              return a_value > b_value
-		end
-    end
-    -- sort_manager:addSortType('grade', false, sort_grade)
-	
-
-	-- 진화도부터 체크 후에 등급 체크
-	sort_manager:pushSortOrder('evolution', false)
-    --sort_manager:pushSortOrder('grade', false)
+	-- did 순, 등급 순, 진화도 순으로 정렬
+    sort_manager:pushSortOrder('did')
+    sort_manager:pushSortOrder('grade')
+	sort_manager:pushSortOrder('evolution')
 
     self.m_sortManager = sort_manager
 end
