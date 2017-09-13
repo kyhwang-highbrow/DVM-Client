@@ -103,7 +103,9 @@ function ServerData_Advertising:showAdv(ad_type, fnish_cb)
                 -- 광고가 없는 경우 또는 못 가져오는 경우 (보상은 받음)
                 --self.m_is_fail = true
                 --self:request_adv_reward(ad_type, fnish_cb)
-
+                if (finish_cb) then
+                    finish_cb()
+                end
                 -- 앱이 백그라운드로 갔다 왔을 때, 불규칙하게 NOT_READY를 리턴하므로 보상을 지급하지 않기로 함
                 MakeSimplePopup(POPUP_TYPE.OK, Str('더 이상 시청 가능한 광고가 없거나, 광고 시청 종료전에 시청이 중단되어 보상 지급이 불가능합니다.'))
             end
