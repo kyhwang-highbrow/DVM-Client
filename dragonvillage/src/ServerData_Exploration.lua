@@ -303,6 +303,9 @@ function ServerData_Exploration:request_explorationReward(epr_id, finish_cb)
 
     -- 성공 콜백
     local function success_cb(ret)
+        -- @analytics
+        Analytics:trackUseGoodsWithRet(ret, '탐험 완료')
+
         local before_dragons = {}
         for i,v in pairs(ret['modified_dragons']) do
             local doid = v['id']

@@ -316,6 +316,24 @@ function ServerData_AncientTower:getChallengingCount()
 end
 
 -------------------------------------
+-- function getRankText
+-------------------------------------
+function ServerData_AncientTower:getRankText()
+    local season_rank = self.m_nTotalRank
+    local season_rate = self.m_nTotalRate
+    if (season_rank <= 0) then
+        return Str('순위 없음')
+    end
+
+    -- 100위 이상은 퍼센트로 표시
+    if (100 < season_rank) then
+        return string.format('%.2f%%', season_rate * 100)
+    else
+        return Str('{1}위', comma_value(season_rank))
+    end
+end
+
+-------------------------------------
 -- function setWeakGradeCountList
 -- @brief 테이블 참조하여 약화등급에 기준이 되는 실패 횟수 저장
 -------------------------------------

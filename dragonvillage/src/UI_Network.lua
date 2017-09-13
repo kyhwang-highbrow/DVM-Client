@@ -277,7 +277,7 @@ function UI_Network:statusHandler(ret)
     if (error_str) then
         local notice = ret['notice']
         error_str = (notice) and notice 
-        MakeNetworkPopup(POPUP_TYPE.OK, error_str, function() CppFunctions:restart() end)
+        MakeNetworkPopup(POPUP_TYPE.OK, error_str, function() closeApplication() end)
         self:close()
         return true
     end

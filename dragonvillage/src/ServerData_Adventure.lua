@@ -175,6 +175,9 @@ function ServerData_Adventure:request_chapterAchieveReward(chapter_id, star, fin
 
     -- 콜백 함수
     local function success_cb(ret)
+        -- @analytics
+        Analytics:trackUseGoodsWithRet(ret, '챕터 달성 보상')
+
         -- 아이템 수령
         g_serverData:networkCommonRespone_addedItems(ret)
 
