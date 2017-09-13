@@ -36,7 +36,7 @@ function UI_ChapterSelectListItem:initUI()
     local target_btn = vars[t_difficulty[difficulty]..'Btn']
     target_btn:setVisible(true)
 
-    -- Áö¿Á ¸ğµå °­Á¦·Î ¸·À½ (¾î·Á¿ò ¸¶Áö¸· ½ºÅ×ÀÌÁö Å¬¸®¾îÇÑ »óÅÂ¸é Áö¿Á ¸ğµå 1 ½ºÅ×ÀÌÁö°¡ ¿­¸° »óÅÂÀÓ)
+    -- ì§€ì˜¥ ëª¨ë“œ ê°•ì œë¡œ ë§‰ìŒ (ì–´ë ¤ì›€ ë§ˆì§€ë§‰ ìŠ¤í…Œì´ì§€ í´ë¦¬ì–´í•œ ìƒíƒœë©´ ì§€ì˜¥ ëª¨ë“œ 1 ìŠ¤í…Œì´ì§€ê°€ ì—´ë¦° ìƒíƒœì„)
     if (g_adventureData:isOpenStage(stage_id) and difficulty ~= 3) then
         target_btn:registerScriptTapHandler(function() self:click_selectBtn() end)
     else
