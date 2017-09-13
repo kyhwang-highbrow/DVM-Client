@@ -118,5 +118,8 @@ COLOR['r_set_green'] = cc.c3b(147, 253, 53)
 COLOR['r_set_orange'] = cc.c3b(253, 166, 53)
 COLOR['r_set_yellow'] = cc.c3b(253, 241, 53)
 
-
-
+COLOR['earth'] = cc.c3b(88,234,102) -- 땅 속성 색
+COLOR['water'] = cc.c3b(76,215,255) -- 물 속성 색
+COLOR['fire'] = cc.c3b(255,105,105) -- 불 속성 색
+COLOR['light'] = cc.c3b(255,226,65) -- 빛 속성 색
+COLOR['dark'] = cc.c3b(218,104,255) -- 어둠 속성 색
