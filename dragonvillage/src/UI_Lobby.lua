@@ -218,10 +218,7 @@ function UI_Lobby:entryCoroutine()
                 do -- 네이버 카페 초기화
                     -- @isShowWidget : 1(SDK unload 시 카페 위젯 보여주기) or 0(안 보여주기)
                     NaverCafeManager:naverCafeShowWidgetWhenUnloadSdk(1)
-
-                    -- @tapNumber : 0(Home) or 1(Notice) or 2(Event) or 3(Menu) or 4(Profile)
-                    NaverCafeManager:naverCafeStart(0)
-                    NaverCafeManager:naverCafeStop()
+                    NaverCafeManager:naverCafeStartWidget()
                 end
 
                 g_localData:applyLocalData(false, 'event_full_popup', 'title_to_lobby')
@@ -800,7 +797,9 @@ end
 -------------------------------------
 function UI_Lobby:onFocus()
     SpineCacheManager:getInstance():purgeSpineCacheData()
-    self:refresh_highlight()
+    
+    -- 핫타임 정보 갱신
+    self.vars['battleHotSprite']:setVisible(g_hotTimeData:isHighlightHotTime())
 end
 
 

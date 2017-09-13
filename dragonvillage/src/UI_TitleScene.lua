@@ -35,6 +35,9 @@ function UI_TitleScene:init()
     -- @brief work초기화 용도로 사용함
     self:setWorkList()
     self:doNextWork()
+
+    -- 카페 위젯 노출 시작
+    NaverCafeManager:naverCafeStartWidget()
 end
 
 -------------------------------------

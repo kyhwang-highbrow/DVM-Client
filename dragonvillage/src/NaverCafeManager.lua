@@ -9,6 +9,11 @@ NaverCafeManager = {
 -- function skip
 -------------------------------------
 local function skip()
+    -- 아직 ios는 새로운 SDK가 적용되지 않아서 skip함 (2017-09-13 sgkim)
+    if (isIos()) then
+        return true
+    end
+
     if (isWin32()) then 
         return true
     end
@@ -26,6 +31,17 @@ function NaverCafeManager:naverCafeShowWidgetWhenUnloadSdk(isShowWidget)
 
     -- @isShowWidget : 1(SDK unload 시 카페 위젯 보여주기) or 0(안 보여주기)
     PerpleSDK:naverCafeShowWidgetWhenUnloadSdk(isShowWidget)
+end
+
+-------------------------------------
+-- function naverCafeStartWidget
+-------------------------------------
+function NaverCafeManager:naverCafeStartWidget()
+    if (skip()) then 
+        return
+    end
+
+    PerpleSDK:naverCafeStartWidget()
 end
 
 -------------------------------------
