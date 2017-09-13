@@ -9,11 +9,6 @@ NaverCafeManager = {
 -- function skip
 -------------------------------------
 local function skip()
-    -- 아직 ios는 새로운 SDK가 적용되지 않아서 skip함 (2017-09-13 sgkim)
-    if (isIos()) then
-        return true
-    end
-
     if (isWin32()) then 
         return true
     end
