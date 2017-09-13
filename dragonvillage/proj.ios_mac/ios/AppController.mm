@@ -48,6 +48,8 @@
 #define NAVER_CAFE_CLIENT_SECRET    @"1yzbWtj_Cu"
 #define NAVER_CAFE_ID               29168475
 
+// iTunes Connect App ID : 1281873988
+
 // @idfa
 #import <AdSupport/ASIdentifierManager.h>
 
