@@ -44,6 +44,8 @@
 		3706F1CF1F691DC800777433 /* FLAnimatedImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3706F1CD1F691DC800777433 /* FLAnimatedImageView.m */; };
 		3706F1D41F691E0900777433 /* libApiGateway-MAC.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3706F1D21F691E0900777433 /* libApiGateway-MAC.a */; };
 		3706F1D91F691EB400777433 /* include in Resources */ = {isa = PBXBuildFile; fileRef = 3706F1D81F691EB400777433 /* include */; };
+		3706F1DC1F6920FE00777433 /* WebKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3706F1DB1F6920FE00777433 /* WebKit.framework */; };
+		3706F1DE1F69212B00777433 /* ReplayKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3706F1DD1F69212B00777433 /* ReplayKit.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
 		373E2D841A038712004EF0DB /* AppDelegate_Custom.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 373E2D7F1A038712004EF0DB /* AppDelegate_Custom.cpp */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		373E2D851A038712004EF0DB /* PerpSupportLua.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 373E2D801A038712004EF0DB /* PerpSupportLua.cpp */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		373E2D861A038712004EF0DB /* PerpSupportPatch.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 373E2D821A038712004EF0DB /* PerpSupportPatch.cpp */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
@@ -423,6 +425,8 @@
 		3706F1CD1F691DC800777433 /* FLAnimatedImageView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FLAnimatedImageView.m; path = "../../libraries/perplesdk/external/naver-cafe-sdk/ios/external-lib/FLAnimatedImage-1.0.12/FLAnimatedImageView.m"; sourceTree = "<group>"; };
 		3706F1D21F691E0900777433 /* libApiGateway-MAC.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = "libApiGateway-MAC.a"; path = "../../libraries/perplesdk/external/naver-cafe-sdk/ios/external-lib/ApiGateway-1.5.0/libApiGateway-MAC.a"; sourceTree = "<group>"; };
 		3706F1D81F691EB400777433 /* include */ = {isa = PBXFileReference; lastKnownFileType = folder; name = include; path = "../../libraries/perplesdk/external/naver-cafe-sdk/ios/external-lib/ApiGateway-1.5.0/include"; sourceTree = "<group>"; };
+		3706F1DB1F6920FE00777433 /* WebKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WebKit.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS10.3.sdk/System/Library/Frameworks/WebKit.framework; sourceTree = DEVELOPER_DIR; };
+		3706F1DD1F69212B00777433 /* ReplayKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ReplayKit.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS10.3.sdk/System/Library/Frameworks/ReplayKit.framework; sourceTree = DEVELOPER_DIR; };
 		373E2D7F1A038712004EF0DB /* AppDelegate_Custom.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = AppDelegate_Custom.cpp; path = ../Classes/AppDelegate_Custom.cpp; sourceTree = "<group>"; };
 		373E2D801A038712004EF0DB /* PerpSupportLua.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = PerpSupportLua.cpp; path = ../Classes/PerpSupportLua.cpp; sourceTree = "<group>"; };
 		373E2D811A038712004EF0DB /* PerpSupportLua.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PerpSupportLua.h; path = ../Classes/PerpSupportLua.h; sourceTree = "<group>"; };
@@ -629,11 +633,13 @@
 				F293B3D115EB7BE500256477 /* OpenAL.framework in Frameworks */,
 				37E128C61B4538CC00200C23 /* OpenGLES.framework in Frameworks */,
 				F293B3CD15EB7BE500256477 /* QuartzCore.framework in Frameworks */,
+				3706F1DE1F69212B00777433 /* ReplayKit.framework in Frameworks */,
 				37E128D61B45393100200C23 /* Security.framework in Frameworks */,
 				37E128CC1B4538E800200C23 /* Social.framework in Frameworks */,
 				37E128C81B4538D600200C23 /* StoreKit.framework in Frameworks */,
 				37E128E01B45399A00200C23 /* SystemConfiguration.framework in Frameworks */,
 				37E128D41B45392400200C23 /* UIKit.framework in Frameworks */,
+				3706F1DC1F6920FE00777433 /* WebKit.framework in Frameworks */,
 				37E128B61B45385800200C23 /* libc++.dylib in Frameworks */,
 				37E128BC1B45389300200C23 /* libsqlite3.0.dylib in Frameworks */,
 				37E128B81B45387700200C23 /* libxml2.dylib in Frameworks */,
@@ -923,11 +929,13 @@
 				50D7C96B17EBBEDF005D0B91 /* OpenGL.framework */,
 				37E128C51B4538CC00200C23 /* OpenGLES.framework */,
 				F293B3CC15EB7BE500256477 /* QuartzCore.framework */,
+				3706F1DD1F69212B00777433 /* ReplayKit.framework */,
 				37E128D51B45393100200C23 /* Security.framework */,
 				37E128CB1B4538E800200C23 /* Social.framework */,
 				37E128C71B4538D600200C23 /* StoreKit.framework */,
 				37E128DF1B45399A00200C23 /* SystemConfiguration.framework */,
 				37E128D31B45392400200C23 /* UIKit.framework */,
+				3706F1DB1F6920FE00777433 /* WebKit.framework */,
 				37E128B51B45385800200C23 /* libc++.dylib */,
 				37E128BB1B45389300200C23 /* libsqlite3.0.dylib */,
 				37E128B71B45387700200C23 /* libxml2.dylib */,
