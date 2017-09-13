@@ -173,11 +173,14 @@ function GameAuto:doCheck()
 
         -- 만약 1~3우선순위의 리스트가 하나도 없을 경우 모든 유닛으로 설정(우선 순위에 상관없이 모든 유닛 중 랜덤)
         if (count == 0) then
+            --[[
             for i = 1, 3 do
                 for unit, _ in pairs(self.m_mHoldingSkill) do
                     table.insert(self.m_lUnitListPerPriority[i], unit)
                 end
             end
+            ]]--
+            self.m_lUnitListPerPriority = self:makeUnitListSortedByPriority(TEAM_STATE.NORMAL)
         end
     end
 
