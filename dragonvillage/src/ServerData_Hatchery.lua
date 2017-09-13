@@ -99,6 +99,9 @@ function ServerData_Hatchery:request_summonFriendshipPoint(is_bundle, finish_cb,
         -- 슬라임들 추가
         g_slimesData:applySlimeData_list(ret['added_slimes'])
 
+        -- 신규 드래곤 new 뱃지 정보 저장
+        g_highlightData:saveNewDoidMap()
+
         if finish_cb then
             finish_cb(ret)
         end
@@ -157,6 +160,9 @@ function ServerData_Hatchery:request_summonCash(is_bundle, is_sale, finish_cb, f
         -- 슬라임들 추가
         g_slimesData:applySlimeData_list(ret['added_slimes'])
 
+        -- 신규 드래곤 new 뱃지 정보 저장
+        g_highlightData:saveNewDoidMap()
+
         if finish_cb then
             finish_cb(ret)
         end
@@ -213,6 +219,9 @@ function ServerData_Hatchery:request_summonCashEvent(is_bundle, is_sale, finish_
 
         -- 슬라임들 추가
         g_slimesData:applySlimeData_list(ret['added_slimes'])
+
+        -- 신규 드래곤 new 뱃지 정보 저장
+        g_highlightData:saveNewDoidMap()
 
         if finish_cb then
             finish_cb(ret)
@@ -681,6 +690,9 @@ function ServerData_Hatchery:request_dragonCombine(did, doids, finish_cb, fail_c
                 g_dragonsData:delDragonData(doid)
             end
         end
+
+        -- 신규 드래곤 new 뱃지 정보 저장
+        g_highlightData:saveNewDoidMap()
 
         if finish_cb then
             finish_cb(ret)

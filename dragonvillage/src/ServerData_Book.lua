@@ -371,6 +371,9 @@ function ServerData_Book:request_useRelationPoint(did, finish_cb)
         -- 마지막으로 데이터가 변경된 시간 갱신
         self:setLastChangeTimeStamp()
 
+        -- 신규 드래곤 new 뱃지 정보 저장
+        g_highlightData:saveNewDoidMap()
+
         if finish_cb then
             finish_cb(ret)
         end

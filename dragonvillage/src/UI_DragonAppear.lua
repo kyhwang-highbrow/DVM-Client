@@ -195,8 +195,9 @@ function UI_DragonAppear:click_closeBtn()
 end
 
 -------------------------------------
--- function click_closeBtn
+-- function onClose
 -------------------------------------
 function UI_DragonAppear:onClose()
     SoundMgr:playPrevBGM()
+    PARENT.onClose(self)
 end
