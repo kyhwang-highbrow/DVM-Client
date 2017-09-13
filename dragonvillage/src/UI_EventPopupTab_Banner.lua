@@ -33,8 +33,10 @@ end
 -------------------------------------
 function UI_EventPopupTab_Banner:click_bannerBtn()
     local url = self.m_structBannerData['url']
-    -- 브라우저로 변경
-    SDKManager:goToWeb(url)
+    if (url ~= '') then
+        -- 브라우저로 변경
+        SDKManager:goToWeb(url)
+    end
 end
 
 -------------------------------------
