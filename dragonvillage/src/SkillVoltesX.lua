@@ -162,7 +162,8 @@ end
 -------------------------------------
 function SkillVoltesX:runAttack(idx)
 	local collisions = self:findCollisionEachLine(idx)
-	if (idx == 1) then
+
+    if (idx == 1) then
         self.m_lAlreadyAttack = collisions
     end
     for _, collision in ipairs(collisions) do
@@ -173,6 +174,23 @@ function SkillVoltesX:runAttack(idx)
                 break
             end
         end
+        
+        -- 미리 체크되었던(인디케이터로부터) 충돌 리스트에 있는 것들만 충돌 처리 시킴
+        if (flag and self.m_lTargetCollision) then
+            local b = false
+
+            for _, v in ipairs(self.m_lTargetCollision) do
+                if (collision:getTarget() == v:getTarget() and collision:getBodyKey() == v:getBodyKey()) then
+                    b = true
+                    break
+                end
+            end
+            
+            if (not b) then
+                flag = false
+            end
+        end
+        
         if (flag) then
             self:attack(collision)
         end
