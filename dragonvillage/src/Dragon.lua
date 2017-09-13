@@ -392,7 +392,7 @@ function Dragon:initSkillIndicator()
 	elseif (indicator_type == 'wedge') then
 		self.m_skillIndicator = SkillIndicator_AoEWedge(self, t_skill)
 
-	-- 세로로 긴 직사각형
+	-- 부채꼴 범위
 	elseif (indicator_type == 'target_cone') then
 		self.m_skillIndicator = SkillIndicator_AoECone(self, t_skill)
 
