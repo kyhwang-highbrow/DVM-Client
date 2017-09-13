@@ -38,6 +38,7 @@ function UI_TitleScene:init()
 
     -- 카페 위젯 노출 시작
     NaverCafeManager:naverCafeStartWidget()
+    NaverCafeManager:naverCafeShowWidgetWhenUnloadSdk(1) -- @isShowWidget : 1(SDK unload 시 카페 위젯 보여주기) or 0(안 보여주기)
 end
 
 -------------------------------------

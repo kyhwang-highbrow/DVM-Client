@@ -215,12 +215,6 @@ function UI_Lobby:entryCoroutine()
                     end                
                 end
 
-                do -- 네이버 카페 초기화
-                    -- @isShowWidget : 1(SDK unload 시 카페 위젯 보여주기) or 0(안 보여주기)
-                    NaverCafeManager:naverCafeShowWidgetWhenUnloadSdk(1)
-                    NaverCafeManager:naverCafeStartWidget()
-                end
-
                 g_localData:applyLocalData(false, 'event_full_popup', 'title_to_lobby')
             end
 
@@ -800,6 +794,9 @@ function UI_Lobby:onFocus()
     
     -- 핫타임 정보 갱신
     self.vars['battleHotSprite']:setVisible(g_hotTimeData:isHighlightHotTime())
+
+    -- 네이버 카페 위젯 노출
+    NaverCafeManager:naverCafeStartWidget()
 end
 
 
