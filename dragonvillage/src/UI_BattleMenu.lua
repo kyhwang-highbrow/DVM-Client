@@ -104,7 +104,7 @@ function UI_BattleMenu:update(dt)
 
     -- tab noti (없을 경우에만 한번 더 검사)
     if (not t_noti['adventure']) then
-        if (g_highlightData:isHighlightExploration()) then
+        if (g_highlightData:isHighlightExploration() or g_hotTimeData:isHighlightHotTime()) then
             t_noti['adventure'] = true
         end
     end

@@ -102,7 +102,11 @@ function UI_BattleMenuItem:refresh()
     local content_type = self.m_contentType
     local has_noti = false
 
-    if (content_type == 'exploation') then
+    if (content_type == 'adventure') then
+        local visible = g_hotTimeData:isHighlightHotTime()
+        self.vars['battleHotSprite']:setVisible(visible)
+
+    elseif (content_type == 'exploation') then
         has_noti = g_highlightData:isHighlightExploration()
 
     elseif (content_type == 'secret_relation') then
