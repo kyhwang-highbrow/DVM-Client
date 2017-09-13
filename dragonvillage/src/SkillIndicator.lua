@@ -651,6 +651,35 @@ function SkillIndicator:getTargetForHighlight()
 end
 
 -------------------------------------
+-- function setIndicatorDataByAuto
+-- @brief l_target의 대상들을 가장 많이 피격할 수 있도록 인디케이터 정보를 세팅
+-------------------------------------
+function SkillIndicator:setIndicatorDataByAuto(l_target, fixed_target)
+    -- 인디케이터 별로 정의된 최적의 위치정보로 설정
+    if (self:optimizeIndicatorData(l_target, fixed_target)) then
+        return true
+    end
+
+    -- 최적의 대상을 얻고 그 대상을 기준으로 인디케이터 정보 설정
+    local target = self:getBestTargetForAuto(l_target)
+    if (target) then
+        self:setIndicatorDataByChar(target)
+        return true
+    end
+    
+    return false
+end
+
+-------------------------------------
+-- function optimizeIndicatorData
+-- @brief 가장 많이 타겟팅할 수 있도록 인디케이터 정보를 설정
+-------------------------------------
+function SkillIndicator:optimizeIndicatorData(l_target, exist_fixed_target)
+    -- 자식 클래스에서 개별로 정의
+    return false
+end
+
+-------------------------------------
 -- function getBestTargetForAuto
 -- @brief l_target의 대상들 중에서 가장 많이 피격할 수 있는 경우의 대상을 가져옴
 -------------------------------------
@@ -668,6 +697,8 @@ function SkillIndicator:getBestTargetForAuto(l_target)
         if (max_count < count) then
             max_count = count
             ret = target
+
+            if (max_count == #l_target) then break end
         end
     end
 

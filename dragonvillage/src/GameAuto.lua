@@ -251,17 +251,15 @@ end
 -- @brief 리턴값이  true일 경우 다음 우선순위의 대상 스킬을 사용하게 됨
 -------------------------------------
 function GameAuto:doWork_skill(unit, priority)
-    local target
     local t_skill
-
     local b, reason = unit:isPossibleSkill()
+    local is_prepared = false
 
     if (b) then
         local skill_indivisual_info = unit:getSkillIndivisualInfo('active')
         t_skill = skill_indivisual_info:getSkillTable()
 
-        -- 대상을 찾는다
-        target = self:findTarget(unit, t_skill)
+        is_prepared = self:prepareSkill(unit, t_skill)
 
     elseif (self.m_teamState == TEAM_STATE.DANGER and self.m_gameMana:getCurrMana() > 3) then
         -- 위급상황에서 마나가 3이상일때 스킬 사용을 못하는 경우 랜덤 대상의 스킬을 대신 사용
@@ -278,12 +276,25 @@ function GameAuto:doWork_skill(unit, priority)
         end
     end
 
-    if (target) then
+    if (is_prepared) then
         --cclog('doSkill priority = ' .. priority)
-        self:doSkill(unit, t_skill, target)
+        self:doSkill(unit, t_skill)
     end
 
     return true
+end
+
+
+-------------------------------------
+-- function prepareSkill
+-------------------------------------
+function GameAuto:prepareSkill(unit, t_skill)
+    -- 대상을 찾는다
+    local l_target, fixed_target = self:findTarget(unit, t_skill)
+    if (#l_target == 0) then return false end
+
+    -- 인디케이터 정보를 설정
+    return unit.m_skillIndicator:setIndicatorDataByAuto(l_target, fixed_target)
 end
 
 -------------------------------------
@@ -295,14 +306,12 @@ function GameAuto:findTarget(unit, t_skill)
     local target_formation = t_skill['target_formation']
     local ai_division = t_skill['ai_division']
 
-    local ret
+    local l_target = {}
+    local exist_fixed_target = false
 
     -- 공격형
     if (string.find(target_type, 'enemy')) then
-        local l_target = unit:getTargetListByType(target_type, target_count, target_formation)
-
-        -- 가장 타겟이 많은 케이스를 찾음
-        ret = unit.m_skillIndicator:getBestTargetForAuto(l_target)
+        l_target = unit:getTargetListByType(target_type, target_count, target_formation)
 
     else
         -- AI 대상으로 변경
@@ -312,21 +321,18 @@ function GameAuto:findTarget(unit, t_skill)
             error('invalid ai_division : ' .. ai_division)
         end
 
-        local l_target = unit:getTargetListByType(target_type, target_count, target_formation)
-        ret = l_target[1]
+        l_target = unit:getTargetListByType(target_type, target_count, target_formation)
+        fixed_target = l_target[1]
     end
 
-    return ret
+    return l_target, fixed_target
 end
 
 -------------------------------------
 -- function doSkill
 -- @brief 스킬 사용
 -------------------------------------
-function GameAuto:doSkill(unit, t_skill, target)
-    -- 인디게이터에 스킬 사용 정보 설정
-    unit.m_skillIndicator:setIndicatorDataByChar(target)
-                    
+function GameAuto:doSkill(unit, t_skill)
     -- 경직 중이라면 즉시 해제
     unit:setSpasticity(false)
 

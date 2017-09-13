@@ -69,7 +69,7 @@ function SkillIndicator_AoESquare_Width:findCollision(x, y)
     local l_target = self:getProperTargetList()
     local x = x
 	local y = y
-	local width = (self.m_skillWidth / 2)
+	local width = self.m_skillWidth
 	local height = (self.m_skillHeight / 2)
 
     local l_ret = SkillTargetFinder:findCollision_AoESquare(l_target, x, y, width, height, true)
@@ -85,4 +85,69 @@ function SkillIndicator_AoESquare_Width:findCollision(x, y)
     l_ret = table.getPartList(l_ret, self.m_targetLimit)
 
     return l_ret
+end
+
+-------------------------------------
+-- function optimizeIndicatorData
+-- @brief 가장 많이 타겟팅할 수 있도록 인디케이터 정보를 설정
+-------------------------------------
+function SkillIndicator_AoESquare_Width:optimizeIndicatorData(l_target, fixed_target)
+    local max_count = -1
+    local t_best = {}
+    
+    local setIndicator = function(target, x, y)
+        self.m_targetChar = target
+        self.m_targetPosX = x
+        self.m_targetPosY = y
+        self.m_critical = nil
+        self.m_bDirty = true
+
+        self:getTargetForHighlight() -- 타겟 리스트를 사용하지 않고 충돌리스트 수로 체크
+
+        local list = self.m_collisionList or {}
+        local count = #list
+
+        -- 반드시 포함되어야하는 타겟이 존재하는지 확인
+        if (fixed_target) then
+            if (not table.find(self.m_highlightList, fixed_target)) then
+                count = -1
+            end
+        end
+        
+        return count
+    end
+
+    
+    for _, v in ipairs(l_target) do
+        for i, body in ipairs(v:getBodyList()) do
+            local body_size_half = body['size'] / 2
+            local skill_half = self.m_skillHeight / 4
+
+            local min_y = v.pos['y'] - body['y'] - body_size_half - skill_half
+            local max_y = v.pos['y'] + body['y'] + body_size_half + skill_half
+
+            for _, y in ipairs({ min_y, max_y }) do
+                local count = setIndicator(v, v.pos['x'], y)
+
+                if (max_count < count) then
+                    max_count = count
+
+                    t_best = { 
+                        target = v,
+                        x = v.pos['x'],
+                        y = y
+                    }
+                end
+
+                if (max_count >= self.m_targetLimit) then break end
+            end
+        end
+    end
+
+    if (max_count > 0) then
+        setIndicator(t_best['target'], t_best['x'], t_best['y'])
+        return true
+    end
+
+    return false
 end

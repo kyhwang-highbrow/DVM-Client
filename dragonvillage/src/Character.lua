@@ -707,11 +707,11 @@ function Character:undergoAttack(attacker, defender, i_x, i_y, body_key, no_even
             if (reflex_damage) then
                 -- 진형에 따른 데미지 배율 적용
                 reflex_damage = reflex_damage * CalcDamageRateDueToFormation(attacker_char)
+                -- 최대 데미지(최대 체력 / 히트수)값을 넘지 않도록
+                reflex_damage = math_min(reflex_damage, self.m_maxHp / attack_hit_count)
                 -- 최소 데미지 1로 처리
                 reflex_damage = math_max(reflex_damage, 1)
-                -- (최대 체력 / 히트수)값을 넘지 않도록 함
-                reflex_damage = math_min(reflex_damage, self.m_maxHp / attack_hit_count)
-
+                
                 attacker_char:setDamage(nil, attacker_char, attacker_char.pos.x, attacker_char.pos.y, reflex_damage)
             end
         end

@@ -256,10 +256,9 @@ function SkillIndicatorMgr:onTouchEnded(touch, event)
                 tamer:dispatch('touch_ended', t_event)
 
             elseif (self.m_touchedHero.m_skillIndicator) then
-                if (self.m_touchedHero:checkTarget(t_skill)) then
-                    -- 인디게이터에 스킬 사용 정보 설정
-                    self.m_touchedHero.m_skillIndicator:setIndicatorDataByChar(self.m_touchedHero.m_targetChar)
+                local bPreparedSkill = GameAuto:prepareSkill(self.m_touchedHero, t_skill)
 
+                if (bPreparedSkill) then
                     -- 경직 중이라면 즉시 해제
                     self.m_touchedHero:setSpasticity(false)
 
@@ -303,7 +302,6 @@ function SkillIndicatorMgr:update(dt)
             self:clear()
             return
         
-        -- 매우 낮은 빈도로 인디케이터 조작 중 일시정지가 풀리는 현상이 있었음... 정확한 원인은 찾지 못해 임시 처리
         elseif (not self.m_bPauseMode) then
             self.m_world:setTemporaryPause(true, self.m_selectHero)
             self.m_bPauseMode = true

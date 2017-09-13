@@ -70,7 +70,7 @@ function SkillIndicator_AoESquare_Height_Top:findCollision(x, y)
     local x = x
 	local y = y
 	local width = (self.m_skillWidth / 2)
-	local height = (self.m_skillHeight / 2)
+	local height = self.m_skillHeight
 
     local l_ret = SkillTargetFinder:findCollision_AoESquare(l_target, x, y, width, height, true)
 
@@ -85,4 +85,12 @@ function SkillIndicator_AoESquare_Height_Top:findCollision(x, y)
     l_ret = table.getPartList(l_ret, self.m_targetLimit)
 
     return l_ret
+end
+
+-------------------------------------
+-- function optimizeIndicatorData
+-- @brief 가장 많이 타겟팅할 수 있도록 인디케이터 정보를 설정
+-------------------------------------
+function SkillIndicator_AoESquare_Height_Top:optimizeIndicatorData(l_target, fixed_target)
+    return SkillIndicator_AoESquare_Height.optimizeIndicatorData(self, l_target, fixed_target)
 end
