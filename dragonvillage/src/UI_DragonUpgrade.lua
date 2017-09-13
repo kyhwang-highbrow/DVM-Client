@@ -203,6 +203,8 @@ function UI_DragonUpgrade:refresh()
         local max_lv = TableGradeInfo:getMaxLv(self.m_selectedDragonGrade)
 	    vars['lockSprite']:setVisible(true)
         vars['infoLabel2']:setString(Str('{1}레벨 달성시 승급할 수 있어요', max_lv))
+    else
+        vars['lockSprite']:setVisible(false)
     end
 
     self:refresh_upgrade(table_dragon, t_dragon_data)
