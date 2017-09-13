@@ -471,7 +471,10 @@ function Character:undergoAttack(attacker, defender, i_x, i_y, body_key, no_even
     -- 공격력이 0일 경우 피격되지 않은 것처럼 처리
     if (atk_dmg == 0) then return end
 
-
+    if (self.m_isProtected) then
+        self:makeShieldFont(i_x, i_y)
+        return
+    end
 
     -- 수호(guard) 상태 체크
     if (self.m_guard) and (not is_guard) then
