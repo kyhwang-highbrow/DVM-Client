@@ -30,7 +30,7 @@ function ServerData_HotTime:request_hottime(finish_cb, fail_cb)
     -- 성공 콜백
     local function success_cb(ret)
 
-        self.m_hotTimeInfoList = ret['hottime']
+        self.m_hotTimeInfoList = ret['all']
         self.m_listExpirationTime = nil
 
         if finish_cb then
@@ -61,12 +61,13 @@ function ServerData_HotTime:refreshActiveList()
 
     local curr_time = Timer:getServerTime()
 
-    if (self.m_listExpirationTime) and (self.m_listExpirationTime < curr_time) then
+    -- 아직 유효한 시간이면 체크를 하지 않음
+    if (self.m_listExpirationTime) and (curr_time < self.m_listExpirationTime) then
         return
     end
 
     -- 오늘의 자정 시간을 지정
-    self.m_listExpirationTime = TimeLib:getServerTime_midnight(curr_time)
+    self.m_listExpirationTime = Timer:getServerTime_midnight(curr_time)
 
     -- 종료된 이벤트 삭제
     for key,v in pairs(self.m_activeEventList) do
@@ -77,6 +78,7 @@ function ServerData_HotTime:refreshActiveList()
 
     -- 활성화된 항목 추출
     self.m_activeEventList = {}
+
     for i,v in pairs(self.m_hotTimeInfoList) do
 
         local expiration_time = nil
@@ -96,8 +98,10 @@ function ServerData_HotTime:refreshActiveList()
         end
 
         -- 리스트가 유효한 시간 저장
-        if (expiration_time) and ((not self.m_listExpirationTime) or (expiration_time < self.m_listExpirationTime)) then
-            self.m_listExpirationTime = expiration_time
+        if expiration_time then
+            if (expiration_time < self.m_listExpirationTime) then
+                self.m_listExpirationTime = expiration_time
+            end
         end
     end
 end

@@ -800,6 +800,7 @@ end
 -------------------------------------
 function UI_Lobby:onFocus()
     SpineCacheManager:getInstance():purgeSpineCacheData()
+    self:refresh_highlight()
 end
 
 

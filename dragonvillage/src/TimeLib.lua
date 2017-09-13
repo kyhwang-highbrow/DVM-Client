@@ -7,6 +7,7 @@
 TimeLib = class({
         m_diffServer = 'number',
         m_dayOfDayChange = ' number', -- 드빌에서 요일이 변경되는 시점
+        m_midnightTimeStamp = '', -- 서버 상의 자정 시간 (단위 : 초)
     })
 
 -------------------------------------
@@ -55,11 +56,28 @@ end
 -- @brief 단위 (초)
 -------------------------------------
 function TimeLib:getServerTime_midnight(curr_time)
-    local curr_time = (curr_time or self:getServerTime())
+    return self.m_midnightTimeStamp
 
-    local date = pl.Date(curr_time)
-    local midnight = pl.Date({['year']= date:year(), ['month']= date:month(), ['day']= date:day() + 1, ['hour']=0})
-    return midnight['time']
+
+    --local curr_time = (curr_time or self:getServerTime())
+    --
+    --local date = pl.Date(curr_time)
+    --local midnight = pl.Date({['year']= date:year(), ['month']= date:month(), ['day']= date:day() + 1, ['hour']=0})
+    --return midnight['time']
+end
+
+-------------------------------------
+-- function debugTimeStamp_sec
+-- @brief 단위 (초)
+-------------------------------------
+function TimeLib:debugTimeStamp_sec(time_stamp, msg)
+    local date = pl.Date(time_stamp):toLocal() -- 추후에 클라이언트의 local시간이 아닌 서버에서 사용하는 시간대를 적용해야함(해외버전에 17-09-13 sgkim)
+
+    if msg then
+        cclog(Str('## [' .. msg .. '] year {1}, month {2}, day {3}, hour {4}', date:year(), date:month(), date:day(), date:hour()))
+    else
+        cclog(Str('## year {1}, month {2}, day {3}, hour {4}', date:year(), date:month(), date:day(), date:hour()))
+    end
 end
 
 -------------------------------------

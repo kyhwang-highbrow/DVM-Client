@@ -327,6 +327,11 @@ function ServerData:networkCommonRespone(ret)
     if (ret['server_info'] and ret['server_info']['server_time']) then
         local server_time = math_floor(ret['server_info']['server_time'] / 1000)
         Timer:setServerTime(server_time)
+
+        local server_midnight_time_stamp = ret['server_info']['midnight']
+        if server_midnight_time_stamp then
+            Timer.m_midnightTimeStamp = (server_midnight_time_stamp / 1000)
+        end
     end
 
     -- 접속 시간 동기화
