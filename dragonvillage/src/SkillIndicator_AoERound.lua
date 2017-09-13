@@ -154,3 +154,73 @@ function SkillIndicator_AoERound:findCollision(x, y, range, isFixedOnTarget)
     
 	return l_ret
 end
+
+-------------------------------------
+-- function optimizeIndicatorData
+-- @brief 가장 많이 타겟팅할 수 있도록 인디케이터 정보를 설정
+-------------------------------------
+function SkillIndicator_AoERound:optimizeIndicatorData(l_target, fixed_target)
+    local max_count = -1
+    local t_best = {}
+    
+    local setIndicator = function(target, x, y)
+        self.m_targetChar = target
+        self.m_targetPosX = x
+        self.m_targetPosY = y
+        self.m_critical = nil
+        self.m_bDirty = true
+
+        self:getTargetForHighlight() -- 타겟 리스트를 사용하지 않고 충돌리스트 수로 체크
+
+        local list = self.m_collisionList or {}
+        local count = #list
+
+        -- 반드시 포함되어야하는 타겟이 존재하는지 확인
+        if (fixed_target) then
+            if (not table.find(self.m_highlightList, fixed_target)) then
+                count = -1
+            end
+        end
+        
+        return count
+    end
+
+    for _, v in ipairs(l_target) do
+        for i, body in ipairs(v:getBodyList()) do
+            local x = v.pos['x'] + body['x']
+            local y = v.pos['y'] + body['y']
+            local body_size_half = body['size'] / 2
+            local skill_half = self.m_range
+            local distance = body_size_half + skill_half
+            local dir = 0
+
+            while (dir < 360) do
+                local pos = getPointFromAngleAndDistance(dir, distance - 1)
+                local count = setIndicator(v, x + pos['x'], y + pos['y'])
+
+                if (max_count < count) then
+                    max_count = count
+
+                    t_best = { 
+                        target = self.m_targetChar,
+                        x = self.m_targetPosX,
+                        y = self.m_targetPosY
+                    }
+                end
+
+                dir = dir + 5
+
+                if (max_count >= self.m_targetLimit) then break end
+            end
+
+            if (max_count >= self.m_targetLimit) then break end
+        end
+    end
+    
+    if (max_count > 0) then
+        setIndicator(t_best['target'], t_best['x'], t_best['y'])
+        return true
+    end
+
+    return false
+end

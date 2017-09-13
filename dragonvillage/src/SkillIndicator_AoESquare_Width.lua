@@ -133,9 +133,9 @@ function SkillIndicator_AoESquare_Width:optimizeIndicatorData(l_target, fixed_ta
                     max_count = count
 
                     t_best = { 
-                        target = v,
-                        x = v.pos['x'],
-                        y = y
+                        target = self.m_targetChar,
+                        x = self.m_targetPosX,
+                        y = self.m_targetPosY
                     }
                 end
 

@@ -656,7 +656,7 @@ end
 -------------------------------------
 function SkillIndicator:setIndicatorDataByAuto(l_target, fixed_target)
     -- 인디케이터 별로 정의된 최적의 위치정보로 설정
-    if (self:optimizeIndicatorData(l_target, fixed_target)) then
+    if (#l_target > 1 and self:optimizeIndicatorData(l_target, fixed_target)) then
         return true
     end
 

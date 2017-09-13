@@ -132,9 +132,9 @@ function SkillIndicator_AoESquare_Height:optimizeIndicatorData(l_target, fixed_t
                     max_count = count
 
                     t_best = { 
-                        target = v,
-                        x = x,
-                        y = v.pos['y']
+                        target = self.m_targetChar,
+                        x = self.m_targetPosX,
+                        y = self.m_targetPosY
                     }
                 end
 

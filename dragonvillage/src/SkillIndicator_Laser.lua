@@ -108,3 +108,80 @@ function SkillIndicator_Laser:findCollision(pos_x, pos_y, dir)
 
     return l_ret
 end
+
+-------------------------------------
+-- function optimizeIndicatorData
+-- @brief 가장 많이 타겟팅할 수 있도록 인디케이터 정보를 설정
+-------------------------------------
+function SkillIndicator_Laser:optimizeIndicatorData(l_target, fixed_target)
+    local max_count = -1
+    local t_best = {}
+    
+    local setIndicator = function(target, x, y)
+        self.m_targetChar = target
+        self.m_targetPosX = x
+        self.m_targetPosY = y
+        self.m_critical = nil
+        self.m_bDirty = true
+
+        self:getTargetForHighlight() -- 타겟 리스트를 사용하지 않고 충돌리스트 수로 체크
+
+        local list = self.m_collisionList or {}
+        local count = #list
+
+        if (not self.m_targetChar) then
+            self.m_targetChar = self.m_highlightList[1]
+        end
+
+        -- 반드시 포함되어야하는 타겟이 존재하는지 확인
+        if (fixed_target) then
+            if (not table.find(self.m_highlightList, fixed_target)) then
+                count = -1
+            end
+        end
+        
+        return count
+    end
+
+    local x, y = self:getAttackPosition()
+    local l_dir = {}
+    local dir = 0
+
+    while (dir < (self.m_indicatorAngleLimit * 2)) do
+        local temp
+
+        if (self.m_hero.m_bLeftFormation) then
+            temp = dir - self.m_indicatorAngleLimit
+        else
+            temp = dir + 180 - self.m_indicatorAngleLimit
+        end
+
+        table.insert(l_dir, getAdjustDegree(temp))
+
+        dir = dir + 2    
+    end
+
+    for _, dir in ipairs(l_dir) do
+        local pos = getPointFromAngleAndDistance(dir, 2560)
+        local count = setIndicator(nil, x + pos['x'], y + pos['y'])
+
+        if (max_count < count) then
+            max_count = count
+
+            t_best = { 
+                target = self.m_targetChar,
+                x = self.m_targetPosX,
+                y = self.m_targetPosY
+            }
+        end
+
+        if (max_count >= self.m_targetLimit) then break end
+    end
+        
+    if (max_count > 0) then
+        setIndicator(t_best['target'], t_best['x'], t_best['y'])
+        return true
+    end
+
+    return false
+end
