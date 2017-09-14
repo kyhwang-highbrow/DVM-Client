@@ -55,6 +55,17 @@ function UI_EventFullPopup:initUI()
             node:addChild(img)
         end
 
+    -- 소환확률업
+    elseif (product_id == 'chance_up') then
+        local img = cc.Sprite:create('res/ui/event/bg_chanceup_02.png')
+        if (img) then
+            img:setDockPoint(ZERO_POINT)
+            img:setAnchorPoint(ZERO_POINT)
+
+            local node = vars['eventNode']
+            node:addChild(img)
+        end
+
     -- 패키지 상품 
     else
         local l_item_list = g_shopDataNew:getProductList('package')
