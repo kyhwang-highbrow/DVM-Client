@@ -28,12 +28,11 @@ function SkillBind:init_skill()
 	self.m_statusDuration = struct_status_effect.m_duration
 	self.m_statusName = struct_status_effect.m_type
 
-	self:setPosition(self.m_targetChar.pos.x, self.m_targetChar.pos.y)
+    local x, y = self.m_targetChar:getCenterPos()
+    self:setPosition(x, y)
 
     local scale, type = self.m_targetChar:getSizeType()
     self.m_scale = self:calcScale(type, scale)
-
-    self.m_range = 100
 end
 
 -------------------------------------
@@ -54,8 +53,6 @@ function SkillBind.st_appear(owner, dt)
         owner.m_animator:setScale(owner.m_scale)
 		owner.m_animator:addAniHandler(function()
 			owner:changeState('idle')
-			-- 상태효과
-			owner:dispatch(CON_SKILL_HIT, {l_target = {owner.m_targetChar}})
 		end)
 	end
 end
@@ -108,10 +105,29 @@ function SkillBind:update(dt)
 	end
 
 	-- 드래곤의 애니와 객체, 스킬 위치 동기화
-	self.m_targetChar:syncAniAndPhys()
-	self:setPosition(self.m_targetChar.pos.x, self.m_targetChar.pos.y)
+    do
+	    self.m_targetChar:syncAniAndPhys()
+
+        local x, y = self.m_targetChar:getCenterPos()
+        self:setPosition(x, y)
+    end
 
     return PARENT.update(self, dt)
+end
+
+-------------------------------------
+-- function runAttack
+-- @brief findCollision으로 찾은 body별로 공격
+-------------------------------------
+function SkillBind:runAttack()
+    local pos_x, pos_y = self:getAttackPositionAtWorld()
+    local l_collision = SkillTargetFinder:getCollisionFromTargetList({self.m_targetChar}, pos_x, pos_y)
+
+    if (l_collision[1]) then
+        self:attack(l_collision[1])
+    end
+
+	self:doCommonAttackEffect()
 end
 
 -------------------------------------
