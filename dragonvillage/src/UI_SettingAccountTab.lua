@@ -44,8 +44,84 @@ function UI_Setting:click_gamecenterBtn()
         return
     end
 
-    self.m_loadingUI:showLoading(Str('계정 연결 중...'))
+    self.m_loadingUI:showLoading(Str('계정 연동 중...'))
 
+    local old_fuid = g_localData:get('local', 'uid')
+
+    PerpleSDK:gameCenterLogin(function(ret, info)
+
+        if ret == 'success' then
+            cclog('GameCenter login was successful.')
+            self.m_loadingUI:hideLoading()
+
+            local fuid = info
+
+            -- fuid를 플랫폼 서버에 조회 신규/기존 판단
+            local result_cb = function(ret)
+
+                local function ok_btn_cb()
+                    PerpleSDK:loginWithGameCenter(GetPlatformApiUrl() .. '/user/customToken', function(ret, info)
+                        if ret == 'success' then
+                            cclog('Firebase GameCenter login was successful.')
+
+                            self:loginSuccess(info)
+
+                            -- 앱 재시작
+                            CppFunctions:restart()
+
+                        elseif ret == 'fail' then
+                            cclog('Firebase GameCenter login failed - ' .. msg)
+
+                            local t_info = dkjson.decode(info)
+                            local msg = t_info.msg
+                            MakeSimplePopup(POPUP_TYPE.OK, msg)
+
+                        elseif ret == 'cancel' then
+                            cclog('Firebase GameCenter login canceled.')
+                            -- no nothing
+                        end
+                    end)
+                end
+
+                local cancel_btn_cb = nil
+
+                if ret['fuid'] == nil then
+                    -- 신규 유저
+                    local function success_cb()
+                        ok_btn_cb();
+                    end
+
+                    local function fail_cb(ret)
+                        local msg = Str('계정 연동 과정에 오류가 발생하였습니다. (오류코드:' .. tostring(ret['status']) .. ')')
+                        MakeSimplePopup(POPUP_TYPE.OK, msg)
+                    end
+
+                    Network_platform_updateId('gamecenter', old_fuid, success_cb, fail_cb)
+                else
+                    -- 기존 유저
+                    local msg = Str('이미 연결되어 있는 계정입니다.\n계정에 연결되어 있는 기존의 게임 데이터를 불러오시겠습니까?')
+                    local submsg = Str('현재의 게임데이터는 유실되므로 주의바랍니다.')
+                    MakeSimplePopup2(POPUP_TYPE.YES_NO, msg, submsg, ok_btn_cb, cancel_btn_cb)
+                end
+            end
+
+            Network_platform_getUserByUid(fuid, result_cb, result_cb)
+
+        elseif ret == 'fail' then
+            cclog('GameCenter login failed - ' .. msg)
+            self.m_loadingUI:hideLoading()
+
+            local t_info = dkjson.decode(info)
+            local msg = t_info.msg
+            MakeSimplePopup(POPUP_TYPE.OK, msg)
+
+        elseif ret == 'cancel' then
+            cclog('GameCenter login canceled.')
+            self.m_loadingUI:hideLoading()
+        end
+    end)
+
+    --[[
     local old_platform_id = g_localData:get('local', 'platform_id')
 
     PerpleSDK:linkWithGameCenter(GetPlatformApiUrl() .. '/user/customToken', function(ret, info)
@@ -132,6 +208,7 @@ function UI_Setting:click_gamecenterBtn()
 
         end
     end)
+    --]]
 
 end
 
@@ -444,21 +521,11 @@ function UI_Setting:loginSuccess(info)
         g_localData:applyLocalData('off', 'local', 'googleplay_connected')
     end
 
-    Network_platform_updateId(platform_id, account_info)
+    if platform_id ~= 'gamecenter' then
+        Network_platform_updateId(platform_id, account_info)
+    end
 
     self:updateInfo()
-end
-
--------------------------------------
--- function loginFail
--------------------------------------
-function UI_Setting:loginFail(info)
-    local t_info = dkjson.decode(info)
-    local code = t_info.code
-    local subcode = t_info.subcode
-    local msg = t_info.msg
-
-    MakeSimplePopup(POPUP_TYPE.OK, msg)
 end
 
 -------------------------------------
@@ -490,7 +557,7 @@ function UI_Setting:updateInfo()
         self.vars['descLabel']:setString(Str('계정 연동을 통해 게임 데이터를 안전하게 보호하세요.\n계정 연동은 이전에 계정 연동을 한 적이 없는 새로운 계정으로만 가능합니다.\n복구 코드는 게스트 상태의 게임 데이터 복구시 필요하며 복구 처리는 고객센터를 통해서만 가능하니 주의 바랍니다.'))
         self.vars['copyBtn']:setVisible(true)
 
-        if isios then
+        if isIos() then
             self.vars['gamecenterBtn']:setEnabled(true)
             self.vars['gamecenterBtn']:setVisible(true)
             self.vars['gamecenterDisableSprite']:setVisible(false)
