@@ -53,14 +53,23 @@ function UI_LoginPopup:initButton()
 
     self.vars['closeBtn']:setVisible(false)
 
-    if isIos() then
+    if true or isIos() then
         -- iOS
         self.vars['gamecenterBtn']:setVisible(true)
-        self.vars['googleBtn']:setVisible(false)
+
+        local diff = 54
+        local posXFacebookBtn = self.vars['facebookBtn']:getPositionX() - diff
+        local posXGoogleBtn = self.vars['googleBtn']:getPositionX() - diff
+        local posXgamecenterBtn = self.vars['gamecenterBtn']:getPositionX() + diff
+        local posXguestBtn = self.vars['guestBtn']:getPositionX() + diff
+
+        self.vars['facebookBtn']:setPositionX(posXFacebookBtn)
+        self.vars['googleBtn']:setPositionX(posXGoogleBtn)
+        self.vars['gamecenterBtn']:setPositionX(posXgamecenterBtn)
+        self.vars['guestBtn']:setPositionX(posXguestBtn)
     else
         -- Android, Win32
         self.vars['gamecenterBtn']:setVisible(false)
-        self.vars['googleBtn']:setVisible(true)
     end
 
 end
