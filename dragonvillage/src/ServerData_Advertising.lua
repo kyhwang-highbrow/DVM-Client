@@ -100,9 +100,6 @@ function ServerData_Advertising:showAdv(ad_type, fnish_cb)
 
         elseif ret == 'error' then
             if info == 'NOT_READY' then
-                -- 광고가 없는 경우 또는 못 가져오는 경우 (보상은 받음)
-                --self.m_is_fail = true
-                --self:request_adv_reward(ad_type, fnish_cb)
                 if (finish_cb) then
                     finish_cb()
                 end
