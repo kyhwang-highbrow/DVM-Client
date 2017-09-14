@@ -70,7 +70,7 @@ function UI_Setting:click_gamecenterBtn()
                             CppFunctions:restart()
 
                         elseif ret == 'fail' then
-                            cclog('Firebase GameCenter login failed - ' .. msg)
+                            cclog('Firebase GameCenter login failed.')
 
                             local t_info = dkjson.decode(info)
                             local msg = t_info.msg
