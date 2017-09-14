@@ -773,6 +773,8 @@ function Character:undergoAttack(attacker, defender, i_x, i_y, body_key, no_even
 		if (is_critical) then
             self:dispatch(CON_SKILL_HIT_CRI, t_event)
 
+            attacker_char:dispatch('hit_cri', t_event)
+
             if (real_attack_type == 'basic') then
 			    attacker_char:dispatch('basic_cri', t_event)
             elseif (attack_type == 'active') then
@@ -797,7 +799,8 @@ function Character:undergoAttack(attacker, defender, i_x, i_y, body_key, no_even
 		
 		-- 일반 공격시
         if (not no_event) then
-		    if (attack_type == 'basic') then 
+		    if (attack_type == 'basic') then
+                attacker_char:dispatch('hit_basic', t_event)
 			    attacker_char:dispatch('enemy_last_attack', t_event, self, attack_activity_carrier)
                 self.m_world.m_logRecorder:recordLog('basic_attack_cnt', 1)
 
