@@ -32,6 +32,8 @@ function SkillBind:init_skill()
 
     local scale, type = self.m_targetChar:getSizeType()
     self.m_scale = self:calcScale(type, scale)
+
+    self.m_range = 100
 end
 
 -------------------------------------
@@ -63,6 +65,8 @@ end
 -------------------------------------
 function SkillBind.st_idle(owner, dt)
 	if (owner.m_stateTimer == 0) then
+        owner:runAttack()
+
 	elseif (owner.m_stateTimer > owner.m_statusDuration) then
 		owner:changeState('end')
 
