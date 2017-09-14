@@ -53,7 +53,7 @@ function UI_LoginPopup:initButton()
 
     self.vars['closeBtn']:setVisible(false)
 
-    if true or isIos() then
+    if isIos() then
         -- iOS
         self.vars['gamecenterBtn']:setVisible(true)
 
