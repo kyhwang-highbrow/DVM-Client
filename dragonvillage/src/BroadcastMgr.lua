@@ -268,6 +268,12 @@ function BroadcastMgr:makeMessage(msg_info)
         -- 키값에 따라 필요한 문자열을 구성
         if (value == 'did') then
             -- 드래곤 이름
+            local t_dragon = TableDragon():get(data['did'])
+            if (not t_dragon) then
+                cclog('[BroadcastMgr] invalid did : ' .. data['did'])
+                return
+            end
+
             local name = TableDragon():getValue(data['did'], 't_name')
             local attr = TableDragon():getValue(data['did'], 'attr')
             local str = dragonAttributeName(attr) .. ' ' .. name
