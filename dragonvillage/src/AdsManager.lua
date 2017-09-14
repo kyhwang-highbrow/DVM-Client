@@ -84,18 +84,21 @@ function AdsManager:showPlacement(placementId, result_cb)
 
     local function _result_cb(ret, info)
         if (ret == 'ready') then
-            -- placement ID가 여러개인 경우 다른 광고를 ready상태로 줄 수 있음.
-            -- 이때는 광고 자체는 받아온 info로 보여주고 보상은 요청한 placement ID로 처리함
-            SoundMgr:stopBGM()
-            local started = true
-            self:show(info, function(ret, info)
-                if ret == 'finish' or ret == 'error' then
-                    if started == true then
-                        SoundMgr:playPrevBGM()
+            if (info == placementId) then
+                SoundMgr:stopBGM()
+                local started = true
+                self:show(placementId, function(ret, info)
+                    if ret == 'finish' or ret == 'error' then
+                        if started == true then
+                            SoundMgr:playPrevBGM()
+                        end
                     end
-                end
-                __result_cb(ret, placementId)
-            end)
+                    __result_cb(ret, info)
+                end)
+            -- 규석 : 유저들 간헐적으로 콜백이 안와서 로딩만 남는 경우가 있는데 이부분인듯.
+            else
+                __result_cb(ret, info)
+            end
         else
             __result_cb(ret, info)
         end
