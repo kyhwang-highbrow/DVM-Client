@@ -113,7 +113,7 @@ function UI_Setting:click_gamecenterBtn()
 
             self.m_loadingUI:hideLoading()
             local msg = Str('이미 연결되어 있는 계정입니다.\n계정에 연결되어 있는 기존의 게임 데이터를 불러오시겠습니까?')
-            local submsg = Str('현재의 게임데이터는 유실되므로 주의바랍니다.\n만약을 대비하여 복구코드를 메모해 두시기 바랍니다.')
+            local submsg = Str('현재의 게임데이터는 유실되므로 주의바랍니다.')
             MakeSimplePopup2(POPUP_TYPE.YES_NO, msg, submsg, ok_btn_cb, cancel_btn_cb)
 
         elseif ret == 'fail' then
@@ -213,7 +213,7 @@ function UI_Setting:click_facebookBtn()
 
             self.m_loadingUI:hideLoading()
             local msg = Str('이미 연결되어 있는 계정입니다.\n계정에 연결되어 있는 기존의 게임 데이터를 불러오시겠습니까?')
-            local submsg = Str('현재의 게임데이터는 유실되므로 주의바랍니다.\n만약을 대비하여 복구코드를 메모해 두시기 바랍니다.')
+            local submsg = Str('현재의 게임데이터는 유실되므로 주의바랍니다.')
             MakeSimplePopup2(POPUP_TYPE.YES_NO, msg, submsg, ok_btn_cb, cancel_btn_cb)
 
         elseif ret == 'fail' then
@@ -310,7 +310,7 @@ function UI_Setting:click_googleBtn()
 
             self.m_loadingUI:hideLoading()
             local msg = Str('이미 연결되어 있는 계정입니다.\n계정에 연결되어 있는 기존의 게임 데이터를 불러오시겠습니까?')
-            local submsg = Str('현재의 게임데이터는 유실되므로 주의바랍니다.\n만약을 대비하여 복구코드를 메모해 두시기 바랍니다.')
+            local submsg = Str('현재의 게임데이터는 유실되므로 주의바랍니다.')
             MakeSimplePopup2(POPUP_TYPE.YES_NO, msg, submsg, ok_btn_cb, cancel_btn_cb)
 
         elseif ret == 'fail' then
