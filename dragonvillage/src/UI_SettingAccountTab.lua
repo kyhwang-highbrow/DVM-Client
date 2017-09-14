@@ -13,9 +13,6 @@ function UI_Setting:init_accountTab()
     vars['clearBtn']:registerScriptTapHandler(function() self:click_clearBtn() end)
     vars['logoutBtn']:registerScriptTapHandler(function() self:click_logoutBtn() end)
 
-    vars['gamecenterBtn']:setVisible(isIos())
-    vars['googleBtn']:setVisible(isAndroid() or isWin32())
-
     -- 테스트 모드에서만 로그아웃, 초기화 버튼을 노출한다
     if IS_TEST_MODE() then
         vars['clearBtn']:setVisible(true)
@@ -474,12 +471,68 @@ function UI_Setting:updateInfo()
     local recovery_code = g_localData:get('local', 'recovery_code')
 
     -- 버튼 상태 업데이트
-    self.vars['googleBtn']:setEnabled(platform_id ~= 'google.com')
-    self.vars['googleDisableSprite']:setVisible(platform_id == 'google.com')
-    self.vars['facebookBtn']:setEnabled(platform_id ~= 'facebook.com')
-    self.vars['facebookDisableSprite']:setVisible(platform_id == 'facebook.com')
-    self.vars['gamecenterBtn']:setEnabled(platform_id ~= 'gamecenter')
-    self.vars['gamecenterDisableSprite']:setVisible(platform_id == 'gamecenter')
+    if platform_id == 'gamecenter' then
+        self.vars['descLabel']:setString(Str('현재 게임데이터가 안전하게 보호되고 있습니다.\n(게임센터 로그인 상태에서는 다른 플랫품 계정으로 계정 전환을 하실 수 없습니다.)'))
+        self.vars['copyBtn']:setVisible(false)
+
+        self.vars['googleBtn']:setEnabled(false)
+        self.vars['googleBtn']:setVisible(false)
+        self.vars['googleDisableSprite']:setVisible(false)
+
+        self.vars['facebookBtn']:setEnabled(false)
+        self.vars['facebookBtn']:setVisible(false)
+        self.vars['facebookDisableSprite']:setVisible(false)
+
+        self.vars['gamecenterBtn']:setEnabled(false)
+        self.vars['gamecenterBtn']:setVisible(false)
+        self.vars['gamecenterDisableSprite']:setVisible(false)
+    elseif platform_id == 'firebase' then
+        self.vars['descLabel']:setString(Str('계정 연동을 통해 게임데이터를 안전하게 보호하세요.\n계정 연동은 이전에 계정 연동을 한 적이 없는 새로운 계정으로만 가능합니다.\n복구 코드는 게스트 상태의 게임 데이터 복구시 필요하며 복구 처리는 고객센터를 통해서만 가능하니 주의 바랍니다.'))
+        self.vars['copyBtn']:setVisible(true)
+
+        if isios then
+            self.vars['gamecenterBtn']:setEnabled(true)
+            self.vars['gamecenterBtn']:setVisible(true)
+            self.vars['gamecenterDisableSprite']:setVisible(false)
+
+            local diff = 50
+            local posXFacebookBtn = self.vars['facebookBtn']:getPositionX() - diff
+            local posXGoogleBtn = self.vars['googleBtn']:getPositionX() - diff
+            local posXgamecenterBtn = self.vars['gamecenterBtn']:getPositionX() + diff
+
+            self.vars['facebookBtn']:setPositionX(posXFacebookBtn)
+            self.vars['googleBtn']:setPositionX(posXGoogleBtn)
+            self.vars['gamecenterBtn']:setPositionX(posXgamecenterBtn)
+        else
+            self.vars['gamecenterBtn']:setEnabled(false)
+            self.vars['gamecenterBtn']:setVisible(false)
+            self.vars['gamecenterDisableSprite']:setVisible(false)
+        end
+
+        self.vars['googleBtn']:setEnabled(true)
+        self.vars['googleBtn']:setVisible(true)
+        self.vars['googleDisableSprite']:setVisible(false)
+
+        self.vars['facebookBtn']:setEnabled(true)
+        self.vars['facebookBtn']:setVisible(true)
+        self.vars['facebookDisableSprite']:setVisible(false)
+    else
+        self.vars['descLabel']:setString(Str('현재 게임데이터가 안전하게 보호되고 있습니다.\n\n다른 플랫폼 계정으로 계정 전환이 가능합니다.\n(이전에 계정 연동을 한 적이 없는 새로운 계정으로만 가능)'))
+        self.vars['copyBtn']:setVisible(false)
+
+        self.vars['googleBtn']:setVisible(true)
+        self.vars['googleBtn']:setEnabled(platform_id ~= 'google.com')
+        self.vars['googleDisableSprite']:setVisible(platform_id == 'google.com')
+
+        self.vars['facebookBtn']:setVisible(true)
+        self.vars['facebookBtn']:setEnabled(platform_id ~= 'facebook.com')
+        self.vars['facebookDisableSprite']:setVisible(platform_id == 'facebook.com')
+
+        -- 구글/페북 연동 상태에서 게임센터로 계정전환할 수 없음
+        self.vars['gamecenterBtn']:setEnabled(false)
+        self.vars['gamecenterBtn']:setVisible(false)
+        self.vars['gamecenterDisableSprite']:setVisible(false)
+    end 
 
     self.vars['accountLabel']:setString(account_info)
     self.vars['uidLabel']:setString(recovery_code)
