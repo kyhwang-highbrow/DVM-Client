@@ -116,21 +116,18 @@ function SkillIndicator_Penetration:initIndicatorNode()
 	local indicator_res = g_constant:get('INDICATOR', 'RES', 'fan')
     for i = 1, self.m_skillLineNum do
         local indicator = MakeAnimator(indicator_res)
-		
+		indicator:setIgnoreLowEndMode(true)
 		self:initIndicatorEffect(indicator)
 		
 		root_node:addChild(indicator.m_node)
 		table.insert(self.m_lIndicatorEffectList, indicator)
-        for _, v in pairs(self.m_lIndicatorEffectList) do
-            v:setIgnoreLowEndMode(true)
-        end
     end
 
 	-- 겹치는 부분 가리는 추가 인디케이터
 	local indicator_res = g_constant:get('INDICATOR', 'RES', 'round')
 	do
         local indicator = MakeAnimator(indicator_res)
-        
+        indicator:setIgnoreLowEndMode(true)
 		indicator:setScale(0.1)
 
         root_node:addChild(indicator.m_node)
@@ -140,7 +137,7 @@ function SkillIndicator_Penetration:initIndicatorNode()
 	-- @TEST 좌표 확인용
     for i = 1, self.m_skillLineNum do
         local indicator = MakeAnimator(indicator_res)
-        
+        indicator:setIgnoreLowEndMode(true)
         indicator:setScale(0.1)
 		
 		root_node:addChild(indicator.m_node)
