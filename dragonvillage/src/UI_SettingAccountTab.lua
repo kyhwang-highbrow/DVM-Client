@@ -98,7 +98,7 @@ function UI_Setting:click_gamecenterBtn()
                         MakeSimplePopup(POPUP_TYPE.OK, msg)
                     end
 
-                    Network_platform_updateId('gamecenter', old_fuid, success_cb, fail_cb)
+                    Network_platform_updateId(fuid, 'gamecenter', old_fuid, success_cb, fail_cb)
                 else
                     -- 기존 유저
                     local msg = Str('이미 연결되어 있는 계정입니다.\n계정에 연결되어 있는 기존의 게임 데이터를 불러오시겠습니까?')
@@ -526,7 +526,7 @@ function UI_Setting:loginSuccess(info)
     end
 
     if platform_id ~= 'gamecenter' then
-        Network_platform_updateId(platform_id, account_info)
+        Network_platform_updateId(fuid, platform_id, account_info)
     end
 
     self:updateInfo()

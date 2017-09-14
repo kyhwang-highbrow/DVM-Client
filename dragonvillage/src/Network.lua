@@ -128,15 +128,16 @@ end
 -- function Network_platform_updateId
 -- @breif   연동 플랫폼 아이디 업데이트
 -- @param
+--          fuid : uid
 --          platform_id : google.com, facebook.com, gamecenter, firebase
 --          account_info : id
 -------------------------------------
-function Network_platform_updateId(platform_id, account_info, success_cb, fail_cb)
+function Network_platform_updateId(fuid, platform_id, account_info, success_cb, fail_cb)
 
     -- 파라미터 셋팅
     local t_data = {}
     t_data['game_id'] = 1003
-    t_data['uid'] = g_localData:get('local', 'uid')
+    t_data['uid'] = fuid
 
     if platform_id == 'google.com' then
         t_data['google_id'] = account_info
