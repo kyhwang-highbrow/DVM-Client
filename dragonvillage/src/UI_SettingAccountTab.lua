@@ -58,6 +58,7 @@ function UI_Setting:click_gamecenterBtn()
 
             -- fuid를 플랫폼 서버에 조회 신규/기존 판단
             local result_cb = function(ret)
+                ccdump(ret)
 
                 local function ok_btn_cb()
                     PerpleSDK:loginWithGameCenter(GetPlatformApiUrl() .. '/user/customToken', function(ret, info)
