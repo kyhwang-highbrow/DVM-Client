@@ -108,7 +108,7 @@ function UI_Setting:click_gamecenterBtn()
             Network_platform_getUserByUid(fuid, result_cb, result_cb)
 
         elseif ret == 'fail' then
-            cclog('GameCenter login failed - ' .. msg)
+            cclog('GameCenter login failed.')
             self.m_loadingUI:hideLoading()
 
             local t_info = dkjson.decode(info)
