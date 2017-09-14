@@ -95,6 +95,9 @@ function AdsManager:showPlacement(placementId, result_cb)
                     end
                     __result_cb(ret, info)
                 end)
+            -- 규석 : 유저들 간헐적으로 콜백이 안와서 로딩만 남는 경우가 있는데 이부분인듯.
+            else
+                __result_cb(ret, info)
             end
         else
             __result_cb(ret, info)
