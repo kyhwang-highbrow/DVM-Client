@@ -66,8 +66,10 @@ function UI_Setting:click_gamecenterBtn()
 
                             self:loginSuccess(info)
 
-                            -- 앱 재시작
-                            CppFunctions:restart()
+                            MakeSimplePopup(POPUP_TYPE.OK, Str('계정 연동에 성공하였습니다. 앱을 다시 시작합니다.'), function()
+                                -- 앱 재시작
+                                CppFunctions:restart()
+                            end)
 
                         elseif ret == 'fail' then
                             cclog('Firebase GameCenter login failed.')
@@ -129,32 +131,32 @@ function UI_Setting:click_gamecenterBtn()
         if ret == 'success' then
 
             cclog('Firebase GameCenter link was successful.')
+            self.m_loadingUI:hideLoading()
+
             self:loginSuccess(info)
 
-            -- 기존 구글 연결은 끊는다.
-            if old_platform_id == 'google.com' then
-                PerpleSDK:googleLogout(1)
-                PerpleSDK:unlinkWithGoogle(function(ret, info)
-                    self.m_loadingUI:hideLoading()
-                    if ret == 'success' then
-                        cclog('Firebase unlink from Google was successful.')
-                    elseif ret == 'fail' then
-                        cclog('Firebase unlink from Google failed.')
-                    end
-                end)
-            -- 기존 페이스북 연결은 끊는다.
-            elseif old_platform_id == 'facebook.com' then
-                PerpleSDK:unlinkWithFacebook(function(ret, info)
-                    self.m_loadingUI:hideLoading()
-                    if ret == 'success' then
-                        cclog('Firebase unlink from Facebook was successful.')
-                    elseif ret == 'fail' then
-                        cclog('Firebase unlink from Facebook failed.')
-                    end
-                end)
-            else
-                self.m_loadingUI:hideLoading()
-            end
+            MakeSimplePopup(POPUP_TYPE.OK, Str('계정 연동에 성공하였습니다.'), function()
+                -- 기존 구글 연결은 끊는다.
+                if old_platform_id == 'google.com' then
+                    PerpleSDK:googleLogout(1)
+                    PerpleSDK:unlinkWithGoogle(function(ret, info)
+                        if ret == 'success' then
+                            cclog('Firebase unlink from Google was successful.')
+                        elseif ret == 'fail' then
+                            cclog('Firebase unlink from Google failed.')
+                        end
+                    end)
+                -- 기존 페이스북 연결은 끊는다.
+                elseif old_platform_id == 'facebook.com' then
+                    PerpleSDK:unlinkWithFacebook(function(ret, info)
+                        if ret == 'success' then
+                            cclog('Firebase unlink from Facebook was successful.')
+                        elseif ret == 'fail' then
+                            cclog('Firebase unlink from Facebook failed.')
+                        end
+                    end)
+                end
+            end)
 
         elseif ret == 'already_in_use' then
 
@@ -221,7 +223,7 @@ function UI_Setting:click_facebookBtn()
         return
     end
 
-    self.m_loadingUI:showLoading(Str('계정 연결 중...'))
+    self.m_loadingUI:showLoading(Str('계정 연동 중...'))
 
     local old_platform_id = g_localData:get('local', 'platform_id')
 
@@ -230,32 +232,33 @@ function UI_Setting:click_facebookBtn()
         if ret == 'success' then
 
             cclog('Firebase Facebook link was successful.')
+            self.m_loadingUI:hideLoading()
+
             self:loginSuccess(info)
 
-            -- 기존 구글 연결은 끊는다.
-            if old_platform_id == 'google.com' then
-                PerpleSDK:googleLogout(1)
-                PerpleSDK:unlinkWithGoogle(function(ret, info)
-                    self.m_loadingUI:hideLoading()
-                    if ret == 'success' then
-                        cclog('Firebase unlink from Google was successful.')
-                    elseif ret == 'fail' then
-                        cclog('Firebase unlink from Google failed.')
-                    end
-                end)
-            -- 기존 게임센터 연결은 끊는다.
-            elseif old_platform_id == 'gamecenter' then
-                PerpleSDK:unlinkWithGameCenter(function(ret, info)
-                    self.m_loadingUI:hideLoading()
-                    if ret == 'success' then
-                        cclog('Firebase unlink from GameCenter was successful.')
-                    elseif ret == 'fail' then
-                        cclog('Firebase unlink from GameCenter failed.')
-                    end
-                end)
-            else
-                self.m_loadingUI:hideLoading()
-            end
+            MakeSimplePopup(POPUP_TYPE.OK, Str('계정 연동에 성공하였습니다.'), function()
+                -- 기존 구글 연결은 끊는다.
+                if old_platform_id == 'google.com' then
+                    PerpleSDK:googleLogout(1)
+                    PerpleSDK:unlinkWithGoogle(function(ret, info)
+                        if ret == 'success' then
+                            cclog('Firebase unlink from Google was successful.')
+                        elseif ret == 'fail' then
+                            cclog('Firebase unlink from Google failed.')
+                        end
+                    end)
+                -- 기존 게임센터 연결은 끊는다.
+                elseif old_platform_id == 'gamecenter' then
+                    PerpleSDK:unlinkWithGameCenter(function(ret, info)
+                        if ret == 'success' then
+                            cclog('Firebase unlink from GameCenter was successful.')
+                        elseif ret == 'fail' then
+                            cclog('Firebase unlink from GameCenter failed.')
+                        end
+                    end)
+                end
+            end)
+
 
         elseif ret == 'already_in_use' then
 
@@ -321,7 +324,7 @@ function UI_Setting:click_googleBtn()
         return
     end
 
-    self.m_loadingUI:showLoading(Str('계정 연결 중...'))
+    self.m_loadingUI:showLoading(Str('계정 연동 중...'))
 
     local old_platform_id = g_localData:get('local', 'platform_id')
 
@@ -329,34 +332,35 @@ function UI_Setting:click_googleBtn()
         if ret == 'success' then
 
             cclog('Firebase Google link was successful.')
+            self.m_loadingUI:hideLoading()
+
             self:loginSuccess(info)
 
-            -- 기존 페이스북 연결은 끊는다.
-            if old_platform_id == 'facebook.com' then
-                PerpleSDK:unlinkWithFacebook(function(ret, info)
-                    self.m_loadingUI:hideLoading()
-                    if ret == 'success' then
-                        cclog('Firebase unlink from Facebook was successful.')
-                    elseif ret == 'fail' then
-                        cclog('Firebase unlink from Facebook failed.')
-                    end
-                end)
-            -- 기존 게임센터 연결은 끊는다.
-            elseif old_platform_id == 'gamecenter' then
-                PerpleSDK:unlinkWithGameCenter(function(ret, info)
-                    self.m_loadingUI:hideLoading()
-                    if ret == 'success' then
-                        cclog('Firebase unlink from GameCenter was successful.')
-                    elseif ret == 'fail' then
-                        cclog('Firebase unlink from GameCenter failed.')
-                    end
-                end)
-            else
-                self.m_loadingUI:hideLoading()
-            end
+            MakeSimplePopup(POPUP_TYPE.OK, Str('계정 연동에 성공하였습니다.'), function()
+                -- 기존 페이스북 연결은 끊는다.
+                if old_platform_id == 'facebook.com' then
+                    PerpleSDK:unlinkWithFacebook(function(ret, info)
+                        if ret == 'success' then
+                            cclog('Firebase unlink from Facebook was successful.')
+                        elseif ret == 'fail' then
+                            cclog('Firebase unlink from Facebook failed.')
+                        end
+                    end)
+                -- 기존 게임센터 연결은 끊는다.
+                elseif old_platform_id == 'gamecenter' then
+                    PerpleSDK:unlinkWithGameCenter(function(ret, info)
+                        if ret == 'success' then
+                            cclog('Firebase unlink from GameCenter was successful.')
+                        elseif ret == 'fail' then
+                            cclog('Firebase unlink from GameCenter failed.')
+                        end
+                    end)
+                end
 
-            -- 구글 계정을 사용하지 않다가 최초 연동 시 업적을 한번 체크하여 클리어 하도록 한다.
-            GoogleHelper.allAchievementCheck()
+                -- 구글 계정을 사용하지 않다가 최초 연동 시 업적을 한번 체크하여 클리어 하도록 한다.
+                GoogleHelper.allAchievementCheck()
+
+            end)
 
         elseif ret == 'already_in_use' then
 
