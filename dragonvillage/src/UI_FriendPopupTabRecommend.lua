@@ -20,6 +20,14 @@ end
 function UI_FriendPopupTabRecommend:initFirst()
     local vars = self.vars
     vars['findBtn']:registerScriptTapHandler(function() self:click_findBtn() end)
+
+    -- editBox handler 등록
+	local function editBoxTextEventHandle(strEventName, pSender)
+        if (strEventName == "return") then
+        end
+    end
+
+    vars['findEditBox']:registerScriptEditBoxHandler(editBoxTextEventHandle)
 end
 
 -------------------------------------

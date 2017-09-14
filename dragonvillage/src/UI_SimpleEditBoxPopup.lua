@@ -67,7 +67,8 @@ function UI_SimpleEditBoxPopup:initUI()
     do -- 채팅 EditBox에서 입력 완료 후 바로 전송하기
         local function editBoxTextEventHandle(strEventName,pSender)
             if (strEventName == "return") then
-                self:click_okBtn()
+                -- 규석: IOS에서는 return과 동시에 close콜백 호출하면 스크립트 이벤트가 실행되고 editbox가 null이 아닌경우로 판단하여 오류남
+                --self:click_okBtn()
             end
         end
         vars['editBox']:registerScriptEditBoxHandler(editBoxTextEventHandle)
