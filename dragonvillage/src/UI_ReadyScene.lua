@@ -101,7 +101,19 @@ end
 -------------------------------------
 function UI_ReadyScene:init_MemberVariable(stage_id)
     self.m_stageID = stage_id
-	self.m_stageAttr = TableDrop():getValue(stage_id, 'attr')
+
+    local game_mode = g_stageData:getGameMode(self.m_stageID)
+	if (game_mode == GAME_MODE_SECRET_DUNGEON) then
+        -- 인연 던전의 경우라면 해당 드래곤의 속성을 스테이지 속성으로 설정
+        local t_dungeon_info = g_secretDungeonData:getSelectedSecretDungeonInfo()
+        if (t_dungeon_info) then
+            local did = t_dungeon_info['dragon']
+            
+            self.m_stageAttr = TableDragon():getValue(did, 'attr')
+        end
+    else
+	    self.m_stageAttr = TableDrop():getValue(stage_id, 'attr')
+    end
 end
 
 -------------------------------------
