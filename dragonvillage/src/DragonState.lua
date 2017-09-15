@@ -33,7 +33,7 @@ function Dragon.st_attack(owner, dt)
 
             if (not owner:checkTarget(t_skill)) then
                 -- 타겟이 없다면 스킬을 취소시킴
-                owner:doAttack(nil)
+                owner:reserveSkill(nil)
                 owner:changeState('attackDelay')
 
                 return
@@ -91,7 +91,12 @@ function Dragon.st_skillAppear(owner, dt)
     local world = owner.m_world
 
     if (owner:getStep() == 0) then
-        if (not world.m_gameDragonSkill:isPlaying() and not world.m_skillIndicatorMgr:isControlling()) then
+        if (not owner:checkSkillMana()) then
+            -- 마나가 부족한 경우 취소시킴
+            owner:reserveSkill(nil)
+            owner:changeState('attackDelay')
+            
+        elseif (not world.m_gameDragonSkill:isPlaying() and not world.m_skillIndicatorMgr:isControlling()) then
             owner:nextStep()
 
             -- 경직 불가능 상태 설정

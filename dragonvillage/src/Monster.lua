@@ -413,39 +413,36 @@ end
 -- @brief 사용될 스킬을 예약
 -------------------------------------
 function Monster:reserveSkill(skill_id)
-    self.m_reservedSkillPos = nil
+    PARENT.reserveSkill(self, skill_id)
 
-    if (not PARENT.reserveSkill(self, skill_id)) then
-        return false
-    end
-
-    
-    -- 스킬 사용 위치값 저장
-    local t_skill = self:getSkillTable(skill_id)
-    if (t_skill['pos']) then
-        local l_str = seperate(t_skill['pos'], ';')
-        if (l_str) then
-            local random_idx = math_random(1, #l_str)
-            local key = l_str[random_idx]
-            local pos = getWorldEnemyPos(self, key)
+    if (skill_id) then
+        -- 스킬 사용 위치값 저장
+        local t_skill = self:getSkillTable(skill_id)
+        if (t_skill['pos']) then
+            local l_str = seperate(t_skill['pos'], ';')
+            if (l_str) then
+                local random_idx = math_random(1, #l_str)
+                local key = l_str[random_idx]
+                local pos = getWorldEnemyPos(self, key)
         
-            self.m_reservedSkillPos = pos
+                self.m_reservedSkillPos = pos
         
-            -- 캐스팅 시간에 이동시간을 추가
-            local move_time = g_constant:get('INGAME', 'MONSTER_SKILL_MOVE_TIME') or 1
-            self.m_reservedSkillCastTime = self.m_reservedSkillCastTime + move_time
+                -- 캐스팅 시간에 이동시간을 추가
+                local move_time = g_constant:get('INGAME', 'MONSTER_SKILL_MOVE_TIME') or 1
+                self.m_reservedSkillCastTime = self.m_reservedSkillCastTime + move_time
+            end
         end
-    end
-    
-    -- 에니메이션 변경
-    -- (근접 공격만 스킬 내부의 애니메이션을 변경하고 스킬 시작 직전 애니메이션은 attack으로 처리)
-    if (t_skill['skill_type'] == 'skill_melee_atk') then
-        self.m_tStateAni['attack'] = 'attack'
+
+        -- 에니메이션 변경
+        -- (근접 공격만 스킬 내부의 애니메이션을 변경하고 스킬 시작 직전 애니메이션은 attack으로 처리)
+        if (t_skill['skill_type'] == 'skill_melee_atk') then
+            self.m_tStateAni['attack'] = 'attack'
+        else
+            self.m_tStateAni['attack'] = self:getAttackAnimationName(skill_id)
+        end
     else
-        self.m_tStateAni['attack'] = self:getAttackAnimationName(skill_id)
+        self.m_reservedSkillPos = nil
     end
-    
-    return true
 end
 
 -------------------------------------

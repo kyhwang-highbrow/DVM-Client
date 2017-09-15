@@ -937,31 +937,29 @@ end
 -- function doAttack
 -------------------------------------
 function Character:doAttack(skill_id, x, y)
-    if skill_id then
-        local indicatorData
+    local indicatorData
 
-        local t_skill = self:getSkillTable(skill_id)
+    local t_skill = self:getSkillTable(skill_id)
 
-        if (t_skill['chance_type'] == 'indie_time') then
-            indicatorData = {}
-        end
-
-        local b_run_skill = self:doSkill(skill_id, x, y, indicatorData)
-
-        -- 지정된 스킬이 발동되지 않았을 경우 또는 basic_turn, rate 인 경우 기본 스킬 발동
-        if self.m_isAddSkill or (not b_run_skill) then
-            local basic_skill_id = self:getSkillID('basic')
-            self:doSkill(basic_skill_id, x, y)
-        end
-
-		self:dispatch('char_do_atk')
-		
-		-- 기본 공격 + 드래곤 일때 사운드 재생
-		if (t_skill['chance_type'] == 'basic') and (self.m_charType == 'dragon') then
-			SoundMgr:playEffect('EFX', 'efx_attack')
-		end
+    if (t_skill['chance_type'] == 'indie_time') then
+        indicatorData = {}
     end
 
+    local b_run_skill = self:doSkill(skill_id, x, y, indicatorData)
+
+    -- 지정된 스킬이 발동되지 않았을 경우 또는 basic_turn, rate 인 경우 기본 스킬 발동
+    if self.m_isAddSkill or (not b_run_skill) then
+        local basic_skill_id = self:getSkillID('basic')
+        self:doSkill(basic_skill_id, x, y)
+    end
+
+	self:dispatch('char_do_atk')
+		
+	-- 기본 공격 + 드래곤 일때 사운드 재생
+	if (t_skill['chance_type'] == 'basic') and (self.m_charType == 'dragon') then
+		SoundMgr:playEffect('EFX', 'efx_attack')
+	end
+    
     -- 예약된 스킬 정보 초기화
     self.m_reservedSkillId = nil
     self.m_reservedSkillCastTime = 0
@@ -2359,15 +2357,17 @@ end
 -- @brief 사용될 스킬을 예약
 -------------------------------------
 function Character:reserveSkill(skill_id)
-    if not skill_id then return false end
-
-    local t_skill = self:getSkillTable(skill_id)
-    local cast_time = self:getCastTimeFromSkillID(skill_id)
+     if (skill_id) then
+        local t_skill = self:getSkillTable(skill_id)
+        local cast_time = self:getCastTimeFromSkillID(skill_id)
     
-    self.m_reservedSkillId = skill_id
-    self.m_reservedSkillCastTime = cast_time
-    
-    return true
+        self.m_reservedSkillId = skill_id
+        self.m_reservedSkillCastTime = cast_time
+    else
+        -- 예약된 스킬 정보 초기화
+        self.m_reservedSkillId = nil
+        self.m_reservedSkillCastTime = 0
+    end
 end
 
 -------------------------------------

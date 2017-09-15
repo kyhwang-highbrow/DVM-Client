@@ -550,6 +550,22 @@ function Dragon:isPossibleSkill()
     end
 
     -- 마나 체크
+    if (not self:checkSkillMana()) then
+        return false, REASON_TO_DO_NOT_USE_SKILL.MANA_LACK
+    end
+
+    -- 쿨타임 체크
+	if (not self:isEndActiveSkillCool()) then
+		return false, REASON_TO_DO_NOT_USE_SKILL.COOL_TIME
+	end
+
+	return true
+end
+
+-------------------------------------
+-- function ckeckSkillMana
+-------------------------------------
+function Dragon:checkSkillMana()
     if (self.m_bLeftFormation) then
         if (self.m_activeSkillManaCost:get() > self.m_world.m_heroMana:getCurrMana()) then
             return false, REASON_TO_DO_NOT_USE_SKILL.MANA_LACK
@@ -559,17 +575,11 @@ function Dragon:isPossibleSkill()
         if (self.m_activeSkillManaCost:get() > self.m_world.m_enemyMana:getCurrMana()) then
             return false, REASON_TO_DO_NOT_USE_SKILL.MANA_LACK
         end
-        
     else
-        return false, REASON_TO_DO_NOT_USE_SKILL.NO_MANA
+        return false
     end
 
-    -- 쿨타임 체크
-	if (not self:isEndActiveSkillCool()) then
-		return false, REASON_TO_DO_NOT_USE_SKILL.COOL_TIME
-	end
-
-	return true
+    return true
 end
 
 -------------------------------------
