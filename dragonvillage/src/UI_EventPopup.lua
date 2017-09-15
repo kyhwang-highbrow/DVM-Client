@@ -171,7 +171,7 @@ function UI_EventPopup:makeEventPopupTab(tab)
     if (not self.m_mTabUI) then
         self.m_mTabUI = {}
     end
-    ccdump(tab)
+
     local ui = nil
     local item = self.m_tableView:getItem(tab)
     local struct_event_popup_tab = item['data']

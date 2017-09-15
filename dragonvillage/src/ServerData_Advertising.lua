@@ -260,6 +260,9 @@ function ServerData_Advertising:showRewardResult(ret)
             UIManager:open(ui, UIManager.POPUP)
         end
 
+        -- 우편함 노티
+        g_highlightData:setHighlightMail()
+
     -- 없다면 노티
     else
         local msg = Str('광고 보상을 받았습니다.')

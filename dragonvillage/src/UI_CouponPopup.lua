@@ -60,8 +60,6 @@ function UI_CouponPopup:initUI()
     end
 
     vars['titleLabel']:setString(self.m_titleText)
-    vars['editLabel']:setString(self.m_editText)
-    vars['editBox']:setPlaceHolder(self.m_editText)
     vars['dscLabel']:setString(self.m_dscText)
     vars['editBox']:setMaxLength(self.m_maxCodeLength)
 end
@@ -85,13 +83,6 @@ function UI_CouponPopup:initEditHandler()
     -- editBox handler 등록
 	local function editBoxTextEventHandle(strEventName, pSender)
         if (strEventName == "return") then
-            -- editLabel에 글자를 찍어준다.
-            self.m_couponCode = vars['editBox']:getText()
-            if string.len(self.m_couponCode) > 0 then
-                vars['editLabel']:setString(self.m_couponCode)
-            else
-                vars['editLabel']:setString(self.m_editText)
-            end
         end
     end
     vars['editBox']:registerScriptEditBoxHandler(editBoxTextEventHandle)

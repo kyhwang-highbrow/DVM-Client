@@ -46,7 +46,7 @@ function UI_DragonBoardPopup_Write:initUI()
 	]]
 	vars['editBox']:setMaxLength(REVIEW_MAX_LENGTH)
 	--vars['editBox']:setInputMode(cc.EDITBOX_INPUT_MODE_ANY) -- 2017-07-24 sgkim android ime에서 editbox 옆에 "완료"버튼이 추가되기 전까지 싱글라인으로 처리
-	vars['editLabel']:setString(Str('리뷰를 작성해 주세요'))
+	--vars['editLabel']:setString(Str('리뷰를 작성해 주세요'))
 end
 
 -------------------------------------
@@ -65,7 +65,7 @@ function UI_DragonBoardPopup_Write:initButton()
 			local context, is_valid = self:validateEditText()
 
             -- editLabel에 글자를 찍어준다.
-            vars['editLabel']:setString(context)
+            -- vars['editLabel']:setString(context)
         end
     end
     vars['editBox']:registerScriptEditBoxHandler(editBoxTextEventHandle)

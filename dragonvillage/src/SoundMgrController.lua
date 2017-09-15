@@ -75,7 +75,7 @@ end
 -------------------------------------
 function SoundMgr:resumeBGM()
     if self.m_currBgm then
-        cc.SimpleAudioEngine:getInstance():resumeBackgroundMusic()
+        cc.SimpleAudioEngine:getInstance():resumeMusic()
     end
 end
 
