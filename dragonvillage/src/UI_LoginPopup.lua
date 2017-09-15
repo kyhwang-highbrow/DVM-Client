@@ -158,19 +158,25 @@ end
 -- function click_guestBtn
 -------------------------------------
 function UI_LoginPopup:click_guestBtn()
-    self.m_loadingUI:showLoading(Str('로그인 중...'))
 
-    PerpleSDK:loginAnonymously(function(ret, info)
-        self.m_loadingUI:hideLoading()
+    local function ok_cb()
+        self.m_loadingUI:showLoading(Str('로그인 중...'))
 
-        if ret == 'success' then
-            cclog('Firebase Guest login was successful.')
-            self:loginSuccess(info)
-            self:close()
-        elseif ret == 'fail' then
-            self:loginFail(info)
-        end
-    end)
+        PerpleSDK:loginAnonymously(function(ret, info)
+            self.m_loadingUI:hideLoading()
+
+            if ret == 'success' then
+                cclog('Firebase Guest login was successful.')
+                self:loginSuccess(info)
+                self:close()
+            elseif ret == 'fail' then
+                self:loginFail(info)
+            end
+        end)
+    end
+
+    local msg = Str('게스트 계정으로 접속을 하면 게임 삭제,\n기기변동, 휴대폰 초기화시 계정 데이터도\n삭제됩니다.\n\n게스트 계정으로 로그인하시겠습니까?')
+    MakeSimplePopup(POPUP_TYPE.YES_NO, msg, ok_cb)
 end
 
 -------------------------------------
