@@ -4,6 +4,7 @@
 PatchData = class({
 	    m_tData = '',
         m_tApkExtension = 'table',
+        m_inAppReview = 'boolean',
     })
 
 -------------------------------------
@@ -129,6 +130,23 @@ function PatchData:getAppVersionAndPatchIdxString()
 
     return patch_idx_str
 end
+
+-------------------------------------
+-- function setInAppReview
+-- @breif
+-------------------------------------
+function PatchData:setInAppReview(in_app_review)
+    self.m_inAppReview = in_app_review
+end
+
+-------------------------------------
+-- function isInAppReview
+-- @breif
+-------------------------------------
+function PatchData:isInAppReview()
+    return self.m_inAppReview
+end
+
 
 -------------------------------------
 -- function getInstance

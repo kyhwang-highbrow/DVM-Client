@@ -14,6 +14,11 @@ function UI_Setting:init_infoTab()
     vars['couponBtn']:registerScriptTapHandler(function() self:click_couponBtn() end)
     vars['serviceBtn']:registerScriptTapHandler(function() self:click_serviceBtn() end) 
     vars['communityBtn']:registerScriptTapHandler(function() self:click_communityBtn() end) 
+
+    -- IOS에서 검수 중일 때 쿠폰 UI 숨김
+    if isIos() and PatchData:getInstance():isInAppReview() then
+        vars['couponBtn']:setVisible(false)
+    end
 end
 
 -------------------------------------
