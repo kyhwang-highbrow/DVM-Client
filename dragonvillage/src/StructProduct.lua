@@ -323,7 +323,11 @@ function StructProduct:makePriceIcon()
     end
 
     if (price_type == 'money') then
-        price_type = 'krw'
+        if isIos() then
+            price_type = 'usd'
+        else
+            price_type = 'krw'
+        end
     end
 
     return IconHelper:getPriceIcon(price_type)
@@ -338,7 +342,7 @@ function StructProduct:getPriceStr()
     if (price_type == 'advertising') then
         return Str('광고 보기')
     else
-        return comma_value(self['price'])
+        return comma_value(self:getPrice())
     end
 end
 
@@ -381,7 +385,8 @@ function StructProduct:buy(cb_func)
 	end
 
     local msg = Str('{@item_name}"{1}"\n{@default}구매하시겠습니까?', self['t_name'])
-    MakeSimplePopup_Confirm(self['price_type'], self['price'], msg, ok_cb, nil)
+    local price = self:getPrice()
+    MakeSimplePopup_Confirm(self['price_type'], price, msg, ok_cb, nil)
 end
 
 -------------------------------------
@@ -405,7 +410,7 @@ function StructProduct:payment(cb_func)
 
         local sku = self['sku']
         local product_id = self['product_id']
-        local price = self['price']
+        local price = self:getPrice()
         local validation_key = nil
         local orderId = nil
 
@@ -556,7 +561,7 @@ function StructProduct:payment_win(cb_func)
 
         local sku = self['sku']
         local product_id = self['product_id']
-        local price = self['price']
+        local price = self:getPrice()
         local validation_key = nil
         local orderId = nil
 
@@ -743,7 +748,7 @@ end
 -------------------------------------
 function StructProduct:checkPrice()
 	local price_type = self['price_type']
-    local price = self['price']
+    local price = self:getPrice()
 
     return UIHelper:checkPrice(price_type, price)
 end
@@ -821,5 +826,13 @@ end
 -- function getPrice
 -------------------------------------
 function StructProduct:getPrice()
+    if (self['price_type'] == 'money') then
+        if isIos() then
+            return self['price_dollar']
+        else
+            return self['price']
+        end
+    end
+    
     return self['price']
 end

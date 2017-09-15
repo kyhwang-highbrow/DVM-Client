@@ -485,7 +485,11 @@ end
 function IconHelper:getPriceIcon(price_type)
     -- 현금 상품
     if (price_type == 'money') then
-        price_type = 'krw'
+        if isIos() then
+            price_type = 'usd'
+        else
+            price_type = 'krw'
+        end
     end
     
     local res = string.format('res/ui/icons/inbox/inbox_%s.png', price_type)
