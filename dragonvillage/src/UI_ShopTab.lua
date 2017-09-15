@@ -22,8 +22,11 @@ function UI_ShopTab:onEnterTab(first)
         self:initUI()
     end
   
-
-    g_topUserInfo:setSubCurrency(self.m_tabName)
+    local sub_currency = self.m_tabName
+    if (self.m_tabName == 'st') then
+        sub_currency = 'amethyst'
+    end
+    g_topUserInfo:setSubCurrency(sub_currency)
 end
 
 -------------------------------------
