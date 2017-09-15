@@ -45,7 +45,20 @@ function BroadcastMgr:init()
     self.m_recentRequestTime = -self:getRequestTime()
     self.m_recentTimeStamp = 0
 
-    self.m_schedulerID = scheduler.scheduleGlobal(function(dt) self:update(dt) end, 0)
+    self.m_schedulerID = scheduler.scheduleGlobal(function(dt)
+        local function func()
+		    self:update(dt)
+        end
+        
+        if (isWin32()) then
+            local status, msg = xpcall(func, __G__TRACKBACK__)
+            if (not status) then
+                error(msg)
+            end
+        else
+            func()
+        end
+    end, 0)
 end
 
 -------------------------------------
