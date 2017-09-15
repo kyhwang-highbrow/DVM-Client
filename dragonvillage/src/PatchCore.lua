@@ -271,7 +271,7 @@ function PatchCore:st_requestPatchInfo()
         patch_data:save()
 
         -- 앱 검수 중인지 확인
-        patch_data:setInAppReview(ret['in_app_review'])
+        LocalData:getInstance():applyLocalData(ret['in_app_review'], 'in_app_review')
 
         self:st_requestPatchInfo_successCB(ret)
     end

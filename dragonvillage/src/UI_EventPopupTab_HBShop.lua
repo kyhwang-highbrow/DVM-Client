@@ -43,7 +43,7 @@ function UI_EventPopupTab_HBShop:initButton()
     vars['codeBtn']:registerScriptTapHandler(function() self:click_codeBtn() end)
 
     -- IOS에서 검수 중일 때 쿠폰 UI 숨김
-    if isIos() and PatchData:getInstance():isInAppReview() then
+    if isIos() and LocalData:getInstance():get('in_app_review') then
         vars['couponBtn']:setVisible(false)
         vars['codeBtn']:setVisible(false)
     end
