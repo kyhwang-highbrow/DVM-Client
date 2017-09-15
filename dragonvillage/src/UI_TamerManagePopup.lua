@@ -92,12 +92,20 @@ function UI_TamerManagePopup:initTamerItem()
 	local vars = self.vars
 	local curr_tamer_id = self.m_currTamerID
 
-	local idx = 1
     local table_tamer = TableTamer()
-    local l_tamer = table_tamer.m_orgTable
+  
+    local l_tamer = {}
+    for i,v in pairs(table_tamer.m_orgTable) do
+        table.insert(l_tamer, v)
+    end
+    local function sort_func(a, b)
+        return a['tid'] < b['tid']
+    end
+    table.sort(l_tamer, sort_func)
 
     local l_pos = getSortPosList(112, table.count(table_tamer.m_orgTable))
-	for tamer_id, t_tamer in pairs(l_tamer) do
+	for idx, t_tamer in ipairs(l_tamer) do
+        local tamer_id = t_tamer['tid']
 		-- 테이머 아이템 생성
 		local tamer_item = UI_TamerManageItem(t_tamer)
 		-- 버튼 콜백 등록
@@ -118,8 +126,6 @@ function UI_TamerManagePopup:initTamerItem()
         tamer_item.root:setPositionX(pos_x)
 
         vars['profileMenu']:addChild(tamer_item.root)        
-
-		idx = idx + 1
 	end
 end
 
