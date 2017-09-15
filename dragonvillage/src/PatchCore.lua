@@ -272,6 +272,7 @@ function PatchCore:st_requestPatchInfo()
 
         -- 앱 검수 중인지 확인
         LocalData:getInstance():applyLocalData(ret['in_app_review'], 'in_app_review')
+        LocalData:getInstance():saveLocalDataFile()
 
         self:st_requestPatchInfo_successCB(ret)
     end
