@@ -229,7 +229,7 @@ function StatusEffect:setName(name)
 end
 
 -------------------------------------
--- function initFromTable
+-- function setOverlabClass
 -------------------------------------
 function StatusEffect:setOverlabClass(overlab_class)
     self.m_overlabClass = overlab_class

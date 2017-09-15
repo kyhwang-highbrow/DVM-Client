@@ -41,6 +41,16 @@ function UI_GameDPSPopup:init(world)
 	-- UI 초기화
     self:initUI()
 	self:initButton()
+
+    --
+    local dps_panel = g_autoPlaySetting:get('dps_panel')
+    if (dps_panel == nil) then
+        dps_panel = true
+    end 
+    
+    if (not dps_panel) then
+        self:click_dpsBtn()
+    end
 end
 
 -------------------------------------
@@ -180,6 +190,8 @@ function UI_GameDPSPopup:click_dpsBtn()
 
 	-- 우선 boolean을 바꾸고
 	self.m_bShow = not self.m_bShow
+
+    g_autoPlaySetting:setWithoutSaving('dps_panel', self.m_bShow)
 
     vars['dpsBtn']:stopAllActions()
     root_node:stopAllActions()
