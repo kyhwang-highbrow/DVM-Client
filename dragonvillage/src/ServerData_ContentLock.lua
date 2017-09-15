@@ -25,12 +25,6 @@ end
 --        nest_nightmare [네스트] 악몽 던전
 -------------------------------------
 function ServerData_ContentLock:isContentLock(content_name)
-
-    -- 2017-09-15 ios정책에서 게임 내 beta/ demo / test / 체험판 / 타플랫폼 문구가 노출되지 않아야 합니다.
-    if isIos() then
-        return false
-    end
-
     local table_content_lock = TABLE:get('table_content_lock')
     local t_content_lock = table_content_lock[content_name]
 
@@ -55,6 +49,12 @@ end
 -- @param content_name string
 -------------------------------------
 function ServerData_ContentLock:isContentBeta(content_name)
+
+    -- 2017-09-15 ios정책에서 게임 내 beta/ demo / test / 체험판 / 타플랫폼 문구가 노출되지 않아야 합니다.
+    if isIos() then
+        return false
+    end
+
     local table_content_lock = TABLE:get('table_content_lock')
     local t_content_lock = table_content_lock[content_name]
 
