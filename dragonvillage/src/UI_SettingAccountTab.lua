@@ -545,7 +545,7 @@ function UI_Setting:updateInfo()
     -- 버튼 상태 업데이트
     if platform_id == 'gamecenter' then
         self.vars['descLabel']:setString(Str('현재 게임 데이터가 안전하게 보호되고 있습니다.\n(게임센터 로그인 상태에서는 다른 플랫품 계정으로 계정 전환을 하실 수 없습니다.)'))
-        self.vars['copyBtn']:setVisible(false)
+        self.vars['codeMenu']:setVisible(false)
 
         self.vars['googleBtn']:setEnabled(false)
         self.vars['googleBtn']:setVisible(false)
@@ -560,7 +560,7 @@ function UI_Setting:updateInfo()
         self.vars['gamecenterDisableSprite']:setVisible(false)
     elseif platform_id == 'firebase' then
         self.vars['descLabel']:setString(Str('계정 연동을 통해 게임 데이터를 안전하게 보호하세요.\n계정 연동은 이전에 계정 연동을 한 적이 없는 새로운 계정으로만 가능합니다.\n복구 코드는 게스트 상태의 게임 데이터 복구시 필요하며 복구 처리는 고객센터를 통해서만 가능하니 주의 바랍니다.'))
-        self.vars['copyBtn']:setVisible(true)
+        self.vars['codeMenu']:setVisible(true)
 
         if isIos() then
             self.vars['gamecenterBtn']:setEnabled(true)
@@ -590,7 +590,7 @@ function UI_Setting:updateInfo()
         self.vars['facebookDisableSprite']:setVisible(false)
     else
         self.vars['descLabel']:setString(Str('현재 게임 데이터가 안전하게 보호되고 있습니다.\n\n다른 플랫폼 계정으로 계정 전환이 가능합니다.\n(이전에 계정 연동을 한 적이 없는 새로운 계정으로만 가능)'))
-        self.vars['copyBtn']:setVisible(false)
+        self.vars['codeMenu']:setVisible(false)
 
         self.vars['googleBtn']:setVisible(true)
         self.vars['googleBtn']:setEnabled(platform_id ~= 'google.com')
