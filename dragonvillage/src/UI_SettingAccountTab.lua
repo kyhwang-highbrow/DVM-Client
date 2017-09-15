@@ -88,7 +88,9 @@ function UI_Setting:click_gamecenterBtn()
 
                 local cancel_btn_cb = nil
 
-                if ret['fuid'] == nil then
+                local checkUserUid = ret['userInfo'] and ret['userInfo']['fuid']
+
+                if checkUserUid == nil then
                     -- 신규 유저
                     local function success_cb()
                         ok_btn_cb();
