@@ -385,8 +385,16 @@ function StructProduct:buy(cb_func)
 	end
 
     local msg = Str('{@item_name}"{1}"\n{@default}구매하시겠습니까?', self['t_name'])
+
     local price = self:getPrice()
-    MakeSimplePopup_Confirm(self['price_type'], price, msg, ok_cb, nil)
+    local ui = MakeSimplePopup_Confirm(self['price_type'], price, msg, ok_cb, nil)
+
+    local platform_id = g_localData:get('local', 'platform_id') or 'firebase'
+    if (platform_id == 'firebase') then
+        if ui and ui.vars and ui.vars['subLabel'] then
+            ui.vars['subLabel']:setString(Str('(게스트 계정으로 구매를 하면 게임 삭제, 기기변동,\n휴대폰 초기화시 구매 데이터가 사라질 수 있습니다.)'))
+        end
+    end
 end
 
 -------------------------------------
