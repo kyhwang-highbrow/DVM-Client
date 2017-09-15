@@ -76,7 +76,12 @@ end
 -------------------------------------
 function applicationWillEnterForeground()
     cclog('applicationWillEnterForeground')
-
+    
+    -- IOS 간헐적으로 Foreground 진입시 BGM 재생안될때 있음. resume처리
+    if (isIos()) then
+        SoundMgr:resumeBGM()
+    end
+    
     -- 백그라운드에서 일정 시간이 지난 후 들어오면 재시작
     if (0 < GAME_RESTART_TIME) and (GAME_RESTART_TIME < os.time()) then
         CppFunctions:restart()
