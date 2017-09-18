@@ -30,8 +30,6 @@ end
 -------------------------------------
 function StatusEffect_Dispell:initState()
     PARENT.initState(self)
-
-    self:addState('idle', StatusEffect_Dispell.st_idle, 'center_idle', false)
 end
 
 -------------------------------------
@@ -57,36 +55,34 @@ function StatusEffect_Dispell:initFromTable(t_status_effect, target_char)
 end
 
 -------------------------------------
--- function st_idle
+-- function onStart
 -------------------------------------
-function StatusEffect_Dispell.st_idle(owner, dt)
+function StatusEffect_Dispell:onStart()
+    for k, v in pairs(self.m_dispellTarget) do
+		-- 디스펠 시전
+        if (k == 'all') then
+            self:dispellAll()
 
-    for k, v in pairs(owner.m_dispellTarget) do
-        if (owner.m_stateTimer == 0) then
-		    -- 디스펠 시전
-            if (k == 'all') then
-                owner:dispellAll()
-
-            elseif (k == 'category') then
-                if (v == 'good') then
-                    owner:dispellBuff()
-                elseif(v == 'bad') then
-                    owner:dispellDebuff()
-                end
-
-            elseif (k == 'name') then
-                if (StatusEffectHelper:isHarmful(v)) then
-                    owner:dispellBuff(v)
-                else
-                    owner:dispellDebuff(v)
-                end
+        elseif (k == 'category') then
+            if (v == 'good') then
+                self:dispellBuff()
+            elseif(v == 'bad') then
+                self:dispellDebuff()
             end
-		    -- 애니 1회 동작후 종료
-		    owner.m_animator:addAniHandler(function()
-			    owner:changeState('end')
-		    end)
+
+        elseif (k == 'name') then
+            if (StatusEffectHelper:isHarmful(v)) then
+                self:dispellBuff(v)
+            else
+                self:dispellDebuff(v)
+            end
         end
+		-- 애니 1회 동작후 종료
+		self.m_animator:addAniHandler(function()
+			self:changeState('end')
+		end)
     end
+    self:changeState('end')
 end
 
 -------------------------------------
