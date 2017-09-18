@@ -524,8 +524,22 @@ function StructProduct:payment(cb_func)
                 error_msg = Str('영수증 확인에 실패하였습니다.')
                 co.ESCAPE()
             end
+
+            
+            -- 특정 리턴값 처리
+            local function response_status_cb(ret)
+                -- -3161 : already use receipt, -1161 : not exist receipt
+                if (ret['status'] == -3161) or (ret['status'] == -1161) then
+                    cclog('#### ret : ')
+                    ccdump(ret)
+                    cb_func(ret)
+                    co.NEXT()
+                    return true
+                end
+            end
+
             local iswin = false
-            g_shopDataNew:request_checkReceiptValidation(self, validation_key, sku, product_id, price, iswin, finish_cb, fail_cb)
+            g_shopDataNew:request_checkReceiptValidation(self, validation_key, sku, product_id, price, iswin, finish_cb, fail_cb, response_status_cb)
             if co:waitWork() then return end
         end
         --------------------------------------------------------
@@ -684,8 +698,26 @@ function StructProduct:handlingMissingPayments(l_payload, cb_func, finish_cb)
                         error_msg = Str('영수증 확인에 실패하였습니다.')
                         co.ESCAPE()
                     end
+
+                    -- 특정 리턴값 처리
+                    local function response_status_cb(ret)
+                        -- -3161 : already use receipt, -1161 : not exist receipt
+                        if (ret['status'] == -3161) or (ret['status'] == -1161) then
+                            cclog('#### ret : ')
+                    
+                            if cb_func then
+                                cb_func(ret)
+                            end
+
+                            ccdump(ret)
+                            co.NEXT()
+                            return true
+                        end
+                    end
+                    
+
                     local iswin = false
-                    g_shopDataNew:request_checkReceiptValidation(nil, validation_key, sku, product_id, price, iswin, finish_cb, fail_cb)
+                    g_shopDataNew:request_checkReceiptValidation(nil, validation_key, sku, product_id, price, iswin, finish_cb, fail_cb, response_status_cb)
                     if co:waitWork() then return end
                 end
                 --------------------------------------------------------
