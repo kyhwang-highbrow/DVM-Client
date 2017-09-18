@@ -42,6 +42,16 @@ function SoundMgr:playPrevBGM(loop)
 end
 
 -------------------------------------
+-- function playCurrBGM
+-- @brief 현재 bgm을 재생한다. (stop후 다시 재생할때 ex: 광고시청후)
+-------------------------------------
+function SoundMgr:playCurrBGM(loop)
+    if (self.m_currBgm) then
+        self:playBGM(self.m_currBgm, loop)
+    end
+end
+
+-------------------------------------
 -- function setTitleBgm
 -------------------------------------
 function SoundMgr:setTitleBgm()

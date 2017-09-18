@@ -90,7 +90,7 @@ function AdsManager:showPlacement(placementId, result_cb)
                 self:show(placementId, function(ret, info)
                     if ret == 'finish' or ret == 'error' then
                         if started == true then
-                            SoundMgr:playPrevBGM()
+                            SoundMgr:playCurrBGM()
                         end
                     end
                     __result_cb(ret, info)
