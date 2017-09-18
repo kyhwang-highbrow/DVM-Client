@@ -109,22 +109,44 @@ function UI_TermsPopup:click_agreeBtn2()
 end
 
 -------------------------------------
--- function updateAgreeButton
+-- function checkAgreeState
 -------------------------------------
 function UI_TermsPopup:checkAgreeState()
     if self.m_agree1 == 1 and self.m_agree2 == 1 then
         local success_cb = function(ret)
             g_localData:applyLocalData(1, 'local', 'agree_terms')
-            self:close()
+            self:checkClose()
         end
         local fail_cb = function(ret)
             ccdump(ret)
             g_localData:applyLocalData(1, 'local', 'agree_terms')
-            self:close()
+            self:checkClose()
         end
         local terms = 1
         Network_platform_updateTerms(terms, success_cb, fail_cb)
     end
+end
+
+-------------------------------------
+-- function checkClose
+-- @brief ios 검수 시 정책이슈로 푸시 알림 수신 안내 팝업을 띄움
+-------------------------------------
+function UI_TermsPopup:checkClose()
+    -- ios에서만 동작
+    if (not isIos()) then
+        self:close()
+        return
+    end
+
+    -- 오늘 날짜 표시
+    local date = pl.Date(os.time()):toLocal()
+    local date_str = Str('({1}.{2}.{3})', date:year(), date:month(), date:day())
+    
+    local msg = Str('[드빌M] 푸시알림수신에 동의했습니다.') .. '\n' .. date_str
+    local function ok_cb()
+        self:close()
+    end
+    MakeSimplePopup(POPUP_TYPE.OK, msg, ok_cb)
 end
 
 --@CHECK
