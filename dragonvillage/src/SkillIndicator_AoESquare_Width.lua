@@ -120,11 +120,10 @@ function SkillIndicator_AoESquare_Width:optimizeIndicatorData(l_target, fixed_ta
     
     for _, v in ipairs(l_target) do
         for i, body in ipairs(v:getBodyList()) do
-            local body_size_half = body['size'] / 2
-            local skill_half = self.m_skillHeight / 4
+            local skill_half = self.m_skillHeight / 2
 
-            local min_y = v.pos['y'] - body['y'] - body_size_half - skill_half
-            local max_y = v.pos['y'] + body['y'] + body_size_half + skill_half
+            local min_y = v.pos['y'] + body['y'] - body['size'] - skill_half + 1
+            local max_y = v.pos['y'] + body['y'] + body['size'] + skill_half - 1
 
             for _, y in ipairs({ min_y, max_y }) do
                 local count = setIndicator(v, v.pos['x'], y)

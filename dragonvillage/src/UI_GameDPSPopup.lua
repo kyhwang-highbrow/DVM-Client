@@ -44,7 +44,12 @@ function UI_GameDPSPopup:init(world)
 
     --
     local dps_panel = g_autoPlaySetting:get('dps_panel')
-    if (dps_panel == nil) then
+
+    if (isLowEndMode()) then
+        -- 저사양모드일 경우 시작 시 비활성화 시킴
+        dps_panel = false
+
+    elseif (dps_panel == nil) then
         dps_panel = true
     end 
     

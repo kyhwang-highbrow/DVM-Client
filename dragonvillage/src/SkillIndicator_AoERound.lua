@@ -189,9 +189,8 @@ function SkillIndicator_AoERound:optimizeIndicatorData(l_target, fixed_target)
         for i, body in ipairs(v:getBodyList()) do
             local x = v.pos['x'] + body['x']
             local y = v.pos['y'] + body['y']
-            local body_size_half = body['size'] / 2
             local skill_half = self.m_range
-            local distance = body_size_half + skill_half
+            local distance = body['size'] + skill_half
             local dir = 0
 
             while (dir < 360) do

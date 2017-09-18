@@ -42,7 +42,7 @@ function StatusEffectHelper:doStatusEffect(caster, l_skill_target, type, target_
     -- 스킬로 부터 받은 타겟 리스트 사용
 	if (target_type == 'target') then
         if (not l_skill_target) then
-            error('doStatusEffect no l_skill_target')
+            error('doStatusEffect no l_skill_target : ' .. skill_id)
         end
 
         local l_target = l_skill_target
@@ -58,7 +58,7 @@ function StatusEffectHelper:doStatusEffect(caster, l_skill_target, type, target_
 
     elseif (target_type == 'target_random') then
         if(not l_skill_target) then
-            error('doStatusEffect no l_skill_target')
+            error('doStatusEffect no l_skill_target : ' .. skill_id)
         end
 
         local l_target = l_skill_target

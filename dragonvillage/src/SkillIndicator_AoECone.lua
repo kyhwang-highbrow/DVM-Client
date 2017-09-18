@@ -185,8 +185,7 @@ function SkillIndicator_AoECone:optimizeIndicatorData(l_target, fixed_target)
         for i, body in ipairs(v:getBodyList()) do
             local x = v.pos['x'] + body['x']
             local y = v.pos['y'] + body['y']
-            local body_size_half = body['size'] / 2
-            local distance = getDistance(pos_x, pos_y, x, y) - self.m_skillRadius - body_size_half
+            local distance = getDistance(pos_x, pos_y, x, y) - self.m_skillRadius - body['size']
             local start_dir = getAdjustDegree(getDegree(pos_x, pos_y, x, y)) - (self.m_skillAngle / 2)
             local add_dir = self.m_skillAngle / 10
             

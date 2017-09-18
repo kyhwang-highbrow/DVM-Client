@@ -63,12 +63,12 @@ end
 -------------------------------------
 -- function findCollision_AoESquare
 -------------------------------------
-function SkillTargetFinder:findCollision_AoESquare(l_target, x, y, width, height, no_sort)
+function SkillTargetFinder:findCollision_AoESquare(l_target, x, y, half_width, half_height, no_sort)
 	local l_target = l_target or {}
 	local l_ret = {}
     
 	for i, target in ipairs(l_target) do
-        local collisions = getCollisionList_Rect(target, x, y, width, height)
+        local collisions = getCollisionList_Rect(target, x, y, half_width, half_height)
 
 		for i, collision in ipairs(collisions) do
             table.insert(l_ret, collision)
@@ -88,14 +88,14 @@ end
 -------------------------------------
 -- function findCollision_AoESquare_Multi
 -------------------------------------
-function SkillTargetFinder:findCollision_AoESquare_Multi(l_target, l_x, y, width, height)
+function SkillTargetFinder:findCollision_AoESquare_Multi(l_target, l_x, y, half_width, half_height)
 	local l_target = l_target or {}
     local l_ret = {}
 	local m_temp = {}
     
     for _, x in ipairs(l_x) do
 	    for _, target in ipairs(l_target) do
-            local collisions = getCollisionList_Rect(target, x, y, width, height)
+            local collisions = getCollisionList_Rect(target, x, y, half_width, half_height)
 
 		    for _, collision in ipairs(collisions) do
                 local target = collision:getTarget()
