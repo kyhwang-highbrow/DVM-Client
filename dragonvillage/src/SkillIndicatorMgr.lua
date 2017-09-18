@@ -90,6 +90,7 @@ function SkillIndicatorMgr:onTouchBegan(touch, event)
 
     -- 조작 가능 상태일 때에만
     if (not world:isPossibleControl()) then
+        self:clear()
         return false
     end
 
@@ -171,7 +172,7 @@ end
 -------------------------------------
 function SkillIndicatorMgr:onTouchMoved(touch, event)
     if (not self.m_touchedHero) then return end
-
+        -- 조작 가능 상태일 때에만
     local hero = self.m_touchedHero
         
     -- 월드상의 터치 위치 얻어옴
@@ -297,6 +298,12 @@ end
 -- function update
 -------------------------------------
 function SkillIndicatorMgr:update(dt)
+    if (not self.m_world:isPossibleControl()) then
+        self:clear()
+        self.m_uiToolTip:hide()
+        return 
+    end
+
     if (self:isControlling()) then
         if (self.m_selectHero:isDead()) or (not self.m_world:isPossibleControl()) then
             self:clear()
