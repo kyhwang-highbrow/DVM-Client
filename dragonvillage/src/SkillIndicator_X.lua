@@ -110,34 +110,11 @@ function SkillIndicator_X:findCollision(pos_x, pos_y)
     local collisions1 = self:findCollisionEachLine(l_target, target_x, target_y, std_width, std_height, 1)
     local collisions2 = self:findCollisionEachLine(l_target, target_x, target_y, std_width, std_height, 2)
     
-	-- 맵형태로 임시 저장(중복 제거를 위함)
-    local m_temp = {}
-    local l_temp = {
+	-- 하나의 리스트로 merge
+    local l_ret = mergeCollisionLists({
         collisions1,
         collisions2
-    }
-
-    for _, collisions in ipairs(l_temp) do
-        for _, collision in ipairs(collisions) do
-            local target = collision:getTarget()
-            local body_key = collision:getBodyKey()
-
-            if (not m_temp[target]) then
-                m_temp[target] = {}
-            end
-
-            m_temp[target][body_key] = collision
-        end
-    end
-    
-    -- 인덱스 테이블로 다시 담는다
-    local l_ret = {}
-    
-    for _, map in pairs(m_temp) do
-        for _, collision in pairs(map) do
-            table.insert(l_ret, collision)
-        end
-    end
+    })
 
     -- 거리순으로 정렬(필요할 경우)
     table.sort(l_ret, function(a, b)

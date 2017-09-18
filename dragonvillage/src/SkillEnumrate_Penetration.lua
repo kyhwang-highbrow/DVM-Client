@@ -43,7 +43,7 @@ function SkillEnumrate_Penetration:fireMissile(idx)
 	t_option['rotation'] = t_option['dir']
 
     t_option['object_key'] = char:getAttackPhysGroup()
-    t_option['physics_body'] = {0, 0, self.m_skillLineSize}
+    t_option['physics_body'] = { 0, 0, self.m_skillLineSize * 1.5}  -- body 크기를 일괄적으로 키운다
     t_option['attack_damage'] = self.m_activityCarrier
 	t_option['attr_name'] = char:getAttribute()
 
@@ -71,17 +71,8 @@ function SkillEnumrate_Penetration:fireMissile(idx)
 	end
 
     local l_target = self:getProperTargetList()
-    if(not self.m_lDir) then --TODO dir이 값으로 넘어오지 않은 경우
-
-    end
-    -- body 크기를 일괄적으로 키운다
-    if (t_option['physics_body']) then
-        local body_size = t_option['physics_body'][3]
-
-        t_option['physics_body'][3] = body_size * 1.5
-    end
-
     t_option['collision_list'] = SkillTargetFinder:findCollision_Penetration(l_target, self.m_skillStartPosList[idx].x, self.m_skillStartPosList[idx].y, char, idx, self.m_targetLimit, self.m_size, self.m_lDir[idx])
+
 	-- fire!!
     self:makeMissile(t_option)
 end

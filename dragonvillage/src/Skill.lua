@@ -846,6 +846,7 @@ function Skill:makeMissile(t_option)
     -- 인디케이터로부터 충돌 정보를 받은 경우
     if (self.m_lTargetCollision and not t_option['bFixedAttack']) then
         t_option['bFixedAttack'] = true
+
         if (not t_option['collision_list']) then
             t_option['collision_list'] = self.m_lTargetCollision
         end

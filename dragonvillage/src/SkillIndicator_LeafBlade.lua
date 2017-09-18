@@ -127,22 +127,28 @@ end
 -- function findCollision
 -------------------------------------
 function SkillIndicator_LeafBlade:findCollision(x, y)
-    local l_target = self:getProperTargetList()
-    	
-	local target_1 = nil 
-	local target_2 = nil
+    -- 하나의 리스트로 merge
+    local l_ret = mergeCollisionLists({
+        self:findCollisionEachLine(x, y, 1),
+        self:findCollisionEachLine(x, y, -1)
+    })
+    
+    return l_ret
+end
 
+-------------------------------------
+-- function findCollisionEachLine
+-------------------------------------
+function SkillIndicator_LeafBlade:findCollisionEachLine(x, y, course)
+    local l_target = self:getProperTargetList()
     local pos_x = self.m_hero.pos.x
     local pos_y = self.m_hero.pos.y
-    local remain_count
 
-   	-- 베지어 곡선에 의한 충돌 리스트
-    local collisions_bezier1 = SkillTargetFinder:findCollision_Bezier(l_target, x, y, pos_x, pos_y, 1)
-    local collisions_bezier2 = SkillTargetFinder:findCollision_Bezier(l_target, x, y, pos_x, pos_y, -1)
+    -- 베지어 곡선에 의한 충돌 리스트
+    local collisions_bezier = SkillTargetFinder:findCollision_Bezier(l_target, x, y, pos_x, pos_y, course)
 
     -- 타겟 수 만큼만 얻어옴
-    collisions_bezier1 = table.getPartList(collisions_bezier1, self.m_targetLimit)
-    collisions_bezier2 = table.getPartList(collisions_bezier2, self.m_targetLimit)
+    collisions_bezier = table.getPartList(collisions_bezier, self.m_targetLimit)
 
     -- 충돌체크에 필요한 변수 생성
     local std_dist = 1000
@@ -153,51 +159,17 @@ function SkillIndicator_LeafBlade:findCollision(x, y)
     -- 직선에 의한 충돌 리스트 (상)
     local rad = math_rad(degree + straight_angle)
     local factor_y = math.tan(rad)
-    local collisions_bar1 = SkillTargetFinder:findCollision_Bar(l_target, x, y, x + std_dist, y + std_dist * factor_y, leaf_body_size)
+    local collisions_bar = SkillTargetFinder:findCollision_Bar(l_target, x, y, x + std_dist, y + std_dist * factor_y, leaf_body_size)
 
     -- 타겟 수 만큼만 얻어옴 (상)
-    remain_count = math_max(self.m_targetLimit - #collisions_bezier1, 0)
-    collisions_bar1 = table.getPartList(collisions_bar1, remain_count)
+    local remain_count = math_max(self.m_targetLimit - #collisions_bezier, 0)
+    collisions_bar = table.getPartList(collisions_bar, remain_count)
 
-    -- 직선에 의한 충돌 리스트 (하)
-    rad = math_rad(degree - straight_angle)
-    factor_y = math.tan(rad)
-    local collisions_bar2 = SkillTargetFinder:findCollision_Bar(l_target, x, y, x + std_dist, y + std_dist * factor_y, leaf_body_size)
-
-    -- 타겟 수 만큼만 얻어옴 (하)
-    remain_count = math_max(self.m_targetLimit - #collisions_bezier2, 0)
-    collisions_bar2 = table.getPartList(collisions_bar2, remain_count)
-
-    -- 맵형태로 임시 저장(중복 제거를 위함)
-    local m_temp = {}
-    local l_temp = {
-        collisions_bezier1,
-        collisions_bezier2,
-        collisions_bar1,
-        collisions_bar2
-    }
-
-    for _, collisions in ipairs(l_temp) do
-        for _, collision in ipairs(collisions) do
-            local target = collision:getTarget()
-            local body_key = collision:getBodyKey()
-
-            if (not m_temp[target]) then
-                m_temp[target] = {}
-            end
-
-            m_temp[target][body_key] = collision
-        end
-    end
-    
-    -- 인덱스 테이블로 다시 담는다
-    local l_ret = {}
-    
-    for _, map in pairs(m_temp) do
-        for _, collision in pairs(map) do
-            table.insert(l_ret, collision)
-        end
-    end
+    -- 하나의 리스트로 merge
+    local l_ret = mergeCollisionLists({
+        collisions_bezier,
+        collisions_bar
+    })
 
     -- 거리순으로 정렬(필요할 경우)
     table.sort(l_ret, function(a, b)

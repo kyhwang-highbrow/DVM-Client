@@ -298,3 +298,35 @@ function convertToListFrom2DArray(array)
 
     return l_ret
 end
+
+-------------------------------------
+-- function convertToListFrom2DArray
+-- @brief lists내의 충돌 리스트들을 중복정보가 들어가지 않도록 merge
+-------------------------------------
+function mergeCollisionLists(lists)
+    local m_temp = {}
+
+    for _, list in ipairs(lists) do
+        for _, collision in ipairs(list) do
+            local target = collision:getTarget()
+            local body_key = collision:getBodyKey()
+
+            if (not m_temp[target]) then
+                m_temp[target] = {}
+            end
+
+            m_temp[target][body_key] = collision
+        end
+    end
+    
+    -- 인덱스 테이블로 다시 담는다
+    local l_ret = {}
+    
+    for _, map in pairs(m_temp) do
+        for _, collision in pairs(map) do
+            table.insert(l_ret, collision)
+        end
+    end
+
+    return l_ret
+end

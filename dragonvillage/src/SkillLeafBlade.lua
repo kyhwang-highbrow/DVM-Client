@@ -60,7 +60,7 @@ function SkillLeafBlade:fireMissile()
 
     local char = self.m_owner
     local t_option = {}
-
+    
     t_option['owner'] = char
 
     t_option['pos_x'] = char.pos.x
@@ -94,22 +94,80 @@ function SkillLeafBlade:fireMissile()
 
     -- 타격 횟수 설정
     t_option['max_hit_count'] = self.m_targetLimit
-
-    -- 상탄
+    
+    ------------------------------------------------------
+    -- 상탄 발사
+    ------------------------------------------------------
     t_option['lua_param']['value2'] = 'top'
+
+    t_option['collision_list'] = self:findCollisionEachLine(1)
+
     for i = 1, self.m_targetCount do 
+        t_option['bFixedAttack'] = false
         t_option['lua_param']['value3'] = 0.15 * (i-1)
 
         self:makeMissile(t_option)
     end
     
-    -- 하탄 
+    ------------------------------------------------------
+    -- 하탄 발사
+    ------------------------------------------------------
     t_option['lua_param']['value2'] = 'bottom'
+
+    t_option['collision_list'] = self:findCollisionEachLine(-1)
+
     for i = 1, self.m_targetCount do
+        t_option['bFixedAttack'] = false
         t_option['lua_param']['value3'] = 0.15 * (i-1)
 
         self:makeMissile(t_option)
     end
+end
+
+
+-------------------------------------
+-- function findCollisionEachLine
+-------------------------------------
+function SkillLeafBlade:findCollisionEachLine(course)
+    local l_target = self:getProperTargetList()
+    local x = self.m_targetPos['x']
+    local y = self.m_targetPos['y']
+    local pos_x = self.m_owner.pos.x
+    local pos_y = self.m_owner.pos.y
+
+    -- 베지어 곡선에 의한 충돌 리스트
+    local collisions_bezier = SkillTargetFinder:findCollision_Bezier(l_target, x, y, pos_x, pos_y, course)
+
+    -- 타겟 수 만큼만 얻어옴
+    collisions_bezier = table.getPartList(collisions_bezier, self.m_targetLimit)
+
+    -- 충돌체크에 필요한 변수 생성
+    local std_dist = 1000
+	local degree = getDegree(pos_x, pos_y, x, y)
+	local leaf_body_size = g_constant:get('SKILL', 'LEAF_COLLISION_SIZE')
+	local straight_angle = g_constant:get('SKILL', 'LEAF_STRAIGHT_ANGLE')
+	
+    -- 직선에 의한 충돌 리스트 (상)
+    local rad = math_rad(degree + straight_angle)
+    local factor_y = math.tan(rad)
+    local collisions_bar = SkillTargetFinder:findCollision_Bar(l_target, x, y, x + std_dist, y + std_dist * factor_y, leaf_body_size)
+
+    -- 타겟 수 만큼만 얻어옴 (상)
+    local remain_count = math_max(self.m_targetLimit - #collisions_bezier, 0)
+    collisions_bar = table.getPartList(collisions_bar, remain_count)
+
+    -- 하나의 리스트로 merge
+    local l_ret = mergeCollisionLists({
+        collisions_bezier,
+        collisions_bar
+    })
+
+    -- 거리순으로 정렬(필요할 경우)
+    table.sort(l_ret, function(a, b)
+        return (a:getDistance() < b:getDistance())
+    end)
+
+    return l_ret
 end
 
 -------------------------------------

@@ -250,37 +250,22 @@ end
 -------------------------------------
 function SkillIndicator_Penetration:findCollision(l_attack_pos, l_dir)
 	local l_target = self:getProperTargetList()
-	
-	local m_temp = {}    	
-	for i = 1, self.m_skillLineNum do
+
+    local temp = {}
+
+    for i = 1, self.m_skillLineNum do
 		-- 각 줄의 충돌 체크
 		local collisions = self:findCollisionEachLine(l_target, l_attack_pos[i], l_dir[i])
 
         -- 타겟 수 만큼만 얻어옴(라인별)
         collisions = table.getPartList(collisions, self.m_targetLimit)
-        -- 맵형태로 임시 저장(중복 제거를 위함)
-        for _, collision in ipairs(collisions) do
-            local target = collision:getTarget()
-            local body_key = collision:getBodyKey()
 
-            if (not m_temp[target]) then
-                m_temp[target] = {}
-            end
-
-            m_temp[target][body_key] = collision
-        end
-	end
-	
-	-- 인덱스 테이블로 다시 담는다
-    local l_ret = {}
-    
-    for _, map in pairs(m_temp) do
-        for _, collision in pairs(map) do
-            table.insert(l_ret, collision)
-        end
+        table.insert(temp, collisions)
     end
 
-    return l_ret
+    -- 하나의 리스트로 merge
+    local l_ret = mergeCollisionLists(temp)
+	return l_ret
 end
 
 -------------------------------------
