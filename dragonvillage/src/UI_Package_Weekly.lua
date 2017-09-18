@@ -87,19 +87,23 @@ end
 -- function click_buyBtn
 -------------------------------------
 function UI_Package_Weekly:click_buyBtn(struct_product)
-    local function refresh_cb()
-        g_shopDataNew:request_shopInfo(function() self:refresh() end)
+	local function refresh_cb()
+        g_shopDataNew:request_shopInfo(function() 
+            self:refresh()
+            if (self.m_isPopup) then
+                self:closeWithAction()
+            end
+        end)
     end
 
 	local function cb_func(ret)
-        -- 팝업이면 바로 창닫음
-        if (self.m_isPopup) then
-            self:closeWithAction()
-        
         -- 갱신되었으면 샵 인포 다시 호출
-        elseif (g_shopDataNew:isDirty()) then
+        if (g_shopDataNew:isDirty()) then
             refresh_cb()
-        end
+
+        elseif (self.m_isPopup) then
+            self:closeWithAction()
+		end
 
         -- 아이템 획득 결과창
         ItemObtainResult_Shop(ret)

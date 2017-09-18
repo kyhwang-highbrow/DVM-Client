@@ -112,10 +112,9 @@ function UI_Package:click_buyBtn()
 
 	local function refresh_cb()
         g_shopDataNew:request_shopInfo(function() 
+            self:refresh()
             if (self.m_isPopup) then
                 self:closeWithAction()
-            else
-                self:refresh()
             end
         end)
     end
