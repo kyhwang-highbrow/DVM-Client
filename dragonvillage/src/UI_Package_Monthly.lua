@@ -90,7 +90,7 @@ function UI_Package_Monthly:click_buyBtn(struct_product)
         g_shopDataNew:request_shopInfo(function() 
             self:refresh()
             if (self.m_isPopup) then
-                self:closeWithAction()
+                self:close()
             end
         end)
     end
@@ -101,7 +101,7 @@ function UI_Package_Monthly:click_buyBtn(struct_product)
             refresh_cb()
 
         elseif (self.m_isPopup) then
-            self:closeWithAction()
+            self:close()
 		end
 
         -- 아이템 획득 결과창
@@ -124,5 +124,5 @@ end
 -- function click_closeBtn
 -------------------------------------
 function UI_Package_Monthly:click_closeBtn()
-    self:closeWithAction()
+    self:close()
 end
