@@ -696,7 +696,7 @@ function Skill:initAttackPosOffset()
     self.m_attackPosOffsetX = (l_str[1] * scale)
     self.m_attackPosOffsetY = (l_str[2] * scale)
 
-    if (animator.m_bFlip) then
+    if (not self.m_owner.m_bLeftFormation) then
         self.m_attackPosOffsetX = -self.m_attackPosOffsetX
     end
 end

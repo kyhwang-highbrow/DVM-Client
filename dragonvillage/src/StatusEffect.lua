@@ -274,6 +274,7 @@ end
 -------------------------------------
 function StatusEffect.st_start(owner, dt)
     if (owner.m_stateTimer == 0) then
+
         -- 중첩에 상관없이 한번만 적용되어야하는 효과 적용
         owner:apply()
 
@@ -341,34 +342,32 @@ end
 -- function update
 -------------------------------------
 function StatusEffect:update(dt)
-    -- 전투 중이 아닐 경우 지속시간이 감소하지 않도록 처리
-    if (not self.m_world.m_gameState:isFight()) then
-        dt = 0
-    end
-    -- 스킬 연출 중일 경우 지속시간이 감소하지 않도록 처리
-    if (self.m_bStopUntilSkillEnd and self.m_world.m_gameDragonSkill:isPlaying()) then
-        dt = 0
-    end
-
     if (self.m_bApply) then
-        -- 대상자의 디법 유지 시간 관련 스텟을 실시간으로 적용
         local modified_dt
 
-        if (self.m_bHarmful) then
-            if (self.m_owner:isImmuneSE()) then
-                -- 즉시 해제
-                modified_dt = 9999
-            else
-                local debuff_time = self.m_owner:getStat('debuff_time')
-                debuff_time = math_max(debuff_time, -99)    -- 만약의 경우 분모가 0이 되는 경우를 방지
+        if (self.m_bHarmful and self.m_owner:isImmuneSE()) then
+            -- 면역 상태일 경우 해로운 효과는 즉시 해제
+            modified_dt = 9999
 
-                modified_dt = dt / (1 + (debuff_time / 100))
-            end
+        elseif (not self.m_world.m_gameState:isFight()) then
+            -- 전투 중이 아닐 경우 지속시간이 감소하지 않도록 처리
+            modified_dt = 0
+        
+        elseif (self.m_bStopUntilSkillEnd and self.m_world.m_gameDragonSkill:isPlaying()) then
+            -- 스킬 연출 중일 경우 지속시간이 감소하지 않도록 처리
+            modified_dt = 0
+        
+        elseif (self.m_bHarmful) then
+            -- 대상자의 디법 유지 시간 관련 스텟을 실시간으로 적용
+            local debuff_time = self.m_owner:getStat('debuff_time')
+            debuff_time = math_max(debuff_time, -99)    -- 만약의 경우 분모가 0이 되는 경우를 방지
+
+            modified_dt = dt / (1 + (debuff_time / 100))
         else
             modified_dt = dt
         end
 
-        -- 개별 update
+        -- 중첩 수 만큼 개별 update
         for _, list in pairs(self.m_mUnit) do
             local t_remove = {}
 
