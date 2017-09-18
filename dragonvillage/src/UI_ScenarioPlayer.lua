@@ -129,6 +129,9 @@ end
 -- function next
 -------------------------------------
 function UI_ScenarioPlayer:next()
+    -- spine 캐시 정리
+    SpineCacheManager:getInstance():purgeSpineCacheData()
+
     self.m_currPage = self.m_currPage + 1
 
     if (self.m_currPage <= self.m_maxPage) then
