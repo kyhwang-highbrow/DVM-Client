@@ -591,7 +591,11 @@ function UI_Setting:updateInfo()
         self.vars['facebookBtn']:setVisible(true)
         self.vars['facebookDisableSprite']:setVisible(false)
     else
-        self.vars['descLabel']:setString(Str('현재 게임 데이터가 안전하게 보호되고 있습니다.\n\n다른 플랫폼 계정으로 계정 전환이 가능합니다.\n(이전에 계정 연동을 한 적이 없는 새로운 계정으로만 가능)'))
+        if isIos() then
+            self.vars['descLabel']:setString(Str('현재 게임 데이터가 안전하게 보호되고 있습니다.\n\n다른 플랫폼 계정으로 계정 전환이 가능합니다.\n(이전에 계정 연동을 한 적이 없는 새로운 계정으로만 가능하며, 게임센터로의 전환은 불가능합니다.)'))
+        else
+            self.vars['descLabel']:setString(Str('현재 게임 데이터가 안전하게 보호되고 있습니다.\n\n다른 플랫폼 계정으로 계정 전환이 가능합니다.\n(이전에 계정 연동을 한 적이 없는 새로운 계정으로만 가능)'))
+        end
         self.vars['codeMenu']:setVisible(false)
 
         self.vars['googleBtn']:setVisible(true)
