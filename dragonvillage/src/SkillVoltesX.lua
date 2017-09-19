@@ -25,6 +25,8 @@ SkillVoltesX = class(PARENT, {
 		m_finalAttackTime = 'number',
 
         m_lAlreadyAttack = 'table',
+        m_firstAttackIdx = 'number',
+        m_secondAttackIdx = 'number',
      })
 
 -------------------------------------
@@ -64,6 +66,15 @@ function SkillVoltesX:init_skill(attack_count, has_final_attack, final_attack_co
 
 	-- 스킬 위치 타겟 위치로 
 	self:setPosition(self.m_targetPos.x, self.m_targetPos.y)
+
+    if (self.m_owner.m_bLeftFormation) then
+        self.m_firstAttackIdx = 1
+        self.m_secondAttackIdx = 2
+    else
+        self.m_firstAttackIdx = 2
+        self.m_secondAttackIdx = 1
+    end
+
 end
 
 -------------------------------------
@@ -82,11 +93,11 @@ function SkillVoltesX.st_idle(owner, dt)
 
 	-- ATK STEP 1
 	elseif (owner.m_stateTimer > owner.m_attckInterval) and (owner.m_attackStep == VOLTES_ATK_STEP_1) then
-		owner:updateLoopAttack({1}, dt)
+		owner:updateLoopAttack({owner.m_firstAttackIdx}, dt)
 
 	-- ATK STEP 2
 	elseif (owner.m_stateTimer > owner.m_attckInterval*2) and (owner.m_attackStep == VOLTES_ATK_STEP_2) then
-		owner:updateLoopAttack({2}, dt)
+		owner:updateLoopAttack({owner.m_secondAttackIdx}, dt)
 
     end
 	
@@ -95,7 +106,7 @@ function SkillVoltesX.st_idle(owner, dt)
 		-- ATK STEP FINAL
 		if (owner.m_stateTimer > owner.m_finalAttackTime) and (owner.m_attackStep == VOLTES_ATK_STEP_FINAL) then
 			owner.m_maxAttackCnt = owner.m_maxFinalAttackCnt
-			owner:updateLoopAttack({1, 2}, dt)
+			owner:updateLoopAttack({owner.m_firstAttackIdx, owner.m_secondAttackIdx}, dt)
 
 		-- ATK STEP END
 		elseif (owner.m_attackStep == VOLTES_ATK_STEP_END) then
@@ -163,13 +174,13 @@ end
 function SkillVoltesX:runAttack(idx)
 	local collisions = self:findCollisionEachLine(idx)
 
-    if (idx == 1) then
+    if (idx == self.m_firstAttackIdx) then
         self.m_lAlreadyAttack = collisions
     end
     for _, collision in ipairs(collisions) do
         local flag = true
         for k, target_col in ipairs(self.m_lAlreadyAttack) do
-            if (idx == 2 and collision.m_target == target_col.m_target and collision.m_bodyKey == target_col.m_bodyKey) then
+            if (idx == self.m_secondAttackIdx and collision.m_target == target_col.m_target and collision.m_bodyKey == target_col.m_bodyKey) then
                 flag = false
                 break
             end
