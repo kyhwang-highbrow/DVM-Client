@@ -170,7 +170,7 @@ function Skill:adjustAnimator()
 
 	-- skill_size 가 있다면 skill_size에 의해 계산된 스케일 적용
 	-- 없다면 res_scale 칼럼 값 사용
-	if (self.m_resScale) and (not (self.m_resScale == '')) then
+	if (self.m_resScale and self.m_resScale ~= '') then
 		-- res_scale 의 경우 ;가 있으면 x,y 각각 개별로 들어간다...
 		if string.find(self.m_resScale, ';') then
 			local l_scale = plSplit(self.m_resScale, ';')

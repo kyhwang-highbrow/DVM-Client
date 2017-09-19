@@ -283,7 +283,8 @@ function StatusEffect.st_start(owner, dt)
         t_event['name'] = owner.m_statusEffectName
         t_event['category'] = owner.m_category
         t_event['type'] = owner.m_type
-        if (not (owner.m_owner.m_world.m_gameState:isFightWait() and owner.m_owner.m_world.m_waveMgr:isFirstWave())) then
+
+        if (not owner.m_world.m_gameState:isFightWait() and not owner.m_world.m_waveMgr:isFirstWave()) then
             owner.m_owner:dispatch('get_status_effect', t_event, owner.m_owner) 
         end
 
@@ -626,7 +627,7 @@ function StatusEffect:addOverlabUnit(caster, skill_id, value, source, duration, 
     local char_id = caster:getCharId()
     local skill_id = skill_id or 999999
 
-    -- 시전자의 스텟에 따라 지속시간을 증가시킴
+    -- 시전자의 스텟에 따라 지속시간을 증가시킴(이미 걸려있던 디버프 중첩별 실시간 적용은 안함)
     if (self.m_bHarmful and caster) then
         local target_debuff_time = caster:getStat('target_debuff_time')
         target_debuff_time = math_max(target_debuff_time, -100)
@@ -637,7 +638,6 @@ function StatusEffect:addOverlabUnit(caster, skill_id, value, source, duration, 
     end
 
     local new_unit = self.m_overlabClass(self:getTypeName(), self.m_owner, caster, skill_id, value, source, duration, add_param)
-    
     local t_status_effect = self.m_statusEffectTable
     
     if (not self.m_mUnit[char_id]) then
