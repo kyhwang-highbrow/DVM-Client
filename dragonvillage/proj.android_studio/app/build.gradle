@@ -94,7 +94,7 @@ android {
     }
 
     signingConfigs {
-        // live 용 릴리즈키
+        // live upload 용 릴리즈키
         upload_keystore {
             storeFile file(UPLOAD_RELEASE_STORE_FILE)
             storePassword UPLOAD_RELEASE_STORE_PASSWORD
@@ -107,6 +107,13 @@ android {
             storePassword RELEASE_STORE_PASSWORD
             keyAlias RELEASE_KEY_ALIAS
             keyPassword RELEASE_KEY_PASSWORD
+        }
+        // 디버그키
+        debug_keystore {
+            storeFile file(DEBUG_STORE_FILE)
+            storePassword DEBUG_STORE_PASSWORD
+            keyAlias DEBUG_KEY_ALIAS
+            keyPassword DEBUG_KEY_PASSWORD
         }
     }
 
