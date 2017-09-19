@@ -11,8 +11,8 @@
 #define SERVER_DEV "DEV"
 
 #if (CC_TARGET_PLATFORM == CC_PLATFORM_IOS)
-#define TARGET_SERVER SERVER_QA
-#define IS_TEST_MODE true
+#define TARGET_SERVER SERVER_LIVE
+#define IS_TEST_MODE false
 #define USE_OBB false
 #endif
 
