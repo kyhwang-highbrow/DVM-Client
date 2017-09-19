@@ -220,10 +220,11 @@ end
 -- @brief 드래곤들 생성
 -------------------------------------
 function ForestTerritory:initDragons()
-    local t_dragon_object = ServerData_Forest:getInstance():getMyDragons()
-    for doid, struct_dragon_object in pairs(t_dragon_object) do
-        self:makeDragon(struct_dragon_object)
-    end
+    --local t_dragon_object = ServerData_Forest:getInstance():getMyDragons()
+    --for doid, struct_dragon_object in pairs(t_dragon_object) do
+        --self:makeDragon(struct_dragon_object)
+    --end
+    self:changeDragon_random()
 end
 
 -------------------------------------
