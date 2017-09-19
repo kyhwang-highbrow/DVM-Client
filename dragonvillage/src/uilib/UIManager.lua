@@ -538,8 +538,15 @@ function UIManager:onKeyReleased(keyCode, event)
 		PrintMemory()
 
 	-- currScene에 반복 액션으로 테스트 중인 경우 해제를 위해서 등록
-	elseif (keyCode == KEY_D) then
+    elseif (keyCode == KEY_D) then
 		g_currScene.m_scene:stopAllActions()
+
+    -- 드래곤의 숲 임시 처리
+	elseif (keyCode == KEY_F) then
+        local function cb_func()
+            SceneForest():runScene()
+        end
+        ServerData_Forest:getInstance():request_myForestInfo(cb_func)
 
 	end
 end

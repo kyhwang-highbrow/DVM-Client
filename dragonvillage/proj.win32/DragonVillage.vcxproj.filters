@@ -2712,6 +2712,48 @@
     <None Include="..\src\NaverCafeManager.lua">
       <Filter>lua\src</Filter>
     </None>
+    <None Include="..\src\ForestCharacter.lua">
+      <Filter>lua\forest</Filter>
+    </None>
+    <None Include="..\src\ForestDragon.lua">
+      <Filter>lua\forest</Filter>
+    </None>
+    <None Include="..\src\ForestObject.lua">
+      <Filter>lua\forest</Filter>
+    </None>
+    <None Include="..\src\ForestShadow.lua">
+      <Filter>lua\forest</Filter>
+    </None>
+    <None Include="..\src\ForestStuff.lua">
+      <Filter>lua\forest</Filter>
+    </None>
+    <None Include="..\src\ForestStuffUI.lua">
+      <Filter>lua\forest</Filter>
+    </None>
+    <None Include="..\src\ForestTamer.lua">
+      <Filter>lua\forest</Filter>
+    </None>
+    <None Include="..\src\ForestTerritory.lua">
+      <Filter>lua\forest</Filter>
+    </None>
+    <None Include="..\src\ForestUserStatusUI.lua">
+      <Filter>lua\forest</Filter>
+    </None>
+    <None Include="..\src\SceneForest.lua">
+      <Filter>lua\forest</Filter>
+    </None>
+    <None Include="..\src\ServerData_Forest.lua">
+      <Filter>lua\forest</Filter>
+    </None>
+    <None Include="..\src\StructForestEvent.lua">
+      <Filter>lua\forest</Filter>
+    </None>
+    <None Include="..\src\StructUserInfoForest.lua">
+      <Filter>lua\forest</Filter>
+    </None>
+    <None Include="..\src\UI_Forest.lua">
+      <Filter>lua\forest</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Classes">
@@ -2773,6 +2815,9 @@
     </Filter>
     <Filter Include="lua\UI_Card">
       <UniqueIdentifier>{937ecd69-9259-4508-a6eb-368ca5078d00}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="lua\forest">
+      <UniqueIdentifier>{d9db5865-5dd4-49d9-b396-582ff63ae977}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

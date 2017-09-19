@@ -158,6 +158,9 @@ function ServerData:getInstance()
     -- 친선전
     g_friendMatchData = ServerData_FriendMatch(g_serverData)
 
+    -- 드래곤의 숲
+    ServerData_Forest:getInstance(g_serverData)
+
     return g_serverData
 end
 

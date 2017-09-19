@@ -268,14 +268,23 @@ function cca.pickMePickMe(node)
 end
 
 -------------------------------------
+-- function brrrAction
+-- @brief 부르르르 떠는 액션
+-------------------------------------
+function cca.getBrrrAction(cnt)
+    local brrr = cc.MoveBy:create(0.05, cc.p(10, 0))
+	local sequence_brrr = cc.Sequence:create(brrr, brrr:reverse())
+
+    return cc.Repeat:create(sequence_brrr, cnt)
+end
+
+-------------------------------------
 -- function actGetObject
 -- @brief 마이홈에서 재화를 획득하는 모습을 따라한 액션 부르르 떤 후에 베지어 이동
 -------------------------------------
 function cca.actGetObject(node, tar_pos)
 	-- 부르르르 떠는 액션
-	local brrr = cc.MoveBy:create(0.05, cc.p(7, 0))
-	local sequence_brrr = cc.Sequence:create(brrr, brrr:reverse())
-	local repeat_brrr = cc.Repeat:create(sequence_brrr, 5)
+	local repeat_brrr = cca.getBrrrAction(7)
 
 	-- 베지어 이동
 	local pos_x, pos_y = node:getPosition()

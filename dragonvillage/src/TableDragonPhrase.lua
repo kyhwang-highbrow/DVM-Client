@@ -198,3 +198,14 @@ function TableDragonPhrase:getRandomPhrase_Sensitivity(did, flv, case_type)
 	local speech = self:getValue(did, key)
     return speech
 end
+
+-------------------------------------
+-- function getForestMoveType
+-------------------------------------
+function TableDragonPhrase:getForestMoveType(did)
+	if (self == THIS) then
+        self = THIS()
+    end
+
+    return self:getValue(did, 'myroom_move')
+end

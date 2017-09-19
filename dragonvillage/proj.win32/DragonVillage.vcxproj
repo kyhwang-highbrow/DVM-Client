@@ -303,6 +303,15 @@ xcopy /Y /Q "$(ProjectDir)..\..\libraries\pati\prebuilt\windows\*.dll" "$(OutDir
     <None Include="..\src\EquationHelper.lua" />
     <None Include="..\src\ErrorTracker.lua" />
     <None Include="..\src\EventCarrier.lua" />
+    <None Include="..\src\ForestCharacter.lua" />
+    <None Include="..\src\ForestDragon.lua" />
+    <None Include="..\src\ForestObject.lua" />
+    <None Include="..\src\ForestShadow.lua" />
+    <None Include="..\src\ForestStuff.lua" />
+    <None Include="..\src\ForestStuffUI.lua" />
+    <None Include="..\src\ForestTamer.lua" />
+    <None Include="..\src\ForestTerritory.lua" />
+    <None Include="..\src\ForestUserStatusUI.lua" />
     <None Include="..\src\FpsMeter.lua" />
     <None Include="..\src\GameAuto.lua" />
     <None Include="..\src\GameAuto_Enemy.lua" />
@@ -412,6 +421,7 @@ xcopy /Y /Q "$(ProjectDir)..\..\libraries\pati\prebuilt\windows\*.dll" "$(OutDir
     <None Include="..\src\ResHelper.lua" />
     <None Include="..\src\RuneEnchantHelper.lua" />
     <None Include="..\src\ScenarioViewingHistory.lua" />
+    <None Include="..\src\SceneForest.lua" />
     <None Include="..\src\SceneGameColosseum.lua" />
     <None Include="..\src\SceneGameIntro.lua" />
     <None Include="..\src\SceneNestDungeon.lua" />
@@ -437,6 +447,7 @@ xcopy /Y /Q "$(ProjectDir)..\..\libraries\pati\prebuilt\windows\*.dll" "$(OutDir
     <None Include="..\src\ServerData_EvolutionStone.lua" />
     <None Include="..\src\ServerData_Exchange.lua" />
     <None Include="..\src\ServerData_Exploration.lua" />
+    <None Include="..\src\ServerData_Forest.lua" />
     <None Include="..\src\ServerData_Formation.lua" />
     <None Include="..\src\ServerData_Friend.lua" />
     <None Include="..\src\ServerData_FriendMatch.lua" />
@@ -720,6 +731,7 @@ xcopy /Y /Q "$(ProjectDir)..\..\libraries\pati\prebuilt\windows\*.dll" "$(OutDir
     <None Include="..\src\StructDragonObject.lua" />
     <None Include="..\src\StructEventPopupTab.lua" />
     <None Include="..\src\StructExchangeProductData.lua" />
+    <None Include="..\src\StructForestEvent.lua" />
     <None Include="..\src\StructFreeDragonSummonInfo.lua" />
     <None Include="..\src\StructFriendshipObject.lua" />
     <None Include="..\src\StructHighbrowProduct.lua" />
@@ -737,6 +749,7 @@ xcopy /Y /Q "$(ProjectDir)..\..\libraries\pati\prebuilt\windows\*.dll" "$(OutDir
     <None Include="..\src\StructUserInfo.lua" />
     <None Include="..\src\StructUserInfoAncientTower.lua" />
     <None Include="..\src\StructUserInfoColosseum.lua" />
+    <None Include="..\src\StructUserInfoForest.lua" />
     <None Include="..\src\StructUserInfoFriend.lua" />
     <None Include="..\src\StructWaveRegenGroup.lua" />
     <None Include="..\src\SumRandom.lua" />
@@ -878,6 +891,7 @@ xcopy /Y /Q "$(ProjectDir)..\..\libraries\pati\prebuilt\windows\*.dll" "$(OutDir
     <None Include="..\src\UI_EventPopupTab_PackageGrowth.lua" />
     <None Include="..\src\UI_EvolutionStoneCombine.lua" />
     <None Include="..\src\UI_EvolutionStoneCombineListItem.lua" />
+    <None Include="..\src\UI_Forest.lua" />
     <None Include="..\src\UI_FormationDetailPopup.lua" />
     <None Include="..\src\UI_FriendMatchDeckSettings.lua" />
     <None Include="..\src\UI_FriendMatchReady.lua" />

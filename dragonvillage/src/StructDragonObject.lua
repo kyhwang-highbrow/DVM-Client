@@ -37,6 +37,10 @@ StructDragonObject = class({
         m_mRuneObjects = 'map', -- key roid, value rune object
 
         ----------------------------------------------
+        -- 드래곤의 숲에서 사용
+        happy_at = 'timestapm',
+
+        ----------------------------------------------
         -- 아직 안쓰는 정보
         friendship = '',
         rlv = '',

@@ -891,6 +891,22 @@ local t_module = {
     'UI_DragonDevApiPopup',
     'UI_InvenDevApiPopup',
 
+    -- Forest
+    'SceneForest',
+    'UI_Forest',
+    'ServerData_Forest',
+    'StructForestEvent',
+    'StructUserInfoForest',
+    'ForestTerritory',
+    'ForestObject',
+    'ForestCharacter',
+    'ForestTamer',
+    'ForestDragon',
+    'ForestShadow',
+    'ForestStuff',
+    'ForestUserStatusUI',
+    'ForestStuffUI',
+
     -- Tutorial
     'UI_TutorialPlayer',
     'TutorialManager',

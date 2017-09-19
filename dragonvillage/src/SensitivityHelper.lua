@@ -84,14 +84,14 @@ function SensitivityHelper:getBubbleText(txt_str)
 	local rich_label = UIC_RichLabel()
     rich_label:setString(txt_str)
     rich_label:setFontSize(24)
-    rich_label:setDimension(370, 70)
+    rich_label:setDimension(500, 70)
     rich_label:setAlignment(cc.TEXT_ALIGNMENT_CENTER, cc.VERTICAL_TEXT_ALIGNMENT_CENTER)
 	rich_label:setDockPoint(CENTER_POINT)
     rich_label:setAnchorPoint(CENTER_POINT)
 	rich_label:setPosition(0, 10)
 
 	-- label 사이즈로 프레임 조정
-	local width = rich_label:getStringWidth() + 50
+	local width = math_max(226, rich_label:getStringWidth() + 50)
 	local size = frame:getContentSize()
 	frame:setNormalSize(width, size['height'])
 
