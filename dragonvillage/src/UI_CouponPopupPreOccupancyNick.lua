@@ -74,7 +74,7 @@ function UI_CouponPopupPreOccupancyNick:initUI()
     vars['titleLabel']:setString(Str('사전등록 닉네임 코드 입력'))
     vars['editLabel']:setString(self.m_editText)
     vars['editBox']:setPlaceHolder(self.m_editText)
-    vars['dscLabel']:setString(Str('사회통념 상 욕설이나 부적절한 단어에 해당하는 경우 또는 운영 상 혼란 야기의 가능성이 있는 단어,\n시나리오 진행 및 운영 복적 상 사용이 제한된 단어는 사용이 불가능할 수 있습니다.'))
+    vars['dscLabel']:setString(Str('사회통념 상 욕설이나 부적절한 단어에 해당하는 경우 또는 운영 상 혼란 야기의 가능성이 있는 단어,\n시나리오 진행 및 운영 목적 상 사용이 제한된 단어는 사용이 불가능할 수 있습니다.'))
     vars['editBox']:setMaxLength(self.m_maxCodeLength)
 end
 
@@ -152,7 +152,7 @@ function UI_CouponPopupPreOccupancyNick:request_preOccupancyNick(coupon_code)
     -- 콜백 함수
     local function success_cb(ret)
         if (not IsValidText(ret['nick'], true)) then
-            local msg = Str('사회통념 상 욕설이나 부적절한 단어에 해당하는 경우 또는 운영 상 혼란 야기의 가능성이 있는 단어, 시나리오 진행 및 운영 복적 상 사용이 제한된 단어가 포함되어 사용이 불가능한 닉네임입니다.')
+            local msg = Str('사회통념 상 욕설이나 부적절한 단어에 해당하는 경우 또는 운영 상 혼란 야기의 가능성이 있는 단어, 시나리오 진행 및 운영 목적 상 사용이 제한된 단어가 포함되어 사용이 불가능한 닉네임입니다.')
             MakeSimplePopup2(POPUP_TYPE.OK, msg, Str('사전등록 닉네임 : {1}', ret['nick']))
             return
         end
