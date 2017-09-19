@@ -1,390 +1,390 @@
 
 kesath.png
-size: 1024,1024
+size: 1206,525
 format: RGBA8888
 filter: Linear,Linear
 repeat: none
 kesath_acc_01
-  rotate: false
-  xy: 459, 387
+  rotate: true
+  xy: 1070, 14
   size: 29, 28
   orig: 29, 28
   offset: 0, 0
   index: -1
 kesath_acc_02
-  rotate: false
-  xy: 265, 58
+  rotate: true
+  xy: 998, 165
   size: 14, 16
   orig: 14, 16
   offset: 0, 0
   index: -1
 kesath_acc_03
   rotate: false
-  xy: 453, 417
+  xy: 665, 2
   size: 35, 34
   orig: 35, 34
   offset: 0, 0
   index: -1
 kesath_arm_01
   rotate: true
-  xy: 329, 298
+  xy: 754, 13
   size: 51, 82
   orig: 51, 82
   offset: 0, 0
   index: -1
 kesath_arm_02
   rotate: false
-  xy: 490, 483
+  xy: 1033, 45
   size: 65, 63
   orig: 65, 63
   offset: 0, 0
   index: -1
 kesath_arm_03
   rotate: false
-  xy: 323, 227
+  xy: 1033, 110
   size: 65, 69
   orig: 65, 69
   offset: 0, 0
   index: -1
 kesath_arm_04
   rotate: false
-  xy: 568, 615
+  xy: 315, 2
   size: 36, 40
   orig: 36, 40
   offset: 0, 0
   index: -1
 kesath_arm_05
   rotate: false
-  xy: 568, 573
+  xy: 353, 2
   size: 36, 40
   orig: 36, 40
   offset: 0, 0
   index: -1
 kesath_belt_01
   rotate: true
-  xy: 490, 446
+  xy: 391, 4
   size: 35, 50
   orig: 35, 50
   offset: 0, 0
   index: -1
 kesath_belt_02
   rotate: false
-  xy: 414, 266
+  xy: 702, 2
   size: 35, 34
   orig: 35, 34
   offset: 0, 0
   index: -1
 kesath_body_01
   rotate: false
-  xy: 198, 58
+  xy: 1136, 370
   size: 65, 94
   orig: 65, 94
   offset: 0, 0
   index: -1
 kesath_body_02
   rotate: true
-  xy: 2, 37
+  xy: 395, 99
   size: 115, 194
   orig: 115, 194
   offset: 0, 0
   index: -1
 kesath_body_03
-  rotate: true
-  xy: 198, 2
+  rotate: false
+  xy: 920, 81
   size: 54, 82
   orig: 54, 82
   offset: 0, 0
   index: -1
 kesath_body_04
   rotate: true
-  xy: 490, 409
+  xy: 443, 4
   size: 35, 50
   orig: 35, 50
   offset: 0, 0
   index: -1
 kesath_body_05
-  rotate: false
-  xy: 453, 453
+  rotate: true
+  xy: 2, 4
   size: 35, 85
   orig: 35, 85
   offset: 0, 0
   index: -1
 kesath_body_06
-  rotate: false
-  xy: 459, 327
+  rotate: true
+  xy: 951, 2
   size: 25, 26
   orig: 25, 26
   offset: 0, 0
   index: -1
 kesath_brow_01
   rotate: false
-  xy: 567, 657
+  xy: 576, 18
   size: 49, 21
   orig: 49, 21
   offset: 0, 0
   index: -1
 kesath_cape_01
   rotate: false
-  xy: 851, 916
+  xy: 872, 165
   size: 124, 106
   orig: 124, 106
   offset: 0, 0
   index: -1
 kesath_effect_01
   rotate: false
-  xy: 2, 715
+  xy: 2, 216
   size: 296, 307
   orig: 296, 307
   offset: 0, 0
   index: -1
 kesath_effect_02
   rotate: false
-  xy: 2, 406
+  xy: 300, 216
   size: 296, 307
   orig: 296, 307
   offset: 0, 0
   index: -1
 kesath_effect_03
   rotate: false
-  xy: 569, 852
+  xy: 234, 44
   size: 159, 170
   orig: 159, 170
   offset: 0, 0
   index: -1
 kesath_effect_04
-  rotate: false
-  xy: 300, 540
+  rotate: true
+  xy: 2, 41
   size: 173, 230
   orig: 173, 230
   offset: 0, 0
   index: -1
 kesath_effect_05
   rotate: false
-  xy: 300, 772
+  xy: 598, 273
   size: 267, 250
   orig: 267, 250
   offset: 0, 0
   index: -1
 kesath_effect_06
   rotate: false
-  xy: 2, 154
+  xy: 867, 273
   size: 267, 250
   orig: 267, 250
   offset: 0, 0
   index: -1
 kesath_effect_07
-  rotate: true
-  xy: 569, 769
+  rotate: false
+  xy: 754, 66
   size: 81, 87
   orig: 81, 87
   offset: 0, 0
   index: -1
 kesath_effect_08
   rotate: false
-  xy: 567, 680
+  xy: 837, 66
   size: 81, 87
   orig: 81, 87
   offset: 0, 0
   index: -1
 kesath_effect_i_01
   rotate: false
-  xy: 730, 848
+  xy: 395, 41
   size: 102, 56
   orig: 102, 56
   offset: 0, 0
   index: -1
 kesath_effect_i_02
-  rotate: true
-  xy: 650, 663
+  rotate: false
+  xy: 499, 41
   size: 102, 56
   orig: 102, 56
   offset: 0, 0
   index: -1
 kesath_effect_i_03
   rotate: false
-  xy: 329, 351
+  xy: 838, 8
   size: 79, 56
   orig: 79, 56
   offset: 0, 0
   index: -1
 kesath_effect_i_04
-  rotate: true
-  xy: 806, 767
+  rotate: false
+  xy: 234, 2
   size: 79, 40
   orig: 79, 40
   offset: 0, 0
   index: -1
 kesath_eye_01
   rotate: false
-  xy: 42, 4
+  xy: 89, 8
   size: 55, 31
   orig: 55, 31
   offset: 0, 0
   index: -1
 kesath_eye_02
   rotate: false
-  xy: 977, 928
+  xy: 146, 8
   size: 45, 31
   orig: 45, 31
   offset: 0, 0
   index: -1
 kesath_eye_03
-  rotate: false
-  xy: 977, 909
+  rotate: true
+  xy: 1100, 134
   size: 45, 17
   orig: 45, 17
   offset: 0, 0
   index: -1
 kesath_face_01
   rotate: false
-  xy: 475, 548
+  xy: 603, 41
   size: 91, 99
   orig: 91, 99
   offset: 0, 0
   index: -1
 kesath_finger_01
-  rotate: true
-  xy: 618, 643
+  rotate: false
+  xy: 1147, 53
   size: 35, 30
   orig: 35, 30
   offset: 0, 0
   index: -1
 kesath_finger_02
   rotate: false
-  xy: 137, 5
+  xy: 1033, 13
   size: 35, 30
   orig: 35, 30
   offset: 0, 0
   index: -1
 kesath_foot_01
   rotate: true
-  xy: 2, 2
+  xy: 536, 6
   size: 33, 38
   orig: 33, 38
   offset: 0, 0
   index: -1
 kesath_foot_02
   rotate: false
-  xy: 606, 605
+  xy: 193, 3
   size: 39, 36
   orig: 39, 36
   offset: 0, 0
   index: -1
 kesath_foot_03
   rotate: false
-  xy: 606, 569
+  xy: 495, 5
   size: 39, 34
   orig: 39, 34
   offset: 0, 0
   index: -1
 kesath_hair_01
-  rotate: false
-  xy: 658, 767
+  rotate: true
+  xy: 1121, 131
   size: 61, 83
   orig: 61, 83
   offset: 0, 0
   index: -1
 kesath_hair_02
-  rotate: false
-  xy: 410, 353
+  rotate: true
+  xy: 920, 32
   size: 47, 54
   orig: 47, 54
   offset: 0, 0
   index: -1
 kesath_hair_03
   rotate: true
-  xy: 721, 769
+  xy: 1121, 194
   size: 77, 83
   orig: 77, 83
   offset: 0, 0
   index: -1
 kesath_hair_04
-  rotate: false
-  xy: 271, 151
+  rotate: true
+  xy: 976, 29
   size: 59, 55
   orig: 59, 55
   offset: 0, 0
   index: -1
 kesath_hand_01
   rotate: false
-  xy: 977, 961
+  xy: 1100, 68
   size: 45, 61
   orig: 45, 61
   offset: 0, 0
   index: -1
 kesath_hand_03
-  rotate: true
-  xy: 413, 302
+  rotate: false
+  xy: 1147, 85
   size: 49, 44
   orig: 49, 44
   offset: 0, 0
   index: -1
 kesath_leg_01
   rotate: false
-  xy: 730, 906
+  xy: 751, 155
   size: 119, 116
   orig: 119, 116
   offset: 0, 0
   index: -1
 kesath_leg_02
-  rotate: false
-  xy: 475, 649
+  rotate: true
+  xy: 998, 181
   size: 90, 121
   orig: 90, 121
   offset: 0, 0
   index: -1
 kesath_lowbody_01
   rotate: true
-  xy: 300, 409
+  xy: 598, 142
   size: 129, 151
   orig: 129, 151
   offset: 0, 0
   index: -1
 kesath_lowbody_03
   rotate: true
-  xy: 265, 76
+  xy: 976, 90
   size: 73, 55
   orig: 73, 55
   offset: 0, 0
   index: -1
 kesath_wepon_01
-  rotate: true
-  xy: 332, 157
+  rotate: false
+  xy: 1136, 466
   size: 68, 57
   orig: 68, 57
   offset: 0, 0
   index: -1
 kesath_wepon_02
-  rotate: false
-  xy: 390, 256
+  rotate: true
+  xy: 1100, 44
   size: 22, 40
   orig: 22, 40
   offset: 0, 0
   index: -1
 kesath_wepon_03
   rotate: true
-  xy: 271, 302
+  xy: 696, 38
   size: 102, 56
   orig: 102, 56
   offset: 0, 0
   index: -1
 kesath_wepon_04
   rotate: true
-  xy: 99, 5
+  xy: 627, 9
   size: 30, 36
   orig: 30, 36
   offset: 0, 0
   index: -1
 kesath_wepon_05
-  rotate: true
-  xy: 459, 355
+  rotate: false
+  xy: 919, 2
   size: 30, 28
   orig: 30, 28
   offset: 0, 0
   index: -1
 kesath_wepon_06
   rotate: true
-  xy: 271, 208
+  xy: 1136, 276
   size: 92, 50
   orig: 92, 50
   offset: 0, 0

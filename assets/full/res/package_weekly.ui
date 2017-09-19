@@ -266,8 +266,8 @@
 				lua_name = 'buyBtn1';
 				enable = true;
 				normal = 'ui/buttons/base_btn_0103.png';
-				selected = 'ui/buttons/base_btn_0102.png';
-				disable = 'ui/buttons/base_btn_0102.png';
+				selected = 'ui/buttons/base_btn_0105.png';
+				disable = 'ui/buttons/base_btn_0105.png';
 				image_type = 1;
 			};
 			[4] =

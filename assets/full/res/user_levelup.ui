@@ -28,31 +28,6 @@
 		};
 		[2] =
 		{
-			type = 'Visual';
-			ui_name = '';
-			x = 0.000000;
-			y = 139.000000;
-			dock_point = { 0.500000; 0.500000; };
-			anchor_point = { 0.500000; 0.500000; };
-			relative_size_type = 0;
-			width = 0;
-			height = 0;
-			scale_x = 2.500000;
-			scale_y = 2.500000;
-			skew_x = 0.000000;
-			skew_y = 0.000000;
-			rotation = 0.000000;
-			visible = true;
-			lua_name = '';
-			file_name = 'ui/a2d/rarity_light/rarity_light.vrp';
-			auto_play = true;
-			is_repeat = true;
-			visual_id = 'group;legend';
-			color = { 255; 255; 255; };
-			opacity = 255;
-		};
-		[3] =
-		{
 			[1] =
 			{
 				type = 'LabelTTF';
@@ -119,7 +94,7 @@
 			disable = '';
 			image_type = 1;
 		};
-		[4] =
+		[3] =
 		{
 			[1] =
 			{
@@ -298,7 +273,7 @@
 				type = 'Scale9Sprite';
 				ui_name = '';
 				x = 20.000000;
-				y = -82.000000;
+				y = -132.000000;
 				dock_point = { 0.500000; 0.500000; };
 				anchor_point = { 0.500000; 0.500000; };
 				relative_size_type = 0;
@@ -401,7 +376,7 @@
 				skew_x = 0.000000;
 				skew_y = 0.000000;
 				rotation = 0.000000;
-				visible = true;
+				visible = false;
 				lua_name = '';
 				file_name = 'ui/frames/base_frame_0201.png';
 				color = { 255; 255; 255; };
@@ -416,7 +391,7 @@
 				type = 'LabelTTF';
 				ui_name = '';
 				x = 0.000000;
-				y = -38.000000;
+				y = -88.000000;
 				dock_point = { 0.500000; 0.500000; };
 				anchor_point = { 0.500000; 0.500000; };
 				relative_size_type = 0;
@@ -468,6 +443,31 @@
 			visible = true;
 			lua_name = '';
 		};
+		[4] =
+		{
+			type = 'Visual';
+			ui_name = '';
+			x = -0.000015;
+			y = 88.999985;
+			dock_point = { 0.500000; 0.500000; };
+			anchor_point = { 0.500000; 0.500000; };
+			relative_size_type = 0;
+			width = 0;
+			height = 0;
+			scale_x = 2.500000;
+			scale_y = 2.500000;
+			skew_x = 0.000000;
+			skew_y = 0.000000;
+			rotation = 0.000000;
+			visible = true;
+			lua_name = '';
+			file_name = 'ui/a2d/rarity_light/rarity_light.vrp';
+			auto_play = true;
+			is_repeat = true;
+			visual_id = 'group;legend';
+			color = { 255; 255; 255; };
+			opacity = 255;
+		};
 		[5] =
 		{
 			[1] =
@@ -492,7 +492,7 @@
 			type = 'Sprite';
 			ui_name = '';
 			x = 0.000000;
-			y = 134.000000;
+			y = 84.000000;
 			dock_point = { 0.500000; 0.500000; };
 			anchor_point = { 0.500000; 0.500000; };
 			relative_size_type = 0;

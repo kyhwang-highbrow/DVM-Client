@@ -1,243 +1,243 @@
 
 lambgon_water_02.png
-size: 1024,256
+size: 754,282
 format: RGBA8888
 filter: Linear,Linear
 repeat: none
 lambgon_water_02_arm_01
   rotate: true
-  xy: 428, 92
+  xy: 417, 5
   size: 36, 46
   orig: 36, 46
   offset: 0, 0
   index: -1
 lambgon_water_02_arm_02
   rotate: false
-  xy: 686, 84
+  xy: 465, 11
   size: 42, 42
   orig: 42, 42
   offset: 0, 0
   index: -1
 lambgon_water_02_body_01
   rotate: false
-  xy: 2, 93
+  xy: 2, 125
   size: 126, 155
   orig: 126, 155
   offset: 0, 0
   index: -1
 lambgon_water_02_body_02
   rotate: false
-  xy: 115, 23
+  xy: 341, 93
   size: 77, 67
   orig: 77, 67
   offset: 0, 0
   index: -1
 lambgon_water_02_effect_01
   rotate: false
-  xy: 686, 128
+  xy: 537, 160
   size: 120, 120
   orig: 120, 120
   offset: 0, 0
   index: -1
 lambgon_water_02_effect_05
   rotate: false
-  xy: 654, 99
+  xy: 544, 7
   size: 30, 29
   orig: 30, 29
   offset: 0, 0
   index: -1
 lambgon_water_02_effect_06
   rotate: true
-  xy: 407, 30
+  xy: 600, 98
   size: 60, 57
   orig: 60, 57
   offset: 0, 0
   index: -1
 lambgon_water_02_effect_07
   rotate: false
-  xy: 807, 73
+  xy: 331, 2
   size: 41, 34
   orig: 41, 34
   offset: 0, 0
   index: -1
 lambgon_water_02_effect_08
   rotate: false
-  xy: 850, 73
+  xy: 374, 2
   size: 41, 34
   orig: 41, 34
   offset: 0, 0
   index: -1
 lambgon_water_02_eye_01
   rotate: false
-  xy: 130, 92
+  xy: 151, 18
   size: 84, 33
   orig: 84, 33
   offset: 0, 0
   index: -1
 lambgon_water_02_eye_02
-  rotate: false
-  xy: 216, 92
+  rotate: true
+  xy: 495, 76
   size: 84, 33
   orig: 84, 33
   offset: 0, 0
   index: -1
 lambgon_water_02_eye_03
   rotate: false
-  xy: 302, 92
+  xy: 659, 134
   size: 84, 33
   orig: 84, 33
   offset: 0, 0
   index: -1
 lambgon_water_02_eye_04
   rotate: false
-  xy: 808, 109
+  xy: 659, 99
   size: 84, 33
   orig: 84, 33
   offset: 0, 0
   index: -1
 lambgon_water_02_eye_05
   rotate: false
-  xy: 388, 92
+  xy: 509, 3
   size: 33, 33
   orig: 33, 33
   offset: 0, 0
   index: -1
 lambgon_water_02_eye_06
-  rotate: true
-  xy: 654, 68
+  rotate: false
+  xy: 576, 6
   size: 29, 30
   orig: 29, 30
   offset: 0, 0
   index: -1
 lambgon_water_02_foot_01
   rotate: true
-  xy: 194, 22
+  xy: 420, 92
   size: 68, 73
   orig: 68, 73
   offset: 0, 0
   index: -1
 lambgon_water_02_foot_02
-  rotate: true
-  xy: 269, 22
+  rotate: false
+  xy: 530, 85
   size: 68, 73
   orig: 68, 73
   offset: 0, 0
   index: -1
 lambgon_water_02_hand_01
   rotate: true
-  xy: 476, 75
+  xy: 341, 38
   size: 53, 59
   orig: 53, 59
   offset: 0, 0
   index: -1
 lambgon_water_02_hand_02
   rotate: true
-  xy: 537, 75
+  xy: 600, 43
   size: 53, 59
   orig: 53, 59
   offset: 0, 0
   index: -1
 lambgon_water_02_head_01
-  rotate: false
-  xy: 2, 2
+  rotate: true
+  xy: 659, 169
   size: 111, 89
   orig: 111, 89
   offset: 0, 0
   index: -1
 lambgon_water_02_head_02
   rotate: false
-  xy: 913, 156
+  xy: 256, 65
   size: 83, 92
   orig: 83, 92
   offset: 0, 0
   index: -1
 lambgon_water_02_head_03
   rotate: false
-  xy: 598, 75
+  xy: 661, 44
   size: 54, 53
   orig: 54, 53
   offset: 0, 0
   index: -1
 lambgon_water_02_head_04
   rotate: false
-  xy: 808, 144
+  xy: 151, 53
   size: 103, 104
   orig: 103, 104
   offset: 0, 0
   index: -1
 lambgon_water_02_head_06
   rotate: false
-  xy: 525, 28
+  xy: 530, 38
   size: 56, 45
   orig: 56, 45
   offset: 0, 0
   index: -1
 lambgon_water_02_head_07
-  rotate: false
-  xy: 774, 91
+  rotate: true
+  xy: 717, 12
   size: 31, 35
   orig: 31, 35
   offset: 0, 0
   index: -1
 lambgon_water_02_head_08
   rotate: false
-  xy: 894, 107
+  xy: 461, 55
   size: 31, 35
   orig: 31, 35
   offset: 0, 0
   index: -1
 lambgon_water_02_head_09
-  rotate: false
-  xy: 583, 38
+  rotate: true
+  xy: 717, 45
   size: 52, 35
   orig: 52, 35
   offset: 0, 0
   index: -1
 lambgon_water_02_head_10
   rotate: false
-  xy: 730, 91
+  xy: 661, 7
   size: 42, 35
   orig: 42, 35
   offset: 0, 0
   index: -1
 lambgon_water_02_leg_01
-  rotate: false
-  xy: 344, 17
+  rotate: true
+  xy: 256, 2
   size: 61, 73
   orig: 61, 73
   offset: 0, 0
   index: -1
 lambgon_water_02_leg_02
   rotate: true
-  xy: 466, 26
+  xy: 402, 43
   size: 47, 57
   orig: 47, 57
   offset: 0, 0
   index: -1
 lambgon_water_02_weapon_01
   rotate: true
-  xy: 428, 130
+  xy: 279, 162
   size: 118, 127
   orig: 118, 127
   offset: 0, 0
   index: -1
 lambgon_water_02_weapon_02
   rotate: true
-  xy: 557, 130
+  xy: 408, 162
   size: 118, 127
   orig: 118, 127
   offset: 0, 0
   index: -1
 lambgon_water_02_wing_01
   rotate: false
-  xy: 130, 127
+  xy: 2, 2
   size: 147, 121
   orig: 147, 121
   offset: 0, 0
   index: -1
 lambgon_water_02_wing_02
   rotate: false
-  xy: 279, 127
+  xy: 130, 159
   size: 147, 121
   orig: 147, 121
   offset: 0, 0

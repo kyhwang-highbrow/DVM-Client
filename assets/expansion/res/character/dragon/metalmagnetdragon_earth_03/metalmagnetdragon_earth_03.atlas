@@ -1,0 +1,293 @@
+
+metalmagnetdragon_earth_03.png
+size: 1937,472
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+metalmagnetdragon_earth_03_arm_01
+  rotate: false
+  xy: 1794, 312
+  size: 140, 158
+  orig: 140, 158
+  offset: 0, 0
+  index: -1
+metalmagnetdragon_earth_03_arm_02
+  rotate: true
+  xy: 1771, 159
+  size: 151, 164
+  orig: 151, 164
+  offset: 0, 0
+  index: -1
+metalmagnetdragon_earth_03_body_01
+  rotate: false
+  xy: 2, 6
+  size: 298, 464
+  orig: 298, 464
+  offset: 0, 0
+  index: -1
+metalmagnetdragon_earth_03_effect_01
+  rotate: true
+  xy: 423, 23
+  size: 90, 122
+  orig: 90, 122
+  offset: 0, 0
+  index: -1
+metalmagnetdragon_earth_03_effect_02
+  rotate: false
+  xy: 547, 4
+  size: 57, 52
+  orig: 57, 52
+  offset: 0, 0
+  index: -1
+metalmagnetdragon_earth_03_effect_03
+  rotate: false
+  xy: 741, 3
+  size: 202, 183
+  orig: 202, 183
+  offset: 0, 0
+  index: -1
+metalmagnetdragon_earth_03_effect_04
+  rotate: true
+  xy: 945, 2
+  size: 71, 75
+  orig: 71, 75
+  offset: 0, 0
+  index: -1
+metalmagnetdragon_earth_03_effect_05
+  rotate: true
+  xy: 302, 5
+  size: 108, 119
+  orig: 108, 119
+  offset: 0, 0
+  index: -1
+metalmagnetdragon_earth_03_effect_06
+  rotate: false
+  xy: 302, 115
+  size: 246, 355
+  orig: 246, 355
+  offset: 0, 0
+  index: -1
+metalmagnetdragon_earth_03_effect_07
+  rotate: false
+  xy: 741, 188
+  size: 211, 282
+  orig: 211, 282
+  offset: 0, 0
+  index: -1
+metalmagnetdragon_earth_03_effect_08
+  rotate: false
+  xy: 550, 136
+  size: 189, 334
+  orig: 189, 334
+  offset: 0, 0
+  index: -1
+metalmagnetdragon_earth_03_effect_09
+  rotate: true
+  xy: 1310, 316
+  size: 154, 259
+  orig: 154, 259
+  offset: 0, 0
+  index: -1
+metalmagnetdragon_earth_03_effect_a
+  rotate: true
+  xy: 658, 2
+  size: 40, 57
+  orig: 40, 57
+  offset: 0, 0
+  index: -1
+metalmagnetdragon_earth_03_effect_b
+  rotate: false
+  xy: 1795, 73
+  size: 76, 84
+  orig: 76, 84
+  offset: 0, 0
+  index: -1
+metalmagnetdragon_earth_03_eye_01
+  rotate: true
+  xy: 1719, 2
+  size: 34, 30
+  orig: 34, 30
+  offset: 0, 0
+  index: -1
+metalmagnetdragon_earth_03_foot_01
+  rotate: true
+  xy: 954, 75
+  size: 126, 190
+  orig: 126, 190
+  offset: 0, 0
+  index: -1
+metalmagnetdragon_earth_03_foot_02
+  rotate: true
+  xy: 1390, 2
+  size: 82, 141
+  orig: 82, 141
+  offset: 0, 0
+  index: -1
+metalmagnetdragon_earth_03_hand_01
+  rotate: false
+  xy: 1616, 20
+  size: 101, 101
+  orig: 101, 101
+  offset: 0, 0
+  index: -1
+metalmagnetdragon_earth_03_head_01
+  rotate: true
+  xy: 1310, 183
+  size: 131, 203
+  orig: 131, 203
+  offset: 0, 0
+  index: -1
+metalmagnetdragon_earth_03_head_02
+  rotate: true
+  xy: 1563, 123
+  size: 72, 119
+  orig: 72, 119
+  offset: 0, 0
+  index: -1
+metalmagnetdragon_earth_03_head_03
+  rotate: true
+  xy: 1215, 2
+  size: 56, 85
+  orig: 56, 85
+  offset: 0, 0
+  index: -1
+metalmagnetdragon_earth_03_head_04
+  rotate: true
+  xy: 1795, 38
+  size: 33, 74
+  orig: 33, 74
+  offset: 0, 0
+  index: -1
+metalmagnetdragon_earth_03_neck_01
+  rotate: false
+  xy: 1268, 68
+  size: 120, 113
+  orig: 120, 113
+  offset: 0, 0
+  index: -1
+metalmagnetdragon_earth_03_shield_a1
+  rotate: false
+  xy: 1515, 252
+  size: 54, 62
+  orig: 54, 62
+  offset: 0, 0
+  index: -1
+metalmagnetdragon_earth_03_shield_b1
+  rotate: false
+  xy: 606, 8
+  size: 50, 48
+  orig: 50, 48
+  offset: 0, 0
+  index: -1
+metalmagnetdragon_earth_03_shoulder_01
+  rotate: false
+  xy: 1134, 226
+  size: 174, 244
+  orig: 174, 244
+  offset: 0, 0
+  index: -1
+metalmagnetdragon_earth_03_shoulder_02
+  rotate: false
+  xy: 1515, 168
+  size: 46, 82
+  orig: 46, 82
+  offset: 0, 0
+  index: -1
+metalmagnetdragon_earth_03_shoulder_03
+  rotate: true
+  xy: 1571, 326
+  size: 144, 221
+  orig: 144, 221
+  offset: 0, 0
+  index: -1
+metalmagnetdragon_earth_03_shoulderb_01
+  rotate: false
+  xy: 954, 203
+  size: 178, 267
+  orig: 178, 267
+  offset: 0, 0
+  index: -1
+metalmagnetdragon_earth_03_shoulderb_02
+  rotate: true
+  xy: 1571, 197
+  size: 127, 198
+  orig: 127, 198
+  offset: 0, 0
+  index: -1
+metalmagnetdragon_earth_03_tail_01
+  rotate: false
+  xy: 1146, 60
+  size: 120, 164
+  orig: 120, 164
+  offset: 0, 0
+  index: -1
+metalmagnetdragon_earth_03_tail_02
+  rotate: false
+  xy: 1533, 2
+  size: 81, 119
+  orig: 81, 119
+  offset: 0, 0
+  index: -1
+metalmagnetdragon_earth_03_tail_03
+  rotate: false
+  xy: 1390, 86
+  size: 113, 95
+  orig: 113, 95
+  offset: 0, 0
+  index: -1
+metalmagnetdragon_earth_03_tail_04
+  rotate: false
+  xy: 550, 58
+  size: 124, 76
+  orig: 124, 76
+  offset: 0, 0
+  index: -1
+metalmagnetdragon_earth_03_tail_05
+  rotate: false
+  xy: 1719, 38
+  size: 74, 90
+  orig: 74, 90
+  offset: 0, 0
+  index: -1
+metalmagnetdragon_earth_03_tail_06
+  rotate: false
+  xy: 1684, 130
+  size: 74, 65
+  orig: 74, 65
+  offset: 0, 0
+  index: -1
+metalmagnetdragon_earth_03_tail_07
+  rotate: false
+  xy: 1302, 6
+  size: 77, 60
+  orig: 77, 60
+  offset: 0, 0
+  index: -1
+metalmagnetdragon_earth_03_tail_08
+  rotate: false
+  xy: 1022, 3
+  size: 100, 70
+  orig: 100, 70
+  offset: 0, 0
+  index: -1
+metalmagnetdragon_earth_03_tail_09
+  rotate: true
+  xy: 1124, 2
+  size: 56, 89
+  orig: 56, 89
+  offset: 0, 0
+  index: -1
+metalmagnetdragon_earth_03_tail_10
+  rotate: false
+  xy: 676, 44
+  size: 61, 90
+  orig: 61, 90
+  offset: 0, 0
+  index: -1
+metalmagnetdragon_earth_03_wepon_01
+  rotate: false
+  xy: 1873, 100
+  size: 61, 57
+  orig: 61, 57
+  offset: 0, 0
+  index: -1

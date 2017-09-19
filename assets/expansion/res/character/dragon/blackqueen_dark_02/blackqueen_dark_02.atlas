@@ -1,0 +1,153 @@
+
+blackqueen_dark_02.png
+size: 1414,279
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+blackqueen_dark_02_arm_l_01
+  rotate: true
+  xy: 500, 16
+  size: 50, 90
+  orig: 50, 90
+  offset: 0, 0
+  index: -1
+blackqueen_dark_02_arm_l_02
+  rotate: true
+  xy: 600, 2
+  size: 80, 118
+  orig: 80, 118
+  offset: 0, 0
+  index: -1
+blackqueen_dark_02_arm_r_01
+  rotate: false
+  xy: 800, 16
+  size: 90, 84
+  orig: 90, 84
+  offset: 0, 0
+  index: -1
+blackqueen_dark_02_arm_r_02
+  rotate: false
+  xy: 1307, 180
+  size: 92, 97
+  orig: 92, 97
+  offset: 0, 0
+  index: -1
+blackqueen_dark_02_body_01
+  rotate: false
+  xy: 600, 84
+  size: 198, 193
+  orig: 198, 193
+  offset: 0, 0
+  index: -1
+blackqueen_dark_02_deco_01
+  rotate: true
+  xy: 378, 3
+  size: 63, 64
+  orig: 63, 64
+  offset: 0, 0
+  index: -1
+blackqueen_dark_02_eye_01
+  rotate: false
+  xy: 761, 53
+  size: 27, 29
+  orig: 27, 29
+  offset: 0, 0
+  index: -1
+blackqueen_dark_02_eye_02
+  rotate: false
+  xy: 761, 22
+  size: 27, 29
+  orig: 27, 29
+  offset: 0, 0
+  index: -1
+blackqueen_dark_02_eye_03
+  rotate: true
+  xy: 892, 17
+  size: 27, 29
+  orig: 27, 29
+  offset: 0, 0
+  index: -1
+blackqueen_dark_02_fur_01
+  rotate: true
+  xy: 800, 102
+  size: 175, 222
+  orig: 175, 222
+  offset: 0, 0
+  index: -1
+blackqueen_dark_02_fur_02
+  rotate: true
+  xy: 720, 13
+  size: 69, 39
+  orig: 69, 39
+  offset: 0, 0
+  index: -1
+blackqueen_dark_02_head_01
+  rotate: true
+  xy: 1024, 4
+  size: 125, 176
+  orig: 125, 176
+  offset: 0, 0
+  index: -1
+blackqueen_dark_02_head_02
+  rotate: false
+  xy: 444, 14
+  size: 54, 52
+  orig: 54, 52
+  offset: 0, 0
+  index: -1
+blackqueen_dark_02_leg_l_01
+  rotate: true
+  xy: 287, 2
+  size: 64, 89
+  orig: 64, 89
+  offset: 0, 0
+  index: -1
+blackqueen_dark_02_leg_l_02
+  rotate: true
+  xy: 1307, 141
+  size: 37, 105
+  orig: 37, 105
+  offset: 0, 0
+  index: -1
+blackqueen_dark_02_leg_r_01
+  rotate: false
+  xy: 1312, 16
+  size: 89, 123
+  orig: 89, 123
+  offset: 0, 0
+  index: -1
+blackqueen_dark_02_leg_r_02
+  rotate: true
+  xy: 892, 46
+  size: 54, 123
+  orig: 54, 123
+  offset: 0, 0
+  index: -1
+blackqueen_dark_02_tail_01
+  rotate: true
+  xy: 287, 68
+  size: 209, 311
+  orig: 209, 311
+  offset: 0, 0
+  index: -1
+blackqueen_dark_02_tail_ef
+  rotate: false
+  xy: 1202, 21
+  size: 108, 108
+  orig: 108, 108
+  offset: 0, 0
+  index: -1
+blackqueen_dark_02_wing_l
+  rotate: true
+  xy: 1024, 131
+  size: 146, 281
+  orig: 146, 281
+  offset: 0, 0
+  index: -1
+blackqueen_dark_02_wing_r
+  rotate: false
+  xy: 2, 20
+  size: 283, 257
+  orig: 283, 257
+  offset: 0, 0
+  index: -1

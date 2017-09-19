@@ -312,7 +312,7 @@
 					lua_name = 'infoLabel';
 					font_name = 'font/common_font_01.ttf';
 					font_size = 20;
-					text = 'TIP. 친밀도가 높은 재료를 사용하면 보너스 경험치 획득 확률이 높아져요';
+					text = 'TIP. 보유한 스킬중 무작위로 강화됩니다.';
 					h_alignment = 1;
 					v_alignment = 1;
 					color = { 240; 215; 159; };
@@ -771,7 +771,7 @@
 				lua_name = 'dscLabel';
 				font_name = 'font/common_font_01.ttf';
 				font_size = 20;
-				text = '보유한 스킬중 무작위로\n강화합니다';
+				text = '동일 드래곤을 사용하여\n스킬을 강화합니다.';
 				h_alignment = 1;
 				v_alignment = 1;
 				color = { 0; 0; 0; };

@@ -36,11 +36,11 @@
 				type = 'Scale9Sprite';
 				ui_name = '';
 				x = 0.000000;
-				y = 60.000000;
+				y = 73.000000;
 				dock_point = { 0.500000; 0.500000; };
 				anchor_point = { 0.500000; 0.500000; };
 				relative_size_type = 0;
-				width = 580;
+				width = 620;
 				height = 186;
 				scale_x = 1.000000;
 				scale_y = 1.000000;
@@ -61,8 +61,8 @@
 			{
 				type = 'LabelTTF';
 				ui_name = '';
-				x = -190.000000;
-				y = 60.000000;
+				x = -234.000000;
+				y = 73.000000;
 				dock_point = { 0.500000; 0.500000; };
 				anchor_point = { 0.500000; 0.500000; };
 				relative_size_type = 0;
@@ -77,10 +77,10 @@
 				lua_name = '';
 				font_name = 'font/common_font_01.ttf';
 				font_size = 26;
-				text = '2연승\n4연승\n6연승\n8연승\n10연승';
+				text = '1단계\n2단계\n3단계\n4단계\n5단계';
 				h_alignment = 2;
 				v_alignment = 1;
-				color = { 255; 215; 0; };
+				color = { 64; 224; 208; };
 				opacity = 255;
 				dimension_width = 223;
 				dimension_height = 200;
@@ -101,8 +101,48 @@
 			{
 				type = 'LabelTTF';
 				ui_name = '';
-				x = 110.000000;
-				y = 60.000000;
+				x = -88.000000;
+				y = 73.000000;
+				dock_point = { 0.500000; 0.500000; };
+				anchor_point = { 0.500000; 0.500000; };
+				relative_size_type = 0;
+				width = 93;
+				height = 200;
+				scale_x = 1.000000;
+				scale_y = 1.000000;
+				skew_x = 0.000000;
+				skew_y = 0.000000;
+				rotation = 0.000000;
+				visible = true;
+				lua_name = '';
+				font_name = 'font/common_font_01.ttf';
+				font_size = 26;
+				text = '2연승\n4연승\n6연승\n8연승\n10연승';
+				h_alignment = 2;
+				v_alignment = 1;
+				color = { 255; 215; 0; };
+				opacity = 255;
+				dimension_width = 93;
+				dimension_height = 200;
+				letter_spacing = 0.000000;
+				has_stroke = false;
+				stroke_type = 0;
+				stroke_detail_level = 0;
+				is_sharp_text = true;
+				stroke_tickness = 1.000000;
+				stroke_color = { 255; 255; 255; };
+				has_shadow = false;
+				shadow_color = { 255; 255; 255; };
+				shadow_opacity = 255;
+				shadow_direction = 0;
+				shadow_distance = 5.000000;
+			};
+			[5] =
+			{
+				type = 'LabelTTF';
+				ui_name = '';
+				x = 143.000000;
+				y = 73.000000;
 				dock_point = { 0.500000; 0.500000; };
 				anchor_point = { 0.500000; 0.500000; };
 				relative_size_type = 0;
@@ -117,7 +157,7 @@
 				lua_name = '';
 				font_name = 'font/common_font_01.ttf';
 				font_size = 26;
-				text = '체력+5%\n체력+5%,공격력+5%\n체력+10%,공격력+5%\n체력+5%,공격력+10%\n체력+15%,공격력+15%';
+				text = '생명력+5%\n생명력+5%, 공격력+5%\n생명력+10%, 공격력+5%\n생명력+5%, 공격력+10%\n생명력+15%, 공격력+15%';
 				h_alignment = 0;
 				v_alignment = 1;
 				color = { 255; 255; 255; };
@@ -137,17 +177,17 @@
 				shadow_direction = 0;
 				shadow_distance = 5.000000;
 			};
-			[5] =
+			[6] =
 			{
 				type = 'LabelTTF';
 				ui_name = '';
-				x = -5.000000;
+				x = 86.000000;
 				y = -130.000000;
 				dock_point = { 0.500000; 0.500000; };
 				anchor_point = { 0.500000; 0.500000; };
 				relative_size_type = 0;
-				width = 569;
-				height = 183;
+				width = 782;
+				height = 210;
 				scale_x = 1.000000;
 				scale_y = 1.000000;
 				skew_x = 0.000000;
@@ -157,13 +197,13 @@
 				lua_name = '';
 				font_name = 'font/common_font_01.ttf';
 				font_size = 22;
-				text = '* 2연승 시 마다 1시간동안 아레나에서만 적용되는 버프 적용\n* 새로운 버프 획득 시 버프 시간 초기화\n* 중첩 버프가 아니며, 해당 버프로 교체됨\n* 10연승 이상은 수치 상승이 없으며, 버프시간만 초기화됨\n* 연승패배 시 버프가 사라짐';
+				text = '* 버프는 2연승한 시점부터 1단계가 적용됩니다.\n* 2연승 이후 연승 시마다 버프 효과의 유지시간은 1시간으로 갱신됩니다.\n* 버프 획득 후 1시간 동안 연승을 이어나가지 않으면 1시간 뒤 버프 효과가 사라집니다.\n* 버프 효과가 사라지면 1단계부터 다시 시작해야 합니다.\n* 연승 버프 단계가 올라가면 중첩되지 않고 새로운 단계로 교체됩니다.\n* 5단계 이상은 수치 상승이 없으며, 버프 시간만 갱신됩니다.\n* 연승 패배시 버프가 사라집니다.\n* 버프는 콜로세움에서만 적용됩니다.';
 				h_alignment = 0;
 				v_alignment = 1;
 				color = { 244; 224; 177; };
 				opacity = 255;
-				dimension_width = 569;
-				dimension_height = 183;
+				dimension_width = 782;
+				dimension_height = 210;
 				letter_spacing = 0.000000;
 				has_stroke = false;
 				stroke_type = 0;
@@ -177,7 +217,7 @@
 				shadow_direction = 0;
 				shadow_distance = 5.000000;
 			};
-			[6] =
+			[7] =
 			{
 				type = 'Button';
 				ui_name = '';
@@ -201,12 +241,12 @@
 				disable = '';
 				image_type = 0;
 			};
-			[7] =
+			[8] =
 			{
 				type = 'LabelTTF';
 				ui_name = '';
 				x = 0.000000;
-				y = 194.000000;
+				y = 207.000000;
 				dock_point = { 0.500000; 0.500000; };
 				anchor_point = { 0.500000; 0.500000; };
 				relative_size_type = 0;

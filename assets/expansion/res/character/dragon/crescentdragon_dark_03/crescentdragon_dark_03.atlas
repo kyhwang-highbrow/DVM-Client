@@ -1,264 +1,264 @@
 
 crescentdragon_dark_03.png
-size: 1024,256
+size: 1127,216
 format: RGBA8888
 filter: Linear,Linear
 repeat: none
 crescentdragon_dark_03_arm_01
-  rotate: false
-  xy: 499, 9
+  rotate: true
+  xy: 251, 4
   size: 53, 59
   orig: 53, 59
   offset: 0, 0
   index: -1
 crescentdragon_dark_03_arm_02
   rotate: true
-  xy: 547, 77
+  xy: 185, 2
   size: 55, 64
   orig: 55, 64
   offset: 0, 0
   index: -1
 crescentdragon_dark_03_body_01
   rotate: false
-  xy: 158, 99
+  xy: 158, 59
   size: 126, 155
   orig: 126, 155
   offset: 0, 0
   index: -1
 crescentdragon_dark_03_body_02
-  rotate: false
-  xy: 2, 8
+  rotate: true
+  xy: 515, 88
   size: 126, 85
   orig: 126, 85
   offset: 0, 0
   index: -1
 crescentdragon_dark_03_effect_01
   rotate: true
-  xy: 737, 5
+  xy: 376, 2
   size: 57, 43
   orig: 57, 43
   offset: 0, 0
   index: -1
 crescentdragon_dark_03_effect_02
   rotate: false
-  xy: 782, 9
+  xy: 77, 6
   size: 36, 47
   orig: 36, 47
   offset: 0, 0
   index: -1
 crescentdragon_dark_03_effect_03
   rotate: false
-  xy: 286, 101
+  xy: 286, 61
   size: 116, 153
   orig: 116, 153
   offset: 0, 0
   index: -1
 crescentdragon_dark_03_effect_04
   rotate: false
-  xy: 404, 81
+  xy: 421, 3
   size: 97, 62
   orig: 97, 62
   offset: 0, 0
   index: -1
 crescentdragon_dark_03_effect_05
-  rotate: false
-  xy: 782, 58
+  rotate: true
+  xy: 1044, 15
   size: 41, 34
   orig: 41, 34
   offset: 0, 0
   index: -1
 crescentdragon_dark_03_effect_06
-  rotate: true
-  xy: 313, 2
+  rotate: false
+  xy: 520, 5
   size: 97, 62
   orig: 97, 62
   offset: 0, 0
   index: -1
 crescentdragon_dark_03_effect_07
   rotate: true
-  xy: 884, 111
+  xy: 115, 6
   size: 47, 34
   orig: 47, 34
   offset: 0, 0
   index: -1
 crescentdragon_dark_03_effect_08
-  rotate: false
-  xy: 825, 115
+  rotate: true
+  xy: 1082, 157
   size: 57, 43
   orig: 57, 43
   offset: 0, 0
   index: -1
 crescentdragon_dark_03_effect_09
-  rotate: false
-  xy: 965, 120
+  rotate: true
+  xy: 1080, 49
   size: 32, 43
   orig: 32, 43
   offset: 0, 0
   index: -1
 crescentdragon_dark_03_effect_10
   rotate: false
-  xy: 901, 165
+  xy: 825, 125
   size: 89, 89
   orig: 89, 89
   offset: 0, 0
   index: -1
 crescentdragon_dark_03_effect_11
   rotate: false
-  xy: 679, 64
+  xy: 916, 125
   size: 89, 89
   orig: 89, 89
   offset: 0, 0
   index: -1
 crescentdragon_dark_03_effect_12
-  rotate: false
-  xy: 955, 82
+  rotate: true
+  xy: 966, 91
   size: 32, 36
   orig: 32, 36
   offset: 0, 0
   index: -1
 crescentdragon_dark_03_effect_13
-  rotate: true
-  xy: 825, 37
+  rotate: false
+  xy: 1080, 11
   size: 32, 36
   orig: 32, 36
   offset: 0, 0
   index: -1
 crescentdragon_dark_03_effect_14
-  rotate: false
-  xy: 377, 8
+  rotate: true
+  xy: 1007, 58
   size: 68, 71
   orig: 68, 71
   offset: 0, 0
   index: -1
 crescentdragon_dark_03_effect_15
   rotate: true
-  xy: 158, 2
+  xy: 740, 2
   size: 95, 75
   orig: 95, 75
   offset: 0, 0
   index: -1
 crescentdragon_dark_03_effect_16
   rotate: false
-  xy: 2, 95
+  xy: 2, 55
   size: 154, 159
   orig: 154, 159
   offset: 0, 0
   index: -1
 crescentdragon_dark_03_eye_01
   rotate: false
-  xy: 920, 128
+  xy: 1082, 120
   size: 43, 35
   orig: 43, 35
   offset: 0, 0
   index: -1
 crescentdragon_dark_03_eye_02
   rotate: true
-  xy: 130, 76
+  xy: 515, 69
   size: 17, 26
   orig: 17, 26
   offset: 0, 0
   index: -1
 crescentdragon_dark_03_eye_03
-  rotate: true
-  xy: 884, 66
+  rotate: false
+  xy: 1080, 83
   size: 43, 35
   orig: 43, 35
   offset: 0, 0
   index: -1
 crescentdragon_dark_03_foot_01
-  rotate: false
-  xy: 503, 70
+  rotate: true
+  xy: 1007, 172
   size: 42, 73
   orig: 42, 73
   offset: 0, 0
   index: -1
 crescentdragon_dark_03_foot_02
-  rotate: false
-  xy: 447, 6
+  rotate: true
+  xy: 2, 3
   size: 50, 73
   orig: 50, 73
   offset: 0, 0
   index: -1
 crescentdragon_dark_03_hand_01
   rotate: true
-  xy: 676, 9
+  xy: 922, 3
   size: 53, 59
   orig: 53, 59
   offset: 0, 0
   index: -1
 crescentdragon_dark_03_hand_02
-  rotate: false
-  xy: 770, 94
+  rotate: true
+  xy: 983, 3
   size: 53, 59
   orig: 53, 59
   offset: 0, 0
   index: -1
 crescentdragon_dark_03_head_01
-  rotate: false
-  xy: 553, 134
+  rotate: true
+  xy: 602, 90
   size: 124, 120
   orig: 124, 120
   offset: 0, 0
   index: -1
 crescentdragon_dark_03_head_02
-  rotate: true
-  xy: 598, 32
+  rotate: false
+  xy: 697, 12
   size: 41, 76
   orig: 41, 76
   offset: 0, 0
   index: -1
 crescentdragon_dark_03_head_03
   rotate: false
-  xy: 235, 2
+  xy: 619, 11
   size: 76, 77
   orig: 76, 77
   offset: 0, 0
   index: -1
 crescentdragon_dark_03_head_04
   rotate: true
-  xy: 921, 80
+  xy: 151, 7
   size: 46, 32
   orig: 46, 32
   offset: 0, 0
   index: -1
 crescentdragon_dark_03_leg_01
-  rotate: false
-  xy: 554, 2
+  rotate: true
+  xy: 1007, 128
   size: 42, 73
   orig: 42, 73
   offset: 0, 0
   index: -1
 crescentdragon_dark_03_leg_02
-  rotate: true
-  xy: 825, 71
+  rotate: false
+  xy: 922, 66
   size: 42, 57
   orig: 42, 57
   offset: 0, 0
   index: -1
 crescentdragon_dark_03_weapon_01
   rotate: true
-  xy: 796, 160
+  xy: 817, 3
   size: 94, 103
   orig: 94, 103
   offset: 0, 0
   index: -1
 crescentdragon_dark_03_weapon_02
   rotate: true
-  xy: 613, 75
+  xy: 312, 2
   size: 57, 62
   orig: 57, 62
   offset: 0, 0
   index: -1
 crescentdragon_dark_03_wing_01
-  rotate: false
-  xy: 404, 145
+  rotate: true
+  xy: 404, 67
   size: 147, 109
   orig: 147, 109
   offset: 0, 0
   index: -1
 crescentdragon_dark_03_wing_02
-  rotate: false
-  xy: 679, 155
+  rotate: true
+  xy: 724, 99
   size: 115, 99
   orig: 115, 99
   offset: 0, 0

@@ -1,138 +1,138 @@
 
 boomba_light_01.png
-size: 1024,256
+size: 790,213
 format: RGBA8888
 filter: Linear,Linear
 repeat: none
 boomba_light_01_arm_01
   rotate: false
-  xy: 324, 62
+  xy: 386, 25
   size: 47, 53
   orig: 47, 53
   offset: 0, 0
   index: -1
 boomba_light_01_arm_02
   rotate: false
-  xy: 373, 81
+  xy: 435, 25
   size: 47, 53
   orig: 47, 53
   offset: 0, 0
   index: -1
 boomba_light_01_body_01
   rotate: false
-  xy: 2, 39
+  xy: 2, 2
   size: 212, 209
   orig: 212, 209
   offset: 0, 0
   index: -1
 boomba_light_01_body_02
   rotate: false
-  xy: 668, 150
+  xy: 484, 4
   size: 82, 98
   orig: 82, 98
   offset: 0, 0
   index: -1
 boomba_light_01_body_03
   rotate: false
-  xy: 216, 117
+  xy: 216, 80
   size: 129, 131
   orig: 129, 131
   offset: 0, 0
   index: -1
 boomba_light_01_effect_01
-  rotate: false
-  xy: 752, 165
+  rotate: true
+  xy: 568, 10
   size: 92, 83
   orig: 92, 83
   offset: 0, 0
   index: -1
 boomba_light_01_effect_02
-  rotate: false
-  xy: 846, 165
+  rotate: true
+  xy: 649, 119
   size: 92, 83
   orig: 92, 83
   offset: 0, 0
   index: -1
 boomba_light_01_effect_03
   rotate: true
-  xy: 2, 2
+  xy: 746, 23
   size: 35, 42
   orig: 35, 42
   offset: 0, 0
   index: -1
 boomba_light_01_eye_01
   rotate: false
-  xy: 216, 55
+  xy: 278, 18
   size: 106, 60
   orig: 106, 60
   offset: 0, 0
   index: -1
 boomba_light_01_foot_01
-  rotate: false
-  xy: 422, 81
+  rotate: true
+  xy: 734, 164
   size: 47, 53
   orig: 47, 53
   offset: 0, 0
   index: -1
 boomba_light_01_foot_02
   rotate: true
-  xy: 940, 139
+  xy: 734, 115
   size: 47, 53
   orig: 47, 53
   offset: 0, 0
   index: -1
 boomba_light_01_head_01
   rotate: false
-  xy: 480, 141
+  xy: 461, 104
   size: 92, 107
   orig: 92, 107
   offset: 0, 0
   index: -1
 boomba_light_01_head_02
   rotate: false
-  xy: 574, 141
+  xy: 555, 104
   size: 92, 107
   orig: 92, 107
   offset: 0, 0
   index: -1
 boomba_light_01_leg_01
   rotate: true
-  xy: 373, 32
+  xy: 653, 70
   size: 47, 53
   orig: 47, 53
   offset: 0, 0
   index: -1
 boomba_light_01_leg_02
   rotate: false
-  xy: 428, 26
+  xy: 653, 15
   size: 47, 53
   orig: 47, 53
   offset: 0, 0
   index: -1
 boomba_light_01_mouth_01
-  rotate: false
-  xy: 940, 188
+  rotate: true
+  xy: 216, 3
   size: 75, 60
   orig: 75, 60
   offset: 0, 0
   index: -1
 boomba_light_01_mouth_02
-  rotate: false
-  xy: 347, 136
+  rotate: true
+  xy: 347, 80
   size: 131, 112
   orig: 131, 112
   offset: 0, 0
   index: -1
 boomba_light_01_wing_01
-  rotate: false
-  xy: 216, 11
+  rotate: true
+  xy: 702, 15
   size: 53, 42
   orig: 53, 42
   offset: 0, 0
   index: -1
 boomba_light_01_wing_02
-  rotate: false
-  xy: 271, 11
+  rotate: true
+  xy: 746, 60
   size: 53, 42
   orig: 53, 42
   offset: 0, 0

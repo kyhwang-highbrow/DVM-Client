@@ -1,124 +1,124 @@
 
 bluedragon_fire_01.png
-size: 512,512
+size: 878,241
 format: RGBA8888
 filter: Linear,Linear
 repeat: none
 bluedragon_fire_01_arm_01
   rotate: true
-  xy: 447, 152
+  xy: 660, 2
   size: 62, 45
   orig: 62, 45
   offset: 0, 0
   index: -1
 bluedragon_fire_01_arm_02
-  rotate: false
-  xy: 155, 112
+  rotate: true
+  xy: 707, 2
   size: 62, 45
   orig: 62, 45
   offset: 0, 0
   index: -1
 bluedragon_fire_01_bead_01
   rotate: true
-  xy: 272, 185
+  xy: 560, 6
   size: 101, 98
   orig: 101, 98
   offset: 0, 0
   index: -1
 bluedragon_fire_01_bead_02
   rotate: true
-  xy: 322, 291
+  xy: 441, 22
   size: 67, 65
   orig: 67, 65
   offset: 0, 0
   index: -1
 bluedragon_fire_01_bead_03
-  rotate: false
-  xy: 2, 282
+  rotate: true
+  xy: 2, 10
   size: 229, 222
   orig: 229, 222
   offset: 0, 0
   index: -1
 bluedragon_fire_01_bead_04
-  rotate: false
-  xy: 2, 16
+  rotate: true
+  xy: 520, 109
   size: 130, 116
   orig: 130, 116
   offset: 0, 0
   index: -1
 bluedragon_fire_01_body_01
-  rotate: false
-  xy: 383, 389
+  rotate: true
+  xy: 638, 118
   size: 121, 115
   orig: 121, 115
   offset: 0, 0
   index: -1
 bluedragon_fire_01_body_02
   rotate: false
-  xy: 233, 288
+  xy: 226, 16
   size: 87, 70
   orig: 87, 70
   offset: 0, 0
   index: -1
 bluedragon_fire_01_body_03
-  rotate: true
-  xy: 155, 159
+  rotate: false
+  xy: 755, 124
   size: 121, 115
   orig: 121, 115
   offset: 0, 0
   index: -1
 bluedragon_fire_01_effect_01
-  rotate: false
-  xy: 2, 134
+  rotate: true
+  xy: 226, 88
   size: 151, 146
   orig: 151, 146
   offset: 0, 0
   index: -1
 bluedragon_fire_01_eye_01
   rotate: false
-  xy: 389, 291
+  xy: 755, 26
   size: 96, 96
   orig: 96, 96
   offset: 0, 0
   index: -1
 bluedragon_fire_01_foot_01
   rotate: false
-  xy: 435, 216
+  xy: 508, 16
   size: 50, 73
   orig: 50, 73
   offset: 0, 0
   index: -1
 bluedragon_fire_01_foot_02
   rotate: true
-  xy: 372, 164
+  xy: 660, 66
   size: 50, 73
   orig: 50, 73
   offset: 0, 0
   index: -1
 bluedragon_fire_01_head_01
-  rotate: false
-  xy: 233, 360
+  rotate: true
+  xy: 374, 91
   size: 148, 144
   orig: 148, 144
   offset: 0, 0
   index: -1
 bluedragon_fire_01_leg_01
   rotate: false
-  xy: 372, 216
+  xy: 315, 13
   size: 61, 73
   orig: 61, 73
   offset: 0, 0
   index: -1
 bluedragon_fire_01_leg_02
-  rotate: true
-  xy: 272, 122
+  rotate: false
+  xy: 378, 16
   size: 61, 73
   orig: 61, 73
   offset: 0, 0
   index: -1
 bluedragon_fire_01_mouth_01
   rotate: true
-  xy: 134, 104
+  xy: 853, 94
   size: 28, 19
   orig: 28, 19
   offset: 0, 0

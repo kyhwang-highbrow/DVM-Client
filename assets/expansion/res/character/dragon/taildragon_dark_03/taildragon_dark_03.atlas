@@ -1,201 +1,201 @@
 
 taildragon_dark_03.png
-size: 2048,512
+size: 636,1036
 format: RGBA8888
 filter: Linear,Linear
 repeat: none
 taildragon_dark_03_arm_01
-  rotate: true
-  xy: 373, 0
+  rotate: false
+  xy: 452, 16
   size: 61, 89
   orig: 61, 89
   offset: 0, 0
   index: -1
 taildragon_dark_03_arm_02
-  rotate: true
-  xy: 848, 246
+  rotate: false
+  xy: 574, 472
   size: 60, 90
   orig: 60, 90
   offset: 0, 0
   index: -1
 taildragon_dark_03_body_01
-  rotate: true
-  xy: 1241, 269
+  rotate: false
+  xy: 399, 362
   size: 173, 190
   orig: 173, 190
   offset: 0, 0
   index: -1
 taildragon_dark_03_effect_01X2
   rotate: false
-  xy: 0, 24
+  xy: 2, 550
   size: 371, 142
   orig: 371, 142
   offset: 0, 0
   index: -1
 taildragon_dark_03_effect_02
   rotate: false
-  xy: 0, 168
+  xy: 2, 694
   size: 442, 340
   orig: 442, 340
   offset: 0, 0
   index: -1
 taildragon_dark_03_eye_01
-  rotate: true
-  xy: 1998, 459
+  rotate: false
+  xy: 575, 339
   size: 49, 39
   orig: 49, 39
   offset: 0, 0
   index: -1
 taildragon_dark_03_eye_02
   rotate: false
-  xy: 1123, 267
+  xy: 575, 298
   size: 49, 39
   orig: 49, 39
   offset: 0, 0
   index: -1
 taildragon_dark_03_foot_01
   rotate: false
-  xy: 373, 63
+  xy: 134, 8
   size: 66, 103
   orig: 66, 103
   offset: 0, 0
   index: -1
 taildragon_dark_03_foot_02
-  rotate: true
-  xy: 546, 64
+  rotate: false
+  xy: 515, 32
   size: 67, 78
   orig: 67, 78
   offset: 0, 0
   index: -1
 taildragon_dark_03_hair_01
   rotate: true
-  xy: 641, 222
+  xy: 506, 564
   size: 84, 105
   orig: 84, 105
   offset: 0, 0
   index: -1
 taildragon_dark_03_hair_02
-  rotate: false
-  xy: 1726, 379
+  rotate: true
+  xy: 375, 554
   size: 138, 129
   orig: 138, 129
   offset: 0, 0
   index: -1
 taildragon_dark_03_hair_03
   rotate: false
-  xy: 1728, 263
+  xy: 512, 757
   size: 114, 114
   orig: 114, 114
   offset: 0, 0
   index: -1
 taildragon_dark_03_hair_04
   rotate: true
-  xy: 1606, 240
+  xy: 512, 650
   size: 105, 120
   orig: 105, 120
   offset: 0, 0
   index: -1
 taildragon_dark_03_hand_01
   rotate: true
-  xy: 1032, 245
+  xy: 507, 112
   size: 61, 89
   orig: 61, 89
   offset: 0, 0
   index: -1
 taildragon_dark_03_hand_02
-  rotate: true
-  xy: 940, 246
+  rotate: false
+  xy: 574, 380
   size: 60, 90
   orig: 60, 90
   offset: 0, 0
   index: -1
 taildragon_dark_03_head_01
   rotate: true
-  xy: 1866, 399
+  xy: 2, 2
   size: 109, 130
   orig: 109, 130
   offset: 0, 0
   index: -1
 taildragon_dark_03_head_02
-  rotate: true
-  xy: 1998, 416
+  rotate: false
+  xy: 575, 256
   size: 41, 40
   orig: 41, 40
   offset: 0, 0
   index: -1
 taildragon_dark_03_leg_01
   rotate: true
-  xy: 441, 65
+  xy: 402, 107
   size: 66, 103
   orig: 66, 103
   offset: 0, 0
   index: -1
 taildragon_dark_03_leg_02
-  rotate: true
-  xy: 748, 239
+  rotate: false
+  xy: 383, 7
   size: 67, 98
   orig: 67, 98
   offset: 0, 0
   index: -1
 taildragon_dark_03_tail_01
-  rotate: false
-  xy: 1241, 444
+  rotate: true
+  xy: 446, 701
   size: 333, 64
   orig: 333, 64
   offset: 0, 0
   index: -1
 taildragon_dark_03_tail_02
-  rotate: false
-  xy: 1241, 444
+  rotate: true
+  xy: 446, 701
   size: 333, 64
   orig: 333, 64
   offset: 0, 0
   index: -1
 taildragon_dark_03_tail_03
   rotate: false
-  xy: 641, 308
+  xy: 2, 113
   size: 198, 200
   orig: 198, 200
   offset: 0, 0
   index: -1
 taildragon_dark_03_tail_04
   rotate: false
-  xy: 444, 275
+  xy: 2, 315
   size: 195, 233
   orig: 195, 233
   offset: 0, 0
   index: -1
 taildragon_dark_03_tail_05
   rotate: true
-  xy: 444, 133
+  xy: 202, 4
   size: 140, 179
   orig: 140, 179
   offset: 0, 0
   index: -1
 taildragon_dark_03_tail_06
   rotate: false
-  xy: 841, 308
+  xy: 199, 348
   size: 198, 200
   orig: 198, 200
   offset: 0, 0
   index: -1
 taildragon_dark_03_tail_07
   rotate: false
-  xy: 1041, 308
+  xy: 202, 146
   size: 198, 200
   orig: 198, 200
   offset: 0, 0
   index: -1
 taildragon_dark_03_wing_01
   rotate: true
-  xy: 1433, 257
+  xy: 402, 175
   size: 185, 171
   orig: 185, 171
   offset: 0, 0
   index: -1
 taildragon_dark_03_wing_02
   rotate: false
-  xy: 1606, 347
+  xy: 512, 873
   size: 118, 161
   orig: 118, 161
   offset: 0, 0

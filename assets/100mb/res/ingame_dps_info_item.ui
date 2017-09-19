@@ -49,7 +49,7 @@
 				rotation = 0.000000;
 				visible = true;
 				lua_name = 'dpsGauge';
-				file_name = 'ui/a2d/ingame_btn/ingame_gg_dps_0102.png';
+				file_name = 'ui/a2d/ingame_btn/ingame_gg_dps_0103.png';
 				color = { 255; 255; 255; };
 				opacity = 255;
 				flip_x = false;
@@ -79,7 +79,7 @@
 				rotation = 0.000000;
 				visible = false;
 				lua_name = 'hpsGauge';
-				file_name = 'ui/a2d/ingame_btn/ingame_gg_dps_0103.png';
+				file_name = 'ui/a2d/ingame_btn/ingame_gg_dps_0102.png';
 				color = { 255; 255; 255; };
 				opacity = 255;
 				flip_x = false;

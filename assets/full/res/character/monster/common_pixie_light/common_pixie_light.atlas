@@ -1,40 +1,40 @@
 
 common_pixie_light.png
-size: 512,128
+size: 429,85
 format: RGBA8888
 filter: Linear,Linear
 repeat: none
 common_pixie_light_arm_01
   rotate: false
-  xy: 363, 97
+  xy: 363, 3
   size: 37, 29
   orig: 37, 29
   offset: 0, 0
   index: -1
 common_pixie_light_body_01
   rotate: true
-  xy: 137, 2
+  xy: 363, 34
   size: 49, 64
   orig: 49, 64
   offset: 0, 0
   index: -1
 common_pixie_light_head_01
   rotate: true
-  xy: 272, 48
+  xy: 272, 5
   size: 78, 89
   orig: 78, 89
   offset: 0, 0
   index: -1
 common_pixie_light_wing_01
   rotate: true
-  xy: 137, 53
+  xy: 137, 10
   size: 73, 133
   orig: 73, 133
   offset: 0, 0
   index: -1
 common_pixie_light_wing_02
   rotate: true
-  xy: 2, 45
+  xy: 2, 2
   size: 81, 133
   orig: 81, 133
   offset: 0, 0

@@ -1,292 +1,292 @@
 
 wonderdragon_dark_03.png
-size: 2048,512
+size: 1996,480
 format: RGBA8888
 filter: Linear,Linear
 repeat: none
 wonderdragon_dark_03_arm_01
-  rotate: false
-  xy: 557, 224
+  rotate: true
+  xy: 874, 168
   size: 152, 110
   orig: 152, 110
   offset: 0, 0
   index: -1
 wonderdragon_dark_03_body_01
   rotate: false
-  xy: 1198, 294
+  xy: 1221, 262
   size: 194, 216
   orig: 194, 216
   offset: 0, 0
   index: -1
 wonderdragon_dark_03_body_01_03
   rotate: false
-  xy: 1394, 294
+  xy: 1417, 262
   size: 194, 216
   orig: 194, 216
   offset: 0, 0
   index: -1
 wonderdragon_dark_03_body_acc_01
   rotate: false
-  xy: 2, 33
+  xy: 363, 275
   size: 340, 203
   orig: 340, 203
   offset: 0, 0
   index: -1
 wonderdragon_dark_03_body_neck_01
-  rotate: true
-  xy: 1785, 324
+  rotate: false
+  xy: 1808, 280
   size: 186, 198
   orig: 186, 198
   offset: 0, 0
   index: -1
 wonderdragon_dark_03_body_shoulder_01
   rotate: false
-  xy: 363, 214
+  xy: 363, 153
   size: 192, 120
   orig: 192, 120
   offset: 0, 0
   index: -1
 wonderdragon_dark_03_effect_01
   rotate: true
-  xy: 966, 282
+  xy: 989, 250
   size: 228, 230
   orig: 228, 230
   offset: 0, 0
   index: -1
 wonderdragon_dark_03_effect_02
   rotate: false
-  xy: 1590, 317
+  xy: 1613, 285
   size: 193, 193
   orig: 193, 193
   offset: 0, 0
   index: -1
 wonderdragon_dark_03_effect_03_0040
   rotate: false
-  xy: 791, 73
+  xy: 408, 11
   size: 140, 140
   orig: 140, 140
   offset: 0, 0
   index: -1
 wonderdragon_dark_03_effect_03_0042
   rotate: false
-  xy: 933, 53
+  xy: 732, 180
   size: 140, 140
   orig: 140, 140
   offset: 0, 0
   index: -1
 wonderdragon_dark_03_effect_03_0044
   rotate: false
-  xy: 1108, 140
+  xy: 732, 38
   size: 140, 140
   orig: 140, 140
   offset: 0, 0
   index: -1
 wonderdragon_dark_03_effect_03_0046
   rotate: false
-  xy: 1250, 152
+  xy: 983, 18
   size: 140, 140
   orig: 140, 140
   offset: 0, 0
   index: -1
 wonderdragon_dark_03_effect_03_0048
   rotate: false
-  xy: 1392, 152
+  xy: 1125, 18
   size: 140, 140
   orig: 140, 140
   offset: 0, 0
   index: -1
 wonderdragon_dark_03_effect_03_0050
   rotate: false
-  xy: 1468, 10
+  xy: 1267, 120
   size: 140, 140
   orig: 140, 140
   offset: 0, 0
   index: -1
 wonderdragon_dark_03_effect_03_0052
   rotate: false
-  xy: 1534, 152
+  xy: 1409, 120
   size: 140, 140
   orig: 140, 140
   offset: 0, 0
   index: -1
 wonderdragon_dark_03_effect_03_0054
   rotate: false
-  xy: 1676, 175
+  xy: 1551, 120
   size: 140, 140
   orig: 140, 140
   offset: 0, 0
   index: -1
 wonderdragon_dark_03_eye_01
   rotate: true
-  xy: 2, 2
+  xy: 705, 291
   size: 29, 20
   orig: 29, 20
   offset: 0, 0
   index: -1
 wonderdragon_dark_03_eye_02
   rotate: false
-  xy: 437, 11
+  xy: 2, 2
   size: 26, 26
   orig: 26, 26
   offset: 0, 0
   index: -1
 wonderdragon_dark_03_eye_03
   rotate: false
-  xy: 1157, 86
+  xy: 1821, 36
   size: 52, 52
   orig: 52, 52
   offset: 0, 0
   index: -1
 wonderdragon_dark_03_eye_04
-  rotate: false
-  xy: 682, 29
+  rotate: true
+  xy: 1875, 42
   size: 46, 43
   orig: 46, 43
   offset: 0, 0
   index: -1
 wonderdragon_dark_03_hand_01_finger_1
-  rotate: false
-  xy: 474, 37
+  rotate: true
+  xy: 550, 27
   size: 116, 175
   orig: 116, 175
   offset: 0, 0
   index: -1
 wonderdragon_dark_03_hand_01_finger_2
-  rotate: false
-  xy: 592, 48
+  rotate: true
+  xy: 986, 160
   size: 88, 174
   orig: 88, 174
   offset: 0, 0
   index: -1
 wonderdragon_dark_03_hand_01_finger_3
   rotate: false
-  xy: 1894, 197
+  xy: 1922, 153
   size: 66, 125
   orig: 66, 125
   offset: 0, 0
   index: -1
 wonderdragon_dark_03_hand_02
-  rotate: false
-  xy: 344, 39
+  rotate: true
+  xy: 557, 145
   size: 128, 173
   orig: 128, 173
   offset: 0, 0
   index: -1
 wonderdragon_dark_03_hand_acc_01
-  rotate: true
-  xy: 344, 2
+  rotate: false
+  xy: 1224, 169
   size: 35, 91
   orig: 35, 91
   offset: 0, 0
   index: -1
 wonderdragon_dark_03_hand_acc_02
   rotate: true
-  xy: 1985, 328
+  xy: 1758, 14
   size: 46, 61
   orig: 46, 61
   offset: 0, 0
   index: -1
 wonderdragon_dark_03_head_01
   rotate: true
-  xy: 682, 74
+  xy: 874, 18
   size: 148, 107
   orig: 148, 107
   offset: 0, 0
   index: -1
 wonderdragon_dark_03_head_01_02
-  rotate: true
-  xy: 1250, 2
+  rotate: false
+  xy: 1267, 11
   size: 148, 107
   orig: 148, 107
   offset: 0, 0
   index: -1
 wonderdragon_dark_03_head_01_03
-  rotate: true
-  xy: 1359, 2
+  rotate: false
+  xy: 1417, 11
   size: 148, 107
   orig: 148, 107
   offset: 0, 0
   index: -1
 wonderdragon_dark_03_head_02
   rotate: true
-  xy: 1610, 70
+  xy: 1162, 168
   size: 80, 60
   orig: 80, 60
   offset: 0, 0
   index: -1
 wonderdragon_dark_03_head_02_02
-  rotate: false
-  xy: 1610, 8
+  rotate: true
+  xy: 1758, 62
   size: 80, 60
   orig: 80, 60
   offset: 0, 0
   index: -1
 wonderdragon_dark_03_head_02_03
   rotate: false
-  xy: 1075, 78
+  xy: 1820, 90
   size: 80, 60
   orig: 80, 60
   offset: 0, 0
   index: -1
 wonderdragon_dark_03_head_armor_01
-  rotate: true
-  xy: 957, 195
+  rotate: false
+  xy: 321, 2
   size: 85, 149
   orig: 85, 149
   offset: 0, 0
   index: -1
 wonderdragon_dark_03_head_armor_02
   rotate: false
-  xy: 1985, 376
+  xy: 1706, 8
   size: 50, 134
   orig: 50, 134
   offset: 0, 0
   index: -1
 wonderdragon_dark_03_head_armor_03
   rotate: false
-  xy: 1818, 183
+  xy: 1693, 144
   size: 74, 139
   orig: 74, 139
   offset: 0, 0
   index: -1
 wonderdragon_dark_03_leg_01
-  rotate: false
-  xy: 864, 215
+  rotate: true
+  xy: 1567, 27
   size: 91, 137
   orig: 91, 137
   offset: 0, 0
   index: -1
 wonderdragon_dark_03_leg_02
   rotate: true
-  xy: 711, 226
+  xy: 1769, 152
   size: 126, 151
   orig: 126, 151
   offset: 0, 0
   index: -1
 wonderdragon_dark_03_mouth_01
-  rotate: false
-  xy: 1590, 295
+  rotate: true
+  xy: 321, 157
   size: 47, 20
   orig: 47, 20
   offset: 0, 0
   index: -1
 wonderdragon_dark_03_tail_01
   rotate: false
-  xy: 2, 238
+  xy: 2, 206
   size: 359, 272
   orig: 359, 272
   offset: 0, 0
   index: -1
 wonderdragon_dark_03_wing_01
   rotate: false
-  xy: 363, 336
+  xy: 2, 30
   size: 317, 174
   orig: 317, 174
   offset: 0, 0
   index: -1
 wonderdragon_dark_03_wing_02
   rotate: false
-  xy: 682, 354
+  xy: 705, 322
   size: 282, 156
   orig: 282, 156
   offset: 0, 0
