@@ -323,15 +323,16 @@ function StatusEffect.st_end(owner, dt)
     if (owner.m_stateTimer == 0) then
         -- 모든 효과 해제
 		owner:unapplyAll()
+
+        -- 상태효과 리스트에서 제거
+        owner:setDead()
 		
         -- 에니메이션이 0프레임일 경우 즉시 상태를 변경
         local duration = owner.m_animator and owner.m_animator:getDuration() or 0
         if (duration == 0) then
-            owner:setDead()
             owner:changeState('dying')
         else
             owner:addAniHandler(function()
-                owner:setDead()
                 owner:changeState('dying')
             end)
         end
@@ -620,12 +621,10 @@ end
 -- function addOverlabUnit
 -------------------------------------
 function StatusEffect:addOverlabUnit(caster, skill_id, value, source, duration, add_param)
+    if (self.m_bDead) then return end
+
     local char_id = caster:getCharId()
     local skill_id = skill_id or 999999
-
-    if (self.m_state == 'end' or self.m_state == 'dying') then
-        self:changeState('start')
-    end
 
     -- 시전자의 스텟에 따라 지속시간을 증가시킴
     if (self.m_bHarmful and caster) then
