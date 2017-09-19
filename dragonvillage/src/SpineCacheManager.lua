@@ -124,7 +124,7 @@ function SpineCacheManager:purgeSpineCacheData()
             end
         end
     end
-    --cc.Director:getInstance():getTextureCache():removeUnusedTextures()
+    cc.Director:getInstance():getTextureCache():removeUnusedTextures()
 
     self:onChange()
 end
