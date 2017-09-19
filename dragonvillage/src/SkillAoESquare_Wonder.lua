@@ -61,7 +61,7 @@ function SkillAoESquare_Wonder:enterAttack()
 	for i, pos_x in pairs(l_pos_x) do
 		local effect = self:makeEffect(self.m_res, pos_x, pos_y, 'idle')
 		-- 진형에 따라 리소스를 뒤집어준다.
-		if (self.m_owner.m_bLeftFormation) then
+		if (self:isRightFormation()) then
 			effect:setFlip(true)
 		end
 	end

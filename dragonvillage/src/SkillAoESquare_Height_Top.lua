@@ -23,17 +23,6 @@ function SkillAoESquare_Height_Top:init_skill(hit)
 	-- Y좌표값 중심으로 세팅
 	local cameraHomePosX, cameraHomePosY = self.m_world.m_gameCamera:getHomePos()
 	self:setPosition(self.m_targetPos.x, cameraHomePosY)
-
-	-- @TODO 핑크벨 확인 위해 임시 처리
-	if (self.m_owner.m_charTable['type'] == 'pinkbell') then
-		local pos_x = cameraHomePosX + (CRITERIA_RESOLUTION_X / 2) - self.m_targetPos.x
-		self.m_animator:setPositionX(pos_x)
-
-		-- 진형에 따라 리소스를 뒤집어준다.
-		if (not self.m_owner.m_bLeftFormation) then
-			self.m_animator:setFlip(true)
-		end	
-	end
 end
 
 -------------------------------------
@@ -56,12 +45,15 @@ function SkillAoESquare_Height_Top:adjustAnimator()
 	
 	-- delay state 종료시 켜준다.
 	self.m_animator:setVisible(false) 
+	self.m_animator:setScaleX(self.m_resScale)
 
-	-- @TODO 핑크벨 확인 위해 임시 처리
-	if (self.m_owner.m_charTable['type'] == 'pinkbell') then
-	else
-		self.m_animator:setScaleX(self.m_resScale)
-	end
+    -- 스킬 애니 속성 세팅
+	self.m_animator:setAniAttr(self.m_owner:getAttribute())
+
+    -- 우측에서 사용한 스킬일 경우 이미지 반전
+    if (self:isRightFormation()) then
+        self.m_animator:setFlip(true)
+    end
 end
 
 -------------------------------------

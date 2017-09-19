@@ -88,8 +88,8 @@ function Skill:init_skill()
 	self:initSkillSize()
 	self:initEventListener()
 	self:adjustAnimator()
-	
-	-- 타겟이 없다면 기본 타겟 찾음
+
+    -- 타겟이 없다면 기본 타겟 찾음
 	if (not self.m_targetChar) then
 		self.m_targetChar = self:getDefaultTarget()
 	end
@@ -183,6 +183,11 @@ function Skill:adjustAnimator()
 
 	-- 스킬 애니 속성 세팅
 	self.m_animator:setAniAttr(self.m_owner:getAttribute())
+
+    -- 우측에서 사용한 스킬일 경우 이미지 반전
+    if (self:isRightFormation()) then
+        self.m_animator:setFlip(true)
+    end
 end
 
 -------------------------------------
@@ -696,7 +701,7 @@ function Skill:initAttackPosOffset()
     self.m_attackPosOffsetX = (l_str[1] * scale)
     self.m_attackPosOffsetY = (l_str[2] * scale)
 
-    if (not self.m_owner.m_bLeftFormation) then
+    if (self:isRightFormation()) then
         self.m_attackPosOffsetX = -self.m_attackPosOffsetX
     end
 end
@@ -868,6 +873,15 @@ function Skill:makeMissile(t_option)
     end
 
 	return missile
+end
+
+-------------------------------------
+-- function isRightFormation
+-------------------------------------
+function Skill:isRightFormation()
+    if (not self.m_owner) then return end
+
+    return (self.m_owner.m_bLeftFormation == false)
 end
 
 -------------------------------------

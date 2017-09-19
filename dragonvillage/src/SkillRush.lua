@@ -42,12 +42,12 @@ function SkillRush:init_skill(hit, charge_res)
 	self.m_chargePos = {x = 0, y = self.m_targetPos.y}
 
 	local std_pos_x = self.m_owner.m_homePosX
-	if (self.m_owner.m_bLeftFormation) then
+	if (self:isRightFormation()) then
+        self.m_readyPosX = std_pos_x + 800
+		self.m_chargePos.x = std_pos_x - 2000
+	else
 		self.m_readyPosX = std_pos_x - 800
 		self.m_chargePos.x = std_pos_x + 2000
-	else
-		self.m_readyPosX = std_pos_x + 800
-		self.m_chargePos.x = std_pos_x - 2000
 	end
 
 	-- 돌진 리소스 세팅
@@ -56,12 +56,13 @@ function SkillRush:init_skill(hit, charge_res)
 		self.m_chargeEffect:setAniAttr(self.m_owner:getAttribute())
 		self.m_owner.m_rootNode:addChild(self.m_chargeEffect.m_node)
 		self.m_chargeEffect:setVisible(false)
-		self.m_chargeEffect:setPositionX(-100)
 		self.m_chargeEffect:setScale(1.5)
 
-        if (not self.m_owner.m_bLeftFormation) then
+        if (self:isRightFormation()) then
             self.m_chargeEffect:setPositionX(100)
             self.m_chargeEffect:setFlip(true)
+        else
+            self.m_chargeEffect:setPositionX(-100)
         end
 	end
 end

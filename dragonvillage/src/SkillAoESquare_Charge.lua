@@ -27,12 +27,12 @@ function SkillAoESquare_Charge:init_skill(hit, effect_res)
 
 	self.m_addEffectRes = effect_res
 
-	if (self.m_owner.m_bLeftFormation) then
+	if (self:isRightFormation()) then
+        self.m_readyPosX = 2000
+		self.m_chargePosX = -500
+	else
 		self.m_readyPosX = -500
 		self.m_chargePosX = 2000
-	else
-		self.m_readyPosX = 2000
-		self.m_chargePosX = -500
 	end
 
 	self.m_chargeSpeed = g_constant:get('SKILL', 'AS_CHARGE_SPEED')

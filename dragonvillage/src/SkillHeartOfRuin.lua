@@ -25,10 +25,10 @@ function SkillHeartOfRuin:init_skill()
 	PARENT.init_skill(self)
 
     -- 위치 조정
-    if (self.m_owner.m_bLeftFormation) then
-        self.m_attackPosOffsetX = -100
-    else
+    if (self:isRightFormation()) then
         self.m_attackPosOffsetX = 100
+    else
+        self.m_attackPosOffsetX = -100
     end
     self.m_attackPosOffsetY = 0
 

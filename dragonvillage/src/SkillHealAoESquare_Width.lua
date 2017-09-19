@@ -23,11 +23,6 @@ function SkillHealAoESquare_Width:init_skill(hit)
     -- X좌표값은 화면의 중심으로 세팅
     local cameraHomePosX, cameraHomePosY = self.m_world.m_gameCamera:getHomePos()
 	self:setPosition(cameraHomePosX + (CRITERIA_RESOLUTION_X / 2), self.m_targetPos.y)
-
-	-- 진형에 따라 리소스를 뒤집어준다.
-	if (not self.m_owner.m_bLeftFormation) then
-		self.m_animator:setFlip(true)
-	end	
 end
 
 -------------------------------------
@@ -58,6 +53,14 @@ function SkillHealAoESquare_Width:adjustAnimator()
 	-- delay state 종료시 켜준다.
 	self.m_animator:setVisible(false) 
     self.m_animator:setScaleY(self.m_resScale)
+
+    -- 스킬 애니 속성 세팅
+	self.m_animator:setAniAttr(self.m_owner:getAttribute())
+
+    -- 우측에서 사용한 스킬일 경우 이미지 반전
+    if (self:isRightFormation()) then
+        self.m_animator:setFlip(true)
+    end
 end
 
 -------------------------------------

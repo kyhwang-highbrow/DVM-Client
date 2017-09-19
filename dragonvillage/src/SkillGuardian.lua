@@ -176,7 +176,7 @@ function SkillGuardian:makeEffectLink()
     self.m_shieldEffect:addAniHandler(function() self.m_shieldEffect:changeAni('shield_idle', true) end)
     self.m_rootNode:addChild(self.m_shieldEffect.m_node, -1)
 
-    if (not self.m_owner.m_bLeftFormation) then
+    if (self:isRightFormation()) then
 		self.m_shieldEffect:setFlip(true)
 	end
 

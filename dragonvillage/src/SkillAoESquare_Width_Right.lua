@@ -46,10 +46,13 @@ function SkillAoESquare_Width_Right:adjustAnimator()
 	
 	-- delay state 종료시 켜준다.
 	self.m_animator:setVisible(false) 
-
 	self.m_animator:setScaleY(self.m_resScale)
 		    
-    if (not self.m_owner.m_bLeftFormation) then
+    -- 스킬 애니 속성 세팅
+	self.m_animator:setAniAttr(self.m_owner:getAttribute())
+
+    -- 우측에서 사용한 스킬일 경우 이미지 반전
+    if (self:isRightFormation()) then
         self.m_animator:setFlip(true)
     end
 end

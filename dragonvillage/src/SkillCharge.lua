@@ -51,12 +51,12 @@ function SkillCharge:init_skill(attack_count, animation_name)
 	self.m_speedCollision = 50
 
 	local pos_x
-	if (self.m_owner.m_bLeftFormation) then
+	if (self:isRightFormation()) then
+        pos_x = -500
+		self.m_atkPhysPosX = -(self.m_owner.body.size * 3)
+	else
 		pos_x = 2000
 		self.m_atkPhysPosX = self.m_owner.body.size * 3
-	else
-		pos_x = -500
-		self.m_atkPhysPosX = -(self.m_owner.body.size * 3)
 	end
 	self.m_chargePos = {x = pos_x, y = self.m_targetPos.y}
 end

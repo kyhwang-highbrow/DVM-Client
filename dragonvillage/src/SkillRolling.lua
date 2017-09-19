@@ -52,10 +52,6 @@ function SkillRolling:init_skill(spin_res, atk_count)
 
 	-- 스핀 이펙트 속도 조절
 	self.m_animator:setTimeScale(2)
-
-    if (not self.m_owner.m_bLeftFormation) then
-        self.m_animator:setFlip(true)
-    end
 end
 
 -------------------------------------
@@ -110,7 +106,7 @@ function SkillRolling.st_move(owner, dt)
 			animator:changeAni('idle', true)
 			animator.m_node:setPosition(owner.m_owner.pos.x, owner.m_owner.pos.y)
 
-            if (not owner.m_owner.m_bLeftFormation) then
+            if (owner:isRightFormation()) then
                 animator:setFlip(true)
             end
 
@@ -130,14 +126,14 @@ function SkillRolling.st_move(owner, dt)
             local body = target:getBody(body_key)
             local target_pos
 
-            if (owner.m_owner.m_bLeftFormation) then
+            if (owner:isRightFormation()) then
                 target_pos = cc.p(
-                    target.pos.x + body.x - 40, 
+                    target.pos.x + body.x + 40, 
                     target.pos.y + body.y
                 )
             else
                 target_pos = cc.p(
-                    target.pos.x + body.x + 40, 
+                    target.pos.x + body.x - 40, 
                     target.pos.y + body.y
                 )
             end
