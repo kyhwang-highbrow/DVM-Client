@@ -30,6 +30,7 @@ end
 -------------------------------------
 function StatusEffect_Dispell:initState()
     PARENT.initState(self)
+    self:addState('end', StatusEffect_Dispell.st_end, 'center_idle', false)
 end
 
 -------------------------------------
@@ -57,7 +58,7 @@ end
 -------------------------------------
 -- function onStart
 -------------------------------------
-function StatusEffect_Dispell:onStart()
+function StatusEffect_Dispell:onApplyOverlab(unit)
     for k, v in pairs(self.m_dispellTarget) do
 		-- 디스펠 시전
         if (k == 'all') then
@@ -77,12 +78,8 @@ function StatusEffect_Dispell:onStart()
                 self:dispellDebuff(v)
             end
         end
-		-- 애니 1회 동작후 종료
-		self.m_animator:addAniHandler(function()
-			self:changeState('end')
-		end)
     end
-    self:changeState('end')
+    unit.m_durationTimer = 0
 end
 
 -------------------------------------
