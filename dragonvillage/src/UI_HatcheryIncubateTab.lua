@@ -92,8 +92,9 @@ function UI_HatcheryIncubateTab:requestIncubate(egg_id, cnt, old_ui)
         end
 
         local l_dragon_list = ret['added_dragons']
+        local l_slime_list = ret['added_slimes']
         local egg_res = TableItem:getEggRes(egg_id)
-        local ui = UI_GachaResult_Dragon(l_dragon_list, nil, egg_id, egg_res)
+        local ui = UI_GachaResult_Dragon(l_dragon_list, l_slime_list, egg_id, egg_res)
 
         local function close_cb()
             self:sceneFadeInAction()
@@ -215,6 +216,10 @@ function UI_HatcheryIncubateTab:refreshEggList()
 
         local ui = {}
         ui.root = animator.m_node
+
+        if (not ui.root) then
+            error('res : ' .. res)
+        end
             
         egg_picker:addEgg(data, ui)
     end
