@@ -54,6 +54,14 @@ function ServerData_Forest:getMyDragons()
     return self.m_tDragonStruct
 end
 
+-------------------------------------
+-- function getHappy
+-------------------------------------
+function ServerData_Forest:getHappy()
+    return self.m_happyRate
+end
+
+
 
 
 
@@ -109,7 +117,36 @@ function ServerData_Forest:applyForestInfo(t_ret)
     for i, t_dragon_info in pairs(t_ret['forest_dragons']) do
         doid = t_dragon_info['doid']
         struct_dragon = g_dragonsData:getDragonDataFromUid(doid)
-        struct_dragon.happy_at = t_dragon_info['happy_at']
+        struct_dragon.happy_at = t_dragon_info['happy_at'] or 0
         self.m_tDragonStruct[doid] = struct_dragon
     end 
+end
+
+
+
+-------------------------------------
+-- function request_myForestInfo
+-------------------------------------
+function ServerData_Forest:request_dragonHappy(doid, finish_cb)
+    -- 유저 ID
+    local uid = g_userData:get('uid')
+    
+    -- 성공 콜백
+    local function success_cb(ret)
+        if finish_cb then
+            finish_cb(ret)
+        end
+    end
+
+    -- 네트워크 통신
+    local ui_network = UI_Network()
+    ui_network:setUrl('/forest/dragon/happy')
+    ui_network:setParam('uid', uid)
+    ui_network:setParam('doid', doid)
+    ui_network:setSuccessCB(success_cb)
+    ui_network:setRevocable(true)
+    ui_network:setReuse(false)
+    ui_network:request()
+
+    return ui_network
 end

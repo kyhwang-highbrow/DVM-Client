@@ -281,17 +281,28 @@ end
 -------------------------------------
 -- function actGetObject
 -- @brief 마이홈에서 재화를 획득하는 모습을 따라한 액션 부르르 떤 후에 베지어 이동
+-- @comment 톡 또르르르 부르르르 슈웅
 -------------------------------------
-function cca.actGetObject(node, tar_pos)
+function cca.actGetObject(node, height, tar_pos)
+    -- 톡 또르르르
+    local duration = 0.7
+    local toktorrr = cc.Spawn:create(
+        cc.EaseBounceOut:create(cc.MoveBy:create(duration, cc.p(0, -height))),
+        cc.MoveBy:create(duration, cc.p(height/2, 0))
+    )
+
+    local delay = cc.DelayTime:create(0.15)
+
 	-- 부르르르 떠는 액션
 	local repeat_brrr = cca.getBrrrAction(7)
 
 	-- 베지어 이동
+    --local dir = (math_random(0, 1) == 0) and -1 or 1
 	local pos_x, pos_y = node:getPosition()
-	local bezier = getBezier(tar_pos.x, tar_pos.y, pos_x, pos_y, -1) -- -1은 아래를 향한 곡선
-	local bezier_act = cc.BezierBy:create(0.5, bezier, true)
+	local bezier = getBezier(tar_pos.x, tar_pos.y, pos_x, pos_y, 1) -- -1은 아래를 향한 곡선
+	local bezier_act = cc.BezierBy:create(1, bezier, true)
 
-    cca.runAction(node, cc.Sequence:create(repeat_brrr, bezier_act))
+    cca.runAction(node, cc.Sequence:create(toktorrr, delay, repeat_brrr, bezier_act))
 end
 
 -------------------------------------
@@ -308,6 +319,17 @@ function cca.fadeOutAndRemoveChild(node, duration)
 	end)
 
 	cca.runAction(node, cc.Sequence:create(fadeout, callback))
+end
+
+-------------------------------------
+-- function fadeOutAndRemoveSelf
+-- @brief fade out 후에 자기 자신을 삭제
+-------------------------------------
+function cca.fadeOutAndRemoveSelf(node, duration)
+	local fadeout = cc.FadeOut:create(duration)
+	local remove = cc.RemoveSelf:create()
+
+	cca.runAction(node, cc.Sequence:create(fadeout, fadeout))
 end
 
 -------------------------------------

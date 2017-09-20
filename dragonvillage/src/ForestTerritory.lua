@@ -2,11 +2,12 @@ local PARENT = class(Camera, IEventListener:getCloneTable(), IEventDispatcher:ge
 
 FOREST_ZORDER = 
 {
-    ['SHADOW'] = math_pow(2, 7),
-    ['INDICATOR'] = math_pow(2, 4),
-    ['STUFF'] = math_pow(2, 6),
-    ['CHAR'] = math_pow(2, 10),
-    ['STAT_UI'] = math_pow(2, 12),
+    ['STUFF'] = math_pow(2, 1),
+    ['SHADOW'] = math_pow(2, 3),
+    ['INDICATOR'] = math_pow(2, 5),
+    ['CHAR'] = math_pow(2, 7),
+    ['STAT_UI'] = math_pow(2, 9),
+    ['ITEM'] = math_pow(2, 11),
 }
 
 -------------------------------------
@@ -30,6 +31,8 @@ ForestTerritory = class(PARENT, {
         -- background 관련
         m_bgCurrPosX = 'number',
 
+        -- UI연출을 위한
+        m_ui = 'UI_Forest',
     })
 
 local VISIBLE_SIZE= cc.Director:getInstance():getVisibleSize()
@@ -62,6 +65,13 @@ function ForestTerritory:init(parent, z_order)
 
     -- update 시작
     self.m_rootNode:scheduleUpdateWithPriorityLua(function(dt) return self:update(dt) end, 0)
+end
+
+-------------------------------------
+-- function setUI
+-------------------------------------
+function ForestTerritory:setUI(ui)
+    self.m_ui = ui
 end
 
 -------------------------------------
@@ -264,6 +274,7 @@ function ForestTerritory:makeDragon(struct_dragon_object)
         -- 드래곤 -> 마이룸
         dragon:addListener('forest_dragon_move_free', self)
         dragon:addListener('forest_dragon_move_stuff', self)
+        dragon:addListener('forest_dragon_happy', self)
 
         -- 드래곤 -> 그림자
         dragon:addListener('forest_character_move', forest_shadow)
@@ -344,6 +355,11 @@ function ForestTerritory:onTouchBegan(touches, event)
     -- 터치된 드래곤이 있다면 등록
     for _, dragon in ipairs(self.m_lDragonList) do
         if (self:checkObjectTouch(location, dragon)) then
+            
+            if (dragon:checkHappy()) then
+                return
+            end
+
             self.m_touchedDragon = dragon
             return
         end
@@ -551,5 +567,18 @@ function ForestTerritory:onEvent(event_name, struct_event)
     elseif (event_name == 'forest_tamer_move_end') then
         self.m_moveIndicator:setVisible(false)
         
+    -- 만족도 연출
+    elseif (event_name == 'forest_dragon_happy') then
+        local pos_x, pos_y = struct_event:getPosition()
+
+        local item = cc.Sprite:create('res/ui/icons/item/cash.png')
+        item:setPosition(pos_x, pos_y + ForestDragon.OFFSET_Y)
+        item:setScale(0.5)
+
+        self.m_ground:addChild(item, FOREST_ZORDER['ITEM'])
+
+        local height = ForestDragon.OFFSET_Y
+        local tar_pos = cc.p(600, -400)
+        cca.actGetObject(item, height, tar_pos)
     end
 end

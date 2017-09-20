@@ -4,18 +4,25 @@ local PARENT = ForestCharacter
 -- class ForestDragon
 -------------------------------------
 ForestDragon = class(PARENT, {
+        -- 드래곤 정보
         m_dragonID = 'number',
 		m_flv = 'number',
         m_structDragon = 'StructDragonObject',
 
+        -- 드래곤 행동 제어
         m_moveTerm = 'number',
         m_moveType = 'string',
 
+        -- 대사 관련
         m_talkingNode = 'cc.Node',
+
+        -- 만족도 관련
+        m_isHappy = 'bool',
+        m_happyAnimator = 'Animator',
      })
 
 ForestDragon.OFFSET_Y = 150
-ForestDragon.OFFSET_Y_TOUCH = 300
+ForestDragon.OFFSET_Y_TOUCH = 225
 ForestDragon.OFFSET_Y_MAX = 1000 -- jump의 상한선으로 사용
 
 -------------------------------------
@@ -30,6 +37,10 @@ function ForestDragon:init(struct_dragon_object)
     
     self.m_moveTerm = (math_random(300, 500)/100)
     self.m_moveType = TableDragonPhrase:getForestMoveType(self.m_dragonID)
+
+    -- @temp
+    self.m_structDragon.happy_at = os.time() + math_random(10, 300)
+    self.m_isHappy = false
 
     local evolution = struct_dragon_object:getEvolution()
     local res = TableDragon:getDragonRes(self.m_dragonID, evolution)
@@ -290,8 +301,19 @@ function ForestDragon:update(dt)
         --self:doRandomAction()
         self:doForestAction()
 
+        -- 만족도 유저에게 보이는게 아니므로 3~5초 정도 간격마다 계산해서 연산량을 줄인다.
+        if (not self.m_isHappy) then
+            if self.m_structDragon.happy_at then
+                if (Timer:getServerTime() > self.m_structDragon.happy_at) then
+                    self.m_isHappy = true
+                    self:happyFull()
+                end
+            end
+        end
+
         self.m_stateTimer = self.m_stateTimer - self.m_moveTerm
     end
+
 end
 
 -------------------------------------
@@ -301,7 +323,47 @@ function ForestDragon:onEvent(event_name, t_event, ...)
     cclog('DRAGON ## ' .. event_name)
 end
 
+-------------------------------------
+-- function happyFull
+-- @brief 만족도가 찼을 경우의 연출을 한다.
+-------------------------------------
+function ForestDragon:happyFull()
+    local animator = MakeAnimator('res/ui/a2d/lobby_dragon/lobby_dragon.vrp')
+    animator:changeAni('dragon_fx', true)
+    animator:setPosition(0, ForestDragon.OFFSET_Y)
+    self.m_rootNode:addChild(animator.m_node, 3)
 
+    self.m_happyAnimator = animator
+end
+
+-------------------------------------
+-- function checkHappy
+-- @brief 개별 드래곤이 터치되었을 때 만족도가 찼는지 체크를 하여 수령 할 수 있도록 한다.
+-------------------------------------
+function ForestDragon:checkHappy()
+    if (not self.m_isHappy) then
+        return false
+    end
+
+    self.m_isHappy = false
+
+    cca.fadeOutAndRemoveSelf(self.m_happyAnimator.m_node, 0.5)
+    self.m_happyAnimator = nil
+
+    local doid = self.m_structDragon.doid
+    local function finish_cb()
+        self.m_structDragon.happy_at = Timer:getServerTime() + 300
+
+        local struct_event = StructForestEvent()
+        struct_event:setObject(self)
+        struct_event:setPosition(self.m_rootNode:getPosition())
+        self:dispatch('forest_dragon_happy', struct_event)
+    end
+    --ServerData_Forest:getInstance():request_dragonHappy(doid, finish_cb)
+    finish_cb()
+
+    return true
+end
 
 -------------------------------------
 -- function speechSomething
@@ -399,6 +461,13 @@ function ForestDragon:doForestAction()
 
     -- 물체 앞에서 이동
     elseif (string.find(move_type, 'object_')) then
+        -- 여기서도 1/2확률로 backflip
+        if (math_random(1, 2) == 1) then
+            self:changeState('backflip')
+            return
+        end
+
+        -- 오브젝트 이동
         local stuff = T_STUFF[string.gsub(move_type, 'object_', '')]
 
         local struct_event = StructForestEvent()

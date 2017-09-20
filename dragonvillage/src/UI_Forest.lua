@@ -25,7 +25,7 @@ end
 -- function init
 -------------------------------------
 function UI_Forest:init()
-    local vars = self:load('forest.ui')
+    local vars = self:load('dragon_forest.ui')
     UIManager:open(self, UIManager.SCENE)
 
     -- backkey 지정
@@ -43,8 +43,10 @@ end
 -------------------------------------
 function UI_Forest:initUI()
     local vars = self.vars
+
     local territory = ForestTerritory(vars['cameraNode'])
     self.m_territory = territory
+    self.m_territory:setUI(self)
 end
 
 -------------------------------------
@@ -52,15 +54,26 @@ end
 -------------------------------------
 function UI_Forest:initButton()
     local vars = self.vars
-    vars['testBtn1']:registerScriptTapHandler(function() self:click_testBtn1() end)
-    vars['testBtn2']:registerScriptTapHandler(function() self:click_testBtn2() end)
-    vars['testBtn3']:registerScriptTapHandler(function() self:click_testBtn3() end)
+    vars['levelupBtn']:registerScriptTapHandler(function() self:click_levelupBtn() end)
+    vars['changeBtn']:registerScriptTapHandler(function() self:click_changeBtn() end)
+    vars['helpBtn']:registerScriptTapHandler(function() self:click_helpBtn() end)
 end
 
 -------------------------------------
 -- function refresh
 -------------------------------------
 function UI_Forest:refresh()
+    local vars = self.vars
+
+    -- 드래곤 수
+    local curr_cnt = 20
+    local max_cnt = 20
+    vars['inventoryLabel']:setString(string.format('%d / %d', curr_cnt, max_cnt))
+
+    -- 만족도 바
+    local happy_pnt = ServerData_Forest:getInstance():getHappy()
+    vars['giftLabel']:setString(string.format('%d %%', happy_pnt/10))
+    vars['giftGauge']:runAction(cc.ProgressTo:create(0.5, happy_pnt/1000))
 end
 
 -------------------------------------
@@ -71,23 +84,23 @@ function UI_Forest:click_exitBtn()
 end
 
 -------------------------------------
--- function click_testBtn1
+-- function click_changeBtn
 -------------------------------------
-function UI_Forest:click_testBtn1()
-    ccdisplay('click_testBtn1')
+function UI_Forest:click_changeBtn()
+    ccdisplay('click_changeBtn')
     self.m_territory:changeDragon_Random()
 end
 
 -------------------------------------
--- function click_testBtn2
+-- function click_levelupBtn
 -------------------------------------
-function UI_Forest:click_testBtn2()
-    ccdisplay('click_testBtn2')
+function UI_Forest:click_levelupBtn()
+    ccdisplay('click_levelupBtn')
 end
 
 -------------------------------------
--- function click_testBtn3
+-- function click_helpBtn
 -------------------------------------
-function UI_Forest:click_testBtn3()
-    ccdisplay('click_testBtn3')
+function UI_Forest:click_helpBtn()
+    self.vars['helpNode']:runAction(cc.ToggleVisibility:create())
 end

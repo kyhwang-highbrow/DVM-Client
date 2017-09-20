@@ -192,10 +192,10 @@ function ForestCharacter:showEmotionEffect()
 
     -- 위치 지정
     animator:setPosition(-70, 200)
+    animator:setScale(0.7)
+    self.m_rootNode:addChild(animator.m_node, 3)
     
     -- 재생 후 삭제
     local duration = animator.m_node:getDuration()
-    animator:setScale(0.7)
     animator.m_node:runAction(cc.Sequence:create(cc.DelayTime:create(duration), cc.RemoveSelf:create()))
-    self.m_rootNode:addChild(animator.m_node, 3)
 end
