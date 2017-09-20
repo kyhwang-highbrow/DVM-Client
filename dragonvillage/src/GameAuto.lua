@@ -305,7 +305,8 @@ end
 -------------------------------------
 function GameAuto:findTarget(unit, t_skill)
     local target_type = t_skill['target_type']
-	local target_count = t_skill['target_count']
+	--local target_count = t_skill['target_count']
+    local target_count = nil
     local target_formation = t_skill['target_formation']
     local ai_division = t_skill['ai_division']
 
