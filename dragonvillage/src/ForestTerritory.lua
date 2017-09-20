@@ -224,7 +224,7 @@ function ForestTerritory:initDragons()
     --for doid, struct_dragon_object in pairs(t_dragon_object) do
         --self:makeDragon(struct_dragon_object)
     --end
-    self:changeDragon_random()
+    self:changeDragon_Random()
 end
 
 -------------------------------------
