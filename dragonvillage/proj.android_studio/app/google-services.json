@@ -15,6 +15,22 @@
       },
       "oauth_client": [
         {
+          "client_id": "983890984134-bu6qcl70aldkj2tudkavoufae0sao0ot.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.perplelab.dragonvillagem.kr",
+            "certificate_hash": "0ff078a4b6689adb4ef6468f3be9323ce27d8db9"
+          }
+        },
+        {
+          "client_id": "983890984134-glhasv3f1phrs3n3c25j5r4duvo554ak.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.perplelab.dragonvillagem.kr",
+            "certificate_hash": "c6ca19226a4aa8a18adfe92089ca09dc77242130"
+          }
+        },
+        {
           "client_id": "983890984134-2t98rjqn8l6o3evq24oicv3bro6gghtk.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
@@ -42,6 +58,14 @@
             {
               "client_id": "983890984134-o06c22tcm2adt443s27arjn8m949p3kh.apps.googleusercontent.com",
               "client_type": 3
+            },
+            {
+              "client_id": "983890984134-krrfuti1qgk3k09j87gobkq96322v48v.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.perplelab.dragonvillagem.kr",
+                "app_store_id": "1281873988"
+              }
             }
           ]
         },
