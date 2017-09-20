@@ -330,6 +330,7 @@ function UI_Lobby:initButton()
     -- 하단
     vars['dragonManageBtn']:registerScriptTapHandler(function() self:click_dragonManageBtn() end) -- 드래곤
     vars['tamerBtn']:registerScriptTapHandler(function() self:click_tamerBtn() end) -- 테이머
+    vars['forestBtn']:registerScriptTapHandler(function() self:click_forestBtn() end) -- 드래곤의숲
     vars['questBtn']:registerScriptTapHandler(function() self:click_questBtn() end) -- 퀘스트
     vars['battleBtn']:registerScriptTapHandler(function() self:click_battleBtn() end) -- 전투
     vars['shopBtn']:registerScriptTapHandler(function() self:click_shopBtn() end) -- 상점
@@ -613,11 +614,21 @@ end
 -- function click_tamerBtn
 -------------------------------------
 function UI_Lobby:click_tamerBtn()
-    -- @ comment 상단과 동일
+    -- @ comment click_userInfoBtn의 주석과 동일
 	local function close_cb()
 		self:refresh_userTamer()
 	end
 	UI_TamerManagePopup():setCloseCB(close_cb)
+end
+
+-------------------------------------
+-- function click_forestBtn
+-------------------------------------
+function UI_Lobby:click_forestBtn()
+    local function cb_func()
+        SceneForest():runScene()
+    end
+    ServerData_Forest:getInstance():request_myForestInfo(cb_func)
 end
 
 -------------------------------------
