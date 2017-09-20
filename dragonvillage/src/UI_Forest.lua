@@ -54,6 +54,7 @@ end
 -------------------------------------
 function UI_Forest:initButton()
     local vars = self.vars
+
     vars['levelupBtn']:registerScriptTapHandler(function() self:click_levelupBtn() end)
     vars['changeBtn']:registerScriptTapHandler(function() self:click_changeBtn() end)
     vars['helpBtn']:registerScriptTapHandler(function() self:click_helpBtn() end)
@@ -66,14 +67,25 @@ function UI_Forest:refresh()
     local vars = self.vars
 
     -- 드래곤 수
-    local curr_cnt = 20
+    local curr_cnt = self.m_territory:getCurrDragonCnt()
     local max_cnt = 20
     vars['inventoryLabel']:setString(string.format('%d / %d', curr_cnt, max_cnt))
+
+    -- 만족도
+    self:refresh_happy()
+end
+
+-------------------------------------
+-- function refresh_happy
+-------------------------------------
+function UI_Forest:refresh_happy()
+    local vars = self.vars
 
     -- 만족도 바
     local happy_pnt = ServerData_Forest:getInstance():getHappy()
     vars['giftLabel']:setString(string.format('%d %%', happy_pnt/10))
     vars['giftGauge']:runAction(cc.ProgressTo:create(0.5, happy_pnt/1000))
+    vars['boxVisual']:changeAni('gift_box_tap', false)
 end
 
 -------------------------------------

@@ -26,7 +26,7 @@ end
 -- function init
 -------------------------------------
 function ServerData_Forest:init(server_data)
-    self.m_serverData = server_data
+    --self.m_serverData = server_data
     self.m_tStuffInfo = {}
     self.m_tDragonStruct = {}
 end

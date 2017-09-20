@@ -283,26 +283,46 @@ end
 -- @brief 마이홈에서 재화를 획득하는 모습을 따라한 액션 부르르 떤 후에 베지어 이동
 -- @comment 톡 또르르르 부르르르 슈웅
 -------------------------------------
-function cca.actGetObject(node, height, tar_pos)
+function cca.actGetObject(node, height, tar_pos, finish_cb)
     -- 톡 또르르르
-    local duration = 0.7
+    local duration = 0.75
     local toktorrr = cc.Spawn:create(
         cc.EaseBounceOut:create(cc.MoveBy:create(duration, cc.p(0, -height))),
         cc.MoveBy:create(duration, cc.p(height/2, 0))
     )
 
+    -- 느낌을 살리기 위해 잠시 대기
     local delay = cc.DelayTime:create(0.15)
 
-	-- 부르르르 떠는 액션
+	-- 부르르르
 	local repeat_brrr = cca.getBrrrAction(7)
 
-	-- 베지어 이동
-    --local dir = (math_random(0, 1) == 0) and -1 or 1
+	-- 슈웅
 	local pos_x, pos_y = node:getPosition()
-	local bezier = getBezier(tar_pos.x, tar_pos.y, pos_x, pos_y, 1) -- -1은 아래를 향한 곡선
-	local bezier_act = cc.BezierBy:create(1, bezier, true)
+    local dist_x = math_abs(tar_pos.x - pos_x)
+    local duration = 0.3 + (dist_x/1280 * 0.5)
+    local move_act
 
-    cca.runAction(node, cc.Sequence:create(toktorrr, delay, repeat_brrr, bezier_act))
+    -- 너무 가까우면 직선 이동
+    if (dist_x < 100) then
+        move_act = cca.makeBasicEaseMove(duration, tar_pos.x, tar_pos.y)
+
+    -- 아니면 베지어 이동
+    else
+	    local bezier = getBezier(tar_pos.x, tar_pos.y, pos_x, pos_y, 1) -- -1은 아래를 향한 곡선
+	    move_act = cc.BezierBy:create(duration, bezier, true)
+    end
+    
+    -- 콜백 추가
+    local callback = cc.CallFunc:create(function()
+        if (finish_cb) then
+            finish_cb()
+        end
+    end)
+
+    local remove = cc.RemoveSelf:create()
+
+    cca.runAction(node, cc.Sequence:create(toktorrr, delay, repeat_brrr, move_act, callback, remove))
 end
 
 -------------------------------------
@@ -327,6 +347,17 @@ end
 -------------------------------------
 function cca.fadeOutAndRemoveSelf(node, duration)
 	local fadeout = cc.FadeOut:create(duration)
+	local remove = cc.RemoveSelf:create()
+
+	cca.runAction(node, cc.Sequence:create(fadeout, fadeout))
+end
+
+-------------------------------------
+-- function scaleOutAndRemoveSelf
+-- @brief scale out 후에 자기 자신을 삭제
+-------------------------------------
+function cca.scaleOutAndRemoveSelf(node, duration)
+	local fadeout = cc.ScaleTo:create(duration, 0)
 	local remove = cc.RemoveSelf:create()
 
 	cca.runAction(node, cc.Sequence:create(fadeout, fadeout))

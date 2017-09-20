@@ -63,6 +63,9 @@ function ForestTerritory:init(parent, z_order)
     self:makeTouchLayer(self.m_rootNode)
     self:initIndicator()
 
+    -- plist 등록
+    cc.SpriteFrameCache:getInstance():addSpriteFrames('res/ui/a2d/dragon_forest/dragon_forest.plist')
+
     -- update 시작
     self.m_rootNode:scheduleUpdateWithPriorityLua(function(dt) return self:update(dt) end, 0)
 end
@@ -308,7 +311,7 @@ function ForestTerritory:changeDragon_Random()
 
     -- 전체 드래곤중 랜덤하게 가져옴
     local l_dragon_list = g_dragonsData:getDragonsList()
-    l_dragon_list = table.getRandomList(l_dragon_list, 20)
+    l_dragon_list = table.getRandomList(l_dragon_list, 10)
 
     for i, v in pairs(l_dragon_list) do
         self:makeDragon(v)
@@ -569,16 +572,52 @@ function ForestTerritory:onEvent(event_name, struct_event)
         
     -- 만족도 연출
     elseif (event_name == 'forest_dragon_happy') then
-        local pos_x, pos_y = struct_event:getPosition()
+        
+        -- base node
+        local ui_node = self.m_ui.vars['cameraNode']
+        local height = ForestDragon.OFFSET_Y_HAPPY
+        
+        -- 아이템 생성
+        local item = cc.Sprite:createWithSpriteFrameName('dragon_forest_haert.png') -- 파일 명이 잘못 들어가있다.
+        local dock_point = item:getDockPoint()
+        local anchor_point = item:getAnchorPoint()
+        ui_node:addChild(item, FOREST_ZORDER['ITEM'])
 
-        local item = cc.Sprite:create('res/ui/icons/item/cash.png')
-        item:setPosition(pos_x, pos_y + ForestDragon.OFFSET_Y)
-        item:setScale(0.5)
+        -- 시작 위치
+        local dragon = struct_event:getObject()
+        local start_node = dragon.m_rootNode
+        local start_pos = TutorialHelper:convertToWorldSpace(ui_node, start_node, dock_point, anchor_point)
 
-        self.m_ground:addChild(item, FOREST_ZORDER['ITEM'])
+        -- 아이템 위치 지정
+        item:setPosition(start_pos['x'], start_pos['y'] + height)
 
-        local height = ForestDragon.OFFSET_Y
-        local tar_pos = cc.p(600, -400)
-        cca.actGetObject(item, height, tar_pos)
+        -- 도착 위치
+        local tar_node = self.m_ui.vars['boxVisual'].m_node
+        local tar_pos = TutorialHelper:convertToWorldSpace(ui_node, tar_node, dock_point, anchor_point)
+        
+        -- 종료 콜백
+        local function finish_cb()
+            self.m_ui:refresh_happy()
+        end
+
+        -- 액션
+        cca.actGetObject(item, height/2, tar_pos, finish_cb)
     end
+end
+
+
+
+
+
+
+-------------------------------------
+-- @ public
+-------------------------------------
+
+-------------------------------------
+-- function getCurrDragonCnt
+-- @brief 현재 드래곤 숫자
+-------------------------------------
+function ForestTerritory:getCurrDragonCnt()
+    return table.count(self.m_lDragonList)
 end

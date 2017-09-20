@@ -12,7 +12,7 @@ TutorialHelper = {}
 ]]
 -- @return cc.p : node의 dock과 anchor를 고려한 좌표 
 -------------------------------------
-function TutorialHelper:convertToWorldSpace(new_parent, node)
+function TutorialHelper:convertToWorldSpace(new_parent, node, dock_point, anchor_point)
     -- node의 화면에서 보이는 사이즈를 구해온다.
     -- 이때 좌표는 dock_point (0,0) anchor_point (0, 0) 기준
 	local transform = node:getNodeToWorldTransform() 
@@ -20,8 +20,8 @@ function TutorialHelper:convertToWorldSpace(new_parent, node)
 	local world_y = transform[13 + 1]
 
     -- dock과 anchor를 고려하여 가감해준다
-    local dock_point = node:getDockPoint()
-    local anchor_point = node:getAnchorPoint()
+    local dock_point = dock_point or node:getDockPoint()
+    local anchor_point = anchor_point or node:getAnchorPoint()
     local node_size = node:getContentSize()
     local content_size = new_parent:getContentSize()
 

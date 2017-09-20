@@ -23,6 +23,7 @@ ForestDragon = class(PARENT, {
 
 ForestDragon.OFFSET_Y = 150
 ForestDragon.OFFSET_Y_TOUCH = 225
+ForestDragon.OFFSET_Y_HAPPY = 300
 ForestDragon.OFFSET_Y_MAX = 1000 -- jump의 상한선으로 사용
 
 -------------------------------------
@@ -39,7 +40,7 @@ function ForestDragon:init(struct_dragon_object)
     self.m_moveType = TableDragonPhrase:getForestMoveType(self.m_dragonID)
 
     -- @temp
-    self.m_structDragon.happy_at = os.time() + math_random(10, 300)
+    self.m_structDragon.happy_at = os.time() + math_random(10, 20)
     self.m_isHappy = false
 
     local evolution = struct_dragon_object:getEvolution()
@@ -328,9 +329,9 @@ end
 -- @brief 만족도가 찼을 경우의 연출을 한다.
 -------------------------------------
 function ForestDragon:happyFull()
-    local animator = MakeAnimator('res/ui/a2d/lobby_dragon/lobby_dragon.vrp')
-    animator:changeAni('dragon_fx', true)
-    animator:setPosition(0, ForestDragon.OFFSET_Y)
+    local animator = MakeAnimator('res/ui/a2d/dragon_forest/dragon_forest.vrp')
+    animator:changeAni('heart_idle', true)
+    animator:setPosition(0, ForestDragon.OFFSET_Y_HAPPY)
     self.m_rootNode:addChild(animator.m_node, 3)
 
     self.m_happyAnimator = animator
@@ -347,13 +348,17 @@ function ForestDragon:checkHappy()
 
     self.m_isHappy = false
 
-    cca.fadeOutAndRemoveSelf(self.m_happyAnimator.m_node, 0.5)
+    -- 만족도 풍선을 삭제한다.
+    cca.scaleOutAndRemoveSelf(self.m_happyAnimator.m_node, 0.3)
     self.m_happyAnimator = nil
 
+    -- 서버 통신
     local doid = self.m_structDragon.doid
     local function finish_cb()
+        -- @ temp
         self.m_structDragon.happy_at = Timer:getServerTime() + 300
 
+        -- 드래곤 만족도 연출 이벤트
         local struct_event = StructForestEvent()
         struct_event:setObject(self)
         struct_event:setPosition(self.m_rootNode:getPosition())
@@ -416,9 +421,9 @@ end
 
 local T_SPEED =
 {
-    ['slow'] = 100,
-    ['normal'] = 200,
-    ['fast'] = 400,
+    ['slow'] = 50,
+    ['normal'] = 100,
+    ['fast'] = 200,
 }
 
 local T_STUFF =
