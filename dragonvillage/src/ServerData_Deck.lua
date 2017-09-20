@@ -66,12 +66,20 @@ function ServerData_Deck:getDeck(type)
     -- 친선전 덱 예외처리
     elseif (type == 'fpvp_atk') then
         if (not g_friendMatchData.m_playerUserInfo) then
-            cclog('no player mdoe')
             return {}, self:adjustFormationName('default'), type, 1
         end
 
         local l_doid, formation, type, leader, tamer_id = g_friendMatchData.m_playerUserInfo:getDeck(type)
-        return l_doid, self:adjustFormationName(formation), type, leader, tamer_id
+
+        -- 덱 유효한지 검사 (친선전은 드래곤 삭제 가능)
+        local t_ret = {}
+        for i,v in pairs(l_doid) do
+            if (v ~= '') and g_dragonsData:getDragonDataFromUid(v) then
+                t_ret[tonumber(i)] = v
+            end
+        end
+
+        return t_ret, self:adjustFormationName(formation), type, leader, tamer_id
     end
 
     local l_deck = self.m_serverData:get('deck')
