@@ -564,6 +564,10 @@ function UI_TitleScene:workGameLogin()
     self.m_loadingUI:showLoading(Str('게임 서버에 로그인 중...'))
 
     local uid = g_localData:get('local', 'uid')
+
+    -- 네이버 카페에 uid 연동
+    NaverCafeManager:naverCafeSyncGameUserId(uid)
+
     local success_cb = function(ret)
         -- @analytics
         Analytics:firstTimeExperience('Login')

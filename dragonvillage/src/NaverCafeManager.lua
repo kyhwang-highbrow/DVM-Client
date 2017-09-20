@@ -62,3 +62,28 @@ function NaverCafeManager:naverCafeStop()
     PerpleSDK:naverCafeStop()
 end
 
+-------------------------------------
+-- function naverCafeSyncGameUserId
+-- @brief 네이버 카페에 user id 연동
+-------------------------------------
+function NaverCafeManager:naverCafeSyncGameUserId(uid)
+    if (skip()) then 
+        return
+    end
+
+    if (not uid) then
+        return
+    end
+
+    if (uid == '') then
+        return
+    end
+
+    if (type(uid) ~= 'string') then
+        return
+    end
+
+    PerpleSDK:naverCafeSyncGameUserId(uid)
+end
+
+
