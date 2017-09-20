@@ -236,9 +236,12 @@ function UI_HatcheryCombinePopup:checkMaterial(struct_dragon_obj)
     local satisfy = false
     local doid = v['id']
     local msg = nil
-    if g_dragonsData:isLeaderDragon(doid) then
-        msg = Str('대표드래곤으로 설정된 드래곤입니다.')
-        -- 리더로 설정된 드래곤
+
+    -- 재료 드래곤으로 사용 가능한지 여부 : 리더나 잠금 상태를 제외한다
+    local _possible, _msg = g_dragonsData:possibleMaterialDragon(doid)
+
+    if (_possible == false) then
+        msg = _msg
     elseif (v:getGrade() < req_grade) then
         -- 등급이 낮아서 불충족
     elseif (v:getGrade() == req_grade) and (v:getLv() < req_grade_max_lv) then
