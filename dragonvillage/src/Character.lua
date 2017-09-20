@@ -981,8 +981,8 @@ function Character:doRevive(hp_rate, caster)
     if (not self.m_bDead or not self.m_bPossibleRevive) then return end
     self.m_bDead = false
 
-    local hp = math_floor(self:getStat('hp') * hp_rate)
-    self:setHp(hp, true)
+    self:healPercent(caster, hp_rate, true, true)
+    
     self.m_hpNode:setVisible(true)
 
     self:changeState('revive', true)
@@ -994,13 +994,6 @@ function Character:doRevive(hp_rate, caster)
     end
 
     self:dispatch('character_revive', {}, self)
-
-    -- @LOG_CHAR : 피회복자 피회복량
-	self.m_charLogRecorder:recordLog('be_healed', hp)
-	-- @LOG_CHAR : 회복시전자 회복량
-	if (caster) then
-		caster.m_charLogRecorder:recordLog('heal', hp)
-	end
 end
 
 -------------------------------------
@@ -1249,18 +1242,18 @@ end
 -------------------------------------
 -- function healPercent
 -------------------------------------
-function Character:healPercent(caster, percent, b_make_effect)
+function Character:healPercent(caster, percent, b_make_effect, bFixed)
     local max_hp = self:getStat('hp')
     local heal = max_hp * percent
     heal = math_min(max_hp - self.m_hp, heal)
 
-    self:healAbs(caster, heal, b_make_effect)
+    self:healAbs(caster, heal, b_make_effect, bFixed)
 end
 
 -------------------------------------
 -- function healAbs
 -------------------------------------
-function Character:healAbs(caster, heal, b_make_effect)
+function Character:healAbs(caster, heal, b_make_effect, bFixed)
     local heal = math_floor(heal)
     if (heal <= 0) then return end
 
@@ -1302,7 +1295,7 @@ function Character:healAbs(caster, heal, b_make_effect)
     heal = math_min(heal, (self.m_maxHp - self.m_hp))
 
     self:makeHealFont(heal_for_text, is_critical)
-    self:setHp(self.m_hp + heal)
+    self:setHp(self.m_hp + heal, bFixed)
 
     if (b_make_effect) then
         local res = 'res/effect/skill_heal_monster/skill_heal_monster.vrp'
