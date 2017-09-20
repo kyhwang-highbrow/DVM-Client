@@ -68,7 +68,7 @@ function UI_Forest:refresh()
 
     -- 드래곤 수
     local curr_cnt = self.m_territory:getCurrDragonCnt()
-    local max_cnt = 20
+    local max_cnt = ServerData_Forest:getInstance():getMaxDragon()
     vars['inventoryLabel']:setString(string.format('%d / %d', curr_cnt, max_cnt))
 
     -- 만족도
@@ -85,7 +85,7 @@ function UI_Forest:refresh_happy()
     local happy_pnt = ServerData_Forest:getInstance():getHappy()
     vars['giftLabel']:setString(string.format('%d %%', happy_pnt/10))
     vars['giftGauge']:runAction(cc.ProgressTo:create(0.5, happy_pnt/1000))
-    vars['boxVisual']:changeAni('gift_box_tap', false)
+    --vars['boxVisual']:changeAni('gift_box_tap', false)
 end
 
 -------------------------------------
@@ -99,8 +99,12 @@ end
 -- function click_changeBtn
 -------------------------------------
 function UI_Forest:click_changeBtn()
-    ccdisplay('click_changeBtn')
-    self.m_territory:changeDragon_Random()
+    UI_Forest_ChangePopup():setChangeCB(function()
+        -- 드래곤 다시 생성
+        self.m_territory:initDragons()
+
+        self:refresh()
+    end)
 end
 
 -------------------------------------

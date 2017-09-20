@@ -894,6 +894,7 @@ local t_module = {
     -- Forest
     'SceneForest',
     'UI_Forest',
+    'UI_Forest_ChangePopup',
     'ServerData_Forest',
     'StructForestEvent',
     'StructUserInfoForest',

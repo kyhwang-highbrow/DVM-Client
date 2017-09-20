@@ -892,6 +892,7 @@ xcopy /Y /Q "$(ProjectDir)..\..\libraries\pati\prebuilt\windows\*.dll" "$(OutDir
     <None Include="..\src\UI_EvolutionStoneCombine.lua" />
     <None Include="..\src\UI_EvolutionStoneCombineListItem.lua" />
     <None Include="..\src\UI_Forest.lua" />
+    <None Include="..\src\UI_Forest_ChangePopup.lua" />
     <None Include="..\src\UI_FormationDetailPopup.lua" />
     <None Include="..\src\UI_FriendMatchDeckSettings.lua" />
     <None Include="..\src\UI_FriendMatchReady.lua" />

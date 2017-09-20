@@ -39,8 +39,6 @@ function ForestDragon:init(struct_dragon_object)
     self.m_moveTerm = (math_random(300, 500)/100)
     self.m_moveType = TableDragonPhrase:getForestMoveType(self.m_dragonID)
 
-    -- @temp
-    self.m_structDragon.happy_at = os.time() + math_random(10, 20)
     self.m_isHappy = false
 
     local evolution = struct_dragon_object:getEvolution()
@@ -355,9 +353,6 @@ function ForestDragon:checkHappy()
     -- 서버 통신
     local doid = self.m_structDragon.doid
     local function finish_cb()
-        -- @ temp
-        self.m_structDragon.happy_at = Timer:getServerTime() + 300
-
         -- 드래곤 만족도 연출 이벤트
         local struct_event = StructForestEvent()
         struct_event:setObject(self)

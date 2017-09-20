@@ -304,7 +304,7 @@ function cca.actGetObject(node, height, tar_pos, finish_cb)
     local move_act
 
     -- 너무 가까우면 직선 이동
-    if (dist_x < 100) then
+    if (dist_x < 200) then
         move_act = cca.makeBasicEaseMove(duration, tar_pos.x, tar_pos.y)
 
     -- 아니면 베지어 이동

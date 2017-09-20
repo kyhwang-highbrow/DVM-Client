@@ -233,11 +233,13 @@ end
 -- @brief 드래곤들 생성
 -------------------------------------
 function ForestTerritory:initDragons()
-    --local t_dragon_object = ServerData_Forest:getInstance():getMyDragons()
-    --for doid, struct_dragon_object in pairs(t_dragon_object) do
-        --self:makeDragon(struct_dragon_object)
-    --end
-    self:changeDragon_Random()
+    -- 기존 드래곤 삭제
+    self:removeAllDragons()
+
+    local t_dragon_object = ServerData_Forest:getInstance():getMyDragons()
+    for doid, struct_dragon_object in pairs(t_dragon_object) do
+        self:makeDragon(struct_dragon_object)
+    end
 end
 
 -------------------------------------
@@ -594,10 +596,14 @@ function ForestTerritory:onEvent(event_name, struct_event)
         -- 도착 위치
         local tar_node = self.m_ui.vars['boxVisual'].m_node
         local tar_pos = TutorialHelper:convertToWorldSpace(ui_node, tar_node, dock_point, anchor_point)
-        
+
         -- 종료 콜백
         local function finish_cb()
-            self.m_ui:refresh_happy()
+            local gauge_visual = self.m_ui.vars['gaugeVisual']
+            gauge_visual:changeAni('gauge', false)
+            gauge_visual:addAniHandler(function()
+                self.m_ui:refresh_happy()
+            end)
         end
 
         -- 액션
