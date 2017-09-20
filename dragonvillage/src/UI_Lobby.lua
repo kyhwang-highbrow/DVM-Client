@@ -362,6 +362,7 @@ function UI_Lobby:initButton()
         etc_vars['friendBtn']:registerScriptTapHandler(function() self:click_friendBtn() end) -- 친구
         etc_vars['inventoryBtn']:registerScriptTapHandler(function() self:click_inventoryBtn() end)-- 가방
         etc_vars['bookBtn']:registerScriptTapHandler(function() self:click_bookBtn() end) -- 도감 버튼
+        etc_vars['naverCafeBtn']:registerScriptTapHandler(function() self:click_naverCafeBtn() end) -- 네이버 카페 버튼
     end
 end
 
@@ -631,6 +632,13 @@ function UI_Lobby:click_bookBtn()
 end
 
 -------------------------------------
+-- function click_naverCafeBtn
+-------------------------------------
+function UI_Lobby:click_naverCafeBtn()
+    NaverCafeManager:naverCafeStart(0) -- @tapNumber : 0(Home) or 1(Notice) or 2(Event) or 3(Menu) or 4(Profile)
+end
+
+-------------------------------------
 -- function click_eventBtn
 -------------------------------------
 function UI_Lobby:click_eventBtn()
@@ -794,9 +802,6 @@ function UI_Lobby:onFocus()
     
     -- 핫타임 정보 갱신
     self.vars['battleHotSprite']:setVisible(g_hotTimeData:isHighlightHotTime())
-
-    -- 네이버 카페 위젯 노출
-    NaverCafeManager:naverCafeStartWidget()
 end
 
 
