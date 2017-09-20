@@ -72,7 +72,6 @@ function UI_CouponPopupPreOccupancyNick:initUI()
     self.m_errSubText = Str('8자리의 코드를 입력해 주세요.')
 
     vars['titleLabel']:setString(Str('사전등록 닉네임 코드 입력'))
-    vars['editLabel']:setString(self.m_editText)
     vars['editBox']:setPlaceHolder(self.m_editText)
     vars['dscLabel']:setString(Str('사회통념 상 욕설이나 부적절한 단어에 해당하는 경우 또는 운영 상 혼란 야기의 가능성이 있는 단어,\n시나리오 진행 및 운영 목적 상 사용이 제한된 단어는 사용이 불가능할 수 있습니다.'))
     vars['editBox']:setMaxLength(self.m_maxCodeLength)
@@ -97,14 +96,8 @@ function UI_CouponPopupPreOccupancyNick:initEditHandler()
     -- editBox handler 등록
 	local function editBoxTextEventHandle(strEventName, pSender)
         if (strEventName == "return") then
-            -- editLabel에 글자를 찍어준다.
             self.m_couponCode = vars['editBox']:getText()
             self.m_couponCode = string.upper(self.m_couponCode)
-            if string.len(self.m_couponCode) > 0 then
-                vars['editLabel']:setString(self.m_couponCode)
-            else
-                vars['editLabel']:setString(self.m_editText)
-            end
         end
     end
     vars['editBox']:registerScriptEditBoxHandler(editBoxTextEventHandle)
