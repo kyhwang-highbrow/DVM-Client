@@ -1292,6 +1292,10 @@ function Character:healAbs(caster, heal, b_make_effect, bFixed)
     end
 
     local heal_for_text = heal
+
+    -- 최소 힐량 1로 표시
+    heal = math_max(heal, 1)
+
     heal = math_min(heal, (self.m_maxHp - self.m_hp))
 
     self:makeHealFont(heal_for_text, is_critical)

@@ -144,10 +144,12 @@ function GameState:initBuffByFightTime()
     local t_constant = g_constant:get('INGAME', 'FIGHT_BY_TIME_BUFF')
     if (not t_constant['ENABLE']) then return end
 
-    local str_mode = IN_GAME_MODE[self.m_world.m_gameMode]
-    local t_info = t_constant[str_mode] or t_constant['DEFAULT']
-    if (not t_info) then return end
+    local game_mode = self.m_world.m_gameMode
+    local str_game_mode = IN_GAME_MODE[game_mode]
 
+    local t_info = t_constant[str_game_mode] or t_constant['DEFAULT']
+    if (not t_info) then return end
+    
     self.m_tBuffInfoByFightTime['start_time'] = t_info['START_TIME'] or 3
     self.m_tBuffInfoByFightTime['interval_time'] = t_info['INTERVAL_TIME'] or 1
     self.m_tBuffInfoByFightTime['cur_buff'] = {}   -- 현재까지 부여된 버프 정보
