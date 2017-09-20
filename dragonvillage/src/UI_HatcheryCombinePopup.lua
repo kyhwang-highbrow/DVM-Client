@@ -234,7 +234,12 @@ function UI_HatcheryCombinePopup:checkMaterial(struct_dragon_obj)
 
     local v = struct_dragon_obj
     local satisfy = false
-    if (v:getGrade() < req_grade) then
+    local doid = v['id']
+    local msg = nil
+    if g_dragonsData:isLeaderDragon(doid) then
+        msg = Str('대표드래곤으로 설정된 드래곤입니다.')
+        -- 리더로 설정된 드래곤
+    elseif (v:getGrade() < req_grade) then
         -- 등급이 낮아서 불충족
     elseif (v:getGrade() == req_grade) and (v:getLv() < req_grade_max_lv) then
         -- 최대 레벨이 낮아서 불충족 (필요 등급의 max레벨이거나 등급 자체가 더 높아야함)
@@ -244,7 +249,7 @@ function UI_HatcheryCombinePopup:checkMaterial(struct_dragon_obj)
         satisfy = true
     end
 
-    return satisfy
+    return satisfy, msg
 end
 
 -------------------------------------
@@ -260,10 +265,10 @@ function UI_HatcheryCombinePopup:click_dragonCard(ui, data)
     local req_evolution = t_dragon_combine['material_evolution']
 
     local v = data
-    local satisfy = self:checkMaterial(data)
+    local satisfy, msg = self:checkMaterial(data)
 
     if (not satisfy) then
-        local msg = Str('재료는 {1}성 최대 레벨(Lv.{2}) 이상, {3} 이상이어야 합니다.', req_grade, req_grade_max_lv, evolutionName(req_evolution))
+        local msg = msg or Str('재료는 {1}성 최대 레벨(Lv.{2}) 이상, {3} 이상이어야 합니다.', req_grade, req_grade_max_lv, evolutionName(req_evolution))
         UIManager:toastNotificationRed(msg)
         return
     end
