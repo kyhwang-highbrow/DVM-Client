@@ -144,7 +144,7 @@ end
 -- @breif 등급 별 리소스 생성
 -------------------------------------
 function StructSlimeObject:getGradeRes()
-    local grade = tonumber(self['grade'] or 1)
+    local grade = tonumber(self['grade']) or 1
 	local color = 'gray'
 
     -- grade의 0을 넣는 경우도 있다..!
