@@ -142,7 +142,7 @@ function UI_TitleScene:initChatClientSocket()
 
     -- 유저 정보 입력
     local uid = g_localData:get('local', 'uid')
-    local tamer = g_userData:get('tamer')
+    local tamer_id = g_userData:get('tamer')
     local nickname = g_userData:get('nick')
     local lv = g_userData:get('lv')
     local tamer_title_id = g_userData:getTitleID()
@@ -156,13 +156,21 @@ function UI_TitleScene:initChatClientSocket()
 
     local t_data = {}
     t_data['uid'] = tostring(uid)
-    t_data['tamer'] = tostring(tamer)
+    t_data['tamer'] = tostring(tamer_id)
     t_data['nickname'] = nickname
     t_data['did'] = did
     t_data['level'] = lv
     t_data['x'] = 0
     t_data['y'] = -150
     t_data['tamerTitleID'] = tamer_title_id
+
+    do -- 테이머 코스츔 적용
+        local struct_tamer_costume = g_tamerCostumeData:getCostumeDataWithTamerID(tamer_id)
+        if (struct_tamer_costume:isDefaultCostume() == false) then
+            local costume_id = struct_tamer_costume:getCid()
+            t_data['tamer'] = t_data['tamer'] .. ';' .. tostring(costume_id)
+        end
+    end
     
     do -- 최초 랜덤 위치 지정
         local x, y = LobbyMapSpotMgr:makeRandomSpot()

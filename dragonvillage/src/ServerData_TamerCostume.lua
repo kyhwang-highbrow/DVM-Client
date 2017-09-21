@@ -187,6 +187,14 @@ function ServerData_TamerCostume:request_costumeSelect(cid, tid, cb_func)
 		g_tamerData:applyTamerInfo(ret['tamer'])
 		g_tamerData:reMappingTamerInfo()
 
+        -- 채팅 서버에 변경사항 적용
+        if g_chatClientSocket then
+            local tamer_id = tonumber(tid)
+            if (tamer_id == g_tamerData:getCurrTamerID()) then
+                g_chatClientSocket:globalUpdatePlayerUserInfo()
+            end
+        end
+
 		if (cb_func) then
 			cb_func()
 		end

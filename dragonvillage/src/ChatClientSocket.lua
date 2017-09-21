@@ -348,7 +348,7 @@ end
 -- @brief 로비에서 표현되는 유저의 정보가 변경되었을 경우 채팅서버에 알리기 위함
 -------------------------------------
 function ChatClientSocket:globalUpdatePlayerUserInfo()
-    local tamer = g_userData:get('tamer')
+    local tamer_id = g_userData:get('tamer')
     local nickname = g_userData:get('nick')
     local lv = g_userData:get('lv')
     local tamer_title_id = g_userData:getTitleID()
@@ -361,11 +361,19 @@ function ChatClientSocket:globalUpdatePlayerUserInfo()
     end
 
     local t_data = {}
-    t_data['tamer'] = tostring(tamer)
+    t_data['tamer'] = tostring(tamer_id)
     t_data['nickname'] = nickname
     t_data['did'] = did
     t_data['level'] = lv
     t_data['tamerTitleID'] = tamer_title_id
+
+    do -- 테이머 코스츔 적용
+        local struct_tamer_costume = g_tamerCostumeData:getCostumeDataWithTamerID(tamer_id)
+        if (struct_tamer_costume:isDefaultCostume() == false) then
+            local costume_id = struct_tamer_costume:getCid()
+            t_data['tamer'] = t_data['tamer'] .. ';' .. tostring(costume_id)
+        end
+    end
 
     self:changeUserInfo(t_data)
 end

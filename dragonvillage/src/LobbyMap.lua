@@ -527,7 +527,7 @@ function LobbyMap:updateLobbyTamer(uid, struct_user_info)
     end
 
     -- 테이머가 변경되었을 경우
-    if (tamer.m_userData.m_tamerID ~= struct_user_info.m_tamerID) then
+    if (tamer.m_userData.m_tamerID ~= struct_user_info.m_tamerID) or (tamer.m_userData.m_tamerCostumeID ~= struct_user_info.m_tamerCostumeID) then
         -- 테이머 리소스 (tamer id에 따라 받아옴)
         local tamer_res = struct_user_info:getSDRes()
 	    tamer:initAnimator(tamer_res)

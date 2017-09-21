@@ -185,3 +185,22 @@ function StructTamerCostume:getPrice()
     return self.m_price, self.m_price_type
 end
 
+-------------------------------------
+-- function isDefaultCostume
+-- @brief 기본 복장인지 여부
+-------------------------------------
+function StructTamerCostume:isDefaultCostume()
+    if (not self.m_cid) then
+        return true
+    end
+
+    -- 1~10의자리 숫자가 개별 코스튬 아이디
+    local individual_costume_id = getDigit(self.m_cid, 1, 2)
+    
+    if (individual_costume_id == 0) then
+        return true
+    end
+
+    return false
+end
+

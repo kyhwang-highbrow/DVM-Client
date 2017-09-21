@@ -14,7 +14,8 @@ StructUserInfo = class({
         m_leaderDragonObject = '',
 
         -- 로비 채팅에서 사용
-        m_tamerID = 'string', -- ?? number??
+        m_tamerID = 'number',
+        m_tamerCostumeID = 'number', -- nil이면 기본 복장
         m_tamerPosX = 'float',
         m_tamerPosY = 'float',
 
@@ -211,6 +212,15 @@ end
 -- @breif
 -------------------------------------
 function StructUserInfo:getSDRes()
+    
+    -- 코스츔 정보가 있으면 우선
+    if (self.m_tamerCostumeID) then
+        local res = TableTamerCostume:getTamerResSD(self.m_tamerCostumeID)
+        if res then
+            return res
+        end
+    end
+
     local tamer_id = tonumber(self.m_tamerID)
 
     if (not tamer_id) then
@@ -237,12 +247,25 @@ end
 -------------------------------------
 function StructUserInfo:syncSUser(server_user)
     self.m_uid = server_user['uid']
-    self.m_tamerID = server_user['tamer']
     self.m_lv = server_user['level']
     self.m_nickname = server_user['nickname']
     self.m_tamerPosX = server_user['x']
     self.m_tamerPosY = server_user['y']
     self.m_tamerTitleID = server_user['tamerTitleID']
+
+
+    local tamer_str = server_user['tamer']
+    local tamer_id = tonumber(tamer_str)
+
+    -- 코스츔 정보가 있으면 문자열을 분석해서 추가
+    if tamer_id then
+        self.m_tamerID = tamer_id
+        self.m_tamerCostumeID = nil
+    else
+        local l_str = pl.stringx.split(tamer_str, ';')
+        self.m_tamerID = tonumber(l_str[1])
+        self.m_tamerCostumeID = tonumber(l_str[2])
+    end
 
     -- 드래곤 정보
     local did_str = server_user['did']
