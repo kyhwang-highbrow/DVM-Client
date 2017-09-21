@@ -90,6 +90,7 @@
 @class PerpleNaver;
 @class PerpleGameCenter;
 @class PerpleUnityAds;
+@class PerpleAdColony;
 @class PerpleBilling;
 
 typedef void(^PerpleSDKCallback)(NSString *result, NSString *info);
@@ -106,6 +107,7 @@ typedef void(^PerpleSDKCallback)(NSString *result, NSString *info);
 @property (nonatomic, retain) PerpleNaver *mNaver;
 @property (nonatomic, retain) PerpleGameCenter *mGameCenter;
 @property (nonatomic, retain) PerpleUnityAds *mUnityAds;
+@property (nonatomic, retain) PerpleAdColony *mAdColony;
 @property (nonatomic, retain) PerpleBilling *mBilling;
 
 @property (nonatomic, copy) NSString *mPlatformServerEncryptSecretKey;
@@ -191,6 +193,11 @@ typedef void(^PerpleSDKCallback)(NSString *result, NSString *info);
 - (void) unityAdsStart:(BOOL)isTestMode metaData:(NSString *)metaData completion:(PerpleSDKCallback)callback;
 - (void) unityAdsShow:(NSString *)placementId metaData:(NSString *)metaData;
 
+- (void) adColonyStart:(NSString *)zoneIds userId:(NSString *)userId setReward:(NSString *)setReward;
+- (void) adColonySetUserId:(NSString *)userId;
+- (void) adColonyRequest:(NSString *)zoneId completion:(PerpleSDKCallback)callback;
+- (void) adColonyShow:(NSString *)zoneId;
+
 - (void) billingSetup:(NSString *)checkReceiptServerUrl completion:(PerpleSDKCallback)callback;
 - (void) billingConfirm:(NSString *)orderId;
 - (void) billingPurchase:(NSString *)sku payload:(NSString *)payload completion:(PerpleSDKCallback)callback;
@@ -208,6 +215,7 @@ typedef void(^PerpleSDKCallback)(NSString *result, NSString *info);
 - (BOOL) initNaverWithParentView:(UIViewController *)parentView isLandspape:(BOOL)isLandscape clientId:(NSString *)clientId clientSecret:(NSString *)clientSecret cafeId:(NSInteger)cafeId;
 - (BOOL) initGameCenterWithParentView:(UIViewController *)parentView;
 - (BOOL) initUnityAdsWithParentView:(UIViewController *)parentView gameId:(NSString *)gameId debug:(BOOL)isDebug;
+- (BOOL) initAdColonyWithParentView:(UIViewController *)parentView appId:(NSString *)appId;
 - (BOOL) initBilling;
 
 #pragma mark - Static methods

@@ -27,6 +27,9 @@ target 'DragonVillageM iOS' do
   # Pods for Tapjoy
   pod 'TapjoySDK'
 
+  # Pods for AdColony
+  pod 'AdColony'
+
 end
 
 target 'DragonVillageM Mac' do

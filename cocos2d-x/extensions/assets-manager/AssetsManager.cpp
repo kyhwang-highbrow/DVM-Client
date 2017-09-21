@@ -37,6 +37,9 @@
 #include <dirent.h>
 #endif
 
+#if (CC_TARGET_PLATFORM != CC_PLATFORM_ANDROID)
+#include <ftw.h>
+#endif
 
 #include "unzip.h"
 
@@ -647,22 +650,34 @@ void AssetsManager::createStoragePath()
 #endif
 }
 
+#if (CC_TARGET_PLATFORM != CC_PLATFORM_ANDROID)
+int unlink_cb(const char *fpath, const struct stat *sb, int typeflag, struct FTW *ftwbuf)
+{
+    int rv = remove(fpath);
+    if (rv)
+        perror(fpath);
+    return rv;
+}
+#endif
+
 void AssetsManager::destroyStoragePath()
 {
     // Delete recorded version codes.
     deleteVersion();
     
     // Remove downloaded files
-#if (CC_TARGET_PLATFORM != CC_PLATFORM_WIN32)
-    string command = "rm -r ";
-    // Path may include space.
-    command += "\"" + _storagePath + "\"";
-    system(command.c_str());    
-#else
+#if (CC_TARGET_PLATFORM == CC_PLATFORM_WIN32)
     string command = "rd /s /q ";
     // Path may include space.
     command += "\"" + _storagePath + "\"";
     system(command.c_str());
+#elif (CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID)
+    string command = "rm -r ";
+    // Path may include space.
+    command += "\"" + _storagePath + "\"";
+    system(command.c_str());
+#else
+    nftw(_storagePath.c_str(), unlink_cb, 64, FTW_DEPTH|FTW_PHYS);
 #endif
 }
 
