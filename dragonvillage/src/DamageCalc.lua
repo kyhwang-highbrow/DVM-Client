@@ -13,6 +13,11 @@ function DamageCalc_P(atk_dmg, def_pwr)
     -- 랜덤 (85% ~ 115%)
     local rand = math_random(85, 115) / 100 
 
+    -- 디버그 모드 중일 경우 랜덤 계산 막음
+    if g_constant:get('DEBUG', 'PRINT_ATTACK_INFO') then
+        rand = 1
+    end
+
     -- 데미지 감소율
     local reduction_ratio = ReductionRatioCalc_P(atk_dmg)
 

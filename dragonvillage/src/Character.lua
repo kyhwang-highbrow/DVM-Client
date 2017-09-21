@@ -464,8 +464,8 @@ function Character:undergoAttack(attacker, defender, i_x, i_y, body_key, no_even
     local is_miss = (attr_synastry == -1) and self:checkMiss(attacker_char)
 
     -- 공격력 및 방어력 정보
-    local atk_dmg = attack_activity_carrier:getAtkDmg(defender)
-    local def_pwr = self:getStat('def')
+    local org_atk_dmg = attack_activity_carrier:getAtkDmg(defender)
+    local org_def_pwr = self:getStat('def')
     local damage = 0
 
     -- 공격력이 0일 경우 피격되지 않은 것처럼 처리
@@ -508,19 +508,24 @@ function Character:undergoAttack(attacker, defender, i_x, i_y, body_key, no_even
         --------------------------------------------------------------
 		-- 공격력 계산(atk_dmg)
         --------------------------------------------------------------
-		
-        -- 스킬 계수 적용
-		atk_dmg = atk_dmg * attack_activity_carrier:getPowerRate() / 100
-        
-		-- 스킬 추가 공격력 적용
-        atk_dmg = atk_dmg + attack_activity_carrier:getAbsAttack()
+		local atk_dmg = org_atk_dmg
 
+        -- 스킬 계수
+        local power_rate = attack_activity_carrier:getPowerRate() / 100
+
+        -- 스킬 추가 공격력
+        local power_add = attack_activity_carrier:getAbsAttack()
+
+        -- 스킬 계수 및 추가 공격력 적용
+		atk_dmg = atk_dmg * power_rate + power_add
+        
         -- 드래그 스킬 추가 공격력 적용
+        local drag_dmg = 0
         if (attack_type == 'active') then
             local drag_dmg_rate = attack_activity_carrier:getStat('drag_dmg') / 100
-            local drag_dmg = atk_dmg * drag_dmg_rate
-            atk_dmg = atk_dmg + drag_dmg
+            drag_dmg = atk_dmg * drag_dmg_rate
         end
+        atk_dmg = atk_dmg + drag_dmg
 
         -- 히트 수 적용(테이블에서는 hit수만큼 나눈 값으로 입력되었기 때문에 여기서 곱해줌)
         atk_dmg = atk_dmg * attack_hit_count
@@ -528,30 +533,77 @@ function Character:undergoAttack(attacker, defender, i_x, i_y, body_key, no_even
         --------------------------------------------------------------
         -- 방어력 계산(def_pwr)
         --------------------------------------------------------------
-        
-        -- 방어 무시 체크
-		if (attack_activity_carrier:isIgnoreDef()) then 
-			def_pwr = 0 
-		
-        -- 방어 관통 적용
-        elseif(attacker) then
-            def_pwr = def_pwr - (def_pwr * attacker_char:getStat('pierce') / 100)
-            def_pwr = math_max(def_pwr, 0)
+        local def_pwr = org_def_pwr
+
+        -- 방어 관통
+        local def_pierce = 0
+        if (attacker_char) then
+            def_pierce = attacker_char:getStat('pierce') / 100
         end
+
+        if (attack_activity_carrier:isIgnoreDef()) then 
+            -- 방어 무시
+			def_pwr = 0 
+        elseif (def_pierce > 0) then
+            -- 방어 관통 적용
+            def_pwr = def_pwr - (def_pwr * def_pierce)
+        end
+
+        def_pwr = math_max(def_pwr, 0)
 		
         --------------------------------------------------------------
         -- 데미지 계산(damage)
         --------------------------------------------------------------
-		damage = DamageCalc_P(atk_dmg, def_pwr)
+		local org_damage = DamageCalc_P(atk_dmg, def_pwr)
+        damage = org_damage
+
+        -- 게임 모드에 따른 데미지 배율
+        local damage_rate_game_mode = CalcDamageRateDueToGameMode(self)
+
+        -- 진형에 따른 데미지 배율
+        local damage_rate_formation = CalcDamageRateDueToFormation(self)
 
         -- 게임 모드에 따른 데미지 배율 적용
-        damage = damage * CalcDamageRateDueToGameMode(self)
+        damage = damage * damage_rate_game_mode
 
         -- 진형에 따른 데미지 배율 적용
-        damage = damage * CalcDamageRateDueToFormation(self)
+        damage = damage * damage_rate_formation
         
         -- 히트 수 적용
         damage = damage / attack_hit_count
+
+        -- @DEBUG
+	    if g_constant:get('DEBUG', 'PRINT_ATTACK_INFO') then
+            cclog('######################################################')
+            if (attacker_char) then
+	            cclog('공격자 : ' .. attacker_char:getName())
+            end
+	        cclog('방어자 : ' .. defender:getName())
+	        cclog('공격 타입 : ' .. attack_type)
+            cclog('히트 수 : ' .. attack_hit_count)
+
+            cclog('------------------------------------------------------')
+            cclog('--공격력 : ' .. org_atk_dmg)
+            cclog('--스킬 계수 : ' .. power_rate)
+            cclog('--스킬 추가 공격력 : ' .. power_add)
+            if (drag_dmg ~= 0) then
+                cclog('--드래그 스킬 추가 공격력 : ' .. drag_dmg)
+            end
+            cclog('--최종 공격력 : ' .. atk_dmg)
+
+            cclog('------------------------------------------------------')
+	        cclog('--방어력 : ' .. org_def_pwr)
+            if (def_pierce ~= 0) then
+                cclog('--공격자 방어 관통 : ' .. def_pierce)
+            end
+            cclog('--최종 방어력 : ' .. def_pwr)
+
+            cclog('------------------------------------------------------')
+            cclog('--데미지 계산 결과값 : ' .. org_damage)
+            cclog('--게임 모드에 따른 데미지 배율 : ' .. damage_rate_game_mode)
+            cclog('--진형에 따른 데미지 배율 : ' .. damage_rate_formation)
+            cclog('--배율 적용한 데미지 : ' .. damage)
+        end
     end
 
     -- 크리티컬 계산
@@ -578,39 +630,53 @@ function Character:undergoAttack(attacker, defender, i_x, i_y, body_key, no_even
         local damage_multifly = 1
 
         -- 크리티컬 데미지
+        local cri_dmg_rate = 0
         if (is_critical) then
             local cri_dmg = attack_activity_carrier:getStat('cri_dmg') or 0
-            damage_multifly = damage_multifly + (cri_dmg / 100)
+            cri_dmg_rate = cri_dmg / 100
         end
+        damage_multifly = damage_multifly + cri_dmg_rate
 
         -- 속성 데미지
+        local attr_dmg_rate = 0
         if (t_attr_effect['damage']) then
-            local attr_dmg_multifly = (t_attr_effect['damage'] / 100)
-            damage_multifly = damage_multifly + attr_dmg_multifly
+            attr_dmg_rate = (t_attr_effect['damage'] / 100)
         end
+        damage_multifly = damage_multifly + attr_dmg_rate
 
-        -- (피격/공격)시 상대가 (특정 상태효과)를 가진 적이면 피해량 증가
-        local additional_dmg_adj_rate = 0
+        -- 피해량 비율
+        local dmg_adj_rate = 0
+        do
+            -- 방어자 능력치
+            dmg_adj_rate = self:getStat('dmg_adj_rate') / 100
+        
+            -- 특정 조건에 따른 피해량 증감
+            do
+                local additional_dmg_adj_rate = 0
 
-        for k, v in pairs(attacker_char:getStatusEffectList()) do
-            if (v.m_type == 'modify_dmg' and v.m_branch == 0) then
-                if(defender:isExistStatusEffectName(v.m_targetStatusEffectName, nil, true)) then
-                    additional_dmg_adj_rate = additional_dmg_adj_rate + v.m_totalValue
+                -- (피격/공격)시 상대가 (특정 상태효과)를 가진 적이면 피해량 증가
+                for k, v in pairs(attacker_char:getStatusEffectList()) do
+                    if (v.m_type == 'modify_dmg' and v.m_branch == 0) then
+                        if(defender:isExistStatusEffectName(v.m_targetStatusEffectName, nil, true)) then
+                            additional_dmg_adj_rate = additional_dmg_adj_rate + v.m_totalValue
+                        end
+                    end
                 end
+
+                for k, v in pairs(defender:getStatusEffectList()) do
+                    if (v.m_type == 'modify_dmg' and v.m_branch == 1) then
+                        if(attacker_char:isExistStatusEffectName(v.m_targetStatusEffectName, nil, true)) then
+                            additional_dmg_adj_rate = additional_dmg_adj_rate - v.m_totalValue
+                        end
+                    end
+                end
+
+                dmg_adj_rate = dmg_adj_rate + (additional_dmg_adj_rate / 100)
             end
         end
+        damage_multifly = damage_multifly + dmg_adj_rate
 
-        for k, v in pairs(defender:getStatusEffectList()) do
-            if (v.m_type == 'modify_dmg' and v.m_branch == 1) then
-                if(attacker_char:isExistStatusEffectName(v.m_targetStatusEffectName, nil, true)) then
-                    additional_dmg_adj_rate = additional_dmg_adj_rate - v.m_totalValue
-                end
-            end
-        end
-
-		-- 상태효과에 의한 증감
-		damage_multifly = (damage_multifly + (self:getStat('dmg_adj_rate') + additional_dmg_adj_rate) / 100)
-
+        -- 피해량 배율 적용
         damage = (damage * damage_multifly)
         
         -- nan 체크
@@ -620,6 +686,19 @@ function Character:undergoAttack(attacker, defender, i_x, i_y, body_key, no_even
         
         -- 최소 데미지 1로 처리
         damage = math_max(damage, 1)
+
+        -- @DEBUG
+	    if g_constant:get('DEBUG', 'PRINT_ATTACK_INFO') then
+            cclog('------------------------------------------------------')
+            if (cri_dmg_rate ~= 0) then
+                cclog('--치명타로 인한 피해량 비율 : ' .. cri_dmg_rate)
+            end
+            cclog('--속성으로 인한 피해량 비율 : ' .. attr_dmg_rate)
+            cclog('--상태효과로 인한 피해량 비율 : ' .. dmg_adj_rate)
+            cclog('--피해량 비율 총합 : ' .. (damage_multifly - 1))
+            cclog('--최종 데미지 : ' .. damage)
+            cclog('######################################################')
+        end
     end
 
     -- Event Carrier 세팅
@@ -815,11 +894,6 @@ function Character:undergoAttack(attacker, defender, i_x, i_y, body_key, no_even
         if (real_attack_type == 'active') then 
             self:runAction_Shake()
         end
-    end
-
-	-- @DEBUG
-	if g_constant:get('DEBUG', 'PRINT_ATTACK_INFO') then
-		SkillHelper:printAttackInfo(attacker, defender, attack_type, atk_dmg, def_pwr, damage)
     end
 end
 

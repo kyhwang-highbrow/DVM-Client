@@ -241,11 +241,15 @@ end
 -- function printAttackInfo
 -------------------------------------
 function SkillHelper:printAttackInfo(attacker, defender, attack_type, atk_dmg, def_pwr, damage)
+    local attack_activity_carrier = attacker.m_activityCarrier
+    local attacker_char = attack_activity_carrier:getActivityOwner()
+    if (not attacker_char) then return end
+
 	cclog('######################################################')
-	cclog('공격자 : ' .. attacker:getName())
+	cclog('공격자 : ' .. attacker_char:getName())
 	cclog('방어자 : ' .. defender:getName())
 	cclog('공격 타입 : ' .. attack_type)
-	cclog('--공격력 : ' .. atk_dmg)
+    cclog('--공격력 : ' .. atk_dmg)
 	cclog('--방어력 : ' .. def_pwr)
 	cclog('--데미지 : ' .. damage)
 	cclog('------------------------------------------------------')
