@@ -30,7 +30,7 @@ function UI_TamerListItem:initUI()
 
     -- 이미지
     local tid = tamer_data['tid']
-    local tamer_image = TableTamerCostume:getTamerSDImage(tid)
+    local tamer_image = TableTamer:getTamerSDImage(tid)
 	if (tamer_image) then
         tamer_image:setDockPoint(CENTER_POINT)
         tamer_image:setAnchorPoint(CENTER_POINT)

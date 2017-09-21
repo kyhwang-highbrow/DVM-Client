@@ -161,6 +161,7 @@ function UI_TamerCostumeShop:refresh()
             vars['saleNode']:setVisible(true)
             vars['salePriceLabel1']:setString(comma_value(origin_price))
             vars['salePriceLabel2']:setString(comma_value(price))
+            vars['priceLabel']:setString('')
 
             local date_format = 'yyyy-mm-dd HH:MM:SS'
             local parser = pl.Date.Format(date_format)
