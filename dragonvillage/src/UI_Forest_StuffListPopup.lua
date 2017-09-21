@@ -4,18 +4,21 @@ local PARENT = UI
 -- class UI_Forest_StuffListPopup
 -------------------------------------
 UI_Forest_StuffListPopup = class(PARENT,{
+        m_tStuffObjectTable = 'Table<ForestStuff>',
         m_tableView = 'UIC_TableView',
     })
 
 -------------------------------------
 -- function init
 -------------------------------------
-function UI_Forest_StuffListPopup:init()
+function UI_Forest_StuffListPopup:init(t_stuff_object)
     local vars = self:load('dragon_forest_popup.ui')
     UIManager:open(self, UIManager.POPUP)
 
     -- backkey 지정
     g_currScene:pushBackKeyListener(self, function() self:click_closeBtn() end, 'UI_Forest_StuffListPopup')
+
+    self.m_tStuffObjectTable = t_stuff_object
 
     self:initUI()
     self:initButton()
@@ -53,27 +56,12 @@ function UI_Forest_StuffListPopup:makeTableView()
     local table_forest_stuff = TableForestStuffType()
     local t_server_info = ServerData_Forest:getInstance():getStuffInfo()
 
-	local l_stuff_list = {}
-    for _, t_stuff in pairs(table_forest_stuff.m_orgTable) do
-        local clone_stuff = clone(t_stuff)
-        local server_info = t_server_info[stuff_type] or {}
-        
-        for i, v in pairs(server_info) do
-            clone_stuff[i] = v
-        end
-
-        table.insert(l_stuff_list, clone_stuff)
-    end
-
-	-- item ui에 보상 수령 함수 등록하는 콜백 함수
-	local create_cb_func = function(ui, data)
-
-	end
+	local l_stuff_list = self.m_tStuffObjectTable
 
     -- 테이블 뷰 인스턴스 생성
     local table_view = UIC_TableView(node)
     table_view.m_defaultCellSize = cc.size(800, 110 + 3)
-    table_view:setCellUIClass(self.makeCellUI, create_cb_func)
+    table_view:setCellUIClass(self.makeCellUI, nil)
     table_view:setDirection(cc.SCROLLVIEW_DIRECTION_VERTICAL)
     table_view:setItemList(l_stuff_list)
 
@@ -99,23 +87,53 @@ end
 -- @static
 -- @brief 테이블 셀 생성
 -------------------------------------
-function UI_Forest_StuffListPopup.makeCellUI(t_data)
+function UI_Forest_StuffListPopup.makeCellUI(stuff_object)
 	local ui = class(UI, ITableViewCell:getCloneTable())()
 	local vars = ui:load('dragon_forest_popup_item.ui')
+
+    local t_data = stuff_object.m_tStuffInfo
+
+    -- 이름 레벨
+    local name = t_data['stuff_name']
+    local lv = t_data['stuff_lv'] or 0
+    vars['nameLabel']:setString(string.format('%s Lv.%d', name, lv))
+
+    -- 설명
+    local stuff_type = t_data['stuff_type']
+    local desc = TableForestStuffLevelInfo:getStuffOptionDesc(stuff_type, lv)
+    vars['dscLabel']:setString(desc)
+    
+    -- 아이콘
+    local icon = IconHelper:getIcon(t_data['res'])
+    vars['iconNode']:addChild(icon)
+
+    -- 레벨업 버튼
+    vars['levelupBtn']:registerScriptTapHandler(function()
+        UI_Forest_StuffLevelupPopup(stuff_object):setCloseCB(function()
+            UI_Forest_StuffListPopup.refreshCell(ui, t_data)
+        end)    
+    end)
+
+    -- 레벨업 버튼 막기
+    if (nil == TableForestStuffLevelInfo:getStuffOptionDesc(stuff_type, lv + 1)) then
+        vars['levelupBtn']:setEnabled(false)
+    end
+	return ui
+end
+
+-------------------------------------
+-- function refreshCell
+-- @static
+-- @brief 테이블 셀 갱신
+-------------------------------------
+function UI_Forest_StuffListPopup.refreshCell(ui, t_data)
+    local vars = ui.vars
 
     local name = t_data['stuff_name']
     local lv = t_data['stuff_lv'] or 0
     vars['nameLabel']:setString(string.format('%s Lv.%d', name, lv))
 
-    local desc = ''
+    local stuff_type = t_data['stuff_type']
+    local desc = TableForestStuffLevelInfo:getStuffOptionDesc(stuff_type, lv)
     vars['dscLabel']:setString(desc)
-
-    local icon = IconHelper:getIcon(t_data['res'])
-    vars['iconNode']:addChild(icon)
-
-    vars['levelupBtn']:registerScriptTapHandler(function()
-        UI_Forest_StuffLevelupPopup(t_data)    
-    end)
-
-	return ui
 end

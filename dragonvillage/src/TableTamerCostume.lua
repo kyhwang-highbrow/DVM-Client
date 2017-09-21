@@ -18,7 +18,7 @@ end
 
 -------------------------------------
 -- function getDefaultCostumeID
--- @brief Å×ÀÌ¸ÓÀÇ ±âº» ÄÚ½ºÆ¬ ID (ex:730100  item digit 73, tamer digit 2ÀÚ¸®, costume digit 2ÀÚ¸® (default:0))
+-- @brief í…Œì´ë¨¸ì˜ ê¸°ë³¸ ì½”ìŠ¤íŠ¬ ID (ex:730100  item digit 73, tamer digit 2ìë¦¬, costume digit 2ìë¦¬ (default:0))
 -------------------------------------
 function TableTamerCostume:getDefaultCostumeID(tamer_id)
     local tamer_idx = tonumber(tamer_id)%100

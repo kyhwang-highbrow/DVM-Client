@@ -23,7 +23,7 @@ function UI_EventPopupTab_Scroll:init(owner, struct_event_popup_tab)
         target_size = cc.size(930, 1200)
     end
 
-    -- ½ºÅ©·Ñ ºä À§¿¡ ÇØ´ç ÀÌº¥Æ® UI ¿Ã·ÁÁÜ
+    -- ìŠ¤í¬ë¡¤ ë·° ìœ„ì— í•´ë‹¹ ì´ë²¤íŠ¸ UI ì˜¬ë ¤ì¤Œ
     if (ui) then
         local scroll_node = vars['scrollNode']
         local size = scroll_node:getContentSize()

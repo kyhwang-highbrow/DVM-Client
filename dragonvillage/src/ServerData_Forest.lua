@@ -115,7 +115,7 @@ function ServerData_Forest:request_myForestInfo(finish_cb)
 end
 
 -------------------------------------
--- function request_myForestInfo
+-- function applyForestInfo
 -------------------------------------
 function ServerData_Forest:applyForestInfo(t_ret)
     -- 공용 드래곤의 숲 정보
@@ -139,7 +139,7 @@ function ServerData_Forest:applyForestInfo(t_ret)
 end
 
 -------------------------------------
--- function request_myForestInfo
+-- function request_setDragons
 -------------------------------------
 function ServerData_Forest:request_setDragons(doids, finish_cb)
     -- 유저 ID
@@ -178,7 +178,7 @@ end
 
 
 -------------------------------------
--- function request_myForestInfo
+-- function request_dragonHappy
 -------------------------------------
 function ServerData_Forest:request_dragonHappy(doid, finish_cb)
     -- 유저 ID
@@ -202,6 +202,86 @@ function ServerData_Forest:request_dragonHappy(doid, finish_cb)
     ui_network:setUrl('/forest/dragon/happy')
     ui_network:setParam('uid', uid)
     ui_network:setParam('doid', doid)
+    ui_network:setSuccessCB(success_cb)
+    ui_network:setRevocable(true)
+    ui_network:setReuse(false)
+    ui_network:request()
+
+    return ui_network
+end
+
+-------------------------------------
+-- function request_stuffReward
+-------------------------------------
+function ServerData_Forest:request_stuffReward(stuff_type, finish_cb)
+    -- 유저 ID
+    local uid = g_userData:get('uid')
+    
+    -- 성공 콜백
+    local function success_cb(ret)
+        -- staminas, cash 동기화
+        g_serverData:networkCommonRespone(ret)
+
+        -- 드래곤의 숲 오브젝트
+        local stuff, ret_stuff
+        for i, t_stuff in pairs(ret['forest_stuffs']) do
+            stuff = t_stuff['stuff']
+            self.m_tStuffInfo[stuff] = t_stuff
+            if (stuff_type == stuff) then
+                ret_stuff = t_stuff
+            end
+        end
+        
+        if finish_cb then
+            finish_cb(ret_stuff)
+        end
+    end
+
+    -- 네트워크 통신
+    local ui_network = UI_Network()
+    ui_network:setUrl('/forest/stuff/reward')
+    ui_network:setParam('uid', uid)
+    ui_network:setParam('stuff', stuff_type)
+    ui_network:setSuccessCB(success_cb)
+    ui_network:setRevocable(true)
+    ui_network:setReuse(false)
+    ui_network:request()
+
+    return ui_network
+end
+
+-------------------------------------
+-- function request_stuffLevelup
+-------------------------------------
+function ServerData_Forest:request_stuffLevelup(stuff_type, finish_cb)
+    -- 유저 ID
+    local uid = g_userData:get('uid')
+    
+    -- 성공 콜백
+    local function success_cb(ret)
+        -- staminas, cash 동기화
+        g_serverData:networkCommonRespone(ret)
+
+        -- 드래곤의 숲 오브젝트
+        local stuff, ret_stuff
+        for i, t_stuff in pairs(ret['forest_stuffs']) do
+            stuff = t_stuff['stuff']
+            self.m_tStuffInfo[stuff] = t_stuff
+            if (stuff_type == stuff) then
+                ret_stuff = t_stuff
+            end
+        end
+        
+        if finish_cb then
+            finish_cb(ret_stuff)
+        end
+    end
+
+    -- 네트워크 통신
+    local ui_network = UI_Network()
+    ui_network:setUrl('/forest/stuff/lvup')
+    ui_network:setParam('uid', uid)
+    ui_network:setParam('stuff', stuff_type)
     ui_network:setSuccessCB(success_cb)
     ui_network:setRevocable(true)
     ui_network:setReuse(false)

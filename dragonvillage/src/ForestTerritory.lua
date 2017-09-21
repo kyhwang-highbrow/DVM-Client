@@ -26,7 +26,7 @@ ForestTerritory = class(PARENT, {
         m_ground = 'Animator',
         m_tamer = 'ForestTamer',
         m_lDragonList = 'List<ForestDragon>',
-        m_lStuffList = 'List<ForestStuff>',
+        m_tStuffTable = 'Table<ForestStuff>',
 
         -- background 관련
         m_bgCurrPosX = 'number',
@@ -50,7 +50,7 @@ function ForestTerritory:init(parent, z_order)
     self:setContainerSize(BG_WIDTH, BG_HEIGHT)
     self.m_bgCurrPosX = 0
     self.m_lDragonList = {}
-    self.m_lStuffList = {}
+    self.m_tStuffTable = {}
     self.m_isTouchingDragon = false
 
     -- 오브젝트 생성
@@ -313,7 +313,7 @@ function ForestTerritory:initStuffs()
         stuff:initSchedule()
 
         self.m_ground:addChild(stuff.m_rootNode, FOREST_ZORDER['STUFF'])
-        self.m_lStuffList[stuff_type] = stuff
+        self.m_tStuffTable[stuff_type] = stuff
     end
 end
 
@@ -385,7 +385,7 @@ function ForestTerritory:onTouchBegan(touches, event)
     end
 
     -- Stuff 터치 체크
-    for _, stuff in pairs(self.m_lStuffList) do
+    for _, stuff in pairs(self.m_tStuffTable) do
         if (self:checkObjectTouch(location, stuff, 212)) then
             stuff:touchStuff()
             return
@@ -573,7 +573,7 @@ function ForestTerritory:onEvent(event_name, struct_event)
         local dragon = struct_event:getObject()
         local stuff_type = struct_event:getStuff()
         local curr_x, _ = dragon:getPosition()
-        local pos_x, pos_y = self.m_lStuffList[stuff_type]:getPosition()
+        local pos_x, pos_y = self.m_tStuffTable[stuff_type]:getPosition()
         local factor_x = (curr_x < pos_x) and 1 or -1
         factor_x = factor_x * math_random(50, 150)
         local factor_y = -100
@@ -644,4 +644,12 @@ end
 -------------------------------------
 function ForestTerritory:getCurrDragonCnt()
     return table.count(self.m_lDragonList)
+end
+
+-------------------------------------
+-- function getStuffObjectTable
+-- @brief 오브젝트 테이블
+-------------------------------------
+function ForestTerritory:getStuffObjectTable()
+    return self.m_tStuffTable
 end

@@ -37,7 +37,7 @@ end
 -- function st_move
 -------------------------------------
 function ForestCharacter.st_move(self, dt)
-
+    
     if (self.m_stateTimer == 0) then
         
         self:onMoveStart()
@@ -81,6 +81,9 @@ function ForestCharacter.st_move(self, dt)
 
     -- zorder 업데이트
     self:setForestZOrder()
+
+    -- 움직임을 예쁘게 하려면?
+    self.m_moveSpeed = self.m_moveSpeed + (math_sin(dt) * 100)
 
     return struct_event
 end

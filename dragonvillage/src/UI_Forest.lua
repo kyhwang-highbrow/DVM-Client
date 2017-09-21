@@ -109,7 +109,8 @@ end
 -- function click_levelupBtn
 -------------------------------------
 function UI_Forest:click_levelupBtn()
-    UI_Forest_StuffListPopup()
+    local t_stuff_object = self.m_territory:getStuffObjectTable()
+    UI_Forest_StuffListPopup(t_stuff_object)
 end
 
 -------------------------------------

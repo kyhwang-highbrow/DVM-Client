@@ -49,7 +49,7 @@ function TableForestStuffLevelInfo:getOpenLevel(stuff_type)
 end
 
 -------------------------------------
--- function getOpenLavel
+-- function getDragonMaxCnt
 -------------------------------------
 function TableForestStuffLevelInfo:getDragonMaxCnt(lv)
     if (self == THIS) then
@@ -61,4 +61,54 @@ function TableForestStuffLevelInfo:getDragonMaxCnt(lv)
 
     local t_extension = T_STUFF_TABLE['extension']
     return t_extension[lv]['dragon_cnt']
+end
+
+-------------------------------------
+-- function getStuffTable
+-------------------------------------
+function TableForestStuffLevelInfo:getStuffTable(stuff_type)
+    if (self == THIS) then
+        self = THIS()
+    end
+
+    if (not stuff_type) then
+        return nil
+    end
+
+    return T_STUFF_TABLE[stuff_type]
+end
+
+-------------------------------------
+-- function getStuffOptionDesc
+-------------------------------------
+function TableForestStuffLevelInfo:getStuffOptionDesc(stuff_type, lv)
+    if (self == THIS) then
+        self = THIS()
+    end
+
+    if (not stuff_type) then
+        return ''
+    end
+    if (not lv) then
+        return ''
+    end
+
+    local t_stuff_level_info = T_STUFF_TABLE[stuff_type][lv]
+    if (not t_stuff_level_info) then
+        return
+    end
+
+    local reward_1 = t_stuff_level_info['reward_1']
+    --local reward_2 = t_stuff_level_info['reward_2']
+
+    local cool = t_stuff_level_info['cooltime']
+
+    local template = '{@ROSE}{1}분{@DESC}마다 {@item_name}{2} {@count}{3}개 {@DESC}획득'
+
+    local t_reward = plSplit(reward_1, ';')
+    local item_id = tonumber(t_reward[1])
+    local item_name = TableItem:getItemName(item_id)
+    local item_cnt = t_reward[2]
+
+    return Str(template, cool, item_name, item_cnt)
 end
