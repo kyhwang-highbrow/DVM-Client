@@ -112,6 +112,7 @@ end
 -------------------------------------
 function UI_Forest:click_levelupBtn()
     ccdisplay('click_levelupBtn')
+    UI_Forest_StuffListPopup()
 end
 
 -------------------------------------

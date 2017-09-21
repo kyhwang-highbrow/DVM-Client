@@ -901,6 +901,8 @@ local t_module = {
     'SceneForest',
     'UI_Forest',
     'UI_Forest_ChangePopup',
+    'UI_Forest_StuffLevelupPopup',
+    'UI_Forest_StuffListPopup',
     'ServerData_Forest',
     'TableForestStuffType',
     'TableForestStuffLevelInfo',

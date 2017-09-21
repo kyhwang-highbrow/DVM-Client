@@ -5,7 +5,12 @@ local PARENT = ForestObject
 -------------------------------------
 ForestStuff = class(PARENT, {
         m_tStuffInfo = 'string',
+        
         m_ui = 'ForestStuffUI',
+        
+        m_hasReward = 'bool',
+        m_isLock = 'bool',
+        m_rewardTime = 'timestamp',
      })
 
 -------------------------------------
@@ -14,6 +19,15 @@ ForestStuff = class(PARENT, {
 function ForestStuff:init(t_stuff)
     self.m_objectType = 'stuff'
     self.m_tStuffInfo = t_stuff
+    ccdump(t_stuff)
+
+    self.m_hasReward = false
+    self.m_isLock = true
+    self.m_rewardTime = t_stuff['reward_at']
+
+    if (t_stuff['stuff_lv']) then
+        self.m_isLock = false
+    end
 end
 
 -------------------------------------
@@ -46,7 +60,25 @@ end
 -- function update
 -------------------------------------
 function ForestStuff:update(dt)
-    self.m_ui:updateTime()
+    -- 오픈 체크
+    if (self.m_isLock) then
+        return
+    end
+ 
+
+    -- 보상 있는지 체크
+    if (self.m_hasReward) then
+        return
+    end
+
+    -- 남은시간 출력
+    local remain_time = (self.m_rewardTime/1000 - Timer:getServerTime())
+    if remain_time > 0 then
+        self.m_ui:updateTime(remain_time)
+    else
+        self.m_hasReward = true
+        self.m_ui:readyForReward()
+    end
 end
 
 -------------------------------------
@@ -57,28 +89,21 @@ function ForestStuff:getStuffType()
 end
 
 -------------------------------------
--- function showEmotionEffect
--- @brief 감정 이펙트 연출
+-- function touchStuff
 -------------------------------------
-function ForestStuff:showEmotionEffect()
-    local animator = MakeAnimator('res/ui/a2d/emotion/emotion.vrp')
-
-    do -- 에니메이션 지정
-        local sum_random = SumRandom()
-        sum_random:addItem(1, 'curious')
-        sum_random:addItem(2, 'exciting')
-        sum_random:addItem(2, 'like')
-        sum_random:addItem(2, 'love')
-        local ani_name = sum_random:getRandomValue()     
-        animator:changeAni(ani_name, false)
+function ForestStuff:touchStuff()
+    if (self.m_isLock) then
+        ccdisplay('lock')
+        return
     end
 
-    -- 위치 지정
-    animator:setPosition(-70, 200)
-    
-    -- 재생 후 삭제
-    local duration = animator.m_node:getDuration()
-    animator:setScale(0.7)
-    animator.m_node:runAction(cc.Sequence:create(cc.DelayTime:create(duration), cc.RemoveSelf:create()))
-    self.m_rootNode:addChild(animator.m_node, 3)
+    -- 재화 수령 가능한 상태
+    if (self.m_hasReward) then
+        ccdisplay('reward ready')
+        return
+    end
+
+    -- 레벨업 UI 오픈
+    ccdisplay('레벨업 UI 오픈')
+    UI_Forest_StuffLevelupPopup()
 end
