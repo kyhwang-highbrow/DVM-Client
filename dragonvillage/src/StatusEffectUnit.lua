@@ -89,7 +89,7 @@ function StatusEffectUnit:update(dt, modified_dt)
             end
         end
     end
-    
+
     return false
 end
 
@@ -188,6 +188,14 @@ function StatusEffectUnit:makeActivityCarrier()
     EquationHelper:setEquationParamOnMapForStatusEffect(activityCarrier.m_tParam, self)
 
     return activityCarrier
+end
+
+-------------------------------------
+-- function finish
+-------------------------------------
+function StatusEffectUnit:finish()
+    self.m_duration = 0
+    self.m_durationTimer = 0
 end
 
 -------------------------------------

@@ -34,6 +34,29 @@ function StatusEffect_Dispell:initState()
 end
 
 -------------------------------------
+-- function st_end 
+-------------------------------------
+function StatusEffect_Dispell.st_end(owner, dt)
+    if (owner.m_stateTimer == 0) then
+        -- 모든 효과 해제
+		owner:unapplyAll()
+
+        -- 상태효과 리스트에서 제거
+        owner:setDead()
+		
+        -- 에니메이션이 0프레임일 경우 즉시 상태를 변경
+        local duration = owner.m_animator and owner.m_animator:getDuration() or 0
+        if (duration == 0) then
+            owner:changeState('dying')
+        else
+            owner:addAniHandler(function()
+                owner:changeState('dying')
+            end)
+        end
+    end
+end
+
+-------------------------------------
 -- function initFromTable
 -------------------------------------
 function StatusEffect_Dispell:initFromTable(t_status_effect, target_char)
@@ -79,7 +102,9 @@ function StatusEffect_Dispell:onApplyOverlab(unit)
             end
         end
     end
-    unit.m_durationTimer = 0
+
+    -- !! unit을 바로 삭제하여 해당 상태효과 종료시킴
+    unit:finish()
 end
 
 -------------------------------------

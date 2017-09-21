@@ -38,5 +38,5 @@ function StatusEffect_AddMana:onApplyOverlab(unit)
         self.m_owner.m_world.m_enemyMana:addMana(self.m_addValue)
     end
     -- !! unit을 바로 삭제하여 해당 상태효과 종료시킴
-    unit.m_durationTimer = 0
+    unit:finish()
 end
