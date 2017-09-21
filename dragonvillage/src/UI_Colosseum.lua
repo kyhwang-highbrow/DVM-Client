@@ -314,11 +314,11 @@ function UI_Colosseum:init_atkTab()
         local a_data = a['data']
         local b_data = b['data']
 
-        -- 방어덱의 전투력을 받아옴
-        local a_combat_power = a_data:getDefDeckCombatPower()
-        local b_combat_power = b_data:getDefDeckCombatPower()
+        -- 리그 포인트를 얻어옴
+        local a_rp = a_data:getRP()
+        local b_rp = b_data:getRP()
 
-        return a_combat_power < b_combat_power
+        return a_rp < b_rp
     end
     table.sort(table_view.m_itemList, sort_func)
 end

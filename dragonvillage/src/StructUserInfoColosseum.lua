@@ -266,6 +266,18 @@ function StructUserInfoColosseum:getRankText(detail)
 end
 
 -------------------------------------
+-- function getRP
+-- @brief
+-------------------------------------
+function StructUserInfoColosseum:getRP()
+    if (not self.m_rp) then
+        return 0
+    end
+
+    return self.m_rp
+end
+
+-------------------------------------
 -- function getRPText
 -- @brief
 -------------------------------------
