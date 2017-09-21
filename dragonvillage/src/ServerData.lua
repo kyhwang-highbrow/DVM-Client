@@ -161,6 +161,9 @@ function ServerData:getInstance()
     -- 드래곤의 숲
     ServerData_Forest:getInstance(g_serverData)
 
+    -- 테이머 코스튬
+    g_tamerCostumeData = ServerData_TamerCostume(g_serverData)
+
     return g_serverData
 end
 

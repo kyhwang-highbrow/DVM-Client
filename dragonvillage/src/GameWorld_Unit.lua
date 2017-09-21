@@ -9,9 +9,32 @@ function GameWorld:makeTamerNew(t_tamer_data, bRightFormation)
 
     -- 테이블의 테이머 정보
     local t_tamer = TableTamer():get(tamer_id)
+    local tamer_res  
+
+    -- 코스튬 적용
+    if (bLeftFormation) then
+        local costume_data = g_tamerCostumeData:getCostumeDataWithTamerID(tamer_id)
+        tamer_res = costume_data:getResSD()
+
+    else
+        if (self.m_gameMode == GAME_MODE_COLOSSEUM) then
+            local match_info 
+            local is_friendMatch = g_gameScene.m_bFriendMatch
+            if (is_friendMatch) then
+                match_info = g_friendMatchData.m_playerUserInfo 
+            else
+                match_info = g_colosseumData:getMatchUserInfo()
+            end
+
+            local costume_id = match_info:getDefDeckCostumeID()
+            tamer_res = TableTamerCostume:getTamerResSD(costume_id)
+        else
+            tamer_res = t_tamer['res_sd']
+        end
+    end
 
     -- tamer 생성 시작
-    local tamer = Tamer(t_tamer['res_sd'], {0, 0, 0})
+    local tamer = Tamer(tamer_res, {0, 0, 0})
     tamer.m_tamerID = t_tamer['tid']
     
     tamer:initWorld(self)

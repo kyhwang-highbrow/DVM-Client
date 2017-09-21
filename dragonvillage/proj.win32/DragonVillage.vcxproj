@@ -471,6 +471,7 @@ xcopy /Y /Q "$(ProjectDir)..\..\libraries\pati\prebuilt\windows\*.dll" "$(OutDir
     <None Include="..\src\ServerData_StartTamer.lua" />
     <None Include="..\src\ServerData_Subscription.lua" />
     <None Include="..\src\ServerData_Tamer.lua" />
+    <None Include="..\src\ServerData_TamerCostume.lua" />
     <None Include="..\src\ServerData_Tutorial.lua" />
     <None Include="..\src\shader\characterDamaged.fsh" />
     <None Include="..\src\shader\gray.fsh" />
@@ -744,6 +745,7 @@ xcopy /Y /Q "$(ProjectDir)..\..\libraries\pati\prebuilt\windows\*.dll" "$(OutDir
     <None Include="..\src\StructSlimeObject.lua" />
     <None Include="..\src\StructStatusEffect.lua" />
     <None Include="..\src\StructSubscribedInfo.lua" />
+    <None Include="..\src\StructTamerCostume.lua" />
     <None Include="..\src\Structure.lua" />
     <None Include="..\src\StructUserInfo.lua" />
     <None Include="..\src\StructUserInfoAncientTower.lua" />
@@ -804,6 +806,7 @@ xcopy /Y /Q "$(ProjectDir)..\..\libraries\pati\prebuilt\windows\*.dll" "$(OutDir
     <None Include="..\src\TableStatusEffect.lua" />
     <None Include="..\src\TableSummonGacha.lua" />
     <None Include="..\src\TableTamer.lua" />
+    <None Include="..\src\TableTamerCostume.lua" />
     <None Include="..\src\TableTamerSkill.lua" />
     <None Include="..\src\TableTamerTitle.lua" />
     <None Include="..\src\TableUILocation.lua" />
@@ -1091,6 +1094,10 @@ xcopy /Y /Q "$(ProjectDir)..\..\libraries\pati\prebuilt\windows\*.dll" "$(OutDir
     <None Include="..\src\UI_SubscriptionDayListItem.lua" />
     <None Include="..\src\UI_SubscriptionPopup.lua" />
     <None Include="..\src\UI_SubscriptionPopup_Ing.lua" />
+    <None Include="..\src\UI_TamerCostumeConfirmPopup.lua" />
+    <None Include="..\src\UI_TamerCostumeListItem.lua" />
+    <None Include="..\src\UI_TamerCostumeShop.lua" />
+    <None Include="..\src\UI_TamerListItem.lua" />
     <None Include="..\src\UI_TamerManagePopup_Colosseum.lua" />
     <None Include="..\src\UI_TermsPopup.lua" />
     <None Include="..\src\UI_ToastPopup.lua" />

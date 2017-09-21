@@ -128,7 +128,8 @@ function UI_ExplorationIng:init_tamer()
 
     local table_tamer = TableTamer()
     local tamer_id = g_tamerData:getCurrTamerID()
-	local tamer_res = table_tamer:getValue(tamer_id, 'res_sd')
+    local costume_data = g_tamerCostumeData:getCostumeDataWithTamerID(tamer_id)
+    local tamer_res = costume_data:getResSD()
     local animator = MakeAnimator(tamer_res)
 	if (animator) then
 		animator:setDockPoint(0.5, 0.5)

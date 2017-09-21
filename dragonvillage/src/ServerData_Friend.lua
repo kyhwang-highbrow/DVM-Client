@@ -836,6 +836,7 @@ end
 function ServerData_Friend:checkAutoPlayCondition()
     if (self.m_bReleaseDragon) then
         MakeSimplePopup(POPUP_TYPE.OK, Str('친구 드래곤이 해제되어 연속전투를 멈춥니다.'))
+        self.m_bReleaseDragon = false
         return false
     end
     

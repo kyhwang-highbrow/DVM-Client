@@ -79,3 +79,20 @@ function TableTamer:getTamerFace(tamer_type, is_win)
 
 	return table.getRandom(ani_list)
 end
+
+-------------------------------------
+-- function getTamerSDImage
+-------------------------------------
+function TableTamer:getTamerSDImage(tamer_id)
+    if (self == THIS) then
+        self = THIS()
+    end
+
+    local tamer_type = self:getValue(tamer_id, 'type')
+    local path = string.format('res/ui/icons/tamer/costume_%s.png', tamer_type)
+    local image = cc.Sprite:create(path) or nil
+
+    return image
+end
+
+    

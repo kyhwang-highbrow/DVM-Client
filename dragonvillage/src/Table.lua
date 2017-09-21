@@ -24,6 +24,7 @@ local TableInfo = {
         monster_skill       = {'table_monster_skill',       'sid',          false},
         tamer               = {'table_tamer',               'tid',          false},
         tamer_skill         = {'table_tamer_skill',         'sid',          false},
+        tamer_costume       = {'table_tamer_costume',       'cid',          false},
         drop                = {'table_drop',                'stage',        false},
         stage_data          = {'table_stage_data',          'stage',        false},
         stage_desc          = {'table_stage_desc',          'stage',        false},

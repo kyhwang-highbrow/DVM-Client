@@ -68,6 +68,7 @@ function UI_TamerManagePopup:initButton()
     local vars = self.vars
 	vars['selectBtn']:registerScriptTapHandler(function() self:click_selectBtn() end)
 	vars['buyBtn']:registerScriptTapHandler(function() self:click_buyBtn() end)
+    vars['costumeBtn']:registerScriptTapHandler(function() self:click_costumeBtn() end)
 end
 
 -------------------------------------
@@ -148,10 +149,15 @@ function UI_TamerManagePopup:setTamerRes()
     vars['tamerNode']:addChild(illustration_animator.m_node)
 
 	-- 테이머 SD
-	local sd_res = t_tamer['res_sd']
+    local costume_data = g_tamerCostumeData:getCostumeDataWithTamerID(self.m_selectedTamerID)
+    local sd_res = costume_data:getResSD()
+
 	local sd_animator = MakeAnimator(sd_res)
 	sd_animator:setFlip(true)
     vars['tamerSdNode']:addChild(sd_animator.m_node)
+
+    local costume_name = costume_data:getName()
+    vars['costumeTitleLabel']:setString(costume_name)
 
 	-- 없는 테이머는 음영 처리
 	if (not self:_hasTamer(self.m_selectedTamerID)) then
@@ -390,6 +396,18 @@ function UI_TamerManagePopup:click_buyBtn()
     local t_tamer = self.m_lTamerItemList[self.m_selectedTamerID]:getTamerTable()
     local l_price_info = seperate(t_tamer['price_' .. buy_type], ';')
     MakeSimplePopup_Confirm(l_price_info[1], tonumber(l_price_info[2]), nil, buy_func)
+end
+
+-------------------------------------
+-- function click_costumeBtn
+-------------------------------------
+function UI_TamerManagePopup:click_costumeBtn()
+    local function refresh_cb()
+        self:refresh()
+    end
+
+    local tamer_id = self.m_selectedTamerID
+    UINavigator:goTo('costume_shop', tamer_id, refresh_cb)
 end
 
 -------------------------------------

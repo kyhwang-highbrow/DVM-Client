@@ -584,6 +584,24 @@ function StructUserInfoColosseum:getDefDeckTamerID()
 end
 
 -------------------------------------
+-- function getDefDeckCostumeID
+-- @brief 방어덱 코스튬 ID
+-- @return costume_id number
+-------------------------------------
+function StructUserInfoColosseum:getDefDeckCostumeID()
+    local tamer_id = self:getPvpDefDeck()['tamer'] or 110001
+    local tamer_info = self:getPvpDefDeck()['tamerInfo']
+    local costume_id = nil
+    if (tamer_info) then
+        costume_id = tamer_info['costume'] 
+    else
+        costume_id = TableTamerCostume:getDefaultCostumeID(tamer_id)
+    end
+
+    return costume_id
+end
+
+-------------------------------------
 -- function getAtkDeckTamerInfo
 -- @brief 공격덱 테이머
 -- @return tamer_id number

@@ -2754,6 +2754,27 @@
     <None Include="..\src\UI_Forest_ChangePopup.lua">
       <Filter>lua\forest</Filter>
     </None>
+    <None Include="..\src\TableTamerCostume.lua">
+      <Filter>lua\src</Filter>
+    </None>
+    <None Include="..\src\ServerData_TamerCostume.lua">
+      <Filter>lua\src</Filter>
+    </None>
+    <None Include="..\src\StructTamerCostume.lua">
+      <Filter>lua\src</Filter>
+    </None>
+    <None Include="..\src\UI_TamerListItem.lua">
+      <Filter>lua\UI</Filter>
+    </None>
+    <None Include="..\src\UI_TamerCostumeShop.lua">
+      <Filter>lua\UI</Filter>
+    </None>
+    <None Include="..\src\UI_TamerCostumeListItem.lua">
+      <Filter>lua\UI</Filter>
+    </None>
+    <None Include="..\src\UI_TamerCostumeConfirmPopup.lua">
+      <Filter>lua\UI</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Classes">
