@@ -211,6 +211,17 @@ function Network_login(uid, nickname, device_info_json, success_cb, fail_cb)
     t_data['imei'] = nil
     t_data['market'] = nil
 
+    -- 로그인 시 os 정보 추가
+    local os = 'android'
+    if isAndroid() then
+        os = 'android'
+    elseif isIos() then
+        os = 'ios'
+    elseif isWin32() then
+        os = 'windows'
+    end
+    t_data['os'] = os
+
     -- 단말 정보 추가
     for key,value in pairs(device_info_json) do
         if (t_data[key] == nil) then
