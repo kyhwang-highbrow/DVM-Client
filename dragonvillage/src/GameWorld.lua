@@ -435,9 +435,10 @@ end
 function GameWorld:initTamer()
     local tamer_id = g_tamerData:getCurrTamerID()
     local t_tamer_data = clone(g_tamerData:getTamerServerInfo(tamer_id))
+    local t_costume_data = g_tamerCostumeData:getCostumeDataWithTamerID(tamer_id)
     
     -- 테이머 생성
-    self.m_tamer = self:makeTamerNew(t_tamer_data)
+    self.m_tamer = self:makeTamerNew(t_tamer_data, t_costume_data)
 
     -- 테이머 UI 생성
 	self.m_inGameUI:initTamerUI(self.m_tamer)

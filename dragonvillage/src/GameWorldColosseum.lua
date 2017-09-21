@@ -126,8 +126,9 @@ function GameWorldColosseum:initTamer()
         local user_info = (is_friendMatch) and g_friendMatchData.m_playerUserInfo or g_colosseumData.m_playerUserInfo
         local tamer_id = user_info:getAtkDeckTamerID()
         local t_tamer_data = clone(g_tamerData:getTamerServerInfo(tamer_id))
+        local t_costume_data = g_tamerCostumeData:getCostumeDataWithTamerID(tamer_id)
 
-        self.m_tamer = self:makeTamerNew(t_tamer_data)
+        self.m_tamer = self:makeTamerNew(t_tamer_data, t_costume_data)
         self.m_tamer:setPosition(HERO_TAMER_POS_X, TAMER_POS_Y)
         self.m_tamer:setAnimatorScale(1)
         self.m_tamer:changeState('appear_colosseum')
@@ -136,17 +137,21 @@ function GameWorldColosseum:initTamer()
     
     -- 적군 테이머 생성
     do
-        local t_tamer_data
-        
+        local user_info
+                
         if (self.m_bDevelopMode) then
-            local user_info = (is_friendMatch) and g_friendMatchData.m_playerUserInfo or g_colosseumData.m_playerUserInfo
-            t_tamer_data = clone(user_info:getDefDeckTamerInfo())
+            user_info = (is_friendMatch) and g_friendMatchData.m_playerUserInfo or g_colosseumData.m_playerUserInfo
         else
-            local user_info = (is_friendMatch) and g_friendMatchData.m_matchInfo or g_colosseumData:getMatchUserInfo()
-            t_tamer_data = clone(user_info:getDefDeckTamerInfo())
+            user_info = (is_friendMatch) and g_friendMatchData.m_matchInfo or g_colosseumData:getMatchUserInfo()
         end
-        
-        self.m_enemyTamer = self:makeTamerNew(t_tamer_data, true)
+
+        local t_tamer_data = clone(user_info:getDefDeckTamerInfo())
+
+        local costume_id = user_info:getDefDeckCostumeID()
+        local t_costume = TableTamerCostume():get(costume_id)
+        local t_costume_data = StructTamerCostume(t_costume)
+                
+        self.m_enemyTamer = self:makeTamerNew(t_tamer_data, t_costume_data, true)
         self.m_enemyTamer:setPosition(ENEMY_TAMER_POS_X, TAMER_POS_Y)
         self.m_enemyTamer:setAnimatorScale(1)
         self.m_enemyTamer:changeState('appear_colosseum')
