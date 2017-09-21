@@ -144,8 +144,10 @@ function UI_TamerCostumeShop:refresh()
 
     vars['buyBtn']:setVisible(not is_open)
     vars['priceNode']:setVisible(not is_open)
-    vars['infoLabel']:setVisible(not is_open)
     vars['saleNode']:setVisible(false)
+
+    local is_lock = costume_data:isTamerLock()
+    vars['infoLabel']:setVisible(not is_open and is_lock)
 
     -- 가격 정보 표시
     if (not is_open) then

@@ -123,6 +123,11 @@ end
 -------------------------------------
 function StructTamerCostume:isTamerLock()
     local tamer_id = self:getTamerID()
+    -- 기본 코스튬은 테이머 열려있지 않아도 잠금처리 안함
+    if (self.m_cid == TableTamerCostume:getDefaultCostumeID(tamer_id)) then
+        return false
+    end
+
     return not g_tamerData:hasTamer(tamer_id)
 end
 
