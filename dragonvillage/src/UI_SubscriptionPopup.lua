@@ -24,6 +24,8 @@ function UI_SubscriptionPopup:init()
 
     self:initUI()
 	self:initButton()
+
+    self.root:scheduleUpdateWithPriorityLua(function(dt) self:update(dt) end, 0)
 end
 
 -------------------------------------
@@ -75,10 +77,24 @@ function UI_SubscriptionPopup:initButton()
 	local vars = self.vars
     vars['buyBtn1']:registerScriptTapHandler(function() self:click_buyBtn(self.m_basicProduct) end)
     vars['buyBtn2']:registerScriptTapHandler(function() self:click_buyBtn(self.m_premiumProduct) end)
+    vars['adBtn']:registerScriptTapHandler(function() self:click_adBtn() end)
 	vars['closeBtn']:registerScriptTapHandler(function() self:click_closeBtn() end)
     
     if vars['infoBtn'] then
         vars['infoBtn']:registerScriptTapHandler(function() self:click_infoBtn() end)
+    end
+end
+
+-------------------------------------
+-- function update
+-- @brief
+-------------------------------------
+function UI_SubscriptionPopup:update(dt)
+    -- 광고 (자동재화, 선물상자 정보)
+    do
+        local vars = self.vars
+        local msg1, enable1 = g_advertisingData:getCoolTimeStatus(AD_TYPE.AUTO_ITEM_PICK)
+        vars['adBtn']:setEnabled(enable1)
     end
 end
 
@@ -110,8 +126,21 @@ function UI_SubscriptionPopup:click_buyBtn(struct_product)
 end
 
 -------------------------------------
+-- function click_adBtn
+-------------------------------------
+function UI_SubscriptionPopup:click_adBtn()
+    local ad_type = AD_TYPE.AUTO_ITEM_PICK
+
+    local function finish_cb()
+        self:close()
+    end
+
+    g_advertisingData:showAdv(ad_type, finish_cb)
+end
+
+-------------------------------------
 -- function click_closeBtn
 -------------------------------------
 function UI_SubscriptionPopup:click_closeBtn()
-    self:closeWithAction()
+    self:close()
 end

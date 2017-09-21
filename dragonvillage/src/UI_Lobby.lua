@@ -9,6 +9,10 @@ UI_Lobby = class(PARENT,{
 
         m_lobbyWorldAdapter = 'LobbyWorldAdapter',
         m_etcExpendedUI = 'UIC_ExtendedUI',
+
+        -- 버튼 상태
+        m_bItemAutoEnabled = 'bool',
+        m_bGiftBoxEnabled = 'bool',
     })
 
 -------------------------------------
@@ -61,10 +65,6 @@ function UI_Lobby:initUI()
 
     -- 테이머 아이콘 갱신
     self:refresh_userTamer()
-
-    -- 임시 처리
-    local vars = self.vars
-    vars['subscriptionLabel']:setVisible(false) -- 월정액 시간 표기 label
 
     g_topUserInfo:clearBroadcast()
 end
@@ -351,7 +351,6 @@ function UI_Lobby:initButton()
     vars['googleAchievementBtn']:registerScriptTapHandler(function() self:click_googleAchievementBtn() end)
 
     -- 우측 UI
-    vars['subscriptionBtn']:registerScriptTapHandler(function() self:click_subscriptionBtn() end) -- 월정액
     vars['capsuleBtn']:registerScriptTapHandler(function() self:click_capsuleBtn() end)
     vars['itemAutoBtn']:registerScriptTapHandler(function() self:click_itemAutoBtn() end) -- 자동재화(광고)
     vars['giftBoxBtn']:registerScriptTapHandler(function() self:click_giftBoxBtn() end) -- 랜덤박스(광고)
@@ -657,19 +656,13 @@ function UI_Lobby:click_eventBtn()
 end
 
 -------------------------------------
--- function click_subscriptionBtn
--- @brief 월정액 버튼
--------------------------------------
-function UI_Lobby:click_subscriptionBtn()
-    g_subscriptionData:openSubscriptionPopup()
-end
-
--------------------------------------
 -- function click_itemAutoBtn
 -- @brief 자동재화 버튼 (광고 보기)
 -------------------------------------
 function UI_Lobby:click_itemAutoBtn()
-    g_advertisingData:showAdvPopup(AD_TYPE.AUTO_ITEM_PICK)
+    -- 2017-09-21 sgkim 매일매일 다이아를 자동 줍기에 더 비중을 두어 변경
+    --g_advertisingData:showAdvPopup(AD_TYPE.AUTO_ITEM_PICK)
+    g_subscriptionData:openSubscriptionPopup()
 end
 
 -------------------------------------
@@ -777,14 +770,24 @@ function UI_Lobby:update(dt)
 
     -- 광고 (자동재화, 선물상자 정보)
     do
+        -- 자동줍기
         local vars = self.vars
         local msg1, enable1 = g_advertisingData:getCoolTimeStatus(AD_TYPE.AUTO_ITEM_PICK)
         vars['itemAutoLabel']:setString(msg1)
-        vars['itemAutoBtn']:setEnabled(enable1)
+        --vars['itemAutoBtn']:setEnabled(enable1) -- 매일매일 다이아 ui를 띄우는 것으로 변경함 (항상 enabled로!) 2017-09-21 sgkim
+        if (self.m_bItemAutoEnabled == nil) or (self.m_bItemAutoEnabled ~= enable1) then
+            self.m_bItemAutoEnabled = enable1
+            vars['itemAutoBtn']:setAutoShake(self.m_bItemAutoEnabled)
+        end
 
+        -- 선물상자
         local msg2, enable2 = g_advertisingData:getCoolTimeStatus(AD_TYPE.RANDOM_BOX_LOBBY)
         vars['giftBoxLabel']:setString(msg2)
         vars['giftBoxBtn']:setEnabled(enable2)
+        if (self.m_bGiftBoxEnabled == nil) or (self.m_bGiftBoxEnabled ~= enable2) then
+            self.m_bGiftBoxEnabled = enable2
+            vars['giftBoxBtn']:setAutoShake(self.m_bGiftBoxEnabled)
+        end
     end
 
     -- spine 캐시 정리 확인
