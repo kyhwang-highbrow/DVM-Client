@@ -3,8 +3,7 @@
 -- @brief 광고 SDK 매니져
 -------------------------------------
 AdsManager = {
-    callback = function() end,
-    mode = '',
+    callback,
 }
 
 -------------------------------------
@@ -19,6 +18,54 @@ local function skip()
 end
 
 -------------------------------------
+-- function result
+-------------------------------------
+function AdsManager:result(ret, info)
+    cclog('UnityAds Callback - ret:' .. ret .. ',info:' .. info)
+
+    if self.callback ~= nil then
+        self.callback(ret, info)
+    end
+end
+
+-------------------------------------
+-- function start
+-- placementIds: 'rewardedVideo', 'lobbyGiftBox', 'storeGiffbox'
+-------------------------------------
+function AdsManager:start(placementId, result_cb)
+    if (skip()) then 
+        return
+    end
+
+    self.callback = result_cb
+
+    local mode = ''
+    if (IS_TEST_MODE()) then
+        mode = 'test'
+    end
+
+    local function _result_cb(ret, info)
+        self:result(ret, info)
+    end
+
+    PerpleSDK:unityAdsStart(mode, '', _result_cb)
+end
+
+-------------------------------------
+-- function show
+-- placementIds: 'rewardedVideo', 'lobbyGiftBox', 'storeGiffbox'
+-------------------------------------
+function AdsManager:show(placementId, result_cb)
+    if (skip()) then 
+        return
+    end
+
+    self.callback = result_cb
+
+    PerpleSDK:unityAdsShow(placementId, '')
+end
+
+-------------------------------------
 -- function prepare
 -------------------------------------
 function AdsManager:prepare()
@@ -26,42 +73,7 @@ function AdsManager:prepare()
         return
     end
 
-    self:start('', nil)
-end
-
--------------------------------------
--- function start
--------------------------------------
-function AdsManager:start(placementId, result_cb)
-    if (skip()) then 
-        return
-    end
-
-    self.callback = result_cb or function() end
-
-    local function _result_cb(ret, info)
-        cclog('UnityAds Callback - ret:' .. ret .. ',info:' .. info)
-        self.callback(ret, info)
-    end
-
-    if (IS_TEST_MODE()) then
-        self.mode = 'test'
-    end
-
-    PerpleSDK:unityAdsStart(self.mode, '', _result_cb)
-end
-
--------------------------------------
--- function show
--------------------------------------
-function AdsManager:show(placementId, result_cb)
-    if (skip()) then 
-        return
-    end
-
-    self.callback = result_cb or function() end
-
-    PerpleSDK:unityAdsShow(placementId, '')
+    self:start('')
 end
 
 -------------------------------------
@@ -72,7 +84,11 @@ function AdsManager:showPlacement(placementId, result_cb)
         return
     end
 
-    local function __result_cb(ret, info)
+    local function _result_cb(ret, info)
+        if ret == 'finish' or ret == 'error' then
+            SoundMgr:playCurrBGM()
+        end
+
         if (ret == 'error') then
             self:showErrorPopup(info, function()
                 result_cb(ret, info)
@@ -82,29 +98,8 @@ function AdsManager:showPlacement(placementId, result_cb)
         end
     end
 
-    local function _result_cb(ret, info)
-        if (ret == 'ready') then
-            if (info == placementId) then
-                SoundMgr:stopBGM()
-                local started = true
-                self:show(placementId, function(ret, info)
-                    if ret == 'finish' or ret == 'error' then
-                        if started == true then
-                            SoundMgr:playCurrBGM()
-                        end
-                    end
-                    __result_cb(ret, info)
-                end)
-            -- 규석 : 유저들 간헐적으로 콜백이 안와서 로딩만 남는 경우가 있는데 이부분인듯.
-            else
-                __result_cb(ret, info)
-            end
-        else
-            __result_cb(ret, info)
-        end
-    end
-
-    self:start(placementId, _result_cb)
+    SoundMgr:stopBGM()
+    self:show(placementId, _result_cb)
 end
 
 -------------------------------------
@@ -133,10 +128,13 @@ function AdsManager:showErrorPopup(errorCode, result_cb)
         msg = Str('광고 재생 과정에서 오류가 발생하였습니다. 잠시 후 다시 시도해 주세요.')
     elseif (errorCode == 'INTERNAL_ERROR') then
         msg = Str('광고 모듈에 오류가 발생하였습니다. 잠시 후 다시 시도해 주세요.')
-    else
-        -- 'NOT_READY'
-        --msg = Str('광고가 준비되지 않은 상태이거나 일시적인 오류로 광고를 받아오지 못했습니다.')
+    elseif (errorCode == 'NOT_READY') then
         result_cb()
+        return
+    else
+        -- 'ALREADY_INITIALIZED'
+        result_cb()
+        return
     end
 
     MakeSimplePopup(POPUP_TYPE.OK, msg, result_cb)
