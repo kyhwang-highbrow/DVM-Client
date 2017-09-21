@@ -10,6 +10,8 @@
 	<string>983890984134-krrfuti1qgk3k09j87gobkq96322v48v.apps.googleusercontent.com</string>
 	<key>REVERSED_CLIENT_ID</key>
 	<string>com.googleusercontent.apps.983890984134-krrfuti1qgk3k09j87gobkq96322v48v</string>
+	<key>ANDROID_CLIENT_ID</key>
+	<string>983890984134-bu6qcl70aldkj2tudkavoufae0sao0ot.apps.googleusercontent.com</string>
 	<key>API_KEY</key>
 	<string>AIzaSyBlkzvs8yz7s56tGQnSWBJMPjrinlDdgqE</string>
 	<key>GCM_SENDER_ID</key>
@@ -25,9 +27,9 @@
 	<key>IS_ADS_ENABLED</key>
 	<true/>
 	<key>IS_ANALYTICS_ENABLED</key>
-	<true/>
-	<key>IS_APPINVITE_ENABLED</key>
 	<false/>
+	<key>IS_APPINVITE_ENABLED</key>
+	<true/>
 	<key>IS_GCM_ENABLED</key>
 	<true/>
 	<key>IS_SIGNIN_ENABLED</key>
