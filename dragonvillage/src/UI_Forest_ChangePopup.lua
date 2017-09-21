@@ -84,8 +84,9 @@ function UI_Forest_ChangePopup:refresh_dragonMaterialTableView()
     list_table_node:removeAllChildren()
 
     -- 리스트 아이템 생성 콜백
+    local item_scale = 0.66
     local function create_func(ui, data)
-        ui.root:setScale(0.80)
+        ui.root:setScale(item_scale)
         -- 클릭 버튼 설정
         ui.vars['clickBtn']:registerScriptTapHandler(function() self:click_dragonMaterial(data) end)
 
@@ -94,8 +95,8 @@ function UI_Forest_ChangePopup:refresh_dragonMaterialTableView()
 
     -- 테이블뷰 생성
     local table_view_td = UIC_TableViewTD(list_table_node)
-    table_view_td.m_cellSize = cc.size(124.4, 124.4)
-    table_view_td.m_nItemPerCell = 10
+    table_view_td.m_cellSize = cc.size(150 * item_scale, 150 * item_scale)
+    table_view_td.m_nItemPerCell = 5
     table_view_td:setCellUIClass(UI_DragonCard, create_func)
     self.m_mtrlTableViewTD = table_view_td
 

@@ -124,6 +124,7 @@ function UI_Forest_StuffLevelupPopup:click_levelupBtn()
         self.vars['objectVisual']:changeAni('stuff_lvup_' .. stuff_type, false)
         self.vars['objectVisual']:addAniHandler(function()
             self:refresh()
+            self.m_stuffObject.m_ui:refresh()
         end)
     end
     ServerData_Forest:getInstance():request_stuffLevelup(stuff_type, finish_cb)
