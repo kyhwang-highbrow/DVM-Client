@@ -872,8 +872,10 @@ local t_module = {
     'UI_EventPopupTab_HBShop',
     'UI_EventPopupTab_HBShop_Coupon',
     'UI_EventPopupTab_PackageGrowth',
+    'UI_EventPopupTab_Scroll',
     'UI_ExchangeProductListItem',
     'UI_AccessTimeDataListItem',
+    'UI_ChuseokEvent',
 
 	-- UI : 연출
 	'DirectingCharacter',

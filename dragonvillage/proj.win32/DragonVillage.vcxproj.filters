@@ -2781,6 +2781,12 @@
     <None Include="..\src\TableForestStuffType.lua">
       <Filter>lua\forest</Filter>
     </None>
+    <None Include="..\src\UI_ChuseokEvent.lua">
+      <Filter>lua\UI</Filter>
+    </None>
+    <None Include="..\src\UI_EventPopupTab_Scroll.lua">
+      <Filter>lua\UI</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Classes">

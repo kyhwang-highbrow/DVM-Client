@@ -222,6 +222,10 @@ function UI_EventPopup:makeEventPopupTab(tab)
         local product = {product_id = 'slime_package'}
         ui = UI_EventPopupTab_Shop(product)
 
+    -- 추석 이벤트
+    elseif (string.find(tab, 'event_chuseok')) then
+        ui = UI_EventPopupTab_Scroll(self, struct_event_popup_tab)
+
     end
 
     self.m_mTabUI[tab] = ui

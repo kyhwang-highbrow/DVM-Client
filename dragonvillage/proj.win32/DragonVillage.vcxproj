@@ -884,6 +884,7 @@ xcopy /Y /Q "$(ProjectDir)..\..\libraries\pati\prebuilt\windows\*.dll" "$(OutDir
     <None Include="..\src\UI_ChapterSelect.lua" />
     <None Include="..\src\UI_ChapterSelectListItem.lua" />
     <None Include="..\src\UI_CheersPopup.lua" />
+    <None Include="..\src\UI_ChuseokEvent.lua" />
     <None Include="..\src\UI_ColosseumReadyForDev.lua" />
     <None Include="..\src\UI_CouponPopup.lua" />
     <None Include="..\src\UI_CouponPopupPreOccupancyNick.lua" />
@@ -893,6 +894,7 @@ xcopy /Y /Q "$(ProjectDir)..\..\libraries\pati\prebuilt\windows\*.dll" "$(OutDir
     <None Include="..\src\UI_EventPopupTab_HBShop.lua" />
     <None Include="..\src\UI_EventPopupTab_HBShop_Coupon.lua" />
     <None Include="..\src\UI_EventPopupTab_PackageGrowth.lua" />
+    <None Include="..\src\UI_EventPopupTab_Scroll.lua" />
     <None Include="..\src\UI_EvolutionStoneCombine.lua" />
     <None Include="..\src\UI_EvolutionStoneCombineListItem.lua" />
     <None Include="..\src\UI_Forest.lua" />
