@@ -616,5 +616,10 @@ end
 -- @breif 해제되지 않고 계속 유지되며 별도의 표시가 없는 상태효과(리더스킬 or 패시브 스킬)인지 여부 체크
 -------------------------------------
 function StatusEffectHelper:isHidden(effect_name)
-    return (string.find(effect_name, 'leader') or string.find(effect_name, 'passive'))
+    if (type(effect_name) == 'string') then -- 이름으로 들어오는 경우
+        return (string.find(effect_name, 'leader') or string.find(effect_name, 'passive'))
+    else -- table로 들어오는 경우
+        return (string.find(effect_name.m_statusEffectName, 'leader') or string.find(effect_name.m_statusEffectName, 'passive')) 
+            or (effect_name.m_statusEffectTable['type'] == 'conditional_buff')
+    end
 end
