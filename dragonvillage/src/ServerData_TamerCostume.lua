@@ -17,16 +17,27 @@ function ServerData_TamerCostume:init(server_data)
 end
 
 -------------------------------------
--- function getCostumeDataWithTamerID 
--- @brief 코스튬 정보 반환
+-- function getCostumeID 
+-- @brief 코스튬 ID 반환
 -------------------------------------
-function ServerData_TamerCostume:getCostumeDataWithTamerID(tamer_id)
+function ServerData_TamerCostume:getCostumeID(tamer_id)
 	local tamer_id = tamer_id or g_tamerData:getCurrTamerID()
+    local costume_id
     if (g_tamerData.m_mTamerMap[tamer_id]) then
         costume_id = g_tamerData.m_mTamerMap[tamer_id]['costume']
     else
         costume_id = TableTamerCostume:getDefaultCostumeID(tamer_id)
     end
+    
+    return costume_id
+end
+
+-------------------------------------
+-- function getCostumeDataWithTamerID 
+-- @brief 코스튬 정보 반환
+-------------------------------------
+function ServerData_TamerCostume:getCostumeDataWithTamerID(tamer_id)
+    local costume_id = self:getCostumeID(tamer_id)
     
     local table_tamer = TableTamerCostume()
     local t_costume = table_tamer:get(costume_id)

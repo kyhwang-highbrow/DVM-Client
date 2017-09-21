@@ -2787,6 +2787,12 @@
     <None Include="..\src\UI_EventPopupTab_Scroll.lua">
       <Filter>lua\UI</Filter>
     </None>
+    <None Include="..\src\UI_Forest_StuffLevelupPopup.lua">
+      <Filter>lua\forest</Filter>
+    </None>
+    <None Include="..\src\UI_Forest_StuffListPopup.lua">
+      <Filter>lua\forest</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Classes">

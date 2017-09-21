@@ -41,7 +41,8 @@ function ServerData_Forest:getMyUserInfo()
         ['tamer'] = g_tamerData:getCurrTamerID(),
         ['tamer_title'] = g_userData:getTitleID(),
         ['nick'] = g_userData:get('nick'),
-        ['leader'] = g_dragonsData:getLeaderDragon()
+        ['leader'] = g_dragonsData:getLeaderDragon(),
+        ['costume_id'] = g_tamerCostumeData:getCostumeID(),
     }
 
     return StructUserInfoForest:create(t_user_info)
@@ -72,7 +73,9 @@ end
 -- function getMaxDragon
 -------------------------------------
 function ServerData_Forest:getMaxDragon()
-    return 20
+    local lv = self.m_tStuffInfo['extension']['stuff_lv']
+    local max_cnt = TableForestStuffLevelInfo:getDragonMaxCnt(lv)
+    return max_cnt
 end
 
 
@@ -130,7 +133,7 @@ function ServerData_Forest:applyForestInfo(t_ret)
     for i, t_dragon_info in pairs(t_ret['forest_dragons']) do
         doid = t_dragon_info['doid']
         struct_dragon = g_dragonsData:getDragonDataFromUid(doid)
-        struct_dragon.happy_at = t_dragon_info['happy_at'] or 0
+        struct_dragon.happy_at = t_dragon_info['happy_at']/1000 or 0
         self.m_tDragonStruct[doid] = struct_dragon
     end 
 end

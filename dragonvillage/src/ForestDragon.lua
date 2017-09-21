@@ -351,7 +351,7 @@ function ForestDragon:checkHappy()
     self.m_happyAnimator = nil
 
     -- 서버 통신
-    local doid = self.m_structDragon.doid
+    local doid = self.m_structDragon['id']
     local function finish_cb()
         -- 드래곤 만족도 연출 이벤트
         local struct_event = StructForestEvent()
@@ -359,9 +359,8 @@ function ForestDragon:checkHappy()
         struct_event:setPosition(self.m_rootNode:getPosition())
         self:dispatch('forest_dragon_happy', struct_event)
     end
-    --ServerData_Forest:getInstance():request_dragonHappy(doid, finish_cb)
-    finish_cb()
-
+    ServerData_Forest:getInstance():request_dragonHappy(doid, finish_cb)
+    
     return true
 end
 

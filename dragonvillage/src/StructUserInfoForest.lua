@@ -17,6 +17,7 @@ function StructUserInfoForest:create(t_data)
     user_info.m_lv = t_data['lv']
     user_info.m_tamerID = t_data['tamer']
     user_info.m_tamerTitleID = t_data['tamer_title']
+    user_info.m_tamerCostumeID = t_data['costume_id']
     user_info.m_leaderDragonObject = StructDragonObject(t_data['leader'])
 
     return user_info

@@ -26,13 +26,16 @@ end
 function ForestStuffUI:initUI()
     local vars = self.vars
     local t_stuff_info = self.m_tSuffInfo
+    local stuff_type = t_stuff_info['stuff_type']
     local stuff_lv = t_stuff_info['stuff_lv']
     
     -- 활성화 되지 않은 상태
     if (not stuff_lv) then
         vars['timeLabel']:setVisible(false)
         vars['lockSprite']:setVisible(true)
-        vars['infoLabel']:setString(Str('테이머 레벨 {1} 달성 시 오픈'))
+
+        local open_lv = TableForestStuffLevelInfo:getOpenLevel(stuff_type)
+        vars['infoLabel']:setString(Str('테이머 레벨 {1} 달성 시 오픈', open_lv))
         return
     end
 

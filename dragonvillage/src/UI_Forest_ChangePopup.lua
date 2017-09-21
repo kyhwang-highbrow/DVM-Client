@@ -24,7 +24,7 @@ end
 -------------------------------------
 function UI_Forest_ChangePopup:init()
     local vars = self:load('dragon_forest_change_popup.ui')
-    UIManager:open(self, UIManager.POPUP)
+    UIManager:open(self, UIManager.SCENE)
 
     -- backkey 지정
     g_currScene:pushBackKeyListener(self, function() self:close() end, 'UI_Forest_ChangePopup')
