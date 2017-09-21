@@ -298,21 +298,25 @@ function ForestTerritory:initStuffs()
     local t_server_info = ServerData_Forest:getInstance():getStuffInfo()
 
     for _, t_stuff in pairs(table_forest_stuff.m_orgTable) do
-        local clone_stuff = clone(t_stuff)
         local stuff_type = t_stuff['stuff_type']
-        local server_info = t_server_info[stuff_type] or {}
+        if (stuff_type == 'extension') then
+            -- 숲 확장은 오브젝트를 생성하지 않는다.
+        else
+            local clone_stuff = clone(t_stuff)
+            local server_info = t_server_info[stuff_type] or {}
         
-        for i, v in pairs(server_info) do
-            clone_stuff[i] = v
+            for i, v in pairs(server_info) do
+                clone_stuff[i] = v
+            end
+
+            local stuff = ForestStuff(clone_stuff)
+            stuff:initUI()
+            stuff:initAnimator()
+            stuff:initSchedule()
+
+            self.m_ground:addChild(stuff.m_rootNode, FOREST_ZORDER['STUFF'])
+            self.m_lStuffList[stuff_type] = stuff
         end
-
-        local stuff = ForestStuff(clone_stuff)
-        stuff:initUI()
-        stuff:initAnimator()
-        stuff:initSchedule()
-
-        self.m_ground:addChild(stuff.m_rootNode, FOREST_ZORDER['STUFF'])
-        self.m_lStuffList[stuff_type] = stuff
     end
 end
 
@@ -614,9 +618,7 @@ function ForestTerritory:onEvent(event_name, struct_event)
         local function finish_cb()
             local gauge_visual = self.m_ui.vars['gaugeVisual']
             gauge_visual:changeAni('gauge', false)
-            gauge_visual:addAniHandler(function()
-                self.m_ui:refresh_happy()
-            end)
+            self.m_ui:refresh_happy()
         end
 
         -- 액션

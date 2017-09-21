@@ -84,8 +84,7 @@ function UI_Forest:refresh_happy()
     -- 만족도 바
     local happy_pnt = ServerData_Forest:getInstance():getHappy()
     vars['giftLabel']:setString(string.format('%d %%', happy_pnt/10))
-    vars['giftGauge']:runAction(cc.ProgressTo:create(0.5, happy_pnt/1000))
-    --vars['boxVisual']:changeAni('gift_box_tap', false)
+    vars['giftGauge']:runAction(cc.ProgressTo:create(0.5, happy_pnt/10))
 end
 
 -------------------------------------
@@ -102,7 +101,6 @@ function UI_Forest:click_changeBtn()
     UI_Forest_ChangePopup():setChangeCB(function()
         -- 드래곤 다시 생성
         self.m_territory:initDragons()
-
         self:refresh()
     end)
 end
@@ -111,7 +109,6 @@ end
 -- function click_levelupBtn
 -------------------------------------
 function UI_Forest:click_levelupBtn()
-    ccdisplay('click_levelupBtn')
     UI_Forest_StuffListPopup()
 end
 

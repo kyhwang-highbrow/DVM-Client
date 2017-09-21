@@ -154,7 +154,7 @@ function ServerData_Forest:request_setDragons(doids, finish_cb)
         for i, t_dragon_info in pairs(ret['forest_dragons']) do
             doid = t_dragon_info['doid']
             struct_dragon = g_dragonsData:getDragonDataFromUid(doid)
-            struct_dragon.happy_at = t_dragon_info['happy_at'] or 0
+            struct_dragon.happy_at = (t_dragon_info['happy_at'] or 0)/1000
             self.m_tDragonStruct[doid] = struct_dragon
         end 
 
@@ -187,7 +187,10 @@ function ServerData_Forest:request_dragonHappy(doid, finish_cb)
     -- 성공 콜백
     local function success_cb(ret)
         -- 공용 드래곤의 숲 정보
-        self.m_happyRate = t_ret['forest_info']['happy']
+        self.m_happyRate = ret['forest_info']['happy']
+
+        local struct_dragon_object = self.m_tDragonStruct[doid]
+        struct_dragon_object.happy_at = (ret['forest_dragon']['happy_at'] or 0)/1000
 
         if finish_cb then
             finish_cb(ret)

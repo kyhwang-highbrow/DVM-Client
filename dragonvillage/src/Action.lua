@@ -299,6 +299,10 @@ function cca.actGetObject(node, height, tar_pos, finish_cb)
 
 	-- 슈웅
 	local pos_x, pos_y = node:getPosition()
+           
+    pos_x = pos_x + height/2 -- 톡 또르르르 이동에 대한 보정
+    pos_y = pos_y + -height
+
     local dist_x = math_abs(tar_pos.x - pos_x)
     local duration = 0.3 + (dist_x/1280 * 0.5)
     local move_act
@@ -309,6 +313,8 @@ function cca.actGetObject(node, height, tar_pos, finish_cb)
 
     -- 아니면 베지어 이동
     else
+
+
 	    local bezier = getBezier(tar_pos.x, tar_pos.y, pos_x, pos_y, 1) -- -1은 아래를 향한 곡선
 	    move_act = cc.BezierBy:create(duration, bezier, true)
     end

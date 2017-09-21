@@ -9,7 +9,7 @@ UI_Forest_StuffLevelupPopup = class(PARENT,{
 -------------------------------------
 -- function init
 -------------------------------------
-function UI_Forest_StuffLevelupPopup:init()
+function UI_Forest_StuffLevelupPopup:init(t_stuff_info)
     local vars = self:load('dragon_forest_levelup_popup.ui')
     UIManager:open(self, UIManager.POPUP)
 
