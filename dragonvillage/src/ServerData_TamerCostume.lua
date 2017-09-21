@@ -22,7 +22,11 @@ end
 -------------------------------------
 function ServerData_TamerCostume:getCostumeDataWithTamerID(tamer_id)
 	local tamer_id = tamer_id or g_tamerData:getCurrTamerID()
-    local costume_id = g_tamerData.m_mTamerMap[tamer_id]['costume'] or TableTamerCostume:getDefaultCostumeID(tamer_id)
+    if (g_tamerData.m_mTamerMap[tamer_id]) then
+        costume_id = g_tamerData.m_mTamerMap[tamer_id]['costume']
+    else
+        TableTamerCostume:getDefaultCostumeID(tamer_id)
+    end
     
     local table_tamer = TableTamerCostume()
     local t_costume = table_tamer:get(costume_id)
