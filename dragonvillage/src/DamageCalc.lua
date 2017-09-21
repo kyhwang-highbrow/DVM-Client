@@ -4,9 +4,9 @@ local CONST_REDUNCTION_RATIO_P = 249
 -- function DamageCalc_P
 -- @brief 물리 데미지 계산
 -------------------------------------
-function DamageCalc_P(atk_dmg, def_pwr)
+function DamageCalc_P(atk_dmg, def_pwr, is_debug)
     if (atk_dmg == 0 and def_pwr == 0) then return 0 end
-    
+
     -- 물리 공격력
     local atk_dmg = atk_dmg
 
@@ -14,7 +14,7 @@ function DamageCalc_P(atk_dmg, def_pwr)
     local rand = math_random(85, 115) / 100 
 
     -- 디버그 모드 중일 경우 랜덤 계산 막음
-    if g_constant:get('DEBUG', 'PRINT_ATTACK_INFO') then
+    if (is_debug) then
         rand = 1
     end
 
@@ -23,8 +23,25 @@ function DamageCalc_P(atk_dmg, def_pwr)
 
     -- 모든 계수를 곱함
     local damage = rand * (atk_dmg * (reduction_ratio + def_pwr) / (reduction_ratio + (251 * def_pwr)))
+
+    -- @DEBUG
+    local str = '\n'
+    local printLine = function(_str)
+        str = str .. _str .. '\n'
+    end
+
+    if (is_debug) then
+        printLine('[LUA-print] ------------------------------------------------------')
+        printLine('[LUA-print] -- DamageCalc_P')
+        printLine('[LUA-print] ------------------------------------------------------')
+        printLine('[LUA-print] RATIO = ' .. atk_dmg .. '(공격력) X ' .. CONST_REDUNCTION_RATIO_P .. '(CONST_REDUNCTION_RATIO_P)')
+        printLine('[LUA-print] RATIO : ' .. reduction_ratio)
+        printLine('[LUA-print] 데미지 = 랜덤배율 X (공격력 X (RATIO + 방어력) / (RATIO + (251 * 방어력)))')
+        printLine('[LUA-print] ' .. string.format('%f = %f X (%f X (%f + %f) / (%f + (251 * %f)))',
+            damage, rand, atk_dmg, reduction_ratio, def_pwr, reduction_ratio, def_pwr))
+    end
 	
-	return damage
+	return damage, str
 	
 end
 
@@ -34,6 +51,7 @@ end
 -------------------------------------
 function ReductionRatioCalc_P(atk_dmg)
     local reduction_ratio = atk_dmg * CONST_REDUNCTION_RATIO_P
+
     return reduction_ratio
 end
 

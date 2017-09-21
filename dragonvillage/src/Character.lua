@@ -449,6 +449,8 @@ function Character:undergoAttack(attacker, defender, i_x, i_y, body_key, no_even
     if (not self.m_world.m_gameState:isFight()) then return end
     if (not attacker.m_activityCarrier) then return end
 
+    local use_debug_log = g_constant:get('DEBUG', 'PRINT_ATTACK_INFO')
+
 	-- 공격자 정보
 	local attack_activity_carrier = attacker.m_activityCarrier
     local attacker_char = attack_activity_carrier:getActivityOwner()
@@ -554,7 +556,7 @@ function Character:undergoAttack(attacker, defender, i_x, i_y, body_key, no_even
         --------------------------------------------------------------
         -- 데미지 계산(damage)
         --------------------------------------------------------------
-		local org_damage = DamageCalc_P(atk_dmg, def_pwr)
+		local org_damage, str_debug = DamageCalc_P(atk_dmg, def_pwr, use_debug_log)
         damage = org_damage
 
         -- 게임 모드에 따른 데미지 배율
@@ -573,7 +575,7 @@ function Character:undergoAttack(attacker, defender, i_x, i_y, body_key, no_even
         damage = damage / attack_hit_count
 
         -- @DEBUG
-	    if g_constant:get('DEBUG', 'PRINT_ATTACK_INFO') then
+	    if (use_debug_log) then
             cclog('######################################################')
             if (attacker_char) then
 	            cclog('공격자 : ' .. attacker_char:getName())
@@ -590,6 +592,10 @@ function Character:undergoAttack(attacker, defender, i_x, i_y, body_key, no_even
                 cclog('--드래그 스킬 추가 공격력 : ' .. drag_dmg)
             end
             cclog('--최종 공격력 : ' .. atk_dmg)
+
+            if (str_debug) then
+                cclog(str_debug)
+            end
 
             cclog('------------------------------------------------------')
 	        cclog('--방어력 : ' .. org_def_pwr)
@@ -688,7 +694,7 @@ function Character:undergoAttack(attacker, defender, i_x, i_y, body_key, no_even
         damage = math_max(damage, 1)
 
         -- @DEBUG
-	    if g_constant:get('DEBUG', 'PRINT_ATTACK_INFO') then
+	    if (use_debug_log) then
             cclog('------------------------------------------------------')
             if (cri_dmg_rate ~= 0) then
                 cclog('--치명타로 인한 피해량 비율 : ' .. cri_dmg_rate)
