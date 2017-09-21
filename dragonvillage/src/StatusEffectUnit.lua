@@ -64,13 +64,14 @@ end
 -- @param modified_dt 디법 지속시간 스텟을 적용한 dt
 -------------------------------------
 function StatusEffectUnit:update(dt, modified_dt)
-    if (self.m_bHiddenSkill) then
-        -- 리더 스킬이 아닌 경우
-        if (not self.m_bLeaderSkill) then
-            -- 시전자가 죽었는지 체크
-            if (self.m_caster and self.m_caster:isDead()) then
-                return true
-            end
+    if (self.m_bLeaderSkill) then
+    
+    elseif (self.m_bHiddenSkill) then
+        if (self.m_owner == self.m_caster) then
+            -- 시전자가 자기 자신이면 항상 유지
+        elseif (self.m_caster and self.m_caster:isDead()) then
+            -- 시전자가 자기 자신이 아니고 죽었다면 해제
+            return true
         end
     else
         -- 대상자가 죽었는지 체크
