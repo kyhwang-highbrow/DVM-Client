@@ -241,9 +241,12 @@ function StructRuneObject:getRuneEnhanceReqGold()
     end
 
     local lv = self['lv']
+    local grade = self['grade']
     local table_rune_enhance = TABLE:get('table_rune_enhance')
     local t_rune_enhance = table_rune_enhance[lv]
-    local req_gold = t_rune_enhance['req_gold']
+
+    -- 등급, 레벨별 가격이 적용되도록 변경됨 2017-09-21 sgkim
+    local req_gold = t_rune_enhance['req_gold_' .. grade]
 
     return req_gold
 end

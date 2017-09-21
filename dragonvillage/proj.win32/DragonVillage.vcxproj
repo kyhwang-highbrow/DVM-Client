@@ -419,7 +419,6 @@ xcopy /Y /Q "$(ProjectDir)..\..\libraries\pati\prebuilt\windows\*.dll" "$(OutDir
     <None Include="..\src\QuickLinkHelper.lua" />
     <None Include="..\src\RenderTextureBatchNode.lua" />
     <None Include="..\src\ResHelper.lua" />
-    <None Include="..\src\RuneEnchantHelper.lua" />
     <None Include="..\src\ScenarioViewingHistory.lua" />
     <None Include="..\src\SceneForest.lua" />
     <None Include="..\src\SceneGameColosseum.lua" />

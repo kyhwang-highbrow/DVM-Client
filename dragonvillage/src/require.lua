@@ -197,7 +197,6 @@ local t_module = {
     'RenderTextureBatchNode',
     'AncientTowerScoreCalc',
 	
-    'RuneEnchantHelper',
 	'IconHelper',
     'ResHelper',
     'AnimatorHelper',
