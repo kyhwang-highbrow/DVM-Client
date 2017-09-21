@@ -255,8 +255,11 @@ android {
 allprojects {
     repositories {
         jcenter()
+        maven {
+            url "https://adcolony.bintray.com/AdColony"
+        }
         flatDir {
-            dirs 'libs'
+            dirs "libs"
         }
     }
 }
@@ -272,7 +275,12 @@ dependencies {
 
     // @perplesdk
     compile(name:'perplesdk', ext:'aar')
-    
+
+    // @adcolony
+    compile 'com.adcolony:sdk:3.2.1'
+    compile 'com.google.android.gms:play-services-ads:11.0.4'
+    compile 'com.android.support:support-annotations:25.3.1'
+
     // @unity-ads
     compile(name:'unity-ads', ext:'aar')
 
