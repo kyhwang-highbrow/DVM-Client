@@ -9,7 +9,7 @@ StructForestEvent = class({
     pos_y = 'number',
     speed = 'number',
     stuff = 'string',
-
+    happy = 'number',
 })
 
 -------------------------------------
@@ -67,4 +67,18 @@ end
 -------------------------------------
 function StructForestEvent:setStuff(stuff)
     self.stuff = stuff
+end
+
+-------------------------------------
+-- function getHappy
+-------------------------------------
+function StructForestEvent:getHappy()
+    return self.happy
+end
+
+-------------------------------------
+-- function setHappy
+-------------------------------------
+function StructForestEvent:setHappy(happy)
+    self.happy = happy
 end

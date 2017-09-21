@@ -352,11 +352,13 @@ function ForestDragon:checkHappy()
 
     -- 서버 통신
     local doid = self.m_structDragon['id']
+    local curr_happy = ServerData_Forest:getInstance():getHappy()
     local function finish_cb()
         -- 드래곤 만족도 연출 이벤트
         local struct_event = StructForestEvent()
         struct_event:setObject(self)
         struct_event:setPosition(self.m_rootNode:getPosition())
+        struct_event:setHappy(curr_happy)
         self:dispatch('forest_dragon_happy', struct_event)
     end
     ServerData_Forest:getInstance():request_dragonHappy(doid, finish_cb)
