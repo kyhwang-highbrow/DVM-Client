@@ -48,10 +48,17 @@ function ServerData_Forest:getMyUserInfo()
 end
 
 -------------------------------------
--- function makeMyUserInfo
+-- function getMyDragons
 -------------------------------------
 function ServerData_Forest:getMyDragons()
     return self.m_tDragonStruct
+end
+
+-------------------------------------
+-- function getStuffInfo
+-------------------------------------
+function ServerData_Forest:getStuffInfo()
+    return self.m_tStuffInfo
 end
 
 -------------------------------------
@@ -81,10 +88,10 @@ end
 -- function request_myForestInfo
 -------------------------------------
 function ServerData_Forest:request_myForestInfo(finish_cb)
-    -- À¯Àú ID
+    -- ìœ ì € ID
     local uid = g_userData:get('uid')
     
-    -- ¼º°ø Äİ¹é
+    -- ì„±ê³µ ì½œë°±
     local function success_cb(ret)
         self:applyForestInfo(ret)
         if finish_cb then
@@ -92,7 +99,7 @@ function ServerData_Forest:request_myForestInfo(finish_cb)
         end
     end
 
-    -- ³×Æ®¿öÅ© Åë½Å
+    -- ë„¤íŠ¸ì›Œí¬ í†µì‹ 
     local ui_network = UI_Network()
     ui_network:setUrl('/forest/get/info')
     ui_network:setParam('uid', uid)
@@ -108,17 +115,17 @@ end
 -- function request_myForestInfo
 -------------------------------------
 function ServerData_Forest:applyForestInfo(t_ret)
-    -- °ø¿ë µå·¡°ïÀÇ ½£ Á¤º¸
+    -- ê³µìš© ë“œë˜ê³¤ì˜ ìˆ² ì •ë³´
     self.m_happyRate = t_ret['forest_info']['happy']
         
-    -- µå·¡°ïÀÇ ½£ ¿ÀºêÁ§Æ®
+    -- ë“œë˜ê³¤ì˜ ìˆ² ì˜¤ë¸Œì íŠ¸
     local stuff
     for i, t_stuff in pairs(t_ret['forest_stuffs']) do
         stuff = t_stuff['stuff']
         self.m_tStuffInfo[stuff] = t_stuff
     end
     
-    -- µå·¡°ïÀÇ ½£ µå·¡°ï Á¤º¸
+    -- ë“œë˜ê³¤ì˜ ìˆ² ë“œë˜ê³¤ ì •ë³´
     local doid, struct_dragon 
     for i, t_dragon_info in pairs(t_ret['forest_dragons']) do
         doid = t_dragon_info['doid']
@@ -132,14 +139,14 @@ end
 -- function request_myForestInfo
 -------------------------------------
 function ServerData_Forest:request_setDragons(doids, finish_cb)
-    -- À¯Àú ID
+    -- ìœ ì € ID
     local uid = g_userData:get('uid')
     
-    -- ¼º°ø Äİ¹é
+    -- ì„±ê³µ ì½œë°±
     local function success_cb(ret)
         self.m_tDragonStruct = {}
 
-        -- µå·¡°ïÀÇ ½£ µå·¡°ï Á¤º¸
+        -- ë“œë˜ê³¤ì˜ ìˆ² ë“œë˜ê³¤ ì •ë³´
         local doid, struct_dragon 
         for i, t_dragon_info in pairs(ret['forest_dragons']) do
             doid = t_dragon_info['doid']
@@ -153,7 +160,7 @@ function ServerData_Forest:request_setDragons(doids, finish_cb)
         end
     end
 
-    -- ³×Æ®¿öÅ© Åë½Å
+    -- ë„¤íŠ¸ì›Œí¬ í†µì‹ 
     local ui_network = UI_Network()
     ui_network:setUrl('/forest/set/dragons')
     ui_network:setParam('uid', uid)
@@ -171,12 +178,12 @@ end
 -- function request_myForestInfo
 -------------------------------------
 function ServerData_Forest:request_dragonHappy(doid, finish_cb)
-    -- À¯Àú ID
+    -- ìœ ì € ID
     local uid = g_userData:get('uid')
     
-    -- ¼º°ø Äİ¹é
+    -- ì„±ê³µ ì½œë°±
     local function success_cb(ret)
-        -- °ø¿ë µå·¡°ïÀÇ ½£ Á¤º¸
+        -- ê³µìš© ë“œë˜ê³¤ì˜ ìˆ² ì •ë³´
         self.m_happyRate = t_ret['forest_info']['happy']
 
         if finish_cb then
@@ -184,7 +191,7 @@ function ServerData_Forest:request_dragonHappy(doid, finish_cb)
         end
     end
 
-    -- ³×Æ®¿öÅ© Åë½Å
+    -- ë„¤íŠ¸ì›Œí¬ í†µì‹ 
     local ui_network = UI_Network()
     ui_network:setUrl('/forest/dragon/happy')
     ui_network:setParam('uid', uid)

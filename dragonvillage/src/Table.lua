@@ -79,6 +79,9 @@ local TableInfo = {
         table_ui_location     = {'table_ui_location',        'location_name', false},
 
         table_highbrow		  = {'table_highbrow',		     'id',	    false},
+
+        table_forest_stuff_type = {'table_forest_stuff_type', 'stuff_type', false},
+        table_forest_stuff_info = {'table_forest_stuff_info', 'id', false},
     }
 
 -------------------------------------

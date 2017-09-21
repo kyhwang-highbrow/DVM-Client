@@ -767,6 +767,8 @@ xcopy /Y /Q "$(ProjectDir)..\..\libraries\pati\prebuilt\windows\*.dll" "$(OutDir
     <None Include="..\src\TableEvolutionItemCombine.lua" />
     <None Include="..\src\TableExchange.lua" />
     <None Include="..\src\TableExplorationList.lua" />
+    <None Include="..\src\TableForestStuffLevelInfo.lua" />
+    <None Include="..\src\TableForestStuffType.lua" />
     <None Include="..\src\TableGoogleQuest.lua" />
     <None Include="..\src\TableHelp.lua" />
     <None Include="..\src\TableHighbrow.lua" />

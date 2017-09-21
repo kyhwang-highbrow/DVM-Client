@@ -5,54 +5,23 @@ local PARENT = ForestObject
 -------------------------------------
 ForestStuff = class(PARENT, {
         m_tStuffInfo = 'string',
-
+        m_ui = 'ForestStuffUI',
      })
-
-local POS_Y = 50
-local INFO = 
-{
-    {
-        ['stuff_type'] = 'nest',
-        ['res'] = 'dragon_forest_object_01',
-        ['x'] = -740,
-        ['y'] = 50
-    },
-
-    {
-        ['stuff_type'] = 'chest',
-        ['res'] = 'dragon_forest_object_02',
-        ['x'] = -320,
-        ['y'] = 50
-    },
-
-    {
-        ['stuff_type'] = 'table',
-        ['res'] = 'dragon_forest_object_03',
-        ['x'] = 20,
-        ['y'] = 50
-    },
-
-    {
-        ['stuff_type'] = 'well',
-        ['res'] = 'dragon_forest_object_04',
-        ['x'] = 390,
-        ['y'] = 55
-    },
-
-    {
-        ['stuff_type'] = 'bookshelf',
-        ['res'] = 'dragon_forest_object_05',
-        ['x'] = 750,
-        ['y'] = 90
-    },
-}
 
 -------------------------------------
 -- function init
 -------------------------------------
-function ForestStuff:init(idx)
+function ForestStuff:init(t_stuff)
     self.m_objectType = 'stuff'
-    self.m_tStuffInfo = INFO[idx]
+    self.m_tStuffInfo = t_stuff
+end
+
+-------------------------------------
+-- function initUI
+-------------------------------------
+function ForestStuff:initUI()
+    self.m_ui = ForestStuffUI(self.m_tStuffInfo)
+    self.m_rootNode:addChild(self.m_ui.root, 2)
 end
 
 -------------------------------------
@@ -63,7 +32,7 @@ function ForestStuff:initAnimator(file_name)
     self:releaseAnimator()
 
     -- Animator 생성
-    local res = string.format('res/bg/dragon_forest/%s.png', self.m_tStuffInfo['res'])
+    local res = self.m_tStuffInfo['res']
     self.m_animator = MakeAnimator(res)
     if (self.m_animator) then
         self.m_rootNode:addChild(self.m_animator.m_node)
@@ -77,6 +46,7 @@ end
 -- function update
 -------------------------------------
 function ForestStuff:update(dt)
+    self.m_ui:updateTime()
 end
 
 -------------------------------------

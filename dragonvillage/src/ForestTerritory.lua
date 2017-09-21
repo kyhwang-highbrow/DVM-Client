@@ -294,12 +294,25 @@ end
 -- @brief 가구 생성
 -------------------------------------
 function ForestTerritory:initStuffs()
-    for i = 1, 5 do
-        local stuff = ForestStuff(i)
-        stuff:initSchedule()
+    local table_forest_stuff = TableForestStuffType()
+    local t_server_info = ServerData_Forest:getInstance():getStuffInfo()
+
+    for _, t_stuff in pairs(table_forest_stuff.m_orgTable) do
+        local clone_stuff = clone(t_stuff)
+        local stuff_type = t_stuff['stuff_type']
+        local server_info = t_server_info[stuff_type] or {}
+        
+        for i, v in pairs(server_info) do
+            clone_stuff[i] = v
+        end
+
+        local stuff = ForestStuff(clone_stuff)
+        stuff:initUI()
         stuff:initAnimator()
+        stuff:initSchedule()
+
         self.m_ground:addChild(stuff.m_rootNode, FOREST_ZORDER['STUFF'])
-        self.m_lStuffList[stuff:getStuffType()] = stuff
+        self.m_lStuffList[stuff_type] = stuff
     end
 end
 
@@ -372,8 +385,8 @@ function ForestTerritory:onTouchBegan(touches, event)
 
     -- Stuff 터치 체크
     for _, stuff in pairs(self.m_lStuffList) do
-        if (self:checkObjectTouch(location, stuff)) then
-            stuff:showEmotionEffect()
+        if (self:checkObjectTouch(location, stuff, 212)) then
+            stuff:touchStuff()
             return
         end
     end
@@ -525,15 +538,15 @@ end
 -- function checkObjectTouch
 -- @brief 해당 물체를 터치했는지 체크
 -------------------------------------
-function ForestTerritory:checkObjectTouch(touch_pos, forest_object)
+function ForestTerritory:checkObjectTouch(touch_pos, forest_object, size)
     if (not forest_object) then
         return
     end
-
+    local size = size or 70
     local world_pos = convertToWorldSpace(forest_object.m_animator.m_node)
     local distance = getDistance(touch_pos['x'], touch_pos['y'], world_pos['x'], world_pos['y'])
 
-    return (distance <= 70)
+    return (distance <= size)
 end
 
 

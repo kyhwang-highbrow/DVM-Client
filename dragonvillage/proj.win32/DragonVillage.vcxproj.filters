@@ -2775,6 +2775,12 @@
     <None Include="..\src\UI_TamerCostumeConfirmPopup.lua">
       <Filter>lua\UI</Filter>
     </None>
+    <None Include="..\src\TableForestStuffLevelInfo.lua">
+      <Filter>lua\forest</Filter>
+    </None>
+    <None Include="..\src\TableForestStuffType.lua">
+      <Filter>lua\forest</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Classes">
