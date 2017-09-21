@@ -44,12 +44,9 @@
 		3706F1CF1F691DC800777433 /* FLAnimatedImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3706F1CD1F691DC800777433 /* FLAnimatedImageView.m */; };
 		3706F1D41F691E0900777433 /* libApiGateway-MAC.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3706F1D21F691E0900777433 /* libApiGateway-MAC.a */; };
 		3706F1D91F691EB400777433 /* include in Resources */ = {isa = PBXBuildFile; fileRef = 3706F1D81F691EB400777433 /* include */; };
-		3706F1DC1F6920FE00777433 /* WebKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3706F1DB1F6920FE00777433 /* WebKit.framework */; };
-		3706F1DE1F69212B00777433 /* ReplayKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3706F1DD1F69212B00777433 /* ReplayKit.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
 		373E2D841A038712004EF0DB /* AppDelegate_Custom.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 373E2D7F1A038712004EF0DB /* AppDelegate_Custom.cpp */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		373E2D851A038712004EF0DB /* PerpSupportLua.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 373E2D801A038712004EF0DB /* PerpSupportLua.cpp */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		373E2D861A038712004EF0DB /* PerpSupportPatch.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 373E2D821A038712004EF0DB /* PerpSupportPatch.cpp */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
-		374376861F3A7FE100AC6C7C /* SafariServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 374376851F3A7FE100AC6C7C /* SafariServices.framework */; };
 		374376881F3A800F00AC6C7C /* libPerpleSDK.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 374376871F3A800F00AC6C7C /* libPerpleSDK.a */; };
 		3744D21519FDD5DE003D7120 /* ioapi.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3744D20C19FDD5DE003D7120 /* ioapi.cpp */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		3744D21719FDD5DE003D7120 /* unzip.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3744D21119FDD5DE003D7120 /* unzip.cpp */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
@@ -84,8 +81,6 @@
 		37519C041A6657A200406F47 /* PerpLua.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 37519C031A6657A200406F47 /* PerpLua.cpp */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		37519C101A6657B300406F47 /* PerpUtils.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 37519C0E1A6657B300406F47 /* PerpUtils.cpp */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		375E097A1F4498B10085A2FE /* UnityAds.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 375E09791F4498B10085A2FE /* UnityAds.framework */; };
-		3765B4CF1F67AEB60036B697 /* GameController.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3765B4CE1F67AEB60036B697 /* GameController.framework */; };
-		3765B4D11F67AEF80036B697 /* CoreMedia.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3765B4D01F67AEF80036B697 /* CoreMedia.framework */; };
 		377033A5198F5FF00091C231 /* ConfigParser.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3770339F198F5FF00091C231 /* ConfigParser.cpp */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		377033A6198F5FF00091C231 /* Runtime.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 377033A1198F5FF00091C231 /* Runtime.cpp */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		377033A7198F5FF00091C231 /* VisibleRect.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 377033A3198F5FF00091C231 /* VisibleRect.cpp */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
@@ -93,6 +88,15 @@
 		377033B7198F73060091C231 /* libcocos2dx iOS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 15A8A4251834BDA200142BE0 /* libcocos2dx iOS.a */; };
 		377033B8198F731C0091C231 /* libcocos2dx-extensions iOS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 15A8A4271834BDA200142BE0 /* libcocos2dx-extensions iOS.a */; };
 		377033B9198F732F0091C231 /* libluabindings iOS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C03781B618BF654500FE4F13 /* libluabindings iOS.a */; };
+		37BA05B21F73F4FA0048FF81 /* SafariServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 37BA05B11F73F4F90048FF81 /* SafariServices.framework */; };
+		37BA05B41F73F5150048FF81 /* CoreMedia.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 37BA05B31F73F5140048FF81 /* CoreMedia.framework */; };
+		37BA05B61F73F52B0048FF81 /* GameKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 37BA05B51F73F52A0048FF81 /* GameKit.framework */; };
+		37BA05B81F73F53B0048FF81 /* GameController.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 37BA05B71F73F53A0048FF81 /* GameController.framework */; };
+		37BA05BA1F73F54C0048FF81 /* ReplayKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 37BA05B91F73F54B0048FF81 /* ReplayKit.framework */; };
+		37BA05BC1F73F55C0048FF81 /* WebKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 37BA05BB1F73F55C0048FF81 /* WebKit.framework */; };
+		37BA05BE1F73F6270048FF81 /* JavaScriptCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 37BA05BD1F73F6270048FF81 /* JavaScriptCore.framework */; };
+		37BA05C01F73F6590048FF81 /* WatchConnectivity.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 37BA05BF1F73F6580048FF81 /* WatchConnectivity.framework */; };
+		37BA05C21F73F6960048FF81 /* libz.1.2.5.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 37BA05C11F73F6960048FF81 /* libz.1.2.5.tbd */; };
 		37D8E3F11A304EB9005E479B /* PerpSocial.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 37D8E3EF1A304EB9005E479B /* PerpSocial.cpp */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		37E128B01B45380F00200C23 /* EventKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 37E128AF1B45380F00200C23 /* EventKit.framework */; };
 		37E128B41B45384000200C23 /* EventKitUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 37E128B31B45384000200C23 /* EventKitUI.framework */; };
@@ -120,7 +124,6 @@
 		37E128E21B4539A900200C23 /* MediaPlayer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 37E128E11B4539A800200C23 /* MediaPlayer.framework */; };
 		37E128E61B4539C500200C23 /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 37E128E51B4539C500200C23 /* CFNetwork.framework */; };
 		37EF84261B268F3B00EFA299 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 37EF84281B268F3B00EFA299 /* InfoPlist.strings */; };
-		37FB64931F3AD0BF00378EE8 /* GameKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 37FB64921F3AD0BE00378EE8 /* GameKit.framework */; };
 		37FB64B71F3AF73300378EE8 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 37FB64B61F3AF73200378EE8 /* GoogleService-Info.plist */; };
 		5023811817EBBCAC00990C9B /* AppController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 5023810817EBBCAC00990C9B /* AppController.mm */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		5023812417EBBCAC00990C9B /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 5023811417EBBCAC00990C9B /* main.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
@@ -425,14 +428,11 @@
 		3706F1CD1F691DC800777433 /* FLAnimatedImageView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FLAnimatedImageView.m; path = "../../libraries/perplesdk/external/naver-cafe-sdk/ios/external-lib/FLAnimatedImage-1.0.12/FLAnimatedImageView.m"; sourceTree = "<group>"; };
 		3706F1D21F691E0900777433 /* libApiGateway-MAC.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = "libApiGateway-MAC.a"; path = "../../libraries/perplesdk/external/naver-cafe-sdk/ios/external-lib/ApiGateway-1.5.0/libApiGateway-MAC.a"; sourceTree = "<group>"; };
 		3706F1D81F691EB400777433 /* include */ = {isa = PBXFileReference; lastKnownFileType = folder; name = include; path = "../../libraries/perplesdk/external/naver-cafe-sdk/ios/external-lib/ApiGateway-1.5.0/include"; sourceTree = "<group>"; };
-		3706F1DB1F6920FE00777433 /* WebKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WebKit.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS10.3.sdk/System/Library/Frameworks/WebKit.framework; sourceTree = DEVELOPER_DIR; };
-		3706F1DD1F69212B00777433 /* ReplayKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ReplayKit.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS10.3.sdk/System/Library/Frameworks/ReplayKit.framework; sourceTree = DEVELOPER_DIR; };
 		373E2D7F1A038712004EF0DB /* AppDelegate_Custom.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = AppDelegate_Custom.cpp; path = ../Classes/AppDelegate_Custom.cpp; sourceTree = "<group>"; };
 		373E2D801A038712004EF0DB /* PerpSupportLua.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = PerpSupportLua.cpp; path = ../Classes/PerpSupportLua.cpp; sourceTree = "<group>"; };
 		373E2D811A038712004EF0DB /* PerpSupportLua.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PerpSupportLua.h; path = ../Classes/PerpSupportLua.h; sourceTree = "<group>"; };
 		373E2D821A038712004EF0DB /* PerpSupportPatch.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = PerpSupportPatch.cpp; path = ../Classes/PerpSupportPatch.cpp; sourceTree = "<group>"; };
 		373E2D831A038712004EF0DB /* PerpSupportPatch.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PerpSupportPatch.h; path = ../Classes/PerpSupportPatch.h; sourceTree = "<group>"; };
-		374376851F3A7FE100AC6C7C /* SafariServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SafariServices.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS10.3.sdk/System/Library/Frameworks/SafariServices.framework; sourceTree = DEVELOPER_DIR; };
 		374376871F3A800F00AC6C7C /* libPerpleSDK.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libPerpleSDK.a; path = ../../libraries/perplesdk/prebuilt/ios/libPerpleSDK.a; sourceTree = "<group>"; };
 		3744D20B19FDD5DE003D7120 /* e_os2.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = e_os2.h; path = ../Classes/e_os2.h; sourceTree = "<group>"; };
 		3744D20C19FDD5DE003D7120 /* ioapi.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = ioapi.cpp; path = ../Classes/ioapi.cpp; sourceTree = "<group>"; };
@@ -476,8 +476,6 @@
 		37519C0E1A6657B300406F47 /* PerpUtils.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = PerpUtils.cpp; path = ../Classes/PerpExt/PerpUtils.cpp; sourceTree = "<group>"; };
 		37519C0F1A6657B300406F47 /* PerpUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PerpUtils.h; path = ../Classes/PerpExt/PerpUtils.h; sourceTree = "<group>"; };
 		375E09791F4498B10085A2FE /* UnityAds.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UnityAds.framework; path = "../../libraries/perplesdk/external/unity-ads-2.1.0/ios/UnityAds.framework"; sourceTree = "<group>"; };
-		3765B4CE1F67AEB60036B697 /* GameController.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GameController.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS10.3.sdk/System/Library/Frameworks/GameController.framework; sourceTree = DEVELOPER_DIR; };
-		3765B4D01F67AEF80036B697 /* CoreMedia.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMedia.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS10.3.sdk/System/Library/Frameworks/CoreMedia.framework; sourceTree = DEVELOPER_DIR; };
 		3770339F198F5FF00091C231 /* ConfigParser.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = ConfigParser.cpp; path = ../Classes/ConfigParser.cpp; sourceTree = "<group>"; };
 		377033A0198F5FF00091C231 /* ConfigParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ConfigParser.h; path = ../Classes/ConfigParser.h; sourceTree = "<group>"; };
 		377033A1198F5FF00091C231 /* Runtime.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Runtime.cpp; path = ../Classes/Runtime.cpp; sourceTree = "<group>"; };
@@ -485,6 +483,15 @@
 		377033A3198F5FF00091C231 /* VisibleRect.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = VisibleRect.cpp; path = ../Classes/VisibleRect.cpp; sourceTree = "<group>"; };
 		377033A4198F5FF00091C231 /* VisibleRect.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VisibleRect.h; path = ../Classes/VisibleRect.h; sourceTree = "<group>"; };
 		377033AA198F60A50091C231 /* Runtime_ios-mac.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; lineEnding = 0; path = "Runtime_ios-mac.mm"; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
+		37BA05B11F73F4F90048FF81 /* SafariServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SafariServices.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS11.0.sdk/System/Library/Frameworks/SafariServices.framework; sourceTree = DEVELOPER_DIR; };
+		37BA05B31F73F5140048FF81 /* CoreMedia.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMedia.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS11.0.sdk/System/Library/Frameworks/CoreMedia.framework; sourceTree = DEVELOPER_DIR; };
+		37BA05B51F73F52A0048FF81 /* GameKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GameKit.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS11.0.sdk/System/Library/Frameworks/GameKit.framework; sourceTree = DEVELOPER_DIR; };
+		37BA05B71F73F53A0048FF81 /* GameController.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GameController.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS11.0.sdk/System/Library/Frameworks/GameController.framework; sourceTree = DEVELOPER_DIR; };
+		37BA05B91F73F54B0048FF81 /* ReplayKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ReplayKit.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS11.0.sdk/System/Library/Frameworks/ReplayKit.framework; sourceTree = DEVELOPER_DIR; };
+		37BA05BB1F73F55C0048FF81 /* WebKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WebKit.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS11.0.sdk/System/Library/Frameworks/WebKit.framework; sourceTree = DEVELOPER_DIR; };
+		37BA05BD1F73F6270048FF81 /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS11.0.sdk/System/Library/Frameworks/JavaScriptCore.framework; sourceTree = DEVELOPER_DIR; };
+		37BA05BF1F73F6580048FF81 /* WatchConnectivity.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WatchConnectivity.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS11.0.sdk/System/Library/Frameworks/WatchConnectivity.framework; sourceTree = DEVELOPER_DIR; };
+		37BA05C11F73F6960048FF81 /* libz.1.2.5.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libz.1.2.5.tbd; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS11.0.sdk/usr/lib/libz.1.2.5.tbd; sourceTree = DEVELOPER_DIR; };
 		37D8E3EF1A304EB9005E479B /* PerpSocial.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = PerpSocial.cpp; path = ../Classes/PerpSocial.cpp; sourceTree = "<group>"; };
 		37D8E3F01A304EB9005E479B /* PerpSocial.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PerpSocial.h; path = ../Classes/PerpSocial.h; sourceTree = "<group>"; };
 		37E0007E1B26905C00F23F9E /* ja */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ja; path = ja.lproj/InfoPlist.strings; sourceTree = "<group>"; };
@@ -517,7 +524,6 @@
 		37E128E51B4539C500200C23 /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS.sdk/System/Library/Frameworks/CFNetwork.framework; sourceTree = DEVELOPER_DIR; };
 		37EF842A1B268F4C00EFA299 /* Base */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = Base; path = Base.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		37EF842B1B268F7200EFA299 /* ko */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ko; path = ko.lproj/InfoPlist.strings; sourceTree = "<group>"; };
-		37FB64921F3AD0BE00378EE8 /* GameKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GameKit.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS10.3.sdk/System/Library/Frameworks/GameKit.framework; sourceTree = DEVELOPER_DIR; };
 		37FB64941F3AD0D000378EE8 /* DragonVillage.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = DragonVillage.entitlements; sourceTree = "<group>"; };
 		37FB64B61F3AF73200378EE8 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		3D1A129B749AC451AD40A97F /* Pods-DragonVillageT Mac.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DragonVillageT Mac.debug.xcconfig"; path = "Pods/Target Support Files/Pods-DragonVillageT Mac/Pods-DragonVillageT Mac.debug.xcconfig"; sourceTree = "<group>"; };
@@ -606,7 +612,7 @@
 				374376881F3A800F00AC6C7C /* libPerpleSDK.a in Frameworks */,
 				3706F1781F680EAC00777433 /* NaverCafeSDK.framework in Frameworks */,
 				375E097A1F4498B10085A2FE /* UnityAds.framework in Frameworks */,
-				374376861F3A7FE100AC6C7C /* SafariServices.framework in Frameworks */,
+				37BA05B21F73F4FA0048FF81 /* SafariServices.framework in Frameworks */,
 				37E128DE1B45398400200C23 /* AdSupport.framework in Frameworks */,
 				37E128C01B4538AE00200C23 /* AssetsLibrary.framework in Frameworks */,
 				F293B3D315EB7BE500256477 /* AudioToolbox.framework in Frameworks */,
@@ -617,33 +623,36 @@
 				F293B3DB15EB7BE500256477 /* CoreGraphics.framework in Frameworks */,
 				37E128C21B4538B800200C23 /* CoreLocation.framework in Frameworks */,
 				37E128C41B4538C200200C23 /* CoreMotion.framework in Frameworks */,
-				3765B4D11F67AEF80036B697 /* CoreMedia.framework in Frameworks */,
+				37BA05B41F73F5150048FF81 /* CoreMedia.framework in Frameworks */,
 				37E128DC1B45397400200C23 /* CoreTelephony.framework in Frameworks */,
 				37E128D01B45390D00200C23 /* CoreText.framework in Frameworks */,
 				37E128B01B45380F00200C23 /* EventKit.framework in Frameworks */,
 				37E128B41B45384000200C23 /* EventKitUI.framework in Frameworks */,
 				F293B3D915EB7BE500256477 /* Foundation.framework in Frameworks */,
-				37FB64931F3AD0BF00378EE8 /* GameKit.framework in Frameworks */,
-				3765B4CF1F67AEB60036B697 /* GameController.framework in Frameworks */,
+				37BA05B61F73F52B0048FF81 /* GameKit.framework in Frameworks */,
+				37BA05B81F73F53B0048FF81 /* GameController.framework in Frameworks */,
 				37E128CA1B4538DF00200C23 /* iAd.framework in Frameworks */,
 				37E128DA1B45396200200C23 /* ImageIO.framework in Frameworks */,
+				37BA05BE1F73F6270048FF81 /* JavaScriptCore.framework in Frameworks */,
 				37E128E21B4539A900200C23 /* MediaPlayer.framework in Frameworks */,
 				37E128D81B45394900200C23 /* MessageUI.framework in Frameworks */,
 				37E128CE1B4538FB00200C23 /* MobileCoreServices.framework in Frameworks */,
 				F293B3D115EB7BE500256477 /* OpenAL.framework in Frameworks */,
 				37E128C61B4538CC00200C23 /* OpenGLES.framework in Frameworks */,
 				F293B3CD15EB7BE500256477 /* QuartzCore.framework in Frameworks */,
-				3706F1DE1F69212B00777433 /* ReplayKit.framework in Frameworks */,
+				37BA05BA1F73F54C0048FF81 /* ReplayKit.framework in Frameworks */,
 				37E128D61B45393100200C23 /* Security.framework in Frameworks */,
 				37E128CC1B4538E800200C23 /* Social.framework in Frameworks */,
 				37E128C81B4538D600200C23 /* StoreKit.framework in Frameworks */,
 				37E128E01B45399A00200C23 /* SystemConfiguration.framework in Frameworks */,
 				37E128D41B45392400200C23 /* UIKit.framework in Frameworks */,
-				3706F1DC1F6920FE00777433 /* WebKit.framework in Frameworks */,
+				37BA05C01F73F6590048FF81 /* WatchConnectivity.framework in Frameworks */,
+				37BA05BC1F73F55C0048FF81 /* WebKit.framework in Frameworks */,
 				37E128B61B45385800200C23 /* libc++.dylib in Frameworks */,
 				37E128BC1B45389300200C23 /* libsqlite3.0.dylib in Frameworks */,
 				37E128B81B45387700200C23 /* libxml2.dylib in Frameworks */,
 				1AF4C403178663F200122817 /* libz.dylib in Frameworks */,
+				37BA05C21F73F6960048FF81 /* libz.1.2.5.tbd in Frameworks */,
 				377033B9198F732F0091C231 /* libluabindings iOS.a in Frameworks */,
 				377033B7198F73060091C231 /* libcocos2dx iOS.a in Frameworks */,
 				377033B8198F731C0091C231 /* libcocos2dx-extensions iOS.a in Frameworks */,
@@ -899,7 +908,7 @@
 				374376871F3A800F00AC6C7C /* libPerpleSDK.a */,
 				3706F1771F680EAC00777433 /* NaverCafeSDK.framework */,
 				375E09791F4498B10085A2FE /* UnityAds.framework */,
-				374376851F3A7FE100AC6C7C /* SafariServices.framework */,
+				37BA05B11F73F4F90048FF81 /* SafariServices.framework */,
 				37E128DD1B45398400200C23 /* AdSupport.framework */,
 				37E128BF1B4538AE00200C23 /* AssetsLibrary.framework */,
 				F293B3D215EB7BE500256477 /* AudioToolbox.framework */,
@@ -911,16 +920,17 @@
 				F293B3DA15EB7BE500256477 /* CoreGraphics.framework */,
 				37E128C11B4538B800200C23 /* CoreLocation.framework */,
 				37E128C31B4538C200200C23 /* CoreMotion.framework */,
-				3765B4D01F67AEF80036B697 /* CoreMedia.framework */,
+				37BA05B31F73F5140048FF81 /* CoreMedia.framework */,
 				37E128DB1B45397400200C23 /* CoreTelephony.framework */,
 				37E128CF1B45390D00200C23 /* CoreText.framework */,
 				37E128AF1B45380F00200C23 /* EventKit.framework */,
 				37E128B31B45384000200C23 /* EventKitUI.framework */,
 				F293B3D815EB7BE500256477 /* Foundation.framework */,
-				37FB64921F3AD0BE00378EE8 /* GameKit.framework */,
-				3765B4CE1F67AEB60036B697 /* GameController.framework */,
+				37BA05B51F73F52A0048FF81 /* GameKit.framework */,
+				37BA05B71F73F53A0048FF81 /* GameController.framework */,
 				37E128C91B4538DF00200C23 /* iAd.framework */,
 				37E128D91B45396200200C23 /* ImageIO.framework */,
+				37BA05BD1F73F6270048FF81 /* JavaScriptCore.framework */,
 				50D7C96F17EBBEEC005D0B91 /* IOKit.framework */,
 				37E128E11B4539A800200C23 /* MediaPlayer.framework */,
 				37E128D71B45394900200C23 /* MessageUI.framework */,
@@ -929,17 +939,19 @@
 				50D7C96B17EBBEDF005D0B91 /* OpenGL.framework */,
 				37E128C51B4538CC00200C23 /* OpenGLES.framework */,
 				F293B3CC15EB7BE500256477 /* QuartzCore.framework */,
-				3706F1DD1F69212B00777433 /* ReplayKit.framework */,
+				37BA05B91F73F54B0048FF81 /* ReplayKit.framework */,
 				37E128D51B45393100200C23 /* Security.framework */,
 				37E128CB1B4538E800200C23 /* Social.framework */,
 				37E128C71B4538D600200C23 /* StoreKit.framework */,
 				37E128DF1B45399A00200C23 /* SystemConfiguration.framework */,
 				37E128D31B45392400200C23 /* UIKit.framework */,
-				3706F1DB1F6920FE00777433 /* WebKit.framework */,
+				37BA05BF1F73F6580048FF81 /* WatchConnectivity.framework */,
+				37BA05BB1F73F55C0048FF81 /* WebKit.framework */,
 				37E128B51B45385800200C23 /* libc++.dylib */,
 				37E128BB1B45389300200C23 /* libsqlite3.0.dylib */,
 				37E128B71B45387700200C23 /* libxml2.dylib */,
 				1AF4C402178663F200122817 /* libz.dylib */,
+				37BA05C11F73F6960048FF81 /* libz.1.2.5.tbd */,
 				45A8F369AC48C70B07989DD8 /* libPods-DragonVillageM Mac.a */,
 				B9CDC362947295326AAB4A07 /* libPods-DragonVillageM iOS.a */,
 			);

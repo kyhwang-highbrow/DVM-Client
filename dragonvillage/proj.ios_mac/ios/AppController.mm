@@ -44,6 +44,7 @@
 #define ADBRIX_HASH_KEY             @"5c67709eb5c349c6"
 #define TAPJOY_SDK_KEY              @"Ws1LafcqRzuuBd763wqDOAEBFg9MYTtlr04omXYpDVNJIVl4ivGW9cK37TA2"
 #define UNITY_ADS_GAME_ID           @"1515685"
+#define ADCOLONY_APP_ID             @"appe9879f49a31a47448b"
 #define NAVER_CAFE_CLIENT_ID        @"nQGxfwLZ1Rf4Lwhozq4G"
 #define NAVER_CAFE_CLIENT_SECRET    @"1yzbWtj_Cu"
 #define NAVER_CAFE_ID               29168475
@@ -131,6 +132,7 @@ static AppDelegate s_sharedApplication;
     [[PerpleSDK sharedInstance] initAdbrixWithAppKey:ADBRIX_APP_KEY hashKey:ADBRIX_HASH_KEY logLevel:0];
     [[PerpleSDK sharedInstance] initTapjoyWithAppKey:TAPJOY_SDK_KEY usePush:NO debug:isDebug];
     [[PerpleSDK sharedInstance] initUnityAdsWithParentView:viewController gameId:UNITY_ADS_GAME_ID debug:isDebug];
+    [[PerpleSDK sharedInstance] initAdColonyWithParentView:viewController appId:ADCOLONY_APP_ID];
     [[PerpleSDK sharedInstance] initNaverWithParentView:viewController isLandspape:YES clientId:NAVER_CAFE_CLIENT_ID clientSecret:NAVER_CAFE_CLIENT_SECRET cafeId:NAVER_CAFE_ID];
     [[PerpleSDK sharedInstance] initBilling];
     [[PerpleSDK sharedInstance] application:application didFinishLaunchingWithOptions:launchOptions];
