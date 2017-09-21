@@ -37,6 +37,15 @@ function UI_TamerCostumeListItem:initUI()
         vars['tamerNode']:addChild(img)
     end
 
+    -- 할인
+    local is_sale = costume_data:isSale()
+    vars['saleSprite']:setVisible(is_sale)
+
+    -- 테이머 열려있지 않으면 코스튬도 잠금
+    local is_lock = costume_data:isTamerLock()
+    vars['lockSprite']:setVisible(is_lock)
+    
+
     -- 생성시에는 사용중인 코스튬 선택처리
     local is_used = costume_data:isUsed()
     vars['selectSprite']:setVisible(is_used)

@@ -102,6 +102,31 @@ function StructTamerCostume:isUsed()
 end
 
 -------------------------------------
+-- function isSale
+-- @brief 할인중인지
+-------------------------------------
+function StructTamerCostume:isSale()
+    local shop_info = g_tamerCostumeData:getShopInfo(self.m_cid)
+    if (shop_info) then
+        local origin_price = shop_info['origin_price']
+        local price = shop_info['price']
+        local is_sale = (origin_price ~= price)
+        return is_sale
+    end
+
+    return false
+end
+
+-------------------------------------
+-- function isTamerLock
+-- @brief 해당 코스튬 테이머가 열려있는지
+-------------------------------------
+function StructTamerCostume:isTamerLock()
+    local tamer_id = self:getTamerID()
+    return not g_tamerData:hasTamer(tamer_id)
+end
+
+-------------------------------------
 -- function getTamerID
 -------------------------------------
 function StructTamerCostume:getTamerID()

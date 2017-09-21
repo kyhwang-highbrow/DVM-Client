@@ -144,6 +144,7 @@ function UI_TamerCostumeShop:refresh()
 
     vars['buyBtn']:setVisible(not is_open)
     vars['priceNode']:setVisible(not is_open)
+    vars['infoLabel']:setVisible(not is_open)
     vars['saleNode']:setVisible(false)
 
     -- 가격 정보 표시
@@ -154,7 +155,7 @@ function UI_TamerCostumeShop:refresh()
         local price_type = shop_info['price_type']
         local price_icon = IconHelper:getPriceIcon(price_type)
 
-        local is_sale = (origin_price ~= price)
+        local is_sale = costume_data:isSale()
         
         -- 할인중
         if (is_sale) then
