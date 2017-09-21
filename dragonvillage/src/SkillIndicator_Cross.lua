@@ -12,8 +12,26 @@ SkillIndicator_Cross = class(PARENT, {
 -- function init
 -------------------------------------
 function SkillIndicator_Cross:init(hero, t_skill)
-	self.m_lineSize = g_constant:get('SKILL', 'VOLTES_LINE_SIZE')
 end
+
+-------------------------------------
+-- function init_indicator
+-------------------------------------
+function SkillIndicator_Cross:init_indicator(t_skill)
+	PARENT.init_indicator(self, t_skill)
+
+	local skill_size = t_skill['skill_size']
+	if (skill_size) and (not (skill_size == '')) then
+		local t_data = SkillHelper:getSizeAndScale('cross', skill_size)  
+
+		self.m_indicatorScale = t_data['scale']
+		self.m_lineSize = t_data['size']
+	else
+        self.m_indicatorScale = 1
+        self.m_lineSize = g_constant:get('SKILL', 'CROSS_SIZE')
+    end
+end
+
   
 -------------------------------------
 -- function onTouchMoved
@@ -51,6 +69,7 @@ function SkillIndicator_Cross:initIndicatorNode()
 		local indicator_res = g_constant:get('INDICATOR', 'RES', 'cross')
         local indicator = MakeAnimator(indicator_res)
         
+        indicator:setScale(self.m_indicatorScale)
 		self:initIndicatorEffect(indicator)
 
 		root_node:addChild(indicator.m_node)
@@ -61,7 +80,7 @@ function SkillIndicator_Cross:initIndicatorNode()
 		local indicator_res = g_constant:get('INDICATOR', 'RES', 'round')
         local indicator = MakeAnimator(indicator_res)
         
-		indicator:setScale(0.2)
+		indicator:setScale(0.2 * self.m_indicatorScale)
 		self:initIndicatorEffect(indicator)
 
         root_node:addChild(indicator.m_node)
@@ -133,6 +152,5 @@ function SkillIndicator_Cross:findCollisionEachLine(l_target, target_x, target_y
 		
 	local end_x = target_x + std_width
 	local end_y = target_y + (std_height * (math_pow(-1, idx)))
-
 	return SkillTargetFinder:findCollision_Bar(l_target, start_x, start_y, end_x, end_y, self.m_lineSize/2)
 end

@@ -25,7 +25,20 @@ SkillCross = class(PARENT, {
 function SkillCross:init(file_name, body, ...)    
     self.m_lNextTarget = {}
 end
+-------------------------------------
+-- function initSkillSize
+-------------------------------------
+function SkillCross:initSkillSize()
+	if (self.m_skillSize) and (not (self.m_skillSize == '')) then
+		local t_data = SkillHelper:getSizeAndScale('cross', self.m_skillSize)  
 
+		self.m_resScale = t_data['scale']
+		self.m_lineSize = t_data['size']
+	else
+        self.m_resScale = 1
+        self.m_lineSize = g_constant:get('SKILL', 'CROSS_SIZE')
+    end
+end
 -------------------------------------
 -- function init_skill
 -------------------------------------
@@ -33,7 +46,7 @@ function SkillCross:init_skill(attack_count, is_upgraded)
     PARENT.init_skill(self)
 
     -- 멤버변수 초기화
-	self.m_lineSize = g_constant:get('SKILL', 'VOLTES_LINE_SIZE')
+	
     self.m_attackStep = CROSS_ATK_STEP_1
     self.m_isUpgraded = is_upgraded
 
