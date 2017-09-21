@@ -305,16 +305,22 @@ function UI_Colosseum:init_atkTab()
     table_view:setCellUIClass(UI_ColosseumAttackListItem, create_func)
     table_view:setDirection(cc.SCROLLVIEW_DIRECTION_VERTICAL)
 
-    -- 정렬은??
     local l_item_list = g_colosseumData.m_matchList
     table_view:setItemList(l_item_list)
 
-    -- 리스트가 비었을 때
-    --table_view_td:makeDefaultEmptyDescLabel(Str('보유한 드래곤이 없습니다.'))
+    -- 상대방 방어덱의 전투력이 낮은 순으로 정렬
+    local function sort_func(a, b)
+        -- StructUserInfoColosseum
+        local a_data = a['data']
+        local b_data = b['data']
 
-    -- 정렬
-    --g_colosseumRankData:sortColosseumRank(table_view.m_itemList)
-    --self.m_weekRankTableView = table_view
+        -- 방어덱의 전투력을 받아옴
+        local a_combat_power = a_data:getDefDeckCombatPower()
+        local b_combat_power = b_data:getDefDeckCombatPower()
+
+        return a_combat_power < b_combat_power
+    end
+    table.sort(table_view.m_itemList, sort_func)
 end
 
 -------------------------------------
