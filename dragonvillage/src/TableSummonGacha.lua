@@ -54,3 +54,17 @@ function TableSummonGacha:isFixSummon(egg_id)
     local max_grade = self:getValue(tonumber(egg_id), 'birthgrade_max')
     return (min_grade == max_grade) and true or false
 end
+
+-------------------------------------
+-- function getUIPriority
+-- @brief 정렬 순서 값
+-------------------------------------
+function TableSummonGacha:getUIPriority(egg_id)
+    if (self == THIS) then
+        self = THIS()
+    end
+
+    local egg_id = tonumber(egg_id)
+    local ui_priority = self:getValue(tonumber(egg_id), 'ui_priority')
+    return ui_priority or -1
+end

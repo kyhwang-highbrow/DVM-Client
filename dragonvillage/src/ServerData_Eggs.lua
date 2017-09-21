@@ -110,11 +110,24 @@ function ServerData_Eggs:getEggListForUI()
 
     -- 정렬
     local function sort_func(a, b)
-        -- egg_id가 낮은게 우선순위가 높음
-        if (a['egg_id'] ~= b['egg_id']) then
-            return a['egg_id'] < b['egg_id']
+        local table_summon_gacha = TableSummonGacha()
+
+        local a_id = a['egg_id']
+        local b_id = b['egg_id']
+
+        local a_priority = table_summon_gacha:getUIPriority(a_id)
+        local b_priority = table_summon_gacha:getUIPriority(b_id)
+
+        -- UI 우선순위 (큰 값이 앞쪽)
+        if (a_priority ~= b_priority) then
+            return a_priority > b_priority
+
+        -- egg_id(item_id) (큰 값이 앞쪽)
+        elseif (a_id ~= b_id) then
+            return a_id > b_id
+
+        -- count가 높은게 우선순위가 높음
         else
-            -- count가 높은게 우선순위가 높음
             return a['count'] > b['count']
         end
     end
