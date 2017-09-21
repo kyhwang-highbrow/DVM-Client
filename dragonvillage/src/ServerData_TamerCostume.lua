@@ -25,7 +25,7 @@ function ServerData_TamerCostume:getCostumeDataWithTamerID(tamer_id)
     if (g_tamerData.m_mTamerMap[tamer_id]) then
         costume_id = g_tamerData.m_mTamerMap[tamer_id]['costume']
     else
-        TableTamerCostume:getDefaultCostumeID(tamer_id)
+        costume_id = TableTamerCostume:getDefaultCostumeID(tamer_id)
     end
     
     local table_tamer = TableTamerCostume()
