@@ -274,8 +274,8 @@ dependencies {
     compile(name:'perplesdk', ext:'aar')
 
     // @adcolony
-    compile 'com.adcolony:sdk:3.2.1'
-    compile 'com.google.android.gms:play-services-ads:11.0.4'
+    //compile 'com.adcolony:sdk:3.2.1'
+    //compile 'com.google.android.gms:play-services-ads:11.0.4'
 
     // @unity-ads
     compile(name:'unity-ads', ext:'aar')
