@@ -32,7 +32,7 @@ THE SOFTWARE.
 #include "unzip.h"
 #include <sys/stat.h>
 
-#if (CC_TARGET_PLATFORM != CC_PLATFORM_ANDROID)
+#if (CC_TARGET_PLATFORM == CC_PLATFORM_IOS)
 #include <ftw.h>
 #endif
 

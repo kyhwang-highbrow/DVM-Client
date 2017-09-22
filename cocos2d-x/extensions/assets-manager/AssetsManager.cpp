@@ -37,7 +37,7 @@
 #include <dirent.h>
 #endif
 
-#if (CC_TARGET_PLATFORM != CC_PLATFORM_ANDROID)
+#if (CC_TARGET_PLATFORM == CC_PLATFORM_IOS)
 #include <ftw.h>
 #endif
 
