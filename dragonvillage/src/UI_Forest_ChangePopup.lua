@@ -4,9 +4,16 @@ local PARENT = UI_DragonManage_Base
 -- class UI_Forest_ChangePopup
 -------------------------------------
 UI_Forest_ChangePopup = class(PARENT,{
-        m_tSelectDragon = 'list',
         m_maxCnt = 'number',
         m_changeCB = 'function',
+
+        m_currSlotIdx = 'number',
+        m_focusDeckSlotEffect = 'cc.Sprite',
+        m_mSlotMap = 'Map<idx, Node>',
+
+        m_tSelectDragon = '<doid, structDragon>',
+        m_selectedDragonMap = 'Map<doid, idx>',
+        m_selectedDragonList = '<idx, doid>',
     })
 
 -------------------------------------
@@ -16,7 +23,8 @@ UI_Forest_ChangePopup = class(PARENT,{
 function UI_Forest_ChangePopup:initParentVariable()
     -- ITopUserInfo_EventListener의 맴버 변수들 설정
     self.m_uiName = 'UI_Forest_ChangePopup'
-    self.m_bVisible = false
+    self.m_bVisible = true
+    self.m_titleStr = Str('드래곤의 숲')
 end
 
 -------------------------------------
@@ -31,8 +39,21 @@ function UI_Forest_ChangePopup:init()
 
     self:sceneFadeInAction()
 	
-	self.m_tSelectDragon = ServerData_Forest:getInstance():getMyDragons()
+	self.m_tSelectDragon = clone(ServerData_Forest:getInstance():getMyDragons())
     self.m_maxCnt = ServerData_Forest:getInstance():getMaxDragon()
+    self.m_currSlotIdx = 0
+
+    self.m_mSlotMap = {}
+    self.m_selectedDragonMap = {}
+    self.m_selectedDragonList = {}
+
+    -- 최초 등록
+    local cnt = 0
+    for doid, _ in pairs(self.m_tSelectDragon) do
+        self.m_selectedDragonMap[doid] = cnt
+        self.m_selectedDragonList[cnt] = doid
+        cnt = cnt + 1
+    end
 
     self:initUI()
     self:initButton()
@@ -48,6 +69,14 @@ end
 -------------------------------------
 function UI_Forest_ChangePopup:initUI()
 	local vars = self.vars
+    self:makeSlotUI()
+    self:makeSlotEffect()
+
+    -- 슬롯 이펙트 예외처리
+    if (self.m_currSlotIdx >= self.m_maxCnt) then
+        self.m_focusDeckSlotEffect:setVisible(false)
+        self.m_currSlotIdx = -1
+    end
 end
 
 -------------------------------------
@@ -69,10 +98,91 @@ end
 
 -------------------------------------
 -- function setChangeCB
+-- @brief closeCB과 유사하지만 의도한 곳에서 사용
 -------------------------------------
 function UI_Forest_ChangePopup:setChangeCB(cb_func)
     self.m_changeCB = cb_func
 end
+
+-------------------------------------
+-- function makeSlotUI
+-- @brief slot을 만든다.
+-------------------------------------
+function UI_Forest_ChangePopup:makeSlotUI()
+    local max_cnt = ServerData_Forest:getInstance():getMaxDragon()
+    local slot_node = self.vars['slotNode']
+
+    local slot_res = 'res/ui/frames/base_frame_0201.png'
+    local lock_res = 'res/ui/icons/skill/skill_empty.png'
+
+    local slot, pos_x, pos_y
+    local icon
+    for i = 0, 19 do
+        slot = cc.Scale9Sprite:create(slot_res)
+        slot:setContentSize(cc.size(80, 80))
+        slot:setDockPoint(CENTER_POINT)
+	    slot:setAnchorPoint(CENTER_POINT)
+
+        pos_x = ((100 * (i % 5)) - 200)
+        pos_y = (150 - (100 * math_floor(i/5)))
+        slot:setPosition(pos_x, pos_y)
+        slot_node:addChild(slot)
+
+        -- dragon card 등록
+        local set_doid
+        for doid, idx in pairs(self.m_selectedDragonMap) do
+            if (idx == i) then
+                set_doid = doid
+            end
+        end
+
+        if (set_doid) then
+            local struct_dragon_object = self.m_tSelectDragon[set_doid]
+            local ui = UI_DragonCard(struct_dragon_object)
+            ui.vars['clickBtn']:registerScriptTapHandler(function() self:click_dragonMaterial(set_doid) end)
+            ui:setCheckSpriteVisible(false)
+            ui.root:setScale(80/150)
+            slot:addChild(ui.root)
+
+            -- 다음 인덱스 지시 
+            self.m_currSlotIdx = i + 1
+        end
+
+        -- lock
+        if (i >= max_cnt) then
+            icon = IconHelper:getIcon(lock_res)
+            icon:setScale(0.7)
+            slot:addChild(icon)
+        end
+
+        self.m_mSlotMap[i] = slot
+    end
+end
+
+-------------------------------------
+-- function makeSlotEffect
+-------------------------------------
+function UI_Forest_ChangePopup:makeSlotEffect()
+    self.m_focusDeckSlotEffect = cc.Sprite:create('res/ui/frames/temp/dragon_select_frame.png')
+    self.m_focusDeckSlotEffect:setDockPoint(cc.p(0.5, 0.5))
+    self.m_focusDeckSlotEffect:setAnchorPoint(cc.p(0.5, 0.5))
+    self.vars['slotNode']:addChild(self.m_focusDeckSlotEffect, 2)
+
+    self.m_focusDeckSlotEffect:setScale(0.6)
+    self.m_focusDeckSlotEffect:setVisible(true)
+    self.m_focusDeckSlotEffect:setPosition(self.m_mSlotMap[self.m_currSlotIdx]:getPosition())
+
+    self.m_focusDeckSlotEffect:stopAllActions()
+    self.m_focusDeckSlotEffect:setOpacity(255)
+    self.m_focusDeckSlotEffect:runAction(cc.RepeatForever:create(cc.Sequence:create(cc.FadeTo:create(0.5, 0), cc.FadeTo:create(0.5, 255))))
+end
+
+
+
+
+
+
+
 
 -------------------------------------
 -- function refresh_dragonMaterialTableView
@@ -142,6 +252,13 @@ function UI_Forest_ChangePopup:click_dragonMaterial(t_dragon_data)
 	if (self.m_tSelectDragon[doid]) then
 		self.m_tSelectDragon[doid] = nil
 
+        local slot_idx = self.m_selectedDragonMap[doid]
+        if (slot_idx) then
+            self.m_mSlotMap[slot_idx]:removeAllChildren()
+            self.m_selectedDragonMap[doid] = nil
+            self.m_selectedDragonList[slot_idx] = nil
+        end
+
 	-- 추가
 	else
 		-- 갯수 체크
@@ -152,7 +269,36 @@ function UI_Forest_ChangePopup:click_dragonMaterial(t_dragon_data)
 		end
 
 		self.m_tSelectDragon[doid] = t_dragon_data
+        self.m_selectedDragonMap[doid] = self.m_currSlotIdx
+        self.m_selectedDragonList[self.m_currSlotIdx] = doid
+
+        local ui = UI_DragonCard(t_dragon_data)
+        ui.vars['clickBtn']:registerScriptTapHandler(function() self:click_dragonMaterial(doid) end)
+        ui:setCheckSpriteVisible(false)
+        ui.root:setScale(80/150)
+        self.m_mSlotMap[self.m_currSlotIdx]:addChild(ui.root)
 	end
+
+        -- 다음 slot_idx 지정
+    if (self.m_maxCnt <= table.count(self.m_selectedDragonMap)) then
+        self.m_currSlotIdx = -1
+
+        self.m_focusDeckSlotEffect:setVisible(false)
+    else
+        for i = 0, self.m_maxCnt - 1 do
+            if (not self.m_selectedDragonList[i]) then
+                self.m_currSlotIdx = i
+                break
+            end
+        end
+
+        self.m_focusDeckSlotEffect:setVisible(true)
+        self.m_focusDeckSlotEffect:setPosition(self.m_mSlotMap[self.m_currSlotIdx]:getPosition())
+
+        self.m_focusDeckSlotEffect:stopAllActions()
+        self.m_focusDeckSlotEffect:setOpacity(255)
+        self.m_focusDeckSlotEffect:runAction(cc.RepeatForever:create(cc.Sequence:create(cc.FadeTo:create(0.5, 0), cc.FadeTo:create(0.5, 255))))
+    end
 
 	-- 갱신
     self:refresh_materialDragonIndivisual(doid)
@@ -235,6 +381,17 @@ function UI_Forest_ChangePopup:makeCommaOIDStr(t_oid)
 	end
     return doids
 end
+
+
+
+
+
+
+
+
+
+
+
 
 -------------------------------------
 -- function init_mtrDragonSortMgr

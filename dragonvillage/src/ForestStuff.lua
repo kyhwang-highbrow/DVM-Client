@@ -107,6 +107,7 @@ function ForestStuff:touchStuff()
             self.m_tStuffInfo['reward_at'] = t_stuff['reward_at']
             self.m_rewardTime = t_stuff['reward_at']/1000
             self.m_hasReward = false
+            self.m_ui.vars['notiSprite']:setVisible(false)
         end
         ServerData_Forest:getInstance():request_stuffReward(stuff_type, finish_cb)
         return

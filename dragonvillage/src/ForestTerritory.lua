@@ -543,7 +543,7 @@ function ForestTerritory:checkObjectTouch(touch_pos, forest_object, size)
     if (not forest_object) then
         return
     end
-    local size = size or 70
+    local size = size or 100
     local world_pos = convertToWorldSpace(forest_object.m_animator.m_node)
     local distance = getDistance(touch_pos['x'], touch_pos['y'], world_pos['x'], world_pos['y'])
 
