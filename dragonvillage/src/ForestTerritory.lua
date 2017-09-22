@@ -621,6 +621,11 @@ function ForestTerritory:onEvent(event_name, struct_event)
             local happy = ServerData_Forest:getInstance():getHappy()
             if (struct_event:getHappy() > happy) then
                 self.m_ui.vars['boxVisual']:changeAni('gift_box_tap', false)
+                        
+                -- 보상 팝업
+                local ret = struct_event:getResponse()
+                ServerData_Forest:getInstance():showRewardResult(ret)
+
             end
         end
 

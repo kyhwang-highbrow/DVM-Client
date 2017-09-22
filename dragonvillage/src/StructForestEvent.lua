@@ -10,6 +10,7 @@ StructForestEvent = class({
     speed = 'number',
     stuff = 'string',
     happy = 'number',
+    ret = 'table',
 })
 
 -------------------------------------
@@ -81,4 +82,18 @@ end
 -------------------------------------
 function StructForestEvent:setHappy(happy)
     self.happy = happy
+end
+
+-------------------------------------
+-- function getResponse
+-------------------------------------
+function StructForestEvent:getResponse()
+    return self.ret
+end
+
+-------------------------------------
+-- function setResponse
+-------------------------------------
+function StructForestEvent:setResponse(ret)
+    self.ret = ret
 end

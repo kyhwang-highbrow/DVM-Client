@@ -200,9 +200,6 @@ function ServerData_Forest:request_dragonHappy(doid, finish_cb)
         -- 드래곤 만족도 시간 갱신
         local struct_dragon_object = self.m_tDragonStruct[doid]
         struct_dragon_object.happy_at = (ret['forest_dragon']['happy_at'] or 0)/1000
-        
-        -- 보상 팝업
-        self:showRewardResult(ret)
 
         if finish_cb then
             finish_cb(ret)
