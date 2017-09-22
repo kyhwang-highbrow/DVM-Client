@@ -314,9 +314,16 @@ function UI_HatcherySummonTab:subsequentSummons(gacha_result_ui, t_egg_data)
         vars['priceLabel']:setString(comma_value(price))
     end
 
+    do -- 마일리지
+        local mileage = g_userData:get('mileage')
+        vars['mileageLabel']:setString(comma_value(mileage))
+    end
+
     -- 단차 뽑기는 "이어서 소환"을 즉시 보여줌
+    -- 마일리지도 
     if (not t_egg_data['bundle']) then
         vars['againBtn']:setVisible(true)
+        vars['mileageNode']:setVisible(true)
     end
 
     vars['againBtn']:registerScriptTapHandler(function()
@@ -324,6 +331,7 @@ function UI_HatcherySummonTab:subsequentSummons(gacha_result_ui, t_egg_data)
         end)
 
     table.insert(gacha_result_ui.m_hideUIList, vars['againBtn'])
+    table.insert(gacha_result_ui.m_hideUIList, vars['mileageNode'])
 end
 
 -------------------------------------
