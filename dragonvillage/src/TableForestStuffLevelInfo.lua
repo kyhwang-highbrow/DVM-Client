@@ -56,10 +56,14 @@ function TableForestStuffLevelInfo:getDragonMaxCnt(lv)
         self = THIS()
     end
     if (not lv) then
-        return 0
+        return nil
     end
 
     local t_extension = T_STUFF_TABLE['extension']
+    if (not t_extension[lv]) then
+        return nil
+    end
+        
     return t_extension[lv]['dragon_cnt']
 end
 

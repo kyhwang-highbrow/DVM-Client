@@ -64,15 +64,20 @@ end
 -- function refresh
 -------------------------------------
 function UI_Forest:refresh()
+    self:refresh_cnt()
+    self:refresh_happy()
+end
+
+-------------------------------------
+-- function refresh
+-------------------------------------
+function UI_Forest:refresh_cnt()
     local vars = self.vars
 
     -- 드래곤 수
     local curr_cnt = self.m_territory:getCurrDragonCnt()
     local max_cnt = ServerData_Forest:getInstance():getMaxDragon()
     vars['inventoryLabel']:setString(string.format('%d / %d', curr_cnt, max_cnt))
-
-    -- 만족도
-    self:refresh_happy()
 end
 
 -------------------------------------
@@ -98,10 +103,17 @@ end
 -- function click_changeBtn
 -------------------------------------
 function UI_Forest:click_changeBtn()
-    UI_Forest_ChangePopup():setChangeCB(function()
+    local ui = UI_Forest_ChangePopup()
+
+    -- 교체 했을 때만 체크
+    ui:setChangeCB(function()
         -- 드래곤 다시 생성
         self.m_territory:initDragons()
-        self:refresh()
+    end)
+
+    -- 닫을때 항상 체크
+    ui:setCloseCB(function()
+        self:refresh_cnt()
     end)
 end
 

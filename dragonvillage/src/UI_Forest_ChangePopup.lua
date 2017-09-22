@@ -86,6 +86,7 @@ end
 function UI_Forest_ChangePopup:initButton()
     local vars = self.vars
     vars['changeBtn']:registerScriptTapHandler(function() self:click_changeBtn() end)
+    vars['inventoryBtn']:registerScriptTapHandler(function() self:click_inventoryBtn() end)
 end
 
 -------------------------------------
@@ -112,21 +113,26 @@ function UI_Forest_ChangePopup:makeSlotUI()
     local max_cnt = ServerData_Forest:getInstance():getMaxDragon()
     local slot_node = self.vars['slotNode']
 
-    local slot_res = 'res/ui/frames/base_frame_0201.png'
+    local frame_res = 'res/ui/frames/base_frame_0201.png'
     local lock_res = 'res/ui/icons/skill/skill_empty.png'
 
-    local slot, pos_x, pos_y
+    local frame, slot, pos_x, pos_y
     local icon
     for i = 0, 19 do
-        slot = cc.Scale9Sprite:create(slot_res)
-        slot:setContentSize(cc.size(80, 80))
-        slot:setDockPoint(CENTER_POINT)
-	    slot:setAnchorPoint(CENTER_POINT)
+        frame = cc.Scale9Sprite:create(frame_res)
+        frame:setContentSize(cc.size(80, 80))
+        frame:setDockPoint(CENTER_POINT)
+	    frame:setAnchorPoint(CENTER_POINT)
 
         pos_x = ((100 * (i % 5)) - 200)
         pos_y = (150 - (100 * math_floor(i/5)))
-        slot:setPosition(pos_x, pos_y)
-        slot_node:addChild(slot)
+        frame:setPosition(pos_x, pos_y)
+        slot_node:addChild(frame)
+
+        slot = cc.Node:create()
+        slot:setDockPoint(CENTER_POINT)
+	    slot:setAnchorPoint(CENTER_POINT)
+        frame:addChild(slot)
 
         -- dragon card 등록
         local set_doid
@@ -139,7 +145,7 @@ function UI_Forest_ChangePopup:makeSlotUI()
         if (set_doid) then
             local struct_dragon_object = self.m_tSelectDragon[set_doid]
             local ui = UI_DragonCard(struct_dragon_object)
-            ui.vars['clickBtn']:registerScriptTapHandler(function() self:click_dragonMaterial(set_doid) end)
+            ui.vars['clickBtn']:registerScriptTapHandler(function() self:click_dragonMaterial(struct_dragon_object) end)
             ui:setCheckSpriteVisible(false)
             ui.root:setScale(80/150)
             slot:addChild(ui.root)
@@ -164,13 +170,13 @@ end
 -------------------------------------
 function UI_Forest_ChangePopup:makeSlotEffect()
     self.m_focusDeckSlotEffect = cc.Sprite:create('res/ui/frames/temp/dragon_select_frame.png')
-    self.m_focusDeckSlotEffect:setDockPoint(cc.p(0.5, 0.5))
-    self.m_focusDeckSlotEffect:setAnchorPoint(cc.p(0.5, 0.5))
+    self.m_focusDeckSlotEffect:setDockPoint(CENTER_POINT)
+    self.m_focusDeckSlotEffect:setAnchorPoint(CENTER_POINT)
     self.vars['slotNode']:addChild(self.m_focusDeckSlotEffect, 2)
 
     self.m_focusDeckSlotEffect:setScale(0.6)
     self.m_focusDeckSlotEffect:setVisible(true)
-    self.m_focusDeckSlotEffect:setPosition(self.m_mSlotMap[self.m_currSlotIdx]:getPosition())
+    self.m_focusDeckSlotEffect:setPosition(self.m_mSlotMap[self.m_currSlotIdx]:getParent():getPosition())
 
     self.m_focusDeckSlotEffect:stopAllActions()
     self.m_focusDeckSlotEffect:setOpacity(255)
@@ -273,7 +279,7 @@ function UI_Forest_ChangePopup:click_dragonMaterial(t_dragon_data)
         self.m_selectedDragonList[self.m_currSlotIdx] = doid
 
         local ui = UI_DragonCard(t_dragon_data)
-        ui.vars['clickBtn']:registerScriptTapHandler(function() self:click_dragonMaterial(doid) end)
+        ui.vars['clickBtn']:registerScriptTapHandler(function() self:click_dragonMaterial(t_dragon_data) end)
         ui:setCheckSpriteVisible(false)
         ui.root:setScale(80/150)
         self.m_mSlotMap[self.m_currSlotIdx]:addChild(ui.root)
@@ -293,7 +299,7 @@ function UI_Forest_ChangePopup:click_dragonMaterial(t_dragon_data)
         end
 
         self.m_focusDeckSlotEffect:setVisible(true)
-        self.m_focusDeckSlotEffect:setPosition(self.m_mSlotMap[self.m_currSlotIdx]:getPosition())
+        self.m_focusDeckSlotEffect:setPosition(self.m_mSlotMap[self.m_currSlotIdx]:getParent():getPosition())
 
         self.m_focusDeckSlotEffect:stopAllActions()
         self.m_focusDeckSlotEffect:setOpacity(255)
@@ -338,6 +344,49 @@ function UI_Forest_ChangePopup:refresh_selectedMaterial()
     local max_count = ServerData_Forest:getInstance():getMaxDragon()
     self.vars['inventoryLabel']:setString(string.format('%d / %d', dragon_count, max_count))
 end
+
+-------------------------------------
+-- function click_inventoryBtn
+-- @brief
+-------------------------------------
+function UI_Forest_ChangePopup:click_inventoryBtn()
+    local extension = 'extension'
+
+    local t_extension_info = TableForestStuffLevelInfo:getStuffTable(extension)
+    local curr_lv = ServerData_Forest:getInstance():getStuffInfo()[extension]['stuff_lv']
+    
+    local t_next = t_extension_info[curr_lv + 1]
+    if (not t_next) then
+        return
+    end
+
+    local price_type = t_next['price_type']
+    local price = t_next['price_value']
+    local new_max_cnt = t_next['dragon_cnt']
+
+    local function ok_btn_cb()
+        -- 캐쉬가 충분히 있는지 확인
+        if (not ConfirmPrice(price_type, price)) then
+            return
+        end
+
+        local function cb_func()
+            -- lock sprite 제거
+            for i = self.m_maxCnt, new_max_cnt - 1 do
+                self.m_mSlotMap[i]:removeAllChildren(true)
+            end
+
+            self.m_maxCnt = new_max_cnt
+            self:refresh_selectedMaterial()
+	    end
+
+	    ServerData_Forest:getInstance():request_stuffLevelup(extension, cb_func)
+    end
+
+    local msg = Str('다이아몬드 {1}개를 사용하여\n최대 드래곤 수를 {2}으로 확장하시겠습니까?', price, new_max_cnt)
+    UI_ConfirmPopup(price_type, price, msg, ok_btn_cb)
+end
+
 
 -------------------------------------
 -- function click_changeBtn

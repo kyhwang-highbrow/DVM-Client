@@ -74,7 +74,7 @@ end
 -------------------------------------
 function ServerData_Forest:getMaxDragon()
     local lv = self.m_tStuffInfo['extension']['stuff_lv']
-    local max_cnt = TableForestStuffLevelInfo:getDragonMaxCnt(lv)
+    local max_cnt = TableForestStuffLevelInfo:getDragonMaxCnt(lv) or 0
     return max_cnt
 end
 
