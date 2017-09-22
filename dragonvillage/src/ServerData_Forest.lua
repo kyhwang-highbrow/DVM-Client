@@ -259,8 +259,8 @@ function ServerData_Forest:request_stuffLevelup(stuff_type, finish_cb)
     
     -- 성공 콜백
     local function success_cb(ret)
-        -- staminas, cash 동기화
-        g_serverData:networkCommonRespone(ret)
+        -- staminas, cash 동기화 : addedItems
+        g_serverData:networkCommonRespone_addedItems(ret)
 
         -- 드래곤의 숲 오브젝트
         local stuff, ret_stuff

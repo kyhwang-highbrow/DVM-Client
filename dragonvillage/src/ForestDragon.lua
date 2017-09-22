@@ -32,15 +32,18 @@ ForestDragon.OFFSET_Y_MAX = 1000 -- jump의 상한선으로 사용
 function ForestDragon:init(struct_dragon_object)
     self.m_objectType = 'dragon'
 
+    -- 드래곤 기본 정보
     self.m_structDragon = struct_dragon_object
     self.m_dragonID = struct_dragon_object:getDid()
 	self.m_flv = struct_dragon_object:getFlv()
     
+    -- 이동 관련 정보
     self.m_moveTerm = (math_random(300, 500)/100)
     self.m_moveType = TableDragonPhrase:getForestMoveType(self.m_dragonID)
 
     self.m_isHappy = false
 
+    -- 리소스 생성
     local evolution = struct_dragon_object:getEvolution()
     local res = TableDragon:getDragonRes(self.m_dragonID, evolution)
     self:initAnimator(res)
@@ -190,21 +193,26 @@ function ForestDragon.st_touched(self, dt)
     if (self.m_stateTimer == 0) then
         -- 변수 생성
         local ani_node = self.m_animator.m_node
-        local duration = 0.2
-        local angle = 30
 
-        -- 액션 생성
-        local rotate_1 = cc.RotateTo:create(duration, angle)
-        local rotate_2 = cc.RotateTo:create(duration, -angle)
-        local sequence = cc.Sequence:create(rotate_1, rotate_2)
-        local repeat_action = cc.RepeatForever:create(sequence)
-        
         -- 드래곤 좌표를 올려줌
-        ani_node:setPositionY(ForestDragon.OFFSET_Y_TOUCH)
+        local move = cca.makeBasicEaseMove(0.2, 0, ForestDragon.OFFSET_Y_TOUCH)
+        
+        -- 아둥바둥 실행
+        local cb_action = cc.CallFunc:create(function()
+            local duration = 0.2
+            local angle = 30
+
+            local rotate_1 = cc.RotateTo:create(duration, angle)
+            local rotate_2 = cc.RotateTo:create(duration, -angle)
+            local sequence = cc.Sequence:create(rotate_1, rotate_2)
+            local repeat_action = cc.RepeatForever:create(sequence)
+
+            cca.runAction(ani_node, repeat_action)
+        end)
 
         -- run
         local is_stop_action = true
-        cca.runAction(ani_node, repeat_action, is_stop_action)
+        cca.runAction(ani_node, cc.Sequence:create(move, cb_action), is_stop_action)
     end
 
     -- 이벤트 구조체 생성

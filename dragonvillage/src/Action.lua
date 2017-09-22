@@ -313,8 +313,6 @@ function cca.actGetObject(node, height, tar_pos, finish_cb)
 
     -- 아니면 베지어 이동
     else
-
-
 	    local bezier = getBezier(tar_pos.x, tar_pos.y, pos_x, pos_y, 1) -- -1은 아래를 향한 곡선
 	    move_act = cc.BezierBy:create(duration, bezier, true)
     end
