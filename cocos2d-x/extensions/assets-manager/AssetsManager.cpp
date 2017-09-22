@@ -650,7 +650,7 @@ void AssetsManager::createStoragePath()
 #endif
 }
 
-#if (CC_TARGET_PLATFORM != CC_PLATFORM_ANDROID)
+#if (CC_TARGET_PLATFORM == CC_PLATFORM_IOS)
 int unlink_cb(const char *fpath, const struct stat *sb, int typeflag, struct FTW *ftwbuf)
 {
     int rv = remove(fpath);
@@ -666,18 +666,18 @@ void AssetsManager::destroyStoragePath()
     deleteVersion();
     
     // Remove downloaded files
-#if (CC_TARGET_PLATFORM == CC_PLATFORM_WIN32)
+#if (CC_TARGET_PLATFORM == CC_PLATFORM_IOS)
+    nftw(_storagePath.c_str(), unlink_cb, 64, FTW_DEPTH|FTW_PHYS);
+#elif (CC_TARGET_PLATFORM == CC_PLATFORM_WIN32)
     string command = "rd /s /q ";
     // Path may include space.
     command += "\"" + _storagePath + "\"";
     system(command.c_str());
-#elif (CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID)
+#else
     string command = "rm -r ";
     // Path may include space.
     command += "\"" + _storagePath + "\"";
     system(command.c_str());
-#else
-    nftw(_storagePath.c_str(), unlink_cb, 64, FTW_DEPTH|FTW_PHYS);
 #endif
 }
 

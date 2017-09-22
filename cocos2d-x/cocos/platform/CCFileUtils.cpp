@@ -1207,7 +1207,7 @@ bool FileUtils::createDirectory(const std::string& path)
     return true;
 }
 
-#if (CC_TARGET_PLATFORM != CC_PLATFORM_ANDROID)
+#if (CC_TARGET_PLATFORM == CC_PLATFORM_IOS)
 int unlink_cb(const char *fpath, const struct stat *sb, int typeflag, struct FTW *ftwbuf)
 {
     int rv = remove(fpath);
@@ -1219,7 +1219,7 @@ int unlink_cb(const char *fpath, const struct stat *sb, int typeflag, struct FTW
 
 bool FileUtils::removeDirectory(const std::string& path)
 {
-#if (CC_TARGET_PLATFORM != CC_PLATFORM_ANDROID)
+#if (CC_TARGET_PLATFORM == CC_PLATFORM_IOS)
     if (nftw(path.c_str(), unlink_cb, 64, FTW_DEPTH|FTW_PHYS) == -1)
         return false;
     else
