@@ -63,6 +63,13 @@ function ServerData_Forest:getStuffInfo()
 end
 
 -------------------------------------
+-- function getExtensionLV
+-------------------------------------
+function ServerData_Forest:getExtensionLV()
+    return self.m_tStuffInfo['extension']['stuff_lv']
+end
+
+-------------------------------------
 -- function getHappy
 -------------------------------------
 function ServerData_Forest:getHappy()
@@ -186,11 +193,16 @@ function ServerData_Forest:request_dragonHappy(doid, finish_cb)
     
     -- 성공 콜백
     local function success_cb(ret)
+
         -- 공용 드래곤의 숲 정보
         self.m_happyRate = ret['forest_info']['happy']
 
+        -- 드래곤 만족도 시간 갱신
         local struct_dragon_object = self.m_tDragonStruct[doid]
         struct_dragon_object.happy_at = (ret['forest_dragon']['happy_at'] or 0)/1000
+        
+        -- 보상 팝업
+        self:showRewardResult(ret)
 
         if finish_cb then
             finish_cb(ret)
@@ -219,8 +231,6 @@ function ServerData_Forest:request_stuffReward(stuff_type, finish_cb)
     
     -- 성공 콜백
     local function success_cb(ret)
-        -- staminas, cash 동기화
-        g_serverData:networkCommonRespone(ret)
 
         -- 드래곤의 숲 오브젝트
         local stuff, ret_stuff
@@ -232,6 +242,9 @@ function ServerData_Forest:request_stuffReward(stuff_type, finish_cb)
             end
         end
         
+        -- 보상 팝업
+        self:showRewardResult(ret)
+
         if finish_cb then
             finish_cb(ret_stuff)
         end
@@ -259,7 +272,8 @@ function ServerData_Forest:request_stuffLevelup(stuff_type, finish_cb)
     
     -- 성공 콜백
     local function success_cb(ret)
-        -- staminas, cash 동기화 : addedItems
+        -- 재화 동기화
+        g_serverData:networkCommonRespone(ret)
         g_serverData:networkCommonRespone_addedItems(ret)
 
         -- 드래곤의 숲 오브젝트
@@ -288,4 +302,69 @@ function ServerData_Forest:request_stuffLevelup(stuff_type, finish_cb)
     ui_network:request()
 
     return ui_network
+end
+
+-------------------------------------
+-- function showRewardResult
+-------------------------------------
+function ServerData_Forest:showRewardResult(ret)
+    local item_info = ret['item_info']
+
+    -- 아이템 정보가 있다면 팝업 처리
+    if (item_info) then
+        local id = item_info['item_id']
+        local cnt = item_info['count']
+        local item_card = UI_ItemCard(id, cnt)
+
+        if (item_card) then
+            local ui = UI()
+            ui:load('popup_ad_confirm.ui')
+            ui.vars['itemNode']:addChild(item_card.root)
+            ui.vars['okBtn']:registerScriptTapHandler(function() ui:close() end)
+            UIManager:open(ui, UIManager.POPUP)
+        end
+
+        -- 우편함 노티
+        g_highlightData:setHighlightMail()
+    end
+end
+
+-------------------------------------
+-- function extendMaxCount
+-------------------------------------
+function ServerData_Forest:extendMaxCount(cb_func)
+    local extension = 'extension'
+
+    local t_extension_info = TableForestStuffLevelInfo:getStuffTable(extension)
+    local curr_lv = self:getStuffInfo()[extension]['stuff_lv']
+    
+    local t_next = t_extension_info[curr_lv + 1]
+    if (not t_next) then
+        return
+    end
+
+    -- 레벨 제한
+    if (t_next['tamer_lv'] > g_userData:get('lv')) then
+        local msg = Str('테이머 레벨 {1} 달성 시 확장 가능합니다.', t_next['tamer_lv'])
+        UIManager:toastNotificationRed(msg)
+    end
+
+    local price_type = t_next['price_type']
+    local price = t_next['price_value']
+    local new_max_cnt = t_next['dragon_cnt']
+
+    local function ok_btn_cb()
+        -- 캐쉬가 충분히 있는지 확인
+        if (not ConfirmPrice(price_type, price)) then
+            return
+        end
+
+        local toast_msg = Str('드래곤의 숲을 확장했습니다.')
+        UI_ToastPopup(toast_msg)
+
+	    ServerData_Forest:getInstance():request_stuffLevelup(extension, cb_func)
+    end
+
+    local msg = Str('다이아몬드 {1}개를 사용하여\n최대 드래곤 수를 {2}으로 확장하시겠습니까?', price, new_max_cnt)
+    UI_ConfirmPopup(price_type, price, msg, ok_btn_cb)
 end

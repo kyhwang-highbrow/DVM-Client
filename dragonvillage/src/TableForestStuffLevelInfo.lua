@@ -45,7 +45,7 @@ function TableForestStuffLevelInfo:getOpenLevel(stuff_type)
         return 0
     end
 
-    return T_STUFF_TABLE[stuff_type][1]['open_lv']
+    return T_STUFF_TABLE[stuff_type][1]['extension_lv']
 end
 
 -------------------------------------

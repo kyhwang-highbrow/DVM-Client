@@ -100,9 +100,6 @@ function ForestStuff:touchStuff()
     if (self.m_hasReward) then
         local stuff_type = self.m_tStuffInfo['stuff_type']
         local function finish_cb(t_stuff)
-            -- 상품 수령 팝업
-            UI_ToastPopup()
-            
             -- 보상 수령 상태 갱신
             self.m_tStuffInfo['reward_at'] = t_stuff['reward_at']
             self.m_rewardTime = t_stuff['reward_at']/1000

@@ -24,7 +24,7 @@ function UI_Forest_ChangePopup:initParentVariable()
     -- ITopUserInfo_EventListener의 맴버 변수들 설정
     self.m_uiName = 'UI_Forest_ChangePopup'
     self.m_bVisible = true
-    self.m_titleStr = Str('드래곤의 숲')
+    self.m_titleStr = Str('드래곤 배치')
 end
 
 -------------------------------------
@@ -350,41 +350,17 @@ end
 -- @brief
 -------------------------------------
 function UI_Forest_ChangePopup:click_inventoryBtn()
-    local extension = 'extension'
-
-    local t_extension_info = TableForestStuffLevelInfo:getStuffTable(extension)
-    local curr_lv = ServerData_Forest:getInstance():getStuffInfo()[extension]['stuff_lv']
-    
-    local t_next = t_extension_info[curr_lv + 1]
-    if (not t_next) then
-        return
-    end
-
-    local price_type = t_next['price_type']
-    local price = t_next['price_value']
-    local new_max_cnt = t_next['dragon_cnt']
-
-    local function ok_btn_cb()
-        -- 캐쉬가 충분히 있는지 확인
-        if (not ConfirmPrice(price_type, price)) then
-            return
+    local function cb_func()
+        -- lock sprite 제거
+        for i = self.m_maxCnt, new_max_cnt - 1 do
+            self.m_mSlotMap[i]:removeAllChildren(true)
         end
 
-        local function cb_func()
-            -- lock sprite 제거
-            for i = self.m_maxCnt, new_max_cnt - 1 do
-                self.m_mSlotMap[i]:removeAllChildren(true)
-            end
+        self.m_maxCnt = new_max_cnt
+        self:refresh_selectedMaterial()
+	end
 
-            self.m_maxCnt = new_max_cnt
-            self:refresh_selectedMaterial()
-	    end
-
-	    ServerData_Forest:getInstance():request_stuffLevelup(extension, cb_func)
-    end
-
-    local msg = Str('다이아몬드 {1}개를 사용하여\n최대 드래곤 수를 {2}으로 확장하시겠습니까?', price, new_max_cnt)
-    UI_ConfirmPopup(price_type, price, msg, ok_btn_cb)
+    ServerData_Forest:getInstance():extendMaxCount(cb_func)
 end
 
 

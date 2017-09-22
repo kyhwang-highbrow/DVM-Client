@@ -14,11 +14,13 @@ UI_Forest = class(PARENT,{
 function UI_Forest:initParentVariable()
     -- ITopUserInfo_EventListener의 맴버 변수들 설정
     self.m_uiName = 'UI_Forest'
-    self.m_titleStr = Str('드래곤의 숲')
     self.m_uiBgm = 'bgm_lobby'
     self.m_bVisible = true
     self.m_bUseExitBtn = true
     self.m_bShowChatBtn = true
+
+    local lv = ServerData_Forest:getInstance():getExtensionLV()
+    self.m_titleStr = Str('드래곤의 숲 Lv.{1}', lv)
 end
 
 -------------------------------------
@@ -58,6 +60,7 @@ function UI_Forest:initButton()
     vars['levelupBtn']:registerScriptTapHandler(function() self:click_levelupBtn() end)
     vars['changeBtn']:registerScriptTapHandler(function() self:click_changeBtn() end)
     vars['helpBtn']:registerScriptTapHandler(function() self:click_helpBtn() end)
+    vars['inventoryBtn']:registerScriptTapHandler(function() self:click_inventoryBtn() end)
 end
 
 -------------------------------------
@@ -78,6 +81,11 @@ function UI_Forest:refresh_cnt()
     local curr_cnt = self.m_territory:getCurrDragonCnt()
     local max_cnt = ServerData_Forest:getInstance():getMaxDragon()
     vars['inventoryLabel']:setString(string.format('%d / %d', curr_cnt, max_cnt))
+
+    local lv = ServerData_Forest:getInstance():getExtensionLV()
+    local title = Str('드래곤의 숲 Lv.{1}', lv)
+    g_topUserInfo:setTitleString(title)
+    self.m_titleStr = title
 end
 
 -------------------------------------
@@ -130,4 +138,15 @@ end
 -------------------------------------
 function UI_Forest:click_helpBtn()
     self.vars['helpNode']:runAction(cc.ToggleVisibility:create())
+end
+
+-------------------------------------
+-- function click_inventoryBtn
+-------------------------------------
+function UI_Forest:click_inventoryBtn()
+    local function cb_func()
+        self:refresh_cnt()
+	end
+
+    ServerData_Forest:getInstance():extendMaxCount(cb_func)
 end

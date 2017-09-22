@@ -620,8 +620,6 @@ function ForestTerritory:onEvent(event_name, struct_event)
             -- 만족도가 100 넘어갔을 경우
             local happy = ServerData_Forest:getInstance():getHappy()
             if (struct_event:getHappy() > happy) then
-                local toast_msg = Str('보상이 우편함으로 전송되었습니다.')
-                UI_ToastPopup(toast_msg)
                 self.m_ui.vars['boxVisual']:changeAni('gift_box_tap', false)
             end
         end

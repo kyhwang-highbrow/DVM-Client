@@ -55,12 +55,12 @@ function UI_Forest_StuffLevelupPopup:initUI()
     vars['priceNode']:addChild(price_icon)
 
     -- 레벨업 불가 시 잠금 처리
-    local tamer_lv = g_userData:get('lv')
-    local open_lv = t_next_level_info['open_lv']
+    local tamer_lv = ServerData_Forest:getInstance():getExtensionLV()
+    local open_lv = t_next_level_info['extension_lv']
     if (open_lv > tamer_lv) then
         vars['levelupBtn']:setVisible(false)
         vars['lockSprite']:setVisible(true)
-        vars['infoLabel']:setString(Str('테이머 레벨 {1} 달성 시 레벨업 할 수 있어요', open_lv))
+        vars['infoLabel']:setString(Str('숲 레벨 {1} 달성 시 레벨업 할 수 있어요', open_lv))
     end
 end
 
@@ -123,6 +123,9 @@ function UI_Forest_StuffLevelupPopup:click_levelupBtn()
     local function finish_cb(t_stuff)
         self.vars['objectVisual']:changeAni('stuff_lvup_' .. stuff_type, false)
         self.vars['objectVisual']:addAniHandler(function()
+            -- 레벨 갱신
+            self.m_stuffObject.m_tStuffInfo['stuff_lv'] = t_stuff['stuff_lv']
+
             self:refresh()
             self.m_stuffObject.m_ui:refresh()
         end)

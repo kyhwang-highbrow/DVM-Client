@@ -37,7 +37,7 @@ function ForestStuffUI:initUI()
         vars['lockSprite']:setVisible(true)
 
         local open_lv = TableForestStuffLevelInfo:getOpenLevel(stuff_type)
-        vars['infoLabel']:setString(Str('테이머 레벨 {1} 달성 시 오픈', open_lv))
+        vars['infoLabel']:setString(Str('숲 레벨 {1} 달성 시 오픈', open_lv))
         return
     end
 end
