@@ -1,8 +1,6 @@
 /* jconfig.h.  Generated from jconfig.cfg by configure.  */
 /* jconfig.cfg --- source file edited by configure script */
 /* see jconfig.txt for explanations */
-#ifndef __JCONFIG_LINUX_H__
-#define __JCONFIG_LINUX_H__
 
 #define HAVE_PROTOTYPES 1
 #define HAVE_UNSIGNED_CHAR 1
@@ -54,5 +52,3 @@ typedef unsigned char boolean;
 /* #undef PROGRESS_REPORT */
 
 #endif /* JPEG_CJPEG_DJPEG */
-
-#endif // __JCONFIG_LINUX_H__
