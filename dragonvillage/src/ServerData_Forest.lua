@@ -342,7 +342,7 @@ function ServerData_Forest:extendMaxCount(cb_func)
 
     -- 레벨 제한
     if (t_next['tamer_lv'] > g_userData:get('lv')) then
-        local msg = Str('테이머 레벨 {1} 달성 시 확장 가능합니다.', t_next['tamer_lv'])
+        local msg = Str('테이머 레벨 {1} 달성 시 레벨업 가능합니다.', t_next['tamer_lv'])
         UIManager:toastNotificationRed(msg)
     end
 
@@ -356,12 +356,12 @@ function ServerData_Forest:extendMaxCount(cb_func)
             return
         end
 
-        local toast_msg = Str('드래곤의 숲을 확장했습니다.')
+        local toast_msg = Str('드래곤의 숲을 레벨업했습니다.')
         UI_ToastPopup(toast_msg)
 
 	    ServerData_Forest:getInstance():request_stuffLevelup(extension, cb_func)
     end
 
-    local msg = Str('다이아몬드 {1}개를 사용하여\n최대 드래곤 수를 {2}으로 확장하시겠습니까?', price, new_max_cnt)
+    local msg = Str('드래곤의 숲을 레벨업하여\n최대 드래곤 수를 {2}까지 늘리시겠습니까?', price, new_max_cnt)
     UI_ConfirmPopup(price_type, price, msg, ok_btn_cb)
 end
