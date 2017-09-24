@@ -64,7 +64,6 @@ function ForestStuff:update(dt)
         return
     end
  
-
     -- 보상 있는지 체크
     if (self.m_hasReward) then
         return
@@ -92,7 +91,6 @@ end
 -------------------------------------
 function ForestStuff:touchStuff()
     if (self.m_isLock) then
-        ccdisplay('lock')
         return
     end
 

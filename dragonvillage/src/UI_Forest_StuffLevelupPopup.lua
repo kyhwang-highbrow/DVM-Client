@@ -41,7 +41,7 @@ function UI_Forest_StuffLevelupPopup:initUI()
     local stuff_type = t_stuff_info['stuff_type']
     vars['objectVisual']:changeAni('stuff_normal_' .. stuff_type, false)
 
-    local lv = t_stuff_info['stuff_lv']
+    local lv = t_stuff_info['stuff_lv'] or 0
     local t_next_level_info = self.m_tableStuff[lv + 1]
 
     if (not t_next_level_info) then
@@ -55,12 +55,19 @@ function UI_Forest_StuffLevelupPopup:initUI()
     vars['priceNode']:addChild(price_icon)
 
     -- 레벨업 불가 시 잠금 처리
-    local tamer_lv = ServerData_Forest:getInstance():getExtensionLV()
+    local forest_lv = ServerData_Forest:getInstance():getExtensionLV()
     local open_lv = t_next_level_info['extension_lv']
-    if (open_lv > tamer_lv) then
+    if (open_lv > forest_lv) then
         vars['levelupBtn']:setVisible(false)
         vars['lockSprite']:setVisible(true)
-        vars['infoLabel']:setString(Str('숲 레벨 {1} 달성 시 레벨업 할 수 있어요', open_lv))
+        
+        local desc
+        if (lv == 0) then
+            desc = Str('숲 레벨 {1} 달성 시 오픈됩니다.', open_lv) 
+        else
+            desc = Str('숲 레벨 {1} 달성 시 레벨업 할 수 있어요.', open_lv)
+        end
+        vars['infoLabel']:setString(desc)
     end
 end
 

@@ -99,7 +99,7 @@ function TableForestStuffLevelInfo:getStuffOptionDesc(stuff_type, lv)
 
     local t_stuff_level_info = T_STUFF_TABLE[stuff_type][lv]
     if (not t_stuff_level_info) then
-        return
+        return ''
     end
 
     local reward_1 = t_stuff_level_info['reward_1']
