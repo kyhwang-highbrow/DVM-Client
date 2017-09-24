@@ -60,8 +60,6 @@ function UI_Hatchery:initUI()
     end
 
     self:initTab()
-
-    self:initMileage()
 end
 
 -------------------------------------
@@ -76,6 +74,7 @@ end
 -------------------------------------
 function UI_Hatchery:refresh()
     self:refresh_highlight()
+    self:refresh_mileage()
 end
 
 -------------------------------------
@@ -135,16 +134,16 @@ local L_MILEAGE_INFO = {
 }
 
 -------------------------------------
--- function initMileage
+-- function refresh_mileage
 -------------------------------------
-function UI_Hatchery:initMileage()
+function UI_Hatchery:refresh_mileage()
     local vars = self.vars
     local mileage = g_userData:get('mileage')
 
     -- 마일리지 표시
     vars['mileageLabel']:setString(comma_value(mileage))
     vars['mileageGauge']:setPercentage(0)
-    vars['mileageGauge']:runAction(cc.ProgressTo:create(0.5, mileage/1500))
+    vars['mileageGauge']:runAction(cc.ProgressTo:create(0.5, mileage/1500*100))
 
     -- 마일리지 샵
     vars['mileageBtn']:registerScriptTapHandler(function()
@@ -174,6 +173,7 @@ function UI_Hatchery:initMileage()
             ui_vars['lockSprite']:setVisible(true)
         end
 
+        vars['mileageNode' .. i]:removeAllChildren(true)
         vars['mileageNode' .. i]:addChild(ui.root)
     end
 end
