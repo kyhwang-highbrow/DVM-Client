@@ -60,6 +60,8 @@ function UI_Hatchery:initUI()
     end
 
     self:initTab()
+
+    self:initMileage()
 end
 
 -------------------------------------
@@ -107,6 +109,75 @@ function UI_Hatchery:initTab()
     self:setTab('summon')
 end
 
+
+-- 이정보는 어디서 받아올지 찾아야함
+local L_MILEAGE_INFO = {
+    {
+        ['mileage'] = 50,
+        ['egg_id'] = 703004
+    },
+    {
+        ['mileage'] = 170,
+        ['egg_id'] = 703002
+    },
+    {
+        ['mileage'] = 260,
+        ['egg_id'] = 703019
+    },
+    {
+        ['mileage'] = 700,
+        ['egg_id'] = 703003
+    },
+    {
+        ['mileage'] = 1500,
+        ['egg_id'] = 703005
+    },
+}
+
+-------------------------------------
+-- function initMileage
+-------------------------------------
+function UI_Hatchery:initMileage()
+    local vars = self.vars
+    local mileage = g_userData:get('mileage')
+
+    -- 마일리지 표시
+    vars['mileageLabel']:setString(comma_value(mileage))
+    vars['mileageGauge']:setPercentage(0)
+    vars['mileageGauge']:runAction(cc.ProgressTo:create(0.5, mileage/1500))
+
+    -- 마일리지 샵
+    vars['mileageBtn']:registerScriptTapHandler(function()
+        -- navigator에 붙여야겠다
+        g_shopDataNew:openShopPopup('mileage')
+    end)
+
+    -- 마일리지 노드 생성
+    for i, t_mileage in ipairs(L_MILEAGE_INFO) do
+        local ui = UI()
+        local ui_vars = ui:load('hatchery_mileage_item.ui')
+        
+        -- 마일리지
+        local need_mileage = t_mileage['mileage']
+        ui_vars['mileageLabel']:setString(need_mileage)
+        
+        -- 아이콘
+        local item_id = t_mileage['egg_id']
+        local item_card = UI_ItemCard(item_id, 1)
+        item_card.vars['bgSprite']:setVisible(false)
+        item_card.vars['commonSprite']:setVisible(false)
+        item_card.vars['numberLabel']:setVisible(false)
+        ui_vars['itemNode']:addChild(item_card.root)
+        
+        -- 잠금 표시
+        if (need_mileage > mileage) then
+            ui_vars['lockSprite']:setVisible(true)
+        end
+
+        vars['mileageNode' .. i]:addChild(ui.root)
+    end
+end
+
 -------------------------------------
 -- function refresh_highlight
 -------------------------------------
@@ -132,6 +203,20 @@ end
 -------------------------------------
 function UI_Hatchery:hideNpc()
     self.m_npcAnimator:setVisible(false)
+end
+
+-------------------------------------
+-- function showMileage
+-------------------------------------
+function UI_Hatchery:showMileage()
+    self.vars['mileageMenu']:setVisible(true)
+end
+
+-------------------------------------
+-- function hideMileage
+-------------------------------------
+function UI_Hatchery:hideMileage()
+    self.vars['mileageMenu']:setVisible(false)
 end
 
 -------------------------------------

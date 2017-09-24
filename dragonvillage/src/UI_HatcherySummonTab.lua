@@ -19,6 +19,7 @@ end
 -------------------------------------
 function UI_HatcherySummonTab:onEnterTab(first)
     self.m_ownerUI:showNpc() -- NPC 등장
+    self.m_ownerUI:showMileage() -- 마일리지 메뉴
 
     if (first == true) then
         self:initUI()
@@ -29,6 +30,7 @@ end
 -- function onExitTab
 -------------------------------------
 function UI_HatcherySummonTab:onExitTab()
+    self.m_ownerUI:hideMileage()
 end
 
 -------------------------------------
