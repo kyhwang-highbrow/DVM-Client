@@ -255,6 +255,7 @@ function UI_EventPopup:checkNotiList()
 
         if v['data'].m_hasNoti then
             self:setTab(type)
+            self.m_tableView:relocateContainerFromIndex(i, true)
             return true
         end
 
