@@ -72,6 +72,10 @@ function ServerData_Event:setEventTabNoti(event_tab)
     elseif (event_type == 'access_time') then
         event_tab.m_hasNoti = g_accessTimeData:hasReward()
 
+    -- 교환 이벤트 받을 누적 보상 있음
+    elseif (event_type == 'event_exchange') then
+        event_tab.m_hasNoti = g_exchangeEventData:hasReward()
+
     else
         event_tab.m_hasNoti = false
     end

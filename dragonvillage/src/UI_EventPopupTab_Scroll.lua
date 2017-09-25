@@ -4,6 +4,10 @@ local PARENT = UI
 -- class UI_EventPopupTab_Scroll
 -------------------------------------
 UI_EventPopupTab_Scroll = class(PARENT,{
+        m_eventType = 'string',
+        m_scrollView = 'cc.ScrollView',
+
+        m_originPosY = 'cc.p',
     })
 
 -------------------------------------
@@ -13,10 +17,11 @@ function UI_EventPopupTab_Scroll:init(owner, struct_event_popup_tab)
     local vars = self:load('event_scroll.ui')
 
     local event_data = struct_event_popup_tab.m_eventData
-    local event_type = event_data['event_type']
+    self.m_eventType = event_data['event_type']
     
     local ui
     local target_size 
+    local event_type = self.m_eventType
     if (event_type == 'event_exchange') then
         ui = UI_ExchangeEvent()
         target_size = cc.size(930, 1340)
@@ -37,10 +42,13 @@ function UI_EventPopupTab_Scroll:init(owner, struct_event_popup_tab)
         scroll_view:setTouchEnabled(true)
         scroll_node:addChild(scroll_view)
         scroll_view:addChild(ui.root)
+        self.m_scrollView = scroll_view
 
         local container_node = scroll_view:getContainer()
-        container_node:setPositionY(size.height - target_size.height)
+        self.m_originPosY = size.height - target_size.height
     end
+
+    self:onEnterTab()
 end
 
 -------------------------------------
@@ -48,4 +56,18 @@ end
 -- @brief
 -------------------------------------
 function UI_EventPopupTab_Scroll:onEnterTab()
+    local event_type = self.m_eventType
+    local scroll_view = self.m_scrollView
+    local container_node = scroll_view:getContainer()
+
+    if (event_type == 'event_exchange') then
+
+        -- 받을 누적 보상이 있다면 누적 보상쪽 스크롤
+        if (g_exchangeEventData:hasReward()) then
+            container_node:setPositionY(0)
+        else
+            container_node:setPositionY(self.m_originPosY)
+        end
+
+    end
 end

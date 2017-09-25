@@ -33,8 +33,12 @@ end
 -------------------------------------
 function UI_EventPopupTab_Banner:click_bannerBtn()
     local url = self.m_structBannerData['url']
-    if (url ~= '') then
-        -- 브라우저로 변경
+
+    if (url == 'costume_shop') then
+        local tamer_id = g_tamerData:getCurrTamerID()
+        UINavigator:goTo('costume_shop', tamer_id)
+
+    elseif (url ~= '') then
         SDKManager:goToWeb(url)
     end
 end

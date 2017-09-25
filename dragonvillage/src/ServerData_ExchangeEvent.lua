@@ -10,6 +10,8 @@ ServerData_ExchangeEvent = class({
 
         m_productInfo = 'map', -- 교환 상품 정보
         m_rewardInfo = 'map', -- 보상 정보
+
+        m_endTime = 'number', -- 종료 시간
     })
 
 -------------------------------------
@@ -47,6 +49,37 @@ function ServerData_ExchangeEvent:isGetReward(step)
 end
 
 -------------------------------------
+-- function hasReward
+-- @brief 받아야 할 보상이 있는지 (누적 보상)
+-------------------------------------
+function ServerData_ExchangeEvent:hasReward()
+    local event_info = self.m_productInfo
+    local reward_info = self.m_rewardInfo
+
+    local curr_cnt = self.m_nMaterialUse
+    for i, v in ipairs(event_info) do
+        local step = tostring(v['step'])
+        local need_cnt = v['price']
+        if (reward_info[step] == 0) and (curr_cnt >= need_cnt) then
+            return true
+        end
+    end
+
+    return false
+end
+
+-------------------------------------
+-- function getStatusText
+-------------------------------------
+function ServerData_ExchangeEvent:getStatusText()
+    local curr_time = Timer:getServerTime()
+    local end_time = (self.m_endTime / 1000)
+
+    local time = (end_time - curr_time)
+    return Str('이벤트 종료까지 {1} 남음', datetime.makeTimeDesc(time, true))
+end
+
+-------------------------------------
 -- function networkCommonRespone
 -------------------------------------
 function ServerData_ExchangeEvent:networkCommonRespone(ret)
@@ -71,6 +104,8 @@ function ServerData_ExchangeEvent:request_eventInfo(finish_cb, fail_cb)
     local function success_cb(ret)    
         self:networkCommonRespone(ret)
         self:parseProductInfo(ret['table_event_product'][1])
+        
+        self.m_endTime = ret['end']
 
         if finish_cb then
             finish_cb(ret)

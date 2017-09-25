@@ -752,6 +752,15 @@ function UINavigatorDefinition:goTo_costume_shop(...)
             return
         end
 
+        -- 이벤트 팝업이 열려있을 경우
+        local is_opend, idx, ui = self:findOpendUI('UI_EventPopup')
+        if (is_opend == true) then
+            self:closeUIList(idx)
+            local ui = UI_TamerCostumeShop(sel_tamer_id)
+            ui:setCloseCB(refresh_cb)
+            return
+        end
+
         -- 로비가 열려있을 경우
         local is_opend, idx, ui = self:findOpendUI('UI_Lobby')
         if (is_opend == true) then

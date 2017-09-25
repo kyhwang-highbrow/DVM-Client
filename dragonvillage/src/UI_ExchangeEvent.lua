@@ -1,4 +1,4 @@
-local PARENT = UI
+﻿local PARENT = UI
 
 -------------------------------------
 -- class UI_ExchangeEvent
@@ -25,7 +25,10 @@ function UI_ExchangeEvent:initUI()
     local vars = self.vars
     self.m_eventDataUI = {}
 
-    -- 누적보상 리스트
+    -- 이벤트 종료 시간
+    vars['timeLabel']:setString(g_exchangeEventData:getStatusText())
+
+    -- 누적 보상 정보
     local product_info = g_exchangeEventData.m_productInfo
     table.sort(product_info, function(a, b)
         return tonumber(a['step']) < tonumber(b['step'])
@@ -70,7 +73,7 @@ function UI_ExchangeEvent:refresh()
     vars['boxLabel']:setString(Str('{1}개', comma_value(need_exchange)))
     vars['boxBtn']:setEnabled(cur_cnt >= need_exchange)
 
-    -- 누적보상
+    -- 누적 보상 갱신
     local reward_info = g_exchangeEventData.m_productInfo
     for i, info in ipairs(reward_info) do
         local cur_need = info['price']
@@ -112,12 +115,4 @@ function UI_ExchangeEvent:click_boxBtn()
     end
 
     g_exchangeEventData:request_eventUse(finish_cb)
-end
-
--------------------------------------
--- function onEnterTab
--- @brief
--------------------------------------
-function UI_ExchangeEvent:onEnterTab()
-    local vars = self.vars
 end
