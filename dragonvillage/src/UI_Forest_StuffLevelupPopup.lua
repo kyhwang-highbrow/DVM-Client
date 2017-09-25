@@ -135,6 +135,25 @@ end
 -------------------------------------
 function UI_Forest_StuffLevelupPopup:click_levelupBtn()
     local stuff_type = self.m_forestStuffType
+
+    do -- 재화가 충분히 있는지 체크
+        local t_stuff_info = ServerData_Forest:getInstance():getStuffInfo_Indivisual(stuff_type)
+        local lv = t_stuff_info['stuff_lv']
+
+        local table_stuff = TableForestStuffLevelInfo:getStuffTable(stuff_type)
+        local t_next = table_stuff[lv + 1]
+        if (not t_next) then
+            return
+        end
+
+        local price_type = t_next['price_type']
+        local price = t_next['price_value']
+
+        if (not UIHelper:checkPrice(price_type, price)) then
+            return
+        end
+    end
+
     local function finish_cb(t_stuff)
         self.vars['objectVisual']:changeAni('stuff_lvup_' .. stuff_type, false)
 

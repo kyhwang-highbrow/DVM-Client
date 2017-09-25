@@ -365,6 +365,11 @@ function ServerData:networkCommonRespone(ret)
             self:applyServerData(ret['gold'], 'user', 'gold')    
         end
 
+        -- 자수정
+        if ret['amethyst'] then
+            self:applyServerData(ret['amethyst'], 'user', 'amethyst')
+        end
+
         -- 우정포인트
         if ret['fp'] then
             self:applyServerData(ret['fp'], 'user', 'fp')
