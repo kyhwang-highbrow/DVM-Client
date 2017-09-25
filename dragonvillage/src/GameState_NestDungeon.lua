@@ -60,7 +60,7 @@ function GameState_NestDungeon:initBuffByFightTime()
 
     self.m_nextBuffTime = self.m_tBuffInfoByFightTime['start_time']
 
-    cclog('self.m_tBuffInfoByFightTime = ' .. luadump(self.m_tBuffInfoByFightTime))
+    --cclog('self.m_tBuffInfoByFightTime = ' .. luadump(self.m_tBuffInfoByFightTime))
 end
 
 -------------------------------------

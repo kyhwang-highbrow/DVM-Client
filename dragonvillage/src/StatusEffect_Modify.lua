@@ -78,6 +78,9 @@ function StatusEffect_Modify:onApplyOverlab(unit)
                 end
             end
         end
+
+        -- 해당 상태효과의 종료시간을 재계산
+        status_effect.m_latestTimer = status_effect:calcLatestTime()
     end
 
     for _, status_effect in pairs(self.m_owner:getStatusEffectList()) do

@@ -137,6 +137,7 @@ end
 function Skill:initEventListener()
     -- 기본 이벤트
 	self:addListener(CON_SKILL_START, self)
+    self:addListener(CON_SKILL_HIT_FIRST, self)
 	self:addListener(CON_SKILL_HIT, self)
 	self:addListener(CON_SKILL_END, self)
 
@@ -518,6 +519,9 @@ function Skill:onAttack(target_char, target_collision)
         -- 피격된 대상수가 갱신된 경우 해당 이벤트 발동
         if (bUpdateHitTargetCount) then
             self:dispatch(CON_SKILL_HIT_TARGET .. hit_target_count, t_event)
+
+            -- 대상을 처음 피격한 경우
+            self:dispatch(CON_SKILL_HIT_FIRST, t_event)
         end
     end
 end

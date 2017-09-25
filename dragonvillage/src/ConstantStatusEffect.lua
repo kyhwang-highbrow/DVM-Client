@@ -1,4 +1,5 @@
 CON_SKILL_START = 'skill_start'
+CON_SKILL_HIT_FIRST = 'skill_hit_first'
 CON_SKILL_HIT = 'skill_hit'
 CON_SKILL_HIT_CRI = 'skill_hit_cri'
 CON_SKILL_HIT_KILL = 'skill_kill'

@@ -224,7 +224,13 @@ end
 -- @brief 아군 소멸
 -------------------------------------
 function GameWorld:kill_dragon()
-    self:removeAllHero()
+    --self:removeAllHero()
+    for i, v in ipairs(self:getDragonList()) do
+        if (not v:isDead()) then
+            v:doDie()
+            break
+        end
+    end
 end
 
 -------------------------------------

@@ -55,7 +55,7 @@ function IStateHelper:update(dt)
         end
     end
 
-    self:updateTimer(dt)
+    self:updateStateTimer(dt)
 
     return false
 end
@@ -81,10 +81,10 @@ function IStateHelper:updateState()
 end
 
 -------------------------------------
--- function updateTimer
+-- function updateStateTimer
 -- @brief 현재 상태에 대한 처리가 끝난 후 호출되어야함
 -------------------------------------
-function IStateHelper:updateTimer(dt)
+function IStateHelper:updateStateTimer(dt)
 	self.m_totalTimer = self.m_totalTimer + dt
 
     if (self.m_stateTimer == -1) then

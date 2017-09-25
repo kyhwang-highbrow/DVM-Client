@@ -27,6 +27,7 @@ end
 function StatusEffect_AddDmgOneTime:init_statusEffect(caster)
     self.m_caster = caster
     self.m_activityCarrier = self.m_caster:makeAttackDamageInstance()
+    self.m_activityCarrier:setAttackType('add_dmg')
     self.m_activityCarrier:setIgnoreDef(true)
     self.m_activityCarrier:setParam('add_dmg', true)
 end

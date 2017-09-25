@@ -695,7 +695,7 @@ function StatusEffect:calcLatestTime()
     local latestTimer = 0
 
     for _, unit in pairs(self.m_lUnit) do
-        if (unit.m_durationTimer ~= -1) then
+        if (unit.m_duration ~= -1) then
             latestTimer = math_max(latestTimer, unit.m_durationTimer)
         else
             latestTimer = -1
