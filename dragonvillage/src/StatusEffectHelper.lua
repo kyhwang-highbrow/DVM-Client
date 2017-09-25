@@ -371,6 +371,12 @@ function StatusEffectHelper:makeStatusEffectInstance(caster, target_char, status
         status_effect:init_statusEffect(caster)
         status_effect:setOverlabClass(StatusEffectUnit_AddDmgOneTime)
 
+    ----------- 추가 회복 ------------------
+	elseif (status_effect_group == 'add_heal') then
+		status_effect = StatusEffect(res)
+        status_effect:setName(status_effect_type)
+        status_effect:setOverlabClass(StatusEffectUnit_AddHeal)
+
     ----------- 속성 변경 ------------------
 	elseif (status_effect_type == 'attr_change') then
 		--@TODO 카운터 속성으로 변경, 추후 정리

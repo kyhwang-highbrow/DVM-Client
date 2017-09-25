@@ -25,7 +25,7 @@ end
 -- function update
 -------------------------------------
 function StatusEffectUnit_Dot:update(dt, modified_dt)
-    self.m_dotTimer = self.m_dotTimer + dt
+    self.m_dotTimer = self.m_dotTimer + modified_dt
 
 	if (self.m_dotTimer > self.m_dotInterval) then
 		self:doDot()

@@ -403,6 +403,7 @@ local t_module = {
     'StatusEffectUnit',
     'StatusEffectUnit_AddDmg',
     'StatusEffectUnit_AddDmgOneTime',
+    'StatusEffectUnit_AddHeal',
     'StatusEffectUnit_Dot',
     'StatusEffectUnit_Dot_Damage',
     'StatusEffectUnit_Dot_Heal',

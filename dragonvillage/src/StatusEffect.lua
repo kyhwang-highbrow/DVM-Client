@@ -99,7 +99,7 @@ function StatusEffect:initFromTable(t_status_effect, target_char)
     self.m_bAbs = (t_status_effect['abs_switch'] and (t_status_effect['abs_switch'] == 1) or false)
 
     -- 스킬 연출 중(일시정지) 일 경우 시간 흐름 여부
-    if (string.find(self.m_type, 'add_dmg')) then
+    if (string.find(self.m_type, 'add_dmg') or string.find(self.m_type, 'add_heal')) then
         self.m_bStopUntilSkillEnd = false
     end
 

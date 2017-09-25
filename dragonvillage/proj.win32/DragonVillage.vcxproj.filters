@@ -2790,6 +2790,9 @@
     <None Include="..\src\UI_Forest_StuffListPopup.lua">
       <Filter>lua\forest</Filter>
     </None>
+    <None Include="..\src\StatusEffectUnit_AddHeal.lua">
+      <Filter>lua\src</Filter>
+    </None>
     <None Include="..\src\UI_ExchangeEventListItem.lua">
       <Filter>lua\UI</Filter>
     </None>
