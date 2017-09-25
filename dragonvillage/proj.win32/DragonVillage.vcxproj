@@ -904,6 +904,7 @@ xcopy /Y /Q "$(ProjectDir)..\..\libraries\pati\prebuilt\windows\*.dll" "$(OutDir
     <None Include="..\src\UI_Forest_ChangePopup.lua" />
     <None Include="..\src\UI_Forest_ExtensionBoard.lua" />
     <None Include="..\src\UI_Forest_StuffLevelupPopup.lua" />
+    <None Include="..\src\UI_Forest_StuffListItem.lua" />
     <None Include="..\src\UI_Forest_StuffListPopup.lua" />
     <None Include="..\src\UI_FormationDetailPopup.lua" />
     <None Include="..\src\UI_FriendMatchDeckSettings.lua" />

@@ -908,6 +908,7 @@ local t_module = {
     'UI_Forest_ChangePopup',
     'UI_Forest_StuffLevelupPopup',
     'UI_Forest_StuffListPopup',
+    'UI_Forest_StuffListItem',
     'UI_Forest_ExtensionBoard',
     'ServerData_Forest',
     'TableForestStuffType',

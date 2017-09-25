@@ -398,3 +398,43 @@ function ServerData_Forest:isHighlightForest()
     -- 2. 오브젝트의 보상을 받을 수 있을 때
     
 end
+
+
+-------------------------------------
+-- function getStuffInfoList
+-------------------------------------
+function ServerData_Forest:getStuffInfoList()
+    local table_forest_stuff = TableForestStuffType()
+    local l_stuff_info_list = {}
+
+    for i,v in pairs(table_forest_stuff.m_orgTable) do
+        local stuff_type = v['stuff_type']
+        local t_info = self:getStuffInfo_Indivisual(stuff_type)
+        l_stuff_info_list[stuff_type] = t_info
+    end
+
+    return l_stuff_info_list
+end
+
+-------------------------------------
+-- function getStuffInfo_Indivisual
+-------------------------------------
+function ServerData_Forest:getStuffInfo_Indivisual(stuff_type)
+    local table_forest_stuff = TableForestStuffType()
+    local t_server_info = self:getStuffInfo()
+
+    local t_stuff = table_forest_stuff:get(stuff_type)
+    
+    if (not t_stuff) then
+        error('stuff_type : ' .. stuff_type)
+    end
+
+    local clone_stuff = clone(t_stuff)
+    local server_info = t_server_info[stuff_type] or {}
+
+    for i, v in pairs(server_info) do
+        clone_stuff[i] = v
+    end
+
+    return clone_stuff
+end

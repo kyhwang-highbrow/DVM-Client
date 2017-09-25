@@ -43,10 +43,16 @@ end
 function UI_Forest_StuffListPopup:initUI()
     self:makeTableView()
 
-    -- 드래곤의 숲 확장 레벨 UI
-    local ui = UI_Forest_ExtensionBoard()
-    local vars = self.vars
-    vars['forestLvNode']:addChild(ui.root)
+    do -- 드래곤의 숲 확장 레벨 UI
+        local ui = UI_Forest_ExtensionBoard()
+        local vars = self.vars
+        vars['forestLvNode']:addChild(ui.root)
+
+        local function cb_forest_lv_change()
+            self:refreshForestDragonCnt()
+        end
+        ui:setForestLvChange(cb_forest_lv_change)
+    end
 end
 
 -------------------------------------
@@ -69,18 +75,19 @@ end
 -------------------------------------
 function UI_Forest_StuffListPopup:makeTableView()
     local node = self.vars['listNode']
+    node:removeAllChildren()
 
     local table_forest_stuff = TableForestStuffType()
     local t_server_info = ServerData_Forest:getInstance():getStuffInfo()
 
-	local l_stuff_list = self.m_tStuffObjectTable
+	local item_list = ServerData_Forest:getInstance():getStuffInfoList()
 
     -- 테이블 뷰 인스턴스 생성
     local table_view = UIC_TableView(node)
     table_view.m_defaultCellSize = cc.size(800, 110 + 3)
-    table_view:setCellUIClass(self.makeCellUI, nil)
+    table_view:setCellUIClass(UI_Forest_StuffListItem, nil)
     table_view:setDirection(cc.SCROLLVIEW_DIRECTION_VERTICAL)
-    table_view:setItemList(l_stuff_list)
+    table_view:setItemList(item_list)
 
     self.m_tableView = table_view
 end
@@ -92,65 +99,15 @@ function UI_Forest_StuffListPopup:click_exitBtn()
     self:close()
 end
 
-
-
-
-
-
-
-
 -------------------------------------
--- function makeCellUI
--- @static
--- @brief 테이블 셀 생성
+-- function refreshForestDragonCnt
+-- @brief 드래곤의 숲 레벨이 변경됨에 따라 UI 갱신
 -------------------------------------
-function UI_Forest_StuffListPopup.makeCellUI(stuff_object)
-	local ui = class(UI, ITableViewCell:getCloneTable())()
-	local vars = ui:load('dragon_forest_popup_item.ui')
-
-    local t_data = stuff_object.m_tStuffInfo
-
-    -- 이름 레벨
-    local name = t_data['stuff_name']
-    local lv = t_data['stuff_lv'] or 0
-    vars['nameLabel']:setString(string.format('%s Lv.%d', name, lv))
-
-    -- 설명
-    local stuff_type = t_data['stuff_type']
-    local desc = TableForestStuffLevelInfo:getStuffOptionDesc(stuff_type, lv)
-    vars['dscLabel']:setString(desc)
-    
-    -- 아이콘
-    local icon = IconHelper:getIcon(t_data['res'])
-    vars['iconNode']:addChild(icon)
-
-    -- 레벨업 버튼
-    vars['levelupBtn']:registerScriptTapHandler(function()
-        UI_Forest_StuffLevelupPopup(stuff_object):setCloseCB(function()
-            UI_Forest_StuffListPopup.refreshCell(ui, t_data)
-        end)    
-    end)
-
-    -- 레벨업 버튼 막기
-    if (nil == TableForestStuffLevelInfo:getStuffOptionDesc(stuff_type, lv + 1)) then
-        vars['levelupBtn']:setEnabled(false)
+function UI_Forest_StuffListPopup:refreshForestDragonCnt()
+    for i,v in pairs(self.m_tableView.m_itemList) do
+        local ui = v['ui']
+        if ui then
+            ui:refresh()
+        end
     end
-	return ui
-end
-
--------------------------------------
--- function refreshCell
--- @static
--- @brief 테이블 셀 갱신
--------------------------------------
-function UI_Forest_StuffListPopup.refreshCell(ui, t_data)
-    local vars = ui.vars
-
-    local name = t_data['stuff_name']
-    local lv = t_data['stuff_lv'] or 0
-    vars['nameLabel']:setString(string.format('%s Lv.%d', name, lv))
-
-    local stuff_type = t_data['stuff_type']
-    local desc = TableForestStuffLevelInfo:getStuffOptionDesc(stuff_type, lv)
-    vars['dscLabel']:setString(desc)
 end

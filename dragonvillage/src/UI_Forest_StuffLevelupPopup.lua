@@ -4,6 +4,7 @@ local PARENT = UI
 -- class UI_Forest_StuffLevelupPopup
 -------------------------------------
 UI_Forest_StuffLevelupPopup = class(PARENT,{
+        m_forestStuffType = 'string',
         m_stuffObject = 'ForestStuff',
         m_tableStuff = 'table',
     })
@@ -11,15 +12,16 @@ UI_Forest_StuffLevelupPopup = class(PARENT,{
 -------------------------------------
 -- function init
 -------------------------------------
-function UI_Forest_StuffLevelupPopup:init(stuff_object)
+function UI_Forest_StuffLevelupPopup:init(stuff_type, stuff_object)
     local vars = self:load('dragon_forest_levelup_popup.ui')
     UIManager:open(self, UIManager.POPUP)
 
     -- backkey 지정
     g_currScene:pushBackKeyListener(self, function() self:click_closeBtn() end, 'UI_Forest_StuffLevelupPopup')
 
+    self.m_forestStuffType = stuff_type or stuff_object.m_tStuffInfo['stuff_type']
     self.m_stuffObject = stuff_object
-    self.m_tableStuff = TableForestStuffLevelInfo:getStuffTable(stuff_object.m_tStuffInfo['stuff_type'])
+    self.m_tableStuff = TableForestStuffLevelInfo:getStuffTable(self.m_forestStuffType)
 
     self:initUI()
     self:initButton()
@@ -31,7 +33,7 @@ end
 -------------------------------------
 function UI_Forest_StuffLevelupPopup:initUI()
     local vars = self.vars
-    local t_stuff_info = self.m_stuffObject.m_tStuffInfo
+    local t_stuff_info = ServerData_Forest:getInstance():getStuffInfo_Indivisual(self.m_forestStuffType)
 
     -- 이름
     local name = t_stuff_info['stuff_name']
@@ -53,22 +55,6 @@ function UI_Forest_StuffLevelupPopup:initUI()
     local price_icon = IconHelper:getPriceIcon(price_type)
     vars['priceNode']:removeAllChildren()
     vars['priceNode']:addChild(price_icon)
-
-    -- 레벨업 불가 시 잠금 처리
-    local forest_lv = ServerData_Forest:getInstance():getExtensionLV()
-    local open_lv = t_next_level_info['extension_lv']
-    if (open_lv > forest_lv) then
-        vars['levelupBtn']:setVisible(false)
-        vars['lockSprite']:setVisible(true)
-        
-        local desc
-        if (lv == 0) then
-            desc = Str('숲 레벨 {1} 달성 시 오픈됩니다.', open_lv) 
-        else
-            desc = Str('숲 레벨 {1} 달성 시 레벨업 할 수 있어요.', open_lv)
-        end
-        vars['infoLabel']:setString(desc)
-    end
 end
 
 -------------------------------------
@@ -86,7 +72,7 @@ end
 -------------------------------------
 function UI_Forest_StuffLevelupPopup:refresh()
     local vars = self.vars
-    local t_stuff_info = self.m_stuffObject.m_tStuffInfo
+    local t_stuff_info = ServerData_Forest:getInstance():getStuffInfo_Indivisual(self.m_forestStuffType)
     local stuff_type = t_stuff_info['stuff_type']
     
     -- 현재 레벨 정보
@@ -113,6 +99,28 @@ function UI_Forest_StuffLevelupPopup:refresh()
     -- 가격
     local price = t_stuff_level_info['price_value']
     vars['priceLabel']:setString(price)
+
+    -- 다음 레벨 정보
+    local t_next_level_info = self.m_tableStuff[lv + 1]
+    if (not t_next_level_info) then
+        return
+    end
+
+    -- 레벨업 불가 시 잠금 처리
+    local forest_lv = ServerData_Forest:getInstance():getExtensionLV()
+    local open_lv = t_next_level_info['extension_lv']
+    if (open_lv > forest_lv) then
+        vars['levelupBtn']:setVisible(false)
+        vars['lockSprite']:setVisible(true)
+        
+        local desc
+        if (lv == 0) then
+            desc = Str('숲 레벨 {1} 달성 시 오픈됩니다.', open_lv) 
+        else
+            desc = Str('숲 레벨 {1} 달성 시 레벨업 할 수 있어요.', open_lv)
+        end
+        vars['infoLabel']:setString(desc)
+    end
 end
 
 -------------------------------------
@@ -126,16 +134,17 @@ end
 -- function click_levelupBtn
 -------------------------------------
 function UI_Forest_StuffLevelupPopup:click_levelupBtn()
-    local stuff_type = self.m_stuffObject.m_tStuffInfo['stuff_type']
+    local stuff_type = self.m_forestStuffType
     local function finish_cb(t_stuff)
         self.vars['objectVisual']:changeAni('stuff_lvup_' .. stuff_type, false)
-        self.vars['objectVisual']:addAniHandler(function()
+
+        self:refresh()
+
+        if self.m_stuffObject then
             -- 레벨 갱신
             self.m_stuffObject.m_tStuffInfo['stuff_lv'] = t_stuff['stuff_lv']
-
-            self:refresh()
             self.m_stuffObject.m_ui:refresh()
-        end)
+        end
     end
     ServerData_Forest:getInstance():request_stuffLevelup(stuff_type, finish_cb)
 end

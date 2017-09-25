@@ -120,5 +120,5 @@ function ForestStuff:touchStuff()
     end
 
     -- 레벨업 UI 오픈
-    UI_Forest_StuffLevelupPopup(self)
+    UI_Forest_StuffLevelupPopup(nil, self)
 end
