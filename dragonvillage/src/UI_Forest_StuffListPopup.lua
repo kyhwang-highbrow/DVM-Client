@@ -30,6 +30,11 @@ end
 -------------------------------------
 function UI_Forest_StuffListPopup:initUI()
     self:makeTableView()
+
+    -- 드래곤의 숲 확장 레벨 UI
+    local ui = UI_Forest_ExtensionBoard()
+    local vars = self.vars
+    vars['forestLvNode']:addChild(ui.root)
 end
 
 -------------------------------------
