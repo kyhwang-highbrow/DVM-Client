@@ -22,6 +22,7 @@ end
 -------------------------------------
 function UI_Forest_ExtensionBoard:initUI()
     local vars = self.vars
+    vars['forestLvGauge']:setPercentage(0)
 end
 
 -------------------------------------
@@ -29,15 +30,67 @@ end
 -------------------------------------
 function UI_Forest_ExtensionBoard:initButton()
     local vars = self.vars
-
-
-    --vars['levelupBtn']:registerScriptTapHandler(function() self:click_levelupBtn() end)
-    --vars['changeBtn']:registerScriptTapHandler(function() self:click_changeBtn() end)
-    --vars['helpBtn']:registerScriptTapHandler(function() self:click_helpBtn() end)
+    vars['lvUpBtn']:registerScriptTapHandler(function() self:click_lvUpBtn() end)
 end
 
 -------------------------------------
 -- function refresh
 -------------------------------------
 function UI_Forest_ExtensionBoard:refresh()
+    local lv = ServerData_Forest:getInstance():getExtensionLV()
+    local max_lv = ServerData_Forest:getInstance():getExtensionMaxLV()
+    
+
+    local vars = self.vars
+
+    -- 숲 레벨
+    vars['forestLvLabel']:setString('Lv.' .. tostring(lv))
+
+    local action = cc.ProgressTo:create(0.5, (lv/max_lv) * 100)
+    vars['forestLvGauge']:runAction(action)
+
+    -- 최대 레벨 확인
+    if (max_lv <= lv) then
+        vars['lvUpBtn']:setVisible(false)
+        vars['maxSprite']:setVisible(true)
+        vars['lockSprite']:setVisible(false)
+        return
+    end
+
+    vars['lvUpBtn']:setVisible(true)
+    vars['maxSprite']:setVisible(false)
+
+    local extension = 'extension'
+    local t_extension_info = TableForestStuffLevelInfo:getStuffTable(extension)
+    local t_next = t_extension_info[lv + 1]
+
+    local price_type = t_next['price_type']
+    local price = t_next['price_value']
+
+    -- 가격
+    local icon = IconHelper:getPriceIcon(price_type)
+    vars['priceNode']:removeAllChildren()
+    vars['priceNode']:addChild(icon)
+    vars['priceLabel']:setString(comma_value(price))
+
+    -- 레벨 제한
+    if (t_next['tamer_lv'] > g_userData:get('lv')) then
+        vars['lockSprite']:setVisible(true)
+        vars['lockLabel']:setString(Str('테이머 레벨 {1}', t_next['tamer_lv']))
+    else
+        vars['lockSprite']:setVisible(false)
+    end
+end
+
+-------------------------------------
+-- function click_lvUpBtn
+-- @brief
+-------------------------------------
+function UI_Forest_ExtensionBoard:click_lvUpBtn()
+    local function cb_func()
+        self:refresh()
+        self.vars['forestVisual']:changeAni('home_lvup')
+	end
+
+    ServerData_Forest:getInstance():extendMaxCount(cb_func)
 end
