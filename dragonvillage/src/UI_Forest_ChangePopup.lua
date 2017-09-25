@@ -124,8 +124,8 @@ function UI_Forest_ChangePopup:makeSlotUI()
         frame:setDockPoint(CENTER_POINT)
 	    frame:setAnchorPoint(CENTER_POINT)
 
-        pos_x = ((100 * (i % 5)) - 200)
-        pos_y = (150 - (100 * math_floor(i/5)))
+        pos_x = ((100 * (i % 4)) - 150)
+        pos_y = (200 - (100 * math_floor(i/4)))
         frame:setPosition(pos_x, pos_y)
         slot_node:addChild(frame)
 

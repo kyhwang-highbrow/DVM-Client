@@ -318,6 +318,20 @@ function ForestTerritory:initStuffs()
 end
 
 -------------------------------------
+-- function refreshStuffs
+-- @brief
+-------------------------------------
+function ForestTerritory:refreshStuffs()
+    local t_server_info = ServerData_Forest:getInstance():getStuffInfo()
+
+    for stuff_type,v in pairs(self.m_tStuffTable) do
+        local t_stuff = t_server_info[stuff_type] or {}
+        v:setStuffInfo(t_stuff)
+    end
+end
+
+
+-------------------------------------
 -- function changeDragon_Random
 -- @brief 드래곤을 랜덤 교체한다.
 -------------------------------------

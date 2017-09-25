@@ -18,9 +18,7 @@ function UI_Forest:initParentVariable()
     self.m_bVisible = true
     self.m_bUseExitBtn = true
     self.m_bShowChatBtn = true
-
-    local lv = ServerData_Forest:getInstance():getExtensionLV()
-    self.m_titleStr = Str('드래곤의 숲 Lv.{1}', lv)
+    self.m_titleStr = Str('드래곤의 숲')
 end
 
 -------------------------------------
@@ -79,13 +77,16 @@ function UI_Forest:refresh_cnt()
 
     -- 드래곤 수
     local curr_cnt = self.m_territory:getCurrDragonCnt()
-    local max_cnt = ServerData_Forest:getInstance():getMaxDragon()
-    vars['inventoryLabel']:setString(string.format('%d / %d', curr_cnt, max_cnt))
+    vars['dragonLabel']:setString(string.format('%d', curr_cnt))
 
+    -- 드래곤 최대
+    local max_cnt = ServerData_Forest:getInstance():getMaxDragon()
+    vars['invenLabel']:setString(string.format('/%d', max_cnt))
+
+    -- 드래곤의 숲 레벨
     local lv = ServerData_Forest:getInstance():getExtensionLV()
-    local title = Str('드래곤의 숲 Lv.{1}', lv)
-    g_topUserInfo:setTitleString(title)
-    self.m_titleStr = title
+    local str = Str('Lv.{1}', lv)
+    vars['forestLv']:setString(str)
 end
 
 -------------------------------------
@@ -130,7 +131,13 @@ end
 -------------------------------------
 function UI_Forest:click_levelupBtn()
     local t_stuff_object = self.m_territory:getStuffObjectTable()
-    UI_Forest_StuffListPopup(t_stuff_object)
+    local ui = UI_Forest_StuffListPopup(t_stuff_object)
+
+    local function close_cb()
+        self.m_territory:refreshStuffs()
+    end
+
+    ui:setCloseCB(close_cb)
 end
 
 -------------------------------------

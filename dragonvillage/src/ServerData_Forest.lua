@@ -6,6 +6,7 @@ ServerData_Forest = class({
         m_happyRate = 'number',
         m_tStuffInfo = 'table',
         m_tDragonStruct = 'table',
+        m_extensionMaxLV = 'number', -- 드래곤의 숲 확장 최대 레벨
     })
 
 
@@ -13,20 +14,19 @@ local _instance = nil
 -------------------------------------
 -- function getInstance
 -------------------------------------
-function ServerData_Forest:getInstance(server_data)
+function ServerData_Forest:getInstance()
     if _instance then
         return _instance
     end
 
-    _instance = ServerData_Forest(server_data)
+    _instance = ServerData_Forest()
     return _instance
 end
 
 -------------------------------------
 -- function init
 -------------------------------------
-function ServerData_Forest:init(server_data)
-    --self.m_serverData = server_data
+function ServerData_Forest:init()
     self.m_tStuffInfo = {}
     self.m_tDragonStruct = {}
 end
@@ -67,6 +67,18 @@ end
 -------------------------------------
 function ServerData_Forest:getExtensionLV()
     return self.m_tStuffInfo['extension']['stuff_lv']
+end
+
+-------------------------------------
+-- function getExtensionMaxLV
+-- @brief 드래곤의 숲 확장 최대 레벨
+-------------------------------------
+function ServerData_Forest:getExtensionMaxLV()
+    if (not self.m_extensionMaxLV) then
+        self.m_extensionMaxLV = TableForestStuffLevelInfo:getExtensionMaxLV()
+    end
+
+    return self.m_extensionMaxLV
 end
 
 -------------------------------------
@@ -365,4 +377,24 @@ function ServerData_Forest:extendMaxCount(cb_func)
 
     local msg = Str('드래곤의 숲을 레벨업하여\n최대 드래곤 수를 {2}까지 늘리시겠습니까?', price, new_max_cnt)
     UI_ConfirmPopup(price_type, price, msg, ok_btn_cb)
+end
+
+-------------------------------------
+-- function isHighlightForest
+-- @brief "드래곤의 숲"진입 버튼의 알림 표시 여부
+-------------------------------------
+function ServerData_Forest:isHighlightForest()
+
+    -- 작업 중
+    if true then
+        return
+    end
+
+    -- 1. 드래곤의 숲 레벨업이 가능한 상태
+    if (self:getExtensionLV() < self:getExtensionMaxLV()) then
+        
+    end
+
+    -- 2. 오브젝트의 보상을 받을 수 있을 때
+    
 end

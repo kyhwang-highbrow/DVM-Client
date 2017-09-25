@@ -18,6 +18,13 @@ ForestStuff = class(PARENT, {
 -------------------------------------
 function ForestStuff:init(t_stuff)
     self.m_objectType = 'stuff'
+    self:setStuffInfo(t_stuff)
+end
+
+-------------------------------------
+-- function setStuffInfo
+-------------------------------------
+function ForestStuff:setStuffInfo(t_stuff)
     self.m_tStuffInfo = t_stuff
 
     self.m_hasReward = false
@@ -26,6 +33,10 @@ function ForestStuff:init(t_stuff)
 
     if (t_stuff['stuff_lv']) then
         self.m_isLock = false
+    end
+
+    if self.m_ui then
+        self.m_ui:refresh()
     end
 end
 
