@@ -290,22 +290,40 @@ function ForestTerritory:makeDragon(struct_dragon_object)
 end
 
 -------------------------------------
+-- function makeStuffDataTable
+-- @brief
+-------------------------------------
+function ForestTerritory:makeStuffDataTable(stuff_type)
+    local table_forest_stuff = TableForestStuffType()
+    local t_server_info = ServerData_Forest:getInstance():getStuffInfo()
+
+    local t_stuff = table_forest_stuff:get(stuff_type)
+    
+    if (not t_stuff) then
+        error('stuff_type : ' .. stuff_type)
+    end
+
+    local clone_stuff = clone(t_stuff)
+    local server_info = t_server_info[stuff_type] or {}
+
+    for i, v in pairs(server_info) do
+        clone_stuff[i] = v
+    end
+
+    return clone_stuff
+end
+
+-------------------------------------
 -- function initStuffs
 -- @brief 가구 생성
 -------------------------------------
 function ForestTerritory:initStuffs()
     local table_forest_stuff = TableForestStuffType()
-    local t_server_info = ServerData_Forest:getInstance():getStuffInfo()
 
     for _, t_stuff in pairs(table_forest_stuff.m_orgTable) do
         local stuff_type = t_stuff['stuff_type']
 
-        local clone_stuff = clone(t_stuff)
-        local server_info = t_server_info[stuff_type] or {}
-        
-        for i, v in pairs(server_info) do
-            clone_stuff[i] = v
-        end
+        local clone_stuff = self:makeStuffDataTable(stuff_type)
 
         local stuff = ForestStuff(clone_stuff)
         stuff:initUI()
@@ -319,14 +337,14 @@ end
 
 -------------------------------------
 -- function refreshStuffs
--- @brief
+-- @brief 가구들 정보 갱신
 -------------------------------------
 function ForestTerritory:refreshStuffs()
-    local t_server_info = ServerData_Forest:getInstance():getStuffInfo()
-
     for stuff_type,v in pairs(self.m_tStuffTable) do
-        local t_stuff = t_server_info[stuff_type] or {}
-        v:setStuffInfo(t_stuff)
+        local t_stuff = self:makeStuffDataTable(stuff_type)
+        if t_stuff then
+            v:setStuffInfo(t_stuff)
+        end
     end
 end
 
