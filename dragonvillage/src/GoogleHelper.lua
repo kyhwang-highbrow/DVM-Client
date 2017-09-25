@@ -10,10 +10,6 @@ GoogleHelper = {
 -- function isAvailable
 -------------------------------------
 function GoogleHelper.isAvailable()
-    -- 우선 개발섭에서만 동작하도록 한다.
-    if (CppFunctions:getTargetServer() ~= 'DEV') then
-        return false
-    end
     -- 안드로이드 인지 체크
     if (not CppFunctions:isAndroid()) then
         return false
