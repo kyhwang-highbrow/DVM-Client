@@ -67,6 +67,7 @@ function UI_ExchangeEvent:refresh()
 
     -- 교환 버튼
     local need_exchange = 500
+    vars['boxLabel']:setString(Str('{1}개', comma_value(need_exchange)))
     vars['boxBtn']:setEnabled(cur_cnt >= need_exchange)
 
     -- 누적보상

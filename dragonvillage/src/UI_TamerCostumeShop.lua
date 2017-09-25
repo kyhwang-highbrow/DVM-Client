@@ -285,10 +285,24 @@ function UI_TamerCostumeShop:click_buyBtn()
     local function finish_cb()
         UIManager:toastNotificationGreen(Str('코스튬을 구입하였습니다.'))
         self:refresh()
+        self:refresh_tableData()
     end
     
-    local ui = UI_TamerCostumeConfirmPopup(self.m_selectCostumeData)
-    ui:setCloseCB(finish_cb)
+    local function show_popup()
+        local ui = UI_TamerCostumeConfirmPopup(self.m_selectCostumeData)
+        ui:setCloseCB(finish_cb)
+    end
+
+    local costume_data = self.m_selectCostumeData
+    local is_open = costume_data:isOpen() 
+    local is_lock = costume_data:isTamerLock()
+
+    -- 열려있지않은 테이머라면 한번더 경고 문구
+    if (not is_open and is_lock) then
+        MakeSimplePopup(POPUP_TYPE.YES_NO, Str('해당 테이머를 소유하지 못했습니다.\n그래도 구매하시겠습니까?'), show_popup)
+    else
+        show_popup()
+    end
 end
 
 -------------------------------------

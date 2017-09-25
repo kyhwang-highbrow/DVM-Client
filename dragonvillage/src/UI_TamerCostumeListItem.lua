@@ -36,14 +36,7 @@ function UI_TamerCostumeListItem:initUI()
     if (img) then
         vars['tamerNode']:addChild(img)
     end
-
-    -- 할인 (열려있지 않은 상태에만 표기)
-    local is_open = costume_data:isOpen()
-    if (not is_open) then
-        local is_sale = costume_data:isSale()
-        vars['saleSprite']:setVisible(is_sale)
-    end
-
+    
     -- 테이머 열려있지 않으면 코스튬도 잠금
     local is_lock = costume_data:isTamerLock()
     vars['lockSprite']:setVisible(is_lock)
@@ -68,6 +61,11 @@ function UI_TamerCostumeListItem:refresh()
 
     local is_used = costume_data:isUsed()
     vars['useSprite']:setVisible(is_used)
+
+    -- 할인 (열려있지 않은 상태에만 표기)
+    local is_open = costume_data:isOpen()
+    local is_sale = costume_data:isSale()
+    vars['saleSprite']:setVisible(not is_open and is_sale)
 end
 
 -------------------------------------

@@ -196,12 +196,11 @@ function UI_Lobby:entryCoroutine()
         if (g_tutorialData:isTutorialDone(TUTORIAL.FIRST_START)) then
 
             -- 패키지 풀팝업 (하드코딩)
-            
             if (title_to_lobby) then
                 local first_login = g_localData:get('event_full_popup', 'first_login') or false
 
-                -- 소환 확률업, 드빌 카드, 스타터 패키지, 월간 패키지
-                local t_pid = {'chance_up','banner', '90006', '90007'}
+                -- 스타터 패키지, 오픈 패키지, 주말 패키지, 월간 패키지
+                local t_pid = {'90006', '90012', '90013', '90007'}
                 for _, pid in ipairs(t_pid) do
                     local save_key = tostring(pid)
 
