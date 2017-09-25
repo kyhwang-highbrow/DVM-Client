@@ -1,4 +1,4 @@
-local PARENT = UI
+local PARENT = class(UI, ITopUserInfo_EventListener:getCloneTable())
 
 -------------------------------------
 -- class UI_Forest_StuffListPopup
@@ -9,14 +9,26 @@ UI_Forest_StuffListPopup = class(PARENT,{
     })
 
 -------------------------------------
+-- function initParentVariable
+-- @brief 자식 클래스에서 반드시 구현할 것
+-------------------------------------
+function UI_Forest_StuffListPopup:initParentVariable()
+    -- ITopUserInfo_EventListener의 맴버 변수들 설정
+    self.m_uiName = 'UI_Forest_StuffListPopup'
+    self.m_bVisible = true or false
+    self.m_titleStr = Str('숲 관리')
+    self.m_bUseExitBtn = true or false -- click_exitBtn()함구 구현이 반드시 필요함
+end
+
+-------------------------------------
 -- function init
 -------------------------------------
 function UI_Forest_StuffListPopup:init(t_stuff_object)
     local vars = self:load('dragon_forest_popup.ui')
-    UIManager:open(self, UIManager.POPUP)
+    UIManager:open(self, UIManager.SCENE)
 
     -- backkey 지정
-    g_currScene:pushBackKeyListener(self, function() self:click_closeBtn() end, 'UI_Forest_StuffListPopup')
+    g_currScene:pushBackKeyListener(self, function() self:click_exitBtn() end, 'UI_Forest_StuffListPopup')
 
     self.m_tStuffObjectTable = t_stuff_object
 
@@ -43,7 +55,7 @@ end
 function UI_Forest_StuffListPopup:initButton()
     local vars = self.vars
 
-    vars['closeBtn']:registerScriptTapHandler(function() self:click_closeBtn() end)
+    vars['closeBtn']:registerScriptTapHandler(function() self:click_exitBtn() end)
 end
 
 -------------------------------------
@@ -76,7 +88,7 @@ end
 -------------------------------------
 -- function click_exitBtn
 -------------------------------------
-function UI_Forest_StuffListPopup:click_closeBtn()
+function UI_Forest_StuffListPopup:click_exitBtn()
     self:close()
 end
 

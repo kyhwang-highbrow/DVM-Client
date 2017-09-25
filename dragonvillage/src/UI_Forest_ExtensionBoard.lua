@@ -88,6 +88,11 @@ end
 -- @brief
 -------------------------------------
 function UI_Forest_ExtensionBoard:click_lvUpBtn()
+    local btn = self.vars['lvUpBtn']
+    if (not btn:isVisible()) or (not btn:isEnabled()) then
+        return
+    end
+
     local function cb_func(ret)
         self:refresh()
         self.vars['forestVisual']:changeAni('home_lvup')

@@ -15,6 +15,8 @@ UI_Forest_ChangePopup = class(PARENT,{
         m_selectedDragonMap = 'Map<doid, idx>',
         m_selectedDragonList = '<idx, doid>',
         m_bDirty = 'boolean',
+
+        m_forestExtensionUI = 'UI_Forest_ExtensionBoard',
     })
 
 -------------------------------------
@@ -89,6 +91,7 @@ function UI_Forest_ChangePopup:initUI()
             self:refreshForestDragonCnt()
         end
         ui:setForestLvChange(cb_forest_lv_change)
+        self.m_forestExtensionUI = ui
     end
 end
 
@@ -98,6 +101,7 @@ end
 -------------------------------------
 function UI_Forest_ChangePopup:initButton()
     local vars = self.vars
+    vars['emptyBtn']:registerScriptTapHandler(function() self:click_emptyBtn() end)
 end
 
 -------------------------------------
@@ -105,6 +109,7 @@ end
 -------------------------------------
 function UI_Forest_ChangePopup:refresh()
 	self:refresh_dragonMaterialTableView()
+    self:refresh_selectedMaterial()
 end
 
 -------------------------------------
@@ -333,6 +338,8 @@ function UI_Forest_ChangePopup:click_dragonMaterial(t_dragon_data)
 	-- 갱신
     self:refresh_materialDragonIndivisual(doid)
     self.m_bDirty = true
+
+    self:refresh_selectedMaterial()
 end
 
 -------------------------------------
@@ -371,6 +378,24 @@ function UI_Forest_ChangePopup:refreshForestDragonCnt()
     end
 
     self.m_maxCnt = new_max_cnt
+    self:refresh_selectedMaterial()
+end
+
+
+-------------------------------------
+-- function refresh_selectedMaterial
+-- @brief 선택된 재료의 구성이 변경되었을때
+-------------------------------------
+function UI_Forest_ChangePopup:refresh_selectedMaterial()
+    local vars = self.vars
+
+    -- 드래곤 수
+    local curr_cnt = table.count(self.m_tSelectDragon)
+    vars['dragonLabel']:setString(string.format('%d', curr_cnt))
+
+    -- 드래곤 최대
+    local max_cnt = ServerData_Forest:getInstance():getMaxDragon()
+    vars['invenLabel']:setString(string.format('/%d', max_cnt))
 end
 
 -------------------------------------
@@ -527,10 +552,27 @@ function UI_Forest_ChangePopup:materialMaxGuid()
 
     if (lv <= max_lv) then
         UIManager:toastNotificationRed(Str('드래곤의 숲 레벨이 부족합니다.'))
+        if self.m_forestExtensionUI then
+            local node = self.m_forestExtensionUI.vars['lvUpBtn']
+            cca.uiReactionSlow(node)
+        end
     else
         UIManager:toastNotificationRed(Str('최대 {1}마리까지 가능합니다.', self.m_maxCnt))
     end
 end
+
+-------------------------------------
+-- function click_emptyBtn
+-- @brief
+-------------------------------------
+function UI_Forest_ChangePopup:click_emptyBtn()
+    if self.m_forestExtensionUI then
+        self.m_forestExtensionUI:click_lvUpBtn()
+        local node = self.m_forestExtensionUI.vars['lvUpBtn']
+        cca.uiReactionSlow(node)
+    end
+end
+
 
 --@CHECK
 UI:checkCompileError(UI_Forest_ChangePopup)
