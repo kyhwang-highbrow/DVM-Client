@@ -98,7 +98,6 @@ end
 -------------------------------------
 function UI_Forest_ChangePopup:initButton()
     local vars = self.vars
-    vars['changeBtn']:registerScriptTapHandler(function() self:click_changeBtn() end)
 end
 
 -------------------------------------
@@ -295,7 +294,7 @@ function UI_Forest_ChangePopup:click_dragonMaterial(t_dragon_data)
 		-- 갯수 체크
 		local sell_cnt = table.count(self.m_tSelectDragon)
 		if (sell_cnt >= self.m_maxCnt) then
-			UIManager:toastNotificationRed(Str('최대 {1}마리까지 가능합니다.', self.m_maxCnt))
+            self:materialMaxGuid()
 			return
 		end
 
@@ -372,31 +371,6 @@ function UI_Forest_ChangePopup:refreshForestDragonCnt()
     end
 
     self.m_maxCnt = new_max_cnt
-end
-
--------------------------------------
--- function click_changeBtn
--- @brief
--------------------------------------
-function UI_Forest_ChangePopup:click_changeBtn()
-	-- 갯수 체크
-	local sell_cnt = table.count(self.m_tSelectDragon)
-	if (sell_cnt <= 0) then
-		UIManager:toastNotificationGreen(Str('배치할 드래곤을 선택해주세요'))
-		return
-	end
-
-    -- 콤마 스트링 생성
-    local doids = self:makeCommaOIDStr(self.m_tSelectDragon)
-
-	local function cb_func()
-        if (self.m_changeCB) then
-            self.m_changeCB()
-        end
-		self:close()
-	end
-
-	ServerData_Forest:getInstance():request_setDragons(doids, cb_func)
 end
 
 -------------------------------------
@@ -541,6 +515,21 @@ function UI_Forest_ChangePopup:click_exitBtn()
     local doids = self:makeCommaOIDStr(self.m_tSelectDragon)
 
 	ServerData_Forest:getInstance():request_setDragons(doids, cb_func)
+end
+
+-------------------------------------
+-- function materialMaxGuid
+-- @brief
+-------------------------------------
+function UI_Forest_ChangePopup:materialMaxGuid()
+    local lv = ServerData_Forest:getInstance():getExtensionLV()
+    local max_lv = ServerData_Forest:getInstance():getExtensionMaxLV()
+
+    if (lv <= max_lv) then
+        UIManager:toastNotificationRed(Str('드래곤의 숲 레벨이 부족합니다.'))
+    else
+        UIManager:toastNotificationRed(Str('최대 {1}마리까지 가능합니다.', self.m_maxCnt))
+    end
 end
 
 --@CHECK
