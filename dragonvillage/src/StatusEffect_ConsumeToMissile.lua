@@ -78,6 +78,7 @@ end
 -------------------------------------
 function StatusEffect_ConsumeToMissile:onApplyOverlab(unit)
     self.m_activityCarrier = unit:makeActivityCarrier()
+    self.m_activityCarrier:setAttackType('add_dmg')
     self.m_activityCarrier:setIgnoreDef(true)
     self.m_activityCarrier:setParam('add_dmg', true)
 
