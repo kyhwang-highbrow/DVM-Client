@@ -14,6 +14,7 @@ UI_Forest_ChangePopup = class(PARENT,{
         m_tSelectDragon = '<doid, structDragon>',
         m_selectedDragonMap = 'Map<doid, idx>',
         m_selectedDragonList = '<idx, doid>',
+        m_bDirty = 'boolean',
     })
 
 -------------------------------------
@@ -35,7 +36,7 @@ function UI_Forest_ChangePopup:init()
     UIManager:open(self, UIManager.SCENE)
 
     -- backkey 지정
-    g_currScene:pushBackKeyListener(self, function() self:close() end, 'UI_Forest_ChangePopup')
+    g_currScene:pushBackKeyListener(self, function() self:click_exitBtn() end, 'UI_Forest_ChangePopup')
 
     self:sceneFadeInAction()
 	
@@ -46,6 +47,7 @@ function UI_Forest_ChangePopup:init()
     self.m_mSlotMap = {}
     self.m_selectedDragonMap = {}
     self.m_selectedDragonList = {}
+    self.m_bDirty = false
 
     -- 최초 등록
     local cnt = 0
@@ -78,10 +80,16 @@ function UI_Forest_ChangePopup:initUI()
         self.m_currSlotIdx = -1
     end
 
-    -- 드래곤의 숲 확장 레벨 UI
-    local ui = UI_Forest_ExtensionBoard()
-    local vars = self.vars
-    vars['forestLvNode']:addChild(ui.root)
+    do -- 드래곤의 숲 확장 레벨 UI
+        local ui = UI_Forest_ExtensionBoard()
+        local vars = self.vars
+        vars['forestLvNode']:addChild(ui.root)
+
+        local function cb_forest_lv_change()
+            self:refreshForestDragonCnt()
+        end
+        ui:setForestLvChange(cb_forest_lv_change)
+    end
 end
 
 -------------------------------------
@@ -91,14 +99,12 @@ end
 function UI_Forest_ChangePopup:initButton()
     local vars = self.vars
     vars['changeBtn']:registerScriptTapHandler(function() self:click_changeBtn() end)
-    vars['inventoryBtn']:registerScriptTapHandler(function() self:click_inventoryBtn() end)
 end
 
 -------------------------------------
 -- function refresh
 -------------------------------------
 function UI_Forest_ChangePopup:refresh()
-    self:refresh_selectedMaterial()
 	self:refresh_dragonMaterialTableView()
 end
 
@@ -327,7 +333,7 @@ function UI_Forest_ChangePopup:click_dragonMaterial(t_dragon_data)
 
 	-- 갱신
     self:refresh_materialDragonIndivisual(doid)
-    self:refresh_selectedMaterial()
+    self.m_bDirty = true
 end
 
 -------------------------------------
@@ -354,37 +360,19 @@ function UI_Forest_ChangePopup:refresh_materialDragonIndivisual(doid)
 end
 
 -------------------------------------
--- function refresh_selectedMaterial
--- @brief 선택된 재료의 구성이 변경되었을때
+-- function refreshForestDragonCnt
+-- @brief 드래곤의 숲 레벨이 변경됨에 따라 늘어난 드래곤 슬롯 수 처리
 -------------------------------------
-function UI_Forest_ChangePopup:refresh_selectedMaterial()
-	-- 선택한 갯수
-    local dragon_count = table.count(self.m_tSelectDragon)
-    local max_count = ServerData_Forest:getInstance():getMaxDragon()
-    self.vars['inventoryLabel']:setString(string.format('%d / %d', dragon_count, max_count))
+function UI_Forest_ChangePopup:refreshForestDragonCnt()
+    local new_max_cnt = ServerData_Forest:getInstance():getMaxDragon()
+
+    -- lock sprite 제거
+    for i = self.m_maxCnt, new_max_cnt - 1 do
+        self.m_mSlotMap[i]:removeAllChildren(true)
+    end
+
+    self.m_maxCnt = new_max_cnt
 end
-
--------------------------------------
--- function click_inventoryBtn
--- @brief
--------------------------------------
-function UI_Forest_ChangePopup:click_inventoryBtn()
-    local function cb_func()
-        -- 드래곤의 숲 레벨이 변경됨에 따라 늘어난 드래곤 슬롯 수 처리
-        local new_max_cnt = ServerData_Forest:getInstance():getMaxDragon()
-
-        -- lock sprite 제거
-        for i = self.m_maxCnt, new_max_cnt - 1 do
-            self.m_mSlotMap[i]:removeAllChildren(true)
-        end
-
-        self.m_maxCnt = new_max_cnt
-        self:refresh_selectedMaterial()
-	end
-
-    ServerData_Forest:getInstance():extendMaxCount(cb_func)
-end
-
 
 -------------------------------------
 -- function click_changeBtn
@@ -531,6 +519,28 @@ function UI_Forest_ChangePopup:apply_mtrlDragonSort_saveData()
             vars['sortSelectOrderSprite']:runAction(cc.RotateTo:create(0.15, 0))
         end
     end
+end
+
+-------------------------------------
+-- function click_exitBtn
+-------------------------------------
+function UI_Forest_ChangePopup:click_exitBtn()
+    if (not self.m_bDirty) then
+        self:close()
+        return
+    end
+
+    local function cb_func()
+        if (self.m_changeCB) then
+            self.m_changeCB()
+        end
+		self:close()
+	end
+
+    -- 콤마 스트링 생성
+    local doids = self:makeCommaOIDStr(self.m_tSelectDragon)
+
+	ServerData_Forest:getInstance():request_setDragons(doids, cb_func)
 end
 
 --@CHECK

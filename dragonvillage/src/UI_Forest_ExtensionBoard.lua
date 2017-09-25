@@ -4,6 +4,7 @@ local PARENT = UI
 -- class UI_Forest_ExtensionBoard
 -------------------------------------
 UI_Forest_ExtensionBoard = class(PARENT,{
+        m_cbForestLVChange = 'function',
     })
 
 -------------------------------------
@@ -87,10 +88,22 @@ end
 -- @brief
 -------------------------------------
 function UI_Forest_ExtensionBoard:click_lvUpBtn()
-    local function cb_func()
+    local function cb_func(ret)
         self:refresh()
         self.vars['forestVisual']:changeAni('home_lvup')
+
+        if self.m_cbForestLVChange then
+            self.m_cbForestLVChange(ret)
+        end
 	end
 
     ServerData_Forest:getInstance():extendMaxCount(cb_func)
+end
+
+-------------------------------------
+-- function setForestLvChange
+-- @brief
+-------------------------------------
+function UI_Forest_ExtensionBoard:setForestLvChange(cb_forest_lv_change)
+    self.m_cbForestLVChange = cb_forest_lv_change
 end

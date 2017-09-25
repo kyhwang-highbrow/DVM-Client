@@ -122,6 +122,7 @@ function UI_Forest:click_changeBtn()
     -- 닫을때 항상 체크
     ui:setCloseCB(function()
         self:refresh_cnt()
+        self:sceneFadeInAction()
     end)
 end
 
@@ -134,6 +135,7 @@ function UI_Forest:click_levelupBtn()
 
     local function close_cb()
         self.m_territory:refreshStuffs()
+        self:sceneFadeInAction()
     end
 
     ui:setCloseCB(close_cb)
