@@ -92,7 +92,7 @@ function UI_Forest_StuffLevelupPopup:refresh()
 
     -- 레벨업 후 만렙을 달성하였을 경우를 상정
     if (not t_stuff_level_info) then
-        UIManager:toastNotificationGreen(Str('최고 레벨을 달성하였습니다.'))
+        UIManager:toastNotificationGreen(Str('최대 레벨을 달성하였습니다.'))
         self:close()
         return
     end

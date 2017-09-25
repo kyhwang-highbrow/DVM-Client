@@ -64,23 +64,24 @@ function UI_Forest_StuffListItem:refresh()
 
     vars['lockSprite']:setVisible(lv == 0)
 
-    -- 테이머 레벨 제한 확인
-    local forest_lv = ServerData_Forest:getInstance():getExtensionLV()
-    local open_lv = t_next_level_info['extension_lv']
-    if (open_lv > forest_lv) then
-        vars['lockSprite2']:setVisible(true)
-        vars['lockLabel']:setString(Str('숲 Lv.{1}', open_lv))
-        vars['levelupBtn']:setVisible(false)
-    else
-        vars['lockSprite2']:setVisible(false)
-        vars['levelupBtn']:setVisible(true)
-    end
-
     -- 레벨업 버튼 활성 여부
     if (t_next_level_info) then    
         vars['maxSprite']:setVisible(false)
+
+        -- 테이머 레벨 제한 확인
+        local forest_lv = ServerData_Forest:getInstance():getExtensionLV()
+        local open_lv = t_next_level_info['extension_lv']
+        if (open_lv > forest_lv) then
+            vars['lockSprite2']:setVisible(true)
+            vars['lockLabel']:setString(Str('숲 Lv.{1}', open_lv))
+            vars['levelupBtn']:setVisible(false)
+        else
+            vars['lockSprite2']:setVisible(false)
+            vars['levelupBtn']:setVisible(true)
+        end
     else
         -- 최대 레벨
+        vars['lockSprite2']:setVisible(false)
         vars['levelupBtn']:setVisible(false)
         vars['maxSprite']:setVisible(true)
     end
