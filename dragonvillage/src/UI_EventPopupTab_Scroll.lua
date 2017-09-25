@@ -15,12 +15,11 @@ function UI_EventPopupTab_Scroll:init(owner, struct_event_popup_tab)
     local event_data = struct_event_popup_tab.m_eventData
     local event_type = event_data['event_type']
     
-
     local ui
     local target_size 
-    if (event_type == 'event_chuseok') then
-        ui = UI_ChuseokEvent()
-        target_size = cc.size(930, 1200)
+    if (event_type == 'event_exchange') then
+        ui = UI_ExchangeEvent()
+        target_size = cc.size(930, 1340)
     end
 
     -- 스크롤 뷰 위에 해당 이벤트 UI 올려줌

@@ -129,6 +129,7 @@ local t_module = {
     'ServerData_Advertising',
     'ServerData_EvolutionStone',
     'ServerData_FriendMatch',
+    'ServerData_ExchangeEvent',
 
     -- Interface
     'IEventDispatcher',
@@ -875,7 +876,8 @@ local t_module = {
     'UI_EventPopupTab_Scroll',
     'UI_ExchangeProductListItem',
     'UI_AccessTimeDataListItem',
-    'UI_ChuseokEvent',
+    'UI_ExchangeEvent',
+    'UI_ExchangeEventListItem',
 
 	-- UI : 연출
 	'DirectingCharacter',

@@ -77,8 +77,7 @@ function UI_EventPopupTab_AccessTime:refresh()
         end
 
         -- 보상 리스트 갱신
-        for i, v in ipairs(self.m_lEventDataUi) do
-            local ui = v
+        for i, ui in ipairs(self.m_lEventDataUi) do
             ui:refresh()
         end
 

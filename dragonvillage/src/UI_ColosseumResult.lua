@@ -205,7 +205,20 @@ function UI_ColosseumResult:direction_end()
         compare_func(t_data['added_honor'], vars['honorArrowSprite1'], vars['honorArrowSprite2'], honer_label2)
     end)
 
-    resultMenu:runAction(cc.Sequence:create(show_act, number_act))
+    -- 이벤트 아이템 표시
+    local event_act = cc.CallFunc:create(function()
+        local drop_list = t_data['added_items']['items_list'] or {}
+        for _, item in ipairs(drop_list) do
+            if (item['from'] == 'event') then
+                local cnt = item['count']
+                vars['eventNode']:setVisible(true)
+                vars['eventLabel']:setString(comma_value(cnt))
+                break
+            end
+        end
+    end)
+
+    resultMenu:runAction(cc.Sequence:create(show_act, number_act, event_act))
 
     self:doNextWorkWithDelayTime(0.5)
 end

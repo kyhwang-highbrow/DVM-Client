@@ -164,6 +164,9 @@ function ServerData:getInstance()
     -- 테이머 코스튬
     g_tamerCostumeData = ServerData_TamerCostume(g_serverData)
 
+    -- 교환 이벤트 (추석 송편)
+    g_exchangeEventData = ServerData_ExchangeEvent(g_serverData)
+
     return g_serverData
 end
 

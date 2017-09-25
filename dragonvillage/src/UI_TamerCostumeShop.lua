@@ -65,6 +65,9 @@ function UI_TamerCostumeShop:initTamerTableView()
 
     local table_tamer = TableTamer()
     local tamer_list = table.MapToList(table_tamer.m_orgTable)
+    table.sort(tamer_list, function(a, b)
+        return a['tid'] < b['tid']
+    end)
 
     -- 테이머 선택 버튼 
     local function create_func(ui, data)

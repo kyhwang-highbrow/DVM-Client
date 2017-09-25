@@ -202,28 +202,23 @@ function UI_EventPopup:makeEventPopupTab(tab)
         if (product) then
             ui = UI_EventPopupTab_Shop(product)
         end
-        
-    -- 업데이트 공지 
-    elseif (string.find(tab, 'notice')) then
-        ui = UI_EventPopupTab_Notice(self, struct_event_popup_tab)
-        self:addNodeToTabNodeList(tab, ui.m_webView)
 
     -- 배너
     elseif (string.find(tab, 'banner')) then
         ui = UI_EventPopupTab_Banner(self, struct_event_popup_tab)
 
-    -- 성장 패키지 묶음 UI
-    elseif (string.find(tab, 'growth_package')) then
-        local product = {product_id = 'growth_package'}
-        ui = UI_EventPopupTab_Shop(product)
+    -- 업데이트 공지 
+    elseif (tab == 'notice') then
+        ui = UI_EventPopupTab_Notice(self, struct_event_popup_tab)
+        self:addNodeToTabNodeList(tab, ui.m_webView)
 
-    -- 슬라임 패키지 묶음 UI
-    elseif (string.find(tab, 'slime_package')) then
-        local product = {product_id = 'slime_package'}
+    -- 성장 패키지 묶음 UI (slime_package, growth_package)
+    elseif (string.find(tab, '_package')) then
+        local product = {product_id = tab}
         ui = UI_EventPopupTab_Shop(product)
 
     -- 추석 이벤트
-    elseif (string.find(tab, 'event_chuseok')) then
+    elseif (string.find(tab, 'event_exchange')) then
         ui = UI_EventPopupTab_Scroll(self, struct_event_popup_tab)
 
     end

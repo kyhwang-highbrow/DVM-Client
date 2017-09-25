@@ -121,6 +121,12 @@ function ServerData_Event:openEventPopup(tab)
         self:request_eventList(co.NEXT, co.ESCAPE)
         if co:waitWork() then return end
 
+        if (self:isVaildEvent('event_exchange')) then
+            co:work('# 교환 이벤트 정보 받는 중')
+            g_exchangeEventData:request_eventInfo(co.NEXT, co.ESCAPE)
+            if co:waitWork() then return end
+        end
+
         co:work('# 상점 정보 받는 중')
         g_shopDataNew:request_shopInfo(co.NEXT, co.ESCAPE)
         if co:waitWork() then return end
@@ -173,4 +179,16 @@ function ServerData_Event:request_eventList(finish_cb, fail_cb)
     ui_network:request()
 
     return ui_network
+end
+
+-------------------------------------
+-- function isVaildEvent
+-------------------------------------
+function ServerData_Event:isVaildEvent(event_name)
+    for _, event in ipairs(self.m_eventList) do
+        if (event['event_type'] == event_name) then
+            return true
+        end
+    end
+    return false
 end
