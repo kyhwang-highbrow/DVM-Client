@@ -53,7 +53,18 @@ end
 -- @brief 고객 센터 (브라우저)
 -------------------------------------
 function UI_Setting:click_serviceBtn()
-    local url = URL['HIGHBROW_CS']
+    local _url = URL['DVM_CS']
+    local market = 'android' or 'undefined'
+    local ver = getAppVer() or 'undefined'
+    local uid = g_userData:get('uid') or 'undefined'
+
+    if isAndroid() then
+        market = 'android'
+    elseif isIos() then
+        market = 'ios'
+    end
+
+    local url = Str('{1}?market={2}&ver={3}&uid={4}', _url, market, ver, uid)
     SDKManager:goToWeb(url)
     --UI_WebView(url)
 end

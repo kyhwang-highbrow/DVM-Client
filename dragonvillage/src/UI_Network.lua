@@ -246,7 +246,7 @@ local S_ERROR_STATUS_CLOSE = {
     -- 이용 제한
     [-9101] = {
             ['msg'] = Str('접속이 제한되었습니다.'),
-            ['submsg'] = Str('문의 사항은 support@highbrow-inc.com으로 접수해주시기 바랍니다.'),
+            ['submsg'] = Str('문의 사항은 dvm@highbrow-inc.com으로 접수해주시기 바랍니다.'),
         }
 }
  
