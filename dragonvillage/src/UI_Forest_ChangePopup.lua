@@ -230,7 +230,21 @@ end
 -------------------------------------
 function UI_Forest_ChangePopup:getDragonMaterialList()
     local dragon_dic = g_dragonsData:getDragonsList()
-    return dragon_dic
+
+    local table_dragon = TableDragon()
+
+    local t_ret = {}
+    for i,v in pairs(dragon_dic) do
+        t_ret[i] = v
+
+        -- 최초 기획상에서 몬스터 드래곤(자코)는 리스트에서 제거하기로 했었음 2017-09-25 sgkim (구영환, 조수용이 자코도 포함하는 것으로 결정함)
+        --local did = v['did']
+        --if table_dragon:isUnderling(did) then
+        --    t_ret[i] = nil
+        --end
+    end
+
+    return t_ret
 end
 
 -------------------------------------
@@ -351,6 +365,9 @@ end
 -------------------------------------
 function UI_Forest_ChangePopup:click_inventoryBtn()
     local function cb_func()
+        -- 드래곤의 숲 레벨이 변경됨에 따라 늘어난 드래곤 슬롯 수 처리
+        local new_max_cnt = ServerData_Forest:getInstance():getMaxDragon()
+
         -- lock sprite 제거
         for i = self.m_maxCnt, new_max_cnt - 1 do
             self.m_mSlotMap[i]:removeAllChildren(true)

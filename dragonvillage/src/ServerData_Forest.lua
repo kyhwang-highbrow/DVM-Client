@@ -344,6 +344,7 @@ function ServerData_Forest:extendMaxCount(cb_func)
     if (t_next['tamer_lv'] > g_userData:get('lv')) then
         local msg = Str('테이머 레벨 {1} 달성 시 레벨업 가능합니다.', t_next['tamer_lv'])
         UIManager:toastNotificationRed(msg)
+        return
     end
 
     local price_type = t_next['price_type']
