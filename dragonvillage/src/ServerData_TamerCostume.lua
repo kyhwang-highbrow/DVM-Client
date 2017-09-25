@@ -25,7 +25,9 @@ function ServerData_TamerCostume:getCostumeID(tamer_id)
     local costume_id
     if (g_tamerData.m_mTamerMap[tamer_id]) then
         costume_id = g_tamerData.m_mTamerMap[tamer_id]['costume']
-    else
+    end
+
+    if (not costume_id) then
         costume_id = TableTamerCostume:getDefaultCostumeID(tamer_id)
     end
     
@@ -69,16 +71,17 @@ function ServerData_TamerCostume:getUsedStructCostumeData(tamer_id)
         local tamer_idx = getDigit(cid, 100, 2)
         local tamer_id = tonumber(string.format('1100%02d', tamer_idx))
         local tamer_map = g_tamerData.m_mTamerMap
-        local used_costume_id = 0
+        local used_costume_id 
 
         if (tamer_map[tamer_id]) then
             used_costume_id =  tamer_map[tamer_id]['costume'] 
-
-        -- 테이머 정보가 없다면 기본복장 사용중인걸로 처리
-        else
-            used_costume_id = TableTamerCostume:getDefaultCostumeID(tamer_id)
         end
 
+        -- 테이머 정보가 없다면 기본복장 사용중인걸로 처리
+        if (not used_costume_id) then
+            used_costume_id = TableTamerCostume:getDefaultCostumeID(tamer_id)
+        end
+            
         if (used_costume_id == cid) then
             return StructTamerCostume(v)
         end
