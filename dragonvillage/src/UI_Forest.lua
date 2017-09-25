@@ -58,7 +58,6 @@ function UI_Forest:initButton()
     vars['levelupBtn']:registerScriptTapHandler(function() self:click_levelupBtn() end)
     vars['changeBtn']:registerScriptTapHandler(function() self:click_changeBtn() end)
     vars['helpBtn']:registerScriptTapHandler(function() self:click_helpBtn() end)
-    vars['inventoryBtn']:registerScriptTapHandler(function() self:click_inventoryBtn() end)
 end
 
 -------------------------------------
@@ -145,15 +144,4 @@ end
 -------------------------------------
 function UI_Forest:click_helpBtn()
     self.vars['helpNode']:runAction(cc.ToggleVisibility:create())
-end
-
--------------------------------------
--- function click_inventoryBtn
--------------------------------------
-function UI_Forest:click_inventoryBtn()
-    local function cb_func()
-        self:refresh_cnt()
-	end
-
-    ServerData_Forest:getInstance():extendMaxCount(cb_func)
 end
