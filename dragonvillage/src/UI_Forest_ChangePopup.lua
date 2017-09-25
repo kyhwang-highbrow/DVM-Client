@@ -101,7 +101,6 @@ end
 -------------------------------------
 function UI_Forest_ChangePopup:initButton()
     local vars = self.vars
-    vars['emptyBtn']:registerScriptTapHandler(function() self:click_emptyBtn() end)
 end
 
 -------------------------------------

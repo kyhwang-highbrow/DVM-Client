@@ -59,11 +59,30 @@ function UI_Forest_StuffListItem:refresh()
     local desc = TableForestStuffLevelInfo:getStuffOptionDesc(stuff_type, display_lv)
     vars['dscLabel']:setString(desc)
 
-    -- 레벨업 버튼 활성 여부
-    if (TableForestStuffLevelInfo:getStuffOptionDesc(stuff_type, lv + 1)) then
-        vars['levelupBtn']:setEnabled(true)
+    local table_stuff = TableForestStuffLevelInfo:getStuffTable(stuff_type)
+    local t_next_level_info = table_stuff[lv + 1]
+
+    vars['lockSprite']:setVisible(lv == 0)
+
+    -- 테이머 레벨 제한 확인
+    local forest_lv = ServerData_Forest:getInstance():getExtensionLV()
+    local open_lv = t_next_level_info['extension_lv']
+    if (open_lv > forest_lv) then
+        vars['lockSprite2']:setVisible(true)
+        vars['lockLabel']:setString(Str('숲 Lv.{1}', open_lv))
+        vars['levelupBtn']:setVisible(false)
     else
-        vars['levelupBtn']:setEnabled(false)
+        vars['lockSprite2']:setVisible(false)
+        vars['levelupBtn']:setVisible(true)
+    end
+
+    -- 레벨업 버튼 활성 여부
+    if (t_next_level_info) then    
+        vars['maxSprite']:setVisible(false)
+    else
+        -- 최대 레벨
+        vars['levelupBtn']:setVisible(false)
+        vars['maxSprite']:setVisible(true)
     end
 end
 

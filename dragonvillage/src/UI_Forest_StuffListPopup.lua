@@ -90,6 +90,19 @@ function UI_Forest_StuffListPopup:makeTableView()
     table_view:setItemList(item_list)
 
     self.m_tableView = table_view
+
+    
+    local function sort_func(a, b)
+        local a_stuff_type = a['data']['stuff_type']
+        local b_stuff_type = b['data']['stuff_type']
+
+        local a_extension_lv = TableForestStuffLevelInfo:getStuffTable(a_stuff_type)[1]['extension_lv']
+        local b_extension_lv = TableForestStuffLevelInfo:getStuffTable(b_stuff_type)[1]['extension_lv']
+
+        return a_extension_lv < b_extension_lv
+    end
+
+    table.sort(table_view.m_itemList, sort_func)
 end
 
 -------------------------------------

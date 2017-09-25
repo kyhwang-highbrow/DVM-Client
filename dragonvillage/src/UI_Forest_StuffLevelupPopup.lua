@@ -92,23 +92,18 @@ function UI_Forest_StuffLevelupPopup:refresh()
 
     -- 레벨업 후 만렙을 달성하였을 경우를 상정
     if (not t_stuff_level_info) then
-        UIManager:toastNotificationGreen(Str('레벨 최대치 입니다.'))
+        UIManager:toastNotificationGreen(Str('최고 레벨을 달성하였습니다.'))
         self:close()
+        return
     end
 
     -- 가격
     local price = t_stuff_level_info['price_value']
     vars['priceLabel']:setString(price)
 
-    -- 다음 레벨 정보
-    local t_next_level_info = self.m_tableStuff[lv + 1]
-    if (not t_next_level_info) then
-        return
-    end
-
     -- 레벨업 불가 시 잠금 처리
     local forest_lv = ServerData_Forest:getInstance():getExtensionLV()
-    local open_lv = t_next_level_info['extension_lv']
+    local open_lv = t_stuff_level_info['extension_lv']
     if (open_lv > forest_lv) then
         vars['levelupBtn']:setVisible(false)
         vars['lockSprite']:setVisible(true)

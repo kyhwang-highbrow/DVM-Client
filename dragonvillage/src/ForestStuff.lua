@@ -36,6 +36,7 @@ function ForestStuff:setStuffInfo(t_stuff)
     end
 
     if self.m_ui then
+        self.m_ui.m_tSuffInfo = self.m_tStuffInfo
         self.m_ui:refresh()
     end
 end
