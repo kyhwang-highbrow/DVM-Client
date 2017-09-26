@@ -180,17 +180,12 @@ function ForestTerritory:makeTamer(struct_user_info)
     local tamer = ForestTamer(struct_user_info)
     do
         local res = struct_user_info:getSDRes()
-        local left, right, bottom, top = self:getGroundRange()
-    
         tamer:initAnimator(res)
         tamer:initState()
         tamer:changeState('idle')
         tamer:initSchedule()    
         tamer:setForestZOrder()
-        
-        local pos_x = math_random(left, right)
-        local pos_y = (bottom + top)/2
-        tamer:setPosition(pos_x, pos_y)
+        tamer:setPosition(-1000, -100)
     
         self.m_ground:addChild(tamer.m_rootNode)
         self.m_tamer = tamer
