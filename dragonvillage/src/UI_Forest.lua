@@ -31,6 +31,8 @@ function UI_Forest:init()
     -- backkey 지정
     g_currScene:pushBackKeyListener(self, function() self:click_exitBtn() end, 'UI_Forest')
 
+    cc.SpriteFrameCache:getInstance():addSpriteFrames('res/ui/a2d/dragon_forest/dragon_forest.plist')
+
     self:sceneFadeInAction()
 
     self:initUI()
@@ -96,7 +98,7 @@ function UI_Forest:refresh_happy()
 
     -- 만족도 바
     local happy_pnt = ServerData_Forest:getInstance():getHappy()
-    vars['giftLabel']:setString(string.format('%d %%', happy_pnt/10))
+    vars['giftLabel']:setString(string.format('%.1f %%', happy_pnt/10))
     vars['giftGauge']:runAction(cc.ProgressTo:create(0.5, happy_pnt/10))
 end
 
