@@ -21,6 +21,7 @@ ForestTerritory = class(PARENT, {
         m_touchedDragon = 'ForestDragon',
         m_isTouchingDragon = 'bool',
         m_moveIndicator = 'Animator',
+        m_touchForHappy = 'bool',
 
         -- 오브젝트
         m_ground = 'Animator',
@@ -387,11 +388,14 @@ function ForestTerritory:onTouchBegan(touches, event)
     local location = touches[1]:getLocation()
     self.m_touchPosition = location
 
+    self.m_touchForHappy = false
+
     -- 터치된 드래곤이 있다면 등록
     for _, dragon in ipairs(self.m_lDragonList) do
         if (self:checkObjectTouch(location, dragon)) then
             
             if (dragon:checkHappy()) then
+                self.m_touchForHappy = true
                 return
             end
 
@@ -480,7 +484,7 @@ function ForestTerritory:update(dt)
     end
 
     -- press move
-    if (self.m_isPressMove) then
+    if (self.m_isPressMove) and (not self.m_touchForHappy) then
         local move_pos = self:getForestMovePos(self.m_touchPosition)
         self.m_tamer:setMove(move_pos['x'], move_pos['y'])
         self.m_moveIndicator:setPosition(move_pos['x'], move_pos['y'])
