@@ -330,6 +330,9 @@ function ServerData_Forest:showRewardResult(ret)
             ui:load('popup_ad_confirm.ui')
             ui.vars['itemNode']:addChild(item_card.root)
             ui.vars['okBtn']:registerScriptTapHandler(function() ui:close() end)
+            -- backkey 지정
+            g_currScene:pushBackKeyListener(ui, function() ui:close() end, 'popup_ad_confirm')
+
             UIManager:open(ui, UIManager.POPUP)
         end
 
