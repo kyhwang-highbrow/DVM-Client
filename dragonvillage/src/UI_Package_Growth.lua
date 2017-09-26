@@ -36,11 +36,11 @@ end
 -------------------------------------
 function UI_Package_Growth:initButton()
     local vars = self.vars
-    vars['fireBtn']:registerScriptTapHandler(function() self:click_openShop(90003) end)
-    vars['waterBtn']:registerScriptTapHandler(function() self:click_openShop(90002) end)
-    vars['earthBtn']:registerScriptTapHandler(function() self:click_openShop(90001) end)
-    vars['lightBtn']:registerScriptTapHandler(function() self:click_openShop(90004) end)
-    vars['darkBtn']:registerScriptTapHandler(function() self:click_openShop(90005) end)
+    vars['fireBtn']:registerScriptTapHandler(function() self:click_openShop(90023) end)
+    vars['waterBtn']:registerScriptTapHandler(function() self:click_openShop(90022) end)
+    vars['earthBtn']:registerScriptTapHandler(function() self:click_openShop(90021) end)
+    vars['lightBtn']:registerScriptTapHandler(function() self:click_openShop(90024) end)
+    vars['darkBtn']:registerScriptTapHandler(function() self:click_openShop(90025) end)
 
     if (not self.m_isPopup) then
         vars['closeBtn']:setVisible(false)
