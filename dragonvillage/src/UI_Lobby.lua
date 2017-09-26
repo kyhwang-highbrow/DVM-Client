@@ -795,6 +795,9 @@ function UI_Lobby:update(dt)
         self:refresh_masterRoad()
     end
 
+    -- 드래곤의 숲
+    ServerData_Forest:getInstance():update(dt)
+
     -- 구글 버튼 처리
     if (GoogleHelper.isDirty) then
         GoogleHelper.setDirty(false)

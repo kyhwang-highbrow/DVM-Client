@@ -248,6 +248,7 @@ function ServerData_Forest:request_stuffReward(stuff_type, finish_cb)
     
     -- 성공 콜백
     local function success_cb(ret)
+        self.m_isDirty = false
 
         -- 드래곤의 숲 오브젝트
         local stuff, ret_stuff
@@ -399,8 +400,12 @@ function ServerData_Forest:isHighlightForest()
     local curr_lv = g_userData:get('lv')
     local curr_extension_lv = self:getExtensionLV()
     local next_extension_open_tamer_lv = TableForestStuffLevelInfo:getExtensionOpenLV(curr_extension_lv)
-    if (next_extension_open_tamer_lv ~= 0) and (next_extension_open_tamer_lv <= curr_lv) then
-        return true
+    local max_extension_lv = self:getExtensionMaxLV()
+    cclog(curr_lv, curr_extension_lv, next_extension_open_tamer_lv, max_extension_lv)
+    if (curr_extension_lv ~= max_extension_lv) then
+        if (next_extension_open_tamer_lv ~= 0) and (next_extension_open_tamer_lv <= curr_lv) then
+            return true
+        end
     end
 
     -- 2. 오브젝트의 보상을 받을 수 있을 때
@@ -456,4 +461,22 @@ function ServerData_Forest:getStuffInfo_Indivisual(stuff_type)
     end
 
     return clone_stuff
+end
+
+-------------------------------------
+-- function update
+-------------------------------------
+function ServerData_Forest:update(dt)
+    if (self.m_isDirty) then
+        return
+    end
+
+    -- 최초 보상을 받을 수 있을 때 로비 갱신해버린다.
+    local curr_time = Timer:getServerTime()
+    for i, t_stuff in pairs(self.m_tStuffInfo) do
+        if t_stuff['reward_at'] and (curr_time > t_stuff['reward_at']/1000) then
+            self.m_isDirty = true
+            g_highlightData:setLastUpdateTime()
+        end
+    end
 end
