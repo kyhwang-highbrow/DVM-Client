@@ -68,6 +68,31 @@ end
 -- function readyForReward
 -------------------------------------
 function ForestStuffUI:readyForReward()
-    self.vars['notiSprite']:setVisible(true)
-    self.vars['timeLabel']:setString('')
+    local vars = self.vars
+
+    vars['timeLabel']:setString('')
+
+    local reward_visual = vars['rewardVisual']
+    reward_visual:setVisible(true)
+
+    local t_res = 
+    {
+        ['table'] = 'dragon_forest_reward_dia.png',
+        ['nest'] = 'dragon_forest_reward_egg_common_unknown.png', --dragon_forest_reward_egg_middle_mystery.png
+        ['table'] = 'dragon_forest_reward_fruit_01.png', --dragon_forest_reward_fruit_02.png
+        ['chest'] = 'dragon_forest_reward_gold.png',
+        ['bookshelf'] = 'dragon_forest_reward_wing.png',
+    }
+
+    local stuff_type = self.m_tSuffInfo['stuff_type']
+    local reward_icon = cc.Sprite:createWithSpriteFrameName(t_res[stuff_type]) -- plist 등록은 UI_Forest에서 한다
+    local socket_node = reward_visual.m_node:getSocketNode('dragon_forest_reward')
+    socket_node:addChild(reward_icon)
+end
+
+-------------------------------------
+-- function resetReward
+-------------------------------------
+function ForestStuffUI:resetReward()
+    self.vars['rewardVisual']:setVisible(false)
 end

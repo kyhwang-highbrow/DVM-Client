@@ -57,13 +57,13 @@ function ForestStuff:initAnimator(file_name)
     self:releaseAnimator()
 
     -- Animator 생성
-    local res = self.m_tStuffInfo['res']
+    local res = 'res/bg/dragon_forest/dragon_forest.vrp'
     self.m_animator = MakeAnimator(res)
     if (self.m_animator) then
+        local t_stuff_info = self.m_tStuffInfo
+        self.m_animator:changeAni(t_stuff_info['stuff_type'] .. '_idle', true)
+        self:setPosition(t_stuff_info['x'], t_stuff_info['y'])
         self.m_rootNode:addChild(self.m_animator.m_node)
-
-        -- 위치 지정
-        self:setPosition(self.m_tStuffInfo['x'], self.m_tStuffInfo['y'])
     end
 end
 
@@ -114,7 +114,7 @@ function ForestStuff:touchStuff()
             self.m_tStuffInfo['reward_at'] = t_stuff['reward_at']
             self.m_rewardTime = t_stuff['reward_at']/1000
             self.m_hasReward = false
-            self.m_ui.vars['notiSprite']:setVisible(false)
+            self.m_ui:resetReward()
         end
         ServerData_Forest:getInstance():request_stuffReward(stuff_type, finish_cb)
         return

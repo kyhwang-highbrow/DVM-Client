@@ -114,7 +114,7 @@ function ForestTerritory:initBackground()
     self:addLayer(self:makeForestLayer(2), 0.9)
 
     -- 땅
-    local ground_node = self:makeForestLayer(1)
+    local ground_node = self:makeForestGroundLayer(1)
     self:addLayer(ground_node, 1) 
     self.m_ground = ground_node
     
@@ -125,7 +125,7 @@ end
 -------------------------------------
 -- function makeForestLayer
 -------------------------------------
-function ForestTerritory:makeForestLayer(idx, use_center)
+function ForestTerritory:makeForestLayer(idx)
     local node = cc.Node:create()
     node:setDockPoint(cc.p(0.5, 0.5))
     node:setAnchorPoint(cc.p(0.5, 0.5))
@@ -151,6 +151,38 @@ function ForestTerritory:makeForestLayer(idx, use_center)
 
 	local animator = MakeAnimator(string.format(layer_path, idx, 'right'), skip_error_msg)
     if (animator.m_node) then
+        animator:setDockPoint(cc.p(0.5, 0.5))
+        animator:setAnchorPoint(cc.p(0.5, 0.5))
+        animator:setPositionX(pos_x)
+        node:addChild(animator.m_node)
+    end
+
+    return node
+end
+
+-------------------------------------
+-- function makeForestGroundLayer
+-------------------------------------
+function ForestTerritory:makeForestGroundLayer(idx)
+    local node = cc.Node:create()
+    node:setDockPoint(cc.p(0.5, 0.5))
+    node:setAnchorPoint(cc.p(0.5, 0.5))
+
+    local res = 'res/bg/dragon_forest/dragon_forest.vrp'
+    local pos_x = BG_WIDTH/4
+
+    local animator = MakeAnimator(res)
+    if (animator.m_node) then
+        animator:changeAni('dragon_forest_layer_01_left', true)
+        animator:setDockPoint(cc.p(0.5, 0.5))
+        animator:setAnchorPoint(cc.p(0.5, 0.5))
+        animator:setPositionX(-pos_x)
+        node:addChild(animator.m_node)
+    end
+
+	local animator = MakeAnimator(res)
+    if (animator.m_node) then
+        animator:changeAni('dragon_forest_layer_01_right', true)
         animator:setDockPoint(cc.p(0.5, 0.5))
         animator:setAnchorPoint(cc.p(0.5, 0.5))
         animator:setPositionX(pos_x)
