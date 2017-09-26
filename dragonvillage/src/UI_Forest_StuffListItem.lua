@@ -44,11 +44,7 @@ function UI_Forest_StuffListItem:refresh()
     local t_data = ServerData_Forest:getInstance():getStuffInfo_Indivisual(stuff_type)
 
     -- 아이콘
-    local res = 'res/bg/dragon_forest/dragon_forest.vrp'
-    local ani_icon = MakeAnimator(res)
-    ani_icon:changeAni(stuff_type .. '_idle', true)
-    vars['iconNode']:addChild(ani_icon.m_node)
-
+    vars['objectVisual']:changeAni(stuff_type .. '_idle', true)
 
     -- 이름 레벨
     local name = t_data['stuff_name']
