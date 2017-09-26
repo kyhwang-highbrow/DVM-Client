@@ -7,6 +7,7 @@ UI_Forest_StuffLevelupPopup = class(PARENT,{
         m_forestStuffType = 'string',
         m_stuffObject = 'ForestStuff',
         m_tableStuff = 'table',
+        m_animator = 'Animator',
     })
 
 -------------------------------------
@@ -40,8 +41,11 @@ function UI_Forest_StuffLevelupPopup:initUI()
     vars['titleLabel']:setString(name)
 
     -- 애니변경
+    local animator = MakeAnimator('res/bg/dragon_forest/dragon_forest.vrp')
     local stuff_type = t_stuff_info['stuff_type']
-    vars['objectVisual']:changeAni('stuff_normal_' .. stuff_type, false)
+    animator:changeAni(stuff_type .. '_idle', true)
+    self.m_animator = animator
+    vars['objectNode']:addChild(animator.m_node)
 
     local lv = t_stuff_info['stuff_lv'] or 0
     local t_next_level_info = self.m_tableStuff[lv + 1]
@@ -153,8 +157,9 @@ function UI_Forest_StuffLevelupPopup:click_levelupBtn()
     end
 
     local function finish_cb(t_stuff)
-        vars['objectVisual']:changeAni('stuff_lvup_' .. stuff_type, false)
-        vars['objectVisual']:addAniHandler(function()
+        self.m_animator:changeAni('stuff_lvup_' .. stuff_type, false)
+        self.m_animator:addAniHandler(function()
+            self.m_animator:changeAni(stuff_type .. '_idle', true)
             vars['levelupBtn']:setEnabled(true)
         end)
         self:refresh()

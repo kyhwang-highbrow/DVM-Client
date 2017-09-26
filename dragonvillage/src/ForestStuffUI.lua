@@ -34,10 +34,6 @@ end
 -- function init
 -------------------------------------
 function ForestStuffUI:initUI()
-    local stuff_type = self.m_tSuffInfo['stuff_type']
-    if (stuff_type == 'bookshelf') then
-        self.root:setPositionX(-30)
-    end
 end
 
 -------------------------------------
