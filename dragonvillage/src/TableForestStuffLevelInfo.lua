@@ -29,7 +29,11 @@ function TableForestStuffLevelInfo:makeFilteredTable()
     local l_key = {'nest', 'chest', 'table', 'well', 'bookshelf', 'extension'}
     T_STUFF_TABLE = {}
     for _, key in ipairs(l_key) do
-        T_STUFF_TABLE[key] = self:filterList('stuff_type', key)
+        local t_stuff = self:filterList('stuff_type', key)
+        table.sort(t_stuff, function(a, b)
+            return a['id'] < b['id']
+        end)
+        T_STUFF_TABLE[key] = t_stuff
     end
 end
 
@@ -153,4 +157,21 @@ function TableForestStuffLevelInfo:getExtensionMaxLV()
 
     local max_lv = t_data['stuff_lv'] or 0
     return max_lv
+end
+
+-------------------------------------
+-- function getExtensionOpenLV
+-------------------------------------
+function TableForestStuffLevelInfo:getExtensionOpenLV(curr_extension_lv)
+    if (self == THIS) then
+        self = THIS()
+    end
+
+    local curr_lv = g_userData:get('lv')
+    local t_stuff = T_STUFF_TABLE['extension'][curr_extension_lv + 1]
+    if (not t_stuff) then
+        return 0
+    end
+
+    return t_stuff['tamer_lv']
 end
