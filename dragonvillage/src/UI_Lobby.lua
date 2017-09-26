@@ -782,7 +782,10 @@ end
 -- function update
 -- @brief
 -------------------------------------
-function UI_Lobby:update(dt)
+function UI_Lobby:update(dt)    
+    -- 드래곤의 숲
+    ServerData_Forest:getInstance():update(dt)
+
     -- noti 갱신
     if (g_highlightData.m_lastUpdateTime ~= self.m_hilightTimeStamp) then
         self.m_hilightTimeStamp = g_highlightData.m_lastUpdateTime
@@ -794,9 +797,6 @@ function UI_Lobby:update(dt)
         g_masterRoadData.m_bDirtyMasterRoad = false
         self:refresh_masterRoad()
     end
-
-    -- 드래곤의 숲
-    ServerData_Forest:getInstance():update(dt)
 
     -- 구글 버튼 처리
     if (GoogleHelper.isDirty) then

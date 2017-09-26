@@ -8,7 +8,7 @@ ServerData_Forest = class({
         m_tDragonStruct = 'table',
         m_extensionMaxLV = 'number', -- 드래곤의 숲 확장 최대 레벨
 
-        m_isDirty = 'bool',
+        m_hasReward = 'bool',
     })
 
 
@@ -248,7 +248,7 @@ function ServerData_Forest:request_stuffReward(stuff_type, finish_cb)
     
     -- 성공 콜백
     local function success_cb(ret)
-        self.m_isDirty = false
+        self.m_hasReward = false
 
         -- 드래곤의 숲 오브젝트
         local stuff, ret_stuff
@@ -396,12 +396,16 @@ end
 -- @brief "드래곤의 숲"진입 버튼의 알림 표시 여부
 -------------------------------------
 function ServerData_Forest:isHighlightForest()
+    -- reward가 있다면 트루
+    if (self.m_hasReward) then
+        return true
+    end
+
     -- 1. 드래곤의 숲 레벨업이 가능한 상태
     local curr_lv = g_userData:get('lv')
     local curr_extension_lv = self:getExtensionLV()
     local next_extension_open_tamer_lv = TableForestStuffLevelInfo:getExtensionOpenLV(curr_extension_lv)
     local max_extension_lv = self:getExtensionMaxLV()
-    cclog(curr_lv, curr_extension_lv, next_extension_open_tamer_lv, max_extension_lv)
     if (curr_extension_lv ~= max_extension_lv) then
         if (next_extension_open_tamer_lv ~= 0) and (next_extension_open_tamer_lv <= curr_lv) then
             return true
@@ -467,7 +471,7 @@ end
 -- function update
 -------------------------------------
 function ServerData_Forest:update(dt)
-    if (self.m_isDirty) then
+    if (self.m_hasReward) then
         return
     end
 
@@ -475,8 +479,9 @@ function ServerData_Forest:update(dt)
     local curr_time = Timer:getServerTime()
     for i, t_stuff in pairs(self.m_tStuffInfo) do
         if t_stuff['reward_at'] and (curr_time > t_stuff['reward_at']/1000) then
-            self.m_isDirty = true
+            self.m_hasReward = true
             g_highlightData:setLastUpdateTime()
+            break
         end
     end
 end
