@@ -168,12 +168,12 @@ end
 -- function passiveActivate_Right
 -- @brief 패시브 발동
 -------------------------------------
-function GameWorld:passiveActivate_Right()
+function GameWorldColosseum:passiveActivate_Right()
     PARENT.passiveActivate_Right(self)
 
     -- 적 리더 버프
 	if (self.m_leaderEnemy) then
-		self.m_leaderEnemy:doSkill_leader()
+        self.m_leaderEnemy:doSkill_leader()
 	end
 end
 
@@ -408,7 +408,8 @@ function GameWorldColosseum:makeEnemyDeck()
 
                 -- 리더 등록
 				if (i == leader) then
-					self.m_leaderEnemy = hero
+                    cclog('set leader enemy')
+					self.m_leaderEnemy = enemy
 				end
             end
         end
