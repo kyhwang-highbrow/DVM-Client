@@ -62,6 +62,7 @@ function ForestStuff:initAnimator(file_name)
     if (self.m_animator) then
         local t_stuff_info = self.m_tStuffInfo
         self.m_animator:changeAni(t_stuff_info['stuff_type'] .. '_idle', true)
+        self.m_animator:setIgnoreLowEndMode(true)
         self:setPosition(t_stuff_info['x'], t_stuff_info['y'])
         self.m_rootNode:addChild(self.m_animator.m_node)
     end
