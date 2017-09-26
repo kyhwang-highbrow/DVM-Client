@@ -153,6 +153,10 @@ function UI_UserInfoDetailPopup_SetLeader:init_dragonSortMgr()
     end
     uic_sort_list:setSortChangeCB(sort_change_cb)
 
+    -- 대표 드래곤 등급 레벨 순으로 수정
+    self.m_sortManagerDragon:pushSortOrder('lv')
+    uic_sort_list:setSelectSortType('grade')
+
     -- 오름차순/내림차순 버튼
     vars['sortSelectOrderBtn']:registerScriptTapHandler(function()
             local ascending = (not self.m_sortManagerDragon.m_defaultSortAscending)

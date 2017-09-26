@@ -85,8 +85,8 @@ function LocalData:makeDefaultLocalData()
         local t_data = {}
         do
             local t_list = {}
-            table.insert(t_list, 'lv')
             table.insert(t_list, 'grade')
+            table.insert(t_list, 'lv')
             table.insert(t_list, 'rarity')
             table.insert(t_list, 'friendship')
             table.insert(t_list, 'attr')
@@ -109,8 +109,8 @@ function LocalData:makeDefaultLocalData()
         local t_data = {}
         do
             local t_list = {}
-            table.insert(t_list, 'lv')
             table.insert(t_list, 'grade')
+            table.insert(t_list, 'lv')
             table.insert(t_list, 'rarity')
             table.insert(t_list, 'friendship')
             table.insert(t_list, 'attr')
