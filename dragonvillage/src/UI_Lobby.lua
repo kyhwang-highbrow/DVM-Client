@@ -193,6 +193,7 @@ function UI_Lobby:entryCoroutine()
         end
         while (working) do dt = coroutine.yield() end
 
+        g_eventData.m_bDirty = true
         if (g_tutorialData:isTutorialDone(TUTORIAL.FIRST_START)) then
 
             -- 패키지 풀팝업 (하드코딩)
@@ -227,7 +228,8 @@ function UI_Lobby:entryCoroutine()
             -- 이벤트 보상 정보가 있다면 팝업을 띄운다.
             if g_eventData:hasReward() then
                 working = true
-                local ui = UI_EventPopup()
+                local noti = true 
+                local ui = UI_EventPopup(noti)
                 ui:setCloseCB(function(ret) working = false end)
                 while (working) do dt = coroutine.yield() end
             end
@@ -685,6 +687,9 @@ end
 -- @brief 추석 이벤트
 -------------------------------------
 function UI_Lobby:click_chuseokBtn()
+    if (not g_eventData:isVaildEvent('event_exchange')) then
+        return
+    end
     g_eventData:openEventPopup('event_exchange')
 end
 
@@ -783,6 +788,12 @@ function UI_Lobby:update(dt)
         self:refresh_google()
     end
 
+    -- 이벤트 갱신된 경우
+    if (g_eventData.m_bDirty) then
+        g_eventData.m_bDirty = false
+        self.vars['chuseokBtn']:setVisible(g_eventData:isVaildEvent('event_exchange'))
+    end
+
     -- 광고 (자동재화, 선물상자 정보)
     do
         -- 자동줍기
@@ -803,11 +814,6 @@ function UI_Lobby:update(dt)
             self.m_bGiftBoxEnabled = enable2
             vars['giftBoxBtn']:setAutoShake(self.m_bGiftBoxEnabled)
         end
-    end
-
-    -- 추석 이벤트 (교환 이벤트)
-    if (g_eventData:isVaildEvent('event_exchange')) then
-        self.vars['chuseokBtn']:setVisible(true)
     end
 
     -- spine 캐시 정리 확인

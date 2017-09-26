@@ -7,12 +7,16 @@ UI_EventPopup = class(PARENT,{
         m_tableView = 'UIC_TableView',
         m_lContainerForEachType = 'list[node]', -- (tab)타입별 컨테이너
         m_mTabUI = 'map',
+
+        m_noti = 'boolean',
     })
 
 -------------------------------------
 -- function init
 -------------------------------------
-function UI_EventPopup:init()
+function UI_EventPopup:init(noti)
+    self.m_noti = noti or false
+
     local vars = self:load('event.ui')
     UIManager:open(self, UIManager.SCENE)
 
@@ -251,6 +255,10 @@ end
 -- function checkNotiList
 -------------------------------------
 function UI_EventPopup:checkNotiList()
+    if (not self.m_noti) then 
+        return 
+    end
+
     for i,v in pairs(self.m_tableView.m_itemList) do
         local type = v['data'].m_type
 

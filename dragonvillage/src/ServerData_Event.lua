@@ -4,6 +4,8 @@
 ServerData_Event = class({
         m_serverData = 'ServerData',
         m_eventList = 'list',
+
+        m_bDirty = 'boolean',
     })
 
 -------------------------------------
@@ -11,6 +13,7 @@ ServerData_Event = class({
 -------------------------------------
 function ServerData_Event:init(server_data)
     self.m_serverData = server_data
+    self.m_bDirty = false
 end
 
 -------------------------------------
@@ -145,9 +148,14 @@ function ServerData_Event:openEventPopup(tab)
 
         co:close()
 
-        local ui = UI_EventPopup()
+        self.m_bDirty = true
         if (tab) then
+            local noti = false -- 탭 타겟을 정한 경우 이벤트 노티 체크하는 부분이랑 꼬임, 노티 꺼줌
+            local ui = UI_EventPopup(noti)
             ui:setTab(tab, true)
+        else
+            local noti = true
+            UI_EventPopup(noti)
         end
     end
 
