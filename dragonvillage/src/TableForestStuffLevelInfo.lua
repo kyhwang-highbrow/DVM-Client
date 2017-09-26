@@ -31,7 +31,7 @@ function TableForestStuffLevelInfo:makeFilteredTable()
     for _, key in ipairs(l_key) do
         local t_stuff = self:filterList('stuff_type', key)
         table.sort(t_stuff, function(a, b)
-            return a['id'] < b['id']
+            return tonumber(a['stuff_lv']) < tonumber(b['stuff_lv'])
         end)
         T_STUFF_TABLE[key] = t_stuff
     end
