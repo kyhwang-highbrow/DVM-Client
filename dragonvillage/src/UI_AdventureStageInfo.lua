@@ -221,6 +221,10 @@ function UI_AdventureStageInfo:refresh()
             elseif isExistValue(monster_id, 135021, 135022, 135023, 135024, 135025) then
                 animator:setScale(0.7)
 
+            -- 악몽 던전 보스
+            elseif isExistValue(monster_id, 136011, 136012, 136013, 136014, 136015, 136021, 136022, 136023, 136024, 136025) then
+                animator:setScale(0.7)
+
             end
         end
     end
