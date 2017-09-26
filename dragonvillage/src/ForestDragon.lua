@@ -335,12 +335,17 @@ end
 -- @brief 만족도가 찼을 경우의 연출을 한다.
 -------------------------------------
 function ForestDragon:happyFull()
-    local animator = MakeAnimator('res/ui/a2d/dragon_forest/dragon_forest.vrp')
-    animator:changeAni('heart_idle', true)
-    animator:setPosition(0, ForestDragon.OFFSET_Y_HAPPY)
-    self.m_rootNode:addChild(animator.m_node, 3)
+    if (not self.m_happyAnimator) then
+        local animator = MakeAnimator('res/ui/a2d/dragon_forest/dragon_forest.vrp')
+        animator:changeAni('heart_idle', true)
+        animator:setPosition(0, ForestDragon.OFFSET_Y_HAPPY)
+        self.m_rootNode:addChild(animator.m_node, 3)
 
-    self.m_happyAnimator = animator
+        self.m_happyAnimator = animator
+    else
+        self.m_happyAnimator:changeAni('heart_idle', true)
+        self.m_happyAnimator:setVisible(true)
+    end
 end
 
 -------------------------------------
@@ -354,14 +359,16 @@ function ForestDragon:checkHappy()
 
     self.m_isHappy = false
 
-    -- 만족도 풍선을 삭제한다.
-    cca.scaleOutAndRemoveSelf(self.m_happyAnimator.m_node, 0.3)
-    self.m_happyAnimator = nil
-
     -- 서버 통신
     local doid = self.m_structDragon['id']
     local curr_happy = ServerData_Forest:getInstance():getHappy()
     local function finish_cb(ret)
+        -- 만족도 풍선을 삭제한다.
+        self.m_happyAnimator:changeAni('heart_tap', false)
+        self.m_happyAnimator:addAniHandler(function()
+            self.m_happyAnimator:setVisible(false)
+        end)
+        
         -- 드래곤 만족도 연출 이벤트
         local struct_event = StructForestEvent()
         struct_event:setObject(self)

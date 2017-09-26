@@ -64,9 +64,6 @@ function ForestTerritory:init(parent, z_order)
     self:makeTouchLayer(self.m_rootNode)
     self:initIndicator()
 
-    -- plist 등록
-    cc.SpriteFrameCache:getInstance():addSpriteFrames('res/ui/a2d/dragon_forest/dragon_forest.plist')
-
     -- update 시작
     self.m_rootNode:scheduleUpdateWithPriorityLua(function(dt) return self:update(dt) end, 0)
 end
@@ -408,7 +405,7 @@ function ForestTerritory:onTouchBegan(touches, event)
     for _, stuff in pairs(self.m_tStuffTable) do
         if (self:checkObjectTouch(location, stuff, 150)) then
             stuff:touchStuff()
-
+            self.m_isTouchAnother = true
             return
         end
     end
@@ -614,44 +611,51 @@ function ForestTerritory:onEvent(event_name, struct_event)
         local ui_node = self.m_ui.vars['cameraNode']
         local height = ForestDragon.OFFSET_Y_HAPPY
         
-        -- 아이템 생성
-        local item = cc.Sprite:createWithSpriteFrameName('dragon_forest_haert.png') -- 파일 명이 잘못 들어가있다.
-        local dock_point = item:getDockPoint()
-        local anchor_point = item:getAnchorPoint()
-        ui_node:addChild(item, FOREST_ZORDER['ITEM'])
+        -- 연출 생성
+        local heart_move_ani = MakeAnimator('res/ui/a2d/dragon_forest/dragon_forest.vrp')
+        heart_move_ani:changeAni('heart_move', false)
+        ui_node:addChild(heart_move_ani.m_node, FOREST_ZORDER['ITEM'])
+
+        local dock_point = heart_move_ani.m_node:getDockPoint()
+        local anchor_point = heart_move_ani.m_node:getAnchorPoint()
+        local dragon = struct_event:getObject()
 
         -- 시작 위치
-        local dragon = struct_event:getObject()
         local start_node = dragon.m_rootNode
         local start_pos = TutorialHelper:convertToWorldSpace(ui_node, start_node, dock_point, anchor_point)
-
-        -- 아이템 위치 지정
-        item:setPosition(start_pos['x'], start_pos['y'] + height)
 
         -- 도착 위치
         local tar_node = self.m_ui.vars['boxVisual'].m_node
         local tar_pos = TutorialHelper:convertToWorldSpace(ui_node, tar_node, dock_point, anchor_point)
 
+        -- pos, scale, rotateh
+        local start_x, start_y = start_pos['x'], start_pos['y'] + height
+        local tar_x, tar_y = tar_pos['x'] + 30, tar_pos['y'] - 15
+        local distance = getDistance(start_x, start_y, tar_x, tar_y)
+        local scale = (distance / 500)
+        local angle = getAdjustDegree(getDegree(start_x, start_y, tar_x, tar_y))
+        heart_move_ani:setPosition(start_x, start_y)
+        heart_move_ani:setScale(scale)
+        heart_move_ani:setRotation(angle + 90)
+
         -- 종료 콜백
-        local function finish_cb()
+        heart_move_ani:addAniHandler(function() 
             local gauge_visual = self.m_ui.vars['gaugeVisual']
             gauge_visual:changeAni('gauge', false)
             self.m_ui:refresh_happy()
+            
+            self.m_ui.vars['boxVisual']:changeAni('gift_box_tap', false)
 
             -- 만족도가 100 넘어갔을 경우
             local happy = ServerData_Forest:getInstance():getHappy()
             if (struct_event:getHappy() > happy) then
-                self.m_ui.vars['boxVisual']:changeAni('gift_box_tap', false)
-                        
                 -- 보상 팝업
                 local ret = struct_event:getResponse()
                 ServerData_Forest:getInstance():showRewardResult(ret)
-
             end
-        end
 
-        -- 액션
-        cca.actGetObject(item, height/2, tar_pos, finish_cb)
+            cca.fadeOutAndRemoveChild(heart_move_ani.m_node, 1)
+        end)
     end
 end
 
