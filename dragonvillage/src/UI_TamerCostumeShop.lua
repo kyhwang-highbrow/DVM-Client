@@ -79,7 +79,7 @@ function UI_TamerCostumeShop:initTamerTableView()
 
     local node = vars['tamerListNode']
     local table_view = UIC_TableView(node)
-    table_view.m_defaultCellSize = cc.size(240, 88)
+    table_view.m_defaultCellSize = cc.size(240, 100)
     table_view:setCellUIClass(UI_TamerListItem, create_func)
     table_view:setDirection(cc.SCROLLVIEW_DIRECTION_VERTICAL)
 

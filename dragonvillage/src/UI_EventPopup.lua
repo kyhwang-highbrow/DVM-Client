@@ -94,13 +94,14 @@ function UI_EventPopup:init_tableView()
     table_view:setCellUIClass(UI_EventPopupTabButton, create_func)
     table_view:setDirection(cc.SCROLLVIEW_DIRECTION_VERTICAL)
 
-    local make_item = true
-    table_view:setItemList(l_item_list, make_item)
-
-    local function sort_func(a, b)
-        return a['data'].m_sortIdx < b['data'].m_sortIdx
+    -- 테이블 뷰 아이템 바로 생성하고 정렬할 경우 애니메이션이 예쁘지 않음.
+    -- 애니메이션 생략하고 바로 정렬하게 수정
+    local function sort_func()
+        table.sort(table_view.m_itemList, function(a, b)
+            return a['data'].m_sortIdx < b['data'].m_sortIdx
+        end)
     end
-    table.sort(table_view.m_itemList, sort_func)
+    table_view:setItemList3(l_item_list, sort_func)
 
     self.m_tableView = table_view
 end

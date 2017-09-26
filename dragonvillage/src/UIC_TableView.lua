@@ -722,7 +722,7 @@ end
 -- function setItemList3
 -- @brief
 -------------------------------------
-function UIC_TableView:setItemList3(list)
+function UIC_TableView:setItemList3(list, sort_func)
     self:clearItemList()
 
     for key,data in pairs(list) do
@@ -751,6 +751,10 @@ function UIC_TableView:setItemList3(list)
             ui.root:runAction(action)
         end
         --]]
+    end
+
+    if (sort_func) then
+        sort_func()
     end
 
     self:_updateCellPositions()
