@@ -198,6 +198,10 @@ function UI_Lobby:entryCoroutine()
 
             -- 패키지 풀팝업 (하드코딩)
             if (title_to_lobby) then
+                
+                -- 네이버 카페
+                NaverCafeManager:naverCafeStart(0)
+
                 local first_login = g_localData:get('event_full_popup', 'first_login') or false
 
                 -- 스타터 패키지, 오픈 패키지, 주말 패키지, 월간 패키지
