@@ -349,10 +349,17 @@ function ForestDragon:happyFull()
 end
 
 -------------------------------------
--- function checkHappy
+-- function isHappy
+-------------------------------------
+function ForestDragon:isHappy()
+    return self.m_isHappy
+end
+
+-------------------------------------
+-- function getHappy
 -- @brief 개별 드래곤이 터치되었을 때 만족도가 찼는지 체크를 하여 수령 할 수 있도록 한다.
 -------------------------------------
-function ForestDragon:checkHappy()
+function ForestDragon:getHappy()
     if (not self.m_isHappy) then
         return false
     end

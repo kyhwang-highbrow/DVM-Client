@@ -382,17 +382,22 @@ function ForestTerritory:onTouchBegan(touches, event)
 
     self.m_isTouchAnother = false
 
-    -- 터치된 드래곤이 있다면 등록
+    -- 드래곤 터치 체크
     for _, dragon in ipairs(self.m_lDragonList) do
+        -- 드래곤 터치
         if (self:checkObjectTouch(location, dragon)) then
-            
-            if (dragon:checkHappy()) then
-                self.m_isTouchAnother = true
-                return
-            end
-
+            -- 터치된 드래곤이 있다면 등록
             self.m_touchedDragon = dragon
             return
+
+        -- 드래곤 하트 터치
+        elseif (dragon:isHappy()) then
+            if (self:checkHeartOfDragonTouch(location, dragon)) then
+                if (dragon:getHappy()) then
+                    self.m_isTouchAnother = true
+                    return
+                end
+            end
         end
     end
 
@@ -563,7 +568,20 @@ function ForestTerritory:checkObjectTouch(touch_pos, forest_object, size)
     return (distance <= size)
 end
 
+-------------------------------------
+-- function checkHeartOfDragonTouch
+-- @brief 하트 터치만 체크
+-------------------------------------
+function ForestTerritory:checkHeartOfDragonTouch(touch_pos, forest_dragon, size)
+    if (not forest_dragon) then
+        return
+    end
+    local size = size or 100
+    local world_pos = convertToWorldSpace(forest_dragon.m_animator.m_node)
+    local distance = getDistance(touch_pos['x'], touch_pos['y'], world_pos['x'], world_pos['y'] + ForestDragon.OFFSET_Y_HAPPY - ForestDragon.OFFSET_Y)
 
+    return (distance <= size)
+end
 
 
 
