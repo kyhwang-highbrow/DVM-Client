@@ -39,4 +39,7 @@ os.system('gradlew assembleQaFullTestRelease')
 # apk copy
 #os.system('sdkcopy.bat')
 
+# apk install
+#os.system('install.bat')
+
 os.system('pause')
