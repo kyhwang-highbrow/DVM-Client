@@ -93,11 +93,11 @@ end
 -------------------------------------
 -- function insertStatusEffect
 -------------------------------------
-function ICharacterStatusEffect:insertStatusEffect(status_effect)
+function ICharacterStatusEffect:insertStatusEffect(status_effect, is_hidden)
 	local effect_name = status_effect.m_statusEffectName
 	
     -- 해제되지 않고 계속 유지되는 것들은 리스트에 추가하지 않음
-	if (StatusEffectHelper:isHidden(status_effect)) then
+	if (is_hidden) then
         self.m_mHiddenStatusEffect[effect_name] = status_effect
     else
         self.m_mStatusEffect[effect_name] = status_effect

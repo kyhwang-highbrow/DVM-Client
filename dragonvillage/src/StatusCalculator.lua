@@ -275,6 +275,37 @@ function StatusCalculator:getCombatPower()
 end
 
 -------------------------------------
+-- function addPassiveAdd
+-- @brief
+-------------------------------------
+function StatusCalculator:addPassiveAdd(stat_type, value)
+    local indivisual_status = self.m_lStatusList[stat_type]
+    if (not indivisual_status) then
+        error('stat_type : ' .. stat_type)
+    end
+
+    indivisual_status:addPassiveAdd(value)
+end
+
+-------------------------------------
+-- function addPassiveMulti
+-- @brief
+-------------------------------------
+function StatusCalculator:addPassiveMulti(stat_type, value)
+    local indivisual_status = self.m_lStatusList[stat_type]
+    if (not indivisual_status) then
+        error('stat_type : ' .. stat_type)
+    end
+
+    -- 특정 타입의 스텟들은 무조건 합연산
+    if (M_SPECIAL_STATUS_TYPE[stat_type]) then
+        indivisual_status:addPassiveAdd(value)
+    else
+        indivisual_status:addPassiveMulti(value)
+    end
+end
+
+-------------------------------------
 -- function addBuffAdd
 -- @brief
 -------------------------------------

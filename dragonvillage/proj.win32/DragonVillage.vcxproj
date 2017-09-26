@@ -544,6 +544,7 @@ xcopy /Y /Q "$(ProjectDir)..\..\libraries\pati\prebuilt\windows\*.dll" "$(OutDir
     <None Include="..\src\StatusEffectUnit_AddDmg.lua" />
     <None Include="..\src\StatusEffectUnit_AddDmgOneTime.lua" />
     <None Include="..\src\StatusEffectUnit_AddHeal.lua" />
+    <None Include="..\src\StatusEffectUnit_ConditionalBuff.lua" />
     <None Include="..\src\StatusEffectUnit_Dot.lua" />
     <None Include="..\src\StatusEffectUnit_Dot_Damage.lua" />
     <None Include="..\src\StatusEffectUnit_Dot_Heal.lua" />

@@ -12,11 +12,11 @@ StatusEffectUnit_Dot_Heal = class(PARENT, {
 -- @param file_name
 -- @param body
 -------------------------------------
-function StatusEffectUnit_Dot_Heal:init(name, owner, caster, skill_id, value, source, duration)
+function StatusEffectUnit_Dot_Heal:init()
     self.m_dotHeal = self:calculateDotHeal()
 
 	-- 힐 사운드
-	if (owner:isDragon()) then
+	if (self.m_owner:isDragon()) then
 		SoundMgr:playEffect('SFX', 'sfx_heal')
 	end
 end

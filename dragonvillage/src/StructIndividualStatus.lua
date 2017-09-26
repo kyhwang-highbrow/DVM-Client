@@ -28,6 +28,9 @@ StructIndividualStatus = class({
         -- T2
         m_runeMulti = '',       -- 룬 곱연산
         m_runeAdd = '',         -- 룬 합연산
+
+        m_passiveMulti = '',    -- 패시브 곱연산
+        m_passiveAdd = '',      -- 패시브 합연산
         ----------------------------------------------------
 
 
@@ -61,6 +64,9 @@ function StructIndividualStatus:init(status_name)
 
     self.m_runeMulti = 0
     self.m_runeAdd = 0
+
+    self.m_passiveMulti = 0
+    self.m_passiveAdd = 0
 
     self.m_t2 = 0
     self.m_bDirtyT2 = true
@@ -107,9 +113,14 @@ function StructIndividualStatus:calcT2()
                 self.m_lvStat + self.m_gradeStat + self.m_evolutionStat + self.m_eclvStat +
                 self.m_friendshipStat)
 
-    -- 룬 능력치 연산
+    -- 룬 능력치
     local rune_multi = (self.m_runeMulti / 100)
-    local t2 = t1 + (t1 * rune_multi) + self.m_runeAdd
+    
+    -- 패시브 능력치
+    local passive_multi = (self.m_passiveMulti / 100)
+    
+    -- 능력치 연산
+    local t2 = t1 + (t1 * (rune_multi + passive_multi)) + self.m_runeAdd + self.m_passiveAdd
 
     self.m_t2 = t2
 
@@ -180,6 +191,21 @@ function StructIndividualStatus:setRuneAdd(rune_add)
     self:setDirtyT2()
 end
 
+-------------------------------------
+-- function addPassiveMulti
+-------------------------------------
+function StructIndividualStatus:addPassiveMulti(value)
+    self.m_passiveMulti = (self.m_passiveMulti + value)
+    self:setDirtyT2()
+end
+
+-------------------------------------
+-- function addPassiveAdd
+-------------------------------------
+function StructIndividualStatus:addPassiveAdd(value)
+    self.m_passiveAdd = (self.m_passiveAdd + value)
+    self:setDirtyT2()
+end
 
 
 -------------------------------------

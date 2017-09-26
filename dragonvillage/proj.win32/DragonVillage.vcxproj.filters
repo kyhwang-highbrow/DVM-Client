@@ -2808,6 +2808,9 @@
     <None Include="..\src\UI_Forest_StuffListItem.lua">
       <Filter>lua\forest</Filter>
     </None>
+    <None Include="..\src\StatusEffectUnit_ConditionalBuff.lua">
+      <Filter>lua\src</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Classes">

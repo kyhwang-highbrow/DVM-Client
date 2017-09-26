@@ -196,7 +196,12 @@ function StatusEffectHelper:invokeStatusEffect(caster, target_char, status_effec
     end
 
 	local t_status_effect = TableStatusEffect():get(status_effect_type)
+    if (not t_status_effect) then
+        error('no status_effect table : ' .. status_effect_type)
+    end
+
 	local status_effect_category = t_status_effect['category']
+    local duration = tonumber(duration) or tonumber(t_status_effect['duration'])
     local world = target_char.m_world
 
     -- 전투 중 검사
@@ -236,7 +241,6 @@ function StatusEffectHelper:invokeStatusEffect(caster, target_char, status_effec
     local status_effect = target_char:getStatusEffect(status_effect_type, true)
     if (status_effect) then
         -- 상태 효과 중첩 혹은 갱신
-        local duration = tonumber(duration) or tonumber(t_status_effect['duration'])
         status_effect:addOverlabUnit(caster, skill_id, status_effect_value, status_effect_source, duration, add_param)
     else
         -- 상태 효과 생성
@@ -261,13 +265,10 @@ end
 -------------------------------------
 function StatusEffectHelper:makeStatusEffectInstance(caster, target_char, status_effect_type, status_effect_value, status_effect_source, duration, skill_id, add_param)
     local t_status_effect = TableStatusEffect():get(status_effect_type)
-    if (not t_status_effect) then
-        error('no status_effect table : ' .. status_effect_type)
-    end
-
     local status_effect_group = t_status_effect['type']
     local status_effect = nil
-	local res = TableStatusEffect():getRes(status_effect_type, caster:getAttribute())
+    local is_hidden = StatusEffectHelper:isHidden(t_status_effect, caster, skill_id)
+    local res = TableStatusEffect():getRes(status_effect_type, caster:getAttribute())
 
     ----------- 상태효과 변경 ------------------
 	if (status_effect_group == 'transfer') then
@@ -304,6 +305,7 @@ function StatusEffectHelper:makeStatusEffectInstance(caster, target_char, status
     ---------- 조건부 버프 ---------------------
     elseif (status_effect_group == 'conditional_buff') then
         status_effect = StatusEffect_ConditionalBuff(res)
+        status_effect:setOverlabClass(StatusEffectUnit_ConditionalBuff)
 
     ---------- 조건부로 스탯 변경 (공격시/피격시 등) ----------------------
     elseif (status_effect_group == 'modify_dmg') then
@@ -392,18 +394,16 @@ function StatusEffectHelper:makeStatusEffectInstance(caster, target_char, status
     -- 초기값 설정
     status_effect:initWorld(world)
     status_effect:initFromTable(t_status_effect, target_char)
+    status_effect:setHidden(is_hidden)
 
     -- 타켓에게 status_effect 저장
-	target_char:insertStatusEffect(status_effect)
+	target_char:insertStatusEffect(status_effect, is_hidden)
 
     -- 객체 생성
     world.m_missiledNode:addChild(status_effect.m_rootNode, 1)
     world:addToUnitList(status_effect)
 
     status_effect:changeState('start')
-
-    -- 시간 지정 (skill table 에서 받아와서 덮어씌우거나 status effect table 값 사용)
-    local duration = tonumber(duration) or tonumber(t_status_effect['duration'])
 
     -----------------------------------------------------------------
     -- StatusEffectUnit 생성 및 추가
@@ -619,13 +619,27 @@ end
 
 -------------------------------------
 -- function isHidden
--- @breif 해제되지 않고 계속 유지되며 별도의 표시가 없는 상태효과(리더스킬 or 패시브 스킬)인지 여부 체크
+-- @breif 해제되지 않고 계속 유지되며 별도의 표시가 없는 상태효과(리더 or 패시브)인지 여부 체크
 -------------------------------------
-function StatusEffectHelper:isHidden(effect_name)
-    if (type(effect_name) == 'string') then -- 이름으로 들어오는 경우
-        return (string.find(effect_name, 'leader') or string.find(effect_name, 'passive'))
-    else -- table로 들어오는 경우
-        return (string.find(effect_name.m_statusEffectName, 'leader') or string.find(effect_name.m_statusEffectName, 'passive')) 
-            or (effect_name.m_statusEffectTable['type'] == 'conditional_buff')
+function StatusEffectHelper:isHidden(t_status_effect, caster, skill_id)
+    if (skill_id) then
+        local leader_skill_id = caster:getSkillID('leader')
+        local passive_skill_id = caster:getSkillID('passive')
+
+        if (skill_id == leader_skill_id or skill_id == passive_skill_id) then
+            return true
+        end
     end
+
+    if (t_status_effect) then
+        if (string.find(t_status_effect['name'], 'leader') or string.find(t_status_effect['name'], 'passive')) then
+            return true
+        end
+
+        if (t_status_effect['type'] == 'conditional_buff') then
+            return true
+        end
+    end
+
+    return false
 end

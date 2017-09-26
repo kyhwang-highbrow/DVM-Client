@@ -29,14 +29,14 @@ StatusEffectUnit = class({
 -- @param file_name
 -- @param body
 -------------------------------------
-function StatusEffectUnit:init(name, owner, caster, skill_id, value, source, duration, add_param)
+function StatusEffectUnit:init(name, owner, caster, skill_id, value, source, duration, is_hidden, add_param)
     --cclog(name .. ' - ' .. duration)
     self.m_statusEffectName = name
 
     self.m_owner = owner
     self.m_caster = caster
     self.m_skillId = skill_id
-    self.m_bHiddenSkill = StatusEffectHelper:isHidden(name)
+    self.m_bHiddenSkill = is_hidden
     self.m_bLeaderSkill = false
 
     self.m_value = value
@@ -105,13 +105,15 @@ function StatusEffectUnit:onApply(lStatus, lStatusAbs)
 
     -- %능력치 적용
     for key, rate in pairs(lStatus) do
-        self.m_owner.m_statusCalc:addBuffMulti(key, rate * value)
+        self:addStatMulti(key, rate * value, self.m_bHiddenSkill)
+        
 		is_dirty_stat = true
     end
 
     -- 절대값 능력치 적용
     for key, rate in pairs(lStatusAbs) do
-        self.m_owner.m_statusCalc:addBuffAdd(key, rate * value)
+        self:addStatAdd(key, rate * value, self.m_bHiddenSkill)
+
 		is_dirty_stat = true
     end
 
@@ -135,13 +137,15 @@ function StatusEffectUnit:onUnapply(lStatus, lStatusAbs)
     
     -- %능력치 원상 복귀
     for key, rate in pairs(lStatus) do
-        self.m_owner.m_statusCalc:addBuffMulti(key, -rate * value)
+        self:addStatMulti(key, -rate * value, self.m_bHiddenSkill)
+        
 		is_dirty_stat = true
     end
 
     -- 절대값 능력치 원상 복귀
     for key, rate in pairs(lStatusAbs) do
-        self.m_owner.m_statusCalc:addBuffAdd(key, -rate * value)
+        self:addStatAdd(key, -rate * value, self.m_bHiddenSkill)
+
 		is_dirty_stat = true
     end
 
@@ -196,6 +200,28 @@ end
 function StatusEffectUnit:finish()
     self.m_duration = 0
     self.m_durationTimer = 0
+end
+
+-------------------------------------
+-- function addStatMulti
+-------------------------------------
+function StatusEffectUnit:addStatMulti(key, value, is_passive)
+    if (is_passive) then
+        self.m_owner.m_statusCalc:addPassiveMulti(key, value)
+    else
+        self.m_owner.m_statusCalc:addBuffMulti(key, value)
+    end
+end
+
+-------------------------------------
+-- function addStatAdd
+-------------------------------------
+function StatusEffectUnit:addStatAdd(key, value, is_passive)
+    if (is_passive) then
+        self.m_owner.m_statusCalc:addPassiveAdd(key, value)
+    else
+        self.m_owner.m_statusCalc:addBuffAdd(key, value)
+    end
 end
 
 -------------------------------------

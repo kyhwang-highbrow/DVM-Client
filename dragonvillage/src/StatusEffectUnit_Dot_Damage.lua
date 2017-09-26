@@ -12,7 +12,7 @@ StatusEffectUnit_Dot_Damage = class(PARENT, {
 -- @param file_name
 -- @param body
 -------------------------------------
-function StatusEffectUnit_Dot_Damage:init(name, owner, caster, skill_id, value, source, duration)
+function StatusEffectUnit_Dot_Damage:init()
     self.m_dotDmg = self:calculateDotDmg()
 end
 

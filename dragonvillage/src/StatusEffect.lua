@@ -19,6 +19,7 @@ StatusEffect = class(PARENT, {
         m_lUnit = 'table',  -- 해당 상태효과에 추가된 StatusEffectUnit의 리스트
         m_mUnit = 'table',  -- 시전자의 char_id값을 키값으로 StatusEffectUnit의 리스트를 가지는 맵
 
+        m_bHidden = 'boolean',
         m_bDead = 'boolean',
         m_bApply = 'boolean',
         m_bDirtyPos = 'bollean',
@@ -62,6 +63,7 @@ function StatusEffect:init(file_name, body)
     self.m_lUnit = {}
     self.m_mUnit = {}
 
+    self.m_bHidden = false
     self.m_bDead = false
     self.m_bApply = false
     self.m_bDirtyPos = true
@@ -226,6 +228,13 @@ end
 -------------------------------------
 function StatusEffect:setName(name)
     self.m_statusEffectName = name
+end
+
+-------------------------------------
+-- function setHidden
+-------------------------------------
+function StatusEffect:setHidden(b)
+    self.m_bHidden = b
 end
 
 -------------------------------------
@@ -637,7 +646,7 @@ function StatusEffect:addOverlabUnit(caster, skill_id, value, source, duration, 
         end
     end
 
-    local new_unit = self.m_overlabClass(self:getTypeName(), self.m_owner, caster, skill_id, value, source, duration, add_param)
+    local new_unit = self.m_overlabClass(self:getTypeName(), self.m_owner, caster, skill_id, value, source, duration, self.m_bHidden, add_param)
     local t_status_effect = self.m_statusEffectTable
     
     if (not self.m_mUnit[char_id]) then

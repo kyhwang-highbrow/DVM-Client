@@ -14,7 +14,7 @@ StatusEffectUnit_Dot = class(PARENT, {
 -- @param file_name
 -- @param body
 -------------------------------------
-function StatusEffectUnit_Dot:init(name, owner, caster, skill_id, value, source, duration)
+function StatusEffectUnit_Dot:init()
     local t_status_effect = TableStatusEffect():get(self.m_statusEffectName)
 
     self.m_dotInterval = t_status_effect['dot_interval']
