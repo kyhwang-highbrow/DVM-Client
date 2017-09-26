@@ -71,7 +71,7 @@ function UI_ExchangeEvent:refresh()
     -- 교환 버튼
     local need_exchange = 500
     vars['boxLabel']:setString(Str('{1}개', comma_value(need_exchange)))
-    vars['boxBtn']:setEnabled(cur_cnt >= need_exchange)
+    --vars['boxBtn']:setEnabled(cur_cnt >= need_exchange)
 
     -- 누적 보상 갱신
     local reward_info = g_exchangeEventData.m_productInfo
@@ -110,6 +110,14 @@ end
 -- @brief 교환
 -------------------------------------
 function UI_ExchangeEvent:click_boxBtn()
+    local curr_cnt = g_exchangeEventData.m_nMaterialCnt
+    local need_exchange = 500
+
+    if (curr_cnt < need_exchange) then
+        UIManager:toastNotificationRed(Str('송편이 부족합니다.'))
+        return
+    end
+
     local function finish_cb()
         self:refresh()
     end

@@ -360,6 +360,7 @@ function UI_Lobby:initButton()
     vars['capsuleBtn']:registerScriptTapHandler(function() self:click_capsuleBtn() end)
     vars['itemAutoBtn']:registerScriptTapHandler(function() self:click_itemAutoBtn() end) -- 자동재화(광고)
     vars['giftBoxBtn']:registerScriptTapHandler(function() self:click_giftBoxBtn() end) -- 랜덤박스(광고)
+    vars['chuseokBtn']:registerScriptTapHandler(function() self:click_chuseokBtn() end) -- 추석이벤트(교환이벤트)
 
     do -- 기타 UI
         local etc_vars = self.m_etcExpendedUI.vars
@@ -680,6 +681,14 @@ function UI_Lobby:click_giftBoxBtn()
 end
 
 -------------------------------------
+-- function click_chuseokBtn
+-- @brief 추석 이벤트
+-------------------------------------
+function UI_Lobby:click_chuseokBtn()
+    g_eventData:openEventPopup('event_exchange')
+end
+
+-------------------------------------
 -- function click_guildBtn
 -------------------------------------
 function UI_Lobby:click_guildBtn()
@@ -794,6 +803,11 @@ function UI_Lobby:update(dt)
             self.m_bGiftBoxEnabled = enable2
             vars['giftBoxBtn']:setAutoShake(self.m_bGiftBoxEnabled)
         end
+    end
+
+    -- 추석 이벤트 (교환 이벤트)
+    if (g_eventData:isVaildEvent('event_exchange')) then
+        self.vars['chuseokBtn']:setVisible(true)
     end
 
     -- spine 캐시 정리 확인
