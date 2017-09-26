@@ -24,7 +24,8 @@ function UI_EventPopupTab_Scroll:init(owner, struct_event_popup_tab)
     local event_type = self.m_eventType
     if (event_type == 'event_exchange') then
         ui = UI_ExchangeEvent()
-        target_size = cc.size(930, 1400)
+        local menu = ui.vars['scrollMenu']
+        target_size = menu:getContentSize()
     end
 
     -- 스크롤 뷰 위에 해당 이벤트 UI 올려줌
