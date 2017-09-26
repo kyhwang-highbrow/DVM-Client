@@ -129,7 +129,10 @@ end
 -- function click_levelupBtn
 -------------------------------------
 function UI_Forest_StuffLevelupPopup:click_levelupBtn()
+    local vars = self.vars
     local stuff_type = self.m_forestStuffType
+    
+    vars['levelupBtn']:setEnabled(false)
 
     do -- 재화가 충분히 있는지 체크
         local t_stuff_info = ServerData_Forest:getInstance():getStuffInfo_Indivisual(stuff_type)
@@ -150,10 +153,11 @@ function UI_Forest_StuffLevelupPopup:click_levelupBtn()
     end
 
     local function finish_cb(t_stuff)
-        self.vars['objectVisual']:changeAni('stuff_lvup_' .. stuff_type, false)
-
+        vars['objectVisual']:changeAni('stuff_lvup_' .. stuff_type, false)
+        vars['objectVisual']:addAniHandler(function()
+            vars['levelupBtn']:setEnabled(true)
+        end)
         self:refresh()
-
         if self.m_stuffObject then
             -- 레벨 갱신
             self.m_stuffObject.m_tStuffInfo['stuff_lv'] = t_stuff['stuff_lv']

@@ -189,8 +189,14 @@ function UI_Forest_ChangePopup:makeSlotEffect()
     self.vars['slotNode']:addChild(self.m_focusDeckSlotEffect, 2)
 
     self.m_focusDeckSlotEffect:setScale(0.6)
-    self.m_focusDeckSlotEffect:setVisible(true)
-    self.m_focusDeckSlotEffect:setPosition(self.m_mSlotMap[self.m_currSlotIdx]:getParent():getPosition())
+
+    if (self.m_currSlotIdx >= self.m_maxCnt) then
+        self.m_focusDeckSlotEffect:setVisible(false)
+        self.m_currSlotIdx = -1
+    else
+        self.m_focusDeckSlotEffect:setVisible(true)
+        self.m_focusDeckSlotEffect:setPosition(self.m_mSlotMap[self.m_currSlotIdx]:getParent():getPosition())
+    end
 
     self.m_focusDeckSlotEffect:stopAllActions()
     self.m_focusDeckSlotEffect:setOpacity(255)

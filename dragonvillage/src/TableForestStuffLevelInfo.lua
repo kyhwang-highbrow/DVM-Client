@@ -124,9 +124,10 @@ function TableForestStuffLevelInfo:getStuffOptionDesc(stuff_type, lv)
         local t_reward_2 = plSplit(reward_2, ';')
         local item_id_2 = tonumber(t_reward_2[1])
         local item_name_2 = TableItem:getItemName(item_id_2)
+        local item_cnt_2 = t_reward_2[2]
 
-        local template = '{@item_name}{1}분{@DESC}마다 {@count}{2} {@DESC}또는 {@count}{3}{@DESC} 획득'
-        return Str(template, cool, item_name, item_name_2)
+        local template = '{@item_name}{1}분{@DESC}마다 {@count}{2} {3}개 {@DESC}또는 {@count}{4} {5}개{@DESC} 획득'
+        return Str(template, cool, item_name, item_cnt, item_name_2, item_cnt_2)
     end
 end
 

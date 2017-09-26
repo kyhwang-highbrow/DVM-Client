@@ -22,8 +22,8 @@ ForestDragon = class(PARENT, {
      })
 
 ForestDragon.OFFSET_Y = 150
-ForestDragon.OFFSET_Y_TOUCH = 225
-ForestDragon.OFFSET_Y_HAPPY = 300
+ForestDragon.OFFSET_Y_TOUCH = ForestDragon.OFFSET_Y + 75
+ForestDragon.OFFSET_Y_HAPPY = ForestDragon.OFFSET_Y + 150
 ForestDragon.OFFSET_Y_MAX = 1000 -- jump의 상한선으로 사용
 
 -------------------------------------
