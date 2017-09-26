@@ -51,6 +51,8 @@ function ForestDragon:init(struct_dragon_object)
 	-- TalkingNode 생성
 	self.m_talkingNode = cc.Node:create()
 	self.m_rootNode:addChild(self.m_talkingNode, 2)
+
+    self.m_stateTimer = self.m_moveTerm
 end
 
 -------------------------------------
@@ -297,10 +299,10 @@ end
 function ForestDragon:update(dt)
 	PARENT.update(self, dt)
 
-    if (self.m_state == 'toched') then
+    if (self.m_state == 'touched') then
         return
     end
-    if (self.m_state == 'toched_end') then
+    if (self.m_state == 'touched_end') then
         return
     end
 
