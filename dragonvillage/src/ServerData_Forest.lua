@@ -172,15 +172,17 @@ function ServerData_Forest:request_setDragons(doids, finish_cb)
     
     -- 성공 콜백
     local function success_cb(ret)
-        self.m_tDragonStruct = {}
 
         -- 드래곤의 숲 드래곤 정보
+        self.m_tDragonStruct = {}
         local doid, struct_dragon 
         for i, t_dragon_info in pairs(ret['forest_dragons']) do
             doid = t_dragon_info['doid']
             struct_dragon = g_dragonsData:getDragonDataFromUid(doid)
-            struct_dragon.happy_at = (t_dragon_info['happy_at'] or 0)/1000
-            self.m_tDragonStruct[doid] = struct_dragon
+            if (struct_dragon) then
+                struct_dragon.happy_at = (t_dragon_info['happy_at'] or 0)/1000
+                self.m_tDragonStruct[doid] = struct_dragon
+            end
         end 
 
         if finish_cb then
