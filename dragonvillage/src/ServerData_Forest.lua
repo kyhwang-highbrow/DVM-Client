@@ -7,6 +7,8 @@ ServerData_Forest = class({
         m_tStuffInfo = 'table',
         m_tDragonStruct = 'table',
         m_extensionMaxLV = 'number', -- 드래곤의 숲 확장 최대 레벨
+
+        m_isDirty = 'bool',
     })
 
 
@@ -387,19 +389,27 @@ end
 -- @brief "드래곤의 숲"진입 버튼의 알림 표시 여부
 -------------------------------------
 function ServerData_Forest:isHighlightForest()
-
-    -- 작업 중
-    if true then
-        return
-    end
-
     -- 1. 드래곤의 숲 레벨업이 가능한 상태
-    if (self:getExtensionLV() < self:getExtensionMaxLV()) then
-        
+    local curr_lv = g_userData:get('lv')
+    local curr_extension_lv = self:getExtensionLV()
+    local next_extension_open_tamer_lv = TableForestStuffLevelInfo:getExtensionOpenLV(curr_extension_lv)
+    if (next_extension_open_tamer_lv ~= 0) and (next_extension_open_tamer_lv <= curr_lv) then
+        return true
     end
 
     -- 2. 오브젝트의 보상을 받을 수 있을 때
-    
+    local reward_time, curr_time
+    for _, t_stuff in pairs(self.m_tStuffInfo) do
+        if (t_stuff['stuff'] ~= 'extension') then
+            reward_time = t_stuff['reward_at']/1000
+            curr_time = Timer:getServerTime()
+            if (curr_time > reward_time) then
+                return true
+            end
+        end
+    end
+
+    return false
 end
 
 

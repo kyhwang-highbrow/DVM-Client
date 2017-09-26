@@ -77,9 +77,6 @@ function UI_Forest_StuffListPopup:makeTableView()
     local node = self.vars['listNode']
     node:removeAllChildren()
 
-    local table_forest_stuff = TableForestStuffType()
-    local t_server_info = ServerData_Forest:getInstance():getStuffInfo()
-
 	local item_list = ServerData_Forest:getInstance():getStuffInfoList()
 
     -- 테이블 뷰 인스턴스 생성

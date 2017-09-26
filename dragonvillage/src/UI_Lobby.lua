@@ -183,6 +183,15 @@ function UI_Lobby:entryCoroutine()
         end
         while (working) do dt = coroutine.yield() end
 
+        cclog('# 드래곤의 숲 확인 중')
+        working = true
+        local ui_network = ServerData_Forest:getInstance():request_myForestInfo(function(ret) working = false end)
+        if ui_network then
+            ui_network:hideBGLayerColor()
+            ui_network:setFailCB(required_fail_cb)
+        end
+        while (working) do dt = coroutine.yield() end
+
         -- @ MASTER ROAD
         cclog('# 마스터의 길 확인 중')
         working = true
@@ -255,8 +264,8 @@ function UI_Lobby:entryCoroutine()
         coroutine.yield()
 
         -- @ google achievement
-        if (not g_localData:get('is_first_google_login')) then
-            g_localData:applyLocalData(true, 'is_first_google_login')
+        if (not g_localData:get('is_first_google_login_real')) then
+            g_localData:applyLocalData(true, 'is_first_google_login_real')
 
             cclog('# 구글 업적 확인 중')
             working = true
@@ -425,6 +434,9 @@ function UI_Lobby:refresh_highlight()
     -- 드래곤 소환
     local highlight, t_highlight = g_hatcheryData:checkHighlight()
     vars['drawNotiSprite']:setVisible(highlight)
+    
+    -- 드래곤의 숲
+    vars['forestNotiSprite']:setVisible(ServerData_Forest:getInstance():isHighlightForest())
 
     -- 테이머
     vars['tamerNotiSprite']:setVisible(g_tamerData:isHighlightTamer())
