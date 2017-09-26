@@ -68,10 +68,11 @@ end
 function UI_Forest:refresh()
     self:refresh_cnt()
     self:refresh_happy()
+    self:refresh_noti()
 end
 
 -------------------------------------
--- function refresh
+-- function refresh_cnt
 -------------------------------------
 function UI_Forest:refresh_cnt()
     local vars = self.vars
@@ -103,6 +104,21 @@ function UI_Forest:refresh_happy()
 end
 
 -------------------------------------
+-- function refresh_noti
+-------------------------------------
+function UI_Forest:refresh_noti()
+    local vars = self.vars
+
+    -- 레벨업 가능할 때
+    vars['levelupNotiSprite']:setVisible(ServerData_Forest:getInstance():isHighlightForest_lv())
+
+    -- 배치 가능할 때
+    local curr_cnt = self.m_territory:getCurrDragonCnt()
+    local max_cnt = ServerData_Forest:getInstance():getMaxDragon()
+    vars['changeNotiSprite']:setVisible(curr_cnt < max_cnt)
+end
+
+-------------------------------------
 -- function click_exitBtn
 -------------------------------------
 function UI_Forest:click_exitBtn()
@@ -123,7 +139,7 @@ function UI_Forest:click_changeBtn()
 
     -- 닫을때 항상 체크
     ui:setCloseCB(function()
-        self:refresh_cnt()
+        self:refresh()
         self.m_territory:refreshStuffs()
         self:sceneFadeInAction()
     end)
@@ -137,7 +153,7 @@ function UI_Forest:click_levelupBtn()
     local ui = UI_Forest_StuffListPopup(t_stuff_object)
 
     local function close_cb()
-        self:refresh_cnt()
+        self:refresh()
         self.m_territory:refreshStuffs()
         self:sceneFadeInAction()
     end

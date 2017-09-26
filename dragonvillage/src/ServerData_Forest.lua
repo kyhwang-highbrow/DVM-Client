@@ -402,14 +402,8 @@ function ServerData_Forest:isHighlightForest()
     end
 
     -- 1. 드래곤의 숲 레벨업이 가능한 상태
-    local curr_lv = g_userData:get('lv')
-    local curr_extension_lv = self:getExtensionLV()
-    local next_extension_open_tamer_lv = TableForestStuffLevelInfo:getExtensionOpenLV(curr_extension_lv)
-    local max_extension_lv = self:getExtensionMaxLV()
-    if (curr_extension_lv ~= max_extension_lv) then
-        if (next_extension_open_tamer_lv ~= 0) and (next_extension_open_tamer_lv <= curr_lv) then
-            return true
-        end
+    if (self:isHighlightForest_lv()) then
+        return true
     end
 
     -- 2. 오브젝트의 보상을 받을 수 있을 때
@@ -427,6 +421,22 @@ function ServerData_Forest:isHighlightForest()
     return false
 end
 
+-------------------------------------
+-- function isHighlightForest
+-- @brief 숲 레벨업이 가능한지 여부
+-------------------------------------
+function ServerData_Forest:isHighlightForest_lv()
+    local curr_lv = g_userData:get('lv')
+    local curr_extension_lv = self:getExtensionLV()
+    local next_extension_open_tamer_lv = TableForestStuffLevelInfo:getExtensionOpenLV(curr_extension_lv)
+    local max_extension_lv = self:getExtensionMaxLV()
+    if (curr_extension_lv ~= max_extension_lv) then
+        if (next_extension_open_tamer_lv ~= 0) and (next_extension_open_tamer_lv <= curr_lv) then
+            return true
+        end
+    end
+    return false
+end
 
 -------------------------------------
 -- function getStuffInfoList
