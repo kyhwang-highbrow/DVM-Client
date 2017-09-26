@@ -680,7 +680,7 @@ function ForestTerritory:onEvent(event_name, struct_event)
         local scale = (distance / 500)
         local angle = getAdjustDegree(getDegree(start_x, start_y, tar_x, tar_y))
         heart_move_ani:setPosition(start_x, start_y)
-        heart_move_ani:setScale(scale)
+        heart_move_ani:setScaleX(scale)
         heart_move_ani:setRotation(angle + 90)
 
         -- 종료 콜백

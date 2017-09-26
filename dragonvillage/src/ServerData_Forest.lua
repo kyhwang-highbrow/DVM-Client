@@ -143,6 +143,7 @@ function ServerData_Forest:applyForestInfo(t_ret)
     self.m_happyRate = t_ret['forest_info']['happy']
         
     -- 드래곤의 숲 오브젝트
+    self.m_tStuffInfo = {}
     local stuff
     for i, t_stuff in pairs(t_ret['forest_stuffs']) do
         stuff = t_stuff['stuff']
@@ -150,12 +151,15 @@ function ServerData_Forest:applyForestInfo(t_ret)
     end
     
     -- 드래곤의 숲 드래곤 정보
+    self.m_tDragonStruct = {}
     local doid, struct_dragon 
     for i, t_dragon_info in pairs(t_ret['forest_dragons']) do
         doid = t_dragon_info['doid']
         struct_dragon = g_dragonsData:getDragonDataFromUid(doid)
-        struct_dragon.happy_at = t_dragon_info['happy_at']/1000 or 0
-        self.m_tDragonStruct[doid] = struct_dragon
+        if (struct_dragon) then
+            struct_dragon.happy_at = t_dragon_info['happy_at']/1000 or 0
+            self.m_tDragonStruct[doid] = struct_dragon
+        end
     end 
 end
 
