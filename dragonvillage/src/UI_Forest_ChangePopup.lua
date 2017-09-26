@@ -76,12 +76,6 @@ function UI_Forest_ChangePopup:initUI()
     self:makeSlotUI()
     self:makeSlotEffect()
 
-    -- 슬롯 이펙트 예외처리
-    if (self.m_currSlotIdx >= self.m_maxCnt) then
-        self.m_focusDeckSlotEffect:setVisible(false)
-        self.m_currSlotIdx = -1
-    end
-
     do -- 드래곤의 숲 확장 레벨 UI
         local ui = UI_Forest_ExtensionBoard()
         local vars = self.vars
@@ -107,6 +101,7 @@ end
 -- function refresh
 -------------------------------------
 function UI_Forest_ChangePopup:refresh()
+    self:refreshSlotEffect()
 	self:refresh_dragonMaterialTableView()
     self:refresh_selectedMaterial()
 end
@@ -189,26 +184,9 @@ function UI_Forest_ChangePopup:makeSlotEffect()
     self.vars['slotNode']:addChild(self.m_focusDeckSlotEffect, 2)
 
     self.m_focusDeckSlotEffect:setScale(0.6)
-
-    if (self.m_currSlotIdx >= self.m_maxCnt) then
-        self.m_focusDeckSlotEffect:setVisible(false)
-        self.m_currSlotIdx = -1
-    else
-        self.m_focusDeckSlotEffect:setVisible(true)
-        self.m_focusDeckSlotEffect:setPosition(self.m_mSlotMap[self.m_currSlotIdx]:getParent():getPosition())
-    end
-
-    self.m_focusDeckSlotEffect:stopAllActions()
     self.m_focusDeckSlotEffect:setOpacity(255)
     self.m_focusDeckSlotEffect:runAction(cc.RepeatForever:create(cc.Sequence:create(cc.FadeTo:create(0.5, 0), cc.FadeTo:create(0.5, 255))))
 end
-
-
-
-
-
-
-
 
 -------------------------------------
 -- function refresh_dragonMaterialTableView
@@ -319,26 +297,8 @@ function UI_Forest_ChangePopup:click_dragonMaterial(t_dragon_data)
         self.m_mSlotMap[self.m_currSlotIdx]:addChild(ui.root)
 	end
 
-        -- 다음 slot_idx 지정
-    if (self.m_maxCnt <= table.count(self.m_selectedDragonMap)) then
-        self.m_currSlotIdx = -1
-
-        self.m_focusDeckSlotEffect:setVisible(false)
-    else
-        for i = 0, self.m_maxCnt - 1 do
-            if (not self.m_selectedDragonList[i]) then
-                self.m_currSlotIdx = i
-                break
-            end
-        end
-
-        self.m_focusDeckSlotEffect:setVisible(true)
-        self.m_focusDeckSlotEffect:setPosition(self.m_mSlotMap[self.m_currSlotIdx]:getParent():getPosition())
-
-        self.m_focusDeckSlotEffect:stopAllActions()
-        self.m_focusDeckSlotEffect:setOpacity(255)
-        self.m_focusDeckSlotEffect:runAction(cc.RepeatForever:create(cc.Sequence:create(cc.FadeTo:create(0.5, 0), cc.FadeTo:create(0.5, 255))))
-    end
+    -- 다음 slot_idx 지정
+    self:refreshSlotEffect()
 
 	-- 갱신
     self:refresh_materialDragonIndivisual(doid)
@@ -371,6 +331,33 @@ function UI_Forest_ChangePopup:refresh_materialDragonIndivisual(doid)
 end
 
 -------------------------------------
+-- function refreshSlotEffect
+-------------------------------------
+function UI_Forest_ChangePopup:refreshSlotEffect()
+    -- slot 꽉참
+    if (self.m_maxCnt <= table.count(self.m_selectedDragonMap)) then
+        self.m_currSlotIdx = -1
+        self.m_focusDeckSlotEffect:setVisible(false)
+
+    -- 빈slot 있음
+    else
+        for i = 0, self.m_maxCnt - 1 do
+            if (not self.m_selectedDragonList[i]) then
+                self.m_currSlotIdx = i
+                break
+            end
+        end
+
+        self.m_focusDeckSlotEffect:setVisible(true)
+        self.m_focusDeckSlotEffect:setPosition(self.m_mSlotMap[self.m_currSlotIdx]:getParent():getPosition())
+
+        self.m_focusDeckSlotEffect:stopAllActions()
+        self.m_focusDeckSlotEffect:setOpacity(255)
+        self.m_focusDeckSlotEffect:runAction(cc.RepeatForever:create(cc.Sequence:create(cc.FadeTo:create(0.5, 0), cc.FadeTo:create(0.5, 255))))
+    end
+end
+
+-------------------------------------
 -- function refreshForestDragonCnt
 -- @brief 드래곤의 숲 레벨이 변경됨에 따라 늘어난 드래곤 슬롯 수 처리
 -------------------------------------
@@ -382,7 +369,13 @@ function UI_Forest_ChangePopup:refreshForestDragonCnt()
         self.m_mSlotMap[i]:removeAllChildren(true)
     end
 
+    -- max 수치 교체
     self.m_maxCnt = new_max_cnt
+
+    -- slot effect 열린 slot으로 이동
+    self:refreshSlotEffect()
+
+    -- 기타 처리
     self:refresh_selectedMaterial()
 end
 
@@ -421,6 +414,58 @@ function UI_Forest_ChangePopup:makeCommaOIDStr(t_oid)
     return doids
 end
 
+-------------------------------------
+-- function click_exitBtn
+-------------------------------------
+function UI_Forest_ChangePopup:click_exitBtn()
+    if (not self.m_bDirty) then
+        self:close()
+        return
+    end
+
+    local function cb_func()
+        if (self.m_changeCB) then
+            self.m_changeCB()
+        end
+		self:close()
+	end
+
+    -- 콤마 스트링 생성
+    local doids = self:makeCommaOIDStr(self.m_tSelectDragon)
+
+	ServerData_Forest:getInstance():request_setDragons(doids, cb_func)
+end
+
+-------------------------------------
+-- function materialMaxGuid
+-- @brief
+-------------------------------------
+function UI_Forest_ChangePopup:materialMaxGuid()
+    local lv = ServerData_Forest:getInstance():getExtensionLV()
+    local max_lv = ServerData_Forest:getInstance():getExtensionMaxLV()
+
+    if (lv < max_lv) then
+        UIManager:toastNotificationRed(Str('드래곤의 숲 레벨이 부족합니다.'))
+        if self.m_forestExtensionUI then
+            local node = self.m_forestExtensionUI.vars['lvUpBtn']
+            cca.uiReactionSlow(node)
+        end
+    else
+        UIManager:toastNotificationRed(Str('최대 {1}마리까지 가능합니다.', self.m_maxCnt))
+    end
+end
+
+-------------------------------------
+-- function click_emptyBtn
+-- @brief
+-------------------------------------
+function UI_Forest_ChangePopup:click_emptyBtn()
+    if self.m_forestExtensionUI then
+        self.m_forestExtensionUI:click_lvUpBtn()
+        local node = self.m_forestExtensionUI.vars['lvUpBtn']
+        cca.uiReactionSlow(node)
+    end
+end
 
 
 
@@ -524,60 +569,6 @@ function UI_Forest_ChangePopup:apply_mtrlDragonSort_saveData()
         end
     end
 end
-
--------------------------------------
--- function click_exitBtn
--------------------------------------
-function UI_Forest_ChangePopup:click_exitBtn()
-    if (not self.m_bDirty) then
-        self:close()
-        return
-    end
-
-    local function cb_func()
-        if (self.m_changeCB) then
-            self.m_changeCB()
-        end
-		self:close()
-	end
-
-    -- 콤마 스트링 생성
-    local doids = self:makeCommaOIDStr(self.m_tSelectDragon)
-
-	ServerData_Forest:getInstance():request_setDragons(doids, cb_func)
-end
-
--------------------------------------
--- function materialMaxGuid
--- @brief
--------------------------------------
-function UI_Forest_ChangePopup:materialMaxGuid()
-    local lv = ServerData_Forest:getInstance():getExtensionLV()
-    local max_lv = ServerData_Forest:getInstance():getExtensionMaxLV()
-
-    if (lv <= max_lv) then
-        UIManager:toastNotificationRed(Str('드래곤의 숲 레벨이 부족합니다.'))
-        if self.m_forestExtensionUI then
-            local node = self.m_forestExtensionUI.vars['lvUpBtn']
-            cca.uiReactionSlow(node)
-        end
-    else
-        UIManager:toastNotificationRed(Str('최대 {1}마리까지 가능합니다.', self.m_maxCnt))
-    end
-end
-
--------------------------------------
--- function click_emptyBtn
--- @brief
--------------------------------------
-function UI_Forest_ChangePopup:click_emptyBtn()
-    if self.m_forestExtensionUI then
-        self.m_forestExtensionUI:click_lvUpBtn()
-        local node = self.m_forestExtensionUI.vars['lvUpBtn']
-        cca.uiReactionSlow(node)
-    end
-end
-
 
 --@CHECK
 UI:checkCompileError(UI_Forest_ChangePopup)
