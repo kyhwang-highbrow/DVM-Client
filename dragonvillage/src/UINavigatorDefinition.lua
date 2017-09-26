@@ -785,7 +785,24 @@ function UINavigatorDefinition:goTo_costume_shop(...)
     g_tamerCostumeData:request_costumeInfo(finish_cb)
 end
 
+-------------------------------------
+-- function goTo_forest
+-- @brief 드래곤의 숲으로 이동
+-- @usage UINavigatorDefinition:goTo('forest')
+-------------------------------------
+function UINavigatorDefinition:goTo_forest(...)
+    -- 로비가 열려있을 경우
+    local is_opend, idx, ui = self:findOpendUI('UI_Forest')
+    if (is_opend == true) then
+        self:closeUIList(idx)
+        return
+    end
 
+    local function cb_func()
+        SceneForest():runScene()
+    end
+    ServerData_Forest:getInstance():request_myForestInfo(cb_func)
+end
 
 
 

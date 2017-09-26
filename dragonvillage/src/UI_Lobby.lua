@@ -637,10 +637,7 @@ end
 -- function click_forestBtn
 -------------------------------------
 function UI_Lobby:click_forestBtn()
-    local function cb_func()
-        SceneForest():runScene()
-    end
-    ServerData_Forest:getInstance():request_myForestInfo(cb_func)
+    UINavigatorDefinition:goTo('forest')
 end
 
 -------------------------------------

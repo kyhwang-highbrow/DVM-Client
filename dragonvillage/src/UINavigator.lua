@@ -73,4 +73,7 @@ if false then
 
     -- @brief 테이머 코스튬 상점으로 이동
     UINavigator:goTo('costume_shop', sel_tamer_id)
+
+    -- @brief 드래곤의 숲으로 이동
+    UINavigator:goTo('forest')
 end
