@@ -10,7 +10,7 @@ ForestStuffUI = class(PARENT, {
 local TIME_FORMAT = pl.Date.Format('HH:MM:SS')
 local T_SOCKET_RES = 
 {
-    ['table'] = 'dragon_forest_reward_dia.png',
+    ['well'] = 'dragon_forest_reward_dia.png',
     ['nest'] = 'dragon_forest_reward_egg_common_unknown.png', --dragon_forest_reward_egg_middle_mystery.png
     ['table'] = 'dragon_forest_reward_fruit_01.png', --dragon_forest_reward_fruit_02.png
     ['chest'] = 'dragon_forest_reward_gold.png',
