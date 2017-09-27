@@ -19,7 +19,8 @@ function UI_LoadingGuide_Patch:init()
 
 	-- 멤버 변수
 	self.m_lPatchGuideTable = TableLoadingGuide():getGuideList(guide_type)
-	self.m_numberLoop = NumberLoop(10)
+    local guid_cnt = table.count(self.m_lPatchGuideTable)
+	self.m_numberLoop = NumberLoop(guid_cnt)
 	self.m_patchTimer = 0
 	self.m_getNextTime = 5
 
