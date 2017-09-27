@@ -62,6 +62,7 @@ function UI_CouponPopup:initUI()
     vars['titleLabel']:setString(self.m_titleText)
     vars['dscLabel']:setString(self.m_dscText)
     vars['editBox']:setMaxLength(self.m_maxCodeLength)
+    vars['editBox']:setPlaceHolder(self.m_errSubText)
 end
 
 -------------------------------------
@@ -83,6 +84,7 @@ function UI_CouponPopup:initEditHandler()
     -- editBox handler 등록
 	local function editBoxTextEventHandle(strEventName, pSender)
         if (strEventName == "return") then
+            self.m_couponCode = vars['editBox']:getText()
         end
     end
     vars['editBox']:registerScriptEditBoxHandler(editBoxTextEventHandle)
