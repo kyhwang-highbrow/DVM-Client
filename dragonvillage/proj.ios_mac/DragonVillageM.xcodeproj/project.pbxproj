@@ -809,7 +809,7 @@
 				374635121F7B9170004F8387 /* translate */,
 				3746350B1F7B8BB9004F8387 /* Images.xcassets */,
 			);
-			path = Resources;
+			name = Resources;
 			sourceTree = "<group>";
 		};
 		37519C111A6657BA00406F47 /* PerpExt */ = {
