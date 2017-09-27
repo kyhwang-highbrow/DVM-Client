@@ -401,12 +401,9 @@ function ServerData_Forest:isHighlightForest()
         return true
     end
 
-    -- 1. 드래곤의 숲 레벨업이 가능한 상태
-    if (self:isHighlightForest_lv()) then
-        return true
-    end
+    -- 레벨업 가능할 경우는 삭제함
 
-    -- 2. 오브젝트의 보상을 받을 수 있을 때
+    -- 오브젝트의 보상을 받을 수 있을 때
     local reward_time, curr_time
     for _, t_stuff in pairs(self.m_tStuffInfo) do
         if (t_stuff['stuff'] ~= 'extension') then
