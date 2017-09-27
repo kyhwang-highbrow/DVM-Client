@@ -212,7 +212,7 @@ typedef void(^PerpleSDKCallback)(NSString *result, NSString *info);
 - (BOOL) initFacebookWithParentView:(UIViewController *)parentView;
 - (BOOL) initAdbrixWithAppKey:(NSString *)appKey hashKey:(NSString *)hashKey logLevel:(int)logLevel;
 - (BOOL) initTapjoyWithAppKey:(NSString *)appKey usePush:(BOOL)isUsePush debug:(BOOL)isDebug;
-- (BOOL) initNaverWithParentView:(UIViewController *)parentView isLandspape:(BOOL)isLandscape clientId:(NSString *)clientId clientSecret:(NSString *)clientSecret cafeId:(NSInteger)cafeId;
+- (BOOL) initNaverWithParentView:(UIViewController *)parentView isLandspape:(BOOL)isLandscape clientId:(NSString *)clientId clientSecret:(NSString *)clientSecret cafeId:(NSInteger)cafeId urlScheme:(NSString *)urlScheme;
 - (BOOL) initGameCenterWithParentView:(UIViewController *)parentView;
 - (BOOL) initUnityAdsWithParentView:(UIViewController *)parentView gameId:(NSString *)gameId debug:(BOOL)isDebug;
 - (BOOL) initAdColonyWithParentView:(UIViewController *)parentView appId:(NSString *)appId;
