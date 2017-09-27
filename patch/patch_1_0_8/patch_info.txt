@@ -1,0 +1,7 @@
+#patch 2
+- Revision: 92411
+- Date: 2017년 9월 27일 수요일 오전 4:38:14
+- Message : ios 출시, 추석 업데이트, 점검 중 패치
+
+#patch 1
+- hotfix
