@@ -102,6 +102,13 @@ function UI_GameResultNew:initUI()
 
     self:doActionReset()
     self:doAction()
+
+    -- 자동 재화 줍기 
+    local game_mode = g_stageData:getGameMode(stage_id)
+    if (game_mode ~= GAME_MODE_ADVENTURE) then
+        vars['itemAutoBtn']:setVisible(false)
+        vars['itemAutoLabel']:setVisible(false)
+    end
 end
 
 -------------------------------------
