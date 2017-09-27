@@ -780,13 +780,12 @@
 		3746350A1F7B8BA0004F8387 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				3746350F1F7B916F004F8387 /* config.json */,
 				3746351D1F7B9172004F8387 /* AudioEngine.lua */,
 				374635231F7B9173004F8387 /* CCBReaderLoad.lua */,
 				3746350D1F7B916F004F8387 /* Cocos2d.lua */,
 				374635191F7B9171004F8387 /* Cocos2dConstants.lua */,
 				374635241F7B9174004F8387 /* CocoStudio.lua */,
-				3746350F1F7B916F004F8387 /* config.json */,
-				374635101F7B916F004F8387 /* data_dat */,
 				374635131F7B9170004F8387 /* Deprecated.lua */,
 				374635201F7B9173004F8387 /* DeprecatedClass.lua */,
 				3746351C1F7B9172004F8387 /* DeprecatedEnum.lua */,
@@ -802,10 +801,11 @@
 				374635111F7B916F004F8387 /* luaoc.lua */,
 				3746351F1F7B9172004F8387 /* Opengl.lua */,
 				374635221F7B9173004F8387 /* OpenglConstants.lua */,
+				374635211F7B9173004F8387 /* StudioConstants.lua */,
+				374635101F7B916F004F8387 /* data_dat */,
 				374635151F7B9170004F8387 /* ps */,
 				374635161F7B9170004F8387 /* res */,
 				3746351B1F7B9172004F8387 /* sound */,
-				374635211F7B9173004F8387 /* StudioConstants.lua */,
 				374635121F7B9170004F8387 /* translate */,
 				3746350B1F7B8BB9004F8387 /* Images.xcassets */,
 			);
