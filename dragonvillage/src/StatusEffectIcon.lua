@@ -64,6 +64,8 @@ function StatusEffectIcon:setOverlabText()
     if (self.m_label) then
 	    if (overlab_cnt > 1) then
 		    self.m_label:setString(overlab_cnt)
+        else
+            self.m_label:setString('')
 	    end
     end
 end
