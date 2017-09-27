@@ -68,7 +68,7 @@ end
 function UI_Forest:refresh()
     self:refresh_cnt()
     self:refresh_happy()
-    self:refresh_noti()
+    --self:refresh_noti()
 end
 
 -------------------------------------
@@ -105,6 +105,7 @@ end
 
 -------------------------------------
 -- function refresh_noti
+-- @comment 드래곤의 숲 내부 노티는 사용하지 않기로 하여 사용하는 곳이 없는 함수.
 -------------------------------------
 function UI_Forest:refresh_noti()
     local vars = self.vars
