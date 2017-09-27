@@ -133,7 +133,7 @@ static AppDelegate s_sharedApplication;
     [[PerpleSDK sharedInstance] initTapjoyWithAppKey:TAPJOY_SDK_KEY usePush:NO debug:isDebug];
     [[PerpleSDK sharedInstance] initUnityAdsWithParentView:viewController gameId:UNITY_ADS_GAME_ID debug:isDebug];
     [[PerpleSDK sharedInstance] initAdColonyWithParentView:viewController appId:ADCOLONY_APP_ID];
-    [[PerpleSDK sharedInstance] initNaverWithParentView:viewController isLandspape:YES clientId:NAVER_CAFE_CLIENT_ID clientSecret:NAVER_CAFE_CLIENT_SECRET cafeId:NAVER_CAFE_ID];
+    [[PerpleSDK sharedInstance] initNaverWithParentView:viewController isLandspape:YES clientId:NAVER_CAFE_CLIENT_ID clientSecret:NAVER_CAFE_CLIENT_SECRET cafeId:NAVER_CAFE_ID urlScheme:@"dvmNaverLogin"];
     [[PerpleSDK sharedInstance] initBilling];
     [[PerpleSDK sharedInstance] application:application didFinishLaunchingWithOptions:launchOptions];
 
