@@ -220,6 +220,7 @@ LOCAL_EXPORT_CPPFLAGS := -Wno-literal-suffix -Wno-deprecated-declarations
 include $(BUILD_STATIC_LIBRARY)
 
 $(call import-module,freetype2/prebuilt/android)
+$(call import-module,openssl/prebuilt/android)
 $(call import-module,protobuf/prebuilt/android)
 $(call import-module,chipmunk)
 $(call import-module,platform/android)

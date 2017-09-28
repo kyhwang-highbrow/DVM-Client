@@ -274,8 +274,8 @@ dependencies {
     compile(name:'perplesdk', ext:'aar')
 
     // @adcolony
-    //compile 'com.adcolony:sdk:3.2.1'
-    //compile 'com.google.android.gms:play-services-ads:11.0.4'
+    compile 'com.adcolony:sdk:3.2.1'
+    compile 'com.google.android.gms:play-services-ads:11.0.4'
 
     // @unity-ads
     compile(name:'unity-ads', ext:'aar')
@@ -283,7 +283,7 @@ dependencies {
     // @naver-cafe
     compile(name:'cafeSdk-2.5.1', ext:'aar')
     compile 'com.android.support:design:25.3.1'
-    compile "com.android.support:support-v4:25.3.1"
+    compile 'com.android.support:support-v4:25.3.1'
     compile 'com.navercorp.volleyextensions:volleyer:2.0.1', {
         exclude group: 'com.mcxiaoke.volley', module: 'library'
     }

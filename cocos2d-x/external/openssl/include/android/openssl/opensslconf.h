@@ -1,10 +1,9 @@
-// Auto-generated - DO NOT EDIT!
-#ifndef OPENSSL_SYS_TRUSTY
-#if defined(__LP64__)
-#include "opensslconf-64.h"
+#ifdef __aarch64__
+#include "opensslconf-arm64.h"
+#elif __arm__
+#include "opensslconf-arm32.h"
+#elif __i386__
+#include "opensslconf-x86.h"
 #else
-#include "opensslconf-32.h"
-#endif
-#else
-#include "opensslconf-trusty.h"
+#error "Unsupported architecture!"
 #endif
