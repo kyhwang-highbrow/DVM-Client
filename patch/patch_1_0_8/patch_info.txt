@@ -1,3 +1,19 @@
+#patch 6
+- Revision: x
+- Date: 2017년 9월 28일 목요일 오후 17:25:00
+- Message : hotfix 패치
+	1. 드래곤의 숲 둥지 보상 오류로 table_forest_stuff_info 만 업데이트 받아 패치
+
+#patch 5
+- Revision: 92457
+- Date: 2017년 9월 28일 목요일 오후 12:01:00
+- Message : hotfix 패치
+	1. 램곤 진화 오류 수정
+	2. 메일 보상 확인 팝업 추가
+	3. 송편 이벤트 획득방법 백키 추가
+	4. 테스트모드일때 콜로세움 오류 수정
+	5. 고대의탑 인연포인트 보상 UI 수정
+
 #patch 4
 - Revision: 92436
 - Date: 2017년 9월 27일 수요일 오후 1:46:57
