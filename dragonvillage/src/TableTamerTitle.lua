@@ -37,7 +37,11 @@ function TableTamerTitle:getTamerTitleStr(tamer_title_id)
 
     local str = self:getValue(tamer_title_id, 't_name')
     if (not str) then
-        error('tamer_title_id : ' .. tamer_title_id)
+        if CppFunctionsClass:isTestMode() then
+            error('tamer_title_id : ' .. tamer_title_id)
+        else
+            return ''
+        end
     end
     str = Str(str)
 
