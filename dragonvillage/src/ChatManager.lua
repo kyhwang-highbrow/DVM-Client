@@ -471,6 +471,9 @@ function ChatManager:openChatPopup()
         UIManager.m_cbUIOpen = function(ui)
             if (ui ~= self.m_chatPopup) and (not self.m_chatPopup.closed) then
 
+                -- 채팅 UI는 UIManager에서 visible로 관리하는 경우에서 제외되어야 함
+                self.m_chatPopup.root:setVisible(true)
+
                 -- 채팅창을 닫지 않는 팝업 지정
                 if (ui.m_uiName == 'UI_SimpleEditBoxPopup') then
                 elseif (ui.m_uiName == 'UI_UserInfoMini') then
