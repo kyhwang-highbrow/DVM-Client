@@ -316,6 +316,10 @@ function UI_DragonEvolution:refresh_evolutionStones(t_dragon_data, t_dragon, is_
 
     local table_dragon_evolution = TABLE:get('dragon_evolution')
     local t_dragon_evolution = table_dragon_evolution[did]
+
+    if (not t_dragon_evolution) then
+        error('table_dragon_evolution.csv error did : ' .. did)
+    end
     
     if is_max_evolution then
         for i=1,3 do
