@@ -50,9 +50,14 @@ function UI_AncientTowerRankingRewardPopup:initUI(struct_user_info_ancient)
             local item_id = item_data['item_id']
             local item_cnt = item_data['count']
 
-            local icon = IconHelper:getItemIcon(item_id)
+            local icon = IconHelper:getItemIcon(item_id, item_cnt)
             vars['rewardNode'..i]:addChild(icon)
             vars['rewardLabel'..i]:setString(comma_value(item_cnt))
+
+            local item_type = TableItem:getItemType(item_id)
+            if (item_type == 'relation_point') then
+                vars['rewardLabel'..i]:setString('')
+            end
         end
 
         -- 노드 보상 갯수에 따른 위치 변경
