@@ -234,7 +234,6 @@ function ServerData_Stage:requestGameStart(stage_id, deck_name, combat_power, fi
 
         -- true를 리턴하면 자체적으로 처리를 완료했다는 뜻
         response_status_cb = function(ret)
-            ret['status'] = -1350
             if (ret['status'] == -1350) then
                 -- 전투 UI로 이동
                 local function ok_cb()

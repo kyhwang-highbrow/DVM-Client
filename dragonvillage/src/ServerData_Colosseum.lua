@@ -533,6 +533,21 @@ function ServerData_Colosseum:request_colosseumFinish(is_win, finish_cb, fail_cb
         end
     end
 
+    -- true를 리턴하면 자체적으로 처리를 완료했다는 뜻
+    local function response_status_cb(ret)
+        -- invalid season
+        if (ret['status'] == -1364) then
+            -- 전투 UI로 이동
+            local function ok_cb()
+                UINavigator:goTo('battle_menu', 'competition')
+            end 
+            MakeSimplePopup(POPUP_TYPE.OK, Str('시즌이 종료되었습니다.'), ok_cb)
+            return true
+        end
+
+        return false
+    end
+
     -- 네트워크 통신
     local ui_network = UI_Network()
     ui_network:setUrl('/game/pvp/ladder/finish')
@@ -542,6 +557,7 @@ function ServerData_Colosseum:request_colosseumFinish(is_win, finish_cb, fail_cb
     ui_network:setParam('gamekey', self.m_gameKey)
     ui_network:setMethod('POST')
     ui_network:setSuccessCB(success_cb)
+    ui_network:setResponseStatusCB(response_status_cb)
     ui_network:setFailCB(fail_cb)
     ui_network:setRevocable(false)
     ui_network:setReuse(false)
