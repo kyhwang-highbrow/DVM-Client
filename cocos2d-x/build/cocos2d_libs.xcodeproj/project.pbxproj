@@ -349,7 +349,7 @@
 		1A57035A180BD0B00088DEC7 /* unzip.h in Headers */ = {isa = PBXBuildFile; fileRef = 1A570353180BD0B00088DEC7 /* unzip.h */; };
 		1A57035B180BD0B00088DEC7 /* unzip.h in Headers */ = {isa = PBXBuildFile; fileRef = 1A570353180BD0B00088DEC7 /* unzip.h */; };
 		1A570361180BD1080088DEC7 /* libpng.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 1A570360180BD1080088DEC7 /* libpng.a */; };
-		1A570364180BD1120088DEC7 /* libpng.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 1A570363180BD1120088DEC7 /* libpng.a */; settings = {ATTRIBUTES = (Required, ); }; };
+		1A570364180BD1120088DEC7 /* libpng.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 1A570363180BD1120088DEC7 /* libpng.a */; };
 		1A570378180BD1B40088DEC7 /* libjpeg.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 1A570377180BD1B40088DEC7 /* libjpeg.a */; };
 		1A57037B180BD1C90088DEC7 /* libjpeg.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 1A57037A180BD1C90088DEC7 /* libjpeg.a */; };
 		1A5703A1180BD22C0088DEC7 /* libtiff.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 1A5703A0180BD22C0088DEC7 /* libtiff.a */; };
@@ -889,14 +889,15 @@
 		2905FA8E18CF08D100240AA3 /* UIWidget.h in Headers */ = {isa = PBXBuildFile; fileRef = 2905FA1418CF08D100240AA3 /* UIWidget.h */; };
 		2905FA8F18CF08D100240AA3 /* UIWidget.h in Headers */ = {isa = PBXBuildFile; fileRef = 2905FA1418CF08D100240AA3 /* UIWidget.h */; };
 		2986667F18B1B246000E39CA /* CCTweenFunction.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2986667818B1B079000E39CA /* CCTweenFunction.cpp */; };
+		370B47851F7CBB9C0072CA71 /* libcrypto.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 370B47831F7CBB350072CA71 /* libcrypto.a */; };
+		370B478F1F7CBE830072CA71 /* libssl.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 370B47841F7CBB350072CA71 /* libssl.a */; };
+		370B47931F7CC1840072CA71 /* libprotobuf.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 370B47921F7CC1840072CA71 /* libprotobuf.a */; };
 		3722AFC91CD8945C00FCA5BD /* UIWebView.h in Headers */ = {isa = PBXBuildFile; fileRef = 3722AFC11CD8945000FCA5BD /* UIWebView.h */; };
 		3722AFCA1CD8945C00FCA5BD /* UIWebView.mm in Sources */ = {isa = PBXBuildFile; fileRef = 3722AFC21CD8945000FCA5BD /* UIWebView.mm */; };
 		3722AFCB1CD8945C00FCA5BD /* UIWebViewImpl-ios.h in Headers */ = {isa = PBXBuildFile; fileRef = 3722AFC31CD8945000FCA5BD /* UIWebViewImpl-ios.h */; };
 		3722AFCC1CD8945C00FCA5BD /* UIWebViewImpl-ios.mm in Sources */ = {isa = PBXBuildFile; fileRef = 3722AFC41CD8945000FCA5BD /* UIWebViewImpl-ios.mm */; };
 		373B9129187891F400198F86 /* CCComBase.h in Headers */ = {isa = PBXBuildFile; fileRef = 373B910718787C0B00198F86 /* CCComBase.h */; };
 		373B912A187891FB00198F86 /* CCComBase.h in Headers */ = {isa = PBXBuildFile; fileRef = 373B910718787C0B00198F86 /* CCComBase.h */; };
-		374EA9281B71F063005D5CEA /* libcrypto.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 374EA9261B71F063005D5CEA /* libcrypto.a */; };
-		374EA9291B71F063005D5CEA /* libssl.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 374EA9271B71F063005D5CEA /* libssl.a */; };
 		3764A4BD19A5922D0092EC76 /* a2dLoader4x.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 377033E6198F7B020091C231 /* a2dLoader4x.cpp */; };
 		3764A4BE19A5922D0092EC76 /* a2dToken4x.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 377033E8198F7B020091C231 /* a2dToken4x.cpp */; };
 		3764A4BF19A5922D0092EC76 /* AzBlend.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 377033EB198F7B020091C231 /* AzBlend.cpp */; };
@@ -923,7 +924,6 @@
 		3764A4E919A596120092EC76 /* CCazVisual.h in Headers */ = {isa = PBXBuildFile; fileRef = 377033FF198F7B020091C231 /* CCazVisual.h */; };
 		3764A4EA19A596120092EC76 /* CCAzVRP.h in Headers */ = {isa = PBXBuildFile; fileRef = 37703401198F7B020091C231 /* CCAzVRP.h */; };
 		37703413198F82EF0091C231 /* CCPerpSpriter.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3770340B198F7B450091C231 /* CCPerpSpriter.cpp */; };
-		37703424198F8E3C0091C231 /* libprotobuf.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 37703422198F87C00091C231 /* libprotobuf.a */; };
 		37703427198F8FD50091C231 /* CCPerpSCB.h in Headers */ = {isa = PBXBuildFile; fileRef = 3770340A198F7B450091C231 /* CCPerpSCB.h */; };
 		37703428198F8FD50091C231 /* CCPerpSpriter.h in Headers */ = {isa = PBXBuildFile; fileRef = 3770340C198F7B450091C231 /* CCPerpSpriter.h */; };
 		378658321C31050A001DB2DC /* IkConstraint.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 378658141C3101F7001DB2DC /* IkConstraint.cpp */; };
@@ -1070,7 +1070,6 @@
 		37C8996E1F3B71520092F159 /* AudioPlayer.mm in Sources */ = {isa = PBXBuildFile; fileRef = 37C8995C1F3B71520092F159 /* AudioPlayer.mm */; };
 		37C8996F1F3B71DF0092F159 /* AudioEngine.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 37C8994C1F3B700C0092F159 /* AudioEngine.cpp */; };
 		37C899701F3B71E10092F159 /* AudioEngine.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 37C8994C1F3B700C0092F159 /* AudioEngine.cpp */; };
-		37CCAF3C19DD5A2100E881BB /* libprotobuf.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 37703422198F87C00091C231 /* libprotobuf.a */; };
 		37D8E3D61A1F204E005E479B /* CCRotatePlate.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 37D8E3D41A1F1E94005E479B /* CCRotatePlate.cpp */; };
 		37D8E3D71A1F2062005E479B /* CCRotatePlate.h in Headers */ = {isa = PBXBuildFile; fileRef = 37D8E3D51A1F1E94005E479B /* CCRotatePlate.h */; };
 		3EA0FB6B191C841D00B170C8 /* UIVideoPlayer.h in Headers */ = {isa = PBXBuildFile; fileRef = 3EA0FB69191C841D00B170C8 /* UIVideoPlayer.h */; };
@@ -2337,15 +2336,14 @@
 		2AC795D81862867D005EC8E1 /* EventData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EventData.h; sourceTree = "<group>"; };
 		2AC795D918628689005EC8E1 /* SkeletonBounds.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SkeletonBounds.cpp; sourceTree = "<group>"; };
 		2AC795DA18628689005EC8E1 /* SkeletonBounds.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SkeletonBounds.h; sourceTree = "<group>"; };
-		3714C5C81993685F002BE73A /* libprotobuf-lite.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = "libprotobuf-lite.a"; path = "../external/protobuf/prebuilt/ios/libprotobuf-lite.a"; sourceTree = "<group>"; };
-		3714C5CC1993738C002BE73A /* libprotobuf-lite-armv7.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = "libprotobuf-lite-armv7.a"; path = "../external/protobuf/prebuilt/ios/libprotobuf-lite-armv7.a"; sourceTree = "<group>"; };
+		370B47831F7CBB350072CA71 /* libcrypto.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libcrypto.a; sourceTree = "<group>"; };
+		370B47841F7CBB350072CA71 /* libssl.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libssl.a; sourceTree = "<group>"; };
+		370B47921F7CC1840072CA71 /* libprotobuf.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libprotobuf.a; sourceTree = "<group>"; };
 		3722AFC11CD8945000FCA5BD /* UIWebView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UIWebView.h; sourceTree = "<group>"; };
 		3722AFC21CD8945000FCA5BD /* UIWebView.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = UIWebView.mm; sourceTree = "<group>"; };
 		3722AFC31CD8945000FCA5BD /* UIWebViewImpl-ios.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIWebViewImpl-ios.h"; sourceTree = "<group>"; };
 		3722AFC41CD8945000FCA5BD /* UIWebViewImpl-ios.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = "UIWebViewImpl-ios.mm"; sourceTree = "<group>"; };
 		373B910718787C0B00198F86 /* CCComBase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CCComBase.h; sourceTree = "<group>"; };
-		374EA9261B71F063005D5CEA /* libcrypto.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libcrypto.a; path = ../external/curl/prebuilt/ios/libcrypto.a; sourceTree = "<group>"; };
-		374EA9271B71F063005D5CEA /* libssl.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libssl.a; path = ../external/curl/prebuilt/ios/libssl.a; sourceTree = "<group>"; };
 		377033E6198F7B020091C231 /* a2dLoader4x.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = a2dLoader4x.cpp; sourceTree = "<group>"; };
 		377033E7198F7B020091C231 /* a2dLoader4x.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = a2dLoader4x.h; sourceTree = "<group>"; };
 		377033E8198F7B020091C231 /* a2dToken4x.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = a2dToken4x.cpp; sourceTree = "<group>"; };
@@ -2374,7 +2372,6 @@
 		3770340A198F7B450091C231 /* CCPerpSCB.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CCPerpSCB.h; sourceTree = "<group>"; };
 		3770340B198F7B450091C231 /* CCPerpSpriter.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CCPerpSpriter.cpp; sourceTree = "<group>"; };
 		3770340C198F7B450091C231 /* CCPerpSpriter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CCPerpSpriter.h; sourceTree = "<group>"; };
-		37703422198F87C00091C231 /* libprotobuf.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libprotobuf.a; path = ../external/protobuf/prebuilt/ios/libprotobuf.a; sourceTree = "<group>"; };
 		378658141C3101F7001DB2DC /* IkConstraint.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = IkConstraint.cpp; sourceTree = "<group>"; };
 		378658151C3101F7001DB2DC /* IkConstraint.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IkConstraint.h; sourceTree = "<group>"; };
 		378658161C3101F7001DB2DC /* IkConstraintData.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = IkConstraintData.cpp; sourceTree = "<group>"; };
@@ -2961,7 +2958,6 @@
 				1A5703B8180BD2780088DEC7 /* libwebp.a in Frameworks */,
 				1A57052B180BD31F0088DEC7 /* libfreetype.a in Frameworks */,
 				1AAF5385180E35A3000584C8 /* libwebsockets.a in Frameworks */,
-				37703424198F8E3C0091C231 /* libprotobuf.a in Frameworks */,
 				B3B12A5A17E7F44000026B4A /* libchipmunk Mac.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -2999,16 +2995,16 @@
 			buildActionMask = 2147483647;
 			files = (
 				A07A4CAF1783777C0073F6A7 /* Foundation.framework in Frameworks */,
-				37CCAF3C19DD5A2100E881BB /* libprotobuf.a in Frameworks */,
-				1A570378180BD1B40088DEC7 /* libjpeg.a in Frameworks */,
+				370B47851F7CBB9C0072CA71 /* libcrypto.a in Frameworks */,
+				370B478F1F7CBE830072CA71 /* libssl.a in Frameworks */,
+				1AAF541D180E3B6A000584C8 /* libcurl.a in Frameworks */,
+				1AAF5388180E35AC000584C8 /* libwebsockets.a in Frameworks */,
 				1A570364180BD1120088DEC7 /* libpng.a in Frameworks */,
+				1A570378180BD1B40088DEC7 /* libjpeg.a in Frameworks */,
 				1A5703A4180BD2350088DEC7 /* libtiff.a in Frameworks */,
 				1A5703BB180BD2800088DEC7 /* libwebp.a in Frameworks */,
 				1A57052E180BD3280088DEC7 /* libfreetype.a in Frameworks */,
-				1AAF541D180E3B6A000584C8 /* libcurl.a in Frameworks */,
-				374EA9281B71F063005D5CEA /* libcrypto.a in Frameworks */,
-				374EA9291B71F063005D5CEA /* libssl.a in Frameworks */,
-				1AAF5388180E35AC000584C8 /* libwebsockets.a in Frameworks */,
+				370B47931F7CC1840072CA71 /* libprotobuf.a in Frameworks */,
 				B3B12A5B17E7F45C00026B4A /* libchipmunk iOS.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -3094,11 +3090,6 @@
 			isa = PBXGroup;
 			children = (
 				1551A342158F2AB200E66CFE /* Foundation.framework */,
-				374EA9261B71F063005D5CEA /* libcrypto.a */,
-				374EA9271B71F063005D5CEA /* libssl.a */,
-				3714C5CC1993738C002BE73A /* libprotobuf-lite-armv7.a */,
-				3714C5C81993685F002BE73A /* libprotobuf-lite.a */,
-				37703422198F87C00091C231 /* libprotobuf.a */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -3474,12 +3465,14 @@
 				46A168B21807AF9C005B8026 /* Box2D */,
 				46A1693A1807AFD6005B8026 /* chipmunk */,
 				1AAF5403180E3B2D000584C8 /* curl */,
+				370B478C1F7CBE1C0072CA71 /* openssl */,
 				1A087AE51860400400196EF5 /* edtaa3func */,
 				1A5703BC180BD2940088DEC7 /* freetype2 */,
 				1A57033F180BD0540088DEC7 /* glfw3 */,
 				1A570373180BD1790088DEC7 /* jpeg */,
 				1AD71EF8180E28C400808F54 /* json */,
 				1A57035C180BD0D90088DEC7 /* png */,
+				370B47881F7CBD660072CA71 /* protobuf */,
 				1A57038A180BD1EF0088DEC7 /* tiff */,
 				1A570348180BD09B0088DEC7 /* tinyxml2 */,
 				1A57034F180BD0B00088DEC7 /* unzip */,
@@ -4121,6 +4114,57 @@
 			);
 			name = ui;
 			path = ../cocos/ui;
+			sourceTree = "<group>";
+		};
+		370B47881F7CBD660072CA71 /* protobuf */ = {
+			isa = PBXGroup;
+			children = (
+				370B47891F7CBD830072CA71 /* prebuilt */,
+			);
+			name = protobuf;
+			sourceTree = "<group>";
+		};
+		370B47891F7CBD830072CA71 /* prebuilt */ = {
+			isa = PBXGroup;
+			children = (
+				370B478A1F7CBD9A0072CA71 /* ios */,
+			);
+			name = prebuilt;
+			sourceTree = "<group>";
+		};
+		370B478A1F7CBD9A0072CA71 /* ios */ = {
+			isa = PBXGroup;
+			children = (
+				370B47921F7CC1840072CA71 /* libprotobuf.a */,
+			);
+			name = ios;
+			path = ../external/protobuf/prebuilt/ios;
+			sourceTree = "<group>";
+		};
+		370B478C1F7CBE1C0072CA71 /* openssl */ = {
+			isa = PBXGroup;
+			children = (
+				370B478D1F7CBE230072CA71 /* prebuilt */,
+			);
+			name = openssl;
+			sourceTree = "<group>";
+		};
+		370B478D1F7CBE230072CA71 /* prebuilt */ = {
+			isa = PBXGroup;
+			children = (
+				370B478E1F7CBE2C0072CA71 /* ios */,
+			);
+			name = prebuilt;
+			sourceTree = "<group>";
+		};
+		370B478E1F7CBE2C0072CA71 /* ios */ = {
+			isa = PBXGroup;
+			children = (
+				370B47831F7CBB350072CA71 /* libcrypto.a */,
+				370B47841F7CBB350072CA71 /* libssl.a */,
+			);
+			name = ios;
+			path = ../external/openssl/prebuilt/ios;
 			sourceTree = "<group>";
 		};
 		377033E5198F7B020091C231 /* anb */ = {
@@ -7504,20 +7548,21 @@
 				HEADER_SEARCH_PATHS = "";
 				IPHONEOS_DEPLOYMENT_TARGET = 5.1.1;
 				LIBRARY_SEARCH_PATHS = (
+					"\"$(SRCROOT)/../external/openssl/prebuilt/ios\"",
+					"\"$(SRCROOT)/../external/curl/prebuilt/ios\"",
+					"\"$(SRCROOT)/../external/websockets/prebuilt/ios\"",
 					"\"$(SRCROOT)/../external/png/prebuilt/ios\"",
 					"\"$(SRCROOT)/../external/jpeg/prebuilt/ios\"",
 					"\"$(SRCROOT)/../external/tiff/prebuilt/ios\"",
 					"\"$(SRCROOT)/../external/webp/prebuilt/ios\"",
 					"\"$(SRCROOT)/../external/freetype2/prebuilt/ios\"",
-					"\"$(SRCROOT)/../external/websockets/prebuilt/ios\"",
-					"\"$(SRCROOT)/../external/curl/prebuilt/ios\"",
 					"\"$(SRCROOT)/../external/protobuf/prebuilt/ios\"",
 				);
 				ONLY_ACTIVE_ARCH = NO;
-				OTHER_LDFLAGS = "-lprotobuf";
+				OTHER_LDFLAGS = "";
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
-				USER_HEADER_SEARCH_PATHS = "$(inherited) $(SRCROOT)/../external/websockets/include/ios $(SRCROOT)/../external/freetype2/include/ios/freetype2 $(SRCROOT)/../external/curl/include/ios $(SRCROOT)/../external/webp/include/ios $(SRCROOT)/../external/tiff/include/ios $(SRCROOT)/../external/jpeg/include/ios $(SRCROOT)/../external/png/include/ios $(SRCROOT)/../external/protobuf/include/ios";
+				USER_HEADER_SEARCH_PATHS = "$(inherited) $(SRCROOT)/../external/openssl/include/ios $(SRCROOT)/../external/curl/include/ios $(SRCROOT)/../external/websockets/include/ios $(SRCROOT)/../external/png/include/ios $(SRCROOT)/../external/jpeg/include/ios $(SRCROOT)/../external/tiff/include/ios $(SRCROOT)/../external/webp/include/ios $(SRCROOT)/../external/freetype2/include/ios/freetype2 $(SRCROOT)/../external/protobuf/include/ios";
 				VALID_ARCHS = "armv7 armv7s arm64";
 			};
 			name = Debug;
@@ -7537,20 +7582,21 @@
 				HEADER_SEARCH_PATHS = "";
 				IPHONEOS_DEPLOYMENT_TARGET = 5.1.1;
 				LIBRARY_SEARCH_PATHS = (
+					"\"$(SRCROOT)/../external/openssl/prebuilt/ios\"",
+					"\"$(SRCROOT)/../external/curl/prebuilt/ios\"",
+					"\"$(SRCROOT)/../external/websockets/prebuilt/ios\"",
 					"\"$(SRCROOT)/../external/png/prebuilt/ios\"",
 					"\"$(SRCROOT)/../external/jpeg/prebuilt/ios\"",
 					"\"$(SRCROOT)/../external/tiff/prebuilt/ios\"",
 					"\"$(SRCROOT)/../external/webp/prebuilt/ios\"",
 					"\"$(SRCROOT)/../external/freetype2/prebuilt/ios\"",
-					"\"$(SRCROOT)/../external/websockets/prebuilt/ios\"",
-					"\"$(SRCROOT)/../external/curl/prebuilt/ios\"",
 					"\"$(SRCROOT)/../external/protobuf/prebuilt/ios\"",
 				);
 				ONLY_ACTIVE_ARCH = NO;
-				OTHER_LDFLAGS = "-lprotobuf";
+				OTHER_LDFLAGS = "";
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
-				USER_HEADER_SEARCH_PATHS = "$(inherited) $(SRCROOT)/../external/websockets/include/ios $(SRCROOT)/../external/freetype2/include/ios/freetype2 $(SRCROOT)/../external/curl/include/ios $(SRCROOT)/../external/webp/include/ios $(SRCROOT)/../external/tiff/include/ios $(SRCROOT)/../external/jpeg/include/ios $(SRCROOT)/../external/png/include/ios $(SRCROOT)/../external/protobuf/include/ios";
+				USER_HEADER_SEARCH_PATHS = "$(inherited) $(SRCROOT)/../external/openssl/include/ios $(SRCROOT)/../external/curl/include/ios $(SRCROOT)/../external/websockets/include/ios $(SRCROOT)/../external/png/include/ios $(SRCROOT)/../external/jpeg/include/ios $(SRCROOT)/../external/tiff/include/ios $(SRCROOT)/../external/webp/include/ios $(SRCROOT)/../external/freetype2/include/ios/freetype2 $(SRCROOT)/../external/protobuf/include/ios";
 				VALID_ARCHS = "armv7 armv7s arm64";
 			};
 			name = Release;
