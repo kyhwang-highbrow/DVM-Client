@@ -102,6 +102,7 @@ function UI_ExchangeEvent:click_infoBtn()
     local ui = UI()
     ui:load('event_chuseok_info_popup.ui')
     ui.vars['closeBtn']:registerScriptTapHandler(function() ui:close() end)
+    g_currScene:pushBackKeyListener(ui, function() ui:close() end, 'event_chuseok_info_popup')
     UIManager:open(ui, UIManager.POPUP)
 end
 

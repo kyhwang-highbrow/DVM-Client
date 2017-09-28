@@ -330,23 +330,7 @@ function ServerData_Forest:showRewardResult(ret)
 
     -- 아이템 정보가 있다면 팝업 처리
     if (item_info) then
-        local id = item_info['item_id']
-        local cnt = item_info['count']
-        local item_card = UI_ItemCard(id, cnt)
-
-        if (item_card) then
-            local ui = UI()
-            ui:load('popup_ad_confirm.ui')
-            ui.vars['itemNode']:addChild(item_card.root)
-            ui.vars['okBtn']:registerScriptTapHandler(function() ui:close() end)
-            -- backkey 지정
-            g_currScene:pushBackKeyListener(ui, function() ui:close() end, 'popup_ad_confirm')
-
-            UIManager:open(ui, UIManager.POPUP)
-        end
-
-        -- 우편함 노티
-        g_highlightData:setHighlightMail()
+        UI_MailRewardPopup(item_info)
     end
 end
 

@@ -207,6 +207,7 @@ function UI_ColosseumResult:direction_end()
 
     -- 이벤트 아이템 표시
     local event_act = cc.CallFunc:create(function()
+        if (not t_data['added_items']) then return end
         local drop_list = t_data['added_items']['items_list'] or {}
         for _, item in ipairs(drop_list) do
             if (item['from'] == 'event') then

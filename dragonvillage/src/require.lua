@@ -638,6 +638,7 @@ local t_module = {
     'UI_MasterRoadPopup_Link',
     'UI_MailPopup',
     'UI_MailListItem',
+    'UI_MailRewardPopup',
     'UI_AcquisitionRegionInformation',
     'UI_AcquisitionRegionListItem',
     'UI_NotificationInfoElement',

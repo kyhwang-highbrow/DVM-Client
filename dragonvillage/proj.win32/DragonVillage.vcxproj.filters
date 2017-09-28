@@ -2811,6 +2811,9 @@
     <None Include="..\src\StatusEffectUnit_ConditionalBuff.lua">
       <Filter>lua\src</Filter>
     </None>
+    <None Include="..\src\UI_MailRewardPopup.lua">
+      <Filter>lua\UI</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Classes">

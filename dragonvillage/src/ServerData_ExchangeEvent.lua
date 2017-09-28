@@ -93,6 +93,22 @@ function ServerData_ExchangeEvent:networkCommonRespone(ret)
 end
 
 -------------------------------------
+-- function confirm_reward
+-- @brief 보상 정보
+-------------------------------------
+function ServerData_ExchangeEvent:confirm_reward(ret)
+    local item_info = ret['item_info'] or nil
+    if (item_info) then
+        UI_MailRewardPopup(item_info)
+    else
+        local toast_msg = Str('보상이 우편함으로 전송되었습니다.')
+        UI_ToastPopup(toast_msg)
+
+        g_highlightData:setHighlightMail()
+    end
+end
+
+-------------------------------------
 -- function request_eventInfo
 -- @brief 이벤트 정보
 -------------------------------------
@@ -136,11 +152,8 @@ function ServerData_ExchangeEvent:request_eventUse(finish_cb, fail_cb)
     -- 콜백
     local function success_cb(ret)                    
         self:networkCommonRespone(ret)
-
-        g_highlightData:setHighlightMail()
-        local toast_msg = Str('보상이 우편함으로 전송되었습니다.')
-        UI_ToastPopup(toast_msg)
-
+        self:confirm_reward(ret)
+        
         if finish_cb then
             finish_cb(ret)
         end
@@ -170,11 +183,8 @@ function ServerData_ExchangeEvent:request_eventReward(step, finish_cb, fail_cb)
     -- 콜백
     local function success_cb(ret)                    
         self:networkCommonRespone(ret)
-
-        g_highlightData:setHighlightMail()
-        local toast_msg = Str('보상이 우편함으로 전송되었습니다.')
-        UI_ToastPopup(toast_msg)
-
+        self:confirm_reward(ret)
+        
         if finish_cb then
             finish_cb(ret)
         end
