@@ -96,7 +96,7 @@ function UI_Forest_ExtensionBoard:click_lvUpBtn()
     local function cb_func(ret)
         self:refresh()
         self.vars['forestVisual']:changeAni('home_lvup')
-
+        SoundMgr:playEffect('UI', 'ui_dragon_level_up')
         if self.m_cbForestLVChange then
             self.m_cbForestLVChange(ret)
         end

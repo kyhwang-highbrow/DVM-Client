@@ -168,6 +168,8 @@ function UI_Forest_StuffLevelupPopup:click_levelupBtn()
                 self.m_stuffObject.m_ui:refresh()
             end
         end)
+
+        SoundMgr:playEffect('UI', 'ui_dragon_level_up')
     end
     ServerData_Forest:getInstance():request_stuffLevelup(stuff_type, finish_cb)
 end

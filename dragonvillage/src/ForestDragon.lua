@@ -372,12 +372,14 @@ function ForestDragon:getHappy()
     local doid = self.m_structDragon['id']
     local curr_happy = ServerData_Forest:getInstance():getHappy()
     local function finish_cb(ret)
-        -- 만족도 풍선을 삭제한다.
+        -- 만족도 하트 흡수 연출
         self.m_happyAnimator:changeAni('heart_tap', false)
         self.m_happyAnimator:addAniHandler(function()
             self.m_happyAnimator:setVisible(false)
         end)
         
+        SoundMgr:playEffect('SFX', 'sfx_heal')
+
         -- 드래곤 만족도 연출 이벤트
         local struct_event = StructForestEvent()
         struct_event:setObject(self)

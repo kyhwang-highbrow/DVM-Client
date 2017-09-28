@@ -48,7 +48,6 @@ function LevelupDirector_GameResult:initLevelupDirector(src_lv, src_exp, dest_lv
 
     -- LevelUp 콜백 등록
     self.m_levelupDirector.m_cbLevelUp = function()
-        SoundMgr:playEffect('EFFECT', 'dragon_levelup')
         self.m_levelUpVrp:setVisible(true)
         self.m_levelUpVrp:setVisual('group', 'level_up')
         self.m_levelUpVrp:registerScriptLoopHandler(function()

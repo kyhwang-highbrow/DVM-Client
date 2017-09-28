@@ -543,19 +543,6 @@ function UI_DragonUpgrade:upgradeDirecting(doid, t_prev_dragon_data, t_next_drag
     local directing_animation
     local directing_result
 
-    -- 에니메이션 연출 : 제외된 상태
-    --[[
-    directing_animation = function()
-        local vars = self.vars
-
-        self.vars['upgradeVisual']:setVisible(true)
-        self.vars['upgradeVisual']:setVisual('group', 'idle')
-        self.vars['upgradeVisual']:setRepeat(false)
-        self.vars['upgradeVisual']:addAniHandler(directing_result)
-        SoundMgr:playEffect('EFFECT', 'exp_gauge')
-    end
-    ]]
-
     -- 결과 연출
     directing_result = function()
         block_ui:close()

@@ -341,7 +341,7 @@ end
 function Monster.st_casting(owner, dt)
     if (owner.m_stateTimer == 0) then
 		if (owner:isBoss()) then
-			SoundMgr:playEffect('EFFECT', 'monster_skill_cast')
+			SoundMgr:playEffect('EFFECT', 'monster_skill_cast') -- @ memo 출처 불분명하나 일단 남겨두기로함 (170928)
 		end
 
         -- 스킬 사용 위치 정보가 있다면 해당 위치까지 이동시킴
