@@ -47,6 +47,8 @@
 	<string>1959320877684820</string>
 	<key>FacebookDisplayName</key>
 	<string>드래곤빌리지M</string>
+	<key>ITSAppUsesNonExemptEncryption</key>
+	<false/>
 	<key>LSApplicationQueriesSchemes</key>
 	<array>
 		<string>fbapi</string>
