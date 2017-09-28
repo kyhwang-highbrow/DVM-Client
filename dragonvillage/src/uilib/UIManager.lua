@@ -541,12 +541,5 @@ function UIManager:onKeyReleased(keyCode, event)
     elseif (keyCode == KEY_D) then
 		g_currScene.m_scene:stopAllActions()
 
-    -- 드래곤의 숲 임시 처리
-	elseif (keyCode == KEY_F) then
-        local function cb_func()
-            SceneForest():runScene()
-        end
-        ServerData_Forest:getInstance():request_myForestInfo(cb_func)
-
 	end
 end
