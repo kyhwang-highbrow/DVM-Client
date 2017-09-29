@@ -4,6 +4,8 @@
 -------------------------------------
 AdsManager = {
     callback,
+    adcolonyZoneId,
+    tapjoyAdPlacementId,
 }
 
 -------------------------------------
@@ -21,7 +23,7 @@ end
 -- function result
 -------------------------------------
 function AdsManager:result(ret, info)
-    cclog('UnityAds Callback - ret:' .. ret .. ',info:' .. info)
+    cclog('UnityAds Callback - ret:' .. ret .. ', info:' .. info)
 
     if self.callback ~= nil then
         self.callback(ret, info)
@@ -48,7 +50,30 @@ function AdsManager:start(placementId, result_cb)
         self:result(ret, info)
     end
 
+    -- @unity ads
     PerpleSDK:unityAdsStart(mode, '', _result_cb)
+
+    -- AdColony, Tapjoy 광고 프리로드
+    --[[
+    -- @adcolony
+    -- Value Exchange/V4VC 타입
+    adcolonyAosZoneId = 'vze55a6191fd844b4cae'
+    adcolonyIosZoneId = 'vza8efd1ab2da9422ba9'
+    -- Preroll/Interstitial 타입
+    --adcolonyAosZoneId = 'vzbedbcd794ef94f77b0'
+    --adcolonyIosZoneId = 'vz2314b25936404e30b7'
+    self.adcolonyZoneId = ''
+    if isAndroid() then
+        self.adcolonyZoneId = adcolonyAosZoneId
+    elseif isIos() then
+        self.adcolonyZoneId = adcolonyIosZoneId
+    end
+    PerpleSDK:adColonyStart(self.adcolonyZoneId, '', '')
+
+    -- @tapjoy ads
+    self.tapjoyAdPlacementId = 'TapjoyAd_video'
+    PerpleSDK:tapjoySetPlacement(self.tapjoyAdPlacementId, function(ret, info) end)
+    --]]
 end
 
 -------------------------------------
@@ -83,6 +108,52 @@ function AdsManager:showPlacement(placementId, result_cb)
     if (skip()) then 
         return
     end
+
+    -- UnityAds 광고를 못 보여줄 경우, Tapjoy 광고 보기 시도 샘플 코드
+    --[[
+    local function _result_cb(ret, info)
+        if ret == 'finish' then
+            SoundMgr:playCurrBGM()
+        end
+
+        if (ret == 'error') then
+
+            local tapjoyPlacement = 'TapjoyAd_video'
+            PerpleSDK:tapjoySetPlacement(tapjoyPlacement, function(ret_, info_)
+                cclog('TapjoyAds setPlacement callback - ret:' .. ret_ .. ', info:' .. info_)
+
+                if ret_ == 'ready' then
+                    PerpleSDK:tapjoyShowPlacement(tapjoyPlacement, function(ret__, info__)
+                        cclog('TapjoyAds showPlacement callback - ret:' .. ret__ .. ', info:' .. info__)
+
+                        if ret__ == 'show' then
+                            -- do nothing
+                        else
+                            SoundMgr:playCurrBGM()
+
+                            -- error
+                            self:showErrorPopup(info, function()
+                                result_cb(ret, info)
+                            end)
+                        end
+                    end)
+                elseif ret_ == 'success' then
+                    -- do nothing
+                else
+                    SoundMgr:playCurrBGM()
+
+                    -- fail, error
+                    self:showErrorPopup(info, function()
+                        result_cb(ret, info)
+                    end)
+                end
+            end)
+
+        else
+            result_cb(ret, info)
+        end
+    end
+    --]]
 
     local function _result_cb(ret, info)
         if ret == 'finish' or ret == 'error' then
@@ -159,4 +230,51 @@ end
             end
         end
     end)
+--]]
+
+-- Tapjoy 광고 보기 샘플 코드
+--[[
+PerpleSDK:tapjoySetPlacement(self.tapjoyAdPlacementId, function(ret_, info_)
+    cclog('TapjoyAds setPlacement callback - ret:' .. ret_ .. ', info:' .. info_)
+
+    if ret_ == 'ready' then
+        PerpleSDK:tapjoyShowPlacement(self.tapjoyAdPlacementId, function(ret__, info__)
+            cclog('TapjoyAds showPlacement callback - ret:' .. ret__ .. ', info:' .. info__)
+            if ret__ == 'wait' then
+                -- 광고가 없거나 다운로드 중일 때
+                -- setPlacement에서 'ready'인 경우에 showPlacement를 호출하므로 실제로는 여기로 리턴되는 경우는 없다.
+            elseif ret__ == 'show' then
+                -- 광고 재생 시작
+                -- @주의 - 실제 콜백 호출은 광고 재생 시작 시 발생하나 Android의 경우 광고 재생이 끝나고 광고 화면을 닫을 때 루아 콜백이 온다. (루아 콜백이 스케줄러로 관리되므로)
+                -- 탭조이 광고는 별도의 Completed 콜백이 없으므로 여기서 그냥 광고 보상 처리를 한다. (광고를 스킵불가로 설정할 것)
+
+            elseif ret__ == 'dismiss' then
+                -- 어떤 경우 이런 콜백이 오는 지 알 수 없음
+                -- error로 처리하면 되지 않을까...
+            else
+                -- error
+            end
+        end)
+    elseif ret_ == 'success' then
+        -- do nothing
+    else
+        -- fail, error
+    end
+end)
+--]]
+
+-- AdColony 광고 보기 샘플 코드
+--[[
+PerpleSDK:adColonyReqeust(self.adcolonyZoneId, function(ret_, info_)
+    cclog('AdColony request callback - ret:' .. ret_ .. ', info:' .. info_)
+    if ret_ == 'ready' then
+        PerpleSDK:adColonyShow(adcolonyZoneId)
+    elseif ret_ == 'reward' then
+        -- AdColony 콘솔에서 ZoneType을 Value Exchange/V4VC로 설정할 경우,
+        -- 광고 보기를 완료하면 이 콜백이 온다. (Client Side Only로 설정할 것)
+        -- ZoneType을 Preroll/Interstitial로 설정할 경우에는 오지 않음.
+    else
+        -- error
+    end
+end)
 --]]
