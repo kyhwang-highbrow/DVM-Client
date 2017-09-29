@@ -2655,15 +2655,6 @@
     <None Include="..\src\UI_EventPopupTab_PackageGrowth.lua">
       <Filter>lua\UI</Filter>
     </None>
-    <None Include="..\src\UI_Package_Growth.lua">
-      <Filter>lua\UI</Filter>
-    </None>
-    <None Include="..\src\UI_Package_Monthly.lua">
-      <Filter>lua\UI</Filter>
-    </None>
-    <None Include="..\src\UI_Package_Weekly.lua">
-      <Filter>lua\UI</Filter>
-    </None>
     <None Include="..\src\PackageManager.lua">
       <Filter>lua\src</Filter>
     </None>
@@ -2681,9 +2672,6 @@
     </None>
     <None Include="..\src\SpineCacheManager.lua">
       <Filter>lua\src</Filter>
-    </None>
-    <None Include="..\src\UI_Package_Slime.lua">
-      <Filter>lua\UI</Filter>
     </None>
     <None Include="..\src\StatusEffect_ProtectionByTime.lua">
       <Filter>lua\src</Filter>
@@ -2813,6 +2801,12 @@
     </None>
     <None Include="..\src\UI_MailRewardPopup.lua">
       <Filter>lua\UI</Filter>
+    </None>
+    <None Include="..\src\UI_Package_Bundle.lua">
+      <Filter>lua\UI</Filter>
+    </None>
+    <None Include="..\src\TablePackageBundle.lua">
+      <Filter>lua\src</Filter>
     </None>
   </ItemGroup>
   <ItemGroup>

@@ -218,7 +218,7 @@ function UI_EventPopup:makeEventPopupTab(tab)
         self:addNodeToTabNodeList(tab, ui.m_webView)
 
     -- 성장 패키지 묶음 UI (slime_package, growth_package)
-    elseif (string.find(tab, '_package')) then
+    elseif (TablePackageBundle:checkBundleWithName(tab)) then
         local product = {product_id = tab}
         ui = UI_EventPopupTab_Shop(product)
 

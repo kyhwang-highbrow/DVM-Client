@@ -60,7 +60,7 @@ local TableInfo = {
 		loading_guide       = {'table_loading_guide',		'gid',		    false},
         table_colosseum_buff= {'table_colosseum_buff',		'wins',		    false},
         table_inventory     = {'table_inventory',		    'lv',		    false},
-        
+        package_bundle      = {'table_package_bundle',		'bid',		    false},
 
         -- 드래곤 관리 관련
         grade_info          = {'table_dragon_grade_info',    'grade',        false},

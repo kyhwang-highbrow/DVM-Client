@@ -213,8 +213,8 @@ function UI_Lobby:entryCoroutine()
 
                 local first_login = g_localData:get('event_full_popup', 'first_login') or false
 
-                -- 스타터 패키지, 오픈 패키지, 주말 패키지, 월간 패키지
-                local t_pid = {'90006', '90012', '90013', '90007'}
+                -- 추석 패키지, 스타터 패키지, 오픈 패키지, 주말 패키지, 월간 패키지
+                local t_pid = {'package_chuseok', '90006', '90012', 'package_weekly', 'package_monthly'}
                 for _, pid in ipairs(t_pid) do
                     local save_key = tostring(pid)
 

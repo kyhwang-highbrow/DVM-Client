@@ -775,6 +775,7 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <None Include="..\src\TableHighbrow.lua" />
     <None Include="..\src\TableLoadingGuide.lua" />
     <None Include="..\src\TableMasterRoad.lua" />
+    <None Include="..\src\TablePackageBundle.lua" />
     <None Include="..\src\TableReqGold.lua" />
     <None Include="..\src\TableDragonType.lua" />
     <None Include="..\src\TableDrop.lua" />
@@ -918,10 +919,7 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <None Include="..\src\UI_IngameTamerPanelItem.lua" />
     <None Include="..\src\UI_MailRewardPopup.lua" />
     <None Include="..\src\UI_MonsterSkillCard.lua" />
-    <None Include="..\src\UI_Package_Growth.lua" />
-    <None Include="..\src\UI_Package_Monthly.lua" />
-    <None Include="..\src\UI_Package_Slime.lua" />
-    <None Include="..\src\UI_Package_Weekly.lua" />
+    <None Include="..\src\UI_Package_Bundle.lua" />
     <None Include="..\src\UI_QuickPopup.lua" />
     <None Include="..\src\UI_RelationCard.lua" />
     <None Include="..\src\UI_ChangeNickPopup.lua" />

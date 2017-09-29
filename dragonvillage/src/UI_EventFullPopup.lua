@@ -72,8 +72,8 @@ function UI_EventFullPopup:initUI()
         local struct_product
 
         -- 묶음 UI 별도 처리
-        if (product_id == 'slime_package') then
-            struct_product = {product_id = 'slime_package'}
+        if (string.find(product_id, 'package_')) then
+            struct_product = {product_id = product_id}
 
         else
             struct_product = l_item_list[tonumber(product_id)]

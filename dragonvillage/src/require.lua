@@ -272,6 +272,7 @@ local t_module = {
     'TableHighbrow',
     'TableSkillSound',
     'TableEvolutionItemCombine',
+    'TablePackageBundle',
 
     -- Scene
     'SceneCommon',
@@ -682,10 +683,7 @@ local t_module = {
     'UI_ShopPopup',
     'UI_Product',
 	'UI_Package',
-    'UI_Package_Weekly',
-    'UI_Package_Monthly',
-    'UI_Package_Growth',
-    'UI_Package_Slime',
+    'UI_Package_Bundle',
     'UI_SubscriptionPopup',
     'UI_SubscriptionPopup_Ing',
     'UI_SubscriptionDayListItem',
