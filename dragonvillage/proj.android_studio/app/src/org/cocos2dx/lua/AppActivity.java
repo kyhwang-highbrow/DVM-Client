@@ -140,7 +140,7 @@ public class AppActivity extends Cocos2dxActivity{
         PerpleSDK.getInstance().initUnityAds(UNITY_ADS_GAME_ID, isDebug);
 
         // @adcolony
-        //PerpleSDK.getInstance().initAdColony(ADCOLONY_APP_ID);
+        PerpleSDK.getInstance().initAdColony(ADCOLONY_APP_ID);
 
         // @naver-cafe
         PerpleSDK.getInstance().initNaverCafe(NAVER_CAFE_CLIENT_ID, NAVER_CAFE_CLIENT_SECRET, NAVER_CAFE_ID);
