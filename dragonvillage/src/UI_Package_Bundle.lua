@@ -84,42 +84,65 @@ function UI_Package_Bundle:refresh()
             desc_label:setString('')
         end
 
-        -- 구성품 t_desc 표시
-        if (self.m_data['use_desc'] == 1) then
-            local desc_str = struct_product['t_desc']
-            if (desc_label) then
-                desc_label:setString(desc_str)
-            end
-
-        -- 구성품 mail_content 표시
-        else
-            local full_str = ServerData_Item:getPackageItemFullStr(struct_product['mail_content'])
+        -- 상품 정보가 없다면 구매제한을 넘겨 서버에서 값이 없는 경우라 판단
+        if (not struct_product) then
             if (item_label) then
-                item_label:setString(full_str)
+                item_label:setString(Str('구매 완료'))
+
+                if (vars['priceNode'..idx]) then
+                    vars['priceNode'..idx]:setVisible(false)
+                end
+
+                if (vars['buyLabel'..idx]) then
+                    vars['buyLabel'..idx]:setVisible(false)
+                end
+
+                if (vars['priceLabel'..idx]) then
+                    vars['priceLabel'..idx]:setVisible(false)
+                end
+
+                if (vars['buyBtn'..idx]) then
+                    vars['buyBtn'..idx]:setVisible(false)
+                end
             end
-        end
+        else
+            -- 구성품 t_desc 표시
+            if (self.m_data['use_desc'] == 1) then
+                local desc_str = struct_product['t_desc']
+                if (desc_label) then
+                    desc_label:setString(desc_str)
+                end
 
-        -- 구매 제한
-        local limit = struct_product:getMaxBuyTermStr()
-        if (vars['buyLabel'..idx]) then
-            vars['buyLabel'..idx]:setString(limit)
-        end
-        
-	    -- 가격
-	    local price = struct_product:getPriceStr()
-        if (vars['priceLabel'..idx]) then
-            vars['priceLabel'..idx]:setString(price)
-        end
-        
-	    -- 가격 아이콘
-        local icon = struct_product:makePriceIcon()
-        if (vars['priceNode'..idx]) then
-            vars['priceNode'..idx]:addChild(icon)
-        end   
+            -- 구성품 mail_content 표시
+            else
+                local full_str = ServerData_Item:getPackageItemFullStr(struct_product['mail_content'])
+                if (item_label) then
+                    item_label:setString(full_str)
+                end
+            end
 
-        -- 즉시 구매라면
-        if (self.m_data['is_detail'] == 0) then
-            vars['buyBtn'..idx]:registerScriptTapHandler(function() self:click_buyBtn(struct_product) end)
+            -- 구매 제한
+            local limit = struct_product:getMaxBuyTermStr()
+            if (vars['buyLabel'..idx]) then
+                vars['buyLabel'..idx]:setString(limit)
+            end
+        
+	        -- 가격
+	        local price = struct_product:getPriceStr()
+            if (vars['priceLabel'..idx]) then
+                vars['priceLabel'..idx]:setString(price)
+            end
+        
+	        -- 가격 아이콘
+            local icon = struct_product:makePriceIcon()
+            if (vars['priceNode'..idx]) then
+                vars['priceNode'..idx]:addChild(icon)
+            end   
+
+            -- 즉시 구매라면
+            if (self.m_data['is_detail'] == 0) then
+                vars['buyBtn'..idx]:registerScriptTapHandler(function() self:click_buyBtn(struct_product) end)
+            end
         end
     end
 end
