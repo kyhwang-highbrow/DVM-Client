@@ -124,7 +124,7 @@ function SpineCacheManager:purgeSpineCacheData()
             end
         end
     end
-    cc.Director:getInstance():getTextureCache():removeUnusedTextures()
+    --cc.Director:getInstance():getTextureCache():removeUnusedTextures() -- 패치 후 발생되는 크래시에 원인이라고 추측되어 주석 처리 2017-09-29
 
     self:onChange()
 end
