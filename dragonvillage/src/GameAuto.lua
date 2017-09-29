@@ -19,6 +19,7 @@ PRIORITY_AI_ATTR[TEAM_STATE.DEBUFF] = {}
 PRIORITY_AI_ATTR[TEAM_STATE.DEBUFF][1] = SKILL_AI_ATTR__DISPELL
 PRIORITY_AI_ATTR[TEAM_STATE.DEBUFF][2] = SKILL_AI_ATTR__BUFF
 PRIORITY_AI_ATTR[TEAM_STATE.DEBUFF][3] = SKILL_AI_ATTR__DEBUFF
+PRIORITY_AI_ATTR[TEAM_STATE.DEBUFF][4] = SKILL_AI_ATTR__ATTACK
 
 PRIORITY_AI_ATTR[TEAM_STATE.DANGER] = {}
 PRIORITY_AI_ATTR[TEAM_STATE.DANGER][1] = SKILL_AI_ATTR__HEAL
@@ -167,19 +168,12 @@ function GameAuto:doCheck()
         self.m_lUnitListPerPriority = self:makeUnitListSortedByPriority(nextState)
 
         local count = 0
-        for i = 1, 3 do
+        for i = 1, 4 do
             count = count + #self.m_lUnitListPerPriority[i]
         end
 
-        -- 만약 1~3우선순위의 리스트가 하나도 없을 경우 모든 유닛으로 설정(우선 순위에 상관없이 모든 유닛 중 랜덤)
+        -- 만약 1~4우선순위의 리스트가 하나도 없을 경우 모든 유닛으로 설정(우선 순위에 상관없이 모든 유닛 중 랜덤)
         if (count == 0) then
-            --[[
-            for i = 1, 3 do
-                for unit, _ in pairs(self.m_mHoldingSkill) do
-                    table.insert(self.m_lUnitListPerPriority[i], unit)
-                end
-            end
-            ]]--
             self.m_lUnitListPerPriority = self:makeUnitListSortedByPriority(TEAM_STATE.NORMAL)
         end
     end
@@ -196,7 +190,7 @@ function GameAuto:makeUnitListSortedByPriority(state)
     local list = {}
     local temp = {}
 
-    for priority = 1, 3 do
+    for priority = 1, 4 do
         list[priority] = {}
 
         local attr = PRIORITY_AI_ATTR[state][priority]
@@ -241,7 +235,7 @@ function GameAuto:doWork(dt)
     if (used) then
         self.m_curUnit = nil
 
-        if (self.m_curPriority >= 3) then
+        if (self.m_curPriority >= 4) then
             self.m_curPriority = 1
         else
             self.m_curPriority = self.m_curPriority + 1
@@ -438,7 +432,7 @@ function GameAuto:printInfo()
         cclog(string.format('- %s : %s', unit.m_charTable['t_name'], luadump(v)))
     end
     cclog('## SKILL COUNT PER PRIORITY ##')
-    for i = 1, 3 do
+    for i = 1, 4 do
         local list = self.m_lUnitListPerPriority[i]
         cclog(string.format('- %d : %d', i, #list))
     end
