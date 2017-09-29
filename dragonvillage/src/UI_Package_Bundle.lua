@@ -84,7 +84,8 @@ function UI_Package_Bundle:refresh()
             desc_label:setString('')
         end
 
-        -- 상품 정보가 없다면 구매제한을 넘겨 서버에서 값이 없는 경우라 판단
+        -- 상품 정보가 없다면 구매제한을 넘겨 서버에서 준 정보가 없는 경우라 판단
+        -- 월간 패키지, 주말 패키지는 구매제한 넘겨도 값을 주는데 다른 패키지는 주지 않음?
         if (not struct_product) then
             if (item_label) then
                 item_label:setString(Str('구매 완료'))
@@ -156,7 +157,7 @@ function UI_Package_Bundle:click_openShop(product_id)
 
     if (struct_product) then
         local is_popup = true
-        PackageManager:getTargetUI(struct_product, is_popup)
+        UI_Package(struct_product, is_popup)
     end
 end
 
