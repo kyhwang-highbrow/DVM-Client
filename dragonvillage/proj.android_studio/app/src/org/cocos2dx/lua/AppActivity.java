@@ -245,8 +245,6 @@ public class AppActivity extends Cocos2dxActivity{
             return;
         }
 
-        // @perplesdk
-        PerpleSDK.getInstance().onRequestPermissionsResult(requestCode, permissions, grantResults);
     }
 
     // @obb
@@ -400,7 +398,6 @@ public class AppActivity extends Cocos2dxActivity{
     }
 
     private static void appTerminate() {
-        PerpleSDK.getInstance().protectSessionTracking();
         android.os.Process.killProcess(android.os.Process.myPid());
     }
 
