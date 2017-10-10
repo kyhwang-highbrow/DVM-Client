@@ -102,7 +102,9 @@ end
 -- @brief 친구 초대
 -------------------------------------
 function ServerData_Friend:request_invite(friend_uid, finish_cb)
-    if (not self:checkInviteCondition(friend_uid)) then return end
+    if (not self:checkInviteCondition(friend_uid)) then
+        return
+    end
 
     -- 파라미터
     local uid = g_userData:get('uid')
@@ -123,6 +125,18 @@ function ServerData_Friend:request_invite(friend_uid, finish_cb)
         end
     end
 
+    -- 특정 상태 값을 처리하는 함수
+    local function response_status_cb(ret)
+        local status = ret['status']
+        
+        -- full friend invite (상대 요청목록이 꽉 찬 경우)
+        if (status == -1458) then
+            local msg = Str('상대방의 친구 요청 목록이 가득 찼습니다.')
+            UIManager:toastNotificationRed(msg)
+            return true -- true를 리턴하면 처리를 직접 했다는 뜻
+        end
+    end
+
     -- 네트워크 통신 UI 생성
     local ui_network = UI_Network()
     ui_network:setUrl('/socials/invite')
@@ -130,6 +144,7 @@ function ServerData_Friend:request_invite(friend_uid, finish_cb)
     ui_network:setParam('friends', friend_uid)
     ui_network:setParam('type') 
     ui_network:setSuccessCB(success_cb)
+    ui_network:setResponseStatusCB(response_status_cb)
     ui_network:setRevocable(true)
     ui_network:setReuse(false)
     ui_network:request()
