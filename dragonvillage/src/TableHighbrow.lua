@@ -38,16 +38,14 @@ local t_game_key_str = {
     ['dv2'] = Str('드빌2'),
 }
 -------------------------------------
--- function find
--- @param v2 : code or name
+-- function getGameKeyStr
 -------------------------------------
 function TableHighbrow:getGameKeyStr(game_key)
     return t_game_key_str[game_key]
 end
 
 -------------------------------------
--- function find
--- @param v2 : code or name
+-- function getFullName
 -------------------------------------
 function TableHighbrow:getFullName(game_key, item_name) 
     local game_name = TableHighbrow:getGameKeyStr(game_key)

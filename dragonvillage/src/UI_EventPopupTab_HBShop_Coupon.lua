@@ -120,8 +120,14 @@ function UI_EventPopupTab_HBShop_Coupon.makeCellUI(t_data)
 	local ui = class(UI, ITableViewCell:getCloneTable())()
 	local vars = ui:load('event_capsule_coupon_item.ui')
 
+    -- 여기서 name은 하이브로 api를 통해 넘어온 값
+    local name = t_data['name']
+    if (name == '아쿠아리움의 알') then
+        name = '아쿠아리움C의 알'
+    end
+
     -- 보상 이름
-    local full_name = TableHighbrow:getFullName(t_data['game'], t_data['name']) 
+    local full_name = TableHighbrow:getFullName(t_data['game'], name) 
     vars['itemLabel']:setString(full_name)
 
     -- 쿠폰 번호
@@ -134,7 +140,7 @@ function UI_EventPopupTab_HBShop_Coupon.makeCellUI(t_data)
     vars['timeLabel']:setString(date)
 
     -- 아이콘
-    local t_item = TableHighbrow:find(t_data['game'], t_data['name'])
+    local t_item = TableHighbrow:find(t_data['game'], name)
     if (t_item) then
         local res = t_item['res']
         local product_icon = IconHelper:getIcon(res)
