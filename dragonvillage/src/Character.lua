@@ -1335,8 +1335,6 @@ end
 -------------------------------------
 function Character:healAbs(caster, heal, b_make_effect, bFixed)
     local heal = math_floor(heal)
-    if (heal <= 0) then return end
-
     local is_critical = false
 
     if (caster) then
@@ -1371,10 +1369,10 @@ function Character:healAbs(caster, heal, b_make_effect, bFixed)
         end
     end
 
-    local heal_for_text = heal
-
     -- 최소 힐량 1로 표시
     heal = math_max(heal, 1)
+
+    local heal_for_text = heal
 
     heal = math_min(heal, (self.m_maxHp - self.m_hp))
 
