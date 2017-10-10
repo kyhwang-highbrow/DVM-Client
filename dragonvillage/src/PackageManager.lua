@@ -31,5 +31,23 @@ function PackageManager:getTargetUI(struct_product, is_popup)
     return target_ui
 end
 
+-------------------------------------
+-- function isExist
+-- @brief 묶음 UI에서 상품정보가 하나라도 있는지 (모두 구매해서 없거나, 기간이 자니서 없거나 하는 경우)
+-------------------------------------
+function PackageManager:isExist(package_name)
+    local l_shop_list = g_shopDataNew:getProductList('package')
+    local target_product = TablePackageBundle:getPidsWithName(package_name)
+    local is_exist = false
+
+    for _, pid in ipairs(target_product) do
+        if (l_shop_list[tonumber(pid)]) then
+            is_exist = true
+        end
+    end
+
+    return is_exist
+end
+
 
 
