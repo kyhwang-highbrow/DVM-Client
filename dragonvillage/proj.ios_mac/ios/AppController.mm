@@ -125,7 +125,7 @@ static AppDelegate s_sharedApplication;
     // @perplesdk
     BOOL isDebug = NO;
     if ([[PerpleSDK sharedInstance] initSDKWithGcmSenderId:SENDER_ID debug:isDebug]) {
-        [[PerpleSDK sharedInstance] initGoogleWithClientId:CLIENT_ID view:viewController];
+        [[PerpleSDK sharedInstance] initGoogleWithClientId:CLIENT_ID parentView:viewController];
         [[PerpleSDK sharedInstance] initFacebookWithParentView:viewController];
         [[PerpleSDK sharedInstance] initGameCenterWithParentView:viewController];
     }
