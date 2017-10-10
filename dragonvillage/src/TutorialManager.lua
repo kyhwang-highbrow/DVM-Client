@@ -41,6 +41,12 @@ end
 -- @param tutorial_key : tutorial_key이자 tutorial_script이름
 -------------------------------------
 function TutorialManager:startTutorial(tutorial_key, tar_ui)
+    -- 개발모드에서 튜토리얼 동작하지 않도록 함
+    if (CppFunctionsClass:isTestMode()) then
+        return
+    end
+
+    -- 완료되지 않은 튜토리얼이라면
     if (not g_tutorialData:isTutorialDone(tutorial_key)) then
         -- 튜토리얼 실행 : UI세팅
         self:doTutorial()
