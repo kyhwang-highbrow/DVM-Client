@@ -116,13 +116,16 @@ typedef void(^PerpleSDKCallback)(NSString *result, NSString *info);
 #pragma mark - APIs
 
 - (void) setPlatformServerSecretKey:(NSString *)secretKey algorithm:(NSString *)algorithm;
+
 - (void) setFCMPushOnForeground:(BOOL)isReceive;
 - (void) setFCMTokenRefreshWithCompletion:(PerpleSDKCallback)callback;
 - (void) getFCMTokenWithCompletion:(PerpleSDKCallback)callback;
 - (void) subscribeToTopic:(NSString *)topic;
 - (void) unsubscribeFromTopic:(NSString *)topic;
+
 - (void) logEvent:(NSString *)arg0 param:(NSString *)arg1;
 - (void) setUserProperty:(NSString *)arg0 param:(NSString *)arg1;
+
 - (void) autoLoginWithCompletion:(PerpleSDKCallback)callback;
 - (void) loginAnonymouslyWithCompletion:(PerpleSDKCallback)callback;
 - (void) loginWithGoogleWithCompletion:(PerpleSDKCallback)callback;
@@ -131,16 +134,15 @@ typedef void(^PerpleSDKCallback)(NSString *result, NSString *info);
 - (void) loginWithEmail:(NSString *)email password:(NSString *)password completion:(PerpleSDKCallback)callback;
 - (void) linkWithGoogleWithCompletion:(PerpleSDKCallback)callback;
 - (void) linkWithFacebookWithCompletion:(PerpleSDKCallback)callback;
-- (void) linkWithGameCenter:(NSString *)param1 completion:(PerpleSDKCallback)callback;
 - (void) linkWithEmail:(NSString *)email password:(NSString *)password completion:(PerpleSDKCallback)callback;
 - (void) unlinkWithGoogleWithCompletion:(PerpleSDKCallback)callback;
 - (void) unlinkWithFacebookWithCompletion:(PerpleSDKCallback)callback;
-- (void) unlinkWithGameCenterWithCompletion:(PerpleSDKCallback)callback;
 - (void) unlinkWithEmailWithCompletion:(PerpleSDKCallback)callback;
 - (void) logout;
 - (void) deleteUserWithCompletion:(PerpleSDKCallback)callback;
 - (void) createUserWithEmail:(NSString *)email password:(NSString *)password completion:(PerpleSDKCallback)callback;
 - (void) sendPasswordResetWithEmail:(NSString *)email completion:(PerpleSDKCallback)callback;
+
 - (void) facebookLoginWithCompletion:(PerpleSDKCallback)callback;
 - (void) facebookLogout;
 - (void) facebookSendRequest:(NSString *)data completion:(PerpleSDKCallback)callback;
@@ -150,10 +152,9 @@ typedef void(^PerpleSDKCallback)(NSString *result, NSString *info);
 - (void) facebookNotifications:(NSString *)receiverId message:(NSString *)message completion:(PerpleSDKCallback)callback;
 - (BOOL) facebookIsGrantedPermission:(NSString *)permission;
 - (void) facebookAskPermission:(NSString *)permission completion:(PerpleSDKCallback)callback;
-#ifdef USE_ADBRIX
+
 - (void) adbrixEvent:(NSString *)cmd param1:(NSString *)param1 param2:(NSString *)param2;
-#endif
-#ifdef USE_TAPJOY
+
 - (void) tapjoyEvent:(NSString *)cmd param1:(NSString *)param1 param2:(NSString *)param2;
 - (void) tapjoySetTrackPurchase:(BOOL)flag;
 - (void) tapjoySetPlacement:(NSString *)placemantName completion:(PerpleSDKCallback)callback;
@@ -162,8 +163,7 @@ typedef void(^PerpleSDKCallback)(NSString *result, NSString *info);
 - (void) tapjoySetEarnedCurrencyCallback:(PerpleSDKCallback)callback;
 - (void) tapjoySpendCurrency:(int)amount completion:(PerpleSDKCallback)callback;
 - (void) tapjoyAwardCurrency:(int)amount completion:(PerpleSDKCallback)callback;
-#endif
-#ifdef USE_NAVER
+
 - (BOOL) naverCafeIsShowGlink;
 - (void) naverCafeShowWidgetWhenUnloadSdk:(BOOL)isShowWidget;
 - (void) naverCafeSetWidgetStartPosition:(NSString *)arg0 andY:(NSString *)arg1;
@@ -178,7 +178,7 @@ typedef void(^PerpleSDKCallback)(NSString *result, NSString *info);
 - (void) naverCafeSetUseVideoRecord:(BOOL)isSetUseVideoRecord;
 - (void) naverCafeSetUseScreenshot:(BOOL)isSetUseScreenshot;
 - (void) naverCafeSetCallback:(PerpleSDKCallback)callback;
-#endif
+
 - (void) googleLogin:(int)connectOnly completion:(PerpleSDKCallback)callback;
 - (void) googleLogout:(int)disconnectOnly;
 - (void) googleShowAchievementsWithCompletion:(PerpleSDKCallback)callback;
@@ -193,7 +193,7 @@ typedef void(^PerpleSDKCallback)(NSString *result, NSString *info);
 - (void) unityAdsStart:(BOOL)isTestMode metaData:(NSString *)metaData completion:(PerpleSDKCallback)callback;
 - (void) unityAdsShow:(NSString *)placementId metaData:(NSString *)metaData;
 
-- (void) adColonyStart:(NSString *)zoneIds userId:(NSString *)userId setReward:(NSString *)setReward;
+- (void) adColonyStart:(NSString *)zoneIds userId:(NSString *)userId;
 - (void) adColonySetUserId:(NSString *)userId;
 - (void) adColonyRequest:(NSString *)zoneId completion:(PerpleSDKCallback)callback;
 - (void) adColonyShow:(NSString *)zoneId;
@@ -208,7 +208,7 @@ typedef void(^PerpleSDKCallback)(NSString *result, NSString *info);
 // Initialization
 // AppDelegate, application:didFinishLaunchingWithOptions:에서 호출
 - (BOOL) initSDKWithGcmSenderId:(NSString *)gcmSenderId debug:(BOOL)isDebug;
-- (BOOL) initGoogleWithClientId:(NSString *)clientId view:(UIViewController *)view;
+- (BOOL) initGoogleWithClientId:(NSString *)clientId parentView:(UIViewController *)parentView;
 - (BOOL) initFacebookWithParentView:(UIViewController *)parentView;
 - (BOOL) initAdbrixWithAppKey:(NSString *)appKey hashKey:(NSString *)hashKey logLevel:(int)logLevel;
 - (BOOL) initTapjoyWithAppKey:(NSString *)appKey usePush:(BOOL)isUsePush debug:(BOOL)isDebug;
