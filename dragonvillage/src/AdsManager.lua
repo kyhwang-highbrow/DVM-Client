@@ -68,7 +68,7 @@ function AdsManager:start(placementId, result_cb)
     elseif isIos() then
         self.adcolonyZoneId = adcolonyIosZoneId
     end
-    PerpleSDK:adColonyStart(self.adcolonyZoneId, '', '')
+    PerpleSDK:adColonyStart(self.adcolonyZoneId, '')
 
     -- @tapjoy ads
     self.tapjoyAdPlacementId = 'TapjoyAd_video'
