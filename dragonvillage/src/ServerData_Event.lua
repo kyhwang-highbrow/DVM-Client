@@ -68,6 +68,31 @@ function ServerData_Event:getEventPopupTabList()
 end
 
 -------------------------------------
+-- function getEventFullPopupList
+-------------------------------------
+function ServerData_Event:getEventFullPopupList()
+    local l_list = {}
+    local l_priority = {}
+    local event_list = self.m_eventList
+
+    for i, v in ipairs(event_list) do
+        local priority = v['full_popup']
+        local event_type = v['event_type'] 
+
+        if (priority ~= '') then
+            l_priority[event_type] = tonumber(priority)
+            table.insert(l_list, event_type)
+        end
+    end
+
+    table.sort(l_list, function(a,b)
+        return l_priority[a] < l_priority[b]
+    end)
+
+    return l_list
+end
+
+-------------------------------------
 -- function setEventTabNoti
 -- @brief 이벤트 탭 노티피케이션
 -------------------------------------

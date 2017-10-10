@@ -212,10 +212,8 @@ function UI_Lobby:entryCoroutine()
                 NaverCafeManager:naverCafeStart(0)
 
                 local first_login = g_localData:get('event_full_popup', 'first_login') or false
-
-                -- 추석 패키지, 스타터 패키지, 오픈 패키지, 주말 패키지, 월간 패키지
-                local t_pid = {'package_chuseok', '90006', '90012', 'package_weekly', 'package_monthly'}
-                for _, pid in ipairs(t_pid) do
+                local l_list = g_eventData:getEventFullPopupList()
+                for _, pid in ipairs(l_list) do
                     local save_key = tostring(pid)
 
                     -- 첫 로그인시 봤던 기록 초기화
