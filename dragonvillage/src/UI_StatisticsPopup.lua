@@ -6,6 +6,7 @@ local PARENT = class(UI, ITabUI:getCloneTable())
 UI_StatisticsPopup = class(PARENT, {
 		m_isColosseum = 'mode',
 		m_bFriendMatch = 'boolean',
+        m_isTestMode = 'boolean',
 
 		m_charList_A = 'list',
 		m_charList_B = 'list',
@@ -22,7 +23,7 @@ UI_StatisticsPopup.TAB_HEAL = 3
 -------------------------------------
 -- function init
 -------------------------------------
-function UI_StatisticsPopup:init(world)
+function UI_StatisticsPopup:init(world, is_test)
 	local vars = self:load('ingame_result_stats_popup.ui')
 	UIManager:open(self, UIManager.POPUP)
 
@@ -36,6 +37,8 @@ function UI_StatisticsPopup:init(world)
 	-- 멤버 변수 초기화
 	self.m_isColosseum = (world.m_gameMode == GAME_MODE_COLOSSEUM)
     self.m_bFriendMatch = world.m_gameMode
+    self.m_isTestMode = is_test
+
 	self.m_charList_A = world.m_myDragons
 	self.m_charList_B = (self.m_isColosseum) and world.m_lEnemyDragons or nil
 
@@ -76,26 +79,30 @@ function UI_StatisticsPopup:initUI()
 		do
 			vars['userNode1']:setVisible(true)
 			local user_info = (is_friendMatch) and g_friendMatchData.m_playerUserInfo or g_colosseumData.m_playerUserInfo
-			vars['name1']:setString(user_info.m_nickname)
-			local tamer_type = g_tamerData:getCurrTamerTable('type')
-			local profile_icon = IconHelper:getTamerProfileIcon(tamer_type)
-			vars['tamerNode1']:addChild(profile_icon)
+            if (user_info) then
+			    vars['name1']:setString(user_info.m_nickname)
+			    local tamer_type = g_tamerData:getCurrTamerTable('type')
+			    local profile_icon = IconHelper:getTamerProfileIcon(tamer_type)
+			    vars['tamerNode1']:addChild(profile_icon)
+            end
 		end
 
-		-- 상대 정보 출력
+		-- 상대 정보 출력 (테스트모드에서는 출력하지 않음)
 		do
 			local user_info = (is_friendMatch) and g_friendMatchData.m_matchInfo or g_colosseumData:getMatchUserInfo()
-			vars['userNode2']:setVisible(true)
-			vars['name2']:setString(user_info.m_nickname)
+            if (user_info) then
+			    vars['userNode2']:setVisible(true)
+			    vars['name2']:setString(user_info.m_nickname)
 
-			local tid = user_info:getTamer()
-			if (tid == 0) then
-				tid = g_constant:get('INGAME', 'TAMER_ID')
-			end
-			local t_tamer = TableTamer():get(tid)
-			local tamer_type = t_tamer['type']
-			local profile_icon = IconHelper:getTamerProfileIcon(tamer_type)
-			vars['tamerNode2']:addChild(profile_icon)
+			    local tid = user_info:getTamer()
+			    if (tid == 0) then
+				    tid = g_constant:get('INGAME', 'TAMER_ID')
+			    end
+			    local t_tamer = TableTamer():get(tid)
+			    local tamer_type = t_tamer['type']
+			    local profile_icon = IconHelper:getTamerProfileIcon(tamer_type)
+			    vars['tamerNode2']:addChild(profile_icon)
+            end
 		end
 	end
 end
