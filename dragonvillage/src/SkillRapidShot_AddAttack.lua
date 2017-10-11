@@ -23,7 +23,7 @@ end
 function SkillRapidShot_AddAttack:init_skill(missile_res, motionstreak_res, target_count)
 	PARENT.init_skill(self, missile_res, motionstreak_res, target_count)
 
-	self.m_addAttackAcivityCarrier = clone(self.m_activityCarrier)
+	self.m_addAttackAcivityCarrier = self.m_activityCarrier:cloneForMissile()
 	self.m_addAttackAcivityCarrier:setAttackType('basic')
 
     self.m_firstTargetPos = { x = 0, y = 0 }

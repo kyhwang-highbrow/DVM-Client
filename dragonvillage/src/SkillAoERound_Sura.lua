@@ -22,8 +22,10 @@ end
 function SkillAoERound_Sura:init_skill(attack_count, aoe_res, add_attack_count)
     PARENT.init_skill(self, aoe_res, attack_count)
 
+    self.m_animator:setTimeScale(2.5)
+
 	-- 변수 선언
-	self.m_addActivityCarrier = clone(self.m_activityCarrier)
+	self.m_addActivityCarrier = self.m_activityCarrier:cloneForMissile()
 	self.m_addActivityCarrier:setPowerRate(g_constant:get('SKILL', 'SURA_ADD_POWER_RATE'))
 	self.m_addActivityCarrier:setAttackType(g_constant:get('SKILL', 'SURA_ADD_ATK_TYPE'))
 
@@ -51,6 +53,7 @@ end
 function SkillAoERound_Sura:setAttackInterval()
 	-- 공격 애니 재생시간을 hit수로 나눔
 	self.m_hitInterval = (self.m_animator:getDuration() / self.m_maxAttackCount)
+    self.m_hitInterval = self.m_hitInterval / 2
 end
 
 -------------------------------------
