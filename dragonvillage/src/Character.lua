@@ -1640,7 +1640,9 @@ function Character:calcAttackPeriod(calc_attack_tick)
             self.m_aspdRatio = math_max(aspd_ratio, 0.2)
 
             -- 공속 버프 비율만큼 애니메이션 속도를 보정
-            self:setTimeScale(self.m_aspdRatio)
+            if (not self.m_temporaryPause) then
+                self:setTimeScale()
+            end
             
             attack_duration = attack_duration / self.m_aspdRatio
             charge_duration = charge_duration / self.m_aspdRatio
