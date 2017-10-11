@@ -251,6 +251,34 @@ function ServerData_Book:setDragonBook(t_dragon_data)
 end
 
 -------------------------------------
+-- function setSlimeBook
+-- @brief 도감에 슬라임 등록
+-------------------------------------
+function ServerData_Book:setSlimeBook(slime_id)
+    if (not slime_id) then
+        return false
+    end
+
+    -- 도감 데이터 등록
+    self:getBookData(slime_id)
+
+    -- 획득 및 보상 여부 판단
+    do
+        slime_id = tostring(slime_id)
+        if (not self.m_tBookReward[slime_id]) then
+            self.m_tBookReward[slime_id] = {}
+        end
+        -- 보상 수령 가능 상태로 설정
+        if (not self.m_tBookReward[slime_id]['evo_1']) then
+            self.m_tBookReward[slime_id]['evo_1'] = 1
+        end
+    end
+
+    -- 마지막으로 데이터가 변경된 시간 갱신
+    self:setLastChangeTimeStamp()
+end
+
+-------------------------------------
 -- function getCollectCount
 -- @brief 수집한 드래곤 수
 -- @param t_dragon_book - 도감 테이블뷰에서 가져온 아이템 리스트
@@ -435,6 +463,7 @@ end
 -------------------------------------
 function ServerData_Book:getBookNotiList()
 	local table_dragon = TableDragon()
+    local table_slime = TableSlime()
 	
 	local attr, role
 	local t_dragon
@@ -444,7 +473,7 @@ function ServerData_Book:getBookNotiList()
 	for did, t_info in pairs(self.m_tBookReward) do
 		-- did의 보상이 있는지 검사	
 		have_reward = false
-		for i, reward in pairs(t_info) do
+		for _, reward in pairs(t_info) do
 			if (reward == 1) then
 				have_reward = true
 				break
@@ -453,7 +482,13 @@ function ServerData_Book:getBookNotiList()
 
 		-- 노티 세팅 (속성만 표시)
 		if (have_reward) then
-			t_dragon = table_dragon:get(tonumber(did))
+            local did_num = tonumber(did)
+			t_dragon = table_dragon:get(did_num)
+
+            if (not t_dragon) then
+                t_dragon = table_slime:get(did_num)
+            end
+
 			if (t_dragon) then
 				attr = t_dragon['attr']
 				--role = t_dragon['role']

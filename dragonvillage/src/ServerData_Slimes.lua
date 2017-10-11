@@ -49,6 +49,15 @@ function ServerData_Slimes:applySlimeData(t_slime_data)
     -- 슬라임 오브젝트 데이터 최신화(혹은 신규 생성)
     local slime_object = StructSlimeObject(t_slime_data)
     self.m_slimesObjectMap[soid] = slime_object
+
+    -- 추가된 슬라임은 도감에 추가
+    local slime_id = t_slime_data['slime_id']
+    g_bookData:setSlimeBook(slime_id)
+
+    -- 슬라임 도감에 보상이 있을 경우 하일라이트 정보 갱신을 위해 호출
+    if g_bookData:haveBookReward(slime_id, 1) then
+        g_highlightData:setLastUpdateTime()
+    end
 end
 
 -------------------------------------
