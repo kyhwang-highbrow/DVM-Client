@@ -588,7 +588,10 @@ function UI_DragonManageInfo:click_leaderBtn()
 		g_dragonsData:request_setLeaderDragon('lobby', self.m_selectDragonOID, cb_func)
     end
 
-    MakeSimplePopup(POPUP_TYPE.YES_NO, Str('대표 드래곤으로 설정하시겠습니까?'), yes_cb)
+    
+    local msg = Str('대표 드래곤으로 설정하시겠습니까?')
+    local submsg = Str('대표 드래곤은 마을에서 1시간마다 테이머에게 선물을 줍니다.\n마을에서 대표 드래곤을 터치해보세요!')
+    MakeSimplePopup2(POPUP_TYPE.YES_NO, msg, submsg, yes_cb)
 end
 
 -------------------------------------
