@@ -25,6 +25,9 @@ StructRuneObject = class({
         sopt_3 = 'string',
         sopt_4 = 'string',
 
+        -- 잠금 여부
+        lock = 'boolean',
+
         ---------------------------------------------
         created_at = 'timestamp',
         updated_at = 'timestamp',
