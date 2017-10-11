@@ -629,8 +629,7 @@ function UI_DragonRunes:click_sellBtn()
         local function finish_cb(ret)
             -- 판매된 룬을 리스트에서 제거하기 위해 refresh
             self:refreshTableViewList()
-            
-
+            self:refresh_inventoryLabel()
         end
 
         g_runesData:request_runeSell(roid, finish_cb)
@@ -792,6 +791,7 @@ function UI_DragonRunes:request_runeEquip(doid, roid)
     local function finish_cb(ret)
         self:refreshTableViewList()
         self.m_bChangeDragonList = true
+        self:refresh_inventoryLabel()
     end
 
     g_runesData:request_runesEquip(doid, roid, finish_cb)
