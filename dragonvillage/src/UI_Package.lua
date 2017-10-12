@@ -114,7 +114,7 @@ function UI_Package:click_buyBtn()
         g_shopDataNew:request_shopInfo(function() 
             self:refresh()
             if (self.m_isPopup) then
-                self:closeWithAction()
+                self:close()
             end
         end)
     end
@@ -125,7 +125,7 @@ function UI_Package:click_buyBtn()
             refresh_cb()
 
         elseif (self.m_isPopup) then
-            self:closeWithAction()
+            self:close()
 		end
 
         -- 아이템 획득 결과창
@@ -148,5 +148,5 @@ end
 -- function click_closeBtn
 -------------------------------------
 function UI_Package:click_closeBtn()
-    self:closeWithAction()
+    self:close()
 end
