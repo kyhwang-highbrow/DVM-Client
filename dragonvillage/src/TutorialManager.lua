@@ -42,7 +42,7 @@ end
 -------------------------------------
 function TutorialManager:startTutorial(tutorial_key, tar_ui)
     -- 개발모드에서 튜토리얼 동작하지 않도록 함
-    if (CppFunctionsClass:isTestMode()) then
+    if (IS_TEST_MODE()) then
         return
     end
 
