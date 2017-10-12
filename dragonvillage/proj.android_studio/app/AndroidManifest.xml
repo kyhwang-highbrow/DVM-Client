@@ -15,6 +15,41 @@
         android:largeScreens="true"
         android:xlargeScreens="true" />
 
+    <uses-permission
+        android:name="android.permission.INTERNET" />
+    <uses-permission
+        android:name="android.permission.READ_PHONE_STATE" />
+    <uses-permission
+        android:name="android.permission.CHANGE_NETWORK_STATE" />
+    <uses-permission
+        android:name="android.permission.CHANGE_WIFI_STATE" />
+    <uses-permission
+        android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission
+        android:name="android.permission.ACCESS_WIFI_STATE" />
+    <uses-permission
+        android:name="android.permission.MOUNT_UNMOUNT_FILESYSTEMS" />
+    <uses-permission
+        android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission
+        android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission
+        android:name="android.permission.WAKE_LOCK" />
+    <uses-permission
+        android:name="android.permission.VIBRATE" />
+
+    <!-- @naver-cafe-sdk -->
+    <uses-permission
+        android:name="android.permission.RECORD_AUDIO" />
+
+    <!-- @obb, APK expansion file downloading (+ INTERNET, WAKE_LOCK, ACCESS_NETWORK_STATE, ACCESS_WIFI_STATE, WRITE_EXTERNAL_STORAGE) -->
+    <uses-permission
+        android:name="com.android.vending.CHECK_LICENSE" />
+
+    <!-- @billing -->
+    <uses-permission
+        android:name="com.android.vending.BILLING" />
+
     <application
         android:name="android.support.multidex.MultiDexApplication"
         android:label="@string/app_name"
@@ -175,40 +210,5 @@
             android:name="org.cocos2dx.lua.APKExpansionAlarmReceiver" />
 
     </application>
-
-    <uses-permission
-        android:name="android.permission.INTERNET" />
-    <uses-permission
-        android:name="android.permission.READ_PHONE_STATE" />
-    <uses-permission
-        android:name="android.permission.CHANGE_NETWORK_STATE" />
-    <uses-permission
-        android:name="android.permission.CHANGE_WIFI_STATE" />
-    <uses-permission
-        android:name="android.permission.ACCESS_NETWORK_STATE" />
-    <uses-permission
-        android:name="android.permission.ACCESS_WIFI_STATE" />
-    <uses-permission
-        android:name="android.permission.MOUNT_UNMOUNT_FILESYSTEMS" />
-    <uses-permission
-        android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
-    <uses-permission
-        android:name="android.permission.READ_EXTERNAL_STORAGE" />
-    <uses-permission
-        android:name="android.permission.WAKE_LOCK" />
-    <uses-permission
-        android:name="android.permission.VIBRATE" />
-
-    <!-- @naver-cafe-sdk -->
-    <uses-permission
-        android:name="android.permission.RECORD_AUDIO" />
-
-    <!-- @obb, APK expansion file downloading (+ INTERNET, WAKE_LOCK, ACCESS_NETWORK_STATE, ACCESS_WIFI_STATE, WRITE_EXTERNAL_STORAGE) -->
-    <uses-permission
-        android:name="com.android.vending.CHECK_LICENSE" />
-
-    <!-- @billing -->
-    <uses-permission
-        android:name="com.android.vending.BILLING" />
 
 </manifest>
