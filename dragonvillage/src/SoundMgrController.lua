@@ -42,16 +42,6 @@ function SoundMgr:playPrevBGM(loop)
 end
 
 -------------------------------------
--- function playCurrBGM
--- @brief 현재 bgm을 재생한다. (stop후 다시 재생할때 ex: 광고시청후)
--------------------------------------
-function SoundMgr:playCurrBGM(loop)
-    if (self.m_currBgm) then
-        self:playBGM(self.m_currBgm, loop)
-    end
-end
-
--------------------------------------
 -- function setTitleBgm
 -------------------------------------
 function SoundMgr:setTitleBgm()
@@ -63,16 +53,21 @@ function SoundMgr:setTitleBgm()
 end
 
 -------------------------------------
--- function pauseBGM
+-- function stopBGM
 -- @param bReleaseData
+-- @comment stop을 하게 되면 현재 bgm을 이전 bgm으로 저장하고 currBgm을 비운다.
 -------------------------------------
 function SoundMgr:stopBGM(bReleaseData)
+    self.m_prevBgm = self.m_currBgm
+    self.m_currBgm = nil
+
     local bReleaseData = bReleaseData or false
     cc.SimpleAudioEngine:getInstance():stopMusic(bReleaseData)
 end
 
 -------------------------------------
 -- function pauseBGM
+-- @comment 미사용
 -------------------------------------
 function SoundMgr:pauseBGM()
     if self.m_currBgm then
@@ -82,6 +77,7 @@ end
 
 -------------------------------------
 -- function resumeBGM
+-- @comment 미사용 .. (IOS에서 백그라운드 복귀시 사용)
 -------------------------------------
 function SoundMgr:resumeBGM()
     if self.m_currBgm then

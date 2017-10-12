@@ -199,7 +199,6 @@ end
 function UIC_DragonAnimatorDirector_Summon:appearDragonAnimator()
 	self.m_topEffect:changeAni('top_appear', false)
 	self.m_topEffect:addAniHandler(function()
-        SoundMgr:playEffect('UI', 'ui_grow_result')
 		PARENT.appearDragonAnimator(self)
 	end)
 end

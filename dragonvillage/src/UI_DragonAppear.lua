@@ -14,6 +14,7 @@ UI_DragonAppear = class(PARENT, {
 function UI_DragonAppear:init(struct_dragon_object)
     self.m_structDragonObj = struct_dragon_object
 
+    self.m_uiName = 'UI_DragonAppear'
     local vars = self:load('dragon_summon_result.ui')
     UIManager:open(self, UIManager.SCENE)
 

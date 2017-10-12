@@ -113,7 +113,7 @@ function AdsManager:showPlacement(placementId, result_cb)
     --[[
     local function _result_cb(ret, info)
         if ret == 'finish' then
-            SoundMgr:playCurrBGM()
+            SoundMgr:playPrevBGM()
         end
 
         if (ret == 'error') then
@@ -129,7 +129,7 @@ function AdsManager:showPlacement(placementId, result_cb)
                         if ret__ == 'show' then
                             -- do nothing
                         else
-                            SoundMgr:playCurrBGM()
+                            SoundMgr:playPrevBGM()
 
                             -- error
                             self:showErrorPopup(info, function()
@@ -140,7 +140,7 @@ function AdsManager:showPlacement(placementId, result_cb)
                 elseif ret_ == 'success' then
                     -- do nothing
                 else
-                    SoundMgr:playCurrBGM()
+                    SoundMgr:playPrevBGM()
 
                     -- fail, error
                     self:showErrorPopup(info, function()
@@ -157,7 +157,7 @@ function AdsManager:showPlacement(placementId, result_cb)
 
     local function _result_cb(ret, info)
         if ret == 'finish' or ret == 'error' then
-            SoundMgr:playCurrBGM()
+            SoundMgr:playPrevBGM()
         end
 
         if (ret == 'error') then

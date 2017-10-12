@@ -47,7 +47,7 @@ function UI_GachaResult_Dragon:init(l_gacha_dragon_list, l_slime_list, egg_id, e
     -- 순서 셔플
     self.m_lGachaDragonList = table.sortRandom(self.m_lGachaDragonList)
     
-
+    self.m_uiName = 'UI_GachaResult_Dragon'
     local vars = self:load('dragon_summon_result.ui')
     UIManager:open(self, UIManager.SCENE)
 
@@ -94,7 +94,7 @@ end
 -------------------------------------
 function UI_GachaResult_Dragon:refresh()
     if (#self.m_lGachaDragonList <= 0) then
-        self:close()
+        self:click_closeBtn()
         return
     end
 
@@ -215,6 +215,11 @@ function UI_GachaResult_Dragon:refresh_dragon(t_dragon_data)
                 vars['okBtn']:setEnabled(true)
 			end
             self:doAction(directing_done, false)
+
+            -- 사운드
+            if (vars['skipBtn']:isVisible()) then
+                SoundMgr:playEffect('UI', 'ui_grow_result')
+            end
 
             -- 마지막 드래곤이었을 경우 스킵 버튼 숨김
             if (table.count(self.m_lGachaDragonList) <= 0) then
@@ -354,14 +359,7 @@ function UI_GachaResult_Dragon:click_closeBtn()
     if (skip_btn:isEnabled() and skip_btn:isVisible()) then
         self:click_skipBtn()
     else
+        SoundMgr:playPrevBGM()
         self:close()
     end
-end
-
--------------------------------------
--- function click_closeBtn
--------------------------------------
-function UI_GachaResult_Dragon:onClose()
-    SoundMgr:playPrevBGM()
-    PARENT.onClose(self)
 end
