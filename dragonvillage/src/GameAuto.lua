@@ -264,8 +264,17 @@ function GameAuto:doWork_skill(unit, priority)
         return false
 
     elseif (priority == 1) then
-        if (reason == REASON_TO_DO_NOT_USE_SKILL.MANA_LACK or reason == REASON_TO_DO_NOT_USE_SKILL.COOL_TIME) then
-            return false
+        -- 1 순위 스킬의 경우
+        if (self.m_teamState == TEAM_STATE.DANGER) then
+            -- 위급 상태면 마나 부족과 쿨타임은 기다림
+            if (reason == REASON_TO_DO_NOT_USE_SKILL.MANA_LACK or reason == REASON_TO_DO_NOT_USE_SKILL.COOL_TIME) then
+                return false
+            end
+        else
+            -- 그외 상태면 마나 부족만 기다림
+            if (reason == REASON_TO_DO_NOT_USE_SKILL.MANA_LACK) then
+                return false
+            end
         end
     else
         if (reason == REASON_TO_DO_NOT_USE_SKILL.MANA_LACK) then
