@@ -174,9 +174,11 @@ function UI_GameDPSPopup:setDpsOrHps()
 	vars['dpsToggleNode']:removeAllChildren(true)
 	
     local sprite = cc.Sprite:createWithSpriteFrameName(res)
-    sprite:setDockPoint(CENTER_POINT)
-    sprite:setAnchorPoint(CENTER_POINT)
-	vars['dpsToggleNode']:addChild(sprite)
+    if (sprite) then
+        sprite:setDockPoint(CENTER_POINT)
+        sprite:setAnchorPoint(CENTER_POINT)
+	    vars['dpsToggleNode']:addChild(sprite)
+    end
 end
 
 

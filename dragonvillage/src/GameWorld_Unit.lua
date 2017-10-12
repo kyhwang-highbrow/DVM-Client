@@ -144,9 +144,9 @@ function GameWorld:makeMonsterNew(monster_id, level)
     if (self.m_gameMode == GAME_MODE_ANCIENT_TOWER) then
         local value = g_ancientTowerData:getEnemyDeBuffValue()
         if (value < 0) then
-            monster.m_statusCalc:addBuffMulti('atk', value)
-            monster.m_statusCalc:addBuffMulti('def', value)
-            monster.m_statusCalc:addBuffMulti('hp', value)
+            monster.m_statusCalc:addStageMulti('atk', value)
+            monster.m_statusCalc:addStageMulti('def', value)
+            monster.m_statusCalc:addStageMulti('hp', value)
         end
     end
 

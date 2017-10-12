@@ -9,6 +9,9 @@
 StructIndividualStatus = class({
         m_statusName = 'string',
 
+        m_minBuffMulti = 'number',
+        m_maxBuffMulti = 'number',
+
         ----------------------------------------------------
         -- T1
         -- 캐릭터의 기초 능력치
@@ -33,9 +36,11 @@ StructIndividualStatus = class({
         m_passiveAdd = '',      -- 패시브 합연산
         ----------------------------------------------------
 
-
         ----------------------------------------------------
         -- T3
+        m_stageMulti = '', -- 스테이지 버프
+        m_stageAdd = '',
+
         m_buffMulti = '',
         m_buffAdd = '',
         ----------------------------------------------------
@@ -52,6 +57,9 @@ StructIndividualStatus = class({
 -------------------------------------
 function StructIndividualStatus:init(status_name)
     self.m_statusName = status_name
+
+    self.m_minBuffMulti = nil
+    self.m_maxBuffMulti = nil
 
     self.m_baseStat = 0
 
@@ -71,10 +79,23 @@ function StructIndividualStatus:init(status_name)
     self.m_t2 = 0
     self.m_bDirtyT2 = true
 
+    self.m_stageMulti = 0
+    self.m_stageAdd = 0
+
     self.m_buffMulti = 0
     self.m_buffAdd = 0
 
     self.m_finalStat = 0
+    self.m_bDirtyFinalStat = true
+end
+
+-------------------------------------
+-- function setMinMaxForBuffMulti
+-------------------------------------
+function StructIndividualStatus:setMinMaxForBuffMulti(min, max)
+    self.m_minBuffMulti = min
+    self.m_maxBuffMulti = max
+
     self.m_bDirtyFinalStat = true
 end
 
@@ -144,8 +165,25 @@ end
 function StructIndividualStatus:calcFinalStat()
     local t2 = self:getT2()
 
-    local buff_multi = (self.m_buffMulti / 100)
-    local t3 = t2 + (t2 * buff_multi) + self.m_buffAdd
+    -- 스테이지 버프
+    local stage_multi = (self.m_stageMulti / 100)
+
+    -- 버프
+    local buff_multi = self.m_buffMulti
+
+    do -- 버프 최소 및 최대값 적용
+        if (self.m_minBuffMulti) then
+            buff_multi = math_max(buff_multi, self.m_minBuffMulti)
+        end
+        if (self.m_maxBuffMulti) then
+            buff_multi = math_min(buff_multi, self.m_maxBuffMulti)
+        end
+    end
+
+    buff_multi = (buff_multi / 100)
+
+    -- 능력치 연산
+    local t3 = t2 + (t2 * (stage_multi + buff_multi)) + self.m_stageAdd + self.m_buffAdd
 
     self.m_finalStat = t3
 
@@ -207,12 +245,19 @@ function StructIndividualStatus:addPassiveAdd(value)
     self:setDirtyT2()
 end
 
+-------------------------------------
+-- function addStageMulti
+-------------------------------------
+function StructIndividualStatus:addStageMulti(value)
+    self.m_stageMulti = (self.m_stageMulti + value)
+    self:setDirtyFinalStat()
+end
 
 -------------------------------------
--- function addBuffAdd
+-- function addStageAdd
 -------------------------------------
-function StructIndividualStatus:addBuffAdd(value)
-    self.m_buffAdd = (self.m_buffAdd + value)
+function StructIndividualStatus:addStageAdd(value)
+    self.m_stageAdd = (self.m_stageAdd + value)
     self:setDirtyFinalStat()
 end
 
@@ -221,5 +266,13 @@ end
 -------------------------------------
 function StructIndividualStatus:addBuffMulti(value)
     self.m_buffMulti = (self.m_buffMulti + value)
+    self:setDirtyFinalStat()
+end
+
+-------------------------------------
+-- function addBuffAdd
+-------------------------------------
+function StructIndividualStatus:addBuffAdd(value)
+    self.m_buffAdd = (self.m_buffAdd + value)
     self:setDirtyFinalStat()
 end

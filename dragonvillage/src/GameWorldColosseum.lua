@@ -408,8 +408,7 @@ function GameWorldColosseum:makeEnemyDeck()
 
                 -- 리더 등록
 				if (i == leader) then
-                    cclog('set leader enemy')
-					self.m_leaderEnemy = enemy
+                    self.m_leaderEnemy = enemy
 				end
             end
         end

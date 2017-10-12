@@ -95,11 +95,17 @@ function StatusCalculator:calcStatusList(char_type, cid, lv, grade, evolution, e
     local l_status = {}
 
     -- 기본 능력치들 계산
-    for _,status_name in pairs(L_BASIC_STATUS_TYPE) do
+    for _, status_name in pairs(L_BASIC_STATUS_TYPE) do
         local basic_stat, base_stat, lv_stat, grade_stat, evolution_stat, eclv_stat = self:calcStat(char_type, cid, status_name, lv, grade, evolution, eclv)
 
         local indivisual_status = StructIndividualStatus(status_name)
         indivisual_status:setBasicStat(base_stat, lv_stat, grade_stat, evolution_stat, eclv_stat)
+
+        -- 능력치별 최대 버프 수치값 설정
+        local t_info = g_constant:get('INGAME', 'BUFF_MULTI_MIN_MAX')[status_name]
+        if (t_info) then
+            indivisual_status:setMinMaxForBuffMulti(t_info[1], t_info[2])
+        end
 
         l_status[status_name] = indivisual_status--t_status
     end
@@ -246,7 +252,12 @@ function StatusCalculator:applyStageBonus(stage_id, is_enemy)
                 if (t_option) then
                     local status_type = t_option['status']
                     if (status_type) then
-                        self:addOption(t_option['action'], status_type, buff_value)
+                        if (t_option['action'] == 'multi') then
+                            self:addStageMulti(status_type, buff_value)
+                        elseif (t_option['action'] == 'add') then
+                            self:addStageAdd(status_type, buff_value)
+                        end
+
                         --cclog('applyStageBonus ' .. Str(t_option['t_desc'], math_abs(buff_value)))
                     end
                 end
@@ -308,6 +319,37 @@ function StatusCalculator:addPassiveMulti(stat_type, value)
         indivisual_status:addPassiveAdd(value)
     else
         indivisual_status:addPassiveMulti(value)
+    end
+end
+
+-------------------------------------
+-- function addStageAdd
+-- @brief
+-------------------------------------
+function StatusCalculator:addStageAdd(stat_type, value)
+    local indivisual_status = self.m_lStatusList[stat_type]
+    if (not indivisual_status) then
+        error('stat_type : ' .. stat_type)
+    end
+
+    indivisual_status:addStageAdd(value)
+end
+
+-------------------------------------
+-- function addStageMulti
+-- @brief
+-------------------------------------
+function StatusCalculator:addStageMulti(stat_type, value)
+    local indivisual_status = self.m_lStatusList[stat_type]
+    if (not indivisual_status) then
+        error('stat_type : ' .. stat_type)
+    end
+
+    -- 특정 타입의 스텟들은 무조건 합연산
+    if (M_SPECIAL_STATUS_TYPE[stat_type]) then
+        indivisual_status:addStageAdd(value)
+    else
+        indivisual_status:addStageMulti(value)
     end
 end
 

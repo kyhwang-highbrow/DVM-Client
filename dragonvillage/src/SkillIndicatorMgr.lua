@@ -300,7 +300,7 @@ end
 function SkillIndicatorMgr:update(dt)
     if (not self.m_world:isPossibleControl()) then
         self:clear()
-        self.m_uiToolTip:hide()
+        self:closeSkillToolTip()
         return 
     end
 

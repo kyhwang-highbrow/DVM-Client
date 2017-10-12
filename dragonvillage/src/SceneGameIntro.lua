@@ -179,7 +179,7 @@ function SceneGameIntro:update(dt)
     -- 세번째 웨이브 - 보스 스킬 사용 직전
     if (idx == 7) and (boss.m_patternAtkIdx == '1' and boss.m_state == 'attack') then
         -- 보스의 공격력을 증가 시킴
-        boss.m_statusCalc:addBuffMulti('atk', 9999)
+        boss.m_statusCalc:addStageMulti('atk', 9999)
 
         -- 아군의 무적처리 해제
         for _, hero in ipairs(world:getDragonList()) do
