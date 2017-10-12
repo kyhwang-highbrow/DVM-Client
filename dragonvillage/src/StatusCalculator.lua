@@ -124,6 +124,12 @@ function StatusCalculator:getFinalStat(stat_type)
     end
 
     local final_stat = indivisual_status:getFinalStat()
+
+    -- 특정 타입의 스텟들은 제외한 나머지는 최소값을 0으로 처리
+    if (not M_SPECIAL_STATUS_TYPE[stat_type]) then
+        final_stat = math_max(final_stat, 0)
+    end
+
     return final_stat
 end
 
