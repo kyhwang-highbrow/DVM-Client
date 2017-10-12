@@ -9,7 +9,7 @@ UI_DragonBoardPopup = class(PARENT,{
 		m_didSource = 'number',
 		m_did = 'number',
 		m_offset = 'number',
-		m_order = 'string',
+		m_orderType = 'string',
 
 		m_tableView = 'UIC_TableView',
 		m_attrRadioButton = 'UIC_RadioButton',
@@ -45,6 +45,7 @@ function UI_DragonBoardPopup:init(t_dragon_data)
 	-- initialize
 	self.m_did = t_dragon_data['did']
 	self.m_offset = 0
+    self.m_orderType = 'like'
 
     self:initUI()
     self:initButton()
@@ -123,7 +124,7 @@ function UI_DragonBoardPopup:requestBoard()
 
 	local did = self.m_did
 	local offset = self.m_offset
-	local order = self.m_order
+	local order = self.m_orderType
 
 	local function cb_func()
 		self:refresh()
@@ -258,7 +259,7 @@ function UI_DragonBoardPopup:onScrollEnd()
 			UIManager:toastNotificationGreen(Str('게시글을 모두 불러왔습니다.'))
 		end
 	end
-	g_boardData:request_dragonBoard(self.m_did, self.m_offset, self.m_order, cb_func)
+	g_boardData:request_dragonBoard(self.m_did, self.m_offset, self.m_orderType, cb_func)
 end
 
 -------------------------------------
@@ -278,7 +279,7 @@ end
 -- @brief 정렬 순서를 변경하고 평가 테이블을 새로 생성한다.
 -------------------------------------
 function UI_DragonBoardPopup:onSortChangeOption(sort_type)
-	self.m_order = sort_type
+	self.m_orderType = sort_type
 	self:requestBoard()
 end
 
