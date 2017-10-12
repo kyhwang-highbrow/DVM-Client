@@ -44,31 +44,6 @@ function UI_GameResult_SecretDungeon:click_againBtn()
 end
 
 -------------------------------------
--- function direction_end
--- @brief 종료 연출
--------------------------------------
-function UI_GameResult_SecretDungeon:direction_end()
-    UI_GameResultNew.direction_end(self)
-
-    local is_success = self.m_bSuccess
-    local vars = self.vars
-
-    if (not is_success) then
-        local duration = 2
-        if g_autoPlaySetting:isAutoPlay() then
-            duration = 0.5
-        end
-        -- 2초 후 자동으로 이동
-        self.root:runAction(cc.Sequence:create(cc.DelayTime:create(duration), cc.CallFunc:create(function()
-            self:doNextWork()
-        end)))
-
-        vars['skipLabel']:setVisible(true)
-        vars['skipBtn']:setVisible(true)
-    end
-end
-
--------------------------------------
 -- function makeRewardItem
 -------------------------------------
 function UI_GameResult_SecretDungeon:makeRewardItem(i, v)
