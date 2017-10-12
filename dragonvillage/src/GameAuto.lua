@@ -305,7 +305,7 @@ function GameAuto:findTarget(unit, t_skill)
     local ai_division = t_skill['ai_division']
 
     local l_target = {}
-    local exist_fixed_target = false
+    local fixed_target = nil
 
     -- 공격형
     if (string.find(target_type, 'enemy')) then
