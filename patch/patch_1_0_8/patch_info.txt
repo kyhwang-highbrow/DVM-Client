@@ -1,3 +1,13 @@
+#patch 9
+- Revision: 92624
+- Date: 2017년 10월 12일 목요일 오후 5:54:24
+- Message:
+	1.신규 드래곤 추가
+	2. 신규 패키지 추가
+	3. 컨텐츠 개선
+	4. 오류 수정
+- Notice : http://cafe.naver.com/dragonvillagemobile/8770
+
 #patch 6
 - Revision: x
 - Date: 2017년 9월 28일 목요일 오후 17:25:00
