@@ -255,6 +255,10 @@ function ActivityCarrier:getAtkDmg(target)
             error('invalid stat type : ' .. stat)
         end
     end
+
+    -- 음수가 나오지 않도록 처리
+    atk_dmg = math_max(atk_dmg, 0)
+
 	return atk_dmg
 end
 
