@@ -424,10 +424,11 @@ function StatusCalculator:getAllStatString()
     end
 
 	for stat_type, indivisual_status in pairs(self.m_lStatusList) do
+        local final_stat = self:getFinalStat(stat_type)
         local buff_multi = indivisual_status.m_buffMulti
         local buff_add = indivisual_status.m_buffAdd
 
-		printLine('- ' .. stat_type .. ' : ' .. indivisual_status:getFinalStat() .. ' (' .. buff_multi .. '%, ' .. buff_add .. ')')
+		printLine('- ' .. stat_type .. ' : ' .. final_stat .. ' (' .. buff_multi .. '%, ' .. buff_add .. ')')
 	end
 
     return str
