@@ -231,8 +231,10 @@ function UI_DragonSkillEnhance:getDragonMaterialList(doid)
 			end
 
 		-- 스킬 강화 슬라임 추가
-		elseif (g_slimesData:possibleMaterialSlime(oid, 'skill')) then
-			ret_dic[oid] = v
+		else
+            if (v:getSlimeType() == 'skill') then
+			    ret_dic[oid] = v
+            end
 		end
     end
 
@@ -291,6 +293,12 @@ function UI_DragonSkillEnhance:click_dragonMaterial(data)
     -- 재료 드래곤이 재료 가능한지 판별
     if (data:getObjectType() == 'dragon') then
         local possible, msg = g_dragonsData:possibleMaterialDragon(doid)
+        if (not possible) then
+            UIManager:toastNotificationRed(msg)
+            return
+        end
+    else
+        local possible, msg = g_slimesData:possibleMaterialSlime(doid)
         if (not possible) then
             UIManager:toastNotificationRed(msg)
             return

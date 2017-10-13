@@ -307,8 +307,13 @@ function UI_DragonUpgrade:getDragonMaterialList(doid)
     for oid,v in pairs(dragon_dic) do
         if (v['grade'] < t_dragon_data['grade']) then
             dragon_dic[oid] = nil
+
+        -- 슬라임의 경우
         elseif (v:getObjectType() == 'slime') then
-            if (not g_slimesData:possibleMaterialSlime(oid, 'upgrade')) then
+
+            -- 슬라임 타입이 upgrade가 아니면 제외
+            local slime_type = v:getSlimeType()
+            if (slime_type ~= 'upgrade') then
                 dragon_dic[oid] = nil
             end
         end

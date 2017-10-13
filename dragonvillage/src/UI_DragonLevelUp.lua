@@ -237,7 +237,7 @@ function UI_DragonLevelUp:getDragonMaterialList(doid)
     local slime_dic = g_slimesData:getSlimeList()
     for oid, v in pairs(slime_dic) do
     	-- 레벨업 슬라임 추가
-	    if (g_slimesData:possibleMaterialSlime(oid, 'exp')) then
+        if (v:getSlimeType() == 'exp') then
 			dragon_dic[oid] = v
 		end
     end

@@ -102,6 +102,11 @@ function ServerData_Slimes:possibleMaterialSlime(soid, tar_slime_type)
         return false, ''
     end
 
+    -- 잠금 체크
+	if (self:isLockSlime(soid)) then
+		return false, Str('잠금 상태입니다.')
+	end
+
 	-- 슬라임 타입 없거나 all 이면 true
 	if (tar_slime_type == nil) or (tar_slime_type == 'all') then
 		return true
@@ -114,4 +119,18 @@ function ServerData_Slimes:possibleMaterialSlime(soid, tar_slime_type)
     end
 
     return false
+end
+
+-------------------------------------
+-- function isLockSlime
+-- @brief 잠금 여부 체크
+-------------------------------------
+function ServerData_Slimes:isLockSlime(soid)
+    local slime_object = self:getSlimeObject(soid)
+
+    if (not slime_object) then
+        return false
+    end
+
+    return slime_object:getLock()
 end
