@@ -63,7 +63,6 @@ function UI_RecommendedDragonInfoPopup:init(info)
 	local cb_func = function()
 		self:initUI()
 		self:initTab()
-		self:initSortList()
 		self:initButton()
 		self:refresh()
 	end 
@@ -103,22 +102,6 @@ function UI_RecommendedDragonInfoPopup:initTab()
 end
 
 -------------------------------------
--- function initSortList
--------------------------------------
-function UI_RecommendedDragonInfoPopup:initSortList()
-    local vars = self.vars
-	
-	local uic_sort_list = self:makeUICSortList_DungeonLV(vars['levelBtn'], vars['levelLabel'])
-    self.m_uicSortList = uic_sort_list
-
-	-- 버튼을 통해 정렬이 변경되었을 경우
-    local function sort_change_cb(sort_type)
-		self:refresh(nil, sort_type)
-    end
-	uic_sort_list:setSortChangeCB(sort_change_cb)
-end
-
--------------------------------------
 -- function initButton
 -------------------------------------
 function UI_RecommendedDragonInfoPopup:initButton()
@@ -129,8 +112,18 @@ end
 -- function refresh
 -------------------------------------
 function UI_RecommendedDragonInfoPopup:refresh(mode_id, dungeon_lv)
-	self.m_modeID = mode_id and mode_id or self.m_modeID
-	self.m_dungeonLV = dungeon_lv and dungeon_lv or self.m_dungeonLV
+	self.m_modeID = mode_id or self.m_modeID
+	self.m_dungeonLV = dungeon_lv or self.m_dungeonLV
+
+    -- 던전 모드 별 최대 레벨 계산하여 조정
+    local t_dungeon_info = g_nestDungeonData:parseNestDungeonID(self.m_modeID)
+    local dungeon_mode = t_dungeon_info['dungeon_mode']
+    if (dungeon_mode ~= NEST_DUNGEON_NIGHTMARE) then
+        if (self.m_dungeonLV > 6) then
+            self.m_dungeonLV = 6
+            self.m_uicSortList:setSelectSortType(self.m_dungeonLV, true)
+        end
+    end
 
 	-- dungeonTable update
 	if (mode_id) then
@@ -148,6 +141,46 @@ function UI_RecommendedDragonInfoPopup:refresh(mode_id, dungeon_lv)
 		self:makeTableView_dragon(UI_RecommendedDragonInfoPopup.DRAGON)
 	end
 	self:getStageServerInfo(cb_func)
+end
+
+-------------------------------------
+-- function refresh_sortList
+-------------------------------------
+function UI_RecommendedDragonInfoPopup:refresh_sortList(mode_id)
+    local vars = self.vars
+
+    -- 이전 리스트 해제
+    if (self.m_uicSortList) then
+        self.m_uicSortList.m_node:removeFromParent()
+        self.m_uicSortList = nil
+    end
+
+    -- 새 리스트 생성
+	local uic_sort_list = self:makeUICSortList_DungeonLV(vars['levelBtn'], vars['levelLabel'])
+        	
+    -- 던전 모드 파악하여 레벨 수 부여
+    local t_dungeon_info = g_nestDungeonData:parseNestDungeonID(mode_id)
+    local dungeon_mode = t_dungeon_info['dungeon_mode']
+    local max_dungeon_lv = nil
+    if (dungeon_mode == NEST_DUNGEON_NIGHTMARE) then
+        max_dungeon_lv = 10
+    else
+        max_dungeon_lv = 6
+    end
+
+    -- 레벨 add
+	for i = 1, max_dungeon_lv do
+		uic_sort_list:addSortType(i, Str('{1}단계', i))
+	end
+
+	-- 버튼을 통해 정렬이 변경되었을 경우
+    local function sort_change_cb(sort_type)
+		self:refresh(nil, sort_type)
+    end
+	uic_sort_list:setSortChangeCB(sort_change_cb)
+
+    -- 멤버 변수 등록
+    self.m_uicSortList = uic_sort_list
 end
 
 -------------------------------------
@@ -179,13 +212,14 @@ function UI_RecommendedDragonInfoPopup:makeTableView_dungeon()
 			-- 버튼 콜백 등록
             local function click_dungeonBtn()
 				self:refresh(data['mode_id'])
+                self:refresh_sortList(data['mode_id'])
 			end
 			ui.vars['dungeonBtn']:registerScriptTapHandler(click_dungeonBtn)
             
             -- ui 최초 선택 갱신
             if (data['mode_id'] == self.m_modeID) then
                 ui:refresh(data['mode_id'])
-                init_idx = data['idx']
+                self:refresh_sortList(data['mode_id'])
             end
 		end
 
@@ -272,11 +306,6 @@ function UI_RecommendedDragonInfoPopup:makeUICSortList_DungeonLV(button, label)
     uic:setSortTypeLabel(label)
 
     parent:addChild(uic.m_node)
-
-    local max_dungeon_lv = 6
-	for i = 1, max_dungeon_lv do
-		uic:addSortType(i, Str('{1}단계', i))
-	end
 
     return uic
 end

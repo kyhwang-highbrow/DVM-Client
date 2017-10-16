@@ -396,8 +396,9 @@ end
 
 -------------------------------------
 -- function setSelectSortType
+-- @param no_use_cb 콜백 동작 없이 버튼 상태 변경 하고 싶을 때 사용.. uic_list가 각종 탭, 테이블과 엮여 있을 경우 사용하기 위함
 -------------------------------------
-function UIC_SortList:setSelectSortType(sort_type)
+function UIC_SortList:setSelectSortType(sort_type, no_use_cb)
     local t_data = nil
     if self.m_selectSortType then
         t_data = self.m_mSortData[self.m_selectSortType]
@@ -434,7 +435,7 @@ function UIC_SortList:setSelectSortType(sort_type)
 
 
     -- 콜백
-    if self.m_sortChangeCB then
+    if self.m_sortChangeCB and (not no_use_cb) then
         self.m_sortChangeCB(sort_type)
     end
 end
