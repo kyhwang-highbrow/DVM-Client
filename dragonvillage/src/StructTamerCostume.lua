@@ -106,15 +106,12 @@ end
 -- @brief 할인중인지
 -------------------------------------
 function StructTamerCostume:isSale()
-    local shop_info = g_tamerCostumeData:getShopInfo(self.m_cid)
-    if (shop_info) then
-        local origin_price = shop_info['origin_price']
-        local price = shop_info['price']
-        local is_sale = (origin_price ~= price)
-        return is_sale
+    local sale_info = g_tamerCostumeData.m_saleInfo
+    if (sale_info[tostring(self.m_cid)]) then
+        return true
+    else
+        return false
     end
-
-    return false
 end
 
 -------------------------------------

@@ -5,6 +5,7 @@ ServerData_TamerCostume = class({
         m_serverData = 'ServerData',
         m_shopInfo = 'map',
         m_openList = 'list',
+        m_saleInfo = 'map'
     })
 
 -------------------------------------
@@ -14,6 +15,7 @@ function ServerData_TamerCostume:init(server_data)
     self.m_serverData = server_data
     self.m_shopInfo = {}
     self.m_openList = {}
+    self.m_saleInfo = {}
 end
 
 -------------------------------------
@@ -137,8 +139,9 @@ function ServerData_TamerCostume:request_costumeInfo(cb_func)
             self.m_shopInfo[cid] = data
         end
 
-        self.m_openList = ret['tamers_costume']
-
+        self.m_openList = ret['tamers_costume'] or nil
+        self.m_saleInfo = ret['tamer_costume_sale'] or nil
+        
 		if (cb_func) then
 			cb_func()
 		end

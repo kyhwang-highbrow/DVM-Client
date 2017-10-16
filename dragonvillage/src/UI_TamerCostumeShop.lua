@@ -116,6 +116,7 @@ end
 function UI_TamerCostumeShop:refresh()
     local vars = self.vars
     local costume_data = self.m_selectCostumeData
+    self.m_selectShopInfo = nil
 
     -- 테이머 코스튬 SD
     local node = vars['tamerSdNode']
@@ -155,17 +156,24 @@ function UI_TamerCostumeShop:refresh()
     -- 가격 정보 표시
     if (not is_open) then
         local shop_info = g_tamerCostumeData:getShopInfo(costume_id)
-        local origin_price = shop_info['origin_price']
-        local price = shop_info['price']
+
+        -- 구매 불가
+        if (not shop_info) then
+            vars['priceLabel']:setString(Str(''))
+            return
+        else
+            self.m_selectShopInfo = shop_info
+        end
+
+        local is_sale = costume_data:isSale()
+        local price = is_sale and shop_info['sale_price'] or shop_info['origin_price'] 
         local price_type = shop_info['price_type']
         local price_icon = IconHelper:getPriceIcon(price_type)
 
-        local is_sale = costume_data:isSale()
-        
         -- 할인중
         if (is_sale) then
             vars['saleNode']:setVisible(true)
-            vars['salePriceLabel1']:setString(comma_value(origin_price))
+            vars['salePriceLabel1']:setString(comma_value(price))
             vars['salePriceLabel2']:setString(comma_value(price))
             vars['priceLabel']:setString('')
 
@@ -188,8 +196,6 @@ function UI_TamerCostumeShop:refresh()
             vars['priceNode']:removeAllChildren()
             vars['priceNode']:addChild(price_icon)
         end
-
-        self.m_selectShopInfo = shop_info
     end
 end
 
@@ -297,8 +303,11 @@ function UI_TamerCostumeShop:click_buyBtn()
     local is_open = costume_data:isOpen() 
     local is_lock = costume_data:isTamerLock()
 
+    -- 구매불가
+    if (not self.m_selectShopInfo) then
+        return
     -- 열려있지않은 테이머라면 한번더 경고 문구
-    if (not is_open and is_lock) then
+    elseif (not is_open and is_lock) then
         MakeSimplePopup(POPUP_TYPE.YES_NO, Str('해당 테이머를 소유하지 못했습니다.\n그래도 구매하시겠습니까?'), show_popup)
     else
         show_popup()

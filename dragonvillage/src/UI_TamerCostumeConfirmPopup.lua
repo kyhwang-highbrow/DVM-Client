@@ -54,7 +54,8 @@ function UI_TamerCostumeConfirmPopup:initUI()
         return
     end
 
-    local price = shop_info['price']
+    local is_sale = costume_data:isSale()
+    local price = is_sale and shop_info['sale_price'] or shop_info['origin_price'] 
     local price_type = shop_info['price_type']
     local price_icon = IconHelper:getPriceIcon(price_type)
     vars['iconNode']:addChild(price_icon)
@@ -94,10 +95,12 @@ end
 -- function click_okBtn
 -------------------------------------
 function UI_TamerCostumeConfirmPopup:click_okBtn()
-    local costume_id = self.m_costumeData:getCid()
+    local costume_data = self.m_costumeData
+    local costume_id = costume_data:getCid()
 
     local shop_info = g_tamerCostumeData:getShopInfo(costume_id)
-    local price = shop_info['price']
+    local is_sale = costume_data:isSale()
+    local price = is_sale and shop_info['sale_price'] or shop_info['origin_price'] 
     local price_type = shop_info['price_type']
 
     -- 캐쉬가 충분히 있는지 확인
@@ -105,8 +108,7 @@ function UI_TamerCostumeConfirmPopup:click_okBtn()
         return
     end
 
-    local cid = self.m_costumeData:getCid()
-    g_tamerCostumeData:request_costumeBuy(cid, function() 
+    g_tamerCostumeData:request_costumeBuy(costume_id, function() 
         self:close() 
     end)
 end
