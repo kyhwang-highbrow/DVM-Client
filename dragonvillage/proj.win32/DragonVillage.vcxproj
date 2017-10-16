@@ -842,6 +842,7 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <None Include="..\src\UIC_RadioButton.lua" />
     <None Include="..\src\UIC_RichLabel.lua" />
     <None Include="..\src\UIC_RichLabelCore.lua" />
+    <None Include="..\src\UIC_ScrollButton.lua" />
     <None Include="..\src\UIC_ScrollLabel.lua" />
     <None Include="..\src\UIC_SortList.lua" />
     <None Include="..\src\UIC_TableView.lua" />

@@ -18,6 +18,7 @@ end
 
 -------------------------------------
 -- function getEventPopupTabList
+-- @brief 이벤트 탭 노출 리스트 (이벤트 버튼 클릭시)
 -------------------------------------
 function ServerData_Event:getEventPopupTabList()
     local item_list = {}
@@ -69,6 +70,7 @@ end
 
 -------------------------------------
 -- function getEventFullPopupList
+-- @brief 이벤트 풀팝업 노출 리스트 (로비 진입시)
 -------------------------------------
 function ServerData_Event:getEventFullPopupList()
     local l_list = {}
@@ -80,6 +82,11 @@ function ServerData_Event:getEventFullPopupList()
         local event_type = v['event_type'] 
 
         if (priority ~= '') then
+            -- shop type인 경우 event_id로 넣어줘야 함 
+            if (event_type == 'shop') then
+                event_type = v['event_id']     
+            end
+
             l_priority[event_type] = tonumber(priority)
             table.insert(l_list, event_type)
         end
@@ -90,6 +97,30 @@ function ServerData_Event:getEventFullPopupList()
     end)
 
     return l_list
+end
+
+-------------------------------------
+-- function getEventBannerMap
+-- @brief 이벤트 배너 노출 맵 (키:이벤트 타입, 값:이미지 리소스)
+-------------------------------------
+function ServerData_Event:getEventBannerMap()
+    local map = {}
+    local l_priority = {}
+    local event_list = self.m_eventList
+
+    -- 매일 매일 다이아는 고정으로 넣어줌
+    map['daily_dia'] = 'res/ui/event/banner_daily_dia.png'
+
+    for i, v in ipairs(event_list) do
+        local lobby_banner = v['lobby_banner']
+        local event_type = v['event_type'] 
+        
+        if (lobby_banner ~= '') then
+            map[event_type] = lobby_banner
+        end
+    end
+
+    return map
 end
 
 -------------------------------------
