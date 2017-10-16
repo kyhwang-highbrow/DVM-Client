@@ -74,21 +74,26 @@ end
 -- @brief 해당 상태효과가 중첩 해제될시마다 호출
 -------------------------------------
 function StatusEffect_Bleed:onUnapplyOverlab(unit)
+    local prev = self.m_dmg
+
     -- 데미지 감산
     local damage = unit:getParam('damage')
 
     self.m_dmg = self.m_dmg - damage
+    self.m_dmg = math_max(self.m_dmg, 0)
 end
 
 -------------------------------------
 -- function doDamage
 -------------------------------------
 function StatusEffect_Bleed:doDamage()
+    if (self.m_dmg <= 0) then return end
+
     -- 진형에 따른 데미지 배율
     local damage_rate = CalcDamageRateDueToFormation(self.m_owner)
 
     local damage = self.m_dmg * damage_rate
-
+        
 	self.m_owner:setDamage(nil, self.m_owner, self.m_owner.pos.x, self.m_owner.pos.y, damage, nil)
 
     -- 중첩별 로그 처리
@@ -113,6 +118,13 @@ function StatusEffect_Bleed:reduceAllUnitDuration()
     for _, unit in ipairs(self.m_lUnit) do
         if (isInstanceOf(unit, StatusEffectUnit_Dot)) then
             unit.m_durationTimer = unit.m_durationTimer - unit.m_dotInterval
+
+            -- 지속시간이 끝났을 경우 즉시 해제(드래그 일시정지 이슈 때문)
+            if (unit.m_durationTimer <= 0) then
+                if (unit.m_bApply) then
+                    self:unapplyOverlab(unit)
+                end
+            end
         end
     end
 end

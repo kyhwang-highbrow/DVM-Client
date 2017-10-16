@@ -386,14 +386,16 @@ function StatusEffect:update(dt)
                 if (unit:update(dt, modified_dt)) then
                     table.insert(t_remove, 1, i)
                     self:unapplyOverlab(unit)
+
+                    local idx = table.find(self.m_lUnit, unit)
+                    if (idx) then
+                        table.remove(self.m_lUnit, idx)
+                    end
                 end
             end
 
             for i, v in ipairs(t_remove) do
                 table.remove(list, v)
-
-                local idx = table.find(self.m_lUnit, v)
-                table.remove(self.m_lUnit, idx)
             end
         end
             
@@ -550,6 +552,7 @@ function StatusEffect:applyOverlab(unit)
     end
 
     local b = unit:onApply(self.m_lStatus, self.m_lStatusAbs)
+    if (not b) then return end
 
     self.m_overlabCnt = (self.m_overlabCnt + 1)
 
@@ -561,8 +564,6 @@ function StatusEffect:applyOverlab(unit)
     if (self.m_edgeDirector) then
         self.m_edgeDirector:addEdge()
     end
-            
-    return b
 end
 
 -------------------------------------
@@ -578,6 +579,7 @@ end
 -------------------------------------
 function StatusEffect:unapplyOverlab(unit, is_skip_event)
     local b = unit:onUnapply(self.m_lStatus, self.m_lStatusAbs)
+    if (not b) then return end
 
     self.m_overlabCnt = (self.m_overlabCnt - 1)
 
@@ -592,8 +594,6 @@ function StatusEffect:unapplyOverlab(unit, is_skip_event)
     if (self.m_edgeDirector) then
         self.m_edgeDirector:removeEdge()
     end
-            
-    return b
 end
 
 -------------------------------------
