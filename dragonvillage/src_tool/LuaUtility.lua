@@ -21,11 +21,19 @@ end
 
 -------------------------------------
 -- function changeDir
--- @brief 커서 위치를 변경한다.
+-- @brief 커서 위치를 변경한다. 
 -------------------------------------
 function util.changeDir(dir)
     lfs.chdir(dir)
     cclog('## Current Diretory : ' .. lfs.currentdir())
+end
+
+-------------------------------------
+-- function changeDirectory
+-- @brief 커서 위치를 변경한다. 함수명의 통일을 위해 정의
+-------------------------------------
+function util.changeDirectory(dir)
+    util.changeDir(dir)
 end
 
 -------------------------------------
@@ -34,6 +42,18 @@ end
 -------------------------------------
 function util.makeDirectory(dir)
     lfs.mkdir(dir)
+end
+
+-------------------------------------
+-- function iterateDirectory
+-- @brief 폴더 내부 파일들을 순회
+-------------------------------------
+function util.iterateDirectory(root, iter_func)
+    for path, dirs, files in pl.dir.walk(root) do
+        for idx, file in pairs(files) do
+            iter_func(path, file)
+        end
+    end       
 end
 
 -------------------------------------
@@ -137,7 +157,7 @@ function util.mirrorDirectory(src_dir, tar_dir)
 end
 
 -------------------------------------
--- function luadump
+-- function makeLuaTableStr
 -------------------------------------
 function util.makeLuaTableStr(value)
     local t = type(value)
