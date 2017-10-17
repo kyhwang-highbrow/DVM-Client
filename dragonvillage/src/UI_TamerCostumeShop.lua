@@ -175,6 +175,9 @@ function UI_TamerCostumeShop:refresh()
         local price_type = shop_info['price_type']
         local price_icon = IconHelper:getPriceIcon(price_type)
 
+        vars['priceNode']:removeAllChildren()
+        vars['salePriceNode']:removeAllChildren()
+       
         -- 할인중
         if (is_sale) then
             vars['saleNode']:setVisible(true)
@@ -182,8 +185,6 @@ function UI_TamerCostumeShop:refresh()
             vars['salePriceLabel2']:setString(comma_value(price))
             vars['priceLabel']:setString('')
             vars['saleTimeLabel']:setString(msg)
-
-            vars['salePriceNode']:removeAllChildren()
             vars['salePriceNode']:addChild(price_icon)
         else
             vars['priceLabel']:setString(comma_value(price))
