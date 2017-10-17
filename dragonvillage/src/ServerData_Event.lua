@@ -234,7 +234,13 @@ function ServerData_Event:request_eventList(finish_cb, fail_cb)
 
     -- 성공 콜백
     local function success_cb(ret)
-        self.m_eventList = ret['table_event_list'] or nil
+        self.m_eventList = {}
+        local event_list = ret['table_event_list'] 
+        for _, v in ipairs(event_list) do
+            if (v['ui_priority'] ~= '') then
+                table.insert(self.m_eventList, v)
+            end
+        end
 
         if finish_cb then
             finish_cb(ret)
