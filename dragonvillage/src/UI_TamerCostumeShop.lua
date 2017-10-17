@@ -158,6 +158,7 @@ function UI_TamerCostumeShop:refresh()
     -- 판매종료
     if (is_end) then
         vars['finishBtn']:setVisible(true)
+        vars['finishBtn']:setEnabled(false)
         return
     end
 

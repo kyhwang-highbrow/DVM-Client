@@ -12,7 +12,7 @@ UI_ExchangeEventListItem = class(PARENT, {
 -------------------------------------
 function UI_ExchangeEventListItem:init(data_info)
     self.m_dataInfo = data_info
-    local vars = self:load('event_chuseok_item.ui')
+    local vars = self:load('event_exchange_item.ui')
 
     self:initUI()
     self:initButton()

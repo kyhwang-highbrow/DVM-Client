@@ -354,7 +354,7 @@ function UI_Lobby:initButton()
     vars['capsuleBtn']:registerScriptTapHandler(function() self:click_capsuleBtn() end)
     vars['itemAutoBtn']:registerScriptTapHandler(function() self:click_itemAutoBtn() end) -- 자동재화(광고)
     vars['giftBoxBtn']:registerScriptTapHandler(function() self:click_giftBoxBtn() end) -- 랜덤박스(광고)
-    vars['chuseokBtn']:registerScriptTapHandler(function() self:click_chuseokBtn() end) -- 추석이벤트(교환이벤트)
+    vars['exchangeBtn']:registerScriptTapHandler(function() self:click_exchangeBtn() end) -- 교환이벤트
 
     do -- 기타 UI
         local etc_vars = self.m_etcExpendedUI.vars
@@ -513,7 +513,7 @@ function UI_Lobby:refresh_eventBanner()
             g_subscriptionData:openSubscriptionPopup()
         
         -- 패키지
-        elseif (string.find(event_type, 'package') or tonumber(event_type) > 90000) then
+        elseif (string.find(event_type, 'package')) then
             local pid = event_type
             PackageManager:goToTargetUI(pid)
 
@@ -738,10 +738,10 @@ function UI_Lobby:click_giftBoxBtn()
 end
 
 -------------------------------------
--- function click_chuseokBtn
--- @brief 추석 이벤트
+-- function click_exchangeBtn
+-- @brief 교환 이벤트
 -------------------------------------
-function UI_Lobby:click_chuseokBtn()
+function UI_Lobby:click_exchangeBtn()
     if (not g_eventData:isVaildEvent('event_exchange')) then
         return
     end
@@ -849,7 +849,7 @@ function UI_Lobby:update(dt)
     -- 이벤트 갱신된 경우
     if (g_eventData.m_bDirty) then
         g_eventData.m_bDirty = false
-        self.vars['chuseokBtn']:setVisible(g_eventData:isVaildEvent('event_exchange'))
+        self.vars['exchangeBtn']:setVisible(g_eventData:isVaildEvent('event_exchange'))
 
         self:refresh_eventBanner()
     end
