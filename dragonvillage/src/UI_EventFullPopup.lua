@@ -42,28 +42,25 @@ function UI_EventFullPopup:initUI()
     local vars = self.vars
     local product_id = self.m_productID
 
-    -- 홈페이지 이동
-    if (product_id == 'banner') then
-        self.m_url = 'http://storefarm.naver.com/highbrow/products/2166132038'
+    -- 이벤트 배너
+    if (string.find(product_id, 'banner')) then
+        local l_str = seperate(product_id, ';')
 
-        local img = cc.Sprite:create('res/ui/event/bg_game_card.png')
-        if (img) then
-            img:setDockPoint(ZERO_POINT)
-            img:setAnchorPoint(ZERO_POINT)
+        local img_path = l_str[2]
+        if (img_path) then
+            local img = cc.Sprite:create(img_path)
+            if (img) then
+                img:setDockPoint(ZERO_POINT)
+                img:setAnchorPoint(ZERO_POINT)
 
-            local node = vars['eventNode']
-            node:addChild(img)
+                local node = vars['eventNode']
+                node:addChild(img)
+            end
         end
 
-    -- 소환확률업
-    elseif (product_id == 'chance_up') then
-        local img = cc.Sprite:create('res/ui/event/bg_chanceup_02.png')
-        if (img) then
-            img:setDockPoint(ZERO_POINT)
-            img:setAnchorPoint(ZERO_POINT)
-
-            local node = vars['eventNode']
-            node:addChild(img)
+        local url = l_str[3]
+        if (url) then
+            self.m_url = url
         end
 
     -- 패키지 상품 
@@ -134,11 +131,18 @@ end
 -- function click_clickBtn
 -------------------------------------
 function UI_EventFullPopup:click_clickBtn()
-    if (self.m_url == '') then 
+    local url = self.m_url
+    if (url == '') then 
         return 
     end
 
-    SDKManager:goToWeb(self.m_url)
+    if (url == 'costume_shop') then
+        local tamer_id = g_tamerData:getCurrTamerID()
+        UINavigator:goTo('costume_shop', tamer_id)
+
+    elseif (url ~= '') then
+        SDKManager:goToWeb(url)
+    end
 end
 
 --@CHECK

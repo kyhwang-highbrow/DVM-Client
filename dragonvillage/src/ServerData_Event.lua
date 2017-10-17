@@ -85,8 +85,12 @@ function ServerData_Event:getEventFullPopupList()
             -- shop type인 경우 event_id로 넣어줘야 함 
             if (event_type == 'shop') then
                 event_type = v['event_id']     
-            end
 
+            -- banner type인 경우 resource 경로까지
+            elseif (event_type == 'banner') then
+                event_type = event_type .. ';' .. v['banner'] .. ';' .. v['url']
+            end
+            
             l_priority[event_type] = tonumber(priority)
             table.insert(l_list, event_type)
         end
