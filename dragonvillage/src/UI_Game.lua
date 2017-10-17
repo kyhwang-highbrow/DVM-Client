@@ -111,20 +111,36 @@ function UI_Game:initHotTimeUI()
     vars['hotTimeExpBtn']:setVisible(false)
     vars['hotTimeMarbleBtn']:setVisible(false)
 
-    vars['hotTimeStBtn']:registerScriptTapHandler(function() g_hotTimeData:makeHotTimeToolTip('stamina_50p', vars['hotTimeStBtn']) end)
-    vars['hotTimeGoldBtn']:registerScriptTapHandler(function() g_hotTimeData:makeHotTimeToolTip('gold_2x', vars['hotTimeGoldBtn']) end)
-    vars['hotTimeExpBtn']:registerScriptTapHandler(function() g_hotTimeData:makeHotTimeToolTip('exp_2x', vars['hotTimeExpBtn']) end)
-
     local l_hottime = g_hotTimeData:getIngameHotTimeList(game_key) or {}
     local t_ui_name = {
         ['stamina_50p'] = 'hotTimeStBtn',
+        ['gold_1_5x'] = 'hotTimeGoldBtn',
         ['gold_2x'] = 'hotTimeGoldBtn',
+        ['exp_1_5x'] = 'hotTimeExpBtn',
         ['exp_2x'] = 'hotTimeExpBtn',
     }
+
+    local t_ui_label_name = {
+        ['stamina_50p'] = {'hotTimeStLabel', '1/2'},
+        ['gold_1_5x'] = {'hotTimeGoldLabel', 'x1.5'},
+        ['gold_2x'] = {'hotTimeGoldLabel', 'x2'},
+        ['exp_1_5x'] = {'hotTimeExpLabel', 'x1.5'},
+        ['exp_2x'] = {'hotTimeExpLabel', 'x2'},
+    }
+
     -- hottime key를 ui name으로 변환
     local l_item_ui = {}
     for i, hot_key in pairs(l_hottime) do
         if (t_ui_name[hot_key]) then
+
+            -- 툴팁 버튼 기능 추가
+            local btn_lua_name = t_ui_name[hot_key]
+            local btn = vars[btn_lua_name]
+            btn:registerScriptTapHandler(function() g_hotTimeData:makeHotTimeToolTip(hot_key, btn) end)
+
+            local t_label_info = t_ui_label_name[hot_key]
+            vars[t_label_info[1]]:setString(t_label_info[2])
+
             table.insert(l_item_ui, 1, t_ui_name[hot_key])
         end
     end
@@ -667,16 +683,16 @@ function UI_Game:showAutoItemPickUI()
     -- 핫타임 UI들과의 정렬
     local l_hottime = {}
 
-    if vars['hotTimeStBtn']:isVisible() then
-        table.insert(l_hottime, 'hotTimeStBtn')
+    if vars['hotTimeExpBtn']:isVisible() then
+        table.insert(l_hottime, 'hotTimeExpBtn')
     end
 
     if vars['hotTimeGoldBtn']:isVisible() then
         table.insert(l_hottime, 'hotTimeGoldBtn')
     end
 
-    if vars['hotTimeExpBtn']:isVisible() then
-        table.insert(l_hottime, 'hotTimeExpBtn')
+    if vars['hotTimeStBtn']:isVisible() then
+        table.insert(l_hottime, 'hotTimeStBtn')
     end
 
     table.insert(l_hottime, 'hotTimeMarbleBtn')
@@ -692,8 +708,8 @@ function UI_Game:arrangeItemUI(l_hottime)
         local ui = self.vars[ui_name]
 
         ui:setVisible(true)
-        local pos_y = 100 - ((i-1) * 50)
-        ui:setPositionY(pos_y)
+        local pos_x = -108 + ((i-1) * 72)
+        ui:setPositionX(pos_x)
     end
 end
 

@@ -587,11 +587,7 @@ function UI_AdventureSceneNew:refreshHotTimeInfo()
 
     local l_active_hot = {}
 
-    vars['hotTimeStBtn']:registerScriptTapHandler(function() g_hotTimeData:makeHotTimeToolTip('stamina_50p', vars['hotTimeStBtn']) end)
-    vars['hotTimeGoldBtn']:registerScriptTapHandler(function() g_hotTimeData:makeHotTimeToolTip('gold_2x', vars['hotTimeGoldBtn']) end)
-    vars['hotTimeExpBtn']:registerScriptTapHandler(function() g_hotTimeData:makeHotTimeToolTip('exp_2x', vars['hotTimeExpBtn']) end)
-
-        -- 클릭 시 툴팁 처리
+    -- 클릭 시 툴팁 처리
     local function click_btn()
         local str = '{@SKILL_NAME} ' .. Str('보너스 기능') .. '\n {@SKILL_DESC}' .. Str('아이템을 자동으로 획득')
         local tooltip = UI_Tooltip_Skill(0, 0, str)
@@ -602,35 +598,44 @@ function UI_AdventureSceneNew:refreshHotTimeInfo()
     end
     vars['hotTimeMarbleBtn']:registerScriptTapHandler(click_btn)
 
-    vars['hotTimeStBtn']:setVisible(false)
-    vars['hotTimeGoldBtn']:setVisible(false)
-    vars['hotTimeExpBtn']:setVisible(false)
     vars['hotTimeMarbleBtn']:setVisible(false)
-
-    -- 스태미나 50% 핫타임
-    if g_hotTimeData:getActiveHotTimeInfo('stamina_50p') then
-        table.insert(l_active_hot, 'hotTimeStBtn')
-    end
-
-    -- 골드 2배 핫타임
-    if g_hotTimeData:getActiveHotTimeInfo('gold_2x') then
-        table.insert(l_active_hot, 'hotTimeGoldBtn')
-    end
-
-    -- 경험치 2배 핫타임
-    if g_hotTimeData:getActiveHotTimeInfo('exp_2x') then
-        table.insert(l_active_hot, 'hotTimeExpBtn')
-    end
+    vars['hotTimeExpBtn']:setVisible(false)
+    vars['hotTimeGoldBtn']:setVisible(false)
+    vars['hotTimeStBtn']:setVisible(false)    
 
     -- 아이템 자동 줍기
     if g_autoItemPickData:isActiveAutoItemPick() then
         table.insert(l_active_hot, 'hotTimeMarbleBtn')
     end
 
+    -- 경험치 핫타임
+    local active, key, str = g_hotTimeData:getActiveHotTimeInfo_exp()
+    if active then
+        table.insert(l_active_hot, 'hotTimeExpBtn')
+        vars['hotTimeExpLabel']:setString(str)
+        vars['hotTimeExpBtn']:registerScriptTapHandler(function() g_hotTimeData:makeHotTimeToolTip(key, vars['hotTimeExpBtn']) end)
+    end
+
+    -- 골드 핫타임
+    local active, key, str = g_hotTimeData:getActiveHotTimeInfo_gold()
+    if active then
+        table.insert(l_active_hot, 'hotTimeGoldBtn')
+        vars['hotTimeGoldLabel']:setString(str)
+        vars['hotTimeGoldBtn']:registerScriptTapHandler(function() g_hotTimeData:makeHotTimeToolTip(key, vars['hotTimeGoldBtn']) end)
+    end
+
+    -- 스태미나 핫타임
+    local active, key, str = g_hotTimeData:getActiveHotTimeInfo_stamina()
+    if active then
+        table.insert(l_active_hot, 'hotTimeStBtn')
+        vars['hotTimeStLabel']:setString(str)
+        vars['hotTimeStBtn']:registerScriptTapHandler(function() g_hotTimeData:makeHotTimeToolTip(key, vars['hotTimeStBtn']) end)
+    end
+
     for i,v in ipairs(l_active_hot) do
         vars[v]:setVisible(true)
-        local y = 90 - ((i-1) * 60)
-        vars[v]:setPositionY(y)
+        local x = -108 + ((i-1) * 72)
+        vars[v]:setPositionX(x)
     end
 end
 
