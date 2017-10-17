@@ -5,6 +5,17 @@ local CONST_REDUNCTION_RATIO_P = 249
 -- @brief 물리 데미지 계산
 -------------------------------------
 function DamageCalc_P(atk_dmg, def_pwr, is_debug)
+    if (IS_NEW_BALANCE_VERSION()) then
+        return DamageCalc_P2(atk_dmg, def_pwr, is_debug)
+    else
+        return DamageCalc_P1(atk_dmg, def_pwr, is_debug)
+    end
+end
+
+-------------------------------------
+-- function DamageCalc_P1
+-------------------------------------
+function DamageCalc_P1(atk_dmg, def_pwr, is_debug)
     if (atk_dmg == 0 and def_pwr == 0) then return 0 end
 
     -- 물리 공격력
@@ -23,7 +34,7 @@ function DamageCalc_P(atk_dmg, def_pwr, is_debug)
 
     -- 모든 계수를 곱함
     local damage = rand * (atk_dmg * (reduction_ratio + def_pwr) / (reduction_ratio + (251 * def_pwr)))
-
+    
     -- @DEBUG
     local str = '\n'
     local printLine = function(_str)
@@ -42,7 +53,47 @@ function DamageCalc_P(atk_dmg, def_pwr, is_debug)
     end
 	
 	return damage, str
+end
+
+-------------------------------------
+-- function DamageCalc_P2
+-------------------------------------
+function DamageCalc_P2(atk_dmg, def_pwr, is_debug)
+    if (atk_dmg == 0 and def_pwr == 0) then return 0 end
+
+    -- 물리 공격력
+    local atk_dmg = atk_dmg
+
+    -- 랜덤 (85% ~ 115%)
+    local rand = math_random(85, 115) / 100 
+
+    -- 디버그 모드 중일 경우 랜덤 계산 막음
+    if (is_debug) then
+        rand = 1
+    end
+
+    -- 데미지 감소율
+    local reduction_ratio = def_pwr / (1200 + def_pwr)
+
+    -- 모든 계수를 곱함
+    local damage = rand * atk_dmg * (1 - reduction_ratio)
+        
+    -- @DEBUG
+    local str = '\n'
+    local printLine = function(_str)
+        str = str .. _str .. '\n'
+    end
+
+    if (is_debug) then
+        printLine('[LUA-print] ------------------------------------------------------')
+        printLine('[LUA-print] -- DamageCalc_P')
+        printLine('[LUA-print] ------------------------------------------------------')
+        printLine('[LUA-print] 방어자 데미지 감소율 = ' .. def_pwr .. ' / (1200 + ' .. def_pwr .. ') -> ' .. reduction_ratio)
+        printLine('[LUA-print] 데미지 = 랜덤배율 X 공격력 X (1 - 방어자 데미지 감소율)')
+        printLine('[LUA-print] ' .. string.format('%f = %f X %f X (1 - %f)', damage, rand, atk_dmg, reduction_ratio))
+    end
 	
+	return damage, str
 end
 
 -------------------------------------
@@ -54,17 +105,6 @@ function ReductionRatioCalc_P(atk_dmg)
 
     return reduction_ratio
 end
-
-
--------------------------------------
--- function ReductionRatioCalc_M
--- @brief 마법 데미지 감소율 계산
--------------------------------------
-function ReductionRatioCalc_M(atk_dmg)
-    local reduction_ratio = atk_dmg * CONST_REDUNCTION_RATIO_P
-    return reduction_ratio
-end
-
 
 -------------------------------------
 -- function HealCalc_M

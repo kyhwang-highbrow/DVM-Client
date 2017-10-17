@@ -1633,7 +1633,14 @@ function Character:calcAttackPeriod(calc_attack_tick)
         -- 애니메이션 속도 조절(드래곤만 처리)
         if (self.m_charType == 'dragon') then
             -- 공속 버프 비율
-            local aspd_ratio = 1 + (self:getBuffStat('aspd') / 100)
+            local aspd_ratio
+
+            if (IS_NEW_BALANCE_VERSION()) then
+                aspd_ratio = self:getStat('aspd') / 100
+            else
+                aspd_ratio = 1 + (self:getBuffStat('aspd') / 100)
+            end
+
             self.m_aspdRatio = math_max(aspd_ratio, 0.2)
 
             -- 공속 버프 비율만큼 애니메이션 속도를 보정
