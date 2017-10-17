@@ -184,7 +184,9 @@ function UI_RuneBulkSalePopup:getRuneList()
         local grade = v['grade']
         local rarity = v['rarity']
         local lv = v['lv']
+        local lock = v['lock']
         if (not with_enhanced_runes) and (1 <= lv) then
+        elseif (lock == true) then
         elseif (l_stars[grade] and l_rarity[rarity]) then
             l_ret_list[i] = v
         end
