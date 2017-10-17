@@ -1,0 +1,7 @@
+include ':market_licensing'
+project(':market_licensing').projectDir = new File(settingsDir, '../../libraries/apk_expansion/market_licensing')
+include ':downloader_library'
+project(':downloader_library').projectDir = new File(settingsDir, '../../libraries/apk_expansion/downloader_library')
+include ':libcocos2dx'
+project(':libcocos2dx').projectDir = new File(settingsDir, '../../cocos2d-x/cocos/platform/android/libcocos2dx')
+include ':app'

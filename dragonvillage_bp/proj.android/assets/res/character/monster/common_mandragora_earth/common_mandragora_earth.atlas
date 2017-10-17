@@ -1,0 +1,111 @@
+
+common_mandragora_earth.png
+size: 512,128
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+common_mandragora_earth_body_01
+  rotate: true
+  xy: 209, 36
+  size: 89, 90
+  orig: 89, 90
+  offset: 0, 0
+  index: -1
+common_mandragora_earth_body_02
+  rotate: false
+  xy: 2, 13
+  size: 89, 112
+  orig: 89, 112
+  offset: 0, 0
+  index: -1
+common_mandragora_earth_eye_01
+  rotate: false
+  xy: 168, 15
+  size: 39, 26
+  orig: 39, 26
+  offset: 0, 0
+  index: -1
+common_mandragora_earth_eye_02
+  rotate: false
+  xy: 93, 10
+  size: 73, 31
+  orig: 73, 31
+  offset: 0, 0
+  index: -1
+common_mandragora_earth_foot_01
+  rotate: false
+  xy: 354, 11
+  size: 36, 50
+  orig: 36, 50
+  offset: 0, 0
+  index: -1
+common_mandragora_earth_foot_02
+  rotate: true
+  xy: 392, 21
+  size: 36, 50
+  orig: 36, 50
+  offset: 0, 0
+  index: -1
+common_mandragora_earth_hand_01
+  rotate: true
+  xy: 486, 96
+  size: 29, 24
+  orig: 29, 24
+  offset: 0, 0
+  index: -1
+common_mandragora_earth_hand_02
+  rotate: true
+  xy: 486, 65
+  size: 29, 24
+  orig: 29, 24
+  offset: 0, 0
+  index: -1
+common_mandragora_earth_leaf_01
+  rotate: false
+  xy: 93, 43
+  size: 114, 82
+  orig: 114, 82
+  offset: 0, 0
+  index: -1
+common_mandragora_earth_leaf_02
+  rotate: false
+  xy: 400, 59
+  size: 84, 66
+  orig: 84, 66
+  offset: 0, 0
+  index: -1
+common_mandragora_earth_mouth_01
+  rotate: false
+  xy: 262, 2
+  size: 39, 26
+  orig: 39, 26
+  offset: 0, 0
+  index: -1
+common_mandragora_earth_mouth_02
+  rotate: true
+  xy: 301, 63
+  size: 62, 97
+  orig: 62, 97
+  offset: 0, 0
+  index: -1
+common_mandragora_earth_stem_01
+  rotate: true
+  xy: 444, 21
+  size: 36, 50
+  orig: 36, 50
+  offset: 0, 0
+  index: -1
+common_mandragora_earth_teeth_01
+  rotate: false
+  xy: 301, 30
+  size: 51, 31
+  orig: 51, 31
+  offset: 0, 0
+  index: -1
+common_mandragora_earth_teeth_02
+  rotate: false
+  xy: 209, 3
+  size: 51, 31
+  orig: 51, 31
+  offset: 0, 0
+  index: -1

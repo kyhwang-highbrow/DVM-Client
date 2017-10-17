@@ -1,0 +1,761 @@
+UILoader = {
+}
+
+local uiRoot = 'res/'
+
+local UILoaderFileCache = {}
+
+function getUIFile(url, check_exist)
+	if UILoaderFileCache[url] then
+		return UILoaderFileCache[url]
+	end
+
+    if check_exist then
+        if (not cc.FileUtils:getInstance():isFileExist(uiRoot .. url)) then
+            return
+        end
+    end
+
+	local content = cc.FileUtils:getInstance():getStringFromFile(uiRoot .. url)
+
+	if (not content) then
+		return nil
+	end
+
+	local data = loadstring('return ' .. content)()
+	UILoaderFileCache[url] = data
+
+	return data
+end
+
+local function setUIHeader(data)
+	local header = {}
+	if (data['type'] == 'Header') then
+		header['type'] = data['type']
+		header['version'] = data['version']
+		data = data[1]
+	else
+		header['type'] = 'Header'
+		header['version'] = '1.0.0'
+	end
+
+	return data, header
+end
+
+local function adjustLabelPropsForLowResolution(data)
+    --Label을 낮은 해상도에 대응시킨다 (font size를 조절하여)
+    --[[
+    if UIManager.displayMode ~= DisplayMode_Normal then
+        return
+    end
+
+    if data.type ~= 'CCStylishLabelTTF' and data.type ~= 'CCTextFieldTTF' then
+        return
+    end
+
+    data.width = data.width * 0.5
+    data.height = data.height * 0.5
+    data.fontSize = data.fontSize * 0.5
+    data.scaleX = data.scaleX * 2
+    data.scaleY = data.scaleY * 2
+
+    if data.hasStroke then
+        data.strokeTickness = data.strokeTickness * 0.5
+    end
+    --]]
+end
+
+local function setPropsForNode(node, data)
+    node:setPosition(data.x, data.y)
+    if not data.relative_size_type then
+        if data.is_relative_size then
+            data.relative_size_type = 3
+            data.width = -data.rel_width or 0
+            data.height = -data.rel_height or 0
+        else
+            data.relative_size_type = 0
+        end
+    end
+
+	if (data['relative_size_type'] ~= 0) then
+		node:setRelativeSizeAndType(cc.size(data.width, data.height), data.relative_size_type, false)
+	end
+	if (data['width'] ~= 0 or data['height'] ~= 0) then
+    	node:setNormalSize(data.width or 0, data.height or 0)
+	end
+    if data.anchor_point then node:setAnchorPoint(unpack(data.anchor_point)) end
+	if data.dock_point then	node:setDockPoint(cc.p(unpack(data.dock_point))) end
+	if (data['scale_x'] ~= 1) then node:setScaleX(data['scale_x']) end
+	if (data['scale_y'] ~= 1) then node:setScaleY(data['scale_y']) end
+	if (data['skew_x'] ~= 0) then node:setSkewX(data['skew_x']) end
+	if (data['skew_y'] ~= 0) then node:setSkewY(data['skew_y']) end
+	if (data['rotation'] ~= 0) then node:setRotation(data['rotation']) end
+	if (data['visible'] ~= true) then node:setVisible(data['visible']) end
+end
+
+-------------------------------------
+-- function getStencilSize
+-- @brief 부모를 계속 돌면서 realitve_size를 만듬
+-- relative size로 설정되어 있으면 width와 height가 음수로 넘어온다.
+-- 이때 부모에 붙여진 후 부모에 대비한 node의 size를 구하게 되는데
+-- clipping node의 경우에는 stencil을 미리 만들기 때문에 인위적으로 먼저 구하기 위하여
+-- clipping node의 부모를 순회하면서 합당한 relative size를 계산한다.
+-------------------------------------
+local function getStencilSize(width, height, node)
+   if (width > 0) and (height > 0) then
+       return width, height
+   end
+
+   local node_size
+
+   if (not node) then
+       node_size = cc.Director:getInstance():getVisibleSize()
+   else
+       node_size = node:getContentSize()
+   end
+
+   if (width < 0) then
+       width = (width + node_size['width'])
+   end
+
+   if (height < 0) then
+       height = (height + node_size['height'])
+   end
+
+   if (width < 0) or (height < 0) then
+       return findSize(width, height, node:getParent())
+   end
+
+   return width, height
+end
+
+local function setPropsForClippingNode(node, data, parent)
+	setPropsForNode(node, data)
+	local stencil = node:getStencil()
+	if not stencil then
+        if data.stencil_type == 1 then -- CUSTOM
+            stencil = cc.Node:create()
+            node:setStencil(stencil)
+            node:setAlphaThreshold(data.alpha_threshold)
+            local stencil_sprite = cc.Sprite:create(uiRoot .. data.stencil_img)
+            if stencil_sprite then
+                stencil_sprite:setAnchorPoint(cc.p(0,0))
+                stencil_sprite:setDockPoint(cc.p(0,0))
+                stencil:addChild(stencil_sprite)
+            end
+        else
+			if data.relative_size_type > 0 then
+				data['width'], data['height'] = getStencilSize(data['width'], data['height'], parent)
+			end
+
+		    stencil = cc.DrawNode:create()
+		    node:setStencil(stencil)
+		    stencil:clear()
+		    local rectangle = {}
+		    local white = cc.c4b(1,1,1,1)
+		    table.insert(rectangle, cc.p(0, 0))
+		    table.insert(rectangle, cc.p(data.width or 0, 0))
+		    table.insert(rectangle, cc.p(data.width or 0, data.height or 0))
+		    table.insert(rectangle, cc.p(0,data.height or 0))
+		    stencil:drawPolygon(
+				    rectangle
+				    , 4
+				    , white
+				    , 1
+				    , white
+		    )
+        end
+	end
+    node:setInverted(data.is_invert)
+end
+
+local function setPropsForRGBAProtocol(node, data)
+    if data.type == 'LabelTTF' then
+        local r,g,b = unpack(data.color)
+        local a = data.opacity
+        node:setTextColor(cc.c4b(r,g,b,a))
+    else
+        node:setColor(cc.c3b(unpack(data.color)))
+        node:setOpacity(data.opacity)
+    end
+end
+
+local function setPropsForBlendProtocol(node, data)
+    node:setBlendFunc(data.src_blend, data.dest_blend)
+end
+
+local function setPropsForLayer(node, data)
+    setPropsForNode(node, data)
+end
+
+local function setPropsForLayerColor(node, data)
+    setPropsForNode(node, data)
+    setPropsForRGBAProtocol(node, data)
+    setPropsForBlendProtocol(node, data)
+end
+
+local function setPropsForLayerGradient(node, data)
+    setPropsForLayerColor(node, data)
+    node:setStartColor(cc.c3b(unpack(data.start_color)))
+    node:setStartOpacity(data.start_opacity)
+    node:setEndColor(cc.c3b(unpack(data.end_color)))
+    node:setEndOpacity(data.end_opacity)
+    local radian = data.angle * 0.01745329252
+    node:setVector(cc.pForAngle(radian))
+end
+
+local function setPropsForScale9Sprite(node, data)
+    setPropsForNode(node, data)
+    setPropsForRGBAProtocol(node, data)
+end
+
+local function setPropsForLabel(node, data)
+    setPropsForNode(node, data)
+    setPropsForRGBAProtocol(node, data)
+
+    --TODO: 디폴트 텍스트 관련 작업이 필요
+    if data.lua_name == '' then
+        node:setString(Str(data.text))
+    end
+end
+
+local function setPropsForEditBox(node, data)
+    setPropsForNode(node, data)
+    node:setInputMode(data.input_mode)
+    node:setInputFlag(data.input_flag)
+    node:setReturnType(data.return_type)
+    node:setMaxLength(data.max_length)
+    node:setText(Str(data.text))
+    node:setFontName(data.font_name)
+    node:setFontSize(data.font_size)
+    node:setFontColor(cc.c3b(unpack(data.font_color)))
+    node:setPlaceHolder(Str(data.placeholder))
+    node:setPlaceholderFontName(data.font_name)
+    -- node:setPlaceholderFontName(data.placeholder_font_name)
+    node:setPlaceholderFontSize(data.placeholder_font_size)
+    node:setPlaceholderFontColor(cc.c3b(unpack(data.placeholder_font_color)))
+end
+
+local function setPropsForSprite(node, data)
+    node:setFlippedX(data.flip_x)
+    node:setFlippedY(data.flip_y)
+    setPropsForNode(node, data)
+    setPropsForRGBAProtocol(node, data)
+    setPropsForBlendProtocol(node, data)
+end
+
+local function setPropsForTableView(node, data)
+    setPropsForNode(node, data)
+    node:setBounceable(data.bounce)
+
+    if data.scroll == 2 then
+        node:setDirection(0)
+    else
+        node:setDirection(1)
+    end
+
+    node:setVerticalFillOrder(cc.TABLEVIEW_FILL_TOPDOWN)
+    node:setDelegate()
+end
+
+local function setPropsForButton(node, data)
+    setPropsForNode(node, data)
+    node:setEnabled(data.enable)
+    --TODO: 이 부분에, 닫기 사운드 관련된 코드를 넣자
+    --[[
+    if data.selectedFilename ~= '' then
+        -- for sampl
+        if data.var and string.match(data.var, 'close') then
+            node:setSfxForSelection(SoundMgr.sfx['btn_close']) --'sound/button_click_close.mp3')
+        else
+            node:setSfxForSelection(SoundMgr.sfx['btn_click']) --'sound/button_click_normal.mp3')
+        end
+    end
+    --]]
+end
+
+local function setPropsForRotatePlate(node, data)
+    setPropsForNode(node, data)
+end
+
+local function setPropsForProgressTimer(node, data)
+    setPropsForNode(node, data)
+    setPropsForRGBAProtocol(node, data)
+    setPropsForBlendProtocol(node:getSprite(), data)
+    if data.progress_type == 0 then
+        node:setType(0)
+    elseif data.progress_type == 1 then
+        node:setType(0)
+        node:setReverseDirection(true)
+    elseif data.progress_type == 2 then
+        node:setType(1)
+        node:setBarChangeRate(cc.p(0, 1))
+    elseif data.progress_type == 3 then
+        node:setType(1)
+        node:setBarChangeRate(cc.p(0, 1))
+    elseif data.progress_type == 4 then
+        node:setType(1)
+        node:setBarChangeRate(cc.p(1, 0))
+    elseif data.progress_type == 5 then
+        node:setType(1)
+        node:setBarChangeRate(cc.p(1, 0))
+    end
+    node:setMidpoint(cc.p(data.mid_point_x, data.mid_point_y))
+    node:setPercentage(data.percentage)
+end
+
+local function loadNode(ui, data, vars, parent, keep_z_order, use_sprite_frames)
+    if not data.loaded then
+        -- 저해상도(3GS)를 위해 Label을 강제로 ui property를 변경해준다.
+        -- adjustLabelPropsForLowResolution(data)
+        data.loaded = true
+    end
+
+    local node
+    local delegator
+    local type = data.type
+    local ui_name = data.ui_name
+    local var = data.lua_name
+        
+    if data.font_name then
+        --data.font_name = 'font/' .. Translate:getFontName()
+        --data.font_name = 'font/krlangs'
+    end
+
+    if type == 'Node' then
+        node = cc.Node:create()
+        --node = cc.Menu:create()
+        setPropsForNode(node, data)
+        --setPropsForLayer(node, data)
+    elseif type == 'Menu' then
+        node = cc.Menu:create()
+        setPropsForLayer(node, data)
+    elseif type == 'LayerColor' then
+        node = cc.LayerColor:create()
+        setPropsForLayerColor(node, data)
+    elseif type == 'LayerGradient' then
+        node = cc.LayerGradient:create()
+        setPropsForLayerGradient(node, data)
+    elseif type == 'Scale9Sprite' then
+        UILoader.checkTranslate(data)
+        local rect = cc.rect(data.center_rect_x, data.center_rect_y, data.center_rect_width, data.center_rect_height)
+        node = cc.Scale9Sprite:create(
+            rect
+            , uiRoot .. data.file_name
+        )
+        setPropsForScale9Sprite(node, data)
+    elseif type == 'LabelSystemFont' then
+        --TODO: 디폴트 폰트 셋팅 과정이 필요
+        --local font_name = data.font_name == 'Custom' and Translate.customFontName or ''
+        node = cc.Label:createWithSystemFont(
+            Str(data.text)
+            , data.font_name
+            , data.font_size
+            , cc.size(data.dimension_width, data.dimension_height)
+            , data.h_alignment
+            , data.v_alignment
+            )
+        setPropsForLabel(node, data)
+    elseif (type == 'LabelTTF') and ((ui_name == 'rich') or (ui_name == 'scroll')) then
+    --    ccdump(data)
+        local rich_label = UIC_RichLabel()
+        node = rich_label.m_node
+        setPropsForNode(node, data)
+
+        local size = node:getContentSize()
+
+        -- label의 속성들
+        rich_label:setString(data.text)
+        rich_label:setFontSize(data.font_size)
+        rich_label:setDimension(size['width'], size['height'])
+        rich_label:setAlignment(data.h_alignment, data.v_alignment)
+        
+        -- 기본 색상 지정
+        local r,g,b = unpack(data.color)
+        rich_label.m_defaultColor = cc.c3b(r,g,b)
+
+        -- STROKE
+        if data.has_stroke then
+            local r,g,b = unpack(data.stroke_color)
+            local a = data.opacity
+            rich_label:enableOutline(cc.c4b(r,g,b,a), data.stroke_tickness)
+        end
+		-- SHADOW
+		if data.has_shadow then
+			local r,g,b = unpack(data.shadow_color)
+			local a = data.shadow_opacity
+            local shadow_size = cc.size(0,0)
+            local distance = data.shadow_distance
+            if data.shadow_direction == 0 then -- 90
+                shadow_size = cc.size(0, -distance)
+            elseif data.shadow_direction == 1 then -- 45
+                shadow_size = cc.size(distance, -distance)
+            elseif data.shadow_direction == 2 then -- 135
+                shadow_size = cc.size(-distance, -distance)
+            else
+                shadow_size = cc.size(0, 0)
+            end
+            rich_label:enableShadow(cc.c4b(r,g,b,a), shadow_size, 0)
+		end
+
+        
+
+        if (ui_name == 'scroll') then
+            delegator = UIC_ScrollLabel:create(rich_label)
+            node = delegator.m_node
+        elseif (ui_name == 'rich') then
+            delegator = rich_label
+        else
+            error('ui_name : ' .. ui_name)
+        end
+
+    elseif type == 'LabelTTF' then
+        -- CustomStroke타입은 create함수에서 stroke_tickness를 0으로 넘겨야 한다.
+        local stroke_tickness = 0
+        if data.has_stroke and (data.stroke_type == 0) then
+            stroke_tickness = data.stroke_tickness
+        end
+        node = cc.Label:createWithTTF(
+            Str(data.text)
+            , uiRoot .. data.font_name
+            , data.font_size
+            , stroke_tickness
+            , cc.size(data.dimension_width, data.dimension_height)
+            , data.h_alignment
+            , data.v_alignment
+            )
+        if not node then
+            node = cc.Label:createWithSystemFont(
+                Str(data.text)
+                , uiRoot .. data.font_name
+                , data.font_size
+                , cc.size(data.dimension_width, data.dimension_height)
+                , data.h_alignment
+                , data.v_alignment
+            )
+        end
+        setPropsForLabel(node, data)
+
+        delegator = UIC_LabelTTF(node)
+
+		-- STROKE
+        if data.has_stroke then
+            node:setStrokeType(data.stroke_type or 0)
+            node:setStrokeDetailLevel(data.stroke_detail_level or 0)
+            node:setSharpTextInCustomStroke(data.is_sharp_text or true)
+            local r,g,b = unpack(data.stroke_color)
+            local a = data.opacity
+            --node:enableOutline(cc.c4b(r,g,b,a), data.stroke_tickness)
+            delegator:enableOutline(cc.c4b(r,g,b,a), data.stroke_tickness)
+        end
+		-- SHADOW
+		if data.has_shadow then
+			local r,g,b = unpack(data.shadow_color)
+			local a = data.shadow_opacity
+            local shadow_size = cc.size(0,0)
+            local distance = data.shadow_distance
+            if data.shadow_direction == 0 then -- 90
+                shadow_size = cc.size(0, -distance)
+            elseif data.shadow_direction == 1 then -- 45
+                shadow_size = cc.size(distance, -distance)
+            elseif data.shadow_direction == 2 then -- 135
+                shadow_size = cc.size(-distance, -distance)
+            else
+                shadow_size = cc.size(0, 0)
+            end
+			--node:enableShadow(cc.c4b(r,g,b,a), shadow_size, 0) -- // enableShadow(shadowColor = Color4B::BLACK, offset = Size(2,-2),int 	blurRadius = 0)
+            delegator:enableShadow(cc.c4b(r,g,b,a), shadow_size, 0) -- // enableShadow(shadowColor = Color4B::BLACK, offset = Size(2,-2),int 	blurRadius = 0)
+		end
+		-- SPACE BETWEEN LETTER
+		if data['letter_spacing'] and data['letter_spacing'] ~= 0 then
+			node:setAdditionalKerning(data['letter_spacing'])
+		end
+
+    elseif type == 'EditBox' then
+        UILoader.checkTranslate(data)
+        if (data.normal == nil) or (data.normal == '') then
+            data.normal = EMPTY_PNG
+        end
+        local normalBGFilename = uiRoot .. data.normal_bg
+        local pressedBGFilename = data.pressed_bg ~= '' and uiRoot .. data.pressed_bg or nil
+        local disabledBGFilename = data.disabled_bg ~= '' and uiRoot .. data.disabled_bg or nil
+        local normalBG = cc.Scale9Sprite:create(normalBGFilename)
+        local pressedBG = cc.Scale9Sprite:create(pressedBGFilename)
+        local disabledBG = cc.Scale9Sprite:create(disabledBGFilename)
+        node = cc.EditBox:create(cc.size(data.width, data.height), normalBG, pressedBG, disabledBG)
+        setPropsForEditBox(node, data)
+    elseif type == 'TextFieldTTF' then
+        --TODO: 추후 다시 구현할 것
+        node = cc.TextFieldTTF:textFieldWithPlaceHolder(
+            Str(data.text)
+            , cc.size(data.width, data.height)
+            , data.h_alignment
+            , data.font_name
+            , data.font_size
+            )
+        setPropsForSprite(node, data)
+    elseif type == 'Button' then
+        UILoader.checkTranslate(data)
+        if (data.normal == nil) or (data.normal == '') then
+            data.normal = 'common/empty.png'
+        end
+
+        local normalFilename = uiRoot .. data.normal
+        local selectedFilename = data.selected ~= '' and uiRoot .. data.selected or nil
+        local disableFilename = data.disable ~= '' and uiRoot .. data.disable or nil
+        node = cc.MenuItemImage:create(
+            normalFilename
+            , selectedFilename
+            , disableFilename
+            , data.image_type or 0
+            )
+        setPropsForButton(node, data)
+        delegator = UIC_Button(node)
+    elseif type == 'TableView' then
+        -- 2017-07-10 sgkim TableView대신 UIC_TableView로 전환함
+		cclog('2017-07-10 sgkim TableView대신 UIC_TableView로 전환함')
+    elseif type == 'Sprite' then
+        UILoader.checkTranslate(data)
+        local res = uiRoot .. data.file_name
+
+        if use_sprite_frames then
+            -- 확장자를 포함한 파일명만 얻어옴
+            local file_name = res:match('([^/]+)$')
+
+            -- SpriteFrames를 통해 Sprite를 생성
+            node = cc.Sprite:createWithSpriteFrameName(file_name)
+        else
+            node = cc.Sprite:create(res)
+        end
+
+        if (not node) then
+            error(string.format('"%s"(이)가 없습니다.', res))
+        end
+        setPropsForSprite(node, data)
+    elseif type == 'ProgressTimer' then
+        UILoader.checkTranslate(data)
+        local spr = cc.Sprite:create(uiRoot .. data.file_name)
+        spr:setFlippedX(data.flip_x)
+        spr:setFlippedY(data.flip_y)
+        node = cc.ProgressTimer:create(spr)
+        setPropsForProgressTimer(node, data)
+    elseif type == 'ClippingNode' then
+        node = cc.ClippingNode:create()
+        setPropsForClippingNode(node, data, parent)
+        delegator = UIC_ClippingNode(node)
+    elseif type == 'Visual' then
+        local res_name = string.sub(data.file_name, 1, string.len(data.file_name) - 4)
+
+        -- loadPlistFiles함수에서 자동으로 load되기때문에 주석처리 sgkim 2017-06-08
+        --local plist_name = res_name .. '.plist' --string.gsub (data.file_name, ".a2d", ".plist")
+        --cc.SpriteFrameCache:getInstance():addSpriteFrames(uiRoot .. plist_name)
+
+        -- 번역 이미지 체크
+        UILoader.checkTranslate_a2d(data)
+
+        -- vrp로 생성을 시도하고 없다면 a2d로 생성한다.
+        local vrp_name = res_name .. '.vrp'--string.gsub (data.file_name, ".a2d", ".vrp")
+        node = cc.AzVRP:create(uiRoot .. vrp_name)
+        if not node then
+            node = cc.AzVisual:create(uiRoot .. data.file_name)
+        end
+        node:loadPlistFiles('')
+        node:buildSprite('')
+
+        local idx = string.find(data.visual_id, ';')
+        if idx then
+            local visual_group_name = string.sub(data.visual_id, 0, idx - 1)
+            local visual_name = string.sub(data.visual_id, idx + 1)
+            node:setVisual(visual_group_name, visual_name)
+        end
+        node:setRepeat(data.is_repeat)
+        setPropsForNode(node, data)
+        setPropsForRGBAProtocol(node, data)
+
+        -- vrp의 대리자를 AnimatorVrp로 생성
+        local animator = AnimatorVrp(nil)
+        animator.m_node = node
+        delegator = animator
+
+    elseif type == 'SocketNode' then
+        -- 소켓노드를 포함하는 Visual부모노드가 항상 존재한다고 가정
+        if not parent then
+            cclog('[UILoader] invalid SocketNode:' .. luadump(var))
+        else
+            node = parent:getSocketNode(data.socket_name)
+        end
+    elseif type == 'Particle' then
+        node = cc.ParticleSystemQuad:create(uiRoot .. data.file_name)
+        if not parent then
+            setPropsForNode(node, data)
+        end
+    elseif type == 'RotatePlate' then
+        node = cc.RotatePlate:create(data.radius_x, data.radius_y, data.min_scale, data.max_scale, data.origin_dir)
+        setPropsForRotatePlate(node, data)
+    else
+        cclog('[UILoader] invalidnode:' .. luadump(var))
+    end
+
+    -- Action
+    if data.action_type and data.action_type ~= 0 then
+        ui:addAction(node, data.action_type, data.action_delay_1 + data.action_delay_2, data.action_duration)
+    end
+
+    for z_order,v in ipairs(data) do
+        local child = loadNode(ui, v, vars, node, keep_z_order, use_sprite_frames)
+
+        -- 소켓노드를 위한 예외처리...
+        if child and v.type ~= 'SocketNode' then
+            if keep_z_order then
+                node:addChild(child, z_order)
+            else
+                node:addChild(child)
+            end
+        end
+    end
+
+    if var and var ~= '' then
+        if vars[var] ~= nil then
+            cclog('duplicate var name: ' .. var)
+        end
+
+        if delegator then
+            vars[var] = delegator
+        else
+            vars[var] = node
+        end
+    end
+
+    return node
+end
+
+-------------------------------------
+-- function checkTranslate_a2d
+-- @brief a2d 번역
+-------------------------------------
+function UILoader.checkTranslate_a2d(data)
+    if data.file_name == 'a2d/ui_title_logo/ui_title_logo.a2d' or
+        data.file_name == 'a2d/ui_auto_button/ui_auto_button.a2d' or
+        data.file_name == 'a2d/ui_arena_fx/ui_arena_fx.a2d' or
+        data.file_name == 'a2d/ui_common_result/ui_common_result.a2d' or
+        data.file_name == 'a2d/ui_common_result_gacha/ui_common_result_gacha.a2d' or
+        data.file_name == 'a2d/ui_popup_challenge_popup_fx/ui_popup_challenge_popup_fx.a2d' or
+        data.file_name == 'a2d/ui_raid_appear/ui_raid_appear.a2d'
+        then
+
+
+        Translate:a2dTranslate(uiRoot .. data.file_name)
+    end
+end
+
+-------------------------------------
+-- function checkTranslate
+-- @brief png 번역
+-------------------------------------
+function UILoader.checkTranslate(data)
+    -- png를 사용하는 UI객체
+    -- Sprite
+    -- Scale9Sprite
+    -- Button
+    -- EditBox
+    -- ProgressTimer
+
+    -- 설정된 언어가 없거나, keyLang과 같을 경우 skip
+    if (not Translate.gameLang) or (Translate.gameLang == Translate.keyLang) then
+        return
+    end
+
+    -- png를 사용하는 data를 확인
+    data.file_name      = UILoader.checkTranslateUnit(data.file_name)
+    data.normal_bg      = UILoader.checkTranslateUnit(data.normal_bg)
+    data.pressed_bg     = UILoader.checkTranslateUnit(data.pressed_bg)
+    data.selected       = UILoader.checkTranslateUnit(data.selected)
+    data.disabled_bg    = UILoader.checkTranslateUnit(data.disabled_bg)
+    data.normal         = UILoader.checkTranslateUnit(data.normal)
+end
+
+function UILoader.checkTranslateUnit(str)
+    if Translate.gameLang == 'kr' then
+        return str
+    end
+
+    if not str then
+        return str
+    end
+
+    if str == '' then
+        return str
+    end
+
+    -- typo경로의 파일인지 확인
+    local sub_str = string.sub(str, 1, 14)
+    if (sub_str ~= 'ui/typo/kr') then
+        return str
+    end
+
+    -- TODO 실제 번역작업을 할때에는 에러를 발생시킬 것!
+    -- "typo"폴더를 언어별 "typo_해당언어"폴더로 경로 변경
+    local game_lang = Translate.gameLang
+    local translate_str = string.gsub(str, 'ui/typo/kr', 'ui/typo/' .. game_lang, 1)
+    if (not cc.FileUtils:getInstance():isFileExist(uiRoot .. translate_str)) then
+        return str
+    end
+
+    return translate_str
+end
+
+function UILoader.load(ui, url, keep_z_order, use_sprite_frames)
+	if (not CHECK_UI_LOAD_TIME) then
+		local data = getUIFile(url)
+		data = setUIHeader(data)
+
+		local vars = {}
+		local root = loadNode(ui, data, vars, nil, keep_z_order, use_sprite_frames)
+
+		return root, vars
+	end
+
+	local stopwatch = Stopwatch()
+	stopwatch:start()
+
+	local data = getUIFile(url)
+
+	--record
+	stopwatch:record('UI File load')
+
+	data = setUIHeader(data)
+
+	local vars = {}
+	local root = loadNode(ui, data, vars, nil, keep_z_order, use_sprite_frames)
+
+	-- record
+	stopwatch:record('UI Node load')
+	stopwatch:stop()
+	stopwatch:print()
+
+	return root, vars
+end
+
+function UILoader.setPermanent(url)
+    if UILoaderFileCache[url] then
+		UILoaderFileCache[url]['permanent'] = true
+	end
+end
+
+function UILoader.cache(url)
+    if not UILoaderFileCache[url] then
+        local content = cc.FileUtils:getInstance():getStringFromFile(uiRoot .. url)
+        data = loadstring('return ' .. content)()
+        UILoaderFileCache[url] = data
+    end
+end
+
+function UILoader.clearCache()
+	for url, ui in pairs(UILoaderFileCache) do
+		if ui['permanent'] == true then
+			-- NOTHING TO DO
+		else
+			UILoaderFileCache[url] = nil
+		end
+	end
+end

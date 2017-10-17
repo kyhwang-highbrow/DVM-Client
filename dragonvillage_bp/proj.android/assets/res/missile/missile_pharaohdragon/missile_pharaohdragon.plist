@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple Computer//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+    <dict>
+        <key>frames</key>
+        <dict>
+            <key>missile_pharaohdragon_01.png</key>
+            <dict>
+                <key>frame</key>
+                <string>{{2,2},{192,186}}</string>
+                <key>offset</key>
+                <string>{0,0}</string>
+                <key>rotated</key>
+                <false/>
+                <key>sourceColorRect</key>
+                <string>{{0,0},{192,186}}</string>
+                <key>sourceSize</key>
+                <string>{192,186}</string>
+            </dict>
+        </dict>
+        <key>metadata</key>
+        <dict>
+            <key>format</key>
+            <integer>2</integer>
+            <key>realTextureFileName</key>
+            <string>missile_pharaohdragon.png</string>
+            <key>size</key>
+            <string>{256,256}</string>
+            <key>smartupdate</key>
+            <string>$TexturePacker:SmartUpdate:f75953d32f3f3d08a725a5d0b0f4e8a8$</string>
+            <key>textureFileName</key>
+            <string>missile_pharaohdragon.png</string>
+        </dict>
+    </dict>
+</plist>

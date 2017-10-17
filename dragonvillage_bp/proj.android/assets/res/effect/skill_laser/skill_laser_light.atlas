@@ -1,0 +1,48 @@
+
+skill_laser_light.png
+size: 256,256
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+skill_laser_light_01
+  rotate: false
+  xy: 111, 191
+  size: 114, 49
+  orig: 114, 49
+  offset: 0, 0
+  index: -1
+skill_laser_light_05
+  rotate: false
+  xy: 2, 2
+  size: 38, 72
+  orig: 38, 72
+  offset: 0, 0
+  index: -1
+skill_laser_light_06
+  rotate: false
+  xy: 2, 76
+  size: 91, 79
+  orig: 91, 79
+  offset: 0, 0
+  index: -1
+skill_laser_light_07
+  rotate: false
+  xy: 2, 157
+  size: 107, 83
+  orig: 107, 83
+  offset: 0, 0
+  index: -1
+skill_laser_light_08
+  rotate: false
+  xy: 42, 31
+  size: 43, 43
+  orig: 43, 43
+  offset: 0, 0
+  index: -1
+skill_laser_light_09
+  rotate: false
+  xy: 111, 146
+  size: 43, 43
+  orig: 43, 43
+  offset: 0, 0
+  index: -1

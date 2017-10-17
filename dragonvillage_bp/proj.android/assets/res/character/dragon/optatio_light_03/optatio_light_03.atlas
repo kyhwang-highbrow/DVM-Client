@@ -1,0 +1,272 @@
+
+optatio_light_03.png
+size: 2048,512
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+optatio_light_03_arm_01
+  rotate: true
+  xy: 768, 235
+  size: 107, 85
+  orig: 107, 85
+  offset: 0, 0
+  index: -1
+optatio_light_03_body_01
+  rotate: false
+  xy: 1206, 367
+  size: 178, 143
+  orig: 178, 143
+  offset: 0, 0
+  index: -1
+optatio_light_03_calf_01
+  rotate: false
+  xy: 542, 216
+  size: 59, 62
+  orig: 59, 62
+  offset: 0, 0
+  index: -1
+optatio_light_03_effect_01
+  rotate: false
+  xy: 373, 280
+  size: 228, 230
+  orig: 228, 230
+  offset: 0, 0
+  index: -1
+optatio_light_03_effect_01_003
+  rotate: false
+  xy: 1903, 388
+  size: 138, 122
+  orig: 138, 122
+  offset: 0, 0
+  index: -1
+optatio_light_03_effect_02
+  rotate: false
+  xy: 409, 8
+  size: 56, 48
+  orig: 56, 48
+  offset: 0, 0
+  index: -1
+optatio_light_03_effect_04_001
+  rotate: false
+  xy: 573, 97
+  size: 100, 100
+  orig: 100, 100
+  offset: 0, 0
+  index: -1
+optatio_light_03_effect_04_002
+  rotate: false
+  xy: 675, 97
+  size: 100, 100
+  orig: 100, 100
+  offset: 0, 0
+  index: -1
+optatio_light_03_effect_04_003
+  rotate: false
+  xy: 777, 133
+  size: 100, 100
+  orig: 100, 100
+  offset: 0, 0
+  index: -1
+optatio_light_03_effect_04_004
+  rotate: false
+  xy: 1535, 338
+  size: 14, 15
+  orig: 14, 15
+  offset: 0, 0
+  index: -1
+optatio_light_03_effect_04_005
+  rotate: false
+  xy: 879, 133
+  size: 100, 100
+  orig: 100, 100
+  offset: 0, 0
+  index: -1
+optatio_light_03_effect_04_007
+  rotate: false
+  xy: 981, 129
+  size: 100, 100
+  orig: 100, 100
+  offset: 0, 0
+  index: -1
+optatio_light_03_effect_05_002
+  rotate: false
+  xy: 603, 239
+  size: 163, 103
+  orig: 163, 103
+  offset: 0, 0
+  index: -1
+optatio_light_03_effect_05_003
+  rotate: true
+  xy: 330, 58
+  size: 121, 155
+  orig: 121, 155
+  offset: 0, 0
+  index: -1
+optatio_light_03_effect_05_004
+  rotate: true
+  xy: 1729, 399
+  size: 111, 172
+  orig: 111, 172
+  offset: 0, 0
+  index: -1
+optatio_light_03_effect_05_005
+  rotate: true
+  xy: 1551, 385
+  size: 125, 176
+  orig: 125, 176
+  offset: 0, 0
+  index: -1
+optatio_light_03_effect_05_006
+  rotate: true
+  xy: 1655, 223
+  size: 75, 57
+  orig: 75, 57
+  offset: 0, 0
+  index: -1
+optatio_light_03_elbow_01
+  rotate: false
+  xy: 1035, 343
+  size: 169, 167
+  orig: 169, 167
+  offset: 0, 0
+  index: -1
+optatio_light_03_elbow_02
+  rotate: true
+  xy: 1112, 231
+  size: 110, 101
+  orig: 110, 101
+  offset: 0, 0
+  index: -1
+optatio_light_03_foot_01
+  rotate: true
+  xy: 665, 24
+  size: 71, 88
+  orig: 71, 88
+  offset: 0, 0
+  index: -1
+optatio_light_03_hand_01
+  rotate: true
+  xy: 603, 344
+  size: 166, 241
+  orig: 166, 241
+  offset: 0, 0
+  index: -1
+optatio_light_03_hand_02
+  rotate: false
+  xy: 992, 231
+  size: 118, 110
+  orig: 118, 110
+  offset: 0, 0
+  index: -1
+optatio_light_03_hand_03
+  rotate: false
+  xy: 846, 353
+  size: 187, 157
+  orig: 187, 157
+  offset: 0, 0
+  index: -1
+optatio_light_03_head_01
+  rotate: true
+  xy: 1386, 355
+  size: 155, 163
+  orig: 155, 163
+  offset: 0, 0
+  index: -1
+optatio_light_03_leg_01
+  rotate: true
+  xy: 1337, 268
+  size: 85, 115
+  orig: 85, 115
+  offset: 0, 0
+  index: -1
+optatio_light_03_lowerbody_01
+  rotate: false
+  xy: 1083, 161
+  size: 97, 68
+  orig: 97, 68
+  offset: 0, 0
+  index: -1
+optatio_light_03_lowerbody_02
+  rotate: false
+  xy: 1551, 300
+  size: 152, 83
+  orig: 152, 83
+  offset: 0, 0
+  index: -1
+optatio_light_03_neck_01
+  rotate: false
+  xy: 1215, 262
+  size: 120, 103
+  orig: 120, 103
+  offset: 0, 0
+  index: -1
+optatio_light_03_shoulder_01
+  rotate: true
+  xy: 855, 235
+  size: 116, 135
+  orig: 116, 135
+  offset: 0, 0
+  index: -1
+optatio_light_03_tail_01
+  rotate: true
+  xy: 487, 45
+  size: 134, 84
+  orig: 134, 84
+  offset: 0, 0
+  index: -1
+optatio_light_03_tail_02
+  rotate: true
+  xy: 330, 2
+  size: 54, 77
+  orig: 54, 77
+  offset: 0, 0
+  index: -1
+optatio_light_03_tail_03
+  rotate: true
+  xy: 573, 27
+  size: 68, 90
+  orig: 68, 90
+  offset: 0, 0
+  index: -1
+optatio_light_03_thigh_01
+  rotate: true
+  xy: 1454, 247
+  size: 106, 79
+  orig: 106, 79
+  offset: 0, 0
+  index: -1
+optatio_light_03_wing_01
+  rotate: true
+  xy: 1535, 219
+  size: 79, 118
+  orig: 79, 118
+  offset: 0, 0
+  index: -1
+optatio_light_03_wing_02
+  rotate: true
+  xy: 603, 199
+  size: 38, 128
+  orig: 38, 128
+  offset: 0, 0
+  index: -1
+optatio_light_03_wing_03
+  rotate: true
+  xy: 373, 181
+  size: 97, 167
+  orig: 97, 167
+  offset: 0, 0
+  index: -1
+optatio_light_03_wing_04
+  rotate: false
+  xy: 2, 204
+  size: 369, 306
+  orig: 369, 306
+  offset: 0, 0
+  index: -1
+optatio_light_03_wing_05
+  rotate: false
+  xy: 2, 41
+  size: 326, 161
+  orig: 326, 161
+  offset: 0, 0
+  index: -1

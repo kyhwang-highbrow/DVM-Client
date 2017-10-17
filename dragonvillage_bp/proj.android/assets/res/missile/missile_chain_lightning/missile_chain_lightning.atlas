@@ -1,0 +1,69 @@
+
+missile_chain_lightning.png
+size: 4096,512
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+missile_chain_lightning_01
+  rotate: true
+  xy: 2, 2
+  size: 296, 307
+  orig: 296, 307
+  offset: 0, 0
+  index: -1
+missile_chain_lightning_02
+  rotate: true
+  xy: 2656, 343
+  size: 159, 170
+  orig: 159, 170
+  offset: 0, 0
+  index: -1
+missile_chain_lightning_03
+  rotate: true
+  xy: 311, 2
+  size: 296, 307
+  orig: 296, 307
+  offset: 0, 0
+  index: -1
+missile_chain_lightning_04
+  rotate: false
+  xy: 1158, 68
+  size: 173, 230
+  orig: 173, 230
+  offset: 0, 0
+  index: -1
+missile_chain_lightning_05
+  rotate: false
+  xy: 620, 48
+  size: 267, 250
+  orig: 267, 250
+  offset: 0, 0
+  index: -1
+missile_chain_lightning_06
+  rotate: false
+  xy: 889, 48
+  size: 267, 250
+  orig: 267, 250
+  offset: 0, 0
+  index: -1
+missile_chain_lightning_07
+  rotate: true
+  xy: 2, 402
+  size: 100, 1325
+  orig: 100, 1325
+  offset: 0, 0
+  index: -1
+missile_chain_lightning_08
+  rotate: true
+  xy: 2, 300
+  size: 100, 1325
+  orig: 100, 1325
+  offset: 0, 0
+  index: -1
+missile_chain_lightning_09
+  rotate: true
+  xy: 1329, 402
+  size: 100, 1325
+  orig: 100, 1325
+  offset: 0, 0
+  index: -1

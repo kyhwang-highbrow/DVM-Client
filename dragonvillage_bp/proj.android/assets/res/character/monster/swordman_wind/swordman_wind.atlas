@@ -1,0 +1,104 @@
+
+swordman_wind.png
+size: 512,128
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+swordman_wind_arm_01
+  rotate: true
+  xy: 349, 100
+  size: 26, 34
+  orig: 26, 34
+  offset: 0, 0
+  index: -1
+swordman_wind_arm_02
+  rotate: false
+  xy: 117, 28
+  size: 32, 35
+  orig: 32, 35
+  offset: 0, 0
+  index: -1
+swordman_wind_body_01
+  rotate: true
+  xy: 113, 65
+  size: 61, 99
+  orig: 61, 99
+  offset: 0, 0
+  index: -1
+swordman_wind_body_02
+  rotate: false
+  xy: 256, 97
+  size: 39, 29
+  orig: 39, 29
+  offset: 0, 0
+  index: -1
+swordman_wind_body_03
+  rotate: false
+  xy: 214, 84
+  size: 40, 42
+  orig: 40, 42
+  offset: 0, 0
+  index: -1
+swordman_wind_effect_01
+  rotate: false
+  xy: 57, 15
+  size: 29, 42
+  orig: 29, 42
+  offset: 0, 0
+  index: -1
+swordman_wind_effect_02
+  rotate: false
+  xy: 297, 109
+  size: 50, 17
+  orig: 50, 17
+  offset: 0, 0
+  index: -1
+swordman_wind_effect_03
+  rotate: true
+  xy: 88, 2
+  size: 17, 35
+  orig: 17, 35
+  offset: 0, 0
+  index: -1
+swordman_wind_hand_01
+  rotate: false
+  xy: 385, 98
+  size: 30, 28
+  orig: 30, 28
+  offset: 0, 0
+  index: -1
+swordman_wind_hand_02
+  rotate: false
+  xy: 185, 28
+  size: 29, 35
+  orig: 29, 35
+  offset: 0, 0
+  index: -1
+swordman_wind_head_01
+  rotate: false
+  xy: 2, 12
+  size: 53, 45
+  orig: 53, 45
+  offset: 0, 0
+  index: -1
+swordman_wind_head_02
+  rotate: true
+  xy: 88, 21
+  size: 36, 27
+  orig: 36, 27
+  offset: 0, 0
+  index: -1
+swordman_wind_shoulder_01
+  rotate: false
+  xy: 151, 28
+  size: 32, 35
+  orig: 32, 35
+  offset: 0, 0
+  index: -1
+swordman_wind_weapon_01
+  rotate: false
+  xy: 2, 59
+  size: 109, 67
+  orig: 109, 67
+  offset: 0, 0
+  index: -1

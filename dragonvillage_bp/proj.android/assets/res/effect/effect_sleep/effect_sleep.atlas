@@ -1,0 +1,20 @@
+
+effect_sleep.png
+size: 128,64
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+effect_sleep_01
+  rotate: false
+  xy: 49, 18
+  size: 30, 29
+  orig: 30, 29
+  offset: 0, 0
+  index: -1
+effect_sleep_02
+  rotate: false
+  xy: 2, 2
+  size: 45, 45
+  orig: 45, 45
+  offset: 0, 0
+  index: -1

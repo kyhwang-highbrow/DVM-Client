@@ -1,0 +1,118 @@
+
+archer_wind.png
+size: 512,128
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+archer_wind_arm_01
+  rotate: true
+  xy: 415, 54
+  size: 26, 34
+  orig: 26, 34
+  offset: 0, 0
+  index: -1
+archer_wind_arm_02
+  rotate: true
+  xy: 419, 82
+  size: 32, 35
+  orig: 32, 35
+  offset: 0, 0
+  index: -1
+archer_wind_body_01
+  rotate: true
+  xy: 2, 2
+  size: 61, 99
+  orig: 61, 99
+  offset: 0, 0
+  index: -1
+archer_wind_body_02
+  rotate: false
+  xy: 377, 85
+  size: 40, 29
+  orig: 40, 29
+  offset: 0, 0
+  index: -1
+archer_wind_body_03
+  rotate: false
+  xy: 335, 72
+  size: 40, 42
+  orig: 40, 42
+  offset: 0, 0
+  index: -1
+archer_wind_body_04
+  rotate: true
+  xy: 213, 70
+  size: 44, 60
+  orig: 44, 60
+  offset: 0, 0
+  index: -1
+archer_wind_effect_01
+  rotate: false
+  xy: 127, 66
+  size: 74, 19
+  orig: 74, 19
+  offset: 0, 0
+  index: -1
+archer_wind_effect_02
+  rotate: true
+  xy: 103, 13
+  size: 50, 17
+  orig: 50, 17
+  offset: 0, 0
+  index: -1
+archer_wind_effect_03
+  rotate: false
+  xy: 493, 79
+  size: 17, 35
+  orig: 17, 35
+  offset: 0, 0
+  index: -1
+archer_wind_hand_01
+  rotate: false
+  xy: 369, 35
+  size: 30, 28
+  orig: 30, 28
+  offset: 0, 0
+  index: -1
+archer_wind_hand_02
+  rotate: true
+  xy: 456, 85
+  size: 29, 35
+  orig: 29, 35
+  offset: 0, 0
+  index: -1
+archer_wind_head_01
+  rotate: false
+  xy: 275, 61
+  size: 58, 53
+  orig: 58, 53
+  offset: 0, 0
+  index: -1
+archer_wind_head_02
+  rotate: false
+  xy: 377, 65
+  size: 36, 18
+  orig: 36, 18
+  offset: 0, 0
+  index: -1
+archer_wind_shoulder_01
+  rotate: false
+  xy: 335, 38
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: -1
+archer_wind_wepon_01
+  rotate: false
+  xy: 2, 65
+  size: 123, 49
+  orig: 123, 49
+  offset: 0, 0
+  index: -1
+archer_wind_wepon_02
+  rotate: false
+  xy: 127, 87
+  size: 84, 27
+  orig: 84, 27
+  offset: 0, 0
+  index: -1

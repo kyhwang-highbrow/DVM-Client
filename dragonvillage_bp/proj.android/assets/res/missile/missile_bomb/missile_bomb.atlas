@@ -1,0 +1,34 @@
+
+missile_bomb.png
+size: 256,128
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+missile_bomb_01
+  rotate: false
+  xy: 2, 2
+  size: 76, 104
+  orig: 76, 104
+  offset: 0, 0
+  index: -1
+missile_bomb_02
+  rotate: false
+  xy: 80, 51
+  size: 51, 55
+  orig: 51, 55
+  offset: 0, 0
+  index: -1
+missile_bomb_03
+  rotate: true
+  xy: 80, 8
+  size: 41, 48
+  orig: 41, 48
+  offset: 0, 0
+  index: -1
+missile_bomb_04
+  rotate: false
+  xy: 133, 63
+  size: 40, 43
+  orig: 40, 43
+  offset: 0, 0
+  index: -1

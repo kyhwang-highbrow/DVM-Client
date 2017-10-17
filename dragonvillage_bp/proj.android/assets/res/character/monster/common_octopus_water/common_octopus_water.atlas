@@ -1,0 +1,27 @@
+
+common_octopus_water.png
+size: 512,512
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+common_octopus_water_body_01
+  rotate: false
+  xy: 2, 92
+  size: 212, 212
+  orig: 212, 212
+  offset: 0, 0
+  index: -1
+common_octopus_water_body_02
+  rotate: false
+  xy: 2, 22
+  size: 88, 68
+  orig: 88, 68
+  offset: 0, 0
+  index: -1
+common_octopus_water_body_03
+  rotate: false
+  xy: 216, 236
+  size: 88, 68
+  orig: 88, 68
+  offset: 0, 0
+  index: -1

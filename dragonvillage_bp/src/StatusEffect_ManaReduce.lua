@@ -1,0 +1,61 @@
+local PARENT = StatusEffect
+
+-------------------------------------
+-- class StatusEffect_ManaReduce
+-------------------------------------
+StatusEffect_ManaReduce = class(PARENT, {
+    m_reduceValue = 'number',
+    m_isInCondition = 'boolean',
+})
+
+-------------------------------------
+-- function init
+-- @param file_name
+-- @param body
+-------------------------------------
+function StatusEffect_ManaReduce:init(file_name, body)
+    self.m_isInCondition = false
+end
+
+-------------------------------------
+-- function init_status
+-------------------------------------
+function StatusEffect_ManaReduce:init_status(reduceValue)
+    self.m_reduceValue = reduceValue 
+end
+
+-------------------------------------
+-- function onStart
+-------------------------------------
+function StatusEffect_ManaReduce:onStart()
+    -- 중첩된 유닛이 없는 경우에 해당 드래곤의 마나를 reduceValue(add_option_value_1)만큼 감소시킨다.
+    if (self.m_owner.m_charType == 'dragon' and type(self.m_owner:getSkillIndivisualInfo('active')) == 'table') then
+        self.m_isInCondition = true
+
+        local originValue = self.m_owner:getOriginSkillManaCost()
+
+        local new_mana_cost = originValue - self.m_reduceValue
+        new_mana_cost = math_max(new_mana_cost, 1)
+        
+        self.m_owner:setSkillManaCost(new_mana_cost)
+                
+        local t_event = {}
+        t_event['value'] = new_mana_cost
+        self.m_owner:dispatch('dragon_mana_reduce', t_event)
+    end
+end
+
+-------------------------------------
+-- function onEnd
+-------------------------------------
+function StatusEffect_ManaReduce:onEnd()
+    if (self.m_isInCondition) then
+        local originValue = self.m_owner:getOriginSkillManaCost()
+
+        self.m_owner:setSkillManaCost(originValue)
+
+        local t_event = {}
+        t_event['value'] = originValue
+        self.m_owner:dispatch('dragon_mana_reduce_finish', t_event)
+    end
+end

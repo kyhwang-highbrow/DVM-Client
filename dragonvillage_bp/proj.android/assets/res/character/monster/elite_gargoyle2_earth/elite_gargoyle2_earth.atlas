@@ -1,0 +1,83 @@
+
+elite_gargoyle2_earth.png
+size: 512,256
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+elite_gargoyle2_earth_arm_01
+  rotate: true
+  xy: 167, 7
+  size: 73, 114
+  orig: 73, 114
+  offset: 0, 0
+  index: -1
+elite_gargoyle2_earth_arm_02
+  rotate: false
+  xy: 283, 13
+  size: 64, 73
+  orig: 64, 73
+  offset: 0, 0
+  index: -1
+elite_gargoyle2_earth_arm_03
+  rotate: true
+  xy: 0, 1
+  size: 62, 165
+  orig: 62, 165
+  offset: 0, 0
+  index: -1
+elite_gargoyle2_earth_body_01
+  rotate: false
+  xy: 135, 82
+  size: 120, 154
+  orig: 120, 154
+  offset: 0, 0
+  index: -1
+elite_gargoyle2_earth_head_01
+  rotate: false
+  xy: 353, 115
+  size: 101, 121
+  orig: 101, 121
+  offset: 0, 0
+  index: -1
+elite_gargoyle2_earth_head_02
+  rotate: false
+  xy: 349, 0
+  size: 45, 44
+  orig: 45, 44
+  offset: 0, 0
+  index: -1
+elite_gargoyle2_earth_leg_01
+  rotate: false
+  xy: 456, 118
+  size: 44, 118
+  orig: 44, 118
+  offset: 0, 0
+  index: -1
+elite_gargoyle2_earth_leg_02
+  rotate: false
+  xy: 459, 41
+  size: 48, 75
+  orig: 48, 75
+  offset: 0, 0
+  index: -1
+elite_gargoyle2_earth_tail_01
+  rotate: true
+  xy: 353, 46
+  size: 67, 104
+  orig: 67, 104
+  offset: 0, 0
+  index: -1
+elite_gargoyle2_earth_wing_01
+  rotate: false
+  xy: 0, 65
+  size: 133, 171
+  orig: 133, 171
+  offset: 0, 0
+  index: -1
+elite_gargoyle2_earth_wing_02
+  rotate: false
+  xy: 257, 88
+  size: 94, 148
+  orig: 94, 148
+  offset: 0, 0
+  index: -1

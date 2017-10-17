@@ -1,0 +1,85 @@
+ECLIPSE ANDROID PROJECT IMPORT SUMMARY
+======================================
+
+Manifest Merging:
+-----------------
+Your project uses libraries that provide manifests, and your Eclipse
+project did not explicitly turn on manifest merging. In Android Gradle
+projects, manifests are always merged (meaning that contents from your
+libraries' manifests will be merged into the app manifest. If you had
+manually copied contents from library manifests into your app manifest
+you may need to remove these for the app to build correctly.
+
+Ignored Files:
+--------------
+The following files were *not* copied into the new Gradle project; you
+should evaluate whether these are still needed in your project and if
+so manually move them:
+
+From DragonVillageM:
+* ant.properties
+* build-cfg.json
+* build.xml
+* build_guid.txt
+* build_run.py
+* google-services.json
+* proguard-project.txt
+From downloader_library:
+* build.xml
+From libcocos2dx:
+* .d
+* ant.properties
+* build.xml
+* proguard-project.txt
+From market_licensing:
+* build.xml
+
+Moved Files:
+------------
+Android Gradle projects use a different directory structure than ADT
+Eclipse projects. Here's how the projects were restructured:
+
+In downloader_library:
+* AndroidManifest.xml => downloader_library\src\main\AndroidManifest.xml
+* assets\ => downloader_library\src\main\assets
+* res\ => downloader_library\src\main\res\
+* src\ => downloader_library\src\main\java\
+In libcocos2dx:
+* AndroidManifest.xml => libcocos2dx\src\main\AndroidManifest.xml
+* libs\android-async-http-1.4.9.jar => libcocos2dx\libs\android-async-http-1.4.9.jar
+* libs\com.android.vending.expansion.zipfile.jar => libcocos2dx\libs\com.android.vending.expansion.zipfile.jar
+* libs\httpclient-4.4.1.1.jar => libcocos2dx\libs\httpclient-4.4.1.1.jar
+* libs\support-annotations-25.3.1.jar => libcocos2dx\libs\support-annotations-25.3.1.jar
+* libs\support-compat-25.3.1.jar => libcocos2dx\libs\support-compat-25.3.1.jar
+* libs\support-core-utils-25.3.1.jar => libcocos2dx\libs\support-core-utils-25.3.1.jar
+* libs\support-fragment-25.3.1.jar => libcocos2dx\libs\support-fragment-25.3.1.jar
+* res\ => libcocos2dx\src\main\res
+* src\ => libcocos2dx\src\main\java\
+* src\com\enhance\gameservice\IGameTuningService.aidl => libcocos2dx\src\main\aidl\com\enhance\gameservice\IGameTuningService.aidl
+In market_licensing:
+* AndroidManifest.xml => market_licensing\src\main\AndroidManifest.xml
+* assets\ => market_licensing\src\main\assets
+* res\ => market_licensing\src\main\res
+* src\ => market_licensing\src\main\java\
+* src\com\android\vending\licensing\ILicenseResultListener.aidl => market_licensing\src\main\aidl\com\android\vending\licensing\ILicenseResultListener.aidl
+* src\com\android\vending\licensing\ILicensingService.aidl => market_licensing\src\main\aidl\com\android\vending\licensing\ILicensingService.aidl
+In app:
+* AndroidManifest.xml => app\src\main\AndroidManifest.xml
+* jni\ => app\src\main\jni\
+* res\ => app\src\main\res\
+* src\ => app\src\main\java\
+
+Next Steps:
+-----------
+You can now build the project. The Gradle project needs network
+connectivity to download dependencies.
+
+Bugs:
+-----
+If for some reason your project does not build, and you determine that
+it is due to a bug or limitation of the Eclipse to Gradle importer,
+please file a bug at http://b.android.com with category
+Component-Tools.
+
+(This import summary is for your information only, and can be deleted
+after import once you are satisfied with the results.)

@@ -1,0 +1,104 @@
+
+effect_protection_spread.png
+size: 1024,512
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+effect_protection_spread_01
+  rotate: false
+  xy: 2, 210
+  size: 305, 286
+  orig: 305, 286
+  offset: 0, 0
+  index: -1
+effect_protection_spread_02
+  rotate: false
+  xy: 309, 271
+  size: 227, 225
+  orig: 227, 225
+  offset: 0, 0
+  index: -1
+effect_protection_spread_03
+  rotate: false
+  xy: 538, 271
+  size: 227, 225
+  orig: 227, 225
+  offset: 0, 0
+  index: -1
+effect_protection_spread_04
+  rotate: false
+  xy: 767, 310
+  size: 56, 51
+  orig: 56, 51
+  offset: 0, 0
+  index: -1
+effect_protection_spread_05
+  rotate: true
+  xy: 2, 2
+  size: 88, 123
+  orig: 88, 123
+  offset: 0, 0
+  index: -1
+effect_protection_spread_06
+  rotate: true
+  xy: 2, 92
+  size: 116, 225
+  orig: 116, 225
+  offset: 0, 0
+  index: -1
+effect_protection_spread_07
+  rotate: false
+  xy: 229, 115
+  size: 69, 93
+  orig: 69, 93
+  offset: 0, 0
+  index: -1
+effect_protection_spread_08
+  rotate: false
+  xy: 767, 363
+  size: 117, 66
+  orig: 117, 66
+  offset: 0, 0
+  index: -1
+effect_protection_spread_09
+  rotate: false
+  xy: 930, 441
+  size: 76, 55
+  orig: 76, 55
+  offset: 0, 0
+  index: -1
+effect_protection_spread_10
+  rotate: false
+  xy: 309, 214
+  size: 103, 55
+  orig: 103, 55
+  offset: 0, 0
+  index: -1
+effect_protection_spread_11
+  rotate: false
+  xy: 414, 243
+  size: 69, 26
+  orig: 69, 26
+  offset: 0, 0
+  index: -1
+effect_protection_spread_12
+  rotate: false
+  xy: 127, 40
+  size: 96, 50
+  orig: 96, 50
+  offset: 0, 0
+  index: -1
+effect_protection_spread_13
+  rotate: false
+  xy: 767, 431
+  size: 161, 65
+  orig: 161, 65
+  offset: 0, 0
+  index: -1
+effect_protection_spread_14
+  rotate: false
+  xy: 886, 401
+  size: 25, 28
+  orig: 25, 28
+  offset: 0, 0
+  index: -1

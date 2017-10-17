@@ -1,0 +1,104 @@
+
+spearman_water.png
+size: 512,128
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+spearman_water_arm_01
+  rotate: false
+  xy: 147, 23
+  size: 22, 30
+  orig: 22, 30
+  offset: 0, 0
+  index: -1
+spearman_water_arm_02
+  rotate: false
+  xy: 300, 91
+  size: 32, 35
+  orig: 32, 35
+  offset: 0, 0
+  index: -1
+spearman_water_body_01
+  rotate: true
+  xy: 2, 13
+  size: 61, 99
+  orig: 61, 99
+  offset: 0, 0
+  index: -1
+spearman_water_body_02
+  rotate: false
+  xy: 103, 22
+  size: 42, 31
+  orig: 42, 31
+  offset: 0, 0
+  index: -1
+spearman_water_body_03
+  rotate: false
+  xy: 227, 84
+  size: 40, 42
+  orig: 40, 42
+  offset: 0, 0
+  index: -1
+spearman_water_effect_01
+  rotate: false
+  xy: 269, 84
+  size: 29, 42
+  orig: 29, 42
+  offset: 0, 0
+  index: -1
+spearman_water_effect_02
+  rotate: false
+  xy: 103, 55
+  size: 74, 19
+  orig: 74, 19
+  offset: 0, 0
+  index: -1
+spearman_water_effect_03
+  rotate: true
+  xy: 179, 57
+  size: 17, 35
+  orig: 17, 35
+  offset: 0, 0
+  index: -1
+spearman_water_hand_01
+  rotate: false
+  xy: 399, 106
+  size: 22, 20
+  orig: 22, 20
+  offset: 0, 0
+  index: -1
+spearman_water_hand_02
+  rotate: false
+  xy: 368, 91
+  size: 29, 35
+  orig: 29, 35
+  offset: 0, 0
+  index: -1
+spearman_water_head_01
+  rotate: false
+  xy: 167, 76
+  size: 58, 50
+  orig: 58, 50
+  offset: 0, 0
+  index: -1
+spearman_water_head_02
+  rotate: false
+  xy: 103, 2
+  size: 36, 18
+  orig: 36, 18
+  offset: 0, 0
+  index: -1
+spearman_water_shoulder_01
+  rotate: false
+  xy: 334, 91
+  size: 32, 35
+  orig: 32, 35
+  offset: 0, 0
+  index: -1
+spearman_water_weapon_01
+  rotate: false
+  xy: 2, 76
+  size: 163, 50
+  orig: 163, 50
+  offset: 0, 0
+  index: -1

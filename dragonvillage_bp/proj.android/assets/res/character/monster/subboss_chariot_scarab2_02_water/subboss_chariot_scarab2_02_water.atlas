@@ -1,0 +1,97 @@
+
+subboss_chariot_scarab2_02_water.png
+size: 2048,256
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+subboss_chariot_scarab2_02_water_arm_01
+  rotate: false
+  xy: 1205, 1
+  size: 78, 82
+  orig: 78, 82
+  offset: 0, 0
+  index: -1
+subboss_chariot_scarab2_02_water_arm_02
+  rotate: false
+  xy: 769, 22
+  size: 141, 227
+  orig: 141, 227
+  offset: 0, 0
+  index: -1
+subboss_chariot_scarab2_02_water_body_01
+  rotate: true
+  xy: 912, 67
+  size: 182, 160
+  orig: 182, 160
+  offset: 0, 0
+  index: -1
+subboss_chariot_scarab2_02_water_body_02
+  rotate: false
+  xy: 1, 46
+  size: 289, 203
+  orig: 289, 203
+  offset: 0, 0
+  index: -1
+subboss_chariot_scarab2_02_water_body_03
+  rotate: true
+  xy: 562, 33
+  size: 216, 205
+  orig: 216, 205
+  offset: 0, 0
+  index: -1
+subboss_chariot_scarab2_02_water_effect_01
+  rotate: true
+  xy: 1646, 101
+  size: 148, 136
+  orig: 148, 136
+  offset: 0, 0
+  index: -1
+subboss_chariot_scarab2_02_water_head_01
+  rotate: true
+  xy: 292, 41
+  size: 208, 268
+  orig: 208, 268
+  offset: 0, 0
+  index: -1
+subboss_chariot_scarab2_02_water_leg_01
+  rotate: false
+  xy: 1646, 1
+  size: 105, 98
+  orig: 105, 98
+  offset: 0, 0
+  index: -1
+subboss_chariot_scarab2_02_water_leg_02
+  rotate: false
+  xy: 1074, 31
+  size: 129, 218
+  orig: 129, 218
+  offset: 0, 0
+  index: -1
+subboss_chariot_scarab2_02_water_leg_03
+  rotate: false
+  xy: 1369, 93
+  size: 156, 156
+  orig: 156, 156
+  offset: 0, 0
+  index: -1
+subboss_chariot_scarab2_02_water_leg_04
+  rotate: false
+  xy: 1527, 43
+  size: 117, 206
+  orig: 117, 206
+  offset: 0, 0
+  index: -1
+subboss_chariot_scarab2_02_water_leg_05
+  rotate: true
+  xy: 1369, 1
+  size: 90, 117
+  orig: 90, 117
+  offset: 0, 0
+  index: -1
+subboss_chariot_scarab2_02_water_line
+  rotate: true
+  xy: 1205, 85
+  size: 164, 162
+  orig: 164, 162
+  offset: 0, 0
+  index: -1

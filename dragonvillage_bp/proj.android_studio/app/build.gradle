@@ -1,0 +1,311 @@
+import org.apache.tools.ant.taskdefs.condition.Os
+
+apply plugin: 'com.android.application'
+
+// task preBuild excuted before android build 
+preBuild {
+    println '[TASK preBuild] do it before build'
+}
+
+// task android build
+android {
+    compileSdkVersion 25
+    buildToolsVersion "26.0.1"
+
+    defaultConfig {
+        applicationId "com.perplelab.dragonvillagem.kr"
+        minSdkVersion 16
+        targetSdkVersion PROP_TARGET_SDK_VERSION
+        multiDexEnabled true
+
+        externalNativeBuild {
+            ndkBuild {
+                if (!project.hasProperty("PROP_NDK_MODE") || PROP_NDK_MODE.compareTo('none') != 0) {
+                    targets 'cocos2dlua'
+
+                    // NDK r14b 사용
+                    arguments 'NDK_TOOLCHAIN_VERSION=4.9'
+
+                    // Android-21 미만 기기에서 실행하기 위함
+                    arguments 'APP_PLATFORM=android-16'
+
+                    // cpp flags
+                    cppFlags.addAll(PROP_CPP_FLAGS.split(':').collect { it as String })
+
+                    // module path
+                    def module_paths = [project.file("../../../cocos2d-x").absolutePath,
+                                        project.file("../../../cocos2d-x/cocos").absolutePath,
+                                        project.file("../../../cocos2d-x/external").absolutePath]
+                    if (Os.isFamily(Os.FAMILY_WINDOWS)) {
+                        // should use '/'
+                        module_paths = module_paths.collect { it.replaceAll('\\\\', '/') }
+                        arguments 'NDK_MODULE_PATH=' + module_paths.join(";")
+                    } else {
+                        arguments 'NDK_MODULE_PATH=' + module_paths.join(':')
+                    }
+
+                    // processors
+                    arguments '-j' + Runtime.runtime.availableProcessors()
+
+                    // abi
+                    abiFilters.addAll(PROP_APP_ABI.split(':').collect { it as String })
+                }
+            }
+        }
+    }
+
+    // productFlavors or buildType 에 따른 개별적인 source 설정 가능
+    sourceSets{
+        dev100mbTest{
+            assets.srcDir "../../../assets/100mb"
+        }
+        devFullTest{
+            assets.srcDir "../../../assets/full"
+        }
+
+        qa100mbTest{
+            assets.srcDir "../../../assets/100mb"
+        }
+        qaFullTest{
+            assets.srcDir "../../../assets/full"
+        }
+
+        live100mb{
+            assets.srcDir "../../../assets/100mb"
+        }
+        liveFull{
+            assets.srcDir "../../../assets/full"
+        }
+
+        main {
+            java.srcDir "./src"
+            res.srcDir "./res"
+            manifest.srcFile "./AndroidManifest.xml"         
+        }
+    }
+
+    externalNativeBuild {
+        ndkBuild {
+            if (!project.hasProperty("PROP_NDK_MODE") || PROP_NDK_MODE.compareTo('none') != 0) {
+                // skip the NDK Build step if PROP_NDK_MODE is none
+                path "../jni/Android.mk"
+            }
+        }
+    }
+
+    signingConfigs {
+        // live upload 용 릴리즈키
+        upload_keystore {
+            storeFile file(UPLOAD_RELEASE_STORE_FILE)
+            storePassword UPLOAD_RELEASE_STORE_PASSWORD
+            keyAlias UPLOAD_RELEASE_KEY_ALIAS
+            keyPassword UPLOAD_RELEASE_KEY_PASSWORD
+        }
+        // test 용 릴리즈키
+        keystore {
+            storeFile file(RELEASE_STORE_FILE)
+            storePassword RELEASE_STORE_PASSWORD
+            keyAlias RELEASE_KEY_ALIAS
+            keyPassword RELEASE_KEY_PASSWORD
+        }
+        // 디버그키
+        debug_keystore {
+            storeFile file(DEBUG_STORE_FILE)
+            storePassword DEBUG_STORE_PASSWORD
+            keyAlias DEBUG_KEY_ALIAS
+            keyPassword DEBUG_KEY_PASSWORD
+        }
+    }
+
+    // Specifies the flavor dimensions you want to use. The order in which you
+    // list each dimension determines its priority, from highest to lowest,
+    // when Gradle merges variant sources and configurations. You must assign
+    // each product flavor you configure to one of the flavor dimensions.
+
+    // flavorDimensions "server", "assets", "mode"
+
+    /**
+    * The productFlavors {} block is where you can configure multiple product
+    * flavors. This allows you to create different versions of your app that can
+    * override defaultConfig {} with their own settings. Product flavors are
+    * optional, and the build system does not create them by default.
+    */
+    productFlavors {
+        // DEV
+        dev100mbTest{
+			versionCode 23
+			versionName "0.4.1"
+            signingConfig signingConfigs.keystore
+            externalNativeBuild {
+                ndkBuild {
+                    cppFlags.add("-DTARGET_SERVER=SERVER_DEV")
+                    cppFlags.add("-DUSE_PATCH=true")
+                    cppFlags.add("-DUSE_OBB=true")
+                    cppFlags.add("-DUSE_LUA_EXT=false")
+                    cppFlags.add("-DIS_TEST_MODE=true")
+                }
+            }
+        }
+        devFullTest{
+			versionCode 23
+			versionName "0.4.1"
+            signingConfig signingConfigs.keystore
+            externalNativeBuild {
+                ndkBuild {
+                    cppFlags.add("-DTARGET_SERVER=SERVER_DEV")
+                    cppFlags.add("-DUSE_PATCH=true")
+                    cppFlags.add("-DUSE_OBB=false")
+                    cppFlags.add("-DUSE_LUA_EXT=false")
+                    cppFlags.add("-DIS_TEST_MODE=true")
+                }
+            }
+        }
+
+        // QA
+        qa100mbTest{
+			versionCode 25
+			versionName "0.4.2"
+            signingConfig signingConfigs.keystore
+            externalNativeBuild {
+                ndkBuild {
+                    cppFlags.add("-DTARGET_SERVER=SERVER_QA")
+                    cppFlags.add("-DUSE_PATCH=true")
+                    cppFlags.add("-DUSE_OBB=true")
+                    cppFlags.add("-DUSE_LUA_EXT=false")
+                    cppFlags.add("-DIS_TEST_MODE=true")
+                }
+            }
+        }
+        qaFullTest{
+			versionCode 25
+			versionName "0.4.2"
+            signingConfig signingConfigs.keystore
+            externalNativeBuild {
+                ndkBuild {
+                    cppFlags.add("-DTARGET_SERVER=SERVER_QA")
+                    cppFlags.add("-DUSE_PATCH=true")
+                    cppFlags.add("-DUSE_OBB=false")
+                    cppFlags.add("-DUSE_LUA_EXT=false")
+                    cppFlags.add("-DIS_TEST_MODE=true")
+                }
+            }
+        }
+
+        // LIVE
+        live100mb{
+			versionCode 25
+			versionName "1.0.6"
+            signingConfig signingConfigs.upload_keystore
+            externalNativeBuild {
+                ndkBuild {
+                    cppFlags.add("-DTARGET_SERVER=SERVER_LIVE")
+                    cppFlags.add("-DUSE_PATCH=true")
+                    cppFlags.add("-DUSE_OBB=true")
+                    cppFlags.add("-DUSE_LUA_EXT=false")
+                    cppFlags.add("-DIS_TEST_MODE=false")
+                }
+            }
+        }
+        liveFull{
+            versionCode 25
+            versionName "1.0.6"
+            signingConfig signingConfigs.keystore
+            externalNativeBuild {
+                ndkBuild {
+                    cppFlags.add("-DTARGET_SERVER=SERVER_LIVE")
+                    cppFlags.add("-DUSE_PATCH=true")
+                    cppFlags.add("-DUSE_OBB=false")
+                    cppFlags.add("-DUSE_LUA_EXT=false")
+                    cppFlags.add("-DIS_TEST_MODE=false")
+                }
+            }
+        }
+    }
+
+    buildTypes {
+        release {
+            // signingConfig initialize
+            signingConfig null
+
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.txt'
+
+            externalNativeBuild {
+                ndkBuild {
+                    arguments 'NDK_DEBUG=0'
+                    cppFlags.add("-DNDEBUG")
+                }
+            }
+        }
+        debug {
+            // signingConfig initialize
+            signingConfig null
+
+            externalNativeBuild {
+                ndkBuild {
+                    arguments 'NDK_DEBUG=1'
+                    cppFlags.add("-DCOCOS2D_DEBUG=1")
+                }
+            }
+        }
+    }
+
+} // end:android
+
+allprojects {
+    repositories {
+        jcenter()
+        flatDir {
+            dirs "libs"
+        }
+    }
+}
+
+dependencies {
+    compile fileTree(dir: 'libs', include: ['*.jar'])
+
+    // @cocos2d-x
+    compile project(':libcocos2dx')
+
+    // @apk-expansion
+    compile project(':downloader_library')
+
+    // @perplesdk
+    compile(name:'perplesdk', ext:'aar')
+
+    // @adcolony
+    compile 'com.adcolony:sdk:3.2.1'
+    compile 'com.google.android.gms:play-services-ads:11.0.4'
+
+    // @unity-ads
+    compile(name:'unity-ads', ext:'aar')
+
+    // @naver-cafe
+    compile(name:'cafeSdk-2.5.1', ext:'aar')
+    compile 'com.android.support:design:25.3.1'
+    compile 'com.android.support:support-v4:25.3.1'
+    compile 'com.navercorp.volleyextensions:volleyer:2.0.1', {
+        exclude group: 'com.mcxiaoke.volley', module: 'library'
+    }
+    compile 'com.google.code.gson:gson:2.8.0'
+    compile 'com.github.bumptech.glide:glide:3.7.0'
+    compile 'com.squareup:otto:1.3.8'
+
+    // @firebase
+    compile 'com.google.firebase:firebase-core:11.0.4'
+    compile 'com.google.firebase:firebase-auth:11.0.4'
+    compile 'com.google.firebase:firebase-messaging:11.0.4'
+
+    // @google
+    compile 'com.google.android.gms:play-services-auth:11.0.4'
+    compile 'com.google.android.gms:play-services-games:11.0.4'
+
+    // @facebook
+    compile 'com.facebook.android:facebook-android-sdk:[4,5)'
+
+    // @multidex below Android 6.0
+    compile 'com.android.support:multidex:1.0.1'
+}
+
+// @firebase
+apply plugin: 'com.google.gms.google-services'

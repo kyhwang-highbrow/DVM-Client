@@ -1,0 +1,34 @@
+
+skill_dash_fire.png
+size: 1024,128
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+skill_firecrash_effect_01
+  rotate: true
+  xy: 671, 2
+  size: 120, 125
+  orig: 120, 125
+  offset: 0, 0
+  index: -1
+skill_firecrash_effect_02
+  rotate: true
+  xy: 2, 2
+  size: 120, 221
+  orig: 120, 221
+  offset: 0, 0
+  index: -1
+skill_firecrash_effect_03
+  rotate: true
+  xy: 225, 2
+  size: 120, 221
+  orig: 120, 221
+  offset: 0, 0
+  index: -1
+skill_firecrash_effect_04
+  rotate: true
+  xy: 448, 2
+  size: 120, 221
+  orig: 120, 221
+  offset: 0, 0
+  index: -1

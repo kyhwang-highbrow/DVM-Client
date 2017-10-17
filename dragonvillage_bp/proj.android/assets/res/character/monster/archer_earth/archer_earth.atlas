@@ -1,0 +1,125 @@
+
+archer_earth.png
+size: 256,256
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+archer_earth_arm_01
+  rotate: false
+  xy: 168, 155
+  size: 40, 42
+  orig: 40, 42
+  offset: 0, 0
+  index: -1
+archer_earth_arm_02
+  rotate: false
+  xy: 210, 158
+  size: 36, 39
+  orig: 36, 39
+  offset: 0, 0
+  index: -1
+archer_earth_body_01
+  rotate: false
+  xy: 2, 127
+  size: 79, 127
+  orig: 79, 127
+  offset: 0, 0
+  index: -1
+archer_earth_body_02
+  rotate: true
+  xy: 164, 11
+  size: 45, 33
+  orig: 45, 33
+  offset: 0, 0
+  index: -1
+archer_earth_body_03
+  rotate: false
+  xy: 80, 14
+  size: 40, 42
+  orig: 40, 42
+  offset: 0, 0
+  index: -1
+archer_earth_body_04
+  rotate: false
+  xy: 2, 35
+  size: 71, 90
+  orig: 71, 90
+  offset: 0, 0
+  index: -1
+archer_earth_effect_01
+  rotate: false
+  xy: 75, 58
+  size: 112, 27
+  orig: 112, 27
+  offset: 0, 0
+  index: -1
+archer_earth_effect_02
+  rotate: false
+  xy: 2, 6
+  size: 76, 27
+  orig: 76, 27
+  offset: 0, 0
+  index: -1
+archer_earth_effect_03
+  rotate: false
+  xy: 224, 204
+  size: 26, 50
+  orig: 26, 50
+  offset: 0, 0
+  index: -1
+archer_earth_hand_01
+  rotate: false
+  xy: 194, 93
+  size: 34, 32
+  orig: 34, 32
+  offset: 0, 0
+  index: -1
+archer_earth_hand_02
+  rotate: true
+  xy: 210, 127
+  size: 29, 35
+  orig: 29, 35
+  offset: 0, 0
+  index: -1
+archer_earth_head_01
+  rotate: false
+  xy: 83, 125
+  size: 83, 72
+  orig: 83, 72
+  offset: 0, 0
+  index: -1
+archer_earth_head_02
+  rotate: false
+  xy: 168, 135
+  size: 36, 18
+  orig: 36, 18
+  offset: 0, 0
+  index: -1
+archer_earth_head_03
+  rotate: false
+  xy: 230, 104
+  size: 24, 21
+  orig: 24, 21
+  offset: 0, 0
+  index: -1
+archer_earth_shoulder_01
+  rotate: false
+  xy: 122, 14
+  size: 40, 42
+  orig: 40, 42
+  offset: 0, 0
+  index: -1
+archer_earth_wepon_01
+  rotate: false
+  xy: 83, 199
+  size: 139, 55
+  orig: 139, 55
+  offset: 0, 0
+  index: -1
+archer_earth_wepon_02
+  rotate: false
+  xy: 75, 87
+  size: 117, 36
+  orig: 117, 36
+  offset: 0, 0
+  index: -1

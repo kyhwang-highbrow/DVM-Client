@@ -1,0 +1,48 @@
+
+effect_vine.png
+size: 2048,128
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+effect_vine_01
+  rotate: true
+  xy: 2, 38
+  size: 77, 359
+  orig: 77, 359
+  offset: 0, 0
+  index: -1
+effect_vine_02
+  rotate: true
+  xy: 363, 38
+  size: 77, 359
+  orig: 77, 359
+  offset: 0, 0
+  index: -1
+effect_vine_03
+  rotate: true
+  xy: 724, 2
+  size: 113, 195
+  orig: 113, 195
+  offset: 0, 0
+  index: -1
+effect_vine_04
+  rotate: true
+  xy: 1045, 16
+  size: 99, 108
+  orig: 99, 108
+  offset: 0, 0
+  index: -1
+effect_vine_05
+  rotate: true
+  xy: 921, 10
+  size: 105, 122
+  orig: 105, 122
+  offset: 0, 0
+  index: -1
+effect_vine_06
+  rotate: false
+  xy: 1155, 30
+  size: 122, 85
+  orig: 122, 85
+  offset: 0, 0
+  index: -1

@@ -1,0 +1,167 @@
+
+clouddragon_light_02.png
+size: 1024,256
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+clouddragon_light_02_arm_01
+  rotate: false
+  xy: 921, 136
+  size: 49, 45
+  orig: 49, 45
+  offset: 0, 0
+  index: -1
+clouddragon_light_02_arm_02
+  rotate: true
+  xy: 535, 164
+  size: 42, 56
+  orig: 42, 56
+  offset: 0, 0
+  index: -1
+clouddragon_light_02_body_01
+  rotate: false
+  xy: 599, 161
+  size: 130, 91
+  orig: 130, 91
+  offset: 0, 0
+  index: -1
+clouddragon_light_02_effect_01 copy
+  rotate: false
+  xy: 153, 73
+  size: 141, 92
+  orig: 141, 92
+  offset: 0, 0
+  index: -1
+clouddragon_light_02_eye_01
+  rotate: true
+  xy: 442, 100
+  size: 46, 32
+  orig: 46, 32
+  offset: 0, 0
+  index: -1
+clouddragon_light_02_eye_02
+  rotate: false
+  xy: 184, 50
+  size: 16, 21
+  orig: 16, 21
+  offset: 0, 0
+  index: -1
+clouddragon_light_02_foot_01
+  rotate: false
+  xy: 984, 180
+  size: 37, 72
+  orig: 37, 72
+  offset: 0, 0
+  index: -1
+clouddragon_light_02_foot_02
+  rotate: true
+  xy: 296, 61
+  size: 32, 66
+  orig: 32, 66
+  offset: 0, 0
+  index: -1
+clouddragon_light_02_hand_01
+  rotate: false
+  xy: 461, 161
+  size: 72, 45
+  orig: 72, 45
+  offset: 0, 0
+  index: -1
+clouddragon_light_02_hand_02
+  rotate: true
+  xy: 847, 141
+  size: 39, 72
+  orig: 39, 72
+  offset: 0, 0
+  index: -1
+clouddragon_light_02_head_01
+  rotate: false
+  xy: 296, 95
+  size: 76, 70
+  orig: 76, 70
+  offset: 0, 0
+  index: -1
+clouddragon_light_02_head_02
+  rotate: false
+  xy: 374, 148
+  size: 85, 58
+  orig: 85, 58
+  offset: 0, 0
+  index: -1
+clouddragon_light_02_head_03
+  rotate: false
+  xy: 972, 139
+  size: 46, 39
+  orig: 46, 39
+  offset: 0, 0
+  index: -1
+clouddragon_light_02_head_04
+  rotate: false
+  xy: 917, 183
+  size: 65, 69
+  orig: 65, 69
+  offset: 0, 0
+  index: -1
+clouddragon_light_02_leg_01
+  rotate: true
+  xy: 2, 2
+  size: 50, 90
+  orig: 50, 90
+  offset: 0, 0
+  index: -1
+clouddragon_light_02_leg_02
+  rotate: true
+  xy: 374, 100
+  size: 46, 66
+  orig: 46, 66
+  offset: 0, 0
+  index: -1
+clouddragon_light_02_mouth_01
+  rotate: false
+  xy: 153, 49
+  size: 29, 22
+  orig: 29, 22
+  offset: 0, 0
+  index: -1
+clouddragon_light_02_tail_01
+  rotate: false
+  xy: 374, 208
+  size: 223, 44
+  orig: 223, 44
+  offset: 0, 0
+  index: -1
+clouddragon_light_02_tail_02
+  rotate: false
+  xy: 847, 182
+  size: 68, 70
+  orig: 68, 70
+  offset: 0, 0
+  index: -1
+clouddragon_light_02_wing_01
+  rotate: false
+  xy: 2, 54
+  size: 149, 198
+  orig: 149, 198
+  offset: 0, 0
+  index: -1
+clouddragon_light_02_wing_02
+  rotate: true
+  xy: 153, 167
+  size: 85, 219
+  orig: 85, 219
+  offset: 0, 0
+  index: -1
+clouddragon_light_02_wool_01
+  rotate: false
+  xy: 94, 8
+  size: 55, 44
+  orig: 55, 44
+  offset: 0, 0
+  index: -1
+clouddragon_light_02_wool_02
+  rotate: false
+  xy: 731, 143
+  size: 114, 109
+  orig: 114, 109
+  offset: 0, 0
+  index: -1
