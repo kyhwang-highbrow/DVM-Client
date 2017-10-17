@@ -228,7 +228,7 @@ function UI_InventoryTabRune:runeLockBtn(t_rune_data)
         end
     end
 
-    g_runesData:request_runesLock_toggle(roid, finish_cb)
+    g_runesData:request_runesLock_toggle(roid, nil, finish_cb)
 end
 
 -------------------------------------

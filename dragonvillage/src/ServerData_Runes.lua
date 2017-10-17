@@ -368,16 +368,16 @@ end
 -- function request_runesLock
 -- @breif
 -------------------------------------
-function ServerData_Runes:request_runesLock(roid, lock, finish_cb, fail_cb)
+function ServerData_Runes:request_runesLock(roid, owner_doid, lock, finish_cb, fail_cb)
     -- 유저 ID
     local uid = g_userData:get('uid')
 
     -- 성공 콜백
     local function success_cb(ret)
-        if ret['modified_runes'] then
-            for i,v in pairs(ret['modified_runes']) do
-                self:applyRuneData(v)
-            end
+        -- 룬 데이터 적용
+        if ret['modified_rune'] then
+            ret['modified_rune']['owner_doid'] = owner_doid
+            self:applyRuneData(ret['modified_rune'])
         end
 
         if finish_cb then
@@ -405,12 +405,12 @@ end
 -- function request_runesLock_toggle
 -- @breif
 -------------------------------------
-function ServerData_Runes:request_runesLock_toggle(roid, finish_cb, fail_cb)
+function ServerData_Runes:request_runesLock_toggle(roid, owner_doid, finish_cb, fail_cb)
     local rune_object = self:getRuneObject(roid)
     if (not rune_object) then
         return
     end
 
     local lock = (not rune_object['lock'])
-    return self:request_runesLock(roid, lock, finish_cb, fail_cb)
+    return self:request_runesLock(roid, owner_doid, lock, finish_cb, fail_cb)
 end
