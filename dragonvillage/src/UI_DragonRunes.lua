@@ -630,6 +630,11 @@ function UI_DragonRunes:click_sellBtn()
     local rune_obj = self.m_selectedRuneObject
     local roid = rune_obj['roid']
     
+    if (rune_obj['lock'] == true) then
+        MakeSimplePopup(POPUP_TYPE.OK, Str('잠금 상태입니다.'))
+        return
+    end
+
     -- 판매 요청 (서버에)
     local function request_item_sell()
         local function finish_cb(ret)
@@ -825,10 +830,18 @@ function UI_DragonRunes:click_equipBtn()
 
     local slot_idx = rune_obj['slot']
     if self.m_mEquippedRuneObjects[slot_idx] then
+
+        -- 잠금 확인
+        local rune_obj = self.m_mEquippedRuneObjects[slot_idx]
+        if (rune_obj['lock'] == true) then
+            MakeSimplePopup2(POPUP_TYPE.OK, Str('기존에 장착된 룬이 있으며 룬이 잠금 상태입니다.'), Str('(장착된 룬은 골드를 사용하여 "해제"할 수 있습니다)'))
+            return
+        end
+
         local function ok_btn_cb()
             self:request_runeEquip(doid, roid)
         end
-        MakeSimplePopup(POPUP_TYPE.YES_NO, '기존에 장착된 룬은 파괴됩니다.\n장착하시겠습니까?\n\n(골드를 사용하여 룬을 "해제"할 수 있습니다)', ok_btn_cb)
+        MakeSimplePopup2(POPUP_TYPE.YES_NO, '기존에 장착된 룬은 파괴됩니다.\n장착하시겠습니까?', Str('(장착된 룬은 골드를 사용하여 "해제"할 수 있습니다)'), ok_btn_cb)
     else
         self:request_runeEquip(doid, roid)
     end
