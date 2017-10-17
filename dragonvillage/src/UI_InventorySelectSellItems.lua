@@ -102,6 +102,10 @@ function UI_InventorySelectSellItems:setSelectedItem(ui, data)
 
     local unique_id
     if (item_type == 'rune') then
+        if (data['lock']) then
+            UIManager:toastNotificationRed(Str('잠금 상태입니다.'))
+            return
+        end
         unique_id = data['roid']
     else
         unique_id = item_id

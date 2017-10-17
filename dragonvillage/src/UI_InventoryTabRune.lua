@@ -168,6 +168,11 @@ end
 -- @brief
 -------------------------------------
 function UI_InventoryTabRune:sellBtn(t_rune_data)
+    if (t_rune_data['lock']) then
+        MakeSimplePopup(POPUP_TYPE.OK, Str('잠금 상태입니다.'))
+        return
+    end
+
     local ask_item_sell
     local request_item_sell
     
