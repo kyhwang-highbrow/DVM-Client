@@ -129,7 +129,8 @@ function ServerData_Event:getEventBannerMap()
                 l_shop_list = g_shopDataNew:getProductList('package')
                 local pid = v['event_id'] 
                 if (l_shop_list[tonumber(pid)]) then
-                    map[pid] = lobby_banner
+                    event_type = event_type .. ';' .. pid
+                    map[event_type] = lobby_banner
                 end
             else
                 map[event_type] = lobby_banner
@@ -138,6 +139,31 @@ function ServerData_Event:getEventBannerMap()
     end
 
     return map
+end
+
+-------------------------------------
+-- function goToEventTarget
+-------------------------------------
+function ServerData_Event:goToEventTarget(event_type)
+    -- 매일매일 다이아
+    if (event_type == 'daily_dia') then
+        g_subscriptionData:openSubscriptionPopup()
+        
+    -- 패키지 UI
+    elseif (string.find(event_type, 'package')) then
+        local pid = event_type
+        PackageManager:goToTargetUI(pid)
+
+    -- 단일 상품
+    elseif (string.find(event_type, 'shop')) then
+        local l_str = seperate(event_type, ';')
+        local pid = l_str[2]
+        PackageManager:goToTargetUI(pid)
+
+    -- 해당 이벤트 탭 이동
+    else
+        g_eventData:openEventPopup(event_type)
+    end
 end
 
 -------------------------------------

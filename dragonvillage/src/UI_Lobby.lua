@@ -508,19 +508,7 @@ function UI_Lobby:refresh_eventBanner()
 
     local button_list = {}
     local function click_button(event_type)
-        -- 매일매일 다이아
-        if (event_type == 'daily_dia') then
-            g_subscriptionData:openSubscriptionPopup()
-        
-        -- 패키지
-        elseif (string.find(event_type, 'package')) then
-            local pid = event_type
-            PackageManager:goToTargetUI(pid)
-
-        -- 해당 이벤트 탭 이동
-        else
-            g_eventData:openEventPopup(event_type)
-        end
+        g_eventData:goToEventTarget(event_type)
     end
 
     -- 스크롤 버튼 생성
