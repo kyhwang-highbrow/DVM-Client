@@ -96,15 +96,14 @@ function StatusEffect_Bleed:doDamage()
         
 	self.m_owner:setDamage(nil, self.m_owner, self.m_owner.pos.x, self.m_owner.pos.y, damage, nil)
 
-    -- 중첩별 로그 처리
+    -- 중첩별 공격자 로그 처리
     for _, unit in pairs(self.m_lUnit) do
-        -- @LOG_CHAR : 공격자 데미지
-        local caster = unit:getCaster()
-	    caster.m_charLogRecorder:recordLog('damage', unit:getParam('damage') * damage_rate)
+        if (unit.m_bApply) then
+            -- @LOG_CHAR : 공격자 데미지
+            local caster = unit:getCaster()
+	        caster.m_charLogRecorder:recordLog('damage', unit:getParam('damage') * damage_rate)
+        end
     end
-
-    -- @LOG_CHAR : 방어자 피해량
-	self.m_owner.m_charLogRecorder:recordLog('be_damaged', damage)
 
 	-- 출혈 사운드
 	SoundMgr:playEffect('EFX', 'efx_bleed')
