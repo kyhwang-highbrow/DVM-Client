@@ -37,7 +37,10 @@ function StructUserInfoFriend:create(t_data)
     user_info.m_lastActiveTime = t_data['last_active']
     user_info.m_usedTime = t_data['used_time']
     user_info.m_leaderDragonObject = StructDragonObject(t_data['leader'])
-    
+
+    -- 친구 드래곤 룬 세팅
+    user_info.m_leaderDragonObject:setRuneObjects(t_data['runes'])
+
     -- 최초 생성시 시간 관련 update 해줌
     user_info:setUpdate()
 
