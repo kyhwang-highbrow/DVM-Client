@@ -44,6 +44,15 @@ function IS_ENABLE_ANALYTICS()
     return IS_LIVE_SERVER()
 end
 
+
+-------------------------------------
+-- function IS_NEW_BALANCE_VERSION
+-- @brief 새 밸런스 적용 버전 여부를 리턴
+-------------------------------------
+function IS_NEW_BALANCE_VERSION()
+    return true
+end
+
 -------------------------------------
 -- function PrintClassName
 -- @brief instance의 클래스명을 리턴
