@@ -95,6 +95,7 @@ end
 function UI_TamerCostumeShop:initButton()
     local vars = self.vars
     vars['selectBtn']:registerScriptTapHandler(function() self:click_selectBtn() end)
+    vars['finishBtn']:registerScriptTapHandler(function() self:click_finishBtn() end)
     vars['buyBtn']:registerScriptTapHandler(function() self:click_buyBtn() end)
 end
 
@@ -142,30 +143,34 @@ function UI_TamerCostumeShop:refresh()
     -- 상태 (구입가능, 사용중, 사용가능)
     local is_used = costume_data:isUsed()
     local is_open = costume_data:isOpen() 
+    local is_end = costume_data:isEnd()
 
     vars['selectBtn']:setVisible(not is_used and is_open)
     vars['useBtn']:setVisible(is_used)
-
     vars['buyBtn']:setVisible(not is_open)
     vars['priceNode']:setVisible(not is_open)
-    vars['saleNode']:setVisible(false)
 
-    local is_lock = costume_data:isTamerLock()
-    vars['infoLabel']:setVisible(not is_open and is_lock)
+    vars['saleNode']:setVisible(false)
+    vars['limitNode']:setVisible(false)
+    vars['finishBtn']:setVisible(false)
+    vars['infoLabel']:setVisible(false)
+
+    -- 판매종료
+    if (is_end) then
+        vars['finishBtn']:setVisible(true)
+        return
+    end
 
     -- 가격 정보 표시
     if (not is_open) then
         local shop_info = g_tamerCostumeData:getShopInfo(costume_id)
 
-        -- 구매 불가
-        if (not shop_info) then
-            vars['priceLabel']:setString(Str(''))
-            return
-        else
-            self.m_selectShopInfo = shop_info
-        end
+        -- 열려있지 않은 테이머 경고 문구
+        local is_lock = costume_data:isTamerLock()
+        vars['infoLabel']:setVisible(not is_open and is_lock)
 
-        local is_sale = costume_data:isSale()
+        local is_sale, msg = costume_data:isSale()
+        local origin_price = shop_info['origin_price'] 
         local price = is_sale and shop_info['sale_price'] or shop_info['origin_price'] 
         local price_type = shop_info['price_type']
         local price_icon = IconHelper:getPriceIcon(price_type)
@@ -173,21 +178,10 @@ function UI_TamerCostumeShop:refresh()
         -- 할인중
         if (is_sale) then
             vars['saleNode']:setVisible(true)
-            vars['salePriceLabel1']:setString(comma_value(price))
+            vars['salePriceLabel1']:setString(comma_value(origin_price))
             vars['salePriceLabel2']:setString(comma_value(price))
             vars['priceLabel']:setString('')
-
-            local date_format = 'yyyy-mm-dd HH:MM:SS'
-            local parser = pl.Date.Format(date_format)
-
-            local end_date = parser:parse(shop_info['end_date'])
-            local cur_time =  Timer:getServerTime()
-
-            local cur_time = Timer:getServerTime()
-            local end_time = end_date['time']
-            local time = (end_time - cur_time)
-            local str = Str('할인 종료까지 {1} 남음', datetime.makeTimeDesc(time, true))
-            vars['saleTimeLabel']:setString(str)
+            vars['saleTimeLabel']:setString(msg)
 
             vars['salePriceNode']:removeAllChildren()
             vars['salePriceNode']:addChild(price_icon)
@@ -196,6 +190,17 @@ function UI_TamerCostumeShop:refresh()
             vars['priceNode']:removeAllChildren()
             vars['priceNode']:addChild(price_icon)
         end
+
+        local is_limit, msg = costume_data:isLimit()
+        vars['limitNode']:setPositionY(is_sale and -161 or -201)
+
+        -- 기간한정
+        if (is_limit) then
+            vars['limitNode']:setVisible(true)
+            vars['limitLabel']:setString(msg)
+        end
+
+        self.m_selectShopInfo = shop_info
     end
 end
 
@@ -312,6 +317,13 @@ function UI_TamerCostumeShop:click_buyBtn()
     else
         show_popup()
     end
+end
+
+-------------------------------------
+-- function click_finishBtn 
+-------------------------------------
+function UI_TamerCostumeShop:click_finishBtn()
+    UIManager:toastNotificationRed(Str('현재 구매할 수 없는 상품입니다.'))
 end
 
 -------------------------------------

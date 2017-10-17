@@ -58,13 +58,37 @@ function UI_TamerCostumeListItem:refresh()
     local is_used = costume_data:isUsed()
     vars['useSprite']:setVisible(is_used)
 
-    -- 할인 (열려있지 않은 상태에만 표기)
     local is_open = costume_data:isOpen()
-    local is_sale = costume_data:isSale()
-    vars['saleSprite']:setVisible(not is_open and is_sale)
+    local badge_node = vars['badgeNode']
+    badge_node:removeAllChildren()
+
+    -- 배지 추가 (할인, 기간한정)
+    if (not is_open) then
+        local is_sale = costume_data:isSale()
+        local is_limit = costume_data:isLimit()
+        local is_end = costume_data:isEnd()
+        local img
+        -- 할인
+        if (is_sale) then
+            img = cc.Sprite:create('res/ui/package/badge_discount.png')
+
+        -- 기간한정
+        elseif (is_limit) then
+            img = cc.Sprite:create('res/ui/package/badge_period.png')
+
+        -- 판매종료
+        elseif (is_end) then
+            img = cc.Sprite:create('res/ui/package/badge_finish.png')
+        end
+
+        if (img) then
+            img:setDockPoint(cc.p(0.5, 0.5))
+            img:setAnchorPoint(cc.p(0.5, 0.5))
+            badge_node:addChild(img)
+        end
+    end
 
     -- 테이머 잠금이 아니라 오픈 여부로 변경
-    local is_open = costume_data:isOpen()
     vars['lockSprite']:setVisible(not is_open)
 end
 
