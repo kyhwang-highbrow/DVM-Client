@@ -512,6 +512,11 @@ function UI_Lobby:refresh_eventBanner()
         if (event_type == 'daily_dia') then
             g_subscriptionData:openSubscriptionPopup()
         
+        -- 패키지
+        elseif (string.find(event_type, 'package') or tonumber(event_type) > 90000) then
+            local pid = event_type
+            PackageManager:goToTargetUI(pid)
+
         -- 해당 이벤트 탭 이동
         else
             g_eventData:openEventPopup(event_type)

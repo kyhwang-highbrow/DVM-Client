@@ -82,11 +82,11 @@ function ServerData_Event:getEventFullPopupList()
         local event_type = v['event_type'] 
 
         if (priority ~= '') then
-            -- shop type인 경우 event_id로 넣어줘야 함 
+            -- 단일 상품인 경우 (type:shop) event_id로 등록
             if (event_type == 'shop') then
                 event_type = v['event_id']     
 
-            -- banner type인 경우 resource 경로까지
+            -- banner type인 경우 resource, url까지 등록
             elseif (event_type == 'banner') then
                 event_type = event_type .. ';' .. v['banner'] .. ';' .. v['url']
             end
@@ -120,7 +120,20 @@ function ServerData_Event:getEventBannerMap()
         local event_type = v['event_type'] 
         
         if (lobby_banner ~= '') then
-            map[event_type] = lobby_banner
+            -- 패키지 (구매 가능하다면 등록)
+            if (string.find(event_type, 'package') and PackageManager:isExist(product_id)) then
+                map[event_type] = lobby_banner
+
+            -- 단일 상품 (구매 가능하다면 등록)
+            elseif (event_type == 'shop') then
+                l_shop_list = g_shopDataNew:getProductList('package')
+                local pid = v['event_id'] 
+                if (l_shop_list[tonumber(pid)]) then
+                    map[pid] = lobby_banner
+                end
+            else
+                map[event_type] = lobby_banner
+            end
         end
     end
 

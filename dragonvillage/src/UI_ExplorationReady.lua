@@ -176,6 +176,9 @@ function UI_ExplorationReady:refresh()
     -- 획득하는 아이템 리스트
     local reward_items_str = location_info['reward_items']
     local reward_items_list = g_itemData:parsePackageItemStr(reward_items_str)
+
+    -- UI 자수정 표시 추가
+    table.insert(reward_items_list, {item_id = ITEM_ID_AMET, count = 0})
     vars['rewardNode']:removeAllChildren()
 
     local scale = 0.53
