@@ -1,3 +1,0 @@
-ndk-build -C ./ -j4 NDK_MODULE_PATH=./../../cocos2d-x;./../../cocos2d-x/cocos/;./../../cocos2d-x/external NDK_TOOLCHAIN_VERSION=4.9 NDK_DEBUG=1
-
-ant clean debug -Dsdk.dir="%ANDROID_SDK_ROOT%"

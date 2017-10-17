@@ -1,1 +1,0 @@
-xcopy /y .\app\build\outputs\apk\*.* %USERPROFILE%\Desktop\apk

@@ -1,1 +1,0 @@
-adb install -r ./app/build/outputs/apk/app-qaFullTest-release.apk
