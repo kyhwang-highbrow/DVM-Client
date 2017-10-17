@@ -139,6 +139,12 @@ function UI_InventoryTabRune:onChangeSelectedItem(ui, data)
     vars['enhanceBtn']:setVisible(true)
     vars['enhanceBtn']:registerScriptTapHandler(function() self:enhanceBtn(t_rune_data) end)
 
+    -- 잠금 여부
+    vars['lockBtn']:setVisible(true)
+    vars['lockBtn']:registerScriptTapHandler(function() self:runeLockBtn(t_rune_data) end)
+    vars['lockSprite']:setVisible(t_rune_data['lock'])
+
+
     do -- 아이템 이름
         vars['itemNameLabel']:setVisible(true)
         local name = t_rune_data['name']
@@ -206,6 +212,23 @@ function UI_InventoryTabRune:enhanceBtn(t_rune_data)
     end
 
     ui:setCloseCB(close_cb)
+end
+
+-------------------------------------
+-- function runeLockBtn
+-- @brief 룬 잠금
+-------------------------------------
+function UI_InventoryTabRune:runeLockBtn(t_rune_data)
+    local roid = t_rune_data['roid']
+
+    local function finish_cb()
+        local new_data = g_runesData:getRuneObject(roid)
+        if (t_rune_data['updated_at'] ~= new_data['updated_at']) then
+            self:refresh_selectedRune(new_data)
+        end
+    end
+
+    g_runesData:request_runesLock_toggle(roid, finish_cb)
 end
 
 -------------------------------------
