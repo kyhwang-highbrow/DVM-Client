@@ -78,6 +78,7 @@ function LocalData:makeDefaultLocalData()
         t_data['rarity_3'] = false
         t_data['rarity_2'] = true
         t_data['rarity_1'] = true
+        t_data['enhance'] = false
         root_table['option_rune_bulk_sell'] = t_data
     end
 
