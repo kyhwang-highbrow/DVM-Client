@@ -311,6 +311,7 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <None Include="..\src\ForestTerritory.lua" />
     <None Include="..\src\ForestUserStatusUI.lua" />
     <None Include="..\src\FpsMeter.lua" />
+    <None Include="..\src\FullPopupManager.lua" />
     <None Include="..\src\GameAuto.lua" />
     <None Include="..\src\GameAuto_Enemy.lua" />
     <None Include="..\src\GameAuto_Hero.lua" />

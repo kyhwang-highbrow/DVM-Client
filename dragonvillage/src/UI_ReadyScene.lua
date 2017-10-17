@@ -69,6 +69,9 @@ function UI_ReadyScene:init(stage_id, with_friend, sub_info)
 
     -- 자동 전투 off
     g_autoPlaySetting:setAutoPlay(false)
+
+    -- 매일매일 다이아 풀팝업
+    g_fullPopupManager:show(FULL_POPUP_TYPE.AUTO_PICK)
 end
 
 -------------------------------------
