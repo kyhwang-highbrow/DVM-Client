@@ -99,6 +99,11 @@ end
 -- function getVisualList
 -------------------------------------
 function AnimatorVrp:getVisualList()
+    if (not self.m_node) then
+		self:printAnimatorError()
+        return
+    end
+
     local visual = self.m_node
 
     local content = visual:getVisualListLuaTable()

@@ -76,6 +76,9 @@ function StructUserInfoColosseum:create_forRanking(t_data)
 
     user_info.m_leaderDragonObject = StructDragonObject(t_data['leader'])
 
+    -- 드래곤 룬 세팅
+    user_info.m_leaderDragonObject:setRuneObjects(t_data['runes'])
+
     return user_info
 end
 
