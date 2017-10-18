@@ -1267,9 +1267,10 @@ function ServerData_Dragons:dragonMaterialWarning(oid, next_func, t_warning)
     end
 
     -- 친밀도
-    local warning_flv = t_warning['flv'] or 4
-    if (warning_flv <= object:getFlv()) then
-        add_msg(Str('친밀도 {1} 단계', object:getFlv()))
+    local warning_flv = t_warning['flv'] or 2
+    local flv = (object:getFlv() + 1) -- 데이터는 0부터 유저에게는 1부터 노출됨
+    if (warning_flv <= flv) then
+        add_msg(Str('친밀도 {1} 단계', flv))
         warning = true
     end
 
