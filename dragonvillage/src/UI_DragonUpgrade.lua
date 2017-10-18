@@ -385,44 +385,55 @@ function UI_DragonUpgrade:click_dragonMaterial(data)
         end
     end
 
-    local list_item = self.m_mtrlTableViewTD:getItem(doid)
-    local list_item_ui = list_item['ui']
+    local function next_func()
+        local list_item = self.m_mtrlTableViewTD:getItem(doid)
+        local list_item_ui = list_item['ui']
     
-    if self.m_mSelectedMtrMap[doid] then
-        local ui = self.m_mSelectedMtrMap[doid]
-        self.m_mSelectedMtrMap[doid] = nil
-        self.m_lSelectedMtrlList[ui.m_tag] = nil
+        if self.m_mSelectedMtrMap[doid] then
+            local ui = self.m_mSelectedMtrMap[doid]
+            self.m_mSelectedMtrMap[doid] = nil
+            self.m_lSelectedMtrlList[ui.m_tag] = nil
 
-        ui.root:removeFromParent()
+            ui.root:removeFromParent()
 
-        list_item_ui:setCheckSpriteVisible(false)
-        self.m_selectedMaterialCnt = (self.m_selectedMaterialCnt - 1)
-    else
-        if self.m_currSlotIdx then
-            local ui = UI_DragonCard(data)
-            ui.vars['clickBtn']:registerScriptTapHandler(function() self:click_dragonMaterial(data) end)
-            ui.m_tag = self.m_currSlotIdx
+            list_item_ui:setCheckSpriteVisible(false)
+            self.m_selectedMaterialCnt = (self.m_selectedMaterialCnt - 1)
+        else
+            if self.m_currSlotIdx then
+                local ui = UI_DragonCard(data)
+                ui.vars['clickBtn']:registerScriptTapHandler(function() self:click_dragonMaterial(data) end)
+                ui.m_tag = self.m_currSlotIdx
 
-            self.m_mSelectedMtrMap[doid] = ui
+                self.m_mSelectedMtrMap[doid] = ui
 
-            self.m_lSelectedMtrlList[self.m_currSlotIdx] = ui
+                self.m_lSelectedMtrlList[self.m_currSlotIdx] = ui
         
-            --ui.root:setScale(0.57)
-            local scale = 0.57
-            cca.uiReactionSlow(ui.root, scale, scale, scale * 0.7)
-            vars['materialNode' .. self.m_currSlotIdx]:addChild(ui.root)
+                --ui.root:setScale(0.57)
+                local scale = 0.57
+                cca.uiReactionSlow(ui.root, scale, scale, scale * 0.7)
+                vars['materialNode' .. self.m_currSlotIdx]:addChild(ui.root)
 
-            list_item_ui:setCheckSpriteVisible(true)
-            self.m_selectedMaterialCnt = (self.m_selectedMaterialCnt + 1)
+                list_item_ui:setCheckSpriteVisible(true)
+                self.m_selectedMaterialCnt = (self.m_selectedMaterialCnt + 1)
+            end
+        end
+
+        self.m_currSlotIdx = nil
+        for i=1, self.m_selectedDragonGrade do
+            if (not self.m_lSelectedMtrlList[i] ) then
+                self.m_currSlotIdx = i
+                break
+            end
         end
     end
 
-    self.m_currSlotIdx = nil
-    for i=1, self.m_selectedDragonGrade do
-        if (not self.m_lSelectedMtrlList[i] ) then
-            self.m_currSlotIdx = i
-            break
-        end
+    -- 재료 경고
+    if self.m_mSelectedMtrMap[doid] then
+        next_func()
+    else
+        local oid = doid
+        local grade = self.m_selectDragonData['grade'] + 1
+        g_dragonsData:dragonMaterialWarning(oid, next_func, {grade=grade})
     end
 end
 

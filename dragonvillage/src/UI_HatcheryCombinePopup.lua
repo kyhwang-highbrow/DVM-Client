@@ -276,7 +276,23 @@ function UI_HatcheryCombinePopup:click_dragonCard(ui, data)
         return
     end
 
-    self:setlectMtrlCard(ui, data)
+    local did = data['did']
+    local t_data = self.m_selectedDragonCard[did]
+    -- 선택된 드래곤이 해제되는 경우
+    if t_data and t_data['dragon_obj'] and t_data['dragon_obj']['id'] == data['id'] then
+        self:setlectMtrlCard(ui, data)
+    -- 선택된 드래곤이 선택 되는 경우 재료 드래곤 경고 확인
+    else
+        local function next_func()
+            self:setlectMtrlCard(ui, data)
+        end
+        local oid = data['id']
+        local t_warning = {}
+        t_warning['grade'] = (req_grade + 1)
+        t_warning['lv'] = (req_grade_max_lv + 1)
+        t_warning['evolution'] = (req_evolution + 1)
+        g_dragonsData:dragonMaterialWarning(oid, next_func, t_warning)
+    end
 end
 
 -------------------------------------

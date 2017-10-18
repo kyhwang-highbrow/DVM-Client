@@ -266,3 +266,35 @@ end
 function StructSlimeObject:getLock()
     return self['lock']
 end
+
+-------------------------------------
+-- function getGrade
+-- @breif
+-------------------------------------
+function StructSlimeObject:getGrade()
+    return self['grade']
+end
+
+-------------------------------------
+-- function getEvolution
+-- @breif
+-------------------------------------
+function StructSlimeObject:getEvolution()
+    return self['evolution']
+end
+
+-------------------------------------
+-- function getLv
+-- @breif
+-------------------------------------
+function StructSlimeObject:getLv()
+    return self['lv']
+end
+
+-------------------------------------
+-- function getRuneObjectList
+-- @breif
+-------------------------------------
+function StructSlimeObject:getRuneObjectList()
+    return {}
+end

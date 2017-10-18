@@ -163,34 +163,46 @@ end
 -- @override
 -------------------------------------
 function UI_DragonSell:click_dragonMaterial(t_dragon_data)
-    local doid = t_dragon_data['id']
+    local function next_func()
+        local doid = t_dragon_data['id']
 
-	-- 가격 처리 및 테이블리스트 갱신
-	do
-		local price = TableDragonExp():getDragonSellGold(t_dragon_data['grade'], t_dragon_data['lv'])
+	    -- 가격 처리 및 테이블리스트 갱신
+	    do
+		    local price = TableDragonExp():getDragonSellGold(t_dragon_data['grade'], t_dragon_data['lv'])
 
-		-- 제외
-		if (self.m_tSellTable[doid]) then
-			self.m_tSellTable[doid] = nil
-			self.m_price = self.m_price - price
+		    -- 제외
+		    if (self.m_tSellTable[doid]) then
+			    self.m_tSellTable[doid] = nil
+			    self.m_price = self.m_price - price
 		
-		-- 추가
-		else
-			-- 갯수 체크
-			local sell_cnt = table.count(self.m_tSellTable)
-			if (sell_cnt >= MAX_SELL_CNT) then
-				UIManager:toastNotificationRed(Str('한 번에 최대 {1}마리까지 가능합니다.', MAX_SELL_CNT))
-				return
-			end
+		    -- 추가
+		    else
+			    -- 갯수 체크
+			    local sell_cnt = table.count(self.m_tSellTable)
+			    if (sell_cnt >= MAX_SELL_CNT) then
+				    UIManager:toastNotificationRed(Str('한 번에 최대 {1}마리까지 가능합니다.', MAX_SELL_CNT))
+				    return
+			    end
 
-			self.m_tSellTable[doid] = t_dragon_data
-			self.m_price = self.m_price + price
-		end
-	end
+			    self.m_tSellTable[doid] = t_dragon_data
+			    self.m_price = self.m_price + price
+		    end
+	    end
 
-	-- 갱신
-    self:refresh_materialDragonIndivisual(doid)
-    self:refresh_selectedMaterial()
+	    -- 갱신
+        self:refresh_materialDragonIndivisual(doid)
+        self:refresh_selectedMaterial()
+    end
+
+    local doid = t_dragon_data['id']
+    if self.m_tSellTable[doid] then
+        -- 해제할 경우
+        next_func()
+    else
+        -- 재료 경고
+        local oid = t_dragon_data['id']
+        g_dragonsData:dragonMaterialWarning(oid, next_func)
+    end
 end
 
 -------------------------------------

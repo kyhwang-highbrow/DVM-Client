@@ -699,28 +699,23 @@ function UI_DragonManageInfo:click_goodbyeBtn()
 	local name = table_dragon:getDragonName(did)
 	local birth_grade = table_dragon:getBirthGrade(did)
 
+    local material_warning_popup
 	local really_warning_popup
-	local rarity_warning_popup
     local network_func
     local show_effect
 	local finish_cb
+
+    -- 재료 경고
+    material_warning_popup = function()
+        local oid = self.m_selectDragonOID
+        g_dragonsData:dragonMaterialWarning(oid, really_warning_popup)
+    end
 
 	-- 정말 작별 하는지 되물음
 	really_warning_popup = function()
 		local goodbye_str = Str('드래곤과 작별하고 다른 드래곤의 인연 포인트를 획득합니다. 정말로 {@DEEPSKYBLUE}{1}{@DESC}(와)과 작별하시겠습니까?', name)
         goodbye_str = goodbye_str .. '\n' .. Str('{@RED}(친밀도 등급이 높을수록, 더 높은 등급의 인연포인트를 얻을 확률이 증가합니다)')
-		MakeSimplePopup(POPUP_TYPE.YES_NO, goodbye_str, rarity_warning_popup)
-	end
-
-	-- 레어도가 높다면 한번 더 경고
-	rarity_warning_popup = function()
-		-- 영웅 이상
-		if (birth_grade >= 4) then
-			local goodbye_str_2 = Str(' {@DEEPSKYBLUE}{1}{@DESC}(은)는 매우 희귀한 드래곤으로, 작별하게 되면 다시 복구할 수 없습니다. 그래도 {@DEEPSKYBLUE}{1}{@DESC}(와)과 작별하시겠습니까?', name)
-			MakeSimplePopup(POPUP_TYPE.YES_NO, goodbye_str_2, network_func)
-		else
-			network_func()
-		end
+		MakeSimplePopup(POPUP_TYPE.YES_NO, goodbye_str, network_func)
 	end
 
 	-- 작별 통신
@@ -751,7 +746,7 @@ function UI_DragonManageInfo:click_goodbyeBtn()
     end
 
 	-- start
-	really_warning_popup()
+	material_warning_popup()
 end
 
 -------------------------------------
