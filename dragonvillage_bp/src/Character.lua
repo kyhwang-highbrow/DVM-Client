@@ -508,7 +508,7 @@ function Character:undergoAttack(attacker, defender, i_x, i_y, body_key, no_even
 		-- 공격력 계산(atk_dmg)
         --------------------------------------------------------------
 		local atk_dmg = org_atk_dmg
-
+        
         -- 스킬 계수
         local power_rate = attack_activity_carrier:getPowerRate() / 100
 
@@ -578,7 +578,11 @@ function Character:undergoAttack(attacker, defender, i_x, i_y, body_key, no_even
 	            cclog('공격자 : ' .. attacker_char:getName())
             end
 	        cclog('방어자 : ' .. defender:getName())
-	        cclog('공격 타입 : ' .. attack_type)
+	        if (attack_activity_carrier:getParam('add_dmg')) then
+                cclog('공격 타입 : ' .. attack_type .. '(add_dmg)')
+            else
+                cclog('공격 타입 : ' .. attack_type)
+            end
             cclog('히트 수 : ' .. attack_hit_count)
 
             cclog('------------------------------------------------------')
@@ -736,16 +740,14 @@ function Character:undergoAttack(attacker, defender, i_x, i_y, body_key, no_even
 		end
 	end
 	
-    -- 스킬 공격으로 피격되였다면 캐스팅 중이던 스킬을 취소시킴
+    -- 효과음
     if (attack_type == 'active') then
-        -- 효과음
         if (is_critical) then
             SoundMgr:playEffect('EFX', 'efx_damage_critical')
         else
             SoundMgr:playEffect('EFX', 'efx_damage_normal')
         end
     else
-        -- 효과음
         if (is_critical) then
             SoundMgr:playEffect('EFX', 'efx_damage_critical')
         else

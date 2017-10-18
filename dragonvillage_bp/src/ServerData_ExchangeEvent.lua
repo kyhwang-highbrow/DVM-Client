@@ -26,14 +26,16 @@ end
 -------------------------------------
 function ServerData_ExchangeEvent:parseProductInfo(product_info)
     self.m_productInfo = {}
-    local info = self.m_productInfo
-    local step = product_info['step']
+    if (product_info) then
+        local info = self.m_productInfo
+        local step = product_info['step']
     
-    for i = 1, step do
-        local data = { step = i,
-                       price = product_info['price_'..i], 
-                       reward = product_info['mail_content_'..i] }
-        table.insert(info, data)
+        for i = 1, step do
+            local data = { step = i,
+                           price = product_info['price_'..i], 
+                           reward = product_info['mail_content_'..i] }
+            table.insert(info, data)
+        end
     end
 end
 

@@ -109,10 +109,12 @@ function UI_DragonRunes:initButton()
 
     -- 장착된 룬
     vars['useEnhanceBtn']:registerScriptTapHandler(function() self:click_useEnhanceBtn() end)
+    vars['useLockBtn']:registerScriptTapHandler(function() self:click_useLockBtn() end)
     vars['removeBtn']:registerScriptTapHandler(function() self:click_removeBtn() end)    
 
     -- 선택된 룬 판매
     vars['sellBtn']:registerScriptTapHandler(function() self:click_sellBtn() end)
+    vars['selectLockBtn']:registerScriptTapHandler(function() self:click_selectLockBtn() end)
     vars['equipBtn']:registerScriptTapHandler(function() self:click_equipBtn() end)
     vars['selectEnhanceBtn']:registerScriptTapHandler(function() self:click_selectEnhance() end)
 
@@ -492,7 +494,6 @@ function UI_DragonRunes:setEquipedRuneObject(rune_obj)
     vars['useMainOptionLabel']:setString('')
     vars['useSubOptionLabel']:setString('')
     vars['useRuneSetLabel']:setString('')
-    vars['useLockBtn']:setVisible(false)
 
     if (not rune_obj) then
         vars['useMenu']:setVisible(false)
@@ -529,6 +530,9 @@ function UI_DragonRunes:setEquipedRuneObject(rune_obj)
         local name = rune_obj:getRarityName()
         vars['useRarityLabel']:setString(name)
     end
+
+    -- 잠금 정보 추가
+    vars['useLockSprite']:setVisible(self.m_equippedRuneObject['lock'])
 end
 
 -------------------------------------
@@ -552,7 +556,6 @@ function UI_DragonRunes:setSelectedRuneObject(rune_obj)
     vars['selectMainOptionLabel']:setString('')
     vars['selectSubOptionLabel']:setString('')
     vars['selectRuneSetLabel']:setString('')
-    vars['selectLockBtn']:setVisible(false)
 
     if (not rune_obj) then
         vars['selectMenu']:setVisible(false)
@@ -592,6 +595,9 @@ function UI_DragonRunes:setSelectedRuneObject(rune_obj)
         local roid = self.m_selectedRuneObject['roid']
         self:setTableViewItemHighlight(roid, true)
     end
+
+    -- 잠금 정보 추가
+    vars['selectLockSprite']:setVisible(self.m_selectedRuneObject['lock'])
 end
 
 -------------------------------------
@@ -624,6 +630,11 @@ function UI_DragonRunes:click_sellBtn()
     local rune_obj = self.m_selectedRuneObject
     local roid = rune_obj['roid']
     
+    if (rune_obj['lock'] == true) then
+        MakeSimplePopup(POPUP_TYPE.OK, Str('잠금 상태입니다.'))
+        return
+    end
+
     -- 판매 요청 (서버에)
     local function request_item_sell()
         local function finish_cb(ret)
@@ -642,6 +653,28 @@ function UI_DragonRunes:click_sellBtn()
     MakeSimplePopup(POPUP_TYPE.YES_NO, msg, request_item_sell)
 end
 
+-------------------------------------
+-- function click_selectLockBtn
+-- @brief 룬 잠금 버튼
+-------------------------------------
+function UI_DragonRunes:click_selectLockBtn()
+    if (not self.m_selectedRuneObject) then
+        return
+    end
+
+    local roid = self.m_selectedRuneObject['roid']
+    local owner_doid = self.m_selectedRuneObject['owner_doid']
+
+    local function finish_cb()
+        local new_data = g_runesData:getRuneObject(roid)
+        if (self.m_selectedRuneObject['updated_at'] ~= new_data['updated_at']) then
+            self:refreshTableViewList()
+            self.m_bChangeDragonList = true
+        end
+    end
+
+    g_runesData:request_runesLock_toggle(roid, owner_doid, finish_cb)
+end
 
 -------------------------------------
 -- function getSelectDragonAttr
@@ -678,6 +711,29 @@ function UI_DragonRunes:click_useEnhanceBtn()
     end
 
     ui:setCloseCB(close_cb)
+end
+
+-------------------------------------
+-- function click_useLockBtn
+-- @brief 룬 잠금 버튼
+-------------------------------------
+function UI_DragonRunes:click_useLockBtn()
+    if (not self.m_equippedRuneObject) then
+        return
+    end
+
+    local roid = self.m_equippedRuneObject['roid']
+    local owner_doid = self.m_equippedRuneObject['owner_doid']
+
+    local function finish_cb()
+        local new_data = g_runesData:getRuneObject(roid)
+        if (self.m_equippedRuneObject['updated_at'] ~= new_data['updated_at']) then
+            self:refreshTableViewList()
+            self.m_bChangeDragonList = true
+        end
+    end
+
+    g_runesData:request_runesLock_toggle(roid, owner_doid, finish_cb)
 end
 
 -------------------------------------
@@ -774,10 +830,18 @@ function UI_DragonRunes:click_equipBtn()
 
     local slot_idx = rune_obj['slot']
     if self.m_mEquippedRuneObjects[slot_idx] then
+
+        -- 잠금 확인
+        local rune_obj = self.m_mEquippedRuneObjects[slot_idx]
+        if (rune_obj['lock'] == true) then
+            MakeSimplePopup2(POPUP_TYPE.OK, Str('기존에 장착된 룬이 있으며 룬이 잠금 상태입니다.'), Str('(장착된 룬은 골드를 사용하여 "해제"할 수 있습니다)'))
+            return
+        end
+
         local function ok_btn_cb()
             self:request_runeEquip(doid, roid)
         end
-        MakeSimplePopup(POPUP_TYPE.YES_NO, '기존에 장착된 룬은 파괴됩니다.\n장착하시겠습니까?\n\n(골드를 사용하여 룬을 "해제"할 수 있습니다)', ok_btn_cb)
+        MakeSimplePopup2(POPUP_TYPE.YES_NO, '기존에 장착된 룬은 파괴됩니다.\n장착하시겠습니까?', Str('(장착된 룬은 골드를 사용하여 "해제"할 수 있습니다)'), ok_btn_cb)
     else
         self:request_runeEquip(doid, roid)
     end

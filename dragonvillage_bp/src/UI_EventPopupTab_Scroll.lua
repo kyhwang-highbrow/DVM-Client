@@ -65,7 +65,7 @@ function UI_EventPopupTab_Scroll:onEnterTab()
 
         -- 받을 누적 보상이 있다면 누적 보상쪽 스크롤
         if (g_exchangeEventData:hasReward()) then
-            container_node:setPositionY(0)
+            container_node:setPositionY(-80)
         else
             container_node:setPositionY(self.m_originPosY)
         end

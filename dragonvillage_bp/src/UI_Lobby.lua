@@ -104,11 +104,7 @@ function UI_Lobby:entryCoroutine()
             end
             MakeSimplePopup(POPUP_TYPE.OK, msg, ok_cb)
         end
-
-        -- 최초 실행인지 확인
-        local title_to_lobby = g_localData:get('event_full_popup', 'title_to_lobby') or false
         
-
         --친구 정보 받아옴
         cclog('# 친구 정보 받는 중')
         working = true
@@ -202,39 +198,24 @@ function UI_Lobby:entryCoroutine()
         end
         while (working) do dt = coroutine.yield() end
 
+        -- 타이틀 화면에서 진입시
+        local title_to_lobby = g_fullPopupManager:isTitleToLobby()
         g_eventData.m_bDirty = true
         if (g_tutorialData:isTutorialDone(TUTORIAL.FIRST_START)) then
 
-            -- 패키지 풀팝업 (하드코딩)
-            if (title_to_lobby) then
-                
-                -- 네이버 카페
-                NaverCafeManager:naverCafeStart(0)
+            -- 네이버 카페
+             NaverCafeManager:naverCafeStart(0)
 
-                local first_login = g_localData:get('event_full_popup', 'first_login') or false
-                local l_list = g_eventData:getEventFullPopupList()
-                for _, pid in ipairs(l_list) do
-                    local save_key = tostring(pid)
-
-                    -- 첫 로그인시 봤던 기록 초기화
-                    if (first_login) then 
-                        g_localData:applyLocalData(false, 'event_full_popup', save_key)
-                    end
-
-                    local is_view = g_localData:get('event_full_popup', save_key) or false
-
-                    -- 봤던 기록 없는 이벤트 풀팝업 띄워줌
-                    if (not is_view) then
-                        working = true
-                        local ui = UI_EventFullPopup(pid)
-                        ui:setCloseCB(function(ret) working = false end)
-                        ui:openEventFullPopup()
-                        while (working) do dt = coroutine.yield() end
-                    end                
-                end
-
-                g_localData:applyLocalData(false, 'event_full_popup', 'title_to_lobby')
+            -- 이벤트 풀팝업
+            local function show_func(pid) 
+                working = true
+                local ui = UI_EventFullPopup(pid)
+                ui:setCloseCB(function(ret) working = false end)
+                ui:openEventFullPopup()
+                while (working) do dt = coroutine.yield() end
             end
+
+            g_fullPopupManager:show(FULL_POPUP_TYPE.LOBBY, show_func)
 
             -- 이벤트 보상 정보가 있다면 팝업을 띄운다.
             if g_eventData:hasReward() then
@@ -373,7 +354,7 @@ function UI_Lobby:initButton()
     vars['capsuleBtn']:registerScriptTapHandler(function() self:click_capsuleBtn() end)
     vars['itemAutoBtn']:registerScriptTapHandler(function() self:click_itemAutoBtn() end) -- 자동재화(광고)
     vars['giftBoxBtn']:registerScriptTapHandler(function() self:click_giftBoxBtn() end) -- 랜덤박스(광고)
-    vars['chuseokBtn']:registerScriptTapHandler(function() self:click_chuseokBtn() end) -- 추석이벤트(교환이벤트)
+    vars['exchangeBtn']:registerScriptTapHandler(function() self:click_exchangeBtn() end) -- 교환이벤트
 
     do -- 기타 UI
         local etc_vars = self.m_etcExpendedUI.vars
@@ -527,14 +508,7 @@ function UI_Lobby:refresh_eventBanner()
 
     local button_list = {}
     local function click_button(event_type)
-        -- 매일매일 다이아
-        if (event_type == 'daily_dia') then
-            g_subscriptionData:openSubscriptionPopup()
-        
-        -- 해당 이벤트 탭 이동
-        else
-            g_eventData:openEventPopup(event_type)
-        end
+        g_eventData:goToEventTarget(event_type)
     end
 
     -- 스크롤 버튼 생성
@@ -752,10 +726,10 @@ function UI_Lobby:click_giftBoxBtn()
 end
 
 -------------------------------------
--- function click_chuseokBtn
--- @brief 추석 이벤트
+-- function click_exchangeBtn
+-- @brief 교환 이벤트
 -------------------------------------
-function UI_Lobby:click_chuseokBtn()
+function UI_Lobby:click_exchangeBtn()
     if (not g_eventData:isVaildEvent('event_exchange')) then
         return
     end
@@ -863,7 +837,7 @@ function UI_Lobby:update(dt)
     -- 이벤트 갱신된 경우
     if (g_eventData.m_bDirty) then
         g_eventData.m_bDirty = false
-        self.vars['chuseokBtn']:setVisible(g_eventData:isVaildEvent('event_exchange'))
+        self.vars['exchangeBtn']:setVisible(g_eventData:isVaildEvent('event_exchange'))
 
         self:refresh_eventBanner()
     end

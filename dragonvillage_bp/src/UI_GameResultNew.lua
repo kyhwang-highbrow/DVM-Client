@@ -1246,10 +1246,19 @@ function UI_GameResultNew:setHotTimeInfo(l_hottime)
     -- 'gold_2x' -- 골드 두배
     -- 'stamina_50p' -- 필요 활동력 50%
 
+    -- 경험치 1.5 핫타임
+    if table.find(l_hottime, 'exp_1_5x') then
+        for i=1, 5 do
+            vars['hotTimeLabel' .. i]:setVisible(true)
+            vars['hotTimeLabel' .. i]:setString('x1.5')
+        end
+    end
+
     -- 경험치 두배 핫타임
     if table.find(l_hottime, 'exp_2x') then
         for i=1, 5 do
             vars['hotTimeLabel' .. i]:setVisible(true)
+            vars['hotTimeLabel' .. i]:setString('x2')
         end
     end
 end

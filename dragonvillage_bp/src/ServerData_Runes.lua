@@ -363,3 +363,54 @@ function ServerData_Runes:getUnequippedRuneCount()
     local count = table.count(l_runes)
     return count
 end
+
+-------------------------------------
+-- function request_runesLock
+-- @breif
+-------------------------------------
+function ServerData_Runes:request_runesLock(roid, owner_doid, lock, finish_cb, fail_cb)
+    -- 유저 ID
+    local uid = g_userData:get('uid')
+
+    -- 성공 콜백
+    local function success_cb(ret)
+        -- 룬 데이터 적용
+        if ret['modified_rune'] then
+            ret['modified_rune']['owner_doid'] = owner_doid
+            self:applyRuneData(ret['modified_rune'])
+        end
+
+        if finish_cb then
+            finish_cb(ret)
+        end
+    end
+
+    -- 네트워크 통신
+    local ui_network = UI_Network()
+    ui_network:setUrl('/runes/lock')
+    ui_network:setParam('uid', uid)
+    ui_network:setParam('roid', roid)
+    ui_network:setParam('lock', lock)
+    ui_network:setMethod('POST')
+    ui_network:setSuccessCB(success_cb)
+    ui_network:setFailCB(fail_cb)
+    ui_network:setRevocable(true)
+    ui_network:setReuse(false)
+    ui_network:request()
+
+    return ui_network
+end
+
+-------------------------------------
+-- function request_runesLock_toggle
+-- @breif
+-------------------------------------
+function ServerData_Runes:request_runesLock_toggle(roid, owner_doid, finish_cb, fail_cb)
+    local rune_object = self:getRuneObject(roid)
+    if (not rune_object) then
+        return
+    end
+
+    local lock = (not rune_object['lock'])
+    return self:request_runesLock(roid, owner_doid, lock, finish_cb, fail_cb)
+end

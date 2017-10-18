@@ -1,4 +1,4 @@
-﻿local PARENT = UI
+local PARENT = UI
 
 -------------------------------------
 -- class UI_ExchangeEvent
@@ -7,11 +7,13 @@ UI_ExchangeEvent = class(PARENT,{
         m_eventDataUI = 'list',
     })
 
+local NEED_EXCHANGE = 300
+
 -------------------------------------
 -- function init
 -------------------------------------
 function UI_ExchangeEvent:init()
-    local vars = self:load('event_chuseok.ui')
+    local vars = self:load('event_exchange.ui')
 
     self:initUI()
     self:initButton()
@@ -67,25 +69,39 @@ function UI_ExchangeEvent:refresh()
     -- 소모량
     local use_cnt = g_exchangeEventData.m_nMaterialUse
     vars['numberLabel2']:setString(Str('{1}개', comma_value(use_cnt)))
-
+    
     -- 교환 버튼
-    local need_exchange = 500
-    vars['boxLabel']:setString(Str('{1}개', comma_value(need_exchange)))
-    --vars['boxBtn']:setEnabled(cur_cnt >= need_exchange)
+    vars['boxLabel']:setString(Str('{1}개', comma_value(NEED_EXCHANGE)))
 
     -- 누적 보상 갱신
     local reward_info = g_exchangeEventData.m_productInfo
+
+    local reward_line = 6 -- 한줄에 표시되는 보상 갯수
+    local gauge_line = (#reward_info > reward_line) and 2 or 1 -- 누적 게이지 한줄, 두줄
+
     for i, info in ipairs(reward_info) do
         local cur_need = info['price']
         if (use_cnt < cur_need) then
             local pre_need = (i == 1) and 0 or reward_info[(i - 1)]['price']
             local need_cnt = cur_need - pre_need
             local event_cnt = use_cnt - pre_need
-            local div = 100/#reward_info
+            local div = 100/reward_line
             local per = div * (i - 1) + (div * (event_cnt/(need_cnt)))
-            per = math_min(per, 100)
-            vars['timeGauge']:setPercentage(per)
+            
+            if (gauge_line >= 2 and i > reward_line) then
+                per = per - 100
+                per = math_min(per, 100)
+                vars['timeGauge']:setPercentage(100)
+                vars['timeGauge2']:setPercentage(per)
+            else
+                per = math_min(per, 100)
+                vars['timeGauge']:setPercentage(per)
+                vars['timeGauge2']:setPercentage(0)
+            end
             break
+        else
+            vars['timeGauge']:setPercentage(100)
+            vars['timeGauge2']:setPercentage(100)
         end
     end
 
@@ -100,7 +116,7 @@ end
 -------------------------------------
 function UI_ExchangeEvent:click_infoBtn()
     local ui = UI()
-    ui:load('event_chuseok_info_popup.ui')
+    ui:load('event_exchange_info_popup.ui')
     ui.vars['closeBtn']:registerScriptTapHandler(function() ui:close() end)
     g_currScene:pushBackKeyListener(ui, function() ui:close() end, 'event_chuseok_info_popup')
     UIManager:open(ui, UIManager.POPUP)
@@ -112,10 +128,8 @@ end
 -------------------------------------
 function UI_ExchangeEvent:click_boxBtn()
     local curr_cnt = g_exchangeEventData.m_nMaterialCnt
-    local need_exchange = 500
-
-    if (curr_cnt < need_exchange) then
-        UIManager:toastNotificationRed(Str('송편이 부족합니다.'))
+    if (curr_cnt < NEED_EXCHANGE) then
+        UIManager:toastNotificationRed(Str('사탕이 부족합니다.'))
         return
     end
 

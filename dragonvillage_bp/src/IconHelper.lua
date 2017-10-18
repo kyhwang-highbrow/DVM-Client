@@ -202,8 +202,9 @@ function IconHelper:getItemIcon(item_id, t_sub_data)
         local grade = rune_obj['grade']
         local set_id = rune_obj['set_id']
         local lv = rune_obj['lv']
+        local lock = rune_obj['lock'] or false
 
-        sprite = self:getRuneIcon(slot, rarity, grade, set_id, lv)
+        sprite = self:getRuneIcon(slot, rarity, grade, set_id, lv, lock)
 
     -- 인연 포인트 아이콘 생성
     elseif (item_type == 'relation_point') then
@@ -226,7 +227,7 @@ end
 -- function getRuneIcon
 -- @brief 룬 아이콘 생성
 -------------------------------------
-function IconHelper:getRuneIcon(slot, rarity, grade, set_id, lv)
+function IconHelper:getRuneIcon(slot, rarity, grade, set_id, lv, lock)
     local rarity_str = ''
 
     if (rarity == 0) then
@@ -295,6 +296,13 @@ function IconHelper:getRuneIcon(slot, rarity, grade, set_id, lv)
         label:setDockPoint(CENTER_POINT)
         label:setAnchorPoint(cc.p(0, 0.5))
         bg:addChild(label)
+    end
+
+    -- 잠금 여부
+    if lock then
+        local sprite = self:getIcon('res/ui/a2d/card/card_cha_icon_lock.png')
+        sprite:setPosition(54, -24)
+        bg:addChild(sprite)
     end
 
     return bg

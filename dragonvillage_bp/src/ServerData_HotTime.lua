@@ -3,6 +3,7 @@
 -------------------------------------
 ServerData_HotTime = class({
         m_serverData = 'ServerData',
+        m_hotTimeType = 'table',
         m_hotTimeInfoList = 'table', -- 서버에서 넘어오는 데이터 그대로를 저장
         m_activeEventList = 'table',
         m_listExpirationTime = 'timestamp',
@@ -18,6 +19,54 @@ function ServerData_HotTime:init(server_data)
     self.m_serverData = server_data
     self.m_activeEventList = {}
     self.m_listExpirationTime = nil
+    self:init_hotTimeType()
+end
+
+-------------------------------------
+-- function init_hotTimeType
+-------------------------------------
+function ServerData_HotTime:init_hotTimeType()
+    self.m_hotTimeType = {}
+
+    do
+        local key = 'gold_1_5x'
+        local t_data = {}
+        t_data['key'] = key
+        t_data['tool_tip'] = Str('획득 골드량 1.5배')
+        self.m_hotTimeType[key] = t_data
+    end
+
+    do
+        local key = 'gold_2x'
+        local t_data = {}
+        t_data['key'] = key
+        t_data['tool_tip'] = Str('획득 골드량 2배')
+        self.m_hotTimeType[key] = t_data
+    end
+
+    do
+        local key = 'exp_1_5x'
+        local t_data = {}
+        t_data['key'] = key
+        t_data['tool_tip'] = Str('드래곤 경험치 획득량 1.5배')
+        self.m_hotTimeType[key] = t_data
+    end
+
+    do
+        local key = 'exp_2x'
+        local t_data = {}
+        t_data['key'] = key
+        t_data['tool_tip'] = Str('드래곤 경험치 획득량 2배')
+        self.m_hotTimeType[key] = t_data
+    end
+
+    do
+        local key = 'stamina_50p'
+        local t_data = {}
+        t_data['key'] = key
+        t_data['tool_tip'] = Str('소비 입장권 1/2')
+        self.m_hotTimeType[key] = t_data
+    end
 end
 
 -------------------------------------
@@ -127,19 +176,56 @@ function ServerData_HotTime:getActiveHotTimeInfo(hottime_nmae)
 end
 
 -------------------------------------
+-- function getActiveHotTimeInfo_stamina
+-------------------------------------
+function ServerData_HotTime:getActiveHotTimeInfo_stamina()
+    if g_hotTimeData:getActiveHotTimeInfo('stamina_50p') then
+        return true, 'stamina_50p', '1/2'
+    end
+
+    return false
+end
+
+-------------------------------------
+-- function getActiveHotTimeInfo_gold
+-------------------------------------
+function ServerData_HotTime:getActiveHotTimeInfo_gold()
+    if g_hotTimeData:getActiveHotTimeInfo('gold_2x') then
+        return true, 'gold_2x', 'x2'
+    end
+
+    if g_hotTimeData:getActiveHotTimeInfo('gold_1_5x') then
+        return true, 'gold_1_5x', 'x1.5'
+    end
+
+    return false
+end
+
+-------------------------------------
+-- function getActiveHotTimeInfo_exp
+-------------------------------------
+function ServerData_HotTime:getActiveHotTimeInfo_exp()
+    if g_hotTimeData:getActiveHotTimeInfo('exp_2x') then
+        return true, 'exp_2x', 'x2'
+    end
+
+    if g_hotTimeData:getActiveHotTimeInfo('exp_1_5x') then
+        return true, 'exp_1_5x', 'x1.5'
+    end
+
+    return false
+end
+
+-------------------------------------
 -- function isHighlightHotTime
 -------------------------------------
 function ServerData_HotTime:isHighlightHotTime()
-    if self:getActiveHotTimeInfo('gold_2x') then
-        return true
-    end
+    for _,v in pairs(self.m_hotTimeType) do
+        local key = v['key']
 
-    if self:getActiveHotTimeInfo('exp_2x') then
-        return true
-    end
-
-    if self:getActiveHotTimeInfo('stamina_50p') then
-        return true
+        if self:getActiveHotTimeInfo(key) then
+            return true
+        end
     end
     
     return false
@@ -171,15 +257,10 @@ function ServerData_HotTime:makeHotTimeToolTip(hottime_name, btn)
     
     local desc = ''
 
-    if (hottime_name == 'gold_2x') then
-        desc = Str('획득 골드량 2배')
+    local t_hot_time_type = self.m_hotTimeType[hottime_name]
 
-    elseif (hottime_name == 'stamina_50p') then
-        desc = Str('소비 입장권 1/2')
-
-    elseif (hottime_name == 'exp_2x') then
-        desc = Str('드래곤 경험치 획득량 2배')
-
+    if (t_hot_time_type and t_hot_time_type['tool_tip']) then
+        desc = t_hot_time_type['tool_tip']
     end
 
     local str = '{@SKILL_NAME} ' .. Str('핫타임 이벤트') .. '\n {@SKILL_DESC}' .. desc

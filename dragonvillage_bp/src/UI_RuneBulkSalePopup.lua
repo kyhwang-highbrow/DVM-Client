@@ -98,6 +98,12 @@ function UI_RuneBulkSalePopup:initButton()
         vars['rarityBtn1'] = UIC_CheckBox(vars['rarityBtn1'].m_node, vars['raritySprite1'], active)
         vars['rarityBtn1']:registerScriptTapHandler(function() self:click_checkBox() end)
     end
+
+    do -- 강화 단계
+        local active = g_localData:get('option_rune_bulk_sell', 'enhance')
+        vars['enhanceBtn'] = UIC_CheckBox(vars['enhanceBtn'].m_node, vars['enhanceSprite'], active)
+        vars['enhanceBtn']:registerScriptTapHandler(function() self:click_checkBox() end)
+    end
 end
 
 -------------------------------------
@@ -172,10 +178,16 @@ function UI_RuneBulkSalePopup:getRuneList()
     l_rarity[3] = vars['rarityBtn3']:isChecked()
     l_rarity[4] = vars['rarityBtn4']:isChecked()
 
+    local with_enhanced_runes = vars['enhanceBtn']:isChecked()
+
     for i,v in pairs(l_rune_list) do
         local grade = v['grade']
         local rarity = v['rarity']
-        if (l_stars[grade] and l_rarity[rarity]) then
+        local lv = v['lv']
+        local lock = v['lock']
+        if (not with_enhanced_runes) and (1 <= lv) then
+        elseif (lock == true) then
+        elseif (l_stars[grade] and l_rarity[rarity]) then
             l_ret_list[i] = v
         end
     end
@@ -226,6 +238,8 @@ function UI_RuneBulkSalePopup:click_checkBox()
     g_localData:applyLocalData(vars['rarityBtn3']:isChecked(), 'option_rune_bulk_sell', 'rarity_3')
     g_localData:applyLocalData(vars['rarityBtn2']:isChecked(), 'option_rune_bulk_sell', 'rarity_2')
     g_localData:applyLocalData(vars['rarityBtn1']:isChecked(), 'option_rune_bulk_sell', 'rarity_1')
+
+    g_localData:applyLocalData(vars['enhanceBtn']:isChecked(), 'option_rune_bulk_sell', 'enhance')
 
     g_localData:unlockSaveData()
 

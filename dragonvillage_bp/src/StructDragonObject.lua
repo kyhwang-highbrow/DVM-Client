@@ -91,6 +91,23 @@ function StructDragonObject:applyTableData(data)
     end
 end
 
+
+-------------------------------------
+-- function getRuneObject
+-- @breif
+-------------------------------------
+function StructDragonObject:setRuneObjects(list)
+    if (not list) then return end
+
+    self.m_mRuneObjects = {}
+
+    for _, v in ipairs(list) do
+        local roid = v['id']
+
+        self.m_mRuneObjects[roid] = StructRuneObject(v)
+    end
+end
+
 -------------------------------------
 -- function getRuneObjectList
 -- @breif

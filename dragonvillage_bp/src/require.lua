@@ -36,6 +36,7 @@ local t_module = {
     'CppFunctions',
     'XorCipher',
     'PackageManager',
+    'FullPopupManager',
 
 	-- CONSTANT 
     'Constant',

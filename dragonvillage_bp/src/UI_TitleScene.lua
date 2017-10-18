@@ -36,6 +36,9 @@ function UI_TitleScene:init()
     self:setWorkList()
     self:doNextWork()
 
+    -- 풀팝업 매니저 인스턴스 생성
+    FullPopupManager:initInstance()
+
     -- 카페 위젯 노출 시작
     NaverCafeManager:naverCafeStartWidget()
     NaverCafeManager:naverCafeShowWidgetWhenUnloadSdk(1) -- @isShowWidget : 1(SDK unload 시 카페 위젯 보여주기) or 0(안 보여주기)
@@ -608,7 +611,7 @@ function UI_TitleScene:workGameLogin()
 
         -- 최초 로그인 상태 저장
         local first_login = ret['first_login'] or false
-        g_localData:applyLocalData(first_login, 'event_full_popup', 'first_login')
+        FullPopupManager:setFirstLogin(first_login)
         
         self:doNextWork()
     end
@@ -956,8 +959,8 @@ function UI_TitleScene:workFinish_click()
     Analytics:userInfo()
     Analytics:setAppDataVersion()
 
-    -- 계정 생성시에는 lobby_func 타지 않으므로 여기서 title_to_lobby 저장 - 후에 이벤트 팝업 구조 잡으면 삭제
-    g_localData:applyLocalData(true, 'event_full_popup', 'title_to_lobby')
+    -- 계정 생성시에는 lobby_func 타지 않으므로 여기서 title_to_lobby 저장 
+    g_fullPopupManager:setTitleToLobby(true)
 
     -- 로비 진입
     lobby_func = function() 

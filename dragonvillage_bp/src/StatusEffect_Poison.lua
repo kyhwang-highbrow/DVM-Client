@@ -98,9 +98,6 @@ function StatusEffect_Poison:doDamage()
 	    caster.m_charLogRecorder:recordLog('damage', unit:getParam('damage') * damage_rate)
     end
 
-    -- @LOG_CHAR : 방어자 피해량
-	self.m_owner.m_charLogRecorder:recordLog('be_damaged', damage)
-
 	-- 중독 사운드
 	SoundMgr:playEffect('EFX', 'efx_poison')
 end

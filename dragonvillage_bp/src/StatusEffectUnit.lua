@@ -188,6 +188,11 @@ function StatusEffectUnit:makeActivityCarrier()
 	activityCarrier:setPowerRate(self.m_value)
     activityCarrier:setAtkDmgStat(self.m_source)
 
+    local chance_type = self.m_tParam['chance_type']
+    if (chance_type) then
+        activityCarrier:setAttackType(chance_type)
+    end
+
     -- 수식에서 사용하기 위한 값을 세팅
     EquationHelper:setEquationParamOnMapForStatusEffect(activityCarrier.m_tParam, self)
 

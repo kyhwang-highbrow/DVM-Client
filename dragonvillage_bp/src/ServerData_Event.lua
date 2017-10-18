@@ -82,11 +82,15 @@ function ServerData_Event:getEventFullPopupList()
         local event_type = v['event_type'] 
 
         if (priority ~= '') then
-            -- shop type인 경우 event_id로 넣어줘야 함 
+            -- 단일 상품인 경우 (type:shop) event_id로 등록
             if (event_type == 'shop') then
                 event_type = v['event_id']     
-            end
 
+            -- banner type인 경우 resource, url까지 등록
+            elseif (event_type == 'banner') then
+                event_type = event_type .. ';' .. v['banner'] .. ';' .. v['url']
+            end
+            
             l_priority[event_type] = tonumber(priority)
             table.insert(l_list, event_type)
         end
@@ -116,11 +120,50 @@ function ServerData_Event:getEventBannerMap()
         local event_type = v['event_type'] 
         
         if (lobby_banner ~= '') then
-            map[event_type] = lobby_banner
+            -- 패키지 (구매 가능하다면 등록)
+            if (string.find(event_type, 'package') and PackageManager:isExist(product_id)) then
+                map[event_type] = lobby_banner
+
+            -- 단일 상품 (구매 가능하다면 등록)
+            elseif (event_type == 'shop') then
+                l_shop_list = g_shopDataNew:getProductList('package')
+                local pid = v['event_id'] 
+                if (l_shop_list[tonumber(pid)]) then
+                    event_type = event_type .. ';' .. pid
+                    map[event_type] = lobby_banner
+                end
+            else
+                map[event_type] = lobby_banner
+            end
         end
     end
 
     return map
+end
+
+-------------------------------------
+-- function goToEventTarget
+-------------------------------------
+function ServerData_Event:goToEventTarget(event_type)
+    -- 매일매일 다이아
+    if (event_type == 'daily_dia') then
+        g_subscriptionData:openSubscriptionPopup()
+        
+    -- 패키지 UI
+    elseif (string.find(event_type, 'package')) then
+        local pid = event_type
+        PackageManager:goToTargetUI(pid)
+
+    -- 단일 상품
+    elseif (string.find(event_type, 'shop')) then
+        local l_str = seperate(event_type, ';')
+        local pid = l_str[2]
+        PackageManager:goToTargetUI(pid)
+
+    -- 해당 이벤트 탭 이동
+    else
+        g_eventData:openEventPopup(event_type)
+    end
 end
 
 -------------------------------------
@@ -234,7 +277,13 @@ function ServerData_Event:request_eventList(finish_cb, fail_cb)
 
     -- 성공 콜백
     local function success_cb(ret)
-        self.m_eventList = ret['table_event_list'] or nil
+        self.m_eventList = {}
+        local event_list = ret['table_event_list'] 
+        for _, v in ipairs(event_list) do
+            if (v['ui_priority'] ~= '') then
+                table.insert(self.m_eventList, v)
+            end
+        end
 
         if finish_cb then
             finish_cb(ret)

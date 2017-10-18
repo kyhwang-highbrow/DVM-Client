@@ -1,0 +1,157 @@
+FULL_POPUP_TYPE = {
+    LOBBY = 1,          -- 로비 풀팝업
+    AUTO_PICK = 2,      -- 매일매일 다이아 풀팝업
+    START_PACK = 3,     -- 스타터 패키지 풀팝업
+    LAUNCH_PACK = 4,    -- 런칭 패키지 풀팝업
+}
+-------------------------------------
+-- class FullPopupManager
+-------------------------------------
+FullPopupManager = class({
+        m_first_login = 'boolean',
+        m_title_to_lobby = 'boolean',
+    })
+
+-------------------------------------
+-- function initInstance
+-------------------------------------
+function FullPopupManager:initInstance()
+    if g_fullPopupManager then
+        return
+    end
+
+    g_fullPopupManager = FullPopupManager()
+end
+
+-------------------------------------
+-- function init
+-------------------------------------
+function FullPopupManager:init()
+    self.m_first_login = false
+    self.m_title_to_lobby = false
+end
+
+-------------------------------------
+-- function show
+-------------------------------------
+function FullPopupManager:show(type, show_func)
+    -- 로비 진입시 풀팝업
+    if (type == FULL_POPUP_TYPE.LOBBY) and (self.m_title_to_lobby) then
+
+        local l_list = g_eventData:getEventFullPopupList()
+        for _, pid in ipairs(l_list) do
+            local save_key = tostring(pid)
+
+            -- 첫 로그인시 봤던 기록 초기화
+            if (self.m_first_login) then 
+                g_localData:applyLocalData(false, 'event_full_popup', save_key)
+                self:initLoacalData()
+            end
+
+            local is_view = g_localData:get('event_full_popup', save_key) or false
+
+            -- 봤던 기록 없는 이벤트 풀팝업 띄워줌
+            if (not is_view) then
+                show_func(pid)
+            end                
+        end
+
+        self.m_title_to_lobby = false
+    
+    -- 매일 매일 다이아 풀팝업 (전투화면 진입시)
+    -- 조건 : 구매하지 않은 유저 LV 3 이상
+    elseif (type == FULL_POPUP_TYPE.AUTO_PICK) then
+        local lv = g_userData:get('lv')
+        local need_lv = 3
+        local function cb_func()
+            if not (g_subscriptionData:getSubscribedInfo()) then
+                UI_SubscriptionPopup()
+            end
+        end
+        local save_key = 'auto_pick'
+        local is_view = g_localData:get('event_full_popup', save_key) or false
+        if (lv >= need_lv) and (not is_view) then 
+            g_subscriptionData:request_subscriptionInfo(cb_func)
+            g_localData:applyLocalData(true, 'event_full_popup', save_key)
+        end
+
+    -- 스타터 패키지 풀팝업 (부화소 진입시)
+    -- 조건 : 구매하지 않은 유저 LV 6 이상
+    elseif (type == FULL_POPUP_TYPE.START_PACK) then
+        local lv = g_userData:get('lv')
+        local need_lv = 6
+        local pid = 90006
+        local save_key = 'start_pack'
+        local is_view = g_localData:get('event_full_popup', save_key) or false
+        if (lv >= need_lv) and (not is_view) then 
+            self:showFullPopup(pid)
+            g_localData:applyLocalData(true, 'event_full_popup', save_key)
+        end
+
+    -- 런칭 패키지 풀팝업 (상점 진입시)
+    -- 조건 : 구매하지 않은 유저 LV 10 이상
+    elseif (type == FULL_POPUP_TYPE.LAUNCH_PACK) then
+        local lv = g_userData:get('lv')
+        local need_lv = 10
+        local pid = 90012
+        local save_key = 'launch_pack'
+        local is_view = g_localData:get('event_full_popup', save_key) or false
+        if (lv >= need_lv) and (not is_view) then 
+            self:showFullPopup(pid)
+            g_localData:applyLocalData(true, 'event_full_popup', save_key)
+        end
+    end
+end
+
+-------------------------------------
+-- function showFullPopup
+-------------------------------------
+function FullPopupManager:showFullPopup(pid)
+    local ui = UI_EventFullPopup(pid)
+    ui:openEventFullPopup()
+    ui.vars['checkBtn']:setVisible(false)
+    ui.vars['checkLabel']:setVisible(false)
+    ui.vars['mainNode']:setPositionY(0)
+end
+
+-------------------------------------
+-- function initLoacalData
+-------------------------------------
+function FullPopupManager:initLoacalData()
+    g_localData:applyLocalData(false, 'event_full_popup', 'auto_pick')
+    g_localData:applyLocalData(false, 'event_full_popup', 'start_pack')
+    g_localData:applyLocalData(false, 'event_full_popup', 'launch_pack')
+end
+
+-------------------------------------
+-- function setFirstLogin
+-------------------------------------
+function FullPopupManager:setFirstLogin(bool)
+    self.m_first_login = bool
+end
+
+-------------------------------------
+-- function isFirstLogin
+-------------------------------------
+function FullPopupManager:isFirstLogin()
+    return self.m_first_login 
+end
+
+-------------------------------------
+-- function setTitleToLobby
+-------------------------------------
+function FullPopupManager:setTitleToLobby(bool)
+    self.m_title_to_lobby = bool
+end
+
+-------------------------------------
+-- function isTitleToLobby
+-------------------------------------
+function FullPopupManager:isTitleToLobby()
+    return self.m_title_to_lobby 
+end
+
+
+
+
+

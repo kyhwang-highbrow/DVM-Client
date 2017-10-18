@@ -107,11 +107,65 @@ end
 -------------------------------------
 function StructTamerCostume:isSale()
     local sale_info = g_tamerCostumeData.m_saleInfo
-    if (sale_info[tostring(self.m_cid)]) then
-        return true
-    else
-        return false
+    local shop_info = g_tamerCostumeData:getShopInfo(self.m_cid)
+    local msg 
+    if (shop_info and sale_info[tostring(self.m_cid)]) then
+        local date_format = 'yyyy-mm-dd HH:MM:SS'
+        local parser = pl.Date.Format(date_format)
+
+        local end_date = parser:parse(shop_info['sale_end_date'])
+        local cur_time =  Timer:getServerTime()
+        local end_time = end_date['time']
+        local time = (end_time - cur_time)
+        msg = Str('할인 종료까지 {1} 남음', datetime.makeTimeDesc(time, true))
+
+        return true, msg
     end
+        
+    return false, msg
+end
+
+-------------------------------------
+-- function isLimit
+-- @brief 기간한정인지 (기간한정이라면 남은 기간도 같이 반환)
+-------------------------------------
+function StructTamerCostume:isLimit()
+    local shop_info = g_tamerCostumeData:getShopInfo(self.m_cid)
+    local msg
+    if (shop_info) then
+        local date_format = 'yyyy-mm-dd HH:MM:SS'
+        local parser = pl.Date.Format(date_format)
+
+        local end_date = parser:parse(shop_info['end_date'])
+        local cur_time =  Timer:getServerTime()
+        local end_time = end_date['time']
+        local time = (end_time - cur_time)
+
+        -- 판매기간이 1년 미만으로 남은 경우에만 기간한정으로 판단
+        local remain = 86400 * 365
+        if (time < remain) then
+            msg = Str('판매 종료까지 {1} 남음', datetime.makeTimeDesc(time, true))
+            return true, msg
+        else
+            return false, msg
+        end
+    end
+
+    return false, msg
+end
+
+-------------------------------------
+-- function isEnd
+-- @brief 판매종료 (서버에서 코스튬 샵정보 안줌)
+-------------------------------------
+function StructTamerCostume:isEnd()
+    local is_default = self:isDefaultCostume()
+    local shop_info = g_tamerCostumeData:getShopInfo(self.m_cid)
+    if (not shop_info) and (not is_default) then
+         return true
+    end
+
+    return false
 end
 
 -------------------------------------
