@@ -202,21 +202,23 @@ function UI_Lobby:entryCoroutine()
         local title_to_lobby = g_fullPopupManager:isTitleToLobby()
         g_eventData.m_bDirty = true
         if (g_tutorialData:isTutorialDone(TUTORIAL.FIRST_START)) then
+            
+            if (title_to_lobby) then
+                -- 네이버 카페
+                NaverCafeManager:naverCafeStart(0)
 
-            -- 네이버 카페
-             NaverCafeManager:naverCafeStart(0)
+                -- 이벤트 풀팝업
+                local function show_func(pid) 
+                    working = true
+                    local ui = UI_EventFullPopup(pid)
+                    ui:setCloseCB(function(ret) working = false end)
+                    ui:openEventFullPopup()
+                    while (working) do dt = coroutine.yield() end
+                end
 
-            -- 이벤트 풀팝업
-            local function show_func(pid) 
-                working = true
-                local ui = UI_EventFullPopup(pid)
-                ui:setCloseCB(function(ret) working = false end)
-                ui:openEventFullPopup()
-                while (working) do dt = coroutine.yield() end
+                g_fullPopupManager:show(FULL_POPUP_TYPE.LOBBY, show_func)
             end
-
-            g_fullPopupManager:show(FULL_POPUP_TYPE.LOBBY, show_func)
-
+            
             -- 이벤트 보상 정보가 있다면 팝업을 띄운다.
             if g_eventData:hasReward() then
                 working = true
