@@ -38,6 +38,9 @@ StructIndividualStatus = class({
 
         ----------------------------------------------------
         -- T3
+        m_formationMulti = '',  -- 진형 버프
+        m_formationAdd = '',
+
         m_stageMulti = '', -- 스테이지 버프
         m_stageAdd = '',
 
@@ -78,6 +81,9 @@ function StructIndividualStatus:init(status_name)
 
     self.m_t2 = 0
     self.m_bDirtyT2 = true
+
+    self.m_formationMulti = 0
+    self.m_formationAdd = 0
 
     self.m_stageMulti = 0
     self.m_stageAdd = 0
@@ -165,8 +171,11 @@ end
 function StructIndividualStatus:calcFinalStat()
     local t2 = self:getT2()
 
+    -- 진형 버프
+    local formation_multi = self.m_formationMulti / 100
+
     -- 스테이지 버프
-    local stage_multi = (self.m_stageMulti / 100)
+    local stage_multi = self.m_stageMulti / 100
 
     -- 버프
     local buff_multi = self.m_buffMulti
@@ -183,7 +192,7 @@ function StructIndividualStatus:calcFinalStat()
     buff_multi = (buff_multi / 100)
 
     -- 능력치 연산
-    local t3 = t2 + (t2 * (stage_multi + buff_multi)) + self.m_stageAdd + self.m_buffAdd
+    local t3 = t2 + (t2 * (formation_multi + stage_multi + buff_multi)) + self.m_formationAdd + self.m_stageAdd + self.m_buffAdd
 
     self.m_finalStat = t3
 
@@ -243,6 +252,22 @@ end
 function StructIndividualStatus:addPassiveAdd(value)
     self.m_passiveAdd = (self.m_passiveAdd + value)
     self:setDirtyT2()
+end
+
+-------------------------------------
+-- function addFormationMulti
+-------------------------------------
+function StructIndividualStatus:addFormationMulti(value)
+    self.m_formationMulti = (self.m_formationMulti + value)
+    self:setDirtyFinalStat()
+end
+
+-------------------------------------
+-- function addFormationAdd
+-------------------------------------
+function StructIndividualStatus:addFormationAdd(value)
+    self.m_formationAdd = (self.m_formationAdd + value)
+    self:setDirtyFinalStat()
 end
 
 -------------------------------------

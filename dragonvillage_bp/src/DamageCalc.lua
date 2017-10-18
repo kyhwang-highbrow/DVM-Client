@@ -165,7 +165,13 @@ end
 -- @brief 공격 주기 계산 (초)
 -------------------------------------
 function CalcAttackTick(attack_speed)
-    local value = 3 - (2 * ((attack_speed - 100) / 100))
+    local value
+
+    if (IS_NEW_BALANCE_VERSION()) then
+        value = 300 / attack_speed
+    else
+        value = 3 - (2 * ((attack_speed - 100) / 100))
+    end
 
     local min_value = g_constant:get('INGAME', 'FINAL_ATTACK_TICK')[1]
     local max_value = g_constant:get('INGAME', 'FINAL_ATTACK_TICK')[2]

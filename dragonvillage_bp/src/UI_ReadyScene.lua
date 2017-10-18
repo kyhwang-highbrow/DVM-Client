@@ -851,9 +851,11 @@ function UI_ReadyScene:click_fomationBtn()
 	
 	-- 종료하면서 선택된 formation을 m_readySceneDeck으로 전달
 	local function close_cb(formation_type)
-		self.m_readySceneDeck:setFormation(formation_type)
-        self:refresh_combatPower()
-		self:refresh_buffInfo()
+        if formation_type then
+		    self.m_readySceneDeck:setFormation(formation_type)
+            self:refresh_combatPower()
+		    self:refresh_buffInfo()
+        end
 	end
 	ui:setCloseCB(close_cb)
 end

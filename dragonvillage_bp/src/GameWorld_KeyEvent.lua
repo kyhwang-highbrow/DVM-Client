@@ -188,7 +188,7 @@ function GameWorld:se_on_dragon()
     local enemy_list = self:getEnemyList()
 
     --StatusEffectHelper:doStatusEffect(dragon_list[1], { dragon_list[1] }, 'stun', 'target', 1, 5, 100, 100)
-    StatusEffectHelper:doStatusEffect(dragon_list[1], dragon_list, 'bleed', 'ally_none', 5, 10, 100, 200)
+    StatusEffectHelper:doStatusEffect(dragon_list[1], dragon_list, 'aspd_down', 'ally_none', 5, 9999, 100, 100)
 end
 
 -------------------------------------
@@ -197,7 +197,7 @@ end
 -------------------------------------
 function GameWorld:se_on_monster()
     for i,v in ipairs(self:getEnemyList()) do
-		StatusEffectHelper:doStatusEffect(v, { v }, 'stun', 'target', 1, 5, 100, 100)
+		StatusEffectHelper:doStatusEffect(v, { v }, 'atk_down', 'target', 1, 99999, 100, 150)
     end
 end
 
