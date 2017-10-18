@@ -139,15 +139,17 @@ function StructTamerCostume:isLimit()
         local end_date = parser:parse(shop_info['end_date'])
         local cur_time =  Timer:getServerTime()
         local end_time = end_date['time']
-        local time = (end_time - cur_time)
+        if (cur_time and end_time) then
+            local time = (end_time - cur_time)
 
-        -- 판매기간이 1년 미만으로 남은 경우에만 기간한정으로 판단
-        local remain = 86400 * 365
-        if (time < remain) then
-            msg = Str('판매 종료까지 {1} 남음', datetime.makeTimeDesc(time, true))
-            return true, msg
-        else
-            return false, msg
+            -- 판매기간이 1년 미만으로 남은 경우에만 기간한정으로 판단
+            local remain = 86400 * 365
+            if (time < remain) then
+                msg = Str('판매 종료까지 {1} 남음', datetime.makeTimeDesc(time, true))
+                return true, msg
+            else
+                return false, msg
+            end
         end
     end
 
