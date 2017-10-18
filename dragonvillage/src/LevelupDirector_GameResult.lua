@@ -37,10 +37,10 @@ function LevelupDirector_GameResult:initLevelupDirector(src_lv, src_exp, dest_lv
 
     -- Update 콜백 등록
     self.m_levelupDirector.m_cbUpdate = function(lv, exp, percentage)
-        local lv_str = Str('Lv.{1}', lv)
+        local lv_str = string.format('Lv.%d', lv)
         self.m_lvLabel:setString(lv_str)
 
-        local exp_str = Str('{1} %', percentage)
+        local exp_str = string.format('%.2f %%', percentage)
         self.m_expLabel:setString(exp_str)
 
         self.m_expGauge:setPercentage(percentage)

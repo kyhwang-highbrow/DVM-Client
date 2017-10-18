@@ -98,8 +98,7 @@ function UI_DragonInfoBoard:refresh(t_dragon_data)
 
         if (not is_max_lv) then
             local percentage = (exp / max_exp) * 100
-            percentage = math_floor(percentage)
-            vars['expLabel']:setString(Str('{1}%', percentage))
+            vars['expLabel']:setString(string.format('%.2f%%', percentage))
 
             vars['expGauge']:stopAllActions()
             vars['expGauge']:setPercentage(0)

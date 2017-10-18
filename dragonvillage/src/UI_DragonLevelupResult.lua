@@ -84,15 +84,14 @@ function UI_DragonLevelupResult:initUI(dragon_object)
     -- 이전 경험치와 레벨 미리 표시
     local grade = (dragon_object['grade'] or 1)
     local lv = self.m_prevLv
-    local exp = (dragon_object['exp'] or 0)
+    local exp = self.m_prevExp
     local table_exp = TableDragonExp()
     local max_exp = table_exp:getDragonMaxExp(grade, lv)
     local percentage = (exp / max_exp) * 100
-    percentage = math_floor(percentage)
-    vars['expLabel']:setString(Str('{1}%', percentage))
     vars['expGauge']:setPercentage(percentage)
-    vars['beforeLabel']:setString(Str('Lv.{1}', lv))
-    vars['afterLabel']:setString(Str('Lv.{1}', lv))
+    vars['expLabel']:setString(string.format('%.2f%%', percentage))
+    vars['beforeLabel']:setString(string.format('Lv.%d', lv))
+    vars['afterLabel']:setString(string.format('Lv.%d', lv))
 
     -- numberLabel 로 변환
     vars['atkLabel1'] = NumberLabel(vars['atkLabel1'], 0, 0.3)
@@ -149,8 +148,8 @@ function UI_DragonLevelupResult:direct_levelup(dragon_object)
     local levelup_director = LevelupDirector(prev_lv, prev_exp, dest_lv, dest_exp, 'dragon', grade, self.root)
 
     levelup_director.m_cbUpdate = function(lv, exp, percentage)
-        vars['afterLabel']:setString(Str('Lv.{1}', lv))
-        vars['expLabel']:setString(Str('{1}%', percentage))
+        vars['afterLabel']:setString(string.format('Lv.%d', lv))
+        vars['expLabel']:setString(string.format('%.2f%%', percentage))
         vars['expGauge']:setPercentage(percentage)
     end
     levelup_director.m_cbLevelUp = function(lv)
