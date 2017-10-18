@@ -161,17 +161,17 @@ function ServerData_Event:goToEventTarget(event_type)
     elseif (string.find(event_type, 'package')) then
         local pid = event_type
         PackageManager:goToTargetUI(pid)
+    
+    -- 코스튬 상점
+    elseif (event_type == 'costume_shop') then
+        local tamer_id = g_tamerData:getCurrTamerID()
+        UINavigator:goTo('costume_shop', tamer_id)
 
     -- 단일 상품
     elseif (string.find(event_type, 'shop')) then
         local l_str = seperate(event_type, ';')
         local pid = l_str[2]
         PackageManager:goToTargetUI(pid)
-
-    -- 코스튬 상점
-    elseif (event_type == 'costume_shop') then
-        local tamer_id = g_tamerData:getCurrTamerID()
-        UINavigator:goTo('costume_shop', tamer_id)
 
     -- 해당 이벤트 탭 이동
     else
