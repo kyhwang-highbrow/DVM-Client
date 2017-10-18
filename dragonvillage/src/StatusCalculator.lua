@@ -199,7 +199,15 @@ function StatusCalculator:applyFormationBonus(formation, formation_lv, slot_idx)
         local status = v['status']
         local value = v['value']
 
-        self:addOption(action, status, value)
+        if (IS_NEW_BALANCE_VERSION()) then
+            if (action == 'multi') then
+                self:addFormationMulti(status, value)
+            elseif (action == 'add') then
+                self:addFormationAdd(status, value)
+            end
+        else
+            self:addOption(action, status, value)
+        end
     end
 end
 
@@ -322,6 +330,37 @@ function StatusCalculator:addPassiveMulti(stat_type, value)
         indivisual_status:addPassiveAdd(value)
     else
         indivisual_status:addPassiveMulti(value)
+    end
+end
+
+-------------------------------------
+-- function addFormationAdd
+-- @brief
+-------------------------------------
+function StatusCalculator:addFormationAdd(stat_type, value)
+    local indivisual_status = self.m_lStatusList[stat_type]
+    if (not indivisual_status) then
+        error('stat_type : ' .. stat_type)
+    end
+
+    indivisual_status:addFormationAdd(value)
+end
+
+-------------------------------------
+-- function addFormationMulti
+-- @brief
+-------------------------------------
+function StatusCalculator:addFormationMulti(stat_type, value)
+    local indivisual_status = self.m_lStatusList[stat_type]
+    if (not indivisual_status) then
+        error('stat_type : ' .. stat_type)
+    end
+
+    -- 특정 타입의 스텟들은 무조건 합연산
+    if (M_SPECIAL_STATUS_TYPE[stat_type]) then
+        indivisual_status:addFormationAdd(value)
+    else
+        indivisual_status:addFormationMulti(value)
     end
 end
 

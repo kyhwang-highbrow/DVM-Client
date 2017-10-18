@@ -1639,11 +1639,13 @@ function Character:calcAttackPeriod(calc_attack_tick)
 
             if (IS_NEW_BALANCE_VERSION()) then
                 aspd_ratio = self:getStat('aspd') / 100
+
+                self.m_aspdRatio = aspd_ratio
             else
                 aspd_ratio = 1 + (self:getBuffStat('aspd') / 100)
-            end
 
-            self.m_aspdRatio = math_max(aspd_ratio, 0.2)
+                self.m_aspdRatio = math_max(aspd_ratio, 0.2)
+            end
 
             -- 공속 버프 비율만큼 애니메이션 속도를 보정
             if (not self.m_temporaryPause) then

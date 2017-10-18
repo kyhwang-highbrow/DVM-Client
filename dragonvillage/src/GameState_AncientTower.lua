@@ -38,12 +38,13 @@ function GameState_AncientTower.update_wave_intermission(self, dt)
 	local speed = 0
 
     if (self.m_stateTimer == 0) then
+        -- 스킬 및 미사일을 날린다
+	    world:removeMissileAndSkill()
+        world:removeHeroDebuffs()
+
         -- 연출(카메라)
         self:doDirectionForIntermission()
-
-        -- 0. 스킬 및 미사일을 날린다
-	    world:removeMissileAndSkill()
-        
+                
         -- 변경된 카메라 위치에 맞게 아군 홈 위치 변경 및 이동
         for i, v in ipairs(world:getDragonList()) do
             if (not v:isDead()) then
