@@ -109,7 +109,7 @@ function StructTamerCostume:isSale()
     local sale_info = g_tamerCostumeData.m_saleInfo
     local shop_info = g_tamerCostumeData:getShopInfo(self.m_cid)
     local msg 
-    if (shop_info and sale_info[tostring(self.m_cid)]) then
+    if (shop_info and sale_info and sale_info[tostring(self.m_cid)]) then
         local date_format = 'yyyy-mm-dd HH:MM:SS'
         local parser = pl.Date.Format(date_format)
 
