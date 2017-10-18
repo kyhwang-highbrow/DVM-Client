@@ -71,7 +71,10 @@ function UI_ReadyScene:init(stage_id, with_friend, sub_info)
     g_autoPlaySetting:setAutoPlay(false)
 
     -- 매일매일 다이아 풀팝업
-    g_fullPopupManager:show(FULL_POPUP_TYPE.AUTO_PICK)
+    local game_mode = g_stageData:getGameMode(self.m_stageID)
+    if (game_mode == GAME_MODE_ADVENTURE) then
+        g_fullPopupManager:show(FULL_POPUP_TYPE.AUTO_PICK)
+    end
 end
 
 -------------------------------------
