@@ -157,29 +157,48 @@ function util.mirrorDirectory(src_dir, tar_dir)
 end
 
 -------------------------------------
--- function makeLuaTableStr
+-- function encodeString
+-- @brief lua테이블로 표현가능한 수준으로 치환
 -------------------------------------
-function util.makeLuaTableStr(value)
+function util.encodeString(s)
+    s = string.gsub(s,'\n','\\n') -- 시트상의 alt + enter를 \n으로 변환해준다.
+    s = string.gsub(s,'\t','\\t')
+    s = string.gsub(s,'"','\\"')
+    s = string.gsub(s,"'","\\'")
+    return s 
+end
+
+-------------------------------------
+-- function makeLuaTableStr
+-- @param delimiter : 인자간 구분자
+-------------------------------------
+function util.makeLuaTableStr(value, delimiter)
     local t = type(value)
-    if t == 'table' then
+    if (t == 'table') then
+        local delimiter = delimiter or ''
         local s = '{'
-        local n = #value
-        -- 인덱스
-        for i = 1, n do
-            s = s .. luadump(value[i]) .. ';'
-        end
+
         -- 테이블 순회
+        local _key, _value
         for k, v in pairs(value) do
-            if type(k) ~= 'number' or k <= 0 or k > n then
-                local _value = util.makeLuaTableStr(value[k])
-                s = s .. "['" .. k .. "']=" .. _value .. ';'
+            _value = util.makeLuaTableStr(v)
+
+            if (type(k) == 'number') then
+                s = s .. delimiter .. "[" .. k .. "]=" .. _value .. ';'
+            else
+                _key = util.encodeString(k)--:gsub("'","\\'")   
+                s = s .. delimiter .. "['" .. _key .. "']=" .. _value .. ';'
             end
         end
-        return s .. '}'
 
-    elseif t == 'string' then
+        return s .. delimiter .. '}'
+
+    elseif (t == 'string') then
+        value = util.encodeString(value)
         return "'" .. value .. "'"
+
     else
         return tostring(value)
+
     end
 end

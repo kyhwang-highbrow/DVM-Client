@@ -36,85 +36,7 @@ function CsvToLuaTableStr:run()
 end
 
 -------------------------------------
--- function encodeString
--------------------------------------
-function CsvToLuaTableStr:encodeString(s)
-    s = string.gsub(s,'\\','\\\\')
-    s = string.gsub(s,'"','\\"')
-    s = string.gsub(s,"'","\\'")
-    s = string.gsub(s,'\n','\\n')
-    s = string.gsub(s,'\t','\\t')
-    return s 
-end
-
--------------------------------------
--- function luadump_old
--------------------------------------
-function CsvToLuaTableStr:luadump_old(value, depth)
-    local t = type(value)
-    if t == 'table' then
-        depth = depth or ''
-        local newdepth = depth .. '\t'
-
-        local s = '{\n'
-        local n = #value
-
-        for k, v in pairs(value) do
-            -- key타입이 숫자일 경우 그냥 숫자로 사용
-            if type(k) == 'number' then
-                s = s .. newdepth .. "[" .. k .. "]=" .. self:luadump(value[k], newdepth) .. ';\n'
-            elseif type(k) ~= 'number' or k <= 0 or k > n then
-                s = s .. newdepth .. "['" .. k .. "']=" .. self:luadump(value[k], newdepth) .. ';\n'
-            end
-        end
-        return s .. depth .. '}'
-
-    elseif t == 'string' then
-        -- 개행 처리를 '\n'으로 저장히가 위한 처리
-        value = self:encodeString(value)
-        return "'" .. value .. "'"
-    else
-        return tostring(value)
-    end
-end
-
--------------------------------------
--- function luadump
--------------------------------------
-function CsvToLuaTableStr:luadump(value, depth)
-    local t = type(value)
-    if t == 'table' then
-        depth = depth or ''
-        local newdepth = depth
-
-        local s = '{'--\n'
-        local n = #value
-
-        for k, v in pairs(value) do
-            local _value = self:luadump(value[k], newdepth)
-
-            if (_value ~= "''") and (_value ~= nil) then
-                -- key타입이 숫자일 경우 그냥 숫자로 사용
-                if type(k) == 'number' then
-                    s = s .. newdepth .. "[" .. k .. "]=" .. _value .. ';'--\n'
-                elseif type(k) ~= 'number' or k <= 0 or k > n then
-                    s = s .. newdepth .. "['" .. k .. "']=" .. _value .. ';'--\n'
-                end
-            end
-        end
-        return s .. depth .. '}'
-
-    elseif t == 'string' then
-        -- 개행 처리를 '\n'으로 저장히가 위한 처리
-        value = self:encodeString(value)
-        return "'" .. value .. "'"
-    else
-        return tostring(value)
-    end
-end
-
--------------------------------------
--- function test1
+-- function work
 -------------------------------------
 function CsvToLuaTableStr:work()
 
@@ -143,10 +65,10 @@ function CsvToLuaTableStr:work()
 
         local t_table = TABLE:get(i)
         self:dietTable(t_table)
-        local table_str = self:luadump(t_table)
+        local table_str = util.makeLuaTableStr(t_table)
 
         local l_header = self:makeHeaderLlist(t_table)
-        local header_str = self:luadump(l_header)
+        local header_str = util.makeLuaTableStr(l_header)
 
         local content = "return {['__data']=" .. table_str .. ";['__header']=" .. header_str .. "}"
 

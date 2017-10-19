@@ -80,6 +80,7 @@ local T_STR = {}
 local T_STR_UI = {}
 local T_STR_LUA = {}
 local T_STR_DATA = {}
+local T_STR_SERVER = {}
 
 -- 사용할 디렉토리
 local CURR_DIR = lfs.currentdir()
@@ -92,9 +93,12 @@ local T_EXCEPT_FILE =
     ['table_ban_word_naming.csv'] = 1,
 }
 
+-- 빈 문자열 정의
+local EMPTY_STR = ''
+
 -------------------------------------
 -- local utillity functions
-------------------------------------- 
+-------------------------------------
 -- function isKorean
 local function isKorean(str)
     return string.match(str, '[가-힣]+')
@@ -135,6 +139,9 @@ local function makeJsonString(t)
     return dkjson.encode(t, {indent = true, keyorder = {'org', 'tr', 'src'}})
 end
 
+
+
+
 -------------------------------------
 -- function init
 -------------------------------------
@@ -155,13 +162,17 @@ function TranslationCrawler:run()
     self:crawler_src()
     self:crawler_ui()
     self:crawler_data()
-    
+    self:crawler_serverdata()
+
     -- 언어별로 풀스크립트 및 번역안된텍스트파일 생성
     for _, lang in ipairs(L_LANG) do
         self:compareWithFullTranslation(lang)
         self:saveUntranslatedStr(lang)
         self:saveFullTranslation(lang)
         self:saveLuaTranslation(lang)
+        cclog('')
+        cclog('# translation crawling done : ' .. lang)
+        cclog('')
     end
 
     self:saveTotalTranslation()
@@ -203,16 +214,21 @@ function TranslationCrawler:crawler_src()
 
         -- 하나의 파일에 해당하는 string
         local content = pl.file.read(path .. '/' .. file)
-        
+
         -- 라인으로 분리되어 있지 않음에 주의하여 정규식 작성
         -- Str('') 제거를 위해 캡쳐 사용
         -- Str(""), Str( ''), Str( "") 등 다양한 오류가 존재할 수 있으므로 최대한 포괄적으로 구성
-        for kr_str in string.gmatch(content, 'Str%(%s*[\"\']([^\n]-)[\"\']') do
+        for kr_str in string.gmatch(content, 'Str%(%s*[\"\']([^\n]-)[\"\'][%)%,]') do
             if (isKorean(kr_str)) then
                 self:insertData(T_STR_LUA, kr_str, file)
                 self:insertData(T_STR, kr_str, file)
             end
         end
+    end
+
+    if (not util.isDirectory(root_dir)) then
+        cclog('!!!!!! failed')
+        return
     end
 
     -- src 폴더 탐색
@@ -244,6 +260,11 @@ function TranslationCrawler:crawler_ui()
                 self:insertData(T_STR, kr_str, file)
             end
         end
+    end
+
+    if (not util.isDirectory(root_dir)) then
+        cclog('!!!!!! failed')
+        return
     end
 
     -- res 폴더 탐색
@@ -296,10 +317,70 @@ function TranslationCrawler:crawler_data()
 
     end
 
+    if (not util.isDirectory(root_dir)) then
+        cclog('!!!!!! failed')
+        return
+    end
+
     -- data 폴더 탐색
     util.iterateDirectory(root_dir, iter_func)
 end
     
+-------------------------------------
+-- function crawler_serverdata
+-------------------------------------
+function TranslationCrawler:crawler_serverdata()
+    cclog('#### crawler_server')
+    
+    -- @dir, @iter_func
+    local root_dir = CURR_DIR .. '/../../sv_tables'
+    local function iter_func(path, file)
+        if (not pl.stringx.endswith(file, '.csv')) then
+            return    
+        end
+        if (T_EXCEPT_FILE[file]) then
+            return
+        end
+
+        -- 파일명 구성 (서브 폴더 명을 찾아서 붙여준다.)
+        local file_name = file:gsub('.csv', '')
+        local sub_folder = path:gsub(root_dir, '')
+        if (sub_folder ~= '') then
+            file_name = sub_folder .. '/' .. file_name
+        end
+        
+        -- csv 파일을 루아 테이블로 변환
+        local t_csv = TABLE:loadCSVTable(file_name)
+        if (not t_csv) then
+            cclog('규약에 맞지 않는 csv파일이 생성되었을 수 있습니다. 개발팀에 문의해주세요')
+        end
+
+        -- 테이블을 순회 하며 한글 텍스트를 모조리 찾는다
+        -- r_ 또는 s_ 컬럼은 제외한다.
+        for _, t_row in pairs(t_csv) do
+            for key, value in pairs(t_row) do
+                if (pl.stringx.startswith(key, 's_') or pl.stringx.startswith(key, 'r_')) then
+                    -- nothing to do
+                else
+                    if (isKorean(value)) then
+                        self:insertData(T_STR_SERVER, value, file)
+                        self:insertData(T_STR, value, file)
+                    end
+                end
+            end
+        end
+
+    end
+
+    if (not util.isDirectory(root_dir)) then
+        cclog('!!!!!! failed')
+        return
+    end
+
+    -- data 폴더 탐색
+    util.iterateDirectory(root_dir, iter_func)
+end
+
 -------------------------------------
 -- function compareWithFullTranslation
 -- @brief 추출한 리스트를 언어별 이미 번역된 테스트들과 비교하여 작업대상을 구분하고 full translation을 새로이 생성
@@ -322,14 +403,14 @@ function TranslationCrawler:compareWithFullTranslation(lang)
     local tr_str
     for str, t_info in pairs(T_STR) do
         -- full translation에 번역한 텍스트가 있음
-        if (t_full[str]) and (t_full[str]['tr']) and (t_full[str]['tr'] ~= '') then
+        if (t_full[str]) and (t_full[str]['tr']) and (t_full[str]['tr'] ~= EMPTY_STR) then
             tr_str = t_full[str]['tr']
             
             -- total translation 출력을 위해 저장 
             t_info['tr'][lang] = tr_str
 
         -- work translation에 번역한 텍스트가 있음
-        elseif (t_work[str]) and (t_work[str]['tr']) and (t_work[str]['tr'] ~= '') then
+        elseif (t_work[str]) and (t_work[str]['tr']) and (t_work[str]['tr'] ~= EMPTY_STR) then
             tr_str = t_work[str]['tr']
             
             -- total translation 출력을 위해 저장 
@@ -340,7 +421,7 @@ function TranslationCrawler:compareWithFullTranslation(lang)
             tr_str = nil
             
             -- 작업 리스트에 추가
-            table.insert(T_WORK[lang], {['org'] = str, ['tr'] = ''})
+            table.insert(T_WORK[lang], {['org'] = str, ['tr'] = 'TEST'}) --EMPTY_STR})
         end
 
         -- 언어별 full translation에 추가
@@ -358,7 +439,7 @@ function TranslationCrawler:saveUntranslatedStr(lang)
 
     -- 작업해야할 텍스트가 없다면 통과
     if (table.count(T_WORK[lang]) == 0) then
-        cclog(lang .. ' is translated all')
+        cclog('## ' .. lang .. ' is translated all')
         return
     end
 
@@ -415,10 +496,10 @@ function TranslationCrawler:saveLuaTranslation(lang)
     end
 
     -- 해당 언어의 전체 파일 json으로 변환
-    local lua_str = 'return ' .. util.makeLuaTableStr(t_lua)
-
+    local lua_str = 'return ' .. util.makeLuaTableStr(t_lua, '\n')
+    
     -- 저장
-    local path = string.format('%s/%s.lua', RESULT_DIR, lang)
+    local path = string.format('%s/lang_%s.lua', RESULT_DIR, lang)
     local f = io.open(path,'w')
     f:write(lua_str)
     f:close()
@@ -460,6 +541,7 @@ function TranslationCrawler:printResult()
     cclog('src string cnt: ' .. table.count(T_STR_LUA))
     cclog('ui string cnt: ' .. table.count(T_STR_UI))
     cclog('data string cnt: ' .. table.count(T_STR_DATA))
+    cclog('server string cnt: ' .. table.count(T_STR_SERVER))
     cclog('total : ' .. table.count(T_STR))
     for lang, t_str in pairs(T_WORK) do
         cclog(lang .. ' work out :' .. table.count(t_str))
