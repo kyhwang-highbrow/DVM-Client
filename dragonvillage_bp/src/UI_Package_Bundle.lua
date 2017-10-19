@@ -168,6 +168,7 @@ function UI_Package_Bundle:click_buyBtn(struct_product)
 	local function refresh_cb()
         g_shopDataNew:request_shopInfo(function() 
             self:refresh()
+            g_eventData.m_bDirty = true
             if (self.m_isPopup) then
                 self:close()
             end

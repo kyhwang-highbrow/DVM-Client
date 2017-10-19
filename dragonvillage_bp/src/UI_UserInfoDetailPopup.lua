@@ -163,6 +163,10 @@ function UI_UserInfoDetailPopup:refresh_profile()
 
 	-- 프로필 아이콘 @TODO 임시처리
 	local t_dragon_data = StructDragonObject(self.m_tUserInfo['leader'])
+
+    -- 드래곤 룬 세팅
+    t_dragon_data:setRuneObjects(self.m_tUserInfo['runes'])
+
 	local icon = UI_DragonCard(t_dragon_data)
 	icon.root:setScale(0.9)
 	vars['iconNode']:addChild(icon.root)

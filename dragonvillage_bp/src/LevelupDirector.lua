@@ -128,7 +128,7 @@ function LevelupDirector:calcLvAndExp(value)
     local percentage = 100
     local max_exp = self.m_lMaxExp[iter_lv] or 0
     if (max_exp ~= '') and (max_exp > 0) then
-        percentage = math_floor((iter_exp / max_exp) * 100)
+        percentage = (iter_exp / max_exp) * 100
     end
     return iter_lv, iter_exp, max_exp, percentage
 end

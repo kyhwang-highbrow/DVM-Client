@@ -105,7 +105,7 @@ end
 
 -------------------------------------
 -- function getEventBannerMap
--- @brief 이벤트 배너 노출 맵 (키:이벤트 타입, 값:이미지 리소스)
+-- @brief 로비 스크롤 배너 노출 맵(키:이벤트 타입, 값:이미지 리소스)
 -------------------------------------
 function ServerData_Event:getEventBannerMap()
     local map = {}
@@ -118,7 +118,8 @@ function ServerData_Event:getEventBannerMap()
     for i, v in ipairs(event_list) do
         local lobby_banner = v['lobby_banner']
         local event_type = v['event_type'] 
-        
+        local url = v['url']
+
         if (lobby_banner ~= '') then
             -- 패키지 (구매 가능하다면 등록)
             if (string.find(event_type, 'package') and PackageManager:isExist(product_id)) then
@@ -132,6 +133,12 @@ function ServerData_Event:getEventBannerMap()
                     event_type = event_type .. ';' .. pid
                     map[event_type] = lobby_banner
                 end
+
+            -- 코스튬 상점
+            elseif (url == 'costume_shop') then
+                event_type = url
+                map[event_type] = lobby_banner
+
             else
                 map[event_type] = lobby_banner
             end
@@ -143,6 +150,7 @@ end
 
 -------------------------------------
 -- function goToEventTarget
+-- @brief 로비 스크롤 배너 클릭시 이동
 -------------------------------------
 function ServerData_Event:goToEventTarget(event_type)
     -- 매일매일 다이아
@@ -153,6 +161,11 @@ function ServerData_Event:goToEventTarget(event_type)
     elseif (string.find(event_type, 'package')) then
         local pid = event_type
         PackageManager:goToTargetUI(pid)
+    
+    -- 코스튬 상점
+    elseif (event_type == 'costume_shop') then
+        local tamer_id = g_tamerData:getCurrTamerID()
+        UINavigator:goTo('costume_shop', tamer_id)
 
     -- 단일 상품
     elseif (string.find(event_type, 'shop')) then

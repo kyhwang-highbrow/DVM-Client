@@ -282,9 +282,21 @@ function UI_DragonLevelUp:click_dragonMaterial(t_dragon_data)
         end
     end
 
-    self.m_dragonLevelUpUIHelper:modifyMaterial(doid)
-    self:refresh_materialDragonIndivisual(doid)
-    self:refresh_selectedMaterial()
+    local function next_func()
+        self.m_dragonLevelUpUIHelper:modifyMaterial(doid)
+        self:refresh_materialDragonIndivisual(doid)
+        self:refresh_selectedMaterial()
+    end
+
+    -- 재료 경고
+    if self.m_dragonLevelUpUIHelper:isSelectedDragon(doid) then
+        -- 해제
+        next_func()
+    else
+        -- 선택
+        local oid = t_dragon_data['id']
+        g_dragonsData:dragonMaterialWarning(oid, next_func)
+    end
 end
 
 -------------------------------------

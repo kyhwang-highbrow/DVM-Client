@@ -96,7 +96,7 @@ function SpineCacheManager:onChange()
         return
     end
 
-    cclog('## SpineCacheManager:onChange() total :' .. tostring(self.m_totalNumber) .. ', valid : ' .. tostring(self.m_validNumber) .. '  ##')
+    --cclog('## SpineCacheManager:onChange() total :' .. tostring(self.m_totalNumber) .. ', valid : ' .. tostring(self.m_validNumber) .. '  ##')
 end
 
 -------------------------------------

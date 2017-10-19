@@ -1217,3 +1217,79 @@ function ServerData_Dragons:request_updatePower(cb_func)
 
     return ui_network
 end
+
+-------------------------------------
+-- function dragonMaterialWarning
+-- @brief 드래곤이 재료로 사용될 때 경고 메시지 확인 (성장시켜놓은 드래곤)
+-- @param oid : object_id 드래곤이나 슬라임의 오브젝트 ID
+-------------------------------------
+function ServerData_Dragons:dragonMaterialWarning(oid, next_func, t_warning)
+    local t_warning = t_warning or {}
+    local object = self:getDragonObject(oid)
+
+    -- 슬라임의 경우 재료 전용이므로 pass
+    if (object:getObjectType() == 'slime') then
+        next_func()
+        return
+    end
+
+    local msg = ''
+    local warning = false
+    local function add_msg(str)
+        if (msg == '') then
+            msg = str
+        else
+            msg = msg .. ', ' .. str
+        end
+    end
+
+    -- 진화
+    local warning_evolution = t_warning['evolution'] or 2
+    if (warning_evolution <= object:getEvolution()) then
+        local evolution = object:getEvolution()
+        local evolution_str = evolutionName(evolution)
+        add_msg(evolution_str)
+        warning = true
+    end
+
+    -- 등급
+    local warning_grade = t_warning['grade'] or 4
+    if (warning_grade <= object:getGrade()) then
+        add_msg(Str('{1}성', object:getGrade()))
+        warning = true
+    end
+
+    -- 레벨
+    local warning_lv = t_warning['lv'] or 10
+    if (warning_lv <= object:getLv()) then
+        add_msg(Str('{1} 레벨', object:getLv()))
+        warning = true
+    end
+
+    -- 친밀도
+    local warning_flv = t_warning['flv'] or 2
+    local flv = (object:getFlv() + 1) -- 데이터는 0부터 유저에게는 1부터 노출됨
+    if (warning_flv <= flv) then
+        add_msg(Str('친밀도 {1} 단계', flv))
+        warning = true
+    end
+
+    -- 룬
+    local l_rune_obj = object:getRuneObjectList()
+    local rune_cnt = table.count(l_rune_obj)
+    if (1 <= rune_cnt) then
+        add_msg(Str('룬 {1}개 장착', rune_cnt))
+        warning = true
+    end
+
+    if (warning == true) then
+        local name = object:getDragonNameWithEclv()
+        local msg_ = Str('재료로 사용한 드래곤은 사라집니다.') .. '\n' .. name .. ' : ' .. msg
+        local submsg = Str('재료로 선택하시겠습니까?')
+        MakeSimplePopup2(POPUP_TYPE.YES_NO, msg_, submsg, next_func)
+    else
+        if next_func then
+            next_func()
+        end
+    end
+end
