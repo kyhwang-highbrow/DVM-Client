@@ -2814,6 +2814,12 @@
     <None Include="..\src\FullPopupManager.lua">
       <Filter>lua\src</Filter>
     </None>
+    <None Include="..\src_tool\DragonValidator.lua">
+      <Filter>lua_tool</Filter>
+    </None>
+    <None Include="..\src_tool\ResourceSizeChecker.lua">
+      <Filter>lua_tool</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Classes">

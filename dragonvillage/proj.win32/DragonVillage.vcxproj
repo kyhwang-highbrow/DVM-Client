@@ -1153,6 +1153,7 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <None Include="..\src_tool\AssetRemover_100MB.lua" />
     <None Include="..\src_tool\CsvToLuaTableStr.lua" />
     <None Include="..\src_tool\DataTableValidator.lua" />
+    <None Include="..\src_tool\DragonValidator.lua" />
     <None Include="..\src_tool\entry_viewer.lua" />
     <None Include="..\src_tool\entry_wave_maker.lua" />
     <None Include="..\src_tool\LuaBridgeWindows.lua" />
@@ -1160,6 +1161,7 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <None Include="..\src_tool\LuaStandAlone.lua" />
     <None Include="..\src_tool\LuaUtility.lua" />
     <None Include="..\src_tool\ResourcePreloadMaker.lua" />
+    <None Include="..\src_tool\ResourceSizeChecker.lua" />
     <None Include="..\src_tool\SceneViewer.lua" />
     <None Include="..\src_tool\StageAnalysis.lua" />
     <None Include="..\src_tool\StageInfoWave.lua" />
