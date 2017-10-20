@@ -25,7 +25,7 @@ project/dragonvillage/res 폴더를 기준으로 동작하도록 제작했습니
 
 0. tr = translate
 
-1. work : 미번역된 텍스트 리스트로 작업 대상을 의미, 텍스트의 출처를 남기지 않는다.
+1. work translation: 미번역된 텍스트 리스트로 작업 대상을 의미, 텍스트의 출처를 남기지 않는다.
     ex)
         [work_en.json]
         {
@@ -177,7 +177,6 @@ local function makeDSVString(t)
     local l_header = {'org', 'tr'}
     return util.makeDSVStringFromLuaTable(t, l_header, '\t')
 end
-    
 
 -- function saveTranslation
 local function saveTranslation(path, str)
@@ -190,6 +189,8 @@ local function saveTranslation(path, str)
 
     return false
 end
+
+
 
 
 -------------------------------------
@@ -213,7 +214,7 @@ function TranslationCrawler:run()
     self:crawler_ui()
     self:crawler_data()
 
-    -- 언어별로 풀스크립트 및 번역안된텍스트파일 생성
+    -- 언어별로 풀스크립트 및 번역 안 된 텍스트파일 생성
     for _, lang in ipairs(L_LANG) do
         self:compareWithTranslation(lang)
         self:saveWorkTranslation(lang)
@@ -224,6 +225,7 @@ function TranslationCrawler:run()
         cclog('')
     end
 
+    -- 전체 번역 스크립트 생성
     self:saveTotalTranslation()
 
     -- 작업 결과 출력
@@ -471,7 +473,7 @@ function TranslationCrawler:saveWorkTranslation(lang)
     -- local path = string.format('%s/work_%s.tsv', LOG_DIR, lang)
 
     -- 저장
-    saveTranslation(path, json_str)
+    saveTranslation(path, work_str)
 end
 
 -------------------------------------
