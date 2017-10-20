@@ -414,16 +414,9 @@ function ForestTerritory:onTouchBegan(touches, event)
 
     self.m_isTouchAnother = false
 
-    -- 드래곤 터치 체크
+    -- 드래곤 하트 체크
     for _, dragon in ipairs(self.m_lDragonList) do
-        -- 드래곤 터치
-        if (self:checkObjectTouch(location, dragon)) then
-            -- 터치된 드래곤이 있다면 등록
-            self.m_touchedDragon = dragon
-            return
-
-        -- 드래곤 하트 터치
-        elseif (dragon:isHappy()) then
+        if (dragon:isHappy()) then
             if (self:checkHeartOfDragonTouch(location, dragon)) then
                 if (dragon:getHappy()) then
                     self.m_isTouchAnother = true
@@ -626,22 +619,25 @@ end
 function ForestTerritory:onEvent(event_name, struct_event)
     -- 드래곤 자유 이동
     if (event_name == 'forest_dragon_move_free') then
+        -- 받은 정보
         local dragon = struct_event:getObject()
-        local pos_x, pos_y = self:getRandomPos()
         local speed = struct_event:getSpeed()
-        dragon:setMove(pos_x, pos_y, speed)
-    
-    -- 물체 앞에서 이동 왜일까?
-    elseif (event_name == 'forest_dragon_move_stuff') then
-        local dragon = struct_event:getObject()
-        local stuff_type = struct_event:getStuff()
-        local curr_x, _ = dragon:getPosition()
-        local pos_x, pos_y = self.m_tStuffTable[stuff_type]:getPosition()
-        local factor_x = (curr_x < pos_x) and 1 or -1
-        factor_x = factor_x * math_random(50, 150)
-        local factor_y = -100
-        local speed = math_random(100, 400)
-        dragon:setMove(pos_x + factor_x, pos_y + factor_y, speed)
+        local pos_x, pos_y = struct_event:getPosition()
+        
+        -- 랜덤 좌표
+        local tar_x, tar_y = self:getRandomPos()
+        
+        -- 거리 제한이 있는 좌표 계산
+        local distance = getDistance(pos_x, pos_y, tar_x, tar_y)
+        if (distance > (speed * 2)) then
+            local angle = getAdjustDegree(getDegree(pos_x, pos_y, tar_x, tar_y))
+            local new_dist = speed * (math_random(20, 25) / 10)
+            local pos = getPointFromAngleAndDistance(angle, new_dist)
+            tar_x = pos_x + pos.x
+            tar_y = pos_y + pos.y
+        end
+
+        dragon:setMove(tar_x, tar_y, speed)
 
     -- 테이머 이동 시작/종료
     elseif (event_name == 'forest_tamer_move_start') then

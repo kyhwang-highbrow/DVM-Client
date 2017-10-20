@@ -83,7 +83,7 @@ function ForestCharacter.st_move(self, dt)
     self:setForestZOrder()
 
     -- 움직임을 예쁘게 하려면?
-    self.m_moveSpeed = self.m_moveSpeed + (math_sin(dt) * 100)
+    --self.m_moveSpeed = self.m_moveSpeed + (math_sin(dt) * 100)
 
     return struct_event
 end

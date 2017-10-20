@@ -11,7 +11,6 @@ ForestDragon = class(PARENT, {
 
         -- 드래곤 행동 제어
         m_moveTerm = 'number',
-        m_moveType = 'string',
 
         -- 대사 관련
         m_talkingNode = 'cc.Node',
@@ -27,6 +26,13 @@ ForestDragon.OFFSET_Y_HAPPY = ForestDragon.OFFSET_Y + 150
 ForestDragon.OFFSET_Y_MAX = 1000 -- jump의 상한선으로 사용
 
 -------------------------------------
+-- local vars
+-------------------------------------
+local INTERVER_MIN = 900
+local INTERVER_MAX = 1500
+local L_SPEED = {50, 100, 150}
+
+-------------------------------------
 -- function init
 -------------------------------------
 function ForestDragon:init(struct_dragon_object)
@@ -38,10 +44,7 @@ function ForestDragon:init(struct_dragon_object)
 	self.m_flv = struct_dragon_object:getFlv()
     
     -- 이동 관련 정보
-    self.m_moveTerm = (math_random(300, 500)/100)
-    self.m_moveType = TableDragonPhrase:getForestMoveType(self.m_dragonID)
-
-    self.m_isHappy = false
+    self.m_moveTerm = (math_random(INTERVER_MIN, INTERVER_MAX)/100)
 
     -- 리소스 생성
     local evolution = struct_dragon_object:getEvolution()
@@ -53,6 +56,12 @@ function ForestDragon:init(struct_dragon_object)
 	self.m_rootNode:addChild(self.m_talkingNode, 2)
 
     self.m_stateTimer = self.m_moveTerm
+
+    -- 만족도 최초 체크
+    if (Timer:getServerTime() > self.m_structDragon.happy_at) then
+        self.m_isHappy = true
+        self:happyFull()
+    end
 end
 
 -------------------------------------
@@ -277,7 +286,19 @@ end
 -- function onActionEnd
 -- @brief 어떤 동작을 한 뒤에 대사 또는 이모티콘을 랜덤하게 출력 한다.
 -------------------------------------
-function ForestDragon:onActionEnd()
+function ForestDragon:onActionEnd() 
+    -- 1/3 pose
+    if (math_random(1, 3) == 1) then
+        self:changeState('pose')
+        return
+    end
+
+    -- 1/2 backflip
+    if (math_random(1, 2) == 1) then
+        self:changeState('backflip')
+        return
+    end
+
     local case = math_random(0, 1)
     if (case == 0) then
         self:showEmotionEffect()
@@ -405,108 +426,14 @@ function ForestDragon:speechSomething()
 end
 
 -------------------------------------
--- function doRandomAction
--------------------------------------
-function ForestDragon:doRandomAction()
-    local case = math_random(1, 100)
-    
-    -- 일반 자유 이동
-    if (case < 50) then
-        local struct_event = StructForestEvent()
-        struct_event:setObject(self)
-        struct_event:setPosition(self.m_rootNode:getPosition())
-
-        self:dispatch('forest_dragon_move_free', struct_event)
-    
-    -- 테이머 접근
-    elseif (case < 60) then
-        local struct_event = StructForestEvent()
-        struct_event:setObject(self)
-        struct_event:setPosition(self.m_rootNode:getPosition())
-
-        self:dispatch('forest_dragon_move_tamer', struct_event)
-
-    -- 포즈~
-    elseif (case < 80) then
-        self:changeState('pose')
-
-    -- 제비돌기
-    elseif (case < 90) then
-        self:changeState('backflip')
-
-    -- 하늘 점프
-    else
-        self:changeState('skydive')
-
-    end
-    
-end
-
-local T_SPEED =
-{
-    ['slow'] = 50,
-    ['normal'] = 100,
-    ['fast'] = 200,
-}
-
-local T_STUFF =
-{
-    ['box'] = 'chest',
-    ['table'] = 'table',
-    ['book'] = 'bookshelf',
-    ['water'] = 'well',
-    ['nest'] = 'nest',
-}
-
--------------------------------------
 -- function doForestAction
 -------------------------------------
 function ForestDragon:doForestAction()
-    local move_type = self.m_moveType
-    
-    -- 1/3 pose 취함
-    if (math_random(1, 3) == 1) then
-        self:changeState('pose')
-        return
-    end
-
-    -- object 타입의 경우 1/2 확률로 자유 이동
-    if (string.find(move_type, 'object_')) then
-        if (math_random(1, 2) == 1) then
-            move_type = 'fly_normal'
-        end
-    end
-
     -- 자유 이동
-    if (string.find(move_type, 'fly_')) then
-        local speed = T_SPEED[string.gsub(move_type, 'fly_', '')]
-
-        local struct_event = StructForestEvent()
-        struct_event:setObject(self)
-        struct_event:setSpeed(speed)
-
-        self:dispatch('forest_dragon_move_free', struct_event)
-
-    -- 물체 앞에서 이동
-    elseif (string.find(move_type, 'object_')) then
-        -- 여기서도 1/2확률로 backflip
-        if (math_random(1, 2) == 1) then
-            self:changeState('backflip')
-            return
-        end
-
-        -- 오브젝트 이동
-        local stuff = T_STUFF[string.gsub(move_type, 'object_', '')]
-
-        local struct_event = StructForestEvent()
-        struct_event:setObject(self)
-        struct_event:setStuff(stuff)
-
-        self:dispatch('forest_dragon_move_stuff', struct_event)
-
-    -- 정지
-    elseif (move_type == 'stop') then
-        self:changeState('pose')
-
-    end
+    local speed = table.getRandom(L_SPEED)
+    local struct_event = StructForestEvent()
+    struct_event:setObject(self)
+    struct_event:setPosition(self.m_rootNode:getPosition())
+    struct_event:setSpeed(speed)
+    self:dispatch('forest_dragon_move_free', struct_event)
 end
