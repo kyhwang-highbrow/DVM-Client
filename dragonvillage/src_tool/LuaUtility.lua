@@ -169,6 +169,17 @@ function util.encodeString(s)
 end
 
 -------------------------------------
+-- function makeUsable
+-------------------------------------
+function util.makeUsable(id)
+    id = id:gsub('\\n', '\n')
+    id = id:gsub('\\t', '\t')
+    id = id:gsub("\'", "'")
+    id = id:gsub('\"', '"')
+    return id
+end
+
+-------------------------------------
 -- function makeLuaTableStr
 -- @param delimiter : 인자간 구분자
 -------------------------------------
@@ -201,4 +212,41 @@ function util.makeLuaTableStr(value, delimiter)
         return tostring(value)
 
     end
+end
+
+-------------------------------------
+-- function makeCSVStr
+-- @param l_data : data 리스트, 각 요소는 table 형태여야 한다.
+-- @param l_header : header 리스트, 여기에 존재하는 필드만 추출된다.
+-------------------------------------
+function util.makeDSVStringFromLuaTable(l_data, l_header, sep)
+    local l_str = {}
+    local sep = sep or ','
+
+    -- header 삽입
+    local header_str = ''
+    for i, header in ipairs(l_header) do
+        header_str = string.format('%s%s%s', header_str, header, sep)
+    end
+    table.insert(l_str, header_str)
+
+    -- 데이터 삽입
+    for i, t in ipairs(l_data) do
+        local row = ''
+        local temp
+        for i, header in ipairs(l_header) do
+            temp = t[header] or ''
+            temp = util.encodeString(temp)
+            row = string.format('%s%s%s', row, temp, sep)
+        end
+        table.insert(l_str, row)
+    end
+
+    -- 하나의 문자열로 합칩
+    local csv_str = ''
+    for _, str in ipairs(l_str) do
+        csv_str = string.format('%s%s\n', csv_str, str)
+    end
+
+    return csv_str
 end

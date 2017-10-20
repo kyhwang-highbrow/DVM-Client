@@ -16,7 +16,7 @@ work_xx는 번역 대상 텍스트가 없는 경우 생성되지 않습니다.
 
 0. tr = translate
 
-1. work : 미번역된 텍스트 리스트로 작업 대상을 의미, 텍스트의 출처를 병기하지 않는다.
+1. work : 미번역된 텍스트 리스트로 작업 대상을 의미, 텍스트의 출처를 남기지 않는다.
     ex)
         [work_en.json]
         {
@@ -80,7 +80,6 @@ local T_STR = {}
 local T_STR_UI = {}
 local T_STR_LUA = {}
 local T_STR_DATA = {}
-local T_STR_SERVER = {}
 
 -- 사용할 디렉토리
 local CURR_DIR = lfs.currentdir()
@@ -117,20 +116,37 @@ local function dietTable(t_table)
 end
 
 -- function readTranslation
-local function readTranslation(lang, prefix)
+local function readTranslation(lang, prefix, ext)
     local t_temp = {}
-    local path = string.format('%s/%s_%s.json', RESULT_DIR, prefix, lang)
-    local content = LuaBridge:getStringFromFile(path)
-    if (content) then
-        for i, t_info in ipairs(dkjson.decode(content)) do
-            t_temp[t_info['org']] = t_info
+    local path
+    local content
+
+    -- 'json'인 경우
+    if (ext == 'json') then
+        path = string.format('%s/%s_%s.json', RESULT_DIR, prefix, lang)
+        content = LuaBridge:getStringFromFile(path)
+        if (content) then
+            for i, t_info in ipairs(dkjson.decode(content)) do
+                t_temp[t_info['org']] = t_info
+            end
         end
-        if (prefix == 'work') then
-            os.remove(path)
+
+    -- 'csv' 또는 'tsv' 인 경우
+    elseif (ext == 'tsv') or (ext == 'csv') then
+        path = string.format('%s/%s_%s.tsv', RESULT_DIR, prefix, lang)
+        content = LuaBridge:getStringFromFile(path)
+        if (content) then
+            t_temp = TABLE:makeLuaTableFromCSV(content, 'org')
         end
-    else
+    end
+
+    if path and (prefix == 'work') then
+        os.remove(path)
+    end
+    if (not content) then
         cclog(string.format('## not exist file : %s_%s', prefix, lang))
     end
+
     return t_temp
 end
 
@@ -139,7 +155,12 @@ local function makeJsonString(t)
     return dkjson.encode(t, {indent = true, keyorder = {'org', 'tr', 'src'}})
 end
 
-
+-- function makeDSVString
+local function makeDSVString(t)
+    local l_header = {'org', 'tr'}
+    return util.makeDSVStringFromLuaTable(t, l_header, '\t')
+end
+    
 
 
 -------------------------------------
@@ -162,7 +183,6 @@ function TranslationCrawler:run()
     self:crawler_src()
     self:crawler_ui()
     self:crawler_data()
-    self:crawler_serverdata()
 
     -- 언어별로 풀스크립트 및 번역안된텍스트파일 생성
     for _, lang in ipairs(L_LANG) do
@@ -276,9 +296,20 @@ end
 -------------------------------------
 function TranslationCrawler:crawler_data()
     cclog('#### crawler_data')
-
-    -- @dir, @iter_func
     local root_dir = CURR_DIR .. '/../data'
+    self:__crawler_data(root_dir)
+
+    cclog('#### crawler_data_server')
+    local root_dir = CURR_DIR .. '/../../sv_tables'
+    self:__crawler_data(root_dir)
+end
+
+-------------------------------------
+-- function __crawler_data
+-------------------------------------
+function TranslationCrawler:__crawler_data(root_dir)
+    -- @dir, @iter_func
+    local root_dir = root_dir
     local function iter_func(path, file)
         if (not pl.stringx.endswith(file, '.csv')) then
             return    
@@ -325,61 +356,6 @@ function TranslationCrawler:crawler_data()
     -- data 폴더 탐색
     util.iterateDirectory(root_dir, iter_func)
 end
-    
--------------------------------------
--- function crawler_serverdata
--------------------------------------
-function TranslationCrawler:crawler_serverdata()
-    cclog('#### crawler_server')
-    
-    -- @dir, @iter_func
-    local root_dir = CURR_DIR .. '/../../sv_tables'
-    local function iter_func(path, file)
-        if (not pl.stringx.endswith(file, '.csv')) then
-            return    
-        end
-        if (T_EXCEPT_FILE[file]) then
-            return
-        end
-
-        -- 파일명 구성 (서브 폴더 명을 찾아서 붙여준다.)
-        local file_name = file:gsub('.csv', '')
-        local sub_folder = path:gsub(root_dir, '')
-        if (sub_folder ~= '') then
-            file_name = sub_folder .. '/' .. file_name
-        end
-        
-        -- csv 파일을 루아 테이블로 변환
-        local t_csv = TABLE:loadCSVTable(file_name)
-        if (not t_csv) then
-            cclog('규약에 맞지 않는 csv파일이 생성되었을 수 있습니다. 개발팀에 문의해주세요')
-        end
-
-        -- 테이블을 순회 하며 한글 텍스트를 모조리 찾는다
-        -- r_ 또는 s_ 컬럼은 제외한다.
-        for _, t_row in pairs(t_csv) do
-            for key, value in pairs(t_row) do
-                if (pl.stringx.startswith(key, 's_') or pl.stringx.startswith(key, 'r_')) then
-                    -- nothing to do
-                else
-                    if (isKorean(value)) then
-                        self:insertData(T_STR_SERVER, value, file)
-                        self:insertData(T_STR, value, file)
-                    end
-                end
-            end
-        end
-
-    end
-
-    if (not util.isDirectory(root_dir)) then
-        cclog('!!!!!! failed')
-        return
-    end
-
-    -- data 폴더 탐색
-    util.iterateDirectory(root_dir, iter_func)
-end
 
 -------------------------------------
 -- function compareWithFullTranslation
@@ -394,10 +370,10 @@ function TranslationCrawler:compareWithFullTranslation(lang)
     T_WORK[lang] = {}
 
     -- 이미 번역된 텍스트 불러옴
-    local t_full = readTranslation(lang, 'full')
+    local t_full = readTranslation(lang, 'full', 'json')
 
     -- 작업결과물 번역도 불러옴
-    local t_work = readTranslation(lang, 'work')
+    local t_work = readTranslation(lang, 'work', 'json')
     
     -- 이미 번역된 텍스트와 비교하여 해당 언어의 맵 생성
     local tr_str
@@ -421,7 +397,7 @@ function TranslationCrawler:compareWithFullTranslation(lang)
             tr_str = nil
             
             -- 작업 리스트에 추가
-            table.insert(T_WORK[lang], {['org'] = str, ['tr'] = 'TEST'}) --EMPTY_STR})
+            table.insert(T_WORK[lang], {['org'] = str, ['tr'] = 'EMPTY_STR'})
         end
 
         -- 언어별 full translation에 추가
@@ -448,11 +424,13 @@ function TranslationCrawler:saveUntranslatedStr(lang)
         return a['org'] < b['org']
     end)
 
-    -- 해당 언어 테이블 json으로 변환
+    -- 해당 언어 테이블 json으로 변환하여 저장
     local work_str = makeJsonString(T_WORK[lang])
-
-    -- 저장
     local path = string.format('%s/work_%s.json', RESULT_DIR, lang)
+
+    -- local work_str = makeDSVString(T_WORK[lang])
+    -- local path = string.format('%s/work_%s.tsv', RESULT_DIR, lang)
+
     local f = io.open(path, 'w')
     f:write(work_str)
     f:close()
@@ -541,7 +519,6 @@ function TranslationCrawler:printResult()
     cclog('src string cnt: ' .. table.count(T_STR_LUA))
     cclog('ui string cnt: ' .. table.count(T_STR_UI))
     cclog('data string cnt: ' .. table.count(T_STR_DATA))
-    cclog('server string cnt: ' .. table.count(T_STR_SERVER))
     cclog('total : ' .. table.count(T_STR))
     for lang, t_str in pairs(T_WORK) do
         cclog(lang .. ' work out :' .. table.count(t_str))
