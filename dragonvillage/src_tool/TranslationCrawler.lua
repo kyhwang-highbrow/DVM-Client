@@ -433,7 +433,7 @@ function TranslationCrawler:compareWithTranslation(lang)
             tr_str = nil
             
             -- 작업 리스트에 추가
-            table.insert(T_WORK[lang], {['org'] = str, ['tr'] = 'EMPTY_STR'})
+            table.insert(T_WORK[lang], {['org'] = str, ['tr'] = EMPTY_STR})
         end
 
         -- 언어별 full translation에 추가

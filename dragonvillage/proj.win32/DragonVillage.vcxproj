@@ -1165,7 +1165,7 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <None Include="..\src_tool\SceneViewer.lua" />
     <None Include="..\src_tool\StageAnalysis.lua" />
     <None Include="..\src_tool\StageInfoWave.lua" />
-    <None Include="..\src_tool\TranslateExtractor.lua" />
+    <None Include="..\src_tool\TranslationCrawler.lua" />
     <None Include="..\src_tool\UISourceCodeGenerator.lua" />
     <None Include="..\src_tool\UnusedFileExtractor.lua" />
   </ItemGroup>

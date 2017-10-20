@@ -86,7 +86,7 @@ function MakeSimpleSecretFindPopup(secret_dungeon)
         end
 
         if (res_name) then
-            res_name = UILoader.checkTranslateUnit(res_name)
+            res_name = Translate:getTranslatedPath(res_name)
     
             local sprite = cc.Sprite:create(res_name)
             sprite:setAnchorPoint(cc.p(0.5, 0.5))

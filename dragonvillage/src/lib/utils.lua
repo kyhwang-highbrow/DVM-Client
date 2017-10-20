@@ -625,15 +625,26 @@ function lap_value(sec)
     return string.format('%2.2f', sec)
 end
 
---add Str method for translation
+-------------------------------------
+-- function Str
+-- @brief add Str method for translation
+-------------------------------------
 function Str(id, ...)
     return formatMessage(Translate:get(id), ...)
 end
 
+-------------------------------------
+-- function formatMessage
+-------------------------------------
 function formatMessage(str, ...)
     local args = {...}
+    local value
     for i = 1, #args do
-        str = str:gsub('{'..(i)..'}', tostring(string.gsub(args[i], '\n', ' ')))
+        value = args[i]
+        if (type(value) == 'string') then
+            value = Translate:get(value)
+        end
+        str = str:gsub('{'..(i)..'}', value)
     end
     return str
 end

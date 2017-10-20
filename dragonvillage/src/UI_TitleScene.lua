@@ -345,7 +345,7 @@ function UI_TitleScene:workLoading()
             local count = 0
             for k,v in pairs(t_tale_info) do
                 count = (count + 1)
-                --self.m_loadingUI:showLoading(Str('로딩 중... (' .. count .. '/' .. max_count .. ')'), false)
+                -- self.m_loadingUI:showLoading(Str('로딩 중...') .. string.format(' %d/%d', count, max_count), false)
                 co:yield()
 
                 TABLE:loadCSVTable(v[1], k, v[2], v[3])
@@ -367,9 +367,6 @@ function UI_TitleScene:workLoading()
         TimeLib:initInstance()
         co:yield()
 
-        LocalData:getInstance()
-        co:yield()
-        
         ServerData:getInstance()
         co:yield()
 

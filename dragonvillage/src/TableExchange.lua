@@ -153,13 +153,14 @@ function TableExchange:makeBillName(price_type)
     local price_type = price_type or 'x'
 
     if (price_type == 'money') then
-		if (Translate.phoneLang == 'kr') then
+        local device_lang = Translate:getDeviceLange()
+		if (device_lang == 'kr') then
 			return 'KRW'
-		elseif (Translate.phoneLang == 'en') then
+		elseif (device_lang == 'en') then
 			return 'USD'
-		elseif (Translate.phoneLang == 'jp') then
+		elseif (device_lang == 'jp') then
 			return 'JPY'
-		elseif (Translate.phoneLang == 'cn') then
+		elseif (device_lang == 'cn') then
 			return 'CNY'
 		end
 

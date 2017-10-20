@@ -2496,9 +2496,6 @@
     <None Include="..\src_tool\StageAnalysis.lua">
       <Filter>lua_tool</Filter>
     </None>
-    <None Include="..\src_tool\TranslateExtractor.lua">
-      <Filter>lua_tool</Filter>
-    </None>
     <None Include="..\src_tool\UISourceCodeGenerator.lua">
       <Filter>lua_tool</Filter>
     </None>
@@ -2818,6 +2815,9 @@
       <Filter>lua_tool</Filter>
     </None>
     <None Include="..\src_tool\ResourceSizeChecker.lua">
+      <Filter>lua_tool</Filter>
+    </None>
+    <None Include="..\src_tool\TranslationCrawler.lua">
       <Filter>lua_tool</Filter>
     </None>
   </ItemGroup>

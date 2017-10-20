@@ -97,7 +97,7 @@ function UI_Setting:click_gamecenterBtn()
                     end
 
                     local function fail_cb(ret)
-                        local msg = Str('계정 연동 과정에 오류가 발생하였습니다. (오류코드:' .. tostring(ret['status']) .. ')')
+                        local msg = Str('계정 연동 과정에 오류가 발생하였습니다. (오류코드:{1})', ret['status'])
                         MakeSimplePopup(POPUP_TYPE.OK, msg)
                     end
 

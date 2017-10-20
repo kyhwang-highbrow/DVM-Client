@@ -298,7 +298,7 @@ end
 function UI_ExplorationReady:click_explorationBtn()
     -- 인원 체크
     if (self.m_currDragonCnt < 5) then
-        UIManager:toastNotificationRed('탐험에는 5마리의 드래곤이 필요합니다.')
+        UIManager:toastNotificationRed(Str('탐험에는 5마리의 드래곤이 필요합니다.'))
         return
     end
 
@@ -325,7 +325,7 @@ function UI_ExplorationReady:click_explorationBtn()
     start_game = function()
         local function request()
             local function finish_cb(ret)
-                UIManager:toastNotificationGreen('드래곤 5마리가 탐험을 떠났습니다.')
+                UIManager:toastNotificationGreen(Str('드래곤 5마리가 탐험을 떠났습니다.'))
                 self.m_bActive = true
                 self:close()
 
