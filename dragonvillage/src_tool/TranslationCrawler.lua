@@ -83,6 +83,7 @@ local T_STR_DATA = {}
 
 -- 사용할 디렉토리
 local CURR_DIR = lfs.currentdir()
+local LOG_DIR = '../../translation'
 local RESULT_DIR = '../translate'
 
 -- 제외할 파일 목록 .. 현재는 csv에만 적용
@@ -123,7 +124,7 @@ local function readTranslation(lang, prefix, ext)
 
     -- 'json'인 경우
     if (ext == 'json') then
-        path = string.format('%s/%s_%s.json', RESULT_DIR, prefix, lang)
+        path = string.format('%s/%s_%s.json', LOG_DIR, prefix, lang)
         content = LuaBridge:getStringFromFile(path)
         if (content) then
             for i, t_info in ipairs(dkjson.decode(content)) do
@@ -133,7 +134,7 @@ local function readTranslation(lang, prefix, ext)
 
     -- 'csv' 또는 'tsv' 인 경우
     elseif (ext == 'tsv') or (ext == 'csv') then
-        path = string.format('%s/%s_%s.tsv', RESULT_DIR, prefix, lang)
+        path = string.format('%s/%s_%s.tsv', LOG_DIR, prefix, lang)
         content = LuaBridge:getStringFromFile(path)
         if (content) then
             t_temp = TABLE:makeLuaTableFromCSV(content, 'org')
@@ -318,17 +319,16 @@ function TranslationCrawler:__crawler_data(root_dir)
             return
         end
 
-        -- 파일명 구성 (서브 폴더 명을 찾아서 붙여준다.)
-        local file_name = file:gsub('.csv', '')
-        local sub_folder = path:gsub(root_dir, '')
-        if (sub_folder ~= '') then
-            file_name = sub_folder .. '/' .. file_name
-        end
-        
         -- csv 파일을 루아 테이블로 변환
-        local t_csv = TABLE:loadCSVTable(file_name)
+        local t_csv
+        local _path = pl.path.join(path, file)
+        local content = LuaBridge:getStringFromFile(_path)
+        if (content) then
+            t_csv = TABLE:makeLuaTableFromCSV(content)
+        end
         if (not t_csv) then
-            cclog('규약에 맞지 않는 csv파일이 생성되었을 수 있습니다. 개발팀에 문의해주세요')
+            cclog('failed to read : ' .. _path)
+            return
         end
 
         -- 테이블을 순회 하며 한글 텍스트를 모조리 찾는다
@@ -426,10 +426,10 @@ function TranslationCrawler:saveUntranslatedStr(lang)
 
     -- 해당 언어 테이블 json으로 변환하여 저장
     local work_str = makeJsonString(T_WORK[lang])
-    local path = string.format('%s/work_%s.json', RESULT_DIR, lang)
+    local path = string.format('%s/work_%s.json', LOG_DIR, lang)
 
     -- local work_str = makeDSVString(T_WORK[lang])
-    -- local path = string.format('%s/work_%s.tsv', RESULT_DIR, lang)
+    -- local path = string.format('%s/work_%s.tsv', LOG_DIR, lang)
 
     local f = io.open(path, 'w')
     f:write(work_str)
@@ -453,7 +453,7 @@ function TranslationCrawler:saveFullTranslation(lang)
     local json_str = makeJsonString(T_LANG_LIST[lang])
 
     -- 저장
-    local path = string.format('%s/full_%s.json', RESULT_DIR, lang)
+    local path = string.format('%s/full_%s.json', LOG_DIR, lang)
     local f = io.open(path,'w')
     f:write(json_str)
     f:close()
@@ -505,7 +505,7 @@ function TranslationCrawler:saveTotalTranslation()
     local json_str = makeJsonString(l_sort)
 
     -- 저장
-    local path = string.format('%s/total_translation.json', RESULT_DIR)
+    local path = string.format('%s/total_translation.json', LOG_DIR)
     local f = io.open(path,'w')
     f:write(json_str)
     f:close()
