@@ -10,6 +10,15 @@ work_xx는 번역 대상 텍스트가 없는 경우 생성되지 않습니다.
 ]]
 
 -------------------------------------
+-- feature
+-------------------------------------
+--[[
+project/dragonvillage/res 폴더를 기준으로 동작하도록 제작했습니다.
+프로그래머들이 번역에 매달려서 시간을 낭비하지 않도록 누구라도 클릭으로 한눈에 결과를 보고 적용시킬 수 있도록 하고자 했습니다.
+개발 폴더에서는 제대로 동작은 하지만 바로 적용하여 확인이 필요한 경우나 테스트 용으로 사용해주시기 바립니다.
+]]
+
+-------------------------------------
 -- Terminology
 -------------------------------------
 --[[
@@ -53,6 +62,7 @@ work_xx는 번역 대상 텍스트가 없는 경우 생성되지 않습니다.
             }
         }
 
+4. lua translation : 게임에서 번역 적용을 위해 사용하는 루아 테이블, load 속도를 줄이기 위해 lua로 저장한다.
 ]]
 
 -------------------------------------
@@ -95,6 +105,11 @@ local T_EXCEPT_FILE =
 
 -- 빈 문자열 정의
 local EMPTY_STR = ''
+
+-- LOG_DIR가 없다면 RESULT_DIR를 대신 사용하도록 함
+if (not util.isDirectory(LOG_DIR)) then
+    LOG_DIR = RESULT_DIR
+end
 
 -------------------------------------
 -- local utillity functions
@@ -141,6 +156,7 @@ local function readTranslation(lang, prefix, ext)
         end
     end
 
+    -- work 파일은 기존것을 삭제한다.
     if path and (prefix == 'work') then
         os.remove(path)
     end
@@ -162,6 +178,18 @@ local function makeDSVString(t)
     return util.makeDSVStringFromLuaTable(t, l_header, '\t')
 end
     
+
+-- function saveTranslation
+local function saveTranslation(path, str)
+    local f = io.open(path,'w')
+    if (f) then
+        f:write(str)
+        f:close()
+        return true
+    end
+
+    return false
+end
 
 
 -------------------------------------
@@ -187,8 +215,8 @@ function TranslationCrawler:run()
 
     -- 언어별로 풀스크립트 및 번역안된텍스트파일 생성
     for _, lang in ipairs(L_LANG) do
-        self:compareWithFullTranslation(lang)
-        self:saveUntranslatedStr(lang)
+        self:compareWithTranslation(lang)
+        self:saveWorkTranslation(lang)
         self:saveFullTranslation(lang)
         self:saveLuaTranslation(lang)
         cclog('')
@@ -222,6 +250,9 @@ function TranslationCrawler:insertData(t, kr_str, file)
     end
     t[kr_str]['src'][file] = 1
 end
+
+
+
 
 -------------------------------------
 -- function crawler_src
@@ -357,12 +388,15 @@ function TranslationCrawler:__crawler_data(root_dir)
     util.iterateDirectory(root_dir, iter_func)
 end
 
+
+
+
 -------------------------------------
--- function compareWithFullTranslation
+-- function compareWithTranslation
 -- @brief 추출한 리스트를 언어별 이미 번역된 테스트들과 비교하여 작업대상을 구분하고 full translation을 새로이 생성
 -- @param lang 언어키
 -------------------------------------
-function TranslationCrawler:compareWithFullTranslation(lang)
+function TranslationCrawler:compareWithTranslation(lang)
     cclog('## compare with full translation ' .. lang)
 
     -- 언어별 테이블 생성
@@ -405,12 +439,15 @@ function TranslationCrawler:compareWithFullTranslation(lang)
     end
 end
 
+
+
+
 -------------------------------------
--- function saveUntranslatedStr
+-- function saveWorkTranslation
 -- @brief 번역 대상 리스트를 저장
 -- @param lang 언어키
 -------------------------------------
-function TranslationCrawler:saveUntranslatedStr(lang)
+function TranslationCrawler:saveWorkTranslation(lang)
     cclog('## extract untranslated string ' .. lang)
 
     -- 작업해야할 텍스트가 없다면 통과
@@ -425,15 +462,16 @@ function TranslationCrawler:saveUntranslatedStr(lang)
     end)
 
     -- 해당 언어 테이블 json으로 변환하여 저장
+    local template = '%s/work_%s.json'
     local work_str = makeJsonString(T_WORK[lang])
-    local path = string.format('%s/work_%s.json', LOG_DIR, lang)
+    local path = string.format(template, LOG_DIR, lang)
 
+    -- tsv용
     -- local work_str = makeDSVString(T_WORK[lang])
     -- local path = string.format('%s/work_%s.tsv', LOG_DIR, lang)
 
-    local f = io.open(path, 'w')
-    f:write(work_str)
-    f:close()
+    -- 저장
+    saveTranslation(path, json_str)
 end
 
 -------------------------------------
@@ -450,13 +488,12 @@ function TranslationCrawler:saveFullTranslation(lang)
     end)
 
     -- 해당 언어의 전체 파일 json으로 변환
+    local template = '%s/full_%s.json'
     local json_str = makeJsonString(T_LANG_LIST[lang])
+    local path = string.format(template, LOG_DIR, lang)
 
     -- 저장
-    local path = string.format('%s/full_%s.json', LOG_DIR, lang)
-    local f = io.open(path,'w')
-    f:write(json_str)
-    f:close()
+    saveTranslation(path, json_str)
 end
 
 -------------------------------------
@@ -473,14 +510,12 @@ function TranslationCrawler:saveLuaTranslation(lang)
         t_lua[t_info['org']] = t_info['tr'] -- 번역 텍스트가 없다면 생성되지 않음
     end
 
-    -- 해당 언어의 전체 파일 json으로 변환
+    -- 루아 테이블 텍스트 및 경로
     local lua_str = 'return ' .. util.makeLuaTableStr(t_lua, '\n')
+    local path = string.format('%s/lang_%s.lua', RESULT_DIR, lang)
     
     -- 저장
-    local path = string.format('%s/lang_%s.lua', RESULT_DIR, lang)
-    local f = io.open(path,'w')
-    f:write(lua_str)
-    f:close()
+    saveTranslation(path, lua_str)
 end
 
 -------------------------------------
@@ -502,13 +537,12 @@ function TranslationCrawler:saveTotalTranslation()
     end)
 
     -- json으로 변환
+    local template = '%s/total_translation.json'
     local json_str = makeJsonString(l_sort)
+    local path = string.format(template, LOG_DIR)
 
     -- 저장
-    local path = string.format('%s/total_translation.json', LOG_DIR)
-    local f = io.open(path,'w')
-    f:write(json_str)
-    f:close()
+    saveTranslation(path, json_str)
 end
 
 -------------------------------------
