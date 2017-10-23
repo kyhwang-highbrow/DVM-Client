@@ -59,7 +59,11 @@ function SensitivityHelper:doActionBubbleText(parent, did, flv, case_type, custo
 	elseif pl.stringx.startswith(case_type, 'party_') then
 		pos_y = 100
 		delay_time = 0.5
-	
+
+    else
+        pos_y = 300
+		delay_time = 1.5
+
 	end
 	
 	local bubble_text = self:doActionBubbleText_Formal(parent, sens_str, delay_time, cb_func)

@@ -229,7 +229,7 @@ function ForestDragon.st_touched(self, dt)
     -- 이벤트 구조체 생성
     local struct_event = StructForestEvent()
     struct_event:setObject(self)
-    struct_event:setPosition(self.m_rootNode:getPosition())
+    struct_event:setPosition(self:getPosition())
 
     -- 이동 이벤트 dispatch
     self:dispatch('forest_character_move', struct_event)
@@ -271,7 +271,7 @@ function ForestDragon.st_touched_end(self, dt)
     -- 이벤트 구조체 생성
     local struct_event = StructForestEvent()
     struct_event:setObject(self)
-    struct_event:setPosition(self.m_rootNode:getPosition())
+    struct_event:setPosition(self:getPosition())
 
     -- 이동 이벤트 dispatch
     self:dispatch('forest_character_move', struct_event)
@@ -284,7 +284,7 @@ end
 
 -------------------------------------
 -- function onActionEnd
--- @brief 어떤 동작을 한 뒤에 대사 또는 이모티콘을 랜덤하게 출력 한다.
+-- @brief 어떤 동작을 한 뒤 랜덤 행동
 -------------------------------------
 function ForestDragon:onActionEnd() 
     -- 1/3 pose
@@ -293,18 +293,13 @@ function ForestDragon:onActionEnd()
         return
     end
 
-    -- 1/2 backflip
-    if (math_random(1, 2) == 1) then
+    -- 1/3 backflip
+    if (math_random(1, 3) == 1) then
         self:changeState('backflip')
         return
     end
 
-    local case = math_random(0, 1)
-    if (case == 0) then
-        self:showEmotionEffect()
-    else
-        self:speechSomething()
-    end
+    self:showEmotionEffect()
 end
 
 -------------------------------------
@@ -328,7 +323,6 @@ function ForestDragon:update(dt)
     end
 
     if (self.m_stateTimer > self.m_moveTerm) then
-        --self:doRandomAction()
         self:doForestAction()
 
         -- 만족도 유저에게 보이는게 아니므로 3~5초 정도 간격마다 계산해서 연산량을 줄인다.
@@ -404,10 +398,14 @@ function ForestDragon:getHappy()
         -- 드래곤 만족도 연출 이벤트
         local struct_event = StructForestEvent()
         struct_event:setObject(self)
-        struct_event:setPosition(self.m_rootNode:getPosition())
+        struct_event:setPosition(self:getPosition())
         struct_event:setHappy(curr_happy)
         struct_event:setResponse(ret)
         self:dispatch('forest_dragon_happy', struct_event)
+
+        -- 하트 회수 후의 행동
+        self:changeState('pose')
+        self:speakHeart()
     end
     ServerData_Forest:getInstance():request_dragonHappy(doid, finish_cb)
     
@@ -415,10 +413,10 @@ function ForestDragon:getHappy()
 end
 
 -------------------------------------
--- function speechSomething
+-- function speakHeart
 -------------------------------------
-function ForestDragon:speechSomething()
-	local case_type = 'lobby_'
+function ForestDragon:speakHeart()
+	local case_type = 'forest_heart'
 
 	-- 감성 말풍선 실동작
 	self.m_talkingNode:removeAllChildren()
@@ -433,7 +431,7 @@ function ForestDragon:doForestAction()
     local speed = table.getRandom(L_SPEED)
     local struct_event = StructForestEvent()
     struct_event:setObject(self)
-    struct_event:setPosition(self.m_rootNode:getPosition())
+    struct_event:setPosition(self:getPosition())
     struct_event:setSpeed(speed)
     self:dispatch('forest_dragon_move_free', struct_event)
 end

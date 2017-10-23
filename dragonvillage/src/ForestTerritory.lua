@@ -23,6 +23,10 @@ ForestTerritory = class(PARENT, {
         m_moveIndicator = 'Animator',
         m_isTouchAnother = 'bool',
 
+        -- 행복도 수령 관련
+        m_happyTimer = 'time',
+        m_lHappyDragonList = 'list',
+
         -- 오브젝트
         m_ground = 'Animator',
         m_tamer = 'ForestTamer',
@@ -53,6 +57,9 @@ function ForestTerritory:init(parent, z_order)
     self.m_lDragonList = {}
     self.m_tStuffTable = {}
     self.m_isTouchingDragon = false
+
+    self.m_happyTimer = 0
+    self.m_lHappyDragonList = {}
 
     -- 오브젝트 생성
     self:initBackground()
@@ -414,18 +421,6 @@ function ForestTerritory:onTouchBegan(touches, event)
 
     self.m_isTouchAnother = false
 
-    -- 드래곤 하트 체크
-    for _, dragon in ipairs(self.m_lDragonList) do
-        if (dragon:isHappy()) then
-            if (self:checkHeartOfDragonTouch(location, dragon)) then
-                if (dragon:getHappy()) then
-                    self.m_isTouchAnother = true
-                    return
-                end
-            end
-        end
-    end
-
     -- Stuff 터치 체크
     for _, stuff in pairs(self.m_tStuffTable) do
         if (self:checkObjectTouch(location, stuff, 150)) then
@@ -494,15 +489,33 @@ end
 -------------------------------------
 function ForestTerritory:update(dt)
     -- 테이머 이동에 따라 화면 이동
-    do
-        local x, y = self.m_tamer:getPosition()
-        x = -x
-        y = -(y + 150)
+    local pos_x, pos_y = self.m_tamer:getPosition()
+    local x = -pos_x
+    local y = -(pos_y + 150)
 
-        if (self.m_posX == x) and (self.m_posY == y) then
-            -- nothing to do 
-        else
-            self:setPosition(x, y, true)
+    if (self.m_posX == x) and (self.m_posY == y) then
+        -- nothing to do 
+    else
+        self:setPosition(x, y, true)
+    end
+
+    -- 드래곤 하트 체크
+    for i, dragon in ipairs(self.m_lDragonList) do
+        if (dragon:isHappy()) then
+            if (self:checkTamerMeetDragon(pos_x, pos_y, dragon)) then
+                dragon:getHappy()
+                table.insert(self.m_lHappyDragonList, dragon)
+            end
+        end
+    end
+
+    -- 드래곤 하트 수령 리스트를 특정시간 마다 돌림
+    self.m_happyTimer = self.m_happyTimer + dt
+    if (self.m_happyTimer > 0.1) then
+        self.m_happyTimer = self.m_happyTimer - 0.1
+        if self.m_lHappyDragonList[1] then
+            self.m_lHappyDragonList[1]:getHappy()
+            table.remove(self.m_lHappyDragonList, 1)
         end
     end
 
@@ -594,16 +607,16 @@ function ForestTerritory:checkObjectTouch(touch_pos, forest_object, size)
 end
 
 -------------------------------------
--- function checkHeartOfDragonTouch
--- @brief 하트 터치만 체크
+-- function checkTamerMeetDragon
+-- @brief 테이머와 드래곤 접촉 체크
 -------------------------------------
-function ForestTerritory:checkHeartOfDragonTouch(touch_pos, forest_dragon, size)
+function ForestTerritory:checkTamerMeetDragon(tamer_x, tamer_y, forest_dragon)
     if (not forest_dragon) then
         return
     end
-    local size = size or 100
-    local world_pos = convertToWorldSpace(forest_dragon.m_animator.m_node)
-    local distance = getDistance(touch_pos['x'], touch_pos['y'], world_pos['x'], world_pos['y'] + ForestDragon.OFFSET_Y_HAPPY - ForestDragon.OFFSET_Y)
+    local size = 100
+    local dragon_x, dragon_y = forest_dragon:getPosition()
+    local distance = getDistance(tamer_x, tamer_y, dragon_x, dragon_y)
 
     return (distance <= size)
 end
