@@ -420,13 +420,6 @@ function ForestTerritory:onTouchBegan(touches, event)
     local location = touches[1]:getLocation()
     self.m_touchPosition = location
 
-    -- Stuff 터치 체크
-    --for _, stuff in pairs(self.m_tStuffTable) do
-        --if (self:checkObjectTouch(location, stuff, 150)) then
-            --return
-        --end
-    --end
-
     -- 드래곤을 터치한게 아니라면 테이머를 이동 시킴
     local move_pos = self:getForestMovePos(location)
     self.m_tamer:setMove(move_pos['x'], move_pos['y'])
@@ -466,14 +459,6 @@ function ForestTerritory:onTouchEnded(touches, event)
     local location = touches[1]:getLocation()
     self.m_touchPosition = location
 
-    -- Stuff 터치 체크
-    --for _, stuff in pairs(self.m_tStuffTable) do
-        --if (self:checkObjectTouch(location, stuff, 150)) then
-            --stuff:touchStuff()
-            --break
-        --end
-    --end
-    
     self.m_isPressMove = false
 end
 
@@ -660,8 +645,7 @@ function ForestTerritory:onEvent(event_name, struct_event)
         
         -- base node
         local ui_node = self.m_ui.vars['cameraNode']
-        local height = ForestDragon.OFFSET_Y_HAPPY
-        
+
         -- 연출 생성
         local heart_move_ani = MakeAnimator('res/ui/a2d/dragon_forest/dragon_forest.vrp')
         heart_move_ani:changeAni('heart_move', false)
@@ -678,10 +662,12 @@ function ForestTerritory:onEvent(event_name, struct_event)
         -- 도착 위치
         local tar_node = self.m_ui.vars['boxVisual'].m_node
         local tar_pos = TutorialHelper:convertToWorldSpace(ui_node, tar_node, dock_point, anchor_point)
-
+        ccdump(start_pos); ccdump(tar_pos)
         -- pos, scale, rotateh
-        local start_x, start_y = start_pos['x'], start_pos['y'] + height
-        local tar_x, tar_y = tar_pos['x'] + 30, tar_pos['y'] - 15
+        local start_x = start_pos['x'] 
+        local start_y = start_pos['y'] + ForestDragon.OFFSET_Y_HAPPY
+        local tar_x = tar_pos['x'] + 30
+        local tar_y = tar_pos['y'] - 15
         local distance = getDistance(start_x, start_y, tar_x, tar_y)
         local scale = (distance / 500)
         local angle = getAdjustDegree(getDegree(start_x, start_y, tar_x, tar_y))
@@ -689,14 +675,18 @@ function ForestTerritory:onEvent(event_name, struct_event)
         heart_move_ani:setScaleX(scale)
         heart_move_ani:setRotation(angle + 90)
 
+        -- 게이지 효과
+        local gauge_visual = self.m_ui.vars['gaugeVisual']
+        gauge_visual:changeAni('gauge', false)
+
+        -- 게이지 조정
+        self.m_ui:refresh_happy()
+            
+        -- 박스 효과
+        self.m_ui.vars['boxVisual']:changeAni('gift_box_tap', false)
+
         -- 종료 콜백
         heart_move_ani:addAniHandler(function() 
-            local gauge_visual = self.m_ui.vars['gaugeVisual']
-            gauge_visual:changeAni('gauge', false)
-            self.m_ui:refresh_happy()
-            
-            self.m_ui.vars['boxVisual']:changeAni('gift_box_tap', false)
-
             -- 만족도가 100 넘어갔을 경우
             local happy = ServerData_Forest:getInstance():getHappy()
             if (struct_event:getHappy() > happy) then
@@ -704,7 +694,8 @@ function ForestTerritory:onEvent(event_name, struct_event)
                 local ret = struct_event:getResponse()
                 ServerData_Forest:getInstance():showRewardResult(ret)
             end
-
+            
+            -- 삭제
             cca.fadeOutAndRemoveChild(heart_move_ani.m_node, 1)
         end)
     end

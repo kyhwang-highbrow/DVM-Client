@@ -174,10 +174,16 @@ end
 -- function makeObtainEffect_Big
 -- @brief
 -------------------------------------
-function SensitivityHelper:makeObtainEffect_Big(item_id, item_cnt, parent_node)
+function SensitivityHelper:makeObtainEffect_Big(item_id, item_cnt, parent_node, t_param)
+    -- 변수 정리
+    local pos_x = t_param['pos_x']
+    local pos_y = t_param['pos_y']
+    local scale = t_param['scale']
+
     -- base node
     local node = cc.Node:create()
-    node:setPosition(0, 0)
+    node:setPosition(pos_x, pos_y)
+    node:setScale(scale)
 	node:setOpacity(0)
 	node:setCascadeOpacityEnabled(true)
     parent_node:addChild(node, 5)
