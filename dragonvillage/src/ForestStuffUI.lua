@@ -79,6 +79,8 @@ end
 function ForestStuffUI:readyForReward()
     local vars = self.vars
 
+    -- 이름표는 가린다.
+    vars['objectSprite']:setVisible(false)
     vars['timeLabel']:setString('')
 
     local reward_visual = vars['rewardVisual']
@@ -94,5 +96,7 @@ end
 -- function resetReward
 -------------------------------------
 function ForestStuffUI:resetReward()
-    self.vars['rewardVisual']:setVisible(false)
+    local vars = self.vars
+    vars['rewardVisual']:setVisible(false)
+    vars['objectSprite']:setVisible(true)
 end

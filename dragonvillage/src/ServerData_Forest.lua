@@ -234,6 +234,7 @@ function ServerData_Forest:request_dragonHappy(doid, finish_cb)
     ui_network:setSuccessCB(success_cb)
     ui_network:setRevocable(true)
     ui_network:setReuse(false)
+    ui_network:hideLoading()
     ui_network:request()
 
     return ui_network
