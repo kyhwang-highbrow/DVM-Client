@@ -26,6 +26,7 @@ ForestTerritory = class(PARENT, {
         -- 행복도 수령 관련
         m_happyTimer = 'time',
         m_lHappyDragonList = 'list',
+        m_tReserved = 'bool',
 
         -- 오브젝트
         m_ground = 'Animator',
@@ -57,9 +58,9 @@ function ForestTerritory:init(parent, z_order)
     self.m_lDragonList = {}
     self.m_tStuffTable = {}
     self.m_isTouchingDragon = false
-
     self.m_happyTimer = 0
     self.m_lHappyDragonList = {}
+    self.m_tReserved = {}
 
     -- 오브젝트 생성
     self:initBackground()
@@ -502,20 +503,24 @@ function ForestTerritory:update(dt)
     -- 드래곤 하트 체크
     for i, dragon in ipairs(self.m_lDragonList) do
         if (dragon:isHappy()) then
-            if (self:checkTamerMeetDragon(pos_x, pos_y, dragon)) then
-                dragon:getHappy()
-                table.insert(self.m_lHappyDragonList, dragon)
+            if (not self.m_tReserved[dragon]) then
+                if (self:checkTamerMeetDragon(pos_x, pos_y, dragon)) then
+                    self.m_tReserved[dragon] = true
+                    table.insert(self.m_lHappyDragonList, dragon)
+                end
             end
         end
     end
 
     -- 드래곤 하트 수령 리스트를 특정시간 마다 돌림
     self.m_happyTimer = self.m_happyTimer + dt
-    if (self.m_happyTimer > 0.1) then
-        self.m_happyTimer = self.m_happyTimer - 0.1
-        if self.m_lHappyDragonList[1] then
-            self.m_lHappyDragonList[1]:getHappy()
+    if (self.m_happyTimer > 0.2) then
+        self.m_happyTimer = self.m_happyTimer - 0.2
+        if (self.m_lHappyDragonList[1]) then
+            local dragon = self.m_lHappyDragonList[1]
             table.remove(self.m_lHappyDragonList, 1)
+            self.m_tReserved[dragon] = nil
+            dragon:getHappy()
         end
     end
 

@@ -799,6 +799,7 @@ function UINavigatorDefinition:goTo_forest(...)
     end
 
     local function cb_func()
+        UI_BlockPopup()
         SceneForest():runScene()
     end
     ServerData_Forest:getInstance():request_myForestInfo(cb_func)
