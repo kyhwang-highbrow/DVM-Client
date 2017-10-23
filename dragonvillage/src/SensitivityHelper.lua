@@ -133,39 +133,83 @@ end
 -- @brief
 -------------------------------------
 function SensitivityHelper:makeObtainEffect(gift_type, gift_count, parent_node)
-    local type, count = gift_type, gift_count
+    -- base node
+    local node = cc.Node:create()
+    node:setPosition(0, 250)
+	node:setOpacity(0)
+	node:setCascadeOpacityEnabled(true)
+    parent_node:addChild(node, 5)
 
-    local res = 'res/ui/icons/inbox/inbox_' .. type .. '.png'
-    if (res) then
-        local node = cc.Node:create()
-        node:setPosition(0, 250)
-		node:setOpacity(0)
-		node:setCascadeOpacityEnabled(true)
-        parent_node:addChild(node, 5)
-
-        local icon = cc.Sprite:create(res)
-        if (icon) then
-            icon:setPositionX(-20)
-            icon:setDockPoint(cc.p(0.5, 0.5))
-            icon:setAnchorPoint(cc.p(0.5, 0.5))
-            node:addChild(icon)
-        end
-
-        local label = cc.Label:createWithTTF('+' .. count, 'res/font/common_font_01.ttf', 30, 2, cc.size(100, 100), cc.TEXT_ALIGNMENT_CENTER, cc.VERTICAL_TEXT_ALIGNMENT_CENTER)
-        if (label) then
-            local string_width = label:getStringWidth()
-            local offset_x = (string_width / 2)
-            label:setPositionX(offset_x)
-            label:setDockPoint(cc.p(0.5, 0.5))
-            label:setAnchorPoint(cc.p(0.5, 0.5))
-            label:setColor(cc.c3b(255, 255, 255))
-			label:setCascadeOpacityEnabled(true)
-            node:addChild(label)
-        end
-
-        node:runAction(cc.Sequence:create(cc.FadeIn:create(0.3), cc.DelayTime:create(0.5), cc.FadeOut:create(0.2), cc.RemoveSelf:create()))
-        node:runAction(cc.Sequence:create(cc.EaseIn:create(cc.MoveBy:create(1, cc.p(0, 80)), 1)))
+    -- icon
+    local res = 'res/ui/icons/inbox/inbox_' .. gift_type .. '.png'
+    local icon = cc.Sprite:create(res)
+    if (icon) then
+        icon:setPositionX(-20)
+        icon:setDockPoint(cc.p(0.5, 0.5))
+        icon:setAnchorPoint(cc.p(0.5, 0.5))
+        node:addChild(icon)
     end
+
+    -- label
+    local font_size = 30
+    local label = cc.Label:createWithTTF('+' .. gift_count, 'res/font/common_font_01.ttf', font_size, 2, cc.size(100, 100), cc.TEXT_ALIGNMENT_CENTER, cc.VERTICAL_TEXT_ALIGNMENT_CENTER)
+    if (label) then
+        local string_width = label:getStringWidth()
+        local offset_x = (string_width / 2)
+        label:setPositionX(offset_x)
+        label:setDockPoint(cc.p(0.5, 0.5))
+        label:setAnchorPoint(cc.p(0.5, 0.5))
+        label:setColor(cc.c3b(255, 255, 255))
+		label:setCascadeOpacityEnabled(true)
+        node:addChild(label)
+    end
+
+    -- action
+    local duration = 1
+    node:runAction(cc.Sequence:create(cc.FadeIn:create(duration * 0.3), cc.DelayTime:create(duration * 0.5), cc.FadeOut:create(duration * 0.2), cc.RemoveSelf:create()))
+    node:runAction(cc.Sequence:create(cc.EaseIn:create(cc.MoveBy:create(duration, cc.p(0, 80)), 1)))
+end
+
+-------------------------------------
+-- function makeObtainEffect_Big
+-- @brief
+-------------------------------------
+function SensitivityHelper:makeObtainEffect_Big(item_id, item_cnt, parent_node)
+    -- base node
+    local node = cc.Node:create()
+    node:setPosition(0, 0)
+	node:setOpacity(0)
+	node:setCascadeOpacityEnabled(true)
+    parent_node:addChild(node, 5)
+
+    -- icon
+    local res = TableItem:getItemIcon(item_id)
+    local icon = cc.Sprite:create(res)
+    if (icon) then
+        icon:setPositionX(-50)
+        icon:setDockPoint(cc.p(0.5, 0.5))
+        icon:setAnchorPoint(cc.p(0.5, 0.5))
+        node:addChild(icon)
+    end
+
+    -- label
+    local font_size = 40
+    local label = cc.Label:createWithTTF('+' .. item_cnt, 'res/font/common_font_01.ttf', font_size, 2, cc.size(100, 100), cc.TEXT_ALIGNMENT_CENTER, cc.VERTICAL_TEXT_ALIGNMENT_CENTER)
+    if (label) then
+        local string_width = label:getStringWidth()
+        local offset_x = (string_width / 2)
+        label:setPositionX(offset_x)
+        label:setDockPoint(cc.p(0.5, 0.5))
+        label:setAnchorPoint(cc.p(0.5, 0.5))
+        label:setColor(cc.c3b(255, 255, 255))
+		label:setCascadeOpacityEnabled(true)
+        node:addChild(label)
+    end
+
+    -- action
+    local duration = 1.5
+    node:runAction(cc.Sequence:create(cc.FadeIn:create(duration * 0.3), cc.DelayTime:create(duration * 0.5), cc.FadeOut:create(duration * 0.2), cc.RemoveSelf:create()))
+    node:runAction(cc.Sequence:create(cc.EaseIn:create(cc.MoveBy:create(duration, cc.p(0, 80)), 1)))
 end
 
 -------------------------------------

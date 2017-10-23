@@ -262,10 +262,10 @@ function ServerData_Forest:request_stuffReward(stuff_type, finish_cb)
         end
         
         -- 보상 팝업
-        self:showRewardResult(ret)
+        -- self:showRewardResult(ret)
 
         if finish_cb then
-            finish_cb(ret_stuff)
+            finish_cb(ret_stuff, ret['item_info'])
         end
     end
 
@@ -277,6 +277,7 @@ function ServerData_Forest:request_stuffReward(stuff_type, finish_cb)
     ui_network:setSuccessCB(success_cb)
     ui_network:setRevocable(true)
     ui_network:setReuse(false)
+    ui_network:hideLoading()
     ui_network:request()
 
     return ui_network

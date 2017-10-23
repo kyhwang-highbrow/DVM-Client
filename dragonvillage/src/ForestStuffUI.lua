@@ -4,6 +4,7 @@ local PARENT = UI
 -- class ForestStuffUI
 -------------------------------------
 ForestStuffUI = class(PARENT, {
+        m_stuff = 'ForestStuff',
         m_tSuffInfo = 'table',
      })
 
@@ -21,12 +22,14 @@ local T_SOCKET_RES =
 -------------------------------------
 -- function init
 -------------------------------------
-function ForestStuffUI:init(t_stuff_info)
-    self:load('dragon_forest_object.ui')
+function ForestStuffUI:init(forest_stuff)
+    self:load('dragon_forest_object_work.ui')
     
-    self.m_tSuffInfo = t_stuff_info
+    self.m_stuff = forest_stuff
+    self.m_tSuffInfo = forest_stuff.m_tStuffInfo
 
     self:initUI()
+    self:initButton()
     self:refresh()
 end
 
@@ -34,6 +37,14 @@ end
 -- function init
 -------------------------------------
 function ForestStuffUI:initUI()
+end
+
+-------------------------------------
+-- function initButton
+-------------------------------------
+function ForestStuffUI:initButton()
+    local vars = self.vars
+    vars['objectBtn']:registerScriptTapHandler(function() self:click_objectBtn() end)
 end
 
 -------------------------------------
@@ -99,4 +110,11 @@ function ForestStuffUI:resetReward()
     local vars = self.vars
     vars['rewardVisual']:setVisible(false)
     vars['objectSprite']:setVisible(true)
+end
+
+-------------------------------------
+-- function click_objectBtn
+-------------------------------------
+function ForestStuffUI:click_objectBtn()
+    self.m_stuff:touchStuff()
 end

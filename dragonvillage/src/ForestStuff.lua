@@ -45,7 +45,7 @@ end
 -- function initUI
 -------------------------------------
 function ForestStuff:initUI()
-    self.m_ui = ForestStuffUI(self.m_tStuffInfo)
+    self.m_ui = ForestStuffUI(self)
     self.m_rootNode:addChild(self.m_ui.root, 2)
 end
 
@@ -110,12 +110,21 @@ function ForestStuff:touchStuff()
     -- 재화 수령 가능한 상태
     if (self.m_hasReward) then
         local stuff_type = self.m_tStuffInfo['stuff_type']
-        local function finish_cb(t_stuff)
+        local function finish_cb(t_stuff, t_item_info)
             -- 보상 수령 상태 갱신
             self.m_tStuffInfo['reward_at'] = t_stuff['reward_at']
             self.m_rewardTime = t_stuff['reward_at']/1000
             self.m_hasReward = false
             self.m_ui:resetReward()
+
+            if (t_item_info) then
+                local item_id = t_item_info['item_id']
+                local item_cnt = t_item_info['count']
+                SensitivityHelper:makeObtainEffect_Big(item_id, item_cnt, self.m_ui.root)
+
+                local reward_str = UIHelper:makeItemStr(t_item_info)
+                UI_ToastPopup(reward_str)
+            end
         end
         ServerData_Forest:getInstance():request_stuffReward(stuff_type, finish_cb)
         return
@@ -124,3 +133,4 @@ function ForestStuff:touchStuff()
     -- 레벨업 UI 오픈
     UI_Forest_StuffLevelupPopup(nil, self)
 end
+

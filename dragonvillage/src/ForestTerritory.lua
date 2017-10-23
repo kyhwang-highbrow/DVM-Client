@@ -21,7 +21,6 @@ ForestTerritory = class(PARENT, {
         m_touchedDragon = 'ForestDragon',
         m_isTouchingDragon = 'bool',
         m_moveIndicator = 'Animator',
-        m_isTouchAnother = 'bool',
 
         -- 행복도 수령 관련
         m_happyTimer = 'time',
@@ -417,19 +416,16 @@ function ForestTerritory:onTouchBegan(touches, event)
         return false
     end
 
+    -- 터치 좌표 저장
     local location = touches[1]:getLocation()
     self.m_touchPosition = location
 
-    self.m_isTouchAnother = false
-
     -- Stuff 터치 체크
-    for _, stuff in pairs(self.m_tStuffTable) do
-        if (self:checkObjectTouch(location, stuff, 150)) then
-            stuff:touchStuff()
-            self.m_isTouchAnother = true
-            return
-        end
-    end
+    --for _, stuff in pairs(self.m_tStuffTable) do
+        --if (self:checkObjectTouch(location, stuff, 150)) then
+            --return
+        --end
+    --end
 
     -- 드래곤을 터치한게 아니라면 테이머를 이동 시킴
     local move_pos = self:getForestMovePos(location)
@@ -447,27 +443,13 @@ end
 -- function onTouchMoved
 -------------------------------------
 function ForestTerritory:onTouchMoved(touches, event)
+    -- 터치 좌표 저장
     local location = touches[1]:getLocation()
     self.m_touchPosition = location
 
-    -- 터치된 드래곤 옮기기
-    if (self.m_touchedDragon) then
-        -- 터치된 상태로 전환
-        if (not self.m_isTouchingDragon) then
-            self.m_isTouchingDragon = true
-            self.m_touchedDragon:changeState('touched')
-        end
-
-        -- 드래곤 이동
-        local move_pos = self:getForestMovePos(location)
-        self.m_touchedDragon:setPosition(move_pos['x'], move_pos['y'])
-
     -- press move 
-    else
-        if (not self.m_isPressMove) then
-            self.m_isPressMove = true
-        end
-
+    if (not self.m_isPressMove) then
+        self.m_isPressMove = true
     end
 end
 
@@ -475,14 +457,24 @@ end
 -- function onTouchEnded
 -------------------------------------
 function ForestTerritory:onTouchEnded(touches, event)
-    self.m_isPressMove = false
-    
-    -- 터치된 드래곤 삭제
-    if (self.m_touchedDragon) then
-        self.m_touchedDragon:changeState('touched_end')
-        self.m_touchedDragon = nil
-        self.m_isTouchingDragon = false
+    -- 터치 처리가 되었을 경우 skip
+    if event:isStopped() or (event.isStoppedForMenu and event:isStoppedForMenu()) then
+        return false
     end
+
+    -- 터치 좌표 저장
+    local location = touches[1]:getLocation()
+    self.m_touchPosition = location
+
+    -- Stuff 터치 체크
+    --for _, stuff in pairs(self.m_tStuffTable) do
+        --if (self:checkObjectTouch(location, stuff, 150)) then
+            --stuff:touchStuff()
+            --break
+        --end
+    --end
+    
+    self.m_isPressMove = false
 end
 
 -------------------------------------
@@ -525,7 +517,7 @@ function ForestTerritory:update(dt)
     end
 
     -- press move
-    if (self.m_isPressMove) and (not self.m_isTouchAnother) then
+    if (self.m_isPressMove) then
         local move_pos = self:getForestMovePos(self.m_touchPosition)
         self.m_tamer:setMove(move_pos['x'], move_pos['y'])
         self.m_moveIndicator:setPosition(move_pos['x'], move_pos['y'])
