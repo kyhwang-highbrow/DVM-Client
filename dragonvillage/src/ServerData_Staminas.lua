@@ -148,6 +148,9 @@ function ServerData_Staminas:updateStaminaInfo(stamina_type)
     
     if (0 < charging_time) then
         added = math_floor((server_time - used_at) / charging_time)
+
+        -- 최대치를 초과해서 충전하지 않도록 처리
+        added = math_min(added, (max_cnt - cnt))
     end
 
     -- 다음 충전까지 남은 시간 계산
