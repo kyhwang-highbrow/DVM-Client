@@ -23,7 +23,7 @@ local T_SOCKET_RES =
 -- function init
 -------------------------------------
 function ForestStuffUI:init(forest_stuff)
-    self:load('dragon_forest_object_work.ui')
+    self:load('dragon_forest_object.ui')
     
     self.m_stuff = forest_stuff
     self.m_tSuffInfo = forest_stuff.m_tStuffInfo
