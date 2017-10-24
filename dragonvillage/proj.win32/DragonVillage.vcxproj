@@ -437,6 +437,7 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <None Include="..\src\ServerData_AutoItemPick.lua" />
     <None Include="..\src\ServerData_AutoPlaySetting.lua" />
     <None Include="..\src\ServerData_Book.lua" />
+    <None Include="..\src\ServerData_Clan.lua" />
     <None Include="..\src\ServerData_Colosseum.lua" />
     <None Include="..\src\ServerData_ContentLock.lua" />
     <None Include="..\src\ServerData_DragonBoard.lua" />
@@ -729,6 +730,7 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <None Include="..\src\StructAttendanceData.lua" />
     <None Include="..\src\StructBookData.lua" />
     <None Include="..\src\StructCalendarDay.lua" />
+    <None Include="..\src\StructClan.lua" />
     <None Include="..\src\StructCollisionData.lua" />
     <None Include="..\src\StructDragonObject.lua" />
     <None Include="..\src\StructEventPopupTab.lua" />

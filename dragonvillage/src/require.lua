@@ -82,6 +82,7 @@ local t_module = {
     'StructSubscribedInfo',
     'StructHighbrowProduct',
     'StructTamerCostume',
+    'StructClan',
 
 	-- ServerData
     'ServerData',
@@ -131,6 +132,7 @@ local t_module = {
     'ServerData_EvolutionStone',
     'ServerData_FriendMatch',
     'ServerData_ExchangeEvent',
+    'ServerData_Clan',
 
     -- Interface
     'IEventDispatcher',

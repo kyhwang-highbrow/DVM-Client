@@ -2820,6 +2820,12 @@
     <None Include="..\src_tool\TranslationCrawler.lua">
       <Filter>lua_tool</Filter>
     </None>
+    <None Include="..\src\ServerData_Clan.lua">
+      <Filter>lua\src</Filter>
+    </None>
+    <None Include="..\src\StructClan.lua">
+      <Filter>lua\src</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Classes">
