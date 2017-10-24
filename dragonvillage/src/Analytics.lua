@@ -203,7 +203,7 @@ end
 -- @breif 재화 소모량 체크
 -------------------------------------
 function Analytics:trackUseGoodsWithRet(ret, desc)
-    local l_goods = {'cash', 'gold', 'amethyst', 'mileage', 'topaz', 'honor'}
+    local l_goods = {'cash', 'gold', 'amethyst', 'mileage', 'topaz', 'honor', 'ancient'}
 
     for _, value in ipairs(l_goods) do
         if (ret[value]) then

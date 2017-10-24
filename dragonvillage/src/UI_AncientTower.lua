@@ -61,10 +61,8 @@ function UI_AncientTower:initParentVariable()
     self.m_uiName = 'UI_AncientTower'
     self.m_bUseExitBtn = true
     self.m_titleStr = Str('고대의 탑')
-
-    -- 입장권 타입 설정
     self.m_staminaType = 'tower'
-
+    self.m_subCurrency = 'ancient'
     self.m_uiBgm = 'bgm_lobby'
 end
 

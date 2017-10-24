@@ -198,6 +198,11 @@ end
 -------------------------------------
 function StructProduct:getDesc()
 
+    -- 고대주화 관련 상품 내용을 출력하지 않음
+    if (self['price_type'] == 'ancient') then
+        return ''
+    end
+
     -- 테이블에 blank라고 입력되면 내용을 출력하지 않음
     if (self['t_desc'] == 'blank') then
         return ''
@@ -397,7 +402,9 @@ function StructProduct:buy(cb_func)
         end
 	end
 
-    local msg = Str('{@item_name}"{1}"\n{@default}구매하시겠습니까?', self['t_name'])
+    -- 아이템 이름 두줄인 경우 한줄로 변경
+    local name = string.gsub(self['t_name'], '\n', '')
+    local msg = Str('{@item_name}"{1}"\n{@default}구매하시겠습니까?', name)
 
     local price = self:getPrice()
     local ui = MakeSimplePopup_Confirm(self['price_type'], price, msg, ok_cb, nil)
