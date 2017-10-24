@@ -125,7 +125,7 @@ function ForestStuff:touchStuff()
                 local parent_node = self.m_ui.root
                 local t_param = {
                     ['pos_x'] = self.m_ui.vars['rewardVisual'].m_node:getPositionX(),
-                    ['pos_y'] = self.m_ui.vars['rewardVisual'].m_node:getPositionY(),
+                    ['pos_y'] = self.m_ui.vars['rewardVisual'].m_node:getPositionY() + 50,
                     ['scale'] = 0.7
                 }
                 SensitivityHelper:makeObtainEffect_Big(item_id, item_cnt, parent_node, t_param)

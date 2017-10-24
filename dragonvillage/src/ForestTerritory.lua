@@ -40,7 +40,7 @@ ForestTerritory = class(PARENT, {
         m_ui = 'UI_Forest',
     })
 
-local VISIBLE_SIZE= cc.Director:getInstance():getVisibleSize()
+local VISIBLE_SIZE = cc.Director:getInstance():getVisibleSize()
 
 local BG_WIDTH = 2560
 local BG_HEIGHT = 960
@@ -590,7 +590,7 @@ end
 
 -------------------------------------
 -- function checkTamerMeetDragon
--- @brief 테이머와 드래곤 접촉 체크
+-- @brief 테이머와 드래곤 접촉 체크 .. x축만 체크
 -------------------------------------
 function ForestTerritory:checkTamerMeetDragon(tamer_x, tamer_y, forest_dragon)
     if (not forest_dragon) then
@@ -598,7 +598,8 @@ function ForestTerritory:checkTamerMeetDragon(tamer_x, tamer_y, forest_dragon)
     end
     local size = 100
     local dragon_x, dragon_y = forest_dragon:getPosition()
-    local distance = getDistance(tamer_x, tamer_y, dragon_x, dragon_y)
+    --local distance = getDistance(tamer_x, tamer_y, dragon_x, dragon_y)
+    local distance = math_abs(tamer_x - dragon_x)
 
     return (distance <= size)
 end
@@ -662,12 +663,16 @@ function ForestTerritory:onEvent(event_name, struct_event)
         -- 도착 위치
         local tar_node = self.m_ui.vars['boxVisual'].m_node
         local tar_pos = TutorialHelper:convertToWorldSpace(ui_node, tar_node, dock_point, anchor_point)
-        ccdump(start_pos); ccdump(tar_pos)
-        -- pos, scale, rotateh
+
+        -- y좌표 보정치 계산
+        local visible_height = VISIBLE_SIZE['height']
+        local factor_y = (visible_height - 720) / 2
+
+        -- pos, scale, rotate
         local start_x = start_pos['x'] 
-        local start_y = start_pos['y'] + ForestDragon.OFFSET_Y_HAPPY
+        local start_y = start_pos['y'] + ForestDragon.OFFSET_Y_HAPPY - factor_y
         local tar_x = tar_pos['x'] + 30
-        local tar_y = tar_pos['y'] - 15
+        local tar_y = tar_pos['y'] - 15 - factor_y
         local distance = getDistance(start_x, start_y, tar_x, tar_y)
         local scale = (distance / 500)
         local angle = getAdjustDegree(getDegree(start_x, start_y, tar_x, tar_y))
