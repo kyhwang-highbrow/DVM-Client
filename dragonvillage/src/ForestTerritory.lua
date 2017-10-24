@@ -493,12 +493,17 @@ function ForestTerritory:update(dt)
     self.m_happyTimer = self.m_happyTimer + dt
     if (self.m_happyTimer > 0.2) then
         self.m_happyTimer = self.m_happyTimer - 0.2
+        -- 이전 통신 콜백 넘어왓는지 체크
         if (ServerData_Forest:getInstance():canHappy()) then
+            -- 리스트에 드래곤 있는지 체크
             if (self.m_lHappyDragonList[1]) then
                 local dragon = self.m_lHappyDragonList[1]
-                table.remove(self.m_lHappyDragonList, 1)
-                self.m_tReserved[dragon] = nil
-                dragon:getHappy()
+                -- 예약된 드래곤이 아닌지 체크
+                if (self.m_tReserved[dragon]) then
+                    self.m_tReserved[dragon] = nil
+                    table.remove(self.m_lHappyDragonList, 1)
+                    dragon:getHappy()
+                end
             end
         end
     end
