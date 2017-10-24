@@ -367,9 +367,22 @@ function StructProduct:buy(cb_func)
 
 	local function ok_cb()
         local function finish_cb(ret)
-            if (cb_func) then
-				cb_func(ret)
-			end
+
+            -- 상품 리스트 갱신이 필요할 경우
+            if (g_shopDataNew.m_bDirty == true) then
+                ret['need_refresh'] = true
+                local function info_refresh_cb()
+                    if (cb_func) then
+				        cb_func(ret)
+			        end
+                end
+                g_shopDataNew:request_shopInfo(info_refresh_cb)
+            else
+                ret['need_refresh'] = false
+                if (cb_func) then
+				    cb_func(ret)
+			    end
+            end
         end
 
         -- 마켓에서 구매하는 상품
@@ -875,4 +888,11 @@ function StructProduct:getPrice()
     end
     
     return self['price']
+end
+
+-------------------------------------
+-- function getProductID
+-------------------------------------
+function StructProduct:getProductID()
+    return self['product_id']
 end

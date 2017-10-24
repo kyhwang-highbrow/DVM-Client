@@ -2826,6 +2826,15 @@
     <None Include="..\src\StructClan.lua">
       <Filter>lua\src</Filter>
     </None>
+    <None Include="..\src\ServerData_LevelUpPackage.lua">
+      <Filter>lua\src</Filter>
+    </None>
+    <None Include="..\src\UI_Package_LevelUp.lua">
+      <Filter>lua\UI</Filter>
+    </None>
+    <None Include="..\src\UI_Package_LevelUpListItem.lua">
+      <Filter>lua\UI</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Classes">

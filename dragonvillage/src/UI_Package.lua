@@ -6,6 +6,7 @@ local PARENT = UI
 UI_Package = class(PARENT, {
         m_structProduct = 'StructProduct',
         m_isPopup = 'boolean',
+        m_cbBuy = 'function',
      })
 
 -------------------------------------
@@ -110,27 +111,22 @@ end
 function UI_Package:click_buyBtn()
 	local struct_product = self.m_structProduct
 
-	local function refresh_cb()
-        g_shopDataNew:request_shopInfo(function() 
-            self:refresh()
-            g_eventData.m_bDirty = true
-            if (self.m_isPopup) then
-                self:close()
-            end
-        end)
-    end
-
 	local function cb_func(ret)
-        -- 갱신되었으면 샵 인포 다시 호출
-        if (g_shopDataNew:isDirty()) then
-            refresh_cb()
-
-        elseif (self.m_isPopup) then
-            self:close()
-		end
+        if (self.m_cbBuy) then
+            self.m_cbBuy(ret)
+        end
 
         -- 아이템 획득 결과창
         ItemObtainResult_Shop(ret)
+
+        -- 갱신이 필요한 상태일 경우
+        if ret['need_refresh'] then
+            self:refresh()
+            g_eventData.m_bDirty = true
+
+        elseif (self.m_isPopup == true) then
+            self:close()
+		end
 	end
 
 	struct_product:buy(cb_func)
@@ -150,4 +146,11 @@ end
 -------------------------------------
 function UI_Package:click_closeBtn()
     self:close()
+end
+
+-------------------------------------
+-- function setBuyCB
+-------------------------------------
+function UI_Package:setBuyCB(func)
+    self.m_cbBuy = func
 end

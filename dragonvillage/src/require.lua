@@ -133,6 +133,7 @@ local t_module = {
     'ServerData_FriendMatch',
     'ServerData_ExchangeEvent',
     'ServerData_Clan',
+    'ServerData_LevelUpPackage',
 
     -- Interface
     'IEventDispatcher',
@@ -688,6 +689,8 @@ local t_module = {
     'UI_Product',
 	'UI_Package',
     'UI_Package_Bundle',
+    'UI_Package_LevelUp',
+    'UI_Package_LevelUpListItem',
     'UI_SubscriptionPopup',
     'UI_SubscriptionPopup_Ing',
     'UI_SubscriptionDayListItem',

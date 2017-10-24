@@ -96,7 +96,7 @@ end
 -- function buyResult
 -------------------------------------
 function UI_Shop:buyResult(ret)
-    if (not g_shopDataNew.m_bDirty) then
+    if (not ret['need_refresh']) then
         return
     end
 
@@ -111,12 +111,7 @@ function UI_Shop:buyResult(ret)
         end
     end
 
-    -- 서버에서 데이터 받고 다시 생성
-    local function cb_func(ret)
-        self:setTab(self.m_currTab, true)
-    end
-
-    g_shopDataNew:request_shopInfo(cb_func)
+    self:setTab(self.m_currTab, true)
 end
 
 -------------------------------------
