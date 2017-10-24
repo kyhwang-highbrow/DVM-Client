@@ -559,6 +559,11 @@ function TranslationCrawler:printResult()
     for lang, t_str in pairs(T_WORK) do
         cclog(lang .. ' work out :' .. table.count(t_str))
     end
+    local word = 0
+    for str, _ in pairs(T_STR) do
+        word = word + str:len()
+    end
+    cclog('word cnt : ' .. word)
     cclog('==================================================')
 end
 
