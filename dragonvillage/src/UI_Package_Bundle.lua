@@ -79,14 +79,9 @@ function UI_Package_Bundle:refresh()
         local pid = tonumber(pid)
         local struct_product = l_item_list[pid]
         local item_label = vars['itemLabel'..idx]
-        local desc_label = vars['dscLabel'..idx]
 
         if (item_label) then
             item_label:setString('')
-        end
-
-        if (desc_label) then
-            desc_label:setString('')
         end
 
         -- 상품 정보가 없다면 구매제한을 넘겨 서버에서 준 정보가 없는 경우라 판단
@@ -115,8 +110,8 @@ function UI_Package_Bundle:refresh()
             -- 구성품 t_desc 표시
             if (self.m_data['use_desc'] == 1) then
                 local desc_str = struct_product['t_desc']
-                if (desc_label) then
-                    desc_label:setString(desc_str)
+                if (item_label) then
+                    item_label:setString(desc_str)
                 end
 
             -- 구성품 mail_content 표시
