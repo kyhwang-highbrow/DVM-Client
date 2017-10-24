@@ -95,6 +95,9 @@ function CommonMissile:initActvityCarrier()
 	self.m_activityCarrier:setAttackType(self.m_chanceType)
     self.m_activityCarrier:insertStatusEffectRate(self.m_lStatusEffect)
 
+    -- 스킬 발동 타입 별도로 저장(상태효과 등에 전송하기 위함)
+    self.m_activityCarrier:setParam('chance_type', self.m_chanceType)
+
     -- 수식에서 사용하기 위한 값을 세팅
     EquationHelper:setEquationParamOnMapForSkill(self.m_activityCarrier.m_tParam, self)
 end

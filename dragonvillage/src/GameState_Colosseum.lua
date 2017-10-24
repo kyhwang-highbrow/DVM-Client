@@ -82,7 +82,7 @@ function GameState_Colosseum.update_start(self, dt)
 
             world:dispatch('dragon_summon')
 
-        elseif (self:isPassedStepTime(3)) then
+        elseif (self:getStepTimer() >= 3) then
             self:nextStep()
 
         end

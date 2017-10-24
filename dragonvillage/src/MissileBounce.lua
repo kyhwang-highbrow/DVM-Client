@@ -66,12 +66,17 @@ end
 -- function st_move
 -------------------------------------
 function MissileBounce.st_move(owner, dt)
-
-
     -- 타겟의 위치로 계속 쫓아감 (없거나 죽을 경우 직선)
-    if (owner.m_target and not owner.m_target:isDead()) then
-        owner.m_targetPosX = owner.m_target.pos.x + owner.m_target.body.x
-        owner.m_targetPosY = owner.m_target.pos.y + owner.m_target.body.y
+    if (owner.m_target == nil or owner.m_target:isDead()) then
+        if (self.m_isHero) then
+            owner.m_target = owner.m_world:findTarget('enemy', owner.pos.x + owner.body.x, owner.pos.y + owner.body.y)
+        else
+            owner.m_target = owner.m_world:findTarget('hero', owner.pos.x + owner.body.x, owner.pos.y + owner.body.y)
+        end
+    end
+
+    if (owner.m_target) then
+        owner.m_targetPosX, owner.m_targetPosY = owner.m_target:getCenterPos()
 
         local curr_degree = owner.movement_theta
         local dest_degree = getDegree(owner.pos.x, owner.pos.y, owner.m_targetPosX, owner.m_targetPosY)
