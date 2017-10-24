@@ -13,7 +13,7 @@ UI_Package = class(PARENT, {
 -- function init
 -------------------------------------
 function UI_Package:init(struct_product, is_popup)
-    local ui_name = struct_product['package_res']
+    local ui_name = struct_product and struct_product['package_res']
     if (not ui_name) then return end
 
     self.m_isPopup = is_popup or false
@@ -48,6 +48,10 @@ end
 function UI_Package:refresh()
     local vars = self.vars
 	local struct_product = self.m_structProduct
+
+    if (not struct_product) then
+        return
+    end
 
     local l_item_list = ServerData_Item:parsePackageItemStr(struct_product['mail_content'])
 

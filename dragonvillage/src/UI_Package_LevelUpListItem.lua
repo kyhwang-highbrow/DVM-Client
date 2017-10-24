@@ -24,66 +24,81 @@ end
 -------------------------------------
 function UI_Package_LevelUpListItem:initUI()
     local vars = self.vars
-
-    --[[
-    -- 날짜
     local t_data = self.m_data
-    local day = t_data['day']
-    vars['infoLabel']:setString(Str('{1}일차', day))
 
-    -- 보상 수령 여부
-    if t_data['received'] then
-        vars['receiveSprite1']:setVisible(false)
-        vars['receiveSprite2']:setVisible(true)
-    else
-        vars['receiveSprite1']:setVisible(true)
-        vars['receiveSprite2']:setVisible(false)
+    -- 레벨 표시
+    vars['levelLabel']:setString('Lv.' .. t_data['level'])
+
+    local product_info_list = {}
+
+    local ret1 = ServerData_Item:parsePackageItemStr(t_data['product_content'])
+    for i,v in ipairs(ret1) do
+        table.insert(product_info_list, v)
     end
 
-    -- 보상 아이템 아이콘 표시
-    for i,v in ipairs(t_data['login_items']) do
-        local parent = vars['itemNode' .. i]
-        if parent then
-            local item_id = v['item_id']
-            local item_cnt = v['count']
-            local item_card = UI_ItemCard(item_id, item_cnt)
-            parent:addChild(item_card.root)
-            item_card.root:setSwallowTouch(false)
-        end
+    local ret2 = ServerData_Item:parsePackageItemStr(t_data['mail_content'])
+    for i,v in ipairs(ret2) do
+        table.insert(product_info_list, v)
     end
-    --]]
 
-    -- t_data 2017-07-28 sgkim
-    --{
-    --        ['day']=4;
-    --        ['daily_items']={
-    --        };
-    --        ['received']=false;
-    --        ['login_items']={
-    --                {
-    --                        ['count']=100;
-    --                        ['oids']={
-    --                        };
-    --                        ['item_id']=700001;
-    --                };
-    --                {
-    --                        ['count']=100;
-    --                        ['oids']={
-    --                        };
-    --                        ['item_id']=700101;
-    --                };
-    --        };
-    --}
+    for i,v in ipairs(product_info_list) do
+        local card = UI_ItemCard(v['item_id'], v['count'])
+        card.root:setSwallowTouch(false)
+        vars['itemNode' .. i]:addChild(card.root)        
+    end
 end
 
 -------------------------------------
 -- function initButton
 -------------------------------------
 function UI_Package_LevelUpListItem:initButton()
+    local vars = self.vars
+    vars['rewardBtn']:registerScriptTapHandler(function() self:click_rewardBtn() end)
 end
 
 -------------------------------------
 -- function refresh
 -------------------------------------
 function UI_Package_LevelUpListItem:refresh()
+    local vars = self.vars
+    local data = self.m_data
+
+    if g_levelUpPackageData:isActive() then
+        local level = data['level']
+        if g_levelUpPackageData:isReceived(level) then
+            vars['receiveSprite']:setVisible(true)
+            vars['rewardBtn']:setVisible(false)
+        else
+            vars['receiveSprite']:setVisible(false)
+            vars['rewardBtn']:setVisible(true)
+            vars['rewardBtn']:setEnabled(true)
+        end
+    else
+        vars['receiveSprite']:setVisible(false)
+        vars['rewardBtn']:setVisible(true)
+        vars['rewardBtn']:setEnabled(false)
+    end
+end
+
+-------------------------------------
+-- function click_rewardBtn
+-------------------------------------
+function UI_Package_LevelUpListItem:click_rewardBtn()
+    local data = self.m_data
+    local lv = data['level']
+
+    local user_lv = g_userData:get('lv')
+    if (user_lv < lv) then
+        UIManager:toastNotificationRed(Str('레벨이 부족합니다.'))
+        return
+    end
+
+    local function cb_func(ret)
+        self:refresh()
+
+        -- 아이템 획득 결과창
+        ItemObtainResult_Shop(ret)
+    end
+
+    g_levelUpPackageData:request_lvuppackReward(lv, cb_func)
 end

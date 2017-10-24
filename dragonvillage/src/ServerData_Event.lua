@@ -322,6 +322,10 @@ end
 -- function isVaildEvent
 -------------------------------------
 function ServerData_Event:isVaildEvent(event_name)
+    if (not self.m_eventList) then
+        return false
+    end
+
     for _, event in ipairs(self.m_eventList) do
         if (event['event_type'] == event_name) then
             return true

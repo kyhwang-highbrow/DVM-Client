@@ -357,6 +357,7 @@ function UI_Lobby:initButton()
     vars['itemAutoBtn']:registerScriptTapHandler(function() self:click_itemAutoBtn() end) -- 자동재화(광고)
     vars['giftBoxBtn']:registerScriptTapHandler(function() self:click_giftBoxBtn() end) -- 랜덤박스(광고)
     vars['exchangeBtn']:registerScriptTapHandler(function() self:click_exchangeBtn() end) -- 교환이벤트
+    vars['levelupBtn']:registerScriptTapHandler(function() self:click_lvUpPackBtn() end) -- 레벨업 패키지
 
     do -- 기타 UI
         local etc_vars = self.m_etcExpendedUI.vars
@@ -739,6 +740,16 @@ function UI_Lobby:click_exchangeBtn()
 end
 
 -------------------------------------
+-- function click_lvUpPackBtn
+-- @brief 레벨업 패키지 버튼
+-------------------------------------
+function UI_Lobby:click_lvUpPackBtn()
+    cclog('## UI_Lobby:click_lvUpPackBtn()')
+    UI_Package_LevelUp(nil, true) -- param : struct_product, is_popup
+    cclog('## UI_Lobby:click_lvUpPackBtn() 2')
+end
+
+-------------------------------------
 -- function click_guildBtn
 -------------------------------------
 function UI_Lobby:click_guildBtn()
@@ -839,8 +850,7 @@ function UI_Lobby:update(dt)
     -- 이벤트 갱신된 경우
     if (g_eventData.m_bDirty) then
         g_eventData.m_bDirty = false
-        self.vars['exchangeBtn']:setVisible(g_eventData:isVaildEvent('event_exchange'))
-
+        self:refresh_rightButtons()
         self:refresh_eventBanner()
     end
 
@@ -892,6 +902,42 @@ function UI_Lobby:onFocus()
     
     -- 핫타임 정보 갱신
     self.vars['battleHotSprite']:setVisible(g_hotTimeData:isHighlightHotTime())
+
+    self:refresh_rightButtons()
+end
+
+-------------------------------------
+-- function refresh_rightButtons
+-- @brief
+-------------------------------------
+function UI_Lobby:refresh_rightButtons()
+    local vars = self.vars
+    
+    local l_btn_list = {}
+
+    -- 교환소 버튼
+    if g_eventData:isVaildEvent('event_exchange') then
+        vars['exchangeBtn']:setVisible(true)
+        table.insert(l_btn_list, vars['exchangeBtn'])
+    else
+        vars['exchangeBtn']:setVisible(false)
+    end
+
+    -- 레벨업 패키지 버튼
+    if g_levelUpPackageData:isActive() then
+        vars['levelupBtn']:setVisible(true)
+        table.insert(l_btn_list, vars['levelupBtn'])
+    else
+        vars['levelupBtn']:setVisible(false)
+    end
+
+    local pos_x = -330
+    local interval = -90
+
+    for i,v in ipairs(l_btn_list) do
+        local _pos_x = pos_x + ((i-1) * interval)
+        v:setPositionX(_pos_x)
+    end
 end
 
 
