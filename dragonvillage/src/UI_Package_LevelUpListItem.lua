@@ -71,13 +71,26 @@ function UI_Package_LevelUpListItem:refresh()
         else
             vars['receiveSprite']:setVisible(false)
             vars['rewardBtn']:setVisible(true)
-            vars['rewardBtn']:setEnabled(true)
+
+            local user_lv = g_userData:get('lv')
+            if (user_lv < level) then
+                vars['rewardBtn']:setEnabled(false)
+            else
+                vars['rewardBtn']:setEnabled(true)
+            end
         end
     else
         vars['receiveSprite']:setVisible(false)
         vars['rewardBtn']:setVisible(true)
         vars['rewardBtn']:setEnabled(false)
     end
+
+    if vars['rewardBtn']:isEnabled() then
+        vars['infoLabel']:setTextColor(cc.c4b(0, 0, 0, 255))
+    else
+        vars['infoLabel']:setTextColor(cc.c4b(240, 215, 159, 255))
+    end
+    
 end
 
 -------------------------------------
