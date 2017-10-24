@@ -13,6 +13,7 @@ CUS_CATEGORY = {
     MILEAGE = '105.마일리지',
     TOPAZ   = '106.토파즈',
     HONOR   = '107.명예',
+    ANCIENT = '108.고대주화',
 
     PLAY    = '201.플레이',
 
@@ -38,6 +39,7 @@ CUS_EVENT = {
     USE_MILEAGE = {'소진', '소진한 모든 마일리지 수량'},
     USE_TOPAZ   = {'소진', '소진한 모든 토파즈 수량'},
     USE_HONOR   = {'소진', '소진한 모든 명예 수량'},
+    USE_ANCIENT = {'소진', '소진한 모든 고대주화 수량'},
 
     TRY_ADV     = {'모험', '모험모드 도전 횟수'},
     CLR_ADV     = {'모험', '모험모드 클리어 횟수'},
@@ -229,6 +231,9 @@ function Analytics:trackUseGoodsWithRet(ret, desc)
 
                 elseif (value == 'honor') then
                     Analytics:trackEvent(CUS_CATEGORY.HONOR, CUS_EVENT.USE_HONOR, use_cnt, desc)
+                
+                elseif (value == 'ancient') then
+                    Analytics:trackEvent(CUS_CATEGORY.ANCIENT, CUS_EVENT.USE_ANCIENT, use_cnt, desc)
                 end
             end
         end
