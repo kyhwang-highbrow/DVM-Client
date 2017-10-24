@@ -9,6 +9,8 @@ ServerData_Forest = class({
         m_extensionMaxLV = 'number', -- 드래곤의 숲 확장 최대 레벨
 
         m_hasReward = 'bool',
+
+        m_canHappy = 'bool', -- draogn/happy 호출 가능 여부
     })
 
 
@@ -31,6 +33,7 @@ end
 function ServerData_Forest:init()
     self.m_tStuffInfo = {}
     self.m_tDragonStruct = {}
+    self.m_canHappy = true
 end
 
 -------------------------------------
@@ -88,6 +91,13 @@ end
 -------------------------------------
 function ServerData_Forest:getHappy()
     return self.m_happyRate
+end
+
+-------------------------------------
+-- function canHappy
+-------------------------------------
+function ServerData_Forest:canHappy()
+    return self.m_canHappy
 end
 
 -------------------------------------
@@ -208,6 +218,12 @@ end
 -- function request_dragonHappy
 -------------------------------------
 function ServerData_Forest:request_dragonHappy(doid, finish_cb)
+    if (not self.m_canHappy) then
+        cclog('dragon can not happy')
+        return
+    end
+    self.m_canHappy = false
+
     -- 유저 ID
     local uid = g_userData:get('uid')
     
@@ -224,6 +240,8 @@ function ServerData_Forest:request_dragonHappy(doid, finish_cb)
         if finish_cb then
             finish_cb(ret)
         end
+
+        self.m_canHappy = true
     end
 
     -- 네트워크 통신

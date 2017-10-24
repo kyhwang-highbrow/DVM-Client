@@ -493,11 +493,13 @@ function ForestTerritory:update(dt)
     self.m_happyTimer = self.m_happyTimer + dt
     if (self.m_happyTimer > 0.2) then
         self.m_happyTimer = self.m_happyTimer - 0.2
-        if (self.m_lHappyDragonList[1]) then
-            local dragon = self.m_lHappyDragonList[1]
-            table.remove(self.m_lHappyDragonList, 1)
-            self.m_tReserved[dragon] = nil
-            dragon:getHappy()
+        if (ServerData_Forest:getInstance():canHappy()) then
+            if (self.m_lHappyDragonList[1]) then
+                local dragon = self.m_lHappyDragonList[1]
+                table.remove(self.m_lHappyDragonList, 1)
+                self.m_tReserved[dragon] = nil
+                dragon:getHappy()
+            end
         end
     end
 
