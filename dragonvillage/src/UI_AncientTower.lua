@@ -212,9 +212,13 @@ end
 function UI_AncientTower:onChangeTab(tab, first)
     if (not first) then return end
 
+    local shop_btn = self.vars['shopBtn']
+
     -- 최초 탭 누를 경우에만 랭킹 정보 가져옴
     if (tab == UI_AncientTower.TAB_RANK) then
         self.m_rankInfo.m_typeRadioButton:setSelectedButton(UI_AncientTowerRank.RANKING)
+    else
+        shop_btn:setVisible(false)
     end
 end
 

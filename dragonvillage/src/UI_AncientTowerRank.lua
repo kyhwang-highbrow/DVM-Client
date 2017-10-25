@@ -54,6 +54,8 @@ function UI_AncientTowerRank:initButton()
     radio_button:addButtonAuto(UI_AncientTowerRank.REWARD, vars)
     radio_button:setChangeCB(function() self:onChangeOption() end)
     self.m_typeRadioButton = radio_button
+
+    vars['shopBtn']:registerScriptTapHandler(function() self:click_shopBtn() end)
 end
 
 -------------------------------------
@@ -66,13 +68,17 @@ function UI_AncientTowerRank:onChangeOption()
     vars['rankingListNode']:setVisible(type == UI_AncientTowerRank.RANKING)
     vars['rankingMeNode']:setVisible(type == UI_AncientTowerRank.RANKING)
 
+    local shop_btn = self.m_uiScene.vars['shopBtn']
     if (type == UI_AncientTowerRank.RANKING) then
+        shop_btn:setVisible(false)
+
         if (self.m_rankTableView) then return end
         self:request_Rank()
 
     elseif (type == UI_AncientTowerRank.REWARD) then
-        if (self.m_rewardTableView) then return end
+        shop_btn:setVisible(true)
 
+        if (self.m_rewardTableView) then return end
         local function finish_cb(ret)
             self.m_rewardInfo = ret['table_ancient_rank']
             self:init_rewardTableView()
@@ -202,3 +208,10 @@ function UI_AncientTowerRank:init_rewardTableView()
     table_view:makeDefaultEmptyDescLabel(Str('보상 정보가 없습니다.'))  
 end
 
+-------------------------------------
+-- function click_shopBtn
+-------------------------------------
+function UI_AncientTowerRank:click_shopBtn()
+    local ui_shop_popup = UI_Shop()
+    ui_shop_popup:setTab('ancient')
+end

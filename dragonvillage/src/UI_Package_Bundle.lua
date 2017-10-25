@@ -84,13 +84,6 @@ function UI_Package_Bundle:refresh()
             item_label:setString('')
         end
 
-        -- 판매종료시간 있는 경우 표시
-        local time_label = vars['timeLabel']
-        local end_date = struct_product:getEndDateStr()
-        if (end_date) and (time_label) then
-            time_label:setString(end_date)
-        end 
-
         -- 상품 정보가 없다면 구매제한을 넘겨 서버에서 준 정보가 없는 경우라 판단
         -- 월간 패키지, 주말 패키지는 구매제한 넘겨도 값을 주는데 다른 패키지는 주지 않음?
         if (not struct_product) then
@@ -114,6 +107,13 @@ function UI_Package_Bundle:refresh()
                 end
             end
         else
+            -- 판매종료시간 있는 경우 표시
+            local time_label = vars['timeLabel']
+            local end_date = struct_product:getEndDateStr()
+            if (end_date) and (time_label) then
+                time_label:setString(end_date)
+            end 
+
             -- 구성품 t_desc 표시
             if (self.m_data['use_desc'] == 1) then
                 local desc_str = struct_product['t_desc']
