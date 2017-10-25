@@ -244,12 +244,18 @@ function ServerData_Forest:request_dragonHappy(doid, finish_cb)
         self.m_canHappy = true
     end
 
+    -- 실패 콜백
+    local function fail_cb()
+        self.m_canHappy = true
+    end
+
     -- 네트워크 통신
     local ui_network = UI_Network()
     ui_network:setUrl('/forest/dragon/happy')
     ui_network:setParam('uid', uid)
     ui_network:setParam('doid', doid)
     ui_network:setSuccessCB(success_cb)
+    ui_network:setFailCB(fail_cb)
     ui_network:setRevocable(true)
     ui_network:setReuse(false)
     ui_network:hideLoading()
