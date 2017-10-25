@@ -87,14 +87,32 @@ end
 -- function setStartDate
 -------------------------------------
 function StructProduct:setStartDate(date)
-    self.m_startDate = tonumber(date)
+    self.m_startDate = (date ~= '') and date or nil
 end
 
 -------------------------------------
 -- function setEndDate
 -------------------------------------
 function StructProduct:setEndDate(date)
-    self.m_endDate = tonumber(date)
+    self.m_endDate = (date ~= '') and date or nil
+end
+
+-------------------------------------
+-- function getEndDateStr
+-------------------------------------
+function StructProduct:getEndDateStr()
+    local msg 
+    if (self.m_endDate) then
+        local date_format = 'yyyy-mm-dd HH:MM:SS'
+        local parser = pl.Date.Format(date_format)
+        local end_date = parser:parse(self.m_endDate)
+        local cur_time =  Timer:getServerTime()
+        local end_time = end_date['time']
+        local time = (end_time - cur_time)
+        msg = Str('판매 종료까지 {1} 남음', datetime.makeTimeDesc(time, true))
+    end
+
+    return msg
 end
 
 -------------------------------------
