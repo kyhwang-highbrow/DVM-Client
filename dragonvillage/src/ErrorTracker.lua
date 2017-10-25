@@ -324,6 +324,12 @@ end
 -- function sendErrorLog
 ------------------------------------- 
 function ErrorTracker:sendErrorLog(msg, success_cb)
+    -- device info는 추려서 넣도록 함
+    if (not self.m_tDeviceInfo) then
+        self.m_tDeviceInfo = {}
+    end
+    local model = self.m_tDeviceInfo['MODEL']
+    local os_ver = self.m_tDeviceInfo['VERSION_RELEASE']
 
     -- 파라미터 셋팅
     local t_json = {
@@ -337,7 +343,8 @@ function ErrorTracker:sendErrorLog(msg, success_cb)
         ['error_stack'] = msg,
         ['error_stack_header'] = self:getStackHeader(msg),
         
-        ['device_info'] = self.m_tDeviceInfo,
+        ['device_model'] = model,
+        ['device_os_ver'] = os_ver,
         ['failed_res_list'] = self.m_lFailedResList,
         
         ['api_call_list'] = self:getAPIStack_Kibana(),
