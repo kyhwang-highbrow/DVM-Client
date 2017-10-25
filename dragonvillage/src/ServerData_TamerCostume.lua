@@ -100,7 +100,9 @@ function ServerData_TamerCostume:makeStructCostumeList(tamer_id)
     local sel_type = TableTamer:getTamerType(tamer_id)
     local costume_list = TableTamerCostume():filterList('type', sel_type) 
     table.sort(costume_list, function(a,b)
-        return a['cid'] < b['cid']
+        local a_priority = a['ui_priority'] or 0
+        local b_priority = b['ui_priority'] or 0
+        return a_priority > b_priority
     end)
 
     local l_struct_costume = {}

@@ -18,6 +18,7 @@ StructTamerCostume = class({
         m_scale = 'number',
         m_stat_bonus = 'table',
 
+        m_priority = 'number',
         m_bUsed = 'boolean',
     })
 
@@ -52,7 +53,7 @@ function StructTamerCostume:applyTableData(data)
 
     replacement['scale'] = 'm_scale'
     replacement['stat_bonus'] = 'm_stat_bonus'
-
+    replacement['ui_priority'] = 'm_priority'
     for i,v in pairs(data) do
         local key = replacement[i] and replacement[i] or i
         self[key] = v
