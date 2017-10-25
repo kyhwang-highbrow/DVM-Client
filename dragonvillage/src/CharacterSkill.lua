@@ -59,7 +59,18 @@ function Character:doSkillBySkillTable(t_skill, t_data)
 		local attr = self:getAttribute()
 		local phys_group = self:getAttackPhysGroup()
 
-        return self:do_script_shot(t_skill, attr, phys_group, x, y, t_data)
+        local b = self:do_script_shot(t_skill, attr, phys_group, x, y, t_data)
+
+        if (b) then
+            -- 텍스트
+            if (self.m_charType == 'dragon') then
+                if (t_skill['sid'] == self.m_charTable['skill_1'] or t_skill['sid'] == self.m_charTable['skill_2']) then
+                    SkillHelper:makePassiveSkillSpeech(self, t_skill['t_name'])
+                end
+            end
+        end
+
+        return b
         
     -- 코드형 스킬
     elseif (skill_form == 'code') then
