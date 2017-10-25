@@ -90,6 +90,3 @@ function PackageManager:isExist(package_name)
 
     return is_exist
 end
-
-
-

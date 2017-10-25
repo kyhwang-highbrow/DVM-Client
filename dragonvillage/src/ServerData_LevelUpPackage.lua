@@ -156,3 +156,29 @@ function ServerData_LevelUpPackage:isReceived(lv)
 
     return false
 end
+
+
+-------------------------------------
+-- function getFocusRewardLevel
+-- @brief 보상 수령이 가능한 레벨 리턴
+-------------------------------------
+function ServerData_LevelUpPackage:getFocusRewardLevel()
+    local map = TABLE:get('table_package_levelup')
+    local list = table.MapToList(map)
+
+    local function sort_func(a, b)
+        return a['level'] < b['level']
+    end
+    table.sort(list, sort_func)
+    
+    local user_level = g_userData:get('lv')
+
+    for i,v in ipairs(list) do
+        local lv = v['level']
+        if (lv <= user_level) and (not self:isReceived(lv)) then
+            return lv, i
+        end
+    end
+
+    return nil
+end

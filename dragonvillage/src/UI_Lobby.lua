@@ -744,9 +744,7 @@ end
 -- @brief 레벨업 패키지 버튼
 -------------------------------------
 function UI_Lobby:click_lvUpPackBtn()
-    cclog('## UI_Lobby:click_lvUpPackBtn()')
     UI_Package_LevelUp(nil, true) -- param : struct_product, is_popup
-    cclog('## UI_Lobby:click_lvUpPackBtn() 2')
 end
 
 -------------------------------------

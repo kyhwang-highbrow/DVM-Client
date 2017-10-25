@@ -101,12 +101,12 @@ function UI_Package_LevelUp:init_tableView()
         table.sort(table_view.m_itemList, sort_func)
     end
 
-    --[[
-    -- 오늘 날짜로 이동
-    table_view:update(0) -- 강제로 호출해서 최초에 보이지 않는 cell idx로 이동시킬 position을 가져올수 있도록 한다.
-    local idx = struct_subscribed_info['cur_day']
-    table_view:relocateContainerFromIndex(idx, false)
-    --]]
+    -- 보상 받기 가능한 idx로 이동
+    local lv, idx = g_levelUpPackageData:getFocusRewardLevel()
+    if lv then
+        table_view:update(0) -- 강제로 호출해서 최초에 보이지 않는 cell idx로 이동시킬 position을 가져올수 있도록 한다.
+        table_view:relocateContainerFromIndex(idx, false)
+    end
 end
 
 -------------------------------------
