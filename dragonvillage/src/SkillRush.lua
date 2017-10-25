@@ -22,6 +22,7 @@ SkillRush = class(PARENT, {
 -- @param body
 -------------------------------------
 function SkillRush:init(file_name, body, ...)
+    self.m_atkPhysSize = 150
 end
 
 -------------------------------------
@@ -30,7 +31,6 @@ end
 function SkillRush:init_skill(hit, charge_res)
 	PARENT.init_skill(self, hit)
 
-	self.m_atkPhysSize = 150
 	self.m_speedMove = 1500
 	self.m_speedCollision = 100
 	
