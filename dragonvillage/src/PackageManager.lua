@@ -65,7 +65,13 @@ end
 function PackageManager:isExist(package_name)
     -- 레벨업 패키지는 구매를 한 후에도 노출되도록 설정(추후 리팩토링 필요) sgkim 2017-10-25
     if (package_name == 'package_levelup') then
-        return true
+        local is_active = g_levelUpPackageData:isActive()
+        local is_visible = g_levelUpPackageData:isVisible_lvUpPack()
+        if (is_active and (is_visible == false)) then
+            return false
+        else
+            return true
+        end
     end
 
     local l_shop_list = g_shopDataNew:getProductList('package')

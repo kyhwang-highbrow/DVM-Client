@@ -924,7 +924,7 @@ function UI_Lobby:refresh_rightButtons()
     end
 
     -- 레벨업 패키지 버튼
-    if g_levelUpPackageData:isActive() then
+    if g_levelUpPackageData:isVisible_lvUpPack() then
         vars['levelupBtn']:setVisible(true)
         table.insert(l_btn_list, vars['levelupBtn'])
     else

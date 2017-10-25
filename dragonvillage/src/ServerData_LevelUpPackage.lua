@@ -1,7 +1,7 @@
 -- 관련 테이블
 -- table_package_levelup
 -- table_shop_lsit
--- table_shop_basic
+-- table_shop_cash
 
 -------------------------------------
 -- class ServerData_LevelUpPackage
@@ -92,6 +92,25 @@ end
 -------------------------------------
 function ServerData_LevelUpPackage:isActive()
     return self.m_bActive
+end
+
+-------------------------------------
+-- function isVisible_lvUpPack
+-------------------------------------
+function ServerData_LevelUpPackage:isVisible_lvUpPack()
+    if (not self:isActive()) then
+        return false
+    end
+
+    local l_item_list = TABLE:get('table_package_levelup')
+    for i,v in pairs(l_item_list) do
+        local lv = v['level']
+        if (self:isReceived(lv) == false) then
+            return true
+        end
+    end
+
+    return false
 end
 
 -------------------------------------
