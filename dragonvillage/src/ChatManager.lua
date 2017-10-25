@@ -492,6 +492,7 @@ function ChatManager:openChatPopup()
         self.m_chatPopup:close()
     end
 
+    self.m_chatClientSocket:checkRetryConnect()
     self.m_chatPopup:openPopup()
 end
 

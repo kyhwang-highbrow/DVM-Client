@@ -898,6 +898,9 @@ end
 function UI_Lobby:onFocus()
     SpineCacheManager:getInstance():purgeSpineCacheData()
     
+    -- 채팅 다시 연결 확인
+    g_chatManager.m_chatClientSocket:checkRetryConnect()
+
     -- 핫타임 정보 갱신
     self.vars['battleHotSprite']:setVisible(g_hotTimeData:isHighlightHotTime())
 
