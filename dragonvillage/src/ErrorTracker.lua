@@ -330,6 +330,7 @@ function ErrorTracker:sendErrorLog(msg, success_cb)
     end
     local model = self.m_tDeviceInfo['MODEL']
     local os_ver = self.m_tDeviceInfo['VERSION_RELEASE']
+    local device_str = string.format('model : %s // os_ver : %s', tostring(model), tostring(os_ver))
 
     -- 파라미터 셋팅
     local t_json = {
@@ -343,8 +344,8 @@ function ErrorTracker:sendErrorLog(msg, success_cb)
         ['error_stack'] = msg,
         ['error_stack_header'] = self:getStackHeader(msg),
         
-        ['device_model'] = model,
-        ['device_os_ver'] = os_ver,
+        ['device'] = device_str,
+
         ['failed_res_list'] = self.m_lFailedResList,
         
         ['api_call_list'] = self:getAPIStack_Kibana(),
