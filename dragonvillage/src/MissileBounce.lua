@@ -68,7 +68,7 @@ end
 function MissileBounce.st_move(owner, dt)
     -- 타겟의 위치로 계속 쫓아감 (없거나 죽을 경우 직선)
     if (owner.m_target == nil or owner.m_target:isDead()) then
-        if (self.m_isHero) then
+        if (owner.m_isHero) then
             owner.m_target = owner.m_world:findTarget('enemy', owner.pos.x + owner.body.x, owner.pos.y + owner.body.y)
         else
             owner.m_target = owner.m_world:findTarget('hero', owner.pos.x + owner.body.x, owner.pos.y + owner.body.y)
