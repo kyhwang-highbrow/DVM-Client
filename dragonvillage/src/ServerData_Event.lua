@@ -82,17 +82,27 @@ function ServerData_Event:getEventFullPopupList()
         local event_type = v['event_type'] 
 
         if (priority ~= '') then
+            local is_exist = true
+
             -- 단일 상품인 경우 (type:shop) event_id로 등록
             if (event_type == 'shop') then
                 event_type = v['event_id']     
+
+            -- 레벨업 패키지인 경우 구매했을 경우 노출시키지 않음.
+            elseif (event_type == 'package_levelup') then
+                if (g_levelUpPackageData:isActive()) then
+                    is_exist = false
+                end
 
             -- banner type인 경우 resource, url까지 등록
             elseif (event_type == 'banner') then
                 event_type = event_type .. ';' .. v['banner'] .. ';' .. v['url']
             end
             
-            l_priority[event_type] = tonumber(priority)
-            table.insert(l_list, event_type)
+            if (is_exist) then
+                l_priority[event_type] = tonumber(priority)
+                table.insert(l_list, event_type)
+            end
         end
     end
 
