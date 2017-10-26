@@ -68,6 +68,16 @@ end
 function UI_DragonRunes:initUI()
     self:init_tableViewTD()
 
+    if (IS_TEST_MODE()) then
+        self.vars['selectDevBtn']:setVisible(true)
+        self.vars['selectDevBtn']:registerScriptTapHandler(function() self:click_selectDevBtn() end)
+        self.vars['useDevBtn']:setVisible(true)
+        self.vars['useDevBtn']:registerScriptTapHandler(function() self:click_useDevBtn() end)
+    else
+        self.vars['selectDevBtn']:setVisible(false)
+        self.vars['useDevBtn']:setVisible(false)
+    end
+
     self:setEquipedRuneObject(nil)
     self:setSelectedRuneObject(nil)
 
@@ -616,6 +626,52 @@ function UI_DragonRunes:setTableViewItemHighlight(roid, visible)
     end
 
     ui.vars['highlightSprite']:setVisible(visible)
+end
+
+-------------------------------------
+-- function click_selectDevBtn
+-- @brief (임시로 룬 개발 API 팝업 호출)
+-------------------------------------
+function UI_DragonRunes:click_selectDevBtn()
+    if (not self.m_selectedRuneObject) then
+        return
+    end
+
+    local ui = UI_RuneDevApiPopup(self.m_selectedRuneObject.roid)
+    
+    local function close_cb()
+        local t_rune_data = g_runesData:getRuneObject(ui.m_runeObjectID)
+
+        if (self.m_selectedRuneObject['updated_at'] ~= t_rune_data['updated_at']) then
+            self:refreshTableViewList()
+            self.m_bChangeDragonList = true
+        end
+    end
+
+    ui:setCloseCB(close_cb)
+end
+
+-------------------------------------
+-- function click_useDevBtn
+-- @brief (임시로 룬 개발 API 팝업 호출)
+-------------------------------------
+function UI_DragonRunes:click_useDevBtn()
+    if (not self.m_equippedRuneObject) then
+        return
+    end
+
+    local ui = UI_RuneDevApiPopup(self.m_equippedRuneObject.roid)
+
+    local function close_cb()
+        local t_rune_data = g_runesData:getRuneObject(ui.m_runeObjectID)
+
+        if (self.m_equippedRuneObject['updated_at'] ~= t_rune_data['updated_at']) then
+            self:refreshTableViewList()
+            self.m_bChangeDragonList = true
+        end
+    end
+
+    ui:setCloseCB(close_cb)
 end
 
 -------------------------------------

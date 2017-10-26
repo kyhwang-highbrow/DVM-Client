@@ -92,6 +92,7 @@ local TableInfo_fromServer = {
         ['table_rune_enhance'] = {'table_rune_enhance', 'rune_lv'},
         ['table_rune_grade'] = {'table_rune_grade', 'grade'},
         ['table_rune_mopt_status'] = {'table_rune_mopt_status', 'vid'},
+        ['table_rune_opt'] = {'table_rune_opt', 'slot_id'},
         ['table_req_gold'] = {'table_req_gold', 'lv'},
         ['table_stamina_info'] = {'table_stamina_info', 'stamina_type'},
         ['table_exploration_list'] = {'table_exploration_list', 'epr_id'},

@@ -505,6 +505,7 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <None Include="..\src\SkillEnumrate_Normal.lua" />
     <None Include="..\src\SkillEnumrate_Penetration.lua" />
     <None Include="..\src\SkillFieldCheck.lua" />
+    <None Include="..\src\SkillGlaive.lua" />
     <None Include="..\src\SkillHealAoERound.lua" />
     <None Include="..\src\SkillHealAoESquare_Height.lua" />
     <None Include="..\src\SkillHealAoESquare_Width.lua" />
@@ -1046,6 +1047,7 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <None Include="..\src\UI_RecommendedDragonInfoListItem_Dragon.lua" />
     <None Include="..\src\UI_RecommendedDragonInfoListItem_Dungeon.lua" />
     <None Include="..\src\UI_RecommendedDragonInfoListItem_Party.lua" />
+    <None Include="..\src\UI_RuneDevApiPopup.lua" />
     <None Include="..\src\UI_ScenarioPlayer_util.lua" />
     <None Include="..\src\UI_ScenarioPlayer_Narrate.lua" />
     <None Include="..\src\UI_ScenarioPlayer_Talk.lua" />
