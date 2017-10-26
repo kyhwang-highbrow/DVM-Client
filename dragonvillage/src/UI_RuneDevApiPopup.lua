@@ -325,6 +325,8 @@ function UI_RuneDevApiPopup:makeComboBox(key, list)
 	uic:setSortChangeCB(function(type)
         self.m_mOpt[key] = type
 
+        self.m_openedComboBox = nil
+
         self:refresh()
     end)
 
