@@ -18,8 +18,8 @@ UI_ZORDER = {
     TOAST_MSG = 32,
     TUTORIAL = 64,
     LOADING = 256,
-    NETWORK_POPUP = 256,
-    ERROR_POPUP = 300,
+    ERROR_POPUP = 256,
+    TOP_POPUP = 512,
 }
 
 -------------------------------------
@@ -31,8 +31,8 @@ UIManager = {
     POPUP = 2,
     TOOLTIP = 3,
     LOADING = 4,
-    NETWORK_POPUP = 5,
-    ERROR_POPUP = 6,
+    ERROR_POPUP = 5,
+    TOP_POPUP = 6, -- 모든걸 뚫는 창
 
     m_uiLayer = 'cc.Node',
     m_uiList = {},
@@ -175,8 +175,8 @@ function UIManager:open(ui, mode, bNotBlendBGLayer)
     elseif (mode == UIManager.LOADING) then
         z_order = UI_ZORDER.LOADING
 
-    elseif (mode == UIManager.NETWORK_POPUP) then
-        z_order = UI_ZORDER.NETWORK_POPUP
+    elseif (mode == UIManager.TOP_POPUP) then
+        z_order = UI_ZORDER.TOP_POPUP
 
     elseif (mode == UIManager.ERROR_POPUP) then
         z_order = UI_ZORDER.ERROR_POPUP

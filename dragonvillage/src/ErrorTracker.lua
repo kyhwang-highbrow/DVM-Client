@@ -328,8 +328,15 @@ function ErrorTracker:sendErrorLog(msg, success_cb)
     if (not self.m_tDeviceInfo) then
         self.m_tDeviceInfo = {}
     end
-    local model = self.m_tDeviceInfo['MODEL']
-    local os_ver = self.m_tDeviceInfo['VERSION_RELEASE']
+
+    local model, os_ver
+    if (CppFunctions:isIos()) then
+        model = self.m_tDeviceInfo['device']
+        os_ver = self.m_tDeviceInfo['systemVersion']
+    else
+        model = self.m_tDeviceInfo['MODEL']
+        os_ver = self.m_tDeviceInfo['VERSION_RELEASE']
+    end
     local device_str = string.format('model : %s // os_ver : %s', tostring(model), tostring(os_ver))
 
     -- 파라미터 셋팅
