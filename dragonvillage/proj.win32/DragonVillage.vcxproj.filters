@@ -2841,6 +2841,9 @@
     <None Include="..\src\UI_RuneDevApiPopup.lua">
       <Filter>lua\UI</Filter>
     </None>
+    <None Include="..\src_tool\Development.lua">
+      <Filter>lua_tool</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Classes">
