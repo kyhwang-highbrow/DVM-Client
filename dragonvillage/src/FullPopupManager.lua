@@ -45,7 +45,6 @@ function FullPopupManager:show(type, show_func)
             -- 첫 로그인시 봤던 기록 초기화
             if (self.m_first_login) then 
                 g_localData:applyLocalData(false, 'event_full_popup', save_key)
-                self:initLoacalData()
             end
 
             local is_view = g_localData:get('event_full_popup', save_key) or false
@@ -118,9 +117,11 @@ end
 -- function initLoacalData
 -------------------------------------
 function FullPopupManager:initLoacalData()
+    g_localData:lockSaveData()
     g_localData:applyLocalData(false, 'event_full_popup', 'auto_pick')
     g_localData:applyLocalData(false, 'event_full_popup', 'start_pack')
     g_localData:applyLocalData(false, 'event_full_popup', 'launch_pack')
+    g_localData:unlockSaveData()
 end
 
 -------------------------------------
@@ -128,6 +129,11 @@ end
 -------------------------------------
 function FullPopupManager:setFirstLogin(bool)
     self.m_first_login = bool
+
+    -- 로컬데이터 초기화 팝업 보여줄때가 아닌 최초 로그인으로 변경
+    if (self.m_first_login == true) then
+        self:initLoacalData()
+    end
 end
 
 -------------------------------------
