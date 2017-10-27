@@ -1160,6 +1160,7 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <None Include="..\src_tool\AssetRemover_100MB.lua" />
     <None Include="..\src_tool\CsvToLuaTableStr.lua" />
     <None Include="..\src_tool\DataTableValidator.lua" />
+    <None Include="..\src_tool\Development.lua" />
     <None Include="..\src_tool\DragonValidator.lua" />
     <None Include="..\src_tool\entry_viewer.lua" />
     <None Include="..\src_tool\entry_wave_maker.lua" />
