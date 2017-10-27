@@ -858,7 +858,7 @@ function UI_TitleScene:workBillingSetup()
 
     local l_payload = {}
     local function call_back(ret, info)
-        cclog('# UI_TitleScene:workBillingSetup() result : ' .. ret)
+        cclog('# UI_TitleScene:workBillingSetup() result : ' .. tostring(ret))
         if (ret == 'purchase') then
             cclog('#### billingSetup success - info : ')
             ccdump(info)
@@ -899,7 +899,7 @@ function UI_TitleScene:workBillingSetup()
         elseif (ret == 'error') then
             cclog('#### billingSetup failed - info : ')
             ccdump(info)
-            local info_json = dkjson.decode(info)
+            --local info_json = dkjson.decode(info)
 
             -- 결제 시스템 초기화에 실패하더라도 게임 진입을 허용
             local function finish_cb()
