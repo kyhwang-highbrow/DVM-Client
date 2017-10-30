@@ -315,6 +315,10 @@ end
 -- @brief 테이블 셀 갱신
 -------------------------------------
 function UI_MasterRoadPopup.refreshCell(ui, t_data)
+    if (not ui) then
+        return
+    end
+
     local vars = ui.vars
     local rid = t_data['rid']
 
