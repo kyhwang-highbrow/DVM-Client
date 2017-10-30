@@ -339,11 +339,22 @@ function ErrorTracker:sendErrorLog(msg, success_cb)
     end
     local device_str = string.format('model : %s // os_ver : %s', tostring(model), tostring(os_ver))
 
+    local uid = 'nil'
+    local nick = 'nil'
+
+    if g_userData then
+        uid = tostring(g_userData:get('uid'))
+        nick = tostring(g_userData:get('nick'))
+    elseif g_localData then
+        uid = tostring(g_localData:get('local', 'uid'))
+        nick = tostring(g_localData:get('local', 'nick'))
+    end
+
     -- 파라미터 셋팅
     local t_json = {
         ['id'] = HMAC('sha1', msg, CONSTANT['HMAC_KEY'], false), -- HMAC으로 고유ID 생성
-        ['uid'] = tostring(g_userData:get('uid')),
-        ['nick'] = g_userData:get('nick'),
+        ['uid'] = uid,
+        ['nick'] = nick,
         ['os'] = getTargetOSName(),
         ['ver_info'] = PatchData:getInstance():getAppVersionAndPatchIdxString(),
         ['date'] = datetime.strformat(TimeLib:initInstance():getServerTime()),
