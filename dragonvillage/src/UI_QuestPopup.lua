@@ -143,7 +143,7 @@ function UI_QuestPopup:makeQuestTableView(tab, node)
             elseif (not a['data']:hasReward() and b['data']:hasReward()) then
                 return false
             else
-                return a['data']['qid'] < b['data']['qid']
+                return tonumber(a['data']['qid']) < tonumber(b['data']['qid'])
             end
         end)
 
