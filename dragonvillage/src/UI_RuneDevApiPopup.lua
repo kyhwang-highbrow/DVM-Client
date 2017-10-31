@@ -304,16 +304,16 @@ function UI_RuneDevApiPopup:makeComboBox(key, list)
 
     --uic:setExtendButton(button)
     button:registerScriptTapHandler(function()
-        uic:toggleVisibility()
-
         if (uic.m_bShow) then
-            if (self.m_openedComboBox) then
+            if (self.m_openedComboBox and self.m_openedComboBox.m_bShow) then
                 self.m_openedComboBox:hide()
             end
             self.m_openedComboBox = uic
         else
             self.m_openedComboBox = nil
         end
+
+        uic:toggleVisibility()
     end)
     
     parent:addChild(uic.m_node)
