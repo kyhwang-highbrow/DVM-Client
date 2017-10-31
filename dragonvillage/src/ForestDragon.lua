@@ -76,6 +76,10 @@ function ForestDragon:initAnimator(file_name)
     if self.m_animator.m_node then
         self.m_rootNode:addChild(self.m_animator.m_node, 1)
         self.m_animator:setPositionY(ForestDragon.OFFSET_Y)
+
+        -- 드래곤 크기를 줄여준다.
+        self.m_animator:setScale(0.5)
+
         -- 좌우 플립 랜덤
         if (math_random(2) == 1) then
             self.m_animator:setFlip(true)
