@@ -547,7 +547,7 @@ local function loadNode(ui, data, vars, parent, keep_z_order, use_sprite_frames)
         local res_name = string.sub(data.file_name, 1, string.len(data.file_name) - 4)
 
         -- 번역 이미지 체크
-        UILoader.addTranslatedTypoPlist(data)
+        -- UILoader.addTranslatedTypoPlist(data)
 
         -- vrp 생성
         local vrp_name = res_name .. '.vrp'
@@ -655,7 +655,12 @@ end
 -- @brief a2d를 불러올 때 해당 a2d 하위의 typo 폴더를 탐색하여 spriteFrame에 추가한다.
 -------------------------------------
 function UILoader.addTranslatedTypoPlist(data)
-    Translate:a2dTranslate(data.file_name)
+    if (not data) then
+        return
+    end
+
+    local full_path = data.file_name
+    Translate:a2dTranslate(full_path)
 end
 
 -------------------------------------

@@ -25,7 +25,7 @@ function Translate:init()
     self.m_gameLang = LocalData:getInstance():get('lang')
     self.m_stdLang = 'kr'
     self.m_langCode = cc.Application:sharedApplication():getCurrentLanguageCode()
-    self.m_deviceLang = LanguageType[cc.Application:sharedApplication():getCurrentLanguage() - 1]
+    self.m_deviceLang = LanguageType[cc.Application:sharedApplication():getCurrentLanguage()]
 
     -- 저장된 언어가 없을 시
     if (not self.m_gameLang) then
@@ -39,7 +39,7 @@ function Translate:init()
         g_localData:applyLocalData(self.m_gameLang, 'lang')
     end
 
-    self:load(self.m_gameLang)
+    --self:load(self.m_gameLang)
 end
 
 -------------------------------------
@@ -128,8 +128,16 @@ end
 -------------------------------------
 function Translate:a2dTranslate(full_path)
     local game_lang = self.m_gameLang
-    local path, file_name, extension = self:getFileNameInfo(full_path)
+    
+    -- 예외 처리
+    if (not game_lang) then
+        return
+    end
+    if (not full_path) then
+        return
+    end
 
+    local path, file_name, extension = self:getFileNameInfo(full_path)
     local typo_plist_path = string.format('res/%stypo/%s/%s.plist', path, game_lang, file_name)
 
     -- 번역본 텍스트가 없을 경우 kr버전으로 나오도록 처리
