@@ -76,14 +76,10 @@ function ForestDragon:initAnimator(file_name)
     if self.m_animator.m_node then
         self.m_rootNode:addChild(self.m_animator.m_node, 1)
         self.m_animator:setPositionY(ForestDragon.OFFSET_Y)
-
-		local scale
-		if (string.find(file_name, 'common_')) then
-			scale = 1
-		else
-			scale = 0.5
-		end
-		self.m_animator.m_node:setScale(scale)
+        -- 좌우 플립 랜덤
+        if (math_random(2) == 1) then
+            self.m_animator:setFlip(true)
+        end
     end
 end
 
