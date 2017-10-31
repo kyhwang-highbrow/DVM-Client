@@ -64,6 +64,9 @@ function UI_MasterRoadPopup:initButton()
     local vars = self.vars
     vars['rewardBtn']:registerScriptTapHandler(function() self:click_rewardBtn() end)
     vars['questLinkBtn']:registerScriptTapHandler(function() self:click_questLinkBtn() end)
+
+    -- 보상 받을 cell이 생성되기 전까지 비활성화
+    vars['rewardBtn']:setEnabled(false)
 end
 
 -------------------------------------
@@ -142,6 +145,9 @@ function UI_MasterRoadPopup:makeRoadTableView()
         -- 최초 선택 : ui를 얻어오기 위해 생성 콜백에도 붙임
 		if (t_data['rid'] == g_masterRoadData:getDisplayRoad()) then
 			self:selectCell(ui, t_data)
+
+            -- 보상 받을 cell이 생성된 후에 보상 버튼 활성화
+            self.vars['rewardBtn']:setEnabled(true)
 		end
 	end
 
