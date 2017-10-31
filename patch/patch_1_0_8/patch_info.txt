@@ -1,3 +1,15 @@
+#patch 17
+Revision: 93077
+Date: 2017년 10월 31일 화요일 오후 2:11:35
+- Message: ios에서 언어설정이 영어인경우 접속 불가 현상 수정
+
+
+#patch 12~13
+- Revision: 93029
+- Date: 2017년 10월 26일 목요일 오전 10:57:45
+- Message:
+- Notice :
+
 #patch 11
 - Revision : 92788
 - Date: 2017년 10월 18일 수요일 오후 4:40:32
