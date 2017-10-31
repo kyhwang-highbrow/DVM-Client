@@ -8,38 +8,36 @@ Translate = {
     m_gameLang = nil,
 }
 
+-- cocos 에서 넘어오는 language idx와 일치시킴
+local LANG = {
+    ['ENGLISH'] = 0,
+    ['KOREAN'] = 8,
+    ['JAPANESE'] = 9
+}
+
 -- 지원 언어 목록
-local L_LANG = {'en', 'kr'}
-local LanguageType = 
+local L_LANG_TYPE = 
 {
-    [cc.LANGUAGE_ENGLISH] = 'en',
-    [cc.LANGUAGE_CHINESE] = 'cn',
-    [cc.LANGUAGE_KOREAN] = 'kr',
-    [cc.LANGUAGE_JAPANESE] = 'jp',
+    [LANG.ENGLISH] = 'en',
+    [LANG.KOREAN] = 'kr'
 }
 
 -------------------------------------
 -- function init
 -------------------------------------
 function Translate:init()
-    self.m_gameLang = LocalData:getInstance():get('lang')
     self.m_stdLang = 'kr'
-    self.m_langCode = cc.Application:sharedApplication():getCurrentLanguageCode()
-    self.m_deviceLang = LanguageType[cc.Application:sharedApplication():getCurrentLanguage()]
+    self.m_gameLang = LocalData:getInstance():get('lang')
 
-    -- 저장된 언어가 없을 시
+    -- deviceLang은 사용 안함
+    local lang_idx = cc.Application:sharedApplication():getCurrentLanguage()
+    self.m_deviceLang = L_LANG_TYPE[lang_idx]
+
+    -- 저장된 언어가 없을 시 kr 로 박음
     if (not self.m_gameLang) then
-        -- 1. os에 설정된 언어를 지원한다면 해당 언어 사용
-        -- 2. 목록에 없다면 영어를 사용.
-        if table.find(L_LANG, self.m_deviceLang) then
-            self.m_gameLang = self.m_deviceLang
-        else
-            self.m_gameLang = L_LANG[cc.LANGUAGE_ENGLISH]
-        end
-        g_localData:applyLocalData(self.m_gameLang, 'lang')
+        self.m_gameLang = 'kr'
+        g_localData:applyLocalData('kr', 'lang')
     end
-
-    --self:load(self.m_gameLang)
 end
 
 -------------------------------------
