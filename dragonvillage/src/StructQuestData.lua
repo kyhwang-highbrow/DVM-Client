@@ -32,6 +32,14 @@ function StructQuestData:applyTableData(data)
 end
 
 -------------------------------------
+-- function getQid
+-- @breif qid 리턴
+-------------------------------------
+function StructQuestData:getQid()
+    return tonumber(self['qid'])
+end
+
+-------------------------------------
 -- function hasReward
 -- @breif 획득 가능한 보상이 있는지 여부
 -------------------------------------
