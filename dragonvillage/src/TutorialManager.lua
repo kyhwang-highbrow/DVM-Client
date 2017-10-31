@@ -36,6 +36,21 @@ function TutorialManager:init(is_singleton)
 end
 
 -------------------------------------
+-- private function __startTutorial
+-------------------------------------
+local function _startTutorial(tutorial_mgr, tutorial_key, tar_ui)
+    -- 튜토리얼 실행 : UI세팅
+    tutorial_mgr:doTutorial()
+
+    -- 튜토리얼 플레이어 -> 종료 하면서 튜토리얼 기록 저장
+    local ui = UI_TutorialPlayer(tutorial_key, tar_ui)
+    UIManager.m_scene:addChild(ui.root, SCENE_ZORDER.TUTORIAL_DLG)
+    tutorial_mgr.m_tutorialPlayer = ui
+    ui:setCloseCB(function() g_tutorialData:request_tutorialSave(tutorial_key) end)
+    ui:next()
+end
+
+-------------------------------------
 -- function startTutorial
 -- @brief 튜토리얼 실행
 -- @param tutorial_key : tutorial_key이자 tutorial_script이름
@@ -43,20 +58,18 @@ end
 function TutorialManager:startTutorial(tutorial_key, tar_ui)
     -- 개발모드에서 튜토리얼 동작하지 않도록 함
     if (IS_TEST_MODE()) then
+        
+        -- 지정된 튜토리얼은 개발모드에서만 계속 동작 할 수 있도록 한다.
+        if (g_constant:get('DEBUG', 'TEST_TUTORIAL') == tutorial_key) then
+            _startTutorial(self, tutorial_key, tar_ui)
+        end
+
         return
     end
 
     -- 완료되지 않은 튜토리얼이라면
     if (not g_tutorialData:isTutorialDone(tutorial_key)) then
-        -- 튜토리얼 실행 : UI세팅
-        self:doTutorial()
-
-        -- 튜토리얼 플레이어 -> 종료 하면서 튜토리얼 기록 저장
-        local ui = UI_TutorialPlayer(tutorial_key, tar_ui)
-        UIManager.m_scene:addChild(ui.root, SCENE_ZORDER.TUTORIAL_DLG)
-        self.m_tutorialPlayer = ui
-        ui:setCloseCB(function() g_tutorialData:request_tutorialSave(tutorial_key) end)
-        ui:next()
+        _startTutorial(self, tutorial_key, tar_ui)
     end
 end
 
