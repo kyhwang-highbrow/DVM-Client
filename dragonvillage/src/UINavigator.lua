@@ -76,4 +76,7 @@ if false then
 
     -- @brief 드래곤의 숲으로 이동
     UINavigator:goTo('forest')
+
+    -- @brief 클랜 UI로 이동
+    UINavigator:goTo('clan')
 end

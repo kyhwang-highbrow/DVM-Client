@@ -170,6 +170,9 @@ function ServerData:getInstance()
     -- 레벨업 패키지
     g_levelUpPackageData = ServerData_LevelUpPackage(g_serverData)
 
+    -- 클랜
+    g_clanData = ServerData_Clan(g_serverData)
+
     return g_serverData
 end
 

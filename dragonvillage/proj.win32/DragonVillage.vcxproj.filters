@@ -2844,6 +2844,12 @@
     <None Include="..\src_tool\Development.lua">
       <Filter>lua_tool</Filter>
     </None>
+    <None Include="..\src\UI_Clan.lua">
+      <Filter>lua\UI</Filter>
+    </None>
+    <None Include="..\src\UI_ClanGuest.lua">
+      <Filter>lua\UI</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Classes">

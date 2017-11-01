@@ -910,6 +910,9 @@ local t_module = {
     'UI_RuneDevApiPopup',
     'UI_InvenDevApiPopup',
 
+    -- UI : 클랜
+    'UI_ClanGuest',
+
     -- Forest
     'SceneForest',
     'UI_Forest',
