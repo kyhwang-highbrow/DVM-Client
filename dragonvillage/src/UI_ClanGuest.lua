@@ -99,14 +99,15 @@ end
 -- function initTab
 -------------------------------------
 function UI_ClanGuest:initTab()
-    --[[
     local vars = self.vars
-    self:addTabAuto(UI_ClanGuest.ATK, vars, vars['atkListNode'], vars['refreshBtn'], vars['powerLabel'])
-    self:addTabAuto(UI_ClanGuest.DEF, vars, vars['defListNode'], vars['powerLabel'], vars['defDeckBtn'])
-    self:addTabAuto(UI_ClanGuest.RANKING, vars, vars['rankingListNode'], vars['myRankingListNode'])
+    self:addTabAuto('join', vars, vars['joinMenu'])
+    self:addTabAuto('request', vars, vars['requestMenu'])
+    --self:addTabAuto('found', vars, vars['foundMenu'])
 
-    self:setTab(UI_ClanGuest.ATK)
-    --]]
+    local found_tab = UI_ClanGuestTabFound(self, 'found')
+    self:addTabWithTabUIAndLabel('found', vars['foundTabBtn'], vars['foundTabLabel'], found_tab)       -- 소환
+
+    self:setTab('join')
 end
 
 -------------------------------------

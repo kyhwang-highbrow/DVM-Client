@@ -91,7 +91,7 @@ function ITabUI:addTabWithTabUIAndLabel(tab, button, label, ui, ...)
 end
 
 -------------------------------------
--- function addTabAuto
+-- function addTabWithTabUIAuto
 -- @breif 탭 추가 : 버튼과 라벨을 자동으로 찾아옴
 -------------------------------------
 function ITabUI:addTabWithTabUIAuto(tab, vars, ui, ...)
