@@ -39,6 +39,20 @@ end
 -- private function __startTutorial
 -------------------------------------
 local function _startTutorial(tutorial_mgr, tutorial_key, tar_ui)
+    -- 튜토리얼 키에 대한 예외처리
+    if (not tutorial_key) then
+        ccdisplay('#### tutorial key is not exist')
+        return
+    end
+    if (not table.find(TUTORIAL, tutorial_key)) then
+        ccdisplay(string.format('#### %s is not registrated', tutorial_key))
+        return
+    end
+    if (not LuaBridge:isFileExist(string.format('data/scenario/%s.csv', tutorial_key))) then
+        ccdisplay(string.format('#### %s.csv is not exist', tutorial_key))
+        return
+    end
+
     -- 튜토리얼 실행 : UI세팅
     tutorial_mgr:doTutorial()
 
