@@ -398,6 +398,26 @@ function Character:checkAttributeCounter(attacker_char)
 end
 
 -------------------------------------
+-- function checkBash
+-- @brief 강타 여부 검사
+-------------------------------------
+function Character:checkBash(attacker_char)
+    local miss_rate
+    
+    if (IS_NEW_BALANCE_VERSION()) then
+        miss_rate = 50
+    else
+        miss_rate = 100
+    end
+
+    if (math_random(1, 100) <= miss_rate) then
+        return true
+	end
+
+    return false
+end
+
+-------------------------------------
 -- function checkMiss
 -- @brief 빚맞힘 여부 검사
 -------------------------------------
@@ -462,7 +482,7 @@ function Character:undergoAttack(attacker, defender, i_x, i_y, body_key, no_even
 
     -- 속성 효과
     local t_attr_effect, attr_synastry = self:checkAttributeCounter(attacker_char)
-    local is_bash = (attr_synastry == 1)
+    local is_bash = (attr_synastry == 1) and self:checkBash(attacker_char)
     local is_miss = (attr_synastry == -1) and self:checkMiss(attacker_char)
 
     -- 공격력 및 방어력 정보
@@ -647,6 +667,11 @@ function Character:undergoAttack(attacker, defender, i_x, i_y, body_key, no_even
 
             is_critical = (math_random(1, 1000) <= (final_critical_chance * 10))
         end
+
+        -- 크리티컬 발생시 강타 해제
+        if (IS_NEW_BALANCE_VERSION() and is_critical) then
+            is_bash = false
+        end
     end
 
     do -- 최종 데미지 계산
@@ -727,6 +752,16 @@ function Character:undergoAttack(attacker, defender, i_x, i_y, body_key, no_even
                 end
 
                 damage_multifly = damage_multifly * (1 + rate)
+            end
+
+            -- 강타일 경우 피해 증가
+            if (is_bash) then
+                damage_multifly = damage_multifly * 1.3
+            end
+
+            -- 빚맞힘일 경우 피해 감소
+            if (is_miss) then
+                damage_multifly = damage_multifly * 0.7
             end
         else
             -- 방어자 능력치
