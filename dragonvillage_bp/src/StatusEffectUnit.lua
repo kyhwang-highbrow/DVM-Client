@@ -73,6 +73,10 @@ function StatusEffectUnit:update(dt, modified_dt)
             -- 시전자가 자기 자신이 아니고 죽었다면 해제
             return true
         end
+
+    elseif (self.m_duration == 0 and modified_dt == 0) then
+        -- 드래그 스킬 중에만 유지되는 버프 효과
+
     else
         -- 대상자가 죽었는지 체크
         if (self.m_owner and self.m_owner:isDead()) then
