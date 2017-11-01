@@ -911,7 +911,9 @@ local t_module = {
     'UI_InvenDevApiPopup',
 
     -- UI : 클랜
+    'UI_Clan',
     'UI_ClanGuest',
+    'UI_ClanGuestTabFound',
 
     -- Forest
     'SceneForest',
