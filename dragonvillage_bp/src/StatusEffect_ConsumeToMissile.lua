@@ -60,8 +60,13 @@ function StatusEffect_ConsumeToMissile:initFromTable(t_status_effect, target_cha
             local name = l_str[1]
             local value = l_str[2]
             local time = l_str[3]
+            local source = l_str[4]
 
-            table.insert(self.m_lStatusEffectInfo, { name = name, value = value, time = time })
+            if (not source) then
+                source = 'atk'
+            end
+
+            table.insert(self.m_lStatusEffectInfo, { name = name, value = value, time = time, source = source })
         end
     end
 end
@@ -160,7 +165,7 @@ function StatusEffect_ConsumeToMissile:fireMissile(collision, start_pos, delay_t
 
         -- 상태효과 적용
         for i, v in ipairs(self.m_lStatusEffectInfo) do
-            StatusEffectHelper:invokeStatusEffect(char, target, v['name'], v['value'], 'atk', 100, v['time'], skill_id)
+            StatusEffectHelper:invokeStatusEffect(char, target, v['name'], v['value'], v['source'], 100, v['time'], skill_id)
         end
 	end
 
