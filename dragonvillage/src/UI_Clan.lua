@@ -25,7 +25,7 @@ end
 -- function init
 -------------------------------------
 function UI_Clan:init()
-    local vars = self:load_keepZOrder('clan_02.ui')
+    local vars = self:load('clan_02.ui')
     UIManager:open(self, UIManager.SCENE)
 
     self.m_uiName = 'UI_Clan'
@@ -81,6 +81,13 @@ end
 -------------------------------------
 function UI_Clan:refresh()
     local vars = self.vars
+
+    local struct_clan = g_clanData:getClanStruct()
+
+    -- 클랜 마크
+    local icon = struct_clan:makeClanMarkIcon()
+    vars['markNode']:removeAllChildren()
+    vars['markNode']:addChild(icon)
 end
 
 -------------------------------------

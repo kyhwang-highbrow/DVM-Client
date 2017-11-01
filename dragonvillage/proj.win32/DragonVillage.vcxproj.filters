@@ -2853,6 +2853,18 @@
     <None Include="..\src\UI_ClanSetting.lua">
       <Filter>lua\UI</Filter>
     </None>
+    <None Include="..\src\UI_ClanMark.lua">
+      <Filter>lua\UI</Filter>
+    </None>
+    <None Include="..\src\TableClanMark.lua">
+      <Filter>lua\src</Filter>
+    </None>
+    <None Include="..\src\StructClanMark.lua">
+      <Filter>lua\src</Filter>
+    </None>
+    <None Include="..\src\UI_ClanMarkListItem.lua">
+      <Filter>lua\UI</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Classes">

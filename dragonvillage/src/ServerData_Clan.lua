@@ -208,3 +208,64 @@ function ServerData_Clan:request_clanDestroy(finish_cb, fail_cb)
 
     return ui_network
 end
+
+-------------------------------------
+-- function request_clanSetting
+-- @brief 클랜 관리(설정)
+-------------------------------------
+function ServerData_Clan:request_clanSetting(finish_cb, fail_cb, intro, notice, join, mark)
+    if (not self.m_structClan) then
+        return
+    end
+
+    -- 유저 ID
+    local uid = g_userData:get('uid')
+
+    local clan_object_id = self.m_structClan:getClanObjectID()
+
+    -- 성공 콜백
+    local function success_cb(ret)
+        self:setNeedClanInfoRefresh()
+        if finish_cb then
+            finish_cb(ret)
+        end
+    end
+
+    -- 네트워크 통신
+    local ui_network = UI_Network()
+    ui_network:setUrl('/clans/set')
+    ui_network:setParam('uid', uid)
+    ui_network:setParam('clan_id', clan_object_id)
+
+    if (intro ~= nil) then
+        ui_network:setParam('intro', intro)
+    end
+
+    if (notice ~= nil) then
+        ui_network:setParam('notice', notice)
+    end
+
+    if (join ~= nil) then
+        ui_network:setParam('join', join)
+    end
+
+    if (mark ~= nil) then
+        ui_network:setParam('mark', mark)
+    end
+    ui_network:setMethod('POST')
+    ui_network:setSuccessCB(success_cb)
+    ui_network:setFailCB(fail_cb)
+    ui_network:setRevocable(true)
+    ui_network:setReuse(false)
+    ui_network:request()
+
+    return ui_network
+end
+
+-------------------------------------
+-- function getClanStruct
+-- @brief
+-------------------------------------
+function ServerData_Clan:getClanStruct()
+    return self.m_structClan
+end

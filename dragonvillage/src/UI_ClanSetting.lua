@@ -4,13 +4,20 @@ local PARENT = UI
 -- class UI_ClanSetting
 -------------------------------------
 UI_ClanSetting = class(PARENT, {
+        m_bChangedClanSet = 'bool',
+
+        --
+        m_structClanMark = 'StructClanMark',
+        m_clanAutoJoin = 'boolean',
+        m_clanIntroText = 'string',
+        m_clanNoticeText = 'string',
      })
 
 -------------------------------------
 -- function init
 -------------------------------------
 function UI_ClanSetting:init()
-    local vars = self:load_keepZOrder('clan_setting.ui')
+    local vars = self:load('clan_setting.ui')
     UIManager:open(self, UIManager.POPUP)
 
     self.m_uiName = 'UI_ClanSetting'
@@ -26,6 +33,9 @@ function UI_ClanSetting:init()
     self:refresh()
 
     g_clanData.m_needClanSetting = false
+
+    -- 임시
+    self.m_bChangedClanSet = true
 end
 
 -------------------------------------
@@ -49,6 +59,8 @@ function UI_ClanSetting:initButton()
     local vars = self.vars
     vars['closeBtn']:registerScriptTapHandler(function() self:click_exitBtn() end)
     vars['disbandBtn']:registerScriptTapHandler(function() self:click_disbandBtn() end)
+    vars['markBtn']:registerScriptTapHandler(function() self:click_markBtn() end)
+    vars['okBtn']:registerScriptTapHandler(function() self:click_okBtn() end)
 end
 
 -------------------------------------
@@ -56,6 +68,14 @@ end
 -------------------------------------
 function UI_ClanSetting:refresh()
     local vars = self.vars
+
+    local struct_clan = g_clanData:getClanStruct()
+
+    -- 클랜 마크
+    local struct_clan_mark = self:getClanMarkStruct()
+    local icon = struct_clan_mark:makeClanMarkIcon()
+    vars['markNode']:removeAllChildren()
+    vars['markNode']:addChild(icon)
 end
 
 -------------------------------------
@@ -93,6 +113,61 @@ function UI_ClanSetting:click_disbandBtn()
     ask_func()
 end
 
+-------------------------------------
+-- function click_markBtn
+-- @brief 클랜 마크
+-------------------------------------
+function UI_ClanSetting:click_markBtn()
+    local ui = UI_ClanMark(self:getClanMarkStruct())
+
+    local function close_cb()
+        if ui.m_bChanged then
+            self.m_bChangedClanSet = true
+            self.m_structClanMark = ui.m_structClanMark
+            self:refresh()
+        end
+    end
+    ui:setCloseCB(close_cb)
+end
+
+-------------------------------------
+-- function click_okBtn
+-- @brief 적용 버튼
+-------------------------------------
+function UI_ClanSetting:click_okBtn()
+    local finish_cb = function()
+        local msg = Str('변경사항이 적용되었습니다.')
+        local ok_cb = function()
+            self:close()
+        end
+        MakeSimplePopup(POPUP_TYPE.OK, msg, ok_cb)
+    end
+
+    local fail_cb = nil
+
+    local intro = self.m_clanIntroText
+    local notice = self.m_clanNoticeText
+    local join = self.m_clanAutoJoin
+    local mark = nil
+    if self.m_structClanMark then
+        mark = self.m_structClanMark:tostring()
+    end
+
+    g_clanData:request_clanSetting(finish_cb, fail_cb, intro, notice, join, mark)
+end
+
+-------------------------------------
+-- function getClanMarkStruct
+-- @brief
+-------------------------------------
+function UI_ClanSetting:getClanMarkStruct()
+    if self.m_structClanMark then
+        return self.m_structClanMark
+    end
+
+    local struct_clan = g_clanData:getClanStruct()
+    return struct_clan.m_structClanMark
+end
 
 --@CHECK
 UI:checkCompileError(UI_ClanSetting)

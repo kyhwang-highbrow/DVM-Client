@@ -82,6 +82,7 @@ local TableInfo = {
 
         table_forest_stuff_type = {'table_forest_stuff_type', 'stuff_type', false},
         table_forest_stuff_info = {'table_forest_stuff_info', 'id', false},
+        table_clan_mark = {'table_clan_mark', 'unique_id', false},
     }
 
 -------------------------------------

@@ -732,6 +732,7 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <None Include="..\src\StructBookData.lua" />
     <None Include="..\src\StructCalendarDay.lua" />
     <None Include="..\src\StructClan.lua" />
+    <None Include="..\src\StructClanMark.lua" />
     <None Include="..\src\StructCollisionData.lua" />
     <None Include="..\src\StructDragonObject.lua" />
     <None Include="..\src\StructEventPopupTab.lua" />
@@ -762,6 +763,7 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <None Include="..\src\SwipeGesture.lua" />
     <None Include="..\src\Table.lua" />
     <None Include="..\src\TableCalendar.lua" />
+    <None Include="..\src\TableClanMark.lua" />
     <None Include="..\src\TableColosseumBuff.lua" />
     <None Include="..\src\TableDragon.lua" />
     <None Include="..\src\TableDragonCombine.lua" />
@@ -894,6 +896,8 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <None Include="..\src\UI_Clan.lua" />
     <None Include="..\src\UI_ClanGuest.lua" />
     <None Include="..\src\UI_ClanGuestTabFound.lua" />
+    <None Include="..\src\UI_ClanMark.lua" />
+    <None Include="..\src\UI_ClanMarkListItem.lua" />
     <None Include="..\src\UI_ClanSetting.lua" />
     <None Include="..\src\UI_ColosseumReadyForDev.lua" />
     <None Include="..\src\UI_CouponPopup.lua" />
