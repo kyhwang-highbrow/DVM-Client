@@ -1375,6 +1375,21 @@ function Character:makeImmuneFont(x, y, scale)
 end
 
 -------------------------------------
+-- function makeResistanceFont
+-------------------------------------
+function Character:makeResistanceFont(x, y, scale)
+
+    local sprite = self:createWithSpriteFrameName('ingame_resist.png')
+
+    scale = scale or 1
+
+    sprite:setPosition(x, y)
+    sprite:runAction(cc.Sequence:create(cc.ScaleTo:create(0.05, 1.5 * scale), cc.ScaleTo:create(0.1, 1 * scale), cc.DelayTime:create(1.2), cc.FadeOut:create(0.3), cc.RemoveSelf:create()))
+    sprite:runAction(cc.Sequence:create(cc.DelayTime:create(.5), cc.EaseIn:create(cc.MoveTo:create(1, cc.p(x, y + 170)), 1)))
+    self.m_world:addChild3(sprite, DEPTH_IMMUNE_FONT)
+end
+
+-------------------------------------
 -- function createWithSpriteFrameName
 -------------------------------------
 function Character:createWithSpriteFrameName(res_name)

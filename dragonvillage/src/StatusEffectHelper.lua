@@ -214,11 +214,6 @@ function StatusEffectHelper:invokeStatusEffect(caster, target_char, status_effec
         return nil
     end
 
-	-- 효과 적중 및 효과 저항 검사
-	if (self:checkStatus(caster, target_char, status_effect_category)) then
-		return nil
-	end
-
 	-- 면역 효과
 	if (self:isHarmful(status_effect_category) and target_char:isImmuneSE()) then 
         target_char:makeImmuneFont(target_char.pos['x'], target_char.pos['y'], 1.5)
@@ -230,6 +225,12 @@ function StatusEffectHelper:invokeStatusEffect(caster, target_char, status_effec
         target_char:makeImmuneFont(target_char.pos['x'], target_char.pos['y'], 1.5)
         return nil
     end
+
+    -- 효과 적중 및 효과 저항 검사
+	if (self:checkStatus(caster, target_char, status_effect_category)) then
+        target_char:makeResistanceFont(target_char.pos['x'], target_char.pos['y'], 1.5)
+        return nil
+	end
 
     -- 적용값(status_effect_value)이 수식인 경우 수식을 계산
     if (type(status_effect_value) == 'function') then
@@ -441,7 +442,7 @@ function StatusEffectHelper:checkStatus(caster, target_char, status_effect_categ
 	if (is_harmful) then
 		resistance = target_char:getStat('resistance')
 	end
-
+    
 	-- 확률 permill 로 체크
 	local adj_rate = CalcAccuracyChance(accuracy, resistance)
 	return (math_random(1, 100) > adj_rate)
