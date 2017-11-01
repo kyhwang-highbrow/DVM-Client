@@ -914,6 +914,7 @@ local t_module = {
     'UI_Clan',
     'UI_ClanGuest',
     'UI_ClanGuestTabFound',
+    'UI_ClanSetting',
 
     -- Forest
     'SceneForest',

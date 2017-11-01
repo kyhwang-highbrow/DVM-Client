@@ -410,6 +410,11 @@ function ServerData:networkCommonRespone(ret)
         if ret['capsule'] then
             self:applyServerData(ret['capsule'], 'user', 'capsule')
         end
+        
+        -- 클랜 코인
+        if ret['clan_coin'] then
+            self:applyServerData(ret['clan_coin'], 'user', 'clan_coin')
+        end
     end
 
 	-- 퀘스트 갱신
@@ -517,6 +522,9 @@ function ServerData:networkCommonRespone_addedItems(ret)
 
     -- 스태미나 동기화 (전체 갱신)
     RefreshGoods(t_added_items, 'staminas')
+
+    -- 클랜 코인 동기화 (전체 갱신)
+    RefreshGoods(t_added_items, 'clan_coin')
 
     -- 드래곤 (추가)
     if t_added_items['dragons'] then

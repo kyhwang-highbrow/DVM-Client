@@ -96,7 +96,9 @@ function UI_SimplePopup2:click_okBtn()
         end
     end
 
-    self:close()
+    if (not self.closed) then
+        self:close()
+    end
 end
 
 -------------------------------------
@@ -107,7 +109,9 @@ function UI_SimplePopup2:click_cancelBtn()
         self.m_cbCancelBtn()
     end
 
-    self:close()
+    if (not self.closed) then
+        self:close()
+    end
 end
 
 --@CHECK

@@ -829,7 +829,6 @@ function UINavigatorDefinition:goTo_clan(...)
     local function finish_cb()
         -- 클랜 가입 여부에 따른 UI 선택
         local target_ui_class = nil
-        cclog('g_clanData:isClanGuest() : ' .. tostring(g_clanData:isClanGuest()))
         if g_clanData:isClanGuest() then
             target_ui_class = UI_ClanGuest
         else

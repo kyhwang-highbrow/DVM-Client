@@ -9,6 +9,25 @@ function UINavigator:goTo(location_name, ...)
     return UINavigatorDefinition:goTo(location_name, ...)
 end
 
+-------------------------------------
+-- function closeClanUI
+-- @brief UI 닫기
+-------------------------------------
+function UINavigator:closeClanUI()
+    local self = UINavigatorDefinition
+
+    local is_opend, idx, ui = self:findOpendUI('UI_Clan')
+    if (is_opend == true) then
+        self:closeUIList(idx, true)
+    end
+
+    local is_opend, idx, ui = self:findOpendUI('UI_ClanGuest')
+    if (is_opend == true) then
+        self:closeUIList(idx, true)
+    end
+end
+
+
 -- 사용 설명 CONTENT
 if false then
     -- @brief 로비로 이동

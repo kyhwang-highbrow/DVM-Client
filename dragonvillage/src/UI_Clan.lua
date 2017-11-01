@@ -17,7 +17,7 @@ function UI_Clan:initParentVariable()
 	--self.m_staminaType = 'pvp'
     self.m_bVisible = true
     self.m_bUseExitBtn = true
-    --self.m_subCurrency = 'honor'
+    self.m_subCurrency = 'clan_coin'
     self.m_uiBgm = 'bgm_lobby'
 end
 
@@ -42,12 +42,15 @@ function UI_Clan:init()
 
     -- 보상 안내 팝업
     local function finich_cb()
+        if g_clanData:isNeedClanSetting() then
+            self:click_settingBtn()
+        end
     end
 
     self:sceneFadeInAction(nil, finich_cb)
 
     -- @ TUTORIAL
-    TutorialManager.getInstance():startTutorial(TUTORIAL.COLOSSEUM, self)
+    --TutorialManager.getInstance():startTutorial(TUTORIAL.CLAN, self)
 end
 
 -------------------------------------
@@ -69,6 +72,8 @@ end
 -------------------------------------
 function UI_Clan:initButton()
     local vars = self.vars
+
+    vars['settingBtn']:registerScriptTapHandler(function() self:click_settingBtn() end)
 end
 
 -------------------------------------
@@ -76,6 +81,13 @@ end
 -------------------------------------
 function UI_Clan:refresh()
     local vars = self.vars
+end
+
+-------------------------------------
+-- function click_settingBtn
+-------------------------------------
+function UI_Clan:click_settingBtn()
+    local ui = UI_ClanSetting()
 end
 
 --@CHECK

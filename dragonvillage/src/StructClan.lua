@@ -8,6 +8,7 @@ StructClan = class(PARENT, {
         
         name = 'string', -- 클랜 이름
         intro = 'string', -- 클랜 설명
+        flag = 'string', -- 클랜 문장
 
         member_cnt = 'number',
         join = 'boolean', -- 자동 가입 여부
@@ -37,4 +38,11 @@ end
 -------------------------------------
 function StructClan:getThis()
     return THIS
+end
+
+-------------------------------------
+-- function getClanObjectID
+-------------------------------------
+function StructClan:getClanObjectID()
+    return self['id']
 end

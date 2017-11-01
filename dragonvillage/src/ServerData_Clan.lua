@@ -13,6 +13,9 @@ ServerData_Clan = class({
         -- 클랜 창설 비용
         m_createPriceType = 'string',
         m_createPriceValue = 'number',
+
+        m_needClanInfoRefresh = 'boolean',
+        m_needClanSetting = 'boolean',
     })
 
 -------------------------------------
@@ -22,9 +25,14 @@ function ServerData_Clan:init(server_data)
     self.m_serverData = server_data
     self.m_bClanGuest = true
 
+    self.m_structClan = nil
+
     -- 클랜 창설 비용
     self.m_createPriceType = 'gold'
     self.m_createPriceValue = 1500000
+
+    self.m_needClanInfoRefresh = true
+    self.m_needClanSetting = false
 end
 
 -------------------------------------
@@ -55,6 +63,38 @@ function ServerData_Clan:getClanCreatePriceInfo()
 end
 
 -------------------------------------
+-- function setNeedClanInfoRefresh
+-- @brief
+-------------------------------------
+function ServerData_Clan:setNeedClanInfoRefresh()
+    self.m_needClanInfoRefresh = true
+end
+
+-------------------------------------
+-- function isNeedClanInfoRefresh
+-- @brief
+-------------------------------------
+function ServerData_Clan:isNeedClanInfoRefresh()
+    return self.m_needClanInfoRefresh
+end
+
+-------------------------------------
+-- function setNeedClanSetting
+-- @brief
+-------------------------------------
+function ServerData_Clan:setNeedClanSetting()
+    self.m_needClanSetting = true
+end
+
+-------------------------------------
+-- function isNeedClanSetting
+-- @brief
+-------------------------------------
+function ServerData_Clan:isNeedClanSetting()
+    return self.m_needClanSetting
+end
+
+-------------------------------------
 -- function request_clanInfo
 -- @brief
 -------------------------------------
@@ -66,12 +106,15 @@ function ServerData_Clan:request_clanInfo(finish_cb, fail_cb)
     local function success_cb(ret)
         if ret['clan'] then
             self.m_structClan = StructClan(ret['clan'])
-            ccdump(self.m_structClan)
             self.m_bClanGuest = false
         else
             self.m_structClan = nil
             self.m_bClanGuest = true
         end
+
+        -- 클랜 창설 비용
+        self.m_createPriceType = (ret['create_price_type'] or self.m_createPriceType)
+        self.m_createPriceValue = (ret['create_price_value'] or self.m_createPriceValue)
 
         if finish_cb then
             finish_cb(ret)
@@ -102,6 +145,10 @@ function ServerData_Clan:request_clanCreate(finish_cb, fail_cb, name, join, intr
 
     -- 성공 콜백
     local function success_cb(ret)
+        g_serverData:networkCommonRespone(ret)
+
+        self:setNeedClanSetting()
+        self:setNeedClanInfoRefresh()
         if finish_cb then
             finish_cb(ret)
         end
@@ -115,6 +162,43 @@ function ServerData_Clan:request_clanCreate(finish_cb, fail_cb, name, join, intr
     ui_network:setParam('join', join)
     ui_network:setParam('intro', intro)
     ui_network:setParam('flag', flag)
+    ui_network:setMethod('POST')
+    ui_network:setSuccessCB(success_cb)
+    ui_network:setFailCB(fail_cb)
+    ui_network:setRevocable(true)
+    ui_network:setReuse(false)
+    ui_network:request()
+
+    return ui_network
+end
+
+-------------------------------------
+-- function request_clanDestroy
+-- @brief
+-------------------------------------
+function ServerData_Clan:request_clanDestroy(finish_cb, fail_cb)
+    if (not self.m_structClan) then
+        return
+    end
+
+    -- 유저 ID
+    local uid = g_userData:get('uid')
+
+    local clan_object_id = self.m_structClan:getClanObjectID()
+
+    -- 성공 콜백
+    local function success_cb(ret)
+        self:setNeedClanInfoRefresh()
+        if finish_cb then
+            finish_cb(ret)
+        end
+    end
+
+    -- 네트워크 통신
+    local ui_network = UI_Network()
+    ui_network:setUrl('/clans/destroy')
+    ui_network:setParam('uid', uid)
+    ui_network:setParam('clan_id', clan_object_id)
     ui_network:setMethod('POST')
     ui_network:setSuccessCB(success_cb)
     ui_network:setFailCB(fail_cb)

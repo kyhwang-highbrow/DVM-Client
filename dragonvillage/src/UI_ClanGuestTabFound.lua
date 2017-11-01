@@ -95,25 +95,50 @@ end
 function UI_ClanGuestTabFound:click_foundBtn()
     local vars = self.vars
 
-    -- 닉네임 검증
     local editbox = vars['nameEditBox']
-    if (not self:clanNameCheck(editbox)) then
-        return
-    end
+    local clan_name = editbox:getText()
 
-    -- 창설 비용 검증
-    local price_type, price_value = g_clanData:getClanCreatePriceInfo()
-    if (not ConfirmPrice(price_type, price_value)) then
-        return
-    end
+    local work_check_name
+    local work_check_price
+    local wrok_request
+    local work_response
+    local work_refresh
 
-    local function finish_cb(ret)
-        if (ret['status'] == 0) then
-            
-            --MakeSimplePopup2(
+    -- 클랜명 검증
+    work_check_name = function()
+        if self:clanNameCheck(editbox) then
+            work_check_price()
         end
     end
 
-    local clan_name = editbox:getText()
-    g_clanData:request_clanCreate(finish_cb, nil, clan_name)
+    -- 클랜 창설 비용 확인
+    work_check_price = function()
+        local price_type, price_value = g_clanData:getClanCreatePriceInfo()
+        local msg = Str('클랜을 창설하시겠습니까?')
+        MakeSimplePopup_Confirm(price_type, price_value, msg, wrok_request)
+    end
+
+    -- 통신 요청
+    wrok_request = function()
+        g_clanData:request_clanCreate(work_response, nil, clan_name)
+    end
+    
+    -- 통신 응답
+    work_response = function(ret)
+        if (ret['status'] == 0) then
+            local msg = Str('축하합니다. 클랜이 창설되었습니다.')
+            local sub_msg = Str('(클랜 설정 화면으로 이동합니다. 클랜의 상세 정보를 설정해주세요)')
+            MakeSimplePopup2(POPUP_TYPE.OK, msg, sub_msg, work_refresh)
+        end
+    end
+
+    -- 클랜 정보 갱신
+    work_refresh = function()
+        if g_clanData:isNeedClanInfoRefresh() then
+            UINavigator:closeClanUI()
+            UINavigator:goTo('clan')
+        end
+    end
+
+    work_check_name()
 end
