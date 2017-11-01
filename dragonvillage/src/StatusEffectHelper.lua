@@ -200,7 +200,8 @@ function StatusEffectHelper:invokeStatusEffect(caster, target_char, status_effec
         error('no status_effect table : ' .. status_effect_type)
     end
 
-	local status_effect_category = t_status_effect['category']
+    local status_effect_category = t_status_effect['category']
+	local status_effect_group = t_status_effect['type']
     local duration = tonumber(duration) or tonumber(t_status_effect['duration'])
     local world = target_char.m_world
 
@@ -227,9 +228,17 @@ function StatusEffectHelper:invokeStatusEffect(caster, target_char, status_effec
     end
 
     -- 효과 적중 및 효과 저항 검사
-	if (self:checkStatus(caster, target_char, status_effect_category)) then
-        target_char:makeResistanceFont(target_char.pos['x'], target_char.pos['y'], 1.5)
-        return nil
+    if (IS_NEW_BALANCE_VERSION()) then
+        -- 해제효과의 경우는 효과 저항할 수 없도록 처리
+        if (status_effect_group ~= 'dispell' and self:checkStatus(caster, target_char, status_effect_category)) then
+            target_char:makeResistanceFont(target_char.pos['x'], target_char.pos['y'], 1.5)
+            return nil
+        end
+	else
+        if (self:checkStatus(caster, target_char, status_effect_category)) then
+            target_char:makeResistanceFont(target_char.pos['x'], target_char.pos['y'], 1.5)
+            return nil
+        end
 	end
 
     -- 적용값(status_effect_value)이 수식인 경우 수식을 계산
