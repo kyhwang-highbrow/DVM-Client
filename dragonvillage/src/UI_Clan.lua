@@ -88,6 +88,18 @@ function UI_Clan:refresh()
     local icon = struct_clan:makeClanMarkIcon()
     vars['markNode']:removeAllChildren()
     vars['markNode']:addChild(icon)
+
+    -- 클랜 이름
+    vars['clanNameLabel']:setString(struct_clan['name'])
+
+    -- 클랜 마스터 닉네임
+    vars['clanMasterLabel']:setString(struct_clan['master'])
+
+    -- 맴버 수
+    vars['clanMemberLabel']:setString(Str('클랜원 {1}/{2}', struct_clan['member_cnt'], 20))
+    
+    -- 클랜 공지
+    vars['clanNoticeLabel']:setString(struct_clan['notice'] or Str('등록된 공지가 없습니다.'))
 end
 
 -------------------------------------
@@ -95,6 +107,14 @@ end
 -------------------------------------
 function UI_Clan:click_settingBtn()
     local ui = UI_ClanSetting()
+
+    local function close_cb()
+        if ui.m_bRet then
+            self:refresh()
+        end
+    end
+
+    ui:setCloseCB(close_cb)
 end
 
 --@CHECK

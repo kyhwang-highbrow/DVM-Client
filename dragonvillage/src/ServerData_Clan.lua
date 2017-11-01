@@ -225,7 +225,10 @@ function ServerData_Clan:request_clanSetting(finish_cb, fail_cb, intro, notice, 
 
     -- 성공 콜백
     local function success_cb(ret)
-        self:setNeedClanInfoRefresh()
+        if ret['clan'] then
+            self.m_structClan = StructClan(ret['clan'])
+        end
+
         if finish_cb then
             finish_cb(ret)
         end

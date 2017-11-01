@@ -9,6 +9,7 @@ StructClan = class(PARENT, {
         name = 'string', -- 클랜 이름
         intro = 'string', -- 클랜 설명
         mark = 'string', -- 클랜 문장
+        notice = 'string', -- 클랜 공지
 
         member_cnt = 'number',
         join = 'boolean', -- 자동 가입 여부

@@ -5,6 +5,7 @@ local PARENT = UI
 -------------------------------------
 UI_ClanSetting = class(PARENT, {
         m_bChangedClanSet = 'bool',
+        m_bRet = 'bool',
 
         --
         m_structClanMark = 'StructClanMark',
@@ -33,9 +34,7 @@ function UI_ClanSetting:init()
     self:refresh()
 
     g_clanData.m_needClanSetting = false
-
-    -- 임시
-    self.m_bChangedClanSet = true
+    self.m_bRet = false
 end
 
 -------------------------------------
@@ -136,6 +135,7 @@ end
 -------------------------------------
 function UI_ClanSetting:click_okBtn()
     local finish_cb = function()
+        self.m_bRet = true
         local msg = Str('변경사항이 적용되었습니다.')
         local ok_cb = function()
             self:close()
