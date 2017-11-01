@@ -35,6 +35,9 @@ function ServerData_Runes:request_runesInfo(finish_cb, fail_cb)
         -- 룬 메인 옵션 능력치 테이블
         TABLE:setServerTable('table_rune_mopt_status', ret['table_rune_mopt_status'])
 
+        -- 룬의 슬롯 종류 및 부옵션으로 가질 수 있는 효과 테이블
+        TABLE:setServerTable('table_rune_opt', ret['table_rune_opt'])
+
         -- 보유 중인 룬 정보를 받아옴
         self:applyRuneData_list(ret['runes'])
 

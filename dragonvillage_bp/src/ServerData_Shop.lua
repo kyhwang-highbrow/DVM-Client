@@ -27,6 +27,7 @@ function ServerData_Shop:init(server_data)
     self.m_dicProduct['honor'] = {}
     self.m_dicProduct['capsule'] = {}
     self.m_dicProduct['package'] = {}
+    self.m_dicProduct['ancient'] = {}
     self.m_dicBuyCnt = {}
 
     self:setDirty()
@@ -577,4 +578,29 @@ function ServerData_Shop:request_couponList(cb_func)
     ui_network:setRevocable(true)
     ui_network:setReuse(false)
     ui_network:request()
+end
+
+-------------------------------------
+-- function getLevelUpPackageProduct
+-- @brief 레벨업 패키지 상품 정보
+-------------------------------------
+function ServerData_Shop:getLevelUpPackageProduct()
+    if (not self.m_dicProduct) then
+        return nil
+    end
+
+    local l_product_list = {}
+    for _,v in pairs(self.m_dicProduct) do
+        for _,struct_product in pairs(v) do
+            table.insert(l_product_list, struct_product)
+        end
+    end
+
+    for _,struct_product in ipairs(l_product_list) do
+        if (struct_product['product_id'] == 90037) then
+            return struct_product
+        end
+    end
+    
+    return nil
 end

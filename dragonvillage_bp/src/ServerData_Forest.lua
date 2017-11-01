@@ -9,6 +9,8 @@ ServerData_Forest = class({
         m_extensionMaxLV = 'number', -- 드래곤의 숲 확장 최대 레벨
 
         m_hasReward = 'bool',
+
+        m_canHappy = 'bool', -- draogn/happy 호출 가능 여부
     })
 
 
@@ -31,6 +33,7 @@ end
 function ServerData_Forest:init()
     self.m_tStuffInfo = {}
     self.m_tDragonStruct = {}
+    self.m_canHappy = true
 end
 
 -------------------------------------
@@ -88,6 +91,13 @@ end
 -------------------------------------
 function ServerData_Forest:getHappy()
     return self.m_happyRate
+end
+
+-------------------------------------
+-- function canHappy
+-------------------------------------
+function ServerData_Forest:canHappy()
+    return self.m_canHappy
 end
 
 -------------------------------------
@@ -208,6 +218,12 @@ end
 -- function request_dragonHappy
 -------------------------------------
 function ServerData_Forest:request_dragonHappy(doid, finish_cb)
+    if (not self.m_canHappy) then
+        cclog('dragon can not happy')
+        return
+    end
+    self.m_canHappy = false
+
     -- 유저 ID
     local uid = g_userData:get('uid')
     
@@ -224,6 +240,13 @@ function ServerData_Forest:request_dragonHappy(doid, finish_cb)
         if finish_cb then
             finish_cb(ret)
         end
+
+        self.m_canHappy = true
+    end
+
+    -- 실패 콜백
+    local function fail_cb()
+        self.m_canHappy = true
     end
 
     -- 네트워크 통신
@@ -232,8 +255,10 @@ function ServerData_Forest:request_dragonHappy(doid, finish_cb)
     ui_network:setParam('uid', uid)
     ui_network:setParam('doid', doid)
     ui_network:setSuccessCB(success_cb)
+    ui_network:setFailCB(fail_cb)
     ui_network:setRevocable(true)
     ui_network:setReuse(false)
+    ui_network:hideLoading()
     ui_network:request()
 
     return ui_network
@@ -261,10 +286,10 @@ function ServerData_Forest:request_stuffReward(stuff_type, finish_cb)
         end
         
         -- 보상 팝업
-        self:showRewardResult(ret)
+        -- self:showRewardResult(ret)
 
         if finish_cb then
-            finish_cb(ret_stuff)
+            finish_cb(ret_stuff, ret['item_info'])
         end
     end
 
@@ -276,6 +301,7 @@ function ServerData_Forest:request_stuffReward(stuff_type, finish_cb)
     ui_network:setSuccessCB(success_cb)
     ui_network:setRevocable(true)
     ui_network:setReuse(false)
+    ui_network:hideLoading()
     ui_network:request()
 
     return ui_network

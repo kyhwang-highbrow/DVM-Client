@@ -36,6 +36,11 @@ function UI_Product:initUI()
 	-- 상품 아이콘
     local icon = struct_product:makeProductIcon()
     if (icon) then
+        -- 고대주화 상품만 scale, 위치 조절
+        if (struct_product.price_type == 'ancient') then
+            icon:setScale(0.8)
+            icon:setPositionY(-20)
+        end
         vars['itemNode']:addChild(icon)
     end
 
@@ -128,12 +133,13 @@ end
 -- function click_buyBtn
 -------------------------------------
 function UI_Product:click_buyBtn()
-	local struct_product = self.m_structProduct
+	local struct_product = self.m_structProduct    
 
 	if (struct_product:getTabCategory() == 'package') then
         local is_popup = true
 		local ui = PackageManager:getTargetUI(struct_product, is_popup)
         ui:setCloseCB(function() self:refresh() end)
+        ui:setBuyCB(self.m_cbBuy)
 
     -- 광고 시청
     elseif (struct_product.price_type == 'advertising') then

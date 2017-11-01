@@ -164,6 +164,14 @@ local function main()
     AdsManager:prepare()
     stopwatch:record('AdsManager:prepare()')
 
+    -- 설정 언어를 가져오기 위해 localData 불러옴
+    LocalData:getInstance()
+    stopwatch:record('LocalData:getInstance()')
+
+    -- 번역
+    Translate:init()
+    stopwatch:record('Translate:init()')
+
     stopwatch:stop()
     stopwatch:print()
 

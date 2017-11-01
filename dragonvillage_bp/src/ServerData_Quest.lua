@@ -40,7 +40,7 @@ end
 -------------------------------------
 function ServerData_Quest:applyQuestInfo(t_quest_info)
     local t_data, struct_quest
-    local qid, rawcnt, reward, clear
+    local qid_n, rawcnt, reward, clear
     local is_end
 
     -- DAILY
@@ -57,13 +57,13 @@ function ServerData_Quest:applyQuestInfo(t_quest_info)
         local l_quest_list = self.m_tableQuest:filterList('type', quest_type)
 
         for _, t_quest in pairs(l_quest_list) do
-            qid = t_quest['qid']
-            rawcnt = t_focus[tostring(qid)]
-            reward = table.find(l_reward, tonumber(qid)) and true or false
+            qid_n = tonumber(t_quest['qid'])
+            rawcnt = t_focus[tostring(qid_n)]
+            reward = table.find(l_reward, qid_n) and true or false
             is_end = (rawcnt == nil) and (reward == false)
 
             -- StructQuestData 생성
-            t_data ={['qid'] = qid, ['rawcnt'] = rawcnt, ['quest_type'] = quest_type, ['reward'] = reward, ['is_end'] = is_end, ['t_quest'] = t_quest}
+            t_data ={['qid'] = qid_n, ['rawcnt'] = rawcnt, ['quest_type'] = quest_type, ['reward'] = reward, ['is_end'] = is_end, ['t_quest'] = t_quest}
             struct_quest = StructQuestData(t_data)
 
             -- 데일리 클리어는 따로 빼준다.
@@ -89,8 +89,9 @@ function ServerData_Quest:applyQuestInfo(t_quest_info)
         -- 클라 데이터 생성 (서버 정보 기반)
         local l_quest = {}
         for qid, rawcnt in pairs(t_focus) do
-            t_quest = self.m_tableQuest:get(tonumber(qid))
-            reward = table.find(l_reward, tonumber(qid)) and true or false
+            qid_n = tonumber(qid)
+            t_quest = self.m_tableQuest:get(qid_n)
+            reward = table.find(l_reward, qid_n) and true or false
             
             -- 보상도 받았고 달성도 했는데 다음 focus를 안준다면 이미 클리어한것
             is_end = false
@@ -99,7 +100,7 @@ function ServerData_Quest:applyQuestInfo(t_quest_info)
             end
 
             -- StructQuestData 생성
-            t_data ={['qid'] = qid, ['rawcnt'] = rawcnt, ['quest_type'] = quest_type, ['reward'] = reward, ['is_end'] = is_end, ['t_quest'] = t_quest}
+            t_data ={['qid'] = qid_n, ['rawcnt'] = rawcnt, ['quest_type'] = quest_type, ['reward'] = reward, ['is_end'] = is_end, ['t_quest'] = t_quest}
             struct_quest = StructQuestData(t_data)
 
             table.insert(l_quest, struct_quest)

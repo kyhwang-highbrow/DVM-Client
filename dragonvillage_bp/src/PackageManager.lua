@@ -10,8 +10,13 @@ function PackageManager:getTargetUI(struct_product, is_popup)
 
     local package_name = TablePackageBundle:getPackageNameWithPid(pid) 
 
+    -- 레벨업 패키지 UI
+    if (package_name == 'package_levelup') or (pid == 'package_levelup') then
+        local _struct_product = g_shopDataNew:getLevelUpPackageProduct()
+        target_ui = UI_Package_LevelUp(_struct_product, is_popup)
+
     -- 패키지 상품 묶음 UI (pid로 들어오지만 패키지 상품 묶음 UI를 보여줘야 하는 경우)
-    if package_name then
+    elseif package_name then
         target_ui = UI_Package_Bundle(package_name, is_popup)
 
     -- 패키지 상품 묶음 UI (package name으로 직접 들어오는 경우)
@@ -58,9 +63,24 @@ end
 -- @brief 묶음 UI에서 상품정보가 하나라도 있는지 (모두 구매해서 없거나, 기간이 자니서 없거나 하는 경우)
 -------------------------------------
 function PackageManager:isExist(package_name)
+    -- 레벨업 패키지는 구매를 한 후에도 노출되도록 설정(추후 리팩토링 필요) sgkim 2017-10-25
+    if (package_name == 'package_levelup') then
+        local is_active = g_levelUpPackageData:isActive()
+        local is_visible = g_levelUpPackageData:isVisible_lvUpPack()
+        if (is_active and (is_visible == false)) then
+            return false
+        else
+            return true
+        end
+    end
+
     local l_shop_list = g_shopDataNew:getProductList('package')
     local target_product = TablePackageBundle:getPidsWithName(package_name)
     local is_exist = false
+
+    if (not target_product) then
+        error('package_name : ' .. package_name)
+    end
 
     for _, pid in ipairs(target_product) do
         if (l_shop_list[tonumber(pid)]) then
@@ -70,6 +90,3 @@ function PackageManager:isExist(package_name)
 
     return is_exist
 end
-
-
-

@@ -156,10 +156,10 @@ function UI_Help.makeCellUI_content(t_data)
 	local ui = class(UI, ITableViewCell:getCloneTable())()
 	local vars = ui:load('help_popup_item_02.ui')
 	
-    local title = t_data['title']
+    local title = Str(t_data['title'])
     vars['titleLabel']:setString(title)
 
-    local content = t_data['content']
+    local content = Str(t_data['content'])
     vars['contentLabel']:setString(content)
 
     UI_Help.adjustCellHeight(ui)

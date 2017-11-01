@@ -15,7 +15,7 @@ function UI_LoadingGuide:init(curr_scene)
 
 	local guide_type = curr_scene.m_loadingGuideType
 	if (guide_type) then
-		self.m_lLoadingStrList = table.sortRandom(g_constant:get('UI', 'LOADING_TEXT'))
+		self.m_lLoadingStrList = table.sortRandom(GetLoadingStrList())
 	end
 
 	self:initUI(guide_type)
@@ -79,7 +79,7 @@ function UI_LoadingGuide:setNextLoadingStr()
 
 	local random_str = self.m_lLoadingStrList[1]
 	if (random_str) then
-		self.vars['loadingLabel']:setString(random_str)
+		self.vars['loadingLabel']:setString(Str(random_str))
 		table.remove(self.m_lLoadingStrList, 1)
 	end
 end

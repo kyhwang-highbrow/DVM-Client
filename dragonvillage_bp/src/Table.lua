@@ -92,6 +92,7 @@ local TableInfo_fromServer = {
         ['table_rune_enhance'] = {'table_rune_enhance', 'rune_lv'},
         ['table_rune_grade'] = {'table_rune_grade', 'grade'},
         ['table_rune_mopt_status'] = {'table_rune_mopt_status', 'vid'},
+        ['table_rune_opt'] = {'table_rune_opt', 'slot_id'},
         ['table_req_gold'] = {'table_req_gold', 'lv'},
         ['table_stamina_info'] = {'table_stamina_info', 'stamina_type'},
         ['table_exploration_list'] = {'table_exploration_list', 'epr_id'},
@@ -110,6 +111,7 @@ local TableInfo_fromServer = {
 
         -- 진화재료 조합
         ['table_item_evolution_combine'] = {'table_item_evolution_combine', 'id'},
+        ['table_package_levelup'] = {'table_package_levelup', 'level'}, -- 레벨업 패키지 레벨별 보상 리스트
     }
 
 -------------------------------------
@@ -120,14 +122,46 @@ function TABLE:getServerTableInfo()
 end
 
 -------------------------------------
--- function getCSVHeader
+-- function makeLuaTableFromCSV
+-- @brief csv 또는 tsv 을 읽은 문자열을 루아 테이블로 변환
 -------------------------------------
-function TABLE:getCSVHeader(csv)
+function TABLE:makeLuaTableFromCSV(content, key)
     local header = {}
-    for i=1,#csv do
-        header[i] = string.match(csv[i], '[A-Za-z%d_-]+')
+    local tables = {}
+
+    local handle = csv.openstring(content, {})
+    local is_first_line = true
+    for r in handle:lines() do
+        -- 해더 셋팅    
+        if is_first_line then
+            for i,v in ipairs(r) do
+                header[i] = v
+            end
+
+            if (not key) then
+                key = header[1]
+            end
+
+            is_first_line = false
+        else
+            local t = {}
+            for i,v in ipairs(r) do
+                local v_number = tonumber(v)
+                if v_number then
+                    v = v_number
+                else
+                    v = string.gsub(v, '\\\\n', '\n')
+                end
+                t[header[i]] = v
+            end
+
+            tables[t[key]] = t
+        end
     end
-    return header
+
+    handle:close()
+
+    return tables
 end
 
 -------------------------------------
@@ -174,101 +208,14 @@ function TABLE:loadCSVTable(filename, tablename, key, toString)
         end
     end
 
+    -- window
     local content = TABLE:loadTableFile(filename, '.csv')
     if (content == nil) then
         cclog('failed to load table file(' .. filename .. ')')
         return
     end
 
-    local header = {}
-    local tables = {}
-
-    local handle = csv.openstring(content, {})
-    local is_first_line = true
-    for r in handle:lines() do
-    
-        -- 해더 셋팅    
-        if is_first_line then
-            for i,v in ipairs(r) do
-                header[i] = v
-            end
-
-            if (not key) then
-                key = header[1]
-            end
-
-            is_first_line = false
-        else
-            local t = {}
-            for i,v in ipairs(r) do
-                local v_number = tonumber(v)
-                if v_number then
-                    v = v_number
-                else
-                    v = string.gsub(v, '\\\\n', '\n')
-                end
-                t[header[i]] = v
-            end
-
-            tables[t[key]] = t
-        end
-    end
-
-    handle:close()
-
-    -----------------------------------------------------------------------------------------
-    -- deprecated (sgkim 2017-05-31)
-    -- csv의 특정 값이 개행을 포함했을 때 문제를 해결하기 위해 새로운 csv 모듈을 적용함
-    if false then
-        for _,line in ipairs(seperate(content,'\r\n') or seperate(content,'\n')) do
-            local csv = {}
-            local t = {}
-            local v1, v2
-            csv = ParseCSVLine(line)
-            if _ == 1 then
-                header = self:getCSVHeader(csv)
-                if not key then key = header[1] end
-            else
-                if csv[1] == nil then break end
-
-                -- 테이블에 nil값이 포함된 경우 예외처리
-                local find_nil = false
-                for i=1,#header do
-                    if (csv[i] == nil) then
-                        csv[i] = ''
-                    end
-                    v1 = trim(tostring(csv[i]))
-                    v2 = string.match(v1, '%d+[.]?%d*')
-                    if v2 then v2 = tostring(tonumber(v2)) end
-                    if v1 == v2 then
-                        t[header[i]] = tonumber(v2)
-                    else
-                        t[header[i]] = string.gsub(v1, '\\\\n', '\n')
-                    end
-
-                    -- nil값 포함
-                    if t[header[i]] == nil then
-                        find_nil = true
-                        break
-                    end
-                end
-
-                -- nil값 포함
-                if find_nil then
-                    break
-                end
-
-                if toString then
-                    tables[tostring(t[key])] = t
-                else
-                    tables[t[key]] = t
-                end
-
-            end
-        end
-    end
-    -----------------------------------------------------------------------------------------
-
+    local tables = TABLE:makeLuaTableFromCSV(content, key)
     if tablename then
         TABLE[tablename] = tables
     end

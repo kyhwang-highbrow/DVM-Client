@@ -175,6 +175,9 @@ function TableDragonPhrase:getRandomPhrase_Sensitivity(did, flv, case_type)
 	elseif (case_type == 'fruit_induce') then
 		sum_random:addItem(1, 'fruit_induce')
 
+    elseif (case_type == 'forest_heart') then
+        sum_random:addItem(1, 'forest_heart')
+
 	else
 		sum_random:addItem(1, 't_normal_phrase1')
 		sum_random:addItem(1, 't_normal_phrase2')
@@ -197,15 +200,4 @@ function TableDragonPhrase:getRandomPhrase_Sensitivity(did, flv, case_type)
 	
 	local speech = self:getValue(did, key)
     return speech
-end
-
--------------------------------------
--- function getForestMoveType
--------------------------------------
-function TableDragonPhrase:getForestMoveType(did)
-	if (self == THIS) then
-        self = THIS()
-    end
-
-    return self:getValue(did, 'myroom_move')
 end

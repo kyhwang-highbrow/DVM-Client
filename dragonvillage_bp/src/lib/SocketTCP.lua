@@ -238,5 +238,3 @@ function SocketTCP:_onDisconnect()
     self:dispatchEvent({name=SocketTCP.EVENT_CLOSED})
     self:_reconnect();
 end
-
-

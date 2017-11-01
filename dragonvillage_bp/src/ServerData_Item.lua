@@ -88,7 +88,7 @@ function ServerData_Item:parsePackageItemStrIndivisual(package_item_str)
         count = second_data or 1 --입력 안하면 1개로 처리
 
     -- 기타 아이템을 입력한 경우 'fruit;702049;10' == 702049열매 10개
-    elseif isExistValue(first_data, 'fruit', 'evolution_stone', 'rune', 'dragon', 'egg') then
+    elseif isExistValue(first_data, 'fruit', 'evolution_stone', 'rune', 'dragon', 'egg', 'relation_point') then
         item_id = second_data
         count = third_data or 1 --입력 안하면 1개로 처리
     

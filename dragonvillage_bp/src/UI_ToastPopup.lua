@@ -13,7 +13,12 @@ UI_ToastPopup = class(PARENT,{
 function UI_ToastPopup:init(toast_str)
     local vars = self:load('popup_toast.ui')
     UIManager:open(self, UIManager.NORMAL)
-	
+
+    if (UIManager.m_toastPopup) then
+        UIManager.m_toastPopup:closeWithAction()
+    end
+	UIManager.m_toastPopup = self
+
 	-- @UI_ACTION
     self:addAction(self.root, UI_ACTION_TYPE_OPACITY, 0, 0.5)
     self:doActionReset()
@@ -31,7 +36,8 @@ end
 -------------------------------------
 function UI_ToastPopup:initUI()
 	local cb_func = function()
-		self:close()
+		self:closeWithAction()
+        UIManager.m_toastPopup = nil
 	end
 
 	SoundMgr:playEffect('UI', 'ui_out_item_get')
@@ -58,20 +64,6 @@ function UI_ToastPopup:refresh()
 
 	local toast_msg = self.m_toastMsg
 	vars['messageLabel']:setString(toast_msg)
-end
-
--------------------------------------
--- function close
--------------------------------------
-function UI_ToastPopup:close()
-    if not self.enable then return end
-
-    local function finish_cb()
-        UI.close(self)
-    end
-
-    -- @ui_actions
-    self:doActionReverse(finish_cb, 1, false)
 end
 
 --@CHECK

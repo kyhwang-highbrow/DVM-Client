@@ -791,7 +791,7 @@ end
 -- @usage UINavigatorDefinition:goTo('forest')
 -------------------------------------
 function UINavigatorDefinition:goTo_forest(...)
-    -- 로비가 열려있을 경우
+    -- 드래곤의 숲 UI가 열려있을 경우
     local is_opend, idx, ui = self:findOpendUI('UI_Forest')
     if (is_opend == true) then
         self:closeUIList(idx)
@@ -799,9 +799,67 @@ function UINavigatorDefinition:goTo_forest(...)
     end
 
     local function cb_func()
+        UI_BlockPopup()
         SceneForest():runScene()
     end
     ServerData_Forest:getInstance():request_myForestInfo(cb_func)
+end
+
+-------------------------------------
+-- function goTo_clan
+-- @brief 클랜으로 이동
+-- @usage UINavigatorDefinition:goTo('clan')
+-------------------------------------
+function UINavigatorDefinition:goTo_clan(...)
+
+    -- 클랜 게스트 UI가 열려있을 경우
+    local is_opend, idx, ui = self:findOpendUI(UI_ClanGuest)
+    if (is_opend == true) then
+        self:closeUIList(idx)
+        return
+    end
+    
+    -- 클랜 UI가 열려있을 경우
+    local is_opend, idx, ui = self:findOpendUI(UI_Clan)
+    if (is_opend == true) then
+        self:closeUIList(idx)
+        return
+    end
+        
+    local function finish_cb()
+        -- 클랜 가입 여부에 따른 UI 선택
+        local target_ui_class = nil
+        cclog('g_clanData:isClanGuest() : ' .. tostring(g_clanData:isClanGuest()))
+        if g_clanData:isClanGuest() then
+            target_ui_class = UI_ClanGuest
+        else
+            target_ui_class = UI_Clan
+        end
+
+        -- 로비가 열려있을 경우
+        local is_opend, idx, ui = self:findOpendUI('UI_Lobby')
+        if (is_opend == true) then
+            self:closeUIList(idx)
+            local ui = target_ui_class(sel_tamer_id)
+            return
+        end
+
+        do-- Scene으로 클랜 UI 동작
+            local function close_cb()
+                UINavigatorDefinition:goTo('lobby')
+            end
+
+            local scene = SceneCommon(target_ui_class, close_cb)
+            scene:runScene()
+        end
+    end
+
+    local function fail_cb()
+
+    end
+
+    -- 클랜 정보 요청
+    g_clanData:update_clanInfo(finish_cb, fail_cb)
 end
 
 

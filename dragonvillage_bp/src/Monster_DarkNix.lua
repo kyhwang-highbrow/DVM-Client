@@ -30,7 +30,7 @@ function Monster_DarkNix.st_attack(owner, dt)
     if (owner.m_stateTimer == 0) then
         local t_skill = owner:getSkillTable(owner.m_reservedSkillId)
         if t_skill and t_skill['skill_type'] == 'skill_heart_of_ruin' then
-            SoundMgr:playEffect('EFFECT', 'darknix_shout') -- @memo µåÈ÷¿¡¼­ »ç¿ëÇÏ´ø »ç¿îµå °¡Á®¿Í »ç¿ë
+            SoundMgr:playEffect('EFFECT', 'darknix_shout') -- @memo ë“œíˆì—ì„œ ì‚¬ìš©í•˜ë˜ ì‚¬ìš´ë“œ ê°€ì ¸ì™€ ì‚¬ìš©
         end
     end
 

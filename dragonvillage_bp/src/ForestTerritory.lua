@@ -21,7 +21,11 @@ ForestTerritory = class(PARENT, {
         m_touchedDragon = 'ForestDragon',
         m_isTouchingDragon = 'bool',
         m_moveIndicator = 'Animator',
-        m_isTouchAnother = 'bool',
+
+        -- 행복도 수령 관련
+        m_happyTimer = 'time',
+        m_lHappyDragonList = 'list',
+        m_tReserved = 'bool',
 
         -- 오브젝트
         m_ground = 'Animator',
@@ -36,7 +40,7 @@ ForestTerritory = class(PARENT, {
         m_ui = 'UI_Forest',
     })
 
-local VISIBLE_SIZE= cc.Director:getInstance():getVisibleSize()
+local VISIBLE_SIZE = cc.Director:getInstance():getVisibleSize()
 
 local BG_WIDTH = 2560
 local BG_HEIGHT = 960
@@ -53,6 +57,9 @@ function ForestTerritory:init(parent, z_order)
     self.m_lDragonList = {}
     self.m_tStuffTable = {}
     self.m_isTouchingDragon = false
+    self.m_happyTimer = 0
+    self.m_lHappyDragonList = {}
+    self.m_tReserved = {}
 
     -- 오브젝트 생성
     self:initBackground()
@@ -409,38 +416,9 @@ function ForestTerritory:onTouchBegan(touches, event)
         return false
     end
 
+    -- 터치 좌표 저장
     local location = touches[1]:getLocation()
     self.m_touchPosition = location
-
-    self.m_isTouchAnother = false
-
-    -- 드래곤 터치 체크
-    for _, dragon in ipairs(self.m_lDragonList) do
-        -- 드래곤 터치
-        if (self:checkObjectTouch(location, dragon)) then
-            -- 터치된 드래곤이 있다면 등록
-            self.m_touchedDragon = dragon
-            return
-
-        -- 드래곤 하트 터치
-        elseif (dragon:isHappy()) then
-            if (self:checkHeartOfDragonTouch(location, dragon)) then
-                if (dragon:getHappy()) then
-                    self.m_isTouchAnother = true
-                    return
-                end
-            end
-        end
-    end
-
-    -- Stuff 터치 체크
-    for _, stuff in pairs(self.m_tStuffTable) do
-        if (self:checkObjectTouch(location, stuff, 150)) then
-            stuff:touchStuff()
-            self.m_isTouchAnother = true
-            return
-        end
-    end
 
     -- 드래곤을 터치한게 아니라면 테이머를 이동 시킴
     local move_pos = self:getForestMovePos(location)
@@ -458,27 +436,13 @@ end
 -- function onTouchMoved
 -------------------------------------
 function ForestTerritory:onTouchMoved(touches, event)
+    -- 터치 좌표 저장
     local location = touches[1]:getLocation()
     self.m_touchPosition = location
 
-    -- 터치된 드래곤 옮기기
-    if (self.m_touchedDragon) then
-        -- 터치된 상태로 전환
-        if (not self.m_isTouchingDragon) then
-            self.m_isTouchingDragon = true
-            self.m_touchedDragon:changeState('touched')
-        end
-
-        -- 드래곤 이동
-        local move_pos = self:getForestMovePos(location)
-        self.m_touchedDragon:setPosition(move_pos['x'], move_pos['y'])
-
     -- press move 
-    else
-        if (not self.m_isPressMove) then
-            self.m_isPressMove = true
-        end
-
+    if (not self.m_isPressMove) then
+        self.m_isPressMove = true
     end
 end
 
@@ -486,14 +450,16 @@ end
 -- function onTouchEnded
 -------------------------------------
 function ForestTerritory:onTouchEnded(touches, event)
-    self.m_isPressMove = false
-    
-    -- 터치된 드래곤 삭제
-    if (self.m_touchedDragon) then
-        self.m_touchedDragon:changeState('touched_end')
-        self.m_touchedDragon = nil
-        self.m_isTouchingDragon = false
+    -- 터치 처리가 되었을 경우 skip
+    if event:isStopped() or (event.isStoppedForMenu and event:isStoppedForMenu()) then
+        return false
     end
+
+    -- 터치 좌표 저장
+    local location = touches[1]:getLocation()
+    self.m_touchPosition = location
+
+    self.m_isPressMove = false
 end
 
 -------------------------------------
@@ -501,20 +467,49 @@ end
 -------------------------------------
 function ForestTerritory:update(dt)
     -- 테이머 이동에 따라 화면 이동
-    do
-        local x, y = self.m_tamer:getPosition()
-        x = -x
-        y = -(y + 150)
+    local pos_x, pos_y = self.m_tamer:getPosition()
+    local x = -pos_x
+    local y = -(pos_y + 150)
 
-        if (self.m_posX == x) and (self.m_posY == y) then
-            -- nothing to do 
-        else
-            self:setPosition(x, y, true)
+    if (self.m_posX == x) and (self.m_posY == y) then
+        -- nothing to do 
+    else
+        self:setPosition(x, y, true)
+    end
+
+    -- 드래곤 하트 체크
+    for i, dragon in ipairs(self.m_lDragonList) do
+        if (dragon:isHappy()) then
+            if (not self.m_tReserved[dragon]) then
+                if (self:checkTamerMeetDragon(pos_x, pos_y, dragon)) then
+                    self.m_tReserved[dragon] = true
+                    table.insert(self.m_lHappyDragonList, dragon)
+                end
+            end
+        end
+    end
+
+    -- 드래곤 하트 수령 리스트를 특정시간 마다 돌림
+    self.m_happyTimer = self.m_happyTimer + dt
+    if (self.m_happyTimer > 0.2) then
+        self.m_happyTimer = self.m_happyTimer - 0.2
+        -- 이전 통신 콜백 넘어왓는지 체크
+        if (ServerData_Forest:getInstance():canHappy()) then
+            -- 리스트에 드래곤 있는지 체크
+            if (self.m_lHappyDragonList[1]) then
+                local dragon = self.m_lHappyDragonList[1]
+                -- 예약된 드래곤이 아닌지 체크
+                if (self.m_tReserved[dragon]) then
+                    self.m_tReserved[dragon] = nil
+                    table.remove(self.m_lHappyDragonList, 1)
+                    dragon:getHappy()
+                end
+            end
         end
     end
 
     -- press move
-    if (self.m_isPressMove) and (not self.m_isTouchAnother) then
+    if (self.m_isPressMove) then
         local move_pos = self:getForestMovePos(self.m_touchPosition)
         self.m_tamer:setMove(move_pos['x'], move_pos['y'])
         self.m_moveIndicator:setPosition(move_pos['x'], move_pos['y'])
@@ -601,16 +596,17 @@ function ForestTerritory:checkObjectTouch(touch_pos, forest_object, size)
 end
 
 -------------------------------------
--- function checkHeartOfDragonTouch
--- @brief 하트 터치만 체크
+-- function checkTamerMeetDragon
+-- @brief 테이머와 드래곤 접촉 체크 .. x축만 체크
 -------------------------------------
-function ForestTerritory:checkHeartOfDragonTouch(touch_pos, forest_dragon, size)
+function ForestTerritory:checkTamerMeetDragon(tamer_x, tamer_y, forest_dragon)
     if (not forest_dragon) then
         return
     end
-    local size = size or 100
-    local world_pos = convertToWorldSpace(forest_dragon.m_animator.m_node)
-    local distance = getDistance(touch_pos['x'], touch_pos['y'], world_pos['x'], world_pos['y'] + ForestDragon.OFFSET_Y_HAPPY - ForestDragon.OFFSET_Y)
+    local size = 100
+    local dragon_x, dragon_y = forest_dragon:getPosition()
+    --local distance = getDistance(tamer_x, tamer_y, dragon_x, dragon_y)
+    local distance = math_abs(tamer_x - dragon_x)
 
     return (distance <= size)
 end
@@ -626,22 +622,25 @@ end
 function ForestTerritory:onEvent(event_name, struct_event)
     -- 드래곤 자유 이동
     if (event_name == 'forest_dragon_move_free') then
+        -- 받은 정보
         local dragon = struct_event:getObject()
-        local pos_x, pos_y = self:getRandomPos()
         local speed = struct_event:getSpeed()
-        dragon:setMove(pos_x, pos_y, speed)
-    
-    -- 물체 앞에서 이동 왜일까?
-    elseif (event_name == 'forest_dragon_move_stuff') then
-        local dragon = struct_event:getObject()
-        local stuff_type = struct_event:getStuff()
-        local curr_x, _ = dragon:getPosition()
-        local pos_x, pos_y = self.m_tStuffTable[stuff_type]:getPosition()
-        local factor_x = (curr_x < pos_x) and 1 or -1
-        factor_x = factor_x * math_random(50, 150)
-        local factor_y = -100
-        local speed = math_random(100, 400)
-        dragon:setMove(pos_x + factor_x, pos_y + factor_y, speed)
+        local pos_x, pos_y = struct_event:getPosition()
+        
+        -- 랜덤 좌표
+        local tar_x, tar_y = self:getRandomPos()
+        
+        -- 거리 제한이 있는 좌표 계산
+        local distance = getDistance(pos_x, pos_y, tar_x, tar_y)
+        if (distance > (speed * 2)) then
+            local angle = getAdjustDegree(getDegree(pos_x, pos_y, tar_x, tar_y))
+            local new_dist = speed * (math_random(20, 25) / 10)
+            local pos = getPointFromAngleAndDistance(angle, new_dist)
+            tar_x = pos_x + pos.x
+            tar_y = pos_y + pos.y
+        end
+
+        dragon:setMove(tar_x, tar_y, speed)
 
     -- 테이머 이동 시작/종료
     elseif (event_name == 'forest_tamer_move_start') then
@@ -654,8 +653,7 @@ function ForestTerritory:onEvent(event_name, struct_event)
         
         -- base node
         local ui_node = self.m_ui.vars['cameraNode']
-        local height = ForestDragon.OFFSET_Y_HAPPY
-        
+
         -- 연출 생성
         local heart_move_ani = MakeAnimator('res/ui/a2d/dragon_forest/dragon_forest.vrp')
         heart_move_ani:changeAni('heart_move', false)
@@ -673,9 +671,15 @@ function ForestTerritory:onEvent(event_name, struct_event)
         local tar_node = self.m_ui.vars['boxVisual'].m_node
         local tar_pos = TutorialHelper:convertToWorldSpace(ui_node, tar_node, dock_point, anchor_point)
 
-        -- pos, scale, rotateh
-        local start_x, start_y = start_pos['x'], start_pos['y'] + height
-        local tar_x, tar_y = tar_pos['x'] + 30, tar_pos['y'] - 15
+        -- y좌표 보정치 계산
+        local visible_height = VISIBLE_SIZE['height']
+        local factor_y = (visible_height - 720) / 2
+
+        -- pos, scale, rotate
+        local start_x = start_pos['x'] 
+        local start_y = start_pos['y'] + ForestDragon.OFFSET_Y_HAPPY - factor_y
+        local tar_x = tar_pos['x'] + 30
+        local tar_y = tar_pos['y'] - 15 - factor_y
         local distance = getDistance(start_x, start_y, tar_x, tar_y)
         local scale = (distance / 500)
         local angle = getAdjustDegree(getDegree(start_x, start_y, tar_x, tar_y))
@@ -683,14 +687,18 @@ function ForestTerritory:onEvent(event_name, struct_event)
         heart_move_ani:setScaleX(scale)
         heart_move_ani:setRotation(angle + 90)
 
+        -- 게이지 효과
+        local gauge_visual = self.m_ui.vars['gaugeVisual']
+        gauge_visual:changeAni('gauge', false)
+
+        -- 게이지 조정
+        self.m_ui:refresh_happy()
+            
+        -- 박스 효과
+        self.m_ui.vars['boxVisual']:changeAni('gift_box_tap', false)
+
         -- 종료 콜백
         heart_move_ani:addAniHandler(function() 
-            local gauge_visual = self.m_ui.vars['gaugeVisual']
-            gauge_visual:changeAni('gauge', false)
-            self.m_ui:refresh_happy()
-            
-            self.m_ui.vars['boxVisual']:changeAni('gift_box_tap', false)
-
             -- 만족도가 100 넘어갔을 경우
             local happy = ServerData_Forest:getInstance():getHappy()
             if (struct_event:getHappy() > happy) then
@@ -698,7 +706,8 @@ function ForestTerritory:onEvent(event_name, struct_event)
                 local ret = struct_event:getResponse()
                 ServerData_Forest:getInstance():showRewardResult(ret)
             end
-
+            
+            -- 삭제
             cca.fadeOutAndRemoveChild(heart_move_ani.m_node, 1)
         end)
     end

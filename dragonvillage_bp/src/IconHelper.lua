@@ -208,7 +208,7 @@ function IconHelper:getItemIcon(item_id, t_sub_data)
 
     -- 인연 포인트 아이콘 생성
     elseif (item_type == 'relation_point') then
-        local item_cnt = t_sub_data or t_item['count']
+        local item_cnt = t_sub_data or 0
         local card = UI_ItemCard(item_id, item_cnt)
          
         sprite = card.root

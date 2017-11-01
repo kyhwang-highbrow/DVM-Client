@@ -5,6 +5,7 @@ local PARENT = UI
 -------------------------------------
 UI_Package_Bundle = class(PARENT,{
         m_isPopup = 'boolean',
+        m_cbBuy = 'function',
         m_data = 'table',
         m_pids = 'table',
     })
@@ -70,18 +71,17 @@ function UI_Package_Bundle:refresh()
     local l_item_list = g_shopDataNew:getProductList('package')
     local target_product = self.m_pids
     
+    if (not target_product) then
+        return
+    end
+
     for idx, pid in ipairs(target_product) do
         local pid = tonumber(pid)
         local struct_product = l_item_list[pid]
         local item_label = vars['itemLabel'..idx]
-        local desc_label = vars['dscLabel'..idx]
 
         if (item_label) then
             item_label:setString('')
-        end
-
-        if (desc_label) then
-            desc_label:setString('')
         end
 
         -- 상품 정보가 없다면 구매제한을 넘겨 서버에서 준 정보가 없는 경우라 판단
@@ -107,11 +107,18 @@ function UI_Package_Bundle:refresh()
                 end
             end
         else
+            -- 판매종료시간 있는 경우 표시
+            local time_label = vars['timeLabel']
+            local end_date = struct_product:getEndDateStr()
+            if (end_date) and (time_label) then
+                time_label:setString(end_date)
+            end 
+
             -- 구성품 t_desc 표시
             if (self.m_data['use_desc'] == 1) then
                 local desc_str = struct_product['t_desc']
-                if (desc_label) then
-                    desc_label:setString(desc_str)
+                if (item_label) then
+                    item_label:setString(desc_str)
                 end
 
             -- 구성품 mail_content 표시
@@ -165,27 +172,22 @@ end
 -- function click_buyBtn
 -------------------------------------
 function UI_Package_Bundle:click_buyBtn(struct_product)
-	local function refresh_cb()
-        g_shopDataNew:request_shopInfo(function() 
-            self:refresh()
-            g_eventData.m_bDirty = true
-            if (self.m_isPopup) then
-                self:close()
-            end
-        end)
-    end
-
 	local function cb_func(ret)
-        -- 갱신되었으면 샵 인포 다시 호출
-        if (g_shopDataNew:isDirty()) then
-            refresh_cb()
-
-        elseif (self.m_isPopup) then
-            self:close()
-		end
+        if (self.m_cbBuy) then
+            self.m_cbBuy(ret)
+        end
 
         -- 아이템 획득 결과창
         ItemObtainResult_Shop(ret)
+
+        -- 갱신이 필요한 상태일 경우
+        if ret['need_refresh'] then
+            self:refresh()
+            g_eventData.m_bDirty = true
+
+        elseif (self.m_isPopup == true) then
+            self:close()
+		end
 	end
 
 	struct_product:buy(cb_func)
@@ -204,4 +206,11 @@ end
 -------------------------------------
 function UI_Package_Bundle:click_closeBtn()
     self:close()
+end
+
+-------------------------------------
+-- function setBuyCB
+-------------------------------------
+function UI_Package_Bundle:setBuyCB(func)
+    self.m_cbBuy = func
 end

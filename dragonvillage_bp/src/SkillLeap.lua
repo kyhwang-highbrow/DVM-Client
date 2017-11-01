@@ -5,6 +5,7 @@ local PARENT = class(Skill, IStateDelegate:getCloneTable())
 -------------------------------------
 SkillLeap = class(PARENT, {
 		m_jumpRes = 'str',
+        m_rotateCount = 'number',
      })
 
 -------------------------------------
@@ -12,7 +13,8 @@ SkillLeap = class(PARENT, {
 -- @param file_name
 -- @param body
 -------------------------------------
-function SkillLeap:init(file_name, body, ...)    
+function SkillLeap:init(file_name, body, ...)
+    self.m_rotateCount = 2
 end
 
 -------------------------------------
@@ -88,7 +90,7 @@ function SkillLeap.st_move(owner, dt)
         -- 2바퀴 돌면서 점프하는 액션
         local target_pos = cc.p(owner.m_targetPos.x, owner.m_targetPos.y)
         local action = cc.JumpTo:create(0.5, target_pos, 250, 1)
-		local action2 = cc.RotateTo:create(0.5, 720)
+		local action2 = cc.RotateTo:create(0.5, 360 * owner.m_rotateCount)
 
 		-- state chnage 함수 콜
 		local cbFunc = cc.CallFunc:create(function() owner:changeState('attack') end)

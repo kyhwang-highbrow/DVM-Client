@@ -87,14 +87,45 @@ end
 -- function setStartDate
 -------------------------------------
 function StructProduct:setStartDate(date)
-    self.m_startDate = tonumber(date)
+    self.m_startDate = (date ~= '') and date or nil
 end
 
 -------------------------------------
 -- function setEndDate
 -------------------------------------
 function StructProduct:setEndDate(date)
-    self.m_endDate = tonumber(date)
+    self.m_endDate = (date ~= '') and date or nil
+end
+
+-------------------------------------
+-- function getEndDateStr
+-------------------------------------
+function StructProduct:getEndDateStr()
+    if (not self.m_endDate) then
+        return ''
+    end
+
+    if (type(self.m_endDate) ~= 'string') then
+        return ''
+    end
+
+    local date_format = 'yyyy-mm-dd HH:MM:SS'
+    local parser = pl.Date.Format(date_format)
+    if (not parser) then
+        return ''
+    end
+
+    local end_date = parser:parse(self.m_endDate)
+    if (not end_date) then
+        return ''
+    end
+
+    local cur_time =  Timer:getServerTime()
+    local end_time = end_date['time']
+    local time = (end_time - cur_time)
+    local msg = Str('판매 종료까지 {1} 남음', datetime.makeTimeDesc(time, true))
+
+    return msg
 end
 
 -------------------------------------
@@ -197,6 +228,11 @@ end
 -- function getDesc
 -------------------------------------
 function StructProduct:getDesc()
+
+    -- 고대주화 관련 상품 내용을 출력하지 않음
+    if (self['price_type'] == 'ancient') then
+        return ''
+    end
 
     -- 테이블에 blank라고 입력되면 내용을 출력하지 않음
     if (self['t_desc'] == 'blank') then
@@ -367,9 +403,22 @@ function StructProduct:buy(cb_func)
 
 	local function ok_cb()
         local function finish_cb(ret)
-            if (cb_func) then
-				cb_func(ret)
-			end
+
+            -- 상품 리스트 갱신이 필요할 경우
+            if (g_shopDataNew.m_bDirty == true) then
+                ret['need_refresh'] = true
+                local function info_refresh_cb()
+                    if (cb_func) then
+				        cb_func(ret)
+			        end
+                end
+                g_shopDataNew:request_shopInfo(info_refresh_cb)
+            else
+                ret['need_refresh'] = false
+                if (cb_func) then
+				    cb_func(ret)
+			    end
+            end
         end
 
         -- 마켓에서 구매하는 상품
@@ -384,7 +433,9 @@ function StructProduct:buy(cb_func)
         end
 	end
 
-    local msg = Str('{@item_name}"{1}"\n{@default}구매하시겠습니까?', self['t_name'])
+    -- 아이템 이름 두줄인 경우 한줄로 변경
+    local name = string.gsub(self['t_name'], '\n', '')
+    local msg = Str('{@item_name}"{1}"\n{@default}구매하시겠습니까?', name)
 
     local price = self:getPrice()
     local ui = MakeSimplePopup_Confirm(self['price_type'], price, msg, ok_cb, nil)
@@ -875,4 +926,11 @@ function StructProduct:getPrice()
     end
     
     return self['price']
+end
+
+-------------------------------------
+-- function getProductID
+-------------------------------------
+function StructProduct:getProductID()
+    return self['product_id']
 end

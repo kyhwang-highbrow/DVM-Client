@@ -57,14 +57,14 @@ function UIHelper:makeItemStr(t_item)
 	local item_name = TableItem:getItemName(item_id)
 	local item_cnt = t_item['count']
 	if (item_cnt) and (item_cnt > 0) then
-		return Str('{@item_name}{1} {@count}{2}{@DESC}개를 획득하였습니다.', item_name, item_cnt)
+		return Str('{@count}{1} {2}개{@DESC}를 획득하였습니다.', item_name, item_cnt)
 	else
 		return Str('{@item_name}{1}{@DESC}(을)를 획득하였습니다.', item_name)
 	end
 end
 
 -------------------------------------
--- function makeItemStr
+-- function makeGoodbyeStr
 -------------------------------------
 function UIHelper:makeGoodbyeStr(t_item, dragon_name)
 	local item_id = t_item['item_id']
@@ -195,6 +195,14 @@ function UIHelper:checkPrice(price_type, price)
         local fp = g_userData:get('fp')
         if (fp < price) then
             MakeSimplePopup(POPUP_TYPE.OK, Str('우정포인트가 부족합니다.'))
+            return false
+        end
+
+    -- 고대주화 확인
+    elseif (price_type == 'ancient') then
+        local ancient = g_userData:get('ancient')
+        if (ancient < price) then
+            MakeSimplePopup(POPUP_TYPE.OK, Str('고대주화가 부족합니다.'))
             return false
         end
 

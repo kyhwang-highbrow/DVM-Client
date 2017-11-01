@@ -1,100 +1,183 @@
---MARK: 지원언어 목록 셋업 부분, 주석처리
---if PatiFriends.line then
---    t_language = {'en', 'jp', 'tw'}
---else
-    t_language = {'kr', 'cn'}
---end
-
-local CustomFontNameTable = {
---    kr = 'NanumBarunGothic';
+-------------------------------------
+-- table Translate
+-------------------------------------
+Translate = {
+    m_mLangMap = nil,
+    m_stdLang = nil,
+    m_deviceLang = nil,
+    m_gameLang = nil,
 }
 
-Translate = {}
+-- cocos 에서 넘어오는 language idx와 일치시킴
+local LANG = {
+    ['ENGLISH'] = 0,
+    ['KOREAN'] = 8,
+    ['JAPANESE'] = 9
+}
 
--- 1. os에 설정된 언어 설정을 가져오고
--- 2. 해당 언어가 지원언어목록에 있다면 해당 언어를 사용하고
--- 3. 목록에 없다면 지원언어목록 제일 앞에 있는 언어를 사용한다.
+-- 지원 언어 목록
+local L_LANG_TYPE = 
+{
+    [LANG.ENGLISH] = 'en',
+    [LANG.KOREAN] = 'kr'
+}
+
+-------------------------------------
+-- function init
+-------------------------------------
 function Translate:init()
-    self.phoneLang = 'kr'
-    self.gameLang = nil
-    --if CCApplication.getPatiLanguageCode then
-    --    self.phoneLang = CCApplication:getPatiLanguageCode()
-    --end
-    if table.find(t_language, self.phoneLang) then
-        self.gameLang = self.phoneLang
-    else
-        self.gameLang = t_language[1]
+    self.m_stdLang = 'kr'
+    self.m_gameLang = LocalData:getInstance():get('lang')
+
+    -- deviceLang은 사용 안함
+    local lang_idx = cc.Application:sharedApplication():getCurrentLanguage()
+    self.m_deviceLang = L_LANG_TYPE[lang_idx]
+
+    -- 저장된 언어가 없을 시 kr 로 박음
+    if (not self.m_gameLang) then
+        self.m_gameLang = 'kr'
+        g_localData:applyLocalData('kr', 'lang')
     end
-    --TODO: ios는 ttf가 붙지 않는다..
-    self.customFontName = CustomFontNameTable[self.gameLang] or ''
-    --if (not AppDelegate.getMarketName() == 'APPL') and #self.customFontName > 0 then
-    --    self.customFontName = self.customFontName .. '.ttf'
-    --end
 end
 
-Translate:init()
+-------------------------------------
+-- function load
+-------------------------------------
+function Translate:load(lang)
 
-local keyLang = 'kr'
-local function loadTranslate(disposable)
-    --[[
-    local gameLang = Translate.gameLang
-    if gameLang == keyLang then
-        return nil
+    self.m_mLangMap = nil
+    if (lang == self.m_stdLang) then
+        return
     end
 
-    local gzio = require 'gzio'
-
-    local t1 = os.clock()
-    local keyFileName = 'translate/' .. keyLang .. 'langs' .. (disposable and '_disposable' or '')
-    local curFileName = 'translate/' .. gameLang .. 'langs' .. (disposable and '_disposable' or '')
-
-    local fKey = FileUtil.load(keyFileName)
-    local fCur = FileUtil.load(curFileName)
-    
-    if fKey == nil or fCur == nil then
-        return nil
+    -- 한국어가 아니라면 m_mLangMap 호출
+    if (lang == 'en') then
+        self.m_mLangMap = require 'translate/lang_en'
+    elseif (lang == 'jp') then
+        self.m_mLangMap = require 'translate/lang_jp'
     end
-
-    local t2 = os.clock()
-    
-    local strTable_key = seperate(fKey, '\n')
-    local strTable_cur = seperate(fCur, '\n')
-    local map = {}
-    for i, key in ipairs(strTable_key) do
-        key = string.gsub(key, '\\n', '\n')
-        key = string.gsub(key, '\\"', '\"')
-        map[key] = string.gsub(strTable_cur[i], '\\n', '\n')
-        map[key] = string.gsub(map[key], '\\"', '\"')
-    end
-    
-    local t3 = os.clock()
-    Log(string.format('%s parsing:%f convert:%f', 'translate', t2-t1, t3-t2))
-    return map
-    --]]
 end
 
---[[
--- strict 때문에 글로벌 함수의 존재 여부를 체크만 해도 lua error가 난다.
-if rawget(_G, 'UnzipFilesFromResource') then
-    local unzippedCount = UnzipFilesFromResource('translate/', true)
-    Log('unzippedCount ' .. tostring(unzippedCount))
+-------------------------------------
+-- function makeUsable
+-- @brief LuaUtility.lua - util.encodeString() 함수의 역
+-------------------------------------
+function Translate:makeUsable(id)
+    id = id:gsub('\\n', '\n')
+    id = id:gsub('\\t', '\t')
+    id = id:gsub("\'", "'")
+    id = id:gsub('\"', '"')
+    return id
 end
 
-Translate.map = loadTranslate(false)
-Translate.disposable = loadTranslate(true)
---]]
-
+-------------------------------------
+-- function get
+-------------------------------------
 function Translate:get(id)
-    local id = string.gsub(id, '\\n', '\n')
-    if self.map and self.map[id] then
-        return self.map[id]
-    end
-    if self.disposable and self.disposable[id] then
-        return self.disposable[id]
+    id = self:makeUsable(id)
+    if self.m_mLangMap and self.m_mLangMap[id] then
+        return self.m_mLangMap[id]
     end
     return id
 end
 
-function Translate:dispose()
-    self.disposable = nil
+-------------------------------------
+-- function getDeviceLang
+-------------------------------------
+function Translate:getDeviceLang()
+    return self.m_deviceLang
+end
+
+-------------------------------------
+-- function getGameLang
+-------------------------------------
+function Translate:getGameLang()
+    return self.m_gameLang
+end
+
+-------------------------------------
+-- function getStdLang
+-------------------------------------
+function Translate:getStdLang()
+    return self.m_stdLang
+end
+
+-------------------------------------
+-- function isNeedTranslate
+-------------------------------------
+function Translate:isNeedTranslate()
+    return (self.m_gameLang ~= self.m_stdLang)
+end
+
+-------------------------------------
+-- function getFileNameInfo
+-- @brief 파일의 경로를 받아, 경로, 파일명, 확장자를 리턴
+-- @return directory
+-- @return file_name
+-- @return extension
+-------------------------------------
+function Translate:getFileNameInfo(path)
+    return string.match(path, "(.-)([^//]-)(%.[^%.]+)$")
+end
+
+-------------------------------------
+-- function a2dTranslate
+-- @brief a2d파일의 png(plist)파일을 해당하는 국가의 plist로 로드
+-------------------------------------
+function Translate:a2dTranslate(full_path)
+    local game_lang = self.m_gameLang
+    
+    -- 예외 처리
+    if (not game_lang) then
+        return
+    end
+    if (not full_path) then
+        return
+    end
+
+    local path, file_name, extension = self:getFileNameInfo(full_path)
+    local typo_plist_path = string.format('res/%stypo/%s/%s.plist', path, game_lang, file_name)
+
+    -- 번역본 텍스트가 없을 경우 kr버전으로 나오도록 처리
+    if (not LuaBridge:isFileExist(typo_plist_path)) then
+        typo_plist_path = string.format('res/%stypo/kr/%s.plist', path, file_name)
+        if (not LuaBridge:isFileExist(typo_plist_path)) then
+            return
+        end
+    end
+
+    -- plist 등록
+    cc.SpriteFrameCache:getInstance():addSpriteFrames(typo_plist_path)
+end
+
+-------------------------------------
+-- function getTranslatedPath
+-------------------------------------
+function Translate:getTranslatedPath(full_path)
+    -- 번역이 필요한 언어 사용중인지 체크
+	if (not Translate:isNeedTranslate()) then
+		return full_path
+	end
+
+    -- 쓰레기 값은 버림
+	if (not full_path) or (full_path == '') then
+		return full_path
+	end
+
+	-- typo경로의 파일인지 확인
+	if (not string.find(full_path, 'typo/')) then
+		return full_path
+	end
+
+    -- 대상 언어의 경로로 변환
+	local game_lang = Translate:getGameLang()
+	local translated_path = string.gsub(full_path, 'typo/kr', 'typo/' .. game_lang)
+
+    -- 해당 경로에 파일이 없다면 기존 경로를 반환
+	if (not LuaBridge:isFileExist('res/' .. translated_path)) then
+        cclog('do not exist translated png : ' .. full_path)
+		return full_path
+	end
+    
+	return translated_path
 end

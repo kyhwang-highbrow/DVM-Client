@@ -394,7 +394,6 @@ function PerpleScene:makeWatermark()
 
         -- 폰트 지정
         local font = 'res/font/common_font_01.ttf'
-        --font = Translate:getFontPath()
 
         -- 위치 지정
         local visibleSize = cc.Director:getInstance():getVisibleSize()

@@ -345,7 +345,7 @@ function UI_TitleScene:workLoading()
             local count = 0
             for k,v in pairs(t_tale_info) do
                 count = (count + 1)
-                --self.m_loadingUI:showLoading(Str('로딩 중... (' .. count .. '/' .. max_count .. ')'), false)
+                -- self.m_loadingUI:showLoading(Str('로딩 중...') .. string.format(' %d/%d', count, max_count), false)
                 co:yield()
 
                 TABLE:loadCSVTable(v[1], k, v[2], v[3])
@@ -367,9 +367,6 @@ function UI_TitleScene:workLoading()
         TimeLib:initInstance()
         co:yield()
 
-        LocalData:getInstance()
-        co:yield()
-        
         ServerData:getInstance()
         co:yield()
 
@@ -790,6 +787,17 @@ function UI_TitleScene:workGetServerInfo()
         end
         if co:waitWork() then return end
 
+        -- 레벨업 패키지
+        co:work()
+        self.m_loadingUI:showLoading(Str('가방을 챙기는 중...'))
+        local ui_network = g_levelUpPackageData:request_lvuppackInfo(co.NEXT, fail_cb)
+        if ui_network then
+            ui_network:setRevocable(false)
+            ui_network:setFailCB(fail_cb)
+            ui_network:hideLoading()
+        end
+        if co:waitWork() then return end
+
         do -- 콜로세움 덱 정보 받기 (추후 통합 API 제작할 것!) sgkim
             co:work()
             self.m_loadingUI:showLoading(Str('간식을 챙기는 중...'))
@@ -850,7 +858,7 @@ function UI_TitleScene:workBillingSetup()
 
     local l_payload = {}
     local function call_back(ret, info)
-        cclog('# UI_TitleScene:workBillingSetup() result : ' .. ret)
+        cclog('# UI_TitleScene:workBillingSetup() result : ' .. tostring(ret))
         if (ret == 'purchase') then
             cclog('#### billingSetup success - info : ')
             ccdump(info)
@@ -891,7 +899,7 @@ function UI_TitleScene:workBillingSetup()
         elseif (ret == 'error') then
             cclog('#### billingSetup failed - info : ')
             ccdump(info)
-            local info_json = dkjson.decode(info)
+            --local info_json = dkjson.decode(info)
 
             -- 결제 시스템 초기화에 실패하더라도 게임 진입을 허용
             local function finish_cb()

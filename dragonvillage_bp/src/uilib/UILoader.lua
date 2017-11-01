@@ -546,15 +546,11 @@ local function loadNode(ui, data, vars, parent, keep_z_order, use_sprite_frames)
     elseif type == 'Visual' then
         local res_name = string.sub(data.file_name, 1, string.len(data.file_name) - 4)
 
-        -- loadPlistFiles함수에서 자동으로 load되기때문에 주석처리 sgkim 2017-06-08
-        --local plist_name = res_name .. '.plist' --string.gsub (data.file_name, ".a2d", ".plist")
-        --cc.SpriteFrameCache:getInstance():addSpriteFrames(uiRoot .. plist_name)
-
         -- 번역 이미지 체크
-        UILoader.checkTranslate_a2d(data)
+        -- UILoader.addTranslatedTypoPlist(data)
 
-        -- vrp로 생성을 시도하고 없다면 a2d로 생성한다.
-        local vrp_name = res_name .. '.vrp'--string.gsub (data.file_name, ".a2d", ".vrp")
+        -- vrp 생성
+        local vrp_name = res_name .. '.vrp'
         node = cc.AzVRP:create(uiRoot .. vrp_name)
         if not node then
             node = cc.AzVisual:create(uiRoot .. data.file_name)
@@ -630,80 +626,46 @@ local function loadNode(ui, data, vars, parent, keep_z_order, use_sprite_frames)
 end
 
 -------------------------------------
--- function checkTranslate_a2d
--- @brief a2d 번역
--------------------------------------
-function UILoader.checkTranslate_a2d(data)
-    if data.file_name == 'a2d/ui_title_logo/ui_title_logo.a2d' or
-        data.file_name == 'a2d/ui_auto_button/ui_auto_button.a2d' or
-        data.file_name == 'a2d/ui_arena_fx/ui_arena_fx.a2d' or
-        data.file_name == 'a2d/ui_common_result/ui_common_result.a2d' or
-        data.file_name == 'a2d/ui_common_result_gacha/ui_common_result_gacha.a2d' or
-        data.file_name == 'a2d/ui_popup_challenge_popup_fx/ui_popup_challenge_popup_fx.a2d' or
-        data.file_name == 'a2d/ui_raid_appear/ui_raid_appear.a2d'
-        then
-
-
-        Translate:a2dTranslate(uiRoot .. data.file_name)
-    end
-end
-
--------------------------------------
 -- function checkTranslate
 -- @brief png 번역
+-- @comment png를 사용하는 UI객체
+--      Sprite
+--      Scale9Sprite
+--      Button
+--      EditBox
+--      ProgressTimer
 -------------------------------------
 function UILoader.checkTranslate(data)
-    -- png를 사용하는 UI객체
-    -- Sprite
-    -- Scale9Sprite
-    -- Button
-    -- EditBox
-    -- ProgressTimer
-
-    -- 설정된 언어가 없거나, keyLang과 같을 경우 skip
-    if (not Translate.gameLang) or (Translate.gameLang == Translate.keyLang) then
+    -- 번역이 필요한 경우에만 동작
+    if (not Translate:isNeedTranslate()) then
         return
     end
 
     -- png를 사용하는 data를 확인
-    data.file_name      = UILoader.checkTranslateUnit(data.file_name)
-    data.normal_bg      = UILoader.checkTranslateUnit(data.normal_bg)
-    data.pressed_bg     = UILoader.checkTranslateUnit(data.pressed_bg)
-    data.selected       = UILoader.checkTranslateUnit(data.selected)
-    data.disabled_bg    = UILoader.checkTranslateUnit(data.disabled_bg)
-    data.normal         = UILoader.checkTranslateUnit(data.normal)
+    data.file_name      = Translate:getTranslatedPath(data.file_name)
+    data.normal_bg      = Translate:getTranslatedPath(data.normal_bg)
+    data.pressed_bg     = Translate:getTranslatedPath(data.pressed_bg)
+    data.selected       = Translate:getTranslatedPath(data.selected)
+    data.disabled_bg    = Translate:getTranslatedPath(data.disabled_bg)
+    data.normal         = Translate:getTranslatedPath(data.normal)
 end
 
-function UILoader.checkTranslateUnit(str)
-    if Translate.gameLang == 'kr' then
-        return str
+-------------------------------------
+-- function addTranslatedTypoPlist
+-- @brief a2d를 불러올 때 해당 a2d 하위의 typo 폴더를 탐색하여 spriteFrame에 추가한다.
+-------------------------------------
+function UILoader.addTranslatedTypoPlist(data)
+    if (not data) then
+        return
     end
 
-    if not str then
-        return str
-    end
-
-    if str == '' then
-        return str
-    end
-
-    -- typo경로의 파일인지 확인
-    local sub_str = string.sub(str, 1, 14)
-    if (sub_str ~= 'ui/typo/kr') then
-        return str
-    end
-
-    -- TODO 실제 번역작업을 할때에는 에러를 발생시킬 것!
-    -- "typo"폴더를 언어별 "typo_해당언어"폴더로 경로 변경
-    local game_lang = Translate.gameLang
-    local translate_str = string.gsub(str, 'ui/typo/kr', 'ui/typo/' .. game_lang, 1)
-    if (not cc.FileUtils:getInstance():isFileExist(uiRoot .. translate_str)) then
-        return str
-    end
-
-    return translate_str
+    local full_path = data.file_name
+    Translate:a2dTranslate(full_path)
 end
 
+-------------------------------------
+-- function load
+-------------------------------------
 function UILoader.load(ui, url, keep_z_order, use_sprite_frames)
 	if (not CHECK_UI_LOAD_TIME) then
 		local data = getUIFile(url)
@@ -736,12 +698,18 @@ function UILoader.load(ui, url, keep_z_order, use_sprite_frames)
 	return root, vars
 end
 
+-------------------------------------
+-- function setPermanent
+-------------------------------------
 function UILoader.setPermanent(url)
     if UILoaderFileCache[url] then
 		UILoaderFileCache[url]['permanent'] = true
 	end
 end
 
+-------------------------------------
+-- function cache
+-------------------------------------
 function UILoader.cache(url)
     if not UILoaderFileCache[url] then
         local content = cc.FileUtils:getInstance():getStringFromFile(uiRoot .. url)
@@ -750,6 +718,9 @@ function UILoader.cache(url)
     end
 end
 
+-------------------------------------
+-- function clearCache
+-------------------------------------
 function UILoader.clearCache()
 	for url, ui in pairs(UILoaderFileCache) do
 		if ui['permanent'] == true then

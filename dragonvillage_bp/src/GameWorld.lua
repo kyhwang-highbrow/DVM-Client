@@ -1114,6 +1114,7 @@ function GameWorld:getTargetList(char, x, y, team_type, formation_type, rule_typ
 
     if (char) then
         bLeftFormation = char.m_bLeftFormation
+        t_data['self'] = char
     end
     
     -- 팀 타입에 따른 델리게이트
@@ -1121,15 +1122,13 @@ function GameWorld:getTargetList(char, x, y, team_type, formation_type, rule_typ
 	
 	-- @TODO 임시 처리
     if (team_type == 'self') then
-		t_data['self'] = char
-        if (bLeftFormation) then
+		if (bLeftFormation) then
             for_mgr_delegate = FormationMgrDelegate(self.m_leftFormationMgr)
         else
             for_mgr_delegate = FormationMgrDelegate(self.m_rightFormationMgr)
         end
 
     elseif (team_type == 'teammate') then
-        t_data['self'] = char
         if (bLeftFormation) then
             for_mgr_delegate = FormationMgrDelegate(self.m_leftFormationMgr)
         else

@@ -180,7 +180,7 @@ function UI_GameDebug:makeTableView()
 
 	do -- 웨이브 클리어 
         local item = {}
-		item['str'] = Str('웨이브 클리어')
+		item['str'] = '웨이브 클리어'
         item['cb1'] = function()
 			self.m_world:removeAllEnemy()
         end
@@ -189,7 +189,7 @@ function UI_GameDebug:makeTableView()
 
 	do -- 스테이지 성공
         local item = {}
-		item['str'] = Str('스테이지 성공')
+		item['str'] = '스테이지 성공'
         item['cb1'] = function()
 			self.m_world.m_gameState:changeState(GAME_STATE_SUCCESS)
         end
@@ -198,7 +198,7 @@ function UI_GameDebug:makeTableView()
 
 	do -- 체력 표시 
         local item = {}
-		item['str'] = Str('체력 표시')
+		item['str'] = '체력 표시'
         item['cb1'] = function()
 			local set_data = not g_constant:get('DEBUG', 'DISPLAY_UNIT_HP')
 			g_constant:set(set_data, 'DEBUG', 'DISPLAY_UNIT_HP')
@@ -208,7 +208,7 @@ function UI_GameDebug:makeTableView()
 	
 	do -- 실드 표시 
         local item = {}
-		item['str'] = Str('실드 표시')
+		item['str'] = '실드 표시'
         item['cb1'] = function()
 			local set_data = not g_constant:get('DEBUG', 'DISPLAY_SHIELD_HP')
 			g_constant:set(set_data, 'DEBUG', 'DISPLAY_SHIELD_HP')
@@ -244,9 +244,9 @@ function UI_GameDebug:makeTableView()
                 local cb = function(debug_on)
                     if item['label'] then
                         if debug_on then
-                            item['label']:setString(Str('피격박스 ON'))
+                            item['label']:setString('피격박스 ON')
                         else
-                            item['label']:setString(Str('피격박스 OFF'))
+                            item['label']:setString('피격박스 OFF')
                         end
                     end
                 end
@@ -262,9 +262,9 @@ function UI_GameDebug:makeTableView()
         local item = {}
         item['cb1'] = UI_GameDebug.fpsButton
         if cc.Director:getInstance():isDisplayStats() then
-            item['str'] = Str('FPS ON')
+            item['str'] = 'FPS ON'
         else
-            item['str'] = Str('FPS OFF')
+            item['str'] = 'FPS OFF'
         end
 
         table.insert(item_info, item)
@@ -274,9 +274,9 @@ function UI_GameDebug:makeTableView()
         local item = {}
         item['cb1'] = UI_GameDebug.realtimeDebugButton
 		if g_constant:get('DEBUG', 'DISPLAY_DEBUG_INFO') then
-            item['str'] = Str('Memory ON')
+            item['str'] = 'Memory ON'
         else
-            item['str'] = Str('Memory OFF')
+            item['str'] = 'Memory OFF'
         end
 
         table.insert(item_info, item)
@@ -286,12 +286,11 @@ function UI_GameDebug:makeTableView()
         local item = {}
         item['cb1'] = UI_GameDebug.worldScaleButton
         item['cb2'] = UI_GameDebug.worldScaleButton
-        --item['str'] = Str('월드 크기 X 1')
 
         item['cb'] = function()
             local cb = function(scale)
                 if item['label'] then
-                    item['label']:setString(Str('월드 크기 X ' .. tostring(scale)))
+                    item['label']:setString('월드 크기 X ' .. tostring(scale))
                 end
             end
 
@@ -350,7 +349,6 @@ function UI_GameDebug.worldScaleButton(self, item, idx)
     local world = self.m_world
     local scale = world.m_worldScale + add_scale
     world:changeWorldScale(scale)
-    --item['label']:setString(Str('월드 크기 X ' .. tostring(scale)))
 end
 
 
@@ -466,9 +464,9 @@ function UI_GameDebug.fpsButton(self, item, idx)
     cc.Director:getInstance():setDisplayStats(not cc.Director:getInstance():isDisplayStats())
 
     if cc.Director:getInstance():isDisplayStats() then
-        item['label']:setString(Str('FPS ON'))
+        item['label']:setString('FPS ON')
     else
-        item['label']:setString(Str('FPS OFF'))
+        item['label']:setString('FPS OFF')
     end
 end
 
@@ -484,9 +482,9 @@ function UI_GameDebug.realtimeDebugButton(self, item, idx)
 	end
 
 	if g_constant:get('DEBUG', 'DISPLAY_DEBUG_INFO') then
-        item['label']:setString(Str('Memory ON'))
+        item['label']:setString('Memory ON')
     else
-        item['label']:setString(Str('Memory OFF'))
+        item['label']:setString('Memory OFF')
     end
 end
 

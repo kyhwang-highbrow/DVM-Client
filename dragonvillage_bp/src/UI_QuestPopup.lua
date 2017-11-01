@@ -134,16 +134,18 @@ function UI_QuestPopup:makeQuestTableView(tab, node)
         table_view:setItemList(l_quest)
 
         table_view:insertSortInfo('sort', function(a, b)
-            if (a['data']:isEnd() and not b['data']:isEnd()) then
+            local a_data = a['data']
+            local b_data = b['data']
+            if (a_data:isEnd() and not b_data:isEnd()) then
                 return false
-            elseif (not a['data']:isEnd() and b['data']:isEnd()) then
+            elseif (not a_data:isEnd() and b_data:isEnd()) then
                 return true
-            elseif (a['data']:hasReward() and not b['data']:hasReward()) then
+            elseif (a_data:hasReward() and not b_data:hasReward()) then
                 return true
-            elseif (not a['data']:hasReward() and b['data']:hasReward()) then
+            elseif (not a_data:hasReward() and b_data:hasReward()) then
                 return false
             else
-                return a['data']['qid'] < b['data']['qid']
+                return (a_data:getQid() < b_data:getQid())
             end
         end)
 

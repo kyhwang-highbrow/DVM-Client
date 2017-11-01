@@ -333,20 +333,20 @@ end
 -- @brief 유저 상세 정보의 텍스트
 -------------------------------------
 local T_TITLE = {
-	clr_stage_cnt = '클리어한 스테이지 수',
-    play_cnt = '게임 플레이 횟수',
-    clogin_max = '최대 연속 접속일',
-    pvp_win = '콜로세움 누적 승률',
-    tier = '현재 콜로세움 Tier',
-    pvp_cnt = '콜로세움 누적 플레이 횟수',
-    adv_time = '총 탐험 시간',
-    d_6g_cnt = '6등급 드래곤의 수',
-    d_cnt = '만난 드래곤 수',
-    d_maxlv_cnt = 'Max 레벨 달성한 드래곤의 수',
-    d_have_cnt = '현재 보유한 드래곤 수',
-    created_at = '최초 접속일',
-    ancient_score = '고대의 탑 최대 점수 총 합',
-    login_days = '누적 접속일',
+	clr_stage_cnt = Str('클리어한 스테이지 수'),
+    play_cnt = Str('게임 플레이 횟수'),
+    clogin_max = Str('최대 연속 접속일'),
+    pvp_win = Str('콜로세움 누적 승률'),
+    tier = Str('현재 콜로세움 Tier'),
+    pvp_cnt = Str('콜로세움 누적 플레이 횟수'),
+    adv_time = Str('총 탐험 시간'),
+    d_6g_cnt = Str('6등급 드래곤의 수'),
+    d_cnt = Str('만난 드래곤 수'),
+    d_maxlv_cnt = Str('Max 레벨 달성한 드래곤의 수'),
+    d_have_cnt = Str('현재 보유한 드래곤 수'),
+    created_at = Str('최초 접속일'),
+    ancient_score = Str('고대의 탑 최대 점수 총 합'),
+    login_days = Str('누적 접속일'),
 	enter = '',
 }
 function getUserInfoTitle(key)
@@ -356,15 +356,16 @@ function getUserInfoTitle(key)
 end
 
 -------------------------------------
--- function FixTypingError
--- @brief 오탈자 수정
+-- function addToTranslation
+-- @breif 번역 수집 되도록 동작하지 않는 함수에 묶어 저장
 -------------------------------------
-local T_FIX_TYPING_ERROR = {}
-T_FIX_TYPING_ERROR['exploation'] = 'exploration'
-function FixTypingError(str)
-    if T_FIX_TYPING_ERROR[str] then
-        return T_FIX_TYPING_ERROR[str]
-    else
-        return str
-    end
+function GetLoadingStrList()
+    return {
+        Str('드래곤들 멱을 감는 중...'),
+        Str('테이머 장비를 조이는 중...'),
+        Str('드래곤들 발톱을 닦아주는 중...'),
+        Str('떠날 곳 지도를 확인하는 중...'),
+        Str('간식 거리를 챙기는 중...'),
+        Str('드래곤들 날개를 닦아주는 중...'),
+    }
 end

@@ -43,7 +43,7 @@ function StructEventPopupTab:getTabButtonName()
         name = Str('이벤트 출석')
 
     else
-        name = self.m_eventData['t_name']
+        name = Str(self.m_eventData['t_name'])
     end
 
     return name

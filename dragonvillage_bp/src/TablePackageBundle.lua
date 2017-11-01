@@ -78,8 +78,8 @@ function TablePackageBundle:getPidsWithName(package_name)
 
     for _, v in pairs(self.m_orgTable) do
         if (v['t_name'] == package_name) then
-            local t_pids = v['t_pids']
-            local l_str = seperate(t_pids, ',')
+            local t_pids = tostring(v['t_pids'])
+            local l_str = pl.stringx.split(t_pids, ',')
             return l_str
         end
     end

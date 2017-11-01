@@ -50,7 +50,7 @@ end
 -- @brief 새 밸런스 적용 버전 여부를 리턴
 -------------------------------------
 function IS_NEW_BALANCE_VERSION()
-    return true
+    return false
 end
 
 -------------------------------------

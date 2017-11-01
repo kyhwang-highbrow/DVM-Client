@@ -12,6 +12,7 @@ ITEM_ID_CASH = 700001
 ITEM_ID_GOLD = 700002
 ITEM_ID_AMET = 700007
 ITEM_ID_ST = 700101
+ITEM_ID_EVENT = 700202
 
 -------------------------------------
 -- function init
@@ -33,6 +34,7 @@ ITEM_ID_MAP['mileage'] = 700008
 ITEM_ID_MAP['topaz'] = 700009
 ITEM_ID_MAP['capsule'] = 700201
 ITEM_ID_MAP['event'] = 700202
+ITEM_ID_MAP['ancient'] = 700010
 
 ITEM_ID_MAP['stamina'] = 700101
 ITEM_ID_MAP['staminas_st'] = 700101
@@ -105,19 +107,6 @@ function TableItem:getRegionList(item_id)
     local l_region = self:getSemicolonSeparatedValues(item_id, 'get_region', trim_execution)
 
     return l_region
-end
-
--------------------------------------
--- function getItemName
--- @brief
--------------------------------------
-function TableItem:getItemName(item_id)
-    if (self == THIS) then
-        self = THIS()
-    end
-
-    local item_name = self:getValue(item_id, 't_name')
-    return Str(item_name)
 end
 
 -------------------------------------
@@ -208,6 +197,31 @@ function TableItem:getItemType(item_id)
     end
 
     return self:getValue(item_id, 'type')
+end
+
+-------------------------------------
+-- function getItemIcon
+-- @brief
+-------------------------------------
+function TableItem:getItemIcon(item_id)
+    if (self == THIS) then
+        self = THIS()
+    end
+
+    return self:getValue(item_id, 'icon')
+end
+
+-------------------------------------
+-- function getItemName
+-- @brief
+-------------------------------------
+function TableItem:getItemName(item_id)
+    if (self == THIS) then
+        self = THIS()
+    end
+
+    local item_name = self:getValue(item_id, 't_name')
+    return Str(item_name)
 end
 
 -------------------------------------

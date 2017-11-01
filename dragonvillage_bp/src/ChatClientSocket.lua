@@ -54,8 +54,9 @@ function ChatClientSocket:init(ip, port)
 
     local ip = (ip or 'dv-test.perplelab.com')
     local port = (port or '9013')
-
-    self.m_socket = SocketTCP(ip, port, true)
+    local retry_connect = false
+    
+    self.m_socket = SocketTCP(ip, port, retry_connect)
 
     local function dispatchEvent(socket, t)
         return self:dispatchEvent(socket, t)
@@ -97,6 +98,7 @@ function ChatClientSocket:dispatchEvent(_socket, t)
         return 0
 
     elseif (name == SocketTCP.EVENT_CLOSED) then
+        UIManager:toastNotificationRed(Str('채팅 서버와 연결이 끊어졌습니다.'))
         self:setStatus('Disconnected')
         return 0
 
@@ -336,8 +338,15 @@ function ChatClientSocket:close()
     self.m_socket:close()
 end
 
-
-
+-------------------------------------
+-- function checkRetryConnect
+-- @brief
+-------------------------------------
+function ChatClientSocket:checkRetryConnect()
+    if (self.m_socket.isConnected == false) then
+        self.m_socket:connect()
+    end
+end
 
 
 

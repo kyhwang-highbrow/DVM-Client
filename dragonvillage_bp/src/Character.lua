@@ -468,6 +468,9 @@ function Character:undergoAttack(attacker, defender, i_x, i_y, body_key, no_even
     -- 공격력 및 방어력 정보
     local org_atk_dmg = attack_activity_carrier:getAtkDmg(defender)
     local org_def_pwr = self:getStat('def')
+    local reflex_skill = self:getStat('reflex_skill')
+    local reflex_normal = self:getStat('reflex_normal')
+
     local damage = 0
 
     if (self.m_isProtected) then
@@ -711,6 +714,20 @@ function Character:undergoAttack(attacker, defender, i_x, i_y, body_key, no_even
                 local rate = math_max(se_dmg_adj_rate, -1)
                 damage_multifly = damage_multifly * (1 + rate)
             end
+
+            -- 피해 반사에 따른 받는 피해 감소
+            do
+                local rate = 0
+
+                if (attack_type == 'active') then 
+                    rate = -math_max(reflex_skill, 0) / 100
+                    
+                else
+                    rate = -math_max(reflex_normal, 0) / 100
+                end
+
+                damage_multifly = damage_multifly * (1 + rate)
+            end
         else
             -- 방어자 능력치
             dmg_adj_rate = self:getStat('dmg_adj_rate') / 100
@@ -835,12 +852,10 @@ function Character:undergoAttack(attacker, defender, i_x, i_y, body_key, no_even
             local reflex_damage
 
             if (attack_type == 'active') then 
-                local reflex_skill = self:getStat('reflex_skill')
                 if (reflex_skill > 0) then
                     reflex_damage = damage * (reflex_skill / 100)
                 end
             else
-                local reflex_normal = self:getStat('reflex_normal')
                 if (reflex_normal > 0) then
                     reflex_damage = damage * (reflex_normal / 100)
                 end
@@ -886,6 +901,7 @@ function Character:undergoAttack(attacker, defender, i_x, i_y, body_key, no_even
 		-- 크리로 피격
 		if (is_critical) then
 			self:dispatch('under_atk_cri', t_event)
+
             for k, v in pairs(self:getFellowList()) do
                 v:dispatch('ally_under_atk_cri', t_event)
                 if (v ~= self) then
@@ -942,8 +958,8 @@ function Character:undergoAttack(attacker, defender, i_x, i_y, body_key, no_even
 		-- 일반 공격시
         if (not no_event) then
 		    if (attack_type == 'basic') then
-                attacker_char:dispatch('hit_basic', t_event)
-			    attacker_char:dispatch('enemy_last_attack', t_event, self, attack_activity_carrier)
+                attacker_char:dispatch('hit_basic', t_event, self, attack_activity_carrier)
+			    attacker_char:dispatch('enemy_last_attack', t_event, self, attack_activity_carrier) -- 삭제 예정
                 self.m_world.m_logRecorder:recordLog('basic_attack_cnt', 1)
 
 		    -- 액티브 공격시
@@ -1181,7 +1197,6 @@ function Character:makeDamageFont(damage, x, y, tParam)
     end
     
     -- 색상 설정
-    --if (g_constant:get('DEBUG', 'ADD_DMG_YELLOW_FONT') and is_add_dmg) then
     if (is_add_dmg) then
 		    r, g, b = 225, 229, 0 -- 노랑
 
@@ -1197,7 +1212,7 @@ function Character:makeDamageFont(damage, x, y, tParam)
             -- 강타
             r, g, b = 235, 71, 42	-- 빨강
 
-        elseif (is_indicator_critical) then
+        elseif (is_indicator_critical and not IS_NEW_BALANCE_VERSION()) then
             -- 치명 회피
             r, g, b = 0, 190, 245 -- 하늘색
         
@@ -1231,7 +1246,7 @@ function Character:makeDamageFont(damage, x, y, tParam)
         option_sprite = self:createWithSpriteFrameName('ingame_damage_bash.png')
     elseif (is_miss) then
         option_sprite = self:createWithSpriteFrameName('ingame_damage_miss.png')
-    elseif (is_indicator_critical) then
+    elseif (is_indicator_critical and not IS_NEW_BALANCE_VERSION()) then
         option_sprite = self:createWithSpriteFrameName('ingame_damage_critical_dodge.png')
     end
 
@@ -1350,6 +1365,21 @@ end
 function Character:makeImmuneFont(x, y, scale)
 
     local sprite = self:createWithSpriteFrameName('ingame_damage_immunity.png')
+
+    scale = scale or 1
+
+    sprite:setPosition(x, y)
+    sprite:runAction(cc.Sequence:create(cc.ScaleTo:create(0.05, 1.5 * scale), cc.ScaleTo:create(0.1, 1 * scale), cc.DelayTime:create(1.2), cc.FadeOut:create(0.3), cc.RemoveSelf:create()))
+    sprite:runAction(cc.Sequence:create(cc.DelayTime:create(.5), cc.EaseIn:create(cc.MoveTo:create(1, cc.p(x, y + 170)), 1)))
+    self.m_world:addChild3(sprite, DEPTH_IMMUNE_FONT)
+end
+
+-------------------------------------
+-- function makeResistanceFont
+-------------------------------------
+function Character:makeResistanceFont(x, y, scale)
+
+    local sprite = self:createWithSpriteFrameName('ingame_resist.png')
 
     scale = scale or 1
 

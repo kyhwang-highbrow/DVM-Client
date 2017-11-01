@@ -13,7 +13,7 @@ UI_ErrorPopup_Live = class(PARENT, {
 -------------------------------------
 function UI_ErrorPopup_Live:init(str)
     self:load('popup_error_report.ui')
-    UIManager:open(self, UIManager.POPUP)
+    UIManager:open(self, UIManager.ERROR_POPUP)
 
     self.m_uiName = 'UI_ErrorPopup_Live'
 
@@ -62,5 +62,5 @@ function UI_ErrorPopup_Live:click_closeBtn()
     local function cb_func()
         CppFunctions:restart()
     end
-    MakeSimplePopup(POPUP_TYPE.OK, Str('앱을 재시작합니다.'), cb_func)
+    UI_SimplePopup(POPUP_TYPE.OK, Str('앱을 재시작합니다.'), cb_func, nil, UIManager.TOP_POPUP)
 end

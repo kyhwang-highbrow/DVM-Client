@@ -45,14 +45,14 @@ function ForestCharacter.st_move(self, dt)
         local function finich_cb()
             local struct_event = StructForestEvent()
             struct_event:setObject(self)
-            struct_event:setPosition(self.m_rootNode:getPosition())
+            struct_event:setPosition(self:getPosition())
             self:dispatch('forest_character_move', struct_event)
 
             self:onMoveEnd()
             self:changeState('idle')
         end
 
-        local cur_x, cur_y = self.m_rootNode:getPosition()
+        local cur_x, cur_y = self:getPosition()
         local tar_x, tar_y = self.m_moveX, self.m_moveY
         local distance = getDistance(cur_x, cur_y, tar_x, tar_y)
         local duration = (distance / self.m_moveSpeed)
@@ -74,7 +74,7 @@ function ForestCharacter.st_move(self, dt)
     -- 이벤트 구조체 생성
     local struct_event = StructForestEvent()
     struct_event:setObject(self)
-    struct_event:setPosition(self.m_rootNode:getPosition())
+    struct_event:setPosition(self:getPosition())
 
     -- 이동 이벤트 dispatch
     self:dispatch('forest_character_move', struct_event)
@@ -83,7 +83,7 @@ function ForestCharacter.st_move(self, dt)
     self:setForestZOrder()
 
     -- 움직임을 예쁘게 하려면?
-    self.m_moveSpeed = self.m_moveSpeed + (math_sin(dt) * 100)
+    --self.m_moveSpeed = self.m_moveSpeed + (math_sin(dt) * 100)
 
     return struct_event
 end

@@ -61,10 +61,8 @@ function UI_AncientTower:initParentVariable()
     self.m_uiName = 'UI_AncientTower'
     self.m_bUseExitBtn = true
     self.m_titleStr = Str('고대의 탑')
-
-    -- 입장권 타입 설정
     self.m_staminaType = 'tower'
-
+    self.m_subCurrency = 'ancient'
     self.m_uiBgm = 'bgm_lobby'
 end
 
@@ -214,9 +212,13 @@ end
 function UI_AncientTower:onChangeTab(tab, first)
     if (not first) then return end
 
+    local shop_btn = self.vars['shopBtn']
+
     -- 최초 탭 누를 경우에만 랭킹 정보 가져옴
     if (tab == UI_AncientTower.TAB_RANK) then
         self.m_rankInfo.m_typeRadioButton:setSelectedButton(UI_AncientTowerRank.RANKING)
+    else
+        shop_btn:setVisible(false)
     end
 end
 

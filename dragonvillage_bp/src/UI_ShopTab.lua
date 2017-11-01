@@ -50,23 +50,37 @@ end
 function UI_ShopTab:init_TableView()
     local list_table_node = self.m_ownerUI.vars['tableViewNode']
 
+    -- 재료로 사용 가능한 리스트를 얻어옴
+    local tab_name = self.m_tabName
+    local l_item_list = g_shopDataNew:getProductList(tab_name)
+
+    local scale = 1
+    local item_per_cell = 2
+    local interval = 15
+
+    -- 탭에서 상품 개수가 6개 이상이 되면 3줄로 노출
+    --if (6 < table.count(l_item_list)) then
+    --    scale = 0.7
+    --    item_per_cell = 3
+    --    interval = 0
+    --end
+
     -- 생성 콜백
 	local function create_cb_func(ui, data)
         ui:setBuyCB(self.m_cbBuy)
+        ui.root:setScale(scale)
 	end    
 
     -- 테이블 뷰 인스턴스 생성
     local table_view_td = UIC_TableViewTD(list_table_node)
-    table_view_td.m_cellSize = cc.size(300 + 15, 280 + 15)
+    table_view_td.m_cellSize = cc.size((300 + interval) * scale, (280 + interval) * scale)
     table_view_td:setCellUIClass(UI_Product, create_cb_func)
     table_view_td:setDirection(cc.SCROLLVIEW_DIRECTION_HORIZONTAL)
+    table_view_td.m_nItemPerCell = item_per_cell
  
     -- 리스트가 비었을 때
     table_view_td:makeDefaultEmptyDescLabel('')
 
-    -- 재료로 사용 가능한 리스트를 얻어옴
-    local tab_name = self.m_tabName
-    local l_item_list = g_shopDataNew:getProductList(tab_name)
     table_view_td:setItemList(l_item_list)
     self.m_tableView = table_view_td
 
