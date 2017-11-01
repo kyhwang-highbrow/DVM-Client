@@ -2835,9 +2835,6 @@
     <None Include="..\src\UI_Package_LevelUpListItem.lua">
       <Filter>lua\UI</Filter>
     </None>
-    <None Include="..\src\SkillGlaive.lua">
-      <Filter>lua\src</Filter>
-    </None>
     <None Include="..\src\UI_RuneDevApiPopup.lua">
       <Filter>lua\UI</Filter>
     </None>
