@@ -682,6 +682,12 @@ function Character:undergoAttack(attacker, defender, i_x, i_y, body_key, no_even
         if (is_critical) then
             local cri_dmg = attack_activity_carrier:getStat('cri_dmg') or 0
             cri_dmg_rate = cri_dmg / 100
+
+            -- 드래그 스킬 크리티컬 데미지
+            if (attack_type == 'active') then
+                local drag_cri_dmg_rate = attack_activity_carrier:getStat('drag_cri_dmg') or 0
+                cri_dmg_rate = cri_dmg_rate + drag_cri_dmg_rate / 100
+            end
         end
 
         if (IS_NEW_BALANCE_VERSION()) then
