@@ -468,6 +468,9 @@ function Character:undergoAttack(attacker, defender, i_x, i_y, body_key, no_even
     -- 공격력 및 방어력 정보
     local org_atk_dmg = attack_activity_carrier:getAtkDmg(defender)
     local org_def_pwr = self:getStat('def')
+    local reflex_skill = self:getStat('reflex_skill')
+    local reflex_normal = self:getStat('reflex_normal')
+
     local damage = 0
 
     if (self.m_isProtected) then
@@ -526,8 +529,15 @@ function Character:undergoAttack(attacker, defender, i_x, i_y, body_key, no_even
         end
         atk_dmg = atk_dmg + drag_dmg
 
-        -- 히트 수 적용(테이블에서는 hit수만큼 나눈 값으로 입력되었기 때문에 여기서 곱해줌)
-        atk_dmg = atk_dmg * attack_hit_count
+        -- 히트 수
+        if (IS_NEW_BALANCE_VERSION()) then
+            -- 공격력(스킬 계수)을 hit수만큼 나눔
+            atk_dmg = atk_dmg / attack_hit_count
+
+        else
+            -- 히트 수 적용(테이블에서는 hit수만큼 나눈 값으로 입력되었기 때문에 여기서 곱해줌)
+            atk_dmg = atk_dmg * attack_hit_count
+        end
 
         --------------------------------------------------------------
         -- 방어력 계산(def_pwr)
@@ -568,8 +578,11 @@ function Character:undergoAttack(attacker, defender, i_x, i_y, body_key, no_even
         -- 진형에 따른 데미지 배율 적용
         damage = damage * damage_rate_formation
         
-        -- 히트 수 적용
-        damage = damage / attack_hit_count
+        if (IS_NEW_BALANCE_VERSION()) then
+        else
+            -- 히트 수 적용
+            damage = damage / attack_hit_count
+        end
 
         -- @DEBUG
 	    if (use_debug_log) then
@@ -578,10 +591,13 @@ function Character:undergoAttack(attacker, defender, i_x, i_y, body_key, no_even
 	            cclog('공격자 : ' .. attacker_char:getName())
             end
 	        cclog('방어자 : ' .. defender:getName())
-	        if (attack_activity_carrier:getParam('add_dmg')) then
-                cclog('공격 타입 : ' .. attack_type .. '(add_dmg)')
-            else
-                cclog('공격 타입 : ' .. attack_type)
+
+            if (attack_type) then
+	            if (attack_activity_carrier:getParam('add_dmg')) then
+                    cclog('공격 타입 : ' .. attack_type .. '(add_dmg)')
+                else
+                    cclog('공격 타입 : ' .. attack_type)
+                end
             end
             cclog('히트 수 : ' .. attack_hit_count)
 
@@ -642,30 +658,47 @@ function Character:undergoAttack(attacker, defender, i_x, i_y, body_key, no_even
             local cri_dmg = attack_activity_carrier:getStat('cri_dmg') or 0
             cri_dmg_rate = cri_dmg / 100
         end
-        damage_multifly = damage_multifly + cri_dmg_rate
+
+        if (IS_NEW_BALANCE_VERSION()) then
+            local rate = math_max(cri_dmg_rate, -1)
+            damage_multifly = damage_multifly * (1 + rate)
+        else
+            damage_multifly = damage_multifly + cri_dmg_rate
+        end
 
         -- 속성 데미지
         local attr_dmg_rate = 0
         if (t_attr_effect['damage']) then
             attr_dmg_rate = (t_attr_effect['damage'] / 100)
         end
-        damage_multifly = damage_multifly + attr_dmg_rate
+
+        if (IS_NEW_BALANCE_VERSION()) then
+            local rate = math_max(attr_dmg_rate, -1)
+            damage_multifly = damage_multifly * (1 + rate)
+        else
+            damage_multifly = damage_multifly + attr_dmg_rate
+        end
 
         -- 피해량 비율
         local dmg_adj_rate = 0
-        do
+        local se_dmg_adj_rate = 0
+
+        if (IS_NEW_BALANCE_VERSION()) then
             -- 방어자 능력치
-            dmg_adj_rate = self:getStat('dmg_adj_rate') / 100
-        
+            do
+                dmg_adj_rate = self:getStat('dmg_adj_rate') / 100
+
+                local rate = math_max(dmg_adj_rate, -1)
+                damage_multifly = damage_multifly * (1 + rate)
+            end
+            
             -- 특정 조건에 따른 피해량 증감
             do
-                local additional_dmg_adj_rate = 0
-
                 -- (피격/공격)시 상대가 (특정 상태효과)를 가진 적이면 피해량 증가
                 for k, v in pairs(attacker_char:getStatusEffectList()) do
                     if (v.m_type == 'modify_dmg' and v.m_branch == 0) then
                         if(defender:isExistStatusEffectName(v.m_targetStatusEffectName, nil, true)) then
-                            additional_dmg_adj_rate = additional_dmg_adj_rate + v.m_totalValue
+                            se_dmg_adj_rate = se_dmg_adj_rate + v.m_totalValue
                         end
                     end
                 end
@@ -673,15 +706,56 @@ function Character:undergoAttack(attacker, defender, i_x, i_y, body_key, no_even
                 for k, v in pairs(defender:getStatusEffectList()) do
                     if (v.m_type == 'modify_dmg' and v.m_branch == 1) then
                         if(attacker_char:isExistStatusEffectName(v.m_targetStatusEffectName, nil, true)) then
-                            additional_dmg_adj_rate = additional_dmg_adj_rate - v.m_totalValue
+                            se_dmg_adj_rate = se_dmg_adj_rate - v.m_totalValue
                         end
                     end
                 end
 
-                dmg_adj_rate = dmg_adj_rate + (additional_dmg_adj_rate / 100)
+                local rate = math_max(se_dmg_adj_rate, -1)
+                damage_multifly = damage_multifly * (1 + rate)
             end
+
+            -- 피해 반사에 따른 받는 피해 감소
+            do
+                local rate = 0
+
+                if (attack_type == 'active') then 
+                    rate = -math_max(reflex_skill, 0) / 100
+                    
+                else
+                    rate = -math_max(reflex_normal, 0) / 100
+                end
+
+                damage_multifly = damage_multifly * (1 + rate)
+            end
+        else
+            -- 방어자 능력치
+            dmg_adj_rate = self:getStat('dmg_adj_rate') / 100
+        
+            -- 특정 조건에 따른 피해량 증감
+            do
+                -- (피격/공격)시 상대가 (특정 상태효과)를 가진 적이면 피해량 증가
+                for k, v in pairs(attacker_char:getStatusEffectList()) do
+                    if (v.m_type == 'modify_dmg' and v.m_branch == 0) then
+                        if(defender:isExistStatusEffectName(v.m_targetStatusEffectName, nil, true)) then
+                            se_dmg_adj_rate = se_dmg_adj_rate + v.m_totalValue
+                        end
+                    end
+                end
+
+                for k, v in pairs(defender:getStatusEffectList()) do
+                    if (v.m_type == 'modify_dmg' and v.m_branch == 1) then
+                        if(attacker_char:isExistStatusEffectName(v.m_targetStatusEffectName, nil, true)) then
+                            se_dmg_adj_rate = se_dmg_adj_rate - v.m_totalValue
+                        end
+                    end
+                end
+
+                dmg_adj_rate = dmg_adj_rate + (se_dmg_adj_rate / 100)
+            end
+            
+            damage_multifly = damage_multifly + dmg_adj_rate
         end
-        damage_multifly = damage_multifly + dmg_adj_rate
 
         -- 피해량 배율 적용
         damage = (damage * damage_multifly)
@@ -701,7 +775,8 @@ function Character:undergoAttack(attacker, defender, i_x, i_y, body_key, no_even
                 cclog('--치명타로 인한 피해량 비율 : ' .. cri_dmg_rate)
             end
             cclog('--속성으로 인한 피해량 비율 : ' .. attr_dmg_rate)
-            cclog('--상태효과로 인한 피해량 비율 : ' .. dmg_adj_rate)
+            cclog('--방어자의 피해량 증감 비율 : ' .. dmg_adj_rate)
+            cclog('--특정 상태효과로 인한 피해량 비율 : ' .. se_dmg_adj_rate)
             cclog('--피해량 비율 총합 : ' .. (damage_multifly - 1))
             cclog('--최종 데미지 : ' .. damage)
             cclog('######################################################')
@@ -777,12 +852,10 @@ function Character:undergoAttack(attacker, defender, i_x, i_y, body_key, no_even
             local reflex_damage
 
             if (attack_type == 'active') then 
-                local reflex_skill = self:getStat('reflex_skill')
                 if (reflex_skill > 0) then
                     reflex_damage = damage * (reflex_skill / 100)
                 end
             else
-                local reflex_normal = self:getStat('reflex_normal')
                 if (reflex_normal > 0) then
                     reflex_damage = damage * (reflex_normal / 100)
                 end
@@ -828,6 +901,7 @@ function Character:undergoAttack(attacker, defender, i_x, i_y, body_key, no_even
 		-- 크리로 피격
 		if (is_critical) then
 			self:dispatch('under_atk_cri', t_event)
+
             for k, v in pairs(self:getFellowList()) do
                 v:dispatch('ally_under_atk_cri', t_event)
                 if (v ~= self) then
@@ -884,8 +958,8 @@ function Character:undergoAttack(attacker, defender, i_x, i_y, body_key, no_even
 		-- 일반 공격시
         if (not no_event) then
 		    if (attack_type == 'basic') then
-                attacker_char:dispatch('hit_basic', t_event)
-			    attacker_char:dispatch('enemy_last_attack', t_event, self, attack_activity_carrier)
+                attacker_char:dispatch('hit_basic', t_event, self, attack_activity_carrier)
+			    attacker_char:dispatch('enemy_last_attack', t_event, self, attack_activity_carrier) -- 삭제 예정
                 self.m_world.m_logRecorder:recordLog('basic_attack_cnt', 1)
 
 		    -- 액티브 공격시
@@ -1123,7 +1197,6 @@ function Character:makeDamageFont(damage, x, y, tParam)
     end
     
     -- 색상 설정
-    --if (g_constant:get('DEBUG', 'ADD_DMG_YELLOW_FONT') and is_add_dmg) then
     if (is_add_dmg) then
 		    r, g, b = 225, 229, 0 -- 노랑
 
@@ -1139,7 +1212,7 @@ function Character:makeDamageFont(damage, x, y, tParam)
             -- 강타
             r, g, b = 235, 71, 42	-- 빨강
 
-        elseif (is_indicator_critical) then
+        elseif (is_indicator_critical and not IS_NEW_BALANCE_VERSION()) then
             -- 치명 회피
             r, g, b = 0, 190, 245 -- 하늘색
         
@@ -1173,7 +1246,7 @@ function Character:makeDamageFont(damage, x, y, tParam)
         option_sprite = self:createWithSpriteFrameName('ingame_damage_bash.png')
     elseif (is_miss) then
         option_sprite = self:createWithSpriteFrameName('ingame_damage_miss.png')
-    elseif (is_indicator_critical) then
+    elseif (is_indicator_critical and not IS_NEW_BALANCE_VERSION()) then
         option_sprite = self:createWithSpriteFrameName('ingame_damage_critical_dodge.png')
     end
 
