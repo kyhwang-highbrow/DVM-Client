@@ -20,6 +20,10 @@ end
 -- function onEnterTab
 -------------------------------------
 function UI_ClanGuestTabJoin:onEnterTab(first)
+    if first then
+        self:initUI()
+    end
+
     self:init_TableView()
 end
 
@@ -34,6 +38,8 @@ end
 -------------------------------------
 function UI_ClanGuestTabJoin:initUI()
     local vars = self.vars
+
+    vars['searchBtn']:registerScriptTapHandler(function() self:click_searchBtn() end)
 end
 
 -------------------------------------
@@ -107,4 +113,19 @@ function UI_ClanGuestTabJoin:update_tableView(target_offset)
     end
 
     g_colosseumRankData:request_rankManual(target_offset, finish_cb)
+end
+
+-------------------------------------
+-- function click_searchBtn
+-------------------------------------
+function UI_ClanGuestTabJoin:click_searchBtn()
+    local vars = self.vars
+    local clan_name = vars['searchEditBox']:getText()
+
+    if (clan_name == '') then
+        MakeSimplePopup(POPUP_TYPE.OK, Str('검색할 클랜명을 입력하세요.'))
+        return
+    end
+
+    g_clanData:requestClanInfoDetailPopup_byClanName(clan_name)
 end

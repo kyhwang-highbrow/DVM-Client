@@ -117,6 +117,7 @@ function ServerData_Clan:request_clanInfo(finish_cb, fail_cb)
             self.m_structClan = StructClan(ret['clan'])
             self.m_structClan:setMembersData(ret['clan_members'])
             self.m_structClan:setClanNotice(ret['clan_notice'])
+            self.m_structClan:setCurrAttd(ret['clan_attd'])
             self.m_bClanGuest = false
         else
             self.m_structClan = nil
@@ -473,6 +474,36 @@ function ServerData_Clan:requestClanInfoDetailPopup(clan_object_id)
     return ui_network
 end
 
+-------------------------------------
+-- function requestClanInfoDetailPopup_byClanName
+-- @brief
+-------------------------------------
+function ServerData_Clan:requestClanInfoDetailPopup_byClanName(clan_name)
+    -- 유저 ID
+    local uid = g_userData:get('uid')
+
+    -- 성공 콜백
+    local function success_cb(ret)
+        local struct_clan = StructClan(ret['clan'])
+        struct_clan:setMembersData(ret['clan_members'])
+        UI_ClanInfoDetailPopup(struct_clan)
+    end
+
+    -- 네트워크 통신
+    local ui_network = UI_Network()
+    ui_network:setUrl('/clans/detail')
+    ui_network:setParam('uid', uid)
+    ui_network:setParam('clan_name', clan_name)
+    ui_network:setMethod('POST')
+    ui_network:setSuccessCB(success_cb)
+    ui_network:setFailCB(fail_cb)
+    ui_network:setRevocable(true)
+    ui_network:setReuse(false)
+    ui_network:request()
+
+    return ui_network
+end
+
 
 -------------------------------------
 -- function getMyMemberType
@@ -522,4 +553,21 @@ function ServerData_Clan:isRequestedJoin(clan_object_id)
     else
         return false
     end
+end
+
+
+-------------------------------------
+-- function isCanJoinRequest
+-- @brief
+-------------------------------------
+function ServerData_Clan:isCanJoinRequest(clan_object_id)
+    if self.m_structClan then
+        return false
+    end
+
+    if self.isRequestedJoin(clan_object_id) then
+        return false
+    end
+
+    return true
 end

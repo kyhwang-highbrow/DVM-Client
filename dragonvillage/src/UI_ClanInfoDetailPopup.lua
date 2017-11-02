@@ -73,6 +73,7 @@ end
 function UI_ClanInfoDetailPopup:initButton()
     local vars = self.vars
     vars['rewardBtn']:registerScriptTapHandler(function() self:click_rewardBtn() end)
+    vars['requestBtn2']:registerScriptTapHandler(function() self:click_requestBtn2() end)
 end
 
 -------------------------------------
@@ -82,6 +83,7 @@ function UI_ClanInfoDetailPopup:refresh()
     local vars = self.vars
 
     local struct_clan = self.m_structClan
+    local clan_object_id = struct_clan:getClanObjectID()
 
     -- 클랜 마크
     local icon = struct_clan:makeClanMarkIcon()
@@ -100,6 +102,17 @@ function UI_ClanInfoDetailPopup:refresh()
     -- 클랜 소개
     local str = struct_clan:getClanIntroText()
     vars['clanNoticeLabel']:setString(str)
+
+    -- 출석
+    local str = Str('{1}/{2}', struct_clan:getLastAttd(), 20)
+    vars['attendanceLabel']:setString(str)
+
+    -- 가입 신청이 가능한 상태일 경우
+    if g_clanData:isCanJoinRequest(clan_object_id) then
+        vars['requestBtn2']:setVisible(true)
+    else
+        vars['requestBtn2']:setVisible(false)
+    end
 
     -- 클랜원 리스트
     self:init_TableView()
@@ -170,6 +183,46 @@ end
 function UI_ClanInfoDetailPopup:click_rewardBtn()
     UI_ClanAttendanceReward()
 end
+
+-------------------------------------
+-- function click_requestBtn2
+-------------------------------------
+function UI_ClanInfoDetailPopup:click_requestBtn2()
+    local struct_clan = self.m_structClan
+    local clan_object_id = struct_clan:getClanObjectID()
+
+    local function finish_cb(ret)
+
+        -- 클랜에 가입 신청 시 즉시 가입이 되었을 경우
+        if g_clanData:isNeedClanInfoRefresh() then
+
+            local function ok_cb()
+                UINavigator:closeClanUI()
+                UINavigator:goTo('clan')
+            end
+
+            local msg = Str('축하합니다. 클랜에 가입되었습니다.')
+            local sub_msg = Str('(클랜 정보 화면으로 이동합니다)')
+            MakeSimplePopup2(POPUP_TYPE.OK, msg, sub_msg, ok_cb)
+        else
+            UIManager:toastNotificationGreen(Str('가입 신청을 했습니다.'))
+            self:refresh()
+        end
+    end
+
+    local fail_cb = nil
+
+    if struct_clan:isAutoJoin() then
+        local msg = Str('자동 가입이 설정된 클랜입니다.\n가입하시겠습니까?')
+        local function ok_cb()
+            g_clanData:request_join(finish_cb, fail_cb, clan_object_id) 
+        end
+        MakeSimplePopup(POPUP_TYPE.YES_NO, msg, ok_cb)
+    else
+        g_clanData:request_join(finish_cb, fail_cb, clan_object_id) 
+    end
+end
+
 
 --@CHECK
 UI:checkCompileError(UI_ClanInfoDetailPopup)

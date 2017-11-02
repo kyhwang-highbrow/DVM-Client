@@ -14,7 +14,8 @@ StructClan = class(PARENT, {
         member_cnt = 'number',
         join = 'boolean', -- 자동 가입 여부
         
-        last_attd = 'number', -- 전날 출석 횟수
+        last_attd = 'number', -- 전날 출석 유저 수
+        curr_attd = 'number', -- 오늘 출석 유저 수
 
         master = 'string', -- 클랜 마스터 닉네임
         empty = '', -- ??
@@ -98,6 +99,27 @@ end
 -------------------------------------
 function StructClan:getMemberCnt()
     return self['member_cnt']
+end
+
+-------------------------------------
+-- function setCurrAttd
+-------------------------------------
+function StructClan:setCurrAttd(curr_attd)
+    self['curr_attd'] = curr_attd
+end
+
+-------------------------------------
+-- function getCurrAttd
+-------------------------------------
+function StructClan:getCurrAttd()
+    return self['curr_attd'] or 0
+end
+
+-------------------------------------
+-- function getLastAttd
+-------------------------------------
+function StructClan:getLastAttd()
+    return self['last_attd'] or 0
 end
 
 -------------------------------------

@@ -109,7 +109,7 @@ function UI_Clan:refresh()
     vars['clanNoticeLabel']:setString(clan_notice)
 
     -- 출석
-    local str = ''
+    local str = Str('{1}/{2}', struct_clan:getCurrAttd(), 20)
     vars['attendanceLabel']:setString(str)
 
     -- 가입 승인
