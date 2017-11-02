@@ -145,19 +145,15 @@ function UI_ClanSetting:refresh()
     self.m_clanJoinRadioBtn:setSelectedButton(clan_join)
 
     -- 클랜 소개
-    local clan_intro = struct_clan:getClanIntro()
+    local clan_intro = struct_clan:getClanIntro() or vars['introduceEditBox']:getText()
     vars['introduceLabel']:setString(clan_intro)
 
     -- 클랜 공지사항
-    local clan_notice = struct_clan:getClanNotice()
+    local clan_notice = struct_clan:getClanNotice() or vars['noticeEditBox']:getText()
     vars['noticeLabel']:setString(clan_notice)
 
     -- 탈퇴 / 해체 버튼 처리
-    local my_nic = g_userData:get('nick')
-    local master_nic = struct_clan:getMasterNick()
-    local is_master = (my_nic == master_nic)
-    vars['disbandBtn']:setVisible(is_master)
-    vars['leaveBtn']:setVisible(not is_master)
+    self:refresh_auth()
 
     -- 초기화도 한번 해준다.
     self.m_bChangedClanSet = false
@@ -177,6 +173,22 @@ function UI_ClanSetting:refresh_mark()
     local icon = struct_clan_mark:makeClanMarkIcon()
     vars['markNode']:removeAllChildren()
     vars['markNode']:addChild(icon)
+end
+
+-------------------------------------
+-- function refresh_auth
+-------------------------------------
+function UI_ClanSetting:refresh_auth()
+    local vars = self.vars
+
+    local is_member = (g_clanData:getMyMemberType() == 'member')
+
+    vars['disbandBtn']:setVisible(not is_member)
+    vars['leaveBtn']:setVisible(is_member)
+    vars['noticeChangeBtn']:setVisible(not is_member)
+    vars['introduceChangeBtn']:setVisible(not is_member)
+    vars['okBtn']:setVisible(not is_member)
+    vars['markBtn']:setVisible(not is_member)
 end
 
 -------------------------------------
