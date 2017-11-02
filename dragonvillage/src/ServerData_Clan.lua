@@ -283,6 +283,51 @@ function ServerData_Clan:request_clanSetting(finish_cb, fail_cb, intro, notice, 
 end
 
 -------------------------------------
+-- function request_join
+-- @brief
+-------------------------------------
+function ServerData_Clan:request_join(finish_cb, fail_cb, clan_object_id)
+    if (self.m_structClan) then
+        local msg = Str('이미 가입된 클랜이 있습니다.')
+        UIManager:toastNotificationRed(msg)
+        return
+    end
+
+    -- 유저 ID
+    local uid = g_userData:get('uid')
+
+    -- 성공 콜백
+    local function success_cb(ret)
+
+        -- 즉시 가입이 된 경우
+        if ret['clan'] then
+            -- 클랜 정보를 다시 받도록 설정
+            self:setNeedClanInfoRefresh()
+        else
+            UIManager:toastNotificationGreen(Str(''))
+        end
+
+        if finish_cb then
+            finish_cb(ret)
+        end
+    end
+
+    -- 네트워크 통신
+    local ui_network = UI_Network()
+    ui_network:setUrl('/clans/join')
+    ui_network:setParam('uid', uid)
+    ui_network:setParam('clan_id', clan_object_id)
+    ui_network:setMethod('POST')
+    ui_network:setSuccessCB(success_cb)
+    ui_network:setFailCB(fail_cb)
+    ui_network:setRevocable(true)
+    ui_network:setReuse(false)
+    ui_network:request()
+
+    return ui_network
+end
+
+-------------------------------------
 -- function getClanStruct
 -- @brief
 -------------------------------------

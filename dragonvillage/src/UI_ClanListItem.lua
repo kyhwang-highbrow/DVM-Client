@@ -57,6 +57,7 @@ end
 -------------------------------------
 function UI_ClanListItem:initButton()
     local vars = self.vars
+    vars['requestBtn']:registerScriptTapHandler(function() self:click_requestBtn() end)
 end
 
 -------------------------------------
@@ -64,4 +65,31 @@ end
 -------------------------------------
 function UI_ClanListItem:refresh()
     local vars = self.vars
+end
+
+-------------------------------------
+-- function click_requestBtn
+-------------------------------------
+function UI_ClanListItem:click_requestBtn()
+    local clan_object_id = self.m_structClan:getClanObjectID()
+
+    local function finish_cb(ret)
+
+        -- 클랜에 가입 신청 시 즉시 가입이 되었을 경우
+        if g_clanData:isNeedClanInfoRefresh() then
+
+            local function ok_cb()
+                UINavigator:closeClanUI()
+                UINavigator:goTo('clan')
+            end
+
+            local msg = Str('축하합니다. 클랜에 가입되었습니다.')
+            local sub_msg = Str('(클랜 정보 화면으로 이동합니다)')
+            MakeSimplePopup2(POPUP_TYPE.OK, msg, sub_msg, ok_cb)
+        end
+    end
+
+    local fail_cb = nil
+
+    g_clanData:request_join(finish_cb, fail_cb, clan_object_id) 
 end
