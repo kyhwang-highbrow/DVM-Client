@@ -106,7 +106,8 @@ function UI_ClanGuest:initTab()
     self:addTabWithTabUIAndLabel('join', vars['joinTabBtn'], vars['joinTabLabel'], join_tab)
 
     -- 가입 대기
-    self:addTabAuto('request', vars, vars['requestMenu'])
+    local request_tab = UI_ClanGuestTabRequest(self, 'request')
+    self:addTabWithTabUIAndLabel('request', vars['requestTabBtn'], vars['requestTabLabel'], request_tab)
 
     -- 클랜 창설
     local found_tab = UI_ClanGuestTabFound(self, 'found')

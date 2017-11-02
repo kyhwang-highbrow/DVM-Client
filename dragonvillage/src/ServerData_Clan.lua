@@ -513,7 +513,6 @@ end
 -- @brief
 -------------------------------------
 function ServerData_Clan:isRequestedJoin(clan_object_id)
-    ccdump(self.m_lJoinRequestList)
     if (not self.m_lJoinRequestList) then
         return false
     end

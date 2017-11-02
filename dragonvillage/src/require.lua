@@ -922,6 +922,7 @@ local t_module = {
     'UI_ClanListItem',
     'UI_ClanGuestTabJoin',
     'UI_ClanGuestTabFound',
+    'UI_ClanGuestTabRequest',
     'UI_ClanSetting',
     'UI_ClanMark',
     'UI_ClanMarkTwo',

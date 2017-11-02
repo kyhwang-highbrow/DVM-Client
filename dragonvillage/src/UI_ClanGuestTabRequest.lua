@@ -1,61 +1,50 @@
 local PARENT = UI_IndivisualTab
 
 -------------------------------------
--- class UI_ClanGuestTabJoin
+-- class UI_ClanGuestTabRequest
 -- @brief 클랜 가입 탭
 -------------------------------------
-UI_ClanGuestTabJoin = class(PARENT,{
+UI_ClanGuestTabRequest = class(PARENT,{
         vars = '',
     })
 
 -------------------------------------
 -- function init
 -------------------------------------
-function UI_ClanGuestTabJoin:init(owner_ui)
-    self.root = owner_ui.vars['joinMenu']
+function UI_ClanGuestTabRequest:init(owner_ui)
+    self.root = owner_ui.vars['requestMenu']
     self.vars = owner_ui.vars
 end
 
 -------------------------------------
 -- function onEnterTab
 -------------------------------------
-function UI_ClanGuestTabJoin:onEnterTab(first)
+function UI_ClanGuestTabRequest:onEnterTab(first)
     self:init_TableView()
 end
 
 -------------------------------------
 -- function onExitTab
 -------------------------------------
-function UI_ClanGuestTabJoin:onExitTab()
+function UI_ClanGuestTabRequest:onExitTab()
 end
 
 -------------------------------------
 -- function initUI
 -------------------------------------
-function UI_ClanGuestTabJoin:initUI()
+function UI_ClanGuestTabRequest:initUI()
     local vars = self.vars
+    self:init_TableView()
 end
 
 -------------------------------------
 -- function init_TableView
 -------------------------------------
-function UI_ClanGuestTabJoin:init_TableView()
-    local node = self.vars['joinNode']
+function UI_ClanGuestTabRequest:init_TableView()
+    local node = self.vars['requestNode']
     node:removeAllChildren()
 
-    local l_item_list = g_clanData.m_lClanList
-
-    --[[
-    if (self.m_topRankOffset > 1) then
-        local prev_data = {m_rank = 'prev'}
-        l_item_list['prev'] = prev_data
-    end
-
-    if (#l_item_list > 0) then
-        local next_data = {m_rank = 'next'}
-        l_item_list['next'] = next_data
-    end
-    --]]
+    local l_item_list = g_clanData.m_lJoinRequestList
 
     -- 생성 콜백
     local function create_func(ui, data)
@@ -80,31 +69,5 @@ function UI_ClanGuestTabJoin:init_TableView()
     table_view:setItemList(l_item_list)
 
     -- 리스트가 비었을 때
-    --table_view_td:makeDefaultEmptyDescLabel('')
-
     -- 정렬
-    --g_colosseumRankData:sortColosseumRank(table_view.m_itemList)
-    --self.m_topRankTableView = table_view
-end
-
--------------------------------------
--- function update_topRankTableView
--------------------------------------
-function UI_ClanGuestTabJoin:update_tableView(target_offset)
-    local function finish_cb(ret, rank_list)
-        self.m_topRankOffset = ret['offset']
-
-        if (1 < self.m_topRankOffset) then
-            local prev_data = {m_rank = 'prev'}
-            rank_list['prev'] = prev_data
-        end
-
-        local next_data = {m_rank = 'next'}
-        rank_list['next'] = next_data
-
-        self.m_topRankTableView:mergeItemList(rank_list)
-        g_colosseumRankData:sortColosseumRank(self.m_topRankTableView.m_itemList)
-    end
-
-    g_colosseumRankData:request_rankManual(target_offset, finish_cb)
 end
