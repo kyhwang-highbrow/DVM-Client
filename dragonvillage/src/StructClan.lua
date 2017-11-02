@@ -80,6 +80,13 @@ function StructClan:getClanNotice()
 end
 
 -------------------------------------
+-- function setClanNotice
+-------------------------------------
+function StructClan:setClanNotice(s)
+    self['notice'] = s
+end
+
+-------------------------------------
 -- function getClanJoin
 -------------------------------------
 function StructClan:getClanJoin()

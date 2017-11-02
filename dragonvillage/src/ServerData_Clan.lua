@@ -112,6 +112,7 @@ function ServerData_Clan:request_clanInfo(finish_cb, fail_cb)
         if ret['clan'] then
             self.m_structClan = StructClan(ret['clan'])
             self.m_structClan:setMembersData(ret['clan_members'])
+            self.m_structClan:setClanNotice(ret['clan_notice'])
             self.m_bClanGuest = false
         else
             self.m_structClan = nil
@@ -284,6 +285,10 @@ function ServerData_Clan:request_clanSetting(finish_cb, fail_cb, intro, notice, 
     local function success_cb(ret)
         if ret['clan'] then
             self.m_structClan:applySetting(ret['clan'])
+        end
+
+        if (ret['clan_notice']) then
+            self.m_structClan:setClanNotice(ret['clan_notice'])
         end
 
         if finish_cb then
