@@ -1,3 +1,13 @@
+TUTORIAL = {
+    INTRO_FIGHT = 'intro',
+    FIRST_START = 'tutorial_first_adv_start',
+    FIRST_END = 'tutorial_first_adv_end',
+    COLOSSEUM = 'tutorial_colosseum',
+    ANCIENT = 'tutorial_ancient_tower',
+    CLAN = 'tutorial_clan',
+    CLAN_GUEST = 'tutorial_clan_guest',
+}
+
 -------------------------------------
 -- class TutorialManager
 -- @brief tutorial의 시작과 끝을 관장하고 ServerData_Tutorial로 부터 튜토리얼 플레이 여부 받아옴
