@@ -13,7 +13,6 @@ UI_ClanSetting = class(PARENT, {
         m_clanIntroText = 'string',
         m_clanNoticeText = 'string',
 
-        m_preClanAutoJoin = 'string',
         m_clanJoinRadioBtn = 'UIC_RadioBtn',
      })
 
@@ -85,6 +84,7 @@ function UI_ClanSetting:initEditBox()
             local str = editbox:getText()
             vars['introduceLabel']:setString(str)
             self.m_clanIntroText = str
+            self.m_bChangedClanSet = true
         end
     end
     vars['introduceEditBox']:registerScriptEditBoxHandler(intro_event_handler)
@@ -96,6 +96,7 @@ function UI_ClanSetting:initEditBox()
             local str = editbox:getText()
             vars['noticeLabel']:setString(str)
             self.m_clanNoticeText = str
+            self.m_bChangedClanSet = true
         end
     end
     vars['noticeEditBox']:registerScriptEditBoxHandler(notice_event_handler)
@@ -108,20 +109,19 @@ end
 function UI_ClanSetting:initJoinRadioBtn()
 	local vars = self.vars
 
-    -- 이전 클랜 가입 방식 등록
-    self.m_preClanAutoJoin = g_clanData:getClanStruct():getJoin()
-
 	-- radio button 선언
     local radio_button = UIC_RadioButton()
 	radio_button:setChangeCB(function(join_type)
-        self.m_clanAutoJoin = (join_type == 'auto')
+        self.m_clanAutoJoin = join_type
+        self.m_bChangedClanSet = true
     end)
 	self.m_clanJoinRadioBtn = radio_button
 
     -- 버튼 등록
 	for i, join_type in ipairs({true, false}) do
 		local join_btn = vars['joinTypeBtn' .. i]
-		radio_button:addButton(join_type, join_btn)
+        local join_sprite = vars['joinTypeSprite' .. i]
+		radio_button:addButton(join_type, join_btn, join_sprite)
 	end 
 end
 
@@ -137,27 +137,34 @@ function UI_ClanSetting:refresh()
     self:refresh_mark()
 
     -- 클랜 이름
-    local clan_name = struct_clan:getName()
+    local clan_name = struct_clan:getClanName()
     vars['nameLabel']:setString(clan_name)
 
     -- 클랜 가입 방식
-    local clan_join = struct_clan:getJoin()
+    local clan_join = struct_clan:getClanJoin()
     self.m_clanJoinRadioBtn:setSelectedButton(clan_join)
 
     -- 클랜 소개
-    local clan_intro = struct_clan:getIntro()
+    local clan_intro = struct_clan:getClanIntro()
     vars['introduceLabel']:setString(clan_intro)
 
     -- 클랜 공지사항
-    local clan_notice = struct_clan:getNotice()
+    local clan_notice = struct_clan:getClanNotice()
     vars['noticeLabel']:setString(clan_notice)
 
     -- 탈퇴 / 해체 버튼 처리
     local my_nic = g_userData:get('nick')
-    local master_nic = struct_clan:getMaster()
+    local master_nic = struct_clan:getMasterNick()
     local is_master = (my_nic == master_nic)
     vars['disbandBtn']:setVisible(is_master)
     vars['leaveBtn']:setVisible(not is_master)
+
+    -- 초기화도 한번 해준다.
+    self.m_bChangedClanSet = false
+    self.m_structClanMark = nil
+    self.m_clanAutoJoin = nil
+    self.m_clanIntroText = nil
+    self.m_clanNoticeText = nil
 end
 
 -------------------------------------
@@ -289,15 +296,18 @@ function UI_ClanSetting:click_okBtn()
         MakeSimplePopup(POPUP_TYPE.OK, msg, ok_cb)
     end
 
+    if (not self.m_bChangedClanSet) then
+        ccdisplay('변경 사항이 없습니다.')
+        self:close()
+        return
+    end
+
     local fail_cb = nil
 
     local intro = self.m_clanIntroText
     local notice = self.m_clanNoticeText
     local join = self.m_clanAutoJoin
-    local mark = nil
-    if self.m_structClanMark then
-        mark = self.m_structClanMark:tostring()
-    end
+    local mark = self.m_structClanMark and self.m_structClanMark:tostring() or nil
 
     g_clanData:request_clanSetting(finish_cb, fail_cb, intro, notice, join, mark)
 end

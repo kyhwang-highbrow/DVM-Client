@@ -92,16 +92,20 @@ function UI_Clan:refresh()
     vars['markNode']:addChild(icon)
 
     -- 클랜 이름
-    vars['clanNameLabel']:setString(struct_clan['name'])
+    local clan_name = struct_clan:getClanName()
+    vars['clanNameLabel']:setString(clan_name)
 
     -- 클랜 마스터 닉네임
-    vars['clanMasterLabel']:setString(struct_clan['master'])
+    local clan_master = struct_clan:getMasterNick()
+    vars['clanMasterLabel']:setString(clan_master)
 
     -- 맴버 수
-    vars['clanMemberLabel']:setString(Str('클랜원 {1}/{2}', struct_clan['member_cnt'], 20))
+    local member_str = struct_clan:getMemberCntText()
+    vars['clanMemberLabel']:setString(member_str)
     
     -- 클랜 공지
-    vars['clanNoticeLabel']:setString(struct_clan['notice'] or Str('등록된 공지가 없습니다.'))
+    local clan_notice = struct_clan:getClanNotice() or Str('등록된 공지가 없습니다.')
+    vars['clanNoticeLabel']:setString(clan_notice)
 
     -- 클랜원 리스트
     self:init_TableView()

@@ -35,9 +35,6 @@ function StructClan:init(data)
     else
         self.m_structClanMark = StructClanMark()
     end
-    
-    -- @ generator
-    getsetGenerator_simple('StructClan', {'name', 'intro', 'notice', 'master', 'join'})
 end
 
 -------------------------------------
@@ -69,6 +66,27 @@ function StructClan:getClanName()
 end
 
 -------------------------------------
+-- function getClanIntro
+-------------------------------------
+function StructClan:getClanIntro()
+    return self['intro']
+end
+
+-------------------------------------
+-- function getClanNotice
+-------------------------------------
+function StructClan:getClanNotice()
+    return self['notice']
+end
+
+-------------------------------------
+-- function getClanJoin
+-------------------------------------
+function StructClan:getClanJoin()
+    return self['join']
+end
+
+-------------------------------------
 -- function getMasterNick
 -------------------------------------
 function StructClan:getMasterNick()
@@ -76,10 +94,18 @@ function StructClan:getMasterNick()
 end
 
 -------------------------------------
+-- function getMemberCnt
+-------------------------------------
+function StructClan:getMemberCnt()
+    return self['member_cnt']
+end
+
+-------------------------------------
 -- function getMemberCntText
 -------------------------------------
 function StructClan:getMemberCntText()
-    local text = Str('클랜원 {1}/{2}', self['member_cnt'], 20)
+    local max_member_cnt = 20
+    local text = Str('클랜원 {1}/{2}', self['member_cnt'], max_member_cnt)
     return text
 end
 
