@@ -1,19 +1,20 @@
 local PARENT = class(UI, ITopUserInfo_EventListener:getCloneTable(), ITabUI:getCloneTable())
 
 -------------------------------------
--- class UI_Clan
+-- class UI_ClanInfoDetailPopup
 -------------------------------------
-UI_Clan = class(PARENT, {
-     })
+UI_ClanInfoDetailPopup = class(PARENT, {
+        m_structClan = 'StructClan',
+    })
 
 -------------------------------------
 -- function initParentVariable
 -- @brief 자식 클래스에서 반드시 구현할 것
 -------------------------------------
-function UI_Clan:initParentVariable()
+function UI_ClanInfoDetailPopup:initParentVariable()
     -- ITopUserInfo_EventListener의 맴버 변수들 설정
-    self.m_uiName = 'UI_Clan'
-    self.m_titleStr = Str('클랜')
+    self.m_uiName = 'UI_ClanInfoDetailPopup'
+    self.m_titleStr = Str('클랜 정보')
 	--self.m_staminaType = 'pvp'
     self.m_bVisible = true
     self.m_bUseExitBtn = true
@@ -24,13 +25,16 @@ end
 -------------------------------------
 -- function init
 -------------------------------------
-function UI_Clan:init()
+function UI_ClanInfoDetailPopup:init(struct_clan)
+    self.m_structClan = struct_clan
+
+    self.m_uiName = 'UI_ClanInfoDetailPopup'
+
     local vars = self:load('clan_02.ui')
     UIManager:open(self, UIManager.SCENE)
 
-    self.m_uiName = 'UI_Clan'
     -- backkey 지정
-    g_currScene:pushBackKeyListener(self, function() self:click_exitBtn() end, 'UI_Clan')
+    g_currScene:pushBackKeyListener(self, function() self:close() end, 'UI_ClanInfoDetailPopup')
 
     -- @UI_ACTION
     self:doActionReset()
@@ -40,51 +44,42 @@ function UI_Clan:init()
     self:initButton()
     self:refresh()
 
-    -- 보상 안내 팝업
-    local function finich_cb()
-        if g_clanData:isNeedClanSetting() then
-            self:click_settingBtn()
-        end
-    end
-
-    self:sceneFadeInAction(nil, finich_cb)
-
-    -- @ TUTORIAL
-    --TutorialManager.getInstance():startTutorial(TUTORIAL.CLAN, self)
+    self:sceneFadeInAction()
 end
 
 -------------------------------------
 -- function click_exitBtn
 -------------------------------------
-function UI_Clan:click_exitBtn()
+function UI_ClanInfoDetailPopup:click_exitBtn()
     self:close()
 end
 
 -------------------------------------
 -- function initUI
 -------------------------------------
-function UI_Clan:initUI()
+function UI_ClanInfoDetailPopup:initUI()
     local vars = self.vars
 
     self:initTab()
+
+    vars['settingBtn']:setVisible(false) -- 클랜 관리 버튼 숨김
+    vars['rankTabBtn']:setVisible(false) -- 랭킹 탭 숨김
 end
 
 -------------------------------------
 -- function initButton
 -------------------------------------
-function UI_Clan:initButton()
+function UI_ClanInfoDetailPopup:initButton()
     local vars = self.vars
-
-    vars['settingBtn']:registerScriptTapHandler(function() self:click_settingBtn() end)
 end
 
 -------------------------------------
 -- function refresh
 -------------------------------------
-function UI_Clan:refresh()
+function UI_ClanInfoDetailPopup:refresh()
     local vars = self.vars
 
-    local struct_clan = g_clanData:getClanStruct()
+    local struct_clan = self.m_structClan
 
     -- 클랜 마크
     local icon = struct_clan:makeClanMarkIcon()
@@ -92,20 +87,17 @@ function UI_Clan:refresh()
     vars['markNode']:addChild(icon)
 
     -- 클랜 이름
-    local clan_name = struct_clan:getClanName()
-    vars['clanNameLabel']:setString(clan_name)
+    vars['clanNameLabel']:setString(struct_clan['name'])
 
     -- 클랜 마스터 닉네임
-    local clan_master = struct_clan:getMasterNick()
-    vars['clanMasterLabel']:setString(clan_master)
+    vars['clanMasterLabel']:setString(struct_clan['master'])
 
     -- 맴버 수
-    local member_str = struct_clan:getMemberCntText()
-    vars['clanMemberLabel']:setString(member_str)
+    vars['clanMemberLabel']:setString(Str('클랜원 {1}/{2}', struct_clan['member_cnt'], 20))
     
-    -- 클랜 공지
-    local clan_notice = struct_clan:getClanNotice() or Str('등록된 공지가 없습니다.')
-    vars['clanNoticeLabel']:setString(clan_notice)
+    -- 클랜 소개
+    local str = struct_clan:getClanIntroText()
+    vars['clanNoticeLabel']:setString(str)
 
     -- 클랜원 리스트
     self:init_TableView()
@@ -114,44 +106,25 @@ end
 -------------------------------------
 -- function initTab
 -------------------------------------
-function UI_Clan:initTab()
+function UI_ClanInfoDetailPopup:initTab()
     local vars = self.vars
 
     -- 클랜 정보
     local tab_ui = UI_ClanTabInfo(self, 'clan')
     self:addTabWithTabUIAndLabel('clan', vars['clanTabBtn'], vars['clanTabLabel'], tab_ui)
 
-    -- 클랜 랭킹
-    local tab_ui = UI_ClanTabRank(self, 'rank')
-    self:addTabWithTabUIAndLabel('rank', vars['rankTabBtn'], vars['rankTabLabel'], tab_ui)
-
     self:setTab('clan')
-end
-
--------------------------------------
--- function click_settingBtn
--------------------------------------
-function UI_Clan:click_settingBtn()
-    local ui = UI_ClanSetting()
-
-    local function close_cb()
-        if ui.m_bRet then
-            self:refresh()
-        end
-    end
-
-    ui:setCloseCB(close_cb)
 end
 
 -------------------------------------
 -- function init_TableView
 -------------------------------------
-function UI_Clan:init_TableView()
+function UI_ClanInfoDetailPopup:init_TableView()
     local node = self.vars['memberNode']
     node:removeAllChildren()
 
-    local struct_clan = g_clanData:getClanStruct()
-    local l_item_list = struct_clan.m_memberList or {}
+    local struct_clan = self.m_structClan
+    local l_item_list = struct_clan.m_memberList
 
     --[[
     if (self.m_topRankOffset > 1) then
@@ -167,17 +140,8 @@ function UI_Clan:init_TableView()
 
     -- 생성 콜백
     local function create_func(ui, data)
-        --[[
-        local function click_previousButton()
-            self:update_topRankTableView(self.m_topRankOffset - 30)
-        end
-        ui.vars['previousButton']:registerScriptTapHandler(click_previousButton)
-
-        local function click_nextButton()
-            self:update_topRankTableView(self.m_topRankOffset + 30)
-        end
-        ui.vars['nextButton']:registerScriptTapHandler(click_nextButton)
-        --]]
+        -- 관리 버튼 visible off
+        ui.vars['adminBtn']:setVisible(false)
     end
 
     -- 테이블 뷰 인스턴스 생성
@@ -196,4 +160,4 @@ function UI_Clan:init_TableView()
 end
 
 --@CHECK
-UI:checkCompileError(UI_Clan)
+UI:checkCompileError(UI_ClanInfoDetailPopup)

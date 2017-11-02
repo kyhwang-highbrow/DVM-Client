@@ -150,3 +150,21 @@ function StructClan:setMembersData(l_member_json)
         self.m_memberList[uid] = user_info
     end
 end
+
+
+-------------------------------------
+-- function applySetting
+-------------------------------------
+function StructClan:applySetting(t_data)
+    for i,v in pairs(self) do
+        if t_data[i] then
+            self[i] = v
+        end
+    end
+
+    if (t_data['mark']) then
+        self.m_structClanMark = StructClanMark:create(t_data['mark'])
+    else
+        self.m_structClanMark = StructClanMark()
+    end
+end

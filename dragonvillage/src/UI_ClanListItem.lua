@@ -58,6 +58,7 @@ end
 function UI_ClanListItem:initButton()
     local vars = self.vars
     vars['requestBtn']:registerScriptTapHandler(function() self:click_requestBtn() end)
+    vars['infoBtn']:registerScriptTapHandler(function() self:click_infoBtn() end)
 end
 
 -------------------------------------
@@ -92,4 +93,12 @@ function UI_ClanListItem:click_requestBtn()
     local fail_cb = nil
 
     g_clanData:request_join(finish_cb, fail_cb, clan_object_id) 
+end
+
+-------------------------------------
+-- function click_infoBtn
+-------------------------------------
+function UI_ClanListItem:click_infoBtn()
+    local clan_object_id = self.m_structClan:getClanObjectID()
+    g_clanData:requestClanInfoDetailPopup(clan_object_id)
 end

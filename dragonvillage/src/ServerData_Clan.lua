@@ -283,7 +283,7 @@ function ServerData_Clan:request_clanSetting(finish_cb, fail_cb, intro, notice, 
     -- 성공 콜백
     local function success_cb(ret)
         if ret['clan'] then
-            self.m_structClan = StructClan(ret['clan'])
+            self.m_structClan:applySetting(ret['clan'])
         end
 
         if finish_cb then
@@ -371,4 +371,34 @@ end
 -------------------------------------
 function ServerData_Clan:getClanStruct()
     return self.m_structClan
+end
+
+-------------------------------------
+-- function requestClanInfoDetailPopup
+-- @brief
+-------------------------------------
+function ServerData_Clan:requestClanInfoDetailPopup(clan_object_id)
+    -- 유저 ID
+    local uid = g_userData:get('uid')
+
+    -- 성공 콜백
+    local function success_cb(ret)
+        local struct_clan = StructClan(ret['clan'])
+        struct_clan:setMembersData(ret['clan_members'])
+        UI_ClanInfoDetailPopup(struct_clan)
+    end
+
+    -- 네트워크 통신
+    local ui_network = UI_Network()
+    ui_network:setUrl('/clans/detail')
+    ui_network:setParam('uid', uid)
+    ui_network:setParam('clan_id', clan_object_id)
+    ui_network:setMethod('POST')
+    ui_network:setSuccessCB(success_cb)
+    ui_network:setFailCB(fail_cb)
+    ui_network:setRevocable(true)
+    ui_network:setReuse(false)
+    ui_network:request()
+
+    return ui_network
 end

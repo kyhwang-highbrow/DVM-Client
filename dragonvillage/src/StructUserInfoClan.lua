@@ -6,6 +6,7 @@ local PARENT = StructUserInfo
 -------------------------------------
 StructUserInfoClan = class(PARENT, {
         m_bTodayAttendance = 'boolean', -- 오늘 출석 여부
+        m_memberType = 'string',
 
         m_lastActiveTime = 'number', -- 최종 활동 시간
         m_lastAcitvePastTime = 'number', -- 현재 시간 - 최종 활동 시간
@@ -16,6 +17,7 @@ StructUserInfoClan = class(PARENT, {
 -------------------------------------
 function StructUserInfoClan:init()
     self.m_bTodayAttendance = false
+    self.m_memberType = 'member'
 
     self.m_lastActiveTime = 0
     self.m_lastAcitvePastTime = 0
@@ -40,6 +42,11 @@ function StructUserInfoClan:create(t_data)
 
     -- 최초 생성시 시간 관련 update 해줌
     user_info:setUpdate()
+
+    if t_data['info'] then
+        self.m_bTodayAttendance = t_data['info']['attendance']
+        self.m_memberType = t_data['info']['clan_auth']
+    end
 
     return user_info
 end

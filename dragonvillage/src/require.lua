@@ -925,6 +925,7 @@ local t_module = {
     'UI_ClanSetting',
     'UI_ClanMark',
     'UI_ClanMarkListItem',
+    'UI_ClanInfoDetailPopup',
 
     -- Forest
     'SceneForest',
