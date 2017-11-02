@@ -901,7 +901,10 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <None Include="..\src\UI_ClanListItem.lua" />
     <None Include="..\src\UI_ClanMark.lua" />
     <None Include="..\src\UI_ClanMarkListItem.lua" />
+    <None Include="..\src\UI_ClanMemberListItem.lua" />
     <None Include="..\src\UI_ClanSetting.lua" />
+    <None Include="..\src\UI_ClanTabInfo.lua" />
+    <None Include="..\src\UI_ClanTabRank.lua" />
     <None Include="..\src\UI_ColosseumReadyForDev.lua" />
     <None Include="..\src\UI_CouponPopup.lua" />
     <None Include="..\src\UI_CouponPopupPreOccupancyNick.lua" />

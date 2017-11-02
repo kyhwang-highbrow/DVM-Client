@@ -111,6 +111,7 @@ function ServerData_Clan:request_clanInfo(finish_cb, fail_cb)
 
         if ret['clan'] then
             self.m_structClan = StructClan(ret['clan'])
+            self.m_structClan:setMembersData(ret['clan_members'])
             self.m_bClanGuest = false
         else
             self.m_structClan = nil

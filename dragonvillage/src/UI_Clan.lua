@@ -65,6 +65,8 @@ end
 -------------------------------------
 function UI_Clan:initUI()
     local vars = self.vars
+
+    self:initTab()
 end
 
 -------------------------------------
@@ -100,6 +102,26 @@ function UI_Clan:refresh()
     
     -- 클랜 공지
     vars['clanNoticeLabel']:setString(struct_clan['notice'] or Str('등록된 공지가 없습니다.'))
+
+    -- 클랜원 리스트
+    self:init_TableView()
+end
+
+-------------------------------------
+-- function initTab
+-------------------------------------
+function UI_Clan:initTab()
+    local vars = self.vars
+
+    -- 클랜 정보
+    local tab_ui = UI_ClanTabInfo(self, 'clan')
+    self:addTabWithTabUIAndLabel('clan', vars['clanTabBtn'], vars['clanTabLabel'], tab_ui)
+
+    -- 클랜 랭킹
+    local tab_ui = UI_ClanTabRank(self, 'rank')
+    self:addTabWithTabUIAndLabel('rank', vars['rankTabBtn'], vars['rankTabLabel'], tab_ui)
+
+    self:setTab('clan')
 end
 
 -------------------------------------
@@ -115,6 +137,58 @@ function UI_Clan:click_settingBtn()
     end
 
     ui:setCloseCB(close_cb)
+end
+
+-------------------------------------
+-- function init_TableView
+-------------------------------------
+function UI_Clan:init_TableView()
+    local node = self.vars['memberNode']
+    node:removeAllChildren()
+
+    local struct_clan = g_clanData:getClanStruct()
+    local l_item_list = struct_clan.m_memberList
+
+    --[[
+    if (self.m_topRankOffset > 1) then
+        local prev_data = {m_rank = 'prev'}
+        l_item_list['prev'] = prev_data
+    end
+
+    if (#l_item_list > 0) then
+        local next_data = {m_rank = 'next'}
+        l_item_list['next'] = next_data
+    end
+    --]]
+
+    -- 생성 콜백
+    local function create_func(ui, data)
+        --[[
+        local function click_previousButton()
+            self:update_topRankTableView(self.m_topRankOffset - 30)
+        end
+        ui.vars['previousButton']:registerScriptTapHandler(click_previousButton)
+
+        local function click_nextButton()
+            self:update_topRankTableView(self.m_topRankOffset + 30)
+        end
+        ui.vars['nextButton']:registerScriptTapHandler(click_nextButton)
+        --]]
+    end
+
+    -- 테이블 뷰 인스턴스 생성
+    local table_view = UIC_TableView(node)
+    table_view.m_defaultCellSize = cc.size(1170, 120 + 5)
+    table_view:setCellUIClass(UI_ClanMemberListItem, create_func)
+    table_view:setDirection(cc.SCROLLVIEW_DIRECTION_VERTICAL)
+    table_view:setItemList(l_item_list)
+
+    -- 리스트가 비었을 때
+    --table_view_td:makeDefaultEmptyDescLabel('')
+
+    -- 정렬
+    --g_colosseumRankData:sortColosseumRank(table_view.m_itemList)
+    --self.m_topRankTableView = table_view
 end
 
 --@CHECK

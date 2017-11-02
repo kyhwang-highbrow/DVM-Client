@@ -20,6 +20,7 @@ StructClan = class(PARENT, {
         empty = '', -- ??
 
         m_structClanMark = 'StructClanMark',
+        m_memberList = 'list[StructUserInfoCLan]',
     })
 
 local THIS = StructClan
@@ -108,4 +109,18 @@ end
 function StructClan:makeClanMarkIcon()
     local icon = self.m_structClanMark:makeClanMarkIcon()
     return icon
+end
+
+-------------------------------------
+-- function setMembersData
+-- @brief 클랜원 리스트 설정
+-------------------------------------
+function StructClan:setMembersData(l_member_json)
+    self.m_memberList = {}
+
+    for i,v in pairs(l_member_json) do
+        local user_info = StructUserInfoClan:create(v)
+        local uid = user_info:getUid()
+        self.m_memberList[uid] = user_info
+    end
 end

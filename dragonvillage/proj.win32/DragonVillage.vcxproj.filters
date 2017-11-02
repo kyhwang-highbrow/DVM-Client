@@ -2874,6 +2874,15 @@
     <None Include="..\src\StructUserInfoClan.lua">
       <Filter>lua\src</Filter>
     </None>
+    <None Include="..\src\UI_ClanTabInfo.lua">
+      <Filter>lua\UI</Filter>
+    </None>
+    <None Include="..\src\UI_ClanTabRank.lua">
+      <Filter>lua\UI</Filter>
+    </None>
+    <None Include="..\src\UI_ClanMemberListItem.lua">
+      <Filter>lua\UI</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Classes">
