@@ -17,7 +17,6 @@ StructUserInfoClan = class(PARENT, {
 -------------------------------------
 function StructUserInfoClan:init()
     self.m_bTodayAttendance = false
-    self.m_memberType = 'member'
 
     self.m_lastActiveTime = 0
     self.m_lastAcitvePastTime = 0
@@ -43,9 +42,10 @@ function StructUserInfoClan:create(t_data)
     -- 최초 생성시 시간 관련 update 해줌
     user_info:setUpdate()
 
-    if t_data['info'] then
-        self.m_bTodayAttendance = t_data['info']['attendance']
-        self.m_memberType = t_data['info']['clan_auth']
+    local t_info = t_data['info']
+    if t_info then
+        user_info.m_bTodayAttendance = t_info['attendance']
+        user_info.m_memberType = t_info['clan_auth']
     end
 
     return user_info
@@ -95,4 +95,36 @@ function StructUserInfoClan:getPastActiveTimeText()
         local firstOnly = true
         return Str('최종접속 : {1} 전', datetime.makeTimeDesc(last_active_time, showSeconds, firstOnly))
     end
+end
+
+-------------------------------------
+-- function getMemberTypeText
+-- @brief 맴버 타입 텍스트
+-------------------------------------
+function StructUserInfoClan:getMemberTypeText()
+    local member_type = self.m_memberType
+
+    -- 마스터
+    if (member_type == 'master') then
+        return Str('마스터')
+
+    -- 부마스터
+    elseif (member_type == 'manager') then
+        return Str('부마스터')
+
+    -- 맴버
+    elseif (member_type == 'member') then
+        return Str('클랜원')
+
+    else
+        return Str('클랜원')
+    end
+end
+
+-------------------------------------
+-- function isTodayAttendance
+-- @brief 오늘 출석 여부
+-------------------------------------
+function StructUserInfoClan:isTodayAttendance()
+    return self.m_bTodayAttendance
 end

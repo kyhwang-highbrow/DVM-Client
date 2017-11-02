@@ -44,6 +44,14 @@ function UI_ClanMemberListItem:initUI()
     user_info:updateActiveTime()
     local str = user_info:getPastActiveTimeText()
     vars['timeLabel']:setString(str)
+
+    -- 맴버 타입(권한)
+    local str = user_info:getMemberTypeText()
+    vars['positionLabel']:setString(str)
+
+    -- 출석 여부
+    local attended = user_info:isTodayAttendance()
+    vars['attendanceNode']:setVisible(not attended)
 end
 
 -------------------------------------
