@@ -551,9 +551,6 @@ function Character:undergoAttack(attacker, defender, i_x, i_y, body_key, no_even
 
         -- 히트 수
         if (IS_NEW_BALANCE_VERSION()) then
-            -- 공격력(스킬 계수)을 hit수만큼 나눔
-            atk_dmg = atk_dmg / attack_hit_count
-
         else
             -- 히트 수 적용(테이블에서는 hit수만큼 나눈 값으로 입력되었기 때문에 여기서 곱해줌)
             atk_dmg = atk_dmg * attack_hit_count
