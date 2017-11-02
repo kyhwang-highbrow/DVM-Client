@@ -13,8 +13,9 @@ L_BASIC_STATUS_TYPE = {
     }
 
 L_SPECIAL_STATUS_TYPE = {
-    'dmg_adj_rate',	-- 데미지 조정 계수
-	'attr_adj_rate', -- 속성 조정 계수
+    'dmg_adj_rate', -- 데미지 조정 계수
+	'attr_adj_rate',-- 속성 조정 계수
+    'cri_dmg_adj_rate',-- 치명시 데미지 조정 계수
 
     -- 룬 세트가 추가되면서 추가된 능력치
     'accuracy',     -- 효과 적중 +{1}%
@@ -24,7 +25,6 @@ L_SPECIAL_STATUS_TYPE = {
     -- 스테이지 버프로 추가된 능력치
     'hp_drain',         -- 공격 명중시 피해량의 +{1}% 만큼 HP회복
     'drag_dmg',         -- 드래그 스킬 데미지 +{1}% 만큼 증가
-    'drag_cri_dmg',     -- 드래그 스킬 치명타 데미지 +{1}% 만큼 증가
     'heal_power',       -- 회복 스킬 효과 +{1}% 증가
     'debuff_time',      -- 해로운 효과 지속 시간 +{1}% 증가(자신이 걸릴때)
     'target_debuff_time',-- 대상의 해로운 효과 지속 시간 +{1}% 증가(자신이 부여할때)
