@@ -2886,6 +2886,9 @@
     <None Include="..\src\UI_ClanInfoDetailPopup.lua">
       <Filter>lua\UI</Filter>
     </None>
+    <None Include="..\src\UI_ClanAttendanceReward.lua">
+      <Filter>lua\UI</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Classes">

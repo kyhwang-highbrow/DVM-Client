@@ -927,6 +927,7 @@ local t_module = {
     'UI_ClanMarkTwo',
     'UI_ClanMarkListItem',
     'UI_ClanInfoDetailPopup',
+    'UI_ClanAttendanceReward',
 
     -- Forest
     'SceneForest',

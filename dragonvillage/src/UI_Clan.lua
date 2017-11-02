@@ -76,6 +76,7 @@ function UI_Clan:initButton()
     local vars = self.vars
 
     vars['settingBtn']:registerScriptTapHandler(function() self:click_settingBtn() end)
+    vars['rewardBtn']:registerScriptTapHandler(function() self:click_rewardBtn() end)
 end
 
 -------------------------------------
@@ -106,6 +107,18 @@ function UI_Clan:refresh()
     -- 클랜 공지
     local clan_notice = struct_clan:getClanNotice() or Str('등록된 공지가 없습니다.')
     vars['clanNoticeLabel']:setString(clan_notice)
+
+    -- 출석
+    local str = ''
+    vars['attendanceLabel']:setString(str)
+
+    -- 가입 승인
+    local member_type = g_clanData:getMyMemberType()
+    if (member_type == 'master') or (member_type == 'manager') then
+        vars['requestMenu']:setVisible(true)
+    else
+        vars['requestMenu']:setVisible(false)
+    end
 
     -- 클랜원 리스트
     self:init_TableView()
@@ -141,6 +154,13 @@ function UI_Clan:click_settingBtn()
     end
 
     ui:setCloseCB(close_cb)
+end
+
+-------------------------------------
+-- function click_rewardBtn
+-------------------------------------
+function UI_Clan:click_rewardBtn()
+    UI_ClanAttendanceReward()
 end
 
 -------------------------------------

@@ -64,6 +64,7 @@ function UI_ClanInfoDetailPopup:initUI()
 
     vars['settingBtn']:setVisible(false) -- 클랜 관리 버튼 숨김
     vars['rankTabBtn']:setVisible(false) -- 랭킹 탭 숨김
+    vars['requestMenu']:setVisible(false) -- 가입 승인 UI 숨김
 end
 
 -------------------------------------
@@ -71,6 +72,7 @@ end
 -------------------------------------
 function UI_ClanInfoDetailPopup:initButton()
     local vars = self.vars
+    vars['rewardBtn']:registerScriptTapHandler(function() self:click_rewardBtn() end)
 end
 
 -------------------------------------
@@ -160,6 +162,13 @@ function UI_ClanInfoDetailPopup:init_TableView()
     -- 정렬
     --g_colosseumRankData:sortColosseumRank(table_view.m_itemList)
     --self.m_topRankTableView = table_view
+end
+
+-------------------------------------
+-- function click_rewardBtn
+-------------------------------------
+function UI_ClanInfoDetailPopup:click_rewardBtn()
+    UI_ClanAttendanceReward()
 end
 
 --@CHECK
