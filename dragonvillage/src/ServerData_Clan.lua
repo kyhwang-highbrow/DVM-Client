@@ -16,6 +16,9 @@ ServerData_Clan = class({
 
         m_needClanInfoRefresh = 'boolean',
         m_needClanSetting = 'boolean',
+
+        -- 클랜 리스트(가입 신청 가능한)
+        m_lClanList = 'list',
     })
 
 -------------------------------------
@@ -110,6 +113,7 @@ function ServerData_Clan:request_clanInfo(finish_cb, fail_cb)
         else
             self.m_structClan = nil
             self.m_bClanGuest = true
+            self:response_clanGuestInfo(ret)
         end
 
         -- 클랜 창설 비용
@@ -133,6 +137,19 @@ function ServerData_Clan:request_clanInfo(finish_cb, fail_cb)
     ui_network:request()
 
     return ui_network
+end
+
+-------------------------------------
+-- function response_clanGuestInfo
+-- @brief
+-------------------------------------
+function ServerData_Clan:response_clanGuestInfo(ret)
+    -- 가입 신청이 가능한 클랜 리스트
+    self.m_lClanList = {}
+    for i,v in pairs(ret['clans']) do
+        local struct_clan = StructClan(v)
+        table.insert(self.m_lClanList, struct_clan)
+    end
 end
 
 -------------------------------------

@@ -100,12 +100,17 @@ end
 -------------------------------------
 function UI_ClanGuest:initTab()
     local vars = self.vars
-    self:addTabAuto('join', vars, vars['joinMenu'])
-    self:addTabAuto('request', vars, vars['requestMenu'])
-    --self:addTabAuto('found', vars, vars['foundMenu'])
 
+    -- 클랜 가입
+    local join_tab = UI_ClanGuestTabJoin(self, 'join')
+    self:addTabWithTabUIAndLabel('join', vars['joinTabBtn'], vars['joinTabLabel'], join_tab)
+
+    -- 가입 대기
+    self:addTabAuto('request', vars, vars['requestMenu'])
+
+    -- 클랜 창설
     local found_tab = UI_ClanGuestTabFound(self, 'found')
-    self:addTabWithTabUIAndLabel('found', vars['foundTabBtn'], vars['foundTabLabel'], found_tab)       -- 소환
+    self:addTabWithTabUIAndLabel('found', vars['foundTabBtn'], vars['foundTabLabel'], found_tab)
 
     self:setTab('join')
 end

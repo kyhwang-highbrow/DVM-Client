@@ -6,17 +6,17 @@ local PARENT = Structure
 StructClan = class(PARENT, {
         id = 'string',
         
-        name = 'string', -- Å¬·£ ÀÌ¸§
-        intro = 'string', -- Å¬·£ ¼³¸í
-        mark = 'string', -- Å¬·£ ¹®Àå
-        notice = 'string', -- Å¬·£ °øÁö
+        name = 'string', -- í´ëœ ì´ë¦„
+        intro = 'string', -- í´ëœ ì„¤ëª…
+        mark = 'string', -- í´ëœ ë¬¸ì¥
+        notice = 'string', -- í´ëœ ê³µì§€
 
         member_cnt = 'number',
-        join = 'boolean', -- ÀÚµ¿ °¡ÀÔ ¿©ºÎ
+        join = 'boolean', -- ìë™ ê°€ì… ì—¬ë¶€
         
-        last_attd = 'number', -- Àü³¯ Ãâ¼® È½¼ö
+        last_attd = 'number', -- ì „ë‚  ì¶œì„ íšŸìˆ˜
 
-        master = 'string', -- Å¬·£ ¸¶½ºÅÍ ´Ğ³×ÀÓ
+        master = 'string', -- í´ëœ ë§ˆìŠ¤í„° ë‹‰ë„¤ì„
         empty = '', -- ??
 
         m_structClanMark = 'StructClanMark',
@@ -56,6 +56,48 @@ end
 -------------------------------------
 function StructClan:getClanObjectID()
     return self['id']
+end
+
+-------------------------------------
+-- function getClanName
+-------------------------------------
+function StructClan:getClanName()
+    return self['name']
+end
+
+-------------------------------------
+-- function getMasterNick
+-------------------------------------
+function StructClan:getMasterNick()
+    return self['master']
+end
+
+-------------------------------------
+-- function getMemberCntText
+-------------------------------------
+function StructClan:getMemberCntText()
+    local text = Str('í´ëœì› {1}/{2}', self['member_cnt'], 20)
+    return text
+end
+
+-------------------------------------
+-- function isAutoJoin
+-------------------------------------
+function StructClan:isAutoJoin()
+    return self['join']
+end
+
+-------------------------------------
+-- function getClanIntroText
+-------------------------------------
+function StructClan:getClanIntroText()
+    local intro_text = self['intro']
+
+    if (not intro_text) or (intro_text == '') then
+        intro_text = Str('í´ëœ ì†Œê°œê°€ ì—†ìŠµë‹ˆë‹¤.')
+    end
+
+    return intro_text
 end
 
 -------------------------------------

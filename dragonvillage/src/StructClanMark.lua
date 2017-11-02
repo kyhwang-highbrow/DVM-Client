@@ -73,19 +73,19 @@ function StructClanMark:makeClanMarkIcon()
 
     local root
 
-    -- ¹è°æ ÁöÁ¤
+    -- ë°°ê²½ ì§€ì •
     local bg_res = table_clan_mark:getBgRes(self.m_bgIdx)
     local icon = IconHelper:getIcon(bg_res)
     root = icon
 
-    -- ½Éº¼ »ı¼º
+    -- ì‹¬ë³¼ ìƒì„±
     local res = table_clan_mark:getSymbolRes(self.m_symbolIdx, 1)
     local color = table_clan_mark:getColor(self.m_colorIdx1)
     local icon = IconHelper:getIcon(res)
     icon:setColor(color)
     root:addChild(icon)
 
-    -- ½Éº¼ »ı¼º
+    -- ì‹¬ë³¼ ìƒì„±
     local res = table_clan_mark:getSymbolRes(self.m_symbolIdx, 2)
     local color = table_clan_mark:getColor(self.m_colorIdx2)
     local icon = IconHelper:getIcon(res)

@@ -915,6 +915,8 @@ local t_module = {
     -- UI : 클랜
     'UI_Clan',
     'UI_ClanGuest',
+    'UI_ClanListItem',
+    'UI_ClanGuestTabJoin',
     'UI_ClanGuestTabFound',
     'UI_ClanSetting',
     'UI_ClanMark',
