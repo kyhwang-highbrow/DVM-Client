@@ -87,13 +87,6 @@ function StructClan:setClanNotice(s)
 end
 
 -------------------------------------
--- function getClanJoin
--------------------------------------
-function StructClan:getClanJoin()
-    return self['join']
-end
-
--------------------------------------
 -- function getMasterNick
 -------------------------------------
 function StructClan:getMasterNick()
@@ -134,6 +127,19 @@ function StructClan:getClanIntroText()
     end
 
     return intro_text
+end
+
+-------------------------------------
+-- function getClanNoticeText
+-------------------------------------
+function StructClan:getClanNoticeText()
+    local notice_text = self['notice']
+
+    if (not notice_text) or (notice_text == '') then
+        notice_text = Str('등록된 공지가 없습니다.')
+    end
+
+    return notice_text
 end
 
 -------------------------------------

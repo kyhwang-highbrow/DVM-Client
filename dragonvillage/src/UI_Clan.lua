@@ -105,7 +105,7 @@ function UI_Clan:refresh()
     vars['clanMemberLabel']:setString(member_str)
     
     -- 클랜 공지
-    local clan_notice = struct_clan:getClanNotice() or Str('등록된 공지가 없습니다.')
+    local clan_notice = struct_clan:getClanNoticeText()
     vars['clanNoticeLabel']:setString(clan_notice)
 
     -- 출석

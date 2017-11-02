@@ -43,7 +43,24 @@ end
 -- function click_exitBtn
 -------------------------------------
 function UI_ClanSetting:click_exitBtn()
-    self:close()
+    -- 가입 방식은 종료 직전에 변화 여부를 검사한다.
+    if (self.m_bChangedClanSet == false) and (self.m_clanAutoJoin ~= nil) then
+        if (self.m_clanAutoJoin ~= g_clanData:getClanStruct():isAutoJoin()) then
+            self.m_bChangedClanSet = true
+        end
+    end
+
+    local function close_cb()
+        self:close()
+    end
+
+    -- 변경사항이 있다면 닫기 전에 되묻는다.
+    if (self.m_bChangedClanSet) then
+        local msg = Str('변경사항이 있습니다. 클랜관리 화면을 닫으시겠습니까?')
+        MakeSimplePopup(POPUP_TYPE.YES_NO, msg, close_cb)
+    else
+        close_cb()
+    end
 end
 
 -------------------------------------
@@ -113,7 +130,6 @@ function UI_ClanSetting:initJoinRadioBtn()
     local radio_button = UIC_RadioButton()
 	radio_button:setChangeCB(function(join_type)
         self.m_clanAutoJoin = join_type
-        self.m_bChangedClanSet = true
     end)
 	self.m_clanJoinRadioBtn = radio_button
 
@@ -141,15 +157,15 @@ function UI_ClanSetting:refresh()
     vars['nameLabel']:setString(clan_name)
 
     -- 클랜 가입 방식
-    local clan_join = struct_clan:getClanJoin()
+    local clan_join = struct_clan:isAutoJoin()
     self.m_clanJoinRadioBtn:setSelectedButton(clan_join)
 
     -- 클랜 소개
-    local clan_intro = struct_clan:getClanIntro() or vars['introduceEditBox']:getText()
+    local clan_intro = struct_clan:getClanIntroText()
     vars['introduceLabel']:setString(clan_intro)
 
     -- 클랜 공지사항
-    local clan_notice = struct_clan:getClanNotice() or vars['noticeEditBox']:getText()
+    local clan_notice = struct_clan:getClanNoticeText()
     vars['noticeLabel']:setString(clan_notice)
 
     -- 탈퇴 / 해체 버튼 처리
@@ -183,12 +199,23 @@ function UI_ClanSetting:refresh_auth()
 
     local is_member = (g_clanData:getMyMemberType() == 'member')
 
+    -- 클랜 해체/탈퇴 버튼
     vars['disbandBtn']:setVisible(not is_member)
     vars['leaveBtn']:setVisible(is_member)
-    vars['noticeChangeBtn']:setVisible(not is_member)
-    vars['introduceChangeBtn']:setVisible(not is_member)
-    vars['okBtn']:setVisible(not is_member)
-    vars['markBtn']:setVisible(not is_member)
+
+    -- 클랜 이름 변경은 나중에...
+    vars['namechangeBtn']:setVisible(false)
+
+    -- 클랜 변경
+    if (is_member) then
+        local block_msg = Str('클랜원은 변경할 수 없습니다.')
+        vars['noticeChangeBtn']:setBlockMsg(block_msg)
+        vars['introduceChangeBtn']:setBlockMsg(block_msg)
+        vars['okBtn']:setBlockMsg(block_msg)
+        vars['markBtn']:setBlockMsg(block_msg)
+        vars['joinTypeBtn1']:setEnabled(false)
+        vars['joinTypeBtn2']:setEnabled(false)
+    end
 end
 
 -------------------------------------
