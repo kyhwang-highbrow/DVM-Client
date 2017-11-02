@@ -7,11 +7,14 @@ UI_ClanSetting = class(PARENT, {
         m_bChangedClanSet = 'bool',
         m_bRet = 'bool',
 
-        --
+        -- clan value
         m_structClanMark = 'StructClanMark',
         m_clanAutoJoin = 'boolean',
         m_clanIntroText = 'string',
         m_clanNoticeText = 'string',
+
+        m_preClanAutoJoin = 'string',
+        m_clanJoinRadioBtn = 'UIC_RadioBtn',
      })
 
 -------------------------------------
@@ -49,6 +52,9 @@ end
 -------------------------------------
 function UI_ClanSetting:initUI()
     local vars = self.vars
+    
+    self:initEditBox()
+    self:initJoinRadioBtn()
 end
 
 -------------------------------------
@@ -62,6 +68,61 @@ function UI_ClanSetting:initButton()
     vars['leaveBtn']:registerScriptTapHandler(function() self:click_leaveBtn() end)
     vars['markBtn']:registerScriptTapHandler(function() self:click_markBtn() end)
     vars['okBtn']:registerScriptTapHandler(function() self:click_okBtn() end)
+    vars['noticeChangeBtn']:registerScriptTapHandler(function() self:click_noticeChangeBtn() end)
+    vars['introduceChangeBtn']:registerScriptTapHandler(function() self:click_introduceChangeBtn() end)
+end
+
+-------------------------------------
+-- function initButton
+-------------------------------------
+function UI_ClanSetting:initEditBox()
+    local vars = self.vars
+
+    -- intro editBox handler 등록
+	local function intro_event_handler(event_name, p_sender)
+        if (event_name == "changed") then
+            local editbox = p_sender
+            local str = editbox:getText()
+            vars['introduceLabel']:setString(str)
+            self.m_clanIntroText = str
+        end
+    end
+    vars['introduceEditBox']:registerScriptEditBoxHandler(intro_event_handler)
+
+    -- notice editBox handler 등록
+	local function notice_event_handler(event_name, p_sender)
+        if (event_name == "changed") then
+            local editbox = p_sender
+            local str = editbox:getText()
+            vars['noticeLabel']:setString(str)
+            self.m_clanNoticeText = str
+        end
+    end
+    vars['noticeEditBox']:registerScriptEditBoxHandler(notice_event_handler)
+end
+
+-------------------------------------
+-- function initJoinRadioBtn
+-- @brief
+-------------------------------------
+function UI_ClanSetting:initJoinRadioBtn()
+	local vars = self.vars
+
+    -- 이전 클랜 가입 방식 등록
+    self.m_preClanAutoJoin = g_clanData:getClanStruct():getJoin()
+
+	-- radio button 선언
+    local radio_button = UIC_RadioButton()
+	radio_button:setChangeCB(function(join_type)
+        self.m_clanAutoJoin = (join_type == 'auto')
+    end)
+	self.m_clanJoinRadioBtn = radio_button
+
+    -- 버튼 등록
+	for i, join_type in ipairs({true, false}) do
+		local join_btn = vars['joinTypeBtn' .. i]
+		radio_button:addButton(join_type, join_btn)
+	end 
 end
 
 -------------------------------------
@@ -73,22 +134,23 @@ function UI_ClanSetting:refresh()
     local struct_clan = g_clanData:getClanStruct()
 
     -- 클랜 마크
-    local struct_clan_mark = self:getClanMarkStruct()
-    local icon = struct_clan_mark:makeClanMarkIcon()
-    vars['markNode']:removeAllChildren()
-    vars['markNode']:addChild(icon)
+    self:refresh_mark()
 
     -- 클랜 이름
     local clan_name = struct_clan:getName()
     vars['nameLabel']:setString(clan_name)
 
     -- 클랜 가입 방식
-    
+    local clan_join = struct_clan:getJoin()
+    self.m_clanJoinRadioBtn:setSelectedButton(clan_join)
+
     -- 클랜 소개
     local clan_intro = struct_clan:getIntro()
+    vars['introduceLabel']:setString(clan_intro)
 
     -- 클랜 공지사항
     local clan_notice = struct_clan:getNotice()
+    vars['noticeLabel']:setString(clan_notice)
 
     -- 탈퇴 / 해체 버튼 처리
     local my_nic = g_userData:get('nick')
@@ -96,6 +158,34 @@ function UI_ClanSetting:refresh()
     local is_master = (my_nic == master_nic)
     vars['disbandBtn']:setVisible(is_master)
     vars['leaveBtn']:setVisible(not is_master)
+end
+
+-------------------------------------
+-- function refresh_mark
+-- @brief 마크만 갱신
+-------------------------------------
+function UI_ClanSetting:refresh_mark()
+    local vars = self.vars
+    local struct_clan_mark = self:getClanMarkStruct()
+    local icon = struct_clan_mark:makeClanMarkIcon()
+    vars['markNode']:removeAllChildren()
+    vars['markNode']:addChild(icon)
+end
+
+-------------------------------------
+-- function click_introduceChangeBtn
+-- @brief 클랜 소개 변경
+-------------------------------------
+function UI_ClanSetting:click_introduceChangeBtn()
+    self.vars['introduceEditBox']:openKeyboard()
+end
+
+-------------------------------------
+-- function click_noticeChangeBtn
+-- @brief 공지사항 변경
+-------------------------------------
+function UI_ClanSetting:click_noticeChangeBtn()
+    self.vars['noticeEditBox']:openKeyboard()
 end
 
 -------------------------------------
@@ -179,7 +269,7 @@ function UI_ClanSetting:click_markBtn()
         if ui.m_bChanged then
             self.m_bChangedClanSet = true
             self.m_structClanMark = ui.m_structClanMark
-            self:refresh()
+            self:refresh_mark()
         end
     end
     ui:setCloseCB(close_cb)

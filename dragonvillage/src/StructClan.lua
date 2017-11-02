@@ -36,7 +36,7 @@ function StructClan:init(data)
     end
     
     -- @ generator
-    getsetGenerator_simple('StructClan', {'name', 'intro', 'notice', 'master'})
+    getsetGenerator_simple('StructClan', {'name', 'intro', 'notice', 'master', 'join'})
 end
 
 -------------------------------------
