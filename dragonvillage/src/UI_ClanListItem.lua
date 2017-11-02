@@ -58,6 +58,7 @@ end
 function UI_ClanListItem:initButton()
     local vars = self.vars
     vars['requestBtn']:registerScriptTapHandler(function() self:click_requestBtn() end)
+    vars['cancelBtn']:registerScriptTapHandler(function() self:click_cancelBtn() end)
     vars['infoBtn']:registerScriptTapHandler(function() self:click_infoBtn() end)
 end
 
@@ -66,13 +67,26 @@ end
 -------------------------------------
 function UI_ClanListItem:refresh()
     local vars = self.vars
+
+    local struct_clan = self.m_structClan
+    local clan_object_id = struct_clan:getClanObjectID()
+    
+    -- 가입 신청 여부에 따라 "가입", "취소" 버튼 구분
+    if g_clanData:isRequestedJoin(clan_object_id) then
+        vars['cancelBtn']:setVisible(true)
+        vars['requestBtn']:setVisible(false)
+    else
+        vars['cancelBtn']:setVisible(false)
+        vars['requestBtn']:setVisible(true)
+    end
 end
 
 -------------------------------------
 -- function click_requestBtn
 -------------------------------------
 function UI_ClanListItem:click_requestBtn()
-    local clan_object_id = self.m_structClan:getClanObjectID()
+    local struct_clan = self.m_structClan
+    local clan_object_id = struct_clan:getClanObjectID()
 
     local function finish_cb(ret)
 
@@ -87,13 +101,42 @@ function UI_ClanListItem:click_requestBtn()
             local msg = Str('축하합니다. 클랜에 가입되었습니다.')
             local sub_msg = Str('(클랜 정보 화면으로 이동합니다)')
             MakeSimplePopup2(POPUP_TYPE.OK, msg, sub_msg, ok_cb)
+        else
+            UIManager:toastNotificationGreen(Str('가입 신청을 했습니다.'))
+            self:refresh()
         end
     end
 
     local fail_cb = nil
 
-    g_clanData:request_join(finish_cb, fail_cb, clan_object_id) 
+    if struct_clan:isAutoJoin() then
+        local msg = Str('자동 가입이 설정된 클랜입니다.\n가입하시겠습니까?')
+        local function ok_cb()
+            g_clanData:request_join(finish_cb, fail_cb, clan_object_id) 
+        end
+        MakeSimplePopup(POPUP_TYPE.YES_NO, msg, ok_cb)
+    else
+        g_clanData:request_join(finish_cb, fail_cb, clan_object_id) 
+    end
 end
+
+-------------------------------------
+-- function click_cancelBtn
+-------------------------------------
+function UI_ClanListItem:click_cancelBtn()
+    local struct_clan = self.m_structClan
+    local clan_object_id = struct_clan:getClanObjectID()
+
+    local function finish_cb(ret)
+        UIManager:toastNotificationGreen(Str('가입 신청을 취소했습니다.'))
+        self:refresh()
+    end
+
+    local fail_cb = nil
+
+    g_clanData:request_joinCancel(finish_cb, fail_cb, clan_object_id)
+end
+
 
 -------------------------------------
 -- function click_infoBtn

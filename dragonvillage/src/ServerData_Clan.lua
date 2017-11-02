@@ -20,6 +20,9 @@ ServerData_Clan = class({
 
         -- 클랜 리스트(가입 신청 가능한)
         m_lClanList = 'list',
+
+        -- 클랜 가입 신청 리스트
+        m_lJoinRequestList = 'map',
     })
 
 -------------------------------------
@@ -127,6 +130,16 @@ function ServerData_Clan:request_clanInfo(finish_cb, fail_cb)
         -- 클랜 창설 비용
         self.m_createPriceType = (ret['create_price_type'] or self.m_createPriceType)
         self.m_createPriceValue = (ret['create_price_value'] or self.m_createPriceValue)
+
+        do -- 클랜 가입 신청 리스트 초기화
+            self.m_lJoinRequestList = {}
+
+            if ret['join_clan_list'] then
+                for i,v in pairs(ret['join_clan_list']) do
+                    self:addRequestedJoin(v)
+                end
+            end
+        end
 
         if finish_cb then
             finish_cb(ret)
@@ -354,6 +367,14 @@ function ServerData_Clan:request_join(finish_cb, fail_cb, clan_object_id)
             self:setNeedClanInfoRefresh()
         end
 
+        -- 클랜 가입 신청 리스트가 넘어온 경우
+        if ret['join_clan_list'] then
+            self.m_lJoinRequestList = {}
+            for i,v in pairs(ret['join_clan_list']) do
+                self:addRequestedJoin(v)
+            end
+        end
+
         if finish_cb then
             finish_cb(ret)
         end
@@ -362,6 +383,46 @@ function ServerData_Clan:request_join(finish_cb, fail_cb, clan_object_id)
     -- 네트워크 통신
     local ui_network = UI_Network()
     ui_network:setUrl('/clans/join')
+    ui_network:setParam('uid', uid)
+    ui_network:setParam('clan_id', clan_object_id)
+    ui_network:setMethod('POST')
+    ui_network:setSuccessCB(success_cb)
+    ui_network:setFailCB(fail_cb)
+    ui_network:setRevocable(true)
+    ui_network:setReuse(false)
+    ui_network:request()
+
+    return ui_network
+end
+
+-------------------------------------
+-- function request_joinCancel
+-- @brief
+-------------------------------------
+function ServerData_Clan:request_joinCancel(finish_cb, fail_cb, clan_object_id)
+
+    -- 유저 ID
+    local uid = g_userData:get('uid')
+
+    -- 성공 콜백
+    local function success_cb(ret)
+
+        -- 클랜 가입 신청 리스트가 넘어온 경우
+        if ret['join_clan_list'] then
+            self.m_lJoinRequestList = {}
+            for i,v in pairs(ret['join_clan_list']) do
+                self:addRequestedJoin(v)
+            end
+        end
+
+        if finish_cb then
+            finish_cb(ret)
+        end
+    end
+
+    -- 네트워크 통신
+    local ui_network = UI_Network()
+    ui_network:setUrl('/clans/cancel_join')
     ui_network:setParam('uid', uid)
     ui_network:setParam('clan_id', clan_object_id)
     ui_network:setMethod('POST')
@@ -419,4 +480,47 @@ end
 -------------------------------------
 function ServerData_Clan:getMyMemberType()
     return self.m_myMemberType
+end
+
+-------------------------------------
+-- function addRequestedJoin
+-- @brief
+-------------------------------------
+function ServerData_Clan:addRequestedJoin(t_clan_data)
+    if (not self.m_lJoinRequestList) then
+        self.m_lJoinRequestList = {}
+    end
+
+    local struct_clan = StructClan(t_clan_data)
+    local clan_object_id = struct_clan:getClanObjectID()
+    self.m_lJoinRequestList[clan_object_id] = struct_clan
+end
+
+-------------------------------------
+-- function removeRequestedJoin
+-- @brief
+-------------------------------------
+function ServerData_Clan:removeRequestedJoin(clan_object_id)
+    if (not self.m_lJoinRequestList) then
+        return
+    end
+
+    self.m_lJoinRequestList[clan_object_id] = nil
+end
+
+-------------------------------------
+-- function isRequestedJoin
+-- @brief
+-------------------------------------
+function ServerData_Clan:isRequestedJoin(clan_object_id)
+    ccdump(self.m_lJoinRequestList)
+    if (not self.m_lJoinRequestList) then
+        return false
+    end
+
+    if self.m_lJoinRequestList[clan_object_id] then
+        return true
+    else
+        return false
+    end
 end
