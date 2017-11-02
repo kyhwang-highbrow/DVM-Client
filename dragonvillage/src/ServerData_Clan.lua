@@ -9,6 +9,7 @@ ServerData_Clan = class({
 
         -- 유저의 클랜
         m_structClan = 'StructClan',
+        m_myMemberType = 'string', -- 클랜에 소속된 경우 권한 ('master', 'manager', 'member')
 
         -- 클랜 창설 비용
         m_createPriceType = 'string',
@@ -119,6 +120,9 @@ function ServerData_Clan:request_clanInfo(finish_cb, fail_cb)
             self.m_bClanGuest = true
             self:response_clanGuestInfo(ret)
         end
+
+        -- 클랜에 소속된 경우 권한 ('master', 'manager', 'member')
+        self.m_myMemberType = ret['clan_auth']
 
         -- 클랜 창설 비용
         self.m_createPriceType = (ret['create_price_type'] or self.m_createPriceType)
@@ -406,4 +410,13 @@ function ServerData_Clan:requestClanInfoDetailPopup(clan_object_id)
     ui_network:request()
 
     return ui_network
+end
+
+
+-------------------------------------
+-- function getMyMemberType
+-- @brief
+-------------------------------------
+function ServerData_Clan:getMyMemberType()
+    return self.m_myMemberType
 end
