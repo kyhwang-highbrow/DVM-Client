@@ -35,6 +35,8 @@ function StructClan:init(data)
         self.m_structClanMark = StructClanMark()
     end
     
+    -- @ generator
+    getsetGenerator_simple('StructClan', {'name', 'intro', 'notice', 'master'})
 end
 
 -------------------------------------

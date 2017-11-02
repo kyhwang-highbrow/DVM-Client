@@ -56,8 +56,10 @@ end
 -------------------------------------
 function UI_ClanSetting:initButton()
     local vars = self.vars
+
     vars['closeBtn']:registerScriptTapHandler(function() self:click_exitBtn() end)
     vars['disbandBtn']:registerScriptTapHandler(function() self:click_disbandBtn() end)
+    vars['leaveBtn']:registerScriptTapHandler(function() self:click_leaveBtn() end)
     vars['markBtn']:registerScriptTapHandler(function() self:click_markBtn() end)
     vars['okBtn']:registerScriptTapHandler(function() self:click_okBtn() end)
 end
@@ -75,6 +77,25 @@ function UI_ClanSetting:refresh()
     local icon = struct_clan_mark:makeClanMarkIcon()
     vars['markNode']:removeAllChildren()
     vars['markNode']:addChild(icon)
+
+    -- 클랜 이름
+    local clan_name = struct_clan:getName()
+    vars['nameLabel']:setString(clan_name)
+
+    -- 클랜 가입 방식
+    
+    -- 클랜 소개
+    local clan_intro = struct_clan:getIntro()
+
+    -- 클랜 공지사항
+    local clan_notice = struct_clan:getNotice()
+
+    -- 탈퇴 / 해체 버튼 처리
+    local my_nic = g_userData:get('nick')
+    local master_nic = struct_clan:getMaster()
+    local is_master = (my_nic == master_nic)
+    vars['disbandBtn']:setVisible(is_master)
+    vars['leaveBtn']:setVisible(not is_master)
 end
 
 -------------------------------------
@@ -99,6 +120,41 @@ function UI_ClanSetting:click_disbandBtn()
 
     popup_func = function()
         local msg = Str('클랜이 해체되었습니다.')
+        MakeSimplePopup(POPUP_TYPE.OK, msg, finish_cb)
+    end
+
+    finish_cb = function(ret)
+        if g_clanData:isNeedClanInfoRefresh() then
+            UINavigator:closeClanUI()
+            UINavigator:goTo('clan')
+        end
+    end
+
+    ask_func()
+end
+
+-------------------------------------
+-- function click_leaveBtn
+-- @brief 클랜 탈퇴
+-------------------------------------
+function UI_ClanSetting:click_leaveBtn()
+
+    local ask_func
+    local request_func
+    local popup_func
+    local finish_cb
+
+    ask_func = function()
+        local msg = Str('클랜을 탈퇴하시겠습니까?')
+        MakeSimplePopup(POPUP_TYPE.YES_NO, msg, request_func)
+    end
+
+    request_func = function()
+        g_clanData:request_clanExit(popup_func)
+    end
+
+    popup_func = function()
+        local msg = Str('클랜에서 탈퇴하였습니다.')
         MakeSimplePopup(POPUP_TYPE.OK, msg, finish_cb)
     end
 
