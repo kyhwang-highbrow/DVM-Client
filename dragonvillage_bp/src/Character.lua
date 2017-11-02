@@ -682,12 +682,6 @@ function Character:undergoAttack(attacker, defender, i_x, i_y, body_key, no_even
         if (is_critical) then
             local cri_dmg = attack_activity_carrier:getStat('cri_dmg') or 0
             cri_dmg_rate = cri_dmg / 100
-
-            -- 드래그 스킬 크리티컬 데미지
-            if (attack_type == 'active') then
-                local drag_cri_dmg_rate = attack_activity_carrier:getStat('drag_cri_dmg') or 0
-                cri_dmg_rate = cri_dmg_rate + drag_cri_dmg_rate / 100
-            end
         end
 
         if (IS_NEW_BALANCE_VERSION()) then
@@ -712,6 +706,7 @@ function Character:undergoAttack(attacker, defender, i_x, i_y, body_key, no_even
 
         -- 피해량 비율
         local dmg_adj_rate = 0
+        local cri_dmg_adj_rate = 0
         local se_dmg_adj_rate = 0
 
         if (IS_NEW_BALANCE_VERSION()) then
@@ -720,6 +715,14 @@ function Character:undergoAttack(attacker, defender, i_x, i_y, body_key, no_even
                 dmg_adj_rate = self:getStat('dmg_adj_rate') / 100
 
                 local rate = math_max(dmg_adj_rate, -1)
+                damage_multifly = damage_multifly * (1 + rate)
+            end
+
+            -- 치명타시 피해량 증감
+            if (is_critical) then
+                cri_dmg_adj_rate = attack_activity_carrier:getStat('cri_dmg_adj_rate') / 100
+
+                local rate = math_max(cri_dmg_adj_rate, -1)
                 damage_multifly = damage_multifly * (1 + rate)
             end
             
@@ -906,7 +909,11 @@ function Character:undergoAttack(attacker, defender, i_x, i_y, body_key, no_even
                 -- 진형에 따른 데미지 배율 적용
                 reflex_damage = reflex_damage * CalcDamageRateDueToFormation(attacker_char)
                 -- 최대 데미지(최대 체력 / 히트수)값을 넘지 않도록
-                reflex_damage = math_min(reflex_damage, self.m_maxHp / attack_hit_count)
+                if (IS_NEW_BALANCE_VERSION()) then
+                    reflex_damage = math_min(reflex_damage, self.m_maxHp)
+                else
+                    reflex_damage = math_min(reflex_damage, self.m_maxHp / attack_hit_count)
+                end
                 -- 최소 데미지 1로 처리
                 reflex_damage = math_max(reflex_damage, 1)
                 
