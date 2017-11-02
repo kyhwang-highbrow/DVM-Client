@@ -107,6 +107,8 @@ function ServerData_Clan:request_clanInfo(finish_cb, fail_cb)
 
     -- 성공 콜백
     local function success_cb(ret)
+        self.m_needClanInfoRefresh = false
+
         if ret['clan'] then
             self.m_structClan = StructClan(ret['clan'])
             self.m_bClanGuest = false
@@ -340,8 +342,6 @@ function ServerData_Clan:request_join(finish_cb, fail_cb, clan_object_id)
         if ret['clan'] then
             -- 클랜 정보를 다시 받도록 설정
             self:setNeedClanInfoRefresh()
-        else
-            UIManager:toastNotificationGreen(Str(''))
         end
 
         if finish_cb then

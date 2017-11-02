@@ -2871,6 +2871,9 @@
     <None Include="..\src\UI_ClanGuestTabJoin.lua">
       <Filter>lua\UI</Filter>
     </None>
+    <None Include="..\src\StructUserInfoClan.lua">
+      <Filter>lua\src</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Classes">

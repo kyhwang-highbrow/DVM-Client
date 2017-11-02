@@ -72,6 +72,7 @@ local t_module = {
     'StructUserInfoFriend',
     'StructUserInfoColosseum',
     'StructUserInfoAncientTower',
+    'StructUserInfoClan',
     'StructWaveRegenGroup',
     'StructCollisionData',
 	'StructBookData',
