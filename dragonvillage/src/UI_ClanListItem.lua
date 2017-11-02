@@ -143,5 +143,10 @@ end
 -------------------------------------
 function UI_ClanListItem:click_infoBtn()
     local clan_object_id = self.m_structClan:getClanObjectID()
-    g_clanData:requestClanInfoDetailPopup(clan_object_id)
+
+    local function close_cb()
+        self:refresh()
+    end
+
+    g_clanData:requestClanInfoDetailPopup(clan_object_id, close_cb)
 end

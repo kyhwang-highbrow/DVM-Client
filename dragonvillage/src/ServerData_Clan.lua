@@ -23,6 +23,9 @@ ServerData_Clan = class({
 
         -- 클랜 가입 신청 리스트
         m_lJoinRequestList = 'map',
+
+        -- 클랜 가입 신청 유저 리스트 (받는 기준)
+        m_lJoinRequestUserList = 'map',
     })
 
 -------------------------------------
@@ -141,6 +144,17 @@ function ServerData_Clan:request_clanInfo(finish_cb, fail_cb)
                 end
             end
         end
+
+        do -- 클랜 마스터, 부마스터일 경우 들어온 요청 유저 리스트
+            self.m_lJoinRequestUserList = {}
+
+            if ret['join_user_list'] then
+                for i,v in pairs(ret['join_user_list']) do
+                    self:addRequestedJoinUser(v)
+                end
+            end
+        end
+
 
         if finish_cb then
             finish_cb(ret)
@@ -448,7 +462,7 @@ end
 -- function requestClanInfoDetailPopup
 -- @brief
 -------------------------------------
-function ServerData_Clan:requestClanInfoDetailPopup(clan_object_id)
+function ServerData_Clan:requestClanInfoDetailPopup(clan_object_id, close_cb)
     -- 유저 ID
     local uid = g_userData:get('uid')
 
@@ -456,7 +470,11 @@ function ServerData_Clan:requestClanInfoDetailPopup(clan_object_id)
     local function success_cb(ret)
         local struct_clan = StructClan(ret['clan'])
         struct_clan:setMembersData(ret['clan_members'])
-        UI_ClanInfoDetailPopup(struct_clan)
+        local ui = UI_ClanInfoDetailPopup(struct_clan)
+
+        if close_cb then
+            ui:setCloseCB(close_cb)
+        end
     end
 
     -- 네트워크 통신
@@ -555,6 +573,43 @@ function ServerData_Clan:isRequestedJoin(clan_object_id)
     end
 end
 
+-------------------------------------
+-- function addRequestedJoinUser
+-- @brief
+-------------------------------------
+function ServerData_Clan:addRequestedJoinUser(t_user_data)
+    if (not self.m_lJoinRequestUserList) then
+        self.m_lJoinRequestUserList = {}
+    end
+
+    local user_info = StructUserInfoClan:create(t_user_data)
+    local uid = user_info:getUid()
+    self.m_lJoinRequestUserList[uid] = user_info
+end
+
+-------------------------------------
+-- function removeRequestedJoinUser
+-- @brief
+-------------------------------------
+function ServerData_Clan:removeRequestedJoinUser(uid)
+    if (not self.m_lJoinRequestUserList) then
+        return
+    end
+
+    self.m_lJoinRequestUserList[uid] = nil
+end
+
+-------------------------------------
+-- function getRequestedJoinUserCnt
+-- @brief
+-------------------------------------
+function ServerData_Clan:getRequestedJoinUserCnt()
+    if (self.m_lJoinRequestUserList) then
+        return table.count(self.m_lJoinRequestUserList)
+    end
+
+    return 0
+end
 
 -------------------------------------
 -- function isCanJoinRequest
@@ -565,7 +620,7 @@ function ServerData_Clan:isCanJoinRequest(clan_object_id)
         return false
     end
 
-    if self.isRequestedJoin(clan_object_id) then
+    if self:isRequestedJoin(clan_object_id) then
         return false
     end
 

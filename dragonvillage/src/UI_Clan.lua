@@ -67,6 +67,10 @@ function UI_Clan:initUI()
     local vars = self.vars
 
     self:initTab()
+
+    -- 아직 미구현 기능이라 숨김
+    vars['sortSelectBtn']:setVisible(false)
+    vars['sortSelectOrderBtn']:setVisible(false)
 end
 
 -------------------------------------
@@ -77,6 +81,7 @@ function UI_Clan:initButton()
 
     vars['settingBtn']:registerScriptTapHandler(function() self:click_settingBtn() end)
     vars['rewardBtn']:registerScriptTapHandler(function() self:click_rewardBtn() end)
+    vars['requestBtn']:registerScriptTapHandler(function() self:click_requestBtn() end)
 end
 
 -------------------------------------
@@ -111,6 +116,10 @@ function UI_Clan:refresh()
     -- 출석
     local str = Str('{1}/{2}', struct_clan:getCurrAttd(), 20)
     vars['attendanceLabel']:setString(str)
+
+    -- 가입 승인 대기 수
+    local str = Str('{1}/{2}', g_clanData:getRequestedJoinUserCnt(), 20)
+    vars['requestLabel']:setString(str)
 
     -- 가입 승인
     local member_type = g_clanData:getMyMemberType()
@@ -161,6 +170,13 @@ end
 -------------------------------------
 function UI_Clan:click_rewardBtn()
     UI_ClanAttendanceReward()
+end
+
+-------------------------------------
+-- function click_requestBtn
+-------------------------------------
+function UI_Clan:click_requestBtn()
+    cclog('## UI_Clan:click_requestBtn()')
 end
 
 -------------------------------------

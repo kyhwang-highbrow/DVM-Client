@@ -65,6 +65,10 @@ function UI_ClanInfoDetailPopup:initUI()
     vars['settingBtn']:setVisible(false) -- 클랜 관리 버튼 숨김
     vars['rankTabBtn']:setVisible(false) -- 랭킹 탭 숨김
     vars['requestMenu']:setVisible(false) -- 가입 승인 UI 숨김
+
+    -- 아직 미구현 기능이라 숨김
+    vars['sortSelectBtn']:setVisible(false)
+    vars['sortSelectOrderBtn']:setVisible(false)
 end
 
 -------------------------------------
