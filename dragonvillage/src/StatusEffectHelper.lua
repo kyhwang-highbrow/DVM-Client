@@ -229,13 +229,15 @@ function StatusEffectHelper:invokeStatusEffect(caster, target_char, status_effec
 
     -- 효과 적중 및 효과 저항 검사
     if (IS_NEW_BALANCE_VERSION()) then
-        -- 해제효과의 경우는 효과 저항할 수 없도록 처리
-        if (status_effect_group ~= 'dispell' and self:checkStatus(caster, target_char, status_effect_category)) then
+        if (status_effect_group == 'dispell') then
+            -- 해제효과의 경우는 효과 저항할 수 없도록 처리
+        
+        elseif (self:isHarmful(status_effect_category) and self:checkStatus(caster, target_char)) then
             target_char:makeResistanceFont(target_char.pos['x'], target_char.pos['y'], 1.5)
             return nil
         end
 	else
-        if (self:checkStatus(caster, target_char, status_effect_category)) then
+        if (self:isHarmful(status_effect_category) and self:checkStatus(caster, target_char)) then
             target_char:makeResistanceFont(target_char.pos['x'], target_char.pos['y'], 1.5)
             return nil
         end
@@ -442,16 +444,10 @@ end
 -- function checkStatus
 -- 스텟(효과 적중, 효과 저항)으로 적용 여부 판단
 -------------------------------------
-function StatusEffectHelper:checkStatus(caster, target_char, status_effect_category)
-	local is_harmful = self:isHarmful(status_effect_category)
-	
-	-- @ RUNE
+function StatusEffectHelper:checkStatus(caster, target_char)
 	local accuracy = caster:getStat('accuracy')
-	local resistance = 0
-	if (is_harmful) then
-		resistance = target_char:getStat('resistance')
-	end
-    
+	local resistance = target_char:getStat('resistance')
+	    
 	-- 확률 permill 로 체크
 	local adj_rate = CalcAccuracyChance(accuracy, resistance)
 	return (math_random(1, 100) > adj_rate)

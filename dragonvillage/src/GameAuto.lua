@@ -221,8 +221,19 @@ function GameAuto:doWork(dt)
         local list = self.m_lUnitListPerPriority[self.m_curPriority]
         local count = #list
         if (count > 0) then
-            local unit = randomShuffle(list)[1]
-            self.m_curUnit = unit
+            local list = randomShuffle(list)
+               
+            -- 쿨타임 중이 아닌 대상을 선택
+            for _, unit in ipairs(list) do
+                if (unit:isPossibleSkill()) then
+                    self.m_curUnit = unit
+                    break
+                end
+            end
+            
+            if (not self.m_curUnit) then
+                self.m_curUnit = list[1]
+            end
         end
     end
 
