@@ -17,7 +17,7 @@ function UI_ClanGuest:initParentVariable()
 	--self.m_staminaType = 'pvp'
     self.m_bVisible = true
     self.m_bUseExitBtn = true
-    --self.m_subCurrency = 'honor'
+    self.m_subCurrency = 'clan_coin'
     self.m_uiBgm = 'bgm_lobby'
 end
 
@@ -25,7 +25,7 @@ end
 -- function init
 -------------------------------------
 function UI_ClanGuest:init()
-    local vars = self:load_keepZOrder('clan_01.ui')
+    local vars = self:load('clan_01.ui')
     UIManager:open(self, UIManager.SCENE)
 
     self.m_uiName = 'UI_ClanGuest'

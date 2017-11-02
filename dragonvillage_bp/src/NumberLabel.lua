@@ -50,7 +50,7 @@ function NumberLabel:setNumber(number, immediately)
 	-- setNumber 예외처리
 	if (not number) then
 		number = 0
-		cclog('NumberLabel:setNumber number가 nil로 들어왔습니다')
+		--cclog('NumberLabel:setNumber number가 nil로 들어왔습니다')
 	end
 
     local prev_number = self.m_number

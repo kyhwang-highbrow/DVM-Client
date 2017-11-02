@@ -83,6 +83,7 @@ local t_module = {
     'StructHighbrowProduct',
     'StructTamerCostume',
     'StructClan',
+    'StructClanMark',
 
 	-- ServerData
     'ServerData',
@@ -277,6 +278,7 @@ local t_module = {
     'TableSkillSound',
     'TableEvolutionItemCombine',
     'TablePackageBundle',
+    'TableClanMark',
 
     -- Scene
     'SceneCommon',
@@ -914,6 +916,9 @@ local t_module = {
     'UI_Clan',
     'UI_ClanGuest',
     'UI_ClanGuestTabFound',
+    'UI_ClanSetting',
+    'UI_ClanMark',
+    'UI_ClanMarkListItem',
 
     -- Forest
     'SceneForest',
