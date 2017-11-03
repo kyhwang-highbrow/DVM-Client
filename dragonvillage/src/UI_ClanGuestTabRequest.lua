@@ -48,17 +48,6 @@ function UI_ClanGuestTabRequest:init_TableView()
 
     -- 생성 콜백
     local function create_func(ui, data)
-        --[[
-        local function click_previousButton()
-            self:update_topRankTableView(self.m_topRankOffset - 30)
-        end
-        ui.vars['previousButton']:registerScriptTapHandler(click_previousButton)
-
-        local function click_nextButton()
-            self:update_topRankTableView(self.m_topRankOffset + 30)
-        end
-        ui.vars['nextButton']:registerScriptTapHandler(click_nextButton)
-        --]]
     end
 
     -- 테이블 뷰 인스턴스 생성
@@ -69,5 +58,7 @@ function UI_ClanGuestTabRequest:init_TableView()
     table_view:setItemList(l_item_list)
 
     -- 리스트가 비었을 때
+    table_view:makeDefaultEmptyDescLabel(Str('보낸 요청이 없습니다.'))
+
     -- 정렬
 end
