@@ -223,7 +223,7 @@ end
 -------------------------------------
 function StructClan:applySetting(t_data)
     for i,v in pairs(self) do
-        if t_data[i] then
+        if (t_data[i] ~= nil) then
             self[i] = v
         end
     end

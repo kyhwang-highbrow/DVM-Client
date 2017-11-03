@@ -132,6 +132,7 @@ function UI_ClanSetting:initJoinRadioBtn()
     local radio_button = UIC_RadioButton()
 	radio_button:setChangeCB(function(join_type)
         self.m_clanAutoJoin = join_type
+        self.m_bChangedClanSet = true
     end)
 	self.m_clanJoinRadioBtn = radio_button
 
@@ -140,7 +141,7 @@ function UI_ClanSetting:initJoinRadioBtn()
 		local join_btn = vars['joinTypeBtn' .. i]
         local join_sprite = vars['joinTypeSprite' .. i]
 		radio_button:addButton(join_type, join_btn, join_sprite)
-	end 
+	end
 end
 
 -------------------------------------
