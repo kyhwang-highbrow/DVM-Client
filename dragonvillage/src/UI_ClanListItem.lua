@@ -103,7 +103,7 @@ function UI_ClanListItem:click_requestBtn()
             MakeSimplePopup2(POPUP_TYPE.OK, msg, sub_msg, ok_cb)
         else
             UIManager:toastNotificationGreen(Str('가입 신청을 했습니다.'))
-            self:refresh()
+            self:delThis()
         end
     end
 
@@ -129,7 +129,7 @@ function UI_ClanListItem:click_cancelBtn()
 
     local function finish_cb(ret)
         UIManager:toastNotificationGreen(Str('가입 신청을 취소했습니다.'))
-        self:refresh()
+        self:delThis()
     end
 
     local fail_cb = nil

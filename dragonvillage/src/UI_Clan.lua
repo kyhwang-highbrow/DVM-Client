@@ -174,9 +174,29 @@ end
 
 -------------------------------------
 -- function click_requestBtn
+-- @breif 가입 승인 관리 버튼 (마스터, 부마스터 권한)
 -------------------------------------
 function UI_Clan:click_requestBtn()
-    cclog('## UI_Clan:click_requestBtn()')
+    local work_open_popup
+    local work_close_cb
+    local ui
+
+    -- 팝업 생성
+    work_open_popup = function()
+        ui = UI_ClanAcceptPopup()
+        ui:setCloseCB(work_close_cb)
+    end
+
+    -- 팝업 닫힘 콜백
+    work_close_cb = function()
+        -- 클랜 정보 갱신이 필요할 경우 (신규 클랜원이 가입되었을 때)
+        if g_clanData:isNeedClanInfoRefresh() then
+            UINavigator:closeClanUI()
+            UINavigator:goTo('clan')
+        end
+    end
+
+    work_open_popup()
 end
 
 -------------------------------------

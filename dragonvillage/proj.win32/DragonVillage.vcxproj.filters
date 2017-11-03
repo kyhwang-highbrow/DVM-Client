@@ -2892,6 +2892,15 @@
     <None Include="..\src\UI_ClanGuestTabRequest.lua">
       <Filter>lua\UI</Filter>
     </None>
+    <None Include="..\src\UI_ClanAcceptPopup.lua">
+      <Filter>lua\UI</Filter>
+    </None>
+    <None Include="..\src\UI_ClanAcceptListItem.lua">
+      <Filter>lua\UI</Filter>
+    </None>
+    <None Include="..\src\UI_ClanGuestTabRank.lua">
+      <Filter>lua\UI</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Classes">

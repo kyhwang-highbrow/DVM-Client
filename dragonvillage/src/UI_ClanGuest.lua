@@ -81,11 +81,6 @@ end
 -------------------------------------
 function UI_ClanGuest:initButton()
     local vars = self.vars
-    --vars['winBuffDetailBtn']:registerScriptTapHandler(function() self:click_winBuffDetailBtn() end)
-    --vars['rankDetailBtn']:registerScriptTapHandler(function() self:click_rankDetailBtn() end)
-    --vars['rewardInfoBtn']:registerScriptTapHandler(function() self:click_rewardInfoBtn() end)
-    --vars['refreshBtn']:registerScriptTapHandler(function() self:click_refreshBtn() end)
-    --vars['defDeckBtn']:registerScriptTapHandler(function() self:click_defDeckBtn() end)
 end
 
 -------------------------------------
@@ -113,6 +108,10 @@ function UI_ClanGuest:initTab()
     local found_tab = UI_ClanGuestTabFound(self, 'found')
     self:addTabWithTabUIAndLabel('found', vars['foundTabBtn'], vars['foundTabLabel'], found_tab)
 
+    -- 클랜 랭킹
+    local rank_tab = UI_ClanGuestTabRank(self, 'rank')
+    self:addTabWithTabUIAndLabel('rank', vars['rankTabBtn'], vars['rankTabLabel'], rank_tab)
+
     self:setTab('join')
 end
 
@@ -120,29 +119,6 @@ end
 -- function onChangeTab
 -------------------------------------
 function UI_ClanGuest:onChangeTab(tab, first)
-    --[[
-    PARENT.onChangeTab(self, tab, first)
-
-    local vars = self.vars
-    if (tab == UI_ClanGuest.ATK) then
-        self:refresh_combatPower('atk')
-
-    elseif (tab == UI_ClanGuest.DEF) then
-        self:refresh_combatPower('def')
-        self:request_matchHistory()
-
-    elseif (tab == UI_ClanGuest.RANKING) then
-        self:request_Rank()
-    end
-
-    if (not first) then
-        return
-    end
-
-    if (tab == UI_ClanGuest.ATK) then
-        self:init_atkTab()
-    end
-    --]]
 end
 
 -------------------------------------

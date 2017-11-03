@@ -575,7 +575,7 @@ end
 
 -------------------------------------
 -- function addRequestedJoinUser
--- @brief
+-- @brief 클랜 가입 요청을 한 유저 리스트 (마스터, 부마스터가 가입 승인을 해줄 수 있는 대상)
 -------------------------------------
 function ServerData_Clan:addRequestedJoinUser(t_user_data)
     if (not self.m_lJoinRequestUserList) then
@@ -589,7 +589,7 @@ end
 
 -------------------------------------
 -- function removeRequestedJoinUser
--- @brief
+-- @brief 클랜 가입 요청을 한 유저 리스트 (마스터, 부마스터가 가입 승인을 해줄 수 있는 대상)
 -------------------------------------
 function ServerData_Clan:removeRequestedJoinUser(uid)
     if (not self.m_lJoinRequestUserList) then
@@ -601,7 +601,7 @@ end
 
 -------------------------------------
 -- function getRequestedJoinUserCnt
--- @brief
+-- @brief 클랜 가입 요청을 한 유저 리스트 (마스터, 부마스터가 가입 승인을 해줄 수 있는 대상)
 -------------------------------------
 function ServerData_Clan:getRequestedJoinUserCnt()
     if (self.m_lJoinRequestUserList) then
@@ -613,16 +613,62 @@ end
 
 -------------------------------------
 -- function isCanJoinRequest
--- @brief
+-- @brief clan_object_id클랜에 가입 신청이 가능한 상태인지 리턴
 -------------------------------------
 function ServerData_Clan:isCanJoinRequest(clan_object_id)
+    -- 이미 클랜에 소속되어 있는 경우 x
     if self.m_structClan then
         return false
     end
 
+    -- 이미 가입 신청을 요청한 클랜일 경우 x
     if self:isRequestedJoin(clan_object_id) then
         return false
     end
 
     return true
+end
+
+-------------------------------------
+-- function request_accept
+-- @brief 가입 요청 승인 (마스터, 부마스터 권한)
+-------------------------------------
+function ServerData_Clan:request_accept(finish_cb, fail_cb, req_uid)
+    if (not self.m_structClan) then
+        return
+    end
+
+    -- 20명 이상일 경우
+    if (20 <= self.m_structClan:getMemberCnt()) then
+        UIManager:toastNotificationRed(Str('클랜원 목록이 가득 찼습니다.'))
+        return
+    end
+
+    -- 유저 ID
+    local uid = g_userData:get('uid')
+    local clan_object_id = self.m_structClan:getClanObjectID()
+
+    -- 성공 콜백
+    local function success_cb(ret)
+        self:setNeedClanInfoRefresh()
+
+        if finish_cb then
+            finish_cb(ret)
+        end
+    end
+
+    -- 네트워크 통신
+    local ui_network = UI_Network()
+    ui_network:setUrl('/clans/accept')
+    ui_network:setParam('uid', uid)
+    ui_network:setParam('clan_id', clan_object_id)
+    ui_network:setParam('req_uid', req_uid)
+    ui_network:setMethod('POST')
+    ui_network:setSuccessCB(success_cb)
+    ui_network:setFailCB(fail_cb)
+    ui_network:setRevocable(true)
+    ui_network:setReuse(false)
+    ui_network:request()
+
+    return ui_network
 end

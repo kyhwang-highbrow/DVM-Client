@@ -49,33 +49,17 @@ function UI_ClanGuestTabJoin:init_TableView()
     local node = self.vars['joinNode']
     node:removeAllChildren()
 
-    local l_item_list = g_clanData.m_lClanList
-
-    --[[
-    if (self.m_topRankOffset > 1) then
-        local prev_data = {m_rank = 'prev'}
-        l_item_list['prev'] = prev_data
+    local l_item_list = {}
+    -- 가입 신청이 가능한 클랜만 추출
+    for i,v in pairs(g_clanData.m_lClanList) do
+        local clan_object_id = v:getClanObjectID()
+        if g_clanData:isCanJoinRequest(clan_object_id) then
+            l_item_list[i] = v
+        end
     end
-
-    if (#l_item_list > 0) then
-        local next_data = {m_rank = 'next'}
-        l_item_list['next'] = next_data
-    end
-    --]]
 
     -- 생성 콜백
     local function create_func(ui, data)
-        --[[
-        local function click_previousButton()
-            self:update_topRankTableView(self.m_topRankOffset - 30)
-        end
-        ui.vars['previousButton']:registerScriptTapHandler(click_previousButton)
-
-        local function click_nextButton()
-            self:update_topRankTableView(self.m_topRankOffset + 30)
-        end
-        ui.vars['nextButton']:registerScriptTapHandler(click_nextButton)
-        --]]
     end
 
     -- 테이블 뷰 인스턴스 생성
@@ -86,11 +70,7 @@ function UI_ClanGuestTabJoin:init_TableView()
     table_view:setItemList(l_item_list)
 
     -- 리스트가 비었을 때
-    --table_view_td:makeDefaultEmptyDescLabel('')
-
     -- 정렬
-    --g_colosseumRankData:sortColosseumRank(table_view.m_itemList)
-    --self.m_topRankTableView = table_view
 end
 
 -------------------------------------
