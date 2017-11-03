@@ -412,8 +412,8 @@ function ServerData:networkCommonRespone(ret)
         end
         
         -- 클랜 코인
-        if ret['clan_coin'] then
-            self:applyServerData(ret['clan_coin'], 'user', 'clan_coin')
+        if ret['clancoin'] then
+            self:applyServerData(ret['clancoin'], 'user', 'clancoin')
         end
     end
 
@@ -524,7 +524,7 @@ function ServerData:networkCommonRespone_addedItems(ret)
     RefreshGoods(t_added_items, 'staminas')
 
     -- 클랜 코인 동기화 (전체 갱신)
-    RefreshGoods(t_added_items, 'clan_coin')
+    RefreshGoods(t_added_items, 'clancoin')
 
     -- 드래곤 (추가)
     if t_added_items['dragons'] then

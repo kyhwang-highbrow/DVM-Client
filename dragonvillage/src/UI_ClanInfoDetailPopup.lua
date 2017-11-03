@@ -18,7 +18,7 @@ function UI_ClanInfoDetailPopup:initParentVariable()
 	--self.m_staminaType = 'pvp'
     self.m_bVisible = true
     self.m_bUseExitBtn = true
-    self.m_subCurrency = 'clan_coin'
+    self.m_subCurrency = 'clancoin'
     self.m_uiBgm = 'bgm_lobby'
 end
 
