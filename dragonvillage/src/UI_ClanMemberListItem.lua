@@ -68,9 +68,9 @@ function UI_ClanMemberListItem:initButton()
 
         vars['banishBtn']:registerScriptTapHandler(function() self:click_banishBtn() end)
         
-        --masterBtn
-        --subMasterBtn
-        --memberBtn
+        vars['masterBtn']:registerScriptTapHandler(function() self:click_masterBtn() end)
+        vars['subMasterBtn']:registerScriptTapHandler(function() self:click_subMasterBtn() end)
+        vars['memberBtn']:registerScriptTapHandler(function() self:click_memberBtn() end)
     end
 end
 
@@ -152,6 +152,39 @@ function UI_ClanMemberListItem:click_banishBtn()
     end
 
     work_ask()
+end
+
+-------------------------------------
+-- function click_masterBtn
+-- @brief 마스터로 지정
+-------------------------------------
+function UI_ClanMemberListItem:click_masterBtn()
+    local member_type = self.m_structUserInfo:getMemberType()
+    if (member_type == 'master') then
+        return
+    end
+end
+
+-------------------------------------
+-- function click_subMasterBtn
+-- @brief 부마스터로 지정
+-------------------------------------
+function UI_ClanMemberListItem:click_subMasterBtn()
+    local member_type = self.m_structUserInfo:getMemberType()
+    if (member_type == 'manager') then
+        return
+    end
+end
+
+-------------------------------------
+-- function click_memberBtn
+-- @brief 클랜원으로 지정
+-------------------------------------
+function UI_ClanMemberListItem:click_memberBtn()
+    local member_type = self.m_structUserInfo:getMemberType()
+    if (member_type == 'member') then
+        return
+    end
 end
 
 -------------------------------------
