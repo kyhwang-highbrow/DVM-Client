@@ -186,6 +186,37 @@ function StructClan:setMembersData(l_member_json)
     end
 end
 
+-------------------------------------
+-- function getMemberStruct
+-- @brief
+-------------------------------------
+function StructClan:getMemberStruct(uid)
+    if self.m_memberList then
+        return nil
+    end
+
+    return self.m_memberList[uid]
+end
+
+
+-------------------------------------
+-- function removeMember
+-- @brief 맴버 삭제
+-------------------------------------
+function StructClan:removeMember(member_uid)
+    if self.m_memberList[member_uid] then
+
+        -- 출석 수 갱신
+        if self.m_memberList[member_uid]:isTodayAttendance() then
+            self['curr_attd'] = (self['curr_attd'] - 1)
+        end
+        
+        self.m_memberList[member_uid] = nil
+    end
+
+    -- 맴버 수 갱신
+    self['member_cnt'] = table.count(self.m_memberList)
+end
 
 -------------------------------------
 -- function applySetting

@@ -98,6 +98,14 @@ function StructUserInfoClan:getPastActiveTimeText()
 end
 
 -------------------------------------
+-- function getMemberType
+-- @brief 맴버 타입
+-------------------------------------
+function StructUserInfoClan:getMemberType()
+    return self.m_memberType
+end
+
+-------------------------------------
 -- function getMemberTypeText
 -- @brief 맴버 타입 텍스트
 -------------------------------------

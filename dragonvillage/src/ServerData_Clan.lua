@@ -741,3 +741,45 @@ function ServerData_Clan:getAttdRewardInfo(clear)
 
     return reward_info
 end
+
+
+-------------------------------------
+-- function request_kick
+-- @brief 클랜원 추방
+-------------------------------------
+function ServerData_Clan:request_kick(finish_cb, fail_cb, member_uid)
+    if (not self.m_structClan) then
+        return
+    end
+
+    -- 유저 ID
+    local uid = g_userData:get('uid')
+    local clan_object_id = self.m_structClan:getClanObjectID()
+
+    -- 성공 콜백
+    local function success_cb(ret)
+        self:setNeedClanInfoRefresh()
+
+        -- 맴버 제거
+        self.m_structClan:removeMember(member_uid)
+
+        if finish_cb then
+            finish_cb(ret)
+        end
+    end
+
+    -- 네트워크 통신
+    local ui_network = UI_Network()
+    ui_network:setUrl('/clans/kick')
+    ui_network:setParam('uid', uid)
+    ui_network:setParam('clan_id', clan_object_id)
+    ui_network:setParam('member_uid', member_uid)
+    ui_network:setMethod('POST')
+    ui_network:setSuccessCB(success_cb)
+    ui_network:setFailCB(fail_cb)
+    ui_network:setRevocable(true)
+    ui_network:setReuse(false)
+    ui_network:request()
+
+    return ui_network
+end

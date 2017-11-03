@@ -167,6 +167,24 @@ function UI_Clan:refresh()
 end
 
 -------------------------------------
+-- function refresh_memberCnt
+-------------------------------------
+function UI_Clan:refresh_memberCnt()
+    local vars = self.vars
+
+    local struct_clan = g_clanData:getClanStruct()
+
+    -- 맴버 수
+    local member_str = struct_clan:getMemberCntText()
+    vars['clanMemberLabel']:setString(member_str)
+
+    -- 출석
+    local str = Str('{1}/{2}', struct_clan:getCurrAttd(), 20)
+    vars['attendanceLabel']:setString(str)
+end
+
+
+-------------------------------------
 -- function initTab
 -------------------------------------
 function UI_Clan:initTab()
@@ -256,19 +274,13 @@ function UI_Clan:init_TableView()
     end
     --]]
 
+    local function refresh_cb()
+        self:refresh_memberCnt()
+    end
+
     -- 생성 콜백
     local function create_func(ui, data)
-        --[[
-        local function click_previousButton()
-            self:update_topRankTableView(self.m_topRankOffset - 30)
-        end
-        ui.vars['previousButton']:registerScriptTapHandler(click_previousButton)
-
-        local function click_nextButton()
-            self:update_topRankTableView(self.m_topRankOffset + 30)
-        end
-        ui.vars['nextButton']:registerScriptTapHandler(click_nextButton)
-        --]]
+        ui:setRefreshCB(refresh_cb)
     end
 
     -- 테이블 뷰 인스턴스 생성

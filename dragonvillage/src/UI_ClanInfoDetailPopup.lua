@@ -161,6 +161,7 @@ function UI_ClanInfoDetailPopup:init_TableView()
     local function create_func(ui, data)
         -- 관리 버튼 visible off
         ui.vars['adminBtn']:setVisible(false)
+        ui.vars['adminBtn'] = nil
 
         -- 출석 관련 노드 visible off
         ui.vars['attendanceNode']:setVisible(false)
