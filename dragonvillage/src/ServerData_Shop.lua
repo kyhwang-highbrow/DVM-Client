@@ -28,6 +28,7 @@ function ServerData_Shop:init(server_data)
     self.m_dicProduct['capsule'] = {}
     self.m_dicProduct['package'] = {}
     self.m_dicProduct['ancient'] = {}
+    self.m_dicProduct['clan_coin'] = {}
     self.m_dicBuyCnt = {}
 
     self:setDirty()
