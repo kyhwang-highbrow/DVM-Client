@@ -35,6 +35,8 @@ function UI_ClanSetting:init()
     self:initButton()
     self:refresh()
 
+    self:sceneFadeInAction()
+
     g_clanData.m_needClanSetting = false
     self.m_bRet = false
 end

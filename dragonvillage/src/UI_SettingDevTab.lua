@@ -20,6 +20,7 @@ function UI_Setting:init_devTab()
     vars['uidCopyBtn']:registerScriptTapHandler(function() self:click_uidCopyBtn() end)
     vars['soundModuleBtn']:registerScriptTapHandler(function() self:click_soundModuleBtn() end)
     vars['benchmarkBtn']:registerScriptTapHandler(function() self:click_benchmarkBtn() end)
+    vars['clanCacheResetBtn']:registerScriptTapHandler(function() self:click_clanCacheResetBtn() end)
     self:refresh_devTap()
 end
 
@@ -531,4 +532,31 @@ function UI_Setting:click_benchmarkBtn()
     BenchmarkManager:getInstance()
     g_benchmarkMgr:setBenchmarkJson()
     g_benchmarkMgr:startStage()
+end
+
+-------------------------------------
+-- function click_clanCacheResetBtn
+-- @brief 클랜 캐시 초기화
+-------------------------------------
+function UI_Setting:click_clanCacheResetBtn()
+    -- 유저 ID
+    local uid = g_userData:get('uid')
+
+    -- 성공 콜백
+    local function success_cb(ret)
+        UINavigator:closeClanUI()
+        UIManager:toastNotificationRed(Str('클랜 캐시 정보가 초기화되었습니다.'))
+    end
+
+    -- 네트워크 통신
+    local ui_network = UI_Network()
+    ui_network:setUrl('/manage/clan_reset')
+    ui_network:setParam('uid', uid)
+    ui_network:setMethod('POST')
+    ui_network:setSuccessCB(success_cb)
+    ui_network:setRevocable(true)
+    ui_network:setReuse(false)
+    ui_network:request()
+
+    return ui_network
 end
