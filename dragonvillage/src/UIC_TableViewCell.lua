@@ -15,7 +15,8 @@ ITableViewCell = {
         m_cellSize = 'cc.size',
         m_bOrgCellVisible = 'boolean',
         m_cellVisibleRefCnt = 'number',
-		m_highligtFrame = 'sprite'
+		m_highligtFrame = 'sprite',
+        m_tableView = 'UIC_TableView',
     }
 
 -------------------------------------
@@ -147,6 +148,33 @@ function ITableViewCell:setHighlightFrame(visible)
 		self.m_highligtFrame = sprite
 
 	end
+end
+
+-------------------------------------
+-- function setTableView
+-------------------------------------
+function ITableViewCell:setTableView(table_view)
+	self.m_tableView = table_view
+end
+
+-------------------------------------
+-- function delThis
+-------------------------------------
+function ITableViewCell:delThis()
+    if (not self.m_tableView) then
+        return
+    end
+
+    if (not self.m_tableView.m_itemMap) then
+        return
+    end
+
+    for key, t_item in pairs(self.m_tableView.m_itemMap) do
+        if (t_item['ui'] == self) then
+            self.m_tableView:delItem(key)
+            break
+        end
+    end
 end
 
 

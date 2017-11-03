@@ -749,6 +749,7 @@ end
 -------------------------------------
 function UIC_TableViewTD:makeItemUI(data)
     local ui = self.m_cellUIClass(data)
+    ui:setTableView(self)
     ui.root:setSwallowTouch(false)
     if ui.vars['swallowTouchMenu'] then
         ui.vars['swallowTouchMenu']:setSwallowTouch(false)
