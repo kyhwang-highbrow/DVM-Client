@@ -929,6 +929,7 @@ local t_module = {
     'UI_ClanMarkTwo',
     'UI_ClanMarkListItem',
     'UI_ClanInfoDetailPopup',
+    'UI_ClanAttendanceReward',
     'UI_ClanAttendanceRewardInfo',
     'UI_ClanAcceptPopup', -- 가입 승인 관리 팝업 (마스터, 부마스터 권한)
     'UI_ClanAcceptListItem',

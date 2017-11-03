@@ -61,13 +61,29 @@ function UI_Clan:checkEnterEvent()
 
     -- 출석 보상 정보가 있는지 확인
     if g_clanData:getAttdRewardInfo() then
-        g_clanData:getAttdRewardInfo(true)
+        local t_reward_info = g_clanData:getAttdRewardInfo(true)
+        local attd_cnt = g_clanData.m_structClan:getLastAttd()
+        self:openAttendanceRewardPopup(t_reward_info, attd_cnt)
         return
     end
 
     -- 튜토리얼 확인
     -- @ TUTORIAL
     --TutorialManager.getInstance():startTutorial(TUTORIAL.CLAN, self)
+end
+
+-------------------------------------
+-- function openAttendanceRewardPopup
+-- @brief 출석 보상 UI
+-------------------------------------
+function UI_Clan:openAttendanceRewardPopup(t_reward_info, attd_cnt)
+    local ui = UI_ClanAttendanceReward(t_reward_info, attd_cnt)
+
+    local function close_cb()
+        self:checkEnterEvent()
+    end
+
+    ui:setCloseCB(close_cb)
 end
 
 -------------------------------------

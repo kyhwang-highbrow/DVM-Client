@@ -338,7 +338,7 @@ function UI_ClanSetting:click_okBtn()
     end
 
     if (not self.m_bChangedClanSet) then
-        ccdisplay('변경 사항이 없습니다.')
+        --ccdisplay('변경 사항이 없습니다.')
         self:close()
         return
     end
