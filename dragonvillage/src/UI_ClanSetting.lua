@@ -199,11 +199,12 @@ end
 function UI_ClanSetting:refresh_auth()
     local vars = self.vars
 
-    local is_member = (g_clanData:getMyMemberType() == 'member')
+    local member_type = g_clanData:getMyMemberType()
+    local is_member = (member_type == 'member')
 
     -- 클랜 해체/탈퇴 버튼
-    vars['disbandBtn']:setVisible(not is_member)
-    vars['leaveBtn']:setVisible(is_member)
+    vars['disbandBtn']:setVisible(member_type == 'master')
+    vars['leaveBtn']:setVisible(member_type ~= 'master')
 
     -- 클랜 이름 변경은 나중에...
     vars['namechangeBtn']:setVisible(false)
@@ -241,7 +242,6 @@ end
 -- @brief 클랜 해체
 -------------------------------------
 function UI_ClanSetting:click_disbandBtn()
-
     local ask_func
     local request_func
     local popup_func

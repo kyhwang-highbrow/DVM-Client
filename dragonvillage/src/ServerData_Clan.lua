@@ -252,6 +252,17 @@ function ServerData_Clan:request_clanDestroy(finish_cb, fail_cb)
         end
     end
 
+    -- 응답 상태 처리 함수
+    local function response_status_cb(ret)
+        -- 클랜원이 2명 이상일 때 클랜 해체 호출 경우
+        if (ret['status'] == -2503) then -- cannot destroy clan
+            local msg = Str('클랜 해체는 클랜원이 1명이어야 가능합니다.')
+            MakeSimplePopup(POPUP_TYPE.OK, msg)
+            return true
+        end
+        return false
+    end
+
     -- 네트워크 통신
     local ui_network = UI_Network()
     ui_network:setUrl('/clans/destroy')
@@ -260,6 +271,7 @@ function ServerData_Clan:request_clanDestroy(finish_cb, fail_cb)
     ui_network:setMethod('POST')
     ui_network:setSuccessCB(success_cb)
     ui_network:setFailCB(fail_cb)
+    ui_network:setResponseStatusCB(response_status_cb)
     ui_network:setRevocable(true)
     ui_network:setReuse(false)
     ui_network:request()
