@@ -69,7 +69,7 @@ function UI_Clan:checkEnterEvent()
 
     -- 튜토리얼 확인
     -- @ TUTORIAL
-    --TutorialManager.getInstance():startTutorial(TUTORIAL.CLAN, self)
+    TutorialManager.getInstance():startTutorial(TUTORIAL.CLAN, self)
 end
 
 -------------------------------------

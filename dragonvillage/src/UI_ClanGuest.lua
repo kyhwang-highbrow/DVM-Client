@@ -40,14 +40,12 @@ function UI_ClanGuest:init()
     self:initButton()
     self:refresh()
 
-    -- 보상 안내 팝업
     local function finich_cb()
+        -- @ TUTORIAL
+        TutorialManager.getInstance():startTutorial(TUTORIAL.CLAN_GUEST, self)
     end
 
     self:sceneFadeInAction(nil, finich_cb)
-
-    -- @ TUTORIAL
-    --TutorialManager.getInstance():startTutorial(TUTORIAL.CLAN_GUEST, self)
 end
 
 -------------------------------------

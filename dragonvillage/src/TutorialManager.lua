@@ -24,7 +24,7 @@ TutorialManager = class({
 
 local _instance
 -------------------------------------
--- function startTutorial
+-- function getInstance
 -- @brief 튜토리얼 실행
 -------------------------------------
 function TutorialManager.getInstance()
