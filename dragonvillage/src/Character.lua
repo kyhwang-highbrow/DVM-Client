@@ -1481,6 +1481,13 @@ function Character:healAbs(caster, heal, b_make_effect, bFixed)
             local cri_dmg = caster:getStat('cri_dmg') or 0
             local multifly = 1 + (cri_dmg / 100)
 
+            if (IS_NEW_BALANCE_VERSION()) then
+                local cri_dmg_adj_rate = caster:getStat('cri_dmg_adj_rate') / 100
+
+                local rate = math_max(cri_dmg_adj_rate, -1)
+                multifly = multifly * (1 + rate)
+            end
+
             heal = heal * multifly 
         end
         
