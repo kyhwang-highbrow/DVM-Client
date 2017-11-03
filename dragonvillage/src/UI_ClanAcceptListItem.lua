@@ -52,6 +52,7 @@ function UI_ClanAcceptListItem:initUI()
 
     do -- 승인 UI에서만 사용하는 UI on
         vars['acceptBtn']:setVisible(true)
+        vars['refuseBtn']:setVisible(true)
     end
 end
 
@@ -62,6 +63,7 @@ function UI_ClanAcceptListItem:initButton()
     local vars = self.vars
     vars['infoBtn']:registerScriptTapHandler(function() self:click_infoBtn() end)
     vars['acceptBtn']:registerScriptTapHandler(function() self:click_acceptBtn() end)
+    vars['refuseBtn']:registerScriptTapHandler(function() self:click_refuseBtn() end)
 end
 
 -------------------------------------
@@ -96,3 +98,22 @@ function UI_ClanAcceptListItem:click_acceptBtn()
 
     g_clanData:request_accept(finish_cb, fail_cb, req_uid)
 end
+
+-------------------------------------
+-- function click_refuseBtn
+-- @brief 가입 거절 버튼 클릭
+-------------------------------------
+function UI_ClanAcceptListItem:click_refuseBtn()
+    local user_info = self.m_structUserInfo
+    local req_uid = user_info:getUid()
+
+    local function finish_cb(ret)
+        self:delThis()
+    end
+
+    local fail_cb = nil
+
+    g_clanData:request_reject(finish_cb, fail_cb, req_uid)
+end
+
+
