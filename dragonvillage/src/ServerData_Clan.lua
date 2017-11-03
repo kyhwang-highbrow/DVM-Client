@@ -29,6 +29,8 @@ ServerData_Clan = class({
 
         -- 출석 보상 정보
         m_attdRewardInfo = 'table',
+
+        m_clanExitTimeStamp = 'timestamp',
     })
 
 -------------------------------------
@@ -161,6 +163,9 @@ function ServerData_Clan:request_clanInfo(finish_cb, fail_cb)
         -- 출석 보상 정보
         self.m_attdRewardInfo = ret['reward_info']
 
+        -- 재가입 제한 시간
+        self.m_clanExitTimeStamp = ret['clan_exit']
+
         if finish_cb then
             finish_cb(ret)
         end
@@ -198,6 +203,10 @@ end
 -- @brief
 -------------------------------------
 function ServerData_Clan:request_clanCreate(finish_cb, fail_cb, name, join, intro, flag)
+    if (not self:checkClanExitTime()) then
+        return
+    end
+
     -- 유저 ID
     local uid = g_userData:get('uid')
 
@@ -384,6 +393,10 @@ function ServerData_Clan:request_join(finish_cb, fail_cb, clan_object_id)
     if (self.m_structClan) then
         local msg = Str('이미 가입된 클랜이 있습니다.')
         UIManager:toastNotificationRed(msg)
+        return
+    end
+
+    if (not self:checkClanExitTime()) then
         return
     end
 
@@ -782,4 +795,32 @@ function ServerData_Clan:request_kick(finish_cb, fail_cb, member_uid)
     ui_network:request()
 
     return ui_network
+end
+
+
+-------------------------------------
+-- function checkClanExitTime
+-- @brief
+-------------------------------------
+function ServerData_Clan:checkClanExitTime()
+    if (not self.m_clanExitTimeStamp) then
+        return true
+    end
+
+    local server_time = Timer:getServerTime()
+
+    -- 제한 시간을 millisecond에서 second로 변경
+    local possible_time = (self.m_clanExitTimeStamp / 1000)
+
+    if (possible_time <= server_time) then
+        return true
+    else
+        local sec = (possible_time - server_time)
+        local showSeconds = true
+        local time_desc = datetime.makeTimeDesc(sec, showSeconds)
+        local msg = Str('클랜 탈퇴로 인해 클랜 활동이 제한되었습니다.')
+        local sub_msg = Str('({1} 후 제한 해제)', time_desc)
+        MakeSimplePopup2(POPUP_TYPE.OK, msg, sub_msg)
+        return false
+    end
 end
