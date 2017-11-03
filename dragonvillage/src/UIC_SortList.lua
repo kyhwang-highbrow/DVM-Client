@@ -630,6 +630,33 @@ function MakeUICSortList_scenarioPlayerSetting(button, label, type)
     return uic
 end
 
+function MakeUICSortList_clanMember(button, label, direction)
+
+    local width, height = button:getNormalSize()
+    local parent = button:getParent()
+    local x, y = button:getPosition()
+    local direction = direction or UIC_SORT_LIST_BOT_TO_TOP
+
+    local uic = UIC_SortList()
+    uic.m_direction = direction
+    uic:setNormalSize(width, height)
+    uic:setPosition(x, y)
+    uic:setDockPoint(button:getDockPoint())
+    uic:setAnchorPoint(button:getAnchorPoint())
+    uic:init_container()
+
+    uic:setExtendButton(button)
+    uic:setSortTypeLabel(label)
+
+    local z_order = 100
+    parent:addChild(uic.m_node, z_order)
+
+    uic:addSortType('level', Str('레벨'))
+    uic:addSortType('active_time', Str('최종접속'))
+    uic:addSortType('member_type', Str('직책'))
+
+    return uic
+end
 
 -- show/hide
 -- addSortType (sort_type, sort_name)

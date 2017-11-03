@@ -136,3 +136,12 @@ end
 function StructUserInfoClan:isTodayAttendance()
     return self.m_bTodayAttendance
 end
+
+
+-------------------------------------
+-- function getLastActiveTime
+-- @brief 마지막 활동 시간(timestamp)
+-------------------------------------
+function StructUserInfoClan:getLastActiveTime()
+    return self.m_lastActiveTime
+end

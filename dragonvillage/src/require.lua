@@ -196,6 +196,7 @@ local t_module = {
     'SortManager_EvolutionStone',
     'SortManager_Dragon',
     'SortManager_Friend',
+    'SortManager_ClanMember',
     'SimplePrimitivesDraw',
 	'StageMissionMgr',
 	'LogRecorder',

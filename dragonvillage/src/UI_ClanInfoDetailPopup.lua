@@ -5,6 +5,8 @@ local PARENT = class(UI, ITopUserInfo_EventListener:getCloneTable(), ITabUI:getC
 -------------------------------------
 UI_ClanInfoDetailPopup = class(PARENT, {
         m_structClan = 'StructClan',
+        m_sortManager = '',
+        m_tableView = '',
     })
 
 -------------------------------------
@@ -65,10 +67,6 @@ function UI_ClanInfoDetailPopup:initUI()
     vars['settingBtn']:setVisible(false) -- 클랜 관리 버튼 숨김
     vars['rankTabBtn']:setVisible(false) -- 랭킹 탭 숨김
     vars['requestMenu']:setVisible(false) -- 가입 승인 UI 숨김
-
-    -- 아직 미구현 기능이라 숨김
-    vars['sortSelectBtn']:setVisible(false)
-    vars['sortSelectOrderBtn']:setVisible(false)
 end
 
 -------------------------------------
@@ -145,18 +143,6 @@ function UI_ClanInfoDetailPopup:init_TableView()
     local struct_clan = self.m_structClan
     local l_item_list = struct_clan.m_memberList
 
-    --[[
-    if (self.m_topRankOffset > 1) then
-        local prev_data = {m_rank = 'prev'}
-        l_item_list['prev'] = prev_data
-    end
-
-    if (#l_item_list > 0) then
-        local next_data = {m_rank = 'next'}
-        l_item_list['next'] = next_data
-    end
-    --]]
-
     -- 생성 콜백
     local function create_func(ui, data)
         -- 관리 버튼 visible off
@@ -173,13 +159,13 @@ function UI_ClanInfoDetailPopup:init_TableView()
     table_view:setCellUIClass(UI_ClanMemberListItem, create_func)
     table_view:setDirection(cc.SCROLLVIEW_DIRECTION_VERTICAL)
     table_view:setItemList(l_item_list)
+    self.m_tableView = table_view
 
     -- 리스트가 비었을 때
-    --table_view_td:makeDefaultEmptyDescLabel('')
+    --table_view:makeDefaultEmptyDescLabel('')
 
     -- 정렬
-    --g_colosseumRankData:sortColosseumRank(table_view.m_itemList)
-    --self.m_topRankTableView = table_view
+    self:init_memberSortMgr()
 end
 
 -------------------------------------
@@ -228,6 +214,53 @@ function UI_ClanInfoDetailPopup:click_requestBtn2()
     end
 end
 
+-------------------------------------
+-- function init_memberSortMgr
+-- @brief 정렬 도우미
+-------------------------------------
+function UI_ClanInfoDetailPopup:init_memberSortMgr()
+    -- 정렬 매니저 생성
+    self.m_sortManager = SortManager_ClanMember()
+
+    -- 정렬 UI 생성
+    local vars = self.vars
+    local uic_sort_list = MakeUICSortList_clanMember(vars['sortSelectBtn'], vars['sortSelectLabel'], UIC_SORT_LIST_BOT_TO_TOP)
+    
+
+    -- 버튼을 통해 정렬이 변경되었을 경우
+    local function sort_change_cb(sort_type)
+        self.m_sortManager:pushSortOrder(sort_type)
+        self:apply_memberSort()
+    end
+    uic_sort_list:setSortChangeCB(sort_change_cb)
+
+    -- 오름차순/내림차순 버튼
+    vars['sortSelectOrderBtn']:registerScriptTapHandler(function()
+            local ascending = (not self.m_sortManager.m_defaultSortAscending)
+            self.m_sortManager:setAllAscending(ascending)
+            self:apply_memberSort()
+
+            vars['sortSelectOrderSprite']:stopAllActions()
+            if ascending then
+                vars['sortSelectOrderSprite']:runAction(cc.RotateTo:create(0.15, 180))
+            else
+                vars['sortSelectOrderSprite']:runAction(cc.RotateTo:create(0.15, 0))
+            end
+        end)
+
+    -- 첫 정렬 타입 지정
+    uic_sort_list:setSelectSortType('member_type')
+end
+
+-------------------------------------
+-- function apply_memberSort
+-- @brief 테이블 뷰에 정렬 적용
+-------------------------------------
+function UI_ClanInfoDetailPopup:apply_memberSort()
+    local list = self.m_tableView.m_itemList
+    self.m_sortManager:sortExecution(list)
+    self.m_tableView:setDirtyItemList()
+end
 
 --@CHECK
 UI:checkCompileError(UI_ClanInfoDetailPopup)

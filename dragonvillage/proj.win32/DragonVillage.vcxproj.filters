@@ -2904,6 +2904,9 @@
     <None Include="..\src\UI_ClanAttendanceReward.lua">
       <Filter>lua\UI</Filter>
     </None>
+    <None Include="..\src\SortManager_ClanMember.lua">
+      <Filter>lua\src</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Classes">
