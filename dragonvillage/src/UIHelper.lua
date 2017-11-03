@@ -208,7 +208,7 @@ function UIHelper:checkPrice(price_type, price)
 
     -- 클랜코인 확인
     elseif (price_type == 'clancoin') then
-        local ancient = g_userData:get('clancoin')
+        local clancoin = g_userData:get('clancoin')
         if (clancoin < price) then
             MakeSimplePopup(POPUP_TYPE.OK, Str('클랜코인이 부족합니다.'))
             return false
