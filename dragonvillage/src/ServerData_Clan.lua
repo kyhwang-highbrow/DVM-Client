@@ -824,3 +824,69 @@ function ServerData_Clan:checkClanExitTime()
         return false
     end
 end
+
+-------------------------------------
+-- function request_setAuthority
+-- @brief 클랜원 권한 설정
+-------------------------------------
+function ServerData_Clan:request_setAuthority(finish_cb, fail_cb, member_uid, auth)
+    if (not self.m_structClan) then
+        return
+    end
+
+    if (auth == 'manager') then
+        local manager_cnt = self.m_structClan:managerCntCalc()
+        if (3 <= manager_cnt) then
+            UIManager:toastNotificationRed(Str('부마스터는 3명까지만 지정 가능합니다.'))
+            return
+        end
+    end
+
+    -- 유저 ID
+    local uid = g_userData:get('uid')
+    local clan_object_id = self.m_structClan:getClanObjectID()
+
+    -- 성공 콜백
+    local function success_cb(ret)
+
+        if (auth == 'master') then
+            self:setNeedClanInfoRefresh()
+        end
+
+        -- 클랜 정보 갱신
+        if ret['clan'] then
+            self.m_structClan:applySetting(ret['clan'])
+        end
+
+        -- 맴버 정보 갱신
+        if ret['clan_members'] then
+            self.m_structClan:setMembersData(ret['clan_members'])
+        end
+
+        if finish_cb then
+            finish_cb(ret)
+        end
+    end
+
+    -- 응답 상태 처리 함수
+    local function response_status_cb(ret)
+        return false
+    end
+
+    -- 네트워크 통신
+    local ui_network = UI_Network()
+    ui_network:setUrl('/clans/set_authority')
+    ui_network:setParam('uid', uid)
+    ui_network:setParam('clan_id', clan_object_id)
+    ui_network:setParam('member_uid', member_uid)
+    ui_network:setParam('auth', auth)
+    ui_network:setMethod('POST')
+    ui_network:setSuccessCB(success_cb)
+    ui_network:setFailCB(fail_cb)
+    ui_network:setResponseStatusCB(response_status_cb)
+    ui_network:setRevocable(true)
+    ui_network:setReuse(false)
+    ui_network:request()
+
+    return ui_network
+end

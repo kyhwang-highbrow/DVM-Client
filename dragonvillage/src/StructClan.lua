@@ -191,7 +191,7 @@ end
 -- @brief
 -------------------------------------
 function StructClan:getMemberStruct(uid)
-    if self.m_memberList then
+    if (not self.m_memberList) then
         return nil
     end
 
@@ -233,4 +233,23 @@ function StructClan:applySetting(t_data)
     else
         self.m_structClanMark = StructClanMark()
     end
+end
+
+-------------------------------------
+-- function managerCntCalc
+-- @brief 부마스터 숫자 리턴
+-------------------------------------
+function StructClan:managerCntCalc()
+    if (not self.m_memberList) then
+        return 0
+    end
+
+    local cnt = 0
+    for i,v in pairs(self.m_memberList) do
+        if (v:getMemberType() == 'manager') then
+            cnt = (cnt + 1)
+        end
+    end
+
+    return cnt
 end
