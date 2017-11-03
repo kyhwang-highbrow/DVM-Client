@@ -25,7 +25,7 @@ end
 -- function init
 -------------------------------------
 function UI_Clan:init()
-    local vars = self:load('clan_02.ui')
+    local vars = self:load_keepZOrder('clan_02.ui')
     UIManager:open(self, UIManager.SCENE)
 
     self.m_uiName = 'UI_Clan'

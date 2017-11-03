@@ -369,6 +369,18 @@ function UI_Lobby:initButton()
         etc_vars['bookBtn']:registerScriptTapHandler(function() self:click_bookBtn() end) -- 도감 버튼
         etc_vars['naverCafeBtn']:registerScriptTapHandler(function() self:click_naverCafeBtn() end) -- 네이버 카페 버튼
     end
+
+    do -- 클랜 버튼 잠금 상태 처리
+        local is_content_lock, req_user_lv = g_contentLockData:isContentLock('clan')
+        if is_content_lock then
+            vars['clanBtn']:setEnabled(false)
+            vars['clanLockNode']:setVisible(true)
+            vars['clanLockLabel']:setString(Str('레벨 {1}', req_user_lv))
+        else
+            vars['clanBtn']:setEnabled(true)
+            vars['clanLockNode']:setVisible(false)
+        end
+    end
 end
 
 -------------------------------------
