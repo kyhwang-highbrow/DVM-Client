@@ -2886,9 +2886,6 @@
     <None Include="..\src\UI_ClanInfoDetailPopup.lua">
       <Filter>lua\UI</Filter>
     </None>
-    <None Include="..\src\UI_ClanAttendanceReward.lua">
-      <Filter>lua\UI</Filter>
-    </None>
     <None Include="..\src\UI_ClanGuestTabRequest.lua">
       <Filter>lua\UI</Filter>
     </None>
@@ -2899,6 +2896,9 @@
       <Filter>lua\UI</Filter>
     </None>
     <None Include="..\src\UI_ClanGuestTabRank.lua">
+      <Filter>lua\UI</Filter>
+    </None>
+    <None Include="..\src\UI_ClanAttendanceRewardInfo.lua">
       <Filter>lua\UI</Filter>
     </None>
   </ItemGroup>

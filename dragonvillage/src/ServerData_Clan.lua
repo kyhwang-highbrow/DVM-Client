@@ -26,6 +26,9 @@ ServerData_Clan = class({
 
         -- 클랜 가입 신청 유저 리스트 (받는 기준)
         m_lJoinRequestUserList = 'map',
+
+        -- 출석 보상 정보
+        m_attdRewardInfo = 'table',
     })
 
 -------------------------------------
@@ -155,6 +158,8 @@ function ServerData_Clan:request_clanInfo(finish_cb, fail_cb)
             end
         end
 
+        -- 출석 보상 정보
+        self.m_attdRewardInfo = ret['reward_info']
 
         if finish_cb then
             finish_cb(ret)
@@ -709,4 +714,18 @@ function ServerData_Clan:request_reject(finish_cb, fail_cb, req_uid)
     ui_network:request()
 
     return ui_network
+end
+
+-------------------------------------
+-- function getAttdRewardInfo
+-- @brief 출석 보상 정보 리턴
+-------------------------------------
+function ServerData_Clan:getAttdRewardInfo(clear)
+    local reward_info = self.m_attdRewardInfo
+
+    if clear then
+        self.m_attdRewardInfo = nil
+    end
+
+    return reward_info
 end

@@ -70,6 +70,8 @@ function UI_ClanGuestTabJoin:init_TableView()
     table_view:setItemList(l_item_list)
 
     -- 리스트가 비었을 때
+    table_view:makeDefaultEmptyDescLabel(Str('추천 클랜이 없습니다.'))
+
     -- 정렬
 end
 

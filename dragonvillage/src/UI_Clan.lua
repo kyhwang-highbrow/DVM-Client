@@ -42,13 +42,30 @@ function UI_Clan:init()
 
     -- 보상 안내 팝업
     local function finich_cb()
-        if g_clanData:isNeedClanSetting() then
-            self:click_settingBtn()
-        end
+        self:checkEnterEvent()
     end
 
     self:sceneFadeInAction(nil, finich_cb)
+end
 
+-------------------------------------
+-- function checkEnterEvent
+-------------------------------------
+function UI_Clan:checkEnterEvent()
+
+    -- 클랜 설정을 강제로 해야하는지 확인
+    if g_clanData:isNeedClanSetting() then
+        self:click_settingBtn()
+        return
+    end
+
+    -- 출석 보상 정보가 있는지 확인
+    if g_clanData:getAttdRewardInfo() then
+        g_clanData:getAttdRewardInfo(true)
+        return
+    end
+
+    -- 튜토리얼 확인
     -- @ TUTORIAL
     --TutorialManager.getInstance():startTutorial(TUTORIAL.CLAN, self)
 end
@@ -160,6 +177,8 @@ function UI_Clan:click_settingBtn()
         if ui.m_bRet then
             self:refresh()
         end
+
+        self:checkEnterEvent()
     end
 
     ui:setCloseCB(close_cb)
@@ -169,7 +188,7 @@ end
 -- function click_rewardBtn
 -------------------------------------
 function UI_Clan:click_rewardBtn()
-    UI_ClanAttendanceReward()
+    UI_ClanAttendanceRewardInfo()
 end
 
 -------------------------------------

@@ -1,21 +1,21 @@
 local PARENT = UI
 
 -------------------------------------
--- class UI_ClanAttendanceReward
+-- class UI_ClanAttendanceRewardInfo
 -------------------------------------
-UI_ClanAttendanceReward = class(PARENT, {
+UI_ClanAttendanceRewardInfo = class(PARENT, {
      })
 
 -------------------------------------
 -- function init
 -------------------------------------
-function UI_ClanAttendanceReward:init()
+function UI_ClanAttendanceRewardInfo:init()
     local vars = self:load('clan_attendance_reward.ui')
     UIManager:open(self, UIManager.POPUP)
 
-    self.m_uiName = 'UI_ClanAttendanceReward'
+    self.m_uiName = 'UI_ClanAttendanceRewardInfo'
     -- backkey 지정
-    g_currScene:pushBackKeyListener(self, function() self:click_exitBtn() end, 'UI_ClanAttendanceReward')
+    g_currScene:pushBackKeyListener(self, function() self:click_exitBtn() end, 'UI_ClanAttendanceRewardInfo')
 
     -- @UI_ACTION
     self:doActionReset()
@@ -29,21 +29,21 @@ end
 -------------------------------------
 -- function click_exitBtn
 -------------------------------------
-function UI_ClanAttendanceReward:click_exitBtn()
+function UI_ClanAttendanceRewardInfo:click_exitBtn()
     self:close()
 end
 
 -------------------------------------
 -- function initUI
 -------------------------------------
-function UI_ClanAttendanceReward:initUI()
+function UI_ClanAttendanceRewardInfo:initUI()
     local vars = self.vars
 end
 
 -------------------------------------
 -- function initButton
 -------------------------------------
-function UI_ClanAttendanceReward:initButton()
+function UI_ClanAttendanceRewardInfo:initButton()
     local vars = self.vars
     vars['closeBtn']:registerScriptTapHandler(function() self:click_exitBtn() end)
 end
@@ -51,6 +51,6 @@ end
 -------------------------------------
 -- function refresh
 -------------------------------------
-function UI_ClanAttendanceReward:refresh()
+function UI_ClanAttendanceRewardInfo:refresh()
     local vars = self.vars
 end

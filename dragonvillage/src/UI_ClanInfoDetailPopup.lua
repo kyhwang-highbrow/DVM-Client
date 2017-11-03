@@ -185,7 +185,7 @@ end
 -- function click_rewardBtn
 -------------------------------------
 function UI_ClanInfoDetailPopup:click_rewardBtn()
-    UI_ClanAttendanceReward()
+    UI_ClanAttendanceRewardInfo()
 end
 
 -------------------------------------
