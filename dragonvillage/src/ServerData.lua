@@ -172,6 +172,9 @@ function ServerData:getInstance()
 
     -- 클랜
     g_clanData = ServerData_Clan(g_serverData)
+    
+    -- 클랜 랭킹
+    g_clanRankData = ServerData_ClanRank(g_serverData)
 
     return g_serverData
 end

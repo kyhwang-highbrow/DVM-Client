@@ -135,6 +135,7 @@ local t_module = {
     'ServerData_FriendMatch',
     'ServerData_ExchangeEvent',
     'ServerData_Clan',
+    'ServerData_ClanRank',
     'ServerData_LevelUpPackage',
 
     -- Interface

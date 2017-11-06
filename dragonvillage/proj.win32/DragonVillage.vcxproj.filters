@@ -2907,6 +2907,9 @@
     <None Include="..\src\SortManager_ClanMember.lua">
       <Filter>lua\src</Filter>
     </None>
+    <None Include="..\src\ServerData_ClanRank.lua">
+      <Filter>lua\src</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Classes">
