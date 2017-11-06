@@ -717,7 +717,7 @@ function Character:undergoAttack(attacker, defender, i_x, i_y, body_key, no_even
 
             -- 치명타시 피해량 증감
             if (is_critical) then
-                cri_dmg_adj_rate = attack_activity_carrier:getStat('cri_dmg_adj_rate') / 100
+                cri_dmg_adj_rate = (attack_activity_carrier:getStat('cri_dmg_adj_rate') or 0) / 100
 
                 local rate = math_max(cri_dmg_adj_rate, -1)
                 damage_multifly = damage_multifly * (1 + rate)
