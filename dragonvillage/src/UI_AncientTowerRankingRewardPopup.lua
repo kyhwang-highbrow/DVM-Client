@@ -34,14 +34,20 @@ end
 function UI_AncientTowerRankingRewardPopup:initUI(struct_user_info_ancient)
     local vars = self.vars
 
-    local info = struct_user_info_ancient
+    -- 여기서 클랜인지 아닌지 구분하여 처리
+    do
+        local info = struct_user_info_ancient
     
-    -- 점수 표시
-    vars['scoreLabel']:setString(info:getScoreText())
+        -- 지난 시즌 랭킹 정보
+        local rank_ui = UI_AncientTowerRankListItem(info)
+        vars['rankNode']:addChild(rank_ui.root)
 
-    -- 순위 표시
-    vars['rankingLabel']:setString(info:getRankText(true))
+        -- 지난 시즌 랭킹 / 지난 시즌 보상 텍스트
+        -- vars['rankLabel']:setString()
+        -- vars['rankRewardLabel']:setString()
+    end
 
+    -- 보상 정보
     local item_info = info.m_userData
     if (item_info) then
         local reward_cnt = #item_info

@@ -85,6 +85,7 @@ local t_module = {
     'StructTamerCostume',
     'StructClan',
     'StructClanMark',
+    'StructClanRank',
 
 	-- ServerData
     'ServerData',
@@ -753,6 +754,8 @@ local t_module = {
     'UI_AncientTowerRankListItem',
     'UI_AncientTowerRewardListItem',
     'UI_AncientTowerRankingRewardPopup',
+    'UI_AncientTowerClanRankListItem',
+    'UI_AncientTowerClanRewardListItem',
 
 	-- UI : 인게임
 	'UI_Game',

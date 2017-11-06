@@ -60,21 +60,23 @@ end
 -- function onChangeTab
 -------------------------------------
 function UI_ClanTabRank:onChangeTab(tab, first)
-    if (not first) then return end
-
-    local rank_type = tab
-    local offset = 0
-    local cb_func = function()
-        self:makeRankTableview(tab)
+    if (first) then 
+        local rank_type = tab
+        local offset = 1
+        local cb_func = function()
+            self:makeRankTableview(tab)
+        end
+        g_clanRankData:request_getRank(rank_type, offset, cb_func)
     end
-    --g_clanRankData:request_getRank(rank_type, offset, cb_func)
+
+    -- 내랭킹은 계속 교체한다
+    self:makeMyRank(tab)
 end
 
 -------------------------------------
 -- function makeTableViewRanking
 -------------------------------------
 function UI_ClanTabRank:makeRankTableview(tab)
-	local vars = self.vars
 	local t_tab_data = self.m_mTabData[tab]
 	local node = t_tab_data['tab_node_list'][1]
 	local l_rank_list = g_clanRankData:getRankData(tab)
@@ -89,16 +91,52 @@ function UI_ClanTabRank:makeRankTableview(tab)
         table_view:setDirection(cc.SCROLLVIEW_DIRECTION_VERTICAL)
         table_view:setItemList(l_rank_list)
 
-        self.m_tableView = table_view
+        --self.m_tableView = table_view
     end
 end
 
 -------------------------------------
--- function makeTableViewRanking
+-- function makeMyRank
+-------------------------------------
+function UI_ClanTabRank:makeMyRank(tab)
+    local node = self.vars['myNode']
+    local my_rank = g_clanRankData:getMyRankData(tab)
+    local ui = self.makeRankCell(t_data)
+    node:addChild(ui.root)
+end
+
+-------------------------------------
+-- function makeRankCell
 -------------------------------------
 function UI_ClanTabRank.makeRankCell(t_data)
 	local ui = class(UI, ITableViewCell:getCloneTable())()
 	local vars = ui:load('clan_rank_item.ui')
-    ccdump(t_data)
+    if (not t_data) then
+        return ui
+    end
+
+    local struct_clan_rank = t_data
+
+    -- 클랜 마크
+    local icon = struct_clan_rank:makeClanMarkIcon()
+    vars['markNode']:removeAllChildren()
+    vars['markNode']:addChild(icon)
+
+    -- 클랜 이름
+    local clan_name = struct_clan_rank:getClanName()
+    vars['clanLabel']:setString(clan_name)
+
+    -- 클랜 마스터
+    local clan_master = struct_clan_rank:getMasterNick()
+    vars['masterLabel']:setString(clan_name)
+
+    -- 점수
+    local clan_score = struct_clan_rank:getClanScore()
+    vars['scoreLabel']:setString(clan_score)
+    
+    -- 등수 
+    local clan_rank = struct_clan_rank:getClanRank()
+    vars['rankLabel']:setString(clan_rank)
+    
 	return ui
 end

@@ -82,7 +82,9 @@ local TableInfo = {
 
         table_forest_stuff_type = {'table_forest_stuff_type', 'stuff_type', false},
         table_forest_stuff_info = {'table_forest_stuff_info', 'id', false},
+
         table_clan_mark = {'table_clan_mark', 'unique_id', false},
+        table_clan_reward = {'table_clan_reward', 'id', false},
     }
 
 -------------------------------------
@@ -99,6 +101,7 @@ local TableInfo_fromServer = {
         ['table_exploration_list'] = {'table_exploration_list', 'epr_id'},
         ['table_colosseum'] = {'table_colosseum', 'tid'},
         ['table_content_lock'] = {'table_content_lock', 'content_name'},
+        ['table_clan_reward'] = {'table_clan_reward', 'id'},
 
         --  친밀도
         ['table_dragon_friendship'] = {'table_dragon_friendship', 'friendship'},
