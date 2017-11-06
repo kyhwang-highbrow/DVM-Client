@@ -15,6 +15,7 @@ UI_AncientTowerRank = class({
         m_myClanRankInfo = 'table',
 
         m_rankOffset = 'number',
+        m_clanOffset = 'number',
     })
 
 local RANK_SHOW_CNT = 20 -- 한번에 보여주는 랭커 수
@@ -25,6 +26,7 @@ local RANK_SHOW_CNT = 20 -- 한번에 보여주는 랭커 수
 function UI_AncientTowerRank:init(ui_scene)
     self.m_uiScene = ui_scene
     self.m_rankOffset = 1
+    self.m_clanOffset = 1
     self.m_rewardInfo = {}
 
 	self:initUI()
@@ -98,12 +100,7 @@ function UI_AncientTowerRank:onChangeOption()
             return 
         end
         
-        local function finish_cb()
-            self.m_rankOffset = g_ancientTowerData.m_nGlobalOffset
-            self:init_rankTableView()
-        end
-        local offset = self.m_rankOffset
-        g_ancientTowerData:request_ancientTowerRank(offset, finish_cb)
+        self:request_Rank()
 
     -- 개인 보상
     elseif (type == UI_AncientTowerRank.REWARD) then
@@ -125,13 +122,7 @@ function UI_AncientTowerRank:onChangeOption()
         if (self.m_clanRankTableView) then
             return
         end
-        
-        local rank_type = 'ancient'
-        local offset = 0
-        local cb_func = function()
-            self:init_clanRankingTableView()
-        end
-        g_clanRankData:request_getRank(rank_type, offset, cb_func)
+        self:request_clanRank()
 
     -- 클랜 보상
     elseif (type == UI_AncientTowerRank.CLAN_REWARD) then
@@ -154,6 +145,18 @@ function UI_AncientTowerRank:request_Rank()
     end
     local offset = self.m_rankOffset
     g_ancientTowerData:request_ancientTowerRank(offset, finish_cb)
+end
+
+-------------------------------------
+-- function request_Rank
+-------------------------------------
+function UI_AncientTowerRank:request_clanRank()
+    local rank_type = 'ancient'
+    local offset = self.m_clanOffset
+    local cb_func = function()
+        self:init_clanRankingTableView()
+    end
+    g_clanRankData:request_getRank(rank_type, offset, cb_func)
 end
 
 -------------------------------------
@@ -285,6 +288,7 @@ function UI_AncientTowerRank:init_clanRankingTableView()
             my_node:addChild(ui.root)
 
             self.m_myClanRankInfo = info
+
         -- 무적자
         else
             vars['clanRankingMeNode1']:setVisible(false)

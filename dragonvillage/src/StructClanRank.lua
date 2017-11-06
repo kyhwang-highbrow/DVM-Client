@@ -9,6 +9,7 @@ StructClanRank = class(PARENT, {
         name = 'string', -- 클랜 이름
         mark = 'string', -- 클랜 문장
         master = 'string', -- 클랜 마스터 닉네임
+        intro = 'string', -- 클랜 소개.. 없어도 되는데 보내주셔서 저장
         m_structClanMark = 'StructClanMark',
 
         rank = 'number',
@@ -79,7 +80,7 @@ end
 -- function getMasterNick
 -------------------------------------
 function StructClanRank:getClanScore()
-    return Str('{1}점', self['score'])
+    return Str('{1}점', comma_value(self['score'] or 0))
 end
 
 -------------------------------------
