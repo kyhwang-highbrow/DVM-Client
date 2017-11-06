@@ -148,13 +148,20 @@ function UI_AncientTowerRank:request_Rank()
 end
 
 -------------------------------------
--- function request_Rank
+-- function request_clanRank
 -------------------------------------
 function UI_AncientTowerRank:request_clanRank()
     local rank_type = CLAN_RANK['ANCT']
     local offset = self.m_clanOffset
     local cb_func = function()
-        self:init_clanRankingTableView()
+        -- 최초 생성
+        if (not self.m_clanRankTableView) then
+            self:init_clanRankingTableView()
+        -- 추가
+        else
+            local l_rank_list = g_clanRankData:getRankData(rank_type)
+            self.m_clanRankTableView:addItemList(l_rank_list)
+        end
     end
     g_clanRankData:request_getRank(rank_type, offset, cb_func)
 end
@@ -304,10 +311,35 @@ function UI_AncientTowerRank:init_clanRankingTableView()
 
         local l_item_list = g_clanRankData:getRankData(CLAN_RANK['ANCT'])
 
+        -- 다음 보기 추가.. 
+        if (#l_item_list > 0) then
+            l_item_list['next'] = 'next'
+        end
+
+        -- 다음 랭킹 보기
+        local function click_nextBtn()
+            local t_rank = g_clanRankData:getRankData(CLAN_RANK['ANCT'])
+
+            if (table.count(t_rank) < 20) then
+                MakeSimplePopup(POPUP_TYPE.OK, Str('다음 랭킹이 존재하지 않습니다.'))
+                return
+            end
+            self.m_clanOffset = math_min(50, self.m_clanOffset + RANK_SHOW_CNT)
+            self:request_clanRank()
+        end
+
+        -- 생성 콜백
+        local function create_func(ui, data)
+            if (data == 'next') then
+                ui.vars['nextBtn']:setVisible(true)
+                ui.vars['nextBtn']:registerScriptTapHandler(click_nextBtn)
+            end
+        end
+
         -- 테이블 뷰 인스턴스 생성
         local table_view = UIC_TableView(node)
         table_view.m_defaultCellSize = cc.size(640, 100 + 5)
-        table_view:setCellUIClass(UI_AncientTowerClanRankListItem, nil)
+        table_view:setCellUIClass(UI_AncientTowerClanRankListItem, create_func)
         table_view:setDirection(cc.SCROLLVIEW_DIRECTION_VERTICAL)
         table_view:setItemList(l_item_list)
         self.m_clanRankTableView = table_view

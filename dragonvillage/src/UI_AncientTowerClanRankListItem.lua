@@ -14,6 +14,10 @@ function UI_AncientTowerClanRankListItem:init(struct_rank)
     self.m_structRank = struct_rank
     local vars = self:load('tower_scene_ranking_item_clan.ui')
 
+    if (struct_rank == 'next') then
+        return
+    end
+
     self:initUI()
     self:initButton()
     self:refresh()

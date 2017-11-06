@@ -37,7 +37,7 @@ end
 function UI_AncientTowerClanRewardListItem:refresh()
     local vars = self.vars
     local t_reward_info = self.m_rewardInfo
-    ccdump(t_reward_info)
+
     vars['rankLabel']:setString(t_reward_info['t_name'])
     
     -- º¸»ó
