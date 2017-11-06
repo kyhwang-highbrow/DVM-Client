@@ -68,23 +68,23 @@ end
 function TutorialManager:startTutorial(tutorial_key, tar_ui)
     -- 개발모드에서 튜토리얼 동작하지 않도록 함
     if (IS_TEST_MODE()) then
-        
-        -- 튜토리얼 키에 대한 예외처리
-        if (not tutorial_key) then
-            ccdisplay('#### tutorial key is not exist')
-            return
-        end
-        if (not table.find(TUTORIAL, tutorial_key)) then
-            ccdisplay(string.format('#### %s is not registrated', tutorial_key))
-            return
-        end
-        if (not LuaBridge:isFileExist(string.format('data/scenario/%s.csv', tutorial_key))) then
-            ccdisplay(string.format('#### %s.csv is not exist', tutorial_key))
-            return
-        end
 
         -- 지정된 튜토리얼은 개발모드에서만 계속 동작 할 수 있도록 한다.
         if (g_constant:get('DEBUG', 'TEST_TUTORIAL') == tutorial_key) then
+            -- 튜토리얼 키에 대한 예외처리
+            if (not tutorial_key) then
+                ccdisplay('#### tutorial key is not exist')
+                return
+            end
+            if (not table.find(TUTORIAL, tutorial_key)) then
+                ccdisplay(string.format('#### %s is not registrated', tutorial_key))
+                return
+            end
+            if (not LuaBridge:isFileExist(string.format('data/scenario/%s.csv', tutorial_key))) then
+                ccdisplay(string.format('#### %s.csv is not exist', tutorial_key))
+                return
+            end
+
             _startTutorial(self, tutorial_key, tar_ui)
         end
 
