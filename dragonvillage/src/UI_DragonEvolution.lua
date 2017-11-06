@@ -289,16 +289,12 @@ function UI_DragonEvolution:refresh_nextSkillInfo(t_dragon_data, t_dragon, is_ma
         vars['skillNameLabel']:setString(str)
 
         -- 스킬 타입
-        local str = skill_individual_info:getSkillType()
+        local str = getSkillTypeStr(skill_type)
         vars['skillTypeLabel']:setString(str)
 
         -- 스킬 설명
         local str = skill_individual_info:getSkillDesc()
         vars['skillInfoLabel']:setString(str)
-
-        -- 스킬 타입
-        local str = getSkillType_byEvolution(evolution)
-        vars['skillTypeLabel']:setString(str)
     end
 
 
