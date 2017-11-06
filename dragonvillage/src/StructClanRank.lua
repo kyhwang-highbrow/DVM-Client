@@ -79,8 +79,10 @@ function StructClanRank:getClanRank()
     local rank = self['rank']
     if (not rank) or (rank <= 0) then
         rank = '-'
+    else
+        rank = Str('{1}위', rank)
     end
-    return Str('{1}위', rank)
+    return rank
 end
 
 -------------------------------------
@@ -91,9 +93,9 @@ function StructClanRank:getClanScore()
     if (not score) or (score <= 0) then
         score = '-'
     else
-        score = comma_value(score)
+        score = Str('{1}점', comma_value(score))
     end
-    return Str('{1}점', score)
+    return score
 end
 
 -------------------------------------
