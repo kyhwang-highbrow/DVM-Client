@@ -2910,6 +2910,9 @@
     <None Include="..\src\ServerData_ClanRank.lua">
       <Filter>lua\src</Filter>
     </None>
+    <None Include="..\src\UI_AncientTowerRankingRewardPopup.lua">
+      <Filter>lua\UI</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Classes">
