@@ -130,6 +130,30 @@ function StructUserInfoClan:getMemberTypeText()
 end
 
 -------------------------------------
+-- function getMemberTypeColor
+-- @brief 맴버 타입 색상
+-------------------------------------
+function StructUserInfoClan:getMemberTypeColor()
+    local member_type = self.m_memberType
+
+    -- 마스터
+    if (member_type == 'master') then
+        return COLOR['clan_master']
+
+    -- 부마스터
+    elseif (member_type == 'manager') then
+        return COLOR['clan_manager']
+
+    -- 맴버
+    elseif (member_type == 'member') then
+        return COLOR['clan_member']
+
+    else
+        return COLOR['clan_member']
+    end
+end
+
+-------------------------------------
 -- function isTodayAttendance
 -- @brief 오늘 출석 여부
 -------------------------------------

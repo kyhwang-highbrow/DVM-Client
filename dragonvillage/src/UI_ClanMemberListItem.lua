@@ -80,6 +80,15 @@ function UI_ClanMemberListItem:refresh()
     -- 맴버 타입(권한)
     local str = user_info:getMemberTypeText()
     vars['positionLabel']:setString(str)
+        
+    -- 마스터/부마스터 아이콘
+    local member_type = user_info:getMemberType()
+    vars['masterSprite']:setVisible(member_type ~= 'member')
+
+    -- 멤버 타입 색상
+    local color = user_info:getMemberTypeColor()
+    vars['positionLabel']:setColor(color)
+    vars['masterSprite']:setColor(color)
 
     -- 출석 여부
     local attended = user_info:isTodayAttendance()
@@ -92,7 +101,6 @@ function UI_ClanMemberListItem:refresh()
 
     -- 맴버 권한별 버튼 노출 여부 지정
     local my_member_type = g_clanData:getMyMemberType()
-    local member_type = self.m_structUserInfo:getMemberType()
     if (my_member_type and member_type) then
 
         if (member_type == 'master') then
