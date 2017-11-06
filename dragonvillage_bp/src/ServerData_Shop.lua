@@ -28,6 +28,8 @@ function ServerData_Shop:init(server_data)
     self.m_dicProduct['capsule'] = {}
     self.m_dicProduct['package'] = {}
     self.m_dicProduct['ancient'] = {}
+    self.m_dicProduct['clancoin'] = {}
+    self.m_dicProduct['clan_coin'] = {} -- 당장 클라이언트에서 에러가 나지 않도록 처리하기 위함 sgkim 2017-11-03
     self.m_dicBuyCnt = {}
 
     self:setDirty()
@@ -304,6 +306,10 @@ function ServerData_Shop:openShopPopup(tab_type, close_cb)
         local ui_shop_popup = UI_Shop()
 
         if tab_type then
+            -- sgkim 2017-11-03 골드는 "소모품, 골드"탭에서 팔도록 변경되어서 강제로 이동시킴
+            if (tab_type == 'gold') then
+                tab_type = 'st'
+            end
             ui_shop_popup:setTab(tab_type)
         end
 
