@@ -6,6 +6,7 @@ ServerData_ClanRank = class({
 
 		m_mRankingMap = 'Map<string, List<table> >', -- rank_type : ancient, colosseum
         m_mMyRankingMap = 'Map<string, table>',
+        m_mOffsetMap = 'Map<string, number>',
     })
 
 -------------------------------------
@@ -15,6 +16,7 @@ function ServerData_ClanRank:init(server_data)
     self.m_serverData = server_data
 	self.m_mRankingMap = {}
     self.m_mMyRankingMap = {}
+    self.m_mOffsetMap = {}
 end
 
 -------------------------------------
@@ -64,6 +66,16 @@ function ServerData_ClanRank:setMyRankData(rank_type, rank_data)
 end
 
 -------------------------------------
+-- function getOffset
+-------------------------------------
+function ServerData_ClanRank:getOffset(rank_type)
+    if (not rank_type) then
+        return 1
+    end
+    return self.m_mOffsetMap[rank_type] or 1
+end
+
+-------------------------------------
 -- function request_getRank
 -------------------------------------
 function ServerData_ClanRank:request_getRank(rank_type, offset, cb_func)
@@ -72,8 +84,8 @@ function ServerData_ClanRank:request_getRank(rank_type, offset, cb_func)
 	local rank_type = rank_type
 	local offset = offset
 
-    -- offset이 1인 경우는 최초 호출하는 케이스로 생각하고 초기화 시킴
     self.m_mRankingMap[rank_type] = {}
+    self.m_mOffsetMap[rank_type] = offset
 
     -- 콜백 함수
     local function success_cb(ret)
@@ -82,7 +94,7 @@ function ServerData_ClanRank:request_getRank(rank_type, offset, cb_func)
         self:setMyRankData(rank_type, ret['my_claninfo'])
 
 		if (cb_func) then
-			cb_func()
+			cb_func(ret)
 		end
     end
 

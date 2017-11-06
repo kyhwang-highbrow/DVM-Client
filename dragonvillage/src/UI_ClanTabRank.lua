@@ -6,10 +6,13 @@ local PARENT = class(UI_IndivisualTab, ITabUI:getCloneTable())
 -------------------------------------
 UI_ClanTabRank = class(PARENT,{
         vars = '',
+        m_mTableViewMap = 'Map<string, UIC_TableView>',
     })
 
 UI_ClanTabRank.TAB_ANCT = 'ancient'
 UI_ClanTabRank.TAB_CLSM = 'colosseum'
+
+local OFFSET_GAP = 20
 
 -------------------------------------
 -- function init
@@ -17,6 +20,7 @@ UI_ClanTabRank.TAB_CLSM = 'colosseum'
 function UI_ClanTabRank:init(owner_ui)
     self.root = owner_ui.vars['rankMenu']
     self.vars = owner_ui.vars
+    self.m_mTableViewMap = {}
 end
 
 -------------------------------------
@@ -93,9 +97,43 @@ function UI_ClanTabRank:makeRankTableview(tab)
         table_view:setDirection(cc.SCROLLVIEW_DIRECTION_VERTICAL)
         table_view:setItemList(l_rank_list)
 
-        table_view:makeDefaultEmptyDescLabel(Str('클랜 순위 정산중입니다.'))
-        --self.m_tableView = table_view
+        table_view:makeDefaultEmptyDescLabel(Str('현재 클랜 순위를 정산 중입니다. 잠시만 기다려주세요'))
+        self.m_mTableViewMap[tab] = table_view
+
+        -- 필요한 경우 테이블 뷰 scroll end callback 등록
+	    if (table.count(l_rank_list) >= OFFSET_GAP) then
+		    table_view:setScrollEndCB(function() self:onScrollEnd() end)
+	    end
     end
+end
+
+-------------------------------------
+-- function onScrollEnd
+-- @brief 다음 OFFSET_GAP개 게시물을 가져온다.
+-------------------------------------
+function UI_ClanTabRank:onScrollEnd()
+
+    local rank_type = self.m_currTab
+    local offset = g_clanRankData:getOffset(rank_type) + OFFSET_GAP
+
+	local function cb_func(t_ret)
+        local table_view = self.m_mTableViewMap[rank_type]
+
+		-- 랭킹이 있는 경우 추가
+		if (table.count(t_ret['list']) > 0) then
+            local l_rank_list = g_clanRankData:getRankData(rank_type)
+			table_view:addItemList(l_rank_list)
+            table_view:setDirtyItemList()
+
+		-- 랭킹이 없는 경우 콜백 해제
+		else
+			table_view:setScrollEndCB(nil)
+			table_view:setDirtyItemList()
+
+		end
+	end
+
+	g_clanRankData:request_getRank(rank_type, offset, cb_func)
 end
 
 -------------------------------------
