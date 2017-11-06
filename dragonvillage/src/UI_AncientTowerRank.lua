@@ -151,7 +151,7 @@ end
 -- function request_Rank
 -------------------------------------
 function UI_AncientTowerRank:request_clanRank()
-    local rank_type = 'ancient'
+    local rank_type = CLAN_RANK['ANCT']
     local offset = self.m_clanOffset
     local cb_func = function()
         self:init_clanRankingTableView()
@@ -275,7 +275,7 @@ function UI_AncientTowerRank:init_clanRankingTableView()
 
     -- 내 순위
 	do
-        local info = g_clanRankData:getMyRankData('ancient')
+        local info = g_clanRankData:getMyRankData(CLAN_RANK['ANCT'])
 
         -- 자기 클랜이 있는 경우
         if (info) then
@@ -302,7 +302,7 @@ function UI_AncientTowerRank:init_clanRankingTableView()
         local node = vars['clanRankingListNode']
         node:removeAllChildren()
 
-        local l_item_list = g_clanRankData:getRankData('ancient')
+        local l_item_list = g_clanRankData:getRankData(CLAN_RANK['ANCT'])
 
         -- 테이블 뷰 인스턴스 생성
         local table_view = UIC_TableView(node)
@@ -322,15 +322,26 @@ end
 function UI_AncientTowerRank:init_clanRewardTableView()
     local node = self.m_uiScene.vars['clanRewardListNode']
 
-    local l_item_list = TABLE:get('table_clan_reward')
+    -- 고대의 탑 보상 정보만 빼온다.
+    local l_item_list = {}
+    for rank_id, t_data in pairs(TABLE:get('table_clan_reward')) do
+        if (t_data['category'] == CLAN_RANK['ANCT']) then
+            table.insert(l_item_list, t_data)
+        end
+    end
+
+    -- 테이블 정렬
+    table.sort(l_item_list, function(a, b) 
+        return tonumber(a['rank_id']) < tonumber(b['rank_id'])
+    end)
 
     -- 테이블 뷰 인스턴스 생성
     local table_view = UIC_TableView(node)
-    table_view.m_defaultCellSize = cc.size(640, 160 + 5)
+    table_view.m_defaultCellSize = cc.size(640, 100 + 5)
     table_view:setCellUIClass(UI_AncientTowerClanRewardListItem, nil)
     table_view:setDirection(cc.SCROLLVIEW_DIRECTION_VERTICAL)
     table_view:setItemList(l_item_list or {})
-    self.m_rewardTableView = table_view
+    self.m_clanRewardTableView = table_view
 
     table_view:makeDefaultEmptyDescLabel(Str('보상 정보가 없습니다.'))  
 end

@@ -9,8 +9,8 @@ UI_ClanTabRank = class(PARENT,{
         m_mTableViewMap = 'Map<string, UIC_TableView>',
     })
 
-UI_ClanTabRank.TAB_ANCT = 'ancient'
-UI_ClanTabRank.TAB_CLSM = 'colosseum'
+UI_ClanTabRank.TAB_ANCT = CLAN_RANK['ANCT']
+UI_ClanTabRank.TAB_CLSM = CLAN_RANK['CLSM']
 
 local OFFSET_GAP = 20
 

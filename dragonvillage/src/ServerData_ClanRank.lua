@@ -1,10 +1,17 @@
+-- clan 랭크 종류 및 키 정의
+CLAN_RANK = 
+{
+    ['ANCT'] = 'ancient',
+    ['CLSM'] = 'colosseum',
+}
+
 -------------------------------------
 -- class ServerData_ClanRank
 -------------------------------------
 ServerData_ClanRank = class({
         m_serverData = 'ServerData',
 
-		m_mRankingMap = 'Map<string, List<table> >', -- rank_type : ancient, colosseum
+		m_mRankingMap = 'Map<string, List<table> >',
         m_mMyRankingMap = 'Map<string, table>',
         m_mOffsetMap = 'Map<string, number>',
     })

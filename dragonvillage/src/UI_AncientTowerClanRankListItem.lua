@@ -33,7 +33,8 @@ function UI_AncientTowerClanRankListItem:initButton()
     local vars = self.vars
 
     vars['infoBtn']:registerScriptTapHandler(function()
-        ccdisplay('정보 보기 미구현')
+        local clan_object_id = self.m_structRank:getClanObjectID()
+        g_clanData:requestClanInfoDetailPopup(clan_object_id)
     end)
 end
 
@@ -72,5 +73,6 @@ function UI_AncientTowerClanRankListItem:refresh()
     -- 내클랜
     if (struct_clan_rank:getBeMyClan()) then
         vars['mySprite']:setVisible(true)
+        vars['infoBtn']:setVisible(false)
     end
 end

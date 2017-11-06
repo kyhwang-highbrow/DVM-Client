@@ -35,6 +35,7 @@ ITEM_ID_MAP['topaz'] = 700009
 ITEM_ID_MAP['capsule'] = 700201
 ITEM_ID_MAP['event'] = 700202
 ITEM_ID_MAP['ancient'] = 700010
+ITEM_ID_MAP['clancoin'] = 700011
 
 ITEM_ID_MAP['stamina'] = 700101
 ITEM_ID_MAP['staminas_st'] = 700101
