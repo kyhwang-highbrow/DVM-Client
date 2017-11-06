@@ -268,6 +268,15 @@ end
 function UI_ScenarioPlayer:changeBg(bg_name)
     local vars = self.vars
 
+    -- 배경을 삭제한다!
+    if (bg_name == 'clear') and (self.m_bgAnimator) then
+        local fade_out = cc.FadeOut:create(1)
+        local remove_self = cc.RemoveSelf:create()
+        self.m_bgAnimator:runAction(cc.Sequence:create(fade_out, remove_self))
+        self.m_bgAnimator = nil
+        return
+    end
+
     -- 현재 배경 밑에 새로운 배경을 넣고
     local bg_res = TableScenarioResource:getScenarioRes(bg_name)
     local bg_animator = MakeAnimator(bg_res)
