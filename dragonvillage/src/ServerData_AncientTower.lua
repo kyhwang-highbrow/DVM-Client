@@ -35,7 +35,7 @@ ServerData_AncientTower = class({
         m_nTotalScore = 'number', -- 시즌 내 총점수
 
         m_tSeasonRewardInfo = 'table', -- 시즌 보상 정보
-        m_tRet = 'table',
+        m_tClanRewardInfo = 'table', -- 클랜 보상 정보
 
         m_bOpen = 'booelan', 
     })
@@ -151,7 +151,7 @@ function ServerData_AncientTower:request_ancientTowerInfo(stage, finish_cb, fail
         self.m_bOpen = ret['open']
 
         -- 시즌 보상
-        self:setSeasonRewardInfo(ret)
+        self:setRewardInfo(ret)
 
         if (not self.m_lStage) then
             self.m_lStage = self:makeAcientTower_stageList()
@@ -485,22 +485,31 @@ function ServerData_AncientTower:getAncientTowerStatusText()
 end
 
 -------------------------------------
--- function setSeasonRewardInfo
+-- function setRewardInfo
 -------------------------------------
-function ServerData_AncientTower:setSeasonRewardInfo(ret)
-    if (ret['reward'] == true) and (ret['lastinfo']) then
+function ServerData_AncientTower:setRewardInfo(ret)
+    if (not ret['reward']) then
+        return
+    end
+    
+    if (ret['lastinfo']) then
         -- 플레이어 유저 정보 생성
         local struct_user_info = StructUserInfoAncientTower()
         struct_user_info.m_uid = g_userData:get('uid')
 
         self:_refresh_playerUserInfo(struct_user_info, ret['lastinfo'])
-        self.m_tSeasonRewardInfo = struct_user_info
-        self.m_tRet = ret
 
-        -- 보상 정보 저장
-        struct_user_info.m_userData = ret['reward_info']
+        self.m_tSeasonRewardInfo = {}
+        self.m_tSeasonRewardInfo['rank'] = struct_user_info
+        self.m_tSeasonRewardInfo['reward_info'] =ret['reward_info']
 
         -- @analytics
         Analytics:trackGetGoodsWithRet(ret, '고대의 탑(랭킹)')
+    end
+
+    if (ret['claninfo']) then
+        self.m_tClanRewardInfo = {}
+        self.m_tClanRewardInfo['rank'] = StruckClanRank(ret['claninfo'])
+        self.m_tClanRewardInfo['reward_info'] = ret['clan_reward_info']
     end
 end

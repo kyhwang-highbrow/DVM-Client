@@ -9,7 +9,7 @@ UI_AncientTowerRankingRewardPopup = class(PARENT,{
 -------------------------------------
 -- function init
 -------------------------------------
-function UI_AncientTowerRankingRewardPopup:init(struct_user_info_ancient, t_ret)
+function UI_AncientTowerRankingRewardPopup:init(t_info, is_clan)
     local vars = self:load('tower_ranking_reward_popup.ui')
     UIManager:open(self, UIManager.POPUP)
 
@@ -21,38 +21,44 @@ function UI_AncientTowerRankingRewardPopup:init(struct_user_info_ancient, t_ret)
     self:doActionReset()
     self:doAction(nil, false)
 
-    self:initUI(struct_user_info_ancient)
+    self:initUI(t_info, is_clan)
     self:initButton()
     self:refresh()
-
-    ItemObtainResult(t_ret)
 end
 
 -------------------------------------
 -- function initUI
 -------------------------------------
-function UI_AncientTowerRankingRewardPopup:initUI(struct_user_info_ancient)
+function UI_AncientTowerRankingRewardPopup:initUI(t_info, is_clan)
     local vars = self.vars
-
-    -- 여기서 클랜인지 아닌지 구분하여 처리
-    do
-        local info = struct_user_info_ancient
     
-        -- 지난 시즌 랭킹 정보
-        local rank_ui = UI_AncientTowerRankListItem(info)
-        vars['rankNode']:addChild(rank_ui.root)
+    local struct_data = t_info['rank']
+    local reward_info = t_info['reward_info']
 
-        -- 지난 시즌 랭킹 / 지난 시즌 보상 텍스트
-        -- vars['rankLabel']:setString()
-        -- vars['rankRewardLabel']:setString()
+    -- 데이터 구성
+    local rank_ui, str_1, str_2
+    if (is_clan) then
+        rank_ui = UI_AncientTowerClanRankListItem(struct_data)
+        str_1 = Str('지난 시즌 클랜 랭킹')
+        str_2 = Str('지난 시즌 클랜 랭킹 보상')
+
+    else
+        rank_ui = UI_AncientTowerRankListItem(struct_data)
+        str_1 = Str('지난 시즌 개인 랭킹')
+        str_2 = Str('지난 시즌 개인 랭킹 보상')
+
     end
+    
+    -- 지난 시즌 랭킹 정보
+    vars['rankNode']:addChild(rank_ui.root)
+    vars['rankLabel']:setString(str_1)
+    vars['rankRewardLabel']:setString(str_2)
 
     -- 보상 정보
-    local item_info = info.m_userData
-    if (item_info) then
-        local reward_cnt = #item_info
+    if (reward_info) then
+        local reward_cnt = #reward_info
         for i = 1, reward_cnt do
-            local item_data = item_info[i]
+            local item_data = reward_info[i]
             local item_id = item_data['item_id']
             local item_cnt = item_data['count']
 
