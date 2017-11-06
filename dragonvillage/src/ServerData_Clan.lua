@@ -489,6 +489,19 @@ function ServerData_Clan:getClanStruct()
 end
 
 -------------------------------------
+-- function setClanStruct
+-- @brief
+-------------------------------------
+function ServerData_Clan:setClanStruct(t_clan_data)
+    if (not t_clan_data) then
+        return
+    end
+
+    self.m_structClan = StructClan(t_clan_data)
+    self.m_bClanGuest = false
+end
+
+-------------------------------------
 -- function requestClanInfoDetailPopup
 -- @brief
 -------------------------------------

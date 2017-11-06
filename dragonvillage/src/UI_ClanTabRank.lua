@@ -65,8 +65,10 @@ function UI_ClanTabRank:onChangeTab(tab, first)
         local offset = 1
         local cb_func = function()
             self:makeRankTableview(tab)
+            self:makeMyRank(tab)
         end
         g_clanRankData:request_getRank(rank_type, offset, cb_func)
+        return
     end
 
     -- 내랭킹은 계속 교체한다
@@ -91,6 +93,7 @@ function UI_ClanTabRank:makeRankTableview(tab)
         table_view:setDirection(cc.SCROLLVIEW_DIRECTION_VERTICAL)
         table_view:setItemList(l_rank_list)
 
+        table_view:makeDefaultEmptyDescLabel(Str('클랜 순위 정산중입니다.'))
         --self.m_tableView = table_view
     end
 end
@@ -100,8 +103,9 @@ end
 -------------------------------------
 function UI_ClanTabRank:makeMyRank(tab)
     local node = self.vars['myNode']
+    node:removeAllChildren()
     local my_rank = g_clanRankData:getMyRankData(tab)
-    local ui = self.makeRankCell(t_data)
+    local ui = self.makeRankCell(my_rank)
     node:addChild(ui.root)
 end
 
@@ -128,7 +132,7 @@ function UI_ClanTabRank.makeRankCell(t_data)
 
     -- 클랜 마스터
     local clan_master = struct_clan_rank:getMasterNick()
-    vars['masterLabel']:setString(clan_name)
+    vars['masterLabel']:setString(clan_master)
 
     -- 점수
     local clan_score = struct_clan_rank:getClanScore()
@@ -138,5 +142,17 @@ function UI_ClanTabRank.makeRankCell(t_data)
     local clan_rank = struct_clan_rank:getClanRank()
     vars['rankLabel']:setString(clan_rank)
     
+    -- 내클랜
+    if (struct_clan_rank:getBeMyClan()) then
+        vars['mySprite']:setVisible(true)
+        vars['infoBtn']:setVisible(false)
+    end
+
+    -- 정보 보기 버튼
+    vars['infoBtn']:registerScriptTapHandler(function()
+        local clan_object_id = struct_clan_rank:getClanObjectID()
+        g_clanData:requestClanInfoDetailPopup(clan_object_id)
+    end)
+
 	return ui
 end

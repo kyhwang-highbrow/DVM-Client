@@ -601,6 +601,9 @@ function UI_TitleScene:workGameLogin()
 		g_tamerData:reMappingTamerInfo(ret['tamers'])
 		--g_questData:refreshQuestData(ret['quest_info'])
 
+        -- 자신의 클랜이 있으면 저장
+        g_clanData:setClanStruct(ret['clan'])
+
 		g_serverData:unlockSaveData()
 
         -- server_info 정보를 갱신

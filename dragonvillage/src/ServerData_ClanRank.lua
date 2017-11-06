@@ -43,9 +43,10 @@ end
 -- function setRankData
 -------------------------------------
 function ServerData_ClanRank:setRankData(rank_type, rank_data)
-    local rank
+    local my_clan_id = g_clanData:getClanStruct():getClanObjectID()
+
     for i, t_data in ipairs(rank_data) do
-        rank = tonumber(t_data['rank'])
+        t_data['isMyClan'] = (t_data['id'] == my_clan_id)
         table.insert(self.m_mRankingMap[rank_type], StructClanRank(t_data))
     end
 end
@@ -57,6 +58,8 @@ function ServerData_ClanRank:setMyRankData(rank_type, rank_data)
     if (not rank_data) then
         return
     end
+
+    rank_data['isMyClan'] = true
     self.m_mMyRankingMap[rank_type] = StructClanRank(rank_data)
 end
 
@@ -70,15 +73,13 @@ function ServerData_ClanRank:request_getRank(rank_type, offset, cb_func)
 	local offset = offset
 
     -- offset이 1인 경우는 최초 호출하는 케이스로 생각하고 초기화 시킴
-    if (offset == 1) then
-        self.m_mRankingMap[rank_type] = {}
-    end
+    self.m_mRankingMap[rank_type] = {}
 
     -- 콜백 함수
     local function success_cb(ret)
 		-- 한번 본 랭킹은 맵 형태로 저장
 		self:setRankData(rank_type, ret['list'])
-        self:setMyRankData(rank_type, ret['my_info'])
+        self:setMyRankData(rank_type, ret['my_claninfo'])
 
 		if (cb_func) then
 			cb_func()

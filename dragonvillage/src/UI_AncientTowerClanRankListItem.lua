@@ -30,6 +30,11 @@ end
 -- function initButton
 -------------------------------------
 function UI_AncientTowerClanRankListItem:initButton()
+    local vars = self.vars
+
+    vars['infoBtn']:registerScriptTapHandler(function()
+        ccdisplay('정보 보기 미구현')
+    end)
 end
 
 -------------------------------------
@@ -63,4 +68,9 @@ function UI_AncientTowerClanRankListItem:refresh()
     -- 등수 
     local clan_rank = struct_clan_rank:getClanRank()
     vars['rankLabel']:setString(clan_rank)
+
+    -- 내클랜
+    if (struct_clan_rank:getBeMyClan()) then
+        vars['mySprite']:setVisible(true)
+    end
 end
