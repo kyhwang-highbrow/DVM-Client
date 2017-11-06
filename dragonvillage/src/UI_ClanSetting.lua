@@ -46,11 +46,7 @@ end
 -------------------------------------
 function UI_ClanSetting:click_exitBtn()
     -- 가입 방식은 종료 직전에 변화 여부를 검사한다.
-    if (self.m_bChangedClanSet == false) and (self.m_clanAutoJoin ~= nil) then
-        if (self.m_clanAutoJoin ~= g_clanData:getClanStruct():isAutoJoin()) then
-            self.m_bChangedClanSet = true
-        end
-    end
+    self:checkJoinTypeChanged()
 
     local function close_cb()
         self:close()
@@ -132,7 +128,6 @@ function UI_ClanSetting:initJoinRadioBtn()
     local radio_button = UIC_RadioButton()
 	radio_button:setChangeCB(function(join_type)
         self.m_clanAutoJoin = join_type
-        self.m_bChangedClanSet = true
     end)
 	self.m_clanJoinRadioBtn = radio_button
 
@@ -329,6 +324,9 @@ end
 -- @brief 적용 버튼
 -------------------------------------
 function UI_ClanSetting:click_okBtn()
+    -- 가입 방식은 종료 직전에 변화 여부를 검사한다.
+    self:checkJoinTypeChanged()
+
     local finish_cb = function()
         self.m_bRet = true
         local msg = Str('변경사항이 적용되었습니다.')
@@ -352,6 +350,18 @@ function UI_ClanSetting:click_okBtn()
     local mark = self.m_structClanMark and self.m_structClanMark:tostring() or nil
 
     g_clanData:request_clanSetting(finish_cb, fail_cb, intro, notice, join, mark)
+end
+
+-------------------------------------
+-- function checkJoinTypeChanged
+-- @brief
+-------------------------------------
+function UI_ClanSetting:checkJoinTypeChanged()
+    if (self.m_bChangedClanSet == false) and (self.m_clanAutoJoin ~= nil) then 
+        if (self.m_clanAutoJoin ~= g_clanData:getClanStruct():isAutoJoin()) then
+            self.m_bChangedClanSet = true
+        end
+    end
 end
 
 -------------------------------------
