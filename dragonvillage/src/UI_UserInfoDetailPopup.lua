@@ -137,8 +137,8 @@ function UI_UserInfoDetailPopup:initButton()
 
     -- 사전 등록 닉네임
     if (not self.m_isVisit) then
-        vars['couponBtn']:setVisible(true)
         vars['couponBtn']:registerScriptTapHandler(function() self:click_nicknameCouponBtn() end)
+        vars['couponBtn']:setVisible(false)
     end
 end
 
