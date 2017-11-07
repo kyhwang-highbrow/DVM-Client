@@ -2928,6 +2928,15 @@
     <None Include="..\src\UI_ColosseumClanRankListItem.lua">
       <Filter>lua\UI</Filter>
     </None>
+    <None Include="..\src\LobbyManager_Clan.lua">
+      <Filter>lua\src</Filter>
+    </None>
+    <None Include="..\src\UI_ChatPopup_ClanTab.lua">
+      <Filter>lua\UI</Filter>
+    </None>
+    <None Include="..\src\ChatManagerClan.lua">
+      <Filter>lua\src</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Classes">

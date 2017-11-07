@@ -381,3 +381,27 @@ end
 function UI_TopUserInfo:show()
 	self.root:runAction(cc.MoveTo:create(0.5, cc.p(0, 0)))
 end
+
+
+-------------------------------------
+-- function refreshChatNotiInfo
+-- @brief 채팅 노티 UI 갱신
+-------------------------------------
+function UI_TopUserInfo:refreshChatNotiInfo()
+    local visible = false
+
+    -- 일반 채팅 노티 확인
+	local chat_manager = ChatManager:getInstance()
+    if chat_manager then
+        visible = visible or chat_manager.m_notiGeneral or chat_manager.m_notiWhisper
+    end
+
+    -- 클랜 채팅 노티 확인
+    local chat_manager = ChatManagerClan:getInstance()
+    if chat_manager then
+        visible = visible or chat_manager.m_notiGeneral
+    end
+
+    -- UI 값 설정
+    self.vars['chatNotiSprite']:setVisible(visible)
+end

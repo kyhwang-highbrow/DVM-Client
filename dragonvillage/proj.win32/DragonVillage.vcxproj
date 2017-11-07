@@ -279,6 +279,7 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <None Include="..\src\ChatContentList.lua" />
     <None Include="..\src\ChatIgnoreList.lua" />
     <None Include="..\src\ChatManager.lua" />
+    <None Include="..\src\ChatManagerClan.lua" />
     <None Include="..\src\CollisionHelper.lua" />
     <None Include="..\src\CommonMissile_Guide.lua" />
     <None Include="..\src\CommonMissile_Multi.lua" />
@@ -346,6 +347,7 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <None Include="..\src\LobbyCharacter.lua" />
     <None Include="..\src\LobbyDragon.lua" />
     <None Include="..\src\LobbyManager.lua" />
+    <None Include="..\src\LobbyManager_Clan.lua" />
     <None Include="..\src\LobbyMap.lua" />
     <None Include="..\src\LobbyMapFactory.lua" />
     <None Include="..\src\LobbyMapSpotMgr.lua" />
@@ -899,6 +901,7 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <None Include="..\src\UI_Card.lua" />
     <None Include="..\src\UI_ChapterSelect.lua" />
     <None Include="..\src\UI_ChapterSelectListItem.lua" />
+    <None Include="..\src\UI_ChatPopup_ClanTab.lua" />
     <None Include="..\src\UI_CheersPopup.lua" />
     <None Include="..\src\UI_Clan.lua" />
     <None Include="..\src\UI_ClanAcceptListItem.lua" />

@@ -158,10 +158,6 @@ end
 -- @brief 채팅 클라이언트 소켓 초기화
 -------------------------------------
 function UI_TitleScene:initChatClientSocket_Clan()
-    if true then
-        return
-    end
-
     -- 김성구 로컬 서버
     local ip = '192.168.1.105'
     local port = '3927'
@@ -172,6 +168,18 @@ function UI_TitleScene:initChatClientSocket_Clan()
     -- 채팅 소켓에서 사용되는 유저 정보 테이블 생성
     local t_data = self:makeUserDataForChatSocket()
     chat_client_socket:setUserInfo(t_data)
+
+    do -- 클랜 로비 매니저 생성
+        LobbyManager_Clan:initInstance()
+        g_clanLobbyManager:setChatClientSocket(chat_client_socket)
+        chat_client_socket:addRegularListener(g_clanLobbyManager)
+    end
+
+    do -- 클랜 채팅 매니저 생성
+        ChatManagerClan:getInstance()
+        g_clanChatManager:setChatClientSocket(chat_client_socket)
+        chat_client_socket:addRegularListener(g_clanChatManager)
+    end
 end
 
 -------------------------------------
@@ -238,7 +246,7 @@ end
 -- @brief
 -------------------------------------
 function UI_TitleScene:initChatManager(chat_client_socket)
-    ChatManager:initInstance()
+    ChatManager:getInstance()
     g_chatManager:setChatClientSocket(chat_client_socket)
 
     if chat_client_socket then
@@ -969,7 +977,7 @@ end
 function UI_TitleScene:workSoundPreload()
     self:initChatClientSocket()
     self:initChatClientSocket_Clan()
-    --ChatManager:initInstance()
+    --ChatManager:getInstance()
 
     if SoundMgr:isPreloadFinish() then
         self:doNextWork()

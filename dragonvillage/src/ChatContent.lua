@@ -166,7 +166,9 @@ function ChatContent:getUserInfoStr()
 
     local info_str
     if (self:getContentCategory() == 'whisper') then
-        info_str = Str('Lv.{1} {2}', level, nickname, channelName)
+        info_str = Str('Lv.{1} {2}', level, nickname)
+    elseif (self:getContentCategory() == 'clan') then
+        info_str = Str('Lv.{1} {2}', level, nickname)
     else
         info_str = Str('Lv.{1} {2} {@C}(채널 {3})', level, nickname, channelName)
     end
