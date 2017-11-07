@@ -142,13 +142,13 @@ function UI_AncientTower:initUI()
         local t_info = g_ancientTowerData.m_tSeasonRewardInfo
         local is_clan = false
 
-        local ui = UI_AncientTowerRankingRewardPopup(t_info, is_clan)
+        ui = UI_AncientTowerRankingRewardPopup(t_info, is_clan)
         
         g_ancientTowerData.m_tSeasonRewardInfo = nil
 	end
     -- 클랜 보상 팝업 (보상이 있다면)
     if (g_ancientTowerData.m_tClanRewardInfo) then
-        local t_info = g_ancientTowerData.self.m_tClanRewardInfo
+        local t_info = g_ancientTowerData.m_tClanRewardInfo
         local is_clan = true
 
         if (ui) then
@@ -156,10 +156,10 @@ function UI_AncientTower:initUI()
                 UI_AncientTowerRankingRewardPopup(t_info, is_clan)
             end)
         else
-            UI_AncientTowerRankingRewardPopup(clan_reward_info, is_clan)
+            UI_AncientTowerRankingRewardPopup(t_info, is_clan)
         end
 
-        g_ancientTowerData.self.m_tClanRewardInfo = nil
+        g_ancientTowerData.m_tClanRewardInfo = nil
     end
 end
 

@@ -51,13 +51,13 @@ end
 -------------------------------------
 function UI_ClanTabRank:initTab()
     local vars = self.vars
-    local tab_list = {UI_ClanTabRank.TAB_ANCT, UI_ClanTabRank.TAB_CLSM}
+    local tab_list = {CLAN_RANK['ANCT'], CLAN_RANK['CLSM']}
 
     for i, tab in ipairs(tab_list) do
         self:addTabAuto(tab, vars, vars[tab .. 'Node'])
     end
-    self:setTab(UI_ClanTabRank.TAB_ANCT)
-	self:setChangeTabCB(function(tab, first) self:onChangeTab(tab, first) end)
+
+    self:setTab(CLAN_RANK['ANCT'])
 end
 
 -------------------------------------
@@ -181,7 +181,7 @@ function UI_ClanTabRank.makeRankCell(t_data)
     vars['rankLabel']:setString(clan_rank)
     
     -- 내클랜
-    if (struct_clan_rank:getBeMyClan()) then
+    if (struct_clan_rank:isMyClan()) then
         vars['mySprite']:setVisible(true)
         vars['infoBtn']:setVisible(false)
     end

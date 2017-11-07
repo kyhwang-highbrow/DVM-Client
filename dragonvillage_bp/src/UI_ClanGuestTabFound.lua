@@ -137,6 +137,7 @@ function UI_ClanGuestTabFound:click_foundBtn()
         if g_clanData:isNeedClanInfoRefresh() then
             UINavigator:closeClanUI()
             UINavigator:goTo('clan')
+            SoundMgr:playEffect('UI', 'ui_grow_result')
         end
     end
 

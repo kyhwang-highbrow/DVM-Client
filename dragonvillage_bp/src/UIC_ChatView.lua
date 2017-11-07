@@ -28,6 +28,7 @@ function UIC_ChatView:init(node)
     self.m_showdItemList = {}
     self.m_contentQueue = {}
     self.m_itemList = {}
+    self.m_bDirtyPos = true
 end
 
 -------------------------------------

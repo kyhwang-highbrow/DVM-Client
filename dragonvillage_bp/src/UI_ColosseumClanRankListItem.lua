@@ -1,20 +1,23 @@
 local PARENT = class(UI, ITableViewCell:getCloneTable())
 
 -------------------------------------
--- class UI_AncientTowerClanRankListItem
+-- class UI_ColosseumClanRankListItem
 -------------------------------------
-UI_AncientTowerClanRankListItem = class(PARENT, {
-        m_structRank = '',
+UI_ColosseumClanRankListItem = class(PARENT, {
+        m_stuctClanRank = 'StuctClanRank',
     })
 
 -------------------------------------
 -- function init
 -------------------------------------
-function UI_AncientTowerClanRankListItem:init(struct_rank)
-    self.m_structRank = struct_rank
-    local vars = self:load('tower_scene_ranking_item_clan.ui')
+function UI_ColosseumClanRankListItem:init(stuct_data)
+    self.m_stuctClanRank = stuct_data
+    local vars = self:load('colosseum_scene_ranking_item_clan.ui')
 
-    if (struct_rank == 'next') then
+    -- 다음 랭킹 보기 
+    if (stuct_data == 'next') then
+        vars['nextBtn']:setVisible(true)
+        vars['itemMenu']:setVisible(false)
         return
     end
 
@@ -26,32 +29,9 @@ end
 -------------------------------------
 -- function initUI
 -------------------------------------
-function UI_AncientTowerClanRankListItem:initUI()
+function UI_ColosseumClanRankListItem:initUI()
     local vars = self.vars
-end
-
--------------------------------------
--- function initButton
--------------------------------------
-function UI_AncientTowerClanRankListItem:initButton()
-    local vars = self.vars
-
-    vars['infoBtn']:registerScriptTapHandler(function()
-        local clan_object_id = self.m_structRank:getClanObjectID()
-        g_clanData:requestClanInfoDetailPopup(clan_object_id)
-    end)
-end
-
--------------------------------------
--- function refresh
--------------------------------------
-function UI_AncientTowerClanRankListItem:refresh()
-    local vars = self.vars
-    local struct_clan_rank = self.m_structRank
-
-    if (not struct_clan_rank) then
-        return
-    end
+    local struct_clan_rank = self.m_stuctClanRank
 
     -- 클랜 마크
     local icon = struct_clan_rank:makeClanMarkIcon()
@@ -64,7 +44,7 @@ function UI_AncientTowerClanRankListItem:refresh()
 
     -- 클랜 마스터
     local clan_master = struct_clan_rank:getMasterNick()
-    vars['masterLabel']:setString(clan_name)
+    vars['masterLabel']:setString(clan_master)
 
     -- 점수
     local clan_score = struct_clan_rank:getClanScore()
@@ -73,10 +53,28 @@ function UI_AncientTowerClanRankListItem:refresh()
     -- 등수 
     local clan_rank = struct_clan_rank:getClanRank()
     vars['rankLabel']:setString(clan_rank)
-
+    
     -- 내클랜
     if (struct_clan_rank:isMyClan()) then
         vars['mySprite']:setVisible(true)
         vars['infoBtn']:setVisible(false)
     end
+
+    -- 정보 보기 버튼
+    vars['infoBtn']:registerScriptTapHandler(function()
+        local clan_object_id = struct_clan_rank:getClanObjectID()
+        g_clanData:requestClanInfoDetailPopup(clan_object_id)
+    end)
+end
+
+-------------------------------------
+-- function initButton
+-------------------------------------
+function UI_ColosseumClanRankListItem:initButton()
+end
+
+-------------------------------------
+-- function refresh
+-------------------------------------
+function UI_ColosseumClanRankListItem:refresh()
 end

@@ -366,8 +366,12 @@ end
 -- @brief 서버와의 연결 상태
 -------------------------------------
 function ChatManager:getStatus()
-    local status = self.m_chatClientSocket:getStatus()
-    return status
+    if self.m_chatClientSocket then
+        local status = self.m_chatClientSocket:getStatus()
+        return status
+    end
+
+    return 'Disconnected'
 end
 
 -------------------------------------
@@ -492,7 +496,9 @@ function ChatManager:openChatPopup()
         self.m_chatPopup:close()
     end
 
-    self.m_chatClientSocket:checkRetryConnect()
+    if self.m_chatClientSocket then
+        self.m_chatClientSocket:checkRetryConnect()
+    end
     self.m_chatPopup:openPopup()
 end
 

@@ -16,7 +16,6 @@ StructClanRank = class(PARENT, {
 
         rank = 'number',
         score = 'number',
-        isMyClan = 'boolean',
     })
 
 local THIS = StructClanRank
@@ -99,10 +98,16 @@ function StructClanRank:getClanScore()
 end
 
 -------------------------------------
--- function getBeMyClan
+-- function isMyClan
 -------------------------------------
-function StructClanRank:getBeMyClan()
-    return self['isMyClan']
+function StructClanRank:isMyClan()
+    local struct_clan = g_clanData:getClanStruct()
+    local my_clan_id = 'not_exist'
+    if (struct_clan) then
+        my_clan_id = struct_clan:getClanObjectID()
+    end
+
+    return (self['id'] == my_clan_id)
 end
 
 -------------------------------------

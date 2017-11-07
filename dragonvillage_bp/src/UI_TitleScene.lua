@@ -143,6 +143,42 @@ function UI_TitleScene:initChatClientSocket()
     local ip, port = GetChatServerUrl()
     local chat_client_socket = ChatClientSocket(ip, port)
 
+    local t_data = self:makeUserDataForChatSocket()
+    chat_client_socket:setUserInfo(t_data)
+
+    -- 전역 변수로 설정
+    g_chatClientSocket = chat_client_socket
+
+    self:initLobbyManager(chat_client_socket)
+    self:initChatManager(chat_client_socket)
+end
+
+-------------------------------------
+-- function initChatClientSocket_Clan
+-- @brief 채팅 클라이언트 소켓 초기화
+-------------------------------------
+function UI_TitleScene:initChatClientSocket_Clan()
+    if true then
+        return
+    end
+
+    -- 김성구 로컬 서버
+    local ip = '192.168.1.105'
+    local port = '3927'
+
+    --local ip, port = GetChatServerUrl()
+    local chat_client_socket = ChatClientSocket(ip, port)
+
+    -- 채팅 소켓에서 사용되는 유저 정보 테이블 생성
+    local t_data = self:makeUserDataForChatSocket()
+    chat_client_socket:setUserInfo(t_data)
+end
+
+-------------------------------------
+-- function makeUserDataForChatSocket
+-- @brief 채팅 소켓에서 사용되는 유저 정보 테이블 생성
+-------------------------------------
+function UI_TitleScene:makeUserDataForChatSocket()
     -- 유저 정보 입력
     local uid = g_localData:get('local', 'uid')
     local tamer_id = g_userData:get('tamer')
@@ -181,13 +217,7 @@ function UI_TitleScene:initChatClientSocket()
         t_data['y'] = y
     end
 
-    chat_client_socket:setUserInfo(t_data)
-
-    -- 전역 변수로 설정
-    g_chatClientSocket = chat_client_socket
-
-    self:initLobbyManager(chat_client_socket)
-    self:initChatManager(chat_client_socket)
+    return t_data
 end
 
 -------------------------------------
@@ -197,7 +227,10 @@ end
 function UI_TitleScene:initLobbyManager(chat_client_socket)
     LobbyManager:initInstance()
     g_lobbyManager:setChatClientSocket(chat_client_socket)
-    chat_client_socket:addRegularListener(g_lobbyManager)
+
+    if chat_client_socket then
+        chat_client_socket:addRegularListener(g_lobbyManager)
+    end
 end
 
 -------------------------------------
@@ -207,7 +240,10 @@ end
 function UI_TitleScene:initChatManager(chat_client_socket)
     ChatManager:initInstance()
     g_chatManager:setChatClientSocket(chat_client_socket)
-    chat_client_socket:addRegularListener(g_chatManager)
+
+    if chat_client_socket then
+        chat_client_socket:addRegularListener(g_chatManager)
+    end
 end
 
 
@@ -932,6 +968,7 @@ end
 -------------------------------------
 function UI_TitleScene:workSoundPreload()
     self:initChatClientSocket()
+    self:initChatClientSocket_Clan()
     --ChatManager:initInstance()
 
     if SoundMgr:isPreloadFinish() then

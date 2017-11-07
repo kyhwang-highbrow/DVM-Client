@@ -1,7 +1,5 @@
 local PARENT = class(UI, ITopUserInfo_EventListener:getCloneTable(), ITabUI:getCloneTable())
 
-local RANK_SHOW_CNT = 30 -- 한번에 보여주는 랭커 수
-
 -------------------------------------
 -- class UI_Colosseum
 -------------------------------------
@@ -254,11 +252,17 @@ end
 -------------------------------------
 function UI_Colosseum:initTab()
     local vars = self.vars
-    self:addTabAuto(UI_Colosseum.ATK, vars, vars['atkListNode'], vars['refreshBtn'], vars['powerLabel'])
-    self:addTabAuto(UI_Colosseum.DEF, vars, vars['defListNode'], vars['powerLabel'], vars['defDeckBtn'])
-    self:addTabAuto(UI_Colosseum.RANKING, vars, vars['rankingListNode'], vars['myRankingListNode'])
+    self:addTabAuto(UI_Colosseum['ATK'], vars, vars['atkListNode'], vars['refreshBtn'], vars['powerLabel'])
+    self:addTabAuto(UI_Colosseum['DEF'], vars, vars['defListNode'], vars['powerLabel'], vars['defDeckBtn'])
 
-    self:setTab(UI_Colosseum.ATK)
+    --self:addTabAuto(UI_Colosseum['RANKING'], vars, vars['rankingListNode'], vars['myRankingListNode'])
+    
+    -- 클랜 랭킹
+    local tab_ui = UI_ColosseumTabRank(self, 'rank')
+    self:addTabWithTabUIAndLabel(UI_Colosseum['RANKING'], vars['rankingTabBtn'], vars['rankingTabLabel'], tab_ui)
+
+
+    self:setTab(UI_Colosseum['ATK'])
 end
 
 -------------------------------------
@@ -274,9 +278,6 @@ function UI_Colosseum:onChangeTab(tab, first)
     elseif (tab == UI_Colosseum.DEF) then
         self:refresh_combatPower('def')
         self:request_matchHistory()
-
-    elseif (tab == UI_Colosseum.RANKING) then
-        self:request_Rank()
     end
 
     if (not first) then
@@ -321,97 +322,6 @@ function UI_Colosseum:init_atkTab()
         return a_rp < b_rp
     end
     table.sort(table_view.m_itemList, sort_func)
-end
-
--------------------------------------
--- function update_weekRankTableView
--------------------------------------
-function UI_Colosseum:update_weekRankTableView(target_offset)
-    local function finish_cb(ret, rank_list)
-        self.m_weekRankOffset = ret['offset']
-
-        if (1 < self.m_weekRankOffset) then
-            local prev_data = {m_rank = 'prev'}
-            rank_list['prev'] = prev_data
-        end
-
-        local next_data = {m_rank = 'next'}
-        rank_list['next'] = next_data
-
-        self.m_weekRankTableView:mergeItemList(rank_list)
-        g_colosseumRankData:sortColosseumRank(self.m_weekRankTableView.m_itemList)
-    end
-
-    g_colosseumRankData:request_rankManual(target_offset, finish_cb)
-end
-
--------------------------------------
--- function init_topRankTableView
--------------------------------------
-function UI_Colosseum:init_topRankTableView()
-    local node = self.vars['topRankTableViewNode']
-    --node:removeAllChildren()
-
-    local l_item_list = g_colosseumRankData.m_lTopRank
-
-    if (self.m_topRankOffset > 1) then
-        local prev_data = {m_rank = 'prev'}
-        l_item_list['prev'] = prev_data
-    end
-
-    if (#l_item_list > 0) then
-        local next_data = {m_rank = 'next'}
-        l_item_list['next'] = next_data
-    end
-
-    -- 생성 콜백
-    local function create_func(ui, data)
-        local function click_previousButton()
-            self:update_topRankTableView(self.m_topRankOffset - 30)
-        end
-        ui.vars['previousButton']:registerScriptTapHandler(click_previousButton)
-
-        local function click_nextButton()
-            self:update_topRankTableView(self.m_topRankOffset + 30)
-        end
-        ui.vars['nextButton']:registerScriptTapHandler(click_nextButton)
-    end
-
-    -- 테이블 뷰 인스턴스 생성
-    local table_view = UIC_TableView(node)
-    table_view.m_defaultCellSize = cc.size(840, 100 + 5)
-    table_view:setCellUIClass(UI_ColosseumRankListItem, create_func)
-    table_view:setDirection(cc.SCROLLVIEW_DIRECTION_VERTICAL)
-    table_view:setItemList(l_item_list)
-
-    -- 리스트가 비었을 때
-    --table_view_td:makeDefaultEmptyDescLabel(Str('보유한 드래곤이 없습니다.'))
-
-    -- 정렬
-    g_colosseumRankData:sortColosseumRank(table_view.m_itemList)
-    self.m_topRankTableView = table_view
-end
-
--------------------------------------
--- function update_topRankTableView
--------------------------------------
-function UI_Colosseum:update_topRankTableView(target_offset)
-    local function finish_cb(ret, rank_list)
-        self.m_topRankOffset = ret['offset']
-
-        if (1 < self.m_topRankOffset) then
-            local prev_data = {m_rank = 'prev'}
-            rank_list['prev'] = prev_data
-        end
-
-        local next_data = {m_rank = 'next'}
-        rank_list['next'] = next_data
-
-        self.m_topRankTableView:mergeItemList(rank_list)
-        g_colosseumRankData:sortColosseumRank(self.m_topRankTableView.m_itemList)
-    end
-
-    g_colosseumRankData:request_rankManual(target_offset, finish_cb)
 end
 
 -------------------------------------
@@ -466,106 +376,6 @@ function UI_Colosseum:update(dt)
 
     end
 end
-
--------------------------------------
--- function request_Rank
--------------------------------------
-function UI_Colosseum:request_Rank()
-    local function finish_cb()
-        self.m_rankOffset = g_colosseumData.m_nGlobalOffset
-        self:init_rankTableView()
-    end
-    local offset = self.m_rankOffset
-    g_colosseumData:request_colosseumRank(offset, finish_cb)
-end
-
--------------------------------------
--- function init_rankTableView
--------------------------------------
-function UI_Colosseum:init_rankTableView()
-    local vars = self.vars
-    local node = vars['rankingListNode']
-    local my_node = vars['myRankingListNode']
-
-    node:removeAllChildren()
-    my_node:removeAllChildren()
-    
-	do-- 내 순위
-        local ui = UI_ColosseumRankListItem(g_colosseumData.m_playerUserInfo)
-        my_node:addChild(ui.root)
-	end
-
-    local l_item_list = g_colosseumData.m_lGlobalRank
-
-    if (1 < self.m_rankOffset) then
-        local prev_data = { m_tag = 'prev' }
-        l_item_list['prev'] = prev_data
-    end
-
-    local next_data = { m_tag = 'next' }
-    l_item_list['next'] = next_data
-    
-    -- 이전 랭킹 보기
-    local function click_prevBtn()
-        self.m_rankOffset = self.m_rankOffset - RANK_SHOW_CNT
-        self.m_rankOffset = math_max(self.m_rankOffset, 0)
-        self:request_Rank()
-    end
-
-    -- 다음 랭킹 보기
-    local function click_nextBtn()
-        local add_offset = #g_colosseumData.m_lGlobalRank
-        if (add_offset < RANK_SHOW_CNT) then
-            MakeSimplePopup(POPUP_TYPE.OK, Str('다음 랭킹이 존재하지 않습니다.'))
-            return
-        end
-        self.m_rankOffset = self.m_rankOffset + add_offset
-        self:request_Rank()
-    end
-
-    -- 생성 콜백
-    local function create_func(ui, data)
-        ui.vars['prevBtn']:registerScriptTapHandler(click_prevBtn)
-        ui.vars['nextBtn']:registerScriptTapHandler(click_nextBtn)
-    end
-
-    -- 테이블 뷰 인스턴스 생성
-    local table_view = UIC_TableView(node)
-    table_view.m_defaultCellSize = cc.size(720, 120 + 5)
-    table_view:setCellUIClass(UI_ColosseumRankListItem, create_func)
-    table_view:setDirection(cc.SCROLLVIEW_DIRECTION_VERTICAL)
-    table_view:setItemList(l_item_list)
-
-    do-- 테이블 뷰 정렬
-        local function sort_func(a, b)
-            local a_data = a['data']
-            local b_data = b['data']
-
-            -- 이전, 다음 버튼 정렬
-            if (a_data.m_tag == 'prev') then
-                return true
-            elseif (b_data.m_tag == 'prev') then
-                return false
-            elseif (a_data.m_tag == 'next') then
-                return false
-            elseif (b_data.m_tag == 'next') then
-                return true
-            end
-
-            -- 랭킹으로 선별
-            local a_rank = a_data.m_rank
-            local b_rank = b_data.m_rank
-            --if (a_rank ~= b_rank) then
-                return a_rank < b_rank
-            --end
-        end
-
-        table.sort(table_view.m_itemList, sort_func)
-    end
-
-    table_view:makeDefaultEmptyDescLabel(Str('랭킹 정보가 없습니다.'))   
-end
-
 
 -------------------------------------
 -- function request_matchHistory

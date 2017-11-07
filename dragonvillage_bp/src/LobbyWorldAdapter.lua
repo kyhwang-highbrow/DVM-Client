@@ -34,6 +34,10 @@ end
 -- function init_lobbyManager
 -------------------------------------
 function LobbyWorldAdapter:init_lobbyManager()
+    if (not self.m_lobbyManager) then
+        return
+    end
+
     -- 이벤트 리스터 등록
     self.m_lobbyManager:addListener('LobbyManager_CHAT_NORMAL_MSG', self)
     self.m_lobbyManager:addListener('LobbyManager_ADD_USER', self)
@@ -51,6 +55,13 @@ function LobbyWorldAdapter:init_lobbyMap()
     local lobby_map = LobbyMapFactory:createLobbyWorld(parent_node, self.m_lobbyUI)
     self.m_lobbyMap = lobby_map
     
+    if (not self.m_lobbyManager) then
+        return
+    end
+
+    if (not self.m_chatClientSocket) then
+        return
+    end
     
     local t_data = {}
     if (not self.m_lobbyManager.m_playerUserInfo) then -- 위치 랜덤으로 지정 (처음에만)

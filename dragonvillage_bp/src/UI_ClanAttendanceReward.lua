@@ -33,6 +33,8 @@ function UI_ClanAttendanceReward:init(t_reward_info, attd_cnt)
     -- 토스트 메시지 띄우기용
     local t_ret = {['new_mail']=true}
     ItemObtainResult(t_ret)
+
+    SoundMgr:playEffect('UI', 'ui_dragon_level_up')
 end
 
 -------------------------------------
