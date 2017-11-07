@@ -492,6 +492,7 @@ function ServerData_AncientTower:setRewardInfo(ret)
         return
     end
     
+    -- 개인
     if (ret['lastinfo']) then
         -- 플레이어 유저 정보 생성
         local struct_user_info = StructUserInfoAncientTower()
@@ -507,9 +508,10 @@ function ServerData_AncientTower:setRewardInfo(ret)
         Analytics:trackGetGoodsWithRet(ret, '고대의 탑(랭킹)')
     end
 
-    if (ret['claninfo']) then
+    -- 클랜
+    if (ret['last_clan_info']) then
         self.m_tClanRewardInfo = {}
-        self.m_tClanRewardInfo['rank'] = StruckClanRank(ret['claninfo'])
+        self.m_tClanRewardInfo['rank'] = StruckClanRank(ret['last_clan_info'])
         self.m_tClanRewardInfo['reward_info'] = ret['clan_reward_info']
     end
 end
