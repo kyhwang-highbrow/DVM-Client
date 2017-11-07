@@ -29,7 +29,7 @@ end
 -------------------------------------
 -- function initUI
 -------------------------------------
-function UI_ColosseumRankingRewardPopup:initUI(struct_user_info_colosseum)
+function UI_ColosseumRankingRewardPopup:initUI(t_info, is_clan)
     local vars = self.vars
     
     local struct_data = t_info['rank']
