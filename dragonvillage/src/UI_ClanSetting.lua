@@ -16,6 +16,7 @@ UI_ClanSetting = class(PARENT, {
         m_clanJoinRadioBtn = 'UIC_RadioBtn',
      })
 
+local STR_MAX_LENGTH = 30
 -------------------------------------
 -- function init
 -------------------------------------
@@ -103,6 +104,7 @@ function UI_ClanSetting:initEditBox()
         end
     end
     vars['introduceEditBox']:registerScriptEditBoxHandler(intro_event_handler)
+    vars['introduceEditBox']:setMaxLength(STR_MAX_LENGTH)
 
     -- notice editBox handler 등록
 	local function notice_event_handler(event_name, p_sender)
@@ -115,6 +117,7 @@ function UI_ClanSetting:initEditBox()
         end
     end
     vars['noticeEditBox']:registerScriptEditBoxHandler(notice_event_handler)
+    vars['noticeEditBox']:setMaxLength(STR_MAX_LENGTH)
 end
 
 -------------------------------------
