@@ -22,7 +22,13 @@ function DamageCalc_P1(atk_dmg, def_pwr, is_debug)
     local atk_dmg = atk_dmg
 
     -- 랜덤 (85% ~ 115%)
-    local rand = math_random(85, 115) / 100 
+    local rand
+
+    if (IS_NEW_BALANCE_VERSION()) then
+        rand = math_random(95, 105) / 100 
+    else
+        rand = math_random(85, 115) / 100 
+    end
 
     -- 디버그 모드 중일 경우 랜덤 계산 막음
     if (is_debug) then
@@ -206,10 +212,13 @@ function CalcDamageRateDueToFormation(unit)
     local formation_mgr = unit:getFormationMgr(false)
     local damage_rate = 1
 
-    -- 전방 유닛이 있을 경우 후방 유닛 데미지 감소 처리
-    if (formation_mgr:isFrontLineAlive() and not formation_mgr:isFrontLine(unit)) then
-        if (unit.m_bLeftFormation or world.m_gameMode == GAME_MODE_COLOSSEUM) then
-            damage_rate = damage_rate * g_constant:get('INGAME', 'COVER_COEF')
+    if (IS_NEW_BALANCE_VERSION()) then
+    else
+        -- 전방 유닛이 있을 경우 후방 유닛 데미지 감소 처리
+        if (formation_mgr:isFrontLineAlive() and not formation_mgr:isFrontLine(unit)) then
+            if (unit.m_bLeftFormation or world.m_gameMode == GAME_MODE_COLOSSEUM) then
+                damage_rate = damage_rate * g_constant:get('INGAME', 'COVER_COEF')
+            end
         end
     end
 
@@ -225,9 +234,12 @@ function CalcDamageRateDueToGameMode(unit)
 
     local damage_rate = 1
 
-    -- 콜로세움에서 모든 데미지 배수 조정
-    if (world.m_gameMode == GAME_MODE_COLOSSEUM) then
-        damage_rate = damage_rate * g_constant:get('INGAME', 'COLOSSEUM_DAMAGE_MULTI')
+    if (IS_NEW_BALANCE_VERSION()) then
+    else
+        -- 콜로세움에서 모든 데미지 배수 조정
+        if (world.m_gameMode == GAME_MODE_COLOSSEUM) then
+            damage_rate = damage_rate * g_constant:get('INGAME', 'COLOSSEUM_DAMAGE_MULTI')
+        end
     end
 
     return damage_rate
