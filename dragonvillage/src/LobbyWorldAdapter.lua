@@ -58,6 +58,10 @@ function LobbyWorldAdapter:init_lobbyMap()
     if (not self.m_lobbyManager) then
         return
     end
+
+    if (not self.m_chatClientSocket) then
+        return
+    end
     
     local t_data = {}
     if (not self.m_lobbyManager.m_playerUserInfo) then -- 위치 랜덤으로 지정 (처음에만)

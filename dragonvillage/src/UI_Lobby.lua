@@ -920,7 +920,7 @@ function UI_Lobby:onFocus()
     SpineCacheManager:getInstance():purgeSpineCacheData()
     
     -- 채팅 다시 연결 확인
-    if g_chatManager then
+    if (g_chatManager and g_chatManager.m_chatClientSocket) then
         g_chatManager.m_chatClientSocket:checkRetryConnect()
     end
 
