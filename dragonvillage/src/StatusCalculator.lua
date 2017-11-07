@@ -118,6 +118,23 @@ function StatusCalculator:calcStatusList(char_type, cid, lv, grade, evolution, e
         end
     end
 
+    -- 직군별(방어형, 공격형, 회복형, 지원형) 보너스
+    if (IS_NEW_BALANCE_VERSION()) then
+        local t_char = self.m_charTable[cid]
+        if (t_char) then
+            local role = t_char['role']
+
+            local t_info = g_constant:get('INGAME', 'STAT_BONUS_BY_ROLE')[role]
+            if (t_info) then
+                for status_name, role_stat in pairs(t_info) do
+                    if (l_status[status_name]) then
+                        l_status[status_name]:setRoleStat(role_stat)
+                    end
+                end
+            end
+        end
+    end
+
     return l_status
 end
 
