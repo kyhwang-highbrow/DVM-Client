@@ -458,7 +458,7 @@ end
 -- function removeNoti
 -- @brief
 -------------------------------------
-function ChatManagerClan:removeNoti(category)
+function ChatManagerClan:removeNoti()
     self.m_notiGeneral = false
     self:onChangeNotiInfo()
 end

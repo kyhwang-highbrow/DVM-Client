@@ -304,6 +304,8 @@ function UI_ChatPopup:onChangeTab(tab, first)
         g_chatManager:removeNoti('general')
     elseif (tab == 'whisper') then
         g_chatManager:removeNoti('whisper')
+    elseif (tab == 'clan') then
+        g_clanChatManager:removeNoti()
     end
 
     if (tab == 'general') then
