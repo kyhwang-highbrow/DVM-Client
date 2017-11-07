@@ -229,6 +229,10 @@ function UI_ColosseumTabRank:makeMyClanRankNode()
         vars['myClanRankingListNode1']:setVisible(false)
         vars['myClanRankingListNode2']:setVisible(true)
         self.m_hasMyClan = false
+
+        vars['clanBtn']:registerScriptTapHandler(function()
+            UINavigator:goTo('clan')
+        end)
     end
 end
 

@@ -70,7 +70,6 @@ function UI_AncientTowerRank:initButton()
     self.m_typeRadioButton = radio_button
 
     vars['shopBtn']:registerScriptTapHandler(function() self:click_shopBtn() end)
-    vars['clanBtn']:registerScriptTapHandler(function() self:click_clanBtn() end)
 end
 
 -------------------------------------
@@ -295,6 +294,10 @@ function UI_AncientTowerRank:makeMyClanRankNode()
         vars['clanRankingMeNode1']:setVisible(false)
         vars['clanRankingMeNode2']:setVisible(true)
         self.m_hasMyClan = false
+
+        vars['clanBtn']:registerScriptTapHandler(function()
+            UINavigator:goTo('clan')
+        end)
     end
 end
 
@@ -419,11 +422,4 @@ end
 function UI_AncientTowerRank:click_shopBtn()
     local ui_shop_popup = UI_Shop()
     ui_shop_popup:setTab('ancient')
-end
-
--------------------------------------
--- function click_clanBtn
--------------------------------------
-function UI_AncientTowerRank:click_clanBtn()
-    UINavigator:goTo('clan')
 end
