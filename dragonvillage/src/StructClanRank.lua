@@ -130,9 +130,9 @@ end
 -- function applySetting
 -------------------------------------
 function StructClanRank:applySetting(t_data)
-    for i,v in pairs(self) do
+    for i, v in pairs(self) do
         if (t_data[i] ~= nil) then
-            self[i] = v
+            self[i] = t_data[i]
         end
     end
 
