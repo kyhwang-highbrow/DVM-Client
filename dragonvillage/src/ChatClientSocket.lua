@@ -186,6 +186,21 @@ function ChatClientSocket:setUserInfo(t_data)
 
     self.m_user['tamerTitleID'] = t_data['tamerTitleID'] or self.m_user['tamerTitleID'] or 0
 
+    -- json 스트링 처리
+    if t_data['json'] then
+        local json_str = self.m_user['json'] or ''
+        local t_json = dkjson.decode(json_str)
+        if (not t_json) then
+            t_json = {}
+        end
+        
+        for i,v in pairs(t_data['json']) do
+            t_json[i] = v
+        end
+
+        self.m_user['json'] = dkjson.encode(t_json, {indent=false})
+    end
+
     self:dispatch('CHANGE_USER_INFO', self.m_user)
 end
 

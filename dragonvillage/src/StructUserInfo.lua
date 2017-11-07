@@ -22,6 +22,9 @@ StructUserInfo = class({
         -- 드래곤, 룬
         m_dragonsObject = 'StructDragonObject',
         m_runesObject = 'StructRuneObject',
+
+        -- 클랜
+        m_structClan = 'StructClan',
     })
 
 -------------------------------------
@@ -283,4 +286,27 @@ function StructUserInfo:syncSUser(server_user)
         end
         self.m_leaderDragonObject = StructDragonObject(data)
     end
+
+    -- 클랜 정보
+    local t_json = dkjson.decode(server_user['json'] or '{}')
+    if t_json['clan'] then
+        local struct_clan = StructClan(t_json['clan'])
+        self:setStructClan(struct_clan)
+    end
+end
+
+-------------------------------------
+-- function setStructClan
+-- @breif
+-------------------------------------
+function StructUserInfo:setStructClan(struct_clan)
+    self.m_structClan = struct_clan
+end
+
+-------------------------------------
+-- function getStructClan
+-- @breif
+-------------------------------------
+function StructUserInfo:getStructClan()
+    return self.m_structClan
 end

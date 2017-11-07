@@ -22,6 +22,7 @@ ChatContent = class({
         uid = '',
         message = '',
         did = '',
+        json = 'string',
 
         -- 귓속말에서 사용
         to = '',
@@ -39,7 +40,6 @@ ChatContent = class({
 -- function init
 -------------------------------------
 function ChatContent:init(data)
-
     -- 외부에서 전달받은 data 테이블로 초기화
     if data then
         self:applyTableData(data)

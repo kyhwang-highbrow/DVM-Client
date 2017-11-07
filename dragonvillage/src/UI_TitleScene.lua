@@ -137,7 +137,7 @@ end
 -------------------------------------
 function UI_TitleScene:initChatClientSocket()
     -- 김성구 로컬 서버
-    --local ip = '192.168.1.63'
+    --local ip = '192.168.1.105'
     --local port = '3927'
 
     local ip, port = GetChatServerUrl()
@@ -210,6 +210,18 @@ function UI_TitleScene:makeUserDataForChatSocket()
     t_data['x'] = 0
     t_data['y'] = -150
     t_data['tamerTitleID'] = tamer_title_id
+    t_data['json'] = {}
+
+    do -- 클랜 정보
+        local clan_struct = g_clanData:getClanStruct()
+        if clan_struct then
+            local t_clan = {}
+            t_clan['name'] = clan_struct['name']
+            t_clan['mark'] = clan_struct['mark']
+            t_clan['id'] = clan_struct['id']
+            t_data['json']['clan'] = t_clan
+        end
+    end
 
     do -- 테이머 코스츔 적용
         local struct_tamer_costume = g_tamerCostumeData:getCostumeDataWithTamerID(tamer_id)
