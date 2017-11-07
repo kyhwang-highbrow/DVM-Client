@@ -458,14 +458,25 @@ end
 function UI_Lobby:refresh_userInfo()
    local vars = self.vars
 
-    -- 칭호
+    -- 칭호 + 닉네임
     local title = g_userData:getTamerTitleStr()
-    vars['userTitleLabel']:setString(title)
+    local nick = g_userData:get('nick')
+    local full_name = string.format('{@user_title}%s {@white}%s', title, nick)
+    vars['userNameLabel']:setString(full_name)
 
-    -- 닉네임
-    local nickname = g_userData:get('nick')
-    vars['userNameLabel']:setString(nickname)
+    -- 클랜
+    local struct_clan = g_clanData:getClanStruct()
+    if (struct_clan) then
+        local clan_name = struct_clan:getClanName()
+        vars['clanLabel']:setString(clan_name)
 
+        local clan_icon = struct_clan:makeClanMarkIcon()
+        vars['markNode']:addChild(clan_icon)
+    else
+        vars['clanLabel']:setVisible(false)
+        vars['markNode']:setVisible(false)
+    end
+    
     -- 레벨
     local lv = g_userData:get('lv')
     vars['userLvLabel']:setString(Str('레벨 {1}', lv))
@@ -932,6 +943,7 @@ function UI_Lobby:onFocus()
     -- 핫타임 정보 갱신
     self.vars['battleHotSprite']:setVisible(g_hotTimeData:isHighlightHotTime())
 
+    self:refresh_userInfo()
     self:refresh_rightButtons()
 end
 

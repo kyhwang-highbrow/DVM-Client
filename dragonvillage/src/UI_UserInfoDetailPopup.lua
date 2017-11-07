@@ -122,11 +122,6 @@ function UI_UserInfoDetailPopup:initUI()
         vars['markNode']:setVisible(false)
     end
 
-    -- 친구신청 버튼
-    local friend_uid = self.m_tUserInfo['uid']
-    local is_friend = g_friendData:isFriend(friend_uid)
-    vars['requestBtn']:setVisible(self.m_isVisit and not is_friend)
-
 	-- 플레이 기록
 	self:init_historyView()
 
@@ -144,6 +139,7 @@ function UI_UserInfoDetailPopup:initButton()
     vars['deckBtn']:registerScriptTapHandler(function() self:click_deckBtn() end)
     vars['requestBtn']:registerScriptTapHandler(function() self:click_requestBtn() end)
     vars['titleChangeBtn']:registerScriptTapHandler(function() self:click_titleChangeBtn() end)
+    vars['dragonInfoBtn']:registerScriptTapHandler(function() self:click_dragonInfoBtn() end)
 
     if (self.m_hasClan) then
         vars['clanBtn1']:registerScriptTapHandler(function() self:click_clanBtn() end)
@@ -240,9 +236,15 @@ function UI_UserInfoDetailPopup:setVisitMode(is_visit)
 	vars['tamerBtn']:setVisible(not is_visit)
 	vars['dragonBtn']:setVisible(not is_visit)
     vars['titleChangeBtn']:setVisible(not is_visit)
-    
-    -- 콜로세움 팀 보기 버튼은 상대방의 정보 봤을 때만 나옴
+
+    -- 방문용
+    vars['dragonInfoBtn']:setVisible(is_visit)
     vars['deckBtn']:setVisible(is_visit)
+    
+    -- 친구신청 버튼
+    local friend_uid = self.m_tUserInfo['uid']
+    local is_friend = g_friendData:isFriend(friend_uid)
+    vars['requestBtn']:setVisible(is_visit and not is_friend)
 end
 
 -------------------------------------
@@ -431,6 +433,13 @@ function UI_UserInfoDetailPopup:click_titleChangeBtn()
         end)
     end
     g_userData:request_getTitleList(cb_func)
+end
+
+-------------------------------------
+-- function click_clanBtn
+-------------------------------------
+function UI_UserInfoDetailPopup:click_dragonInfoBtn()
+    ccdisplay('드래곤 정보 보기는 구현중입니다.')
 end
 
 -------------------------------------
