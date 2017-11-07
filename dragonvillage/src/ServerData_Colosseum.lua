@@ -24,7 +24,8 @@ ServerData_Colosseum = class({
         m_matchHistory = 'list',
 
         m_tSeasonRewardInfo = 'table',
-        m_tRet = 'table',
+        m_tClanRewardInfo = 'table',
+
         m_buffTime = 'timestamp', -- 버프 유효 시간 (0일 경우 버프 발동 x, 값이 있을 경우 해당 시간까지 버프 적용)
         m_buffWin = 'number', -- 연승버프에 사용되는 연승
 
@@ -90,7 +91,7 @@ function ServerData_Colosseum:response_colosseumInfo(ret)
     self.m_refreshFreeTime = ret['refresh']
 
     -- 주간 보상
-    self:setSeasonRewardInfo(ret)
+    self:setRewardInfo(ret)
 
     -- 버프 발동 종료 시간
     self.m_buffTime = ret['bufftime']
@@ -643,29 +644,34 @@ function ServerData_Colosseum:request_colosseumDefHistory(finish_cb, fail_cb)
 end
 
 -------------------------------------
--- function setSeasonRewardInfo
+-- function setRewardInfo
 -------------------------------------
-function ServerData_Colosseum:setSeasonRewardInfo(ret)
-    if (ret['reward'] == true) and ret['lastseason'] then
+function ServerData_Colosseum:setRewardInfo(ret)
+    if (not ret['reward']) then
+        return
+    end
+    
+    -- 개인
+    if (ret['lastinfo']) then
         -- 플레이어 유저 정보 생성
         local struct_user_info = StructUserInfoColosseum()
         struct_user_info.m_uid = g_userData:get('uid')
 
-        self:_refresh_playerUserInfo(struct_user_info, ret['lastseason'])
-        self.m_tSeasonRewardInfo = struct_user_info
-        self.m_tRet = ret
+        self:_refresh_playerUserInfo(struct_user_info, ret['lastinfo'])
 
-        -- ret['week'] -- 주차
-        -- ret['total'] -- 순위를 가진 전체 유저 수
-
-        -- 보상 cash 갯수 저장
-        local added_items = {}
-        added_items['items_list'] = ret['reward_info'] or {}
-        local t_item_id_cnt, t_iten_type_cnt = ServerData_Item:parseAddedItems(added_items)
-        struct_user_info.m_userData = t_iten_type_cnt
+        self.m_tSeasonRewardInfo = {}
+        self.m_tSeasonRewardInfo['rank'] = struct_user_info
+        self.m_tSeasonRewardInfo['reward_info'] =ret['reward_info']
 
         -- @analytics
         Analytics:trackGetGoodsWithRet(ret, '콜로세움(주간보상)')
+    end
+
+    -- 클랜
+    if (ret['last_clan_info']) then
+        self.m_tClanRewardInfo = {}
+        self.m_tClanRewardInfo['rank'] = StructClanRank(ret['last_clan_info'])
+        self.m_tClanRewardInfo['reward_info'] = ret['reward_clan_info']
     end
 end
 

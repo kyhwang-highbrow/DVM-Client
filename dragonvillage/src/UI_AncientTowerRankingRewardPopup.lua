@@ -54,7 +54,7 @@ function UI_AncientTowerRankingRewardPopup:initUI(t_info, is_clan)
     vars['rankLabel']:setString(str_1)
     vars['rankRewardLabel']:setString(str_2)
 
-    -- 보상 정보
+    -- 보상 정보 (최대 3개로 가정 .. 나중에 테이블뷰로 하자)
     if (reward_info) then
         local reward_cnt = #reward_info
         for i = 1, reward_cnt do
