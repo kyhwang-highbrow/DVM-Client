@@ -236,28 +236,6 @@ function getSkillTypeStr(skill_type, is_use_brakets)
 end
 
 -------------------------------------
--- function getSkillType_byEvolution
--- @brief 진화 단계에 따른 스킬 타입명
--------------------------------------
-function getSkillType_byEvolution(evolution)
-    local skill_type = ''
-
-	if (evolution == 0) then
-        skill_type = 'normal'
-    elseif (evolution == 1) then
-        skill_type = 'passive'
-    elseif (evolution == 2) then
-        skill_type = 'passive'
-    elseif (evolution == 3) then
-        skill_type = 'active'
-    else
-        error('evolution : ' .. evolution)
-    end
-
-	return getSkillTypeStr(skill_type, false)
-end
-
--------------------------------------
 -- function getSkillType_Tamer
 -- @brief 테이머 스킬 이름
 -------------------------------------

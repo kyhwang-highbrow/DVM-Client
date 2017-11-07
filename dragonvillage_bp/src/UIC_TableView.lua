@@ -300,6 +300,12 @@ function UIC_TableView:scrollViewDidScroll()
         offset['y'] = offset['y'] + viewSize['height']
     end
     startIdx = self:_indexFromOffset(offset)
+
+    -- @mskim tableview 에러를 잡기 위한 우회처리
+    if (not startIdx) then
+        return nil
+    end
+
     if (startIdx == -1) then
 		startIdx = cellsCount
 	end
@@ -410,7 +416,7 @@ function UIC_TableView:scrollEndEventHandler(offset, end_idx)
 
 		-- 더불러오기 아이콘 연출
 		else
-			local gap_percent = (- curr_pos - self.m_scrollEndStd)/(self.m_scrollEndStd * 2)
+			local gap_percent = (- curr_pos - self.m_scrollEndStd)/(self.m_scrollEndStd)
 
 			-- 위치 조정
 			self.m_scrollEndSprite:setPositionY(- curr_pos - self.m_scrollEndStd)
@@ -419,8 +425,8 @@ function UIC_TableView:scrollEndEventHandler(offset, end_idx)
 			-- 크기 살짝 조정
 			self.m_scrollEndSprite:setScale(1 + gap_percent * 0.2)
 
-			-- 기준치의 3배 이상 스크롤 되었을 시 콜백 실행
-			if (curr_pos < - (self.m_scrollEndStd * 3)) then
+			-- 기준치의 2배 이상 스크롤 되었을 시 콜백 실행
+			if (curr_pos < - (self.m_scrollEndStd * 2)) then
 				self.m_scrollEndIdx = end_idx
 				--[[
 					scroll end callback 을 사용하다면 대체로 리스트를 추가적으로 불러오고 갱신할것으로 가정함
@@ -436,6 +442,7 @@ function UIC_TableView:scrollEndEventHandler(offset, end_idx)
 	-- 기준치 이내라면 더불러오기 아이콘 삭제
 	else
 		self:releaseScrollEndSprite()
+
 	end
 end
 
@@ -443,7 +450,7 @@ end
 -- function makeScrollEndSprite
 -------------------------------------
 function UIC_TableView:makeScrollEndSprite()
-	local spr = cc.Sprite:create('res/ui/button/refresh_tableview.png')
+	local spr = cc.Sprite:create('res/ui/buttons/refresh_tableview.png')
 	self.m_scrollEndSprite = cc.ProgressTimer:create(spr)
 
 	self.m_scrollEndSprite:setDockPoint(cc.p(0.5, 0))
@@ -495,6 +502,12 @@ function UIC_TableView:_indexFromOffset(offset)
     end
     
     index = self:__indexFromOffset(offset);
+    
+    -- @mskim tableview 에러를 잡기 위한 우회처리
+    if (not index) then
+         return nil
+    end
+
     if (index ~= -1) then
         index = math_max(1, index)
         if (index > maxIdx) then
@@ -517,6 +530,11 @@ function UIC_TableView:__indexFromOffset(offset)
         search = offset['x']
     else
         search = offset['y']
+    end
+
+    -- @mskim tableview 에러를 잡기 위한 우회처리
+    if (not self._vCellsPositions) then
+        return nil
     end
 
     while (high >= low) do
@@ -1024,6 +1042,7 @@ end
 -------------------------------------
 function UIC_TableView:makeItemUI(data)
     local ui = self.m_cellUIClass(data)
+    ui:setTableView(self)
     ui.root:setSwallowTouch(false)
     if ui.vars['swallowTouchMenu'] then
         ui.vars['swallowTouchMenu']:setSwallowTouch(false)

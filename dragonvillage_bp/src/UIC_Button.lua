@@ -74,7 +74,11 @@ function UIC_Button.tapHandler(self)
     self:setClickButtonState()
 
     if self.m_clickFunc then
-        self.m_clickFunc()
+        if (self.m_blockMsg) then
+            UIManager:toastNotificationRed(self.m_blockMsg)
+        else
+            self.m_clickFunc()
+        end
     end
 end
 
@@ -322,6 +326,14 @@ function UIC_Button:setSelectedImage(node)
 end
 
 -------------------------------------
+-- function setDisabledImage
+-- @brief
+-------------------------------------
+function UIC_Button:setDisabledImage(node)
+    return self.m_node:setDisabledImage(node)
+end
+
+-------------------------------------
 -- function setAutoShake
 -- @brief
 -------------------------------------
@@ -335,10 +347,16 @@ end
 
 -------------------------------------
 -- function setBlockMsg
--- @brief 버튼을 block하고 클릭시 toast메세지를 띄운다. refresh되는 곳에서 사용하기 위해서는 다소 수정 필요
+-- @brief 버튼을 block하고 클릭시 toast메세지를 띄운다.
+--        더블어 setColor를 통해 disabled된 느낌을 준다.
 -------------------------------------
 function UIC_Button:setBlockMsg(msg)
-    self.m_clickFunc = function() ccdisplay(msg) end
+    self.m_blockMsg = msg
+    if (msg) then
+        self.m_node:setColor(COLOR['deep_gray'])
+    else
+        self.m_node:setColor(COLOR['white'])
+    end
 end
 
 -------------------------------------

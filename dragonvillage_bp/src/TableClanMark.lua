@@ -23,7 +23,7 @@ end
 -- function initTableByType
 -------------------------------------
 function TableClanMark:initTableByType()
-    -- ¹è°æ Á¤º¸
+    -- ë°°ê²½ ì •ë³´
     local map = self:filterList('type', 'bg')
     self.m_bgMap = {}
     for i,v in pairs(map) do
@@ -31,7 +31,7 @@ function TableClanMark:initTableByType()
         self.m_bgMap[idx] = v
     end
 
-    -- ¹®¾ç(symbol) Á¤º¸
+    -- ë¬¸ì–‘(symbol) ì •ë³´
     local map = self:filterList('type', 'symbol')
     self.m_symbolMap = {}
     for i,v in pairs(map) do
@@ -40,7 +40,7 @@ function TableClanMark:initTableByType()
     end
 
 
-    -- »ö»ó Á¤º¸
+    -- ìƒ‰ìƒ ì •ë³´
     local map = self:filterList('type', 'color')
     self.m_colorMap = {}
     for i,v in pairs(map) do

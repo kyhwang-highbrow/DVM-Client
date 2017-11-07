@@ -72,6 +72,7 @@ local t_module = {
     'StructUserInfoFriend',
     'StructUserInfoColosseum',
     'StructUserInfoAncientTower',
+    'StructUserInfoClan',
     'StructWaveRegenGroup',
     'StructCollisionData',
 	'StructBookData',
@@ -84,6 +85,7 @@ local t_module = {
     'StructTamerCostume',
     'StructClan',
     'StructClanMark',
+    'StructClanRank',
 
 	-- ServerData
     'ServerData',
@@ -134,6 +136,7 @@ local t_module = {
     'ServerData_FriendMatch',
     'ServerData_ExchangeEvent',
     'ServerData_Clan',
+    'ServerData_ClanRank',
     'ServerData_LevelUpPackage',
 
     -- Interface
@@ -195,6 +198,7 @@ local t_module = {
     'SortManager_EvolutionStone',
     'SortManager_Dragon',
     'SortManager_Friend',
+    'SortManager_ClanMember',
     'SimplePrimitivesDraw',
 	'StageMissionMgr',
 	'LogRecorder',
@@ -750,6 +754,8 @@ local t_module = {
     'UI_AncientTowerRankListItem',
     'UI_AncientTowerRewardListItem',
     'UI_AncientTowerRankingRewardPopup',
+    'UI_AncientTowerClanRankListItem',
+    'UI_AncientTowerClanRewardListItem',
 
 	-- UI : 인게임
 	'UI_Game',
@@ -914,11 +920,24 @@ local t_module = {
 
     -- UI : 클랜
     'UI_Clan',
+    'UI_ClanMemberListItem',
+    'UI_ClanTabInfo',
+    'UI_ClanTabRank',
     'UI_ClanGuest',
+    'UI_ClanListItem',
+    'UI_ClanGuestTabJoin',
     'UI_ClanGuestTabFound',
+    'UI_ClanGuestTabRequest',
+    'UI_ClanGuestTabRank',
     'UI_ClanSetting',
     'UI_ClanMark',
+    'UI_ClanMarkTwo',
     'UI_ClanMarkListItem',
+    'UI_ClanInfoDetailPopup',
+    'UI_ClanAttendanceReward',
+    'UI_ClanAttendanceRewardInfo',
+    'UI_ClanAcceptPopup', -- 가입 승인 관리 팝업 (마스터, 부마스터 권한)
+    'UI_ClanAcceptListItem',
 
     -- Forest
     'SceneForest',

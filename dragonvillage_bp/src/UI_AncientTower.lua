@@ -137,15 +137,30 @@ function UI_AncientTower:initUI()
     end
 
     -- 시즌 보상 팝업 (보상이 있다면)
+    local ui
     if (g_ancientTowerData.m_tSeasonRewardInfo) then
-        local info = g_ancientTowerData.m_tSeasonRewardInfo
-        local t_ret = g_ancientTowerData.m_tRet
+        local t_info = g_ancientTowerData.m_tSeasonRewardInfo
+        local is_clan = false
 
-        UI_AncientTowerRankingRewardPopup(info, t_ret)
-
+        local ui = UI_AncientTowerRankingRewardPopup(t_info, is_clan)
+        
         g_ancientTowerData.m_tSeasonRewardInfo = nil
-        g_ancientTowerData.m_tRet = nil
 	end
+    -- 클랜 보상 팝업 (보상이 있다면)
+    if (g_ancientTowerData.m_tClanRewardInfo) then
+        local t_info = g_ancientTowerData.self.m_tClanRewardInfo
+        local is_clan = true
+
+        if (ui) then
+            ui:setCloseCB(function()
+                UI_AncientTowerRankingRewardPopup(t_info, is_clan)
+            end)
+        else
+            UI_AncientTowerRankingRewardPopup(clan_reward_info, is_clan)
+        end
+
+        g_ancientTowerData.self.m_tClanRewardInfo = nil
+    end
 end
 
 -------------------------------------

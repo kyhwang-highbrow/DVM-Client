@@ -1,3 +1,13 @@
+TUTORIAL = {
+    INTRO_FIGHT = 'intro',
+    FIRST_START = 'tutorial_first_adv_start',
+    FIRST_END = 'tutorial_first_adv_end',
+    COLOSSEUM = 'tutorial_colosseum',
+    ANCIENT = 'tutorial_ancient_tower',
+    CLAN = 'tutorial_clan',
+    CLAN_GUEST = 'tutorial_clan_guest',
+}
+
 -------------------------------------
 -- class TutorialManager
 -- @brief tutorial의 시작과 끝을 관장하고 ServerData_Tutorial로 부터 튜토리얼 플레이 여부 받아옴
@@ -14,7 +24,7 @@ TutorialManager = class({
 
 local _instance
 -------------------------------------
--- function startTutorial
+-- function getInstance
 -- @brief 튜토리얼 실행
 -------------------------------------
 function TutorialManager.getInstance()
@@ -58,23 +68,23 @@ end
 function TutorialManager:startTutorial(tutorial_key, tar_ui)
     -- 개발모드에서 튜토리얼 동작하지 않도록 함
     if (IS_TEST_MODE()) then
-        
-        -- 튜토리얼 키에 대한 예외처리
-        if (not tutorial_key) then
-            ccdisplay('#### tutorial key is not exist')
-            return
-        end
-        if (not table.find(TUTORIAL, tutorial_key)) then
-            ccdisplay(string.format('#### %s is not registrated', tutorial_key))
-            return
-        end
-        if (not LuaBridge:isFileExist(string.format('data/scenario/%s.csv', tutorial_key))) then
-            ccdisplay(string.format('#### %s.csv is not exist', tutorial_key))
-            return
-        end
 
         -- 지정된 튜토리얼은 개발모드에서만 계속 동작 할 수 있도록 한다.
         if (g_constant:get('DEBUG', 'TEST_TUTORIAL') == tutorial_key) then
+            -- 튜토리얼 키에 대한 예외처리
+            if (not tutorial_key) then
+                ccdisplay('#### tutorial key is not exist')
+                return
+            end
+            if (not table.find(TUTORIAL, tutorial_key)) then
+                ccdisplay(string.format('#### %s is not registrated', tutorial_key))
+                return
+            end
+            if (not LuaBridge:isFileExist(string.format('data/scenario/%s.csv', tutorial_key))) then
+                ccdisplay(string.format('#### %s.csv is not exist', tutorial_key))
+                return
+            end
+
             _startTutorial(self, tutorial_key, tar_ui)
         end
 

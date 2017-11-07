@@ -337,7 +337,7 @@ function UI_Lobby:initButton()
     vars['battleBtn']:registerScriptTapHandler(function() self:click_battleBtn() end) -- 전투
     vars['shopBtn']:registerScriptTapHandler(function() self:click_shopBtn() end) -- 상점
     vars['drawBtn']:registerScriptTapHandler(function() self:click_drawBtn() end) -- 부화소
-    vars['eventBtn']:registerScriptTapHandler(function() self:click_eventBtn() end) -- 이벤트(출석) 버튼 
+    vars['clanBtn']:registerScriptTapHandler(function() self:click_clanBtn() end) -- 클랜 버튼
 
     -- 상단
     vars['tamerBtn2']:registerScriptTapHandler(function() self:click_userInfoBtn() end)
@@ -353,6 +353,7 @@ function UI_Lobby:initButton()
     vars['googleAchievementBtn']:registerScriptTapHandler(function() self:click_googleAchievementBtn() end)
 
     -- 우측 UI
+    vars['eventBtn']:registerScriptTapHandler(function() self:click_eventBtn() end) -- 이벤트(출석) 버튼 
     vars['capsuleBtn']:registerScriptTapHandler(function() self:click_capsuleBtn() end)
     vars['itemAutoBtn']:registerScriptTapHandler(function() self:click_itemAutoBtn() end) -- 자동재화(광고)
     vars['giftBoxBtn']:registerScriptTapHandler(function() self:click_giftBoxBtn() end) -- 랜덤박스(광고)
@@ -367,6 +368,18 @@ function UI_Lobby:initButton()
         etc_vars['inventoryBtn']:registerScriptTapHandler(function() self:click_inventoryBtn() end)-- 가방
         etc_vars['bookBtn']:registerScriptTapHandler(function() self:click_bookBtn() end) -- 도감 버튼
         etc_vars['naverCafeBtn']:registerScriptTapHandler(function() self:click_naverCafeBtn() end) -- 네이버 카페 버튼
+    end
+
+    do -- 클랜 버튼 잠금 상태 처리
+        local is_content_lock, req_user_lv = g_contentLockData:isContentLock('clan')
+        if is_content_lock then
+            vars['clanBtn']:setEnabled(false)
+            vars['clanLockNode']:setVisible(true)
+            vars['clanLockLabel']:setString(Str('레벨 {1}', req_user_lv))
+        else
+            vars['clanBtn']:setEnabled(true)
+            vars['clanLockNode']:setVisible(false)
+        end
     end
 end
 
@@ -631,6 +644,14 @@ end
 -------------------------------------
 function UI_Lobby:click_drawBtn()
     UINavigator:goTo('hatchery', nil)
+end
+
+-------------------------------------
+-- function click_clanBtn
+-- @brief 클랜 버튼
+-------------------------------------
+function UI_Lobby:click_clanBtn()
+    UINavigator:goTo('clan')
 end
 
 -------------------------------------

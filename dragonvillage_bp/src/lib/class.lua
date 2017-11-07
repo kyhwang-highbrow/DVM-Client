@@ -160,4 +160,29 @@ function getsetGenerator(klass, class_name)
 		func()
 	end
 end     
+
+-------------------------------------
+-- function getsetGenerator_simple
+-- @brief 지정된 멤버변수의 getter/setter를 자동 생성한다.
+-------------------------------------
+function getsetGenerator_simple(class_name, l_var_list)
+	-- 대상 멤버 변수 함수 생성
+	local code, var_capital
+    local templete = 
+	[[
+		function %s:get%s() return self.%s end
+		function %s:set%s(v) self.%s = v end
+	]]
+
+	-- getter, setter 생성
+	for _, var in pairs(l_var_list) do
+        var_capital = getHeadCapitalStr(var)
+		code = string.format(templete, 
+            class_name, var_capital, var, 
+            class_name, var_capital, var)
+
+		-- compile
+		loadstring(code)()
+	end
+end     
  

@@ -682,6 +682,18 @@ function plSplit(inputstr, sep)
     return t
 end
 
+-------------------------------------
+-- function getHeadCapitalStr
+-- @brief 첫글자 대문자로 변환
+-------------------------------------
+function getHeadCapitalStr(str)
+    local head = str:sub(1,1)
+    return str:gsub(head, head:upper(), 1)
+end
+
+-------------------------------------
+-- function doAllChildren
+-------------------------------------
 function doAllChildren(node, func)
     local childs = node:getChildren()
     for i,v in pairs(childs) do

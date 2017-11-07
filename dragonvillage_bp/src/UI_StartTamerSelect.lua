@@ -69,7 +69,10 @@ function UI_StartTamerSelect:initButton()
         table.insert(self.m_tamerItemList, tamer_item)
     end
 
+    -- 사전 등록 닉네임 버튼
     vars['couponBtn']:registerScriptTapHandler(function() self:click_nicknameCouponBtn() end)
+    vars['couponBtn']:setVisible(false)
+
     vars['createBtn']:registerScriptTapHandler(function() self:click_createBtn() end)
 end
 

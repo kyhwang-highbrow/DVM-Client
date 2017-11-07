@@ -1,0 +1,196 @@
+local PARENT = class(UI_IndivisualTab, ITabUI:getCloneTable())
+
+-------------------------------------
+-- class UI_ClanTabRank
+-- @brief 클랜 랭킹 탭
+-------------------------------------
+UI_ClanTabRank = class(PARENT,{
+        vars = '',
+        m_mTableViewMap = 'Map<string, UIC_TableView>',
+    })
+
+UI_ClanTabRank.TAB_ANCT = CLAN_RANK['ANCT']
+UI_ClanTabRank.TAB_CLSM = CLAN_RANK['CLSM']
+
+local OFFSET_GAP = 20
+
+-------------------------------------
+-- function init
+-------------------------------------
+function UI_ClanTabRank:init(owner_ui)
+    self.root = owner_ui.vars['rankMenu']
+    self.vars = owner_ui.vars
+    self.m_mTableViewMap = {}
+end
+
+-------------------------------------
+-- function onEnterTab
+-------------------------------------
+function UI_ClanTabRank:onEnterTab(first)
+    if first then
+        self:initUI()
+        self:initTab()
+    end
+end
+
+-------------------------------------
+-- function onExitTab
+-------------------------------------
+function UI_ClanTabRank:onExitTab()
+end
+
+-------------------------------------
+-- function initUI
+-------------------------------------
+function UI_ClanTabRank:initUI()
+    local vars = self.vars
+end
+
+-------------------------------------
+-- function initTab
+-------------------------------------
+function UI_ClanTabRank:initTab()
+    local vars = self.vars
+    local tab_list = {UI_ClanTabRank.TAB_ANCT, UI_ClanTabRank.TAB_CLSM}
+
+    for i, tab in ipairs(tab_list) do
+        self:addTabAuto(tab, vars, vars[tab .. 'Node'])
+    end
+    self:setTab(UI_ClanTabRank.TAB_ANCT)
+	self:setChangeTabCB(function(tab, first) self:onChangeTab(tab, first) end)
+end
+
+-------------------------------------
+-- function onChangeTab
+-------------------------------------
+function UI_ClanTabRank:onChangeTab(tab, first)
+    if (first) then 
+        local rank_type = tab
+        local offset = 1
+        local cb_func = function()
+            self:makeRankTableview(tab)
+            self:makeMyRank(tab)
+        end
+        g_clanRankData:request_getRank(rank_type, offset, cb_func)
+        return
+    end
+
+    -- 내랭킹은 계속 교체한다
+    self:makeMyRank(tab)
+end
+
+-------------------------------------
+-- function makeTableViewRanking
+-------------------------------------
+function UI_ClanTabRank:makeRankTableview(tab)
+	local t_tab_data = self.m_mTabData[tab]
+	local node = t_tab_data['tab_node_list'][1]
+	local l_rank_list = g_clanRankData:getRankData(tab)
+
+	do -- 테이블 뷰 생성
+        node:removeAllChildren()
+
+        -- 테이블 뷰 인스턴스 생성
+        local table_view = UIC_TableView(node)
+        table_view.m_defaultCellSize = cc.size(1000, 100 + 5)
+        table_view:setCellUIClass(UI_ClanTabRank.makeRankCell, nil)
+        table_view:setDirection(cc.SCROLLVIEW_DIRECTION_VERTICAL)
+        table_view:setItemList(l_rank_list)
+
+        table_view:makeDefaultEmptyDescLabel(Str('현재 클랜 순위를 정산 중입니다. 잠시만 기다려주세요'))
+        self.m_mTableViewMap[tab] = table_view
+
+        -- 필요한 경우 테이블 뷰 scroll end callback 등록
+	    if (table.count(l_rank_list) >= OFFSET_GAP) then
+		    table_view:setScrollEndCB(function() self:onScrollEnd() end)
+	    end
+    end
+end
+
+-------------------------------------
+-- function onScrollEnd
+-- @brief 다음 OFFSET_GAP개 게시물을 가져온다.
+-------------------------------------
+function UI_ClanTabRank:onScrollEnd()
+
+    local rank_type = self.m_currTab
+    local offset = g_clanRankData:getOffset(rank_type) + OFFSET_GAP
+
+	local function cb_func(t_ret)
+        local table_view = self.m_mTableViewMap[rank_type]
+
+		-- 랭킹이 있는 경우 추가
+		if (table.count(t_ret['list']) > 0) then
+            local l_rank_list = g_clanRankData:getRankData(rank_type)
+			table_view:addItemList(l_rank_list)
+            table_view:setDirtyItemList()
+
+		-- 랭킹이 없는 경우 콜백 해제
+		else
+			table_view:setScrollEndCB(nil)
+			table_view:setDirtyItemList()
+
+		end
+	end
+
+	g_clanRankData:request_getRank(rank_type, offset, cb_func)
+end
+
+-------------------------------------
+-- function makeMyRank
+-------------------------------------
+function UI_ClanTabRank:makeMyRank(tab)
+    local node = self.vars['myNode']
+    node:removeAllChildren()
+    local my_rank = g_clanRankData:getMyRankData(tab)
+    local ui = self.makeRankCell(my_rank)
+    node:addChild(ui.root)
+end
+
+-------------------------------------
+-- function makeRankCell
+-------------------------------------
+function UI_ClanTabRank.makeRankCell(t_data)
+	local ui = class(UI, ITableViewCell:getCloneTable())()
+	local vars = ui:load('clan_rank_item.ui')
+    if (not t_data) then
+        return ui
+    end
+
+    local struct_clan_rank = t_data
+
+    -- 클랜 마크
+    local icon = struct_clan_rank:makeClanMarkIcon()
+    vars['markNode']:removeAllChildren()
+    vars['markNode']:addChild(icon)
+
+    -- 클랜 이름
+    local clan_name = struct_clan_rank:getClanName()
+    vars['clanLabel']:setString(clan_name)
+
+    -- 클랜 마스터
+    local clan_master = struct_clan_rank:getMasterNick()
+    vars['masterLabel']:setString(clan_master)
+
+    -- 점수
+    local clan_score = struct_clan_rank:getClanScore()
+    vars['scoreLabel']:setString(clan_score)
+    
+    -- 등수 
+    local clan_rank = struct_clan_rank:getClanRank()
+    vars['rankLabel']:setString(clan_rank)
+    
+    -- 내클랜
+    if (struct_clan_rank:getBeMyClan()) then
+        vars['mySprite']:setVisible(true)
+        vars['infoBtn']:setVisible(false)
+    end
+
+    -- 정보 보기 버튼
+    vars['infoBtn']:registerScriptTapHandler(function()
+        local clan_object_id = struct_clan_rank:getClanObjectID()
+        g_clanData:requestClanInfoDetailPopup(clan_object_id)
+    end)
+
+	return ui
+end

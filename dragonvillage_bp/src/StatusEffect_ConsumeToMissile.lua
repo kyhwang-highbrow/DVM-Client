@@ -48,21 +48,26 @@ end
 function StatusEffect_ConsumeToMissile:initFromTable(t_status_effect, target_char)
     PARENT.initFromTable(self, t_status_effect, target_char)
 
+    self:initMissile(t_status_effect)
+end
+
+-------------------------------------
+-- function initFromTable
+-------------------------------------
+function StatusEffect_ConsumeToMissile:initMissile(t_status_effect)
     self.m_resMotionStreak = t_status_effect['res_2']
     self.m_srcStatusEffectName = t_status_effect['val_1']   -- 해제될 상태효과 이름
     self.m_movementForMissile = t_status_effect['val_2']    -- 미사일 이동 패턴
     
     -- 상태효과 정보를 파싱하여 저장
-    for _, key in ipairs({'val_3', 'val_4'}) do
-        local string_value = t_status_effect[key]
-        if (string_value and string_value ~= '') then
-            local l_str = seperate(string_value, ';')
-            local name = l_str[1]
-            local value = l_str[2]
-            local time = l_str[3]
-            local source = l_str[4] or 'atk'
-            local rate = l_str[5] or 100
-
+    for i = 1, 2 do
+        if (t_status_effect['add_option_type_' .. i] and t_status_effect['add_option_type_' .. i] ~= '') then
+            local name = t_status_effect['add_option_type_' .. i]
+            local value = t_status_effect['add_option_value_' .. i]
+            local time = t_status_effect['add_option_time_' .. i]
+            local source = t_status_effect['add_option_source_' .. i]
+            local rate = t_status_effect['add_option_rate_' .. i]
+                        
             table.insert(self.m_lStatusEffectInfo, { name = name, value = value, time = time, source = source, rate = rate })
         end
     end
