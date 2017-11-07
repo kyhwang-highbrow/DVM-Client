@@ -247,8 +247,9 @@ function UI_ClanSetting:click_disbandBtn()
     local finish_cb
 
     ask_func = function()
-        local msg = Str('클랜을 해체하시겠습니까?')
-        MakeSimplePopup(POPUP_TYPE.YES_NO, msg, request_func)
+        local msg = Str('정말 클랜을 해체하시겠습니까?')
+        local msg_sub = Str('(현재 클랜이 랭킹에서 사라지며 시즌 보상을 획득할 수 없습니다.\n24시간 동안 재가입이 불가능합니다)')
+        MakeSimplePopup2(POPUP_TYPE.YES_NO, msg, msg_sub, request_func)
     end
 
     request_func = function()
