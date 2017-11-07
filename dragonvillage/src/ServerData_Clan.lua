@@ -29,6 +29,7 @@ ServerData_Clan = class({
 
         -- 출석 보상 정보
         m_attdRewardInfo = 'table',
+        m_bAttdRewardNoti = 'bool',
 
         m_clanExitTimeStamp = 'timestamp',
     })
@@ -766,6 +767,8 @@ function ServerData_Clan:getAttdRewardInfo(clear)
 
     if clear then
         self.m_attdRewardInfo = nil
+        self.m_bAttdRewardNoti = false
+        g_highlightData:setLastUpdateTime()
     end
 
     return reward_info
@@ -905,4 +908,16 @@ function ServerData_Clan:request_setAuthority(finish_cb, fail_cb, member_uid, au
     ui_network:request()
 
     return ui_network
+end
+
+-------------------------------------
+-- function isHighlightClan
+-- @brief
+-------------------------------------
+function ServerData_Clan:isHighlightClan()
+    if self.m_bAttdRewardNoti then
+        return true
+    end
+
+    return false
 end

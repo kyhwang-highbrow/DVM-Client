@@ -331,3 +331,11 @@ end
 function ServerData_Highlight:onChangeScene()
     self:saveNewDoidMap()
 end
+
+-------------------------------------
+-- function setLastUpdateTime
+-- @brief
+-------------------------------------
+function ServerData_Highlight:setLastUpdateTime()
+    self.m_lastUpdateTime = Timer:getServerTime()
+end

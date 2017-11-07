@@ -449,6 +449,9 @@ function UI_Lobby:refresh_highlight()
     -- 기타 (도감과 친구의 합)
     local is_etc_noti = (etc_vars['friendNotiSprite']:isVisible() or etc_vars['bookNotiSprite']:isVisible())
     vars['etcNotiSprite']:setVisible(is_etc_noti)
+
+    -- 클랜
+    vars['clanNotiSprite']:setVisible(g_clanData:isHighlightClan())
 end
 
 -------------------------------------
