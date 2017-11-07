@@ -52,6 +52,45 @@ function ChatManagerClan:getChatPopup()
 end
 
 
+-------------------------------------
+-- function checkRetryClanChat
+-- @brief 클랜 채팅 다시 연결 확인
+-------------------------------------
+function ChatManagerClan:checkRetryClanChat()
+    if self.m_chatClientSocket then
+        self.m_chatClientSocket:checkRetryConnect()
+    end
+end
+
+-------------------------------------
+-- function checkClanChannel
+-- @brief 채널 변경 확인
+-------------------------------------
+function ChatManagerClan:checkClanChannel()
+    if (self:getStatus() ~= 'Success') then
+        return
+    end
+
+    local struct_clan = g_clanData.m_structClan
+
+    -- 채널에 접속되어 있는 경우
+    if self.m_lobbyChannelName then
+        if (not struct_clan) then
+            self.m_lobbyChannelName = nil
+            self.m_chatClientSocket:disconnect()
+            self.m_chatClientSocket:checkRetryConnect()
+
+        elseif (self.m_lobbyChannelName ~= struct_clan:getClanName()) then
+            local clan_name = struct_clan:getClanName()
+            self:requestChangeChannel(clan_name)
+        end
+    else
+        if struct_clan then
+            local clan_name = struct_clan:getClanName()
+            self:requestChangeChannel(clan_name)
+        end
+    end
+end
 
 
 
@@ -95,6 +134,12 @@ end
 -- @brief 일반 메세지 보내기
 -------------------------------------
 function ChatManagerClan:sendNormalMsg(msg)
+    -- 소속된 클랜이 없음
+    if (not g_clanData.m_structClan) then
+        UIManager:toastNotificationRed(Str('클랜 가입 후 이용이 가능합니다.'))
+        return false
+    end
+
     -- 서버와 연결이 끊어진 상태
     if (self:getStatus() ~= 'Success') then
         log('서버와 연결이 끊어진 상태')
@@ -118,7 +163,7 @@ end
 -- function requestChangeChannel
 -- @brief
 -------------------------------------
-function ChatManagerClan:requestChangeChannel(channel_num)
+function ChatManagerClan:requestChangeChannel(clan_name)
     -- 서버와 연결이 끊어진 상태
     if (self:getStatus() ~= 'Success') then
         log('서버와 연결이 끊어진 상태')
@@ -126,7 +171,7 @@ function ChatManagerClan:requestChangeChannel(channel_num)
     end
     
     local p = self:getProtobuf('chat').CChatChangeChannel()
-    p['channelName'] = tostring(channel_num)
+    p['channelName'] = clan_name
     return self:write(self:getProtocolCode().C_LOBBY_CHANGE_CHANNEL, p)
 end
 
@@ -179,6 +224,9 @@ end
 -------------------------------------
 function ChatManagerClan:onEvent_CHANGE_STATUS(t_event)
     local status = t_event
+    if (status == 'Success') then
+        self:checkClanChannel()
+    end
 end
 
 -------------------------------------

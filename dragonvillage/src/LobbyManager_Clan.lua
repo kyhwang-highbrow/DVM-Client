@@ -180,8 +180,7 @@ end
 function LobbyManager_Clan:onEvent_CHANGE_STATUS(t_event)
     local status = t_event
     if (status == 'Success') then
-        --self:requestRecommendLobbyChannel()
-        self:changeLobbyChannel('클랜이름!!!!!')
+        --self:changeLobbyChannel('클랜이름!!!!!')
     else
         self:reset()
     end

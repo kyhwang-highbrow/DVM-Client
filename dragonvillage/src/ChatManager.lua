@@ -496,9 +496,16 @@ function ChatManager:openChatPopup()
         self.m_chatPopup:close()
     end
 
+    -- 일반 채팅 다시 연결 확인
     if self.m_chatClientSocket then
         self.m_chatClientSocket:checkRetryConnect()
     end
+
+    -- 클랜 채팅 다시 연결 확인
+    if g_clanChatManager then
+        g_clanChatManager:checkRetryClanChat()
+    end
+
     self.m_chatPopup:openPopup()
 end
 
