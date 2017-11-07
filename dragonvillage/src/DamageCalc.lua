@@ -4,9 +4,9 @@ local CONST_REDUNCTION_RATIO_P = 249
 -- function DamageCalc_P
 -- @brief 물리 데미지 계산
 -------------------------------------
-function DamageCalc_P(atk_dmg, def_pwr, is_debug)
+function DamageCalc_P(atk_dmg, def_pwr, is_debug, no_random)
     if (IS_NEW_BALANCE_VERSION()) then
-        return DamageCalc_P2(atk_dmg, def_pwr, is_debug)
+        return DamageCalc_P2(atk_dmg, def_pwr, is_debug, no_random)
     else
         return DamageCalc_P1(atk_dmg, def_pwr, is_debug)
     end
@@ -22,14 +22,8 @@ function DamageCalc_P1(atk_dmg, def_pwr, is_debug)
     local atk_dmg = atk_dmg
 
     -- 랜덤 (85% ~ 115%)
-    local rand
-
-    if (IS_NEW_BALANCE_VERSION()) then
-        rand = math_random(95, 105) / 100 
-    else
-        rand = math_random(85, 115) / 100 
-    end
-
+    local rand = math_random(85, 115) / 100 
+    
     -- 디버그 모드 중일 경우 랜덤 계산 막음
     if (is_debug) then
         rand = 1
@@ -64,17 +58,17 @@ end
 -------------------------------------
 -- function DamageCalc_P2
 -------------------------------------
-function DamageCalc_P2(atk_dmg, def_pwr, is_debug)
+function DamageCalc_P2(atk_dmg, def_pwr, is_debug, no_random)
     if (atk_dmg == 0 and def_pwr == 0) then return 0 end
 
     -- 물리 공격력
     local atk_dmg = atk_dmg
 
-    -- 랜덤 (85% ~ 115%)
-    local rand = math_random(85, 115) / 100 
+    -- 랜덤 (95% ~ 105%)
+    local rand = math_random(95, 105) / 100 
 
     -- 디버그 모드 중일 경우 랜덤 계산 막음
-    if (is_debug) then
+    if (is_debug or no_random) then
         rand = 1
     end
 

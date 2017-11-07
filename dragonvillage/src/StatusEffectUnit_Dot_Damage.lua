@@ -58,7 +58,7 @@ function StatusEffectUnit_Dot_Damage:calculateDotDmg()
 	    local atk_dmg = self:getStandardStat()
 	    local def_pwr = 0
 
-	    damage_org = math_floor(DamageCalc_P(atk_dmg, def_pwr))
+	    damage_org = math_floor(DamageCalc_P(atk_dmg, def_pwr, false, true))
         damage_org = damage_org * (self.m_value / 100)
     end
 

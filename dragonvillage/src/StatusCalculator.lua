@@ -123,10 +123,9 @@ function StatusCalculator:calcStatusList(char_type, cid, lv, grade, evolution, e
         local t_char = self.m_charTable[cid]
         if (t_char) then
             local role = t_char['role']
-
-            local t_info = g_constant:get('INGAME', 'STAT_BONUS_BY_ROLE')[role]
-            if (t_info) then
-                for status_name, role_stat in pairs(t_info) do
+            local t_info = g_constant:get('INGAME', 'STAT_BONUS_BY_ROLE')
+            if (t_info and t_info[role]) then
+                for status_name, role_stat in pairs(t_info[role]) do
                     if (l_status[status_name]) then
                         l_status[status_name]:setRoleStat(role_stat)
                     end
