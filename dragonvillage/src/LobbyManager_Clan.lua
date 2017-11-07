@@ -252,8 +252,6 @@ end
 -- @brief 채널 변경 서버 응답
 -------------------------------------
 function LobbyManager_Clan:receiveData_S_LOBBY_CHANGE_CHANNEL(msg)
-    ccdump(msg)
-    cclog('##############################')
     local ccs = self.m_chatClientSocket
     local payload = msg['payload']
     local r = ccs.m_protobufChat.SChatChangeChannel():Parse(payload)
