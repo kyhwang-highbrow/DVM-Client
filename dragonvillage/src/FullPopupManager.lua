@@ -78,8 +78,8 @@ function FullPopupManager:show(type, show_func)
     elseif (type == FULL_POPUP_TYPE.START_PACK) then
         local lv = g_userData:get('lv')
         local need_lv = 6
-        local pid = 90006
-        local save_key = 'start_pack'
+        local pid = 90041
+        local save_key = 'start_pack_90041'
         local is_view = g_localData:get('event_full_popup', save_key) or false
         if (lv >= need_lv) and (not is_view) then 
             self:showFullPopup(pid)
@@ -91,8 +91,8 @@ function FullPopupManager:show(type, show_func)
     elseif (type == FULL_POPUP_TYPE.LAUNCH_PACK) then
         local lv = g_userData:get('lv')
         local need_lv = 10
-        local pid = 90012
-        local save_key = 'launch_pack'
+        local pid = 90042
+        local save_key = 'launch_pack_90042'
         local is_view = g_localData:get('event_full_popup', save_key) or false
         if (lv >= need_lv) and (not is_view) then 
             self:showFullPopup(pid)
