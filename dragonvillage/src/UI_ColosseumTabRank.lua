@@ -196,7 +196,9 @@ function UI_ColosseumTabRank:request_clanRank()
     local rank_type = CLAN_RANK['CLSM']
     local offset = self.m_clanRankOffset
     local cb_func = function()
-        self:makeMyClanRankNode()
+        if (not self.m_clanRankTableView) then
+            self:makeMyClanRankNode()
+        end
         self:makeClanRankTableView()
     end
 
@@ -271,8 +273,10 @@ function UI_ColosseumTabRank:makeClanRankTableView()
         -- 생성 콜백
         local function create_func(ui, data)
             if (data == 'prev') then
+                ui.vars['prevBtn']:setVisible(true)
                 ui.vars['prevBtn']:registerScriptTapHandler(click_prevBtn)
             elseif (data == 'next') then
+                ui.vars['nextBtn']:setVisible(true)
                 ui.vars['nextBtn']:registerScriptTapHandler(click_nextBtn)
             end
         end
