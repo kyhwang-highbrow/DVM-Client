@@ -159,10 +159,10 @@ end
 -------------------------------------
 function UI_TitleScene:initChatClientSocket_Clan()
     -- 김성구 로컬 서버
-    local ip = '192.168.1.105'
-    local port = '3927'
+    --local ip = '192.168.1.105'
+    --local port = '3927'
 
-    --local ip, port = GetChatServerUrl()
+    local ip, port = GetClanChatServerUrl()
     local chat_client_socket = ChatClientSocket(ip, port)
 
     -- 채팅 소켓에서 사용되는 유저 정보 테이블 생성
