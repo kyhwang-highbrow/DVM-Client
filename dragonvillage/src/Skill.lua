@@ -83,7 +83,7 @@ function Skill:init_skill()
     self.m_hitCollisionList = {}
 
 	-- 세부 초기화 함수 실행
-	self:initActvityCarrier(self.m_powerRate, self.m_powerAbs, self.m_critical)
+	self:initActvityCarrier()
     self:initAttackPosOffset()
 	self:initSkillSize()
 	self:initEventListener()
@@ -103,7 +103,7 @@ end
 -------------------------------------
 -- function initActvityCarrier
 -------------------------------------
-function Skill:initActvityCarrier(power_rate, power_abs, critical)
+function Skill:initActvityCarrier()
     -- 공격력 계산을 위해
     self.m_activityCarrier = self.m_owner:makeAttackDamageInstance()
 	self.m_activityCarrier:setAtkDmgStat(self.m_powerSource)
@@ -111,8 +111,8 @@ function Skill:initActvityCarrier(power_rate, power_abs, critical)
     self.m_activityCarrier:setSkillId(self.m_skillId)
     self.m_activityCarrier:setSkillHitCount(self.m_skillHitCount)
     self.m_activityCarrier:setPowerRate(self.m_powerRate)
-    self.m_activityCarrier:setAbsAttack(power_abs)
-    self.m_activityCarrier:setCritical(critical)
+    self.m_activityCarrier:setAbsAttack(self.m_powerAbs)
+    self.m_activityCarrier:setCritical(self.m_critical)
 
     -- 스킬 발동 타입 별도로 저장(상태효과 등에 전송하기 위함)
     self.m_activityCarrier:setParam('chance_type', self.m_chanceType)

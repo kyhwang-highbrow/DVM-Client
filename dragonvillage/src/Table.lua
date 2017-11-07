@@ -466,6 +466,7 @@ function TABLE:reloadForGame()
 
     TableDragonSkill:initGlobal()
     TableMonsterSkill:initGlobal()
+    TableStatusEffect:initGlobal()
 end
 
 -------------------------------------
