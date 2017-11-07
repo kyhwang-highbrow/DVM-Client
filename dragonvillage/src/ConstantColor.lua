@@ -85,6 +85,7 @@ COLOR = {
     ['diff_hell'] = cc.c4b(233, 88, 255, 255),
 
     -- 클랜
+    ['clan_name'] = cc.c3b(237, 114, 255),
     ['clan_master'] = cc.c3b(255, 177, 1),
     ['clan_manager'] = cc.c3b(178, 223, 226),
     ['clan_member'] = cc.c3b(240, 215, 159),
