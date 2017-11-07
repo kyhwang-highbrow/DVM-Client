@@ -61,15 +61,14 @@ end
 function UI_ClanGuest:initUI()
     local vars = self.vars
 
-    --[[
-    -- UI가 enter로 진입되었을 때 update함수 호출
-    self.root:registerScriptHandler(function(event)
-        if (event == 'enter') then
-            self.root:scheduleUpdateWithPriorityLua(function(dt) return self:update(dt) end, 0)
-        end
-    end)
-    self.root:scheduleUpdateWithPriorityLua(function(dt) return self:update(dt) end, 0)
-    --]]
+    -- npc 일러스트
+    local res = 'res/character/npc/narvi/narvi.json'
+	vars['npcNode']:removeAllChildren(true)
+    local animator = MakeAnimator(res)
+    if (animator.m_node) then
+        animator:changeAni('idle', true)
+        vars['npcNode']:addChild(animator.m_node)
+    end
 
     self:initTab()
 end
