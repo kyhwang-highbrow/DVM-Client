@@ -429,7 +429,7 @@ function MissileLauncher:fireMissile(owner, attack_idx, depth, dir_add, offset_a
         -- 공격 대상
         local target = l_target[target_idx]
         if (not target) then
-            if (target_idx == 1 and idx > 1) then break end
+            if (target_idx ~= 1 or idx > 1) then break end
 
             target = self.m_launcherOption['target']
         end
