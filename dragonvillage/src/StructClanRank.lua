@@ -16,6 +16,7 @@ StructClanRank = class(PARENT, {
 
         rank = 'number',
         score = 'number',
+        rate = 'number',
     })
 
 local THIS = StructClanRank
@@ -95,6 +96,13 @@ function StructClanRank:getClanScore()
         score = Str('{1}점', comma_value(score))
     end
     return score
+end
+
+-------------------------------------
+-- function getClanRate
+-------------------------------------
+function StructClanRank:getClanRate()
+    return self['rate']
 end
 
 -------------------------------------

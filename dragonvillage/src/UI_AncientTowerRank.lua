@@ -352,8 +352,33 @@ function UI_AncientTowerRank:init_clanRankingTableView()
         table_view:setCellUIClass(UI_AncientTowerClanRankListItem, create_func)
         table_view:setDirection(cc.SCROLLVIEW_DIRECTION_VERTICAL)
         table_view:setItemList(l_item_list)
-        self.m_clanRankTableView = table_view
 
+        do-- 테이블 뷰 정렬
+            local function sort_func(a, b)
+                local a_data = a['data']
+                local b_data = b['data']
+
+                -- 이전, 다음 버튼 정렬
+                if (a_data == 'prev') then
+                    return true
+                elseif (b_data == 'prev') then
+                    return false
+                elseif (a_data == 'next') then
+                    return false
+                elseif (b_data == 'next') then
+                    return true
+                end
+
+                -- 랭킹으로 선별
+                local a_rank = a_data:getClanRank()
+                local b_rank = b_data:getClanRank()
+                return a_rank < b_rank
+            end
+
+            table.sort(table_view.m_itemList, sort_func)
+        end
+
+        self.m_clanRankTableView = table_view
         table_view:makeDefaultEmptyDescLabel(Str('랭킹 정보가 없습니다.'))
     end
 end
