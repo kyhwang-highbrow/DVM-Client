@@ -84,10 +84,7 @@ function UI_AncientTowerRank:onChangeOption()
     vars['rankingMeNode']:setVisible(type == UI_AncientTowerRank.RANKING)
     
     vars['clanRewardListNode']:setVisible(type == UI_AncientTowerRank.CLAN_REWARD)
-    vars['clanRankingListNode']:setVisible(type == UI_AncientTowerRank.CLAN_RANKING)
-
-    vars['clanRankingMeNode1']:setVisible(self.m_hasMyClan and (type == UI_AncientTowerRank.CLAN_RANKING))
-    vars['clanRankingMeNode2']:setVisible((not self.m_hasMyClan) and (type == UI_AncientTowerRank.CLAN_RANKING))
+    vars['clanRankNode']:setVisible(type == UI_AncientTowerRank.CLAN_RANKING)
 
     local shop_btn = self.m_uiScene.vars['shopBtn']
 

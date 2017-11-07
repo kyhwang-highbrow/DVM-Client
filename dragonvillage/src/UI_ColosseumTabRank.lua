@@ -63,8 +63,8 @@ end
 function UI_ColosseumTabRank:initTab()
     local vars = self.vars
 
-    self:addTabAuto(UI_ColosseumTabRank['PRSN'], vars, vars['rankingListNode'], vars['myRankingListNode'])
-    self:addTabAuto(UI_ColosseumTabRank['CLAN'], vars, vars['clanRankingListNode'], vars['myClanRankingListNode1'], vars['myClanRankingListNode2'])
+    self:addTabAuto(UI_ColosseumTabRank['PRSN'], vars, vars['rankNode'])
+    self:addTabAuto(UI_ColosseumTabRank['CLAN'], vars, vars['clanRankNode'])
     
     self:setTab(UI_ColosseumTabRank['PRSN'])
 end
