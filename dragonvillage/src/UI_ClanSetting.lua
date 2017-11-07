@@ -283,8 +283,9 @@ function UI_ClanSetting:click_leaveBtn()
     local finish_cb
 
     ask_func = function()
-        local msg = Str('클랜을 탈퇴하시겠습니까?')
-        MakeSimplePopup(POPUP_TYPE.YES_NO, msg, request_func)
+        local msg = Str('정말 클랜을 탈퇴하시겠습니까?')
+        local msg_sub = Str('(24시간 동안 재가입이 불가능합니다)')
+        MakeSimplePopup2(POPUP_TYPE.YES_NO, msg, msg_sub, request_func)
     end
 
     request_func = function()
