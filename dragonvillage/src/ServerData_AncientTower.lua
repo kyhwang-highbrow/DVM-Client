@@ -511,7 +511,7 @@ function ServerData_AncientTower:setRewardInfo(ret)
     -- 클랜
     if (ret['last_clan_info']) then
         self.m_tClanRewardInfo = {}
-        self.m_tClanRewardInfo['rank'] = StruckClanRank(ret['last_clan_info'])
-        self.m_tClanRewardInfo['reward_info'] = ret['clan_reward_info']
+        self.m_tClanRewardInfo['rank'] = StructClanRank(ret['last_clan_info'])
+        self.m_tClanRewardInfo['reward_info'] = ret['reward_clan_info']
     end
 end

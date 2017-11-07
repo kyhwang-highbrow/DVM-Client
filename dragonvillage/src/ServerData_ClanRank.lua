@@ -52,14 +52,7 @@ end
 -- function setRankData
 -------------------------------------
 function ServerData_ClanRank:setRankData(rank_type, rank_data)
-    local struct_clan = g_clanData:getClanStruct()
-    local my_clan_id = 'not_exist'
-    if (struct_clan) then
-        my_clan_id = struct_clan:getClanObjectID()
-    end
-
     for i, t_data in ipairs(rank_data) do
-        t_data['isMyClan'] = (t_data['id'] == my_clan_id)
         table.insert(self.m_mRankingMap[rank_type], StructClanRank(t_data))
     end
 end
@@ -72,7 +65,6 @@ function ServerData_ClanRank:setMyRankData(rank_type, rank_data)
         return
     end
 
-    rank_data['isMyClan'] = true
     self.m_mMyRankingMap[rank_type] = StructClanRank(rank_data)
 end
 

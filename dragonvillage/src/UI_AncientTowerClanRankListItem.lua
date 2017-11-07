@@ -75,7 +75,7 @@ function UI_AncientTowerClanRankListItem:refresh()
     vars['rankLabel']:setString(clan_rank)
 
     -- 내클랜
-    if (struct_clan_rank:getBeMyClan()) then
+    if (struct_clan_rank:isMyClan()) then
         vars['mySprite']:setVisible(true)
         vars['infoBtn']:setVisible(false)
     end
