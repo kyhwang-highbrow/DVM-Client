@@ -44,7 +44,7 @@ function StatusEffectUnit_Dot_Heal:calculateDotHeal()
 
     else
         local atk_dmg = self:getStandardStat()
-        heal = HealCalc_M(atk_dmg)
+        heal = HealCalc_M(atk_dmg, false, true)
 
         heal = heal * (self.m_value / 100)
     end

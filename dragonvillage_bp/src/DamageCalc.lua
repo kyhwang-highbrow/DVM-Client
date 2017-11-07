@@ -110,13 +110,24 @@ end
 -- function HealCalc_M
 -- @brief 회복량 계산
 -------------------------------------
-function HealCalc_M(atk_dmg)
+function HealCalc_M(atk_dmg, is_debug, no_random)
     
     -- 물리 공격력
     local atk_dmg = atk_dmg
 
-    -- 랜덤 (85% ~ 115%)
-    local rand = math_random(85, 115) / 100 
+    if (IS_NEW_BALANCE_VERSION()) then
+        -- 랜덤 (95% ~ 105%)
+        rand = math_random(95, 105) / 100
+    else
+        -- 랜덤 (85% ~ 115%)
+        rand = math_random(85, 115) / 100
+        no_random = false   -- 현재 라이브 상태를 유지하기 위함
+    end
+
+    -- 디버그 모드 중일 경우 랜덤 계산 막음
+    if (is_debug or no_random) then
+        rand = 1
+    end
 
     -- 모든 계수를 곱함
     local damage = atk_dmg * rand
