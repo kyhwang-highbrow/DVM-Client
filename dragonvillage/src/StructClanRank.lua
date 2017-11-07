@@ -10,13 +10,17 @@ StructClanRank = class(PARENT, {
         mark = 'string', -- 클랜 문장
         master = 'string', -- 클랜 마스터 닉네임
         m_structClanMark = 'StructClanMark',
-
-        intro = 'string', -- 클랜 소개.. 없어도 되는데 보내주셔서 저장
-        info = '', -- ??
-
+    
+        -- structClan 에 없는 항목
         rank = 'number',
         score = 'number',
         rate = 'number',
+
+        -- structClan에 있으나 없어도 되는데 보내주셔서 저장
+        intro = 'string',
+        join = 'bool',
+        member_cnt = 'number',
+        info = '', -- ??
     })
 
 local THIS = StructClanRank

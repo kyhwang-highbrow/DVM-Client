@@ -14,6 +14,8 @@ ServerData_ClanRank = class({
 		m_mRankingMap = 'Map<string, List<table> >',
         m_mMyRankingMap = 'Map<string, table>',
         m_mOffsetMap = 'Map<string, number>',
+
+        m_isSettlingDown = 'bool', -- 정산 여부
     })
 
 -------------------------------------
@@ -79,6 +81,13 @@ function ServerData_ClanRank:getOffset(rank_type)
 end
 
 -------------------------------------
+-- function getOffset
+-------------------------------------
+function ServerData_ClanRank:isSettlingDown()
+    return self.m_isSettlingDown
+end
+
+-------------------------------------
 -- function request_getRank
 -------------------------------------
 function ServerData_ClanRank:request_getRank(rank_type, offset, cb_func)
@@ -94,6 +103,7 @@ function ServerData_ClanRank:request_getRank(rank_type, offset, cb_func)
     local function success_cb(ret)
 		self:setRankData(rank_type, ret['list'])
         self:setMyRankData(rank_type, ret['my_claninfo'])
+        self.m_isSettlingDown = ret['settle_down']
 
 		if (cb_func) then
 			cb_func(ret)
