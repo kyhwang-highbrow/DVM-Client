@@ -2922,6 +2922,12 @@
     <None Include="..\src\StructClanRank.lua">
       <Filter>lua\src</Filter>
     </None>
+    <None Include="..\src\UI_ColosseumTabRank.lua">
+      <Filter>lua\UI</Filter>
+    </None>
+    <None Include="..\src\UI_ColosseumClanRankListItem.lua">
+      <Filter>lua\UI</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Classes">

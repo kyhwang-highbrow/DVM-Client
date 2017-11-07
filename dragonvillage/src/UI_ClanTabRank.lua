@@ -56,8 +56,8 @@ function UI_ClanTabRank:initTab()
     for i, tab in ipairs(tab_list) do
         self:addTabAuto(tab, vars, vars[tab .. 'Node'])
     end
+
     self:setTab(CLAN_RANK['ANCT'])
-	self:setChangeTabCB(function(tab, first) self:onChangeTab(tab, first) end)
 end
 
 -------------------------------------

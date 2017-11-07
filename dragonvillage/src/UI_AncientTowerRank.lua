@@ -12,7 +12,7 @@ UI_AncientTowerRank = class({
 
         m_clanRankTableView = 'UIC_TableView',
         m_clanRewardTableView = 'UIC_TableView',
-        m_myClanRankInfo = 'table',
+        m_hasMyClan = 'table',
 
         m_rankOffset = 'number',
         m_clanOffset = 'number',
@@ -87,8 +87,10 @@ function UI_AncientTowerRank:onChangeOption()
     vars['clanRewardListNode']:setVisible(type == UI_AncientTowerRank.CLAN_REWARD)
     vars['clanRankingListNode']:setVisible(type == UI_AncientTowerRank.CLAN_RANKING)
 
-    vars['clanRankingMeNode1']:setVisible(self.m_myClanRankInfo and (type == UI_AncientTowerRank.CLAN_RANKING))
-    vars['clanRankingMeNode2']:setVisible((not self.m_myClanRankInfo) and (type == UI_AncientTowerRank.CLAN_RANKING))
+    if (type == UI_AncientTowerRank.CLAN_RANKING) then
+        vars['clanRankingMeNode1']:setVisible(self.m_hasMyClan)
+        vars['clanRankingMeNode2']:setVisible(not self.m_hasMyClan)
+    end
 
     local shop_btn = self.m_uiScene.vars['shopBtn']
 
@@ -294,13 +296,13 @@ function UI_AncientTowerRank:init_clanRankingTableView()
             local ui = UI_AncientTowerClanRankListItem(info)
             my_node:addChild(ui.root)
 
-            self.m_myClanRankInfo = info
+            self.m_hasMyClan = true
 
         -- 무적자
         else
             vars['clanRankingMeNode1']:setVisible(false)
             vars['clanRankingMeNode2']:setVisible(true)
-
+            self.m_hasMyClan = false
         end
 	end
 
