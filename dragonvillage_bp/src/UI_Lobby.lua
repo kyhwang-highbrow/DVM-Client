@@ -457,10 +457,25 @@ function UI_Lobby:refresh_userInfo()
     local vars = self.vars
 
     -- 칭호 + 닉네임
-    local title = g_userData:getTamerTitleStr()
-    local nick = g_userData:get('nick')
-    local full_name = string.format('{@user_title}%s {@white}%s', title, nick)
-    vars['userNameLabel']:setString(full_name)
+    do
+        local label_width = 240
+        local tamer_title_str = g_userData:getTamerTitleStr()
+        local nickname = g_userData:get('nick')
+
+        -- 칭호와 닉네임을 붙여서 처리
+        if tamer_title_str and (tamer_title_str ~= '') then
+            nickname = string.format('{@user_title}%s {@white}%s', tamer_title_str, nickname)
+        end
+        vars['userNameLabel']:setString(nickname)
+
+        -- 여백을 위해 10픽셀을 더해줌
+        local str_width = vars['userNameLabel']:getStringWidth() + 10
+        if (label_width < str_width) then
+            vars['userNameLabel']:setScale(label_width / str_width)
+        else
+            vars['userNameLabel']:setScale(1)
+        end
+    end
 
     -- 클랜
     local struct_clan = g_clanData:getClanStruct()

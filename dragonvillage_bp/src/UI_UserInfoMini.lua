@@ -40,7 +40,9 @@ function UI_UserInfoMini:open(struct_user_info)
         return nil
     end
 
-    return UI_UserInfoMini(struct_user_info)
+    local peer_uid = struct_user_info.m_uid
+    RequestUserInfoDetailPopup(peer_uid, true) -- param : peer_uid, is_visit
+    --return UI_UserInfoMini(struct_user_info)
 end
 
 -------------------------------------
