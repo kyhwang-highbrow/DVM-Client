@@ -126,7 +126,11 @@ function UI_UserInfoDetailPopup:initUI()
 	self:init_historyView()
 
     -- 방문시 처리
-	self:setVisitMode(self.m_isVisit)
+    local visit = true
+    if (g_userData:get('uid') == self.m_tUserInfo['uid']) then
+        visit = false
+    end
+	self:setVisitMode(visit)
 end
 
 -------------------------------------
@@ -164,6 +168,10 @@ function UI_UserInfoDetailPopup:initButton()
         vars['couponBtn']:setVisible(false)
     end
     ]]
+
+    if vars['whisperBtn'] then
+        vars['whisperBtn']:registerScriptTapHandler(function() self:click_whisperBtn() end)
+    end
 end
 
 -------------------------------------
@@ -254,6 +262,32 @@ function UI_UserInfoDetailPopup:setVisitMode(is_visit)
     vars['dragonInfoBtn']:setVisible(is_visit)
     vars['deckBtn']:setVisible(is_visit)
     vars['requestBtn']:setVisible(is_visit)
+    vars['whisperBtn']:setVisible(is_visit)
+
+    
+    -- 인덱스 1번이 왼쪽
+    local t_btn_name = {
+            'whisperBtn',
+            'deckBtn', 'tamerBtn',
+            'dragonBtn', 'dragonInfoBtn',
+            'requestBtn', 'titleChangeBtn',
+            'clanBtn1',
+        }
+    
+    -- visible이 켜진 버튼들 리스트
+    local l_btn_list = {}
+    for _,name in ipairs(t_btn_name) do
+        local btn = vars[name]
+        if (btn and btn:isVisible()) then
+            table.insert(l_btn_list, btn)
+        end
+    end
+
+    local l_pos = getSortPosList(120, table.count(l_btn_list))
+    for i,v in ipairs(l_btn_list) do
+        local pos_x = l_pos[i]
+        v:setPositionX(pos_x)
+    end
 end
 
 -------------------------------------
@@ -491,6 +525,15 @@ function UI_UserInfoDetailPopup:click_nicknameCouponBtn()
 
     ui:setCloseCB(close_cb)
     ]]
+end
+
+-------------------------------------
+-- function click_whisperBtn
+-- @brief
+-------------------------------------
+function UI_UserInfoDetailPopup:click_whisperBtn()
+   local nickname = self.m_tUserInfo['nick']
+   g_chatManager:openChatPopup_whisper(nickname)
 end
 
 
