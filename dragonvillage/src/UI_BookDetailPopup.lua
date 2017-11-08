@@ -301,6 +301,17 @@ function UI_BookDetailPopup:addSameTypeDragon(t_dragon)
         target_list = g_bookData:getSameTypeSlimeList(t_dragon['did'])
     else
         target_list = TableDragon():filterList('type', type)
+
+        -- test 값 확인
+        if target_list then
+            local _target_list = target_list
+            target_list = {}
+            for i,v in ipairs(_target_list) do
+                if (v['test'] == 1) then
+                    table.insert(target_list, v)
+                end
+            end
+        end
     end
 
     if (not target_list) then return end
