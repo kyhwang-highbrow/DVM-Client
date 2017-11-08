@@ -454,7 +454,7 @@ end
 -- @brief 유저 정보 갱신
 -------------------------------------
 function UI_Lobby:refresh_userInfo()
-   local vars = self.vars
+    local vars = self.vars
 
     -- 칭호 + 닉네임
     local title = g_userData:getTamerTitleStr()

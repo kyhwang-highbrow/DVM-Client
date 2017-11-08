@@ -193,17 +193,22 @@ function UI_UserInfoDetailPopup:refresh_tamer()
 
 	-- 테이머 애니
 	local tamer_id = self.m_tUserInfo['tamer']
-	local t_tamer = TableTamer():get(tamer_id)
-    if (not t_tamer) then
-        error('tamer_id : ' .. tamer_id)
+    local tamer_info = self.m_tUserInfo['tamer_info']
+    local costume_id = (tamer_info) and tamer_info['costume'] or nil
+
+    local sd_res
+    if (costume_id) then
+        sd_res = TableTamerCostume:getTamerResSD(costume_id)
+    else
+        sd_res = TableTamer:getTamerResSD(tamer_id)
     end
-	local sd_res = t_tamer['res_sd']
+
 	local sd_animator = MakeAnimator(sd_res)
 	sd_animator:changeAni('idle', true)
 	vars['tamerNode']:addChild(sd_animator.m_node)
 
 	-- 테이머 이름
-	local tamer_name = t_tamer['t_name']
+	local tamer_name = TableTamer:getTamerName(tamer_id)
 	vars['tamerLabel']:setString(tamer_name)
 end
 

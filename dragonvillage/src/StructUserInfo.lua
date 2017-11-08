@@ -230,7 +230,7 @@ function StructUserInfo:getSDRes()
         error('tamer_id : ' .. tamer_id)
     end
 
-    local res = TableTamer():getValue(tamer_id, 'res_sd')
+    local res = TableTamer:getTamerResSD(tamer_id)
     return res
 end
 
