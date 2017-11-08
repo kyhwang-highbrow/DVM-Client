@@ -125,9 +125,11 @@ function UI_ClanTabRank:makeRankTableview(tab)
     local function create_func(ui, data)
         if (data == 'prev') then
             ui.vars['prevBtn']:setVisible(true)
+            ui.vars['itemMenu']:setVisible(false)
             ui.vars['prevBtn']:registerScriptTapHandler(click_prevBtn)
         elseif (data == 'next') then
             ui.vars['nextBtn']:setVisible(true)
+            ui.vars['itemMenu']:setVisible(false)
             ui.vars['nextBtn']:registerScriptTapHandler(click_nextBtn)
         end
     end
