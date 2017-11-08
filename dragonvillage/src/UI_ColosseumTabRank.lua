@@ -261,7 +261,7 @@ function UI_ColosseumTabRank:makeClanRankTableView()
         -- 이전 랭킹 보기
         local function click_prevBtn()
             self.m_clanRankOffset = math_max(self.m_clanRankOffset - CLAN_OFFSET_GAP, 1)
-            self:request_rank()
+            self:request_clanRank()
         end
 
         -- 다음 랭킹 보기
@@ -309,8 +309,8 @@ function UI_ColosseumTabRank:makeClanRankTableView()
                 end
 
                 -- 랭킹으로 선별
-                local a_rank = a_data:getClanRank()
-                local b_rank = b_data:getClanRank()
+                local a_rank = a_data:getRank()
+                local b_rank = b_data:getRank()
                 return a_rank < b_rank
             end
 

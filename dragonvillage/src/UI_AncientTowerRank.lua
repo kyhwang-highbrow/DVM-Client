@@ -309,9 +309,10 @@ function UI_AncientTowerRank:init_clanRankingTableView()
         node:removeAllChildren()
 
         local l_item_list = g_clanRankData:getRankData(CLAN_RANK['ANCT'])
-                -- 이전 보기 추가
+        
+        -- 이전 보기 추가
         if (1 < self.m_clanRankOffset) then
-            l_rank_list['prev'] = 'prev'
+            l_item_list['prev'] = 'prev'
         end
 
         -- 다음 보기 추가.. 
@@ -322,7 +323,7 @@ function UI_AncientTowerRank:init_clanRankingTableView()
         -- 이전 랭킹 보기
         local function click_prevBtn()
             self.m_clanRankOffset = math_max(self.m_clanRankOffset - CLAN_OFFSET_GAP, 1)
-            self:request_rank()
+            self:request_clanRank()
         end
         -- 다음 랭킹 보기
         local function click_nextBtn()
@@ -369,8 +370,8 @@ function UI_AncientTowerRank:init_clanRankingTableView()
                 end
 
                 -- 랭킹으로 선별
-                local a_rank = a_data:getClanRank()
-                local b_rank = b_data:getClanRank()
+                local a_rank = a_data:getRank()
+                local b_rank = b_data:getRank()
                 return a_rank < b_rank
             end
 
