@@ -144,9 +144,17 @@ function UI_UserInfoDetailPopup:initButton()
     if (self.m_hasClan) then
         vars['clanBtn1']:registerScriptTapHandler(function() self:click_clanBtn() end)
         vars['clanBtn2']:registerScriptTapHandler(function() self:click_clanBtn() end)
-    else
-        vars['clanBtn1']:setVisible(false)
-        vars['clanBtn2']:setVisible(false)
+    end
+
+    -- 사용 불가 버튼은 비활성화 처리 한다
+    do
+        -- 클랜
+        vars['clanBtn1']:setEnabled(self.m_hasClan)
+        vars['clanBtn2']:setEnabled(self.m_hasClan)
+        -- 친구신청
+        local friend_uid = self.m_tUserInfo['uid']
+        local is_friend = g_friendData:isFriend(friend_uid)
+        vars['requestBtn']:setEnabled(not is_friend)
     end
 
     --[[
@@ -245,11 +253,7 @@ function UI_UserInfoDetailPopup:setVisitMode(is_visit)
     -- 방문용
     vars['dragonInfoBtn']:setVisible(is_visit)
     vars['deckBtn']:setVisible(is_visit)
-    
-    -- 친구신청 버튼
-    local friend_uid = self.m_tUserInfo['uid']
-    local is_friend = g_friendData:isFriend(friend_uid)
-    vars['requestBtn']:setVisible(is_visit and not is_friend)
+    vars['requestBtn']:setVisible(is_visit)
 end
 
 -------------------------------------
