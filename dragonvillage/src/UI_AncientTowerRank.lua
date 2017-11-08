@@ -381,7 +381,14 @@ function UI_AncientTowerRank:init_clanRankingTableView()
         end
 
         self.m_clanRankTableView = table_view
-        table_view:makeDefaultEmptyDescLabel(Str('랭킹 정보가 없습니다.'))
+        -- 정산 문구 분기
+        local empty_str
+        if (g_clanRankData:isSettlingDown()) then
+            empty_str = Str('현재 클랜 순위를 정산 중입니다. 잠시만 기다려주세요.')
+        else
+            empty_str = Str('최초 순위는 자정 이후 집계됩니다.')
+        end
+        table_view:makeDefaultEmptyDescLabel(empty_str)
     end
 end
 
