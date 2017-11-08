@@ -326,7 +326,7 @@ function UI_AncientTowerRank:init_clanRankingTableView()
         end
         -- 다음 랭킹 보기
         local function click_nextBtn()
-            if (table.count(t_rank) < CLAN_OFFSET_GAP) then
+            if (table.count(l_item_list) < CLAN_OFFSET_GAP) then
                 MakeSimplePopup(POPUP_TYPE.OK, Str('다음 랭킹이 존재하지 않습니다.'))
                 return
             end
