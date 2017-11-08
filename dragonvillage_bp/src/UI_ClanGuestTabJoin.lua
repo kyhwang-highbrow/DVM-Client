@@ -40,6 +40,9 @@ function UI_ClanGuestTabJoin:initUI()
     local vars = self.vars
 
     vars['searchBtn']:registerScriptTapHandler(function() self:click_searchBtn() end)
+
+    -- IOS maxlength 설정 안하면 입력 안됨
+    vars['searchEditBox']:setMaxLength(10)
 end
 
 -------------------------------------

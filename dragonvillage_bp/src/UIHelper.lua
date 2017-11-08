@@ -19,8 +19,10 @@ function UIHelper:makePriceNodeVariable(bg_node, icon_node, price_label)
     local label_x = (icon_width/2)
     price_label:setPositionX(label_x)
 
-    local _, height = bg_node:getNormalSize()
-    bg_node:setNormalSize(total_width, height)
+    if bg_node then
+        local _, height = bg_node:getNormalSize()
+        bg_node:setNormalSize(total_width, height)
+    end
 end
 
 -------------------------------------

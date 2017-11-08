@@ -454,7 +454,7 @@ end
 -- @brief 유저 정보 갱신
 -------------------------------------
 function UI_Lobby:refresh_userInfo()
-   local vars = self.vars
+    local vars = self.vars
 
     -- 칭호 + 닉네임
     local title = g_userData:getTamerTitleStr()
@@ -944,12 +944,10 @@ end
 function UI_Lobby:refresh_rightButtons()
     local vars = self.vars
     
-    local l_btn_list = {}
 
     -- 교환소 버튼
     if g_eventData:isVaildEvent('event_exchange') then
         vars['exchangeBtn']:setVisible(true)
-        table.insert(l_btn_list, vars['exchangeBtn'])
     else
         vars['exchangeBtn']:setVisible(false)
     end
@@ -957,14 +955,33 @@ function UI_Lobby:refresh_rightButtons()
     -- 레벨업 패키지 버튼
     if g_levelUpPackageData:isVisible_lvUpPack() then
         vars['levelupBtn']:setVisible(true)
-        table.insert(l_btn_list, vars['levelupBtn'])
     else
         vars['levelupBtn']:setVisible(false)
     end
 
-    local pos_x = -330
+    -- 인덱스 1번이 오른쪽
+    local t_btn_name = {
+            'capsuleBtn',
+            'itemAutoBtn',
+            'giftBoxBtn',
+            'exchangeBtn',
+            'levelupBtn',
+            'eventBtn',
+        }
+    
+    -- visible이 켜진 버튼들 리스트
+    local l_btn_list = {}
+    for _,name in ipairs(t_btn_name) do
+        local btn = vars[name]
+        if (btn and btn:isVisible()) then
+            table.insert(l_btn_list, btn)
+        end
+    end
+
+    local pos_x = -60
     local interval = -90
 
+    -- 버튼들의 위치 지정
     for i,v in ipairs(l_btn_list) do
         local _pos_x = pos_x + ((i-1) * interval)
         v:setPositionX(_pos_x)

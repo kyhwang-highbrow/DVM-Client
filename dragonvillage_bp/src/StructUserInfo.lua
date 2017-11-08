@@ -230,7 +230,7 @@ function StructUserInfo:getSDRes()
         error('tamer_id : ' .. tamer_id)
     end
 
-    local res = TableTamer():getValue(tamer_id, 'res_sd')
+    local res = TableTamer:getTamerResSD(tamer_id)
     return res
 end
 
@@ -292,6 +292,8 @@ function StructUserInfo:syncSUser(server_user)
     if t_json['clan'] then
         local struct_clan = StructClan(t_json['clan'])
         self:setStructClan(struct_clan)
+    else
+        self:setStructClan(nil)
     end
 end
 

@@ -104,3 +104,13 @@ function TableTamer:getTamerName(tamer_id)
     end
     return self:getValue(tamer_id, 't_name')
 end
+
+-------------------------------------
+-- function getTamerResSD
+-------------------------------------
+function TableTamer:getTamerResSD(tamer_id)
+    if (self == THIS) then
+        self = THIS()
+    end
+    return self:getValue(tamer_id, 'res_sd')
+end

@@ -82,6 +82,11 @@ function UI_ColosseumRewardInfoPopup:onChangeTab(tab, first)
     -- 매치 보상
     elseif (tab == UI_ColosseumRewardInfoPopup.MATCH) then
         self:init_tableViewMatchReward()
+
+    -- 클랜 주간 랭킹 보상
+    elseif (tab == UI_ColosseumRewardInfoPopup.CLAN) then
+        self:init_clanRewardTableView()
+
     end
     
 end
@@ -128,7 +133,6 @@ function UI_ColosseumRewardInfoPopup:init_tableViewMatchReward()
     -- 테이블 뷰 인스턴스 생성
     local table_view_td = UIC_TableViewTD(node)
     table_view_td.m_cellSize = cc.size(584 + 5, 134 + 5)
-    table_view_td.m_nItemPerCell = 2
     table_view_td:setCellUIClass(UI_ColosseumMatchRewardItem, create_func)
     table_view_td:makeDefaultEmptyDescLabel(Str(''))
 
@@ -136,6 +140,34 @@ function UI_ColosseumRewardInfoPopup:init_tableViewMatchReward()
     table_view_td:setItemList(l_item_list)
 
     self:sort(table_view_td.m_itemList)
+end
+
+-------------------------------------
+-- function init_clanRewardTableView
+-------------------------------------
+function UI_ColosseumRewardInfoPopup:init_clanRewardTableView()
+    local node = self.vars['clanRewardNode']
+    node:removeAllChildren()
+
+    -- 고대의 탑 보상 정보만 빼온다.
+    local l_item_list = {}
+    for rank_id, t_data in pairs(TABLE:get('table_clan_reward')) do
+        if (t_data['category'] == CLAN_RANK['CLSM']) then
+            table.insert(l_item_list, t_data)
+        end
+    end
+
+    -- 테이블 정렬
+    table.sort(l_item_list, function(a, b) 
+        return tonumber(a['rank_id']) < tonumber(b['rank_id'])
+    end)
+
+    -- 테이블 뷰 인스턴스 생성
+    local table_view = UIC_TableView(node)
+    table_view.m_defaultCellSize = cc.size(740, 90 + 5)
+    table_view:setCellUIClass(UI_ColosseumClanRankRewardItem, nil)
+    table_view:setDirection(cc.SCROLLVIEW_DIRECTION_VERTICAL)
+    table_view:setItemList(l_item_list or {})
 end
 
 -------------------------------------

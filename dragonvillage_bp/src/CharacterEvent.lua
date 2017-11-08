@@ -289,6 +289,9 @@ function Character:onEvent_lastAttack(event_name, t_event)
     end
 end
 
+-------------------------------------
+-- function onEvent_useActiveSkill
+-------------------------------------
 function Character:onEvent_useActiveSkill(event_name, t_event, owner)
 
     if (not self.m_statusCalc) then return end
