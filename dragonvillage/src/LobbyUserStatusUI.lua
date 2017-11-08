@@ -2,6 +2,7 @@ local PARENT = class(UI, IEventDispatcher:getCloneTable(), IEventListener:getClo
 
 -------------------------------------
 -- class LobbyUserStatusUI
+-- @brief 로비 테이머 머리 위 닉네임 UI (클랜, 칭호)
 -------------------------------------
 LobbyUserStatusUI = class(PARENT, {
         m_rootNode = 'cc.Node',
@@ -50,19 +51,50 @@ function LobbyUserStatusUI:init_statusUI()
 
     local vars = self.vars
 
-    -- 칭호
-    local tamer_title_str = struct_user_info:getTamerTitleStr()
-    vars['titleLabel']:setString(tamer_title_str)
+    local btn_width, btn_height = vars['infoBtn']:getNormalSize()
 
-    -- 닉네임
-    local nickname = struct_user_info:getNickname()
-    vars['nameLabel']:setString(nickname)
+    do -- 칭호, 닉네임
+        local tamer_title_str = struct_user_info:getTamerTitleStr()
+        local nickname = struct_user_info:getNickname()
 
-    -- 칭호가 존재하지 않을 경우 정렬
-    if (tamer_title_str == '') or (tamer_title_str == nil) then
-        vars['nameLabel']:setPositionY(0)
+        -- 칭호와 닉네임을 붙여서 처리
+        if tamer_title_str and (tamer_title_str ~= '') then
+            nickname = string.format('{@user_title}%s {@white}%s', tamer_title_str, nickname)
+        end
+        vars['nameLabel']:setString(nickname)
+
+        -- 여백을 위해 10픽셀을 더해줌
+        local str_width = vars['nameLabel']:getStringWidth() + 10
+        if (btn_width < str_width) then
+            vars['nameLabel']:setScale(btn_width / str_width)
+        else
+            vars['nameLabel']:setScale(1)
+        end
+    end
+
+    -- 클랜이 존재하지 않을 경우 정렬
+    local struct_clan = struct_user_info:getStructClan()
+    if (struct_clan) then
+        vars['nameLabel']:setPositionY(28)
+        vars['clanNode']:setVisible(true)
     else
-        vars['nameLabel']:setPositionY(-11)
+        vars['nameLabel']:setPositionY(11)
+        vars['clanNode']:setVisible(false)
+    end
+
+
+    if struct_clan then
+        -- 클랜 마크
+        local icon = struct_clan:makeClanMarkIcon()
+        vars['markNode']:removeAllChildren()
+        vars['markNode']:addChild(icon)
+
+        -- 클랜명
+        local clan_name = struct_clan:getClanName()
+        vars['clanLabel']:setString(clan_name)
+
+        -- 중앙 정렬
+	    UIHelper:makePriceNodeVariable(nil,  vars['markNode'], vars['clanLabel'])
     end
 end
 
