@@ -87,8 +87,14 @@ function StatusEffect_Protection:onApplyOverlab(unit)
     else
         local t_status_effect = self.m_statusEffectTable
         local adj_value = t_status_effect['val_1'] * (unit:getValue() / 100)
-	    local shield_hp = self.m_owner:getStat('hp') * (adj_value / 100)
+        local shield_hp
 
+        if (IS_NEW_BALANCE_VERSION()) then
+            shield_hp = unit:getStandardStat() * (adj_value / 100)
+        else
+            shield_hp = self.m_owner:getStat('hp') * (adj_value / 100)
+        end
+	    
         -- 해당 정보를 임시 저장
         unit:setParam('shield_hp', shield_hp)
 
@@ -133,7 +139,7 @@ function StatusEffect_Protection:getTriggerFunction()
                 self:changeState('end')
             end
         else
-		    if (self.m_shieldHP > damage) then
+            if (self.m_shieldHP > damage) then
 			    -- 데미지를 전부 방어하고 hit effect
 			    self.m_shieldHP = self.m_shieldHP - damage
 			    damage = 0
