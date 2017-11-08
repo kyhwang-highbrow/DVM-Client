@@ -6,6 +6,8 @@ local PARENT = StatusEffect
 StatusEffect_ManaReduce = class(PARENT, {
     m_reduceValue = 'number',
     m_isInCondition = 'boolean',
+
+    m_bUseCount = 'boolean',    -- 횟수로 방어하는지 여부
 })
 
 -------------------------------------
@@ -15,6 +17,21 @@ StatusEffect_ManaReduce = class(PARENT, {
 -------------------------------------
 function StatusEffect_ManaReduce:init(file_name, body)
     self.m_isInCondition = false
+    self.m_bUseCount = false
+end
+
+
+-------------------------------------
+-- function initFromTable
+-------------------------------------
+function StatusEffect_ManaReduce:initFromTable(t_status_effect, target_char)
+    PARENT.initFromTable(self, t_status_effect, target_char)
+
+    self.m_bUseCount = self:hasCount()
+
+    if (self.m_bUseCount) then
+        self:addTrigger('dragon_active_skill', self:getTriggerFunction())
+    end
 end
 
 -------------------------------------
@@ -58,4 +75,30 @@ function StatusEffect_ManaReduce:onEnd()
         t_event['value'] = originValue
         self.m_owner:dispatch('dragon_mana_reduce_finish', t_event)
     end
+end
+
+-------------------------------------
+-- function getTriggerFunction
+-------------------------------------
+function StatusEffect_ManaReduce:getTriggerFunction()
+	local trigger_func = function(t_event)
+        -- 1회만 사용되는 걸로 가정
+        self:changeState('end')
+	end
+
+	return trigger_func
+end
+
+
+-------------------------------------
+-- function isCountShield
+-------------------------------------
+function StatusEffect_ManaReduce:hasCount()
+    local t_status_effect = self.m_statusEffectTable
+
+    if (type(t_status_effect['val_1']) ~= 'string') then
+        return false
+    end
+
+    return (t_status_effect['val_1'] == 'use_abs')
 end

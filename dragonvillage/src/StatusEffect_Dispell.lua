@@ -30,6 +30,8 @@ end
 -------------------------------------
 function StatusEffect_Dispell:initState()
     PARENT.initState(self)
+
+    self:addState('idle', PARENT.st_idle, 'center_idle', false)
     self:addState('end', StatusEffect_Dispell.st_end, 'center_idle', false)
 end
 
