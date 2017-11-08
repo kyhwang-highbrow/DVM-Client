@@ -106,7 +106,9 @@ function UI_ClanSetting:initEditBox()
     -- intro editBox handler 등록
 	local function intro_event_handler(event_name, p_sender)
         if (eventType == "began") then
-            vars['introduceLabel']:setString('')
+            if (CppFunctions:isIos()) then
+                vars['introduceLabel']:setString('')
+            end
         
         elseif (event_name == "return") then
             local editbox = p_sender
@@ -130,7 +132,9 @@ function UI_ClanSetting:initEditBox()
     -- notice editBox handler 등록
 	local function notice_event_handler(event_name, p_sender)
         if (eventType == "began") then
-            vars['noticeLabel']:setString('')
+            if (CppFunctions:isIos()) then
+                vars['noticeLabel']:setString('')
+            end
 
         elseif (event_name == "return") then
             local editbox = p_sender
