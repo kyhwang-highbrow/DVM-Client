@@ -88,6 +88,14 @@ function ServerData_ClanRank:isSettlingDown()
 end
 
 -------------------------------------
+-- function initRankData
+-------------------------------------
+function ServerData_ClanRank:initRankData(rank_type)
+    self.m_mRankingMap[rank_type] = {}
+    self.m_mMyRankingMap[rank_type] = nil
+end
+
+-------------------------------------
 -- function request_getRank
 -------------------------------------
 function ServerData_ClanRank:request_getRank(rank_type, offset, cb_func)
@@ -96,7 +104,9 @@ function ServerData_ClanRank:request_getRank(rank_type, offset, cb_func)
 	local rank_type = rank_type
 	local offset = offset
 
-    self.m_mRankingMap[rank_type] = {}
+    -- rank 호출할 때 해당 rank_type rank 초기화
+    self:initRankData(rank_type)
+    -- offset 저장 (주도적으로 쓰이지 않음)
     self.m_mOffsetMap[rank_type] = offset
 
     -- 콜백 함수
