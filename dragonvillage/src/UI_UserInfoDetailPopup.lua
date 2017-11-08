@@ -439,7 +439,8 @@ end
 -- function click_clanBtn
 -------------------------------------
 function UI_UserInfoDetailPopup:click_dragonInfoBtn()
-    ccdisplay('드래곤 정보 보기는 구현중입니다.')
+    local dragon_object = StructDragonObject(self.m_tUserInfo['leader'])
+    UI_SimpleDragonInfoPopup(dragon_object)
 end
 
 -------------------------------------

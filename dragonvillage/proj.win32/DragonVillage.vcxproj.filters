@@ -2937,6 +2937,9 @@
     <None Include="..\src\ChatManagerClan.lua">
       <Filter>lua\src</Filter>
     </None>
+    <None Include="..\src\UI_ColosseumClanRankRewardItem.lua">
+      <Filter>lua\UI</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Classes">
