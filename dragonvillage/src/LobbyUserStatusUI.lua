@@ -5,14 +5,13 @@ local PARENT = class(UI, IEventDispatcher:getCloneTable(), IEventListener:getClo
 -------------------------------------
 LobbyUserStatusUI = class(PARENT, {
         m_rootNode = 'cc.Node',
-        m_tUserInfo = 'StructUserInfo',
+        m_structUserInfo = 'StructUserInfo',
      })
 
 -------------------------------------
 -- function init
 -------------------------------------
-function LobbyUserStatusUI:init(t_user_info)
-
+function LobbyUserStatusUI:init(struct_user_info)
     self:load('lobby_user_info_01.ui')
 
     -- rootNode 생성
@@ -20,9 +19,9 @@ function LobbyUserStatusUI:init(t_user_info)
     self.m_rootNode:addChild(self.root)
     self.root:setPositionY(280)
 
-    self.m_tUserInfo = t_user_info
+    self.m_structUserInfo = struct_user_info
 
-    self.vars['infoBtn']:registerScriptTapHandler(function() UI_UserInfoMini:open(t_user_info) end)
+    self.vars['infoBtn']:registerScriptTapHandler(function() self:click_infoBtn() end)
     self:init_statusUI()
     self:setActive(false)
 end
@@ -47,21 +46,17 @@ end
 -- function init_statusUI
 -------------------------------------
 function LobbyUserStatusUI:init_statusUI()
-    local t_user_info = self.m_tUserInfo
+    local struct_user_info = self.m_structUserInfo
 
     local vars = self.vars
 
     -- 칭호
-    local tamer_title_str = t_user_info:getTamerTitleStr()
+    local tamer_title_str = struct_user_info:getTamerTitleStr()
     vars['titleLabel']:setString(tamer_title_str)
 
     -- 닉네임
-    local nickname = t_user_info:getNickname()
+    local nickname = struct_user_info:getNickname()
     vars['nameLabel']:setString(nickname)
-
-    -- 길드 이름
-    local guild_name = t_user_info:getGuild()
-    vars['guildLabel']:setString(guild_name)
 
     -- 칭호가 존재하지 않을 경우 정렬
     if (tamer_title_str == '') or (tamer_title_str == nil) then
@@ -72,11 +67,11 @@ function LobbyUserStatusUI:init_statusUI()
 end
 
 -------------------------------------
--- function init_statusUI
+-- function refreshUI
 -------------------------------------
 function LobbyUserStatusUI:refreshUI(struct_user_info)
     if (struct_user_info) then
-        self.m_tUserInfo = struct_user_info
+        self.m_structUserInfo = struct_user_info
     end
     self:init_statusUI()
 end
@@ -85,14 +80,14 @@ end
 -- function setActive
 -------------------------------------
 function LobbyUserStatusUI:setActive(active)
-    local vars = self.vars
-    local node = vars['infoBtn']
+    self.vars['infoBtn']:setVisible(active)
+end
 
-    if active then
-        node:setVisible(true)
-    else
-        node:setVisible(false)
-    end
+-------------------------------------
+-- function click_infoBtn
+-------------------------------------
+function LobbyUserStatusUI:click_infoBtn()
+    UI_UserInfoMini:open(self.m_structUserInfo)
 end
 
 -------------------------------------
@@ -101,9 +96,8 @@ end
 function LobbyUserStatusUI:release()
     if self.m_rootNode then
         self.m_rootNode:removeFromParent(true)
+        self.m_rootNode = nil
     end
-    
-    self.m_rootNode = nil
 
     PARENT.release_EventDispatcher(self)
     PARENT.release_EventListener(self)
