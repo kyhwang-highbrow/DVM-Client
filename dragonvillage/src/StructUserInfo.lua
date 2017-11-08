@@ -292,6 +292,8 @@ function StructUserInfo:syncSUser(server_user)
     if t_json['clan'] then
         local struct_clan = StructClan(t_json['clan'])
         self:setStructClan(struct_clan)
+    else
+        self:setStructClan(nil)
     end
 end
 

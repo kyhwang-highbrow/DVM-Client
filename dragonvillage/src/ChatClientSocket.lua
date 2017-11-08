@@ -188,14 +188,22 @@ function ChatClientSocket:setUserInfo(t_data)
 
     -- json 스트링 처리
     if t_data['json'] then
-        local json_str = self.m_user['json'] or ''
+        local json_str = self.m_user['json'] or '{}'
         local t_json = dkjson.decode(json_str)
         if (not t_json) then
             t_json = {}
         end
         
+        -- 변경된 key 적용
         for i,v in pairs(t_data['json']) do
-            t_json[i] = v
+            t_json[i] = clone(v)
+        end
+
+        -- 사라진 key 삭제
+        for i,v in pairs(t_json) do
+            if (not t_data['json'][i]) then
+                t_json[i] = nil
+            end
         end
 
         self.m_user['json'] = dkjson.encode(t_json, {indent=false})
@@ -224,9 +232,12 @@ function ChatClientSocket:changeUserInfo(t_data)
             new_clan_name = t_data['json']['clan']['name']
         end
 
+        -- 기존에 가지고 있던 클랜명 정보
         local old_clan_name = nil
-        if (self.m_user['json'] and self.m_user['json']['clan']) then
-            old_clan_name = self.m_user['json']['clan']['name']
+        local json_str = self.m_user['json'] or '{}'
+        local t_old_json = dkjson.decode(json_str)
+        if (t_old_json and t_old_json['clan']) then
+            old_clan_name = t_old_json['clan']['name']
         end
 
         if (new_clan_name ~= old_clan_name) then

@@ -120,6 +120,8 @@ function ServerData_Clan:request_clanInfo(finish_cb, fail_cb)
 
     -- 성공 콜백
     local function success_cb(ret)
+
+        local prev_need_clan_info_refresh = self.m_needClanInfoRefresh
         self.m_needClanInfoRefresh = false
 
         if ret['clan'] then
@@ -173,6 +175,11 @@ function ServerData_Clan:request_clanInfo(finish_cb, fail_cb)
 
         -- 클랜 채팅 채널 연결 확인 (창설, 가입, 해체, 탈퇴 후 모두 info를 호출하게 됨)
         ChatManagerClan:getInstance():checkClanChannel()
+
+        -- 채팅 서버에 변경사항 적용
+        if prev_need_clan_info_refresh and g_chatClientSocket then
+            g_chatClientSocket:globalUpdatePlayerUserInfo()
+        end
     end
 
     -- 네트워크 통신
