@@ -69,7 +69,8 @@ function UI_AncientTowerRank:initButton()
     radio_button:setChangeCB(function() self:onChangeOption() end)
     self.m_typeRadioButton = radio_button
 
-    vars['shopBtn']:registerScriptTapHandler(function() self:click_shopBtn() end)
+    vars['ancientShopBtn']:registerScriptTapHandler(function() self:click_ancientShopBtn() end)
+    vars['clancoinShopBtn']:registerScriptTapHandler(function() self:click_clancoinShopBtn() end)
 end
 
 -------------------------------------
@@ -86,12 +87,11 @@ function UI_AncientTowerRank:onChangeOption()
     vars['clanRewardListNode']:setVisible(type == UI_AncientTowerRank.CLAN_REWARD)
     vars['clanRankNode']:setVisible(type == UI_AncientTowerRank.CLAN_RANKING)
 
-    local shop_btn = self.m_uiScene.vars['shopBtn']
-
+    vars['ancientShopBtn']:setVisible(false)
+    vars['clancoinShopBtn']:setVisible(false)
+    
     -- 개인 랭킹
     if (type == UI_AncientTowerRank.RANKING) then
-        shop_btn:setVisible(false)
-
         if (self.m_rankTableView) then 
             return 
         end
@@ -100,7 +100,7 @@ function UI_AncientTowerRank:onChangeOption()
 
     -- 개인 보상
     elseif (type == UI_AncientTowerRank.REWARD) then
-        shop_btn:setVisible(true)
+        vars['ancientShopBtn']:setVisible(true)
 
         if (self.m_rewardTableView) then 
             return 
@@ -114,7 +114,6 @@ function UI_AncientTowerRank:onChangeOption()
         
     -- 클랜 랭킹
     elseif (type == UI_AncientTowerRank.CLAN_RANKING) then
-        shop_btn:setVisible(false)
         if (self.m_clanRankTableView) then
             return
         end
@@ -122,7 +121,7 @@ function UI_AncientTowerRank:onChangeOption()
 
     -- 클랜 보상
     elseif (type == UI_AncientTowerRank.CLAN_REWARD) then
-        shop_btn:setVisible(false)
+        vars['clancoinShopBtn']:setVisible(true)
         if (self.m_clanRewardTableView) then
             return
         end
@@ -414,9 +413,17 @@ function UI_AncientTowerRank:init_clanRewardTableView()
 end
 
 -------------------------------------
--- function click_shopBtn
+-- function click_ancientShopBtn
 -------------------------------------
-function UI_AncientTowerRank:click_shopBtn()
+function UI_AncientTowerRank:click_ancientShopBtn()
     local ui_shop_popup = UI_Shop()
     ui_shop_popup:setTab('ancient')
+end
+
+-------------------------------------
+-- function click_clancoinShopBtn
+-------------------------------------
+function UI_AncientTowerRank:click_clancoinShopBtn()
+    local ui_shop_popup = UI_Shop()
+    ui_shop_popup:setTab('clancoin')
 end
