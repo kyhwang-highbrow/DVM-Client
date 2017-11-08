@@ -312,11 +312,6 @@ function UI_Lobby:refresh_userTamer()
         vars['userNode']:removeAllChildren()
         vars['userNode']:addChild(icon)
     end
-
-    do -- 유저 칭호 갱신
-        local title = g_userData:getTamerTitleStr()
-        vars['userTitleLabel']:setString(title)
-    end
 end
 
 -------------------------------------
@@ -688,17 +683,6 @@ end
 -- function click_userInfoBtn
 -------------------------------------
 function UI_Lobby:click_userInfoBtn()
-    -- @ comment mskim
-    -- 로비맵 테이머&드래곤은 채팅서버에 의해 변경되고
-    -- 클라에서 직접 조작할 것은 좌상단 테이머 아이콘뿐
-    -- 매번 교체한다고 하여도 부하가 크지 않으니 가독성을 위해서 항상 교체
-	local function close_cb()
-        self:refresh_userTamer()
-
-        -- 닉네임
-        local nickname = g_userData:get('nick')
-        self.vars['userNameLabel']:setString(nickname)
-	end
     RequestUserInfoDetailPopup(g_userData:get('uid'), false, close_cb) -- uid, is_visit, close_cb
 end
 
