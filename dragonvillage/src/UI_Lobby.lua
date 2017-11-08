@@ -465,6 +465,9 @@ function UI_Lobby:refresh_userInfo()
     -- 클랜
     local struct_clan = g_clanData:getClanStruct()
     if (struct_clan) then
+        vars['clanLabel']:setVisible(true)
+        vars['markNode']:setVisible(true)
+
         local clan_name = struct_clan:getClanName()
         vars['clanLabel']:setString(clan_name)
 
