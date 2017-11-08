@@ -105,7 +105,10 @@ function UI_ClanSetting:initEditBox()
 
     -- intro editBox handler 등록
 	local function intro_event_handler(event_name, p_sender)
-        if (event_name == "return") then
+        if (eventType == "began") then
+            vars['introduceLabel']:setString('')
+        
+        elseif (event_name == "return") then
             local editbox = p_sender
             local str = editbox:getText()
 
@@ -126,7 +129,10 @@ function UI_ClanSetting:initEditBox()
 
     -- notice editBox handler 등록
 	local function notice_event_handler(event_name, p_sender)
-        if (event_name == "return") then
+        if (eventType == "began") then
+            vars['noticeLabel']:setString('')
+
+        elseif (event_name == "return") then
             local editbox = p_sender
             local str = editbox:getText()
 
