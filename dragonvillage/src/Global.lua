@@ -293,3 +293,19 @@ function SaveLocalSaveJson(filename, t_data)
     f:close()
     return true
 end
+
+-------------------------------------
+-- function MakeResponseCB
+-- @brief 지정된 status가 들어올 경우 미리 정의된 문구 팝업 띄우는 공용 response cb 생성
+-------------------------------------
+function MakeResponseCB(t_error) 
+    local function response_status_cb(ret)
+        local msg = t_error[ret['status']]
+        if (msg) then
+            MakeSimplePopup(POPUP_TYPE.OK, msg)
+            return true
+        end
+        return false
+    end
+    return response_status_cb
+end

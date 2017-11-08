@@ -182,6 +182,12 @@ function ServerData_Clan:request_clanInfo(finish_cb, fail_cb)
         end
     end
 
+    -- 응답 상태 처리 함수
+    local t_error = {
+        [-1103] = Str('클랜이 존재하지 않습니다.'), -- 클랜 없음
+    }
+    local response_status_cb = MakeResponseCB(t_error)
+
     -- 네트워크 통신
     local ui_network = UI_Network()
     ui_network:setUrl('/clans/info')
@@ -189,6 +195,7 @@ function ServerData_Clan:request_clanInfo(finish_cb, fail_cb)
     ui_network:setMethod('POST')
     ui_network:setSuccessCB(success_cb)
     ui_network:setFailCB(fail_cb)
+    ui_network:setResponseStatusCB(response_status_cb)
     ui_network:setRevocable(true)
     ui_network:setReuse(false)
     ui_network:request()
@@ -232,6 +239,16 @@ function ServerData_Clan:request_clanCreate(finish_cb, fail_cb, name, join, intr
         end
     end
 
+    -- 응답 상태 처리 함수
+    local t_error = {
+        [-3003] = Str('클랜을 창설 할 수 없습니다.'), -- 이미 유저의 클랜이 있는 상태
+        [-3027] = Str('클랜을 창설 할 수 없습니다.'), -- 클랜명 중복
+        [-1190] = Str('클랜을 창설 할 수 없습니다.'), -- 테이블이 없는 경우?
+        [-1224] = Str('클랜을 창설 할 수 없습니다.'), -- 레벨 부족
+        [-9999] = Str('클랜을 창설 할 수 없습니다.'), -- unknown
+    }
+    local response_status_cb = MakeResponseCB(t_error)
+
     -- 네트워크 통신
     local ui_network = UI_Network()
     ui_network:setUrl('/clans/create')
@@ -243,6 +260,7 @@ function ServerData_Clan:request_clanCreate(finish_cb, fail_cb, name, join, intr
     ui_network:setMethod('POST')
     ui_network:setSuccessCB(success_cb)
     ui_network:setFailCB(fail_cb)
+    ui_network:setResponseStatusCB(response_status_cb)
     ui_network:setRevocable(true)
     ui_network:setReuse(false)
     ui_network:request()
@@ -273,15 +291,12 @@ function ServerData_Clan:request_clanDestroy(finish_cb, fail_cb)
     end
 
     -- 응답 상태 처리 함수
-    local function response_status_cb(ret)
-        -- 클랜원이 2명 이상일 때 클랜 해체 호출 경우
-        if (ret['status'] == -2503) then -- cannot destroy clan
-            local msg = Str('클랜 해체는 클랜원이 1명이어야 가능합니다.')
-            MakeSimplePopup(POPUP_TYPE.OK, msg)
-            return true
-        end
-        return false
-    end
+    local t_error = {
+        [-2503] = Str('클랜 해체는 클랜원이 1명이어야 가능합니다.'),
+        [-1103] = Str('클랜이 존재하지 않습니다.'),
+        [-1301] = Str('클랜 해체는 마스터만이 가능합니다.'), -- 마스터가 아닌 경우
+    }
+    local response_status_cb = MakeResponseCB(t_error)
 
     -- 네트워크 통신
     local ui_network = UI_Network()
@@ -321,6 +336,13 @@ function ServerData_Clan:request_clanExit(finish_cb, fail_cb)
         end
     end
 
+    -- 응답 상태 처리 함수
+    local t_error = {
+        [-1303] = Str('잘못된 요청입니다.'), -- 자신의 클랜이 아닌 클랜을 탈퇴 시도
+        [-2303] = Str('탈퇴가 불가능합니다.') -- 탈퇴가 불가능한 유저
+    }
+    local response_status_cb = MakeResponseCB(t_error)
+
     -- 네트워크 통신
     local ui_network = UI_Network()
     ui_network:setUrl('/clans/exit')
@@ -329,6 +351,7 @@ function ServerData_Clan:request_clanExit(finish_cb, fail_cb)
     ui_network:setMethod('POST')
     ui_network:setSuccessCB(success_cb)
     ui_network:setFailCB(fail_cb)
+    ui_network:setResponseStatusCB(response_status_cb)
     ui_network:setRevocable(true)
     ui_network:setReuse(false)
     ui_network:request()
@@ -365,6 +388,13 @@ function ServerData_Clan:request_clanSetting(finish_cb, fail_cb, intro, notice, 
         end
     end
 
+    -- 응답 상태 처리 함수
+    local t_error = {
+        [-1103] = Str('클랜이 존재하지 않습니다.'), -- 클랜 없음
+        [-1285] = Str('권한이 없습니다.'), -- 권한이 없음
+    }
+    local response_status_cb = MakeResponseCB(t_error)
+    
     -- 네트워크 통신
     local ui_network = UI_Network()
     ui_network:setUrl('/clans/set')
@@ -389,6 +419,7 @@ function ServerData_Clan:request_clanSetting(finish_cb, fail_cb, intro, notice, 
     ui_network:setMethod('POST')
     ui_network:setSuccessCB(success_cb)
     ui_network:setFailCB(fail_cb)
+    ui_network:setResponseStatusCB(response_status_cb)
     ui_network:setRevocable(true)
     ui_network:setReuse(false)
     ui_network:request()
@@ -435,22 +466,14 @@ function ServerData_Clan:request_join(finish_cb, fail_cb, clan_object_id)
             finish_cb(ret)
         end
     end
-
+    
     -- 응답 상태 처리 함수
-    local function response_status_cb(ret)
-        -- 클랜원이 가득 찬 경우
-        if (ret['status'] == -1401) then -- full user
-            local msg = Str('더 이상 가입할 수 없는 클랜입니다.')
-            MakeSimplePopup(POPUP_TYPE.OK, msg)
-            return true
-        -- 클랜이 현시점에 존재하지 않는 경우
-        elseif (ret['status'] == -1103) then
-            local msg = Str('더 이상 가입할 수 없는 클랜입니다.')
-            MakeSimplePopup(POPUP_TYPE.OK, msg)
-            return true
-        end
-        return false
-    end
+    local t_error = {
+        [-1401] = Str('더 이상 가입할 수 없는 클랜입니다.'), -- 클랜원이 가득 찬 경우
+        [-1103] = Str('더 이상 가입할 수 없는 클랜입니다.'), -- 클랜이 현시점에 존재하지 않는 경우
+        [-3603] = Str('이미 클랜에 가입되어 있습니다.'), -- 이미 가입중인 클랜이 있는 경우
+    }
+    local response_status_cb = MakeResponseCB(t_error)
 
     -- 네트워크 통신
     local ui_network = UI_Network()
@@ -548,6 +571,12 @@ function ServerData_Clan:requestClanInfoDetailPopup(clan_object_id, close_cb)
         end
     end
 
+    -- 응답 상태 처리 함수
+    local t_error = {
+        [-1103] = Str('클랜이 존재하지 않습니다.'), -- 클랜 없음
+    }
+    local response_status_cb = MakeResponseCB(t_error)
+
     -- 네트워크 통신
     local ui_network = UI_Network()
     ui_network:setUrl('/clans/detail')
@@ -556,6 +585,7 @@ function ServerData_Clan:requestClanInfoDetailPopup(clan_object_id, close_cb)
     ui_network:setMethod('POST')
     ui_network:setSuccessCB(success_cb)
     ui_network:setFailCB(fail_cb)
+    ui_network:setResponseStatusCB(response_status_cb)
     ui_network:setRevocable(true)
     ui_network:setReuse(false)
     ui_network:request()
@@ -728,6 +758,16 @@ function ServerData_Clan:request_accept(finish_cb, fail_cb, req_uid)
         end
     end
 
+    -- 응답 상태 처리 함수
+    local t_error = {
+        [-1103] = Str('클랜이 존재하지 않습니다.'), -- 클랜 없음
+        [-1285] = Str('권한이 없습니다.'), -- 권한이 없음
+        [-1401] = Str('더이상 클랜원을 늘릴 수 없습니다.'), -- 유저 수 꽉 참
+        [-3603] = Str('이미 클랜에 가입된 유저입니다.'),
+        [-1186] = Str('유저가 클랜 가입 요청을 취소했습니다.'), -- not exist request
+    }
+    local response_status_cb = MakeResponseCB(t_error)
+
     -- 네트워크 통신
     local ui_network = UI_Network()
     ui_network:setUrl('/clans/accept')
@@ -737,6 +777,7 @@ function ServerData_Clan:request_accept(finish_cb, fail_cb, req_uid)
     ui_network:setMethod('POST')
     ui_network:setSuccessCB(success_cb)
     ui_network:setFailCB(fail_cb)
+    ui_network:setResponseStatusCB(response_status_cb)
     ui_network:setRevocable(true)
     ui_network:setReuse(false)
     ui_network:request()
@@ -765,6 +806,13 @@ function ServerData_Clan:request_reject(finish_cb, fail_cb, req_uid)
             finish_cb(ret)
         end
     end
+    
+    -- 응답 상태 처리 함수
+    local t_error = {
+        [-1103] = Str('클랜이 존재하지 않습니다.'), -- 클랜 없음
+        [-1285] = Str('권한이 없습니다.'), -- 권한이 없음
+    }
+    local response_status_cb = MakeResponseCB(t_error)
 
     -- 네트워크 통신
     local ui_network = UI_Network()
@@ -775,6 +823,7 @@ function ServerData_Clan:request_reject(finish_cb, fail_cb, req_uid)
     ui_network:setMethod('POST')
     ui_network:setSuccessCB(success_cb)
     ui_network:setFailCB(fail_cb)
+    ui_network:setResponseStatusCB(response_status_cb)
     ui_network:setRevocable(true)
     ui_network:setReuse(false)
     ui_network:request()
@@ -824,6 +873,14 @@ function ServerData_Clan:request_kick(finish_cb, fail_cb, member_uid)
         end
     end
 
+    -- 응답 상태 처리 함수
+    local t_error = {
+        [-1303] = Str('잘못된 요청입니다.'), -- 클랜원이 아닌 유저 추방 시도
+        [-2303] = Str('탈퇴가 불가능합니다.'), -- 탈퇴가 불가능한 유저
+        [-1285] = Str('권한이 없습니다.'), -- 권한이 없음
+    }
+    local response_status_cb = MakeResponseCB(t_error)
+
     -- 네트워크 통신
     local ui_network = UI_Network()
     ui_network:setUrl('/clans/kick')
@@ -833,6 +890,7 @@ function ServerData_Clan:request_kick(finish_cb, fail_cb, member_uid)
     ui_network:setMethod('POST')
     ui_network:setSuccessCB(success_cb)
     ui_network:setFailCB(fail_cb)
+    ui_network:setResponseStatusCB(response_status_cb)
     ui_network:setRevocable(true)
     ui_network:setReuse(false)
     ui_network:request()
@@ -912,9 +970,11 @@ function ServerData_Clan:request_setAuthority(finish_cb, fail_cb, member_uid, au
     end
 
     -- 응답 상태 처리 함수
-    local function response_status_cb(ret)
-        return false
-    end
+    local t_error = {
+        [-1103] = Str('클랜이 존재하지 않습니다.'),
+        [-1285] = Str('권한이 없습니다.'),
+    }
+    local response_status_cb = MakeResponseCB(t_error)
 
     -- 네트워크 통신
     local ui_network = UI_Network()
