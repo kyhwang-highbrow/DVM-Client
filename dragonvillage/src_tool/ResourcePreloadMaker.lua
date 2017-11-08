@@ -7,6 +7,7 @@ require 'TableMonster'
 require 'TableMonsterSkill'
 require 'TableStatusEffect'
 require 'AnimatorHelper'
+require 'EquationHelper'
 
 -------------------------------------
 -- class StageAnalysis
