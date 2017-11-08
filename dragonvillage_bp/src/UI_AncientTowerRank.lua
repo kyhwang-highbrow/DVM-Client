@@ -15,18 +15,18 @@ UI_AncientTowerRank = class({
         m_hasMyClan = 'table',
 
         m_rankOffset = 'number',
-        m_clanOffset = 'number',
+        m_clanRankOffset = 'number',
     })
 
-local RANK_SHOW_CNT = 20 -- 한번에 보여주는 랭커 수
-
+local OFFSET_GAP = 20 -- 한번에 보여주는 랭커 수
+local CLAN_OFFSET_GAP = 20
 -------------------------------------
 -- function init
 -------------------------------------
 function UI_AncientTowerRank:init(ui_scene)
     self.m_uiScene = ui_scene
     self.m_rankOffset = 1
-    self.m_clanOffset = 1
+    self.m_clanRankOffset = 1
     self.m_rewardInfo = {}
 
 	self:initUI()
@@ -70,7 +70,6 @@ function UI_AncientTowerRank:initButton()
     self.m_typeRadioButton = radio_button
 
     vars['shopBtn']:registerScriptTapHandler(function() self:click_shopBtn() end)
-    vars['clanBtn']:registerScriptTapHandler(function() self:click_clanBtn() end)
 end
 
 -------------------------------------
@@ -85,12 +84,7 @@ function UI_AncientTowerRank:onChangeOption()
     vars['rankingMeNode']:setVisible(type == UI_AncientTowerRank.RANKING)
     
     vars['clanRewardListNode']:setVisible(type == UI_AncientTowerRank.CLAN_REWARD)
-    vars['clanRankingListNode']:setVisible(type == UI_AncientTowerRank.CLAN_RANKING)
-
-    if (type == UI_AncientTowerRank.CLAN_RANKING) then
-        vars['clanRankingMeNode1']:setVisible(self.m_hasMyClan)
-        vars['clanRankingMeNode2']:setVisible(not self.m_hasMyClan)
-    end
+    vars['clanRankNode']:setVisible(type == UI_AncientTowerRank.CLAN_RANKING)
 
     local shop_btn = self.m_uiScene.vars['shopBtn']
 
@@ -154,16 +148,13 @@ end
 -------------------------------------
 function UI_AncientTowerRank:request_clanRank()
     local rank_type = CLAN_RANK['ANCT']
-    local offset = self.m_clanOffset
+    local offset = self.m_clanRankOffset
     local cb_func = function()
         -- 최초 생성
         if (not self.m_clanRankTableView) then
-            self:init_clanRankingTableView()
-        -- 추가
-        else
-            local l_rank_list = g_clanRankData:getRankData(rank_type)
-            self.m_clanRankTableView:addItemList(l_rank_list)
+            self:makeMyClanRankNode()
         end
+        self:init_clanRankingTableView()
     end
     g_clanRankData:request_getRank(rank_type, offset, cb_func)
 end
@@ -198,7 +189,7 @@ function UI_AncientTowerRank:init_rankTableView()
 
     -- 이전 랭킹 보기
     local function click_prevBtn()
-        self.m_rankOffset = self.m_rankOffset - RANK_SHOW_CNT
+        self.m_rankOffset = self.m_rankOffset - OFFSET_GAP
         self.m_rankOffset = math_max(self.m_rankOffset, 0)
         self:request_Rank()
     end
@@ -206,7 +197,7 @@ function UI_AncientTowerRank:init_rankTableView()
     -- 다음 랭킹 보기
     local function click_nextBtn()
         local add_offset = #g_ancientTowerData.m_lGlobalRank
-        if (add_offset < RANK_SHOW_CNT) then
+        if (add_offset < OFFSET_GAP) then
             MakeSimplePopup(POPUP_TYPE.OK, Str('다음 랭킹이 존재하지 않습니다.'))
             return
         end
@@ -277,34 +268,41 @@ function UI_AncientTowerRank:init_rewardTableView()
 end
 
 -------------------------------------
+-- function makeTableViewRanking
+-------------------------------------
+function UI_AncientTowerRank:makeMyClanRankNode()
+    local vars = self.m_uiScene.vars
+    local info = g_clanRankData:getMyRankData(CLAN_RANK['ANCT'])
+
+    -- 자기 클랜이 있는 경우
+    if (info) then
+        vars['clanRankingMeNode1']:setVisible(true)
+        vars['clanRankingMeNode2']:setVisible(false)
+
+        local my_node = vars['clanRankingMeNode1']
+        my_node:removeAllChildren()
+        local ui = UI_AncientTowerClanRankListItem(info)
+        my_node:addChild(ui.root)
+
+        self.m_hasMyClan = true
+
+    -- 무적자
+    else
+        vars['clanRankingMeNode1']:setVisible(false)
+        vars['clanRankingMeNode2']:setVisible(true)
+        self.m_hasMyClan = false
+
+        vars['clanBtn']:registerScriptTapHandler(function()
+            UINavigator:goTo('clan')
+        end)
+    end
+end
+
+-------------------------------------
 -- function init_clanRankingTableView
 -------------------------------------
 function UI_AncientTowerRank:init_clanRankingTableView()
     local vars = self.m_uiScene.vars
-
-    -- 내 순위
-	do
-        local info = g_clanRankData:getMyRankData(CLAN_RANK['ANCT'])
-
-        -- 자기 클랜이 있는 경우
-        if (info) then
-            vars['clanRankingMeNode1']:setVisible(true)
-            vars['clanRankingMeNode2']:setVisible(false)
-
-            local my_node = vars['clanRankingMeNode1']
-            my_node:removeAllChildren()
-            local ui = UI_AncientTowerClanRankListItem(info)
-            my_node:addChild(ui.root)
-
-            self.m_hasMyClan = true
-
-        -- 무적자
-        else
-            vars['clanRankingMeNode1']:setVisible(false)
-            vars['clanRankingMeNode2']:setVisible(true)
-            self.m_hasMyClan = false
-        end
-	end
 
     -- 전체 순위
     do
@@ -312,27 +310,37 @@ function UI_AncientTowerRank:init_clanRankingTableView()
         node:removeAllChildren()
 
         local l_item_list = g_clanRankData:getRankData(CLAN_RANK['ANCT'])
+                -- 이전 보기 추가
+        if (1 < self.m_clanRankOffset) then
+            l_rank_list['prev'] = 'prev'
+        end
 
         -- 다음 보기 추가.. 
         if (#l_item_list > 0) then
             l_item_list['next'] = 'next'
         end
-
+        
+        -- 이전 랭킹 보기
+        local function click_prevBtn()
+            self.m_clanRankOffset = math_max(self.m_clanRankOffset - CLAN_OFFSET_GAP, 1)
+            self:request_rank()
+        end
         -- 다음 랭킹 보기
         local function click_nextBtn()
-            local t_rank = g_clanRankData:getRankData(CLAN_RANK['ANCT'])
-
-            if (table.count(t_rank) < 20) then
+            if (table.count(t_rank) < CLAN_OFFSET_GAP) then
                 MakeSimplePopup(POPUP_TYPE.OK, Str('다음 랭킹이 존재하지 않습니다.'))
                 return
             end
-            self.m_clanOffset = math_min(50, self.m_clanOffset + RANK_SHOW_CNT)
+            self.m_clanRankOffset = self.m_clanRankOffset + CLAN_OFFSET_GAP
             self:request_clanRank()
         end
 
         -- 생성 콜백
         local function create_func(ui, data)
-            if (data == 'next') then
+            if (data == 'prev') then
+                ui.vars['prevBtn']:setVisible(true)
+                ui.vars['prevBtn']:registerScriptTapHandler(click_prevBtn)
+            elseif (data == 'next') then
                 ui.vars['nextBtn']:setVisible(true)
                 ui.vars['nextBtn']:registerScriptTapHandler(click_nextBtn)
             end
@@ -344,8 +352,33 @@ function UI_AncientTowerRank:init_clanRankingTableView()
         table_view:setCellUIClass(UI_AncientTowerClanRankListItem, create_func)
         table_view:setDirection(cc.SCROLLVIEW_DIRECTION_VERTICAL)
         table_view:setItemList(l_item_list)
-        self.m_clanRankTableView = table_view
 
+        do-- 테이블 뷰 정렬
+            local function sort_func(a, b)
+                local a_data = a['data']
+                local b_data = b['data']
+
+                -- 이전, 다음 버튼 정렬
+                if (a_data == 'prev') then
+                    return true
+                elseif (b_data == 'prev') then
+                    return false
+                elseif (a_data == 'next') then
+                    return false
+                elseif (b_data == 'next') then
+                    return true
+                end
+
+                -- 랭킹으로 선별
+                local a_rank = a_data:getClanRank()
+                local b_rank = b_data:getClanRank()
+                return a_rank < b_rank
+            end
+
+            table.sort(table_view.m_itemList, sort_func)
+        end
+
+        self.m_clanRankTableView = table_view
         table_view:makeDefaultEmptyDescLabel(Str('랭킹 정보가 없습니다.'))
     end
 end
@@ -386,11 +419,4 @@ end
 function UI_AncientTowerRank:click_shopBtn()
     local ui_shop_popup = UI_Shop()
     ui_shop_popup:setTab('ancient')
-end
-
--------------------------------------
--- function click_clanBtn
--------------------------------------
-function UI_AncientTowerRank:click_clanBtn()
-    UINavigator:goTo('clan')
 end

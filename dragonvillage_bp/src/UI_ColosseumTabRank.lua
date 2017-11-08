@@ -63,8 +63,8 @@ end
 function UI_ColosseumTabRank:initTab()
     local vars = self.vars
 
-    self:addTabAuto(UI_ColosseumTabRank['PRSN'], vars, vars['rankingListNode'], vars['myRankingListNode'])
-    self:addTabAuto(UI_ColosseumTabRank['CLAN'], vars, vars['clanRankingListNode'], vars['myClanRankingListNode1'], vars['myClanRankingListNode2'])
+    self:addTabAuto(UI_ColosseumTabRank['PRSN'], vars, vars['rankNode'])
+    self:addTabAuto(UI_ColosseumTabRank['CLAN'], vars, vars['clanRankNode'])
     
     self:setTab(UI_ColosseumTabRank['PRSN'])
 end
@@ -155,7 +155,7 @@ function UI_ColosseumTabRank:makeRankTableView()
 
     -- 테이블 뷰 인스턴스 생성
     local table_view = UIC_TableView(node)
-    table_view.m_defaultCellSize = cc.size(720, 120 + 5)
+    table_view.m_defaultCellSize = cc.size(720, 100 + 5)
     table_view:setCellUIClass(UI_ColosseumRankListItem, create_func)
     table_view:setDirection(cc.SCROLLVIEW_DIRECTION_VERTICAL)
     table_view:setItemList(l_item_list)
@@ -196,7 +196,9 @@ function UI_ColosseumTabRank:request_clanRank()
     local rank_type = CLAN_RANK['CLSM']
     local offset = self.m_clanRankOffset
     local cb_func = function()
-        self:makeMyClanRankNode()
+        if (not self.m_clanRankTableView) then
+            self:makeMyClanRankNode()
+        end
         self:makeClanRankTableView()
     end
 
@@ -227,6 +229,10 @@ function UI_ColosseumTabRank:makeMyClanRankNode()
         vars['myClanRankingListNode1']:setVisible(false)
         vars['myClanRankingListNode2']:setVisible(true)
         self.m_hasMyClan = false
+
+        vars['clanBtn']:registerScriptTapHandler(function()
+            UINavigator:goTo('clan')
+        end)
     end
 end
 
@@ -271,15 +277,17 @@ function UI_ColosseumTabRank:makeClanRankTableView()
         -- 생성 콜백
         local function create_func(ui, data)
             if (data == 'prev') then
+                ui.vars['prevBtn']:setVisible(true)
                 ui.vars['prevBtn']:registerScriptTapHandler(click_prevBtn)
             elseif (data == 'next') then
+                ui.vars['nextBtn']:setVisible(true)
                 ui.vars['nextBtn']:registerScriptTapHandler(click_nextBtn)
             end
         end
 
         -- 테이블 뷰 인스턴스 생성
         local table_view = UIC_TableView(node)
-        table_view.m_defaultCellSize = cc.size(720, 120 + 5)
+        table_view.m_defaultCellSize = cc.size(720, 100 + 5)
         table_view:setCellUIClass(UI_ColosseumClanRankListItem, create_func)
         table_view:setDirection(cc.SCROLLVIEW_DIRECTION_VERTICAL)
         table_view:setItemList(l_rank_list)

@@ -57,15 +57,33 @@ function UI_Colosseum:init()
 
     -- 보상 안내 팝업
     local function finich_cb()
-		if (g_colosseumData.m_tSeasonRewardInfo) then
-            local info = g_colosseumData.m_tSeasonRewardInfo
-            local t_ret = g_colosseumData.m_tRet
+        local ui
 
-            UI_ColosseumRankingRewardPopup(info, t_ret)
+        -- 시즌 보상 팝업 (보상이 있다면)
+		if (g_colosseumData.m_tSeasonRewardInfo) then
+            local t_info = g_colosseumData.m_tSeasonRewardInfo
+            local is_clan = false
+
+            ui = UI_ColosseumRankingRewardPopup(t_info, is_clan)
 
             g_colosseumData.m_tSeasonRewardInfo = nil
-            g_colosseumData.m_tRet = nil
 		end
+
+        -- 클랜 보상 팝업 (보상이 있다면)
+        if (g_colosseumData.m_tClanRewardInfo) then
+            local t_info = g_colosseumData.m_tClanRewardInfo
+            local is_clan = true
+
+            if (ui) then
+                ui:setCloseCB(function()
+                    UI_ColosseumRankingRewardPopup(t_info, is_clan)
+                end)
+            else
+                UI_ColosseumRankingRewardPopup(t_info, is_clan)
+            end
+
+            g_ancientTowerData.m_tClanRewardInfo = nil
+        end
     end
 
     self:sceneFadeInAction(nil, finich_cb)

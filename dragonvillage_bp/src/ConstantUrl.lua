@@ -59,6 +59,23 @@ function GetChatServerUrl()
     return ip, port
 end
 
+-- Clan Chatting server 
+URL['CLAN_CHAT_DEV'] = 'dv-test.perplelab.com:9014'
+URL['CLAN_CHAT_QA'] = 'dv-qa.perplelab.com:9014'
+URL['CLAN_CHAT_LIVE'] = 'dvm-ch1.perplelab.com:2223'
+function GetClanChatServerUrl()
+    local target_server = CppFunctions:getTargetServer()
+    local key = 'CLAN_CHAT_' .. target_server
+    local url = URL[key]
+    if (not url) then
+        error('key(Chatting server) : ' .. key)
+    end
+    local l_address = plSplit(url, ':')
+    local ip = l_address[1]
+    local port = l_address[2]
+    return ip, port
+end
+
 -- Perplelab
 URL['PERPLELAB_AGREEMENT'] = 'http://s3.dvm.perplelab.com/perplelab/agreement.html'
 URL['PERPLELAB_PI'] = 'http://s3.dvm.perplelab.com/perplelab/personalinformation.html'

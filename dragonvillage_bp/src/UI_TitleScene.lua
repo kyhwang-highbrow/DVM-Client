@@ -137,7 +137,7 @@ end
 -------------------------------------
 function UI_TitleScene:initChatClientSocket()
     -- 김성구 로컬 서버
-    --local ip = '192.168.1.63'
+    --local ip = '192.168.1.105'
     --local port = '3927'
 
     local ip, port = GetChatServerUrl()
@@ -158,20 +158,28 @@ end
 -- @brief 채팅 클라이언트 소켓 초기화
 -------------------------------------
 function UI_TitleScene:initChatClientSocket_Clan()
-    if true then
-        return
-    end
-
     -- 김성구 로컬 서버
-    local ip = '192.168.1.105'
-    local port = '3927'
+    --local ip = '192.168.1.105'
+    --local port = '3927'
 
-    --local ip, port = GetChatServerUrl()
+    local ip, port = GetClanChatServerUrl()
     local chat_client_socket = ChatClientSocket(ip, port)
 
     -- 채팅 소켓에서 사용되는 유저 정보 테이블 생성
     local t_data = self:makeUserDataForChatSocket()
     chat_client_socket:setUserInfo(t_data)
+
+    do -- 클랜 로비 매니저 생성
+        LobbyManager_Clan:initInstance()
+        g_clanLobbyManager:setChatClientSocket(chat_client_socket)
+        chat_client_socket:addRegularListener(g_clanLobbyManager)
+    end
+
+    do -- 클랜 채팅 매니저 생성
+        ChatManagerClan:getInstance()
+        g_clanChatManager:setChatClientSocket(chat_client_socket)
+        chat_client_socket:addRegularListener(g_clanChatManager)
+    end
 end
 
 -------------------------------------
@@ -202,6 +210,18 @@ function UI_TitleScene:makeUserDataForChatSocket()
     t_data['x'] = 0
     t_data['y'] = -150
     t_data['tamerTitleID'] = tamer_title_id
+    t_data['json'] = {}
+
+    do -- 클랜 정보
+        local clan_struct = g_clanData:getClanStruct()
+        if clan_struct then
+            local t_clan = {}
+            t_clan['name'] = clan_struct['name']
+            t_clan['mark'] = clan_struct['mark']
+            t_clan['id'] = clan_struct['id']
+            t_data['json']['clan'] = t_clan
+        end
+    end
 
     do -- 테이머 코스츔 적용
         local struct_tamer_costume = g_tamerCostumeData:getCostumeDataWithTamerID(tamer_id)
@@ -238,7 +258,7 @@ end
 -- @brief
 -------------------------------------
 function UI_TitleScene:initChatManager(chat_client_socket)
-    ChatManager:initInstance()
+    ChatManager:getInstance()
     g_chatManager:setChatClientSocket(chat_client_socket)
 
     if chat_client_socket then
@@ -639,6 +659,7 @@ function UI_TitleScene:workGameLogin()
 
         -- 자신의 클랜이 있으면 저장
         g_clanData:setClanStruct(ret['clan'])
+        g_clanData.m_bAttdRewardNoti = ret['clan_attd_reward']
 
 		g_serverData:unlockSaveData()
 
@@ -969,7 +990,7 @@ end
 function UI_TitleScene:workSoundPreload()
     self:initChatClientSocket()
     self:initChatClientSocket_Clan()
-    --ChatManager:initInstance()
+    --ChatManager:getInstance()
 
     if SoundMgr:isPreloadFinish() then
         self:doNextWork()

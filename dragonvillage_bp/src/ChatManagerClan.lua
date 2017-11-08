@@ -1,6 +1,3 @@
-CHAT_MAX_CHANNEL = 9999 -- 채널 최대 (1~9999)
-CHAT_MAX_MESSAGE_LENGTH = 40 -- 메세지 최대 글자 수 (40자)
-
 local PARENT = class(IEventListener:getCloneClass(), IEventDispatcher:getCloneTable())
 
 local function log(...)
@@ -12,43 +9,88 @@ local function dump(...)
 end
 
 -------------------------------------
--- class ChatManager
+-- class ChatManagerClan
 -- @brief
 -------------------------------------
-ChatManager = class(PARENT, {
+ChatManagerClan = class(PARENT, {
         m_chatClientSocket = 'ChatClientSocket',
 
         m_lobbyChannelName = 'string',
 
         m_lMessage = '',
-        m_chatPopup = '',
 
         -- 노티 뱃지
-        m_notiWhisper = 'boolean',
         m_notiGeneral = 'boolean',
     })
 
 -------------------------------------
--- function getInstance
+-- function initInstance
 -- @brief
 -------------------------------------
-function ChatManager:getInstance()
-    if (not g_chatManager) then
-        g_chatManager = ChatManager()
+function ChatManagerClan:getInstance()
+    if (not g_clanChatManager) then
+        g_clanChatManager = ChatManagerClan()
     end
 
-    return g_chatManager
+    return g_clanChatManager
 end
 
 -------------------------------------
 -- function init
 -- @brief 생성자
 -------------------------------------
-function ChatManager:init()
+function ChatManagerClan:init()
     self.m_lMessage = {}
 end
 
+-------------------------------------
+-- function getChatPopup
+-- @brief 채팅 팝업 UI 리턴
+-------------------------------------
+function ChatManagerClan:getChatPopup()
+    return ChatManager:getInstance().m_chatPopup
+end
 
+
+-------------------------------------
+-- function checkRetryClanChat
+-- @brief 클랜 채팅 다시 연결 확인
+-------------------------------------
+function ChatManagerClan:checkRetryClanChat()
+    if self.m_chatClientSocket then
+        self.m_chatClientSocket:checkRetryConnect()
+    end
+end
+
+-------------------------------------
+-- function checkClanChannel
+-- @brief 채널 변경 확인
+-------------------------------------
+function ChatManagerClan:checkClanChannel()
+    if (self:getStatus() ~= 'Success') then
+        return
+    end
+
+    local struct_clan = g_clanData.m_structClan
+
+    -- 채널에 접속되어 있는 경우
+    if self.m_lobbyChannelName then
+        if (not struct_clan) then
+            self.m_lobbyChannelName = nil
+            self.m_chatClientSocket:disconnect()
+            self.m_chatClientSocket:checkRetryConnect()
+
+        elseif (self.m_lobbyChannelName ~= struct_clan:getClanName()) then
+            local clan_name = struct_clan:getClanName()
+            self:requestChangeChannel(clan_name)
+        end
+    else
+        if struct_clan then
+            local clan_name = struct_clan:getClanName()
+            self:requestChangeChannel(clan_name)
+        end
+    end
+end
 
 
 
@@ -75,7 +117,7 @@ end
 -- function setChatClientSocket
 -- @brief
 -------------------------------------
-function ChatManager:setChatClientSocket(chat_client_socket)
+function ChatManagerClan:setChatClientSocket(chat_client_socket)
     self.m_chatClientSocket = chat_client_socket
 end
 
@@ -83,7 +125,7 @@ end
 -- function getChannelName
 -- @brief
 -------------------------------------
-function ChatManager:getChannelName()
+function ChatManagerClan:getChannelName()
     return self.m_lobbyChannelName or ''
 end
 
@@ -91,7 +133,13 @@ end
 -- function sendNormalMsg
 -- @brief 일반 메세지 보내기
 -------------------------------------
-function ChatManager:sendNormalMsg(msg)
+function ChatManagerClan:sendNormalMsg(msg)
+    -- 소속된 클랜이 없음
+    if (not g_clanData.m_structClan) then
+        UIManager:toastNotificationRed(Str('클랜 가입 후 이용이 가능합니다.'))
+        return false
+    end
+
     -- 서버와 연결이 끊어진 상태
     if (self:getStatus() ~= 'Success') then
         log('서버와 연결이 끊어진 상태')
@@ -112,47 +160,18 @@ function ChatManager:sendNormalMsg(msg)
 end
 
 -------------------------------------
--- function sendWhisperMsg
--- @brief 귓속말 보내기
--------------------------------------
-function ChatManager:sendWhisperMsg(peer_nickname, msg)
-    -- 채팅 비활성화 시
-    if (g_chatIgnoreList:isGlobalIgnore()) then
-        UIManager:toastNotificationRed(Str('채팅이 비활성화 상태입니다.'))
-        return
-    end
-
-    -- 서버와 연결이 끊어진 상태
-    if (self:getStatus() ~= 'Success') then
-        log('서버와 연결이 끊어진 상태')
-        return false
-    end
-    
-    local p = self:getProtobuf('chat').CChatNormalMsg()
-    p['message'] = utf8_sub(msg, CHAT_MAX_MESSAGE_LENGTH) -- 글자 수 제한
-    p['nickname'] = peer_nickname
-    return self:write(self:getProtocolCode().C_CHAT_WHISPER_MSG, p)
-end
-
--------------------------------------
 -- function requestChangeChannel
 -- @brief
 -------------------------------------
-function ChatManager:requestChangeChannel(channel_num)
+function ChatManagerClan:requestChangeChannel(clan_name)
     -- 서버와 연결이 끊어진 상태
     if (self:getStatus() ~= 'Success') then
         log('서버와 연결이 끊어진 상태')
-        return false
-    end
-
-    -- 채널에 접속되지 않음
-    if (self.m_lobbyChannelName == nil) then
-        log('채널에 접속되지 않음')
         return false
     end
     
     local p = self:getProtobuf('chat').CChatChangeChannel()
-    p['channelName'] = tostring(channel_num)
+    p['channelName'] = clan_name
     return self:write(self:getProtocolCode().C_LOBBY_CHANGE_CHANNEL, p)
 end
 
@@ -184,9 +203,9 @@ end
 -------------------------------------
 -- function onEvent
 -------------------------------------
-function ChatManager:onEvent(event_name, t_event, ...)
+function ChatManagerClan:onEvent(event_name, t_event, ...)
 
-    --cclog('## ChatManager : ' .. event_name)
+    --cclog('## ChatManagerClan : ' .. event_name)
 
     if (event_name == 'CHANGE_STATUS') then
         self:onEvent_CHANGE_STATUS(t_event)
@@ -195,7 +214,7 @@ function ChatManager:onEvent(event_name, t_event, ...)
         self:onEvent_RECEIVE_DATA(t_event)
 
     elseif (event_name == 'CHANGE_USER_INFO') then
-     -- ChatManager에선 아무일을 하지 않음
+     -- ChatManagerClan에선 아무일을 하지 않음
 
     end
 end
@@ -203,12 +222,10 @@ end
 -------------------------------------
 -- function onEvent_CHANGE_STATUS
 -------------------------------------
-function ChatManager:onEvent_CHANGE_STATUS(t_event)
+function ChatManagerClan:onEvent_CHANGE_STATUS(t_event)
     local status = t_event
-
-    -- 채팅 팝업에 정보 갱신
-    if (self.m_chatPopup) then
-        self.m_chatPopup:refresh_connectStatus(status)
+    if (status == 'Success') then
+        self:checkClanChannel()
     end
 end
 
@@ -216,7 +233,7 @@ end
 -- function onEvent_RECEIVE_DATA
 -- @brief 채팅 서버로부터 오는 데이터 처리
 -------------------------------------
-function ChatManager:onEvent_RECEIVE_DATA(t_event)
+function ChatManagerClan:onEvent_RECEIVE_DATA(t_event)
     local msg = t_event['msg']
 
     local pcode = msg['pcode']
@@ -246,7 +263,7 @@ function ChatManager:onEvent_RECEIVE_DATA(t_event)
         end
 
     else
-        log('# ChatManager:onEvent_RECEIVE_DATA() pcode : ' .. pcode)    
+        log('# ChatManagerClan:onEvent_RECEIVE_DATA() pcode : ' .. pcode)    
     end
 end
 
@@ -254,7 +271,7 @@ end
 -- function receiveData_S_LOBBY_CHANGE_CHANNEL
 -- @brief 채널 변경 서버 응답
 -------------------------------------
-function ChatManager:receiveData_S_LOBBY_CHANGE_CHANNEL(msg)
+function ChatManagerClan:receiveData_S_LOBBY_CHANGE_CHANNEL(msg)
     local ccs = self.m_chatClientSocket
     local payload = msg['payload']
     local r = ccs.m_protobufChat.SChatChangeChannel():Parse(payload)
@@ -265,13 +282,13 @@ function ChatManager:receiveData_S_LOBBY_CHANGE_CHANNEL(msg)
         self.m_lobbyChannelName = r['channelName']
         
         -- 채팅 팝업에 정보 갱신
-        if (self.m_chatPopup) then
-            self.m_chatPopup:refresh_channelName(self.m_lobbyChannelName)
+        if (self:getChatPopup()) then
+            self:getChatPopup():refresh_clanName(self.m_lobbyChannelName)
         end
 
         -- 채널 변경 컨텐츠 생성
         local chat_content = ChatContent()
-        chat_content:setContentCategory('general')
+        chat_content:setContentCategory('clan')
         chat_content:setContentType('enter_channel')
         chat_content:setChannelName(r['channelName'])
         self:chatContentQueue(chat_content)
@@ -293,7 +310,7 @@ end
 -- function receiveData_S_CHAT_NORMAL_MSG
 -- @brief 일반 메세지 받음 (내가 보낸 메세지도 받음)
 -------------------------------------
-function ChatManager:receiveData_S_CHAT_NORMAL_MSG(msg)
+function ChatManagerClan:receiveData_S_CHAT_NORMAL_MSG(msg)
     local payload = msg['payload']
     local r = self:getProtobuf('chat').SChatResponse():Parse(payload)
 
@@ -309,7 +326,7 @@ function ChatManager:receiveData_S_CHAT_NORMAL_MSG(msg)
     end
 
     local chat_content = ChatContent(json)
-    chat_content:setContentCategory('general')
+    chat_content:setContentCategory('clan')
 
     local uid = g_userData:get('uid')
     if (chat_content['uid'] == tostring(uid)) then
@@ -325,7 +342,7 @@ end
 -- function receiveData_S_WHISPER_RESPONSE
 -- @brief 귓속말 메세지 받음 (내가 보낸 메세지도 받음)
 -------------------------------------
-function ChatManager:receiveData_S_WHISPER_RESPONSE(msg)
+function ChatManagerClan:receiveData_S_WHISPER_RESPONSE(msg)
     local payload = msg['payload']
     local r = self:getProtobuf('chat').SChatResponse():Parse(payload)
 
@@ -365,7 +382,7 @@ end
 -- function getStatus
 -- @brief 서버와의 연결 상태
 -------------------------------------
-function ChatManager:getStatus()
+function ChatManagerClan:getStatus()
     if self.m_chatClientSocket then
         local status = self.m_chatClientSocket:getStatus()
         return status
@@ -378,7 +395,7 @@ end
 -- function getProtobuf
 -- @brief
 -------------------------------------
-function ChatManager:getProtobuf(name)
+function ChatManagerClan:getProtobuf(name)
     if (name == 'session') then
         return self.m_chatClientSocket.m_protobufSession
 
@@ -397,7 +414,7 @@ end
 -- function getProtocolCode
 -- @brief
 -------------------------------------
-function ChatManager:getProtocolCode()
+function ChatManagerClan:getProtocolCode()
     return self.m_chatClientSocket.m_protocolCode
 end
 
@@ -406,11 +423,11 @@ end
 -- @brief
 -- @return boolean
 -------------------------------------
-function ChatManager:write(pcode, msg)
+function ChatManagerClan:write(pcode, msg)
     return self.m_chatClientSocket:write(pcode, msg)
 end
 
-
+ChatManager:getInstance()
 
 
 
@@ -428,7 +445,7 @@ end
 -- function chatContentQueue
 -- @brief
 -------------------------------------
-function ChatManager:chatContentQueue(chat_content)
+function ChatManagerClan:chatContentQueue(chat_content)
     -- 차단 처리
     if (chat_content['uid'] and g_chatIgnoreList:isIgnore(chat_content['uid'])) then
         return
@@ -458,95 +475,9 @@ function ChatManager:chatContentQueue(chat_content)
         g_topUserInfo:chatBroadcast(chat_content)
     end
 
-    if self.m_chatPopup then
-        self.m_chatPopup:msgQueueCB(chat_content)
+    if self:getChatPopup() then
+        self:getChatPopup():msgQueueCB_clan(chat_content)
     end
-end
-
--------------------------------------
--- function openChatPopup
--- @brief
--------------------------------------
-function ChatManager:openChatPopup()
-    if (not self.m_chatPopup) then
-        self.m_chatPopup = UI_ChatPopup()
-        self.m_chatPopup.root:retain()
-
-        UIManager.m_cbUIOpen = function(ui)
-            if (ui ~= self.m_chatPopup) and (not self.m_chatPopup.closed) then
-
-                -- 채팅 UI는 UIManager에서 visible로 관리하는 경우에서 제외되어야 함
-                self.m_chatPopup.root:setVisible(true)
-
-                -- 채팅창을 닫지 않는 팝업 지정
-                if (ui.m_uiName == 'UI_SimpleEditBoxPopup') then
-                elseif (ui.m_uiName == 'UI_UserInfoMini') then
-                elseif (ui.m_uiName == 'UI_UserDeckInfoPopup') then
-                elseif (ui.m_uiName == 'UI_Network') then
-                elseif (ui.m_uiName == 'UI_UserInfoDetailPopup') then
-                else
-                    self.m_chatPopup:close()
-                end
-            end
-        end
-    end
-
-    local list = UIManager.m_uiList
-    if table.find(list, self.m_chatPopup) then
-        self.m_chatPopup:close()
-    end
-
-    -- 일반 채팅 다시 연결 확인
-    if self.m_chatClientSocket then
-        self.m_chatClientSocket:checkRetryConnect()
-    end
-
-    -- 클랜 채팅 다시 연결 확인
-    if g_clanChatManager then
-        g_clanChatManager:checkRetryClanChat()
-    end
-
-    self.m_chatPopup:openPopup()
-end
-
--------------------------------------
--- function closeChatPopup
--- @brief
--------------------------------------
-function ChatManager:closeChatPopup()
-    if self.m_chatPopup then
-        self.m_chatPopup:close()
-    end
-end
-
--------------------------------------
--- function toggleChatPopup
--- @brief
--------------------------------------
-function ChatManager:toggleChatPopup()
-    if (not self.m_chatPopup) then
-        self:openChatPopup()
-    else
-        if self.m_chatPopup.closed then
-            self:openChatPopup()
-        else
-            self:closeChatPopup()
-        end
-    end
-end
-
--------------------------------------
--- function openChatPopup_whisper
--- @brief
--------------------------------------
-function ChatManager:openChatPopup_whisper(nickname)
-    if (not self.m_chatPopup) then
-        self:openChatPopup()
-    elseif self.m_chatPopup.closed then
-        self:openChatPopup()
-    end
-
-    self.m_chatPopup:setWhisperUser(nickname)
 end
 
 
@@ -558,24 +489,15 @@ end
 -- function setNoti
 -- @brief
 -------------------------------------
-function ChatManager:setNoti(chat_content)
+function ChatManagerClan:setNoti(chat_content)
     -- 채팅 비활성화 시 동작하지 않음
     if (g_chatIgnoreList:isGlobalIgnore()) then
         return
     end
 
-    local category = chat_content:getContentCategory()
-
-    if (not self.m_chatPopup) or (not self.m_chatPopup:isVisibleCategory(category)) then
-        if (category == 'general') then
-            self.m_notiGeneral = true
-            self:onChangeNotiInfo()
-
-        elseif (category == 'whisper') then
-            self.m_notiWhisper = true
-            self:onChangeNotiInfo()
-
-        end
+    if (not self:getChatPopup()) or (not self:getChatPopup():isVisibleCategory('clan')) then
+        self.m_notiGeneral = true
+        self:onChangeNotiInfo()
     end
     
 end
@@ -584,30 +506,22 @@ end
 -- function removeNoti
 -- @brief
 -------------------------------------
-function ChatManager:removeNoti(category)
-    if (category == 'general') then
-        self.m_notiGeneral = false
-        self:onChangeNotiInfo()
-
-    elseif (category == 'whisper') then
-        self.m_notiWhisper = false
-        self:onChangeNotiInfo()
-
-    end
+function ChatManagerClan:removeNoti()
+    self.m_notiGeneral = false
+    self:onChangeNotiInfo()
 end
 
 -------------------------------------
 -- function onChangeNotiInfo
 -- @brief
 -------------------------------------
-function ChatManager:onChangeNotiInfo()
+function ChatManagerClan:onChangeNotiInfo()
     if g_topUserInfo then
         g_topUserInfo:refreshChatNotiInfo()
     end
 
-    if self.m_chatPopup then
-        self.m_chatPopup.vars['generalNotiSprite']:setVisible(self.m_notiGeneral)
-        self.m_chatPopup.vars['whisperNotiSprite']:setVisible(self.m_notiWhisper)
+    if self:getChatPopup() then
+        self:getChatPopup().vars['clanNotiSprite']:setVisible(self.m_notiGeneral)
     end
 end
 

@@ -51,6 +51,7 @@ local L_KEY_INDEX_VISIT = {
 UI_UserInfoDetailPopup = class(PARENT, {
 	m_tUserInfo = 'table',
 	m_isVisit = 'bool',
+    m_hasClan = 'bool'
 })
 
 -------------------------------------
@@ -80,6 +81,7 @@ function UI_UserInfoDetailPopup:init(t_user_info, is_visit)
 
     self.m_tUserInfo = t_user_info
 	self.m_isVisit = is_visit or (t_user_info['uid'] ~= g_userData:get('uid'))
+    self.m_hasClan = t_user_info['clan_info'] and true or false
 
     self:initUI()
     self:initButton()
@@ -106,15 +108,19 @@ function UI_UserInfoDetailPopup:initUI()
 	local nick_name = self.m_tUserInfo['nick']
 	vars['nameLabel']:setString(nick_name)
 
-	-- 길드
-	local guild_name = self.m_tUserInfo['guild'] or ''
-	vars['guildLabel']:setString(guild_name)
+    -- 클랜
+    if (self.m_hasClan) then
+        local t_clan_info = self.m_tUserInfo['clan_info']
+        local clan_name = t_clan_info['name']
+        vars['clanLabel']:setString(clan_name)
 
-    local friend_uid = self.m_tUserInfo['uid']
-    local is_friend = g_friendData:isFriend(friend_uid)
-
-    -- 친구신청 버튼
-    vars['requestBtn']:setVisible(self.m_isVisit and not is_friend)
+        local clan_mark = StructClanMark:create(t_clan_info['mark'])
+        local icon = clan_mark:makeClanMarkIcon()
+        vars['markNode']:addChild(icon)
+    else
+        vars['clanLabel']:setVisible(false)
+        vars['markNode']:setVisible(false)
+    end
 
 	-- 플레이 기록
 	self:init_historyView()
@@ -128,18 +134,28 @@ end
 -------------------------------------
 function UI_UserInfoDetailPopup:initButton()
     local vars = self.vars
-	vars['profileBtn']:registerScriptTapHandler(function() self:click_profileBtn() end)
 	vars['tamerBtn']:registerScriptTapHandler(function() self:click_tamerBtn() end)
 	vars['dragonBtn']:registerScriptTapHandler(function() self:click_dragonBtn() end)
     vars['deckBtn']:registerScriptTapHandler(function() self:click_deckBtn() end)
     vars['requestBtn']:registerScriptTapHandler(function() self:click_requestBtn() end)
     vars['titleChangeBtn']:registerScriptTapHandler(function() self:click_titleChangeBtn() end)
+    vars['dragonInfoBtn']:registerScriptTapHandler(function() self:click_dragonInfoBtn() end)
 
+    if (self.m_hasClan) then
+        vars['clanBtn1']:registerScriptTapHandler(function() self:click_clanBtn() end)
+        vars['clanBtn2']:registerScriptTapHandler(function() self:click_clanBtn() end)
+    else
+        vars['clanBtn1']:setVisible(false)
+        vars['clanBtn2']:setVisible(false)
+    end
+
+    --[[
     -- 사전 등록 닉네임
     if (not self.m_isVisit) then
         vars['couponBtn']:registerScriptTapHandler(function() self:click_nicknameCouponBtn() end)
         vars['couponBtn']:setVisible(false)
     end
+    ]]
 end
 
 -------------------------------------
@@ -151,25 +167,6 @@ function UI_UserInfoDetailPopup:refresh()
     self:refresh_title()
 	self:refresh_tamer()
 	self:refresh_dragon()
-end
-
--------------------------------------
--- function refresh_profile
--------------------------------------
-function UI_UserInfoDetailPopup:refresh_profile()
-	local vars = self.vars
-
-	vars['iconNode']:removeAllChildren(true)
-
-	-- 프로필 아이콘 @TODO 임시처리
-	local t_dragon_data = StructDragonObject(self.m_tUserInfo['leader'])
-
-    -- 드래곤 룬 세팅
-    t_dragon_data:setRuneObjects(self.m_tUserInfo['runes'])
-
-	local icon = UI_DragonCard(t_dragon_data)
-	icon.root:setScale(0.9)
-	vars['iconNode']:addChild(icon.root)
 end
 
 -------------------------------------
@@ -195,17 +192,15 @@ function UI_UserInfoDetailPopup:refresh_tamer()
 	vars['tamerNode']:removeAllChildren(true)
 
 	-- 테이머 애니
-	local tamer_id = self.m_tUserInfo['tamer'] or (110000 + math_random(6))
+	local tamer_id = self.m_tUserInfo['tamer']
 	local t_tamer = TableTamer():get(tamer_id)
     if (not t_tamer) then
         error('tamer_id : ' .. tamer_id)
     end
-	local illustration_res = t_tamer['res']
-	local illustration_animator = MakeAnimator(illustration_res)
-	illustration_animator:changeAni('idle', true)
-	illustration_animator:setScale(0.6)
-	illustration_animator.m_node:setPositionY(-150)
-	vars['tamerNode']:addChild(illustration_animator.m_node)
+	local sd_res = t_tamer['res_sd']
+	local sd_animator = MakeAnimator(sd_res)
+	sd_animator:changeAni('idle', true)
+	vars['tamerNode']:addChild(sd_animator.m_node)
 
 	-- 테이머 이름
 	local tamer_name = t_tamer['t_name']
@@ -219,24 +214,15 @@ function UI_UserInfoDetailPopup:refresh_dragon()
 	local vars = self.vars
 
 	vars['dragonNode']:removeAllChildren(true)
-	vars['starNode']:removeAllChildren(true)
 
 	local t_dragon_data = StructDragonObject(self.m_tUserInfo['leader'])
 	local did = t_dragon_data['did']
 	local t_dragon = TableDragon():get(did)
 
-    -- 드래곤 아이콘
-    self:refresh_profile()
-
 	-- 드래곤 애니
 	local animator = AnimatorHelper:makeDragonAnimator(t_dragon['res'], t_dragon_data['evolution'], t_dragon['attr'])
-	animator:setScale(0.7)
 	vars['dragonNode']:addChild(animator.m_node)
 
-	-- 드래곤 별
-	local star_icon = IconHelper:getDragonGradeIcon(t_dragon_data, 2)
-	vars['starNode']:addChild(star_icon)
-	
 	-- 드래곤 이름
 	local dragon_name = t_dragon_data:getDragonNameWithEclv()
 	vars['dragonLabel']:setString(dragon_name)
@@ -247,16 +233,18 @@ end
 -------------------------------------
 function UI_UserInfoDetailPopup:setVisitMode(is_visit)
     local vars = self.vars
-	vars['profileBtn']:setVisible(not is_visit)
 	vars['tamerBtn']:setVisible(not is_visit)
 	vars['dragonBtn']:setVisible(not is_visit)
     vars['titleChangeBtn']:setVisible(not is_visit)
-    
-    -- 콜로세움 팀 보기 버튼은 상대방의 정보 봤을 때만 나옴
-    vars['deckBtn']:setVisible(is_visit)
 
-    -- 미구현
-    vars['profileBtn']:setVisible(false)
+    -- 방문용
+    vars['dragonInfoBtn']:setVisible(is_visit)
+    vars['deckBtn']:setVisible(is_visit)
+    
+    -- 친구신청 버튼
+    local friend_uid = self.m_tUserInfo['uid']
+    local is_friend = g_friendData:isFriend(friend_uid)
+    vars['requestBtn']:setVisible(is_visit and not is_friend)
 end
 
 -------------------------------------
@@ -369,13 +357,6 @@ function UI_UserInfoDetailPopup:click_exitBtn()
 end
 
 -------------------------------------
--- function click_profileBtn
--------------------------------------
-function UI_UserInfoDetailPopup:click_profileBtn()
-	ccdisplay('프로필 버튼은 준비중입니다.')
-end
-
--------------------------------------
 -- function click_tamerBtn
 -------------------------------------
 function UI_UserInfoDetailPopup:click_tamerBtn()
@@ -402,9 +383,6 @@ function UI_UserInfoDetailPopup:click_dragonBtn()
 
 	local function close_cb()
 		local curr_doid = self.m_tUserInfo['leader']['id']
-
-        --cclog('before_doid : ' .. before_doid)
-        --cclog('curr_doid : ' .. curr_doid)
 
 		if (before_doid ~= curr_doid) then
 			self:refresh_dragon()
@@ -458,10 +436,30 @@ function UI_UserInfoDetailPopup:click_titleChangeBtn()
 end
 
 -------------------------------------
+-- function click_clanBtn
+-------------------------------------
+function UI_UserInfoDetailPopup:click_dragonInfoBtn()
+    ccdisplay('드래곤 정보 보기는 구현중입니다.')
+end
+
+-------------------------------------
+-- function click_clanBtn
+-------------------------------------
+function UI_UserInfoDetailPopup:click_clanBtn()
+    if (not self.m_hasClan) then
+        return
+    end
+
+    local clan_object_id = self.m_tUserInfo['clan_info']['id']
+    g_clanData:requestClanInfoDetailPopup(clan_object_id)
+end
+
+-------------------------------------
 -- function click_nicknameCouponBtn
 -- @brief 사전 등록 닉네임
 -------------------------------------
 function UI_UserInfoDetailPopup:click_nicknameCouponBtn()
+--[[
     local ui = UI_CouponPopupPreOccupancyNick:open()
     if (not ui) then
         return
@@ -482,6 +480,7 @@ function UI_UserInfoDetailPopup:click_nicknameCouponBtn()
     end
 
     ui:setCloseCB(close_cb)
+    ]]
 end
 
 

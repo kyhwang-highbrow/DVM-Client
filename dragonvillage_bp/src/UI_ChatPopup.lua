@@ -31,6 +31,10 @@ function UI_ChatPopup:init()
         self:msgQueueCB(msg)
     end
 
+    for i,msg in ipairs(g_clanChatManager.m_lMessage) do
+        self:msgQueueCB_clan(msg)
+    end
+
     self:refresh_connectStatus(g_chatManager:getStatus())
 end
 
@@ -197,11 +201,25 @@ function UI_ChatPopup:msgQueueCB(chat_content)
 end
 
 -------------------------------------
+-- function msgQueueCB_clan
+-------------------------------------
+function UI_ChatPopup:msgQueueCB_clan(chat_content)
+    self.m_mTabUI['clan']:msgQueueCB(chat_content)
+end
+
+-------------------------------------
 -- function refresh_channelName
 -------------------------------------
 function UI_ChatPopup:refresh_channelName(channel_name)
     local str = Str('채널 {1}', channel_name)
     self.vars['sortOrderLabel']:setString(str)
+end
+
+-------------------------------------
+-- function refresh_clanName
+-------------------------------------
+function UI_ChatPopup:refresh_clanName(clan_name)
+    --self.vars['clanNameLabel']:setString(clan_name)
 end
 
 -------------------------------------
@@ -246,10 +264,12 @@ end
 function UI_ChatPopup:initTab()
     self.m_mTabUI = {}
     self.m_mTabUI['whisper'] = UI_ChatPopup_WhisperTab(self)
+    self.m_mTabUI['clan'] = UI_ChatPopup_ClanTab(self)
 
     local vars = self.vars
     self:addTabAuto('general', vars, vars['generalMenu'])
     self:addTabAuto('whisper', vars, vars['whisperMenu'])
+    self:addTabAuto('clan', vars, vars['clanMenu'])
     self:setTab('general')
 end
 
@@ -284,6 +304,8 @@ function UI_ChatPopup:onChangeTab(tab, first)
         g_chatManager:removeNoti('general')
     elseif (tab == 'whisper') then
         g_chatManager:removeNoti('whisper')
+    elseif (tab == 'clan') then
+        g_clanChatManager:removeNoti()
     end
 
     if (tab == 'general') then

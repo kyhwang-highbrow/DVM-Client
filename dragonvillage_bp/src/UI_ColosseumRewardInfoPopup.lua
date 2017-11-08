@@ -8,6 +8,7 @@ UI_ColosseumRewardInfoPopup = class(PARENT,{
 
 UI_ColosseumRewardInfoPopup.RANK = 'rankReward'
 UI_ColosseumRewardInfoPopup.MATCH = 'matchReward'
+UI_ColosseumRewardInfoPopup.CLAN = 'clanReward'
 
 -------------------------------------
 -- function init
@@ -59,6 +60,7 @@ function UI_ColosseumRewardInfoPopup:initTab()
     local vars = self.vars
     self:addTabAuto(UI_ColosseumRewardInfoPopup.RANK, vars, vars['rankRewardNode'])
     self:addTabAuto(UI_ColosseumRewardInfoPopup.MATCH, vars, vars['matchRewardNode'])
+    self:addTabAuto(UI_ColosseumRewardInfoPopup.CLAN, vars, vars['clanRewardNode'])
 
     self:setTab(UI_ColosseumRewardInfoPopup.RANK)
 end

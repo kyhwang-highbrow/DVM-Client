@@ -93,14 +93,32 @@ end
 function UI_ClanSetting:initEditBox()
     local vars = self.vars
 
+    local function check_text(str)
+        local is_ok_word, msg = FilterMsg(str)
+        if (is_ok_word) then
+            return true
+        else
+            MakeSimplePopup(POPUP_TYPE.OK, msg)
+            return false
+        end
+    end
+
     -- intro editBox handler 등록
 	local function intro_event_handler(event_name, p_sender)
         if (event_name == "changed") then
             local editbox = p_sender
             local str = editbox:getText()
-            vars['introduceLabel']:setString(str)
-            self.m_clanIntroText = str
-            self.m_bChangedClanSet = true
+
+            -- 서버에서 ''을 nil과 같이 처리하기 때문에 임의로 공백을 부여
+            if (str == '') then
+                str = ' '
+            end
+
+            if (check_text(str)) then
+                vars['introduceLabel']:setString(str)
+                self.m_clanIntroText = str
+                self.m_bChangedClanSet = true
+            end
         end
     end
     vars['introduceEditBox']:registerScriptEditBoxHandler(intro_event_handler)
@@ -111,9 +129,17 @@ function UI_ClanSetting:initEditBox()
         if (event_name == "changed") then
             local editbox = p_sender
             local str = editbox:getText()
-            vars['noticeLabel']:setString(str)
-            self.m_clanNoticeText = str
-            self.m_bChangedClanSet = true
+
+            -- 서버에서 ''을 nil과 같이 처리하기 때문에 임의로 공백을 부여
+            if (str == '') then
+                str = ' '
+            end
+
+            if (check_text(str)) then
+                vars['noticeLabel']:setString(str)
+                self.m_clanNoticeText = str
+                self.m_bChangedClanSet = true
+            end
         end
     end
     vars['noticeEditBox']:registerScriptEditBoxHandler(notice_event_handler)
@@ -283,8 +309,9 @@ function UI_ClanSetting:click_leaveBtn()
     local finish_cb
 
     ask_func = function()
-        local msg = Str('클랜을 탈퇴하시겠습니까?')
-        MakeSimplePopup(POPUP_TYPE.YES_NO, msg, request_func)
+        local msg = Str('정말 클랜을 탈퇴하시겠습니까?')
+        local msg_sub = Str('(24시간 동안 재가입이 불가능합니다)')
+        MakeSimplePopup2(POPUP_TYPE.YES_NO, msg, msg_sub, request_func)
     end
 
     request_func = function()

@@ -11,6 +11,7 @@ message CLoginReq {
 	optional string did = 6;
 	optional int32 level = 7;
     optional int32 tamerTitleID = 8;
+    optional string json = 9;
 }
 
 message SLoginRes {
@@ -37,6 +38,7 @@ message SUser {
 
     // 테이머 칭호 ID
     optional int32 tamerTitleID = 8;
+    optional string json = 9;
 }
 
 message SLobbyUserList {

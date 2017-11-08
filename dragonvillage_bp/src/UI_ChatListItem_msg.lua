@@ -38,7 +38,7 @@ function UI_ChatListItem_msg:init(chat_content)
 
     -- 말풍선 이미지 크기 적용
     local size = cc.size(0, 0)
-    size['width'] = math_max(label_width + 10, sprite_size['width'])
+    size['width'] = math_max(label_width + 20, sprite_size['width'])
     size['height'] = math_max(label_height, sprite_size['height'])
     vars['chatSprite']:setNormalSize(size)
 

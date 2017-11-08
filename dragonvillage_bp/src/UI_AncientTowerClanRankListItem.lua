@@ -10,11 +10,11 @@ UI_AncientTowerClanRankListItem = class(PARENT, {
 -------------------------------------
 -- function init
 -------------------------------------
-function UI_AncientTowerClanRankListItem:init(struct_rank)
-    self.m_structRank = struct_rank
+function UI_AncientTowerClanRankListItem:init(stuct_data)
+    self.m_structRank = stuct_data
     local vars = self:load('tower_scene_ranking_item_clan.ui')
 
-    if (struct_rank == 'next') then
+    if (stuct_data == 'next') or (stuct_data == 'prev') then
         return
     end
 

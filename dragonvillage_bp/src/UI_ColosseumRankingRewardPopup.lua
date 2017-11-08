@@ -9,7 +9,7 @@ UI_ColosseumRankingRewardPopup = class(PARENT,{
 -------------------------------------
 -- function init
 -------------------------------------
-function UI_ColosseumRankingRewardPopup:init(struct_user_info_colosseum, t_ret)
+function UI_ColosseumRankingRewardPopup:init(t_info, is_clan)
     local vars = self:load('colosseum_ranking_reward_popup.ui')
     UIManager:open(self, UIManager.POPUP)
 
@@ -21,37 +21,57 @@ function UI_ColosseumRankingRewardPopup:init(struct_user_info_colosseum, t_ret)
     self:doActionReset()
     self:doAction(nil, false)
 
-    self:initUI(struct_user_info_colosseum)
+    self:initUI(t_info, is_clan)
     self:initButton()
     self:refresh()
-
-    ItemObtainResult(t_ret)
 end
 
 -------------------------------------
 -- function initUI
 -------------------------------------
-function UI_ColosseumRankingRewardPopup:initUI(struct_user_info_colosseum)
+function UI_ColosseumRankingRewardPopup:initUI(t_info, is_clan)
     local vars = self.vars
+    
+    local struct_data = t_info['rank']
+    local reward_info = t_info['reward_info']
 
-    local info = struct_user_info_colosseum
+    -- 데이터 구성
+    local rank_ui, str_1, str_2
+    if (is_clan) then
+        rank_ui = UI_ColosseumClanRankListItem(struct_data)
+        str_1 = Str('지난 시즌 클랜 랭킹')
+        str_2 = Str('지난 시즌 클랜 랭킹 보상')
 
-    do -- 티어 아이콘
-        local icon = info:makeTierIcon(nil, 'big')
-        vars['tierNode']:addChild(icon)
+    else
+        rank_ui = UI_ColosseumRankListItem(struct_data)
+        str_1 = Str('지난 시즌 개인 랭킹')
+        str_2 = Str('지난 시즌 개인 랭킹 보상')
 
-        vars['tierLabel']:setString(info:getTierName())
     end
+    
+    -- 지난 시즌 랭킹 정보
+    vars['rankNode']:addChild(rank_ui.root)
+    vars['rankLabel']:setString(str_1)
+    vars['rankRewardLabel']:setString(str_2)
 
-    -- 순위 표시
-    vars['rankingLabel']:setString(info:getRankText(true))
+    -- 보상 정보 (UI상 1개의 자리만 배정되어있다 변경시 고탑 참고)
+    if (reward_info) then
+        local reward_cnt = #reward_info
+        for i = 1, reward_cnt do
+            local item_data = reward_info[i]
+            local item_id = item_data['item_id']
+            local item_cnt = item_data['count']
 
+            local icon = IconHelper:getItemIcon(item_id, item_cnt)
+            vars['rewardNode']:addChild(icon)
+            vars['rewardLabel']:setString(comma_value(item_cnt))
 
-    local cash = 0
-    if info.m_userData then
-        cash = info.m_userData['cash'] or 0
+            local item_type = TableItem:getItemType(item_id)
+            if (item_type == 'relation_point') then
+                vars['rewardLabel']:setString('')
+            end
+        end
     end
-    vars['rewardLabel']:setString(comma_value(cash))
 end
 
 -------------------------------------

@@ -312,11 +312,6 @@ function UI_Lobby:refresh_userTamer()
         vars['userNode']:removeAllChildren()
         vars['userNode']:addChild(icon)
     end
-
-    do -- 유저 칭호 갱신
-        local title = g_userData:getTamerTitleStr()
-        vars['userTitleLabel']:setString(title)
-    end
 end
 
 -------------------------------------
@@ -449,6 +444,9 @@ function UI_Lobby:refresh_highlight()
     -- 기타 (도감과 친구의 합)
     local is_etc_noti = (etc_vars['friendNotiSprite']:isVisible() or etc_vars['bookNotiSprite']:isVisible())
     vars['etcNotiSprite']:setVisible(is_etc_noti)
+
+    -- 클랜
+    vars['clanNotiSprite']:setVisible(g_clanData:isHighlightClan())
 end
 
 -------------------------------------
@@ -458,14 +456,28 @@ end
 function UI_Lobby:refresh_userInfo()
    local vars = self.vars
 
-    -- 칭호
+    -- 칭호 + 닉네임
     local title = g_userData:getTamerTitleStr()
-    vars['userTitleLabel']:setString(title)
+    local nick = g_userData:get('nick')
+    local full_name = string.format('{@user_title}%s {@white}%s', title, nick)
+    vars['userNameLabel']:setString(full_name)
 
-    -- 닉네임
-    local nickname = g_userData:get('nick')
-    vars['userNameLabel']:setString(nickname)
+    -- 클랜
+    local struct_clan = g_clanData:getClanStruct()
+    if (struct_clan) then
+        vars['clanLabel']:setVisible(true)
+        vars['markNode']:setVisible(true)
 
+        local clan_name = struct_clan:getClanName()
+        vars['clanLabel']:setString(clan_name)
+
+        local clan_icon = struct_clan:makeClanMarkIcon()
+        vars['markNode']:addChild(clan_icon)
+    else
+        vars['clanLabel']:setVisible(false)
+        vars['markNode']:setVisible(false)
+    end
+    
     -- 레벨
     local lv = g_userData:get('lv')
     vars['userLvLabel']:setString(Str('레벨 {1}', lv))
@@ -674,17 +686,6 @@ end
 -- function click_userInfoBtn
 -------------------------------------
 function UI_Lobby:click_userInfoBtn()
-    -- @ comment mskim
-    -- 로비맵 테이머&드래곤은 채팅서버에 의해 변경되고
-    -- 클라에서 직접 조작할 것은 좌상단 테이머 아이콘뿐
-    -- 매번 교체한다고 하여도 부하가 크지 않으니 가독성을 위해서 항상 교체
-	local function close_cb()
-        self:refresh_userTamer()
-
-        -- 닉네임
-        local nickname = g_userData:get('nick')
-        self.vars['userNameLabel']:setString(nickname)
-	end
     RequestUserInfoDetailPopup(g_userData:get('uid'), false, close_cb) -- uid, is_visit, close_cb
 end
 
@@ -924,9 +925,15 @@ function UI_Lobby:onFocus()
         g_chatManager.m_chatClientSocket:checkRetryConnect()
     end
 
+    -- 클랜 채팅 다시 연결 확인
+    if g_clanChatManager then
+        g_clanChatManager:checkRetryClanChat()
+    end
+
     -- 핫타임 정보 갱신
     self.vars['battleHotSprite']:setVisible(g_hotTimeData:isHighlightHotTime())
 
+    self:refresh_userInfo()
     self:refresh_rightButtons()
 end
 

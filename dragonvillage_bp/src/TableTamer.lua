@@ -95,4 +95,12 @@ function TableTamer:getTamerSDImage(tamer_id)
     return image
 end
 
-    
+-------------------------------------
+-- function getTamerName
+-------------------------------------
+function TableTamer:getTamerName(tamer_id)
+    if (self == THIS) then
+        self = THIS()
+    end
+    return self:getValue(tamer_id, 't_name')
+end

@@ -29,6 +29,7 @@ ServerData_Clan = class({
 
         -- 출석 보상 정보
         m_attdRewardInfo = 'table',
+        m_bAttdRewardNoti = 'bool',
 
         m_clanExitTimeStamp = 'timestamp',
     })
@@ -169,6 +170,9 @@ function ServerData_Clan:request_clanInfo(finish_cb, fail_cb)
         if finish_cb then
             finish_cb(ret)
         end
+
+        -- 클랜 채팅 채널 연결 확인 (창설, 가입, 해체, 탈퇴 후 모두 info를 호출하게 됨)
+        ChatManagerClan:getInstance():checkClanChannel()
     end
 
     -- 네트워크 통신
@@ -763,6 +767,8 @@ function ServerData_Clan:getAttdRewardInfo(clear)
 
     if clear then
         self.m_attdRewardInfo = nil
+        self.m_bAttdRewardNoti = false
+        g_highlightData:setLastUpdateTime()
     end
 
     return reward_info
@@ -902,4 +908,16 @@ function ServerData_Clan:request_setAuthority(finish_cb, fail_cb, member_uid, au
     ui_network:request()
 
     return ui_network
+end
+
+-------------------------------------
+-- function isHighlightClan
+-- @brief
+-------------------------------------
+function ServerData_Clan:isHighlightClan()
+    if self.m_bAttdRewardNoti then
+        return true
+    end
+
+    return false
 end

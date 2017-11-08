@@ -18,8 +18,13 @@ function UI_ChatListItem_systemMsg:init(chat_content)
     local message = ''
     if (content_type == 'enter_channel') then
         local channel = chat_content:getChannelName()
-        local start_ch, end_ch = self:getBroadcastChannelRange(channel)
-        message = Str('{@C}{1}번 채널{@default}에 입장하였습니다.\n{@C}{2}~{3}번 채널{@default}의 유저와 대화를 나눌 수 있습니다.', channel, start_ch, end_ch)
+
+        if (chat_content:getContentCategory() == 'clan') then
+            message = Str('{@C}[{1}]클랜 채널{@default}에 입장하였습니다.\n클랜원들과 대화를 나눌 수 있습니다.', channel)
+        else
+            local start_ch, end_ch = self:getBroadcastChannelRange(channel)
+            message = Str('{@C}{1}번 채널{@default}에 입장하였습니다.\n{@C}{2}~{3}번 채널{@default}의 유저와 대화를 나눌 수 있습니다.', channel, start_ch, end_ch)
+        end
     end
 
     -- 메세지

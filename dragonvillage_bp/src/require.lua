@@ -221,6 +221,7 @@ local t_module = {
 
     'ChatClientSocket',
     'ChatManager',
+    'ChatManagerClan',
     'ChatContent',
     'ChatContentList',
     'BroadcastMgr',
@@ -602,6 +603,7 @@ local t_module = {
     'LobbyShadow',
     'LobbyUserStatusUI',
     'LobbyManager',
+    'LobbyManager_Clan',
     'UI_RewardListPopup',
     'UI_Popup',
     'UI_SimplePopup',
@@ -903,6 +905,7 @@ local t_module = {
 	-- UI : 채팅
 	'UI_ChatPopup',
     'UI_ChatPopup_WhisperTab',
+    'UI_ChatPopup_ClanTab',
     'UI_ChatList',
     'UI_ChatListItem',
     'UI_ChatListItem_msg',

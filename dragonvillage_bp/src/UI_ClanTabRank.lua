@@ -97,7 +97,14 @@ function UI_ClanTabRank:makeRankTableview(tab)
         table_view:setDirection(cc.SCROLLVIEW_DIRECTION_VERTICAL)
         table_view:setItemList(l_rank_list)
 
-        table_view:makeDefaultEmptyDescLabel(Str('현재 클랜 순위를 정산 중입니다. 잠시만 기다려주세요'))
+        -- 정산 문구 분기
+        local empty_str
+        if (g_clanRankData:isSettlingDown()) then
+            empty_str = Str('현재 클랜 순위를 정산 중입니다. 잠시만 기다려주세요.')
+        else
+            empty_str = Str('최초 순위는 자정 이후 집계됩니다.')
+        end
+        table_view:makeDefaultEmptyDescLabel(empty_str)
         self.m_mTableViewMap[tab] = table_view
 
         -- 필요한 경우 테이블 뷰 scroll end callback 등록
