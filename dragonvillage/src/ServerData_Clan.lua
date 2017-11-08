@@ -429,6 +429,22 @@ function ServerData_Clan:request_join(finish_cb, fail_cb, clan_object_id)
         end
     end
 
+    -- 응답 상태 처리 함수
+    local function response_status_cb(ret)
+        -- 클랜원이 가득 찬 경우
+        if (ret['status'] == -1401) then -- full user
+            local msg = Str('더 이상 가입할 수 없는 클랜입니다.')
+            MakeSimplePopup(POPUP_TYPE.OK, msg)
+            return true
+        -- 클랜이 현시점에 존재하지 않는 경우
+        elseif (ret['status'] == -1103) then
+            local msg = Str('더 이상 가입할 수 없는 클랜입니다.')
+            MakeSimplePopup(POPUP_TYPE.OK, msg)
+            return true
+        end
+        return false
+    end
+
     -- 네트워크 통신
     local ui_network = UI_Network()
     ui_network:setUrl('/clans/join')
@@ -437,6 +453,7 @@ function ServerData_Clan:request_join(finish_cb, fail_cb, clan_object_id)
     ui_network:setMethod('POST')
     ui_network:setSuccessCB(success_cb)
     ui_network:setFailCB(fail_cb)
+    ui_network:setResponseStatusCB(response_status_cb)
     ui_network:setRevocable(true)
     ui_network:setReuse(false)
     ui_network:request()
