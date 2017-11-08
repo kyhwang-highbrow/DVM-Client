@@ -60,9 +60,9 @@ function GetChatServerUrl()
 end
 
 -- Clan Chatting server 
-URL['CLAN_CHAT_DEV'] = '192.168.1.105:3927'
-URL['CLAN_CHAT_QA'] = '192.168.1.105:3927'
-URL['CLAN_CHAT_LIVE'] = '192.168.1.105:3927'
+URL['CLAN_CHAT_DEV'] = 'dv-test.perplelab.com:9014'
+URL['CLAN_CHAT_QA'] = 'dv-qa.perplelab.com:9014'
+URL['CLAN_CHAT_LIVE'] = 'dvm-ch1.perplelab.com:2223'
 function GetClanChatServerUrl()
     local target_server = CppFunctions:getTargetServer()
     local key = 'CLAN_CHAT_' .. target_server
