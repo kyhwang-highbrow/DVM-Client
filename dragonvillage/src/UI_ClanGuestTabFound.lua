@@ -8,6 +8,7 @@ local MAX_CLAN_NAME = 10
 -- @brief 드래곤 조합
 -------------------------------------
 UI_ClanGuestTabFound = class(PARENT,{
+        m_ownerUI = '',
         vars = '',
     })
 
@@ -15,6 +16,7 @@ UI_ClanGuestTabFound = class(PARENT,{
 -- function init
 -------------------------------------
 function UI_ClanGuestTabFound:init(owner_ui)
+    self.m_ownerUI = owner_ui
     self.root = owner_ui.vars['foundMenu']
     self.vars = owner_ui.vars
     
@@ -29,6 +31,9 @@ function UI_ClanGuestTabFound:onEnterTab(first)
         self:initUI()
     end
 
+    -- 클랜 창설 UI에서 진입 연출을 위해 추가
+    self.m_ownerUI:doActionReset()
+    self.m_ownerUI:doAction()
     --self.m_ownerUI:showNpc() -- NPC 등장
 end
 
