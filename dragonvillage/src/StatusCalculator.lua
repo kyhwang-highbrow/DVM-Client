@@ -151,6 +151,9 @@ function StatusCalculator:getFinalStat(stat_type)
     -- 공속(aspd)값은 최소값을 50으로 고정
     if (stat_type == 'aspd') then
         final_stat = math_max(final_stat, 50)
+    elseif (stat_type == 'dmg_adj_rate') then
+        final_stat = math_max(final_stat, -80)
+
     -- 특정 타입의 스텟들은 제외한 나머지는 최소값을 0으로 처리
     elseif (not M_SPECIAL_STATUS_TYPE[stat_type]) then
         final_stat = math_max(final_stat, 0)
