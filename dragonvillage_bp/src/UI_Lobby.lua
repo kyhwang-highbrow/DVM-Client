@@ -62,10 +62,6 @@ function UI_Lobby:initUI()
     self.vars['extendedNode']:addChild(ui.m_node)
 
     self:initLobbyWorldAdapter()
-
-    -- 테이머 아이콘 갱신
-    self:refresh_userTamer()
-
     g_topUserInfo:clearBroadcast()
 end
 
@@ -301,20 +297,6 @@ function UI_Lobby:initLobbyWorldAdapter()
 end
 
 -------------------------------------
--- function refresh_userTamer
--- @breif 유저의 로비맵 테이머를 갱신한다
--------------------------------------
-function UI_Lobby:refresh_userTamer()
-    local vars = self.vars
-    do -- 테이머 아이콘 갱신
-        local type = g_tamerData:getCurrTamerTable('type')
-        local icon = IconHelper:getTamerProfileIcon(type)
-        vars['userNode']:removeAllChildren()
-        vars['userNode']:addChild(icon)
-    end
-end
-
--------------------------------------
 -- function initButton
 -------------------------------------
 function UI_Lobby:initButton()
@@ -475,6 +457,13 @@ function UI_Lobby:refresh_userInfo()
         else
             vars['userNameLabel']:setScale(1)
         end
+    end
+
+    do -- 테이머 아이콘 갱신
+        local type = g_tamerData:getCurrTamerTable('type')
+        local icon = IconHelper:getTamerProfileIcon(type)
+        vars['userNode']:removeAllChildren()
+        vars['userNode']:addChild(icon)
     end
 
     -- 클랜
@@ -710,7 +699,7 @@ end
 function UI_Lobby:click_tamerBtn()
     -- @ comment click_userInfoBtn의 주석과 동일
 	local function close_cb()
-		self:refresh_userTamer()
+		self:refresh_userInfo()
 	end
 	UI_TamerManagePopup():setCloseCB(close_cb)
 end

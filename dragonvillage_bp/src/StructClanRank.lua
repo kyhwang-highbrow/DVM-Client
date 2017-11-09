@@ -79,6 +79,13 @@ end
 -------------------------------------
 -- function getMasterNick
 -------------------------------------
+function StructClanRank:getRank()
+    return self['rank'] or 9999
+end
+
+-------------------------------------
+-- function getMasterNick
+-------------------------------------
 function StructClanRank:getClanRank()
     local rank = self['rank']
     if (not rank) or (rank <= 0) then

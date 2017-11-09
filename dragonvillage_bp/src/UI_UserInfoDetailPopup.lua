@@ -403,15 +403,12 @@ end
 -- function click_tamerBtn
 -------------------------------------
 function UI_UserInfoDetailPopup:click_tamerBtn()
-	local before_tamer = g_tamerData:getCurrTamerTable('tid')
-
 	local function close_cb()
-		local curr_tamer = g_tamerData:getCurrTamerTable('tid')
-
-		if (before_tamer ~= curr_tamer) then
-			self.m_tUserInfo['tamer'] = curr_tamer
-			self:refresh_tamer()
-		end
+        self.m_tUserInfo['tamer'] = g_tamerData:getCurrTamerID()
+        if (self.m_tUserInfo['tamer_info']) then
+            self.m_tUserInfo['tamer_info']['costume'] = g_tamerCostumeData:getCostumeID()
+        end
+        self:refresh_tamer()
 	end
 
     local ui = UI_TamerManagePopup()

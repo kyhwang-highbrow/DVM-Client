@@ -7,12 +7,13 @@ local PARENT = class(UI_IndivisualTab, ITabUI:getCloneTable())
 UI_ClanTabRank = class(PARENT,{
         vars = '',
         m_mTableViewMap = 'Map<string, UIC_TableView>',
+        m_mOffsetMap = 'number',
     })
 
 UI_ClanTabRank.TAB_ANCT = CLAN_RANK['ANCT']
 UI_ClanTabRank.TAB_CLSM = CLAN_RANK['CLSM']
 
-local OFFSET_GAP = 20
+local CLAN_OFFSET_GAP = 20
 
 -------------------------------------
 -- function init
@@ -21,6 +22,7 @@ function UI_ClanTabRank:init(owner_ui)
     self.root = owner_ui.vars['rankMenu']
     self.vars = owner_ui.vars
     self.m_mTableViewMap = {}
+    self.m_mOffsetMap = {}
 end
 
 -------------------------------------
@@ -64,19 +66,25 @@ end
 -- function onChangeTab
 -------------------------------------
 function UI_ClanTabRank:onChangeTab(tab, first)
-    if (first) then 
-        local rank_type = tab
-        local offset = 1
-        local cb_func = function()
-            self:makeRankTableview(tab)
-            self:makeMyRank(tab)
-        end
-        g_clanRankData:request_getRank(rank_type, offset, cb_func)
+    if (first) then
+        self.m_mOffsetMap[tab] = 1
+        self:request_clanRank()
         return
     end
+end
 
-    -- 내랭킹은 계속 교체한다
-    self:makeMyRank(tab)
+-------------------------------------
+-- function request_clanRank
+-------------------------------------
+function UI_ClanTabRank:request_clanRank()
+    local rank_type = self.m_currTab
+    local offset = self.m_mOffsetMap[rank_type]
+    local cb_func = function()
+        -- 최초 생성
+        self:makeMyRank(rank_type)
+        self:makeRankTableview(rank_type)
+    end
+    g_clanRankData:request_getRank(rank_type, offset, cb_func)
 end
 
 -------------------------------------
@@ -87,15 +95,79 @@ function UI_ClanTabRank:makeRankTableview(tab)
 	local node = t_tab_data['tab_node_list'][1]
 	local l_rank_list = g_clanRankData:getRankData(tab)
 
+    -- 이전 보기 추가
+    if (1 < self.m_mOffsetMap[tab]) then
+        l_rank_list['prev'] = 'prev'
+    end
+
+    -- 다음 보기 추가.. 
+    if (#l_rank_list > 0) then
+        l_rank_list['next'] = 'next'
+    end
+        
+    -- 이전 랭킹 보기
+    local function click_prevBtn()
+        self.m_mOffsetMap[tab] = math_max(self.m_mOffsetMap[tab] - CLAN_OFFSET_GAP, 1)
+        self:request_clanRank()
+    end
+
+    -- 다음 랭킹 보기
+    local function click_nextBtn()
+        if (table.count(l_rank_list) < CLAN_OFFSET_GAP) then
+            MakeSimplePopup(POPUP_TYPE.OK, Str('다음 랭킹이 존재하지 않습니다.'))
+            return
+        end
+        self.m_mOffsetMap[tab] = self.m_mOffsetMap[tab] + CLAN_OFFSET_GAP
+        self:request_clanRank()
+    end
+
+    -- 생성 콜백
+    local function create_func(ui, data)
+        if (data == 'prev') then
+            ui.vars['prevBtn']:setVisible(true)
+            ui.vars['itemMenu']:setVisible(false)
+            ui.vars['prevBtn']:registerScriptTapHandler(click_prevBtn)
+        elseif (data == 'next') then
+            ui.vars['nextBtn']:setVisible(true)
+            ui.vars['itemMenu']:setVisible(false)
+            ui.vars['nextBtn']:registerScriptTapHandler(click_nextBtn)
+        end
+    end
+
 	do -- 테이블 뷰 생성
         node:removeAllChildren()
 
         -- 테이블 뷰 인스턴스 생성
         local table_view = UIC_TableView(node)
         table_view.m_defaultCellSize = cc.size(1000, 100 + 5)
-        table_view:setCellUIClass(UI_ClanTabRank.makeRankCell, nil)
+        table_view:setCellUIClass(UI_ClanTabRank.makeRankCell, create_func)
         table_view:setDirection(cc.SCROLLVIEW_DIRECTION_VERTICAL)
         table_view:setItemList(l_rank_list)
+
+        do-- 테이블 뷰 정렬
+            local function sort_func(a, b)
+                local a_data = a['data']
+                local b_data = b['data']
+
+                -- 이전, 다음 버튼 정렬
+                if (a_data == 'prev') then
+                    return true
+                elseif (b_data == 'prev') then
+                    return false
+                elseif (a_data == 'next') then
+                    return false
+                elseif (b_data == 'next') then
+                    return true
+                end
+
+                -- 랭킹으로 선별
+                local a_rank = a_data:getRank()
+                local b_rank = b_data:getRank()
+                return a_rank < b_rank
+            end
+
+            table.sort(table_view.m_itemList, sort_func)
+        end
 
         -- 정산 문구 분기
         local empty_str
@@ -106,41 +178,7 @@ function UI_ClanTabRank:makeRankTableview(tab)
         end
         table_view:makeDefaultEmptyDescLabel(empty_str)
         self.m_mTableViewMap[tab] = table_view
-
-        -- 필요한 경우 테이블 뷰 scroll end callback 등록
-	    if (table.count(l_rank_list) >= OFFSET_GAP) then
-		    table_view:setScrollEndCB(function() self:onScrollEnd() end)
-	    end
     end
-end
-
--------------------------------------
--- function onScrollEnd
--- @brief 다음 OFFSET_GAP개 게시물을 가져온다.
--------------------------------------
-function UI_ClanTabRank:onScrollEnd()
-
-    local rank_type = self.m_currTab
-    local offset = g_clanRankData:getOffset(rank_type) + OFFSET_GAP
-
-	local function cb_func(t_ret)
-        local table_view = self.m_mTableViewMap[rank_type]
-
-		-- 랭킹이 있는 경우 추가
-		if (table.count(t_ret['list']) > 0) then
-            local l_rank_list = g_clanRankData:getRankData(rank_type)
-			table_view:addItemList(l_rank_list)
-            table_view:setDirtyItemList()
-
-		-- 랭킹이 없는 경우 콜백 해제
-		else
-			table_view:setScrollEndCB(nil)
-			table_view:setDirtyItemList()
-
-		end
-	end
-
-	g_clanRankData:request_getRank(rank_type, offset, cb_func)
 end
 
 -------------------------------------
@@ -161,6 +199,12 @@ function UI_ClanTabRank.makeRankCell(t_data)
 	local ui = class(UI, ITableViewCell:getCloneTable())()
 	local vars = ui:load('clan_rank_item.ui')
     if (not t_data) then
+        return ui
+    end
+    if (t_data == 'next') then
+        return ui
+    end
+    if (t_data == 'prev') then
         return ui
     end
 

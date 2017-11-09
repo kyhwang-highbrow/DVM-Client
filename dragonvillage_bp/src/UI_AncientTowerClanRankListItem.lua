@@ -64,7 +64,7 @@ function UI_AncientTowerClanRankListItem:refresh()
 
     -- 클랜 마스터
     local clan_master = struct_clan_rank:getMasterNick()
-    vars['masterLabel']:setString(clan_name)
+    vars['masterLabel']:setString(clan_master)
 
     -- 점수
     local clan_score = struct_clan_rank:getClanScore()

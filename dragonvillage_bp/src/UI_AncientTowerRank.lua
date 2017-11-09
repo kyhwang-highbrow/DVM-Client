@@ -309,9 +309,10 @@ function UI_AncientTowerRank:init_clanRankingTableView()
         node:removeAllChildren()
 
         local l_item_list = g_clanRankData:getRankData(CLAN_RANK['ANCT'])
-                -- 이전 보기 추가
+        
+        -- 이전 보기 추가
         if (1 < self.m_clanRankOffset) then
-            l_rank_list['prev'] = 'prev'
+            l_item_list['prev'] = 'prev'
         end
 
         -- 다음 보기 추가.. 
@@ -322,7 +323,7 @@ function UI_AncientTowerRank:init_clanRankingTableView()
         -- 이전 랭킹 보기
         local function click_prevBtn()
             self.m_clanRankOffset = math_max(self.m_clanRankOffset - CLAN_OFFSET_GAP, 1)
-            self:request_rank()
+            self:request_clanRank()
         end
         -- 다음 랭킹 보기
         local function click_nextBtn()
@@ -338,9 +339,11 @@ function UI_AncientTowerRank:init_clanRankingTableView()
         local function create_func(ui, data)
             if (data == 'prev') then
                 ui.vars['prevBtn']:setVisible(true)
+                ui.vars['itemMenu']:setVisible(false)
                 ui.vars['prevBtn']:registerScriptTapHandler(click_prevBtn)
             elseif (data == 'next') then
                 ui.vars['nextBtn']:setVisible(true)
+                ui.vars['itemMenu']:setVisible(false)
                 ui.vars['nextBtn']:registerScriptTapHandler(click_nextBtn)
             end
         end
@@ -369,8 +372,8 @@ function UI_AncientTowerRank:init_clanRankingTableView()
                 end
 
                 -- 랭킹으로 선별
-                local a_rank = a_data:getClanRank()
-                local b_rank = b_data:getClanRank()
+                local a_rank = a_data:getRank()
+                local b_rank = b_data:getRank()
                 return a_rank < b_rank
             end
 
@@ -378,7 +381,14 @@ function UI_AncientTowerRank:init_clanRankingTableView()
         end
 
         self.m_clanRankTableView = table_view
-        table_view:makeDefaultEmptyDescLabel(Str('랭킹 정보가 없습니다.'))
+        -- 정산 문구 분기
+        local empty_str
+        if (g_clanRankData:isSettlingDown()) then
+            empty_str = Str('현재 클랜 순위를 정산 중입니다. 잠시만 기다려주세요.')
+        else
+            empty_str = Str('최초 순위는 자정 이후 집계됩니다.')
+        end
+        table_view:makeDefaultEmptyDescLabel(empty_str)
     end
 end
 

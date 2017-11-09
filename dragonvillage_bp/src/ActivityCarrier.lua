@@ -202,6 +202,12 @@ function ActivityCarrier:cloneForMissile()
 	
 	activity_carrier.m_activityCarrierOwner = self.m_activityCarrierOwner
 	activity_carrier.m_attribute = self.m_attribute
+
+    activity_carrier:setAtkDmgStat(self.m_atkDmgStat)
+    activity_carrier:setAttackType(self.m_realAttackType)
+    activity_carrier:setSkillId(self.m_skillId)
+    activity_carrier:setSkillHitCount(self.m_skillHitCount)
+    activity_carrier:setPowerRate(self.m_skillCoefficient)
 	
 	activity_carrier.m_lFinalStat = clone(self.m_lFinalStat)
 
