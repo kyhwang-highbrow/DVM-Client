@@ -729,15 +729,15 @@ function Character:undergoAttack(attacker, defender, i_x, i_y, body_key, no_even
 
                 local rate = math_max(cri_dmg_adj_rate, -1)
                 damage_multifly = damage_multifly * (1 + rate)
+
+                -- 치명타시 추가 피해량 증가
+                if (attack_add_cri_dmg > 0) then
+                    local rate = attack_add_cri_dmg / 100
+                
+                    damage_multifly = damage_multifly * (1 + rate)
+                end
             end
 
-            -- 치명타시 피해량 증감2(스킬 테이블)
-            if (attack_add_cri_dmg > 0) then
-                local rate = attack_add_cri_dmg / 100
-                
-                damage_multifly = damage_multifly * (1 + rate)
-            end
-            
             -- 특정 조건에 따른 피해량 증감
             do
                 -- (피격/공격)시 상대가 (특정 상태효과)를 가진 적이면 피해량 증가
