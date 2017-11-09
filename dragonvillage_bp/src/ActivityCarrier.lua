@@ -14,6 +14,9 @@ ActivityCarrier = class({
         -- 스킬 계수
         m_skillCoefficient = 'number',
 
+        -- 스킬 치명타시 추가 계수
+        m_skillAddCriCoefficient = 'number',
+
         -- 스킬 추가 공격력
         m_skillAddAtk = 'number',
 
@@ -41,6 +44,7 @@ function ActivityCarrier:init()
     self.m_lFinalStat = {}
     self.m_skillId = nil
     self.m_skillCoefficient = 100
+    self.m_skillAddCriCoefficient = 0
     self.m_skillAddAtk = 0
     self.m_skillHitCount = 1
     self.m_lStatusEffectRate = {}
@@ -208,6 +212,7 @@ function ActivityCarrier:cloneForMissile()
     activity_carrier:setSkillId(self.m_skillId)
     activity_carrier:setSkillHitCount(self.m_skillHitCount)
     activity_carrier:setPowerRate(self.m_skillCoefficient)
+    activity_carrier:setAddCriPowerRate(self.m_skillAddCriCoefficient)
 	
 	activity_carrier.m_lFinalStat = clone(self.m_lFinalStat)
 
@@ -313,6 +318,24 @@ end
 -------------------------------------
 function ActivityCarrier:getPowerRate()
 	return self.m_skillCoefficient
+end
+
+-------------------------------------
+-- function setAddCriPowerRate
+-------------------------------------
+function ActivityCarrier:setAddCriPowerRate(power_rate)
+    if (not power_rate) or (power_rate == '') then
+        return
+    end
+
+	self.m_skillAddCriCoefficient = power_rate or 0
+end
+
+-------------------------------------
+-- function getAddCriPowerRate
+-------------------------------------
+function ActivityCarrier:getAddCriPowerRate()
+	return self.m_skillAddCriCoefficient
 end
 
 -------------------------------------

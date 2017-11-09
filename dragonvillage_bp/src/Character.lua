@@ -475,6 +475,7 @@ function Character:undergoAttack(attacker, defender, i_x, i_y, body_key, no_even
 	local attack_activity_carrier = attacker.m_activityCarrier
     local attacker_char = attack_activity_carrier:getActivityOwner()
     local attack_type, real_attack_type = attack_activity_carrier:getAttackType()
+    local attack_add_cri_dmg = attack_activity_carrier:getAddCriPowerRate()
     local attack_hit_count = attack_activity_carrier:getSkillHitCount()
     local is_critical = nil
     local is_indicator_critical = attack_activity_carrier:getCritical()
@@ -727,6 +728,13 @@ function Character:undergoAttack(attacker, defender, i_x, i_y, body_key, no_even
                 cri_dmg_adj_rate = (attack_activity_carrier:getStat('cri_dmg_adj_rate') or 0) / 100
 
                 local rate = math_max(cri_dmg_adj_rate, -1)
+                damage_multifly = damage_multifly * (1 + rate)
+            end
+
+            -- 치명타시 피해량 증감2(스킬 테이블)
+            if (attack_add_cri_dmg > 0) then
+                local rate = attack_add_cri_dmg / 100
+                
                 damage_multifly = damage_multifly * (1 + rate)
             end
             

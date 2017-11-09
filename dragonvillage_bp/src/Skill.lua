@@ -17,6 +17,7 @@ Skill = class(PARENT, {
 		m_chanceType = 'str',  -- 스킬 종류.. active or basic etc.
 
 		m_powerRate = 'num',
+        m_addCriPowerRate = 'num',
 		m_powerAbs = 'num',
 		m_powerSource = 'str',
 		m_powerIgnore = 'str',  -- 피격대상 특정 스탯 무시 
@@ -111,6 +112,7 @@ function Skill:initActvityCarrier()
     self.m_activityCarrier:setSkillId(self.m_skillId)
     self.m_activityCarrier:setSkillHitCount(self.m_skillHitCount)
     self.m_activityCarrier:setPowerRate(self.m_powerRate)
+    self.m_activityCarrier:setAddCriPowerRate(self.m_addCriPowerRate)
     self.m_activityCarrier:setAbsAttack(self.m_powerAbs)
     self.m_activityCarrier:setCritical(self.m_critical)
 
@@ -247,6 +249,7 @@ function Skill:setSkillParams(owner, t_skill, t_data)
     self.m_world = owner.m_world
 	
 	self.m_powerRate = SkillHelper:getValid(t_skill['power_rate'], 0)
+    self.m_addCriPowerRate = SkillHelper:getValid(t_skill['critical_damage_add'])
     self.m_powerAbs = SkillHelper:getValid(t_skill['power_add'], 0)
 	self.m_powerSource  = SkillHelper:getValid(t_skill['power_source'], 'atk')
 	self.m_powerIgnore = SkillHelper:getValid(t_skill['ignore'])

@@ -16,6 +16,7 @@ CommonMissile = class(PARENT, {
 		m_activityCarrier = 'AttackDamage',
         m_skillId = 'num',
 		m_powerRate = 'num',
+        m_addCriPowerRate = 'num',
         m_powerSource = '',
 		m_chanceType = 'str',
 		m_lStatusEffect = 'List<StructStatusEffect>',
@@ -54,6 +55,7 @@ function CommonMissile:initCommonMissile(owner, t_skill)
 
     self.m_skillId = t_skill['sid']
 	self.m_powerRate = t_skill['power_rate']
+    self.m_addCriPowerRate = t_skill['critical_damage_add']
     self.m_powerSource = t_skill['power_source']
 	self.m_chanceType = t_skill['chance_type']
 	self.m_targetType = t_skill['target_type']
@@ -91,6 +93,7 @@ function CommonMissile:initActvityCarrier()
     self.m_activityCarrier:setSkillId(self.m_skillId)
     self.m_activityCarrier:setSkillHitCount(self.m_maxFireCnt)
     self.m_activityCarrier:setPowerRate(self.m_powerRate)
+    self.m_activityCarrier:setAddCriPowerRate(self.m_addCriPowerRate)
     self.m_activityCarrier:setAtkDmgStat(self.m_powerSource)
 	self.m_activityCarrier:setAttackType(self.m_chanceType)
     self.m_activityCarrier:insertStatusEffectRate(self.m_lStatusEffect)
