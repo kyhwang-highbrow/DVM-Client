@@ -968,8 +968,8 @@ end
 -------------------------------------
 function SceneGame:applicationDidEnterBackground()
 	if (not self.m_bPause) and (self.m_gameWorld) and (not self.m_gameWorld:isFinished()) then
-        if (self.m_world.m_skillIndicatorMgr) then
-            self.m_world.m_skillIndicatorMgr:clear(true)
+        if (self.m_gameWorld.m_skillIndicatorMgr) then
+            self.m_gameWorld.m_skillIndicatorMgr:clear(true)
         end
 		self.m_inGameUI:click_pauseButton()
 	end
