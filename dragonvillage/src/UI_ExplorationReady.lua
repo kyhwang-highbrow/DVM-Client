@@ -232,7 +232,10 @@ function UI_ExplorationReady:click_dragonBtn(doid, skip_msg)
 
 
         local item = table_view_td:getItem(doid)
-        local ui = item['ui']
+        local ui = nil
+        if item then
+            ui = item['ui']
+        end
         if ui then
             ui:setCheckSpriteVisible(true)
         end
@@ -253,7 +256,10 @@ function UI_ExplorationReady:click_dragonBtn(doid, skip_msg)
     -- 해제
     else
         local item = table_view_td:getItem(doid)
-        local ui = item['ui']
+        local ui = nil
+        if item then
+            ui = item['ui']
+        end
         if ui then
             ui:setCheckSpriteVisible(false)
 
