@@ -488,11 +488,18 @@ function Character:undergoAttack(attacker, defender, i_x, i_y, body_key, no_even
     -- 공격력 및 방어력 정보
     local org_atk_dmg = attack_activity_carrier:getAtkDmg(defender)
     local org_def_pwr = self:getStat('def')
-    local reflex_skill = self:getStat('reflex_skill')
-    local reflex_normal = self:getStat('reflex_normal')
-
     local damage = 0
 
+    -- 반사 정보
+    local reflex_damage = 0
+    local reflex_rate = 0
+
+    if (attack_type == 'active') then 
+        reflex_rate = math_max(self:getStat('reflex_skill'), 0) / 100             
+    else
+        reflex_rate = math_max(self:getStat('reflex_normal'), 0) / 100
+    end
+    
     if (self.m_isProtected) then
         self:makeShieldFont(i_x, i_y)
         return
@@ -748,16 +755,7 @@ function Character:undergoAttack(attacker, defender, i_x, i_y, body_key, no_even
 
             -- 피해 반사에 따른 받는 피해 감소
             do
-                local rate = 0
-
-                if (attack_type == 'active') then 
-                    rate = -math_max(reflex_skill, 0) / 100
-                    
-                else
-                    rate = -math_max(reflex_normal, 0) / 100
-                end
-
-                damage_multifly = damage_multifly * (1 + rate)
+                damage_multifly = damage_multifly * (1 - reflex_rate)
             end
 
             -- 강타일 경우 피해 증가
@@ -805,9 +803,14 @@ function Character:undergoAttack(attacker, defender, i_x, i_y, body_key, no_even
         if (damage ~= damage) then
             damage = 0
         end
-        
+
         -- 최소 데미지 1로 처리
         damage = math_max(damage, 1)
+
+        -- 반사 데미지 계산
+        if (reflex_rate > 0) then
+            reflex_damage = damage * reflex_rate
+        end
 
         -- @DEBUG
 	    if (use_debug_log) then
@@ -889,35 +892,20 @@ function Character:undergoAttack(attacker, defender, i_x, i_y, body_key, no_even
 
     if (not no_event and attacker_char) then
         -- 공격자 반사 데미지 처리
-        if (damage > 0) then
-            local reflex_damage
-
-            if (attack_type == 'active') then 
-                if (reflex_skill > 0) then
-                    reflex_damage = damage * (reflex_skill / 100)
-                end
+        if (reflex_damage > 0) then
+            -- 진형에 따른 데미지 배율 적용
+            reflex_damage = reflex_damage * CalcDamageRateDueToFormation(attacker_char)
+            -- 최대 데미지(최대 체력 / 히트수)값을 넘지 않도록
+            if (IS_NEW_BALANCE_VERSION()) then
             else
-                if (reflex_normal > 0) then
-                    reflex_damage = damage * (reflex_normal / 100)
-                end
+                reflex_damage = math_min(reflex_damage, self.m_maxHp / attack_hit_count)
             end
-
-            if (reflex_damage) then
-                -- 진형에 따른 데미지 배율 적용
-                reflex_damage = reflex_damage * CalcDamageRateDueToFormation(attacker_char)
-                -- 최대 데미지(최대 체력 / 히트수)값을 넘지 않도록
-                if (IS_NEW_BALANCE_VERSION()) then
-                    reflex_damage = math_min(reflex_damage, self.m_maxHp)
-                else
-                    reflex_damage = math_min(reflex_damage, self.m_maxHp / attack_hit_count)
-                end
-                -- 최소 데미지 1로 처리
-                reflex_damage = math_max(reflex_damage, 1)
+            -- 최소 데미지 1로 처리
+            reflex_damage = math_max(reflex_damage, 1)
                 
-                attacker_char:setDamage(nil, attacker_char, attacker_char.pos.x, attacker_char.pos.y, reflex_damage)
-            end
+            attacker_char:setDamage(nil, attacker_char, attacker_char.pos.x, attacker_char.pos.y, reflex_damage)
         end
-
+        
         -- 공격자 HP 흡수 처리
         local hp_drain = attacker_char:getStat('hp_drain')
         if (hp_drain > 0) then
