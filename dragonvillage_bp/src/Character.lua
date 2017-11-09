@@ -762,8 +762,11 @@ function Character:undergoAttack(attacker, defender, i_x, i_y, body_key, no_even
             end
 
             -- 피해 반사에 따른 받는 피해 감소
-            do
+            if (reflex_rate > 0) then
                 damage_multifly = damage_multifly * (1 - reflex_rate)
+
+                -- 반사 데미지 계산
+                reflex_damage = damage * reflex_rate
             end
 
             -- 강타일 경우 피해 증가
@@ -814,12 +817,7 @@ function Character:undergoAttack(attacker, defender, i_x, i_y, body_key, no_even
 
         -- 최소 데미지 1로 처리
         damage = math_max(damage, 1)
-
-        -- 반사 데미지 계산
-        if (reflex_rate > 0) then
-            reflex_damage = damage * reflex_rate
-        end
-
+        
         -- @DEBUG
 	    if (use_debug_log) then
             cclog('------------------------------------------------------')
