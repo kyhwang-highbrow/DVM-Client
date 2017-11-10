@@ -61,9 +61,13 @@ end
 
 -------------------------------------
 -- function setMyRankData
+-- @brief 최초 한번만 받고 계속 저장하고 있는다
 -------------------------------------
 function ServerData_ClanRank:setMyRankData(rank_type, rank_data)
     if (not rank_data) then
+        return
+    end
+    if (self.m_mMyRankingMap[rank_type]) then
         return
     end
 
@@ -92,7 +96,6 @@ end
 -------------------------------------
 function ServerData_ClanRank:initRankData(rank_type)
     self.m_mRankingMap[rank_type] = {}
-    self.m_mMyRankingMap[rank_type] = nil
 end
 
 -------------------------------------
