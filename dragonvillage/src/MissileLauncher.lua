@@ -107,11 +107,6 @@ function MissileLauncher:init_missileLauncher(t_skill, object_key, activity_carr
             self.m_tAttackPattern[idx] = {}
         end
         table.insert(self.m_tAttackPattern[idx], i)
-	
-		-- script 상의 상태효과 추가
-		if v['status_effect'] then 
-			--self.m_activityCarrier:insertStatusEffectRate({v['status_effect']})
-		end
     end
 
 	-- 상태 효과 적용
@@ -167,11 +162,6 @@ function MissileLauncher:init_missileLauncherByScript(script_data, object_key, a
         end
 
         table.insert(self.m_tAttackPattern[idx], i)
-
-		-- script 상의 상태효과 추가
-		if v['status_effect'] then 
-			--self.m_activityCarrier:insertStatusEffectRate({v['status_effect']})
-		end
     end
 
     -- 미사일 패턴 초기화
@@ -405,7 +395,14 @@ function MissileLauncher:fireMissile(owner, attack_idx, depth, dir_add, offset_a
     local offset_y = attack_value['offset'][2]
     local physics_body = attack_value.body -- x, y, radius
     local speed = attack_value.speed or 0
+    local damage_rate
 
+    if (IS_NEW_BALANCE_VERSION()) then
+        damage_rate = attack_value['damage_rate'] or 100
+        damage_rate = damage_rate / 100 * self.m_activityCarrier:getPowerRate()
+    else
+        damage_rate = attack_value['damage_rate'] or self.m_activityCarrier:getPowerRate()
+    end
 	
     if (not attack_value.dir_array) then
         attack_value.dir_array = {0}
@@ -476,8 +473,8 @@ function MissileLauncher:fireMissile(owner, attack_idx, depth, dir_add, offset_a
 		    t_option['h_limit_speed'] =		attack_value.h_limit_speed
 		    t_option['scale'] =				attack_value.scale
 		    t_option['physics_body'] =		physics_body
-		    t_option['attack_damage'] =		(not attack_value.nodamage) and (not attack_value.gold) and owner.m_activityCarrier
-		    t_option['damage_rate'] =		attack_value.damage_rate or self.m_activityCarrier:getPowerRate()
+		    t_option['attack_damage'] =		(not attack_value['nodamage']) and owner.m_activityCarrier:cloneForMissile()
+		    t_option['damage_rate'] =		damage_rate
 		    t_option['accel'] =				attack_value.accel
 		    t_option['accel_delay'] =		attack_value.accel_delay
 		    t_option['accel_reverse_time']=	attack_value.accel_reverse_time

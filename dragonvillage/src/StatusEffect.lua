@@ -129,7 +129,7 @@ function StatusEffect:init_top(file_name)
     if (not self.m_animator) then return end
 
     local list = self.m_animator:getVisualList()
-    if (table.find(list, 'top_idle')) then
+    if (list and table.find(list, 'top_idle')) then
         self.m_topEffect = MakeAnimator(file_name)
         self.m_topEffect:setPosition(0, 80)
         self.m_rootNode:addChild(self.m_topEffect.m_node)
