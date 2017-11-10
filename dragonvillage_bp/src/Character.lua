@@ -805,6 +805,11 @@ function Character:undergoAttack(attacker, defender, i_x, i_y, body_key, no_even
             end
             
             damage_multifly = damage_multifly + dmg_adj_rate
+
+            -- 반사 데미지 계산
+            if (reflex_rate > 0) then
+                reflex_damage = damage * reflex_rate
+            end
         end
 
         -- 피해량 배율 적용

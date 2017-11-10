@@ -14,6 +14,7 @@ UI_ReadyScene_Deck = class({
         m_lSettedDragonCard = 'list',
         m_currFormation = 'string',
 		m_currLeader = 'number',
+        m_currLeaderOID = 'string',
 
         -- 드래그로 이동
         m_selectedDragonSlotIdx = 'number',
@@ -204,33 +205,41 @@ end
 function UI_ReadyScene_Deck:refreshLeader()
 	local vars = self.m_uiReadyScene.vars
 	local leader_idx = self.m_currLeader
-	local doid = self.m_lDeckList[leader_idx]
+    local pre_leader_doid = self.m_currLeaderOID
+	local new_leader_doid = self.m_lDeckList[leader_idx]
 
-	-- 현재 리더 idx에 드래곤이 있고 리더스킬이 있다면
-	if (doid) and (g_dragonsData:haveLeaderSkill(doid)) then
-		self:refreshLeaderSprite(leader_idx)
+	local idx
 
-	else
-		-- 없다면 새로 찾아준다.
-		local idx
+	-- 위치가 바뀌었는지 찾아본다
+    for i, doid in pairs(self.m_lDeckList) do
+        if (doid == pre_leader_doid) then
+            idx = i
+        end
+    end
+        
+    -- 없다면 앞에서 부터 새로이 찾는다.
+    if (idx == nil) then
 		for i, doid in pairs(self.m_lDeckList) do
 			-- 리더 스킬 있다면 저장
 			if (g_dragonsData:haveLeaderSkill(doid)) then
 				idx = i
+                pre_leader_doid = doid
 				break
 			end
 		end
+    end
 
-		if (idx) then
-			self.m_currLeader = idx
-			self:refreshLeaderSprite(idx)
+    -- 리더 체크
+	if (idx) then
+		self.m_currLeader = idx
+        self.m_currLeaderOID = pre_leader_doid
+		self:refreshLeaderSprite(idx)
 
-		else
-			-- 덱에 드래곤이 없으므로 leader표시를 없앤다.
-			vars['leaderSprite']:setVisible(false)
-            self.m_currLeader = nil
-		end
-
+	else
+		-- 덱에 드래곤이 없으므로 leader표시를 없앤다.
+		vars['leaderSprite']:setVisible(false)
+        self.m_currLeader = nil
+        self.m_currLeaderOID = nil
 	end
 end
 
@@ -304,6 +313,10 @@ function UI_ReadyScene_Deck:init_deck()
     for idx,doid in pairs(l_deck) do
         local skip_sort = true
         self:setSlot(idx, doid, skip_sort)
+        
+        if (idx == leader) then
+            self.m_currLeaderOID = doid
+        end
     end
 
     -- focus deck

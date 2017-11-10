@@ -281,15 +281,41 @@ function UI_DragonInfoBoard:refresh_status(t_dragon_data, t_dragon)
     -- 능력치 계산기
     local status_calc = MakeDragonStatusCalculator_fromDragonDataTable(t_dragon_data)
 
-    vars['atk_label']:setString(status_calc:getFinalStatDisplay('atk'))
-    vars['atk_spd_label']:setString(status_calc:getFinalStatDisplay('aspd'))
-    vars['cri_chance_label']:setString(status_calc:getFinalStatDisplay('cri_chance'))
-    vars['def_label']:setString(status_calc:getFinalStatDisplay('def'))
-    vars['hp_label']:setString(status_calc:getFinalStatDisplay('hp'))
-    vars['cri_avoid_label']:setString(status_calc:getFinalStatDisplay('cri_avoid'))
-    vars['avoid_label']:setString(status_calc:getFinalStatDisplay('avoid'))
-    vars['hit_rate_label']:setString(status_calc:getFinalStatDisplay('hit_rate'))
-    vars['cri_dmg_label']:setString(status_calc:getFinalStatDisplay('cri_dmg'))
+    -- 자주 쓰는 능력치 6종
+    local hp = status_calc:getFinalStatDisplay('hp')
+    local atk = status_calc:getFinalStatDisplay('atk')
+    local def = status_calc:getFinalStatDisplay('def')
+    local aspd = status_calc:getFinalStatDisplay('aspd')
+    local cri_chance = status_calc:getFinalStatDisplay('cri_chance')
+    local cri_dmg = status_calc:getFinalStatDisplay('cri_dmg')
+
+    -- detail node
+    do
+        vars['hp_label']:setString(hp)
+        vars['atk_label']:setString(atk)
+        vars['def_label']:setString(def)
+        vars['atk_spd_label']:setString(aspd)
+        vars['cri_chance_label']:setString(cri_chance)
+        vars['cri_dmg_label']:setString(cri_dmg)
+
+        vars['hit_rate_label']:setString(status_calc:getFinalStatDisplay('hit_rate'))
+        vars['avoid_label']:setString(status_calc:getFinalStatDisplay('avoid'))
+        vars['cri_avoid_label']:setString(status_calc:getFinalStatDisplay('cri_avoid'))
+        vars['accuracy_label']:setString(status_calc:getFinalStatDisplay('accuracy'))
+        vars['resistance_label']:setString(status_calc:getFinalStatDisplay('resistance'))
+    end
+
+    -- detail node 2
+    do
+        vars['hp_label2']:setString(hp)
+        vars['atk_label2']:setString(atk)
+        vars['def_label2']:setString(def)
+        vars['atk_spd_label2']:setString(aspd)
+        vars['cri_chance_label2']:setString(cri_chance)
+        vars['cri_dmg_label2']:setString(cri_dmg)
+    end
+    
+    self:refresh_gauge(status_calc)
 
     if vars['cp_label'] then
         vars['cp_label']:setString(comma_value(status_calc:getCombatPower()))
@@ -297,12 +323,60 @@ function UI_DragonInfoBoard:refresh_status(t_dragon_data, t_dragon)
 end
 
 -------------------------------------
+-- function init_gauge
+-- @brief 능력치 게이지 초기화 (연출 예쁘게 하기 위해서)
+-------------------------------------
+function UI_DragonInfoBoard:init_gauge()
+    local vars = self.vars
+    vars['hp_gauge']:setPercentage(0)
+    vars['atk_gauge']:setPercentage(0)
+    vars['def_gauge']:setPercentage(0)
+    vars['atk_spd_gauge']:setPercentage(0)
+    vars['cri_chance_gauge']:setPercentage(0)
+    vars['cri_dmg_gauge']:setPercentage(0)
+end
+
+-------------------------------------
+-- function refresh_gauge
+-- @brief 능력치 게이지 액션
+-------------------------------------
+function UI_DragonInfoBoard:refresh_gauge(status_calc)
+    local vars = self.vars
+    local status_calc = status_calc or MakeDragonStatusCalculator_fromDragonDataTable(self.m_dragonObject)
+    local hp = status_calc:getFinalStat('hp')
+    local atk = status_calc:getFinalStat('atk')
+    local def = status_calc:getFinalStat('def')
+    local aspd = status_calc:getFinalStat('aspd')
+    local cri_chance = status_calc:getFinalStat('cri_chance')
+    local cri_dmg = status_calc:getFinalStat('cri_dmg')
+
+    local max_hp = 10000 / 100
+    local max_atk = 5000 / 100
+    local max_def = 5000 / 100
+    local max_aspd = 200 / 100
+    local max_cri_chance = 100 / 100
+    local max_cri_dmg = 200 / 100
+
+    vars['hp_gauge']:runAction(cc.ProgressTo:create(0.2, hp/max_hp))
+    vars['atk_gauge']:runAction(cc.ProgressTo:create(0.2, atk/max_atk))
+    vars['def_gauge']:runAction(cc.ProgressTo:create(0.2, def/max_def))
+    vars['atk_spd_gauge']:runAction(cc.ProgressTo:create(0.2, aspd/max_aspd))
+    vars['cri_chance_gauge']:runAction(cc.ProgressTo:create(0.2, cri_chance/max_cri_chance))
+    vars['cri_dmg_gauge']:runAction(cc.ProgressTo:create(0.2, cri_dmg/max_cri_dmg))
+end
+
+-------------------------------------
 -- function click_detailBtn
 -- @brief 능력치 정보 갱신
 -------------------------------------
-function UI_DragonInfoBoard:click_detailBtn(t_dragon_data, t_dragon)
+function UI_DragonInfoBoard:click_detailBtn()
     local vars = self.vars
     vars['detailNode']:runAction(cc.ToggleVisibility:create())
+    vars['detailNode2']:runAction(cc.ToggleVisibility:create())
+
+    -- gauge action
+    self:init_gauge()
+    self:refresh_gauge()
 end
 
 -------------------------------------

@@ -68,20 +68,24 @@ end
 function UI_ClanTabRank:onChangeTab(tab, first)
     if (first) then
         self.m_mOffsetMap[tab] = 1
-        self:request_clanRank()
-        return
+        self:request_clanRank(first)
+
+    else
+        self:makeMyRank(tab)
+
     end
 end
 
 -------------------------------------
 -- function request_clanRank
 -------------------------------------
-function UI_ClanTabRank:request_clanRank()
+function UI_ClanTabRank:request_clanRank(first)
     local rank_type = self.m_currTab
     local offset = self.m_mOffsetMap[rank_type]
     local cb_func = function()
-        -- 최초 생성
-        self:makeMyRank(rank_type)
+        if (first) then
+            self:makeMyRank(rank_type)
+        end
         self:makeRankTableview(rank_type)
     end
     g_clanRankData:request_getRank(rank_type, offset, cb_func)
