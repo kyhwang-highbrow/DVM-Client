@@ -4,6 +4,8 @@ local PARENT = class(Entity, IEventListener:getCloneTable())
 -- class StatusEffect
 -------------------------------------
 StatusEffect = class(PARENT, {
+        m_res = 'string',
+
         m_statusEffectTable = 'table',
         m_statusEffectName = 'string',
         m_overlabClass = 'class',
@@ -52,6 +54,8 @@ StatusEffect = class(PARENT, {
 -- @param body
 -------------------------------------
 function StatusEffect:init(file_name, body)
+    self.m_res = file_name
+
     self.m_overlabClass = StatusEffectUnit
 
 	self.m_lStatus = {}
@@ -163,9 +167,7 @@ function StatusEffect:init_direction(direction_type)
     end
 
     func['polygons'] = function()
-        -- TODO: 연출을 위한 모듈 생성
-        local res = self.m_statusEffectTable['res']
-        self.m_edgeDirector = StatusEffectEdgeDirector(self.m_owner.m_bLeftFormation, 'polygons', self.m_rootNode, res, self.m_maxOverlab)
+        self.m_edgeDirector = StatusEffectEdgeDirector(self.m_owner.m_bLeftFormation, 'polygons', self.m_rootNode, self.m_res, self.m_maxOverlab)
     end
 
     if (func[direction_type]) then

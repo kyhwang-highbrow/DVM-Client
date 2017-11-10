@@ -518,7 +518,7 @@ function StatusEffectHelper:releaseStatusEffectDebuff(char, max_release_cnt, sta
                 end
             end
         end
-    end 
+    end
 
 	return (release_cnt > 0)
 end
