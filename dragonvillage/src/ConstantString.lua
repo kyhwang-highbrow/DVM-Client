@@ -299,6 +299,9 @@ function getContentName(content_type)
     elseif (content_type == 'secret_relation') then
         content_name = Str('인연 던전')
 
+    elseif (content_type == 'clan') then
+        content_name = Str('클랜')
+
     else
         error('content_type : ' .. content_type)
     end
