@@ -82,7 +82,7 @@ function UI_Colosseum:init()
                 UI_ColosseumRankingRewardPopup(t_info, is_clan)
             end
 
-            g_ancientTowerData.m_tClanRewardInfo = nil
+            g_colosseumData.m_tClanRewardInfo = nil
         end
     end
 
