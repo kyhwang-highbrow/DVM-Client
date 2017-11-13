@@ -657,15 +657,14 @@ end
 -- function updateCellAtIndex
 -------------------------------------
 function UIC_TableView:updateCellAtIndex(idx)
-    local offset = self:_offsetFromIndex(idx)
-    
-    local ui
     -- @mskim tableview 에러를 잡기 위한 우회처리
-    if (idx) then
-        ui = self.m_itemList[idx]['ui']
+    if (not idx) then
+        return
     end
 
-    if ui then
+    local offset = self:_offsetFromIndex(idx)
+    local ui = self.m_itemList[idx]['ui']
+    if ui and offset then
         ui.root:setPosition(offset['x'], offset['y'])
     end
 end

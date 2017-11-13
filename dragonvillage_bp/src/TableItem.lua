@@ -138,6 +138,33 @@ function TableItem:getRuneItemIDList()
 end
 
 -------------------------------------
+-- function getRuneItemIDListForDev
+-- @brief
+-------------------------------------
+function TableItem:getRuneItemIDListForDev()
+    if (self == THIS) then
+        self = THIS()
+    end
+
+    local l_rune_item_list = self:filterList('type', 'rune')
+
+    local sort_manager = SortManager_Rune()
+    sort_manager:pushSortOrder('grade')
+    sort_manager:pushSortOrder('set_id')
+    sort_manager:pushSortOrder('slot')
+        
+    sort_manager:sortExecution(l_rune_item_list)
+
+    -- item_id만 들어가는 리스트 생성
+    local l_ret = {}
+    for _,v in ipairs(l_rune_item_list) do
+        table.insert(l_ret, v['item'])
+    end
+
+    return l_ret
+end
+
+-------------------------------------
 -- function getFruitsListByAttr
 -- @brief 특정 속성의 열매 id 리스트를 리턴
 -------------------------------------
