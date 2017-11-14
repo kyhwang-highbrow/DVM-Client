@@ -133,6 +133,12 @@ function UI_InvenDevApiPopup:init_dragonTableView()
 
     do-- 정렬
         local sort_manager = SortManager_Dragon()
+        sort_manager.m_mAttrSortLevel['earth'] = 1
+        sort_manager.m_mAttrSortLevel['water'] = 2
+        sort_manager.m_mAttrSortLevel['fire'] = 3
+        sort_manager.m_mAttrSortLevel['dark'] = 4
+        sort_manager.m_mAttrSortLevel['light'] = 5
+
         sort_manager:addSortType('name', false, function(a, b, ascending)
             local a_data = a['data']
             local b_data = b['data']
@@ -150,7 +156,7 @@ function UI_InvenDevApiPopup:init_dragonTableView()
         end)
 	
 	    -- 등급 순, 이름순, 속성 순으로 정렬
-        sort_manager:pushSortOrder('attr')
+        sort_manager:pushSortOrder('attr', true)
         sort_manager:pushSortOrder('name', true)
         sort_manager:pushSortOrder('rarity')
 
