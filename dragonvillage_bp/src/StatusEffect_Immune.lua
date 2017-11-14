@@ -8,14 +8,6 @@ StatusEffect_Immune = class(PARENT, {
 
         })
 
-
--------------------------------------
--- function init_top
--------------------------------------
-function StatusEffect_Immune:init_top(file_name)
-	-- top을 찍지 않는다
-end
-
 -------------------------------------
 -- function onStart
 -- @brief 해당 상태 효과가 시작시 호출
