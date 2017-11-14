@@ -200,16 +200,16 @@ function UINavigatorDefinition:goTo_colosseum(...)
 
     local function finish_cb()
 
-        -- 긴급하게 닫아야 할 경우 
-        if (not g_colosseumData:isOpen()) then
-            local msg = Str('오픈시간이 아닙니다.')
+        -- 오픈 상태 여부 체크
+        if (not g_colosseumData:isOpenColosseum()) then
+            local msg = Str('콜로세움 오픈 전입니다.\n오픈까지 {1}', g_colosseumData:getColosseumStatusText())
             MakeSimplePopup(POPUP_TYPE.OK, msg)
             return
 		end
 
-        -- 오픈 상태 여부 체크
-        if (not g_colosseumData:isOpenColosseum()) then
-            local msg = Str('콜로세움 오픈 전입니다.\n오픈까지 {1}', g_colosseumData:getColosseumStatusText())
+        -- 긴급하게 닫아야 할 경우 
+        if (not g_colosseumData:isOpen()) then
+            local msg = Str('오픈시간이 아닙니다.')
             MakeSimplePopup(POPUP_TYPE.OK, msg)
             return
 		end
@@ -270,17 +270,17 @@ function UINavigatorDefinition:goTo_ancient(...)
     end
 
     local function finish_cb()
-        
-        -- 긴급하게 닫아야 할 경우 
-        if (not g_ancientTowerData:isOpen()) then
-            local msg = Str('오픈시간이 아닙니다.')
-            MakeSimplePopup(POPUP_TYPE.OK, msg)
-            return
-		end
 
         -- 오픈 상태 여부 체크
         if (not g_ancientTowerData:isOpenAncientTower()) then
             local msg = Str('고대의 탑 오픈 전입니다.\n오픈까지 {1}', g_ancientTowerData:getAncientTowerStatusText())
+            MakeSimplePopup(POPUP_TYPE.OK, msg)
+            return
+		end
+        
+        -- 긴급하게 닫아야 할 경우 
+        if (not g_ancientTowerData:isOpen()) then
+            local msg = Str('오픈시간이 아닙니다.')
             MakeSimplePopup(POPUP_TYPE.OK, msg)
             return
 		end
