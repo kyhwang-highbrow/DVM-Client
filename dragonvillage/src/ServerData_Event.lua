@@ -85,10 +85,16 @@ function ServerData_Event:getEventFullPopupList()
 
     for i, v in ipairs(event_list) do
         local priority = v['full_popup']
-        local event_type = v['event_type'] 
 
         if (priority ~= '') then
+            local event_type = v['event_type'] 
+            local feature = v['feature']
             local is_exist = true
+
+            -- 우선순위 유무 이외의 제어 조건 체크
+            if (feature == 'only_aos') then
+                is_exist = not CppFunctions:isIos()
+            end
 
             -- 단일 상품인 경우 (type:shop) event_id로 등록
             if (event_type == 'shop') then
