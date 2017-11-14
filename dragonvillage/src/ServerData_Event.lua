@@ -303,7 +303,8 @@ function ServerData_Event:request_eventList(finish_cb, fail_cb)
         self.m_eventList = {}
         local event_list = ret['table_event_list'] 
         for _, v in ipairs(event_list) do
-            if (v['ui_priority'] ~= '') then
+            -- 두칼럼 모두 비어있으면 제외 아니라면 등록
+            if (v['ui_priority'] ~= '') or (v['full_popup'] ~= '') then
                 table.insert(self.m_eventList, v)
             end
         end
