@@ -902,6 +902,7 @@ function UI_ReadyScene:click_leaderBtn()
 	local ui = UI_ReadyScene_LeaderPopup(l_doid, leader_idx)
 	ui:setCloseCB(function() 
 		self.m_readySceneDeck.m_currLeader = ui.m_leaderIdx
+        self.m_readySceneDeck.m_currLeaderOID = l_doid[ui.m_leaderIdx]
         self:refresh_combatPower()
 		self:refresh_buffInfo()
 	end)

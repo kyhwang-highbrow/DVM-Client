@@ -37,6 +37,12 @@ function ServerData_Event:getEventPopupTabList()
         local is_exist = true
         local event_id = v['event_id']
         local event_type = v['event_type'] 
+        local priority = v['ui_priority']
+
+        -- ui_priority가 없는 것은 등록하지 않는다.
+        if (priority == '') then
+            is_exist = false
+        end
 
         -- shop 관련 이벤트는 오픈되지 않능 상품이라면 탭 등록 pass 
         if (event_type == 'shop') then
@@ -303,7 +309,8 @@ function ServerData_Event:request_eventList(finish_cb, fail_cb)
         self.m_eventList = {}
         local event_list = ret['table_event_list'] 
         for _, v in ipairs(event_list) do
-            if (v['ui_priority'] ~= '') then
+            -- 두칼럼 모두 비어있으면 제외 아니라면 등록
+            if (v['ui_priority'] ~= '') or (v['full_popup'] ~= '') then
                 table.insert(self.m_eventList, v)
             end
         end
