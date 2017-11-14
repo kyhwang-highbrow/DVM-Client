@@ -103,7 +103,7 @@ function UI_InvenDevApiPopup:init_dragonTableView()
     local function create_func(ui, data)
         ui.root:setScale(item_scale)
 
-        local did = data
+        local did = data['did']
         local name = TableDragon:getDragonName(did)
         local label = cc.Label:createWithTTF(name, 'res/font/common_font_01.ttf', 22, 1, cc.size(600, 50), 1, 1)
         label:setDockPoint(cc.p(0.5, 0.5))
@@ -117,9 +117,7 @@ function UI_InvenDevApiPopup:init_dragonTableView()
     local table_dragon = TABLE:get('dragon')
     local t_invalid_dragon = {}
     for i,v in pairs(table_dragon) do
-        --if (v['test'] == 1) then
-            table.insert(t_invalid_dragon, v['did'])
-        --end
+        t_invalid_dragon[v['did']] = v
     end
 
 
@@ -127,17 +125,38 @@ function UI_InvenDevApiPopup:init_dragonTableView()
     table_view_td:setDirection(cc.SCROLLVIEW_DIRECTION_VERTICAL)
     table_view_td.m_cellSize = cc.size(item_adjust_size, item_adjust_size)
     table_view_td.m_nItemPerCell = 5
-    table_view_td:setCellUIClass(MakeSimpleDragonCard, create_func)
+    table_view_td:setCellUIClass(function(data)
+        local did = data['did']
+        return MakeSimpleDragonCard(did)
+    end, create_func)
     table_view_td:setItemList(t_invalid_dragon)
 
     do-- 정렬
-        local function default_sort_func(a, b)
-            local a = a['data']
-            local b = b['data']
+        local sort_manager = SortManager_Dragon()
+        sort_manager:addSortType('name', false, function(a, b, ascending)
+            local a_data = a['data']
+            local b_data = b['data']
 
-            return a < b
-        end
-        table.sort(table_view_td.m_itemList, default_sort_func)
+            local a_value = a_data['t_name']
+            local b_value = b_data['t_name']
+
+            -- 같을 경우 리턴
+            if (a_value == b_value) then return nil end
+
+            -- 오름차순 or 내림차순
+            if ascending then return a_value < b_value
+            else              return a_value > b_value
+            end
+        end)
+	
+	    -- 등급 순, 이름순, 속성 순으로 정렬
+        sort_manager:pushSortOrder('attr')
+        sort_manager:pushSortOrder('name', true)
+        sort_manager:pushSortOrder('rarity')
+
+        sort_manager:sortExecution(table_view_td.m_itemList)
+
+        table_view_td:setDirtyItemList()
     end
 end
 
@@ -385,12 +404,12 @@ function UI_InvenDevApiPopup:init_runeTableView()
     local list_table_node = self.vars['runeListNode']
     list_table_node:removeAllChildren()
 
-    local l_item_list = TableItem:getRuneItemIDList()
+    local l_rune_list = TableItem:getRuneItemIDListForDev()
 
     -- 생성 콜백
     local function create_func(ui, data)
         ui.vars['clickBtn']:registerScriptTapHandler(function()
-            local rune_id = data
+            local rune_id = data['rid']
             self:network_addRune(rune_id)
         end)
     end
@@ -399,8 +418,24 @@ function UI_InvenDevApiPopup:init_runeTableView()
     local table_view_td = UIC_TableViewTD(list_table_node)
     table_view_td.m_cellSize = cc.size(150, 150)
     table_view_td.m_nItemPerCell = 5
-    table_view_td:setCellUIClass(UI_ItemCard, create_func)
-    table_view_td:setItemList(l_item_list)
+    table_view_td:setCellUIClass(function(data)
+        local rid = data['rid']
+        return UI_ItemCard(rid)
+    end, create_func)
+    table_view_td:setItemList(l_rune_list)
+
+    do-- 정렬
+        local sort_manager = SortManager_Rune()
+        
+	    -- 등급 순, 세트 순, 번호 순으로 정렬
+        sort_manager:pushSortOrder('slot', true)
+        sort_manager:pushSortOrder('set_id')
+        sort_manager:pushSortOrder('grade') 
+
+        sort_manager:sortExecution(table_view_td.m_itemList)
+
+        table_view_td:setDirtyItemList()
+    end
 end
 
 -------------------------------------

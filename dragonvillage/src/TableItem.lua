@@ -138,6 +138,27 @@ function TableItem:getRuneItemIDList()
 end
 
 -------------------------------------
+-- function getRuneItemIDListForDev
+-- @brief
+-------------------------------------
+function TableItem:getRuneItemIDListForDev()
+    if (self == THIS) then
+        self = THIS()
+    end
+
+    local l_item_list = self:filterList('type', 'rune')
+    local l_ret = {}
+
+    for _, v in ipairs(l_item_list) do
+        local rune = StructRuneObject({['rid'] = v['item']})
+
+        table.insert(l_ret, rune)
+    end
+
+    return l_ret
+end
+
+-------------------------------------
 -- function getFruitsListByAttr
 -- @brief 특정 속성의 열매 id 리스트를 리턴
 -------------------------------------
