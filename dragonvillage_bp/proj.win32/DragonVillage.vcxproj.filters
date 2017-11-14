@@ -2811,6 +2811,9 @@
     <None Include="..\src\UIC_ScrollButton.lua">
       <Filter>lua\UIC</Filter>
     </None>
+    <None Include="..\src\StatusEffect_Immune.lua">
+      <Filter>lua\src</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Classes">

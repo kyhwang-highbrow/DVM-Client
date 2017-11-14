@@ -31,8 +31,7 @@ Character = class(PARENT, {
         m_bActive = 'boolean',
         m_bDead = 'boolean',
         m_bInvincibility = 'boolean',   -- 무적 상태 여부
-		m_isImmuneSE = 'boolean',		-- 면역 (해로운 상태 효과 면역)
-        
+		        
         -- @ for FormationMgr
         m_bLeftFormation = 'boolean',   -- 왼쪽 진형일 경우 true, 오른쪽 진형일 경우 false
         m_currFormation = '',
@@ -174,8 +173,7 @@ function Character:init(file_name, body, ...)
     self.m_delaySpasticity = 0
 
     self.m_bInvincibility = false
-	self.m_isImmuneSE = false
-        
+	        
 	self.m_isUseAfterImage = false
 
 	self.m_guard = false
@@ -2680,33 +2678,6 @@ function Character:getBuffStat(stat_type)
 		return 0
 	end
 	return self.m_statusCalc:getAdjustRate(stat_type)
-end
-
--------------------------------------
--- function setImmuneSE
--------------------------------------
-function Character:setImmuneSE(b)
-	self.m_isImmuneSE = b
-end
-
--------------------------------------
--- function isImmuneSE
--------------------------------------
-function Character:isImmuneSE()
-	if (self.m_isImmuneSE) then
-        return true
-    end
-
-    -- 임시 예외처리
-    if (not self.m_statusCalc) then
-        return true
-    end
-
-    if (self:getStat('debuff_time') <= -100) then
-        return true
-    end
-
-    return false
 end
 
 -------------------------------------

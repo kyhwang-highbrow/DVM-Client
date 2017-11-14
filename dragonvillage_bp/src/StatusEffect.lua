@@ -358,11 +358,7 @@ function StatusEffect:update(dt)
     if (self.m_bApply) then
         local modified_dt
 
-        if (self.m_bHarmful and self.m_owner:isImmuneSE()) then
-            -- 면역 상태일 경우 해로운 효과는 즉시 해제
-            modified_dt = 9999
-
-        elseif (not self.m_world.m_gameState:isFight()) then
+        if (not self.m_world.m_gameState:isFight()) then
             -- 전투 중이 아닐 경우 지속시간이 감소하지 않도록 처리
             modified_dt = 0
         

@@ -216,7 +216,7 @@ function StatusEffectHelper:invokeStatusEffect(caster, target_char, status_effec
     end
 
 	-- 면역 효과
-	if (self:isHarmful(status_effect_category) and target_char:isImmuneSE()) then 
+	if (self:isHarmful(status_effect_category) and target_char.m_isImmune) then 
         target_char:makeImmuneFont(target_char.pos['x'], target_char.pos['y'], 1.5)
 		return nil
 	end
@@ -329,6 +329,10 @@ function StatusEffectHelper:makeStatusEffectInstance(caster, target_char, status
 
     elseif (status_effect_group == 'barrier_time') then
         status_effect = StatusEffect_ProtectionByTime(res)
+
+    ----------- 상태효과 면역 ------------------
+	elseif (status_effect_group == 'immune') then
+        status_effect = StatusEffect_Immune(res)
 
     ------------ 도트 --------------------------
     elseif (status_effect_group == 'dot_dmg') then

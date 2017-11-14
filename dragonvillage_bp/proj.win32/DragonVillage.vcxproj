@@ -711,6 +711,7 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <None Include="..\src\StatusEffect_ConsumeToMissile.lua" />
     <None Include="..\src\StatusEffect_Dispell.lua" />
     <None Include="..\src\StatusEffect_Immortal.lua" />
+    <None Include="..\src\StatusEffect_Immune.lua" />
     <None Include="..\src\StatusEffect_ManaReduce.lua" />
     <None Include="..\src\StatusEffect_Modify.lua" />
     <None Include="..\src\StatusEffect_Poison.lua" />
