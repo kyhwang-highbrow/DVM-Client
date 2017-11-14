@@ -146,19 +146,13 @@ function TableItem:getRuneItemIDListForDev()
         self = THIS()
     end
 
-    local l_rune_item_list = self:filterList('type', 'rune')
-
-    local sort_manager = SortManager_Rune()
-    sort_manager:pushSortOrder('grade')
-    sort_manager:pushSortOrder('set_id')
-    sort_manager:pushSortOrder('slot')
-        
-    sort_manager:sortExecution(l_rune_item_list)
-
-    -- item_id만 들어가는 리스트 생성
+    local l_item_list = self:filterList('type', 'rune')
     local l_ret = {}
-    for _,v in ipairs(l_rune_item_list) do
-        table.insert(l_ret, v['item'])
+
+    for _, v in ipairs(l_item_list) do
+        local rune = StructRuneObject({['rid'] = v['item']})
+
+        table.insert(l_ret, rune)
     end
 
     return l_ret
