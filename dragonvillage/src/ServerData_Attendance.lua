@@ -57,7 +57,12 @@ function ServerData_Attendance:request_attendanceInfo(finish_cb, fail_cb)
             self.m_structAttendanceDataList = {}
             if ret['attendance_info'] then
                 for i,v in ipairs(ret['attendance_info']) do
-                    self.m_structAttendanceDataList[i] = StructAttendanceData(v)
+                    -- 7일짜리 오픈 기념 출석 이벤트 보상 전부 수령하고 난 후에는 제외
+                    if (v['category'] == 'open_event') and (v['received']) and (v['today_step'] == 7) then
+                        -- nothing to do
+                    else
+                        self.m_structAttendanceDataList[i] = StructAttendanceData(v)
+                    end
                 end
             end
         end
