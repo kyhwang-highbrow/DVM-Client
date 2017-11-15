@@ -590,6 +590,28 @@ function IDragonSkillManager:checkSkillTurn(skill_type)
 	return nil
 end
 
+-------------------------------------
+-- function getHpRateSkillID
+-------------------------------------
+function IDragonSkillManager:getHpRateSkillID(hp_rate)
+    local skill_type = 'hp_rate'
+	local t_skill_info = self.m_lSkillIndivisualInfo[skill_type]
+    if (not t_skill_info) then return end
+
+    local hp_rate = hp_rate * 100
+
+    if (table.count(t_skill_info) > 0) then
+        for i,v in pairs(t_skill_info) do
+            if (v:isEndCoolTime()) then
+                if (hp_rate <= v.m_hpRate) then
+                    return v.m_skillID
+                end
+            end
+        end
+    end
+
+    return nil
+end
 
 -------------------------------------
 -- function getHpRatePerSkillID
@@ -677,6 +699,11 @@ function IDragonSkillManager:getInterceptableSkillID(tParam)
         skill_id = self:getHpRatePerSkillID(tParam['hp_rate'])
     end
 
+    -- hp_rate류 스킬
+    if (not skill_id) then
+        skill_id = self:getHpRateSkillID(tParam['hp_rate'])
+    end
+
     -- indie_time류 스킬
     if (not skill_id) then
         skill_id = self:getBasicTimeAttackSkillID()
@@ -695,8 +722,6 @@ function IDragonSkillManager:getBasicTimeAttackSkillID()
     if (table.count(self.m_lSkillIndivisualInfo['indie_time']) > 0) then
         for i,v in pairs(self.m_lSkillIndivisualInfo['indie_time']) do
             if (v:isEndCoolTime()) then
-                -- DragonSkillIndivisualInfo:startCoolTime에서 처리되도록 정리
-                --v.m_timer = v.m_tSkill['chance_value']
                 return v.m_skillID
             end
         end
