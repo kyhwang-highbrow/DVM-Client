@@ -15,6 +15,10 @@ function PackageManager:getTargetUI(struct_product, is_popup)
         local _struct_product = g_shopDataNew:getLevelUpPackageProduct()
         target_ui = UI_Package_LevelUp(_struct_product, is_popup)
 
+    -- 다이아 몽땅 패키지
+    elseif (package_name == 'package_dia_all') then
+        target_ui = UI_Package(struct_product, is_popup)
+
     -- 패키지 상품 묶음 UI (pid로 들어오지만 패키지 상품 묶음 UI를 보여줘야 하는 경우)
     elseif package_name then
         target_ui = UI_Package_Bundle(package_name, is_popup)
