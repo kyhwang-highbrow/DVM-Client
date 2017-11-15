@@ -3,6 +3,8 @@ FULL_POPUP_TYPE = {
     AUTO_PICK = 2,      -- 매일매일 다이아 풀팝업
     START_PACK = 3,     -- 스타터 패키지 풀팝업
     LAUNCH_PACK = 4,    -- 런칭 패키지 풀팝업
+    ALL_DIA_PACK = 'all_dia_package', -- 몽땅 다이아 패키지 풀팝업
+    CAFE_ON = 'hatchry_cafe_on',    -- 부화소 진입시 네이버 카페 노출
 }
 -------------------------------------
 -- class FullPopupManager
@@ -98,6 +100,28 @@ function FullPopupManager:show(type, show_func)
             self:showFullPopup(pid)
             g_localData:applyLocalData(true, 'event_full_popup', save_key)
         end
+    
+    -- 몽땅 다이아 패키지
+    -- 조건 : 기간 체크 함
+    elseif (type == FULL_POPUP_TYPE.ALL_DIA_PACK) then
+        local pid = 90046
+        local save_key = type
+        local is_view = g_localData:get('event_full_popup', save_key) or false
+        local is_exist = g_shopDataNew:isExist('package', pid)
+        if is_exist and (not is_view) then 
+            self:showFullPopup(pid)
+            g_localData:applyLocalData(true, 'event_full_popup', save_key)
+        end
+
+    -- 부화소 네이버 카페 SDK -- 암 오르페우스를 주는 이벤트를 유저들에게 한번 더 알리기 위해서
+    elseif (type == FULL_POPUP_TYPE.CAFE_ON) then
+        local save_key = type
+        local is_view = g_localData:get('event_full_popup', save_key) or false
+        if (not is_view) then
+            NaverCafeManager:naverCafeStart(0)
+            g_localData:applyLocalData(true, 'event_full_popup', save_key)
+        end
+
     end
 end
 
