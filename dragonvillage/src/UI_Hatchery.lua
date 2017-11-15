@@ -33,7 +33,7 @@ function UI_Hatchery:init(tab)
     end
 
     -- 스타터 패키지 풀팝업
-    g_fullPopupManager:show(FULL_POPUP_TYPE.START_PACK)
+    g_fullPopupManager:show(FULL_POPUP_TYPE.ALL_DIA_PACK)
     -- 네이버 카페 뿅
     g_fullPopupManager:show(FULL_POPUP_TYPE.CAFE_ON)
 end
