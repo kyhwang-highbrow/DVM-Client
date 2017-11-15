@@ -12,9 +12,9 @@ SkillRolling = class(PARENT, {
 		m_attackCnt = 'number',
 		m_maxAttackCnt = 'number',
 
-		-- 이동 체크
-		m_bMoving = 'bool',
-
+		-- 첫 이동 체크
+        m_bFirstMoving = 'bool',
+		
 		-- 반복 공격 위한 시간 관리 용
         m_multiAtkTimer = 'dt',
         m_hitInterval = 'number',
@@ -42,11 +42,10 @@ function SkillRolling:init_skill(spin_res, atk_count)
 	self.m_maxAttackCnt = atk_count
 	self.m_spinRes = spin_res
 	self.m_attackCnt = 0
-	self.m_bMoving = false
-
+    self.m_bFirstMoving = true
+	
     self.m_lCollisionList = self:findCollision()
-    self.m_targetCollision = table.pop(self.m_lCollisionList)
-        
+            
 	-- 최초 위치 지정
     self:setPosition(self.m_owner.pos.x, self.m_owner.pos.y)
 
@@ -73,7 +72,6 @@ function SkillRolling:initState()
     self:setCommonState(self)
     self:addState('start', SkillRolling.st_move, 'idle', true)
     self:addState('attack', SkillRolling.st_attack, 'idle', true)
-	self:addState('moveAttack', SkillRolling.st_move_attack, 'idle', true)
 	self:addState('comeback', SkillRolling.st_comeback, 'remove', true)
 end
 
@@ -98,7 +96,14 @@ end
 -------------------------------------
 function SkillRolling.st_move(owner, dt)
     if (owner.m_stateTimer == 0) then
+        -- 드래곤 숨김
 		owner.m_owner.m_animator:setVisible(false)
+
+        -- 공격 카운트 초기화
+        owner.m_attackCnt = 0
+
+        -- 대상을 가져옴
+        owner.m_targetCollision = table.pop(owner.m_lCollisionList)
 
 		-- 스핀 이펙트
 		if (not owner.m_spinAnimator) then 
@@ -138,13 +143,20 @@ function SkillRolling.st_move(owner, dt)
                 )
             end
 
-            local action = cc.MoveTo:create(0.2, target_pos)
-		    local delay = cc.DelayTime:create(0.5)
+            local cbFunc = cc.CallFunc:create(function() owner:changeState('attack') end)
 
-		    -- state chnage 함수 콜
-		    local cbFunc = cc.CallFunc:create(function() owner:changeState('attack') end)
-		
-		    owner.m_owner:runAction(cc.Sequence:create(delay, releaseFunc, cc.EaseIn:create(action, 2), cbFunc))
+            if (owner.m_bFirstMoving) then
+                local action = cc.MoveTo:create(0.2, target_pos)
+                local delay = cc.DelayTime:create(0.3)
+                owner.m_owner:runAction(cc.Sequence:create(delay, releaseFunc, cc.EaseIn:create(action, 2), cbFunc))
+
+                owner.m_bFirstMoving = false
+            else
+                local action = cc.MoveTo:create(0.1, target_pos)
+                owner.m_owner:runAction(cc.Sequence:create(action, cbFunc))
+            end
+            		
+		    
         else
             owner:changeState('comeback')
         end
@@ -181,68 +193,14 @@ function SkillRolling.st_attack(owner, dt)
     if (owner.m_targetCollision) then
         local target = owner.m_targetCollision:getTarget()
         if (target:isDead()) then
-            owner:changeState('moveAttack')
+            owner:changeState('start')
         end
 	end
 
 	-- 최대 공격 횟수 초과시 state move_attack 로 변경
     if (owner.m_maxAttackCnt <= owner.m_attackCnt) then
-		owner:changeState('moveAttack')
+		owner:changeState('start')
     end
-end
-
--------------------------------------
--- function st_move
--------------------------------------
-function SkillRolling.st_move_attack(owner, dt)
-	-- a. 이동중인지 체크
-	if (not owner.m_bMoving) then 
-		-- 1. 다음 타겟을 검색
-		if (not owner.m_targetCollision) then
-			-- 1-1. 최대 충돌 갯수 체크
-            local collision = table.pop(owner.m_lCollisionList)
-            if (collision) then
-                owner.m_targetCollision = collision
-			else
-				owner:changeState('comeback')
-			end
-
-        else
-            -- 2. 타겟이 있으면 이동 공격
-            local target = owner.m_targetCollision:getTarget()
-            local body_key = owner.m_targetCollision:getBodyKey()
-
-            local target_pos = cc.p(target.pos.x, target.pos.y)
-            local body = target:getBody(body_key)
-
-            target_pos.x = target_pos.x + body.x
-            target_pos.y = target_pos.y + body.y
-
-            -- 2-1. 이동
-			local action = cc.MoveTo:create(0.1, target_pos)
-			owner.m_bMoving = true
-
-			-- 2-2. state chnage 함수 콜
-			local cbFunc = cc.CallFunc:create(function() 
-				local animator = MakeAnimator('res/effect/effect_hit_01/effect_hit_01.vrp')
-				animator:changeAni('idle', true)
-				animator.m_node:setPosition(owner.m_owner.pos.x, owner.m_owner.pos.y)
-
-                local missileNode = owner.m_world:getMissileNode()
-                missileNode:addChild(animator.m_node)
-
-				owner.m_world.m_shakeMgr:shakeBySpeed(owner.movement_theta, 300)
-
-				owner:attack(owner.m_targetCollision)
-
-                owner.m_targetCollision = nil
-                owner.m_bMoving = false
-			end)
-
-			-- 2-3. 액션 실행 및 후 타겟 지움
-			owner.m_owner:runAction(cc.Sequence:create(cc.EaseIn:create(action, 2), cbFunc))
-		end
-	end
 end
 
 -------------------------------------

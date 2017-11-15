@@ -104,7 +104,9 @@ function Character:doSkillBySkillTable(t_skill, t_data)
 			StatusEffectHelper:doStatusEffectByTable(self, t_skill, nil, t_data)
             
             -- 텍스트
-            SkillHelper:makePassiveSkillSpeech(self, t_skill['t_name'])
+            if ( self.m_charType == 'dragon') then
+                SkillHelper:makePassiveSkillSpeech(self, t_skill['t_name'])
+            end
 			return true
 
 		-- [스킬]
