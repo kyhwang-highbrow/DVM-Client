@@ -217,6 +217,7 @@ function ActivityCarrier:cloneForMissile()
     activity_carrier:setAddCriPowerRate(self.m_skillAddCriCoefficient)
 	
 	activity_carrier.m_lFinalStat = clone(self.m_lFinalStat)
+    activity_carrier.m_lStatusEffectRate = clone(self.m_lStatusEffectRate)
 
     return activity_carrier
 end
