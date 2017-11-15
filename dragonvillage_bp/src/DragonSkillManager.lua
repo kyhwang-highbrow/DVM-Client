@@ -15,8 +15,11 @@ IDragonSkillManager = {
         m_lSkillIndivisualInfo = 'list',
 		m_mSkillInfoMap = 'map',			-- 외부 접근용 맵테이블 key : skill_id
 
-        m_lReserveTurnSkillID = 'number',
-        m_mReserveTurnSkillID = 'number',
+        m_lReserveTurnSkillID = 'table',
+        m_mReserveTurnSkillID = 'table',
+
+        m_lReserveHpRatePerSkillID = 'table',   -- 특정 체력 비율마다 발동되는 스킬
+        m_mReserveHpRatePerSkillID = 'table',
     }
 
 -------------------------------------
@@ -25,6 +28,9 @@ IDragonSkillManager = {
 function IDragonSkillManager:init()
     self.m_lReserveTurnSkillID = {}
     self.m_mReserveTurnSkillID = {}
+
+    self.m_lReserveHpRatePerSkillID = {}
+    self.m_mReserveHpRatePerSkillID = {}
 end
 
 -------------------------------------
@@ -584,6 +590,42 @@ function IDragonSkillManager:checkSkillTurn(skill_type)
 	return nil
 end
 
+
+-------------------------------------
+-- function getHpRatePerSkillID
+-------------------------------------
+function IDragonSkillManager:getHpRatePerSkillID(hp_rate)
+    local skill_type = 'hp_rate_per'
+	local t_skill_info = self.m_lSkillIndivisualInfo[skill_type]
+    if (not t_skill_info) then return end
+
+    local hp_rate = hp_rate * 100
+
+    if (table.count(t_skill_info) > 0) then
+        for i,v in pairs(t_skill_info) do
+            if (hp_rate <= v.m_hpRate) then
+                v.m_hpRate = math_max(v.m_hpRate - v.m_tSkill['chance_value'], 0)
+
+                -- 이미 스킬이 예약된 상태라면 연속으로 사용하지 않도록 막음
+                if (v:isEndCoolTime() and not self.m_mReserveHpRatePerSkillID[v.m_skillID]) then
+                    table.insert(self.m_lReserveHpRatePerSkillID, v.m_skillID)
+                        
+                    self.m_mReserveHpRatePerSkillID[v.m_skillID] = true
+                end
+            end
+        end
+
+        if (self.m_lReserveHpRatePerSkillID[1]) then
+            local skill_id = table.remove(self.m_lReserveHpRatePerSkillID, 1)
+            self.m_mReserveHpRatePerSkillID[skill_id] = nil
+
+            return skill_id
+        end
+    end
+
+    return nil
+end
+
 -------------------------------------
 -- function getBasicAttackSkillID
 -- @return	skill_id, is_add_basic
@@ -621,6 +663,26 @@ function IDragonSkillManager:getBasicAttackSkillID()
     do
         return self:getSkillID('basic'), false
     end
+end
+
+-------------------------------------
+-- function getInterceptableSkillID
+-- @return	skill_id
+-------------------------------------
+function IDragonSkillManager:getInterceptableSkillID(tParam)
+    local skill_id = nil
+
+    -- hp_rate_per류 스킬
+    if (not skill_id) then
+        skill_id = self:getHpRatePerSkillID(tParam['hp_rate'])
+    end
+
+    -- indie_time류 스킬
+    if (not skill_id) then
+        skill_id = self:getBasicTimeAttackSkillID()
+    end
+
+    return skill_id
 end
 
 -------------------------------------

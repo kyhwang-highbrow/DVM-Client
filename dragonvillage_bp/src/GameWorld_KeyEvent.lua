@@ -240,7 +240,9 @@ end
 function GameWorld:kill_boss()
     for i, v in ipairs(self:getEnemyList()) do
         if (not v:isDead() and v:isBoss()) then
-            v:doDie()
+            --v:doDie()
+            local damage = v.m_maxHp * 0.2
+            v:setDamage(nil, v, v.pos.x, v.pos.y, damage, nil)
         end
     end
 end

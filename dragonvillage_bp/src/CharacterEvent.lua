@@ -16,7 +16,6 @@ function Character:initTriggerListener()
 	end
 
 	-- 기본적으로 등록되어야 할 이벤트들
-	--self:addListener('get_debuff', self) -- 테이머만 사용중
 	self:addListener('stat_changed', self)
 end
 

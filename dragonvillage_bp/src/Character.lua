@@ -359,6 +359,7 @@ function Character:setStatusCalc(status_calc)
     local hp_multi = self.m_statusCalc:getHiddenInto('hp_multi') or 1
     self.m_maxHp = hp * hp_multi
     self.m_hp = self.m_maxHp
+    self.m_hpRatio = 1
 
     -- 공속 설정
     self:calcAttackPeriod(true)
@@ -1559,16 +1560,15 @@ function Character:setHp(hp, bFixed)
 
     self:dispatch('character_set_hp', t_event, self)
 
-    self.m_hp = t_event['hp']
-
-    local percentage = self.m_hp / self.m_maxHp
+    self.m_hp = math_min(t_event['hp'], self.m_maxHp)
+    self.m_hpRatio = self.m_hp / self.m_maxHp
 
 	-- 체력바 가감 연출
     if self.m_hpGauge then
-        self.m_hpGauge:setScaleX(percentage)
+        self.m_hpGauge:setScaleX(self.m_hpRatio)
     end
 	if self.m_hpGauge2 then
-        local action = cc.Sequence:create(cc.DelayTime:create(0.2), cc.ScaleTo:create(0.5, percentage, 1))
+        local action = cc.Sequence:create(cc.DelayTime:create(0.2), cc.ScaleTo:create(0.5, self.m_hpRatio, 1))
         self.m_hpGauge2:runAction(cc.EaseIn:create(action, 2))
     end
 end

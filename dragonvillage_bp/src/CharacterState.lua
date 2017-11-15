@@ -206,7 +206,7 @@ function Character.st_attackDelay(owner, dt)
         -- 어떤 스킬을 사용할 것인지 결정
         local skill_id, is_add_skill
 
-        -- indie_time류 스킬로 인해 이전에 결정된 스킬이 있으면 사용하도록 함
+        -- indie_time등의 우선순위가 높은 스킬로 인해 이전에 사용되지 못한 스킬이 있으면 사용하도록 함
         if (owner.m_prevReservedSkillId) then
             skill_id, is_add_skill = owner.m_prevReservedSkillId, owner.m_prevIsAddSkill
             owner.m_stateTimer = owner.m_prevAttackDelayTimer
@@ -245,8 +245,12 @@ function Character.st_attackDelay(owner, dt)
     end
 
     if (not owner.m_isSilence) then
-        -- indie_time류 스킬
-        local skill_id = owner:getBasicTimeAttackSkillID()
+        local tParam = {
+            hp_rate = owner.m_hpRatio
+        }
+
+        -- 일반 공격 관련 스킬보다 우선순위가 높은 스킬
+        local skill_id = owner:getInterceptableSkillID(tParam)
         if (skill_id) then
             local t_skill = owner:getSkillTable(skill_id)
 
