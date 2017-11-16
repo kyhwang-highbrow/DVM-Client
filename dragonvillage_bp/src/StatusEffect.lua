@@ -631,7 +631,7 @@ end
 function StatusEffect:addOverlabUnit(caster, skill_id, value, source, duration, add_param)
     if (self.m_bDead) then return end
 
-    local char_id = caster:getCharId()
+    local char_key = caster.phys_idx
     local skill_id = skill_id or 999999
 
     -- 시전자의 스텟에 따라 지속시간을 증가시킴(이미 걸려있던 디버프 중첩별 실시간 적용은 안함)
@@ -647,16 +647,16 @@ function StatusEffect:addOverlabUnit(caster, skill_id, value, source, duration, 
     local new_unit = self.m_overlabClass(self:getTypeName(), self.m_owner, caster, skill_id, value, source, duration, self.m_bHidden, add_param)
     local t_status_effect = self.m_statusEffectTable
     
-    if (not self.m_mUnit[char_id]) then
-        self.m_mUnit[char_id] = {}
+    if (not self.m_mUnit[char_key]) then
+        self.m_mUnit[char_key] = {}
     end
 
      -- 갱신(삭제 후 새로 추가하는 방식으로 처리함. 리스트의 가장 뒤로 보내야하기 때문)
     if (t_status_effect['overlab_option'] ~= 1 or (caster:getCharType() == 'monster' and self.m_owner.m_bLeftFormation)) then
-        for i, unit in ipairs(self.m_mUnit[char_id]) do
+        for i, unit in ipairs(self.m_mUnit[char_key]) do
             if (unit.m_skillId == skill_id) then
                 -- 주체와 스킬id가 같을 경우 삭제 후 추가 시킴
-                local unit = table.remove(self.m_mUnit[char_id], i)
+                local unit = table.remove(self.m_mUnit[char_key], i)
                 self:unapplyOverlab(unit)
 
                 local idx = table.find(self.m_lUnit, unit)
@@ -668,7 +668,7 @@ function StatusEffect:addOverlabUnit(caster, skill_id, value, source, duration, 
     end
 
     -- 중첩 정보 추가
-    table.insert(self.m_mUnit[char_id], new_unit)
+    table.insert(self.m_mUnit[char_key], new_unit)
     table.insert(self.m_lUnit, new_unit)
     -- 중첩시 효과 적용
     self:applyOverlab(new_unit)
@@ -777,15 +777,15 @@ end
 function StatusEffect:getUnit(caster, skill_id)
     if (not caster or not skill_id) then return end
 
-    local char_id = caster:getCharId()
+    local char_key = caster.phys_idx
 
-    for i, unit in ipairs(self.m_mUnit[char_id]) do
+    if (not self.m_mUnit[char_key]) then return end
+
+    for i, unit in ipairs(self.m_mUnit[char_key]) do
         if (unit.m_skillId == skill_id) then
             return unit
         end
     end
-
-    return nil
 end
 
 
