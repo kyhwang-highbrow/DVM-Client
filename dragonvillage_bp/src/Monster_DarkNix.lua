@@ -1,4 +1,5 @@
-local PARENT = MonsterLua_Boss
+--local PARENT = MonsterLua_Boss
+local PARENT = Monster
 
 -------------------------------------
 -- class Monster_DarkNix

@@ -1,4 +1,5 @@
-local PARENT = MonsterLua_Boss
+--local PARENT = MonsterLua_Boss
+local PARENT = Monster
 
 local STATE_HUGE_ATTACK = 1
 local STATE_BABY_ATTACK = 2
