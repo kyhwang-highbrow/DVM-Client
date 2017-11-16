@@ -130,7 +130,8 @@ end
 -- function click_copyBtn
 -------------------------------------
 function UI_GameDebug_InfoPopup:click_copyBtn()
-	UIManager:toastNotificationGreen('클립보드 복사 기능 준비중')
+	SDKManager:copyOntoClipBoard(self.m_infoStr)
+	UIManager:toastNotificationGreen('클립보드 복사 완료!')
 end
 
 -------------------------------------
@@ -139,7 +140,7 @@ end
 function UI_GameDebug_InfoPopup:click_slackBtn()
     local info_str = self.m_infoStr
     slack_api(info_str)
-    UIManager:toastNotificationGreen('에러 로그 전송 완료!')
+    UIManager:toastNotificationGreen('전송 완료!')
 end
 
 -------------------------------------

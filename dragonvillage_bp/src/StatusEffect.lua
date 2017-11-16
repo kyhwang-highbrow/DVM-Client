@@ -652,7 +652,7 @@ function StatusEffect:addOverlabUnit(caster, skill_id, value, source, duration, 
     end
 
      -- 갱신(삭제 후 새로 추가하는 방식으로 처리함. 리스트의 가장 뒤로 보내야하기 때문)
-    if (t_status_effect['overlab_option'] ~= 1 or caster:getCharType() == 'monster') then
+    if (t_status_effect['overlab_option'] ~= 1 or (caster:getCharType() == 'monster' and self.m_owner.m_bLeftFormation)) then
         for i, unit in ipairs(self.m_mUnit[char_id]) do
             if (unit.m_skillId == skill_id) then
                 -- 주체와 스킬id가 같을 경우 삭제 후 추가 시킴

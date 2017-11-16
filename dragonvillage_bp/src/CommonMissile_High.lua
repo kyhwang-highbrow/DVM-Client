@@ -82,6 +82,26 @@ function CommonMissile_High:setMissile()
 end
 
 -------------------------------------
+-- function fireMissile
+-------------------------------------
+function CommonMissile_High:fireMissile()
+	if (not self.m_target) then return end
+
+    local world = self.m_world
+	local t_option = self.m_missileOption
+	
+	-- 같은 시점에서의 반복 공격
+	for i = 1, t_option['count'] do
+		local missile = world.m_missileFactory:makeMissile(t_option)
+
+        -- 미사일의 충돌처리를 막기 위한 처리...
+        missile.bFixedAttack = false
+        
+		t_option['dir'] = t_option['dir'] + t_option['dir_add']
+	end
+end
+
+-------------------------------------
 -- function makeMissileInstance
 -------------------------------------
 function CommonMissile_High:makeMissileInstance(owner, t_skill)
