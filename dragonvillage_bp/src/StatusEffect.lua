@@ -771,6 +771,22 @@ function StatusEffect:setTemporaryPause(pause)
 end
 
 
+-------------------------------------
+-- function getUnit
+-------------------------------------
+function StatusEffect:getUnit(caster, skill_id)
+    if (not caster or not skill_id) then return end
+
+    local char_id = caster:getCharId()
+
+    for i, unit in ipairs(self.m_mUnit[char_id]) do
+        if (unit.m_skillId == skill_id) then
+            return unit
+        end
+    end
+
+    return nil
+end
 
 
 

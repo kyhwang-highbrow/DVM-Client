@@ -15,6 +15,7 @@ StatusEffectUnit = class({
         
         m_duration = 'number',      -- 지속 시간. 값이 -1일 경우 무제한
         m_durationTimer = 'number',
+        m_keepTimer = 'number',     -- 유지된 시간
 
         m_bApply = 'boolean',
 
@@ -45,6 +46,7 @@ function StatusEffectUnit:init(name, owner, caster, skill_id, value, source, dur
     
 	self.m_duration = duration
     self.m_durationTimer = self.m_duration
+    self.m_keepTimer = 0
 
     self.m_bApply = false
 
@@ -64,6 +66,8 @@ end
 -- @param modified_dt 디법 지속시간 스텟을 적용한 dt
 -------------------------------------
 function StatusEffectUnit:update(dt, modified_dt)
+    self.m_keepTimer = self.m_keepTimer + dt
+
     if (self.m_bLeaderSkill) then
     
     elseif (self.m_bHiddenSkill) then
@@ -252,6 +256,13 @@ end
 -------------------------------------
 function StatusEffectUnit:getDuration()
     return self.m_durationTimer
+end
+
+-------------------------------------
+-- function getKeepTime
+-------------------------------------
+function StatusEffectUnit:getKeepTime()
+    return self.m_keepTimer
 end
 
 -------------------------------------

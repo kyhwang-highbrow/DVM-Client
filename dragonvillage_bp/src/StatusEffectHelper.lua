@@ -200,14 +200,24 @@ function StatusEffectHelper:invokeStatusEffect(caster, target_char, status_effec
         error('no status_effect table : ' .. status_effect_type)
     end
 
+    local status_effect = target_char:getStatusEffect(status_effect_type, true)
     local status_effect_category = t_status_effect['category']
 	local status_effect_group = t_status_effect['type']
     local duration = tonumber(duration) or tonumber(t_status_effect['duration'])
     local world = target_char.m_world
+    local skip_resistance_font = false
 
     -- 전투 중 검사
     if (self:isHarmful(status_effect_category) and not world.m_gameState:isFight()) then
         return nil
+    end
+
+    -- 시전자가 몬스터의 경우 같은 스킬 아이디의 상태효과는 일정시간 내에 다시 걸리지 않도록 처리
+    if (caster:getCharType() == 'monster' and status_effect) then
+        local unit = status_effect:getUnit(caster, skill_id)
+        if (unit and unit:getKeepTime() < 3) then
+            skip_resistance_font = true
+        end
     end
 
     -- status_effect_rate 검사
@@ -233,7 +243,9 @@ function StatusEffectHelper:invokeStatusEffect(caster, target_char, status_effec
             -- 해제효과의 경우는 효과 저항할 수 없도록 처리
         
         elseif (self:isHarmful(status_effect_category) and self:checkStatus(caster, target_char)) then
-            target_char:makeResistanceFont(target_char.pos['x'], target_char.pos['y'], 1.5)
+            if (not skip_resistance_font) then
+                target_char:makeResistanceFont(target_char.pos['x'], target_char.pos['y'], 1.5)
+            end
             return nil
         end
 	else
@@ -250,7 +262,6 @@ function StatusEffectHelper:invokeStatusEffect(caster, target_char, status_effec
         status_effect_value = tonumber(status_effect_value)
     end
 
-    local status_effect = target_char:getStatusEffect(status_effect_type, true)
     if (status_effect) then
         -- 상태 효과 중첩 혹은 갱신
         status_effect:addOverlabUnit(caster, skill_id, status_effect_value, status_effect_source, duration, add_param)
