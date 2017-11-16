@@ -350,3 +350,69 @@ function GetLoadingStrList()
         Str('드래곤들 날개를 닦아주는 중...'),
     }
 end
+
+-------------------------------------
+-- function getIndicatorName
+-- @brief 인디케이터 이름
+-------------------------------------
+function getIndicatorName(indicator_type)
+    local indicator_name = ''
+
+    if (indicator_type == 'bar') then
+        indicator_name = Str('직선')
+    
+    elseif (indicator_type == 'cross') then
+        indicator_name = Str('교차')
+    
+    elseif (indicator_type == 'curve_twin') then
+        indicator_name = Str('곡선')
+    
+    elseif (indicator_type == 'round') then
+        indicator_name = Str('원형')
+
+    elseif (indicator_type == 'square_height') then
+        indicator_name = Str('세로')
+
+    elseif (indicator_type == 'square_height_top') then
+        indicator_name = Str('세로')
+
+    elseif (indicator_type == 'square_width') then
+        indicator_name = Str('가로')
+
+    elseif (indicator_type == 'target_cone') then
+        indicator_name = Str('원뿔')
+
+    elseif (indicator_type == 'voltes_x') then
+        indicator_name = Str('교차')
+
+    elseif (indicator_type == 'wedge') then
+        indicator_name = Str('확산')
+
+    else
+        error('indicator_type : ' .. indicator_type)
+    end
+
+    return indicator_name
+end
+
+-------------------------------------
+-- function getIndicatorSizeName
+-- @brief 인디케이터 사이즈 명
+-------------------------------------
+function getIndicatorSizeName(size)
+    local indicator_size_name
+    if (size == 1) then
+        indicator_size_name = Str('소')
+
+    elseif (size == 2) then
+        indicator_size_name = Str('중')
+
+    elseif (size == 3) then
+        indicator_size_name = Str('대')
+
+    else
+        error('indicator_size : ' .. size)
+    end
+
+    return indicator_size_name
+end
