@@ -166,13 +166,16 @@ function UI_ColosseumResult:direction_end()
     local resultMenu = vars['resultMenu']
     resultMenu:setVisible(true)
 
+    -- 연출 준비
     local t_data = self.m_resultData
     local numbering_time = 0.5
     local score_label1 = NumberLabel(vars['scoreLabel1'], 0, numbering_time)
     local score_label2 = vars['scoreLabel2']
     local honer_label1 = NumberLabel(vars['honorLabel1'], 0, numbering_time)
     local honer_label2 = vars['honorLabel2']
+    vars['eventNode']:setVisible(false)
 
+    -- 연출 액션들
     local function compare_func(data, up_arrow, down_arrow, label)
         up_arrow:setVisible(data > 0)
         down_arrow:setVisible(data < 0)
@@ -207,12 +210,18 @@ function UI_ColosseumResult:direction_end()
 
     -- 이벤트 아이템 표시
     local event_act = cc.CallFunc:create(function()
-        if (not t_data['added_items']) then return end
+        if (not t_data['added_items']) then 
+            return 
+        end
         local drop_list = t_data['added_items']['items_list'] or {}
         for _, item in ipairs(drop_list) do
             if (item['from'] == 'event') then
+                local item_id = item['item_id']
+                local item_name = TableItem:getItemName(item_id)
                 local cnt = item['count']
+
                 vars['eventNode']:setVisible(true)
+                vars['eventNameLabel']:setString(item_name)
                 vars['eventLabel']:setString(comma_value(cnt))
                 break
             end
