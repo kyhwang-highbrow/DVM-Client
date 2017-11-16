@@ -185,6 +185,13 @@ function DragonSkillIndivisualInfo:getSkillDesc()
 end
 
 -------------------------------------
+-- function getSkillDescMod
+-------------------------------------
+function DragonSkillIndivisualInfo:getSkillDescMod()
+    return '{@SKILL_DESC_MOD}준비중입니다.'
+end
+
+-------------------------------------
 -- function getSkillID
 -------------------------------------
 function DragonSkillIndivisualInfo:getSkillID()
@@ -234,6 +241,20 @@ function DragonSkillIndivisualInfo:isActivated()
 end
 
 -------------------------------------
+-- function getReqMana
+-- @brief 필요 마나 리턴 (active 스킬만 유효한 값을 가짐)
+-------------------------------------
+function DragonSkillIndivisualInfo:getReqMana()
+    local req_mana = self.m_tSkill['req_mana']
+
+    if (not req_mana) or (type(req_mana) == 'string') then
+        req_mana = 0
+    end
+
+    return req_mana
+end
+
+-------------------------------------
 -- function getCoolTime
 -- @brief 순수한 의미의 쿨타임..
 -------------------------------------
@@ -271,17 +292,59 @@ function DragonSkillIndivisualInfo:getCoolTimeDesc()
 end
 
 -------------------------------------
--- function getReqMana
--- @brief 필요 마나 리턴 (active 스킬만 유효한 값을 가짐)
+-- function getTargetCount
+-- @brief 타겟수 
 -------------------------------------
-function DragonSkillIndivisualInfo:getReqMana()
-    local req_mana = self.m_tSkill['req_mana']
+function DragonSkillIndivisualInfo:getTargetCount()
+    local target_cnt = self.m_tSkill['target_count'] 
 
-    if (not req_mana) or (type(req_mana) == 'string') then
-        req_mana = 0
+    return target_cnt
+end
+
+-------------------------------------
+-- function getIndicatorType
+-- @brief 인디케이터 타입
+-------------------------------------
+function DragonSkillIndivisualInfo:getIndicatorType()
+    local indicator_type = self.m_tSkill['indicator']
+    if (indicator_type == '') then
+        return nil
+    end
+    return indicator_type
+end
+
+-------------------------------------
+-- function getIndicatorIcon
+-- @brief 인디케이터 아이콘
+-- @brief SpriteFrame을 사용하는 것에 주의
+-------------------------------------
+function DragonSkillIndivisualInfo:getIndicatorIcon()
+    local target_type = self.m_tSkill['target_type']
+    local indicator_type = self.m_tSkill['indicator']
+    local str_target
+    if (string.find(target_type, 'enemy')) then
+        str_target = 'atk'
+    else
+        str_target = 'heal'
     end
 
-    return req_mana
+    local res = 'ingame_panel_indicater_' .. str_target .. '_' .. indicator_type .. '.png'
+    local icon = IconHelper:createWithSpriteFrameName(res)
+
+    return icon
+end
+
+-------------------------------------
+-- function getIndicatorName
+-- @brief 인디케이터 명칭
+-------------------------------------
+function DragonSkillIndivisualInfo:getIndicatorName()
+    local indicator_type = self.m_tSkill['indicator']
+    local indicator_name = getIndicatorName(indicator_type)
+    local size = self.m_tSkill['skill_size']
+    local indicator_size = getIndicatorSizeName(size)
+    local full_name = string.format('%s (%s)', indicator_name, indicator_size)
+    return full_name
 end
 
 -------------------------------------

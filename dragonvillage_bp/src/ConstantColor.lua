@@ -94,11 +94,15 @@ COLOR = {
     ['user_title'] = cc.c3b(255, 215, 0),
 
     -- 일반 텍스트 사용 색상
-    ['DESC'] = cc.c3b(240, 215, 160),	-- 밝음
+    ['DESC'] = cc.c3b(240, 215, 159),	-- 밝음
     ['DESC2'] = cc.c3b(161, 125, 93),	-- 어두움
 
     -- 인게임 사용 색상
     ['SKILL_NAME'] = cc.c3b(255, 145, 0),	-- 오렌지
+
+    -- UI 스킬 텍스트
+    ['SKILL_VALUE'] = cc.c3b(244, 151, 5),
+    ['SKILL_VALUE_MOD'] = cc.c3b(255, 240, 0),
 
     -- 특수
     ['rune_sopt'] = cc.c3b(240, 215, 159),
@@ -128,7 +132,7 @@ COLOR = {
 
 -- 재정의 색상들
 COLOR['SKILL_DESC'] = COLOR['DESC2']
-COLOR['SKILL_VALUE'] = COLOR['MUSTARD']
+COLOR['SKILL_DESC_MOD'] = COLOR['DESC']
 
 -- 기능별 색상
 COLOR['subject'] = COLOR['ROSE']

@@ -208,10 +208,10 @@ function DragonSkillCore.getRichTemplate(desc)
             desc = desc:gsub(case, '%1%3%2')
         end
         for _, case in pairs(L_CASE_2) do
-            desc = desc:gsub(case, '{@SKILL_VALUE}%1{@default}')
+            desc = desc:gsub(case, '{@SKILL_VALUE}%1{@SKILL_DESC}')
         end
 
-        return '{@default}' .. desc
+        return '{@SKILL_DESC}' .. desc
     end
 end
 
@@ -228,7 +228,7 @@ function DragonSkillCore.getRichValue(value)
     end
 
     if (value) then
-        return '{@SKILL_VALUE}' .. value .. '{@default}'
+        return '{@SKILL_VALUE}' .. value .. '{@SKILL_DESC}'
         --return value
     end
 end

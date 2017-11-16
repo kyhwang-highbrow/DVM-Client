@@ -661,6 +661,12 @@ function UIC_TableView:updateCellAtIndex(idx)
     if (not idx) then
         return
     end
+    if (not self.m_itemList) then
+        return
+    end
+    if (not self.m_itemList[idx]) then
+        return
+    end
 
     local offset = self:_offsetFromIndex(idx)
     local ui = self.m_itemList[idx]['ui']
