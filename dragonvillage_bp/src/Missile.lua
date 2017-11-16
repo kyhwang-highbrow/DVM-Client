@@ -783,6 +783,8 @@ MissileHitCB = {}
 MissileHitCB.normal = function(attacker, defender, i_x, i_y)
     attacker:setEnableBody(false)
     attacker:changeState('dying')
+
+    attacker.bFixedAttack = false
 end
 
 -------------------------------------
