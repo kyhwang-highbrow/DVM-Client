@@ -8,7 +8,7 @@ local MAX_HEIGHT = 200
 
 -------------------------------------
 -- class UI_Tooltip_Skill
--- @brief 사실 이제 스킬에서는 사용하지 않지만.. 출시전이라 바꾸지 않으려고 함
+-- @brief 사실 이제 스킬에서는 사용하지 않는다. UI_Tooltip으로 수정예정
 -------------------------------------
 UI_Tooltip_Skill = class(PARENT, {
         m_bubbleImage = 'cc.Scale9Sprite',
