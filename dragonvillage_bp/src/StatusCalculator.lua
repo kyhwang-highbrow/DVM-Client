@@ -138,6 +138,40 @@ function StatusCalculator:calcStatusList(char_type, cid, lv, grade, evolution, e
 end
 
 -------------------------------------
+-- function getBasicStat
+-- @brief 기본 + 레벨 + 등급 + 진화 + 친밀도
+-------------------------------------
+function StatusCalculator:getBasicStat(stat_type)
+    local indivisual_status = self.m_lStatusList[stat_type]
+    if (not indivisual_status) then
+        error('stat_type : ' .. stat_type)
+    end
+
+    local basic_stat = indivisual_status:getBasicStat()
+    return basic_stat
+end
+
+-------------------------------------
+-- function getDeltaStatDisplay
+-------------------------------------
+function StatusCalculator:getDeltaStatDisplay(stat_type, use_percent)
+    local indivisual_status = self.m_lStatusList[stat_type]
+    if (not indivisual_status) then
+        error('stat_type : ' .. stat_type)
+    end
+
+    local basic_stat = indivisual_status:getBasicStat()
+    local final_stat = indivisual_status:getFinalStat()
+    local dt_stat = comma_value(math_floor(final_stat - basic_stat))
+
+    if (use_percent) then
+        return string.format('(+ %s%%)', dt_stat)
+    else
+        return string.format('(+ %s)', dt_stat)
+    end
+end
+
+-------------------------------------
 -- function getFinalStat
 -------------------------------------
 function StatusCalculator:getFinalStat(stat_type)

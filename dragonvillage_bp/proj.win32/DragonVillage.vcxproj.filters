@@ -2814,6 +2814,15 @@
     <None Include="..\src\StatusEffect_Immune.lua">
       <Filter>lua\src</Filter>
     </None>
+    <None Include="..\src\UI_BookDetailPopupNew.lua">
+      <Filter>lua\UI</Filter>
+    </None>
+    <None Include="..\src\UI_DragonInfoBoardNew.lua">
+      <Filter>lua\UI</Filter>
+    </None>
+    <None Include="..\src\UI_SkillDetailPopupNew.lua">
+      <Filter>lua\UI</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Classes">

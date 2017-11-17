@@ -188,7 +188,8 @@ end
 -- function getSkillDescMod
 -------------------------------------
 function DragonSkillIndivisualInfo:getSkillDescMod()
-    return '{@SKILL_DESC_MOD}준비중입니다.'
+    local desc = DragonSkillCore.getSkillModDesc(self.m_tSkill, self.m_skillLevel)
+    return desc
 end
 
 -------------------------------------

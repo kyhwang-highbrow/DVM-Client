@@ -49,3 +49,21 @@ function TableDragonSkillModify:getMaxLV(skill_id)
 
 	return t_skill_max_lv[skill_id] or 1
 end
+
+-------------------------------------
+-- function getSkillModDesc
+-------------------------------------
+function TableDragonSkillModify:getSkillModDesc(skill_id, skill_lv)
+    if (self == THIS) then
+        self = THIS()
+    end
+
+    local l_skill_list = self:filterList('sid', skill_id)
+    for i, t_skill in ipairs(l_skill_list) do
+        if (t_skill['lv'] == skill_lv) then
+            return t_skill['t_desc']
+        end
+    end
+
+    return ''
+end

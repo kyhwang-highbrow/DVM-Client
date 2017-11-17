@@ -1,9 +1,9 @@
 local PARENT = class(UI, ITabUI:getCloneTable())
 
 -------------------------------------
--- class UI_BookDetailPopup
+-- class UI_BookDetailPopupNew
 -------------------------------------
-UI_BookDetailPopup = class(PARENT,{
+UI_BookDetailPopupNew = class(PARENT,{
 		-- m_tDragon은 레퍼런스이므로 가변데이터는 별도로 관리한다.
 		m_tDragon = 'TableDragon data + evol, grade',
 		m_lv = 'number',
@@ -27,12 +27,12 @@ UI_BookDetailPopup = class(PARENT,{
 -------------------------------------
 -- function init
 -------------------------------------
-function UI_BookDetailPopup:init(t_dragon)
-    local vars = self:load('book_detail_popup.ui')
+function UI_BookDetailPopupNew:init(t_dragon)
+    local vars = self:load('book_detail_popup_new.ui')
     UIManager:open(self, UIManager.SCENE)
 
     -- backkey 지정
-    g_currScene:pushBackKeyListener(self, function() self:close() end, 'UI_BookDetailPopup')
+    g_currScene:pushBackKeyListener(self, function() self:close() end, 'UI_BookDetailPopupNew')
 
     -- @UI_ACTION
     self:doActionReset()
@@ -55,7 +55,7 @@ end
 -------------------------------------
 -- function initUI
 -------------------------------------
-function UI_BookDetailPopup:initUI()
+function UI_BookDetailPopupNew:initUI()
     self.m_dragonAnimator = UIC_DragonAnimator()
     self.vars['dragonNode']:addChild(self.m_dragonAnimator.m_node)
 end
@@ -63,7 +63,7 @@ end
 -------------------------------------
 -- function initTab
 -------------------------------------
-function UI_BookDetailPopup:initTab()
+function UI_BookDetailPopupNew:initTab()
     local vars = self.vars
 	for i = 1, 3 do 
         self:addTabWithLabel(i, vars['evolutionTabBtn' .. i], vars['evolutionTabLabel' .. i], nil)
@@ -74,7 +74,7 @@ end
 -------------------------------------
 -- function initButton
 -------------------------------------
-function UI_BookDetailPopup:initButton()
+function UI_BookDetailPopupNew:initButton()
     local vars = self.vars
 
     vars['closeBtn']:registerScriptTapHandler(function() self:close() end)
@@ -106,7 +106,7 @@ end
 -------------------------------------
 -- function refresh
 -------------------------------------
-function UI_BookDetailPopup:refresh()
+function UI_BookDetailPopupNew:refresh()
 	-- 예외처리 용
 	self:refresh_exception()
 
@@ -124,7 +124,7 @@ end
 -- function refresh_exception
 -- @brief 자코/슬라임 예외처리
 -------------------------------------
-function UI_BookDetailPopup:refresh_exception()
+function UI_BookDetailPopupNew:refresh_exception()
 	local vars = self.vars
 
 	local underling = (self.m_tDragon['underling'] == 1)
@@ -139,7 +139,7 @@ end
 -------------------------------------
 -- function refresh_rate
 -------------------------------------
-function UI_BookDetailPopup:refresh_rate()
+function UI_BookDetailPopupNew:refresh_rate()
     local did = self.m_tDragon['did']
     local function cb_func(ret)
         local rate = ret['rate']
@@ -151,7 +151,7 @@ end
 -------------------------------------
 -- function refresh_gradeBtnState
 -------------------------------------
-function UI_BookDetailPopup:refresh_gradeBtnState()
+function UI_BookDetailPopupNew:refresh_gradeBtnState()
 	local t_dragon = self.m_tDragon
 	if (not t_dragon) then
 		return
@@ -176,7 +176,7 @@ end
 -------------------------------------
 -- function refresh_lvBtnState
 -------------------------------------
-function UI_BookDetailPopup:refresh_lvBtnState()
+function UI_BookDetailPopupNew:refresh_lvBtnState()
 	local t_dragon = self.m_tDragon
 	if (not t_dragon) then
 		return
@@ -202,7 +202,7 @@ end
 -------------------------------------
 -- function onChangeTab
 -------------------------------------
-function UI_BookDetailPopup:onChangeTab(tab, first)
+function UI_BookDetailPopupNew:onChangeTab(tab, first)
 	local t_dragon = self.m_tDragon
 	if (not t_dragon) then
 		return
@@ -227,7 +227,7 @@ end
 -------------------------------------
 -- function onChangeDragon
 -------------------------------------
-function UI_BookDetailPopup:onChangeDragon()
+function UI_BookDetailPopupNew:onChangeDragon()
     local t_dragon = self.m_tDragon
     if (not t_dragon) then
         return
@@ -285,7 +285,7 @@ end
 -- function addSameTypeDragon
 -- @brief 같은 타입 드래곤 리스트
 -------------------------------------
-function UI_BookDetailPopup:addSameTypeDragon(t_dragon)
+function UI_BookDetailPopupNew:addSameTypeDragon(t_dragon)
     local vars = self.vars
 
     local t_attr = {'fire', 'water', 'earth', 'light', 'dark'}
@@ -347,7 +347,7 @@ end
 -------------------------------------
 -- function onChangeEvolution
 -------------------------------------
-function UI_BookDetailPopup:onChangeEvolution()
+function UI_BookDetailPopupNew:onChangeEvolution()
     local t_dragon = self.m_tDragon
     if (not t_dragon) then
         return
@@ -412,7 +412,7 @@ end
 -------------------------------------
 -- function onChangeGrade
 -------------------------------------
-function UI_BookDetailPopup:onChangeGrade()
+function UI_BookDetailPopupNew:onChangeGrade()
 	local t_dragon = self.m_tDragon
     if (not t_dragon) then
         return nil
@@ -442,7 +442,7 @@ end
 -------------------------------------
 -- function onChangeLV
 -------------------------------------
-function UI_BookDetailPopup:onChangeLV()
+function UI_BookDetailPopupNew:onChangeLV()
 	local vars = self.vars
 
 	local max_lv = TableGradeInfo:getMaxLv(self.m_grade)
@@ -460,7 +460,7 @@ end
 -------------------------------------
 -- function calculateStat
 -------------------------------------
-function UI_BookDetailPopup:calculateStat()
+function UI_BookDetailPopupNew:calculateStat()
     local vars = self.vars
 	
 	-- 슬라임일 경우
@@ -471,22 +471,75 @@ function UI_BookDetailPopup:calculateStat()
 
 	local t_dragon_data = self:makeDragonData()
 
-	-- stats
-	local status_calc = MakeDragonStatusCalculator_fromDragonDataTable(t_dragon_data)
-	vars['cri_dmg_label']:setString(status_calc:getFinalStatDisplay('cri_dmg'))
-	vars['hit_rate_label']:setString(status_calc:getFinalStatDisplay('hit_rate'))
-	vars['avoid_label']:setString(status_calc:getFinalStatDisplay('avoid'))
-	vars['cri_avoid_label']:setString(status_calc:getFinalStatDisplay('cri_avoid'))
-	vars['cri_chance_label']:setString(status_calc:getFinalStatDisplay('cri_chance'))
-	vars['atk_spd_label']:setString(status_calc:getFinalStatDisplay('aspd'))
-	vars['atk_label']:setString(status_calc:getFinalStatDisplay('atk'))
-	vars['def_label']:setString(status_calc:getFinalStatDisplay('def'))
-	vars['hp_label']:setString(status_calc:getFinalStatDisplay('hp'))
+    -- 능력치 계산기
+    local status_calc = MakeDragonStatusCalculator_fromDragonDataTable(t_dragon_data)
+
+    -- 모든 스탯 계산
+    local hp = status_calc:getFinalStatDisplay('hp')
+    local atk = status_calc:getFinalStatDisplay('atk')
+    local def = status_calc:getFinalStatDisplay('def')
+    local aspd = status_calc:getFinalStatDisplay('aspd')
+    local cri_chance = status_calc:getFinalStatDisplay('cri_chance')
+    local cri_dmg = status_calc:getFinalStatDisplay('cri_dmg')
+    local hit_rate = status_calc:getFinalStatDisplay('hit_rate')
+    local avoid = status_calc:getFinalStatDisplay('avoid')
+    local cri_avoid = status_calc:getFinalStatDisplay('cri_avoid')
+    local accuracy = status_calc:getFinalStatDisplay('accuracy')
+    local resistance = status_calc:getFinalStatDisplay('resistance')
+
+    -- detail node : final stat
+    do
+        vars['hp_label']:setString(hp)
+        vars['atk_label']:setString(atk)
+        vars['def_label']:setString(def)
+        vars['atk_spd_label']:setString(aspd)
+        vars['cri_chance_label']:setString(cri_chance)
+        vars['cri_dmg_label']:setString(cri_dmg)
+        vars['hit_rate_label']:setString(hit_rate)
+        vars['avoid_label']:setString(avoid)
+        vars['cri_avoid_label']:setString(cri_avoid)
+        vars['accuracy_label']:setString(accuracy)
+        vars['resistance_label']:setString(resistance)
+        
+        self:refresh_gauge(status_calc)
+    end
 
 	-- 전투력
 	vars['cp_label']:setString(comma_value(t_dragon_data:getCombatPower()))
 end
 
+-------------------------------------
+-- function refresh_gauge
+-- @brief 능력치 게이지 액션
+-------------------------------------
+function UI_BookDetailPopupNew:refresh_gauge(status_calc)
+    local vars = self.vars
+    local status_calc = status_calc
+
+    -- curr
+    local hp = status_calc:getFinalStat('hp')
+    local atk = status_calc:getFinalStat('atk')
+    local def = status_calc:getFinalStat('def')
+    local aspd = status_calc:getFinalStat('aspd')
+    local cri_chance = status_calc:getFinalStat('cri_chance')
+    local cri_dmg = status_calc:getFinalStat('cri_dmg')
+
+    -- max
+    local max_hp = g_constant:get('UI', 'MAX_STAT', 'HP')
+    local max_atk = g_constant:get('UI', 'MAX_STAT', 'ATK')
+    local max_def = g_constant:get('UI', 'MAX_STAT', 'DEF')
+    local max_aspd = g_constant:get('UI', 'MAX_STAT', 'ASPD')
+    local max_cri_chance = g_constant:get('UI', 'MAX_STAT', 'CRI_CHANCE')
+    local max_cri_dmg = g_constant:get('UI', 'MAX_STAT', 'CRI_DMG')
+
+    local dr = 0.2
+    vars['hp_gauge']:runAction(cc.ProgressTo:create(dr, hp / max_hp * 100))
+    vars['atk_gauge']:runAction(cc.ProgressTo:create(dr, atk / max_atk * 100))
+    vars['def_gauge']:runAction(cc.ProgressTo:create(dr, def / max_def * 100))
+    vars['atk_spd_gauge']:runAction(cc.ProgressTo:create(dr, (aspd - 100)/(max_aspd - 100) * 100))
+    vars['cri_chance_gauge']:runAction(cc.ProgressTo:create(dr, cri_chance / max_cri_chance * 100))
+    vars['cri_dmg_gauge']:runAction(cc.ProgressTo:create(dr, cri_dmg / max_cri_dmg * 100))
+end
 
 
 
@@ -503,7 +556,7 @@ end
 -------------------------------------
 -- function click_nextBtn
 -------------------------------------
-function UI_BookDetailPopup:click_nextBtn(is_next)
+function UI_BookDetailPopupNew:click_nextBtn(is_next)
 	local t_dragon = self.m_tDragon
     -- 다음, 이전 버튼에서는 origin did 사용, (같은 타입 드래곤 선택 추가되면서 did 변경될 수 있음)
 	local did = self.m_originDid
@@ -545,7 +598,7 @@ end
 -------------------------------------
 -- function click_gradeBtn
 -------------------------------------
-function UI_BookDetailPopup:click_gradeBtn(is_plus)
+function UI_BookDetailPopupNew:click_gradeBtn(is_plus)
 	local t_dragon = self.m_tDragon
 	if (not t_dragon) then
 		return
@@ -578,7 +631,7 @@ end
 -------------------------------------
 -- function click_lvBtn
 -------------------------------------
-function UI_BookDetailPopup:click_lvBtn(is_plus)
+function UI_BookDetailPopupNew:click_lvBtn(is_plus)
 	local t_dragon = self.m_tDragon
 	if (not t_dragon) then
 		return
@@ -608,7 +661,7 @@ end
 -------------------------------------
 -- function press_lvBtn
 -------------------------------------
-function UI_BookDetailPopup:press_lvBtn(is_plus)
+function UI_BookDetailPopupNew:press_lvBtn(is_plus)
 	local t_dragon = self.m_tDragon
 	if (not t_dragon) then
 		return
@@ -638,7 +691,7 @@ end
 -------------------------------------
 -- function click_evolutionBtn
 -------------------------------------
-function UI_BookDetailPopup:click_evolutionBtn(evolution)
+function UI_BookDetailPopupNew:click_evolutionBtn(evolution)
 	local t_dragon = self.m_tDragon
 	if (not t_dragon) then
 		return
@@ -657,7 +710,7 @@ end
 -- function click_detailBtn
 -- @brief 드래곤 상세 보기 팝업
 -------------------------------------
-function UI_BookDetailPopup:click_detailBtn()
+function UI_BookDetailPopupNew:click_detailBtn()
 	if (self.m_tDragon['bookType'] == 'slime') then
 		UIManager:toastNotificationRed(Str('슬라임은 상세 보기를 할 수 없습니다.'))
 		return	
@@ -670,7 +723,7 @@ end
 -- function click_recommandBtn
 -- @brief 획득방법
 -------------------------------------
-function UI_BookDetailPopup:click_recommandBtn()
+function UI_BookDetailPopupNew:click_recommandBtn()
     local ui = UI_DragonBoardPopup(self.m_tDragon)
 	ui:setCloseCB(function()
 		self:refresh_rate()
@@ -681,7 +734,7 @@ end
 -- function click_getBtn
 -- @brief 획득방법
 -------------------------------------
-function UI_BookDetailPopup:click_getBtn()
+function UI_BookDetailPopupNew:click_getBtn()
 	local did = self.m_tDragon['did']
 	local evolution = self.m_evolution
 	local item_id = TableItem:getItemIDByDid(did, evolution)
@@ -692,7 +745,7 @@ end
 -- function click_sameTypeCard
 -- @brief 같은 타입 드래곤 클릭시
 -------------------------------------
-function UI_BookDetailPopup:click_sameTypeCard(t_dragon)
+function UI_BookDetailPopupNew:click_sameTypeCard(t_dragon)
     if (not t_dragon) then return end
 
     -- 기존 값 그대로 유지
@@ -710,7 +763,7 @@ end
 -------------------------------------
 -- function setDragon
 -------------------------------------
-function UI_BookDetailPopup:setDragon(t_dragon, is_origin)
+function UI_BookDetailPopupNew:setDragon(t_dragon, is_origin)
 	self.m_tDragon = t_dragon
 	self.m_evolution = t_dragon['evolution']
 	self.m_grade = t_dragon['grade']
@@ -723,7 +776,7 @@ end
 -------------------------------------
 -- function makeDragonData
 -------------------------------------
-function UI_BookDetailPopup:makeDragonData(data)
+function UI_BookDetailPopupNew:makeDragonData(data)
     local t_dragon = (data) and data or self.m_tDragon
     if (not t_dragon) then
         return nil
@@ -746,7 +799,7 @@ end
 -------------------------------------
 -- function setBookList
 -------------------------------------
-function UI_BookDetailPopup:setBookList(l_book)
+function UI_BookDetailPopupNew:setBookList(l_book)
 	self.m_lBookList = l_book
 end
 
@@ -754,7 +807,7 @@ end
 -- function checkRefresh
 -- @brief
 -------------------------------------
-function UI_BookDetailPopup:checkRefresh()
+function UI_BookDetailPopupNew:checkRefresh()
     local is_changed = g_bookData:checkChange(self.m_bookLastChangeTime)
 
     if is_changed then
@@ -766,7 +819,7 @@ end
 -------------------------------------
 -- function setUnableIndex
 -------------------------------------
-function UI_BookDetailPopup:setUnableIndex()
+function UI_BookDetailPopupNew:setUnableIndex()
     local vars = self.vars
     vars['nextBtn']:setVisible(false)
     vars['prevBtn']:setVisible(false)
@@ -783,7 +836,7 @@ end
 -- @brief 좌우 인덱스 이동은 불가하도록 함
 -- @comment 다시보니 코드가 많이 지져분해져서 정리할 필요가 있다.
 -------------------------------------
-function UI_BookDetailPopup.open(did, grade, evolution)
+function UI_BookDetailPopupNew.open(did, grade, evolution)
     local t_dragon
     if TableSlime:isSlimeID(did) then
         local table_slime = TableSlime()
@@ -798,15 +851,10 @@ function UI_BookDetailPopup.open(did, grade, evolution)
 	t_dragon['grade'] = grade or t_dragon['birthgrade']
 	t_dragon['evolution'] = evolution or 1
 
-	local ui
-    if (IS_NEW_BALANCE_VERSION()) then
-        ui = UI_BookDetailPopupNew(t_dragon)
-    else
-		ui = UI_BookDetailPopup(t_dragon)
-    end
+	local ui = UI_BookDetailPopupNew(t_dragon)
     ui:setUnableIndex()
 end
 
 
 --@CHECK
-UI:checkCompileError(UI_BookDetailPopup)
+UI:checkCompileError(UI_BookDetailPopupNew)
