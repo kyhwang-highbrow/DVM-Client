@@ -400,16 +400,10 @@ end
 -- function checkBash
 -- @brief 강타 여부 검사
 -------------------------------------
-function Character:checkBash(attacker_char)
-    local miss_rate
+function Character:checkBash(attacker_char, rate)
+    local rate = rate or 0
     
-    if (IS_NEW_BALANCE_VERSION()) then
-        miss_rate = 50
-    else
-        miss_rate = 100
-    end
-
-    if (math_random(1, 100) <= miss_rate) then
+    if (math_random(1, 100) <= rate) then
         return true
 	end
 
@@ -420,10 +414,10 @@ end
 -- function checkMiss
 -- @brief 빚맞힘 여부 검사
 -------------------------------------
-function Character:checkMiss(attacker_char)
-    local miss_rate =  g_constant:get('INGAME', 'MISS_RATE') or 100
+function Character:checkMiss(attacker_char, rate)
+    local rate = rate or 0
 
-    if (math_random(1, 100) <= miss_rate) then
+    if (math_random(1, 100) <= rate) then
         return true
 	end
 
@@ -482,8 +476,8 @@ function Character:undergoAttack(attacker, defender, i_x, i_y, body_key, no_even
 
     -- 속성 효과
     local t_attr_effect, attr_synastry = self:checkAttributeCounter(attacker_char)
-    local is_bash = (attr_synastry == 1) and self:checkBash(attacker_char)
-    local is_miss = (attr_synastry == -1) and self:checkMiss(attacker_char)
+    local is_bash = (attr_synastry == 1) and self:checkBash(attacker_char, t_attr_effect['bash'])
+    local is_miss = (attr_synastry == -1) and self:checkMiss(attacker_char, t_attr_effect['miss'])
 
     -- 공격력 및 방어력 정보
     local org_atk_dmg = attack_activity_carrier:getAtkDmg(defender)
