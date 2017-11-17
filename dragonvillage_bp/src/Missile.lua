@@ -183,7 +183,7 @@ function Missile:updatePhys(dt)
     local ogr_speed = self.speed
 
     -- 목표 대상이 존재하는 경우 대상을 지나치지 않도록 속도를 조절
-    if (not self.m_bPassType) then
+    if (not self.m_bPassType and self.body.size > 0) then
         if (dt > 0 and self.m_target) then
             local pos_x, pos_y = self:getCenterPos()
             local target_x, target_y
