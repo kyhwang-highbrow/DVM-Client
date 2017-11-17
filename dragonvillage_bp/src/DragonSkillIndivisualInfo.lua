@@ -329,8 +329,19 @@ function DragonSkillIndivisualInfo:getIndicatorIcon()
         str_target = 'heal'
     end
 
+    local rotate = 0
+
+    if (pl.stringx.endswith(indicator_type, '_right')) then
+        indicator_type = string.gsub(indicator_type, '_right', '')
+        rotate = 180
+    elseif (pl.stringx.endswith(indicator_type, '_top')) then
+        indicator_type = string.gsub(indicator_type, '_top', '')
+        rotate = 180
+    end
+
     local res = 'ingame_panel_indicater_' .. str_target .. '_' .. indicator_type .. '.png'
     local icon = IconHelper:createWithSpriteFrameName(res)
+    icon:setRotation(rotate)
 
     return icon
 end

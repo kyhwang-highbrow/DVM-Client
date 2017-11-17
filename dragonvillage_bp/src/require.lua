@@ -627,6 +627,7 @@ local t_module = {
 	'UI_ToastPopup',
     'UI_SecretFindPopup',
 	'UI_Tooltip_Indicator',
+    'UI_Tooltip_IndicatorNew',
     'UI_Tooltip_Skill',
     'UI_TopUserInfo',
     'UI_GoodsInfo',

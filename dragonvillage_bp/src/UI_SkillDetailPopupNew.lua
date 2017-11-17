@@ -160,26 +160,24 @@ function UI_SkillDetailPopupNew:refresh(idx)
         -- 스킬 쿨타임 표시
         local cooltime = skill_indivisual_info:getCoolTimeDesc()
         if (cooltime) then
-            vars['skillCoolTimeNode']:setVisible(true)
             vars['cooltimeLabel']:setString(cooltime)
         else
-            vars['skillCoolTimeNode']:setVisible(false)
+            vars['cooltimeLabel']:setString('-')
         end
 
         -- 스킬 타겟수
         local target_cnt = skill_indivisual_info:getTargetCount()
         if (target_cnt) then
-            vars['targetNode']:setVisible(true)
             vars['targetLabel']:setString(target_cnt)
         else
-            vars['targetNode']:setVisible(false)
+            vars['targetLabel']:setString('-')
         end
 
         -- 인디케이터
         local indicator_type = skill_indivisual_info:getIndicatorType()
+        vars['indicatorIconNode']:removeAllChildren()
         if (indicator_type) then
             -- 아이콘
-            vars['indicatorNode']:setVisible(true)
             local icon = skill_indivisual_info:getIndicatorIcon()
             if (icon) then
                 vars['indicatorIconNode']:addChild(icon)
@@ -189,7 +187,7 @@ function UI_SkillDetailPopupNew:refresh(idx)
             local indicator_name = skill_indivisual_info:getIndicatorName()
             vars['indicatorLabel']:setString(indicator_name)
         else
-            vars['indicatorNode']:setVisible(false)
+            vars['indicatorLabel']:setString('-')
         end
     end
     

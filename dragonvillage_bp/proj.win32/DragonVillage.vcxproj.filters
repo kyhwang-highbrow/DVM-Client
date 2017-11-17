@@ -2823,6 +2823,9 @@
     <None Include="..\src\UI_SkillDetailPopupNew.lua">
       <Filter>lua\UI</Filter>
     </None>
+    <None Include="..\src\UI_Tooltip_IndicatorNew.lua">
+      <Filter>lua\UI</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Classes">
