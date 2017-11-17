@@ -390,7 +390,11 @@ function UI_BookDetailPopup:onChangeEvolution()
 
 				l_skill_icon[i].vars['clickBtn']:setActionType(UIC_Button.ACTION_TYPE_WITHOUT_SCAILING)
 				l_skill_icon[i].vars['clickBtn']:registerScriptTapHandler(function()
-					UI_SkillDetailPopup(t_dragon_data, i)
+					if (IS_NEW_BALANCE_VERSION()) then
+                        UI_SkillDetailPopupNew(t_dragon_data, i)
+                    else
+					    UI_SkillDetailPopup(t_dragon_data, i)
+                    end
 				end)
 
 			-- 비어있는 스킬 아이콘 생성

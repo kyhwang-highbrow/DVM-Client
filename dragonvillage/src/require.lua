@@ -661,6 +661,7 @@ local t_module = {
     'UI_ChapterAchieveRewardPopup',
     'UI_NotificationFullInventoryPopup',
     'UI_DragonInfoBoard',
+    'UI_DragonInfoBoardNew',
     'UI_MonsterInfoBoard',
 	'UI_FormationPopup',
 	'UI_FormationListItem',

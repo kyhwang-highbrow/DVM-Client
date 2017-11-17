@@ -1,9 +1,9 @@
 local PARENT = UI
 
 -------------------------------------
--- class UI_DragonInfoBoard
+-- class UI_DragonInfoBoardNew
 -------------------------------------
-UI_DragonInfoBoard = class(PARENT,{
+UI_DragonInfoBoardNew = class(PARENT,{
         m_dragonObject = '',
         m_bSimpleMode = 'boolean',
     })
@@ -11,9 +11,9 @@ UI_DragonInfoBoard = class(PARENT,{
 -------------------------------------
 -- function init
 -------------------------------------
-function UI_DragonInfoBoard:init(is_simple_mode)
+function UI_DragonInfoBoardNew:init(is_simple_mode)
     self.m_bSimpleMode = is_simple_mode
-    local vars = self:load('dragon_info_board.ui')
+    local vars = self:load('dragon_info_board_new.ui')
     
     self:initUI()
     self:initButton()
@@ -23,7 +23,7 @@ end
 -------------------------------------
 -- function initUI
 -------------------------------------
-function UI_DragonInfoBoard:initUI(is_simple_mode)
+function UI_DragonInfoBoardNew:initUI(is_simple_mode)
     local vars = self.vars
 
     vars['friendshipGauge']:setPercentage(0)
@@ -32,7 +32,7 @@ end
 -------------------------------------
 -- function initButton
 -------------------------------------
-function UI_DragonInfoBoard:initButton()
+function UI_DragonInfoBoardNew:initButton()
     local vars = self.vars
     vars['equipmentBtn']:setVisible(false)
     vars['detailBtn']:registerScriptTapHandler(function() self:click_detailBtn() end)
@@ -48,7 +48,7 @@ end
 -------------------------------------
 -- function refresh
 -------------------------------------
-function UI_DragonInfoBoard:refresh(t_dragon_data)
+function UI_DragonInfoBoardNew:refresh(t_dragon_data)
     self.m_dragonObject = t_dragon_data
 
     if (not t_dragon_data) then
@@ -98,8 +98,7 @@ function UI_DragonInfoBoard:refresh(t_dragon_data)
 
         if (not is_max_lv) then
             local percentage = (exp / max_exp) * 100
-            percentage = math_floor(percentage)
-            vars['expLabel']:setString(Str('{1}%', percentage))
+            vars['expLabel']:setString(string.format('%.2f%%', percentage))
 
             vars['expGauge']:stopAllActions()
             vars['expGauge']:setPercentage(0)
@@ -161,7 +160,7 @@ end
 -- function refresh_dragonSkillsInfo
 -- @brief 드래곤 스킬 정보 갱신
 -------------------------------------
-function UI_DragonInfoBoard:refresh_dragonSkillsInfo(t_dragon_data, t_dragon)
+function UI_DragonInfoBoardNew:refresh_dragonSkillsInfo(t_dragon_data, t_dragon)
     local vars = self.vars
 
     -- 슬라임일 경우
@@ -201,7 +200,7 @@ function UI_DragonInfoBoard:refresh_dragonSkillsInfo(t_dragon_data, t_dragon)
 
 				l_skill_icon[i].vars['clickBtn']:setActionType(UIC_Button.ACTION_TYPE_WITHOUT_SCAILING)
                 l_skill_icon[i].vars['clickBtn']:registerScriptTapHandler(function()
-                    UI_SkillDetailPopup(t_dragon_data, i)
+					UI_SkillDetailPopupNew(t_dragon_data, i)
 				end)
 
 			-- 비어있는 스킬 아이콘 생성
@@ -218,7 +217,7 @@ end
 -- function refresh_icons
 -- @brief 아이콘 갱신
 -------------------------------------
-function UI_DragonInfoBoard:refresh_icons(t_dragon_data, t_dragon)
+function UI_DragonInfoBoardNew:refresh_icons(t_dragon_data, t_dragon)
     local vars = self.vars
 
     do -- 희귀도
@@ -257,7 +256,7 @@ end
 -- function refresh_status
 -- @brief 능력치 정보 갱신
 -------------------------------------
-function UI_DragonInfoBoard:refresh_status(t_dragon_data, t_dragon)
+function UI_DragonInfoBoardNew:refresh_status(t_dragon_data, t_dragon)
     local vars = self.vars
 
     -- 슬라임인지 드래곤인지 여부
@@ -282,15 +281,41 @@ function UI_DragonInfoBoard:refresh_status(t_dragon_data, t_dragon)
     -- 능력치 계산기
     local status_calc = MakeDragonStatusCalculator_fromDragonDataTable(t_dragon_data)
 
-    vars['atk_label']:setString(status_calc:getFinalStatDisplay('atk'))
-    vars['atk_spd_label']:setString(status_calc:getFinalStatDisplay('aspd'))
-    vars['cri_chance_label']:setString(status_calc:getFinalStatDisplay('cri_chance'))
-    vars['def_label']:setString(status_calc:getFinalStatDisplay('def'))
-    vars['hp_label']:setString(status_calc:getFinalStatDisplay('hp'))
-    vars['cri_avoid_label']:setString(status_calc:getFinalStatDisplay('cri_avoid'))
-    vars['avoid_label']:setString(status_calc:getFinalStatDisplay('avoid'))
-    vars['hit_rate_label']:setString(status_calc:getFinalStatDisplay('hit_rate'))
-    vars['cri_dmg_label']:setString(status_calc:getFinalStatDisplay('cri_dmg'))
+    -- 자주 쓰는 능력치 6종
+    local hp = status_calc:getFinalStatDisplay('hp')
+    local atk = status_calc:getFinalStatDisplay('atk')
+    local def = status_calc:getFinalStatDisplay('def')
+    local aspd = status_calc:getFinalStatDisplay('aspd')
+    local cri_chance = status_calc:getFinalStatDisplay('cri_chance')
+    local cri_dmg = status_calc:getFinalStatDisplay('cri_dmg')
+
+    -- detail node
+    do
+        vars['hp_label']:setString(hp)
+        vars['atk_label']:setString(atk)
+        vars['def_label']:setString(def)
+        vars['atk_spd_label']:setString(aspd)
+        vars['cri_chance_label']:setString(cri_chance)
+        vars['cri_dmg_label']:setString(cri_dmg)
+
+        vars['hit_rate_label']:setString(status_calc:getFinalStatDisplay('hit_rate'))
+        vars['avoid_label']:setString(status_calc:getFinalStatDisplay('avoid'))
+        vars['cri_avoid_label']:setString(status_calc:getFinalStatDisplay('cri_avoid'))
+        vars['accuracy_label']:setString(status_calc:getFinalStatDisplay('accuracy'))
+        vars['resistance_label']:setString(status_calc:getFinalStatDisplay('resistance'))
+    end
+
+    -- detail node 2
+    do
+        vars['hp_label3']:setString(hp)
+        vars['atk_label3']:setString(atk)
+        vars['def_label3']:setString(def)
+        vars['atk_spd_label3']:setString(aspd)
+        vars['cri_chance_label3']:setString(cri_chance)
+        vars['cri_dmg_label3']:setString(cri_dmg)
+    end
+    
+    self:refresh_gauge(status_calc)
 
     if vars['cp_label'] then
         vars['cp_label']:setString(comma_value(status_calc:getCombatPower()))
@@ -298,19 +323,67 @@ function UI_DragonInfoBoard:refresh_status(t_dragon_data, t_dragon)
 end
 
 -------------------------------------
+-- function init_gauge
+-- @brief 능력치 게이지 초기화 (연출 예쁘게 하기 위해서)
+-------------------------------------
+function UI_DragonInfoBoardNew:init_gauge()
+    local vars = self.vars
+    vars['hp_gauge']:setPercentage(0)
+    vars['atk_gauge']:setPercentage(0)
+    vars['def_gauge']:setPercentage(0)
+    vars['atk_spd_gauge']:setPercentage(0)
+    vars['cri_chance_gauge']:setPercentage(0)
+    vars['cri_dmg_gauge']:setPercentage(0)
+end
+
+-------------------------------------
+-- function refresh_gauge
+-- @brief 능력치 게이지 액션
+-------------------------------------
+function UI_DragonInfoBoardNew:refresh_gauge(status_calc)
+    local vars = self.vars
+    local status_calc = status_calc or MakeDragonStatusCalculator_fromDragonDataTable(self.m_dragonObject)
+    local hp = status_calc:getFinalStat('hp')
+    local atk = status_calc:getFinalStat('atk')
+    local def = status_calc:getFinalStat('def')
+    local aspd = status_calc:getFinalStat('aspd')
+    local cri_chance = status_calc:getFinalStat('cri_chance')
+    local cri_dmg = status_calc:getFinalStat('cri_dmg')
+
+    local max_hp = 250000 / 100
+    local max_atk = 10000 / 100
+    local max_def = 10000 / 100
+    local max_aspd = 150 / 100
+    local max_cri_chance = 100 / 100
+    local max_cri_dmg = 250 / 100
+
+    vars['hp_gauge']:runAction(cc.ProgressTo:create(0.2, hp/max_hp))
+    vars['atk_gauge']:runAction(cc.ProgressTo:create(0.2, atk/max_atk))
+    vars['def_gauge']:runAction(cc.ProgressTo:create(0.2, def/max_def))
+    vars['atk_spd_gauge']:runAction(cc.ProgressTo:create(0.2, (aspd - 100)/max_aspd))
+    vars['cri_chance_gauge']:runAction(cc.ProgressTo:create(0.2, cri_chance/max_cri_chance))
+    vars['cri_dmg_gauge']:runAction(cc.ProgressTo:create(0.2, cri_dmg/max_cri_dmg))
+end
+
+-------------------------------------
 -- function click_detailBtn
 -- @brief 능력치 정보 갱신
 -------------------------------------
-function UI_DragonInfoBoard:click_detailBtn(t_dragon_data, t_dragon)
+function UI_DragonInfoBoardNew:click_detailBtn()
     local vars = self.vars
     vars['detailNode']:runAction(cc.ToggleVisibility:create())
+    vars['detailNode2']:runAction(cc.ToggleVisibility:create())
+
+    -- gauge action
+    self:init_gauge()
+    self:refresh_gauge()
 end
 
 -------------------------------------
 -- function click_runeBtn
 -- @brief 룬 버튼
 -------------------------------------
-function UI_DragonInfoBoard:click_runeBtn(slot_idx)
+function UI_DragonInfoBoardNew:click_runeBtn(slot_idx)
     -- UI가 간단모드로 설정되어 있을 경우
     if (self.m_bSimpleMode == true) then
         return
@@ -342,7 +415,7 @@ end
 -- function refresh_dragonRunes
 -- @brief 드래곤이 장착 중인 룬 정보 갱신
 -------------------------------------
-function UI_DragonInfoBoard:refresh_dragonRunes(t_dragon_data)
+function UI_DragonInfoBoardNew:refresh_dragonRunes(t_dragon_data)
     local vars = self.vars
 
     if (t_dragon_data.m_objectType ~= 'dragon') then

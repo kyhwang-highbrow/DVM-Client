@@ -18,6 +18,7 @@ UI_SkillDetailPopupNew = class(PARENT, {
         m_skillIconList = 'list',
 
         m_dragonSelectSprite = 'cc.Sprite',
+        m_orginDid = 'number',
      })
 
 -------------------------------------
@@ -48,6 +49,7 @@ function UI_SkillDetailPopupNew:init(dragon_object, focus_idx)
 	-- initialize
 	self.m_dragonObject = dragon_object
 	self.m_skillMgr = MakeDragonSkillFromDragonData(dragon_object)
+    self.m_orginDid = dragon_object:getDid()
     self.m_dragonSelectSprite = nil
 
     self:initUI()
@@ -93,6 +95,7 @@ end
 function UI_SkillDetailPopupNew:initButton()
     local vars = self.vars
     vars['closeBtn']:registerScriptTapHandler(function() self:click_closeBtn() end)
+    vars['infoBtn']:registerScriptTapHandler(function() self:click_infoBtn() end)
 	vars['prevBtn']:registerScriptTapHandler(function() self:click_skillLvBtn(false) end)
 	vars['nextBtn']:registerScriptTapHandler(function() self:click_skillLvBtn(true) end)
 end
@@ -142,7 +145,15 @@ function UI_SkillDetailPopupNew:refresh(idx)
 	end
 
 	-- 레벨 표시
-	vars['skillEnhanceLabel']:setString(string.format('Lv. %d / %d', self.m_currLV, self.m_maxLV))
+    do
+	    vars['skillEnhanceLabel']:setString(string.format('Lv. %d / %d', self.m_currLV, self.m_maxLV))
+        vars['skillEnhanceLabel']:setColor(COLOR['DEEPGRAY'])
+        vars['nowNode']:setVisible(false)
+        if (self.m_orginDid == self.m_dragonObject:getDid()) then
+            vars['skillEnhanceLabel']:setColor(COLOR['CURR_LV'])
+            vars['nowNode']:setVisible(true)
+        end
+    end
 
     -- 좌측 하단 박스
     do
@@ -207,11 +218,11 @@ end
 function UI_SkillDetailPopupNew:addSameTypeDragon()
     local vars = self.vars
 
-    -- 현재 드래곤 정보
+    -- origin 드래곤 정보
     local struct_dragon_object = self.m_dragonObject
     local did = struct_dragon_object:getDid()
     local attr = struct_dragon_object:getAttr()
-    
+
     -- 더미가 아닌 현재 드래곤 따로 표시
     local pos_y = vars['dragonCardNode_'..attr]:getPositionY()
     vars['selectSprite']:setVisible(true)
@@ -265,6 +276,7 @@ function UI_SkillDetailPopupNew:addSameTypeDragon()
             local dummy_struct
             if (did == t_data['did']) then
                 dummy_struct = struct_dragon_object
+                dummy_struct.lv = nil
             else
                 dummy_struct = self:makeDragonData(t_data)
             end
@@ -399,8 +411,15 @@ function UI_SkillDetailPopupNew:click_skillLvBtn(is_next)
 	local new_info = self.m_skillMgr:makeIndividualInfo(skill_type, skill_id, skill_lv)
 
 	do -- 레벨 표시
-        local skill_level = new_info:getSkillLevel()
         vars['skillEnhanceLabel']:setString(string.format('Lv. %d / %d', self.m_currLV, self.m_maxLV))
+        vars['skillEnhanceLabel']:setColor(COLOR['DEEPGRAY'])
+        vars['nowNode']:setVisible(false)
+        if (self.m_orginDid == self.m_dragonObject:getDid()) then
+            if (self.m_currLV == before_info:getSkillLevel()) then
+                vars['skillEnhanceLabel']:setColor(COLOR['CURR_LV'])
+                vars['nowNode']:setVisible(true)
+            end
+        end
     end
 
 	do -- 스킬 설명
@@ -421,6 +440,13 @@ function UI_SkillDetailPopupNew:click_skillLvBtn(is_next)
     end
 
 	self:toggleButton()
+end
+
+-------------------------------------
+-- function click_infoBtn
+-------------------------------------
+function UI_SkillDetailPopupNew:click_infoBtn()
+	UI_Help('battle')
 end
 
 -------------------------------------

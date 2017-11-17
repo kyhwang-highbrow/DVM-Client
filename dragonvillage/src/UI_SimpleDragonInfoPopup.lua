@@ -48,7 +48,12 @@ function UI_SimpleDragonInfoPopup:initUI()
 
     -- 드래곤 정보 보드 생성
     local is_simple_mode = true
-    self.m_dragonInfoBoardUI = UI_DragonInfoBoard(is_simple_mode)
+    if (IS_NEW_BALANCE_VERSION()) then
+        self.m_dragonInfoBoardUI = UI_DragonInfoBoardNew(is_simple_mode)
+    else
+		self.m_dragonInfoBoardUI = UI_DragonInfoBoard(is_simple_mode)
+    end
+
     self.vars['rightNode']:addChild(self.m_dragonInfoBoardUI.root)
 
     -- 드래곤 실리소스
