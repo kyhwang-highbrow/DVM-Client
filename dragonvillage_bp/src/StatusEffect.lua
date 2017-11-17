@@ -21,7 +21,9 @@ StatusEffect = class(PARENT, {
         m_lUnit = 'table',  -- 해당 상태효과에 추가된 StatusEffectUnit의 리스트
         m_mUnit = 'table',  -- 시전자의 char_id값을 키값으로 StatusEffectUnit의 리스트를 가지는 맵
 
+        m_bErasable = 'boolean',
         m_bHidden = 'boolean',
+
         m_bDead = 'boolean',
         m_bApply = 'boolean',
         m_bDirtyPos = 'bollean',
@@ -67,7 +69,9 @@ function StatusEffect:init(file_name, body)
     self.m_lUnit = {}
     self.m_mUnit = {}
 
+    self.m_bErasable = false
     self.m_bHidden = false
+
     self.m_bDead = false
     self.m_bApply = false
     self.m_bDirtyPos = true
@@ -101,6 +105,9 @@ function StatusEffect:initFromTable(t_status_effect, target_char)
     self.m_category = t_status_effect['category']
     self.m_maxOverlab = t_status_effect['overlab']
     self.m_owner = target_char
+
+    self.m_bErasable = (SkillHelper:getValid(t_status_effect['erasable'], 1) == 1)
+    self.m_bHidden = (SkillHelper:getValid(t_status_effect['show_icon'], 1) == 0)
     self.m_bHarmful = StatusEffectHelper:isHarmful(t_status_effect['category'])
     self.m_bAbs = (t_status_effect['abs_switch'] and (t_status_effect['abs_switch'] == 1) or false)
 
@@ -230,13 +237,6 @@ end
 -------------------------------------
 function StatusEffect:setName(name)
     self.m_statusEffectName = name
-end
-
--------------------------------------
--- function setHidden
--------------------------------------
-function StatusEffect:setHidden(b)
-    self.m_bHidden = b
 end
 
 -------------------------------------
@@ -644,7 +644,7 @@ function StatusEffect:addOverlabUnit(caster, skill_id, value, source, duration, 
         end
     end
 
-    local new_unit = self.m_overlabClass(self:getTypeName(), self.m_owner, caster, skill_id, value, source, duration, self.m_bHidden, add_param)
+    local new_unit = self.m_overlabClass(self:getTypeName(), self.m_owner, caster, skill_id, value, source, duration, add_param)
     local t_status_effect = self.m_statusEffectTable
     
     if (not self.m_mUnit[char_key]) then
@@ -795,6 +795,27 @@ end
 -------------------------------------
 function StatusEffect:getTypeName()
     return self.m_statusEffectName
+end
+
+-------------------------------------
+-- function isErasable
+-------------------------------------
+function StatusEffect:isErasable()
+    return self.m_bErasable
+end
+
+-------------------------------------
+-- function isHidden
+-------------------------------------
+function StatusEffect:isHidden()
+    return self.m_bHidden
+end
+
+-------------------------------------
+-- function isHarmful
+-------------------------------------
+function StatusEffect:isHarmful()
+    return self.m_bHarmful
 end
 
 -------------------------------------

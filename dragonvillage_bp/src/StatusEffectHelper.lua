@@ -290,7 +290,6 @@ function StatusEffectHelper:makeStatusEffectInstance(caster, target_char, status
     local t_status_effect = TableStatusEffect():get(status_effect_type)
     local status_effect_group = t_status_effect['type']
     local status_effect = nil
-    local is_hidden = StatusEffectHelper:isHidden(t_status_effect, caster, skill_id)
     local res = TableStatusEffect():getRes(status_effect_type, caster:getAttribute())
 
     ----------- 상태효과 변경 ------------------
@@ -421,10 +420,9 @@ function StatusEffectHelper:makeStatusEffectInstance(caster, target_char, status
     -- 초기값 설정
     status_effect:initWorld(world)
     status_effect:initFromTable(t_status_effect, target_char)
-    status_effect:setHidden(is_hidden)
-
+    
     -- 타켓에게 status_effect 저장
-	target_char:insertStatusEffect(status_effect, is_hidden)
+	target_char:insertStatusEffect(status_effect)
 
     -- 객체 생성
     world.m_missiledNode:addChild(status_effect.m_rootNode, 1)
@@ -500,8 +498,8 @@ function StatusEffectHelper:releaseStatusEffectDebuff(char, max_release_cnt, sta
 	    -- 해제
 	    for type, status_effect in pairs(char:getStatusEffectList()) do
             -- 해로운 효과 해제
-		    if (status_effect.m_bHarmful) then
-                for i, v in ipairs(status_effect.m_lUnit) do
+            if (status_effect:isErasable() and status_effect:isHarmful()) then
+		        for i, v in ipairs(status_effect.m_lUnit) do
                     status_effect:unapplyOverlab(v)
                     local idx = table.find(status_effect.m_lUnit, v)
                     table.remove(status_effect.m_lUnit, idx)
@@ -518,7 +516,7 @@ function StatusEffectHelper:releaseStatusEffectDebuff(char, max_release_cnt, sta
     else
         for type, status_effect in pairs(char:getStatusEffectList()) do
             -- 해로운 효과 해제
-            if (status_effect.m_bHarmful) then
+            if (status_effect:isErasable() and status_effect:isHarmful()) then
                 if(status_effect_name == status_effect.m_statusEffectName) then
                     for i, v in ipairs(status_effect.m_lUnit) do
                         status_effect:unapplyOverlab(v)
@@ -551,7 +549,7 @@ function StatusEffectHelper:releaseStatusEffectBuff(char, max_release_cnt, statu
         -- 해제
         for type, status_effect in pairs(char:getStatusEffectList()) do
             -- 이로운 효과 해제
-	        if self:isHelpful(status_effect.m_category) then 
+	        if (status_effect:isErasable() and not status_effect:isHarmful()) then
 		        for i, v in ipairs(status_effect.m_lUnit) do
                     status_effect:unapplyOverlab(v)
                     local idx = table.find(status_effect.m_lUnit, v)
@@ -570,7 +568,7 @@ function StatusEffectHelper:releaseStatusEffectBuff(char, max_release_cnt, statu
         -- 해제
         for type, status_effect in pairs(char:getStatusEffectList()) do
             -- 이로운 효과 해제
-	        if self:isHelpful(status_effect.m_category) then 
+	        if (status_effect:isErasable() and not status_effect:isHarmful()) then
                 if(status_effect_name == status_effect.m_statusEffectName) then
                     for i, v in ipairs(status_effect.m_lUnit) do
                         status_effect:unapplyOverlab(v)
@@ -599,7 +597,9 @@ end
 function StatusEffectHelper:releaseStatusEffectAll(char)
 	-- 해제
 	for type, status_effect in pairs(char:getStatusEffectList()) do
-        status_effect:changeState('end')
+        if (status_effect:isErasable()) then
+            status_effect:changeState('end')
+        end
 	end
 end
 
@@ -635,32 +635,4 @@ function StatusEffectHelper:isHelpful(param_1)
 	end
 
 	return (status_effect_category == 'good')
-end
-
-
--------------------------------------
--- function isHidden
--- @breif 해제되지 않고 계속 유지되며 별도의 표시가 없는 상태효과(리더 or 패시브)인지 여부 체크
--------------------------------------
-function StatusEffectHelper:isHidden(t_status_effect, caster, skill_id)
-    if (skill_id) then
-        local leader_skill_id = caster:getSkillID('leader')
-        local passive_skill_id = caster:getSkillID('passive')
-
-        if (skill_id == leader_skill_id or skill_id == passive_skill_id) then
-            return true
-        end
-    end
-
-    if (t_status_effect) then
-        if (string.find(t_status_effect['name'], 'leader') or string.find(t_status_effect['name'], 'passive')) then
-            return true
-        end
-
-        if (t_status_effect['type'] == 'conditional_buff') then
-            return true
-        end
-    end
-
-    return false
 end
