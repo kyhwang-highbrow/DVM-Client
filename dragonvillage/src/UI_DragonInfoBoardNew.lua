@@ -281,15 +281,20 @@ function UI_DragonInfoBoardNew:refresh_status(t_dragon_data, t_dragon)
     -- 능력치 계산기
     local status_calc = MakeDragonStatusCalculator_fromDragonDataTable(t_dragon_data)
 
-    -- 자주 쓰는 능력치 6종
+    -- 모든 스탯 계산
     local hp = status_calc:getFinalStatDisplay('hp')
     local atk = status_calc:getFinalStatDisplay('atk')
     local def = status_calc:getFinalStatDisplay('def')
     local aspd = status_calc:getFinalStatDisplay('aspd')
     local cri_chance = status_calc:getFinalStatDisplay('cri_chance')
     local cri_dmg = status_calc:getFinalStatDisplay('cri_dmg')
+    local hit_rate = status_calc:getFinalStatDisplay('hit_rate')
+    local avoid = status_calc:getFinalStatDisplay('avoid')
+    local cri_avoid = status_calc:getFinalStatDisplay('cri_avoid')
+    local accuracy = status_calc:getFinalStatDisplay('accuracy')
+    local resistance = status_calc:getFinalStatDisplay('resistance')
 
-    -- detail node
+    -- detail node : final stat
     do
         vars['hp_label']:setString(hp)
         vars['atk_label']:setString(atk)
@@ -297,12 +302,38 @@ function UI_DragonInfoBoardNew:refresh_status(t_dragon_data, t_dragon)
         vars['atk_spd_label']:setString(aspd)
         vars['cri_chance_label']:setString(cri_chance)
         vars['cri_dmg_label']:setString(cri_dmg)
+        vars['hit_rate_label']:setString(hit_rate)
+        vars['avoid_label']:setString(avoid)
+        vars['cri_avoid_label']:setString(cri_avoid)
+        vars['accuracy_label']:setString(accuracy)
+        vars['resistance_label']:setString(resistance)
+    end
+    
+    -- detail node : rune stat delta
+    do
+        local dt_hp = status_calc:getDeltaStatDisplay('hp')
+        local dt_atk = status_calc:getDeltaStatDisplay('atk')
+        local dt_def = status_calc:getDeltaStatDisplay('def')
+        local dt_aspd = status_calc:getDeltaStatDisplay('aspd')
+        local dt_cri_chance = status_calc:getDeltaStatDisplay('cri_chance')
+        local dt_cri_dmg = status_calc:getDeltaStatDisplay('cri_dmg')
+        local dt_hit_rate = status_calc:getDeltaStatDisplay('hit_rate')
+        local dt_avoid = status_calc:getDeltaStatDisplay('avoid')
+        local dt_cri_avoid = status_calc:getDeltaStatDisplay('cri_avoid')
+        local dt_accuracy = status_calc:getDeltaStatDisplay('accuracy')
+        local dt_resistance = status_calc:getDeltaStatDisplay('resistance')
 
-        vars['hit_rate_label']:setString(status_calc:getFinalStatDisplay('hit_rate'))
-        vars['avoid_label']:setString(status_calc:getFinalStatDisplay('avoid'))
-        vars['cri_avoid_label']:setString(status_calc:getFinalStatDisplay('cri_avoid'))
-        vars['accuracy_label']:setString(status_calc:getFinalStatDisplay('accuracy'))
-        vars['resistance_label']:setString(status_calc:getFinalStatDisplay('resistance'))
+        vars['hp_label2']:setString(dt_hp)
+        vars['atk_label2']:setString(dt_atk)
+        vars['def_label2']:setString(dt_def)
+        vars['atk_spd_label2']:setString(dt_aspd .. '%')
+        vars['cri_chance_label2']:setString(dt_cri_chance .. '%')
+        vars['cri_dmg_label2']:setString(dt_cri_dmg .. '%')
+        vars['hit_rate_label2']:setString(dt_hit_rate)
+        vars['avoid_label2']:setString(dt_avoid)
+        vars['cri_avoid_label2']:setString(dt_cri_avoid)
+        vars['accuracy_label2']:setString(dt_accuracy)
+        vars['resistance_label2']:setString(dt_resistance)
     end
 
     -- detail node 2
@@ -343,6 +374,8 @@ end
 function UI_DragonInfoBoardNew:refresh_gauge(status_calc)
     local vars = self.vars
     local status_calc = status_calc or MakeDragonStatusCalculator_fromDragonDataTable(self.m_dragonObject)
+
+    -- curr
     local hp = status_calc:getFinalStat('hp')
     local atk = status_calc:getFinalStat('atk')
     local def = status_calc:getFinalStat('def')
@@ -350,19 +383,21 @@ function UI_DragonInfoBoardNew:refresh_gauge(status_calc)
     local cri_chance = status_calc:getFinalStat('cri_chance')
     local cri_dmg = status_calc:getFinalStat('cri_dmg')
 
-    local max_hp = 250000 / 100
-    local max_atk = 10000 / 100
-    local max_def = 10000 / 100
-    local max_aspd = 150 / 100
-    local max_cri_chance = 100 / 100
-    local max_cri_dmg = 250 / 100
+    -- max
+    local max_hp = g_constant:get('UI', 'MAX_STAT', 'HP')
+    local max_atk = g_constant:get('UI', 'MAX_STAT', 'ATK')
+    local max_def = g_constant:get('UI', 'MAX_STAT', 'DEF')
+    local max_aspd = g_constant:get('UI', 'MAX_STAT', 'ASPD')
+    local max_cri_chance = g_constant:get('UI', 'MAX_STAT', 'CRI_CHANCE')
+    local max_cri_dmg = g_constant:get('UI', 'MAX_STAT', 'CRI_DMG')
 
-    vars['hp_gauge']:runAction(cc.ProgressTo:create(0.2, hp/max_hp))
-    vars['atk_gauge']:runAction(cc.ProgressTo:create(0.2, atk/max_atk))
-    vars['def_gauge']:runAction(cc.ProgressTo:create(0.2, def/max_def))
-    vars['atk_spd_gauge']:runAction(cc.ProgressTo:create(0.2, (aspd - 100)/max_aspd))
-    vars['cri_chance_gauge']:runAction(cc.ProgressTo:create(0.2, cri_chance/max_cri_chance))
-    vars['cri_dmg_gauge']:runAction(cc.ProgressTo:create(0.2, cri_dmg/max_cri_dmg))
+    local dr = 0.2
+    vars['hp_gauge']:runAction(cc.ProgressTo:create(dr, hp / max_hp * 100))
+    vars['atk_gauge']:runAction(cc.ProgressTo:create(dr, atk / max_atk * 100))
+    vars['def_gauge']:runAction(cc.ProgressTo:create(dr, def / max_def * 100))
+    vars['atk_spd_gauge']:runAction(cc.ProgressTo:create(dr, (aspd - 100)/(max_aspd - 100) * 100))
+    vars['cri_chance_gauge']:runAction(cc.ProgressTo:create(dr, cri_chance / max_cri_chance * 100))
+    vars['cri_dmg_gauge']:runAction(cc.ProgressTo:create(dr, cri_dmg / max_cri_dmg * 100))
 end
 
 -------------------------------------
