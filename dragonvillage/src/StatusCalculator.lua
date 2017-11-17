@@ -154,7 +154,7 @@ end
 -------------------------------------
 -- function getDeltaStatDisplay
 -------------------------------------
-function StatusCalculator:getDeltaStatDisplay(stat_type)
+function StatusCalculator:getDeltaStatDisplay(stat_type, use_percent)
     local indivisual_status = self.m_lStatusList[stat_type]
     if (not indivisual_status) then
         error('stat_type : ' .. stat_type)
@@ -164,7 +164,11 @@ function StatusCalculator:getDeltaStatDisplay(stat_type)
     local final_stat = indivisual_status:getFinalStat()
     local dt_stat = comma_value(math_floor(final_stat - basic_stat))
 
-    return string.format('+ %s', dt_stat)
+    if (use_percent) then
+        return string.format('(+ %s%%)', dt_stat)
+    else
+        return string.format('(+ %s)', dt_stat)
+    end
 end
 
 -------------------------------------

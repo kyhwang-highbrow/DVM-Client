@@ -272,6 +272,14 @@ function UI_DragonInfoBoardNew:refresh_status(t_dragon_data, t_dragon)
         vars['hit_rate_label']:setString('0')
         vars['cri_dmg_label']:setString('0')
 
+        local dr = 0.2
+        vars['hp_gauge']:runAction(cc.ProgressTo:create(dr, 0))
+        vars['atk_gauge']:runAction(cc.ProgressTo:create(dr, 0))
+        vars['def_gauge']:runAction(cc.ProgressTo:create(dr, 0))
+        vars['atk_spd_gauge']:runAction(cc.ProgressTo:create(dr, 0))
+        vars['cri_chance_gauge']:runAction(cc.ProgressTo:create(dr, 0))
+        vars['cri_dmg_gauge']:runAction(cc.ProgressTo:create(dr, 0))
+
         if vars['cp_label'] then
             vars['cp_label']:setString('0')
         end
@@ -311,12 +319,14 @@ function UI_DragonInfoBoardNew:refresh_status(t_dragon_data, t_dragon)
     
     -- detail node : rune stat delta
     do
+        local use_percent = true
+
         local dt_hp = status_calc:getDeltaStatDisplay('hp')
         local dt_atk = status_calc:getDeltaStatDisplay('atk')
         local dt_def = status_calc:getDeltaStatDisplay('def')
-        local dt_aspd = status_calc:getDeltaStatDisplay('aspd')
-        local dt_cri_chance = status_calc:getDeltaStatDisplay('cri_chance')
-        local dt_cri_dmg = status_calc:getDeltaStatDisplay('cri_dmg')
+        local dt_aspd = status_calc:getDeltaStatDisplay('aspd', use_percent)
+        local dt_cri_chance = status_calc:getDeltaStatDisplay('cri_chance', use_percent)
+        local dt_cri_dmg = status_calc:getDeltaStatDisplay('cri_dmg', use_percent)
         local dt_hit_rate = status_calc:getDeltaStatDisplay('hit_rate')
         local dt_avoid = status_calc:getDeltaStatDisplay('avoid')
         local dt_cri_avoid = status_calc:getDeltaStatDisplay('cri_avoid')
@@ -326,9 +336,9 @@ function UI_DragonInfoBoardNew:refresh_status(t_dragon_data, t_dragon)
         vars['hp_label2']:setString(dt_hp)
         vars['atk_label2']:setString(dt_atk)
         vars['def_label2']:setString(dt_def)
-        vars['atk_spd_label2']:setString(dt_aspd .. '%')
-        vars['cri_chance_label2']:setString(dt_cri_chance .. '%')
-        vars['cri_dmg_label2']:setString(dt_cri_dmg .. '%')
+        vars['atk_spd_label2']:setString(dt_aspd)
+        vars['cri_chance_label2']:setString(dt_cri_chance)
+        vars['cri_dmg_label2']:setString(dt_cri_dmg)
         vars['hit_rate_label2']:setString(dt_hit_rate)
         vars['avoid_label2']:setString(dt_avoid)
         vars['cri_avoid_label2']:setString(dt_cri_avoid)
@@ -373,6 +383,13 @@ end
 -------------------------------------
 function UI_DragonInfoBoardNew:refresh_gauge(status_calc)
     local vars = self.vars
+    
+    -- 슬라임인지 드래곤인지 여부
+    local is_slime_object = (self.m_dragonObject:getObjectType() == 'slime')
+    if is_slime_object then
+        return
+    end
+
     local status_calc = status_calc or MakeDragonStatusCalculator_fromDragonDataTable(self.m_dragonObject)
 
     -- curr
