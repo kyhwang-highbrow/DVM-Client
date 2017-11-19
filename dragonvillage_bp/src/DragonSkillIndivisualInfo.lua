@@ -262,6 +262,11 @@ end
 function DragonSkillIndivisualInfo:getCoolTime()
     local cooltime = self.m_tSkill['cooldown'] 
 
+    -- 예외처리 추가
+    if (self.m_tSkill['chance_type'] == 'indie_time') then
+        cooltime = self.m_tSkill['chance_value']
+    end
+
     -- 예외처리
     if (cooltime == '') then
         return nil

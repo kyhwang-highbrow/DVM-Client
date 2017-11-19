@@ -290,12 +290,14 @@ function UI_DragonInfoBoardNew:refresh_status(t_dragon_data, t_dragon)
     local status_calc = MakeDragonStatusCalculator_fromDragonDataTable(t_dragon_data)
 
     -- 모든 스탯 계산
+    local use_percent = true
+
     local hp = status_calc:getFinalStatDisplay('hp')
     local atk = status_calc:getFinalStatDisplay('atk')
     local def = status_calc:getFinalStatDisplay('def')
-    local aspd = status_calc:getFinalStatDisplay('aspd')
-    local cri_chance = status_calc:getFinalStatDisplay('cri_chance')
-    local cri_dmg = status_calc:getFinalStatDisplay('cri_dmg')
+    local aspd = status_calc:getFinalStatDisplay('aspd', use_percent)
+    local cri_chance = status_calc:getFinalStatDisplay('cri_chance', use_percent)
+    local cri_dmg = status_calc:getFinalStatDisplay('cri_dmg', use_percent)
     local hit_rate = status_calc:getFinalStatDisplay('hit_rate')
     local avoid = status_calc:getFinalStatDisplay('avoid')
     local cri_avoid = status_calc:getFinalStatDisplay('cri_avoid')
@@ -319,8 +321,6 @@ function UI_DragonInfoBoardNew:refresh_status(t_dragon_data, t_dragon)
     
     -- detail node : rune stat delta
     do
-        local use_percent = true
-
         local dt_hp = status_calc:getDeltaStatDisplay('hp')
         local dt_atk = status_calc:getDeltaStatDisplay('atk')
         local dt_def = status_calc:getDeltaStatDisplay('def')

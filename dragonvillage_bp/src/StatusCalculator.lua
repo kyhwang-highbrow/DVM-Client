@@ -199,9 +199,14 @@ end
 -------------------------------------
 -- function getFinalStatDisplay
 -------------------------------------
-function StatusCalculator:getFinalStatDisplay(stat_type)
+function StatusCalculator:getFinalStatDisplay(stat_type, use_percent)
     local stat_value = self:getFinalStat(stat_type)
-    return comma_value(math_floor(stat_value))
+    local stat_str = comma_value(math_floor(stat_value))
+    if (use_percent) then
+        return string.format('%s%%', stat_str)
+    else
+        return stat_str
+    end
 end
 
 -------------------------------------
