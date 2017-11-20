@@ -206,14 +206,14 @@ function DragonSkillCore.getSkillModDesc(t_skill, skill_lv)
 end
 
 local L_CASE = {
+    '(%d+[.]%d+)(배)',
+    '(%d+)(배)',
     '(%d+)(%%)',
     '(%d+)(명)',
     '(%d+)(회)',
     '(%d+)(개)',
     '(%d+)(초)',
     '(%d+)(열)',
-    '(%d+)(배)',
-    '(%d+.%d+배)',
 }
 -------------------------------------
 -- function getRichTemplate
@@ -234,7 +234,7 @@ function DragonSkillCore.getRichTemplateEnhance(desc)
     if (desc) then
         -- lua pattern capture 참조
         for _, case in pairs(L_CASE) do
-            desc = desc:gsub(case, '{@SKILL_VALUE_MOD}%1{@SKILL_DESC_ENHANCE}')
+            desc = desc:gsub(case, '{@SKILL_VALUE_MOD}%1%2{@SKILL_DESC_ENHANCE}')
         end
 
         return '{@SKILL_DESC_ENHANCE}' .. desc
@@ -247,7 +247,7 @@ function DragonSkillCore.getRichTemplateMod(desc)
     if (desc) then
         -- lua pattern capture 참조
         for _, case in pairs(L_CASE) do
-            desc = desc:gsub(case, '{@SKILL_VALUE_MOD}%1{@SKILL_DESC_MOD}')
+            desc = desc:gsub(case, '{@SKILL_VALUE_MOD}%1%2{@SKILL_DESC_MOD}')
         end
 
         return '{@SKILL_DESC_MOD}' .. desc
