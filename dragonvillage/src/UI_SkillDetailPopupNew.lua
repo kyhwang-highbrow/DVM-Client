@@ -420,21 +420,9 @@ function UI_SkillDetailPopupNew:click_skillLvBtn(is_next)
         end
     end
 
-	do -- 스킬 설명
-        local desc = new_info:getSkillDesc()
-        vars['skillDscLabel']:setString(desc)
-
+	do -- 스킬 강화 설명
         local desc_mod = new_info:getSkillDescMod()
         vars['skillDscLabel2']:setString(desc_mod)
-    end
-
-    -- 스킬 쿨타임 표시
-    local cooltime = new_info:getCoolTimeDesc()
-    if (cooltime) then
-        vars['skillCoolTimeNode']:setVisible(true)
-        vars['cooltimeLabel']:setString(cooltime)
-    else
-        vars['skillCoolTimeNode']:setVisible(false)
     end
 
 	self:toggleButton()
