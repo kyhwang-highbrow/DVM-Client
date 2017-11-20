@@ -4,6 +4,7 @@ local PARENT = UI
 -- class UI_Tooltip_IndicatorNew
 -------------------------------------
 UI_Tooltip_IndicatorNew = class(PARENT, {
+        m_structDragonObject = 'StructDragonObject',
 		m_skillInfo = 'DragonSkillIndivisualInfo',
         m_oldSkillInfo = 'DragonSkillIndivisualInfo',
     })
@@ -27,6 +28,8 @@ end
 -- function init_data
 -------------------------------------
 function UI_Tooltip_IndicatorNew:setDragon(dragon)
+    self.m_structDragonObject = dragon
+
     -- active skill info를 꺼내옴
 	self.m_skillInfo = dragon:getSkillIndivisualInfo('active')
 
@@ -54,14 +57,30 @@ function UI_Tooltip_IndicatorNew:refresh()
 
 	-- 스킬 이름
 	local name = skill_indivisual_info:getSkillName()
-	vars['titleLabel']:setString(name)
+    local lv = skill_indivisual_info:getSkillLevel()
+	vars['titleLabel']:setString(string.format('Lv.%d %s', lv, name))
 
-    -- 스킬 아이콘
+    -- 아이콘 (스킬 + 마나 + 속성)
     do
+        -- 스킬
         vars['skillNode']:removeAllChildren()
-        local ui = UI_DragonSkillCard(skill_indivisual_info)
-        ui:setSimple()
-        vars['skillNode']:addChild(ui.root)
+        local skill_id = skill_indivisual_info:getSkillID()
+        local skill_icon = IconHelper:getSkillIcon('dragon', skill_id)
+        vars['skillNode']:addChild(skill_icon)
+
+        -- 마나
+        vars['manaNode']:removeAllChildren()
+        local mana_icon = skill_indivisual_info:getManaIcon()
+        vars['manaNode']:addChild(mana_icon)
+        
+        -- 속성
+        vars['attrNode']:removeAllChildren()
+        local attr_str = self.m_structDragonObject:getAttribute()
+        local res = 'ingame_panel_attr_' .. attr_str .. '.png'
+        local attr_icon = IconHelper:createWithSpriteFrameName(res)
+        vars['attrNode']:addChild(attr_icon)
+
+        -- 쿨타임
         vars['cooltimeLabel']:setString('')
     end
 
@@ -103,9 +122,27 @@ function UI_Tooltip_IndicatorNew:refresh()
     
 	-- 스킬 설명
     do
-        local desc = skill_indivisual_info:getSkillDesc()
+        --vars['skillDscLabel']:setScale(1)
+
+        local desc
+        if (old_skill_info) then
+            desc = old_skill_info:getSkillDesc() .. '\n' .. skill_indivisual_info:getSkillDescEnhance()
+        else
+            desc = skill_indivisual_info:getSkillDesc()
+        end
         vars['skillDscLabel']:setString(desc)
-        local desc_mod = skill_indivisual_info:getSkillDescMod()
+
+        --ccdisplay(vars['skillDscLabel']:getTotalHeight())
+        --if (vars['skillDscLabel']:getTotalHeight() >= 110) then
+            --vars['skillDscLabel']:setScale(0.5)
+        --end
+
+        local desc_mod
+        if (old_skill_info) then
+            desc_mod = old_skill_info:getSkillDescMod()
+        else
+            desc_mod = skill_indivisual_info:getSkillDescMod()
+        end
         vars['skillDscLabel2']:setString(desc_mod)
     end
 end

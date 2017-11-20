@@ -182,7 +182,21 @@ function DragonSkillCore.getSkillDescPure(t_skill)
 end
 
 -------------------------------------
--- function getSkillDescPure
+-- function getSkillEnhanceDesc
+-- @brief 스킬 설명 리턴
+-- @comment individual_info에서 재조립된 스킬테이블 사용
+-------------------------------------
+function DragonSkillCore.getSkillEnhanceDesc(t_skill)
+    local val_1 = THIS.getRichValue(t_skill['desc_1'])
+    local val_2 = THIS.getRichValue(t_skill['desc_2'])
+    local val_3 = THIS.getRichValue(t_skill['desc_3'])
+    local val_4 = THIS.getRichValue(t_skill['desc_4'])
+    local val_5 = THIS.getRichValue(t_skill['desc_5'])
+    return THIS.getRichTemplateEnhance(Str(t_skill['t_desc'], val_1, val_2, val_3, val_4, val_5))
+end
+
+-------------------------------------
+-- function getSkillModDesc
 -- @brief 스킬 설명 리턴
 -- @comment individual_info에서 재조립된 스킬테이블 사용
 -------------------------------------
@@ -192,13 +206,13 @@ function DragonSkillCore.getSkillModDesc(t_skill, skill_lv)
 end
 
 local L_CASE = {
-    '(%d*)({@default})(명)',
-    '(%d*)({@default})(회)',
-    '(%d*)({@default})(번)',
-    '(%d*)({@default})(초)',
-    '(%d*)({@default})(개)',
-    '(%d*)({@default})(%%)',
-    '(%d.%d*)({@default})(배)',
+    '(%d*)({@SKILL_DESC})(명)',
+    '(%d*)({@SKILL_DESC})(회)',
+    '(%d*)({@SKILL_DESC})(번)',
+    '(%d*)({@SKILL_DESC})(초)',
+    '(%d*)({@SKILL_DESC})(개)',
+    '(%d*)({@SKILL_DESC})(%%)',
+    '(%d.%d*)({@SKILL_DESC})(배)',
 
 }
 local L_CASE_2 = {
@@ -206,7 +220,10 @@ local L_CASE_2 = {
     '(%d*%%)',
     '(%d.%d*배)',
     '(%d*배)',
+    '(%d*초)',
     '(%d열)',
+    '(%d회)',
+    '(%d개)',
 }
 -------------------------------------
 -- function getRichTemplate
@@ -214,9 +231,6 @@ local L_CASE_2 = {
 function DragonSkillCore.getRichTemplate(desc)
     if (desc) then
         -- lua pattern capture 참조
-        for _, case in pairs(L_CASE) do
-            desc = desc:gsub(case, '%1%3%2')
-        end
         for _, case in pairs(L_CASE_2) do
             desc = desc:gsub(case, '{@SKILL_VALUE}%1{@SKILL_DESC}')
         end
@@ -225,14 +239,24 @@ function DragonSkillCore.getRichTemplate(desc)
     end
 end
 -------------------------------------
+-- function getRichTemplateEnhance
+-------------------------------------
+function DragonSkillCore.getRichTemplateEnhance(desc)
+    if (desc) then
+        -- lua pattern capture 참조
+        for _, case in pairs(L_CASE_2) do
+            desc = desc:gsub(case, '{@SKILL_VALUE_MOD}%1{@SKILL_DESC_ENHANCE}')
+        end
+
+        return '{@SKILL_DESC_ENHANCE}' .. desc
+    end
+end
+-------------------------------------
 -- function getRichTemplate
 -------------------------------------
 function DragonSkillCore.getRichTemplateMod(desc)
     if (desc) then
         -- lua pattern capture 참조
-        for _, case in pairs(L_CASE) do
-            desc = desc:gsub(case, '%1%3%2')
-        end
         for _, case in pairs(L_CASE_2) do
             desc = desc:gsub(case, '{@SKILL_VALUE_MOD}%1{@SKILL_DESC_MOD}')
         end
