@@ -179,13 +179,23 @@ end
 
 -------------------------------------
 -- function getSkillDesc
+-- @brief 일반 스킬 설명
 -------------------------------------
 function DragonSkillIndivisualInfo:getSkillDesc()
     return DragonSkillCore.getSkillDescPure(self.m_tSkill)
 end
 
 -------------------------------------
+-- function getSkillDescEnhance
+-- @brief 스킬 강화 설명
+-------------------------------------
+function DragonSkillIndivisualInfo:getSkillDescEnhance()
+    return DragonSkillCore.getSkillEnhanceDesc(self.m_tSkill)
+end
+
+-------------------------------------
 -- function getSkillDescMod
+-- @brief 레벨업 효과 설명
 -------------------------------------
 function DragonSkillIndivisualInfo:getSkillDescMod()
     local desc = DragonSkillCore.getSkillModDesc(self.m_tSkill, self.m_skillLevel)
@@ -214,7 +224,7 @@ function DragonSkillIndivisualInfo:getSkillLevel()
 end
 
 -------------------------------------
--- function getSkillLevel
+-- function getSkillType
 -------------------------------------
 function DragonSkillIndivisualInfo:getSkillType()
     return self.m_skillType
@@ -253,6 +263,17 @@ function DragonSkillIndivisualInfo:getReqMana()
     end
 
     return req_mana
+end
+
+-------------------------------------
+-- function getManaIcon
+-------------------------------------
+function DragonSkillIndivisualInfo:getManaIcon()
+    local req_mana = self.m_tSkill['req_mana']
+
+    local res = 'ingame_panel_mana_' .. req_mana .. '.png'
+    local icon = IconHelper:createWithSpriteFrameName(res)
+    return icon
 end
 
 -------------------------------------
@@ -327,6 +348,8 @@ end
 function DragonSkillIndivisualInfo:getIndicatorIcon()
     local target_type = self.m_tSkill['target_type']
     local indicator_type = self.m_tSkill['indicator']
+
+    -- 스킬 피아 타입
     local str_target
     if (string.find(target_type, 'enemy')) then
         str_target = 'atk'
@@ -334,8 +357,8 @@ function DragonSkillIndivisualInfo:getIndicatorIcon()
         str_target = 'heal'
     end
 
+    -- 스킬 동작 방향을 표현
     local rotate = 0
-
     if (pl.stringx.endswith(indicator_type, '_right')) then
         indicator_type = string.gsub(indicator_type, '_right', '')
         rotate = 180

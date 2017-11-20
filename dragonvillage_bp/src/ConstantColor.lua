@@ -103,6 +103,7 @@ COLOR = {
     -- UI 스킬 텍스트
     ['SKILL_VALUE'] = cc.c3b(244, 151, 5),
     ['SKILL_VALUE_MOD'] = cc.c3b(255, 240, 0),
+    ['SKILL_DESC_ENHANCE'] = cc.c3b(99, 235, 255),
     ['CURR_LV'] = cc.c3b(244, 191, 5),
 
     -- 특수
