@@ -25,14 +25,6 @@ UI_SkillDetailPopupNew = class(PARENT, {
 -- function init
 -------------------------------------
 function UI_SkillDetailPopupNew:init(dragon_object, focus_idx)
-    -- 플레이어의 드래곤이 아닐 경우 예외처리
-    if (not self.m_bSimpleMode) then
-        local uid = g_userData:get('uid')
-        if (dragon_object['uid'] ~= uid) then
-            self.m_bSimpleMode = true
-        end
-    end
-
     local vars = self:load('dragon_skill_detail_popup_new.ui')
     UIManager:open(self, UIManager.POPUP)
 
@@ -49,8 +41,15 @@ function UI_SkillDetailPopupNew:init(dragon_object, focus_idx)
 	-- initialize
 	self.m_dragonObject = dragon_object
 	self.m_skillMgr = MakeDragonSkillFromDragonData(dragon_object)
-    self.m_orginDid = dragon_object:getDid()
     self.m_dragonSelectSprite = nil
+
+    -- 내가 소유한 드래곤의 경우만 originDid 체크
+    local doid = dragon_object['id']
+    if (doid) then
+        if (g_dragonsData:getDragonDataFromUid(doid)) then
+            self.m_orginDid = dragon_object:getDid()
+        end
+    end
 
     self:initUI()
 	self:makeSkillRadioBtn(focus_idx)
@@ -420,21 +419,9 @@ function UI_SkillDetailPopupNew:click_skillLvBtn(is_next)
         end
     end
 
-	do -- 스킬 설명
-        local desc = new_info:getSkillDesc()
-        vars['skillDscLabel']:setString(desc)
-
+	do -- 스킬 강화 설명
         local desc_mod = new_info:getSkillDescMod()
         vars['skillDscLabel2']:setString(desc_mod)
-    end
-
-    -- 스킬 쿨타임 표시
-    local cooltime = new_info:getCoolTimeDesc()
-    if (cooltime) then
-        vars['skillCoolTimeNode']:setVisible(true)
-        vars['cooltimeLabel']:setString(cooltime)
-    else
-        vars['skillCoolTimeNode']:setVisible(false)
     end
 
 	self:toggleButton()
