@@ -45,7 +45,7 @@ UIManager = {
 
     m_toastBroadcastLayer = 'cc.Node',
 
-    m_toastPopup = 'UI_ToastPopup',
+    --m_toastPopup = 'UI_ToastPopup',
 
     m_topUserInfo = nil,
 
@@ -96,7 +96,7 @@ function UIManager:init(perple_scene)
     end
 
     -- toast popup 중복 제어용
-    self.m_toastPopup = nil
+    --self.m_toastPopup = nil
 
 	g_currScene:addKeyKeyListener(self)
 end

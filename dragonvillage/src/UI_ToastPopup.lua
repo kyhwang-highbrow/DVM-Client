@@ -14,10 +14,10 @@ function UI_ToastPopup:init(toast_str)
     local vars = self:load('popup_toast.ui')
     UIManager:open(self, UIManager.NORMAL)
 
-    if (UIManager.m_toastPopup) then
-        UIManager.m_toastPopup:closeWithAction()
-    end
-	UIManager.m_toastPopup = self
+    --if (UIManager.m_toastPopup) then
+    --    UIManager.m_toastPopup:closeWithAction()
+    --end
+	--UIManager.m_toastPopup = self
 
 	-- @UI_ACTION
     self:addAction(self.root, UI_ACTION_TYPE_OPACITY, 0, 0.5)
@@ -37,7 +37,7 @@ end
 function UI_ToastPopup:initUI()
 	local cb_func = function()
 		self:closeWithAction()
-        UIManager.m_toastPopup = nil
+        --UIManager.m_toastPopup = nil
 	end
 
 	SoundMgr:playEffect('UI', 'ui_out_item_get')
