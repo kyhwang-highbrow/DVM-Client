@@ -65,5 +65,5 @@ function StructEventDiceInfo:getObtainingStateDesc(key)
     local curr = self[key]
     local max = self[key .. '_max']
 
-    return Str('{@SKILL_DESC_MOD}일일 최대 {@SKILL_DESC_ENHANCE}{1}/{2}{@SKILL_DESC_MOD}개', curr, max))
+    return Str('{@SKILL_DESC_MOD}일일 최대 {@SKILL_DESC_ENHANCE}{1}/{2}{@SKILL_DESC_MOD}개', curr, max)
 end
