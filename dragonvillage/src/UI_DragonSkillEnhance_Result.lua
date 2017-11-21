@@ -12,7 +12,14 @@ UI_DragonSkillEnhance_Result = class(PARENT,{
 -- function init
 -------------------------------------
 function UI_DragonSkillEnhance_Result:init(old_struct_dragon, mod_struct_dragon)
-    local vars = self:load('dragon_skill_enhance_result.ui')
+    local ui_name
+    if (IS_NEW_BALANCE_VERSION()) then
+        ui_name = 'dragon_skill_enhance_result_new.ui'
+    else
+		ui_name = 'dragon_skill_enhance_result.ui'
+    end
+
+    local vars = self:load(ui_name)
     UIManager:open(self, UIManager.POPUP)
 
     -- backkey 지정
@@ -79,6 +86,13 @@ function UI_DragonSkillEnhance_Result:refresh()
 	do -- 스킬 설명
         local desc = skill_indivisual_info:getSkillDesc()
         vars['skillDscLabel']:setString(desc)
+    end
+
+    do -- 스킬 강화 설명
+        if (IS_NEW_BALANCE_VERSION()) then
+            local desc_mod = skill_indivisual_info:getSkillDescMod()
+            vars['skillDscLabel2']:setString(desc_mod)
+        end
     end
 end
 
