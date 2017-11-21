@@ -2940,6 +2940,12 @@
     <None Include="..\src\UI_ColosseumClanRankRewardItem.lua">
       <Filter>lua\UI</Filter>
     </None>
+    <None Include="..\src\UI_DiceEvent.lua">
+      <Filter>lua\UI</Filter>
+    </None>
+    <None Include="..\src\ServerData_EventDice.lua">
+      <Filter>lua\src</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Classes">

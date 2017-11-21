@@ -903,6 +903,7 @@ local t_module = {
     'UI_AccessTimeDataListItem',
     'UI_ExchangeEvent',
     'UI_ExchangeEventListItem',
+    'UI_DiceEvent',
 
 	-- UI : 연출
 	'DirectingCharacter',
