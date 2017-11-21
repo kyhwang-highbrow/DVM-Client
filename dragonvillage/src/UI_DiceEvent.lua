@@ -135,9 +135,8 @@ function UI_DiceEvent:refresh()
     self:selectCell(curr_cell)
 
     -- 최초 출발 처리
-    if (curr_cell == 1) and (lap_cnt == 0) then
-        curr_cell_ui.vars['startSprite']:setVisible(true)
-    end
+    local is_first = ((curr_cell == 1) and (lap_cnt == 0))
+    curr_cell_ui.vars['startSprite']:setVisible(is_first)
 
     -- 완주 보상 UI 처리
     for i, t_ui in ipairs(self.m_lapRewardInfoList) do
@@ -150,7 +149,7 @@ end
 -------------------------------------
 function UI_DiceEvent:selectCell(cell, cb_func)
     local pos_x, pos_y = self.vars['node' .. cell]:getPosition()
-    local duration = 0.3
+    local duration = 0.15
     local move = cca.makeBasicEaseMove(duration, pos_x, pos_y)
     local cb = cc.CallFunc:create(function()
         if (cb_func) then
@@ -177,6 +176,10 @@ function UI_DiceEvent:moveContainer(compare_y)
         pos_y = self.m_containerTopPosY
     else
         pos_y = 0
+    end
+
+    if (self.m_container:getPositionY() == pos_y) then
+        return
     end
 
     local duration = 0.5
@@ -207,7 +210,7 @@ function UI_DiceEvent:click_diceBtn()
     -- 연출을 코루틴으로 해봅니다.
     local function coroutine_function(dt)
         local co = CoroutineHelper()
-        --co:setBlockPopup()
+        co:setBlockPopup()
 
         -- 서버와 통신
         co:work()
@@ -221,6 +224,9 @@ function UI_DiceEvent:click_diceBtn()
 
         -- 굴리기 연출 ON
         self.m_rollAnimator:setVisible(true)
+        
+        -- 사운드 재생
+        SoundMgr:playEffect('UI', 'ui_dragon_level_up')
 
         -- ani list 재생
         local dt_cell = ret_cache['dt_cell']
@@ -346,10 +352,10 @@ function UI_DiceEvent.makeLap(t_data)
     end
 
     -- 상품 수량은 표기하기 애매한데?
-    if (value > 1) then
-        vars['rewardLabel']:setString(value)
+    if (reward_cnt == 1) then
+        vars['cntLabel']:setString(Str('{1}개', value))
     else
-        vars['rewardLabel']:setString('')
+        vars['cntLabel']:setString(Str('각 {1}개', value))
     end
 
     -- 0회차
@@ -367,6 +373,18 @@ function UI_DiceEvent.makeLap(t_data)
         tool_tip:autoPositioning(vars['clickBtn'])
     end)
 
+    -- 보상 수령
+    vars['rewardBtn']:registerScriptTapHandler(function()
+        local function finish_cb(ret)
+            t_data['is_recieved'] = true
+            UI_DiceEvent.refershLap(ui, t_data, 0)
+
+            local toast_msg = Str('보상이 우편함으로 전송되었습니다.')
+            UI_ToastPopup(toast_msg)
+        end
+        g_eventDiceData:request_diceRoll(lap, finish_cb)
+    end)
+
     return ui
 end
 
@@ -376,9 +394,32 @@ end
 -------------------------------------
 function UI_DiceEvent.refershLap(lap_ui, t_lap, curr_lap)
     local lap = t_lap['lap']
-    local is_recieve = t_lap['is_recieve']
+    local is_recieved = t_lap['is_recieved']
+    local is_able = (lap <= curr_lap)
+    local is_btn_able, btn_str, btn_color
+    
+    -- 이미 수령
+    if (is_recieved) then
+        is_btn_able = false
+        btn_str = Str('완료')
+        btn_color = COLOR['MUSTARD']
+    
+    -- 받기 가능
+    elseif (is_able == true) and (is_recieved == false) then
+        is_btn_able = true
+        btn_str = Str('받기')
+        btn_color = COLOR['BLACK']
 
-    if (lap > curr_lap) or (is_recieve) then
-        lap_ui.vars['rewardBtn']:setEnabled(false)
+    -- 아직 받을 수 없음
+    elseif (is_able == false) and (is_recieved == false) then
+        is_btn_able = false
+        btn_str = Str('받기')
+        btn_color = COLOR['SKILL_DESC_MOD']
+
     end
+
+    lap_ui.vars['rewardBtn']:setEnabled(is_btn_able)
+    lap_ui.vars['rewardLabel']:setString(btn_str)
+    lap_ui.vars['rewardLabel']:setColor(btn_color)
+    lap_ui.vars['checkSprite']:setVisible(is_recieved)
 end

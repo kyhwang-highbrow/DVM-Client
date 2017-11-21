@@ -137,7 +137,7 @@ function UI_Lobby:entryCoroutine()
         if (g_eventData:isVaildEvent('event_dice')) then
             cclog('# 주사위 이벤트 정보 받는 중')
             working = true
-            g_eventDiceData:request_eventInfo(function(ret) working = false end, required_fail_cb)
+            g_eventDiceData:request_diceInfo(function(ret) working = false end, required_fail_cb)
             while (working) do dt = coroutine.yield() end
         end
 

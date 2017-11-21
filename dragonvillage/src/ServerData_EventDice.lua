@@ -67,20 +67,21 @@ end
 function ServerData_EventDice:makePrettyLapRewardList(t_data, t_reward)
     local l_ret = {}
 
-    -- 변수명이 애매.. '700001;1,700002;1'
+    -- reward = '700001;1,700002;1'
     for lap, reward in pairs(t_data) do
-        local l_reward_str = plSplit(reward, ',')
+        
+        local comma_split_list = plSplit(reward, ',')
         local l_reward = {}
-        for i, each_reward_str in pairs(l_reward_str) do
-            local l_value = plSplit(each_reward_str, ';')
+        for i, each_reward_str in pairs(comma_split_list) do
+            local semi_split_list = plSplit(each_reward_str, ';')
             table.insert(l_reward, {
-                ['item_id'] = tonumber(l_value[1]),
-                ['value'] = tonumber(l_value[2]),
+                ['item_id'] = tonumber(semi_split_list[1]),
+                ['value'] = tonumber(semi_split_list[2]),
             })
         end
         
         local lap_num = tonumber(lap)
-        local is_recieved = (t_reward[lap] == 0)
+        local is_recieved = (t_reward[lap] == 1)
 
         table.insert(l_ret, {
             ['l_reward'] = l_reward,
@@ -124,10 +125,10 @@ function ServerData_EventDice:confirm_reward(ret)
 end
 
 -------------------------------------
--- function request_eventInfo
+-- function request_diceInfo
 -- @brief 이벤트 정보
 -------------------------------------
-function ServerData_EventDice:request_eventInfo(finish_cb, fail_cb)
+function ServerData_EventDice:request_diceInfo(finish_cb, fail_cb)
     -- 유저 ID
     local uid = g_userData:get('uid')
 
@@ -158,7 +159,7 @@ function ServerData_EventDice:request_eventInfo(finish_cb, fail_cb)
 end
 
 -------------------------------------
--- function request_eventUse
+-- function request_diceRoll
 -- @brief 이벤트 재화 사용
 -------------------------------------
 function ServerData_EventDice:request_diceRoll(finish_cb, fail_cb)
@@ -188,18 +189,16 @@ function ServerData_EventDice:request_diceRoll(finish_cb, fail_cb)
 end
 
 -------------------------------------
--- function request_eventReward
+-- function request_diceReward
 -- @brief 이벤트 재화 누적 보상
 -------------------------------------
-function ServerData_EventDice:request_eventReward(step, finish_cb, fail_cb)
+function ServerData_EventDice:request_diceReward(lap, finish_cb, fail_cb)
     -- 유저 ID
     local uid = g_userData:get('uid')
 
     -- 콜백
     local function success_cb(ret)                    
-        self:networkCommonRespone(ret)
-        self:confirm_reward(ret)
-        
+
         if finish_cb then
             finish_cb(ret)
         end
@@ -209,7 +208,7 @@ function ServerData_EventDice:request_eventReward(step, finish_cb, fail_cb)
     local ui_network = UI_Network()
     ui_network:setUrl('/shop/event_reward')
     ui_network:setParam('uid', uid)
-    ui_network:setParam('step', step)
+    ui_network:setParam('lap', lap)
     ui_network:setSuccessCB(success_cb)
     ui_network:setFailCB(fail_cb)
     ui_network:setRevocable(true)
