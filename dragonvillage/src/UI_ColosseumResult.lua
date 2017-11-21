@@ -174,6 +174,7 @@ function UI_ColosseumResult:direction_end()
     local honer_label1 = NumberLabel(vars['honorLabel1'], 0, numbering_time)
     local honer_label2 = vars['honorLabel2']
     vars['eventNode']:setVisible(false)
+    vars['eventNode2']:setVisible(false)
 
     -- 연출 액션들
     local function compare_func(data, up_arrow, down_arrow, label)
@@ -215,16 +216,32 @@ function UI_ColosseumResult:direction_end()
         end
         local drop_list = t_data['added_items']['items_list'] or {}
         for _, item in ipairs(drop_list) do
-            if (item['from'] == 'event') then
-                local item_id = item['item_id']
+            -- item_id 로 직접 체크한다
+            local item_id = item['item_id']
+            
+            -- 수집 이벤트
+            if (item_id == ITEM_ID_EVENT) then
                 local item_name = TableItem:getItemName(item_id)
                 local cnt = item['count']
 
                 vars['eventNode']:setVisible(true)
                 vars['eventNameLabel']:setString(item_name)
                 vars['eventLabel']:setString(comma_value(cnt))
-                break
+            
+            -- 주사위 이벤트
+            elseif (item_id == ITEM_ID_DICE) then
+                local item_name = TableItem:getItemName(item_id)
+                local cnt = item['count']
+
+                vars['eventNode2']:setVisible(true)
+                vars['eventNameLabel2']:setString(item_name)
+                vars['eventLabel2']:setString(comma_value(cnt))
             end
+        end
+
+        -- 특정 상황에선 노드 이동
+        if (vars['eventNode']:isVisible() == false) and (vars['eventNode2']:isVisible() == true) then
+            vars['eventNode2']:setPositionY(100)
         end
     end)
 
