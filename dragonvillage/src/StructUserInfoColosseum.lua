@@ -79,6 +79,13 @@ function StructUserInfoColosseum:create_forRanking(t_data)
     -- 드래곤 룬 세팅
     user_info.m_leaderDragonObject:setRuneObjects(t_data['runes'])
 
+    -- 클랜
+    if (t_data['clan_info']) then
+        local struct_clan = StructClan({})
+        struct_clan:applySimple(t_data['clan_info'])
+        user_info:setStructClan(struct_clan)
+    end
+
     return user_info
 end
 

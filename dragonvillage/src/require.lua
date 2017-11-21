@@ -554,6 +554,7 @@ local t_module = {
     'UIC_TableView',
     'UIC_ChatView',
     'UIC_TableViewCell',
+    'UIC_RankListItem',
     'UIC_TableViewTD',
     'UIC_ChatTableView',
     'UIC_ChatTableViewCell',

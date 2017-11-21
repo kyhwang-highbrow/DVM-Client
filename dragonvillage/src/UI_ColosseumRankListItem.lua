@@ -1,4 +1,4 @@
-local PARENT = class(UI, ITableViewCell:getCloneTable())
+local PARENT = class(UI, IRankListItem:getCloneTable())
 
 -------------------------------------
 -- class UI_ColosseumRankListItem
@@ -73,6 +73,9 @@ function UI_ColosseumRankListItem:initUI()
         local is_my_rank = (uid == t_rank_info.m_uid)
         vars['meSprite']:setVisible(is_my_rank)
     end
+
+    -- 공통의 정보
+    self:initRankInfo(vars, t_rank_info)
 end
 
 -------------------------------------
