@@ -1545,19 +1545,19 @@ function Character:setHp(hp, bFixed)
     if (self.m_isImmortal) then
         self.m_hp = math_max(self.m_hp, 1)
     end
+        
+    self.m_hpRatio = self.m_hp / self.m_maxHp
 
     -- 리스너에 전달
 	local t_event = clone(EVENT_CHANGE_HP_CARRIER)
 	t_event['owner'] = self
 	t_event['hp'] = self.m_hp
 	t_event['max_hp'] = self.m_maxHp
+    t_event['hp_rate'] = self.m_hpRatio
 
     self:dispatch('character_set_hp', t_event, self)
 
-    self.m_hp = math_min(t_event['hp'], self.m_maxHp)
-    self.m_hpRatio = self.m_hp / self.m_maxHp
-
-	-- 체력바 가감 연출
+    -- 체력바 가감 연출
     if self.m_hpGauge then
         self.m_hpGauge:setScaleX(self.m_hpRatio)
     end

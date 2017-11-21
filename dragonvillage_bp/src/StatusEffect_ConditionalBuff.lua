@@ -69,8 +69,8 @@ end
 -- function getTriggerFunction
 -------------------------------------
 function StatusEffect_ConditionalBuff:getTriggerFunction()
-    local trigger_func = function()
-        if (self:checkCondition()) then
+    local trigger_func = function(t_event)
+        if (self:checkCondition(t_event)) then
             if (not self.m_bApply) then
                 self:buffOn()
             end
@@ -86,8 +86,8 @@ end
 -------------------------------------
 -- function checkCondition
 -------------------------------------
-function StatusEffect_ConditionalBuff:checkCondition()
-    return PASSIVE_CONDITION_FUNC[self.m_chance](self)
+function StatusEffect_ConditionalBuff:checkCondition(t_event)
+    return PASSIVE_CONDITION_FUNC[self.m_chance](self, t_event)
 end
 
 -------------------------------------
