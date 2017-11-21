@@ -5,12 +5,13 @@ local PARENT = UI
 -------------------------------------
 UI_DiceEvent = class(PARENT,{
         m_container = 'ScrolView Container',
+        m_containerTopPosY = 'number',
 
         m_cellUIList = 'table<ui>',
         m_lapRewardInfoList = 'table<ui, data>',
 
-        m_selectedCellUI = 'UI temporary',
         m_selectAnimator = 'Animator',
+        m_rollAnimator = 'Animator'
     })
 
 -------------------------------------
@@ -22,12 +23,14 @@ function UI_DiceEvent:init()
     -- initailze 
     self.m_cellUIList = {}
     self.m_lapRewardInfoList = {}
-    self.m_selectedCellUI = nil
     self.m_container = nil
+    self.m_containerTopPosY = nil
+    self.m_selectAnimator = nil
+    self.m_rollAnimator = nil
 
     self:initUI()
     self:initButton()
-    self:refresh()
+    --self:refresh()
 end
 
 -------------------------------------
@@ -35,12 +38,6 @@ end
 -------------------------------------
 function UI_DiceEvent:initUI()
     local vars = self.vars
-                
-    -- make select sprite
-    local res = 'res/ui/a2d/event_dice/event_dice.vrp'
-    local select_ani = MakeAnimator(res)
-    vars['boardNode']:addChild(select_ani.m_node)
-    self.m_selectAnimator = select_ani
 
     -- cell list
     local cell_list = g_eventDiceData:getCellList()
@@ -88,6 +85,23 @@ function UI_DiceEvent:initUI()
         state_desc = dice_info:getTodayObtainingDesc()
         vars['obtainLabel5']:setString(state_desc)
     end
+                    
+    -- make select sprite
+    local res = 'res/ui/a2d/event_dice/event_dice.vrp'
+    local select_ani = MakeAnimator(res)
+    local curr_cell = dice_info:getCurrCell()
+    local pos_x, pos_y = self.vars['node' .. curr_cell]:getPosition()
+    select_ani:setPosition(pos_x, pos_y)
+    select_ani:changeAni('select', true)
+    vars['boardNode']:addChild(select_ani.m_node)
+    self.m_selectAnimator = select_ani
+
+    -- roll a dice ani
+    local res = 'res/ui/spine/dice/dice.json'
+    local roll_ani = MakeAnimator(res)
+    self.root:addChild(roll_ani.m_node)
+    roll_ani:setVisible(false)
+    self.m_rollAnimator = roll_ani
 end
 
 -------------------------------------
@@ -95,7 +109,7 @@ end
 -------------------------------------
 function UI_DiceEvent:initButton()
     local vars = self.vars
-
+    vars['diceBtn']:registerScriptTapHandler(function() self:click_diceBtn() end)
 end
 
 -------------------------------------
@@ -118,8 +132,7 @@ function UI_DiceEvent:refresh()
     vars['lapLabel']:setString(Str('{1}회', lap_cnt))
 
     -- 셀렉트 처리
-    self:selectCell(curr_cell_ui)
-    self.m_selectedCellUI = curr_cell_ui
+    self:selectCell(curr_cell)
 
     -- 최초 출발 처리
     if (curr_cell == 1) and (lap_cnt == 0) then
@@ -135,22 +148,136 @@ end
 -------------------------------------
 -- function selectCell
 -------------------------------------
-function UI_DiceEvent:selectCell(cell_ui)
-    local pos_x, pos_y = cell_ui.root:getPosition()
-    local duration = 0.5
+function UI_DiceEvent:selectCell(cell, cb_func)
+    local pos_x, pos_y = self.vars['node' .. cell]:getPosition()
+    local duration = 0.3
     local move = cca.makeBasicEaseMove(duration, pos_x, pos_y)
+    local cb = cc.CallFunc:create(function()
+        if (cb_func) then
+            cb_func()
+        end
+    end)
+    local sequence = cc.Sequence:create(move, cb)
+    self.m_selectAnimator:runAction(sequence)
 
-    self.m_selectAnimator:runAction(move)
+    -- 컨테이너 이동 시킨다
+    self:moveContainer(pos_y)
 end
 
 -------------------------------------
--- function setContainer
+-- function moveContainer
 -------------------------------------
-function UI_DiceEvent:setContainer(container)
+function UI_DiceEvent:moveContainer(compare_y)
+    if (not self.m_container) then
+        return
+    end
+
+    local pos_y
+    if (compare_y > 0) then
+        pos_y = self.m_containerTopPosY
+    else
+        pos_y = 0
+    end
+
+    local duration = 0.5
+    local move = cca.makeBasicEaseMove(duration, 0, pos_y)
+    self.m_container:runAction(move)
+end
+
+-------------------------------------
+-- function setContainerAndPosY
+-------------------------------------
+function UI_DiceEvent:setContainerAndPosY(container, pos_y)
     self.m_container = container
+    self.m_containerTopPosY = pos_y
 end
 
+-------------------------------------
+-- function click_diceBtn
+-------------------------------------
+function UI_DiceEvent:click_diceBtn()
+    -- 주사위 있을 때만 동작하도록 한다.
+    local dice_info = g_eventDiceData:getDiceInfo()
+    local curr_dice = dice_info:getCurrDice()
+    if (curr_dice < 1) then
+        UIManager:toastNotificationRed(Str('주사위가 부족합니다'))
+        return
+    end
 
+    -- 연출을 코루틴으로 해봅니다.
+    local function coroutine_function(dt)
+        local co = CoroutineHelper()
+        --co:setBlockPopup()
+
+        -- 서버와 통신
+        co:work()
+        local ret_cache
+        local function request_finish(ret)
+            ret_cache = ret
+            co.NEXT()
+        end
+        g_eventDiceData:request_diceRoll(request_finish)
+        if co:waitWork() then return end
+
+        -- 굴리기 연출 ON
+        self.m_rollAnimator:setVisible(true)
+
+        -- ani list 재생
+        local dt_cell = ret_cache['dt_cell']
+        local ani_list = {'appear', 'idle', 'disappear', tostring(dt_cell)}
+        while (#ani_list > 0) do
+            co:work()
+
+            local ani_name = ani_list[1]
+            table.remove(ani_list, 1)
+            self.m_rollAnimator:changeAni(ani_name)
+            self.m_rollAnimator:addAniHandler(function()
+                co.NEXT()
+            end)
+
+            if co:waitWork() then return end
+        end
+
+        -- 굴리기 연출 OFF
+        self.m_rollAnimator:setVisible(false)
+
+        -- 이동 연출
+        local old_cell = ret_cache['old_pos']
+        local new_cell = ret_cache['new_pos']
+        local move_cell = old_cell
+        repeat
+            co:work()
+
+            move_cell = move_cell + 1
+            if (move_cell > 32) then
+                move_cell = 1
+            end
+            self:selectCell(move_cell, co.NEXT)
+
+            if co:waitWork() then return end
+        until(new_cell == move_cell)
+        
+        -- 도착 연출
+        co:work()
+        self.m_selectAnimator:changeAni('arrival')
+        self.m_selectAnimator:addAniHandler(function()
+            self.m_selectAnimator:changeAni('select', true)
+            
+            local toast_msg = Str('보상이 우편함으로 전송되었습니다.')
+            UI_ToastPopup(toast_msg)
+            
+            self:refresh()
+
+            co.NEXT()
+        end)
+        if co:waitWork() then return end
+
+        -- 끝
+        co:close()
+    end
+
+    Coroutine(coroutine_function)
+end
 
 
 
@@ -196,7 +323,6 @@ end
 function UI_DiceEvent.makeLap(t_data)
     local ui = UI()
     local vars = ui:load('event_dice_reward_item.ui')
-    ccdump(t_data)
 
     -- 보상 아이콘
     local gap = 30

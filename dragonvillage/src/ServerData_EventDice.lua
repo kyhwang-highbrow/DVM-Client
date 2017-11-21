@@ -69,7 +69,6 @@ function ServerData_EventDice:makePrettyLapRewardList(t_data, t_reward)
 
     -- 변수명이 애매.. '700001;1,700002;1'
     for lap, reward in pairs(t_data) do
-        cclog(reward)
         local l_reward_str = plSplit(reward, ',')
         local l_reward = {}
         for i, each_reward_str in pairs(l_reward_str) do
@@ -162,15 +161,14 @@ end
 -- function request_eventUse
 -- @brief 이벤트 재화 사용
 -------------------------------------
-function ServerData_EventDice:request_eventUse(finish_cb, fail_cb)
+function ServerData_EventDice:request_diceRoll(finish_cb, fail_cb)
     -- 유저 ID
     local uid = g_userData:get('uid')
 
     -- 콜백
-    local function success_cb(ret)                    
-        self:networkCommonRespone(ret)
-        self:confirm_reward(ret)
-        
+    local function success_cb(ret)
+        self.m_diceInfo:apply(ret['dice_info'])
+
         if finish_cb then
             finish_cb(ret)
         end
@@ -178,7 +176,7 @@ function ServerData_EventDice:request_eventUse(finish_cb, fail_cb)
 
     -- 네트워크 통신
     local ui_network = UI_Network()
-    ui_network:setUrl('/shop/event_use')
+    ui_network:setUrl('/shop/dice/roll')
     ui_network:setParam('uid', uid)
     ui_network:setSuccessCB(success_cb)
     ui_network:setFailCB(fail_cb)

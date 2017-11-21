@@ -47,7 +47,8 @@ function UI_EventPopupTab_Scroll:init(owner, struct_event_popup_tab, inner_ui)
 
     -- inner_ui에서 컨테이너 컨트롤 가능하도록
     if (self.m_eventType == 'event_dice') then
-        inner_ui:setContainer(container_node)
+        inner_ui:setContainerAndPosY(container_node, self.m_originPosY)
+        inner_ui:refresh()
     end
 
     self:onEnterTab()
@@ -70,8 +71,5 @@ function UI_EventPopupTab_Scroll:onEnterTab()
         else
             container_node:setPositionY(self.m_originPosY)
         end
-
-    elseif (event_type == 'event_dice') then
-        container_node:setPositionY(self.m_originPosY)
     end
 end
