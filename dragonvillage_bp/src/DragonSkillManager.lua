@@ -554,7 +554,6 @@ function IDragonSkillManager:checkSkillTurn(skill_type)
                     v.m_turnCount = (v.m_turnCount + 1)
 
                     if (v.m_tSkill['chance_value'] <= v.m_turnCount) then
-                        v.m_turnCount = 0
                         table.insert(self.m_lReserveTurnSkillID, v.m_skillID)
 
                         self.m_mReserveTurnSkillID[v.m_skillID] = true
@@ -573,7 +572,6 @@ function IDragonSkillManager:checkSkillTurn(skill_type)
                 if (v:isEndCoolTime()) then
                     v.m_turnCount = (v.m_turnCount + 1)
                     if (v.m_tSkill['chance_value'] <= v.m_turnCount) then
-                        v.m_turnCount = 0
                         table.insert(self.m_lReserveTurnSkillID, v.m_skillID)
                     end
                 end

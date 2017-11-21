@@ -8,7 +8,7 @@ DragonSkillIndivisualInfo = class({
         m_skillID = 'number',   -- 스킬 ID
         m_skillType = 'string',
         m_tSkill = 'table',     -- 스킬 테이블
-        m_turnCount = 'number', -- 턴 공격 횟수 저장용
+        m_turnCount = 'number', -- 턴 공격 횟수 저장용(or 피격 횟수)
         m_timer = 'number',     -- 타임 공격 저장용
         m_cooldownTimer = 'number', -- 쿨타임 시간 저장용
         m_hpRate = 'number',    -- 체력 조건 저장용
@@ -94,6 +94,8 @@ function DragonSkillIndivisualInfo:startCoolTime()
     if (self.m_skillType == 'indie_time') then
         self.m_timer = self.m_tSkill['chance_value']
     end
+
+    self.m_turnCount = 0
 end
 
 -------------------------------------

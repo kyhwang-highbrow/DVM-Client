@@ -47,7 +47,7 @@ function ICharacterStatusEffect:updateStatusEffect(dt)
 	for type, status_effect in pairs(self.m_mStatusEffect) do
         local status_effect_type = status_effect:getTypeName()
         local icon = self.m_lStatusIcon[status_effect_type]
-        if (status_effect.m_bApply and status_effect:isHidden()) then
+        if (status_effect.m_bApply and not status_effect:isHidden()) then
 		    count = self:setStatusIcon(status_effect, count)
             if (icon and icon.m_icon) then
                 icon.m_icon:setVisible(true)
