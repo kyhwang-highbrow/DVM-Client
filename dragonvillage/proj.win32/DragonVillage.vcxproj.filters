@@ -2946,6 +2946,9 @@
     <None Include="..\src\ServerData_EventDice.lua">
       <Filter>lua\src</Filter>
     </None>
+    <None Include="..\src\StructEventDiceInfo.lua">
+      <Filter>lua\src</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Classes">

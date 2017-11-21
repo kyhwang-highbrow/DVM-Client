@@ -12,7 +12,9 @@ ITEM_ID_CASH = 700001
 ITEM_ID_GOLD = 700002
 ITEM_ID_AMET = 700007
 ITEM_ID_ST = 700101
+
 ITEM_ID_EVENT = 700202
+ITEM_ID_DICE = 700203
 
 -------------------------------------
 -- function init

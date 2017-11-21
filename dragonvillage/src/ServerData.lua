@@ -116,6 +116,9 @@ function ServerData:getInstance()
     -- 이벤트
     g_eventData = ServerData_Event(g_serverData)
 
+    -- 이벤트
+    g_eventDiceData = ServerData_EventDice()
+
     -- 하일라이트
     g_highlightData = ServerData_Highlight(g_serverData)
 

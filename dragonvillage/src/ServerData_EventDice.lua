@@ -2,24 +2,27 @@
 -- class ServerData_EventDice
 -------------------------------------
 ServerData_EventDice = class({
-        m_serverData = 'ServerData',
+        m_lCellList = 'table',
+        m_lLapList = 'table',
 
-        m_nMaterialCnt = 'number', -- 재화 보유량
-        m_nMaterialGet = 'number', -- 재화 획득량
-        m_nMaterialUse = 'number', -- 재화 누적 소모량
+        m_diceInfo = 'StructEventDiceInfo',
 
-        m_productInfo = 'map', -- 교환 상품 정보
-        m_rewardInfo = 'map', -- 보상 정보
-
-        m_endTime = 'number', -- 종료 시간
+        m_endTime = 'time',
     })
 
 -------------------------------------
 -- function init
 -------------------------------------
-function ServerData_EventDice:init(server_data)
-    self.m_serverData = server_data
+function ServerData_EventDice:init()
 end
+
+-------------------------------------
+-- function getDiceInfo
+-------------------------------------
+function ServerData_EventDice:getDiceInfo()
+    return self.m_diceInfo
+end
+
 
 -------------------------------------
 -- function parseProductInfo
@@ -82,19 +85,6 @@ function ServerData_EventDice:getStatusText()
 end
 
 -------------------------------------
--- function networkCommonRespone
--------------------------------------
-function ServerData_EventDice:networkCommonRespone(ret)
-    self.m_nMaterialCnt = ret['event'] or 0
-    self.m_nMaterialGet = ret['event_get'] or 0
-    self.m_nMaterialUse = ret['event_use'] or 0
-
-    if (ret['event_reward']) then
-        self.m_rewardInfo = ret['event_reward']
-    end
-end
-
--------------------------------------
 -- function confirm_reward
 -- @brief 보상 정보
 -------------------------------------
@@ -120,9 +110,11 @@ function ServerData_EventDice:request_eventInfo(finish_cb, fail_cb)
 
     -- 콜백
     local function success_cb(ret)    
-        self:networkCommonRespone(ret)
-        self:parseProductInfo(ret['table_event_product'][1])
-        
+        self.m_lCellList = ret['cell_list']
+        self.m_lLapList = ret['lap_list']
+
+        self.m_diceInfo = StructEventDiceInfo(ret['dice_info'])
+
         self.m_endTime = ret['end']
 
         if finish_cb then
@@ -132,7 +124,7 @@ function ServerData_EventDice:request_eventInfo(finish_cb, fail_cb)
 
     -- 네트워크 통신
     local ui_network = UI_Network()
-    ui_network:setUrl('/shop/event_info')
+    ui_network:setUrl('/shop/dice_info')
     ui_network:setParam('uid', uid)
     ui_network:setSuccessCB(success_cb)
     ui_network:setFailCB(fail_cb)

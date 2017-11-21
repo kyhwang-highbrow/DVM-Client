@@ -741,6 +741,7 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <None Include="..\src\StructClanRank.lua" />
     <None Include="..\src\StructCollisionData.lua" />
     <None Include="..\src\StructDragonObject.lua" />
+    <None Include="..\src\StructEventDiceInfo.lua" />
     <None Include="..\src\StructEventPopupTab.lua" />
     <None Include="..\src\StructExchangeProductData.lua" />
     <None Include="..\src\StructForestEvent.lua" />

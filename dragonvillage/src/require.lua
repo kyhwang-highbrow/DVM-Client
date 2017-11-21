@@ -86,6 +86,7 @@ local t_module = {
     'StructClan',
     'StructClanMark',
     'StructClanRank',
+    'StructEventDiceInfo',
 
 	-- ServerData
     'ServerData',
@@ -116,6 +117,8 @@ local t_module = {
     'ServerData_Exploration',
     'ServerData_HotTime',
     'ServerData_Event',
+    'ServerData_EventDice',
+    'ServerData_ExchangeEvent',
     'ServerData_Highlight',
 	'ServerData_Ranking',
 	'ServerData_Formation',
@@ -134,7 +137,6 @@ local t_module = {
     'ServerData_Advertising',
     'ServerData_EvolutionStone',
     'ServerData_FriendMatch',
-    'ServerData_ExchangeEvent',
     'ServerData_Clan',
     'ServerData_ClanRank',
     'ServerData_LevelUpPackage',
