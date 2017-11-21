@@ -45,6 +45,11 @@ function UI_EventPopupTab_Scroll:init(owner, struct_event_popup_tab, inner_ui)
     local container_node = scroll_view:getContainer()
     self.m_originPosY = size.height - target_size.height
 
+    -- inner_ui에서 컨테이너 컨트롤 가능하도록
+    if (self.m_eventType == 'event_dice') then
+        inner_ui:setContainer(container_node)
+    end
+
     self:onEnterTab()
 end
 
@@ -66,5 +71,7 @@ function UI_EventPopupTab_Scroll:onEnterTab()
             container_node:setPositionY(self.m_originPosY)
         end
 
+    elseif (event_type == 'event_dice') then
+        container_node:setPositionY(self.m_originPosY)
     end
 end
