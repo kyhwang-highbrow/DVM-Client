@@ -249,6 +249,27 @@ function TableItem:getItemName(item_id)
 end
 
 -------------------------------------
+-- function getItemName
+-- @brief
+-------------------------------------
+function TableItem:getToolTipDesc(item_id)
+    if (self == THIS) then
+        self = THIS()
+    end
+
+    local t_item = self:get(item_id)
+
+    if (not t_item) then
+        return nil
+    end
+
+    local desc = t_item['t_desc']
+    local name = t_item['t_name']
+    local str = Str('{@SKILL_NAME}{1}\n{@DEFAULT}{2}', name, desc)
+    return str
+end
+
+-------------------------------------
 -- function getEggRes
 -- @brief
 -------------------------------------
