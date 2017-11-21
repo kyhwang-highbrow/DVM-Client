@@ -388,6 +388,7 @@ local t_module = {
     'Monster_Tree',
 	'Monster_WorldOrderMachine',
     'Monster_DarkNix',
+    'Monster_DarkNixIntro',
     'Tamer',
 	'TamerSkill',
     'require_EnemyLua',
