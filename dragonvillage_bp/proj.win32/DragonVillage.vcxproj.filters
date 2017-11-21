@@ -2826,6 +2826,9 @@
     <None Include="..\src\UI_Tooltip_IndicatorNew.lua">
       <Filter>lua\UI</Filter>
     </None>
+    <None Include="..\src\Monster_DarkNixIntro.lua">
+      <Filter>lua\src</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Classes">

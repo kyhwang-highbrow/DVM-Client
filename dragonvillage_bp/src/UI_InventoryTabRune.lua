@@ -231,6 +231,16 @@ function UI_InventoryTabRune:runeLockBtn(t_rune_data)
         if (t_rune_data['updated_at'] ~= new_data['updated_at']) then
             self:refresh_selectedRune(new_data)
         end
+
+        -- 잠금에 따른 룬 선택 초기화
+        local select_sell_item_ui = self.m_inventoryUI.m_selectSellItemsUI
+        if (new_data['lock'] == true) and (select_sell_item_ui) then
+            if select_sell_item_ui.m_bActive then
+                if (select_sell_item_ui.m_selectedItemUIMap and roid) then
+                    select_sell_item_ui.m_selectedItemUIMap[roid] = nil
+                end
+            end
+        end
     end
 
     g_runesData:request_runesLock_toggle(roid, nil, finish_cb)

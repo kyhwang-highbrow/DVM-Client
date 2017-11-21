@@ -362,6 +362,7 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <None Include="..\src\MailHelper.lua" />
     <None Include="..\src\MissileGuide.lua" />
     <None Include="..\src\Monster_DarkNix.lua" />
+    <None Include="..\src\Monster_DarkNixIntro.lua" />
     <None Include="..\src\Monster_GoldDragon.lua" />
     <None Include="..\src\Monster_Tree.lua" />
     <None Include="..\src\Monster_WorldOrderMachine.lua" />
