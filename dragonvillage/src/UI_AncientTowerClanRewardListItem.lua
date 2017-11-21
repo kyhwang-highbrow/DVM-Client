@@ -40,7 +40,7 @@ function UI_AncientTowerClanRewardListItem:refresh()
 
     vars['rankLabel']:setString(t_reward_info['t_name'])
     
-    -- º¸»ó
+    -- ï¿½ï¿½ï¿½ï¿½
     do
         local l_str = plSplit(t_reward_info['reward'], ';')
         local item_type = l_str[1]
@@ -48,21 +48,5 @@ function UI_AncientTowerClanRewardListItem:refresh()
         local name = TableItem:getItemName(id)
         local cnt = l_str[2]
         vars['rewardLabel']:setString(Str('{1} x{2}', name, cnt))
-
-        --[[
-        local icon = IconHelper:getItemIcon(id)
-        
-        local table_item = TABLE:get('item')
-        local t_item = table_item[id]
-
-        local scale = 0.4
-        if (t_item and t_item['type'] == 'relation_point') then
-            scale = 0.3
-        end
-        
-        icon:setScale(scale)
-        vars['rewardNode']:addChild(icon)
-        ]]
-
     end
 end
