@@ -21,6 +21,9 @@ end
 function SceneLobby:onEnter()
     PerpleScene.onEnter(self)
 
+    -- 연속 모드 해제
+    g_autoPlaySetting:setAutoPlay(false)
+
     -- title 이후 끊기는것을 방지하기 위해..!
     SoundMgr:playBGM('bgm_lobby')
 
