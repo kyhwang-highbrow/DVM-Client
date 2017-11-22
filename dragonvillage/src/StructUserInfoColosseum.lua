@@ -119,6 +119,13 @@ function StructUserInfoColosseum:create_forHistory(t_data)
     -- 승패 결과
     user_info.m_matchResult = t_data['match']
 
+    -- 클랜
+    if (t_data['clan_info']) then
+        local struct_clan = StructClan({})
+        struct_clan:applySimple(t_data['clan_info'])
+        user_info:setStructClan(struct_clan)
+    end
+
     return user_info
 end
 
