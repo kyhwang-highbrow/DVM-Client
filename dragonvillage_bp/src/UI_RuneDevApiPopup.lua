@@ -284,7 +284,10 @@ function UI_RuneDevApiPopup:request(act, map, next_cb)
     ui_network:setParam('uid', uid)
     ui_network:setParam('act', act)
     ui_network:setParam('roid', self.m_runeObjectID)
-    ui_network:setParam('lv', self.m_lv)
+
+    if (act ~= 'delete') then
+        ui_network:setParam('lv', self.m_lv)
+    end
 
     if (act == 'update') then
         -- 옵션 변경
