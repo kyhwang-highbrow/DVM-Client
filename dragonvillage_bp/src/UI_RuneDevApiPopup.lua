@@ -31,7 +31,7 @@ function UI_RuneDevApiPopup:init(rune_object_id)
     self.m_mUiLabel = {}
     self.m_mUiEditBox = {}
 
-    self.m_lv = t_rune_data['lv']
+    self.m_lv = t_rune_data['lv'] or 0
     self.m_mOpt = {}
     self.m_mVal = {}
 
@@ -63,7 +63,9 @@ function UI_RuneDevApiPopup:initUI()
 
     self.m_mUiBtn['mopt'] = vars['moptBtn']
     self.m_mUiLabel['mopt'] = vars['moptLabel']
-    self.m_mUiEditBox['mopt'] = vars['moptEditBox']
+    --self.m_mUiEditBox['mopt'] = vars['moptEditBox']
+
+    self.m_mUiLabel['mopt'] = vars['moptLabel']
 
     self.m_mUiBtn['uopt'] = vars['uoptBtn']
     self.m_mUiDeleteBtn['uopt'] = vars['uoptDeleteBtn']
@@ -125,17 +127,26 @@ function UI_RuneDevApiPopup:initButton()
         end
     end
 
-    vars['maxEhchantBtn']:registerScriptTapHandler(function()
-        -- 최대 강화값으로 설정
-        local grade = t_rune_data['grade']
-        local vid = self.m_mOpt['mopt'] .. '_' .. grade
-        local value = TableRuneMoptStatus:getStatusValue(vid, RUNE_LV_MAX)
+    do -- 강화 관련 버튼
+        
+        -- 최대 강화
+        vars['maxEhchantBtn']:registerScriptTapHandler(function()
+            self:setLv(RUNE_LV_MAX)
+            self:refresh()
+        end)
 
-        self.m_lv = RUNE_LV_MAX
-        self.m_mVal['mopt'] = value
+        -- 강화 단계 낮춤
+        vars['enchantDownBtn']:registerScriptTapHandler(function()
+            self:setLv(self.m_lv - 1)
+            self:refresh()
+        end)
 
-        self:refresh()
-    end)
+        -- 강화 단계 높임
+        vars['enchantUpBtn']:registerScriptTapHandler(function()
+            self:setLv(self.m_lv + 1)
+            self:refresh()
+        end)
+    end
 
     vars['applyBtn']:registerScriptTapHandler(function() self:click_closeBtn() end)
     
@@ -157,18 +168,20 @@ function UI_RuneDevApiPopup:initEditBox()
     end
 
     for i, v in ipairs(StructRuneObject.OPTION_LIST) do
-        self.m_mUiEditBox[v]:registerScriptEditBoxHandler(function(strEventName, pSender)
-            if (strEventName == "return") then
-                local editbox = pSender
-                local str = editbox:getText()
+        if (self.m_mUiEditBox[v]) then
+            self.m_mUiEditBox[v]:registerScriptEditBoxHandler(function(strEventName, pSender)
+                if (strEventName == "return") then
+                    local editbox = pSender
+                    local str = editbox:getText()
 
-                if (isValidText(str)) then
-                    self.m_mVal[v] = tonumber(str)                    
+                    if (isValidText(str)) then
+                        self.m_mVal[v] = tonumber(str)                    
+                    end
+
+                    self:refresh()
                 end
-
-                self:refresh()
-            end
-        end)
+            end)
+        end
     end
 end
 
@@ -180,9 +193,18 @@ function UI_RuneDevApiPopup:refresh()
 
     for i, v in ipairs(StructRuneObject.OPTION_LIST) do
         self.m_mUiLabel[v]:setString(self.m_mOpt[v])
-        self.m_mUiEditBox[v]:setText(self.m_mVal[v])
-        self.m_mUiEditBox[v]:setEnabled(self.m_mOpt[v] ~= '')
+
+        if (self.m_mUiEditBox[v]) then
+            self.m_mUiEditBox[v]:setText(self.m_mVal[v])
+            self.m_mUiEditBox[v]:setEnabled(self.m_mOpt[v] ~= '')
+        end
     end
+
+    -- 메인 옵션 값
+    vars['moptValueLabel']:setString(self.m_mVal['mopt'])
+
+    -- 강화 단계
+    vars['enchantLabel']:setString(string.format('+%d', self.m_lv))
 end
 
 -------------------------------------
@@ -198,6 +220,11 @@ function UI_RuneDevApiPopup:click_closeBtn()
         -- 원본 룬 정보와 비교하여 변경되거나 삭제된 옵션들을 골라냄
         local opt, opt_val = t_rune_data:parseRuneOptionStr(t_rune_data[v])
 
+        -- 메인 옵션 타입이 변경된 경우는 삭제도 되어야 한다(서버 저장 방식의 이슈로 인함)
+        if (v == 'mopt' and opt ~= self.m_mOpt[v]) then
+            m_delete[v] = true
+        end
+
         if (opt ~= self.m_mOpt[v] or opt_val ~= self.m_mVal[v]) then
             if (self.m_mOpt[v] == nil or self.m_mOpt[v] == '' or self.m_mVal[v] == nil or self.m_mVal[v] == 0) then
                 m_delete[v] = true
@@ -211,11 +238,34 @@ function UI_RuneDevApiPopup:click_closeBtn()
         self:setCloseCB(nil)
     end
 
+    
     self:request('update', m_update, function()
         self:request('delete', m_delete, function()
             self:close()
         end)
     end)
+    
+    --[[
+    self:request('delete', m_delete, function()
+        self:request('update', m_update, function()
+            self:close()
+        end)
+    end)
+    ]]--
+end
+
+
+-------------------------------------
+-- function setLv
+-------------------------------------
+function UI_RuneDevApiPopup:setLv(lv)
+    local lv = math_clamp(lv, 0, RUNE_LV_MAX)
+    local t_rune_data = g_runesData:getRuneObject(self.m_runeObjectID)
+    local vid = self.m_mOpt['mopt'] .. '_' .. t_rune_data['grade']
+    local value = TableRuneMoptStatus:getStatusValue(vid, lv)
+
+    self.m_lv = lv
+    self.m_mVal['mopt'] = value
 end
 
 -------------------------------------
@@ -259,7 +309,10 @@ function UI_RuneDevApiPopup:request(act, map, next_cb)
         for k, _ in pairs(map) do
             local opt, opt_val = t_rune_data:parseRuneOptionStr(t_rune_data[k])
 
-            if (k == 'uopt') then
+            if (k == 'mopt') then
+                ui_network:setParam(k, string.format('%s,%d', opt, opt_val))
+
+            elseif (k == 'uopt') then
                 ui_network:setParam(k, string.format('%s,%d', opt, opt_val))
 
             elseif (string.find(k, 'sopt_')) then
@@ -326,6 +379,11 @@ function UI_RuneDevApiPopup:makeComboBox(key, list)
         self.m_mOpt[key] = type
 
         self.m_openedComboBox = nil
+
+        -- 메인 옵션 타입이 변경된 경우면 강화 단계에 따른 현재 옵션값을 재계산해야함
+        if (key == 'mopt') then
+            self:setLv(self.m_lv)
+        end
 
         self:refresh()
     end)
