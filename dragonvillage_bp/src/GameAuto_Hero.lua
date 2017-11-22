@@ -14,9 +14,11 @@ GameAuto_Hero = class(PARENT, {
 function GameAuto_Hero:init(world, game_mana)
     self:initUI()
     
-    if (g_autoPlaySetting:isAutoPlay()) then
-        -- 연속 전투가 활성화되어있다면 즉시 자동모드를 활성화시킴
-        g_autoPlaySetting:setWithoutSaving('auto_mode', true)
+    if (isExistValue(self.m_world.m_gameMode, GAME_MODE_ADVENTURE, GAME_MODE_NEST_DUNGEON, GAME_MODE_SECRET_DUNGEON)) then
+        if (g_autoPlaySetting:isAutoPlay()) then
+            -- 연속 전투가 활성화되어있다면 즉시 자동모드를 활성화시킴
+            g_autoPlaySetting:setWithoutSaving('auto_mode', true)
+        end
     end
 
     if (g_autoPlaySetting:get('auto_mode')) then
