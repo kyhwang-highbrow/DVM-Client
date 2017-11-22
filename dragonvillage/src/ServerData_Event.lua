@@ -38,10 +38,19 @@ function ServerData_Event:getEventPopupTabList()
         local event_id = v['event_id']
         local event_type = v['event_type'] 
         local priority = v['ui_priority']
-
+        local feature = v['feature']
+        
         -- ui_priority가 없는 것은 등록하지 않는다.
         if (priority == '') then
             is_exist = false
+        end
+
+        -- 토파즈가 있는 유저에게만 보이는 이벤트
+        if (feature == 'topaz') then
+            local topaz = g_userData:get('topaz')
+            if (topaz <= 0) then
+                is_exist = false
+            end
         end
 
         -- shop 관련 이벤트는 오픈되지 않능 상품이라면 탭 등록 pass 
@@ -94,6 +103,14 @@ function ServerData_Event:getEventFullPopupList()
             -- 우선순위 유무 이외의 제어 조건 체크
             if (feature == 'only_aos') then
                 is_exist = not CppFunctions:isIos()
+            end
+
+            -- 토파즈가 있는 유저에게만 보이는 이벤트
+            if (feature == 'topaz') then
+                local topaz = g_userData:get('topaz')
+                if (topaz <= 0) then
+                    is_exist = false
+                end
             end
 
             -- 단일 상품인 경우 (type:shop) event_id로 등록
@@ -281,7 +298,7 @@ function ServerData_Event:openEventPopup(tab)
             g_eventDiceData:request_diceInfo(function(ret) working = false end, required_fail_cb)
             while (working) do dt = coroutine.yield() end
         end
-        
+
         co:work('# 상점 정보 받는 중')
         g_shopDataNew:request_shopInfo(co.NEXT, co.ESCAPE)
         if co:waitWork() then return end
