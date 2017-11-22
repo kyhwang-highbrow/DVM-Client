@@ -244,14 +244,6 @@ function UI_RuneDevApiPopup:click_closeBtn()
             self:close()
         end)
     end)
-    
-    --[[
-    self:request('delete', m_delete, function()
-        self:request('update', m_update, function()
-            self:close()
-        end)
-    end)
-    ]]--
 end
 
 

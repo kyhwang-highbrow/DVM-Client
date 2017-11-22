@@ -511,7 +511,7 @@ function Character:undergoAttack(attacker, defender, i_x, i_y, body_key, no_even
     end
 
     -- 회피 계산(드래그 스킬의 경우는 회피 불가)
-    if (attack_type ~= 'active') then
+    --if (attack_type ~= 'active') then
         -- 회피 무시 체크
 		if (attack_activity_carrier:isIgnoreAvoid()) then
 
@@ -524,7 +524,7 @@ function Character:undergoAttack(attacker, defender, i_x, i_y, body_key, no_even
 		    self.m_charLogRecorder:recordLog('avoid', 1)
             return
         end
-    end
+    --end
 	
     -- 데미지 계산
     do
