@@ -82,6 +82,7 @@ function GameDragonSkill:initUI()
     self.m_skillNameLabel:enableShadow(cc.c4b(0,0,0,255), cc.size(-3, 3), 0)
     titleNode:addChild(self.m_skillNameLabel, 11)
 
+    --[[
 	local rich_label = UIC_RichLabel()
     rich_label:setFontSize(20)
     rich_label:setDimension(1000, 800)
@@ -91,6 +92,7 @@ function GameDragonSkill:initUI()
 	rich_label:enableOutline(cc.c3b(220,220,220), 1)
     self.m_skillDescLabel = rich_label
     descNode:addChild(self.m_skillDescLabel.m_root, 11)
+    ]]--
 
     -- 말풍선
     self.m_bubble = MakeAnimator('res/ui/a2d/ingame_dragon_skill/ingame_dragon_skill.vrp')
@@ -368,7 +370,7 @@ function GameDragonSkill:makeSkillDesc(dragon, delayTime)
     end
 
     self.m_skillNameLabel:setString(name)
-    self.m_skillDescLabel:setString(desc)
+    --self.m_skillDescLabel:setString(desc)
 end
 
 -------------------------------------
