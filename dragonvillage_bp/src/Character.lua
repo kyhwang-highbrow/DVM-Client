@@ -431,6 +431,11 @@ end
 function Character:checkAvoid(activity_carrier, t_attr_effect)
     local hit_rate = activity_carrier:getStat('hit_rate') or 100
 
+    -- 체력이 0일 경우 회피 할 수 없도록 처리
+    if (self.m_hp == 0) then
+        return false
+    end
+
 	-- 속성 상성 옵션 적용
 	do 
 		local hit_rates_multifly = 1
