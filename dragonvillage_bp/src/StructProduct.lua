@@ -334,7 +334,7 @@ function StructProduct:makeProductIcon()
 end
 
 -------------------------------------
--- function makeProductIcon
+-- function makePackageSprite
 -------------------------------------
 function StructProduct:makePackageSprite()
     local package_res = self['banner_res']

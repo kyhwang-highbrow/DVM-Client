@@ -2829,6 +2829,12 @@
     <None Include="..\src\Monster_DarkNixIntro.lua">
       <Filter>lua\src</Filter>
     </None>
+    <None Include="..\src\StructEventDiceInfo.lua">
+      <Filter>lua\src</Filter>
+    </None>
+    <None Include="..\src\UIC_RankListItem.lua">
+      <Filter>lua\UIC</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Classes">

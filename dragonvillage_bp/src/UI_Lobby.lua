@@ -134,6 +134,13 @@ function UI_Lobby:entryCoroutine()
             while (working) do dt = coroutine.yield() end
         end
 
+        if (g_eventData:isVaildEvent('event_dice')) then
+            cclog('# 주사위 이벤트 정보 받는 중')
+            working = true
+            g_eventDiceData:request_diceInfo(function(ret) working = false end, required_fail_cb)
+            while (working) do dt = coroutine.yield() end
+        end
+
         cclog('# 접속시간 저장 중')
         working = true
         local ui_network = g_accessTimeData:request_saveTime(function(ret) working = false end, fail_cb)
@@ -335,6 +342,7 @@ function UI_Lobby:initButton()
     vars['itemAutoBtn']:registerScriptTapHandler(function() self:click_itemAutoBtn() end) -- 자동재화(광고)
     vars['giftBoxBtn']:registerScriptTapHandler(function() self:click_giftBoxBtn() end) -- 랜덤박스(광고)
     vars['exchangeBtn']:registerScriptTapHandler(function() self:click_exchangeBtn() end) -- 교환이벤트
+    vars['diceBtn']:registerScriptTapHandler(function() self:click_diceBtn() end) -- 주사위이벤트
     vars['levelupBtn']:registerScriptTapHandler(function() self:click_lvUpPackBtn() end) -- 레벨업 패키지
 
     do -- 기타 UI
@@ -766,6 +774,17 @@ function UI_Lobby:click_exchangeBtn()
 end
 
 -------------------------------------
+-- function click_diceBtn
+-- @brief 주사위 이벤트
+-------------------------------------
+function UI_Lobby:click_diceBtn()
+    if (not g_eventData:isVaildEvent('event_dice')) then
+        return
+    end
+    g_eventData:openEventPopup('event_dice')
+end
+
+-------------------------------------
 -- function click_lvUpPackBtn
 -- @brief 레벨업 패키지 버튼
 -------------------------------------
@@ -956,6 +975,13 @@ function UI_Lobby:refresh_rightButtons()
         vars['exchangeBtn']:setVisible(false)
     end
 
+    -- 주사위 버튼
+    if g_eventData:isVaildEvent('event_dice') then
+        vars['diceBtn']:setVisible(true)
+    else
+        vars['diceBtn']:setVisible(false)
+    end
+
     -- 레벨업 패키지 버튼
     if g_levelUpPackageData:isVisible_lvUpPack() then
         vars['levelupBtn']:setVisible(true)
@@ -963,12 +989,14 @@ function UI_Lobby:refresh_rightButtons()
         vars['levelupBtn']:setVisible(false)
     end
 
+
     -- 인덱스 1번이 오른쪽
     local t_btn_name = {
             'capsuleBtn',
             'itemAutoBtn',
             'giftBoxBtn',
             'exchangeBtn',
+            'diceBtn',
             'levelupBtn',
             'eventBtn',
         }

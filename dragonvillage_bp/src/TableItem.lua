@@ -12,7 +12,9 @@ ITEM_ID_CASH = 700001
 ITEM_ID_GOLD = 700002
 ITEM_ID_AMET = 700007
 ITEM_ID_ST = 700101
+
 ITEM_ID_EVENT = 700202
+ITEM_ID_DICE = 700203
 
 -------------------------------------
 -- function init
@@ -244,6 +246,27 @@ function TableItem:getItemName(item_id)
 
     local item_name = self:getValue(item_id, 't_name')
     return Str(item_name)
+end
+
+-------------------------------------
+-- function getItemName
+-- @brief
+-------------------------------------
+function TableItem:getToolTipDesc(item_id)
+    if (self == THIS) then
+        self = THIS()
+    end
+
+    local t_item = self:get(item_id)
+
+    if (not t_item) then
+        return nil
+    end
+
+    local desc = t_item['t_desc']
+    local name = t_item['t_name']
+    local str = Str('{@SKILL_NAME}{1}\n{@DEFAULT}{2}', name, desc)
+    return str
 end
 
 -------------------------------------

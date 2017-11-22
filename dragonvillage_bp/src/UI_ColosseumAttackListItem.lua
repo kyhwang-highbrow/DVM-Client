@@ -1,4 +1,4 @@
-local PARENT = class(UI, ITableViewCell:getCloneTable())
+local PARENT = class(UI, IRankListItem:getCloneTable())
 
 -------------------------------------
 -- class UI_ColosseumAttackListItem
@@ -63,6 +63,9 @@ function UI_ColosseumAttackListItem:init(struct_user_info_colosseum)
         vars['winNode']:setVisible((info.m_matchResult == 1))
         vars['loseNode']:setVisible((info.m_matchResult == 0))
     end
+
+    -- 공통의 정보
+    self:initRankInfo(vars, info)   
 end
 
 -------------------------------------

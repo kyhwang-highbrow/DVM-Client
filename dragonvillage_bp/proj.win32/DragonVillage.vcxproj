@@ -732,6 +732,7 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <None Include="..\src\StructCalendarDay.lua" />
     <None Include="..\src\StructCollisionData.lua" />
     <None Include="..\src\StructDragonObject.lua" />
+    <None Include="..\src\StructEventDiceInfo.lua" />
     <None Include="..\src\StructEventPopupTab.lua" />
     <None Include="..\src\StructExchangeProductData.lua" />
     <None Include="..\src\StructForestEvent.lua" />
@@ -842,6 +843,7 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <None Include="..\src\UIC_LabelTTF.lua" />
     <None Include="..\src\UIC_Node.lua" />
     <None Include="..\src\UIC_RadioButton.lua" />
+    <None Include="..\src\UIC_RankListItem.lua" />
     <None Include="..\src\UIC_RichLabel.lua" />
     <None Include="..\src\UIC_RichLabelCore.lua" />
     <None Include="..\src\UIC_ScrollButton.lua" />

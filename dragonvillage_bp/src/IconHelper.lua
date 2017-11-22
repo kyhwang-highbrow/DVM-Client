@@ -177,11 +177,22 @@ function IconHelper:getItemIcon(item_id, t_sub_data)
 
     -- 드래곤 아이콘 생성
     elseif (item_type == 'dragon') then
-        local dragon_id = t_item['did']
-        local evolution = t_item['evolution']
-        local grade = 1
-        local eclv = 0
-        sprite = IconHelper:getDragonIconFromDid(dragon_id, evolution, grade, eclv)
+
+        -- 2017-11-21 sgkim (상점에서 아르주나, 카르나를 판매할 때 UI_DragonCard로 변경함)
+        --local dragon_id = t_item['did']
+        --local evolution = t_item['evolution']
+        --local grade = 1
+        --local eclv = 0
+        --sprite = IconHelper:getDragonIconFromDid(dragon_id, evolution, grade, eclv)
+
+        local t_dragon_data = {}
+        t_dragon_data['did'] = t_item['did']
+        t_dragon_data['evolution'] = t_item['evolution'] or 1
+        t_dragon_data['grade'] = t_item['grade'] or 1
+
+        local card = UI_DragonCard(StructDragonObject(t_dragon_data))
+        card.vars['clickBtn']:setEnabled(false)
+        sprite = card.root
 
     -- 슬라임 아이콘 생성
     elseif (item_type == 'slime') then

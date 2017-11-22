@@ -222,12 +222,28 @@ end
 -- function applySetting
 -------------------------------------
 function StructClan:applySetting(t_data)
+    if (not t_data) then
+        return
+    end
+
     for i,v in pairs(self) do
         if (t_data[i] ~= nil) then
             self[i] = t_data[i]
         end
     end
 
+    if (t_data['mark']) then
+        self.m_structClanMark = StructClanMark:create(t_data['mark'])
+    else
+        self.m_structClanMark = StructClanMark()
+    end
+end
+
+-------------------------------------
+-- function applySimple
+-------------------------------------
+function StructClan:applySimple(t_data)
+    self['name'] = t_data['name']
     if (t_data['mark']) then
         self.m_structClanMark = StructClanMark:create(t_data['mark'])
     else

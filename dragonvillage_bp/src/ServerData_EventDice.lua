@@ -2,72 +2,99 @@
 -- class ServerData_EventDice
 -------------------------------------
 ServerData_EventDice = class({
-        m_serverData = 'ServerData',
+        m_lCellList = 'table',
+        m_lLapList = 'table',
 
-        m_nMaterialCnt = 'number', -- 재화 보유량
-        m_nMaterialGet = 'number', -- 재화 획득량
-        m_nMaterialUse = 'number', -- 재화 누적 소모량
+        m_diceInfo = 'StructEventDiceInfo',
 
-        m_productInfo = 'map', -- 교환 상품 정보
-        m_rewardInfo = 'map', -- 보상 정보
-
-        m_endTime = 'number', -- 종료 시간
+        m_endTime = 'time',
     })
 
 -------------------------------------
 -- function init
 -------------------------------------
-function ServerData_EventDice:init(server_data)
-    self.m_serverData = server_data
+function ServerData_EventDice:init()
 end
 
 -------------------------------------
--- function parseProductInfo
+-- function getDiceInfo
 -------------------------------------
-function ServerData_EventDice:parseProductInfo(product_info)
-    self.m_productInfo = {}
-    if (product_info) then
-        local info = self.m_productInfo
-        local step = product_info['step']
+function ServerData_EventDice:getDiceInfo()
+    return self.m_diceInfo
+end
+
+-------------------------------------
+-- function getCellList
+-------------------------------------
+function ServerData_EventDice:getCellList()
+    return self.m_lCellList
+end
+
+-------------------------------------
+-- function getLapList
+-------------------------------------
+function ServerData_EventDice:getLapList()
+    return self.m_lLapList
+end
+
+-------------------------------------
+-- function getDiceInfo
+-------------------------------------
+function ServerData_EventDice:makePrettyCellList(t_data)
+    local l_ret = {}
+
+    for cell, reward in pairs(t_data) do
+        local l_reward = plSplit(reward, ';')
+        local cell_num = tonumber(cell)
+
+        table.insert(l_ret, {
+            ['item_id'] = tonumber(l_reward[1]),
+            ['value'] = l_reward[2],
+            ['cell'] = cell_num
+        })
+    end
     
-        for i = 1, step do
-            local data = { step = i,
-                           price = product_info['price_'..i], 
-                           reward = product_info['mail_content_'..i] }
-            table.insert(info, data)
-        end
-    end
+    table.sort(l_ret, function(a, b) 
+        return a['cell'] < b['cell']
+    end)
+    
+    return l_ret
 end
 
 -------------------------------------
--- function isGetReward
--- @brief 받은 보상인지 검사
+-- function makePrettyLapRewardList
 -------------------------------------
-function ServerData_EventDice:isGetReward(step)
-    local step = tostring(step) 
-    local reward_info = self.m_rewardInfo
+function ServerData_EventDice:makePrettyLapRewardList(t_data, t_reward)
+    local l_ret = {}
 
-    return (reward_info[step] == 1) and true or false
-end
-
--------------------------------------
--- function hasReward
--- @brief 받아야 할 보상이 있는지 (누적 보상)
--------------------------------------
-function ServerData_EventDice:hasReward()
-    local event_info = self.m_productInfo
-    local reward_info = self.m_rewardInfo
-
-    local curr_cnt = self.m_nMaterialUse
-    for i, v in ipairs(event_info) do
-        local step = tostring(v['step'])
-        local need_cnt = v['price']
-        if (reward_info[step] == 0) and (curr_cnt >= need_cnt) then
-            return true
+    -- reward = '700001;1,700002;1'
+    for lap, reward in pairs(t_data) do
+        
+        local comma_split_list = plSplit(reward, ',')
+        local l_reward = {}
+        for i, each_reward_str in pairs(comma_split_list) do
+            local semi_split_list = plSplit(each_reward_str, ';')
+            table.insert(l_reward, {
+                ['item_id'] = tonumber(semi_split_list[1]),
+                ['value'] = tonumber(semi_split_list[2]),
+            })
         end
-    end
+        
+        local lap_num = tonumber(lap)
+        local is_recieved = (t_reward[lap] == 1)
 
-    return false
+        table.insert(l_ret, {
+            ['l_reward'] = l_reward,
+            ['lap'] = lap_num,
+            ['is_recieved'] = is_recieved
+        })
+    end
+    
+    table.sort(l_ret, function(a, b) 
+        return a['lap'] < b['lap']
+    end)
+
+    return l_ret
 end
 
 -------------------------------------
@@ -79,19 +106,6 @@ function ServerData_EventDice:getStatusText()
 
     local time = (end_time - curr_time)
     return Str('이벤트 종료까지 {1} 남음', datetime.makeTimeDesc(time, true))
-end
-
--------------------------------------
--- function networkCommonRespone
--------------------------------------
-function ServerData_EventDice:networkCommonRespone(ret)
-    self.m_nMaterialCnt = ret['event'] or 0
-    self.m_nMaterialGet = ret['event_get'] or 0
-    self.m_nMaterialUse = ret['event_use'] or 0
-
-    if (ret['event_reward']) then
-        self.m_rewardInfo = ret['event_reward']
-    end
 end
 
 -------------------------------------
@@ -111,18 +125,19 @@ function ServerData_EventDice:confirm_reward(ret)
 end
 
 -------------------------------------
--- function request_eventInfo
+-- function request_diceInfo
 -- @brief 이벤트 정보
 -------------------------------------
-function ServerData_EventDice:request_eventInfo(finish_cb, fail_cb)
+function ServerData_EventDice:request_diceInfo(finish_cb, fail_cb)
     -- 유저 ID
     local uid = g_userData:get('uid')
 
     -- 콜백
-    local function success_cb(ret)    
-        self:networkCommonRespone(ret)
-        self:parseProductInfo(ret['table_event_product'][1])
-        
+    local function success_cb(ret)
+
+        self.m_lCellList = self:makePrettyCellList(ret['cell_list'])
+        self.m_lLapList = self:makePrettyLapRewardList(ret['lap_list'], ret['dice_reward'])
+        self.m_diceInfo = StructEventDiceInfo(ret['dice_info'])
         self.m_endTime = ret['end']
 
         if finish_cb then
@@ -132,7 +147,7 @@ function ServerData_EventDice:request_eventInfo(finish_cb, fail_cb)
 
     -- 네트워크 통신
     local ui_network = UI_Network()
-    ui_network:setUrl('/shop/event_info')
+    ui_network:setUrl('/shop/dice/info')
     ui_network:setParam('uid', uid)
     ui_network:setSuccessCB(success_cb)
     ui_network:setFailCB(fail_cb)
@@ -144,18 +159,17 @@ function ServerData_EventDice:request_eventInfo(finish_cb, fail_cb)
 end
 
 -------------------------------------
--- function request_eventUse
+-- function request_diceRoll
 -- @brief 이벤트 재화 사용
 -------------------------------------
-function ServerData_EventDice:request_eventUse(finish_cb, fail_cb)
+function ServerData_EventDice:request_diceRoll(finish_cb, fail_cb)
     -- 유저 ID
     local uid = g_userData:get('uid')
 
     -- 콜백
-    local function success_cb(ret)                    
-        self:networkCommonRespone(ret)
-        self:confirm_reward(ret)
-        
+    local function success_cb(ret)
+        self.m_diceInfo:apply(ret['dice_info'])
+
         if finish_cb then
             finish_cb(ret)
         end
@@ -163,7 +177,7 @@ function ServerData_EventDice:request_eventUse(finish_cb, fail_cb)
 
     -- 네트워크 통신
     local ui_network = UI_Network()
-    ui_network:setUrl('/shop/event_use')
+    ui_network:setUrl('/shop/dice/roll')
     ui_network:setParam('uid', uid)
     ui_network:setSuccessCB(success_cb)
     ui_network:setFailCB(fail_cb)
@@ -175,18 +189,16 @@ function ServerData_EventDice:request_eventUse(finish_cb, fail_cb)
 end
 
 -------------------------------------
--- function request_eventReward
+-- function request_diceReward
 -- @brief 이벤트 재화 누적 보상
 -------------------------------------
-function ServerData_EventDice:request_eventReward(step, finish_cb, fail_cb)
+function ServerData_EventDice:request_diceReward(lap, finish_cb, fail_cb)
     -- 유저 ID
     local uid = g_userData:get('uid')
 
     -- 콜백
     local function success_cb(ret)                    
-        self:networkCommonRespone(ret)
-        self:confirm_reward(ret)
-        
+
         if finish_cb then
             finish_cb(ret)
         end
@@ -194,9 +206,9 @@ function ServerData_EventDice:request_eventReward(step, finish_cb, fail_cb)
 
     -- 네트워크 통신
     local ui_network = UI_Network()
-    ui_network:setUrl('/shop/event_reward')
+    ui_network:setUrl('/shop/dice/reward')
     ui_network:setParam('uid', uid)
-    ui_network:setParam('step', step)
+    ui_network:setParam('lap', lap)
     ui_network:setSuccessCB(success_cb)
     ui_network:setFailCB(fail_cb)
     ui_network:setRevocable(true)
