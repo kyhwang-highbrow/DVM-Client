@@ -140,7 +140,10 @@ function UI_EventFullPopup:click_clickBtn()
         local tamer_id = g_tamerData:getCurrTamerID()
         UINavigator:goTo('costume_shop', tamer_id)
 
-    elseif (url ~= '') then
+    elseif (url == 'shop_topaz') then
+        g_shopDataNew:openShopPopup('topaz')
+
+    else
         SDKManager:goToWeb(url)
     end
 end

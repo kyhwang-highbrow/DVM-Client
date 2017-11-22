@@ -71,6 +71,9 @@ function UI_ColosseumHistoryListItem:initUI()
         local str = Str('{1} 전', datetime.makeTimeDesc(time, true))
         vars['timeLabel']:setString(str)
     end
+
+    -- 공통의 정보
+    self:initRankInfo(vars, user_info)   
 end
 
 -------------------------------------

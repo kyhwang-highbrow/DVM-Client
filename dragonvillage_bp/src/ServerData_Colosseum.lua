@@ -130,6 +130,13 @@ function ServerData_Colosseum:refresh_matchList(l_match_list)
             -- 덱 정보 (매치리스트에 넘어오는 덱은 해당 유저의 방어덱)
             struct_user_info:applyPvpDefDeckData(v['deck'])
 
+            -- 클랜
+            if (v['clan_info']) then
+                local struct_clan = StructClan({})
+                struct_clan:applySimple(v['clan_info'])
+                struct_user_info:setStructClan(struct_clan)
+            end
+
             local uid = v['uid']
             self.m_matchList[uid] = struct_user_info
         end

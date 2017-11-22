@@ -67,10 +67,7 @@ function ServerData_ClanRank:setMyRankData(rank_type, rank_data)
     if (not rank_data) then
         return
     end
-    if (self.m_mMyRankingMap[rank_type]) then
-        return
-    end
-
+    
     self.m_mMyRankingMap[rank_type] = StructClanRank(rank_data)
 end
 
