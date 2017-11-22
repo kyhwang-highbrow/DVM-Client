@@ -6,6 +6,7 @@ local PARENT = UI
 UI_DiceEvent = class(PARENT,{
         m_container = 'ScrolView Container',
         m_containerTopPosY = 'number',
+        m_isContainerMoving = 'bool',
 
         m_cellUIList = 'table<ui>',
         m_lapRewardInfoList = 'table<ui, data>',
@@ -25,6 +26,7 @@ function UI_DiceEvent:init()
     self.m_lapRewardInfoList = {}
     self.m_container = nil
     self.m_containerTopPosY = nil
+    self.m_isContainerMoving = false
     self.m_selectAnimator = nil
     self.m_rollAnimator = nil
 
@@ -99,7 +101,7 @@ function UI_DiceEvent:initUI()
     -- roll a dice ani
     local res = 'res/ui/spine/dice/dice.json'
     local roll_ani = MakeAnimator(res)
-    self.root:addChild(roll_ani.m_node)
+    self.root:addChild(roll_ani.m_node, 99)
     roll_ani:setVisible(false)
     self.m_rollAnimator = roll_ani
 end
@@ -167,13 +169,20 @@ end
 -- function moveContainer
 -------------------------------------
 function UI_DiceEvent:moveContainer(compare_y)
+    -- 컨테이너가 없거나 이동중이면 다시 움직이지 않는다.
     if (not self.m_container) then
         return
     end
+    if (self.m_isContainerMoving) then
+        return
+    end
 
+    -- 움직인 Y좌표에 따라 2가지 값 사용 (위 또는 아래 포커스)
     local pos_y
     if (compare_y > 0) then
         pos_y = self.m_containerTopPosY
+    elseif (compare_y == 0) then
+        pos_y = (self.m_containerTopPosY / 2)
     else
         pos_y = 0
     end
@@ -184,7 +193,13 @@ function UI_DiceEvent:moveContainer(compare_y)
 
     local duration = 0.5
     local move = cca.makeBasicEaseMove(duration, 0, pos_y)
-    self.m_container:runAction(move)
+    local cb = cc.CallFunc:create(function()
+        self.m_isContainerMoving = false
+    end)
+    local sequence = cc.Sequence:create(move, cb)
+    self.m_container:runAction(sequence)
+    
+    self.m_isContainerMoving = true
 end
 
 -------------------------------------
@@ -199,6 +214,9 @@ end
 -- function click_diceBtn
 -------------------------------------
 function UI_DiceEvent:click_diceBtn()
+    -- 정중앙으로 이동 시킨다
+    self:moveContainer(0)
+
     -- 주사위 있을 때만 동작하도록 한다.
     local dice_info = g_eventDiceData:getDiceInfo()
     local curr_dice = dice_info:getCurrDice()
@@ -210,7 +228,12 @@ function UI_DiceEvent:click_diceBtn()
     -- 연출을 코루틴으로 해봅니다.
     local function coroutine_function(dt)
         local co = CoroutineHelper()
-        co:setBlockPopup()
+
+        -- 주사위를 부각시키기 위한 음영 효과 용 UI
+        local block_ui = UI()
+        block_ui:load('empty.ui')
+        UIManager:makeTouchBlock(block_ui, false)
+        self.root:addChild(block_ui.root)
 
         -- 서버와 통신
         co:work()
@@ -246,6 +269,7 @@ function UI_DiceEvent:click_diceBtn()
 
         -- 굴리기 연출 OFF
         self.m_rollAnimator:setVisible(false)
+        block_ui.root:removeFromParent()
 
         -- 이동 연출
         local old_cell = ret_cache['old_pos']
