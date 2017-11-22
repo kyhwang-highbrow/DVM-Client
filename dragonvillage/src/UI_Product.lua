@@ -127,6 +127,13 @@ function UI_Product:refresh()
     if (node:getString() ~= '') then
         vars['dscLabel']:setString('')
     end
+
+    -- 판매 가능 여부
+    if (struct_product['lock'] == 1) then
+        vars['buyBtn']:setEnabled(false)
+    else
+        vars['buyBtn']:setEnabled(true)
+    end
 end
 
 -------------------------------
