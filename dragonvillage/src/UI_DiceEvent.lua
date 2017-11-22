@@ -307,8 +307,7 @@ function UI_DiceEvent:click_diceBtn()
 
         -- 나온 주사위 눈
         local dt_cell = ret_cache['dt_cell']
-        self.m_diceResult = dt_cell
-        
+
         -- ani list 재생
         local ani_list = {'appear', 'idle', 'disappear', tostring(dt_cell)}
         while (#ani_list > 0) do
