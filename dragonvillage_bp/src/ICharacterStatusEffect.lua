@@ -112,7 +112,11 @@ function ICharacterStatusEffect:removeStatusEffect(status_effect)
 	local effect_name = status_effect.m_statusEffectName
     if (not effect_name) then return end
 
-	self.m_mStatusEffect[effect_name] = nil
+    if (status_effect:isHidden()) then
+        self.m_mHiddenStatusEffect[effect_name] = nil
+    else
+	    self.m_mStatusEffect[effect_name] = nil
+    end
 end
 
 -------------------------------------
