@@ -206,7 +206,7 @@ function ServerData_EventDice:request_diceReward(lap, finish_cb, fail_cb)
 
     -- 네트워크 통신
     local ui_network = UI_Network()
-    ui_network:setUrl('/shop/event_reward')
+    ui_network:setUrl('/shop/dice/reward')
     ui_network:setParam('uid', uid)
     ui_network:setParam('lap', lap)
     ui_network:setSuccessCB(success_cb)

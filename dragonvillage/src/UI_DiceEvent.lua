@@ -382,7 +382,7 @@ function UI_DiceEvent.makeLap(t_data)
             local toast_msg = Str('보상이 우편함으로 전송되었습니다.')
             UI_ToastPopup(toast_msg)
         end
-        g_eventDiceData:request_diceRoll(lap, finish_cb)
+        g_eventDiceData:request_diceReward(lap, finish_cb)
     end)
 
     return ui
