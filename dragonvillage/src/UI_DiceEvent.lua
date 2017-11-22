@@ -12,7 +12,9 @@ UI_DiceEvent = class(PARENT,{
         m_lapRewardInfoList = 'table<ui, data>',
 
         m_selectAnimator = 'Animator',
-        m_rollAnimator = 'Animator'
+        m_rollAnimator = 'Animator',
+        m_maskingUI = 'UI',
+        m_coroutineHelper = 'CoroutineHelper',
     })
 
 -------------------------------------
@@ -29,6 +31,7 @@ function UI_DiceEvent:init()
     self.m_isContainerMoving = false
     self.m_selectAnimator = nil
     self.m_rollAnimator = nil
+    self.m_maskingUI = nil
 
     self:initUI()
     self:initButton()
@@ -104,6 +107,17 @@ function UI_DiceEvent:initUI()
     self.root:addChild(roll_ani.m_node, 99)
     roll_ani:setVisible(false)
     self.m_rollAnimator = roll_ani
+
+    -- 주사위를 부각시키기 위한 음영 효과 용 UI, skip도 처리한다.
+    local masking_ui = UI()
+    masking_ui:load('empty.ui')
+    self:makeSkipAndMaskingLayer(masking_ui)
+    self.root:addChild(masking_ui.root)
+    masking_ui.root:setVisible(false)
+    self.m_maskingUI = masking_ui
+
+    -- touch 먹히도록 함
+    self.root:setSwallowTouch(false)
 end
 
 -------------------------------------
@@ -152,6 +166,38 @@ function UI_DiceEvent:refresh()
 end
 
 -------------------------------------
+-- function makeSkipAndMaskingLayer
+-------------------------------------
+function UI_DiceEvent:makeSkipAndMaskingLayer(ui)
+    -- skip layer
+    do
+        local layer = cc.Layer:create()
+        ui.root:addChild(layer, -100)
+
+        local function onTouch(touch, event)
+            -- 연출 중일 때만 동작
+            if (self.m_maskingUI.root:isVisible()) then
+                self:skipDirecting()
+                event:stopPropagation()
+            end
+        end
+        UIManager:setLayerToEventListener(layer, onTouch)
+    end
+
+    -- masking layer
+    do
+        local layerColor = UIManager:makeMaskingLayer()
+        
+        ui.root:addChild(layerColor, -100)
+
+        -- 엑션에 추가
+        local t_action_data = ui:addAction(layerColor, UI_ACTION_TYPE_OPACITY, 0, 0.5)
+        ui:doActionReset_(t_action_data)
+        ui:doAction_Indivisual(t_action_data)
+    end
+end
+
+-------------------------------------
 -- function selectCell
 -------------------------------------
 function UI_DiceEvent:selectCell(cell, cb_func)
@@ -173,13 +219,15 @@ end
 -------------------------------------
 -- function moveContainer
 -------------------------------------
-function UI_DiceEvent:moveContainer(compare_y)
+function UI_DiceEvent:moveContainer(compare_y, is_force)
     -- 컨테이너가 없거나 이동중이면 다시 움직이지 않는다.
-    if (not self.m_container) then
-        return
-    end
-    if (self.m_isContainerMoving) then
-        return
+    if (not is_force) then
+        if (not self.m_container) then
+            return
+        end
+        if (self.m_isContainerMoving) then
+            return
+        end
     end
 
     -- 움직인 Y좌표에 따라 2가지 값 사용 (위 또는 아래 포커스)
@@ -192,9 +240,11 @@ function UI_DiceEvent:moveContainer(compare_y)
         pos_y = 0
     end
 
-    if (self.m_container:getPositionY() == pos_y) then
+    -- 현재의 좌표와 이동할 좌표가 같다면 이동하지 않음.. 강제는 가능
+    if (not is_force) and (self.m_container:getPositionY() == pos_y) then
         return
     end
+    self.m_container:stopAllActions()
 
     local duration = 0.5
     local move = cca.makeBasicEaseMove(duration, 0, pos_y)
@@ -219,6 +269,11 @@ end
 -- function click_diceBtn
 -------------------------------------
 function UI_DiceEvent:click_diceBtn()
+    -- 연출 중에는 시작하지 않는다.
+    if (self.m_coroutineHelper) then
+        return
+    end
+
     -- 정중앙으로 이동 시킨다
     self:moveContainer(0)
 
@@ -233,12 +288,10 @@ function UI_DiceEvent:click_diceBtn()
     -- 연출을 코루틴으로 해봅니다.
     local function coroutine_function(dt)
         local co = CoroutineHelper()
+        self.m_coroutineHelper = co
 
-        -- 주사위를 부각시키기 위한 음영 효과 용 UI
-        local block_ui = UI()
-        block_ui:load('empty.ui')
-        UIManager:makeTouchBlock(block_ui, false)
-        self.root:addChild(block_ui.root)
+        -- 터치 블럭
+        UIManager:blockBackKey(true)
 
         -- 서버와 통신
         co:work()
@@ -251,6 +304,7 @@ function UI_DiceEvent:click_diceBtn()
         if co:waitWork() then return end
 
         -- 굴리기 연출 ON
+        self.m_maskingUI.root:setVisible(true)
         self.m_rollAnimator:setVisible(true)
         
         -- 사운드 재생
@@ -274,7 +328,7 @@ function UI_DiceEvent:click_diceBtn()
 
         -- 굴리기 연출 OFF
         self.m_rollAnimator:setVisible(false)
-        block_ui.root:removeFromParent()
+        self.m_maskingUI.root:setVisible(false)
 
         -- 이동 연출
         local old_cell = ret_cache['old_pos']
@@ -294,24 +348,78 @@ function UI_DiceEvent:click_diceBtn()
         
         -- 도착 연출
         co:work()
+                    
+        local toast_msg = Str('보상이 우편함으로 전송되었습니다.')
+        UI_ToastPopup(toast_msg)
+
+        self:refresh()
+        
         self.m_selectAnimator:changeAni('arrival')
         self.m_selectAnimator:addAniHandler(function()
+            -- 도착 후 정리
             self.m_selectAnimator:changeAni('select', true)
-            
-            local toast_msg = Str('보상이 우편함으로 전송되었습니다.')
-            UI_ToastPopup(toast_msg)
-            
-            self:refresh()
+
+            -- 터치 블럭 해제
+            UIManager:blockBackKey(false)
 
             co.NEXT()
         end)
+
         if co:waitWork() then return end
 
         -- 끝
+        self.m_coroutineHelper = nil
         co:close()
     end
 
-    Coroutine(coroutine_function)
+    Coroutine(coroutine_function, 'DiceEvent Directing')
+end
+
+-------------------------------------
+-- function skipDirecting
+-- @brief 스킵해버린다
+-------------------------------------
+function UI_DiceEvent:skipDirecting()
+    if (not self.m_coroutineHelper) then
+        return
+    end
+
+    -- 코루틴 강제 종료
+    self.m_coroutineHelper.ESCAPE()
+    self.m_coroutineHelper = nil
+
+    -- 굴리기 연출 OFF
+    self.m_rollAnimator:setVisible(false)
+    self.m_maskingUI.root:setVisible(false)
+
+    -- 터치 블럭 해제
+    UIManager:blockBackKey(false)
+
+    -- 보상 팝업
+    local toast_msg = Str('보상이 우편함으로 전송되었습니다.')
+    UI_ToastPopup(toast_msg)
+
+    -- 도착 후 정리
+    self.m_selectAnimator:changeAni('select', true)
+    self:refresh()
+        
+    -- 컨테이너 안움직이게 보이도록 정중앙으로 위치
+    self.m_isContainerMoving = false
+    self:moveContainer(0, true) -- force : true
+            
+    -- 심플한 연출
+    self.m_selectAnimator:setVisible(false)
+    local delay = cc.DelayTime:create(0.15)
+    local cb = cc.CallFunc:create(function()
+
+        self.m_selectAnimator:setVisible(true)
+        self.m_selectAnimator:changeAni('arrival')
+        self.m_selectAnimator:addAniHandler(function()
+            self.m_selectAnimator:changeAni('select', true)
+        end)
+    end)
+    local sequence = cc.Sequence:create(delay, cb)
+    self.m_selectAnimator:runAction(sequence)
 end
 
 
