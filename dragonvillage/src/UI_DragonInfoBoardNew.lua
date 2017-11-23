@@ -263,7 +263,7 @@ function UI_DragonInfoBoardNew:refresh_status(t_dragon_data, t_dragon)
     local is_slime_object = (t_dragon_data.m_objectType == 'slime')
     if is_slime_object then
         vars['atk_label']:setString('0')
-        vars['atk_spd_label']:setString('0')
+        vars['aspd_label']:setString('0')
         vars['cri_chance_label']:setString('0')
         vars['def_label']:setString('0')
         vars['hp_label']:setString('0')
@@ -276,7 +276,7 @@ function UI_DragonInfoBoardNew:refresh_status(t_dragon_data, t_dragon)
         vars['hp_gauge']:runAction(cc.ProgressTo:create(dr, 0))
         vars['atk_gauge']:runAction(cc.ProgressTo:create(dr, 0))
         vars['def_gauge']:runAction(cc.ProgressTo:create(dr, 0))
-        vars['atk_spd_gauge']:runAction(cc.ProgressTo:create(dr, 0))
+        vars['aspd_gauge']:runAction(cc.ProgressTo:create(dr, 0))
         vars['cri_chance_gauge']:runAction(cc.ProgressTo:create(dr, 0))
         vars['cri_dmg_gauge']:runAction(cc.ProgressTo:create(dr, 0))
 
@@ -309,7 +309,7 @@ function UI_DragonInfoBoardNew:refresh_status(t_dragon_data, t_dragon)
         vars['hp_label']:setString(hp)
         vars['atk_label']:setString(atk)
         vars['def_label']:setString(def)
-        vars['atk_spd_label']:setString(aspd)
+        vars['aspd_label']:setString(aspd)
         vars['cri_chance_label']:setString(cri_chance)
         vars['cri_dmg_label']:setString(cri_dmg)
         vars['hit_rate_label']:setString(hit_rate)
@@ -336,7 +336,7 @@ function UI_DragonInfoBoardNew:refresh_status(t_dragon_data, t_dragon)
         vars['hp_label2']:setString(dt_hp)
         vars['atk_label2']:setString(dt_atk)
         vars['def_label2']:setString(dt_def)
-        vars['atk_spd_label2']:setString(dt_aspd)
+        vars['aspd_label2']:setString(dt_aspd)
         vars['cri_chance_label2']:setString(dt_cri_chance)
         vars['cri_dmg_label2']:setString(dt_cri_dmg)
         vars['hit_rate_label2']:setString(dt_hit_rate)
@@ -351,7 +351,7 @@ function UI_DragonInfoBoardNew:refresh_status(t_dragon_data, t_dragon)
         vars['hp_label3']:setString(hp)
         vars['atk_label3']:setString(atk)
         vars['def_label3']:setString(def)
-        vars['atk_spd_label3']:setString(aspd)
+        vars['aspd_label3']:setString(aspd)
         vars['cri_chance_label3']:setString(cri_chance)
         vars['cri_dmg_label3']:setString(cri_dmg)
     end
@@ -372,9 +372,38 @@ function UI_DragonInfoBoardNew:init_gauge()
     vars['hp_gauge']:setPercentage(0)
     vars['atk_gauge']:setPercentage(0)
     vars['def_gauge']:setPercentage(0)
-    vars['atk_spd_gauge']:setPercentage(0)
+    vars['aspd_gauge']:setPercentage(0)
     vars['cri_chance_gauge']:setPercentage(0)
     vars['cri_dmg_gauge']:setPercentage(0)
+end
+
+-------------------------------------
+-- local function make_pretty_percentage_action
+-- @brief 능력치 퍼센트를 예쁘게 계산한 프로그레스 액션 생성
+-------------------------------------
+local function make_pretty_percentage_action(src, key)
+	local half = g_constant:get('UI', 'HALF_STAT', key)
+	local max = g_constant:get('UI', 'MAX_STAT', key)
+	
+	local percent
+	if (src <= half) then
+		percent = 0.5 * (src / half)
+
+	else
+		percent = 0.5 + (0.5 * (((src - half) / (max - half))))
+		
+	end
+
+	if (IS_TEST_MODE()) then
+		cclog('================================')
+		cclog(' key : ' .. key)
+		cclog(' src : ' .. src)
+		cclog(' half : ' .. half)
+		cclog(' max : ' .. max)
+		cclog(string.format(' percnet : %d%%', percent * 100))
+	end
+
+	return cc.ProgressTo:create(0.2, percent * 100)
 end
 
 -------------------------------------
@@ -392,29 +421,14 @@ function UI_DragonInfoBoardNew:refresh_gauge(status_calc)
 
     local status_calc = status_calc or MakeDragonStatusCalculator_fromDragonDataTable(self.m_dragonObject)
 
-    -- curr
-    local hp = status_calc:getFinalStat('hp')
-    local atk = status_calc:getFinalStat('atk')
-    local def = status_calc:getFinalStat('def')
-    local aspd = status_calc:getFinalStat('aspd')
-    local cri_chance = status_calc:getFinalStat('cri_chance')
-    local cri_dmg = status_calc:getFinalStat('cri_dmg')
+	local l_stat = {'hp', 'atk', 'def', 'aspd', 'cri_chance', 'cri_dmg'}
+	local stat, progress_action
+	for _, stat_key in ipairs(l_stat) do
+		stat = status_calc:getFinalStat(stat_key)
+		progress_action = make_pretty_percentage_action(stat, stat_key)
 
-    -- max
-    local max_hp = g_constant:get('UI', 'MAX_STAT', 'HP')
-    local max_atk = g_constant:get('UI', 'MAX_STAT', 'ATK')
-    local max_def = g_constant:get('UI', 'MAX_STAT', 'DEF')
-    local max_aspd = g_constant:get('UI', 'MAX_STAT', 'ASPD')
-    local max_cri_chance = g_constant:get('UI', 'MAX_STAT', 'CRI_CHANCE')
-    local max_cri_dmg = g_constant:get('UI', 'MAX_STAT', 'CRI_DMG')
-
-    local dr = 0.2
-    vars['hp_gauge']:runAction(cc.ProgressTo:create(dr, hp / max_hp * 100))
-    vars['atk_gauge']:runAction(cc.ProgressTo:create(dr, atk / max_atk * 100))
-    vars['def_gauge']:runAction(cc.ProgressTo:create(dr, def / max_def * 100))
-    vars['atk_spd_gauge']:runAction(cc.ProgressTo:create(dr, (aspd - 100)/(max_aspd - 100) * 100))
-    vars['cri_chance_gauge']:runAction(cc.ProgressTo:create(dr, cri_chance / max_cri_chance * 100))
-    vars['cri_dmg_gauge']:runAction(cc.ProgressTo:create(dr, cri_dmg / max_cri_dmg * 100))
+		vars[stat_key .. '_gauge']:runAction(progress_action)
+	end
 end
 
 -------------------------------------
