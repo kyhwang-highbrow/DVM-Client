@@ -149,8 +149,10 @@ function UI_SkillDetailPopupNew:refresh(idx)
         vars['skillEnhanceLabel']:setColor(COLOR['DEEPGRAY'])
         vars['nowNode']:setVisible(false)
         if (self.m_orginDid == self.m_dragonObject:getDid()) then
-            vars['skillEnhanceLabel']:setColor(COLOR['CURR_LV'])
-            vars['nowNode']:setVisible(true)
+			if (skill_indivisual_info:isActivated()) then
+				vars['skillEnhanceLabel']:setColor(COLOR['CURR_LV'])
+				vars['nowNode']:setVisible(true)
+			end
         end
     end
 
