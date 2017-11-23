@@ -172,6 +172,7 @@ function ServerData_Colosseum:refresh_playerUserInfo(t_data, l_deck)
         -- 플레이어 유저 정보 생성
         local struct_user_info = StructUserInfoColosseum()
         struct_user_info.m_uid = g_userData:get('uid')
+		struct_user_info:setStructClan(g_clanData:getClanStruct())
         self.m_playerUserInfo = struct_user_info
     end
 
