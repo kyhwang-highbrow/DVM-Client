@@ -378,35 +378,6 @@ function UI_DragonInfoBoardNew:init_gauge()
 end
 
 -------------------------------------
--- local function make_pretty_percentage_action
--- @brief 능력치 퍼센트를 예쁘게 계산한 프로그레스 액션 생성
--------------------------------------
-local function make_pretty_percentage_action(src, key)
-	local half = g_constant:get('UI', 'HALF_STAT', key)
-	local max = g_constant:get('UI', 'MAX_STAT', key)
-	
-	local percent
-	if (src <= half) then
-		percent = 0.5 * (src / half)
-
-	else
-		percent = 0.5 + (0.5 * (((src - half) / (max - half))))
-		
-	end
-
-	if (IS_TEST_MODE()) then
-		cclog('================================')
-		cclog(' key : ' .. key)
-		cclog(' src : ' .. src)
-		cclog(' half : ' .. half)
-		cclog(' max : ' .. max)
-		cclog(string.format(' percnet : %d%%', percent * 100))
-	end
-
-	return cc.ProgressTo:create(0.2, percent * 100)
-end
-
--------------------------------------
 -- function refresh_gauge
 -- @brief 능력치 게이지 액션
 -------------------------------------
@@ -421,13 +392,11 @@ function UI_DragonInfoBoardNew:refresh_gauge(status_calc)
 
     local status_calc = status_calc or MakeDragonStatusCalculator_fromDragonDataTable(self.m_dragonObject)
 
+	-- stat gauge refresh
 	local l_stat = {'hp', 'atk', 'def', 'aspd', 'cri_chance', 'cri_dmg'}
-	local stat, progress_action
 	for _, stat_key in ipairs(l_stat) do
-		stat = status_calc:getFinalStat(stat_key)
-		progress_action = make_pretty_percentage_action(stat, stat_key)
-
-		vars[stat_key .. '_gauge']:runAction(progress_action)
+		local percent = status_calc:makePrettyPercentage(stat_key)
+		vars[stat_key .. '_gauge']:runAction(cc.ProgressTo:create(0.2, percent * 100))
 	end
 end
 

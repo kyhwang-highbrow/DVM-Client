@@ -492,7 +492,7 @@ function UI_BookDetailPopupNew:calculateStat()
         vars['hp_label']:setString(hp)
         vars['atk_label']:setString(atk)
         vars['def_label']:setString(def)
-        vars['atk_spd_label']:setString(aspd)
+        vars['aspd_label']:setString(aspd)
         vars['cri_chance_label']:setString(cri_chance)
         vars['cri_dmg_label']:setString(cri_dmg)
         vars['hit_rate_label']:setString(hit_rate)
@@ -516,29 +516,12 @@ function UI_BookDetailPopupNew:refresh_gauge(status_calc)
     local vars = self.vars
     local status_calc = status_calc
 
-    -- curr
-    local hp = status_calc:getFinalStat('hp')
-    local atk = status_calc:getFinalStat('atk')
-    local def = status_calc:getFinalStat('def')
-    local aspd = status_calc:getFinalStat('aspd')
-    local cri_chance = status_calc:getFinalStat('cri_chance')
-    local cri_dmg = status_calc:getFinalStat('cri_dmg')
-
-    -- max
-    local max_hp = g_constant:get('UI', 'MAX_STAT', 'HP')
-    local max_atk = g_constant:get('UI', 'MAX_STAT', 'ATK')
-    local max_def = g_constant:get('UI', 'MAX_STAT', 'DEF')
-    local max_aspd = g_constant:get('UI', 'MAX_STAT', 'ASPD')
-    local max_cri_chance = g_constant:get('UI', 'MAX_STAT', 'CRI_CHANCE')
-    local max_cri_dmg = g_constant:get('UI', 'MAX_STAT', 'CRI_DMG')
-
-    local dr = 0.2
-    vars['hp_gauge']:runAction(cc.ProgressTo:create(dr, hp / max_hp * 100))
-    vars['atk_gauge']:runAction(cc.ProgressTo:create(dr, atk / max_atk * 100))
-    vars['def_gauge']:runAction(cc.ProgressTo:create(dr, def / max_def * 100))
-    vars['atk_spd_gauge']:runAction(cc.ProgressTo:create(dr, (aspd - 100)/(max_aspd - 100) * 100))
-    vars['cri_chance_gauge']:runAction(cc.ProgressTo:create(dr, cri_chance / max_cri_chance * 100))
-    vars['cri_dmg_gauge']:runAction(cc.ProgressTo:create(dr, cri_dmg / max_cri_dmg * 100))
+	-- stat gauge refresh
+	local l_stat = {'hp', 'atk', 'def', 'aspd', 'cri_chance', 'cri_dmg'}
+	for _, stat_key in ipairs(l_stat) do
+		local percent = status_calc:makePrettyPercentage(stat_key)
+		vars[stat_key .. '_gauge']:runAction(cc.ProgressTo:create(0.2, percent * 100))
+	end
 end
 
 

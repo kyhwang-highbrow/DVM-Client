@@ -13,9 +13,8 @@ L_BASIC_STATUS_TYPE = {
     }
 
 L_SPECIAL_STATUS_TYPE = {
-    'dmg_adj_rate', -- 받는 데미지 조정 계수
+    'dmg_adj_rate', -- 데미지 조정 계수
 	'attr_adj_rate',-- 속성 조정 계수
-    'atk_dmg_adj_rate',-- 공격 데미지 조정 계수
     'cri_dmg_adj_rate',-- 치명시 데미지 조정 계수
 
     -- 룬 세트가 추가되면서 추가된 능력치
@@ -211,14 +210,34 @@ function StatusCalculator:getFinalStatDisplay(stat_type, use_percent)
 end
 
 -------------------------------------
--- function getFinalAddStatDisplay
--- @brief 친밀도, 수련으로 증가된 수치 표시 (추후 항목이 추가될 수 있음)
--- 삭제 예정
+-- function make_pretty_percentage_action
+-- @brief 능력치 퍼센트를 예쁘게 계산한 프로그레스 액션 생성
 -------------------------------------
-function StatusCalculator:getFinalAddStatDisplay(stat_type)
-    return ''
-end
+function StatusCalculator:makePrettyPercentage(key)
+	local src = self:getFinalStat(key)
+	local half = g_constant:get('UI', 'HALF_STAT', key)
+	local max = g_constant:get('UI', 'MAX_STAT', key)
+	
+	local percent
+	if (src <= half) then
+		percent = 0.5 * (src / half)
 
+	else
+		percent = 0.5 + (0.5 * (((src - half) / (max - half))))
+		
+	end
+
+	if (IS_TEST_MODE()) then
+		cclog('================================')
+		cclog(' key : ' .. key)
+		cclog(' src : ' .. src)
+		cclog(' half : ' .. half)
+		cclog(' max : ' .. max)
+		cclog(string.format(' percnet : %d%%', percent * 100))
+	end
+
+	return percent
+end
 
 -------------------------------------
 -- function getAdjustRate
