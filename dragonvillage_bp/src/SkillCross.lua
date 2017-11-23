@@ -144,9 +144,9 @@ function SkillCross:runAttack()
    
         self:attack(collision)
         
-        if (collision:getTarget().m_hp <= 0 and target_hp_before > 0) then
+        --if (collision:getTarget().m_hp <= 0 and target_hp_before > 0) then
             table.insert(self.m_lNextTarget, collision)
-        end
+        --end
     end
     
 	self:doCommonAttackEffect() 
