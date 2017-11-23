@@ -56,7 +56,7 @@ function UI_DragonBoardListItem:initUI()
 	self:setContentWithAdjHeight(review)
 
 	-- 내가 쓴 리뷰 처리
-	local is_mine = (nick == g_userData:get('nick'))
+	local is_mine = (t_data['uid'] == g_userData:get('uid'))
 	if (is_mine) then
 		vars['assessMySprite']:setVisible(true)
 		vars['recommandBtn']:setVisible(false)
