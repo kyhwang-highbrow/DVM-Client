@@ -13,8 +13,9 @@ L_BASIC_STATUS_TYPE = {
     }
 
 L_SPECIAL_STATUS_TYPE = {
-    'dmg_adj_rate', -- 데미지 조정 계수
+    'dmg_adj_rate', -- 받는 데미지 조정 계수
 	'attr_adj_rate',-- 속성 조정 계수
+    'atk_dmg_adj_rate',-- 공격 데미지 조정 계수
     'cri_dmg_adj_rate',-- 치명시 데미지 조정 계수
 
     -- 룬 세트가 추가되면서 추가된 능력치

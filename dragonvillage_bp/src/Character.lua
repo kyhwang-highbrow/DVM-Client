@@ -709,6 +709,7 @@ function Character:undergoAttack(attacker, defender, i_x, i_y, body_key, no_even
 
         -- 피해량 비율
         local dmg_adj_rate = 0
+        local atk_dmg_adj_rate = 0
         local cri_dmg_adj_rate = 0
         local se_dmg_adj_rate = 0
 
@@ -718,6 +719,14 @@ function Character:undergoAttack(attacker, defender, i_x, i_y, body_key, no_even
                 dmg_adj_rate = self:getStat('dmg_adj_rate') / 100
 
                 local rate = math_max(dmg_adj_rate, -1)
+                damage_multifly = damage_multifly * (1 + rate)
+            end
+
+            -- 공격자 능력치
+            do
+                atk_dmg_adj_rate = self:getStat('atk_dmg_adj_rate') / 100
+
+                local rate = math_max(atk_dmg_adj_rate, -1)
                 damage_multifly = damage_multifly * (1 + rate)
             end
 
