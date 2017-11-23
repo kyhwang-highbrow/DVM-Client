@@ -2949,6 +2949,12 @@
     <None Include="..\src\StructEventDiceInfo.lua">
       <Filter>lua\src</Filter>
     </None>
+    <None Include="..\src\Monster_DarkNixIntro.lua">
+      <Filter>lua\src</Filter>
+    </None>
+    <None Include="..\src\StatusEffect_Immune.lua">
+      <Filter>lua\src</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Classes">

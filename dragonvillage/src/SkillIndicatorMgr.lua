@@ -160,7 +160,9 @@ function SkillIndicatorMgr:onTouchBegan(touch, event)
         end
 
         -- 튤팁 표시
-        self:makeSkillToolTip(select_hero)
+        if (select_hero:getCharType() == 'dragon') then
+            self:makeSkillToolTip(select_hero)
+        end
 
         event:stopPropagation()
 

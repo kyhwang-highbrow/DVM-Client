@@ -4,6 +4,8 @@ local PARENT = class(Entity, IEventListener:getCloneTable())
 -- class StatusEffect
 -------------------------------------
 StatusEffect = class(PARENT, {
+        m_res = 'string',
+
         m_statusEffectTable = 'table',
         m_statusEffectName = 'string',
         m_overlabClass = 'class',
@@ -19,7 +21,9 @@ StatusEffect = class(PARENT, {
         m_lUnit = 'table',  -- 해당 상태효과에 추가된 StatusEffectUnit의 리스트
         m_mUnit = 'table',  -- 시전자의 char_id값을 키값으로 StatusEffectUnit의 리스트를 가지는 맵
 
+        m_bErasable = 'boolean',
         m_bHidden = 'boolean',
+
         m_bDead = 'boolean',
         m_bApply = 'boolean',
         m_bDirtyPos = 'bollean',
@@ -52,6 +56,8 @@ StatusEffect = class(PARENT, {
 -- @param body
 -------------------------------------
 function StatusEffect:init(file_name, body)
+    self.m_res = file_name
+
     self.m_overlabClass = StatusEffectUnit
 
 	self.m_lStatus = {}
@@ -63,7 +69,9 @@ function StatusEffect:init(file_name, body)
     self.m_lUnit = {}
     self.m_mUnit = {}
 
+    self.m_bErasable = false
     self.m_bHidden = false
+
     self.m_bDead = false
     self.m_bApply = false
     self.m_bDirtyPos = true
@@ -97,6 +105,9 @@ function StatusEffect:initFromTable(t_status_effect, target_char)
     self.m_category = t_status_effect['category']
     self.m_maxOverlab = t_status_effect['overlab']
     self.m_owner = target_char
+
+    self.m_bErasable = (SkillHelper:getValid(t_status_effect['erasable'], 1) == 1)
+    self.m_bHidden = (SkillHelper:getValid(t_status_effect['show_icon'], 1) == 0)
     self.m_bHarmful = StatusEffectHelper:isHarmful(t_status_effect['category'])
     self.m_bAbs = (t_status_effect['abs_switch'] and (t_status_effect['abs_switch'] == 1) or false)
 
@@ -163,9 +174,7 @@ function StatusEffect:init_direction(direction_type)
     end
 
     func['polygons'] = function()
-        -- TODO: 연출을 위한 모듈 생성
-        local res = self.m_statusEffectTable['res']
-        self.m_edgeDirector = StatusEffectEdgeDirector(self.m_owner.m_bLeftFormation, 'polygons', self.m_rootNode, res, self.m_maxOverlab)
+        self.m_edgeDirector = StatusEffectEdgeDirector(self.m_owner.m_bLeftFormation, 'polygons', self.m_rootNode, self.m_res, self.m_maxOverlab)
     end
 
     if (func[direction_type]) then
@@ -228,13 +237,6 @@ end
 -------------------------------------
 function StatusEffect:setName(name)
     self.m_statusEffectName = name
-end
-
--------------------------------------
--- function setHidden
--------------------------------------
-function StatusEffect:setHidden(b)
-    self.m_bHidden = b
 end
 
 -------------------------------------
@@ -356,11 +358,7 @@ function StatusEffect:update(dt)
     if (self.m_bApply) then
         local modified_dt
 
-        if (self.m_bHarmful and self.m_owner:isImmuneSE()) then
-            -- 면역 상태일 경우 해로운 효과는 즉시 해제
-            modified_dt = 9999
-
-        elseif (not self.m_world.m_gameState:isFight()) then
+        if (not self.m_world.m_gameState:isFight()) then
             -- 전투 중이 아닐 경우 지속시간이 감소하지 않도록 처리
             modified_dt = 0
         
@@ -633,7 +631,7 @@ end
 function StatusEffect:addOverlabUnit(caster, skill_id, value, source, duration, add_param)
     if (self.m_bDead) then return end
 
-    local char_id = caster:getCharId()
+    local char_key = caster.phys_idx
     local skill_id = skill_id or 999999
 
     -- 시전자의 스텟에 따라 지속시간을 증가시킴(이미 걸려있던 디버프 중첩별 실시간 적용은 안함)
@@ -646,19 +644,19 @@ function StatusEffect:addOverlabUnit(caster, skill_id, value, source, duration, 
         end
     end
 
-    local new_unit = self.m_overlabClass(self:getTypeName(), self.m_owner, caster, skill_id, value, source, duration, self.m_bHidden, add_param)
+    local new_unit = self.m_overlabClass(self:getTypeName(), self.m_owner, caster, skill_id, value, source, duration, add_param)
     local t_status_effect = self.m_statusEffectTable
     
-    if (not self.m_mUnit[char_id]) then
-        self.m_mUnit[char_id] = {}
+    if (not self.m_mUnit[char_key]) then
+        self.m_mUnit[char_key] = {}
     end
 
      -- 갱신(삭제 후 새로 추가하는 방식으로 처리함. 리스트의 가장 뒤로 보내야하기 때문)
-    if (t_status_effect['overlab_option'] ~= 1) then
-        for i, unit in ipairs(self.m_mUnit[char_id]) do
+    if (t_status_effect['overlab_option'] ~= 1 or (caster:getCharType() == 'monster' and self.m_owner.m_bLeftFormation)) then
+        for i, unit in ipairs(self.m_mUnit[char_key]) do
             if (unit.m_skillId == skill_id) then
                 -- 주체와 스킬id가 같을 경우 삭제 후 추가 시킴
-                local unit = table.remove(self.m_mUnit[char_id], i)
+                local unit = table.remove(self.m_mUnit[char_key], i)
                 self:unapplyOverlab(unit)
 
                 local idx = table.find(self.m_lUnit, unit)
@@ -670,7 +668,7 @@ function StatusEffect:addOverlabUnit(caster, skill_id, value, source, duration, 
     end
 
     -- 중첩 정보 추가
-    table.insert(self.m_mUnit[char_id], new_unit)
+    table.insert(self.m_mUnit[char_key], new_unit)
     table.insert(self.m_lUnit, new_unit)
     -- 중첩시 효과 적용
     self:applyOverlab(new_unit)
@@ -773,6 +771,22 @@ function StatusEffect:setTemporaryPause(pause)
 end
 
 
+-------------------------------------
+-- function getUnit
+-------------------------------------
+function StatusEffect:getUnit(caster, skill_id)
+    if (not caster or not skill_id) then return end
+
+    local char_key = caster.phys_idx
+
+    if (not self.m_mUnit[char_key]) then return end
+
+    for i, unit in ipairs(self.m_mUnit[char_key]) do
+        if (unit.m_skillId == skill_id) then
+            return unit
+        end
+    end
+end
 
 
 
@@ -781,6 +795,27 @@ end
 -------------------------------------
 function StatusEffect:getTypeName()
     return self.m_statusEffectName
+end
+
+-------------------------------------
+-- function isErasable
+-------------------------------------
+function StatusEffect:isErasable()
+    return self.m_bErasable
+end
+
+-------------------------------------
+-- function isHidden
+-------------------------------------
+function StatusEffect:isHidden()
+    return self.m_bHidden
+end
+
+-------------------------------------
+-- function isHarmful
+-------------------------------------
+function StatusEffect:isHarmful()
+    return self.m_bHarmful
 end
 
 -------------------------------------

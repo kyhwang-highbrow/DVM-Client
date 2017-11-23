@@ -69,8 +69,8 @@ end
 -- function getTriggerFunction
 -------------------------------------
 function StatusEffect_ConditionalBuff:getTriggerFunction()
-    local trigger_func = function()
-        if (self:checkCondition()) then
+    local trigger_func = function(t_event)
+        if (self:checkCondition(t_event)) then
             if (not self.m_bApply) then
                 self:buffOn()
             end
@@ -86,8 +86,8 @@ end
 -------------------------------------
 -- function checkCondition
 -------------------------------------
-function StatusEffect_ConditionalBuff:checkCondition()
-    return PASSIVE_CONDITION_FUNC[self.m_chance](self)
+function StatusEffect_ConditionalBuff:checkCondition(t_event)
+    return PASSIVE_CONDITION_FUNC[self.m_chance](self, t_event)
 end
 
 -------------------------------------
@@ -123,8 +123,8 @@ end
 -- 이 클래스에 한해서 오버랩이 아니라 최초 호출시 상태 효과를 조건 검사 후 걸어주는 역할을 한다.
 -- 조건 검사가 필요한 부분이라 재정의
 -------------------------------------
-function StatusEffect_ConditionalBuff:addOverlabUnit(caster, skill_id, value, source, duration, is_hidden, add_param)
-    PARENT.addOverlabUnit(self, caster, skill_id, value, source, duration, is_hidden, add_param)
+function StatusEffect_ConditionalBuff:addOverlabUnit(caster, skill_id, value, source, duration, add_param)
+    PARENT.addOverlabUnit(self, caster, skill_id, value, source, duration, add_param)
 
     if ( not self:checkCondition() ) then
         -- 실행 조건이 아니면 효과 취소.

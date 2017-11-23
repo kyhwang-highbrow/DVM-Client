@@ -78,7 +78,8 @@ function SkillTransform:makeSkillInstance(owner, t_skill, t_data)
 	-- 변수 선언부
 	------------------------------------------------------
     local cid = t_skill['val_1']
-	local lv = t_skill['val_2']
+	--local lv = t_skill['val_2']
+    local lv = owner.m_lv
     local dest = t_skill['val_3']
 	local res = t_skill['res_1']
 	

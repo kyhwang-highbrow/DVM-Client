@@ -259,6 +259,14 @@ function attributeOption(t_data, option_type, value)
         detail_stat_type = 'cri_dmg'
         b_minus = true
 
+    -- 강타 (bash)
+    elseif (option_type == 'bash') then
+        detail_stat_type = 'bash'
+
+    -- 빚맞힘 (miss)
+    elseif (option_type == 'miss') then
+        detail_stat_type = 'miss'
+
     else
         error('option_type : ' .. option_type)
     end
@@ -324,11 +332,13 @@ function getAttrSynastryEffect(attr1, attr2, atk_attr_adj_rate, def_attr_adj_rat
     end
     
 	-- 속성 강화 -> 사실 속성 강화보단 속성 증폭이 맞는 개념
-	local attr_dmg = t_attr_synastry_effect['damage']
 	local atk_attr_adj_rate = atk_attr_adj_rate or 0
 	local def_attr_adj_rate = def_attr_adj_rate or 0
-    if (t_attr_synastry_effect['damage'] > 0) then 
-		t_attr_synastry_effect['damage'] = t_attr_synastry_effect['damage'] + atk_attr_adj_rate - def_attr_adj_rate
+
+    if (attr_synastry == 1) then
+		t_attr_synastry_effect['damage'] = t_attr_synastry_effect['damage'] + atk_attr_adj_rate
+    elseif (attr_synastry == -1) then
+        t_attr_synastry_effect['damage'] = t_attr_synastry_effect['damage'] - def_attr_adj_rate
 	end
     
     return t_attr_synastry_effect, attr_synastry

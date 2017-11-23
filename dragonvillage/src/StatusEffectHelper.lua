@@ -200,14 +200,24 @@ function StatusEffectHelper:invokeStatusEffect(caster, target_char, status_effec
         error('no status_effect table : ' .. status_effect_type)
     end
 
+    local status_effect = target_char:getStatusEffect(status_effect_type, true)
     local status_effect_category = t_status_effect['category']
 	local status_effect_group = t_status_effect['type']
     local duration = tonumber(duration) or tonumber(t_status_effect['duration'])
     local world = target_char.m_world
+    local skip_resistance_font = false
 
     -- 전투 중 검사
     if (self:isHarmful(status_effect_category) and not world.m_gameState:isFight()) then
         return nil
+    end
+
+    -- 시전자가 몬스터의 경우 같은 스킬 아이디의 상태효과는 일정시간 내에 다시 걸리지 않도록 처리
+    if (caster:getCharType() == 'monster' and status_effect) then
+        local unit = status_effect:getUnit(caster, skill_id)
+        if (unit and unit:getKeepTime() < 3) then
+            skip_resistance_font = true
+        end
     end
 
     -- status_effect_rate 검사
@@ -216,7 +226,7 @@ function StatusEffectHelper:invokeStatusEffect(caster, target_char, status_effec
     end
 
 	-- 면역 효과
-	if (self:isHarmful(status_effect_category) and target_char:isImmuneSE()) then 
+	if (self:isHarmful(status_effect_category) and target_char.m_isImmune) then 
         target_char:makeImmuneFont(target_char.pos['x'], target_char.pos['y'], 1.5)
 		return nil
 	end
@@ -233,7 +243,9 @@ function StatusEffectHelper:invokeStatusEffect(caster, target_char, status_effec
             -- 해제효과의 경우는 효과 저항할 수 없도록 처리
         
         elseif (self:isHarmful(status_effect_category) and self:checkStatus(caster, target_char)) then
-            target_char:makeResistanceFont(target_char.pos['x'], target_char.pos['y'], 1.5)
+            if (not skip_resistance_font) then
+                target_char:makeResistanceFont(target_char.pos['x'], target_char.pos['y'], 1.5)
+            end
             return nil
         end
 	else
@@ -250,7 +262,6 @@ function StatusEffectHelper:invokeStatusEffect(caster, target_char, status_effec
         status_effect_value = tonumber(status_effect_value)
     end
 
-    local status_effect = target_char:getStatusEffect(status_effect_type, true)
     if (status_effect) then
         -- 상태 효과 중첩 혹은 갱신
         status_effect:addOverlabUnit(caster, skill_id, status_effect_value, status_effect_source, duration, add_param)
@@ -279,7 +290,6 @@ function StatusEffectHelper:makeStatusEffectInstance(caster, target_char, status
     local t_status_effect = TableStatusEffect():get(status_effect_type)
     local status_effect_group = t_status_effect['type']
     local status_effect = nil
-    local is_hidden = StatusEffectHelper:isHidden(t_status_effect, caster, skill_id)
     local res = TableStatusEffect():getRes(status_effect_type, caster:getAttribute())
 
     ----------- 상태효과 변경 ------------------
@@ -329,6 +339,10 @@ function StatusEffectHelper:makeStatusEffectInstance(caster, target_char, status
 
     elseif (status_effect_group == 'barrier_time') then
         status_effect = StatusEffect_ProtectionByTime(res)
+
+    ----------- 상태효과 면역 ------------------
+	elseif (status_effect_group == 'immune') then
+        status_effect = StatusEffect_Immune(res)
 
     ------------ 도트 --------------------------
     elseif (status_effect_group == 'dot_dmg') then
@@ -406,10 +420,9 @@ function StatusEffectHelper:makeStatusEffectInstance(caster, target_char, status
     -- 초기값 설정
     status_effect:initWorld(world)
     status_effect:initFromTable(t_status_effect, target_char)
-    status_effect:setHidden(is_hidden)
-
+    
     -- 타켓에게 status_effect 저장
-	target_char:insertStatusEffect(status_effect, is_hidden)
+	target_char:insertStatusEffect(status_effect)
 
     -- 객체 생성
     world.m_missiledNode:addChild(status_effect.m_rootNode, 1)
@@ -485,8 +498,8 @@ function StatusEffectHelper:releaseStatusEffectDebuff(char, max_release_cnt, sta
 	    -- 해제
 	    for type, status_effect in pairs(char:getStatusEffectList()) do
             -- 해로운 효과 해제
-		    if (status_effect.m_bHarmful) then
-                for i, v in ipairs(status_effect.m_lUnit) do
+            if (status_effect:isErasable() and status_effect:isHarmful()) then
+		        for i, v in ipairs(status_effect.m_lUnit) do
                     status_effect:unapplyOverlab(v)
                     local idx = table.find(status_effect.m_lUnit, v)
                     table.remove(status_effect.m_lUnit, idx)
@@ -503,7 +516,7 @@ function StatusEffectHelper:releaseStatusEffectDebuff(char, max_release_cnt, sta
     else
         for type, status_effect in pairs(char:getStatusEffectList()) do
             -- 해로운 효과 해제
-            if (status_effect.m_bHarmful) then
+            if (status_effect:isErasable() and status_effect:isHarmful()) then
                 if(status_effect_name == status_effect.m_statusEffectName) then
                     for i, v in ipairs(status_effect.m_lUnit) do
                         status_effect:unapplyOverlab(v)
@@ -518,7 +531,7 @@ function StatusEffectHelper:releaseStatusEffectDebuff(char, max_release_cnt, sta
                 end
             end
         end
-    end 
+    end
 
 	return (release_cnt > 0)
 end
@@ -536,7 +549,7 @@ function StatusEffectHelper:releaseStatusEffectBuff(char, max_release_cnt, statu
         -- 해제
         for type, status_effect in pairs(char:getStatusEffectList()) do
             -- 이로운 효과 해제
-	        if self:isHelpful(status_effect.m_category) then 
+	        if (status_effect:isErasable() and not status_effect:isHarmful()) then
 		        for i, v in ipairs(status_effect.m_lUnit) do
                     status_effect:unapplyOverlab(v)
                     local idx = table.find(status_effect.m_lUnit, v)
@@ -555,7 +568,7 @@ function StatusEffectHelper:releaseStatusEffectBuff(char, max_release_cnt, statu
         -- 해제
         for type, status_effect in pairs(char:getStatusEffectList()) do
             -- 이로운 효과 해제
-	        if self:isHelpful(status_effect.m_category) then 
+	        if (status_effect:isErasable() and not status_effect:isHarmful()) then
                 if(status_effect_name == status_effect.m_statusEffectName) then
                     for i, v in ipairs(status_effect.m_lUnit) do
                         status_effect:unapplyOverlab(v)
@@ -584,7 +597,9 @@ end
 function StatusEffectHelper:releaseStatusEffectAll(char)
 	-- 해제
 	for type, status_effect in pairs(char:getStatusEffectList()) do
-        status_effect:changeState('end')
+        if (status_effect:isErasable()) then
+            status_effect:changeState('end')
+        end
 	end
 end
 
@@ -620,32 +635,4 @@ function StatusEffectHelper:isHelpful(param_1)
 	end
 
 	return (status_effect_category == 'good')
-end
-
-
--------------------------------------
--- function isHidden
--- @breif 해제되지 않고 계속 유지되며 별도의 표시가 없는 상태효과(리더 or 패시브)인지 여부 체크
--------------------------------------
-function StatusEffectHelper:isHidden(t_status_effect, caster, skill_id)
-    if (skill_id) then
-        local leader_skill_id = caster:getSkillID('leader')
-        local passive_skill_id = caster:getSkillID('passive')
-
-        if (skill_id == leader_skill_id or skill_id == passive_skill_id) then
-            return true
-        end
-    end
-
-    if (t_status_effect) then
-        if (string.find(t_status_effect['name'], 'leader') or string.find(t_status_effect['name'], 'passive')) then
-            return true
-        end
-
-        if (t_status_effect['type'] == 'conditional_buff') then
-            return true
-        end
-    end
-
-    return false
 end

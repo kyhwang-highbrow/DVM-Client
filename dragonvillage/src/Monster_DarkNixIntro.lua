@@ -1,9 +1,9 @@
-local PARENT = Monster
+local PARENT = MonsterLua_Boss
 
 -------------------------------------
--- class Monster_DarkNix
+-- class Monster_DarkNixIntro
 -------------------------------------
-Monster_DarkNix = class(PARENT, {
+Monster_DarkNixIntro = class(PARENT, {
      })
 
 -------------------------------------
@@ -11,13 +11,13 @@ Monster_DarkNix = class(PARENT, {
 -- @param file_name
 -- @param body
 -------------------------------------
-function Monster_DarkNix:init(file_name, body, ...)
+function Monster_DarkNixIntro:init(file_name, body, ...)
 end
 
 -------------------------------------
 -- function initState
 -------------------------------------
-function Monster_DarkNix:initState()
+function Monster_DarkNixIntro:initState()
     PARENT.initState(self)
 
     self:addState('attack', Monster_DarkNix.st_attack, 'attack', false)
@@ -26,7 +26,7 @@ end
 -------------------------------------
 -- function st_attack
 -------------------------------------
-function Monster_DarkNix.st_attack(owner, dt)
+function Monster_DarkNixIntro.st_attack(owner, dt)
     if (owner.m_stateTimer == 0) then
         local t_skill = owner:getSkillTable(owner.m_reservedSkillId)
         if t_skill and t_skill['skill_type'] == 'skill_heart_of_ruin' then

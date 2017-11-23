@@ -171,10 +171,6 @@ function MissileFactory:makeMissile_(t_option, is_hero)
         
     local max_hit_count =       t_option['max_hit_count']
 
-    --local parent =           t_option['parent']
-    --local sync_pos =         t_option['sync_pos'] or false
-    --local motion_streak =    t_option['motion_streak'] or nil 실 사용하는 곳에서 정의 .. 혼선이 있다.
-
     local lua_missile = nil
 
     -- 리소스명 변경 (@를 속성명으로 변경)

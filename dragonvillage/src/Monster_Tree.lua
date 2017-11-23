@@ -1,4 +1,5 @@
-local PARENT = MonsterLua_Boss
+--local PARENT = MonsterLua_Boss
+local PARENT = Monster
 
 -------------------------------------
 -- class Monster_Tree
@@ -38,6 +39,7 @@ function Monster_Tree.st_dying(owner, dt)
         end
 
         -- 효과음
+        --[[
         if owner.m_tEffectSound['die'] then
             local category = 'EFFECT'
             if startsWith(owner.m_tEffectSound['die'], 'vo_') then
@@ -45,6 +47,7 @@ function Monster_Tree.st_dying(owner, dt)
             end
             SoundMgr:playEffect(category, owner.m_tEffectSound['die'])
         end
+        ]]--
 
         -- 화면 쉐이킹
         owner.m_world.m_shakeMgr:doShakeUpDown(25, 10)

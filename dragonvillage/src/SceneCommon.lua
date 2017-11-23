@@ -25,6 +25,9 @@ end
 function SceneCommon:onEnter()
     PerpleScene.onEnter(self)
 
+    -- 연속 모드 해제
+    g_autoPlaySetting:setAutoPlay(false)
+
     if self.m_classUI then
         local args = self.m_args
 		-- 매개변수가 10개를 넘지 않는다는 가정 sgkim 2017-08-08

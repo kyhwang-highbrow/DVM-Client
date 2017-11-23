@@ -76,6 +76,10 @@ end
 -- function getStat
 -------------------------------------
 function ActivityCarrier:getStat(type)
+    if (self.m_attackType and self.m_attackType == 'active' and self.m_activityCarrierOwner) then
+        return self.m_activityCarrierOwner:getStat(type)
+    end
+
     return self.m_lFinalStat[type]
 end
 
@@ -217,6 +221,7 @@ function ActivityCarrier:cloneForMissile()
     activity_carrier:setAddCriPowerRate(self.m_skillAddCriCoefficient)
 	
 	activity_carrier.m_lFinalStat = clone(self.m_lFinalStat)
+    activity_carrier.m_lStatusEffectRate = clone(self.m_lStatusEffectRate)
 
     return activity_carrier
 end
@@ -262,8 +267,9 @@ function ActivityCarrier:getAtkDmg(target)
 
     else
         local stat = SkillHelper:getValid(self.m_atkDmgStat, 'atk')
-        atk_dmg = self:getStat(stat)
 
+        atk_dmg = self:getStat(stat)
+        
         if (not atk_dmg) then
             error('invalid stat type : ' .. stat)
         end

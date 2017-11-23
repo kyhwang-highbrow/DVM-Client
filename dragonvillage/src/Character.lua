@@ -31,8 +31,7 @@ Character = class(PARENT, {
         m_bActive = 'boolean',
         m_bDead = 'boolean',
         m_bInvincibility = 'boolean',   -- 무적 상태 여부
-		m_isImmuneSE = 'boolean',		-- 면역 (해로운 상태 효과 면역)
-        
+		        
         -- @ for FormationMgr
         m_bLeftFormation = 'boolean',   -- 왼쪽 진형일 경우 true, 오른쪽 진형일 경우 false
         m_currFormation = '',
@@ -174,8 +173,7 @@ function Character:init(file_name, body, ...)
     self.m_delaySpasticity = 0
 
     self.m_bInvincibility = false
-	self.m_isImmuneSE = false
-        
+	        
 	self.m_isUseAfterImage = false
 
 	self.m_guard = false
@@ -361,6 +359,7 @@ function Character:setStatusCalc(status_calc)
     local hp_multi = self.m_statusCalc:getHiddenInto('hp_multi') or 1
     self.m_maxHp = hp * hp_multi
     self.m_hp = self.m_maxHp
+    self.m_hpRatio = 1
 
     -- 공속 설정
     self:calcAttackPeriod(true)
@@ -401,16 +400,10 @@ end
 -- function checkBash
 -- @brief 강타 여부 검사
 -------------------------------------
-function Character:checkBash(attacker_char)
-    local miss_rate
+function Character:checkBash(attacker_char, rate)
+    local rate = rate or 0
     
-    if (IS_NEW_BALANCE_VERSION()) then
-        miss_rate = 50
-    else
-        miss_rate = 100
-    end
-
-    if (math_random(1, 100) <= miss_rate) then
+    if (math_random(1, 100) <= rate) then
         return true
 	end
 
@@ -421,10 +414,10 @@ end
 -- function checkMiss
 -- @brief 빚맞힘 여부 검사
 -------------------------------------
-function Character:checkMiss(attacker_char)
-    local miss_rate =  g_constant:get('INGAME', 'MISS_RATE') or 100
+function Character:checkMiss(attacker_char, rate)
+    local rate = rate or 0
 
-    if (math_random(1, 100) <= miss_rate) then
+    if (math_random(1, 100) <= rate) then
         return true
 	end
 
@@ -437,6 +430,11 @@ end
 -------------------------------------
 function Character:checkAvoid(activity_carrier, t_attr_effect)
     local hit_rate = activity_carrier:getStat('hit_rate') or 100
+
+    -- 체력이 0일 경우 회피 할 수 없도록 처리
+    if (self.m_hp == 0) then
+        return false
+    end
 
 	-- 속성 상성 옵션 적용
 	do 
@@ -483,8 +481,8 @@ function Character:undergoAttack(attacker, defender, i_x, i_y, body_key, no_even
 
     -- 속성 효과
     local t_attr_effect, attr_synastry = self:checkAttributeCounter(attacker_char)
-    local is_bash = (attr_synastry == 1) and self:checkBash(attacker_char)
-    local is_miss = (attr_synastry == -1) and self:checkMiss(attacker_char)
+    local is_bash = (attr_synastry == 1) and self:checkBash(attacker_char, t_attr_effect['bash'])
+    local is_miss = (attr_synastry == -1) and self:checkMiss(attacker_char, t_attr_effect['miss'])
 
     -- 공격력 및 방어력 정보
     local org_atk_dmg = attack_activity_carrier:getAtkDmg(defender)
@@ -518,7 +516,7 @@ function Character:undergoAttack(attacker, defender, i_x, i_y, body_key, no_even
     end
 
     -- 회피 계산(드래그 스킬의 경우는 회피 불가)
-    if (attack_type ~= 'active') then
+    --if (attack_type ~= 'active') then
         -- 회피 무시 체크
 		if (attack_activity_carrier:isIgnoreAvoid()) then
 
@@ -531,7 +529,7 @@ function Character:undergoAttack(attacker, defender, i_x, i_y, body_key, no_even
 		    self.m_charLogRecorder:recordLog('avoid', 1)
             return
         end
-    end
+    --end
 	
     -- 데미지 계산
     do
@@ -711,6 +709,7 @@ function Character:undergoAttack(attacker, defender, i_x, i_y, body_key, no_even
 
         -- 피해량 비율
         local dmg_adj_rate = 0
+        local atk_dmg_adj_rate = 0
         local cri_dmg_adj_rate = 0
         local se_dmg_adj_rate = 0
 
@@ -720,6 +719,14 @@ function Character:undergoAttack(attacker, defender, i_x, i_y, body_key, no_even
                 dmg_adj_rate = self:getStat('dmg_adj_rate') / 100
 
                 local rate = math_max(dmg_adj_rate, -1)
+                damage_multifly = damage_multifly * (1 + rate)
+            end
+
+            -- 공격자 능력치
+            do
+                atk_dmg_adj_rate = (attack_activity_carrier:getStat('atk_dmg_adj_rate') or 0) / 100
+
+                local rate = math_max(atk_dmg_adj_rate, -1)
                 damage_multifly = damage_multifly * (1 + rate)
             end
 
@@ -1552,25 +1559,24 @@ function Character:setHp(hp, bFixed)
     if (self.m_isImmortal) then
         self.m_hp = math_max(self.m_hp, 1)
     end
+        
+    self.m_hpRatio = self.m_hp / self.m_maxHp
 
     -- 리스너에 전달
 	local t_event = clone(EVENT_CHANGE_HP_CARRIER)
 	t_event['owner'] = self
 	t_event['hp'] = self.m_hp
 	t_event['max_hp'] = self.m_maxHp
+    t_event['hp_rate'] = self.m_hpRatio
 
     self:dispatch('character_set_hp', t_event, self)
 
-    self.m_hp = t_event['hp']
-
-    local percentage = self.m_hp / self.m_maxHp
-
-	-- 체력바 가감 연출
+    -- 체력바 가감 연출
     if self.m_hpGauge then
-        self.m_hpGauge:setScaleX(percentage)
+        self.m_hpGauge:setScaleX(self.m_hpRatio)
     end
 	if self.m_hpGauge2 then
-        local action = cc.Sequence:create(cc.DelayTime:create(0.2), cc.ScaleTo:create(0.5, percentage, 1))
+        local action = cc.Sequence:create(cc.DelayTime:create(0.2), cc.ScaleTo:create(0.5, self.m_hpRatio, 1))
         self.m_hpGauge2:runAction(cc.EaseIn:create(action, 2))
     end
 end
@@ -2680,33 +2686,6 @@ function Character:getBuffStat(stat_type)
 		return 0
 	end
 	return self.m_statusCalc:getAdjustRate(stat_type)
-end
-
--------------------------------------
--- function setImmuneSE
--------------------------------------
-function Character:setImmuneSE(b)
-	self.m_isImmuneSE = b
-end
-
--------------------------------------
--- function isImmuneSE
--------------------------------------
-function Character:isImmuneSE()
-	if (self.m_isImmuneSE) then
-        return true
-    end
-
-    -- 임시 예외처리
-    if (not self.m_statusCalc) then
-        return true
-    end
-
-    if (self:getStat('debuff_time') <= -100) then
-        return true
-    end
-
-    return false
 end
 
 -------------------------------------

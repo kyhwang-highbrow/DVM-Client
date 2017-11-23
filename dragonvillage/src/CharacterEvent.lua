@@ -16,7 +16,6 @@ function Character:initTriggerListener()
 	end
 
 	-- 기본적으로 등록되어야 할 이벤트들
-	--self:addListener('get_debuff', self) -- 테이머만 사용중
 	self:addListener('stat_changed', self)
 end
 
@@ -101,9 +100,6 @@ function Character:onEvent_underAtkRate()
     if (skill_id ~= 0) then
         self:doSkill(skill_id, 0, 0)
     end
-
-	if (table.count(self.m_lSkillIndivisualInfo['under_atk_rate']) > 0) then
-    end
 end
 
 
@@ -114,22 +110,15 @@ function Character:onEvent_underAtkTurn()
     if (not self.m_lSkillIndivisualInfo['under_atk_turn']) then return end
     if (not self.m_statusCalc) then return end
 
-	local under_atk_cnt = self.m_charLogRecorder:getLog('under_atk')
-	local campare_cnt
-	
-	for i,v in pairs(self.m_lSkillIndivisualInfo['under_atk_turn']) do
+	for i, v in pairs(self.m_lSkillIndivisualInfo['under_atk_turn']) do
         if (v:isEndCoolTime()) then
-            campare_cnt = v.m_tSkill['chance_value']
-		    -- mod를 사용하여 판별
-		    if (under_atk_cnt > 0) and (under_atk_cnt%campare_cnt == 0) then
-			    local skill_id = v.m_skillID
-                self:doSkill(skill_id, 0, 0)
+            v.m_turnCount = v.m_turnCount + 1
+
+            if (v.m_turnCount >= v.m_tSkill['chance_value']) then
+                self:doSkill(v.m_skillID, 0, 0)
             end
         end
     end	
-	
-	if (table.count(self.m_lSkillIndivisualInfo['under_atk_turn']) > 0) then
-    end
 end
 
 -------------------------------------
@@ -305,7 +294,7 @@ function Character:onEvent_useActiveSkill(event_name, t_event, owner)
                     chance_value = 1
                 end
                 local cost = owner:getSkillManaCost()
-                if (cost >= chance_value) then
+                if (cost == chance_value) then
                     self:doSkill(v.m_skillID, 0, 0)
                 end
             end

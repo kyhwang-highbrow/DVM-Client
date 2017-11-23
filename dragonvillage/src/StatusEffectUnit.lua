@@ -7,14 +7,17 @@ StatusEffectUnit = class({
         m_owner = 'Character',		-- 대상자
 		m_caster = 'Character',		-- 시전자
         m_skillId = 'number',       -- 스킬 아이디(스킬로 부여된 경우)
-        m_bHiddenSkill = 'boolean',
+        
         m_bLeaderSkill = 'boolean', -- 해당 상태효과가 리더 스킬인지 여부
+        m_bPassiveSkill = 'boolean',-- 해당 상태효과가 패시브 스킬인지 여부
+        m_bT2Stat = 'boolean',      -- 스텟 계산시 T2단계로 게산 여부(리더나 패시브 스킬에 포함된 상태효과인 경우)
 
         m_value = 'number',         -- 적용값
         m_source = 'string',        -- 적용스텟
         
         m_duration = 'number',      -- 지속 시간. 값이 -1일 경우 무제한
         m_durationTimer = 'number',
+        m_keepTimer = 'number',     -- 유지된 시간
 
         m_bApply = 'boolean',
 
@@ -29,15 +32,17 @@ StatusEffectUnit = class({
 -- @param file_name
 -- @param body
 -------------------------------------
-function StatusEffectUnit:init(name, owner, caster, skill_id, value, source, duration, is_hidden, add_param)
+function StatusEffectUnit:init(name, owner, caster, skill_id, value, source, duration, add_param)
     --cclog(name .. ' - ' .. duration)
     self.m_statusEffectName = name
 
     self.m_owner = owner
     self.m_caster = caster
     self.m_skillId = skill_id
-    self.m_bHiddenSkill = is_hidden
+
     self.m_bLeaderSkill = false
+    self.m_bPassiveSkill = false
+    self.m_bT2Stat = false
 
     self.m_value = value
 
@@ -45,17 +50,21 @@ function StatusEffectUnit:init(name, owner, caster, skill_id, value, source, dur
     
 	self.m_duration = duration
     self.m_durationTimer = self.m_duration
+    self.m_keepTimer = 0
 
     self.m_bApply = false
 
     self.m_tParam = add_param or {}
 
+    local skill_type = GetSkillTable(caster:getCharType()):getSkillType(skill_id)
+
     -- 리더 스킬의 상태효과 인지 여부 확인(리더스킬의 경우 시전자가 죽어도 삭제시키지 않기 위함)
-    do
-        local leader_skill_id = self.m_caster:getSkillID('leader')
-        if (leader_skill_id ~= 0 and leader_skill_id == self.m_skillId) then
-            self.m_bLeaderSkill = true
-        end
+    if (skill_type == 'leader') then
+        self.m_bLeaderSkill = true
+        self.m_bT2Stat = true
+    elseif (skill_type == 'passive') then
+        self.m_bPassiveSkill = true
+        self.m_bT2Stat = true
     end
 end
 
@@ -64,36 +73,42 @@ end
 -- @param modified_dt 디법 지속시간 스텟을 적용한 dt
 -------------------------------------
 function StatusEffectUnit:update(dt, modified_dt)
-    if (self.m_bLeaderSkill) then
+    -- 드래그 스킬 중에만 유지되는 특수한 케이스의 경우는 일시정지 중에는 해제되지 않도록 함
+    if (self.m_duration == 0) then
+        if (modified_dt == 0) then return false end
+    end
     
-    elseif (self.m_bHiddenSkill) then
-        if (self.m_owner == self.m_caster) then
-            -- 시전자가 자기 자신이면 항상 유지
-        elseif (self.m_caster and self.m_caster:isDead()) then
-            -- 시전자가 자기 자신이 아니고 죽었다면 해제
-            return true
-        end
+    self.m_keepTimer = self.m_keepTimer + dt
 
-    elseif (self.m_duration == 0 and modified_dt == 0) then
-        -- 드래그 스킬 중에만 유지되는 버프 효과
-
-    else
-        -- 대상자가 죽었는지 체크
-        if (self.m_owner and self.m_owner:isDead()) then
-            return true
-        end
-
-        -- 유지 시간 체크
-        if (self.m_duration ~= -1) then
-            self.m_durationTimer = (self.m_durationTimer - modified_dt)
-
-            if (self.m_durationTimer <= 0) then
-                self.m_durationTimer = 0
+    -- 즉시 종료해야하는지 확인
+    if (modified_dt > 0) then
+        if (self.m_bLeaderSkill) then
+    
+        elseif (self.m_bPassiveSkill) then
+            if (self.m_owner == self.m_caster) then
+                -- 시전자가 자기 자신이면 유지
+            elseif (self.m_caster and self.m_caster:isDead()) then
+                -- 시전자가 자기 자신이 아니고 죽었다면 해제(적군만 해당)
+                return true
+            end
+        else
+            -- 대상자가 죽었는지 체크
+            if (self.m_owner and self.m_owner:isDead()) then
                 return true
             end
         end
     end
+    
+    -- 유지 시간 체크
+    if (self.m_duration ~= -1) then
+        self.m_durationTimer = (self.m_durationTimer - modified_dt)
 
+        if (self.m_durationTimer <= 0) then
+            self.m_durationTimer = 0
+            return true
+        end
+    end
+    
     return false
 end
 
@@ -109,14 +124,14 @@ function StatusEffectUnit:onApply(lStatus, lStatusAbs)
 
     -- %능력치 적용
     for key, rate in pairs(lStatus) do
-        self:addStatMulti(key, rate * value, self.m_bHiddenSkill)
+        self:addStatMulti(key, rate * value, self.m_bT2Stat)
         
 		is_dirty_stat = true
     end
 
     -- 절대값 능력치 적용
     for key, rate in pairs(lStatusAbs) do
-        self:addStatAdd(key, rate * value, self.m_bHiddenSkill)
+        self:addStatAdd(key, rate * value, self.m_bT2Stat)
 
 		is_dirty_stat = true
     end
@@ -141,14 +156,14 @@ function StatusEffectUnit:onUnapply(lStatus, lStatusAbs)
     
     -- %능력치 원상 복귀
     for key, rate in pairs(lStatus) do
-        self:addStatMulti(key, -rate * value, self.m_bHiddenSkill)
+        self:addStatMulti(key, -rate * value, self.m_bT2Stat)
         
 		is_dirty_stat = true
     end
 
     -- 절대값 능력치 원상 복귀
     for key, rate in pairs(lStatusAbs) do
-        self:addStatAdd(key, -rate * value, self.m_bHiddenSkill)
+        self:addStatAdd(key, -rate * value, self.m_bT2Stat)
 
 		is_dirty_stat = true
     end
@@ -252,6 +267,13 @@ end
 -------------------------------------
 function StatusEffectUnit:getDuration()
     return self.m_durationTimer
+end
+
+-------------------------------------
+-- function getKeepTime
+-------------------------------------
+function StatusEffectUnit:getKeepTime()
+    return self.m_keepTimer
 end
 
 -------------------------------------

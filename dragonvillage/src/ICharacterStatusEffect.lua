@@ -14,6 +14,7 @@ ICharacterStatusEffect = {
 	m_isImmortal    = 'boolean',    -- 불사 (체력이 1이하로 내려가지 않는 상태)
     m_isZombie      = 'boolean',    -- 좀비 (죽지 않는 상태)
     m_isProtected   = 'boolean',    -- 피해면역 (피격시 데미지 0)
+    m_isImmune      = 'boolean',    -- 상태효과 면역
 }
 
 -------------------------------------
@@ -31,6 +32,7 @@ function ICharacterStatusEffect:init()
 	self.m_isImmortal = false
     self.m_isZombie = false
     self.m_isProtected = false
+    self.m_isImmune = false
 end
 
 -------------------------------------
@@ -45,7 +47,7 @@ function ICharacterStatusEffect:updateStatusEffect(dt)
 	for type, status_effect in pairs(self.m_mStatusEffect) do
         local status_effect_type = status_effect:getTypeName()
         local icon = self.m_lStatusIcon[status_effect_type]
-        if (status_effect.m_bApply) then
+        if (status_effect.m_bApply and not status_effect:isHidden()) then
 		    count = self:setStatusIcon(status_effect, count)
             if (icon and icon.m_icon) then
                 icon.m_icon:setVisible(true)
@@ -93,11 +95,10 @@ end
 -------------------------------------
 -- function insertStatusEffect
 -------------------------------------
-function ICharacterStatusEffect:insertStatusEffect(status_effect, is_hidden)
+function ICharacterStatusEffect:insertStatusEffect(status_effect)
 	local effect_name = status_effect.m_statusEffectName
 	
-    -- 해제되지 않고 계속 유지되는 것들은 리스트에 추가하지 않음
-	if (is_hidden) then
+    if (status_effect:isHidden()) then
         self.m_mHiddenStatusEffect[effect_name] = status_effect
     else
         self.m_mStatusEffect[effect_name] = status_effect
@@ -111,7 +112,11 @@ function ICharacterStatusEffect:removeStatusEffect(status_effect)
 	local effect_name = status_effect.m_statusEffectName
     if (not effect_name) then return end
 
-	self.m_mStatusEffect[effect_name] = nil
+    if (status_effect:isHidden()) then
+        self.m_mHiddenStatusEffect[effect_name] = nil
+    else
+	    self.m_mStatusEffect[effect_name] = nil
+    end
 end
 
 -------------------------------------
@@ -344,6 +349,13 @@ end
 -------------------------------------
 function ICharacterStatusEffect:setProtected(b)
     self.m_isProtected = b
+end
+
+-------------------------------------
+-- function setImmuneSE
+-------------------------------------
+function ICharacterStatusEffect:setImmune(b)
+	self.m_isImmune = b
 end
 
 -------------------------------------

@@ -1,4 +1,5 @@
-local PARENT = MonsterLua_Boss
+--local PARENT = MonsterLua_Boss
+local PARENT = Monster
 
 -------------------------------------
 -- class Monster_GiantDragon
@@ -77,9 +78,11 @@ function Monster_GiantDragon.st_dying(owner, dt)
         end
 
         -- 효과음
+        --[[
         if owner.m_tEffectSound['die'] then
             SoundMgr:playEffect('VOICE', owner.m_tEffectSound['die'])
         end
+        ]]--
 
         owner:animatorSpot()
 

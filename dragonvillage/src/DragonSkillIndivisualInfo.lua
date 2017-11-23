@@ -11,6 +11,7 @@ DragonSkillIndivisualInfo = class({
         m_turnCount = 'number', -- 턴 공격 횟수 저장용
         m_timer = 'number',     -- 타임 공격 저장용
         m_cooldownTimer = 'number', -- 쿨타임 시간 저장용
+        m_hpRate = 'number',    -- 체력 조건 저장용
         m_skillLevel = 'number',
 
 		m_tAddedValue = 'table',
@@ -29,13 +30,26 @@ function DragonSkillIndivisualInfo:init(char_type, skill_type, skill_id, skill_l
     self.m_turnCount = 0
     self.m_timer = 0
     self.m_cooldownTimer = 0
+    self.m_hpRate = 100
 
 	self.m_tAddedValue = nil
+    
+    local t_skill = GetSkillTable(self.m_charType):get(self.m_skillID)
 
-    -- indie_time 타입의 스킬은 해당 값만큼 먼저 기다리도록 초기값 설정
     if (self.m_skillType == 'indie_time') then
-        local t_skill = GetSkillTable(self.m_charType):get(self.m_skillID)
+        -- indie_time 타입의 스킬은 해당 값만큼 먼저 기다리도록 초기값 설정
         self.m_timer = t_skill['chance_value']
+
+    elseif (self.m_skillType == 'hp_rate') then
+        self.m_hpRate = t_skill['chance_value']
+    
+    elseif (self.m_skillType == 'hp_rate_per') then
+        -- hp_rate_per 타입의 스킬은 초기 조건 설정
+        self.m_hpRate = 100 - t_skill['chance_value']
+
+        if (self.m_hpRate <= 0 and self.m_hpRate >= 100) then
+            error('hp_rate_per skill error : invalid chance_value(' .. t_skill['chance_value'] .. ')')
+        end
     end
 end
 
@@ -78,6 +92,8 @@ function DragonSkillIndivisualInfo:startCoolTime()
     if (self.m_skillType == 'indie_time') then
         self.m_timer = self.m_tSkill['chance_value']
     end
+
+    self.m_turnCount = 0
 end
 
 -------------------------------------
@@ -136,9 +152,20 @@ function DragonSkillIndivisualInfo:applySkillLevel()
 	local _, t_add_value = DragonSkillCore.applySkillLevel(self.m_charType, t_skill, skill_lv)
 	self.m_tAddedValue = t_add_value
 
-    -- indie_time 타입의 스킬은 해당 값만큼 먼저 기다리도록 초기값 설정
     if (self.m_skillType == 'indie_time') then
+        -- indie_time 타입의 스킬은 해당 값만큼 먼저 기다리도록 초기값 설정
         self.m_timer = self.m_tSkill['chance_value']
+
+    elseif (self.m_skillType == 'hp_rate') then
+        self.m_hpRate = t_skill['chance_value']
+    
+    elseif (self.m_skillType == 'hp_rate_per') then
+        -- hp_rate_per 타입의 스킬은 초기 조건 설정
+        self.m_hpRate = 100 - t_skill['chance_value']
+
+        if (self.m_hpRate <= 0 and self.m_hpRate >= 100) then
+            error('hp_rate_per skill error : invalid chance_value(' .. t_skill['chance_value'] .. ')')
+        end
     end
 end
 

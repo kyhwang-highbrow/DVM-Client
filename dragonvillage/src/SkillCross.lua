@@ -3,6 +3,9 @@ local PARENT = Skill
 local CROSS_ATK_STEP_1 = 1
 local CROSS_ATK_STEP_FINAL = CROSS_ATK_STEP_1 + 1
 local CROSS_ATK_STEP_END = CROSS_ATK_STEP_FINAL + 1
+
+local repeat_count = 0
+
 -------------------------------------
 -- class SkillCross
 -------------------------------------
@@ -42,7 +45,7 @@ end
 -------------------------------------
 -- function init_skill
 -------------------------------------
-function SkillCross:init_skill(attack_count, is_upgraded)
+function SkillCross:init_skill(hit_count, is_upgraded)
     PARENT.init_skill(self)
 
     -- 멤버변수 초기화
@@ -58,10 +61,8 @@ function SkillCross:init_skill(attack_count, is_upgraded)
         local org_power_rate = self.m_activityCarrier:getPowerRate()
         --cclog('org_power_rate = ' .. org_power_rate)
 
-        local power_rate_multi = SkillHelper:getValid(self.m_tSkill['val_3'], 0.5)
-        local org_repeat_count =  SkillHelper:getValid(self.m_tSkill['val_2'], 3)
-
-        local new_power_rate = org_power_rate * math_pow(power_rate_multi, (org_repeat_count - self.m_tData['repeat_count']))
+        local power_rate_multi = self.m_tData['power_rate_multi'] or 1
+        local new_power_rate = org_power_rate * power_rate_multi
         --cclog('new_power_rate = ' .. new_power_rate)
         
         self.m_activityCarrier:setPowerRate(new_power_rate)
@@ -109,9 +110,11 @@ function SkillCross.st_idle(owner, dt)
 
             -- 강화 되었을 시 추가 스킬 효과 처리
             if (owner.m_isUpgraded) then
-                if (owner.m_tData['repeat_count'] and owner.m_tData['repeat_count'] - 1 > 0) then
-                    for _, v in ipairs(owner.m_lNextTarget) do  
+                for _, v in ipairs(owner.m_lNextTarget) do
+                    if (repeat_count > 0) then
                         SkillCross:makeNewInstance(owner, v)
+                    else
+                        break
                     end
                 end
             end
@@ -196,16 +199,16 @@ end
 -------------------------------------
 -- function makeSkillInstance
 -------------------------------------
-function SkillCross:makeSkillInstance(owner, t_skill, t_data)
+function SkillCross:makeSkillInstance(owner, t_skill, t_data, _repeat_count)
 	-- 변수 선언부
 	------------------------------------------------------
 	local missile_res = SkillHelper:getAttributeRes(t_skill['res_1'], owner)   
-	local attack_count = t_skill['hit']
+	local hit_count = t_skill['hit']
     local is_upgraded = (t_skill['val_1'] == 1)
     
     if (is_upgraded) then
         -- 반복 횟수
-        t_data['repeat_count'] = t_data['repeat_count'] or t_skill['val_2']
+        repeat_count = _repeat_count or SkillHelper:getValid(t_skill['val_2'], 0)
     end
 
 	-- 인스턴스 생성부
@@ -215,7 +218,7 @@ function SkillCross:makeSkillInstance(owner, t_skill, t_data)
 
 	-- 2. 초기화 관련 함수
 	skill:setSkillParams(owner, t_skill, t_data)
-    skill:init_skill(attack_count, is_upgraded)
+    skill:init_skill(hit_count, is_upgraded)
 	skill:initState()
 
 	-- 3. state 시작 
@@ -229,16 +232,23 @@ function SkillCross:makeSkillInstance(owner, t_skill, t_data)
 end
 
 
-
 -------------------------------------
 -- function makeNewInstance
 -------------------------------------
 function SkillCross:makeNewInstance(owner, target)
+    if (repeat_count <= 0) then return end
+    repeat_count = repeat_count - 1
+
+    local t_skill = owner.m_tSkill
+    local org_repeat_count = SkillHelper:getValid(t_skill['val_2'], 0)
+    local power_rate_multi = SkillHelper:getValid(t_skill['val_3'], 1)
+
     local t_data = {}
+
     t_data['target'] = target
     t_data['x'] = target.m_posX
     t_data['y'] = target.m_posY
-    t_data['repeat_count'] = owner.m_tData['repeat_count'] - 1
+    t_data['power_rate_multi'] = math_pow(power_rate_multi, org_repeat_count - repeat_count)
 
-    SkillCross:makeSkillInstance(owner.m_owner, owner.m_tSkill, t_data)
+    SkillCross:makeSkillInstance(owner.m_owner, t_skill, t_data, repeat_count)
 end

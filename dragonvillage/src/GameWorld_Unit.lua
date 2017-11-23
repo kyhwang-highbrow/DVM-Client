@@ -174,12 +174,7 @@ function GameWorld:tryPatternMonster(t_monster, body)
     -- 테이블이 없을 경우 return
     local script = TABLE:loadPatternScript(script_name)
 	local is_pattern_ignore = (t_monster['pattern'] == 'ignore')
-	
-    if (not script) or is_pattern_ignore then
-        return nil
-    end
-
-    local monster
+	local monster
 	
     if (type == 'giantdragon') then
         monster = Monster_GiantDragon(t_monster['res'], body)
@@ -191,13 +186,14 @@ function GameWorld:tryPatternMonster(t_monster, body)
 		monster = Monster_WorldOrderMachine(t_monster['res'], body)
     elseif (type == 'darknix') then
 		monster = Monster_DarkNix(t_monster['res'], body)
-    else
+    elseif (script and not is_pattern_ignore) then
         monster = MonsterLua_Boss(t_monster['res'], body)
+        monster:initAnimatorMonster(t_monster['res'], t_monster['attr'], nil, t_monster['size_type'])
+        monster:initScript(script_name, t_monster['mid'], is_boss)
+    else
+        return nil
     end
-
-    monster:initAnimatorMonster(t_monster['res'], t_monster['attr'], nil, t_monster['size_type'])
-    monster:initScript(script_name, t_monster['mid'], is_boss)
-    
+        
     return monster
 end
 
