@@ -724,7 +724,7 @@ function Character:undergoAttack(attacker, defender, i_x, i_y, body_key, no_even
 
             -- 공격자 능력치
             do
-                atk_dmg_adj_rate = attack_activity_carrier:getStat('atk_dmg_adj_rate') / 100
+                atk_dmg_adj_rate = (attack_activity_carrier:getStat('atk_dmg_adj_rate') or 0) / 100
 
                 local rate = math_max(atk_dmg_adj_rate, -1)
                 damage_multifly = damage_multifly * (1 + rate)
