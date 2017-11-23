@@ -57,7 +57,12 @@ function UI_Tooltip_IndicatorNew:refresh()
 
 	-- 스킬 이름
 	local name = skill_indivisual_info:getSkillName()
-    local lv = skill_indivisual_info:getSkillLevel()
+    local lv
+    if (old_skill_info) then
+        lv = old_skill_info:getSkillLevel()
+    else
+        lv = skill_indivisual_info:getSkillLevel()
+    end
 	vars['titleLabel']:setString(string.format('Lv.%d %s', lv, name))
 
     -- 아이콘 (스킬 + 마나 + 속성)
@@ -163,6 +168,7 @@ function UI_Tooltip_IndicatorNew:hide()
     self.m_oldSkillInfo = nil
     
     self.vars['skillNode']:removeAllChildren()
+    self.vars['topMenu']:setVisible(false)
 
     self:doActionReverse()
 end
