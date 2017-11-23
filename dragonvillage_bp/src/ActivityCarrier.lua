@@ -76,6 +76,10 @@ end
 -- function getStat
 -------------------------------------
 function ActivityCarrier:getStat(type)
+    if (self.m_attackType and self.m_attackType == 'active' and self.m_activityCarrierOwner) then
+        return self.m_activityCarrierOwner:getStat(type)
+    end
+
     return self.m_lFinalStat[type]
 end
 
@@ -264,12 +268,8 @@ function ActivityCarrier:getAtkDmg(target)
     else
         local stat = SkillHelper:getValid(self.m_atkDmgStat, 'atk')
 
-        if (self.m_attackType and self.m_attackType == 'active' and self.m_activityCarrierOwner) then
-            atk_dmg = self.m_activityCarrierOwner:getStat(stat)
-        else
-            atk_dmg = self:getStat(stat)
-        end
-
+        atk_dmg = self:getStat(stat)
+        
         if (not atk_dmg) then
             error('invalid stat type : ' .. stat)
         end
