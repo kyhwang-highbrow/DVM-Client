@@ -176,8 +176,7 @@ function UI_DiceEvent:makeSkipAndMaskingLayer(ui)
 
         local function onTouch(touch, event)
             -- 연출 중일 때만 동작
-            if (self.m_maskingUI.root:isVisible()) then
-                self:skipDirecting()
+            if (self.m_coroutineHelper) then
                 event:stopPropagation()
             end
         end
@@ -269,11 +268,6 @@ end
 -- function click_diceBtn
 -------------------------------------
 function UI_DiceEvent:click_diceBtn()
-    -- 연출 중에는 시작하지 않는다.
-    if (self.m_coroutineHelper) then
-        return
-    end
-
     -- 정중앙으로 이동 시킨다
     self:moveContainer(0)
 
@@ -304,14 +298,17 @@ function UI_DiceEvent:click_diceBtn()
         if co:waitWork() then return end
 
         -- 굴리기 연출 ON
-        self.m_maskingUI.root:setVisible(true)
+        self.m_rollAnimator:setTimeScale(2)
         self.m_rollAnimator:setVisible(true)
+        self.m_maskingUI.root:setVisible(true)
         
         -- 사운드 재생
         SoundMgr:playEffect('UI', 'ui_dragon_level_up')
 
-        -- ani list 재생
+        -- 나온 주사위 눈
         local dt_cell = ret_cache['dt_cell']
+
+        -- ani list 재생
         local ani_list = {'appear', 'idle', 'disappear', tostring(dt_cell)}
         while (#ani_list > 0) do
             co:work()
@@ -347,25 +344,21 @@ function UI_DiceEvent:click_diceBtn()
         until(new_cell == move_cell)
         
         -- 도착 연출
-        co:work()
-                    
-        local toast_msg = Str('보상이 우편함으로 전송되었습니다.')
-        UI_ToastPopup(toast_msg)
+        do            
+            local toast_msg = Str('보상이 우편함으로 전송되었습니다.')
+            UI_ToastPopup(toast_msg)
 
-        self:refresh()
+            self:refresh()
         
-        self.m_selectAnimator:changeAni('arrival')
-        self.m_selectAnimator:addAniHandler(function()
-            -- 도착 후 정리
-            self.m_selectAnimator:changeAni('select', true)
-
             -- 터치 블럭 해제
             UIManager:blockBackKey(false)
-
-            co.NEXT()
-        end)
-
-        if co:waitWork() then return end
+                
+            self.m_selectAnimator:changeAni('arrival')
+            self.m_selectAnimator:addAniHandler(function()
+                -- 도착 후 정리
+                self.m_selectAnimator:changeAni('select', true)
+            end)
+        end
 
         -- 끝
         self.m_coroutineHelper = nil
@@ -373,53 +366,6 @@ function UI_DiceEvent:click_diceBtn()
     end
 
     Coroutine(coroutine_function, 'DiceEvent Directing')
-end
-
--------------------------------------
--- function skipDirecting
--- @brief 스킵해버린다
--------------------------------------
-function UI_DiceEvent:skipDirecting()
-    if (not self.m_coroutineHelper) then
-        return
-    end
-
-    -- 코루틴 강제 종료
-    self.m_coroutineHelper.ESCAPE()
-    self.m_coroutineHelper = nil
-
-    -- 굴리기 연출 OFF
-    self.m_rollAnimator:setVisible(false)
-    self.m_maskingUI.root:setVisible(false)
-
-    -- 터치 블럭 해제
-    UIManager:blockBackKey(false)
-
-    -- 보상 팝업
-    local toast_msg = Str('보상이 우편함으로 전송되었습니다.')
-    UI_ToastPopup(toast_msg)
-
-    -- 도착 후 정리
-    self.m_selectAnimator:changeAni('select', true)
-    self:refresh()
-        
-    -- 컨테이너 안움직이게 보이도록 정중앙으로 위치
-    self.m_isContainerMoving = false
-    self:moveContainer(0, true) -- force : true
-            
-    -- 심플한 연출
-    self.m_selectAnimator:setVisible(false)
-    local delay = cc.DelayTime:create(0.15)
-    local cb = cc.CallFunc:create(function()
-
-        self.m_selectAnimator:setVisible(true)
-        self.m_selectAnimator:changeAni('arrival')
-        self.m_selectAnimator:addAniHandler(function()
-            self.m_selectAnimator:changeAni('select', true)
-        end)
-    end)
-    local sequence = cc.Sequence:create(delay, cb)
-    self.m_selectAnimator:runAction(sequence)
 end
 
 
