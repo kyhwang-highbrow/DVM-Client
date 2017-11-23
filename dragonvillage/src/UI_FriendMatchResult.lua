@@ -47,6 +47,10 @@ function UI_FriendMatchResult:initUI()
     vars['resultMenu']:setPositionY(ori_y - ACTION_MOVE_Y)
     vars['colosseumNode']:setVisible(false)
     vars['friendshipNode']:setVisible(true)
+
+	-- 이벤트 재화
+	vars['eventNode']:setVisible(false)
+    vars['eventNode2']:setVisible(false)
 end
 
 -------------------------------------
