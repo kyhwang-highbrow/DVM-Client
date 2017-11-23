@@ -43,6 +43,7 @@ function SceneGameIntro:onEnter()
     PerpleScene.onEnter(self)
 
     g_autoPlaySetting:setMode(AUTO_NORMAL)
+    g_autoPlaySetting:setAutoPlay(false)
 
     self.m_inGameUI = UI_Game(self)
     self.m_resPreloadMgr = ResPreloadMgr()
