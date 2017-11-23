@@ -171,7 +171,8 @@ end
 -- @brief 레벨업 효과 설명
 -------------------------------------
 function DragonSkillIndivisualInfo:getSkillDescMod()
-    local desc = DragonSkillCore.getSkillModDesc(self.m_tSkill, self.m_skillLevel)
+	local skill_lv = math_max(self.m_skillLevel, 1)
+    local desc = DragonSkillCore.getSkillModDesc(self.m_tSkill, skill_lv)
     return desc
 end
 
