@@ -1,5 +1,6 @@
 -------------------------------------
 -- class ServerData_HotTime
+-- @brief 핫타임 뿐만 아니라 운영툴에서 걸어주는 이벤트를 관리한다.
 -------------------------------------
 ServerData_HotTime = class({
         m_serverData = 'ServerData',
@@ -10,6 +11,10 @@ ServerData_HotTime = class({
 
         m_currAdvGameKey = 'number',
         m_ingameHotTimeList = 'list',
+
+		-- 할인 이벤트는 따로 관리
+		m_activeDcEventTable = 'table', -- <dc_target, dv_value>
+		m_dcExpirationTime = 'timestamp',
     })
 
 -------------------------------------
@@ -17,9 +22,14 @@ ServerData_HotTime = class({
 -------------------------------------
 function ServerData_HotTime:init(server_data)
     self.m_serverData = server_data
-    self.m_activeEventList = {}
-    self.m_listExpirationTime = nil
-    self:init_hotTimeType()
+    
+	self.m_activeEventList = {}
+	self.m_listExpirationTime = nil
+	
+	self.m_activeDcEventTable = {}
+    self.m_dcExpirationTime = nil
+
+	self:init_hotTimeType()
 end
 
 -------------------------------------
@@ -81,6 +91,7 @@ function ServerData_HotTime:request_hottime(finish_cb, fail_cb)
 
         self.m_hotTimeInfoList = ret['all']
         self.m_listExpirationTime = nil
+		self.m_dcExpirationTime = nil
 
         if finish_cb then
             finish_cb(ret)
@@ -222,7 +233,6 @@ end
 function ServerData_HotTime:isHighlightHotTime()
     for _,v in pairs(self.m_hotTimeType) do
         local key = v['key']
-
         if self:getActiveHotTimeInfo(key) then
             return true
         end
@@ -269,4 +279,125 @@ function ServerData_HotTime:makeHotTimeToolTip(hottime_name, btn)
     if (tooltip and btn) then
         tooltip:autoPositioning(btn)
     end
+end
+
+
+
+
+
+
+
+
+
+
+
+
+
+-------------------------------------
+-- function getDiscountEventList
+-------------------------------------
+function ServerData_HotTime:refreshActivatedDiscountEvent()
+    local curr_time = Timer:getServerTime()
+
+	-- 종료된 이벤트 삭제
+    for key, v in pairs(self.m_activeDcEventTable) do
+        if ((v['enddate'] / 1000) < curr_time) then
+            self.m_activeDcEventTable[key] = nil
+        end
+    end
+
+	    -- 아직 유효한 시간이면 체크를 하지 않음
+    if (self.m_dcExpirationTime) and (curr_time < self.m_dcExpirationTime) then
+        return
+    end
+
+    -- 오늘의 자정 시간을 지정
+    self.m_dcExpirationTime = Timer:getServerTime_midnight(curr_time)
+
+    -- 활성화된 항목 추출
+    self.m_activeDcEventTable = {}
+	for i, v in pairs(self.m_hotTimeInfoList) do
+
+		local name = v['event']
+		local begin_at = v['begindate']
+		local end_at = v['enddate']
+		local dc_target, value = string.match(name, 'dc_(%a+)_(%d+)')
+		value = tonumber(value)
+
+		if (dc_target) then
+			local expiration_time
+
+			-- 핫타임 시작 시간 전
+			if (begin_at) and (curr_time < (begin_at / 1000)) then
+				expiration_time = (begin_at / 1000)
+
+			-- 핫타임 종료 후
+			elseif (end_at) and ((end_at / 1000) < curr_time) then
+				
+			-- 활성 이벤트
+			else
+				if (self.m_activeDcEventTable[dc_target]) then
+					if (self.m_activeDcEventTable[dc_target]['value'] > value) then 
+						self.m_activeDcEventTable[dc_target] = {['enddate'] = end_at, ['value'] = value}
+					end
+				else
+					self.m_activeDcEventTable[dc_target] = {['enddate'] = end_at, ['value'] = value}
+				end
+				expiration_time = (end_at / 1000)
+			end
+
+
+			-- 리스트가 유효한 시간 저장
+			if expiration_time then
+				if (expiration_time < self.m_dcExpirationTime) then
+					self.m_dcExpirationTime = expiration_time
+				end
+			end
+
+		end
+    end
+end
+
+-------------------------------------
+-- function getDiscountEventList
+-------------------------------------
+function ServerData_HotTime:getDiscountEventList()
+	self:refreshActivatedDiscountEvent()
+
+	return self.m_activeDcEventTable
+end
+
+-------------------------------------
+-- function getDiscountEventValue
+-------------------------------------
+function ServerData_HotTime:getDiscountEventValue(dc_target)
+	self:refreshActivatedDiscountEvent()
+
+	local dc_value = 0
+	for target, v in pairs(self.m_activeDcEventTable) do
+		if (target == dc_target) then
+			dc_value = v['value']
+			break
+		end
+	end
+
+	return dc_value
+end
+
+-------------------------------------
+-- function getDiscountEventValue
+-------------------------------------
+function ServerData_HotTime:getDiscountEventText(dc_target)
+	local dc_value = self:getDiscountEventValue(dc_target)
+	
+	local dc_text
+	if (dc_value == 0) then
+		-- nothing to do
+	elseif (dc_value == 100) then
+		dc_text = Str('무료')
+	else
+		dc_text = string.format('%d%%', dc_value)
+	end
+	
+	return dc_text
 end

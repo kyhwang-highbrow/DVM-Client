@@ -276,6 +276,15 @@ function UI_DragonManageInfo:refresh_buttonState()
         --]]
     end
 
+	-- 룬 할인 이벤트
+	local dc_text = g_hotTimeData:getDiscountEventText('rune')
+	if (dc_text) then
+		vars['eventRemoveLabel']:setString(dc_text)
+		vars['eventRemoveSprite']:setVisible(true)
+	else
+		vars['eventRemoveSprite']:setVisible(false)
+	end
+
     -- 드래곤 개발 API
     self.m_dragonInfoBoardUI.vars['equipmentBtn']:setEnabled(not is_slime_object)
 end

@@ -153,6 +153,15 @@ function UI_DragonRunes:refresh()
         vars['bgNode']:addChild(animator.m_node)
     end    
 
+	-- 룬 할인 이벤트
+	local dc_text = g_hotTimeData:getDiscountEventText('rune')
+	if (dc_text) then
+		vars['eventRemoveLabel']:setString(dc_text)
+		vars['eventRemoveSprite']:setVisible(true)
+	else
+		vars['eventRemoveSprite']:setVisible(false)
+	end
+
     self:refreshTableViewList()
 end
 
@@ -807,6 +816,12 @@ function UI_DragonRunes:click_removeBtn()
 
     local grade = rune_obj['grade']
     local price = TableRuneGrade:getUnequipPrice(grade)
+
+	-- 룬 할인 이벤트
+	local dc_value = g_hotTimeData:getDiscountEventValue('rune')
+	if (dc_value) then
+		price = price * (1 - (dc_value / 100))
+	end
 
     local function ok_btn_cb()
         local function finish_cb(ret)

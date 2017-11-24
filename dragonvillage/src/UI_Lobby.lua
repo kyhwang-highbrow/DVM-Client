@@ -309,10 +309,6 @@ end
 function UI_Lobby:initButton()
     local vars = self.vars
 
-    vars['bottomMasterNode']:setLocalZOrder(1)
-    vars['bottomButtonMenu']:setLocalZOrder(2)
-
-
     -- 하단
     vars['dragonManageBtn']:registerScriptTapHandler(function() self:click_dragonManageBtn() end) -- 드래곤
     vars['tamerBtn']:registerScriptTapHandler(function() self:click_tamerBtn() end) -- 테이머
@@ -941,6 +937,8 @@ end
 -- @brief 탑바가 Lobby UI에 포커싱 되었을 때
 -------------------------------------
 function UI_Lobby:onFocus()
+	local vars = self.vars
+
     SpineCacheManager:getInstance():purgeSpineCacheData()
     
     -- 채팅 다시 연결 확인
@@ -954,7 +952,16 @@ function UI_Lobby:onFocus()
     end
 
     -- 핫타임 정보 갱신
-    self.vars['battleHotSprite']:setVisible(g_hotTimeData:isHighlightHotTime())
+    vars['battleHotSprite']:setVisible(g_hotTimeData:isHighlightHotTime())
+	
+	-- 룬 할인 이벤트
+	local dc_text = g_hotTimeData:getDiscountEventText('rune')
+	if (dc_text) then
+		vars['eventRemoveLabel']:setString(dc_text)
+		vars['eventRemoveSprite']:setVisible(true)
+	else
+		vars['eventRemoveSprite']:setVisible(false)
+	end
 
     self:refresh_userInfo()
     self:refresh_rightButtons()
