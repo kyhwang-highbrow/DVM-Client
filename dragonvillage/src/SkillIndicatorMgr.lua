@@ -64,12 +64,8 @@ function SkillIndicatorMgr:init(world)
     self.m_firstTouchPos = nil
     self.m_firstTouchUIPos = nil
 
-    if (IS_NEW_BALANCE_VERSION()) then
-        self.m_uiToolTip = UI_Tooltip_IndicatorNew()
-    else
-		self.m_uiToolTip = UI_Tooltip_Indicator()
-    end
-
+    self.m_uiToolTip = UI_Tooltip_Indicator()
+    
     self.m_uiToolTip:hide()
 end
 
@@ -160,10 +156,8 @@ function SkillIndicatorMgr:onTouchBegan(touch, event)
         end
 
         -- 튤팁 표시
-        if (select_hero:getCharType() == 'dragon') then
-            self:makeSkillToolTip(select_hero)
-        end
-
+        self:makeSkillToolTip(select_hero)
+        
         event:stopPropagation()
 
         return true
@@ -367,14 +361,14 @@ end
 -------------------------------------
 -- function makeSkillToolTip
 -------------------------------------
-function SkillIndicatorMgr:makeSkillToolTip(dragon)
-    if (not dragon:getSkillIndivisualInfo('active')) then return end
+function SkillIndicatorMgr:makeSkillToolTip(char)
+    if (not char:getSkillIndivisualInfo('active')) then return end
 
     if (IS_NEW_BALANCE_VERSION()) then
-    	self.m_uiToolTip:setDragon(dragon)
+    	self.m_uiToolTip:init_data(char)
 	    self.m_uiToolTip:refresh()
     else
-	    self.m_uiToolTip:init_data(dragon)
+	    self.m_uiToolTip:init_data(char)
 	    self.m_uiToolTip:displayData()
     end
 
