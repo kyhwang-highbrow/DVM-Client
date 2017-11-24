@@ -571,6 +571,7 @@ function UI_Setting:click_setUidBtn()
     edit_box:setPopupTitle(Str(''))
     edit_box:setPopupDsc(Str('UID 설정'))
     edit_box:setPlaceHolder(Str('UID를 입력하세요.'))
+    edit_box:setMaxLength(50)
 
     local function confirm_cb(str)
         if (not str) or (str == '') then

@@ -166,6 +166,14 @@ function UI_SimpleEditBoxPopup:closeWithRetType(ret_type)
     self:close()
 end
 
+-------------------------------------
+-- function setMaxLength
+-------------------------------------
+function UI_SimpleEditBoxPopup:setMaxLength(len)
+    local vars = self.vars
+    vars['editBox']:setMaxLength(len)
+end
+
 
 
 --@CHECK

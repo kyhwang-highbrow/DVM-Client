@@ -455,7 +455,9 @@ function UI_TitleScene:workCheckUserID()
 
     SoundMgr.m_bStopPreload = false
 
-    if isWin32() then
+    -- 2017년 11월 24일 밸런스패치 테스트를 위해 개발 서버 조건 임시 추가
+    local target_server = CppFunctions:getTargetServer()
+    if isWin32() or (target_server == 'DEV') then
         local uid = g_localData:get('local', 'uid')
         if uid then
             self:doNextWork()
