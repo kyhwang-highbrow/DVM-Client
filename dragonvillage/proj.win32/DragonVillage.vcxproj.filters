@@ -228,9 +228,6 @@
     <None Include="..\src\UI_DragonManageInfo.lua">
       <Filter>lua\UI</Filter>
     </None>
-    <None Include="..\src\UI_EditBoxPopup.lua">
-      <Filter>lua\UI</Filter>
-    </None>
     <None Include="..\src\UI_Game.lua">
       <Filter>lua\UI</Filter>
     </None>

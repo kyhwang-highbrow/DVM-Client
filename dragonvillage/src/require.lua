@@ -646,7 +646,6 @@ local t_module = {
     'UI_SecretDungeonScene',
     'UI_SecretDungeonListItem',
     'UI_SecretDungeonStageListItem',
-    'UI_EditBoxPopup',
     'UI_SimpleEditBoxPopup',
     'UI_FruitFeedPress',
     'UI_UserDeckInfoPopup',
