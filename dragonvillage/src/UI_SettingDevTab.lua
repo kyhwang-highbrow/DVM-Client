@@ -21,6 +21,7 @@ function UI_Setting:init_devTab()
     vars['soundModuleBtn']:registerScriptTapHandler(function() self:click_soundModuleBtn() end)
     vars['benchmarkBtn']:registerScriptTapHandler(function() self:click_benchmarkBtn() end)
     vars['clanCacheResetBtn']:registerScriptTapHandler(function() self:click_clanCacheResetBtn() end)
+    vars['setUidBtn']:registerScriptTapHandler(function() self:click_setUidBtn() end)
     self:refresh_devTap()
 end
 
@@ -559,4 +560,44 @@ function UI_Setting:click_clanCacheResetBtn()
     ui_network:request()
 
     return ui_network
+end
+
+-------------------------------------
+-- function click_setUidBtn
+-- @brief UID 설정
+-------------------------------------
+function UI_Setting:click_setUidBtn()
+    local edit_box = UI_SimpleEditBoxPopup()
+    edit_box:setPopupTitle(Str(''))
+    edit_box:setPopupDsc(Str('UID 설정'))
+    edit_box:setPlaceHolder(Str('UID를 입력하세요.'))
+
+    local function confirm_cb(str)
+        if (not str) or (str == '') then
+            UIManager:toastNotificationRed('UID를 입력하세요.')
+            return false
+        end
+
+        if (str == g_userData:get('uid')) then
+            UIManager:toastNotificationRed('현재 UID와 동일합니다.')
+            return false
+        end
+
+        return true
+    end
+    edit_box:setConfirmCB(confirm_cb)
+
+    local function close_cb()
+        if (edit_box.m_retType == 'ok') then
+            local uid = edit_box.m_str
+
+            if (confirm_cb(uid) == false) then
+                return
+            end
+
+            g_localData:applyLocalData(uid, 'local', 'uid')
+            CppFunctions:restart()
+        end
+    end
+    edit_box:setCloseCB(close_cb)
 end
