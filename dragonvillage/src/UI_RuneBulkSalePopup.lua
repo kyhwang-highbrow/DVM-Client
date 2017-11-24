@@ -7,6 +7,7 @@ UI_RuneBulkSalePopup = class(PARENT,{
         m_tableView = '',
         m_sortManagerRune = '',
         m_sellCB = '',
+        m_bOptionChanged = 'boolean',
     })
 
 -------------------------------------
@@ -28,6 +29,8 @@ function UI_RuneBulkSalePopup:init()
     self:initButton()
     self:init_tableView()
     self:refresh()
+
+    self.m_bOptionChanged = false
 end
 
 -------------------------------------
@@ -223,26 +226,7 @@ end
 -- function click_checkBox
 -------------------------------------
 function UI_RuneBulkSalePopup:click_checkBox()
-    local vars = self.vars
-
-    g_localData:lockSaveData()
-
-    g_localData:applyLocalData(vars['starBtn6']:isChecked(), 'option_rune_bulk_sell', 'grade_6')
-    g_localData:applyLocalData(vars['starBtn5']:isChecked(), 'option_rune_bulk_sell', 'grade_5')
-    g_localData:applyLocalData(vars['starBtn4']:isChecked(), 'option_rune_bulk_sell', 'grade_4')
-    g_localData:applyLocalData(vars['starBtn3']:isChecked(), 'option_rune_bulk_sell', 'grade_3')
-    g_localData:applyLocalData(vars['starBtn2']:isChecked(), 'option_rune_bulk_sell', 'grade_2')
-    g_localData:applyLocalData(vars['starBtn1']:isChecked(), 'option_rune_bulk_sell', 'grade_1')
-
-    g_localData:applyLocalData(vars['rarityBtn4']:isChecked(), 'option_rune_bulk_sell', 'rarity_4')
-    g_localData:applyLocalData(vars['rarityBtn3']:isChecked(), 'option_rune_bulk_sell', 'rarity_3')
-    g_localData:applyLocalData(vars['rarityBtn2']:isChecked(), 'option_rune_bulk_sell', 'rarity_2')
-    g_localData:applyLocalData(vars['rarityBtn1']:isChecked(), 'option_rune_bulk_sell', 'rarity_1')
-
-    g_localData:applyLocalData(vars['enhanceBtn']:isChecked(), 'option_rune_bulk_sell', 'enhance')
-
-    g_localData:unlockSaveData()
-
+    self.m_bOptionChanged = true
     self:refresh()
 end
 
@@ -319,6 +303,35 @@ function UI_RuneBulkSalePopup:setSellCallback(sell_cb)
     self.m_sellCB = sell_cb
 end
 
+-------------------------------------
+-- function onClose
+-------------------------------------
+function UI_RuneBulkSalePopup:onClose()
+    if (self.m_bOptionChanged == true) then
+        local vars = self.vars
+
+        g_localData:lockSaveData()
+
+        g_localData:applyLocalData(vars['starBtn6']:isChecked(), 'option_rune_bulk_sell', 'grade_6')
+        g_localData:applyLocalData(vars['starBtn5']:isChecked(), 'option_rune_bulk_sell', 'grade_5')
+        g_localData:applyLocalData(vars['starBtn4']:isChecked(), 'option_rune_bulk_sell', 'grade_4')
+        g_localData:applyLocalData(vars['starBtn3']:isChecked(), 'option_rune_bulk_sell', 'grade_3')
+        g_localData:applyLocalData(vars['starBtn2']:isChecked(), 'option_rune_bulk_sell', 'grade_2')
+        g_localData:applyLocalData(vars['starBtn1']:isChecked(), 'option_rune_bulk_sell', 'grade_1')
+
+        g_localData:applyLocalData(vars['rarityBtn4']:isChecked(), 'option_rune_bulk_sell', 'rarity_4')
+        g_localData:applyLocalData(vars['rarityBtn3']:isChecked(), 'option_rune_bulk_sell', 'rarity_3')
+        g_localData:applyLocalData(vars['rarityBtn2']:isChecked(), 'option_rune_bulk_sell', 'rarity_2')
+        g_localData:applyLocalData(vars['rarityBtn1']:isChecked(), 'option_rune_bulk_sell', 'rarity_1')
+
+        g_localData:applyLocalData(vars['enhanceBtn']:isChecked(), 'option_rune_bulk_sell', 'enhance')
+
+        g_localData:unlockSaveData()
+        self.m_bOptionChanged = false
+    end
+
+    PARENT.onClose(self)
+end
 
 
 --@CHECK
