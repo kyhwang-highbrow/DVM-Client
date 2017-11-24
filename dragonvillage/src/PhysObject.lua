@@ -301,12 +301,13 @@ end
 -- @param y
 -------------------------------------
 function PhysObject:isIntersectBody(opponentBody, x, y)
-    if self.body.size <= 0 then return false end
+    if (self.body.size <= 0) then return false end
 
     local d = math_pow(self.pos.x + self.body.x - (x + opponentBody.x), 2) + math_pow(self.pos.y + self.body.y - (y + opponentBody.y), 2)
     local dist = math_sqrt(d)    
-    if dist < (opponentBody.size + self.body.size) then
-        return true, ((self.pos.x + self.body.x + x + opponentBody.x) / 2), ((self.pos.y + self.body.y + y + opponentBody.y) / 2)
+    if (dist < opponentBody.size + self.body.size) then
+        return true, (x + opponentBody.x), (y + opponentBody.y)
+        --return true, ((self.pos.x + self.body.x + x + opponentBody.x) / 2), ((self.pos.y + self.body.y + y + opponentBody.y) / 2)
     else 
         return false, 0, 0
     end
