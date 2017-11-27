@@ -546,7 +546,14 @@ function UI_ReadyScene:refresh_tamer()
 
     local table_tamer = TableTamer()
     local tamer_id = self:getCurrTamerID()
-	local tamer_res = table_tamer:getValue(tamer_id, 'res')
+	local tamer_res = table_tamer:getValue(tamer_id, 'res_sd')
+
+    -- 코스튬 적용
+    local t_costume_data = g_tamerCostumeData:getCostumeDataWithTamerID(tamer_id)
+    if (t_costume_data) then
+        tamer_res = t_costume_data:getResSD()
+    end
+
     local animator = MakeAnimator(tamer_res)
 	if (animator) then
 		animator:setDockPoint(0.5, 0.5)
