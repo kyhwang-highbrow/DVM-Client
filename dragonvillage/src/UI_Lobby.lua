@@ -63,6 +63,8 @@ function UI_Lobby:initUI()
 
     self:initLobbyWorldAdapter()
     g_topUserInfo:clearBroadcast()
+
+	self:initSnow()
 end
 
 -------------------------------------
@@ -71,6 +73,17 @@ end
 function UI_Lobby:init_after()
     PARENT.init_after(self)
     g_topUserInfo:doActionReset()
+end
+
+-------------------------------------
+-- function initSnow
+-------------------------------------
+function UI_Lobby:initSnow()
+	local particle = cc.ParticleSystemQuad:create("res/ui/particle/dv_snow.plist"); --
+	--local particle = cc.ParticleSnow:create()
+	--particle:setSpeed(100)
+	particle:setPositionY(960)
+	self.root:addChild(particle)
 end
 
 -------------------------------------
