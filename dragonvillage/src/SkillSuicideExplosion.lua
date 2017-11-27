@@ -24,9 +24,9 @@ function SkillSuicideExplosion:init_skill(explosion_res, jump_res)
 	self.m_explosionRes = explosion_res
 
     if (self:isRightFormation()) then
-        self.m_targetPos = { x = 320, y = 0 }
+        self.m_targetPos = { x = 320, y = CRITERIA_RESOLUTION_Y / 2 }
     else
-        self.m_targetPos = { x = 960, y = 0 }
+        self.m_targetPos = { x = 960, y = CRITERIA_RESOLUTION_Y / 2 }
     end
 
     -- 사용자 무적 처리
