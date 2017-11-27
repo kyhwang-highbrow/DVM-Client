@@ -324,7 +324,7 @@ function UI_ColosseumTabRank:makeClanRankTableView()
         if (g_clanRankData:isSettlingDown()) then
             empty_str = Str('현재 클랜 순위를 정산 중입니다. 잠시만 기다려주세요.')
         else
-            empty_str = Str('최초 순위는 자정 이후 집계됩니다.')
+            empty_str = Str('랭킹 정보가 없습니다.')
         end
         table_view:makeDefaultEmptyDescLabel(empty_str)
         self.m_clanRankTableView = table_view
