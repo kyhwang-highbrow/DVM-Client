@@ -79,10 +79,14 @@ end
 -- function initSnow
 -------------------------------------
 function UI_Lobby:initSnow()
-	local particle = cc.ParticleSystemQuad:create("res/ui/particle/dv_snow.plist"); --
+	local particle = cc.ParticleSystemQuad:create("res/ui/particle/dv_snow.plist")
+	particle:setAnchorPoint(cc.p(0.5, 1))
+	particle:setDockPoint(cc.p(0.5, 1))
+	particle:setPosition(0, 0)
+
 	--local particle = cc.ParticleSnow:create()
 	--particle:setSpeed(100)
-	particle:setPositionY(960)
+
 	self.root:addChild(particle)
 end
 
