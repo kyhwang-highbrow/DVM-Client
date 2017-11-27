@@ -149,7 +149,7 @@ end
 function StructRuneObject:getNextLevelMopt()
     local lv = self['lv']
     local grade = self['grade']
-    if (15 <= lv) then
+    if (RUNE_LV_MAX <= lv) then
         return nil
     end
 
@@ -231,7 +231,7 @@ end
 -- function isMaxRuneLv
 -------------------------------------
 function StructRuneObject:isMaxRuneLv()
-    local is_max_rune_lv = (15 <= self['lv'])
+    local is_max_rune_lv = (RUNE_LV_MAX <= self['lv'])
     return is_max_rune_lv
 end
 
@@ -270,6 +270,13 @@ end
 -------------------------------------
 function StructRuneObject:setOwnerDragon(doid)
     self['owner_doid'] = doid
+end
+
+-------------------------------------
+-- function getLevel
+-------------------------------------
+function StructRuneObject:getLevel()
+	return self['lv']
 end
 
 -------------------------------------

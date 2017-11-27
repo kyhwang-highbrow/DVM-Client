@@ -5,7 +5,11 @@ local PARENT = class(UI, ITopUserInfo_EventListener:getCloneTable())
 -------------------------------------
 UI_DragonRunesEnhance = class(PARENT,{
         m_runeObject = 'StructRuneObject',
-        m_changeOptionList = 'list'
+        m_changeOptionList = 'list',
+
+		-- 연속 강화
+		m_isContinuous = 'bool',
+		m_coroutineHelper = 'CoroutinHelepr',
     })
 
 -------------------------------------
@@ -38,6 +42,9 @@ function UI_DragonRunesEnhance:init(rune_obj, attr)
     self:doActionReset()
     self:doAction(nil, false)
 
+	-- initilize
+	self.m_isContinuous = false
+
     self:initUI(attr)
     self:initButton()
     self:refresh()
@@ -57,6 +64,8 @@ function UI_DragonRunesEnhance:initUI(attr)
     
     local rune_obj = self.m_runeObject
     vars['runeNameLabel']:setString(rune_obj['name'])
+
+	vars['checkSprite']:setVisible(false)
 end
 
 -------------------------------------
@@ -65,6 +74,8 @@ end
 function UI_DragonRunesEnhance:initButton()
     local vars = self.vars
     vars['closeBtn']:registerScriptTapHandler(function() self:close() end)
+	vars['checkBtn']:registerScriptTapHandler(function() self:click_checkBtn() end)
+	vars['stopBtn']:registerScriptTapHandler(function() self:click_stopBtn() end)
     vars['enhanceBtn']:registerScriptTapHandler(function() self:click_enhanceBtn() end)
 end
 
@@ -115,14 +126,14 @@ function UI_DragonRunesEnhance:refresh()
 
     local is_max_lv = rune_obj:isMaxRuneLv()
     vars['enhanceBtn']:setVisible(not is_max_lv)
+	vars['checkNode']:setVisible(not is_max_lv)
 end
 
 -------------------------------------
 -- function show_upgradeEffect
+-- @param cb_func : 단일 강화시 block_ui를 제어하며 연속 강화시 CoroutineHelper를 종료시킨다
 -------------------------------------
-function UI_DragonRunesEnhance:show_upgradeEffect(is_success)
-    local block_ui = UI_BlockPopup()
-
+function UI_DragonRunesEnhance:show_upgradeEffect(is_success, cb_func)
     local vars = self.vars
     local top_visual = vars['enhanceTopVisual']
     local bottom_visual = vars['enhanceBottomVisual']
@@ -146,7 +157,9 @@ function UI_DragonRunesEnhance:show_upgradeEffect(is_success)
             UIManager:toastNotificationRed(Str('{1}강화를 실패하였습니다.', rune_obj['lv'] + 1))
         end
 
-        block_ui:close()
+		if (cb_func) then
+			cb_func()
+		end
     end)
 
     if (is_success) then
@@ -183,14 +196,97 @@ function UI_DragonRunesEnhance:setChangeOptionList(old_data, new_data)
 end
 
 -------------------------------------
+-- function click_checkBtn
+-------------------------------------
+function UI_DragonRunesEnhance:click_checkBtn()
+	self.m_isContinuous = not self.m_isContinuous
+	self.vars['checkSprite']:setVisible(self.m_isContinuous)
+end
+
+-------------------------------------
+-- function click_stopBtn
+-------------------------------------
+function UI_DragonRunesEnhance:click_stopBtn()
+	if (self.m_coroutineHelper) then
+		self.m_coroutineHelper.ESCAPE()
+	end
+end
+
+-------------------------------------
 -- function click_enhanceBtn
 -------------------------------------
 function UI_DragonRunesEnhance:click_enhanceBtn()
-    
+	-- 일회 강화
+	if (not self.m_isContinuous) then
+		local block_ui = UI_BlockPopup()
+		local function cb_func()
+			block_ui:close()
+		end
+		self:request_enhance(cb_func)
+		return
+	end
+
+	-- 연속 강화
+	local function coroutine_function(dt)
+		local vars = self.vars
+
+		local co = CoroutineHelper()
+		self.m_coroutineHelper = co
+
+		-- 코루틴 종료 콜백
+		local function close_cb()
+			self.m_coroutineHelper = nil
+			vars['countNode']:setVisible(false)
+			vars['stopBtn']:setVisible(false)
+		end
+		co:setCloseCB(close_cb)
+
+		-- 레벨업 비교용 레벨
+		local curr_lv = self.m_runeObject:getLevel()
+		
+		-- UI 처리
+		vars['countNode']:setVisible(true)
+		vars['stopBtn']:setVisible(true)
+		vars['enhanceBtn']:setVisible(false)
+
+		-- 연속 강화 루프
+		local enhance_cnt = 10
+        while (enhance_cnt > 0) do
+            co:work()
+
+			-- 레벨업 시 종료
+			if (curr_lv ~= self.m_runeObject:getLevel()) then
+				co.NEXT()
+				break
+			end
+			
+			-- 강화 시도
+            self:request_enhance(co.NEXT)	
+
+			-- 회수 처리
+			enhance_cnt = enhance_cnt - 1
+			vars['countLabel']:setString(Str('{1}회 남음', enhance_cnt))
+
+            if co:waitWork() then return end
+        end
+
+		-- 코루틴 종료
+		self.m_coroutineHelper = nil
+        co:close()
+	end
+
+	Coroutine(coroutine_function, 'Rune Enhancing Continuously')
+end
+
+-------------------------------------
+-- function request_enhance
+-- @param cb_func : block ui 또는 CoroutinHelper 제어용
+-------------------------------------
+function UI_DragonRunesEnhance:request_enhance(cb_func)
     -- 골드가 충분히 있는지 확인
     local req_gold = self.m_runeObject:getRuneEnhanceReqGold()
     if (not ConfirmPrice('gold', req_gold)) then
-        return
+        return false
     end
 
     local rune_obj = self.m_runeObject
@@ -203,7 +299,7 @@ function UI_DragonRunesEnhance:click_enhanceBtn()
             self.m_runeObject = g_runesData:getRuneObject(roid)
             self:setChangeOptionList(rune_obj, self.m_runeObject)
         end
-        self:show_upgradeEffect(success)
+        self:show_upgradeEffect(success, cb_func)
     end
 
     g_runesData:request_runeLevelup(owner_doid, roid, finish_cb)
