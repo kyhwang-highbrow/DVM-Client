@@ -154,6 +154,7 @@ function UI_DragonRunesEnhance:show_upgradeEffect(is_success, cb_func)
             self:refresh()
             UIManager:toastNotificationGreen(Str('{1}강화를 성공하였습니다.', rune_obj['lv']))
         else
+			vars['enhanceBtn']:setVisible(true)
             UIManager:toastNotificationRed(Str('{1}강화를 실패하였습니다.', rune_obj['lv'] + 1))
         end
 
@@ -247,18 +248,19 @@ function UI_DragonRunesEnhance:click_enhanceBtn()
 		-- UI 처리
 		vars['countNode']:setVisible(true)
 		vars['stopBtn']:setVisible(true)
-		vars['enhanceBtn']:setVisible(false)
 
 		-- 연속 강화 루프
 		local enhance_cnt = 10
         while (enhance_cnt > 0) do
             co:work()
-
+			
 			-- 레벨업 시 종료
 			if (curr_lv ~= self.m_runeObject:getLevel()) then
 				co.NEXT()
 				break
 			end
+
+			vars['enhanceBtn']:setVisible(false)
 			
 			-- 강화 시도
             self:request_enhance(co.NEXT)	
