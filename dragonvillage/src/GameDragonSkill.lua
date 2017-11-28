@@ -348,6 +348,7 @@ function GameDragonSkill:makeSkillDesc(dragon, delayTime)
     local name = active_skill_info:getSkillName()
 	local desc = active_skill_info:getSkillDesc()
 
+    --[[
     -- 현재 skill_info 스킬아이디와 드래곤의 액티브스킬 아이디를 비교하여 다르다면
     -- 스킬 강화 된것으로 보고 강화되기전 스킬을 꺼내온다.
     local curr_skill_id = active_skill_info:getSkillID()
@@ -369,6 +370,7 @@ function GameDragonSkill:makeSkillDesc(dragon, delayTime)
             end
         end
     end
+    ]]--
 
     self.m_skillNameLabel:setString(name)
     --self.m_skillDescLabel:setString(desc)
