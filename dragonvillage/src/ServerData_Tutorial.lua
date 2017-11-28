@@ -31,6 +31,10 @@ end
 -- @brief 해당 튜토리얼 클리어 여부
 -------------------------------------
 function ServerData_Tutorial:isTutorialDone(tutorial_key, cb_func)
+	if (IS_TEST_MODE()) then
+		return true
+	end
+
     return self.m_tTutorialClearInfo[tutorial_key]
 end
 

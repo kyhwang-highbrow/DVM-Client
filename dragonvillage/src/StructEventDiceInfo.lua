@@ -19,6 +19,9 @@ StructEventDiceInfo = class(PARENT, {
 
         today = 'number',
         today_max = 'number',
+		
+		add_dice = 'number',
+		add_max = 'number',
 
         curr_dice = 'number',
 
@@ -100,4 +103,29 @@ function StructEventDiceInfo:getTodayObtainingDesc()
     local max = self[key .. '_max']
 
     return Str('{@SKILL_DESC_MOD}일일 최대 {@SKILL_DESC_ENHANCE}{1}/{2}{@SKILL_DESC_MOD}개 획득 가능', curr, max)
+end
+
+
+-------------------------------------
+-- function getAddDice
+-------------------------------------
+function StructEventDiceInfo:getAddDice()
+    return self['add_dice']
+end
+
+-------------------------------------
+-- function getAddDice
+-------------------------------------
+function StructEventDiceInfo:useAllAddDice()
+    return (self['add_max'] <= self['add_dice'])
+end
+
+-------------------------------------
+-- function getAdditionalStateDesc
+-------------------------------------
+function StructEventDiceInfo:getAdditionalStateDesc()
+	local curr = self['add_dice']
+	local max = self['add_max']
+
+	return Str('일일 {1}/{2}회 가능', curr, max)
 end

@@ -171,6 +171,17 @@ function UI_DiceEvent:refresh()
     for i, t_ui in ipairs(self.m_lapRewardInfoList) do
         self.refershLap(t_ui['ui'], t_ui['data'], lap_cnt)
     end
+
+	-- 추가 주사위 처리
+	do
+		local is_add = (curr_dice == 0)
+		vars['goldNode']:setVisible(is_add)
+		vars['diceNode']:setVisible(not is_add)
+	
+		-- 추가 주사위 현황
+		local add_desc = dice_info:getAdditionalStateDesc()
+		vars['goldCountLabel']:setString(add_desc)
+	end
 end
 
 -------------------------------------
@@ -248,10 +259,11 @@ function UI_DiceEvent:click_diceBtn()
     -- 정중앙으로 이동 시킨다
     self:moveContainer(0)
 
-    -- 주사위 있을 때만 동작하도록 한다.
+    -- 추가 주사위 또는 주사위가 있을 때만 동작하도록 한다.
     local dice_info = g_eventDiceData:getDiceInfo()
     local curr_dice = dice_info:getCurrDice()
-    if (curr_dice < 1) then
+	local use_add_all = dice_info:useAllAddDice()
+    if (use_add_all) and (curr_dice < 1) then
         UIManager:toastNotificationRed(Str('주사위가 부족합니다'))
         return
     end
@@ -344,9 +356,6 @@ function UI_DiceEvent:click_diceBtn()
 
     Coroutine(coroutine_function, 'DiceEvent Directing')
 end
-
-
-
 
 
 

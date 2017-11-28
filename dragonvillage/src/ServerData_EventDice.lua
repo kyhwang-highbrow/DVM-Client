@@ -128,13 +128,12 @@ end
 -- function request_diceInfo
 -- @brief 이벤트 정보
 -------------------------------------
-function ServerData_EventDice:request_diceInfo(finish_cb, fail_cb)
+function ServerData_EventDice:request_diceInfo(finish_cb)
     -- 유저 ID
     local uid = g_userData:get('uid')
 
     -- 콜백
     local function success_cb(ret)
-
         self.m_lCellList = self:makePrettyCellList(ret['cell_list'])
         self.m_lLapList = self:makePrettyLapRewardList(ret['lap_list'], ret['dice_reward'])
         self.m_diceInfo = StructEventDiceInfo(ret['dice_info'])
@@ -150,7 +149,6 @@ function ServerData_EventDice:request_diceInfo(finish_cb, fail_cb)
     ui_network:setUrl('/shop/dice/info')
     ui_network:setParam('uid', uid)
     ui_network:setSuccessCB(success_cb)
-    ui_network:setFailCB(fail_cb)
     ui_network:setRevocable(true)
     ui_network:setReuse(false)
     ui_network:request()
@@ -162,9 +160,10 @@ end
 -- function request_diceRoll
 -- @brief 이벤트 재화 사용
 -------------------------------------
-function ServerData_EventDice:request_diceRoll(finish_cb, fail_cb)
+function ServerData_EventDice:request_diceRoll(finish_cb)
     -- 유저 ID
     local uid = g_userData:get('uid')
+	local use_add_dice = not self.m_diceInfo:useAllAddDice()
 
     -- 콜백
     local function success_cb(ret)
@@ -179,8 +178,8 @@ function ServerData_EventDice:request_diceRoll(finish_cb, fail_cb)
     local ui_network = UI_Network()
     ui_network:setUrl('/shop/dice/roll')
     ui_network:setParam('uid', uid)
+	ui_network:setParam('add_dice', use_add_dice)
     ui_network:setSuccessCB(success_cb)
-    ui_network:setFailCB(fail_cb)
     ui_network:setRevocable(true)
     ui_network:setReuse(false)
     ui_network:request()
