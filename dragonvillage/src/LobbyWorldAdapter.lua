@@ -145,7 +145,7 @@ function LobbyWorldAdapter:onEvent(event_name, t_event, ...)
 
         for i,v in pairs(self.m_lobbyMap.m_lLobbyTamer) do
             if (uid == v.m_userData:getUid()) then
-                SensitivityHelper:doActionBubbleText(v.m_rootNode, nil, nil, 'lobby_tamer', json['message'])
+                SensitivityHelper:doActionBubbleText(v.m_rootNode, nil, nil, 'chat_tamer', json['message'])
             end
         end
 

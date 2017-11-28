@@ -12,16 +12,54 @@ function SensitivityHelper:doActionBubbleText_Extend(t_param)
 end
 
 -------------------------------------
--- function doActionBubbleText_Formal
--- @brief 범용으로 제작할 예정
+-- function doActionBubbleText
+-- @public 현재는 드래곤 전용이다 추후에 사용처가 늘어나면 범용성을 갖추어야 할것
+-- @brief 케이스 처리 부
 -------------------------------------
-function SensitivityHelper:doActionBubbleText_Formal(parent, bubble_str, delay, cb_func)
--- 이전 버블 텍스트가 있다면 삭제해버린다.
+function SensitivityHelper:doActionBubbleText(parent, did, flv, case_type, custom_str, cb_func)
+	-- 상황별 문구 생성
+	local sens_str = '{@BLACK}' .. (custom_str or SensitivityHelper:getRandomSensStr(did, flv, case_type))
+
+	-- 상황별 변수 및 포지션 정리
+	local delay_time
+
+	-- 채팅
+	if (case_type == 'chat_tamer') then
+		pos_y = 330
+		delay_time = 1.5
+
+	-- 로비
+	elseif pl.stringx.startswith(case_type, 'lobby_') then
+		pos_y = 300
+		delay_time = 5
+
+	-- 전투 준비 화면
+	elseif pl.stringx.startswith(case_type, 'party_') then
+		pos_y = 100
+		delay_time = 0.5
+
+    else
+        pos_y = 300
+		delay_time = 1.5
+
+	end
+	
+	-- run
+	self:completeBubbleText(parent, sens_str, delay_time, pos_y, cb_func)
+end
+
+-------------------------------------
+-- function completeBubbleText
+-- @brief 버블 텍스트 완성
+-------------------------------------
+function SensitivityHelper:completeBubbleText(parent, bubble_str, delay, pos_y, cb_func)
+	-- 이전 버블 텍스트가 있다면 삭제해버린다.
 	self:deleteBubbleText(parent)
 
 	-- 버블 텍스트 생성하여 부모에 붙임
 	local bubble_text = SensitivityHelper:getBubbleText(bubble_str)
 	bubble_text:setTag(TAG_BUBBLE)
+	bubble_text:setPosition(0, pos_y)
 	parent:addChild(bubble_text, 2)
 	
 	-- 띠용~ 후 페이드 아웃 하는 액션
@@ -33,41 +71,6 @@ function SensitivityHelper:doActionBubbleText_Formal(parent, bubble_str, delay, 
 	local remove_action = cc.RemoveSelf:create()
 	local seq_action = cc.Sequence:create(scale_action, scale_action_2, delay_action, fade_action, cb_action, remove_action)
 	bubble_text:runAction(seq_action)
-
-	return bubble_text
-end
-
--------------------------------------
--- function doActionBubbleText
--- @public 현재는 드래곤 전용이다 추후에 사용처가 늘어나면 범용성을 갖추어야 할것
--------------------------------------
-function SensitivityHelper:doActionBubbleText(parent, did, flv, case_type, custom_str, cb_func)
-	-- 상황별 문구 생성
-	local sens_str = '{@BLACK}' .. (custom_str or SensitivityHelper:getRandomSensStr(did, flv, case_type))
-
-	-- 상황별 변수 및 포지션 정리
-	local delay_time
-	if pl.stringx.startswith(case_type, 'lobby_') then
-		if (case_type == 'lobby_tamer') then
-			pos_y = 330
-			delay_time = 1.5
-		else
-			pos_y = 300
-			delay_time = 1.5
-		end
-
-	elseif pl.stringx.startswith(case_type, 'party_') then
-		pos_y = 100
-		delay_time = 0.5
-
-    else
-        pos_y = 300
-		delay_time = 1.5
-
-	end
-	
-	local bubble_text = self:doActionBubbleText_Formal(parent, sens_str, delay_time, cb_func)
-	bubble_text:setPosition(0, pos_y)
 end
 
 -------------------------------------
@@ -110,7 +113,7 @@ function SensitivityHelper:getBubbleText(txt_str)
 end
 
 -------------------------------------
--- function getBubbleText
+-- function getRandomSensStr
 -------------------------------------
 function SensitivityHelper:getRandomSensStr(did, flv, case_type)
 	return TableDragonPhrase:getRandomPhrase_Sensitivity(did, flv, case_type)
@@ -220,6 +223,7 @@ end
 
 -------------------------------------
 -- function doRepeatBubbleText
+-- @brief 미사용
 -------------------------------------
 function SensitivityHelper:doRepeatBubbleText(parent, did, flv, case_type)
 	-- 상황별 문구 생성
