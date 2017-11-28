@@ -109,12 +109,20 @@ function UI_DiceEvent:initUI()
     self.m_rollAnimator = roll_ani
 
     -- 주사위를 부각시키기 위한 음영 효과 용 UI, skip도 처리한다.
-    local masking_ui = UI()
-    masking_ui:load('empty.ui')
-    self:makeSkipAndMaskingLayer(masking_ui)
-    self.root:addChild(masking_ui.root)
-    masking_ui.root:setVisible(false)
-    self.m_maskingUI = masking_ui
+	do
+		local masking_ui = UI()
+		masking_ui:load('empty.ui')
+		local function touch_func(touch, event)
+			-- 연출 중일 때만 동작
+			if (self.m_coroutineHelper) then
+				event:stopPropagation()
+			end
+		end
+		UIManager:makeSkipAndMaskingLayer(masking_ui, touch_func)
+		self.root:addChild(masking_ui.root)
+		masking_ui.root:setVisible(false)
+		self.m_maskingUI = masking_ui
+	end
 
     -- touch 먹히도록 함
     self.root:setSwallowTouch(false)
@@ -162,37 +170,6 @@ function UI_DiceEvent:refresh()
     -- 완주 보상 UI 처리
     for i, t_ui in ipairs(self.m_lapRewardInfoList) do
         self.refershLap(t_ui['ui'], t_ui['data'], lap_cnt)
-    end
-end
-
--------------------------------------
--- function makeSkipAndMaskingLayer
--------------------------------------
-function UI_DiceEvent:makeSkipAndMaskingLayer(ui)
-    -- skip layer
-    do
-        local layer = cc.Layer:create()
-        ui.root:addChild(layer, -100)
-
-        local function onTouch(touch, event)
-            -- 연출 중일 때만 동작
-            if (self.m_coroutineHelper) then
-                event:stopPropagation()
-            end
-        end
-        UIManager:setLayerToEventListener(layer, onTouch)
-    end
-
-    -- masking layer
-    do
-        local layerColor = UIManager:makeMaskingLayer()
-        
-        ui.root:addChild(layerColor, -100)
-
-        -- 엑션에 추가
-        local t_action_data = ui:addAction(layerColor, UI_ACTION_TYPE_OPACITY, 0, 0.5)
-        ui:doActionReset_(t_action_data)
-        ui:doAction_Indivisual(t_action_data)
     end
 end
 

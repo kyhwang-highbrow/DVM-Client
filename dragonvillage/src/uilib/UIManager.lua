@@ -255,6 +255,53 @@ function UIManager:makeTouchBlock(ui, bNotBlendBGLayer)
 end
 
 -------------------------------------
+-- function makeSkipAndMaskingLayer
+-------------------------------------
+function UIManager:makeSkipAndMaskingLayer(ui, touch_func)
+    -- skip layer
+    do
+        local layer = cc.Layer:create()
+        ui.root:addChild(layer, -100)
+
+        local function onTouch(touch, event)
+            if (touch_func) then
+				touch_func(touch, event)
+			end
+        end
+        self:setLayerToEventListener(layer, onTouch)
+    end
+
+    -- masking layer
+    do
+        local layerColor = self:makeMaskingLayer()
+        
+        ui.root:addChild(layerColor, -100)
+
+        -- 엑션에 추가
+        local t_action_data = ui:addAction(layerColor, UI_ACTION_TYPE_OPACITY, 0, 0.5)
+        ui:doActionReset_(t_action_data)
+        ui:doAction_Indivisual(t_action_data)
+    end
+end
+ 
+-------------------------------------
+-- function makeSkipLayer
+-------------------------------------
+function UIManager:makeSkipLayer(ui, touch_func)
+    -- skip layer
+    local layer = cc.Layer:create()
+    ui.root:addChild(layer, -100)
+
+    local function onTouch(touch, event)
+        if (touch_func) then
+			touch_func(touch, event)
+		end
+		event:stopPropagation()
+    end
+    self:setLayerToEventListener(layer, onTouch)
+end
+
+-------------------------------------
 -- function setLayerToEventListener
 -- @brief 해당 레이어에 event_listener 등록
 -------------------------------------
