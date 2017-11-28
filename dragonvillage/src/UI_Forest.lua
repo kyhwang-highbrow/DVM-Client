@@ -49,6 +49,19 @@ function UI_Forest:initUI()
     local territory = ForestTerritory(vars['cameraNode'])
     self.m_territory = territory
     self.m_territory:setUI(self)
+	
+	self:initSnow()
+end
+
+-------------------------------------
+-- function initSnow
+-------------------------------------
+function UI_Forest:initSnow()
+	local particle = cc.ParticleSystemQuad:create("res/ui/particle/dv_snow.plist")
+	particle:setAnchorPoint(cc.p(0.5, 1))
+	particle:setDockPoint(cc.p(0.5, 1))
+	particle:setPosition(0, 0)
+	self.root:addChild(particle)
 end
 
 -------------------------------------
