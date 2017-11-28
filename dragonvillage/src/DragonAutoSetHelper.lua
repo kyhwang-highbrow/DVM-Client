@@ -42,7 +42,7 @@ function DragonAutoSetHelper:getAutoDeck()
 
         -- 드래곤들의 개별 전투력 계산
         local status_calc = MakeDragonStatusCalculator_fromDragonDataTable(t_dragon_data_org)
-        local combat_power = status_calc:getCombatPower()
+        local combat_power = t_dragon_data_org:getCombatPower()
         t_dragon_data['status_calc'] = status_calc
         t_dragon_data['combat_power'] = combat_power
 

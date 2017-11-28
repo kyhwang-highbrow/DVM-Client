@@ -359,7 +359,7 @@ function UI_DragonInfoBoardNew:refresh_status(t_dragon_data, t_dragon)
     self:refresh_gauge(status_calc)
 
     if vars['cp_label'] then
-        vars['cp_label']:setString(comma_value(status_calc:getCombatPower()))
+        vars['cp_label']:setString(comma_value(t_dragon_data:getCombatPower()))
     end
 end
 
