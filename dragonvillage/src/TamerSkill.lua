@@ -190,6 +190,7 @@ function Tamer:doSkill(skill_idx)
 		StatusEffectHelper:doStatusEffectByTable(self, t_skill)
 
 	-- [EVENT]
+    --[[
 	elseif string.find(skill_type, 'tamer_skill_event') then
 		-- 1. 타겟리스트 생성
 		local l_target = {self.m_targetChar}
@@ -199,6 +200,7 @@ function Tamer:doSkill(skill_idx)
 			
 		-- 3. 타겟에 상태효과생성
 		StatusEffectHelper:doStatusEffectByStruct(self, l_target, l_status_effect_struct, nil, t_skill['sid'])
+    ]]--
 
 	-- [PASSIVE]
 	else
@@ -227,6 +229,9 @@ end
 -- function doSkillPassive
 -------------------------------------
 function Tamer:doSkillPassive()
+    -- 17/11/28 발동형 스킬이 패시브형 스킬로 변경
+    self:doSkill(TAMER_SKILL_EVENT)
+
     return self:doSkill(TAMER_SKILL_PASSIVE)
 end
 

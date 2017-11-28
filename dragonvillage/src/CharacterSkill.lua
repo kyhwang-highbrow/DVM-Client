@@ -86,14 +86,14 @@ function Character:doSkillBySkillTable(t_skill, t_data)
         
 		-- [패시브]
 		if (chance_type == 'leader' or chance_type == 'passive') then
-			-- 발동된 패시브의 연출을 위해 world에 발동된 passive정보를 저장
+            -- 발동된 패시브의 연출을 위해 world에 발동된 passive정보를 저장
 
 			local function apply_world_passive_effect(char)
-				local world = self.m_world
-				if (not world.m_mPassiveEffect[char]) then
-					world.m_mPassiveEffect[char] = {}
-				end
-				world.m_mPassiveEffect[char][t_skill['t_name']] = true
+                if (chance_type == 'passive' and self.m_charType ~= 'tamer') then
+                    -- passive스킬은 테이머를 제외하고는 표시하지 않음
+                else
+				    self.m_world:addPassiveStartEffect(char, t_skill['t_name'])
+                end
 			end
 
 			StatusEffectHelper:doStatusEffectByTable(self, t_skill, apply_world_passive_effect)

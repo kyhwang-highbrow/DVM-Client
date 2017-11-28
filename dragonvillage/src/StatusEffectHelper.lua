@@ -437,6 +437,11 @@ function StatusEffectHelper:makeStatusEffectInstance(caster, target_char, status
     -- StatusEffectUnit 생성 및 추가
     status_effect:addOverlabUnit(caster, skill_id, status_effect_value, status_effect_source, duration, add_param)
 
+    -- 텍스트 표시(아이콘이 표시되는 경우만)
+    if (t_status_effect['show_icon'] == 1 and t_status_effect['t_desc'] ~= '') then
+        world:addPassiveStartEffect(target_char, t_status_effect['t_desc'], t_status_effect['category'])
+    end
+
     return status_effect
 end
 
