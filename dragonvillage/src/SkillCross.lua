@@ -198,14 +198,14 @@ end
 -- function findCollision
 -------------------------------------
 function SkillCross:findCollision(x, y)
-    local target_x = x or self.m_targetPos['x']
-    local target_y = y or self.m_targetPos['y']
+    local target_x = x
+    local target_y = y
 
 	local l_target
-    if (x and y) then
-        l_target = self.m_owner:getTargetListByType(self.m_targetType, target_count, self.m_targetFormation)
-    else
+    if (x == self.m_targetPos['x'] and y == self.m_targetPos['y']) then
         l_target = self:getProperTargetList()
+    else
+        l_target = self.m_owner:getTargetListByType(self.m_targetType, nil, self.m_targetFormation)    
     end
     	
     local std_width = CRITERIA_RESOLUTION_X
