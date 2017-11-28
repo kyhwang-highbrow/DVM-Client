@@ -66,8 +66,7 @@ function UI_Forest:initSnow()
 	particle:setAnchorPoint(cc.p(0.5, 1))
 	particle:setDockPoint(cc.p(0.5, 1))
 	self.root:addChild(particle)
-
-	self.m_territory:setColorAllLayer(COLOR['gray'])
+	--self.m_territory:setColorAllLayer(COLOR['light_gray'])
 end
 
 -------------------------------------
