@@ -79,14 +79,14 @@ end
 -- function initSnow
 -------------------------------------
 function UI_Lobby:initSnow()
+	-- 저사양 모드에서는 실행하지 않는다.
+	if (isLowEndMode()) then
+		return
+	end
+
 	local particle = cc.ParticleSystemQuad:create("res/ui/particle/dv_snow.plist")
 	particle:setAnchorPoint(cc.p(0.5, 1))
 	particle:setDockPoint(cc.p(0.5, 1))
-	particle:setPosition(0, 0)
-
-	--local particle = cc.ParticleSnow:create()
-	--particle:setSpeed(100)
-
 	self.root:addChild(particle)
 end
 
