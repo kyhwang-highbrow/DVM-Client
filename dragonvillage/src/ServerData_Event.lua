@@ -100,22 +100,19 @@ function ServerData_Event:getEventFullPopupList()
             local feature = v['feature']
             local is_exist = true
 
-            -- 우선순위 유무 이외의 제어 조건 체크
-            if (feature == 'only_aos') then
-                is_exist = not CppFunctions:isIos()
-            end
+			-- feature 조건 체크
+			do
+				-- aos에서만 노출
+				if (feature == 'only_aos') then
+					is_exist = not CppFunctions:isIos()
 
-            -- 토파즈가 있는 유저에게만 보이는 이벤트
-            if (feature == 'topaz') then
-                local topaz = g_userData:get('topaz')
-                if (topaz <= 0) then
-                    is_exist = false
-                end
-            end
-
-			-- 필요한 곳에서 지정하여 사용
-			if (feature == 'client') then
-				is_exist = false
+				-- 토파즈가 있는 유저에게만 보이는 이벤트
+				elseif (feature == 'topaz') then
+					local topaz = g_userData:get('topaz')
+					if (topaz <= 0) then
+						is_exist = false
+					end
+				end
 			end
 
             -- 단일 상품인 경우 (type:shop) event_id로 등록
@@ -196,9 +193,9 @@ end
 -- function getTargetEventFullPopupRes
 -- @brief feature가 client이고 event_type이 일치하는 테이블 정보를 가져와서 풀팝업을 띄울 리소스 문자열 생성
 -------------------------------------
-function ServerData_Event:getTargetEventFullPopupRes(event_type)
+function ServerData_Event:getTargetEventFullPopupRes(feature)
 	for i, v in ipairs(self.m_eventList) do
-		if (v['event_type'] == event_type) and (v['feature'] == 'client') then
+		if (v['feature'] == feature) then
 			return string.format('banner;%s;%s', v['banner'], v['url'])
 		end
 	end
