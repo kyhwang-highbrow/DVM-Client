@@ -49,6 +49,9 @@ function UI_BattleMenu:init()
     self:sceneFadeInAction()
 
     self.root:scheduleUpdateWithPriorityLua(function(dt) return self:update(dt) end, 0)
+
+	-- 밸런스 패치 안내 뿅
+    g_fullPopupManager:show(FULL_POPUP_TYPE.BP_NOTICE)
 end
 
 -------------------------------------

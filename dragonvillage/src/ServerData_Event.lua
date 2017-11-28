@@ -113,6 +113,11 @@ function ServerData_Event:getEventFullPopupList()
                 end
             end
 
+			-- 필요한 곳에서 지정하여 사용
+			if (feature == 'client') then
+				is_exist = false
+			end
+
             -- 단일 상품인 경우 (type:shop) event_id로 등록
             if (event_type == 'shop') then
                 event_type = v['event_id']     
@@ -185,6 +190,19 @@ function ServerData_Event:getEventBannerMap()
     end
 
     return map
+end
+
+-------------------------------------
+-- function getTargetEventFullPopupRes
+-- @brief feature가 client이고 event_type이 일치하는 테이블 정보를 가져와서 풀팝업을 띄울 리소스 문자열 생성
+-------------------------------------
+function ServerData_Event:getTargetEventFullPopupRes(event_type)
+	for i, v in ipairs(self.m_eventList) do
+		if (v['event_type'] == event_type) and (v['feature'] == 'client') then
+			return string.format('banner;%s;%s', v['banner'], v['url'])
+		end
+	end
+	return nil
 end
 
 -------------------------------------

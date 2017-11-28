@@ -5,6 +5,7 @@ FULL_POPUP_TYPE = {
     LAUNCH_PACK = 4,    -- 런칭 패키지 풀팝업
     ALL_DIA_PACK = 'all_dia_package', -- 몽땅 다이아 패키지 풀팝업
     CAFE_ON = 'hatchry_cafe_on',    -- 부화소 진입시 네이버 카페 노출
+	BP_NOTICE = 'bp_notice',		-- 밸런스 패치 안내
 }
 -------------------------------------
 -- class FullPopupManager
@@ -120,6 +121,18 @@ function FullPopupManager:show(type, show_func)
         if (not is_view) then
             NaverCafeManager:naverCafeStart(0)
             g_localData:applyLocalData(true, 'event_full_popup', save_key)
+        end
+
+	-- 밸런스 패치 안내 팝업
+    elseif (type == FULL_POPUP_TYPE.BP_NOTICE) then
+        local save_key = type
+        local is_view = g_localData:get('event_full_popup', save_key) or false
+        if (not is_view) then
+			local banner_res = g_eventData:getTargetEventFullPopupRes(type)
+			if (banner_res) then
+				self:showFullPopup(banner_res)
+				g_localData:applyLocalData(true, 'event_full_popup', save_key)
+			end
         end
 
     end
