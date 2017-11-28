@@ -1,23 +1,18 @@
-local PARENT = Skill
-
-local CROSS_ATK_STEP_1 = 1
-local CROSS_ATK_STEP_FINAL = CROSS_ATK_STEP_1 + 1
-local CROSS_ATK_STEP_END = CROSS_ATK_STEP_FINAL + 1
-
-local repeat_count = 0
+local PARENT = class(Skill, ISkillMultiAttack:getCloneTable())
 
 -------------------------------------
 -- class SkillCross
 -------------------------------------
 SkillCross = class(PARENT, {
-		m_lineSize = 'num',
-        m_attackStep = 'num',
-        m_isUpgraded = 'bool',
+        m_missileRes = 'string',
+        m_repeatCount = 'number',
         
-        m_tSkill = 'table',
-        m_tData = 'table',
-
+		m_lineSize = 'number',
+        
         m_lNextTarget = 'list',
+        
+        m_lTargetPos = 'list',
+        m_lPowerRate = 'list',
      })
 
 -------------------------------------
@@ -26,8 +21,13 @@ SkillCross = class(PARENT, {
 -- @param body
 -------------------------------------
 function SkillCross:init(file_name, body, ...)    
+    self.m_repeatCount = 0
     self.m_lNextTarget = {}
+    
+    self.m_lTargetPos = {}
+    self.m_lPowerRate = {}
 end
+
 -------------------------------------
 -- function initSkillSize
 -------------------------------------
@@ -42,31 +42,18 @@ function SkillCross:initSkillSize()
         self.m_lineSize = g_constant:get('SKILL', 'CROSS_SIZE')
     end
 end
+
 -------------------------------------
 -- function init_skill
 -------------------------------------
-function SkillCross:init_skill(hit_count, is_upgraded)
+function SkillCross:init_skill(missile_res, hit)
     PARENT.init_skill(self)
 
     -- 멤버변수 초기화
-	
-    self.m_attackStep = CROSS_ATK_STEP_1
-    self.m_isUpgraded = is_upgraded
+    self.m_maxAttackCount = hit 
+    self.m_missileRes = missile_res
 
-    -- 스킬 위치 타겟 위치로
-	self:setPosition(self.m_targetPos.x, self.m_targetPos.y)
-
-    -- activity carrier의 power_rate 변경
-    if (self.m_isUpgraded) then
-        local org_power_rate = self.m_activityCarrier:getPowerRate()
-        --cclog('org_power_rate = ' .. org_power_rate)
-
-        local power_rate_multi = self.m_tData['power_rate_multi'] or 1
-        local new_power_rate = org_power_rate * power_rate_multi
-        --cclog('new_power_rate = ' .. new_power_rate)
-        
-        self.m_activityCarrier:setPowerRate(new_power_rate)
-    end
+    self.m_world.m_gameHighlight:setToForced(true)
 end
 
 -------------------------------------
@@ -76,8 +63,20 @@ end
 function SkillCross:setSkillParams(owner, t_skill, t_data)
     PARENT.setSkillParams(self, owner, t_skill, t_data)
 
-    self.m_tSkill = t_skill
-    self.m_tData = t_data
+    self.m_lPowerRate = { self.m_powerRate }
+
+    if (t_skill['val_1'] == 1) then
+        -- 반복 횟수
+        self.m_repeatCount = SkillHelper:getValid(t_skill['val_2'], 0)
+
+        local org_power_rate = self.m_powerRate
+        local power_rate_multi = SkillHelper:getValid(t_skill['val_3'], 1)
+        
+        for i = 1, self.m_repeatCount do
+            local power_rate = org_power_rate * math_pow(power_rate_multi, i)
+            table.insert(self.m_lPowerRate, power_rate)
+        end
+    end
 end
 
 -------------------------------------
@@ -85,40 +84,65 @@ end
 -------------------------------------
 function SkillCross:initState()
 	self:setCommonState(self)
-	self:addState('start', SkillCross.st_idle, 'idle', false)
+    self:addState('start', SkillCross.st_appear, nil, false)
+    self:addState('attack', SkillCross.st_attack, nil, true)
+	self:addState('disappear', SkillCross.st_disappear, nil, false)
 end
 
 -------------------------------------
--- function st_idle
+-- function enterAttack
+-- @brief 공격이 시작되는 시점에 실행
 -------------------------------------
-function SkillCross.st_idle(owner, dt)
-    if (owner.m_stateTimer == 0) then
+function SkillCross:enterAttack()
+    self.m_lTargetPos = {}
 
-    elseif (owner.m_stateTimer > 0.4) then
-        if (owner.m_attackStep == CROSS_ATK_STEP_1) then
-            owner:runAttack()
-            owner.m_attackStep = CROSS_ATK_STEP_FINAL
+    local effect
+
+    -- 이펙트
+    if (#self.m_lNextTarget > 0) then   
+        local m_unit = {}
+         
+        for _, collision in pairs(self.m_lNextTarget) do
+            local target_char = collision:getTarget()
+            local body_key = collision:getBodyKey()
+            local body = target_char:getBody(body_key)
+            local x = target_char.pos.x + body.x
+            local y = target_char.pos.y + body.y
+
+            effect = self:makeEffect(self.m_missileRes, x, y, 'idle')
+
+            table.insert(self.m_lTargetPos, { x = x, y = y })
+
+            m_unit[target_char] = true
         end
-        
-		-- 일반 스킬이라면 ATK STEP FINAL 일떄 탈출
-	    if (owner.m_attackStep == CROSS_ATK_STEP_FINAL) then
-            owner.m_animator:addAniHandler(function()
-                owner:changeState('dying')
-		    end)
 
-            owner.m_attackStep = CROSS_ATK_STEP_END
+        self.m_lNextTarget = {}
+    else
+        effect = self:makeEffect(self.m_missileRes, self.m_targetPos['x'], self.m_targetPos['y'], 'idle')
 
-            -- 강화 되었을 시 추가 스킬 효과 처리
-            if (owner.m_isUpgraded) then
-                for _, v in ipairs(owner.m_lNextTarget) do
-                    if (repeat_count > 0) then
-                        SkillCross:makeNewInstance(owner, v)
-                    else
-                        break
-                    end
-                end
-            end
-	    end	
+        table.insert(self.m_lTargetPos, { x = self.m_targetPos['x'], y = self.m_targetPos['y'] })
+    end
+
+    -- 이펙트 재생 단위 시간
+    local duration = effect:getDuration() / 2
+	self.m_hitInterval = (duration / self.m_maxAttackCount)
+
+	-- 첫프레임부터 공격하기 위해서 인터벌 타임으로 설정
+	self.m_multiAtkTimer = self.m_hitInterval
+    
+    -- 공격 카운트 초기화
+	self.m_attackCount = 0
+end
+
+-------------------------------------
+-- function escapeAttack
+-- @brief 공격이 종료되는 시점에 실행
+-------------------------------------
+function SkillCross:escapeAttack()
+    if (#self.m_lNextTarget > 0) then
+        self:changeState('attack')
+    else
+        self:changeState('disappear')
     end
 end
 
@@ -137,16 +161,40 @@ end
 -- @brief findCollision으로 찾은 body별로 공격
 -------------------------------------
 function SkillCross:runAttack()
+    for i, pos in ipairs(self.m_lTargetPos) do
+        local list = self:findCollision(pos['x'], pos['y'])
+        local new_power_rate = table.remove(self.m_lPowerRate, 1)
 
-    local l_collision = self:findCollision()
-    for i, collision in ipairs(l_collision) do
-        local target_hp_before = collision:getTarget().m_hp
-   
-        self:attack(collision)
-        
-        --if (collision:getTarget().m_hp <= 0 and target_hp_before > 0) then
-            table.insert(self.m_lNextTarget, collision)
-        --end
+        if (new_power_rate) then
+            self.m_activityCarrier:setPowerRate(new_power_rate)
+
+            for i, collision in ipairs(list) do
+                self:attack(collision)
+
+                
+                -- 하이라이트 처리
+                self.m_world.m_gameHighlight:addForcedHighLightList(collision:getTarget())
+                
+                -- 남은 반복 횟수만큼 피격된 대상을 임시 저장
+                if (self.m_repeatCount > 0) then
+                    -- 해당 충돌 정보가 이미 있는지 체크
+                    local b = true
+
+                    for _, v in ipairs(self.m_lNextTarget) do
+                        if (v:getTarget() == collision:getTarget() and v:getBodyKey() == collision:getBodyKey()) then
+                            b = false
+                            break
+                        end
+                    end
+
+                    if (b) then
+                        self.m_repeatCount = self.m_repeatCount - 1
+
+                        table.insert(self.m_lNextTarget, collision)
+                    end
+                end
+            end
+        end
     end
     
 	self:doCommonAttackEffect() 
@@ -155,13 +203,20 @@ end
 -------------------------------------
 -- function findCollision
 -------------------------------------
-function SkillCross:findCollision()
-	local l_target = self:getProperTargetList()
+function SkillCross:findCollision(x, y)
+    local target_x = x or self.m_targetPos['x']
+    local target_y = y or self.m_targetPos['y']
+
+	local l_target
+    if (x and y) then
+        l_target = self.m_owner:getTargetListByType(self.m_targetType, target_count, self.m_targetFormation)
+    else
+        l_target = self:getProperTargetList()
+    end
     	
     local std_width = CRITERIA_RESOLUTION_X
 	local std_height = CRITERIA_RESOLUTION_Y
 	
-	local target_x, target_y = self.m_targetPos.x, self.m_targetPos.y
 	local collisions1 = self:findCollisionEachLine(l_target, target_x, target_y, 0, std_height, 1)
     local collisions2 = self:findCollisionEachLine(l_target, target_x, target_y, std_width, 0, 2)
     
@@ -199,26 +254,20 @@ end
 -------------------------------------
 -- function makeSkillInstance
 -------------------------------------
-function SkillCross:makeSkillInstance(owner, t_skill, t_data, _repeat_count)
+function SkillCross:makeSkillInstance(owner, t_skill, t_data)
 	-- 변수 선언부
 	------------------------------------------------------
 	local missile_res = SkillHelper:getAttributeRes(t_skill['res_1'], owner)   
 	local hit_count = t_skill['hit']
-    local is_upgraded = (t_skill['val_1'] == 1)
-    
-    if (is_upgraded) then
-        -- 반복 횟수
-        repeat_count = _repeat_count or SkillHelper:getValid(t_skill['val_2'], 0)
-    end
 
 	-- 인스턴스 생성부
 	------------------------------------------------------
 	-- 1. 스킬 생성
-    local skill = SkillCross(missile_res)
+    local skill = SkillCross(nil)
 
 	-- 2. 초기화 관련 함수
 	skill:setSkillParams(owner, t_skill, t_data)
-    skill:init_skill(hit_count, is_upgraded)
+    skill:init_skill(missile_res, hit_count, is_upgraded)
 	skill:initState()
 
 	-- 3. state 시작 
@@ -229,26 +278,4 @@ function SkillCross:makeSkillInstance(owner, t_skill, t_data, _repeat_count)
     local missileNode = world:getMissileNode()
     missileNode:addChild(skill.m_rootNode, 0)
     world:addToSkillList(skill)
-end
-
-
--------------------------------------
--- function makeNewInstance
--------------------------------------
-function SkillCross:makeNewInstance(owner, target)
-    if (repeat_count <= 0) then return end
-    repeat_count = repeat_count - 1
-
-    local t_skill = owner.m_tSkill
-    local org_repeat_count = SkillHelper:getValid(t_skill['val_2'], 0)
-    local power_rate_multi = SkillHelper:getValid(t_skill['val_3'], 1)
-
-    local t_data = {}
-
-    t_data['target'] = target
-    t_data['x'] = target.m_posX
-    t_data['y'] = target.m_posY
-    t_data['power_rate_multi'] = math_pow(power_rate_multi, org_repeat_count - repeat_count)
-
-    SkillCross:makeSkillInstance(owner.m_owner, t_skill, t_data, repeat_count)
 end

@@ -47,6 +47,10 @@ Skill = class(PARENT, {
         m_attackPosOffsetX = 'number',
         m_attackPosOffsetY = 'number',
 
+        -- 총 데미지
+        m_totalDamage = 'number',
+        m_totalHeal = 'number',
+
 		-- 스킬 연출 관리자 - 디렉터
 		m_skillHitEffctDirector = 'SkillHitEffectDirector',
 		m_bSkillHitEffect = 'bool', -- 사용 여부
@@ -68,6 +72,9 @@ Skill = class(PARENT, {
 -- @param body
 -------------------------------------
 function Skill:init(file_name, body, ...)
+    self.m_totalDamage = 0
+    self.m_totalHeal = 0
+
     self.m_dataForTemporaryPause = nil
     self.m_bUseMissile = false
 end
@@ -152,6 +159,9 @@ function Skill:initEventListener()
         if (target.m_bLeftFormation ~= self.m_owner.m_bLeftFormation) then
             target:addListener(CON_SKILL_HIT_CRI, self)
             target:addListener(CON_SKILL_HIT_KILL, self)
+
+            -- 총 데미지를 계산하기 위함
+            target:addListener('under_atk', self)
         end
     end
     
@@ -380,6 +390,18 @@ function Skill:onEvent(event_name, t_event, ...)
             self:doStatusEffect(event_name, { target })
         end
 
+    elseif (event_name == 'under_atk') then
+        if (t_event and self.m_skillId == t_event['skill_id']) then
+            -- 총 데미지를 저장
+            self.m_totalDamage = self.m_totalDamage + t_event['damage']
+
+            -- 피격자의 이벤트 dispatch에서 타격 카운트를 추가하기 위해 activityCarrier에 저장
+            local hit_count = self.m_activityCarrier:getParam('hit_count') or 0
+            hit_count = hit_count + 1
+            self.m_activityCarrier:setParam('hit_count', hit_count)
+
+        end
+
     else
         self:doStatusEffect(event_name, t_event['l_target'])
 
@@ -503,14 +525,9 @@ function Skill:onAttack(target_char, target_collision)
     local hit_target_count = table.count(self.m_hitTargetList)
 
     -- 연출
-	if (self.m_skillHitEffctDirector) then 
-		self.m_skillHitEffctDirector:doWork(hit_target_count)
-	end
-
-    -- 타격 카운트 갱신
-    self:addHitCount()
+    self:doWorkHitDirector(hit_target_count, self.m_totalDamage)
 	
-	-- 화면 쉐이킹
+    -- 화면 쉐이킹
     if (self.m_chanceType == 'active') then
         self.m_world.m_shakeMgr:doShake(50, 50, 1)
     else
@@ -562,6 +579,15 @@ function Skill:onHeal(target_char)
             self:dispatch(CON_SKILL_HIT_TARGET .. hit_target_count, t_event)
         end
     end
+end
+
+-------------------------------------
+-- function doWorkHitDirector
+-------------------------------------
+function Skill:doWorkHitDirector(total_hit, total_damage)
+	if (self.m_skillHitEffctDirector) then 
+		self.m_skillHitEffctDirector:doWork(total_hit, total_damage)
+	end
 end
 
 -------------------------------------
@@ -791,17 +817,6 @@ function Skill:makeEffect(res, x, y, ani_name, cb_function)
 end
 
 -------------------------------------
--- function addHitCount
--- @brief 타격 카운트를 증감
--------------------------------------
-function Skill:addHitCount()
-    -- 피격자의 이벤트 dispatch에서 타격 카운트를 추가하기 위해 activityCarrier에 저장
-    local hit_count = self.m_activityCarrier:getParam('hit_count') or 0
-    hit_count = hit_count + 1
-    self.m_activityCarrier:setParam('hit_count', hit_count)
-end
-
--------------------------------------
 -- function release
 -- @brief
 -------------------------------------
@@ -842,7 +857,7 @@ function Skill:setTemporaryPause(pause)
                 end
             end
         end
-
+        
         return true
     end
 
