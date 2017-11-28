@@ -93,7 +93,7 @@ function SkillHitEffectDirector:doWork(count, damage)
             vars['hitLabel'] = nil
         end
 
-        local scale = 0.8
+        local scale = 0.85
         local label = self:makeDamageNumber(tostring(self.m_hitCount), cc.c3b(0, 240, 255), scale)
         label:setDockPoint(cc.p(1, 0.5))
         label:setAnchorPoint(cc.p(1, 0.5))
@@ -152,17 +152,21 @@ function SkillHitEffectDirector:makeDamageNumber(damage, color, scale)
     for i = 1, #str do
         local v = str:sub(i, i)
         local sprite = nil
+        local width
+
         if (v == ',') then  -- comma
             sprite = self:createWithSpriteFrameName('ingame_damage_comma.png')
+            width = sprite:getContentSize()['width'] * 3 / 4
         else                -- number
             sprite = self:createWithSpriteFrameName('ingame_damage_'.. v.. '.png')
+            width = sprite:getContentSize()['width'] * 3 / 4
         end
 
         sprite:setPosition(x_offset, 0)
         sprite:setColor(color)
         sprite:setScale(scale)
         damage_node:addChild(sprite)
-        x_offset = x_offset + (sprite:getContentSize()['width'])
+        x_offset = x_offset + (width * scale)
     end
     
     damage_node:setPosition(-(x_offset/2), 0)
