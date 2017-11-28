@@ -106,6 +106,10 @@ function UI_Package_Bundle:refresh()
             if (vars['buyBtn'..idx]) then
                 vars['buyBtn'..idx]:setVisible(false)
             end
+
+			if (vars['completeNode' .. idx]) then
+				vars['completeNode' .. idx]:setVisible(true)
+			end
         else
             -- 판매종료시간 있는 경우 표시
             local time_label = vars['timeLabel']
@@ -146,6 +150,11 @@ function UI_Package_Bundle:refresh()
             if (vars['priceNode'..idx]) then
                 vars['priceNode'..idx]:addChild(icon)
             end   
+
+			-- 구매 완료 표시
+			if (vars['completeNode' .. idx]) then
+				vars['completeNode' .. idx]:setVisible(struct_product:isBuyAll())
+			end
 
             -- 즉시 구매라면
             if (self.m_data['is_detail'] == 0) then

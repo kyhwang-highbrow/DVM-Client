@@ -884,7 +884,7 @@ function StructProduct:getMaxBuyTermStr()
         return ''
     end
 
-    local max_buy_term = self['max_buy_term']
+	local max_buy_term = self['max_buy_term']
     local product_id = self['product_id']
     local buy_cnt = g_shopDataNew:getBuyCount(product_id)    
 
@@ -903,7 +903,21 @@ function StructProduct:getMaxBuyTermStr()
     return str
 end
 
+-------------------------------------
+-- function isBuyAll
+-- @brief 구매 제한 해당 여부
+-------------------------------------
+function StructProduct:isBuyAll()
+	local max_buy_cnt = tonumber(self['max_buy_count'])
+	if (not max_buy_cnt) or (max_buy_cnt <= 0) then
+        return false
+    end
 
+	local product_id = self['product_id']
+    local buy_cnt = g_shopDataNew:getBuyCount(product_id)    
+
+	return (buy_cnt >= max_buy_cnt)
+end
 
 
 
