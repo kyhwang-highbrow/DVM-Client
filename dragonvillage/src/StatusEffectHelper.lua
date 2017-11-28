@@ -241,6 +241,9 @@ function StatusEffectHelper:invokeStatusEffect(caster, target_char, status_effec
     if (IS_NEW_BALANCE_VERSION()) then
         if (status_effect_group == 'dispell') then
             -- 해제효과의 경우는 효과 저항할 수 없도록 처리
+
+        elseif (status_effect_type == 'tamer_add_dmg') then
+            -- 테이머의 추가피해는 저항할 수 없도록 처리
         
         elseif (self:isHarmful(status_effect_category) and self:checkStatus(caster, target_char)) then
             if (not skip_resistance_font) then
