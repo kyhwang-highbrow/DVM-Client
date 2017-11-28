@@ -52,8 +52,6 @@ function SkillCross:init_skill(missile_res, hit)
     -- 멤버변수 초기화
     self.m_maxAttackCount = hit 
     self.m_missileRes = missile_res
-
-    self.m_world.m_gameHighlight:setToForced(true)
 end
 
 -------------------------------------
@@ -171,10 +169,6 @@ function SkillCross:runAttack()
             for i, collision in ipairs(list) do
                 self:attack(collision)
 
-                
-                -- 하이라이트 처리
-                self.m_world.m_gameHighlight:addForcedHighLightList(collision:getTarget())
-                
                 -- 남은 반복 횟수만큼 피격된 대상을 임시 저장
                 if (self.m_repeatCount > 0) then
                     -- 해당 충돌 정보가 이미 있는지 체크
