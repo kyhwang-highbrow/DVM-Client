@@ -22,6 +22,7 @@ function UI_Setting:init_devTab()
     vars['benchmarkBtn']:registerScriptTapHandler(function() self:click_benchmarkBtn() end)
     vars['clanCacheResetBtn']:registerScriptTapHandler(function() self:click_clanCacheResetBtn() end)
     vars['setUidBtn']:registerScriptTapHandler(function() self:click_setUidBtn() end)
+    vars['popupCacheResetBtn']:registerScriptTapHandler(function() self:click_popupCacheResetBtn() end)
     self:refresh_devTap()
 end
 
@@ -601,4 +602,13 @@ function UI_Setting:click_setUidBtn()
         end
     end
     edit_box:setCloseCB(close_cb)
+end
+
+-------------------------------------
+-- function click_popupCacheResetBtn
+-- @brief 팝업 캐시 리셋
+-------------------------------------
+function UI_Setting:click_popupCacheResetBtn()
+    g_localData:applyLocalData({}, 'event_full_popup')
+    UIManager:toastNotificationGreen('팝업 캐시가 초기화되었습니다!')
 end
