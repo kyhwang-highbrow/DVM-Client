@@ -203,6 +203,10 @@ end
 -- function click_autoStartButton
 -------------------------------------
 function UI_Game:click_autoStartButton()
+    if (world.m_skillIndicatorMgr and world.m_skillIndicatorMgr:isControlling()) then
+        world.m_skillIndicatorMgr:clear()
+    end
+
     self.m_gameScene:gamePause()
 
     local function close_cb()
@@ -231,10 +235,11 @@ end
 function UI_Game:click_pauseButton()
     local world = self.m_gameScene.m_gameWorld
     if (not world) then return end
-
-    if (world.m_skillIndicatorMgr) then
-        if (world.m_skillIndicatorMgr:isControlling()) then return end
+    
+    if (world.m_skillIndicatorMgr and world.m_skillIndicatorMgr:isControlling()) then
+        world.m_skillIndicatorMgr:clear()
     end
+    
 
     local stage_id = self.m_gameScene.m_stageID
     local game_mode = self.m_gameScene.m_gameMode
@@ -256,6 +261,8 @@ function UI_Game:click_pauseButton()
         UI_GamePause_SecretDungeon(stage_id, gamekey, start_cb, end_cb)
     elseif (game_mode == GAME_MODE_ANCIENT_TOWER) then
         UI_GamePause_AncientTower(stage_id, gamekey, start_cb, end_cb)
+    elseif (game_mode == GAME_MODE_COLOSSEUM) then
+        UI_GamePause_Colosseum(stage_id, gamekey, start_cb, end_cb)
     else
         UI_GamePause(stage_id, gamekey, start_cb, end_cb)
     end

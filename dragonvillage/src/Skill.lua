@@ -391,17 +391,17 @@ function Skill:onEvent(event_name, t_event, ...)
         end
 
     elseif (event_name == 'under_atk') then
-        if (t_event and self.m_skillId == t_event['skill_id']) then
-            -- 총 데미지를 저장
-            self.m_totalDamage = self.m_totalDamage + t_event['damage']
+        if (t_event) then
+            if (self.m_skillId == t_event['skill_id'] and self.m_owner == t_event['attacker']) then
+                -- 총 데미지를 저장
+                self.m_totalDamage = self.m_totalDamage + t_event['damage']
 
-            -- 피격자의 이벤트 dispatch에서 타격 카운트를 추가하기 위해 activityCarrier에 저장
-            local hit_count = self.m_activityCarrier:getParam('hit_count') or 0
-            hit_count = hit_count + 1
-            self.m_activityCarrier:setParam('hit_count', hit_count)
-
+                -- 피격자의 이벤트 dispatch에서 타격 카운트를 추가하기 위해 activityCarrier에 저장
+                local hit_count = self.m_activityCarrier:getParam('hit_count') or 0
+                hit_count = hit_count + 1
+                self.m_activityCarrier:setParam('hit_count', hit_count)
+            end
         end
-
     else
         self:doStatusEffect(event_name, t_event['l_target'])
 
