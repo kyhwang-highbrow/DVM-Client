@@ -89,22 +89,22 @@ function UI_Package_Bundle:refresh()
         if (not struct_product) then
             if (item_label) then
                 item_label:setString(Str('구매 완료'))
+            end
 
-                if (vars['priceNode'..idx]) then
-                    vars['priceNode'..idx]:setVisible(false)
-                end
+            if (vars['priceNode'..idx]) then
+                vars['priceNode'..idx]:setVisible(false)
+            end
 
-                if (vars['buyLabel'..idx]) then
-                    vars['buyLabel'..idx]:setVisible(false)
-                end
+            if (vars['buyLabel'..idx]) then
+                vars['buyLabel'..idx]:setVisible(false)
+            end
 
-                if (vars['priceLabel'..idx]) then
-                    vars['priceLabel'..idx]:setVisible(false)
-                end
+            if (vars['priceLabel'..idx]) then
+                vars['priceLabel'..idx]:setVisible(false)
+            end
 
-                if (vars['buyBtn'..idx]) then
-                    vars['buyBtn'..idx]:setVisible(false)
-                end
+            if (vars['buyBtn'..idx]) then
+                vars['buyBtn'..idx]:setVisible(false)
             end
         else
             -- 판매종료시간 있는 경우 표시
