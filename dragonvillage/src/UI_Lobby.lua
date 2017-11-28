@@ -88,6 +88,8 @@ function UI_Lobby:initSnow()
 	particle:setAnchorPoint(cc.p(0.5, 1))
 	particle:setDockPoint(cc.p(0.5, 1))
 	self.root:addChild(particle)
+	
+	self.m_lobbyWorldAdapter.m_lobbyMap:setColorAllLayer(COLOR['gray'])
 end
 
 -------------------------------------

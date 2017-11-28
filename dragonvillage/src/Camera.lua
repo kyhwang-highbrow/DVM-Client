@@ -342,3 +342,18 @@ function Camera:destroy()
     self.m_rootNode:removeFromParent()
 
 end
+
+-------------------------------------
+-- function setColorAllLayer
+-- @brief layer로 추가된 node의 자식들로 이미지가 붙어있기 때문에 자식까지 처리
+-- @brief LobbyMap과 ForestTerritory에서 사용
+-------------------------------------
+function Camera:setColorAllLayer(color)
+	for i, t_layer in pairs(self.m_aLayerList) do
+		local node = t_layer[1]
+		local childs = node:getChildren()
+		for i,v in pairs(childs) do
+			v:setColor(color)
+		end
+	end
+end
