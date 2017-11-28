@@ -143,6 +143,9 @@ function UI_EventFullPopup:click_clickBtn()
     elseif (url == 'shop_topaz') then
         g_shopDataNew:openShopPopup('topaz')
 
+	elseif (url == 'dragon_manage') then
+        UINavigator:goTo('dragon')
+
     else
         SDKManager:goToWeb(url)
     end
