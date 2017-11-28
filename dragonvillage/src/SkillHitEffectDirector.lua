@@ -30,7 +30,7 @@ function SkillHitEffectDirector:init(owner)
 
     self.m_temporaryPause = false
 
-    local vars = self:load('ingame_hit_new.ui')
+    local vars = self:load('ingame_hit.ui')
 
     local hit_node = vars['hitNode']
 
