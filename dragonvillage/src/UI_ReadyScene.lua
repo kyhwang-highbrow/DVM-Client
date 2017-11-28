@@ -361,11 +361,6 @@ function UI_ReadyScene:initUI()
 		local animator = ResHelper:getUIDragonBG('fire', 'idle')
         vars['bgNode']:addChild(animator.m_node)
 	end
-
-    -- 고대의탑 예외처리
-    if (g_ancientTowerData:isAncientTowerStage(self.m_stageID)) then
-		vars['autoStartOnBtn']:setEnabled(false)
-    end
 end
 
 --[[
