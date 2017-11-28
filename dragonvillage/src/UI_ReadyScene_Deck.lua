@@ -13,6 +13,7 @@ UI_ReadyScene_Deck = class({
         -- deck info
         m_lSettedDragonCard = 'list',
         m_currFormation = 'string',
+        m_currFormationLv = 'number',
 		m_currLeader = 'number',
         m_currLeaderOID = 'string',
 
@@ -303,7 +304,7 @@ function UI_ReadyScene_Deck:init_deck()
         self.m_lSettedDragonCard = {}
     end
 
-    local l_deck, formation, deckname, leader = g_deckData:getDeck()
+    local l_deck, formation, deckname, leader, tamer_id, formation_lv = g_deckData:getDeck()
 	l_deck = self:convertSimpleDeck(l_deck)
 
 	self.m_currLeader = leader
@@ -324,9 +325,8 @@ function UI_ReadyScene_Deck:init_deck()
 
 	-- leader set
 	self:refreshLeader()
-
     self:setFormation(formation)
-
+    self:setFormationLv(formation_lv)
     self:setDirtyDeck()
 end
 
@@ -526,7 +526,7 @@ end
 function UI_ReadyScene_Deck:checkChangeDeck(next_func)
 
     local l_deck, formation, deckname, leader, tamer_id = g_deckData:getDeck()
-
+    local formation_lv = g_formationData:getFormationInfo(formation)['formation_lv']
     -- 최소 1명 출전 확인 (일단 콜로세움만)
     if (deckname == 'pvp_atk') or (deckname == 'pvp_def') or (deckname == 'fpvp_atk')  then
         local setted_number = table.count(self.m_lDeckList)
@@ -563,7 +563,11 @@ function UI_ReadyScene_Deck:checkChangeDeck(next_func)
     if (self.m_currFormation ~= formation) then
         b_change = true
     end
-
+    -- 진형 레벨이 변경되었을 경우
+    if (self.m_currFormationLv ~= formation_lv) then
+        self.m_currFormationLv = formation_lv
+        b_change = true
+    end
 	-- 리더가 변경되었을 경우
 	if (self.m_currLeader ~= leader) then
 		b_change = true
@@ -674,6 +678,17 @@ function UI_ReadyScene_Deck:setFormation(formation)
 
     self.m_currFormation = formation
     self:updateFormation(formation, update_immediately)
+end
+
+-------------------------------------
+-- function setFormationLv
+-------------------------------------
+function UI_ReadyScene_Deck:setFormationLv(formation_lv)
+    if (self.m_currFormationLv == formation_lv) then
+        return
+    end
+
+    self.m_currFormationLv = formation_lv
 end
 
 -------------------------------------
