@@ -55,6 +55,10 @@ for i, v in ipairs(L_SPECIAL_STATUS_TYPE_ONLY_ADD) do
     M_SPECIAL_STATUS_TYPE_ONLY_ADD[v] = true
 end
 
+M_SPECIAL_STATUS_TYPE_ONLY_MULTI = {
+    'final_dmg_rate',   -- 최종 피해량(기본 값 1)
+}
+
 L_STATUS_TYPE = table.merge(L_BASIC_STATUS_TYPE, L_SPECIAL_STATUS_TYPE_ONLY_ADD)
 L_STATUS_TYPE = table.merge(L_STATUS_TYPE, L_SPECIAL_STATUS_TYPE_ONLY_MULTI)
 
@@ -426,7 +430,7 @@ function StatusCalculator:addPassiveAdd(stat_type, value)
     end
 
     -- 특정 타입의 스텟들은 무조건 곱연산
-    if (L_SPECIAL_STATUS_TYPE_ONLY_MULTI[stat_type]) then
+    if (M_SPECIAL_STATUS_TYPE_ONLY_MULTI[stat_type]) then
         indivisual_status:addPassiveMulti(value)
     else
         indivisual_status:addPassiveAdd(value)
@@ -462,7 +466,7 @@ function StatusCalculator:addFormationAdd(stat_type, value)
     end
 
     -- 특정 타입의 스텟들은 무조건 곱연산
-    if (L_SPECIAL_STATUS_TYPE_ONLY_MULTI[stat_type]) then
+    if (M_SPECIAL_STATUS_TYPE_ONLY_MULTI[stat_type]) then
         indivisual_status:addFormationMulti(value)
     else
         indivisual_status:addFormationAdd(value)
@@ -498,7 +502,7 @@ function StatusCalculator:addStageAdd(stat_type, value)
     end
 
     -- 특정 타입의 스텟들은 무조건 곱연산
-    if (L_SPECIAL_STATUS_TYPE_ONLY_MULTI[stat_type]) then
+    if (M_SPECIAL_STATUS_TYPE_ONLY_MULTI[stat_type]) then
         indivisual_status:addStageMulti(value)
     else
         indivisual_status:addStageAdd(value)
@@ -534,7 +538,7 @@ function StatusCalculator:addBuffAdd(stat_type, value)
     end
 
     -- 특정 타입의 스텟들은 무조건 곱연산
-    if (L_SPECIAL_STATUS_TYPE_ONLY_MULTI[stat_type]) then
+    if (M_SPECIAL_STATUS_TYPE_ONLY_MULTI[stat_type]) then
         indivisual_status:addBuffMulti(value)
     else
         indivisual_status:addBuffAdd(value)
