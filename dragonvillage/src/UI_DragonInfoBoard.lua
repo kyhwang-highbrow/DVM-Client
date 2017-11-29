@@ -200,7 +200,7 @@ function UI_DragonInfoBoard:refresh_dragonSkillsInfo(t_dragon_data, t_dragon)
 
 				l_skill_icon[i].vars['clickBtn']:setActionType(UIC_Button.ACTION_TYPE_WITHOUT_SCAILING)
                 l_skill_icon[i].vars['clickBtn']:registerScriptTapHandler(function()
-					UI_SkillDetailPopupNew(t_dragon_data, i)
+					UI_SkillDetailPopup(t_dragon_data, i)
 				end)
 
 			-- 비어있는 스킬 아이콘 생성
