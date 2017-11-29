@@ -161,12 +161,12 @@ function UI_RecommendedDragonInfoPopup:refresh_sortList(mode_id)
     -- 던전 모드 파악하여 레벨 수 부여
     local t_dungeon_info = g_nestDungeonData:parseNestDungeonID(mode_id)
     local dungeon_mode = t_dungeon_info['dungeon_mode']
-    local max_dungeon_lv = nil
-    if (dungeon_mode == NEST_DUNGEON_NIGHTMARE) then
-        max_dungeon_lv = 10
-    else
-        max_dungeon_lv = 6
-    end
+    local max_dungeon_lv = 10
+    --if (dungeon_mode == NEST_DUNGEON_NIGHTMARE) then
+        --max_dungeon_lv = 10
+    --else
+        --max_dungeon_lv = 6
+    --end
 
     -- 레벨 add
 	for i = 1, max_dungeon_lv do
