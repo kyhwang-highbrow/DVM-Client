@@ -43,6 +43,7 @@ L_SPECIAL_STATUS_TYPE_ONLY_MULTI = {
 
 -- 스텟 타입 체크를 위한 맵 생성
 M_SPECIAL_STATUS_TYPE_ONLY_ADD = {
+    aspd = true,
     cri_chance = true,
     cri_dmg = true,
     cri_avoid = true,
