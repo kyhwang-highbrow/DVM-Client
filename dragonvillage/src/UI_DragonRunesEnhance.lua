@@ -239,8 +239,13 @@ function UI_DragonRunesEnhance:click_enhanceBtn()
 			self.m_coroutineHelper = nil
 			vars['countNode']:setVisible(false)
 			vars['stopBtn']:setVisible(false)
+			-- 터치 블럭 해제
+            UIManager:blockBackKey(false)
 		end
 		co:setCloseCB(close_cb)
+
+        -- 터치 블럭
+        UIManager:blockBackKey(true)
 
 		-- 레벨업 비교용 레벨
 		local curr_lv = self.m_runeObject:getLevel()
@@ -273,7 +278,6 @@ function UI_DragonRunesEnhance:click_enhanceBtn()
         end
 
 		-- 코루틴 종료
-		self.m_coroutineHelper = nil
         co:close()
 	end
 
@@ -288,9 +292,20 @@ function UI_DragonRunesEnhance:request_enhance(cb_func)
     -- 골드가 충분히 있는지 확인
     local req_gold = self.m_runeObject:getRuneEnhanceReqGold()
     if (not ConfirmPrice('gold', req_gold)) then
+
+		-- 연속 강화 인 경우
+		if (self.m_coroutineHelper) then
+			self.m_coroutineHelper:close()
+			self.vars['enhanceBtn']:setVisible(true)
+		-- 단일 강화
+		elseif (cb_func) then
+			cb_func()
+		end
+
         return false
     end
-
+	
+	-- 통신 시작
     local rune_obj = self.m_runeObject
     local owner_doid = rune_obj['owner_doid']
     local roid = rune_obj['roid']
