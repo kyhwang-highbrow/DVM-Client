@@ -126,6 +126,7 @@ end
 function StructEventDiceInfo:getAdditionalStateDesc()
 	local curr = self['add_dice']
 	local max = self['add_max']
+    local remain = (max - curr)
 
-	return Str('일일 {1}/{2}회 가능', curr, max)
+	return Str('일일 {1}/{2}회 가능', remain, max)
 end

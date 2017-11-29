@@ -163,7 +163,15 @@ end
 function ServerData_EventDice:request_diceRoll(finish_cb)
     -- 유저 ID
     local uid = g_userData:get('uid')
-	local use_add_dice = not self.m_diceInfo:useAllAddDice()
+	
+    -- 추가 주사위 사용 여부 지정 (골드로 일일 5회)
+    local use_add_dice = false
+    local curr_dice = self.m_diceInfo:getCurrDice()
+    if (curr_dice <= 0) then -- 현재 주사위가 없을 경우
+        if (not self.m_diceInfo:useAllAddDice()) then -- 추가 주사위 일일 횟수가 남아있을 경우
+            use_add_dice = true
+        end
+    end
 
     -- 콜백
     local function success_cb(ret)
