@@ -366,7 +366,7 @@ function GameState.update_fight(self, dt)
         if (self.m_buffCount < self.m_maxBuffCount) then
             if (self.m_nextBuffTime and self.m_fightTimer > self.m_nextBuffTime) then
                 self:applyBuffByFightTime()
-                UIManager:toastNotificationRed(Str('공격력이 증가하고 방어력이 감소됩니다.'))
+                --UIManager:toastNotificationRed(Str('공격력이 증가하고 방어력이 감소됩니다.'))
             end
         end
     end
@@ -1317,24 +1317,30 @@ function GameState:applyBuffByFightTime()
     local add_buff = self.m_tBuffInfoByFightTime['add_buff']
     local cur_buff = self.m_tBuffInfoByFightTime['cur_buff']
 
+    local str_buff_name = Str('피해량 증가')
+
     for type, value in pairs(add_buff) do
         -- 아군 및 적군에게 버프 적용
         do
             for i, v in ipairs(world.m_leftParticipants) do
                 local status, action = TableOption:parseOptionKey(type)
                 v.m_statusCalc:addOption(action, status, value)
+                world:addPassiveStartEffect(v, str_buff_name)
             end
             for i, v in ipairs(world.m_leftNonparticipants) do
                 local status, action = TableOption:parseOptionKey(type)
                 v.m_statusCalc:addOption(action, status, value)
+                world:addPassiveStartEffect(v, str_buff_name)
             end
             for i, v in ipairs(world.m_rightParticipants) do
                 local status, action = TableOption:parseOptionKey(type)
                 v.m_statusCalc:addOption(action, status, value)
+                world:addPassiveStartEffect(v, str_buff_name)
             end
             for i, v in ipairs(world.m_rightNonparticipants) do
                 local status, action = TableOption:parseOptionKey(type)
                 v.m_statusCalc:addOption(action, status, value)
+                world:addPassiveStartEffect(v, str_buff_name)
             end
         end
 
@@ -1349,7 +1355,7 @@ function GameState:applyBuffByFightTime()
     end
     self.m_buffCount = self.m_buffCount + 1
 
-    -- 연출
+    -- 배경 연출
     do
         local level = math_clamp(self.m_buffCount, 1, 3)
         world.m_mapManager.m_node:stopAllActions()
