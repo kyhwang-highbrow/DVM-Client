@@ -6,6 +6,8 @@ local PARENT = class(UI, ITabUI:getCloneTable())
 UI_AutoPlaySettingPopup = class(PARENT, {
         m_radioButton_dragonAtkSkill = 'UIC_RadioButton',
         m_radioButton_dragonHealSkill = 'UIC_RadioButton',
+
+		m_gameMode = '',
     })
 
 UI_AutoPlaySettingPopup.TAB_SKILL = 1
@@ -14,7 +16,7 @@ UI_AutoPlaySettingPopup.TAB_CONTINUOUS_BATTLE = 2
 -------------------------------------
 -- function init
 -------------------------------------
-function UI_AutoPlaySettingPopup:init(t_user_info)
+function UI_AutoPlaySettingPopup:init(game_mode)
     local vars = self:load('battle_ready_auto_popup.ui')
     UIManager:open(self, UIManager.POPUP)
 
@@ -25,6 +27,8 @@ function UI_AutoPlaySettingPopup:init(t_user_info)
     --self:addAction(vars['rootNode'], UI_ACTION_TYPE_LEFT, 0, 0.2)
     self:doActionReset()
     self:doAction(nil, false)
+
+	self.m_gameMode = game_mode
 
     self:initUI()
     self:initButton()
@@ -57,6 +61,11 @@ function UI_AutoPlaySettingPopup:initUI()
     self:addTab(UI_AutoPlaySettingPopup.TAB_SKILL, vars['skillBtn'], vars['skillMenu'])
     self:addTab(UI_AutoPlaySettingPopup.TAB_CONTINUOUS_BATTLE, vars['autoStartBtn'], vars['autoStartMenu'])
     self:setTab(UI_AutoPlaySettingPopup.TAB_CONTINUOUS_BATTLE)
+
+	-- 고대의탑 분기처리
+	if (self.m_gameMode == GAME_MODE_ANCIENT_TOWER) then
+		vars['autoMenu5']:setVisible(false)
+	end
 end
 
 -------------------------------------

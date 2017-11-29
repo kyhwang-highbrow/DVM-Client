@@ -845,7 +845,8 @@ function UI_ReadyScene:click_autoStartOnBtn()
         g_autoPlaySetting:setAutoPlay(false)
         refresh_btn()
     else
-        local ui = UI_AutoPlaySettingPopup()
+		local game_mode = g_stageData:getGameMode(self.m_stageID)
+        local ui = UI_AutoPlaySettingPopup(game_mode)
         ui:setCloseCB(refresh_btn)
     end
 end

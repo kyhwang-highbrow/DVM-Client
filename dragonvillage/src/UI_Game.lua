@@ -203,6 +203,9 @@ end
 -- function click_autoStartButton
 -------------------------------------
 function UI_Game:click_autoStartButton()
+    local world = self.m_gameScene.m_gameWorld
+    if (not world) then return end
+
     if (world.m_skillIndicatorMgr and world.m_skillIndicatorMgr:isControlling()) then
         world.m_skillIndicatorMgr:clear()
     end
@@ -224,7 +227,8 @@ function UI_Game:click_autoStartButton()
         g_autoPlaySetting:setAutoPlay(false)
         close_cb()
     else
-        local ui = UI_AutoPlaySettingPopup()
+		local game_mode = self.m_gameScene.m_gameMode
+        local ui = UI_AutoPlaySettingPopup(game_mode)
         ui:setCloseCB(close_cb)
     end
 end
