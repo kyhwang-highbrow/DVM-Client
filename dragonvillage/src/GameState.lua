@@ -154,7 +154,10 @@ function GameState:initBuffByFightTime()
     local str_game_mode = IN_GAME_MODE[game_mode]
 
     local t_info = t_constant[str_game_mode] or t_constant['DEFAULT']
-    if (not t_info) then return end
+    if (not t_info) then
+        self.m_bEnableByFightTime = false
+        return
+    end
     
     self.m_tBuffInfoByFightTime['start_time'] = t_info['START_TIME'] or 3
     self.m_tBuffInfoByFightTime['random_time'] = t_info['RANDOM_TIME'] or 0
