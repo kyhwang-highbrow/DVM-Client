@@ -95,7 +95,10 @@ end
 -------------------------------------
 function TableDragonSkill:getSkillType(key)
 	if (not key) or (key == '') then return end
+    
     local t_skill = self:get(key)
+    if (not t_skill) then return end
+
     return t_skill['chance_type']
 end
 
