@@ -55,9 +55,9 @@ for i, v in ipairs(L_SPECIAL_STATUS_TYPE_ONLY_ADD) do
     M_SPECIAL_STATUS_TYPE_ONLY_ADD[v] = true
 end
 
-M_SPECIAL_STATUS_TYPE_ONLY_MULTI = {
-    'final_dmg_rate',   -- 최종 피해량(기본 값 1)
-}
+for i, v in ipairs(L_SPECIAL_STATUS_TYPE_ONLY_MULTI) do
+    M_SPECIAL_STATUS_TYPE_ONLY_MULTI[v] = true
+end
 
 L_STATUS_TYPE = table.merge(L_BASIC_STATUS_TYPE, L_SPECIAL_STATUS_TYPE_ONLY_ADD)
 L_STATUS_TYPE = table.merge(L_STATUS_TYPE, L_SPECIAL_STATUS_TYPE_ONLY_MULTI)
