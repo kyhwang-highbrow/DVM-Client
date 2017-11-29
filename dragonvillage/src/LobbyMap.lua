@@ -27,7 +27,7 @@ LobbyMap = class(PARENT, {
         m_lNearUserList = 'list',
 
         m_touchTamer = '',
-        m_dragonTouchIndicator = '',
+		m_tree = '',
 
         -- 채팅서버와의 position 동기화 최적화
         m_chatServer_bDirtyPos = 'bool',
@@ -66,16 +66,16 @@ end
 function LobbyMap:addLayer_lobbyGround(node, perspective_ratio, perspective_ratio_y, ui_lobby)
     self:addLayer(node, perspective_ratio, perspective_ratio_y)
 
+	-- 이동 인디케이터
     self.m_lobbyIndicator = MakeAnimator('res/ui/a2d/lobby_indicator/lobby_indicator.vrp')
     self.m_lobbyIndicator:setVisible(false)
     self.m_lobbyIndicator:changeAni('idle', true)
     node:addChild(self.m_lobbyIndicator.m_node, self:makeLobbyMapZorder(LobbyMap.Z_ORDER_TYPE_INDICATOR))
 
-    self.m_dragonTouchIndicator = MakeAnimator('res/indicator/indicator_effect_target/indicator_effect_target.vrp')
-    self.m_dragonTouchIndicator:setVisible(false)
-    self.m_dragonTouchIndicator:changeAni('idle_ally', true)
-    node:addChild(self.m_dragonTouchIndicator.m_node, 1)
-    self.m_dragonTouchIndicator.m_node:retain()
+	-- 크리스마스 트리
+	self.m_tree = MakeAnimator('res/lobby/lobby_layer_01_center_tree/lobby_layer_01_center_tree.vrp')
+	self.m_tree.m_node:setPosition(235, 145)
+	node:addChild(self.m_tree.m_node, 1)
 end
 
 -------------------------------------
@@ -145,8 +145,6 @@ function LobbyMap:onTouchEnded(touches, event)
         end
         self.m_touchTamer = nil
     end
-
-    self.m_dragonTouchIndicator:setVisible(false)
 end
 
 -------------------------------------
@@ -162,27 +160,6 @@ function LobbyMap:onTouchBegan_touchDragon()
 			return true
 		end
 	end
-
-    -- sgkim 2017-08-21 드래곤 클릭 기능 제거 (김규진과 함께 결정함)
-	-- 봇 드래곤 터치 체크
-    --for i,v in ipairs(self.m_lLobbyTamerBotOnly) do
-	--	if (self:checkDragonTouch(touch_pos, v)) then
-	--		if (self.m_touchTamer ~= v) then
-	--			self.m_touchTamer = v
-    --
-	--			-- 드래곤 터치 이펙트 출력
-	--			self.m_dragonTouchIndicator.m_node:retain()
-	--			self.m_dragonTouchIndicator.m_node:removeFromParent()
-	--			self.m_touchTamer.m_dragon.m_rootNode:addChild(self.m_dragonTouchIndicator.m_node, 5)
-	--			self.m_dragonTouchIndicator.m_node:release()
-	--			self.m_dragonTouchIndicator:setVisible(true)
-	--			self.m_dragonTouchIndicator:setPosition(0, 150)
-	--			self.m_dragonTouchIndicator:changeAni2('appear_ally', 'idle_ally', true)
-	--		end
-    --
-	--		return true
-	--	end
-    --end
 
     return false 
 end
@@ -776,12 +753,6 @@ end
 -- function clearAllUser
 -------------------------------------
 function LobbyMap:clearAllUser()
-    -- 드래곤 터치 이펙트 출력
-    self.m_dragonTouchIndicator.m_node:retain()
-    self.m_dragonTouchIndicator.m_node:removeFromParent()
-    self.m_rootNode:addChild(self.m_dragonTouchIndicator.m_node, 1)
-    self.m_dragonTouchIndicator.m_node:release()
-
     for i,v in ipairs(self.m_lLobbyTamer) do
         v:release()
     end
@@ -821,7 +792,6 @@ end
 -- function onDestroy
 -------------------------------------
 function LobbyMap:onDestroy()
-    self.m_dragonTouchIndicator.m_node:release()
     self:release_EventDispatcher()
     self:release_EventListener()
 end

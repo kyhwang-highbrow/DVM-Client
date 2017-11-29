@@ -89,7 +89,11 @@ function UI_Lobby:initSnow()
 	particle:setDockPoint(cc.p(0.5, 1))
 	self.root:addChild(particle)
 	
+	-- 밝기를 조절한다.
 	self.m_lobbyWorldAdapter.m_lobbyMap:setColorAllLayer(COLOR['light_gray'])
+	if (self.m_lobbyWorldAdapter.m_lobbyMap.m_tree) then
+		self.m_lobbyWorldAdapter.m_lobbyMap.m_tree:setColor(cc.c3b(230, 230, 230))
+	end
 end
 
 -------------------------------------
