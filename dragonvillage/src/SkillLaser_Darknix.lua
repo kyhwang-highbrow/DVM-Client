@@ -14,21 +14,40 @@ function SkillLaser_Darknix:init(file_name, body, ...)
 end
 
 -------------------------------------
--- function init_skill
--------------------------------------
-function SkillLaser_Darknix:init_skill(missile_res, hit, thickness)
-    PARENT.init_skill(self, missile_res, hit, thickness)
-
-    self.m_clearCount = 1
-end
-
--------------------------------------
 -- function initState
 -------------------------------------
 function SkillLaser_Darknix:initState()
     PARENT.initState(self)
     
+    self:addState('start', SkillLaser_Darknix.st_idle, 'idle', true)
     self:addState('disappear', SkillLaser_Darknix.st_disappear, nil, true)
+end
+
+-------------------------------------
+-- function st_idle
+-------------------------------------
+function SkillLaser_Darknix.st_idle(owner, dt)
+    if (owner.m_stateTimer == 0) then
+        owner.m_owner.m_animator:changeAni('skill_disappear', false)
+    end
+    
+    owner.m_multiHitTimer = owner.m_multiHitTimer + dt
+
+    if (owner.m_multiHitTimer >= owner.m_multiHitTime) and
+        (owner.m_clearCount < owner.m_maxClearCount - 1) then
+		owner:clearCollisionObjectList()
+        owner.m_multiHitTimer = owner.m_multiHitTimer - owner.m_multiHitTime
+        owner.m_clearCount = owner.m_clearCount + 1
+
+        owner:runAttack()
+    end
+
+    owner:refresh()
+
+    if ((not owner.m_owner) or owner.m_owner:isDead() or (owner.m_clearCount >= owner.m_maxClearCount - 1)) then
+        owner:changeState('disappear')
+        return
+    end
 end
 
 -------------------------------------
@@ -39,8 +58,6 @@ function SkillLaser_Darknix.st_disappear(owner, dt)
         local function ani_handler()
             owner:changeState('dying')
         end
-
-        owner.m_clearCount = owner.m_clearCount - 1
 
         owner.m_linkEffect:changeCommonAni('disappear', false, ani_handler)
     end

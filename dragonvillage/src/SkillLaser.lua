@@ -122,7 +122,7 @@ function SkillLaser.st_idle(owner, dt)
 
     owner:refresh()
 
-    if ((not owner.m_owner) or owner.m_owner:isDead()) or (owner.m_stateTimer >= owner.m_limitTime) then
+    if ((not owner.m_owner) or owner.m_owner:isDead() or (owner.m_clearCount >= owner.m_maxClearCount)) then
         owner:changeState('disappear')
         return
     end
