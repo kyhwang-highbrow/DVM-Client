@@ -19,6 +19,8 @@ function UI_Tooltip_Indicator:init()
     -- opacity 조절 액션도 동작하도록
     self:setOpacityChildren(true)
 
+	self:doActionReverse()
+
     --self:initUI()
     --self:initButton()
     --self:refresh()
@@ -127,8 +129,6 @@ function UI_Tooltip_Indicator:refresh()
     
 	-- 스킬 설명
     do
-        --vars['skillDscLabel']:setScale(1)
-
         local desc
         if (old_skill_info) then
             desc = old_skill_info:getSkillDesc() .. '\n' .. skill_indivisual_info:getSkillDescEnhance()
@@ -136,11 +136,6 @@ function UI_Tooltip_Indicator:refresh()
             desc = skill_indivisual_info:getSkillDesc()
         end
         vars['skillDscLabel']:setString(desc)
-
-        --ccdisplay(vars['skillDscLabel']:getTotalHeight())
-        --if (vars['skillDscLabel']:getTotalHeight() >= 110) then
-            --vars['skillDscLabel']:setScale(0.5)
-        --end
 
         local desc_mod
         if (old_skill_info) then
@@ -168,6 +163,8 @@ function UI_Tooltip_Indicator:hide()
     self.m_oldSkillInfo = nil
     
     self.vars['skillNode']:removeAllChildren()
+
+	-- 첫회에는 보이고 이후에는 안보이게 하고 싶다
     self.vars['topMenu']:setVisible(false)
 
     self:doActionReverse()

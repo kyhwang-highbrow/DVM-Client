@@ -65,8 +65,6 @@ function SkillIndicatorMgr:init(world)
     self.m_firstTouchUIPos = nil
 
     self.m_uiToolTip = UI_Tooltip_Indicator()
-    
-    self.m_uiToolTip:hide()
 end
 
 -------------------------------------
@@ -355,11 +353,12 @@ end
 -- function makeSkillToolTip
 -------------------------------------
 function SkillIndicatorMgr:makeSkillToolTip(char)
-    if (not char:getSkillIndivisualInfo('active')) then return end
+    if (not char:getSkillIndivisualInfo('active')) then 
+		return 
+	end
 
     self.m_uiToolTip:setDragon(char)
 	self.m_uiToolTip:refresh()
-
     self.m_uiToolTip:show()
 end
 
@@ -367,7 +366,10 @@ end
 -- function closeSkillToolTip
 -------------------------------------
 function SkillIndicatorMgr:closeSkillToolTip()
-	if (not self.m_uiToolTip) then return end
+	if (not self.m_uiToolTip) then 
+		return
+	end
+
 	self.m_uiToolTip:hide()
 end
 
