@@ -108,7 +108,7 @@ function ScrollMap:setDirecting(directing_type)
         -- 별도로 배경 색 전환
 		for _, map_layer in pairs(self.m_tMapLayer) do
             local value = (3 - level) * 50 + 50
-            map_layer:setColor(cc.c3b(value, value, value))
+            map_layer:setColor(cc.c3b(255, value, value))
 		end
 
 	-- [DARKNIX 보스용]

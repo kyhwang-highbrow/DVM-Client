@@ -227,13 +227,13 @@ function StatusEffectHelper:invokeStatusEffect(caster, target_char, status_effec
 
 	-- 면역 효과
 	if (self:isHarmful(status_effect_category) and target_char.m_isImmune) then 
-        target_char:makeImmuneFont(target_char.pos['x'], target_char.pos['y'], 1.5)
+        target_char:makeImmuneFont(target_char.pos['x'], target_char.pos['y'], 1)
 		return nil
 	end
 
     -- 보스의 경우 cc타입의 상태효과는 면역 처리
     if (target_char:isBoss() and t_status_effect['type'] == 'cc') then
-        target_char:makeImmuneFont(target_char.pos['x'], target_char.pos['y'], 1.5)
+        target_char:makeImmuneFont(target_char.pos['x'], target_char.pos['y'], 1)
         return nil
     end
 

@@ -136,7 +136,7 @@ function StatusCalculator:calcStatusList(char_type, cid, lv, grade, evolution, e
     end
 
     -- 직군별(방어형, 공격형, 회복형, 지원형) 보너스
-    if (IS_NEW_BALANCE_VERSION()) then
+    do
         local t_char = self.m_charTable[cid]
         if (t_char) then
             local role = t_char['role']
@@ -146,6 +146,18 @@ function StatusCalculator:calcStatusList(char_type, cid, lv, grade, evolution, e
                     if (l_status[status_name]) then
                         l_status[status_name]:setRoleStat(role_stat)
                     end
+                end
+            end
+        end
+    end
+
+    -- 몬스터의 경우 특정 스텟을 몬스터 테이블로부터 가져옴
+    if (char_type == 'monster') then
+        local t_char = self.m_charTable[cid]
+        if (t_char) then
+            for _, status_name in pairs(L_SPECIAL_STATUS_TYPE_ONLY_ADD) do
+                if (l_status[status_name] and t_char[status_name]) then
+                    l_status[status_name].m_baseStat = t_char[status_name]
                 end
             end
         end
