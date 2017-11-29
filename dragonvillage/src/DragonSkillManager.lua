@@ -168,7 +168,7 @@ function IDragonSkillManager:setSkillID(skill_type, skill_id, skill_lv, add_type
         local t_skill = GetSkillTable(self.m_charType):get(skill_id)
         local game_mode = t_skill['game_mode']
         if (game_mode and game_mode ~= '') then
-            if (game_mode ~= PLAYER_VERSUS_MODE[g_gameScene.m_gameWorld.m_gameMode]) then
+            if (game_mode == 'pvp' and PLAYER_VERSUS_MODE[g_gameScene.m_gameWorld.m_gameMode] == 'pve') then
                 return
             end
         end

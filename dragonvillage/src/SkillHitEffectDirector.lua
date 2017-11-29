@@ -36,6 +36,10 @@ function SkillHitEffectDirector:init(owner)
 
     self.m_leftNode = vars['leftNode']
     self.m_rightNode = vars['rightNode']
+
+    -- 임시
+    vars['damageLabel']:setString(Str('총 데미지'))
+    vars['damageLabel']:setTextColor(cc.c4b(255, 210, 0, 255))
     
     local scr_size = cc.Director:getInstance():getWinSize()
     self.root:setPosition(0, scr_size['height'] / 2 - 160)
