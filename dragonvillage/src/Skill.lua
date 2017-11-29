@@ -153,7 +153,7 @@ function Skill:initEventListener()
 	self:addListener(CON_SKILL_HIT, self)
 	self:addListener(CON_SKILL_END, self)
 
-    -- 공격 스킬의 경우에서만 특정 이벤트 추가
+    -- 특정 이벤트 추가
     local l_target = self.m_owner:getTargetListByType(self.m_targetType, nil, nil)
     for _, target in pairs(l_target) do
         if (target.m_bLeftFormation ~= self.m_owner.m_bLeftFormation) then
@@ -162,6 +162,9 @@ function Skill:initEventListener()
 
             -- 총 데미지를 계산하기 위함
             target:addListener('under_atk', self)
+        else
+            -- 총 힐량을 계산하기 위함
+            target:addListener('character_recovery', self)
         end
     end
     
@@ -396,11 +399,28 @@ function Skill:onEvent(event_name, t_event, ...)
                 -- 총 데미지를 저장
                 self.m_totalDamage = self.m_totalDamage + t_event['damage']
 
+                -- 연출
+                self:doWorkHitDirector(table.count(self.m_hitTargetList), self.m_totalDamage)
+
                 -- 피격자의 이벤트 dispatch에서 타격 카운트를 추가하기 위해 activityCarrier에 저장
                 local hit_count = self.m_activityCarrier:getParam('hit_count') or 0
                 hit_count = hit_count + 1
                 self.m_activityCarrier:setParam('hit_count', hit_count)
             end
+        end
+    elseif (event_name == 'character_recovery') then
+        if (t_event) then
+            cclog('character_recovery skill id = ' .. t_event['skill_id'])
+
+            if (self.m_skillId == t_event['skill_id'] and self.m_owner == t_event['attacker']) then
+                -- 총 회복량을 저장
+                self.m_totalHeal = self.m_totalHeal + t_event['heal']
+
+                -- 연출
+                self:doWorkHitDirector(table.count(self.m_hitTargetList), self.m_totalHeal, true)
+            end
+        else
+            cclog('no t_event')
         end
     else
         self:doStatusEffect(event_name, t_event['l_target'])
@@ -494,7 +514,7 @@ function Skill:heal(target_char, b_make_effect)
     local heal = HealCalc_M(atk_dmg) * self.m_activityCarrier:getPowerRate() / 100
     local is_critical = self.m_activityCarrier:getCritical() 
 
-    target_char:healAbs(self.m_owner, heal, make_effect)
+    target_char:healAbs(self.m_owner, heal, make_effect, false, self.m_skillId)
 
     self:onHeal(target_char)
 end
@@ -524,9 +544,6 @@ function Skill:onAttack(target_char, target_collision)
 
     local hit_target_count = table.count(self.m_hitTargetList)
 
-    -- 연출
-    self:doWorkHitDirector(hit_target_count, self.m_totalDamage)
-	
     -- 화면 쉐이킹
     if (self.m_chanceType == 'active') then
         self.m_world.m_shakeMgr:doShake(50, 50, 1)
@@ -564,7 +581,7 @@ function Skill:onHeal(target_char)
 
     local hit_target_count = table.count(self.m_hitTargetList)
 
-	-- 힐 사운드
+    -- 힐 사운드
 	if (self.m_owner:isDragon()) then
 		SoundMgr:playEffect('SFX', 'sfx_heal')
 	end
@@ -584,9 +601,9 @@ end
 -------------------------------------
 -- function doWorkHitDirector
 -------------------------------------
-function Skill:doWorkHitDirector(total_hit, total_damage)
+function Skill:doWorkHitDirector(total_hit, total_damage, is_heal)
 	if (self.m_skillHitEffctDirector) then 
-		self.m_skillHitEffctDirector:doWork(total_hit, total_damage)
+		self.m_skillHitEffctDirector:doWork(total_hit, total_damage, is_heal)
 	end
 end
 

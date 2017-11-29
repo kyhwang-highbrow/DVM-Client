@@ -37,10 +37,6 @@ function SkillHitEffectDirector:init(owner)
     self.m_leftNode = vars['leftNode']
     self.m_rightNode = vars['rightNode']
 
-    -- 임시
-    vars['damageLabel']:setString(Str('총 데미지'))
-    vars['damageLabel']:setTextColor(cc.c4b(255, 210, 0, 255))
-    
     local scr_size = cc.Director:getInstance():getWinSize()
     self.root:setPosition(0, scr_size['height'] / 2 - 160)
     g_gameScene.m_viewLayer:addChild(self.root)
@@ -54,7 +50,7 @@ end
 -------------------------------------
 -- function doWork
 -------------------------------------
-function SkillHitEffectDirector:doWork(count, damage)
+function SkillHitEffectDirector:doWork(count, damage, is_heal)
     if self.m_bEndSkill and self.m_bEndAction then
         return
     end
@@ -109,7 +105,11 @@ function SkillHitEffectDirector:doWork(count, damage)
         label:runAction(cc.ScaleTo:create(0.15, scale))
     end
 
-    do -- 데미지 라벨 생성
+    if (not is_heal) then
+        -- 데미지 라벨 생성
+        vars['damageLabel']:setString(Str('총 데미지'))
+        vars['damageLabel']:setTextColor(cc.c4b(255, 210, 0, 255))
+
         if (vars['damageNumberLabel']) then
             vars['damageNumberLabel']:removeFromParent(true)
             vars['damageNumberLabel'] = nil
@@ -117,6 +117,25 @@ function SkillHitEffectDirector:doWork(count, damage)
 
         local scale = 1
         local label = self:makeDamageNumber(tostring(damage), cc.c3b(255, 210, 0), scale)
+        label:setDockPoint(cc.p(1, 0.5))
+        label:setAnchorPoint(cc.p(1, 0.5))
+
+        vars['damageNode']:addChild(label)
+        vars['damageNumberLabel'] = label
+
+        label:setScale(scale * 1.5)
+        label:runAction(cc.ScaleTo:create(0.15, scale))
+    else
+        vars['damageLabel']:setString(Str('총 회복'))
+        vars['damageLabel']:setTextColor(cc.c4b(151, 255, 81, 255))
+
+        if (vars['damageNumberLabel']) then
+            vars['damageNumberLabel']:removeFromParent(true)
+            vars['damageNumberLabel'] = nil
+        end
+
+        local scale = 1
+        local label = self:makeDamageNumber(tostring(damage), cc.c3b(151, 255, 81), scale)
         label:setDockPoint(cc.p(1, 0.5))
         label:setAnchorPoint(cc.p(1, 0.5))
 

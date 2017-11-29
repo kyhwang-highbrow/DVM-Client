@@ -1479,7 +1479,7 @@ end
 -------------------------------------
 -- function healAbs
 -------------------------------------
-function Character:healAbs(caster, heal, b_make_effect, bFixed)
+function Character:healAbs(caster, heal, b_make_effect, bFixed, skill_id)
     local heal = math_floor(heal)
     local is_critical = false
 
@@ -1539,9 +1539,20 @@ function Character:healAbs(caster, heal, b_make_effect, bFixed)
         local effect = self.m_world:addInstantEffect(res, 'idle', pos_x, pos_y)
     end
 
-    if (caster) then
-        -- 회복 되었을 시 이벤트
-        self:dispatch('character_recovery', {}, self)
+    -- 회복 되었을 시 이벤트
+    do
+        -- Event Carrier 세팅
+	    local t_event = clone(EVENT_HEAL_CARRIER)
+        t_event['skill_id'] = skill_id
+	    t_event['heal'] = heal
+	    t_event['attacker'] = caster
+	    t_event['defender'] = self
+	    t_event['is_critical'] = is_critical
+        t_event['i_x'] = i_x
+        t_event['i_y'] = i_y
+        t_event['left_formation'] = self.m_bLeftFormation
+
+        self:dispatch('character_recovery', t_event, self)
     end
 
 	-- @LOG_CHAR : 피회복자 피회복량

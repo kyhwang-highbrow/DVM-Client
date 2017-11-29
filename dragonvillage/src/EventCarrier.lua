@@ -19,6 +19,18 @@ EVENT_HIT_CARRIER['i_x'] = 0
 EVENT_HIT_CARRIER['i_y'] = 0
 
 ------------------------------
+-- event heal
+-- @brief healAbs 관련 이벤트에서 사용
+------------------------------
+EVENT_HEAL_CARRIER = clone(EVENT_CARRIER)
+EVENT_HEAL_CARRIER['heal'] = 0
+EVENT_HEAL_CARRIER['is_critical'] = false
+EVENT_HEAL_CARRIER['attacker'] = ''
+EVENT_HEAL_CARRIER['defender'] = ''
+EVENT_HEAL_CARRIER['i_x'] = 0
+EVENT_HEAL_CARRIER['i_y'] = 0
+
+------------------------------
 -- event change hp
 -- @brief hp 변동
 ------------------------------
