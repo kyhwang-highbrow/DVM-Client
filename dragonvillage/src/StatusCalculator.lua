@@ -228,15 +228,6 @@ function StatusCalculator:makePrettyPercentage(key)
 		
 	end
 
-	if (IS_TEST_MODE()) then
-		cclog('================================')
-		cclog(' key : ' .. key)
-		cclog(' src : ' .. src)
-		cclog(' half : ' .. half)
-		cclog(' max : ' .. max)
-		cclog(string.format(' percnet : %d%%', percent * 100))
-	end
-
 	return percent
 end
 
