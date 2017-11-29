@@ -357,8 +357,6 @@ local MAP_HEIGHT = 1600
 
         if sequence then
             self.m_rootNode:runAction(cc.RepeatForever:create(sequence))
-	    else
-		    cclog('잘못된 배경 연출 타입입니다. ' .. type)
         end
     end
 
