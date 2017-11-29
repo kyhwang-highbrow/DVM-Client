@@ -262,12 +262,12 @@ end
 function SkillHelper:makePassiveSkillSpeech(dragon, str)
     local animatorWindow = MakeAnimator('res/ui/a2d/ingame_dragon_skill/ingame_dragon_skill.vrp')
     animatorWindow:setVisual('skill_gauge', 'bubble')
-    animatorWindow:setTimeScale(0.5)
+    --animatorWindow:setTimeScale(0.5)
     animatorWindow:setRepeat(false)
     animatorWindow:setPosition(0, 50)
     dragon:getDragonSpeechNode():addChild(animatorWindow.m_node, 10)
 
-    local duration = animatorWindow:getDuration() * 2
+    local duration = animatorWindow:getDuration()
     animatorWindow:runAction(cc.Sequence:create(cc.DelayTime:create(duration), cc.RemoveSelf:create()))
 
     -- 대사
