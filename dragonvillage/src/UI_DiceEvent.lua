@@ -268,12 +268,29 @@ function UI_DiceEvent:click_diceBtn()
         return
     end
 
+	-- 추가 주사위 사용하는 경우 골드 검사
+	if (not use_add_all) and (curr_dice == 0) then
+		local curr_gold = g_userData:get('gold')
+		if (curr_gold <= 100000) then
+			UIManager:toastNotificationRed(Str('골드가 부족합니다'))
+			return
+		end
+	end
+
     -- 연출을 코루틴으로 해봅니다.
     local function coroutine_function(dt)
         local co = CoroutineHelper()
         self.m_coroutineHelper = co
 
-        -- 터치 블럭
+		-- 코루틴 종료 콜백
+		local function close_cb()
+			self.m_coroutineHelper = nil
+			-- 백키 블럭 해제
+            UIManager:blockBackKey(false)
+		end
+		co:setCloseCB(close_cb)
+
+        -- 백키 블럭
         UIManager:blockBackKey(true)
 
         -- 서버와 통신
@@ -338,9 +355,6 @@ function UI_DiceEvent:click_diceBtn()
             UI_ToastPopup(toast_msg)
 
             self:refresh()
-        
-            -- 터치 블럭 해제
-            UIManager:blockBackKey(false)
                 
             self.m_selectAnimator:changeAni('arrival')
             self.m_selectAnimator:addAniHandler(function()
@@ -350,7 +364,6 @@ function UI_DiceEvent:click_diceBtn()
         end
 
         -- 끝
-        self.m_coroutineHelper = nil
         co:close()
     end
 
