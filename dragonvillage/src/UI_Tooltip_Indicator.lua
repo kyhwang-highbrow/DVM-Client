@@ -44,7 +44,6 @@ function UI_Tooltip_Indicator:init_data(char)
         
     else
         vars['tamerMenu']:setVisible(false)
-        vars['topMenu']:setVisible(true)
         vars['bottomMenu']:setVisible(true)
 
         self.m_titleLabel = vars['titleLabel']
