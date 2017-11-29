@@ -115,16 +115,6 @@ function UI_RecommendedDragonInfoPopup:refresh(mode_id, dungeon_lv)
 	self.m_modeID = mode_id or self.m_modeID
 	self.m_dungeonLV = dungeon_lv or self.m_dungeonLV
 
-    -- 던전 모드 별 최대 레벨 계산하여 조정
-    local t_dungeon_info = g_nestDungeonData:parseNestDungeonID(self.m_modeID)
-    local dungeon_mode = t_dungeon_info['dungeon_mode']
-    if (dungeon_mode ~= NEST_DUNGEON_NIGHTMARE) then
-        if (self.m_dungeonLV > 6) then
-            self.m_dungeonLV = 6
-            self.m_uicSortList:setSelectSortType(self.m_dungeonLV, true)
-        end
-    end
-
 	-- dungeonTable update
 	if (mode_id) then
 		for i, v in pairs(self.m_tableViewDungeon.m_itemList) do
