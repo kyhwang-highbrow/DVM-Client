@@ -12,8 +12,8 @@ L_BASIC_STATUS_TYPE = {
         'avoid',        -- 회피
     }
 
-L_SPECIAL_STATUS_TYPE = {
-    'dmg_adj_rate', -- 데미지 조정 계수
+L_SPECIAL_STATUS_TYPE_ONLY_ADD = {
+    'dmg_adj_rate', -- 받는 데미지 조정 계수
 	'attr_adj_rate',-- 속성 조정 계수
     'atk_dmg_adj_rate',-- 공격 데미지 조정 계수
     'cri_dmg_adj_rate',-- 치명시 데미지 조정 계수
@@ -37,19 +37,25 @@ L_SPECIAL_STATUS_TYPE = {
     'pierce',           -- 방어력 관통 +{1}% 만큼 적의 방어력의 옵션 수치 %를 삭감.
 }
 
+L_SPECIAL_STATUS_TYPE_ONLY_MULTI = {
+    'final_dmg_rate',   -- 최종 피해량(기본 값 1)
+}
+
 -- 스텟 타입 체크를 위한 맵 생성
-M_SPECIAL_STATUS_TYPE = {
+M_SPECIAL_STATUS_TYPE_ONLY_ADD = {
     cri_chance = true,
     cri_dmg = true,
     cri_avoid = true,
     hit_rate = true,
     avoid = true
 }
-for i, v in ipairs(L_SPECIAL_STATUS_TYPE) do
-    M_SPECIAL_STATUS_TYPE[v] = true
+
+for i, v in ipairs(L_SPECIAL_STATUS_TYPE_ONLY_ADD) do
+    M_SPECIAL_STATUS_TYPE_ONLY_ADD[v] = true
 end
 
-L_STATUS_TYPE = table.merge(L_BASIC_STATUS_TYPE, L_SPECIAL_STATUS_TYPE)
+L_STATUS_TYPE = table.merge(L_BASIC_STATUS_TYPE, L_SPECIAL_STATUS_TYPE_ONLY_ADD)
+L_STATUS_TYPE = table.merge(L_STATUS_TYPE, L_SPECIAL_STATUS_TYPE_ONLY_MULTI)
 
 -------------------------------------
 -- class StatusCalculator
@@ -119,6 +125,15 @@ function StatusCalculator:calcStatusList(char_type, cid, lv, grade, evolution, e
         end
     end
 
+    -- 곱연산만 가능한 능력치의 기본값을 1로 설정
+    for _,status_name in pairs(L_SPECIAL_STATUS_TYPE_ONLY_MULTI) do
+        if (not l_status[status_name]) then
+            l_status[status_name] = StructIndividualStatus(status_name)
+        end
+
+        l_status[status_name].m_baseStat = 1
+    end
+
     -- 직군별(방어형, 공격형, 회복형, 지원형) 보너스
     if (IS_NEW_BALANCE_VERSION()) then
         local t_char = self.m_charTable[cid]
@@ -186,11 +201,11 @@ function StatusCalculator:getFinalStat(stat_type)
     -- 공속(aspd)값은 최소값을 50으로 고정
     if (stat_type == 'aspd') then
         final_stat = math_max(final_stat, 50)
-    elseif (IS_NEW_BALANCE_VERSION() and stat_type == 'dmg_adj_rate') then
+    elseif (stat_type == 'dmg_adj_rate') then
         final_stat = math_max(final_stat, -80)
 
     -- 특정 타입의 스텟들은 제외한 나머지는 최소값을 0으로 처리
-    elseif (not M_SPECIAL_STATUS_TYPE[stat_type]) then
+    elseif (not M_SPECIAL_STATUS_TYPE_ONLY_ADD[stat_type]) then
         final_stat = math_max(final_stat, 0)
     end
 
@@ -227,6 +242,17 @@ function StatusCalculator:makePrettyPercentage(key)
 		percent = 0.5 + (0.5 * (((src - half) / (max - half))))
 		
 	end
+
+    --[[
+	if (IS_TEST_MODE()) then
+		cclog('================================')
+		cclog(' key : ' .. key)
+		cclog(' src : ' .. src)
+		cclog(' half : ' .. half)
+		cclog(' max : ' .. max)
+		cclog(string.format(' percnet : %d%%', percent * 100))
+	end
+    ]]--
 
 	return percent
 end
@@ -386,7 +412,12 @@ function StatusCalculator:addPassiveAdd(stat_type, value)
         error('stat_type : ' .. stat_type)
     end
 
-    indivisual_status:addPassiveAdd(value)
+    -- 특정 타입의 스텟들은 무조건 곱연산
+    if (L_SPECIAL_STATUS_TYPE_ONLY_MULTI[stat_type]) then
+        indivisual_status:addPassiveMulti(value)
+    else
+        indivisual_status:addPassiveAdd(value)
+    end
 end
 
 -------------------------------------
@@ -400,7 +431,7 @@ function StatusCalculator:addPassiveMulti(stat_type, value)
     end
 
     -- 특정 타입의 스텟들은 무조건 합연산
-    if (M_SPECIAL_STATUS_TYPE[stat_type]) then
+    if (M_SPECIAL_STATUS_TYPE_ONLY_ADD[stat_type]) then
         indivisual_status:addPassiveAdd(value)
     else
         indivisual_status:addPassiveMulti(value)
@@ -417,7 +448,12 @@ function StatusCalculator:addFormationAdd(stat_type, value)
         error('stat_type : ' .. stat_type)
     end
 
-    indivisual_status:addFormationAdd(value)
+    -- 특정 타입의 스텟들은 무조건 곱연산
+    if (L_SPECIAL_STATUS_TYPE_ONLY_MULTI[stat_type]) then
+        indivisual_status:addFormationMulti(value)
+    else
+        indivisual_status:addFormationAdd(value)
+    end
 end
 
 -------------------------------------
@@ -431,7 +467,7 @@ function StatusCalculator:addFormationMulti(stat_type, value)
     end
 
     -- 특정 타입의 스텟들은 무조건 합연산
-    if (M_SPECIAL_STATUS_TYPE[stat_type]) then
+    if (M_SPECIAL_STATUS_TYPE_ONLY_ADD[stat_type]) then
         indivisual_status:addFormationAdd(value)
     else
         indivisual_status:addFormationMulti(value)
@@ -448,7 +484,12 @@ function StatusCalculator:addStageAdd(stat_type, value)
         error('stat_type : ' .. stat_type)
     end
 
-    indivisual_status:addStageAdd(value)
+    -- 특정 타입의 스텟들은 무조건 곱연산
+    if (L_SPECIAL_STATUS_TYPE_ONLY_MULTI[stat_type]) then
+        indivisual_status:addStageMulti(value)
+    else
+        indivisual_status:addStageAdd(value)
+    end
 end
 
 -------------------------------------
@@ -462,7 +503,7 @@ function StatusCalculator:addStageMulti(stat_type, value)
     end
 
     -- 특정 타입의 스텟들은 무조건 합연산
-    if (M_SPECIAL_STATUS_TYPE[stat_type]) then
+    if (M_SPECIAL_STATUS_TYPE_ONLY_ADD[stat_type]) then
         indivisual_status:addStageAdd(value)
     else
         indivisual_status:addStageMulti(value)
@@ -479,7 +520,12 @@ function StatusCalculator:addBuffAdd(stat_type, value)
         error('stat_type : ' .. stat_type)
     end
 
-    indivisual_status:addBuffAdd(value)
+    -- 특정 타입의 스텟들은 무조건 곱연산
+    if (L_SPECIAL_STATUS_TYPE_ONLY_MULTI[stat_type]) then
+        indivisual_status:addBuffMulti(value)
+    else
+        indivisual_status:addBuffAdd(value)
+    end
 end
 
 -------------------------------------
@@ -493,7 +539,7 @@ function StatusCalculator:addBuffMulti(stat_type, value)
     end
 
     -- 특정 타입의 스텟들은 무조건 합연산
-    if (M_SPECIAL_STATUS_TYPE[stat_type]) then
+    if (M_SPECIAL_STATUS_TYPE_ONLY_ADD[stat_type]) then
         indivisual_status:addBuffAdd(value)
     else
         indivisual_status:addBuffMulti(value)

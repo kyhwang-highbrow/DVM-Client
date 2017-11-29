@@ -55,8 +55,11 @@ GameState = class(PARENT, {
         m_bossNode = '',
 
         -- 전투 시간에 따른 버프 정보
+        m_bEnableByFightTime = 'boolean',
         m_tBuffInfoByFightTime = 'table',
         m_nextBuffTime = 'number',
+        m_buffCount = 'number',
+        m_maxBuffCount = 'number',
     })
 
 -------------------------------------
@@ -75,6 +78,7 @@ function GameState:init(world)
     self.m_nAppearedEnemys = 0
 
 	self.m_bgmBoss = 'bgm_dungeon_boss'
+    self.m_bEnableByFightTime = false
 
     self:initUI()
     self:initBuffByFightTime()
@@ -142,7 +146,9 @@ function GameState:initBuffByFightTime()
     self.m_tBuffInfoByFightTime = {}
 
     local t_constant = g_constant:get('INGAME', 'FIGHT_BY_TIME_BUFF')
-    if (not t_constant['ENABLE']) then return end
+    self.m_bEnableByFightTime = t_constant['ENABLE'] or false
+
+    if (not self.m_bEnableByFightTime) then return end
 
     local game_mode = self.m_world.m_gameMode
     local str_game_mode = IN_GAME_MODE[game_mode]
@@ -151,7 +157,8 @@ function GameState:initBuffByFightTime()
     if (not t_info) then return end
     
     self.m_tBuffInfoByFightTime['start_time'] = t_info['START_TIME'] or 3
-    self.m_tBuffInfoByFightTime['interval_time'] = t_info['INTERVAL_TIME'] or 1
+    self.m_tBuffInfoByFightTime['random_time'] = t_info['RANDOM_TIME'] or 0
+    self.m_tBuffInfoByFightTime['interval_time'] = t_info['INTERVAL_TIME']
     self.m_tBuffInfoByFightTime['cur_buff'] = {}   -- 현재까지 부여된 버프 정보
     self.m_tBuffInfoByFightTime['add_buff'] = {}   -- 시간마다 부여될 버프 정보
 
@@ -166,6 +173,17 @@ function GameState:initBuffByFightTime()
     end
 
     self.m_nextBuffTime = self.m_tBuffInfoByFightTime['start_time']
+
+    -- 랜덤 시간 적용
+    local random_time = self.m_tBuffInfoByFightTime['random_time']
+    if (random_time > 0) then
+        local random = math_random(1, random_time)
+        self.m_nextBuffTime = self.m_nextBuffTime + (random - random_time / 2)
+        self.m_nextBuffTime = math_max(self.m_nextBuffTime, 0)
+    end
+
+    self.m_buffCount = 0
+    self.m_maxBuffCount = t_info['REPEAT_COUNT'] or 9999
 
     --cclog('self.m_tBuffInfoByFightTime = ' .. luadump(self.m_tBuffInfoByFightTime))
 end
@@ -343,10 +361,13 @@ function GameState.update_fight(self, dt)
         end
     end
 
-    do -- 전투 시간에 따른 버프
-        if (self.m_nextBuffTime and self.m_fightTimer > self.m_nextBuffTime) then
-            self:applyBuffByFightTime()
-            UIManager:toastNotificationRed(Str('공격력이 증가하고 방어력이 감소됩니다.'))
+    -- 전투 시간에 따른 버프
+    if (self.m_bEnableByFightTime) then
+        if (self.m_buffCount < self.m_maxBuffCount) then
+            if (self.m_nextBuffTime and self.m_fightTimer > self.m_nextBuffTime) then
+                self:applyBuffByFightTime()
+                UIManager:toastNotificationRed(Str('공격력이 증가하고 방어력이 감소됩니다.'))
+            end
         end
     end
 
@@ -1326,9 +1347,31 @@ function GameState:applyBuffByFightTime()
             cur_buff[type] = cur_buff[type] + value
         end
     end
+    self.m_buffCount = self.m_buffCount + 1
 
+    -- 연출
+    do
+        local level = math_clamp(self.m_buffCount, 1, 3)
+        world.m_mapManager.m_node:stopAllActions()
+        world.m_mapManager:setDirecting('darknix_shaky' .. level)
+    end
+    
     -- 다음 버프 적용 시간 계산
-    self.m_nextBuffTime = self.m_nextBuffTime + self.m_tBuffInfoByFightTime['interval_time']
+    local start_time = self.m_tBuffInfoByFightTime['start_time']
+    local random_time = self.m_tBuffInfoByFightTime['random_time']
+    local interval_time = self.m_tBuffInfoByFightTime['interval_time']
+
+    if (interval_time) then
+        self.m_nextBuffTime = start_time + interval_time * self.m_buffCount
+
+        if (random_time > 0) then
+            local random = math_random(1, random_time)
+            self.m_nextBuffTime = self.m_nextBuffTime + (random - random_time / 2)
+            self.m_nextBuffTime = math_max(self.m_nextBuffTime, 0)
+        end
+    else
+        self.m_nextBuffTime = nil
+    end
 end
 
 

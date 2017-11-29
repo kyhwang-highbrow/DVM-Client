@@ -44,7 +44,8 @@ function GameState_NestDungeon:initBuffByFightTime()
     if (not t_info) then return end
 
     self.m_tBuffInfoByFightTime['start_time'] = t_info['START_TIME'] or 3
-    self.m_tBuffInfoByFightTime['interval_time'] = t_info['INTERVAL_TIME'] or 1
+    self.m_tBuffInfoByFightTime['random_time'] = t_info['RANDOM_TIME'] or 0
+    self.m_tBuffInfoByFightTime['interval_time'] = t_info['INTERVAL_TIME']
     self.m_tBuffInfoByFightTime['cur_buff'] = {}   -- 현재까지 부여된 버프 정보
     self.m_tBuffInfoByFightTime['add_buff'] = {}   -- 시간마다 부여될 버프 정보
 
@@ -59,6 +60,17 @@ function GameState_NestDungeon:initBuffByFightTime()
     end
 
     self.m_nextBuffTime = self.m_tBuffInfoByFightTime['start_time']
+    
+    -- 랜덤 시간 적용
+    local random_time = self.m_tBuffInfoByFightTime['random_time']
+    if (random_time > 0) then
+        local random = math_random(1, random_time)
+        self.m_nextBuffTime = self.m_nextBuffTime + (random - random_time / 2)
+        self.m_nextBuffTime = math_max(self.m_nextBuffTime, 0)
+    end
+
+    self.m_buffCount = 0
+    self.m_maxBuffCount = t_info['REPEAT_COUNT'] or 9999
 
     --cclog('self.m_tBuffInfoByFightTime = ' .. luadump(self.m_tBuffInfoByFightTime))
 end

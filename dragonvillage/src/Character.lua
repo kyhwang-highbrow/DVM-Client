@@ -712,6 +712,7 @@ function Character:undergoAttack(attacker, defender, i_x, i_y, body_key, no_even
         local atk_dmg_adj_rate = 0
         local cri_dmg_adj_rate = 0
         local se_dmg_adj_rate = 0
+        local final_dmg_rate = 0
 
         if (IS_NEW_BALANCE_VERSION()) then
             -- 방어자 능력치
@@ -766,6 +767,13 @@ function Character:undergoAttack(attacker, defender, i_x, i_y, body_key, no_even
 
                 local rate = math_max(se_dmg_adj_rate, -1)
                 damage_multifly = damage_multifly * (1 + rate)
+            end
+
+            -- 최종 피해량 증가
+            do
+                final_dmg_rate = attack_activity_carrier:getStat('final_dmg_rate') or 1
+
+                damage_multifly = damage_multifly * final_dmg_rate
             end
 
             -- 피해 반사에 따른 받는 피해 감소

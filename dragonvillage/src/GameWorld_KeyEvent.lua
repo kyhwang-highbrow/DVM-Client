@@ -467,5 +467,7 @@ end
 -- function auto_info
 -------------------------------------
 function GameWorld:auto_info()
-    self.m_gameAutoEnemy:printInfo()
+    --self.m_gameAutoEnemy:printInfo()
+    applicationDidEnterBackground()
+    applicationWillEnterForeground()
 end
