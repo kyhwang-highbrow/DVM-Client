@@ -697,9 +697,9 @@ function GameWorld:makePassiveStartEffect(char, str_map)
         label:setPositionY((i-1) * 30)
 
         if (category == 'good') then
-            label:setTextColor(cc.c4b(255, 0, 0, 255))
+            label:setTextColor(cc.c4b(120, 209, 255, 255))
         elseif (category == 'bad') then
-            label:setTextColor(cc.c4b(0, 0, 255, 255))
+            label:setTextColor(cc.c4b(255, 138, 138, 255))
         end
 
         i = i + 1
