@@ -291,20 +291,20 @@ function StructDragonObject:getCombatPower()
         end
 
         -- 패시브 1
-        if (self['skill_1'] > 0) then
+        if (self['skill_1'] and self['skill_1'] > 0) then
             local lv = self['skill_1']
             combat_power = combat_power + table['PASSIVE1'][modified_rarity] + table['PASSIVE1_ADD'][modified_rarity] * (lv - 1)
         end
 
         -- 패시브 2
-        if (self['skill_2'] > 0) then
+        if (self['skill_2'] and self['skill_2'] > 0) then
             local lv = self['skill_2']
             combat_power = combat_power + table['PASSIVE2'][modified_rarity] + table['PASSIVE2_ADD'][modified_rarity] * (lv - 1)
         end
 
         -- 패시브 3
         if (t_dragon['skill_3_type'] == 'new' and t_dragon['skill_3'] ~= t_dragon['skill_leader']) then
-            if (self['skill_3'] > 0) then
+            if (self['skill_3'] and self['skill_3'] > 0) then
                 local lv = self['skill_3']
                 combat_power = combat_power + table['PASSIVE2'][modified_rarity] + table['PASSIVE2_ADD'][modified_rarity] * (lv - 1)
             end
