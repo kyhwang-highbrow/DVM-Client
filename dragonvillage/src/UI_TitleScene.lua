@@ -457,7 +457,7 @@ function UI_TitleScene:workCheckUserID()
 
     -- 2017년 11월 24일 밸런스패치 테스트를 위해 개발 서버 조건 임시 추가
     local target_server = CppFunctions:getTargetServer()
-    if isWin32() or (target_server == 'DEV') then
+    if isWin32() or (target_server == 'DEV') or (target_server == 'QA') then
         local uid = g_localData:get('local', 'uid')
         if uid then
             self:doNextWork()
