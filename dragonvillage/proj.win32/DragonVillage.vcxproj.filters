@@ -2952,6 +2952,9 @@
     <None Include="..\src\StatusEffect_Immune.lua">
       <Filter>lua\src</Filter>
     </None>
+    <None Include="..\src\UI_NightmareStageListItem.lua">
+      <Filter>lua\UI</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Classes">

@@ -160,10 +160,19 @@ function UI_NestDungeonScene:makeNestModeTableView()
         return true
     end
 
+    local t_dungeon_id_info = g_nestDungeonData:parseNestDungeonID(nest_dungeon_id)
+    local dungeon_mode = t_dungeon_id_info['dungeon_mode']
+
+
     -- 테이블 뷰 인스턴스 생성
     local table_view = UIC_TableView(node)
     table_view.m_defaultCellSize = cc.size(886, 120 + 10)
-    table_view:setCellUIClass(UI_NestDungeonStageListItem, create_func)
+
+    if (dungeon_mode == NEST_DUNGEON_NIGHTMARE) then
+        table_view:setCellUIClass(UI_NightmareStageListItem, create_func)
+    else
+        table_view:setCellUIClass(UI_NestDungeonStageListItem, create_func)
+    end    
     table_view:setDirection(cc.SCROLLVIEW_DIRECTION_VERTICAL)
     table_view:setItemList(stage_list)
 
