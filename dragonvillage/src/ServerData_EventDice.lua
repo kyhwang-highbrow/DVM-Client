@@ -176,7 +176,7 @@ function ServerData_EventDice:request_diceRoll(finish_cb)
     -- 콜백
     local function success_cb(ret)
         self.m_diceInfo:apply(ret['dice_info'])
-
+		g_serverData:networkCommonRespone(ret)
         if finish_cb then
             finish_cb(ret)
         end
