@@ -100,6 +100,7 @@ end
 -- @brief 스테이지 권장 전투력
 -------------------------------------
 function TableStageData:getRecommendedCombatPower(stage_id, game_mode)
+    --[[
     local wave_mgr
 
     if (game_mode == GAME_MODE_SECRET_DUNGEON) then
@@ -144,4 +145,9 @@ function TableStageData:getRecommendedCombatPower(stage_id, game_mode)
     combat_power = combat_power * 5
     
     return math_floor(combat_power)
+    ]]--
+    local level = self:getValue(stage_id, 'level')
+    local combat_power = 197 * level
+
+    return combat_power
 end

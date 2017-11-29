@@ -47,7 +47,8 @@ Skill = class(PARENT, {
         m_attackPosOffsetX = 'number',
         m_attackPosOffsetY = 'number',
 
-        -- 총 데미지
+        -- 스킬 진행 정보
+        m_totalHit = 'number',
         m_totalDamage = 'number',
         m_totalHeal = 'number',
 
@@ -72,6 +73,7 @@ Skill = class(PARENT, {
 -- @param body
 -------------------------------------
 function Skill:init(file_name, body, ...)
+    self.m_totalHit = 0
     self.m_totalDamage = 0
     self.m_totalHeal = 0
 
@@ -394,13 +396,14 @@ function Skill:onEvent(event_name, t_event, ...)
         end
 
     elseif (event_name == 'under_atk') then
-        if (t_event) then
+        if (t_event['skill_id']) then
             if (self.m_skillId == t_event['skill_id'] and self.m_owner == t_event['attacker']) then
-                -- 총 데미지를 저장
+                
+                self.m_totalHit = self.m_totalHit + 1
                 self.m_totalDamage = self.m_totalDamage + t_event['damage']
 
                 -- 연출
-                self:doWorkHitDirector(table.count(self.m_hitTargetList), self.m_totalDamage)
+                self:doWorkHitDirector(self.m_totalHit, self.m_totalDamage)
 
                 -- 피격자의 이벤트 dispatch에서 타격 카운트를 추가하기 위해 activityCarrier에 저장
                 local hit_count = self.m_activityCarrier:getParam('hit_count') or 0
@@ -409,18 +412,21 @@ function Skill:onEvent(event_name, t_event, ...)
             end
         end
     elseif (event_name == 'character_recovery') then
-        if (t_event) then
-            cclog('character_recovery skill id = ' .. t_event['skill_id'])
-
+        if (t_event['skill_id']) then
             if (self.m_skillId == t_event['skill_id'] and self.m_owner == t_event['attacker']) then
-                -- 총 회복량을 저장
+
+                self.m_totalHit = self.m_totalHit + 1
                 self.m_totalHeal = self.m_totalHeal + t_event['heal']
 
                 -- 연출
-                self:doWorkHitDirector(table.count(self.m_hitTargetList), self.m_totalHeal, true)
+                self:doWorkHitDirector(self.m_totalHit, self.m_totalHeal, true)
+
+                
+                -- 피격자의 이벤트 dispatch에서 타격 카운트를 추가하기 위해 activityCarrier에 저장
+                local hit_count = self.m_activityCarrier:getParam('hit_count') or 0
+                hit_count = hit_count + 1
+                self.m_activityCarrier:setParam('hit_count', hit_count)
             end
-        else
-            cclog('no t_event')
         end
     else
         self:doStatusEffect(event_name, t_event['l_target'])

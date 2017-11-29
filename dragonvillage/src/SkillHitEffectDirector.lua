@@ -51,7 +51,7 @@ end
 -- function doWork
 -------------------------------------
 function SkillHitEffectDirector:doWork(count, damage, is_heal)
-    if self.m_bEndSkill and self.m_bEndAction then
+    if (self.m_bEndSkill and self.m_bEndAction) then
         return
     end
 
