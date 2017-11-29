@@ -51,6 +51,8 @@ M_SPECIAL_STATUS_TYPE_ONLY_ADD = {
     avoid = true
 }
 
+M_SPECIAL_STATUS_TYPE_ONLY_MULTI = {}
+
 for i, v in ipairs(L_SPECIAL_STATUS_TYPE_ONLY_ADD) do
     M_SPECIAL_STATUS_TYPE_ONLY_ADD[v] = true
 end
