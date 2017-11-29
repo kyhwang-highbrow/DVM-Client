@@ -110,9 +110,9 @@ function SkillHitEffectDirector:doWork(count, damage)
     end
 
     do -- 데미지 라벨 생성
-        if (vars['damageLabel']) then
-            vars['damageLabel']:removeFromParent(true)
-            vars['damageLabel'] = nil
+        if (vars['damageNumberLabel']) then
+            vars['damageNumberLabel']:removeFromParent(true)
+            vars['damageNumberLabel'] = nil
         end
 
         local scale = 1
@@ -121,7 +121,7 @@ function SkillHitEffectDirector:doWork(count, damage)
         label:setAnchorPoint(cc.p(1, 0.5))
 
         vars['damageNode']:addChild(label)
-        vars['damageLabel'] = label
+        vars['damageNumberLabel'] = label
 
         label:setScale(scale * 1.5)
         label:runAction(cc.ScaleTo:create(0.15, scale))

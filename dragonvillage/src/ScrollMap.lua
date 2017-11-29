@@ -101,6 +101,16 @@ function ScrollMap:setDirecting(directing_type)
         
         sequence = cc.Spawn:create(move_action, rotate_action)
 
+    -- [광폭화 연출용]
+    elseif (string.find(self.m_bgDirectingType, 'buff_time')) then
+        local level = string.match(self.m_bgDirectingType, '%d')
+
+        -- 별도로 배경 색 전환
+		for _, map_layer in pairs(self.m_tMapLayer) do
+            local value = (3 - level) * 50 + 50
+            map_layer:setColor(cc.c3b(value, value, value))
+		end
+
 	-- [DARKNIX 보스용]
     elseif (string.find(self.m_bgDirectingType, 'darknix')) then
         local effect_type = string.match(self.m_bgDirectingType, '%d')

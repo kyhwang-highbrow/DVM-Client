@@ -1362,7 +1362,7 @@ function GameState:applyBuffByFightTime()
     do
         local level = math_clamp(self.m_buffCount, 1, 3)
         world.m_mapManager.m_node:stopAllActions()
-        world.m_mapManager:setDirecting('darknix_shaky' .. level)
+        world.m_mapManager:setDirecting('buff_time' .. level)
     end
     
     -- 다음 버프 적용 시간 계산
