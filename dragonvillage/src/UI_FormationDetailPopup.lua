@@ -110,10 +110,8 @@ function UI_FormationDetailPopup:refresh()
 
 	do -- 가격
         local price = self:getFormationEnhancePrice()
-        vars['priceLabel']:setString(price)
+        vars['priceLabel']:setString(comma_value(price))
     end
-
-    
 end
 
 -------------------------------------

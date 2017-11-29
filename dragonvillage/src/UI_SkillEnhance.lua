@@ -108,9 +108,9 @@ function UI_SkillEnhance:refresh()
 		vars['levelLabel']:setString(dt_level)
 	end
 
-	do
+	do -- 가격
         local price = self:getSkillEnhancePrice()
-        vars['priceLabel']:setString(price)
+        vars['priceLabel']:setString(comma_value(price))
     end
 end
 
