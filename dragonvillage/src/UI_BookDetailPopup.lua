@@ -390,11 +390,7 @@ function UI_BookDetailPopup:onChangeEvolution()
 
 				l_skill_icon[i].vars['clickBtn']:setActionType(UIC_Button.ACTION_TYPE_WITHOUT_SCAILING)
 				l_skill_icon[i].vars['clickBtn']:registerScriptTapHandler(function()
-					if (IS_NEW_BALANCE_VERSION()) then
-                        UI_SkillDetailPopupNew(t_dragon_data, i)
-                    else
-					    UI_SkillDetailPopup(t_dragon_data, i)
-                    end
+					UI_SkillDetailPopup(t_dragon_data, i)
 				end)
 
 			-- 비어있는 스킬 아이콘 생성
@@ -471,22 +467,58 @@ function UI_BookDetailPopup:calculateStat()
 
 	local t_dragon_data = self:makeDragonData()
 
-	-- stats
-	local status_calc = MakeDragonStatusCalculator_fromDragonDataTable(t_dragon_data)
-	vars['cri_dmg_label']:setString(status_calc:getFinalStatDisplay('cri_dmg'))
-	vars['hit_rate_label']:setString(status_calc:getFinalStatDisplay('hit_rate'))
-	vars['avoid_label']:setString(status_calc:getFinalStatDisplay('avoid'))
-	vars['cri_avoid_label']:setString(status_calc:getFinalStatDisplay('cri_avoid'))
-	vars['cri_chance_label']:setString(status_calc:getFinalStatDisplay('cri_chance'))
-	vars['atk_spd_label']:setString(status_calc:getFinalStatDisplay('aspd'))
-	vars['atk_label']:setString(status_calc:getFinalStatDisplay('atk'))
-	vars['def_label']:setString(status_calc:getFinalStatDisplay('def'))
-	vars['hp_label']:setString(status_calc:getFinalStatDisplay('hp'))
+    -- 능력치 계산기
+    local status_calc = MakeDragonStatusCalculator_fromDragonDataTable(t_dragon_data)
+
+    -- 모든 스탯 계산
+    local hp = status_calc:getFinalStatDisplay('hp')
+    local atk = status_calc:getFinalStatDisplay('atk')
+    local def = status_calc:getFinalStatDisplay('def')
+    local aspd = status_calc:getFinalStatDisplay('aspd')
+    local cri_chance = status_calc:getFinalStatDisplay('cri_chance')
+    local cri_dmg = status_calc:getFinalStatDisplay('cri_dmg')
+    local hit_rate = status_calc:getFinalStatDisplay('hit_rate')
+    local avoid = status_calc:getFinalStatDisplay('avoid')
+    local cri_avoid = status_calc:getFinalStatDisplay('cri_avoid')
+    local accuracy = status_calc:getFinalStatDisplay('accuracy')
+    local resistance = status_calc:getFinalStatDisplay('resistance')
+
+    -- detail node : final stat
+    do
+        vars['hp_label']:setString(hp)
+        vars['atk_label']:setString(atk)
+        vars['def_label']:setString(def)
+        vars['aspd_label']:setString(aspd)
+        vars['cri_chance_label']:setString(cri_chance)
+        vars['cri_dmg_label']:setString(cri_dmg)
+        vars['hit_rate_label']:setString(hit_rate)
+        vars['avoid_label']:setString(avoid)
+        vars['cri_avoid_label']:setString(cri_avoid)
+        vars['accuracy_label']:setString(accuracy)
+        vars['resistance_label']:setString(resistance)
+        
+        self:refresh_gauge(status_calc)
+    end
 
 	-- 전투력
 	vars['cp_label']:setString(comma_value(t_dragon_data:getCombatPower()))
 end
 
+-------------------------------------
+-- function refresh_gauge
+-- @brief 능력치 게이지 액션
+-------------------------------------
+function UI_BookDetailPopup:refresh_gauge(status_calc)
+    local vars = self.vars
+    local status_calc = status_calc
+
+	-- stat gauge refresh
+	local l_stat = {'hp', 'atk', 'def', 'aspd', 'cri_chance', 'cri_dmg'}
+	for _, stat_key in ipairs(l_stat) do
+		local percent = status_calc:makePrettyPercentage(stat_key)
+		vars[stat_key .. '_gauge']:runAction(cc.ProgressTo:create(0.2, percent * 100))
+	end
+end
 
 
 
@@ -798,12 +830,7 @@ function UI_BookDetailPopup.open(did, grade, evolution)
 	t_dragon['grade'] = grade or t_dragon['birthgrade']
 	t_dragon['evolution'] = evolution or 1
 
-	local ui
-    if (IS_NEW_BALANCE_VERSION()) then
-        ui = UI_BookDetailPopupNew(t_dragon)
-    else
-		ui = UI_BookDetailPopup(t_dragon)
-    end
+	local ui = UI_BookDetailPopup(t_dragon)
     ui:setUnableIndex()
 end
 

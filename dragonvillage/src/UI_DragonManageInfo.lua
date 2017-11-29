@@ -32,13 +32,7 @@ function UI_DragonManageInfo:init(doid, sub_menu)
     -- spine 캐시 정리 확인
     SpineCacheManager:getInstance():purgeSpineCacheData()
 
-    local ui_name
-    if (IS_NEW_BALANCE_VERSION()) then
-        ui_name = 'dragon_manage_new.ui'
-    else
-		ui_name = 'dragon_manage.ui'
-    end
-    local vars = self:load(ui_name)
+    local vars = self:load('dragon_manage.ui')
     UIManager:open(self, UIManager.SCENE)
 
     -- backkey 지정
@@ -83,11 +77,7 @@ function UI_DragonManageInfo:initUI()
     self:init_dragonTableView()
 
     -- 드래곤 정보 보드 생성
-    if (IS_NEW_BALANCE_VERSION()) then
-        self.m_dragonInfoBoardUI = UI_DragonInfoBoardNew()
-    else
-		self.m_dragonInfoBoardUI = UI_DragonInfoBoard()
-    end
+    self.m_dragonInfoBoardUI = UI_DragonInfoBoard()
 
     if (IS_TEST_MODE()) then
         self.m_dragonInfoBoardUI.vars['equipmentBtn']:setVisible(true)

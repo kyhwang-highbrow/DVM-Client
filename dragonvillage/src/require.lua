@@ -631,7 +631,6 @@ local t_module = {
 	'UI_ToastPopup',
     'UI_SecretFindPopup',
 	'UI_Tooltip_Indicator',
-    'UI_Tooltip_IndicatorNew',
     'UI_Tooltip_Skill',
     'UI_TopUserInfo',
     'UI_GoodsInfo',
@@ -666,7 +665,6 @@ local t_module = {
     'UI_ChapterAchieveRewardPopup',
     'UI_NotificationFullInventoryPopup',
     'UI_DragonInfoBoard',
-    'UI_DragonInfoBoardNew',
     'UI_MonsterInfoBoard',
 	'UI_FormationPopup',
 	'UI_FormationListItem',
@@ -819,7 +817,6 @@ local t_module = {
     -- UI : 도감 관련
 	'UI_Book',
 	'UI_BookDetailPopup',
-    'UI_BookDetailPopupNew',
 
     -- UI : 친구 시스템 관련
     'UI_FriendPopup',
@@ -842,7 +839,6 @@ local t_module = {
 	'UI_DragonSkillEnhance',
     'UI_DragonEvolution',
     'UI_SkillDetailPopup',
-    'UI_SkillDetailPopupNew',
     'UI_DragonRunes',
     'UI_DragonRunesEnhance',
     'UI_DragonFriendship', 

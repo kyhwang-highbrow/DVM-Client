@@ -193,13 +193,6 @@ function SkillIndicatorMgr:onTouchMoved(touch, event)
             end
         end
     end
-
-    -- 튤팁 UI X좌표 업데이트
-    if (not IS_NEW_BALANCE_VERSION()) then
-        if (self.m_uiToolTip) then
-            self.m_uiToolTip:updateRelativePosX(node_pos['x'])
-        end
-    end
 end
 
 -------------------------------------
@@ -364,13 +357,8 @@ end
 function SkillIndicatorMgr:makeSkillToolTip(char)
     if (not char:getSkillIndivisualInfo('active')) then return end
 
-    if (IS_NEW_BALANCE_VERSION()) then
-    	self.m_uiToolTip:init_data(char)
-	    self.m_uiToolTip:refresh()
-    else
-	    self.m_uiToolTip:init_data(char)
-	    self.m_uiToolTip:displayData()
-    end
+    self.m_uiToolTip:setDragon(char)
+	self.m_uiToolTip:refresh()
 
     self.m_uiToolTip:show()
 end

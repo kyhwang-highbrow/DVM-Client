@@ -253,12 +253,7 @@ function UI_Book.cellCreateCB(ui, data, book_ui)
 				
 		-- 없으면 상세 팝업
 		else
-			local detail_ui
-            if (IS_NEW_BALANCE_VERSION()) then
-                detail_ui = UI_BookDetailPopupNew(data)
-            else
-		        detail_ui = UI_BookDetailPopup(data)
-            end
+			local detail_ui = UI_BookDetailPopup(data)
 			detail_ui:setBookList(book_ui.m_tableViewTD.m_itemList)
 		end
 	end)
