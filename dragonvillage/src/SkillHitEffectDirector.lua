@@ -94,7 +94,7 @@ function SkillHitEffectDirector:doWork(count, damage)
         end
 
         local scale = 0.85
-        local label = self:makeDamageNumber(tostring(self.m_hitCount), cc.c3b(0, 240, 255), scale)
+        local label = self:makeHitNumber(tostring(self.m_hitCount), cc.c3b(0, 240, 255), scale)
         label:setDockPoint(cc.p(1, 0.5))
         label:setAnchorPoint(cc.p(1, 0.5))
 
@@ -145,6 +145,39 @@ end
 -- function makeDamageNumber
 -------------------------------------
 function SkillHitEffectDirector:makeDamageNumber(damage, color, scale)
+    local x_offset = 0
+    local str = comma_value(damage)
+    local length = #str
+    local damage_node = cc.Node:create()
+    for i = 1, #str do
+        local v = str:sub(i, i)
+        local sprite = nil
+        local width
+
+        if (v == ',') then  -- comma
+            sprite = self:createWithSpriteFrameName('ingame_damage_comma.png')
+            width = sprite:getContentSize()['width'] * 3 / 4
+        else                -- number
+            sprite = self:createWithSpriteFrameName('ingame_damage_'.. v.. '.png')
+            width = sprite:getContentSize()['width'] * 3 / 4
+        end
+
+        sprite:setPosition(x_offset, 0)
+        sprite:setColor(color)
+        sprite:setScale(scale)
+        damage_node:addChild(sprite)
+        x_offset = x_offset + (width * scale)
+    end
+    
+    damage_node:setPosition(-80, 0)
+    damage_node:setCascadeOpacityEnabled(true)
+    return damage_node
+end
+
+-------------------------------------
+-- function makeHitNumber
+-------------------------------------
+function SkillHitEffectDirector:makeHitNumber(damage, color, scale)
     local x_offset = 0
     local str = comma_value(damage)
     local length = #str
