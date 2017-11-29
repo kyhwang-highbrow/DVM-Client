@@ -4,9 +4,11 @@ local PARENT = UI
 -- class UI_Tooltip_Indicator
 -------------------------------------
 UI_Tooltip_Indicator = class(PARENT, {
-        m_structDragonObject = 'StructDragonObject',
 		m_skillInfo = 'DragonSkillIndivisualInfo',
         m_oldSkillInfo = 'DragonSkillIndivisualInfo',
+
+        m_titleLabel = '',
+        m_descLabel = '',
     })
 
 -------------------------------------
@@ -29,18 +31,36 @@ end
 -------------------------------------
 -- function init_data
 -------------------------------------
-function UI_Tooltip_Indicator:setDragon(dragon)
-    self.m_structDragonObject = dragon
+function UI_Tooltip_Indicator:init_data(char)
+    local vars = self.vars
+
+    if (char:getCharType() == 'tamer') then
+        vars['tamerMenu']:setVisible(true)
+        vars['topMenu']:setVisible(false)
+        vars['bottomMenu']:setVisible(false)
+
+        self.m_titleLabel = vars['tamerTitleLabel']
+        self.m_descLabel = vars['tamerSkillDscLabel']
+        
+    else
+        vars['tamerMenu']:setVisible(false)
+        vars['topMenu']:setVisible(true)
+        vars['bottomMenu']:setVisible(true)
+
+        self.m_titleLabel = vars['titleLabel']
+        self.m_descLabel = vars['skillDscLabel']
+
+    end
 
     -- active skill info를 꺼내옴
-	self.m_skillInfo = dragon:getSkillIndivisualInfo('active')
+	self.m_skillInfo = char:getSkillIndivisualInfo('active')
 
     -- 현재 skill_info 스킬아이디와 드래곤의 액티브스킬 아이디를 비교하여 다르다면
     -- 스킬 강화 된것으로 보고 강화되기전 스킬을 꺼내온다.
     local curr_skill_id = self.m_skillInfo:getSkillID()
-    local active_skill_id = dragon.m_charTable['skill_active']
+    local active_skill_id = char.m_charTable['skill_active']
     if (curr_skill_id ~= active_skill_id) then
-        self.m_oldSkillInfo = dragon:getSkillInfoByID(active_skill_id)
+        self.m_oldSkillInfo = char:getSkillInfoByID(active_skill_id)
     end
 end
 
@@ -65,31 +85,7 @@ function UI_Tooltip_Indicator:refresh()
     else
         lv = skill_indivisual_info:getSkillLevel()
     end
-	vars['titleLabel']:setString(string.format('Lv.%d %s', lv, name))
-
-    -- 아이콘 (스킬 + 마나 + 속성)
-    do
-        -- 스킬
-        vars['skillNode']:removeAllChildren()
-        local skill_id = skill_indivisual_info:getSkillID()
-        local skill_icon = IconHelper:getSkillIcon('dragon', skill_id)
-        vars['skillNode']:addChild(skill_icon)
-
-        -- 마나
-        vars['manaNode']:removeAllChildren()
-        local mana_icon = skill_indivisual_info:getManaIcon()
-        vars['manaNode']:addChild(mana_icon)
-        
-        -- 속성
-        vars['attrNode']:removeAllChildren()
-        local attr_str = self.m_structDragonObject:getAttribute()
-        local res = 'ingame_panel_attr_' .. attr_str .. '.png'
-        local attr_icon = IconHelper:createWithSpriteFrameName(res)
-        vars['attrNode']:addChild(attr_icon)
-
-        -- 쿨타임
-        vars['cooltimeLabel']:setString('')
-    end
+	self.m_titleLabel:setString(string.format('Lv.%d %s', lv, name))
 
     -- 좌측 하단 박스
     do
@@ -135,7 +131,7 @@ function UI_Tooltip_Indicator:refresh()
         else
             desc = skill_indivisual_info:getSkillDesc()
         end
-        vars['skillDscLabel']:setString(desc)
+        self.m_descLabel:setString(desc)
 
         local desc_mod
         if (old_skill_info) then

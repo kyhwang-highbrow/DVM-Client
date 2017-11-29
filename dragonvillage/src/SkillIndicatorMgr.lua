@@ -357,7 +357,7 @@ function SkillIndicatorMgr:makeSkillToolTip(char)
 		return 
 	end
 
-    self.m_uiToolTip:setDragon(char)
+    self.m_uiToolTip:init_data(char)
 	self.m_uiToolTip:refresh()
     self.m_uiToolTip:show()
 end
