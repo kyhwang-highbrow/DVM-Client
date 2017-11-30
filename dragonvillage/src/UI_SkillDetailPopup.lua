@@ -433,7 +433,7 @@ end
 -- function click_infoBtn
 -------------------------------------
 function UI_SkillDetailPopup:click_infoBtn()
-	UI_Help('battle')
+	UI_Help('effect')
 end
 
 -------------------------------------
