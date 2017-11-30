@@ -106,7 +106,7 @@ function SkillRolling.st_move(owner, dt)
         owner.m_targetCollision = table.pop(owner.m_lCollisionList)
 
 		-- 스핀 이펙트
-		if (not owner.m_spinAnimator) then 
+		if (owner.m_bFirstMoving and not owner.m_spinAnimator) then 
 			local animator = MakeAnimator(owner.m_spinRes)
 			animator:changeAni('idle', true)
 			animator.m_node:setPosition(owner.m_owner.pos.x, owner.m_owner.pos.y)
@@ -220,6 +220,18 @@ function SkillRolling.st_comeback(owner, dt)
 		
 		owner.m_owner:runAction(cc.Sequence:create(cc.EaseOut:create(action, 2), cbFunc))
     end
+end
+
+-------------------------------------
+-- function release
+-------------------------------------
+function SkillRolling:release()
+    if (self.m_spinAnimator) then
+        self.m_spinAnimator:release()
+        self.m_spinAnimator = nil
+    end
+
+    PARENT.release(self)
 end
 
 -------------------------------------
