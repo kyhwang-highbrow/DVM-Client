@@ -1,3 +1,10 @@
+# patch 33
+- Revision: 94233
+- Date: 2017년 11월 30일 목요일 오전 12:53:04
+- Message : 대규모 밸런스 패치
+- Notice : http://cafe.naver.com/dragonvillagemobile/18336
+
+
 #patch 32
 Revision: --
 Date: 2017년 11월 23일 오후 12:40:00
