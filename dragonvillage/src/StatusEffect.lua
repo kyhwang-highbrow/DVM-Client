@@ -130,11 +130,13 @@ function StatusEffect:initFromTable(t_status_effect, target_char)
     if (t_status_effect['direction']) then
         self:init_direction(t_status_effect['direction'])
     end
+
+    -- 하이라이트 설정
+    self.m_owner:addHighlightNode(self.m_rootNode)
 end
 
 -------------------------------------
 -- function init_top
--- @TODO 탑 위치 가져오기
 -------------------------------------
 function StatusEffect:init_top(file_name)
     if (not self.m_animator) then return end
@@ -268,7 +270,8 @@ function StatusEffect:setDead()
 
     -- 대상이 들고 있는 상태효과 리스트에서 제거
 	self.m_owner:removeStatusEffect(self)
-    
+    self.m_owner:removeHighlightNode(self.m_rootNode)
+            
     self.m_bDead = true
 
     if(self.m_bHarmful) then
@@ -747,27 +750,21 @@ end
 -- function setTemporaryPause
 -------------------------------------
 function StatusEffect:setTemporaryPause(pause)
-    if (PARENT.setTemporaryPause(self, pause)) then
-        if (pause) then
-            if (self.m_animator) then
-                self.m_animator:setVisible(false)
-            end
-            if (self.m_edgeDirector) then
-                self.m_edgeDirector:setVisible(false)
-            end
-        else
-            if (self.m_animator) then
-                self.m_animator:setVisible(true)
-            end
-            if (self.m_edgeDirector) then
-                self.m_edgeDirector:setVisible(true)
-            end
-        end
-
-        return true
+    if (self.m_temporaryPause == pause) then
+        return false
     end
 
-    return false
+    self.m_temporaryPause = pause
+
+    local action_mgr = cc.Director:getInstance():getActionManager()
+
+    if (pause) then
+        action_mgr:pauseTarget(self.m_rootNode)
+    else
+        action_mgr:resumeTarget(self.m_rootNode)
+    end
+    
+    return true
 end
 
 

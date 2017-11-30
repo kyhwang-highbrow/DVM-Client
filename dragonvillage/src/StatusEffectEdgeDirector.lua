@@ -144,3 +144,12 @@ function StatusEffectEdgeDirector:setVisible(b)
         animator:setVisible(b)
     end
 end
+
+-------------------------------------
+-- function setAnimationPause
+-------------------------------------
+function StatusEffectEdgeDirector:setAnimationPause(pause)
+    for i, animator in ipairs(self.m_lEdgeAnimator) do
+        animator:setAnimationPause(pause)
+    end
+end

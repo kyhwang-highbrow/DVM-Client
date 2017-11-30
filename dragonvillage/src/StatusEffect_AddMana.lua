@@ -21,13 +21,6 @@ function StatusEffect_AddMana:init_status(status_effect_value)
 end
 
 -------------------------------------
--- function initFromTable
--------------------------------------
-function StatusEffect_AddMana:initFromTable(t_status_effect, target_char)
-    PARENT.initFromTable(self, t_status_effect, target_char)
-end
-
--------------------------------------
 -- function onApplyOverlab
 -- @brief 해당 상태효과가 최초 1회를 포함하여 중첩 적용될시마다 호출
 -------------------------------------

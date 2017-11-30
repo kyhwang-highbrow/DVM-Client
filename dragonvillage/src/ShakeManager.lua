@@ -115,6 +115,7 @@ end
 -------------------------------------
 function ShakeManager:stopShake()
 	self.m_shakeLayer:stopAllActions()
+    self.m_shakeLayer:setPosition(0, 0)
 end
 
 -------------------------------------

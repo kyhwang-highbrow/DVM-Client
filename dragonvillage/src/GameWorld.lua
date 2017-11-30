@@ -1409,6 +1409,7 @@ function GameWorld:setTemporaryPause(pause, excluded_dragon)
         
         -- 맵 일시 정지
         self.m_mapManager:pause()
+        self.m_shakeMgr:stopShake()
 
         -- unit(missile, skill 포함)들 일시 정지
         for i,v in pairs(self.m_lUnitList) do
