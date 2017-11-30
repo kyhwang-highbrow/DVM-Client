@@ -234,6 +234,26 @@ function ServerData_Event:goToEventTarget(event_type)
 end
 
 -------------------------------------
+-- function goToEventUrl
+-- @brief 풀팝업, 이벤트탭에서 url 존재 할 경우 처리
+-------------------------------------
+function ServerData_Event:goToEventUrl(url)
+    if (url == 'costume_shop') then
+        local tamer_id = g_tamerData:getCurrTamerID()
+        UINavigator:goTo('costume_shop', tamer_id)
+
+    elseif (url == 'shop_topaz') then
+        g_shopDataNew:openShopPopup('topaz')
+
+	elseif (url == 'dragon_manage') then
+        UINavigator:goTo('dragon')
+
+    else
+        SDKManager:goToWeb(url)
+    end
+end
+
+-------------------------------------
 -- function setEventTabNoti
 -- @brief 이벤트 탭 노티피케이션
 -------------------------------------

@@ -37,16 +37,7 @@ function UI_EventPopupTab_Banner:click_bannerBtn()
         return 
     end
 
-    if (url == 'costume_shop') then
-        local tamer_id = g_tamerData:getCurrTamerID()
-        UINavigator:goTo('costume_shop', tamer_id)
-
-    elseif (url == 'shop_topaz') then
-        g_shopDataNew:openShopPopup('topaz')
-
-    else
-        SDKManager:goToWeb(url)
-    end
+    g_eventData:goToEventUrl(url)
 end
 
 -------------------------------------

@@ -136,19 +136,7 @@ function UI_EventFullPopup:click_clickBtn()
         return 
     end
 
-    if (url == 'costume_shop') then
-        local tamer_id = g_tamerData:getCurrTamerID()
-        UINavigator:goTo('costume_shop', tamer_id)
-
-    elseif (url == 'shop_topaz') then
-        g_shopDataNew:openShopPopup('topaz')
-
-	elseif (url == 'dragon_manage') then
-        UINavigator:goTo('dragon')
-
-    else
-        SDKManager:goToWeb(url)
-    end
+	g_eventData:goToEventUrl(url)
 end
 
 --@CHECK
