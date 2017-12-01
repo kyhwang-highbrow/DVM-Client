@@ -2340,6 +2340,20 @@ function Character:getRarity()
 end
 
 -------------------------------------
+-- function getGrade
+-------------------------------------
+function Character:getGrade()
+	return 1
+end
+
+-------------------------------------
+-- function getTotalLevel
+-------------------------------------
+function Character:getTotalLevel()
+	return self.m_lv
+end
+
+-------------------------------------
 -- function getRole
 -------------------------------------
 function Character:getRole()

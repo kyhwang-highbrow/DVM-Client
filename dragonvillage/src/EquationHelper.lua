@@ -41,7 +41,10 @@ function EquationHelper:addEquationFromTable(table_name, key, column, source)
         ' local avoid = owner:getStat(\'avoid\')' ..
         ' local attr = owner:getAttribute()' ..
         ' local role = owner:getRole()' ..
-
+        ' local rarity = owner:getRarity()' ..
+        ' local grade = owner:getGrade()' ..
+        ' local total_level = owner:getTotalLevel()' ..
+        
         ' local buff_atk = owner:getBuffStat(\'atk\')' ..
         ' buff_atk = math_max(buff_atk, 0)' ..
         ' local buff_def = owner:getBuffStat(\'def\')' ..
@@ -75,6 +78,8 @@ function EquationHelper:addEquationFromTable(table_name, key, column, source)
         ' local target_attr = target and target:getAttribute()' ..
         ' local target_role = target and target:getRole()' ..
         ' local target_rarity = target and target:getRarity() or 0' ..
+        ' local target_grade = target and target:getGrade()' ..
+        ' local target_total_level = target and target:getTotalLevel()' ..
             
 
         ' local skill_target = owner:getTargetChar()' ..
@@ -92,6 +97,8 @@ function EquationHelper:addEquationFromTable(table_name, key, column, source)
         ' local skill_target_attr = skill_target and skill_target:getAttribute()' ..
         ' local skill_target_role = skill_target and skill_target:getRole()' ..
         ' local skill_target_rarity = skill_target and skill_target:getRarity() or 0' ..
+        ' local skill_target_grade = skill_target and skill_target:getGrade()' ..
+        ' local skill_target_total_level = skill_target and skill_target:getTotalLevel()' ..
             
         ' local STATUSEFFECT = function(name, column)' ..
         ' if (column) then' ..

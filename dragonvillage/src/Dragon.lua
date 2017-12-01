@@ -690,6 +690,32 @@ function Dragon:getRarity()
 end
 
 -------------------------------------
+-- function getGrade
+-------------------------------------
+function Dragon:getGrade()
+    if (not self.m_tDragonInfo) then return 1 end
+
+	return self.m_tDragonInfo['grade']
+end
+
+-------------------------------------
+-- function getTotalLevel
+-------------------------------------
+function Dragon:getTotalLevel()
+    local prev_grade = self:getGrade() - 1
+    local total_lv = 0
+    
+    for i = 1, prev_grade do
+        local max_level = dragonMaxLevel(i)
+        total_lv = total_lv + max_level
+    end
+    
+    total_lv = total_lv + self.m_lv
+
+	return total_lv
+end
+
+-------------------------------------
 -- function getOriginSkillManaCost
 -------------------------------------
 function Dragon:getOriginSkillManaCost()
@@ -713,6 +739,6 @@ end
 -------------------------------------
 -- function getSizeType
 -------------------------------------
-function Character:getSizeType()
+function Dragon:getSizeType()
     return self.m_evolutionLv, 'dragon'
 end

@@ -114,6 +114,36 @@ function ActivityCarrier:getHpRate()
 end
 
 -------------------------------------
+-- function getRarity
+-- @breif 공격자의 rarity정보를 리턴
+-------------------------------------
+function ActivityCarrier:getRarity()
+    if (not self.m_activityCarrierOwner) then return 1 end
+
+    return self.m_activityCarrierOwner:getRarity()
+end
+
+-------------------------------------
+-- function getGrade
+-- @breif 공격자의 grade정보를 리턴
+-------------------------------------
+function ActivityCarrier:getGrade()
+    if (not self.m_activityCarrierOwner) then return 1 end
+
+    return self.m_activityCarrierOwner:getGrade()
+end
+
+-------------------------------------
+-- function getTotalLevel
+-- @breif 공격자의 누적 레벨값을 리턴
+-------------------------------------
+function ActivityCarrier:getTotalLevel()
+    if (not self.m_activityCarrierOwner) then return 1 end
+
+    return self.m_activityCarrierOwner:getTotalLevel()
+end
+
+-------------------------------------
 -- function getRole
 -- @breif 공격자의 role정보를 리턴
 -------------------------------------
