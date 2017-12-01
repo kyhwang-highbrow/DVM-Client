@@ -141,7 +141,7 @@ function SkillEnumrate:getStartPosList()
 	elseif (self.m_enumPosType == 'polygons') then
 		return self:getStartPosList_Polygons()
 	else
-		error('SkillEnumrate do not have m_enumPosType')
+		return self:getStartPosList_Polygons()
 	end	
 end
 
