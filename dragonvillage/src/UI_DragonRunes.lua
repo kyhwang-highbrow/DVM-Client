@@ -207,7 +207,8 @@ function UI_DragonRunes:refreshRecommendRune()
 
 	-- 텍스트
 	local stat = t_rune['stat']
-	local gora_text = Str('이 드래곤이 좋아하는 능력치는 {1}인 것 같다고라!', stat)
+	local rich_color = string.format('r_set_%s', t_rune['color'])
+	local gora_text = Str('이 드래곤이 좋아하는 능력치는 {@{1}}{2}{@SKILL_DESC_MOD}인 것 같다고라!', rich_color, stat)
 	vars['runeInfoLabel']:setString(gora_text)
 end
 

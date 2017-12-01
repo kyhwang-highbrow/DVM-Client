@@ -281,6 +281,7 @@ function TableDragon:getRecommendRuneInfo(did)
 	end
 
 	local t_rune = {
+		['color'] = rune_color,
 		['stat'] = T_RUNE_STAT[rune_color],
 		['res'] = string.format('res/ui/icons/rune/set_%s_06.png', rune_color)
 	}
