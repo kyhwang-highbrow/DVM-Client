@@ -1,3 +1,15 @@
+# patch 38
+- Revision: 94317
+- Date: 2017년 12월 1일 금요일 오후 7:52:40
+- Message:드래곤별 추천 룬 가이드 UI 추가
+
+
+# patch 34
+- Revision: 94256
+- Date: 2017년 11월 30일 목요일 오후 12:40:00
+- Message : QA 점검 중 추가 패치
+
+
 # patch 33
 - Revision: 94233
 - Date: 2017년 11월 30일 목요일 오전 12:53:04
