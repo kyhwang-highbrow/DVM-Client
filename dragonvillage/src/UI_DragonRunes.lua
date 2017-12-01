@@ -35,7 +35,7 @@ function UI_DragonRunes:init(doid, slot_idx)
     self.m_listFilterSetID = 0
     self.m_mEquippedRuneObjects = {}
 
-    local vars = self:load('dragon_rune_new.ui')
+    local vars = self:load('dragon_rune.ui')
     UIManager:open(self, UIManager.SCENE)
 
     -- backkey 지정
@@ -130,6 +130,9 @@ function UI_DragonRunes:initButton()
 
     -- 모험 떠나기
     vars['adventureBtn']:registerScriptTapHandler(function() self:click_adventureBtn() end)
+
+	-- 룬 정보
+	vars['runeInfoBtn']:registerScriptTapHandler(function() self:click_runeInfoBtn() end)
 end
 
 -------------------------------------
@@ -915,6 +918,15 @@ function UI_DragonRunes:click_adventureBtn()
     local stage_id = g_localData:get('adventure_focus_stage')
     UINavigator:goTo('adventure', stage_id)
 end
+
+-------------------------------------
+-- function click_runeInfoBtn
+-- @brief 룬 도움말
+-------------------------------------
+function UI_DragonRunes:click_runeInfoBtn()
+	UI_Help('rune')
+end
+
 
 -------------------------------------
 -- function click_inventoryBtn
