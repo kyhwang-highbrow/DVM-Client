@@ -75,6 +75,26 @@ function TableStatusEffect:getRes(key, attr)
     return res
 end
 
+-------------------------------------
+-- function getRes
+-------------------------------------
+function TableStatusEffect:getRes2(key, attr)
+    local t_table = self:get(key)
+    if (not t_table) then return end
+
+    -- res attr parsing
+    local res = t_table['res_2']
+	if (res and attr) then 
+		res = string.gsub(res, '@', attr)
+	end
+
+	-- nil 처리
+	if (res == '') then 
+		res = nil 
+	end
+
+    return res
+end
 
 
 
