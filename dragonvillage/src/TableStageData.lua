@@ -149,7 +149,7 @@ function TableStageData:getRecommendedCombatPower(stage_id, game_mode)
     local level
     
     if (game_mode == GAME_MODE_SECRET_DUNGEON) then
-        level = 197 * 320
+        level = 320
     else
         level = self:getValue(stage_id, 'level')
     end
