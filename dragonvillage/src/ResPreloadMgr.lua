@@ -292,7 +292,7 @@ function ResPreloadMgr:getPreloadList_Dragon(t_dragon_data)
                     local t_status_effect = TableStatusEffect():get(type)
                     if (t_status_effect) then
                         if (t_status_effect['res'] ~= '') then
-                            local res_name = t_status_effect['res']
+                            local res_name = string.gsub(t_status_effect['res'], '@', attr)
                             table.insert(ret, res_name)
                         end
                     end
