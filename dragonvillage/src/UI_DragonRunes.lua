@@ -35,7 +35,7 @@ function UI_DragonRunes:init(doid, slot_idx)
     self.m_listFilterSetID = 0
     self.m_mEquippedRuneObjects = {}
 
-    local vars = self:load('dragon_rune.ui')
+    local vars = self:load('dragon_rune_new.ui')
     UIManager:open(self, UIManager.SCENE)
 
     -- backkey 지정
@@ -162,7 +162,50 @@ function UI_DragonRunes:refresh()
 		vars['eventRemoveSprite']:setVisible(false)
 	end
 
+	-- 추천 룬
+	self:refreshRecommendRune()
+
+	-- refresh tableview
     self:refreshTableViewList()
+end
+
+-------------------------------------
+-- function refreshRecommendRune
+-------------------------------------
+function UI_DragonRunes:refreshRecommendRune()
+	local vars = self.vars
+	local t_dragon_data = self.m_selectDragonData
+
+	-- 드래곤이 없는 경우
+    if (not t_dragon_data) then
+		vars['runeInfoNode']:setVisible(false)
+		vars['runeInfoLabel']:setString('')
+        return
+    end
+
+	local did = t_dragon_data:getDid()
+	local t_rune = TableDragon:getRecommendRuneInfo(did)
+	
+	-- 추천 룬 정보가 없는 경우
+	if (not t_rune) then
+		vars['runeInfoNode']:setVisible(false)
+		vars['runeInfoLabel']:setString('')
+		return
+	end
+
+	-- 초기화
+	vars['runeInfoNode']:setVisible(true)
+	vars['runeInfoNode']:removeAllChildren(true)
+	
+	-- 아이콘
+	local res = t_rune['res']
+	local icon = IconHelper:getIcon(res)
+	vars['runeInfoNode']:addChild(icon)
+
+	-- 텍스트
+	local stat = t_rune['stat']
+	local gora_text = Str('이 드래곤이 좋아하는 능력치는 {1}인 것 같다고라!', stat)
+	vars['runeInfoLabel']:setString(gora_text)
 end
 
 -------------------------------------

@@ -255,6 +255,38 @@ function TableDragon:getBirthGrade(did)
     return self:getValue(did, 'birthgrade')
 end
 
+local T_RUNE_STAT = 
+{
+	['yellow'] = Str('체력'),
+	['purple'] = Str('치명확률'),
+	['green'] = Str('효과적중'),
+	['orange'] = Str('방어력'),
+	['bluegreen'] = Str('효과저항'),
+	['red'] = Str('공격력'),
+	['pink'] = Str('치명피해'),
+	['blue'] = Str('공격속도'),
+}
+-------------------------------------
+-- function getRecommendRune
+-- @brief 추천 룬 정보 반환
+-------------------------------------
+function TableDragon:getRecommendRuneInfo(did)
+    if (self == THIS) then
+        self = THIS()
+    end
+
+	local rune_color = self:getValue(did, 'rune')
+	if (not rune_color) or (rune_color == '') then
+		return nil
+	end
+
+	local t_rune = {
+		['stat'] = T_RUNE_STAT[rune_color],
+		['res'] = string.format('res/ui/icons/rune/set_%s_06.png', rune_color)
+	}
+	return t_rune
+end
+
 -------------------------------------
 -- function getDesc_forToolTip
 -- @brief 드래곤 툴팁용 설명 리턴
