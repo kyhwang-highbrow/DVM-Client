@@ -2955,6 +2955,9 @@
     <None Include="..\src\UI_NightmareStageListItem.lua">
       <Filter>lua\UI</Filter>
     </None>
+    <None Include="..\src\UIC_RankListItem.lua">
+      <Filter>lua\UIC</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Classes">

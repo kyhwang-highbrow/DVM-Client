@@ -10,6 +10,11 @@ function IRankListItem:initRankInfo(vars, struct_user_info)
     if (not vars) then
         return
     end
+	
+	-- 클랜 버튼 swallow touch false
+	if (vars['clanBtn']) then
+		vars['clanBtn'].m_node:getParent():setSwallowTouch(false)
+	end
 
     local struct_clan = struct_user_info:getStructClan()    
     if (not struct_clan) then
@@ -18,12 +23,24 @@ function IRankListItem:initRankInfo(vars, struct_user_info)
     end
 
     -- 클랜 이름
-    local clan_name = struct_clan:getClanName()
-    vars['clanLabel']:setString(clan_name)
+	if (vars['clanLabel']) then
+		local clan_name = struct_clan:getClanName()
+		vars['clanLabel']:setString(clan_name)
+	end
 
     -- 클랜 마크
-    local mark_icon = struct_clan:makeClanMarkIcon()
-    vars['markNode']:addChild(mark_icon)
+	if (vars['markNode']) then
+		local mark_icon = struct_clan:makeClanMarkIcon()
+		vars['markNode']:addChild(mark_icon)
+	end
+	
+	-- 클랜 버튼
+	if (vars['clanBtn']) then
+		vars['clanBtn']:registerScriptTapHandler(function()
+			local clan_object_id = struct_clan:getClanObjectID()
+			g_clanData:requestClanInfoDetailPopup(clan_object_id)
+		end)
+	end
 end
 
 -------------------------------------
