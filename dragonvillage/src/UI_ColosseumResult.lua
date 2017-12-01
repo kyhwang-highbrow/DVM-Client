@@ -77,7 +77,10 @@ function UI_ColosseumResult:direction_showTamer()
     local is_win = self.m_isWin
     local vars = self.vars
 
-	local t_tamer =  g_tamerData:getCurrTamerTable()
+	local user_info = (is_friendMatch) and g_friendMatchData.m_playerUserInfo or g_colosseumData.m_playerUserInfo
+    local tamer_id = user_info:getAtkDeckTamerID()
+
+	local t_tamer =  TableTamer():get(tamer_id)
     local tamer_node = vars['tamerNode']
     local talk_node = vars['talkLabel']
 
