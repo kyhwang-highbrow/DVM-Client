@@ -1333,7 +1333,6 @@ function GameState:applyBuffByFightTime()
             for i, v in ipairs(world.m_leftNonparticipants) do
                 local status, action = TableOption:parseOptionKey(type)
                 v.m_statusCalc:addOption(action, status, value)
-                world:addPassiveStartEffect(v, str_buff_name)
             end
             for i, v in ipairs(world.m_rightParticipants) do
                 local status, action = TableOption:parseOptionKey(type)
@@ -1343,7 +1342,6 @@ function GameState:applyBuffByFightTime()
             for i, v in ipairs(world.m_rightNonparticipants) do
                 local status, action = TableOption:parseOptionKey(type)
                 v.m_statusCalc:addOption(action, status, value)
-                world:addPassiveStartEffect(v, str_buff_name)
             end
         end
 
