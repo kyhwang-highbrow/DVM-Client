@@ -15,6 +15,7 @@ local PARENT = UI_Card
     lockSprite
 
     levelNode
+	reinforceNode
     starNode
     attrNode
     inuseSprite
@@ -32,6 +33,7 @@ UI_CharacterCard = class(PARENT, {
         m_attrBgRes = 'string',
         m_charIconRes = 'string',
         m_attrIconRes = 'string',
+		m_reinforceIconRes = 'string',
         m_starIconRes = 'string',
         m_charFrameRes = 'string',
         m_charLevelNumber = 'number',
@@ -87,6 +89,9 @@ function UI_CharacterCard:refreshDragonInfo()
 
     -- 등급 아이콘 생성
     self:refresh_gradeIcon()
+
+	-- 강화 아이콘 생성
+	self:refresh_reinforceIcon()
 
     -- 레벨 지정
     self:setLevelText()
@@ -202,6 +207,20 @@ function UI_CharacterCard:refresh_gradeIcon()
     end
     self.m_starIconRes = res
     self:makeSprite('starNode', res)
+end
+
+-------------------------------------
+-- function refresh_reinforceIcon
+-- @brief 강화 아이콘
+-------------------------------------
+function UI_CharacterCard:refresh_reinforceIcon()
+    local rlv = self.m_dragonData:getRlv()
+	local res = string.format('card_cha_reinforce_%d.png', rlv)
+    if (self.m_reinforceIconRes == res) then
+        return
+    end
+    self.m_reinforceIconRes = res
+    self:makeSprite('reinforceNode', res)
 end
 
 -------------------------------------

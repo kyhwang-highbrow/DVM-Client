@@ -15,7 +15,8 @@ StructDragonObject = class({
         grade = 'number', -- 승급 단계
         evolution = 'number', -- 진화 단계
         eclv = 'number', -- 초월 단계
-        
+        rlv = 'number', -- 강화 단계
+
 		lock = 'boolean', -- 잠금
 
         runes = 'table', -- 장착 룬 roid
@@ -65,9 +66,10 @@ function StructDragonObject:init(data)
     self.grade = 0
     self.evolution = 1
     self.eclv = 0
+	self.rlv = 1
     self.m_mRuneObjects = nil
     self.is_struct = true
-
+	  
     if data then
         self:applyTableData(data)
     end
@@ -252,6 +254,14 @@ end
 -------------------------------------
 function StructDragonObject:getFlv()
     return self['friendship']['flv']
+end
+
+-------------------------------------
+-- function getRlv
+-- @breif
+-------------------------------------
+function StructDragonObject:getRlv()
+    return self['rlv']
 end
 
 -------------------------------------
