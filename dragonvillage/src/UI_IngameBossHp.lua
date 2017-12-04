@@ -13,6 +13,8 @@ UI_IngameBossHp = class(PARENT, {
 function UI_IngameBossHp:init(boss_list)
     self.m_lBoss = boss_list or {}
 
+    cc.SpriteFrameCache:getInstance():addSpriteFrames('res/ui/a2d/ingame_btn/ingame_btn.plist')
+
     local vars = self:load('ingame_boss_hp.ui', nil, false, true)
     vars['bossSkillSprite']:setVisible(false)
 
