@@ -161,6 +161,9 @@ function SkillIndicator_Laser:optimizeIndicatorData(l_target, fixed_target)
         dir = dir + 2    
     end
 
+    -- 각도 리스트를 한번 섞는다(랜덤한 위치로 사용되도록 하기 위함)
+    l_dir = randomShuffle(l_dir)
+
     for _, dir in ipairs(l_dir) do
         local pos = getPointFromAngleAndDistance(dir, 2560)
         local count = setIndicator(nil, x + pos['x'], y + pos['y'])
