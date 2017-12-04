@@ -315,15 +315,12 @@ function StatusCalculator:applyFormationBonus(formation, formation_lv, slot_idx)
         local status = v['status']
         local value = v['value']
 
-        if (IS_NEW_BALANCE_VERSION()) then
-            if (action == 'multi') then
-                self:addFormationMulti(status, value)
-            elseif (action == 'add') then
-                self:addFormationAdd(status, value)
-            end
-        else
-            self:addOption(action, status, value)
+        if (action == 'multi') then
+            self:addFormationMulti(status, value)
+        elseif (action == 'add') then
+            self:addFormationAdd(status, value)
         end
+        
     end
 end
 
@@ -361,12 +358,6 @@ function StatusCalculator:applyStageBonus(stage_id, is_enemy)
     local t_info
 
     if (stage_id == COLOSSEUM_STAGE_ID) then
-        if (IS_NEW_BALANCE_VERSION()) then
-        else
-            -- 콜로세움에서는 아군과 적군의 체력을 3배로
-            self.m_tHiddenInfo['hp_multi'] = g_constant:get('INGAME', 'COLOSSEUM_HP_MULTI')
-        end
-
     else
         local t_info = TableStageData():getStageBuff(stage_id, is_enemy)
         if (not t_info) then return end

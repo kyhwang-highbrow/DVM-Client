@@ -397,12 +397,8 @@ function MissileLauncher:fireMissile(owner, attack_idx, depth, dir_add, offset_a
     local speed = attack_value.speed or 0
     local damage_rate
 
-    if (IS_NEW_BALANCE_VERSION()) then
-        damage_rate = attack_value['damage_rate'] or 100
-        damage_rate = damage_rate / 100 * self.m_activityCarrier:getPowerRate()
-    else
-        damage_rate = attack_value['damage_rate'] or self.m_activityCarrier:getPowerRate()
-    end
+    damage_rate = attack_value['damage_rate'] or 100
+    damage_rate = damage_rate / 100 * self.m_activityCarrier:getPowerRate()
 	
     if (not attack_value.dir_array) then
         attack_value.dir_array = {0}

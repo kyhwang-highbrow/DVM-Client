@@ -238,25 +238,19 @@ function StatusEffectHelper:invokeStatusEffect(caster, target_char, status_effec
     end
 
     -- 효과 적중 및 효과 저항 검사
-    if (IS_NEW_BALANCE_VERSION()) then
-        if (status_effect_group == 'dispell') then
-            -- 해제효과의 경우는 효과 저항할 수 없도록 처리
+    if (status_effect_group == 'dispell') then
+        -- 해제효과의 경우는 효과 저항할 수 없도록 처리
 
-        elseif (status_effect_type == 'tamer_add_dmg') then
-            -- 테이머의 추가피해는 저항할 수 없도록 처리
+    elseif (status_effect_type == 'tamer_add_dmg') then
+        -- 테이머의 추가피해는 저항할 수 없도록 처리
         
-        elseif (self:isHarmful(status_effect_category) and self:checkStatus(caster, target_char)) then
-            if (not skip_resistance_font) then
-                target_char:makeResistanceFont(target_char.pos['x'], target_char.pos['y'], 1.5)
-            end
-            return nil
-        end
-	else
-        if (self:isHarmful(status_effect_category) and self:checkStatus(caster, target_char)) then
+    elseif (self:isHarmful(status_effect_category) and self:checkStatus(caster, target_char)) then
+        if (not skip_resistance_font) then
             target_char:makeResistanceFont(target_char.pos['x'], target_char.pos['y'], 1.5)
-            return nil
         end
-	end
+        return nil
+    end
+
 
     -- 적용값(status_effect_value)이 수식인 경우 수식을 계산
     if (type(status_effect_value) == 'function') then

@@ -244,9 +244,7 @@ function ActivityCarrier:cloneForMissile()
     activity_carrier:setAtkDmgStat(self.m_atkDmgStat)
     activity_carrier:setAttackType(self.m_realAttackType)
     activity_carrier:setSkillId(self.m_skillId)
-    if (IS_NEW_BALANCE_VERSION()) then
-        activity_carrier:setSkillHitCount(self.m_skillHitCount)
-    end
+    activity_carrier:setSkillHitCount(self.m_skillHitCount)
     activity_carrier:setPowerRate(self.m_skillCoefficient)
     activity_carrier:setAddCriPowerRate(self.m_skillAddCriCoefficient)
 	

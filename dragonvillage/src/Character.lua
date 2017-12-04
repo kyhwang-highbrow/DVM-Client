@@ -555,12 +555,6 @@ function Character:undergoAttack(attacker, defender, i_x, i_y, body_key, no_even
         end
         atk_dmg = atk_dmg + drag_dmg
 
-        -- 히트 수
-        if (IS_NEW_BALANCE_VERSION()) then
-        else
-            -- 히트 수 적용(테이블에서는 hit수만큼 나눈 값으로 입력되었기 때문에 여기서 곱해줌)
-            atk_dmg = atk_dmg * attack_hit_count
-        end
 
         --------------------------------------------------------------
         -- 방어력 계산(def_pwr)
@@ -600,12 +594,6 @@ function Character:undergoAttack(attacker, defender, i_x, i_y, body_key, no_even
 
         -- 진형에 따른 데미지 배율 적용
         damage = damage * damage_rate_formation
-        
-        if (IS_NEW_BALANCE_VERSION()) then
-        else
-            -- 히트 수 적용
-            damage = damage / attack_hit_count
-        end
 
         -- @DEBUG
 	    if (use_debug_log) then
@@ -672,7 +660,7 @@ function Character:undergoAttack(attacker, defender, i_x, i_y, body_key, no_even
         end
 
         -- 크리티컬 발생시 강타 해제
-        if (IS_NEW_BALANCE_VERSION() and is_critical) then
+        if (is_critical) then
             is_bash = false
         end
     end
@@ -687,12 +675,8 @@ function Character:undergoAttack(attacker, defender, i_x, i_y, body_key, no_even
             cri_dmg_rate = cri_dmg / 100
         end
 
-        if (IS_NEW_BALANCE_VERSION()) then
-            local rate = math_max(cri_dmg_rate, -1)
-            damage_multifly = damage_multifly * (1 + rate)
-        else
-            damage_multifly = damage_multifly + cri_dmg_rate
-        end
+        local rate = math_max(cri_dmg_rate, -1)
+        damage_multifly = damage_multifly * (1 + rate)
 
         -- 속성 데미지
         local attr_dmg_rate = 0
@@ -700,12 +684,9 @@ function Character:undergoAttack(attacker, defender, i_x, i_y, body_key, no_even
             attr_dmg_rate = (t_attr_effect['damage'] / 100)
         end
 
-        if (IS_NEW_BALANCE_VERSION()) then
-            local rate = math_max(attr_dmg_rate, -1)
-            damage_multifly = damage_multifly * (1 + rate)
-        else
-            damage_multifly = damage_multifly + attr_dmg_rate
-        end
+        local rate = math_max(attr_dmg_rate, -1)
+        damage_multifly = damage_multifly * (1 + rate)
+        
 
         -- 피해량 비율
         local dmg_adj_rate = 0
@@ -714,118 +695,85 @@ function Character:undergoAttack(attacker, defender, i_x, i_y, body_key, no_even
         local se_dmg_adj_rate = 0
         local final_dmg_rate = 0
 
-        if (IS_NEW_BALANCE_VERSION()) then
-            -- 방어자 능력치
-            do
-                dmg_adj_rate = self:getStat('dmg_adj_rate') / 100
-
-                local rate = math_max(dmg_adj_rate, -1)
-                damage_multifly = damage_multifly * (1 + rate)
-            end
-
-            -- 공격자 능력치
-            do
-                atk_dmg_adj_rate = (attack_activity_carrier:getStat('atk_dmg_adj_rate') or 0) / 100
-
-                local rate = math_max(atk_dmg_adj_rate, -1)
-                damage_multifly = damage_multifly * (1 + rate)
-            end
-
-            -- 치명타시 피해량 증감
-            if (is_critical) then
-                cri_dmg_adj_rate = (attack_activity_carrier:getStat('cri_dmg_adj_rate') or 0) / 100
-
-                local rate = math_max(cri_dmg_adj_rate, -1)
-                damage_multifly = damage_multifly * (1 + rate)
-
-                -- 치명타시 추가 피해량 증가
-                if (attack_add_cri_dmg > 0) then
-                    local rate = attack_add_cri_dmg / 100
-                
-                    damage_multifly = damage_multifly * (1 + rate)
-                end
-            end
-
-            -- 특정 조건에 따른 피해량 증감
-            do
-                -- (피격/공격)시 상대가 (특정 상태효과)를 가진 적이면 피해량 증가
-                for k, v in pairs(attacker_char:getStatusEffectList()) do
-                    if (v.m_type == 'modify_dmg' and v.m_branch == 0) then
-                        if(defender:isExistStatusEffectName(v.m_targetStatusEffectName, nil, true)) then
-                            se_dmg_adj_rate = se_dmg_adj_rate + v.m_totalValue
-                        end
-                    end
-                end
-
-                for k, v in pairs(defender:getStatusEffectList()) do
-                    if (v.m_type == 'modify_dmg' and v.m_branch == 1) then
-                        if(attacker_char:isExistStatusEffectName(v.m_targetStatusEffectName, nil, true)) then
-                            se_dmg_adj_rate = se_dmg_adj_rate - v.m_totalValue
-                        end
-                    end
-                end
-
-                local rate = math_max(se_dmg_adj_rate, -1)
-                damage_multifly = damage_multifly * (1 + rate)
-            end
-
-            -- 최종 피해량 증가
-            do
-                final_dmg_rate = attack_activity_carrier:getStat('final_dmg_rate') or 1
-
-                damage_multifly = damage_multifly * final_dmg_rate
-            end
-
-            -- 피해 반사에 따른 받는 피해 감소
-            if (reflex_rate > 0) then
-                damage_multifly = damage_multifly * (1 - reflex_rate)
-
-                -- 반사 데미지 계산
-                reflex_damage = damage * reflex_rate
-            end
-
-            -- 강타일 경우 피해 증가
-            if (is_bash) then
-                damage_multifly = damage_multifly * 1.3
-            end
-
-            -- 빚맞힘일 경우 피해 감소
-            if (is_miss) then
-                damage_multifly = damage_multifly * 0.7
-            end
-        else
-            -- 방어자 능력치
+        -- 방어자 능력치
+        do
             dmg_adj_rate = self:getStat('dmg_adj_rate') / 100
-        
-            -- 특정 조건에 따른 피해량 증감
-            do
-                -- (피격/공격)시 상대가 (특정 상태효과)를 가진 적이면 피해량 증가
-                for k, v in pairs(attacker_char:getStatusEffectList()) do
-                    if (v.m_type == 'modify_dmg' and v.m_branch == 0) then
-                        if(defender:isExistStatusEffectName(v.m_targetStatusEffectName, nil, true)) then
-                            se_dmg_adj_rate = se_dmg_adj_rate + v.m_totalValue
-                        end
-                    end
-                end
 
-                for k, v in pairs(defender:getStatusEffectList()) do
-                    if (v.m_type == 'modify_dmg' and v.m_branch == 1) then
-                        if(attacker_char:isExistStatusEffectName(v.m_targetStatusEffectName, nil, true)) then
-                            se_dmg_adj_rate = se_dmg_adj_rate - v.m_totalValue
-                        end
-                    end
-                end
+            local rate = math_max(dmg_adj_rate, -1)
+            damage_multifly = damage_multifly * (1 + rate)
+        end
 
-                dmg_adj_rate = dmg_adj_rate + (se_dmg_adj_rate / 100)
-            end
-            
-            damage_multifly = damage_multifly + dmg_adj_rate
+        -- 공격자 능력치
+        do
+            atk_dmg_adj_rate = (attack_activity_carrier:getStat('atk_dmg_adj_rate') or 0) / 100
 
-            -- 반사 데미지 계산
-            if (reflex_rate > 0) then
-                reflex_damage = damage * reflex_rate
+            local rate = math_max(atk_dmg_adj_rate, -1)
+            damage_multifly = damage_multifly * (1 + rate)
+        end
+
+        -- 치명타시 피해량 증감
+        if (is_critical) then
+            cri_dmg_adj_rate = (attack_activity_carrier:getStat('cri_dmg_adj_rate') or 0) / 100
+
+            local rate = math_max(cri_dmg_adj_rate, -1)
+            damage_multifly = damage_multifly * (1 + rate)
+
+            -- 치명타시 추가 피해량 증가
+            if (attack_add_cri_dmg > 0) then
+                local rate = attack_add_cri_dmg / 100
+                
+                damage_multifly = damage_multifly * (1 + rate)
             end
         end
+
+        -- 특정 조건에 따른 피해량 증감
+        do
+            -- (피격/공격)시 상대가 (특정 상태효과)를 가진 적이면 피해량 증가
+            for k, v in pairs(attacker_char:getStatusEffectList()) do
+                if (v.m_type == 'modify_dmg' and v.m_branch == 0) then
+                    if(defender:isExistStatusEffectName(v.m_targetStatusEffectName, nil, true)) then
+                        se_dmg_adj_rate = se_dmg_adj_rate + v.m_totalValue
+                    end
+                end
+            end
+
+            for k, v in pairs(defender:getStatusEffectList()) do
+                if (v.m_type == 'modify_dmg' and v.m_branch == 1) then
+                    if(attacker_char:isExistStatusEffectName(v.m_targetStatusEffectName, nil, true)) then
+                        se_dmg_adj_rate = se_dmg_adj_rate - v.m_totalValue
+                    end
+                end
+            end
+
+            local rate = math_max(se_dmg_adj_rate, -1)
+            damage_multifly = damage_multifly * (1 + rate)
+        end
+
+        -- 최종 피해량 증가
+        do
+            final_dmg_rate = attack_activity_carrier:getStat('final_dmg_rate') or 1
+
+            damage_multifly = damage_multifly * final_dmg_rate
+        end
+
+        -- 피해 반사에 따른 받는 피해 감소
+        if (reflex_rate > 0) then
+            damage_multifly = damage_multifly * (1 - reflex_rate)
+
+            -- 반사 데미지 계산
+            reflex_damage = damage * reflex_rate
+        end
+
+        -- 강타일 경우 피해 증가
+        if (is_bash) then
+            damage_multifly = damage_multifly * 1.3
+        end
+
+        -- 빚맞힘일 경우 피해 감소
+        if (is_miss) then
+            damage_multifly = damage_multifly * 0.7
+        end
+        
 
         -- 피해량 배율 적용
         damage = (damage * damage_multifly)
@@ -921,11 +869,7 @@ function Character:undergoAttack(attacker, defender, i_x, i_y, body_key, no_even
         if (reflex_damage > 0) then
             -- 진형에 따른 데미지 배율 적용
             reflex_damage = reflex_damage * CalcDamageRateDueToFormation(attacker_char)
-            -- 최대 데미지(최대 체력 / 히트수)값을 넘지 않도록
-            if (IS_NEW_BALANCE_VERSION()) then
-            else
-                reflex_damage = math_min(reflex_damage, self.m_maxHp / attack_hit_count)
-            end
+
             -- 최소 데미지 1로 처리
             reflex_damage = math_max(reflex_damage, 1)
                 
@@ -1270,11 +1214,6 @@ function Character:makeDamageFont(damage, x, y, tParam)
 	    elseif (is_bash) then
             -- 강타
             r, g, b = 235, 71, 42	-- 빨강
-
-        elseif (is_indicator_critical and not IS_NEW_BALANCE_VERSION()) then
-            -- 치명 회피
-            r, g, b = 0, 190, 245 -- 하늘색
-        
         else
             r, g, b = 255, 255, 255
         end
@@ -1305,8 +1244,6 @@ function Character:makeDamageFont(damage, x, y, tParam)
         option_sprite = self:createWithSpriteFrameName('ingame_damage_bash.png')
     elseif (is_miss) then
         option_sprite = self:createWithSpriteFrameName('ingame_damage_miss.png')
-    elseif (is_indicator_critical and not IS_NEW_BALANCE_VERSION()) then
-        option_sprite = self:createWithSpriteFrameName('ingame_damage_critical_dodge.png')
     end
 
     if (option_sprite) then
@@ -1495,12 +1432,11 @@ function Character:healAbs(caster, heal, b_make_effect, bFixed, skill_id)
             local cri_dmg = caster:getStat('cri_dmg') or 0
             local multifly = 1 + (cri_dmg / 100)
 
-            if (IS_NEW_BALANCE_VERSION()) then
-                local cri_dmg_adj_rate = caster:getStat('cri_dmg_adj_rate') / 100
+            local cri_dmg_adj_rate = caster:getStat('cri_dmg_adj_rate') / 100
 
-                local rate = math_max(cri_dmg_adj_rate, -1)
-                multifly = multifly * (1 + rate)
-            end
+            local rate = math_max(cri_dmg_adj_rate, -1)
+            multifly = multifly * (1 + rate)
+
 
             heal = heal * multifly 
         end
@@ -1799,17 +1735,10 @@ function Character:calcAttackPeriod(calc_attack_tick)
         -- 애니메이션 속도 조절(드래곤만 처리)
         if (self.m_charType == 'dragon') then
             -- 공속 버프 비율
-            local aspd_ratio
+            local aspd_ratio = self:getStat('aspd') / 100
 
-            if (IS_NEW_BALANCE_VERSION()) then
-                aspd_ratio = self:getStat('aspd') / 100
-
-                self.m_aspdRatio = aspd_ratio
-            else
-                aspd_ratio = 1 + (self:getBuffStat('aspd') / 100)
-
-                self.m_aspdRatio = math_max(aspd_ratio, 0.2)
-            end
+            self.m_aspdRatio = aspd_ratio
+            
 
             -- 공속 버프 비율만큼 애니메이션 속도를 보정
             if (not self.m_temporaryPause) then

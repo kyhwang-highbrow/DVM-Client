@@ -548,40 +548,23 @@ function IDragonSkillManager:checkSkillTurn(skill_type)
     if (not t_skill_info) then return end
 
 	if (table.count(t_skill_info) > 0) then
-        if (IS_NEW_BALANCE_VERSION()) then
-            for i,v in pairs(t_skill_info) do
-                if (v:isEndCoolTime() and not self.m_mReserveTurnSkillID[v.m_skillID]) then
-                    v.m_turnCount = (v.m_turnCount + 1)
+        for i,v in pairs(t_skill_info) do
+            if (v:isEndCoolTime() and not self.m_mReserveTurnSkillID[v.m_skillID]) then
+                v.m_turnCount = (v.m_turnCount + 1)
 
-                    if (v.m_tSkill['chance_value'] <= v.m_turnCount) then
-                        table.insert(self.m_lReserveTurnSkillID, v.m_skillID)
+                if (v.m_tSkill['chance_value'] <= v.m_turnCount) then
+                    table.insert(self.m_lReserveTurnSkillID, v.m_skillID)
 
-                        self.m_mReserveTurnSkillID[v.m_skillID] = true
-                    end
+                    self.m_mReserveTurnSkillID[v.m_skillID] = true
                 end
             end
+        end
 
-            if (self.m_lReserveTurnSkillID[1]) then
-                local skill_id = table.remove(self.m_lReserveTurnSkillID, 1)
-                self.m_mReserveTurnSkillID[skill_id] = nil
+        if (self.m_lReserveTurnSkillID[1]) then
+            local skill_id = table.remove(self.m_lReserveTurnSkillID, 1)
+            self.m_mReserveTurnSkillID[skill_id] = nil
 
-                return skill_id
-            end
-        else
-            for i,v in pairs(t_skill_info) do
-                if (v:isEndCoolTime()) then
-                    v.m_turnCount = (v.m_turnCount + 1)
-                    if (v.m_tSkill['chance_value'] <= v.m_turnCount) then
-                        table.insert(self.m_lReserveTurnSkillID, v.m_skillID)
-                    end
-                end
-            end
-
-            if (self.m_lReserveTurnSkillID[1]) then
-                local skill_id = self.m_lReserveTurnSkillID[1]
-                table.remove(self.m_lReserveTurnSkillID, 1)
-                return skill_id
-            end
+            return skill_id
         end
     end
     

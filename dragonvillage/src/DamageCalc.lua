@@ -5,11 +5,7 @@ local CONST_REDUNCTION_RATIO_P = 249
 -- @brief 물리 데미지 계산
 -------------------------------------
 function DamageCalc_P(atk_dmg, def_pwr, is_debug, no_random)
-    if (IS_NEW_BALANCE_VERSION()) then
-        return DamageCalc_P2(atk_dmg, def_pwr, is_debug, no_random)
-    else
-        return DamageCalc_P1(atk_dmg, def_pwr, is_debug)
-    end
+    return DamageCalc_P2(atk_dmg, def_pwr, is_debug, no_random)
 end
 
 -------------------------------------
@@ -115,14 +111,8 @@ function HealCalc_M(atk_dmg, is_debug, no_random)
     -- 물리 공격력
     local atk_dmg = atk_dmg
 
-    if (IS_NEW_BALANCE_VERSION()) then
-        -- 랜덤 (95% ~ 105%)
-        rand = math_random(95, 105) / 100
-    else
-        -- 랜덤 (85% ~ 115%)
-        rand = math_random(85, 115) / 100
-        no_random = false   -- 현재 라이브 상태를 유지하기 위함
-    end
+    -- 랜덤 (95% ~ 105%)
+    local rand = math_random(95, 105) / 100
 
     -- 디버그 모드 중일 경우 랜덤 계산 막음
     if (is_debug or no_random) then
@@ -176,13 +166,7 @@ end
 -- @brief 공격 주기 계산 (초)
 -------------------------------------
 function CalcAttackTick(attack_speed)
-    local value
-
-    if (IS_NEW_BALANCE_VERSION()) then
-        value = 300 / attack_speed
-    else
-        value = 3 - (2 * ((attack_speed - 100) / 100))
-    end
+    local value = 300 / attack_speed
 
     local min_value = g_constant:get('INGAME', 'FINAL_ATTACK_TICK')[1]
     local max_value = g_constant:get('INGAME', 'FINAL_ATTACK_TICK')[2]
@@ -217,16 +201,6 @@ function CalcDamageRateDueToFormation(unit)
     local formation_mgr = unit:getFormationMgr(false)
     local damage_rate = 1
 
-    if (IS_NEW_BALANCE_VERSION()) then
-    else
-        -- 전방 유닛이 있을 경우 후방 유닛 데미지 감소 처리
-        if (formation_mgr:isFrontLineAlive() and not formation_mgr:isFrontLine(unit)) then
-            if (unit.m_bLeftFormation or world.m_gameMode == GAME_MODE_COLOSSEUM) then
-                damage_rate = damage_rate * g_constant:get('INGAME', 'COVER_COEF')
-            end
-        end
-    end
-
     return damage_rate
 end
 
@@ -238,14 +212,6 @@ function CalcDamageRateDueToGameMode(unit)
     local world = unit.m_world
 
     local damage_rate = 1
-
-    if (IS_NEW_BALANCE_VERSION()) then
-    else
-        -- 콜로세움에서 모든 데미지 배수 조정
-        if (world.m_gameMode == GAME_MODE_COLOSSEUM) then
-            damage_rate = damage_rate * g_constant:get('INGAME', 'COLOSSEUM_DAMAGE_MULTI')
-        end
-    end
 
     return damage_rate
 end
