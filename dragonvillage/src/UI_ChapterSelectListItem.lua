@@ -37,7 +37,7 @@ function UI_ChapterSelectListItem:initUI()
     target_btn:setVisible(true)
 
     -- 지옥 모드 강제로 막음 (어려움 마지막 스테이지 클리어한 상태면 지옥 모드 1 스테이지가 열린 상태임)
-    if (g_adventureData:isOpenStage(stage_id) and difficulty ~= 3) then
+    if (g_adventureData:isOpenStage(stage_id) and difficulty <= MAX_ADVENTURE_DIFFICULTY) then
         target_btn:registerScriptTapHandler(function() self:click_selectBtn() end)
     else
         vars['lockSprite']:setVisible(true)
