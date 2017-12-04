@@ -5,16 +5,17 @@
 DragonSkillIndivisualInfo = class({
         m_className = '',
         m_charType = 'string',  -- 캐릭터 타입 'dragon', 'monster'
+        
+		m_tSkill = 'table',     -- 스킬 테이블
         m_skillID = 'number',   -- 스킬 ID
+        m_skillLevel = 'number',
         m_skillType = 'string',
-        m_tSkill = 'table',     -- 스킬 테이블
+		m_tAddedValue = 'table',
+
         m_turnCount = 'number', -- 턴 공격 횟수 저장용
         m_timer = 'number',     -- 타임 공격 저장용
         m_cooldownTimer = 'number', -- 쿨타임 시간 저장용
         m_hpRate = 'number',    -- 체력 조건 저장용
-        m_skillLevel = 'number',
-
-		m_tAddedValue = 'table',
     })
 
 -------------------------------------
@@ -281,12 +282,13 @@ end
 -- function getCoolTime
 -- @brief 순수한 의미의 쿨타임..
 -------------------------------------
-function DragonSkillIndivisualInfo:getCoolTime()
-    local cooltime = self.m_tSkill['cooldown'] 
+function DragonSkillIndivisualInfo:getCoolTime(t_skill)
+	local t_skill = t_skill or self.m_tSkill
+    local cooltime = t_skill['cooldown'] 
 
     -- 예외처리 추가
-    if (self.m_tSkill['chance_type'] == 'indie_time') then
-        cooltime = self.m_tSkill['chance_value']
+    if (t_skill['chance_type'] == 'indie_time') then
+        cooltime = t_skill['chance_value']
     end
 
     -- 예외처리
@@ -308,7 +310,9 @@ end
 -- @brief 쿨타임 표기용
 -------------------------------------
 function DragonSkillIndivisualInfo:getCoolTimeDesc()
-    local cooltime = self:getCoolTime()
+	-- 수정되지 않은 1레벨 기준의 쿨타임을 가져온다
+	local t_skill = GetSkillTable(self.m_charType):get(self.m_skillID)
+    local cooltime = self:getCoolTime(t_skill)
 
     -- 텍스트 처리
     local desc
