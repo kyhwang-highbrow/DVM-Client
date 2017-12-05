@@ -407,6 +407,11 @@ function ServerData:networkCommonRespone(ret)
             self:applyServerData(ret['evolution_stones'], 'user', 'evolution_stones')
         end
 
+        -- 강화 포인트 갱신
+        if ret['reinforce_point'] then
+            self:applyServerData(ret['reinforce_point'], 'user', 'reinforce_point')
+        end
+
         -- 티켓 갱신
         if ret['tickets'] then
             self:applyServerData(ret['tickets'], 'user', 'tickets')
@@ -522,6 +527,9 @@ function ServerData:networkCommonRespone_addedItems(ret)
 
     -- 진화 재료 갱신 (전체 갱신)
     RefreshGoods(t_added_items, 'evolution_stones')
+
+    -- 강화 포인트 (전체 갱신)
+    RefreshGoods(t_added_items, 'reinforce_point')
 
     -- 티켓 갱신 (전체 갱신)
     RefreshGoods(t_added_items, 'tickets')
