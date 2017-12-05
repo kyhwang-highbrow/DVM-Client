@@ -43,6 +43,12 @@ function WaveMgr_AncientTower:spawnEnemy_dynamic(enemy_id, level, appear_type, v
             local boss_hp_ratio = TableStageData():getValue(self.m_world.m_stageID, 'boss_hp_ratio') or 1
             enemy.m_statusCalc:appendHpRatio(boss_hp_ratio)
             enemy:setStatusCalc(enemy.m_statusCalc)
+
+            -- 광폭화 스킬 적용
+            local skill_id = 200009
+            local skill_type = TableDragonSkill():getSkillType(skill_id)
+
+            enemy:setSkillID(skill_type, skill_id, 1)
         end
     end
 
