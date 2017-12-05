@@ -971,6 +971,7 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <None Include="..\src\UI_Package_LevelUp.lua" />
     <None Include="..\src\UI_Package_LevelUpListItem.lua" />
     <None Include="..\src\UI_QuickPopup.lua" />
+    <None Include="..\src\UI_ReinforcePointCard.lua" />
     <None Include="..\src\UI_RelationCard.lua" />
     <None Include="..\src\UI_ChangeNickPopup.lua" />
     <None Include="..\src\UI_ChatIgnoreListItem.lua" />

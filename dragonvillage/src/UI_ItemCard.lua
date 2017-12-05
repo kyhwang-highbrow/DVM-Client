@@ -41,6 +41,8 @@ function UI_ItemCard:setItemData()
         self:init_runeItem(t_item, self.m_tSubData)
     elseif (t_item['type'] == 'relation_point') then
         self:init_relationItem(t_item)
+    elseif (t_item['type'] == 'reinforce_point') then
+        self:init_reinforcePoint(t_item, self.m_itemCount)
     else
         self:init_commonItem(t_item)
     end
@@ -151,6 +153,16 @@ function UI_ItemCard:init_relationItem(t_item, t_sub_data)
     local dragon_card = UI_RelationCard(struct_dragon_object, count)
     self.root = dragon_card.root
     self.vars = dragon_card.vars
+end
+
+-------------------------------------
+-- function init_reinforcePoint
+-- @brief 강화 포인트
+-------------------------------------
+function UI_ItemCard:init_reinforcePoint(t_item, count)
+    local card = UI_ReinforcePointCard(t_item, count)
+    self.root = card.root
+    self.vars = card.vars
 end
 
 -------------------------------------

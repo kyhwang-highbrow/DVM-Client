@@ -583,6 +583,7 @@ local t_module = {
     'UI_Card',
     'UI_CharacterCard',
     'UI_RelationCard',
+    'UI_ReinforcePointCard',
     'UI_ItemCard',
     'UI_RuneCard',
     'UI_MonsterCard',

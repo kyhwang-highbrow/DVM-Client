@@ -224,6 +224,13 @@ function IconHelper:getItemIcon(item_id, t_sub_data)
          
         sprite = card.root
 
+    -- 강화 포인트 아이콘 생성
+    elseif (item_type == 'reinforce_point') then
+        local item_cnt = t_sub_data or 0
+        local card = UI_ItemCard(item_id, item_cnt)
+         
+        sprite = card.root
+
     -- 기타 아이템 아이콘 생성
     else
         local type_str = t_item['full_type']
