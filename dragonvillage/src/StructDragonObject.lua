@@ -553,12 +553,13 @@ end
 -------------------------------------
 function StructDragonObject:getStringData() 
     -- [ 드래곤 정보 ]
-    -- did;lv;exp;eclv;evolution;grade;skill_0;skill_1;skill_2;skill_3
-    local t1 = string.format('%d;%d;%d;%d;%d;%d;%d;%d;%d;%d', 
+    -- did;lv;exp;eclv;evolution;grade;skill_0;skill_1;skill_2;skill_3;rlv
+    local t1 = string.format('%d;%d;%d;%d;%d;%d;%d;%d;%d;%d;%d', 
         self['did'],
         self['lv'],
         self['exp'],
         self['eclv'],
+		self['rlv'],
         self['evolution'],
         self['grade'],
         self['skill_0'],
