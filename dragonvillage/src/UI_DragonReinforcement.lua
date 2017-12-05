@@ -4,6 +4,7 @@ local PARENT = UI_DragonManage_Base
 -- class UI_DragonReinforcement
 -------------------------------------
 UI_DragonReinforcement = class(PARENT,{
+		m_isDragon = 'bool', -- true / false
     })
 
 -------------------------------------
@@ -185,6 +186,10 @@ function UI_DragonReinforcement:refresh_reinforceInfo()
 	
 	-- 경험치 게이지
 	vars['expGauge']:runAction(cc.ProgressTo:create(0.2, (rexp / max_rexp * 100)))
+
+	-- 강화 비용
+	local curr_cost = TableDragonReinforce:getCurrCost(did, rlv)
+	vars['priceLabel']:setString(comma_value(curr_cost))
 end
 
 -------------------------------------
@@ -227,7 +232,7 @@ function UI_DragonReinforcement:refresh_stats()
 			local max_rate = t_max_reinforce[key]
 			local max_dt = math_floor(max_stat * max_rate / 100)
 
-			vars[key .. 'Gauge']:setPercentage(curr_rate / max_rate * 100)
+			vars[key .. 'Gauge']:runAction(cc.ProgressTo:create(0.2, (curr_rate / max_rate * 100)))
 			vars[key .. 'Label']:setString(string.format('%s / %s', comma_value(curr_dt), comma_value(max_dt)))
 		end
 	end
@@ -277,11 +282,13 @@ function UI_DragonReinforcement:refresh_relation()
 
 			-- 버튼 클릭 등록
 			click_btn:registerScriptTapHandler(function()
+				self.m_isDragon = true
 				self:click_reinforce(rid, ui)
 			end)
 
 			-- 버튼 프레스 등록
 			click_btn:registerScriptPressHandler(function()
+				self.m_isDragon = true
 				self:press_reinforce(rid, ui, click_btn)
 			end)
 
@@ -313,9 +320,10 @@ function UI_DragonReinforcement:refresh_relation()
 		local card = UI_ReinforcePointCard(t_item)
 		card.vars['clickBtn']:setEnabled(false)
 		ui.vars['dragonNode']:addChild(card.root)
+		ui.m_uiName = t_item
 
 		function ui:refresh()
-			local point = g_userData:get('reinforce_point')[tostring(item_id)] or 0
+			local point = g_userData:getReinforcePoint(item_id)
 			ui.vars['relationLabel']:setString(string.format('{@w}%d', point))
 		end
 
@@ -325,11 +333,13 @@ function UI_DragonReinforcement:refresh_relation()
 
 		-- 버튼 클릭 등록
 		click_btn:registerScriptTapHandler(function()
+			self.m_isDragon = false
 			self:click_reinforce(item_id, ui)
 		end)
 
 		-- 버튼 프레스 등록
 		click_btn:registerScriptPressHandler(function()
+			self.m_isDragon = false
 			self:press_reinforce(item_id, ui, click_btn)
 		end)
 
@@ -356,25 +366,31 @@ end
 -------------------------------------
 function UI_DragonReinforcement:getMaxReinforceCount(rid)
 	local t_dragon_data = self.m_selectDragonData
+	local did = t_dragon_data:getDid()
 	local rlv = t_dragon_data:getRlv()
 
 	-- 1. 보유 인연 포인트
-	local relation = g_bookData:getBookData(rid):getRelation()
+	local relation
+	if (self.m_isDragon) then
+		relation = g_bookData:getBookData(rid):getRelation()
+	else
+		relation = g_userData:getReinforcePoint(rid)
+	end
 
 	-- 2. 레벨업 선 비교
 	local rexp = t_dragon_data:getRexp()
-	local max_rexp = TableDragonReinforce:getCurrMaxExp(rid, rlv)
+	local max_rexp = TableDragonReinforce:getCurrMaxExp(did, rlv)
 	if ((max_rexp - rexp) < relation) then
 		relation = max_rexp - rexp
 	end
 
 	-- 3. 골드 비교
-	local curr_cost = TableDragonReinforce:getCurrCost(rid, rlv)
+	local curr_cost = TableDragonReinforce:getCurrCost(did, rlv)
 	local gold = g_userData:get('gold')
 	if ((gold/curr_cost) < relation) then
 		relation = math_floor(gold/curr_cost)
 	end
-
+	
 	return relation
 end
 
@@ -384,7 +400,8 @@ end
 -------------------------------------
 function UI_DragonReinforcement:exceptionReinforce(rid)
 	local t_dragon_data = self.m_selectDragonData
-	
+	local did = t_dragon_data:getDid()
+
 	-- 최대 강화 예외처리
 	if (t_dragon_data:isMaxRlv()) then
 		UIManager:toastNotificationRed(Str('최대 강화 레벨인 드래곤입니다.'))
@@ -393,7 +410,7 @@ function UI_DragonReinforcement:exceptionReinforce(rid)
 
 	-- 골드 비교
 	local rlv = t_dragon_data:getRlv()
-	local curr_cost = TableDragonReinforce:getCurrCost(rid, rlv)
+	local curr_cost = TableDragonReinforce:getCurrCost(did, rlv)
 	local gold = g_userData:get('gold')
 	if (curr_cost > gold) then
 		UIManager:toastNotificationRed(Str('골드가 부족합니다.'))
@@ -401,7 +418,13 @@ function UI_DragonReinforcement:exceptionReinforce(rid)
 	end
 
 	-- 인연 포인트 부족
-	if (g_bookData:getRelationPoint(rid) <= 0) then
+	local relation = 0
+	if (self.m_isDragon) then
+		relation = g_bookData:getRelationPoint(rid)
+	else
+		relation = g_userData:getReinforcePoint(rid)
+	end
+	if (relation <= 0) then
 		UIManager:toastNotificationRed(Str('인연 포인트가 부족합니다.'))
 		return true
 	end
@@ -469,8 +492,13 @@ function UI_DragonReinforcement:press_reinforce(rid, ui, btn)
         UIManager:blockBackKey(true)
 
 		-- 참조용
-		local before_relation_point = g_bookData:getBookData(rid):getRelation()
-		local before_reinforce_exp = t_dragon_data:getReinforceObject()['exp']
+		local before_relation_point, before_reinforce_exp
+		if (self.m_isDragon) then
+			before_relation_point = g_bookData:getBookData(rid):getRelation()
+			--before_reinforce_exp = t_dragon_data:getReinforceObject()['exp']
+		else
+			before_relation_point = g_userData:getReinforcePoint(rid)
+		end
 
 		-- 변수
 		local rcnt = 0
@@ -511,11 +539,13 @@ function UI_DragonReinforcement:press_reinforce(rid, ui, btn)
 				self:refresh_reinforceInfo()
 				self:refresh_stats()
 
-				-- 인연 포인트 수정
-				local struct_book = g_bookData:getBookData(rid)
-				local relation = math_max(before_relation_point - rcnt, struct_book:getRelation() - 1)
-				struct_book:setRelation(relation)
-				ui:refresh()
+				if (self.m_isDragon) then
+					-- 인연 포인트 수정
+					local struct_book = g_bookData:getBookData(rid)
+					local relation = math_max(before_relation_point - rcnt, struct_book:getRelation() - 1)
+					struct_book:setRelation(relation)
+					ui:refresh()
+				end
 			end)
 
 			if co:waitWork() then return end
@@ -624,8 +654,14 @@ function UI_DragonReinforcement:reinforceDirecting(item_ui, finish_cb)
     end
 
     -- 아이콘 생성
-	local struct_dragon = item_ui.m_tData
-    local icon = UI_RelationCard(struct_dragon).root
+	local icon
+	if (self.m_isDragon) then
+		local struct_dragon = item_ui.m_tData
+		icon = UI_RelationCard(struct_dragon).root
+	else
+		local t_item = item_ui.m_uiName
+		icon = UI_ReinforcePointCard(t_item).root
+	end
 	icon:setScale(0.4)
     icon:setPosition(pos_x, pos_y)
     self.root:addChild(icon, 128)

@@ -376,3 +376,13 @@ function ServerData_User:request_setTitle(title_id, cb_func)
     ui_network:setReuse(false)
     ui_network:request()
 end
+
+
+
+-------------------------------------
+-- function getReinforcePoint
+-- @brief 강화포인트 갯수
+-------------------------------------
+function ServerData_User:getReinforcePoint(item_id)
+	return self:get('reinforce_point')[tostring(item_id)] or 0
+end
