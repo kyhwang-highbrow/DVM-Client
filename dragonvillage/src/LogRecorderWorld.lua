@@ -106,8 +106,10 @@ function LogRecorderWorld:recordStaticAllLog()
 
     -- 테이커 캐릭터 로그
     local tamer = world.m_tamer
-    local unique_id = tamer.m_charTable['tid']
-    self.m_tCharLogTable[unique_id] = tamer.m_charLogRecorder
+    if (tamer) then
+        local unique_id = tamer.m_charTable['tid']
+        self.m_tCharLogTable[unique_id] = tamer.m_charLogRecorder
+    end
 end
 
 -------------------------------------
