@@ -72,7 +72,7 @@ function UIHelper:makeGoodbyeStr(t_item, dragon_name)
 	local item_id = t_item['item_id']
 	local rel_name = TableItem:getItemName(item_id)
 	local rel_cnt = t_item['count']
-	return Str(' {@item_name}{1}{@DESC}과(와) 작별하여 {@ROSE}{2}{@DESC}(을)를 {@count}{3}{@DESC}개 획득했습니다.', dragon_name, rel_name, rel_cnt)
+	return Str('{@ROSE}{2}{@DESC}(을)를 {@count}{3}{@DESC}개 획득했습니다.', dragon_name, rel_name, rel_cnt)
 end
 
 -------------------------------------
