@@ -669,19 +669,19 @@ function MakeDragonStatusCalculator_fromDragonDataTable(t_dragon_data)
 	-- 드래곤 강화 수치 와 친밀도(friendship)
 	do
         local friendship_obj = t_dragon_data:getFriendshipObject()
-		local r_rate = t_dragon_data:getReinforceMulti()
+		local t_r_rate = t_dragon_data:getReinforceMulti()
 
         local indivisual_status = status_calc.m_lStatusList['atk']
         indivisual_status:setFriendshipStat(friendship_obj['fatk'])
-		indivisual_status:setReinforceMulti(r_rate)
+		indivisual_status:setReinforceMulti(t_r_rate['atk'])
 
         local indivisual_status = status_calc.m_lStatusList['def']
         indivisual_status:setFriendshipStat(friendship_obj['fdef'])
-		indivisual_status:setReinforceMulti(r_rate)
+		indivisual_status:setReinforceMulti(t_r_rate['def'])
 
         local indivisual_status = status_calc.m_lStatusList['hp']
         indivisual_status:setFriendshipStat(friendship_obj['fhp'])
-		indivisual_status:setReinforceMulti(r_rate)
+		indivisual_status:setReinforceMulti(t_r_rate['hp'])
     end
 
     -- 룬(rune) (개별 룬, 세트 포함)

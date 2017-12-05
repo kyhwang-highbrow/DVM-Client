@@ -17,7 +17,8 @@ StructDragonObject = class({
         eclv = 'number', -- 초월 단계
         friendship = '',
         reinforce = 'number', -- 강화 단계
-		rlv = '',
+
+		rlv = '',	-- 타인의 리더 드래곤 아이콘용 강화 레벨
 
 		lock = 'boolean', -- 잠금
 
@@ -588,15 +589,19 @@ end
 -------------------------------------
 -- function getStringData
 -------------------------------------
-function StructDragonObject:getStringData() 
+function StructDragonObject:getStringData()
+	local rlv = self['reinforce']:getRlv()
+	local rexp = self['reinforce']:getExp()
+
     -- [ 드래곤 정보 ]
-    -- did;lv;exp;eclv;evolution;grade;skill_0;skill_1;skill_2;skill_3;rlv
-    local t1 = string.format('%d;%d;%d;%d;%d;%d;%d;%d;%d;%d;%d', 
+    -- did;lv;exp;eclv;rlv;rexp;evolution;grade;skill_0;skill_1;skill_2;skill_3
+    local t1 = string.format('%d;%d;%d;%d;%d;%d;%d;%d;%d;%d;%d;%d', 
         self['did'],
         self['lv'],
         self['exp'],
         self['eclv'],
-		self['rlv'],
+		rlv,
+		rexp,
         self['evolution'],
         self['grade'],
         self['skill_0'],
