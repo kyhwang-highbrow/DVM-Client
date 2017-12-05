@@ -122,6 +122,9 @@ function UI_DragonManageInfo:initButton()
 
 		-- 판매
         vars['sellBtn']:registerScriptTapHandler(function() self:click_sellBtn() end)
+
+		-- 강화
+        vars['reinforceBtn']:registerScriptTapHandler(function() self:click_reinforceBtn() end)
     end
 
 	-- 좌측 버튼
@@ -512,6 +515,15 @@ function UI_DragonManageInfo:click_skillEnhanceBtn()
 end
 
 -------------------------------------
+-- function click_reinforceBtn
+-- @brief 친밀도 버튼
+-------------------------------------
+function UI_DragonManageInfo:click_reinforceBtn()
+	-- 만렙일 때는 진입 못해야하나?
+    self:openSubManageUI(UI_DragonReinforcement)
+end
+
+-------------------------------------
 -- function click_runeBtn
 -- @brief 룬 버튼
 -------------------------------------
@@ -709,7 +721,6 @@ function UI_DragonManageInfo:click_goodbyeBtn()
 	local birth_grade = table_dragon:getBirthGrade(did)
 
     local material_warning_popup
-	local really_warning_popup
     local network_func
     local show_effect
 	local finish_cb
@@ -717,15 +728,8 @@ function UI_DragonManageInfo:click_goodbyeBtn()
     -- 재료 경고
     material_warning_popup = function()
         local oid = self.m_selectDragonOID
-        g_dragonsData:dragonMaterialWarning(oid, really_warning_popup)
+        g_dragonsData:dragonMaterialWarning(oid, network_func)
     end
-
-	-- 정말 작별 하는지 되물음
-	really_warning_popup = function()
-		local goodbye_str = Str('드래곤과 작별하고 다른 드래곤의 인연 포인트를 획득합니다. 정말로 {@DEEPSKYBLUE}{1}{@DESC}(와)과 작별하시겠습니까?', name)
-        goodbye_str = goodbye_str .. '\n' .. Str('{@RED}(친밀도 등급이 높을수록, 더 높은 등급의 인연포인트를 얻을 확률이 증가합니다)')
-		MakeSimplePopup(POPUP_TYPE.YES_NO, goodbye_str, network_func)
-	end
 
 	-- 작별 통신
 	network_func = function()
