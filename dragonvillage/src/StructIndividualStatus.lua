@@ -168,6 +168,15 @@ function StructIndividualStatus:calcT2()
 end
 
 -------------------------------------
+-- function getLevelStat
+-------------------------------------
+function StructIndividualStatus:getLevelStat()
+    local t1 = (self.m_baseStat +
+                self.m_lvStat + self.m_gradeStat + self.m_evolutionStat + self.m_eclvStat)
+    return t1
+end
+
+-------------------------------------
 -- function getBasicStat
 -------------------------------------
 function StructIndividualStatus:getBasicStat()

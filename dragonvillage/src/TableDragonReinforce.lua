@@ -82,20 +82,25 @@ function TableDragonReinforce:getCurrMaxExp(did, rlv)
 end
 
 -------------------------------------
--- function getCurrCost
+-- function getTotalRateTable
 -------------------------------------
-function TableDragonReinforce:getCurrCost(did, rlv)
+function TableDragonReinforce:getTotalRateTable(did)
 	if (self == THIS) then
         self = THIS()
     end
-
+	
 	-- 태생 등급으로 대상 리스트 구함
 	local birth_grade = TableDragon:getBirthGrade(did)
-	local t_reinforce = S_GRADE_REINFORCE[birth_grade][rlv + 1]
-	
-	if (not t_reinforce) then
-		return
+
+	local t_r_rate = {}
+
+	for _, key in pairs({'atk', 'def', 'hp'}) do
+		local r_rate = 0
+		for i, t in ipairs(S_GRADE_REINFORCE[birth_grade]) do
+			r_rate = r_rate + t[key .. '_bonus']
+		end
+		t_r_rate[key] = r_rate
 	end
 
-	return t_reinforce['exp']
+	return t_r_rate
 end

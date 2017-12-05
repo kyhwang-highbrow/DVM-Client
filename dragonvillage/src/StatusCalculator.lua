@@ -187,6 +187,20 @@ function StatusCalculator:getBasicStat(stat_type)
 end
 
 -------------------------------------
+-- function getBasicStat
+-- @brief 기본 + 레벨 + 등급 + 진화 + 친밀도
+-------------------------------------
+function StatusCalculator:getLevelStat(stat_type)
+    local indivisual_status = self.m_lStatusList[stat_type]
+    if (not indivisual_status) then
+        error('stat_type : ' .. stat_type)
+    end
+
+    local basic_stat = indivisual_status:getLevelStat()
+    return basic_stat
+end
+
+-------------------------------------
 -- function getDeltaStatDisplay
 -------------------------------------
 function StatusCalculator:getDeltaStatDisplay(stat_type, use_percent)

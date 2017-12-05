@@ -45,6 +45,7 @@ end
 -------------------------------------
 function UI_DragonReinforcement:initUI()
     local vars = self.vars
+	vars['expGauge']:setPercentage(0)
     self:init_dragonTableView()
     self:initStatusUI()
 end
@@ -183,45 +184,50 @@ function UI_DragonReinforcement:refresh_reinforceInfo()
 	vars['expLabel']:setString(string.format('%d / %d exp', rexp, max_rexp))
 	
 	-- 경험치 게이지
-	vars['expGauge']:setPercentage(rexp / max_rexp * 100)
-
-	-- 강화 비용
+	vars['expGauge']:runAction(cc.ProgressTo:create(0.2, (rexp / max_rexp * 100)))
 end
 
 -------------------------------------
 -- function refresh_stats
 -- @brief 능력치
 -------------------------------------
-function UI_DragonReinforcement:refresh_stats(t_dragon_data)
+function UI_DragonReinforcement:refresh_stats()
     local vars = self.vars
-    local doid = self.m_selectDragonOID
+    local t_dragon_data = self.m_selectDragonData
 
     -- 현재 레벨의 능력치 계산기
-    local status_calc = MakeOwnDragonStatusCalculator(doid)
+    local status_calc = MakeDragonStatusCalculator_fromDragonDataTable(t_dragon_data)
 
     -- 현재 레벨의 능력치
-    local curr_atk = status_calc:getFinalStat('atk')
-    local curr_def = status_calc:getFinalStat('def')
-    local curr_hp = status_calc:getFinalStat('hp')
-    local curr_cp = status_calc:getCombatPower()
+	do
+		local curr_atk = status_calc:getFinalStat('atk')
+		local curr_def = status_calc:getFinalStat('def')
+		local curr_hp = status_calc:getFinalStat('hp')
+		local curr_cp = status_calc:getCombatPower()
 
-    vars['atkStats']:setBeforeStats(curr_atk)
-    vars['defStats']:setBeforeStats(curr_def)
-    vars['hpStats']:setBeforeStats(curr_hp)
+		vars['atkStats']:setBeforeStats(curr_atk)
+		vars['defStats']:setBeforeStats(curr_def)
+		vars['hpStats']:setBeforeStats(curr_hp)
+	end
 
-    ---- 변경된 레벨의 능력치 계산기
-    --local chaged_dragon_data = {}
-    --local changed_status_calc = MakeOwnDragonStatusCalculator(doid, chaged_dragon_data)
---
-    ---- 변경된 레벨의 능력치
-    --local changed_atk = changed_status_calc:getFinalStat('atk')
-    --local changed_def = changed_status_calc:getFinalStat('def')
-    --local changed_hp = changed_status_calc:getFinalStat('hp')
-    --local changed_cp = changed_status_calc:getCombatPower()
---
-    --vars['atkStats']:setAfterStats(changed_atk)
-    --vars['defStats']:setAfterStats(changed_def)
-    --vars['hpStats']:setAfterStats(changed_hp)
+	-- 총 스탯 대비 게이지
+	do
+		local did = t_dragon_data:getDid()
+		local t_curr_reinforce = t_dragon_data:getReinforceMulti()
+		local t_max_reinforce = TableDragonReinforce:getTotalRateTable(did)
+		for i, key in pairs({'atk', 'def', 'hp'}) do
+			local lv_stat = status_calc:getLevelStat(key)
+
+			local curr_rate = t_curr_reinforce[key]
+			local curr_dt = lv_stat * curr_rate / 100
+
+			local max_rate = t_max_reinforce[key]
+			local max_dt = lv_stat * max_rate / 100
+
+			vars[key .. 'Gauge']:setPercentage(curr_rate / max_rate * 100)
+			vars[key .. 'Label']:setString(string.format('%d / %d', curr_dt, max_dt))
+		end
+	end
 end
 
 -------------------------------------
@@ -312,7 +318,7 @@ end
 -- @brief 현재 최대로 강화 가능한 수를 구한다
 -------------------------------------
 function UI_DragonReinforcement:getMaxReinforceCount(rid)
-
+	return 10
 end
 
 -------------------------------------
@@ -371,18 +377,33 @@ function UI_DragonReinforcement:press_reinforce(rid, ui, btn)
 		return
 	end
 
+	-- 코루틴 함수
 	local function coroutine_function(dt)
         local co = CoroutineHelper()
-        --co:setBlockPopup()
 
+		-- 백키 블럭 해제
+        UIManager:blockBackKey(true)
+
+		-- 참조용
+		local before_relation_point = g_bookData:getBookData(rid):getRelation()
+		local before_reinforce_exp = t_dragon_data:getReinforceObject()['exp']
+
+		-- 변수
 		local rcnt = 0
-
+		local max_rcnt = self:getMaxReinforceCount(rid)
 		local timer = 0
 		local node = cc.Node:create()
 		self.root:addChild(node)
+
+		-- 업데이트
 		local function update(dt)
+			if (not btn:isSelected()) or (rcnt > max_rcnt) then
+				node:unscheduleUpdate()
+				co.NEXT()
+			end
+
 			timer = timer + dt
-			if (timer > dt * 30) then
+			if (timer > dt * 15) then
 				co.NEXT()	
 				timer = 0
 			end
@@ -393,26 +414,32 @@ function UI_DragonReinforcement:press_reinforce(rid, ui, btn)
 		while (btn:isSelected()) do
 			co:work()
 
-			cclog(rcnt)
+			-- 탈출 조건
+			if (rcnt >= max_rcnt) then
+				break
+			end
+
 			rcnt = rcnt + 1
 			self:reinforceDirecting(ui, function()
+				-- 강화 경험치 수정
 				local rexp = t_dragon_data:getReinforceObject()['exp']
 				t_dragon_data:getReinforceObject()['exp'] = rexp + 1
-				self:response_reinforce(ret_cache)
+				self:refresh_reinforceInfo()
+				self:refresh_stats()
+
+				-- 인연 포인트 수정
+				local struct_book = g_bookData:getBookData(rid)
+				local relation = math_max(before_relation_point - rcnt, struct_book:getRelation() - 1)
+				struct_book:setRelation(relation)
 				ui:refresh()
-				co.NEXT()
 			end)
 
 			if co:waitWork() then return end
 		end
-		
-		node:removeFromParent()
 
-        -- 서버와 통신
+		-- 서버와 통신
         co:work()
-        local ret_cache
-        local function request_finish(ret)
-            ret_cache = ret
+        local function request_finish()
             co.NEXT()
         end
         self:request_reinforce(rid, rcnt, request_finish)
@@ -421,6 +448,9 @@ function UI_DragonReinforcement:press_reinforce(rid, ui, btn)
         -- 필요한것들 갱신
 		self:response_reinforce(ret_cache)
 		ui:refresh()
+
+		-- 백키 블럭 해제
+        UIManager:blockBackKey(false)
 
         co:close()
     end
@@ -471,7 +501,7 @@ end
 -- function response_reinforce
 -- @brief
 -------------------------------------
-function UI_DragonReinforcement:response_reinforce(ret)
+function UI_DragonReinforcement:response_reinforce()
 	self:setSelectDragonDataRefresh()
     self:refresh_reinforceInfo()
 	self:refresh_stats()
@@ -546,13 +576,13 @@ function UI_DragonReinforcement:reinforceDirecting(item_ui, finish_cb)
         local world_pos = parent:convertToWorldSpaceAR(cc.p(x, y))
         local local_pos = self.root:convertToNodeSpaceAR(world_pos)
         dest_pos_x = local_pos['x'] + math_random(-20, 20)
-        dest_pos_y = local_pos['y'] + 50 + math_random(-20, 20)
+        dest_pos_y = local_pos['y'] + 30 + math_random(-20, 20)
     end
 
     -- 아이콘 생성
 	local struct_dragon = item_ui.m_tData
     local icon = UI_RelationCard(struct_dragon).root
-	icon:setScale(0.5)
+	icon:setScale(0.4)
     icon:setPosition(pos_x, pos_y)
     self.root:addChild(icon, 128)
 
