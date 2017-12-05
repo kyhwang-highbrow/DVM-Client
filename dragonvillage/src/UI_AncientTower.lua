@@ -292,9 +292,17 @@ function UI_AncientTower:changeFloorVisual(stage_id, ui)
     local is_opened = g_ancientTowerData:isOpenStage(stage_id)
     local visual_id
 
+    -- 스테이지 속성 보너스
+    local t_info = TABLE:get('anc_floor_reward')[stage_id]
+    local attr = t_info['bonus_attr']
+
     if (is_selected) then
         if (is_opened) then visual_id = 'select'
         else                visual_id = 'lock_select'
+        end
+
+        if attr and (attr ~= '') then
+            visual_id = (visual_id .. '_' .. attr)
         end
     else
         if (is_opened) then visual_id = 'normal'
@@ -303,6 +311,33 @@ function UI_AncientTower:changeFloorVisual(stage_id, ui)
     end
 
     ui.vars['towerVisual']:changeAni(visual_id, true)
+
+    -- 속성 보너스가 있는 스테이지일 경우
+    if attr and (attr ~= '') then
+        self.vars['attrMenu']:setVisible(true)
+        cca.uiReactionSlow(self.vars['attrMenu'])
+        
+        -- 속성 아이콘
+        local icon = IconHelper:getAttributeIcon(attr)
+        self.vars['attrNode']:removeAllChildren()
+        self.vars['attrNode']:addChild(icon)
+        
+        -- TIP
+        local attr_str = dragonAttributeName(attr)
+        local str = Str('TIP.\n전투에 참여한 {1}속성 드래곤의 수에 따라\n보너스 점수를 획득할 수 있어요.', attr_str)
+        self.vars['attrInfoLabel']:setString(str)
+
+        -- 속성 보너스
+        self.vars['attrLabel']:setString(Str('{1}속성 보너스', attr_str))
+        
+        -- 색상 변경
+        local color = COLOR[attr]
+        self.vars['attrSprite1']:setColor(color)
+        self.vars['attrSprite2']:setColor(color)
+        self.vars['attrLabel']:setColor(color)
+    else
+        self.vars['attrMenu']:setVisible(false)
+    end
 end
 
 --@CHECK

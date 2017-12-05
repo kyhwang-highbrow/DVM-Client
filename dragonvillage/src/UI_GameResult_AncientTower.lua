@@ -50,7 +50,8 @@ function UI_GameResult_AncientTower:setAnimationData()
     table.insert(score_list, score_calc:calcClearBonus())
     table.insert(score_list, score_calc:calcClearTimeBonus())
     table.insert(score_list, score_calc:calcClearNoDeathBonus())
-    table.insert(score_list, score_calc:calcKillBossBonus())
+    table.insert(score_list, score_calc:calcAttrBonus())
+    --table.insert(score_list, score_calc:calcKillBossBonus())
     --table.insert(score_list, score_calc:calcAcitveSkillBonus())
     table.insert(score_list, score_calc:getWeakGradeMinusScore())
     table.insert(score_list, score_calc:getFinalScore())
@@ -58,8 +59,10 @@ function UI_GameResult_AncientTower:setAnimationData()
     -- 애니메이션 적용되는 라벨 저장
     local var_list = 
     {
-        'clearLabel1',  'clearLabel2',  'timeLabel1',  'timeLabel2', 
-        'injuryLabel1', 'injuryLabel2', 'dragLabel1',  'dragLabel2',
+        'clearLabel1',  'clearLabel2',
+        'timeLabel1',  'timeLabel2', 
+        'injuryLabel1', 'injuryLabel2',
+        'attrBonusLabel1',  'attrBonusLabel2',
         'weakLabel1',  'weakLabel2', 
         'totalLabel1',  'totalLabel2'
     }
