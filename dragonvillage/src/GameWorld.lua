@@ -338,9 +338,6 @@ function GameWorld:initGame(stage_name)
         
     -- 위치 표시 이펙트 생성
     self:init_formation()
-
-	-- Game Log Recorder 생성
-	self.m_logRecorder = LogRecorderWorld(self)
 		
 	-- mission manager 생성
 	if (self.m_gameMode == GAME_MODE_ADVENTURE) then
@@ -398,6 +395,9 @@ function GameWorld:initGame(stage_name)
             self.m_enemyMovementMgr = EnemyMovementMgr(self, t_movement)
         end
     end
+
+    -- Game Log Recorder 생성
+	self.m_logRecorder = LogRecorderWorld(self)
 
     -- UI
     self.m_inGameUI:doActionReset()

@@ -90,15 +90,24 @@ function LogRecorderWorld:recordStaticAllLog()
 		local attr = dragon.m_attribute
 		self:applyDataInTable(self.m_attrCnt, attr)
 
-		local evolution = dragon.m_tDragonInfo['evolution']
+		local evolution = dragon.m_tDragonInfo:getEvolution()
 		self:applyDataInTable(self.m_evolutionCnt, evolution)
 
 		local did = dragon.m_dragonID
 		self:applyDataInTable(self.m_usedDragon, did)
 
-		local role = dragon.m_tDragonInfo['role']
+		local role = dragon.m_tDragonInfo:getRole()
 		self:applyDataInTable(self.m_usedRole, role)
+
+        -- 드래곤 캐릭터 로그
+        local unique_id = dragon.m_tDragonInfo['id']
+        self.m_tCharLogTable[unique_id] = dragon.m_charLogRecorder
 	end
+
+    -- 테이커 캐릭터 로그
+    local tamer = world.m_tamer
+    local unique_id = tamer.m_charTable['tid']
+    self.m_tCharLogTable[unique_id] = tamer.m_charLogRecorder
 end
 
 -------------------------------------
@@ -220,17 +229,6 @@ function LogRecorderWorld:getLog(key)
     else
 		return 0
 	end
-end
-
--------------------------------------
--- function getLogRecorderChar
--------------------------------------
-function LogRecorderWorld:getLogRecorderChar(unique_id)
-	if not (self.m_tCharLogTable[unique_id]) then
-		self.m_tCharLogTable[unique_id] = LogRecorderChar(unique_id)
-	end
-
-	return self.m_tCharLogTable[unique_id]
 end
 
 -------------------------------------

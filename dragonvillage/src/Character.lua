@@ -370,7 +370,7 @@ end
 -------------------------------------
 function Character:initLogRecorder(unique_id)
     if (unique_id) then
-		self.m_charLogRecorder = self.m_world.m_logRecorder:getLogRecorderChar(unique_id)
+		self.m_charLogRecorder = LogRecorderChar(unique_id)
 	else
 		cclog('다음 id의 캐릭터가 LogRecorder를 생성하지 못했습니다. ')
 	end
