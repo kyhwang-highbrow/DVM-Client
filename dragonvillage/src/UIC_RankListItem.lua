@@ -37,8 +37,8 @@ function IRankListItem:initRankInfo(vars, struct_user_info)
 	-- 클랜 버튼
 	if (vars['clanBtn']) then
 		vars['clanBtn']:registerScriptTapHandler(function()
-			local clan_object_id = struct_clan:getClanObjectID()
-			g_clanData:requestClanInfoDetailPopup(clan_object_id)
+			--local clan_object_id = struct_clan:getClanObjectID()
+			--g_clanData:requestClanInfoDetailPopup(clan_object_id)
 		end)
 	end
 end
