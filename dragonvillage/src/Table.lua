@@ -115,6 +115,9 @@ local TableInfo_fromServer = {
         -- 진화재료 조합
         ['table_item_evolution_combine'] = {'table_item_evolution_combine', 'id'},
         ['table_package_levelup'] = {'table_package_levelup', 'level'}, -- 레벨업 패키지 레벨별 보상 리스트
+
+		-- 드래곤 강화
+		['table_dragon_reinforce'] = {'table_dragon_reinforce', 'id'},
     }
 
 -------------------------------------

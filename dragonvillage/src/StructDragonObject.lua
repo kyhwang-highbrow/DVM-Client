@@ -67,7 +67,9 @@ function StructDragonObject:init(data)
     end
 
 	-- 드래곤 강화
-	self['reinforce'] = StructReinforcement(self['reinforce'])
+	if (self['reinforce']) then
+		self['reinforce'] = StructReinforcement(self['reinforce'])
+	end
 
     -- 친밀도 오브젝트 생성
     self['friendship'] = StructFriendshipObject(self['friendship'])
@@ -253,11 +255,36 @@ function StructDragonObject:getFlv()
 end
 
 -------------------------------------
+-- function getReinforceObject
+-- @breif
+-------------------------------------
+function StructDragonObject:getReinforceObject()
+	return self['reinforce']
+end
+
+-------------------------------------
 -- function getRlv
 -- @breif
 -------------------------------------
 function StructDragonObject:getRlv()
-    return self['rlv']
+	if (self['reinforce']) then
+		return self['reinforce']:getRlv()
+	else
+		return self['rlv']
+	end
+end
+
+-------------------------------------
+-- function getReinforceMulti
+-- @breif
+-------------------------------------
+function StructDragonObject:getReinforceMulti()
+	local reinforce_obj = self['reinforce']
+	if (not reinforce_obj) then
+		return
+	end
+	local r_rate = TableDragonReinforce:getReinforceRate(self['did'], reinforce_obj:getRlv(), reinforce_obj:getExp())
+	return r_rate
 end
 
 -------------------------------------

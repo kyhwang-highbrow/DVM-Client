@@ -38,7 +38,7 @@ end
 -- function getRlv
 -- @breif
 -------------------------------------
-function StructFriendshipObject:getRlv()
+function StructReinforcement:getRlv()
     return self['lv']
 end
 
@@ -46,7 +46,7 @@ end
 -- function isMaxRlv
 -- @breif
 -------------------------------------
-function StructFriendshipObject:isMaxRlv()
+function StructReinforcement:isMaxRlv()
     return false
 end
 
@@ -54,6 +54,6 @@ end
 -- function getExp
 -- @breif
 -------------------------------------
-function StructFriendshipObject:getExp()
+function StructReinforcement:getExp()
     return self['exp']
 end
