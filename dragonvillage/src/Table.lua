@@ -47,7 +47,6 @@ local TableInfo = {
         table_tamer_title	= {'table_tamer_title',			'title_id',		false},
         table_google_quest	= {'table_google_quest',	    'gqid',			false},
 
-        anc_floor_reward    = {'table_ancient_reward',      'stage',		false},
         anc_weak_debuff     = {'table_ancient_debuff',	    'var',		    false},
         stage_mission       = {'table_stage_mission',		'key',			false},
         calendar            = {'table_calendar',		    'month',		false},
@@ -101,6 +100,7 @@ local TableInfo_fromServer = {
         ['table_colosseum'] = {'table_colosseum', 'tid'},
         ['table_content_lock'] = {'table_content_lock', 'content_name'},
         ['table_clan_reward'] = {'table_clan_reward', 'rank_id'},
+        ['table_ancient_reward'] = {'anc_floor_reward', 'stage'},
 
         --  친밀도
         ['table_dragon_friendship'] = {'table_dragon_friendship', 'friendship'},

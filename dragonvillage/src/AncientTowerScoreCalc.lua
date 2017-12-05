@@ -7,22 +7,28 @@ AncientTowerScoreCalc = class({
         m_score = 'number',         -- 약화등급 계산전 스코어
         m_final_score = 'number',   -- 약화등급 계산후 스코어
 
-        m_weak_grade = 'number'
+        m_weak_grade = 'number',
+        m_bonusAttr = 'string',
     })
 
 local CLEAR_BONUS       = 500   -- 클리어 보너스
 local NODEATH_BONUS     = 700   -- 생존 보너스
-local BOSS_BONUS        = 700    -- 보스 제거 보너스
-local ACTIVE_BONUS      = 0    -- 드래그 스킬 보너스
+local BOSS_BONUS        = 0     -- 보스 제거 보너스
+local ACTIVE_BONUS      = 0     -- 드래그 스킬 보너스
 local WAVE_TOTAL_TIME   = 300
+local ATTR_BONUS        = 480   -- 속성덱보너스
 
 -------------------------------------
 -- function init
 -------------------------------------
-function AncientTowerScoreCalc:init(recorder)
+function AncientTowerScoreCalc:init(recorder, stage_id)
     self.m_lrecorder = recorder or nil
     self.m_score = 0
     self.m_final_score = 0
+
+    local t_info = TABLE:get('anc_floor_reward')[stage_id]
+    self.m_bonusAttr = t_info['bonus_attr']
+
     self:setChallengingWeakGrade()
     self:calcFinalScore()
 end
@@ -47,8 +53,9 @@ function AncientTowerScoreCalc:calcFinalScore()
     local v3 = self:calcClearNoDeathBonus()
     local v4 = self:calcKillBossBonus()
     local v5 = self:calcAcitveSkillBonus()
+    local v6 = self:calcAttrBonus()
 
-    self.m_score = (v1 + v2 + v3 + v4 + v5)
+    self.m_score = (v1 + v2 + v3 + v4 + v5 + v6)
 
     local weak_grade = self.m_weak_grade + 1
 
@@ -72,7 +79,7 @@ function AncientTowerScoreCalc:calcClearTimeBonus()
     local recorder_info = self.m_lrecorder
     local clear_time    = recorder_info:getLog('lap_time')
 
-    return math_max((WAVE_TOTAL_TIME - clear_time) * 5, 0)
+    return math_max((WAVE_TOTAL_TIME - clear_time) * 8, 0)
 end
 
 -------------------------------------
@@ -117,6 +124,27 @@ function AncientTowerScoreCalc:getWeakGradeMinusScore()
     local score = self.m_score
     local final_score = self.m_final_score
     return -math_floor(score - final_score)
+end
+
+-------------------------------------
+-- function calcAttrBonus
+-- @brief 드래곤 속성 보너스
+-- @brief 조건 : 스테이지에 지정된 속성의 드래곤
+-------------------------------------
+function AncientTowerScoreCalc:calcAttrBonus()
+    local recorder_info = self.m_lrecorder
+    local active_count = 0
+
+    local attr = nil
+    if (self.m_bonusAttr and (self.m_bonusAttr ~= '')) then
+        attr = self.m_bonusAttr
+    end
+
+    if attr then
+        active_count = (recorder_info.m_attrCnt[attr] or 0)
+    end
+
+    return (ATTR_BONUS * active_count)
 end
 
 -------------------------------------

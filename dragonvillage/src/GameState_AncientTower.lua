@@ -144,8 +144,9 @@ function GameState_AncientTower:makeResultUI(is_success)
         local t_param 
         t_param = self:makeGameFinishParam(is_success)
 
+        local stage_id = g_ancientTowerData:getChallengingStageID()
         local recorder = clone(self.m_world.m_logRecorder)
-        score_calc = AncientTowerScoreCalc(recorder)
+        score_calc = AncientTowerScoreCalc(recorder, stage_id)
 
         -- 스테이지 클리어시 최종 점수 추가로 보냄
         if (t_param['clear_type'] == 1) then 
