@@ -10,7 +10,7 @@ preBuild {
 // task android build
 android {
     compileSdkVersion 25
-    buildToolsVersion "26.0.1"
+    buildToolsVersion "25.0.3"
 
     defaultConfig {
         applicationId "com.perplelab.dragonvillagem.kr"
@@ -281,7 +281,7 @@ dependencies {
     compile(name:'unity-ads', ext:'aar')
 
     // @naver-cafe
-    compile(name:'cafeSdk-2.5.1', ext:'aar')
+    compile(name:'cafeSdk-2.5.2', ext:'aar')
     compile 'com.android.support:design:25.3.1'
     compile 'com.android.support:support-v4:25.3.1'
     compile 'com.navercorp.volleyextensions:volleyer:2.0.1', {

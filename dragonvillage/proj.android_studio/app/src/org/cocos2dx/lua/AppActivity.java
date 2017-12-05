@@ -88,6 +88,8 @@ public class AppActivity extends Cocos2dxActivity{
     static final String NAVER_CAFE_CLIENT_ID = "nQGxfwLZ1Rf4Lwhozq4G";
     static final String NAVER_CAFE_CLIENT_SECRET = "1yzbWtj_Cu";
     static final int NAVER_CAFE_ID = 29168475;
+    static final String NAVER_NEO_ID_CONSUMER_KEY = "";
+    static final int NAVER_COMMUNITY_ID = 0;
 
     static final String ADCOLONY_APP_ID = "app36c426430b1a4ffd96";
 
@@ -143,7 +145,7 @@ public class AppActivity extends Cocos2dxActivity{
         PerpleSDK.getInstance().initAdColony(ADCOLONY_APP_ID);
 
         // @naver-cafe
-        PerpleSDK.getInstance().initNaverCafe(NAVER_CAFE_CLIENT_ID, NAVER_CAFE_CLIENT_SECRET, NAVER_CAFE_ID);
+        PerpleSDK.getInstance().initNaverCafe(NAVER_CAFE_CLIENT_ID, NAVER_CAFE_CLIENT_SECRET, NAVER_CAFE_ID, NAVER_NEO_ID_CONSUMER_KEY, NAVER_COMMUNITY_ID);
     }
 
     @Override
