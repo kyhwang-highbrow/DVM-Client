@@ -55,3 +55,41 @@ function TableDragonReinforce:getReinforceRate(did, rlv, rexp)
 
 	return r_rate
 end
+
+-------------------------------------
+-- function getCurrMaxExp
+-------------------------------------
+function TableDragonReinforce:getCurrMaxExp(did, rlv)
+	if (self == THIS) then
+        self = THIS()
+    end
+
+	-- 태생 등급으로 대상 리스트 구함
+	local birth_grade = TableDragon:getBirthGrade(did)
+	local t_reinforce = S_GRADE_REINFORCE[birth_grade][rlv + 1]
+	
+	if (not t_reinforce) then
+		return
+	end
+
+	return t_reinforce['exp']
+end
+
+-------------------------------------
+-- function getCurrCost
+-------------------------------------
+function TableDragonReinforce:getCurrCost(did, rlv)
+	if (self == THIS) then
+        self = THIS()
+    end
+
+	-- 태생 등급으로 대상 리스트 구함
+	local birth_grade = TableDragon:getBirthGrade(did)
+	local t_reinforce = S_GRADE_REINFORCE[birth_grade][rlv + 1]
+	
+	if (not t_reinforce) then
+		return
+	end
+
+	return t_reinforce['exp']
+end

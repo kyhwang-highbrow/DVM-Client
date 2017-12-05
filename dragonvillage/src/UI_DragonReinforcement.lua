@@ -61,6 +61,7 @@ function UI_DragonReinforcement:initStatusUI()
     uic_stats:setPositionY(l_pos[1])
     uic_stats:setParentNode(vars['statsNode'])
     uic_stats:setStatsName(Str('공격력'))
+	uic_stats:showOnlyCurrStat(false)
     vars['atkStats'] = uic_stats
 
     local uic_stats = UIC_IndivisualStats()
@@ -68,6 +69,7 @@ function UI_DragonReinforcement:initStatusUI()
     uic_stats:setPositionY(l_pos[2])
     uic_stats:setParentNode(vars['statsNode'])
     uic_stats:setStatsName(Str('방어력'))
+	uic_stats:showOnlyCurrStat(false)
     vars['defStats'] = uic_stats
 
     local uic_stats = UIC_IndivisualStats()
@@ -75,6 +77,7 @@ function UI_DragonReinforcement:initStatusUI()
     uic_stats:setPositionY(l_pos[3])
     uic_stats:setParentNode(vars['statsNode'])
     uic_stats:setStatsName(Str('생명력'))
+	uic_stats:showOnlyCurrStat(false)
     vars['hpStats'] = uic_stats
 end
 
@@ -84,7 +87,6 @@ end
 -------------------------------------
 function UI_DragonReinforcement:initButton()
     local vars = self.vars
-    vars['reinforceBtn']:registerScriptTapHandler(function() self:click_reinforceBtn() end)
 end
 
 -------------------------------------
@@ -92,7 +94,9 @@ end
 -------------------------------------
 function UI_DragonReinforcement:refresh()
     self:refresh_dragonInfo()
+	self:refresh_reinforceInfo()
 	self:refresh_stats()
+	self:refresh_relation()
 end
 
 -------------------------------------
@@ -156,21 +160,32 @@ function UI_DragonReinforcement:refresh_dragonInfo()
 end
 
 -------------------------------------
--- function getDragonList
--- @breif 하단 리스트뷰에 노출될 드래곤 리스트
--- @override
+-- function refresh_dragonInfo
+-- @brief 드래곤 정보
 -------------------------------------
-function UI_DragonReinforcement:getDragonList()
-    local dragon_dic = g_dragonsData:getDragonListWithSlime()
+function UI_DragonReinforcement:refresh_reinforceInfo()
+    local t_dragon_data = self.m_selectDragonData
 
-    -- 절대 레벨업 불가능한 드래곤 제외
-    for oid, v in pairs(dragon_dic) do
-        if (g_dragonsData:impossibleLevelupForever(oid)) then
-            dragon_dic[oid] = nil
-        end
+    if (not t_dragon_data) then
+        return
     end
 
-    return dragon_dic
+    local vars = self.vars
+    local did = t_dragon_data['did']
+
+	-- 드래곤 강화 레벨
+	local rlv = t_dragon_data:getRlv()
+	vars['reinfoceLabel']:setString(Str('강화 +{1}', rlv))
+		
+	-- 현재 경험치 / 총 경험치
+	local rexp = t_dragon_data:getRexp()
+	local max_rexp = TableDragonReinforce:getCurrMaxExp(did, rlv)
+	vars['expLabel']:setString(string.format('%d / %d exp', rexp, max_rexp))
+	
+	-- 경험치 게이지
+	vars['expGauge']:setPercentage(rexp / max_rexp * 100)
+
+	-- 강화 비용
 end
 
 -------------------------------------
@@ -194,19 +209,56 @@ function UI_DragonReinforcement:refresh_stats(t_dragon_data)
     vars['defStats']:setBeforeStats(curr_def)
     vars['hpStats']:setBeforeStats(curr_hp)
 
-    -- 변경된 레벨의 능력치 계산기
-    local chaged_dragon_data = {}
-    local changed_status_calc = MakeOwnDragonStatusCalculator(doid, chaged_dragon_data)
+    ---- 변경된 레벨의 능력치 계산기
+    --local chaged_dragon_data = {}
+    --local changed_status_calc = MakeOwnDragonStatusCalculator(doid, chaged_dragon_data)
+--
+    ---- 변경된 레벨의 능력치
+    --local changed_atk = changed_status_calc:getFinalStat('atk')
+    --local changed_def = changed_status_calc:getFinalStat('def')
+    --local changed_hp = changed_status_calc:getFinalStat('hp')
+    --local changed_cp = changed_status_calc:getCombatPower()
+--
+    --vars['atkStats']:setAfterStats(changed_atk)
+    --vars['defStats']:setAfterStats(changed_def)
+    --vars['hpStats']:setAfterStats(changed_hp)
+end
 
-    -- 변경된 레벨의 능력치
-    local changed_atk = changed_status_calc:getFinalStat('atk')
-    local changed_def = changed_status_calc:getFinalStat('def')
-    local changed_hp = changed_status_calc:getFinalStat('hp')
-    local changed_cp = changed_status_calc:getCombatPower()
+-------------------------------------
+-- function refresh_relation
+-------------------------------------
+function UI_DragonReinforcement:refresh_relation()
+	local t_dragon_data = self.m_selectDragonData
 
-    vars['atkStats']:setAfterStats(changed_atk)
-    vars['defStats']:setAfterStats(changed_def)
-    vars['hpStats']:setAfterStats(changed_hp)
+    if (not t_dragon_data) then
+        return
+    end
+
+    local vars = self.vars
+    local did = t_dragon_data['did']
+	local list = TableDragon:getSameTypeDragonList(did)
+	
+	for i, t_dragon in ipairs(list) do
+
+	end
+end
+
+-------------------------------------
+-- function getDragonList
+-- @breif 하단 리스트뷰에 노출될 드래곤 리스트
+-- @override
+-------------------------------------
+function UI_DragonReinforcement:getDragonList()
+    local dragon_dic = g_dragonsData:getDragonListWithSlime()
+
+    -- 절대 레벨업 불가능한 드래곤 제외
+    for oid, v in pairs(dragon_dic) do
+        if (g_dragonsData:impossibleLevelupForever(oid)) then
+            dragon_dic[oid] = nil
+        end
+    end
+
+    return dragon_dic
 end
 
 -------------------------------------

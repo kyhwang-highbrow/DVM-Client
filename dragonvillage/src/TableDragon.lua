@@ -37,6 +37,23 @@ function TableDragon:isSameDragonType(did1, did2)
 end
 
 -------------------------------------
+-- function getSameTypeDragonList
+-------------------------------------
+function TableDragon:getSameTypeDragonList(did)
+	if (self == THIS) then
+        self = THIS()
+    end
+
+	local d_type = self:getValue(did, 'type')
+    local list = self:filterList('type', d_type)
+	table.sort(list, function(a, b)
+		return a['did'] < b['did']
+	end)
+
+    return list
+end
+
+-------------------------------------
 -- function initIllustratedDragonList
 -- @breif 도감 리스트 초기화
 -------------------------------------

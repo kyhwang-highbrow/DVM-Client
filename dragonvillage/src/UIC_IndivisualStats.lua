@@ -228,3 +228,12 @@ function UIC_IndivisualStats:setParentNode(node)
     local x3 = arrow_pos + 20
     self:setLayout(width, height, x1, x2, x3)
 end
+
+-------------------------------------
+-- function showOnlyCurrStat
+-- @brief 다음 능력치 설정
+-------------------------------------
+function UIC_IndivisualStats:showOnlyCurrStat()
+	self.m_arrowIconSprite:setVisible(false)
+    self.m_afterStatsLabel:setVisible(false)
+end

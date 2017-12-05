@@ -275,6 +275,16 @@ function StructDragonObject:getRlv()
 end
 
 -------------------------------------
+-- function getRexp
+-- @breif
+-------------------------------------
+function StructDragonObject:getRexp()
+	if (self['reinforce']) then
+		return self['reinforce']:getExp()
+	end
+end
+
+-------------------------------------
 -- function getReinforceMulti
 -- @breif
 -------------------------------------
