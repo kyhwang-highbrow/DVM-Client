@@ -275,6 +275,16 @@ function StructDragonObject:getRlv()
 	end
 end
 
+local MAX_REINFORCE_LV = 6
+-------------------------------------
+-- function isMaxRlv
+-- @breif
+-------------------------------------
+function StructDragonObject:isMaxRlv()
+	local rlv = self:getRlv()
+	return (MAX_REINFORCE_LV <= rlv)
+end
+
 -------------------------------------
 -- function getRexp
 -- @breif

@@ -215,17 +215,20 @@ function UI_DragonReinforcement:refresh_stats()
 		local did = t_dragon_data:getDid()
 		local t_curr_reinforce = t_dragon_data:getReinforceMulti()
 		local t_max_reinforce = TableDragonReinforce:getTotalRateTable(did)
+		local max_status_calc = MakeDragonStatusCalculator(did, 60, MAX_DRAGON_GRADE, MAX_DRAGON_EVOLUTION, 0)
 		for i, key in pairs({'atk', 'def', 'hp'}) do
+			-- 현재 수치
 			local lv_stat = status_calc:getLevelStat(key)
-
 			local curr_rate = t_curr_reinforce[key]
-			local curr_dt = lv_stat * curr_rate / 100
+			local curr_dt = math_floor(lv_stat * curr_rate / 100)
 
+			-- 최대 수치
+			local max_stat = max_status_calc:getLevelStat(key)
 			local max_rate = t_max_reinforce[key]
-			local max_dt = lv_stat * max_rate / 100
+			local max_dt = math_floor(max_stat * max_rate / 100)
 
 			vars[key .. 'Gauge']:setPercentage(curr_rate / max_rate * 100)
-			vars[key .. 'Label']:setString(string.format('%d / %d', curr_dt, max_dt))
+			vars[key .. 'Label']:setString(string.format('%s / %s', comma_value(curr_dt), comma_value(max_dt)))
 		end
 	end
 end
@@ -282,6 +285,11 @@ function UI_DragonReinforcement:refresh_relation()
 				self:press_reinforce(rid, ui, click_btn)
 			end)
 
+			-- 연출
+			ui.m_characterCard.root:setScale(0)
+			ui.m_characterCard.root:runAction(cc.Sequence:create(cc.DelayTime:create((i-1) * 0.025), cc.EaseElasticOut:create(cc.ScaleTo:create(1, 1, 1), 0.3)))
+
+
 		-- 없으면 빈아이콘 생성
 		else
 			local ui = UI()
@@ -293,6 +301,43 @@ function UI_DragonReinforcement:refresh_relation()
 		end
 	end
 
+	-- 강화 포인트 생성
+	do 
+		local grade = t_dragon_data:getBirthGrade()
+		local item_id = 760000 + grade
+		local t_item = TableItem():get(item_id)
+		local ui = UI()
+		ui:load('hatchery_relation_item.ui')
+		vars['relationNode6']:addChild(ui.root)
+		
+		local card = UI_ReinforcePointCard(t_item)
+		card.vars['clickBtn']:setEnabled(false)
+		ui.vars['dragonNode']:addChild(card.root)
+
+		function ui:refresh()
+			local point = g_userData:get('reinforce_point')[tostring(item_id)] or 0
+			ui.vars['relationLabel']:setString(string.format('{@w}%d', point))
+		end
+
+		ui:refresh()
+
+		local click_btn = ui.vars['clickBtn']
+
+		-- 버튼 클릭 등록
+		click_btn:registerScriptTapHandler(function()
+			self:click_reinforce(item_id, ui)
+		end)
+
+		-- 버튼 프레스 등록
+		click_btn:registerScriptPressHandler(function()
+			self:press_reinforce(item_id, ui, click_btn)
+		end)
+
+		-- 연출
+		card.root:setScale(0)
+		card.root:runAction(cc.Sequence:create(cc.DelayTime:create((6-1) * 0.025), cc.EaseElasticOut:create(cc.ScaleTo:create(1, 1, 1), 0.3)))
+	end
+
 end
 
 -------------------------------------
@@ -301,15 +346,7 @@ end
 -- @override
 -------------------------------------
 function UI_DragonReinforcement:getDragonList()
-    local dragon_dic = g_dragonsData:getDragonListWithSlime()
-
-    -- 절대 레벨업 불가능한 드래곤 제외
-    for oid, v in pairs(dragon_dic) do
-        if (g_dragonsData:impossibleLevelupForever(oid)) then
-            dragon_dic[oid] = nil
-        end
-    end
-
+    local dragon_dic = g_dragonsData:getDragonsList()
     return dragon_dic
 end
 
@@ -318,7 +355,58 @@ end
 -- @brief 현재 최대로 강화 가능한 수를 구한다
 -------------------------------------
 function UI_DragonReinforcement:getMaxReinforceCount(rid)
-	return 10
+	local t_dragon_data = self.m_selectDragonData
+	local rlv = t_dragon_data:getRlv()
+
+	-- 1. 보유 인연 포인트
+	local relation = g_bookData:getBookData(rid):getRelation()
+
+	-- 2. 레벨업 선 비교
+	local rexp = t_dragon_data:getRexp()
+	local max_rexp = TableDragonReinforce:getCurrMaxExp(rid, rlv)
+	if ((max_rexp - rexp) < relation) then
+		relation = max_rexp - rexp
+	end
+
+	-- 3. 골드 비교
+	local curr_cost = TableDragonReinforce:getCurrCost(rid, rlv)
+	local gold = g_userData:get('gold')
+	if ((gold/curr_cost) < relation) then
+		relation = math_floor(gold/curr_cost)
+	end
+
+	return relation
+end
+
+-------------------------------------
+-- function click_reinforce
+-- @brief
+-------------------------------------
+function UI_DragonReinforcement:exceptionReinforce(rid)
+	local t_dragon_data = self.m_selectDragonData
+	
+	-- 최대 강화 예외처리
+	if (t_dragon_data:isMaxRlv()) then
+		UIManager:toastNotificationRed(Str('최대 강화 레벨인 드래곤입니다.'))
+		return true
+	end
+
+	-- 골드 비교
+	local rlv = t_dragon_data:getRlv()
+	local curr_cost = TableDragonReinforce:getCurrCost(rid, rlv)
+	local gold = g_userData:get('gold')
+	if (curr_cost > gold) then
+		UIManager:toastNotificationRed(Str('골드가 부족합니다.'))
+		return true
+	end
+
+	-- 인연 포인트 부족
+	if (g_bookData:getRelationPoint(rid) <= 0) then
+		UIManager:toastNotificationRed(Str('인연 포인트가 부족합니다.'))
+		return true
+	end
+
+	return false
 end
 
 -------------------------------------
@@ -326,13 +414,9 @@ end
 -- @brief
 -------------------------------------
 function UI_DragonReinforcement:click_reinforce(rid, ui)
-	local t_dragon_data = self.m_selectDragonData
 
-	-- 최대 강화 예외처리
-
-	-- 인연 포인트 부족
-	if (g_bookData:getRelationPoint(rid) <= 0) then
-		UIManager:toastNotificationRed(Str('인연 포인트가 부족합니다.'))
+	-- 통합 예외처리
+	if (self:exceptionReinforce(rid)) then
 		return
 	end
 
@@ -370,16 +454,16 @@ end
 -- @brief
 -------------------------------------
 function UI_DragonReinforcement:press_reinforce(rid, ui, btn)
-	local t_dragon_data = self.m_selectDragonData
 
-	if (g_bookData:getRelationPoint(rid) <= 0) then
-		UIManager:toastNotificationRed(Str('인연 포인트가 부족합니다.'))
+	-- 통합 예외처리
+	if (self:exceptionReinforce(rid)) then
 		return
 	end
 
 	-- 코루틴 함수
 	local function coroutine_function(dt)
         local co = CoroutineHelper()
+		local t_dragon_data = self.m_selectDragonData
 
 		-- 백키 블럭 해제
         UIManager:blockBackKey(true)
@@ -403,7 +487,7 @@ function UI_DragonReinforcement:press_reinforce(rid, ui, btn)
 			end
 
 			timer = timer + dt
-			if (timer > dt * 15) then
+			if (timer > dt * 8) then
 				co.NEXT()	
 				timer = 0
 			end
@@ -512,46 +596,6 @@ end
 -- @brief
 -------------------------------------
 function UI_DragonReinforcement:reinforceDirecting(item_ui, finish_cb)
-	--local vars = self.vars
---
-    ---- base node
-    --local ui_node = self.root
---
-    ---- 연출 생성
-    --local heart_move_ani = MakeAnimator('res/ui/a2d/dragon_forest/dragon_forest.vrp')
-    --heart_move_ani:changeAni('heart_move', false)
-    --ui_node:addChild(heart_move_ani.m_node, 99)
---
-    --local dock_point = heart_move_ani.m_node:getDockPoint()
-    --local anchor_point = heart_move_ani.m_node:getAnchorPoint()
---
-    ---- 시작 위치
-    --local start_node = item_ui.root
-    --local start_pos = TutorialHelper:convertToWorldSpace(ui_node, start_node, dock_point, anchor_point)
---
-    ---- 도착 위치
-    --local tar_node = vars['dragonIconNode']
-    --local tar_pos = TutorialHelper:convertToWorldSpace(ui_node, tar_node, dock_point, anchor_point)
---
-    ---- pos, scale, rotate
-    --local start_x = start_pos['x'] 
-    --local start_y = start_pos['y']
-    --local tar_x = tar_pos['x']
-    --local tar_y = tar_pos['y']
-    --local distance = getDistance(start_x, start_y, tar_x, tar_y)
-    --local scale = (distance / 500)
-    --local angle = getAdjustDegree(getDegree(start_x, start_y, tar_x, tar_y))
-    --heart_move_ani:setPosition(start_x, start_y)
-    --heart_move_ani:setScaleX(scale)
-    --heart_move_ani:setRotation(angle + 90)
---
-    ---- 종료 콜백
-    --heart_move_ani:addAniHandler(function() 
-		--if (cb_func) then
-			--cb_func()
-		--end
-    --end)
-
 	local vars = self.vars
     local pos_x = 0
     local pos_y = 0
