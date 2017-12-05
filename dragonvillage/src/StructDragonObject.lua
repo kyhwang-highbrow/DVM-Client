@@ -15,7 +15,9 @@ StructDragonObject = class({
         grade = 'number', -- 승급 단계
         evolution = 'number', -- 진화 단계
         eclv = 'number', -- 초월 단계
-        rlv = 'number', -- 강화 단계
+        friendship = '',
+        reinforce = 'number', -- 강화 단계
+		rlv = '',
 
 		lock = 'boolean', -- 잠금
 
@@ -42,18 +44,10 @@ StructDragonObject = class({
         happy_at = 'timestapm',
 
         ----------------------------------------------
-        -- 아직 안쓰는 정보
-        friendship = '',
-        rlv = '',
-
-        ----------------------------------------------
         -- 지울 것들
         uid = '',
         train_slot = '',
         train_max_reward = '',
-        rune_set = '',
-
-        is_struct = '',
     })
 
 -------------------------------------
@@ -61,18 +55,19 @@ StructDragonObject = class({
 -------------------------------------
 function StructDragonObject:init(data)
     self.m_objectType = 'dragon'
-    self.rlv = 0
     self.lv = 0
     self.grade = 0
     self.evolution = 1
     self.eclv = 0
-	self.rlv = 1
+    self.rlv = 0
     self.m_mRuneObjects = nil
-    self.is_struct = true
 	  
     if data then
         self:applyTableData(data)
     end
+
+	-- 드래곤 강화
+	self['reinforce'] = StructReinforcement(self['reinforce'])
 
     -- 친밀도 오브젝트 생성
     self['friendship'] = StructFriendshipObject(self['friendship'])
@@ -87,6 +82,7 @@ function StructDragonObject:applyTableData(data)
     local replacement = {}
     --replacement['id'] = 'doid'
 
+	-- 구조를 살짝 바꿔준다
     for i,v in pairs(data) do
         local key = replacement[i] and replacement[i] or i
         self[key] = v

@@ -215,6 +215,9 @@ end
 -------------------------------------
 function UI_CharacterCard:refresh_reinforceIcon()
     local rlv = self.m_dragonData:getRlv()
+	if (rlv == 0) then
+		return
+	end
 	local res = string.format('card_cha_reinforce_%d.png', rlv)
     if (self.m_reinforceIconRes == res) then
         return

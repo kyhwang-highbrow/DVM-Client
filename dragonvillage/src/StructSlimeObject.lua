@@ -292,6 +292,14 @@ function StructSlimeObject:getLv()
 end
 
 -------------------------------------
+-- function getRlv
+-- @breif
+-------------------------------------
+function StructSlimeObject:getRlv()
+    return 0
+end
+
+-------------------------------------
 -- function getRuneObjectList
 -- @breif
 -------------------------------------

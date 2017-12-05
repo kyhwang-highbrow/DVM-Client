@@ -64,6 +64,7 @@ local t_module = {
     'StructDragonObject',
     'StructSlimeObject',
     'StructFriendshipObject',
+	'StructReinforcement',
 	'StructStatusEffect',
     'StructIndividualStatus',
     'StructFreeDragonSummonInfo',
