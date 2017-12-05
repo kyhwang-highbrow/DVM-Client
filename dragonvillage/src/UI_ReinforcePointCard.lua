@@ -41,7 +41,7 @@ function UI_ReinforcePointCard:makeFrame(res)
     local res = 'card_rp_frame.png'
     self:makeSprite('frameNode', res)
 
-    local sprite = cc.Sprite:create('res/ui/icons/cha/developing.png')
+    local sprite = cc.Sprite:create('res/ui/icons/item/reinforce_point.png')
     sprite:setDockPoint(cc.p(0.5, 0.5))
     sprite:setAnchorPoint(cc.p(0.5, 0.5))
     self.vars['frameNode']:addChild(sprite)
