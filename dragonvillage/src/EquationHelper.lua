@@ -156,6 +156,10 @@ function EquationHelper:addEquationFromTable(table_name, key, column, source)
         ' end'
     )
 
+    if (not func) then
+        error(string.format('%s 테이블에서 %s(행) %s(칼럼)의 수식 적용시 에러 발생 : %s', table_name, key, column, source))
+    end
+
     func()
 end
 
