@@ -48,6 +48,8 @@
 #define NAVER_CAFE_CLIENT_ID        @"nQGxfwLZ1Rf4Lwhozq4G"
 #define NAVER_CAFE_CLIENT_SECRET    @"1yzbWtj_Cu"
 #define NAVER_CAFE_ID               29168475
+#define NAVER_NEO_ID_CONSUMER_KEY   @""
+#define NAVER_COMMUNITY_ID          0
 
 // iTunes Connect App ID : 1281873988
 
@@ -133,7 +135,7 @@ static AppDelegate s_sharedApplication;
     [[PerpleSDK sharedInstance] initTapjoyWithAppKey:TAPJOY_SDK_KEY usePush:NO debug:isDebug];
     [[PerpleSDK sharedInstance] initUnityAdsWithParentView:viewController gameId:UNITY_ADS_GAME_ID debug:isDebug];
     [[PerpleSDK sharedInstance] initAdColonyWithParentView:viewController appId:ADCOLONY_APP_ID];
-    [[PerpleSDK sharedInstance] initNaverWithParentView:viewController isLandspape:YES clientId:NAVER_CAFE_CLIENT_ID clientSecret:NAVER_CAFE_CLIENT_SECRET cafeId:NAVER_CAFE_ID urlScheme:@"dvmNaverLogin"];
+    [[PerpleSDK sharedInstance] initNaverWithParentView:viewController isLandspape:YES clientId:NAVER_CAFE_CLIENT_ID clientSecret:NAVER_CAFE_CLIENT_SECRET cafeId:NAVER_CAFE_ID neoIdConsumerKey:NAVER_NEO_ID_CONSUMER_KEY communityId:NAVER_COMMUNITY_ID urlScheme:@"dvmNaverLogin"];
     [[PerpleSDK sharedInstance] initBilling];
     [[PerpleSDK sharedInstance] application:application didFinishLaunchingWithOptions:launchOptions];
 
