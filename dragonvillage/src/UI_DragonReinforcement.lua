@@ -264,14 +264,16 @@ function UI_DragonReinforcement:refresh_relation()
 			local ui = UI_HatcheryRelationItem(struct_dragon)
 			vars['relationNode' .. i]:addChild(ui.root)
 
+			local click_btn = ui.vars['clickBtn']
+
 			-- 버튼 클릭 등록
-			ui.vars['clickBtn']:registerScriptTapHandler(function()
-				self:click_reinforce(rid, function() ui:refresh() end)
+			click_btn:registerScriptTapHandler(function()
+				self:click_reinforce(rid, ui)
 			end)
 
 			-- 버튼 프레스 등록
-			ui.vars['clickBtn']:registerScriptPressHandler(function()
-				self:press_reinforce(rid, function() ui:refresh() end)
+			click_btn:registerScriptPressHandler(function()
+				self:press_reinforce(rid, ui, click_btn)
 			end)
 
 		-- 없으면 빈아이콘 생성
@@ -306,21 +308,149 @@ function UI_DragonReinforcement:getDragonList()
 end
 
 -------------------------------------
+-- function getMaxReinforceCount
+-- @brief 현재 최대로 강화 가능한 수를 구한다
+-------------------------------------
+function UI_DragonReinforcement:getMaxReinforceCount(rid)
+
+end
+
+-------------------------------------
 -- function click_reinforce
 -- @brief
 -------------------------------------
-function UI_DragonReinforcement:click_reinforce(rid, cb_func)
-    local uid = g_userData:get('uid')
-    local doid = self.m_selectDragonOID
-	local rid = rid
-	
+function UI_DragonReinforcement:click_reinforce(rid, ui)
+	local t_dragon_data = self.m_selectDragonData
+
+	-- 최대 강화 예외처리
+
+	-- 인연 포인트 부족
 	if (g_bookData:getRelationPoint(rid) <= 0) then
 		UIManager:toastNotificationRed(Str('인연 포인트가 부족합니다.'))
 		return
 	end
 
-    local function success_cb(ret)
+	local function coroutine_function(dt)
+        local co = CoroutineHelper()
+        co:setBlockPopup()
+
+        -- 강화 연출
+        co:work()
+        self:reinforceDirecting(ui, co.NEXT)
+        if co:waitWork() then return end
+
+        -- 서버와 통신
+        co:work()
+        local ret_cache
+        local function request_finish(ret)
+            ret_cache = ret
+            co.NEXT()
+        end
+        self:request_reinforce(rid, 1, request_finish)
+        if co:waitWork() then return end
+
+        -- 필요한것들 갱신
+		self:response_reinforce(ret_cache)
+		ui:refresh()
+
+        co:close()
+    end
+
+    Coroutine(coroutine_function)
+end
+
+-------------------------------------
+-- function press_reinforce
+-- @brief
+-------------------------------------
+function UI_DragonReinforcement:press_reinforce(rid, ui, btn)
+	local t_dragon_data = self.m_selectDragonData
+
+	if (g_bookData:getRelationPoint(rid) <= 0) then
+		UIManager:toastNotificationRed(Str('인연 포인트가 부족합니다.'))
+		return
+	end
+
+	local function coroutine_function(dt)
+        local co = CoroutineHelper()
+        --co:setBlockPopup()
+
+		local rcnt = 0
+
+		local timer = 0
+		local node = cc.Node:create()
+		self.root:addChild(node)
+		local function update(dt)
+			timer = timer + dt
+			if (timer > dt * 30) then
+				co.NEXT()	
+				timer = 0
+			end
+		end
+		node:scheduleUpdateWithPriorityLua(update, 0)
+
+        -- 강화 연속 연출
+		while (btn:isSelected()) do
+			co:work()
+
+			cclog(rcnt)
+			rcnt = rcnt + 1
+			self:reinforceDirecting(ui, function()
+				local rexp = t_dragon_data:getReinforceObject()['exp']
+				t_dragon_data:getReinforceObject()['exp'] = rexp + 1
+				self:response_reinforce(ret_cache)
+				ui:refresh()
+				co.NEXT()
+			end)
+
+			if co:waitWork() then return end
+		end
 		
+		node:removeFromParent()
+
+        -- 서버와 통신
+        co:work()
+        local ret_cache
+        local function request_finish(ret)
+            ret_cache = ret
+            co.NEXT()
+        end
+        self:request_reinforce(rid, rcnt, request_finish)
+        if co:waitWork() then return end
+
+        -- 필요한것들 갱신
+		self:response_reinforce(ret_cache)
+		ui:refresh()
+
+        co:close()
+    end
+
+    Coroutine(coroutine_function)
+end
+
+-------------------------------------
+-- function request_reinforce
+-- @brief
+-------------------------------------
+function UI_DragonReinforcement:request_reinforce(rid, rcnt, cb_func)
+    local uid = g_userData:get('uid')
+    local doid = self.m_selectDragonOID
+
+    local function success_cb(ret)
+		-- @analytics
+        Analytics:firstTimeExperience('dragon reinforcement')
+
+		-- 드래곤 갱신
+		g_dragonsData:applyDragonData(ret['dragon'])
+
+		-- 골드 갱신
+		g_serverData:networkCommonRespone(ret)
+		
+		-- 인연포인트 (전체 갱신)
+		if (ret['relation']) then
+			g_bookData:applyRelationPoints(ret['relation'])
+		end
+
 		if (cb_func) then
 			cb_func()
 		end
@@ -330,7 +460,7 @@ function UI_DragonReinforcement:click_reinforce(rid, cb_func)
     ui_network:setUrl('/dragons/reinforce')
     ui_network:setParam('uid', uid)
     ui_network:setParam('doid', doid)
-    ui_network:setParam('rcnt', 1)
+    ui_network:setParam('rcnt', rcnt)
     ui_network:setParam('rid', rid)
     ui_network:setRevocable(true)
     ui_network:setSuccessCB(function(ret) success_cb(ret) end)
@@ -338,82 +468,109 @@ function UI_DragonReinforcement:click_reinforce(rid, cb_func)
 end
 
 -------------------------------------
--- function press_reinforce
+-- function response_reinforce
 -- @brief
 -------------------------------------
-function UI_DragonReinforcement:press_reinforce(rid, cb_func)
-    local uid = g_userData:get('uid')
-    local doid = self.m_selectDragonOID
-	local rid = rid
-	
-    local function success_cb(ret)
-		
-    end
-
-    local ui_network = UI_Network()
-    ui_network:setUrl('/dragons/reinforce')
-    ui_network:setParam('uid', uid)
-    ui_network:setParam('doid', doid)
-    ui_network:setParam('rcnt', 1)
-    ui_network:setParam('rid', rid)
-    ui_network:setRevocable(true)
-    ui_network:setSuccessCB(function(ret) success_cb(ret) end)
-    ui_network:request()
+function UI_DragonReinforcement:response_reinforce(ret)
+	self:setSelectDragonDataRefresh()
+    self:refresh_reinforceInfo()
+	self:refresh_stats()
 end
 
 -------------------------------------
--- function response_levelup
+-- function reinforceDirecting
 -- @brief
 -------------------------------------
-function UI_DragonReinforcement:response_levelup(ret, bonus_rate)
+function UI_DragonReinforcement:reinforceDirecting(item_ui, finish_cb)
+	--local vars = self.vars
+--
+    ---- base node
+    --local ui_node = self.root
+--
+    ---- 연출 생성
+    --local heart_move_ani = MakeAnimator('res/ui/a2d/dragon_forest/dragon_forest.vrp')
+    --heart_move_ani:changeAni('heart_move', false)
+    --ui_node:addChild(heart_move_ani.m_node, 99)
+--
+    --local dock_point = heart_move_ani.m_node:getDockPoint()
+    --local anchor_point = heart_move_ani.m_node:getAnchorPoint()
+--
+    ---- 시작 위치
+    --local start_node = item_ui.root
+    --local start_pos = TutorialHelper:convertToWorldSpace(ui_node, start_node, dock_point, anchor_point)
+--
+    ---- 도착 위치
+    --local tar_node = vars['dragonIconNode']
+    --local tar_pos = TutorialHelper:convertToWorldSpace(ui_node, tar_node, dock_point, anchor_point)
+--
+    ---- pos, scale, rotate
+    --local start_x = start_pos['x'] 
+    --local start_y = start_pos['y']
+    --local tar_x = tar_pos['x']
+    --local tar_y = tar_pos['y']
+    --local distance = getDistance(start_x, start_y, tar_x, tar_y)
+    --local scale = (distance / 500)
+    --local angle = getAdjustDegree(getDegree(start_x, start_y, tar_x, tar_y))
+    --heart_move_ani:setPosition(start_x, start_y)
+    --heart_move_ani:setScaleX(scale)
+    --heart_move_ani:setRotation(angle + 90)
+--
+    ---- 종료 콜백
+    --heart_move_ani:addAniHandler(function() 
+		--if (cb_func) then
+			--cb_func()
+		--end
+    --end)
 
-    -- 보너스 표시
-    if bonus_rate and (100 < bonus_rate) then
-        self.vars['bonusVisual']:setVisible(true)
-        self.vars['bonusVisual']:changeAni('success_' .. tostring(bonus_rate))
-        local function ani_handler()
-            self.vars['bonusVisual']:setVisible(false)    
-        end
-        self.vars['bonusVisual']:addAniHandler(ani_handler)
+	local vars = self.vars
+    local pos_x = 0
+    local pos_y = 0
+
+    local dest_pos_x = 0
+    local dest_pos_y = 0
+
+	local item_node = item_ui.root
+
+    do -- 시작 위치
+        local x, y = item_node:getPosition()
+        local parent = item_node:getParent()
+        local world_pos = parent:convertToWorldSpaceAR(cc.p(x, y))
+        local local_pos = self.root:convertToNodeSpaceAR(world_pos)
+        pos_x = local_pos['x']
+        pos_y = local_pos['y']
     end
 
-    -- 재료로 사용된 드래곤 삭제
-    if ret['deleted_dragons_oid'] then
-        for _,doid in pairs(ret['deleted_dragons_oid']) do
-            g_dragonsData:delDragonData(doid)
-
-            -- 드래곤 리스트 갱신
-            self.m_tableViewExt:delItem(doid)
-        end
+    do -- 도착 위치
+        local x, y = vars['dragonIconNode']:getPosition()
+        local parent = vars['dragonIconNode']:getParent()
+        local world_pos = parent:convertToWorldSpaceAR(cc.p(x, y))
+        local local_pos = self.root:convertToNodeSpaceAR(world_pos)
+        dest_pos_x = local_pos['x'] + math_random(-20, 20)
+        dest_pos_y = local_pos['y'] + 50 + math_random(-20, 20)
     end
 
-    -- 슬라임
-    if ret['deleted_slimes_oid'] then
-        for _,soid in pairs(ret['deleted_slimes_oid']) do
-            g_slimesData:delSlimeObject(soid)
+    -- 아이콘 생성
+	local struct_dragon = item_ui.m_tData
+    local icon = UI_RelationCard(struct_dragon).root
+	icon:setScale(0.5)
+    icon:setPosition(pos_x, pos_y)
+    self.root:addChild(icon, 128)
 
-            -- 리스트 갱신
-            self.m_tableViewExt:delItem(soid)
-        end
+    do -- 액션 실행
+        local distance = getDistance(pos_x, pos_y, dest_pos_x, dest_pos_y)
+        local duration = 0.5 + math_max(0, ((distance - 450) * 0.0001))
+        local jump_height = math_random(100, 250)
+        local action = cc.JumpTo:create(duration, cc.p(dest_pos_x, dest_pos_y), jump_height, 1)
+		local action2 = cc.RotateTo:create(duration, -720)
+        local spawn = cc.Spawn:create(cc.EaseIn:create(action, 1), action2)
+        local scale_action = cc.ScaleTo:create(0.05, 0)
+		local fx_sound = cc.CallFunc:create(function() SoundMgr:playEffect('UI', 'ui_eat') end)
+		local cb_func = cc.CallFunc:create(finish_cb)
+		icon:runAction(cc.Sequence:create(spawn, scale_action, fx_sound, cb_func, cc.RemoveSelf:create()))
     end
 
-    -- 드래곤 정보 갱신
-    g_dragonsData:applyDragonData(ret['modified_dragon'])
-
-    -- 골드 갱신
-    g_serverData:networkCommonRespone(ret)
-
-    self.m_bChangeDragonList = true
-
-    self:setSelectDragonDataRefresh()
-
-    local doid = self.m_selectDragonOID
-    self:refresh_dragonIndivisual(doid)
-
-    -- @ MASTER ROAD
-    local t_data = {clear_key = 'd_lvup'}
-    g_masterRoadData:updateMasterRoad(t_data)
 end
+
 
 --@CHECK
 UI:checkCompileError(UI_DragonReinforcement)

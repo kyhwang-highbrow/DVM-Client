@@ -5,7 +5,8 @@ local PARENT = class(UI, ITableViewCell:getCloneTable())
 -- class UI_HatcheryRelationItem
 -------------------------------------
 UI_HatcheryRelationItem = class(PARENT, {
-        m_did = 'number',
+        --m_did = 'number',
+		m_tData = 'table',
         m_characterCard = 'UI_CharacterCard',
     })
 
@@ -13,7 +14,8 @@ UI_HatcheryRelationItem = class(PARENT, {
 -- function init
 -------------------------------------
 function UI_HatcheryRelationItem:init(t_data)
-    self.m_did = t_data['did']
+    --self.m_did = t_data['did']
+	self.m_tData = t_data
     local vars = self:load('hatchery_relation_item.ui')
 
     self:initUI(t_data)
@@ -47,8 +49,7 @@ end
 function UI_HatcheryRelationItem:refresh()
     local vars = self.vars
 
-    local did = self.m_did
-
+    local did = self.m_tData:getDid()
 
     -- 인연포인트 값 얻어오기
     local req_rpoint = TableDragon():getRelationPoint(did)
