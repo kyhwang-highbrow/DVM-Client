@@ -1121,8 +1121,10 @@ function ServerData_Dragons:request_dragonGoodbye(src_doids, cb_func)
 			end
 		end
 
-		-- 획득한 인연포인트
-		self.m_serverData:networkCommonRespone_addedItems(ret)
+		-- 인연포인트 (전체 갱신)
+		if (ret['relation']) then
+			g_bookData:applyRelationPoints(ret['relation'])
+		end
 
 		-- 콜백
 		if (cb_func) then

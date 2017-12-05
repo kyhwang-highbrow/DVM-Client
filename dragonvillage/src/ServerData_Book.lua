@@ -394,7 +394,15 @@ function ServerData_Book:request_useRelationPoint(did, finish_cb)
     
     -- 성공 콜백
     local function success_cb(ret)
-        g_serverData:networkCommonRespone_addedItems(ret)
+        -- 인연포인트 (전체 갱신)
+		if (ret['relation']) then
+			g_bookData:applyRelationPoints(ret['relation'])
+		end
+		
+		-- 드래곤 추가
+        if (ret['dragon']) then
+            g_dragonsData:applyDragonData(ret['dragon'])
+        end
 
         -- 마지막으로 데이터가 변경된 시간 갱신
         self:setLastChangeTimeStamp()
