@@ -307,8 +307,8 @@ function UI_HatcheryRelationTab:click_summonBtn()
 
     local function finish_cb(ret)
         local added_dragons = {}
-        if (ret['added_items'] and ret['added_items']['dragons']) then
-            added_dragons = ret['added_items']['dragons']
+        if (ret['dragon']) then
+            added_dragons = {ret['dragon']}
         end
 
         if (table.count(added_dragons) > 0) then

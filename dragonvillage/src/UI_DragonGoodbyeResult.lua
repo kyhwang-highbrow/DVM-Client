@@ -45,7 +45,7 @@ function UI_DragonGoodbyeResult:initUI()
     local function show_popup()
         local dragon_data = self.m_dragonData
         local info_data = self.m_infoData
-        local l_item_list = info_data['added_items']['items_list']
+        local l_item_list = info_data['items_list']
 	    if (l_item_list) then
             local did = dragon_data['did']
             local name = TableDragon():getDragonName(did)
