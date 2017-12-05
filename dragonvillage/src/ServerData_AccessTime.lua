@@ -172,7 +172,8 @@ function ServerData_AccessTime:recordTime(scene)
         -- 배속 처리
         local time_scale = cc.Director:getInstance():getScheduler():getTimeScale()
         local tick = time_scale/TIMER_TICK
-        if (self.m_timer >= tick) then
+
+        while (self.m_timer >= tick) do
             self.m_timer = (self.m_timer - tick)
             self.m_addTime = self.m_addTime + TIMER_TICK
             self.m_checkTime = self.m_checkTime + TIMER_TICK
