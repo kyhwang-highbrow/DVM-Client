@@ -338,13 +338,7 @@ function GameWorld:initGame(stage_name)
         
     -- 위치 표시 이펙트 생성
     self:init_formation()
-		
-	-- mission manager 생성
-	if (self.m_gameMode == GAME_MODE_ADVENTURE) then
-		if (not self.m_bDevelopMode) then
-			self.m_missionMgr = StageMissionMgr(self.m_logRecorder, self.m_stageID)
-		end
-	end
+
 
     -- 테이머 생성
     self:initTamer()
@@ -398,6 +392,13 @@ function GameWorld:initGame(stage_name)
 
     -- Game Log Recorder 생성
 	self.m_logRecorder = LogRecorderWorld(self)
+
+	-- mission manager 생성
+	if (self.m_gameMode == GAME_MODE_ADVENTURE) then
+		if (not self.m_bDevelopMode) then
+			self.m_missionMgr = StageMissionMgr(self.m_logRecorder, self.m_stageID)
+		end
+	end
 
     -- UI
     self.m_inGameUI:doActionReset()
