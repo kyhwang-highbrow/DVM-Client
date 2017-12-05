@@ -233,14 +233,58 @@ function UI_DragonReinforcement:refresh_relation()
     if (not t_dragon_data) then
         return
     end
-
+	
+	-- 인연포인트 표시하기 위한 t_dragon 리스트 생성
     local vars = self.vars
     local did = t_dragon_data['did']
 	local list = TableDragon:getSameTypeDragonList(did)
-	
-	for i, t_dragon in ipairs(list) do
-
+	local t_ret = {}
+	for i, v in ipairs(list) do
+		local did = v['did']
+		local idx = did % 10
+		t_ret[idx] = v
 	end
+
+	-- 순서대로 찍어준다.
+	for i = 1, 5 do
+		vars['relationNode' .. i]:removeAllChildren(true)
+
+		local t_dragon = t_ret[i]
+
+		-- 인연포인트 카드 생성
+		if (t_dragon) then
+			local rid = t_dragon['did']
+
+			-- 카드 생성
+			local t_data = {
+				['did'] = rid,
+				['grade'] = t_dragon['birthgrade']
+			}
+			local struct_dragon = StructDragonObject(t_data)
+			local ui = UI_HatcheryRelationItem(struct_dragon)
+			vars['relationNode' .. i]:addChild(ui.root)
+
+			-- 버튼 클릭 등록
+			ui.vars['clickBtn']:registerScriptTapHandler(function()
+				self:click_reinforce(rid, function() ui:refresh() end)
+			end)
+
+			-- 버튼 프레스 등록
+			ui.vars['clickBtn']:registerScriptPressHandler(function()
+				self:press_reinforce(rid, function() ui:refresh() end)
+			end)
+
+		-- 없으면 빈아이콘 생성
+		else
+			local ui = UI()
+			ui:load('hatchery_relation_item.ui')
+			ui.vars['clickBtn']:setEnabled(false)
+			ui.vars['relationLabel']:setString('')
+			vars['relationNode' .. i]:addChild(ui.root)
+			
+		end
+	end
+
 end
 
 -------------------------------------
@@ -262,43 +306,56 @@ function UI_DragonReinforcement:getDragonList()
 end
 
 -------------------------------------
--- function click_reinforceBtn
+-- function click_reinforce
 -- @brief
 -------------------------------------
-function UI_DragonReinforcement:click_reinforceBtn()
+function UI_DragonReinforcement:click_reinforce(rid, cb_func)
+    local uid = g_userData:get('uid')
     local doid = self.m_selectDragonOID
+	local rid = rid
+	
+	if (g_bookData:getRelationPoint(rid) <= 0) then
+		UIManager:toastNotificationRed(Str('인연 포인트가 부족합니다.'))
+		return
+	end
 
     local function success_cb(ret)
-        -- @analytics
-        Analytics:trackUseGoodsWithRet(ret, '드래곤 레벨업')
-
-        local prev_lv = self.m_selectDragonData['lv']
-        local prev_exp = self.m_selectDragonData['exp']
-        local curr_lv = ret['modified_dragon']['lv']
-        local bonus_rate = (ret['bonus'] or 100) -- 100일 경우 보너스 발동을 안한 상태
-
-        if (prev_lv == curr_lv) then
-            self:response_levelup(ret, bonus_rate)
-        else
-            -- 드래곤 정보 갱신 (임시 위치)
-            g_dragonsData:applyDragonData(ret['modified_dragon'])
-            local ui = UI_DragonReinforcementResult(StructDragonObject(ret['modified_dragon']), prev_lv, prev_exp, bonus_rate)
-            local function close_cb()
-                self:response_levelup(ret)
-            end
-            ui:setCloseCB(close_cb)
-        end
-
+		
+		if (cb_func) then
+			cb_func()
+		end
     end
 
-    local uid = g_userData:get('uid')
-
     local ui_network = UI_Network()
-    ui_network:setUrl('/dragons/reinforceBtn')
+    ui_network:setUrl('/dragons/reinforce')
     ui_network:setParam('uid', uid)
     ui_network:setParam('doid', doid)
-    ui_network:setParam('src_doids', src_doids)
-    ui_network:setParam('src_soids', src_soids)
+    ui_network:setParam('rcnt', 1)
+    ui_network:setParam('rid', rid)
+    ui_network:setRevocable(true)
+    ui_network:setSuccessCB(function(ret) success_cb(ret) end)
+    ui_network:request()
+end
+
+-------------------------------------
+-- function press_reinforce
+-- @brief
+-------------------------------------
+function UI_DragonReinforcement:press_reinforce(rid, cb_func)
+    local uid = g_userData:get('uid')
+    local doid = self.m_selectDragonOID
+	local rid = rid
+	
+    local function success_cb(ret)
+		
+    end
+
+    local ui_network = UI_Network()
+    ui_network:setUrl('/dragons/reinforce')
+    ui_network:setParam('uid', uid)
+    ui_network:setParam('doid', doid)
+    ui_network:setParam('rcnt', 1)
+    ui_network:setParam('rid', rid)
     ui_network:setRevocable(true)
     ui_network:setSuccessCB(function(ret) success_cb(ret) end)
     ui_network:request()

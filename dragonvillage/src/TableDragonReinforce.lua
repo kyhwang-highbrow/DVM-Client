@@ -30,9 +30,9 @@ function TableDragonReinforce:init()
 end
 
 -------------------------------------
--- function getReinforceRate
+-- function getReinforceRateTable
 -------------------------------------
-function TableDragonReinforce:getReinforceRate(did, rlv, rexp)
+function TableDragonReinforce:getReinforceRateTable(did, rlv, rexp)
 	if (self == THIS) then
         self = THIS()
     end
