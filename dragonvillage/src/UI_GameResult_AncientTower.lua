@@ -45,27 +45,51 @@ function UI_GameResult_AncientTower:setAnimationData()
     local vars = self.vars
     local score_calc = self.m_ancientScoreCalc
 
+    -- 스테이지 속성 보너스
+    local stage_id = self.m_stageID
+    local t_info = TABLE:get('anc_floor_reward')[stage_id]
+    local attr = t_info['bonus_attr']
+
+
     -- 각 미션별 점수 계산 저장
     local score_list = {}
     table.insert(score_list, score_calc:calcClearBonus())
     table.insert(score_list, score_calc:calcClearTimeBonus())
     table.insert(score_list, score_calc:calcClearNoDeathBonus())
-    table.insert(score_list, score_calc:calcAttrBonus())
+    if attr and (attr ~= '') then
+        table.insert(score_list, score_calc:calcAttrBonus())
+    end
     --table.insert(score_list, score_calc:calcKillBossBonus())
     --table.insert(score_list, score_calc:calcAcitveSkillBonus())
     table.insert(score_list, score_calc:getWeakGradeMinusScore())
     table.insert(score_list, score_calc:getFinalScore())
 
     -- 애니메이션 적용되는 라벨 저장
-    local var_list = 
-    {
-        'clearLabel1',  'clearLabel2',
-        'timeLabel1',  'timeLabel2', 
-        'injuryLabel1', 'injuryLabel2',
-        'attrBonusLabel1',  'attrBonusLabel2',
-        'weakLabel1',  'weakLabel2', 
-        'totalLabel1',  'totalLabel2'
-    }
+    local var_list = {}
+    table.insert(var_list, 'clearLabel1')
+    table.insert(var_list, 'clearLabel2')
+
+    table.insert(var_list, 'timeLabel1')
+    table.insert(var_list, 'timeLabel2')
+
+    table.insert(var_list, 'injuryLabel1')
+    table.insert(var_list, 'injuryLabel2')
+
+    if attr and (attr ~= '') then
+        table.insert(var_list, 'attrBonusLabel1')
+        table.insert(var_list, 'attrBonusLabel2')
+        vars['attrBonusLabel1']:setVisible(true)
+        vars['attrBonusLabel2']:setVisible(true)
+    else
+        vars['attrBonusLabel1']:setVisible(false)
+        vars['attrBonusLabel2']:setVisible(false)
+    end
+
+    table.insert(var_list, 'weakLabel1')
+    table.insert(var_list, 'weakLabel2')
+
+    table.insert(var_list, 'totalLabel1')
+    table.insert(var_list, 'totalLabel2')
 
     -- 현재 약화 등급 
     local weak_grade = g_ancientTowerData:getWeakGrade()
