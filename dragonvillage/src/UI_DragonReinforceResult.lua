@@ -82,7 +82,7 @@ function UI_DragonReinforceResult:initUI(t_dragon_data)
 
     -- 이전 경험치와 레벨 미리 표시
     local lv = dragon_object:getRlv()
-    vars['beforeLabel']:setString(string.format('+ %d', lv))
-    vars['afterLabel']:setString(string.format('+ %d', lv + 1))
+    vars['beforeLabel']:setString(string.format('+ %d', lv - 1))
+    vars['afterLabel']:setString(string.format('+ %d', lv))
 
 end

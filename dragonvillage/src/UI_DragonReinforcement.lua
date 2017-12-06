@@ -532,7 +532,8 @@ function UI_DragonReinforcement:press_reinforce(rid, ui, btn)
         if co:waitWork() then return end
 
         -- 필요한것들 갱신
-		self:response_reinforce()
+		self:refresh_reinforceInfo()
+		self:refresh_stats()
 		ui:refresh()
 
 		-- 백키 블럭 해제
@@ -572,7 +573,8 @@ function UI_DragonReinforcement:request_reinforce(rid, rcnt, cb_func)
 
 		-- 강화 레벨업 시 결과화면
 		if (ret['is_rlevelup']) then
-			UI_DragonReinforceResult(ret['dragon'])
+			local ui = UI_DragonReinforceResult(ret['dragon'])
+			ui:setCloseCB(function() self:close() end)
 		end
 
 		if (cb_func) then
@@ -586,6 +588,7 @@ function UI_DragonReinforcement:request_reinforce(rid, rcnt, cb_func)
     ui_network:setParam('doid', doid)
     ui_network:setParam('rcnt', rcnt)
     ui_network:setParam('rid', rid)
+	ui_network:hideLoading()
     ui_network:setRevocable(true)
     ui_network:setSuccessCB(function(ret) success_cb(ret) end)
     ui_network:request()
