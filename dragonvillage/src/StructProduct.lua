@@ -564,11 +564,19 @@ function StructProduct:payment(cb_func)
                 cclog('#### ret : ')
                 ccdump(ret)
 
-                local msg = Str('결제에 성공하였습니다.')
-                MakeSimplePopup(POPUP_TYPE.OK, msg, function()
-                        cb_func(ret)
-                        co.NEXT()
-                    end)
+				local items_list = ret['added_items']['items_list']
+				if (items_list) then
+					local msg = Str('상품을 수령하였습니다.')
+					UI_ObtainPopup(items_list, msg, function() cb_func(ret); co.NEXT() end)
+					SoundMgr:playEffect('UI', 'ui_out_item_get')
+
+				else
+					local msg = Str('결제에 성공하였습니다.')
+					MakeSimplePopup(POPUP_TYPE.OK, msg, function()
+							cb_func(ret)
+							co.NEXT()
+						end)
+				end
             end
 
             local function fail_cb(ret)
@@ -664,11 +672,19 @@ function StructProduct:payment_win(cb_func)
                 cclog('#### ret : ')
                 ccdump(ret)
 
-                local msg = Str('결제에 성공하였습니다.')
-                MakeSimplePopup(POPUP_TYPE.OK, msg, function()
-                        cb_func(ret)
-                        co.NEXT()
-                    end)
+				local items_list = ret['added_items']['items_list']
+				if (items_list) then
+					local msg = Str('상품을 수령하였습니다.')
+					UI_ObtainPopup(items_list, msg, function() cb_func(ret); co.NEXT() end)
+					SoundMgr:playEffect('UI', 'ui_out_item_get')
+
+				else
+					local msg = Str('결제에 성공하였습니다.')
+					MakeSimplePopup(POPUP_TYPE.OK, msg, function()
+							cb_func(ret)
+							co.NEXT()
+						end)
+				end
             end
 
             local function fail_cb(ret)
