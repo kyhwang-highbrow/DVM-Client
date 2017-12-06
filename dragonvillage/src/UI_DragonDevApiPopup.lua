@@ -107,8 +107,8 @@ function UI_DragonDevApiPopup:initButton()
     vars['levelMaxBtn']:registerScriptTapHandler(function() self.m_level = TableGradeInfo:getMaxLv(self.m_grade) self:refresh() end)
 
 	-- 드래곤 강화
-	vars['reinforceUpBtn']:registerScriptTapHandler(function() self.m_rlv = math_clamp(self.m_rlv + 1, 1, max_rlv) self:refresh() end)
-    vars['reinforceDownBtn']:registerScriptTapHandler(function() self.m_rlv = math_clamp(self.m_rlv - 1, 1, max_rlv) self:refresh() end)
+	vars['reinforceUpBtn']:registerScriptTapHandler(function() self.m_rlv = math_clamp(self.m_rlv + 1, 0, max_rlv) self:refresh() end)
+    vars['reinforceDownBtn']:registerScriptTapHandler(function() self.m_rlv = math_clamp(self.m_rlv - 1, 0, max_rlv) self:refresh() end)
     vars['reinforceMaxBtn']:registerScriptTapHandler(function() self.m_rlv = max_rlv self:refresh() end)
 
     -- 스킬 레벨들
