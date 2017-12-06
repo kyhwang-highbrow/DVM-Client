@@ -156,6 +156,7 @@ end
 
 -------------------------------------
 -- function click_rewardBtn
+-- @brief 보상 안내 = 상품 안내 팝업을 출력한다
 -------------------------------------
 function UI_Package:click_rewardBtn()
 	local struct_product = self.m_structProduct
@@ -164,13 +165,15 @@ function UI_Package:click_rewardBtn()
         return
     end
 
+	-- 대상 package ui 이름에 _popup을 붙인 것으로 통일
     local ui_name = struct_product and struct_product['package_res']
 	local reward_name = ui_name:gsub('.ui', '_popup.ui')
 
+	-- 임시 ui 생성
 	local ui = UI()
 	ui:load(reward_name)
 	UIManager:open(ui, UIManager.POPUP)
-	g_currScene:pushBackKeyListener(self, function() ui:close() end, 'UI_Package_Popup')
+	g_currScene:pushBackKeyListener(ui, function() ui:close() end, 'UI_Package_Popup')
 	ui.vars['closeBtn']:registerScriptTapHandler(function()
 		ui:close()
 	end)
