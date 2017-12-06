@@ -654,7 +654,7 @@ function ServerData_Dragons:possibleGoodbye(doid)
 	local birth = t_dragon_data:getBirthGrade()
 	local grade = t_dragon_data:getGrade()
 	if (birth > grade) then
-		return false, Str('작별할 수 없는 드래곤입니다.') 
+		return false, Str('{1}성 이상이어야 작별할 수 있습니다.', birth) 
 	end
 
     return true
