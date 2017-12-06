@@ -423,11 +423,7 @@ function UI_DragonReinforcement:click_reinforce(rid, ui)
 
         -- 서버와 통신
         co:work()
-        local function request_finish()
-			ccdisplay('NETWORK')
-            co.NEXT()
-        end
-        self:request_reinforce(rid, 1, request_finish)
+        self:request_reinforce(rid, 1, co.NEXT)
         if co:waitWork() then return end
 
         -- 필요한것들 갱신
@@ -524,11 +520,7 @@ function UI_DragonReinforcement:press_reinforce(rid, ui, btn)
 
 		-- 서버와 통신
         co:work()
-        local function request_finish()
-			ccdisplay('NETWORK')
-            co.NEXT()
-        end
-        self:request_reinforce(rid, rcnt, request_finish)
+        self:request_reinforce(rid, rcnt, co.NEXT)
         if co:waitWork() then return end
 
         -- 필요한것들 갱신
