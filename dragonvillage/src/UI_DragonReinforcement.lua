@@ -48,6 +48,36 @@ function UI_DragonReinforcement:initUI()
     local vars = self.vars
 	vars['expGauge']:setPercentage(0)
     self:init_dragonTableView()
+    self:initStatusUI()
+end
+
+-------------------------------------
+-- function initStatusUI
+-------------------------------------
+function UI_DragonReinforcement:initStatusUI()
+    local vars = self.vars
+    local l_pos = getSortPosList(30, 3)
+
+    local uic_stats = UIC_IndivisualStats()
+    uic_stats:initUIComponent()
+    uic_stats:setPositionY(l_pos[1])
+    uic_stats:setParentNode(vars['statsNode'])
+    uic_stats:setStatsName(Str('공격력'))
+    vars['atkStats'] = uic_stats
+
+    local uic_stats = UIC_IndivisualStats()
+    uic_stats:initUIComponent()
+    uic_stats:setPositionY(l_pos[2])
+    uic_stats:setParentNode(vars['statsNode'])
+    uic_stats:setStatsName(Str('방어력'))
+    vars['defStats'] = uic_stats
+
+    local uic_stats = UIC_IndivisualStats()
+    uic_stats:initUIComponent()
+    uic_stats:setPositionY(l_pos[3])
+    uic_stats:setParentNode(vars['statsNode'])
+    uic_stats:setStatsName(Str('생명력'))
+    vars['hpStats'] = uic_stats
 end
 
 -------------------------------------
@@ -109,11 +139,11 @@ function UI_DragonReinforcement:refresh_dragonInfo()
         local role_type = t_dragon_data:getRole()
         vars['typeLabel']:setString(dragonRoleName(role_type))
     end
-    
-    do -- 드래곤 현재 정보 카드
-        vars['dragonIconNode']:removeAllChildren()
-        local dragon_card = UI_DragonCard(t_dragon_data)
-        vars['dragonIconNode']:addChild(dragon_card.root)
+	
+	do -- 드래곤 등급
+        vars['starNode']:removeAllChildren()
+        local star_icon = IconHelper:getDragonGradeIcon(t_dragon_data, 2)
+        vars['starNode']:addChild(star_icon)
     end
 
     do -- 드래곤 리소스
@@ -129,7 +159,7 @@ function UI_DragonReinforcement:refresh_dragonInfo()
 end
 
 -------------------------------------
--- function refresh_dragonInfo
+-- function refresh_reinforceInfo
 -- @brief 드래곤 정보
 -------------------------------------
 function UI_DragonReinforcement:refresh_reinforceInfo()
@@ -143,9 +173,11 @@ function UI_DragonReinforcement:refresh_reinforceInfo()
     local did = t_dragon_data['did']
 
 	-- 드래곤 강화 레벨
+	vars['reinforceNode']:removeAllChildren()
 	local rlv = t_dragon_data:getRlv()
-	vars['reinfoceLabel']:setString(Str('강화 +{1}', rlv))
-		
+    local icon = IconHelper:getDragonReinforceIcon(rlv)
+    vars['reinforceNode']:addChild(icon)
+
 	-- 풀강화시 예외처리
 	if (t_dragon_data:isMaxRlv()) then
 		vars['expGauge']:setPercentage(100)
@@ -178,31 +210,18 @@ function UI_DragonReinforcement:refresh_stats()
     local t_dragon_data = self.m_selectDragonData
     local status_calc = MakeDragonStatusCalculator_fromDragonDataTable(t_dragon_data)
 
-	-- 최대 레벨 조건의 능력치 계산기
-	local t_max_data = clone(t_dragon_data)
-	t_max_data['lv'] = 60
-	t_max_data['grade'] = MAX_DRAGON_GRADE
-	t_max_data['evolution'] = MAX_DRAGON_EVOLUTION
-	t_max_data['reinforce']['lv'] = MAX_DRAGON_REINFORCE
-	local max_status_calc = MakeDragonStatusCalculator_fromDragonDataTable(t_max_data)
+	-- 다음 강화 레벨의 능력치 계산기
+	local t_next_data = clone(t_dragon_data)
+	t_next_data['reinforce']['lv'] = t_dragon_data:getRlv() + 1
+	local next_status_calc = MakeDragonStatusCalculator_fromDragonDataTable(t_next_data)
 
-	-- 강화 증가량 게이지 / 현재 스탯 / 맥스 스탯
-	do
-		local did = t_dragon_data:getDid()
-		local t_curr_reinforce = t_dragon_data:getReinforceMulti()
-		local t_max_reinforce = TableDragonReinforce:getTotalRateTable(did)
-		for i, key in pairs({'atk', 'def', 'hp'}) do
-			-- 현재 수치
-			local curr_stat = status_calc:getFinalStatDisplay(key)
-			local curr_rate = t_curr_reinforce[key]
+	-- 현재 스탯 / 다음렙 스탯
+	for i, key in pairs({'atk', 'def', 'hp'}) do
+		local curr_stat = status_calc:getFinalStat(key)
+		vars[key .. 'Stats']:setBeforeStats(curr_stat)
 
-			-- 최대 수치
-			local max_stat = max_status_calc:getFinalStatDisplay(key)
-			local max_rate = t_max_reinforce[key]
-
-			vars[key .. 'Gauge']:runAction(cc.ProgressTo:create(0.2, (curr_rate / max_rate * 100)))
-			vars[key .. 'Label']:setString(string.format('{@W}%s / {@G}%s', curr_stat, max_stat))
-		end
+		local next_stat = next_status_calc:getFinalStat(key)
+		vars[key .. 'Stats']:setAfterStats(next_stat)
 	end
 end
 
@@ -455,7 +474,7 @@ function UI_DragonReinforcement:press_reinforce(rid, ui, btn)
 		-- 백키 블럭 해제
         UIManager:blockBackKey(true)
 
-		-- 참조용
+		-- 인위적 통신을 위한 변수 뭉치
 		local before_reinforce_exp = t_dragon_data:getReinforceObject()['exp']
 		local before_relation_point
 		if (self.m_isDragon) then
@@ -463,6 +482,10 @@ function UI_DragonReinforcement:press_reinforce(rid, ui, btn)
 		else
 			before_relation_point = g_userData:getReinforcePoint(rid)
 		end
+		local did = t_dragon_data:getDid()
+		local rlv = t_dragon_data:getRlv()
+		local cost = TableDragonReinforce:getCurrCost(did, rlv)
+		local curr_gold = g_userData:get('gold')
 
 		-- 변수
 		local rcnt = 0
@@ -497,20 +520,25 @@ function UI_DragonReinforcement:press_reinforce(rid, ui, btn)
 
 			rcnt = rcnt + 1
 
-			-- 강화 경험치 수정
-			t_dragon_data:getReinforceObject()['exp'] = before_reinforce_exp + rcnt
-			self:refresh_reinforceInfo()
-			self:refresh_stats()
+			-- 실제 통신하기 전에 클라에서 인위적으로 조정해주어 한땀한땀 들어가는 것으로 보여줌
+			do
+				-- 강화 경험치 수정
+				t_dragon_data:getReinforceObject()['exp'] = before_reinforce_exp + rcnt
+				self:refresh_reinforceInfo()
 
-			-- 인연 포인트 수정
-			local relation = before_relation_point - rcnt
-			if (self.m_isDragon) then
-				local struct_book = g_bookData:getBookData(rid)
-				struct_book:setRelation(relation)
-			else
-				g_userData:applyServerData(relation, 'reinforce_point', tostring(rid))
+				-- 인연 포인트 수정
+				local relation = before_relation_point - rcnt
+				if (self.m_isDragon) then
+					local struct_book = g_bookData:getBookData(rid)
+					struct_book:setRelation(relation)
+				else
+					g_userData:applyServerData(relation, 'reinforce_point', tostring(rid))
+				end
+				ui:refresh()
+
+				-- 골드 수정
+				g_userData:applyServerData(curr_gold - (cost * rcnt), 'gold')
 			end
-			ui:refresh()
 
 			-- 연출
 			self:reinforceDirecting(ui, function() end)
@@ -620,8 +648,8 @@ function UI_DragonReinforcement:reinforceDirecting(item_ui, finish_cb)
     end
 
     do -- 도착 위치
-        local x, y = vars['dragonIconNode']:getPosition()
-        local parent = vars['dragonIconNode']:getParent()
+        local x, y = vars['dragonNode']:getPosition()
+        local parent = vars['dragonNode']:getParent()
         local world_pos = parent:convertToWorldSpaceAR(cc.p(x, y))
         local local_pos = self.root:convertToNodeSpaceAR(world_pos)
         dest_pos_x = local_pos['x'] + math_random(-20, 20)

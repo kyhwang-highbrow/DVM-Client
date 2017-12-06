@@ -46,7 +46,15 @@ function TableDragon:getSameTypeDragonList(did)
 
 	local d_type = self:getValue(did, 'type')
     local list = self:filterList('type', d_type)
-	table.sort(list, function(a, b)
+	
+	local l_dragon = {}
+	for i, v in ipairs(list) do
+		if (v['test'] == 1) then
+			table.insert(l_dragon, v)
+		end
+	end
+
+	table.sort(l_dragon, function(a, b)
 		return a['did'] < b['did']
 	end)
 

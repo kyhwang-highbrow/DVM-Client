@@ -34,7 +34,7 @@ end
 -------------------------------------
 -- function getReinforceRateTable
 -------------------------------------
-function TableDragonReinforce:getReinforceRateTable(did, rlv, rexp)
+function TableDragonReinforce:getReinforceRateTable(did, rlv)
 	if (self == THIS) then
         self = THIS()
     end
@@ -47,14 +47,9 @@ function TableDragonReinforce:getReinforceRateTable(did, rlv, rexp)
 	for _, key in pairs({'atk', 'def', 'hp'}) do
 		local r_rate = 0
 		for i, t in ipairs(S_GRADE_REINFORCE[birth_grade]) do
-			-- 이전 레벨은 값을 전부 더해주고
+			-- 이전 레벨은 값을 전부 더해준다
 			if (t['reinforce_step'] < rlv + 1) then
 				r_rate = r_rate + t[key .. '_bonus']
-
-			-- 현재 레벨은 경험치에 비례해서 준다
-			elseif (t['reinforce_step'] == rlv + 1) then
-				r_rate = r_rate + (t[key .. '_bonus'] * (rexp / t['exp']))
-
 			end
 		end
 

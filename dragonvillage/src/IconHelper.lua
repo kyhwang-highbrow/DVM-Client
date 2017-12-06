@@ -148,6 +148,15 @@ function IconHelper:getDragonGradeIcon(t_dragon_data, type)
 end
 
 -------------------------------------
+-- function getDragonReinforceIcon
+-------------------------------------
+function IconHelper:getDragonReinforceIcon(rlv)
+    local res = string.format('res/ui/icons/reinforce/reinforce_level_%d.png', rlv)
+    local sprite = self:getIcon(res)
+	return sprite
+end
+
+-------------------------------------
 -- function getItemIcon
 -- @brief item테이블의 item id로 아이콘 생성
 -------------------------------------

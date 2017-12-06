@@ -303,7 +303,7 @@ function StructDragonObject:getReinforceMulti()
 	if (not reinforce_obj) then
 		return {['atk'] = 0, ['def'] = 0, ['hp'] = 0}
 	end
-	local t_reinforce_rate = TableDragonReinforce:getReinforceRateTable(self['did'], reinforce_obj:getRlv(), reinforce_obj:getExp())
+	local t_reinforce_rate = TableDragonReinforce:getReinforceRateTable(self['did'], reinforce_obj:getRlv())
 	return t_reinforce_rate
 end
 
