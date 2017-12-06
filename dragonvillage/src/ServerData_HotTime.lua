@@ -191,7 +191,7 @@ end
 -------------------------------------
 function ServerData_HotTime:getActiveHotTimeInfo_stamina()
     if g_hotTimeData:getActiveHotTimeInfo('stamina_50p') then
-        return true, 'stamina_50p', '1/2'
+        return true, 'stamina_50p', '50%'
     end
 
     return false

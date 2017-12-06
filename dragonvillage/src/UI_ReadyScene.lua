@@ -475,15 +475,19 @@ function UI_ReadyScene:refresh()
 
     -- 모험 소비 활동력 핫타임 관련
     if (game_mode == GAME_MODE_ADVENTURE) then
-        if g_hotTimeData:getActiveHotTimeInfo('stamina_50p') then
+        local active, key, str = g_hotTimeData:getActiveHotTimeInfo_stamina()
+        if active then
             local stamina_type, stamina_value = self:getStageStaminaInfo()
             local cost_value = math_floor(stamina_value / 2)
             vars['actingPowerLabel']:setString(cost_value)
             vars['actingPowerLabel']:setTextColor(cc.c4b(0, 255, 255, 255))
             vars['hotTimeSprite']:setVisible(true)
+            vars['hotTimeStLabel']:setString(str)
+            vars['staminaNode']:setVisible(false)
         else
             vars['actingPowerLabel']:setTextColor(cc.c4b(255, 255, 255, 255))
             vars['hotTimeSprite']:setVisible(false)
+            vars['staminaNode']:setVisible(true)
         end
     end
 
