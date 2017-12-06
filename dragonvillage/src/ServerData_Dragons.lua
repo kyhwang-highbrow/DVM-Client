@@ -639,7 +639,7 @@ function ServerData_Dragons:possibleGoodbye(doid)
 
     local t_dragon_data = self:getDragonDataFromUid(doid)
 	local did = t_dragon_data['did']
-	
+
 	-- 슬라임 체크
 	if (t_dragon_data.m_objectType == 'slime') then
         return false, Str('작별할 수 없는 드래곤입니다.')
@@ -647,6 +647,13 @@ function ServerData_Dragons:possibleGoodbye(doid)
 
 	-- 자코 체크
 	if (TableDragon:isUnderling(did)) then
+		return false, Str('작별할 수 없는 드래곤입니다.') 
+	end
+
+	-- 3성 번고/땅스마트 작별 못하게 막음
+	local birth = t_dragon_data:getBirthGrade()
+	local grade = t_dragon_data:getGrade()
+	if (birth > grade) then
 		return false, Str('작별할 수 없는 드래곤입니다.') 
 	end
 

@@ -146,6 +146,14 @@ function UI_DragonReinforcement:refresh_reinforceInfo()
 	local rlv = t_dragon_data:getRlv()
 	vars['reinfoceLabel']:setString(Str('강화 +{1}', rlv))
 		
+	-- 풀강화시 예외처리
+	if (t_dragon_data:isMaxRlv()) then
+		vars['expGauge']:setPercentage(100)
+		vars['expLabel']:setString('MAX')
+		vars['priceLabel']:setString('-')
+		return
+	end
+
 	-- 현재 경험치 / 총 경험치
 	local rexp = t_dragon_data:getRexp()
 	local max_rexp = TableDragonReinforce:getCurrMaxExp(did, rlv)
@@ -415,16 +423,15 @@ function UI_DragonReinforcement:click_reinforce(rid, ui)
 
         -- 서버와 통신
         co:work()
-        local ret_cache
-        local function request_finish(ret)
-            ret_cache = ret
+        local function request_finish()
+			ccdisplay('NETWORK')
             co.NEXT()
         end
         self:request_reinforce(rid, 1, request_finish)
         if co:waitWork() then return end
 
         -- 필요한것들 갱신
-		self:response_reinforce(ret_cache)
+		self:response_reinforce()
 		ui:refresh()
 
         co:close()
@@ -453,10 +460,10 @@ function UI_DragonReinforcement:press_reinforce(rid, ui, btn)
         UIManager:blockBackKey(true)
 
 		-- 참조용
-		local before_relation_point, before_reinforce_exp
+		local before_reinforce_exp = t_dragon_data:getReinforceObject()['exp']
+		local before_relation_point
 		if (self.m_isDragon) then
 			before_relation_point = g_bookData:getBookData(rid):getRelation()
-			--before_reinforce_exp = t_dragon_data:getReinforceObject()['exp']
 		else
 			before_relation_point = g_userData:getReinforcePoint(rid)
 		end
@@ -493,21 +500,24 @@ function UI_DragonReinforcement:press_reinforce(rid, ui, btn)
 			end
 
 			rcnt = rcnt + 1
-			self:reinforceDirecting(ui, function()
-				-- 강화 경험치 수정
-				local rexp = t_dragon_data:getReinforceObject()['exp']
-				t_dragon_data:getReinforceObject()['exp'] = rexp + 1
-				self:refresh_reinforceInfo()
-				self:refresh_stats()
 
-				if (self.m_isDragon) then
-					-- 인연 포인트 수정
-					local struct_book = g_bookData:getBookData(rid)
-					local relation = math_max(before_relation_point - rcnt, struct_book:getRelation() - 1)
-					struct_book:setRelation(relation)
-					ui:refresh()
-				end
-			end)
+			-- 강화 경험치 수정
+			t_dragon_data:getReinforceObject()['exp'] = before_reinforce_exp + rcnt
+			self:refresh_reinforceInfo()
+			self:refresh_stats()
+
+			-- 인연 포인트 수정
+			local relation = before_relation_point - rcnt
+			if (self.m_isDragon) then
+				local struct_book = g_bookData:getBookData(rid)
+				struct_book:setRelation(relation)
+			else
+				g_userData:applyServerData(relation, 'reinforce_point', tostring(rid))
+			end
+			ui:refresh()
+
+			-- 연출
+			self:reinforceDirecting(ui, function() end)
 
 			if co:waitWork() then return end
 		end
@@ -515,13 +525,14 @@ function UI_DragonReinforcement:press_reinforce(rid, ui, btn)
 		-- 서버와 통신
         co:work()
         local function request_finish()
+			ccdisplay('NETWORK')
             co.NEXT()
         end
         self:request_reinforce(rid, rcnt, request_finish)
         if co:waitWork() then return end
 
         -- 필요한것들 갱신
-		self:response_reinforce(ret_cache)
+		self:response_reinforce()
 		ui:refresh()
 
 		-- 백키 블럭 해제
