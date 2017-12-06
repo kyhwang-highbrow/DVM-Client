@@ -964,6 +964,33 @@ function ServerData_Dragons:haveSkillSpareLV(doid)
 end
 
 -------------------------------------
+-- function impossibleReinforcement
+-- @brief 드래곤 강화
+-------------------------------------
+function ServerData_Dragons:impossibleReinforcementForever(doid)
+    local t_dragon_data = self:getDragonObject(doid)
+
+    if (not t_dragon_data) then
+        return true
+    end
+
+	local did = t_dragon_data['did']
+	if (TableDragon:isUnderling(did)) then
+		return true, Str('몬스터는 강화 할 수 없습니다.')
+	end
+
+    if (t_dragon_data.m_objectType == 'slime') then
+        return true, Str('슬라임은 강화 할 수 없습니다.')
+    end
+
+	if (t_dragon_data:isMaxRlv()) then
+		return true, Str('최대 강화 레벨의 드래곤입니다.')
+	end
+
+    return false
+end
+
+-------------------------------------
 -- function request_dragonsInfo
 -- @breif
 -------------------------------------

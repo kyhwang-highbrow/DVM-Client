@@ -345,6 +345,14 @@ end
 -------------------------------------
 function UI_DragonReinforcement:getDragonList()
     local dragon_dic = g_dragonsData:getDragonsList()
+
+	-- 절대 레벨업 불가능한 드래곤 제외
+    for oid, v in pairs(dragon_dic) do
+        if (g_dragonsData:impossibleReinforcementForever(oid)) then
+            dragon_dic[oid] = nil
+        end
+    end
+
     return dragon_dic
 end
 
@@ -594,7 +602,9 @@ function UI_DragonReinforcement:request_reinforce(rid, rcnt, cb_func)
 		-- 강화 레벨업 시 결과화면
 		if (ret['is_rlevelup']) then
 			local ui = UI_DragonReinforceResult(ret['dragon'])
-			ui:setCloseCB(function() self:close() end)
+			ui:setCloseCB(function() 
+				self:close()
+			end)
 		end
 
 		if (cb_func) then

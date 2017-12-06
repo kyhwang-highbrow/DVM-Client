@@ -522,6 +522,13 @@ end
 -- @brief 친밀도 버튼
 -------------------------------------
 function UI_DragonManageInfo:click_reinforceBtn()
+	-- 스킬 강화 가능 여부
+	local possible, msg = g_dragonsData:impossibleReinforcementForever(self.m_selectDragonOID)
+	if (possible) then
+		UIManager:toastNotificationRed(msg)
+        return
+	end
+
     self:openSubManageUI(UI_DragonReinforcement)
 end
 

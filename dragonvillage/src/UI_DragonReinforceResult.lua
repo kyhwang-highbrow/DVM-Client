@@ -70,7 +70,7 @@ function UI_DragonReinforceResult:initUI(t_dragon_data)
         dragon_animator:setDragonAnimator(dragon_object['did'], dragon_object['evolution'], dragon_object['friendship']['flv'])
         local function cb()
             local function after_appear()
-                --self:direct_levelup(dragon_object)
+                self:refresh_status(dragon_object)
             end
             self:doAction(after_appear, false)
 			SoundMgr:playEffect('UI', 'ui_grow_result')
@@ -80,9 +80,46 @@ function UI_DragonReinforceResult:initUI(t_dragon_data)
 		dragon_animator:startDirecting(direct_result)
     end
 
-    -- 이전 경험치와 레벨 미리 표시
+	 -- 이전 경험치와 레벨 미리 표시
     local lv = dragon_object:getRlv()
-    vars['beforeLabel']:setString(string.format('+ %d', lv - 1))
-    vars['afterLabel']:setString(string.format('+ %d', lv))
+	local icon = IconHelper:getDragonReinforceIcon(lv)
+    vars['beforeNode']:addChild(icon)
+	local icon = IconHelper:getDragonReinforceIcon(lv)
+    vars['afterNode']:addChild(icon)
 
+    -- numberLabel 로 변환
+    vars['atkLabel1'] = NumberLabel(vars['atkLabel1'], 0, 0.3)
+    vars['defLabel1'] = NumberLabel(vars['defLabel1'], 0, 0.3)
+    vars['hpLabel1'] = NumberLabel(vars['hpLabel1'], 0, 0.3)
+    vars['atkLabel2'] = NumberLabel(vars['atkLabel2'], 0, 0.3)
+    vars['defLabel2'] = NumberLabel(vars['defLabel2'], 0, 0.3)
+    vars['hpLabel2'] = NumberLabel(vars['hpLabel2'], 0, 0.3)
+
+    -- 이전 status 표시
+	local t_prev_data = clone(dragon_object)
+	t_prev_data['reinforce']['lv'] = lv - 1
+    local status_calc = MakeDragonStatusCalculator_fromDragonDataTable(t_prev_data)
+    local atk = status_calc:getFinalStat('atk')
+    local def = status_calc:getFinalStat('def')
+    local hp = status_calc:getFinalStat('hp')
+    vars['atkLabel1']:setNumber(atk)
+    vars['defLabel1']:setNumber(def)
+    vars['hpLabel1']:setNumber(hp)
+    vars['atkLabel2']:setNumber(atk)
+    vars['defLabel2']:setNumber(def)
+    vars['hpLabel2']:setNumber(hp)
+end
+
+-------------------------------------
+-- function refresh_status
+-- @brief 능력치 정보 갱신
+-------------------------------------
+function UI_DragonReinforceResult:refresh_status(dragon_object)
+    local vars = self.vars
+
+    local doid = dragon_object['id']
+    local status_calc = MakeDragonStatusCalculator_fromDragonDataTable(dragon_object)
+    vars['atkLabel2']:setNumber(status_calc:getFinalStat('atk'))
+    vars['defLabel2']:setNumber(status_calc:getFinalStat('def'))
+    vars['hpLabel2']:setNumber(status_calc:getFinalStat('hp'))
 end
