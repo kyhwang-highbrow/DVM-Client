@@ -570,6 +570,11 @@ function UI_DragonReinforcement:request_reinforce(rid, rcnt, cb_func)
 		-- 드래곤 관리 UI 갱신
 		self.m_bChangeDragonList = true
 
+		-- 강화 레벨업 시 결과화면
+		if (ret['is_rlevelup']) then
+			UI_DragonReinforceResult(ret['dragon'])
+		end
+
 		if (cb_func) then
 			cb_func()
 		end

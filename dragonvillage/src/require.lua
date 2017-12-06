@@ -855,6 +855,7 @@ local t_module = {
     'UI_DragonUpgradeResult',
     'UI_DragonLevelupResult',
 	'UI_DragonSkillEnhance_Result',
+	'UI_DragonReinforceResult',
 
 	-- UI : 드래곤 평가
 	'UI_DragonBoardPopup',

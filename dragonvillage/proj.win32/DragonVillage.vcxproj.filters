@@ -2970,6 +2970,9 @@
     <None Include="..\src\UI_ReinforcePointCard.lua">
       <Filter>lua\UI</Filter>
     </None>
+    <None Include="..\src\UI_DragonReinforceResult.lua">
+      <Filter>lua\UI</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Classes">
