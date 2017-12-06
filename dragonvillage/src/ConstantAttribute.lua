@@ -337,10 +337,19 @@ function getAttrSynastryEffect(attr1, attr2, atk_attr_adj_rate, def_attr_adj_rat
 
     if (attr_synastry == 1) then
 		t_attr_synastry_effect['damage'] = t_attr_synastry_effect['damage'] + atk_attr_adj_rate
+         
+        -- 빛 공격 암 수비, 암 공격 빛 수비인 경우
+        -- 빛, 암 자룡의 경우 상대 속성에따라 데미지 감소를 가짐.
+        if ( (attr1 == 'dark' and attr2 == 'light') or (attr1 == 'light' and attr2 == 'dark') ) then 
+            if (def_attr_adj_rate ~= 0) then
+                t_attr_synastry_effect['damage'] = t_attr_synastry_effect['damage'] - def_attr_adj_rate
+            end
+                
+        end
     elseif (attr_synastry == -1) then
         t_attr_synastry_effect['damage'] = t_attr_synastry_effect['damage'] - def_attr_adj_rate
 	end
-    
+
     return t_attr_synastry_effect, attr_synastry
 end
 
