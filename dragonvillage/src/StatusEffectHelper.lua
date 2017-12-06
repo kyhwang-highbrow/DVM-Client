@@ -586,9 +586,8 @@ function StatusEffectHelper:releaseStatusEffectBuff(char, max_release_cnt, statu
             end
 	       
         end
-
-
     end
+
 	return (release_cnt > 0)
 end
 
@@ -597,12 +596,18 @@ end
 -- @brief 모든 상태효과 해제
 -------------------------------------
 function StatusEffectHelper:releaseStatusEffectAll(char)
+    local release_cnt = 0
+
 	-- 해제
 	for type, status_effect in pairs(char:getStatusEffectList()) do
         if (status_effect:isErasable()) then
             status_effect:changeState('end')
+
+            release_cnt = release_cnt + 1
         end
 	end
+
+    return (release_cnt > 0)
 end
 
 -------------------------------------

@@ -67,25 +67,35 @@ end
 -- function onStart
 -------------------------------------
 function StatusEffect_Dispell:onApplyOverlab(unit)
+    local b = false
+
     for k, v in pairs(self.m_dispellTarget) do
 		-- 디스펠 시전
         if (k == 'all') then
-            self:dispellAll()
+            if (self:dispellAll()) then b = true end
 
         elseif (k == 'category') then
             if (v == 'good') then
-                self:dispellBuff()
+                if (self:dispellBuff()) then b = true end
+                
             elseif(v == 'bad') then
-                self:dispellDebuff()
+                if (self:dispellDebuff()) then b = true end
+                
             end
 
         elseif (k == 'name') then
             if (StatusEffectHelper:isHarmful(v)) then
-                self:dispellBuff(v)
+                if (self:dispellBuff(v)) then b = true end
             else
-                self:dispellDebuff(v)
+                if (self:dispellDebuff(v)) then b = true end
+                
             end
         end
+    end
+
+    -- 해제된 상태효과가 없다면 이펙트가 발생하지 않도록 함
+    if (not b) then
+        self.m_resDispellEffect = nil
     end
 
     -- !! unit을 바로 삭제하여 해당 상태효과 종료시킴
@@ -98,9 +108,9 @@ end
 -------------------------------------
 function StatusEffect_Dispell:dispellDebuff(name)
     if (not name) then
-	    StatusEffectHelper:releaseStatusEffectDebuff(self.m_owner, self.m_releaseCnt)
+	    return StatusEffectHelper:releaseStatusEffectDebuff(self.m_owner, self.m_releaseCnt)
     else 
-        StatusEffectHelper:releaseStatusEffectDebuff(self.m_owner, self.m_releaseCnt, name)
+        return StatusEffectHelper:releaseStatusEffectDebuff(self.m_owner, self.m_releaseCnt, name)
     end
 end
 
@@ -110,9 +120,9 @@ end
 -------------------------------------
 function StatusEffect_Dispell:dispellBuff(name)
 	if (not name) then
-	    StatusEffectHelper:releaseStatusEffectBuff(self.m_owner, self.m_releaseCnt)
+	    return StatusEffectHelper:releaseStatusEffectBuff(self.m_owner, self.m_releaseCnt)
     else 
-        StatusEffectHelper:releaseStatusEffectBuff(self.m_owner, self.m_releaseCnt, name)
+        return StatusEffectHelper:releaseStatusEffectBuff(self.m_owner, self.m_releaseCnt, name)
     end
 end
 
@@ -121,5 +131,5 @@ end
 -- @brief 전부 해제, 버프 숫자도 제한이 없다.
 -------------------------------------
 function StatusEffect_Dispell:dispellAll()
-	StatusEffectHelper:releaseStatusEffectAll(self.m_owner)
+	return StatusEffectHelper:releaseStatusEffectAll(self.m_owner)
 end
