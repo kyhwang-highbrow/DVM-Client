@@ -183,6 +183,20 @@ function TableDragon:getDragonName(did)
 end
 
 -------------------------------------
+-- function getDragonName
+-------------------------------------
+function TableDragon:getDragonNameWithAttr(did)
+    if (self == THIS) then
+        self = THIS()
+    end
+
+    local name = self:getDragonName(did)
+	local attr = dragonAttributeName(self:getDragonAttr(did))
+
+    return string.format('%s (%s)', name, attr)
+end
+
+-------------------------------------
 -- function getDragonRes
 -------------------------------------
 function TableDragon:getDragonRes(did, evolution)
