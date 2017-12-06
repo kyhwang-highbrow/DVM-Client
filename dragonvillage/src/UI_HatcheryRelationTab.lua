@@ -267,6 +267,12 @@ function UI_HatcheryRelationTab:refresh()
         local star_icon = IconHelper:getDragonGradeIcon(struct_dragon_object, 2)
         vars['starNode']:addChild(star_icon)
     end
+	
+	do -- 드래곤 소환 비용
+		local birth = struct_dragon_object:getBirthGrade()
+		local price = math_pow(2, birth - 2) * 100000
+		vars['priceLabel']:setString(comma_value(price))
+	end
 end
 
 -------------------------------------

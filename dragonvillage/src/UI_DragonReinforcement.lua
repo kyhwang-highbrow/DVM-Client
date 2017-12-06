@@ -48,39 +48,6 @@ function UI_DragonReinforcement:initUI()
     local vars = self.vars
 	vars['expGauge']:setPercentage(0)
     self:init_dragonTableView()
-    self:initStatusUI()
-end
-
--------------------------------------
--- function initStatusUI
--------------------------------------
-function UI_DragonReinforcement:initStatusUI()
-    local vars = self.vars
-    local l_pos = getSortPosList(30, 3)
-
-    local uic_stats = UIC_IndivisualStats()
-    uic_stats:initUIComponent()
-    uic_stats:setPositionY(l_pos[1])
-    uic_stats:setParentNode(vars['statsNode'])
-    uic_stats:setStatsName(Str('공격력'))
-	uic_stats:showOnlyCurrStat(false)
-    vars['atkStats'] = uic_stats
-
-    local uic_stats = UIC_IndivisualStats()
-    uic_stats:initUIComponent()
-    uic_stats:setPositionY(l_pos[2])
-    uic_stats:setParentNode(vars['statsNode'])
-    uic_stats:setStatsName(Str('방어력'))
-	uic_stats:showOnlyCurrStat(false)
-    vars['defStats'] = uic_stats
-
-    local uic_stats = UIC_IndivisualStats()
-    uic_stats:initUIComponent()
-    uic_stats:setPositionY(l_pos[3])
-    uic_stats:setParentNode(vars['statsNode'])
-    uic_stats:setStatsName(Str('생명력'))
-	uic_stats:showOnlyCurrStat(false)
-    vars['hpStats'] = uic_stats
 end
 
 -------------------------------------
@@ -198,42 +165,35 @@ end
 -------------------------------------
 function UI_DragonReinforcement:refresh_stats()
     local vars = self.vars
-    local t_dragon_data = self.m_selectDragonData
 
     -- 현재 레벨의 능력치 계산기
+    local t_dragon_data = self.m_selectDragonData
     local status_calc = MakeDragonStatusCalculator_fromDragonDataTable(t_dragon_data)
 
-    -- 현재 레벨의 능력치
-	do
-		local curr_atk = status_calc:getFinalStat('atk')
-		local curr_def = status_calc:getFinalStat('def')
-		local curr_hp = status_calc:getFinalStat('hp')
-		local curr_cp = status_calc:getCombatPower()
+	-- 최대 레벨 조건의 능력치 계산기
+	local t_max_data = clone(t_dragon_data)
+	t_max_data['lv'] = 60
+	t_max_data['grade'] = MAX_DRAGON_GRADE
+	t_max_data['evolution'] = MAX_DRAGON_EVOLUTION
+	t_max_data['reinforce']['lv'] = MAX_DRAGON_REINFORCE
+	local max_status_calc = MakeDragonStatusCalculator_fromDragonDataTable(t_max_data)
 
-		vars['atkStats']:setBeforeStats(curr_atk)
-		vars['defStats']:setBeforeStats(curr_def)
-		vars['hpStats']:setBeforeStats(curr_hp)
-	end
-
-	-- 총 스탯 대비 게이지
+	-- 강화 증가량 게이지 / 현재 스탯 / 맥스 스탯
 	do
 		local did = t_dragon_data:getDid()
 		local t_curr_reinforce = t_dragon_data:getReinforceMulti()
 		local t_max_reinforce = TableDragonReinforce:getTotalRateTable(did)
-		local max_status_calc = MakeDragonStatusCalculator(did, 60, MAX_DRAGON_GRADE, MAX_DRAGON_EVOLUTION, 0)
 		for i, key in pairs({'atk', 'def', 'hp'}) do
 			-- 현재 수치
-			local lv_stat = status_calc:getLevelStat(key)
+			local curr_stat = status_calc:getFinalStatDisplay(key)
 			local curr_rate = t_curr_reinforce[key]
-			local curr_dt = math_floor(lv_stat * curr_rate / 100)
 
 			-- 최대 수치
-			local max_stat = max_status_calc:getLevelStat(key)
+			local max_stat = max_status_calc:getFinalStatDisplay(key)
 			local max_rate = t_max_reinforce[key]
-			local max_dt = math_floor(max_stat * max_rate / 100)
 
 			vars[key .. 'Gauge']:runAction(cc.ProgressTo:create(0.2, (curr_rate / max_rate * 100)))
-			vars[key .. 'Label']:setString(string.format('%s / %s', comma_value(curr_dt), comma_value(max_dt)))
+			vars[key .. 'Label']:setString(string.format('{@W}%s / {@G}%s', curr_stat, max_stat))
 		end
 	end
 end
@@ -303,6 +263,7 @@ function UI_DragonReinforcement:refresh_relation()
 			ui:load('hatchery_relation_item.ui')
 			ui.vars['clickBtn']:setEnabled(false)
 			ui.vars['relationLabel']:setString('')
+			ui.vars['emptyNode']:setVisible(true)
 			vars['relationNode' .. i]:addChild(ui.root)
 			
 		end

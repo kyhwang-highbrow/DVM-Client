@@ -10,6 +10,8 @@ local THIS = TableDragonReinforce
 
 local S_GRADE_REINFORCE = nil
 
+MAX_DRAGON_REINFORCE = 6
+
 -------------------------------------
 -- function init
 -------------------------------------
