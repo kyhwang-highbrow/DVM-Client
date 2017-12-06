@@ -719,8 +719,10 @@ function UI_DragonManageInfo:click_goodbyeBtn()
 	local did = self.m_selectDragonData['did']
 	local name = table_dragon:getDragonName(did)
 	local birth_grade = table_dragon:getBirthGrade(did)
+	local relation = table_dragon:getRelationPoint(did)
 
-    local material_warning_popup
+	local material_warning_popup
+	local really_warning_popup
     local network_func
     local show_effect
 	local finish_cb
@@ -728,8 +730,14 @@ function UI_DragonManageInfo:click_goodbyeBtn()
     -- 재료 경고
     material_warning_popup = function()
         local oid = self.m_selectDragonOID
-        g_dragonsData:dragonMaterialWarning(oid, network_func)
+        g_dragonsData:dragonMaterialWarning(oid, really_warning_popup)
     end
+
+	-- 정말 작별 하는지 되물음
+	really_warning_popup = function()
+		local goodbye_str = Str('{@green}{1}{@DESC}의 인연포인트를\n{@MUSTARD}{2}개 {@DESC}획득할 수 있습니다.\n작별하시겠습니까?', name, relation)
+		MakeSimplePopup(POPUP_TYPE.YES_NO, goodbye_str, network_func)
+	end
 
 	-- 작별 통신
 	network_func = function()
