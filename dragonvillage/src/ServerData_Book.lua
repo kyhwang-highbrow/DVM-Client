@@ -394,6 +394,9 @@ function ServerData_Book:request_useRelationPoint(did, finish_cb)
     
     -- 성공 콜백
     local function success_cb(ret)
+		-- 골드 갱신
+		self.m_serverData:networkCommonRespone(ret)
+
         -- 인연포인트 (전체 갱신)
 		if (ret['relation']) then
 			g_bookData:applyRelationPoints(ret['relation'])
