@@ -9,6 +9,7 @@ UI_DragonDevApiPopup = class(PARENT, {
         m_evolution = 'number',
         m_grade = 'number',
         m_level = 'number',
+		m_rlv = 'number',
 
         m_skill0 = 'number',
         m_skill1 = 'number',
@@ -65,6 +66,7 @@ function UI_DragonDevApiPopup:initUI()
     self.m_evolution = t_dragon_data['evolution']
     self.m_grade = t_dragon_data['grade']
     self.m_level = t_dragon_data['lv']
+	self.m_rlv = t_dragon_data:getRlv()
 
     self.m_skill0 = t_dragon_data['skill_0']
     self.m_skill1 = t_dragon_data['skill_1']
@@ -86,6 +88,7 @@ function UI_DragonDevApiPopup:initButton()
     local max_evolution = 3
     local max_grade = 6
     local max_level = 40
+	local max_rlv = MAX_DRAGON_REINFORCE
 
     vars['evolutionUpBtn']:registerScriptTapHandler(function() self.m_evolution = math_clamp(self.m_evolution + 1, 1, max_evolution) self:refresh() end)
     vars['evolutionDownBtn']:registerScriptTapHandler(function() self.m_evolution = math_clamp(self.m_evolution - 1, 1, max_evolution) self:refresh() end)
@@ -102,6 +105,11 @@ function UI_DragonDevApiPopup:initButton()
     vars['levelUpBtn']:registerScriptTapHandler(function() self.m_level = math_clamp(self.m_level + 1, 1, TableGradeInfo:getMaxLv(self.m_grade)) self:refresh() end)
     vars['levelDownBtn']:registerScriptTapHandler(function() self.m_level = math_clamp(self.m_level - 1, 1, TableGradeInfo:getMaxLv(self.m_grade)) self:refresh() end)
     vars['levelMaxBtn']:registerScriptTapHandler(function() self.m_level = TableGradeInfo:getMaxLv(self.m_grade) self:refresh() end)
+
+	-- 드래곤 강화
+	vars['reinforceUpBtn']:registerScriptTapHandler(function() self.m_rlv = math_clamp(self.m_rlv + 1, 1, max_rlv) self:refresh() end)
+    vars['reinforceDownBtn']:registerScriptTapHandler(function() self.m_rlv = math_clamp(self.m_rlv - 1, 1, max_rlv) self:refresh() end)
+    vars['reinforceMaxBtn']:registerScriptTapHandler(function() self.m_rlv = max_rlv self:refresh() end)
 
     -- 스킬 레벨들
     vars['skillUpBtn0']:registerScriptTapHandler(function() self.m_skill0 = math_clamp(self.m_skill0 + 1, 1, self.m_skillMaxLv0) self:networkSkillLevel(0) end)
@@ -134,6 +142,7 @@ function UI_DragonDevApiPopup:refresh()
     vars['evolutionLabel']:setString('진화 : ' .. self.m_evolution)
     vars['gradeLabel']:setString('승급 : ' .. self.m_grade)
     vars['levelLabel']:setString('레벨 : ' .. self.m_level)
+	vars['reinforceLabel']:setString('강화 : ' .. self.m_rlv)
 
     vars['skillLabel0']:setString('스킬 0 레벨 : ' .. self.m_skill0)
     vars['skillLabel1']:setString('스킬 1 레벨 : ' .. self.m_skill1)
@@ -186,6 +195,10 @@ function UI_DragonDevApiPopup:click_closeBtn()
         is_change = true
     end
 
+    if (t_dragon_data:getRlv() ~= self.m_rlv) then
+        is_change = true
+    end
+
     if (t_dragon_data['skill_0'] ~= self.m_skill0) then
         is_change = true
     end
@@ -221,6 +234,7 @@ function UI_DragonDevApiPopup:click_closeBtn()
         ui_network:setParam('evolution', self.m_evolution)
         ui_network:setParam('grade', self.m_grade)
         ui_network:setParam('lv', self.m_level)
+		ui_network:setParam('reinforce', 'lv,' .. self.m_rlv)
         ui_network:setParam('skills', '0,' .. self.m_skill0)
         ui_network:setParam('skills', '1,' .. self.m_skill1)
         ui_network:setParam('skills', '2,' .. self.m_skill2)
