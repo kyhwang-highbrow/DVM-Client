@@ -256,41 +256,39 @@ function UI_DragonReinforcement:refresh_relation()
 		if (t_dragon) then
 			local rid = t_dragon['did']
 
-			-- 카드 생성
+			-- 데이터
 			local t_data = {
 				['did'] = rid,
 				['grade'] = t_dragon['birthgrade']
 			}
 			local struct_dragon = StructDragonObject(t_data)
-			local ui = UI_HatcheryRelationItem(struct_dragon)
+
+			-- 카드 생성
+			local ui = UI_DragonReinforceItem('dragon', struct_dragon)
 			vars['relationNode' .. i]:addChild(ui.root)
 
+			-- 버튼 처리
 			local click_btn = ui.vars['clickBtn']
+			do
+				-- 버튼 클릭 등록
+				click_btn:registerScriptTapHandler(function()
+					self.m_isDragon = true
+					self:click_reinforce(rid, ui)
+				end)
 
-			-- 버튼 클릭 등록
-			click_btn:registerScriptTapHandler(function()
-				self.m_isDragon = true
-				self:click_reinforce(rid, ui)
-			end)
-
-			-- 버튼 프레스 등록
-			click_btn:registerScriptPressHandler(function()
-				self.m_isDragon = true
-				self:press_reinforce(rid, ui, click_btn)
-			end)
+				-- 버튼 프레스 등록
+				click_btn:registerScriptPressHandler(function()
+					self.m_isDragon = true
+					self:press_reinforce(rid, ui, click_btn)
+				end)
+			end
 
 			-- 연출
-			ui.m_characterCard.root:setScale(0)
-			ui.m_characterCard.root:runAction(cc.Sequence:create(cc.DelayTime:create((i-1) * 0.025), cc.EaseElasticOut:create(cc.ScaleTo:create(1, 1, 1), 0.3)))
-
+			cca.fruitReact(ui.m_card.root, i)
 
 		-- 없으면 빈아이콘 생성
 		else
-			local ui = UI()
-			ui:load('hatchery_relation_item.ui')
-			ui.vars['clickBtn']:setEnabled(false)
-			ui.vars['relationLabel']:setString('')
-			ui.vars['emptyNode']:setVisible(true)
+			local ui = UI_DragonReinforceItem('empty')
 			vars['relationNode' .. i]:addChild(ui.root)
 			
 		end
@@ -298,42 +296,35 @@ function UI_DragonReinforcement:refresh_relation()
 
 	-- 강화 포인트 생성
 	do 
+		vars['relationNode6']:removeAllChildren(true)
+
+		-- 데이터
 		local grade = t_dragon_data:getBirthGrade()
 		local item_id = 760000 + grade
 		local t_item = TableItem():get(item_id)
-		local ui = UI()
-		ui:load('hatchery_relation_item.ui')
+
+		-- 카드 생성
+		local ui = UI_DragonReinforceItem('item', t_item)
 		vars['relationNode6']:addChild(ui.root)
 		
-		local card = UI_ReinforcePointCard(t_item)
-		card.vars['clickBtn']:setEnabled(false)
-		ui.vars['dragonNode']:addChild(card.root)
-		ui.m_uiName = t_item
+		-- 버튼 처리
+		local click_btn = ui.vars['clickBtn']
+		do
+			-- 버튼 클릭 등록
+			click_btn:registerScriptTapHandler(function()
+				self.m_isDragon = false
+				self:click_reinforce(item_id, ui)
+			end)
 
-		function ui:refresh()
-			local point = g_userData:getReinforcePoint(item_id)
-			ui.vars['relationLabel']:setString(string.format('{@w}%d', point))
+			-- 버튼 프레스 등록
+			click_btn:registerScriptPressHandler(function()
+				self.m_isDragon = false
+				self:press_reinforce(item_id, ui, click_btn)
+			end)
 		end
 
-		ui:refresh()
-
-		local click_btn = ui.vars['clickBtn']
-
-		-- 버튼 클릭 등록
-		click_btn:registerScriptTapHandler(function()
-			self.m_isDragon = false
-			self:click_reinforce(item_id, ui)
-		end)
-
-		-- 버튼 프레스 등록
-		click_btn:registerScriptPressHandler(function()
-			self.m_isDragon = false
-			self:press_reinforce(item_id, ui, click_btn)
-		end)
-
 		-- 연출
-		card.root:setScale(0)
-		card.root:runAction(cc.Sequence:create(cc.DelayTime:create((6-1) * 0.025), cc.EaseElasticOut:create(cc.ScaleTo:create(1, 1, 1), 0.3)))
+		cca.fruitReact(ui.m_card.root, 6)
 	end
 
 end
@@ -668,12 +659,11 @@ function UI_DragonReinforcement:reinforceDirecting(item_ui, finish_cb)
 
     -- 아이콘 생성
 	local icon
+	local t_data = item_ui.m_tData
 	if (self.m_isDragon) then
-		local struct_dragon = item_ui.m_tData
-		icon = UI_RelationCard(struct_dragon).root
+		icon = UI_RelationCard(t_data).root
 	else
-		local t_item = item_ui.m_uiName
-		icon = UI_ReinforcePointCard(t_item).root
+		icon = UI_ReinforcePointCard(t_data).root
 	end
 	icon:setScale(0.4)
     icon:setPosition(pos_x, pos_y)

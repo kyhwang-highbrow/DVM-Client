@@ -389,3 +389,17 @@ function cca.stampShakeAction(node, appear_sacle, appear_duration, updown_scale,
 
     cca.runAction(node, action)
 end
+
+-------------------------------------
+-- function fruitReact
+-- @brief 이름을 짓기 힘든데... 친밀도의 과일 등장 액션
+-------------------------------------
+function cca.fruitReact(node, idx_factor)
+	node:setScale(0)
+
+	local i = idx_factor or math_random(6)
+	local delay = cc.DelayTime:create((i-1) * 0.025)
+	local elastic = cc.EaseElasticOut:create(cc.ScaleTo:create(1, 1, 1), 0.3)
+	local action = cc.Sequence:create(delay, elastic)
+	cca.runAction(node, action)
+end
