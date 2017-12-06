@@ -564,7 +564,10 @@ function StructProduct:payment(cb_func)
                 cclog('#### ret : ')
                 ccdump(ret)
 
-				local items_list = ret['added_items']['items_list']
+				local items_list
+				if (ret['added_items']) then
+					items_list = ret['added_items']['items_list']
+				end
 				if (items_list) then
 					local msg = Str('상품을 수령하였습니다.')
 					UI_ObtainPopup(items_list, msg, function() cb_func(ret); co.NEXT() end)
@@ -672,7 +675,11 @@ function StructProduct:payment_win(cb_func)
                 cclog('#### ret : ')
                 ccdump(ret)
 
-				local items_list = ret['added_items']['items_list']
+				local items_list
+				if (ret['added_items']) then
+					items_list = ret['added_items']['items_list']
+				end
+
 				if (items_list) then
 					local msg = Str('상품을 수령하였습니다.')
 					UI_ObtainPopup(items_list, msg, function() cb_func(ret); co.NEXT() end)
