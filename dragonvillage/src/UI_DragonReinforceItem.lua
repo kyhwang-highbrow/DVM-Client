@@ -89,6 +89,9 @@ function UI_DragonReinforceItem:refresh()
 		local item_id = t_data['item']
 		point = g_userData:getReinforcePoint(item_id)
 
+	else
+		return
+
 	end
 	vars['relationLabel']:setString(string.format('{@w}%s', comma_value(point)))
 end

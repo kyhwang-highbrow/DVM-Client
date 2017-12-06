@@ -81,9 +81,11 @@ function UI_DragonInfoBoard:refresh(t_dragon_data)
 
 	do -- 드래곤 강화 레벨
 		vars['reinforceNode']:removeAllChildren()
-		local rlv = t_dragon_data:getRlv()
-		local icon = IconHelper:getDragonReinforceIcon(rlv)
-		vars['reinforceNode']:addChild(icon)
+		if (t_dragon_data:getRlv() > 0) then
+			local rlv = t_dragon_data:getRlv()
+			local icon = IconHelper:getDragonReinforceIcon(rlv)
+			vars['reinforceNode']:addChild(icon)
+		end
 	end
 
     do -- 레벨

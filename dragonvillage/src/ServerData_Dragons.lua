@@ -662,7 +662,7 @@ function ServerData_Dragons:possibleGoodbye(doid)
 	-- 인연포인트 최대 갯수 체크
 	local relation = g_bookData:getBookData(did):getRelation()
 	local max = TableDragonReinforce:getTotalExp()
-	if (relation > max) then
+	if (relation >= max) then
 		return false, Str('{1}의 인연 포인트를 {2}개 이상 보유하고 있어 작별할 수 없습니다.', dragon_name, max)
 	end
 

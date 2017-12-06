@@ -5,6 +5,7 @@ local PARENT = UI_DragonManage_Base
 -------------------------------------
 UI_DragonReinforcement = class(PARENT,{
 		m_isDragon = 'bool', -- true / false
+		m_reinforceEffect = 'Animator',
     })
 
 -------------------------------------
@@ -49,6 +50,7 @@ function UI_DragonReinforcement:initUI()
 	vars['expGauge']:setPercentage(0)
     self:init_dragonTableView()
     self:initStatusUI()
+	self:initReinforceEffect()
 end
 
 -------------------------------------
@@ -78,6 +80,24 @@ function UI_DragonReinforcement:initStatusUI()
     uic_stats:setParentNode(vars['statsNode'])
     uic_stats:setStatsName(Str('생명력'))
     vars['hpStats'] = uic_stats
+end
+
+-------------------------------------
+-- function initReinforceEffect
+-------------------------------------
+function UI_DragonReinforcement:initReinforceEffect()
+	if (self.m_reinforceEffect) then
+		return
+	end
+	
+	local animator = MakeAnimator('res/ui/a2d/dragon_reinforce/dragon_reinforce.vrp')
+	animator:setVisible(false)
+
+	local pos_x, pos_y = self.vars['dragonNode']:getPosition()
+	animator:setPosition(pos_x, pos_y)
+
+	self.root:addChild(animator.m_node, 99)
+	self.m_reinforceEffect = animator
 end
 
 -------------------------------------
@@ -407,7 +427,7 @@ function UI_DragonReinforcement:exceptionReinforce(rid)
 	local curr_cost = TableDragonReinforce:getCurrCost(did, rlv)
 	local gold = g_userData:get('gold')
 	if (curr_cost > gold) then
-		UIManager:toastNotificationRed(Str('골드가 부족합니다.'))
+		MakeSimplePopup(POPUP_TYPE.YES_NO, Str('골드가 부족합니다.\n상점으로 이동하시겠습니까?'), function() g_shopDataNew:openShopPopup('gold') end)
 		return true
 	end
 
@@ -440,6 +460,13 @@ function UI_DragonReinforcement:click_reinforce(rid, ui)
 	local function coroutine_function(dt)
         local co = CoroutineHelper()
         co:setBlockPopup()
+
+		-- 연출 시작
+		self.m_reinforceEffect:setVisible(true)
+		self.m_reinforceEffect:changeAni('idle', false)
+		self.m_reinforceEffect:addAniHandler(function()
+			self.m_reinforceEffect:setVisible(false)
+		end)
 
         -- 강화 연출
         co:work()
@@ -479,6 +506,10 @@ function UI_DragonReinforcement:press_reinforce(rid, ui, btn)
 
 		-- 백키 블럭 해제
         UIManager:blockBackKey(true)
+
+		-- 연출 시작 
+		self.m_reinforceEffect:setVisible(true)
+		self.m_reinforceEffect:changeAni('idle', true)
 
 		-- 인위적 통신을 위한 변수 뭉치
 		local before_reinforce_exp = t_dragon_data:getReinforceObject()['exp']
@@ -562,6 +593,11 @@ function UI_DragonReinforcement:press_reinforce(rid, ui, btn)
 		self:refresh_stats()
 		ui:refresh()
 
+		-- 연출 종료
+		self.m_reinforceEffect:addAniHandler(function()
+			self.m_reinforceEffect:setVisible(false)
+		end)
+
 		-- 백키 블럭 해제
         UIManager:blockBackKey(false)
 
@@ -599,9 +635,15 @@ function UI_DragonReinforcement:request_reinforce(rid, rcnt, cb_func)
 
 		-- 강화 레벨업 시 결과화면
 		if (ret['is_rlevelup']) then
+			self:setSelectDragonDataRefresh()
+			
 			local ui = UI_DragonReinforceResult(ret['dragon'])
-			ui:setCloseCB(function() 
-				self:close()
+			ui:setCloseCB(function()
+				local t_dragon_data = self.m_selectDragonData
+				local card_ui = self.m_tableViewExt:getItem(doid)['ui']
+				card_ui:refresh(t_dragon_data)
+
+				self:refresh()
 			end)
 		end
 
@@ -661,7 +703,7 @@ function UI_DragonReinforcement:reinforceDirecting(item_ui, finish_cb)
         local world_pos = parent:convertToWorldSpaceAR(cc.p(x, y))
         local local_pos = self.root:convertToNodeSpaceAR(world_pos)
         dest_pos_x = local_pos['x'] + math_random(-20, 20)
-        dest_pos_y = local_pos['y'] + 30 + math_random(-20, 20)
+        dest_pos_y = local_pos['y'] + 50 + math_random(-20, 20)
     end
 
     -- 아이콘 생성
