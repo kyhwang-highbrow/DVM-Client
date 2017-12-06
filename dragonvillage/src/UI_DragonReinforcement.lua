@@ -567,6 +567,9 @@ function UI_DragonReinforcement:request_reinforce(rid, rcnt, cb_func)
 			g_bookData:applyRelationPoints(ret['relation'])
 		end
 
+		-- 드래곤 관리 UI 갱신
+		self.m_bChangeDragonList = true
+
 		if (cb_func) then
 			cb_func()
 		end

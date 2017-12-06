@@ -232,6 +232,9 @@ function UI_DragonManageInfo:refresh_buttonState()
 
         -- 판매
         vars['sellBtn']:setEnabled(true)
+
+		-- 드래곤 강화
+        vars['reinforceBtn']:setEnabled(not is_slime_object)
     end
 
 	-- 좌측 버튼들 초기화
@@ -519,7 +522,6 @@ end
 -- @brief 친밀도 버튼
 -------------------------------------
 function UI_DragonManageInfo:click_reinforceBtn()
-	-- 만렙일 때는 진입 못해야하나?
     self:openSubManageUI(UI_DragonReinforcement)
 end
 
