@@ -5,6 +5,7 @@ local PARENT = StatusEffect
 -- @breif 디버프 해제
 -------------------------------------
 StatusEffect_Dispell = class(PARENT, {
+        m_resDispellEffect = 'string',
 		m_releaseCnt = 'number', 
         m_dispellTarget = 'table',
      })
@@ -26,43 +27,16 @@ function StatusEffect_Dispell:init_status(status_effect_type, status_effect_valu
 end
 
 -------------------------------------
--- function initState
--------------------------------------
-function StatusEffect_Dispell:initState()
-    PARENT.initState(self)
-
-    self:addState('idle', PARENT.st_idle, 'center_idle', false)
-    self:addState('end', StatusEffect_Dispell.st_end, 'center_idle', false)
-end
-
--------------------------------------
--- function st_end 
--------------------------------------
-function StatusEffect_Dispell.st_end(owner, dt)
-    if (owner.m_stateTimer == 0) then
-        -- 모든 효과 해제
-		owner:unapplyAll()
-
-        -- 상태효과 리스트에서 제거
-        owner:setDead()
-		
-        -- 에니메이션이 0프레임일 경우 즉시 상태를 변경
-        local duration = owner.m_animator and owner.m_animator:getDuration() or 0
-        if (duration == 0) then
-            owner:changeState('dying')
-        else
-            owner:addAniHandler(function()
-                owner:changeState('dying')
-            end)
-        end
-    end
-end
-
--------------------------------------
 -- function initFromTable
 -------------------------------------
 function StatusEffect_Dispell:initFromTable(t_status_effect, target_char)
     PARENT.initFromTable(self, t_status_effect, target_char)
+
+    -- 이펙트 이름을 얻어옴
+    if (t_status_effect['res_2'] and t_status_effect['res_2'] ~= '') then
+        self.m_resDispellEffect = t_status_effect['res_2']
+    end
+
     -- val 값은 all이거나 category;good/bad 이거나 name;이름 의 형태.
     for i = 1, 4 do
         local str = t_status_effect['val_' .. i]
@@ -77,6 +51,15 @@ function StatusEffect_Dispell:initFromTable(t_status_effect, target_char)
         
             self.m_dispellTarget[column] = value
         end
+    end
+end
+
+-------------------------------------
+-- function onEnd
+-------------------------------------
+function StatusEffect_Dispell:onEnd()
+    if (self.m_resDispellEffect) then
+        self.m_world:addInstantEffect(self.m_resDispellEffect, 'center_idle', self.m_owner.pos.x, self.m_owner.pos.y)
     end
 end
 
