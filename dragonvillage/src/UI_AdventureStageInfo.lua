@@ -255,15 +255,15 @@ function UI_AdventureStageInfo:refresh_difficultyBadge()
         local difficulty, chapter, stage = parseAdventureID(stage_id)
 
         if (difficulty == 1) then
-            vars['difficultyLabel']:setColor(cc.c3b(121, 186, 58))
+            vars['difficultyLabel']:setColor(COLOR['diff_normal'])
             vars['difficultyLabel']:setString(Str('보통'))
 
         elseif (difficulty == 2) then
-            vars['difficultyLabel']:setColor(cc.c3b(46, 162, 196))
+            vars['difficultyLabel']:setColor(COLOR['diff_hard'])
             vars['difficultyLabel']:setString(Str('어려움'))
 
         elseif (difficulty == 3) then
-            vars['difficultyLabel']:setColor(cc.c3b(196, 74, 46))
+            vars['difficultyLabel']:setColor(COLOR['diff_hell'])
             vars['difficultyLabel']:setString(Str('지옥'))
         end
     end

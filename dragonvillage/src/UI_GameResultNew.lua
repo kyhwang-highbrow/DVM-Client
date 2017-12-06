@@ -151,19 +151,19 @@ function UI_GameResultNew:init_difficultyIcon(stage_id)
 
     -- 난이도
     if (difficulty == 1) then
-        vars['difficultySprite']:setColor(cc.c3b(121, 186, 58))
+        vars['difficultySprite']:setColor(COLOR['diff_normal'])
         vars['gradeLabel']:setString(Str('보통'))
-        vars['gradeLabel']:setColor(cc.c3b(121, 186, 58))
+        vars['gradeLabel']:setColor(COLOR['diff_normal'])
 
     elseif (difficulty == 2) then
-        vars['difficultySprite']:setColor(cc.c3b(46, 162, 196))
+        vars['difficultySprite']:setColor(COLOR['diff_hard'])
         vars['gradeLabel']:setString(Str('어려움'))
-        vars['gradeLabel']:setColor(cc.c3b(46, 162, 196))
+        vars['gradeLabel']:setColor(COLOR['diff_hard'])
 
     elseif (difficulty == 3) then
-        vars['difficultySprite']:setColor(cc.c3b(196, 74, 46))
+        vars['difficultySprite']:setColor(COLOR['diff_hell'])
         vars['gradeLabel']:setString(Str('지옥'))
-        vars['gradeLabel']:setColor(cc.c3b(196, 74, 46))
+        vars['gradeLabel']:setColor(COLOR['diff_hell'])
 
     end
 end
