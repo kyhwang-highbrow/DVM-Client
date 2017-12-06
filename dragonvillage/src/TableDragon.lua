@@ -297,22 +297,26 @@ function TableDragon:getBirthGrade(did)
     return self:getValue(did, 'birthgrade')
 end
 
-local T_RUNE_STAT = 
-{
-	['yellow'] = Str('체력'),
-	['purple'] = Str('치명확률'),
-	['green'] = Str('효과적중'),
-	['orange'] = Str('방어력'),
-	['bluegreen'] = Str('효과저항'),
-	['red'] = Str('공격력'),
-	['pink'] = Str('치명피해'),
-	['blue'] = Str('공격속도'),
-}
+local T_RUNE_STAT_NAME
 -------------------------------------
 -- function getRecommendRune
 -- @brief 추천 룬 정보 반환
 -------------------------------------
 function TableDragon:getRecommendRuneInfo(did)
+	if (not T_RUNE_STAT_NAME) then
+		T_RUNE_STAT_NAME = 
+		{
+			['yellow'] = Str('체력'),
+			['purple'] = Str('치명확률'),
+			['green'] = Str('효과적중'),
+			['orange'] = Str('방어력'),
+			['bluegreen'] = Str('효과저항'),
+			['red'] = Str('공격력'),
+			['pink'] = Str('치명피해'),
+			['blue'] = Str('공격속도'),
+		}
+	end
+
     if (self == THIS) then
         self = THIS()
     end
@@ -324,7 +328,7 @@ function TableDragon:getRecommendRuneInfo(did)
 
 	local t_rune = {
 		['color'] = rune_color,
-		['stat'] = T_RUNE_STAT[rune_color],
+		['stat'] = T_RUNE_STAT_NAME[rune_color],
 		['res'] = string.format('res/ui/icons/rune/set_%s_06.png', rune_color)
 	}
 	return t_rune
