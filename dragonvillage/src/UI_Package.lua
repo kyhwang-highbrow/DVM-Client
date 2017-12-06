@@ -59,7 +59,7 @@ function UI_Package:refresh()
     local is_only_cnt = string.find(struct_product['sku'], 'growthpack')
 
     -- 구성품
-    if (l_item_list) then
+    if false then --(l_item_list) then
         for idx, data in ipairs(l_item_list) do
             
             local name = TableItem:getItemName(data['item_id'])
@@ -91,6 +91,13 @@ function UI_Package:refresh()
         local icon = struct_product:makePriceIcon()
         vars['priceNode']:addChild(icon)
     end
+
+    -- 판매종료시간 있는 경우 표시
+    local time_label = vars['timeLabel']
+    local end_date = struct_product:getEndDateStr()
+    if (end_date) and (time_label) then
+        time_label:setString(end_date)
+    end 
 end
 
 -------------------------------------
@@ -103,7 +110,9 @@ function UI_Package:initButton(is_popup)
     if vars['contractBtn'] then
         vars['contractBtn']:registerScriptTapHandler(function() self:click_infoBtn() end)
     end
-
+	if (vars['rewardBtn']) then
+		vars['rewardBtn']:registerScriptTapHandler(function() self:click_rewardBtn() end)
+	end
     if (not is_popup) then
         vars['closeBtn']:setVisible(false)
     end
@@ -143,6 +152,28 @@ function UI_Package:click_infoBtn()
     local url = URL['PERPLELAB_AGREEMENT']
     --SDKManager:goToWeb(url)
     UI_WebView(url)
+end
+
+-------------------------------------
+-- function click_rewardBtn
+-------------------------------------
+function UI_Package:click_rewardBtn()
+	local struct_product = self.m_structProduct
+
+    if (not struct_product) then
+        return
+    end
+
+    local ui_name = struct_product and struct_product['package_res']
+	local reward_name = ui_name:gsub('.ui', '_popup.ui')
+
+	local ui = UI()
+	ui:load(reward_name)
+	UIManager:open(ui, UIManager.POPUP)
+	g_currScene:pushBackKeyListener(self, function() ui:close() end, 'UI_Package_Popup')
+	ui.vars['closeBtn']:registerScriptTapHandler(function()
+		ui:close()
+	end)
 end
 
 -------------------------------------
