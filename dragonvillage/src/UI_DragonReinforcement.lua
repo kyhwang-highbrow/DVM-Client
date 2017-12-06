@@ -590,8 +590,6 @@ function UI_DragonReinforcement:press_reinforce(rid, ui, btn)
 
         -- 필요한것들 갱신
 		self:response_reinforce()
-		--self:refresh_reinforceInfo()
-		--self:refresh_stats()
 		ui:refresh()
 
 		-- 연출 종료
@@ -636,12 +634,9 @@ function UI_DragonReinforcement:request_reinforce(rid, rcnt, cb_func)
 
 		-- 강화 레벨업 시 결과화면
 		if (ret['is_rlevelup']) then
-			self:setSelectDragonDataRefresh()
-			
 			local ui = UI_DragonReinforceResult(ret['dragon'])
 			ui:setCloseCB(function()
 				self:refresh_dragonIndivisual(doid)
-				self:refresh()
 			end)
 		end
 

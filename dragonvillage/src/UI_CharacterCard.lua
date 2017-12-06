@@ -61,16 +61,6 @@ function UI_CharacterCard:init(t_dragon_data)
 end
 
 -------------------------------------
--- function refresh
--- @brief 테이블뷰에서 allRefesh하기 위해서 추가
--------------------------------------
-function UI_CharacterCard:refresh(t_dargon_data)
-    -- 드래곤 정보 생성
-	self.m_dragonData = t_dragon_data
-    self:refreshDragonInfo()
-end
-
--------------------------------------
 -- function refreshDragonInfo
 -------------------------------------
 function UI_CharacterCard:refreshDragonInfo()
