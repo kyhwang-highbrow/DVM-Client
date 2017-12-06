@@ -382,12 +382,20 @@ function UI_DragonReinforcement:getMaxReinforceCount(rid)
 end
 
 -------------------------------------
--- function click_reinforce
--- @brief
+-- function exceptionReinforce
+-- @brief 통합 예외 처리
 -------------------------------------
 function UI_DragonReinforcement:exceptionReinforce(rid)
 	local t_dragon_data = self.m_selectDragonData
 	local did = t_dragon_data:getDid()
+	local rlv = t_dragon_data:getRlv()
+
+	-- 현재의 등급에 대한 처리
+	local grade = t_dragon_data:getGrade()
+	if (grade <= rlv) then
+		UIManager:toastNotificationRed(Str('현재의 등급 이상 강화할 수 없습니다.'))
+		return true
+	end
 
 	-- 최대 강화 예외처리
 	if (t_dragon_data:isMaxRlv()) then
@@ -396,7 +404,6 @@ function UI_DragonReinforcement:exceptionReinforce(rid)
 	end
 
 	-- 골드 비교
-	local rlv = t_dragon_data:getRlv()
 	local curr_cost = TableDragonReinforce:getCurrCost(did, rlv)
 	local gold = g_userData:get('gold')
 	if (curr_cost > gold) then
@@ -501,7 +508,7 @@ function UI_DragonReinforcement:press_reinforce(rid, ui, btn)
 			end
 
 			timer = timer + dt
-			if (timer > dt * 8) then
+			if (timer > dt * 5) then
 				co.NEXT()	
 				timer = 0
 			end
