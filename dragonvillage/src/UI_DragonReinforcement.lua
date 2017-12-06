@@ -24,7 +24,7 @@ end
 -- function init
 -------------------------------------
 function UI_DragonReinforcement:init(doid)
-    local vars = self:load('dragon_reinforce.ui')
+    local vars = self:load_keepZOrder('dragon_reinforce.ui')
     UIManager:open(self, UIManager.SCENE)
 
     -- backkey 지정
