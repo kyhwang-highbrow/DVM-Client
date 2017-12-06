@@ -422,15 +422,7 @@ function UI_DragonReinforcement:exceptionReinforce(rid)
 		UIManager:toastNotificationRed(Str('최대 강화 레벨인 드래곤입니다.'))
 		return true
 	end
-
-	-- 골드 비교
-	local curr_cost = TableDragonReinforce:getCurrCost(did, rlv)
-	local gold = g_userData:get('gold')
-	if (curr_cost > gold) then
-		MakeSimplePopup(POPUP_TYPE.YES_NO, Str('골드가 부족합니다.\n상점으로 이동하시겠습니까?'), function() g_shopDataNew:openShopPopup('gold') end)
-		return true
-	end
-
+	
 	-- 인연 포인트 부족
 	local relation = 0
 	if (self.m_isDragon) then
@@ -440,6 +432,14 @@ function UI_DragonReinforcement:exceptionReinforce(rid)
 	end
 	if (relation <= 0) then
 		UIManager:toastNotificationRed(Str('인연 포인트가 부족합니다.'))
+		return true
+	end
+
+	-- 골드 비교
+	local curr_cost = TableDragonReinforce:getCurrCost(did, rlv)
+	local gold = g_userData:get('gold')
+	if (curr_cost > gold) then
+		MakeSimplePopup(POPUP_TYPE.YES_NO, Str('골드가 부족합니다.\n상점으로 이동하시겠습니까?'), function() g_shopDataNew:openShopPopup('gold') end)
 		return true
 	end
 
@@ -589,8 +589,9 @@ function UI_DragonReinforcement:press_reinforce(rid, ui, btn)
         if co:waitWork() then return end
 
         -- 필요한것들 갱신
-		self:refresh_reinforceInfo()
-		self:refresh_stats()
+		self:response_reinforce()
+		--self:refresh_reinforceInfo()
+		--self:refresh_stats()
 		ui:refresh()
 
 		-- 연출 종료
@@ -639,10 +640,7 @@ function UI_DragonReinforcement:request_reinforce(rid, rcnt, cb_func)
 			
 			local ui = UI_DragonReinforceResult(ret['dragon'])
 			ui:setCloseCB(function()
-				local t_dragon_data = self.m_selectDragonData
-				local card_ui = self.m_tableViewExt:getItem(doid)['ui']
-				card_ui:refresh(t_dragon_data)
-
+				self:refresh_dragonIndivisual(doid)
 				self:refresh()
 			end)
 		end
