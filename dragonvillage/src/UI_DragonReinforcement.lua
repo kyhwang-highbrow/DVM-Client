@@ -589,7 +589,8 @@ function UI_DragonReinforcement:press_reinforce(rid, ui, btn)
         if co:waitWork() then return end
 
         -- 필요한것들 갱신
-		self:response_reinforce()
+		self:refresh_reinforceInfo()
+		self:refresh_stats()
 		ui:refresh()
 
 		-- 연출 종료
