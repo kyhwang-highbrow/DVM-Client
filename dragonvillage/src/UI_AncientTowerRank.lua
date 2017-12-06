@@ -401,7 +401,7 @@ function UI_AncientTowerRank:init_clanRewardTableView()
     -- 고대의 탑 보상 정보만 빼온다.
     local l_item_list = {}
     for rank_id, t_data in pairs(TABLE:get('table_clan_reward')) do
-        if (t_data['category'] == CLAN_RANK['ANCT']) then
+        if (t_data['category'] == CLAN_RANK['ANCT']) and (t_data['week'] == 1) then
             table.insert(l_item_list, t_data)
         end
     end
