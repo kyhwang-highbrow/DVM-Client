@@ -82,7 +82,7 @@ function UI_DragonReinforceResult:initUI(t_dragon_data)
 
 	 -- 이전 경험치와 레벨 미리 표시
     local lv = dragon_object:getRlv()
-	local icon = IconHelper:getDragonReinforceIcon(lv)
+	local icon = IconHelper:getDragonReinforceIcon(lv - 1)
     vars['beforeNode']:addChild(icon)
 	local icon = IconHelper:getDragonReinforceIcon(lv)
     vars['afterNode']:addChild(icon)
