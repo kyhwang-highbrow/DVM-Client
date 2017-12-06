@@ -121,7 +121,7 @@ function UI_Game:initHotTimeUI()
     }
 
     local t_ui_label_name = {
-        ['stamina_50p'] = {'hotTimeStLabel', '1/2'},
+        ['stamina_50p'] = {'hotTimeStLabel', '50%'},
         ['gold_1_5x'] = {'hotTimeGoldLabel', 'x1.5'},
         ['gold_2x'] = {'hotTimeGoldLabel', 'x2'},
         ['exp_1_5x'] = {'hotTimeExpLabel', 'x1.5'},
