@@ -171,10 +171,15 @@ end
 function GameWorldColosseum:passiveActivate_Right()
     PARENT.passiveActivate_Right(self)
 
+    -- 테이머 버프
+    if (self.m_enemyTamer) then
+        self.m_enemyTamer:doSkillPassive()
+    end
+
     -- 적 리더 버프
-	if (self.m_leaderEnemy) then
+    if (self.m_leaderEnemy) then
         self.m_leaderEnemy:doSkill_leader()
-	end
+    end
 end
 
 -------------------------------------
