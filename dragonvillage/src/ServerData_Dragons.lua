@@ -650,11 +650,20 @@ function ServerData_Dragons:possibleGoodbye(doid)
 		return false, Str('작별할 수 없는 드래곤입니다.') 
 	end
 
+	local dragon_name = TableDragon:getDragonName(did)
+
 	-- 3성 번고/땅스마트 작별 못하게 막음
 	local birth = t_dragon_data:getBirthGrade()
 	local grade = t_dragon_data:getGrade()
 	if (birth > grade) then
-		return false, Str('{1}성 이상이어야 작별할 수 있습니다.', birth) 
+		return false, Str('{1}은 {2}성 이상이어야 작별할 수 있습니다.', dragon_name, birth) 
+	end
+
+	-- 인연포인트 최대 갯수 체크
+	local relation = g_bookData:getBookData(did):getRelation()
+	local max = TableDragonReinforce:getTotalExp()
+	if (relation > max) then
+		return false, Str('{1}의 인연 포인트를 {2}개 이상 보유하고 있어 작별할 수 없습니다.', dragon_name, max)
 	end
 
     return true

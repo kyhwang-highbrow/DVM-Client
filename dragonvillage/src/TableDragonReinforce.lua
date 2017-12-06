@@ -121,3 +121,10 @@ function TableDragonReinforce:getTotalRateTable(did)
 
 	return t_r_rate
 end
+
+-------------------------------------
+-- function getTotalExp
+-------------------------------------
+function TableDragonReinforce:getTotalExp()
+	return 960
+end

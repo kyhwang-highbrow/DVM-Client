@@ -129,6 +129,9 @@ end
 -- function getRelationPoint
 -------------------------------------
 function TableDragon:getRelationPoint(did)
+    if (self == THIS) then
+        self = THIS()
+    end
     local relation_point = self:getValue(did, 'relation_point')
     return relation_point
 end
