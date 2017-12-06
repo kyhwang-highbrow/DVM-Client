@@ -269,8 +269,7 @@ function UI_HatcheryRelationTab:refresh()
     end
 	
 	do -- 드래곤 소환 비용
-		local birth = struct_dragon_object:getBirthGrade()
-		local price = math_pow(2, birth - 2) * 100000
+		local price = self:getPrice()
 		vars['priceLabel']:setString(comma_value(price))
 	end
 end
@@ -282,6 +281,23 @@ end
 function UI_HatcheryRelationTab:initButton()
     local vars = self.vars
     vars['summonBtn']:registerScriptTapHandler(function() self:click_summonBtn() end)
+end
+
+-------------------------------------
+-- function getPrice
+-- @brief
+-------------------------------------
+function UI_HatcheryRelationTab:getPrice()
+	local t_item = self.m_tableViewTD:getItem(self.m_selectedDid)
+    if (not t_item) or (not t_item['data']) then
+        return
+    end
+
+    local struct_dragon_object = t_item['data']
+
+	local birth = struct_dragon_object:getBirthGrade()
+	local price = math_pow(2, birth - 2) * 100000
+	return price
 end
 
 -------------------------------------
@@ -345,5 +361,9 @@ function UI_HatcheryRelationTab:click_summonBtn()
         self.m_ownerUI:refresh_highlight()
     end
 
-    g_bookData:request_useRelationPoint(did, finish_cb)
+	local function request_func()
+		g_bookData:request_useRelationPoint(did, finish_cb)
+	end
+	local price = self:getPrice()
+	MakeSimplePopup_Confirm('gold', price, Str('소환하시겠습니까?'), request_func)
 end
