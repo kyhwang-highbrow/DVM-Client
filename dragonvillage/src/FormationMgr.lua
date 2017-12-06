@@ -207,6 +207,9 @@ function FormationMgr:setChangePosCallback(char)
     char.m_bLeftFormation = self.m_bLeftFormation
 
     char.m_cbChangePos = function(char_)
+        if (char_:isDead()) then
+            return
+        end
         local formation = self:getFormation(char_.pos.x, char_.pos.y) 
 
         if (char_.m_currFormation ~= formation) then
@@ -218,16 +221,16 @@ function FormationMgr:setChangePosCallback(char)
     end
 
     char.m_cbDead = function(char_)
-        self:removeChar(char.m_currFormation, char)
-        
-        local idx = table.find(self.m_globalCharList, char)
+        self:removeChar(char_.m_currFormation, char_)
+        char_.m_currFormation = nil
+        local idx = table.find(self.m_globalCharList, char_)
         if (idx) then
             table.remove(self.m_globalCharList, idx)
         end
 
-        local idx = table.find(self.m_diedCharList, char)
+        local idx = table.find(self.m_diedCharList, char_)
         if (not idx) then
-            table.insert(self.m_diedCharList, char)
+            table.insert(self.m_diedCharList, char_)
         end
     end
 
