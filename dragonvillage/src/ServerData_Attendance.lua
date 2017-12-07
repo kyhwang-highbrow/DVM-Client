@@ -61,7 +61,7 @@ function ServerData_Attendance:request_attendanceInfo(finish_cb, fail_cb)
                     if (v['category'] == 'open_event') and (v['received']) and (v['today_step'] == 7) then
                         -- nothing to do
                     else
-                        self.m_structAttendanceDataList[i] = StructAttendanceData(v)
+                        table.insert(self.m_structAttendanceDataList, StructAttendanceData(v))
                     end
                 end
             end

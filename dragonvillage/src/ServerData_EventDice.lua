@@ -128,7 +128,7 @@ end
 -- function request_diceInfo
 -- @brief 이벤트 정보
 -------------------------------------
-function ServerData_EventDice:request_diceInfo(finish_cb)
+function ServerData_EventDice:request_diceInfo(finish_cb, fail_cb)
     -- 유저 ID
     local uid = g_userData:get('uid')
 
@@ -149,6 +149,7 @@ function ServerData_EventDice:request_diceInfo(finish_cb)
     ui_network:setUrl('/shop/dice/info')
     ui_network:setParam('uid', uid)
     ui_network:setSuccessCB(success_cb)
+	ui_network:setFailCB(fail_cb)
     ui_network:setRevocable(true)
     ui_network:setReuse(false)
     ui_network:request()
