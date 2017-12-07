@@ -59,7 +59,7 @@ function UI_Package:refresh()
     local is_only_cnt = string.find(struct_product['sku'], 'growthpack')
 
     -- 구성품
-    if false then --(l_item_list) then
+    if (l_item_list) then
         for idx, data in ipairs(l_item_list) do
             
             local name = TableItem:getItemName(data['item_id'])
