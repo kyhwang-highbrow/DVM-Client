@@ -6,7 +6,7 @@ local STATE_BABY_ATTACK = 2
 local STATE_STUN_ATTACK = 3
 
 local MAGIC_STATE_INTERVAL = {15, 1, 10}
-local MAGIC_STATE_VALUE = {450, 10, 'stun;target;skill_hit;10;100;100'}
+local MAGIC_STATE_VALUE = {900, 30, 'stun;target;skill_hit;10;100;100'}
 local MAGIC_STATE_SHAKE_FACTOR = {700, 100, 300}
 
 local HUGE_EFFECT_RES = 'res/effect/skill_lightning/skill_lightning_fire.vrp'
