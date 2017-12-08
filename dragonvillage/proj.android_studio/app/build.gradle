@@ -301,7 +301,7 @@ dependencies {
     compile 'com.google.android.gms:play-services-games:11.0.4'
 
     // @facebook
-    compile 'com.facebook.android:facebook-android-sdk:[4,5)'
+    compile 'com.facebook.android:facebook-android-sdk:4.28.0'
 
     // @multidex below Android 6.0
     compile 'com.android.support:multidex:1.0.1'
