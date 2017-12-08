@@ -721,6 +721,20 @@ function isExistValue(value, ...)
 end
 
 -------------------------------------
+-- function isContainValue
+-- @breif value를 포함하는 테이블인지 여부
+-------------------------------------
+function isContainValue(value, t)
+    for i,v in pairs(t) do
+        if (value == v) then
+            return true
+        end
+    end
+
+    return false
+end
+
+-------------------------------------
 -- function getDegreeFromChar
 -------------------------------------
 function getDegreeFromChar(char1, char2)

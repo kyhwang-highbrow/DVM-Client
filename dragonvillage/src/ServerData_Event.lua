@@ -8,6 +8,11 @@ ServerData_Event = class({
         m_bDirty = 'boolean',
     })
 
+local LIMITED_EVENT_LIST = {
+	'event_dice',
+	'event_exchange'
+}
+
 -------------------------------------
 -- function init
 -------------------------------------
@@ -62,6 +67,11 @@ function ServerData_Event:getEventPopupTabList()
         if (string.find(event_type, 'package_')) then
             is_exist = PackageManager:isExist(event_type)
         end
+
+		-- 한정 이벤트 체크
+		if isContainValue(event_type, LIMITED_EVENT_LIST) then
+			is_exist = g_hotTimeData:isActiveEvent(event_type)
+		end
 
         if (is_exist) then
             local event_popup_tab = StructEventPopupTab(v)
@@ -128,6 +138,11 @@ function ServerData_Event:getEventFullPopupList()
             -- banner type인 경우 resource, url까지 등록
             elseif (event_type == 'banner') then
                 event_type = event_type .. ';' .. v['banner'] .. ';' .. v['url']
+			
+			-- 한정 이벤트 리스트
+			elseif isContainValue(event_type, LIMITED_EVENT_LIST) then
+				is_exist = g_hotTimeData:isActiveEvent(event_type)
+
             end
             
             if (is_exist) then
@@ -179,6 +194,12 @@ function ServerData_Event:getEventBannerMap()
             elseif (url == 'costume_shop') then
                 event_type = url
                 map[event_type] = lobby_banner
+
+			-- 한정 이벤트 체크
+			elseif isContainValue(event_type, LIMITED_EVENT_LIST) then
+				if g_hotTimeData:isActiveEvent(event_type) then
+					map[event_type] = lobby_banner
+				end
 
             else
                 map[event_type] = lobby_banner
