@@ -38,8 +38,6 @@ UI_CharacterCard = class(PARENT, {
         m_charFrameRes = 'string',
         m_charLevelNumber = 'number',
 
-        m_bCheckVisible = 'boolean',
-
         m_tag = '',
     })
 
@@ -51,7 +49,6 @@ function UI_CharacterCard:init(t_dragon_data)
     self:getUIInfo()
 
     self.m_dragonData = t_dragon_data
-    self.m_bCheckVisible = false
 
     -- 버튼 생성
     self:makeClickBtn()
@@ -164,26 +161,6 @@ function UI_CharacterCard:makeFrame(res)
 end
 
 -------------------------------------
--- function refresh_LeaderIcon
--- @brief 리더 아이콘 갱신
--------------------------------------
-function UI_CharacterCard:refresh_LeaderIcon()
-    local t_dragon_data = self.m_dragonData
-	local is_leader = t_dragon_data:isLeader()
-	self:setLeaderSprite(is_leader)
-end
-
--------------------------------------
--- function setLeaderSprite
--- @brief 리더 표시
--------------------------------------
-function UI_CharacterCard:setLeaderSprite(visible)
-    local res = 'card_cha_icon_leader.png'
-    local lua_name = 'leaderSprite'
-    self:setSpriteVisible(lua_name, res, visible)
-end
-
--------------------------------------
 -- function makeAttrIcon
 -- @brief 속성 아이콘 생성
 -------------------------------------
@@ -237,74 +214,49 @@ function UI_CharacterCard:setLevelText(level)
     end
     self.m_charLevelNumber = level
 
-    local vars = self.vars
+    self:setNumberText(level, false)
+end
 
-    local lvSprite1 = vars['lvSprite1']
-    local lvSprite2 = vars['lvSprite2']
-    local lvSprite3 = vars['lvSprite3']
+-------------------------------------
+-- function refresh_Lock
+-- @brief 잠금 갱신
+-------------------------------------
+function UI_CharacterCard:refresh_Lock()
+	local t_dragon_data = self.m_dragonData
+	local is_lock = t_dragon_data:getLock()
+	self:setLockSpriteVisible(is_lock)
+end
 
-    if (not lvSprite1) then
-        lvSprite1 = MakeAnimator('res/ui/a2d/card/card.vrp')
-        lvSprite1:setDockPoint(CENTER_POINT)
-        lvSprite1:setAnchorPoint(CENTER_POINT)
-        self.vars['clickBtn']:addChild(lvSprite1.m_node, 5)
-        vars['lvSprite1'] = lvSprite1
-        lvSprite1:changeAni('digit_0')
-    end
+-------------------------------------
+-- function refresh_LeaderIcon
+-- @brief 리더 아이콘 갱신
+-------------------------------------
+function UI_CharacterCard:refresh_LeaderIcon()
+    local t_dragon_data = self.m_dragonData
+	local is_leader = t_dragon_data:isLeader()
+	self:setLeaderSpriteVisible(is_leader)
+end
 
-    if (not lvSprite2) then
-        lvSprite2 = MakeAnimator('res/ui/a2d/card/card.vrp')
-        lvSprite2:setDockPoint(CENTER_POINT)
-        lvSprite2:setAnchorPoint(CENTER_POINT)
-        self.vars['clickBtn']:addChild(lvSprite2.m_node, 5)
-        vars['lvSprite2'] = lvSprite2
-        lvSprite2:changeAni('digit_5')
-    end
+-- @ visible 관리
 
-    if (not lvSprite3) then
-        lvSprite3 = MakeAnimator('res/ui/a2d/card/card.vrp')
-        lvSprite3:setDockPoint(CENTER_POINT)
-        lvSprite3:setAnchorPoint(CENTER_POINT)
-        self.vars['clickBtn']:addChild(lvSprite3.m_node, 5)
-        vars['lvSprite3'] = lvSprite3
-        lvSprite3:changeAni('digit_5')
-    end
+-------------------------------------
+-- function setLockSpriteVisible
+-- @brief 잠금 표시
+-------------------------------------
+function UI_CharacterCard:setLockSpriteVisible(visible)
+    local res = 'card_cha_icon_lock.png'
+    local lua_name = 'lockSprite'
+    self:setSpriteVisible(lua_name, res, visible)
+end
 
-    local pos_x = -60
-    local pos_y = -27
-    local font_size = 20
-    if (level <= 0) then
-        lvSprite1:setVisible(false)
-        lvSprite2:setVisible(false)
-        lvSprite3:setVisible(false)
-    elseif (level < 10) then
-        lvSprite1:setVisible(true)
-        lvSprite1:changeAni('digit_' .. level)
-        lvSprite1:setPosition(pos_x + (font_size/2), pos_y)
-        lvSprite2:setVisible(false)
-        lvSprite3:setVisible(false)
-    elseif (level < 100) then
-        lvSprite1:setVisible(true)
-        lvSprite1:changeAni('digit_' ..  math_floor(level / 10))
-        lvSprite1:setPosition(pos_x + (font_size/2), pos_y)
-
-        lvSprite2:setVisible(true)
-        lvSprite2:changeAni('digit_' .. level % 10)
-        lvSprite2:setPosition(pos_x + (font_size/2) + font_size, pos_y)
-        lvSprite3:setVisible(false)
-    else
-        lvSprite1:setVisible(true)
-        lvSprite1:changeAni('digit_' ..  math_floor(level / 100))
-        lvSprite1:setPosition(pos_x + (font_size/2), pos_y)
-
-        lvSprite2:setVisible(true)
-        lvSprite2:changeAni('digit_' .. math_floor(level % 100 / 10))
-        lvSprite2:setPosition(pos_x + (font_size/2) + font_size, pos_y)
-        
-        lvSprite3:setVisible(true)
-        lvSprite3:changeAni('digit_' .. math_floor(level % 10))
-        lvSprite3:setPosition(pos_x + (font_size/2) + font_size + font_size, pos_y)
-    end
+-------------------------------------
+-- function setLeaderSpriteVisible
+-- @brief 리더 표시
+-------------------------------------
+function UI_CharacterCard:setLeaderSpriteVisible(visible)
+    local res = 'card_cha_icon_leader.png'
+    local lua_name = 'leaderSprite'
+    self:setSpriteVisible(lua_name, res, visible)
 end
 
 -------------------------------------
@@ -316,29 +268,6 @@ function UI_CharacterCard:setReadySpriteVisible(visible)
     local lua_name = 'inuseSprite'
     self:setSpriteVisible(lua_name, res, visible)
 end
-
--------------------------------------
--- function setLockSprit
--- @brief 잠금 표시
--------------------------------------
-function UI_CharacterCard:setLockSprit(visible)
-    local res = 'card_cha_icon_lock.png'
-    local lua_name = 'lockSprite'
-    self:setSpriteVisible(lua_name, res, visible)
-end
-
--------------------------------------
--- function refresh_Lock
--- @brief 잠금 갱신
--------------------------------------
-function UI_CharacterCard:refresh_Lock()
-	local t_dragon_data = self.m_dragonData
-	local is_lock = t_dragon_data:getLock()
-	self:setLockSprit(is_lock)
-end
-
-
--- @ visible 관리
 
 -------------------------------------
 -- function setShadowSpriteVisible
@@ -369,8 +298,6 @@ function UI_CharacterCard:setCheckSpriteVisible(visible)
     local res = 'card_cha_frame_check.png'
     local lua_name = 'checkSprite'
     self:setSpriteVisible(lua_name, res, visible)
-    
-    self.m_bCheckVisible = visible
 end
 
 -------------------------------------
@@ -409,7 +336,7 @@ function UI_CharacterCard:setHighlightSpriteVisible(visible)
     elseif (visible) then
         self:makeSprite(lua_name, res)
         -- 깜빡임 액션
-        sprite:runAction(cca.flash())
+        self.vars[lua_name]:runAction(cca.flash())
     end
 end
 

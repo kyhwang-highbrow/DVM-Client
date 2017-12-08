@@ -257,7 +257,7 @@ function UI_DragonRunes:init_tableViewTD()
 		
 		-- 선택된 룬 하이라이트
 		if (self.m_selectedRuneObject['roid'] == rune_obj['roid']) then
-			ui.vars['highlightSprite']:setVisible(true)
+			ui:setHighlightSpriteVisible(true)
 		end
     end
 
@@ -681,7 +681,7 @@ function UI_DragonRunes:setTableViewItemHighlight(roid, visible)
         return
     end
 
-    ui.vars['highlightSprite']:setVisible(visible)
+    ui:setHighlightSpriteVisible(visible)
 end
 
 -------------------------------------

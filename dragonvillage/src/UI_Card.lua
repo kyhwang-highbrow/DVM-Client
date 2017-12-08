@@ -27,6 +27,8 @@ end
 
 -------------------------------------
 -- function getUIInfo
+-- @brief 최초 생성시 지정된 ui 파일을 불러와 모든 정보를 테이블로 저장한다.
+-- 이후에는 생성시 저장된 정보를 통하여 클라에서 생성하게 된다.
 -------------------------------------
 function UI_Card:getUIInfo()
     local res = self.ui_res
@@ -139,5 +141,83 @@ function UI_Card:setAnimatorVisible(lua_name, res, ani, visible)
         self.vars[lua_name]:setVisible(visible)
     elseif (visible) then
         self:makeVisual(lua_name, res, ani)
+    end
+end
+
+-------------------------------------
+-- function setNumberText
+-- @brief 숫자 텍스트 생성용
+-------------------------------------
+function UI_Card:setNumberText(num, use_plus)
+    local vars = self.vars
+    if (not num) then
+		return
+	end
+
+    local sprite_1 = vars['numberSprite1']
+    local sprite_2 = vars['numberSprite2']
+    local sprite_3 = vars['numberSprite3']
+
+    if (not sprite_1) then
+        sprite_1 = MakeAnimator('res/ui/a2d/card/card.vrp')
+        sprite_1:setDockPoint(CENTER_POINT)
+        sprite_1:setAnchorPoint(CENTER_POINT)
+        self.vars['clickBtn']:addChild(sprite_1.m_node, 5)
+        vars['sprite_1'] = sprite_1
+        sprite_1:changeAni('digit_0')
+    end
+
+    if (not sprite_2) then
+        sprite_2 = MakeAnimator('res/ui/a2d/card/card.vrp')
+        sprite_2:setDockPoint(CENTER_POINT)
+        sprite_2:setAnchorPoint(CENTER_POINT)
+        self.vars['clickBtn']:addChild(sprite_2.m_node, 5)
+        vars['sprite_2'] = sprite_2
+        sprite_2:changeAni('digit_5')
+    end
+
+    if (not sprite_3) then
+        sprite_3 = MakeAnimator('res/ui/a2d/card/card.vrp')
+        sprite_3:setDockPoint(CENTER_POINT)
+        sprite_3:setAnchorPoint(CENTER_POINT)
+        self.vars['clickBtn']:addChild(sprite_3.m_node, 5)
+        vars['sprite_3'] = sprite_3
+        sprite_3:changeAni('digit_5')
+    end
+
+    local pos_x = -60
+    local pos_y = -27
+    local font_size = 20
+    if (num <= 0) then
+        sprite_1:setVisible(false)
+        sprite_2:setVisible(false)
+        sprite_3:setVisible(false)
+    elseif (num < 10) then
+        sprite_1:setVisible(true)
+        sprite_1:changeAni('digit_' .. num)
+        sprite_1:setPosition(pos_x + (font_size/2), pos_y)
+        sprite_2:setVisible(false)
+        sprite_3:setVisible(false)
+    elseif (num < 100) then
+        sprite_1:setVisible(true)
+        sprite_1:changeAni('digit_' ..  math_floor(num / 10))
+        sprite_1:setPosition(pos_x + (font_size/2), pos_y)
+
+        sprite_2:setVisible(true)
+        sprite_2:changeAni('digit_' .. num % 10)
+        sprite_2:setPosition(pos_x + (font_size/2) + font_size, pos_y)
+        sprite_3:setVisible(false)
+    else
+        sprite_1:setVisible(true)
+        sprite_1:changeAni('digit_' ..  math_floor(num / 100))
+        sprite_1:setPosition(pos_x + (font_size/2), pos_y)
+
+        sprite_2:setVisible(true)
+        sprite_2:changeAni('digit_' .. math_floor(num % 100 / 10))
+        sprite_2:setPosition(pos_x + (font_size/2) + font_size, pos_y)
+        
+        sprite_3:setVisible(true)
+        sprite_3:changeAni('digit_' .. math_floor(num % 10))
+        sprite_3:setPosition(pos_x + (font_size/2) + font_size + font_size, pos_y)
     end
 end

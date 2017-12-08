@@ -407,6 +407,54 @@ function StructRuneObject:getRuneStatus()
     return l_add_status, l_multi_status
 end
 
+-------------------------------------
+-- function getRuneRes
+-------------------------------------
+function StructRuneObject:getRuneRes()
+    local slot = self['slot']
+    local grade = self['grade']
+    local set_id = self['set_id']
+	local set_color = TableRuneSet:getRuneSetColor(set_id)
+    local res = string.format('res/ui/icons/rune/%.2d_%s_%.2d.png', slot, set_color, grade)
+	return res
+end
+
+-------------------------------------
+-- function getRarityFrameRes
+-------------------------------------
+function StructRuneObject:getRarityFrameRes()
+	local rarity = self['rarity'] or 0
+    local rarity_str = ''
+
+    if (rarity == 0) then
+        rarity_str = 'none'
+
+    elseif (rarity == 1) then
+        rarity_str = 'common'
+
+    elseif (rarity == 2) then
+        rarity_str = 'rare'
+
+    elseif (rarity == 3) then
+        rarity_str = 'hero'
+
+    elseif (rarity == 4) then
+        rarity_str = 'legend'
+
+    else
+        error('rarity(rune_rarity) : ' .. rarity)
+    end
+
+    local res = string.format('card_rune_frame_%s.png', rarity_str)
+	return res
+end
+
+-------------------------------------
+-- function getLock
+-------------------------------------
+function StructRuneObject:getLock()
+	return self['lock']
+end
 
 -------------------------------------
 -- function getStringData
