@@ -149,75 +149,37 @@ end
 -- @brief 숫자 텍스트 생성용
 -------------------------------------
 function UI_Card:setNumberText(num, use_plus)
-    local vars = self.vars
-    if (not num) then
+    if (not num) or (num == 0) then
 		return
 	end
 
-    local sprite_1 = vars['numberSprite1']
-    local sprite_2 = vars['numberSprite2']
-    local sprite_3 = vars['numberSprite3']
+    local vars = self.vars
 
-    if (not sprite_1) then
-        sprite_1 = MakeAnimator('res/ui/a2d/card/card.vrp')
-        sprite_1:setDockPoint(CENTER_POINT)
-        sprite_1:setAnchorPoint(CENTER_POINT)
-        self.vars['clickBtn']:addChild(sprite_1.m_node, 5)
-        vars['sprite_1'] = sprite_1
-        sprite_1:changeAni('digit_0')
-    end
+	local str
+	if (use_plus) then
+		str = '+' .. num
+	else
+		str = tostring(num)
+	end
 
-    if (not sprite_2) then
-        sprite_2 = MakeAnimator('res/ui/a2d/card/card.vrp')
-        sprite_2:setDockPoint(CENTER_POINT)
-        sprite_2:setAnchorPoint(CENTER_POINT)
-        self.vars['clickBtn']:addChild(sprite_2.m_node, 5)
-        vars['sprite_2'] = sprite_2
-        sprite_2:changeAni('digit_5')
-    end
-
-    if (not sprite_3) then
-        sprite_3 = MakeAnimator('res/ui/a2d/card/card.vrp')
-        sprite_3:setDockPoint(CENTER_POINT)
-        sprite_3:setAnchorPoint(CENTER_POINT)
-        self.vars['clickBtn']:addChild(sprite_3.m_node, 5)
-        vars['sprite_3'] = sprite_3
-        sprite_3:changeAni('digit_5')
-    end
-
-    local pos_x = -60
-    local pos_y = -27
+	-- 모든 글자와 매치되는 반복자
     local font_size = 20
-    if (num <= 0) then
-        sprite_1:setVisible(false)
-        sprite_2:setVisible(false)
-        sprite_3:setVisible(false)
-    elseif (num < 10) then
-        sprite_1:setVisible(true)
-        sprite_1:changeAni('digit_' .. num)
-        sprite_1:setPosition(pos_x + (font_size/2), pos_y)
-        sprite_2:setVisible(false)
-        sprite_3:setVisible(false)
-    elseif (num < 100) then
-        sprite_1:setVisible(true)
-        sprite_1:changeAni('digit_' ..  math_floor(num / 10))
-        sprite_1:setPosition(pos_x + (font_size/2), pos_y)
+	local idx = 0
+	for char in string.gmatch(str, '.') do
+		if (char == '+') then
+			char = 'plus'
+		end
 
-        sprite_2:setVisible(true)
-        sprite_2:changeAni('digit_' .. num % 10)
-        sprite_2:setPosition(pos_x + (font_size/2) + font_size, pos_y)
-        sprite_3:setVisible(false)
-    else
-        sprite_1:setVisible(true)
-        sprite_1:changeAni('digit_' ..  math_floor(num / 100))
-        sprite_1:setPosition(pos_x + (font_size/2), pos_y)
+		local lua_name = 'numberSprite' .. idx
+		local res = string.format('card_cha_num_%s.png', char)
+		self:makeSprite(lua_name, res)
 
-        sprite_2:setVisible(true)
-        sprite_2:changeAni('digit_' .. math_floor(num % 100 / 10))
-        sprite_2:setPosition(pos_x + (font_size/2) + font_size, pos_y)
-        
-        sprite_3:setVisible(true)
-        sprite_3:changeAni('digit_' .. math_floor(num % 10))
-        sprite_3:setPosition(pos_x + (font_size/2) + font_size + font_size, pos_y)
-    end
+		local sprite = vars[lua_name]
+		self:setCardInfo('numberNode', sprite)
+
+		local pos_x = (font_size/2) + (font_size * idx)
+		sprite:setPositionX(pos_x)
+
+		idx = idx + 1
+	end
 end
