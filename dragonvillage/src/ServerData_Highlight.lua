@@ -20,9 +20,13 @@ ServerData_Highlight = class({
 
         ----------------------------------------------
         m_newOidMap = 'map',
-        m_bDirtyNewOidMap = 'boolean',
+        m_bDirtyNewOidMapDragon = 'boolean',
+		m_bDirtyNewOidMapRune = 'boolean',
         ----------------------------------------------
     })
+
+local NEW_OID_TYPE_DRAGON = 'dragon'
+local NEW_OID_TYPE_RUNE = 'rune'
 
 -------------------------------------
 -- function init
@@ -148,11 +152,11 @@ end
 -- function isHighlightDragon
 -------------------------------------
 function ServerData_Highlight:isHighlightDragon()
-	if (not self.m_newOidMap['dragon']) then
+	if (not self.m_newOidMap[NEW_OID_TYPE_DRAGON]) then
 		return false
 	end
 
-    local cnt = table.count(self.m_newOidMap['dragon'])
+    local cnt = table.count(self.m_newOidMap[NEW_OID_TYPE_DRAGON])
 
     if (0 < cnt) then
         return true
@@ -164,8 +168,8 @@ end
 -------------------------------------
 -- function getNewOidMapFileName
 -------------------------------------
-function ServerData_Highlight:getNewOidMapFileName()
-    local file = 'new_oid_map.json'
+function ServerData_Highlight:getNewOidMapFileName(oid_type)
+    local file = string.format('new_oid_map_%s.json', oid_type)
     local path = cc.FileUtils:getInstance():getWritablePath()
 
     local full_path = string.format('%s%s', path, file)
@@ -179,32 +183,41 @@ end
 -------------------------------------
 function ServerData_Highlight:cleanNewDoidMap()
     self.m_newOidMap = nil
-    self.m_bDirtyNewOidMap = false
+    self.m_bDirtyNewOidMapDragon = false
+	self.m_bDirtyNewOidMapRune = false
 end
 
 -------------------------------------
--- function setDirtyNewDoidMap
+-- function setDirtyNewOidMap
 -------------------------------------
-function ServerData_Highlight:setDirtyNewDoidMap()
-    self.m_bDirtyNewOidMap = true
+function ServerData_Highlight:setDirtyNewOidMap(oid_type)
+	if (oid_type == 'dragon') then
+		self.m_bDirtyNewOidMapDragon = true
+	elseif (oid_type == 'rune') then
+		self.m_bDirtyNewOidMapRune = true
+	end
 end
 
 -------------------------------------
 -- function loadNewDoidMap
 -------------------------------------
 function ServerData_Highlight:loadNewDoidMap()
-    self.m_newOidMap = {}
-    self.m_bDirtyNewOidMap = false
+    self.m_newOidMap = {
+		[NEW_OID_TYPE_DRAGON] = {},
+		[NEW_OID_TYPE_RUNE] = {}
+	}
+    self.m_bDirtyNewOidMapDragon = false
+	self.m_bDirtyNewOidMapRune = false
 
-    local ret_json, success_load = LoadLocalSaveJson(self:getNewOidMapFileName())
-    if (success_load == true) then
-        self.m_newOidMap = ret_json
-	else
-		self.m_newOidMap = {
-			['dragon'] = {},
-			['rune'] = {}
-		}
-    end
+    local ret_json_dragon, success_load_d = LoadLocalSaveJson(self:getNewOidMapFileName(NEW_OID_TYPE_DRAGON))
+	local ret_json_rune, success_load_r = LoadLocalSaveJson(self:getNewOidMapFileName(NEW_OID_TYPE_RUNE))
+
+    if (success_load_d) then
+        self.m_newOidMap[NEW_OID_TYPE_DRAGON] = ret_json_dragon
+	end
+	if (success_load_r) then
+		self.m_newOidMap[NEW_OID_TYPE_RUNE] = ret_json_rune
+	end
 
 	-- 변수 선언
     local dragons_map = g_dragonsData:getDragonsListRef()
@@ -216,9 +229,9 @@ function ServerData_Highlight:loadNewDoidMap()
     for oid_type, t_oid in pairs(self.m_newOidMap) do
 		for oid, _ in pairs(t_oid) do
 			local object_data 
-			if (oid_type == 'dragon') then
+			if (oid_type == NEW_OID_TYPE_DRAGON) then
 				object_data = dragons_map[oid]
-			elseif (oid_type == 'rune') then
+			elseif (oid_type == NEW_OID_TYPE_RUNE) then
 				object_data = runes_map[oid]
 			end
 
@@ -238,7 +251,7 @@ function ServerData_Highlight:loadNewDoidMap()
 		end
     end
 
-    self:saveNewDoidMap()
+    --self:saveNewDoidMap()
 
     self.m_lastUpdateTime = Timer:getServerTime()
 end
@@ -247,19 +260,36 @@ end
 -- function saveNewDoidMap
 -------------------------------------
 function ServerData_Highlight:saveNewDoidMap()
-    if (not self.m_bDirtyNewOidMap) then
-        return false
-    end
-
-    local ret = SaveLocalSaveJson(self:getNewOidMapFileName(), self.m_newOidMap)
-    self.m_bDirtyNewOidMap = false
-    return ret
+	if (self.m_bDirtyNewOidMapDragon) then
+		ccdisplay('SAVE DARGON OID')
+		SaveLocalSaveJson(self:getNewOidMapFileName(NEW_OID_TYPE_DRAGON), self.m_newOidMap[NEW_OID_TYPE_DRAGON])
+		self.m_bDirtyNewOidMapDragon = false
+	end
+	if (self.m_bDirtyNewOidMapRune) then
+		ccdisplay('SAVE RUNE OID')
+		SaveLocalSaveJson(self:getNewOidMapFileName(NEW_OID_TYPE_RUNE), self.m_newOidMap[NEW_OID_TYPE_RUNE])
+		self.m_bDirtyNewOidMapRune = false
+	end
 end
 
 -------------------------------------
 -- function addNewDoid
 -------------------------------------
-function ServerData_Highlight:addNewDoid(oid_type, oid, created_at)
+function ServerData_Highlight:addNewDoid(oid, created_at)
+	self:addNewOid('dragon', oid, created_at)
+end
+
+-------------------------------------
+-- function addNewRoid
+-------------------------------------
+function ServerData_Highlight:addNewRoid(oid, created_at)
+	self:addNewOid('rune', oid, created_at)
+end
+
+-------------------------------------
+-- function addNewOid
+-------------------------------------
+function ServerData_Highlight:addNewOid(oid_type, oid, created_at)
     -- 로그인 시점에서 드래곤 정보를 받아올 때
     -- m_newOidMap이 nil이어야 새로운 드래곤으로 취급하지 않음
     if (not self.m_newOidMap) then
@@ -289,7 +319,7 @@ function ServerData_Highlight:addNewDoid(oid_type, oid, created_at)
     end
 
     self.m_newOidMap[oid_type][oid] = true
-    self:setDirtyNewDoidMap()
+    self:setDirtyNewOidMap(oid_type)
     self.m_lastUpdateTime = curr_time
 end
 
@@ -297,14 +327,14 @@ end
 -- function removeNewDoid
 -------------------------------------
 function ServerData_Highlight:removeNewDoid(oid)
-	self:removeNewOid('dragon', oid)
+	self:removeNewOid(NEW_OID_TYPE_DRAGON, oid)
 end
 
 -------------------------------------
 -- function removeNewRoid
 -------------------------------------
 function ServerData_Highlight:removeNewRoid(oid)
-	self:removeNewOid('rune', oid)
+	self:removeNewOid(NEW_OID_TYPE_RUNE, oid)
 end
 
 -------------------------------------
@@ -322,7 +352,7 @@ function ServerData_Highlight:removeNewOid(oid_type, oid)
     end
 
     self.m_newOidMap[oid_type][oid] = nil
-    self:setDirtyNewDoidMap()
+    self:setDirtyNewOidMap(oid_type)
 
     self.m_lastUpdateTime = Timer:getServerTime()
 end
@@ -331,14 +361,14 @@ end
 -- function isNewDoid
 -------------------------------------
 function ServerData_Highlight:isNewDoid(oid)
-    return self:isNewOid('dragon', oid)
+    return self:isNewOid(NEW_OID_TYPE_DRAGON, oid)
 end
 
 -------------------------------------
 -- function isNewRoid
 -------------------------------------
 function ServerData_Highlight:isNewRoid(oid)
-    return self:isNewOid('rune', oid)
+    return self:isNewOid(NEW_OID_TYPE_RUNE, oid)
 end
 
 -------------------------------------

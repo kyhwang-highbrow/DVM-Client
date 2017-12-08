@@ -232,7 +232,7 @@ function ServerData_Runes:applyRuneData(t_rune_data)
         self.m_runeCount = (self.m_runeCount + 1)
 
 		local created_at = t_rune_data['created_at'] or nil
-        g_highlightData:addNewDoid('rune', roid, created_at)
+        g_highlightData:addNewRoid(roid, created_at)
     end
 
     -- 룬 정보의 관리를 위해 StructRuneObject클래스로 래핑하여 사용

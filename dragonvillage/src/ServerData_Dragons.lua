@@ -155,7 +155,7 @@ function ServerData_Dragons:applyDragonData(t_dragon_data)
     if (not dragon_obj) then
         self.m_dragonsCnt = self.m_dragonsCnt + 1
         local created_at = t_dragon_data['created_at'] or nil
-        g_highlightData:addNewDoid('dragon', doid, created_at)
+        g_highlightData:addNewDoid(doid, created_at)
     end
 
     -- 룬 효과 체크
