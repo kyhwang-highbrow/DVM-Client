@@ -259,6 +259,10 @@ function UI_DragonRunes:init_tableViewTD()
 		if (self.m_selectedRuneObject['roid'] == rune_obj['roid']) then
 			ui:setHighlightSpriteVisible(true)
 		end
+
+		-- 새로 획득한 드래곤 뱃지
+        local is_new = data:isNewRune()
+        ui:setNewSpriteVisible(is_new)
     end
 
     -- 테이블 뷰 인스턴스 생성
@@ -630,6 +634,10 @@ function UI_DragonRunes:setSelectedRuneObject(rune_obj)
         vars['selectMenu']:setVisible(true)
         cca.uiReactionSlow(vars['selectMenu'], 1, 1, 0.95)
     end
+
+	-- 신규 룬 표시 삭제
+	local roid = rune_obj['roid']
+    g_highlightData:removeNewRoid(roid)
 
     -- 룬 명칭
     vars['selectRuneNameLabel']:setString(rune_obj['name'])

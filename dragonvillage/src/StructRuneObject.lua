@@ -457,6 +457,20 @@ function StructRuneObject:getLock()
 end
 
 -------------------------------------
+-- function isNewRune
+-- @breif
+-------------------------------------
+function StructRuneObject:isNewRune()
+    local roid = self['roid']
+
+    if (not roid) then
+        return
+    end
+
+    return g_highlightData:isNewRoid(roid)
+end
+
+-------------------------------------
 -- function getStringData
 -------------------------------------
 function StructRuneObject:getStringData()

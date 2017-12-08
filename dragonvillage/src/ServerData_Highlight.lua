@@ -19,8 +19,8 @@ ServerData_Highlight = class({
         ----------------------------------------------
 
         ----------------------------------------------
-        m_newDoidMap = 'map',
-        m_bDirtyNewDoidMap = 'boolean',
+        m_newOidMap = 'map',
+        m_bDirtyNewOidMap = 'boolean',
         ----------------------------------------------
     })
 
@@ -148,7 +148,11 @@ end
 -- function isHighlightDragon
 -------------------------------------
 function ServerData_Highlight:isHighlightDragon()
-    local cnt = table.count(self.m_newDoidMap)
+	if (not self.m_newOidMap['dragon']) then
+		return false
+	end
+
+    local cnt = table.count(self.m_newOidMap['dragon'])
 
     if (0 < cnt) then
         return true
@@ -158,70 +162,82 @@ function ServerData_Highlight:isHighlightDragon()
 end
 
 -------------------------------------
--- function getNewDoidMapFileName
+-- function getNewOidMapFileName
 -------------------------------------
-function ServerData_Highlight:getNewDoidMapFileName()
-    local file = 'new_doid_map.json'
+function ServerData_Highlight:getNewOidMapFileName()
+    local file = 'new_oid_map.json'
     local path = cc.FileUtils:getInstance():getWritablePath()
 
     local full_path = string.format('%s%s', path, file)
     return full_path
 end
 
-
 -------------------------------------
 -- function cleanNewDoidMap
 -- @brief 로그인 시점에서 드래곤 정보를 받아올 때
---        m_newDoidMap이 nil이어야 새로운 드래곤으로 취급하지 않음
+--        m_newOidMap이 nil이어야 새로운 드래곤으로 취급하지 않음
 -------------------------------------
 function ServerData_Highlight:cleanNewDoidMap()
-    self.m_newDoidMap = nil
-    self.m_bDirtyNewDoidMap = false
+    self.m_newOidMap = nil
+    self.m_bDirtyNewOidMap = false
 end
 
 -------------------------------------
 -- function setDirtyNewDoidMap
 -------------------------------------
 function ServerData_Highlight:setDirtyNewDoidMap()
-    self.m_bDirtyNewDoidMap = true
+    self.m_bDirtyNewOidMap = true
 end
 
 -------------------------------------
 -- function loadNewDoidMap
 -------------------------------------
 function ServerData_Highlight:loadNewDoidMap()
-    self.m_newDoidMap = {}
-    self.m_bDirtyNewDoidMap = false
+    self.m_newOidMap = {}
+    self.m_bDirtyNewOidMap = false
 
-    local ret_json, success_load = LoadLocalSaveJson(self:getNewDoidMapFileName())
+    local ret_json, success_load = LoadLocalSaveJson(self:getNewOidMapFileName())
     if (success_load == true) then
-        self.m_newDoidMap = ret_json
+        self.m_newOidMap = ret_json
+	else
+		self.m_newOidMap = {
+			['dragon'] = {},
+			['rune'] = {}
+		}
     end
 
+	-- 변수 선언
     local dragons_map = g_dragonsData:getDragonsListRef()
+	local runes_map = g_runesData:getRuneList()
     local curr_time = Timer:getServerTime()
+    local valid_sec = 60 * 60 * 24 -- 24시간
 
-    -- 24시간
-    local valid_sec = 60 * 60 * 24
+    -- 신규 오브젝트가 삭제 되었을 경우를 체크하여 보정
+    for oid_type, t_oid in pairs(self.m_newOidMap) do
+		for oid, _ in pairs(t_oid) do
+			local object_data 
+			if (oid_type == 'dragon') then
+				object_data = dragons_map[oid]
+			elseif (oid_type == 'rune') then
+				object_data = runes_map[oid]
+			end
 
-    -- 신규 드래곤이라고 관리되는 doid의 드래곤이 삭제되었을 경우를 위해 보정
-    for doid,_ in pairs(self.m_newDoidMap) do
-        local t_dragon_data = dragons_map[doid]
+			-- 드래곤 정보가 없는 경우 삭제
+			if (not object_data) then
+				self.m_newOidMap[oid] = nil
 
-        -- 드래곤 정보가 없는 경우 삭제
-        if (not t_dragon_data) then
-            self.m_newDoidMap[doid] = nil
+			-- 드래곤 생성 시간 확인
+			elseif object_data['created_at'] then
+				local _created_at = (object_data['created_at'] / 1000)
 
-        -- 드래곤 생성 시간 확인
-        elseif t_dragon_data['created_at'] then
-            local _created_at = (t_dragon_data['created_at'] / 1000)
-
-            -- 24시간이 지난 드래곤은 new를 붙이지 않음
-            if (_created_at + valid_sec) <= curr_time then
-                self.m_newDoidMap[doid] = nil
-            end
-        end
+				-- 24시간이 지난 드래곤은 new를 붙이지 않음
+				if (_created_at + valid_sec) <= curr_time then
+					self.m_newOidMap[oid] = nil
+				end
+			end
+		end
     end
+
     self:saveNewDoidMap()
 
     self.m_lastUpdateTime = Timer:getServerTime()
@@ -231,25 +247,28 @@ end
 -- function saveNewDoidMap
 -------------------------------------
 function ServerData_Highlight:saveNewDoidMap()
-    if (not self.m_bDirtyNewDoidMap) then
+    if (not self.m_bDirtyNewOidMap) then
         return false
     end
 
-    local ret = SaveLocalSaveJson(self:getNewDoidMapFileName(), self.m_newDoidMap)
-    self.m_bDirtyNewDoidMap = false
+    local ret = SaveLocalSaveJson(self:getNewOidMapFileName(), self.m_newOidMap)
+    self.m_bDirtyNewOidMap = false
     return ret
 end
 
 -------------------------------------
 -- function addNewDoid
 -------------------------------------
-function ServerData_Highlight:addNewDoid(doid, created_at)
+function ServerData_Highlight:addNewDoid(oid_type, oid, created_at)
     -- 로그인 시점에서 드래곤 정보를 받아올 때
-    -- m_newDoidMap이 nil이어야 새로운 드래곤으로 취급하지 않음
-    if (not self.m_newDoidMap) then
+    -- m_newOidMap이 nil이어야 새로운 드래곤으로 취급하지 않음
+    if (not self.m_newOidMap) then
         return
     end
-    
+    if (not self.m_newOidMap[oid_type]) then
+		return
+	end
+
     local curr_time = Timer:getServerTime()
 
     -- 생성 시간 정보가 있는 경우
@@ -265,11 +284,11 @@ function ServerData_Highlight:addNewDoid(doid, created_at)
         end
     end
 
-    if (self.m_newDoidMap[doid] == true) then
+    if (self.m_newOidMap[oid_type][oid] == true) then
         return
     end
 
-    self.m_newDoidMap[doid] = true
+    self.m_newOidMap[oid_type][oid] = true
     self:setDirtyNewDoidMap()
     self.m_lastUpdateTime = curr_time
 end
@@ -277,16 +296,32 @@ end
 -------------------------------------
 -- function removeNewDoid
 -------------------------------------
-function ServerData_Highlight:removeNewDoid(doid)
-    if (not self.m_newDoidMap) then
+function ServerData_Highlight:removeNewDoid(oid)
+	self:removeNewOid('dragon', oid)
+end
+
+-------------------------------------
+-- function removeNewRoid
+-------------------------------------
+function ServerData_Highlight:removeNewRoid(oid)
+	self:removeNewOid('rune', oid)
+end
+
+-------------------------------------
+-- function removeNewOid
+-------------------------------------
+function ServerData_Highlight:removeNewOid(oid_type, oid)
+    if (not self.m_newOidMap) then
+        return
+    end
+	if (not self.m_newOidMap[oid_type]) then
+		return
+	end
+    if (not self.m_newOidMap[oid_type][oid]) then
         return
     end
 
-    if (not self.m_newDoidMap[doid]) then
-        return
-    end
-
-    self.m_newDoidMap[doid] = nil
+    self.m_newOidMap[oid_type][oid] = nil
     self:setDirtyNewDoidMap()
 
     self.m_lastUpdateTime = Timer:getServerTime()
@@ -295,12 +330,29 @@ end
 -------------------------------------
 -- function isNewDoid
 -------------------------------------
-function ServerData_Highlight:isNewDoid(doid)
-    if (not self.m_newDoidMap) then
+function ServerData_Highlight:isNewDoid(oid)
+    return self:isNewOid('dragon', oid)
+end
+
+-------------------------------------
+-- function isNewRoid
+-------------------------------------
+function ServerData_Highlight:isNewRoid(oid)
+    return self:isNewOid('rune', oid)
+end
+
+-------------------------------------
+-- function isNewOid
+-------------------------------------
+function ServerData_Highlight:isNewOid(oid_type, oid)
+    if (not self.m_newOidMap) then
         return false
     end
+	if (not self.m_newOidMap[oid_type]) then
+		return false
+	end
 
-    if self.m_newDoidMap[doid] then
+    if self.m_newOidMap[oid_type][oid] then
         return true
     else
         return false
