@@ -56,6 +56,11 @@ function UI_ItemInfoPopup:initUI()
         if (type == 'dragon') and self.m_tSubData then
             local item_card = UI_DragonCard(self.m_tSubData)
             vars['itemNode']:addChild(item_card.root)
+
+		elseif (type == 'rune') and self.m_tSubData then
+            local item_card = UI_RuneCard(self.m_tSubData)
+            vars['itemNode']:addChild(item_card.root)
+
         else
             local item_card = UI_ItemCard(self.m_itemID, self.m_itemCount, self.m_tSubData)
             vars['itemNode']:addChild(item_card.root)
