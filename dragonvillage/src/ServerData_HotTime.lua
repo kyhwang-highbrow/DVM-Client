@@ -74,7 +74,7 @@ function ServerData_HotTime:init_hotTimeType()
         local key = 'stamina_50p'
         local t_data = {}
         t_data['key'] = key
-        t_data['tool_tip'] = Str('소비 입장권 1/2')
+        t_data['tool_tip'] = Str('소비 입장권 50% 할인')
         self.m_hotTimeType[key] = t_data
     end
 end
@@ -150,8 +150,8 @@ function ServerData_HotTime:refreshActiveList()
         -- 핫타임 종료 후
         elseif ((v['enddate'] / 1000) < curr_time) then
 
-        -- 이벤트 내용 있을 경우
-        elseif (v['contents']) and (table.count(v['contents']) > 0) then
+        -- 활성 이벤트
+        else
             local key = v['event']
             self.m_activeEventList[key] = v
             expiration_time = (v['enddate'] / 1000)
@@ -166,8 +166,40 @@ function ServerData_HotTime:refreshActiveList()
     end
 end
 
+--[[
+hottime event table 구조
+{
+      "begindate":1511276400000,
+      "info":{
+        "begin_date":"20171122",
+        "begin_hour":"0",
+        "end_date":"20171214",
+        "end_hour":"10",
+        "desc":" 주사위이벤트 활성화용"
+      },
+      "enddate":1513213200000,
+      "contents":[],
+      "event":"event_dice"
+    }
+]]
+-------------------------------------
+-- function isActiveEvent
+-- @brief event 항목의 이름 검사
+-------------------------------------
+function ServerData_HotTime:isActiveEvent(event_name)
+	self:refreshActiveList()
+
+    for _, t in pairs(self.m_activeEventList) do
+        if (t['event'] == event_name) then
+            return true
+        end
+    end
+    return false
+end
+
 -------------------------------------
 -- function getActiveHotTimeInfo
+-- @brief content 항목 검사 .. 이것들은 미리 정의되어야 한다
 -------------------------------------
 function ServerData_HotTime:getActiveHotTimeInfo(hottime_nmae)
     self:refreshActiveList()
@@ -280,8 +312,6 @@ function ServerData_HotTime:makeHotTimeToolTip(hottime_name, btn)
         tooltip:autoPositioning(btn)
     end
 end
-
-
 
 
 

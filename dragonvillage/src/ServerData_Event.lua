@@ -321,17 +321,16 @@ function ServerData_Event:openEventPopup(tab)
         self:request_eventList(co.NEXT, co.ESCAPE)
         if co:waitWork() then return end
 
-        if (self:isVaildEvent('event_exchange')) then
+        if (g_hotTimeData:isActiveEvent('event_exchange')) then
             co:work('# 교환 이벤트 정보 받는 중')
             g_exchangeEventData:request_eventInfo(co.NEXT, co.ESCAPE)
             if co:waitWork() then return end
         end
 
-        if (g_eventData:isVaildEvent('event_dice')) then
-            cclog('# 주사위 이벤트 정보 받는 중')
-            working = true
-            g_eventDiceData:request_diceInfo(function(ret) working = false end, required_fail_cb)
-            while (working) do dt = coroutine.yield() end
+        if (g_hotTimeData:isActiveEvent('event_dice')) then
+            co:work('# 주사위 이벤트 정보 받는 중')
+            g_eventDiceData:request_diceInfo(co.NEXT, co.ESCAPE)
+            if co:waitWork() then return end
         end
 
         co:work('# 상점 정보 받는 중')
@@ -398,20 +397,4 @@ function ServerData_Event:request_eventList(finish_cb, fail_cb)
     ui_network:request()
 
     return ui_network
-end
-
--------------------------------------
--- function isVaildEvent
--------------------------------------
-function ServerData_Event:isVaildEvent(event_name)
-    if (not self.m_eventList) then
-        return false
-    end
-
-    for _, event in ipairs(self.m_eventList) do
-        if (event['event_type'] == event_name) then
-            return true
-        end
-    end
-    return false
 end

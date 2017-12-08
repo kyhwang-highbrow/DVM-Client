@@ -136,6 +136,14 @@ function UI_Lobby:entryCoroutine()
         end
         while (working) do dt = coroutine.yield() end
 
+        cclog('# 핫타임 정보 요청 중')
+		working = true
+        local ui_network = g_hotTimeData:request_hottime(function(ret) working = false end, required_fail_cb)
+        if ui_network then
+            ui_network:hideBGLayerColor()
+        end
+        while (working) do dt = coroutine.yield() end
+
         cclog('# 이벤트 정보 받는 중')
         working = true
         local ui_network =g_eventData:request_eventList(function(ret) working = false end, required_fail_cb)
@@ -144,14 +152,14 @@ function UI_Lobby:entryCoroutine()
         end
         while (working) do dt = coroutine.yield() end
 
-        if (g_eventData:isVaildEvent('event_exchange')) then
+        if (g_hotTimeData:isActiveEvent('event_exchange')) then
             cclog('# 교환 이벤트 정보 받는 중')
             working = true
             g_exchangeEventData:request_eventInfo(function(ret) working = false end, required_fail_cb)
             while (working) do dt = coroutine.yield() end
         end
 
-        if (g_eventData:isVaildEvent('event_dice')) then
+        if (g_hotTimeData:isActiveEvent('event_dice')) then
             cclog('# 주사위 이벤트 정보 받는 중')
             working = true
             g_eventDiceData:request_diceInfo(function(ret) working = false end, required_fail_cb)
@@ -169,14 +177,6 @@ function UI_Lobby:entryCoroutine()
         cclog('# 상점 정보 받는 중')
         working = true
         local ui_network = g_shopDataNew:request_shopInfo(function(ret) working = false end, fail_cb)
-        if ui_network then
-            ui_network:hideBGLayerColor()
-        end
-        while (working) do dt = coroutine.yield() end
-
-        cclog('# 드빌전용관 정보 받는 중')
-        working = true
-        local ui_network = g_highbrowData:request_getHbProductList(function(ret) working = false end, fail_cb)
         if ui_network then
             ui_network:hideBGLayerColor()
         end
@@ -780,7 +780,7 @@ end
 -- @brief 교환 이벤트
 -------------------------------------
 function UI_Lobby:click_exchangeBtn()
-    if (not g_eventData:isVaildEvent('event_exchange')) then
+    if (not g_hotTimeData:isActiveEvent('event_exchange')) then
         return
     end
     g_eventData:openEventPopup('event_exchange')
@@ -791,7 +791,7 @@ end
 -- @brief 주사위 이벤트
 -------------------------------------
 function UI_Lobby:click_diceBtn()
-    if (not g_eventData:isVaildEvent('event_dice')) then
+    if (not g_hotTimeData:isActiveEvent('event_dice')) then
         return
     end
     g_eventData:openEventPopup('event_dice')
@@ -991,16 +991,15 @@ end
 function UI_Lobby:refresh_rightButtons()
     local vars = self.vars
     
-
     -- 교환소 버튼
-    if g_eventData:isVaildEvent('event_exchange') then
+    if g_hotTimeData:isActiveEvent('event_exchange') then
         vars['exchangeBtn']:setVisible(true)
     else
         vars['exchangeBtn']:setVisible(false)
     end
 
     -- 주사위 버튼
-    if g_eventData:isVaildEvent('event_dice') then
+    if g_hotTimeData:isActiveEvent('event_dice') then
         vars['diceBtn']:setVisible(true)
     else
         vars['diceBtn']:setVisible(false)

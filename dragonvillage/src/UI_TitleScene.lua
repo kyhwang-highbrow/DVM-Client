@@ -793,10 +793,21 @@ function UI_TitleScene:workGetServerInfo()
         end
         if co:waitWork() then return end
 
-        -- 핫 타임
+		-- 핫 타임
         co:work()
         self.m_loadingUI:showLoading(Str('핫타임 정보 요청 중...'))
         local ui_network = g_hotTimeData:request_hottime(co.NEXT, fail_cb)
+        if ui_network then
+            ui_network:setRevocable(false)
+            ui_network:setFailCB(fail_cb)
+            ui_network:hideLoading()
+        end
+        if co:waitWork() then return end
+
+		-- 드빌 전용관 정보
+		co:work()
+        self.m_loadingUI:showLoading(Str('이전 추억을 되살리는 중...'))
+        local ui_network = g_highbrowData:request_getHbProductList(co.NEXT, fail_cb)
         if ui_network then
             ui_network:setRevocable(false)
             ui_network:setFailCB(fail_cb)
