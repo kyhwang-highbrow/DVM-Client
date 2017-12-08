@@ -579,6 +579,11 @@ function UIManager:onKeyReleased(keyCode, event)
 			cclog(v.m_resName, v.m_uiName)
 		end
 
+	-- 등록된 UI 리스트 출력
+	elseif (keyCode == KEY_N) then
+		cclog('----------------network list----------------------')
+		cclog('\n' .. g_errorTracker:getAPIStack())
+
 	-- debug 영역 활성화/비활성화
 	elseif (keyCode == KEY_G) then
 		local set_data = not g_constant:get('DEBUG', 'DISPLAY_DEBUG_INFO')
