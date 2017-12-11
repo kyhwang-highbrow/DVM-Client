@@ -4,9 +4,12 @@ local PARENT = UI
 -- class UI_GachaResult_Dragon
 -------------------------------------
 UI_GachaResult_Dragon = class(PARENT, {
+		m_type = 'string',
+
         m_lGachaDragonList = 'list',
 		m_lGachaDragonListOrg = 'list',
 		m_lDragonCardList = 'list',
+		m_tDragonCardEffectTable = 'table',
 
 		m_currDragonAnimator = 'UIC_DragonAnimator',
 
@@ -21,11 +24,12 @@ UI_GachaResult_Dragon = class(PARENT, {
 -------------------------------------
 -- function init
 -------------------------------------
-function UI_GachaResult_Dragon:init(l_gacha_dragon_list, l_slime_list, egg_id, egg_res)
+function UI_GachaResult_Dragon:init(gacha_type, l_gacha_dragon_list, l_slime_list, egg_id, egg_res)
 
     -- spine 캐시 정리 확인
     SpineCacheManager:getInstance():purgeSpineCacheData_checkNumber()
 
+	self.m_type = gacha_type
     self.m_eggID = egg_id
     self.m_eggRes = egg_res
     self.m_bSkip = false
@@ -47,6 +51,8 @@ function UI_GachaResult_Dragon:init(l_gacha_dragon_list, l_slime_list, egg_id, e
 
     -- 순서 셔플
     --self.m_lGachaDragonList = table.sortRandom(self.m_lGachaDragonList)
+
+	-- 연출 제어용으로 원본 따로 저장
     self.m_lGachaDragonListOrg = clone(self.m_lGachaDragonList)
 
     self.m_uiName = 'UI_GachaResult_Dragon'
@@ -61,10 +67,11 @@ function UI_GachaResult_Dragon:init(l_gacha_dragon_list, l_slime_list, egg_id, e
 
 	-- 멤버 변수
 	self.m_lDragonCardList = {}
+	self.m_tDragonCardEffectTable = {}
 	self.m_isDirecting = false
     self.m_hideUIList = {}
 
-	self:initUI()
+	self:initUI()  
 	self:initButton()
     self:refresh()
 
@@ -75,11 +82,30 @@ end
 -- function initUI
 -------------------------------------
 function UI_GachaResult_Dragon:initUI()
-    self.vars['skipBtn']:setVisible(true)
+	local vars = self.vars
 
+    vars['skipBtn']:setVisible(true)
+
+	-- 연차일 경우 처리
 	if (table.count(self.m_lGachaDragonList) > 1) then
 		self:setDragonCardList()
+		vars['blackSprite']:setVisible(true)
 	end
+
+	-- 사용 재화 표기
+	if (self.m_type == 'cash') then
+		vars['diaNode']:setVisible(true)
+		local cash = g_userData:get('cash')
+		vars['diaLabel']:setString(cash)
+
+	elseif (self.m_type == 'fp') then
+		vars['fpNode']:setVisible(true)
+		local fp = g_userData:get('fp')
+		vars['fpLabel']:setString(fp)
+
+	end
+
+
 end
 
 -------------------------------------
@@ -305,8 +331,22 @@ function UI_GachaResult_Dragon:setDragonCardList()
 		-- 카드..처리
 		card.root:setPositionX(pos_x)
 		card.root:setVisible(false)
-		card_node:addChild(card.root)
+		card_node:addChild(card.root, 2)
 		
+		-- 등급에 따른 연출
+		if (t_data['grade'] > 3) then
+			local rarity_effect = MakeAnimator('res/ui/a2d/card/card.vrp')
+			if (t_data['grade'] == 5) then
+				rarity_effect:changeAni('summon_regend', true)
+			else
+				rarity_effect:changeAni('summon_hero', true)
+			end
+			rarity_effect:setScale(1.7)
+			rarity_effect:setAlpha(0)
+			card.root:addChild(rarity_effect.m_node)
+			self.m_tDragonCardEffectTable[card] = rarity_effect
+		end
+
 		-- 카드 클릭시 드래곤을 보여준다.
 		card.vars['clickBtn']:registerScriptTapHandler(function()
 			if (self.m_isDirecting == false) then
@@ -356,6 +396,9 @@ function UI_GachaResult_Dragon:click_skipBtn()
 		-- 남은 드래곤 카드들도 오픈한다.
 		for _, card in pairs(self.m_lDragonCardList) do
 			card.root:setVisible(true)
+			if (self.m_tDragonCardEffectTable[card]) then
+				self.m_tDragonCardEffectTable[card]:runAction(cc.FadeIn:create(2))
+			end
 		end
 
         self:refresh()
