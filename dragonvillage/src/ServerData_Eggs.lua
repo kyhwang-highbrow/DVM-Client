@@ -84,9 +84,15 @@ function ServerData_Eggs:getEggListForUI()
         if (0 < count) then
 
             local full_type = table_item:getValue(tonumber(egg_id), 'full_type')
-
-             -- (중급, 일반 알은 10개 묶음 가능)
-            if isExistValue(full_type, 'egg_middle_mystery', 'egg_common_unknown') then
+			local bundle_egg_list = {
+				'egg_middle_mystery',
+				'egg_common_unknown',
+				'egg_super_illusion'
+			}
+             -- 알 꾸러미
+			 -- 신비, 미지, 환상
+			 -- 슬라임알
+            if isContainValue(full_type, bundle_egg_list) or string.find(full_type, 'egg_slime_') then
                 local bundle_cnt = math_floor(count / 10)
                 local indivisual_cnt = count - (bundle_cnt * 10)
 

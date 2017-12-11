@@ -619,6 +619,7 @@ local t_module = {
 	'UI_ConfirmPopup',
 	'UI_ObtainPopup',
     'UI_CheersPopup',
+	'UI_EggPopup',
 	'UI_ErrorPopup',
     'UI_ErrorPopup_Live',
     'UI_SimpleDragonInfoPopup',

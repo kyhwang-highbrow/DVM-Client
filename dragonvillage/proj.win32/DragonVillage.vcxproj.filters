@@ -2976,6 +2976,9 @@
     <None Include="..\src\UI_DragonReinforceItem.lua">
       <Filter>lua\UI</Filter>
     </None>
+    <None Include="..\src\UI_EggPopup.lua">
+      <Filter>lua\UI</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Classes">
