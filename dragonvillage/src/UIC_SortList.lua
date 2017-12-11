@@ -468,6 +468,7 @@ function MakeUICSortList_dragonManage(button, label, direction)
     local direction = direction or UIC_SORT_LIST_BOT_TO_TOP
 
     local uic = UIC_SortList()
+	uic.m_buttonHeight = 40
     uic.m_direction = direction
     uic:setNormalSize(width, height)
     uic:setPosition(x, y)
@@ -490,6 +491,7 @@ function MakeUICSortList_dragonManage(button, label, direction)
     uic:addSortType('rarity', Str('희귀도'))
     uic:addSortType('friendship', Str('친밀도'))
     uic:addSortType('created_at', Str('획득순'))
+	uic:addSortType('did', Str('종류'))
     --uic:show()
 
     return uic
@@ -516,9 +518,10 @@ function MakeUICSortList_runeManage(button, label)
     parent:addChild(uic.m_node)
 
     uic:addSortType('set_id', Str('세트'))
-    uic:addSortType('lv', Str('레벨'))
     uic:addSortType('grade', Str('등급'))
     uic:addSortType('rarity', Str('희귀도'))
+    uic:addSortType('lv', Str('레벨'))
+	uic:addSortType('created_at', Str('획득순'))
 
     return uic
 end

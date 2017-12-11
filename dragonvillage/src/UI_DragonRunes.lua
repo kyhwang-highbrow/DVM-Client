@@ -275,6 +275,8 @@ function UI_DragonRunes:init_tableViewTD()
 
     -- 정렬
     local sort_manager = SortManager_Rune()
+	sort_manager:pushSortOrder('grade')
+	sort_manager:pushSortOrder('set_id')
     self.m_sortManagerRune = sort_manager
 
     self.m_tableViewTD = table_view_td
@@ -292,7 +294,7 @@ function UI_DragonRunes:init_tableViewTD()
         uic_sort_list:setSortChangeCB(sort_change_cb)
 
         -- 최초 정렬 설정
-        uic_sort_list:setSelectSortType('lv')
+        uic_sort_list:setSelectSortType('set_id')
     end
 
     do -- 오름차순/내림차순 버튼

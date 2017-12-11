@@ -18,6 +18,7 @@ function SortManager_Rune:init()
     self:addSortType('lv', false, function(a, b, ascending) return self:sort_lv(a, b, ascending) end, Str('레벨'))
     self:addSortType('rarity', false, function(a, b, ascending) return self:sort_rarity(a, b, ascending) end, Str('희귀도'))
     self:addSortType('grade', false, function(a, b, ascending) return self:sort_grade(a, b, ascending) end, Str('등급'))
+	self:addSortType('created_at', false, function(a, b, ascending) return self:sort_created_at(a, b, ascending) end, Str('획득순'))
 end
 
 
@@ -81,5 +82,14 @@ end
 -------------------------------------
 function SortManager_Rune:sort_rid(a, b, ascending)
     local key = 'rid'
+    return self:common_sort(key, a, b, ascending)
+end
+
+-------------------------------------
+-- function sort_created_at
+-- @brief 획득순
+-------------------------------------
+function SortManager_Rune:sort_created_at(a, b, ascending)
+    local key = 'created_at'
     return self:common_sort(key, a, b, ascending)
 end

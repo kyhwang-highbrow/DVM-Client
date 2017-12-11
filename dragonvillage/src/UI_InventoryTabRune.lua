@@ -74,8 +74,10 @@ function UI_InventoryTabRune:init_runeTableView(slot_idx)
 
     -- 정렬
     local sort_manager = SortManager_Rune()
+	sort_manager:pushSortOrder('grade')
+	sort_manager:pushSortOrder('set_id')
     sort_manager:sortExecution(table_view_td.m_itemList)
-
+    
     self.m_mSortManagerMap[slot_idx] = sort_manager
     self.m_mTableViewListMap[slot_idx] = table_view_td
 end
