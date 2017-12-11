@@ -13,6 +13,7 @@ StructProduct = class(PARENT, {
         price_dollar = 'number',
         product_content = 'string',
         mail_content = 'string',
+		bundle = 'number',
         icon = 'string',
         max_buy_count = 'number',
         max_buy_term = 'string',
@@ -402,7 +403,9 @@ function StructProduct:buy(cb_func)
         return
     end
 
-	local function ok_cb()
+	-- 묶음 구매의 경우 count에 구매 수량을 넣어주고
+	-- 단일 구매의 경우 nil로 처리하여 request_buy 내부에서 1로 치환
+	local function ok_cb(count)
         local function finish_cb(ret)
 
             -- 상품 리스트 갱신이 필요할 경우
@@ -430,23 +433,44 @@ function StructProduct:buy(cb_func)
                 self:payment(finish_cb)
             end
         else
-            g_shopDataNew:request_buy(self, finish_cb)
+            g_shopDataNew:request_buy(self, count, finish_cb)
         end
 	end
 
-    -- 아이템 이름 두줄인 경우 한줄로 변경
-    local name = string.gsub(self['t_name'], '\n', '')
-    local msg = Str('{@item_name}"{1}"\n{@default}구매하시겠습니까?', name)
+	-- 묶음 구매
+	if (self:canBuyBundle()) then
+		local ui = UI_BundlePopup(self, ok_cb)
 
-    local price = self:getPrice()
-    local ui = MakeSimplePopup_Confirm(self['price_type'], price, msg, ok_cb, nil)
+	else
+		-- 아이템 이름 두줄인 경우 한줄로 변경
+		local name = string.gsub(self['t_name'], '\n', '')
+		local msg = Str('{@item_name}"{1}"\n{@default}구매하시겠습니까?', name)
 
-    local platform_id = g_localData:get('local', 'platform_id') or 'firebase'
-    if (platform_id == 'firebase') then
-        if ui and ui.vars and ui.vars['subLabel'] then
-            ui.vars['subLabel']:setString(Str('(게스트 계정으로 구매를 하면 게임 삭제, 기기변동,\n휴대폰 초기화시 구매 데이터가 사라질 수 있습니다.)'))
-        end
-    end
+		local price = self:getPrice()
+		local ui = MakeSimplePopup_Confirm(self['price_type'], price, msg, ok_cb, nil)
+
+		local platform_id = g_localData:get('local', 'platform_id') or 'firebase'
+		if (platform_id == 'firebase') then
+			if ui and ui.vars and ui.vars['subLabel'] then
+				ui.vars['subLabel']:setString(Str('(게스트 계정으로 구매를 하면 게임 삭제, 기기변동,\n휴대폰 초기화시 구매 데이터가 사라질 수 있습니다.)'))
+			end
+		end
+	end
+end
+
+-------------------------------------
+-- function canBuyBundle
+-- @brief 묶음 구매 가능 여부
+-------------------------------------
+function StructProduct:canBuyBundle()
+	return (self['bundle'] == 1)
+end
+
+-------------------------------------
+-- function buyBundle
+-------------------------------------
+function StructProduct:buyBundle(cb_func)
+
 end
 
 -------------------------------------

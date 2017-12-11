@@ -44,8 +44,15 @@ function NumberLoop:prev()
 end
 
 -------------------------------------
--- function next
+-- function setCurr
 -------------------------------------
 function NumberLoop:setCurr(n)
 	self.m_curr = n
+end
+
+-------------------------------------
+-- function getCurr
+-------------------------------------
+function NumberLoop:getCurr()
+	return self.m_curr
 end

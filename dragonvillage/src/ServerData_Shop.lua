@@ -376,8 +376,9 @@ end
 -- function request_buy
 -- @brief 상품 구매
 -------------------------------------
-function ServerData_Shop:request_buy(struct_product, finish_cb, fail_cb)
+function ServerData_Shop:request_buy(struct_product, count, finish_cb, fail_cb)
     local product_id = struct_product['product_id']
+	local count = count or 1
 
     -- 유저 ID
     local uid = g_userData:get('uid')
@@ -438,6 +439,7 @@ function ServerData_Shop:request_buy(struct_product, finish_cb, fail_cb)
     ui_network:setUrl('/shop/buying')
     ui_network:setParam('uid', uid)
     ui_network:setParam('product_id', product_id)
+	ui_network:setParam('count', count)
     ui_network:setMethod('POST')
     ui_network:setSuccessCB(success_cb)
     ui_network:setFailCB(fail_cb)
