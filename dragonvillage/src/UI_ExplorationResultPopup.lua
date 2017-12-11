@@ -139,7 +139,8 @@ function UI_ExplorationResultPopup:initUI()
             local dest_lv       = user_data['lv']
             local dest_exp      = user_data['exp']
             local type          = 'dragon'
-            levelup_director:initLevelupDirector(src_lv, src_exp, dest_lv, dest_exp, type, grade)
+			local rlv			= user_data['reinforce']['lv']
+            levelup_director:initLevelupDirector(src_lv, src_exp, dest_lv, dest_exp, type, grade, rlv)
             levelup_director:start()
             --self:addLevelUpDirector(levelup_director)
 

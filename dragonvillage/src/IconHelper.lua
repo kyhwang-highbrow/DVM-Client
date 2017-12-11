@@ -292,7 +292,7 @@ function IconHelper:getRuneIcon(slot, rarity, grade, set_id, lv, lock)
 
     -- 룬문자 (set_id로 결정됨)
     if slot and (0 < slot and slot <= 6) then
-        local alphabet_sprite = self:getIcon()
+        local alphabet_sprite = self:getIcon(string.format('res/ui/icons/rune/rune_number_%.2d.png', slot))
         if alphabet_sprite then
             alphabet_sprite:setDockPoint(CENTER_POINT)
             alphabet_sprite:setAnchorPoint(CENTER_POINT)

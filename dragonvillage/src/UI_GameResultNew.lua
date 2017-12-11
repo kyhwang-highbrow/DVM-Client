@@ -812,9 +812,8 @@ function UI_GameResultNew:initDragonList(t_tamer_levelup_data, l_dragon_list)
     local vars = self.vars
 
     self:sortDragonNode(dragon_cnt)
-
     -- 드래곤 리소스 생성
-    for i,v in ipairs(l_dragon_list) do
+    for i, v in ipairs(l_dragon_list) do
         local user_data = v['user_data']
         local table_data = v['table_data']
         local res_name = table_data['res']
@@ -852,7 +851,8 @@ function UI_GameResultNew:initDragonList(t_tamer_levelup_data, l_dragon_list)
             local dest_lv       = t_levelup_data['curr_lv']
             local dest_exp      = t_levelup_data['curr_exp']
             local type          = 'dragon'
-            levelup_director:initLevelupDirector(src_lv, src_exp, dest_lv, dest_exp, type, grade)
+			local rlv			= user_data['reinforce']['lv']
+            levelup_director:initLevelupDirector(src_lv, src_exp, dest_lv, dest_exp, type, grade, rlv)
             self:addLevelUpDirector(levelup_director)
 
             do -- 등급

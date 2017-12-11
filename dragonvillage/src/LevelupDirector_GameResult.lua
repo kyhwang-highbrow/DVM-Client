@@ -28,16 +28,22 @@ end
 -------------------------------------
 -- function initLevelupDirector
 -------------------------------------
-function LevelupDirector_GameResult:initLevelupDirector(src_lv, src_exp, dest_lv, dest_exp, type, grade)
+function LevelupDirector_GameResult:initLevelupDirector(src_lv, src_exp, dest_lv, dest_exp, type, grade, rlv)
     local l_max_exp = nil
     local max_lv = nil
+	local rlv = rlv or 0
 
     -- LevelupDirector 생성
     self.m_levelupDirector = LevelupDirector(src_lv, src_exp, dest_lv, dest_exp, type, grade)
 
     -- Update 콜백 등록
     self.m_levelupDirector.m_cbUpdate = function(lv, exp, percentage)
-        local lv_str = string.format('Lv.%d', lv)
+        local lv_str
+		if (rlv > 0) then
+			lv_str = string.format('Lv.%d +%d', lv, rlv)
+		else
+			lv_str = string.format('Lv.%d', lv)
+		end
         self.m_lvLabel:setString(lv_str)
 
         local exp_str = string.format('%.2f %%', percentage)
