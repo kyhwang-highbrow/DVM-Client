@@ -27,6 +27,7 @@ ServerData_Highlight = class({
 
 local NEW_OID_TYPE_DRAGON = 'dragon'
 local NEW_OID_TYPE_RUNE = 'rune'
+local DAY_TO_SEC = 60 * 60 * 24
 
 -------------------------------------
 -- function init
@@ -223,7 +224,6 @@ function ServerData_Highlight:loadNewDoidMap()
     local dragons_map = g_dragonsData:getDragonsListRef()
 	local runes_map = g_runesData:getRuneList()
     local curr_time = Timer:getServerTime()
-    local valid_sec = 60 * 60 * 24 -- 24시간
 
     -- 신규 오브젝트가 삭제 되었을 경우를 체크하여 보정
     for oid_type, t_oid in pairs(self.m_newOidMap) do
@@ -237,15 +237,15 @@ function ServerData_Highlight:loadNewDoidMap()
 
 			-- 드래곤 정보가 없는 경우 삭제
 			if (not object_data) then
-				self.m_newOidMap[oid] = nil
+				self.m_newOidMap[oid_type][oid] = nil
 
 			-- 드래곤 생성 시간 확인
 			elseif object_data['created_at'] then
 				local _created_at = (object_data['created_at'] / 1000)
 
 				-- 24시간이 지난 드래곤은 new를 붙이지 않음
-				if (_created_at + valid_sec) <= curr_time then
-					self.m_newOidMap[oid] = nil
+				if (_created_at + DAY_TO_SEC) <= curr_time then
+					self.m_newOidMap[oid_type][oid] = nil
 				end
 			end
 		end
@@ -276,14 +276,14 @@ end
 -- function addNewDoid
 -------------------------------------
 function ServerData_Highlight:addNewDoid(oid, created_at)
-	self:addNewOid('dragon', oid, created_at)
+	self:addNewOid(NEW_OID_TYPE_DRAGON, oid, created_at)
 end
 
 -------------------------------------
 -- function addNewRoid
 -------------------------------------
 function ServerData_Highlight:addNewRoid(oid, created_at)
-	self:addNewOid('rune', oid, created_at)
+	self:addNewOid(NEW_OID_TYPE_RUNE, oid, created_at)
 end
 
 -------------------------------------
@@ -305,11 +305,8 @@ function ServerData_Highlight:addNewOid(oid_type, oid, created_at)
     if created_at then
         local _created_at = (created_at / 1000)
 
-        -- 24시간
-        local valid_sec = 60 * 60 * 24
-        
         -- 24시간이 지난 드래곤은 new를 붙이지 않음
-        if (_created_at + valid_sec) <= curr_time then
+        if (_created_at + DAY_TO_SEC) <= curr_time then
             return
         end
     end

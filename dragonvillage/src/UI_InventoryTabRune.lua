@@ -59,9 +59,17 @@ function UI_InventoryTabRune:init_runeTableView(slot_idx)
         
         local function click_func()
             self.m_inventoryUI:setSelectedItem(ui, data)
+			
+			-- 신규 룬 표시 삭제
+			local roid = data['roid']
+			g_highlightData:removeNewRoid(roid)
         end
 
         ui.vars['clickBtn']:registerScriptTapHandler(click_func)
+		
+		-- 새로 획득한 룬 뱃지
+        local is_new = data:isNewRune()
+        ui:setNewSpriteVisible(is_new)
     end
 
     -- 테이블 뷰 인스턴스 생성

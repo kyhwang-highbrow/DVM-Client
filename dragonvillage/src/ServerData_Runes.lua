@@ -247,6 +247,7 @@ function ServerData_Runes:applyRuneData_list(l_rune_data)
     for i,v in pairs(l_rune_data) do
         self:applyRuneData(v)
     end
+	g_highlightData:saveNewDoidMap()
 end
 
 -------------------------------------

@@ -260,7 +260,7 @@ function UI_DragonRunes:init_tableViewTD()
 			ui:setHighlightSpriteVisible(true)
 		end
 
-		-- 새로 획득한 드래곤 뱃지
+		-- 새로 획득한 룬 뱃지
         local is_new = data:isNewRune()
         ui:setNewSpriteVisible(is_new)
     end

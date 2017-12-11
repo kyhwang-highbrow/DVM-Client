@@ -185,7 +185,7 @@ end
 -------------------------------------
 function UI_Inventory:setSelectedItem(ui, data)
     if self.m_selectedItemUI then
-        self.m_selectedItemUI.vars['highlightSprite']:setVisible(false)
+        self.m_selectedItemUI:setHighlightSpriteVisible(false)
     end
 
     self.m_selectedItemUI = ui
@@ -205,7 +205,7 @@ function UI_Inventory:setSelectedItem(ui, data)
     self.m_tTabClass[tab]:onChangeSelectedItem(ui, data)
     cca.uiReactionSlow(ui.root, 0.72, 0.72)
 
-    ui.vars['highlightSprite']:setVisible(true)
+    ui:setHighlightSpriteVisible(true)
 
     -- 선택 판매 시 사용
     self.m_selectSellItemsUI:setSelectedItem(ui, data)

@@ -223,6 +223,13 @@ function UI_ItemCard:unregisterScriptPressHandler()
     self.vars['clickBtn']:unregisterScriptPressHandler()
 end
 
+-------------------------------------
+-- function setHighlightSpriteVisible
+-- @brief UI_RuneCard와 코드 공유하기 위해 추가
+-------------------------------------
+function UI_ItemCard:setHighlightSpriteVisible(visible)
+    self.vars['highlightSprite']:setVisible(visible)
+end
 
 
 -------------------------------------
