@@ -194,7 +194,8 @@ function StructMail:readMe(cb_func)
 
 		-- 확정권인 경우
 		if (self:checkTicket()) and (#ret['added_items']['dragons'] > 0) then
-            UI_GachaResult_Dragon(ret['added_items']['dragons'])
+			local gacha_type = 'mail'
+            UI_GachaResult_Dragon(gacha_type, ret['added_items']['dragons'])
         else
             ItemObtainResult_Mail(ret)
         end
