@@ -5,6 +5,7 @@ local PARENT = UI
 -------------------------------------
 UI_GachaResult_Dragon = class(PARENT, {
         m_lGachaDragonList = 'list',
+		m_lGachaDragonListOrg = 'list',
 		m_lDragonCardList = 'list',
 
 		m_currDragonAnimator = 'UIC_DragonAnimator',
@@ -45,8 +46,9 @@ function UI_GachaResult_Dragon:init(l_gacha_dragon_list, l_slime_list, egg_id, e
     end
 
     -- 순서 셔플
-    self.m_lGachaDragonList = table.sortRandom(self.m_lGachaDragonList)
-    
+    --self.m_lGachaDragonList = table.sortRandom(self.m_lGachaDragonList)
+    self.m_lGachaDragonListOrg = clone(self.m_lGachaDragonList)
+
     self.m_uiName = 'UI_GachaResult_Dragon'
     local vars = self:load('dragon_summon_result.ui')
     UIManager:open(self, UIManager.SCENE)
@@ -330,9 +332,26 @@ function UI_GachaResult_Dragon:click_skipBtn()
     self.m_bSkip = true
 
 	if (table.count(self.m_lGachaDragonList) > 1) then
+		local grade = 0
+		local idx
+		for i, t_dragon_data in ipairs(self.m_lGachaDragonListOrg) do 
+			if (grade < t_dragon_data['grade']) then  
+				grade = t_dragon_data['grade']
+				idx = i
+			end
+		end
+
+		-- 가장 높은 등급의 드래곤
+		if (idx) then
+			local t_dragon_data = self.m_lGachaDragonListOrg[idx]
+			self.m_lGachaDragonList = {t_dragon_data}
+		
 		-- 마지막 데이터만 남긴다.
-		local t_last_data = self.m_lGachaDragonList[#self.m_lGachaDragonList]
-		self.m_lGachaDragonList = {t_last_data}
+		else
+			local t_last_data = self.m_lGachaDragonList[#self.m_lGachaDragonList]
+			self.m_lGachaDragonList = {t_last_data}
+
+		end
 
 		-- 남은 드래곤 카드들도 오픈한다.
 		for _, card in pairs(self.m_lDragonCardList) do
