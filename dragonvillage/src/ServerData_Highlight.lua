@@ -261,12 +261,10 @@ end
 -------------------------------------
 function ServerData_Highlight:saveNewDoidMap()
 	if (self.m_bDirtyNewOidMapDragon) then
-		ccdisplay('SAVE DARGON OID')
 		SaveLocalSaveJson(self:getNewOidMapFileName(NEW_OID_TYPE_DRAGON), self.m_newOidMap[NEW_OID_TYPE_DRAGON])
 		self.m_bDirtyNewOidMapDragon = false
 	end
 	if (self.m_bDirtyNewOidMapRune) then
-		ccdisplay('SAVE RUNE OID')
 		SaveLocalSaveJson(self:getNewOidMapFileName(NEW_OID_TYPE_RUNE), self.m_newOidMap[NEW_OID_TYPE_RUNE])
 		self.m_bDirtyNewOidMapRune = false
 	end
