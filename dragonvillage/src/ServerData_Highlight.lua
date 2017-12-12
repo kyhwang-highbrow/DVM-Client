@@ -104,7 +104,7 @@ function ServerData_Highlight:applyHighlightInfo(ret)
         end
     end
 
-    self.m_lastUpdateTime = Timer:getServerTime()
+    self:setLastUpdateTime()
 end
 
 -------------------------------------
@@ -288,7 +288,7 @@ function ServerData_Highlight:loadNewDoidMap()
 
     --self:saveNewDoidMap()
 
-    self.m_lastUpdateTime = Timer:getServerTime()
+    self:setLastUpdateTime()
 end
 
 -------------------------------------
@@ -350,7 +350,7 @@ function ServerData_Highlight:addNewOid(oid_type, oid, created_at)
 
     self.m_newOidMap[oid_type][oid] = true
     self:setDirtyNewOidMap(oid_type)
-    self.m_lastUpdateTime = curr_time
+    self:setLastUpdateTime()
 end
 
 -------------------------------------
@@ -384,7 +384,7 @@ function ServerData_Highlight:removeNewOid(oid_type, oid)
     self.m_newOidMap[oid_type][oid] = nil
     self:setDirtyNewOidMap(oid_type)
 
-    self.m_lastUpdateTime = Timer:getServerTime()
+    self:setLastUpdateTime()
 end
 
 -------------------------------------
@@ -442,12 +442,4 @@ end
 -------------------------------------
 function ServerData_Highlight:onChangeScene()
     self:saveNewDoidMap()
-end
-
--------------------------------------
--- function setLastUpdateTime
--- @brief
--------------------------------------
-function ServerData_Highlight:setLastUpdateTime()
-    self.m_lastUpdateTime = Timer:getServerTime()
 end
