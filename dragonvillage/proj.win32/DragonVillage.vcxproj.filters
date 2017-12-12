@@ -2988,6 +2988,18 @@
     <None Include="..\src\TableDailyMission.lua">
       <Filter>lua\src</Filter>
     </None>
+    <None Include="..\src\StructDailyMission.lua">
+      <Filter>lua\src</Filter>
+    </None>
+    <None Include="..\src\UI_DragonSkillInfo.lua">
+      <Filter>lua\UI</Filter>
+    </None>
+    <None Include="..\src\UI_DragonSkillMove.lua">
+      <Filter>lua\UI</Filter>
+    </None>
+    <None Include="..\src\UI_DailyMisson_Clan.lua">
+      <Filter>lua\UI</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Classes">

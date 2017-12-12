@@ -1,17 +1,17 @@
 local PARENT = TableClass
 
 -------------------------------------
--- class TalbeDailyMission
+-- class TableDailyMission
 -------------------------------------
-TalbeDailyMission = class(PARENT, {
+TableDailyMission = class(PARENT, {
     })
 
-local THIS = TalbeDailyMission
+local THIS = TableDailyMission
 
 -------------------------------------
 -- function init
 -------------------------------------
-function TalbeDailyMission:init()
+function TableDailyMission:init()
     self.m_tableName = 'table_daily_mission'
     self.m_orgTable = TABLE:get(self.m_tableName)
 end

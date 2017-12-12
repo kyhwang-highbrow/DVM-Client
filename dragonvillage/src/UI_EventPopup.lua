@@ -232,6 +232,14 @@ function UI_EventPopup:makeEventPopupTab(tab)
         local inner_ui = UI_DiceEvent()
         ui = UI_EventPopupTab_Scroll(self, struct_event_popup_tab, inner_ui)
 
+	-- Daily Mission
+	elseif (tab == 'daily_mission') then
+		local key = struct_event_popup_tab.m_eventData['event_id']
+		-- 클랜 출석 이벤트
+		if (key == 'clan') then
+			ui = UI_DailyMisson_Clan()
+		end
+
     end
 
     self.m_mTabUI[tab] = ui

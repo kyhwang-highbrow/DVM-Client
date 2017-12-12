@@ -56,21 +56,23 @@ function ServerData_Event:getEventPopupTabList()
             if (topaz <= 0) then
                 is_exist = false
             end
-        end
 
         -- shop 관련 이벤트는 오픈되지 않능 상품이라면 탭 등록 pass 
-        if (event_type == 'shop') then
+        elseif (event_type == 'shop') then
             is_exist = g_shopDataNew:isExist('package', event_id)
-        end
 
         -- package 관련 이벤트는 구성품이 오픈되지 않능 상품이라면 탭 등록 pass - ex) 주말패키지
-        if (string.find(event_type, 'package_')) then
+        elseif (string.find(event_type, 'package_')) then
             is_exist = PackageManager:isExist(event_type)
-        end
+
+		-- Daily Mission
+		elseif (event_type == 'daily_mission') then
+			-- nothing to do
 
 		-- 한정 이벤트 체크
-		if isContainValue(event_type, LIMITED_EVENT_LIST) then
+		elseif (event_id == 'limited') then
 			is_exist = g_hotTimeData:isActiveEvent(event_type)
+
 		end
 
         if (is_exist) then
@@ -106,7 +108,8 @@ function ServerData_Event:getEventFullPopupList()
         local priority = v['full_popup']
 
         if (priority ~= '') then
-            local event_type = v['event_type'] 
+            local event_type = v['event_type']
+			local event_id = v['event_id']
             local feature = v['feature']
             local is_exist = true
 
@@ -139,8 +142,12 @@ function ServerData_Event:getEventFullPopupList()
             elseif (event_type == 'banner') then
                 event_type = event_type .. ';' .. v['banner'] .. ';' .. v['url']
 			
+			-- Daily Mission
+			elseif (event_type == 'daily_mission') then
+				event_type = event_type .. ';' .. event_id
+
 			-- 한정 이벤트 리스트
-			elseif isContainValue(event_type, LIMITED_EVENT_LIST) then
+			elseif (event_id == 'limited') then
 				is_exist = g_hotTimeData:isActiveEvent(event_type)
 
             end

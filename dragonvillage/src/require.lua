@@ -88,6 +88,7 @@ local t_module = {
     'StructClanMark',
     'StructClanRank',
     'StructEventDiceInfo',
+	'StructDailyMission',
 
 	-- ServerData
     'ServerData',
@@ -917,6 +918,7 @@ local t_module = {
     'UI_ExchangeEvent',
     'UI_ExchangeEventListItem',
     'UI_DiceEvent',
+	'UI_DailyMisson_Clan',
 
 	-- UI : 연출
 	'DirectingCharacter',

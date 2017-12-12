@@ -743,6 +743,7 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <None Include="..\src\StructClanMark.lua" />
     <None Include="..\src\StructClanRank.lua" />
     <None Include="..\src\StructCollisionData.lua" />
+    <None Include="..\src\StructDailyMission.lua" />
     <None Include="..\src\StructDragonObject.lua" />
     <None Include="..\src\StructEventDiceInfo.lua" />
     <None Include="..\src\StructEventPopupTab.lua" />
@@ -938,6 +939,7 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <None Include="..\src\UI_CouponPopup.lua" />
     <None Include="..\src\UI_CouponPopupPreOccupancyNick.lua" />
     <None Include="..\src\UI_CouponPopup_Confirm.lua" />
+    <None Include="..\src\UI_DailyMisson_Clan.lua" />
     <None Include="..\src\UI_DiceEvent.lua" />
     <None Include="..\src\UI_DragonReinforceItem.lua" />
     <None Include="..\src\UI_DragonReinforcement.lua" />
