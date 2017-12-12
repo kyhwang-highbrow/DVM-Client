@@ -55,13 +55,15 @@ function ServerData_DailyMission:request_dailyMissionInfo(finish_cb, fail_cb)
 
     -- 네트워크 통신 UI 생성
     local ui_network = UI_Network()
-    ui_network:setUrl('/users/status')
+    ui_network:setUrl('/users/daily_mission/info')
     ui_network:setParam('uid', uid)
     ui_network:setSuccessCB(success_cb)
     ui_network:setFailCB(fail_cb)
     ui_network:setRevocable(true)
     ui_network:setReuse(false)
     ui_network:request()
+
+	return ui_network
 end
 
 -------------------------------------
@@ -80,12 +82,14 @@ function ServerData_DailyMission:request_dailyMissionReward(finish_cb, fail_cb)
 
     -- 네트워크 통신 UI 생성
     local ui_network = UI_Network()
-    ui_network:setUrl('/users/status')
+    ui_network:setUrl('/users/daily_mission/reward')
     ui_network:setParam('uid', uid)
     ui_network:setSuccessCB(success_cb)
     ui_network:setFailCB(fail_cb)
     ui_network:setRevocable(true)
     ui_network:setReuse(false)
     ui_network:request()
+
+	return ui_network
 end
 

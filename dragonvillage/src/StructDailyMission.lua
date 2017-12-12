@@ -4,11 +4,12 @@ local PARENT = Structure
 -- class StructDailyMission
 -------------------------------------
 StructDailyMission = class(PARENT, {
-		curr_day = '',
-		progress = '',
-		mission_key = '',
-		is_clear = '',
-		status = '',
+		curr_day = 'number',
+		progress = 'number',
+		mission_key = 'string',
+		is_clear = 'bool',
+		reward = 'bool',
+		status = 'string',
     })
 
 local THIS = StructDailyMission
@@ -17,7 +18,9 @@ local THIS = StructDailyMission
 -- function init
 -------------------------------------
 function StructDailyMission:init(data)
-
+    if data then
+        self:applyTableData(data)
+    end
 end
 
 -------------------------------------
