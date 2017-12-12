@@ -119,6 +119,11 @@ function UI_DragonSkillMove:click_moveBtn()
 
         self:refresh()
 
+        -- 재료 드래곤이 스킬레벨이 모두 1이거나 타겟 드래곤의 스킬레벨이 맥스면 팝업 바로 닫아줌
+        if (not g_dragonsData:isSkillEnhanced(src_doid)) or (not g_dragonsData:haveSkillSpareLV(tar_doid)) then
+            self:click_exitBtn()
+        end
+
 		-- 결과창 출력
         local mod_struct_dragon = self.m_modified_dragon_data
         if (mod_struct_dragon) then
