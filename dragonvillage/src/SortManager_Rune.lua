@@ -15,10 +15,16 @@ function SortManager_Rune:init()
     self:addSortType('rid', false, function(a, b, ascending) return self:sort_rid(a, b, ascending) end)
     self:addSortType('slot', false, function(a, b, ascending) return self:sort_slot(a, b, ascending) end, Str('슬롯'))
     self:addSortType('set_id', false, function(a, b, ascending) return self:sort_set_id(a, b, ascending) end, Str('세트'))
+    self:addSortType('grade', false, function(a, b, ascending) return self:sort_grade(a, b, ascending) end, Str('등급'))
     self:addSortType('lv', false, function(a, b, ascending) return self:sort_lv(a, b, ascending) end, Str('레벨'))
     self:addSortType('rarity', false, function(a, b, ascending) return self:sort_rarity(a, b, ascending) end, Str('희귀도'))
-    self:addSortType('grade', false, function(a, b, ascending) return self:sort_grade(a, b, ascending) end, Str('등급'))
 	self:addSortType('created_at', false, function(a, b, ascending) return self:sort_created_at(a, b, ascending) end, Str('획득순'))
+
+	self:pushSortOrder('created_at')
+	self:pushSortOrder('rarity')
+	self:pushSortOrder('lv')
+	self:pushSortOrder('grade')
+	self:pushSortOrder('set_id')
 end
 
 

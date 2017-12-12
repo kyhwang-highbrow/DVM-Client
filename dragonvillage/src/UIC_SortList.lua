@@ -36,6 +36,7 @@ UIC_SortList = class(UIC_Node, {
         -- 속성
         m_buttonHeight = 'number',
         m_buttonMargin = 'number',
+		m_fontSize = 'number', -- 필요한 경우에만 지정하고 이외에는 m_buttonHeight를 기준으로 계산한다
     })
 
 -------------------------------------
@@ -175,7 +176,7 @@ function UIC_SortList:addSortType(sort_type, sort_name, t_label_data, rich_label
     self.m_containerMenu:addChild(button)
 
     -- 라벨 생성
-    local font_size = (self.m_buttonHeight / 2 - 5) -- 버튼 사이즈의 반보다 조금 작게
+    local font_size = self.m_fontSize or (self.m_buttonHeight / 2 - 5) -- 버튼 사이즈의 반보다 조금 작게
     if (rich_label) then
         local rich_label = UIC_RichLabel()
         rich_label:setString(sort_name)
@@ -469,6 +470,7 @@ function MakeUICSortList_dragonManage(button, label, direction)
 
     local uic = UIC_SortList()
 	uic.m_buttonHeight = 40
+	uic.m_fontSize = 20
     uic.m_direction = direction
     uic:setNormalSize(width, height)
     uic:setPosition(x, y)

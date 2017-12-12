@@ -275,8 +275,6 @@ function UI_DragonRunes:init_tableViewTD()
 
     -- 정렬
     local sort_manager = SortManager_Rune()
-	sort_manager:pushSortOrder('grade')
-	sort_manager:pushSortOrder('set_id')
     self.m_sortManagerRune = sort_manager
 
     self.m_tableViewTD = table_view_td
