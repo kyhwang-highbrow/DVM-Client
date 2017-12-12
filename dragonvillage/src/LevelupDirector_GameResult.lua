@@ -40,9 +40,9 @@ function LevelupDirector_GameResult:initLevelupDirector(src_lv, src_exp, dest_lv
     self.m_levelupDirector.m_cbUpdate = function(lv, exp, percentage)
         local lv_str
 		if (rlv > 0) then
-			lv_str = string.format('Lv.%d +%d', lv, rlv)
+			lv_str = string.format('{@white}Lv.%d {@light_green}+%d', lv, rlv)
 		else
-			lv_str = string.format('Lv.%d', lv)
+			lv_str = string.format('{@white}Lv.%d', lv)
 		end
         self.m_lvLabel:setString(lv_str)
 
