@@ -7,6 +7,8 @@ UI_InventoryTabRune = class(PARENT, {
         m_selectedRuneObject = 'StructRuneObject',
         m_mTableViewListMap = 'map',
         m_mSortManagerMap = 'map',
+
+		m_tNotiSprite = 'table',
      })
 
 -------------------------------------
@@ -15,6 +17,7 @@ UI_InventoryTabRune = class(PARENT, {
 function UI_InventoryTabRune:init(inventory_ui)
     self.m_mTableViewListMap = {}
     self.m_mSortManagerMap = {}
+	self.m_tNotiSprite = {}
 
     local vars = self.vars
 
@@ -56,20 +59,25 @@ function UI_InventoryTabRune:init_runeTableView(slot_idx)
     -- 생성 콜백
     local function create_func(ui, data)
         ui.root:setScale(0.7)
-        
+        		
+		-- 새로 획득한 룬 뱃지
+        local is_new = data:isNewRune()
+        ui:setNewSpriteVisible(is_new)
+
         local function click_func()
             self.m_inventoryUI:setSelectedItem(ui, data)
 			
 			-- 신규 룬 표시 삭제
-			local roid = data['roid']
-			g_highlightData:removeNewRoid(roid)
+			if (is_new) then
+				local roid = data['roid']
+				g_highlightData:removeNewRoid(roid)
+				ui:setNewSpriteVisible(false)
+
+				self:refresh_noti()
+			end
         end
 
         ui.vars['clickBtn']:registerScriptTapHandler(click_func)
-		
-		-- 새로 획득한 룬 뱃지
-        local is_new = data:isNewRune()
-        ui:setNewSpriteVisible(is_new)
     end
 
     -- 테이블 뷰 인스턴스 생성
@@ -104,6 +112,9 @@ function UI_InventoryTabRune:onEnterInventoryTab(first)
         self.vars['bulkSellBtn']:setVisible(true)
     end
     self.vars['bulkSellBtn']:registerScriptTapHandler(function() self:click_bulkSellBtn() end)
+
+	-- 노티 최초에 설정 -> 향후에는 신규 룬 클릭시 갱신
+	self:refresh_noti()
 end
 
 -------------------------------------
@@ -252,6 +263,24 @@ function UI_InventoryTabRune:runeLockBtn(t_rune_data)
     end
 
     g_runesData:request_runesLock_toggle(roid, nil, finish_cb)
+end
+
+-------------------------------------
+-- function refresh_noti
+-------------------------------------
+function UI_InventoryTabRune:refresh_noti()
+	local vars = self.vars
+
+	-- 상단의 룬 탭
+	vars['runeNotiSprite']:setVisible(g_highlightData:isHighlightRune())
+	
+	-- 하단의 슬롯 탭
+	local t_new_slot = g_highlightData:getNewRuneSlotTable()
+	local t_noti = {}
+	for slot, b in pairs(t_new_slot) do
+		t_noti['runeTabBtn' .. slot] = true
+	end
+	UIHelper:autoNoti(t_noti, self.m_tNotiSprite, '', vars)
 end
 
 -------------------------------------

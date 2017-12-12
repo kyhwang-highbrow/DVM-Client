@@ -167,6 +167,41 @@ function ServerData_Highlight:isHighlightDragon()
 end
 
 -------------------------------------
+-- function isHighlightRune
+-------------------------------------
+function ServerData_Highlight:isHighlightRune()
+	if (not self.m_newOidMap[NEW_OID_TYPE_RUNE]) then
+		return false
+	end
+
+    local cnt = table.count(self.m_newOidMap[NEW_OID_TYPE_RUNE])
+
+    if (0 < cnt) then
+        return true
+    else
+        return false
+    end
+end
+
+-------------------------------------
+-- function isHighlightRune
+-------------------------------------
+function ServerData_Highlight:getNewRuneSlotTable()
+	if (not self.m_newOidMap[NEW_OID_TYPE_RUNE]) then
+		return false
+	end
+
+	local t_ret = {}
+	for roid, b in pairs(self.m_newOidMap[NEW_OID_TYPE_RUNE]) do
+		local struct_rune = g_runesData:getRuneObject(roid)
+		local slot = struct_rune['slot']
+		t_ret[slot] = true
+	end
+
+	return t_ret
+end
+
+-------------------------------------
 -- function getNewOidMapFileName
 -------------------------------------
 function ServerData_Highlight:getNewOidMapFileName(oid_type)
