@@ -505,8 +505,9 @@ function UI_DragonRunes:refreshEquippedRunes()
         elseif ((not self.m_mEquippedRuneObjects[i]) and equipeed_roid) then
             local rune_obj = g_runesData:getRuneObject(equipeed_roid)
             self.m_mEquippedRuneObjects[i] = rune_obj
-            local icon = IconHelper:getItemIcon(rune_obj['item_id'], rune_obj)
-            rune_slot:addChild(icon)
+            local card = UI_RuneCard(rune_obj)
+			card:setBtnEnabled(false)
+            rune_slot:addChild(card.root)
 
             if (slot_idx == i) then
                 self:setEquipedRuneObject(rune_obj)
@@ -522,8 +523,9 @@ function UI_DragonRunes:refreshEquippedRunes()
             if (before_rune_obj['updated_at'] ~= rune_obj['updated_at']) then
                 self.m_mEquippedRuneObjects[i] = rune_obj
                 rune_slot:removeAllChildren()
-                local icon = IconHelper:getItemIcon(rune_obj['item_id'], rune_obj)
-                rune_slot:addChild(icon)
+                local card = UI_RuneCard(rune_obj)
+				card:setBtnEnabled(false)
+                rune_slot:addChild(card.root)
 
                 if (slot_idx == i) then
                     self:setEquipedRuneObject(rune_obj)

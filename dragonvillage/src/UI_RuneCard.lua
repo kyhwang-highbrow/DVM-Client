@@ -222,3 +222,11 @@ function UI_RuneCard:setShadowSpriteVisible(visible)
     local lua_name = 'disableSprite'
     self:setSpriteVisible(lua_name, res, visible)
 end
+
+-------------------------------------
+-- function setBtnEnabled
+-- @brief 버튼을 막는다
+-------------------------------------
+function UI_RuneCard:setBtnEnabled(able)
+	self.vars['clickBtn']:setEnabled(able)
+end

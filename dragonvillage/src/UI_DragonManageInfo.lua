@@ -366,7 +366,8 @@ function UI_DragonManageInfo:refresh_dragonRunes(t_dragon_data)
             vars['runeSlotNode' .. slot]:removeAllChildren()
             local rune_obj = t_dragon_data:getRuneObjectBySlot(slot)
             if rune_obj then
-                local icon = IconHelper:getItemIcon(rune_obj['item_id'], rune_obj)
+				local card = UI_RuneCard(rune_obj)
+				card:setBtnEnabled(false)
                 vars['runeSlotNode' .. slot]:addChild(icon)
             end
         end
