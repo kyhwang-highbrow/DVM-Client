@@ -67,7 +67,10 @@ function ServerData_Event:getEventPopupTabList()
 
 		-- Daily Mission
 		elseif (event_type == 'daily_mission') then
-			-- nothing to do
+			-- 전부 클리어 체크
+			if (g_dailyMissionData:getMissionDone(event_id)) then
+				is_exist = false
+			end
 
 		-- 한정 이벤트 체크
 		elseif (event_id == 'limited') then
@@ -144,7 +147,12 @@ function ServerData_Event:getEventFullPopupList()
 			
 			-- Daily Mission
 			elseif (event_type == 'daily_mission') then
-				event_type = event_type .. ';' .. event_id
+				-- 전부 클리어 체크
+				if (g_dailyMissionData:getMissionDone(event_id)) then
+					is_exist = false
+				else
+					event_type = event_type .. ';' .. event_id
+				end
 
 			-- 한정 이벤트 리스트
 			elseif (event_id == 'limited') then

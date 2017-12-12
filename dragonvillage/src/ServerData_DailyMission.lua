@@ -36,6 +36,21 @@ function ServerData_DailyMission:getMissionStruct(mission_key)
 end
 
 -------------------------------------
+-- function getMissionDone
+-------------------------------------
+function ServerData_DailyMission:getMissionDone(mission_key)
+	if (not self.m_mMissionMap) then
+		return
+	end
+	local struct = self.m_mMissionMap[mission_key]
+	if (not struct) then
+		return
+	end
+
+	return (struct['status'] == 'done')
+end
+
+-------------------------------------
 -- function request_dailyMissionInfo
 -------------------------------------
 function ServerData_DailyMission:request_dailyMissionInfo(finish_cb, fail_cb)

@@ -644,7 +644,12 @@ end
 -- @brief 상점 버튼
 -------------------------------------
 function UI_Lobby:click_shopBtn()
-    g_shopDataNew:openShopPopup()
+	-- 노티 정보를 갱신하기 위해서 호출
+	local function cb_func()
+		g_highlightData:setLastUpdateTime()
+	end
+
+    g_shopDataNew:openShopPopup(nil, cb_func)
 end
 
 -------------------------------------
