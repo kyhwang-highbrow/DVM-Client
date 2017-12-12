@@ -63,22 +63,29 @@ function UI_DailyMisson_Clan:refresh()
 		return 
 	end
 
-	--struct_mission['curr_day'] = 3
-	--struct_mission['is_clear'] = true
-	--struct_mission['reward'] = false
-
-	local curr_day = struct_mission['curr_day']
-
+	local status = struct_mission['status']
 	-- 출석 미션 시작하기 전
-	if (not curr_day) then
+	if (status == 'set') then
 		for i, ui in ipairs(self.m_lDailyMissionItem) do
+			ui.vars['receiveBtn']:setEnabled(false)
 			ui.vars['readySprite']:setVisible(true)
 			ui.vars['checkSprite']:setVisible(false)
 		end
 		return
+
+	-- 출석 미션 완료
+	elseif (status == 'done') then
+		for i, ui in ipairs(self.m_lDailyMissionItem) do
+			ui.vars['receiveBtn']:setEnabled(false)
+			ui.vars['readySprite']:setVisible(false)
+			ui.vars['checkSprite']:setVisible(true)
+		end
+		return
+
 	end
 
 	-- 출석 미션 진행 중
+	local curr_day = struct_mission['curr_day']
 	for i, ui in ipairs(self.m_lDailyMissionItem) do
 		local ui_vars = ui.vars
 
@@ -114,7 +121,6 @@ function UI_DailyMisson_Clan:refresh()
 		end
 	end
 
-
 end
 
 -------------------------------------
@@ -145,7 +151,7 @@ function UI_DailyMisson_Clan.makeCell(t_data, click_func)
 
 	-- 일차
 	local day = t_data['day']
-	vars['dayLabel']:setString(Str('{1}일 차', day)) 
+	vars['dayLabel']:setString(Str('{1}일차', day)) 
 
 	-- 미션 설명
 	local desc = Str(t_data['t_desc'], t_data['clear_value'])
