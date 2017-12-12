@@ -81,7 +81,7 @@ function StatusEffectUnit:update(dt, modified_dt)
     self.m_keepTimer = self.m_keepTimer + dt
 
     -- 즉시 종료해야하는지 확인
-    if (modified_dt > 0) then
+    do
         if (self.m_bLeaderSkill) then
     
         elseif (self.m_bPassiveSkill) then
@@ -91,11 +91,9 @@ function StatusEffectUnit:update(dt, modified_dt)
                 -- 시전자가 자기 자신이 아니고 죽었다면 해제(적군만 해당)
                 return true
             end
-        else
-            -- 대상자가 죽었는지 체크
-            if (self.m_owner and self.m_owner:isDead()) then
-                return true
-            end
+        elseif (self.m_owner and self.m_owner:isDead()) then
+            -- 대상자가 죽었다면 해제(리더스킬 및 패시브 스킬 제외)
+            return true
         end
     end
     
