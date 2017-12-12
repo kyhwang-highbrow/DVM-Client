@@ -16,12 +16,9 @@ function UI_DailyMisson_Clan:init()
 	local vars = self:load('event_clan_quest.ui')
 	self.m_lDailyMissionItem = {}
 	
-	local function cb_func()
-		self:initUI()
-		self:initButton()
-		self:refresh()
-	end
-	g_dailyMissionData:request_dailyMissionInfo(cb_func)
+	self:initUI()
+	self:initButton()
+	self:refresh()
 end
 
 -------------------------------------

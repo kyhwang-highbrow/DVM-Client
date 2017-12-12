@@ -218,15 +218,6 @@ function UI_Lobby:entryCoroutine()
         end
         while (working) do dt = coroutine.yield() end
 
-		-- @ daily mission
-		--cclog('# 오늘의 미션 확인 중')
-        --working = true
-        --local ui_network = g_dailyMissionData:request_dailyMissionInfo(function(ret) working = false end, required_fail_cb)
-        --if ui_network then
-            --ui_network:hideBGLayerColor()
-        --end
-        --while (working) do dt = coroutine.yield() end
-
         -- 타이틀 화면에서 진입시
         local title_to_lobby = g_fullPopupManager:isTitleToLobby()
         g_eventData.m_bDirty = true

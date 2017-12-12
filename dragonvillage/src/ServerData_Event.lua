@@ -385,6 +385,10 @@ function ServerData_Event:openEventPopup(tab)
         g_highbrowData:request_getHbProductList(co.NEXT, co.ESCAPE)
         if co:waitWork() then return end
 
+        co:work('# 일일 미션 받는 중')
+		g_dailyMissionData:request_dailyMissionInfo(co.NEXT, co.ESCAPE)
+        if co:waitWork() then return end
+
         co:close()
 
         self.m_bDirty = true
