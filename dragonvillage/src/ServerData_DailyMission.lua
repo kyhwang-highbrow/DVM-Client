@@ -75,6 +75,13 @@ function ServerData_DailyMission:request_dailyMissionReward(mission_key, day, fi
 
     -- 콜백 함수
     local function success_cb(ret)
+		if (ret['mission']) then
+			self:applyMissionMap(ret['mission'])
+		end
+		if (ret['new_mail']) then
+			local toast_msg = Str('보상이 우편함으로 전송되었습니다.')
+			UI_ToastPopup(toast_msg)
+		end
         if finish_cb then
             finish_cb(ret)
         end
@@ -84,7 +91,7 @@ function ServerData_DailyMission:request_dailyMissionReward(mission_key, day, fi
     local ui_network = UI_Network()
     ui_network:setUrl('/users/daily_mission/reward')
     ui_network:setParam('uid', uid)
-	ui_network:setParam('mission_key', mission_key)
+	ui_network:setParam('mission', mission_key)
 	ui_network:setParam('day', day)
     ui_network:setSuccessCB(success_cb)
     ui_network:setFailCB(fail_cb)
