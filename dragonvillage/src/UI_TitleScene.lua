@@ -456,7 +456,7 @@ function UI_TitleScene:workCheckUserID()
     SoundMgr.m_bStopPreload = false
 
     local target_server = CppFunctions:getTargetServer()
-    if isWin32() or (target_server == 'QA') then
+    if isWin32() then
         local uid = g_localData:get('local', 'uid')
         if uid then
             self:doNextWork()
