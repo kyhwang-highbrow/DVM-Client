@@ -433,8 +433,6 @@ function UI_DragonManage_Base:refresh_dragonSkillMoveTableView()
         ui.root:setScale(0.66)
         -- 클릭 버튼 설정
         ui.vars['clickBtn']:registerScriptTapHandler(function() self:click_dragonSkillMove(data) end)
-
-		self:createMtrlDragonCardCB(ui, data)
     end
 
     -- 테이블뷰 생성

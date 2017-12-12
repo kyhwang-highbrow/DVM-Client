@@ -89,6 +89,11 @@ function ServerData_Dragons:getDragonSkillMoveList(tar_doid)
 
     local ret_dictionary = {}
 
+    -- 태생 3등급 이하 제외 
+    if (tar_birth_grade <= 3) then
+        return ret_dictionary
+    end
+
     for doid,value in pairs(dragon_dictionary) do
         -- 태생 등급 같고 스킬 레벨업된 드래곤만 포함
         local birth_grade = TableDragon:getBirthGrade(value['did'])

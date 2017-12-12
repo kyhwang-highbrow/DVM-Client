@@ -369,15 +369,6 @@ function UI_DragonSkillEnhance:click_dragonSkillMove(data)
         return
     end
 
-    -- 재료 드래곤이 재료 가능한지 판별
-    if (data:getObjectType() == 'dragon') then
-        local possible, msg = g_dragonsData:possibleMaterialDragon(doid)
-        if (not possible) then
-            UIManager:toastNotificationRed(msg)
-            return
-        end
-    end
-
     local tar_dragon_data = g_dragonsData:getDragonDataFromUid(self.m_selectDragonOID)
     local src_dragon_data = g_dragonsData:getDragonDataFromUid(doid)
 

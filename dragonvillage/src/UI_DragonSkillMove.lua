@@ -9,7 +9,14 @@ UI_DragonSkillMove = class(PARENT,{
         m_modified_dragon_data = 'table',
     })
 
-local MOVE_COST = 2000
+-- 등급별 스킬 이전 가격
+local MOVE_COST = {
+    100, 
+    200,
+    700,
+    1400,
+    2800
+}
 
 -------------------------------------
 -- function init
@@ -39,7 +46,8 @@ function UI_DragonSkillMove:initUI()
     local vars = self.vars
 
     do -- 스킬레벨 이전 가격
-        vars['priceLabel']:setString(comma_value(MOVE_COST))
+        local birth_grade = TableDragon:getBirthGrade(self.m_tar_dragon_data['did'])
+        vars['priceLabel']:setString(comma_value(MOVE_COST[birth_grade]))
     end
 end
 
