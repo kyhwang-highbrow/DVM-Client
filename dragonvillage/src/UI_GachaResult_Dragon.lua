@@ -96,12 +96,12 @@ function UI_GachaResult_Dragon:initUI()
 	if (self.m_type == 'cash') then
 		vars['diaNode']:setVisible(true)
 		local cash = g_userData:get('cash')
-		vars['diaLabel']:setString(cash)
+		vars['diaLabel']:setString(comma_value(cash))
 
 	elseif (self.m_type == 'fp') then
 		vars['fpNode']:setVisible(true)
 		local fp = g_userData:get('fp')
-		vars['fpLabel']:setString(fp)
+		vars['fpLabel']:setString(comma_value(fp))
 
 	end
 
