@@ -444,6 +444,7 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <None Include="..\src\ServerData_ClanRank.lua" />
     <None Include="..\src\ServerData_Colosseum.lua" />
     <None Include="..\src\ServerData_ContentLock.lua" />
+    <None Include="..\src\ServerData_DailyMission.lua" />
     <None Include="..\src\ServerData_DragonBoard.lua" />
     <None Include="..\src\ServerData_Eggs.lua" />
     <None Include="..\src\ServerData_Event.lua" />
@@ -834,6 +835,7 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <None Include="..\src\TableUILocation.lua" />
     <None Include="..\src\TableUserLevel.lua" />
     <None Include="..\src\TableClass.lua" />
+    <None Include="..\src\TableDailyMission.lua" />
     <None Include="..\src\Tamer.lua" />
     <None Include="..\src\TamerSkill.lua" />
     <None Include="..\src\TimeLib.lua" />

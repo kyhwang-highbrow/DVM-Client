@@ -90,17 +90,23 @@ local TableInfo = {
 -------------------------------------
 local TableInfo_fromServer = {
         -- ['csv 테이블 이름'] = {'테이블 약어', 'key'},
+
+		-- 룬 
         ['table_rune_enhance'] = {'table_rune_enhance', 'rune_lv'},
         ['table_rune_grade'] = {'table_rune_grade', 'grade'},
         ['table_rune_mopt_status'] = {'table_rune_mopt_status', 'vid'},
         ['table_rune_opt'] = {'table_rune_opt', 'slot_id'},
-        ['table_req_gold'] = {'table_req_gold', 'lv'},
-        ['table_stamina_info'] = {'table_stamina_info', 'stamina_type'},
+
+		-- 모드 관련
         ['table_exploration_list'] = {'table_exploration_list', 'epr_id'},
         ['table_colosseum'] = {'table_colosseum', 'tid'},
         ['table_content_lock'] = {'table_content_lock', 'content_name'},
         ['table_clan_reward'] = {'table_clan_reward', 'rank_id'},
         ['table_ancient_reward'] = {'anc_floor_reward', 'stage'},
+
+		-- 기타
+        ['table_req_gold'] = {'table_req_gold', 'lv'},
+        ['table_stamina_info'] = {'table_stamina_info', 'stamina_type'},
 
         --  친밀도
         ['table_dragon_friendship'] = {'table_dragon_friendship', 'friendship'},
@@ -114,10 +120,15 @@ local TableInfo_fromServer = {
 
         -- 진화재료 조합
         ['table_item_evolution_combine'] = {'table_item_evolution_combine', 'id'},
-        ['table_package_levelup'] = {'table_package_levelup', 'level'}, -- 레벨업 패키지 레벨별 보상 리스트
+
+		-- 레벨업 패키지 레벨별 보상 리스트
+        ['table_package_levelup'] = {'table_package_levelup', 'level'}, 
 
 		-- 드래곤 강화
 		['table_dragon_reinforce'] = {'table_dragon_reinforce', 'id'},
+
+		-- 데일리 미션
+		['table_daily_mission'] = {'table_daily_mission', 'id'},
     }
 
 -------------------------------------

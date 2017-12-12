@@ -141,6 +141,7 @@ local t_module = {
     'ServerData_Clan',
     'ServerData_ClanRank',
     'ServerData_LevelUpPackage',
+	'ServerData_DailyMission',
 
     -- Interface
     'IEventDispatcher',
@@ -288,6 +289,7 @@ local t_module = {
     'TableEvolutionItemCombine',
     'TablePackageBundle',
     'TableClanMark',
+	'TableDailyMission',
 
     -- Scene
     'SceneCommon',

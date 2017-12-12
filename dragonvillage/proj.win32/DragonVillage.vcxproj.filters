@@ -2982,6 +2982,12 @@
     <None Include="..\src\UI_BundlePopup.lua">
       <Filter>lua\UI</Filter>
     </None>
+    <None Include="..\src\ServerData_DailyMission.lua">
+      <Filter>lua\src</Filter>
+    </None>
+    <None Include="..\src\TableDailyMission.lua">
+      <Filter>lua\src</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Classes">

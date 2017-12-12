@@ -179,6 +179,9 @@ function ServerData:getInstance()
     -- 클랜 랭킹
     g_clanRankData = ServerData_ClanRank(g_serverData)
 
+	-- 일일 미션
+	g_dailyMission = ServerData_DailyMission(g_serverData)
+
     return g_serverData
 end
 
