@@ -42,7 +42,7 @@ function LevelupDirector_GameResult:initLevelupDirector(src_lv, src_exp, dest_lv
 		if (rlv > 0) then
 			lv_str = string.format('{@white}Lv.%d {@light_green}+%d', lv, rlv)
 		else
-			lv_str = string.format('{@white}Lv.%d', lv)
+			lv_str = string.format('Lv.%d', lv)
 		end
         self.m_lvLabel:setString(lv_str)
 
