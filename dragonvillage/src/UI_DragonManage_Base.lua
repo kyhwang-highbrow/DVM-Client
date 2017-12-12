@@ -1,4 +1,4 @@
-local PARENT = class(UI, ITopUserInfo_EventListener:getCloneTable())
+local PARENT = class(UI, ITopUserInfo_EventListener:getCloneTable(), ITabUI:getCloneTable())
 
 -------------------------------------
 -- class UI_DragonManage_Base
@@ -15,6 +15,7 @@ UI_DragonManage_Base = class(PARENT,{
 		-- 테이블뷰
         m_tableViewExt = 'UIC_TableViewTD',  -- 하단의 드래곤 리스트 테이블 뷰
 		m_mtrlTableViewTD = 'UIC_TableViewTD', -- 재료
+        m_skillmoveTableViewTD = 'UIC_TableViewTD', -- 스킬강화 이전
 
 		-- sort list
         m_uicSortList = 'UIC_SortList',
@@ -420,6 +421,40 @@ function UI_DragonManage_Base:refresh_dragonMaterialTableView()
 end
 
 -------------------------------------
+-- function refresh_dragonSkillMoveTableView
+-- @brief 스킬 강화 이전 테이블 뷰
+-------------------------------------
+function UI_DragonManage_Base:refresh_dragonSkillMoveTableView()   
+    local list_table_node = self.vars['moveTableViewNode']
+    list_table_node:removeAllChildren()
+
+    -- 리스트 아이템 생성 콜백
+    local function create_func(ui, data)
+        ui.root:setScale(0.66)
+        -- 클릭 버튼 설정
+        ui.vars['clickBtn']:registerScriptTapHandler(function() self:click_dragonSkillMove(data) end)
+
+		self:createMtrlDragonCardCB(ui, data)
+    end
+
+    -- 테이블뷰 생성
+    local table_view_td = UIC_TableViewTD(list_table_node)
+    table_view_td.m_cellSize = cc.size(100, 100)
+    table_view_td.m_nItemPerCell = 5
+    table_view_td:setCellUIClass(UI_DragonCard, create_func)
+    self.m_skillmoveTableViewTD = table_view_td
+
+    -- 리스트가 비었을 때
+    table_view_td:makeDefaultEmptyDescLabel(Str('도와줄 드래곤이 없어요 ㅠㅠ'))
+
+    -- 재료로 사용 가능한 리스트를 얻어옴
+    local l_dragon_list = self:getDragonSkillMoveList(self.m_selectDragonOID)
+    self.m_skillmoveTableViewTD:setItemList(l_dragon_list)
+	
+	self:apply_mtrlDragonSort()
+end
+
+-------------------------------------
 -- function createMtrlDragonCardCB
 -- @brief 재료 카드 만든 후..
 -------------------------------------
@@ -448,10 +483,32 @@ function UI_DragonManage_Base:getDragonMaterialList(doid)
 end
 
 -------------------------------------
+-- function getDragonSkillMoveList
+-- @brief 스킬 강화 이전가능한 드래곤 리스트를 반환
+-------------------------------------
+function UI_DragonManage_Base:getDragonSkillMoveList(doid)
+    local dragon_dic = g_dragonsData:getDragonSkillMoveList(doid)
+
+    -- 자기 자신 드래곤 제외
+    if doid then
+        dragon_dic[doid] = nil
+    end
+
+    return dragon_dic
+end
+
+-------------------------------------
 -- function click_dragonUpgradeMaterial
 -------------------------------------
 function UI_DragonManage_Base:click_dragonMaterial(data)
 	error('미정의된 함수 click_dragonMaterial')
+end
+
+-------------------------------------
+-- function click_dragonSkillMove
+-------------------------------------
+function UI_DragonManage_Base:click_dragonSkillMove(data)
+	error('미정의된 함수 click_dragonSkillMove')
 end
 
 -------------------------------------
@@ -520,11 +577,18 @@ function UI_DragonManage_Base:apply_mtrlDragonSort()
 	end
 
 	local sort_mgr = self.m_mtrlDragonSortManager
-	local table_view = self.m_mtrlTableViewTD
+    function sort_func(table_view)
+        if (not table_view) then
+            return
+        end 
 
-	local list = table_view.m_itemList
-	sort_mgr:sortExecution(list)
-	table_view:setDirtyItemList()
+        local list = table_view.m_itemList
+	    sort_mgr:sortExecution(list)
+	    table_view:setDirtyItemList()
+    end
+
+    sort_func(self.m_mtrlTableViewTD)
+    sort_func(self.m_skillmoveTableViewTD)
 end
 
 --@CHECK

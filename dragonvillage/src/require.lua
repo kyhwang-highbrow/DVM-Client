@@ -853,6 +853,8 @@ local t_module = {
 	'UI_DragonSell',
 	'UI_DragonReinforcement',
 	'UI_DragonReinforceItem',
+    'UI_DragonSkillMove',
+    'UI_DragonSkillInfo',
 
 	-- UI : 드래곤 관리 - 결과
     'UI_DragonManageFriendshipResult',

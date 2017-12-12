@@ -80,6 +80,27 @@ function ServerData_Dragons:getDragonListWithSlime()
 end
 
 -------------------------------------
+-- function getDragonSkillMoveList
+-------------------------------------
+function ServerData_Dragons:getDragonSkillMoveList(tar_doid)
+    local dragon_dictionary = self:getDragonsListRef()
+    local dragon_obj = self.m_serverData:getRef('dragons', tar_doid)
+    local tar_birth_grade = TableDragon:getBirthGrade(dragon_obj['did'])
+
+    local ret_dictionary = {}
+
+    for doid,value in pairs(dragon_dictionary) do
+        -- 태생 등급 같고 스킬 레벨업된 드래곤만 포함
+        local birth_grade = TableDragon:getBirthGrade(value['did'])
+        if (self:isSkillEnhanced(doid) and tar_birth_grade == birth_grade) then
+            ret_dictionary[doid] = value
+        end
+    end
+
+    return ret_dictionary
+end
+
+-------------------------------------
 -- function getDragonsList_specificDid
 -------------------------------------
 function ServerData_Dragons:getDragonsList_specificDid(did)
@@ -920,7 +941,7 @@ function ServerData_Dragons:impossibleSkillEnhanceForever(doid)
     end
 
     if (t_dragon_data.m_objectType == 'slime') then
-        return true, Str('슬라임은 스킬 강화 할 수 없습니다.')
+        return true, Str('슬라임은 스킬 레벨업을 할 수 없습니다.')
     end
 
 	if (not self:haveSkillSpareLV(doid) and self:isMaxEvolution(doid)) then
@@ -956,6 +977,39 @@ function ServerData_Dragons:haveSkillSpareLV(doid)
 
 		-- 한개라도 현재 레밸이 최대레벨보다 낮은것이 있다면 여분 스킬 있는것으로 판명
 		if (curr_lv < max_lv) then
+			return true
+		end
+	end
+ 
+	return false
+end
+
+-------------------------------------
+-- function isSkillEnhanced
+-- @brief 한번이라도 스킬강화를 했는지
+-------------------------------------
+function ServerData_Dragons:isSkillEnhanced(doid)
+    local t_dragon_data = self:getDragonDataFromUid(doid)
+	local t_dragon = TableDragon():get(t_dragon_data['did'])
+	local table_dragon_skill_modify = TableDragonSkillModify()
+
+    local evolution = t_dragon_data['evolution']
+	
+	-- active 부터 진화도까지
+	for i = 0, evolution do
+		local key = i
+
+		-- 애초에 0이었으면... 
+		if (key == 0) then
+			key = 'active'
+		end
+
+		local skill_id = t_dragon['skill_' .. key]
+		local max_lv = table_dragon_skill_modify:getMaxLV(skill_id)
+		local curr_lv = t_dragon_data['skill_' .. i]
+
+		-- 한개라도 현재 레밸이 2이상인 경우 스킬 강화된 드래곤으로 판명
+		if (curr_lv > 1) then
 			return true
 		end
 	end
@@ -1337,4 +1391,32 @@ function ServerData_Dragons:dragonMaterialWarning(oid, next_func, t_warning)
             next_func()
         end
     end
+end
+
+-------------------------------------
+-- function request_skillMove
+-------------------------------------
+function ServerData_Dragons:request_skillMove(src_doid, dst_doid, cb_func)
+	-- 유저 ID
+    local uid = g_userData:get('uid')
+
+    local function success_cb(ret)
+        self.m_serverData:networkCommonRespone(ret)
+
+		-- 콜백
+		if (cb_func) then
+			cb_func(ret)
+		end
+    end
+
+    local ui_network = UI_Network()
+    ui_network:setUrl('/dragons/skill_move')
+    ui_network:setParam('uid', uid)
+    ui_network:setParam('src_doid', src_doid)
+    ui_network:setParam('dst_doid', dst_doid)
+    ui_network:setRevocable(true)
+    ui_network:setSuccessCB(function(ret) success_cb(ret) end)
+    ui_network:request()
+
+    return ui_network
 end

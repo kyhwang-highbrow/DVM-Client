@@ -8,6 +8,9 @@ UI_DragonSkillEnhance = class(PARENT,{
         m_selectedMtrl = '',
     })
 
+UI_DragonSkillEnhance.TAB_ENHANCE = 'enhance' -- 강화
+UI_DragonSkillEnhance.TAB_MOVE = 'move' -- 이전
+
 -------------------------------------
 -- function initParentVariable
 -- @brief 자식 클래스에서 반드시 구현할 것
@@ -16,7 +19,7 @@ function UI_DragonSkillEnhance:initParentVariable()
     -- ITopUserInfo_EventListener의 맴버 변수들 설정
     self.m_uiName = 'UI_DragonSkillEnhance'
     self.m_bVisible = true
-    self.m_titleStr = Str('스킬 강화')
+    self.m_titleStr = Str('스킬 레벨업')
     self.m_bUseExitBtn = true
 end
 
@@ -33,6 +36,7 @@ function UI_DragonSkillEnhance:init(doid)
     self:sceneFadeInAction()
 
     self:initUI()
+    self:initTab()
     self:initButton()
     self:refresh()
  
@@ -51,6 +55,18 @@ function UI_DragonSkillEnhance:initUI()
     local vars = self.vars
 
     self:init_dragonTableView()
+end
+
+-------------------------------------
+-- function initTab
+-------------------------------------
+function UI_DragonSkillEnhance:initTab()
+    local vars = self.vars
+    self:addTabAuto(UI_DragonSkillEnhance.TAB_ENHANCE, vars, vars['materialTableViewNode'])
+    self:addTabAuto(UI_DragonSkillEnhance.TAB_MOVE, vars, vars['moveTableViewNode'])
+    self:setTab(UI_DragonSkillEnhance.TAB_ENHANCE)
+
+	self:setChangeTabCB(function(tab, first) self:onChangeTab(tab, first) end)
 end
 
 -------------------------------------
@@ -130,7 +146,6 @@ function UI_DragonSkillEnhance:refresh()
 
     do -- 재료 중에서 선택된 드래곤 항목들 정리
         if (self.m_selectedMtrl) then
-            self.m_selectedMtrl.root:removeFromParent()
             self.m_selectedMtrl = nil
         end
     end
@@ -142,7 +157,7 @@ function UI_DragonSkillEnhance:refresh()
             local next_evolution = t_dragon_data['evolution'] + 1
             local tar_evolution = evolutionName(next_evolution)
 	        vars['lockSprite']:setVisible(true)
-            vars['infoLabel2']:setString(Str('{1} 진화시 스킬 강화 할 수 있어요 ', tar_evolution))
+            vars['infoLabel2']:setString(Str('{1} 진화시 스킬 레벨업이 가능해요 ', tar_evolution))
         end
     end
 
@@ -152,6 +167,15 @@ function UI_DragonSkillEnhance:refresh()
 
 	self:refresh_skillIcon()
     self:refresh_dragonMaterialTableView()
+    self:refresh_dragonSkillMoveTableView()
+end
+
+-------------------------------------
+-- function onChangeTab
+-------------------------------------
+function UI_DragonSkillEnhance:onChangeTab(tab, first)
+    local vars = self.vars
+    vars['enhanceBtn']:setVisible(tab == UI_DragonSkillEnhance.TAB_ENHANCE)
 end
 
 -------------------------------------
@@ -311,13 +335,10 @@ function UI_DragonSkillEnhance:click_dragonMaterial(data)
 	-- 선택된 재료가 있는 경우
     if self.m_selectedMtrl then
 		-- 선택된 재료와 클릭한 재료가 같음 
-		if (doid == self.m_selectedMtrl.m_dragonData['id']) then
+		if (doid == self.m_selectedMtrl) then
 			--> 해제 처리
-			local ui = self.m_selectedMtrl
-			ui.root:removeFromParent()
 			self.m_selectedMtrl = nil
-
-			list_item_ui:setShadowSpriteVisible(false)
+			list_item_ui:setCheckSpriteVisible(false)
 
 		-- 선택 클릭 다름
 		else
@@ -327,16 +348,47 @@ function UI_DragonSkillEnhance:click_dragonMaterial(data)
 
 	-- 선택된 재료가 없는 경우
     else
-		local ui = UI_DragonCard(data)
-		ui.vars['clickBtn']:registerScriptTapHandler(function() self:click_dragonMaterial(data) end)
-		self.m_selectedMtrl = ui
-
-		local scale = 0.57
-		cca.uiReactionSlow(ui.root, scale, scale, scale * 0.7)
-		vars['materialNode']:addChild(ui.root)
-
-		list_item_ui:setShadowSpriteVisible(true)
+		self.m_selectedMtrl = data['id']
+		list_item_ui:setCheckSpriteVisible(true)
 	end
+end
+
+-------------------------------------
+-- function click_dragonSkillMove
+-- @override
+-------------------------------------
+function UI_DragonSkillEnhance:click_dragonSkillMove(data)
+    local vars = self.vars
+
+    local doid = data['id']
+
+    -- 현재 스킬 강화 가능한 드래곤인지 검증
+    local possible, msg = g_dragonsData:possibleDragonSkillEnhance(self.m_selectDragonOID)
+    if (not possible) then
+        UIManager:toastNotificationRed(msg)
+        return
+    end
+
+    -- 재료 드래곤이 재료 가능한지 판별
+    if (data:getObjectType() == 'dragon') then
+        local possible, msg = g_dragonsData:possibleMaterialDragon(doid)
+        if (not possible) then
+            UIManager:toastNotificationRed(msg)
+            return
+        end
+    end
+
+    local tar_dragon_data = g_dragonsData:getDragonDataFromUid(self.m_selectDragonOID)
+    local src_dragon_data = g_dragonsData:getDragonDataFromUid(doid)
+
+    local ui = UI_DragonSkillMove(tar_dragon_data, src_dragon_data)
+    ui:setCloseCB(function(mod_struct_dragon)
+        if (not mod_struct_dragon) then
+            return
+        end
+        self.m_selectDragonData = mod_struct_dragon
+        self:refresh()
+    end)
 end
 
 -------------------------------------
@@ -360,8 +412,7 @@ function UI_DragonSkillEnhance:click_enhanceBtn()
 
 	-- 재료 요건 여부
     if (not self.m_selectedMtrl) then
-        UIManager:toastNotificationRed(Str('재료 드래곤을 넣어주세요'))
-        cca.uiImpossibleAction(self.vars['materialNode'])
+        UIManager:toastNotificationRed(Str('재료 드래곤을 선택해주세요'))
         return
     end
 
@@ -376,7 +427,7 @@ function UI_DragonSkillEnhance:click_enhanceBtn()
     local src_doids = ''
     local src_soids = ''
 
-	local mtrl_doid = self.m_selectedMtrl.m_dragonData['id']
+	local mtrl_doid = self.m_selectedMtrl
 	local mtrl_dragon_object = g_dragonsData:getDragonObject(mtrl_doid)
        
 	-- 드래곤     
@@ -423,7 +474,6 @@ function UI_DragonSkillEnhance:click_enhanceBtn()
 
 		-- 재료 제거
 		if (self.m_selectedMtrl) then
-			self.m_selectedMtrl.root:removeFromParent()
 			self.m_selectedMtrl = nil
 		end
 
