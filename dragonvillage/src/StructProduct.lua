@@ -991,6 +991,13 @@ function StructProduct:getPrice()
 end
 
 -------------------------------------
+-- function getPrice
+-------------------------------------
+function StructProduct:getPriceType()
+	return self['price_type']
+end
+
+-------------------------------------
 -- function getProductID
 -------------------------------------
 function StructProduct:getProductID()

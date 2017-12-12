@@ -66,9 +66,7 @@ function UI_BundlePopup:initButton()
 	local vars = self.vars
 
 	vars['quantityBtn1']:registerScriptTapHandler(function() self:click_quantityBtn(false) end)
-	vars['quantityBtn1']:registerScriptPressHandler(function() self:press_quantityBtn(false) end)
 	vars['quantityBtn2']:registerScriptTapHandler(function() self:click_quantityBtn(true) end)
-	vars['quantityBtn2']:registerScriptPressHandler(function() self:press_quantityBtn(true) end)
 
     vars['purchaseBtn']:registerScriptTapHandler(function() self:click_purchaseBtn() end)
     vars['closeBtn']:registerScriptTapHandler(function() self:close() end)
@@ -95,24 +93,29 @@ end
 -- function click_quantityBtn
 -------------------------------------
 function UI_BundlePopup:click_quantityBtn(is_add)
+	local count = self.m_count
 	if (is_add) then
-		self.m_count = self.m_count + 1
+		count = count + 1
 	else
-		self.m_count = self.m_count - 1
+		count = count - 1
 	end
 
-	if (self.m_count < 1) then
-		self.m_count = 1
+	-- 1 이하 예외처리
+	if (count < 1) then
+		count = 1
+		return
 	end
 
+	-- 재화 부족 예외처리
+	local struct_product = self.m_structProduct
+	local price = struct_product:getPrice()
+	local price_type = struct_product:getPriceType()
+	if (not UIHelper:checkPrice(price_type, price * count)) then
+		return
+	end
+
+	self.m_count = count
 	self:refresh()
-end
-
--------------------------------------
--- function press_quantityBtn
--------------------------------------
-function UI_BundlePopup:press_quantityBtn(is_add)
-
 end
 
 -------------------------------------
