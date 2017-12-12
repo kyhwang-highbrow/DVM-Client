@@ -314,6 +314,10 @@ function ServerData_Event:isHighlightEvent()
 
     if (g_accessTimeData:hasReward()) then
         b_highlight = true
+
+	elseif (g_highlightData:isHighlighDailyMissionClan()) then
+		b_highlight = true
+
     end
 
     return b_highlight

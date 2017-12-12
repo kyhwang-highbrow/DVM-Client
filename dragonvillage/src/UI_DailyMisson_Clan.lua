@@ -103,6 +103,8 @@ function UI_DailyMisson_Clan:refresh()
 
 		-- 당일
 		else
+			UIHelper:makeHighlightFrame(ui_vars['rootNode'])
+
 			-- 클리어한 상태
 			if (struct_mission['is_clear']) then
 				-- 보상 받음 (모두 완료)
@@ -117,6 +119,7 @@ function UI_DailyMisson_Clan:refresh()
 			-- 미션 진행 중
 			else
 				ui_vars['readySprite']:setVisible(true)
+
 			end
 		end
 	end

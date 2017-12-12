@@ -429,39 +429,40 @@ function UI_Lobby:refresh_highlight()
 
         -- 친구 
         etc_vars['friendNotiSprite']:setVisible(g_highlightData:isHighlightFpointSend() or g_highlightData:isHighlightFrinedInvite())
+
+		-- 이벤트
+		vars['eventManageNotiSprite']:setVisible(g_eventData:isHighlightEvent())
+
+		-- 드래곤 소환
+		local highlight, t_highlight = g_hatcheryData:checkHighlight()
+		vars['drawNotiSprite']:setVisible(highlight)
+    
+		-- 드래곤의 숲
+		vars['forestNotiSprite']:setVisible(ServerData_Forest:getInstance():isHighlightForest())
+
+		-- 테이머
+		vars['tamerNotiSprite']:setVisible(g_tamerData:isHighlightTamer())
+
+		-- 마스터의 길
+		local has_reward, _ = g_masterRoadData:hasRewardRoad()
+		vars['masterRoadNotiSprite']:setVisible(has_reward)
+
+		-- 도감
+		etc_vars['bookNotiSprite']:setVisible(g_bookData:isHighlightBook())
+
+		-- 가방
+		etc_vars['inventoryNotiSprite']:setVisible(g_highlightData:isHighlightRune())
+
+		-- 기타 (친구 or 도감 or 가방)
+		local is_etc_noti = (etc_vars['friendNotiSprite']:isVisible() or etc_vars['bookNotiSprite']:isVisible() or etc_vars['inventoryNotiSprite']:isVisible())
+		vars['etcNotiSprite']:setVisible(is_etc_noti)
+
+		-- 클랜
+		vars['clanNotiSprite']:setVisible(g_clanData:isHighlightClan())
     end
 
     g_highlightData:request_highlightInfo(highlight_func)
 
-    -- 드래곤 소환
-    local highlight, t_highlight = g_hatcheryData:checkHighlight()
-    vars['drawNotiSprite']:setVisible(highlight)
-    
-    -- 드래곤의 숲
-    vars['forestNotiSprite']:setVisible(ServerData_Forest:getInstance():isHighlightForest())
-
-    -- 테이머
-    vars['tamerNotiSprite']:setVisible(g_tamerData:isHighlightTamer())
-
-    -- 이벤트
-    vars['eventManageNotiSprite']:setVisible(g_eventData:isHighlightEvent())
-
-    -- 마스터의 길
-    local has_reward, _ = g_masterRoadData:hasRewardRoad()
-    vars['masterRoadNotiSprite']:setVisible(has_reward)
-
-	-- 도감
-	etc_vars['bookNotiSprite']:setVisible(g_bookData:isHighlightBook())
-
-	-- 가방
-	etc_vars['inventoryNotiSprite']:setVisible(g_highlightData:isHighlightRune())
-
-    -- 기타 (친구 or 도감 or 가방)
-    local is_etc_noti = (etc_vars['friendNotiSprite']:isVisible() or etc_vars['bookNotiSprite']:isVisible() or etc_vars['inventoryNotiSprite']:isVisible())
-    vars['etcNotiSprite']:setVisible(is_etc_noti)
-
-    -- 클랜
-    vars['clanNotiSprite']:setVisible(g_clanData:isHighlightClan())
 end
 
 -------------------------------------

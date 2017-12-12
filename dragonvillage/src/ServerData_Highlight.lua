@@ -16,6 +16,7 @@ ServerData_Highlight = class({
         new_mail = '',
         invite = '',
         fpoint_send = '',
+		daily_mission_clan = '',
         ----------------------------------------------
 
         ----------------------------------------------
@@ -147,6 +148,13 @@ end
 -------------------------------------
 function ServerData_Highlight:isHighlightFrinedInvite()
     return (0 < self['invite'])
+end
+
+-------------------------------------
+-- function isHighlighDailyMissionClan
+-------------------------------------
+function ServerData_Highlight:isHighlighDailyMissionClan()
+    return (0 < self['daily_mission_clan'])
 end
 
 -------------------------------------

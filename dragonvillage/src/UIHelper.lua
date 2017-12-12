@@ -222,3 +222,20 @@ function UIHelper:checkPrice(price_type, price)
 
 	return true
 end
+
+-------------------------------------
+-- function makeHighlightFrame
+-------------------------------------
+function UIHelper:makeHighlightFrame(node)
+	if (not node) then
+		return
+	end
+
+	local content_size = node:getContentSize()
+	local highlight_sprite = cc.Scale9Sprite:create('res/ui/a2d/card/card_cha_frame_select.png')
+	highlight_sprite:setDockPoint(cc.p(0.5, 0.5))
+    highlight_sprite:setAnchorPoint(cc.p(0.5, 0.5))
+	highlight_sprite:setContentSize(content_size)
+	highlight_sprite:runAction(cca.flash())
+	node:addChild(highlight_sprite)
+end
