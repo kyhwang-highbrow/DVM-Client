@@ -69,7 +69,7 @@ end
 -------------------------------------
 -- function request_dailyMissionReward
 -------------------------------------
-function ServerData_DailyMission:request_dailyMissionReward(finish_cb, fail_cb)
+function ServerData_DailyMission:request_dailyMissionReward(mission_key, day, finish_cb, fail_cb)
     -- 파라미터
     local uid = g_userData:get('uid')
 
@@ -84,6 +84,8 @@ function ServerData_DailyMission:request_dailyMissionReward(finish_cb, fail_cb)
     local ui_network = UI_Network()
     ui_network:setUrl('/users/daily_mission/reward')
     ui_network:setParam('uid', uid)
+	ui_network:setParam('mission_key', mission_key)
+	ui_network:setParam('day', day)
     ui_network:setSuccessCB(success_cb)
     ui_network:setFailCB(fail_cb)
     ui_network:setRevocable(true)

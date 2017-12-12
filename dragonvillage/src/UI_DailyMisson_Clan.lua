@@ -7,6 +7,8 @@ UI_DailyMisson_Clan = class(PARENT,{
 		m_lDailyMissionItem = 'list', -- idx가 숫자라 list로..
     })
 
+local MISSION_KEY = 'clan'
+
 -------------------------------------
 -- function init
 -------------------------------------
@@ -28,7 +30,7 @@ end
 function UI_DailyMisson_Clan:initUI()
     local vars = self.vars
 
-	local key = 'clan'
+	local key = MISSION_KEY
 	local mission_list = TableDailyMission:getMissionList(key)
 	local function click_func()
 		self:refresh()
@@ -56,10 +58,14 @@ end
 function UI_DailyMisson_Clan:refresh()
     local vars = self.vars
 
-	local struct_mission = g_dailyMissionData:getMissionStruct('clan')
+	local struct_mission = g_dailyMissionData:getMissionStruct(MISSION_KEY)
 	if (not struct_mission) then
 		return 
 	end
+
+	--struct_mission['curr_day'] = 3
+	--struct_mission['is_clear'] = true
+	--struct_mission['reward'] = false
 
 	local curr_day = struct_mission['curr_day']
 
@@ -74,22 +80,36 @@ function UI_DailyMisson_Clan:refresh()
 
 	-- 출석 미션 진행 중
 	for i, ui in ipairs(self.m_lDailyMissionItem) do
-		ui.vars['receiveBtn']:setEnabled(false)
-		ui.vars['readySprite']:setVisible(false)
-		ui.vars['checkSprite']:setVisible(false)
+		local ui_vars = ui.vars
+
+		ui_vars['receiveBtn']:setEnabled(false)
+		ui_vars['readySprite']:setVisible(false)
+		ui_vars['checkSprite']:setVisible(false)
 
 		-- 다음날 들
 		if (i > curr_day) then
-			ui.vars['checkSprite']:setVisible(true)
+			ui_vars['readySprite']:setVisible(true)
 
 		-- 전날 들
 		elseif (i < curr_day) then
-			ui.vars['readySprite']:setVisible(true)
+			ui_vars['checkSprite']:setVisible(true)
 
 		-- 당일
 		else
+			-- 클리어한 상태
 			if (struct_mission['is_clear']) then
-				ui.vars['receiveBtn']:setEnabled(not struct_mission['reward'])
+				-- 보상 받음 (모두 완료)
+				if (struct_mission['reward']) then
+					ui_vars['checkSprite']:setVisible(true)
+
+				-- 보상 수령 가능 상태
+				else
+					ui_vars['receiveBtn']:setEnabled(true)
+				end
+
+			-- 미션 진행 중
+			else
+				ui_vars['readySprite']:setVisible(true)
 			end
 		end
 	end
@@ -141,7 +161,7 @@ function UI_DailyMisson_Clan.makeCell(t_data, click_func)
 
     -- 보상 수령
     vars['receiveBtn']:registerScriptTapHandler(function()
-		g_dailyMissionData:request_dailyMissionReward(click_func)
+		g_dailyMissionData:request_dailyMissionReward(MISSION_KEY, day, click_func)
     end)
 	vars['receiveBtn']:setEnabled(false)
 
