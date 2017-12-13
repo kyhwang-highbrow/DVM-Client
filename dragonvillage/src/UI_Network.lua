@@ -222,7 +222,10 @@ local S_ERROR_STATUS = {
     [-187] = Str('하이브로 서버가 점검중입니다.\n잠시 후에 다시 시도 해주세요.'), -- maintenance access 서버가 점검중인 경우
 
     -- 클랜
-    [-1103] = Str('존재하지 않는 클랜입니다.') -- not exist clan
+    [-1103] = Str('존재하지 않는 클랜입니다.'), -- not exist clan
+
+	-- common
+	[-1391] = Str('잘못된 요청입니다.')
 }
 
 local S_ERROR_STATUS_SHOP = {
