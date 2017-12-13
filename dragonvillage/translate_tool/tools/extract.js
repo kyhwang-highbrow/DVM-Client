@@ -64,9 +64,32 @@ function collectFromData( $data )
 
 function startUpload()
 {
-	new Upload( "en", "1TzxlNwZHMZxG4W0LsPokaQfnCsCoCM3qvozAt7tvICg", list );
-	new Upload( "jp", "1hYRS7hE6OTRNQ-2RJL14O0VmxXxbYoT0wtQ7-rFnAi4", list );
-	new Upload( "zh_tw", "1Cv2vBmWpnVwK74KN6SnL0QKdTpMoAx8VPYDzOi9yks0", list );
+	var idx = 0;
+	var uploadList = [];
+	uploadList[0] = {}
+	uploadList[0].locale = "en";
+	uploadList[0].id = "1TzxlNwZHMZxG4W0LsPokaQfnCsCoCM3qvozAt7tvICg";
+	uploadList[1] = {}
+	uploadList[1].locale = "jp";
+	uploadList[1].id = "1hYRS7hE6OTRNQ-2RJL14O0VmxXxbYoT0wtQ7-rFnAi4";
+	uploadList[2] = {}
+	uploadList[2].locale = "zh_tw";
+	uploadList[2].id = "1Cv2vBmWpnVwK74KN6SnL0QKdTpMoAx8VPYDzOi9yks0";
+	function onFinish()
+	{
+		if( idx < uploadList.length )
+		{
+			var updata = uploadList[idx];
+			new Upload( updata.locale, updata.id, list, onFinish);
+			++idx;
+		}
+	}
+
+	onFinish();
+
+	//new Upload( "en", "1TzxlNwZHMZxG4W0LsPokaQfnCsCoCM3qvozAt7tvICg", list, onFinish );
+	//new Upload( "jp", "1hYRS7hE6OTRNQ-2RJL14O0VmxXxbYoT0wtQ7-rFnAi4", list, onFinish );
+	//new Upload( "zh_tw", "1Cv2vBmWpnVwK74KN6SnL0QKdTpMoAx8VPYDzOi9yks0", list, onFinish );
 }
 
 var data = {};

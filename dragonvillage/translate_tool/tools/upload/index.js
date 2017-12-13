@@ -4,11 +4,12 @@ const log = util.log;
 
 module.exports = Upload;
 
-function Upload( $locale, $spreadsheet_id, $data )
+function Upload( $locale, $spreadsheet_id, $data, $cbFinish )
 {
 	this.locale = $locale;
 	this.spreadsheet_id = $spreadsheet_id;
 	this.data = util.deepCopy( $data );
+	this.cbFinish = $cbFinish;
 
 	this.loadSheet();
 }
@@ -18,6 +19,7 @@ Upload.prototype.loadSheet = function()
 	var spreadsheet_id = this.spreadsheet_id;
 	var locale = this.locale;
 	var data = this.data;
+	var cbFinish = this.cbFinish;
 
 	var header = [ "kr", locale, "hints", "date" ];
 	var row_count;
@@ -27,7 +29,7 @@ Upload.prototype.loadSheet = function()
 	spreadsheet.init( onInit );
 
 	var sheet;
-
+	var uploadCount = 0;
 	function onInit( $info )
 	{
 		var totalSheet = spreadsheet.getWorksheet( "total" );
@@ -171,6 +173,8 @@ Upload.prototype.loadSheet = function()
 		} )
 	}
 
+	var requestCount = 0;
+	var isFinishOnCell = false;
 	function uploadData()
 	{
 		if( data.length == 0 )
@@ -196,14 +200,13 @@ Upload.prototype.loadSheet = function()
 			var row, col;
 			var tempData = [];
 			var tempIdx = 0;
-			var tempMaxCount = 1000;
+			var tempMaxCount = 1000;			
 			for( i ; i < len ; i++ )
 			{
 				row = Math.floor( i / col_count );
 				col = i % col_count;
 
-				var value = data[ row ][ col ];
-
+				var value = data[ row ][ col ];				
 				if( value.indexOf( "''" ) == 0 )
 					value = value.substr( 1 );
 
@@ -211,22 +214,25 @@ Upload.prototype.loadSheet = function()
 
 				tempData[ tempIdx ] = $cells[ i ];
 				++tempIdx;
-
+				
 				if( tempIdx >= tempMaxCount )
 				{
+					++requestCount;
 					sheet.bulkUpdateCells( tempData, onUpdate );		
 					tempData = [];
-					tempIdx = 0;
+					tempIdx = 0;					
 				}
 			}
+			isFinishOnCell = true;
 
 			if( tempIdx <= 0 )
 			{
-				onUpdateFinish();
+				onUpdate();
 			}
 			else
 			{
-				sheet.bulkUpdateCells( tempData, onUpdateFinish );
+				++requestCount;
+				sheet.bulkUpdateCells( tempData, onUpdate );
 			}
 		}
 	}
@@ -236,14 +242,14 @@ Upload.prototype.loadSheet = function()
 		if( $err )
 			throw $err;
 
-		log( "onUpdate..." );
+		--requestCount;
+		if( isFinishOnCell == true && requestCount <= 0 )
+		{
+			log( "complete : " + locale + " (" + data.length + ")" );
+			cbFinish();
+		}
+		else
+			log( "onUpdate..." );
 	}
 
-	function onUpdateFinish( $err )
-	{
-		if( $err )
-			throw $err;
-
-		log( "complete : " + locale + " (" + data.length + ")" );
-	}
 }
