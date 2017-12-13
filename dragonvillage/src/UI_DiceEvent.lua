@@ -134,6 +134,7 @@ end
 function UI_DiceEvent:initButton()
     local vars = self.vars
     vars['diceBtn']:registerScriptTapHandler(function() self:click_diceBtn() end)
+	vars['goldBtn']:registerScriptTapHandler(function() self:click_diceBtn() end)
 end
 
 -------------------------------------
@@ -175,8 +176,8 @@ function UI_DiceEvent:refresh()
 	-- 추가 주사위 처리
 	do
 		local is_add = (curr_dice == 0)
-		vars['goldNode']:setVisible(is_add)
-		vars['diceNode']:setVisible(not is_add)
+		vars['goldBtn']:setEnabled(is_add)
+		vars['diceBtn']:setEnabled(not is_add)
 	
 		-- 추가 주사위 현황
 		local add_desc = dice_info:getAdditionalStateDesc()
