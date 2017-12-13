@@ -225,10 +225,10 @@ end
 -------------------------------------
 function GameWorld:kill_se()
     for i, v in ipairs(self:getEnemyList()) do
-        for i2, v2 in ipairs(v:getStatusEffectList()) do
+        for i2, v2 in pairs(v:getStatusEffectList()) do
             v2:changeState('end')
         end
-        for i2, v2 in ipairs(v:getHiddenStatusEffectList()) do
+        for i2, v2 in pairs(v:getHiddenStatusEffectList()) do
             v2:changeState('end')
         end
     end
