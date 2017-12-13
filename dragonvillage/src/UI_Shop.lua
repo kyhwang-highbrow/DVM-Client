@@ -75,6 +75,7 @@ end
 -- function refresh
 -------------------------------------
 function UI_Shop:refresh()
+	self.vars['cashEventSprite']:setVisible(g_shopDataNew:isExistCashSale())
 end
 
 -------------------------------------
@@ -110,6 +111,8 @@ function UI_Shop:buyResult(ret)
             ui:clearProductList()
         end
     end
+	
+	self:refresh()
 
     self:setTab(self.m_currTab, true)
 end

@@ -365,6 +365,22 @@ function ServerData_Shop:isDirty()
 end
 
 -------------------------------------
+-- function isExistCashSale
+-------------------------------------
+function ServerData_Shop:isExistCashSale()
+    local shop_list = self:getProductList('cash')
+	local is_event = false
+	for i, v in pairs(shop_list) do
+		-- 해당 sku가 있다면 true!
+		if (string.find(v['sku'], 'dvm_firstdia')) then 
+			return true
+		end
+	end
+
+	return false
+end
+
+-------------------------------------
 -- function isExist
 -------------------------------------
 function ServerData_Shop:isExist(category, product_id)
