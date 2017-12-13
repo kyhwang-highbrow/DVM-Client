@@ -140,6 +140,10 @@ function ServerData_Event:getEventFullPopupList()
                     is_exist = false
                 end
 
+            -- 패키지인 경우 모두 구매시 노출시키지 않음.
+            elseif (string.find(event_type, 'package')) and (PackageManager:isBuyAll(event_type)) then
+                is_exist = false
+
             -- banner type인 경우 resource, url까지 등록
             elseif (event_type == 'banner') then
                 event_type = event_type .. ';' .. v['banner'] .. ';' .. v['url']

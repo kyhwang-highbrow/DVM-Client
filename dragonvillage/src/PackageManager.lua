@@ -88,5 +88,38 @@ function PackageManager:isExist(package_name)
         end
     end
 
+
     return is_exist
+end
+
+-------------------------------------
+-- function isBuyAll
+-- @brief 번들 패키지일 경우 모두 구매했는지 체크
+-------------------------------------
+function PackageManager:isBuyAll(package_name)
+    local l_shop_list = g_shopDataNew:getProductList('package')
+    local target_product = TablePackageBundle:getPidsWithName(package_name)
+    local is_buy_all = false
+
+    if (not target_product) then
+        return is_buy_all
+    end
+
+    for _, pid in ipairs(target_product) do
+        local data = l_shop_list[tonumber(pid)]
+        if (data) then
+            ccdump(data)
+            local buy_cnt = g_shopDataNew:getBuyCount(pid)
+            local max_buy_cnt = data['max_buy_count']
+
+            if (buy_cnt >= max_buy_cnt) then
+                is_buy_all = true
+            else
+                is_buy_all = false
+                break
+            end
+        end
+    end
+
+    return is_buy_all
 end
