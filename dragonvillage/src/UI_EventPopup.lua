@@ -182,7 +182,7 @@ function UI_EventPopup:makeEventPopupTab(tab)
     local struct_event_popup_tab = item['data']
 
 	-- 출석 (일반)
-    if (tab == 'attendance') then
+    if string.find(tab, 'attendance') then
 		local event_id = struct_event_popup_tab.m_eventData['event_id']
 		if (event_id == 'basic') then
 			ui = UI_EventPopupTab_Attendance(self, struct_event_popup_tab)
