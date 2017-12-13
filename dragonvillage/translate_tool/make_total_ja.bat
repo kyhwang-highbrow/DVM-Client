@@ -1,0 +1,3 @@
+@echo off
+node --max-old-space-size=4096 tools/make_total.js jp 1hYRS7hE6OTRNQ-2RJL14O0VmxXxbYoT0wtQ7-rFnAi4
+@pause
