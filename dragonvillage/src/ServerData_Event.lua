@@ -29,13 +29,6 @@ function ServerData_Event:getEventPopupTabList()
     local item_list = {}
     local event_list = self.m_eventList
 
-    -- 출석 체크 고정 (기본출석, 이벤트출석) -- 우선순위는 이벤트 리스트에서 가져오도록 변경함
-    for i, v in pairs(g_attendanceData.m_structAttendanceDataList) do
-        local event_popup_tab = StructEventPopupTab(v)
-        item_list[event_popup_tab.m_type] = event_popup_tab
-        self:setEventTabNoti(event_popup_tab)
-    end
-
     -- 기타 가변적인 이벤트 (shop, banner, access_time)
     local idx = 1
     for i, v in ipairs(event_list) do
@@ -69,6 +62,12 @@ function ServerData_Event:getEventPopupTabList()
 		elseif (event_type == 'daily_mission') then
 			-- 전부 클리어 체크
 			if (g_dailyMissionData:getMissionDone(event_id)) then
+				is_exist = false
+			end
+
+		-- 출석
+		elseif (event_type == 'attendance') then
+			if (not g_attendanceData:getAttendanceData(event_id)) then
 				is_exist = false
 			end
 
@@ -297,7 +296,7 @@ function ServerData_Event:setEventTabNoti(event_tab)
     local event_type = event_tab.m_type
 
     -- 출석 받을 보상 있음
-    if (event_tab.m_bAttendance) then
+    if (event_type == 'attendance') then
         event_tab.m_hasNoti = g_attendanceData:hasAttendanceReward()
 
     -- 접속 시간 받을 보상 있음

@@ -103,14 +103,21 @@ function ServerData_Attendance:hasAttendanceReward()
 end
 
 -------------------------------------
--- function getBasicAttendance
+-- function getAttendanceData
 -------------------------------------
-function ServerData_Attendance:getBasicAttendance()
+function ServerData_Attendance:getAttendanceData(atdc_type)
     for i,v in pairs(self.m_structAttendanceDataList) do
-        if v.attendance_type == 'basic' then
+        if (v.attendance_type == atdc_type) then
             return v
         end
     end
 
     return nil
+end
+
+-------------------------------------
+-- function getBasicAttendance
+-------------------------------------
+function ServerData_Attendance:getBasicAttendance()
+    return self:getAttendanceData('basic')
 end

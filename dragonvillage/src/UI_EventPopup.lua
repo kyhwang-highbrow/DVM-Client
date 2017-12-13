@@ -181,13 +181,14 @@ function UI_EventPopup:makeEventPopupTab(tab)
     local item = self.m_tableView:getItem(tab)
     local struct_event_popup_tab = item['data']
 
-    -- 출석 (일반)
-    if (tab == 'attendance_basic') then
-        ui = UI_EventPopupTab_Attendance(self, struct_event_popup_tab)
-
-    -- 출석체크 이벤트
-    elseif (tab == 'attendance_event') then
-        ui = UI_EventPopupTab_EventAttendance(self, struct_event_popup_tab)
+	-- 출석 (일반)
+    if (tab == 'attendance') then
+		local event_id = struct_event_popup_tab.m_eventData['event_id']
+		if (event_id == 'basic') then
+			ui = UI_EventPopupTab_Attendance(self, struct_event_popup_tab)
+		elseif (event_id == 'event') then
+			ui = UI_EventPopupTab_EventAttendance(self, struct_event_popup_tab)
+		end
 
     -- 접속시간 이벤트
     elseif (tab == 'access_time') then
