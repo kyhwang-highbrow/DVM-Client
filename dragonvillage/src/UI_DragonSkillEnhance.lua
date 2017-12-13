@@ -432,6 +432,9 @@ function UI_DragonSkillEnhance:click_dragonSkillMove(data)
         if (not mod_struct_dragon) then
             return
         end
+        -- 스킬강화 UI 뒤의 드래곤관리UI를 갱신하도록 한다.
+        self.m_bChangeDragonList = true
+
         self.m_selectDragonData = mod_struct_dragon
         self:refresh()
     end)
