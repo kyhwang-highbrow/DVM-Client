@@ -14,6 +14,7 @@ const ignoreFiles = [
 ];
 
 // 1. 프로젝트 루트 설정.
+//const hod_root = "C:/Work_Perplelab/dragonvillage/res/emulator/translate_tool";//process.env.HOD_ROOT;
 const hod_root = process.env.HOD_ROOT;
 
 if( !fs.existsSync( hod_root ) )

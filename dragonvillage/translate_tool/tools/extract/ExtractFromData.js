@@ -51,13 +51,18 @@ ExtractFromData.prototype.collect = function( $callback )
 function getStr( $path, $callback )
 {
 	var text = fs.readFileSync( $path ).toString();
-
+	var header;
 	csv.parse( text, function( $err, $data )
 	{
-		var lines = $data;
-		var i = 0;
+		var lines = $data;		
 		var len = lines.length;
 		var line;
+		if( len > 0 )
+			header = lines[0];
+		else
+			header = null;
+
+		var i = 1;
 		for( i ; i < len ; i++ )
 		{
 			line = lines[ i ];
@@ -77,8 +82,11 @@ function getStr( $path, $callback )
 		{
 			str = $line[ i ];
 			
-			var reg = /[가-힣]+/g;
+			//t_ 붙은것만
+			if( header[i].indexOf("t_") < 0 )
+				continue;
 
+			var reg = /[가-힣]+/g;
 			if( reg.exec( str ) == null )
 				continue;
 
