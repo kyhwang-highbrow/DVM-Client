@@ -21,7 +21,7 @@ MAP_KEY_FUNC[KEY_K] = 'kill_skill'
 MAP_KEY_FUNC[KEY_L] = 'kill_missile'
 MAP_KEY_FUNC[KEY_J] = 'kill_dragon'
 MAP_KEY_FUNC[KEY_D] = 'kill_boss'
-
+MAP_KEY_FUNC[KEY_F] = 'kill_se'
 MAP_KEY_FUNC[KEY_Y] = 'se_on_dragon'
 MAP_KEY_FUNC[KEY_T] = 'se_on_monster'
 
@@ -217,6 +217,21 @@ function GameWorld:kill_missile()
 	for _, missile in pairs(self.m_lMissileList) do
 		missile:changeState('dying')
 	end
+end
+
+-------------------------------------
+-- function kill_se
+-- @brief 적군의 모든 상태효과 제거
+-------------------------------------
+function GameWorld:kill_se()
+    for i, v in ipairs(self:getEnemyList()) do
+        for i2, v2 in ipairs(v:getStatusEffectList()) do
+            v2:changeState('end')
+        end
+        for i2, v2 in ipairs(v:getHiddenStatusEffectList()) do
+            v2:changeState('end')
+        end
+    end
 end
 
 -------------------------------------
