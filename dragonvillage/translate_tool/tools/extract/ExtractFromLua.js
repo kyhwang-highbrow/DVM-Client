@@ -7,14 +7,14 @@ module.exports = ExtractFromLua;
 function ExtractFromLua( $luaDirectory, $ignoreFiles )
 {
 	this.directory = $luaDirectory + "/";
-	this.ignoreFiles = $ignoreFiles;
+	this.ignoreFiles = $ignoreFiles;	
 }
 
 ExtractFromLua.prototype.collect = function()
 {
 	var option = {};
 	option.ignoreFiles = this.ignoreFiles;
-	option.ignoreExtensions = [ ".bak", ".proto" ];
+	option.ignoreExtensions = [ ".bak", ".proto", ".svn-base" ];
 
 	var files = util.file.getAllFiles( this.directory, option );
 

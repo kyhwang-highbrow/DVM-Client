@@ -14,7 +14,7 @@ ExtractFromUI.prototype.collect = function()
 {
 	var option = {};
 	option.ignoreFiles = this.ignoreFiles;
-	option.ignoreExtensions = [ ".bak", ".proto" ];
+	option.ignoreExtensions = [ ".bak", ".proto", ".svn-base" ];
 
 	var allFiles = util.file.getAllFiles( this.directory, option );
 

@@ -80,6 +80,7 @@ function startUpload()
 		if( idx < uploadList.length )
 		{
 			var updata = uploadList[idx];
+			log("Upload Start : " + updata.locale);
 			new Upload( updata.locale, updata.id, list, onFinish);
 			++idx;
 		}

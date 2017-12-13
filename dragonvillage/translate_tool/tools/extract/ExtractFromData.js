@@ -19,6 +19,7 @@ ExtractFromData.prototype.collect = function( $callback )
 {
 	var option = {};
 	option.ignoreFiles = this.ignoreFiles;
+	option.ignoreExtensions = [ ".bak", ".proto", ".svn-base" ];
 
 	if(fs.existsSync(this.directory) == false )
 	{

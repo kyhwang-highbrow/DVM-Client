@@ -23,7 +23,10 @@ exports.getAllFiles = function( $directory, $option )
 					continue;
 
 				if( $option.ignoreExtensions && $option.ignoreExtensions.indexOf( path.extname( file ) ) > -1 )
+				{
+					console.log("ignoreExtensions :" + file);
 					continue;
+				}
 			}
 
 			if( fs.statSync( $dir + file ).isDirectory() )
