@@ -62,7 +62,7 @@ function UI_DragonSkillMove:refresh()
     local vars = self.vars
 
     do -- 타겟 드래곤 스킬 정보
-        local node = vars['itemMenu1']
+        local node = vars['itemNode1']
         node:removeAllChildren()
 
         local dragon_data = g_dragonsData:getDragonDataFromUid(self.m_tar_dragon_data['id'])
@@ -73,7 +73,7 @@ function UI_DragonSkillMove:refresh()
     end
     
     do -- 재료 드래곤 스킬 정보
-        local node = vars['itemMenu2']
+        local node = vars['itemNode2']
         node:removeAllChildren()
 
         local dragon_data = g_dragonsData:getDragonDataFromUid(self.m_src_dragon_data['id'])
@@ -146,6 +146,12 @@ function UI_DragonSkillMove:show_effect(finish_cb)
         effect:setPosition(ZERO_POINT)
         effect:setScale(1.2)
         target_node:addChild(effect.m_node)
+
+        local duration = effect:getDuration()
+        effect:runAction(cc.Sequence:create(
+            cc.DelayTime:create(duration),
+            cc.RemoveSelf:create()
+        ))
     end
 end
 
