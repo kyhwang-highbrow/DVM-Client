@@ -558,6 +558,7 @@ function UI_DragonManage_Base:init_mtrDragonSortMgr(slime_first)
         end
     end)
 
+	vars['sortSelectOrderSprite']:setRotation(180)
     -- 재료드래곤 정렬은 등급 역순이 기본
     sort_mgr:setAllAscending(true)
     -- 자코, 레벨, 진화도 순으로 정렬.
