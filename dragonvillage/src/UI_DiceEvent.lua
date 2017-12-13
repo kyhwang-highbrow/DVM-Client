@@ -424,6 +424,9 @@ function UI_DiceEvent.makeLap(t_data)
         item_id = t_reward['item_id']
         value = t_reward['value']
         icon = IconHelper:getItemIcon(item_id)
+		if (TableItem:getItemType(item_id) == 'reinforce_point') then
+			icon:setScale(0.8)
+		end
         vars['rewardNode']:addChild(icon)
 
         -- 보상 갯수에 따라 위치 조정
