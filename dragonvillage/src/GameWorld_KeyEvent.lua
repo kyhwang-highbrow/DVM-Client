@@ -10,7 +10,8 @@ MAP_KEY_FUNC[KEY_M] = 'init_map'
 MAP_KEY_FUNC[KEY_S] = 'visible_ingame_ui'
 
 MAP_KEY_FUNC[KEY_O] = 'force_wait'
-MAP_KEY_FUNC[KEY_P] = 'clear_wait'
+MAP_KEY_FUNC[KEY_I] = 'clear_wait'
+MAP_KEY_FUNC[KEY_P] = 'game_pause'
 
 MAP_KEY_FUNC[KEY_Z] = 'print_dragon_info'
 MAP_KEY_FUNC[KEY_X] = 'print_enemy_info'
@@ -20,10 +21,11 @@ MAP_KEY_FUNC[KEY_W] = 'print_missile_range'
 MAP_KEY_FUNC[KEY_K] = 'kill_skill'
 MAP_KEY_FUNC[KEY_L] = 'kill_missile'
 MAP_KEY_FUNC[KEY_J] = 'kill_dragon'
-MAP_KEY_FUNC[KEY_D] = 'kill_boss'
-MAP_KEY_FUNC[KEY_F] = 'kill_se'
+MAP_KEY_FUNC[KEY_D] = 'kill_ally_se'
+MAP_KEY_FUNC[KEY_F] = 'kill_enemy_se'
 MAP_KEY_FUNC[KEY_Y] = 'se_on_dragon'
 MAP_KEY_FUNC[KEY_T] = 'se_on_monster'
+MAP_KEY_FUNC[KEY_Q] = 'kill_boss'
 
 MAP_KEY_FUNC[KEY_LEFT_BRACKET] = 'game_speed_down'
 MAP_KEY_FUNC[KEY_RIGHT_BRACKET] = 'game_speed_up'
@@ -220,10 +222,10 @@ function GameWorld:kill_missile()
 end
 
 -------------------------------------
--- function kill_se
+-- function kill_enemy_se
 -- @brief 적군의 모든 상태효과 제거
 -------------------------------------
-function GameWorld:kill_se()
+function GameWorld:kill_enemy_se()
     for i, v in ipairs(self:getEnemyList()) do
         for i2, v2 in pairs(v:getStatusEffectList()) do
             v2:changeState('end')
@@ -233,6 +235,34 @@ function GameWorld:kill_se()
         end
     end
 end
+
+-------------------------------------
+-- function kill_ally_se
+-- @brief 아군의 모든 상태효과 제거
+-------------------------------------
+function GameWorld:kill_ally_se()
+    for i, v in ipairs(self:getDragonList()) do
+        for i2, v2 in pairs(v:getStatusEffectList()) do
+            v2:changeState('end')
+        end
+        for i2, v2 in pairs(v:getHiddenStatusEffectList()) do
+            v2:changeState('end')
+        end
+    end
+end
+
+-------------------------------------
+-- function game_pause
+-- @brief pause/resume
+-------------------------------------
+function GameWorld:game_pause()
+    if (g_gameScene.m_bPause) then
+        g_gameScene:gameResume()
+    else 
+        g_gameScene:gamePause()
+    end
+end
+
 
 -------------------------------------
 -- function kill_dragon
