@@ -41,6 +41,8 @@ MAP_KEY_FUNC[KEY_2] = 'tamer_event_skill'
 MAP_KEY_FUNC[KEY_3] = 'print_total_damage_to_hero'
 MAP_KEY_FUNC[KEY_4] = 'reload_skill_sound_table'
 
+MAP_KEY_FUNC[KEY_G] = 'do_dragon_passive_1'
+MAP_KEY_FUNC[KEY_H] = 'do_dragon_passive_2'
 --[[
 MAP_KEY_FUNC[KEY_LEFT_ARROW] = 'camera_move_left'
 MAP_KEY_FUNC[KEY_RIGHT_ARROW] = 'camera_move_right'
@@ -576,3 +578,28 @@ function GameWorld:pause_dragon_5()
     end
 end
 
+-------------------------------------
+-- function do_dragon_passive_1
+-------------------------------------
+function GameWorld:do_dragon_passive_1()
+    for i, v in ipairs(g_gameScene.m_gameWorld:getDragonList()) do
+        if (not v.m_bWaitState) then
+            local did = v.m_dragonID
+            skill_id = TABLE:get('dragon')[did]['skill_1']
+            v:doSkill(skill_id, 0, 0)
+        end
+    end
+end
+
+-------------------------------------
+-- function do_dragon_passive_2
+-------------------------------------
+function GameWorld:do_dragon_passive_2()
+    for i, v in ipairs(g_gameScene.m_gameWorld:getDragonList()) do
+        if (not v.m_bWaitState) then
+            local did = v.m_dragonID
+            skill_id = TABLE:get('dragon')[did]['skill_2']
+            v:doSkill(skill_id, 0, 0)
+        end
+    end
+end
