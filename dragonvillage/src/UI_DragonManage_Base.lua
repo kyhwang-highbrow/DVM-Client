@@ -411,17 +411,13 @@ function UI_DragonManage_Base:refresh_dragonMaterialTableView()
     table_view_td:setCellUIClass(UI_DragonCard, create_func)
     self.m_mtrlTableViewTD = table_view_td
 
---    table_view_td:setEmptyDescNode(vars['materialEmptySprite'])
-
     -- 재료로 사용 가능한 리스트를 얻어옴
     local l_dragon_list = self:getDragonMaterialList(self.m_selectDragonOID)
     self.m_mtrlTableViewTD:setItemList(l_dragon_list)
 
     -- 리스트가 비었을 때
     local msg = Str('도와줄 드래곤이 없다고라') 
---    vars['materialEmptyLabel']:setString(msg)
-
-    table_view_td:makeDefaultEmptyDescLabel(msg)
+    table_view_td:makeDefaultEmptyMandragora(msg)
 
 	self:apply_mtrlDragonSort()
 end
@@ -449,8 +445,6 @@ function UI_DragonManage_Base:refresh_dragonSkillMoveTableView()
     table_view_td:setCellUIClass(UI_DragonCard, create_func)
     self.m_skillmoveTableViewTD = table_view_td
 
---    table_view_td:setEmptyDescNode(vars['moveEmptySprite'])
-
     -- 재료로 사용 가능한 리스트를 얻어옴
     local l_dragon_list = self:getDragonSkillMoveList(self.m_selectDragonOID)
     self.m_skillmoveTableViewTD:setItemList(l_dragon_list)
@@ -461,9 +455,7 @@ function UI_DragonManage_Base:refresh_dragonSkillMoveTableView()
     local msg = (birth_grade >= SKILL_MOVE_DRAGON_GRADE) and
                 Str('도와줄 드래곤이 없다고라') or
                 Str('스킬 레벨 이전은 태생 {1}등급 이상 드래곤부터 가능하고라', SKILL_MOVE_DRAGON_GRADE)
---    vars['moveEmptyLabel']:setString(msg)
-
-    table_view_td:makeDefaultEmptyDescLabel(msg)
+    table_view_td:makeDefaultEmptyMandragora(msg)
 
 	self:apply_mtrlDragonSort()
 end

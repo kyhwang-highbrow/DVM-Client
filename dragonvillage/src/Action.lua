@@ -256,11 +256,12 @@ end
 -- function pickMePickMe
 -- @brief 나를 골라줘! 하는 느낌의 무한 반복 점프 액션
 -------------------------------------
-function cca.pickMePickMe(node)
+function cca.pickMePickMe(node, move_y)
 	local jump_cnt = 3
 	local duration = jump_cnt * 0.3
+    local move_y = move_y or 50
 
-	local jump_action = cc.JumpBy:create(duration, cc.p(0, 0), 50, jump_cnt)
+	local jump_action = cc.JumpBy:create(duration, cc.p(0, 0), move_y, jump_cnt)
 	local delay = cc.DelayTime:create(1)
 	local sequence = cc.Sequence:create(jump_action, delay)
 

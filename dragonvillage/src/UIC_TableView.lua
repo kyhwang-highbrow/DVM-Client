@@ -44,6 +44,7 @@ UIC_TableView = class(PARENT, {
         -- 리스트가 비어있을 때 표시할 노드
         m_emptyDescNode = 'cc.Node',
         m_emptyDescLabel = 'cc.LabelTTF',
+        m_emptyUI = '',
 
 		-- scroll end event
 		m_scrollEndStd = 'number',
@@ -178,6 +179,12 @@ function UIC_TableView:update(dt)
             self.m_emptyDescLabel:setVisible(is_empty)
             if is_empty then
                 cca.uiReactionSlow(self.m_emptyDescLabel)
+            end
+        end
+        if self.m_emptyUI then
+            self.m_emptyUI.root:setVisible(is_empty)
+            if is_empty then
+                cca.pickMePickMe(self.m_emptyUI.root, 20)
             end
         end
 
@@ -1324,6 +1331,17 @@ function UIC_TableView:makeDefaultEmptyDescLabel(text)
     local label = UIC_Factory:MakeTableViewDescLabelTTF(self.m_scrollView, text)
     self.m_tableViewNode:addChild(label.m_node)
     self:setEmptyDescLabel(label)
+end
+
+-------------------------------------
+-- function makeDefaultEmptyMandragora
+-- @breif
+-------------------------------------
+function UIC_TableView:makeDefaultEmptyMandragora(text)
+    local ui = UIC_Factory:MakeTableViewEmptyMandragora(text)
+    self.m_tableViewNode:addChild(ui.root)
+
+    self.m_emptyUI = ui
 end
 
 -------------------------------------
