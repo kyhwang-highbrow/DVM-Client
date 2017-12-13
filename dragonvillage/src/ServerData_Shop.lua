@@ -372,7 +372,7 @@ function ServerData_Shop:isExistCashSale()
 	local is_event = false
 	for i, v in pairs(shop_list) do
 		-- 해당 sku가 있다면 true!
-		if (string.find(v['sku'], 'dvm_firstdia')) then 
+		if (v['badge'] == 'plus_one') then 
 			return true
 		end
 	end
