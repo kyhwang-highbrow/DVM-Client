@@ -272,8 +272,6 @@ end
 -------------------------------------
 function UI_TamerCostumeShop:click_selectBtn()
     local costume_data = self.m_selectCostumeData
-    ccdump(costume_data)
-
     local costume_id = costume_data:getCid()
     local tamer_id = costume_data:getTamerID()
 

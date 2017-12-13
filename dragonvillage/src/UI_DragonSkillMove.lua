@@ -6,17 +6,12 @@ local PARENT = UI
 UI_DragonSkillMove = class(PARENT,{
         m_tar_dragon_data = 'table',
         m_src_dragon_data = 'table',
+        
+        m_tar_ui = 'ui',
+        m_src_ui = 'ui',
+        
         m_modified_dragon_data = 'table',
     })
-
--- 등급별 스킬 이전 가격
-local MOVE_COST = {
-    100, 
-    200,
-    700,
-    1400,
-    2800
-}
 
 -------------------------------------
 -- function init
@@ -46,8 +41,8 @@ function UI_DragonSkillMove:initUI()
     local vars = self.vars
 
     do -- 스킬레벨 이전 가격
-        local birth_grade = TableDragon:getBirthGrade(self.m_tar_dragon_data['did'])
-        vars['priceLabel']:setString(comma_value(MOVE_COST[birth_grade]))
+        local price = self:getSkillMovePrice() 
+        vars['priceLabel']:setString(comma_value(price))
     end
 end
 
@@ -73,6 +68,8 @@ function UI_DragonSkillMove:refresh()
         local dragon_data = g_dragonsData:getDragonDataFromUid(self.m_tar_dragon_data['id'])
         local ui = UI_DragonSkillInfo(dragon_data)
         node:addChild(ui.root)
+
+        self.m_tar_ui = ui
     end
     
     do -- 재료 드래곤 스킬 정보
@@ -82,6 +79,73 @@ function UI_DragonSkillMove:refresh()
         local dragon_data = g_dragonsData:getDragonDataFromUid(self.m_src_dragon_data['id'])
         local ui = UI_DragonSkillInfo(dragon_data)
         node:addChild(ui.root)
+
+        self.m_src_ui = ui
+    end
+end
+
+-------------------------------------
+-- function getSkillMovePrice
+-------------------------------------
+function UI_DragonSkillMove:getSkillMovePrice()
+	
+    -- 등급별 스킬 이전 가격
+    local move_cost = {
+        100, 
+        200,
+        700,
+        1400,
+        2800
+    }
+
+    local birth_grade = TableDragon:getBirthGrade(self.m_tar_dragon_data['did'])
+	return move_cost[birth_grade]
+end
+
+-------------------------------------
+-- function show_effect
+-- @brief 스킬 강화 연출
+-------------------------------------
+function UI_DragonSkillMove:show_effect(finish_cb)
+    local block_ui = UI_BlockPopup() 
+    local res_path = 'res/ui/a2d/dragon_skill_enhance_move/dragon_skill_enhance_move.vrp'
+
+    -- SKILL LV UP 
+    do
+        local ui = self.m_tar_ui
+        local slot = g_dragonsData:getChangeSkillLvSlot(self.m_tar_dragon_data)
+        local target_node = ui.vars['skillNode'..slot]
+
+        local effect = MakeAnimator(res_path)
+        effect:changeAni('lvup', false)
+        effect:setPosition(ZERO_POINT)
+        effect:setScale(1.2)
+        target_node:addChild(effect.m_node)
+
+        local duration = effect:getDuration()
+        effect:runAction(cc.Sequence:create(
+            cc.DelayTime:create(duration),
+            cc.CallFunc:create(function() 
+                if (finish_cb) then
+                    finish_cb()
+                end
+                block_ui:close()
+            end),
+            cc.RemoveSelf:create()
+        ))
+    end
+
+    -- SKILL LV DOWN 
+    do
+        local ui = self.m_src_ui
+        local slot = g_dragonsData:getChangeSkillLvSlot(self.m_src_dragon_data)
+        local target_node = ui.vars['skillNode'..slot]
+
+        local effect = MakeAnimator(res_path)
+        effect:changeAni('lvdown', false)
+        effect:setPosition(ZERO_POINT)
+        effect:setScale(1.2)
+        target_node:addChild(effect.m_node)
     end
 end
 
@@ -109,8 +173,6 @@ function UI_DragonSkillMove:click_moveBtn()
         -- @analytics
         Analytics:trackUseGoodsWithRet(ret, '드래곤 스킬 레벨 이전')
 
-        local t_prev_dragon_data = self.m_tar_dragon_data
-
         -- 드래곤 정보 갱신
         if (ret['modified_dragons']) then
 			for _, t_dragon in ipairs(ret['modified_dragons']) do
@@ -125,28 +187,43 @@ function UI_DragonSkillMove:click_moveBtn()
         -- 갱신
         g_serverData:networkCommonRespone(ret)
 
-        self:refresh()
+        local finish_cb = function()
+            -- 재료 드래곤이 스킬레벨이 모두 1이거나 타겟 드래곤의 스킬레벨이 맥스면 팝업 바로 닫아줌
+            if (not g_dragonsData:isSkillEnhanced(src_doid)) or (not g_dragonsData:haveSkillSpareLV(tar_doid)) then
+                self:click_exitBtn()
+            end
 
-        -- 재료 드래곤이 스킬레벨이 모두 1이거나 타겟 드래곤의 스킬레벨이 맥스면 팝업 바로 닫아줌
-        if (not g_dragonsData:isSkillEnhanced(src_doid)) or (not g_dragonsData:haveSkillSpareLV(tar_doid)) then
-            self:click_exitBtn()
-        end
+		    -- 결과창 출력
+            local mod_struct_dragon = self.m_modified_dragon_data
+            local t_prev_dragon_data = self.m_tar_dragon_data
+            if (mod_struct_dragon) then
+                local ui = UI_DragonSkillEnhance_Result(t_prev_dragon_data, mod_struct_dragon)
+		        ui:setCloseCB(function()
+                    local doid = t_prev_dragon_data['id']
+			        local impossible, msg = g_dragonsData:impossibleSkillEnhanceForever(doid)
+			        if (impossible) then
+				        UIManager:toastNotificationRed(msg)
+			        end
+		        end)
+            end
 
-		-- 결과창 출력
-        local mod_struct_dragon = self.m_modified_dragon_data
-        if (mod_struct_dragon) then
-            local ui = UI_DragonSkillEnhance_Result(t_prev_dragon_data, mod_struct_dragon)
-		    ui:setCloseCB(function()
-                local doid = t_prev_dragon_data['id']
-			    local impossible, msg = g_dragonsData:impossibleSkillEnhanceForever(doid)
-			    if (impossible) then
-				    UIManager:toastNotificationRed(msg)
-			    end
-		    end)
+            -- 바뀐 드래곤 데이터로 갱신
+		    self.m_tar_dragon_data = mod_struct_dragon
+            self.m_src_dragon_data = StructDragonObject(g_dragonsData:getDragonDataFromUid(src_doid))
+            self:refresh()
         end
+        
+        self:show_effect(finish_cb)
     end
 
-    g_dragonsData:request_skillMove(src_doid, tar_doid, success_cb)
+    local request_func = function()
+        g_dragonsData:request_skillMove(src_doid, tar_doid, success_cb)
+    end
+
+    -- 확인 팝업
+    local price = self:getSkillMovePrice()
+    local msg = Str('다이아몬드 {1}개를 사용하여\n드래곤 스킬을 이전하시겠습니까?', price)
+    UI_ConfirmPopup('cash', price, msg, request_func)
 end
 
 --@CHECK

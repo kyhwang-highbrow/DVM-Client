@@ -315,6 +315,31 @@ function ServerData_Dragons:isLeaderDragon(doid)
 end
 
 -------------------------------------
+-- function getChangeSkillLvSlot
+-- @brief 스킬업이나 다운된 슬롯 반환
+-------------------------------------
+function ServerData_Dragons:getChangeSkillLvSlot(pre_drogon_data)
+    if (not pre_drogon_data) then
+        return 0
+    end
+    local doid = pre_drogon_data['id']
+    local cur_dragon_data = self:getDragonDataFromUid(doid)
+    local evolution = cur_dragon_data['evolution']
+	
+	-- active 부터 진화도까지
+	for i = 0, evolution do
+        local pre_lv = pre_drogon_data['skill_' .. i]
+		local cur_lv = cur_dragon_data['skill_' .. i]
+
+		if (cur_lv ~= pre_lv) then
+            return i
+        end
+	end
+
+    return 0
+end
+
+-------------------------------------
 -- function request_setLeaderDragon
 -- @brief 리더드래곤의 정보를 얻어옴
 -------------------------------------

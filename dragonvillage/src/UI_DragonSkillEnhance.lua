@@ -6,6 +6,7 @@ local PARENT = UI_DragonManage_Base
 UI_DragonSkillEnhance = class(PARENT,{
 		-- 재료
         m_selectedMtrl = '',
+        m_selectedUI = '',
     })
 
 UI_DragonSkillEnhance.TAB_ENHANCE = 'enhance' -- 강화
@@ -148,6 +149,11 @@ function UI_DragonSkillEnhance:refresh()
         if (self.m_selectedMtrl) then
             self.m_selectedMtrl = nil
         end
+
+        if (self.m_selectedUI) then
+            self.m_selectedUI:setCheckSpriteVisible(false)
+            self.m_selectedUI = nil
+        end
     end
 
     -- 레벨업 가능 여부 처리
@@ -163,11 +169,44 @@ function UI_DragonSkillEnhance:refresh()
 
 	-- 소모 골드 표시
 	local price = self:getSkillEnhancePrice()
-	vars['priceLabel']:setString(price)
+	vars['priceLabel']:setString(comma_value(price))
 
 	self:refresh_skillIcon()
     self:refresh_dragonMaterialTableView()
     self:refresh_dragonSkillMoveTableView()
+end
+
+-------------------------------------
+-- function show_effect
+-- @brief 스킬 강화 연출
+-------------------------------------
+function UI_DragonSkillEnhance:show_effect(finish_cb)
+    local block_ui = UI_BlockPopup() 
+    local res_path = 'res/ui/a2d/dragon_skill_enhance_move/dragon_skill_enhance_move.vrp'
+
+    -- SKILL LV UP 
+    do
+        local slot = g_dragonsData:getChangeSkillLvSlot(self.m_selectDragonData)
+        local target_node = self.vars['skillNode'..slot]
+
+        local effect = MakeAnimator(res_path)
+        effect:changeAni('lvup', false)
+        effect:setPosition(ZERO_POINT)
+        effect:setScale(1.2)
+        target_node:addChild(effect.m_node)
+
+        local duration = effect:getDuration()
+        effect:runAction(cc.Sequence:create(
+            cc.DelayTime:create(duration),
+            cc.CallFunc:create(function() 
+                if (finish_cb) then
+                    finish_cb()
+                end
+                block_ui:close()
+            end),
+            cc.RemoveSelf:create()
+        ))
+    end
 end
 
 -------------------------------------
@@ -176,6 +215,12 @@ end
 function UI_DragonSkillEnhance:onChangeTab(tab, first)
     local vars = self.vars
     vars['enhanceBtn']:setVisible(tab == UI_DragonSkillEnhance.TAB_ENHANCE)
+
+    local msg = (tab == UI_DragonSkillEnhance.TAB_ENHANCE) and 
+                Str('동일 드래곤을 사용하여\n스킬을 강화합니다.') or
+                Str('스킬 레벨을 이전하여\n스킬을 강화합니다.')
+
+    vars['dscLabel']:setString(msg)
 end
 
 -------------------------------------
@@ -332,24 +377,34 @@ function UI_DragonSkillEnhance:click_dragonMaterial(data)
     local list_item = self.m_mtrlTableViewTD:getItem(doid)
     local list_item_ui = list_item['ui']
     
+    local function set_ui()
+        if (self.m_selectedUI) then
+            self.m_selectedUI:setCheckSpriteVisible(false)
+        end
+
+        self.m_selectedMtrl = data['id']
+        self.m_selectedUI = list_item_ui
+		list_item_ui:setCheckSpriteVisible(true)
+    end
+
 	-- 선택된 재료가 있는 경우
     if self.m_selectedMtrl then
 		-- 선택된 재료와 클릭한 재료가 같음 
 		if (doid == self.m_selectedMtrl) then
 			--> 해제 처리
 			self.m_selectedMtrl = nil
+            self.m_selectedUI = nil
 			list_item_ui:setCheckSpriteVisible(false)
 
 		-- 선택 클릭 다름
 		else
 			--> @TODO 해제 및 다시 선택
-
+            set_ui()
 		end
 
 	-- 선택된 재료가 없는 경우
     else
-		self.m_selectedMtrl = data['id']
-		list_item_ui:setCheckSpriteVisible(true)
+		set_ui()
 	end
 end
 
@@ -468,25 +523,33 @@ function UI_DragonSkillEnhance:click_enhanceBtn()
 			self.m_selectedMtrl = nil
 		end
 
+        if (self.m_selectedUI) then
+            self.m_selectedUI:setCheckSpriteVisible(false)
+            self.m_selectedUI = nil
+        end
+
 		-- 스킬강화 UI 뒤의 드래곤관리UI를 갱신하도록 한다.
         self.m_bChangeDragonList = true
 
 		-- 결과창 출력
-		local mod_struct_dragon = StructDragonObject(ret['modified_dragon'])
-        local ui = UI_DragonSkillEnhance_Result(self.m_selectDragonData, mod_struct_dragon)
-		ui:setCloseCB(function()
-			-- 스킬 강화 가능 여부 판별하여 가능하지 않으면 닫아버림
-			local impossible, msg = g_dragonsData:impossibleSkillEnhanceForever(self.m_selectDragonOID)
-			if (impossible) then
-				UIManager:toastNotificationRed(msg)
-				self:close()
-			end
-		end)
+        local finish_cb = function()
+            local mod_struct_dragon = StructDragonObject(ret['modified_dragon'])
+            local ui = UI_DragonSkillEnhance_Result(t_prev_dragon_data, mod_struct_dragon)
+		    ui:setCloseCB(function()
+			    -- 스킬 강화 가능 여부 판별하여 가능하지 않으면 닫아버림
+			    local impossible, msg = g_dragonsData:impossibleSkillEnhanceForever(self.m_selectDragonOID)
+			    if (impossible) then
+				    UIManager:toastNotificationRed(msg)
+				    self:close()
+			    end
+		    end)
 
-		-- 동시에 본UI 갱신
-		self.m_selectDragonData = mod_struct_dragon
+            -- 동시에 본UI 갱신
+		    self.m_selectDragonData = mod_struct_dragon
+            self:refresh()
+        end
 
-		self:refresh()
+        self:show_effect(finish_cb)
 
         -- @ master road
         g_masterRoadData:addRawData('d_sklvup')
