@@ -55,6 +55,9 @@ function UI_DragonManageInfo:init(doid, sub_menu)
     self.m_dragonListLastChangeTime = g_dragonsData:getLastChangeTimeStamp()
 
     self.m_startSubMenu = sub_menu
+
+	-- 런칭 패키지 풀팝업
+    g_fullPopupManager:show(FULL_POPUP_TYPE.REINFORCE_PACK)
 end
 
 -------------------------------------
@@ -188,8 +191,7 @@ function UI_DragonManageInfo:refresh()
 
     -- 드래곤이 장착 중인 룬 정보 갱신
     --self:refresh_dragonRunes(t_dragon_data)
-    -- @TODO77
-    
+
     -- 리더 드래곤 여부 표시
     self:refresh_leaderDragon(t_dragon_data)
 

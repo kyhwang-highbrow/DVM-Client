@@ -6,6 +6,7 @@ FULL_POPUP_TYPE = {
     ALL_DIA_PACK = 'all_dia_package', -- 몽땅 다이아 패키지 풀팝업
     CAFE_ON = 'hatchry_cafe_on',    -- 부화소 진입시 네이버 카페 노출
 	BP_NOTICE = 'bp_notice',		-- 밸런스 패치 안내
+	REINFORCE_PACK = 'reinforce_package', -- 강화 포인트 패키지
 }
 -------------------------------------
 -- class FullPopupManager
@@ -133,6 +134,19 @@ function FullPopupManager:show(type, show_func)
 				self:showFullPopup(banner_res)
 				g_localData:applyLocalData(true, 'event_full_popup', save_key)
 			end
+        end
+
+    -- 강화 패키지 풀팝업 (드래곤 관리 진입 시)
+    -- 조건 : 구매하지 않은 유저 LV 30 이상
+    elseif (type == FULL_POPUP_TYPE.REINFORCE_PACK) then
+        local lv = g_userData:get('lv')
+        local need_lv = 30
+        local pid = 90053
+        local save_key = type
+        local is_view = g_localData:get('event_full_popup', save_key) or false
+        if (lv >= need_lv) and (not is_view) then 
+            self:showFullPopup(pid)
+            g_localData:applyLocalData(true, 'event_full_popup', save_key)
         end
 
     end
