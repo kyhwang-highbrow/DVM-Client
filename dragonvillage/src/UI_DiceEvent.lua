@@ -423,8 +423,7 @@ function UI_DiceEvent.makeLap(t_data)
     for i, t_reward in ipairs(l_reward) do
         item_id = t_reward['item_id']
         value = t_reward['value']
-        res = TableItem:getItemIcon(item_id)
-        icon = IconHelper:getIcon(res)
+        icon = IconHelper:getItemIcon(item_id)
         vars['rewardNode']:addChild(icon)
 
         -- 보상 갯수에 따라 위치 조정
