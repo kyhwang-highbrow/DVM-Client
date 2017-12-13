@@ -5,6 +5,7 @@ local PARENT = UI_DragonManage_Base
 -------------------------------------
 UI_DragonSkillEnhance = class(PARENT,{
 		-- 재료
+        m_selTab = '',
         m_selectedMtrl = '',
         m_selectedUI = '',
     })
@@ -63,6 +64,8 @@ end
 -------------------------------------
 function UI_DragonSkillEnhance:initTab()
     local vars = self.vars
+    self.m_selTab = UI_DragonSkillEnhance.TAB_ENHANCE
+
     self:addTabAuto(UI_DragonSkillEnhance.TAB_ENHANCE, vars, vars['materialTableViewNode'])
     self:addTabAuto(UI_DragonSkillEnhance.TAB_MOVE, vars, vars['moveTableViewNode'])
     self:setTab(UI_DragonSkillEnhance.TAB_ENHANCE)
@@ -174,6 +177,7 @@ function UI_DragonSkillEnhance:refresh()
 	self:refresh_skillIcon()
     self:refresh_dragonMaterialTableView()
     self:refresh_dragonSkillMoveTableView()
+    self:refresh_emptySprite()
 end
 
 -------------------------------------
@@ -213,6 +217,8 @@ end
 -- function onChangeTab
 -------------------------------------
 function UI_DragonSkillEnhance:onChangeTab(tab, first)
+    self.m_selTab = tab
+
     local vars = self.vars
     vars['enhanceBtn']:setVisible(tab == UI_DragonSkillEnhance.TAB_ENHANCE)
 
@@ -221,6 +227,20 @@ function UI_DragonSkillEnhance:onChangeTab(tab, first)
                 Str('스킬 레벨을 이전하여\n스킬을 강화합니다.')
 
     vars['dscLabel']:setString(msg)
+
+    self:refresh_emptySprite()
+end
+
+-------------------------------------
+-- function refresh_emptySprite
+-------------------------------------
+function UI_DragonSkillEnhance:refresh_emptySprite()
+--    local vars = self.vars
+--    local visible1 = self.m_selTab == UI_DragonSkillEnhance.TAB_ENHANCE and self.m_mtrlTableViewTD and self.m_mtrlTableViewTD:getItemCount() == 0
+--    vars['materialEmptySprite']:setVisible(visible1)
+
+--    local visible2 = self.m_selTab == UI_DragonSkillEnhance.TAB_MOVE and self.m_skillmoveTableViewTD and self.m_skillmoveTableViewTD:getItemCount() == 0
+--    vars['moveEmptySprite']:setVisible(visible2)
 end
 
 -------------------------------------
