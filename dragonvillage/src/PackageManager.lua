@@ -108,7 +108,6 @@ function PackageManager:isBuyAll(package_name)
     for _, pid in ipairs(target_product) do
         local data = l_shop_list[tonumber(pid)]
         if (data) then
-            ccdump(data)
             local buy_cnt = g_shopDataNew:getBuyCount(pid)
             local max_buy_cnt = data['max_buy_count']
 
