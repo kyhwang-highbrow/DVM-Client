@@ -454,7 +454,7 @@ function UI_DragonManage_Base:refresh_dragonSkillMoveTableView()
     local birth_grade = TableDragon:getBirthGrade(did)
     local msg = (birth_grade >= SKILL_MOVE_DRAGON_GRADE) and
                 Str('도와줄 드래곤이 없다고라') or
-                Str('스킬 레벨 이전은 태생 {1}등급 이상 드래곤부터 가능하고라', SKILL_MOVE_DRAGON_GRADE)
+                Str('스킬 레벨 이전은 영웅 혹은 전설 드래곤만 가능하고라')
     table_view_td:makeDefaultEmptyMandragora(msg)
 
 	self:apply_mtrlDragonSort()
