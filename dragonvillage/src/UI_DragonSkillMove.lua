@@ -194,11 +194,6 @@ function UI_DragonSkillMove:click_moveBtn()
         g_serverData:networkCommonRespone(ret)
 
         local finish_cb = function()
-            -- 재료 드래곤이 스킬레벨이 모두 1이거나 타겟 드래곤의 스킬레벨이 맥스면 팝업 바로 닫아줌
-            if (not g_dragonsData:isSkillEnhanced(src_doid)) or (not g_dragonsData:haveSkillSpareLV(tar_doid)) then
-                self:click_exitBtn()
-            end
-
 		    -- 결과창 출력
             local mod_struct_dragon = self.m_modified_dragon_data
             local t_prev_dragon_data = self.m_tar_dragon_data
@@ -217,6 +212,11 @@ function UI_DragonSkillMove:click_moveBtn()
 		    self.m_tar_dragon_data = mod_struct_dragon
             self.m_src_dragon_data = StructDragonObject(g_dragonsData:getDragonDataFromUid(src_doid))
             self:refresh()
+
+            -- 재료 드래곤이 스킬레벨이 모두 1이거나 타겟 드래곤의 스킬레벨이 맥스면 팝업 바로 닫아줌
+            if (not g_dragonsData:isSkillEnhanced(src_doid)) or (not g_dragonsData:haveSkillSpareLV(tar_doid)) then
+                self:click_exitBtn()
+            end
         end
         
         self:show_effect(finish_cb)
