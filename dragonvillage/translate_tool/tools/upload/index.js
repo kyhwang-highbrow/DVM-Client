@@ -4,12 +4,11 @@ const log = util.log;
 
 module.exports = Upload;
 
-function Upload( $locale, $spreadsheet_id, $data, $cbFinish )
+function Upload( $locale, $spreadsheet_id, $data )
 {
 	this.locale = $locale;
 	this.spreadsheet_id = $spreadsheet_id;
 	this.data = util.deepCopy( $data );
-	this.cbFinish = $cbFinish;
 
 	this.loadSheet();
 }
@@ -19,8 +18,7 @@ Upload.prototype.loadSheet = function()
 	var spreadsheet_id = this.spreadsheet_id;
 	var locale = this.locale;
 	var data = this.data;
-	var cbFinish = this.cbFinish;
-
+	
 	var header = [ "kr", locale, "hints", "date" ];
 	var row_count;
 	var col_count = header.length;
@@ -245,8 +243,7 @@ Upload.prototype.loadSheet = function()
 		--requestCount;
 		if( isFinishOnCell == true && requestCount <= 0 )
 		{
-			log( "complete : " + locale + " (" + data.length + ")" );
-			cbFinish();
+			log( "complete : " + locale + " (" + data.length + ")" );			
 		}
 		else
 			log( "onUpdate..." );

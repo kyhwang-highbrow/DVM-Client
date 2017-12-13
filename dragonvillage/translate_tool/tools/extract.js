@@ -14,8 +14,11 @@ const ignoreFiles = [
 ];
 
 // 1. 프로젝트 루트 설정.
+var isDebug = false;
 //const hod_root = "C:/Work_Perplelab/dragonvillage/res/emulator/translate_tool";//process.env.HOD_ROOT;
-const hod_root = process.env.HOD_ROOT;
+var hod_root = process.env.HOD_ROOT;
+if( isDebug )
+	hod_root = "C:/Work_Perplelab/dragonvillage/res/emulator/translate_tool";
 
 if( !fs.existsSync( hod_root ) )
 {
@@ -47,8 +50,28 @@ function collectFromData( $data )
 	addData( fromSvData );
 	addData( fromUI );
 
+	function isScenFile( $valeList )
+	{
+		var hintList = $valeList[2].split(',');		
+		var i = 0;
+		for(i; i < hintList.length; ++i)
+		{
+			var str = hintList[i];
+			if( str.indexOf("scen_") < 0 )
+				return false;
+		}
+
+		return true;
+	}
+
 	list.sort( function( a, b )
 	{
+		//hints에 scen_이 있으면 하단으로 
+		var isScene_a = isScenFile(a);
+		var isScene_b = isScenFile(b);
+		if( isScene_a == true && isScene_b == false ) return 1;
+		if( isScene_b == true && isScene_a == false ) return -1;
+
 		if( a[ 0 ] < b[ 0 ] ) return -1;
 		if( a[ 0 ] > b[ 0 ] ) return 1;
 		return 0;
@@ -65,6 +88,23 @@ function collectFromData( $data )
 
 function startUpload()
 {
+	var locale = process.argv[ 2 ];
+	var spreadsheet_id = process.argv[ 3 ];
+	if( isDebug )
+	{
+		locale = "test";
+		spreadsheet_id = "1s3m5A7rl4JHngXFknMd3MTkbf0vVaAIPoRx3GPHJvoo";
+	}
+	else
+	{
+		locale = process.argv[ 2 ];
+		spreadsheet_id = process.argv[ 3 ];
+	}
+	
+	log("Upload Start : " + locale + ", " + spreadsheet_id);
+	new Upload( locale, spreadsheet_id, list);
+	
+	/*
 	var idx = 0;
 	var uploadList = [];
 	uploadList[0] = {}
@@ -88,7 +128,7 @@ function startUpload()
 	}
 
 	onFinish();
-
+	*/
 	//new Upload( "en", "1TzxlNwZHMZxG4W0LsPokaQfnCsCoCM3qvozAt7tvICg", list, onFinish );
 	//new Upload( "jp", "1hYRS7hE6OTRNQ-2RJL14O0VmxXxbYoT0wtQ7-rFnAi4", list, onFinish );
 	//new Upload( "zh_tw", "1Cv2vBmWpnVwK74KN6SnL0QKdTpMoAx8VPYDzOi9yks0", list, onFinish );
