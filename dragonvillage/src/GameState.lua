@@ -320,6 +320,16 @@ end
 -- function update_fight
 -------------------------------------
 function GameState.update_fight(self, dt)
+    if (self.m_stateTimer == 0) then
+        if (g_gameScene.m_stageID == DEV_STAGE_ID) then
+            for k, v in pairs (self.m_world:getEnemyList()) do
+                v:setWaitState(true)
+            end
+            for k, v in pairs (self.m_world:getDragonList()) do
+                v:setWaitState(true)
+            end
+        end
+    end
     local world = self.m_world
 
     if (world.m_waveMgr) then
@@ -585,6 +595,11 @@ end
 -------------------------------------
 function GameState.update_fight_wait(self, dt)
     if (self.m_stateTimer == 0) then
+        if (g_gameScene.m_stageID == DEV_STAGE_ID) then
+            for k, v in pairs (self.m_world:getEnemyList()) do
+                v:setWaitState(true)
+            end
+        end
     end
 end
 

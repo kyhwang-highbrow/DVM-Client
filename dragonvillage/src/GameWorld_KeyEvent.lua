@@ -49,12 +49,11 @@ MAP_KEY_FUNC[KEY_DOWN_ARROW] = 'camera_move_down'
 ]]--
 
 -- 테스트
-MAP_KEY_FUNC[KEY_5] = 'resurrect_dragon'
-MAP_KEY_FUNC[KEY_6] = 'kill_one_dragon'
-
-MAP_KEY_FUNC[KEY_7] = 'print_skill_info'
-MAP_KEY_FUNC[KEY_8] = 'camera_info'
-MAP_KEY_FUNC[KEY_9] = 'auto_info'
+MAP_KEY_FUNC[KEY_5] = 'pause_dragon_1'
+MAP_KEY_FUNC[KEY_6] = 'pause_dragon_2'
+MAP_KEY_FUNC[KEY_7] = 'pause_dragon_3'
+MAP_KEY_FUNC[KEY_8] = 'pause_dragon_4'
+MAP_KEY_FUNC[KEY_9] = 'pause_dragon_5'
 
 -------------------------------------
 -- function onKeyReleased
@@ -516,3 +515,64 @@ function GameWorld:auto_info()
     applicationDidEnterBackground()
     applicationWillEnterForeground()
 end
+
+-------------------------------------
+-- function pause_dragon_1
+-------------------------------------
+function GameWorld:pause_dragon_1()
+    local dragon = g_gameScene.m_gameWorld:getDragonList()[1]
+    if (dragon.m_bWaitState) then
+        dragon:setWaitState(false)
+    else
+        dragon:setWaitState(true)
+    end
+end
+
+-------------------------------------
+-- function pause_dragon_2
+-------------------------------------
+function GameWorld:pause_dragon_2()
+    local dragon = g_gameScene.m_gameWorld:getDragonList()[2]
+    if (dragon.m_bWaitState) then
+        dragon:setWaitState(false)
+    else
+        dragon:setWaitState(true)
+    end
+end
+
+-------------------------------------
+-- function pause_dragon_3
+-------------------------------------
+function GameWorld:pause_dragon_3()
+    local dragon = g_gameScene.m_gameWorld:getDragonList()[3]
+    if (dragon.m_bWaitState) then
+        dragon:setWaitState(false)
+    else
+        dragon:setWaitState(true)
+    end
+end
+
+-------------------------------------
+-- function pause_dragon_4
+-------------------------------------
+function GameWorld:pause_dragon_4()
+    local dragon = g_gameScene.m_gameWorld:getDragonList()[4]
+    if (dragon.m_bWaitState) then
+        dragon:setWaitState(false)
+    else
+        dragon:setWaitState(true)
+    end
+end
+
+-------------------------------------
+-- function pause_dragon_5
+-------------------------------------
+function GameWorld:pause_dragon_5()
+    local dragon = g_gameScene.m_gameWorld:getDragonList()[5]
+    if (dragon.m_bWaitState) then
+        dragon:setWaitState(false)
+    else
+        dragon:setWaitState(true)
+    end
+end
+
