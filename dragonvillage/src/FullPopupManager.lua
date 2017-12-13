@@ -139,12 +139,19 @@ function FullPopupManager:show(type, show_func)
     -- 강화 패키지 풀팝업 (드래곤 관리 진입 시)
     -- 조건 : 구매하지 않은 유저 LV 30 이상
     elseif (type == FULL_POPUP_TYPE.REINFORCE_PACK) then
-        local lv = g_userData:get('lv')
-        local need_lv = 30
         local pid = 90053
         local save_key = type
         local is_view = g_localData:get('event_full_popup', save_key) or false
-        if (lv >= need_lv) and (not is_view) then 
+		
+		-- 레벨 조건
+        local lv = g_userData:get('lv')
+        local need_lv = 30
+
+		-- 구매 조건
+		local struct_product = g_shopDataNew:getProduct('package', pid)
+		local is_buyable = struct_product and struct_product:isItBuyable()
+
+        if (lv >= need_lv) and (not is_view) and (is_buyable) then
             self:showFullPopup(pid)
             g_localData:applyLocalData(true, 'event_full_popup', save_key)
         end

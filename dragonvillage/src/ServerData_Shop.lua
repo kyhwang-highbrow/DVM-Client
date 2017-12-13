@@ -389,6 +389,14 @@ function ServerData_Shop:isExist(category, product_id)
 end
 
 -------------------------------------
+-- function getProduct
+-------------------------------------
+function ServerData_Shop:getProduct(category, product_id)
+    local shop_list = self:getProductList(category)
+    return shop_list[product_id]
+end
+
+-------------------------------------
 -- function request_buy
 -- @brief 상품 구매
 -------------------------------------
