@@ -57,24 +57,24 @@ end
 -------------------------------------
 function UI_HatcheryIncubateTab:click_eggItem(t_item, idx)
     local t_data = t_item['data']
-
-	local function request_incubate(count)
-		if t_data['is_shop'] then
-			local function close_cb()
-				-- 리스트 갱신
-				self:refreshEggList()
-			end
-			g_shopDataNew:openShopPopup('mileage', close_cb)
-			return
+	
+	-- 상점으로 보내주는 알
+	if t_data['is_shop'] then
+		local function close_cb()
+			-- 리스트 갱신
+			self:refreshEggList()
 		end
-
+		g_shopDataNew:openShopPopup('mileage', close_cb)
+		return
+	end
+	
+	-- 10개 꾸러미와 1개 구분하여 처리
+	local function request_incubate(count)
 		local egg_id = t_data['egg_id']
 		local cnt = count or t_data['count']
 
 		self:requestIncubate(egg_id, cnt)
 	end
-
-	-- 10개 꾸러미와 1개 구분하여 처리
 	local count = t_data['count']
 	if (count) and (count > 1) then
 		local ui = UI_EggPopup(t_data, request_incubate)
