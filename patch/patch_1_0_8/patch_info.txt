@@ -1,10 +1,15 @@
+# patch 46
+- Revision: 94794
+- Date: 2017년 12월 14일 목요일 오후 4:00:00
+- Message: 부화소 버그 수정
+
 # patch 41
-- Revision: 95439
+- Revision: 94439
 - Date: 2017년 12월 7일 목요일 오후 7:00:00
 - Message: 속성/ 슬라임/ 골드 몽땅 패키지 표기 오류 수정
 
 # patch 40
-- Revision: 95437
+- Revision: 94437
 - Date: 2017년 12월 7일 목요일 오후 12;00:00
 - Message: 정기 업데이트
 	신규 드래곤 2종
