@@ -6,7 +6,10 @@ function UI_Setting:init_devTab()
     vars['fpsBtn']:registerScriptTapHandler(function() self:click_fpsBtn() end)
     vars['invenBtn']:registerScriptTapHandler(function() self:click_invenBtn() end)
     vars['allClearBtn']:registerScriptTapHandler(function() self:click_allClearBtn() end)
-    --vars['allDragonBtn']:registerScriptTapHandler(function() self:click_allDragonBtn() end)
+    
+	vars['legendDragonBtn']:registerScriptTapHandler(function() self:click_allDragonBtn(5) end)
+	vars['removeDragonBtn']:registerScriptTapHandler(function() self:click_removeDragonBtn() end)
+
     vars['allSlimeBtn']:registerScriptTapHandler(function() self:click_allSlimeBtn() end)
     vars['allFruitBtn']:registerScriptTapHandler(function() self:click_allFruitBtn() end)
     vars['allMaterialBtn']:registerScriptTapHandler(function() self:click_allMaterialBtn() end)
@@ -65,16 +68,16 @@ end
 
 -------------------------------------
 -- function click_allDragonBtn
--- @brief 모든 드래곤 추가
+-- @brief 해당 태생등급 드래곤 추가
 -------------------------------------
-function UI_Setting:click_allDragonBtn()
+function UI_Setting:click_allDragonBtn(birthgrade)
     local uid = g_userData:get('uid')
     local table_dragon = TABLE:get('dragon')
     local t_list = {}
     for did,t_dragon in pairs(table_dragon) do
-        --if (t_dragon['test'] == 1) then
+        if (t_dragon['birthgrade'] == birthgrade) then
             table.insert(t_list, did)
-        --end
+        end
     end
     local do_work
 
@@ -102,6 +105,92 @@ function UI_Setting:click_allDragonBtn()
         if (ret and ret['dragons']) then
             for _,t_dragon in pairs(ret['dragons']) do
                 g_dragonsData:applyDragonData(t_dragon)
+            end
+        end
+    end
+    ui_network:setSuccessCB(do_work)
+    do_work()
+end
+
+-------------------------------------
+-- function click_removeDragonBtn
+-- @brief 1레벨 드래곤 모두 판매
+-------------------------------------
+function UI_Setting:click_removeDragonBtn()
+    local uid = g_userData:get('uid')
+
+	local function check_func(doid)
+		local struct_dragon = g_dragonsData:getDragonDataFromUid(doid)
+		
+		if (not struct_dragon) then
+			return false
+		end
+
+		-- 1렙 체크
+		if (struct_dragon:getLv() > 1) then
+			return false
+		end
+
+		-- 리더로 설정된 드래곤인지 체크
+		if g_dragonsData:isLeaderDragon(doid) then
+			return false
+		end
+
+		-- 콜로세움 정보  확인
+		if g_colosseumData then
+			local struct_user_info = g_colosseumData:getPlayerColosseumUserInfo() -- return : StructUserInfoColosseum
+			if struct_user_info then
+				-- 공격 덱
+				local l_pvp_atk = struct_user_info:getAtkDeck_dragonList(true) -- param : use_doid
+				if table.find(l_pvp_atk, doid) then
+					return false
+				end
+
+				-- 방어 덱
+				local l_pvp_def =struct_user_info:getDefDeck_dragonList(true) -- param : use_doid
+				if table.find(l_pvp_def, doid) then
+					return false
+				end
+			end
+		end
+
+		return true
+	end
+
+	local l_remove_doid = {}
+	local dragon_dic = g_dragonsData:getDragonsList()
+    for oid,v in pairs(dragon_dic) do
+		
+		if (check_func(oid)) then
+			table.insert(l_remove_doid, oid)
+		end
+    end
+
+    local ui_network = UI_Network()
+    ui_network:setReuse(true)
+    ui_network:setUrl('/dragons/del')
+    ui_network:setParam('uid', uid)
+	
+	local msg = '드래곤 삭제 중...'
+    ui_network:setLoadingMsg(msg)
+
+    do_work = function(ret)
+        local doid = l_remove_doid[1]
+    
+        if doid then
+            table.remove(l_remove_doid, 1)
+
+            ui_network:setParam('doid', doid)
+            ui_network:request()
+        else
+            ui_network:close()
+            UIManager:toastNotificationGreen('1레벨 드래곤 삭제!')
+            UIManager:toastNotificationGreen('정상적인 적용을 위해 재시작을 권장합니다.')
+        end
+
+        if (ret and ret['deleted_dragon_ids']) then
+            for _, doid in pairs(ret['deleted_dragon_ids']) do
+                g_dragonsData:delDragonData(doid)
             end
         end
     end
