@@ -204,6 +204,7 @@ function UI_InventoryTabRune:sellBtn(t_rune_data)
         local function cb(ret)
             self.m_inventoryUI:response_itemSell(ret)
             self.m_inventoryUI:clearSelectedItem()
+			self:refresh_noti()
         end
 
         g_inventoryData:request_itemSell(rune_oids, evolution_stones, fruits, tickets, cb)
@@ -331,6 +332,7 @@ function UI_InventoryTabRune:click_bulkSellBtn()
     local function cb(ret)
         self.m_inventoryUI:response_itemSell(ret)
         self.m_inventoryUI:clearSelectedItem()
+		self:refresh_noti()
     end
     ui:setSellCallback(cb)
 end

@@ -202,8 +202,10 @@ function ServerData_Highlight:getNewRuneSlotTable()
 	local t_ret = {}
 	for roid, b in pairs(self.m_newOidMap[NEW_OID_TYPE_RUNE]) do
 		local struct_rune = g_runesData:getRuneObject(roid)
-		local slot = struct_rune['slot']
-		t_ret[slot] = true
+		if (struct_rune) then
+			local slot = struct_rune['slot']
+			t_ret[slot] = true
+		end
 	end
 
 	return t_ret

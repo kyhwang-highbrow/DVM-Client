@@ -19,6 +19,8 @@ local PARENT = UI_Card
 -- class UI_RuneCard
 -------------------------------------
 UI_RuneCard = class(PARENT, {
+		m_itemID = '', -- UI_ItemCard客狼 烹老
+
         m_runeData = '',
 
         m_runeIconRes = 'string',
@@ -34,6 +36,7 @@ function UI_RuneCard:init(t_rune_data)
     self:getUIInfo()
 
     self.m_runeData = t_rune_data
+	self.m_itemID = t_rune_data['rid']
 
     -- 滚瓢 积己
     self:makeClickBtn()

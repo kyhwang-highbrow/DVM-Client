@@ -349,7 +349,9 @@ end
 function ServerData_Runes:getRuneObject(roid)
     if (not self.m_mRuneObjects[roid]) then
         cclog('# 보유하지 않은 룬 검색 : ' .. roid)
-        ccdebug()
+		if (g_highlightData:isNewRoid(roid)) then
+			g_highlightData:removeNewRoid(roid)
+		end
     end
 
     return self.m_mRuneObjects[roid]
