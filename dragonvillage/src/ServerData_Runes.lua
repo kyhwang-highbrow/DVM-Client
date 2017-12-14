@@ -260,6 +260,9 @@ function ServerData_Runes:deleteRuneData(roid)
         self.m_runeCount = (self.m_runeCount - 1)
         self.m_mRuneObjects[roid] = nil
     end
+	if (g_highlightData:isNewRoid(roid)) then
+		g_highlightData:removeNewRoid(roid)
+	end
 end
 
 -------------------------------------
@@ -349,9 +352,6 @@ end
 function ServerData_Runes:getRuneObject(roid)
     if (not self.m_mRuneObjects[roid]) then
         cclog('# 보유하지 않은 룬 검색 : ' .. roid)
-		if (g_highlightData:isNewRoid(roid)) then
-			g_highlightData:removeNewRoid(roid)
-		end
     end
 
     return self.m_mRuneObjects[roid]
