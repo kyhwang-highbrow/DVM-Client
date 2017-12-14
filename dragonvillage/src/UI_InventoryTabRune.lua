@@ -35,15 +35,11 @@ function UI_InventoryTabRune:onChangeTab(tab, first)
 
     local slot_idx = tab
 
-    if first then
-        self:init_runeTableView(slot_idx)
-    else
-        local table_view_td = self.m_mTableViewListMap[slot_idx]
-        local animated = false
-        table_view_td:relocateContainerDefault(animated)
-    end
+    self:init_runeTableView(slot_idx)
 
     self.m_inventoryUI:setSelectedItem(nil, nil)
+
+	self:refresh_noti()
 end
 
 -------------------------------------
@@ -71,9 +67,6 @@ function UI_InventoryTabRune:init_runeTableView(slot_idx)
 			if (is_new) then
 				local roid = data['roid']
 				g_highlightData:removeNewRoid(roid)
-				ui:setNewSpriteVisible(false)
-
-				self:refresh_noti()
 			end
         end
 
@@ -112,9 +105,6 @@ function UI_InventoryTabRune:onEnterInventoryTab(first)
         self.vars['bulkSellBtn']:setVisible(true)
     end
     self.vars['bulkSellBtn']:registerScriptTapHandler(function() self:click_bulkSellBtn() end)
-
-	-- 노티 최초에 설정 -> 향후에는 신규 룬 클릭시 갱신
-	self:refresh_noti()
 end
 
 -------------------------------------
