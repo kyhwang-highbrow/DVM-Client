@@ -1,10 +1,9 @@
 exports.timeToFormat = function( $milliseconds )
 {
 	var date = new Date( $milliseconds );
-
 	var str = date.getFullYear() + "."
 		 + exports.setDigit( date.getMonth() + 1, 2 ) + "."
-		 + exports.setDigit( date.getDay(), 2 ) + " "
+		 + exports.setDigit( date.getDate(), 2 ) + " "
 		 + exports.setDigit( date.getHours(), 2 ) + ":"
 		 + exports.setDigit( date.getMinutes(), 2 ) + ":"
 		 + exports.setDigit( date.getSeconds(), 2 );

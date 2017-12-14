@@ -204,7 +204,9 @@ Upload.prototype.loadSheet = function()
 				row = Math.floor( i / col_count );
 				col = i % col_count;
 
-				var value = data[ row ][ col ];				
+				var value = data[ row ][ col ];		
+				if( value == null )
+					console.log("===value is null : " + "row : " + row + ", col : " + col);		
 				if( value.indexOf( "''" ) == 0 )
 					value = value.substr( 1 );
 

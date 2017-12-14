@@ -92,46 +92,12 @@ function startUpload()
 	var spreadsheet_id = process.argv[ 3 ];
 	if( isDebug )
 	{
-		locale = "test";
-		spreadsheet_id = "1s3m5A7rl4JHngXFknMd3MTkbf0vVaAIPoRx3GPHJvoo";
-	}
-	else
-	{
-		locale = process.argv[ 2 ];
-		spreadsheet_id = process.argv[ 3 ];
-	}
-	
-	log("Upload Start : " + locale + ", " + spreadsheet_id);
-	new Upload( locale, spreadsheet_id, list);
-	
-	/*
-	var idx = 0;
-	var uploadList = [];
-	uploadList[0] = {}
-	uploadList[0].locale = "en";
-	uploadList[0].id = "1TzxlNwZHMZxG4W0LsPokaQfnCsCoCM3qvozAt7tvICg";
-	uploadList[1] = {}
-	uploadList[1].locale = "jp";
-	uploadList[1].id = "1hYRS7hE6OTRNQ-2RJL14O0VmxXxbYoT0wtQ7-rFnAi4";
-	uploadList[2] = {}
-	uploadList[2].locale = "zh_tw";
-	uploadList[2].id = "1Cv2vBmWpnVwK74KN6SnL0QKdTpMoAx8VPYDzOi9yks0";
-	function onFinish()
-	{
-		if( idx < uploadList.length )
-		{
-			var updata = uploadList[idx];
-			log("Upload Start : " + updata.locale);
-			new Upload( updata.locale, updata.id, list, onFinish);
-			++idx;
-		}
+		locale = "zhtw";
+		spreadsheet_id = "1Cv2vBmWpnVwK74KN6SnL0QKdTpMoAx8VPYDzOi9yks0";
 	}
 
-	onFinish();
-	*/
-	//new Upload( "en", "1TzxlNwZHMZxG4W0LsPokaQfnCsCoCM3qvozAt7tvICg", list, onFinish );
-	//new Upload( "jp", "1hYRS7hE6OTRNQ-2RJL14O0VmxXxbYoT0wtQ7-rFnAi4", list, onFinish );
-	//new Upload( "zh_tw", "1Cv2vBmWpnVwK74KN6SnL0QKdTpMoAx8VPYDzOi9yks0", list, onFinish );
+	log("Upload Start : " + locale + ", " + spreadsheet_id);
+	new Upload( locale, spreadsheet_id, list);
 }
 
 var data = {};
