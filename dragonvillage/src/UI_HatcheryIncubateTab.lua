@@ -76,7 +76,7 @@ function UI_HatcheryIncubateTab:click_eggItem(t_item, idx)
 
 	-- 10개 꾸러미와 1개 구분하여 처리
 	local count = t_data['count']
-	if (count > 1) then
+	if (count) and (count > 1) then
 		local ui = UI_EggPopup(t_data, request_incubate)
 	else
 		request_incubate()
