@@ -59,6 +59,8 @@ function UI_RuneCard:makeClickBtn()
     
         self.vars['clickBtn'] = UIC_Button(btn)
         self.root:addChild(btn, -1)
+
+		btn:registerScriptPressHandler(function() self:press_clickBtn() end)
     end
 end
 
@@ -232,4 +234,15 @@ end
 -------------------------------------
 function UI_RuneCard:setBtnEnabled(able)
 	self.vars['clickBtn']:setEnabled(able)
+end
+
+-------------------------------------
+-- function press_clickBtn
+-------------------------------------
+function UI_RuneCard:press_clickBtn()
+    local item_id = self.m_itemID
+    local count = 1
+	local t_rune_data = self.m_runeData
+
+    UI_ItemInfoPopup(item_id, count, t_rune_data)
 end
