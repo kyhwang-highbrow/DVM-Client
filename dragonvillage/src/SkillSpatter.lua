@@ -95,7 +95,8 @@ function SkillSpatter.st_idle(owner, dt)
 
         -- JumpTo액션 실행
 		if (target_char) then
-			local target_pos = cc.p(target_char.pos.x, target_char.pos.y)
+            local tar_x, tar_y = target_char:getCenterPos()
+			local target_pos = cc.p(tar_x, tar_y)
 			local action = cc.JumpTo:create(0.5, target_pos, 100, 1)
 
 			-- 액션 종료 후 타겟을 회복, 튀기기 시도
