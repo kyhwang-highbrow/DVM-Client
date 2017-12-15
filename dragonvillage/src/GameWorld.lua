@@ -55,8 +55,8 @@ GameWorld = class(IEventDispatcher:getCloneClass(), IEventListener:getCloneTable
 
         m_gameState = '',
 
-        m_gameAutoHero = '',        -- 아군 자동시 AI
-        m_gameAutoEnemy = '',       -- 적군(드래곤) AI
+        m_heroAuto = '',        -- 아군 자동시 AI
+        m_enemyAuto = '',       -- 적군(드래곤) AI
         m_gameCoolTime = '',
         m_gameDragonSkill = '',
         m_gameCamera = '',
@@ -203,97 +203,7 @@ function GameWorld:init(game_mode, stage_id, world_node, game_node1, game_node2,
     self.m_worldSize = nil
     self.m_worldScale = nil
 
-    self.m_gameCamera = GameCamera(self, g_gameScene.m_cameraLayer)
-    self.m_gameTimeScale = GameTimeScale(self)
-    self.m_gameHighlight = GameHighlightMgr(self, self.m_darkLayer)
-    self.m_gameDragonSkill = GameDragonSkill(self)
-
-    -- 글로벌 쿨타임
-    self.m_gameCoolTime = GameCoolTime(self)
-    self:addListener('set_global_cool_time_passive', self.m_gameCoolTime)
-    self:addListener('set_global_cool_time_active', self.m_gameCoolTime)
-        
-    -- 마나 관리자 생성
-    self.m_heroMana = GameMana(self, true)
-    self.m_enemyMana = GameMana(self, false)
-
-    -- 아군 자동시 AI
-    self.m_gameAutoHero = GameAuto_Hero(self, self.m_heroMana)
-    self:addListener('auto_start', self.m_gameAutoHero)
-    self:addListener('auto_end', self.m_gameAutoHero)
-
-    -- 적군(드래곤) AI
-    self.m_gameAutoEnemy = GameAuto_Enemy(self, self.m_enemyMana)
-
-    -- shake manager 생성
-	self.m_shakeMgr = ShakeManager(self, g_gameScene.m_shakeLayer)
-
-	-- ## 모드별 분기 처리
-    local display_wave = true
-    local display_time = nil
-
-	-- 1. 모험 모드
-    if (self.m_gameMode == GAME_MODE_ADVENTURE) then
-        self.m_gameState = GameState(self)
-
-	-- 2. 네스트 던전
-    elseif (self.m_gameMode == GAME_MODE_NEST_DUNGEON) then
-        local t_dungeon = g_nestDungeonData:parseNestDungeonID(self.m_stageID)
-        local dungeonMode = t_dungeon['dungeon_mode']
-        local detail_mode = t_dungeon['detail_mode']
-
-        -- "진화 재료 던전"
-        if (dungeonMode == NEST_DUNGEON_EVO_STONE) then
-            -- "보석 던전"
-            if (detail_mode == NEST_DUNGEON_SUB_MODE_JEWEL) then
-                self.m_gameState = GameState_NestDungeon_Jewel(self)
-            -- "거대용 던전"
-            else
-                self.m_gameState = GameState_NestDungeon_Dragon(self)
-            end
-
-		elseif (dungeonMode == NEST_DUNGEON_NIGHTMARE) then
-		    self.m_gameState = GameState_NestDungeon_Nightmare(self)
-
-        elseif (dungeonMode == NEST_DUNGEON_TREE) then
-            self.m_gameCamera:setRange({minX = -640, maxX = 640})
-            
-            self.m_gameState = GameState_NestDungeon_Tree(self)
-
-        elseif (dungeonMode == NEST_DUNGEON_GOLD) then
-            self.m_gameState = GameState_NestDungeon_Gold(self)
-			-- display_wave = false
-            -- display_time = display_wave, self.m_gameState.m_limitTime
-
-		else
-			error('네스트 던전 아이디가 잘못되어있습니다. 확인해주세요. ' .. self.m_stageID)
-        end
-
-
-	-- 3. 비밀 던전
-    elseif (self.m_gameMode == GAME_MODE_SECRET_DUNGEON) then
-        local t_dungeon = g_secretDungeonData:parseSecretDungeonID(self.m_stageID)
-        local dungeonMode = t_dungeon['dungeon_mode']
-
-        if (dungeonMode == SECRET_DUNGEON_GOLD) then
-            self.m_gameState = GameState_NestDungeon_Gold(self)
-            -- display_wave = false
-			-- display_time = self.m_gameState.m_limitTime
-
-        elseif (dungeonMode == SECRET_DUNGEON_RELATION) then
-            self.m_gameState = GameState_SecretDungeon_Relation(self)
-        end
-
-    -- 4. 고대의 탑
-    elseif (self.m_gameMode == GAME_MODE_ANCIENT_TOWER) then
-        self.m_gameState = GameState_AncientTower(self)
-    end
-
-    --self.m_inGameUI:init_timeUI(display_wave, display_time)
-    self.m_inGameUI:init_timeUI(display_wave, 0)
-
     self.m_missileRange = {}
-    self:setMissileRange()
 
     -- callback
     self.m_lWorldScaleChangeCB = {}
@@ -308,16 +218,114 @@ function GameWorld:init(game_mode, stage_id, world_node, game_node1, game_node2,
     self.m_bUsedFriend = false
     self.m_friendDragon = nil
 
-    self:initGold()
-
     self.m_bGameFinish = false
 end
 
+-------------------------------------
+-- function createComponent
+-- @brief 구성 요소들을 생성
+-------------------------------------
+function GameWorld:createComponents()
+    self.m_gameCamera = GameCamera(self, g_gameScene.m_cameraLayer)
+    self.m_gameTimeScale = GameTimeScale(self)
+    self.m_gameHighlight = GameHighlightMgr(self, self.m_darkLayer)
+    self.m_gameDragonSkill = GameDragonSkill(self)
+    self.m_shakeMgr = ShakeManager(self, g_gameScene.m_shakeLayer)
+
+    -- 글로벌 쿨타임
+    self.m_gameCoolTime = GameCoolTime(self)
+    self:addListener('set_global_cool_time_passive', self.m_gameCoolTime)
+    self:addListener('set_global_cool_time_active', self.m_gameCoolTime)
+        
+    -- 마나 관리자 생성
+    self.m_heroMana = GameMana(self, PHYS.HERO)
+    self.m_heroMana:bindUI(self.m_inGameUI)
+    self.m_enemyMana = GameMana(self, PHYS.ENEMY)
+
+    -- 아군 자동시 AI
+    self.m_heroAuto = GameAuto_Hero(self, self.m_heroMana, self.m_inGameUI)
+    self:addListener('auto_start', self.m_heroAuto)
+    self:addListener('auto_end', self.m_heroAuto)
+
+    -- 적군(드래곤) AI
+    self.m_enemyAuto = GameAuto_Enemy(self, self.m_enemyMana)
+
+    -- 상태 관리자
+    do
+        -- ## 모드별 분기 처리
+        local display_wave = true
+        local display_time = nil
+
+	    -- 1. 모험 모드
+        if (self.m_gameMode == GAME_MODE_ADVENTURE) then
+            self.m_gameState = GameState(self)
+
+	    -- 2. 네스트 던전
+        elseif (self.m_gameMode == GAME_MODE_NEST_DUNGEON) then
+            local t_dungeon = g_nestDungeonData:parseNestDungeonID(self.m_stageID)
+            local dungeonMode = t_dungeon['dungeon_mode']
+            local detail_mode = t_dungeon['detail_mode']
+
+            -- "진화 재료 던전"
+            if (dungeonMode == NEST_DUNGEON_EVO_STONE) then
+                -- "보석 던전"
+                if (detail_mode == NEST_DUNGEON_SUB_MODE_JEWEL) then
+                    self.m_gameState = GameState_NestDungeon_Jewel(self)
+                -- "거대용 던전"
+                else
+                    self.m_gameState = GameState_NestDungeon_Dragon(self)
+                end
+
+		    elseif (dungeonMode == NEST_DUNGEON_NIGHTMARE) then
+		        self.m_gameState = GameState_NestDungeon_Nightmare(self)
+
+            elseif (dungeonMode == NEST_DUNGEON_TREE) then
+                self.m_gameCamera:setRange({minX = -640, maxX = 640})
+            
+                self.m_gameState = GameState_NestDungeon_Tree(self)
+
+            elseif (dungeonMode == NEST_DUNGEON_GOLD) then
+                self.m_gameState = GameState_NestDungeon_Gold(self)
+
+		    else
+			    error('네스트 던전 아이디가 잘못되어있습니다. 확인해주세요. ' .. self.m_stageID)
+            end
+
+
+	    -- 3. 비밀 던전
+        elseif (self.m_gameMode == GAME_MODE_SECRET_DUNGEON) then
+            local t_dungeon = g_secretDungeonData:parseSecretDungeonID(self.m_stageID)
+            local dungeonMode = t_dungeon['dungeon_mode']
+
+            if (dungeonMode == SECRET_DUNGEON_GOLD) then
+                self.m_gameState = GameState_NestDungeon_Gold(self)
+                -- display_wave = false
+			    -- display_time = self.m_gameState.m_limitTime
+
+            elseif (dungeonMode == SECRET_DUNGEON_RELATION) then
+                self.m_gameState = GameState_SecretDungeon_Relation(self)
+            end
+
+        -- 4. 고대의 탑
+        elseif (self.m_gameMode == GAME_MODE_ANCIENT_TOWER) then
+            self.m_gameState = GameState_AncientTower(self)
+        end
+
+        --self.m_inGameUI:init_timeUI(display_wave, display_time)
+        self.m_inGameUI:init_timeUI(display_wave, 0)
+    end
+
+    self:initGold()
+    self:setMissileRange()
+end
 
 -------------------------------------
 -- function initGame
 -------------------------------------
 function GameWorld:initGame(stage_name)
+    -- 구성 요소들을 생성
+    self:createComponents()
+
     local t_dungeon = g_nestDungeonData:parseNestDungeonID(self.m_stageID)
     local dungeonMode = t_dungeon['dungeon_mode']
 
@@ -763,12 +771,12 @@ end
 -------------------------------------
 -- function findTarget
 -------------------------------------
-function GameWorld:findTarget(type, x, y, l_remove)
+function GameWorld:findTarget(group_key, x, y, l_remove)
     local target
     local unitList
     local distance = nil
 
-    if (type == PHYS.ENEMY) then
+    if (group_key == PHYS.ENEMY) then
         unitList = self:getEnemyList()
     else
         unitList = self:getDragonList()
@@ -994,6 +1002,7 @@ function GameWorld:setBattleZone(formation, immediately, is_right)
     max_x = (max_x + offset_x)
     min_y = (min_y + offset_y)
     max_y = (max_y + offset_y)
+
     local l_pos_list = TableFormation:getFormationPositionList(formation, min_x, max_x, min_y, max_y, is_right)
 
     for _, unit in pairs(lUnitList) do
@@ -1130,14 +1139,11 @@ end
 -- function getTargetList
 -------------------------------------
 function GameWorld:getTargetList(char, x, y, team_type, formation_type, rule_type, t_data)
-    local bLeftFormation = true
+    local bLeftFormation = char.m_bLeftFormation
 	local t_data = t_data or {}
 
-    if (char) then
-        bLeftFormation = char.m_bLeftFormation
-        t_data['self'] = char
-    end
-    
+    t_data['self'] = char
+        
     -- 팀 타입에 따른 델리게이트
     local for_mgr_delegate = nil
 	
@@ -1370,21 +1376,6 @@ function GameWorld:onEvent_change_wave(event_name, t_event, ...)
 end
 
 -------------------------------------
--- function getEnemyList
--------------------------------------
-function GameWorld:getEnemyList()
-	return self.m_rightParticipants
-end
-
--------------------------------------
--- function getDragonList
--- @brief 활성화된 드래곤 리스트 반환, 기획상 기준이 바뀔 가능성이 높기 때문에 함수로 관리
--------------------------------------
-function GameWorld:getDragonList()
-	return self.m_leftParticipants
-end
-
--------------------------------------
 -- function removeMissileAndSkill
 -------------------------------------
 function GameWorld:removeMissileAndSkill()
@@ -1465,25 +1456,69 @@ function GameWorld:getDragonBatchNodeSprite(res, scale)
 end
 
 -------------------------------------
--- function setManaAccelValue
+-- function prepareAuto
 -------------------------------------
-function GameWorld:setManaAccelValue(value, right_formation)
-    if (not right_formation) then
-        self.m_heroMana:setManaAccelValue(value)
-    else
-        self.m_enemyMana:setManaAccelValue(value)
+function GameWorld:prepareAuto()
+    if (self.m_heroAuto) then
+        self.m_heroAuto:prepare(self:getDragonList())
     end
 end
 
 -------------------------------------
+-- function updateAuto
+-------------------------------------
+function GameWorld:updateAuto(dt)
+    if (self.m_heroAuto) then
+        self.m_heroAuto:update(dt)
+    end
+
+    if (self.m_enemyAuto) then
+        self.m_enemyAuto:update(dt)
+    end
+end
+
+-------------------------------------
+-- function updateMana
+-------------------------------------
+function GameWorld:updateMana(dt)
+    if (self.m_heroMana) then
+        self.m_heroMana:update(dt)
+    end
+    if (self.m_enemyMana) then
+        self.m_enemyMana:update(dt)
+    end
+end
+
+-------------------------------------
+-- function getMana
+-------------------------------------
+function GameWorld:getMana(char)
+    local group_key = char and char['phys_key'] or self:getPCGroup()
+
+    if (group_key == PHYS.ENEMY) then
+        return self.m_enemyMana
+    else
+        return self.m_heroMana
+    end
+end
+
+-------------------------------------
+-- function setManaAccelValue
+-------------------------------------
+function GameWorld:setManaAccelValue(char, value)
+    local game_mana = self:getMana(char)
+
+    game_mana:setManaAccelValue(value)
+end
+
+
+-------------------------------------
 -- function getManaAccelValue
 -------------------------------------
-function GameWorld:getManaAccelValue(right_formation)
-    if (not right_formation) then
-        return self.m_heroMana.m_accelValue
-    else
-        return self.m_enemyMana.m_accelValue
-    end
+function GameWorld:getManaAccelValue(char)
+    local game_mana = self:getMana(char)
+
+    return game_mana.m_accelValue
 end
 
 -------------------------------------
@@ -1506,4 +1541,19 @@ end
 -------------------------------------
 function GameWorld:isFinished()
     return self.m_bGameFinish
+end
+
+-------------------------------------
+-- function isAutoPlay
+-------------------------------------
+function GameWorld:isAutoPlay()
+    return self.m_heroAuto:isActive()
+end
+
+-------------------------------------
+-- function getPCGroup
+-- @brief 조작할 수 있는 그룹(키값)을 리턴
+-------------------------------------
+function GameWorld:getPCGroup()
+    return PHYS.HERO
 end

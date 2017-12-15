@@ -37,8 +37,8 @@ end
 -- function setDynamicWave
 -- @brief script를 읽어 dynamic wave를 저장
 -------------------------------------
-function WaveMgr_SecretRelation:setDynamicWave(l_wave, l_data, group_key)
-    PARENT.setDynamicWave(self, l_wave, l_data, group_key)
+function WaveMgr_SecretRelation:setDynamicWave(l_wave, l_data, t_param)
+    PARENT.setDynamicWave(self, l_wave, l_data, t_param)
 
     -- 웨이브 정보에서 드래곤의 경우는 did + evolution형식으로 아이디를 사용함
     for i, v in ipairs(self.m_lBossInfo) do
@@ -61,8 +61,9 @@ end
 -------------------------------------
 -- function spawnEnemy_dynamic
 -------------------------------------
-function WaveMgr_SecretRelation:spawnEnemy_dynamic(enemy_id, level, appear_type, value1, value2, value3, movement)
+function WaveMgr_SecretRelation:spawnEnemy_dynamic(enemy_id, level, appear_type, value1, value2, value3, movement, phys_group)
     local enemy
+    local phys_group = phys_group or PHYS.ENEMY
 
     -- Enemy 생성
     if (isMonster(enemy_id)) then
@@ -105,7 +106,8 @@ function WaveMgr_SecretRelation:spawnEnemy_dynamic(enemy_id, level, appear_type,
     end
 
     self.m_world.m_worldNode:addChild(enemy.m_rootNode, WORLD_Z_ORDER.ENEMY)
-    self.m_world.m_physWorld:addObject(PHYS.ENEMY, enemy)
+    self.m_world.m_physWorld:addObject(phys_group, enemy)
+    self.m_world:bindEnemy(enemy)
     self.m_world:addEnemy(enemy)
 
 	self.m_world.m_rightFormationMgr:setChangePosCallback(enemy)

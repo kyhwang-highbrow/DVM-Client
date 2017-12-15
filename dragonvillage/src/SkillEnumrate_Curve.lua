@@ -42,7 +42,7 @@ function SkillEnumrate_Curve:fireMissile(idx)
     t_option['pos_x'] = char.pos.x
 	t_option['pos_y'] = char.pos.y
 	
-    t_option['object_key'] = char:getAttackPhysGroup()
+    t_option['object_key'] = char:getMissilePhysGroup()
     t_option['physics_body'] = {0, 0, 0}
     t_option['attack_damage'] = self.m_activityCarrier
 	t_option['attr_name'] = char:getAttribute()

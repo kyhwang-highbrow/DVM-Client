@@ -58,6 +58,10 @@ function ServerData_Stage:getStageName(stage_id)
     elseif (game_mode == GAME_MODE_ANCIENT_TOWER) then
         name = g_ancientTowerData:getStageName(stage_id)
 
+    -- 클랜 레이드
+    elseif (game_mode == GAME_MODE_CLAN_RAID) then
+        name = Str('클랜 레이드')
+
     -- 콜로세움 모드
     elseif (game_mode == GAME_MODE_COLOSSEUM) then
         name = Str('콜로세움')

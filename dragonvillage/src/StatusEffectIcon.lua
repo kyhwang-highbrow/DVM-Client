@@ -31,20 +31,20 @@ function StatusEffectIcon:init(char, status_effect)
 		icon:setScale(0.375)
         char.m_statusNode:addChild(icon, 0)
 		self.m_icon = icon
-	end
-
-	if (self.m_icon) then
-		local label = cc.Label:createWithTTF('', 'res/font/common_font_01.ttf', 40, 0)
-		label:setAlignment(cc.TEXT_ALIGNMENT_CENTER, cc.VERTICAL_TEXT_ALIGNMENT_CENTER)
-		label:setAnchorPoint(cc.p(0.5, 0.5))
-		label:setDockPoint(cc.p(0.5, 0.5))
-		label:setPosition(0, 0)
-		label:enableOutline(cc.c4b(0, 0, 0, 255), 3)
-		self.m_icon:addChild(label)
-		self.m_label = label
-    else
-        error('StatusEffectIcon:init status_effect_type : ' .. status_effect_type)
-	end
+	
+	    if (self.m_icon) then
+		    local label = cc.Label:createWithTTF('', 'res/font/common_font_01.ttf', 40, 0)
+		    label:setAlignment(cc.TEXT_ALIGNMENT_CENTER, cc.VERTICAL_TEXT_ALIGNMENT_CENTER)
+		    label:setAnchorPoint(cc.p(0.5, 0.5))
+		    label:setDockPoint(cc.p(0.5, 0.5))
+		    label:setPosition(0, 0)
+		    label:enableOutline(cc.c4b(0, 0, 0, 255), 3)
+		    self.m_icon:addChild(label)
+		    self.m_label = label
+        else
+            error('StatusEffectIcon:init status_effect_type : ' .. status_effect_type)
+	    end
+    end
 end
 
 -------------------------------------

@@ -40,7 +40,7 @@ end
 function SkillLaser:init_skill(missile_res, hit, thickness)
 	PARENT.init_skill(self)
 
-    self.m_physGroup = self.m_owner:getAttackPhysGroup()
+    self.m_physGroup = self.m_owner:getMissilePhysGroup()
 
     local duration = (self.m_owner.m_statusCalc.m_attackTick / 2)
     local hit = math_max(hit, 1)

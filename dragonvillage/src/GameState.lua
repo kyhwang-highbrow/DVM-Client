@@ -340,24 +340,14 @@ function GameState.update_fight(self, dt)
         world.m_skillIndicatorMgr:update(dt)
     end
 
-    if (world.m_gameAutoHero) then
-        world.m_gameAutoHero:update(dt)
-    end
+    -- 자동
+    world:updateAuto(dt)
 
-    if (world.m_gameAutoEnemy) then
-        world.m_gameAutoEnemy:update(dt)
-    end
+    -- 마나
+    world:updateMana(dt)
 
     if (world.m_enemyMovementMgr) then
         world.m_enemyMovementMgr:update(dt)
-    end
-
-    -- 마나
-    if (world.m_heroMana) then
-        world.m_heroMana:update(dt)
-    end
-    if (world.m_enemyMana) then
-        world.m_enemyMana:update(dt)
     end
 
     do -- 아군 스킬 쿨타임 증가
@@ -396,6 +386,7 @@ function GameState.update_fight(self, dt)
             if (not self.m_world.m_waveMgr:isFinalWave()) then
 		        self:changeState(GAME_STATE_WAVE_INTERMISSION_WAIT)
 		    else
+                cclog('GAME_STATE_SUCCESS_WAIT')
 			    self:changeState(GAME_STATE_SUCCESS_WAIT)
 		    end
             return
@@ -542,7 +533,7 @@ function GameState.update_enemy_appear(self, dt)
 			world:passiveActivate_Left()
 
             -- 아군 AI 초기화
-            world.m_gameAutoHero:prepare(world:getDragonList())
+            world:prepareAuto()
         end
         
         -- 웨이브 알림
@@ -579,8 +570,8 @@ function GameState.update_enemy_appear(self, dt)
         end
 
         -- 적 AI 초기화
-        if (world.m_gameAutoEnemy) then
-            world.m_gameAutoEnemy:prepare(world:getEnemyList())
+        if (world.m_enemyAuto) then
+            world.m_enemyAuto:prepare(world:getEnemyList())
         end
 
         self:changeState(GAME_STATE_FIGHT_WAIT)

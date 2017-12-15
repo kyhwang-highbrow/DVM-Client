@@ -1,42 +1,48 @@
 local PARENT = GameState
 
-local HERO_TAMER_POS_X = 320 - 50
-local ENEMY_TAMER_POS_X = 960 + 50
-local TAMER_POS_Y = -450
+local TOP_DECK_OFFSET_X = 0
+local TOP_DECK_OFFSET_Y = 180
+local BOTTOM_DECK_OFFSET_X = 0
+local BOTTOM_DECK_OFFSET_Y = -180
 
 -------------------------------------
--- class GameState_Colosseum
+-- class GameState_ClanRaid
 -------------------------------------
-GameState_Colosseum = class(PARENT, {
-        m_bWin = 'boolean',
+GameState_ClanRaid = class(PARENT, {
+        m_bossHp = 'number',
+        m_bossMaxHp = 'number',
+        m_uiBossHp = 'UI_IngameBossHp',
     })
 
 -------------------------------------
 -- function init
 -------------------------------------
-function GameState_Colosseum:init(world)
-    -- 콜로세움은 제한시간 5분으로 고정
-    self.m_limitTime = 300
+function GameState_ClanRaid:init(world)
+    self.m_bgmBoss = 'bgm_dungeon_boss'
+    --self.m_limitTime = 300
+
+    self.m_bossMaxHp = 1000000000
+    self.m_bossHp = self.m_bossMaxHp
 end
 
 -------------------------------------
 -- function initState
 -- @brief 상태(state)별 동작 함수 추가
 -------------------------------------
-function GameState_Colosseum:initState()
+function GameState_ClanRaid:initState()
     PARENT.initState(self)
 
-    self:addState(GAME_STATE_START, GameState_Colosseum.update_start)
-    self:addState(GAME_STATE_WAVE_INTERMISSION, GameState_Colosseum.update_wave_intermission)
-    self:addState(GAME_STATE_SUCCESS, GameState_Colosseum.update_success)
-    self:addState(GAME_STATE_FAILURE, GameState_Colosseum.update_failure)
-    self:addState(GAME_STATE_RESULT, GameState_Colosseum.update_result)
+    self:addState(GAME_STATE_START, GameState_ClanRaid.update_start)
+    self:addState(GAME_STATE_FIGHT, GameState_ClanRaid.update_fight)
+    self:addState(GAME_STATE_SUCCESS, GameState_ClanRaid.update_success)
+    self:addState(GAME_STATE_FAILURE, GameState_ClanRaid.update_failure)
+    self:addState(GAME_STATE_RESULT, GameState_ClanRaid.update_result)
 end
 
 -------------------------------------
 -- function update_start
 -------------------------------------
-function GameState_Colosseum.update_start(self, dt)
+function GameState_ClanRaid.update_start(self, dt)
     local world = self.m_world
     local map_mgr = world.m_mapManager
 
@@ -48,60 +54,32 @@ function GameState_Colosseum.update_start(self, dt)
             -- 카메라 초기화
             world.m_gameCamera:reset()
 
-        elseif (self:isPassedStepTime(0.5)) then
+            -- 테이머 등장
+            world.m_tamer:changeState('appear')
             
-            -- 카메라 줌인
-            world:changeCameraOption({
-                pos_x = 0,
-                pos_y = -300,
-                scale = 1,
-                time = 2,
-                cb = function()
-                    self:nextStep()
-                end
-            })
-
-            world:changeHeroHomePosByCamera(0, 100, 0, true)
-            world:changeEnemyHomePosByCamera(0, 100, 0, true)
-	    
+            self:nextStep()
         end
 
     elseif (self:getStep() == 1) then
         if (self:isBeginningStep()) then
-            -- 아군 드래곤 소환
-            world.m_tamer.m_animator.m_node:resume()
-            
-            -- 적군 드래곤 소환
-            world.m_enemyTamer.m_animator.m_node:resume()
-            
-        elseif (self:isPassedStepTime(1)) then
-            self:appearHero()
-            self:appearEnemy()
-
-            SoundMgr:playEffect('UI', 'ui_summon')
-
             world:dispatch('dragon_summon')
+            
+        elseif (self:isPassedStepTime(0.5)) then
+            self:appearHero()
 
-        elseif (self:getStepTimer() >= 3) then
+            -- 테이머 이동
+            if (world.m_tamer) then
+                world.m_tamer:runAction_MoveZ(1)
+            end
+            
             self:nextStep()
-
         end
 
     elseif (self:getStep() == 2) then
         if (self:isBeginningStep()) then
-            -- 카메라 초기화
-            world:changeCameraOption({
-                pos_x = 0,
-                pos_y = 0,
-                scale = 1,
-                time = 2,
-                cb = function()
-                    self:nextStep()
-                end
-            })
-
             self.m_world.m_tamer:initBarrier()
-            self.m_world.m_enemyTamer:initBarrier()
+
+            self:nextStep()
         end
 
     elseif (self:getStep() == 3) then
@@ -112,49 +90,48 @@ function GameState_Colosseum.update_start(self, dt)
                 world.m_tamer.m_barrier:setVisible(true)
             end
 
-            if (world.m_enemyTamer) then
-                world.m_enemyTamer:setAnimatorScale(0.5)
-                world.m_enemyTamer.m_barrier:setVisible(true)
-            end
+            self:doDirectionForIntermission()
 
-            self:changeState(GAME_STATE_WAVE_INTERMISSION)
+            self:changeState(GAME_STATE_ENEMY_APPEAR)
         end
     end
 end
 
 -------------------------------------
--- function update_wave_intermission
+-- function update_fight
 -------------------------------------
-function GameState_Colosseum.update_wave_intermission(self, dt)
+function GameState_ClanRaid.update_fight(self, dt)
     local world = self.m_world
-		
+    
     if (self.m_stateTimer == 0) then
-        -- 연출(카메라)
-        self:doDirectionForIntermission()
+        if (not self.m_uiBossHp) then
+            self.m_uiBossHp = UI_IngameBossHpForClanRaid(world, world.m_waveMgr.m_lBoss)
+                
+            world.m_inGameUI.root:addChild(self.m_uiBossHp.root, 102)
+        end
     end
-    	
-	if (self.m_stateTimer > getInGameConstant("WAVE_INTERMISSION_TIME")) then
-        world:dispatch('game_start')
 
-        -- 패시브 효과 적용
-        world:passiveActivate_Left()
-		world:passiveActivate_Right()
-
-        -- AI 초기화
-        world:prepareAuto()
-
-        world.m_inGameUI:doAction()
-
-        self:fight()
-
-		self:changeState(GAME_STATE_FIGHT)
-	end
+    PARENT.update_fight(self, dt)
 end
 
 -------------------------------------
 -- function update_success
 -------------------------------------
-function GameState_Colosseum.update_success(self, dt)
+function GameState_ClanRaid.update_success_wait(self, dt)
+    if (self.m_stateTimer == 0) then
+        if (self.m_uiBossHp) then
+            self.m_uiBossHp.root:removeFromParent(true)
+            self.m_uiBossHp = nil
+        end
+    end
+
+    PARENT.update_success_wait(self, dt)
+end
+
+-------------------------------------
+-- function update_success
+-------------------------------------
+function GameState_ClanRaid.update_success(self, dt)
     
     if (self.m_stateTimer == 0) then
         local world = self.m_world
@@ -162,8 +139,6 @@ function GameState_Colosseum.update_success(self, dt)
         -- 모든 적들을 죽임
         world:removeAllEnemy()
         world:removeMissileAndSkill()
-
-        world.m_enemyTamer:changeState('dying')
 
         -- 기본 배속으로 변경
         world.m_gameTimeScale:setBase(1)
@@ -188,7 +163,6 @@ function GameState_Colosseum.update_success(self, dt)
     elseif (self.m_stateTimer >= 3.5) then
         if self.m_stateParam then
             self.m_stateParam = false
-            self.m_bWin = true
             self:changeState(GAME_STATE_RESULT)
         end
     end
@@ -197,7 +171,7 @@ end
 -------------------------------------
 -- function update_failure
 -------------------------------------
-function GameState_Colosseum.update_failure(self, dt)
+function GameState_ClanRaid.update_failure(self, dt)
     local world = self.m_world
 
     if (self:getStep() == 0) then
@@ -247,7 +221,6 @@ function GameState_Colosseum.update_failure(self, dt)
             end
         
         elseif (self:getStepTimer() >= 3.5) then
-            self.m_bWin = false
             self:changeState(GAME_STATE_RESULT)
         end
     end
@@ -256,16 +229,20 @@ end
 -------------------------------------
 -- function update_result
 -------------------------------------
-function GameState_Colosseum.update_result(self, dt)
+function GameState_ClanRaid.update_result(self, dt)
     if (self.m_stateTimer == 0) then
-        self:makeResultUI(self.m_bWin)
+        local game_mode = g_gameScene.m_gameMode
+        local dungeon_mode = g_gameScene.m_dungeonMode
+        local condition = g_gameScene.m_stageID
+
+        QuickLinkHelper.gameModeLink(game_mode, dungeon_mode, condition)
     end
 end
 
 -------------------------------------
 -- function disappearAllDragon
 -------------------------------------
-function GameState_Colosseum:disappearAllDragon()
+function GameState_ClanRaid:disappearAllDragon()
     local disappearDragon = function(dragon)
         if (not dragon:isDead()) then
             dragon.m_rootNode:setVisible(false)
@@ -284,31 +261,9 @@ function GameState_Colosseum:disappearAllDragon()
 end
 
 -------------------------------------
--- function appearEnemy
--------------------------------------
-function GameState_Colosseum:appearEnemy()
-    -- 드래곤들을 등장
-    local world = self.m_world
-    for i,dragon in ipairs(world:getEnemyList()) do
-        dragon:doAppear()
-    end
-end
-
--------------------------------------
--- function fight
--------------------------------------
-function GameState_Colosseum:fight()
-    PARENT.fight(self)
-
-    if (self.m_world.m_enemyTamer) then
-        self.m_world.m_enemyTamer:changeState('roam')
-    end
-end
-
--------------------------------------
 -- function checkWaveClear
 -------------------------------------
-function GameState_Colosseum:checkWaveClear(dt)
+function GameState_ClanRaid:checkWaveClear(dt)
     local world = self.m_world
     local enemy_count = #world:getEnemyList()
 
@@ -321,75 +276,38 @@ function GameState_Colosseum:checkWaveClear(dt)
 
             self:changeState(GAME_STATE_SUCCESS_WAIT)
             return true
-        end
+        end    
     else
         self.m_waveClearTimer = 0
     end
-
+    
     return false
 end
 
 -------------------------------------
 -- function doDirectionForIntermission
 -------------------------------------
-function GameState_Colosseum:doDirectionForIntermission()
+function GameState_ClanRaid:doDirectionForIntermission()
     local t_camera_info = {}
     	
     t_camera_info['pos_x'] = 0
-	t_camera_info['pos_y'] = 300
+	t_camera_info['pos_y'] = 0
 	t_camera_info['time'] = getInGameConstant("WAVE_INTERMISSION_TIME")
         
     -- 카메라 액션 설정
     self.m_world:changeCameraOption(t_camera_info)
 
     self.m_world:changeHeroHomePosByCamera()
-    self.m_world:changeEnemyHomePosByCamera()
 end
 
--------------------------------------
--- function processTimeOut
--------------------------------------
-function GameState_Colosseum:processTimeOut()
-    local inGameUi = self.m_world.m_inGameUI
-
-    local hero_hp = inGameUi:getHeroHpGaugePercentage()
-    local enemy_hp = inGameUi:getEnemyHpGaugePercentage()
-
-    if (hero_hp < enemy_hp) then
-        self:changeState(GAME_STATE_FAILURE)
-    else
-        self:changeState(GAME_STATE_SUCCESS_WAIT)
-    end
-end
 
 -------------------------------------
--- function makeResultUI
+-- function setBossHp
 -------------------------------------
-function GameState_Colosseum:makeResultUI(is_win)
-    if (self.m_world.m_bDevelopMode) then
-        local t_data = { added_rp = 0, added_honor = 0 }
-        UI_ColosseumResult(is_win, t_data)
+function GameState_ClanRaid:setBossHp(hp)
+    self.m_bossHp = hp
 
-    elseif (self.m_world.m_bFriendMatch) then
-        UI_FriendMatchResult(is_win)
-
-    else
-        -- 작업 함수들
-        local func_network_game_finish
-        local func_ui_result
-
-        -- 1. 네트워크 통신
-        func_network_game_finish = function()
-            g_colosseumData:request_colosseumFinish(is_win, func_ui_result)
-        end
-
-        -- 2. UI 생성
-        func_ui_result = function(ret)
-            local t_data = ret
-            UI_ColosseumResult(is_win, t_data)
-        end
-
-        -- 최초 실행
-        func_network_game_finish()
+    for _, boss in ipairs(self.m_world.m_waveMgr.m_lBoss) do
+        boss:syncHp(hp)
     end
 end

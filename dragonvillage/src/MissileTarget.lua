@@ -1,23 +1,20 @@
 -------------------------------------
 -- class MissileTarget
 -------------------------------------
-MissileTarget = class(Missile, {
-        m_bHero = 'boolean',
-     })
+MissileTarget = class(Missile, {})
 
 -------------------------------------
 -- function init
 -- @param file_name
 -- @param body
 -------------------------------------
-function MissileTarget:init(file_name, body, is_hero)
-    self.m_bHero = is_hero
+function MissileTarget:init(file_name, body)
 end
 
 -------------------------------------
 -- function initState
 -------------------------------------
-function MissileTarget:initState(file_name, body, is_hero)
+function MissileTarget:initState()
     Missile.initState(self)
 
     self:addState('move', MissileTarget.st_move, 'move', true)
@@ -31,14 +28,8 @@ function MissileTarget.st_move(owner, dt)
 
     if owner.m_stateTimer == 0 then
         local dir = 0
-        local target = nil
-
-        if owner.m_bHero then
-            target = owner.m_world:findTarget('enemy', owner.pos.x + owner.body.x, owner.pos.y + owner.body.y)
-        else
-            target = owner.m_world:findTarget('hero', owner.pos.x + owner.body.x, owner.pos.y + owner.body.y)
-        end
-
+        local target = owner.m_world:findTarget(owner.m_owner:getAttackablePhysGroup(), owner.pos.x + owner.body.x, owner.pos.y + owner.body.y)
+        
         if target then
             dir = getDegree(owner.pos.x + owner.body.x, owner.pos.y + owner.body.y, target.pos.x + target.body.x, target.pos.y + target.body.y)
         end

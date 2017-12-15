@@ -263,7 +263,7 @@ function Monster:makeHPGauge(hp_ui_offset, force)
                 self.m_actionGauge = nil
             end
         end
-
+            
         -- 보스 UI
         local ui = UI_IngameBossInfo(self)
         self.m_hpNode = ui.root
@@ -500,7 +500,7 @@ end
 -------------------------------------
 -- function getSizeType
 -------------------------------------
-function Character:getSizeType()
+function Monster:getSizeType()
     local t_monster = TableMonster():get(self.m_charID)
     if (not t_monster) then
         return self.m_evolutionLv, 'dragon'

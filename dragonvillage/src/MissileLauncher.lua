@@ -21,7 +21,8 @@ MissileLauncher = class(PARENT, {
         m_missileDepth = 'number',
 
         m_objectKey = '',
-        m_bHeroMissile = '',
+        
+        m_bUseOwnerPos = 'boolean',
         m_bUseTargetDir = '',
 
         -- 탄막 발사 종료 시간
@@ -44,7 +45,7 @@ function MissileLauncher:init(file_name, body)
     self.m_attackOffsetX = 0
     self.m_attackOffsetY = 0
 
-    self.m_bHeroMissile = false
+    self.m_bUseOwnerPos = false
     self.m_bUseTargetDir = false
 end
 
@@ -68,12 +69,7 @@ function MissileLauncher:init_missileLauncher(t_skill, object_key, activity_carr
     if (not script) then
         error(script_name .. " DO NOT EXIST!!")
     end
-
-    if isWin32() then
-		-- 퍼포먼스 개발 중 스크립트명을 확인하기 위함 sgkim 2017-08-21
-        --cclog('## script_name : ' .. script_name)
-    end
-
+    
     local script_data = script[script_name]
     
     self.m_tAttackValueBase = script_data['attack_value']
@@ -175,6 +171,7 @@ function MissileLauncher:setLauncherOwner(owner, attack_offset_x, attack_offset_
     self.m_owner = owner
     self.m_attackOffsetX = attack_offset_x
     self.m_attackOffsetY = attack_offset_y
+    self.m_bUseOwnerPos = true
 end
 
 -------------------------------------
@@ -197,16 +194,8 @@ function MissileLauncher.st_attack(owner, dt, pattern_idx)
     else
         -- 발사 주체 정보 확인
         if (owner.m_owner) then
-            -- 주체가 죽었으면 멈춤
-            --[[
-            if (owner.m_owner:isDead()) then
-                owner:changeState('dying')
-                return true
-            end
-            ]]--
-
-            -- TODO: 주체와 위치 동기화
-            do
+            -- 주체와 위치 동기화
+            if (owner.m_bUseOwnerPos) then
                 owner.pos.x = owner.m_owner.pos.x + owner.m_attackOffsetX
                 owner.pos.y = owner.m_owner.pos.y + owner.m_attackOffsetY
             end
@@ -456,6 +445,8 @@ function MissileLauncher:fireMissile(owner, attack_idx, depth, dir_add, offset_a
 
 	    for i = 1, #attack_value.dir_array do
 		    local t_option = {}
+
+            t_option['owner'] =			    owner.m_owner
 		    t_option['movement'] =			attack_value.movement
 		    t_option['missile_res_name'] =	attack_value['res']
 		    t_option['dir'] =				attack_value.dir_array[i] + dir_add
@@ -543,7 +534,7 @@ function MissileLauncher:fireMissile(owner, attack_idx, depth, dir_add, offset_a
 			    self:applyLauncherOption(t_option, target_idx)
 		    end
 
-		    self.m_world.m_missileFactory:makeMissile(t_option, self.m_bHeroMissile)
+		    self.m_world.m_missileFactory:makeMissile(t_option)
 	    end
     end
 

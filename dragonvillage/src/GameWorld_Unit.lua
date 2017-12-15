@@ -223,6 +223,7 @@ function GameWorld:makeHeroDeck()
 
                 self.m_worldNode:addChild(hero.m_rootNode, WORLD_Z_ORDER.HERO)
                 self.m_physWorld:addObject(PHYS.HERO, hero)
+                self:bindHero(hero)
                 self:addHero(hero)
 
                 self.m_leftFormationMgr:setChangePosCallback(hero)
@@ -282,6 +283,7 @@ function GameWorld:joinFriendHero(posIdx)
     self.m_friendDragon:setPosIdx(posIdx)
 
     self.m_physWorld:addObject(PHYS.HERO, self.m_friendDragon)
+    self:bindHero(self.m_friendDragon)
     self:addHero(self.m_friendDragon)
     
     self.m_leftFormationMgr:setChangePosCallback(self.m_friendDragon)
@@ -357,10 +359,8 @@ function GameWorld:bindHero(hero)
     hero:addListener('set_global_cool_time_active', self.m_gameCoolTime)
 
     -- 자동 AI를 위한 이벤트
-    hero:addListener('hero_active_skill', self.m_gameAutoHero)
-    --hero:addListener('get_debuff', self.m_gameAutoHero)
-    --hero:addListener('release_debuff', self.m_gameAutoHero)
-    
+    hero:addListener('hero_active_skill', self.m_heroAuto)
+        
     -- 월드에서 중계되는 이벤트
     hero:addListener('character_recovery', self)
     hero:addListener('character_set_hp', self)
@@ -425,11 +425,9 @@ function GameWorld:bindEnemy(enemy)
         enemy:addListener('dragon_active_skill', self.m_gameDragonSkill)
         enemy:addListener('dragon_active_skill', self.m_enemyMana)
         
-        if (self.m_gameAutoEnemy) then
+        if (self.m_enemyAuto) then
             -- 자동 AI를 위한 이벤트
-            enemy:addListener('enemy_active_skill', self.m_gameAutoEnemy)
-            --enemy:addListener('get_debuff', self.m_gameAutoEnemy)
-            --enemy:addListener('release_debuff', self.m_gameAutoEnemy)
+            enemy:addListener('enemy_active_skill', self.m_enemyAuto)
         end
     end
 
@@ -511,6 +509,21 @@ function GameWorld:removeAllEnemy()
     end
 	
     self.m_waveMgr:clearDynamicWave()
+end
+
+-------------------------------------
+-- function getEnemyList
+-------------------------------------
+function GameWorld:getEnemyList()
+	return self.m_rightParticipants
+end
+
+-------------------------------------
+-- function getDragonList
+-- @brief 활성화된 드래곤 리스트 반환, 기획상 기준이 바뀔 가능성이 높기 때문에 함수로 관리
+-------------------------------------
+function GameWorld:getDragonList()
+	return self.m_leftParticipants
 end
 
 -------------------------------------

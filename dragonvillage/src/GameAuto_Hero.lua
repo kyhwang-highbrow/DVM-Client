@@ -4,16 +4,15 @@ local PARENT = GameAuto
 -- class GameAuto_Hero
 -------------------------------------
 GameAuto_Hero = class(PARENT, {
-        -- UI
-        m_autoVisual = '',
+        m_inGameUI = 'UI',
      })
 
 -------------------------------------
 -- function init
 -------------------------------------
-function GameAuto_Hero:init(world, game_mana)
-    self:initUI()
-    
+function GameAuto_Hero:init(world, game_mana, ui)
+    self.m_inGameUI = ui
+
     if (isExistValue(self.m_world.m_gameMode, GAME_MODE_ADVENTURE, GAME_MODE_NEST_DUNGEON, GAME_MODE_SECRET_DUNGEON)) then
         if (g_autoPlaySetting:isAutoPlay()) then
             -- 연속 전투가 활성화되어있다면 즉시 자동모드를 활성화시킴
@@ -26,15 +25,6 @@ function GameAuto_Hero:init(world, game_mana)
             self:onStart()
         end
     end
-end
-
--------------------------------------
--- function initUI
--------------------------------------
-function GameAuto_Hero:initUI()
-    local ui = self.m_world.m_inGameUI
-
-    self.m_autoVisual = ui.vars['autoVisual']
 end
 
 -------------------------------------
@@ -59,8 +49,8 @@ end
 function GameAuto_Hero:onStart()
     PARENT.onStart(self)
     
-    if (self.m_autoVisual) then
-        self.m_autoVisual:setVisible(true)
+    if (self.m_inGameUI) then
+        self.m_inGameUI.vars['autoVisual']:setVisible(true)
     end
 end
 
@@ -70,8 +60,8 @@ end
 function GameAuto_Hero:onEnd()
     PARENT.onEnd(self)
 
-    if (self.m_autoVisual) then
-        self.m_autoVisual:setVisible(false)
+    if (self.m_inGameUI) then
+        self.m_inGameUI.vars['autoVisual']:setVisible(false)
     end
 end
 

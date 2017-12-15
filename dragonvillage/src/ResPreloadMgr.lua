@@ -131,6 +131,46 @@ function ResPreloadMgr:loadForColosseum(t_enemy)
 end
 
 -------------------------------------
+-- function loadForClanRaid
+--@brief 클랜 레이드 관련 리소스를 프리로드
+-------------------------------------
+function ResPreloadMgr:loadForClanRaid(t_enemy)
+    if (self.m_bCompletedPreload) then
+        -- 이미 프리로드된 경우
+        return true
+    end
+
+    if (not self.m_bPreparedPreloadList) then
+        self.m_bCompletedPreload = false
+        self.m_bPreparedPreloadList = true
+
+        -- 프리로드 리스트 초기화
+        self.m_lPreloadList = nil
+
+        -- 스테이지에 관련된 것들을 제외한 나머지 리소스들을 추가
+        do
+            self.m_lPreloadList = self:makeResListForGame()
+        end
+
+        -- @TODO: 상대편 유닛에 대한 리소스를 추가
+
+        -- 공통 리소스 
+        local l_preload_full_list = self:loadPreloadFile()
+        if (l_preload_full_list) then
+            local l_common = l_preload_full_list['common']
+            if (l_common) then
+                self.m_lPreloadList = table.merge(self.m_lPreloadList, l_common)
+            end
+        end
+
+        return false
+    end
+
+    self.m_bCompletedPreload = self:_loadRes()
+    return self.m_bCompletedPreload
+end
+
+-------------------------------------
 -- function _loadRes
 -------------------------------------
 function ResPreloadMgr:_loadRes()

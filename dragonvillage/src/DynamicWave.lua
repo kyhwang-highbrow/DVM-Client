@@ -21,6 +21,8 @@ DynamicWave = class({
         m_hasItem = 'boolean',
 
 		m_regenInfo = 'table',
+
+        m_physGroup = 'string'
     })
 
 -------------------------------------
@@ -30,6 +32,7 @@ function DynamicWave:init(wave_mgr, data, delay)
     self.m_waveMgr = wave_mgr
     self.m_dynamicTimer = -1
 	self.m_regenInfo = nil
+    self.m_physGroup = nil
     self.m_hasItem = false
 
     
@@ -76,6 +79,13 @@ function DynamicWave:setRegenInfo(table)
 end
 
 -------------------------------------
+-- function setPhysGroup
+-------------------------------------
+function DynamicWave:setPhysGroup(physGroup)
+	self.m_physGroup = physGroup
+end
+
+-------------------------------------
 -- function update
 -------------------------------------
 function DynamicWave:update(dt)
@@ -99,7 +109,8 @@ function DynamicWave:update(dt)
             self.m_luaValue1,
             self.m_luaValue2,
             self.m_luaValue3,
-            self.m_movement
+            self.m_movement,
+            self.m_physGroup
             )
 
 		-- regen 정보가 있다면 (regen된 몬스터라면)

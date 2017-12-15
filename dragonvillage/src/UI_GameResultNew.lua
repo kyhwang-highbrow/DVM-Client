@@ -241,9 +241,11 @@ function UI_GameResultNew:direction_showTamer()
 
     local tamer_res = t_tamer['res']
     local animator = MakeAnimator(tamer_res)
-    animator.m_node:setDockPoint(cc.p(0.5, 0.5))
-    animator.m_node:setDockPoint(cc.p(0.5, 0.5))
-    tamer_node:addChild(animator.m_node)
+    if (animator.m_node) then
+        animator.m_node:setDockPoint(cc.p(0.5, 0.5))
+        animator.m_node:setDockPoint(cc.p(0.5, 0.5))
+        tamer_node:addChild(animator.m_node)
+    end
     tamer_node:setVisible(true)
     vars['talkLabel']:setVisible(is_success)
 

@@ -308,7 +308,6 @@ end
 -------------------------------------
 function Dragon:makeHPGauge(hp_ui_offset)
     self.m_unitInfoOffset = hp_ui_offset
-    --self.m_unitInfoOffset[1] = self.m_unitInfoOffset[1] - 80
 
     if (self.m_hpNode) then
         self.m_hpNode:removeFromParent()
@@ -490,7 +489,7 @@ function Dragon:updateActiveSkillCool(dt)
 	    t_event['owner'] = self
         t_event['cool_time'] = self.m_activeSkillCoolTimer
 	    t_event['percentage'] = (self.m_activeSkillCoolTime - self.m_activeSkillCoolTimer) / self.m_activeSkillCoolTime * 100
-        t_event['enough_mana'] = (self.m_activeSkillManaCost:get() <= self.m_world.m_heroMana:getCurrMana())
+        t_event['enough_mana'] = (self.m_activeSkillManaCost:get() <= self.m_world:getMana(self):getCurrMana())
         
         self:dispatch('dragon_skill_gauge', t_event)
     end
@@ -566,17 +565,8 @@ end
 -- function ckeckSkillMana
 -------------------------------------
 function Dragon:checkSkillMana()
-    if (self.m_bLeftFormation) then
-        if (self.m_activeSkillManaCost:get() > self.m_world.m_heroMana:getCurrMana()) then
-            return false, REASON_TO_DO_NOT_USE_SKILL.MANA_LACK
-        end
-
-    elseif (self.m_world.m_enemyMana) then
-        if (self.m_activeSkillManaCost:get() > self.m_world.m_enemyMana:getCurrMana()) then
-            return false, REASON_TO_DO_NOT_USE_SKILL.MANA_LACK
-        end
-    else
-        return false
+    if (self.m_activeSkillManaCost:get() > self.m_world:getMana(self):getCurrMana()) then
+        return false, REASON_TO_DO_NOT_USE_SKILL.MANA_LACK
     end
 
     return true

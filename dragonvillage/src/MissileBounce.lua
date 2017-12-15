@@ -3,7 +3,6 @@
 -------------------------------------
 MissileBounce = class(Missile, {
         m_target = 'Enemy',
-        m_isHero = '',
         m_lPhysKey = '',
 
         m_bounceCount = '',
@@ -15,9 +14,8 @@ MissileBounce = class(Missile, {
 -- @param file_name
 -- @param body
 -------------------------------------
-function MissileBounce:init(file_name, body, target, is_hero)
+function MissileBounce:init(file_name, body, target)
     self.m_target = target
-    self.m_isHero = is_hero
     self.m_lPhysKey = {}
     
     self.m_bounceCountMax = 3
@@ -38,11 +36,7 @@ function MissileBounce.hitCB(attacker, defender, i_x, i_y)
 
     table.insert(self.m_lPhysKey, defender.phys_idx)
     
-    if self.m_isHero then
-        self.m_target = attacker.m_world:findTarget('enemy', self.pos.x + self.body.x, self.pos.y + self.body.y, self.m_lPhysKey)
-    else
-        self.m_target = attacker.m_world:findTarget('hero', self.pos.x + self.body.x, self.pos.y + self.body.y, self.m_lPhysKey)
-    end
+    self.m_target = attacker.m_world:findTarget(self.m_owner:getAttackablePhysGroup(), self.pos.x + self.body.x, self.pos.y + self.body.y, self.m_lPhysKey)
 
     if (self.m_bounceCount <= 2) then
         self.speed = self.speed * 1.1
@@ -68,11 +62,7 @@ end
 function MissileBounce.st_move(owner, dt)
     -- 타겟의 위치로 계속 쫓아감 (없거나 죽을 경우 직선)
     if (owner.m_target == nil or owner.m_target:isDead()) then
-        if (owner.m_isHero) then
-            owner.m_target = owner.m_world:findTarget('enemy', owner.pos.x + owner.body.x, owner.pos.y + owner.body.y)
-        else
-            owner.m_target = owner.m_world:findTarget('hero', owner.pos.x + owner.body.x, owner.pos.y + owner.body.y)
-        end
+        owner.m_target = owner.m_world:findTarget(owner.m_owner:getAttackablePhysGroup(), owner.pos.x + owner.body.x, owner.pos.y + owner.body.y)
     end
 
     if (owner.m_target) then

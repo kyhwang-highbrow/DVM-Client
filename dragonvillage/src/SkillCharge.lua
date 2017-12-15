@@ -157,7 +157,7 @@ function SkillCharge:makeCrashPhsyObject()
     t_option['pos_x'] = owner.pos.x + self.m_atkPhysPosX
 	t_option['pos_y'] = owner.pos.y
 
-    t_option['object_key'] = owner:getAttackPhysGroup()
+    t_option['object_key'] = owner:getMissilePhysGroup()
     t_option['physics_body'] = { 0, 0, coll_size }
     
     t_option['speed'] = 0

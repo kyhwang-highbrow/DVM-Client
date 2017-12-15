@@ -11,8 +11,8 @@ GameMana = class(PARENT, {
         m_world = 'GameWorld',
         m_inGameUI = 'UI',
 
-        m_bLeftFormation = 'boolean',
-        
+        m_groupKey = '',
+
         m_prevValue = 'number',
         m_value = 'number',
         
@@ -25,11 +25,10 @@ GameMana = class(PARENT, {
 -------------------------------------
 -- function init
 -------------------------------------
-function GameMana:init(world, left_formation)
+function GameMana:init(world, group_key)
     self.m_world = world
-    self.m_inGameUI = world.m_inGameUI
-
-    self.m_bLeftFormation = left_formation
+    
+    self.m_groupKey = group_key
 
     self.m_prevValue = -1
     self.m_value = security_key
@@ -63,9 +62,7 @@ end
 function GameMana:updateGauge(updated_int)
     if (not self.m_inGameUI) then return end
 
-    if (self.m_bLeftFormation) then
-        self.m_inGameUI:setMana(self:getCurrMana(), updated_int)
-    end
+    self.m_inGameUI:setMana(self:getCurrMana(), updated_int)
 end
 
 -------------------------------------
@@ -76,11 +73,18 @@ function GameMana:onEvent(event_name, t_event, ...)
     if (event_name == 'dragon_active_skill') then
         local arg = {...}
         local dragon = arg[1]
-        
-        if (self.m_bLeftFormation == dragon.m_bLeftFormation) then
+
+        if (self.m_groupKey == dragon['phys_key']) then
             self:subtractMana(dragon:getSkillManaCost())
         end
     end
+end
+
+-------------------------------------
+-- function init
+-------------------------------------
+function GameMana:bindUI(ui)
+    self.m_inGameUI = ui
 end
 
 -------------------------------------

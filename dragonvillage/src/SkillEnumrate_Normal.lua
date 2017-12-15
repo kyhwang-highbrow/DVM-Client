@@ -50,7 +50,7 @@ function SkillEnumrate_Normal:fireMissile(idx)
 	t_option['dir'] = self:getAttackDir(idx)
 	t_option['rotation'] = t_option['dir']
 
-    t_option['object_key'] = char:getAttackPhysGroup()
+    t_option['object_key'] = char:getMissilePhysGroup()
     t_option['physics_body'] = {0, 0, self.m_skillLineSize}
     t_option['attack_damage'] = self.m_activityCarrier
 	t_option['attr_name'] = char:getAttribute()

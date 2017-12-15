@@ -19,7 +19,7 @@ end
 -------------------------------------
 -- function initState
 -------------------------------------
-function MissileFix:initState(file_name, body, is_hero)
+function MissileFix:initState(file_name, body)
     PARENT.initState(self)
 
     self:addState('move', MissileFix.st_move, 'move', true)

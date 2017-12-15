@@ -101,8 +101,13 @@ function UI_AdventureSceneNew:initButton()
     if IS_TEST_MODE() then
         vars['devStageBtn']:setVisible(true)
         vars['devStageBtn']:registerScriptTapHandler(function() self:openAdventureStageInfoPopup(DEV_STAGE_ID) end)
+
+        -- 클랜 던전 테스트
+        vars['clanraidStageBtn']:setVisible(true)
+        vars['clanraidStageBtn']:registerScriptTapHandler(function() self:openAdventureStageInfoPopup(CLAN_RAID_STAGE_ID) end)
     else
         vars['devStageBtn']:setVisible(false)
+        vars['clanraidStageBtn']:setVisible(false)
     end
 
     vars['chapterSelectBtn']:setVisible(true)

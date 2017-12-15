@@ -57,7 +57,7 @@ function Character:doSkillBySkillTable(t_skill, t_data)
 		local x = self.m_attackOffsetX or 0
 		local y = self.m_attackOffsetY or 0
 		local attr = self:getAttribute()
-		local phys_group = self:getAttackPhysGroup()
+		local phys_group = self:getMissilePhysGroup()
 
         local b = self:do_script_shot(t_skill, attr, phys_group, x, y, t_data)
 
@@ -410,21 +410,16 @@ function Character:do_script_shot(t_skill, attr, phys_group, x, y, t_data)
     activity_carrier:setPowerRate(t_skill['power_rate'])
     activity_carrier:setAddCriPowerRate(t_skill['critical_damage_add'])
 		
-    missile_launcher.m_bHeroMissile = self.m_bLeftFormation
-    
     self.m_world:addToMissileList(missile_launcher)
     self.m_world.m_worldNode:addChild(missile_launcher.m_rootNode)
+
     missile_launcher:init_missileLauncher(t_skill, phys_group, activity_carrier, 1)
     missile_launcher.m_animator:changeAni('animation', true)
 
     -- 발사 위치를 해당 캐릭터의 위치를 기준이 되도록 설정
-    if (true) then
-        missile_launcher:setPosition(self.pos.x, self.pos.y)
-        missile_launcher:setLauncherOwner(self, x, y)
-    else
-        missile_launcher:setPosition(start_x, start_y)
-    end
-
+    missile_launcher:setPosition(self.pos.x, self.pos.y)
+    missile_launcher:setLauncherOwner(self, x, y)
+    
     -- 스킬 방향 지정
     local skill_dir = tonumber(t_skill['dir'])
     if skill_dir then

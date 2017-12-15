@@ -242,6 +242,13 @@ function PhysObject:setSpeed(s)
 end
 
 -------------------------------------
+-- function getPhysGroup
+-------------------------------------
+function PhysObject:getPhysGroup()
+    return self.phys_key
+end
+
+-------------------------------------
 -- function addAtkCallback
 -- @param callback_atk : function
 -------------------------------------

@@ -6,6 +6,8 @@ local PARENT = class(Entity, IEventListener:getCloneTable())
 StatusEffect = class(PARENT, {
         m_res = 'string',
 
+        m_offsetPos = 'cc.p',
+        
         m_statusEffectTable = 'table',
         m_statusEffectName = 'string',
         m_overlabClass = 'class',
@@ -58,6 +60,8 @@ StatusEffect = class(PARENT, {
 function StatusEffect:init(file_name, body)
     self.m_res = file_name
 
+    self.m_offsetPos = { x = 0, y = 0 }
+    
     self.m_overlabClass = StatusEffectUnit
 
 	self.m_lStatus = {}
@@ -425,7 +429,11 @@ end
 -- function checkPosDirty
 -------------------------------------
 function StatusEffect:checkPosDirty()
-    if (self.pos.x ~= self.m_owner.pos.x) or (self.pos.y ~= self.m_owner.pos.y) then
+    local offset_x = self.m_offsetPos['x'] or 0
+    local offset_y = self.m_offsetPos['y'] or 0
+
+    if ((self.pos['x'] ~= self.m_owner.pos['x'] + offset_x) or
+        (self.pos['y'] ~= self.m_owner.pos['y'] + offset_y)) then
         self.m_bDirtyPos = true
     end
 end
@@ -434,7 +442,10 @@ end
 -- function updatePos
 -------------------------------------
 function StatusEffect:updatePos()
-    self:setPosition(self.m_owner.pos.x, self.m_owner.pos.y)
+    local offset_x = self.m_offsetPos['x'] or 0
+    local offset_y = self.m_offsetPos['y'] or 0
+
+    self:setPosition(self.m_owner.pos['x'] + offset_x, self.m_owner.pos['y'] + offset_y)
     self.m_bDirtyPos = false
 end
 
@@ -926,4 +937,11 @@ function StatusEffect:dispatchEvent_statChange()
 
 	    self.m_owner:dispatch('stat_changed', t_event)
     end
+end
+
+-------------------------------------
+-- function setOffset
+-------------------------------------
+function StatusEffect:setOffsetPos(pos)
+    self.m_offsetPos = pos
 end

@@ -107,7 +107,7 @@ function SkillAoERound_Sura:fireMissile(target)
 
     t_option['physics_body'] = {0, 0, 20}
     t_option['attack_damage'] = self.m_addActivityCarrier
-    t_option['object_key'] = char:getAttackPhysGroup()
+    t_option['object_key'] = char:getMissilePhysGroup()
 	t_option['bFixedAttack'] = true
 
 	local add_res = g_constant:get('SKILL', 'SURA_ADD_MISSILE_RES')

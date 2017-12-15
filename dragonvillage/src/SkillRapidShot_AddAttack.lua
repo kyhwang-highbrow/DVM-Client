@@ -61,7 +61,7 @@ function SkillRapidShot_AddAttack:fireMissile(collision, is_add_attack)
     t_option['target_body'] = target_body
 	
     t_option['physics_body'] = {0, 0, 20}
-    t_option['object_key'] = char:getAttackPhysGroup()
+    t_option['object_key'] = char:getMissilePhysGroup()
 	t_option['attr_name'] = self.m_owner:getAttribute()
 
 	if (is_add_attack) then

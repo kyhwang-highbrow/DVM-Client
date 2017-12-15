@@ -14,6 +14,14 @@ GameWorldIntro = class(PARENT, {
 -------------------------------------
 function GameWorldIntro:init(game_mode, stage_id, world_node, game_node1, game_node2, game_node3, ui, develop_mode)
     self.m_lEnemyDragons = {}
+end
+
+
+-------------------------------------
+-- function createComponent
+-------------------------------------
+function GameWorldIntro:createComponents()
+    PARENT.createComponents(self)
 
     self.m_gameState = GameState_Intro(self)
 
@@ -28,6 +36,10 @@ end
 -- function initGame
 -------------------------------------
 function GameWorldIntro:initGame(stage_name)
+    -- 구성 요소들을 생성
+    self:createComponents()
+
+    -- 웨이브 매니져 생성
     self.m_waveMgr = WaveMgr(self, stage_name, self.m_stageID, self.m_bDevelopMode)
 
     -- 배경 생성
@@ -185,6 +197,7 @@ function GameWorldIntro:makeHeroDeck()
 
                 self.m_worldNode:addChild(hero.m_rootNode, WORLD_Z_ORDER.HERO)
                 self.m_physWorld:addObject(PHYS.HERO, hero)
+                self:bindHero(hero)
                 self:addHero(hero)
 
                 self.m_leftFormationMgr:setChangePosCallback(hero)

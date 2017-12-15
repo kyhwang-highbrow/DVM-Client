@@ -155,7 +155,8 @@ function WaveMgr:summonEnemy(dynamic_wave)
 		dynamic_wave.m_luaValue1,
 		dynamic_wave.m_luaValue2,
 		dynamic_wave.m_luaValue3,
-		dynamic_wave.m_movement
+		dynamic_wave.m_movement,
+        dynamic_wave.m_physGroup
 		)
 
     if enemy and enemy.m_hpNode then
@@ -210,10 +211,10 @@ end
 -- @brief 
 -------------------------------------
 function WaveMgr:setRegenDead(regen_info)
-    local group_key = regen_info['group_key']
+    local regen_group_key = regen_info['regen_group_key']
     local obj_key = regen_info['obj_key']
 
-    local struct_group = self.m_mRegenGroup[group_key]
+    local struct_group = self.m_mRegenGroup[regen_group_key]
     if (not struct_group) then return end
 
     struct_group:setObjInfo(obj_key, false)
@@ -223,9 +224,13 @@ end
 -- function setDynamicWave
 -- @brief script를 읽어 dynamic wave를 저장
 -------------------------------------
-function WaveMgr:setDynamicWave(l_wave, l_data, group_key)
+function WaveMgr:setDynamicWave(l_wave, l_data, t_param)
 	if not (l_data) then return end
 
+    local t_param = t_param or {}
+    local regen_group_key = t_param['regen_group_key']
+    local phys_group_key = t_param['phys_group_key']
+    
     local obj_key = 1
 
 	for time, v in pairs(l_data) do
@@ -235,15 +240,23 @@ function WaveMgr:setDynamicWave(l_wave, l_data, group_key)
 
             -- 스테이지별 추가 레벨 적용
             dynamic_wave.m_enemyLevel = dynamic_wave.m_enemyLevel + self.m_addLevel
-			
-			if (group_key) then
+
+            if (regen_group_key) then
 				-- regen wave라면 regen 정보를 저장
-                local regen_info = { group_key = group_key, obj_key = obj_key }
+                local regen_info = { regen_group_key = regen_group_key, obj_key = obj_key }
 				dynamic_wave:setRegenInfo(regen_info)
 
-                local struct_group = self.m_mRegenGroup[group_key]
+                local struct_group = self.m_mRegenGroup[regen_group_key]
                 struct_group:setObjInfo(obj_key, true)
+
+                -- regen 정보에 phys group 정보가 있다면 가져옴
+                phys_group_key = struct_group.m_physGroup
 			end
+
+            if (phys_group_key) then
+                -- 해당 wave가 추가될 phys group을 저장
+                dynamic_wave:setPhysGroup(phys_group_key)
+            end
 			
 			table.insert(l_wave, dynamic_wave)
             
@@ -356,8 +369,10 @@ function WaveMgr:newScenario_dynamicWave(t_data)
 		self.m_isRegenWave = true
         self.m_mRegenGroup = {}
 
-        for group_key, v in ipairs(t_data['regen']) do
-            self.m_mRegenGroup[group_key] = StructWaveRegenGroup(group_key, v, g_constant:get('INGAME', 'REGEN_APPEAR'))
+        for idx, v in ipairs(t_data['regen']) do
+            local regen_group_key = idx
+
+            self.m_mRegenGroup[regen_group_key] = StructWaveRegenGroup(regen_group_key, v, g_constant:get('INGAME', 'REGEN_APPEAR'))
         end
 	end
 end
@@ -415,10 +430,11 @@ end
 -------------------------------------
 -- function spawnEnemy_dynamic
 -------------------------------------
-function WaveMgr:spawnEnemy_dynamic(enemy_id, level, appear_type, value1, value2, value3, movement)
+function WaveMgr:spawnEnemy_dynamic(enemy_id, level, appear_type, value1, value2, value3, movement, phys_group)
     local rarity = self:getRarity(enemy_id, level)
     local isBoss = (rarity == self.m_highestRarity and self:isFinalWave())
     local enemy
+    local phys_group = phys_group or PHYS.ENEMY
 
     -- Enemy 생성
     if isDragon(enemy_id) then
@@ -432,7 +448,7 @@ function WaveMgr:spawnEnemy_dynamic(enemy_id, level, appear_type, value1, value2
     else
         enemy = self.m_world:makeMonsterNew(enemy_id, level)
     end
-
+        
     if (isBoss) then
         enemy.m_isBoss = true
 
@@ -451,7 +467,8 @@ function WaveMgr:spawnEnemy_dynamic(enemy_id, level, appear_type, value1, value2
         self.m_world.m_worldNode:addChild(enemy.m_rootNode, WORLD_Z_ORDER.ENEMY)
     end
     
-    self.m_world.m_physWorld:addObject(PHYS.ENEMY, enemy)
+    self.m_world.m_physWorld:addObject(phys_group, enemy)
+    self.m_world:bindEnemy(enemy)
     self.m_world:addEnemy(enemy)
 
 	self.m_world.m_rightFormationMgr:setChangePosCallback(enemy)
@@ -503,12 +520,12 @@ function WaveMgr:update(dt, no_regen)
 
     -- 리젠 웨이브
     if (not no_regen and self.m_isRegenWave) then
-        for group_key, struct_group in pairs(self.m_mRegenGroup) do
+        for regen_group_key, struct_group in pairs(self.m_mRegenGroup) do
             local regen_wave = struct_group:update(dt)
             if (regen_wave) then
                 struct_group:setInterval(g_constant:get('INGAME', 'REGEN_INTERVAL'))
 
-                self:setDynamicWave(self.m_lDynamicWave, regen_wave, group_key)
+                self:setDynamicWave(self.m_lDynamicWave, regen_wave, {regen_group_key = regen_group_key})
             end
         end
     end

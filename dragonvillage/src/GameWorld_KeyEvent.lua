@@ -191,7 +191,7 @@ function GameWorld:se_on_dragon()
     local enemy_list = self:getEnemyList()
 
     --StatusEffectHelper:doStatusEffect(dragon_list[1], { dragon_list[1] }, 'stun', 'target', 1, 5, 100, 100)
-    StatusEffectHelper:doStatusEffect(dragon_list[1], dragon_list, 'reflect', 'ally_none', 5, 9999, 100, 100)
+    StatusEffectHelper:doStatusEffect(dragon_list[1], dragon_list, 'passive_fury', 'ally_none', 5, 9999, 100, 100)
 end
 
 -------------------------------------
@@ -200,7 +200,7 @@ end
 -------------------------------------
 function GameWorld:se_on_monster()
     for i,v in ipairs(self:getEnemyList()) do
-		StatusEffectHelper:doStatusEffect(v, { v }, 'reflect', 'target', 1, 99999, 100, 100)
+        StatusEffectHelper:doStatusEffect(v, { v }, 'dot_damage', 'target', 1, 99999, 100, 100)
     end
 end
 
@@ -298,10 +298,10 @@ end
 -- @brief 
 -------------------------------------
 function GameWorld:pause_on_off_auto()
-    if (self.m_gameAutoHero:isActive()) then
-        self.m_gameAutoHero:onEnd()
+    if (self.m_heroAuto:isActive()) then
+        self.m_heroAuto:onEnd()
     else
-        self.m_gameAutoHero:onStart()
+        self.m_heroAuto:onStart()
     end
 end
 
@@ -513,9 +513,8 @@ end
 -- function auto_info
 -------------------------------------
 function GameWorld:auto_info()
-    --self.m_gameAutoEnemy:printInfo()
-    applicationDidEnterBackground()
-    applicationWillEnterForeground()
+    --self.m_enemyAuto:printInfo()
+    self.m_shakeMgr:doShake(500, 500, 1)
 end
 
 -------------------------------------

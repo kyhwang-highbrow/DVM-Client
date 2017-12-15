@@ -196,9 +196,6 @@ end
 -- @brief 진형에 따른 데미지 배율 계산
 -------------------------------------
 function CalcDamageRateDueToFormation(unit)
-    local world = unit.m_world
-
-    local formation_mgr = unit:getFormationMgr(false)
     local damage_rate = 1
 
     return damage_rate
@@ -209,8 +206,6 @@ end
 -- @brief 게임 모드에 따른 데미지 배율 계산
 -------------------------------------
 function CalcDamageRateDueToGameMode(unit)
-    local world = unit.m_world
-
     local damage_rate = 1
 
     return damage_rate

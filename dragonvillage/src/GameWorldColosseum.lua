@@ -19,22 +19,32 @@ GameWorldColosseum = class(PARENT, {
 function GameWorldColosseum:init(game_mode, stage_id, world_node, game_node1, game_node2, game_node3, ui, develop_mode, friend_match)
     self.m_lEnemyDragons = {}
     self.m_bFriendMatch = friend_match or false
+end
+
+-------------------------------------
+-- function createComponent
+-------------------------------------
+function GameWorldColosseum:createComponents()
+    PARENT.createComponents(self)
+
+    self.m_gameState = GameState_Colosseum(self)
+    self.m_inGameUI:init_timeUI(false, self.m_gameState.m_limitTime)
+
     -- 타임 스케일 설정
     local baseTimeScale = COLOSSEUM__TIME_SCALE
     if (g_autoPlaySetting:get('quick_mode')) then
         baseTimeScale = baseTimeScale * g_constant:get('INGAME', 'QUICK_MODE_TIME_SCALE')
     end
     self.m_gameTimeScale:setBase(baseTimeScale)
-
-    self.m_gameState = GameState_Colosseum(self)
-    self.m_inGameUI:init_timeUI(false, self.m_gameState.m_limitTime)
 end
-
 
 -------------------------------------
 -- function initGame
 -------------------------------------
 function GameWorldColosseum:initGame(stage_name)
+    -- 구성 요소들을 생성
+    self:createComponents()
+
     -- 웨이브 매니져 생성
     self.m_waveMgr = WaveMgr_Colosseum(self, stage_name, self.m_stageID, self.m_bDevelopMode)
         
@@ -177,9 +187,9 @@ function GameWorldColosseum:passiveActivate_Right()
     end
 
     -- 적 리더 버프
-    if (self.m_leaderEnemy) then
+	if (self.m_leaderEnemy) then
         self.m_leaderEnemy:doSkill_leader()
-    end
+	end
 end
 
 -------------------------------------
@@ -192,10 +202,8 @@ function GameWorldColosseum:bindEnemy(enemy)
     enemy:addListener('set_global_cool_time_active', self.m_gameCoolTime)
 
     -- 자동 AI를 위한 이벤트
-    enemy:addListener('enemy_active_skill', self.m_gameAutoEnemy)
-    --enemy:addListener('get_debuff', self.m_gameAutoEnemy)
-    --enemy:addListener('release_debuff', self.m_gameAutoEnemy)
-
+    enemy:addListener('enemy_active_skill', self.m_enemyAuto)
+    
     -- 월드에서 중계되는 이벤트
     enemy:addListener('character_recovery', self)
     enemy:addListener('character_dead', self)
@@ -303,6 +311,14 @@ function GameWorldColosseum:onEvent(event_name, t_event, ...)
 end
 
 -------------------------------------
+-- function prepareAuto
+-------------------------------------
+function GameWorldColosseum:prepareAuto()
+    self.m_heroAuto:prepare(self:getDragonList())
+    self.m_enemyAuto:prepare(self:getEnemyList())
+end
+
+-------------------------------------
 -- function makeHeroDeck
 -------------------------------------
 function GameWorldColosseum:makeHeroDeck()
@@ -334,6 +350,7 @@ function GameWorldColosseum:makeHeroDeck()
 
                 self.m_worldNode:addChild(hero.m_rootNode, WORLD_Z_ORDER.HERO)
                 self.m_physWorld:addObject(PHYS.HERO, hero)
+                self:bindHero(hero)
                 self:addHero(hero)
 
                 self.m_leftFormationMgr:setChangePosCallback(hero)
@@ -400,6 +417,7 @@ function GameWorldColosseum:makeEnemyDeck()
 
                 self.m_worldNode:addChild(enemy.m_rootNode, WORLD_Z_ORDER.ENEMY)
                 self.m_physWorld:addObject(PHYS.ENEMY, enemy)
+                self:bindEnemy(enemy)
                 self:addEnemy(enemy, tonumber(i))
 
                 self.m_rightFormationMgr:setChangePosCallback(enemy)

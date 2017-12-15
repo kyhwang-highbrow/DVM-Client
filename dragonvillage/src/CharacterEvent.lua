@@ -187,7 +187,9 @@ function Character:onEvent_updateStat(t_event)
         local is_start_buff = false -- 시작 버프 여부
 
         -- 시작 버프인지 체크
-        if (self.m_world.m_gameMode == GAME_MODE_COLOSSEUM and game_state:isWaveInterMission()) then
+        if (self.m_world.m_gameMode == GAME_MODE_CLAN_RAID and game_state:isWaveInterMission()) then
+            is_start_buff = true
+        elseif (self.m_world.m_gameMode == GAME_MODE_COLOSSEUM and game_state:isWaveInterMission()) then
             is_start_buff = true
         elseif (self.m_world.m_waveMgr:isFirstWave() and game_state:isEnemyAppear()) then
             is_start_buff = true

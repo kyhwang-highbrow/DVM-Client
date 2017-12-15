@@ -26,7 +26,7 @@ function CommonMissile_Straight:setMissile()
     t_option['pos_y'] = self.m_attackPos.y
     t_option['attack_damage'] = self.m_activityCarrier
 	--t_option['bFixedAttack'] = true
-    t_option['object_key'] = self.m_owner:getAttackPhysGroup()
+    t_option['object_key'] = self.m_owner:getMissilePhysGroup()
 
 	-- 수정 가능 부분
 	-----------------------------------------------------------------------------------

@@ -99,17 +99,29 @@ COLOSSEUM_STAGE_ID = 90000
 DEV_STAGE_ID = 999999
 
 INTRO_STAGE_ID = 1010001
+CLAN_RAID_STAGE_ID = 1500005
 
 --------------------------------------------------------------------------
 -- PhysKey 상수
 --------------------------------------------------------------------------
 PHYS = {
 	HERO = 'hero',
+    HERO_TOP = 'hero_top',
+    HERO_BOTTOM = 'hero_bottom',
+
 	ENEMY = 'enemy',
+    ENEMY_TOP = 'enemy_top',
+    ENEMY_BOTTOM = 'enemy_bottom',
+
 	EFFECT = 'effect',
 	MISSILE = {
 		HERO = 'missile_h',
-		ENEMY = 'missile_e'
+        HERO_TOP = 'missile_h_t',
+        HERO_BOTTOM = 'missile_h_b',
+
+		ENEMY = 'missile_e',
+        ENEMY_TOP = 'missile_e_t',
+        ENEMY_BOTTOM = 'missile_e_b'
 	},
     TAMER = 'tamer',
 }

@@ -703,8 +703,7 @@ function Missile:fireAddScriptMissile()
     t_launcher_option['attr_name'] = attr_name
     t_launcher_option['target_list'] = self.m_addScriptTargetList
 
-	local is_hero = (owner.m_bLeftFormation)
-	local phys_group = owner:getAttackPhysGroup()
+	local phys_group = owner:getMissilePhysGroup()
     
     -- AttackDamage 생성 및 상태효과 복사(테이블의 상태효과를 add_script에도 적용시킴)
     local activity_carrier = owner:makeAttackDamageInstance()
@@ -715,8 +714,7 @@ function Missile:fireAddScriptMissile()
     activity_carrier:setSkillHitCount(self.m_activityCarrier:getSkillHitCount())
 	activity_carrier:setPowerRate(self.m_activityCarrier:getPowerRate())
     activity_carrier:setAddCriPowerRate(self.m_activityCarrier:getAddCriPowerRate())
-    missile_launcher.m_bHeroMissile = is_hero
-
+    
     self.m_world:addToUnitList(missile_launcher)
     self.m_world.m_worldNode:addChild(missile_launcher.m_rootNode)
     
@@ -733,6 +731,7 @@ function Missile:fireAddScriptMissile()
     missile_launcher:init_missileLauncherByScript(self.m_addScript, phys_group, activity_carrier, t_param)
     missile_launcher.m_animator:changeAni('animation', true)
     missile_launcher:setPosition(start_x, start_y)
+    missile_launcher.m_owner = owner
 end
 
 -------------------------------------
@@ -833,7 +832,7 @@ end
 -------------------------------------
 -- function initState
 -------------------------------------
-function MissileInstant:initState(file_name, body, is_hero)
+function MissileInstant:initState()
     Missile.initState(self)
 
     self:addState('move', MissileInstant.st_move, 'move', false)

@@ -2,7 +2,6 @@
 -- class MissileGuid
 -------------------------------------
 MissileGuid = class(Missile, {
-        m_bHero = 'boolean',
         m_target = 'Enemy',
         m_tergatTimer = 'number',
         m_angularVelocityGuid = 'number',
@@ -14,17 +13,12 @@ MissileGuid = class(Missile, {
 -- @param file_name
 -- @param body
 -------------------------------------
-function MissileGuid:init(file_name, body, is_hero)
-    self.m_bHero = is_hero
+function MissileGuid:init(file_name, body)
     self.m_target = nil
     self.m_tergatTimer = 0
     self.m_straightWaitTime = 0.3
 
-    if self.m_bHero then
-        self.m_angularVelocityGuid = 240
-    else
-        self.m_angularVelocityGuid = 500
-    end
+    self.m_angularVelocityGuid = 500
 end
 
 -------------------------------------
@@ -33,7 +27,7 @@ end
 function MissileGuid:initState()
     Missile.initState(self)
 
-    if self.m_bHero then
+    if (self.m_owner.m_bLeftFormation) then
         self:addState('move', MissileGuid.st_move_hero, 'move', true)
     else
         self:addState('move', MissileGuid.st_move, 'move', true)
@@ -95,6 +89,8 @@ function MissileGuid.st_move_hero(owner, dt)
 
     -- 0.3초동안 직선 운동
     if (owner.m_stateTimer == 0) then
+        owner.m_angularVelocityGuid = 240
+
         owner.m_aiParam = owner.m_angularVelocityGuid
 
     elseif (owner.m_stateTimer >= owner.m_straightWaitTime) and (owner.m_aiParam > 0) then

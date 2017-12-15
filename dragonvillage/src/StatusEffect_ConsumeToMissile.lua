@@ -139,7 +139,7 @@ function StatusEffect_ConsumeToMissile:fireMissile(collision, start_pos, delay_t
     t_option['pos_x'] = start_pos['x']
 	t_option['pos_y'] = start_pos['y']
 	
-    t_option['object_key'] = char:getAttackPhysGroup()
+    t_option['object_key'] = char:getMissilePhysGroup()
     t_option['physics_body'] = {0, 0, 0}
     t_option['attack_damage'] = self.m_activityCarrier
 	t_option['attr_name'] = char:getAttribute()

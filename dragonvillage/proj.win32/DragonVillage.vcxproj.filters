@@ -1173,28 +1173,7 @@
     <None Include="..\src\Missile.lua">
       <Filter>lua\src</Filter>
     </None>
-    <None Include="..\src\MissileBoomerang.lua">
-      <Filter>lua\src</Filter>
-    </None>
     <None Include="..\src\MissileBounce.lua">
-      <Filter>lua\src</Filter>
-    </None>
-    <None Include="..\src\MissileCurve.lua">
-      <Filter>lua\src</Filter>
-    </None>
-    <None Include="..\src\MissileDrop.lua">
-      <Filter>lua\src</Filter>
-    </None>
-    <None Include="..\src\MissileDropGuid.lua">
-      <Filter>lua\src</Filter>
-    </None>
-    <None Include="..\src\MissileDropRandom.lua">
-      <Filter>lua\src</Filter>
-    </None>
-    <None Include="..\src\MissileDropTarget.lua">
-      <Filter>lua\src</Filter>
-    </None>
-    <None Include="..\src\MissileDropZigzag.lua">
       <Filter>lua\src</Filter>
     </None>
     <None Include="..\src\MissileEffecter.lua">
@@ -2976,6 +2955,21 @@
     <None Include="..\src\UI_DragonReinforceItem.lua">
       <Filter>lua\UI</Filter>
     </None>
+    <None Include="..\src\GameWorldClanRaid.lua">
+      <Filter>lua\src</Filter>
+    </None>
+    <None Include="..\src\SceneGameClanRaid.lua">
+      <Filter>lua\src</Filter>
+    </None>
+    <None Include="..\src\GameState_ClanRaid.lua">
+      <Filter>lua\src</Filter>
+    </None>
+    <None Include="..\src\GameWorldClanRaid_Unit.lua">
+      <Filter>lua\src</Filter>
+    </None>
+    <None Include="..\src\WaveMgr_ClanRaid.lua">
+      <Filter>lua\src</Filter>
+    </None>
     <None Include="..\src\UI_EggPopup.lua">
       <Filter>lua\UI</Filter>
     </None>
@@ -2999,6 +2993,9 @@
     </None>
     <None Include="..\src\UI_DailyMisson_Clan.lua">
       <Filter>lua\UI</Filter>
+    </None>
+    <None Include="..\src\Monster_ClanRaidBoss.lua">
+      <Filter>lua\src</Filter>
     </None>
     <None Include="..\src\ServerData_CapsuleBox.lua">
       <Filter>lua\src</Filter>

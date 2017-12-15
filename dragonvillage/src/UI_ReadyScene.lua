@@ -152,6 +152,12 @@ function UI_ReadyScene:checkDeckProper()
         return
     end
 
+    -- 클랜 레이드 임시 처리
+    if (self.m_stageID == CLAN_RAID_STAGE_ID) then
+        g_deckData:setSelectedDeck('adv')
+        return
+    end
+
 	local curr_mode = TableDrop():getValue(self.m_stageID, 'mode')
 	local curr_deck_name = g_deckData:getSelectedDeckName()
 	if not (curr_mode == curr_deck_name) then
@@ -764,8 +770,16 @@ function UI_ReadyScene:click_startBtn()
 
     -- 개발 스테이지
     if (stage_id == DEV_STAGE_ID) then
-        local scene = SceneGame(nil, stage_id, 'stage_dev', true)
-        scene:runScene()
+        self:checkChangeDeck(function()
+            local scene = SceneGame(nil, stage_id, 'stage_dev', true)
+            scene:runScene()
+        end)
+        return
+    elseif (stage_id == CLAN_RAID_STAGE_ID) then
+        self:checkChangeDeck(function()
+            local scene = SceneGameClanRaid(nil, CLAN_RAID_STAGE_ID, 'stage_clanraid')
+            scene:runScene()
+        end)
         return
     end
 

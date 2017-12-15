@@ -57,17 +57,7 @@ function MissileGuidTarget.st_move_hero(owner, dt)
 
     elseif (owner.m_stateTimer >= owner.m_straightWaitTime) and (owner.m_aiParam > 0) then
         owner.m_tergatTimer = owner.m_tergatTimer + dt
-
-        --[[
-        -- 타겟이 없거나, 타겟이 죽었거나, 타겟 시간이 초과되었을 경우
-        if ((owner.m_target == nil) or (owner.m_target.m_bDead)) and (owner.m_tergatTimer >= 0.3) then
-            --------------------------------------------------------------
-            local enemy = owner.m_world:findTarget('enemy', owner.pos.x + owner.body.x, owner.pos.y + owner.body.y)
-            owner.m_target = enemy
-            --------------------------------------------------------------
-        end
-        --]]
-
+        
         if owner.m_targetPosX and owner.m_targetPosY then
             local curr_degree = owner.movement_theta
             local dest_degree = getDegree(owner.pos.x, owner.pos.y, owner.m_targetPosX, owner.m_targetPosY)

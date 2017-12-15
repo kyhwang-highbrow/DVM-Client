@@ -8,10 +8,11 @@ WaveMgr_AncientTower = class(PARENT, {})
 -------------------------------------
 -- function spawnEnemy_dynamic
 -------------------------------------
-function WaveMgr_AncientTower:spawnEnemy_dynamic(enemy_id, level, appear_type, value1, value2, value3, movement)
+function WaveMgr_AncientTower:spawnEnemy_dynamic(enemy_id, level, appear_type, value1, value2, value3, movement, phys_group)
     local rarity = self:getRarity(enemy_id, level)
     local isBoss = (rarity == self.m_highestRarity and self:isFinalWave())
     local enemy
+    local phys_group = phys_group or PHYS.ENEMY
 
     -- Enemy 생성
     if isMonster(enemy_id) then
@@ -45,15 +46,24 @@ function WaveMgr_AncientTower:spawnEnemy_dynamic(enemy_id, level, appear_type, v
             enemy:setStatusCalc(enemy.m_statusCalc)
 
             -- 광폭화 스킬 적용
-            local skill_id = 200009
-            local skill_type = TableDragonSkill():getSkillType(skill_id)
+            do
+                local skill_id = 200009
+                local skill_type = TableDragonSkill():getSkillType(skill_id)
 
-            enemy:setSkillID(skill_type, skill_id, 1)
+                enemy:setSkillID(skill_type, skill_id, 1)
+
+                -- 초기 발동 시간 조정
+                do
+                    local skill_indivisual_info = enemy:findSkillInfoByID(skill_id)
+                    skill_indivisual_info.m_timer = 300
+                end
+            end
         end
     end
 
     self.m_world.m_worldNode:addChild(enemy.m_rootNode, WORLD_Z_ORDER.ENEMY)
-    self.m_world.m_physWorld:addObject(PHYS.ENEMY, enemy)
+    self.m_world.m_physWorld:addObject(phys_group, enemy)
+    self.m_world:bindEnemy(enemy)
     self.m_world:addEnemy(enemy)
 
 	self.m_world.m_rightFormationMgr:setChangePosCallback(enemy)

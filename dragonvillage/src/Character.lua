@@ -366,6 +366,19 @@ function Character:setStatusCalc(status_calc)
 end
 
 -------------------------------------
+-- function setStatusHpByForce
+-- @brief hp 정보를 강제적으로 해당 타입의 스텟값으로 설정
+-------------------------------------
+function Character:setStatusHpByForce(stat_type, stat_value)
+    if (not self.m_statusCalc) then return end
+
+    local indivisual_status = self.m_statusCalc.m_lStatusList[stat_type]
+    if (not indivisual_status) then return end
+
+    indivisual_status:setBasicStat(stat_value, 0, 0, 0, 0)
+end
+
+-------------------------------------
 -- function initLogRecorder
 -------------------------------------
 function Character:initLogRecorder(unique_id)
@@ -2204,28 +2217,6 @@ function Character:setStatusIcon(status_effect, idx)
 end
 
 -------------------------------------
--- function getFormationMgr
--- @param is_opposite : true 일때 상대 진형을 선택
--------------------------------------
-function Character:getFormationMgr(is_opposite)
-	if is_opposite then 
-		-- 상대 진형 선택
-		if self.m_bLeftFormation then
-			return self.m_world.m_rightFormationMgr
-		else
-			return self.m_world.m_leftFormationMgr
-		end
-	else
-		-- 아군 진형 선택
-		if self.m_bLeftFormation then
-			return self.m_world.m_leftFormationMgr
-		else
-			return self.m_world.m_rightFormationMgr
-		end
-	end
-end
-
--------------------------------------
 -- function getName
 -------------------------------------
 function Character:getName()
@@ -2705,14 +2696,52 @@ function Character:isDead()
 end
 
 -------------------------------------
--- function getAttackPhysGroup
+-- function getMissilePhysGroup
 -- @brief 해당 캐릭터가 쏠 미사일의 PhysGruop 가져온다.
 -------------------------------------
-function Character:getAttackPhysGroup()
+function Character:getMissilePhysGroup()
     if (self.phys_key == PHYS.HERO) then
         return PHYS.MISSILE.HERO
+
+    elseif (self.phys_key == PHYS.HERO_TOP) then
+        return PHYS.MISSILE.HERO_TOP
+
+    elseif (self.phys_key == PHYS.HERO_BOTTOM) then
+        return PHYS.MISSILE.HERO_BOTTOM
+
+    elseif (self.phys_key == PHYS.ENEMY_TOP) then
+        return PHYS.MISSILE.ENEMY_TOP
+
+    elseif (self.phys_key == PHYS.ENEMY_BOTTOM) then
+        return PHYS.MISSILE.ENEMY_BOTTOM
+
     else
         return PHYS.MISSILE.ENEMY
+    end
+end
+
+-------------------------------------
+-- function getAttackablePhysGroup
+-- @brief 해당 캐릭터의 공격 가능한 대상의 PhysGruop 가져온다.
+-------------------------------------
+function Character:getAttackablePhysGroup()
+    if (self.phys_key == PHYS.HERO) then
+        return PHYS.ENEMY
+
+    elseif (self.phys_key == PHYS.HERO_TOP) then
+        return PHYS.ENEMY_TOP
+
+    elseif (self.phys_key == PHYS.HERO_BOTTOM) then
+        return PHYS.ENEMY_BOTTOM
+
+    elseif (self.phys_key == PHYS.ENEMY_TOP) then
+        return PHYS.HERO_TOP
+
+    elseif (self.phys_key == PHYS.ENEMY_BOTTOM) then
+        return PHYS.HERO_BOTTOM
+
+    else
+        return PHYS.HERO
     end
 end
 
@@ -2722,9 +2751,9 @@ end
 -------------------------------------
 function Character:getFellowList()
 	if (self.m_bLeftFormation) then 
-		return self.m_world:getDragonList()
+		return self.m_world:getDragonList(self)
 	else
-		return self.m_world:getEnemyList()
+		return self.m_world:getEnemyList(self)
 	end
 end
 
@@ -2734,9 +2763,9 @@ end
 -------------------------------------
 function Character:getOpponentList()
 	if (self.m_bLeftFormation) then 
-		return self.m_world:getEnemyList()
+		return self.m_world:getEnemyList(self)
 	else
-		return self.m_world:getDragonList()
+		return self.m_world:getDragonList(self)
 	end
 end
 

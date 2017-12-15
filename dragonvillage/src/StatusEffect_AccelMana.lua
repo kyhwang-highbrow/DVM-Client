@@ -17,12 +17,12 @@ end
 -- function onStart
 -------------------------------------
 function StatusEffect_AccelMana:onStart()
-    self.m_world:setManaAccelValue(1, not self.m_owner.m_bLeftFormation)
+    self.m_world:setManaAccelValue(self.m_owner, 1)
 end
 
 -------------------------------------
 -- function onEnd
 -------------------------------------
 function StatusEffect_AccelMana:onEnd()
-    self.m_world:setManaAccelValue(0, not self.m_owner.m_bLeftFormation)
+    self.m_world:setManaAccelValue(self.m_owner, 0)
 end

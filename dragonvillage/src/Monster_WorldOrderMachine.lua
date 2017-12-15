@@ -90,7 +90,7 @@ function Monster_WorldOrderMachine:doMagicAttack()
 	self.m_activityCarrier = self:makeAttackDamageInstance()
 
 	local world = self.m_world
-	local l_dragon = world:getDragonList()
+	local l_dragon = self:getOpponentList()
     local count = table.count(l_dragon)
 
 	local state = self.m_magicState

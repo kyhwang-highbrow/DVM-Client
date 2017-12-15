@@ -114,7 +114,7 @@ function SkillConditionalAddEffect:fireMissile()
 
     t_option['physics_body'] = {0, 0, 30}
     t_option['attack_damage'] = self.m_activityCarrier
-    t_option['object_key'] = char:getAttackPhysGroup()
+    t_option['object_key'] = char:getMissilePhysGroup()
 	t_option['attr_name'] = self.m_owner:getAttribute()
 
 	t_option['speed'] = 10

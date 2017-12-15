@@ -204,7 +204,7 @@ function SkillRush:makeCrashPhsyObject()
     t_option['pos_x'] = owner.pos.x
 	t_option['pos_y'] = owner.pos.y
 
-    t_option['object_key'] = owner:getAttackPhysGroup()
+    t_option['object_key'] = owner:getMissilePhysGroup()
     t_option['physics_body'] = { 0, 0, self.m_atkPhysSize / 2 }
         
     t_option['speed'] = 0

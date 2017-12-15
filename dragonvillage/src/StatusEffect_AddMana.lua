@@ -25,11 +25,10 @@ end
 -- @brief 해당 상태효과가 최초 1회를 포함하여 중첩 적용될시마다 호출
 -------------------------------------
 function StatusEffect_AddMana:onApplyOverlab(unit)
-    if (self.m_owner.m_bLeftFormation) then
-        self.m_owner.m_world.m_heroMana:addMana(self.m_addValue)
-    else
-        self.m_owner.m_world.m_enemyMana:addMana(self.m_addValue)
-    end
+    local world = self.m_owner.m_world
+
+    world:getMana(self.m_owner):addMana(self.m_addValue)
+
     -- !! unit을 바로 삭제하여 해당 상태효과 종료시킴
     unit:finish()
 end
