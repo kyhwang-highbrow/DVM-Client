@@ -143,6 +143,7 @@ local t_module = {
     'ServerData_ClanRank',
     'ServerData_LevelUpPackage',
 	'ServerData_DailyMission',
+	'ServerData_CapsuleBox',
 
     -- Interface
     'IEventDispatcher',
@@ -692,6 +693,7 @@ local t_module = {
     'UI_AdvertisingPopup',
     'UI_FormationDetailPopup',
     'UI_EventFullPopup',
+	'UI_CapsuleBox',
 
     -- UI : 약관 동의
     'UI_TermsPopup',

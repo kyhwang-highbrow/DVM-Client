@@ -3000,6 +3000,12 @@
     <None Include="..\src\UI_DailyMisson_Clan.lua">
       <Filter>lua\UI</Filter>
     </None>
+    <None Include="..\src\ServerData_CapsuleBox.lua">
+      <Filter>lua\src</Filter>
+    </None>
+    <None Include="..\src\UI_CapsuleBox.lua">
+      <Filter>lua\UI</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Classes">

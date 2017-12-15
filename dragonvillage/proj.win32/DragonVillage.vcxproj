@@ -440,6 +440,7 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <None Include="..\src\ServerData_AutoItemPick.lua" />
     <None Include="..\src\ServerData_AutoPlaySetting.lua" />
     <None Include="..\src\ServerData_Book.lua" />
+    <None Include="..\src\ServerData_CapsuleBox.lua" />
     <None Include="..\src\ServerData_Clan.lua" />
     <None Include="..\src\ServerData_ClanRank.lua" />
     <None Include="..\src\ServerData_Colosseum.lua" />
@@ -909,6 +910,7 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <None Include="..\src\UI_Book.lua" />
     <None Include="..\src\UI_BookDetailPopup.lua" />
     <None Include="..\src\UI_BundlePopup.lua" />
+    <None Include="..\src\UI_CapsuleBox.lua" />
     <None Include="..\src\UI_Card.lua" />
     <None Include="..\src\UI_ChapterSelect.lua" />
     <None Include="..\src\UI_ChapterSelectListItem.lua" />
