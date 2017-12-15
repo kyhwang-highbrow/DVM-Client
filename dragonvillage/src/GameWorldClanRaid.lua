@@ -166,6 +166,24 @@ function GameWorldClanRaid:init_formation()
     self.m_gameCamera:addListener('camera_set_home', self.m_subRightFormationMgr)
 end
 
+
+-------------------------------------
+-- function makePassiveStartEffect
+-- @brief
+-------------------------------------
+function GameWorldClanRaid:makePassiveStartEffect(char, str_map)
+    local root_node = PARENT.makePassiveStartEffect(self, char, str_map)
+
+    -- 보스의 경우는 충돌영역 위치로 표시
+    if (isInstanceOf(char, Monster_ClanRaidBoss)) then
+        -- 실시간 위치 동기화
+        root_node:scheduleUpdateWithPriorityLua(function(dt)
+            local x, y = char:getCenterPos()
+            root_node:setPosition(x, y)
+        end, 0)
+    end
+end
+
 -------------------------------------
 -- function findTarget
 -------------------------------------

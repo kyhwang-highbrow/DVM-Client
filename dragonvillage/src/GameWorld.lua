@@ -721,6 +721,8 @@ function GameWorld:makePassiveStartEffect(char, str_map)
     root_node:scheduleUpdateWithPriorityLua(function(dt) 
         root_node:setPosition(char.pos.x, char.pos.y)
     end, 0)
+
+    return root_node
 end
 
 -------------------------------------
