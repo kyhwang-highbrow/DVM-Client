@@ -46,6 +46,13 @@ UIC_TableView = class(PARENT, {
         m_emptyDescLabel = 'cc.LabelTTF',
         m_emptyUI = '',
 
+		m_visibleStartIdx = 'number',
+		m_visibleEndIdx = 'number',
+		
+		_cellCreateDirecting = 'enum',
+        
+		m_stability = 'bool',
+
 		-- scroll end event
 		m_scrollEndStd = 'number',
 		m_scrollEndSprite = 'cc.Sprite',
@@ -53,7 +60,6 @@ UIC_TableView = class(PARENT, {
 		m_scrollEndIdx = 'number',
 
 		m_scrollLock = 'bool',
-        m_stability = 'bool',
     })
 
 -------------------------------------
@@ -79,12 +85,16 @@ function UIC_TableView:init(node)
     -- UI생성 큐
     self.m_makeReserveQueue = {}
     self.m_makeTimer = 0
+	self.m_visibleStartIdx = 1
+	self.m_visibleEndIdx = 1
+
+	self._cellCreateDirecting = CELL_CREATE_DIRECTING['scale']
+    self.m_stability = true
 
     do -- 정렬
         self.m_lSortInfo = {}
         self.m_currSortType = nil
     end
-    self.m_stability = true
 end
 
 -------------------------------------
@@ -130,6 +140,24 @@ function UIC_TableView:update(dt)
     self.m_makeTimer = (self.m_makeTimer - dt)
     if (self.m_makeTimer <= 0) then
         
+		-- 눈에 보이는 셀부터 먼저 생성되도록 큐에 담음
+		for i=self.m_visibleStartIdx, self.m_visibleEndIdx do
+			local t_item = self.m_itemList[i]
+			if (t_item) then
+				if t_item['reserved'] and (not t_item['ui']) then
+					for i,v in ipairs(self.m_makeReserveQueue) do
+						if (t_item == v) then
+							table.remove(self.m_makeReserveQueue, i)
+							break
+						end
+					end
+					table.insert(self.m_makeReserveQueue, 1, t_item)
+					break
+				end
+			end
+		end
+
+		-- 예약된 셀 생성
         if self.m_makeReserveQueue[1] then
             local t_item = self.m_makeReserveQueue[1]
             local data = t_item['data']
@@ -142,13 +170,23 @@ function UIC_TableView:update(dt)
                 t_item['ui'] = self:makeItemUI(data)
             end
 
-            do -- 액션 수행 위치 수정
-                local ui = t_item['ui']
+            local ui = t_item['ui']
+
+			-- 셀 생성 연출
+            if (self._cellCreateDirecting == CELL_CREATE_DIRECTING['scale']) then
                 local scale = ui.root:getScale()
                 ui.root:setScale(scale * 0.2)
                 local scale_to = cc.ScaleTo:create(0.25, scale)
                 local action = cc.EaseInOut:create(scale_to, 2)
                 ui.root:runAction(action)
+	
+			elseif (self._cellCreateDirecting == CELL_CREATE_DIRECTING['fadein']) then
+				doAllChildren(ui.root, function(node) node:setCascadeOpacityEnabled(true) end)
+				ui.root:setOpacity(0)
+				local scale_to = cc.FadeIn:create(0.5)
+				local action = cc.EaseInOut:create(scale_to, 2)
+				ui.root:runAction(action)
+
             end
 
             local idx = t_item['idx']
@@ -398,6 +436,10 @@ function UIC_TableView:scrollViewDidScroll()
 
         table.insert(self._cellsUsed, t_item)
     end
+
+	-- 눈에 보이는 인덱스 저장
+	self.m_visibleStartIdx = startIdx
+	self.m_visibleEndIdx = endIdx
 end
 
 -------------------------------------
@@ -1349,6 +1391,14 @@ end
 -------------------------------------
 function UIC_TableView:setDirtyItemList()
     self.m_bDirtyItemList = true
+end
+
+-------------------------------------
+-- function setCellCreateDirecting
+-- @brief 셀 생성 연출
+-------------------------------------
+function UIC_TableView:setCellCreateDirecting(n)
+    self._cellCreateDirecting = n
 end
 
 -------------------------------------
