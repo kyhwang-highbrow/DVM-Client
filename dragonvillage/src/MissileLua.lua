@@ -160,8 +160,7 @@ function MissileLua.lua_bombard(owner)
     local loop = 1
 
     if (owner.m_target) then
-        target_x = owner.m_target.pos.x
-        target_y = owner.m_target.pos.y
+        target_x, target_y = owner.m_target:getCenterPos()
     end
 
     local action = cc.JumpTo:create(duration, cc.p(target_x, target_y), hight, loop)
@@ -192,8 +191,7 @@ function MissileLua.lua_angle(owner)
     local target_y = (pos_y - 50)
     
     if (owner.m_target) then
-        target_x = owner.m_target.pos.x
-        target_y = owner.m_target.pos.y
+        target_x, target_y = owner.m_target:getCenterPos()
     end
 
 	-- table에서 받아오는 값
@@ -237,8 +235,7 @@ function MissileLua.lua_curve(owner)
     local target_y = (pos_y - 50)
     
     if (owner.m_target) then
-        target_x = owner.m_target.pos.x
-        target_y = owner.m_target.pos.y
+        target_x, target_y = owner.m_target:getCenterPos()
     end
 
 	-- 받아오는 값
@@ -359,8 +356,7 @@ function MissileLua.lua_bounce(owner)
         owner.m_target = table.remove(owner.m_lTarget, 1)
 
         if (owner.m_target) then
-            target_x = owner.m_target.pos.x
-			target_y = owner.m_target.pos.y
+            target_x, target_y = owner.m_target:getCenterPos()
 
         elseif (count > 0) then
             -- 타겟을 찾지 못하여도 탈출
@@ -404,8 +400,7 @@ function MissileLua.lua_arrange_curve(owner)
 	-- 딜레이후 새롭게 타겟 찾아 공격 액션 실행
 	local set_target_function = cc.CallFunc:create(function() 
 	    if (owner.m_target) then
-			target_x = owner.m_target.pos.x
-			target_y = owner.m_target.pos.y
+            target_x, target_y = owner.m_target:getCenterPos()
 
 		    local jump_action = cc.JumpTo:create(jump_duration, cc.p(target_x, target_y), height, loop, true)
 			local after_delay_action = cc.DelayTime:create(0.02)  -- 도착후 바로 삭제하면 충돌인식이 되지않아 임의로 설정
