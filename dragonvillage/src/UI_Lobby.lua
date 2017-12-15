@@ -358,6 +358,14 @@ function UI_Lobby:initButton()
     vars['diceBtn']:registerScriptTapHandler(function() self:click_diceBtn() end) -- 주사위이벤트
     vars['levelupBtn']:registerScriptTapHandler(function() self:click_lvUpPackBtn() end) -- 레벨업 패키지
 
+	-- 임시 @TODO 진입은 얼루하는지도...
+	vars['capsuleBoxBtn']:registerScriptTapHandler(function() 
+		g_capsuleBoxData:request_capsuleBoxStatus(function()
+			UI_CapsuleBox()
+		end)
+	end)
+	vars['capsuleBoxBtn']:setVisible(false)
+
     do -- 기타 UI
         local etc_vars = self.m_etcExpendedUI.vars
         etc_vars['settingBtn']:registerScriptTapHandler(function() self:click_settingBtn() end) -- 설정

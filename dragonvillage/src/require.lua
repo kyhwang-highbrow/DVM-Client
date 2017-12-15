@@ -89,6 +89,7 @@ local t_module = {
     'StructClanRank',
     'StructEventDiceInfo',
 	'StructDailyMission',
+	'StructCapsuleBox',
 
 	-- ServerData
     'ServerData',

@@ -182,6 +182,9 @@ function ServerData:getInstance()
 	-- 일일 미션
 	g_dailyMissionData = ServerData_DailyMission(g_serverData)
 
+	-- 캡슐 신전
+	g_capsuleBoxData = ServerData_CapsuleBox(g_serverData)
+
     return g_serverData
 end
 
