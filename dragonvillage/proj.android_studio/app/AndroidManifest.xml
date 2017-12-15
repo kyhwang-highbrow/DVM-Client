@@ -209,6 +209,21 @@
         <receiver
             android:name="org.cocos2dx.lua.APKExpansionAlarmReceiver" />
 
+        <!-- @naver global plug -->
+        <activity
+            android:name="com.naver.glink.android.sdk.login.neoid.NeoIdInAppBrowserActivity"
+            android:configChanges="keyboardHidden|screenSize|orientation"
+            android:label="NeoId In-app"
+            android:screenOrientation="sensor"/>
+
+        <activity android:name="com.naver.glink.android.sdk.login.neoid.PlugSchemeActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW"/>
+                <category android:name="android.intent.category.DEFAULT"/>
+                <category android:name="android.intent.category.BROWSABLE"/>
+                <data android:scheme="naverplug"/>
+            </intent-filter>
+        </activity>
     </application>
 
 </manifest>
