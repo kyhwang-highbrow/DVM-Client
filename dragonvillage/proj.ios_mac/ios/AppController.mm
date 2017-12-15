@@ -48,8 +48,8 @@
 #define NAVER_CAFE_CLIENT_ID        @"nQGxfwLZ1Rf4Lwhozq4G"
 #define NAVER_CAFE_CLIENT_SECRET    @"1yzbWtj_Cu"
 #define NAVER_CAFE_ID               29168475
-#define NAVER_NEO_ID_CONSUMER_KEY   @""
-#define NAVER_COMMUNITY_ID          0
+#define NAVER_NEO_ID_CONSUMER_KEY   @"_hBggTZAp2IPapvAxwQl"
+#define NAVER_COMMUNITY_ID          1013702
 
 // iTunes Connect App ID : 1281873988
 
