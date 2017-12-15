@@ -38,6 +38,78 @@ function Monster_ClanRaidBoss:setStatusCalc(status_calc)
 end
 
 -------------------------------------
+-- function undergoAttack
+-------------------------------------
+function Monster_ClanRaidBoss:undergoAttack(attacker, defender, i_x, i_y, body_key, no_event, is_guard)
+    -- 충돌영역 위치로 변경
+    if (self.pos['x'] == i_x and self.pos['y'] == i_y) then
+        i_x, i_y = self:getCenterPos()
+    end
+
+    PARENT.undergoAttack(self, attacker, defender, i_x, i_y, body_key, no_event, is_guard)
+end
+
+-------------------------------------
+-- function setDamage
+-------------------------------------
+function Monster_ClanRaidBoss:setDamage(attacker, defender, i_x, i_y, damage, t_info)
+    -- 충돌영역 위치로 변경
+    if (self.pos['x'] == i_x and self.pos['y'] == i_y) then
+        i_x, i_y = self:getCenterPos()
+    end
+
+    PARENT.setDamage(self, attacker, defender, i_x, i_y, damage, t_info)
+end
+
+-------------------------------------
+-- function makeMissFont
+-------------------------------------
+function Monster_ClanRaidBoss:makeMissFont(x, y)
+    -- 충돌영역 위치로 변경
+    if (self.pos['x'] == x and self.pos['y'] == y) then
+        x, y = self:getCenterPos()
+    end
+
+    PARENT.makeMissFont(self, x, y)
+end
+
+-------------------------------------
+-- function makeShieldFont
+-------------------------------------
+function Monster_ClanRaidBoss:makeShieldFont(x, y)
+    -- 충돌영역 위치로 변경
+    if (self.pos['x'] == x and self.pos['y'] == y) then
+        x, y = self:getCenterPos()
+    end
+
+    PARENT.makeShieldFont(self, x, y)
+end
+
+-------------------------------------
+-- function makeImmuneFont
+-------------------------------------
+function Monster_ClanRaidBoss:makeImmuneFont(x, y, scale)
+    -- 충돌영역 위치로 변경
+    if (self.pos['x'] == x and self.pos['y'] == y) then
+        x, y = self:getCenterPos()
+    end
+
+    PARENT.makeImmuneFont(self, x, y, scale)
+end
+
+-------------------------------------
+-- function makeResistanceFont
+-------------------------------------
+function Monster_ClanRaidBoss:makeResistanceFont(x, y, scale)
+    -- 충돌영역 위치로 변경
+    if (self.pos['x'] == x and self.pos['y'] == y) then
+        x, y = self:getCenterPos()
+    end
+
+    PARENT.makeResistanceFont(self, x, y, scale)
+end
+
+-------------------------------------
 -- function setHp
 -------------------------------------
 function Monster_ClanRaidBoss:setHp(hp, bFixed)
@@ -78,7 +150,7 @@ end
 function Monster_ClanRaidBoss:setPosition(x, y)
 	PARENT.setPosition(self, x, y)
 
-    -- 충돌지점 위치로 게이지를 표시하기 위함
+    -- 충돌영역 위치로 게이지를 표시하기 위함
     if (self.m_hpNode and not self.m_bFixedPosHpNode) then
         local body_list = self:getBodyList()
         local body = body_list[1]
