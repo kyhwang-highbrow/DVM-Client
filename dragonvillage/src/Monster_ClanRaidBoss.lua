@@ -50,6 +50,8 @@ end
 -- function syncHp
 -------------------------------------
 function Monster_ClanRaidBoss:syncHp(hp)
+    if (self:isDead()) then return end
+
 	self.m_hp = math_min(hp, self.m_maxHp)  
     self.m_hpRatio = self.m_hp / self.m_maxHp
 
