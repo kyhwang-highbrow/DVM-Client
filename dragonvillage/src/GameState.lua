@@ -321,7 +321,7 @@ end
 -------------------------------------
 function GameState.update_fight(self, dt)
     if (self.m_stateTimer == 0) then
-        if (g_gameScene.m_stageID == DEV_STAGE_ID) then
+        if (g_gameScene.m_bDevelopMode) then
             for k, v in pairs (self.m_world:getEnemyList()) do
                 v:setWaitState(true)
             end
@@ -595,7 +595,7 @@ end
 -------------------------------------
 function GameState.update_fight_wait(self, dt)
     if (self.m_stateTimer == 0) then
-        if (g_gameScene.m_stageID == DEV_STAGE_ID) then
+        if (g_gameScene.m_bDevelopMode) then
             for k, v in pairs (self.m_world:getEnemyList()) do
                 v:setWaitState(true)
             end

@@ -149,6 +149,7 @@ end
 -- @breif 이벤트 처리..
 -------------------------------------
 function Skill:initEventListener()
+   
     -- 기본 이벤트
 	self:addListener(CON_SKILL_START, self)
     self:addListener(CON_SKILL_HIT_FIRST, self)
@@ -289,7 +290,7 @@ function Skill:setSkillParams(owner, t_skill, t_data)
 	self.m_targetLimit = SkillHelper:getValid(t_skill['target_count'])
 	self.m_targetFormation = SkillHelper:getValid(t_skill['target_formation'])
 
-	self.m_bSkillHitEffect = owner.m_bLeftFormation and (t_skill['chance_type'] == 'active')
+	self.m_bSkillHitEffect = g_gameScene.m_bDevelopMode or (owner.m_bLeftFormation and (t_skill['chance_type'] == 'active')) 
         
     -- 콤보 이펙트 생성
     if (self.m_bSkillHitEffect) then
@@ -397,18 +398,20 @@ function Skill:onEvent(event_name, t_event, ...)
 
     elseif (event_name == 'under_atk') then
         if (t_event['skill_id']) then
-            if (self.m_skillId == t_event['skill_id'] and self.m_owner == t_event['attacker']) then
-                
-                self.m_totalHit = self.m_totalHit + 1
-                self.m_totalDamage = self.m_totalDamage + t_event['damage']
+            if (self.m_skillId == t_event['skill_id']) then
+                if (((not g_gameScene.m_bDevelopMode) and self.m_owner == t_event['attacker']) or
+                    (g_gameScene.m_bDevelopMode and self.m_chanceType ~= 'basic')) then
+                    self.m_totalHit = self.m_totalHit + 1
+                    self.m_totalDamage = self.m_totalDamage + t_event['damage']
 
-                -- 연출
-                self:doWorkHitDirector(self.m_totalHit, self.m_totalDamage)
+                    -- 연출
+                    self:doWorkHitDirector(self.m_totalHit, self.m_totalDamage)
 
-                -- 피격자의 이벤트 dispatch에서 타격 카운트를 추가하기 위해 activityCarrier에 저장
-                local hit_count = self.m_activityCarrier:getParam('hit_count') or 0
-                hit_count = hit_count + 1
-                self.m_activityCarrier:setParam('hit_count', hit_count)
+                    -- 피격자의 이벤트 dispatch에서 타격 카운트를 추가하기 위해 activityCarrier에 저장
+                    local hit_count = self.m_activityCarrier:getParam('hit_count') or 0
+                    hit_count = hit_count + 1
+                    self.m_activityCarrier:setParam('hit_count', hit_count)
+                end
             end
         end
     elseif (event_name == 'character_recovery') then
