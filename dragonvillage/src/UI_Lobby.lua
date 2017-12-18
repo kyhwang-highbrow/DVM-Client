@@ -357,6 +357,7 @@ function UI_Lobby:initButton()
     vars['exchangeBtn']:registerScriptTapHandler(function() self:click_exchangeBtn() end) -- 교환이벤트
     vars['diceBtn']:registerScriptTapHandler(function() self:click_diceBtn() end) -- 주사위이벤트
     vars['levelupBtn']:registerScriptTapHandler(function() self:click_lvUpPackBtn() end) -- 레벨업 패키지
+    vars['adventureClearBtn']:registerScriptTapHandler(function() self:click_adventureClearBtn() end) -- 모험돌파 패키지
 
 	-- 임시 @TODO 진입은 얼루하는지도...
 	vars['capsuleBoxBtn']:registerScriptTapHandler(function() 
@@ -823,6 +824,14 @@ function UI_Lobby:click_lvUpPackBtn()
 end
 
 -------------------------------------
+-- function click_adventureClearBtn
+-- @brief 레벨업 패키지 버튼
+-------------------------------------
+function UI_Lobby:click_adventureClearBtn()
+    UI_Package_AdventureClear(nil, true) -- param : struct_product, is_popup
+end
+
+-------------------------------------
 -- function click_guildBtn
 -------------------------------------
 function UI_Lobby:click_guildBtn()
@@ -1029,6 +1038,13 @@ function UI_Lobby:refresh_rightButtons()
         vars['levelupBtn']:setVisible(false)
     end
 
+    -- 모험돌파 버튼
+    if g_adventureClearPackageData:isVisible_adventureClearPack() then
+        vars['adventureClearBtn']:setVisible(true)
+    else
+        vars['adventureClearBtn']:setVisible(false)
+    end
+
 
     -- 인덱스 1번이 오른쪽
     local t_btn_name = {
@@ -1038,6 +1054,7 @@ function UI_Lobby:refresh_rightButtons()
             'exchangeBtn',
             'diceBtn',
             'levelupBtn',
+            'adventureClearBtn',
             'eventBtn',
         }
     

@@ -123,6 +123,7 @@ local TableInfo_fromServer = {
 
 		-- 레벨업 패키지 레벨별 보상 리스트
         ['table_package_levelup'] = {'table_package_levelup', 'level'}, 
+        ['table_package_stage'] = {'table_package_stage', 'stage'}, 
 
 		-- 드래곤 강화
 		['table_dragon_reinforce'] = {'table_dragon_reinforce', 'id'},

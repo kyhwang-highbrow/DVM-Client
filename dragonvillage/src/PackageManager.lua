@@ -15,6 +15,11 @@ function PackageManager:getTargetUI(struct_product, is_popup)
         local _struct_product = g_shopDataNew:getLevelUpPackageProduct()
         target_ui = UI_Package_LevelUp(_struct_product, is_popup)
 
+    -- 모험돌파 패키지 UI
+    elseif (package_name == 'package_adventure_clear') or (pid == 'package_adventure_clear') then
+        local _struct_product = g_shopDataNew:getAdventureClearProduct()
+        target_ui = UI_Package_AdventureClear(_struct_product, is_popup)
+
     -- 패키지 상품 묶음 UI (pid로 들어오지만 패키지 상품 묶음 UI를 보여줘야 하는 경우)
     elseif package_name then
         target_ui = UI_Package_Bundle(package_name, is_popup)
@@ -67,6 +72,17 @@ function PackageManager:isExist(package_name)
     if (package_name == 'package_levelup') then
         local is_active = g_levelUpPackageData:isActive()
         local is_visible = g_levelUpPackageData:isVisible_lvUpPack()
+        if (is_active and (is_visible == false)) then
+            return false
+        else
+            return true
+        end
+    end
+
+    -- 모험돌파 패키지는 구매를 한 후에도 노출되도록 설정(추후 리팩토링 필요) sgkim 2017-12-18
+    if (package_name == 'package_adventure_clear') then
+        local is_active = g_adventureClearPackageData:isActive()
+        local is_visible = g_adventureClearPackageData:isVisible_adventureClearPack()
         if (is_active and (is_visible == false)) then
             return false
         else

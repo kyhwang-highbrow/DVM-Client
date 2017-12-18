@@ -3033,6 +3033,15 @@
     <None Include="..\src\UI_ContentOpenPopup.lua">
       <Filter>lua\UI</Filter>
     </None>
+    <None Include="..\src\ServerData_AdventureClearPackage.lua">
+      <Filter>lua\src</Filter>
+    </None>
+    <None Include="..\src\UI_Package_AdventureClear.lua">
+      <Filter>lua\UI</Filter>
+    </None>
+    <None Include="..\src\UI_Package_AdventureClearListItem.lua">
+      <Filter>lua\UI</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Classes">

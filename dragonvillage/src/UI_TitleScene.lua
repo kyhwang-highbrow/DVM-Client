@@ -870,6 +870,17 @@ function UI_TitleScene:workGetServerInfo()
         end
         if co:waitWork() then return end
 
+        -- 레벨업 패키지
+        co:work()
+        self.m_loadingUI:showLoading(Str('가방을 챙기는 중...'))
+        local ui_network = g_adventureClearPackageData:request_adventureClearInfo(co.NEXT, fail_cb)
+        if ui_network then
+            ui_network:setRevocable(false)
+            ui_network:setFailCB(fail_cb)
+            ui_network:hideLoading()
+        end
+        if co:waitWork() then return end
+
 		-- @ daily mission
 		co:work()
         self.m_loadingUI:showLoading(Str('오늘의 미션 확인 중...'))
