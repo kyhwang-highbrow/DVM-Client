@@ -7,7 +7,7 @@ UI_IngameDragonPanel = class(PARENT, {
         m_world = 'GameWorld',
         m_lPanelItemList = 'list',
         m_bVisible = '',
-        m_bPossibleControl = 'boolean',
+        
         m_menuPosY = 'number',
      })
 
@@ -18,7 +18,7 @@ function UI_IngameDragonPanel:init(world)
     self.m_world = world
 	local vars = self:load('ingame_dragon_panel.ui')
     self.m_bVisible = true
-    self.m_bPossibleControl = nil
+    
     self.m_menuPosY = vars['panelMenu']:getPositionY()
 
     self:initUI()
@@ -106,13 +106,7 @@ end
 function UI_IngameDragonPanel:update(dt)
     local possible = self.m_world:isPossibleControl()
 
-    if (self.m_bPossibleControl == possible) then
-        return
-    end
-
-    self.m_bPossibleControl = possible
-
     for i,v in ipairs(self.m_lPanelItemList) do
-        v:setPossibleControl(possible)
+        v:update(dt, possible)
     end
 end

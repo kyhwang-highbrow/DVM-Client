@@ -91,8 +91,12 @@ function Dragon.st_skillAppear(owner, dt)
     local world = owner.m_world
 
     if (owner:getStep() == 0) then
-        if (not owner:checkSkillMana()) then
-            -- 마나가 부족한 경우 취소시킴
+        local m_except = {}
+        m_except[REASON_TO_DO_NOT_USE_SKILL.USING_SKILL] = true
+
+        local b, m_reason = owner:isPossibleActiveSkill(m_except)
+
+        if (not b) then
             owner:reserveSkill(nil)
             owner:changeState('attackDelay')
             

@@ -199,10 +199,11 @@ end
 -- function update
 -------------------------------------
 function Dragon:update(dt)
-    if self.m_isUseMovingAfterImage then
+    -- 잔상
+    if (self.m_isUseMovingAfterImage) then
         self:updateMovingAfterImage(dt)
     end
-                    
+
     return Character.update(self, dt)
 end
 
@@ -520,56 +521,60 @@ function Dragon:isEndActiveSkillCool()
 end
 
 -------------------------------------
--- function isPossibleSkill
+-- function isPossibleActiveSkill
 -------------------------------------
-function Dragon:isPossibleSkill()
+function Dragon:isPossibleActiveSkill(map_except)
+    local map_except = map_except or {}
+    local b = true
+    local m_reason = {}
+
     if (self:isDead()) then
-		return false, REASON_TO_DO_NOT_USE_SKILL.DEAD
+        if (not map_except[REASON_TO_DO_NOT_USE_SKILL.DEAD]) then
+            b = false
+            m_reason[REASON_TO_DO_NOT_USE_SKILL.DEAD] = true
+        end
 	end
 
     if (not self.m_skillIndicator) then
-        return false, REASON_TO_DO_NOT_USE_SKILL.NO_INDICATOR
+        if (not map_except[REASON_TO_DO_NOT_USE_SKILL.NO_INDICATOR]) then
+            b = false
+            m_reason[REASON_TO_DO_NOT_USE_SKILL.NO_INDICATOR] = true
+        end
     end
 
-    if (self.m_isSilence) then
-		return false, REASON_TO_DO_NOT_USE_SKILL.SILENCE
-	end
-
-    if (isExistValue(self.m_state, 'stun')) then
-        return false, REASON_TO_DO_NOT_USE_SKILL.STUN
+    -- 이미 스킬을 사용하기 위한 상태나 사용 중인 경우
+    if (isExistValue(self.m_state, 'skillPrepare', 'skillAppear', 'skillIdle', 'delegate')) then
+        if (not map_except[REASON_TO_DO_NOT_USE_SKILL.USING_SKILL]) then
+            b = false
+            m_reason[REASON_TO_DO_NOT_USE_SKILL.USING_SKILL] = true
+        end
     end
 
-    if (isExistValue(self.m_state, 'delegate')) then
-        return false, REASON_TO_DO_NOT_USE_SKILL.USING_SKILL
+    -- 스킬 사용 불가 상태효과가 있을 경우
+    if (self:hasStatusEffectToDisableSkill()) then
+        if (not map_except[REASON_TO_DO_NOT_USE_SKILL.STATUS_EFFECT]) then
+            b = false
+            m_reason[REASON_TO_DO_NOT_USE_SKILL.STATUS_EFFECT] = true
+        end
     end
-
-    -- 이미 스킬을 사용하기 위한 상태일 경우
-    if (isExistValue(self.m_state, 'skillPrepare', 'skillAppear', 'skillIdle')) then
-        return false, REASON_TO_DO_NOT_USE_SKILL.USING_SKILL
-    end
-
+    
     -- 마나 체크
-    if (not self:checkSkillMana()) then
-        return false, REASON_TO_DO_NOT_USE_SKILL.MANA_LACK
+    if (self.m_activeSkillManaCost:get() > self.m_world:getMana(self):getCurrMana()) then
+        if (not map_except[REASON_TO_DO_NOT_USE_SKILL.MANA_LACK]) then
+            b = false
+            m_reason[REASON_TO_DO_NOT_USE_SKILL.MANA_LACK] = true
+        end
     end
-
+    
     -- 쿨타임 체크
 	if (not self:isEndActiveSkillCool()) then
-		return false, REASON_TO_DO_NOT_USE_SKILL.COOL_TIME
+        if (not map_except[REASON_TO_DO_NOT_USE_SKILL.COOL_TIME]) then
+            b = false
+            m_reason[REASON_TO_DO_NOT_USE_SKILL.COOL_TIME] = true
+        end
 	end
 
-	return true
-end
-
--------------------------------------
--- function ckeckSkillMana
--------------------------------------
-function Dragon:checkSkillMana()
-    if (self.m_activeSkillManaCost:get() > self.m_world:getMana(self):getCurrMana()) then
-        return false, REASON_TO_DO_NOT_USE_SKILL.MANA_LACK
-    end
-
-    return true
+    return b, m_reason
 end
 
 -------------------------------------
@@ -658,7 +663,6 @@ end
 -- @brief 상태효과 해제로 스킬 사용 가능 상태가 되었을 때 호출
 -------------------------------------
 function Dragon:onEnabledSkill()
-    self:dispatch('skill_enabled')
 end
 
 -------------------------------------
@@ -666,7 +670,6 @@ end
 -- @brief 상태효과 적용으로 스킬 사용 불가능 상태가 되었을 때 호출
 -------------------------------------
 function Dragon:onDisabledSkill()
-    self:dispatch('skill_disabled')
 end
 
 -------------------------------------

@@ -31,7 +31,6 @@ REASON_TO_DO_NOT_USE_SKILL = {
     COOL_TIME       = 3,
     MANA_LACK       = 4,
     NO_MANA         = 5,
-    SILENCE         = 6,
-    STUN            = 7,
-    USING_SKILL     = 8,
+    STATUS_EFFECT   = 6,
+    USING_SKILL     = 7,
 }

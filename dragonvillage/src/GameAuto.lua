@@ -223,9 +223,9 @@ function GameAuto:doWork(dt)
         if (count > 0) then
             local list = randomShuffle(list)
                
-            -- 쿨타임 중이 아닌 대상을 선택
+            -- 스킬 사용 가능한 랜덤한 대상을 선택
             for _, unit in ipairs(list) do
-                if (unit:isPossibleSkill()) then
+                if (unit:isPossibleActiveSkill()) then
                     self.m_curUnit = unit
                     break
                 end
@@ -260,7 +260,7 @@ end
 -------------------------------------
 function GameAuto:doWork_skill(unit, priority)
     local t_skill
-    local b, reason = unit:isPossibleSkill()
+    local b, m_reason = unit:isPossibleActiveSkill()
     local is_prepared = false
 
     if (b) then
@@ -278,17 +278,24 @@ function GameAuto:doWork_skill(unit, priority)
         -- 1 순위 스킬의 경우
         if (self.m_teamState == TEAM_STATE.DANGER) then
             -- 위급 상태면 마나 부족과 쿨타임은 기다림
-            if (reason == REASON_TO_DO_NOT_USE_SKILL.MANA_LACK or reason == REASON_TO_DO_NOT_USE_SKILL.COOL_TIME) then
+            m_reason[REASON_TO_DO_NOT_USE_SKILL.MANA_LACK] = nil
+            m_reason[REASON_TO_DO_NOT_USE_SKILL.COOL_TIME] = nil
+
+            if (table.isEmpty(m_reason)) then
                 return false
             end
         else
             -- 그외 상태면 마나 부족만 기다림
-            if (reason == REASON_TO_DO_NOT_USE_SKILL.MANA_LACK) then
+            m_reason[REASON_TO_DO_NOT_USE_SKILL.MANA_LACK] = nil
+
+            if (table.isEmpty(m_reason)) then
                 return false
             end
         end
     else
-        if (reason == REASON_TO_DO_NOT_USE_SKILL.MANA_LACK) then
+        m_reason[REASON_TO_DO_NOT_USE_SKILL.MANA_LACK] = nil
+
+        if (table.isEmpty(m_reason)) then
             return false
         end
     end
@@ -426,7 +433,7 @@ function GameAuto:getRandomSkillUnit()
 
     for i, unit in ipairs(self.m_lUnitList) do
         local skill_indivisual_info = unit:getSkillIndivisualInfo('active')
-        if (skill_indivisual_info and unit:isPossibleSkill()) then
+        if (skill_indivisual_info and unit:isPossibleActiveSkill()) then
             table.insert(t_idx, i)
         end
     end

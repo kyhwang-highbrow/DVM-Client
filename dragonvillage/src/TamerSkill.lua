@@ -315,9 +315,9 @@ function Tamer:isEndActiveSkillCool()
 end
 
 -------------------------------------
--- function isPossibleSkill
+-- function isPossibleActiveSkill
 -------------------------------------
-function Tamer:isPossibleSkill()
+function Tamer:isPossibleActiveSkill()
     if (not self:isEndActiveSkillCool()) then
 		return false
 	end

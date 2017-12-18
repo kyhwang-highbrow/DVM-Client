@@ -67,7 +67,7 @@ function SkillIndicatorMgr_Intro:onTouchBegan(touch, event)
     end 
 
     if (select_hero and select_hero == self.m_introHero) then
-        if (select_hero:isPossibleSkill()) then
+        if (select_hero:isPossibleActiveSkill()) then
             -- 드래곤 클릭
             self.m_firstTouchPos = node_pos
             self.m_firstTouchUIPos = world.m_inGameUI.root:convertToNodeSpace(location)

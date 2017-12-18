@@ -145,7 +145,7 @@ function SkillIndicatorMgr:onTouchBegan(touch, event)
         self.m_firstTouchPos = node_pos
         self.m_firstTouchUIPos = world.m_inGameUI.root:convertToNodeSpace(location)
 
-        if (select_hero:isPossibleSkill()) then
+        if (select_hero:isPossibleActiveSkill()) then
             self.m_touchedHero = select_hero
 
             if(select_hero.m_skillIndicator) then
@@ -184,7 +184,7 @@ function SkillIndicatorMgr:onTouchMoved(touch, event)
 
         if (not self:isControlling() and self.m_world:isPossibleControl()) then
             if (distance >= 50) then
-                if (hero:isPossibleSkill()) then
+                if (hero:isPossibleActiveSkill()) then
                     self:setSelectHero(hero)
                     event:stopPropagation()
                 end
@@ -238,7 +238,7 @@ function SkillIndicatorMgr:onTouchEnded(touch, event)
         ---------------------------------------------------
         -- 터치 스킬 발동
         ---------------------------------------------------
-        if (self.m_touchedHero:isPossibleSkill()) then
+        if (self.m_touchedHero:isPossibleActiveSkill()) then
             local skill_indivisual_info = self.m_touchedHero:getSkillIndivisualInfo('active')
             local t_skill = skill_indivisual_info:getSkillTable()
 
