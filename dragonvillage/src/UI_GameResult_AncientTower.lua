@@ -10,15 +10,18 @@ UI_GameResult_AncientTower = class(PARENT, {
 
     m_scoreList = 'list',
     m_animationList = 'list',
+
+    m_attr_tower_open = 'boolean',
 })
 
 -------------------------------------
 -- function click_againBtn
 -------------------------------------
-function UI_GameResult_AncientTower:init(stage_id, is_success, time, gold, t_tamer_levelup_data, l_dragon_list, box_grade, l_drop_item_list, secret_dungeon, score_calc)
+function UI_GameResult_AncientTower:init(stage_id, is_success, time, gold, t_tamer_levelup_data, l_dragon_list, box_grade, l_drop_item_list, secret_dungeon, content_open, score_calc)
     local vars = self.vars
     self.m_ancientScoreCalc = score_calc
     self.m_staminaType = 'tower'
+    self.m_attr_tower_open = content_open['open'] or false
 
     vars['againBtn']:setVisible(false)
     vars['quickBtn']:setVisible(false)
@@ -294,6 +297,10 @@ function UI_GameResult_AncientTower:setSuccessVisual_Ancient()
         SoundMgr:playBGM('bgm_dungeon_lose', false)
         vars['successVisual']:changeAni('fail')
     end
+
+    if (self.m_attr_tower_open) then
+       UI_ContentOpenPopup('attr_tower')
+   end 
 end
 
 -------------------------------------
@@ -319,4 +326,3 @@ function UI_GameResult_AncientTower:setTotalScoreLabel()
     total_score = NumberLabel(total_score, 0, 0.3)
     self.m_totalScore = total_score
 end
-

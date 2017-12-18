@@ -74,13 +74,7 @@ function UI_UserLevelUp:initUI()
 
     -- 컨텐츠 오픈 팝업
     local function open_content_popup(content_type)
-        local ui = UI()
-        ui:load('popup_contents_open.ui')
-        ui.vars['contentsVisual']:changeAni(content_type, true)
-        ui.vars['contentsLabel']:setString(getContentName(content_type))
-        ui.vars['okBtn']:registerScriptTapHandler(function() ui:close() end)
-        ui:sceneFadeInAction()
-        UIManager:open(ui, UIManager.POPUP)
+        UI_ContentOpenPopup(content_type)
     end
 
     -- 연속전투, 컨텐츠 오픈 체크 액션

@@ -697,6 +697,7 @@ local t_module = {
     'UI_FormationDetailPopup',
     'UI_EventFullPopup',
 	'UI_CapsuleBox',
+    'UI_ContentOpenPopup',
 
     -- UI : 약관 동의
     'UI_TermsPopup',

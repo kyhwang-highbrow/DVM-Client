@@ -136,20 +136,6 @@ function ServerData_AttrTower:request_attrTowerInfo(attr, stage, finish_cb, fail
         if (menu_info) then
             self.m_subMenuInfo = menu_info
 
-            local is_open = true
-            for k, v in pairs(menu_info) do
-                if (v == -1) then
-                    is_open = false
-                    break 
-                end
-            end
-
-            if (not is_open) then
-                MakeSimplePopup(Str('lock'), msg)
-                return
-            end
-
-
         -- 시험의 탑 진입
         else
             -- 도전 스테이지 정보 

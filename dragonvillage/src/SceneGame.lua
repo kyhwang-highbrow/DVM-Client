@@ -654,6 +654,18 @@ function SceneGame:networkGameFinish_response_user_info(ret, t_result_ref)
         local high_lv_exp = user_levelup_data['curr_exp']
         user_levelup_data['add_exp'] = table_user_level:getBetweenExp(low_lv, low_lv_exp, high_lv, high_lv_exp)
     end    
+
+    -- 레벨이 아닌 다른 컨텐츠 오픈 조건
+    local t_content_open = t_result_ref['content_open']
+    if (t_content_open) then
+
+        -- 시험의 탑 오픈 정보
+        local open = ret['attr_tower_open']
+        if (open == true) then
+            t_content_open['open'] = open
+            g_userData:applyServerData(open, 'attr_tower_open')
+        end
+    end
 end
 
 -------------------------------------

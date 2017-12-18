@@ -37,7 +37,9 @@ function ServerData_ContentLock:isContentLock(content_name)
 
     -- 시험의 탑 경우 유저 레벨이 아닌 다른 조건으로 검사
     if (content_name == 'attr_tower') then
-        return false
+        local attr_tower_open = g_userData:get('attr_tower_open') or false
+        local is_lock = not attr_tower_open
+        return is_lock
     end
 
     -- 필요 유저 레벨 지정

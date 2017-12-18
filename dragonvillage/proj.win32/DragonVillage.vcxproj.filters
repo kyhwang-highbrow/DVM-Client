@@ -3030,6 +3030,9 @@
     <None Include="..\src\ServerData_AttrTower.lua">
       <Filter>lua\src</Filter>
     </None>
+    <None Include="..\src\UI_ContentOpenPopup.lua">
+      <Filter>lua\UI</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Classes">
