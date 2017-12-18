@@ -2,13 +2,13 @@
 -- function doSkill
 -- @brief 스킬 실행
 -------------------------------------
-function Character:doSkill(skill_id, x, y, t_data)
+function Character:doSkill(skill_id, x, y, t_data, t_skill_derived)
     local x = x or self.m_attackOffsetX or 0
     local y = y or self.m_attackOffsetY or 0
 	local t_data = t_data or {}
 
     local attr = self:getAttribute()
-	local t_skill = self:getSkillTable(skill_id)
+	local t_skill = t_skill_derived or self:getSkillTable(skill_id)
 
     -- 스킬 사용 불가 상태
     local basic_skill_id = self:getSkillID('basic')
@@ -351,6 +351,9 @@ function Character:doSkillBySkillTable(t_skill, t_data)
 				SkillFieldCheck:makeSkillInstance(self, t_skill, t_data)
 				return true
 
+            elseif (skill_type == 'skill_random') then
+                SkillRandom:makeSkillInstance(self, t_skill, t_data)
+                return true    
 			end
 
 			cclog('미구현 코드 스킬 : ' .. skill_type)
