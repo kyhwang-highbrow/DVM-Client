@@ -173,3 +173,20 @@ function Monster_ClanRaidBoss:insertStatusEffect(status_effect)
 
     status_effect:setOffsetPos(body)
 end
+
+-------------------------------------
+-- function setSilence
+-- @brief 특정 상태효과 면역 체크
+-------------------------------------
+function Monster_ClanRaidBoss:checkSpecialImmune(t_status_effect)
+    if (self.m_charTable['type'] == 'clanraid_boss') then
+        return PARENT.checkSpecialImmune(self, t_status_effect)
+    else
+        -- 보스 쫄의 경우 기절, 수면에만 면역 처리
+        if (t_status_effect['name'] == 'stun' or t_status_effect['name'] == 'sleep') then
+            return true
+        end
+    end
+    
+    return false
+end

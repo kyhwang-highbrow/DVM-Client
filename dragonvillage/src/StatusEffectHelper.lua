@@ -220,6 +220,12 @@ function StatusEffectHelper:invokeStatusEffect(caster, target_char, status_effec
         end
     end
 
+    -- 유닛별 특수 상태효과 면역 여부 검사
+    if (target_char:checkSpecialImmune(t_status_effect)) then
+        target_char:makeImmuneFont(target_char.pos['x'], target_char.pos['y'], 1)
+        return nil
+    end
+
     -- status_effect_rate 검사
     if (self:checkRate(caster, target_char, status_effect_rate, add_param)) then
         return nil
@@ -230,12 +236,6 @@ function StatusEffectHelper:invokeStatusEffect(caster, target_char, status_effec
         target_char:makeImmuneFont(target_char.pos['x'], target_char.pos['y'], 1)
 		return nil
 	end
-
-    -- 보스의 경우 cc타입의 상태효과는 면역 처리
-    if (target_char:isBoss() and t_status_effect['type'] == 'cc') then
-        target_char:makeImmuneFont(target_char.pos['x'], target_char.pos['y'], 1)
-        return nil
-    end
 
     -- 효과 적중 및 효과 저항 검사
     if (status_effect_group == 'dispell') then

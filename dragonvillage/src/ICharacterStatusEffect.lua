@@ -386,6 +386,15 @@ function ICharacterStatusEffect:hasStatusEffectToDisableSkill()
 end
 
 
+-------------------------------------
+-- function setSilence
+-- @brief 특정 상태효과 면역 체크
+-------------------------------------
+function ICharacterStatusEffect:checkSpecialImmune(t_status_effect)
+    return false
+end
+
+
 
 
 

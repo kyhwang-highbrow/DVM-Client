@@ -2896,3 +2896,18 @@ end
 -------------------------------------
 function Character:getSizeType()
 end
+
+-------------------------------------
+-- function setSilence
+-- @brief 특정 상태효과 면역 체크
+-------------------------------------
+function Character:checkSpecialImmune(t_status_effect)
+    -- 보스의 경우 cc타입의 상태효과는 면역 처리
+    if (self:isBoss()) then
+        if (t_status_effect['type'] == 'cc') then
+            return true
+        end
+    end
+
+    return false
+end

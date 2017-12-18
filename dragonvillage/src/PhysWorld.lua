@@ -127,6 +127,14 @@ function PhysWorld:addGroup(key, collision_group, color)
 end
 
 -------------------------------------
+-- function modifyGroup
+-- @brief 그룹 정보 변경
+-------------------------------------
+function PhysWorld:modifyGroup(key, collision_group)
+    self.m_collisionGroup[key] = collision_group
+end
+
+-------------------------------------
 -- function addObject
 -- @param key
 -- @param object

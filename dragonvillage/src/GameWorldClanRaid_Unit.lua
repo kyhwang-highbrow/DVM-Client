@@ -367,6 +367,18 @@ function GameWorldClanRaid:removeHero(hero)
     end
 
     hero:setActive(false)
+
+    -- 팀 전멸 시 남은 팀이 공격 받을 수 있도록 변경(임시)
+    if (#participants == 0) then
+        if (#self.m_leftParticipants > 0) then
+            self.m_subLeftFormationMgr = self.m_leftFormationMgr
+        elseif (#self.m_subLeftFormationMgr > 0) then
+            self.m_leftFormationMgr = self.m_subLeftFormationMgr
+        end
+
+        self.m_physWorld:modifyGroup(PHYS.HERO_TOP, { PHYS.MISSILE.ENEMY_TOP, PHYS.MISSILE.ENEMY_BOTTOM })
+        self.m_physWorld:modifyGroup(PHYS.HERO_BOTTOM, { PHYS.MISSILE.ENEMY_TOP, PHYS.MISSILE.ENEMY_BOTTOM })
+    end
         
     -- 게임 종료 체크(모든 영웅이 죽었을 경우)
     local hero_count = #self:getDragonList()
