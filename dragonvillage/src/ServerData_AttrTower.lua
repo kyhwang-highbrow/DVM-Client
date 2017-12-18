@@ -18,6 +18,11 @@ ServerData_AttrTower = class({
         m_lStage = 'table',
         m_nStage = 'number',
 
+        m_nGlobalOffset = 'number',
+        m_lGlobalRank = 'list', -- 전체 랭킹 정보
+
+        m_playerUserInfo = 'StructUserInfoAncientTower', -- 내 랭킹 정보
+
         m_subMenuInfo = 'table', -- 서브 메뉴 정보
     })
 
@@ -131,6 +136,19 @@ function ServerData_AttrTower:request_attrTowerInfo(attr, stage, finish_cb, fail
         if (menu_info) then
             self.m_subMenuInfo = menu_info
 
+            local is_open = true
+            for k, v in pairs(menu_info) do
+                if (v == -1) then
+                    is_open = false
+                    break 
+                end
+            end
+
+            if (not is_open) then
+                MakeSimplePopup(Str('lock'), msg)
+                return
+            end
+
 
         -- 시험의 탑 진입
         else
@@ -171,6 +189,48 @@ function ServerData_AttrTower:request_attrTowerInfo(attr, stage, finish_cb, fail
         ui_network:setParam('stage', stage)
     end
 
+    ui_network:setSuccessCB(success_cb)
+    ui_network:setFailCB(fail_cb)
+    ui_network:setRevocable(true)
+    ui_network:setReuse(false)
+    ui_network:request()
+
+	return ui_network
+end
+
+-------------------------------------
+-- function request_attrTowerRank
+-------------------------------------
+function ServerData_AttrTower:request_attrTowerRank(offset, finish_cb)
+    local attr = self.m_selectAttr
+
+    -- 파라미터
+    local uid = g_userData:get('uid')
+    local offset = offset or 0
+
+    -- 콜백 함수
+    local function success_cb(ret)
+        g_serverData:networkCommonRespone(ret)
+        self.m_playerUserInfo = StructUserInfoAncientTower:create_forRanking(ret['my_info'])
+
+        self.m_nGlobalOffset = ret['offset']
+        self.m_lGlobalRank = {}
+        for i,v in pairs(ret['list']) do
+            local user_info = StructUserInfoAncientTower:create_forRanking(v)
+            table.insert(self.m_lGlobalRank, user_info)
+        end
+        
+        if finish_cb then
+            return finish_cb(ret)
+        end
+    end
+
+    -- 네트워크 통신 UI 생성
+    local ui_network = UI_Network()
+    ui_network:setUrl('/game/attr_tower/rank')
+    ui_network:setParam('uid', uid)
+    ui_network:setParam('attr', attr)
+    ui_network:setParam('offset', offset)
     ui_network:setSuccessCB(success_cb)
     ui_network:setFailCB(fail_cb)
     ui_network:setRevocable(true)

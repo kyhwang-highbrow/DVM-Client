@@ -697,7 +697,6 @@ local t_module = {
     'UI_FormationDetailPopup',
     'UI_EventFullPopup',
 	'UI_CapsuleBox',
-    'UI_AttrTowerMenuScene',
 
     -- UI : 약관 동의
     'UI_TermsPopup',
@@ -786,6 +785,8 @@ local t_module = {
     'UI_AttrTowerFloorInfo',
     'UI_AttrTowerListItem',
     'UI_AttrTowerMenuItem',
+    'UI_AttrTowerMenuScene',
+    'UI_AttrTowerRank',
     
 	-- UI : 인게임
 	'UI_Game',

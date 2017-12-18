@@ -7,6 +7,7 @@ UI_AttrTower = class(PARENT, {
         m_tableView = 'UIC_TableView', -- 탑 층 리스트
         
         m_floorInfo = 'UI_AttrTowerFloorInfo', -- 탑 정보 UI
+        m_rankInfo = 'UI_AttrTowerRank', -- 순위 정보 UI
 
 		m_challengingFloor = 'number', -- 현재 진행중인 층
         m_selectedStageID = 'number', -- 현재 선택된 스테이지 아이디
@@ -27,6 +28,7 @@ function UI_AttrTower:init()
 
     -- 층 정보
     self.m_floorInfo = UI_AttrTowerFloorInfo(self)
+    self.m_rankInfo = UI_AttrTowerRank(self)
 
     -- 현재 진행중인 층
     local challengingFloor = g_attrTowerData:getChallengingFloor()
@@ -171,7 +173,7 @@ function UI_AttrTower:onChangeTab(tab, first)
 
     -- 최초 탭 누를 경우에만 랭킹 정보 가져옴
     if (tab == UI_AttrTower.TAB_RANK) then
-        
+        self.m_rankInfo:request_Rank()
     end
 end
 
