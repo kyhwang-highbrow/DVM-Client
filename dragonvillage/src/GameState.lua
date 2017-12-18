@@ -321,7 +321,7 @@ end
 -------------------------------------
 function GameState.update_fight(self, dt)
     if (self.m_stateTimer == 0) then
-        if (g_gameScene.m_bDevelopMode) then
+        if (g_gameScene.m_bDevelopMode and self.m_world.m_gameMode ~= GAME_MODE_COLOSSEUM) then
             for k, v in pairs (self.m_world:getEnemyList()) do
                 v:setWaitState(true)
             end
@@ -586,7 +586,7 @@ end
 -------------------------------------
 function GameState.update_fight_wait(self, dt)
     if (self.m_stateTimer == 0) then
-        if (g_gameScene.m_bDevelopMode) then
+        if (g_gameScene.m_bDevelopMode and self.m_world.m_gameMode ~= GAME_MODE_COLOSSEUM) then
             for k, v in pairs (self.m_world:getEnemyList()) do
                 v:setWaitState(true)
             end

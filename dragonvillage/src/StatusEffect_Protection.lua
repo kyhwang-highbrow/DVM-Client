@@ -29,7 +29,7 @@ function StatusEffect_Protection:init(file_name, body, ...)
     self.m_shieldCountOrg = 0
 
     self.m_bUseCount = false
-
+    self.m_animator:setIgnoreLowEndMode(true)
 	do
         local label = cc.Label:createWithTTF('', 'res/font/common_font_01.ttf', 20, 2, cc.size(250, 100), 1, 1)
         label:setPosition(0, -100)

@@ -32,6 +32,9 @@ function ResourceSizeChecker:checkData(root)
     self.m_str = 'evolution,rarity,count,avg_size\n'
 
     self:makeNameRarityDict()
+    
+    local dragon_root = self.m_root .. '\\character\\dragon'
+    dragon_root = pl.path.abspath(dragon_root, 'D:\\')
 
     local t_ret = {}
     for i = 1, 3 do
@@ -41,23 +44,19 @@ function ResourceSizeChecker:checkData(root)
         table.insert(t_ret, {['rarity'] = 'legend', ['evolution'] = i, ['count'] = 0, ['avg_size'] = 0})
     end
 
-    local dragon_root = self.m_root .. '\\res\\character\\dragon'
-    dragon_root = pl.path.abspath(dragon_root, 'D:\\')
-
     local file_count = 0
     local total_size = 0
 
     -- file size check
     for _, dir_name in ipairs(pl.dir.getdirectories(dragon_root)) do
         local size = 0
-        
-        
+             
         for _, v in ipairs(pl.dir.getallfiles(dir_name)) do
-
             local f = assert(io.open(v, 'r'))
             size = size + f:seek('end')
             io.close(f)
         end
+
         if (size ~= 0) then
             file_count = file_count + 1
             total_size = total_size + size
@@ -67,9 +66,10 @@ function ResourceSizeChecker:checkData(root)
                 t_ret[idx]['count'] = t_ret[idx]['count'] + 1
             end
         end
+
     end
 
-
+    -- Byte -> MegaByte
     for _, v in ipairs(t_ret) do
         v['avg_size'] = tostring(math.floor(v['avg_size'] / v['count'] / 1024 / 1024 / .001) * .001) .. ' MB'
     end
