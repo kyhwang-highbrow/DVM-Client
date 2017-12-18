@@ -12,10 +12,11 @@ UI_BattleMenuItem = class(PARENT, {
         -- nest_tree	[네스트] 거목 던전
         -- nest_evo_stone	[네스트] 진화재료 던전
         -- ancient	고대의 탑
+        -- attr_tower 시험의 탑
         -- colosseum	콜로세움
         -- nest_nightmare	[네스트] 악몽 던전
         -- secret_relation 인연던전
-
+        
         m_notiIcon = 'cc.Sprite',
      })
 
@@ -43,7 +44,7 @@ function UI_BattleMenuItem:initUI()
     local content_type = self.m_contentType
 
     -- 컨텐츠에 따라 사용하는 레이아웃이 다름
-    if isExistValue(content_type, 'adventure', 'exploation', 'colosseum', 'ancient') then
+    if isExistValue(content_type, 'adventure', 'exploation', 'colosseum', 'ancient', 'attr_tower') then
         vars['itemMenu1']:setVisible(true)
         vars['itemMenu2']:setVisible(false)
 
@@ -65,7 +66,14 @@ function UI_BattleMenuItem:initUI()
     local is_content_lock, req_user_lv = g_contentLockData:isContentLock(content_type)
     if is_content_lock then
         vars['lockSprite']:setVisible(true)
-        vars['lockLabel']:setString(Str('레벨 {1}', req_user_lv))
+        local msg
+        -- 시험의 탑 예외 처리
+        if (content_type == 'attr_tower') then
+            msg = Str('고대의 탑 {1}층 클리어', ATTR_TOWER_OPEN_FLOOR)
+        else
+            msg = Str('레벨 {1}', req_user_lv)
+        end
+        vars['lockLabel']:setString(msg)
     else
         vars['lockSprite']:setVisible(false)
     end
@@ -181,6 +189,10 @@ function UI_BattleMenuItem:click_enterBtn()
     -- 고대의 탑
     elseif (content_type == 'ancient') then
         UINavigator:goTo('ancient')
+
+    -- 시험의 탑 
+    elseif (content_type == 'attr_tower') then
+        UINavigator:goTo('attr_tower')
 
     -- 콜로세움
     elseif (content_type == 'colosseum') then

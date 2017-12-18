@@ -1,38 +1,36 @@
 local PARENT = class(UI, ITopUserInfo_EventListener:getCloneTable(), ITabUI:getCloneTable())
 
 -------------------------------------
--- class UI_AncientTower
+-- class UI_AttrTower
 -------------------------------------
-UI_AncientTower = class(PARENT, {
+UI_AttrTower = class(PARENT, {
         m_tableView = 'UIC_TableView', -- 탑 층 리스트
         
-        m_floorInfo = 'UI_AncientTowerFloorInfo', -- 탑 정보 UI
-        m_rankInfo = 'UI_AnceintTowerRank', -- 순위 정보 UI
+        m_floorInfo = 'UI_AttrTowerFloorInfo', -- 탑 정보 UI
 
 		m_challengingFloor = 'number', -- 현재 진행중인 층
         m_selectedStageID = 'number', -- 현재 선택된 스테이지 아이디
     })
 
-UI_AncientTower.TAB_INFO = 1
-UI_AncientTower.TAB_RANK = 2
+UI_AttrTower.TAB_INFO = 1
+UI_AttrTower.TAB_RANK = 2
 
 -------------------------------------
 -- function init
 -------------------------------------
-function UI_AncientTower:init()
-    local vars = self:load_keepZOrder('tower_scene.ui')
+function UI_AttrTower:init()
+    local vars = self:load_keepZOrder('attr_tower_scene.ui')
     UIManager:open(self, UIManager.SCENE)
 
     -- backkey 지정
-    g_currScene:pushBackKeyListener(self, function() self:click_exitBtn() end, 'UI_AncientTower')
+    g_currScene:pushBackKeyListener(self, function() self:click_exitBtn() end, 'UI_AttrTower')
 
-    -- 층 정보, 랭킹 UI
-    self.m_floorInfo = UI_AncientTowerFloorInfo(self)
-    self.m_rankInfo = UI_AncientTowerRank(self)
+    -- 층 정보
+    self.m_floorInfo = UI_AttrTowerFloorInfo(self)
 
     -- 현재 진행중인 층
-    local challengingFloor = g_ancientTowerData:getChallengingFloor()
-    local challengingStageID = g_ancientTowerData:getChallengingStageID()
+    local challengingFloor = g_attrTowerData:getChallengingFloor()
+    local challengingStageID = g_attrTowerData:getChallengingStageID()
 
     self.m_challengingFloor = challengingFloor
     self.m_selectedStageID = challengingStageID
@@ -42,49 +40,57 @@ function UI_AncientTower:init()
     self:initButton()
 
     -- 최초 진입시 도전 층 정보 표시
-    self:refresh(g_ancientTowerData.m_challengingInfo)
+    self:refresh(g_attrTowerData.m_challengingInfo)
 
     self:sceneFadeInAction()
 
     self.root:scheduleUpdateWithPriorityLua(function(dt) self:update(dt) end, 0)
-
-    -- @ TUTORIAL
-    TutorialManager.getInstance():startTutorial(TUTORIAL.ANCIENT, self)
 end
 
 -------------------------------------
 -- function initParentVariable
 -- @brief 자식 클래스에서 반드시 구현할 것
 -------------------------------------
-function UI_AncientTower:initParentVariable()
+function UI_AttrTower:initParentVariable()
     -- ITopUserInfo_EventListener의 맴버 변수들 설정
-    self.m_uiName = 'UI_AncientTower'
+    self.m_uiName = 'UI_AttrTower'
     self.m_bUseExitBtn = true
-    self.m_titleStr = Str('고대의 탑')
+    self.m_titleStr = Str('시험의 탑')
     self.m_staminaType = 'tower'
-    self.m_subCurrency = 'ancient'
     self.m_uiBgm = 'bgm_lobby'
 end
 
 -------------------------------------
 -- function initUI
 -------------------------------------
-function UI_AncientTower:initUI()
+function UI_AttrTower:initUI()
     local vars = self.vars
 
-    do -- 시즌 남은 시간 표시
-        local str_time = g_ancientTowerData:getAncientTowerStatusText()
-        vars['timeLabel']:setString(str_time)
+    local attr = g_attrTowerData:getSelAttr()
+
+    local bg_path = 'res/bg/tower_bg_' .. attr .. '.png'
+    local bg = cc.Sprite:create(bg_path)
+    if (bg) then
+        bg:setDockPoint(ZERO_POINT)
+        bg:setAnchorPoint(ZERO_POINT)
+        vars['bgNode']:addChild(bg)
     end
+
+    local visual_id = 'icon_' .. attr
+    vars['iconVisual']:changeAni(visual_id, true)
+
+    local color = COLOR[attr]
+    vars['attrLabel']:setColor(color)
+    vars['attrLabel']:setString(dragonAttributeName(attr))
 
 	do -- 테이블 뷰 생성
         local node = vars['floorNode']
         node:removeAllChildren()
         
 		-- 층 생성
-		local t_floor = clone(g_ancientTowerData:getAcientTower_stageList())
+		local t_floor = clone(g_attrTowerData:getAttrTower_stageList())
         table.insert(t_floor, { stage = ANCIENT_TOWER_STAGE_ID_START, is_bottom = true })
-        table.insert(t_floor, { stage = g_ancientTowerData:getTopStageID() + 1, is_top = true })
+        table.insert(t_floor, { stage = g_attrTowerData:getTopStageID() + 1, is_top = true })
 
 		-- 셀 아이템 생성 콜백
 		local create_func = function(ui, data)
@@ -106,11 +112,11 @@ function UI_AncientTower:initUI()
 
         local make_func = function(data)
             if (data['is_bottom']) then
-                return UI_AncientTowerListBottomItem(data)
+                return UI_AttrTowerListBottomItem(data)
             elseif (data['is_top']) then
-                return UI_AncientTowerListTopItem(data)
+                return UI_AttrTowerListTopItem(data)
             else
-			    return UI_AncientTowerListItem(data)
+			    return UI_AttrTowerListItem(data)
             end
         end
 		
@@ -132,45 +138,19 @@ function UI_AncientTower:initUI()
         self.m_tableView:makeAllItemUINoAction()
                 
         -- 현재 도전중인 층이 바로 보이도록 처리
-        local floor = g_ancientTowerData:getFloorFromStageID(self.m_selectedStageID)
+        local floor = g_attrTowerData:getFloorFromStageID(self.m_selectedStageID)
         self.m_tableView:relocateContainerFromIndex(floor + 1)
-    end
-
-    -- 시즌 보상 팝업 (보상이 있다면)
-    local ui
-    if (g_ancientTowerData.m_tSeasonRewardInfo) then
-        local t_info = g_ancientTowerData.m_tSeasonRewardInfo
-        local is_clan = false
-
-        ui = UI_AncientTowerRankingRewardPopup(t_info, is_clan)
-        
-        g_ancientTowerData.m_tSeasonRewardInfo = nil
-	end
-    -- 클랜 보상 팝업 (보상이 있다면)
-    if (g_ancientTowerData.m_tClanRewardInfo) then
-        local t_info = g_ancientTowerData.m_tClanRewardInfo
-        local is_clan = true
-
-        if (ui) then
-            ui:setCloseCB(function()
-                UI_AncientTowerRankingRewardPopup(t_info, is_clan)
-            end)
-        else
-            UI_AncientTowerRankingRewardPopup(t_info, is_clan)
-        end
-
-        g_ancientTowerData.m_tClanRewardInfo = nil
     end
 end
 
 -------------------------------------
 -- function initTab
 -------------------------------------
-function UI_AncientTower:initTab()
+function UI_AttrTower:initTab()
     local vars = self.vars
-    self:addTabWithLabel(UI_AncientTower.TAB_INFO, vars['towerTabBtn'], vars['towerTabLabel'], vars['towerMenu'])
-    self:addTabWithLabel(UI_AncientTower.TAB_RANK, vars['rankingTabBtn'], vars['rankingTabLabel'], vars['rankingMenu'])
-    self:setTab(UI_AncientTower.TAB_INFO)
+    self:addTabWithLabel(UI_AttrTower.TAB_INFO, vars['towerTabBtn'], vars['towerTabLabel'], vars['towerMenu'])
+    self:addTabWithLabel(UI_AttrTower.TAB_RANK, vars['rankingTabBtn'], vars['rankingTabLabel'], vars['rankingMenu'])
+    self:setTab(UI_AttrTower.TAB_INFO)
 
 	self:setChangeTabCB(function(tab, first) self:onChangeTab(tab, first) end)
 end
@@ -178,18 +158,30 @@ end
 -------------------------------------
 -- function initButton
 -------------------------------------
-function UI_AncientTower:initButton()
+function UI_AttrTower:initButton()
     local vars = self.vars
     vars['readyBtn']:registerScriptTapHandler(function() self:click_readyBtn() end)
 end
 
 -------------------------------------
+-- function onChangeTab
+-------------------------------------
+function UI_AttrTower:onChangeTab(tab, first)
+    if (not first) then return end
+
+    -- 최초 탭 누를 경우에만 랭킹 정보 가져옴
+    if (tab == UI_AttrTower.TAB_RANK) then
+        
+    end
+end
+
+-------------------------------------
 -- function update
 -------------------------------------
-function UI_AncientTower:update(dt)
+function UI_AttrTower:update(dt)
     local vars = self.vars
 
-    -- 고대의탑 테이블뷰 offset에 맞춰서 배경도 같이 스크롤 시킴
+    -- 시험의탑 테이블뷰 offset에 맞춰서 배경도 같이 스크롤 시킴
 
     -- 테이블뷰의 현재 스크롤 비율을 계산
     local _, min_offset = self.m_tableView:minContainerOffset()
@@ -209,34 +201,21 @@ end
 -------------------------------------
 -- function refresh
 -------------------------------------
-function UI_AncientTower:refresh(floor_info)
+function UI_AttrTower:refresh(floor_info)
     local vars = self.vars
-    self:setTab(UI_AncientTower.TAB_INFO)
 
     -- 층 정보 UI 갱신
     self.m_floorInfo:refresh(floor_info)
 
     -- 준비 버튼 활성화/비활성화
     local select_floor = floor_info.m_floor + ANCIENT_TOWER_STAGE_ID_START
-    vars['readyBtn']:setEnabled(g_ancientTowerData:isOpenStage(select_floor))
-end
-
--------------------------------------
--- function onChangeTab
--------------------------------------
-function UI_AncientTower:onChangeTab(tab, first)
-    if (not first) then return end
-
-    -- 최초 탭 누를 경우에만 랭킹 정보 가져옴
-    if (tab == UI_AncientTower.TAB_RANK) then
-        self.m_rankInfo.m_typeRadioButton:setSelectedButton(UI_AncientTowerRank.RANKING)
-    end
+    vars['readyBtn']:setEnabled(g_attrTowerData:isOpenStage(select_floor))
 end
 
 -------------------------------------
 -- function click_readyBtn
 -------------------------------------
-function UI_AncientTower:click_readyBtn()
+function UI_AttrTower:click_readyBtn()
 	local func = function()
         local stage_id = self.m_selectedStageID
 
@@ -254,14 +233,14 @@ end
 -------------------------------------
 -- function click_exitBtn
 -------------------------------------
-function UI_AncientTower:click_exitBtn()
-	self:close()
+function UI_AttrTower:click_exitBtn()
+    self:close()
 end
 
 -------------------------------------
 -- function selectFloor
 -------------------------------------
-function UI_AncientTower:selectFloor(floor_info)
+function UI_AttrTower:selectFloor(floor_info)
     local stage_id = floor_info['stage']
 
     if (self.m_selectedStageID ~= stage_id) then
@@ -270,71 +249,37 @@ function UI_AncientTower:selectFloor(floor_info)
             local prev_stage_id = self.m_selectedStageID
             self.m_selectedStageID = stage_id
 
-            local stage_info = ret['ancient_stage']
-            local floor_info = StructAncientTowerFloorData(stage_info)
+            local stage_info = ret['tower_stage']
+            local floor_info = StructAttrTowerFloorData(stage_info)
             self:refresh(floor_info)
             self:changeFloorVisual(prev_stage_id)
             self:changeFloorVisual(self.m_selectedStageID)
         end
 
-        g_ancientTowerData:request_ancientTowerInfo(stage_id, finish_cb)
+        local attr = g_attrTowerData:getSelAttr()
+        g_attrTowerData:request_attrTowerInfo(attr, stage_id, finish_cb)
     end
 end
 
 -------------------------------------
 -- function changeFloorVisual
 -------------------------------------
-function UI_AncientTower:changeFloorVisual(stage_id, ui)
+function UI_AttrTower:changeFloorVisual(stage_id, ui)
     local t_item = self.m_tableView.m_itemMap[stage_id]
     local ui = ui or t_item['ui']
     
     local is_selected = (stage_id == self.m_selectedStageID)
-    local is_opened = g_ancientTowerData:isOpenStage(stage_id)
+    local is_opened = g_attrTowerData:isOpenStage(stage_id)
     local visual_id
 
-    -- 스테이지 속성 보너스
-    local t_info = TABLE:get('anc_floor_reward')[stage_id]
-    local attr = t_info['bonus_attr']
-
     if (is_selected) then
-        visual_id = 'select'
-
-        if attr and (attr ~= '') then
-            visual_id = (visual_id .. '_' .. attr)
-        end
+        visual_id = g_attrTowerData:getSelAttr() .. '_select'
     else
-        visual_id = 'normal'
+        visual_id = g_attrTowerData:getSelAttr() .. '_normal'
     end
 
     ui.vars['towerVisual']:changeAni(visual_id, true)
-
-    -- 속성 보너스가 있는 스테이지일 경우
-    if attr and (attr ~= '') then
-        self.vars['attrMenu']:setVisible(true)
-        cca.uiReactionSlow(self.vars['attrMenu'])
-        
-        -- 속성 아이콘
-        local icon = IconHelper:getAttributeIcon(attr)
-        self.vars['attrNode']:removeAllChildren()
-        self.vars['attrNode']:addChild(icon)
-        
-        -- TIP
-        local attr_str = dragonAttributeName(attr)
-        local str = Str('TIP.\n전투에 참여한 {1}속성 드래곤의 수에 따라\n보너스 점수를 획득할 수 있어요.', attr_str)
-        self.vars['attrInfoLabel']:setString(str)
-
-        -- 속성 보너스
-        self.vars['attrLabel']:setString(Str('{1}속성 보너스', attr_str))
-        
-        -- 색상 변경
-        local color = COLOR[attr]
-        self.vars['attrSprite1']:setColor(color)
-        self.vars['attrSprite2']:setColor(color)
-        self.vars['attrLabel']:setColor(color)
-    else
-        self.vars['attrMenu']:setVisible(false)
-    end
 end
 
 --@CHECK
-UI:checkCompileError(UI_AncientTower)
+UI:checkCompileError(UI_AttrTower)

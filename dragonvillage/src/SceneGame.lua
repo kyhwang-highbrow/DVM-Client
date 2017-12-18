@@ -495,7 +495,7 @@ function SceneGame:networkGameFinish(t_param, t_result_ref, next_func)
     local uid = g_userData:get('uid')
     local oid
     local send_score = false
-
+    local attr
     local function success_cb(ret)
         -- 클리어 타입은 서버에서 안줌
         local is_success = (t_param['clear_type'] == 1) and true or false
@@ -521,7 +521,17 @@ function SceneGame:networkGameFinish(t_param, t_result_ref, next_func)
         oid = t_dungeon_info['id']
     elseif (game_mode == GAME_MODE_ANCIENT_TOWER) then
         send_score = true
-        api_url = '/game/ancient/finish'
+
+        local _attr = g_attrTowerData:getSelAttr()
+        -- 시험의 탑
+        if (_attr) then
+            attr = _attr
+            api_url = '/game/attr_tower/finish'
+
+        -- 고대의 탑
+        else
+            api_url = '/game/ancient/finish'
+        end
     end
 
     local ui_network = UI_Network()
@@ -542,6 +552,10 @@ function SceneGame:networkGameFinish(t_param, t_result_ref, next_func)
     ui_network:setParam('bonus_items', t_param['bonus_items'])
     ui_network:setParam('clear_time', t_param['clear_time'])
     ui_network:setParam('check_time', g_accessTimeData:getCheckTime())
+
+    if (attr) then
+        ui_network:setParam('attr', attr)
+    end
 
     -- 접속시간 저장
     local save_time = g_accessTimeData:getSaveTime()
@@ -763,11 +777,21 @@ function SceneGame:networkGameFinish_response_drop_reward(ret, t_result_ref)
             local t_data = {item_id, count, from, data}
             table.insert(drop_reward_list, t_data)
 
-        -- 첫 클리어 보상, 반복 보상(고대의 탑에서 사용)
-        elseif (from == 'reward_first') or (from == 'reward_repeat') then
-            local t_data = {item_id, count, from, data}
-            table.insert(drop_reward_list, t_data)
+        -- 첫 클리어 보상, 반복 보상(고대의 탑, 시험의 탑에서 사용)
+        elseif (self.m_gameMode == GAME_MODE_ANCIENT_TOWER) then
+            local attr = g_attrTowerData:getSelAttr()
+            if (attr) then
+                if (from == 'reward_first_'..attr) or (from == 'reward_repeat_'..attr) then
+                    local t_data = {item_id, count, from, data}
+                    table.insert(drop_reward_list, t_data)
+                end
 
+            else
+                if (from == 'reward_first') or (from == 'reward_repeat') then
+                    local t_data = {item_id, count, from, data}
+                    table.insert(drop_reward_list, t_data)
+                end
+            end
         end
     end
 

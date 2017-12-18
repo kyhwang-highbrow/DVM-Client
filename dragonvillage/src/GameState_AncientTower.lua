@@ -129,7 +129,14 @@ function GameState_AncientTower:makeResultUI(is_success)
         local t_param 
         t_param = self:makeGameFinishParam(is_success)
 
-        local stage_id = g_ancientTowerData:getChallengingStageID()
+        local stage_id
+        local attr = g_attrTowerData:getSelAttr()
+        if (attr) then
+            stage_id = g_attrTowerData:getChallengingStageID()
+        else
+            stage_id = g_ancientTowerData:getChallengingStageID()
+        end
+
         local recorder = clone(self.m_world.m_logRecorder)
         score_calc = AncientTowerScoreCalc(recorder, stage_id)
 

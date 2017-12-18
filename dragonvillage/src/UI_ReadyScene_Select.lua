@@ -95,7 +95,22 @@ function UI_ReadyScene_Select:init_dragonTableView()
     table_view_td:makeDefaultEmptyDescLabel(empty_text)
 
     -- 리스트 설정
-    local l_dragon_list = is_mine and g_dragonsData:getDragonsList() or g_friendData:getDragonsList()
+    local l_dragon_list
+    local game_mode = g_stageData:getGameMode(self.m_uiReadyScene.m_stageID)
+    if (game_mode == GAME_MODE_ANCIENT_TOWER) then
+        local attr = g_attrTowerData:getSelAttr()
+        -- 시험의 탑 (같은 속성 드래곤만 받아옴)
+        if (attr) then
+            l_dragon_list = g_dragonsData:getDragonsListWithAttr(attr)
+
+        -- 고대의 탑
+        else
+            l_dragon_list = g_dragonsData:getDragonsList()
+        end
+    else
+        l_dragon_list = is_mine and g_dragonsData:getDragonsList() or g_friendData:getDragonsList()
+    end
+
     table_view_td:setItemList(l_dragon_list)
 
     if is_mine then

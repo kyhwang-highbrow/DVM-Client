@@ -21,6 +21,7 @@ end
 --        nest_tree	     [네스트] 거목 던전
 --        nest_evo_stone [네스트] 진화재료 던전
 --        ancient        고대의 탑
+--        attr_tower     시험의 탑
 --        colosseum	     콜로세움
 --        nest_nightmare [네스트] 악몽 던전
 -------------------------------------
@@ -31,6 +32,11 @@ function ServerData_ContentLock:isContentLock(content_name)
     -- 지정되지 않은 콘텐츠 이름일 경우
     if (not t_content_lock) then
         --error('content_name : ' .. content_name)
+        return false
+    end
+
+    -- 시험의 탑 경우 유저 레벨이 아닌 다른 조건으로 검사
+    if (content_name == 'attr_tower') then
         return false
     end
 
@@ -93,6 +99,12 @@ function ServerData_ContentLock:checkContentLock(content_name, excute_func)
     local req_user_lv = t_content_lock['req_user_lv']
     local desc = t_content_lock['t_desc']
     local msg = Str(desc, req_user_lv) .. '\n' .. Str('{@R}(현재 유저 레벨은 {1}입니다)', user_lv)
+
+    -- 시험의 탑 경우 유저 레벨이 아님, 예외 처리
+    if (content_name == 'attr_tower') then
+        msg = Str(desc, ATTR_TOWER_OPEN_FLOOR)
+    end
+
     MakeSimplePopup(POPUP_TYPE.OK, msg)
 
     -- 함수 실행

@@ -325,6 +325,71 @@ function UINavigatorDefinition:goTo_ancient(...)
 end
 
 -------------------------------------
+-- function goTo_attr_tower
+-- @brief 시험의탑으로 이동
+-- @usage UINavigatorDefinition:goTo('attr_tower', attr, stage_id)
+-------------------------------------
+function UINavigatorDefinition:goTo_attr_tower(...)
+    local args = {...}
+    local attr = args[1]
+    local stage_id = args[2]
+
+    -- 해당 UI가 열려있을 경우
+    local is_opend, idx, ui = self:findOpendUI('UI_AttrTower')
+    if (is_opend == true) then
+        self:closeUIList(idx)
+        return
+    end
+
+    local function finish_cb()
+
+        -- 전투 메뉴가 열려있을 경우
+        local is_opend, idx, ui = self:findOpendUI('UI_BattleMenu')
+        if (is_opend == true) then
+            self:closeUIList(idx)
+
+            -- 속성, 스테이지 선택안한 경우 서브 메뉴 진입으로 간주
+            if (attr == nil) and (stage_id == nil) then
+                UI_AttrTowerMenuScene()
+            else
+                UI_AttrTower()
+            end
+
+            return
+        end
+
+        -- 로비가 열려있을 경우
+        local is_opend, idx, ui = self:findOpendUI('UI_Lobby')
+        if (is_opend == true) then
+            self:closeUIList(idx)
+            local battle_menu_ui = UI_BattleMenu()
+            battle_menu_ui:setTab('competition') -- 전투 메뉴에서 tab의 이름이 'competition'이다.
+            battle_menu_ui:resetButtonsPosition()
+            UI_AttrTower()
+
+            return
+        end
+
+        do-- Scene으로 동작
+            local function close_cb()
+                -- 메뉴 선택 로비로
+                UINavigator:goTo('lobby')
+            end
+
+            local scene = SceneCommon(UI_AttrTower, close_cb)
+            scene:runScene()
+        end
+    end
+
+    local function fail_cb()
+
+    end
+
+    -- 정보 요청
+    g_attrTowerData:request_attrTowerInfo(attr, stage_id, finish_cb, fail_cb)
+end
+
+-------------------------------------
 -- function goTo_nestdungeon
 -- @brief 네스트던전으로 이동
 -- @usage UINavigatorDefinition:goTo('nestdungeon', stage_id, dungeon_type)

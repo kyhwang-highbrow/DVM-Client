@@ -51,7 +51,12 @@ function QuickLinkHelper.gameModeLink(game_mode, dungeon_mode, condition)
 
     -- 고대의 탑 플레이
     elseif (game_mode == GAME_MODE_ANCIENT_TOWER) then
-        link_type = 'ply_tower'
+        local attr = g_attrTowerData:getSelAttr()
+        if (attr) then
+            link_type =  'ply_attr_tower'
+        else
+            link_type =  'ply_tower'
+        end
 
     -- 콜로세움 플레이
     elseif (game_mode == GAME_MODE_COLOSSEUM) then
@@ -87,6 +92,12 @@ T_LINK_FUNC = {
     -- 고대의 탑 플레이
     ['ply_tower'] = function()
         UINavigator:goTo('ancient')
+    end,
+
+    -- 시험의 탑 플레이
+    ['ply_attr_tower'] = function()
+        local attr = g_attrTowerData:getSelAttr()
+        UINavigator:goTo('attr_tower', attr)
     end,
     
     -- 고대의 탑 클리어

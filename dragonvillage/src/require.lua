@@ -78,6 +78,7 @@ local t_module = {
     'StructCollisionData',
 	'StructBookData',
     'StructAncientTowerFloorData',
+    'StructAttrTowerFloorData',
     'StructProduct',
     'StructProductSubscription',
     'StructMail',
@@ -145,6 +146,7 @@ local t_module = {
     'ServerData_LevelUpPackage',
 	'ServerData_DailyMission',
 	'ServerData_CapsuleBox',
+	'ServerData_AttrTower',
 
     -- Interface
     'IEventDispatcher',
@@ -695,6 +697,7 @@ local t_module = {
     'UI_FormationDetailPopup',
     'UI_EventFullPopup',
 	'UI_CapsuleBox',
+    'UI_AttrTowerMenuScene',
 
     -- UI : 약관 동의
     'UI_TermsPopup',
@@ -778,6 +781,12 @@ local t_module = {
     'UI_AncientTowerClanRankListItem',
     'UI_AncientTowerClanRewardListItem',
 
+    -- UI : 시험의 탑
+    'UI_AttrTower',
+    'UI_AttrTowerFloorInfo',
+    'UI_AttrTowerListItem',
+    'UI_AttrTowerMenuItem',
+    
 	-- UI : 인게임
 	'UI_Game',
     'UI_Game_Mana',

@@ -3006,6 +3006,30 @@
     <None Include="..\src\StructCapsuleBox.lua">
       <Filter>lua\src</Filter>
     </None>
+    <None Include="..\src\UI_AttrTowerRank.lua">
+      <Filter>lua\UI</Filter>
+    </None>
+    <None Include="..\src\UI_AttrTower.lua">
+      <Filter>lua\UI</Filter>
+    </None>
+    <None Include="..\src\UI_AttrTowerFloorInfo.lua">
+      <Filter>lua\UI</Filter>
+    </None>
+    <None Include="..\src\UI_AttrTowerMenuItem.lua">
+      <Filter>lua\UI</Filter>
+    </None>
+    <None Include="..\src\UI_AttrTowerMenuScene.lua">
+      <Filter>lua\UI</Filter>
+    </None>
+    <None Include="..\src\UI_AttrTowerListItem.lua">
+      <Filter>lua\UI</Filter>
+    </None>
+    <None Include="..\src\StructAttrTowerFloorData.lua">
+      <Filter>lua\src</Filter>
+    </None>
+    <None Include="..\src\ServerData_AttrTower.lua">
+      <Filter>lua\src</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Classes">

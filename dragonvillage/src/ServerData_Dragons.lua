@@ -82,6 +82,26 @@ function ServerData_Dragons:getDragonListWithSlime()
 end
 
 -------------------------------------
+-- function getDragonsListWithAttr
+-- @brief 해당 속성 드래곤만 반환
+-------------------------------------
+function ServerData_Dragons:getDragonsListWithAttr(attr)
+    local dragon_dictionary = self:getDragonsListRef()
+    local ret_dictionary = {}
+
+    for key,value in pairs(dragon_dictionary) do
+        local did = value['did']
+        local _attr = TableDragon:getDragonAttr(did)
+
+        if (attr == _attr) then
+            ret_dictionary[key] = value
+        end
+    end
+
+    return ret_dictionary
+end
+
+-------------------------------------
 -- function getDragonSkillMoveList
 -------------------------------------
 function ServerData_Dragons:getDragonSkillMoveList(tar_doid)

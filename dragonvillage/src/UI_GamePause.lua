@@ -96,6 +96,14 @@ function UI_GamePause:init(stage_id, gamekey, start_cb, end_cb)
             vars['contentsLabel']:setString(Str('클랜 던전'))
         elseif (stage_id == COLOSSEUM_STAGE_ID) then
             vars['contentsLabel']:setString(Str('콜로세움'))
+
+        elseif (game_mode == GAME_MODE_ANCIENT_TOWER) then
+            local attr_mode = g_ancientTowerData:isAttrChallengeMode()
+            if (attr_mode) then
+                vars['contentsLabel']:setString(Str('시험의 탑'))
+            else
+                vars['contentsLabel']:setString(Str('고대의 탑'))
+            end
         else
             local table_drop = TableDrop()
             local t_drop = table_drop:get(stage_id)

@@ -442,6 +442,7 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <None Include="..\src\ServerData_Advertising.lua" />
     <None Include="..\src\ServerData_AncientTower.lua" />
     <None Include="..\src\ServerData_Attendance.lua" />
+    <None Include="..\src\ServerData_AttrTower.lua" />
     <None Include="..\src\ServerData_AutoItemPick.lua" />
     <None Include="..\src\ServerData_AutoPlaySetting.lua" />
     <None Include="..\src\ServerData_Book.lua" />
@@ -736,6 +737,7 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <None Include="..\src\StructAdventureStageInfo.lua" />
     <None Include="..\src\StructAncientTowerFloorData.lua" />
     <None Include="..\src\StructAttendanceData.lua" />
+    <None Include="..\src\StructAttrTowerFloorData.lua" />
     <None Include="..\src\StructBookData.lua" />
     <None Include="..\src\StructCalendarDay.lua" />
     <None Include="..\src\StructCapsuleBox.lua" />
@@ -903,6 +905,12 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <None Include="..\src\UI_AncientTowerRewardListItem.lua" />
     <None Include="..\src\UI_AttendanceBasicListItem.lua" />
     <None Include="..\src\UI_AttendanceSpecialListItem.lua" />
+    <None Include="..\src\UI_AttrTower.lua" />
+    <None Include="..\src\UI_AttrTowerFloorInfo.lua" />
+    <None Include="..\src\UI_AttrTowerListItem.lua" />
+    <None Include="..\src\UI_AttrTowerMenuItem.lua" />
+    <None Include="..\src\UI_AttrTowerMenuScene.lua" />
+    <None Include="..\src\UI_AttrTowerRank.lua" />
     <None Include="..\src\UI_AutoPlaySettingPopup.lua" />
     <None Include="..\src\UI_BattleMenu.lua" />
     <None Include="..\src\UI_BattleMenuItem.lua" />

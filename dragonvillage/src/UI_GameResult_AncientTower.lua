@@ -235,7 +235,7 @@ end
 -------------------------------------
 function UI_GameResult_AncientTower:click_againBtn()
     local stage_id = self.m_stageID
-    UINavigator:goTo('ancient', stage_id)
+    g_ancientTowerData:checkAttrTowerAndGoStage(stage_id)
 end
 
 -------------------------------------
@@ -245,8 +245,7 @@ function UI_GameResult_AncientTower:click_nextBtn()
     local stage_id = self.m_stageID
     local use_scene = true
     local next_stage_id = g_stageData:getNextStage(stage_id)
-    
-    UINavigator:goTo('ancient', next_stage_id)
+    g_ancientTowerData:checkAttrTowerAndGoStage(next_stage_id)
 end
 
 -------------------------------------
@@ -256,8 +255,7 @@ function UI_GameResult_AncientTower:click_prevBtn()
     local stage_id = self.m_stageID
     local use_scene = true
     local prev_stage_id = g_stageData:getSimplePrevStage(stage_id)
-
-    UINavigator:goTo('ancient', prev_stage_id)
+    g_ancientTowerData:checkAttrTowerAndGoStage(prev_stage_id)
 end
 
 -------------------------------------

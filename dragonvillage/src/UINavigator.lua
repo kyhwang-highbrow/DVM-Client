@@ -47,6 +47,11 @@ if false then
     -- @param optional stage_id(number) 
     UINavigator:goTo('ancient', stage_id)
 
+    -- @brief 시험의 탑으로 이동
+    -- @param optional attr(string) 
+    -- @param optional stage_id(number) 
+    UINavigator:goTo('attr_tower', attr, stage_id)
+
     -- @brief 네스트 던전으로 이동
     -- @param optional stage_id(number) (e.g. stage_id = 1210101)
     -- @param optional dungeon_type(number) (e.g. dungeon_type = NEST_DUNGEON_EVO_STONE)

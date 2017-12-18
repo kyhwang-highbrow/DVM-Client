@@ -273,15 +273,21 @@ function UI_BattleMenu:initCompetitionTab()
 
     -- 고대의 탑
     local ui = UI_BattleMenuItem('ancient')
-    ui.root:setPosition(-184, -94)
+    ui.root:setPosition(-368, -94)
     vars['competitionMenu']:addChild(ui.root)
-    table.insert(l_btn_ui, {['ui']=ui, ['x']=-184, ['y']=-94})
+    table.insert(l_btn_ui, {['ui']=ui, ['x']=-368, ['y']=-94})
 
+    -- 시험의 탑
+    local ui = UI_BattleMenuItem('attr_tower')
+    ui.root:setPosition(0, -94)
+    vars['competitionMenu']:addChild(ui.root)
+    table.insert(l_btn_ui, {['ui']=ui, ['x']=0, ['y']=-94})
+    
     -- 콜로세움
     local ui = UI_BattleMenuItem('colosseum')
-    ui.root:setPosition(184, -94)
+    ui.root:setPosition(368, -94)
     vars['competitionMenu']:addChild(ui.root)
-    table.insert(l_btn_ui, {['ui']=ui, ['x']=184, ['y']=-94})
+    table.insert(l_btn_ui, {['ui']=ui, ['x']=368, ['y']=-94})
 
     self.m_lCompetitionBtnUI = l_btn_ui
 end

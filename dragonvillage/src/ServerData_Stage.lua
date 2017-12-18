@@ -53,11 +53,15 @@ function ServerData_Stage:getStageName(stage_id)
             name = Str('비밀 던전')
         end
 
-
-    -- 고대의 탑
+    -- 고대의 탑 / 시험의 탑
     elseif (game_mode == GAME_MODE_ANCIENT_TOWER) then
-        name = g_ancientTowerData:getStageName(stage_id)
-
+        local attr = g_attrTowerData:getSelAttr()
+        if (attr) then
+            name = g_attrTowerData:getStageName(stage_id)
+        else
+            name = g_ancientTowerData:getStageName(stage_id)
+        end
+        
     -- 클랜 레이드
     elseif (game_mode == GAME_MODE_CLAN_RAID) then
         name = Str('클랜 레이드')
@@ -96,8 +100,15 @@ function ServerData_Stage:isOpenStage(stage_id)
 
     -- 고대의 탑 모드
     elseif (game_mode == GAME_MODE_ANCIENT_TOWER) then
-        ret = g_ancientTowerData:isOpenStage(stage_id)
+        local attr = g_attrTowerData:getSelAttr()
+        -- 시험의 탑
+        if (attr) then
+            ret = g_attrTowerData:isOpenStage(stage_id)
 
+        -- 고대의 탑
+        else
+            ret = g_ancientTowerData:isOpenStage(stage_id)
+        end
     end
 
     return ret
@@ -125,7 +136,12 @@ function ServerData_Stage:getNextStage(stage_id)
 
     -- 고대의 탑 모드
     elseif (game_mode == GAME_MODE_ANCIENT_TOWER) then
-        ret = g_ancientTowerData:getNextStageID(stage_id)
+        local attr = g_attrTowerData:getSelAttr()
+        if (attr) then
+            ret = g_attrTowerData:getNextStageID(stage_id)
+        else
+            ret = g_ancientTowerData:getNextStageID(stage_id)
+        end
     end
 
     return ret
@@ -179,8 +195,15 @@ function ServerData_Stage:getSimplePrevStage(stage_id)
 
     -- 고대의 탑 모드
     elseif (game_mode == GAME_MODE_ANCIENT_TOWER) then
-        ret = g_ancientTowerData:getSimplePrevStageID(stage_id)
+        local attr = g_attrTowerData:getSelAttr()
+        -- 시험의 탑
+        if (attr) then
+            ret = g_attrTowerData:getSimplePrevStageID(stage_id)
 
+        -- 고대의 탑
+        else
+            ret = g_ancientTowerData:getSimplePrevStageID(stage_id)
+        end
     end
 
     return ret
@@ -210,6 +233,7 @@ function ServerData_Stage:requestGameStart(stage_id, deck_name, combat_power, fi
     -- 모드별 API 주소 분기처리
     local api_url = ''
     local game_mode = g_stageData:getGameMode(stage_id)
+    local attr
     if (game_mode == GAME_MODE_ADVENTURE) then
         api_url = '/game/stage/start'
     elseif (game_mode == GAME_MODE_NEST_DUNGEON) then
@@ -251,7 +275,16 @@ function ServerData_Stage:requestGameStart(stage_id, deck_name, combat_power, fi
         end
 
     elseif (game_mode == GAME_MODE_ANCIENT_TOWER) then
-        api_url = '/game/ancient/start'
+        local _attr = g_attrTowerData:getSelAttr()
+        -- 시험의 탑
+        if (_attr) then
+            attr = _attr
+            api_url = '/game/attr_tower/start'
+
+        -- 고대의 탑
+        else
+            api_url = '/game/ancient/start'
+        end
     end
 
     local function success_cb(ret)
@@ -285,6 +318,9 @@ function ServerData_Stage:requestGameStart(stage_id, deck_name, combat_power, fi
     ui_network:setParam('combat_power', combat_power)
     ui_network:setParam('friend', friend_uid)
     ui_network:setParam('oid', oid)
+    if (attr) then
+        ui_network:setParam('attr', attr)
+    end
     ui_network:setParam('token', self:makeDragonToken())
     ui_network:setResponseStatusCB(response_status_cb)
     ui_network:setSuccessCB(success_cb)

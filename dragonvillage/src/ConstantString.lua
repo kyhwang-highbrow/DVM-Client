@@ -287,6 +287,9 @@ function getContentName(content_type)
     elseif (content_type == 'ancient') then
         content_name = Str('고대의 탑')
 
+    elseif (content_type == 'attr_tower') then
+        content_name = Str('시험의 탑')
+
     elseif (content_type == 'nest_tree') then
         content_name = Str('거목 던전')
 

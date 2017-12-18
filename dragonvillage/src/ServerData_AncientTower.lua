@@ -127,6 +127,10 @@ function ServerData_AncientTower:request_ancientTowerInfo(stage, finish_cb, fail
     -- 파라미터
     local uid = g_userData:get('uid')
 
+    -- 현재 게임모드는 스테이지 아이디로 구분하고 있는데 시험의 탑은 고대의 탑 스테이지를 그대로 씀.
+    -- 시험의 탑 진행중인지 선택된 속성으로 구분하므로 여기서 반드시 nil 처리 해줘야 함!
+    g_attrTowerData:setSelAttr(nil)
+
     -- 콜백 함수
     local function success_cb(ret)
         g_serverData:networkCommonRespone(ret)
@@ -513,5 +517,27 @@ function ServerData_AncientTower:setRewardInfo(ret)
         self.m_tClanRewardInfo = {}
         self.m_tClanRewardInfo['rank'] = StructClanRank(ret['last_clan_info'])
         self.m_tClanRewardInfo['reward_info'] = ret['reward_clan_info']
+    end
+end
+
+-------------------------------------
+-- function isAttrChallengeMode
+-- @brief 시험의 탑 모드인지
+-------------------------------------
+function ServerData_AncientTower:isAttrChallengeMode()
+    return g_attrTowerData:getSelAttr() and true or false
+end
+
+-------------------------------------
+-- function checkAttrTowerAndGoStage
+-- @brief 시험의 탑인지, 고대의 탑인지 체크한 후 UI 이동
+-------------------------------------
+function ServerData_AncientTower:checkAttrTowerAndGoStage(stage_id)
+    local attr = g_attrTowerData:getSelAttr()
+    
+    if (attr) then
+        UINavigator:goTo('attr_tower', attr, stage_id)
+    else
+        UINavigator:goTo('ancient', stage_id)
     end
 end

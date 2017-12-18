@@ -144,9 +144,7 @@ function UI_ReadyScene:checkDeckProper()
 
     -- 친선대전 별도 처리
     if (self.m_stageID == FRIEND_MATCH_STAGE_ID) then
-        cclog('fatk')
         if (self.m_subInfo == 'fatk') then
-            cclog('fatk')
             g_deckData:setSelectedDeck('fpvp_atk')
         end
         return
@@ -159,6 +157,12 @@ function UI_ReadyScene:checkDeckProper()
     end
 
 	local curr_mode = TableDrop():getValue(self.m_stageID, 'mode')
+
+    -- 고대의 탑인 경우 시험의 탑과 STAGE ID 같이 쓰이므로 덱네임 다시 받아옴
+    if (curr_mode == 'ancient') then
+        curr_mode = g_attrTowerData:getDeckName(curr_mode)
+    end
+
 	local curr_deck_name = g_deckData:getSelectedDeckName()
 	if not (curr_mode == curr_deck_name) then
 		g_deckData:setSelectedDeck(curr_mode)
@@ -689,7 +693,22 @@ end
 function UI_ReadyScene:click_autoBtn()
     local stage_id = self.m_stageID
     local formation = self.m_readySceneDeck.m_currFormation
-    local l_dragon_list = g_dragonsData:getDragonsList()
+    local l_dragon_list
+
+    local game_mode = g_stageData:getGameMode(self.m_stageID)
+    if (game_mode == GAME_MODE_ANCIENT_TOWER) then
+        local attr = g_attrTowerData:getSelAttr()
+        -- 시험의 탑 (같은 속성 드래곤만 받아옴)
+        if (attr) then
+            l_dragon_list = g_dragonsData:getDragonsListWithAttr(attr)
+
+        -- 고대의 탑
+        else
+            l_dragon_list = g_dragonsData:getDragonsList()
+        end
+    else
+        l_dragon_list = g_dragonsData:getDragonsList()
+    end
 
     local helper = DragonAutoSetHelper(stage_id, formation, l_dragon_list)
     local l_auto_deck = helper:getAutoDeck()
