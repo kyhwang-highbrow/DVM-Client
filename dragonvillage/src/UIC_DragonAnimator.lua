@@ -102,13 +102,14 @@ function UIC_DragonAnimator:click_dragonButton()
     self.m_timeStamp = curr_time
 
     -- 에니메이션 랜덤
-    local ani = table.getRandom(self.m_randomAnimationList)
-    self.m_animator:changeAni(ani, false)
-
-    local function ani_handler()
-        self.m_animator:changeAni('idle', true)
+    local ani_handler
+    ani_handler = function()
+        local ani = table.getRandom(self.m_randomAnimationList)
+        self.m_animator:changeAni(ani, false)
+        self.m_animator:addAniHandler(ani_handler)
     end
-    self.m_animator:addAniHandler(ani_handler)
+
+    ani_handler()
 
     if self.m_bTalkEnable then
         self.vars['talkSprite']:setVisible(true)
@@ -119,10 +120,6 @@ function UIC_DragonAnimator:click_dragonButton()
     end
 
     self.m_animator.m_node:stopAllActions()
-    local duration = self.m_animator.m_node:getDuration()
-    self.m_animator.m_node:runAction(cc.Sequence:create(cc.DelayTime:create(duration), cc.CallFunc:create(function()
-            self:click_dragonButton()
-        end)))
 end
 
 -------------------------------------
