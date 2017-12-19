@@ -77,7 +77,7 @@ function UIC_DragonAnimator:setDragonAnimator(did, evolution, flv)
     -- 랜덤 에니메이션 리스트 생성
     self.m_randomAnimationList = {}
     for i,ani in ipairs(self.m_animator:getVisualList()) do
-        if isExistValue(ani, 'attack', 'pose_1', 'pose_2') then
+        if isExistValue(ani, 'attack', 'pose_1', 'pose_2', 'idle') then
             table.insert(self.m_randomAnimationList, ani)
         end
     end
