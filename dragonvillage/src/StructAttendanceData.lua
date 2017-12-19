@@ -4,18 +4,12 @@
 --        일반 출석, 이벤트 출석 모두 이 클래스를 사용
 -------------------------------------
 StructAttendanceData = class({
-		attd_id = '',
+		atd_id = '',
         attendance_type = 'string', -- 출석 타입 'basic' or 'event'
         today_step = 'number', -- 출석상에서의 오늘 스텝
         step_list = 'list',
         received = 'boolean', -- false인 경우 출석 보상을 지금 받았다는 뜻(연출을 보여줘야함)
         category = 'string',
-        
-		-- 삭제 
-		icon = 'string',
-        guide_dragon = '',
-        help_text = 'string',
-        title_text = 'string',
     })
 
 -------------------------------------
