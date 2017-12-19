@@ -92,7 +92,7 @@ function StatusEffect_Dispell:onApplyOverlab(unit)
                 
             end
         elseif (k == 'type') then
-            
+            -- 추후 구현예정
         end
     end
 
