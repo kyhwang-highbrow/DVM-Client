@@ -94,7 +94,6 @@ function UI_GachaResult_Dragon:initUI()
 
 	-- 사용 재화 표기
 	if (self.m_type == 'cash') then
-		vars['diaNode']:setVisible(true)
 		local cash = g_userData:get('cash')
 		vars['diaLabel']:setString(comma_value(cash))
 

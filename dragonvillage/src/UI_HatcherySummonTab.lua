@@ -328,6 +328,7 @@ function UI_HatcherySummonTab:subsequentSummons(gacha_result_ui, t_egg_data)
     -- 마일리지도 
     if (not t_egg_data['bundle']) then
         vars['againBtn']:setVisible(true)
+		vars['diaNode']:setVisible(true)
         vars['mileageNode']:setVisible(true)
 		vars['inventoryBtn']:setVisible(true)
     end
@@ -338,6 +339,7 @@ function UI_HatcherySummonTab:subsequentSummons(gacha_result_ui, t_egg_data)
 
     table.insert(gacha_result_ui.m_hideUIList, vars['againBtn'])
     table.insert(gacha_result_ui.m_hideUIList, vars['mileageNode'])
+	table.insert(gacha_result_ui.m_hideUIList, vars['diaNode'])
 	table.insert(gacha_result_ui.m_hideUIList, vars['inventoryBtn'])
 end
 
