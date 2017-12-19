@@ -57,8 +57,8 @@ function ServerData_Attendance:request_attendanceInfo(finish_cb, fail_cb)
             self.m_structAttendanceDataList = {}
             if ret['attendance_info'] then
                 for i,v in ipairs(ret['attendance_info']) do
-                    -- 7일짜리 오픈 기념 출석 이벤트 보상 전부 수령하고 난 후에는 제외
-                    if (v['category'] == 'open_event') and (v['received']) and (v['today_step'] == 7) then
+                    -- 이벤트성 출석 보상은 전부 수령후 제외 시킴
+                    if (v['atd_type'] ~= 'basic') and (v['received']) and (v['today_step'] == 7) then
                         -- nothing to do
                     else
                         table.insert(self.m_structAttendanceDataList, StructAttendanceData(v))
@@ -89,16 +89,15 @@ end
 
 -------------------------------------
 -- function hasAttendanceReward
--- @brief 출석 보상 연출을 보여줘야 하는지 여부
+-- @brief 풀팝업에서 사용
 -------------------------------------
 function ServerData_Attendance:hasAttendanceReward()
-    -- v == StructAttendanceData
-    for i,v in ipairs(self.m_structAttendanceDataList) do
-        if v:hasReward() then
-            return true
-        end
+	for i,v in pairs(self.m_structAttendanceDataList) do
+		if v:hasReward() then
+			return true
+		end
     end
-    
+
     return false
 end
 
@@ -120,4 +119,11 @@ end
 -------------------------------------
 function ServerData_Attendance:getBasicAttendance()
     return self:getAttendanceData('basic')
+end
+
+-------------------------------------
+-- function getAttendanceDataList
+-------------------------------------
+function ServerData_Attendance:getAttendanceDataList()
+    return self.m_structAttendanceDataList
 end

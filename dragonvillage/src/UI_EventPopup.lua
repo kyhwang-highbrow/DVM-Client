@@ -185,9 +185,9 @@ function UI_EventPopup:makeEventPopupTab(tab)
     if string.find(tab, 'attendance') then
 		local event_id = struct_event_popup_tab.m_eventData['event_id']
 		if (event_id == 'basic') then
-			ui = UI_EventPopupTab_Attendance(self, struct_event_popup_tab)
+			ui = UI_EventPopupTab_Attendance()
 		elseif (event_id == 'event') then
-			ui = UI_EventPopupTab_EventAttendance(self, struct_event_popup_tab)
+			ui = UI_EventPopupTab_EventAttendance()
 		end
 
     -- 접속시간 이벤트

@@ -20,10 +20,6 @@ function UI_EventPopupTab_Attendance:init(owner)
     local today_step = struct_attendance_data['today_step']
 	local step_list = struct_attendance_data['step_list']
 
-    --local help_text = struct_attendance_data['help_text']
-    --vars['descLabel']:setString(Str(help_text))
-    --vars['dayLabel']:setString(Str('{1}일차', today_step))
-
     -- 보상 리스트 출력
 	local idx = 1
     for _, v in ipairs(step_list) do
@@ -41,7 +37,7 @@ function UI_EventPopupTab_Attendance:init(owner)
 	self:initTableView()
 
     -- 오늘 보상을 보여주는 팝업
-    self:checkTodayRewardPopup()
+	cca.reserveFunc(self.root, 0.5, function() self:checkTodayRewardPopup() end)
 end
 
 -------------------------------------
@@ -67,7 +63,6 @@ function UI_EventPopupTab_Attendance:initTableView()
             ui.vars['checkSprite']:setVisible(false)
         end
 
-        
 	end
 
     -- 테이블 뷰 인스턴스 생성
@@ -98,8 +93,16 @@ function UI_EventPopupTab_Attendance:checkTodayRewardPopup()
     end
     struct_attendance_data:setReceived()
 
-    local toast_msg = Str('{1}일 차 보상이 우편함으로 전송되었습니다.', today_step)
-    UI_ToastPopup(toast_msg)
+	local t_item = step_list[today_step]
+	local l_item_list = {
+		{
+			['item_id'] = t_item['item_id'],
+			['count'] = t_item['value']
+		}
+	}
+    local msg = Str('{1}일 차 보상이 우편함으로 전송되었습니다.', today_step)
+    local ok_btn_cb = nil
+    UI_ObtainPopup(l_item_list, msg, ok_btn_cb)
 end
 
 -------------------------------------

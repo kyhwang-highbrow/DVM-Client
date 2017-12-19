@@ -218,35 +218,29 @@ function UI_Lobby:entryCoroutine()
         end
         while (working) do dt = coroutine.yield() end
 
-        -- 타이틀 화면에서 진입시
-        local title_to_lobby = g_fullPopupManager:isTitleToLobby()
-        g_eventData.m_bDirty = true
+		-- 최초 튜토리얼 시에는 실행하지 않음
         if (g_tutorialData:isTutorialDone(TUTORIAL.FIRST_START)) then
-            
-            if (title_to_lobby) then
-                -- 네이버 카페
-                NaverCafeManager:naverCafeStart(0)
 
-                -- 이벤트 풀팝업
-                local function show_func(pid) 
-                    working = true
-                    local ui = UI_EventFullPopup(pid)
-                    ui:setCloseCB(function(ret) working = false end)
-                    ui:openEventFullPopup()
-                    while (working) do dt = coroutine.yield() end
-                end
+            -- 풀팝업 출력 함수
+            local function show_func(pid) 
+                working = true
+                local ui = UI_EventFullPopup(pid)
+                ui:setCloseCB(function(ret) working = false end)
+                ui:openEventFullPopup()
+                while (working) do dt = coroutine.yield() end
+            end
 
+			-- 지정된 풀팝업 리스트 (최초 로비 실행 시 출력)
+            if (g_fullPopupManager:isTitleToLobby()) then
+                NaverCafeManager:naverCafeStart(0) -- 네이버 카페
                 g_fullPopupManager:show(FULL_POPUP_TYPE.LOBBY, show_func)
             end
             
-            -- 이벤트 보상 정보가 있다면 팝업을 띄운다.
-            if g_eventData:hasReward() then
-                working = true
-                local noti = true 
-                local ui = UI_EventPopup(noti)
-                ui:setCloseCB(function(ret) working = false end)
-                while (working) do dt = coroutine.yield() end
-            end
+			-- 출석 보상 정보 (보상 존재할 경우 출력)
+			if (g_attendanceData:hasAttendanceReward()) then
+                g_fullPopupManager:show(FULL_POPUP_TYPE.ATTENDANCE, show_func)
+			end
+
         end
 
         -- @UI_ACTION 액션 종료 후에는 튜토리얼 시작

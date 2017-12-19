@@ -74,6 +74,22 @@ function UI_EventFullPopup:initUI()
 
         vars['eventNode']:addChild(ui.root)
 
+	-- 출석
+	elseif string.find(popup_key, 'attendance') then
+		local l_str = plSplit(popup_key, ';')
+		local key = l_str[2]
+		local ui
+		if (key == 'basic') then
+			ui = UI_EventPopupTab_Attendance()
+		elseif (key == 'event') then
+			ui = UI_EventPopupTab_EventAttendance()
+		elseif (key == 'newbie') then
+			ui = UI_EventPopupTab_EventAttendance()
+
+		end
+
+        vars['eventNode']:addChild(ui.root)
+
     -- 패키지 상품 
     else
 		local product_id = popup_key

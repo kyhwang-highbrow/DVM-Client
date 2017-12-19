@@ -1,12 +1,16 @@
 FULL_POPUP_TYPE = {
     LOBBY = 1,          -- 로비 풀팝업
-    AUTO_PICK = 2,      -- 매일매일 다이아 풀팝업
+	ATTENDANCE = 'atdc',-- 출석 풀팝업
+    
+	AUTO_PICK = 2,      -- 매일매일 다이아 풀팝업
     START_PACK = 3,     -- 스타터 패키지 풀팝업
     LAUNCH_PACK = 4,    -- 런칭 패키지 풀팝업
     ALL_DIA_PACK = 'all_dia_package', -- 몽땅 다이아 패키지 풀팝업
-    CAFE_ON = 'hatchry_cafe_on',    -- 부화소 진입시 네이버 카페 노출
-	BP_NOTICE = 'bp_notice',		-- 밸런스 패치 안내
 	REINFORCE_PACK = 'reinforce_package', -- 강화 포인트 패키지
+    
+	-- 미사용
+	CAFE_ON = 'hatchry_cafe_on',    -- 부화소 진입시 네이버 카페 노출
+	BP_NOTICE = 'bp_notice',		-- 밸런스 패치 안내
 }
 -------------------------------------
 -- class FullPopupManager
@@ -59,7 +63,16 @@ function FullPopupManager:show(type, show_func)
         end
 
         self.m_title_to_lobby = false
-    
+  
+    -- 출석 보상 있을 시 출석 팝업
+    elseif (type == FULL_POPUP_TYPE.ATTENDANCE) then
+		for i, v in ipairs(g_attendanceData:getAttendanceDataList()) do
+			if (v:hasReward()) then
+				local atdc_type = v.attendance_type
+				show_func('attendance;' .. atdc_type)
+			end
+		end
+
     -- 매일 매일 다이아 풀팝업 (전투화면 진입시)
     -- 조건 : 구매하지 않은 유저 LV 3 이상
     elseif (type == FULL_POPUP_TYPE.AUTO_PICK) then

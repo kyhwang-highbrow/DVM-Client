@@ -10,13 +10,14 @@ UI_EventPopupTab_EventAttendance = class(PARENT,{
 -------------------------------------
 -- function init
 -------------------------------------
-function UI_EventPopupTab_EventAttendance:init(owner, struct_event_popup_tab)
+function UI_EventPopupTab_EventAttendance:init()
     local vars = self:load('event_attendance_special.ui')
     self.m_structAttendanceData = g_attendanceData:getAttendanceData('event')
 
     self:initUI()
 
-    self:checkTodayRewardPopup()
+    -- 오늘 보상을 보여주는 팝업
+	cca.reserveFunc(self.root, 0.5, function() self:checkTodayRewardPopup() end)
 end
 
 -------------------------------------
@@ -45,8 +46,16 @@ function UI_EventPopupTab_EventAttendance:checkTodayRewardPopup()
     end
     struct_attendance_data:setReceived()
 
-    local toast_msg = Str('{1}일 차 보상이 우편함으로 전송되었습니다.', today_step)
-    UI_ToastPopup(toast_msg)
+	local t_item = step_list[today_step]
+	local l_item_list = {
+		{
+			['item_id'] = t_item['item_id'],
+			['count'] = t_item['value']
+		}
+	}
+    local msg = Str('{1}일 차 보상이 우편함으로 전송되었습니다.', today_step)
+    local ok_btn_cb = nil
+    UI_ObtainPopup(l_item_list, msg, ok_btn_cb)
 end
 
 -------------------------------------

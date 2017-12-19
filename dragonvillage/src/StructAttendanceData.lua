@@ -50,3 +50,11 @@ end
 function StructAttendanceData:setReceived()
     self.received = true
 end
+
+-------------------------------------
+-- function getCategory
+-- @brief
+-------------------------------------
+function StructAttendanceData:getCategory()
+    return self.category
+end

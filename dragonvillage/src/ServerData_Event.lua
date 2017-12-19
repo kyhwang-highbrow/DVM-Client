@@ -299,12 +299,8 @@ end
 function ServerData_Event:setEventTabNoti(event_tab)
     local event_type = event_tab.m_type
 
-    -- 출석 받을 보상 있음
-    if (event_type == 'attendance') then
-        event_tab.m_hasNoti = g_attendanceData:hasAttendanceReward()
-
     -- 접속 시간 받을 보상 있음
-    elseif (event_type == 'access_time') then
+    if (event_type == 'access_time') then
         event_tab.m_hasNoti = g_accessTimeData:hasReward()
 
     -- 교환 이벤트 받을 누적 보상 있음
