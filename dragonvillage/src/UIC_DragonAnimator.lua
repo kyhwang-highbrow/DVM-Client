@@ -85,14 +85,15 @@ function UIC_DragonAnimator:setDragonAnimator(did, evolution, flv)
     self.m_timeStamp = nil
     self.vars['talkSprite']:setVisible(false)
 
-    self:click_dragonButton()
+    local idle_motion = true
+    self:click_dragonButton(idle_motion)
 end
 
 -------------------------------------
 -- function click_dragonButton
 -------------------------------------
-function UIC_DragonAnimator:click_dragonButton()
-
+function UIC_DragonAnimator:click_dragonButton(idle_motion)
+    local idle_motion = idle_motion or false -- 클릭한 경우 바로 랜덤 애니메이션
     local curr_time = Timer:getServerTime()
 
     if (self.m_timeStamp) and ((curr_time - self.m_timeStamp) < 3) then
@@ -106,18 +107,17 @@ function UIC_DragonAnimator:click_dragonButton()
     local idle_index = 0
     local idle_repeat = 2
     local random_index = 0
-    local is_idle = true
     local ani_handler
     ani_handler = function()
         local ani
-        if (is_idle) then
+        if (idle_motion) then
             idle_index = (idle_index) % idle_repeat + 1
             ani = 'idle'
             self.m_animator:changeAni(ani, false)
             self.m_animator:addAniHandler(ani_handler)
 
             if (idle_index == idle_repeat) then
-                is_idle = false
+                idle_motion = false
             end
         else
             random_index = (random_index) % #self.m_randomAnimationList + 1
@@ -125,7 +125,7 @@ function UIC_DragonAnimator:click_dragonButton()
             self.m_animator:changeAni(ani, false)
             self.m_animator:addAniHandler(ani_handler)
 
-            is_idle = true
+            idle_motion = true
         end
     end
 

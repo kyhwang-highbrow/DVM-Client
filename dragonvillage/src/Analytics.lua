@@ -96,7 +96,28 @@ end
 function Analytics:firstTimeExperience(arg1, arg2)
     if (not IS_ENABLE_ANALYTICS()) then return end
 
-    Adbrix:firstTimeExperience(arg1, arg2)
+    -- 유저데이터가 있다면 
+    local user = g_userData
+    if (user) then
+        local created_at = user:get('created_at')
+
+        -- 계정 생성시간이 없을 경우도 계정 생성 전으로 판단 
+        if (not created_at) then
+            Adbrix:firstTimeExperience(arg1, arg2)
+        else
+            local curr_time = Timer:getServerTime()
+            local time = curr_time - math_floor(created_at/1000)
+
+            -- 계정 생성한지 24시간 이내의 유저만 firstTimeExperience 호출
+            if (time < 86400) then
+                Adbrix:firstTimeExperience(arg1, arg2)
+            end
+        end
+
+    -- 없다면 호출
+    else
+        Adbrix:firstTimeExperience(arg1, arg2)
+    end
 end
 
 -------------------------------------
@@ -301,22 +322,49 @@ end
 -- function firstTimeExperience
 -------------------------------------
 -- [실제 적용한 항목들 (50개 제한)]
--- 게임실행 (StartApp) 
--- 패치다운로드 (PatchDownload) 
--- 프롤로그 (Prologue) 
--- 로그인 (Login) 
--- 인트로 튜토리얼 완료 (Tutorial_Intro) 
--- 1-1 클리어 (Stage_1_1_Clear) 
--- 1-2 클리어 (Stage_1_2_Clear)
--- 1-3 클리어 (Stage_1_3_Clear)
--- 1-4 클리어 (Stage_1_4_Clear)
--- 1-5 클리어 (Stage_1_5_Clear)
--- 1-6 클리어 (Stage_1_6_Clear)
--- 1-7 클리어 (Stage_1_7_Clear)
--- 2-1 클리어 (Stage_2_1_Clear)
--- 2-4 클리어 (Stage_2_4_Clear)
--- 2-7 클리어 (Stage_2_7_Clear)
--- 마스터의 길 첫번째 보상 수령 (MasterRoad_Reward) 
+-- @ 집계 순서대로 
+
+-- 게임실행 (StartApp) v
+
+-- 패치다운로드 시작(PatchDownload_Start) v 
+-- 패치다운로드 끝 (PatchDownload_Finish) v
+
+-- 프롤로그 시작 (Prologue_Start) v
+-- 프롤로그 끝 (Prologue_Finish) v
+
+-- 로그인 닉네임 생성 (Login_CreateAccount) v
+
+-- @ 인트로 튜토리얼은 강제종료 가능
+-- 인트로 튜토리얼 시작 (Tutorial_Intro_Start) v
+-- 인트로 튜토리얼 웨이브(평타 어택) 진입 (Tutorial_Intro_Wave) v
+-- 인트로 튜토리얼 자동줍기 사용 (Tutorial_Intro_AutoPick) v
+-- 인트로 튜토리얼 드래그스킬 사용 (Tutorial_Intro_DragSkill) v
+-- 인트로 튜토리얼 종료 (Tutorial_Intro_Finish) v
+
+-- 로비 진입 (Lobby_Enter) v
+
+-- 1-1 시작 (Stage_1_1_Start) 
+-- 1-1 종료 (Stage_1_1_Finish)
+-- 마스터의 길 첫번째 보상 수령 (MasterRoad_Reward)
+-- 알 부화 (DragonIncubate)  -> 강제가 아니여서 집계 제대로 안될 수 있음.
+-- 1-2 시작 (Stage_1_2_Start)  
+-- 1-2 종료 (Stage_1_2_Finish)
+-- 1-3 시작 (Stage_1_3_Start) 
+-- 1-3 종료 (Stage_1_3_Finish)
+-- 1-4 시작 (Stage_1_4_Start) 
+-- 1-4 종료 (Stage_1_4_Finish)
+-- 1-5 종료 (Stage_1_5_Finish)
+-- 1-6 종료 (Stage_1_6_Finish)
+-- 1-7 종료 (Stage_1_7_Finish)
+-- 2-1 종료 (Stage_2_1_Finish)
+-- 2-2 종료 (Stage_2_2_Finish)
+-- 2-3 종료 (Stage_2_3_Finish)
+-- 2-4 종료 (Stage_2_4_Finish)
+-- 2-5 종료 (Stage_2_5_Finish)
+-- 2-6 종료 (Stage_2_6_Finish)
+-- 2-7 종료 (Stage_2_7_Finish)
+
+-- @ 기타
 -- 도감 보상 수령 (Book_Rewrad) 
 -- 종합 랭킹 확인 (TotalRanking_Confirm) 
 -- 드래곤 승급 (3 → 4)(DragonUpgrade_3to4) 
@@ -326,13 +374,12 @@ end
 -- 고대의탑 1층 클리어 (AncientTower_1_Clear) 
 -- 드래곤 진화 (DragonEvolution) 
 -- 친밀도 열매 먹이기(FriendshipUp) 
--- 드래곤 부화 (DragonIncubate) 
 -- 드래곤 11회 확률업 소환 (DragonSummonEvent_11) 
 -- 드래곤 11회 고급 소환 (DragonSummonCash_11) 
 -- 퀘스트 클리어 (Quest_Clear) 
 -- 테이머 변경 (Change_Tamer) 
--- 전설 드래곤 획득 (LegendDragon_Get) 
 -- 6성 60레벨 달성(DragonLevelUp_6_60) 
+
 -------------------------------------
 function Adbrix:firstTimeExperience(arg1, arg2)
     local arg1 = tostring(arg1)

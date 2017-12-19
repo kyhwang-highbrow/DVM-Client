@@ -89,7 +89,7 @@ function ServerData_Tutorial:request_tutorialSave(tutorial_key, finish_cb)
 
         if (tutorial_key == TUTORIAL.INTRO_FIGHT) then
             -- @analytics
-            Analytics:firstTimeExperience('Tutorial_Intro')
+            Analytics:firstTimeExperience('Tutorial_Intro_Finish')
         end
 
         if finish_cb then

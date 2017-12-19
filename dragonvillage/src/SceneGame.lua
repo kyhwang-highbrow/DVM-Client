@@ -852,15 +852,11 @@ function SceneGame:networkGameFinish_response_stage_clear_info(ret)
             local msg
 
             if (chapter == 1) then
-                msg = string.format('Stage_%s_Clear', save_key)
+                msg = string.format('Stage_%s_Finish', save_key)
 
             elseif (chapter == 2) then
-                local save_list = {'2_1','2_4','2_7'}
-                for _, v in ipairs(save_list) do
-                    if (save_key == v) then
-                        msg = string.format('Stage_%s_Clear', save_key)
-                    end
-                end
+                msg = string.format('Stage_%s_Finish', save_key)
+                
             end
             
             if (msg) then

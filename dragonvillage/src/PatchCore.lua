@@ -157,6 +157,9 @@ end
 -- function finish
 -------------------------------------
 function PatchCore:finish()
+    -- @analytics
+    Analytics:firstTimeExperience('PatchDownload_Finish')
+
     self:close_patch_guide()
 
     if self.m_finishCB then
@@ -264,6 +267,8 @@ end
 function PatchCore:st_requestPatchInfo()
     -- 통신 성공 콜백
     local success_cb = function(ret)
+        -- @analytics
+        Analytics:firstTimeExperience('PatchDownload_Start')
 
         -- apk 확장 파일 정보 저장
         local patch_data = PatchData:getInstance()
@@ -404,9 +409,6 @@ function PatchCore:st_downloadPatchFile(ret)
     end
  
     do -- 다운로드 진행
-        -- @analytics
-        Analytics:firstTimeExperience('PatchDownload')
-
         local local_path = t_download_res['local_path']
         local web_path = t_download_res['web_path']
         

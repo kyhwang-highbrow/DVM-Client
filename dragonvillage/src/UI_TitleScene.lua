@@ -634,9 +634,6 @@ function UI_TitleScene:workGameLogin()
     NaverCafeManager:naverCafeSyncGameUserId(uid)
 
     local success_cb = function(ret)
-        -- @analytics
-        Analytics:firstTimeExperience('Login')
-
         do -- 사전 등록 닉네임 선점 정보 저장 (nil이면 비활성화)
             g_serverData:applyServerData(ret['preoccupancy_nick'], 'preoccupancy_nick')
         end
@@ -1129,7 +1126,7 @@ function UI_TitleScene:createAccount()
 
     prologue_func = function()
         -- @analytics
-        Analytics:firstTimeExperience('Prologue')
+        Analytics:firstTimeExperience('Prologue_Start')
 
         local scenario_name = 'scenario_prologue'
         local prologue = UI_ScenarioPlayer(scenario_name)
@@ -1138,6 +1135,9 @@ function UI_TitleScene:createAccount()
     end
 
     tamer_sel_func = function()
+        -- @analytics
+        Analytics:firstTimeExperience('Prologue_Finish')
+
         UI_StartTamerSelect(login_func)
     end
 

@@ -126,11 +126,17 @@ function SceneGameIntro:update(dt)
     -- 첫번째 웨이브 - 시전자가 최초 평타 어택시
     if (idx == 1) and (recorder:getLog('basic_attack_cnt') > 1) then
         self:play_tutorialTalk()
+
+        -- @analytics
+        Analytics:firstTimeExperience('Tutorial_Intro_Wave')
     end 
     
     -- 두번째 웨이브 - 아이템 드랍시
     if (idx == 2) and (recorder:getLog('drop_item_cnt') > 0) then
         self:play_tutorialTalk(true)
+
+        -- @analytics
+        Analytics:firstTimeExperience('Tutorial_Intro_AutoPick')
 
         world.m_dropItemMgr:startIntro()
     end 
@@ -173,6 +179,9 @@ function SceneGameIntro:update(dt)
         world.m_heroMana:addMana(self.m_focusingDragon:getSkillManaCost())
         world.m_gameHighlight:setToForced(true)
         world.m_gameHighlight:addForcedHighLightList(self.m_focusingDragon)
+
+        -- @analytics
+        Analytics:firstTimeExperience('Tutorial_Intro_DragSkill')
 
         self:play_tutorialTalk(false, true)
     end

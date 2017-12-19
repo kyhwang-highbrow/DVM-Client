@@ -46,6 +46,10 @@ function ServerData_StartTamer:request_createAccount(user_type, pre_occupancy_co
 
     -- 콜백 함수
     local function success_cb(ret)
+        -- @analytics
+        -- 기존 게임 서버 로그인이 아닌 계정 생성할때 로그인으로 집계
+        Analytics:firstTimeExperience('Login_CreateAccount')
+
         local nick = ret['nick']
 
         if finish_cb then

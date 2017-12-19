@@ -236,6 +236,23 @@ function ServerData_Stage:requestGameStart(stage_id, deck_name, combat_power, fi
     local attr
     if (game_mode == GAME_MODE_ADVENTURE) then
         api_url = '/game/stage/start'
+
+        local difficulty, chapter, stage = parseAdventureID(stage_id)
+        local save_key = Str('{1}_{2}', chapter, stage)
+        local msg
+
+        local save_list = {'1_1','1_2','1_3','1_4'}
+        for _, v in ipairs(save_list) do
+            if (save_key == v) then
+                msg = string.format('Stage_%s_Start', save_key)
+            end
+        end
+
+        if (msg) then
+            -- @analytics
+            Analytics:firstTimeExperience(msg)
+        end
+
     elseif (game_mode == GAME_MODE_NEST_DUNGEON) then
         api_url = '/game/nest/start'
 

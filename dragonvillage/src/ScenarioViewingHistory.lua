@@ -119,6 +119,9 @@ function ScenarioViewingHistory:checkIntroScenario(finish_cb)
     local play_intro_fight
 
     play_intro_start = function()
+        -- @analytics
+        Analytics:firstTimeExperience('Tutorial_Intro_Start')
+
         -- 시나리오는 조건 체크하지 않고 바로 생성
         local ui = UI_ScenarioPlayer(intro_start_name)
         ui:setReplaceSceneCB(play_intro_fight)

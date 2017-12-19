@@ -211,12 +211,6 @@ function ServerData_Dragons:applyDragonData(t_dragon_data)
                 g_runesData:applyEquippedRuneInfo(roid, doid)
             end
         end
-
-        -- @analytics
-        local did = t_dragon_data['did']
-        if (TableDragon:getBirthGrade(did) == 5) then
-            Analytics:firstTimeExperience('LegendDragon_Get')
-        end
         
         local grade = t_dragon_data['grade']
         local lv = t_dragon_data['lv']
