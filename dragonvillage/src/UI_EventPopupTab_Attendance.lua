@@ -6,6 +6,7 @@ local PARENT = UI
 UI_EventPopupTab_Attendance = class(PARENT,{
 		m_structAttendance = 'StructAttendanceData',
 		m_tableView = 'UIC_TableView',
+		m_isCheckHot = 'bool',
     })
 
 -------------------------------------
@@ -15,6 +16,7 @@ function UI_EventPopupTab_Attendance:init(owner)
     local vars = self:load('event_attendance_basic_new.ui')
 
     self.m_structAttendance = g_attendanceData:getBasicAttendance()
+	self.m_isCheckHot = false
 
 	local struct_attendance_data = self.m_structAttendance
     local today_step = struct_attendance_data['today_step']
@@ -24,11 +26,12 @@ function UI_EventPopupTab_Attendance:init(owner)
 	local idx = 1
     for _, v in ipairs(step_list) do
 		if (v['tag_hot'] == true) then
-			local ui = self.makeHotRewardCell(v, today_step)
+			local ui = self:makeHotRewardCell(v, today_step)
 			vars['rewardNode' .. idx]:addChild(ui.root)
 			idx = idx + 1
 		end
 
+		-- 최대 4개까지 가능!
 		if (idx > 4) then
 			break
 		end
@@ -117,7 +120,7 @@ end
 -- function makeHotRewardCell
 -- @brief 태그 핫 보상 cell
 -------------------------------------
-function UI_EventPopupTab_Attendance.makeHotRewardCell(data, today)
+function UI_EventPopupTab_Attendance:makeHotRewardCell(data, today)
 	local ui = UI()
 	local vars = ui:load('event_attendance_basic_item_01.ui')
 			
@@ -148,22 +151,24 @@ function UI_EventPopupTab_Attendance.makeHotRewardCell(data, today)
 	vars['dayLabel']:setString(Str('{1}일차', day))
 
 	-- 날짜별 처리
-	-- 이미 받음
-	if (day <= today) then
-        vars['checkSprite']:setVisible(true)
-
 	-- 다가오는 중
-	elseif (math_floor(day/7) == math_floor(today/7)) then
+	if (not self.m_isCheckHot) and (day > today) then
+		self.m_isCheckHot = true
 		vars['ingSprite']:setVisible(true)
 		vars['nextNode']:setVisible(true)
 		vars['nextLabel']:setString(Str('획득까지 {1}일 남음', day - today))
 		
 		local action = cca.buttonShakeAction()
 		vars['nextNode']:runAction(action)
+		
+	-- 이미 받음
+	elseif (day <= today) then
+        vars['checkSprite']:setVisible(true)
 
 	-- 아직 멀었음
     else
 		vars['checkSprite']:setVisible(false)
+
     end
 
     -- 터치시 툴팁
