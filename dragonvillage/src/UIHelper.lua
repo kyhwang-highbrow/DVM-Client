@@ -34,6 +34,20 @@ function UIHelper:repeatTest(sequence_action)
 end
 
 -------------------------------------
+-- function makeItemName_plain
+-------------------------------------
+function UIHelper:makeItemName_plain(t_item)
+	local item_id = t_item['item_id']
+	local item_name = TableItem:getItemName(item_id)
+	local item_cnt = t_item['count']
+	if (item_cnt) and (item_cnt > 0) then
+		return Str('{1} {2}개', item_name, comma_value(item_cnt))
+	else
+		return Str('{1}', item_name)
+	end
+end
+
+-------------------------------------
 -- function makeItemName
 -- @example 다이아 100개
 -- @example 룬 확정권

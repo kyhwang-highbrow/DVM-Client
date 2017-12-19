@@ -132,7 +132,7 @@ function UI_EventPopupTab_Attendance.makeHotRewardCell(data, today)
 	-- @TODO 또 필요하면 전역함수로 빼자
 	local hard_coding = ''
 	if (item_id == 703005) then
-		hard_coding = Str('{1}성', 5)
+		hard_coding = Str('{1}성 확정', 5)
 	elseif (item_id == 703016) then
 		hard_coding = Str('{1}성', '3~5')
 	elseif (item_id == 703019) then
@@ -154,6 +154,9 @@ function UI_EventPopupTab_Attendance.makeHotRewardCell(data, today)
 		vars['ingSprite']:setVisible(true)
 		vars['nextNode']:setVisible(true)
 		vars['nextLabel']:setString(Str('획득까지 {1}일 남음', day - today))
+		
+		local action = cca.buttonShakeAction()
+		vars['nextNode']:runAction(action)
 
 	-- 아직 멀었음
     else
@@ -181,13 +184,22 @@ function UI_EventPopupTab_Attendance.makeDayRewardCell(data)
 	local vars = ui:load('event_attendance_basic_item_02.ui')
 
     local item_id = data['item_id']
+	local item_cnt = data['value']
 
+	-- icon (ItemCard를 사용하지 않음)
     local t_sub_data = nil
     local item_icon = IconHelper:getItemIcon(item_id, t_sub_data)
     vars['itemNode']:addChild(item_icon)
 
-    vars['dayLabel']:setString(Str('{1}일차', data['step']))
-    vars['quantityLabel']:setString(comma_value(data['value']))
+	-- 일차	
+	local day = Str('{1}일차', data['step'])
+    vars['dayLabel']:setString(day)
+    
+	-- 이름
+	local name = UIHelper:makeItemName_plain({['item_id'] = item_id, ['count'] = item_cnt})
+	vars['quantityLabel']:setString(name)
+
+	-- 배경
 	vars['bgSprite']:setVisible(not data['tag_hot'])
     vars['specialBgSprite']:setVisible(data['tag_hot'])
 
