@@ -27,7 +27,10 @@ function UI_Package_AdventureClearListItem:initUI()
     local t_data = self.m_data
 
     -- 스테이지
-    vars['levelLabel']:setString(t_data['stage'])
+    local stage_id = t_data['stage']
+    local stage_info = g_adventureData:getStageInfo(stage_id) -- StructAdventureStageInfo
+    local str = stage_info:getStageRichName()
+    vars['levelLabel']:setString(str)
 
     local product_info_list = {}
 
@@ -54,6 +57,7 @@ end
 function UI_Package_AdventureClearListItem:initButton()
     local vars = self.vars
     vars['rewardBtn']:registerScriptTapHandler(function() self:click_rewardBtn() end)
+    vars['linkBtn']:registerScriptTapHandler(function() self:click_linkBtn() end)
 end
 
 -------------------------------------
@@ -68,6 +72,7 @@ function UI_Package_AdventureClearListItem:refresh()
         if g_adventureClearPackageData:isReceived(stage_id) then
             vars['receiveSprite']:setVisible(true)
             vars['rewardBtn']:setVisible(false)
+            vars['linkBtn']:setVisible(false)
         else
             vars['receiveSprite']:setVisible(false)
             vars['rewardBtn']:setVisible(true)
@@ -76,9 +81,11 @@ function UI_Package_AdventureClearListItem:refresh()
             local star = stage_info:getNumberOfStars()
 
             if (star < 3) then
-                vars['rewardBtn']:setEnabled(false)
+                vars['rewardBtn']:setVisible(false)
+                vars['linkBtn']:setVisible(true)
             else
-                vars['rewardBtn']:setEnabled(true)
+                vars['rewardBtn']:setVisible(true)
+                vars['linkBtn']:setVisible(false)
             end
         end
     else
@@ -118,4 +125,14 @@ function UI_Package_AdventureClearListItem:click_rewardBtn()
     end
 
     g_adventureClearPackageData:request_adventureClearReward(stage_id, cb_func)
+end
+
+-------------------------------------
+-- function click_linkBtn
+-- @brief 스테이지 바로가기 버튼
+-------------------------------------
+function UI_Package_AdventureClearListItem:click_linkBtn()
+    local data = self.m_data
+    local stage_id = data['stage']
+    UINavigator:goTo('adventure', stage_id)
 end

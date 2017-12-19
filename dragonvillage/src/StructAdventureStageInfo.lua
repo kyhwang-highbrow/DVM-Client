@@ -152,3 +152,32 @@ function StructAdventureStageInfo:getFirstClearRewardState()
         return 'lock'
     end
 end
+
+
+-------------------------------------
+-- function getStageRichName
+-- @brief "{@diff_normal'}보통 {@default}1-7" 형태의 텍스트 출력
+-------------------------------------
+function StructAdventureStageInfo:getStageRichName()
+    local stage_id = self['stage_id']
+    local difficulty, chapter, stage = parseAdventureID(stage_id)
+
+    local diff_str = ''
+    local color_str = ''
+
+    if (difficulty == 1) then
+        color_str = 'diff_normal'
+        diff_str = Str('보통')
+
+    elseif (difficulty == 2) then
+        color_str = 'diff_hard'
+        diff_str = Str('어려움')
+
+    elseif (difficulty == 3) then
+        color_str = 'diff_hell'
+        diff_str = Str('지옥')
+    end
+
+    local ret_str = '{@' .. color_str .. '}' .. diff_str .. ' {@default}' .. chapter .. '-' .. stage
+    return ret_str
+end
