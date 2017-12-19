@@ -933,7 +933,7 @@ function UI_Lobby:update(dt)
     if (g_eventData.m_bDirty) then
         g_eventData.m_bDirty = false
         self:refresh_rightButtons()
-        self:refresh_eventBanner()
+        --self:refresh_eventBanner()
     end
 
     -- 광고 (자동재화, 선물상자 정보)
