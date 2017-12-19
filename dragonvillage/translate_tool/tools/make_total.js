@@ -1,7 +1,8 @@
 const Total = require( "./total" );
-const locale = process.argv[ 2 ];
+const sheetName = process.argv[ 2 ];
 const spreadsheet_id = process.argv[ 3 ];
+const localeList = process.argv[ 4 ].split(";");
 
-console.log( locale, spreadsheet_id );
+console.log( sheetName, spreadsheet_id, localeList.toString() );
 
-new Total( locale, spreadsheet_id );
+new Total( sheetName, spreadsheet_id, localeList );

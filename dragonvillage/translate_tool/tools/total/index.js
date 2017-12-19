@@ -4,10 +4,11 @@ const log = util.log;
 
 module.exports = Total;
 
-function Total( $locale, $spreadsheet_id )
+function Total( $sheetName, $spreadsheet_id, $localeList )
 {
-	this.locale = $locale;
+	this.sheetName = $sheetName;
 	this.spreadsheet_id = $spreadsheet_id;
+	this.localeList = $localeList;
 
 	this.loadSheet();
 }
@@ -15,16 +16,24 @@ function Total( $locale, $spreadsheet_id )
 Total.prototype.loadSheet = function()
 {
 	var spreadsheet_id = this.spreadsheet_id;
-	var locale = this.locale;
+	var sheetName = this.sheetName;
+	var localeList = this.localeList;
 
 	var spreadsheet = new Spreadsheet( spreadsheet_id );
 	spreadsheet.init( onInit );
 
-	var sheetLocale;
+	var sheetWork;
 	var sheetTotal;
 	var totalData = [];
 
-	var header = [ "kr", locale, "hints", "date" ];
+	//var header = [ "kr", locale, "hints", "date" ];
+	var header = ["kr"];
+	for(var i = 0; i < localeList.length; ++i )
+	{
+		header.push( localeList[i] );
+	}
+	header.push("hints");
+	header.push("date");
 	var row_count;
 	var col_count = header.length;
 
@@ -35,20 +44,20 @@ Total.prototype.loadSheet = function()
 
 	function loadLocale()
 	{
-		sheetLocale = spreadsheet.getWorksheet( locale );
+		sheetWork = spreadsheet.getWorksheet( sheetName );
 
-		if( sheetLocale == null )
+		if( sheetWork == null )
 		{
-			log( locale + " worksheet can't find." );
+			log( sheetName + " worksheet can't find." );
 
 			return;
 		}
 
 		var param = {};
 		param.offset = 1;
-		param.limit = sheetLocale.rowCount;
+		param.limit = sheetWork.rowCount;
 
-		sheetLocale.getRows( param, function( $err, $rows )
+		sheetWork.getRows( param, function( $err, $rows )
 		{
 			row_count = $rows.length;
 
@@ -58,8 +67,15 @@ Total.prototype.loadSheet = function()
 			for( i ; i < len ; i++ )
 			{
 				row = $rows[ i ];
-
-				totalData.push( [ row.kr, row[ locale ], row.hints, row.date ] );
+				var tempRow = [];
+				tempRow.push( row.kr );
+				for(var localeIdx = 0; localeIdx < localeList.length; ++localeIdx )
+				{
+					tempRow.push( row[ localeList[localeIdx] ] );
+				}
+				tempRow.push( row.hints );
+				tempRow.push( row.date );
+				totalData.push( tempRow );
 			}
 
 			loadTotal();
@@ -69,7 +85,7 @@ Total.prototype.loadSheet = function()
 	function createTotal()
 	{
 		var option = {};
-		option.title = "total";
+		option.title = "total_dev";
 		option.rowCount = 1;
 		option.colCount = col_count;
 		option.headers = header;
@@ -82,7 +98,7 @@ Total.prototype.loadSheet = function()
 
 	function loadTotal()
 	{
-		sheetTotal = spreadsheet.getWorksheet( "total" );
+		sheetTotal = spreadsheet.getWorksheet( "total_dev" );
 
 		if( sheetTotal == null )
 		{
@@ -113,15 +129,21 @@ Total.prototype.loadSheet = function()
 			data = getData( row.kr );
 
 			if( data == null )
-			{
-				data = [ row.kr, row[ locale ], row.hints, row.date ];
+			{				
+				data.push( row.kr );
+				for(var localeIdx = 0; localeIdx < localeList.length; ++localeIdx )
+				{
+					data.push( row[ localeList[localeIdx] ] );
+				}
+				data.push( row.hints );
+				data.push( row.date );				
 
 				totalData.push( data );
 			}
 			else
 			{
-				data[ 2 ] = row.hints;
-				data[ 3 ] = row.date;
+				data[ 1 + localeList.length ] = row.hints;
+				data[ 1 + localeList.length + 1 ] = row.date;
 			}
 		}
 
@@ -264,17 +286,17 @@ Total.prototype.loadSheet = function()
 
 	function onUpdate()
 	{
-		sheetLocale.clear( function( $err )
+		sheetWork.clear( function( $err )
 		{
 			var option = {};
 			option.rowCount = 1;
 			option.colCount = col_count;
 
-			sheetLocale.resize( option, function( $err )
+			sheetWork.resize( option, function( $err )
 			{
-				sheetLocale.setHeaderRow( header, function()
+				sheetWork.setHeaderRow( header, function()
 				{
-					log( "complete total : " + locale );
+					log( "complete total : " + localeList.toString() );
 				} );
 			} )
 		} );
@@ -283,7 +305,7 @@ Total.prototype.loadSheet = function()
 	function backup( $data )
 	{
 		var date = new Date();
-		var file_name = date.getFullYear() + "." + two( date.getMonth() + 1 ) + "." + two( date.getDate() ) + "_" + two( date.getHours() ) + "." + two( date.getMinutes() ) + "_" + locale + ".json";
+		var file_name = date.getFullYear() + "." + two( date.getMonth() + 1 ) + "." + two( date.getDate() ) + "_" + two( date.getHours() ) + "." + two( date.getMinutes() ) + "_" + "ingame.json";
 
 		function two( $value )
 		{
