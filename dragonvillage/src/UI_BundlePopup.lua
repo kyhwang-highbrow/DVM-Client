@@ -7,6 +7,7 @@ UI_BundlePopup = class(PARENT,{
         m_structProduct = 'StructProduct',
         m_cbFunc = 'function',
 		m_count = 'number',
+		m_unitCnt = 'number',
     })
 
 -------------------------------------
@@ -57,6 +58,16 @@ function UI_BundlePopup:initUI()
 	else
         price_node:setScale(0)
     end
+
+	-- 단위 수량 계산
+	local content = struct_product['product_content']
+	local l_str = plSplit(content, ';')
+	local cnt = table.getLast(l_str)
+	self.m_unitCnt = tonumber(cnt)
+
+	if (self.m_unitCnt > 1) then
+		vars['itemLabel2']:setVisible(true)
+	end
 end
 
 -------------------------------------
@@ -87,6 +98,13 @@ function UI_BundlePopup:refresh()
 	local count = self.m_count
 	local price_str = comma_value(price * count)
     vars['priceLabel']:setString(price_str)
+
+	-- 단위 수량이 1이상인 경우 총 수량을 계산해 준다. 완전 친절
+	local unit_cnt = self.m_unitCnt
+	if (unit_cnt > 1) then
+		local total_cnt = unit_cnt * count
+		vars['itemLabel2']:setString(Str('{1}개', total_cnt))
+	end
 end
 
 -------------------------------------
