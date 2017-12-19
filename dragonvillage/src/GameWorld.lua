@@ -1416,7 +1416,7 @@ function GameWorld:setTemporaryPause(pause, excluded_dragon)
         end
         
         -- 스킬 사용 중인 드래곤은 일시 정지에서 제외 및 무적 상태
-        if excluded_dragon then
+        if (excluded_dragon) then
             excluded_dragon:setTemporaryPause(false)
             excluded_dragon.enable_body = false
         end
@@ -1436,7 +1436,7 @@ function GameWorld:setTemporaryPause(pause, excluded_dragon)
         end
         
         -- 스킬 사용 중인 드래곤 무적 해제
-        if excluded_dragon then
+        if (excluded_dragon) then
             excluded_dragon.enable_body = true
         end
     end

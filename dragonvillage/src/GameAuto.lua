@@ -363,11 +363,7 @@ function GameAuto:doSkill(unit, t_skill)
 
     unit:reserveSkill(t_skill['sid'])
 
-    if (t_skill['casting_time'] > 0) then
-        unit:changeState('casting')
-    else
-        unit:changeState('skillAppear')
-    end
+    unit:changeState('skillAppear')
 end
 
 -------------------------------------

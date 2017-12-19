@@ -3045,6 +3045,9 @@
     <None Include="..\src\SkillRandom.lua">
       <Filter>lua\src</Filter>
     </None>
+    <None Include="..\src\SkillIndicatorMgr_ClanRaid.lua">
+      <Filter>lua\src</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Classes">

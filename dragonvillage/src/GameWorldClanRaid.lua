@@ -120,7 +120,7 @@ function GameWorldClanRaid:initGame(stage_name)
     self:setBattleZone()
     
     do -- 스킬 조작계 초기화
-        self.m_skillIndicatorMgr = SkillIndicatorMgr(self)
+        self.m_skillIndicatorMgr = SkillIndicatorMgr_ClanRaid(self)
     end
 
     do -- 카메라 초기 위치 설정이 있다면 적용

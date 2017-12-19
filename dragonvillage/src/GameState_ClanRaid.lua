@@ -11,6 +11,10 @@ local BOTTOM_DECK_OFFSET_Y = -180
 GameState_ClanRaid = class(PARENT, {
         m_bossHp = 'number',
         m_bossMaxHp = 'number',
+
+        m_bossHpCount = 'number',
+        m_bossMaxHpCount = 'number',
+
         m_uiBossHp = 'UI_IngameBossHp',
     })
 

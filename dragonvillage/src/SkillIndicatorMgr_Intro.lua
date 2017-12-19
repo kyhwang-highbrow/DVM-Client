@@ -115,16 +115,8 @@ function SkillIndicatorMgr_Intro:onTouchEnded(touch, event)
 
             -- 경직 중이라면 즉시 해제
             self.m_selectHero:setSpasticity(false)
-
-            local active_skill_id = self.m_selectHero:getSkillID('active')
-            local t_skill = TableDragonSkill():get(active_skill_id)
-
-            if t_skill['casting_time'] > 0 then
-                self.m_selectHero:changeState('casting')
-            else
-                self.m_selectHero:changeState('skillAppear')
-            end
-
+            self.m_selectHero:changeState('skillAppear')
+            
             -- 월드상의 터치 위치 얻어옴
             local location = touch:getLocation()
             local node_pos = self.m_touchNode:convertToNodeSpace(location)

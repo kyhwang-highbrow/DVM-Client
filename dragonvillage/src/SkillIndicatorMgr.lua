@@ -215,16 +215,8 @@ function SkillIndicatorMgr:onTouchEnded(touch, event)
 
             -- 경직 중이라면 즉시 해제
             self.m_selectHero:setSpasticity(false)
-
-            local skill_indivisual_info = self.m_selectHero:getSkillIndivisualInfo('active')
-            local t_skill = skill_indivisual_info:getSkillTable()
-
-            if t_skill['casting_time'] > 0 then
-                self.m_selectHero:changeState('casting')
-            else
-                self.m_selectHero:changeState('skillAppear')
-            end
-
+            self.m_selectHero:changeState('skillAppear')
+            
             -- 월드상의 터치 위치 얻어옴
             local location = touch:getLocation()
             local node_pos = self.m_touchNode:convertToNodeSpace(location)
@@ -249,17 +241,11 @@ function SkillIndicatorMgr:onTouchEnded(touch, event)
                 tamer:dispatch('touch_ended', t_event)
 
             elseif (self.m_touchedHero.m_skillIndicator) then
-                local bPreparedSkill = GameAuto:prepareSkill(self.m_touchedHero, t_skill)
-
+                local bPreparedSkill = self.m_world.m_heroAuto:prepareSkill(self.m_touchedHero, t_skill)
                 if (bPreparedSkill) then
                     -- 경직 중이라면 즉시 해제
                     self.m_touchedHero:setSpasticity(false)
-
-                    if t_skill['casting_time'] > 0 then
-                        self.m_touchedHero:changeState('casting')
-                    else
-                        self.m_touchedHero:changeState('skillAppear')
-                    end
+                    self.m_touchedHero:changeState('skillAppear')
                 end
             end
         end
@@ -278,8 +264,7 @@ function SkillIndicatorMgr:clear(keep_pause)
     
     if (self.m_selectHero) then
         if (not keep_pause) then
-            self.m_world:setTemporaryPause(false, self.m_selectHero)
-            self.m_bPauseMode = false
+            self:setPauseMode(false, self.m_selectHero)
         end
         self:setSelectHero(nil)
         self.m_bPauseMode = false
@@ -302,9 +287,8 @@ function SkillIndicatorMgr:update(dt)
             return
         
         elseif (not self.m_bPauseMode) then
-            self.m_world:setTemporaryPause(true, self.m_selectHero)
-            self.m_bPauseMode = true
-            
+            self:setPauseMode(true, self.m_selectHero)
+                        
         end
     end
 end
@@ -329,9 +313,8 @@ function SkillIndicatorMgr:setSelectHero(hero)
         hero.m_skillIndicator:update()
 
         -- 일시정지
-        self.m_world:setTemporaryPause(true, hero)
-        self.m_bPauseMode = true
-
+        self:setPauseMode(true, hero)
+        
         -- 화면 쉐이킹 멈춤
         self.m_world.m_shakeMgr:stopShake()
                 
@@ -378,4 +361,12 @@ end
 -------------------------------------
 function SkillIndicatorMgr:isControlling()
     return (self.m_selectHero ~= nil)
+end
+
+-------------------------------------
+-- function setPauseMode
+-------------------------------------
+function SkillIndicatorMgr:setPauseMode(b, hero)
+    self.m_world:setTemporaryPause(b, hero)
+    self.m_bPauseMode = b
 end
