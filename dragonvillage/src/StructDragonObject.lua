@@ -276,6 +276,33 @@ function StructDragonObject:getRlv()
 end
 
 -------------------------------------
+-- function getLvText
+-- @breif Lv.60 +6 텍스트 생성
+-- @param use_rich : rich_text 사용 여부
+-------------------------------------
+function StructDragonObject:getLvText(use_rich)
+	local lv = self:getLv()
+	local rlv = self:getRlv()
+    local lv_str
+
+	-- 강화 렙 있는 경우
+	if (rlv > 0) then
+		if (use_rich) then
+			lv_str = string.format('{@default}Lv. %d {@light_green}+%d', lv, rlv)
+		else
+			lv_str = string.format('Lv. %d +%d', lv, rlv)
+		end
+	
+	-- 무강
+	else
+		lv_str = string.format('Lv. %d', lv)
+
+	end
+
+	return lv_str
+end
+
+-------------------------------------
 -- function isMaxRlv
 -- @breif
 -------------------------------------

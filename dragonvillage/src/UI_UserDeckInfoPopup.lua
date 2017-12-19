@@ -115,8 +115,9 @@ function UI_UserDeckInfoPopup:refresh_dragon(idx, t_dragon_data)
         end
     end
 
-    do -- 드래곤 레벨
-        vars['dragonLvLabel' .. idx]:setString(Str('레벨 {1}', t_dragon_data['lv']))
+    do -- 드래곤 레벨 + 강화
+		local lv_str = t_dragon_data:getLvText(true) -- use_rich
+        vars['dragonLvLabel' .. idx]:setString(lv_str)
     end
 
     do -- 드래곤 속성
