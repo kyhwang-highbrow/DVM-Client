@@ -329,6 +329,7 @@ function UI_HatcherySummonTab:subsequentSummons(gacha_result_ui, t_egg_data)
     if (not t_egg_data['bundle']) then
         vars['againBtn']:setVisible(true)
         vars['mileageNode']:setVisible(true)
+		vars['inventoryBtn']:setVisible(true)
     end
 
     vars['againBtn']:registerScriptTapHandler(function()
@@ -337,6 +338,7 @@ function UI_HatcherySummonTab:subsequentSummons(gacha_result_ui, t_egg_data)
 
     table.insert(gacha_result_ui.m_hideUIList, vars['againBtn'])
     table.insert(gacha_result_ui.m_hideUIList, vars['mileageNode'])
+	table.insert(gacha_result_ui.m_hideUIList, vars['inventoryBtn'])
 end
 
 -------------------------------------

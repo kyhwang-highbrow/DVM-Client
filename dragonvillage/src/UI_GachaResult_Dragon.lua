@@ -105,7 +105,33 @@ function UI_GachaResult_Dragon:initUI()
 
 	end
 
+	-- 드래곤 수량 표시
+	self:refresh_inventoryLabel()
+end
 
+-------------------------------------
+-- function refresh_inventoryLabel
+-- @brief
+-------------------------------------
+function UI_GachaResult_Dragon:refresh_inventoryLabel()
+    local vars = self.vars
+    local inven_type = 'dragon'
+    local dragon_count = g_dragonsData:getDragonsCnt()
+    local max_count = g_inventoryData:getMaxCount(inven_type)
+    self.vars['inventoryLabel']:setString(string.format('%d/%d', dragon_count, max_count))
+end
+
+-------------------------------------
+-- function click_inventoryBtn
+-- @brief 인벤 확장
+-------------------------------------
+function UI_GachaResult_Dragon:click_inventoryBtn()
+    local item_type = 'dragon'
+    local function finish_cb()
+        self:refresh_inventoryLabel()
+    end
+
+    g_inventoryData:extendInventory(item_type, finish_cb)
 end
 
 -------------------------------------
@@ -115,6 +141,7 @@ function UI_GachaResult_Dragon:initButton()
 	local vars = self.vars
 	vars['okBtn']:registerScriptTapHandler(function() self:refresh() end)
     vars['skipBtn']:registerScriptTapHandler(function() self:click_skipBtn() end)
+	vars['inventoryBtn']:registerScriptTapHandler(function() self:click_inventoryBtn() end)
 end
 
 -------------------------------------
