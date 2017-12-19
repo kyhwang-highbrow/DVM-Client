@@ -4,8 +4,9 @@ const log = util.log;
 
 module.exports = Lua;
 
-function Lua( $locale, $spreadsheet_id, $callback )
+function Lua( $sheetName, $locale, $spreadsheet_id, $callback )
 {
+	const sheetName = $sheetName;
 	const locale = $locale;
 	const spreadsheet_id = $spreadsheet_id;
 
@@ -18,11 +19,11 @@ function Lua( $locale, $spreadsheet_id, $callback )
 
 	function onInit( $info )
 	{
-		loadSheet( "total", function( $data )
+		loadSheet( "total", locale, function( $data )
 		{
 			mergeData( $data );
 			
-			loadSheet( locale, function( $data )
+			loadSheet( sheetName, locale, function( $data )
 			{
 				mergeData( $data );
 
@@ -31,9 +32,10 @@ function Lua( $locale, $spreadsheet_id, $callback )
 		} )
 	}
 
-	function loadSheet( $name, $callback )
+	function loadSheet( $name, $locale, $callback )
 	{
 		var sheet = spreadsheet.getWorksheet( $name );
+		var locale = $locale;
 		var data = [];
 
 		if( sheet == null )
@@ -120,7 +122,7 @@ function Lua( $locale, $spreadsheet_id, $callback )
 			}
 			catch( $e )
 			{
-				console.log( $locale + " line : " + i + " = " + row );
+				console.log( locale + " line : " + i + " = " + row );
 				
 				throw $e;
 			}

@@ -19,21 +19,32 @@ if( !fs.existsSync( hod_root ) )
 
 const tmpDir = "./backup/";
 
-Lua( "en", "1TzxlNwZHMZxG4W0LsPokaQfnCsCoCM3qvozAt7tvICg", function( $text )
-{
-	saveFile( "lang_en.lua", $text );
-} )
-/*
-Lua( "jp", "1hYRS7hE6OTRNQ-2RJL14O0VmxXxbYoT0wtQ7-rFnAi4", function( $text )
-{
-	saveFile( "lang_jp.lua", $text );
-} )
+make();
 
-Lua( "zh_tw", "1Cv2vBmWpnVwK74KN6SnL0QKdTpMoAx8VPYDzOi9yks0", function( $text )
+function make()
 {
-	saveFile( "lang_zh_tw.lua", $text );
-} )
-*/
+	var sheetName = process.argv[ 2 ];
+	var sheetID = process.argv[ 3 ];
+	var localeList = process.argv[ 4 ].split(";");
+	var localeIdx = 0;
+
+	function makeLua()
+	{		
+		if( localeIdx < localeList.length )
+		{
+			new Lua( sheetName, localeList[ localeIdx ], sheetID, function( $text )
+			{
+				saveFile( "lang_" + localeList[ localeIdx ] + ".lua", $text );
+
+				++localeIdx;
+				makeLua();
+			} )			
+		}
+	}
+
+	makeLua();
+}
+
 function saveFile( $file, $data )
 {
 	util.file.mkdir( tmpDir );
