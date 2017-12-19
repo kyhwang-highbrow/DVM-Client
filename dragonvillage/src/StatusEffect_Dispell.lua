@@ -37,7 +37,7 @@ function StatusEffect_Dispell:initFromTable(t_status_effect, target_char)
         self.m_resDispellEffect = t_status_effect['res_2']
     end
 
-    -- val 값은 all이거나 category;good/bad 이거나 name;이름 의 형태.
+    -- val 값은 all이거나 category;good/bad 이거나 name;이름, type;타입 의 형태.
     for i = 1, 4 do
         local str = t_status_effect['val_' .. i]
         if (str and str ~= '')then 
@@ -84,12 +84,15 @@ function StatusEffect_Dispell:onApplyOverlab(unit)
             end
 
         elseif (k == 'name') then
-            if (StatusEffectHelper:isHarmful(v)) then
-                if (self:dispellBuff(v)) then b = true end
-            else
+            local t_status_effect = TABLE:get('status_effect')
+            if (StatusEffectHelper:isHarmful(t_status_effect[v]['category'])) then
                 if (self:dispellDebuff(v)) then b = true end
+            else
+                if (self:dispellBuff(v)) then b = true end
                 
             end
+        elseif (k == 'type') then
+            
         end
     end
 
