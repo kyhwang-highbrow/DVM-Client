@@ -108,7 +108,6 @@ function UIC_DragonAnimator:click_dragonButton()
     local function ani_handler()
         self.m_animator:changeAni('idle', true)
     end
-
     self.m_animator:addAniHandler(ani_handler)
 
     if self.m_bTalkEnable then
@@ -120,7 +119,8 @@ function UIC_DragonAnimator:click_dragonButton()
     end
 
     self.m_animator.m_node:stopAllActions()
-    self.m_animator.m_node:runAction(cc.Sequence:create(cc.DelayTime:create(6), cc.CallFunc:create(function()
+    local duration = self.m_animator.m_node:getDuration()
+    self.m_animator.m_node:runAction(cc.Sequence:create(cc.DelayTime:create(duration), cc.CallFunc:create(function()
             self:click_dragonButton()
         end)))
 end
