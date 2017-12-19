@@ -4,7 +4,6 @@ local PARENT = UI
 -- class UI_EventPopupTab_EventAttendance
 -------------------------------------
 UI_EventPopupTab_EventAttendance = class(PARENT,{
-        m_titleText = 'string',
         m_structAttendanceData = 'StructAttendanceData',
     })
 
@@ -14,7 +13,6 @@ UI_EventPopupTab_EventAttendance = class(PARENT,{
 function UI_EventPopupTab_EventAttendance:init(owner, struct_event_popup_tab)
     local vars = self:load('event_attendance_special.ui')
     self.m_structAttendanceData = g_attendanceData:getAttendanceData('event')
-    self.m_titleText = self.m_structAttendanceData['title_text']
 
     self:initUI()
 

@@ -17,11 +17,11 @@ function UI_EventPopupTab_Attendance:init(owner)
     self.m_structAttendance = g_attendanceData:getBasicAttendance()
 
 	local struct_attendance_data = self.m_structAttendance
-    local help_text = struct_attendance_data['help_text']
     local today_step = struct_attendance_data['today_step']
 	local step_list = struct_attendance_data['step_list']
 
-    vars['descLabel']:setString(Str(help_text))
+    --local help_text = struct_attendance_data['help_text']
+    --vars['descLabel']:setString(Str(help_text))
     --vars['dayLabel']:setString(Str('{1}일차', today_step))
 
     -- 보상 리스트 출력
@@ -129,15 +129,33 @@ function UI_EventPopupTab_Attendance.makeHotRewardCell(data, today)
 		vars['nameLabel']:setString(item_name)
 	end
 
-	vars['dscLabel']:setString('')
+	-- @TODO 또 필요하면 전역함수로 빼자
+	local hard_coding = ''
+	if (item_id == 703005) then
+		hard_coding = Str('{1}성', 5)
+	elseif (item_id == 703016) then
+		hard_coding = Str('{1}성', '3~5')
+	elseif (item_id == 703019) then
+		hard_coding = Str('{1}성', '4~5')
+	end
+	vars['dscLabel']:setString(hard_coding)
 
+	-- 일차
 	local day = data['step']
 	vars['dayLabel']:setString(Str('{1}일차', day))
 
+	-- 날짜별 처리
+	-- 이미 받음
 	if (day <= today) then
         vars['checkSprite']:setVisible(true)
+
+	-- 다가오는 중
 	elseif (math_floor(day/7) == math_floor(today/7)) then
 		vars['ingSprite']:setVisible(true)
+		vars['nextNode']:setVisible(true)
+		vars['nextLabel']:setString(Str('획득까지 {1}일 남음', day - today))
+
+	-- 아직 멀었음
     else
 		vars['checkSprite']:setVisible(false)
     end
