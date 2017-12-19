@@ -77,7 +77,7 @@ function UIC_DragonAnimator:setDragonAnimator(did, evolution, flv)
     -- 랜덤 에니메이션 리스트 생성
     self.m_randomAnimationList = {}
     for i,ani in ipairs(self.m_animator:getVisualList()) do
-        if isExistValue(ani, 'attack', 'pose_1', 'pose_2', 'idle') then
+        if isExistValue(ani, 'attack', 'pose_1', 'pose_2') then
             table.insert(self.m_randomAnimationList, ani)
         end
     end
@@ -101,12 +101,32 @@ function UIC_DragonAnimator:click_dragonButton()
 
     self.m_timeStamp = curr_time
 
-    -- 에니메이션 랜덤
+    -- 에니메이션 랜덤 (기획 팀 요청)
+    -- idle x 2 -> random ani idx 1 -> idle x 2 -> random ani idx 2 반복 
+    local idle_index = 0
+    local idle_repeat = 2
+    local random_index = 0
+    local is_idle = true
     local ani_handler
     ani_handler = function()
-        local ani = table.getRandom(self.m_randomAnimationList)
-        self.m_animator:changeAni(ani, false)
-        self.m_animator:addAniHandler(ani_handler)
+        local ani
+        if (is_idle) then
+            idle_index = (idle_index) % idle_repeat + 1
+            ani = 'idle'
+            self.m_animator:changeAni(ani, false)
+            self.m_animator:addAniHandler(ani_handler)
+
+            if (idle_index == idle_repeat) then
+                is_idle = false
+            end
+        else
+            random_index = (random_index) % #self.m_randomAnimationList + 1
+            ani = self.m_randomAnimationList[random_index] or 'idle'
+            self.m_animator:changeAni(ani, false)
+            self.m_animator:addAniHandler(ani_handler)
+
+            is_idle = true
+        end
     end
 
     ani_handler()
