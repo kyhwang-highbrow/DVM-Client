@@ -279,6 +279,22 @@ function UI_GameResult_AncientTower:direction_showScore()
 end
 
 -------------------------------------
+-- function direction_secretDungeon
+-------------------------------------
+function UI_GameResult_AncientTower:direction_secretDungeon()
+    if (self.m_secretDungeon) then
+        MakeSimpleSecretFindPopup(self.m_secretDungeon)
+    end
+
+    -- 시험의 탑 컨텐츠 오픈 팝업
+    if (self.m_attr_tower_open) then
+       UI_ContentOpenPopup('attr_tower')
+    end 
+
+    self:doNextWork()
+end
+
+-------------------------------------
 -- function setSuccessVisual_Ancient
 -- @brief 고대의 탑 전용 성공 연출 
 -------------------------------------
@@ -297,10 +313,6 @@ function UI_GameResult_AncientTower:setSuccessVisual_Ancient()
         SoundMgr:playBGM('bgm_dungeon_lose', false)
         vars['successVisual']:changeAni('fail')
     end
-
-    if (self.m_attr_tower_open) then
-       UI_ContentOpenPopup('attr_tower')
-   end 
 end
 
 -------------------------------------

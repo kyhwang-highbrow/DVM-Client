@@ -341,3 +341,27 @@ function ServerData_AttrTower:getDeckName(curr_mode)
 
     return deck_name
 end
+
+-------------------------------------
+-- function checkDragonAttr
+-- @brief 드래곤 속성 체크
+-------------------------------------
+function ServerData_AttrTower:checkDragonAttr(l_deck)
+    if (not self.m_selectAttr) then
+        return true
+    end
+
+    for _, doid in pairs(l_deck) do
+        local dragon = g_dragonsData:getDragonDataFromUid(doid)
+        local did = dragon['did']
+        local attr = TableDragon:getDragonAttr(did)
+
+        if (attr ~= self.m_selectAttr) then
+            local msg = Str('{1}속성 드래곤만 전투에 참여할 수 있습니다.', dragonAttributeName(self.m_selectAttr))
+            MakeSimplePopup(POPUP_TYPE.OK, msg)
+            return false
+        end
+    end
+
+    return true
+end

@@ -816,6 +816,7 @@ function UI_ReadyScene:click_startBtn()
         local check_deck
         local check_dragon_inven
         local check_item_inven
+        local check_attr_tower
         local start_game
 
         -- 덱 변경 유무 확인 후 저장
@@ -836,7 +837,19 @@ function UI_ReadyScene:click_startBtn()
             local function manage_func()
                 UI_Inventory()
             end
-            g_inventoryData:checkMaximumItems(start_game, manage_func)
+            g_inventoryData:checkMaximumItems(check_attr_tower, manage_func)
+        end
+
+        -- 시험의 탑 속성 드래곤 확인
+        check_attr_tower = function()
+            if (g_ancientTowerData:isAncientTowerStage(stage_id)) then
+                local l_deck = self.m_readySceneDeck.m_lDeckList
+                if (g_attrTowerData:checkDragonAttr(l_deck)) then
+                    start_game()
+                end
+            else
+                start_game()
+            end
         end
 
         -- 게임 시작
