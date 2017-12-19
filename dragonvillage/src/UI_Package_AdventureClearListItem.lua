@@ -82,9 +82,11 @@ function UI_Package_AdventureClearListItem:refresh()
 
             if (star < 3) then
                 vars['rewardBtn']:setVisible(false)
+                vars['rewardBtn']:setEnabled(true)
                 vars['linkBtn']:setVisible(true)
             else
                 vars['rewardBtn']:setVisible(true)
+                vars['rewardBtn']:setEnabled(true)
                 vars['linkBtn']:setVisible(false)
             end
         end
