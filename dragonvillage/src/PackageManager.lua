@@ -126,7 +126,10 @@ function PackageManager:isBuyAll(package_name)
         if (data) then
             local buy_cnt = g_shopDataNew:getBuyCount(pid)
             local max_buy_cnt = data['max_buy_count']
-
+            if (buy_cnt == '' or max_buy_cnt == '') then
+                is_buy_all = false
+                break
+            end
             if (buy_cnt >= max_buy_cnt) then
                 is_buy_all = true
             else
