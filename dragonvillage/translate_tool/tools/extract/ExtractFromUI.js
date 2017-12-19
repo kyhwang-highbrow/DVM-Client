@@ -4,10 +4,11 @@ const util = require( "../../js/util" );
 
 module.exports = ExtractFromUI;
 
-function ExtractFromUI( $directory, $ignoreFiles )
+function ExtractFromUI( $directory, $ignoreFiles, $ignoreFolders )
 {
 	this.directory = $directory + "/";
 	this.ignoreFiles = $ignoreFiles;
+	this.ignoreFolders = $ignoreFolders;
 }
 
 ExtractFromUI.prototype.collect = function()
@@ -15,6 +16,7 @@ ExtractFromUI.prototype.collect = function()
 	var option = {};
 	option.ignoreFiles = this.ignoreFiles;
 	option.ignoreExtensions = [ ".bak", ".proto", ".svn-base" ];
+	option.ignoreFolders = this.ignoreFolders;
 
 	var allFiles = util.file.getAllFiles( this.directory, option );
 

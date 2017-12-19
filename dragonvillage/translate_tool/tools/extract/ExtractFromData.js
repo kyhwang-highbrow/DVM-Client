@@ -7,10 +7,11 @@ module.exports = ExtractFromData;
 
 var data = {};
 data.length = 0;
-function ExtractFromData( $directory, $ignoreFiles )
+function ExtractFromData( $directory, $ignoreFiles, $ignoreFolders )
 {
 	this.directory = $directory + "/";
 	this.ignoreFiles = $ignoreFiles;
+	this.ignoreFolders = $ignoreFolders;
 	data = {};
 	data.length = 0;
 }
@@ -19,7 +20,8 @@ ExtractFromData.prototype.collect = function( $callback )
 {
 	var option = {};
 	option.ignoreFiles = this.ignoreFiles;
-	option.ignoreExtensions = [ ".bak", ".proto", ".svn-base" ];
+	option.ignoreExtensions = [ ".bak", ".proto", ".svn-base" ];	
+	option.ignoreFolders = this.ignoreFolders;
 
 	if(fs.existsSync(this.directory) == false )
 	{
@@ -50,7 +52,7 @@ ExtractFromData.prototype.collect = function( $callback )
 
 function getStr( $path, $callback )
 {
-	var text = fs.readFileSync( $path ).toString();
+	var text = fs.readFileSync( $path, "utf-8" ).toString();
 	var header;
 	csv.parse( text, function( $err, $data )
 	{
@@ -89,6 +91,8 @@ function getStr( $path, $callback )
 			var reg = /[가-힣]+/g;
 			if( reg.exec( str ) == null )
 				continue;
+			
+			str = str.replace(/\n|\s\n/g, "\\n");
 
 			if( data[ str ] == null )
 				data[ str ] = { hints : [] };

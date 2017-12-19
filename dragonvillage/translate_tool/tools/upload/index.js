@@ -4,11 +4,12 @@ const log = util.log;
 
 module.exports = Upload;
 
-function Upload( $locale, $spreadsheet_id, $data )
+function Upload( $sheetName, $spreadsheet_id, $data, $localeList )
 {
-	this.locale = $locale;
+	this.sheetName = $sheetName;
 	this.spreadsheet_id = $spreadsheet_id;
 	this.data = util.deepCopy( $data );
+	this.localeList = $localeList;
 
 	this.loadSheet();
 }
@@ -16,10 +17,21 @@ function Upload( $locale, $spreadsheet_id, $data )
 Upload.prototype.loadSheet = function()
 {
 	var spreadsheet_id = this.spreadsheet_id;
-	var locale = this.locale;
+	var sheetName = this.sheetName;
 	var data = this.data;
-	
-	var header = [ "kr", locale, "hints", "date" ];
+	var localeList = this.localeList;	
+	var totalData = [];
+
+	//var header = [ "kr", locale, "hints", "date" ];
+	var header = [ "kr" ];
+	var i = 0;
+	for( ; i < localeList.length; ++i )
+	{
+		header.push( localeList[i] );
+	}
+	header.push( "hints" );
+	header.push( "date" );
+
 	var row_count;
 	var col_count = header.length;
 
@@ -30,7 +42,7 @@ Upload.prototype.loadSheet = function()
 	var uploadCount = 0;
 	function onInit( $info )
 	{
-		var totalSheet = spreadsheet.getWorksheet( "total" );
+		var totalSheet = spreadsheet.getWorksheet( "total_dev" );
 
 		var param = {};
 		param.offset = 1;
@@ -68,7 +80,7 @@ Upload.prototype.loadSheet = function()
 
 	function loadSheet()
 	{
-		sheet = spreadsheet.getWorksheet( locale );
+		sheet = spreadsheet.getWorksheet( sheetName );
 
 		if( sheet == null )
 			createsheet();
@@ -79,7 +91,7 @@ Upload.prototype.loadSheet = function()
 	function createsheet()
 	{
 		var option = {}
-		option.title = locale;
+		option.title = sheetName;
 		option.rowCount = 1;
 		option.colCount = col_count;
 		option.headers = header;
@@ -113,30 +125,74 @@ Upload.prototype.loadSheet = function()
 
 		var i = 0;
 		var len = row_count;
-		var row;
+		var row;		
 		for( i ; i < len ; i++ )
 		{
 			row = $rows[ i ];
+			var oldData = [];
+			oldData[0] = row.kr;
+			var localeIdx = 0;
+			for(; localeIdx < localeList.length; ++localeIdx)
+			{
+				oldData.push( row[ localeList[localeIdx] ] );
+			}
+			oldData.push( row.hints );
+			oldData.push( row.date );
 
-			setData( row.kr, row[ locale ], row.hints, row.date );
+			totalData.push( oldData );
+
+			//setData( row, localeList);
 		}
 
-		resizeWorksheet();
+		mergeData();
 
-		function setData( $str, $text, $hints, $date )
+		resizeWorksheet();
+		
+		function mergeData()
+		{
+			var i = 0;
+			for( ; i < data.length; ++i )
+			{
+				var thisData = data[i];
+				if( isExistTotalData( thisData[0] ) == false )
+					totalData.push( thisData );
+			}
+
+			function isExistTotalData( $str )
+			{
+				var total_i = totalData.length;
+				while( total_i-- )
+				{
+					if( totalData[total_i][0] == $str )
+						return true;
+				}
+				return false;
+			}
+		}
+
+		function setData( $row, $localeList )
 		{
 			var i = 0;
 			var len = data.length;
 			var list;
+			var thisStr = $row.kr;
+			var thisHints = $row.hints;
+			var thisDate = $row.date;
+			var localeCount = $localeList.length;
 			for( i ; i < len ; i++ )
 			{
+
 				list = data[ i ];
 
-				if( list[ 0 ] == $str )
-				{
-					list[ 1 ] = $text;
-					list[ 2 ] = $hints;
-					list[ 3 ] = $date;
+				if( list[ 0 ] == thisStr )
+				{	
+					var localeIdx = 0;
+					for(; localeIdx < localeCount; ++localeIdx)
+					{
+						list[ 1 + localeIdx ] = $row[ $localeList[localeIdx] ];
+					}
+					list[ 1 + localeCount ] = thisHints;
+					list[ 1 + localeCount + 1 ] = thisDate;
 
 					return;
 				}
@@ -148,7 +204,7 @@ Upload.prototype.loadSheet = function()
 	{
 		var option = {};
 		option.colCount = col_count;
-		option.rowCount = Math.max( 2, data.length + 1 );
+		option.rowCount = Math.max( 2, totalData.length + 1 );
 
 		sheet.clear( function( $err ) 
 		{
@@ -175,7 +231,7 @@ Upload.prototype.loadSheet = function()
 	var isFinishOnCell = false;
 	function uploadData()
 	{
-		if( data.length == 0 )
+		if( totalData.length == 0 )
 		{
 			onUpdate();
 
@@ -184,7 +240,7 @@ Upload.prototype.loadSheet = function()
 
 		var param = {};
 		param[ "min-row" ] = 2;
-		param[ "max-row" ] = 1 + data.length;
+		param[ "max-row" ] = 1 + totalData.length;
 		param[ "min-col" ] = 1;
 		param[ "max-col" ] = col_count;
 		param[ "return-empty" ] = true;
@@ -204,7 +260,7 @@ Upload.prototype.loadSheet = function()
 				row = Math.floor( i / col_count );
 				col = i % col_count;
 
-				var value = data[ row ][ col ];		
+				var value = totalData[ row ][ col ];		
 				if( value == null )
 					console.log("===value is null : " + "row : " + row + ", col : " + col);		
 				if( value.indexOf( "''" ) == 0 )
@@ -245,9 +301,9 @@ Upload.prototype.loadSheet = function()
 		--requestCount;
 		if( isFinishOnCell == true && requestCount <= 0 )
 		{
-			log( "complete : " + locale + " (" + data.length + ")" );			
+			log( "complete : " + sheetName + " (" + totalData.length + ")" );						
 		}
-		else
+		else		
 			log( "onUpdate..." );
 	}
 

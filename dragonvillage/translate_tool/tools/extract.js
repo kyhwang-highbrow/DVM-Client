@@ -13,6 +13,10 @@ const ignoreFiles = [
 	"table_ban_word_naming.csv"
 ];
 
+const ignoreFolder = [
+	"data/scenario"
+];
+
 // 1. 프로젝트 루트 설정.
 var isDebug = false;
 //const hod_root = "C:/Work_Perplelab/dragonvillage/res/emulator/translate_tool";//process.env.HOD_ROOT;
@@ -29,23 +33,34 @@ if( !fs.existsSync( hod_root ) )
 
 log( "Project root : " + hod_root );
 
-var fromLua = new ExtractFromLua( hod_root + "/../src", ignoreFiles ).collect();	// 2. Lua 파일에서 긁어오기.
-var fromUI = new ExtractFromUI( hod_root + "/../res", ignoreFiles ).collect();	// 3. UI 파일에서 긁어오기.
+var spreadsheet_id = process.argv[ 3 ];
+var sheetName = process.argv[ 2 ] ;	
+var locale = process.argv[ 4 ];	
+if( isDebug )
+{		
+	spreadsheet_id = "1s3m5A7rl4JHngXFknMd3MTkbf0vVaAIPoRx3GPHJvoo";
+	locale = "en;jp;zhtw";
+	sheetName = "test";
+}
+var localeList = locale.split(';');	
+
+var fromLua = new ExtractFromLua( hod_root + "/../src", ignoreFiles, ignoreFolder ).collect();	// 2. Lua 파일에서 긁어오기.
+var fromUI = new ExtractFromUI( hod_root + "/../res", ignoreFiles, ignoreFolder ).collect();	// 3. UI 파일에서 긁어오기.
 
 var fromSvData;
 var fromSvPatchData;
-new ExtractFromData( hod_root + "/../../sv_tables", ignoreFiles ).collect( collectFromSvData );	// 4. sv_data 파일에서 긁어오기.
+new ExtractFromData( hod_root + "/../../sv_tables", ignoreFiles, ignoreFolder ).collect( collectFromSvData );	// 4. sv_data 파일에서 긁어오기.
 
 function collectFromSvData( $data )
 {
 	fromSvData = $data;
-	new ExtractFromData( hod_root + "/../../sv_tables_patch", ignoreFiles ).collect( collectFromSvPatchData );	// 5. sv_data_path 파일에서 긁어오기.
+	new ExtractFromData( hod_root + "/../../sv_tables_patch", ignoreFiles, ignoreFolder ).collect( collectFromSvPatchData );	// 5. sv_data_path 파일에서 긁어오기.
 }
 
 function collectFromSvPatchData( $data )
 {
 	fromSvPatchData = $data;
-	new ExtractFromData( hod_root + "/../data", ignoreFiles ).collect( collectFromData );	// 6. CSV 파일에서 긁어오기.
+	new ExtractFromData( hod_root + "/../data", ignoreFiles, ignoreFolder ).collect( collectFromData );	// 6. CSV 파일에서 긁어오기.
 }
 
 function collectFromData( $data )
@@ -57,29 +72,9 @@ function collectFromData( $data )
 	addData( fromSvData );
 	addData( fromSvPatchData );
 	addData( fromUI );
-
-	function isScenFile( $valeList )
-	{
-		var hintList = $valeList[2].split(',');		
-		var i = 0;
-		for(i; i < hintList.length; ++i)
-		{
-			var str = hintList[i];
-			if( str.indexOf("scen_") < 0 )
-				return false;
-		}
-
-		return true;
-	}
-
+	
 	list.sort( function( a, b )
 	{
-		//hints에 scen_이 있으면 하단으로 
-		var isScene_a = isScenFile(a);
-		var isScene_b = isScenFile(b);
-		if( isScene_a == true && isScene_b == false ) return 1;
-		if( isScene_b == true && isScene_a == false ) return -1;
-
 		if( a[ 0 ] < b[ 0 ] ) return -1;
 		if( a[ 0 ] > b[ 0 ] ) return 1;
 		return 0;
@@ -96,22 +91,16 @@ function collectFromData( $data )
 }
 
 function startUpload()
-{
-	var locale = process.argv[ 2 ];
-	var spreadsheet_id = process.argv[ 3 ];
-	if( isDebug )
-	{
-		locale = "zhtw";
-		spreadsheet_id = "1Cv2vBmWpnVwK74KN6SnL0QKdTpMoAx8VPYDzOi9yks0";
-	}
-
-	log("Upload Start : " + locale + ", " + spreadsheet_id);
-	new Upload( locale, spreadsheet_id, list);
+{	
+	log("Upload Start : " + spreadsheet_id);
+	log("localeList : "  + localeList.toString());
+	new Upload( sheetName, spreadsheet_id, list, localeList );
 }
 
 var data = {};
 var list = [];
 var count = 0;
+
 function addData( $data )
 {
 	const date_str = util.string.timeToFormat( Date.now() );
@@ -124,8 +113,16 @@ function addData( $data )
 
 		if( data[ str ] == null )
 		{
-			data[ str ] = [];
-			list.push( [ str, "", $data[ str ].hints.join( "," ), date_str ] )
+			data[ str ] = [];	
+			var tempData = [str];
+			for( locale in localeList)
+			{
+				tempData.push("");
+			}
+			tempData.push($data[ str ].hints.join( "," ));
+			tempData.push(date_str);
+
+			list.push( tempData )
 
 			count++;
 		}

@@ -4,10 +4,11 @@ const util = require( "../../js/util" );
 
 module.exports = ExtractFromLua;
 
-function ExtractFromLua( $luaDirectory, $ignoreFiles )
+function ExtractFromLua( $luaDirectory, $ignoreFiles, $ignoreFolders )
 {
 	this.directory = $luaDirectory + "/";
 	this.ignoreFiles = $ignoreFiles;	
+	this.ignoreFolders = $ignoreFolders;
 }
 
 ExtractFromLua.prototype.collect = function()
@@ -15,6 +16,7 @@ ExtractFromLua.prototype.collect = function()
 	var option = {};
 	option.ignoreFiles = this.ignoreFiles;
 	option.ignoreExtensions = [ ".bak", ".proto", ".svn-base" ];
+	option.ignoreFolders = this.ignoreFolders;
 
 	var files = util.file.getAllFiles( this.directory, option );
 

@@ -28,6 +28,10 @@ exports.getAllFiles = function( $directory, $option )
 
 			if( fs.statSync( $dir + file ).isDirectory() )
 			{
+				var tempPath = $dir + file + "/";
+				if( $option.ignoreFolders && tempPath.indexOf($option.ignoreFolders) > -1 )
+					continue;
+				
 				getFiles( $dir + file + "/" );
 
 				continue;
