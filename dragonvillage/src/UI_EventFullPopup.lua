@@ -134,6 +134,13 @@ function UI_EventFullPopup:refresh()
 end
 
 -------------------------------------
+-- function setBtnBlock
+-------------------------------------
+function UI_EventFullPopup:setBtnBlock()
+	self.vars['clickBtn']:setEnabled(false)
+end
+
+-------------------------------------
 -- function click_checkBtn
 -------------------------------------
 function UI_EventFullPopup:click_checkBtn()

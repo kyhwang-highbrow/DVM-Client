@@ -230,6 +230,7 @@ function UI_Lobby:entryCoroutine()
                 local ui = UI_EventFullPopup(pid)
                 ui:setCloseCB(function(ret) working = false end)
                 ui:openEventFullPopup()
+				ui:setBtnBlock() -- 코루틴을 종료 시킬 수가 없어 다른 UI로 못가게 막음
                 while (working) do dt = coroutine.yield() end
             end
 
