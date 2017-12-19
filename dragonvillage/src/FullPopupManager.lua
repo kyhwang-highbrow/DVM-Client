@@ -74,10 +74,10 @@ function FullPopupManager:show(type, show_func)
 		end
 
     -- 매일 매일 다이아 풀팝업 (전투화면 진입시)
-    -- 조건 : 구매하지 않은 유저 LV 3 이상
+    -- 조건 : 구매하지 않은 유저 LV 10 이상
     elseif (type == FULL_POPUP_TYPE.AUTO_PICK) then
         local lv = g_userData:get('lv')
-        local need_lv = 3
+        local need_lv = 10
         local function cb_func()
             if not (g_subscriptionData:getSubscribedInfo()) then
                 UI_SubscriptionPopup()
