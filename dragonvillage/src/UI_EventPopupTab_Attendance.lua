@@ -13,7 +13,7 @@ UI_EventPopupTab_Attendance = class(PARENT,{
 -- function init
 -------------------------------------
 function UI_EventPopupTab_Attendance:init(owner)
-    local vars = self:load('event_attendance_basic_new.ui')
+    local vars = self:load('event_attendance_basic.ui')
 
     self.m_structAttendance = g_attendanceData:getBasicAttendance()
 	self.m_isCheckHot = false
