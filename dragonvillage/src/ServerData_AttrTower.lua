@@ -343,6 +343,20 @@ function ServerData_AttrTower:getDeckName(curr_mode)
 end
 
 -------------------------------------
+-- function changeBgRes
+-- @brief 시험의 탑 맵 데이터 반환
+-- @brief map_attr_tower_fire, map_attr_tower_water, map_attr_tower_earth ..
+-------------------------------------
+function ServerData_AttrTower:changeBgRes(bg_res)
+    local bg_res = bg_res
+    if (self.m_selectAttr) then
+        bg_res = 'map_attr_tower_' .. self.m_selectAttr
+    end
+
+    return bg_res
+end
+
+-------------------------------------
 -- function checkDragonAttr
 -- @brief 드래곤 속성 체크
 -------------------------------------

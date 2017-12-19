@@ -428,6 +428,11 @@ function GameWorld:initBG(waveMgr)
         self.m_mapManager = AnimationMap(self.m_bgNode, bg_res)
 
     elseif (bg_type == 'default') then
+        -- 고대의 탑, 시험의 탑 map 데이터 변환
+        if (g_ancientTowerData:isAncientTowerStage(self.m_stageID)) then
+            bg_res = g_attrTowerData:changeBgRes(bg_res)
+        end
+
         self.m_mapManager = ScrollMap(self.m_bgNode)
         self.m_mapManager:setBg(bg_res, attr)
         self.m_mapManager:setSpeed(-100)
