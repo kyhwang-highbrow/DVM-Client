@@ -287,6 +287,9 @@ function ServerData_Event:goToEventUrl(url)
 	elseif (url == 'dragon_manage') then
         UINavigator:goTo('dragon')
 
+	elseif (url == 'hatchery') then
+		UINavigator:goTo('hatchery')
+
     else
         SDKManager:goToWeb(url)
     end
