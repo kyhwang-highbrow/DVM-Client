@@ -33,12 +33,19 @@ var fromLua = new ExtractFromLua( hod_root + "/../src", ignoreFiles ).collect();
 var fromUI = new ExtractFromUI( hod_root + "/../res", ignoreFiles ).collect();	// 3. UI 파일에서 긁어오기.
 
 var fromSvData;
+var fromSvPatchData;
 new ExtractFromData( hod_root + "/../../sv_tables", ignoreFiles ).collect( collectFromSvData );	// 4. sv_data 파일에서 긁어오기.
 
 function collectFromSvData( $data )
 {
 	fromSvData = $data;
-	new ExtractFromData( hod_root + "/../data", ignoreFiles ).collect( collectFromData );	// 5. CSV 파일에서 긁어오기.
+	new ExtractFromData( hod_root + "/../../sv_tables_patch", ignoreFiles ).collect( collectFromSvPatchData );	// 5. sv_data_path 파일에서 긁어오기.
+}
+
+function collectFromSvPatchData( $data )
+{
+	fromSvPatchData = $data;
+	new ExtractFromData( hod_root + "/../data", ignoreFiles ).collect( collectFromData );	// 6. CSV 파일에서 긁어오기.
 }
 
 function collectFromData( $data )
@@ -48,6 +55,7 @@ function collectFromData( $data )
 	addData( fromLua );
 	addData( fromData );
 	addData( fromSvData );
+	addData( fromSvPatchData );
 	addData( fromUI );
 
 	function isScenFile( $valeList )
@@ -81,6 +89,7 @@ function collectFromData( $data )
 	log( "\t Lua - " + fromLua.length );
 	log( "\t UI - " + fromUI.length );
 	log( "\t SvData - " + fromSvData.length );
+	log( "\t SvPatchData - " + fromSvPatchData.length );
 	log( "\t CSV - " + fromData.length );
 
 	startUpload();
