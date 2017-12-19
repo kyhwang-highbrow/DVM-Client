@@ -76,8 +76,10 @@ function UI_AttrTower:initUI()
         bg:setDockPoint(ZERO_POINT)
         bg:setAnchorPoint(ZERO_POINT)
         vars['bgNode']:addChild(bg)
-    end
 
+        vars['bgSprite'] = bg
+    end
+    
     local visual_id = 'icon_' .. attr
     vars['iconVisual']:changeAni(visual_id, true)
 
