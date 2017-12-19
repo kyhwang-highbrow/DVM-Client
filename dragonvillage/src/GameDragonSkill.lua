@@ -513,6 +513,13 @@ function GameDragonSkill:onEvent(event_name, t_event, ...)
             end
         end
 
+        -- 클랜 던전의 경우 AI팀의 드래곤은 연출 스킵
+        if (self.m_world.m_gameMode == GAME_MODE_CLAN_RAID) then
+            if (dragon:getPhysGroup() == self.m_world:getNPCGroup()) then
+                skip_mode = true
+            end
+        end
+
         self.m_bSkipMode = skip_mode
         
         self:setFocusingDragon(dragon)

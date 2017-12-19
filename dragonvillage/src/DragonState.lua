@@ -99,8 +99,10 @@ function Dragon.st_skillAppear(owner, dt)
         if (not b) then
             owner:reserveSkill(nil)
             owner:changeState('attackDelay')
-            
-        elseif (not world.m_gameDragonSkill:isPlaying() and not world.m_skillIndicatorMgr:isControlling()) then
+
+        elseif (world.m_gameDragonSkill:isPlaying()) then
+        elseif (world.m_skillIndicatorMgr:isControlling() and world.m_gameMode ~= GAME_MODE_CLAN_RAID) then
+        else
             owner:nextStep()
 
             -- 경직 불가능 상태 설정
@@ -128,8 +130,6 @@ function Dragon.st_skillAppear(owner, dt)
             -- 액티브 스킬 사용 이벤트 발생
             do        
                 owner:dispatch('dragon_active_skill', { is_critical = is_critical }, owner)
-        
-                owner.m_world:dispatch('dragon_active_skill', { is_critical = is_critical }, owner)
 
                 if (owner.m_bLeftFormation) then
                     owner:dispatch('hero_active_skill', { is_critical = is_critical }, owner)

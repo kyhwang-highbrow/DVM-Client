@@ -74,7 +74,7 @@ function GameMana:onEvent(event_name, t_event, ...)
         local arg = {...}
         local dragon = arg[1]
 
-        if (self.m_groupKey == dragon['phys_key']) then
+        if (self.m_groupKey == dragon:getPhysGroup()) then
             self:subtractMana(dragon:getSkillManaCost())
         end
     end

@@ -269,7 +269,7 @@ end
 -- function bindHero
 -------------------------------------
 function GameWorldClanRaid:bindHero(hero)
-    local group_key = hero['phys_key']
+    local group_key = hero:getPhysGroup()
     local game_mana
     local game_auto
 
@@ -301,7 +301,7 @@ end
 -- function addHero
 -------------------------------------
 function GameWorldClanRaid:addHero(hero)
-    local group_key = hero['phys_key']
+    local group_key = hero:getPhysGroup()
     local participants = {}
     local nonparticipants = {}
 
@@ -337,7 +337,7 @@ end
 -- function removeHero
 -------------------------------------
 function GameWorldClanRaid:removeHero(hero)
-    local group_key = hero['phys_key']
+    local group_key = hero:getPhysGroup()
     local participants = {}
     local nonparticipants = {}
 
@@ -406,7 +406,7 @@ end
 -- function addEnemy
 -------------------------------------
 function GameWorldClanRaid:addEnemy(enemy)
-    local group_key = enemy['phys_key']
+    local group_key = enemy:getPhysGroup()
     local participants = {}
     local nonparticipants = {}
 
@@ -442,7 +442,7 @@ end
 -- function removeEnemy
 -------------------------------------
 function GameWorldClanRaid:removeEnemy(enemy)
-    local group_key = enemy['phys_key']
+    local group_key = enemy:getPhysGroup()
     local participants = {}
     local nonparticipants = {}
 
@@ -517,9 +517,10 @@ end
 -- function getEnemyList
 -------------------------------------
 function GameWorldClanRaid:getEnemyList(char)
-    local group_key = char and char['phys_key']
+    if (char) then
+        -- char는 Character클래스가 아닐 수 있다
+        local group_key = char['phys_key']
 
-    if (group_key) then
         if (group_key == self:getOpponentNPCGroup()) then
             return self.m_subRightParticipants
         else
@@ -535,9 +536,10 @@ end
 -- @brief 활성화된 드래곤 리스트 반환, 기획상 기준이 바뀔 가능성이 높기 때문에 함수로 관리
 -------------------------------------
 function GameWorldClanRaid:getDragonList(char)
-    local group_key = char and char['phys_key']
+    if (char) then
+        -- char는 Character클래스가 아닐 수 있다
+        local group_key = char['phys_key']
 
-    if (group_key) then
         if (group_key == self:getNPCGroup()) then
             return self.m_subLeftParticipants
         else

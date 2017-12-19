@@ -445,7 +445,7 @@ end
 -- function getMana
 -------------------------------------
 function GameWorldClanRaid:getMana(char)
-    local group_key = char and char['phys_key'] or self:getPCGroup()
+    local group_key = char and char:getPhysGroup() or self:getPCGroup()
 
     if (group_key == self:getPCGroup()) then
         return self.m_heroMana

@@ -370,3 +370,10 @@ function SkillIndicatorMgr:setPauseMode(b, hero)
     self.m_world:setTemporaryPause(b, hero)
     self.m_bPauseMode = b
 end
+
+-------------------------------------
+-- function getControllingHero
+-------------------------------------
+function SkillIndicatorMgr:getControllingHero()
+    return self.m_selectHero
+end

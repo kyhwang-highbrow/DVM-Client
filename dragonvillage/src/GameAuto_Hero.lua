@@ -5,6 +5,7 @@ local PARENT = GameAuto
 -------------------------------------
 GameAuto_Hero = class(PARENT, {
         m_inGameUI = 'UI',
+        m_group = 'string', -- PHYS.HERO or PHYS.HERO_TOP or PHYS.HERO_BOTTOM
      })
 
 -------------------------------------
@@ -27,16 +28,36 @@ function GameAuto_Hero:init(world, game_mana, ui)
     end
 end
 
+
+-------------------------------------
+-- function prepare
+-------------------------------------
+function GameAuto_Hero:prepare(unit_list)
+    PARENT.prepare(self, unit_list)
+
+    local unit = self.m_lUnitList[1]
+    if (unit) then
+        self.m_group = unit:getPhysGroup()
+    end
+end
+
 -------------------------------------
 -- function doWork
 -------------------------------------
 function GameAuto_Hero:doWork(dt)
+    local world = self.m_world
+
     -- 인디케이터 조작중일 경우
-    if (self.m_world.m_skillIndicatorMgr:isControlling()) then
-        return
+    if (world.m_skillIndicatorMgr:isControlling()) then
+        -- 같은 팀이 이미 조작 중인 경우만 막음 처리
+        local hero = world.m_skillIndicatorMgr:getControllingHero()
+        
+        if (self.m_group == hero:getPhysGroup()) then
+            return
+        end
     end
 
-    if (not self.m_world:isPossibleControl()) then
+    if (not world:isPossibleControl()) then
         return
     end
 
