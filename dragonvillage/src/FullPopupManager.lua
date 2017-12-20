@@ -8,9 +8,7 @@ FULL_POPUP_TYPE = {
     ALL_DIA_PACK = 'all_dia_package', -- 몽땅 다이아 패키지 풀팝업
 	REINFORCE_PACK = 'reinforce_package', -- 강화 포인트 패키지
     
-	-- 미사용
-	CAFE_ON = 'hatchry_cafe_on',    -- 부화소 진입시 네이버 카페 노출
-	BP_NOTICE = 'bp_notice',		-- 밸런스 패치 안내
+	ATTR_TOWER = 'attr_tower', -- 시험의 탑 안내
 }
 -------------------------------------
 -- class FullPopupManager
@@ -128,27 +126,6 @@ function FullPopupManager:show(type, show_func)
             g_localData:applyLocalData(true, 'event_full_popup', save_key)
         end
 
-    -- 부화소 네이버 카페 SDK -- 암 오르페우스를 주는 이벤트를 유저들에게 한번 더 알리기 위해서
-    elseif (type == FULL_POPUP_TYPE.CAFE_ON) then
-        local save_key = type
-        local is_view = g_localData:get('event_full_popup', save_key) or false
-        if (not is_view) then
-            NaverCafeManager:naverCafeStart(0)
-            g_localData:applyLocalData(true, 'event_full_popup', save_key)
-        end
-
-	-- 밸런스 패치 안내 팝업
-    elseif (type == FULL_POPUP_TYPE.BP_NOTICE) then
-        local save_key = type
-        local is_view = g_localData:get('event_full_popup', save_key) or false
-        if (not is_view) then
-			local banner_res = g_eventData:getTargetEventFullPopupRes(type)
-			if (banner_res) then
-				self:showFullPopup(banner_res)
-				g_localData:applyLocalData(true, 'event_full_popup', save_key)
-			end
-        end
-
     -- 강화 패키지 풀팝업 (드래곤 관리 진입 시)
     -- 조건 : 구매하지 않은 유저 LV 30 이상
     elseif (type == FULL_POPUP_TYPE.REINFORCE_PACK) then
@@ -167,6 +144,17 @@ function FullPopupManager:show(type, show_func)
         if (lv >= need_lv) and (not is_view) and (is_buyable) then
             self:showFullPopup(pid)
             g_localData:applyLocalData(true, 'event_full_popup', save_key)
+        end
+
+	-- 밸런스 패치 안내 팝업
+    elseif (type == FULL_POPUP_TYPE.ATTR_TOWER) then
+        local save_key = type
+        local is_view = g_localData:get('event_full_popup', save_key) or false
+        if true then --(not is_view) then
+			-- 굳이 테이블로 등록하지 않고 인위적으로 생성한다.
+			local banner_res = 'banner;res/ui/event/bg_update.png'
+			self:showFullPopup(banner_res)
+			g_localData:applyLocalData(true, 'event_full_popup', save_key)
         end
 
     end

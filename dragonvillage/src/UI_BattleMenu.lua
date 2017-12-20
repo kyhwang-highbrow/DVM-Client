@@ -193,6 +193,9 @@ function UI_BattleMenu:onChangeTab(tab, first)
 
     elseif (tab == 'competition') then
         self:runBtnAppearAction(self.m_lCompetitionBtnUI)
+
+		-- 시험의 탑 컨텐츠 추가 풀팝업
+		g_fullPopupManager:show(FULL_POPUP_TYPE.ATTR_TOWER)
     end
 end
 
