@@ -9,6 +9,7 @@ StructAttendanceData = class({
         today_step = 'number', -- 출석상에서의 오늘 스텝
         step_list = 'list',
         received = 'boolean', -- false인 경우 출석 보상을 지금 받았다는 뜻(연출을 보여줘야함)
+		desc = 'string',
         category = 'string',
     })
 
@@ -57,4 +58,15 @@ end
 -------------------------------------
 function StructAttendanceData:getCategory()
     return self.category
+end
+
+-------------------------------------
+-- function getDesc
+-- @brief
+-------------------------------------
+function StructAttendanceData:getDesc()
+	local desc = self.desc
+	if (desc) and (desc ~= '') then
+		return Str(desc)
+	end
 end
