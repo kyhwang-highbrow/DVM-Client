@@ -72,10 +72,13 @@ function SkillLaserBomb:init_skill(start_res, missile_res, explosion_res, hit, t
 
     local function cb_func() 
 		self:changeState('start')
-        --self:makeEffect(explosion_res, self.m_targetPos.x, self.m_targetPos.y, 'idle')
 
 	end
     local anim = self:makeEffect(start_res, 0, 0, 'idle', cb_func)
+    if (not self.m_owner.m_bLeftFormation) then
+        anim:setPosition(CRITERIA_RESOLUTION_X, 0)
+        anim:setFlip(true)
+    end
     anim:setEventHandler(function(event)
             if event then
                 local string_value = event['eventData']['stringValue']           
@@ -89,9 +92,8 @@ function SkillLaserBomb:init_skill(start_res, missile_res, explosion_res, hit, t
                         y = l_str[2] * scale
 
                         if flip then
-                            x = -x
+                            x = CRITERIA_RESOLUTION_X - x
                         end
-                        ccdump(event)
                         if (event['eventData']['name'] == 'attack1') then
                             self.m_startPosX1 = x
                             self.m_startPosY1 = y
@@ -221,7 +223,6 @@ function SkillLaserBomb:refresh()
 
         end
     end
-        print (self.m_startPosX1, self.m_startPosY1,self.m_startPosX2, self.m_startPosY2)
 end
 
 -------------------------------------
@@ -284,7 +285,7 @@ function SkillLaserBomb:makeSkillInstance(owner, t_skill, t_data)
 	skill:setSkillParams(owner, t_skill, t_data)
     skill:init_skill(start_res, missile_res, explosion_res, hit)
 	skill:initState()
-
+        local curCameraPosX, curCameraPosY = owner.m_world.m_gameCamera:getHomePos()
 	-- 3. state 시작 
     skill:changeState('delay')
 
