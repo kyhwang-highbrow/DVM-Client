@@ -346,8 +346,9 @@ function UINavigatorDefinition:goTo_attr_tower(...)
         -- 메인 메뉴가 열려있을 경우
         local is_opend, idx, ui = self:findOpendUI('UI_AttrTowerMenuScene')
         if (is_opend == true) then
-            UI_AttrTower()
-            
+            if (attr ~= nil) then
+                UI_AttrTower()
+            end
             return
         end
 
