@@ -41,7 +41,8 @@ function UI_AttrTowerMenuItem:initUI()
     local challenge_floor = g_attrTowerData:getChallengingFloorWithAttr(attr)
 
     if (challenge_floor == 'clear') then
-        vars['gaugeLabel']:setString(Str('모두 클리어'))
+        vars['gaugeLabel']:setString(Str('정복 완료!'))
+        vars['gaugeLabel']:setColor(COLOR[attr])
     else
         vars['gaugeLabel']:setString(Str('{1}층 도전중', challenge_floor))
     end
