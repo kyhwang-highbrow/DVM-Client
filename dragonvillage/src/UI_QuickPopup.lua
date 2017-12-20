@@ -61,6 +61,7 @@ function UI_QuickPopup:initButton()
             
             vars[content .. 'Btn']:setEnabled(false)
         else
+            vars[content .. 'Btn']:setVisible(true)
             vars[content .. 'Btn']:registerScriptTapHandler(function() UINavigator:goTo(content) end)
         end
 
