@@ -514,6 +514,7 @@ local t_module = {
 	'SkillEnumrate_Penetration',
     'SkillBind',
     'SkillRandom',
+    'SkillLaserBomb',
 
     'SkillHealSingle',
     'SkillHealAround',
