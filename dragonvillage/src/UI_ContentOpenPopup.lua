@@ -39,6 +39,10 @@ function UI_ContentOpenPopup:initUI()
     local content_type = self.m_content_type
     vars['contentsVisual']:changeAni('open_'..content_type, true)
     vars['contentsLabel']:setString(getContentName(content_type))
+
+    if (content_type == 'attr_tower') then
+        self.vars['linkBtn']:setVisible(true)
+    end
 end
 
 -------------------------------------
@@ -47,12 +51,24 @@ end
 function UI_ContentOpenPopup:initButton()
     local vars = self.vars
     self.vars['okBtn']:registerScriptTapHandler(function() self:close() end)
+    self.vars['linkBtn']:registerScriptTapHandler(function() self:click_lickBtn() end)
 end
 
 -------------------------------------
 -- function refresh
 -------------------------------------
 function UI_ContentOpenPopup:refresh()
+end
+
+-------------------------------------
+-- function initButton
+-------------------------------------
+function UI_ContentOpenPopup:click_lickBtn()
+    local content_type = self.m_content_type
+    -- 시험의 탑 바로가기
+    if (content_type == 'attr_tower') then
+        UINavigator:goTo('attr_tower')
+    end
 end
 
 --@CHECK

@@ -47,12 +47,18 @@ function UI_QuickPopup:initButton()
     vars['homeBtn']:registerScriptTapHandler(function() UINavigator:goTo('lobby') end)
 
     -- 버튼 핸들러 등록과 컨텐츠 락 처리를 겸함
-    local l_content = {'adventure', 'exploration', 'nest_evo_stone', 'nest_tree', 'nest_nightmare', 'secret_relation', 'colosseum', 'ancient', 'forest', 'clan'}
+    local l_content = {'adventure', 'exploration', 'nest_evo_stone', 'nest_tree', 'nest_nightmare', 'secret_relation', 'colosseum', 'ancient', 'forest', 'clan', 'attr_tower'}
     for i, content in ipairs(l_content) do
         local is_content_lock, req_user_lv = g_contentLockData:isContentLock(content)
         if (is_content_lock) then
-            vars[content .. 'LockSprite']:setVisible(true)
-            vars[content .. 'LockLabel']:setString(Str('레벨 {1}', req_user_lv))
+            if (vars[content .. 'LockSprite']) then
+                vars[content .. 'LockSprite']:setVisible(true)
+            end
+            
+            if (vars[content .. 'LockLabel']) then
+                vars[content .. 'LockLabel']:setString(Str('레벨 {1}', req_user_lv))
+            end
+            
             vars[content .. 'Btn']:setEnabled(false)
         else
             vars[content .. 'Btn']:registerScriptTapHandler(function() UINavigator:goTo(content) end)

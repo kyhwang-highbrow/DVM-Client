@@ -19,12 +19,11 @@ function UI_AttrTowerFloorInfo:refresh_floorData()
         local my_score = info.m_myScore
         local top_score = info.m_myTopUserScore
         local top_user = info.m_topUserInfo
-        ccdump(top_user)
-        local nick = top_user:getNickname()
+        local nick = top_user and top_user:getNickname() or ''
         local str = Str('{@DESC2}{1}점\n{@DESC}{@MUSTARD2}{2}점\n{3}', my_score, top_score, nick)
         vars['scoreLabel']:setString(str)
 
-        local struct_clan = top_user:getStructClan()
+        local struct_clan = top_user and top_user:getStructClan() or nil
         if struct_clan then
             -- 클랜 마크
             local icon = struct_clan:makeClanMarkIcon()
@@ -33,8 +32,11 @@ function UI_AttrTowerFloorInfo:refresh_floorData()
 
             -- 클랜명
             local clan_name = struct_clan:getClanName()
-            vars['clanLabel']:setString(clan_name)
+            vars['clanLabel']:setString(clan_name)     
         end
+
+        vars['markNode']:setVisible(struct_clan and true or false)
+        vars['clanLabel']:setVisible(struct_clan and true or false)
 
         local stage_id = info.m_stage
         local str_help = TableStageData():getValue(tonumber(stage_id), 't_help')
