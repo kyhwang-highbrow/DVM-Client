@@ -101,13 +101,11 @@ T_LINK_FUNC = {
 
     -- 시험의 탑 플레이
     ['ply_attr_tower'] = function()
-        local attr = g_attrTowerData:getSelAttr()
         UINavigator:goTo('attr_tower')
     end,
 
 	-- 시험의 탑 클리어
     ['clr_att_all'] = function()
-        local attr = g_attrTowerData:getSelAttr()
         UINavigator:goTo('attr_tower')
     end,
 
