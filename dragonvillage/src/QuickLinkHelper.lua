@@ -93,16 +93,22 @@ T_LINK_FUNC = {
     ['ply_tower'] = function()
         UINavigator:goTo('ancient')
     end,
+    
+    -- 고대의 탑 클리어
+    ['clr_tower'] = function()
+        UINavigator:goTo('ancient')
+    end,
 
     -- 시험의 탑 플레이
     ['ply_attr_tower'] = function()
         local attr = g_attrTowerData:getSelAttr()
         UINavigator:goTo('attr_tower')
     end,
-    
-    -- 고대의 탑 클리어
-    ['clr_tower'] = function()
-        UINavigator:goTo('ancient')
+
+	-- 시험의 탑 클리어
+    ['clr_att_all'] = function()
+        local attr = g_attrTowerData:getSelAttr()
+        UINavigator:goTo('attr_tower')
     end,
 
     -- 콜로세움 플레이

@@ -150,7 +150,12 @@ function FullPopupManager:show(type, show_func)
     elseif (type == FULL_POPUP_TYPE.ATTR_TOWER) then
         local save_key = type
         local is_view = g_localData:get('event_full_popup', save_key) or false
-        if (not is_view) then
+		
+		-- 레벨 조건
+        local lv = g_userData:get('lv')
+        local need_lv = 20
+
+        if (not is_view) and (lv >= need_lv) then
 			-- 굳이 테이블로 등록하지 않고 인위적으로 생성한다.
 			local banner_res = 'banner;res/ui/event/bg_attr_tower.png'
 			self:showFullPopup(banner_res)
