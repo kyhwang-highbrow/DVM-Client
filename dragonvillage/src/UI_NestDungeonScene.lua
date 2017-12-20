@@ -97,7 +97,8 @@ function UI_NestDungeonScene:initUI()
         -- 테이블 뷰 인스턴스 생성
         local table_view = UIC_TableView(node)
         table_view.m_defaultCellSize = cc.size(270 + 40, 660)
-        table_view.m_bAlignCenterInInsufficient = true -- 리스트 내 개수 부족 시 가운데 정렬
+        table_view:setAlignCenter(true) -- 리스트 내 개수 부족 시 가운데 정렬
+		table_view:setMakeLookingCellFirst(false) -- 눈에 보이는 셀 먼저 생성하지 않도록 함
         table_view:setCellUIClass(UI_NestDungeonListItem, create_func)
         table_view:setDirection(cc.SCROLLVIEW_DIRECTION_HORIZONTAL)
         table_view:setItemList(t_dungeon)
@@ -317,7 +318,6 @@ function UI_NestDungeonScene:closeSubMenu()
 
     for i,v in ipairs(self.m_tableView.m_itemList) do
         if (v['unique_id'] ~= key) then
-            
             if v['ui'] then
                 v['ui'].root:setScale(0)
                 local scale_to = cc.ScaleTo:create(0.25, 1)

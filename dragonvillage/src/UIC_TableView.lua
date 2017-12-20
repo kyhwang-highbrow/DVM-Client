@@ -46,6 +46,8 @@ UIC_TableView = class(PARENT, {
         m_emptyDescLabel = 'cc.LabelTTF',
         m_emptyUI = '',
 
+		-- 보이는 셀 미리 생성
+		m_isMakeLookingCellFirst = 'bool', -- 사용 여부
 		m_visibleStartIdx = 'number',
 		m_visibleEndIdx = 'number',
 		
@@ -77,6 +79,7 @@ function UIC_TableView:init(node)
     self.m_bDirtyItemList = false
 
 	self.m_scrollLock = false
+	self.m_bAlignCenterInInsufficient = false
 
     -- 스크롤 뷰 생성
     local content_size = node:getContentSize()
@@ -85,6 +88,9 @@ function UIC_TableView:init(node)
     -- UI생성 큐
     self.m_makeReserveQueue = {}
     self.m_makeTimer = 0
+	
+	-- 보이는 셀 미리 생성
+	self.m_isMakeLookingCellFirst = true
 	self.m_visibleStartIdx = 1
 	self.m_visibleEndIdx = 1
 
@@ -141,18 +147,20 @@ function UIC_TableView:update(dt)
     if (self.m_makeTimer <= 0) then
         
 		-- 눈에 보이는 셀부터 먼저 생성되도록 큐에 담음
-		for i=self.m_visibleStartIdx, self.m_visibleEndIdx do
-			local t_item = self.m_itemList[i]
-			if (t_item) then
-				if t_item['reserved'] and (not t_item['ui']) then
-					for i,v in ipairs(self.m_makeReserveQueue) do
-						if (t_item == v) then
-							table.remove(self.m_makeReserveQueue, i)
-							break
+		if (self.m_isMakeLookingCellFirst) then
+			for i=self.m_visibleStartIdx, self.m_visibleEndIdx do
+				local t_item = self.m_itemList[i]
+				if (t_item) then
+					if t_item['reserved'] and (not t_item['ui']) then
+						for i,v in ipairs(self.m_makeReserveQueue) do
+							if (t_item == v) then
+								table.remove(self.m_makeReserveQueue, i)
+								break
+							end
 						end
+						table.insert(self.m_makeReserveQueue, 1, t_item)
+						break
 					end
-					table.insert(self.m_makeReserveQueue, 1, t_item)
-					break
 				end
 			end
 		end
@@ -732,37 +740,6 @@ end
 
 
 
-
-
--------------------------------------
--- function setUseVariableSize
--------------------------------------
-function UIC_TableView:setUseVariableSize(b)
-    self.m_bVariableCellSize = b
-end
-
--------------------------------------
--- function setVerticalFillOrder
--- @param order
--- cc.TABLEVIEW_FILL_TOPDOWN = 0
--- cc.TABLEVIEW_FILL_BOTTOMUP = 1
--------------------------------------
-function UIC_TableView:setVerticalFillOrder(order)
-    self._vordering = order
-end
-
--------------------------------------
--- function setDirection
--- @param direction
--- cc.SCROLLVIEW_DIRECTION_NONE = -1
--- cc.SCROLLVIEW_DIRECTION_HORIZONTAL = 0
--- cc.SCROLLVIEW_DIRECTION_VERTICAL = 1
--- cc.SCROLLVIEW_DIRECTION_BOTH  = 2
--------------------------------------
-function UIC_TableView:setDirection(direction)
-    self.m_scrollView:setDirection(direction)
-    self._direction = direction
-end
 
 -------------------------------------
 -- function setItemList
@@ -1394,14 +1371,6 @@ function UIC_TableView:setDirtyItemList()
 end
 
 -------------------------------------
--- function setCellCreateDirecting
--- @brief 셀 생성 연출
--------------------------------------
-function UIC_TableView:setCellCreateDirecting(n)
-    self._cellCreateDirecting = n
-end
-
--------------------------------------
 -- function refreshAllItemUI
 -------------------------------------
 function UIC_TableView:refreshAllItemUI()
@@ -1437,10 +1406,81 @@ function UIC_TableView:setScrollEndCB(cb_func)
 	end
 end
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+-------------------------------------
+-- public
+-------------------------------------
+
+-------------------------------------
+-- function setUseVariableSize
+-------------------------------------
+function UIC_TableView:setUseVariableSize(b)
+    self.m_bVariableCellSize = b
+end
+
+-------------------------------------
+-- function setVerticalFillOrder
+-- @param order
+-- cc.TABLEVIEW_FILL_TOPDOWN = 0
+-- cc.TABLEVIEW_FILL_BOTTOMUP = 1
+-------------------------------------
+function UIC_TableView:setVerticalFillOrder(order)
+    self._vordering = order
+end
+
+-------------------------------------
+-- function setDirection
+-- @param direction
+-- cc.SCROLLVIEW_DIRECTION_NONE = -1
+-- cc.SCROLLVIEW_DIRECTION_HORIZONTAL = 0
+-- cc.SCROLLVIEW_DIRECTION_VERTICAL = 1
+-- cc.SCROLLVIEW_DIRECTION_BOTH  = 2
+-------------------------------------
+function UIC_TableView:setDirection(direction)
+    self.m_scrollView:setDirection(direction)
+    self._direction = direction
+end
+
 -------------------------------------
 -- function setScrollEndLock
 -------------------------------------
 function UIC_TableView:setScrollLock(b)
 	self.m_scrollView:setTouchEnabled(not b)
     self.m_scrollLock = b
+end
+
+-------------------------------------
+-- function setCellCreateDirecting
+-- @brief 셀 생성 연출
+-------------------------------------
+function UIC_TableView:setCellCreateDirecting(n)
+    self._cellCreateDirecting = n
+end
+
+-------------------------------------
+-- function setMakeLookingCellFirst
+-- @brief 눈에 보이는 셀 먼저 생성할지 여부
+-------------------------------------
+function UIC_TableView:setMakeLookingCellFirst(b)
+	self.m_isMakeLookingCellFirst = b
+end
+
+-------------------------------------
+-- function setAlignCenter
+-- @brief 갯수 부족시 가운데 정렬
+-------------------------------------
+function UIC_TableView:setAlignCenter(b)
+    self.m_bAlignCenterInInsufficient = b
 end
