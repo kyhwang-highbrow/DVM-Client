@@ -249,6 +249,19 @@ function TableItem:getItemName(item_id)
 end
 
 -------------------------------------
+-- function getItemDesc
+-- @brief
+-------------------------------------
+function TableItem:getItemDesc(item_id)
+    if (self == THIS) then
+        self = THIS()
+    end
+
+	local desc = self:getValue(item_id, 't_desc')
+    return Str(desc)
+end
+
+-------------------------------------
 -- function getItemName
 -- @brief
 -------------------------------------
