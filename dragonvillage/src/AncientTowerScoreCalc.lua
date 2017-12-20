@@ -132,6 +132,11 @@ end
 -- @brief 조건 : 스테이지에 지정된 속성의 드래곤
 -------------------------------------
 function AncientTowerScoreCalc:calcAttrBonus()
+    -- 시험의 탑은 속성 보너스 제외
+    if (g_ancientTowerData:isAttrChallengeMode()) then
+        return 0
+    end
+
     local recorder_info = self.m_lrecorder
     local active_count = 0
 

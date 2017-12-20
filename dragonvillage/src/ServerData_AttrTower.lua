@@ -49,6 +49,42 @@ function ServerData_AttrTower:getSelAttr()
 end
 
 -------------------------------------
+-- function getSelAttrName
+-------------------------------------
+function ServerData_AttrTower:getSelAttrName()
+    return dragonAttributeName(self.m_selectAttr)
+end
+
+-------------------------------------
+-- function getAttrTopName
+-------------------------------------
+function ServerData_AttrTower:getAttrTopName()
+    local attr = self.m_selectAttr
+    local top_name = Str('{1}의 탑', dragonAttributeName(attr))
+
+    return top_name
+end
+
+-------------------------------------
+-- function getAttrTopName_Color
+-------------------------------------
+function ServerData_AttrTower:getAttrTopName_Color(attr)
+    local attr = attr or self.m_selectAttr
+    local tower_name = Str('의 탑')
+    local top_name = string.format('{@%s}%s{@white}%s', attr, dragonAttributeName(attr), tower_name)
+
+    return top_name
+end
+
+-------------------------------------
+-- function isContentOpen
+-------------------------------------
+function ServerData_AttrTower:isContentOpen()
+    local is_open = g_userData:get('attr_tower_open') or false
+    return is_open
+end
+
+-------------------------------------
 -- function getNextStageID
 -- @brief
 -------------------------------------
@@ -82,9 +118,10 @@ end
 -- function getStageName
 -------------------------------------
 function ServerData_AttrTower:getStageName(stage_id)
+    local attr = self.m_selectAttr
     local floor = self:getFloorFromStageID(stage_id)
+    local name = Str('{1}의 탑 {2}층', dragonAttributeName(attr), floor)
 
-    local name = Str('시험의 탑 {1}층', floor)
     return name
 end
 

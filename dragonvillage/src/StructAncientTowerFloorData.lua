@@ -43,6 +43,18 @@ function StructAncientTowerFloorData:applyTableData(data)
         local key = replacement[k] and replacement[k] or k
         self[key] = v
     end
+
+    -- topuser -> StructUserInfoAncientTower 로
+    local user_info = clone(self.m_topUserInfo)
+    if (user_info) then
+        self.m_topUserInfo = StructUserInfoAncientTower(user_info)
+        self.m_topUserInfo.m_nickname = user_info['nick']
+        if (user_info['clan_info']) then
+            local struct_clan = StructClan({})
+            struct_clan:applySimple(user_info['clan_info'])
+            self.m_topUserInfo:setStructClan(struct_clan)
+        end
+    end
 end
 
 -------------------------------------
@@ -98,16 +110,4 @@ end
 function StructAncientTowerFloorData:getMonsterList()
     local stage_id = self.m_stage
     return TableStageDesc():getMonsterIDList(stage_id)
-end
-
--------------------------------------
--- function getTopUserNick
--- @breif 현재 층 랭커 닉네임
--------------------------------------
-function StructAncientTowerFloorData:getTopUserNick()
-    local top_user_info = self.m_topUserInfo
-    -- 랭커 없을 경우 
-    if (not top_user_info) then return '' end
-
-    return top_user_info['nick'] or ''
 end

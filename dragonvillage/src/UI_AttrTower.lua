@@ -57,7 +57,7 @@ function UI_AttrTower:initParentVariable()
     -- ITopUserInfo_EventListener의 맴버 변수들 설정
     self.m_uiName = 'UI_AttrTower'
     self.m_bUseExitBtn = true
-    self.m_titleStr = Str('시험의 탑')
+    self.m_titleStr = g_attrTowerData:getAttrTopName()
     self.m_staminaType = 'tower'
     self.m_uiBgm = 'bgm_lobby'
 end
@@ -83,9 +83,8 @@ function UI_AttrTower:initUI()
     local visual_id = 'icon_' .. attr
     vars['iconVisual']:changeAni(visual_id, true)
 
-    local color = COLOR[attr]
-    vars['attrLabel']:setColor(color)
-    vars['attrLabel']:setString(dragonAttributeName(attr))
+    local top_name = g_attrTowerData:getAttrTopName_Color()
+    vars['attrLabel']:setString(top_name)
 
 	do -- 테이블 뷰 생성
         local node = vars['floorNode']
@@ -213,7 +212,9 @@ function UI_AttrTower:refresh(floor_info)
 
     -- 준비 버튼 활성화/비활성화
     local select_floor = floor_info.m_floor + ANCIENT_TOWER_STAGE_ID_START
-    vars['readyBtn']:setEnabled(g_attrTowerData:isOpenStage(select_floor))
+    local is_open = g_attrTowerData:isOpenStage(select_floor)
+    vars['readyBtn']:setEnabled(is_open)
+    vars['lockSprite']:setVisible(not is_open)
 end
 
 -------------------------------------

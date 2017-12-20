@@ -9,7 +9,7 @@ StructAttrTowerFloorData = class({
         m_floor = 'number',             -- 층
         m_myScore = 'number',           -- 내 점수
         m_myTopUserScore = 'number',    -- 최고 유저 점수
-        m_topUserInfo = 'StructUserInfo',                  
+        m_topUserInfo = 'StructUserInfoAncientTower',                  
     })
 
 -------------------------------------
@@ -39,6 +39,19 @@ function StructAttrTowerFloorData:applyTableData(data)
         local key = replacement[k] and replacement[k] or k
         self[key] = v
     end
+
+    -- topuser -> StructUserInfoAncientTower 로
+    local user_info = clone(self.m_topUserInfo)
+    if (user_info) then
+        self.m_topUserInfo = StructUserInfoAncientTower(user_info)
+        self.m_topUserInfo.m_nickname = user_info['nick']
+        if (user_info['clan_info']) then
+            local struct_clan = StructClan({})
+            struct_clan:applySimple(user_info['clan_info'])
+            self.m_topUserInfo:setStructClan(struct_clan)
+        end
+    end
+
 end
 
 -------------------------------------

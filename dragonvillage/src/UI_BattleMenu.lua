@@ -270,24 +270,30 @@ function UI_BattleMenu:initCompetitionTab()
     local vars = self.vars
 
     local l_btn_ui = {}
+    local attr_open = g_attrTowerData:isContentOpen()
+
+    local pos_x = attr_open and 368 or 194
+    local pos_y = 94
 
     -- 고대의 탑
     local ui = UI_BattleMenuItem('ancient')
-    ui.root:setPosition(-368, -94)
+    ui.root:setPosition(-pos_x, -94)
     vars['competitionMenu']:addChild(ui.root)
-    table.insert(l_btn_ui, {['ui']=ui, ['x']=-368, ['y']=-94})
+    table.insert(l_btn_ui, {['ui']=ui, ['x']=-pos_x, ['y']=-pos_y})
 
-    -- 시험의 탑
-    local ui = UI_BattleMenuItem('attr_tower')
-    ui.root:setPosition(0, -94)
-    vars['competitionMenu']:addChild(ui.root)
-    table.insert(l_btn_ui, {['ui']=ui, ['x']=0, ['y']=-94})
-    
+    -- 시험의 탑 (오픈되었을때만 메뉴에 추가)
+    if (attr_open) then
+        local ui = UI_BattleMenuItem('attr_tower')
+        ui.root:setPosition(0, -94)
+        vars['competitionMenu']:addChild(ui.root)
+        table.insert(l_btn_ui, {['ui']=ui, ['x']=0, ['y']=-pos_y})
+    end
+
     -- 콜로세움
     local ui = UI_BattleMenuItem('colosseum')
-    ui.root:setPosition(368, -94)
+    ui.root:setPosition(pos_x, -94)
     vars['competitionMenu']:addChild(ui.root)
-    table.insert(l_btn_ui, {['ui']=ui, ['x']=368, ['y']=-94})
+    table.insert(l_btn_ui, {['ui']=ui, ['x']=pos_x, ['y']=-pos_y})
 
     self.m_lCompetitionBtnUI = l_btn_ui
 end

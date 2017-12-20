@@ -63,9 +63,22 @@ function UI_AncientTowerFloorInfo:refresh_floorData()
         local my_score = info.m_myScore
         local my_high_score = info.m_myHighScore
         local season_high_score = info.m_seasonHighScore
-        local top_user = info:getTopUserNick()
-        local str = Str('{@DESC2}{1}점\n{@DESC}{@MUSTARD2}{2}점\n{@DESC}{3}점\n{4}', my_high_score, my_score, season_high_score, top_user)
+        local top_user = info.m_topUserInfo
+        local nick = top_user:getNickname()
+        local str = Str('{@DESC2}{1}점\n{@DESC}{@MUSTARD2}{2}점\n{@DESC}{3}점\n{4}', my_high_score, my_score, season_high_score, nick)
         vars['scoreLabel']:setString(str)
+
+        local struct_clan = top_user:getStructClan()
+        if struct_clan then
+            -- 클랜 마크
+            local icon = struct_clan:makeClanMarkIcon()
+            vars['markNode']:removeAllChildren()
+            vars['markNode']:addChild(icon)
+
+            -- 클랜명
+            local clan_name = struct_clan:getClanName()
+            vars['clanLabel']:setString(clan_name)
+        end
 
         local fail_cnt = info.m_failCnt
         vars['challengeLabel']:setString(Str('도전 횟수 {1}회', fail_cnt))

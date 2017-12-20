@@ -12,13 +12,29 @@ function UI_AttrTowerFloorInfo:refresh_floorData()
     local vars = self.m_uiScene.vars
     local info = self.m_floorInfo
 
-    vars['towerTabLabel']:setString(Str('시험의 탑 {1}층', info.m_floor))
+    local attr_name = g_attrTowerData:getSelAttrName()
+    vars['towerTabLabel']:setString(Str('{1}의 탑 {2}층', attr_name, info.m_floor))
 
     do -- 층 정보
         local my_score = info.m_myScore
         local top_score = info.m_myTopUserScore
-        local str = Str('{@DESC2}{1}점\n{@DESC}{@MUSTARD2}{2}점', my_score, top_score)
+        local top_user = info.m_topUserInfo
+        ccdump(top_user)
+        local nick = top_user:getNickname()
+        local str = Str('{@DESC2}{1}점\n{@DESC}{@MUSTARD2}{2}점\n{3}', my_score, top_score, nick)
         vars['scoreLabel']:setString(str)
+
+        local struct_clan = top_user:getStructClan()
+        if struct_clan then
+            -- 클랜 마크
+            local icon = struct_clan:makeClanMarkIcon()
+            vars['markNode']:removeAllChildren()
+            vars['markNode']:addChild(icon)
+
+            -- 클랜명
+            local clan_name = struct_clan:getClanName()
+            vars['clanLabel']:setString(clan_name)
+        end
 
         local stage_id = info.m_stage
         local str_help = TableStageData():getValue(tonumber(stage_id), 't_help')
@@ -31,6 +47,10 @@ function UI_AttrTowerFloorInfo:refresh_floorData()
         local icon = IconHelper:getStaminaInboxIcon(st_type)
         vars['staminaNode']:addChild(icon)
         vars['actingPowerLabel']:setString(st_cnt)
+    end
+
+    do -- 잠겨있다면 준비하기 버튼 비활성화
+
     end
 end
 
