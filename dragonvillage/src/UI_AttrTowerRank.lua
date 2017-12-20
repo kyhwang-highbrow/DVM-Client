@@ -5,6 +5,8 @@ local PARENT = UI_AncientTowerRank
 -------------------------------------
 UI_AttrTowerRank = class(PARENT, {})
 
+local OFFSET_GAP = 20 -- 한번에 보여주는 랭커 수
+
 -------------------------------------
 -- function init
 -------------------------------------
