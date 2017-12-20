@@ -40,16 +40,17 @@ function StatusEffect_Dispell:initFromTable(t_status_effect, target_char)
     -- val 값은 all이거나 category;good/bad 이거나 name;이름, type;타입 의 형태.
     for i = 1, 4 do
         local str = t_status_effect['val_' .. i]
+        self.m_dispellTarget[i] = {}
         if (str and str ~= '')then 
             if (str == 'all') then
-                self.m_dispellTarget['all'] = str
+                self.m_dispellTarget[i]['all'] = str
                 break
             end
             local temp = pl.stringx.split(str, ';')
             local column = temp[1]
             local value = temp[2]
         
-            self.m_dispellTarget[column] = value
+            self.m_dispellTarget[i][column] = value
         end
     end
 end
@@ -69,30 +70,32 @@ end
 function StatusEffect_Dispell:onApplyOverlab(unit)
     local b = false
 
-    for k, v in pairs(self.m_dispellTarget) do
-		-- 디스펠 시전
-        if (k == 'all') then
-            if (self:dispellAll()) then b = true end
+    for i, v0 in ipairs(self.m_dispellTarget) do
+        for k, v in pairs(v0) do
+		    -- 디스펠 시전
+            if (k == 'all') then
+                if (self:dispellAll()) then b = true end
 
-        elseif (k == 'category') then
-            if (v == 'good') then
-                if (self:dispellBuff()) then b = true end
+            elseif (k == 'category') then
+                if (v == 'good') then
+                    if (self:dispellBuff()) then b = true end
                 
-            elseif(v == 'bad') then
-                if (self:dispellDebuff()) then b = true end
+                elseif(v == 'bad') then
+                    if (self:dispellDebuff()) then b = true end
                 
-            end
+                end
 
-        elseif (k == 'name') then
-            local t_status_effect = TABLE:get('status_effect')
-            if (StatusEffectHelper:isHarmful(t_status_effect[v]['category'])) then
-                if (self:dispellDebuff(v)) then b = true end
-            else
-                if (self:dispellBuff(v)) then b = true end
+            elseif (k == 'name') then
+                local t_status_effect = TABLE:get('status_effect')
+                if (StatusEffectHelper:isHarmful(t_status_effect[v]['category'])) then
+                    if (self:dispellDebuff(v)) then b = true end
+                else
+                    if (self:dispellBuff(v)) then b = true end
                 
+                end
+            elseif (k == 'type') then
+                -- 추후 구현예정
             end
-        elseif (k == 'type') then
-            -- 추후 구현예정
         end
     end
 
