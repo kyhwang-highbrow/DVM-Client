@@ -31,8 +31,9 @@ function UI_AttrTowerMenuItem:initUI()
     local vars = self.vars
 
     local attr = self.m_attr
-    local top_name = g_attrTowerData:getAttrTopName_Color(attr)
+    local top_name = g_attrTowerData:getAttrTopName(attr)
     vars['attrLabel']:setString(top_name)
+    vars['attrLabel']:setColor(COLOR[attr])
 
     local visual_id = 'icon_' .. attr
     vars['iconVisual']:changeAni(visual_id, true)

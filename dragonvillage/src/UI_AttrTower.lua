@@ -83,9 +83,6 @@ function UI_AttrTower:initUI()
     local visual_id = 'icon_' .. attr
     vars['iconVisual']:changeAni(visual_id, true)
 
-    local top_name = g_attrTowerData:getAttrTopName_Color()
-    vars['attrLabel']:setString(top_name)
-
 	do -- 테이블 뷰 생성
         local node = vars['floorNode']
         node:removeAllChildren()

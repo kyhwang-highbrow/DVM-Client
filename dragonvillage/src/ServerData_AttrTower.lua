@@ -58,20 +58,9 @@ end
 -------------------------------------
 -- function getAttrTopName
 -------------------------------------
-function ServerData_AttrTower:getAttrTopName()
-    local attr = self.m_selectAttr
-    local top_name = Str('{1}의 탑', dragonAttributeName(attr))
-
-    return top_name
-end
-
--------------------------------------
--- function getAttrTopName_Color
--------------------------------------
-function ServerData_AttrTower:getAttrTopName_Color(attr)
+function ServerData_AttrTower:getAttrTopName(attr)
     local attr = attr or self.m_selectAttr
-    local tower_name = Str('의 탑')
-    local top_name = string.format('{@%s}%s{@white}%s', attr, dragonAttributeName(attr), tower_name)
+    local top_name = Str('{1}의 탑', dragonAttributeName(attr))
 
     return top_name
 end
