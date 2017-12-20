@@ -64,7 +64,7 @@ function SkillIndicatorMgr:init(world)
     self.m_firstTouchPos = nil
     self.m_firstTouchUIPos = nil
 
-    self.m_uiToolTip = UI_Tooltip_Indicator()
+    self.m_uiToolTip = UI_Tooltip_Indicator(world)
 end
 
 -------------------------------------

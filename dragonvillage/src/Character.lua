@@ -1793,6 +1793,21 @@ function Character:calcAttackPeriod(calc_attack_tick)
 end
 
 -------------------------------------
+-- function updatePhys
+-------------------------------------
+function Character:updatePhys(dt)
+    PARENT.updatePhys(self, dt)
+
+    -- 이동 목표 지점을 지나친 경우 목표 지점으로 세팅
+	if (self.m_isOnTheMove) then
+        if self:isOverTargetPos(true) then
+            self:setPosition(self.m_targetPosX, self.m_targetPosY)
+            self:resetMove()
+        end
+	end
+end
+
+-------------------------------------
 -- function update
 -------------------------------------
 function Character:update(dt)
@@ -1807,22 +1822,12 @@ function Character:update(dt)
         end
     end
 
-    if (not self:isDead() and self.m_world.m_gameState:isFight()) then
-        -- 로밍
-        if (self.m_bRoam) then
-			self:updateRoaming(dt)
-            self:syncAniAndPhys()
-        end
+    -- 로밍
+    self:updateRoaming(dt)
         
-		-- 쿨타임 스킬 타이머
-        self:updateBasicSkillTimer(dt)
-    end
-
-	-- 이동 시 업데이트
-	if (self.m_isOnTheMove) then
-		self:updateMove(dt)
-	end
-		
+    -- 쿨타임 스킬 타이머(액티브 제외)
+    self:updateBasicSkillTimer(dt)
+        		
 	-- 잔상 효과 업데이트
 	if (self.m_isUseAfterImage) then
 		self:updateAfterImage(dt)
@@ -1837,18 +1842,6 @@ function Character:update(dt)
     end
 
     return PARENT.update(self, dt)
-end
-
--------------------------------------
--- function updateMove
--------------------------------------
-function Character:updateMove()
-    local body = self.body
-
-    if self:isOverTargetPos(true) then
-        self:setPosition(self.m_targetPosX, self.m_targetPosY)
-        self:resetMove()
-    end
 end
 
 -------------------------------------
@@ -1885,17 +1878,17 @@ function Character:updateBasicSkillTimer(dt)
 		return
 	end
 
-    if (self.m_isSilence) then
-		return
-	end
-
-    -- 스킬 사용 불가 상태
-    if (isExistValue(self.m_state, 'delegate', 'stun')) then
+    if (not self.m_world.m_gameState:isFight()) then
         return
     end
 
-    -- 이미 스킬을 사용하기 위한 상태일 경우
-    if (isExistValue(self.m_state, 'skillPrepare', 'skillAppear', 'skillIdle')) then
+    -- 스킬 사용 불가 상태효과가 있을 경우
+    if (self:hasStatusEffectToDisableSkill()) then
+        return
+    end
+
+    -- 이미 스킬을 사용하기 위한 상태나 사용 중인 경우
+    if (isExistValue(self.m_state, 'skillPrepare', 'skillAppear', 'skillIdle', 'delegate')) then
         return
     end
 
@@ -2137,7 +2130,8 @@ end
 -- @brief roaming을 한다
 -------------------------------------
 function Character:updateRoaming(dt)
-    if (not self:isPossibleMove(-1)) then
+    if (not self.m_bRoam) then return end
+    if (not self:isPossibleMove(-1) or self.m_world.m_gameState:isFight() == false) then
         self:stopRoaming()
         return
     end
@@ -2162,6 +2156,8 @@ function Character:updateRoaming(dt)
     else
         self.m_roamTimer = self.m_roamTimer - dt
     end
+
+    self:syncAniAndPhys()
 end
 
 -------------------------------------
@@ -2782,10 +2778,6 @@ function Character:setTemporaryPause(pause)
             self:syncAniAndPhys()
 
             cca.stopAction(target_node, CHARACTER_ACTION_TAG__FLOATING)
-
-            if (self.m_bRoam) then
-                self:stopRoaming()
-            end
         else
             self:runAction_Floating()
         end

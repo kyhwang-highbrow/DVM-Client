@@ -204,13 +204,12 @@ function Monster:initState()
 end
 
 -------------------------------------
--- function update
+-- function updatePhys
 -------------------------------------
-function Monster:update(dt)
-    -- 임시 처리
-    self:updateBonePos(dt)
+function Monster:updatePhys(dt)
+    PARENT.updatePhys(self, dt)
 
-    return PARENT.update(self, dt)
+    self:updateBonePos(dt)
 end
 
 -------------------------------------

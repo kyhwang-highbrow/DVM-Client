@@ -142,6 +142,15 @@ function Tamer:onEvent(event_name, t_event, ...)
 end
 
 -------------------------------------
+-- function updatePhys
+-------------------------------------
+function Tamer:updatePhys(dt)
+    PARENT.updatePhys(self, dt)
+
+    self:syncAniAndPhys()
+end
+
+-------------------------------------
 -- function update
 -------------------------------------
 function Tamer:update(dt)
@@ -149,8 +158,6 @@ function Tamer:update(dt)
         self:updateMovingAfterImage(dt)
     end
 
-    self:syncAniAndPhys()
-        
     return PARENT.update(self, dt)
 end
 

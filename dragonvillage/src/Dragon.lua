@@ -204,7 +204,7 @@ function Dragon:update(dt)
         self:updateMovingAfterImage(dt)
     end
 
-    return Character.update(self, dt)
+    return PARENT.update(self, dt)
 end
 
 -------------------------------------

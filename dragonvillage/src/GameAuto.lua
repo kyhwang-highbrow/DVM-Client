@@ -230,10 +230,6 @@ function GameAuto:doWork(dt)
                     break
                 end
             end
-            
-            if (not self.m_curUnit) then
-                self.m_curUnit = list[1]
-            end
         end
     end
 
@@ -326,8 +322,7 @@ end
 -------------------------------------
 function GameAuto:findTarget(unit, t_skill)
     local target_type = t_skill['target_type']
-	--local target_count = t_skill['target_count']
-    local target_count = nil
+	local target_count = nil
     local target_formation = t_skill['target_formation']
     local ai_division = t_skill['ai_division']
 

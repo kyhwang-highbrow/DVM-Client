@@ -14,7 +14,7 @@ UI_Tooltip_Indicator = class(PARENT, {
 -------------------------------------
 -- function init
 -------------------------------------
-function UI_Tooltip_Indicator:init()
+function UI_Tooltip_Indicator:init(world)
     local vars = self:load('ingame_drag_info.ui')
     UIManager:open(self, UIManager.TOOLTIP)
 
@@ -23,9 +23,14 @@ function UI_Tooltip_Indicator:init()
 
 	self:doActionReverse()
 
-    --self:initUI()
-    --self:initButton()
-    --self:refresh()
+    -- 클랜 던전의 경우 위치 조정
+    if (world.m_gameMode == GAME_MODE_CLAN_RAID) then
+        if (world:getPCGroup() == PHYS.HERO_TOP) then
+            vars['bottomMenu']:setAnchorPoint(cc.p(0, 0))
+            vars['bottomMenu']:setDockPoint(cc.p(0, 0))
+            vars['bottomMenu']:setPosition(4, 4)
+        end
+    end
 end
 
 -------------------------------------
