@@ -290,7 +290,7 @@ function Skill:setSkillParams(owner, t_skill, t_data)
 	self.m_targetLimit = SkillHelper:getValid(t_skill['target_count'])
 	self.m_targetFormation = SkillHelper:getValid(t_skill['target_formation'])
 
-	self.m_bSkillHitEffect = g_gameScene.m_bDevelopMode or (owner.m_bLeftFormation and (t_skill['chance_type'] == 'active')) 
+	self.m_bSkillHitEffect = (g_gameScene.m_bDevelopMode and self.m_world.m_gameMode ~= GAME_MODE_COLOSSEUM) or (owner.m_bLeftFormation and (t_skill['chance_type'] == 'active')) 
         
     -- 콤보 이펙트 생성
     if (self.m_bSkillHitEffect) then
