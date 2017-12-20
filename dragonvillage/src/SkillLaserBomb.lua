@@ -74,9 +74,10 @@ function SkillLaserBomb:init_skill(start_res, missile_res, explosion_res, hit, t
 		self:changeState('start')
 
 	end
-    local anim = self:makeEffect(start_res, 0, 0, 'idle', cb_func)
+    local camera_x, camera_y = g_gameScene.m_gameWorld.m_gameCamera:getHomePos()
+    local anim = self:makeEffect(start_res, camera_x, camera_y, 'idle', cb_func)
     if (not self.m_owner.m_bLeftFormation) then
-        anim:setPosition(CRITERIA_RESOLUTION_X, 0)
+        anim:setPositionX(CRITERIA_RESOLUTION_X)
         anim:setFlip(true)
     end
     anim:setEventHandler(function(event)
@@ -92,16 +93,17 @@ function SkillLaserBomb:init_skill(start_res, missile_res, explosion_res, hit, t
                         y = l_str[2] * scale
 
                         if flip then
-                            x = CRITERIA_RESOLUTION_X - x
+                            x = -x
                         end
+                        local anim_x, anim_y = anim:getPosition()
                         if (event['eventData']['name'] == 'attack1') then
-                            self.m_startPosX1 = x
-                            self.m_startPosY1 = y
+                            self.m_startPosX1 = x + anim_x
+                            self.m_startPosY1 = y + anim_y
                             self:makeLaserLinkEffect(missile_res, 1)
                             self.m_refresh[1] = true
                         else
-                            self.m_startPosX2 = x
-                            self.m_startPosY2 = y
+                            self.m_startPosX2 = x + anim_x
+                            self.m_startPosY2 = y + anim_y
                             self:makeLaserLinkEffect(missile_res, 2)
                             self.m_refresh[2] = true
                         end
@@ -159,7 +161,6 @@ end
 function SkillLaserBomb.st_idle(owner, dt)
     if (owner.m_stateTimer == 0) then
         owner.m_owner.m_animator:changeAni('skill_disappear', false)
-        --owner:makeEffect(explosion_res, owner.m_targetPos.x, owner.m_targetPos.y, 'idle')
     end
     
     owner.m_multiHitTimer = owner.m_multiHitTimer + dt
@@ -285,7 +286,6 @@ function SkillLaserBomb:makeSkillInstance(owner, t_skill, t_data)
 	skill:setSkillParams(owner, t_skill, t_data)
     skill:init_skill(start_res, missile_res, explosion_res, hit)
 	skill:initState()
-        local curCameraPosX, curCameraPosY = owner.m_world.m_gameCamera:getHomePos()
 	-- 3. state 시작 
     skill:changeState('delay')
 
