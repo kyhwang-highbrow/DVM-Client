@@ -51,6 +51,7 @@ function UI_InventoryTabRune:init_runeTableView(slot_idx)
     node:removeAllChildren()
 
     local l_item_list = g_runesData:getUnequippedRuneList(slot_idx)
+	local select_sell_item_ui = self.m_inventoryUI.m_selectSellItemsUI
 
     -- 생성 콜백
     local function create_func(ui, data)
@@ -60,6 +61,17 @@ function UI_InventoryTabRune:init_runeTableView(slot_idx)
         local is_new = data:isNewRune()
         ui:setNewSpriteVisible(is_new)
 
+		-- 만약 선택 판매 중이었다면 체크 표시
+		if (select_sell_item_ui) then
+			local roid = data['roid']
+			if select_sell_item_ui.m_bActive then
+				if (select_sell_item_ui.m_selectedItemUIMap[roid]) then
+					ui:setCheckSpriteVisible(true)
+				end
+			end
+		end
+            
+		-- 클릭 콜백
         local function click_func()
             self.m_inventoryUI:setSelectedItem(ui, data)
 			
@@ -69,7 +81,6 @@ function UI_InventoryTabRune:init_runeTableView(slot_idx)
 				g_highlightData:removeNewRoid(roid)
 			end
         end
-
         ui.vars['clickBtn']:registerScriptTapHandler(click_func)
     end
 
@@ -267,11 +278,13 @@ function UI_InventoryTabRune:refresh_noti()
 	
 	-- 하단의 슬롯 탭
 	local t_new_slot = g_highlightData:getNewRuneSlotTable()
-	local t_noti = {}
-	for slot, b in pairs(t_new_slot) do
-		t_noti['runeTabBtn' .. slot] = true
+	if (t_new_slot) then
+		local t_noti = {}
+		for slot, b in pairs(t_new_slot) do
+			t_noti['runeTabBtn' .. slot] = true
+		end
+		UIHelper:autoNoti(t_noti, self.m_tNotiSprite, '', vars)
 	end
-	UIHelper:autoNoti(t_noti, self.m_tNotiSprite, '', vars)
 end
 
 -------------------------------------

@@ -105,41 +105,6 @@ function ServerData_Quest:applyQuestInfo(t_quest_info)
 
             table.insert(l_quest, struct_quest)
         end
-        --[[ 
-        
-        # 업적을 모두 클리어한 후에는 서버에서 focus id를 주지 않을 것으로 생각하고 만든 기능인데
-        # 업적 모두 클리어 후에도 마지막 id를 계속 보내주고 있다
-        # 모두 클리어 후에도 raw count를 UI에 찍어줘야 하지 않나해서 보내주신듯한데 
-        # 개인적으로는 필요없다 생각 
-
-        -- 업적 모두 클리어한 것 체크
-        local l_challenge_type = self.m_tableQuest:filterList('default', 1)
-        if (#l_quest < #l_challenge_type) then
-            local digit, is_cleared
-            -- 업적 로컬 테이블을 순회한다.(타입별로만 뽑아온것)
-            for _, t_challenge in pairs(l_challenge_type) do
-                digit = math_floor(t_challenge['qid'] / 100)
-                is_cleared = true
-
-                -- 서버에서 받은 qid 체크하여 없는지 체크
-                for qid, _ in pairs(t_focus) do
-                    if (digit == math_floor(qid / 100)) then
-                        is_cleared = false
-                        break
-                    end
-                end
-
-                -- 없다면 마지막 ID로 추가해준다. 
-                if (is_cleared) then
-                    local last_qid, t_quest = self.m_tableQuest:findLastQuest(t_challenge['qid'])
-                    t_data ={['qid'] = last_qid, ['rawcnt'] = nil, ['quest_type'] = quest_type, ['reward'] = nil, ['t_quest'] = t_quest}
-                    struct_quest = StructQuestData(t_data)
-                    table.insert(l_quest, struct_quest)
-                end
-            end  
-        end
-
-        ]]
 
         self.m_tQuestInfo[quest_type] = l_quest
     end
