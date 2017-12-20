@@ -422,6 +422,13 @@ function StatusEffect:update(dt)
     -- 타이머
     self:updateTimer(dt)
 
+    -- 대상자가 죽었을 경우 이펙트 숨김
+    if (self.m_owner:isDead()) then
+        self.m_rootNode:setVisible(false)
+    else
+        self.m_rootNode:setVisible(self.m_bApply)
+    end
+
     return ret
 end
 
@@ -456,6 +463,7 @@ function StatusEffect:updateTimer(dt)
     -- 남은 시간
     if (not self:isInfinity()) then
         self.m_latestTimer = self.m_latestTimer - dt
+        self.m_latestTimer = math_max(self.m_latestTimer, 0)
     end
 
     -- 트리거 함수별 마지막 호출 이후 지난 시간
@@ -507,7 +515,6 @@ function StatusEffect:apply()
 		self.m_owner:addGroggy(self.m_statusEffectName)
 	end
 
-    self.m_rootNode:setVisible(true)
     self.m_bApply = true
 
     self:onStart()
@@ -538,8 +545,7 @@ function StatusEffect:unapply()
         self.m_owner:removeGroggy(self.m_statusEffectName)
     end
 	
-    self.m_rootNode:setVisible(false)
-	self.m_bApply = false
+    self.m_bApply = false
 
     self:onEnd()
 
