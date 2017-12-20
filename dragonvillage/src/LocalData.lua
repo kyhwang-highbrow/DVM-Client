@@ -350,3 +350,12 @@ function LocalData:isGooglePlayConnected()
         return false
     end
 end
+
+-------------------------------------
+-- function isGuestAccount
+-- @breif
+-------------------------------------
+function LocalData:isGuestAccount()
+	local account_info = g_localData:get('local', 'account_info') or 'Guest'
+	return (account_info == 'Guest')
+end

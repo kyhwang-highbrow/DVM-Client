@@ -68,6 +68,11 @@ function UI_BundlePopup:initUI()
 	if (self.m_unitCnt > 1) then
 		vars['itemLabel2']:setVisible(true)
 	end
+
+	-- 게스트 계정
+	if (g_localData:isGuestAccount()) then
+		vars['guestLabel']:setVisible(false)
+	end
 end
 
 -------------------------------------
@@ -103,7 +108,7 @@ function UI_BundlePopup:refresh()
 	local unit_cnt = self.m_unitCnt
 	if (unit_cnt > 1) then
 		local total_cnt = unit_cnt * count
-		vars['itemLabel2']:setString(Str('{1}개', total_cnt))
+		vars['itemLabel2']:setString(Str('{1}개', comma_value(total_cnt)))
 	end
 end
 
