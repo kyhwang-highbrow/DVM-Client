@@ -94,8 +94,7 @@ function UI_GachaResult_Dragon:initUI()
 
 	-- 사용 재화 표기
 	if (self.m_type == 'cash') then
-		local cash = g_userData:get('cash')
-		vars['diaLabel']:setString(comma_value(cash))
+		self:refresh_cash()
 
 	elseif (self.m_type == 'fp') then
 		vars['fpNode']:setVisible(true)
@@ -106,31 +105,6 @@ function UI_GachaResult_Dragon:initUI()
 
 	-- 드래곤 수량 표시
 	self:refresh_inventoryLabel()
-end
-
--------------------------------------
--- function refresh_inventoryLabel
--- @brief
--------------------------------------
-function UI_GachaResult_Dragon:refresh_inventoryLabel()
-    local vars = self.vars
-    local inven_type = 'dragon'
-    local dragon_count = g_dragonsData:getDragonsCnt()
-    local max_count = g_inventoryData:getMaxCount(inven_type)
-    self.vars['inventoryLabel']:setString(string.format('%d/%d', dragon_count, max_count))
-end
-
--------------------------------------
--- function click_inventoryBtn
--- @brief 인벤 확장
--------------------------------------
-function UI_GachaResult_Dragon:click_inventoryBtn()
-    local item_type = 'dragon'
-    local function finish_cb()
-        self:refresh_inventoryLabel()
-    end
-
-    g_inventoryData:extendInventory(item_type, finish_cb)
 end
 
 -------------------------------------
@@ -389,6 +363,44 @@ function UI_GachaResult_Dragon:setDragonCardList()
 	end
 
 	doAllChildren(card_node, function(node) node:setCascadeOpacityEnabled(true) end)
+end
+
+-------------------------------------
+-- function refresh_cash
+-------------------------------------
+function UI_GachaResult_Dragon:refresh_cash()
+	if (self.m_type ~= 'cash') then
+		return
+	end
+
+	local cash = g_userData:get('cash')
+	self.vars['diaLabel']:setString(comma_value(cash))
+end
+
+-------------------------------------
+-- function refresh_inventoryLabel
+-- @brief
+-------------------------------------
+function UI_GachaResult_Dragon:refresh_inventoryLabel()
+    local vars = self.vars
+    local inven_type = 'dragon'
+    local dragon_count = g_dragonsData:getDragonsCnt()
+    local max_count = g_inventoryData:getMaxCount(inven_type)
+    self.vars['inventoryLabel']:setString(string.format('%d/%d', dragon_count, max_count))
+end
+
+-------------------------------------
+-- function click_inventoryBtn
+-- @brief 인벤 확장
+-------------------------------------
+function UI_GachaResult_Dragon:click_inventoryBtn()
+    local item_type = 'dragon'
+    local function finish_cb()
+        self:refresh_inventoryLabel()
+		self:refresh_cash()
+    end
+
+    g_inventoryData:extendInventory(item_type, finish_cb)
 end
 
 -------------------------------------
