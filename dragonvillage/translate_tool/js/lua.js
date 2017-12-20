@@ -4,9 +4,11 @@ const log = util.log;
 
 module.exports = Lua;
 
-function Lua( $sheetName, $locale, $spreadsheet_id, $callback )
+function Lua( $sheetNames, $locale, $spreadsheet_id, $callback )
 {
-	const sheetName = $sheetName;
+	const sheetNameList = $sheetNames.split(";");
+	sheetNameList.push("total_dev");
+	
 	const locale = $locale;
 	const spreadsheet_id = $spreadsheet_id;
 
@@ -19,17 +21,22 @@ function Lua( $sheetName, $locale, $spreadsheet_id, $callback )
 
 	function onInit( $info )
 	{
-		loadSheet( "total", locale, function( $data )
+		var idx = 0;
+		function onFinish( $data )
 		{
 			mergeData( $data );
-			
-			loadSheet( sheetName, locale, function( $data )
+			++idx;
+			if( idx < sheetNameList.length )
 			{
-				mergeData( $data );
-
+				loadSheet( sheetNameList[idx], locale, onFinish )
+			}
+			else
+			{
 				convert();
-			} )
-		} )
+			}
+		}
+
+		loadSheet( sheetNameList[idx], locale, onFinish );
 	}
 
 	function loadSheet( $name, $locale, $callback )
@@ -62,6 +69,9 @@ function Lua( $sheetName, $locale, $spreadsheet_id, $callback )
 				row = $rows[ i ];
 
 				data.push( [ row.kr, row[ locale ] ] );
+
+				if( row.speakerkr )
+					data.push( [ row.speakerkr, row[ "speaker" + locale ] ] );
 			}
 
 			$callback( data );

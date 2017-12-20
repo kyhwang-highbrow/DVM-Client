@@ -6,7 +6,10 @@ const log = util.log;
 
 const Lua = require( "../js/lua" );
 
-const hod_root = process.env.HOD_ROOT;
+var isDebug = false;
+var hod_root = process.env.HOD_ROOT;
+if( isDebug )
+	hod_root = "C:/Work_Perplelab/dragonvillage/res/emulator/translate_tool";
 
 log( "Project root : " + hod_root );
 
@@ -22,17 +25,27 @@ const tmpDir = "./backup/";
 make();
 
 function make()
-{
-	var sheetName = process.argv[ 2 ];
+{	
+	var sheetNames = process.argv[ 2 ];
 	var sheetID = process.argv[ 3 ];
-	var localeList = process.argv[ 4 ].split(";");
+	var locales = process.argv[ 4 ];
 	var localeIdx = 0;
+
+	if( isDebug )
+	{
+		sheetNames ="test_onlyingame;test_onlyscenario";
+		sheetID = "1s3m5A7rl4JHngXFknMd3MTkbf0vVaAIPoRx3GPHJvoo";
+		locales = "en;jp;zhtw";
+	}
+
+	var localeList = locales.split(";");
 
 	function makeLua()
 	{		
 		if( localeIdx < localeList.length )
 		{
-			new Lua( sheetName, localeList[ localeIdx ], sheetID, function( $text )
+			log("Start MakeLua : " + localeList[ localeIdx ] );
+			new Lua( sheetNames, localeList[ localeIdx ], sheetID, function( $text )
 			{
 				saveFile( "lang_" + localeList[ localeIdx ] + ".lua", $text );
 

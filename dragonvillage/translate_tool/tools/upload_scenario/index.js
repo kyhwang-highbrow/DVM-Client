@@ -1,0 +1,345 @@
+const Spreadsheet = require( "../../js/spreadsheet" );
+const util = require( "../../js/util" );
+const log = util.log;
+
+module.exports = Upload;
+
+function Upload( $sheetName, $spreadsheet_id, $data, $localeList )
+{
+	this.sheetName = $sheetName;
+	this.spreadsheet_id = $spreadsheet_id;
+	this.data = util.deepCopy( $data );
+	this.localeList = $localeList;
+
+	this.loadSheet();
+}
+
+Upload.prototype.loadSheet = function()
+{
+	var spreadsheet_id = this.spreadsheet_id;
+	var sheetName = this.sheetName;
+	var data = this.data;
+	var localeList = this.localeList;	
+		
+	var header = [ "fileName", "page", "speaker_kr" ];
+	var i = 0;
+	for( ; i < localeList.length; ++i )
+	{
+		header.push( "speaker_" + localeList[i] );
+	}	
+	header.push( "kr" );
+	i = 0;
+	for( ; i < localeList.length; ++i )
+	{
+		header.push( localeList[i] );
+	}	
+	header.push( "date" );
+
+	var row_count;
+	var col_count = header.length;
+
+	var spreadsheet = new Spreadsheet( spreadsheet_id );
+	spreadsheet.init( onInit );
+
+	var sheet;
+	var uploadCount = 0;
+	function onInit( $info )
+	{
+		var totalSheet = spreadsheet.getWorksheet( "total_dev" );
+
+		var param = {};
+		param.offset = 1;
+		param.limit = totalSheet.rowCount;
+
+		totalSheet.getRows( param, function( $err, $rows )
+		{
+			var i = 0;
+			var len = $rows.length;
+			var row;
+			for( i ; i < len ; i++ )
+			{
+				row = $rows[ i ];
+				//시나리오 특성상 문맥의 흐름을 위해 total에 있으면 번역문을 가져와 세팅해준다.
+				setFromTotal( row );
+			}
+
+			loadSheet();
+		} );
+
+		function setFromTotal( $row )
+		{
+			var i = data.length;
+			var kr = $row.kr;
+			while( i-- )
+			{
+				//이름 찾기
+				if( data[i][2] == kr )
+				{
+					var localeIdx = 0;
+					for( ; localeIdx < localeList.length; ++localeIdx )
+					{
+						data[i][2 + localeIdx + 1] = $row[ localeList[localeIdx] ];
+					}
+				}
+				
+				//대사 찾기
+				if( data[i][6] == kr )
+				{
+					var localeIdx = 0;
+					for( ; localeIdx < localeList.length; ++localeIdx )
+					{
+						data[i][6 + localeIdx + 1] = $row[ localeList[localeIdx] ];
+					}
+				}
+			}
+		}
+	}
+
+	function loadSheet()
+	{
+		sheet = spreadsheet.getWorksheet( sheetName );
+
+		if( sheet == null )
+			createsheet();
+		else
+			getRows();
+	}
+
+	function createsheet()
+	{
+		var option = {}
+		option.title = sheetName;
+		option.rowCount = 1;
+		option.colCount = col_count;
+		option.headers = header;
+
+		spreadsheet.addWorksheet( option, function( $sheet )
+		{
+			sheet = $sheet;
+
+			getRows();
+		} );
+	}
+
+	function getRows()
+	{
+		var param = {};
+		param.offset = 1;
+		param.limit = sheet.rowCount;
+
+		sheet.getRows( param, function( $err, $rows )
+		{
+			if( $err )
+				throw $err;
+
+			onGetRow( $rows );
+		} );
+	}
+
+	function onGetRow( $rows )
+	{
+		row_count = $rows.length;
+
+		var i = 0;
+		var len = row_count;
+		var row;		
+		for( i ; i < len ; i++ )
+		{
+			row = $rows[ i ];
+			setData( row, localeList);
+		}
+
+		resizeWorksheet();
+
+		function setData( $row, $localeList )
+		{
+			var i = 0;
+			var len = data.length;
+			var list;
+			var thisFileName = $row.filename;
+			var thisPage = $row.page;
+			var thisSpeaker = $row.speakerkr;
+			var thisStr = $row.kr;			
+			var thisDate = $row.date;
+			var localeCount = $localeList.length;
+			for( i ; i < len ; i++ )
+			{
+				list = data[ i ];
+				if( list[ 0 ] == thisFileName && list[ 1 ] == thisPage )
+				{
+					var localeIdx = 0;
+					for(; localeIdx < localeCount; ++localeIdx)
+					{
+						var speaker = $row[ "speaker" + $localeList[localeIdx] ];
+						var str = $row[ $localeList[localeIdx] ];
+						if( speaker.length > 0 )
+							list[ 3 + localeIdx ] = speaker;
+						if( str.length > 0 )
+							list[ 3 + localeIdx + localeCount + 1 ] = str;
+					}
+
+					list[ 3 + (localeCount * 2) + 1 ] = thisDate;
+				}				
+			}
+		}
+	}
+
+	function resizeWorksheet()
+	{
+		var option = {};
+		option.colCount = col_count;
+		option.rowCount = Math.max( 2, data.length + 1 );
+
+		sheet.clear( function( $err ) 
+		{
+			if( $err )
+				console.log( $err );
+
+			sheet.resize( option, function( $err )
+			{
+				if( $err )
+					console.log( $err );
+
+				sheet.setHeaderRow( header, function( $err )
+				{
+					if( $err )
+						console.log( $err );
+
+					uploadData();
+				} );
+			} )
+		} )
+	}
+
+	var requestCount = 0;
+	var isFinishOnCell = false;
+	function uploadData()
+	{
+		if( data.length == 0 )
+		{
+			onUpdate();
+
+			return;
+		}
+
+		updateSameStr( data, localeList );
+
+		var param = {};
+		param[ "min-row" ] = 2;
+		param[ "max-row" ] = 1 + data.length;
+		param[ "min-col" ] = 1;
+		param[ "max-col" ] = col_count;
+		param[ "return-empty" ] = true;
+
+		sheet.getCells( param, onCells );
+
+		function onCells( $err, $cells )
+		{
+			var i = 0;
+			var len = $cells.length;
+			var row, col;
+			var tempData = [];
+			var tempIdx = 0;
+			var tempMaxCount = 1000;			
+			for( i ; i < len ; i++ )
+			{
+				row = Math.floor( i / col_count );
+				col = i % col_count;
+
+				var value = data[ row ][ col ];		
+				if( value == null )
+					console.log("===value is null : " + "row : " + row + ", col : " + col);		
+				
+				if( value.indexOf( "''" ) == 0 )
+					value = value.substr( 1 );				
+
+				if( value.substr(0,1) == '=' )
+					$cells[ i ].value = value;
+				else
+					$cells[ i ].value = "'" + value;
+
+				tempData[ tempIdx ] = $cells[ i ];
+				++tempIdx;
+				
+				if( tempIdx >= tempMaxCount )
+				{
+					++requestCount;
+					sheet.bulkUpdateCells( tempData, onUpdate );		
+					tempData = [];
+					tempIdx = 0;					
+				}
+			}
+			isFinishOnCell = true;
+
+			if( tempIdx <= 0 )
+			{
+				onUpdate();
+			}
+			else
+			{
+				++requestCount;
+				sheet.bulkUpdateCells( tempData, onUpdate );
+			}
+		}
+	}
+
+	function onUpdate( $err )
+	{
+		if( $err )
+			throw $err;
+
+		--requestCount;
+		if( isFinishOnCell == true && requestCount <= 0 )
+		{
+			log( "complete : " + sheetName + " (" + data.length + ")" );						
+		}
+		else		
+			log( "onUpdate..." );
+	}
+
+	function updateSameStr( $data, $localeList )
+	{
+		var i = 0 ;		
+		var checkedList = [];
+		var nameIdx = 2;
+		var strIdx = nameIdx + $localeList.length + 1;
+		var dataList = $data;
+		for( i; i < dataList.length; ++i )
+		{			
+			var tempData = dataList[i];
+			//이름 체크
+			var orgName = tempData[nameIdx];
+			if( checkedList.indexOf( orgName ) < 0 )
+			{
+				setSameStr( orgName, i, nameIdx );
+				checkedList.push( orgName );
+			}
+			
+			//대사 체크
+			var orgStr = tempData[strIdx];
+			if( checkedList.indexOf( orgStr ) < 0 )
+			{
+				setSameStr( orgStr, i, strIdx );
+				checkedList.push( orgStr );
+			}
+		}
+
+		function setSameStr( $str, $findIdx, $strIdx )
+		{			
+			var j = $findIdx + 1;
+			var col = "a".charCodeAt(0);			
+			for( j; j < dataList.length; ++j )
+			{
+				var findData = dataList[j];
+				if( findData[$strIdx] == $str )
+				{
+					for( var k = 0; k < $localeList.length; ++k )
+					{
+						if( findData[$strIdx + 1 + k] == "" )
+							findData[$strIdx + 1 + k] = "=" + String.fromCharCode(col + $strIdx + 1 + k) + String($findIdx + 2);
+					}
+				}
+			}
+		}
+	}
+}

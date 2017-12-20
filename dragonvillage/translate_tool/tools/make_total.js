@@ -1,8 +1,20 @@
 const Total = require( "./total" );
-const sheetName = process.argv[ 2 ];
-const spreadsheet_id = process.argv[ 3 ];
-const localeList = process.argv[ 4 ].split(";");
 
-console.log( sheetName, spreadsheet_id, localeList.toString() );
+var sheetName = process.argv[ 2 ];
+var spreadsheet_id = process.argv[ 3 ];
+var localeList = process.argv[ 4 ];
+var isScenario = process.argv[ 5 ] == 1;
 
-new Total( sheetName, spreadsheet_id, localeList );
+var isDebug = false;
+if( isDebug )
+{
+    //tools/make_total.js test_onlyingame 1s3m5A7rl4JHngXFknMd3MTkbf0vVaAIPoRx3GPHJvoo en;jp;zhtw 0
+    sheetName = "test_onlyingame";
+    spreadsheet_id = "1s3m5A7rl4JHngXFknMd3MTkbf0vVaAIPoRx3GPHJvoo";
+    localeList = "en;jp;zhtw";
+    isScenario = false;
+}
+
+console.log( sheetName, spreadsheet_id, localeList, isScenario.toString() );
+
+new Total( sheetName, spreadsheet_id, localeList.split(";"), isScenario );

@@ -4,11 +4,12 @@ const log = util.log;
 
 module.exports = Total;
 
-function Total( $sheetName, $spreadsheet_id, $localeList )
+function Total( $sheetName, $spreadsheet_id, $localeList, $isScenario )
 {
 	this.sheetName = $sheetName;
 	this.spreadsheet_id = $spreadsheet_id;
 	this.localeList = $localeList;
+	this.isScenario = $isScenario;
 
 	this.loadSheet();
 }
@@ -18,6 +19,7 @@ Total.prototype.loadSheet = function()
 	var spreadsheet_id = this.spreadsheet_id;
 	var sheetName = this.sheetName;
 	var localeList = this.localeList;
+	var isScenario = this.isScenario;
 
 	var spreadsheet = new Spreadsheet( spreadsheet_id );
 	spreadsheet.init( onInit );
@@ -39,7 +41,89 @@ Total.prototype.loadSheet = function()
 
 	function onInit( $info )
 	{
-		loadLocale();
+		if( isScenario )
+			loadScenario();
+		else
+			loadLocale();
+	}
+
+	function loadScenario()
+	{
+		sheetWork = spreadsheet.getWorksheet( sheetName );
+
+		if( sheetWork == null )
+		{
+			log( sheetName + " worksheet can't find." );
+
+			return;
+		}
+
+		var param = {};
+		param.offset = 1;
+		param.limit = sheetWork.rowCount;
+
+		sheetWork.getRows( param, function( $err, $rows )
+		{
+			row_count = $rows.length;
+			//여기에는 중첩된 텍스트도 있으니 골라서 뽑아야한다.
+			//이름
+			var i = 0;
+			var len = row_count;
+			var row;			
+			for( i ; i < len ; i++ )
+			{
+				row = $rows[ i ];
+				if( row.speakerkr.length <= 0 )
+					continue;
+
+				var tempRow = getData(row.speakerkr);
+				if( tempRow )
+				{
+					var oldHints = tempRow[1 + localeList.length];
+					if( oldHints.indexOf( row.filename ) < 0 )
+						tempRow[1 + localeList.length] = oldHints + "," + row.filename;
+				}
+				else
+				{
+					tempRow = [];
+					tempRow.push( row.speakerkr );
+					for(var localeIdx = 0; localeIdx < localeList.length; ++localeIdx )
+					{
+						tempRow.push( row[ "speaker" + localeList[localeIdx] ] );
+					}
+					tempRow.push( row.filename );
+					tempRow.push( row.date );
+					totalData.push( tempRow );
+				}
+			}
+			//대사
+			i = 0;
+			for( i ; i < len ; i++ )
+			{
+				row = $rows[ i ];
+				var tempRow = getData(row.kr);
+				if( tempRow )
+				{
+					var oldHints = tempRow[1 + localeList.length];
+					if( oldHints.indexOf( row.filename ) < 0 )
+						tempRow[1 + localeList.length] = oldHints + "," + row.filename;
+				}
+				else
+				{
+					tempRow = [];
+					tempRow.push( row.kr );
+					for(var localeIdx = 0; localeIdx < localeList.length; ++localeIdx )
+					{
+						tempRow.push( row[ localeList[localeIdx] ] );
+					}
+					tempRow.push( row.filename );
+					tempRow.push( row.date );
+					totalData.push( tempRow );
+				}
+			}
+
+			loadTotal();
+		} );
 	}
 
 	function loadLocale()
@@ -63,7 +147,7 @@ Total.prototype.loadSheet = function()
 
 			var i = 0;
 			var len = row_count;
-			var row;
+			var row;						
 			for( i ; i < len ; i++ )
 			{
 				row = $rows[ i ];
@@ -98,6 +182,12 @@ Total.prototype.loadSheet = function()
 
 	function loadTotal()
 	{
+		if( totalData.length <= 0 )
+		{
+			onUpdate();
+			return;
+		}
+
 		sheetTotal = spreadsheet.getWorksheet( "total_dev" );
 
 		if( sheetTotal == null )
@@ -126,10 +216,10 @@ Total.prototype.loadSheet = function()
 		for( i ; i < len ; i++ )
 		{
 			row = $rows[ i ];
-			data = getData( row.kr );
-
+			data = getData( row.kr );			
 			if( data == null )
-			{				
+			{	
+				data = [];			
 				data.push( row.kr );
 				for(var localeIdx = 0; localeIdx < localeList.length; ++localeIdx )
 				{
@@ -142,7 +232,20 @@ Total.prototype.loadSheet = function()
 			}
 			else
 			{
-				data[ 1 + localeList.length ] = row.hints;
+				//ingame에는 번역x scenario에서 번역되서 total들어같을경우 같은 경우
+				for(var localeIdx = 0; localeIdx < localeList.length; ++localeIdx )
+				{
+					var locale = localeList[localeIdx];
+					if( data[ 1 + localeIdx].length <= 0 && row[ locale ].length > 0 )
+						data[ 1 + localeIdx] = row[ locale ];
+				}
+
+				var oldHints = data[ 1 + localeList.length ];
+				if( oldHints == row.hints )
+					data[ 1 + localeList.length ] = row.hints;
+				else
+					data[ 1 + localeList.length ] = oldHints + row.hints;
+
 				data[ 1 + localeList.length + 1 ] = row.date;
 			}
 		}
@@ -157,18 +260,18 @@ Total.prototype.loadSheet = function()
 		backup( totalData );
 
 		resizeTotal();
-
-		function getData( $kr )
+	}
+	
+	function getData( $kr )
+	{
+		var i = totalData.length;
+		while( i-- )
 		{
-			var i = totalData.length;
-			while( i-- )
-			{
-				if( totalData[ i ][ 0 ] == $kr )
-					return totalData[ i ]
-			}
-
-			return null;
+			if( totalData[ i ][ 0 ] == $kr )
+				return totalData[ i ]
 		}
+
+		return null;
 	}
 
 	function resizeTotal()
@@ -292,9 +395,27 @@ Total.prototype.loadSheet = function()
 			option.rowCount = 1;
 			option.colCount = col_count;
 
+			var newheader = header;
+			if( isScenario )
+			{
+				newheader = [ "fileName", "page", "speaker_kr" ];
+				var i = 0;
+				for( ; i < localeList.length; ++i )
+				{
+					newheader.push( "speaker_" + localeList[i] );
+				}	
+				newheader.push( "kr" );
+				i = 0;
+				for( ; i < localeList.length; ++i )
+				{
+					newheader.push( localeList[i] );
+				}	
+				newheader.push( "date" );
+			}
+
 			sheetWork.resize( option, function( $err )
 			{
-				sheetWork.setHeaderRow( header, function()
+				sheetWork.setHeaderRow( newheader, function()
 				{
 					log( "complete total : " + localeList.toString() );
 				} );

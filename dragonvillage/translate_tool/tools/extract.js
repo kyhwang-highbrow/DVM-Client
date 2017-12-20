@@ -19,7 +19,6 @@ const ignoreFolder = [
 
 // 1. 프로젝트 루트 설정.
 var isDebug = false;
-//const hod_root = "C:/Work_Perplelab/dragonvillage/res/emulator/translate_tool";//process.env.HOD_ROOT;
 var hod_root = process.env.HOD_ROOT;
 if( isDebug )
 	hod_root = "C:/Work_Perplelab/dragonvillage/res/emulator/translate_tool";
@@ -31,6 +30,7 @@ if( !fs.existsSync( hod_root ) )
 	return
 }
 
+log( "Start Extract" );
 log( "Project root : " + hod_root );
 
 var spreadsheet_id = process.argv[ 3 ];
@@ -40,7 +40,7 @@ if( isDebug )
 {		
 	spreadsheet_id = "1s3m5A7rl4JHngXFknMd3MTkbf0vVaAIPoRx3GPHJvoo";
 	locale = "en;jp;zhtw";
-	sheetName = "test";
+	sheetName = "test_onlyingame";
 }
 var localeList = locale.split(';');	
 
