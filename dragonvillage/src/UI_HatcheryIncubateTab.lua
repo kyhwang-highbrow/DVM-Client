@@ -144,6 +144,15 @@ function UI_HatcheryIncubateTab:requestIncubate(egg_id, cnt, old_ui)
             end
         end
 
+		--- 1개 부화 : 즉시 인벤토리를 보여줌
+		if (cnt == 1) then
+			ui.vars['inventoryBtn']:setVisible(true)
+
+		-- 10개 부화 : 리스트 등록
+		else
+			table.insert(ui.m_hideUIList, ui.vars['inventoryBtn'])
+		end
+
         -- 하일라이트 노티 갱신을 위해 호출
         self.m_ownerUI:refresh_highlight()
     end
