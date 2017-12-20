@@ -343,17 +343,19 @@ function UINavigatorDefinition:goTo_attr_tower(...)
 
     local function finish_cb()
 
+        -- 메인 메뉴가 열려있을 경우
+        local is_opend, idx, ui = self:findOpendUI('UI_AttrTowerMenuScene')
+        if (is_opend == true) then
+            UI_AttrTower()
+            
+            return
+        end
+
         -- 전투 메뉴가 열려있을 경우
         local is_opend, idx, ui = self:findOpendUI('UI_BattleMenu')
         if (is_opend == true) then
             self:closeUIList(idx)
-
-            -- 속성, 스테이지 선택안한 경우 서브 메뉴 진입으로 간주
-            if (attr == nil) and (stage_id == nil) then
-                UI_AttrTowerMenuScene()
-            else
-                UI_AttrTower()
-            end
+            UI_AttrTowerMenuScene(attr, stage_id)
 
             return
         end
@@ -363,9 +365,9 @@ function UINavigatorDefinition:goTo_attr_tower(...)
         if (is_opend == true) then
             self:closeUIList(idx)
             local battle_menu_ui = UI_BattleMenu()
-            battle_menu_ui:setTab('competition') -- 전투 메뉴에서 tab의 이름이 'competition'이다.
+            battle_menu_ui:setTab('competition') 
             battle_menu_ui:resetButtonsPosition()
-            UI_AttrTower()
+            UI_AttrTowerMenuScene(attr, stage_id)
 
             return
         end
@@ -376,7 +378,7 @@ function UINavigatorDefinition:goTo_attr_tower(...)
                 UINavigator:goTo('lobby')
             end
 
-            local scene = SceneCommon(UI_AttrTower, close_cb)
+            local scene = SceneCommon(UI_AttrTowerMenuScene, close_cb, attr, stage_id)
             scene:runScene()
         end
     end
@@ -384,6 +386,11 @@ function UINavigatorDefinition:goTo_attr_tower(...)
     local function fail_cb()
 
     end
+
+    -- 전투 메뉴가 열려있지 않다면 무조건 시험의 탑 전체 메뉴 scene으로 먼저 보냄
+    local is_opend, idx, ui = self:findOpendUI('UI_BattleMenu')
+    local _attr = is_opend and attr or nil
+    local _stage_id = is_opend and stage_id or nil
 
     -- 정보 요청
     g_attrTowerData:request_attrTowerInfo(attr, stage_id, finish_cb, fail_cb)

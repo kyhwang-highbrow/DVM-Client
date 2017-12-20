@@ -130,16 +130,17 @@ function ServerData_AttrTower:request_attrTowerInfo(attr, stage, finish_cb, fail
     local function success_cb(ret)
         g_serverData:networkCommonRespone(ret)
         
-        local menu_info = ret['stage_info']
-
         -- 시험의 탑 서브 메뉴 정보
+        local menu_info = ret['stage_info']
         if (menu_info) then
             self.m_subMenuInfo = menu_info
+        end
 
-        -- 시험의 탑 진입
-        else
+        -- 시험의 탑 층 정보
+        local tower_info = ret['tower_stage']
+        if (tower_info) then
             -- 도전 스테이지 정보 
-            local t_challenging_info = ret['tower_stage']
+            local t_challenging_info = tower_info
             self.m_challengingInfo = StructAttrTowerFloorData(t_challenging_info)
             self.m_challengingStageID = t_challenging_info['stage']
             self.m_challengingFloor = (self.m_challengingStageID % ANCIENT_TOWER_STAGE_ID_START)

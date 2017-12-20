@@ -3,12 +3,18 @@ local PARENT = class(UI, ITopUserInfo_EventListener:getCloneTable())
 -------------------------------------
 -- class UI_AttrTowerMenuScene
 -------------------------------------
-UI_AttrTowerMenuScene = class(PARENT, {})
+UI_AttrTowerMenuScene = class(PARENT, {
+    m_selAttr = 'string',
+    m_selStage = 'number',
+})
 
 -------------------------------------
 -- function init
 -------------------------------------
-function UI_AttrTowerMenuScene:init()
+function UI_AttrTowerMenuScene:init(attr, stage)
+    self.m_selAttr = attr 
+    self.m_selStage = stage
+
     local vars = self:load('attr_tower_menu.ui')
     UIManager:open(self, UIManager.SCENE)
 
@@ -47,6 +53,10 @@ function UI_AttrTowerMenuScene:initUI()
         local ui = UI_AttrTowerMenuItem(attr)
         vars['itemNode'..i]:addChild(ui.root)
     end
+
+    if (self.m_selAttr) then
+        UINavigator:goTo('attr_tower', self.m_selAttr, self.m_selStage)
+    end
 end
 
 -------------------------------------
@@ -65,7 +75,6 @@ end
 -- function click_exitBtn
 -------------------------------------
 function UI_AttrTowerMenuScene:click_exitBtn()
-   cclog('UI_AttrTowerMenuScene:click_exitBtn()')
    self:close()
 end
 

@@ -130,7 +130,7 @@ function UI_GameResultNew:initButton()
     vars['treeBtn']:registerScriptTapHandler(function() self:click_backBtn() end)
     vars['dragonBtn']:registerScriptTapHandler(function() self:click_backBtn() end)
     vars['towerBtn']:registerScriptTapHandler(function() self:click_backBtn() end)
-
+    vars['attrTowerBtn']:registerScriptTapHandler(function() self:click_backBtn() end)
     vars['quickBtn']:registerScriptTapHandler(function() self:click_quickBtn() end)
     vars['skipBtn']:registerScriptTapHandler(function() self:click_screenBtn() end)
     vars['switchBtn']:registerScriptTapHandler(function() self:click_switchBtn() end)
@@ -663,8 +663,13 @@ function UI_GameResultNew:set_modeButton()
 
     -- 고대의 탑
     elseif (game_mode == GAME_MODE_ANCIENT_TOWER) then
-       vars['towerBtn']:setVisible(true)
-
+        local attr = g_attrTowerData:getSelAttr()
+        if (attr) then
+            vars['attrTowerBtn']:setVisible(true)
+        else
+            vars['towerBtn']:setVisible(true)
+        end
+       
     -- 모험 
     else
         vars['mapBtn']:setVisible(true)
