@@ -59,7 +59,8 @@ function UI_GameResult_AncientTower:setAnimationData()
     table.insert(score_list, score_calc:calcClearBonus())
     table.insert(score_list, score_calc:calcClearTimeBonus())
     table.insert(score_list, score_calc:calcClearNoDeathBonus())
-    if attr and (attr ~= '') then
+    local is_attr_tower = g_ancientTowerData:isAttrChallengeMode()
+    if attr and (attr ~= '') and (not is_attr_tower) then
         table.insert(score_list, score_calc:calcAttrBonus())
     end
     --table.insert(score_list, score_calc:calcKillBossBonus())
@@ -78,7 +79,7 @@ function UI_GameResult_AncientTower:setAnimationData()
     table.insert(var_list, 'injuryLabel1')
     table.insert(var_list, 'injuryLabel2')
 
-    if attr and (attr ~= '') then
+    if attr and (attr ~= '') and (not is_attr_tower) then
         table.insert(var_list, 'attrBonusLabel1')
         table.insert(var_list, 'attrBonusLabel2')
         vars['attrBonusLabel1']:setVisible(true)
