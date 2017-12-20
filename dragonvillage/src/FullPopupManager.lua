@@ -152,7 +152,7 @@ function FullPopupManager:show(type, show_func)
         local is_view = g_localData:get('event_full_popup', save_key) or false
         if true then --(not is_view) then
 			-- 굳이 테이블로 등록하지 않고 인위적으로 생성한다.
-			local banner_res = 'banner;res/ui/event/bg_update.png'
+			local banner_res = 'banner;res/ui/event/bg_attr_tower.png'
 			self:showFullPopup(banner_res)
 			g_localData:applyLocalData(true, 'event_full_popup', save_key)
         end
