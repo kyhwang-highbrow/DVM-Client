@@ -6,8 +6,7 @@ local PARENT = class(Skill, IStateDelegate:getCloneTable())
 SkillLaserBomb = class(PARENT, {
         m_linkEffect = 'list',  -- 레이저의 그래픽 리소스
         
-        m_laserDir1 = '',
-        m_laserDir2 = '',
+        m_lLaserDir = 'list',
 
         m_limitTime = '',
 
@@ -17,15 +16,12 @@ SkillLaserBomb = class(PARENT, {
         m_clearCount = '',
         m_maxClearCount = '',
 
-        m_startPosX1 = '',
-        m_startPosY1 = '',
-
-        m_startPosX2 = '',
-        m_startPosY2 = '',
+        m_lStartPosX = 'list', 
+        m_lStartPosY = 'list',
 
         m_physGroup = '',
 
-        m_refresh = 'table',
+        m_lRefresh = 'list',
         m_explosionRes = '',
 
         m_laserThickness = 'number', -- 레이저 굵기
@@ -38,9 +34,16 @@ SkillLaserBomb = class(PARENT, {
 -------------------------------------
 function SkillLaserBomb:init(file_name, body, ...)
     self.m_linkEffect = {}
-    self.m_refresh= {}
-    self.m_refresh[1] = false
-    self.m_refresh[2] = false
+    self.m_lRefresh= {}
+   
+    for i, v in ipairs(self.m_lRefresh) do
+        v = false
+    end
+
+    self.m_lLaserDir = {}
+    self.m_lStartPosX = {}
+    self.m_lStartPosY = {}
+
 
 end
 
@@ -63,55 +66,64 @@ function SkillLaserBomb:init_skill(start_res, missile_res, explosion_res, hit, t
     self.m_clearCount = 0
 	self.m_maxClearCount = hit
 	
-    self.m_laserDir1 = 180
-    self.m_laserDir2 = 180
-    self.m_startPosX1 = 0
-    self.m_startPosY1 = 0
-	self.m_startPosX2 = 0
-    self.m_startPosY2 = 0
-
-    local function cb_func() 
-		self:changeState('start')
-
-	end
-    local camera_x, camera_y = g_gameScene.m_gameWorld.m_gameCamera:getHomePos()
-    local anim = self:makeEffect(start_res, camera_x, camera_y, 'idle', cb_func)
-    if (not self.m_owner.m_bLeftFormation) then
-        anim:setPositionX(CRITERIA_RESOLUTION_X)
-        anim:setFlip(true)
+    for i, v in ipairs(self.m_lLaserDir) do
+        v = 180
     end
-    anim:setEventHandler(function(event)
-            if event then
-                local string_value = event['eventData']['stringValue']           
-                if string_value and (string_value ~= '') then
-                    local l_str = seperate(string_value, ',')
-                    if l_str then
-                        local scale = anim:getScale()
-                        local flip = anim.m_bFlip
-                        
-                        x = l_str[1] * scale
-                        y = l_str[2] * scale
+    for i, v in ipairs(self.m_lStartPosX) do
+        v = 0
+    end
+    for i, v in ipairs(self.m_lStartPosY) do
+        v = 0
+    end
 
-                        if flip then
-                            x = -x
-                        end
-                        local anim_x, anim_y = anim:getPosition()
-                        if (event['eventData']['name'] == 'attack1') then
-                            self.m_startPosX1 = x + anim_x
-                            self.m_startPosY1 = y + anim_y
-                            self:makeLaserLinkEffect(missile_res, 1)
-                            self.m_refresh[1] = true
-                        else
-                            self.m_startPosX2 = x + anim_x
-                            self.m_startPosY2 = y + anim_y
-                            self:makeLaserLinkEffect(missile_res, 2)
-                            self.m_refresh[2] = true
+
+    local camera_x, camera_y = self.m_owner.m_world.m_gameCamera:getHomePos()
+
+    -- 이펙트 생성 ( 캐릭터 아래의 레이어 사용을 위해 bottomNode 사용)
+    do
+        local anim = MakeAnimator(start_res)
+
+        anim:setPosition(camera_x, camera_y)
+	    anim:changeAni('idle', false)
+        self.m_owner.m_world.m_bottomNode:addChild(anim.m_node, 1)
+
+        local cb_ani = function() 
+			self:changeState('start')
+		    anim.m_node:runAction(cc.RemoveSelf:create())
+	    end
+	    anim:addAniHandler(cb_ani)
+    
+
+        if (not self.m_owner.m_bLeftFormation) then
+            anim:setPositionX(CRITERIA_RESOLUTION_X)
+            anim:setFlip(true)
+        end
+        anim:setEventHandler(function(event)
+                if event then
+                    local string_value = event['eventData']['stringValue']           
+                    if string_value and (string_value ~= '') then
+                        local l_str = seperate(string_value, ',')
+                        if l_str then
+                            local scale = anim:getScale()
+                            local flip = anim.m_bFlip
+                        
+                            x = l_str[1] * scale
+                            y = l_str[2] * scale
+
+                            if flip then
+                                x = -x
+                            end
+                            local anim_x, anim_y = anim:getPosition()
+                            local idx = tonumber(event['eventData']['name']:sub(7,7))
+                            self.m_lStartPosX[idx] = x + anim_x
+                            self.m_lStartPosY[idx] = y + anim_y
+                            self:makeLaserLinkEffect(missile_res, idx)
+                            self.m_lRefresh[idx] = true
                         end
                     end
                 end
-            end
-        end)
-
+            end)
+    end
     -- 레이저 링크 이펙트 생성    
 
 end
@@ -123,7 +135,7 @@ function SkillLaserBomb:initSkillSize()
 	if (self.m_skillSize) and (not (self.m_skillSize == '')) then
 		local t_data = SkillHelper:getSizeAndScale('bar', self.m_skillSize)  
 
-		self.m_resScale = 1 --t_data['scale']
+		self.m_resScale = t_data['scale']
 		self.m_laserThickness = t_data['size']
 	end
 end
@@ -202,26 +214,18 @@ end
 -- function refresh
 -------------------------------------
 function SkillLaserBomb:refresh()
-    if(self.m_refresh[1]) then
-        local distance1 = math_distance(self.m_startPosX1, self.m_startPosY1, self.m_targetPos.x, self.m_targetPos.y)
-        local dir1 = getDegree(self.m_startPosX1, self.m_startPosY1, self.m_targetPos.x, self.m_targetPos.y)
 
-        if (force or self.m_laserDir1 ~= dir1) then
-            self.m_laserDir1 = dir1
-            local pos = getPointFromAngleAndDistance(dir1, distance1)
-            EffectLink_refresh(self.m_linkEffect[1], self.m_startPosX1, self.m_startPosY1, pos['x'] + self.m_startPosX1, pos['y'] + self.m_startPosY1)
+    for i, v in ipairs(self.m_lRefresh) do
+        if(self.m_lRefresh[i]) then
+            local distance = math_distance(self.m_lStartPosX[i], self.m_lStartPosY[i], self.m_targetPos.x, self.m_targetPos.y)
+            local dir = getDegree(self.m_lStartPosX[i], self.m_lStartPosY[i], self.m_targetPos.x, self.m_targetPos.y)
 
-        end
-    end
-    if (self.m_refresh[2]) then
-        local distance2 = math_distance(self.m_startPosX2, self.m_startPosY2, self.m_targetPos.x, self.m_targetPos.y)
-        local dir2 = getDegree(self.m_startPosX2, self.m_startPosY2, self.m_targetPos.x, self.m_targetPos.y)
+            if (force or self.m_lLaserDir[i] ~= dir) then
+                self.m_lLaserDir[i] = dir
+                local pos = getPointFromAngleAndDistance(dir, distance)
+                EffectLink_refresh(self.m_linkEffect[i], self.m_lStartPosX[i], self.m_lStartPosY[i], pos['x'] + self.m_lStartPosX[i], pos['y'] + self.m_lStartPosY[i])
 
-        if (force or self.m_laserDir2 ~= dir2) then
-            self.m_laserDir2 = dir2
-            local pos = getPointFromAngleAndDistance(dir2, distance2)
-            EffectLink_refresh(self.m_linkEffect[2], self.m_startPosX2, self.m_startPosY2, pos['x'] + self.m_startPosX2, pos['y'] + self.m_startPosY2)
-
+            end
         end
     end
 end
