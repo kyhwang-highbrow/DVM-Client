@@ -630,6 +630,10 @@ end
 -- @brief add Str method for translation
 -------------------------------------
 function Str(id, ...)
+	if (not id) then
+		cclog('## trying to translate NIL // check it')
+		return
+	end
     return formatMessage(Translate:get(id), ...)
 end
 
