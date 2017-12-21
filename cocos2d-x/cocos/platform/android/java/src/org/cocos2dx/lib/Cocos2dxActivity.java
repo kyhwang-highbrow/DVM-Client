@@ -152,7 +152,10 @@ public abstract class Cocos2dxActivity extends FragmentActivity implements Cocos
     protected void onResume() {
         super.onResume();
 
-        Cocos2dxAudioFocusManager.registerAudioFocusListener(this);
+        AudioManager am = (AudioManager)this.getSystemService(Context.AUDIO_SERVICE);
+        if( !am.isMusicActive()) {
+            Cocos2dxAudioFocusManager.registerAudioFocusListener(this);
+        }
 
         this.hideVirtualButton();
         Cocos2dxHelper.onResume();
