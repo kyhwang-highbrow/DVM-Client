@@ -230,6 +230,10 @@ function GameAuto:doWork(dt)
                     break
                 end
             end
+
+            if (not self.m_curUnit) then
+                self.m_curUnit = list[1]
+            end
         end
     end
 
