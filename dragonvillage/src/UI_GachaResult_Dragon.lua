@@ -13,18 +13,23 @@ UI_GachaResult_Dragon = class(PARENT, {
 
 		m_currDragonAnimator = 'UIC_DragonAnimator',
 
+		-- 연출 관련
 		m_isDirecting = 'bool',
         m_hideUIList = '',
+        m_bSkip = 'bool',
 
+		-- 알 소환 연출
         m_eggID = 'number',
         m_eggRes = 'string',
-        m_bSkip = 'bool',
+
+		-- 소환 정보
+		m_tSummonData = 'table',
      })
 
 -------------------------------------
 -- function init
 -------------------------------------
-function UI_GachaResult_Dragon:init(gacha_type, l_gacha_dragon_list, l_slime_list, egg_id, egg_res)
+function UI_GachaResult_Dragon:init(gacha_type, l_gacha_dragon_list, l_slime_list, egg_id, egg_res, t_summon_data)
 
     -- spine 캐시 정리 확인
     SpineCacheManager:getInstance():purgeSpineCacheData_checkNumber()
@@ -33,6 +38,7 @@ function UI_GachaResult_Dragon:init(gacha_type, l_gacha_dragon_list, l_slime_lis
     self.m_eggID = egg_id
     self.m_eggRes = egg_res
     self.m_bSkip = false
+	self.m_tSummonData = t_summon_data
 
     -- 드래곤리스트, 슬라임 리스트 copy
     local copy_dragon_list = l_gacha_dragon_list and clone(l_gacha_dragon_list) or {}
@@ -92,19 +98,86 @@ function UI_GachaResult_Dragon:initUI()
 		vars['blackSprite']:setVisible(true)
 	end
 
+	-- 이것저것..
+	self:initEverything()
+
 	-- 사용 재화 표기
-	if (self.m_type == 'cash') then
-		self:refresh_cash()
-
-	elseif (self.m_type == 'fp') then
-		vars['fpNode']:setVisible(true)
-		local fp = g_userData:get('fp')
-		vars['fpLabel']:setString(comma_value(fp))
-
-	end
+	self:refresh_wealth()
 
 	-- 드래곤 수량 표시
 	self:refresh_inventoryLabel()
+end
+
+
+-------------------------------------
+-- function initEverything
+-- @brief 여기저기 흩어져 있던 외부에서 조작하던 것들 한곳으로 모음
+-------------------------------------
+function UI_GachaResult_Dragon:initEverything()
+	local vars = self.vars
+
+	-- 공통 데이터
+	local t_egg_data = self.m_tSummonData
+	local egg_id = self.m_eggID
+
+	-- 부화
+	if (self.m_type == 'incubate') then
+		local cnt = t_egg_data['count']
+        local remain_cnt = t_egg_data['remain_cnt']
+		
+		-- 이어서 뽑기 (단차 뽑기만 지원함)
+        if (cnt == 1) and (1 <= remain_cnt) then
+            local al egg_icon = IconHelper:getEggIconByEggID(egg_id)
+            vars['summonEggNode']:addChild(egg_icon)
+            vars['summonEggLabel']:setString(Str('{1}', remain_cnt))
+
+			self:registerOpenNode('summonBtn')
+        end
+
+		-- 연출 조정
+		self:registerOpenNode('inventoryBtn')
+
+		return
+
+	-- 고급 소환 / 우정 소환
+	else
+		local is_cash = (self.m_type == 'cash')
+
+		do -- 아이콘
+			local price_icon
+			if (is_cash) then
+				price_icon = IconHelper:getIcon('res/ui/icons/item/cash.png')
+			else
+				price_icon = IconHelper:getIcon('res/ui/icons/item/fp.png')
+			end
+			price_icon:setScale(0.5)
+			vars['priceIconNode']:removeAllChildren()
+			vars['priceIconNode']:addChild(price_icon)
+		end
+
+		do -- 가격
+			local price = t_egg_data['price']
+
+			-- 10% 할인
+			if (is_cash) then
+				price = price - (price * 0.1)
+			else
+				vars['saleSprite']:setVisible(false)
+			end
+			vars['priceLabel']:setString(comma_value(price))
+		end
+
+		-- UI 연출 조정
+		self:registerOpenNode('againBtn')
+		self:registerOpenNode('inventoryBtn')
+
+		if (is_cash) then
+			self:registerOpenNode('mileageNode')
+			self:registerOpenNode('diaNode')
+		else
+			self:registerOpenNode('fpNode')
+		end 
+	end
 end
 
 -------------------------------------
@@ -366,15 +439,26 @@ function UI_GachaResult_Dragon:setDragonCardList()
 end
 
 -------------------------------------
--- function refresh_cash
+-- function refresh_wealth
 -------------------------------------
-function UI_GachaResult_Dragon:refresh_cash()
-	if (self.m_type ~= 'cash') then
-		return
-	end
+function UI_GachaResult_Dragon:refresh_wealth()
+	local vars = self.vars
 
-	local cash = g_userData:get('cash')
-	self.vars['diaLabel']:setString(comma_value(cash))
+	if (self.m_type == 'cash') then
+		-- 캐시
+		local cash = g_userData:get('cash')
+		vars['diaLabel']:setString(comma_value(cash))
+
+		-- 마일리지
+		local mileage = g_userData:get('mileage')
+		vars['mileageLabel']:setString(comma_value(mileage))
+	
+	elseif (self.m_type == 'fp') then
+		-- 우정 포인트
+		local fp = g_userData:get('fp')
+		vars['fpLabel']:setString(comma_value(fp))
+
+	end
 end
 
 -------------------------------------
@@ -462,4 +546,25 @@ function UI_GachaResult_Dragon:click_closeBtn()
         SoundMgr:playPrevBGM()
         self:close()
     end
+end
+
+
+
+
+
+
+
+
+
+
+
+
+-------------------------------------
+-- function registerOpenNode
+-------------------------------------
+function UI_GachaResult_Dragon:registerOpenNode(lua_name)
+	local node = self.vars[lua_name]
+	if (node) then 
+		table.insert(self.m_hideUIList, node)
+	end
 end

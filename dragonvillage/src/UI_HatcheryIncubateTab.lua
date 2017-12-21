@@ -105,7 +105,11 @@ function UI_HatcheryIncubateTab:requestIncubate(egg_id, cnt, old_ui)
         local l_dragon_list = ret['added_dragons']
         local l_slime_list = ret['added_slimes']
         local egg_res = TableItem:getEggRes(egg_id)
-        local ui = UI_GachaResult_Dragon(gacha_type, l_dragon_list, l_slime_list, egg_id, egg_res)
+		local t_summon_data = {
+			['count'] = cnt,
+			['remain_cnt'] = g_eggsData:getEggCount(egg_id)
+		}
+        local ui = UI_GachaResult_Dragon(gacha_type, l_dragon_list, l_slime_list, egg_id, egg_res, t_summon_data)
 
         local function close_cb()
             self:sceneFadeInAction()
@@ -118,39 +122,17 @@ function UI_HatcheryIncubateTab:requestIncubate(egg_id, cnt, old_ui)
         -- 리스트 갱신
         self:refreshEggList()
 
-        -- 
+        -- 알 포커스 이동
         local egg_picker = self.m_eggPicker
         if egg_picker.m_currFocusIndex then
             egg_picker:setFocus(egg_picker.m_currFocusIndex, 0.5)
         end
 
-        do -- 이어서 뽑기 (단차 뽑기만 지원함)
-            local remain_cnt = g_eggsData:getEggCount(egg_id)
-            if (cnt == 1) and (cnt <= remain_cnt) then
-
-                -- 단차 뽑기는 "이어서 소환"을 즉시 보여줌
-                if (cnt == 1) then
-                    ui.vars['summonBtn']:setVisible(true)
-                end
-                ui.vars['summonBtn']:registerScriptTapHandler(function()
-                        self:requestIncubate(egg_id, cnt, ui)
-                    end)
-
-                ui.vars['summonEggLabel']:setString(Str('{1}', remain_cnt))
-                local egg_icon = IconHelper:getEggIconByEggID(egg_id)
-                ui.vars['summonEggNode']:addChild(egg_icon)
-
-                table.insert(ui.m_hideUIList, ui.vars['summonBtn'])
-            end
-        end
-
-		--- 1개 부화 : 즉시 인벤토리를 보여줌
-		if (cnt == 1) then
-			ui.vars['inventoryBtn']:setVisible(true)
-
-		-- 10개 부화 : 리스트 등록
-		else
-			table.insert(ui.m_hideUIList, ui.vars['inventoryBtn'])
+		-- 이어서 부화하기 설정
+		if (cnt == 1) and (1 <= t_summon_data['remain_cnt']) then
+			ui.vars['summonBtn']:registerScriptTapHandler(function()
+				self:requestIncubate(egg_id, cnt, ui)
+			end)
 		end
 
         -- 하일라이트 노티 갱신을 위해 호출

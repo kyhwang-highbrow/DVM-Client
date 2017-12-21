@@ -106,7 +106,7 @@ function UI_HatcherySummonTab:click_eventSummonBtn(is_bundle, is_sale, t_egg_dat
         local l_slime_list = ret['added_slimes']
         local egg_id = t_egg_data['egg_id']
         local egg_res = t_egg_data['egg_res']
-        local ui = UI_GachaResult_Dragon(gacha_type, l_dragon_list, l_slime_list, egg_id, egg_res)
+        local ui = UI_GachaResult_Dragon(gacha_type, l_dragon_list, l_slime_list, egg_id, egg_res, t_egg_data)
 
         local function close_cb()
             self:summonApiFinished()
@@ -154,7 +154,7 @@ function UI_HatcherySummonTab:click_cashSummonBtn(is_bundle, is_sale, t_egg_data
         local l_slime_list = ret['added_slimes']
         local egg_res = t_egg_data['egg_res']
         local egg_id = t_egg_data['egg_id']
-        local ui = UI_GachaResult_Dragon(gacha_type, l_dragon_list, l_slime_list, egg_id, egg_res)
+        local ui = UI_GachaResult_Dragon(gacha_type, l_dragon_list, l_slime_list, egg_id, egg_res, t_egg_data)
 
         local function close_cb()
             self:summonApiFinished()
@@ -201,7 +201,7 @@ function UI_HatcherySummonTab:click_friendSummonBtn(is_bundle, t_egg_data, old_u
         local l_slime_list = ret['added_slimes']
         local egg_id = t_egg_data['egg_id']
         local egg_res = t_egg_data['egg_res']
-        local ui = UI_GachaResult_Dragon(gacha_type, l_dragon_list, l_slime_list, egg_id, egg_res)
+        local ui = UI_GachaResult_Dragon(gacha_type, l_dragon_list, l_slime_list, egg_id, egg_res, t_egg_data)
 
         -- 이어서 뽑기 설정
         self:subsequentSummons(ui, t_egg_data)
@@ -221,9 +221,10 @@ end
 -------------------------------------
 -- function requestSummon
 -------------------------------------
-function UI_HatcherySummonTab:requestSummon(t_egg_data, is_sale, old_ui)
+function UI_HatcherySummonTab:requestSummon(t_egg_data, old_ui)
     local egg_id = t_egg_data['egg_id']
     local is_bundle = t_egg_data['bundle']
+	local is_sale = (t_egg_data['price_type'] == 'cash')
 
     local function ok_btn_cb()
         if (egg_id == 700001) then
@@ -283,64 +284,10 @@ end
 function UI_HatcherySummonTab:subsequentSummons(gacha_result_ui, t_egg_data)
     local vars = gacha_result_ui.vars
 
-    local egg_id = t_egg_data['egg_id']
-    local name = t_egg_data['name']
-    local is_sale = false
-
-    do -- 아이콘
-        local price_type = t_egg_data['price_type']
-        local price_icon
-        if (price_type == 'cash') then
-            price_icon = cc.Sprite:create('res/ui/icons/item/cash.png')
-        elseif (price_type == 'fp') then
-            price_icon = cc.Sprite:create('res/ui/icons/item/fp.png')
-        else
-            error('price_icon ' .. price_icon)
-        end
-
-        price_icon:setDockPoint(cc.p(0.5, 0.5))
-        price_icon:setAnchorPoint(cc.p(0.5, 0.5))
-        price_icon:setScale(0.5)
-
-        vars['priceIconNode']:removeAllChildren()
-        vars['priceIconNode']:addChild(price_icon)
-    end
-
-    do -- 가격
-        local price = t_egg_data['price']
-
-        -- 10% 할인
-        if (t_egg_data['price_type'] ~= 'fp') then
-            price = price - (price * 0.1)
-            is_sale = true
-        else
-            vars['saleSprite']:setVisible(false)
-        end
-        vars['priceLabel']:setString(comma_value(price))
-    end
-
-    do -- 마일리지
-        local mileage = g_userData:get('mileage')
-        vars['mileageLabel']:setString(comma_value(mileage))
-    end
-
-    -- 단차 뽑기는 "이어서 소환"을 즉시 보여줌
-    -- 마일리지도 
-    if (not t_egg_data['bundle']) then
-        vars['againBtn']:setVisible(true)
-		vars['diaNode']:setVisible(true)
-        vars['mileageNode']:setVisible(true)
-		vars['inventoryBtn']:setVisible(true)
-    end
-
+	-- 다시하기 버튼 등록
     vars['againBtn']:registerScriptTapHandler(function()
-            self:requestSummon(t_egg_data, is_sale, gacha_result_ui)
-        end)
-
-    table.insert(gacha_result_ui.m_hideUIList, vars['againBtn'])
-    table.insert(gacha_result_ui.m_hideUIList, vars['mileageNode'])
-	table.insert(gacha_result_ui.m_hideUIList, vars['diaNode'])
-	table.insert(gacha_result_ui.m_hideUIList, vars['inventoryBtn'])
+        self:requestSummon(t_egg_data, gacha_result_ui)
+    end)
 end
 
 -------------------------------------
