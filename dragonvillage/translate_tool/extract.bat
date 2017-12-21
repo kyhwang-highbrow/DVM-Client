@@ -8,4 +8,4 @@ set HOD_ROOT=%cd%
 node --max-old-space-size=4096 tools/extract.js only_ingame 1M_in-ZIMHsXvkSu_EBktrtDxBVpKXSbl0l4wpljU1gw en;jp;zhtw
 node --max-old-space-size=4096 tools/extract_scenario.js only_scenario 1M_in-ZIMHsXvkSu_EBktrtDxBVpKXSbl0l4wpljU1gw en;jp;zhtw
 
-::python slack.py
+python slack.py

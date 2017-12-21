@@ -2,7 +2,7 @@
 import json
 
 payload = {
-    "text": "번역이 추출되었습니다.\nen : https://docs.google.com/spreadsheets/d/1TzxlNwZHMZxG4W0LsPokaQfnCsCoCM3qvozAt7tvICg\njp : https://docs.google.com/spreadsheets/d/1hYRS7hE6OTRNQ-2RJL14O0VmxXxbYoT0wtQ7-rFnAi4\nzhtw : https://docs.google.com/spreadsheets/d/1Cv2vBmWpnVwK74KN6SnL0QKdTpMoAx8VPYDzOi9yks0"
+    "text": "번역이 추출되었습니다.\nsheet : https://docs.google.com/spreadsheets/d/1M_in-ZIMHsXvkSu_EBktrtDxBVpKXSbl0l4wpljU1gw"
     }
 
-requests.post("https://hooks.slack.com/services/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", data={"payload":json.dumps(payload)} )
+requests.post("https://hooks.slack.com/services/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", data={"payload":json.dumps(payload)} )
