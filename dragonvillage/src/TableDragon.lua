@@ -58,7 +58,7 @@ function TableDragon:getSameTypeDragonList(did)
 		return a['did'] < b['did']
 	end)
 
-    return list
+    return l_dragon
 end
 
 -------------------------------------
