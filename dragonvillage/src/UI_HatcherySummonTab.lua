@@ -221,10 +221,10 @@ end
 -------------------------------------
 -- function requestSummon
 -------------------------------------
-function UI_HatcherySummonTab:requestSummon(t_egg_data, old_ui)
+function UI_HatcherySummonTab:requestSummon(t_egg_data, old_ui, is_again)
     local egg_id = t_egg_data['egg_id']
     local is_bundle = t_egg_data['bundle']
-	local is_sale = (t_egg_data['price_type'] == 'cash')
+	local is_sale = (t_egg_data['price_type'] == 'cash') and is_again
 
     local function ok_btn_cb()
         if (egg_id == 700001) then
@@ -286,7 +286,7 @@ function UI_HatcherySummonTab:subsequentSummons(gacha_result_ui, t_egg_data)
 
 	-- 다시하기 버튼 등록
     vars['againBtn']:registerScriptTapHandler(function()
-        self:requestSummon(t_egg_data, gacha_result_ui)
+        self:requestSummon(t_egg_data, gacha_result_ui, true) -- is_again
     end)
 end
 
