@@ -481,7 +481,7 @@ function UI_GachaResult_Dragon:click_inventoryBtn()
     local item_type = 'dragon'
     local function finish_cb()
         self:refresh_inventoryLabel()
-		self:refresh_cash()
+		self:refresh_wealth()
     end
 
     g_inventoryData:extendInventory(item_type, finish_cb)
