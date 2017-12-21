@@ -62,14 +62,16 @@ function UI_InventoryTabRune:init_runeTableView(slot_idx)
         ui:setNewSpriteVisible(is_new)
 
 		-- 만약 선택 판매 중이었다면 체크 표시
-		if (select_sell_item_ui) then
-			local roid = data['roid']
-			if select_sell_item_ui.m_bActive then
-				if (select_sell_item_ui.m_selectedItemUIMap[roid]) then
-					ui:setCheckSpriteVisible(true)
-				end
-			end
-		end
+        if (select_sell_item_ui) then
+            local roid = data['roid']
+            if select_sell_item_ui.m_bActive then
+                if (select_sell_item_ui.m_selectedItemUIMap[roid]) then
+                   if (not data['lock']) then
+                        ui:setCheckSpriteVisible(true)
+                   end
+                end
+            end
+        end
             
 		-- 클릭 콜백
         local function click_func()
@@ -249,11 +251,8 @@ function UI_InventoryTabRune:runeLockBtn(t_rune_data)
 
     local function finish_cb()
         local new_data = g_runesData:getRuneObject(roid)
-        if (t_rune_data['updated_at'] ~= new_data['updated_at']) then
-            self:refresh_selectedRune(new_data)
-        end
-
-        -- 잠금에 따른 룬 선택 초기화
+        
+		-- 잠금했던 룬이라면 잠금여부에 따라 roid 삭제
         local select_sell_item_ui = self.m_inventoryUI.m_selectSellItemsUI
         if (new_data['lock'] == true) and (select_sell_item_ui) then
             if select_sell_item_ui.m_bActive then
@@ -261,6 +260,11 @@ function UI_InventoryTabRune:runeLockBtn(t_rune_data)
                     select_sell_item_ui.m_selectedItemUIMap[roid] = nil
                 end
             end
+        end
+
+		-- 룬 갱신 (cell을 새로 생성한다)
+        if (t_rune_data['updated_at'] ~= new_data['updated_at']) then
+            self:refresh_selectedRune(new_data)
         end
     end
 
