@@ -25,15 +25,10 @@ function PackageManager:getTargetUI(package_name, is_popup)
         target_ui = UI_Package_Bundle(package_name, is_popup)
 
     -- 패키지 상품 UI (단일 상품)
-    -- 현재는 단일 상품도 table_bundle_package 에 등록하여 쓰고 있지만 예전것들과 UI 네이밍 규칙이 달라 정리가 필요함
     else
-        -- 예전 것들은 pid로 넘어오고 있음.
-        local product_id = package_name
-        local l_item_list = g_shopDataNew:getProductList('package')
-        struct_product = l_item_list[tonumber(product_id)]
-        if (struct_product) then
-            target_ui = UI_Package(struct_product, is_popup)
-        end
+        -- 예전 것들은 struct_product 로 넘어오고 있음.
+        local struct_product = package_name
+        target_ui = UI_Package(struct_product, is_popup)
     end
 
     return target_ui

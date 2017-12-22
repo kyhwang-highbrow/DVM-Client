@@ -28,8 +28,10 @@ function UI_EventPopupTab_Shop:initUI()
     local is_popup = false
     local ui = PackageManager:getTargetUI(struct_product, is_popup)
 
-    local node = vars['shopNode']
-    node:addChild(ui.root)
+    if (ui) then
+        local node = vars['shopNode']
+        node:addChild(ui.root)
+    end
 end
 
 -------------------------------------

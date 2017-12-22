@@ -75,41 +75,42 @@ function UI_Package_Bundle:refresh()
         return
     end
 
+    local function setLabelString(target_key, idx, str)
+        if (vars[target_key..idx]) then
+            vars[target_key..idx]:setString(str)
+
+        -- 단일 패키지도 table_bundle_package에서 관리, UI 네이밍 예외 검사
+        elseif (idx == 1) and (vars[target_key]) then
+            vars[target_key]:setString(str)
+        end
+    end
+
+    local function setNodeVisible(target_key, idx, visible)
+        if (vars[target_key..idx]) then
+            vars[target_key..idx]:setVisible(visible)
+
+        -- 단일 패키지도 table_bundle_package에서 관리, UI 네이밍 예외 검사
+        elseif (idx == 1) and (vars[target_key]) then
+            vars[target_key]:setVisible(visible)
+        end
+    end
+
     for idx, pid in ipairs(target_product) do
         local pid = tonumber(pid)
         local struct_product = l_item_list[pid]
-        local item_label = vars['itemLabel'..idx]
 
-        if (item_label) then
-            item_label:setString('')
-        end
+        setLabelString('itemLabel', idx, '')
 
         -- 상품 정보가 없다면 구매제한을 넘겨 서버에서 준 정보가 없는 경우라 판단
         -- 월간 패키지, 주말 패키지는 구매제한 넘겨도 값을 주는데 다른 패키지는 주지 않음?
         if (not struct_product) then
-            if (item_label) then
-                item_label:setString(Str('구매 완료'))
-            end
+            setLabelString('itemLabel', idx, Str('구매 완료'))
 
-            if (vars['priceNode'..idx]) then
-                vars['priceNode'..idx]:setVisible(false)
-            end
-
-            if (vars['buyLabel'..idx]) then
-                vars['buyLabel'..idx]:setVisible(false)
-            end
-
-            if (vars['priceLabel'..idx]) then
-                vars['priceLabel'..idx]:setVisible(false)
-            end
-
-            if (vars['buyBtn'..idx]) then
-                vars['buyBtn'..idx]:setVisible(false)
-            end
-
-			if (vars['completeNode' .. idx]) then
-				vars['completeNode' .. idx]:setVisible(true)
-			end
+            setNodeVisible('priceNode', idx, false)
+            setNodeVisible('buyLabel', idx, false)
+            setNodeVisible('priceLabel', idx, false)
+            setNodeVisible('buyBtn', idx, false)
+            setNodeVisible('completeNode', idx, true)
         else
             -- 판매종료시간 있는 경우 표시
             local time_label = vars['timeLabel']
@@ -121,44 +122,47 @@ function UI_Package_Bundle:refresh()
             -- 구성품 t_desc 표시
             if (self.m_data['use_desc'] == 1) then
                 local desc_str = struct_product['t_desc']
-                if (item_label) then
-                    item_label:setString(desc_str)
-                end
+                setLabelString('itemLabel', idx, desc_str)
 
             -- 구성품 mail_content 표시
             else
                 local full_str = ServerData_Item:getPackageItemFullStr(struct_product['mail_content'])
-                if (item_label) then
-                    item_label:setString(full_str)
-                end
+                setLabelString('itemLabel', idx, full_str)
             end
 
             -- 구매 제한
             local limit = struct_product:getMaxBuyTermStr()
-            if (vars['buyLabel'..idx]) then
-                vars['buyLabel'..idx]:setString(limit)
-            end
-        
+            setLabelString('buyLabel', idx, limit)
+
 	        -- 가격
 	        local price = struct_product:getPriceStr()
-            if (vars['priceLabel'..idx]) then
-                vars['priceLabel'..idx]:setString(price)
-            end
+            setLabelString('priceLabel', idx, price)
         
 	        -- 가격 아이콘
             local icon = struct_product:makePriceIcon()
             if (vars['priceNode'..idx]) then
                 vars['priceNode'..idx]:addChild(icon)
-            end   
+
+            elseif (idx == 1) and (vars['priceNode']) then   
+                vars['priceNode']:addChild(icon)
+            end
 
 			-- 구매 완료 표시
 			if (vars['completeNode' .. idx]) then
 				vars['completeNode' .. idx]:setVisible(struct_product:isBuyAll())
-			end
+
+			elseif (idx == 1) and (vars['completeNode']) then   
+                vars['completeNode']:setVisible(struct_product:isBuyAll())
+            end
 
             -- 즉시 구매라면
             if (self.m_data['is_detail'] == 0) then
-                vars['buyBtn'..idx]:registerScriptTapHandler(function() self:click_buyBtn(struct_product) end)
+                if (vars['buyBtn' .. idx]) then
+				vars['buyBtn' .. idx]:registerScriptTapHandler(function() self:click_buyBtn(struct_product) end)
+
+			    elseif (idx == 1) and (vars['buyBtn']) then   
+                    vars['buyBtn']:registerScriptTapHandler(function() self:click_buyBtn(struct_product) end)
+                end
             end
         end
     end
