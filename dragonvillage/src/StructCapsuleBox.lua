@@ -91,7 +91,7 @@ function StructCapsuleBox:setPrice(price_str)
 		t_price['value'] = l_split[2]
 		table.insert(l_price_list, t_price)
 	end
-	ccdump(l_price_list)
+
 	self['price'] = l_price_list
 end
 
