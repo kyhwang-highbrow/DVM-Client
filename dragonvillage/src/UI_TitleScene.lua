@@ -895,7 +895,7 @@ function UI_TitleScene:workGetServerInfo()
 
 		-- @ capsule box
 		co:work()
-        self.m_loadingUI:showLoading(Str('캡슐 신전 점검 중...'))
+        self.m_loadingUI:showLoading(Str('캡슐 뽑기 채워넣는 중...'))
         local ui_network = g_capsuleBoxData:request_capsuleBoxInfo(co.NEXT, fail_cb)
         if ui_network then
             ui_network:setRevocable(false)
