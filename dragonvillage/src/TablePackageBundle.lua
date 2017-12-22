@@ -35,7 +35,7 @@ end
 
 -------------------------------------
 -- function checkBundleWithName
--- @brief µî·ÏµÈ ÆĞÅ°ÁöÀÎÁö 
+-- @brief ë“±ë¡ëœ íŒ¨í‚¤ì§€ì¸ì§€ 
 -------------------------------------
 function TablePackageBundle:checkBundleWithName(package_name)
     if (self == THIS) then

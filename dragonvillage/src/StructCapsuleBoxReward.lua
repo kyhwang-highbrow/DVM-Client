@@ -72,8 +72,8 @@ end
 -------------------------------------
 function StructCapsuleBoxReward:getStateAndColor()
 	if (self['rate'] > 0) then
-		return Str('È¹µæ °¡´É'), cc.c4b(45, 255, 107, 255)
+		return Str('íšë“ ê°€ëŠ¥'), cc.c4b(45, 255, 107, 255)
 	else
-		return Str('È¹µæ ºÒ°¡'), cc.c4b(255, 70, 70, 255)
+		return Str('ë§¤ì§„'), cc.c4b(255, 70, 70, 255)
 	end
 end

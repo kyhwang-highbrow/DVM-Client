@@ -83,7 +83,7 @@ end
 function StructCapsuleBox:setPrice(price_str)
 	local l_price_list = {}
 	
-	-- ?�러 ?�?�의 가격을 관�??????�도�?
+	-- 여러가지 타입의 가격을 처리할수 있도록...
 	for _, each_price in ipairs(plSplit(price_str, ',')) do
 		local t_price = {}
 		local l_split = plSplit(each_price, ';')
@@ -111,7 +111,7 @@ end
 
 -------------------------------------
 -- function setContents
--- @brief �?��???�는 ?�태
+-- @brief 상품 내역 저장
 -------------------------------------
 function StructCapsuleBox:setContents(t_content)
 	if (not self['contents']) then
@@ -129,7 +129,7 @@ end
 
 -------------------------------------
 -- function setContentCount
--- @brief �?�� 부??
+-- @brief 각 상품의 갯수 저장
 -------------------------------------
 function StructCapsuleBox:setContentCount(t_count)
 	local total = self['total']
@@ -166,6 +166,7 @@ end
 
 -------------------------------------
 -- function getRankRewardList
+-- @brief 특정 랭크의 상품만 리턴
 -------------------------------------
 function StructCapsuleBox:getRankRewardList(rank)
 	local l_reward = {}
@@ -174,7 +175,7 @@ function StructCapsuleBox:getRankRewardList(rank)
 			table.insert(l_reward, struct_reward)
 		end
 	end
-	-- id ?�서?��??�렬
+	-- id 순서대로 정렬
 	table.sort(l_reward, function(a, b)
 		local a_num = tonumber(a['id'])
 		local b_num = tonumber(b['id'])
