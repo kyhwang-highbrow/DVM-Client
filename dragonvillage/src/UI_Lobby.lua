@@ -356,14 +356,7 @@ function UI_Lobby:initButton()
     vars['diceBtn']:registerScriptTapHandler(function() self:click_diceBtn() end) -- 주사위이벤트
     vars['levelupBtn']:registerScriptTapHandler(function() self:click_lvUpPackBtn() end) -- 레벨업 패키지
     vars['adventureClearBtn']:registerScriptTapHandler(function() self:click_adventureClearBtn() end) -- 모험돌파 패키지
-
-	-- 임시 @TODO 진입은 얼루하는지도...
-	vars['capsuleBoxBtn']:registerScriptTapHandler(function() 
-		g_capsuleBoxData:request_capsuleBoxStatus(function()
-			UI_CapsuleBox()
-		end)
-	end)
-	vars['capsuleBoxBtn']:setVisible(false)
+	vars['capsuleBoxBtn']:registerScriptTapHandler(function() self:click_capsuleBoxBtn() end) -- 캡슐 뽑기 버튼
 
     do -- 기타 UI
         local etc_vars = self.m_etcExpendedUI.vars
@@ -891,6 +884,15 @@ function UI_Lobby:click_capsuleBtn()
 end
 
 -------------------------------------
+-- function click_capsuleBoxBtn
+-------------------------------------
+function UI_Lobby:click_capsuleBoxBtn()
+	g_capsuleBoxData:request_capsuleBoxStatus(function()
+		UI_CapsuleBox()
+	end)
+end
+
+-------------------------------------
 -- function click_exitBtn
 -- @brief 종료
 -------------------------------------
@@ -1029,6 +1031,13 @@ function UI_Lobby:refresh_rightButtons()
         vars['diceBtn']:setVisible(false)
     end
 
+	-- 캡슐 신전 버튼
+	if (g_capsuleBoxData:isOpen()) then
+		vars['capsuleBoxBtn']:setVisible(true)
+	else
+		vars['capsuleBoxBtn']:setVisible(false)
+	end
+
     -- 레벨업 패키지 버튼
     if g_levelUpPackageData:isVisible_lvUpPack() then
         vars['levelupBtn']:setVisible(true)
@@ -1053,6 +1062,7 @@ function UI_Lobby:refresh_rightButtons()
             'diceBtn',
             'levelupBtn',
             'adventureClearBtn',
+			'capsuleBoxBtn',
             'eventBtn',
         }
     

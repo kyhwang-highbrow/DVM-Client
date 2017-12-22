@@ -6,6 +6,8 @@ ServerData_CapsuleBox = class({
 		m_tStrurctCapsuleBox = 'table',
 		m_startTime = 'timestamp',
 		m_endTime = 'timestamp',
+		
+		m_open = 'bool',
     })
 
 local L_BOX_KEY = {'first', 'second'}
@@ -22,6 +24,15 @@ end
 -- function init_data
 -------------------------------------
 function ServerData_CapsuleBox:init_data(t_data)
+	-- 테이블이 비었다면 오픈하지 않은 것으로 간주
+	if (table.count(t_data) == 0) then
+		self.m_open = false
+		return
+	end
+
+	-- 값이 존재하면 오픈한 것
+	self.m_open = true
+
 	for i, box_key in pairs(L_BOX_KEY) do
 		local struct_capsulebox = StructCapsuleBox()
 
@@ -29,11 +40,17 @@ function ServerData_CapsuleBox:init_data(t_data)
 		struct_capsulebox:setBoxKey(box_key)
 
 		-- 총 갯수
-		local total = t_data['total'] and t_data['total'][box_key]
-		if (total) then
-			struct_capsulebox:setTotal(total)
+		if (t_data['total']) then
+			local total = t_data['total'][box_key]
+			if (total) then
+				struct_capsulebox:setTotal(total)
+			end
 		end
 
+		-- 가격s
+		if (t_data['price']) then
+			local price_str = t_data['price'][box_key]
+		end
 		-- 내용물
 		local t_content = t_data[box_key]
 		if (t_content) then
@@ -62,6 +79,13 @@ end
 -------------------------------------
 function ServerData_CapsuleBox:getCapsuleBoxInfo()
 	return self.m_tStrurctCapsuleBox
+end
+
+-------------------------------------
+-- function isOpen
+-------------------------------------
+function ServerData_CapsuleBox:isOpen()
+	return self.m_open
 end
 
 -------------------------------------
@@ -130,7 +154,7 @@ end
 -------------------------------------
 -- function request_capsuleBoxBuy
 -------------------------------------
-function ServerData_CapsuleBox:request_capsuleBoxBuy(finish_cb, fail_cb)
+function ServerData_CapsuleBox:request_capsuleBoxBuy(box, finish_cb, fail_cb)
     -- 파라미터
     local uid = g_userData:get('uid')
 
@@ -145,6 +169,7 @@ function ServerData_CapsuleBox:request_capsuleBoxBuy(finish_cb, fail_cb)
     local ui_network = UI_Network()
     ui_network:setUrl('/shop/capsule_box/buy')
     ui_network:setParam('uid', uid)
+	ui_network:setParam('box', box)
     ui_network:setSuccessCB(success_cb)
     ui_network:setFailCB(fail_cb)
     ui_network:setRevocable(true)

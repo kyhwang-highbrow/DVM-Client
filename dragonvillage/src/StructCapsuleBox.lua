@@ -10,7 +10,6 @@ StructCapsuleBox = class(PARENT, {
     })
 
 local THIS = StructCapsuleBox
-
 -------------------------------------
 -- function init
 -------------------------------------
@@ -72,11 +71,11 @@ function StructCapsuleBox:setContents(t_content)
 	end
 
 	for gift_id, item_str in pairs(t_content) do
-		self['contents'][gift_id] = {
-			['id'] = gift_id,
-			['item'] = item_str,
-			['count'] = 0
-		}
+		local struct_reward = StructCapsuleBoxReward()
+		struct_reward:setGiftID(gift_id)
+		struct_reward:setItem(item_str)
+
+		self['contents'][gift_id] = struct_reward
 	end
 end
 
@@ -85,17 +84,49 @@ end
 -- @brief 갯수 부여
 -------------------------------------
 function StructCapsuleBox:setContentCount(t_count)
-	ccdump(t_count)
+	local total = self['total']
 	for gift_id, count in pairs(t_count) do
-		if (self['contents'][gift_id]) then
-			self['contents'][gift_id]['count'] = count
+		local struct_reward = self['contents'][gift_id]
+		if (struct_reward) then
+			struct_reward:setCount(count)
+			struct_reward:calcRate(total)
 		end
 	end
 end
 
 -------------------------------------
--- function setContents
+-- function getContents
 -------------------------------------
 function StructCapsuleBox:getContents()
-	return self['contents']
+	local l_content = {}
+	for _, content in pairs(self['contents']) do
+		table.insert(l_content, content)
+	end
+	table.sort(l_content, function(a, b)
+		local a_num = tonumber(a['id'])
+		local b_num = tonumber(b['id'])
+		return a_num < b_num
+	end)
+
+	return l_content
+end
+
+-------------------------------------
+-- function getRankRewardList
+-------------------------------------
+function StructCapsuleBox:getRankRewardList(rank)
+	local l_reward = {}
+	for _, struct_reward in pairs(self['contents']) do
+		if (struct_reward.rank == rank) then
+			table.insert(l_reward, struct_reward)
+		end
+	end
+	-- id 순서대로 정렬
+	table.sort(l_reward, function(a, b)
+		local a_num = tonumber(a['id'])
+		local b_num = tonumber(b['id'])
+		return a_num < b_num
+	end)
+
+	return l_reward
 end

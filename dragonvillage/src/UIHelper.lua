@@ -34,9 +34,16 @@ function UIHelper:repeatTest(sequence_action)
 end
 
 -------------------------------------
--- function makeItemName_plain
+-- function makeItemNamePlainByParam
 -------------------------------------
-function UIHelper:makeItemName_plain(t_item)
+function UIHelper:makeItemNamePlainByParam(item_id, item_cnt)
+	return self:makeItemNamePlain({['item_id'] = item_id, ['count'] = item_cnt})
+end
+
+-------------------------------------
+-- function makeItemNamePlain
+-------------------------------------
+function UIHelper:makeItemNamePlain(t_item)
 	local item_id = t_item['item_id']
 	local item_name = TableItem:getItemName(item_id)
 	local item_cnt = t_item['count']

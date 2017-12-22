@@ -204,7 +204,7 @@ function UI_EventPopupTab_Attendance.makeDayRewardCell(data)
     vars['dayLabel']:setString(day)
     
 	-- 이름
-	local name = UIHelper:makeItemName_plain({['item_id'] = item_id, ['count'] = item_cnt})
+	local name = UIHelper:makeItemNamePlainByParam(item_id, item_cnt)
 	vars['quantityLabel']:setString(name)
 
 	-- 배경

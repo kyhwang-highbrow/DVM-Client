@@ -91,6 +91,7 @@ local t_module = {
     'StructEventDiceInfo',
 	'StructDailyMission',
 	'StructCapsuleBox',
+	'StructCapsuleBoxReward',
 
 	-- ServerData
     'ServerData',

@@ -41,7 +41,7 @@ function UI_AttendanceSpecialListItem:initUI()
 
 		-- 이름
         local item_name = TableItem():getValue(item_id, 't_name')
-		local name = UIHelper:makeItemName_plain({['item_id'] = item_id, ['count'] = item_cnt})
+		local name = UIHelper:makeItemNamePlainByParam(item_id, item_cnt)
         vars['quantityLabel'..i]:setString(name)
 
 		-- 수령 표시
