@@ -173,6 +173,8 @@ function UI_CapsuleBox:click_drawBtn(box_key, idx)
 			if (ret['items_list']) then
 				UI_ObtainPopup(ret['items_list'])
 			end
+
+			self:refresh()
 		end)
 	end
 	g_capsuleBoxData:request_capsuleBoxBuy(box_key, price_type, finish_func)

@@ -62,9 +62,10 @@ function ServerData_CapsuleBox:init_data(t_data)
 end
 
 -------------------------------------
--- function apply
+-- function applyCapsuleStatus
+-- @brief 캡슐 상태 갱신
 -------------------------------------
-function ServerData_CapsuleBox:apply(t_data)
+function ServerData_CapsuleBox:applyCapsuleStatus(t_data)
 	for i, box_key in pairs(L_BOX_KEY) do
 		local struct_capsulebox = self.m_tStrurctCapsuleBox[box_key]
 		local t_count = t_data[box_key]
@@ -131,7 +132,7 @@ function ServerData_CapsuleBox:request_capsuleBoxStatus(finish_cb, fail_cb)
 
     -- 콜백 함수
     local function success_cb(ret)
-		self:apply(ret)
+		self:applyCapsuleStatus(ret)
 
         if finish_cb then
             finish_cb(ret)
@@ -160,6 +161,8 @@ function ServerData_CapsuleBox:request_capsuleBoxBuy(box, price_type, finish_cb,
 
     -- 콜백 함수
     local function success_cb(ret)
+		self:applyCapsuleStatus(ret)
+
         if finish_cb then
             finish_cb(ret)
         end
