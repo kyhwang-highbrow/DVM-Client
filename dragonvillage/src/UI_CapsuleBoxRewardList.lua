@@ -1,10 +1,11 @@
-local PARENT = UI
+local PARENT = class(UI, ITabUI:getCloneTable())
 
 -------------------------------------
 -- class UI_CapsuleBoxRewardList
 -------------------------------------
 UI_CapsuleBoxRewardList = class(PARENT,{
-		m_capsuleBoxData = '',
+		m_structCapsuleBox = '',
+		m_tableView = '',
     })
 
 -------------------------------------
@@ -14,12 +15,13 @@ function UI_CapsuleBoxRewardList:init(struct_capsule_box)
 	local vars = self:load('capsule_box_reward.ui')
 	UIManager:open(self, UIManager.POPUP)
 	
-	self.m_capsuleBoxData = g_capsuleBoxData:getCapsuleBoxInfo()
+	self.m_structCapsuleBox = struct_capsule_box
 
 	-- backkey 지정
-	g_currScene:pushBackKeyListener(self, function() self:click_exitBtn() end, 'UI_CapsuleBoxRewardList')
+	g_currScene:pushBackKeyListener(self, function() self:click_closeBtn() end, 'UI_CapsuleBoxRewardList')
 
 	self:initUI()
+	self:initTab()
 	self:initButton()
 	self:refresh()
 end
@@ -29,6 +31,36 @@ end
 -------------------------------------
 function UI_CapsuleBoxRewardList:initUI()
 	local vars = self.vars
+
+	local l_rate = self.m_structCapsuleBox:getRateByRankTable()
+	for rank, rate in pairs(l_rate) do
+		-- 등급 이름
+		vars['tabLabel' .. rank]:setString(Str('{1}등급', rank))
+
+		-- 등급별 비율
+		vars['chanceLabel' .. rank]:setString(string.format('%.2f%%', rate * 100))
+	end
+end
+
+-------------------------------------
+-- function initTab
+-------------------------------------
+function UI_CapsuleBoxRewardList:initTab()
+    local vars = self.vars
+	for i = 1, 6 do
+		self:addTab(i, vars['tabBtn' .. i])
+	end
+    self:setTab(1)
+
+	self:setChangeTabCB(function(tab, first) self:onChangeTab(tab, first) end)
+end
+
+-------------------------------------
+-- function onChangeTab
+-------------------------------------
+function UI_CapsuleBoxRewardList:onChangeTab(tab, first)
+	local vars = self.vars
+	self:makeQuestTableView(tab)
 end
 
 -------------------------------------
@@ -36,6 +68,7 @@ end
 -------------------------------------
 function UI_CapsuleBoxRewardList:initButton()
 	local vars = self.vars
+	vars['closeBtn']:registerScriptTapHandler(function() self:click_closeBtn() end)
 end
 
 -------------------------------------
@@ -46,17 +79,43 @@ function UI_CapsuleBoxRewardList:refresh()
 end
 
 -------------------------------------
--- function click_exitBtn
+-- function makeQuestTableView
 -------------------------------------
-function UI_CapsuleBoxRewardList:click_exitBtn()
+function UI_CapsuleBoxRewardList:makeQuestTableView(tab)
+    local vars = self.vars
+	local node = vars['listNode']
+	local rank = tab
+
+	-- 등급별 상품 내용
+	local l_reward = self.m_structCapsuleBox:getRankRewardList(rank)
+
+    do -- 테이블 뷰 생성
+        node:removeAllChildren()
+
+        -- 테이블 뷰 인스턴스 생성
+        local table_view = UIC_TableView(node)
+        table_view.m_defaultCellSize = cc.size(200 + 10, 300)
+        table_view:setCellUIClass(self.makeRewardCell)
+        table_view:setDirection(cc.SCROLLVIEW_DIRECTION_HORIZONTAL)
+		table_view:setAlignCenter(true)
+        table_view:setItemList(l_reward)
+
+        self.m_tableView = table_view
+    end
+end
+
+-------------------------------------
+-- function click_closeBtn
+-------------------------------------
+function UI_CapsuleBoxRewardList:click_closeBtn()
     self:close()
 end
 
 -------------------------------------
 -- function click_exitBtn
 -------------------------------------
-function UI_CapsuleBoxRewardList.makeRewardCell(box_key, struct_reward)
-	local ui = UI()
+function UI_CapsuleBoxRewardList.makeRewardCell(struct_reward)
+	local ui = class(UI, ITableViewCell:getCloneTable())()
 	ui:load('capsule_box_reward_item.ui')
 
 	local vars = ui.vars
@@ -64,23 +123,22 @@ function UI_CapsuleBoxRewardList.makeRewardCell(box_key, struct_reward)
 	local item_id = struct_reward['item_id']
 	local item_cnt = struct_reward['item_cnt']
 
+	-- 보상 아이콘
 	local item_card = UI_ItemCard(item_id, item_cnt)
 	vars['itemNode']:addChild(item_card.root)
 
 	-- 보상 이름
 	local name = UIHelper:makeItemNamePlainByParam(item_id, item_cnt)
 	vars['rewardLabel']:setString(name)
-	vars['quantityLabel']:setString('n개')
+
+	-- 남은 갯수
+	local count = struct_reward['count']
+	vars['quantityLabel']:setString(Str('{1}개', count))
 
 	-- 가능 여부
-	local state = struct_reward:getState()
+	local state, color = struct_reward:getStateAndColor()
 	vars['stateLabel']:setString(state)
-	vars['stateLabel']:setTextColor(cc.c4b(45, 255, 107, 255))
-	-- cc.c4b(255, 70, 70, 255)
-
-	-- 획득 확률
-	local rate = struct_reward['rate']
-	vars['chanceLabel']:setString(string.format('%.3f%%', rate))
+	vars['stateLabel']:setTextColor(color)
 
 	return ui
 end

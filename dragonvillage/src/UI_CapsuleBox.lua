@@ -107,11 +107,12 @@ function UI_CapsuleBox:refresh()
 		local struct_capsule_box = capsulebox_data[box_key]
 		local rank = 1
 		local l_reward = struct_capsule_box:getRankRewardList(rank)
-		
+		local curr_total = struct_capsule_box:getCurrentTotal()
+
 		-- 대표 보상 표시
 		for i, struct_reward in ipairs(l_reward) do
 			if (i <= 3) then
-				local ui = self.makeRewardCell(box_key, struct_reward)
+				local ui = self.makeRewardCell(box_key, struct_reward, curr_total)
 				vars[box_key .. 'ItemNode' .. i]:removeAllChildren(true)
 				vars[box_key .. 'ItemNode' .. i]:addChild(ui.root)
 			end
@@ -191,7 +192,7 @@ end
 -------------------------------------
 -- function click_exitBtn
 -------------------------------------
-function UI_CapsuleBox.makeRewardCell(box_key, struct_reward)
+function UI_CapsuleBox.makeRewardCell(box_key, struct_reward, curr_total)
 	local ui = UI()
 	
 	if (box_key == BOX_KEY_1) then
@@ -220,8 +221,9 @@ function UI_CapsuleBox.makeRewardCell(box_key, struct_reward)
 	vars['stateLabel']:setTextColor(color)
 
 	-- 획득 확률
-	local rate = struct_reward['rate']
-	vars['chanceLabel']:setString(string.format('%.3f%%', rate))
+	local count = struct_reward:getCount()
+	local rate = count/curr_total
+	vars['chanceLabel']:setString(string.format('%f%%', rate))
 
 	return ui
 end

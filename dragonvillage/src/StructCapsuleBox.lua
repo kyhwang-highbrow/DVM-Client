@@ -64,9 +64,9 @@ function StructCapsuleBox:getTotal()
 end
 
 -------------------------------------
--- function getCurrentCapsule
+-- function getCurrentTotal
 -------------------------------------
-function StructCapsuleBox:getCurrentCapsule()
+function StructCapsuleBox:getCurrentTotal()
 	return self['curr']
 end
 
@@ -139,7 +139,6 @@ function StructCapsuleBox:setContentCount(t_count)
 		local struct_reward = self['contents'][gift_id]
 		if (struct_reward) then
 			struct_reward:setCount(count)
-			struct_reward:calcRate(total)
 		end
 		curr_capsule = curr_capsule + count
 	end
@@ -171,7 +170,7 @@ end
 function StructCapsuleBox:getRankRewardList(rank)
 	local l_reward = {}
 	for _, struct_reward in pairs(self['contents']) do
-		if (struct_reward.rank == rank) then
+		if (struct_reward['rank'] == rank) then
 			table.insert(l_reward, struct_reward)
 		end
 	end
@@ -183,4 +182,34 @@ function StructCapsuleBox:getRankRewardList(rank)
 	end)
 
 	return l_reward
+end
+
+-------------------------------------
+-- function getRateByRankTable
+-- @brief 랭크별 비율 리스트 반환
+-------------------------------------
+function StructCapsuleBox:getRateByRankTable()
+	local curr_total = self:getCurrentTotal()
+
+	-- 랭크별 갯수를 산출한다.
+	local l_count = {}
+	local rank, count
+	for _, struct_reward in pairs(self['contents']) do
+		rank = struct_reward['rank']
+		count = struct_reward['count']
+
+		if (l_count[rank]) then
+			l_count[rank] = l_count[rank] + count
+		else
+			l_count[rank] = count
+		end
+	end
+
+	-- 산출된 갯수로 비율을 구해준다.
+	local l_rate = {}
+	for rank, count in pairs(l_count) do
+		l_rate[rank] = count/curr_total
+	end
+
+	return l_rate
 end
