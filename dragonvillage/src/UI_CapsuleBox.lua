@@ -103,12 +103,12 @@ function UI_CapsuleBox:refresh()
 
 	local capsulebox_data = self.m_capsuleBoxData
 
-	-- 대표 보상 표시
 	for _, box_key in pairs(L_BOX) do
 		local struct_capsule_box = capsulebox_data[box_key]
 		local rank = 1
 		local l_reward = struct_capsule_box:getRankRewardList(rank)
 		
+		-- 대표 보상 표시
 		for i, struct_reward in ipairs(l_reward) do
 			if (i <= 3) then
 				local ui = self.makeRewardCell(box_key, struct_reward)
@@ -116,6 +116,11 @@ function UI_CapsuleBox:refresh()
 				vars[box_key .. 'ItemNode' .. i]:addChild(ui.root)
 			end
 		end
+
+		-- 남은 캡슐 비율
+		local curr_per = struct_capsule_box:getCapsulePercentage()
+		local text = string.format('%s : %s', Str('남은 캡슐'), curr_per)
+		vars[box_key .. 'CurrentRateLabel']:setString(text)
 	end
 
 	-- 현재 보유한 캡슐 코인..
@@ -127,7 +132,8 @@ end
 -- function click_rewardBtn
 -------------------------------------
 function UI_CapsuleBox:click_rewardBtn(box_key)
-	ccdisplay('준비중')
+	local struct_capsule_box = self.m_capsuleBoxData[box_key]
+	UI_CapsuleBoxRewardList(struct_capsule_box)
 end
 
 -------------------------------------
@@ -207,10 +213,9 @@ function UI_CapsuleBox.makeRewardCell(box_key, struct_reward)
 	vars['rewardLabel']:setString(name)
 
 	-- 가능 여부
-	local state = struct_reward:getState()
+	local state, color = struct_reward:getStateAndColor()
 	vars['stateLabel']:setString(state)
-	vars['stateLabel']:setTextColor(cc.c4b(45, 255, 107, 255))
-	-- cc.c4b(255, 70, 70, 255)
+	vars['stateLabel']:setTextColor(color)
 
 	-- 획득 확률
 	local rate = struct_reward['rate']

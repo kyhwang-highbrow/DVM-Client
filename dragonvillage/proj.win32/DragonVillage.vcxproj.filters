@@ -3057,6 +3057,9 @@
     <None Include="..\src\UI_EventPopupTab_Package.lua">
       <Filter>lua\UI</Filter>
     </None>
+    <None Include="..\src\UI_CapsuleBoxRewardList.lua">
+      <Filter>lua\UI</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Classes">

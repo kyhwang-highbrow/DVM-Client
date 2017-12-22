@@ -40,8 +40,8 @@ end
 -- function setGiftID
 -------------------------------------
 function StructCapsuleBoxReward:setGiftID(gift_id)
-	self.id = gift_id
-	self.rank = math_floor(gift_id / 100) % 10
+	self['id'] = gift_id
+	self['rank'] = math_floor(gift_id / 100) % 10
 end
 
 -------------------------------------
@@ -49,31 +49,31 @@ end
 -------------------------------------
 function StructCapsuleBoxReward:setItem(item_str)
 	local l_item = plSplit(item_str, ';')
-	self.item_id = tonumber(l_item[1])
-	self.item_cnt = tonumber(l_item[2])
+	self['item_id'] = tonumber(l_item[1])
+	self['item_cnt'] = tonumber(l_item[2])
 end
 
 -------------------------------------
 -- function setCount
 -------------------------------------
 function StructCapsuleBoxReward:setCount(count)
-	self.count = count
+	self['count'] = count
 end
 
 -------------------------------------
 -- function calcRate
 -------------------------------------
 function StructCapsuleBoxReward:calcRate(total)
-	self.rate = self.count/total
+	self['rate'] = self['count']/total
 end
 
 -------------------------------------
--- function getState
+-- function getStateAndColor
 -------------------------------------
-function StructCapsuleBoxReward:getState()
-	if (self.rate > 0) then
-		return Str('È¹µæ °¡´É')
+function StructCapsuleBoxReward:getStateAndColor()
+	if (self['rate'] > 0) then
+		return Str('È¹µæ °¡´É'), cc.c4b(45, 255, 107, 255)
 	else
-		return Str('È¹µæ ºÒ°¡')
+		return Str('È¹µæ ºÒ°¡'), cc.c4b(255, 70, 70, 255)
 	end
 end

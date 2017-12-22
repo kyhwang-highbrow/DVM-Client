@@ -6,6 +6,7 @@ local PARENT = Structure
 StructCapsuleBox = class(PARENT, {
 		box_key = 'string',
 		contents = 'table',
+		curr = 'number',
 		total = 'number',
 		price = 'table',
     })
@@ -63,12 +64,26 @@ function StructCapsuleBox:getTotal()
 end
 
 -------------------------------------
+-- function getCurrentCapsule
+-------------------------------------
+function StructCapsuleBox:getCurrentCapsule()
+	return self['curr']
+end
+
+-------------------------------------
+-- function getCapsulePercentage
+-------------------------------------
+function StructCapsuleBox:getCapsulePercentage()
+	return string.format('%.2f%%', self['curr']/self['total']*100)
+end
+
+-------------------------------------
 -- function setPrice
 -------------------------------------
 function StructCapsuleBox:setPrice(price_str)
 	local l_price_list = {}
 	
-	-- ¿©·¯ Å¸ÀÔÀÇ °¡°İÀ» °ü¸® ÇÒ ¼ö ÀÖµµ·Ï
+	-- ?¬ëŸ¬ ?€?…ì˜ ê°€ê²©ì„ ê´€ë¦??????ˆë„ë¡?
 	for _, each_price in ipairs(plSplit(price_str, ',')) do
 		local t_price = {}
 		local l_split = plSplit(each_price, ';')
@@ -96,7 +111,7 @@ end
 
 -------------------------------------
 -- function setContents
--- @brief °¹¼ö´Â ¾ø´Â »óÅÂ
+-- @brief ê°?ˆ˜???†ëŠ” ?íƒœ
 -------------------------------------
 function StructCapsuleBox:setContents(t_content)
 	if (not self['contents']) then
@@ -114,17 +129,22 @@ end
 
 -------------------------------------
 -- function setContentCount
--- @brief °¹¼ö ºÎ¿©
+-- @brief ê°?ˆ˜ ë¶€??
 -------------------------------------
 function StructCapsuleBox:setContentCount(t_count)
 	local total = self['total']
+
+	local curr_capsule = 0
 	for gift_id, count in pairs(t_count) do
 		local struct_reward = self['contents'][gift_id]
 		if (struct_reward) then
 			struct_reward:setCount(count)
 			struct_reward:calcRate(total)
 		end
+		curr_capsule = curr_capsule + count
 	end
+
+	self['curr'] = curr_capsule
 end
 
 -------------------------------------
@@ -154,7 +174,7 @@ function StructCapsuleBox:getRankRewardList(rank)
 			table.insert(l_reward, struct_reward)
 		end
 	end
-	-- id ¼ø¼­´ë·Î Á¤·Ä
+	-- id ?œì„œ?€ë¡??•ë ¬
 	table.sort(l_reward, function(a, b)
 		local a_num = tonumber(a['id'])
 		local b_num = tonumber(b['id'])
