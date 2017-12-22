@@ -24,7 +24,7 @@ function WaveMgr_ClanRaid:newScenario()
     self.m_lBossInfo = {}
     self.m_lBoss = nil
 
-    -- 1¿şÀÌºê´Â »ó¹İ½Å, 2¿şÀÌºê´Â ÇÏ¹İ½ÅÀ¸·Î Ã³¸®ÇÏ¿© 2°³ÀÇ ¿şÀÌºê Á¤º¸¸¦ ¸ğµÎ °¡Á®¿È
+    -- 1ì›¨ì´ë¸ŒëŠ” ìƒë°˜ì‹ , 2ì›¨ì´ë¸ŒëŠ” í•˜ë°˜ì‹ ìœ¼ë¡œ ì²˜ë¦¬í•˜ì—¬ 2ê°œì˜ ì›¨ì´ë¸Œ ì •ë³´ë¥¼ ëª¨ë‘ ê°€ì ¸ì˜´
 	for idx = 1, 2 do
         local t_data = self.m_scriptData['wave'][idx]
         if (t_data) then
@@ -49,16 +49,16 @@ function WaveMgr_ClanRaid:newScenario_dynamicWave(t_data, wave_idx)
         phys_group_key = PHYS.ENEMY_BOTTOM
     end
     
-    -- wave Á¤º¸¸¦ ÀĞ¾î dynamic wave ¼¼ÆÃ
+    -- wave ì •ë³´ë¥¼ ì½ì–´ dynamic wave ì„¸íŒ…
 	self:setDynamicWave(self.m_lDynamicWave, t_data['wave'], {phys_group_key = phys_group_key})
     
-    -- regen¿¡ Á¤º¸°¡ ÀÖ´Ù¸é ÇØ´ç ¸÷À» Áö¼ÓÀûÀ¸·Î ¼ÒÈ¯ÇÏµµ·Ï ¼¼ÆÃ.
+    -- regenì— ì •ë³´ê°€ ìˆë‹¤ë©´ í•´ë‹¹ ëª¹ì„ ì§€ì†ì ìœ¼ë¡œ ì†Œí™˜í•˜ë„ë¡ ì„¸íŒ….
 	if (t_data['regen']) then
 		self.m_isRegenWave = true
         self.m_mRegenGroup = {}
 
         for idx, v in ipairs(t_data['regen']) do
-            -- ¿şÀÌºê ÀÎµ¦½º Á¤º¸¸¦ Æ÷ÇÔÇÑ ¸®Á¨ ±×·ì Å°°ªÀ» »ı¼º
+            -- ì›¨ì´ë¸Œ ì¸ë±ìŠ¤ ì •ë³´ë¥¼ í¬í•¨í•œ ë¦¬ì   ê·¸ë£¹ í‚¤ê°’ì„ ìƒì„±
             local regen_group_key = idx + (wave_idx * 10)
 
             self.m_mRegenGroup[regen_group_key] = StructWaveRegenGroup(regen_group_key, v, g_constant:get('INGAME', 'REGEN_APPEAR'), phys_group_key)
@@ -82,12 +82,12 @@ function WaveMgr_ClanRaid:spawnEnemy_dynamic(enemy_id, level, appear_type, value
     end
     table.insert(self.m_lBoss, enemy)
 
-    -- ½ºÅ×ÀÌÁöº° boss_hp_ratio Àû¿ë
+    -- ìŠ¤í…Œì´ì§€ë³„ boss_hp_ratio ì ìš©
     local boss_hp_ratio = TableStageData():getValue(self.m_world.m_stageID, 'boss_hp_ratio') or 1
     enemy.m_statusCalc:appendHpRatio(boss_hp_ratio)
     enemy:setStatusCalc(enemy.m_statusCalc)
 
-    -- ·¹ÀÌ¾î Ã³¸®
+    -- ë ˆì´ì–´ ì²˜ë¦¬
     if (phys_group == PHYS.ENEMY_TOP) then
         self.m_world.m_worldNode:addChild(enemy.m_rootNode, WORLD_Z_ORDER.BOSS)
     elseif (enemy_id == 151071) then
@@ -106,18 +106,18 @@ function WaveMgr_ClanRaid:spawnEnemy_dynamic(enemy_id, level, appear_type, value
     self.m_world:bindEnemy(enemy)
     self.m_world:addEnemy(enemy)
 
-    -- µîÀå ¿òÁ÷ÀÓ ¼³Á¤
+    -- ë“±ì¥ ì›€ì§ì„ ì„¤ì •
     if (EnemyAppear[appear_type]) then
         EnemyAppear[appear_type](enemy, value1, value2, value3)
     end
 
-    -- ÀÌµ¿ ÆĞÅÏ ¼³Á¤
+    -- ì´ë™ íŒ¨í„´ ì„¤ì •
     do
         if (not movement) then
             movement = self.m_currWave
         end
 
-        -- ·Î¹Ö ÀÓ½Ã Ã³¸®
+        -- ë¡œë° ì„ì‹œ ì²˜ë¦¬
         if (movement == 'roam') then
             enemy.m_bRoam = true
         elseif (self.m_world.m_enemyMovementMgr) then

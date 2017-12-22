@@ -1,7 +1,7 @@
 local PARENT = UI_Card
 
 --[[ 
-# card_rune.ui ÀÏ¶÷
+# card_rune.ui ì¼ëŒ
     newSprite
     selectSprite
     disableSprite
@@ -19,7 +19,7 @@ local PARENT = UI_Card
 -- class UI_RuneCard
 -------------------------------------
 UI_RuneCard = class(PARENT, {
-		m_itemID = '', -- UI_ItemCard¿ÍÀÇ ÅëÀÏ
+		m_itemID = '', -- UI_ItemCardì™€ì˜ í†µì¼
 
         m_runeData = '',
 
@@ -38,10 +38,10 @@ function UI_RuneCard:init(t_rune_data)
     self.m_runeData = t_rune_data
 	self.m_itemID = t_rune_data['rid']
 
-    -- ¹öÆ° »ı¼º
+    -- ë²„íŠ¼ ìƒì„±
     self:makeClickBtn()
 
-    -- µå·¡°ï Á¤º¸ »ı¼º
+    -- ë“œë˜ê³¤ ì •ë³´ ìƒì„±
     self:refreshInfo()
 end
 
@@ -72,26 +72,26 @@ function UI_RuneCard:refreshInfo()
         return
     end
 
-    -- ·é ¾ÆÀÌÄÜ
+    -- ë£¬ ì•„ì´ì½˜
     self:makeIcon()
 	self:makeRuneNumberIcon()
 
-    -- Ä«µå ÇÁ·¹ÀÓ
+    -- ì¹´ë“œ í”„ë ˆì„
     self:makeFrame()
 
-    -- µî±Ş ¾ÆÀÌÄÜ »ı¼º
+    -- ë“±ê¸‰ ì•„ì´ì½˜ ìƒì„±
     self:refresh_gradeIcon()
 
-    -- ·¹º§ ÁöÁ¤
+    -- ë ˆë²¨ ì§€ì •
     self:setLevelText()
 
-    -- Àá±İ Ç¥½Ã
+    -- ì ê¸ˆ í‘œì‹œ
     self:refresh_Lock()
 end
 
 -------------------------------------
 -- function makeIcon
--- @brief ·é ¾ÆÀÌÄÜ »ı¼º
+-- @brief ë£¬ ì•„ì´ì½˜ ìƒì„±
 -------------------------------------
 function UI_RuneCard:makeIcon()
 	local res = self.m_runeData:getRuneRes()
@@ -101,7 +101,7 @@ function UI_RuneCard:makeIcon()
     self.m_runeIconRes = res
     self:makeSprite('runeNode', res, true) -- (lua_name, res, no_use_frames)
 
-	-- ÀÌ°Å ¾ø¾Ö·Á¸é 50°³ÀÇ ¾ÆÀÌÄÜÀ» ¼öÁ¤ÇØ¾ß ÇÔ
+	-- ì´ê±° ì—†ì• ë ¤ë©´ 50ê°œì˜ ì•„ì´ì½˜ì„ ìˆ˜ì •í•´ì•¼ í•¨
 	if (self.m_runeData['slot'] == 1) then
 		self.vars['runeNode']:setPositionY(1)
 	end
@@ -109,14 +109,14 @@ end
 
 -------------------------------------
 -- function makeRuneNumberIcon
--- @brief ·é ¼ıÀÚ ¾ÆÀÌÄÜ »ı¼º
+-- @brief ë£¬ ìˆ«ì ì•„ì´ì½˜ ìƒì„±
 -------------------------------------
 function UI_RuneCard:makeRuneNumberIcon()
 	local slot = self.m_runeData['slot']
 	local res = string.format('res/ui/icons/rune/rune_number_%.2d.png', slot)
     self:makeSprite('runeNumberNode', res, true) -- (lua_name, res, no_use_frames)
 
-	-- ÀÌ°Å ¾ø¾Ö·Á¸é 50°³ÀÇ ¾ÆÀÌÄÜÀ» ¼öÁ¤ÇØ¾ß ÇÔ
+	-- ì´ê±° ì—†ì• ë ¤ë©´ 50ê°œì˜ ì•„ì´ì½˜ì„ ìˆ˜ì •í•´ì•¼ í•¨
 	if (self.m_runeData['slot'] == 1) then
 		self.vars['runeNumberNode']:setPositionY(1)
 	end
@@ -124,7 +124,7 @@ end
 
 -------------------------------------
 -- function makeFrame
--- @brief ÇÁ·¹ÀÓ »ı¼º
+-- @brief í”„ë ˆì„ ìƒì„±
 -------------------------------------
 function UI_RuneCard:makeFrame()
     local res = self.m_runeData:getRarityFrameRes()
@@ -137,7 +137,7 @@ end
 
 -------------------------------------
 -- function refresh_gradeIcon
--- @brief µî±Ş ¾ÆÀÌÄÜ
+-- @brief ë“±ê¸‰ ì•„ì´ì½˜
 -------------------------------------
 function UI_RuneCard:refresh_gradeIcon()
 	local grade = self.m_runeData['grade']
@@ -147,7 +147,7 @@ end
 
 -------------------------------------
 -- function setLevelText
--- @brief ·¹º§ ÅØ½ºÆ® ÁöÁ¤
+-- @brief ë ˆë²¨ í…ìŠ¤íŠ¸ ì§€ì •
 -------------------------------------
 function UI_RuneCard:setLevelText(level)
     local level = self.m_runeData['lv']
@@ -161,7 +161,7 @@ end
 
 -------------------------------------
 -- function refresh_Lock
--- @brief Àá±İ °»½Å
+-- @brief ì ê¸ˆ ê°±ì‹ 
 -------------------------------------
 function UI_RuneCard:refresh_Lock()
 	local is_lock = self.m_runeData:getLock()
@@ -170,7 +170,7 @@ end
 
 -------------------------------------
 -- function setLockSpriteVisible
--- @brief Àá±İ Ç¥½Ã
+-- @brief ì ê¸ˆ í‘œì‹œ
 -------------------------------------
 function UI_RuneCard:setLockSpriteVisible(visible)
     local res = 'card_cha_icon_lock.png'
@@ -180,7 +180,7 @@ end
 
 -------------------------------------
 -- function setNewSpriteVisible
--- @brief ½Å±Ô ·é Ç¥½Ã
+-- @brief ì‹ ê·œ ë£¬ í‘œì‹œ
 -- @external call
 -------------------------------------
 function UI_RuneCard:setNewSpriteVisible(visible)
@@ -191,7 +191,7 @@ end
 
 -------------------------------------
 -- function setHighlightSpriteVisible
--- @brief highlight Ç¥½Ã
+-- @brief highlight í‘œì‹œ
 -- @external call
 -------------------------------------
 function UI_RuneCard:setHighlightSpriteVisible(visible)
@@ -202,14 +202,14 @@ function UI_RuneCard:setHighlightSpriteVisible(visible)
         self.vars[lua_name]:setVisible(visible)
     elseif (visible) then
         self:makeSprite(lua_name, res)
-        -- ±ôºıÀÓ ¾×¼Ç
+        -- ê¹œë¹¡ì„ ì•¡ì…˜
         self.vars[lua_name]:runAction(cca.flash())
     end
 end
 
 -------------------------------------
 -- function setCheckSpriteVisible
--- @brief Ä«µå Ã¼Å© Ç¥½Ã
+-- @brief ì¹´ë“œ ì²´í¬ í‘œì‹œ
 -- @external call
 -------------------------------------
 function UI_RuneCard:setCheckSpriteVisible(visible)
@@ -220,7 +220,7 @@ end
 
 -------------------------------------
 -- function setShadowSpriteVisible
--- @brief Ä«µå À½¿µ Ç¥½Ã
+-- @brief ì¹´ë“œ ìŒì˜ í‘œì‹œ
 -------------------------------------
 function UI_RuneCard:setShadowSpriteVisible(visible)
     local res = 'card_cha_frame_disable.png'
@@ -230,7 +230,7 @@ end
 
 -------------------------------------
 -- function setBtnEnabled
--- @brief ¹öÆ°À» ¸·´Â´Ù
+-- @brief ë²„íŠ¼ì„ ë§‰ëŠ”ë‹¤
 -------------------------------------
 function UI_RuneCard:setBtnEnabled(able)
 	self.vars['clickBtn']:setEnabled(able)

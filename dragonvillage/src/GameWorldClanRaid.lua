@@ -5,10 +5,10 @@ local PARENT = GameWorld
 -------------------------------------
 GameWorldClanRaid = class(PARENT, {
         -- unit
-        m_subLeftParticipants = 'table',        -- ÀüÅõ¿¡ Âü¿©ÁßÀÎ ¾Æ±º
-        m_subRightParticipants = 'table',       -- ÀüÅõ¿¡ Âü¿©ÁßÀÎ Àû±º(µå·¡°ïÀÌ¶óµµ Àû ÁøÇüÀÌ¶ó¸é ¿©±â¿¡ Ãß°¡µÊ)
-        m_subLeftNonparticipants = 'table',     -- Âü¿©ÁßÀÎ ¾Æ±º Áß Á×Àº ¾Æ±º(ºÎÈ° °¡´ÉÇÑ ´ë»ó¸¸)
-        m_subRightNonparticipants = 'table',    -- Âü¿©ÁßÀÎ Àû±º Áß Á×Àº Àû±º(ºÎÈ° °¡´ÉÇÑ ´ë»ó¸¸)
+        m_subLeftParticipants = 'table',        -- ì „íˆ¬ì— ì°¸ì—¬ì¤‘ì¸ ì•„êµ°
+        m_subRightParticipants = 'table',       -- ì „íˆ¬ì— ì°¸ì—¬ì¤‘ì¸ ì êµ°(ë“œë˜ê³¤ì´ë¼ë„ ì  ì§„í˜•ì´ë¼ë©´ ì—¬ê¸°ì— ì¶”ê°€ë¨)
+        m_subLeftNonparticipants = 'table',     -- ì°¸ì—¬ì¤‘ì¸ ì•„êµ° ì¤‘ ì£½ì€ ì•„êµ°(ë¶€í™œ ê°€ëŠ¥í•œ ëŒ€ìƒë§Œ)
+        m_subRightNonparticipants = 'table',    -- ì°¸ì—¬ì¤‘ì¸ ì êµ° ì¤‘ ì£½ì€ ì êµ°(ë¶€í™œ ê°€ëŠ¥í•œ ëŒ€ìƒë§Œ)
 
         m_leftAllParticipants = 'table',
         m_rightAllParticipants = 'table',
@@ -25,8 +25,8 @@ GameWorldClanRaid = class(PARENT, {
 
         m_subLeaderDragon = 'Dragon',
 
-        m_pcGroup = 'string',   -- ÇÃ·¹ÀÌ¾î°¡ ÄÁÆ®·Ñ ÇÒ ¼ö ÀÖ´Â ±×·ìÅ°(PHYS.HERO_TOP or PHYS.HERO_BOTTOM)
-        m_npcGroup = 'string',  -- ÇÃ·¹ÀÌ¾î°¡ ÄÁÆ®·Ñ ÇÒ ¼ö ¾ø´Â ±×·ìÅ°(PHYS.HERO_TOP or PHYS.HERO_BOTTOM)
+        m_pcGroup = 'string',   -- í”Œë ˆì´ì–´ê°€ ì»¨íŠ¸ë¡¤ í•  ìˆ˜ ìˆëŠ” ê·¸ë£¹í‚¤(PHYS.HERO_TOP or PHYS.HERO_BOTTOM)
+        m_npcGroup = 'string',  -- í”Œë ˆì´ì–´ê°€ ì»¨íŠ¸ë¡¤ í•  ìˆ˜ ì—†ëŠ” ê·¸ë£¹í‚¤(PHYS.HERO_TOP or PHYS.HERO_BOTTOM)
     })
     
 -------------------------------------
@@ -55,17 +55,17 @@ function GameWorldClanRaid:createComponents()
     self.m_gameDragonSkill = GameDragonSkill(self)
     self.m_shakeMgr = ShakeManager(self, g_gameScene.m_shakeLayer)
 
-    -- ±Û·Î¹ú ÄğÅ¸ÀÓ
+    -- ê¸€ë¡œë²Œ ì¿¨íƒ€ì„
     self.m_gameCoolTime = GameCoolTime(self)
     self:addListener('set_global_cool_time_passive', self.m_gameCoolTime)
     self:addListener('set_global_cool_time_active', self.m_gameCoolTime)
 
-    -- ¸¶³ª °ü¸®ÀÚ »ı¼º
+    -- ë§ˆë‚˜ ê´€ë¦¬ì ìƒì„±
     self.m_heroMana = GameMana(self, self:getPCGroup())
     self.m_heroMana:bindUI(self.m_inGameUI)
     self.m_subHeroMana = GameMana(self, self:getNPCGroup())
 
-    -- ¾Æ±º ÀÚµ¿½Ã AI
+    -- ì•„êµ° ìë™ì‹œ AI
     do
         self.m_heroAuto = GameAuto_Hero(self, self.m_heroMana, self.m_inGameUI)
         self:addListener('auto_start', self.m_heroAuto)
@@ -74,7 +74,7 @@ function GameWorldClanRaid:createComponents()
         self.m_subHeroAuto = GameAuto_Hero(self, self.m_subHeroMana)
     end
 
-    -- »óÅÂ °ü¸®ÀÚ
+    -- ìƒíƒœ ê´€ë¦¬ì
     do
         self.m_gameState = GameState_ClanRaid(self)
         self.m_inGameUI:init_timeUI(false, self.m_gameState.m_limitTime)
@@ -85,45 +85,45 @@ end
 -- function initGame
 -------------------------------------
 function GameWorldClanRaid:initGame(stage_name)
-    -- ±¸¼º ¿ä¼ÒµéÀ» »ı¼º
+    -- êµ¬ì„± ìš”ì†Œë“¤ì„ ìƒì„±
     self:createComponents()
 
-    -- ¿şÀÌºê ¸Å´ÏÁ® »ı¼º
+    -- ì›¨ì´ë¸Œ ë§¤ë‹ˆì ¸ ìƒì„±
     self.m_waveMgr = WaveMgr_ClanRaid(self, stage_name, self.m_stageID, self.m_bDevelopMode)
         
-	-- ¹è°æ »ı¼º
+	-- ë°°ê²½ ìƒì„±
     self:initBG(self.m_waveMgr)
 
-    -- ¿ùµå Å©±â ¼³Á¤
+    -- ì›”ë“œ í¬ê¸° ì„¤ì •
     self:changeWorldSize(1)
         
-    -- À§Ä¡ Ç¥½Ã ÀÌÆåÆ® »ı¼º
+    -- ìœ„ì¹˜ í‘œì‹œ ì´í™íŠ¸ ìƒì„±
     self:init_formation()
 
-	-- Game Log Recorder »ı¼º
+	-- Game Log Recorder ìƒì„±
 	self.m_logRecorder = LogRecorderWorld(self)
 
-    -- Å×ÀÌ¸Ó »ı¼º
+    -- í…Œì´ë¨¸ ìƒì„±
     self:initTamer()
 
-    -- µ¦¿¡ ¼ÂÆÃµÈ µå·¡°ï »ı¼º
+    -- ë±ì— ì…‹íŒ…ëœ ë“œë˜ê³¤ ìƒì„±
     self:makeHeroDeck()
 
-    -- ÃÊ±â ÄğÅ¸ÀÓ ¼³Á¤
+    -- ì´ˆê¸° ì¿¨íƒ€ì„ ì„¤ì •
     self:initActiveSkillCool(self:getDragonList())
 
-    -- ÃÊ±â ¸¶³ª ¼³Á¤
+    -- ì´ˆê¸° ë§ˆë‚˜ ì„¤ì •
     self.m_heroMana:addMana(START_MANA)
     self.m_subHeroMana:addMana(START_MANA)
 
-    -- ÁøÇü ½Ã½ºÅÛ ÃÊ±âÈ­
+    -- ì§„í˜• ì‹œìŠ¤í…œ ì´ˆê¸°í™”
     self:setBattleZone()
     
-    do -- ½ºÅ³ Á¶ÀÛ°è ÃÊ±âÈ­
+    do -- ìŠ¤í‚¬ ì¡°ì‘ê³„ ì´ˆê¸°í™”
         self.m_skillIndicatorMgr = SkillIndicatorMgr_ClanRaid(self)
     end
 
-    do -- Ä«¸Ş¶ó ÃÊ±â À§Ä¡ ¼³Á¤ÀÌ ÀÖ´Ù¸é Àû¿ë
+    do -- ì¹´ë©”ë¼ ì´ˆê¸° ìœ„ì¹˜ ì„¤ì •ì´ ìˆë‹¤ë©´ ì ìš©
         local t_camera = self.m_waveMgr:getBaseCameraScriptData()
         if t_camera then
             t_camera['time'] = 0
@@ -131,7 +131,7 @@ function GameWorldClanRaid:initGame(stage_name)
         end
     end
 
-    -- Àû ÀÌµ¿ Ã³¸®¸¦ À§ÇÑ ¸Å´ÏÁ® »ı¼º
+    -- ì  ì´ë™ ì²˜ë¦¬ë¥¼ ìœ„í•œ ë§¤ë‹ˆì ¸ ìƒì„±
     do
         local t_movement = self.m_waveMgr:getMovementScriptData()
         if (t_movement) then
@@ -139,7 +139,7 @@ function GameWorldClanRaid:initGame(stage_name)
         end
     end
     
-    -- Game Log Recorder »ı¼º
+    -- Game Log Recorder ìƒì„±
 	self.m_logRecorder = LogRecorderWorld(self)
 
     -- UI
@@ -153,13 +153,13 @@ end
 function GameWorldClanRaid:init_formation()
     PARENT.init_formation(self)
 
-    -- ¿ŞÂÊ ÁøÇü
+    -- ì™¼ìª½ ì§„í˜•
     self.m_subLeftFormationMgr = FormationMgr(true)
     self.m_subLeftFormationMgr:setSplitPos(20, 122)
 
     self.m_gameCamera:addListener('camera_set_home', self.m_subLeftFormationMgr)
 
-    -- ¿À¸¥ÂÊ ÁøÇü
+    -- ì˜¤ë¥¸ìª½ ì§„í˜•
     self.m_subRightFormationMgr = FormationMgr(false)
     self.m_subRightFormationMgr:setSplitPos(1280-20, 200)
 
@@ -174,9 +174,9 @@ end
 function GameWorldClanRaid:makePassiveStartEffect(char, str_map)
     local root_node = PARENT.makePassiveStartEffect(self, char, str_map)
 
-    -- º¸½ºÀÇ °æ¿ì´Â Ãæµ¹¿µ¿ª À§Ä¡·Î Ç¥½Ã
+    -- ë³´ìŠ¤ì˜ ê²½ìš°ëŠ” ì¶©ëŒì˜ì—­ ìœ„ì¹˜ë¡œ í‘œì‹œ
     if (isInstanceOf(char, Monster_ClanRaidBoss)) then
-        -- ½Ç½Ã°£ À§Ä¡ µ¿±âÈ­
+        -- ì‹¤ì‹œê°„ ìœ„ì¹˜ ë™ê¸°í™”
         root_node:scheduleUpdateWithPriorityLua(function(dt)
             local x, y = char:getCenterPos()
             root_node:setPosition(x, y)
@@ -215,19 +215,19 @@ end
 
 -------------------------------------
 -- function setBattleZone
--- @brief ÀüÅõ¿µ¿ª ¼³Á¤
+-- @brief ì „íˆ¬ì˜ì—­ ì„¤ì •
 -------------------------------------
 function GameWorldClanRaid:setBattleZone()
 
     local rage = (70 * 5)
 
-    -- ½ÇÁ¦ »ç°¢Çü ¿µ¿ª
+    -- ì‹¤ì œ ì‚¬ê°í˜• ì˜ì—­
     local min_x = 0
     local max_x = rage
     local min_y = -(rage / 2)
     local max_y = (rage / 2)
 
-    -- µå·¡°ïÀÇ Æ÷Áö¼Ç ¿µ¿ª paddingÃ³¸®
+    -- ë“œë˜ê³¤ì˜ í¬ì§€ì…˜ ì˜ì—­ paddingì²˜ë¦¬
     local padding_x = 20
     local padding_y = 56
     min_x = (min_x + padding_x)
@@ -235,11 +235,11 @@ function GameWorldClanRaid:setBattleZone()
     min_y = (min_y + padding_y)
     max_y = (max_y - padding_y)
 
-    -- offset ÁöÁ¤(Ä«¸Ş¶ó ¿ªÇÒ)
+    -- offset ì§€ì •(ì¹´ë©”ë¼ ì—­í• )
     local cameraHomePosX, cameraHomePosY = self.m_gameCamera:getHomePos()
     local x_start_offset = 150 + 85
 
-    -- Á¶ÀÛ °¡´É µ¦
+    -- ì¡°ì‘ ê°€ëŠ¥ ë±
     do
         local offset_x = cameraHomePosX + (CRITERIA_RESOLUTION_X / 2) - x_start_offset - rage
         local offset_y = cameraHomePosY + 30
@@ -268,7 +268,7 @@ function GameWorldClanRaid:setBattleZone()
         end
     end
 
-    -- Á¶ÀÛ ºÒ°¡´É µ¦
+    -- ì¡°ì‘ ë¶ˆê°€ëŠ¥ ë±
     do
         local offset_x = cameraHomePosX + (CRITERIA_RESOLUTION_X / 2) - x_start_offset - rage
         local offset_y = cameraHomePosY + 30
@@ -307,7 +307,7 @@ function GameWorldClanRaid:getTargetList(char, x, y, team_type, formation_type, 
 
     t_data['self'] = char
         
-    -- ÆÀ Å¸ÀÔ¿¡ µû¸¥ µ¨¸®°ÔÀÌÆ®
+    -- íŒ€ íƒ€ì…ì— ë”°ë¥¸ ë¸ë¦¬ê²Œì´íŠ¸
     local for_mgr_delegate = nil
     local leftFormationMgr = self.m_leftFormationMgr
     local rightFormationMgr = self.m_rightFormationMgr
@@ -324,7 +324,7 @@ function GameWorldClanRaid:getTargetList(char, x, y, team_type, formation_type, 
         end
     end
 	
-	-- @TODO ÀÓ½Ã Ã³¸®
+	-- @TODO ì„ì‹œ ì²˜ë¦¬
     if (team_type == 'self') then
 		if (bLeftFormation) then
             for_mgr_delegate = FormationMgrDelegate(leftFormationMgr)
@@ -356,7 +356,7 @@ function GameWorldClanRaid:getTargetList(char, x, y, team_type, formation_type, 
     elseif (team_type == 'all') then
         for_mgr_delegate = FormationMgrDelegate(leftFormationMgr, rightFormationMgr)
 	else
-		error('GameWorld:getTargetList Á¤ÀÇ µÇÁö ¾ÊÀº team_type  : ' .. team_type)
+		error('GameWorld:getTargetList ì •ì˜ ë˜ì§€ ì•Šì€ team_type  : ' .. team_type)
     end
 
     return for_mgr_delegate:getTargetList(x, y, team_type, formation_type, rule_type, t_data)
@@ -382,7 +382,7 @@ function GameWorldClanRaid:changeSubHeroHomePosByCamera(offsetX, offsetY, move_t
     local offsetY = offsetY or 0
     local move_time = move_time or getInGameConstant("WAVE_INTERMISSION_TIME")
 
-    -- ¾Æ±º È¨ À§Ä¡¸¦ Ä«¸Ş¶óÀÇ È¨À§Ä¡ ±âÁØÀ¸·Î º¯°æ
+    -- ì•„êµ° í™ˆ ìœ„ì¹˜ë¥¼ ì¹´ë©”ë¼ì˜ í™ˆìœ„ì¹˜ ê¸°ì¤€ìœ¼ë¡œ ë³€ê²½
     local l_temp = table.merge(self.m_subLeftParticipants, self.m_subLeftNonparticipants)
 
     if (scale == 0.6) then
@@ -391,11 +391,11 @@ function GameWorldClanRaid:changeSubHeroHomePosByCamera(offsetX, offsetY, move_t
     end
 
     for _, v in pairs(l_temp) do
-        -- º¯°æµÈ Ä«¸Ş¶ó À§Ä¡¿¡ ¸Â°Ô È¨ À§Ä¡ º¯°æ ¹× ÀÌµ¿
+        -- ë³€ê²½ëœ ì¹´ë©”ë¼ ìœ„ì¹˜ì— ë§ê²Œ í™ˆ ìœ„ì¹˜ ë³€ê²½ ë° ì´ë™
         local homePosX = v.m_orgHomePosX + cameraHomePosX + offsetX
         local homePosY = v.m_orgHomePosY + cameraHomePosY + offsetY
 
-        -- Ä«¸Ş¶ó°¡ ÁÜ¾Æ¿ôµÈ »óÅÂ¶ó¸é ¾Æ±º À§Ä¡ Á¶Á¤(Â÷ÈÄ Á¤¸®)
+        -- ì¹´ë©”ë¼ê°€ ì¤Œì•„ì›ƒëœ ìƒíƒœë¼ë©´ ì•„êµ° ìœ„ì¹˜ ì¡°ì •(ì°¨í›„ ì •ë¦¬)
         if (scale == 0.6) then
             homePosX = homePosX - 200
         end
@@ -463,7 +463,7 @@ end
     
 -------------------------------------
 -- function getPCGroup
--- @brief Á¶ÀÛÇÒ ¼ö ÀÖ´Â ±×·ì(Å°°ª)À» ¸®ÅÏ
+-- @brief ì¡°ì‘í•  ìˆ˜ ìˆëŠ” ê·¸ë£¹(í‚¤ê°’)ì„ ë¦¬í„´
 -------------------------------------
 function GameWorldClanRaid:getPCGroup()
     return self.m_pcGroup
@@ -471,7 +471,7 @@ end
 
 -------------------------------------
 -- function getNPCGroup
--- @brief Á¶ÀÛÇÒ ¼ö ¾ø´Â ±×·ì(Å°°ª)À» ¸®ÅÏ
+-- @brief ì¡°ì‘í•  ìˆ˜ ì—†ëŠ” ê·¸ë£¹(í‚¤ê°’)ì„ ë¦¬í„´
 -------------------------------------
 function GameWorldClanRaid:getNPCGroup()
     return self.m_npcGroup
@@ -479,7 +479,7 @@ end
 
 -------------------------------------
 -- function getOpponentPCGroup
--- @brief Á¶ÀÛÇÒ ¼ö ÀÖ´Â ±×·ìÀÇ »ó´ëÆí ±×·ì(Å°°ª)À» ¸®ÅÏ
+-- @brief ì¡°ì‘í•  ìˆ˜ ìˆëŠ” ê·¸ë£¹ì˜ ìƒëŒ€í¸ ê·¸ë£¹(í‚¤ê°’)ì„ ë¦¬í„´
 -------------------------------------
 function GameWorldClanRaid:getOpponentPCGroup()
     if (self:getPCGroup() == PHYS.HERO_TOP) then
@@ -491,7 +491,7 @@ end
 
 -------------------------------------
 -- function getOpponentNPCGroup
--- @brief Á¶ÀÛÇÒ ¼ö ¾ø´Â ±×·ìÀÇ »ó´ëÆí ±×·ì(Å°°ª)À» ¸®ÅÏ
+-- @brief ì¡°ì‘í•  ìˆ˜ ì—†ëŠ” ê·¸ë£¹ì˜ ìƒëŒ€í¸ ê·¸ë£¹(í‚¤ê°’)ì„ ë¦¬í„´
 -------------------------------------
 function GameWorldClanRaid:getOpponentNPCGroup()
     if (self:getNPCGroup() == PHYS.HERO_TOP) then
