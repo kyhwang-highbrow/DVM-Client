@@ -94,11 +94,10 @@ function FullPopupManager:show(type, show_func)
         local lv = g_userData:get('lv')
         local need_lv = 6
         local package_name = 'package_starter'
-        local save_key = 'package_starter'
-        local is_view = g_localData:get('event_full_popup', save_key) or false
+        local is_view = g_localData:get('event_full_popup', package_name) or false
         if (lv >= need_lv) and (not is_view) then 
             self:showFullPopup(package_name)
-            g_localData:applyLocalData(true, 'event_full_popup', save_key)
+            g_localData:applyLocalData(true, 'event_full_popup', package_name)
         end
 
     -- 런칭 패키지 풀팝업 (상점 진입시)
@@ -107,23 +106,22 @@ function FullPopupManager:show(type, show_func)
         local lv = g_userData:get('lv')
         local need_lv = 10
         local package_name = 'package_capsule_coin'
-        local save_key = 'package_capsule_coin'
-        local is_view = g_localData:get('event_full_popup', save_key) or false
+        local is_view = g_localData:get('event_full_popup', package_name) or false
         if (lv >= need_lv) and (not is_view) then 
             self:showFullPopup(package_name)
-            g_localData:applyLocalData(true, 'event_full_popup', save_key)
+            g_localData:applyLocalData(true, 'event_full_popup', package_name)
         end
     
     -- 몽땅 다이아 패키지
     -- 조건 : 기간 체크 함
     elseif (type == FULL_POPUP_TYPE.ALL_DIA_PACK) then
         local package_name = 'package_dia_all'
-        local save_key = type
-        local is_view = g_localData:get('event_full_popup', save_key) or false
-        local is_exist = g_shopDataNew:isExist('package', pid)
+        local is_view = g_localData:get('event_full_popup', package_name) or false
+        local is_exist = PackageManager:isExist(package_name)
+        ccdump(is_exist)
         if is_exist and (not is_view) then 
             self:showFullPopup(package_name)
-            g_localData:applyLocalData(true, 'event_full_popup', save_key)
+            g_localData:applyLocalData(true, 'event_full_popup', package_name)
         end
 
     -- 강화 패키지 풀팝업 (드래곤 관리 진입 시)
