@@ -161,7 +161,16 @@ function ServerData_CapsuleBox:request_capsuleBoxBuy(box, price_type, finish_cb,
 
     -- 콜백 함수
     local function success_cb(ret)
+		-- 캡슐 갱신
 		self:applyCapsuleStatus(ret)
+
+		-- 재화 갱신
+		g_serverData:networkCommonRespone(ret)
+
+		-- 메일 갱신
+		if (ret['new_mail'] == true) then
+			g_highlightData:setHighlightMail()
+		end
 
         if finish_cb then
             finish_cb(ret)

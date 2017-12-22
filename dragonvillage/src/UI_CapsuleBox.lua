@@ -115,6 +115,8 @@ function UI_CapsuleBox:refresh()
 				local ui = self.makeRewardCell(box_key, struct_reward, curr_total)
 				vars[box_key .. 'ItemNode' .. i]:removeAllChildren(true)
 				vars[box_key .. 'ItemNode' .. i]:addChild(ui.root)
+				
+				cca.fruitReact(ui.root, i)
 			end
 		end
 
@@ -131,6 +133,7 @@ end
 
 -------------------------------------
 -- function click_rewardBtn
+-- @brief 해당 박스의 보상 리스트 UI
 -------------------------------------
 function UI_CapsuleBox:click_rewardBtn(box_key)
 	local struct_capsule_box = self.m_capsuleBoxData[box_key]
@@ -223,7 +226,7 @@ function UI_CapsuleBox.makeRewardCell(box_key, struct_reward, curr_total)
 	-- 획득 확률
 	local count = struct_reward:getCount()
 	local rate = count/curr_total
-	vars['chanceLabel']:setString(string.format('%f%%', rate))
+	vars['chanceLabel']:setString(Str('{1}개',count)) --string.format('%f%%', rate))
 
 	return ui
 end
