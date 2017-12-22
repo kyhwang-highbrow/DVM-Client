@@ -887,9 +887,7 @@ end
 -- function click_capsuleBoxBtn
 -------------------------------------
 function UI_Lobby:click_capsuleBoxBtn()
-	g_capsuleBoxData:request_capsuleBoxStatus(function()
-		UI_CapsuleBox()
-	end)
+	g_capsuleBoxData:openCasuleBoxUI()
 end
 
 -------------------------------------

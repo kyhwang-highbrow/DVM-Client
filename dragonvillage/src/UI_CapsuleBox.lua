@@ -1,11 +1,5 @@
 local PARENT = class(UI, ITopUserInfo_EventListener:getCloneTable())
 
--- 서버/테이블과 UI 간 key 다름
-local T_BOX = {
-	['first'] = 'legend', 
-	['second'] = 'hero',
-}
-
 local BOX_KEY_1 = 'first'
 local BOX_KEY_2 = 'second'
 local BOX_KEY_3 = 'third'
@@ -13,6 +7,7 @@ local L_BOX = {
 	BOX_KEY_1,
 	BOX_KEY_2
 }
+
 -------------------------------------
 -- class UI_CapsuleBox
 -------------------------------------
@@ -58,7 +53,7 @@ function UI_CapsuleBox:initUI()
 	local capsulebox_data = self.m_capsuleBoxData
 	ccdump(capsulebox_data)
 
-	for _, box_key in pairs(T_BOX) do
+	for _, box_key in pairs(L_BOX) do
 		-- 애니메이션 일단 정지..
 		vars[box_key .. 'Visual']:setAnimationPause(true)
 	end
@@ -70,12 +65,12 @@ end
 function UI_CapsuleBox:initButton()
 	local vars = self.vars
 
-	vars['legendRewardBtn']:registerScriptTapHandler(function() self:click_rewardBtn('first') end)
-	vars['legendDrawBtn']:registerScriptTapHandler(function() self:click_drawBtn('first') end)
+	vars['firstRewardBtn']:registerScriptTapHandler(function() self:click_rewardBtn(BOX_KEY_1) end)
+	vars['firstDrawBtn']:registerScriptTapHandler(function() self:click_drawBtn(BOX_KEY_1) end)
 
-	vars['heroRewardBtn']:registerScriptTapHandler(function() self:click_rewardBtn('second') end)
-	vars['heroDrawBtn1']:registerScriptTapHandler(function() self:click_drawBtn('second') end)
-	vars['heroDrawBtn2']:registerScriptTapHandler(function() self:click_drawBtn() end)
+	vars['secondRewardBtn']:registerScriptTapHandler(function() self:click_rewardBtn(BOX_KEY_2) end)
+	vars['secondDrawBtn1']:registerScriptTapHandler(function() self:click_drawBtn(BOX_KEY_2, 1) end)
+	vars['secondDrawBtn2']:registerScriptTapHandler(function() self:click_drawBtn(BOX_KEY_2, 2) end)
 end
 
 -------------------------------------
@@ -87,17 +82,17 @@ function UI_CapsuleBox:refresh()
 	local capsulebox_data = self.m_capsuleBoxData
 
 	-- 대표 보상 표시
-	for server_box_key, ui_box_key in pairs(T_BOX) do
-		local struct_capsule_box = capsulebox_data[server_box_key]
+	for _, box_key in pairs(L_BOX) do
+		local struct_capsule_box = capsulebox_data[box_key]
 		local rank = 1
 		local l_reward = struct_capsule_box:getRankRewardList(rank)
 		
 		-- 대표 보상 표시
 		for i, struct_reward in ipairs(l_reward) do
 			if (i <= 3) then
-				local ui = self.makeRewardCell(ui_box_key, struct_reward)
-				vars[ui_box_key .. 'ItemNode' .. i]:removeAllChildren(true)
-				vars[ui_box_key .. 'ItemNode' .. i]:addChild(ui.root)
+				local ui = self.makeRewardCell(box_key, struct_reward)
+				vars[box_key .. 'ItemNode' .. i]:removeAllChildren(true)
+				vars[box_key .. 'ItemNode' .. i]:addChild(ui.root)
 			end
 		end
 	end
@@ -123,9 +118,9 @@ end
 function UI_CapsuleBox.makeRewardCell(box_key, struct_reward)
 	local ui = UI()
 	
-	if (box_key == 'legend') then
+	if (box_key == BOX_KEY_1) then
 		ui:load('capsule_box_item_02.ui')
-	elseif (box_key == 'hero') then
+	elseif (box_key == BOX_KEY_2) then
 		ui:load('capsule_box_item_01.ui')
 	else
 		error('box key를 확인! : '.. box_key)

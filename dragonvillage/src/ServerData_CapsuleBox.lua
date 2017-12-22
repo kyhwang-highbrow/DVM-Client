@@ -178,3 +178,17 @@ function ServerData_CapsuleBox:request_capsuleBoxBuy(box, finish_cb, fail_cb)
 
 	return ui_network
 end
+
+-------------------------------------
+-- function openCasuleBoxUI
+-------------------------------------
+function ServerData_CapsuleBox:openCasuleBoxUI()
+	if (not self.m_open) then
+		local msg = Str('캡슐 뽑기 준비중입니다.')
+		UIManager:toastNotificationRed(msg)
+		return
+	end
+	self:request_capsuleBoxStatus(function()
+		UI_CapsuleBox()
+	end)
+end
