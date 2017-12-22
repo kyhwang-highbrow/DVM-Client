@@ -787,6 +787,7 @@ end
 function ServerData_Friend:delSettedFriendDragon()
     self.m_selectedSharedFriendDragon = nil
     self.m_selectedShareFriendData = nil
+    self.m_bReleaseDragon = false
 end
 
 -------------------------------------
