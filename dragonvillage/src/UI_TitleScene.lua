@@ -125,7 +125,12 @@ end
 -- function click_screenBtn
 -------------------------------------
 function UI_TitleScene:click_screenBtn()
-    local func_name = self.m_lWorkList[self.m_workIdx] .. '_click'
+	local work_step = self.m_lWorkList[self.m_workIdx]
+	if (not work_step) then
+		return
+	end
+
+    local func_name = work_step .. '_click'
     if func_name and (self[func_name]) then
         self[func_name](self)
     end
