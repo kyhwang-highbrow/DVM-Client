@@ -35,6 +35,7 @@ end
 
 -------------------------------------
 -- function checkBundleWithName
+-- @brief 등록된 패키지인지 
 -------------------------------------
 function TablePackageBundle:checkBundleWithName(package_name)
     if (self == THIS) then

@@ -91,23 +91,13 @@ function UI_EventFullPopup:initUI()
         vars['eventNode']:addChild(ui.root)
 
     -- 패키지 상품 
-    else
-		local product_id = popup_key
-        local l_item_list = g_shopDataNew:getProductList('package')
-        local struct_product
+    elseif string.find(popup_key, 'package') then
+        
+        local package_name = popup_key
+        local is_popup = false
+        local ui = PackageManager:getTargetUI(package_name, is_popup)
 
-        -- 묶음 UI 별도 처리
-        if (string.find(product_id, 'package_') and PackageManager:isExist(product_id)) then
-            struct_product = {product_id = product_id}
-            
-        else
-            struct_product = l_item_list[tonumber(product_id)]
-        end
-
-        if (struct_product) then
-            local is_popup = false
-            local ui = PackageManager:getTargetUI(struct_product, is_popup)
-
+        if (ui) then
             local node = vars['eventNode']
             node:addChild(ui.root)
         else

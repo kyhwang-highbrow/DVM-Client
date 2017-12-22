@@ -3,39 +3,37 @@ PackageManager = {}
 -------------------------------------
 -- function getTargetUI
 -- @brief 해당 패키지 상품 UI
+-- @param package_name : table_bundle_package에 등록된 패키지 네임
+-- @param is_popup : true - 팝업, false - 이벤트 탭에 등록 (종료 버튼 없음)
 -------------------------------------
-function PackageManager:getTargetUI(struct_product, is_popup)
+function PackageManager:getTargetUI(package_name, is_popup)
     local target_ui = nil
-    local pid = struct_product['product_id'] 
-
-    local package_name = TablePackageBundle:getPackageNameWithPid(pid) 
 
     -- 레벨업 패키지 UI
-    if (package_name == 'package_levelup') or (pid == 'package_levelup') then
+    if (package_name == 'package_levelup') then
         local _struct_product = g_shopDataNew:getLevelUpPackageProduct()
         target_ui = UI_Package_LevelUp(_struct_product, is_popup)
 
     -- 모험돌파 패키지 UI
-    elseif (package_name == 'package_adventure_clear') or (pid == 'package_adventure_clear') then
+    elseif (package_name == 'package_adventure_clear') then
         local _struct_product = g_shopDataNew:getAdventureClearProduct()
         target_ui = UI_Package_AdventureClear(_struct_product, is_popup)
 
-    -- 패키지 상품 묶음 UI (pid로 들어오지만 패키지 상품 묶음 UI를 보여줘야 하는 경우)
-    elseif package_name then
+    -- 패키지 상품 묶음 UI (table_bundle_package에 등록되어 있다면)
+    elseif (TablePackageBundle:checkBundleWithName(package_name)) then
+        ccdump(package_name)
         target_ui = UI_Package_Bundle(package_name, is_popup)
 
-    -- 패키지 상품 묶음 UI (package name으로 직접 들어오는 경우)
-    elseif TablePackageBundle:checkBundleWithName(pid) then
-        target_ui = UI_Package_Bundle(pid, is_popup)
-
-    -- ** 일반 패키지 상품 
-    -- 스페셜 패키지
-    -- 스타터 패키지
-    -- 골드 몽땅 패키지
-    -- 날개 몽땅 패키지
-    -- 속성 성장 패키지
+    -- 패키지 상품 UI (단일 상품)
+    -- 현재는 단일 상품도 table_bundle_package 에 등록하여 쓰고 있지만 예전것들과 UI 네이밍 규칙이 달라 정리가 필요함
     else
-        target_ui = UI_Package(struct_product, is_popup)
+        -- 예전 것들은 pid로 넘어오고 있음.
+        local product_id = package_name
+        local l_item_list = g_shopDataNew:getProductList('package')
+        struct_product = l_item_list[tonumber(product_id)]
+        if (struct_product) then
+            target_ui = UI_Package(struct_product, is_popup)
+        end
     end
 
     return target_ui

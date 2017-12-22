@@ -204,6 +204,7 @@ function UI_EventPopup:makeEventPopupTab(tab)
     elseif (string.find(tab, 'shop')) then
         local product_id = struct_event_popup_tab.m_eventData['event_id']
         local l_item_list = g_shopDataNew:getProductList('package')
+
         local product = l_item_list[product_id]
         if (product) then
             ui = UI_EventPopupTab_Shop(product)
@@ -220,8 +221,8 @@ function UI_EventPopup:makeEventPopupTab(tab)
 
     -- 성장 패키지 묶음 UI (slime_package, growth_package)
     elseif (TablePackageBundle:checkBundleWithName(tab)) then
-        local product = {product_id = tab}
-        ui = UI_EventPopupTab_Shop(product)
+        local package_name = tab
+        ui = UI_EventPopupTab_Package(package_name)
 
     -- 수집 교환 이벤트
     elseif (string.find(tab, 'event_exchange')) then

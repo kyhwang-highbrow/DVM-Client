@@ -928,6 +928,7 @@ local t_module = {
     'UI_EventPopupTab_AccessTime',
     'UI_EventPopupTab_Banner',
     'UI_EventPopupTab_Shop',
+    'UI_EventPopupTab_Package',
     'UI_EventPopupTab_Notice',
     'UI_EventPopupTab_HBShop',
     'UI_EventPopupTab_HBShop_Coupon',
