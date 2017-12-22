@@ -555,57 +555,6 @@ function UI_Lobby:refresh_google()
 end
 
 -------------------------------------
--- function refresh_eventBanner
--- @brief 이벤트 스크롤 배너 
--------------------------------------
-function UI_Lobby:refresh_eventBanner()
-    local vars = self.vars
-    local node = self.vars['bannerNode']
-    node:removeAllChildren()
-
-    local button_list = {}
-    local function click_button(event_type)
-        g_eventData:goToEventTarget(event_type)
-    end
-
-    -- 스크롤 버튼 생성
-    local function make_button(event_type, res)
-        local menu_item = cc.MenuItemImage:create(res, nil, nil, 1)
-        local width, height = menu_item:getNormalSize()
-        menu_item:setContentSize(width, height)
-        menu_item:setDockPoint(ZERO_POINT)
-        menu_item:setAnchorPoint(ZERO_POINT)
-        menu_item:registerScriptTapHandler(function()
-            click_button(event_type)
-        end)
-
-        table.insert(button_list, menu_item)
-    end
-
-    local map = g_eventData:getEventBannerMap()
-    local first_res
-    local first_event_type
-
-    for event_type, res in pairs(map) do
-        make_button(event_type, res)
-
-        if (not first_res) then
-            first_res = res
-        end
-        if (not first_tag) then
-            first_event_type = event_type
-        end
-    end
-
-    if (#button_list > 1) then
-        make_button(first_event_type, first_res)
-    end
-
-    local scroll_banner = UIC_ScrollButton:create(node, button_list)
-    scroll_banner:runScrollAction()
-end
-
--------------------------------------
 -- function click_battleBtn
 -- @brief "전투" 버튼
 -------------------------------------
@@ -931,7 +880,6 @@ function UI_Lobby:update(dt)
     if (g_eventData.m_bDirty) then
         g_eventData.m_bDirty = false
         self:refresh_rightButtons()
-        --self:refresh_eventBanner()
     end
 
     -- 광고 (자동재화, 선물상자 정보)
