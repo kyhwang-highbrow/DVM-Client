@@ -104,14 +104,10 @@ function ScenarioViewingHistory:checkIntroScenario(finish_cb)
     local tamer_name = TableTamer():getTamerType(tid) or 'goni'
     local intro_start_name = 'scenario_intro_start_'..tamer_name
 
-    -- 로컬데이터가 있다면 패스
-    if (self:isViewed(intro_start_name)) then
-        finish_cb()
-    end
-
     -- 이미 완료 했다면 패스
     if (g_tutorialData:isTutorialDone(TUTORIAL.INTRO_FIGHT)) then
         finish_cb()
+		return
     end
 
     local check_tutorial 
