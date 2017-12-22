@@ -93,11 +93,11 @@ function FullPopupManager:show(type, show_func)
     elseif (type == FULL_POPUP_TYPE.START_PACK) then
         local lv = g_userData:get('lv')
         local need_lv = 6
-        local pid = 90041
-        local save_key = 'start_pack_90041'
+        local package_name = 'package_starter'
+        local save_key = 'package_starter'
         local is_view = g_localData:get('event_full_popup', save_key) or false
         if (lv >= need_lv) and (not is_view) then 
-            self:showFullPopup(pid)
+            self:showFullPopup(package_name)
             g_localData:applyLocalData(true, 'event_full_popup', save_key)
         end
 
@@ -106,30 +106,30 @@ function FullPopupManager:show(type, show_func)
     elseif (type == FULL_POPUP_TYPE.LAUNCH_PACK) then
         local lv = g_userData:get('lv')
         local need_lv = 10
-        local pid = 90042
-        local save_key = 'launch_pack_90042'
+        local package_name = 'package_capsule_coin'
+        local save_key = 'package_capsule_coin'
         local is_view = g_localData:get('event_full_popup', save_key) or false
         if (lv >= need_lv) and (not is_view) then 
-            self:showFullPopup(pid)
+            self:showFullPopup(package_name)
             g_localData:applyLocalData(true, 'event_full_popup', save_key)
         end
     
     -- 몽땅 다이아 패키지
     -- 조건 : 기간 체크 함
     elseif (type == FULL_POPUP_TYPE.ALL_DIA_PACK) then
-        local pid = 90046
+        local package_name = 'package_dia_all'
         local save_key = type
         local is_view = g_localData:get('event_full_popup', save_key) or false
         local is_exist = g_shopDataNew:isExist('package', pid)
         if is_exist and (not is_view) then 
-            self:showFullPopup(pid)
+            self:showFullPopup(package_name)
             g_localData:applyLocalData(true, 'event_full_popup', save_key)
         end
 
     -- 강화 패키지 풀팝업 (드래곤 관리 진입 시)
     -- 조건 : 구매하지 않은 유저 LV 30 이상
     elseif (type == FULL_POPUP_TYPE.REINFORCE_PACK) then
-        local pid = 90053
+        local package_name = 'package_reinforce_point'
         local save_key = type
         local is_view = g_localData:get('event_full_popup', save_key) or false
 		
@@ -142,7 +142,7 @@ function FullPopupManager:show(type, show_func)
 		local is_buyable = struct_product and struct_product:isItBuyable()
 
         if (lv >= need_lv) and (not is_view) and (is_buyable) then
-            self:showFullPopup(pid)
+            self:showFullPopup(package_name)
             g_localData:applyLocalData(true, 'event_full_popup', save_key)
         end
 
