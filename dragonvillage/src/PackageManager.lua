@@ -19,16 +19,17 @@ function PackageManager:getTargetUI(package_name, is_popup)
         local _struct_product = g_shopDataNew:getAdventureClearProduct()
         target_ui = UI_Package_AdventureClear(_struct_product, is_popup)
 
-    -- 패키지 상품 묶음 UI (table_bundle_package에 등록되어 있다면)
+    -- 패키지 상품 묶음 UI 
+    -- ### 단일 상품도 table_bundle_package에 등록
     elseif (TablePackageBundle:checkBundleWithName(package_name)) then
-        ccdump(package_name)
         target_ui = UI_Package_Bundle(package_name, is_popup)
 
-    -- 패키지 상품 UI (단일 상품)
     else
-        -- 예전 것들은 struct_product 로 넘어오고 있음.
-        local struct_product = package_name
-        target_ui = UI_Package(struct_product, is_popup)
+        if (type(package_name) ~= 'string') then
+            error('invalid package_name')
+        else
+            error('등록 되지 않은 package name : '.. package_name)
+        end
     end
 
     return target_ui

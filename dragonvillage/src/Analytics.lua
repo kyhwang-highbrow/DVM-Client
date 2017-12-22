@@ -324,24 +324,24 @@ end
 -- [실제 적용한 항목들 (50개 제한)]
 -- @ 집계 순서대로 
 
--- 게임실행 (StartApp) v
+-- 게임실행 (StartApp) 
 
--- 패치다운로드 시작(PatchDownload_Start) v 
--- 패치다운로드 끝 (PatchDownload_Finish) v
+-- 패치다운로드 시작(PatchDownload_Start) 
+-- 패치다운로드 끝 (PatchDownload_Finish) 
 
--- 프롤로그 시작 (Prologue_Start) v
--- 프롤로그 끝 (Prologue_Finish) v
+-- 프롤로그 시작 (Prologue_Start) 
+-- 프롤로그 끝 (Prologue_Finish) 
 
--- 로그인 닉네임 생성 (Login_CreateAccount) v
+-- 로그인 닉네임 생성 (Login_CreateAccount) 
 
 -- @ 인트로 튜토리얼은 강제종료 가능
--- 인트로 튜토리얼 시작 (Tutorial_Intro_Start) v
--- 인트로 튜토리얼 웨이브(평타 어택) 진입 (Tutorial_Intro_Wave) v
--- 인트로 튜토리얼 자동줍기 사용 (Tutorial_Intro_AutoPick) v
--- 인트로 튜토리얼 드래그스킬 사용 (Tutorial_Intro_DragSkill) v
--- 인트로 튜토리얼 종료 (Tutorial_Intro_Finish) v
+-- 인트로 튜토리얼 시작 (Tutorial_Intro_Start) 
+-- 인트로 튜토리얼 웨이브(평타 어택) 진입 (Tutorial_Intro_Wave) 
+-- 인트로 튜토리얼 자동줍기 사용 (Tutorial_Intro_AutoPick) 
+-- 인트로 튜토리얼 드래그스킬 사용 (Tutorial_Intro_DragSkill) 
+-- 인트로 튜토리얼 종료 (Tutorial_Intro_Finish) 
 
--- 로비 진입 (Lobby_Enter) v
+-- 로비 진입 (Lobby_Enter) 
 
 -- 1-1 시작 (Stage_1_1_Start) 
 -- 1-1 종료 (Stage_1_1_Finish)
