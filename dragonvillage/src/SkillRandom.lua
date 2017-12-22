@@ -35,14 +35,18 @@ function SkillRandom:makeSkillInstance(owner, t_skill, t_data)
     for i = 1, #l_rate - 1 do 
         l_rate[i + 1] = l_rate[i] + l_rate[i + 1] 
     end
-
+    local flag = false
     for i = 1, #l_rate do 
         if (random_value < l_rate[i]) then
             random_value = i
+            flag = true
             break
         end
     end
-    
+    if (not flag) then
+        random_value = 1
+    end
+
     local derived_skill_info = DragonSkillIndivisualInfo(owner.m_charType, 'skill_random', tonumber(l_skillID[random_value]), t_skill.m_skillLevel) 
 
     derived_skill_info:applySkillLevel()

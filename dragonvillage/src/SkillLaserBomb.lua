@@ -35,11 +35,6 @@ SkillLaserBomb = class(PARENT, {
 function SkillLaserBomb:init(file_name, body, ...)
     self.m_linkEffect = {}
     self.m_lRefresh= {}
-   
-    for i, v in ipairs(self.m_lRefresh) do
-        v = false
-    end
-
     self.m_lLaserDir = {}
     self.m_lStartPosX = {}
     self.m_lStartPosY = {}
@@ -66,16 +61,11 @@ function SkillLaserBomb:init_skill(start_res, missile_res, explosion_res, hit, t
     self.m_clearCount = 0
 	self.m_maxClearCount = hit
 	
-    for i, v in ipairs(self.m_lLaserDir) do
-        v = 180
+    for i = 1, 2 do
+        self.m_lLaserDir[i] = 180
+        self.m_lStartPosX[i] = 0
+        self.m_lStartPosY[i] = 0
     end
-    for i, v in ipairs(self.m_lStartPosX) do
-        v = 0
-    end
-    for i, v in ipairs(self.m_lStartPosY) do
-        v = 0
-    end
-
 
     local camera_x, camera_y = self.m_owner.m_world.m_gameCamera:getHomePos()
 
@@ -115,10 +105,12 @@ function SkillLaserBomb:init_skill(start_res, missile_res, explosion_res, hit, t
                             end
                             local anim_x, anim_y = anim:getPosition()
                             local idx = tonumber(event['eventData']['name']:sub(7,7))
-                            self.m_lStartPosX[idx] = x + anim_x
-                            self.m_lStartPosY[idx] = y + anim_y
-                            self:makeLaserLinkEffect(missile_res, idx)
-                            self.m_lRefresh[idx] = true
+                            if (idx) then
+                                self.m_lStartPosX[idx] = x + anim_x
+                                self.m_lStartPosY[idx] = y + anim_y
+                                self:makeLaserLinkEffect(missile_res, idx)
+                                self.m_lRefresh[idx] = true
+                            end
                         end
                     end
                 end
@@ -203,8 +195,11 @@ function SkillLaserBomb.st_disappear(owner, dt)
             owner:changeState('dying')
         end
 		--owner.m_linkEffect:setVisible(false)
-        owner.m_linkEffect[1]:changeCommonAni('disappear', false, ani_handler)
-        owner.m_linkEffect[2]:changeCommonAni('disappear', false, ani_handler)
+        for k, v in pairs(owner.m_linkEffect) do
+            if (v) then
+                v:changeCommonAni('disappear', false, ani_handler)
+            end
+        end
 
     end
 end
@@ -215,7 +210,7 @@ end
 -------------------------------------
 function SkillLaserBomb:refresh()
 
-    for i, v in ipairs(self.m_lRefresh) do
+    for i, v in pairs(self.m_lRefresh) do
         if(self.m_lRefresh[i]) then
             local distance = math_distance(self.m_lStartPosX[i], self.m_lStartPosY[i], self.m_targetPos.x, self.m_targetPos.y)
             local dir = getDegree(self.m_lStartPosX[i], self.m_lStartPosY[i], self.m_targetPos.x, self.m_targetPos.y)
