@@ -42,15 +42,15 @@ function ServerData_CapsuleBox:init_data(t_data)
 		-- 총 갯수
 		if (t_data['total']) then
 			local total = t_data['total'][box_key]
-			if (total) then
-				struct_capsulebox:setTotal(total)
-			end
+			struct_capsulebox:setTotal(total)
 		end
 
-		-- 가격s
+		-- 가격
 		if (t_data['price']) then
 			local price_str = t_data['price'][box_key]
+			struct_capsulebox:setPrice(price_str)
 		end
+
 		-- 내용물
 		local t_content = t_data[box_key]
 		if (t_content) then
@@ -154,7 +154,7 @@ end
 -------------------------------------
 -- function request_capsuleBoxBuy
 -------------------------------------
-function ServerData_CapsuleBox:request_capsuleBoxBuy(box, finish_cb, fail_cb)
+function ServerData_CapsuleBox:request_capsuleBoxBuy(box, price_type, finish_cb, fail_cb)
     -- 파라미터
     local uid = g_userData:get('uid')
 
@@ -170,6 +170,7 @@ function ServerData_CapsuleBox:request_capsuleBoxBuy(box, finish_cb, fail_cb)
     ui_network:setUrl('/shop/capsule_box/buy')
     ui_network:setParam('uid', uid)
 	ui_network:setParam('box', box)
+	ui_network:setParam('price_type', price_type)
     ui_network:setSuccessCB(success_cb)
     ui_network:setFailCB(fail_cb)
     ui_network:setRevocable(true)

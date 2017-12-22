@@ -7,6 +7,7 @@ StructCapsuleBox = class(PARENT, {
 		box_key = 'string',
 		contents = 'table',
 		total = 'number',
+		price = 'table',
     })
 
 local THIS = StructCapsuleBox
@@ -59,6 +60,38 @@ end
 -------------------------------------
 function StructCapsuleBox:getTotal()
 	return self['total']
+end
+
+-------------------------------------
+-- function setPrice
+-------------------------------------
+function StructCapsuleBox:setPrice(price_str)
+	local l_price_list = {}
+	
+	-- 여러 타입의 가격을 관리 할 수 있도록
+	for _, each_price in ipairs(plSplit(price_str, ',')) do
+		local t_price = {}
+		local l_split = plSplit(each_price, ';')
+		t_price['type'] = l_split[1]
+		t_price['value'] = l_split[2]
+		table.insert(l_price_list, t_price)
+	end
+	ccdump(l_price_list)
+	self['price'] = l_price_list
+end
+
+-------------------------------------
+-- function getPrice
+-------------------------------------
+function StructCapsuleBox:getPrice(idx)
+	return self['price'][idx]
+end
+
+-------------------------------------
+-- function getPriceList
+-------------------------------------
+function StructCapsuleBox:getPriceList()
+	return self['price']
 end
 
 -------------------------------------
