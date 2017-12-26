@@ -98,6 +98,9 @@ function UI_CapsuleBox:initButton()
 	vars['firstDrawBtn1']:registerScriptTapHandler(function() self:click_drawBtn(BOX_KEY_1, 1) end)
 	vars['secondDrawBtn1']:registerScriptTapHandler(function() self:click_drawBtn(BOX_KEY_2, 1) end)
 	vars['secondDrawBtn2']:registerScriptTapHandler(function() self:click_drawBtn(BOX_KEY_2, 2) end)
+
+	-- 새로고침
+	vars['refreshBtn']:registerScriptTapHandler(function() self:click_refreshBtn() end)
 end
 
 -------------------------------------
@@ -148,6 +151,17 @@ end
 -- @brief 뽑기
 -------------------------------------
 function UI_CapsuleBox:click_drawBtn(box_key, idx)
+	
+	-- 종료시간과 비교하여 다음날 정보를 가져온다.
+	if (g_capsuleBoxData:checkReopen()) then
+		local msg = Str('캡슐 정보를 갱신합니다.')
+		UIManager:toastNotificationGreen(msg)
+		g_capsuleBoxData:request_capsuleBoxInfo(function()
+			self:refresh()
+		end)
+		return	
+	end
+
 	local struct_capsule_box = self.m_capsuleBoxData[box_key]
 	local t_price = struct_capsule_box:getPrice(idx)
 	
@@ -184,7 +198,34 @@ function UI_CapsuleBox:click_drawBtn(box_key, idx)
 			self:refresh()
 		end)
 	end
+
 	g_capsuleBoxData:request_capsuleBoxBuy(box_key, price_type, finish_func)
+end
+
+-------------------------------------
+-- function click_refreshBtn
+-------------------------------------
+function UI_CapsuleBox:click_refreshBtn()
+	if (not g_capsuleBoxData:isOpen()) then
+		local msg = Str('캡슐 뽑기 준비중입니다.')
+		UIManager:toastNotificationRed(msg)
+		self:close()
+		return
+	end
+
+	-- 종료시간과 비교하여 다음날 정보를 가져온다.
+	if (g_capsuleBoxData:checkReopen()) then
+		local msg = Str('캡슐 정보를 갱신합니다.')
+		UIManager:toastNotificationGreen(msg)
+		g_capsuleBoxData:request_capsuleBoxInfo()
+		self:close()
+		return	
+	end
+
+	-- 일반적인 갱신
+	g_capsuleBoxData:request_capsuleBoxStatus(function()
+		self:refresh()
+	end)
 end
 
 -------------------------------------

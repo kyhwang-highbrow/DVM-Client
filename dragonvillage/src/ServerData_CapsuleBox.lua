@@ -101,8 +101,8 @@ function ServerData_CapsuleBox:request_capsuleBoxInfo(finish_cb, fail_cb)
 			self:init_data(ret['capsule_box'])
 		end
 
-		self.m_startTime = ret['start_time']
-		self.m_endTime = ret['end_time']
+		self.m_startTime = ret['start_time']/1000
+		self.m_endTime = ret['end_time']/1000
 
         if finish_cb then
             finish_cb(ret)
@@ -192,15 +192,39 @@ function ServerData_CapsuleBox:request_capsuleBoxBuy(box, price_type, finish_cb,
 end
 
 -------------------------------------
--- function openCasuleBoxUI
+-- function openCapsuleBoxUI
 -------------------------------------
-function ServerData_CapsuleBox:openCasuleBoxUI()
-	if (not self.m_open) then
+function ServerData_CapsuleBox:openCapsuleBoxUI()
+	if (not self:isOpen()) then
 		local msg = Str('캡슐 뽑기 준비중입니다.')
 		UIManager:toastNotificationRed(msg)
 		return
 	end
+
+	-- 종료시간과 비교하여 다음날 정보를 가져온다.
+	if (self:checkReopen()) then
+		local msg = Str('캡슐 정보를 갱신합니다.')
+		UIManager:toastNotificationGreen(msg)
+		self:request_capsuleBoxInfo()
+		return	
+	end
+
 	self:request_capsuleBoxStatus(function()
 		UI_CapsuleBox()
 	end)
+end
+
+-------------------------------------
+-- function checkReopen
+-------------------------------------
+function ServerData_CapsuleBox:isOpen()
+	return self.m_open
+end
+
+-------------------------------------
+-- function checkReopen
+-------------------------------------
+function ServerData_CapsuleBox:checkReopen()
+	local curr_time = Timer:getServerTime()
+	return (curr_time > self.m_endTime)
 end

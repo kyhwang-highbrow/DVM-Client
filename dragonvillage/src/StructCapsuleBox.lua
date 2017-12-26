@@ -60,9 +60,22 @@ end
 -- function getTopRewardProb
 -------------------------------------
 function StructCapsuleBox:getTopRewardProb()
-	local l_rate = self:getRateByRankTable()
-	local prob = l_rate[1]
-	return string.format('%.2f%%', prob * 100)
+	local curr_total = self:getCurrentTotal()
+
+	-- 랭크별 갯수를 산출한다.
+	local top_count = 0
+	local rank, count
+	for _, struct_reward in pairs(self['contents']) do
+		rank = struct_reward['rank']
+		if (rank <= 2) then
+			count = struct_reward['count']
+			top_count = top_count + count
+		end
+	end
+
+	local prob = top_count / curr_total * 100
+
+	return string.format('%.2f%%', prob)
 end
 
 -------------------------------------

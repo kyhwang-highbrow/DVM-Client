@@ -128,8 +128,9 @@ function UI_CapsuleBoxRewardList.makeRewardCell(struct_reward)
 	vars['itemNode']:addChild(item_card.root)
 
 	-- 보상 이름
-	local name = UIHelper:makeItemNamePlainByParam(item_id, item_cnt)
+	local name = UIHelper:makeItemNamePlainByParam(item_id)
 	vars['rewardLabel']:setString(name)
+	vars['rewardLabel']:setLineBreakWithoutSpace(true)
 
 	return ui
 end
