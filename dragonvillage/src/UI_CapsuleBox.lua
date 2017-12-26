@@ -93,6 +93,9 @@ function UI_CapsuleBox:initButton()
 	vars['firstDrawBtn1']:registerScriptTapHandler(function() self:click_drawBtn(BOX_KEY_1, 1) end)
 	vars['secondDrawBtn1']:registerScriptTapHandler(function() self:click_drawBtn(BOX_KEY_2, 1) end)
 	vars['secondDrawBtn2']:registerScriptTapHandler(function() self:click_drawBtn(BOX_KEY_2, 2) end)
+
+	-- 캡슐 코인 구매
+	vars['firstCoinBtn']:registerScriptTapHandler(function() self:click_buyCoinBtn() end)
 end
 
 -------------------------------------
@@ -129,6 +132,10 @@ function UI_CapsuleBox:refresh()
 	-- 현재 보유한 캡슐 코인..
 	local capsule_coin = g_userData:get('capsule_coin')
 	vars['firstHaveLabel']:setString(comma_value(capsule_coin))
+
+	-- 캡슐 코인 없다면 바로 구매 가능하게 열어준다
+	vars['firstCoinBtn']:setVisible(capsule_coin == 0)
+	vars['firstDrawBtn1']:setVisible(capsule_coin ~= 0)
 end
 
 -------------------------------------
@@ -185,6 +192,19 @@ function UI_CapsuleBox:click_drawBtn(box_key, idx)
 end
 
 -------------------------------------
+-- function click_buyCoinBtn
+-------------------------------------
+function UI_CapsuleBox:click_buyCoinBtn()
+	--local t_product = {['product_id'] = 90065}
+	--local struct_product = StructProduct(t_product)
+	--local function cb_func()
+		--self:refresh()
+	--end
+	--struct_product:buy(cb_func)
+	ccdisplay('상품 준비 중')
+end
+
+-------------------------------------
 -- function click_exitBtn
 -------------------------------------
 function UI_CapsuleBox:click_exitBtn()
@@ -192,8 +212,12 @@ function UI_CapsuleBox:click_exitBtn()
 end
 
 
+
+
+
+
 -------------------------------------
--- function click_exitBtn
+-- function makeRewardCell
 -------------------------------------
 function UI_CapsuleBox.makeRewardCell(box_key, struct_reward, curr_total)
 	local ui = UI()

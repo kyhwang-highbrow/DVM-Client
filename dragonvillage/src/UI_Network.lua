@@ -193,6 +193,7 @@ local S_ERROR_STATUS = {
     [-1160] = Str('상대방의 방어덱이 없습니다.'), -- not exist deck
 
     -- not enough
+	[-1210] = Str('캡슐 코인이 부족합니다.'), -- not enough capsule_coin
     [-1211] = Str('골드가 부족합니다.'), -- not enough gold
     [-1212] = Str('다이아몬드가 부족합니다.'), -- not enough cash
     [-1216] = Str('날개가 부족합니다.'), -- not enough stamina
