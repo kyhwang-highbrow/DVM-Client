@@ -72,7 +72,12 @@ function UI_CapsuleBox:initUI()
 
 			-- 가격 아이콘
 			local price_type = t_price['type']
-			local price_icon = IconHelper:getPriceIcon(price_type)
+			local price_icon
+			if (box_key == 'first') then
+				price_icon = IconHelper:getPriceBigIcon(price_type)
+			else
+				price_icon = IconHelper:getPriceIcon(price_type)
+			end
 			vars[box_key .. 'PriceNode' .. i]:removeAllChildren(true)
 			vars[box_key .. 'PriceNode' .. i]:addChild(price_icon)
 		end

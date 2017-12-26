@@ -533,6 +533,25 @@ function IconHelper:getPriceIcon(price_type)
 end
 
 -------------------------------------
+-- function getPriceBigIcon
+-------------------------------------
+function IconHelper:getPriceBigIcon(price_type)
+    -- 현금 상품
+    if (price_type == 'money') then
+        if isIos() then
+            price_type = 'usd'
+        else
+            price_type = 'krw'
+        end
+    end
+    
+    local res = string.format('res/ui/icons/item/%s.png', price_type)
+    local icon = IconHelper:getIcon(res)
+    return icon
+end
+
+
+-------------------------------------
 -- function getNotiIcon
 -------------------------------------
 function IconHelper:getNotiIcon()
