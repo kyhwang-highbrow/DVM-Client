@@ -156,9 +156,9 @@ android {
             externalNativeBuild {
                 ndkBuild {
                     cppFlags.add("-DTARGET_SERVER=SERVER_DEV")
-                    cppFlags.add("-DUSE_PATCH=true")
+                    cppFlags.add("-DUSE_PATCH=false")
                     cppFlags.add("-DUSE_OBB=false")
-                    cppFlags.add("-DUSE_LUA_EXT=false")
+                    cppFlags.add("-DUSE_LUA_EXT=true")
                     cppFlags.add("-DIS_TEST_MODE=true")
                 }
             }
@@ -277,8 +277,8 @@ dependencies {
     compile(name:'perplesdk', ext:'aar')
 
     // @adcolony
-    compile 'com.adcolony:sdk:3.2.1'
-    compile 'com.google.android.gms:play-services-ads:11.0.4'
+    compile 'com.adcolony:sdk:3.3.0'
+    compile 'com.google.android.gms:play-services-ads:11.6.2'
 
     // @unity-ads
     compile(name:'unity-ads', ext:'aar')
@@ -295,19 +295,22 @@ dependencies {
     compile 'com.squareup:otto:1.3.8'
 
     // @firebase
-    compile 'com.google.firebase:firebase-core:11.0.4'
-    compile 'com.google.firebase:firebase-auth:11.0.4'
-    compile 'com.google.firebase:firebase-messaging:11.0.4'
+    compile 'com.google.firebase:firebase-core:11.6.2'
+    compile 'com.google.firebase:firebase-auth:11.6.2'
+    compile 'com.google.firebase:firebase-messaging:11.6.2'
 
     // @google
-    compile 'com.google.android.gms:play-services-auth:11.0.4'
-    compile 'com.google.android.gms:play-services-games:11.0.4'
+    compile 'com.google.android.gms:play-services-auth:11.6.2'
+    compile 'com.google.android.gms:play-services-games:11.6.2'
 
     // @facebook
     compile 'com.facebook.android:facebook-android-sdk:4.28.0'
 
     // @multidex below Android 6.0
     compile 'com.android.support:multidex:1.0.1'
+
+    // @igawCommon
+    compile 'com.android.installreferrer:installreferrer:1.0'
 }
 
 // @firebase
