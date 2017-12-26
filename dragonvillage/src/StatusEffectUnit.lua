@@ -49,7 +49,12 @@ function StatusEffectUnit:init(name, owner, caster, skill_id, value, source, dur
     self.m_source = source
     
 	self.m_duration = duration
-    self.m_durationTimer = self.m_duration
+    self.m_durationTimer = duration
+    
+    if (self.m_duration == -1) then
+        self.m_durationTimer = 99999
+    end
+
     self.m_keepTimer = 0
 
     self.m_bApply = false

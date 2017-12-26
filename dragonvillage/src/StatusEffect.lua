@@ -671,29 +671,47 @@ function StatusEffect:addOverlabUnit(caster, skill_id, value, source, duration, 
         self.m_mUnit[char_key] = {}
     end
 
-     -- 갱신(삭제 후 새로 추가하는 방식으로 처리함. 리스트의 가장 뒤로 보내야하기 때문)
-    if (t_status_effect['overlab_option'] ~= 1 or (caster:getCharType() == 'monster' and self.m_owner.m_bLeftFormation)) then
-        for i, unit in ipairs(self.m_mUnit[char_key]) do
-            if (unit.m_skillId == skill_id) then
-                -- 주체와 스킬id가 같을 경우 삭제 후 추가 시킴
-                local unit = table.remove(self.m_mUnit[char_key], i)
-                self:unapplyOverlab(unit)
+    local add_new_unit = function(add_unit)
+        -- 중첩 정보 추가
+        table.insert(self.m_mUnit[char_key], add_unit)
+        table.insert(self.m_lUnit, add_unit)
 
-                local idx = table.find(self.m_lUnit, unit)
-                table.remove(self.m_lUnit, idx)
+        -- 지속 시간으로 정렬시킴(오름차순)
+        table.sort(self.m_mUnit[char_key], function(a, b)
+            return a:getDuration() < b:getDuration()
+        end)
+        
+        -- 중첩시 효과 적용
+        self:applyOverlab(add_unit)
+    end
+
+     -- 갱신(삭제 후 새로 추가하는 방식으로 처리함. 리스트의 가장 뒤로 보내야하기 때문)
+     local bSkipAdd = false
+
+    if (t_status_effect['overlab_option'] == 0 or (caster:getCharType() == 'monster' and self.m_owner.m_bLeftFormation)) then
+        for i, unit in ipairs(self.m_mUnit[char_key]) do
+            -- 주체와 스킬id가 같고 지속시간이 짧을 경우 삭제 후 추가 시킴
+            if (unit.m_skillId == new_unit.m_skill_id) then
+                if (unit:getDuration() <= new_unit:getDuration()) then
+                    local remove_unit = table.remove(self.m_mUnit[char_key], i)
+                    self:unapplyOverlab(remove_unit)
+
+                    local idx = table.find(self.m_lUnit, remove_unit)
+                    table.remove(self.m_lUnit, idx)
+                else
+                    bSkipAdd = true
+                end
                 
                 break
             end
         end
     end
 
-    -- 중첩 정보 추가
-    table.insert(self.m_mUnit[char_key], new_unit)
-    table.insert(self.m_lUnit, new_unit)
-    -- 중첩시 효과 적용
-    self:applyOverlab(new_unit)
+    if (not bSkipAdd) then
+        add_new_unit(new_unit)
+    end
     
-    -- 최대 중첩 횟수를 넘을 경우 젤 앞의 unit을 삭제
+    -- 최대 중첩 횟수를 넘을 경우 가장 먼저 추가된 unit을 삭제
     if (self.m_maxOverlab > 0 and self.m_overlabCnt > self.m_maxOverlab) then
         local unit = table.remove(self.m_lUnit, 1)
 
@@ -704,7 +722,7 @@ function StatusEffect:addOverlabUnit(caster, skill_id, value, source, duration, 
                 break
             end
         end
-                            
+
         self:unapplyOverlab(unit)
     end
 
@@ -723,7 +741,7 @@ function StatusEffect:calcLatestTime()
 
     for _, unit in pairs(self.m_lUnit) do
         if (unit.m_duration ~= -1) then
-            latestTimer = math_max(latestTimer, unit.m_durationTimer)
+            latestTimer = math_max(latestTimer, unit:getDuration())
         else
             latestTimer = -1
             return latestTimer
