@@ -680,7 +680,10 @@ function StatusEffect:addOverlabUnit(caster, skill_id, value, source, duration, 
         table.sort(self.m_mUnit[char_key], function(a, b)
             return a:getDuration() < b:getDuration()
         end)
-        
+        table.sort(self.m_lUnit, function(a, b)
+            return a:getDuration() < b:getDuration()
+        end)
+
         -- 중첩시 효과 적용
         self:applyOverlab(add_unit)
     end
@@ -711,7 +714,7 @@ function StatusEffect:addOverlabUnit(caster, skill_id, value, source, duration, 
         add_new_unit(new_unit)
     end
     
-    -- 최대 중첩 횟수를 넘을 경우 가장 먼저 추가된 unit을 삭제
+    -- 최대 중첩 횟수를 넘을 경우 지속 시간이 가장 짧은 unit을 삭제
     if (self.m_maxOverlab > 0 and self.m_overlabCnt > self.m_maxOverlab) then
         local unit = table.remove(self.m_lUnit, 1)
 
