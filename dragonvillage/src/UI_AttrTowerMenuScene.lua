@@ -25,7 +25,9 @@ function UI_AttrTowerMenuScene:init(attr, stage)
     self:initButton()
     self:refresh()
 
-    self:sceneFadeInAction()
+    -- 메뉴 씬 진입 후 속성탑 바로 진입할 경우 fade in time 늘려줌 (중간에 씬 화면 보이지 않게)
+    local duration = self.m_selAttr and 1.5 or 0.25
+    self:sceneFadeInAction(nil, nil, duration)
 end
 
 -------------------------------------

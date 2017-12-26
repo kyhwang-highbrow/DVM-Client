@@ -25,14 +25,15 @@ function PackageManager:getTargetUI(package_name, is_popup)
         target_ui = UI_Package_Bundle(package_name, is_popup)
 
     else
-        -- struct로 들어온 경우 패키지 네임으로 변환하여 타겟 UI 찾음
-        if (type(package_name) ~= 'string') then
+        if (type(package_name) == 'string') then
+            error('등록 되지 않은 package name : '.. package_name)
+            
+        -- struct_product 로 들어온 경우 패키지 네임으로 변환하여 타겟 UI 찾음
+        else
             local struct_product = package_name
             local pid = struct_product['product_id']
             local _package_name = TablePackageBundle:getPackageNameWithPid(pid)   
             target_ui = UI_Package_Bundle(_package_name, is_popup)
-        else
-            error('등록 되지 않은 package name : '.. package_name)
         end
     end
 

@@ -12,7 +12,7 @@ local THIS = TablePackageBundle
 -- function init
 -------------------------------------
 function TablePackageBundle:init()
-    self.m_tableName = 'package_bundle'
+    self.m_tableName = 'table_package_bundle'
     self.m_orgTable = TABLE:get(self.m_tableName)
 end
 

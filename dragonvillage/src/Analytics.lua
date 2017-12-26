@@ -100,11 +100,7 @@ function Analytics:firstTimeExperience(arg1, arg2)
     local user = g_userData
     if (user) then
         local created_at = user:get('created_at')
-
-        -- 계정 생성시간이 없을 경우도 계정 생성 전으로 판단 
-        if (not created_at) then
-            Adbrix:firstTimeExperience(arg1, arg2)
-        else
+        if (created_at) then
             local curr_time = Timer:getServerTime()
             local time = curr_time - math_floor(created_at/1000)
 
@@ -112,6 +108,10 @@ function Analytics:firstTimeExperience(arg1, arg2)
             if (time < 86400) then
                 Adbrix:firstTimeExperience(arg1, arg2)
             end
+
+        -- 계정 생성시간이 없을 경우도 계정 생성 전으로 판단 
+        else
+            Adbrix:firstTimeExperience(arg1, arg2)
         end
 
     -- 없다면 호출

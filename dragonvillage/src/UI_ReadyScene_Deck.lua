@@ -447,14 +447,14 @@ function UI_ReadyScene_Deck:setSlot(idx, doid, skip_sort)
         end
     end
 
-    -- 동종 동속성의 드래곤 제외
-    if (self:checkSameDid(idx, doid)) then
-        UIManager:toastNotificationRed('같은 드래곤은 동시에 출전할 수 없습니다.')
+    -- 친구 드래곤 슬롯 검사 (동종 동속성 보다 먼저 검사)
+    if (not g_friendData:checkSetSlotCondition(doid)) then
         return false
     end
 
-    -- 친구 드래곤 슬롯 세팅 조건
-    if (not g_friendData:checkSetSlotCondition(doid)) then
+    -- 동종 동속성의 드래곤 제외
+    if (self:checkSameDid(idx, doid)) then
+        UIManager:toastNotificationRed('같은 드래곤은 동시에 출전할 수 없습니다.')
         return false
     end
 

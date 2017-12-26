@@ -358,6 +358,12 @@ end
 -- @brief 약화 등급을 얻음 
 -------------------------------------
 function ServerData_AncientTower:getWeakGrade(fail_cnt)
+    -- 시험의 탑은 약화 등급 제외
+    local attr = g_attrTowerData:getSelAttr()
+    if (attr) then
+        return 0
+    end
+    
     local fail_cnt = (fail_cnt) and fail_cnt or self:getChallengingCount()
     local t_grade = self.m_lWeakGradeCount
     for idx, grade_cnt in ipairs(t_grade) do

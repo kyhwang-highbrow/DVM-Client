@@ -1182,22 +1182,14 @@ function ServerData_Dragons:isSameDid(doid_a, doid_b)
         return false
     end
 
-    -- 내 덱에서 검사
+    -- 내 덱에서만 검사 (친구드래곤 제외)
     local t_dragon_data = self:getDragonDataFromUidRef(doid_a)
-    -- 없으면 친구 검사
-    if (not t_dragon_data) then
-        t_dragon_data = g_friendData:getDragonDataFromDoid(doid_a)
-    end
-    -- 없으면 정말 없는것..
     if (not t_dragon_data) then
         return false
     end
     local did_a = t_dragon_data:getDid()
-    
+
     t_dragon_data = self:getDragonDataFromUidRef(doid_b)
-    if (not t_dragon_data) then
-        t_dragon_data = g_friendData:getDragonDataFromDoid(doid_a)
-    end
     if (not t_dragon_data) then
         return false
     end

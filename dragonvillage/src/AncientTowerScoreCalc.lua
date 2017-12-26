@@ -37,14 +37,9 @@ end
 -- function setChallengingWeakGrade
 -------------------------------------
 function AncientTowerScoreCalc:setChallengingWeakGrade()
-    -- 시험의 탑은 약화 등급 제외
-    if (g_ancientTowerData:isAttrChallengeMode()) then
-        self.m_weak_grade = 0
-    else
-        local fail_cnt = g_ancientTowerData.m_challengingCount
-        local weak_grade = g_ancientTowerData:getWeakGrade(fail_cnt)
-        self.m_weak_grade = weak_grade
-    end
+    local fail_cnt = g_ancientTowerData:getChallengingCount()
+    local weak_grade = g_ancientTowerData:getWeakGrade(fail_cnt)
+    self.m_weak_grade = weak_grade
 end
 
 -------------------------------------

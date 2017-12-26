@@ -832,13 +832,19 @@ end
 -- @brief 친구 드래곤 슬롯 세팅 조건 검사
 -------------------------------------
 function ServerData_Friend:checkSetSlotCondition(doid)
-    if (not self:checkFriendDragonFromDoid(doid)) then return true end
+    if (not self:checkFriendDragonFromDoid(doid)) then 
+        return true 
+    end
+
     -- 쿨타임 존재
-    if (not self:checkUseEnableDragon(doid)) then return false end 
+    if (not self:checkUseEnableDragon(doid)) then 
+        -- 따로 메세지 없음
+        return false 
+    end 
 
     -- 이미 선택된 친구가 있음
     if (self.m_selectedSharedFriendDragon) and (self.m_selectedSharedFriendDragon ~= doid) then 
-        MakeSimplePopup(POPUP_TYPE.OK, Str('친구 드래곤은 전투에 한 명만 참여할 수 있습니다'))
+        UIManager:toastNotificationRed(Str('친구 드래곤은 전투에 한 명만 참여할 수 있습니다'))
         return false
     end
 
