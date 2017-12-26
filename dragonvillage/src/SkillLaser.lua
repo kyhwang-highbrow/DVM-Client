@@ -42,7 +42,7 @@ function SkillLaser:init_skill(missile_res, hit, thickness)
 
     self.m_physGroup = self.m_owner:getMissilePhysGroup()
 
-    local duration = (self.m_owner.m_statusCalc.m_attackTick / 2)
+    local duration = (3 / 2)
     local hit = math_max(hit, 1)
 
 	    -- 쿨타임 지정

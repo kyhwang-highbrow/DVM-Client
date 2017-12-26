@@ -28,7 +28,7 @@ function SkillHealAround:init_skill(duration, hit_cnt)
     -- 멤버 변수
     self.m_hitCount = 0
     self.m_limitTime = duration
-    self.m_multiHitTime = self.m_limitTime / hit_cnt -- 한 번 회복하는데 걸리는 시간(쿨타임)
+    self.m_multiHitTime = 3 / hit_cnt -- 한 번 회복하는데 걸리는 시간(쿨타임)
     self.m_multiHitMax = hit_cnt - 1 -- 회복 횟수 (시간 계산 오차로 추가로 회복되는것 방지)
 end
 

@@ -50,12 +50,12 @@ function SkillLaserBomb:init_skill(start_res, missile_res, explosion_res, hit, t
     self.m_explosionRes = explosion_res
     self.m_physGroup = self.m_owner:getMissilePhysGroup()
 
-    local duration = (self.m_owner.m_statusCalc.m_attackTick / 2)
+    local duration = (3 / 2)
     local hit = math_max(hit, 1)
 
 	    -- 쿨타임 지정
     self.m_limitTime = duration
-    self.m_multiHitTime = self.m_limitTime / hit
+    self.m_multiHitTime = duration / hit
     self.m_multiHitTimer = 0
 	
     self.m_clearCount = 0
@@ -176,7 +176,6 @@ function SkillLaserBomb.st_idle(owner, dt)
 
         owner:runAttack()
     end
-
     owner:refresh()
 
     if ((not owner.m_owner) or owner.m_owner:isDead() or (owner.m_clearCount >= owner.m_maxClearCount)) then
