@@ -133,8 +133,8 @@ android {
     productFlavors {
         // DEV
         dev100mbTest{
-			versionCode 23
-			versionName "0.4.1"
+			versionCode 27
+			versionName "0.4.5"
             signingConfig signingConfigs.keystore
             externalNativeBuild {
                 ndkBuild {
@@ -147,9 +147,12 @@ android {
             }
         }
         devFullTest{
-			versionCode 23
-			versionName "0.4.1"
+			versionCode 27
+			versionName "0.4.5"
             signingConfig signingConfigs.keystore
+            //applicationIdSuffix ".test"
+            //applicationId "com.perplelab.dvm.dev"        
+            //setProperty("archivesBaseName", "dvm-${versionName}")
             externalNativeBuild {
                 ndkBuild {
                     cppFlags.add("-DTARGET_SERVER=SERVER_DEV")
@@ -163,8 +166,8 @@ android {
 
         // QA
         qa100mbTest{
-			versionCode 25
-			versionName "0.4.2"
+			versionCode 27
+			versionName "1.0.8"
             signingConfig signingConfigs.keystore
             externalNativeBuild {
                 ndkBuild {
@@ -177,8 +180,8 @@ android {
             }
         }
         qaFullTest{
-			versionCode 25
-			versionName "0.4.2"
+			versionCode 27
+			versionName "1.0.8"
             signingConfig signingConfigs.keystore
             externalNativeBuild {
                 ndkBuild {
@@ -193,8 +196,8 @@ android {
 
         // LIVE
         live100mb{
-			versionCode 25
-			versionName "1.0.6"
+			versionCode 27
+			versionName "1.0.8"
             signingConfig signingConfigs.upload_keystore
             externalNativeBuild {
                 ndkBuild {
@@ -207,8 +210,8 @@ android {
             }
         }
         liveFull{
-            versionCode 25
-            versionName "1.0.6"
+            versionCode 27
+            versionName "1.0.8"
             signingConfig signingConfigs.keystore
             externalNativeBuild {
                 ndkBuild {
