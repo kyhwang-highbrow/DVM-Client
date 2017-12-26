@@ -142,11 +142,14 @@ function GameWorld:makeMonsterNew(monster_id, level)
     
     -- 고대의 탑일 경우 도전횟수에 따른 디버프 적용
     if (self.m_gameMode == GAME_MODE_ANCIENT_TOWER) then
-        local value = g_ancientTowerData:getEnemyDeBuffValue()
-        if (value < 0) then
-            monster.m_statusCalc:addStageMulti('atk', value)
-            monster.m_statusCalc:addStageMulti('def', value)
-            monster.m_statusCalc:addStageMulti('hp', value)
+        -- 시험의 탑 디버프 제외
+        if (not g_ancientTowerData:isAttrChallengeMode()) then
+            local value = g_ancientTowerData:getEnemyDeBuffValue()
+            if (value < 0) then
+                monster.m_statusCalc:addStageMulti('atk', value)
+                monster.m_statusCalc:addStageMulti('def', value)
+                monster.m_statusCalc:addStageMulti('hp', value)
+            end
         end
     end
 
