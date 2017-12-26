@@ -48,6 +48,7 @@ COLOR = {
 	['green'] = cc.c3b(0, 255, 0),
 	['light_green'] = cc.c3b(50, 255, 0),
 	['grass_green'] = cc.c3b(165, 224, 0),
+	['blue_green'] = cc.c3b(45, 255, 107),
 	
 	-- 파랑
 	['blue'] = cc.c3b(0, 0, 255),

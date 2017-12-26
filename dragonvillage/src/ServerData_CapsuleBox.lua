@@ -38,13 +38,7 @@ function ServerData_CapsuleBox:init_data(t_data)
 
 		-- 박스 종류
 		struct_capsulebox:setBoxKey(box_key)
-
-		-- 총 갯수
-		if (t_data['total']) then
-			local total = t_data['total'][box_key]
-			struct_capsulebox:setTotal(total)
-		end
-
+		
 		-- 가격
 		if (t_data['price']) then
 			local price_str = t_data['price'][box_key]
@@ -55,6 +49,11 @@ function ServerData_CapsuleBox:init_data(t_data)
 		local t_content = t_data[box_key]
 		if (t_content) then
 			struct_capsulebox:setContents(t_content)
+		end
+
+		-- 총 갯수
+		if (t_data['total']) then
+			struct_capsulebox:setTotal(t_data['total'])
 		end
 
 		self.m_tStrurctCapsuleBox[box_key] = struct_capsulebox

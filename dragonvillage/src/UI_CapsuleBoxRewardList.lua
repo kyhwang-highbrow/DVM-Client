@@ -131,15 +131,6 @@ function UI_CapsuleBoxRewardList.makeRewardCell(struct_reward)
 	local name = UIHelper:makeItemNamePlainByParam(item_id, item_cnt)
 	vars['rewardLabel']:setString(name)
 
-	-- 남은 갯수
-	local count = struct_reward['count']
-	vars['quantityLabel']:setString(Str('{1}개', count))
-
-	-- 가능 여부
-	local state, color = struct_reward:getStateAndColor()
-	vars['stateLabel']:setString(state)
-	vars['stateLabel']:setTextColor(color)
-
 	return ui
 end
 

@@ -7,6 +7,7 @@ StructCapsuleBoxReward = class(PARENT, {
 		id = 'number',
 		rank = 'number',
 		count = 'number',
+		total = 'number',
 
 		item_id = 'number',
 		item_cnt = 'number',
@@ -52,6 +53,13 @@ function StructCapsuleBoxReward:setItem(item_str)
 end
 
 -------------------------------------
+-- function setTotal
+-------------------------------------
+function StructCapsuleBoxReward:setTotal(total)
+	self['total'] = total
+end
+
+-------------------------------------
 -- function setCount
 -------------------------------------
 function StructCapsuleBoxReward:setCount(count)
@@ -63,15 +71,4 @@ end
 -------------------------------------
 function StructCapsuleBoxReward:getCount()
 	return self['count']
-end
-
--------------------------------------
--- function getStateAndColor
--------------------------------------
-function StructCapsuleBoxReward:getStateAndColor()
-	if (self['count'] > 0) then
-		return Str('획득 가능'), cc.c4b(45, 255, 107, 255)
-	else
-		return Str('매진'), cc.c4b(255, 70, 70, 255)
-	end
 end

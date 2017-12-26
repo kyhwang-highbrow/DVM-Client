@@ -7,7 +7,7 @@ StructCapsuleBox = class(PARENT, {
 		box_key = 'string',
 		contents = 'table',
 		curr = 'number',
-		total = 'number',
+		box_total = 'number',
 		price = 'table',
     })
 
@@ -50,20 +50,6 @@ function StructCapsuleBox:getBoxKey()
 end
 
 -------------------------------------
--- function setTotal
--------------------------------------
-function StructCapsuleBox:setTotal(total)
-	self['total'] = total
-end
-
--------------------------------------
--- function getTotal
--------------------------------------
-function StructCapsuleBox:getTotal()
-	return self['total']
-end
-
--------------------------------------
 -- function getCurrentTotal
 -------------------------------------
 function StructCapsuleBox:getCurrentTotal()
@@ -71,10 +57,12 @@ function StructCapsuleBox:getCurrentTotal()
 end
 
 -------------------------------------
--- function getCapsulePercentage
+-- function getTopRewardProb
 -------------------------------------
-function StructCapsuleBox:getCapsulePercentage()
-	return string.format('%.2f%%', self['curr']/self['total']*100)
+function StructCapsuleBox:getTopRewardProb()
+	local l_rate = self:getRateByRankTable()
+	local prob = l_rate[1]
+	return string.format('%.2f%%', prob * 100)
 end
 
 -------------------------------------
@@ -128,12 +116,26 @@ function StructCapsuleBox:setContents(t_content)
 end
 
 -------------------------------------
+-- function setTotal
+-------------------------------------
+function StructCapsuleBox:setTotal(t_total)
+	local box_total = 0
+	for gift_id, struct_reward in pairs(self['contents']) do
+		local total = tonumber(t_total[gift_id])
+		if (total) then
+			struct_reward:setTotal(total)
+			box_total = box_total + total
+		end
+	end
+
+	self['box_total'] = box_total
+end
+
+-------------------------------------
 -- function setContentCount
 -- @brief 각 상품의 갯수 저장
 -------------------------------------
 function StructCapsuleBox:setContentCount(t_count)
-	local total = self['total']
-
 	local curr_capsule = 0
 	for gift_id, count in pairs(t_count) do
 		local struct_reward = self['contents'][gift_id]
@@ -189,14 +191,14 @@ end
 -- @brief 랭크별 비율 리스트 반환
 -------------------------------------
 function StructCapsuleBox:getRateByRankTable()
-	local curr_total = self:getCurrentTotal()
+	local curr_total = self['box_total']
 
 	-- 랭크별 갯수를 산출한다.
 	local l_count = {}
 	local rank, count
 	for _, struct_reward in pairs(self['contents']) do
 		rank = struct_reward['rank']
-		count = struct_reward['count']
+		count = struct_reward['total']
 
 		if (l_count[rank]) then
 			l_count[rank] = l_count[rank] + count
