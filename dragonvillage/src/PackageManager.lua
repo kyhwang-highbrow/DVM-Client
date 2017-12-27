@@ -8,33 +8,32 @@ PackageManager = {}
 -------------------------------------
 function PackageManager:getTargetUI(package_name, is_popup)
     local target_ui = nil
+    local _package_name = package_name
+
+    -- struct product로 들어온 경우 package_name 으로 변환
+    if (type(package_name) ~= 'string') then
+        local struct_product = package_name
+        local pid = struct_product['product_id']
+        _package_name = TablePackageBundle:getPackageNameWithPid(pid)   
+    end
 
     -- 레벨업 패키지 UI
-    if (package_name == 'package_levelup') then
+    if (_package_name == 'package_levelup') then
         local _struct_product = g_shopDataNew:getLevelUpPackageProduct()
         target_ui = UI_Package_LevelUp(_struct_product, is_popup)
 
     -- 모험돌파 패키지 UI
-    elseif (package_name == 'package_adventure_clear') then
+    elseif (_package_name == 'package_adventure_clear') then
         local _struct_product = g_shopDataNew:getAdventureClearProduct()
         target_ui = UI_Package_AdventureClear(_struct_product, is_popup)
 
     -- 패키지 상품 묶음 UI 
     -- ### 단일 상품도 table_bundle_package에 등록
-    elseif (TablePackageBundle:checkBundleWithName(package_name)) then
-        target_ui = UI_Package_Bundle(package_name, is_popup)
+    elseif (TablePackageBundle:checkBundleWithName(_package_name)) then
+        target_ui = UI_Package_Bundle(_package_name, is_popup)
 
     else
-        if (type(package_name) == 'string') then
-            error('등록 되지 않은 package name : '.. package_name)
-            
-        -- struct_product 로 들어온 경우 패키지 네임으로 변환하여 타겟 UI 찾음
-        else
-            local struct_product = package_name
-            local pid = struct_product['product_id']
-            local _package_name = TablePackageBundle:getPackageNameWithPid(pid)   
-            target_ui = UI_Package_Bundle(_package_name, is_popup)
-        end
+        error('등록 되지 않은 package name : '.. _package_name .. ' TABLE_PACKAGE_BUNDLE 등록')
     end
 
     return target_ui

@@ -100,7 +100,7 @@ function FullPopupManager:show(type, show_func)
             g_localData:applyLocalData(true, 'event_full_popup', package_name)
         end
 
-    -- 런칭 패키지 풀팝업 (상점 진입시)
+    -- 캡슐 코인 패키지 풀팝업 (상점 진입시)
     -- 조건 : 구매하지 않은 유저 LV 10 이상
     elseif (type == FULL_POPUP_TYPE.LAUNCH_PACK) then
         local lv = g_userData:get('lv')
@@ -118,7 +118,6 @@ function FullPopupManager:show(type, show_func)
         local package_name = 'package_dia_all'
         local is_view = g_localData:get('event_full_popup', package_name) or false
         local is_exist = PackageManager:isExist(package_name)
-        ccdump(is_exist)
         if is_exist and (not is_view) then 
             self:showFullPopup(package_name)
             g_localData:applyLocalData(true, 'event_full_popup', package_name)
