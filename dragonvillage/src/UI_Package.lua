@@ -17,6 +17,7 @@ function UI_Package:init(struct_product, is_popup)
     if (not ui_name) then return end
 
     self.m_isPopup = is_popup or false
+	self.m_uiName = 'UI_Package'
 
     local vars = self:load(ui_name)
     if (is_popup) then
@@ -156,7 +157,8 @@ end
 
 -------------------------------------
 -- function click_rewardBtn
--- @brief 보상 안내 = 상품 안내 팝업을 출력한다
+-- @brief 보상 안내 = 상품 안내 팝업을 출력한다 rewardBtn 보다는 infoBtn이 적절했을듯
+-- @comment 만원의 행복 용으로 추가됨. package_lucky_box.ui
 -------------------------------------
 function UI_Package:click_rewardBtn()
 	local struct_product = self.m_structProduct

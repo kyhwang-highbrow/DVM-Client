@@ -18,6 +18,8 @@ function UI_Package_Bundle:init(package_name, is_popup)
     self.m_data = TablePackageBundle:getDataWithName(package_name) 
     self.m_pids = TablePackageBundle:getPidsWithName(package_name) 
     self.m_isPopup = is_popup or false
+	
+	self.m_uiName = 'UI_Package_Bundle'
 
     if (is_popup) then
         UIManager:open(self, UIManager.POPUP)
@@ -175,9 +177,12 @@ function UI_Package_Bundle:click_openShop(product_id)
     local l_item_list = g_shopDataNew:getProductList('package')
     local struct_product = l_item_list[product_id]
 
+	-- 슬라임 패키지, 속성 패키지 등지에서 콜백이 물리지 않아 ui 갱신이 되지 않는다.
+	-- 차후에 콜백 구조를 걷어내고 dirty나 옵저버? 형태로 가면 좋을듯 하다
     if (struct_product) then
         local is_popup = true
-        UI_Package(struct_product, is_popup)
+        local ui = UI_Package(struct_product, is_popup)
+		ui:setBuyCB(self.m_cbBuy)
     end
 end
 
