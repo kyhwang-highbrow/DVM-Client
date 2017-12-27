@@ -240,7 +240,7 @@ function ServerData_Event:goToEventUrl(url)
 		UINavigator:goTo('hatchery')
 
 	elseif (url == 'capsule_box') then
-		g_capsuleBoxData:openCasuleBoxUI()
+		g_capsuleBoxData:openCapsuleBoxUI()
 
     else
         SDKManager:goToWeb(url)
