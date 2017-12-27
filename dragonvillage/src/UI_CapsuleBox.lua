@@ -213,14 +213,6 @@ function UI_CapsuleBox:click_drawBtn(box_key, idx)
 	local price_type = t_price['type']
 	local price = t_price['value']
 
-	-- 캡슐 코인이 없다면 패키지를 띄워준다
-	if (price_type == 'capsule_coin') then
-		if (g_userData:get('capsule_coin') == 0) then
-			
-			ccdisplay('11')
-		end
-	end
-
 	-- 뽑기 요청
 	local function finish_func(ret)
 	    
@@ -258,8 +250,13 @@ function UI_CapsuleBox:click_drawBtn(box_key, idx)
 			self.m_isDirecting = false
 		end)
 	end
-
-	g_capsuleBoxData:request_capsuleBoxBuy(box_key, price_type, finish_func)
+	local function fail_func()
+		-- 일반적인 갱신
+		g_capsuleBoxData:request_capsuleBoxStatus(function()
+			self:refresh()
+		end)
+	end
+	g_capsuleBoxData:request_capsuleBoxBuy(box_key, price_type, finish_func, fail_func)
 end
 
 -------------------------------------
