@@ -130,7 +130,7 @@ function UI_ObtainPopup:click_okBtn()
         self.m_cbOKBtn()
     end
 
-    self:closeWithAction()
+    self:close()
 end
 
 -------------------------------------

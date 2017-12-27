@@ -13,6 +13,7 @@ local T_ANI = {
 	[BOX_KEY_2] = 'normal_idle'
 }
 local CURR_Z_ORDER = 10
+local RENEW_INTERVAL = 10
 
 -------------------------------------
 -- class UI_CapsuleBox
@@ -20,6 +21,7 @@ local CURR_Z_ORDER = 10
 UI_CapsuleBox = class(PARENT,{
 		m_capsuleBoxData = '',
 		m_isDirecting = 'bool',
+		m_preRefreshTime = 'time',
     })
 
 -------------------------------------
@@ -43,6 +45,7 @@ function UI_CapsuleBox:init()
 	
 	self.m_capsuleBoxData = g_capsuleBoxData:getCapsuleBoxInfo()
 	self.m_isDirecting = false
+	self.m_preRefreshTime = 0
 
 	-- backkey 지정
 	g_currScene:pushBackKeyListener(self, function() self:click_exitBtn() end, 'UI_CapsuleBox')
@@ -105,6 +108,9 @@ function UI_CapsuleBox:initButton()
 
 	-- 새로고침
 	vars['refreshBtn']:registerScriptTapHandler(function() self:click_refreshBtn() end)
+
+	-- 캡슐 코인 구매
+	vars['firstCoinBtn']:registerScriptTapHandler(function() self:click_firstCoinBtn() end)
 end
 
 -------------------------------------
@@ -139,6 +145,10 @@ function UI_CapsuleBox:refresh()
 	-- 현재 보유한 캡슐 코인..
 	local capsule_coin = g_userData:get('capsule_coin')
 	vars['firstHaveLabel']:setString(comma_value(capsule_coin))
+
+	-- 캡슐 코인 구매 버튼 온오프
+	vars['firstCoinBtn']:setVisible(capsule_coin == 0)
+	vars['firstDrawBtn1']:setVisible(capsule_coin ~= 0)
 end
 
 -------------------------------------
@@ -178,7 +188,6 @@ end
 -- @brief 뽑기
 -------------------------------------
 function UI_CapsuleBox:click_drawBtn(box_key, idx)
-
 	local struct_capsule_box = self.m_capsuleBoxData[box_key]
 	if (struct_capsule_box:isDone()) then
 		local msg = Str('상품이 모두 소진되었습니다.')
@@ -192,12 +201,20 @@ function UI_CapsuleBox:click_drawBtn(box_key, idx)
 	if (not t_price) then
 		return
 	end
-
-	-- 부족 여부도 체크할까?
+	
+	-- 가격 변수
+	local price_type = t_price['type']
 	local price = t_price['value']
 
+	-- 캡슐 코인이 없다면 패키지를 띄워준다
+	if (price_type == 'capsule_coin') then
+		if (g_userData:get('capsule_coin') == 0) then
+			
+			ccdisplay('11')
+		end
+	end
+
 	-- 뽑기 요청
-	local price_type = t_price['type']
 	local function finish_func(ret)
 	    
 		-- 블럭
@@ -242,10 +259,30 @@ end
 -- function click_refreshBtn
 -------------------------------------
 function UI_CapsuleBox:click_refreshBtn()
-	-- 일반적인 갱신
-	g_capsuleBoxData:request_capsuleBoxStatus(function()
-		self:refresh()
-	end)
+	-- 갱신 가능 시간인지 체크한다
+	local curr_time = Timer:getServerTime()
+	if (curr_time - self.m_preRefreshTime > RENEW_INTERVAL) then
+		self.m_preRefreshTime = curr_time
+
+		-- 일반적인 갱신
+		g_capsuleBoxData:request_capsuleBoxStatus(function()
+			self:refresh()
+		end)
+	
+	-- 시간이 되지 않았다면 몇초 남았는지 토스트 메세지를 띄운다
+	else
+		local ramain_time = math_ceil(RENEW_INTERVAL - (curr_time - self.m_preRefreshTime) + 1)
+		UIManager:toastNotificationRed(Str('{1}초 후에 갱신 가능합니다.', ramain_time))
+
+	end
+end
+
+-------------------------------------
+-- function click_firstCoinBtn
+-------------------------------------
+function UI_CapsuleBox:click_firstCoinBtn()
+	local package_name = 'package_capsule_coin'
+	g_fullPopupManager:showFullPopup(package_name)
 end
 
 -------------------------------------
