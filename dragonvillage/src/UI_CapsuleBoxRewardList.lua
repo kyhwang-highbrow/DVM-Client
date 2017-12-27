@@ -94,7 +94,7 @@ function UI_CapsuleBoxRewardList:makeQuestTableView(tab)
 
         -- 테이블 뷰 인스턴스 생성
         local table_view = UIC_TableView(node)
-        table_view.m_defaultCellSize = cc.size(200 + 10, 300)
+        table_view.m_defaultCellSize = cc.size(200 + 10, 220)
         table_view:setCellUIClass(self.makeRewardCell)
         table_view:setDirection(cc.SCROLLVIEW_DIRECTION_HORIZONTAL)
 		table_view:setAlignCenter(true)

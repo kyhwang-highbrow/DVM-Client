@@ -68,7 +68,7 @@ function StructCapsuleBox:getTopRewardProb()
 	local rank, count
 	for _, struct_reward in pairs(self['contents']) do
 		rank = struct_reward['rank']
-		-- ... 아이템이 알이라면 n성 이상을 뽑을 수 있는 알인지 리턴하는 함수 만들던가 해야할듯
+		-- 규칙이 없어서... 나중에 플래그 던지도록 할듯
 		if (rank <= 2) or (struct_reward['id'] == '20308') then
 			count = struct_reward['count']
 			top_count = top_count + count

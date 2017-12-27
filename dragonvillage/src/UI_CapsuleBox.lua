@@ -184,7 +184,6 @@ function UI_CapsuleBox:click_drawBtn(box_key, idx)
 	
 	-- 가격 정보 없을 경우
 	if (not t_price) then
-		ccdisplay('잘못된 요청, click_drawBtn')
 		return
 	end
 
@@ -216,7 +215,8 @@ function UI_CapsuleBox:click_drawBtn(box_key, idx)
 			
 			-- 보상 수령 확인 팝업
 			if (ret['items_list']) then
-				UI_ObtainPopup(ret['items_list'])
+				local text = Str('상품이 우편함으로 전송되었습니다.')
+				UI_ObtainPopup(ret['items_list'], text)
 			end
 
 			self:refresh()
