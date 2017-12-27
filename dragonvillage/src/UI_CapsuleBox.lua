@@ -180,6 +180,12 @@ end
 function UI_CapsuleBox:click_drawBtn(box_key, idx)
 
 	local struct_capsule_box = self.m_capsuleBoxData[box_key]
+	if (struct_capsule_box:isDone()) then
+		local msg = Str('상품이 모두 소진되었습니다.')
+		UIManager:toastNotificationGreen(msg)
+		return
+	end
+
 	local t_price = struct_capsule_box:getPrice(idx)
 	
 	-- 가격 정보 없을 경우

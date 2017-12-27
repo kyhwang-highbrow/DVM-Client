@@ -57,10 +57,23 @@ function StructCapsuleBox:getCurrentTotal()
 end
 
 -------------------------------------
+-- function isDone
+-------------------------------------
+function StructCapsuleBox:isDone()
+	return (self['curr'] == 0)
+end
+
+-------------------------------------
 -- function getTopRewardProb
 -- @brief 좋은 보상이 나올 확률 계산
 -------------------------------------
 function StructCapsuleBox:getTopRewardProb()
+	-- 모두 소진
+	if (self:isDone()) then
+		return '0.00%'
+	end
+
+	-- 현재 총 수량
 	local curr_total = self:getCurrentTotal()
 
 	-- 추출
