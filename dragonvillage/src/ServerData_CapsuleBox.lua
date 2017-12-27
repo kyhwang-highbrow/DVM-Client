@@ -228,3 +228,17 @@ function ServerData_CapsuleBox:checkReopen()
 	local curr_time = Timer:getServerTime()
 	return (curr_time > self.m_endTime)
 end
+
+-------------------------------------
+-- function getRemainTimeText
+-------------------------------------
+function ServerData_CapsuleBox:getRemainTimeText()
+	local curr_time = Timer:getServerTime()
+	local remain_time = self.m_endTime - curr_time
+	if (remain_time < 0) then
+		remain_time = 0
+	end
+
+	local text = datetime.makeTimeDesc(remain_time)
+	return text
+end

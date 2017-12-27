@@ -155,6 +155,10 @@ end
 -- function update
 -------------------------------------
 function UI_CapsuleBox:update(dt)
+	-- 남은 시간
+	local remain_text = g_capsuleBoxData:getRemainTimeText()
+	self.vars['remainTimeLabel']:setString(Str('{1} 남음', remain_text))
+
 	-- 연출 중에는 체크하지 않는다
 	if (self.m_isDirecting) then
 		return
