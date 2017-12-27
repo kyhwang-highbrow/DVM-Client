@@ -203,7 +203,7 @@ function ServerData_CapsuleBox:openCapsuleBoxUI()
 
 	-- 종료시간과 비교하여 다음날 정보를 가져온다.
 	if (self:checkReopen()) then
-		local msg = Str('캡슐 정보를 갱신합니다.')
+		local msg = Str('캡슐 상품을 갱신합니다.')
 		UIManager:toastNotificationGreen(msg)
 		self:request_capsuleBoxInfo()
 		return	

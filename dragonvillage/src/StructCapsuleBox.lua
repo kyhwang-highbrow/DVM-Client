@@ -58,16 +58,18 @@ end
 
 -------------------------------------
 -- function getTopRewardProb
+-- @brief 좋은 보상이 나올 확률 계산
 -------------------------------------
 function StructCapsuleBox:getTopRewardProb()
 	local curr_total = self:getCurrentTotal()
 
-	-- 랭크별 갯수를 산출한다.
+	-- 추출
 	local top_count = 0
 	local rank, count
 	for _, struct_reward in pairs(self['contents']) do
 		rank = struct_reward['rank']
-		if (rank <= 2) then
+		-- ... 아이템이 알이라면 n성 이상을 뽑을 수 있는 알인지 리턴하는 함수 만들던가 해야할듯
+		if (rank <= 2) or (struct_reward['id'] == '20308') then
 			count = struct_reward['count']
 			top_count = top_count + count
 		end
