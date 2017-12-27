@@ -239,6 +239,6 @@ function ServerData_CapsuleBox:getRemainTimeText()
 		remain_time = 0
 	end
 
-	local text = datetime.makeTimeDesc(remain_time)
+	local text = datetime.makeTimeDesc(remain_time, true)
 	return text
 end

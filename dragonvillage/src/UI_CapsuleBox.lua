@@ -20,7 +20,7 @@ local RENEW_INTERVAL = 10
 -------------------------------------
 UI_CapsuleBox = class(PARENT,{
 		m_capsuleBoxData = '',
-		m_isDirecting = 'bool',
+		m_isBusy = 'bool',
 		m_preRefreshTime = 'time',
     })
 
@@ -44,7 +44,7 @@ function UI_CapsuleBox:init()
 	UIManager:open(self, UIManager.SCENE)
 	
 	self.m_capsuleBoxData = g_capsuleBoxData:getCapsuleBoxInfo()
-	self.m_isDirecting = false
+	self.m_isBusy = false
 	self.m_preRefreshTime = 0
 
 	-- backkey 지정
@@ -162,19 +162,23 @@ function UI_CapsuleBox:update(dt)
 	local remain_text = g_capsuleBoxData:getRemainTimeText()
 	self.vars['remainTimeLabel']:setString(Str('{1} 남음', remain_text))
 
-	-- 연출 중에는 체크하지 않는다
-	if (self.m_isDirecting) then
+	-- 중복 호출 방지 처리
+	if (self.m_isBusy) then
 		return
 	end
 
 	-- 종료시간과 비교하여 다음날 정보를 가져온다.
 	if (g_capsuleBoxData:checkReopen()) then
-		self.m_isDirecting = true
+		-- update 중에 중복 호출 되지 않도록 사용
+		self.m_isBusy = true
 
 		local function cb_func()
 			local msg = Str('캡슐 상품을 갱신합니다.')
 			UIManager:toastNotificationGreen(msg)
-			self:close()
+			g_capsuleBoxData:request_capsuleBoxStatus(function()
+				self:refresh()
+				self.m_isBusy = false
+			end)
 		end
 		g_capsuleBoxData:request_capsuleBoxInfo(cb_func)
 		return	
@@ -195,6 +199,10 @@ end
 -- @brief 뽑기
 -------------------------------------
 function UI_CapsuleBox:click_drawBtn(box_key, idx)
+	if (self.m_isBusy) then
+		return
+	end
+
 	local struct_capsule_box = self.m_capsuleBoxData[box_key]
 	if (struct_capsule_box:isDone()) then
 		local msg = Str('상품이 모두 소진되었습니다.')
@@ -209,18 +217,23 @@ function UI_CapsuleBox:click_drawBtn(box_key, idx)
 		return
 	end
 	
+	-- 뽑기 중
+	self.m_isBusy = true
+
 	-- 가격 변수
 	local price_type = t_price['type']
 	local price = t_price['value']
 
 	-- 뽑기 요청
 	local function finish_func(ret)
-	    
+		-- 통신 중에 UI가 닫혔을 경우
+	    if (self.closed) then
+			return
+		end
+
 		-- 블럭
         UIManager:blockBackKey(true)
 		local block_ui = UI_BlockPopup()
-
-		self.m_isDirecting = true
 
 		-- 연출 시작
 		local ani = self.vars[box_key .. 'Visual']
@@ -247,13 +260,14 @@ function UI_CapsuleBox:click_drawBtn(box_key, idx)
 			UIManager:blockBackKey(false)
 			block_ui:close()
 
-			self.m_isDirecting = false
+			self.m_isBusy = false
 		end)
 	end
 	local function fail_func()
 		-- 일반적인 갱신
 		g_capsuleBoxData:request_capsuleBoxStatus(function()
 			self:refresh()
+			self.m_isBusy = false
 		end)
 	end
 	g_capsuleBoxData:request_capsuleBoxBuy(box_key, price_type, finish_func, fail_func)
@@ -293,6 +307,11 @@ end
 -- function click_exitBtn
 -------------------------------------
 function UI_CapsuleBox:click_exitBtn()
+	-- 연출 중이라면 UI가 닫히지 않도록 한다
+	if (self.m_isBusy) then
+		return
+	end
+
     self:close()
 end
 
