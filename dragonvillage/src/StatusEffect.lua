@@ -694,7 +694,7 @@ function StatusEffect:addOverlabUnit(caster, skill_id, value, source, duration, 
     if (t_status_effect['overlab_option'] == 0 or (caster:getCharType() == 'monster' and self.m_owner.m_bLeftFormation)) then
         for i, unit in ipairs(self.m_mUnit[char_key]) do
             -- 주체와 스킬id가 같고 지속시간이 짧을 경우 삭제 후 추가 시킴
-            if (unit.m_skillId == new_unit.m_skill_id) then
+            if (unit.m_skillId == new_unit.m_skillId) then
                 if (unit:getDuration() <= new_unit:getDuration()) then
                     local remove_unit = table.remove(self.m_mUnit[char_key], i)
                     self:unapplyOverlab(remove_unit)
