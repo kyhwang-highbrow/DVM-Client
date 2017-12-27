@@ -404,3 +404,19 @@ function cca.fruitReact(node, idx_factor)
 	local action = cc.Sequence:create(delay, elastic)
 	cca.runAction(node, action)
 end
+
+-------------------------------------
+-- function dropping
+-- @brief 떨어져서 바닥에 바운스 하는 액션
+-------------------------------------
+function cca.dropping(node, move_y, idx)
+	local pos_x, pos_y = node:getPosition()
+	node:setPositionY(pos_y + move_y)
+
+	local i = idx or math_random(2)
+	local delay = cc.DelayTime:create((i-1) * 0.025)
+	local bounce = cc.EaseBounceOut:create(cc.MoveBy:create(1, cc.p(0, -move_y)))
+	local action = cc.Sequence:create(delay, bounce)
+
+	cca.runAction(node, action)
+end

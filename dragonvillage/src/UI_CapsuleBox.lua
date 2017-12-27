@@ -65,9 +65,12 @@ function UI_CapsuleBox:initUI()
 
 	local capsulebox_data = self.m_capsuleBoxData
 
-	for _, box_key in pairs(L_BOX) do
+	for i, box_key in pairs(L_BOX) do
+		local ani = vars[box_key .. 'Visual']
+
 		-- 애니메이션 일단 정지..
-		vars[box_key .. 'Visual']:setAnimationPause(true)
+		ani:setAnimationPause(true)
+		cca.dropping(ani.m_node, 1000, i)
 
 		-- price 및 가격 표시
 		local struct_capsule = capsulebox_data[box_key]
