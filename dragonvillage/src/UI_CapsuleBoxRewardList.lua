@@ -127,8 +127,6 @@ function UI_CapsuleBoxRewardList.makeRewardCell(struct_reward)
 	local item_card = UI_ItemCard(item_id, item_cnt)
 	vars['itemNode']:addChild(item_card.root)
 	item_card.root:setSwallowTouch(false)
---	ui.root:setSwallowTouch(false)
-
 
 	-- 보상 이름
 	local name = UIHelper:makeItemNamePlainByParam(item_id)
