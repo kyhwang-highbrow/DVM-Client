@@ -216,13 +216,18 @@ function UI_CapsuleBox:click_drawBtn(box_key, idx)
 	if (not t_price) then
 		return
 	end
-	
-	-- 뽑기 중
-	self.m_isBusy = true
 
 	-- 가격 변수
 	local price_type = t_price['type']
-	local price = t_price['value']
+	local price = tonumber(t_price['value'])
+
+	-- 모종의 문제로 가격도 막아버림
+	if (not UIHelper:checkPrice(price_type, price)) then
+		return
+	end
+
+	-- 뽑기 중
+	self.m_isBusy = true
 
 	-- 뽑기 요청
 	local function finish_func(ret)
