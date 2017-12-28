@@ -221,8 +221,8 @@ function UI_CapsuleBox:click_drawBtn(box_key, idx)
 	local price_type = t_price['type']
 	local price = tonumber(t_price['value'])
 
-	-- 모종의 문제로 가격도 막아버림
-	if (not UIHelper:checkPrice(price_type, price)) then
+	-- 가격 미리 체크
+	if (not ConfirmPrice(price_type, price)) then
 		return
 	end
 
