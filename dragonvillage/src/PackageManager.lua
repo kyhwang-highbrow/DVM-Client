@@ -10,16 +10,16 @@ function PackageManager:getTargetUI(package_name, is_popup)
     local target_ui = nil
     local _package_name = package_name
 
-    -- 서버에서 받은 상품 정보가 없다면 nil 반환
-    if (self:isExist(_package_name) == false) then
-        return nil
-    end
-
     -- struct product로 들어온 경우 package_name 으로 변환
     if (type(package_name) ~= 'string') then
         local struct_product = package_name
         local pid = struct_product['product_id']
         _package_name = TablePackageBundle:getPackageNameWithPid(pid)   
+    end
+
+    -- 서버에서 받은 상품 정보가 없다면 nil 반환
+    if (self:isExist(_package_name) == false) then
+        return nil
     end
 
     -- 레벨업 패키지 UI
