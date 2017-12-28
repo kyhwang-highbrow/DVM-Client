@@ -4,7 +4,7 @@
 #include "CCProtectedNode.h"
 #include "tolua_fix.h"
 #include "LuaBasicConversions.h"
-
+#include "CCLuaEngine.h"
 
 
 int lua_cocos2dx_Ref_release(lua_State* tolua_S)
@@ -48768,62 +48768,158 @@ int lua_cocos2dx_RenderTexture_begin(lua_State* tolua_S)
 }
 int lua_cocos2dx_RenderTexture_saveToFile(lua_State* tolua_S)
 {
-    int argc = 0;
-    cocos2d::RenderTexture* cobj = nullptr;
-    bool ok  = true;
+	int argc = 0;
+	cocos2d::RenderTexture* cobj = nullptr;
+	bool ok = true;
 #if COCOS2D_DEBUG >= 1
-    tolua_Error tolua_err;
+	tolua_Error tolua_err;
 #endif
 
 #if COCOS2D_DEBUG >= 1
-    if (!tolua_isusertype(tolua_S,1,"cc.RenderTexture",0,&tolua_err)) goto tolua_lerror;
+	if (!tolua_isusertype(tolua_S, 1, "cc.RenderTexture", 0, &tolua_err)) goto tolua_lerror;
 #endif
-    cobj = (cocos2d::RenderTexture*)tolua_tousertype(tolua_S,1,0);
+	cobj = (cocos2d::RenderTexture*)tolua_tousertype(tolua_S, 1, 0);
 #if COCOS2D_DEBUG >= 1
-    if (!cobj)
-    {
-        tolua_error(tolua_S,"invalid 'cobj' in function 'lua_cocos2dx_RenderTexture_saveToFile'", nullptr);
-        return 0;
-    }
+	if (!cobj)
+	{
+		tolua_error(tolua_S, "invalid 'cobj' in function 'lua_cocos2dx_RenderTexture_saveToFile'", nullptr);
+		return 0;
+	}
 #endif
-    argc = lua_gettop(tolua_S)-1;
-    do{
-        if (argc == 2) {
-            std::string arg0;
-            ok &= luaval_to_std_string(tolua_S, 2,&arg0);
+	argc = lua_gettop(tolua_S) - 1;
+	do{
+		if (argc == 2) {
+			std::string arg0;
+			ok &= luaval_to_std_string(tolua_S, 2, &arg0);
 
-            if (!ok) { break; }
-            cocos2d::Image::Format arg1;
-            ok &= luaval_to_int32(tolua_S, 3,(int *)&arg1);
+			if (!ok) { break; }
+			cocos2d::Image::Format arg1;
+			ok &= luaval_to_int32(tolua_S, 3, (int *)&arg1);
 
-            if (!ok) { break; }
-            bool ret = cobj->saveToFile(arg0, arg1);
-            tolua_pushboolean(tolua_S,(bool)ret);
-            return 1;
-        }
-    }while(0);
-    ok  = true;
-    do{
-        if (argc == 1) {
-            std::string arg0;
-            ok &= luaval_to_std_string(tolua_S, 2,&arg0);
+			if (!ok) { break; }
+			bool ret = cobj->saveToFile(arg0, arg1);
+			tolua_pushboolean(tolua_S, (bool)ret);
+			return 1;
+		}
+	} while (0);
+	ok = true;
+	do{
+		if (argc == 3) {
+			std::string arg0;
+			ok &= luaval_to_std_string(tolua_S, 2, &arg0);
 
-            if (!ok) { break; }
-            bool ret = cobj->saveToFile(arg0);
-            tolua_pushboolean(tolua_S,(bool)ret);
-            return 1;
-        }
-    }while(0);
-    ok  = true;
-    CCLOG("%s has wrong number of arguments: %d, was expecting %d \n", "saveToFile",argc, 1);
-    return 0;
+			if (!ok) { break; }
+			cocos2d::Image::Format arg1;
+			ok &= luaval_to_int32(tolua_S, 3, (int *)&arg1);
+
+			if (!ok) { break; }
+			bool arg2;
+			ok &= luaval_to_boolean(tolua_S, 4, &arg2);
+
+			if (!ok) { break; }
+			bool ret = cobj->saveToFile(arg0, arg1, arg2);
+			tolua_pushboolean(tolua_S, (bool)ret);
+			return 1;
+		}
+	} while (0);
+	ok = true;
+	do{
+		if (argc == 4) {
+			std::string arg0;
+			ok &= luaval_to_std_string(tolua_S, 2, &arg0);
+
+			if (!ok) { break; }
+			cocos2d::Image::Format arg1;
+			ok &= luaval_to_int32(tolua_S, 3, (int *)&arg1);
+
+			if (!ok) { break; }
+			bool arg2;
+			ok &= luaval_to_boolean(tolua_S, 4, &arg2);
+
+			if (!ok) { break; }
+			std::function<void(cocos2d::RenderTexture *, const std::string &)> arg3;
+			int handler = toluafix_ref_function(tolua_S, 5, 0);
+			do {
+				arg3 = [handler, tolua_S](cocos2d::RenderTexture *textrue, const std::string &fileName) -> void
+				{
+					tolua_pushusertype(tolua_S, (void*)(textrue), getLuaTypeName(textrue, "cc.RenderTexture"));
+					tolua_pushcppstring(tolua_S, fileName);
+					LuaEngine::getInstance()->getLuaStack()->executeFunctionByHandler(handler, 2);
+				};
+			} while (0);
+
+			if (!ok) { break; }
+			bool ret = cobj->saveToFile(arg0, arg1, arg2, arg3);
+			tolua_pushboolean(tolua_S, (bool)ret);
+			return 1;
+		}
+	} while (0);
+	ok = true;
+	do{
+		if (argc == 1) {
+			std::string arg0;
+			ok &= luaval_to_std_string(tolua_S, 2, &arg0);
+
+			if (!ok) { break; }
+			bool ret = cobj->saveToFile(arg0);
+			tolua_pushboolean(tolua_S, (bool)ret);
+			return 1;
+		}
+	} while (0);
+	ok = true;
+	do{
+		if (argc == 2) {
+			std::string arg0;
+			ok &= luaval_to_std_string(tolua_S, 2, &arg0);
+
+			if (!ok) { break; }
+			bool arg1;
+			ok &= luaval_to_boolean(tolua_S, 3, &arg1);
+
+			if (!ok) { break; }
+			bool ret = cobj->saveToFile(arg0, arg1);
+			tolua_pushboolean(tolua_S, (bool)ret);
+			return 1;
+		}
+	} while (0);
+	ok = true;
+	do{
+		if (argc == 3) {
+			std::string arg0;
+			ok &= luaval_to_std_string(tolua_S, 2, &arg0);
+
+			if (!ok) { break; }
+			bool arg1;
+			ok &= luaval_to_boolean(tolua_S, 3, &arg1);
+
+			if (!ok) { break; }
+			std::function<void(cocos2d::RenderTexture *, const std::string &)> arg2;
+			int handler = toluafix_ref_function(tolua_S, 5, 0);
+			do {
+				arg2 = [handler, tolua_S](cocos2d::RenderTexture *textrue, const std::string &fileName) -> void
+				{
+					tolua_pushusertype(tolua_S, (void*)(textrue), getLuaTypeName(textrue, "cc.RenderTexture"));
+					tolua_pushcppstring(tolua_S, fileName);
+					LuaEngine::getInstance()->getLuaStack()->executeFunctionByHandler(handler, 2);
+				};
+			} while (0);
+
+			if (!ok) { break; }
+			bool ret = cobj->saveToFile(arg0, arg1, arg2);
+			tolua_pushboolean(tolua_S, (bool)ret);
+			return 1;
+		}
+	} while (0);
+	ok = true;
+	luaL_error(tolua_S, "%s has wrong number of arguments: %d, was expecting %d \n", "cc.RenderTexture:saveToFile", argc, 1);
+	return 0;
 
 #if COCOS2D_DEBUG >= 1
-    tolua_lerror:
-    tolua_error(tolua_S,"#ferror in function 'lua_cocos2dx_RenderTexture_saveToFile'.",&tolua_err);
+tolua_lerror:
+	tolua_error(tolua_S, "#ferror in function 'lua_cocos2dx_RenderTexture_saveToFile'.", &tolua_err);
 #endif
 
-    return 0;
+	return 0;
 }
 int lua_cocos2dx_RenderTexture_setAutoDraw(lua_State* tolua_S)
 {

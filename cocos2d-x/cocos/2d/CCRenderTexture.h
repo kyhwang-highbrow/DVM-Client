@@ -103,12 +103,12 @@ public:
     /** saves the texture into a file using JPEG format. The file will be saved in the Documents folder.
         Returns true if the operation is successful.
      */
-    bool saveToFile(const std::string& filename);
+	bool saveToFile(const std::string& filename, bool isRGBA = true, std::function<void(RenderTexture*, const std::string&)> callback = nullptr);
 
     /** saves the texture into a file. The format could be JPG or PNG. The file will be saved in the Documents folder.
         Returns true if the operation is successful.
      */
-    bool saveToFile(const std::string& filename, Image::Format format);
+	bool saveToFile(const std::string& fileName, Image::Format format, bool isRGBA = true, std::function<void(RenderTexture*, const std::string&)> callback = nullptr);
     
     /** Listen "come to background" message, and save render texture.
      It only has effect on Android.
@@ -214,6 +214,7 @@ protected:
     CustomCommand _beginCommand;
     CustomCommand _endCommand;
     CustomCommand _saveToFileCommand;
+	std::function<void(RenderTexture*, const std::string&)> _saveFileCallback;
 protected:
     //renderer caches and callbacks
     void onBegin();
@@ -222,7 +223,7 @@ protected:
     void onClear();
     void onClearDepth();
 
-    void onSaveToFile(const std::string& fileName);
+	void onSaveToFile(const std::string& filename, bool isRGBA);
     
     Mat4 _oldTransMatrix, _oldProjMatrix;
     Mat4 _transformMatrix, _projectionMatrix;
