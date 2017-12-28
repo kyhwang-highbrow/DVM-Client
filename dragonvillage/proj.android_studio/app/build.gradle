@@ -9,12 +9,12 @@ preBuild {
 
 // task android build
 android {
-    compileSdkVersion 25
+    compileSdkVersion 27
     buildToolsVersion "25.0.3"
 
     defaultConfig {
         applicationId "com.perplelab.dragonvillagem.kr"
-        minSdkVersion 16
+        minSdkVersion 17
         targetSdkVersion PROP_TARGET_SDK_VERSION
         multiDexEnabled true
 
@@ -253,6 +253,10 @@ android {
         }
     }
 
+    configurations {
+        all*.exclude group: 'com.android.support', module: 'support-annotations'
+    }
+
 } // end:android
 
 allprojects {
@@ -284,9 +288,18 @@ dependencies {
     compile(name:'unity-ads', ext:'aar')
 
     // @naver-cafe
-    compile(name:'cafeSdk-2.5.2', ext:'aar')
+    compile(name: 'cafeSdk-3.1.0', ext: 'aar')
+
+    compile(name: 'cafeSdk-live-3.1.0', ext:'aar')
+    compile(name:'android-database-sqlcipher-3.5.7', ext:'aar')
+    compile(name:'androidasync-2.2.1', ext:'aar')
+    compile(name:'kaleido-android-1.3.5-SNAPSHOT', ext:'aar')
+
     compile 'com.android.support:design:25.3.1'
     compile 'com.android.support:support-v4:25.3.1'
+    compile 'com.android.support:support-annotations:25.1.0'
+    compile 'com.android.support:appcompat-v7:25.1.0'
+
     compile 'com.navercorp.volleyextensions:volleyer:2.0.1', {
         exclude group: 'com.mcxiaoke.volley', module: 'library'
     }

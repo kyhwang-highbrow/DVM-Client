@@ -41,6 +41,10 @@
     <!-- @naver-cafe-sdk -->
     <uses-permission
         android:name="android.permission.RECORD_AUDIO" />
+    <uses-permission
+        android:name="android.permission.CAMERA"/> <!-- 라이브 셀프 카메라 -->
+    <uses-permission
+        android:name="android.permission.MODIFY_AUDIO_SETTINGS"/> <!-- 오디오 음소거 -->
 
     <!-- @obb, APK expansion file downloading (+ INTERNET, WAKE_LOCK, ACCESS_NETWORK_STATE, ACCESS_WIFI_STATE, WRITE_EXTERNAL_STORAGE) -->
     <uses-permission

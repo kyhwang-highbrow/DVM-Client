@@ -86,4 +86,56 @@ function NaverCafeManager:naverCafeSyncGameUserId(uid)
     PerpleSDK:naverCafeSyncGameUserId(uid)
 end
 
+-------------------------------------
+-- function naverCafeStartImageWrite
+-- @brief 네이버 카페에 이미지 글쓰기 시작
+-------------------------------------
+function NaverCafeManager:naverCafeStartImageWrite(fileUri)
+    if (skip()) then
+        return
+    end
+
+    if not fileUri then
+        return
+    end
+
+    PerpleSDK:naverCafeStartImageWrite(fileUri)
+end
+
+-------------------------------------
+-- function naverCafeSetCallback
+-- @brief 네이버 카페에 callback 세팅
+-------------------------------------
+function NaverCafeManager:naverCafeSetCallback()
+    if (skip()) then
+        return
+    end
+
+    --콜백 세팅할때 세팅되는게 필요해서
+    --현재는 스크린샷 기능만 콜백으로 사용
+    PerpleSDK:naverCafeSetCallback(function(ret, info) self:onNaverCafeCallback(ret, info) end)
+end
+
+-------------------------------------
+-- function naverCafeSetCallback
+-- @brief 네이버 카페에 callback 세팅
+-------------------------------------
+function NaverCafeManager:onNaverCafeCallback(ret, info)    
+    if ret == 'screenshot' then
+        local size = cc.Director:getInstance():getWinSize()
+        local texture = cc.RenderTexture:create( size.width, size.height )
+        texture:setPosition( size.width / 2, size.height / 2 )
+
+        texture:begin()
+        g_currScene.m_scene:visit()
+        texture:endToLua()
+                
+        local fileName = 'screenShot_' .. TimeLib:initInstance():getServerTime() .. '.png'
+        texture:saveToFile( fileName, cc.IMAGE_FORMAT_PNG, true, function(node, retFileName)
+            cclog( 'retFileName : ' .. retFileName )
+            self:naverCafeStartImageWrite( retFileName )
+        end )
+        
+    end
+end
 

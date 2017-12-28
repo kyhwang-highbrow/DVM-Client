@@ -369,6 +369,15 @@ static int l_openFileDialog(lua_State *L)
     return 1;
 }
 
+extern string getIPAddress();
+static int l_getIPAddress(lua_State *L)
+{
+	string ret = getIPAddress();
+	const char *ip = ret.c_str();
+	lua_pushstring(L, ip);
+	return 1;
+}
+
 void AppDelegate::initLuaEngine()
 {
 	// 기존의 ScriptEngineManager를 제거
@@ -402,6 +411,7 @@ void AppDelegate::initLuaEngine()
             { "unzipAsync", l_unzipAsync },
 			{ "getMarketName", l_getMarketName },
             { "openFileDialog", l_openFileDialog },
+			{ "getIPAddress", l_getIPAddress },
 			{ NULL, NULL }
 	};
 
