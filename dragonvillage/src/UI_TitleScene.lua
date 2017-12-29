@@ -638,6 +638,9 @@ function UI_TitleScene:workGameLogin()
     -- 네이버 카페에 uid 연동
     NaverCafeManager:naverCafeSyncGameUserId(uid)
 
+    --네이버 카페 콜백 연동
+    NaverCafeManager:naverCafeSetCallback()
+
     local success_cb = function(ret)
         do -- 사전 등록 닉네임 선점 정보 저장 (nil이면 비활성화)
             g_serverData:applyServerData(ret['preoccupancy_nick'], 'preoccupancy_nick')
@@ -1064,6 +1067,7 @@ function UI_TitleScene:workFinish()
         self:setTouchScreen()
     end
 end
+
 function UI_TitleScene:workFinish_click()
     -- 모든 작업이 끝난 경우 로비로 전환
     local lobby_func
