@@ -120,8 +120,8 @@ end
 -- function naverCafeSetCallback
 -- @brief 네이버 카페에 callback 세팅
 -------------------------------------
-function NaverCafeManager:onNaverCafeCallback(ret, info)    
-    if ret == 'screenshot' then
+function NaverCafeManager:onNaverCafeCallback(ret, info)
+    if ret == 'screenshot' or ret == 'article' then
         local size = cc.Director:getInstance():getWinSize()
         local texture = cc.RenderTexture:create( size.width, size.height )
         texture:setPosition( size.width / 2, size.height / 2 )
