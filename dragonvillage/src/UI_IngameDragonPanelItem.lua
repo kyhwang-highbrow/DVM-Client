@@ -142,7 +142,7 @@ function UI_IngameDragonPanelItem:initUI()
     -- 대상 수
     if (t_skill) then
         local target_count = t_skill['target_count']
-        target_count = math_min(target_count, 6)
+        target_count = math_min(target_count, 7)
         local res = 'ingame_panel_target_' .. str_target .. '_' .. target_count .. '.png'
         local icon = cc.Sprite:createWithSpriteFrameName(res)
         if (icon) then
