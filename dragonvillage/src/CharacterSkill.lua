@@ -560,14 +560,9 @@ function Character:checkToStopSkill()
 		return true
 	end
 
-    if (self.m_isSilence) then
+    if (self:hasStatusEffectToDisableSkill()) then
 		return true
 	end
-
-    -- 스킬 사용 불가 상태
-    if (isExistValue(self.m_state, 'dying', 'stun')) then
-        return true
-    end
 
     return false
 end

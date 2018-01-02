@@ -352,6 +352,7 @@ local t_module = {
     'GameAuto_Enemy',
     'GameCoolTime',
     'GameMana',
+    'GameActiveSkillMgr',
     'GameDragonSkill',
     'GameCamera',
     'GameTimeScale',

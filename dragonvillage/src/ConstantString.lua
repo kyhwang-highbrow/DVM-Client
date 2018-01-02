@@ -242,13 +242,13 @@ end
 function getSkillType_Tamer(skill_idx)
     local skill_type = ''
 
-	if (skill_idx == 1) then
+	if (skill_idx == 0) then
         skill_type = 'active'
+    elseif (skill_idx == 1) then
+        skill_type = 'passive'
     elseif (skill_idx == 2) then
         skill_type = 'passive'
     elseif (skill_idx == 3) then
-        skill_type = 'passive'
-    elseif (skill_idx == 4) then
         skill_type = 'colosseum'
     else
         error('skill_idx : ' .. skill_idx)

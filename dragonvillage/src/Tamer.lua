@@ -1,11 +1,6 @@
 local PARENT = Character
 
-local TAMER_SKILL_ACTIVE = 1
-local TAMER_SKILL_EVENT = 2
-local TAMER_SKILL_PASSIVE = 3
-
 local TAMER_Z_POS = 100
-
 local TAMER_ACTION_TAG__MOVE_Z = 10
 
 -------------------------------------
@@ -67,9 +62,14 @@ function Tamer:init_tamer(t_tamer_data, bLeftFormationend)
     self.m_attribute = t_tamer['attr']
     self.m_bLeftFormation = bLeftFormationend
 
-	-- Tamer Skill 설정
-	self:initSkill(t_tamer_data)
+	-- pvp 스킬은 적군일때만 적용시킴
+    if (self.m_bLeftFormation) then
+        self:setDragonSkillLevelList(t_tamer_data['skill_lv1'], t_tamer_data['skill_lv2'], t_tamer_data['skill_lv3'])
+    else
+        self:setDragonSkillLevelList(t_tamer_data['skill_lv1'], t_tamer_data['skill_lv2'], t_tamer_data['skill_lv3'], t_tamer_data['skill_lv4'])    
+    end
 
+	self:initDragonSkillManager('tamer', t_tamer['tid'])
 	self:initLogRecorder(t_tamer['tid'])
 
 	self.m_world:addListener('dragon_summon', self)
@@ -112,8 +112,7 @@ function Tamer:initState()
     self:addState('bring', Tamer.st_bring, 'i_idle', true)
 
 	self:addState('active', Tamer.st_active, 'i_idle', false)
-	self:addState('event', Tamer.st_event, 'skill_1', false)
-
+	
     self:addState('wait', Tamer.st_wait, 'i_idle', true)
     self:addState('move', Tamer.st_move, 'i_idle', true)
 
@@ -130,15 +129,6 @@ end
 -- function onEvent
 -------------------------------------
 function Tamer:onEvent(event_name, t_event, ...)
-    if (event_name == 'dragon_summon') then
-		self:setTamerEventSkill()
-
-	else
-        if (self:checkEventSkill(TAMER_SKILL_EVENT, event_name)) then
-			self:getTargetOnEvent(event_name, t_event)
-			self:changeState('event')
-		end
-	end
 end
 
 -------------------------------------
@@ -197,11 +187,10 @@ function Tamer.st_roam(owner, dt)
         owner:setAfterImage(false)
     end
 
-    -- indie_time 스킬
-    local skill_id = owner:getBasicTimeAttackSkillID()
+    local skill_id = owner:getInterceptableSkillID()
     if (skill_id) then
         -- 스킬 발동
-		owner:doSkillColosseum()
+        owner:doAttack(skill_id)
 
     elseif (owner.m_roamTimer <= 0) then
         local tar_x, tar_y, tar_z, course = owner:getRoamPos()
@@ -428,54 +417,6 @@ end
 -- function setDamage
 -------------------------------------
 function Tamer:setDamage(attacker, defender, i_x, i_y, damage, t_info)
-end
-
--------------------------------------
--- function setTamerSkillDirecting
--------------------------------------
-function Tamer:setTamerSkillDirecting(move_pos_x, move_pos_y, skill_idx, cb_func)
-	-- tamer action stop
-	self:stopAllActions()
-
-	-- 스킬 이름 말풍선
-	local skill_name = Str(self.m_lSkill[skill_idx]['t_name'])
-	SkillHelper:makePassiveSkillSpeech(self, skill_name)
-
-	-- 연출 이동
-    self:setHomePos(self.pos.x, self.pos.y)
-    self:setMove(move_pos_x, move_pos_y, 2000)
-	self:runAction_MoveZ(0.1, 0)
-
-	-- 애니메이션 종료시
-	self:addAniHandler(function()
-
-		-- 애프터 이미지
-		self:setAfterImage(true)
-
-		local time = 0.4
-		local target = self.m_targetChar
-		local move_action = cc.MoveTo:create(time, cc.p(target.pos.x, target.pos.y))
-		local cb_func_action = cc.CallFunc:create(function() end)
-
-		self.m_rootNode:runAction(cc.Sequence:create(
-            move_action,
-			cc.DelayTime:create(0.1),
-			cb_func_action,
-			cc.DelayTime:create(0.4),
-            cc.CallFunc:create(function()
-				-- 스킬 실행
-				if (cb_func) then
-					cb_func()
-				end
-
-                -- roam상태로 변경
-				self:changeStateWithCheckHomePos('roam')
-				-- 애프터 이미지 해제
-				self:setAfterImage(false)
-            end)
-        ))
-
-    end)
 end
 
 -------------------------------------

@@ -327,7 +327,7 @@ end
 function GameWorld:passiveActivate_Left()
     -- 테이머 버프
     if (self.m_tamer) then
-        self.m_tamer:doSkillPassive()
+        self.m_tamer:doSkill_passive()
     end
 
     -- 아군 버프
@@ -356,7 +356,6 @@ end
 -- function bindHero
 -------------------------------------
 function GameWorld:bindHero(hero)
-    hero:addListener('dragon_active_skill', self.m_gameDragonSkill)
     hero:addListener('dragon_active_skill', self.m_heroMana)
     hero:addListener('set_global_cool_time_passive', self.m_gameCoolTime)
     hero:addListener('set_global_cool_time_active', self.m_gameCoolTime)
@@ -425,7 +424,6 @@ function GameWorld:bindEnemy(enemy)
     enemy:addListener('enemy_appear_done', self.m_gameState)
 
     if (enemy.m_charType == 'dragon') then
-        enemy:addListener('dragon_active_skill', self.m_gameDragonSkill)
         enemy:addListener('dragon_active_skill', self.m_enemyMana)
         
         if (self.m_enemyAuto) then

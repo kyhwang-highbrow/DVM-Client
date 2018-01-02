@@ -237,7 +237,7 @@ end
 function GameWorldClanRaid:passiveActivate_Left()
     -- 테이머 버프
     if (self.m_tamer) then
-        self.m_tamer:doSkillPassive()
+        self.m_tamer:doSkill_passive()
     end
 
     -- 아군 버프

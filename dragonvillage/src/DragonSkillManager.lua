@@ -168,7 +168,7 @@ function IDragonSkillManager:setSkillID(skill_type, skill_id, skill_lv, add_type
         local t_skill = GetSkillTable(self.m_charType):get(skill_id)
         local game_mode = t_skill['game_mode']
         if (game_mode and game_mode ~= '') then
-            if (game_mode == 'pvp' and PLAYER_VERSUS_MODE[g_gameScene.m_gameWorld.m_gameMode] == 'pve') then
+            if (game_mode ~= PLAYER_VERSUS_MODE[g_gameScene.m_gameWorld.m_gameMode]) then
                 return
             end
         end
@@ -291,6 +291,7 @@ end
 -------------------------------------
 function IDragonSkillManager:getSkillKeyList()
 	local l_ret = {'Leader'}
+    
 	--[[
 		인게임에서 리더 스킬을 참조할때는 leader를 사용하지만 
 		UI에서는 node이름의 일관성을 위해 Leader를 사용한다.
@@ -302,17 +303,12 @@ function IDragonSkillManager:getSkillKeyList()
 		인게임에서 리더 스킬을 참조하기 위해 사용하는 key는 leader이다.
 	]]
 
-	-- 여기서 0은 active를 의미한다.. 가능하면 바꾸고 싶지만 server와 이름이 일치하지 않는 문제가 생긴다.
+    -- 여기서 0은 active를 의미한다.. 가능하면 바꾸고 싶지만 server와 이름이 일치하지 않는 문제가 생긴다.
 	for i = 0, MAX_DRAGON_EVOLUTION do
 		table.insert(l_ret, i)
 	end
 
-	-- 테이머의 경우 콜로세움 스킬 idx 4 추가
-    if (self.m_charType == 'tamer') then
-        table.insert(l_ret, 4)
-    end
-
-	return l_ret
+    return l_ret
 end
 
 -------------------------------------
@@ -331,9 +327,6 @@ end
 -- @brief idx 보다는 key에 가까워 짐
 -------------------------------------
 function IDragonSkillManager:getSkillIndivisualInfo_usingIdx(idx)
-	if (self.m_charType == 'tamer') and (idx == 0) then 
-		return nil
-	end
     local t_character = self.m_charTable
 
 	-- skill id 찾기
@@ -673,15 +666,16 @@ end
 -- @return	skill_id
 -------------------------------------
 function IDragonSkillManager:getInterceptableSkillID(tParam)
+    local tParam = tParam or {}
     local skill_id = nil
 
     -- hp_rate_per류 스킬
-    if (not skill_id) then
+    if (not skill_id and tParam['hp_rate']) then
         skill_id = self:getHpRatePerSkillID(tParam['hp_rate'])
     end
 
     -- hp_rate류 스킬
-    if (not skill_id) then
+    if (not skill_id and tParam['hp_rate']) then
         skill_id = self:getHpRateSkillID(tParam['hp_rate'])
     end
 
@@ -746,7 +740,7 @@ end
 function IDragonSkillManager:printSkillManager()
 
     -- 드래곤만 출력되도록 예외처리
-    if (not isExistValue(self.m_charType, 'dragon')) then
+    if (not isExistValue(self.m_charType, 'dragon', 'tamer')) then
         return
     end
 
@@ -755,13 +749,13 @@ function IDragonSkillManager:printSkillManager()
 	for type, skill in pairs(self.m_lSkillIndivisualInfo) do
 		if isExistValue(type, 'active', 'basic', 'leader') then
 			if self.m_lSkillIndivisualInfo[type] then
-				cclog('type : ' .. type, 'skill : ' .. skill.m_tSkill['sid'] .. skill.m_tSkill['t_name'] .. ' lv.' .. skill.m_skillLevel)
+				cclog('type : ' .. type, 'skill : ' .. skill.m_tSkill['sid'] .. ' ' .. skill.m_tSkill['t_name'] .. ' lv.' .. skill.m_skillLevel)
 			end
 		else
 			if (skill[1]) then 
 				cclog('type : ' .. type, '')
 				for i, skill2 in pairs(skill) do
-					cclog('--> no.' .. i .. ' : ' .. skill2.m_tSkill['sid'] .. skill2.m_tSkill['t_name'] .. ' lv.' .. skill2.m_skillLevel)
+					cclog('--> no.' .. i .. ' : ' .. skill2.m_tSkill['sid'] .. ' ' .. skill2.m_tSkill['t_name'] .. ' lv.' .. skill2.m_skillLevel)
 				end
 			end
 		end
@@ -880,17 +874,16 @@ end
 -------------------------------------
 function MakeTamerSkillManager(t_tamer)
     local tamer_id = t_tamer['tid']
-    local skill_00_lv = 0
-    local skill_01_lv = t_tamer['skill_lv1']
-    local skill_02_lv = t_tamer['skill_lv2']
-    local skill_03_lv = t_tamer['skill_lv3']
-    local skill_04_lv = t_tamer['skill_lv4']
+    local skill_00_lv = t_tamer['skill_lv1']
+    local skill_01_lv = t_tamer['skill_lv2']
+    local skill_02_lv = t_tamer['skill_lv3']
+    local skill_03_lv = t_tamer['skill_lv4']
 
 	-- 드래곤 스킬 매니저 생성
 	local dragon_skill_mgr = DragonSkillManager()
 
     -- 스킬 레벨 설정
-    dragon_skill_mgr:setDragonSkillLevelList(skill_00_lv, skill_01_lv, skill_02_lv, skill_03_lv, skill_04_lv)
+    dragon_skill_mgr:setDragonSkillLevelList(skill_00_lv, skill_01_lv, skill_02_lv, skill_03_lv)
 
     -- 스킬들 설정
     local char_type = 'tamer'

@@ -134,6 +134,18 @@ function GameDragonSkill.st_playDragSkill(self, dt)
 
     if (self:getStep() == 0) then
         if (self:isBeginningStep()) then
+            -- 해당 유닛을 제외한 일시 정지
+            world:setTemporaryPause(true, dragon)
+
+            -- 경직 중이라면 즉시 해제
+            dragon:setSpasticity(false)
+            dragon:changeState('skillAppear') -- 수정 필요(의미가 없음...)
+
+            self:nextStep()
+        end
+
+    elseif (self:getStep() == 1) then
+        if (self:isBeginningStep()) then
             -- 일시 정지
             world:setTemporaryPause(true)
 
@@ -159,7 +171,7 @@ function GameDragonSkill.st_playDragSkill(self, dt)
             end
         end
         
-    elseif (self:getStep() == 1) then
+    elseif (self:getStep() == 2) then
         if (self:isBeginningStep()) then
 			
             if (self.m_bSkipMode) then
@@ -186,7 +198,7 @@ function GameDragonSkill.st_playDragSkill(self, dt)
             end
         end
 
-    elseif (self:getStep() == 2) then
+    elseif (self:getStep() == 3) then
         if (self:isBeginningStep()) then
             -- 드래곤만 일시 정지 제외시킴
             world:setTemporaryPause(true, dragon)
@@ -232,7 +244,7 @@ function GameDragonSkill.st_playDragSkill(self, dt)
 
         end
 
-    elseif (self:getStep() == 3) then
+    elseif (self:getStep() == 4) then
         if (self:isBeginningStep()) then
             -- 드래곤 스킬 애니메이션 시작
             dragon:changeState('skillIdle')
@@ -255,12 +267,12 @@ function GameDragonSkill.st_playDragSkill(self, dt)
             self:nextStep()
         end
 
-    elseif (self:getStep() == 4) then
+    elseif (self:getStep() == 5) then
         if (self:isPassedStepTime(0.5)) then
             self:nextStep()
         end
 
-    elseif (self:getStep() == 5) then
+    elseif (self:getStep() == 6) then
         if (dragon.m_state ~= 'delegate') then
             self:releaseFocusingDragon()
 
@@ -497,35 +509,7 @@ end
 -- function onEvent
 -------------------------------------
 function GameDragonSkill:onEvent(event_name, t_event, ...)
-    if (event_name == 'dragon_active_skill') then
-        local arg = {...}
-        local dragon = arg[1]
-
-        local skip_mode = g_autoPlaySetting:get('skip_mode') or false
-
-        if (not skip_mode) then
-            -- 연출 스킵 모드가 아닐 경우
-            -- 크리티컬 시에만 연출 표시
-            if (t_event['is_critical']) then
-                skip_mode = false
-            else
-                skip_mode = true
-            end
-        end
-
-        -- 클랜 던전의 경우 AI팀의 드래곤은 연출 스킵
-        if (self.m_world.m_gameMode == GAME_MODE_CLAN_RAID) then
-            if (dragon:getPhysGroup() == self.m_world:getNPCGroup()) then
-                skip_mode = true
-            end
-        end
-
-        self.m_bSkipMode = skip_mode
-        
-        self:setFocusingDragon(dragon)
-        self:changeState(STATE.PLAY_DRAG_SKILL)
-
-    elseif (event_name == 'damaged') then
+    if (event_name == 'damaged') then
         local arg = {...}
         local dragon = arg[1]
         local will_die = t_event['will_die']
@@ -597,4 +581,37 @@ end
 -------------------------------------
 function GameDragonSkill:isPlayingActiveSkill()
     return (self.m_state == STATE.PLAY_DRAG_SKILL)
+end
+
+
+
+
+
+-------------------------------------
+-- function doPlay
+-------------------------------------
+function GameDragonSkill:doPlay(unit, skip)
+    local dragon = unit
+    local skip_mode = g_autoPlaySetting:get('skip_mode') or false
+
+    if (skip ~= nil) then
+        skip_mode = skip
+    end
+
+    -- 클랜 던전의 경우 AI팀의 드래곤은 연출 강제 스킵
+    if (self.m_world.m_gameMode == GAME_MODE_CLAN_RAID) then
+        if (dragon:getPhysGroup() == self.m_world:getNPCGroup()) then
+            skip_mode = true
+        end
+    end
+
+    self.m_bSkipMode = skip_mode
+
+    -- 일시 정지
+    self.m_world:setTemporaryPause(true)
+
+    -- 연출 드래곤 설정
+    self:setFocusingDragon(dragon)
+
+    self:changeState(STATE.PLAY_DRAG_SKILL)
 end

@@ -52,6 +52,7 @@ function GameWorldClanRaid:createComponents()
     self.m_gameCamera = GameCamera(self, g_gameScene.m_cameraLayer)
     self.m_gameTimeScale = GameTimeScale(self)
     self.m_gameHighlight = GameHighlightMgr(self, self.m_darkLayer)
+    self.m_gameActiveSkillMgr = GameActiveSkillMgr(self)
     self.m_gameDragonSkill = GameDragonSkill(self)
     self.m_shakeMgr = ShakeManager(self, g_gameScene.m_shakeLayer)
 
@@ -341,9 +342,17 @@ function GameWorldClanRaid:getTargetList(char, x, y, team_type, formation_type, 
 
     elseif (team_type == 'ally') then
         if (bLeftFormation) then
-            for_mgr_delegate = FormationMgrDelegate(leftFormationMgr)
+            if (rule_type == 'all') then
+                for_mgr_delegate = FormationMgrDelegate(self.m_leftFormationMgr, self.m_subLeftFormationMgr)
+            else
+                for_mgr_delegate = FormationMgrDelegate(leftFormationMgr)
+            end
         else
-            for_mgr_delegate = FormationMgrDelegate(rightFormationMgr)
+            if (rule_type == 'all') then
+                for_mgr_delegate = FormationMgrDelegate(self.m_rightFormationMgr, self.m_subRightFormationMgr)
+            else
+                for_mgr_delegate = FormationMgrDelegate(rightFormationMgr)
+            end
         end
 
     elseif (team_type == 'enemy') then

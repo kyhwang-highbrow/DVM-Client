@@ -108,7 +108,12 @@ function Dragon:setStatusCalc(status_calc)
         if (not skill_indivisual_info) then return end
 
         local t_skill = skill_indivisual_info.m_tSkill
-        local req_mana = t_skill['req_mana'] or 0
+        local req_mana = t_skill['req_mana']
+
+        if (not req_mana or req_mana == '') then
+            req_mana = 1
+        end
+
         self.m_activeSkillManaCost:set(req_mana)
         self.m_originActiveSkillManaCost:set(req_mana)
     end
@@ -656,20 +661,6 @@ function Dragon:runAction_Highlight(duration, level)
     if (self.m_unitInfoNode) then
         self.m_unitInfoNode:setVisible(level == 255)
     end
-end
-
--------------------------------------
--- function onEnabledSkill
--- @brief 상태효과 해제로 스킬 사용 가능 상태가 되었을 때 호출
--------------------------------------
-function Dragon:onEnabledSkill()
-end
-
--------------------------------------
--- function onDisabledSkill
--- @brief 상태효과 적용으로 스킬 사용 불가능 상태가 되었을 때 호출
--------------------------------------
-function Dragon:onDisabledSkill()
 end
 
 -------------------------------------

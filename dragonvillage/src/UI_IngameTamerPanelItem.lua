@@ -169,11 +169,11 @@ function UI_IngameTamerPanelItem:click_tamerSkillBtn()
         return
     end
 
-	if (tamer.m_bActiveSKillUsable and tamer.m_state ~= 'active') then
+	if (tamer:isPossibleActiveSkill()) then
         vars['tamerSkillVisual']:setVisible(false)
         vars['tamerSkilllLockSprite']:setVisible(true)
 		
-        tamer:changeState('active')
+        world.m_gameActiveSkillMgr:addWork(tamer)
 	else
 		UIManager:toastNotificationRed(Str('더 이상 사용 할 수 없습니다.'))
 	end

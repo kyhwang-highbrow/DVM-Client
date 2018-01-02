@@ -111,19 +111,14 @@ function SkillIndicatorMgr_Intro:onTouchEnded(touch, event)
             -- 액티브 스킬 발동
             ---------------------------------------------------
 
-            self.m_selectHero:setTemporaryPause(false)
-
-            -- 경직 중이라면 즉시 해제
-            self.m_selectHero:setSpasticity(false)
-            self.m_selectHero:changeState('skillAppear')
-            
             -- 월드상의 터치 위치 얻어옴
+            local unit = self.m_selectHero
             local location = touch:getLocation()
             local node_pos = self.m_touchNode:convertToNodeSpace(location)
 
-            self.m_selectHero.m_skillIndicator:setIndicatorTouchPos(node_pos['x'], node_pos['y'])
+            self:clear(true)
 
-            self:clear()
+            self.m_world.m_gameActiveSkillMgr:addWork(unit, node_pos['x'], node_pos['y'])
 
             if (self.m_animatorGuide) then
                 self.m_animatorGuide:release()

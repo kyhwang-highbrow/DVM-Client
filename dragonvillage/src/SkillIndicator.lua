@@ -119,6 +119,9 @@ function SkillIndicator:initAttackPosOffset(hero)
     end
 
     local l_str = seperate(string_value, ',')
+    if (not l_str) then
+        error('invalid attack event : ' .. string_value)
+    end
 
     local scale = animator:getScale()
     self.m_attackPosOffsetX = (l_str[1] * scale)

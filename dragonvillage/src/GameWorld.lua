@@ -6,6 +6,7 @@ GameWorld = class(IEventDispatcher:getCloneClass(), IEventListener:getCloneTable
         m_stageID = 'number',
         m_inGameUI = 'UI_Game',
         m_bDevelopMode = 'boolean',
+        m_bPauseMode = 'boolean',
 
         m_worldLayer = 'cc.Node',
         m_gameNode1 = 'cc.Node',
@@ -58,6 +59,7 @@ GameWorld = class(IEventDispatcher:getCloneClass(), IEventListener:getCloneTable
         m_heroAuto = '',        -- 아군 자동시 AI
         m_enemyAuto = '',       -- 적군(드래곤) AI
         m_gameCoolTime = '',
+        m_gameActiveSkillMgr = '',
         m_gameDragonSkill = '',
         m_gameCamera = '',
         m_gameTimeScale = '',
@@ -130,6 +132,7 @@ function GameWorld:init(game_mode, stage_id, world_node, game_node1, game_node2,
     self.m_gameNode3 = game_node3
         
     self.m_bDevelopMode = develop_mode or false
+    self.m_bPauseMode = false
 
     self.m_bgNode = cc.Node:create()
     self.m_gameNode1:addChild(self.m_bgNode, INGAME_LAYER_Z_ORDER.BG_LAYER)
@@ -229,6 +232,7 @@ function GameWorld:createComponents()
     self.m_gameCamera = GameCamera(self, g_gameScene.m_cameraLayer)
     self.m_gameTimeScale = GameTimeScale(self)
     self.m_gameHighlight = GameHighlightMgr(self, self.m_darkLayer)
+    self.m_gameActiveSkillMgr = GameActiveSkillMgr(self)
     self.m_gameDragonSkill = GameDragonSkill(self)
     self.m_shakeMgr = ShakeManager(self, g_gameScene.m_shakeLayer)
 
@@ -617,52 +621,75 @@ function GameWorld:addToSpecailMissileList(missile)
 end
 
 -------------------------------------
+-- function updateBefore
+-- @param dt
+-------------------------------------
+function GameWorld:updateBefore(dt)
+    -- 물리 이동 및 충돌 처리
+    if (self.m_physWorld) then
+        self.m_physWorld:update(dt)
+    end
+end
+
+-------------------------------------
 -- function update
 -- @param dt
 -------------------------------------
 function GameWorld:update(dt)
-    if self.m_physWorld then
-        self.m_physWorld:update(dt)
-    end
-
     self:updateUnit(dt)
 
-    if self.m_mapManager then
+    if (self.m_mapManager) then
         self.m_mapManager:update(dt)
     end
 
-    if self.m_gameState then
+    if (self.m_gameState) then
         self.m_gameState:update(dt)
     end
 
-    if self.m_gameCoolTime then
+    if (self.m_gameCoolTime) then
         self.m_gameCoolTime:update(dt)
     end
 
-    if self.m_gameCamera then
+    if (self.m_gameCamera) then
         self.m_gameCamera:update(dt)
     end
 
-    if self.m_gameTimeScale then
+    if (self.m_gameTimeScale) then
         self.m_gameTimeScale:update(dt)
     end
 
-    if self.m_gameDragonSkill then
+    if (self.m_dropItemMgr) then
+        self.m_dropItemMgr:update(dt)
+    end
+end
+
+-------------------------------------
+-- function updateAfter
+-- @param dt
+-------------------------------------
+function GameWorld:updateAfter(dt)
+    -- 드래곤 액티브 스킬 연출
+    if (self.m_gameDragonSkill) then
         self.m_gameDragonSkill:update(dt)
     end
 
-    if self.m_dropItemMgr then
-        self.m_dropItemMgr:update(dt)
-    end
-
-    if self.m_gameHighlight then
+    -- 하이라이트 연출
+    if (self.m_gameHighlight) then
         self.m_gameHighlight:update(dt)
     end
 
-    for char, v in pairs(self.m_mPassiveEffect) do
-        self:makePassiveStartEffect(char, v)
+    -- 패시브 연출
+    do
+        for char, v in pairs(self.m_mPassiveEffect) do
+            self:makePassiveStartEffect(char, v)
+        end
+        self.m_mPassiveEffect = {}
     end
-    self.m_mPassiveEffect = {}
+
+    -- 사용 등록된 액티브 스킬 처리
+    if (self.m_gameActiveSkillMgr) then
+        self.m_gameActiveSkillMgr:update(dt)
+    end
 end
 
 -------------------------------------
@@ -1415,10 +1442,9 @@ function GameWorld:setTemporaryPause(pause, excluded_dragon)
             v:setTemporaryPause(true)
         end
         
-        -- 스킬 사용 중인 드래곤은 일시 정지에서 제외 및 무적 상태
+        -- 스킬 사용 중인 드래곤은 일시 정지에서 제외
         if (excluded_dragon) then
             excluded_dragon:setTemporaryPause(false)
-            excluded_dragon.enable_body = false
         end
     else
         -- UI 일시 정지 해제
@@ -1434,12 +1460,9 @@ function GameWorld:setTemporaryPause(pause, excluded_dragon)
         for i,v in pairs(self.m_lUnitList) do
             v:setTemporaryPause(false)
         end
-        
-        -- 스킬 사용 중인 드래곤 무적 해제
-        if (excluded_dragon) then
-            excluded_dragon.enable_body = true
-        end
     end
+
+    self.m_bPauseMode = pause
 end
 
 -------------------------------------
@@ -1502,10 +1525,10 @@ end
 function GameWorld:getMana(char)
     local group_key = char and char:getPhysGroup() or self:getPCGroup()
 
-    if (group_key == PHYS.ENEMY) then
-        return self.m_enemyMana
-    else
+    if (group_key == self:getPCGroup()) then
         return self.m_heroMana
+    else
+        return self.m_enemyMana
     end
 end
 
@@ -1555,6 +1578,13 @@ end
 -------------------------------------
 function GameWorld:isAutoPlay()
     return self.m_heroAuto:isActive()
+end
+
+-------------------------------------
+-- function isPause
+-------------------------------------
+function GameWorld:isPause()
+    return self.m_bPauseMode
 end
 
 -------------------------------------

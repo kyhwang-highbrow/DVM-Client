@@ -3051,6 +3051,9 @@
     <None Include="..\src\SkillLaserBomb.lua">
       <Filter>lua\src</Filter>
     </None>
+    <None Include="..\src\GameActiveSkillMgr.lua">
+      <Filter>lua\src</Filter>
+    </None>
     <None Include="..\src\StructCapsuleBoxReward.lua">
       <Filter>lua\src</Filter>
     </None>

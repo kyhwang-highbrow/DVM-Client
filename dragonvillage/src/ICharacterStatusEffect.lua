@@ -298,9 +298,18 @@ end
 function ICharacterStatusEffect:setGroggy(b)
     if (self.m_isGroggy == b) then return end
 
+    local disable_behavior = self:hasStatusEffectToDisableBehavior()
     local disable_skill = self:hasStatusEffectToDisableSkill()
 
 	self.m_isGroggy = b
+
+    if (disable_behavior ~= self:hasStatusEffectToDisableBehavior()) then
+        if (b) then
+            self:onDisabledBehavior()
+        else
+            self:onEnabledBehavior()
+        end
+    end
 
     if (disable_skill ~= self:hasStatusEffectToDisableSkill()) then
         if (b) then
@@ -359,6 +368,20 @@ function ICharacterStatusEffect:setImmune(b)
 end
 
 -------------------------------------
+-- function onEnabledBehavior
+-- @brief 행동 가능 상태가 되었을 때 호출
+-------------------------------------
+function ICharacterStatusEffect:onEnabledBehavior()
+end
+
+-------------------------------------
+-- function onDisabledBehavior
+-- @brief 행동 불가능 상태가 되었을 때 호출
+-------------------------------------
+function ICharacterStatusEffect:onDisabledBehavior()
+end
+
+-------------------------------------
 -- function onEnabledSkill
 -- @brief 상태효과 해제로 스킬 사용 가능 상태가 되었을 때 호출
 -------------------------------------
@@ -385,6 +408,17 @@ function ICharacterStatusEffect:hasStatusEffectToDisableSkill()
     return false
 end
 
+-------------------------------------
+-- function hasStatusEffectToDisableBehavior
+-- @breif 행동을 못하게 하는 상태효과가 있는지 체크
+-------------------------------------
+function ICharacterStatusEffect:hasStatusEffectToDisableBehavior()
+    if (self.m_isGroggy) then
+        return true
+    end
+
+    return false
+end
 
 -------------------------------------
 -- function setSilence

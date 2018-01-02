@@ -611,6 +611,11 @@ function FormationMgrDelegate:getTargetList(x, y, team_type, formation_type, rul
 		local t_org_list_1 = self.m_globalCharList
         self:addList(t_ret, TargetRule_getTargetList('self', t_org_list_1, x, y, t_data))
 
+    elseif (rule_type == 'all') then
+        for i, v in ipairs(self.m_globalCharList) do
+            table.insert(t_ret, v)
+        end
+
     -- 죽은 대상
     elseif (rule_type == 'dead') then
         for i, v in ipairs(self.m_diedCharList) do

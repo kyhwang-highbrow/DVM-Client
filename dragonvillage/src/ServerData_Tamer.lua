@@ -294,7 +294,7 @@ function ServerData_Tamer:request_tamerSkillEnhance(tid, skill_idx, enhance_leve
     -- 파라미터
     local uid = g_userData:get('uid')
 	local tid = tid
-	local skill_idx = skill_idx
+	local skill_idx = skill_idx + 1 -- 서버 인덱스는 1번부터 시작
 	local level = enhance_level
 
     -- 콜백 함수

@@ -2213,6 +2213,26 @@ function Character:setStatusIcon(status_effect, idx)
 end
 
 -------------------------------------
+-- function onEnabledBehavior
+-- @brief 행동 가능 상태가 되었을 때 호출
+-------------------------------------
+function Character:onEnabledBehavior()
+    if (not self.m_temporaryPause) then
+        self:setTimeScale()
+        self:runAction_Floating()
+    end
+end
+
+-------------------------------------
+-- function onDisabledBehavior
+-- @brief 행동 불가능 상태가 되었을 때 호출
+-------------------------------------
+function Character:onDisabledBehavior()
+    self:setTimeScale(0)
+    cca.stopAction(self.m_animator.m_node, CHARACTER_ACTION_TAG__FLOATING)
+end
+
+-------------------------------------
 -- function getName
 -------------------------------------
 function Character:getName()
@@ -2434,6 +2454,11 @@ end
 function Character:runAction_Floating()
     local target_node = self.m_animator.m_node
     if (not target_node) then
+        return
+    end
+
+    -- 행동 불가 상태일 경우
+    if (self:hasStatusEffectToDisableBehavior()) then
         return
     end
 

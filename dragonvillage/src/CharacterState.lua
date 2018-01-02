@@ -244,7 +244,7 @@ function Character.st_attackDelay(owner, dt)
         end
     end
 
-    if (not owner.m_isSilence) then
+    if (not owner:hasStatusEffectToDisableSkill()) then
         local tParam = {
             hp_rate = owner.m_hpRatio
         }
@@ -376,11 +376,7 @@ function Character.st_casting(owner, dt)
         owner:changeState('attackDelay')
         
     elseif (owner.m_reservedSkillCastTime <= owner.m_stateTimer) then
-        if owner.m_tStateFunc['skillAppear'] then
-            owner:changeState('skillAppear')
-        else
-            owner:changeState('attack')
-        end
+        owner:changeState('attack')
     end
 
     local percentage = owner.m_stateTimer / owner.m_reservedSkillCastTime * 100

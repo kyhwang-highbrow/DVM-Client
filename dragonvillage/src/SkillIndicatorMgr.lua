@@ -212,18 +212,15 @@ function SkillIndicatorMgr:onTouchEnded(touch, event)
             ---------------------------------------------------
             -- 액티브 스킬 발동
             ---------------------------------------------------
-
-            -- 경직 중이라면 즉시 해제
-            self.m_selectHero:setSpasticity(false)
-            self.m_selectHero:changeState('skillAppear')
             
             -- 월드상의 터치 위치 얻어옴
+            local unit = self.m_selectHero
             local location = touch:getLocation()
             local node_pos = self.m_touchNode:convertToNodeSpace(location)
 
-            self.m_selectHero.m_skillIndicator:setIndicatorTouchPos(node_pos['x'], node_pos['y'])
-
             self:clear(true)
+
+            self.m_world.m_gameActiveSkillMgr:addWork(unit, node_pos['x'], node_pos['y'])
         end
     
     elseif (self.m_touchedHero) then
@@ -241,12 +238,9 @@ function SkillIndicatorMgr:onTouchEnded(touch, event)
                 tamer:dispatch('touch_ended', t_event)
 
             elseif (self.m_touchedHero.m_skillIndicator) then
-                local bPreparedSkill = self.m_world.m_heroAuto:prepareSkill(self.m_touchedHero, t_skill)
-                if (bPreparedSkill) then
-                    -- 경직 중이라면 즉시 해제
-                    self.m_touchedHero:setSpasticity(false)
-                    self.m_touchedHero:changeState('skillAppear')
-                end
+                local unit = self.m_touchedHero
+
+                self.m_world.m_gameActiveSkillMgr:addWork(unit)
             end
         end
 

@@ -37,7 +37,7 @@ MAP_KEY_FUNC[KEY_F3] = 'add_dmg_yellow_font'
 MAP_KEY_FUNC[KEY_A] = 'pause_on_off_auto'
 
 MAP_KEY_FUNC[KEY_1] = 'tamer_active_skill'
-MAP_KEY_FUNC[KEY_2] = 'tamer_event_skill'
+MAP_KEY_FUNC[KEY_2] = 'print_tamer_skill'
 MAP_KEY_FUNC[KEY_3] = 'print_total_damage_to_hero'
 MAP_KEY_FUNC[KEY_4] = 'reload_skill_sound_table'
 
@@ -191,7 +191,7 @@ function GameWorld:se_on_dragon()
     local enemy_list = self:getEnemyList()
 
     --StatusEffectHelper:doStatusEffect(dragon_list[1], { dragon_list[1] }, 'stun', 'target', 1, 5, 100, 100)
-    StatusEffectHelper:doStatusEffect(dragon_list[1], dragon_list, 'passive_fury', 'ally_none', 5, 9999, 100, 100)
+    StatusEffectHelper:doStatusEffect(dragon_list[1], dragon_list, 'immunity_debuff', 'ally_none', 5, 9999, 100, 100)
 end
 
 -------------------------------------
@@ -200,7 +200,7 @@ end
 -------------------------------------
 function GameWorld:se_on_monster()
     for i,v in ipairs(self:getEnemyList()) do
-        StatusEffectHelper:doStatusEffect(v, { v }, 'dot_damage', 'target', 1, 99999, 100, 100)
+        StatusEffectHelper:doStatusEffect(v, { v }, 'silence', 'target', 1, 99999, 100, 100)
     end
 end
 
@@ -330,12 +330,12 @@ function GameWorld:tamer_active_skill()
 end
 
 -------------------------------------
--- function tamer_event_skill
--- @brief 테이머 스킬 강제 시전 - 액티브
+-- function print_tamer_skill
+-- @brief 테이머 스킬 보기
 -------------------------------------
-function GameWorld:tamer_event_skill()
+function GameWorld:print_tamer_skill()
     if (self.m_tamer) then
-		self.m_tamer:changeState('event')
+        self.m_tamer:printSkillManager()
     end
 end
 
@@ -453,11 +453,9 @@ end
 
 -------------------------------------
 -- function add_dmg_yellow_font
--- @brief 추가 피해를 노란색 폰트로 설정 on/off
+-- @brief
 -------------------------------------
 function GameWorld:add_dmg_yellow_font()
-	local b = g_constant:get('DEBUG', 'ADD_DMG_YELLOW_FONT')
-	g_constant:set(not b1, 'DEBUG', 'ADD_DMG_YELLOW_FONT')
 end
 
 -------------------------------------

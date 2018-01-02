@@ -183,7 +183,7 @@ function GameWorldColosseum:passiveActivate_Right()
 
     -- 테이머 버프
     if (self.m_enemyTamer) then
-        self.m_enemyTamer:doSkillPassive()
+        self.m_enemyTamer:doSkill_passive()
     end
 
     -- 적 리더 버프
@@ -454,4 +454,19 @@ function GameWorldColosseum:init_formation()
     self.m_rightFormationMgr:setSplitPos(1280-20, 122)
 
     self.m_gameCamera:addListener('camera_set_home', self.m_rightFormationMgr)
+end
+
+
+-------------------------------------
+-- function print_tamer_skill
+-- @brief 테이머 스킬 보기
+-------------------------------------
+function GameWorldColosseum:print_tamer_skill()
+    if (self.m_tamer) then
+        self.m_tamer:printSkillManager()
+    end
+
+    if (self.m_enemyTamer) then
+        self.m_enemyTamer:printSkillManager()
+    end
 end

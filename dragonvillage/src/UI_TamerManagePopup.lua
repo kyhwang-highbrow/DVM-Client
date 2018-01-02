@@ -211,7 +211,7 @@ function UI_TamerManagePopup:setTamerSkill()
 		self.m_skillUI:refresh(t_tamer, skill_mgr)
     end
 
-	for i = 1, 4 do 
+    for i = 0, 3 do 
 		local skill_icon = l_skill_icon[i]
 		if (skill_icon) then
 			vars['skillNode' .. i]:removeAllChildren()

@@ -91,53 +91,28 @@ function Dragon.st_skillAppear(owner, dt)
     local world = owner.m_world
 
     if (owner:getStep() == 0) then
-        local m_except = {}
-        m_except[REASON_TO_DO_NOT_USE_SKILL.USING_SKILL] = true
+        -- 경직 불가능 상태 설정
+        owner.m_bEnableSpasticity = false
 
-        local b, m_reason = owner:isPossibleActiveSkill(m_except)
+		-- @LOG : 전체 스킬 사용 횟수
+		if (owner.m_bLeftFormation) then
+			owner.m_world.m_logRecorder:recordLog('use_skill', 1)
+		else
+			-- 적 드래곤 (pvp, 인연던전) 체크해야할 경우 추가
+		end
 
-        if (not b) then
-            owner:reserveSkill(nil)
-            owner:changeState('attackDelay')
+        -- 액티브 스킬 사용 이벤트 발생
+        do
+            owner:dispatch('dragon_active_skill', { is_critical = is_critical }, owner)
 
-        elseif (world.m_gameDragonSkill:isPlaying()) then
-        elseif (world.m_skillIndicatorMgr:isControlling() and world.m_gameMode ~= GAME_MODE_CLAN_RAID) then
-        else
-            owner:nextStep()
-
-            -- 경직 불가능 상태 설정
-            owner.m_bEnableSpasticity = false
-
-		    -- @LOG : 전체 스킬 사용 횟수
-		    if (owner.m_bLeftFormation) then
-			    owner.m_world.m_logRecorder:recordLog('use_skill', 1)
-		    else
-			    -- 적 드래곤 (pvp, 인연던전) 체크해야할 경우 추가
-		    end
-
-            -- 드래그 스킬의 경우는 크리티컬을 미리 판정하여 크리티컬 시에만 연출 보여줌
-            local critical_chance = owner:getStat('cri_chance')
-            local critical_avoid = 0
-            local final_critical_chance = CalcCriticalChance(critical_chance, critical_avoid)
-
-            local is_critical = (math_random(1, 1000) <= (final_critical_chance * 10))
-            if (is_critical) then
-                owner.m_skillIndicator.m_critical = 1
+            if (owner.m_bLeftFormation) then
+                owner:dispatch('hero_active_skill', { is_critical = is_critical }, owner)
             else
-                owner.m_skillIndicator.m_critical = 0
-            end
-        
-            -- 액티브 스킬 사용 이벤트 발생
-            do        
-                owner:dispatch('dragon_active_skill', { is_critical = is_critical }, owner)
-
-                if (owner.m_bLeftFormation) then
-                    owner:dispatch('hero_active_skill', { is_critical = is_critical }, owner)
-                else
-                    owner:dispatch('enemy_active_skill', { is_critical = is_critical }, owner)
-                end
+                owner:dispatch('enemy_active_skill', { is_critical = is_critical }, owner)
             end
         end
+
+        owner:nextStep()
     end
 end
 

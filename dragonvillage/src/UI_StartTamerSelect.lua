@@ -184,7 +184,7 @@ function UI_StartTamerSelect:setSkillIcon(tid)
 	local skill_mgr = MakeTamerSkillManager(t_tamer)
 	local l_skill_icon = skill_mgr:getDragonSkillIconList_NoLv()
 
-	for i = 1, 3 do 
+	for i = 0, 2 do 
 		local skill_icon = l_skill_icon[i]
 		if (skill_icon) then
 			vars['skillNode' .. i]:removeAllChildren()

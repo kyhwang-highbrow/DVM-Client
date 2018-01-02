@@ -338,7 +338,9 @@ function SceneGame:update(dt)
     end
         
     local function func()
+        self.m_gameWorld:updateBefore(dt)
 		self.m_gameWorld:update(dt)
+        self.m_gameWorld:updateAfter(dt)
     end
 
     local status, msg = xpcall(func, __G__TRACKBACK__)
