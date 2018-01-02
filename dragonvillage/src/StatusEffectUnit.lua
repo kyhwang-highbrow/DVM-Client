@@ -25,6 +25,7 @@ StatusEffectUnit = class({
         m_lStatusAbs = 'table',     -- 적용된 스텟 정보
 
         m_tParam = 'table',         -- 추가 정보들을 저장하기 위한 맵형태의 테이블
+        m_bExceptInDie = 'bool',    -- conditional_buff처럼 즉시 제거에 제외되어야 하는 케이스들이 있다.
     })
 
 -------------------------------------
@@ -71,6 +72,8 @@ function StatusEffectUnit:init(name, owner, caster, skill_id, value, source, dur
         self.m_bPassiveSkill = true
         self.m_bT2Stat = true
     end
+
+    self.m_bExceptInDie = false
 end
 
 -------------------------------------
@@ -94,7 +97,10 @@ function StatusEffectUnit:update(dt, modified_dt)
                 -- 시전자가 자기 자신이면 유지
             elseif (self.m_caster and self.m_caster:isDead()) then
                 -- 시전자가 자기 자신이 아니고 죽었다면 해제(적군만 해당)
-                return true
+                if(self.m_bExceptInDie) then
+                else
+                    return true
+                end
             end
         elseif (self.m_owner and self.m_owner:isDead()) then
             -- 대상자가 죽었다면 해제(리더스킬 및 패시브 스킬 제외)
