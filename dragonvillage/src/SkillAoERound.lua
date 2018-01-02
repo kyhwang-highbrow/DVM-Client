@@ -5,7 +5,7 @@ local PARENT = class(Skill, ISkillMultiAttack:getCloneTable())
 -------------------------------------
 SkillAoERound = class(PARENT, {
 		m_aoeRes = 'str', 
-        m_aoe_res_predelay = 'num',
+        m_aoeResDelay = 'num',
         m_multiAttackEffectFlag = 'bool',
         m_lTarget = 'table',
         m_lCollision = 'table'
@@ -25,13 +25,13 @@ end
 -------------------------------------
 -- function init_skill
 -------------------------------------
-function SkillAoERound:init_skill(aoe_res, attack_count, aoe_res_predelay)
+function SkillAoERound:init_skill(aoe_res, attack_count, aoe_res_delay)
     PARENT.init_skill(self)
 
 	-- 멤버 변수
     self.m_maxAttackCount = attack_count 
 	self.m_aoeRes = aoe_res
-    self.m_aoe_res_predelay = aoe_res_predelay or 0
+    self.m_aoeResDelay = aoe_res_delay or 0
 	--self.m_hitInterval -> attack state에서 지정
 	
 	self:setPosition(self.m_targetPos.x, self.m_targetPos.y)
@@ -110,7 +110,7 @@ function SkillAoERound:makeSkillInstance(owner, t_skill, t_data)
 	-- 변수 선언부
 	------------------------------------------------------
 	local attack_count = t_skill['hit']	  -- 공격 횟수
-	local aoe_res_predelay = tonumber(t_skill['val_1']) or 0
+	local aoe_res_delay = tonumber(t_skill['val_1']) or 0
 
 	local missile_res = SkillHelper:getAttributeRes(t_skill['res_1'], owner)	-- 스킬 본연의 리소스
 	local aoe_res = SkillHelper:getAttributeRes(t_skill['res_2'], owner)		-- 개별 타겟 이펙트 리소스
@@ -122,7 +122,7 @@ function SkillAoERound:makeSkillInstance(owner, t_skill, t_data)
 
 	-- 2. 초기화 관련 함수
 	skill:setSkillParams(owner, t_skill, t_data)
-    skill:init_skill(aoe_res, attack_count, aoe_res_predelay)
+    skill:init_skill(aoe_res, attack_count, aoe_res_delay)
 	skill:initState()
 
 	-- 3. state 시작 
@@ -157,7 +157,7 @@ function SkillAoERound.st_attack(owner, dt)
         end
     end
 
-	if (owner.m_aoe_res_predelay < owner.m_multiAtkTimer) then
+	if (owner.m_aoeResDelay < owner.m_multiAtkTimer) then
         -- 반복 공격
         if (owner.m_multiAtkTimer > owner.m_hitInterval) then
 		    -- 공격 횟수 초과시 탈출

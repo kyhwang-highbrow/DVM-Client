@@ -44,7 +44,7 @@ function SkillRolling:init_skill(spin_res, atk_count)
 	self.m_attackCnt = 0
     self.m_bFirstMoving = true
 	
-    self.m_lCollisionList = self:findCollision()
+    self.m_lCollisionList = self:getProperCollisionList()
             
 	-- 최초 위치 지정
     self:setPosition(self.m_owner.pos.x, self.m_owner.pos.y)

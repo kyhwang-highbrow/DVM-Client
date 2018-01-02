@@ -38,7 +38,7 @@ function SkillRapidShot:init_skill(missile_res, motionstreak_res, target_count)
 	self.m_skillTimer = 0
 	self.m_skillCount = 1
 
-    self.m_lCollisionList = self:findCollision()
+    self.m_lCollisionList = self:getProperCollisionList()
 
     local collision = self.m_lCollisionList[1]
     if (collision) then

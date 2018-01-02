@@ -470,7 +470,7 @@ end
 -- @brief findCollision으로 찾은 body별로 공격
 -------------------------------------
 function Skill:runAttack()
-    local collisions = self:findCollision()
+    local collisions = self:getProperCollisionList()
 
     for _, collision in ipairs(collisions) do
         self:attack(collision)
@@ -483,7 +483,7 @@ end
 -- function runHeal
 -------------------------------------
 function Skill:runHeal()
-    local l_collision = self:findCollision()
+    local l_collision = self:getProperCollisionList()
 
     for _, collision in ipairs(l_collision) do
         local target_char = collision:getTarget()
@@ -657,7 +657,7 @@ end
 -- @default 직선거리에서 범위를 기준으로 충돌여부 판단
 -------------------------------------
 function Skill:findTarget()
-    local l_collision = self:findCollision()
+    local l_collision = self:getProperCollisionList()
     local m_temp = {}
 
     -- 맵형태로 임시 저장(중복된 대상 처리를 위함)
@@ -674,6 +674,18 @@ function Skill:findTarget()
     end
 
 	return l_target, l_collision
+end
+
+-------------------------------------
+-- function getProperCollisionList
+-- @brief 적절한 충돌리스트 가져옴
+-------------------------------------
+function Skill:getProperCollisionList()
+    if (self.m_lTargetCollision) then
+        return self.m_lTargetCollision
+    end
+
+    return self:findCollision()
 end
 
 -------------------------------------

@@ -196,7 +196,7 @@ function SkillLaser:runAttack(t_collision_obj, t_collision_bodys)
 		return
 	end
 
-    local collisions = self:findCollision()
+    local collisions = self:getProperCollisionList()
 
     for _, collision in ipairs(collisions) do
         local target = collision:getTarget()

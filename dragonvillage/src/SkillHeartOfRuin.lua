@@ -82,18 +82,6 @@ function SkillHeartOfRuin.st_idle(owner, dt)
 		-- shake 연출
 		world.m_shakeMgr:doShakeGrowling(0.05, 10, 35)
 
-		-- 포효 연출
-		--[[
-		@ 필요 조건 -> 
-			grid action 들어가는 경우에만 rootNode = cc.NodeGrid:create() 처리
-			ripple 후 원복 처리, 
-			ripple 위치는 화면상에서의 character 위치로 하는 처리
-
-		owner.m_owner.m_rootNode:runAction(cc.Sequence:create(
-			cca.getRipple3D(3, 1)
-        ))
-		]]
-
         owner.m_animator:addAniHandler(function()
 			owner:changeState('dying')
 		end)
