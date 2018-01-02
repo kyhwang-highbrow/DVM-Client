@@ -50,8 +50,14 @@ function StatusEffectUnit_Dot_Damage:calculateDotDmg()
 	local damage_org
     local damage
 
+    -----------------------------------------------------------
     -- 데미지 계산
-    if (t_status_effect['abs_switch'] == 1) then 
+    -----------------------------------------------------------
+    if (isInstanceOf(self.m_owner, Monster_ClanRaidBoss)) then
+        -- 클랜 던전 보스의 경우는 고정 데미지 3000으로 설정
+        damage_org = 3000
+
+    elseif (t_status_effect['abs_switch'] == 1) then 
 		damage_org = self.m_value
 	else
 		-- 데미지 계산, 방어는 무시

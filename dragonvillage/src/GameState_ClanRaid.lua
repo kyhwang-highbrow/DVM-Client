@@ -289,6 +289,27 @@ function GameState_ClanRaid:checkWaveClear(dt)
 end
 
 -------------------------------------
+-- function checkWaveClear
+-------------------------------------
+function GameState_ClanRaid:checkWaveClear(dt)
+    if (self.m_bossHp <= 0) then
+        self.m_waveClearTimer = self.m_waveClearTimer + dt
+
+        if (self.m_waveClearTimer > 0.5) then
+            self.m_waveClearTimer = 0
+
+            self:changeState(GAME_STATE_SUCCESS_WAIT)
+
+            return true
+        end
+    else
+        self.m_waveClearTimer = 0
+    end
+
+    return false
+end
+
+-------------------------------------
 -- function doDirectionForIntermission
 -------------------------------------
 function GameState_ClanRaid:doDirectionForIntermission()
