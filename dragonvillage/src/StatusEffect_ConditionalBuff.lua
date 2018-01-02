@@ -5,7 +5,7 @@ local PARENT = StatusEffect
 -------------------------------------
 StatusEffect_ConditionalBuff = class(PARENT, { 
     m_chance = 'string',
-
+    m_caster = 'Character',
     m_mInfo = 'table',
     m_mOriginValues = 'table',
     m_eventName = 'table',
@@ -19,7 +19,6 @@ StatusEffect_ConditionalBuff = class(PARENT, {
 function StatusEffect_ConditionalBuff:init(file_name, body)
 
     self.m_chance = ''
-
     self.m_eventName = {}
 
     self.m_mInfo = {}
@@ -28,16 +27,30 @@ end
 -------------------------------------
 -- function initFromTable
 -------------------------------------
-function StatusEffect_ConditionalBuff:initFromTable(t_status_effect, target_char)
+function StatusEffect_ConditionalBuff:initFromTable(t_status_effect, target_char, caster)
     PARENT.initFromTable(self, t_status_effect, target_char)
+
+    -- caster를 넘겨주어야 하는 경우가 생김( ex)시전자가 살아있을 때 owner에게 버프 )
+    -- 위 경우에 한해 사용될 m_caster 변수 생성. 다른 경우에는 m_caster는 m_owner와 같음.
+    if (caster) then
+        self.m_caster = caster
+    else
+        self.m_caster = self.m_owner
+    end
 
     -- 변경할 상태효과를 구분하기 위한 조건 정보를 저장
     self.m_chance = t_status_effect['val_1']
     self.m_eventName = PASSIVE_CHANCE_TYPE[self.m_chance]
 
-    for _, v in pairs (self.m_eventName) do 
-        self:addTrigger(v, self:getTriggerFunction())
-    end
+    local is_self_cast = (self.m_caster == self.m_owner)
+
+        for _, v in pairs (self.m_eventName) do 
+            if (is_self_cast) then
+                self:addTrigger(v, self:getTriggerFunction()) 
+            else
+                self:addTriggerToOther(v, self:getTriggerFunction()) -- 여기서 상태효과의 주인이 아니라 시전자에게 리스너를 달아줌.
+            end
+        end
 
 end
 
@@ -146,5 +159,25 @@ function StatusEffect_ConditionalBuff.st_start(owner, dt)
                 owner:changeState('idle')
             end)
         end
+    end
+end
+
+
+
+function StatusEffect_ConditionalBuff:addTriggerToOther(event_name, func, interval)
+    if (not self.m_lTriggerFunc[event_name]) then
+        self.m_lTriggerFunc[event_name] = {}
+
+        -- listner 등록
+        self.m_caster:addListener(event_name, self)
+    end
+
+    table.insert(self.m_lTriggerFunc[event_name], func)
+
+    if (interval and interval > 0) then
+        local idx = #self.m_lTriggerFunc[event_name]
+        local key = event_name .. idx
+        self.m_lTriggerFuncTimer[key] = 0
+        self.m_lTriggerFuncInterval[key] = interval
     end
 end

@@ -416,7 +416,7 @@ function StatusEffectHelper:makeStatusEffectInstance(caster, target_char, status
 
     -- 초기값 설정
     status_effect:initWorld(world)
-    status_effect:initFromTable(t_status_effect, target_char)
+    status_effect:initFromTable(t_status_effect, target_char, caster)
     
     -- 타켓에게 status_effect 저장
 	target_char:insertStatusEffect(status_effect)
