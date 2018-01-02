@@ -17,16 +17,18 @@ end
 -- function run
 -------------------------------------
 function AssetMaker:run(target_path)
-    cclog('## AssetMaker:run')
-    cclog('## AssetMAker - target path : ' .. target_path)
-    
     self.targetPath = target_path
     
     local stopwatch = Stopwatch()
     stopwatch:start()
+    
+    cclog('## AssetMaker:run')
+    cclog('\n-------------------------------------------')
+    cclog('## Target Path : ' .. target_path)
 
     -- diretory를 루트로 이동
     util.changeDir('..')
+    cclog('-------------------------------------------\n')
 
     -- assets dirtory 만듬
     util.makeDirectory(self.targetPath)
