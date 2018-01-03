@@ -7,7 +7,6 @@ local PARENT = StatusEffectUnit
 StatusEffectUnit_ConditionalBuff = class(PARENT, {})
 
 function StatusEffectUnit_ConditionalBuff:init(name, owner, caster, skill_id, value, source, duration, add_param)
-    PARENT:init(name, owner, caster, skill_id, value, source, duration, add_param)
     self.m_bExceptInDie = true
 
 end
