@@ -423,7 +423,7 @@ function UI_InvenDevApiPopup:init_runeTableView()
     -- 테이블 뷰 인스턴스 생성
     local table_view_td = UIC_TableViewTD(list_table_node)
     table_view_td.m_cellSize = cc.size(150, 150)
-    table_view_td.m_nItemPerCell = 5
+    table_view_td.m_nItemPerCell = 6
     table_view_td:setCellUIClass(function(data)
         local rid = data['rid']
         return UI_ItemCard(rid)
