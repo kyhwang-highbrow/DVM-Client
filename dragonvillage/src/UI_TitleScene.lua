@@ -10,6 +10,8 @@ UI_TitleScene = class(PARENT,{
         m_bNewUser = 'boolean',
 
         m_currWorkRetry = 'number',
+
+		m_stopWatch = 'StopWatch',
     })
 
 -------------------------------------
@@ -18,6 +20,10 @@ UI_TitleScene = class(PARENT,{
 function UI_TitleScene:init()
     local vars = self:load('title.ui')
     UIManager:open(self, UIManager.SCENE)
+
+	self.m_stopWatch = Stopwatch() --G_STOPWATCH
+	self.m_stopWatch:start()
+	self.m_stopWatch:record('init titleScene')
 
     -- backkey 지정
     g_currScene:pushBackKeyListener(self, function() self:click_exitBtn() end, 'UI_TitleScene')
@@ -42,6 +48,9 @@ function UI_TitleScene:init()
     -- 카페 위젯 노출 시작
     NaverCafeManager:naverCafeStartWidget()
     NaverCafeManager:naverCafeShowWidgetWhenUnloadSdk(1) -- @isShowWidget : 1(SDK unload 시 카페 위젯 보여주기) or 0(안 보여주기)
+
+	--네이버 카페 콜백 연동
+    --NaverCafeManager:naverCafeSetCallback()
 end
 
 -------------------------------------
@@ -311,6 +320,7 @@ function UI_TitleScene:doNextWork()
     local func_name = self.m_lWorkList[self.m_workIdx]
 
     if func_name and (self[func_name]) then
+		self.m_stopWatch:record(func_name .. '_start')
         cclog('\n')
         cclog('############################################################')
         cclog('# idx : ' .. self.m_workIdx .. ', func_name : ' .. func_name)
@@ -391,13 +401,10 @@ end
 -- @brief 로딩
 -------------------------------------
 function UI_TitleScene:workLoading()
-    self.m_loadingUI:showLoading(Str('로딩 중...'))
+    self.m_loadingUI:showLoading(Str('데이터 로딩 중...'))
 
     local function coroutine_function(dt)
         local co = CoroutineHelper()
-
-        local stopwatch = Stopwatch()
-        stopwatch:start()
         co:yield()
 
         do -- TABLE:init의 기능을 여기서 수행
@@ -410,14 +417,9 @@ function UI_TitleScene:workLoading()
                 co:yield()
 
                 TABLE:loadCSVTable(v[1], k, v[2], v[3])
-                stopwatch:record(k)
             end
             TableGradeInfo:initGlobal()
-        end
-
-        stopwatch:stop()
-        stopwatch:print()
-        co:yield()
+		end
 
 	    ConstantData:getInstance()
         co:yield()
@@ -637,9 +639,6 @@ function UI_TitleScene:workGameLogin()
 
     -- 네이버 카페에 uid 연동
     NaverCafeManager:naverCafeSyncGameUserId(uid)
-
-    --네이버 카페 콜백 연동
-    NaverCafeManager:naverCafeSetCallback()
 
     local success_cb = function(ret)
         do -- 사전 등록 닉네임 선점 정보 저장 (nil이면 비활성화)
@@ -1066,6 +1065,9 @@ function UI_TitleScene:workFinish()
         -- 화면을 터치하세요. 출력
         self:setTouchScreen()
     end
+
+	self.m_stopWatch:stop()
+    self.m_stopWatch:print()
 end
 
 function UI_TitleScene:workFinish_click()
