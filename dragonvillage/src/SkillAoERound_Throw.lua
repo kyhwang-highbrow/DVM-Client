@@ -109,27 +109,6 @@ function SkillAoERound_Throw:runAttack()
 end
 
 -------------------------------------
--- function setAttackInterval
--- @brief 스킬에 따라 오버라이딩 해서 사용
--------------------------------------
-function SkillAoERound:setAttackInterval()
-	-- 이펙트 재생 단위 시간
-	self.m_hitInterval = (self.m_animator:getDuration() / self.m_maxAttackCount)
-end
-
--------------------------------------
--- function enterAttack
--------------------------------------
-function SkillAoERound:enterAttack()
-	-- 이펙트 재생 단위 시간
-	self:setAttackInterval()
-	-- 첫프레임부터 공격하기 위해서 인터벌 타임으로 설정
-	self.m_multiAtkTimer = self.m_hitInterval
-	-- 공격 카운트 초기화
-	self.m_attackCount = 0
-end
-
--------------------------------------
 -- function escapeAttack
 -- @brief 공격이 종료되는 시점에 실행
 -------------------------------------

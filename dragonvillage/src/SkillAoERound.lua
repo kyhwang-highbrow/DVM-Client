@@ -55,7 +55,7 @@ end
 function SkillAoERound:initState()
 	self:setCommonState(self)
     self:addState('start', PARENT.st_appear, 'appear', false)
-    self:addState('attack', self.st_attack, 'idle', true)
+    self:addState('attack', SkillAoERound.st_attack, 'idle', true)
 	self:addState('disappear', PARENT.st_disappear, 'disappear', false)
 end
 
@@ -69,7 +69,7 @@ function SkillAoERound:runAttack(l_collision)
     end
 
 	-- 특수한 부가 효과 구현
-	self:doSpecialEffect(l_target)
+	self:doSpecialEffect()
 
 	self:doCommonAttackEffect()
 end
@@ -79,8 +79,18 @@ end
 -- @brief 스킬에 따라 오버라이딩 해서 사용
 -------------------------------------
 function SkillAoERound:setAttackInterval()
+    local duration = 0
+    
+    if (self.m_animator) then
+        duration = self.m_animator:getDuration()
+    end
+
 	-- 이펙트 재생 단위 시간
-	self.m_hitInterval = 1
+    if (duration == 0) then
+        self.m_hitInterval = 1 / self.m_maxAttackCount
+    else
+	    self.m_hitInterval = duration / self.m_maxAttackCount
+    end
 end
 
 -------------------------------------
@@ -111,7 +121,7 @@ function SkillAoERound:makeSkillInstance(owner, t_skill, t_data)
 	------------------------------------------------------
 	local attack_count = t_skill['hit']	  -- 공격 횟수
 	local aoe_res_delay = tonumber(t_skill['val_1']) or 0
-
+    
 	local missile_res = SkillHelper:getAttributeRes(t_skill['res_1'], owner)	-- 스킬 본연의 리소스
 	local aoe_res = SkillHelper:getAttributeRes(t_skill['res_2'], owner)		-- 개별 타겟 이펙트 리소스
 
@@ -136,16 +146,17 @@ function SkillAoERound:makeSkillInstance(owner, t_skill, t_data)
 end
 
 
-
 -------------------------------------
 -- function st_attack
 -------------------------------------
 function SkillAoERound.st_attack(owner, dt)
     if (owner.m_stateTimer == 0) then
-		owner:enterAttack()
+        owner:enterAttack()
         owner.m_lTarget, owner.m_lCollision = owner:findTarget()
     end
+
     owner.m_multiAtkTimer = owner.m_multiAtkTimer + dt
+
     if (owner.m_multiAttackEffectFlag) then
         if (owner.m_attackCount < owner.m_maxAttackCount) then
 
@@ -166,7 +177,7 @@ function SkillAoERound.st_attack(owner, dt)
 		    else
 			    owner:runAttack(owner.m_lCollision)
                 owner.m_multiAtkTimer = owner.m_multiAtkTimer - owner.m_hitInterval
-			    owner.m_attackCount = owner.m_attackCount + 1
+                owner.m_attackCount = owner.m_attackCount + 1
                 owner.m_multiAttackEffectFlag = true
 		    end
         end

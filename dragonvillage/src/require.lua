@@ -477,6 +477,7 @@ local t_module = {
 	'SkillThrowBuff',
     'SkillGuardian',
     'SkillMeleeHack',
+    'SkillAoECross',
 	'SkillAoERound',
 	'SkillAoERound_Sura',
     'SkillAoERound_Throw',

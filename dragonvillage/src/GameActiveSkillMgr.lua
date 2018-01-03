@@ -59,7 +59,7 @@ function GameActiveSkillMgr:doWork_dragon(t_data)
     local pos_x = t_data['pos_x']
     local pos_y = t_data['pos_y']
 
-    cclog('GameActiveSkillMgr:doWork : ' .. unit:getName() .. '(' .. unit.phys_idx .. ')')
+    --cclog('GameActiveSkillMgr:doWork : ' .. unit:getName() .. '(' .. unit.phys_idx .. ')')
 
     local active_skill_id = unit:getSkillID('active')
     if (not active_skill_id) then return false end
@@ -88,7 +88,7 @@ function GameActiveSkillMgr:doWork_dragon(t_data)
     end
 
     -- 연출 시작
-    self.m_world.m_gameDragonSkill:doPlay(unit, is_critical)
+    self.m_world.m_gameDragonSkill:doPlay(unit, not is_critical)
 
     return true
 end
@@ -118,7 +118,7 @@ end
 -- @brief 액티브 스킬 사용 등록
 -------------------------------------
 function GameActiveSkillMgr:addWork(unit, pos_x, pos_y)
-    cclog('GameActiveSkillMgr:addWork : ' .. unit:getName() .. '(' .. unit.phys_idx .. ')')
+    --cclog('GameActiveSkillMgr:addWork : ' .. unit:getName() .. '(' .. unit.phys_idx .. ')')
 
     -- 해당 유닛이 이미 리스트에 존재한다면 삭제
     local t_prev_data = self.m_mWork[unit]

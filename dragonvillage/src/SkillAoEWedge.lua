@@ -69,8 +69,18 @@ end
 -- @brief 스킬에 따라 오버라이딩 해서 사용
 -------------------------------------
 function SkillAoEWedge:setAttackInterval()
+	local duration = 0
+    
+    if (self.m_animator) then
+        duration = self.m_animator:getDuration()
+    end
+
 	-- 이펙트 재생 단위 시간
-	self.m_hitInterval = (self.m_animator:getDuration() / self.m_maxAttackCount)
+    if (duration == 0) then
+        self.m_hitInterval = 1 / self.m_maxAttackCount
+    else
+	    self.m_hitInterval = duration / self.m_maxAttackCount
+    end
 end
 
 -------------------------------------

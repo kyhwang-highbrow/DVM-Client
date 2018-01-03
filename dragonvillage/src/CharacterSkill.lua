@@ -152,6 +152,10 @@ function Character:doSkillBySkillTable(t_skill, t_data)
 				SkillLeafBlade:makeSkillInstance(self, t_skill, t_data)
 				return true
 
+            elseif (skill_type == 'skill_aoe_cross') then
+				SkillAoECross:makeSkillInstance(self, t_skill, t_data)
+				return true
+
 			elseif (skill_type == 'skill_aoe_round') then
 				SkillAoERound:makeSkillInstance(self, t_skill, t_data)
 				return true
