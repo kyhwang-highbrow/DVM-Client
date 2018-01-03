@@ -95,13 +95,11 @@ function SkillAoERound_Throw:runAttack()
 
     for _, collision in ipairs(l_collision) do
         self:attack(collision)
-    end
 
-    -- 타겟별 리소스
-    for _, target in ipairs(l_target) do
-	    self:makeEffect(self.m_aoeRes, target.pos.x, target.pos.y)
+        -- 타겟별 리소스
+        self:makeEffect(self.m_aoeRes, collision:getPosX(), collision:getPosY())
     end
-
+    
 	-- 특수한 부가 효과 구현
 	self:doSpecialEffect(l_target)
 

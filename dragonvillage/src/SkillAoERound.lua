@@ -161,9 +161,14 @@ function SkillAoERound.st_attack(owner, dt)
         if (owner.m_attackCount < owner.m_maxAttackCount) then
 
             -- 타겟별 리소스
+            for _, collision in ipairs(owner.m_lCollision) do
+	            owner:makeEffect(owner.m_aoeRes, collision:getPosX(), collision:getPosY())
+            end
+            --[[
             for _, target in ipairs(owner.m_lTarget) do
 	            owner:makeEffect(owner.m_aoeRes, target.pos.x, target.pos.y)
             end
+            ]]--
             owner.m_multiAttackEffectFlag = false
         end
     end
