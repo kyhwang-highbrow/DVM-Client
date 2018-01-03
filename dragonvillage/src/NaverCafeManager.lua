@@ -123,7 +123,7 @@ end
 function NaverCafeManager:onNaverCafeCallback(ret, info)
     if ret == 'screenshot' or ret == 'article' then
         local size = cc.Director:getInstance():getWinSize()
-        local texture = cc.RenderTexture:create( size.width, size.height )
+        local texture = cc.RenderTexture:create( size.width, size.height, cc.TEXTURE2_D_PIXEL_FORMAT_RGB_A8888, gl.DEPTH24_STENCIL8_OES )
         texture:setPosition( size.width / 2, size.height / 2 )
 
         texture:begin()
