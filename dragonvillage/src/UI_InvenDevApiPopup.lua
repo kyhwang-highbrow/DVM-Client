@@ -96,7 +96,7 @@ function UI_InvenDevApiPopup:init_dragonTableView()
     list_table_node:removeAllChildren()
 
     local item_size = 150
-    local item_scale = 1
+    local item_scale = 0.8
     local item_adjust_size = (item_size * item_scale)
 
     -- 생성
@@ -124,7 +124,7 @@ function UI_InvenDevApiPopup:init_dragonTableView()
     local table_view_td = UIC_TableViewTD(list_table_node)
     table_view_td:setDirection(cc.SCROLLVIEW_DIRECTION_VERTICAL)
     table_view_td.m_cellSize = cc.size(item_adjust_size, item_adjust_size)
-    table_view_td.m_nItemPerCell = 5
+    table_view_td.m_nItemPerCell = 10
     table_view_td:setCellUIClass(function(data)
         local did = data['did']
         return MakeSimpleDragonCard(did)
