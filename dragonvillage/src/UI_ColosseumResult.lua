@@ -176,7 +176,7 @@ function UI_ColosseumResult:direction_end()
     local score_label2 = vars['scoreLabel2']
     local honer_label1 = NumberLabel(vars['honorLabel1'], 0, numbering_time)
     local honer_label2 = vars['honorLabel2']
-    vars['eventNode']:setVisible(false)
+    vars['eventNode1']:setVisible(false)
     vars['eventNode2']:setVisible(false)
 
     -- 연출 액션들
@@ -218,32 +218,37 @@ function UI_ColosseumResult:direction_end()
             return 
         end
         local drop_list = t_data['added_items']['items_list'] or {}
+		local idx = 1
         for _, item in ipairs(drop_list) do
+			-- 보호 장치
+			if (idx > 2) then
+				break
+			end
+
             -- item_id 로 직접 체크한다
-            local item_id = item['item_id']
-            
-            -- 수집 이벤트
-            if (item_id == ITEM_ID_EVENT) then
-                local item_name = TableItem:getItemName(item_id)
-                local cnt = item['count']
+            if (item['from'] == 'event') then
+				-- visible on
+                vars['eventNode' .. idx]:setVisible(true)
 
-                vars['eventNode']:setVisible(true)
-                vars['eventNameLabel']:setString(item_name)
-                vars['eventLabel']:setString(comma_value(cnt))
-            
-            -- 주사위 이벤트
-            elseif (item_id == ITEM_ID_DICE) then
-                local item_name = TableItem:getItemName(item_id)
-                local cnt = item['count']
+				-- 재화 아이콘
+				local item_id = item['item_id']
+				local icon = IconHelper:getItemIcon(item_id)
+				vars['eventIconNode' .. idx]:addChild(icon)
 
-                vars['eventNode2']:setVisible(true)
-                vars['eventNameLabel2']:setString(item_name)
-                vars['eventLabel2']:setString(comma_value(cnt))
-            end
+				-- 재화 이름
+				local item_name = TableItem:getItemName(item_id)
+                vars['eventNameLabel' .. idx]:setString(item_name)
+
+				-- 재화 수량
+                local cnt = item['count']
+                vars['eventLabel' .. idx]:setString(comma_value(cnt))
+
+				idx = idx + 1
+			end
         end
 
         -- 특정 상황에선 노드 이동
-        if (vars['eventNode']:isVisible() == false) and (vars['eventNode2']:isVisible() == true) then
+        if (vars['eventNode1']:isVisible() == false) and (vars['eventNode2']:isVisible() == true) then
             vars['eventNode2']:setPositionY(100)
         end
     end)
