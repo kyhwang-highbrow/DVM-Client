@@ -329,6 +329,11 @@ function UIC_TableViewTD:scrollViewDidScroll(scroll_view)
     offset['y'] = offset['y'] - viewSize['height']
     offset['x'] = offset['x'] + viewSize['width']
     endLine = self:_indexFromOffset(offset)
+	
+	-- @mskim tableview 에러를 잡기 위한 우회처리
+    if (not endLine) then
+        return nil
+    end
 
     if (endLine == -1) then
         endLine = lineCount
@@ -429,11 +434,6 @@ function UIC_TableViewTD:_indexFromOffset(offset)
     
     index = self:__indexFromOffset(offset);
 
-	-- @mskim tableview 에러를 잡기 위한 우회처리
-    if (not index) then
-         return nil
-    end
-
     if (index ~= -1) then
         index = math_max(1, index)
         if (index > maxIdx) then
@@ -459,14 +459,19 @@ function UIC_TableViewTD:__indexFromOffset(offset)
     end
 
 	-- @mskim tableview 에러를 잡기 위한 우회처리
-    if (not self._vLinePositions) then
-        return nil
+    if (not search) or (not self._vLinePositions) then
+        return -1
     end
 
     while (high >= low) do
         local index = math_floor(low + (high - low) / 2)
         local cellStart = self._vLinePositions[index];
         local cellEnd = self._vLinePositions[index + 1];
+
+		-- @mskim tableview 에러를 잡기 위한 우회처리
+		if (not cellStart) or (not cellEnd) then
+			return -1
+		end
 
         if (search >= cellStart and search <= cellEnd) then
             return index
@@ -481,7 +486,7 @@ function UIC_TableViewTD:__indexFromOffset(offset)
         return 1
     end
 
-    return -1;
+    return -1
 end
 
 -------------------------------------
