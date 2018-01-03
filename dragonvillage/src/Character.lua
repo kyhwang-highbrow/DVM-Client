@@ -401,10 +401,13 @@ function Character:checkAttributeCounter(attacker_char)
 	local atk_attr_adj_rate = attacker_char:getStat('attr_adj_rate')
 	local def_attr_adj_rate = self:getStat('attr_adj_rate')
 
+    local atk_attr_weak_adj_rate = attacker_char:getStat('attr_weak_adj_rate')
+    local def_attr_weak_adj_rate = self:getStat('attr_weak_adj_rate')
+
     -- 방어자 속성
     local defender_attr = self:getAttribute()
 
-    local t_attr_effect, attr_synastry = getAttrSynastryEffect(attacker_attr, defender_attr, atk_attr_adj_rate, def_attr_adj_rate)
+    local t_attr_effect, attr_synastry = getAttrSynastryEffect(attacker_attr, defender_attr, atk_attr_adj_rate, def_attr_adj_rate, atk_attr_weak_adj_rate, def_attr_weak_adj_rate)
 
     return t_attr_effect, attr_synastry
 end

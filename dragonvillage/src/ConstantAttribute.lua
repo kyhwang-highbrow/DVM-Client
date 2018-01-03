@@ -288,7 +288,7 @@ end
 -- function getAttrSynastryEffect
 -- @brief 속성 상성 효과 얻어옴
 -------------------------------------
-function getAttrSynastryEffect(attr1, attr2, atk_attr_adj_rate, def_attr_adj_rate)
+function getAttrSynastryEffect(attr1, attr2, atk_attr_adj_rate, def_attr_adj_rate, atk_attr_weak_adj_rate, def_attr_weak_adj_rate)
     -- attr1이 attr2에 대한 상성 정보를 얻어옴
     local attr_synastry = getCounterAttribute(attr1, attr2)
 
@@ -335,6 +335,9 @@ function getAttrSynastryEffect(attr1, attr2, atk_attr_adj_rate, def_attr_adj_rat
 	local atk_attr_adj_rate = atk_attr_adj_rate or 0
 	local def_attr_adj_rate = def_attr_adj_rate or 0
 
+    local atk_attr_weak_adj_rate = atk_attr_weak_adj_rate or 0
+    local def_attr_weak_adj_rate = def_attr_weak_adj_rate or 0
+
     if (attr_synastry == 1) then
 		t_attr_synastry_effect['damage'] = t_attr_synastry_effect['damage'] + atk_attr_adj_rate
          
@@ -346,8 +349,11 @@ function getAttrSynastryEffect(attr1, attr2, atk_attr_adj_rate, def_attr_adj_rat
             end
                 
         end
+        t_attr_synastry_effect['damage'] = t_attr_synastry_effect['damage'] - def_attr_weak_adj_rate
+
     elseif (attr_synastry == -1) then
         t_attr_synastry_effect['damage'] = t_attr_synastry_effect['damage'] - def_attr_adj_rate
+        t_attr_synastry_effect['damage'] = t_attr_synastry_effect['damage'] + atk_attr_weak_adj_rate
 	end
 
     return t_attr_synastry_effect, attr_synastry

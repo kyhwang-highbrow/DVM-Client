@@ -15,6 +15,7 @@ L_BASIC_STATUS_TYPE = {
 L_SPECIAL_STATUS_TYPE_ONLY_ADD = {
     'dmg_adj_rate', -- 받는 데미지 조정 계수
 	'attr_adj_rate',-- 속성 조정 계수
+    'attr_weak_adj_rate',-- 역속성 조정 계수
     'atk_dmg_adj_rate',-- 공격 데미지 조정 계수
     'cri_dmg_adj_rate',-- 치명시 데미지 조정 계수
 
