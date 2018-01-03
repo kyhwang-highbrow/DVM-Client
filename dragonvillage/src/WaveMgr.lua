@@ -251,6 +251,10 @@ function WaveMgr:setDynamicWave(l_wave, l_data, t_param)
 
                 -- regen 정보에 phys group 정보가 있다면 가져옴
                 phys_group_key = struct_group.m_physGroup
+
+                -- 등장 연출로 이동하지 않도록 임시 처리
+                dynamic_wave.m_luaValue1 = dynamic_wave.m_luaValue2
+                dynamic_wave.m_luaValue3 = 1
 			end
 
             if (phys_group_key) then

@@ -71,12 +71,6 @@ function GameWorld:makeDragonNew(t_dragon_data, bRightFormation, status_calc)
     local dragon = Dragon(nil, {0, 0, size})
     self:addToUnitList(dragon)
 
-    if (bRightFormation) then
-        self:bindEnemy(dragon)
-    else
-        self:bindHero(dragon)
-    end
-
     dragon:init_dragon(dragon_id, t_dragon_data, t_dragon, bLeftFormation, bPossibleRevive)
 
     if (status_calc) then
@@ -123,7 +117,6 @@ function GameWorld:makeMonsterNew(monster_id, level)
         monster = Monster(t_monster['res'], body_size)
     end
     self:addToUnitList(monster)
-    self:bindEnemy(monster)
 
     monster:init_monster(t_monster, monster_id, level)
     monster:initState()
