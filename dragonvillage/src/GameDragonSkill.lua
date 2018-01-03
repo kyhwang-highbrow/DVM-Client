@@ -594,14 +594,16 @@ function GameDragonSkill:doPlay(unit, skip)
     local dragon = unit
     local skip_mode = g_autoPlaySetting:get('skip_mode') or false
 
-    if (skip ~= nil) then
-        skip_mode = skip
-    end
+    if (not skip_mode) then
+        if (skip ~= nil) then
+            skip_mode = skip
+        end
 
-    -- 클랜 던전의 경우 AI팀의 드래곤은 연출 강제 스킵
-    if (self.m_world.m_gameMode == GAME_MODE_CLAN_RAID) then
-        if (dragon:getPhysGroup() == self.m_world:getNPCGroup()) then
-            skip_mode = true
+        -- 클랜 던전의 경우 AI팀의 드래곤은 연출 강제 스킵
+        if (self.m_world.m_gameMode == GAME_MODE_CLAN_RAID) then
+            if (dragon:getPhysGroup() == self.m_world:getNPCGroup()) then
+                skip_mode = true
+            end
         end
     end
 
