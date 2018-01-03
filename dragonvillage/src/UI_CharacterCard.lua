@@ -447,6 +447,7 @@ function UI_DragonCard(t_dragon_data, struct_user_info)
     ui:setFriendSpriteVisible(is_friend_dragon)
 
     -- 클릭시 유저 상세 정보 팝업 출력 하는 경우
+	-- @mskim 18.1.3 사용하는 곳이 없음!
     if (struct_user_info) then
         ui.vars['clickBtn']:registerScriptTapHandler(function() UI_UserInfoMini:open(struct_user_info) end)
     end

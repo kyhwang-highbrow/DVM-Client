@@ -31,9 +31,13 @@ function UI_ColosseumHistoryListItem:initUI()
     do -- 리더 드래곤 아이콘
         local ui = user_info:getLeaderDragonCard()
         if ui then
-            ui.vars['clickBtn']:registerScriptTapHandler(function() UI_UserInfoMini:open(user_info) end)
             ui.root:setSwallowTouch(false)
             vars['profileNode']:addChild(ui.root)
+            
+			ui.vars['clickBtn']:registerScriptTapHandler(function() 
+				local is_visit = true
+				UI_UserInfoDetailPopup:open(user_info, is_visit, nil)
+			end)
         end
     end
 

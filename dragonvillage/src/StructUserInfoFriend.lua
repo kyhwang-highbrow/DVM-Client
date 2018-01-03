@@ -182,8 +182,13 @@ end
 function StructUserInfoFriend:getDragonCard()
     local t_dragon_data = self.m_leaderDragonObject
     local card = UI_DragonCard(t_dragon_data)
-    card.vars['clickBtn']:registerScriptTapHandler(function() UI_UserInfoMini:open(self) end)
     card.root:setSwallowTouch(false)
+
+	-- 버튼 콜백 등록
+    card.vars['clickBtn']:registerScriptTapHandler(function() 
+		local is_visit = true
+		UI_UserInfoDetailPopup:open(self, is_visit, nil)
+	end)
 
     return card.root
 end

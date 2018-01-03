@@ -119,7 +119,8 @@ end
 -- function click_infoBtn
 -------------------------------------
 function LobbyUserStatusUI:click_infoBtn()
-    UI_UserInfoMini:open(self.m_structUserInfo)
+	local is_visit = true
+	UI_UserInfoDetailPopup:open(self.m_structUserInfo, is_visit, nil)
 end
 
 -------------------------------------

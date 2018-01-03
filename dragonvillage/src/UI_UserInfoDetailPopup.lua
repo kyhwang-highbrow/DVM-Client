@@ -534,6 +534,19 @@ function UI_UserInfoDetailPopup:click_whisperBtn()
 end
 
 
+
+
+
+
+-------------------------------------
+-- function open
+-- @brief
+-------------------------------------
+function UI_UserInfoDetailPopup:open(user_info, is_visit, close_cb)
+	local peer_uid = user_info:getUid()
+	RequestUserInfoDetailPopup(peer_uid, is_visit, close_cb)
+end
+
 -------------------------------------
 -- function RequestUserInfoDetailPopup
 -------------------------------------

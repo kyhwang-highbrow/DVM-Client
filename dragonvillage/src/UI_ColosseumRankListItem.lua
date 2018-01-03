@@ -55,9 +55,13 @@ function UI_ColosseumRankListItem:initUI()
     do -- 리더 드래곤 아이콘
         local ui = t_rank_info:getLeaderDragonCard()
         if ui then
-            ui.vars['clickBtn']:registerScriptTapHandler(function() UI_UserInfoMini:open(t_rank_info) end)
             ui.root:setSwallowTouch(false)
             vars['profileNode']:addChild(ui.root)
+            
+			ui.vars['clickBtn']:registerScriptTapHandler(function() 
+				local is_visit = true
+				UI_UserInfoDetailPopup:open(t_rank_info, is_visit, nil)
+			end)
         end
     end
 

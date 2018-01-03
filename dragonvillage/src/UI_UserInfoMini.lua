@@ -57,6 +57,7 @@ end
 function UI_UserInfoMini:initUI()
     local vars = self.vars
     
+	-- 드래곤
 	self:refresh_dragon()
 
     local struct_user_info = self.m_structUserInfo
