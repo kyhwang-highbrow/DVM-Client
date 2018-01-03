@@ -40,9 +40,7 @@ function UI_UserInfoMini:open(struct_user_info)
         return nil
     end
 
-    local peer_uid = struct_user_info.m_uid
-    RequestUserInfoDetailPopup(peer_uid, true) -- param : peer_uid, is_visit
-    --return UI_UserInfoMini(struct_user_info)
+    return UI_UserInfoMini(struct_user_info)
 end
 
 -------------------------------------
@@ -59,6 +57,44 @@ end
 function UI_UserInfoMini:initUI()
     local vars = self.vars
     
+	self:refresh_dragon()
+
+    local struct_user_info = self.m_structUserInfo
+
+	-- 이름
+    vars['nameLabel']:setString(struct_user_info:getNickname())
+
+	-- 레벨
+    vars['lvLabel']:setString(Str('레벨 {1}', struct_user_info:getLv()))
+
+	-- 타이틀
+    local title = struct_user_info:getTamerTitleStr()
+    if (not title) or (title == '') then
+        title = ''
+    end
+	vars['titleLabel']:setString(title)
+
+	-- 클랜 정보
+	do
+		local struct_clan = struct_user_info:getStructClan()    
+		if (not struct_clan) then
+			vars['clanLabel']:setVisible(false)
+			vars['markNode']:setVisible(false)
+			return
+		end
+
+		-- 클랜 이름
+		if (vars['clanLabel']) then
+			local clan_name = struct_clan:getClanName()
+			vars['clanLabel']:setString(clan_name)
+		end
+
+		-- 클랜 마크
+		if (vars['markNode']) then
+			local mark_icon = struct_clan:makeClanMarkIcon()
+			vars['markNode']:addChild(mark_icon)
+		end
+	end
 end
 
 -------------------------------------
@@ -69,6 +105,7 @@ function UI_UserInfoMini:initButton(t_user_info)
     vars['closeBtn']:registerScriptTapHandler(function() self:click_exitBtn() end)
     vars['infoBtn']:registerScriptTapHandler(function() self:click_infoBtn() end)
     vars['requestBtn']:registerScriptTapHandler(function() self:click_requestBtn() end)
+	vars['clanBtn']:registerScriptTapHandler(function() self:click_clanBtn() end)
 
     vars['whisperBtn']:registerScriptTapHandler(function() self:click_whisperBtn() end)
     vars['blockBtn']:registerScriptTapHandler(function() self:click_blockBtn() end)
@@ -76,29 +113,26 @@ end
 
 -------------------------------------
 -- function refresh
--- @brief dragon_id로 드래곤의 상세 정보를 출력
 -------------------------------------
 function UI_UserInfoMini:refresh()
     local vars = self.vars
+end
 
-    local user_info = self.m_structUserInfo
+-------------------------------------
+-- function refresh_dragon
+-------------------------------------
+function UI_UserInfoMini:refresh_dragon()
+	local vars = self.vars
 
-    vars['guildLabel']:setString(user_info:getGuild())
-    vars['nameLabel']:setString(user_info:getNickname())
-    vars['lvLabel']:setString(Str('레벨 {1}', user_info:getLv()))
+	vars['dragonNode']:removeAllChildren(true)
+	
+	local t_dragon_data = self.m_structUserInfo:getLeaderDragonObject()
+	local did = t_dragon_data['did']
+	local t_dragon = TableDragon():get(did)
 
-    local dragon_object = user_info:getLeaderDragonObject()
-    if dragon_object then
-        local dragon_card = UI_DragonCard(dragon_object)
-        vars['dragonNode']:addChild(dragon_card.root)
-    
-        dragon_card.vars['clickBtn']:registerScriptTapHandler(function()
-            local doid = dragon_object['id']
-            if doid and (doid ~= '') then
-                UI_SimpleDragonInfoPopup(dragon_object)
-            end
-        end)
-    end
+	-- 드래곤 애니
+	local animator = AnimatorHelper:makeDragonAnimator(t_dragon['res'], t_dragon_data['evolution'], t_dragon['attr'])
+	vars['dragonNode']:addChild(animator.m_node)
 end
 
 -------------------------------------
@@ -124,6 +158,23 @@ function UI_UserInfoMini:click_requestBtn()
 
     local friend_ui = self.m_structUserInfo:getUid()
     g_friendData:request_invite(friend_ui, finish_cb)
+end
+
+-------------------------------------
+-- function click_clanBtn
+-- @brief
+-------------------------------------
+function UI_UserInfoMini:click_clanBtn()
+	local struct_user_info = self.m_structUserInfo
+	local struct_clan = struct_user_info:getStructClan()
+	if (not struct_clan) then
+        local msg = Str('소속된 클랜이 없습니다.')
+        UIManager:toastNotificationRed(msg)
+		return
+	end
+
+	local clan_object_id = struct_clan:getClanObjectID()
+	g_clanData:requestClanInfoDetailPopup(clan_object_id)
 end
 
 -------------------------------------
