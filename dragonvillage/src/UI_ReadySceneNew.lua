@@ -498,10 +498,11 @@ function UI_ReadySceneNew:refresh_combatPower()
     local game_mode = g_stageData:getGameMode(stage_id)
 
 	if (stage_id == COLOSSEUM_STAGE_ID or stage_id == FRIEND_MATCH_STAGE_ID or game_mode == GAME_MODE_CLAN_RAID) then
-		vars['cp_Label2']:setString('')
+		vars['cp_Label']:setString('')
+        vars['cp_Label2']:setString('')
 
         local deck = self.m_readySceneDeck:getDeckCombatPower()
-		vars['cp_Label']:setString(comma_value( math.floor(deck + 0.5) ))
+		vars['cp_Label1']:setString(comma_value( math.floor(deck + 0.5) ))
 
 	else
 		local recommend = TableStageData():getRecommendedCombatPower(stage_id, game_mode)
@@ -523,7 +524,7 @@ function UI_ReadySceneNew:refresh_combatPower()
             end
         end
 
-		vars['cp_Label']:setString(comma_value( math.floor(deck + 0.5) ))
+		vars['cp_Label1']:setString(comma_value( math.floor(deck + 0.5) ))
 
 	end
 end
