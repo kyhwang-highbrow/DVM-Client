@@ -313,8 +313,8 @@ function TargetRule_getTargetList_stat(org_list, stat_type)
 	-- 별도 로직이 필요한 정렬
 	if (target_stat == 'hp') then
 		table.sort(t_ret, function(a, b)
-			local a_stat = a.m_hp / a.m_maxHp
-			local b_stat = b.m_hp / b.m_maxHp
+			local a_stat = a:getHpRate()
+			local b_stat = b:getHpRate()
 			if (is_descending) then
 				return a_stat > b_stat
 			else
@@ -511,7 +511,7 @@ function TargetRule_getTargetList_hp_low(org_list)
     local t_sort = {}
 
     for i,v in pairs(org_list) do
-        v.m_sortValue = (v.m_hp / v.m_maxHp)
+        v.m_sortValue = v:getHpRate()
         v.m_sortRandomIdx = v.m_hp
         table.insert(t_sort, v)
     end
@@ -534,7 +534,7 @@ function TargetRule_getTargetList_hp_high(org_list)
     local t_sort = {}
 
     for i,v in pairs(org_list) do
-        v.m_sortValue = (v.m_hp / v.m_maxHp)
+        v.m_sortValue = v:getHpRate()
         v.m_sortRandomIdx = v.m_hp
         table.insert(t_sort, v)
     end

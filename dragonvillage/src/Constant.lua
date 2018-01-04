@@ -144,11 +144,11 @@ WORLD_Z_ORDER =
 {
     TAMER = -1,
     MISSILE = 0,
-    BOSS = 9,
-    ENEMY = 10,
-    HERO = 11,
-	SE_EFFECT = 13,
-    CASTING = 20,
+    BOSS = 10,
+    ENEMY = 20,
+    HERO = 30,
+	SE_EFFECT = 40,
+    CASTING = 100,
 }
 --------------------------------------------
 -- INGAME_LAYER_Z_ORDER

@@ -118,6 +118,12 @@ function GameWorldClanRaid:makeMonsterNew(monster_id, level)
 
     -- 전투 시간 버프 적용
     self.m_gameState:applyAccumBuffByFightTime(monster)
+
+    -- 스테이지별 hp_ratio 적용.
+    --[[
+    local hp_ratio = TableStageData():getValue(self.m_stageID, 'hp_ratio') or 1
+    monster.m_statusCalc:appendHpRatio(hp_ratio)
+    ]]--
     
     monster:setStatusCalc(monster.m_statusCalc)
     self:dispatch('make_monster', {['monster']=monster})

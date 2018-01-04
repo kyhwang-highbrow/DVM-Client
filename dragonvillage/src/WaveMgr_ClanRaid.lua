@@ -89,11 +89,11 @@ function WaveMgr_ClanRaid:spawnEnemy_dynamic(enemy_id, level, appear_type, value
 
     -- 레이어 처리
     if (phys_group == PHYS.ENEMY_TOP) then
-        self.m_world.m_worldNode:addChild(enemy.m_rootNode, WORLD_Z_ORDER.BOSS)
+        self.m_world.m_worldNode:addChild(enemy.m_rootNode, WORLD_Z_ORDER.BOSS + 1)
     elseif (enemy_id == 151071) then
-        self.m_world.m_worldNode:addChild(enemy.m_rootNode, WORLD_Z_ORDER.BOSS - 1)
+        self.m_world.m_worldNode:addChild(enemy.m_rootNode, WORLD_Z_ORDER.BOSS)
     else
-        self.m_world.m_worldNode:addChild(enemy.m_rootNode, WORLD_Z_ORDER.ENEMY)
+        self.m_world.m_worldNode:addChild(enemy.m_rootNode, WORLD_Z_ORDER.ENEMY + (enemy_id % 10))
     end
     
     if (phys_group == self.m_world:getOpponentPCGroup()) then

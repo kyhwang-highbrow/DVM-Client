@@ -93,7 +93,7 @@ function StatusEffectHelper:doStatusEffect(caster, l_skill_target, type, target_
 
             else
                 for _, target_char in pairs(caster:getFellowList()) do
-                    if (not target_char:isDead() and target_char.m_hp == 0 and not target_char.m_isZombie) then
+                    if (not target_char:isDead() and target_char:isZeroHp() and not target_char.m_isZombie) then
                         table.insert(l_target, target_char)
                     end
                 end

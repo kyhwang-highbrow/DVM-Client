@@ -521,6 +521,7 @@
     'SkillBind',
     'SkillRandom',
     'SkillLaserBomb',
+    'SkillScript',
 
     'SkillHealSingle',
     'SkillHealAround',

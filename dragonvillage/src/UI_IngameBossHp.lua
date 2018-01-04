@@ -77,8 +77,8 @@ UI_IngameBossHpForClanRaid = class(UI_IngameBossHp, {})
     function UI_IngameBossHpForClanRaid:refresh()
         local vars = self.vars
 
-        local totalHp = self.m_world.m_gameState.m_bossHp
-        local totalMaxHp = self.m_world.m_gameState.m_bossMaxHp
+        local totalHp = self.m_world.m_gameState.m_bossHpCount
+        local totalMaxHp = self.m_world.m_gameState.m_bossMaxHpCount
 
         local percentage = totalHp / totalMaxHp
 

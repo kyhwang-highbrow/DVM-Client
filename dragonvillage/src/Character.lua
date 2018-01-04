@@ -357,25 +357,13 @@ function Character:setStatusCalc(status_calc)
     -- hp 설정
     local hp = self:getStat('hp')
     local hp_multi = self.m_statusCalc:getHiddenInto('hp_multi') or 1
+
     self.m_maxHp = hp * hp_multi
     self.m_hp = self.m_maxHp
     self.m_hpRatio = 1
 
     -- 공속 설정
     self:calcAttackPeriod(true)
-end
-
--------------------------------------
--- function setStatusHpByForce
--- @brief hp 정보를 강제적으로 해당 타입의 스텟값으로 설정
--------------------------------------
-function Character:setStatusHpByForce(stat_type, stat_value)
-    if (not self.m_statusCalc) then return end
-
-    local indivisual_status = self.m_statusCalc.m_lStatusList[stat_type]
-    if (not indivisual_status) then return end
-
-    indivisual_status:setBasicStat(stat_value, 0, 0, 0, 0)
 end
 
 -------------------------------------
@@ -448,7 +436,7 @@ function Character:checkAvoid(activity_carrier, t_attr_effect)
     local hit_rate = activity_carrier:getStat('hit_rate') or 100
 
     -- 체력이 0일 경우 회피 할 수 없도록 처리
-    if (self.m_hp == 0) then
+    if (self:isZeroHp()) then
         return false
     end
 
@@ -964,7 +952,7 @@ function Character:undergoAttack(attacker, defender, i_x, i_y, body_key, no_even
             local b = false
 
             if (attack_type == 'active') then
-                b = (self.m_hp <= 0)
+                b = self:isZeroHp()
             else
                 b = self:isDead()
 		    end
@@ -1024,13 +1012,13 @@ function Character:setDamage(attacker, defender, i_x, i_y, damage, t_info)
 	elseif (self.m_bInvincibility) then
         -- NOTHING TO DO
     else
-		local damage = math_min(damage, self.m_hp)
         local prev_hp = self.m_hp
-
+		        
 		self:setHp(self.m_hp - damage)
 
         -- 체력을 0으로 만들었을 시 로그
-        if (prev_hp > 0 and self.m_hp <= 0) then
+        if (prev_hp > 0 and self:isZeroHp()) then
+            local damage = math_min(damage, self.m_hp)
             local attack_type = t_info['attack_type']
 
             -- @LOG : 보스 막타 타입
@@ -1061,7 +1049,7 @@ function Character:setDamage(attacker, defender, i_x, i_y, damage, t_info)
     -- 죽음 체크
     -----------------------------------------------------------------
     local checkDie = function()
-        return (not self:isDead() and self.m_hp <= 0 and not self.m_isZombie)
+        return (not self:isDead() and self:isZeroHp() and not self.m_isZombie)
     end
 
     if (checkDie()) then
@@ -1522,13 +1510,15 @@ function Character:setHp(hp, bFixed)
 	-- 죽었을시 탈출
     if (not bFixed) then
 	    if (self:isDead()) then return end
-        if (self.m_hp == 0) then return end
+        if (self:isZeroHp()) then return end
     end
 
     self.m_hp = math_min(hp, self.m_maxHp)
 
     if (self.m_isImmortal) then
         self.m_hp = math_max(self.m_hp, 1)
+    else
+        self.m_hp = math_max(self.m_hp, 0)
     end
         
     self.m_hpRatio = self.m_hp / self.m_maxHp
@@ -2170,7 +2160,7 @@ end
 function Character:updateDebugingInfo()
 	-- 화면에 체력 표시
 	if g_constant:get('DEBUG', 'DISPLAY_UNIT_HP') then 
-		self.m_infoUI.m_label:setString(string.format('%d/%d\n(%d%%)',self.m_hp, self.m_maxHp, self.m_hp/self.m_maxHp*100))
+		self.m_infoUI.m_label:setString(string.format('%d/%d\n(%d%%)',self.m_hp, self.m_maxHp, self:getHpRate()*100))
 
 	-- 화면에 좌표 표시
 	elseif g_constant:get('DEBUG', 'DISPLAY_UNIT_POS') then 
@@ -2655,7 +2645,21 @@ end
 -- @brief 현재 HP 정보를 가져온다
 -------------------------------------
 function Character:getHpRate()
-    return (self.m_hp / self.m_maxHp)
+    return self.m_hpRatio
+end
+
+-------------------------------------
+-- function isZeroHp
+-------------------------------------
+function Character:isZeroHp()
+    return (self.m_hp <= 0)
+end
+
+-------------------------------------
+-- function isMaxHp
+-------------------------------------
+function Character:isMaxHp()
+    return (self.m_hp >= self.m_maxHp)
 end
 
 -------------------------------------

@@ -25,8 +25,12 @@ function GameState_ClanRaid:init(world)
     self.m_bgmBoss = 'bgm_dungeon_boss'
     --self.m_limitTime = 300
 
-    self.m_bossMaxHp = 1000000000
-    self.m_bossHp = self.m_bossMaxHp
+    -- 임시 체력 설정
+    self.m_bossMaxHp = 100000
+    self.m_bossHp = 123456
+
+    self.m_bossMaxHpCount = 999
+    self.m_bossHpCount = 600
 end
 
 -------------------------------------
@@ -341,10 +345,11 @@ end
 -------------------------------------
 -- function setBossHp
 -------------------------------------
-function GameState_ClanRaid:setBossHp(hp)
+function GameState_ClanRaid:setBossHp(hp_count, hp)
+    self.m_bossHpCount = hp_count
     self.m_bossHp = hp
 
     for _, boss in ipairs(self.m_world.m_waveMgr.m_lBoss) do
-        boss:syncHp(hp)
+        boss:syncHp(hp_count, hp)
     end
 end

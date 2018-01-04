@@ -10,10 +10,8 @@ UI_IngameDragonPanelItem = class(PARENT, {
         m_dragon = 'Dragon',
         m_dragonIdx = 'number', -- 999번일 경우 친구?! 
         ----
-
-        m_hp = 'number',
-        m_maxHP = 'number',
-
+        m_hpRatio = 'number',
+        
         m_skillCoolTime = 'number',         -- 스킬 재사용 대기 시간(초)
         m_skillGaugePercentage = 'number',  -- 스킬 재사용 대기 시간(%)
 
@@ -49,7 +47,7 @@ function UI_IngameDragonPanelItem:init(world, dragon, dragon_idx)
     dragon:addListener('dragon_mana_reduce', self)
     dragon:addListener('dragon_mana_reduce_finish', self)
     
-    self:refreshHP(dragon.m_hp, dragon.m_maxHp)
+    self:refreshHP(dragon:getHpRate())
     self:refreshManaCost(dragon:getSkillManaCost())
     self:refreshSkillGauge(0)
 
@@ -225,15 +223,15 @@ end
 -- function refreshHP
 -- @brief 드래곤 체력 변경 Event
 -------------------------------------
-function UI_IngameDragonPanelItem:refreshHP(hp, max_hp)
-    if (self.m_hp == hp) and (self.m_maxHP == max_hp) then
+function UI_IngameDragonPanelItem:refreshHP(hp_ratio)
+    if (self.m_hpRatio == hp_ratio) then 
         return
     end
-    self.m_hp = hp
-    self.m_maxHP = max_hp
 
+    self.m_hpRatio = hp_ratio
+    
     local vars = self.vars
-    local percentage = (hp / max_hp)
+    local percentage = self.m_hpRatio * 100
 
     -- 체력바 가감 연출
     vars['hpGauge']:setScaleX(percentage)

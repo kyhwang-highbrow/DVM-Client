@@ -489,13 +489,6 @@ DEPTH_IMMUNE_FONT = counter:get()
 DEPTH_CRI_DODGE_FONT = counter:get()
 
 -------------------------------------
--- function addChildWorld
--------------------------------------
-function GameWorld:addChildWorld(node, depth)
-    self.m_worldNode:addChild(node, depth or 0)
-end
-
--------------------------------------
 -- function addChild2
 -------------------------------------
 function GameWorld:addChild2(node, depth)
@@ -965,18 +958,6 @@ function GameWorld:addInstantEffect(res, ani_name, x, y)
     local effect = self:makeInstantEffect(res, ani_name, x, y)
     if (effect) then
         self:addChild2(effect.m_node, DEPTH_INSTANT_EFFECT)
-    end
-    return effect
-end
-
--------------------------------------
--- function addInstantEffectWorld
--- @brief 단발성 이펙트 생성
--------------------------------------
-function GameWorld:addInstantEffectWorld(res, ani_name, x, y)
-    local effect = self:makeInstantEffect(res, ani_name, x, y)
-    if (effect) then
-        self:addChildWorld(effect.m_node, 0)
     end
     return effect
 end

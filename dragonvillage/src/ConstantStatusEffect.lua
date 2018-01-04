@@ -33,7 +33,7 @@ PASSIVE_CONDITION_FUNC['over_hp_rate'] = function(status_effect, t_event)
 
     if (not t_event) then
         local owner = status_effect.m_owner
-        t_event = { hp_rate = owner.m_hp / owner.m_maxHp }
+        t_event = { hp_rate = owner:getHpRate() }
     end
 
     local hp_rate = t_event['hp_rate']

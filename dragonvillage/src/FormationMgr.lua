@@ -439,7 +439,7 @@ end
 function FormationMgr:getRandomHealTarget()
     local char_list = {}
     for i,v in pairs(self.m_globalCharList) do
-        if (not v:isDead()) and (v.m_hp < v.m_maxHp) then
+        if (not v:isDead()) and (not v:isMaxHp()) then
             table.insert(char_list, v)
         end
     end

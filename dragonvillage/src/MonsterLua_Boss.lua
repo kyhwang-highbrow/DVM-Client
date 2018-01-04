@@ -404,8 +404,8 @@ end
 function MonsterLua_Boss:setHp(hp, bFixed)
     PARENT.setHp(self, hp, bFixed)
 
-    if self.m_triggerHpPercent then
-        local percent = (self.m_hp / self.m_maxHp * 100)
+    if (self.m_triggerHpPercent) then
+        local percent = self:getHpRate() * 100
         self.m_triggerHpPercent:checkTrigger(percent)
     end
 end

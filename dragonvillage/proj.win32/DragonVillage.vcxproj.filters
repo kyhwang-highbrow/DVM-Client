@@ -1455,9 +1455,6 @@
     <None Include="..\src\SkillCounterAttack.lua">
       <Filter>lua\src</Filter>
     </None>
-    <None Include="..\src\SkillEnumrate.lua">
-      <Filter>lua\src</Filter>
-    </None>
     <None Include="..\src\SkillEnumrate_Curve.lua">
       <Filter>lua\src</Filter>
     </None>
@@ -3064,6 +3061,15 @@
       <Filter>lua\UI</Filter>
     </None>
     <None Include="..\src\SkillAoECross.lua">
+      <Filter>lua\src</Filter>
+    </None>
+    <None Include="..\src\SkillScript.lua">
+      <Filter>lua\src</Filter>
+    </None>
+    <None Include="..\src\SkillScript.lua">
+      <Filter>lua\src</Filter>
+    </None>
+    <None Include="..\src\SkillEnumrate.lua">
       <Filter>lua\src</Filter>
     </None>
     <None Include="..\src\UI_ClanRaid.lua">
