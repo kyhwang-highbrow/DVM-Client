@@ -2232,7 +2232,9 @@ end
 -------------------------------------
 function Character:onDisabledBehavior()
     --self:setTimeScale(0)
-    cca.stopAction(self.m_animator.m_node, CHARACTER_ACTION_TAG__FLOATING)
+    if (self.m_animator and self.m_animator.m_node) then
+        cca.stopAction(self.m_animator.m_node, CHARACTER_ACTION_TAG__FLOATING)
+    end
 end
 
 -------------------------------------
