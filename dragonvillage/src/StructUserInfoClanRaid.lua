@@ -89,8 +89,6 @@ end
 function StructUserInfoClanRaid:getScoreText()
     -- 서버에서 스코어 없을때 -1로 옴
     local score = math_max(self.m_score, 0)
-    score = score + 100
-    ccdump(type(score))
     local text = Str('{1}점', comma_value(score))
     return text
 end

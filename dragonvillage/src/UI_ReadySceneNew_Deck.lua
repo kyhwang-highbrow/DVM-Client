@@ -116,6 +116,9 @@ function UI_ReadySceneNew_Deck:onChangeOption()
 
         local label = vars[sel_option .. 'RadioLabel']
         label:setTextColor(cc.c4b(255, 177, 1, 255))
+
+        local sprite = vars[sel_option .. 'RadioSprite']
+        sprite:setVisible(true)
     end
 
     if (deck_name) then
@@ -128,6 +131,31 @@ end
 -------------------------------------
 function UI_ReadySceneNew_Deck:click_dragonCard(t_dragon_data, skip_sort, idx)
     local doid = t_dragon_data['id']
+    local stage_id = self.m_uiReadyScene.m_stageID
+    local game_mode = g_stageData:getGameMode(stage_id)
+
+    -- 클랜 던전일 경우 현재 선택된 주덱과 보조덱 드래곤 체크
+    if (game_mode == GAME_MODE_CLAN_RAID) then
+        local sel_option = self.m_selRadioButton.m_selectedButton
+        local another_deck_name, mode = g_clanRaidData:getAnotherDeckName(sel_option)
+        local team_name = g_clanRaidData:getTeamName(mode)
+
+        local l_deck, formation, deck_name, leader = g_deckData:getDeck(another_deck_name)
+        local is_used = false
+
+        for _, v in ipairs(l_deck) do
+            if (v == doid) then
+                is_used = true
+                break
+            end
+        end
+
+        if (is_used) then
+            local msg = Str('{1}에 출전중인 드래곤입니다.', team_name)
+            UIManager:toastNotificationRed(msg)
+            return 
+        end
+    end
 
     if self.m_tDeckMap[doid] then
         local idx = self.m_tDeckMap[doid]
@@ -556,7 +584,7 @@ end
 -- function checkChangeDeck
 -------------------------------------
 function UI_ReadySceneNew_Deck:checkChangeDeck(next_func)
-
+    
     local l_deck, formation, deckname, leader, tamer_id = g_deckData:getDeck()
     local formation_lv = g_formationData:getFormationInfo(formation)['formation_lv']
     -- 최소 1명 출전 확인 (일단 콜로세움만)

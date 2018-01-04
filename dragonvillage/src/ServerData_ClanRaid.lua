@@ -35,10 +35,32 @@ end
 -------------------------------------
 -- function getDeckName
 -------------------------------------
-function ServerData_ClanRaid:getDeckName(pos)
-    local pos = pos or 'main' -- or 'sub'
-    local deck_name = 'clan_raid_' .. pos
+function ServerData_ClanRaid:getDeckName(mode)
+    local mode = mode or 'main' -- or 'sub'
+    local deck_name = 'clan_raid_' .. mode
     return deck_name
+end
+
+-------------------------------------
+-- function getAnotherDeckName
+-- @breif 선택한 다른 모드 덱 가져옴 (메인 선택시 서브 덱, 서브 선택시 메인 덱)
+-------------------------------------
+function ServerData_ClanRaid:getAnotherDeckName(mode)
+    local mode = (mode == 'main') and 'sub' or 'main'
+    local deck_name = 'clan_raid_' .. mode
+    return deck_name, mode
+end
+
+-------------------------------------
+-- function getTeamName
+-- @breif main - 수동 공격대, sub -- 자동 공격대
+-------------------------------------
+function ServerData_ClanRaid:getTeamName(mode)
+    local mode = mode or 'main' -- or 'sub'
+    local team_name = (mode == 'main') and 
+                      Str('수동 공격대') or
+                      Str('자동 공격대') 
+    return team_name
 end
 
 -------------------------------------

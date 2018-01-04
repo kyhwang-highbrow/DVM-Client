@@ -1,4 +1,4 @@
-local PARENT = class(UI, ITopUserInfo_EventListener:getCloneTable()) --ITabUI:getCloneTable())
+ï»¿local PARENT = class(UI, ITopUserInfo_EventListener:getCloneTable()) --ITabUI:getCloneTable())
 
 -------------------------------------
 -- class UI_ReadySceneNew
@@ -8,13 +8,13 @@ UI_ReadySceneNew = class(PARENT,{
         m_subInfo = 'string',
         m_stageAttr = 'attr',
 
-        -- UI_ReadyScene_Select °ü·Ã º¯¼ö
+        -- UI_ReadyScene_Select ê´€ë ¨ ë³€ìˆ˜
         m_readySceneSelect = 'UI_ReadyScene_Select',
 
-        -- UI_ReadyScene_Deck °ü·Ã º¯¼ö
+        -- UI_ReadyScene_Deck ê´€ë ¨ ë³€ìˆ˜
         m_readySceneDeck = 'UI_ReadyScene_Deck',
 
-        -- Á¤·Ä µµ¿ì¹Ì
+        -- ì •ë ¬ ë„ìš°ë¯¸
 		m_sortManagerDragon = '',
         m_sortManagerFriendDragon = '',
         m_uicSortList = 'UIC_SortList',
@@ -26,7 +26,7 @@ UI_ReadySceneNew = class(PARENT,{
 -- function init
 -------------------------------------
 function UI_ReadySceneNew:init(stage_id, with_friend, sub_info)
-    -- spine Ä³½Ã Á¤¸®
+    -- spine ìºì‹œ ì •ë¦¬
     SpineCacheManager:getInstance():purgeSpineCacheData()
 
     self.m_subInfo = sub_info
@@ -40,13 +40,13 @@ function UI_ReadySceneNew:init(stage_id, with_friend, sub_info)
     local vars = self:load('battle_ready_new.ui')
     UIManager:open(self, UIManager.SCENE)
 
-    -- ·¹µğ¾À ÁøÀÔ½Ã ¼±ÅÃµÈ Ä£±¸Á¤º¸ ÃÊ±âÈ­
+    -- ë ˆë””ì”¬ ì§„ì…ì‹œ ì„ íƒëœ ì¹œêµ¬ì •ë³´ ì´ˆê¸°í™”
     g_friendData:delSettedFriendDragon()
 
-    -- ¾À ÀüÈ¯ È¿°ú
+    -- ì”¬ ì „í™˜ íš¨ê³¼
     self:sceneFadeInAction()
 
-    -- backkey ÁöÁ¤
+    -- backkey ì§€ì •
     g_currScene:pushBackKeyListener(self, function() self:click_backBtn() end, 'UI_ReadySceneNew')
 
 	self:checkDeckProper()
@@ -67,7 +67,7 @@ function UI_ReadySceneNew:init(stage_id, with_friend, sub_info)
 
 	self:init_sortMgr()
 
-    -- ÀÚµ¿ ÀüÅõ off
+    -- ìë™ ì „íˆ¬ off
     if (stage_id == COLOSSEUM_STAGE_ID) then
         g_autoPlaySetting:setMode(AUTO_COLOSSEUM)
     else
@@ -75,7 +75,7 @@ function UI_ReadySceneNew:init(stage_id, with_friend, sub_info)
     end
     g_autoPlaySetting:setAutoPlay(false)
 
-    -- ¸ÅÀÏ¸ÅÀÏ ´ÙÀÌ¾Æ Ç®ÆË¾÷
+    -- ë§¤ì¼ë§¤ì¼ ë‹¤ì´ì•„ í’€íŒì—…
     local game_mode = g_stageData:getGameMode(self.m_stageID)
     if (game_mode == GAME_MODE_ADVENTURE) then
         g_fullPopupManager:show(FULL_POPUP_TYPE.AUTO_PICK)
@@ -84,20 +84,20 @@ end
 
 -------------------------------------
 -- function initParentVariable
--- @brief ÀÚ½Ä Å¬·¡½º¿¡¼­ ¹İµå½Ã ±¸ÇöÇÒ °Í
+-- @brief ìì‹ í´ë˜ìŠ¤ì—ì„œ ë°˜ë“œì‹œ êµ¬í˜„í•  ê²ƒ
 -------------------------------------
 function UI_ReadySceneNew:initParentVariable()
-    -- ITopUserInfo_EventListenerÀÇ ¸É¹ö º¯¼öµé ¼³Á¤
+    -- ITopUserInfo_EventListenerì˜ ë§´ë²„ ë³€ìˆ˜ë“¤ ì„¤ì •
     self.m_uiName = 'UI_ReadySceneNew'
     self.m_bVisible = true
-    --self.m_titleStr = nil -- refresh¿¡¼­ ½ºÅ×ÀÌÁö¸í ¼³Á¤
+    --self.m_titleStr = nil -- refreshì—ì„œ ìŠ¤í…Œì´ì§€ëª… ì„¤ì •
     self.m_bUseExitBtn = true
 
-    -- ÀÔÀå±Ç Å¸ÀÔ ¼³Á¤
+    -- ì…ì¥ê¶Œ íƒ€ì… ì„¤ì •
     self.m_staminaType = TableDrop:getStageStaminaType(self.m_stageID)
 
     
-	-- µé¾î¿Â °æ·Î¿¡ µû¶ó sound°¡ ´Ù¸§
+	-- ë“¤ì–´ì˜¨ ê²½ë¡œì— ë”°ë¼ soundê°€ ë‹¤ë¦„
 	local game_mode = g_stageData:getGameMode(self.m_stageID)
 	if (game_mode == GAME_MODE_ADVENTURE) then
 		self.m_uiBgm = 'bgm_dungeon_ready'
@@ -115,7 +115,7 @@ function UI_ReadySceneNew:init_MemberVariable(stage_id)
 
     local game_mode = g_stageData:getGameMode(self.m_stageID)
 	if (game_mode == GAME_MODE_SECRET_DUNGEON) then
-        -- ÀÎ¿¬ ´øÀüÀÇ °æ¿ì¶ó¸é ÇØ´ç µå·¡°ïÀÇ ¼Ó¼ºÀ» ½ºÅ×ÀÌÁö ¼Ó¼ºÀ¸·Î ¼³Á¤
+        -- ì¸ì—° ë˜ì „ì˜ ê²½ìš°ë¼ë©´ í•´ë‹¹ ë“œë˜ê³¤ì˜ ì†ì„±ì„ ìŠ¤í…Œì´ì§€ ì†ì„±ìœ¼ë¡œ ì„¤ì •
         local t_dungeon_info = g_secretDungeonData:getSelectedSecretDungeonInfo()
         if (t_dungeon_info) then
             local did = t_dungeon_info['dragon']
@@ -129,11 +129,11 @@ end
 
 -------------------------------------
 -- function checkDeckProper
--- @brief ÇØ´ç ¸ğµå¿¡ ¸Â´Â µ¦ÀÎÁö Ã¼Å©ÇÏ°í ¾Æ´Ï¶ó¸é ¹Ù²ãÁØ´Ù.
+-- @brief í•´ë‹¹ ëª¨ë“œì— ë§ëŠ” ë±ì¸ì§€ ì²´í¬í•˜ê³  ì•„ë‹ˆë¼ë©´ ë°”ê¿”ì¤€ë‹¤.
 -------------------------------------
 function UI_ReadySceneNew:checkDeckProper()
 
-    -- Äİ·Î¼¼¿ò º°µµ Ã³¸®
+    -- ì½œë¡œì„¸ì›€ ë³„ë„ ì²˜ë¦¬
     if (self.m_stageID == COLOSSEUM_STAGE_ID) then
         if (self.m_subInfo == 'atk') then
             g_deckData:setSelectedDeck('pvp_atk')
@@ -143,7 +143,7 @@ function UI_ReadySceneNew:checkDeckProper()
         return
     end
 
-    -- Ä£¼±´ëÀü º°µµ Ã³¸®
+    -- ì¹œì„ ëŒ€ì „ ë³„ë„ ì²˜ë¦¬
     if (self.m_stageID == FRIEND_MATCH_STAGE_ID) then
         if (self.m_subInfo == 'fatk') then
             g_deckData:setSelectedDeck('fpvp_atk')
@@ -153,7 +153,7 @@ function UI_ReadySceneNew:checkDeckProper()
 
 	local curr_mode = TableDrop():getValue(self.m_stageID, 'mode')
 
-    -- Å¬·£ ´øÀü º°µµ Ã³¸® 
+    -- í´ëœ ë˜ì „ ë³„ë„ ì²˜ë¦¬ 
     if (curr_mode == 'clan') then
         local deck_name = g_clanRaidData:getDeckName()
         if (deck_name) then
@@ -162,7 +162,7 @@ function UI_ReadySceneNew:checkDeckProper()
         end
     end
 
-    -- ½ÃÇèÀÇ Å¾ÀÎ °æ¿ì °í´ëÀÇ Å¾°ú STAGE ID °°ÀÌ ¾²ÀÌ¹Ç·Î µ¦³×ÀÓ ´Ù½Ã ¹Ş¾Æ¿È
+    -- ì‹œí—˜ì˜ íƒ‘ì¸ ê²½ìš° ê³ ëŒ€ì˜ íƒ‘ê³¼ STAGE ID ê°™ì´ ì“°ì´ë¯€ë¡œ ë±ë„¤ì„ ë‹¤ì‹œ ë°›ì•„ì˜´
     if (curr_mode == 'ancient') then
         local deck_name = g_attrTowerData:getDeckName()
         if (deck_name) then
@@ -179,25 +179,25 @@ end
 
 -------------------------------------
 -- function condition_deck_idx
--- @breif µ¦¿¡ ¼³Á¤µÈ µå·¡°ïÀ» Á¤·Ä ¿ì¼±¼øÀ§·Î »ç¿ë
+-- @breif ë±ì— ì„¤ì •ëœ ë“œë˜ê³¤ì„ ì •ë ¬ ìš°ì„ ìˆœìœ„ë¡œ ì‚¬ìš©
 -------------------------------------
 function UI_ReadySceneNew:condition_deck_idx(a, b)
     local a_deck_idx = self.m_readySceneDeck.m_tDeckMap[a['data']['id']] or nil
     local b_deck_idx = self.m_readySceneDeck.m_tDeckMap[b['data']['id']] or nil
 	 
-    -- µÑ ´Ù µ¦¿¡ ¼³Á¤µÈ °æ¿ì ¿ì¿­À» °¡¸®Áö ¾ÊÀ½
+    -- ë‘˜ ë‹¤ ë±ì— ì„¤ì •ëœ ê²½ìš° ìš°ì—´ì„ ê°€ë¦¬ì§€ ì•ŠìŒ
     if (a_deck_idx and b_deck_idx) then
         return nil
 
-    -- Aµå·¡°ï¸¸ µ¦¿¡ ¼³Á¤µÈ °æ¿ì
+    -- Aë“œë˜ê³¤ë§Œ ë±ì— ì„¤ì •ëœ ê²½ìš°
     elseif a_deck_idx then
         return true
 
-    -- Bµå·¡°ï¸¸ µ¦¿¡ ¼³Á¤µÈ °æ¿ì
+    -- Bë“œë˜ê³¤ë§Œ ë±ì— ì„¤ì •ëœ ê²½ìš°
     elseif b_deck_idx then
         return false
 
-    -- µÑ ´Ù µ¦¿¡ ¼³Á¤µÇÁö ¾ÊÀº °æ¿ì
+    -- ë‘˜ ë‹¤ ë±ì— ì„¤ì •ë˜ì§€ ì•Šì€ ê²½ìš°
     else
         return nil
     end
@@ -207,7 +207,7 @@ end
 -- function condition_cool_time
 -------------------------------------
 function UI_ReadySceneNew:condition_cool_time(a,b)
-    -- µÑ´Ù »ç¿ë°¡´ÉÇÑ µå·¡°ïÀÌ¶ó¸é ´ÙÀ½ Á¤·Ä·Î (ÃÖÁ¾½Ã°£Àº °è¼Ó ÀúÀåµÇ±â ¶§¹®¿¡ ½Ã°£¸¸À¸·Î ºñ±³ÇÏ¸é ¾ÈµÊ)
+    -- ë‘˜ë‹¤ ì‚¬ìš©ê°€ëŠ¥í•œ ë“œë˜ê³¤ì´ë¼ë©´ ë‹¤ìŒ ì •ë ¬ë¡œ (ìµœì¢…ì‹œê°„ì€ ê³„ì† ì €ì¥ë˜ê¸° ë•Œë¬¸ì— ì‹œê°„ë§Œìœ¼ë¡œ ë¹„êµí•˜ë©´ ì•ˆë¨)
     local a_enable = g_friendData:checkUseEnableDragon(a['data']['id'])
     local b_enable = g_friendData:checkUseEnableDragon(b['data']['id'])
 
@@ -229,11 +229,11 @@ end
 -------------------------------------
 function UI_ReadySceneNew:init_sortMgr(stage_id)
 
-	-- Á¤·Ä ¸Å´ÏÀú »ı¼º
+	-- ì •ë ¬ ë§¤ë‹ˆì € ìƒì„±
     self.m_sortManagerDragon = SortManager_Dragon()
     self.m_sortManagerFriendDragon = SortManager_Dragon()
     
-	-- ³ªÁß¿¡ Á¤¸®
+	-- ë‚˜ì¤‘ì— ì •ë¦¬
 	do
 		local function cond(a, b)
 			return self:condition_deck_idx(a, b)
@@ -242,19 +242,19 @@ function UI_ReadySceneNew:init_sortMgr(stage_id)
         self.m_sortManagerFriendDragon:addPreSortType('deck_idx', false, cond)
 	end
 
-    -- Ä£±¸ µå·¡°ïÀÎ °æ¿ì ÄğÅ¸ÀÓ Á¤·Ä Ãß°¡
+    -- ì¹œêµ¬ ë“œë˜ê³¤ì¸ ê²½ìš° ì¿¨íƒ€ì„ ì •ë ¬ ì¶”ê°€
     local function cond(a, b)
 		return self:condition_cool_time(a, b)
 	end
     self.m_sortManagerFriendDragon:addPreSortType('used_time', false, cond)
 
-    -- Á¤·Ä UI »ı¼º
+    -- ì •ë ¬ UI ìƒì„±
     local vars = self.vars
     local uic_sort_list = MakeUICSortList_dragonManage(vars['sortBtn'], vars['sortLabel'], UIC_SORT_LIST_TOP_TO_BOT)
     self.m_uicSortList = uic_sort_list
     
 
-	-- ¹öÆ°À» ÅëÇØ Á¤·ÄÀÌ º¯°æµÇ¾úÀ» °æ¿ì
+	-- ë²„íŠ¼ì„ í†µí•´ ì •ë ¬ì´ ë³€ê²½ë˜ì—ˆì„ ê²½ìš°
     local function sort_change_cb(sort_type)
         self.m_sortManagerDragon:pushSortOrder(sort_type)
         self.m_sortManagerFriendDragon:pushSortOrder(sort_type)
@@ -263,7 +263,7 @@ function UI_ReadySceneNew:init_sortMgr(stage_id)
     end
     uic_sort_list:setSortChangeCB(sort_change_cb)
 
-    -- ¿À¸§Â÷¼ø/³»¸²Â÷¼ø ¹öÆ°
+    -- ì˜¤ë¦„ì°¨ìˆœ/ë‚´ë¦¼ì°¨ìˆœ ë²„íŠ¼
     vars['sortOrderBtn']:registerScriptTapHandler(function()
         local ascending = (not self.m_sortManagerDragon.m_defaultSortAscending)
         self.m_sortManagerDragon:setAllAscending(ascending)
@@ -279,13 +279,13 @@ function UI_ReadySceneNew:init_sortMgr(stage_id)
         end
     end)
 
-    -- ¼¼ÀÌºêµ¥ÀÌÅÍ¿¡ ÀÖ´Â Á¤·Ä °ªÀ» Àû¿ë
+    -- ì„¸ì´ë¸Œë°ì´í„°ì— ìˆëŠ” ì •ë ¬ ê°’ì„ ì ìš©
     self:apply_dragonSort_saveData()
 end
 
 -------------------------------------
 -- function apply_dragonSort
--- @brief Å×ÀÌºí ºä¿¡ Á¤·Ä Àû¿ë
+-- @brief í…Œì´ë¸” ë·°ì— ì •ë ¬ ì ìš©
 -------------------------------------
 function UI_ReadySceneNew:apply_dragonSort()
     local sort_func 
@@ -305,16 +305,16 @@ end
 
 -------------------------------------
 -- function save_dragonSortInfo
--- @brief »õ·Î¿î Á¤·Ä ¼³Á¤À» ¼¼ÀÌºê µ¥ÀÌÅÍ¿¡ Àû¿ë
+-- @brief ìƒˆë¡œìš´ ì •ë ¬ ì„¤ì •ì„ ì„¸ì´ë¸Œ ë°ì´í„°ì— ì ìš©
 -------------------------------------
 function UI_ReadySceneNew:save_dragonSortInfo()
     g_localData:lockSaveData()
 
-    -- Á¤·Ä ¼ø¼­ ÀúÀå
+    -- ì •ë ¬ ìˆœì„œ ì €ì¥
     local sort_order = self.m_sortManagerDragon.m_lSortOrder
     g_localData:applyLocalData(sort_order, 'dragon_sort_fight', 'order')
 
-    -- ¿À¸§Â÷¼ø, ³»¸²Â÷¼ø ÀúÀå
+    -- ì˜¤ë¦„ì°¨ìˆœ, ë‚´ë¦¼ì°¨ìˆœ ì €ì¥
     local ascending = self.m_sortManagerDragon.m_defaultSortAscending
     g_localData:applyLocalData(ascending, 'dragon_sort_fight', 'ascending')
 
@@ -323,7 +323,7 @@ end
 
 -------------------------------------
 -- function apply_dragonSort_saveData
--- @brief ¼¼ÀÌºêµ¥ÀÌÅÍ¿¡ ÀÖ´Â Á¤·Ä ¼ø¼­ Àû¿ë
+-- @brief ì„¸ì´ë¸Œë°ì´í„°ì— ìˆëŠ” ì •ë ¬ ìˆœì„œ ì ìš©
 -------------------------------------
 function UI_ReadySceneNew:apply_dragonSort_saveData()
     local l_order = g_localData:get('dragon_sort_fight', 'order')
@@ -338,7 +338,7 @@ function UI_ReadySceneNew:apply_dragonSort_saveData()
 
     self.m_uicSortList:setSelectSortType(sort_type)
 
-    do -- ¿À¸§Â÷¼ø, ³»¸²Â÷¼ø ¾ÆÀÌÄÜ
+    do -- ì˜¤ë¦„ì°¨ìˆœ, ë‚´ë¦¼ì°¨ìˆœ ì•„ì´ì½˜
         local vars = self.vars
         vars['sortOrderSprite']:stopAllActions()
         if ascending then
@@ -354,14 +354,14 @@ end
 function UI_ReadySceneNew:initUI()
     local vars = self.vars
 
-    do -- ½ºÅ×ÀÌÁö¿¡ ÇØ´çÇÏ´Â ½ºÅ×¹Ì³ª ¾ÆÀÌÄÜ »ı¼º
+    do -- ìŠ¤í…Œì´ì§€ì— í•´ë‹¹í•˜ëŠ” ìŠ¤í…Œë¯¸ë‚˜ ì•„ì´ì½˜ ìƒì„±
         local vars = self.vars
         local type = TableDrop:getStageStaminaType(self.m_stageID)
         local icon = IconHelper:getStaminaInboxIcon(type)
         vars['staminaNode']:addChild(icon)
     end
 
-    -- ¹è°æ
+    -- ë°°ê²½
     local attr = TableStageData:getStageAttr(self.m_stageID)
     if self:checkVarsKey('bgNode', attr) then
         vars['bgNode']:removeAllChildren()
@@ -369,18 +369,18 @@ function UI_ReadySceneNew:initUI()
         vars['bgNode']:addChild(animator.m_node)
     end
 
-	-- Äİ·Î¼¼¿ò ¿¡¿ÜÃ³¸®
+	-- ì½œë¡œì„¸ì›€ ì—ì™¸ì²˜ë¦¬
 	if (self.m_stageID == COLOSSEUM_STAGE_ID or self.m_stageID == FRIEND_MATCH_STAGE_ID) then
 		vars['friendToggleBtn']:setVisible(false)
 		vars['autoStartOnBtn']:setVisible(false)
 
-		-- ¹è°æ ¾Æ¹«°Å³ª ³Ö¾îÁØ´Ù
+		-- ë°°ê²½ ì•„ë¬´ê±°ë‚˜ ë„£ì–´ì¤€ë‹¤
 		vars['bgNode']:removeAllChildren()
 		local animator = ResHelper:getUIDragonBG('fire', 'idle')
         vars['bgNode']:addChild(animator.m_node)
 	end
 
-    -- Å¬·£´øÀü
+    -- í´ëœë˜ì „
     local game_mode = g_stageData:getGameMode(self.m_stageID)
     if (game_mode == GAME_MODE_CLAN_RAID) then
         vars['friendToggleBtn']:setVisible(false)
@@ -394,39 +394,39 @@ end
 function UI_ReadySceneNew:initButton()
     local vars = self.vars
 	
-	-- µå·¡°ï °ü¸®
+	-- ë“œë˜ê³¤ ê´€ë¦¬
     vars['manageBtn']:registerScriptTapHandler(function() self:click_manageBtn() end)
 
-	-- ÃßÃµ ¹èÄ¡, ¸ğµÎ ÇØÁ¦
+	-- ì¶”ì²œ ë°°ì¹˜, ëª¨ë‘ í•´ì œ
     vars['autoBtn']:registerScriptTapHandler(function() self:click_autoBtn() end)
     vars['removeBtn']:registerScriptTapHandler(function() self:click_removeBtn() end)
 
-	-- ÀüÅõ ½ÃÀÛ
+	-- ì „íˆ¬ ì‹œì‘
     vars['startBtn']:registerScriptTapHandler(function() self:click_startBtn() end)
 	vars['startBtn']:setClickSoundName('ui_game_start')
 
-	-- ¿¬¼Ó ÀüÅõ
+	-- ì—°ì† ì „íˆ¬
     vars['autoStartOnBtn'] = UIC_CheckBox(vars['autoStartOnBtn'].m_node, vars['autoStartOnSprite'], false)
     vars['autoStartOnBtn']:setManualMode(true)
     vars['autoStartOnBtn']:registerScriptTapHandler(function() self:click_autoStartOnBtn() end)
 
-	-- Å×ÀÌ¸Ó º¯°æ
+	-- í…Œì´ë¨¸ ë³€ê²½
     vars['tamerBtn']:registerScriptTapHandler(function() self:click_tamerBtn() end)
     vars['tamerBtn']:setActionType(UIC_Button.ACTION_TYPE_WITHOUT_SCAILING)
 
-	-- ¸®´õ º¯°æ
+	-- ë¦¬ë” ë³€ê²½
 	vars['leaderBtn']:registerScriptTapHandler(function() self:click_leaderBtn() end)
 
-	-- ÁøÇü °ü¸®
+	-- ì§„í˜• ê´€ë¦¬
     vars['fomationBtn']:registerScriptTapHandler(function() self:click_fomationBtn() end)
 
 
-    -- Äİ·Î¼¼¿òÀÏ °æ¿ì
+    -- ì½œë¡œì„¸ì›€ì¼ ê²½ìš°
     if (self.m_stageID == COLOSSEUM_STAGE_ID or self.m_stageID == FRIEND_MATCH_STAGE_ID) then
         vars['actingPowerNode']:setVisible(false)
         vars['startBtn']:registerScriptTapHandler(function() self:click_backBtn() end)
         vars['startBtnLabel']:setPositionX(0)
-        vars['startBtnLabel']:setString(Str('º¯°æ ¿Ï·á'))
+        vars['startBtnLabel']:setString(Str('ë³€ê²½ ì™„ë£Œ'))
     end
 end
 
@@ -438,25 +438,25 @@ function UI_ReadySceneNew:refresh()
     local game_mode = g_stageData:getGameMode(stage_id)
     local vars = self.vars
 
-    do -- ½ºÅ×ÀÌÁö ÀÌ¸§
+    do -- ìŠ¤í…Œì´ì§€ ì´ë¦„
         local str = g_stageData:getStageName(stage_id)
         if (stage_id == COLOSSEUM_STAGE_ID) then
             if (self.m_subInfo == 'atk') then
-                str = Str('Äİ·Î¼¼¿ò °ø°İ')
+                str = Str('ì½œë¡œì„¸ì›€ ê³µê²©')
             elseif (self.m_subInfo == 'def') then
-                str = Str('Äİ·Î¼¼¿ò ¹æ¾î')
+                str = Str('ì½œë¡œì„¸ì›€ ë°©ì–´')
             else
-                str = Str('Äİ·Î¼¼¿ò ÁØºñ')
+                str = Str('ì½œë¡œì„¸ì›€ ì¤€ë¹„')
             end
 
 	    elseif (stage_id == FRIEND_MATCH_STAGE_ID) then
-            str = Str('Ä£±¸´ëÀü °ø°İ')
+            str = Str('ì¹œêµ¬ëŒ€ì „ ê³µê²©')
         end
         self.m_titleStr = str
         g_topUserInfo:setTitleString(str)
     end
 
-    do -- ÇÊ¿ä È°µ¿·Â Ç¥½Ã
+    do -- í•„ìš” í™œë™ë ¥ í‘œì‹œ
         if (stage_id == DEV_STAGE_ID) then
             self.vars['actingPowerLabel']:setString('0')
         else
@@ -465,7 +465,7 @@ function UI_ReadySceneNew:refresh()
         end
     end
 
-    -- ¸ğÇè ¼Òºñ È°µ¿·Â ÇÖÅ¸ÀÓ °ü·Ã
+    -- ëª¨í—˜ ì†Œë¹„ í™œë™ë ¥ í•«íƒ€ì„ ê´€ë ¨
     if (game_mode == GAME_MODE_ADVENTURE) then
         local active, key, str = g_hotTimeData:getActiveHotTimeInfo_stamina()
         if active then
@@ -509,7 +509,7 @@ function UI_ReadySceneNew:refresh_combatPower()
 
 		local deck = self.m_readySceneDeck:getDeckCombatPower()
 
-        -- Å×ÀÌ¸Ó
+        -- í…Œì´ë¨¸
         do
             local tamer_id = self:getCurrTamerID()
             local t_tamer_data = g_tamerData:getTamerServerInfo(tamer_id)
@@ -540,7 +540,7 @@ function UI_ReadySceneNew:refresh_tamer()
     local tamer_id = self:getCurrTamerID()
 	local tamer_res = table_tamer:getValue(tamer_id, 'res_sd')
 
-    -- ÄÚ½ºÆ¬ Àû¿ë
+    -- ì½”ìŠ¤íŠ¬ ì ìš©
     local t_costume_data = g_tamerCostumeData:getCostumeDataWithTamerID(tamer_id)
     if (t_costume_data) then
         tamer_res = t_costume_data:getResSD()
@@ -564,10 +564,10 @@ function UI_ReadySceneNew:refresh_buffInfo()
 		return
 	end
 
-    -- Å×ÀÌ¸Ó ¹öÇÁ
+    -- í…Œì´ë¨¸ ë²„í”„
     self:refresh_buffInfo_TamerBuff()
 
-	-- ¸®´õ ¹öÇÁ
+	-- ë¦¬ë” ë²„í”„
 	do
 		self.m_readySceneDeck:refreshLeader()
 		
@@ -583,15 +583,15 @@ function UI_ReadySceneNew:refresh_buffInfo()
 			if (skill_info) then
 				leader_buff = skill_info:getSkillDesc()
 			else
-				leader_buff = Str('¸®´õ ¹öÇÁ ¾øÀ½')
+				leader_buff = Str('ë¦¬ë” ë²„í”„ ì—†ìŒ')
 			end
 		else
-			leader_buff = Str('¸®´õ ¹öÇÁ ¾øÀ½')
+			leader_buff = Str('ë¦¬ë” ë²„í”„ ì—†ìŒ')
 		end
 		vars['leaderBuffLabel']:setString(leader_buff)
 	end
 
-	-- ÁøÇü ¹öÇÁ
+	-- ì§„í˜• ë²„í”„
 	do
 		local l_formation = g_formationData:getFormationInfoList()
 		local curr_formation = self.m_readySceneDeck.m_currFormation
@@ -608,11 +608,11 @@ end
 function UI_ReadySceneNew:refresh_buffInfo_TamerBuff()
     local vars = self.vars
 
-    -- Å×ÀÌ¸Ó ¹öÇÁ
+    -- í…Œì´ë¨¸ ë²„í”„
     local tamer_id = self:getCurrTamerID()
 	local t_tamer_data = g_tamerData:getTamerServerInfo(tamer_id)
 	local skill_mgr = MakeTamerSkillManager(t_tamer_data)
-	local skill_info = skill_mgr:getSkillIndivisualInfo_usingIdx(2)	-- 2¹øÀÌ ÆĞ½Ãºê
+	local skill_info = skill_mgr:getSkillIndivisualInfo_usingIdx(2)	-- 2ë²ˆì´ íŒ¨ì‹œë¸Œ
 	local tamer_buff = skill_info:getSkillDesc()
 
 	vars['tamerBuffLabel']:setString(tamer_buff)
@@ -645,7 +645,7 @@ end
 
 -------------------------------------
 -- function click_manageBtn
--- @breif µå·¡°ï °ü¸®
+-- @breif ë“œë˜ê³¤ ê´€ë¦¬
 -------------------------------------
 function UI_ReadySceneNew:click_manageBtn()
     local function next_func()
@@ -656,7 +656,7 @@ function UI_ReadySceneNew:click_manageBtn()
                 self.m_readySceneSelect:init_dragonTableView()
                 self.m_readySceneDeck:init_deck()
 
-                do -- Á¤·Ä µµ¿ì¹Ì
+                do -- ì •ë ¬ ë„ìš°ë¯¸
 					self:apply_dragonSort()
                 end
             end
@@ -665,7 +665,7 @@ function UI_ReadySceneNew:click_manageBtn()
         ui:setCloseCB(close_cb)
     end
     
-    -- µ¦ ÀúÀå ÈÄ ÀÌµ¿
+    -- ë± ì €ì¥ í›„ ì´ë™
     self:checkChangeDeck(next_func)
 end
 
@@ -681,11 +681,11 @@ function UI_ReadySceneNew:click_autoBtn()
     local game_mode = g_stageData:getGameMode(self.m_stageID)
     if (game_mode == GAME_MODE_ANCIENT_TOWER) then
         local attr = g_attrTowerData:getSelAttr()
-        -- ½ÃÇèÀÇ Å¾ (°°Àº ¼Ó¼º µå·¡°ï¸¸ ¹Ş¾Æ¿È)
+        -- ì‹œí—˜ì˜ íƒ‘ (ê°™ì€ ì†ì„± ë“œë˜ê³¤ë§Œ ë°›ì•„ì˜´)
         if (attr) then
             l_dragon_list = g_dragonsData:getDragonsListWithAttr(attr)
 
-        -- °í´ëÀÇ Å¾
+        -- ê³ ëŒ€ì˜ íƒ‘
         else
             l_dragon_list = g_dragonsData:getDragonsList()
         end
@@ -697,21 +697,21 @@ function UI_ReadySceneNew:click_autoBtn()
     local l_auto_deck = helper:getAutoDeck()
     l_auto_deck = UI_ReadySceneNew_Deck:convertSimpleDeck(l_auto_deck)
 
-    -- 1. µ¦À» ºñ¿ò
+    -- 1. ë±ì„ ë¹„ì›€
     local skip_sort = true
     self.m_readySceneDeck:clear_deck(skip_sort)
 
-    -- 2. µ¦À» Ã¤¿ò
+    -- 2. ë±ì„ ì±„ì›€
     for i,t_dragon_data in pairs(l_auto_deck) do
         self.m_readySceneDeck:setFocusDeckSlotEffect(i)
         local skip_sort = true
         self:click_dragonCard(t_dragon_data, skip_sort, i)
     end
 
-    -- Ä£±¸ µå·¡°ï ÇØÁ¦
+    -- ì¹œêµ¬ ë“œë˜ê³¤ í•´ì œ
     g_friendData:delSettedFriendDragon()
 
-    -- Á¤·Ä
+    -- ì •ë ¬
     self:apply_dragonSort()
 end
 
@@ -720,7 +720,7 @@ end
 -- @breif
 -------------------------------------
 function UI_ReadySceneNew:click_removeBtn()
-    -- Ä£±¸ µå·¡°ï ÇØÁ¦
+    -- ì¹œêµ¬ ë“œë˜ê³¤ í•´ì œ
     g_friendData:delSettedFriendDragon()
 
     self.m_readySceneDeck:clear_deck()
@@ -743,7 +743,7 @@ end
 -- @breif
 -------------------------------------
 function UI_ReadySceneNew:changeTeam(deck_name)
-    -- Àç·á¿¡¼­ "ÃâÀü" Áß ÀÌ¶ó°í Ç¥½ÃµÈ µå·¡°ï ÇØÁ¦
+    -- ì¬ë£Œì—ì„œ "ì¶œì „" ì¤‘ ì´ë¼ê³  í‘œì‹œëœ ë“œë˜ê³¤ í•´ì œ
     for i,v in pairs(self.m_readySceneDeck.m_lDeckList) do
         local doid = v
         local table_view = self.m_readySceneSelect:getTableView()
@@ -753,13 +753,13 @@ function UI_ReadySceneNew:changeTeam(deck_name)
         end
     end
 
-    -- ¼±ÅÃµÈ µ¦ º¯°æ
+    -- ì„ íƒëœ ë± ë³€ê²½
     g_deckData:setSelectedDeck(deck_name)
 
-    -- º¯°æµÈ µ¦À¸·Î ´Ù½Ã ÃÊ±âÈ­
+    -- ë³€ê²½ëœ ë±ìœ¼ë¡œ ë‹¤ì‹œ ì´ˆê¸°í™”
     self.m_readySceneDeck:init_deck()
 
-    -- Áï½Ã Á¤·Ä
+    -- ì¦‰ì‹œ ì •ë ¬
     self:apply_dragonSort()
 end
 
@@ -770,7 +770,7 @@ end
 function UI_ReadySceneNew:click_startBtn()
     local stage_id = self.m_stageID
 
-    -- °³¹ß ½ºÅ×ÀÌÁö
+    -- ê°œë°œ ìŠ¤í…Œì´ì§€
     if (stage_id == DEV_STAGE_ID) then
         self:checkChangeDeck(function()
             local scene = SceneGame(nil, stage_id, 'stage_dev', true)
@@ -786,12 +786,12 @@ function UI_ReadySceneNew:click_startBtn()
     end
 
     if (self:getDragonCount() <= 0) then
-        UIManager:toastNotificationRed('ÃÖ¼Ò 1¸í ÀÌ»óÀº ÃâÀü½ÃÄÑ¾ß ÇÕ´Ï´Ù.')
+        UIManager:toastNotificationRed(Str('ìµœì†Œ 1ëª… ì´ìƒì€ ì¶œì „ì‹œì¼œì•¼ í•©ë‹ˆë‹¤.'))
 
     elseif (not g_stageData:isOpenStage(stage_id)) then
-        MakeSimplePopup(POPUP_TYPE.OK, Str('ÀÌÀü ½ºÅ×ÀÌÁö¸¦ Å¬¸®¾îÇÏ¼¼¿ä.'))
+        MakeSimplePopup(POPUP_TYPE.OK, Str('ì´ì „ ìŠ¤í…Œì´ì§€ë¥¼ í´ë¦¬ì–´í•˜ì„¸ìš”.'))
 
-    -- ³¯°³ ¼Ò¸ğ
+    -- ë‚ ê°œ ì†Œëª¨
     elseif (not g_staminasData:checkStageStamina(stage_id)) then
         g_staminasData:staminaCharge(stage_id)
                     
@@ -802,12 +802,12 @@ function UI_ReadySceneNew:click_startBtn()
         local check_attr_tower
         local start_game
 
-        -- µ¦ º¯°æ À¯¹« È®ÀÎ ÈÄ ÀúÀå
+        -- ë± ë³€ê²½ ìœ ë¬´ í™•ì¸ í›„ ì €ì¥
         check_deck = function()
             self:checkChangeDeck(check_dragon_inven)
         end
 
-        -- µå·¡°ï °¡¹æ È®ÀÎ(ÃÖ´ë °¹¼ö ÃÊ°ú ½Ã È¹µæ ¸øÇÔ)
+        -- ë“œë˜ê³¤ ê°€ë°© í™•ì¸(ìµœëŒ€ ê°¯ìˆ˜ ì´ˆê³¼ ì‹œ íšë“ ëª»í•¨)
         check_dragon_inven = function()
             local function manage_func()
                 self:click_manageBtn()
@@ -815,7 +815,7 @@ function UI_ReadySceneNew:click_startBtn()
             g_dragonsData:checkMaximumDragons(check_item_inven, manage_func)
         end
 
-        -- ¾ÆÀÌÅÛ °¡¹æ È®ÀÎ(ÃÖ´ë °¹¼ö ÃÊ°ú ½Ã È¹µæ ¸øÇÔ)
+        -- ì•„ì´í…œ ê°€ë°© í™•ì¸(ìµœëŒ€ ê°¯ìˆ˜ ì´ˆê³¼ ì‹œ íšë“ ëª»í•¨)
         check_item_inven = function()
             local function manage_func()
                 UI_Inventory()
@@ -823,7 +823,7 @@ function UI_ReadySceneNew:click_startBtn()
             g_inventoryData:checkMaximumItems(check_attr_tower, manage_func)
         end
 
-        -- ½ÃÇèÀÇ Å¾ ¼Ó¼º µå·¡°ï È®ÀÎ
+        -- ì‹œí—˜ì˜ íƒ‘ ì†ì„± ë“œë˜ê³¤ í™•ì¸
         check_attr_tower = function()
             if (g_ancientTowerData:isAncientTowerStage(stage_id)) then
                 local l_deck = self.m_readySceneDeck.m_lDeckList
@@ -835,7 +835,7 @@ function UI_ReadySceneNew:click_startBtn()
             end
         end
 
-        -- °ÔÀÓ ½ÃÀÛ
+        -- ê²Œì„ ì‹œì‘
         start_game = function()
             self:networkGameStart()
         end
@@ -846,7 +846,7 @@ end
 
 -------------------------------------
 -- function askCashPlay
--- @breif Äİ·Î¼¼¿ò Àü¿ë
+-- @breif ì½œë¡œì„¸ì›€ ì „ìš©
 -------------------------------------
 function UI_ReadySceneNew:askCashPlay()
     local function ok_btn_cb()
@@ -858,7 +858,7 @@ function UI_ReadySceneNew:askCashPlay()
         self:checkChangeDeck(next_func)
     end
 
-    local msg = Str('ÀÔÀå±ÇÀÌ ºÎÁ·ÇÕ´Ï´Ù.\n{@impossible}´ÙÀÌ¾Æ¸óµå 1°³{@default}¸¦ »ç¿ëÇØ ÁøÇàÇÏ½Ã°Ú½À´Ï±î?')
+    local msg = Str('ì…ì¥ê¶Œì´ ë¶€ì¡±í•©ë‹ˆë‹¤.\n{@impossible}ë‹¤ì´ì•„ëª¬ë“œ 1ê°œ{@default}ë¥¼ ì‚¬ìš©í•´ ì§„í–‰í•˜ì‹œê² ìŠµë‹ˆê¹Œ?')
     UI_ConfirmPopup('cash', 1, msg, ok_btn_cb)
 end
 
@@ -873,7 +873,7 @@ function UI_ReadySceneNew:click_autoStartOnBtn()
 
     local is_auto = g_autoPlaySetting:isAutoPlay()
 
-    -- ¹Ù·Î ÇØÁ¦
+    -- ë°”ë¡œ í•´ì œ
     if (is_auto) then
         g_autoPlaySetting:setAutoPlay(false)
         refresh_btn()
@@ -889,11 +889,11 @@ end
 -- @breif
 -------------------------------------
 function UI_ReadySceneNew:click_fomationBtn()
-	-- m_readySceneDeck¿¡¼­ ÇöÀç formation ¹Ş¾Æ¿Í Àü´Ş
+	-- m_readySceneDeckì—ì„œ í˜„ì¬ formation ë°›ì•„ì™€ ì „ë‹¬
 	local curr_formation_type = self.m_readySceneDeck.m_currFormation
     local ui = UI_FormationPopup(curr_formation_type)
 	
-	-- Á¾·áÇÏ¸é¼­ ¼±ÅÃµÈ formationÀ» m_readySceneDeckÀ¸·Î Àü´Ş
+	-- ì¢…ë£Œí•˜ë©´ì„œ ì„ íƒëœ formationì„ m_readySceneDeckìœ¼ë¡œ ì „ë‹¬
 	local function close_cb(formation_type)
         if formation_type then
 		    self.m_readySceneDeck:setFormation(formation_type)
@@ -925,7 +925,7 @@ function UI_ReadySceneNew:click_leaderBtn()
 	local l_doid = self.m_readySceneDeck.m_lDeckList
 	local leader_idx = self.m_readySceneDeck.m_currLeader
 
-	-- ¸®´õ¹öÇÁ ÀÖ´Â µå·¡°ï Ã¼Å©
+	-- ë¦¬ë”ë²„í”„ ìˆëŠ” ë“œë˜ê³¤ ì²´í¬
 	do
 		local cnt = 0
 		for _, doid in pairs(l_doid) do
@@ -949,7 +949,7 @@ end
 -- @breif
 -------------------------------------
 function UI_ReadySceneNew:replaceGameScene(game_key)
-    -- ½ÃÀÛÀÌ µÎ¹ø µÇÁö ¾Êµµ·Ï ÇÏ±â À§ÇÔ
+    -- ì‹œì‘ì´ ë‘ë²ˆ ë˜ì§€ ì•Šë„ë¡ í•˜ê¸° ìœ„í•¨
     UI_BlockPopup()
 
     local stage_id = self.m_stageID
@@ -982,7 +982,7 @@ end
 
 -------------------------------------
 -- function refresh_dragonCard
--- @brief ÀåÂø¿©ºÎ¿¡ µû¸¥ Ä«µå °»½Å
+-- @brief ì¥ì°©ì—¬ë¶€ì— ë”°ë¥¸ ì¹´ë“œ ê°±ì‹ 
 -------------------------------------
 function UI_ReadySceneNew:refresh_dragonCard(doid, is_friend)
     if (not self.m_readySceneDeck) then
@@ -1013,63 +1013,63 @@ function UI_ReadySceneNew:init_monsterListView()
     local node = self.vars['monsterListView']
     node:removeAllChildren()
 
-    -- »ı¼º Äİ¹é
+    -- ìƒì„± ì½œë°±
     local function create_func(ui, data)
         ui.root:setScale(0.6)
     end
 
-    -- stage_id·Î ¸ó½ºÅÍ ¾ÆÀÌÄÜ ¸®½ºÆ®
+    -- stage_idë¡œ ëª¬ìŠ¤í„° ì•„ì´ì½˜ ë¦¬ìŠ¤íŠ¸
     local stage_id = self.m_stageID
     local l_item_list = g_stageData:getMonsterIDList(stage_id)
 
-    -- Å×ÀÌºí ºä ÀÎ½ºÅÏ½º »ı¼º
+    -- í…Œì´ë¸” ë·° ì¸ìŠ¤í„´ìŠ¤ ìƒì„±
     local table_view = UIC_TableView(node)
     table_view.m_defaultCellSize = cc.size(94, 98)
     table_view:setCellUIClass(UI_MonsterCard, create_func)
     table_view:setDirection(cc.SCROLLVIEW_DIRECTION_HORIZONTAL)
     table_view:setItemList(l_item_list)
-    table_view.m_bAlignCenterInInsufficient = true -- ¸®½ºÆ® ³» °³¼ö ºÎÁ· ½Ã °¡¿îµ¥ Á¤·Ä
+    table_view.m_bAlignCenterInInsufficient = true -- ë¦¬ìŠ¤íŠ¸ ë‚´ ê°œìˆ˜ ë¶€ì¡± ì‹œ ê°€ìš´ë° ì •ë ¬
 end
 
 -------------------------------------
 -- function init_rewardListView
--- @brief È¹µæ °¡´É º¸»ó
+-- @brief íšë“ ê°€ëŠ¥ ë³´ìƒ
 -------------------------------------
 function UI_ReadySceneNew:init_rewardListView()
     local node = self.vars['rewardListView']
     node:removeAllChildren()
 
 
-    -- »ı¼º Äİ¹é
+    -- ìƒì„± ì½œë°±
     local function create_func(ui, data)
         ui.root:setScale(0.6)
     end
 
-    -- stage_id·Î µå¶øÁ¤º¸¸¦ ¾ò¾î¿È
+    -- stage_idë¡œ ë“œëì •ë³´ë¥¼ ì–»ì–´ì˜´
     local stage_id = self.m_stageID
     local drop_helper = DropHelper(stage_id)
     local l_item_list = drop_helper:getDisplayItemList()
 
 
-    -- Å×ÀÌºí ºä ÀÎ½ºÅÏ½º »ı¼º
+    -- í…Œì´ë¸” ë·° ì¸ìŠ¤í„´ìŠ¤ ìƒì„±
     local table_view = UIC_TableView(node)
     table_view.m_defaultCellSize = cc.size(94, 98)
     table_view:setCellUIClass(UI_ItemCard, create_func)
     table_view:setDirection(cc.SCROLLVIEW_DIRECTION_HORIZONTAL)
     table_view:setItemList(l_item_list)
-    table_view.m_bAlignCenterInInsufficient = true -- ¸®½ºÆ® ³» °³¼ö ºÎÁ· ½Ã °¡¿îµ¥ Á¤·Ä
+    table_view.m_bAlignCenterInInsufficient = true -- ë¦¬ìŠ¤íŠ¸ ë‚´ ê°œìˆ˜ ë¶€ì¡± ì‹œ ê°€ìš´ë° ì •ë ¬
 end
 ]]
 -------------------------------------
 -- function getStageStaminaInfo
--- @brief stage_id¿¡ ÇØ´çÇÏ´Â ÇÊ¿ä ½ºÅÂ¹Ì³Ê Å¸ÀÔ, °¹¼ö ¸®ÅÏ
+-- @brief stage_idì— í•´ë‹¹í•˜ëŠ” í•„ìš” ìŠ¤íƒœë¯¸ë„ˆ íƒ€ì…, ê°¯ìˆ˜ ë¦¬í„´
 -------------------------------------
 function UI_ReadySceneNew:getStageStaminaInfo()
     local stage_id = self.m_stageID
     local table_drop = TABLE:get('drop')
     local t_drop = table_drop[stage_id]
 
-    -- 'stamina' ÃßÈÄ¿¡ Å¸ÀÔº° stamina »ç¿ë ¿¹Á¤
+    -- 'stamina' ì¶”í›„ì— íƒ€ì…ë³„ stamina ì‚¬ìš© ì˜ˆì •
     local cost_type, cost_value
 	if (stage_id == COLOSSEUM_STAGE_ID) then
 		cost_type = 'pvp'
