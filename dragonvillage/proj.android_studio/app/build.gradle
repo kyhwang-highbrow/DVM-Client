@@ -4,7 +4,7 @@ apply plugin: 'com.android.application'
 
 // task preBuild excuted before android build 
 preBuild {
-    println '[TASK preBuild] do it before build'
+    println '[task preBuild] do it before build'
 }
 
 // task android build
@@ -55,6 +55,7 @@ android {
     }
 
     // productFlavors or buildType 에 따른 개별적인 source 설정 가능
+    // favors + buildType 가능
     sourceSets{
         dev100mbTest{
             assets.srcDir "../../../assets/100mb"
@@ -133,7 +134,6 @@ android {
     productFlavors {
         // DEV
         dev100mbTest{
-			versionCode 27
 			versionName "0.4.5"
             signingConfig signingConfigs.keystore
             externalNativeBuild {
@@ -147,12 +147,8 @@ android {
             }
         }
         devFullTest{
-			versionCode 27
 			versionName "0.4.5"
-            signingConfig signingConfigs.keystore
-            //applicationIdSuffix ".test"
-            //applicationId "com.perplelab.dvm.dev"        
-            //setProperty("archivesBaseName", "dvm-${versionName}")
+            signingConfig signingConfigs.keystore    
             externalNativeBuild {
                 ndkBuild {
                     cppFlags.add("-DTARGET_SERVER=SERVER_DEV")
@@ -166,7 +162,6 @@ android {
 
         // QA
         qa100mbTest{
-			versionCode 27
 			versionName "1.0.8"
             signingConfig signingConfigs.keystore
             externalNativeBuild {
@@ -180,7 +175,6 @@ android {
             }
         }
         qaFullTest{
-			versionCode 27
 			versionName "1.0.8"
             signingConfig signingConfigs.keystore
             externalNativeBuild {
@@ -196,7 +190,6 @@ android {
 
         // LIVE
         live100mb{
-			versionCode 27
 			versionName "1.0.8"
             signingConfig signingConfigs.upload_keystore
             externalNativeBuild {
@@ -210,7 +203,6 @@ android {
             }
         }
         liveFull{
-            versionCode 27
             versionName "1.0.8"
             signingConfig signingConfigs.keystore
             externalNativeBuild {
@@ -222,6 +214,11 @@ android {
                     cppFlags.add("-DIS_TEST_MODE=false")
                 }
             }
+        }
+
+        // 특정 시점에서의 test 빌드들은 최신 live 빌드의 versionCode와 동일해야 하므로 공통으로 관리 
+        main{
+            versionCode 27
         }
     }
 
@@ -253,10 +250,22 @@ android {
         }
     }
 
+    // apk 이름 변경 : "dvm_version_flavor_buildtype.apk
+    applicationVariants.all { variant ->
+        variant.outputs.each { output ->
+            def version = variant.versionName
+            def flavor = variant.productFlavors[0].name
+            def buildType = variant.variantData.variantConfiguration.buildType.name
+
+            def newApkName = "dvm_${version}_${flavor}_${buildType}.apk"
+
+            output.outputFile = new File(output.outputFile.parent, newApkName)
+        }
+    }
+
     configurations {
         all*.exclude group: 'com.android.support', module: 'support-annotations'
     }
-
 } // end:android
 
 allprojects {
