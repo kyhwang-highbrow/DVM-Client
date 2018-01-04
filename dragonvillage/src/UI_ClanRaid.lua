@@ -69,7 +69,16 @@ end
 -------------------------------------
 function UI_ClanRaid:initUI()
     local vars = self.vars
+    local struct_clan = g_clanData:getClanStruct()
 
+    -- 클랜 마크
+    local icon = struct_clan:makeClanMarkIcon()
+    vars['clanNode']:removeAllChildren()
+    vars['clanNode']:addChild(icon)
+
+    -- 클랜 이름
+    local clan_name = struct_clan:getClanName()
+    vars['clanLabel']:setString(clan_name)
 end
 
 -------------------------------------
@@ -86,24 +95,9 @@ end
 -- function refresh
 -------------------------------------
 function UI_ClanRaid:refresh()
-    local vars = self.vars
-    local struct_clan = g_clanData:getClanStruct()
-
-    -- 클랜 마크
-    local icon = struct_clan:makeClanMarkIcon()
-    vars['clanNode']:removeAllChildren()
-    vars['clanNode']:addChild(icon)
-
-    -- 클랜 이름
-    local clan_name = struct_clan:getClanName()
-    vars['clanLabel']:setString(clan_name)
-
-    -- 종료 시간
-    local status_text = g_clanRaidData:getClanRaidStatusText()
-    vars['timeLabel']:setString(status_text)
-
     self:initTableView()
     self:initRaidInfo()
+    self:refreshBtn()
 end
 
 -------------------------------------
@@ -135,9 +129,8 @@ function UI_ClanRaid:initTableView()
 	table_view:setDirection(cc.SCROLLVIEW_DIRECTION_VERTICAL)
     table_view:setItemList(l_rank_list)
 
-    local msg = Str('참여한 유저가 없다고라')
-    local scale = 0.8
-    table_view:makeDefaultEmptyMandragora(msg, scale)
+    local msg = Str('참여한 유저가 없습니다.')
+    table_view:makeDefaultEmptyDescLabel(msg)
 end
 
 -------------------------------------
@@ -147,6 +140,10 @@ function UI_ClanRaid:initRaidInfo()
     local vars = self.vars
     local struct_raid = g_clanRaidData:getClanRaidStruct()
     local stage_id = struct_raid:getStageID()
+
+    -- 종료 시간
+    local status_text = g_clanRaidData:getClanRaidStatusText()
+    vars['timeLabel']:setString(status_text)
 
     -- 보스 animator
     local boss_node = vars['bossNode']
@@ -166,10 +163,32 @@ function UI_ClanRaid:initRaidInfo()
     vars['attrNode']:removeAllChildren()
     vars['attrNode']:addChild(icon)
 
-    -- 체력 게이지
+    -- 체력 퍼센트
     local rate = struct_raid:getHpRate()
+    vars['hpLabel']:setString(string.format('%0.2f%%', rate))
+
+    -- 체력 게이지
     local action = cc.ProgressTo:create(0.5, rate)
     vars['bossHpGauge1']:runAction(action)
+end
+
+-------------------------------------
+-- function refreshBtn
+-- @brief 버튼 관련 활성화/비활성화
+-------------------------------------
+function UI_ClanRaid:refreshBtn()
+    local vars = self.vars
+    local struct_raid = g_clanRaidData:getClanRaidStruct()
+
+    local stage_id = struct_raid:getStageID()
+    local prev_stage_id = g_stageData:getSimplePrevStage(stage_id)
+    vars['prevBtn']:setVisible((prev_stage_id ~= nil))
+
+    local curr_stage_id = g_clanRaidData.m_curr_stageID
+    local next_stage_id = g_stageData:getNextStage(stage_id)
+
+    -- 현재 진행중인 던전 이후는 보여주지 않음 (던전 인스턴스 생성되지 않은 상태)
+    vars['nextBtn']:setVisible(curr_stage_id >= next_stage_id)
 end
 
 -------------------------------------
@@ -187,8 +206,6 @@ function UI_ClanRaid:click_prevBtn()
 
     if (prev_stage_id) then
         g_clanRaidData:request_info(prev_stage_id, finish_cb)
-    else
-        UIManager:toastNotificationRed(Str('클랜던전 정보가 없습니다.'))
     end
 end
 
@@ -197,16 +214,9 @@ end
 -- @brief 다음 던전 정보
 -------------------------------------
 function UI_ClanRaid:click_nextBtn()
-    local curr_stage_id = g_clanRaidData.m_curr_stageID
     local struct_raid = g_clanRaidData:getClanRaidStruct()
     local stage_id = struct_raid:getStageID()
     local next_stage_id = g_stageData:getNextStage(stage_id)
-
-    -- 현재 진행중인 던전 이후는 보여주지 않음 (던전 인스턴스 생성되지 않은 상태)
-    if (curr_stage_id < next_stage_id) then
-        UIManager:toastNotificationRed(Str('현재 난이도를 먼저 클리어하세요!'))
-        return
-    end
 
     local finish_cb = function()
         self:refresh()
@@ -214,8 +224,6 @@ function UI_ClanRaid:click_nextBtn()
 
     if (next_stage_id) then
         g_clanRaidData:request_info(next_stage_id, finish_cb)
-    else
-        UIManager:toastNotificationRed(Str('클랜던전 정보가 없습니다.'))
     end
 end
 

@@ -1,4 +1,4 @@
-﻿local PARENT = class(UI, ITopUserInfo_EventListener:getCloneTable()) --ITabUI:getCloneTable())
+﻿local PARENT = class(UI, ITopUserInfo_EventListener:getCloneTable(), ITabUI:getCloneTable()) 
 
 -------------------------------------
 -- class UI_ReadySceneNew
@@ -770,6 +770,7 @@ end
 -------------------------------------
 function UI_ReadySceneNew:click_startBtn()
     local stage_id = self.m_stageID
+    local game_mode = g_stageData:getGameMode(stage_id)
 
     -- 개발 스테이지
     if (stage_id == DEV_STAGE_ID) then
@@ -786,7 +787,10 @@ function UI_ReadySceneNew:click_startBtn()
         return
     end
 
-    if (self:getDragonCount() <= 0) then
+    -- 클랜던전인 경우 상단덱과 하단덱 모두 체크
+    if (game_mode == GAME_MODE_CLAN_RAID) and (not self:checkClanRaidDragon()) then
+        
+    elseif (self:getDragonCount() <= 0) then
         UIManager:toastNotificationRed(Str('최소 1명 이상은 출전시켜야 합니다.'))
 
     elseif (not g_stageData:isOpenStage(stage_id)) then
@@ -1006,6 +1010,14 @@ end
 function UI_ReadySceneNew:getDragonCount()
     return self.m_readySceneDeck:getDragonCount()
 end
+
+-------------------------------------
+-- function checkClanRaidDragon
+-------------------------------------
+function UI_ReadySceneNew:checkClanRaidDragon()
+    return self.m_readySceneDeck:checkClanRaidDragon()
+end
+
 --[[
 -------------------------------------
 -- function init_monsterListView

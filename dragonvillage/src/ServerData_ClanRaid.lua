@@ -16,6 +16,9 @@ ServerData_ClanRaid = class({
 
         -- 던전 참여한 유저 랭킹 리스트
         m_lRank = 'list',
+
+        -- 메인 (수동으로 전투가 가능한) 덱 (up or down)
+        m_main_deck = 'string',
     })
 
 -------------------------------------
@@ -23,6 +26,9 @@ ServerData_ClanRaid = class({
 -------------------------------------
 function ServerData_ClanRaid:init(server_data)
     self.m_serverData = server_data
+    
+    -- 메인덱은 로컬에 저장
+    self.m_main_deck = g_localData:get('clan_raid', 'main_deck') or 'up'
 end
 
 -------------------------------------
@@ -33,33 +39,61 @@ function ServerData_ClanRaid:getClanRaidStruct()
 end
 
 -------------------------------------
+-- function getClanRaidStruct
+-- @brief 메인 (수동으로 전투가 가능한) 덱 (up or down)
+-------------------------------------
+function ServerData_ClanRaid:getMainDeck()
+    return self.m_main_deck
+end
+
+-------------------------------------
+-- function setMainDeck
+-------------------------------------
+function ServerData_ClanRaid:setMainDeck(mode)
+    if (mode == 'up' or mode == 'down') then
+        self.m_main_deck = mode
+        g_localData:applyLocalData(mode, 'clan_raid', 'main_deck')
+    else
+        error('ServerData_ClanRaid:setMainDeck - 정의된 mode가 아닙니다.')
+    end
+end
+
+-------------------------------------
+-- function getAnotherMode
+-------------------------------------
+function ServerData_ClanRaid:getAnotherMode(mode)
+    local mode = (mode == 'up') and 'down' or 'up'
+    return mode
+end
+
+-------------------------------------
 -- function getDeckName
 -------------------------------------
 function ServerData_ClanRaid:getDeckName(mode)
-    local mode = mode or 'main' -- or 'sub'
+    local mode = mode or 'up' -- or 'down'
     local deck_name = 'clan_raid_' .. mode
     return deck_name
 end
 
 -------------------------------------
 -- function getAnotherDeckName
--- @breif 선택한 다른 모드 덱 가져옴 (메인 선택시 서브 덱, 서브 선택시 메인 덱)
+-- @breif 선택한 다른 모드 덱 네임 가져옴 (상단 -> 하단, 하단 -> 상단)
 -------------------------------------
 function ServerData_ClanRaid:getAnotherDeckName(mode)
-    local mode = (mode == 'main') and 'sub' or 'main'
-    local deck_name = 'clan_raid_' .. mode
-    return deck_name, mode
+    local another_mode = self:getAnotherMode(mode)
+    local deck_name = 'clan_raid_' .. another_mode
+    return deck_name
 end
 
 -------------------------------------
 -- function getTeamName
--- @breif main - 수동 공격대, sub -- 자동 공격대
+-- @breif up - 1 공격대, down - 2 공격대
 -------------------------------------
 function ServerData_ClanRaid:getTeamName(mode)
-    local mode = mode or 'main' -- or 'sub'
-    local team_name = (mode == 'main') and 
-                      Str('수동 공격대') or
-                      Str('자동 공격대') 
+    local mode = mode or 'up' -- or 'down'
+    local team_name = (mode == 'up') and 
+                      Str('1 공격대') or
+                      Str('2 공격대') 
     return team_name
 end
 

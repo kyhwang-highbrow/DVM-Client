@@ -150,7 +150,7 @@ function UI_ReadyScene:checkDeckProper()
         return
     end
 
-    -- 클랜 레이드 임시 처리
+    -- 클랜던전 임시 처리
     if (self.m_stageID == CLAN_RAID_STAGE_ID) then
         g_deckData:setSelectedDeck('adv')
         return

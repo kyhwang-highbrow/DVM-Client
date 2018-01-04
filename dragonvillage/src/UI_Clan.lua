@@ -258,7 +258,7 @@ end
 
 -------------------------------------
 -- function click_raidBtn
--- @breif 클랜 레이드 버튼 
+-- @breif 클랜던전 버튼 
 -------------------------------------
 function UI_Clan:click_raidBtn()
     UINavigator:goTo('clan_raid')

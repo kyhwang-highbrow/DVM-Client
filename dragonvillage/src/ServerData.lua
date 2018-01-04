@@ -185,7 +185,7 @@ function ServerData:getInstance()
     -- 클랜 랭킹
     g_clanRankData = ServerData_ClanRank(g_serverData)
 
-    -- 클랜 레이드
+    -- 클랜 던전
     g_clanRaidData = ServerData_ClanRaid(g_serverData)
 
 	-- 일일 미션

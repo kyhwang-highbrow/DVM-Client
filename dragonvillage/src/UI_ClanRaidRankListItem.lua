@@ -13,7 +13,6 @@ UI_ClanRaidRankListItem = class(PARENT, {
 function UI_ClanRaidRankListItem:init(t_rank_info)
     self.m_rankInfo = t_rank_info
     local vars = self:load('clan_raid_scene_item.ui')
-
     self:initUI()
     self:initButton()
     self:refresh()

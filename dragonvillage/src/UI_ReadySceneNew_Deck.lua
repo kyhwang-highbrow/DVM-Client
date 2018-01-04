@@ -25,7 +25,8 @@ UI_ReadySceneNew_Deck = class({
 
         m_cbOnDeckChange = 'function',
 
-        m_selRadioButton = 'UIC_RadioButton'
+        m_selRadioButton = 'UIC_RadioButton',
+        m_selTab = ''
     })
 
 local TOTAL_POS_CNT = 5
@@ -43,6 +44,9 @@ local DC_POS_Y = 0
 local DC_SCALE_ON_PLATE = 0.7
 local DC_SCALE = 0.61
 local DC_SCALE_PICK = (DC_SCALE * 0.8)
+
+local TAB_ATTACK_1 = 'up' -- 1 공격대 (상단)
+local TAB_ATTACK_2 = 'down' -- 2 공격대 (하단)
 
 -------------------------------------
 -- function init
@@ -83,12 +87,12 @@ function UI_ReadySceneNew_Deck:initButton()
     local vars = self.m_uiReadyScene.vars
     local stage_id = self.m_uiReadyScene.m_stageID
 
-    -- 클랜 던전 처리
+    -- 클랜 던전 처리 (수동, 자동 선택)
     local game_mode = g_stageData:getGameMode(stage_id)
     if (game_mode == GAME_MODE_CLAN_RAID) then
         local radio_button = UIC_RadioButton()
-        radio_button:addButtonAuto('main', vars)
-        radio_button:addButtonAuto('sub', vars)
+        radio_button:addButtonAuto('up', vars)
+        radio_button:addButtonAuto('down', vars)
         radio_button:setChangeCB(function() self:onChangeOption() end)
         self.m_selRadioButton = radio_button
     end
@@ -98,7 +102,22 @@ end
 -- function initTab
 -------------------------------------
 function UI_ReadySceneNew_Deck:initTab()
+    local target = self.m_uiReadyScene
     local vars = self.m_uiReadyScene.vars
+    local stage_id = self.m_uiReadyScene.m_stageID
+
+    -- 클랜 던전 처리 (제 1공격대, 2공격대 선택)
+    local game_mode = g_stageData:getGameMode(stage_id)
+    if (game_mode == GAME_MODE_CLAN_RAID) then
+        target:addTabWithLabel(TAB_ATTACK_1, vars['teamTabBtn1'], vars['teamTabLabel1'])
+        target:addTabWithLabel(TAB_ATTACK_2, vars['teamTabBtn2'], vars['teamTabLabel2'])
+
+        -- 저장된 메인덱 - (상단인가 하단인가)
+        local sel_deck = g_clanRaidData:getMainDeck()
+        target:setTab(sel_deck)
+
+        target:setChangeTabCB(function(tab, first) self:onChangeTab(tab, first) end)
+    end
 end
 
 -------------------------------------
@@ -107,18 +126,40 @@ end
 -------------------------------------
 function UI_ReadySceneNew_Deck:onChangeOption()
     local vars = self.m_uiReadyScene.vars
-    local sel_option = self.m_selRadioButton.m_selectedButton
+    local mode = self.m_selRadioButton.m_selectedButton
 
-    local deck_name = g_clanRaidData:getDeckName(sel_option)
+    -- 선택한 모드 메인덱으로 저장 (수동 전투)
+    do 
+        local label = vars[mode .. 'RadioLabel']
+        label:setTextColor(cc.c4b(255, 177, 1, 255))
+        label:setString(Str('수동 전투'))
+
+        local sprite = vars[mode .. 'RadioSprite']
+        sprite:setVisible(true)
+
+        g_clanRaidData:setMainDeck(mode)
+    end
+
+    -- 다른 모드는 자동 전투
+    do 
+        local anoter_mode = g_clanRaidData:getAnotherMode(mode)
+        local label = vars[anoter_mode .. 'RadioLabel']
+        label:setString(Str('자동 전투'))
+    end
+end
+
+-------------------------------------
+-- function onChangeTab
+-------------------------------------
+function UI_ReadySceneNew_Deck:onChangeTab(tab, first)
+    if (self.m_selTab == tab) then return end
+    
+    self.m_selTab = tab
+
+    local deck_name = g_clanRaidData:getDeckName(tab)
     local next_func = function()
         g_deckData:setSelectedDeck(deck_name)
         self:init_deck()
-
-        local label = vars[sel_option .. 'RadioLabel']
-        label:setTextColor(cc.c4b(255, 177, 1, 255))
-
-        local sprite = vars[sel_option .. 'RadioSprite']
-        sprite:setVisible(true)
     end
 
     if (deck_name) then
@@ -134,12 +175,10 @@ function UI_ReadySceneNew_Deck:click_dragonCard(t_dragon_data, skip_sort, idx)
     local stage_id = self.m_uiReadyScene.m_stageID
     local game_mode = g_stageData:getGameMode(stage_id)
 
-    -- 클랜 던전일 경우 현재 선택된 주덱과 보조덱 드래곤 체크
+    -- 클랜 던전일 경우 제1 공격대와 제2 공격대 드래곤 체크
     if (game_mode == GAME_MODE_CLAN_RAID) then
-        local sel_option = self.m_selRadioButton.m_selectedButton
-        local another_deck_name, mode = g_clanRaidData:getAnotherDeckName(sel_option)
-        local team_name = g_clanRaidData:getTeamName(mode)
-
+        local mode = self.m_selTab
+        local another_deck_name = g_clanRaidData:getAnotherDeckName(mode)
         local l_deck, formation, deck_name, leader = g_deckData:getDeck(another_deck_name)
         local is_used = false
 
@@ -151,6 +190,9 @@ function UI_ReadySceneNew_Deck:click_dragonCard(t_dragon_data, skip_sort, idx)
         end
 
         if (is_used) then
+            local another_mode = g_clanRaidData:getAnotherMode(mode)
+            local team_name = g_clanRaidData:getTeamName(another_mode)
+
             local msg = Str('{1}에 출전중인 드래곤입니다.', team_name)
             UIManager:toastNotificationRed(msg)
             return 
@@ -721,6 +763,55 @@ end
 function UI_ReadySceneNew_Deck:getDragonCount()
     local count = table.count(self.m_lDeckList)
     return count
+end
+
+-------------------------------------
+-- function checkClanRaidDragon
+-------------------------------------
+function UI_ReadySceneNew_Deck:checkClanRaidDragon()
+    local sel_mode = self.m_selTab
+
+    local toast_func = function(mode)
+        local team_name = g_clanRaidData:getTeamName(mode)
+        local msg = Str('{1}에 최소 1명 이상은 출전시켜야 합니다', team_name)
+        UIManager:toastNotificationRed(msg)
+    end
+
+    -- 상단 덱 체크
+    local mode = 'up'
+    if (sel_mode == mode) then
+        if (#self.m_lDeckList <= 0) then
+            toast_func(mode)
+            return false
+        end
+    else
+        local deck_name = g_clanRaidData:getDeckName(mode)
+        local l_deck, formation, deck_name, leader = g_deckData:getDeck(deck_name)
+
+        if (#l_deck <= 0) then
+            toast_func(mode)
+            return false
+        end
+    end
+    
+    -- 하단 덱 체크
+    local mode = 'down'
+    if (sel_mode == mode) then
+        if (#self.m_lDeckList <= 0) then
+            toast_func(mode)
+            return false
+        end
+    else
+        local deck_name = g_clanRaidData:getDeckName(mode)
+        local l_deck, formation, deck_name, leader = g_deckData:getDeck(deck_name)
+
+        if (#l_deck <= 0) then
+            toast_func(mode)
+            return false
+        end
+    end
+
+    return true
 end
 
 -------------------------------------
