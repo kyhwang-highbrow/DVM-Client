@@ -49,7 +49,7 @@ function UI_FriendMatchResult:initUI()
     vars['friendshipNode']:setVisible(true)
 
 	-- 이벤트 재화
-	vars['eventNode']:setVisible(false)
+	vars['eventNode1']:setVisible(false)
     vars['eventNode2']:setVisible(false)
 end
 
