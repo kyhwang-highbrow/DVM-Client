@@ -39,7 +39,8 @@ function Monster_ClanRaidBoss:setStatusCalc(status_calc)
         self.m_maxHp = self.m_world.m_gameState.m_bossMaxHp
         self.m_hp = math_min(self.m_hp, self.m_maxHp)
         
-        self.m_hpRatio = self.m_hpCount / self.m_maxHpCount + self.m_hp / self.m_maxHp
+        --self.m_hpRatio = self.m_hpCount / self.m_maxHpCount
+        self.m_hpRatio = self.m_hp / self.m_maxHp
 
         local indivisual_status = self.m_statusCalc.m_lStatusList['hp']
         indivisual_status:setBasicStat(self.m_maxHp, 0, 0, 0, 0)
@@ -181,7 +182,8 @@ function Monster_ClanRaidBoss:syncHp(hp_count, hp)
 
     self.m_hpCount = math_min(hp_count, self.m_maxHpCount)
     self.m_hp = math_min(hp, self.m_maxHp)
-    self.m_hpRatio = self.m_hpCount / self.m_maxHpCount
+    --self.m_hpRatio = self.m_hpCount / self.m_maxHpCount
+    self.m_hpRatio = self.m_hp / self.m_maxHp
 
     -- 체력바 가감 연출
     if (self.m_hpGauge) then

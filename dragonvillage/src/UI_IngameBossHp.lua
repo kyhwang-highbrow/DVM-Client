@@ -77,17 +77,19 @@ UI_IngameBossHpForClanRaid = class(UI_IngameBossHp, {})
     function UI_IngameBossHpForClanRaid:refresh()
         local vars = self.vars
 
-        local totalHp = self.m_world.m_gameState.m_bossHpCount
-        local totalMaxHp = self.m_world.m_gameState.m_bossMaxHpCount
+        --local totalHp = self.m_world.m_gameState.m_bossHpCount
+        --local totalMaxHp = self.m_world.m_gameState.m_bossMaxHpCount
+        local totalHp = self.m_world.m_gameState.m_bossHp
+        local totalMaxHp = self.m_world.m_gameState.m_bossMaxHp
 
-        local percentage = totalHp / totalMaxHp
+        local scale = totalHp / totalMaxHp
 
         -- 체력바 가감 연출
         if (vars['bossHpGauge1']) then
-            vars['bossHpGauge1']:setScaleX(percentage)
+            vars['bossHpGauge1']:setScaleX(scale)
         end
 	    if (vars['bossHpGauge2']) then
-            local action = cc.Sequence:create(cc.DelayTime:create(0.2), cc.ScaleTo:create(0.5, percentage, 1))
+            local action = cc.Sequence:create(cc.DelayTime:create(0.2), cc.ScaleTo:create(0.5, scale, 1))
             vars['bossHpGauge2']:runAction(cc.EaseIn:create(action, 2))
         end
     end

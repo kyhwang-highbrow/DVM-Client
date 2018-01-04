@@ -26,11 +26,11 @@ function GameState_ClanRaid:init(world)
     --self.m_limitTime = 300
 
     -- 임시 체력 설정
-    self.m_bossMaxHp = 100000
-    self.m_bossHp = 123456
+    self.m_bossMaxHp = 100000000
+    self.m_bossHp = self.m_bossMaxHp
 
-    self.m_bossMaxHpCount = 999
-    self.m_bossHpCount = 600
+    self.m_bossMaxHpCount = 0
+    self.m_bossHpCount = 0
 end
 
 -------------------------------------

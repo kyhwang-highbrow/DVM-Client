@@ -44,8 +44,9 @@ function SkillAoERound_Throw:initState()
 	self:setCommonState(self)
     self:addState('start', SkillAoERound_Throw.st_idle, nil, true)
     self:addState('draw', SkillAoERound_Throw.st_draw, 'idle', true)
-	self:addState('attack', SkillAoERound_Throw.st_attack, 'disappear', false)
-    self:addState('disappear', SkillAoERound_Throw.st_disappear, nil, false)
+	self:addState('attack', PARENT.st_attack, 'disappear', false)
+    --self:addState('disappear', SkillAoERound_Throw.st_disappear, nil, false)
+    self:addState('disappear', PARENT.st_disappear, nil, false)
 end
 
 -------------------------------------
@@ -73,6 +74,7 @@ function SkillAoERound_Throw.st_draw(owner, dt)
     end
 end
 
+--[[
 -------------------------------------
 -- function st_disappear
 -------------------------------------
@@ -86,6 +88,7 @@ function SkillAoERound_Throw.st_disappear(owner, dt)
 		return true
     end
 end
+]]--
 
 -------------------------------------
 -- function runAttack
