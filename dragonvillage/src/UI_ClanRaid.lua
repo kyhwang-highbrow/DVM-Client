@@ -221,8 +221,35 @@ function UI_ClanRaid:initRaidInfo()
     vars['hpLabel']:setString(string.format('%0.2f%%', rate))
 
     -- 체력 게이지
-    local action = cc.ProgressTo:create(0.5, rate)
+    local action = cc.ProgressTo:create(0.3, rate)
     vars['bossHpGauge1']:runAction(action)
+
+    self:showDungeonStateUI()
+end
+
+-------------------------------------
+-- function showDungeonStatus
+-- @brief 전 상태에 따른 UI 변경
+-------------------------------------
+function UI_ClanRaid:showDungeonStateUI()
+    local vars = self.vars
+    local struct_raid = g_clanRaidData:getClanRaidStruct()
+    local state = struct_raid:getState()
+    local noti_visual = vars['notiVisual']
+    noti_visual:setVisible(state ~= CLAN_RAID_STATE.NORMAL)
+
+    -- 다른 유저 도전중인 상태 
+    if (state == CLAN_RAID_STATE.CHALLENGE) then
+
+
+    -- 파이널 블로우 상태
+    elseif (state == CLAN_RAID_STATE.FINALBLOW) then
+        noti_visual:changeAni('fb_01', true)
+
+    -- 클리어한 상태
+    elseif (state == CLAN_RAID_STATE.CLEAR) then
+        noti_visual:changeAni('clear', true)
+    end
 end
 
 -------------------------------------

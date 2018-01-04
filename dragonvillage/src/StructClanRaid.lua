@@ -1,5 +1,12 @@
 local PARENT = Structure
 
+CLAN_RAID_STATE = {
+    NORMAL = 1, -- 입장 가능
+    CHALLENGE = 2, -- 유저 도전중
+    FINALBLOW = 3, -- 파이널 블로우 
+    CLEAR = 4 -- 클리어
+}
+
 -------------------------------------
 -- class StructClanRaid
 -------------------------------------
@@ -15,6 +22,8 @@ StructClanRaid = class(PARENT, {
         rank_list = 'list',
 
         player = 'user', -- 현재 플레이중인 유저정보
+
+        state = 'CLAN_RAID_STATE'
     })
 
 local THIS = StructClanRaid
@@ -41,6 +50,34 @@ function StructClanRaid:applyTableData(data)
             self[key] = v
         end
     end
+
+    self:setState()
+end
+
+-------------------------------------
+-- function setState
+-------------------------------------
+function StructClanRaid:setState()
+    local state = CLAN_RAID_STATE.NORMAL
+
+    if (self['player']) then
+        state = CLAN_RAID_STATE.CHALLENGE
+
+    elseif (self['finalblow'] == true) and (self['hp'] > 0) then
+        state = CLAN_RAID_STATE.FINALBLOW
+
+    elseif (self['hp'] <= 0) then
+        state = CLAN_RAID_STATE.CLEAR
+    end
+
+    self.state = state
+end
+
+-------------------------------------
+-- function getState
+-------------------------------------
+function StructClanRaid:getState()
+    return self.state
 end
 
 -------------------------------------
