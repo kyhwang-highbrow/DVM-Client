@@ -2457,6 +2457,9 @@ end
 -- @brief 캐릭터 부유중 효과
 -------------------------------------
 function Character:runAction_Floating()
+    if (not self.m_animator) then
+        return
+    end
     local target_node = self.m_animator.m_node
     if (not target_node) then
         return
