@@ -227,7 +227,8 @@ end
 function Monster_ClanRaidBoss:updateDebugingInfo()
 	-- 화면에 체력 표시
 	if g_constant:get('DEBUG', 'DISPLAY_UNIT_HP') then 
-		self.m_infoUI.m_label:setString(string.format('%d/%d\n%d/%d\n(%d%%)',self.m_hp, self.m_maxHp, self.m_hpCount, self.m_maxHpCount, self:getHpRate() * 100))
+		--self.m_infoUI.m_label:setString(string.format('%d/%d\n%d/%d\n(%d%%)',self.m_hp, self.m_maxHp, self.m_hpCount, self.m_maxHpCount, self:getHpRate() * 100))
+        self.m_infoUI.m_label:setString(self.m_hp .. '/' .. self.m_maxHp .. '\n' .. '(' .. self:getHpRate() * 100 .. '%)')
     else
         PARENT.updateDebugingInfo(self)
     end

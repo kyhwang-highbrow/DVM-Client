@@ -203,7 +203,7 @@ end
 function UI_IngameDragonPanelItem:onEvent(event_name, t_event, ...)
     -- 드래곤 체력 변경 Event
     if (event_name == 'character_set_hp') then
-        self:refreshHP(t_event['hp'], t_event['max_hp'])
+        self:refreshHP(t_event['hp_rate'])
 
     -- 드래곤 드래그 스킬 게이지 변경 Event
     elseif (event_name == 'dragon_skill_gauge') then
@@ -227,14 +227,14 @@ function UI_IngameDragonPanelItem:refreshHP(hp_ratio)
     if (self.m_hpRatio == hp_ratio) then 
         return
     end
-
+    
     self.m_hpRatio = hp_ratio
     
     local vars = self.vars
-    local percentage = self.m_hpRatio * 100
+    local scale = self.m_hpRatio
 
     -- 체력바 가감 연출
-    vars['hpGauge']:setScaleX(percentage)
+    vars['hpGauge']:setScaleX(scale)
 end
 
 -------------------------------------
