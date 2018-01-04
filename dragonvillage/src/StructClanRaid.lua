@@ -13,6 +13,8 @@ StructClanRaid = class(PARENT, {
 
         remain_time = 'number',
         rank_list = 'list',
+
+        player = 'user', -- 현재 플레이중인 유저정보
     })
 
 local THIS = StructClanRaid

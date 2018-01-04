@@ -95,6 +95,9 @@ function UI_ReadySceneNew_Deck:initButton()
         radio_button:addButtonAuto('down', vars)
         radio_button:setChangeCB(function() self:onChangeOption() end)
         self.m_selRadioButton = radio_button
+
+        local sel_deck = g_clanRaidData:getMainDeck()
+        self.m_selRadioButton:setSelectedButton(sel_deck)
     end
 end
 
@@ -112,9 +115,8 @@ function UI_ReadySceneNew_Deck:initTab()
         target:addTabWithLabel(TAB_ATTACK_1, vars['teamTabBtn1'], vars['teamTabLabel1'])
         target:addTabWithLabel(TAB_ATTACK_2, vars['teamTabBtn2'], vars['teamTabLabel2'])
 
-        -- 저장된 메인덱 - (상단인가 하단인가)
-        local sel_deck = g_clanRaidData:getMainDeck()
-        target:setTab(sel_deck)
+        -- 최초는 1공격대 보여줌
+        target:setTab(TAB_ATTACK_1)
 
         target:setChangeTabCB(function(tab, first) self:onChangeTab(tab, first) end)
     end

@@ -35,18 +35,7 @@ function UI_ClanRaidRankListItem:initUI()
     -- 순위 표시
     vars['rankLabel']:setString(t_rank_info:getRankText())
 
-    --[[do -- 리더 드래곤 아이콘
-        local ui = t_rank_info:getLeaderDragonCard()
-        if ui then
-            ui.root:setSwallowTouch(false)
-            vars['profileNode']:addChild(ui.root)
 
-            ui.vars['clickBtn']:registerScriptTapHandler(function() 
-				local is_visit = true
-				UI_UserInfoDetailPopup:open(t_rank_info, is_visit, nil)
-			end)
-        end
-    end]]--
 end
 
 -------------------------------------
