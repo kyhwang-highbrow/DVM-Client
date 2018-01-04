@@ -40,6 +40,8 @@ import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
+import android.net.wifi.WifiInfo;
+import android.net.wifi.WifiManager;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
@@ -52,6 +54,7 @@ import android.content.pm.PackageManager;
 import com.perplelab.PerpleSDK;
 
 import java.security.Permission;
+import java.util.Locale;
 
 public class AppActivity extends Cocos2dxActivity{
 
@@ -100,6 +103,8 @@ public class AppActivity extends Cocos2dxActivity{
     static final int RC_LOCAL_PUSH                  = 1001;
     static final int RC_OBB_DOWNLOAD_STATE          = 1002;
 
+    static String hostIPAdress = "0.0.0.0";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -109,6 +114,9 @@ public class AppActivity extends Cocos2dxActivity{
         mAppHandler = new Handler();
 
         sIsRun = true;
+
+        //ip
+        hostIPAdress = getHostIpAddress();
 
         // @perplesdk
         PerpleSDK.createInstance(this);
@@ -463,6 +471,38 @@ public class AppActivity extends Cocos2dxActivity{
             e.printStackTrace();
         }
         return info;
+    }
+
+    public String getHostIpAddress() {
+        WifiManager wifiMgr = (WifiManager)getApplicationContext().getSystemService(WIFI_SERVICE);
+        WifiInfo wifiInfo = wifiMgr.getConnectionInfo();
+        int ip = wifiInfo.getIpAddress();
+        return ((ip & 0xFF) + "." + ((ip >>>= 8) & 0xFF) + "." + ((ip >>>= 8) & 0xFF) + "." + ((ip >>>= 8) & 0xFF));
+    }
+
+    public static String getLocalIpAddress() {
+        return hostIPAdress;
+    }
+
+    public static String getDeviceLanguage() {
+        Locale loc = Locale.getDefault();
+        String lan = loc.getLanguage();
+        String language = lan.toLowerCase(loc);
+
+        if (language.equals("zh")) {
+            if (loc == Locale.TAIWAN || loc == Locale.TRADITIONAL_CHINESE) {
+                language = "zh-tw";
+            } else {
+                language = "zh-cn";
+            }
+        }
+
+        return language;
+    }
+
+    public static String getLocale() {
+        Locale loc = Locale.getDefault();
+        return loc.toString();
     }
 
     // Cpp(Native) -> Java (in UIThread(Main Thread))
