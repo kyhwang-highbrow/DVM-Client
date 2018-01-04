@@ -103,4 +103,7 @@ if false then
 
     -- @brief 클랜 UI로 이동
     UINavigator:goTo('clan')
+
+    -- @brief 클랜 던전 UI로 이동
+    UINavigator:goTo('clan_raid')
 end

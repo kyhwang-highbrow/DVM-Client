@@ -235,11 +235,23 @@ end
 -------------------------------------
 function GameState_ClanRaid.update_result(self, dt)
     if (self.m_stateTimer == 0) then
-        local game_mode = g_gameScene.m_gameMode
-        local dungeon_mode = g_gameScene.m_dungeonMode
-        local condition = g_gameScene.m_stageID
 
-        QuickLinkHelper.gameModeLink(game_mode, dungeon_mode, condition)
+        -- 작업 함수들
+        local func_network_game_finish
+        local func_ui_result
+
+        -- 1. 네트워크 통신
+        func_network_game_finish = function()
+            g_gameScene:networkGameFinish(nil, nil, func_ui_result)
+        end
+
+        -- 2. 결과 화면 (지금은 클랜 던전으로 바로 보냄)
+        func_ui_result = function()
+            UINavigator:goTo('clan_raid')
+        end
+
+        -- 최초 실행
+        func_network_game_finish()
     end
 end
 

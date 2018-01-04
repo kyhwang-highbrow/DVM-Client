@@ -1,4 +1,4 @@
-local t_module = {
+﻿local t_module = {
     'Cocos2d',
     'Cocos2dConstants',
     'lib/net',
@@ -74,6 +74,7 @@ local t_module = {
     'StructUserInfoColosseum',
     'StructUserInfoAncientTower',
     'StructUserInfoClan',
+    'StructUserInfoClanRaid',
     'StructWaveRegenGroup',
     'StructCollisionData',
 	'StructBookData',
@@ -88,6 +89,7 @@ local t_module = {
     'StructClan',
     'StructClanMark',
     'StructClanRank',
+    'StructClanRaid',
     'StructEventDiceInfo',
 	'StructDailyMission',
 	'StructCapsuleBox',
@@ -144,6 +146,7 @@ local t_module = {
     'ServerData_FriendMatch',
     'ServerData_Clan',
     'ServerData_ClanRank',
+    'ServerData_ClanRaid',
     'ServerData_LevelUpPackage',
     'ServerData_AdventureClearPackage',
 	'ServerData_DailyMission',
@@ -749,6 +752,10 @@ local t_module = {
     'UI_ReadyScene_Deck',
     'UI_ReadyScene_Select',
 	'UI_ReadyScene_LeaderPopup',
+
+    'UI_ReadySceneNew',
+    'UI_ReadySceneNew_Deck',
+    'UI_ReadySceneNew_Select',
 	
 	-- UI : 전투 통계
 	'UI_StatisticsPopup',
@@ -988,6 +995,8 @@ local t_module = {
     'UI_ClanAttendanceRewardInfo',
     'UI_ClanAcceptPopup', -- 가입 승인 관리 팝업 (마스터, 부마스터 권한)
     'UI_ClanAcceptListItem',
+    'UI_ClanRaid',
+    'UI_ClanRaidRankListItem',
 
     -- Forest
     'SceneForest',

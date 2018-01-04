@@ -56,6 +56,36 @@ function TableFormation:getFormationPositionList(formation, min_x, max_x, min_y,
 end
 
 -------------------------------------
+-- function getFormationPositionListNew
+-------------------------------------
+function TableFormation:getFormationPositionListNew(formation, interval)
+    if (self == TableFormation) then
+        self = TableFormation()
+    end
+
+	-- @TODO
+	local formation = self:temp(formation)
+    local t_table = self:get(formation)
+
+    local l_pos_list = {}
+    local interval = interval or 120
+
+    for i = 1, 5 do
+        local pos_str = t_table[string.format('ui_pos_%.2d', i)]
+        local l_pos = seperate(pos_str, ',')
+        
+        -- 최대, 최소 비율없이 2D 포지션 바로 계산
+        local pos = {}
+        pos['x'] = l_pos[1] * interval
+        pos['y'] = l_pos[2] * interval
+        
+        l_pos_list[i] = pos
+    end
+    
+    return l_pos_list
+end
+
+-------------------------------------
 -- function getBuffStrList
 -------------------------------------
 function TableFormation:getBuffStrList(formation)

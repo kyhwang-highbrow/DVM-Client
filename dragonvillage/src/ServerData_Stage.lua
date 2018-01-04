@@ -109,6 +109,11 @@ function ServerData_Stage:isOpenStage(stage_id)
         else
             ret = g_ancientTowerData:isOpenStage(stage_id)
         end
+
+    -- 클랜 던전 모드
+    elseif (game_mode == GAME_MODE_CLAN_RAID) then
+        ret = g_clanRaidData:isOpenClanRaid()
+
     end
 
     return ret
@@ -142,6 +147,10 @@ function ServerData_Stage:getNextStage(stage_id)
         else
             ret = g_ancientTowerData:getNextStageID(stage_id)
         end
+
+    -- 클랜 던전 모드
+    elseif (game_mode == GAME_MODE_CLAN_RAID) then
+        ret = g_clanRaidData:getNextStageID(stage_id)
     end
 
     return ret
@@ -204,7 +213,12 @@ function ServerData_Stage:getSimplePrevStage(stage_id)
         else
             ret = g_ancientTowerData:getSimplePrevStageID(stage_id)
         end
+
+    -- 클랜 던전 모드
+    elseif (game_mode == GAME_MODE_CLAN_RAID) then
+        ret = g_clanRaidData:getSimplePrevStageID(stage_id)
     end
+
 
     return ret
 end
@@ -302,6 +316,11 @@ function ServerData_Stage:requestGameStart(stage_id, deck_name, combat_power, fi
         else
             api_url = '/game/ancient/start'
         end
+
+    -- 클랜 던전
+    elseif (game_mode == GAME_MODE_CLAN_RAID) then
+        api_url = '/clans/dungeon_start'
+
     end
 
     local function success_cb(ret)

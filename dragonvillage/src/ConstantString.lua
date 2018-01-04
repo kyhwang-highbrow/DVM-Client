@@ -305,6 +305,9 @@ function getContentName(content_type)
     elseif (content_type == 'clan') then
         content_name = Str('클랜')
 
+    elseif (content_type == 'clan_raid') then
+        content_name = Str('클랜 던전')
+
     else
         error('content_type : ' .. content_type)
     end

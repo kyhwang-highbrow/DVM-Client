@@ -42,6 +42,12 @@ function ServerData_ContentLock:isContentLock(content_name)
         return is_lock
     end
 
+    -- 클랜던전의 경우 클랜 가입 여부로 검사
+    if (content_name == 'clan_raid') then
+        local is_guest = g_clanData:isClanGuest()
+        return is_guest
+    end
+
     -- 필요 유저 레벨 지정
     local user_lv = g_userData:get('lv')
     local req_user_lv = t_content_lock['req_user_lv']

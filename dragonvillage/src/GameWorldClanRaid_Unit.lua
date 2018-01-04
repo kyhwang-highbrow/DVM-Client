@@ -149,7 +149,7 @@ end
 function GameWorldClanRaid:makeHeroDeck()
     -- 조작할 수 있는 덱을 가져옴
     do
-        local l_deck, formation, deck_name, leader = g_deckData:getDeck()
+        local l_deck, formation, deck_name, leader = g_deckData:getDeck('clan_raid_main')
         local formation_lv = g_formationData:getFormationInfo(formation)['formation_lv']
     
         self.m_deckFormation = formation
@@ -192,7 +192,7 @@ function GameWorldClanRaid:makeHeroDeck()
 
     -- 조작할 수 없는 덱을 가져옴
     do
-        local l_deck, formation, deck_name, leader = g_deckData:getDeck('pvp_atk')
+        local l_deck, formation, deck_name, leader = g_deckData:getDeck('clan_raid_sub')
         local formation_lv = g_formationData:getFormationInfo(formation)['formation_lv']
     
         self.m_subDeckFormation = formation

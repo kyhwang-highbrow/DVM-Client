@@ -360,8 +360,7 @@ end
 -- @brief 시험의 탑 덱 네임 반환
 -- @brief attr_tower_fire, attr_tower_water, attr_tower_earth ..
 -------------------------------------
-function ServerData_AttrTower:getDeckName(curr_mode)
-    local deck_name = curr_mode
+function ServerData_AttrTower:getDeckName()
     if (self.m_selectAttr) then
         deck_name = 'attr_tower_' .. self.m_selectAttr
     end

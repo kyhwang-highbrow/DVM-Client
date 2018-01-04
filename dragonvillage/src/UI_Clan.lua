@@ -113,6 +113,12 @@ function UI_Clan:initButton()
     vars['settingBtn']:registerScriptTapHandler(function() self:click_settingBtn() end)
     vars['rewardBtn']:registerScriptTapHandler(function() self:click_rewardBtn() end)
     vars['requestBtn']:registerScriptTapHandler(function() self:click_requestBtn() end)
+
+    -- 개발 스테이지 테스트 모드에서만 on
+    if IS_TEST_MODE() then
+        vars['raidBtn']:setVisible(true)
+        vars['raidBtn']:registerScriptTapHandler(function() self:click_raidBtn() end)
+    end
 end
 
 -------------------------------------
@@ -248,6 +254,14 @@ function UI_Clan:click_requestBtn()
     end
 
     work_open_popup()
+end
+
+-------------------------------------
+-- function click_raidBtn
+-- @breif 클랜 레이드 버튼 
+-------------------------------------
+function UI_Clan:click_raidBtn()
+    UINavigator:goTo('clan_raid')
 end
 
 -------------------------------------

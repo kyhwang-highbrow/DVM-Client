@@ -1055,8 +1055,10 @@ end
 -- function makeDefaultEmptyMandragora
 -- @breif
 -------------------------------------
-function UIC_TableViewTD:makeDefaultEmptyMandragora(text)
+function UIC_TableViewTD:makeDefaultEmptyMandragora(text, scale)
+    local scale = scale or 1
     local ui = UIC_Factory:MakeTableViewEmptyMandragora(text)
+    ui.root:setScale(scale)
     self.m_tableViewNode:addChild(ui.root)
 
     self.m_emptyUI = ui

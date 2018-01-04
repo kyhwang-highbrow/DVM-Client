@@ -3066,6 +3066,30 @@
     <None Include="..\src\SkillAoECross.lua">
       <Filter>lua\src</Filter>
     </None>
+    <None Include="..\src\UI_ClanRaid.lua">
+      <Filter>lua\UI</Filter>
+    </None>
+    <None Include="..\src\UI_ReadySceneNew_Deck.lua">
+      <Filter>lua\UI</Filter>
+    </None>
+    <None Include="..\src\UI_ReadySceneNew.lua">
+      <Filter>lua\UI</Filter>
+    </None>
+    <None Include="..\src\UI_ReadySceneNew_Select.lua">
+      <Filter>lua\UI</Filter>
+    </None>
+    <None Include="..\src\UI_ClanRaidRankListItem.lua">
+      <Filter>lua\UI</Filter>
+    </None>
+    <None Include="..\src\StructUserInfoClanRaid.lua">
+      <Filter>lua\src</Filter>
+    </None>
+    <None Include="..\src\ServerData_ClanRaid.lua">
+      <Filter>lua\src</Filter>
+    </None>
+    <None Include="..\src\StructClanRaid.lua">
+      <Filter>lua\src</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Classes">

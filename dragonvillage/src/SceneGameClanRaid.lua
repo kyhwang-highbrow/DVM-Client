@@ -19,7 +19,7 @@ end
 -- @brief 스테이지 ID와 게임 모드 저장
 -------------------------------------
 function SceneGameClanRaid:init_gameMode(stage_id)
-    self.m_stageID = CLAN_RAID_STAGE_ID
+    self.m_stageID = stage_id
     self.m_gameMode = GAME_MODE_CLAN_RAID
     self.m_bgmName = 'bgm_colosseum'
 
@@ -115,18 +115,15 @@ function SceneGameClanRaid:networkGameFinish(t_param, t_result_ref, next_func)
         end
     end
 
-    local api_url = '/game/colosseum/finish'
+    local api_url = '/clans/dungeon_finish'
     
     local ui_network = UI_Network()
     ui_network:setUrl(api_url)
     ui_network:setParam('uid', uid)
     ui_network:setParam('stage', self.m_stageID)
-    ui_network:setParam('clear_type', t_param['clear_type'])
-    ui_network:setParam('exp_rate', t_param['exp_rate'])
-    ui_network:setParam('clear_mission_1', t_param['clear_mission_1'])
-    ui_network:setParam('clear_mission_2', t_param['clear_mission_2'])
-    ui_network:setParam('clear_mission_3', t_param['clear_mission_3'])
-    ui_network:setParam('gold', t_param['gold'])
+
+    -- 데미지 임의 
+    ui_network:setParam('damage', 100000)
     ui_network:setParam('gamekey', self.m_gameKey)
     ui_network:setSuccessCB(success_cb)
     ui_network:request()
@@ -146,16 +143,16 @@ function SceneGameClanRaid:networkGameFinish_response(ret, t_result_ref)
     g_serverData:networkCommonRespone(ret)
 
     -- 유저 정보 변경사항 적용 (레벨, 경험치)
-    self:networkGameFinish_response_user_info(ret, t_result_ref)
+    -- self:networkGameFinish_response_user_info(ret, t_result_ref)
 
     -- 변경된 드래곤 적용
-    self:networkGameFinish_response_modified_dragons(ret, t_result_ref)
+    -- self:networkGameFinish_response_modified_dragons(ret, t_result_ref)
 
     -- 추가된 드래곤 적용
-    self:networkGameFinish_response_added_dragons(ret, t_result_ref)
+    -- self:networkGameFinish_response_added_dragons(ret, t_result_ref)
 
     -- 드랍 정보 drop_reward
-    self:networkGameFinish_response_drop_reward(ret, t_result_ref)
+    -- self:networkGameFinish_response_drop_reward(ret, t_result_ref)
 
     -- 스테이지 클리어 정보 stage_clear_info
     self:networkGameFinish_response_stage_clear_info(ret)
