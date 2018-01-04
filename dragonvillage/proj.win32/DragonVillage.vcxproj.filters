@@ -3066,9 +3066,6 @@
     <None Include="..\src\SkillScript.lua">
       <Filter>lua\src</Filter>
     </None>
-    <None Include="..\src\SkillScript.lua">
-      <Filter>lua\src</Filter>
-    </None>
     <None Include="..\src\SkillEnumrate.lua">
       <Filter>lua\src</Filter>
     </None>
@@ -3097,6 +3094,9 @@
       <Filter>lua\src</Filter>
     </None>
     <None Include="..\config.json" />
+    <None Include="..\src\SkillScript.lua">
+      <Filter>lua\src</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Classes">
