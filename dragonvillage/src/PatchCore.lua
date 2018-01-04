@@ -6,9 +6,9 @@ PATCH_STATE.download_patch_file = 2 -- 패치 파일 다운로드
 PATCH_STATE.decompression = 3       -- 패치 파일 압축 해제
 PATCH_STATE.finish = 10             -- 종료
 
-MIN_GUIDE_TIME = 3                  -- 패치 가이드 노출시 최소 노출 시간 
+local MIN_GUIDE_TIME = 3                  -- 패치 가이드 노출시 최소 노출 시간 
  
-MB_TO_BYTE = 1024 * 1024
+local MB_TO_BYTE = 1024 * 1024
   
 -------------------------------------
 -- class PatchCore
