@@ -78,23 +78,6 @@ function StructClanRaid:getLv()
 end
 
 -------------------------------------
--- function getBossAnimator
--------------------------------------
-function StructClanRaid:getBossAnimator()
-    local animator
-    local stage_id = self['stage']
-    local is_boss, monster_id = g_stageData:isBossStage(stage_id)
-
-    if (is_boss) then
-        local res, attr, evolution = TableMonster:getMonsterRes(monster_id)
-        animator = AnimatorHelper:makeMonsterAnimator(res, attr, evolution)
-        animator:changeAni('idle', true)
-    end
-
-    return animator
-end
-
--------------------------------------
 -- function getBossName
 -------------------------------------
 function StructClanRaid:getBossName()

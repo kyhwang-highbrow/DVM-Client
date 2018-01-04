@@ -14,8 +14,8 @@ ServerData_ClanRaid = class({
         -- 현재 진행중 혹은 선택한 던전 정보
         m_structClanRaid = 'StructClanRaid',
 
-        -- 던전 참여한 유저 랭킹 리스트
-        m_lRank = 'list',
+        -- 누적 기여 랭킹 리스트 (현재 진행중인 기여도 랭킹 리스트는 StructClanRaid 에서 받아옴)
+        m_lRankList = 'list',
 
         -- 메인 (수동으로 전투가 가능한) 덱 (up or down)
         m_main_deck = 'string',
@@ -36,6 +36,13 @@ end
 -------------------------------------
 function ServerData_ClanRaid:getClanRaidStruct()
     return self.m_structClanRaid
+end
+
+-------------------------------------
+-- function getRankList
+-------------------------------------
+function ServerData_ClanRaid:getRankList()
+    return self.m_lRankList
 end
 
 -------------------------------------
@@ -190,6 +197,16 @@ function ServerData_ClanRaid:request_info(stage_id, cb_func)
 
         self.m_curr_stageID = ret['cur_stage']
 
+        -- 누적 기여도 랭킹
+        local rank_list = ret['scores']
+        if (rank_list) then
+            self.m_lRankList = {}
+            for _, user_data in ipairs(rank_list) do
+                local user_info = StructUserInfoClanRaid:create_forRanking(user_data)
+                table.insert(self.m_lRankList, user_info)
+            end
+        end
+        
         -- 클랜 던전 정보
         if (ret['dungeon']) then
             self.m_structClanRaid = StructClanRaid(ret['dungeon'])

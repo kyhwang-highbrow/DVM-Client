@@ -8,6 +8,9 @@ UI_ClanRaid = class(PARENT, {
         m_tableView = '',
      })
 
+local TAB_TOTAL = 1 -- 누적 기여도
+local TAB_CURRENT = 2 -- 현재 기여도
+
 -------------------------------------
 -- function initParentVariable
 -- @brief 자식 클래스에서 반드시 구현할 것
@@ -40,6 +43,9 @@ function UI_ClanRaid:init()
 
     self:initUI()
     self:initButton()
+    self:initTab()
+    self:initTotalTabTableView()
+
     self:refresh()
 
     -- 보상 안내 팝업
@@ -92,29 +98,68 @@ function UI_ClanRaid:initButton()
 end
 
 -------------------------------------
+-- function initTab
+-------------------------------------
+function UI_ClanRaid:initTab()
+    local vars = self.vars
+    self:addTabWithLabel(TAB_TOTAL, vars['damageTabBtn1'], vars['damageTabLabel1'], vars['damageTabNode1'])
+    self:addTabWithLabel(TAB_CURRENT, vars['damageTabBtn2'], vars['damageTabLabel2'], vars['damageTabNode2'])
+    self:setTab(TAB_TOTAL)
+    self:setChangeTabCB(function(tab, first) self:onChangeTab(tab, first) end)
+end
+
+-------------------------------------
+-- function onChangeTab
+-------------------------------------
+function UI_ClanRaid:onChangeTab(tab, first)
+    if (not first) then return end
+end
+
+-------------------------------------
 -- function refresh
 -------------------------------------
 function UI_ClanRaid:refresh()
-    self:initTableView()
+    self:initCurrentTabTableView()
     self:initRaidInfo()
     self:refreshBtn()
 end
 
 -------------------------------------
--- function initTab
+-- function initTotalTabTableView
+-- @brief 누적 기여도 테이블 뷰 (최초 진입시만 생성)
 -------------------------------------
-function UI_ClanRaid:initTab()
-    local vars = self.vars
-end
-
--------------------------------------
--- function initTableView
--------------------------------------
-function UI_ClanRaid:initTableView()
+function UI_ClanRaid:initTotalTabTableView()
     local vars = self.vars
     local struct_raid = g_clanRaidData:getClanRaidStruct()
 
-    local node = vars['listNode']
+    local node = vars['damageTabNode1']
+    node:removeAllChildren()
+
+    -- cell size 정의
+	local width = node:getContentSize()['width']
+	local height = 50 + 2
+
+    -- 테이블 뷰 인스턴스 생성
+    local l_rank_list = g_clanRaidData:getRankList()
+    local table_view = UIC_TableView(node)
+    table_view.m_defaultCellSize = cc.size(width, height)
+    table_view:setCellUIClass(UI_ClanRaidRankListItem)
+	table_view:setDirection(cc.SCROLLVIEW_DIRECTION_VERTICAL)
+    table_view:setItemList(l_rank_list)
+
+    local msg = Str('참여한 유저가 없습니다.')
+    table_view:makeDefaultEmptyDescLabel(msg)
+end
+
+-------------------------------------
+-- function initCurrentTabTableView
+-- @brief 현재 기여도 테이블 뷰 
+-------------------------------------
+function UI_ClanRaid:initCurrentTabTableView()
+    local vars = self.vars
+    local struct_raid = g_clanRaidData:getClanRaidStruct()
+
+    local node = vars['damageTabNode2']
     node:removeAllChildren()
 
     -- cell size 정의
@@ -148,9 +193,17 @@ function UI_ClanRaid:initRaidInfo()
     -- 보스 animator
     local boss_node = vars['bossNode']
     boss_node:removeAllChildren()
-    local animator = struct_raid:getBossAnimator()
-    if (animator) then
-        boss_node:addChild(animator.m_node)
+
+    local l_monster = g_stageData:getMonsterIDList(stage_id)
+    for idx, mid in ipairs(l_monster) do
+        local res, attr, evolution = TableMonster:getMonsterRes(mid)
+        animator = AnimatorHelper:makeMonsterAnimator(res, attr, evolution)
+        animator:changeAni('idle', true)
+        if (animator) then
+            -- 뒤에 몬스터 zorder 더 낮게
+            local zorder = 100 - idx
+            boss_node:addChild(animator.m_node, zorder)
+        end
     end
 
     -- 레벨, 이름
