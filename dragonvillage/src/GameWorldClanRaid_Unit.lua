@@ -153,9 +153,29 @@ end
 -- function makeHeroDeck
 -------------------------------------
 function GameWorldClanRaid:makeHeroDeck()
+    -- 조작할 그룹을 설정
+    local sel_deck = g_clanRaidData:getMainDeck()
+    local str_main_deck_name
+    local str_sub_deck_name
+
+    if (sel_deck == 'up') then
+        self.m_pcGroup = PHYS.HERO_TOP
+        self.m_npcGroup = PHYS.HERO_BOTTOM
+        main_deck_name = 'clan_raid_up'
+        sub_deck_name = 'clan_raid_down'
+
+    elseif (sel_deck == 'down') then
+        self.m_pcGroup = PHYS.HERO_BOTTOM
+        self.m_npcGroup = PHYS.HERO_TOP
+        main_deck_name = 'clan_raid_down'
+        sub_deck_name = 'clan_raid_up'
+
+    else
+        error('invalid sel_deck : ' .. sel_deck)
+    end
+
     -- 조작할 수 있는 덱을 가져옴
     do
-        local main_deck_name = g_clanRaidData:getDeckName('main')
         local l_deck, formation, deck_name, leader = g_deckData:getDeck(main_deck_name)
         local formation_lv = g_formationData:getFormationInfo(formation)['formation_lv']
     
@@ -199,7 +219,6 @@ function GameWorldClanRaid:makeHeroDeck()
 
     -- 조작할 수 없는 덱을 가져옴
     do
-        local sub_deck_name = g_clanRaidData:getDeckName('sub')
         local l_deck, formation, deck_name, leader = g_deckData:getDeck(sub_deck_name)
         local formation_lv = g_formationData:getFormationInfo(formation)['formation_lv']
     
