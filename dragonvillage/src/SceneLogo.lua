@@ -10,6 +10,8 @@ SceneLogo = class(PerpleScene, {
         m_startTimeMillisec = 'sec',
     })
 
+local LOGO_TIME = 1.8
+
 -------------------------------------
 -- function init
 -------------------------------------
@@ -66,7 +68,7 @@ function SceneLogo:update(dt)
     end
     
     local curr_millisec = socket.gettime()
-    if (not self.m_startTimeMillisec) or (self.m_startTimeMillisec + 1.8 <= curr_millisec) then
+    if (not self.m_startTimeMillisec) or (self.m_startTimeMillisec + LOGO_TIME <= curr_millisec) then
         self:showLogo()
         self.m_startTimeMillisec = curr_millisec
     end
