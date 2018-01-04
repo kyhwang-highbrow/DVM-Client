@@ -258,6 +258,7 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <Image Include="res\game.ico" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="..\config.json" />
     <None Include="..\src\Action.lua" />
     <None Include="..\src\AdsManager.lua" />
     <None Include="..\src\Analytics.lua" />
@@ -513,13 +514,11 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <None Include="..\src\SkillAoEWedge.lua" />
     <None Include="..\src\SkillBind.lua" />
     <None Include="..\src\SkillEnumrate.lua" />
-    <None Include="..\src\SkillScript.lua" />
     <None Include="..\src\SkillBurst.lua" />
     <None Include="..\src\SkillChainLightning.lua" />
     <None Include="..\src\SkillCharge.lua" />
     <None Include="..\src\SkillConditionalAddEffect.lua" />
     <None Include="..\src\SkillCross.lua" />
-    <None Include="..\src\SkillScript.lua" />
     <None Include="..\src\SkillEnumrate_Curve.lua" />
     <None Include="..\src\SkillEnumrate_Normal.lua" />
     <None Include="..\src\SkillEnumrate_Penetration.lua" />

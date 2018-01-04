@@ -3096,6 +3096,7 @@
     <None Include="..\src\StructClanRaid.lua">
       <Filter>lua\src</Filter>
     </None>
+    <None Include="..\config.json" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Classes">
