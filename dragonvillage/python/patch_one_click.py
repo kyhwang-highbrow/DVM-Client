@@ -14,9 +14,15 @@ import md5_log_maker
 source_path = ''
 patch_work_path = ''
 dest_path = ''
-SERVER_PATH = ''
 app_ver = ''
 latest_patch_ver = ''
+
+# 게임 서버
+SERVER_PATH = ''
+# 운영툴 서버
+TOOL_SERVER_PATH = ''
+# 플랫폼 서버
+PLATFORM_SERVER_PATH = ''
 
 # 모듈 import(설치되어있지 않은 경우 install 후 import)
 def install_and_import(package):
@@ -88,6 +94,9 @@ def init_global_var():
         SERVER_PATH = 'http://dv-qa.perplelab.com:9003'
     elif tar_server == 'LIVE':
         SERVER_PATH = 'http://dvm-api.perplelab.com'
+
+    TOOL_SERVER_PATH = 'http://192.168.1.41:7777/maintenance'
+    PLATFORM_SERVER_PATH = 'http://192.168.1.44:3000/1003'
 
     # 패치를 진행할 앱 버전
     app_ver = sys.argv[2]
@@ -215,22 +224,39 @@ def main():
         print('# No changes file!! (patch_idx ' + str(latest_patch_ver) + ')')
         exit(0)
     
-    
     # 4. 패치파일 복사, 압축
-    zip_file = patch_files_copy_and_zip(source_path, patch_work_path, app_ver, latest_patch_ver + 1, new_plg_hash)
+    new_patch_ver = latest_patch_ver + 1
+    zip_file = patch_files_copy_and_zip(source_path, patch_work_path, app_ver, new_patch_ver, new_plg_hash)
     
-    # 5. 복사
-    dst_dir = os.path.join(dest_path, 'patch_' + app_ver.replace('.', '_'))
-    
+    # 5. NAS에 복사
+    dst_forder = 'patch_' + app_ver.replace('.', '_')
+    dst_dir = os.path.join(dest_path, dst_forder)
     copy(zip_file, dst_dir)
     
-    print('# update_patch_dv')
-    r = requests.get('http://192.168.1.41:7777/maintenance/update_patch_dv')
-    #print(r.text)
-    
-    print('# upload_patch_dv')
-    r = requests.get('http://192.168.1.41:7777/maintenance/upload_patch_dv')
-    #print(r.text)
+    # 운영툴 패치 정보 업데이트
+    print('# [tool] update_patch_dv')
+    r = requests.get(TOOL_SERVER_PATH + '/update_patch_dv')
+    print('# [tool] upload_patch_dv')
+    r = requests.get(TOOL_SERVER_PATH + '/upload_patch_dv')
+
+    # 플랫폼 서버에 패치 정보 전달
+    tar_server = sys.argv[1]
+    if tar_server == 'DEV':
+        print zip_file
+        print('# [platform] add patch info')
+        zip_path = '%s/patch_%d.zip' % (dst_forder, new_patch_ver)
+        zip_md5 = md5_log_maker.file2md5(zip_file)
+        zip_size = os.path.getsize(zip_file)
+        params = {
+            'app_ver': app_ver,
+            'version' : new_patch_ver,
+            'name' : zip_path,
+            'md5' : zip_md5,
+            'size' : zip_size
+        }
+        print params
+        r = requests.get(PLATFORM_SERVER_PATH .. + '/versions/addPatchInfo', params = params)
+
     print "###################################"
     print "done"
     print "###################################"
