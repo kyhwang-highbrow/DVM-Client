@@ -60,7 +60,7 @@ end
 -- @brief
 -------------------------------------
 function StructUserInfoClanRaid:getUserText()
-    local str = Str('레벨 {1} : {2}', self.m_lv, self.m_nickname)
+    local str = Str('Lv.{1} : {2}', self.m_lv, self.m_nickname)
     return str
 end
 
@@ -70,16 +70,10 @@ end
 -------------------------------------
 function StructUserInfoClanRaid:getRankText()
     if (not self.m_rank) or (self.m_rank <= 0) then
-        return Str('순위\n없음')
+        return Str('-')
     end
 
-    if (not self.m_rankPercent) then
-        return Str('{1}위', comma_value(self.m_rank))
-    else
-        local percent_text = string.format('%.2f', self.m_rankPercent * 100)
-        local text = Str('{1}위 ({2}%)', comma_value(self.m_rank), percent_text)
-        return text
-    end
+    return Str('{1}', comma_value(self.m_rank))
 end
 
 -------------------------------------

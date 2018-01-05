@@ -4,12 +4,13 @@ local PARENT = class(UI, ITopUserInfo_EventListener:getCloneTable(), ITabUI:getC
 -- class UI_ClanRaid
 -------------------------------------
 UI_ClanRaid = class(PARENT, {
-        m_sortManager = '',
-        m_tableView = '',
+        m_preRefreshTime = 'time',
      })
 
 local TAB_TOTAL = 1 -- 누적 기여도
 local TAB_CURRENT = 2 -- 현재 기여도
+
+local RENEW_INTERVAL = 5
 
 -------------------------------------
 -- function initParentVariable
@@ -34,6 +35,8 @@ function UI_ClanRaid:init()
     UIManager:open(self, UIManager.SCENE)
 
     self.m_uiName = 'UI_ClanRaid'
+    self.m_preRefreshTime = 0
+
     -- backkey 지정
     g_currScene:pushBackKeyListener(self, function() self:click_exitBtn() end, 'UI_ClanRaid')
 
@@ -241,8 +244,26 @@ function UI_ClanRaid:showDungeonStateUI()
 
     -- 다른 유저 도전중인 상태 
     if (state == CLAN_RAID_STATE.CHALLENGE) then
+        local player = struct_raid:getPlayer()
+        if (player) then
+            local nick = player['nick']
+            local label = vars['atkLabel']
+            noti_visual:changeAni('atk', true)
+            label:setVisible(true)
+            label:setString(Str('{1}님이 전투중입니다.', nick))
 
+            cca.reserveFunc(self.root, 2.0, function() 
+                label:setString('')
 
+                -- 노티 보여준 상태에서 또 파이널 블로우인지 체크
+                if (struct_raid:getFinalblow()) then
+                    noti_visual:changeAni('fb_01', true)
+                else
+                    noti_visual:setVisible(false)
+                end
+            end)
+        end
+        
     -- 파이널 블로우 상태
     elseif (state == CLAN_RAID_STATE.FINALBLOW) then
         noti_visual:changeAni('fb_01', true)
@@ -330,9 +351,33 @@ end
 -- @brief 던전입장
 -------------------------------------
 function UI_ClanRaid:click_startBtn()
-    local struct_raid = g_clanRaidData:getClanRaidStruct()
-    local stage_id = struct_raid:getStageID()
-    UI_ReadySceneNew(stage_id) 
+
+    -- 갱신 가능 시간인지 체크한다
+	local curr_time = Timer:getServerTime()
+	if (curr_time - self.m_preRefreshTime > RENEW_INTERVAL) then
+		self.m_preRefreshTime = curr_time
+
+		-- 이때 다른 유저가 플레이중인지 한번더 검사
+        local struct_raid = g_clanRaidData:getClanRaidStruct()
+        local stage_id = struct_raid:getStageID()
+
+        local finish_cb = function()
+            local _struct_raid = g_clanRaidData:getClanRaidStruct()
+            local _state = _struct_raid:getState()
+
+            if (_state == CLAN_RAID_STATE.CHALLENGE) then
+                self:showDungeonStateUI()
+            else
+                UI_ReadySceneNew(stage_id) 
+            end
+        end
+
+        g_clanRaidData:request_info(stage_id, finish_cb)
+	
+	else
+		local ramain_time = math_ceil(RENEW_INTERVAL - (curr_time - self.m_preRefreshTime) + 1)
+		UIManager:toastNotificationRed(Str('{1}초 후에 갱신 가능합니다.', ramain_time))
+	end
 end
 
 --@CHECK

@@ -69,7 +69,7 @@ function StructClanRaid:setState()
     elseif (self['hp'] <= 0) then
         state = CLAN_RAID_STATE.CLEAR
     end
-
+    ccdump(state)
     self.state = state
 end
 
@@ -168,4 +168,18 @@ end
 -------------------------------------
 function StructClanRaid:getRankList()
     return self['rank_list']
+end
+
+-------------------------------------
+-- function getPlayer
+-------------------------------------
+function StructClanRaid:getPlayer()
+    return self['player']
+end
+
+-------------------------------------
+-- function getFinalblow
+-------------------------------------
+function StructClanRaid:getFinalblow()
+    return self['finalblow']
 end

@@ -323,12 +323,18 @@ function ServerData_Stage:requestGameStart(stage_id, deck_name, combat_power, fi
 
         -- true를 리턴하면 자체적으로 처리를 완료했다는 뜻
         response_status_cb = function(ret)
+           
+            -- 클랜던전 UI로 이동
+            local function ok_cb()
+                UINavigator:goTo('clan_raid')
+            end 
+
             if (ret['status'] == -3871) then
-                -- 클랜던전 UI로 이동
-                local function ok_cb()
-                    UINavigator:goTo('clan_raid')
-                end 
                 MakeSimplePopup(POPUP_TYPE.OK, Str('이미 클랜던전에 입장한 유저가 있습니다.'), ok_cb)
+                return true
+
+            elseif (ret['status'] == -1671) then
+                MakeSimplePopup(POPUP_TYPE.OK, Str('제한시간을 초과하였습니다.'), ok_cb)
                 return true
             end
 

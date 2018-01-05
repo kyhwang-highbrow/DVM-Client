@@ -13,7 +13,11 @@ UI_ClanRaidResult = class(UI, {
 
         m_workIdx = 'number',
         m_lWorkList = 'list',
+
+        m_sub_menu = 'cc.Menu', -- 보상이 올라가는 ui
      })
+
+local ITEM_CARD_SCALE = 0.65
 
 -------------------------------------
 -- function init
@@ -56,6 +60,7 @@ end
 function UI_ClanRaidResult:initButton()
     local vars = self.vars
     vars['okBtn']:registerScriptTapHandler(function() self:click_okBtn() end)
+    vars['skipBtn']:registerScriptTapHandler(function() self:click_screenBtn() end)
 end
 
 -------------------------------------
@@ -139,7 +144,6 @@ function UI_ClanRaidResult:direction_showScore()
     vars['scoreNode']:addChild(total_score)
 
     total_score = NumberLabel(total_score, 0, 0.3)
-    total_score:setNumber(0, false)
     total_score:setNumber(self.m_damage, true)
 
     self:doNextWorkWithDelayTime(0.8)
@@ -187,6 +191,8 @@ function UI_ClanRaidResult:direction_showReward()
     ui.vars['rewardNode'..grade]:setVisible(true)
     vars['dropRewardMenu']:addChild(ui.root)
 
+    self.m_sub_menu = vars['dropRewardMenu']
+
     local ani_duration = 2.0 -- 애니메이션 두개의 duration 어떻게 가져옴?
     local ani_interval = 0.2
 
@@ -216,6 +222,8 @@ function UI_ClanRaidResult:direction_showReward()
         result = function()
             box_visual:setVisible(false)
             item_card:setVisible(true)
+            cca.stampShakeAction(item_card, ITEM_CARD_SCALE * 1.1, 0.1, 0, 0, ITEM_CARD_SCALE)
+
             if (is_last) then
                 self:doNextWorkWithDelayTime(0.5)
             end
@@ -229,9 +237,10 @@ function UI_ClanRaidResult:direction_showReward()
     for i, v in ipairs(reward_list) do
         local item_id = v[1]
         local count = v[2]
+        local sub_data = v[3]
 
-        local item_card = UI_ItemCard(item_id, count, nil)
-        item_card.root:setScale(0.6)
+        local item_card = UI_ItemCard(item_id, count, sub_data)
+        item_card.root:setScale(ITEM_CARD_SCALE)
         item_card.root:setVisible(false)
 
         local target_node = ui.vars['rewardNode'..grade..'_'..i]
@@ -245,8 +254,48 @@ end
 
 -------------------------------------
 -- function direction_showReward_click
+-- @brief 클릭시 보상 애니메이션 스킵
 -------------------------------------
 function UI_ClanRaidResult:direction_showReward_click()
+    self.root:stopAllActions()
+    self:doNextWork()
+    self:initReward()
+end
+
+-------------------------------------
+-- function initReward
+-- @brief 클릭시 아이템 정보 바로 다 나오게 일딴 처리
+-------------------------------------
+function UI_ClanRaidResult:initReward()
+    local vars = self.vars
+    local grade = self.m_grade
+
+    if (self.m_sub_menu) then
+        self.m_sub_menu:removeAllChildren()
+        local box_visual = vars['boxVisual']
+        box_visual:stopAllActions()
+        box_visual:setVisible(false)
+        box_visual:addAniHandler(nil)
+
+        local ui = UI()
+        ui:load('clan_raid_result_reward.ui')
+        ui.vars['rewardNode'..grade]:setVisible(true)
+        vars['dropRewardMenu']:addChild(ui.root)
+
+        local reward_list = self.m_reward_list
+
+        for i, v in ipairs(reward_list) do
+            local item_id = v[1]
+            local count = v[2]
+            local sub_data = v[3]
+
+            local item_card = UI_ItemCard(item_id, count, sub_data)
+            item_card.root:setScale(ITEM_CARD_SCALE)
+
+            local target_node = ui.vars['rewardNode'..grade..'_'..i]
+            target_node:addChild(item_card.root)
+        end
+    end
 end
 
 -------------------------------------

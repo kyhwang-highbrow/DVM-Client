@@ -32,8 +32,23 @@ function UI_ClanRaidRankListItem:initUI()
     -- 유저 정보 표시 (레벨, 닉네임)
     vars['nameLabel']:setString(t_rank_info:getUserText())
 
-    -- 순위 표시
-    vars['rankLabel']:setString(t_rank_info:getRankText())
+    -- 순위  
+    local rank = t_rank_info.m_rank
+    vars['rankNode']:removeAllChildren()
+
+    if (rank <= 3) then
+        vars['rankLabel']:setString('')
+        local path = string.format('res/ui/icons/rank/clan_raid_02%02d.png', rank)
+        local icon = cc.Sprite:create(path)
+
+        if (icon) then
+            icon:setAnchorPoint(ZERO_POINT)
+            icon:setDockPoint(ZERO_POINT)
+            vars['rankNode']:addChild(icon)
+        end
+    else
+        vars['rankLabel']:setString(t_rank_info:getRankText())
+    end
 end
 
 -------------------------------------

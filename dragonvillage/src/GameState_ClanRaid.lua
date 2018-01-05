@@ -278,7 +278,6 @@ function GameState_ClanRaid:makeResultUI(is_success)
 
         -- 총 데미지
         t_param['damage'] = total_damage
-
         g_gameScene:networkGameFinish(t_param, t_result_ref, func_ui_result)
     end
 
@@ -286,7 +285,6 @@ function GameState_ClanRaid:makeResultUI(is_success)
     func_ui_result = function()
         local world = self.m_world
         local stage_id = world.m_stageID
-        -- 데미지 임의
         local damage = total_damage
 
         local ui = UI_ClanRaidResult(stage_id,
