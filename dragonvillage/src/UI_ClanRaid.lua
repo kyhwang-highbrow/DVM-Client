@@ -4,6 +4,7 @@ local PARENT = class(UI, ITopUserInfo_EventListener:getCloneTable(), ITabUI:getC
 -- class UI_ClanRaid
 -------------------------------------
 UI_ClanRaid = class(PARENT, {
+        m_stageID = 'number',
         m_preRefreshTime = 'time',
      })
 
@@ -37,6 +38,9 @@ function UI_ClanRaid:init()
     self.m_uiName = 'UI_ClanRaid'
     self.m_preRefreshTime = 0
 
+    local struct_raid = g_clanRaidData:getClanRaidStruct()
+    self.m_stageID = struct_raid:getStageID()
+
     -- backkey 지정
     g_currScene:pushBackKeyListener(self, function() self:click_exitBtn() end, 'UI_ClanRaid')
 
@@ -47,9 +51,8 @@ function UI_ClanRaid:init()
     self:initUI()
     self:initButton()
     self:initTab()
-    self:initTotalTabTableView()
-
-    self:refresh()
+    
+    self:refresh(true)
 
     -- 보상 안내 팝업
     local function finich_cb()
@@ -122,7 +125,11 @@ end
 -------------------------------------
 -- function refresh
 -------------------------------------
-function UI_ClanRaid:refresh()
+function UI_ClanRaid:refresh(first)
+    if (first) then
+        self:initTotalTabTableView()
+    end
+
     self:initCurrentTabTableView()
     self:initRaidInfo()
     self:refreshBtn()
@@ -130,7 +137,7 @@ end
 
 -------------------------------------
 -- function initTotalTabTableView
--- @brief 누적 기여도 테이블 뷰 (최초 진입시만 생성)
+-- @brief 누적 기여도 테이블 뷰 
 -------------------------------------
 function UI_ClanRaid:initTotalTabTableView()
     local vars = self.vars
@@ -358,21 +365,27 @@ function UI_ClanRaid:click_startBtn()
 		self.m_preRefreshTime = curr_time
 
 		-- 이때 다른 유저가 플레이중인지 한번더 검사
-        local struct_raid = g_clanRaidData:getClanRaidStruct()
-        local stage_id = struct_raid:getStageID()
-
         local finish_cb = function()
-            local _struct_raid = g_clanRaidData:getClanRaidStruct()
-            local _state = _struct_raid:getState()
+            local struct_raid = g_clanRaidData:getClanRaidStruct()
+            local state = struct_raid:getState()
+            local stage_id = struct_raid:getStageID()
+            ccdump(state)
 
-            if (_state == CLAN_RAID_STATE.CHALLENGE) then
+            -- 플레이중인 유저가 있다면
+            if (state == CLAN_RAID_STATE.CHALLENGE) then
                 self:showDungeonStateUI()
+
+            -- 도전중인 클랜던전이 변경되었다면 다시 모두 갱신
+            elseif (self.m_stageID ~= stage_id) then
+                self.m_stageID = stage_id
+                self:refresh(true)
+
             else
-                UI_ReadySceneNew(stage_id) 
+                UI_ReadySceneNew(self.m_stageID) 
             end
         end
 
-        g_clanRaidData:request_info(stage_id, finish_cb)
+        g_clanRaidData:request_info(self.m_stageID, finish_cb)
 	
 	else
 		local ramain_time = math_ceil(RENEW_INTERVAL - (curr_time - self.m_preRefreshTime) + 1)

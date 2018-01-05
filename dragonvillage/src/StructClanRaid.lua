@@ -69,7 +69,7 @@ function StructClanRaid:setState()
     elseif (self['hp'] <= 0) then
         state = CLAN_RAID_STATE.CLEAR
     end
-    ccdump(state)
+
     self.state = state
 end
 

@@ -186,6 +186,12 @@ function UI_ClanRaidResult:direction_showReward()
     local vars = self.vars
     local grade = self.m_grade
 
+    -- 보상없는 경우 임시처리
+    if (grade <= 0) then
+        self:doNextWork()
+        return
+    end
+
     local ui = UI()
     ui:load('clan_raid_result_reward.ui')
     ui.vars['rewardNode'..grade]:setVisible(true)

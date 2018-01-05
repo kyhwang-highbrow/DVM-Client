@@ -336,6 +336,11 @@ function ServerData_Stage:requestGameStart(stage_id, deck_name, combat_power, fi
             elseif (ret['status'] == -1671) then
                 MakeSimplePopup(POPUP_TYPE.OK, Str('제한시간을 초과하였습니다.'), ok_cb)
                 return true
+
+            elseif (ret['status'] == -1371) then
+                MakeSimplePopup(POPUP_TYPE.OK, Str('유효하지 않은 던전입니다.'), ok_cb)
+                return true
+
             end
 
             return false
