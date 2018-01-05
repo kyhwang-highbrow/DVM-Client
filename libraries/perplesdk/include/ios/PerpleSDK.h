@@ -203,6 +203,7 @@ typedef void(^PerpleSDKCallback)(NSString *result, NSString *info);
 - (void) billingConfirm:(NSString *)orderId;
 - (void) billingPurchase:(NSString *)sku payload:(NSString *)payload completion:(PerpleSDKCallback)callback;
 - (void) billingSubscription:(NSString *)sku payload:(NSString *)payload completion:(PerpleSDKCallback)callback;
+- (void) billingGetItemList:(NSString *)skuList completion:(PerpleSDKCallback)callback;
 
 #pragma mark - Initialization
 
