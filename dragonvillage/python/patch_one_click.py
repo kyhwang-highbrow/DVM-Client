@@ -233,13 +233,13 @@ def main():
     # 5. NAS에 복사
     dst_forder = 'patch_' + app_ver.replace('.', '_')
     dst_dir = os.path.join(dest_path, dst_forder)
-    #copy(zip_file, dst_dir)
+    copy(zip_file, dst_dir)
     
     # 운영툴 패치 정보 업데이트
     print('# [tool] update_patch_dv')
-    #r = requests.get(TOOL_SERVER_PATH + '/update_patch_dv')
+    r = requests.get(TOOL_SERVER_PATH + '/update_patch_dv')
     print('# [tool] upload_patch_dv')
-    #r = requests.get(TOOL_SERVER_PATH + '/upload_patch_dv')
+    r = requests.get(TOOL_SERVER_PATH + '/upload_patch_dv')
 
     # 플랫폼 서버에 패치 정보 전달
     tar_server = sys.argv[1]
@@ -257,7 +257,7 @@ def main():
             'size' : zip_size
         }
         print params
-        #r = requests.get(PLATFORM_SERVER_PATH + '/versions/addPatchInfo', params = params)
+        r = requests.get(PLATFORM_SERVER_PATH + '/versions/addPatchInfo', params = params)
 
     print "###################################"
     print "done"
