@@ -214,32 +214,43 @@ end
 -- function update
 -------------------------------------
 function GameState:update(dt)
-    if (self.m_bPause) then return end
+    self:updateFightTimer(dt)
 
-    -- 특정 상태에서만 타임 계산
-    if (isExistValue(self.m_state, GAME_STATE_FIGHT)) then
-        -- 플레이 시간 계산
-        self.m_fightTimer = self.m_fightTimer + dt
-        
-        -- 제한 시간이 있을 경우 체크
-        if (self.m_limitTime > 0) then
-            if (self.m_fightTimer >= self.m_limitTime) then
-                self.m_fightTimer = self.m_limitTime
+    if (not self.m_bPause) then
+        return PARENT.update(self, dt)
+    end
+end
 
-                self:processTimeOut()
-            end
+-------------------------------------
+-- function updateFightTimer
+-------------------------------------
+function GameState:updateFightTimer(dt)
+    -- 전투 상태에서만 타임 계산
+    if (not isExistValue(self.m_state, GAME_STATE_FIGHT)) then return end
 
-			local is_limit = true
-            self.m_world.m_inGameUI:setTime(self.m_limitTime - self.m_fightTimer, is_limit)
-		
-		-- 제한시간이 없을 경우 플레이 시간 표시
-		else
-			local is_limit = false
-			self.m_world.m_inGameUI:setTime(self.m_fightTimer, is_limit)
+    local has_limit = (self.m_limitTime > 0)
+    local time = self.m_fightTimer
+
+    -- 플레이 시간 계산
+    self.m_fightTimer = self.m_fightTimer + dt
+
+    if (has_limit) then
+        -- 제한 시간이 있을 경우
+        if (self.m_fightTimer >= self.m_limitTime) then
+            self.m_fightTimer = self.m_limitTime
+
+            -- 제한 시간이 넘었을 경우 처리
+            self:processTimeOut()
         end
+
+        -- 남은 제한 시간을 표시
+        time = self.m_limitTime - self.m_fightTimer
+	else
+        -- 제한시간이 없을 경우 플레이 시간 표시
+        time = self.m_fightTimer
     end
 
-    return PARENT.update(self, dt)
+    self.m_world.m_inGameUI:setTime(time, has_limit)
 end
 
 -------------------------------------

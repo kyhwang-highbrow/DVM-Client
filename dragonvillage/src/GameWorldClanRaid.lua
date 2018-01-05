@@ -78,7 +78,7 @@ function GameWorldClanRaid:createComponents()
     -- 상태 관리자
     do
         self.m_gameState = GameState_ClanRaid(self)
-        self.m_inGameUI:init_timeUI(false, self.m_gameState.m_limitTime)
+        self.m_inGameUI:init_timeUI(false, 0)
     end
 end
 

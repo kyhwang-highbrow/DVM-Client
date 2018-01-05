@@ -15,6 +15,8 @@ GameState_ClanRaid = class(PARENT, {
         m_bossHpCount = 'number',
         m_bossMaxHpCount = 'number',
 
+        m_totalDamage = 'number',
+
         m_uiBossHp = 'UI_IngameBossHp',
     })
 
@@ -25,12 +27,15 @@ function GameState_ClanRaid:init(world)
     self.m_bgmBoss = 'bgm_dungeon_boss'
     --self.m_limitTime = 300
 
-    -- 임시 체력 설정
-    self.m_bossMaxHp = 100000000
-    self.m_bossHp = self.m_bossMaxHp
+    -- 체력 설정
+    local struct_raid = g_clanRaidData:getClanRaidStruct()
+    self.m_bossMaxHp = struct_raid:getMaxHp()
+    self.m_bossHp = struct_raid:getHp() 
 
     self.m_bossMaxHpCount = 0
     self.m_bossHpCount = 0
+
+    self.m_totalDamage = 0
 end
 
 -------------------------------------
@@ -48,14 +53,10 @@ function GameState_ClanRaid:initState()
 end
 
 -------------------------------------
--- function update
+-- function updateFightTimer
 -------------------------------------
-function GameState_ClanRaid:update(dt)
-    self.m_world.m_inGameUI:setTime(g_gameScene.m_realLiveTimer, true)
-
-    if (not self.m_bPause) then
-        return IStateHelper.update(self, dt)
-    end
+function GameState_ClanRaid:updateFightTimer(dt)
+    -- 게임 씬에서 처리
 end
 
 -------------------------------------
@@ -262,6 +263,8 @@ end
 function GameState_ClanRaid:makeResultUI(is_success)
     self.m_world:setGameFinish()
 
+    local total_damage = math_floor(self.m_totalDamage)
+
     -- 작업 함수들
     local func_network_game_finish
     local func_ui_result
@@ -273,6 +276,10 @@ function GameState_ClanRaid:makeResultUI(is_success)
     -- 1. 네트워크 통신
     func_network_game_finish = function()
         local t_param = self:makeGameFinishParam(is_success)
+
+        -- 총 데미지
+        t_param['damage'] = total_damage
+
         g_gameScene:networkGameFinish(t_param, t_result_ref, func_ui_result)
     end
 
@@ -281,7 +288,7 @@ function GameState_ClanRaid:makeResultUI(is_success)
         local world = self.m_world
         local stage_id = world.m_stageID
         -- 데미지 임의
-        local damage = 10000
+        local damage = total_damage
 
         local ui = UI_ClanRaidResult(stage_id,
             is_success,
@@ -405,6 +412,11 @@ end
 -- function setBossHp
 -------------------------------------
 function GameState_ClanRaid:setBossHp(hp_count, hp)
+    -- 임시... 총 데미지 계산
+    if (self.m_bossHp > hp) then
+        self.m_totalDamage = self.m_bossHp - hp
+    end
+
     self.m_bossHpCount = hp_count
     self.m_bossHp = hp
 

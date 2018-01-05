@@ -111,10 +111,22 @@ end
 -- function update
 -------------------------------------
 function SceneGameClanRaid:update(dt)
+    PARENT.update(self, dt)
+
+    self:updateRealTimer(dt)
+end
+
+-------------------------------------
+-- function updateRealTimer
+-------------------------------------
+function SceneGameClanRaid:updateRealTimer(dt)
     -- 실제 진행 시간을 계산(배속에 영향을 받지 않도록 함)
     self.m_realLiveTimer = self.m_realLiveTimer + (dt / self.m_timeScale)
 
-    PARENT.update(self, dt)
+    -- TODO: 시간 제한 체크 및 처리
+
+    -- TODO: UI 시간 표기 갱신(차후 남은 시간으로 표시해야할듯)
+    self.m_inGameUI:setTime(self.m_realLiveTimer, true)
 end
 
 -------------------------------------
@@ -140,7 +152,7 @@ function SceneGameClanRaid:networkGameFinish(t_param, t_result_ref, next_func)
     ui_network:setParam('stage', self.m_stageID)
 
     -- 데미지 임의 
-    ui_network:setParam('damage', 100000)
+    ui_network:setParam('damage', t_param['damage'])
     ui_network:setParam('gamekey', self.m_gameKey)
     ui_network:setSuccessCB(success_cb)
     ui_network:request()

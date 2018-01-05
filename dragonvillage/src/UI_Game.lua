@@ -33,6 +33,9 @@ UI_Game = class(PARENT, {
 
         -- 채팅 라벨 (추가)
         m_chatBroadcastLabel = 'UIC_BroadcastLabel',
+
+        -- 시간 라벨
+        m_timeLabel = '',
      })
 
 -------------------------------------
@@ -62,6 +65,7 @@ function UI_Game:init(game_scene)
 
     self.m_broadcastLabel = UIC_BroadcastLabel:create(vars['noticeBroadcastNode'], vars['noticeBroadcastLabel'])
     self.m_chatBroadcastLabel = UIC_BroadcastLabel:create(vars['chatBroadcastNode'], vars['chatBroadcastLabel'])
+    self.m_timeLabel = nil
 end
 
 -------------------------------------
@@ -292,13 +296,13 @@ function UI_Game:click_speedButton()
 	local quick_time_scale = g_constant:get('INGAME', 'QUICK_MODE_TIME_SCALE')
 
     if (gameTimeScale:getBase() >= quick_time_scale) then
-        UIManager:toastNotificationGreen('빠른모드 비활성화')
+        UIManager:toastNotificationGreen(Str('빠른모드 비활성화'))
 
         gameTimeScale:setBase(1)
 
         g_autoPlaySetting:setWithoutSaving('quick_mode', false)
     else
-        UIManager:toastNotificationGreen('빠른모드 활성화')
+        UIManager:toastNotificationGreen(Str('빠른모드 활성화'))
 
         gameTimeScale:setBase(quick_time_scale)
 
@@ -323,9 +327,9 @@ function UI_Game:click_effectBtn()
     local new_skip_mode = (not skip_mode)
 
     if (new_skip_mode) then
-        UIManager:toastNotificationGreen('연출 스킵')
+        UIManager:toastNotificationGreen(Str('연출 스킵'))
     else
-        UIManager:toastNotificationGreen('연출 표시')
+        UIManager:toastNotificationGreen(Str('연출 표시'))
     end
 
     g_autoPlaySetting:setWithoutSaving('skip_mode', new_skip_mode)
@@ -424,13 +428,27 @@ end
 function UI_Game:init_timeUI(display_wave, time)
     local vars = self.vars
 
+    vars['timeNode']:setVisible(false)
+    vars['clanRaidTimeNode']:setVisible(false)
     vars['waveVisual']:setVisible(display_wave)
     
-    if (time) then
-        vars['timeNode']:setVisible(true)
-        self:setTime(time)
+    local game_mode = self.m_gameScene.m_gameMode
+    local time_node
+
+    if (game_mode == GAME_MODE_CLAN_RAID) then
+        -- 클랜 던전의 경우 별도 라벨 사용
+        time_node = vars['clanRaidTimeNode']
+        self.m_timeLabel = vars['clanRaidtimeLabel']
     else
-        vars['timeNode']:setVisible(false)
+        time_node = vars['timeNode']
+        self.m_timeLabel = vars['timeLabel']
+    end
+
+    if (time) then
+        time_node:setVisible(true)
+        self.m_timeLabel:setVisible(true)
+
+        self:setTime(time)
     end
 end
 
@@ -460,16 +478,16 @@ function UI_Game:setTime(sec, is_limit)
     local m = math_floor(sec / 60)
     local s = sec % 60
     local str = string.format('%02d:%02d', m, s)
-    vars['timeLabel']:setString(str)
+    self.m_timeLabel:setString(str)
 
 	-- 제한시간이 있는 경우에 색상 부여
 	if (is_limit) then
 		-- 20초이하인 경우 붉은색으로 색상 변경
 		if (sec <= 20) then
-			vars['timeLabel']:setColor(cc.c3b(255, 0, 0))
+			self.m_timeLabel:setColor(cc.c3b(255, 0, 0))
 		-- 이상은 초록색
 		else
-			vars['timeLabel']:setColor(cc.c3b(0, 255, 0))
+			self.m_timeLabel:setColor(cc.c3b(0, 255, 0))
 		end
 	end
 end
@@ -485,14 +503,14 @@ function UI_Game:setAutoMode(b)
     if (world:isAutoPlay() == b) then return end
        
     if (b) then
-        UIManager:toastNotificationGreen('자동전투 활성화')
+        UIManager:toastNotificationGreen(Str('자동전투 활성화'))
 
         world.m_heroAuto:onStart() 
 
         g_autoPlaySetting:setWithoutSaving('auto_mode', true)
 
     else
-        UIManager:toastNotificationGreen('자동전투 비활성화')
+        UIManager:toastNotificationGreen(Str('자동전투 비활성화'))
 
         world.m_heroAuto:onEnd()
 
