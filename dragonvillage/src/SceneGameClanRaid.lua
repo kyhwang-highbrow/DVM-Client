@@ -4,6 +4,8 @@ local PARENT = SceneGame
 -- class SceneGameClanRaid
 -------------------------------------
 SceneGameClanRaid = class(PARENT, {
+        m_realStartTime = 'number', -- 클랜 던전 시작 시간
+        m_realLiveTimer = 'number', -- 클랜 던전 진행 시간 타이머
     })
 
 -------------------------------------
@@ -11,6 +13,8 @@ SceneGameClanRaid = class(PARENT, {
 -------------------------------------
 function SceneGameClanRaid:init(game_key, stage_id, stage_name, develop_mode, stage_param)
     self.m_sceneName = 'SceneGameClanRaid'
+    self.m_realStartTime = Timer:getServerTime()
+    self.m_realLiveTimer = 0
 
     -- 스테이지 속성에 따른 이름을 사용
     local attr = TableStageData():getStageAttr(stage_id)
@@ -101,6 +105,16 @@ function SceneGameClanRaid:prepareDone()
     self.m_scheduleNode:scheduleUpdateWithPriorityLua(function(dt) return self:update(dt) end, 0)
     
     self.m_gameWorld.m_gameState:changeState(GAME_STATE_START)
+end
+
+-------------------------------------
+-- function update
+-------------------------------------
+function SceneGameClanRaid:update(dt)
+    -- 실제 진행 시간을 계산(배속에 영향을 받지 않도록 함)
+    self.m_realLiveTimer = self.m_realLiveTimer + (dt / self.m_timeScale)
+
+    PARENT.update(self, dt)
 end
 
 -------------------------------------
@@ -306,4 +320,18 @@ function SceneGameClanRaid:networkGameFinish_response_stage_clear_info(ret)
     end
 
     -- TODO: 클리어 정보 저장
+end
+
+
+-------------------------------------
+-- function applicationWillEnterForeground
+-------------------------------------
+function SceneGameClanRaid:applicationWillEnterForeground()
+    -- 백그라운드로 나갔다가 진입시 흘러간 시간을 계산
+
+
+    -- TODO: 서버 통신(클랜 던전 남은 시간이나 서버 시간 정보 필요)
+    
+    -- 클랜 던전 진행 시간 재계산
+    self.m_realLiveTimer = Timer:getServerTime() - self.m_realStartTime
 end

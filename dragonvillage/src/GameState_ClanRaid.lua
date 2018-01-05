@@ -48,6 +48,17 @@ function GameState_ClanRaid:initState()
 end
 
 -------------------------------------
+-- function update
+-------------------------------------
+function GameState_ClanRaid:update(dt)
+    self.m_world.m_inGameUI:setTime(g_gameScene.m_realLiveTimer, true)
+
+    if (not self.m_bPause) then
+        return IStateHelper.update(self, dt)
+    end
+end
+
+-------------------------------------
 -- function update_start
 -------------------------------------
 function GameState_ClanRaid.update_start(self, dt)

@@ -1008,3 +1008,9 @@ function SceneGame:applicationDidEnterBackground()
 		self.m_inGameUI:click_pauseButton()
 	end
 end
+
+-------------------------------------
+-- function applicationWillEnterForeground
+-------------------------------------
+function SceneGame:applicationWillEnterForeground()
+end
