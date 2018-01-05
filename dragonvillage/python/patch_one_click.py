@@ -11,6 +11,7 @@ sys.path.append(os.path.join(file_path, 'module'))
 import md5_log_maker
 
 # 전역변수
+tar_server = ''
 source_path = ''
 patch_work_path = ''
 dest_path = ''
@@ -68,6 +69,7 @@ def zipdirectory(path):
 # 전역변수 초기화
 def init_global_var():
     print('# init_global_var ...')
+    global tar_server
     global source_path
     global patch_work_path
     global dest_path
@@ -242,7 +244,6 @@ def main():
     r = requests.get(TOOL_SERVER_PATH + '/upload_patch_dv')
 
     # 플랫폼 서버에 패치 정보 전달
-    tar_server = sys.argv[1]
     if tar_server == 'DEV':
         print zip_file
         print('# [platform] add patch info')
@@ -257,7 +258,7 @@ def main():
             'size' : zip_size
         }
         print params
-        r = requests.get(PLATFORM_SERVER_PATH + '/versions/addPatchInfo', params = params)
+        r = requests.post(PLATFORM_SERVER_PATH + '/versions/addPatchInfo', params = params)
 
     print "###################################"
     print "done"
