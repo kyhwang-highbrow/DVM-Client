@@ -142,6 +142,19 @@ function StructClanRaid:getBossNameWithLv()
 end
 
 -------------------------------------
+-- function getHp
+-------------------------------------
+function StructClanRaid:getHp()
+    return self['hp']
+end
+
+-------------------------------------
+-- function getMaxHp
+-------------------------------------
+function StructClanRaid:getMaxHp()
+    return self['max_hp']
+end
+-------------------------------------
 -- function getHpRate
 -------------------------------------
 function StructClanRaid:getHpRate()
