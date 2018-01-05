@@ -244,7 +244,7 @@ def main():
     r = requests.get(TOOL_SERVER_PATH + '/upload_patch_dv')
 
     # 플랫폼 서버에 패치 정보 전달
-    if tar_server == 'DEV':
+    if sys.argv[1] == 'DEV':
         print zip_file
         print('# [platform] add patch info')
         zip_path = '%s/patch_%d.zip' % (dst_forder, new_patch_ver)
