@@ -1083,3 +1083,118 @@ function reloadModule()
     print('## reloadModule() end      ##')
     print('#############################')
 end
+
+-------------------------------------
+-- function loadModuleForPatchScene
+-- @brief patch 시점에서 필요한 lua module을 별도로 지정
+-- @comment 면밀한 관리 필요!
+-------------------------------------
+function loadModuleForPatchScene()
+	local l_module_for_patch = {
+		'Cocos2d',
+		'Cocos2dConstants',
+		'lib/net',
+		'lib/class',
+		'lib/utils',
+		'lib/Translate',
+		'lib/scheduler',
+		'lib/SocketTCP',
+		'lib/math',
+		'lib/Radian',
+		'uilib/UIManager',
+		'uilib/UI',
+		'uilib/UILoader',
+		'uilib/TableView',
+		'perpleLib/StringUtils',
+		'perpleLib/sn',
+		'perpleLib/crand',
+		'perpleLib/PerpleScene',
+		'LuaBridge',
+		'SoundMgr',
+		'SoundMgrController',
+		'SoundMgrProtected',
+		'PatchData',
+		'PatchCore',
+		'PatchChecker',
+		'ApkExpansion',
+		'Coroutine',
+		'LocalPushMgr',
+		'Analytics',
+		'AdsManager',
+		'NaverCafeManager',
+		'ScriptCache',
+		'CppFunctions',
+		'XorCipher',
+		'PackageManager',
+		'FullPopupManager',
+
+		-- CONSTANT 
+		'Constant',
+		'ConstantUrl',
+		'Global',
+
+		-- ServerData
+		'ServerData_Adventure',
+
+		-- Util
+		'SDKManager',
+		'ErrorTracker',
+		'TimeLib',
+		'Table',
+		'TableClass',
+		'SecurityNumber',
+		'ResPreloadMgr',
+		'LocalData',
+		'NumberLoop',
+		'Stopwatch',
+		'IconHelper',
+		'ResHelper',
+		'AnimatorHelper',
+		'UIHelper',
+		'BroadcastMgr',
+
+		-- Table
+		'TableDragon',
+		'TableLoadingGuide',
+
+		-- Scene
+		'SceneLogo',
+		'ScenePatch',
+
+		-- Animator
+		'Animator',
+		'AnimatorPng',
+		'AnimatorSpine',
+		'AnimatorVrp',
+		'SpineCacheManager',
+
+		-- UIC (UI Component)
+		'UIC_Node',
+		'UIC_Button',
+		'UIC_LabelTTF',
+		'UIC_RichLabel',
+		'UIC_RichLabelCore',
+
+		-- UI : 분류 없음
+		'UI_BlockPopup',
+		'UI_Network',
+		'UI_NetworkLoading',
+		'UI_TitleScene',
+		'UI_TitleSceneLoading',
+		'UI_LoadingGuide',
+		'UI_LoadingGuide_Patch',
+		'UI_Popup',
+		'UI_SimplePopup',
+		'UI_SimplePopup2',
+
+		-- Network
+		'Network',
+		'socket',
+	}
+
+	pl = require 'pl.import_into'()
+	csv = require 'perpleLib/lua_csv'
+	for i,v in ipairs(l_module_for_patch) do
+        require(v)
+    end
+end
