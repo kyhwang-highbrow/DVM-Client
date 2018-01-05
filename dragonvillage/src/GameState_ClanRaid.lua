@@ -183,7 +183,7 @@ function GameState_ClanRaid.update_success(self, dt)
     elseif (self.m_stateTimer >= 3.5) then
         if self.m_stateParam then
             self.m_stateParam = false
-            --self:changeState(GAME_STATE_RESULT)
+            self:changeState(GAME_STATE_RESULT)
             self:makeResultUI(true)
         end
     end
@@ -242,12 +242,11 @@ function GameState_ClanRaid.update_failure(self, dt)
             end
         
         elseif (self:getStepTimer() >= 3.5) then
-            --self:changeState(GAME_STATE_RESULT)
+            self:changeState(GAME_STATE_RESULT)
             self:makeResultUI(false)
         end
     end
 end
-
 
 -------------------------------------
 -- function update_result

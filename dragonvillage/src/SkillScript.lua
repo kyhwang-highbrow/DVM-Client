@@ -30,15 +30,65 @@ end
 -------------------------------------
 function SkillScript:initState()
 	self:setCommonState(self)
-    self:addState('start', SkillScript.st_idle, 'back', false)
+    self:addState('start', SkillScript.st_appear, nil, false)
+    self:addState('attack', SkillScript.st_attack, nil, false)
+    self:addState('end', SkillScript.st_disappear, nil, false)
+end
+
+-------------------------------------
+-- function st_appear
+-------------------------------------
+function SkillScript.st_appear(owner, dt)
+	if (owner.m_stateTimer == 0) then        
+        -- 주체 유닛 스킬 시작 애니 설정
+    end
 end
 
 -------------------------------------
 -- function st_idle
 -------------------------------------
-function SkillScript.st_idle(owner, dt)
+function SkillScript.st_attack(owner, dt)
 	if (owner.m_stateTimer == 0) then
+        -- 애니메이션
+        owner:makeMissileLauncher()
 	end
+end
+
+-------------------------------------
+-- function st_appear
+-------------------------------------
+function SkillScript.st_appear(owner, dt)
+	if (owner.m_stateTimer == 0) then
+        -- 주체 유닛 스킬 종료 애니 설정
+    end
+end
+
+-------------------------------------
+-- function makeMissileLauncher
+-------------------------------------
+function SkillScript:makeMissileLauncher()
+    local missile_launcher = MissileLauncher(nil)
+    local t_launcher_option = missile_launcher:getOptionTable()
+
+    local start_x, start_y = self:getAttackPositionAtWorld()
+
+    -- 속성
+    t_launcher_option['attr_name'] = self.m_owner:getAttribute()
+
+    -- 타겟 지정
+    t_launcher_option['target'] = self.m_targetChar
+    t_launcher_option['target_list'] = self.m_lTargetChar
+
+    -- 각도 지정
+	local degree = getDegree(start_x, start_y, self.m_targetPos['x'], self.m_targetPos['y'])
+    t_launcher_option['dir'] = degree
+
+    self.m_world:addToMissileList(missile_launcher)
+    self.m_world.m_worldNode:addChild(missile_launcher.m_rootNode)
+
+    local phys_group = self.m_owner:getMissilePhysGroup()
+    missile_launcher:init_missileLauncherByScript(t_skill, phys_group, self.m_activityCarrier, {})
+    missile_launcher.m_animator:changeAni('animation', true)
 end
 
 -------------------------------------

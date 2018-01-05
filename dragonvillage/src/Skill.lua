@@ -790,7 +790,7 @@ end
 
 -------------------------------------
 -- function getAttackPositionAtWorld
--- @brief 캐릭터의 애니메이션상 공격 시작 위치의 offset을 가져온다.
+-- @brief 캐릭터의 애니메이션상 공격 시작 위치의 월드좌표를 가져온다.
 -------------------------------------
 function Skill:getAttackPositionAtWorld()
 	local pos_x = self.m_owner.pos.x + self.m_attackPosOffsetX
