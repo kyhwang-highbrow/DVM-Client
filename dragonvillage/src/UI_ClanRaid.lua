@@ -94,6 +94,7 @@ function UI_ClanRaid:initButton()
     local vars = self.vars
     vars['prevBtn']:registerScriptTapHandler(function() self:click_prevBtn() end)
     vars['nextBtn']:registerScriptTapHandler(function() self:click_nextBtn() end)
+    vars['rankBtn']:registerScriptTapHandler(function() self:click_rankBtn() end)
     vars['startBtn']:registerScriptTapHandler(function() self:click_startBtn() end)
 end
 
@@ -308,6 +309,20 @@ function UI_ClanRaid:click_nextBtn()
     if (next_stage_id) then
         g_clanRaidData:request_info(next_stage_id, finish_cb)
     end
+end
+
+-------------------------------------
+-- function click_rankBtn
+-- @brief 클랜 던전 랭킹 (클랜)
+-------------------------------------
+function UI_ClanRaid:click_rankBtn()
+    local rank_type = CLAN_RANK['RAID']
+    local offset = 1
+    local cb_func = function()
+        UI_ClanRaidRankPopup()
+    end
+
+    g_clanRankData:request_getRank(rank_type, offset, cb_func)
 end
 
 -------------------------------------

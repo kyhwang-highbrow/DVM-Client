@@ -34,8 +34,6 @@ function UI_ClanRaidRankListItem:initUI()
 
     -- 순위 표시
     vars['rankLabel']:setString(t_rank_info:getRankText())
-
-
 end
 
 -------------------------------------

@@ -3100,6 +3100,9 @@
     <None Include="..\src\UI_ClanRaidResult.lua">
       <Filter>lua\src</Filter>
     </None>
+    <None Include="..\src\UI_ClanRaidRankPopup.lua">
+      <Filter>lua\src</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Classes">

@@ -3,6 +3,7 @@ CLAN_RANK =
 {
     ['ANCT'] = 'ancient',
     ['CLSM'] = 'colosseum',
+    ['RAID'] = 'dungeon',
 }
 
 -------------------------------------
