@@ -10,7 +10,7 @@ SceneLogo = class(PerpleScene, {
         m_startTimeMillisec = 'sec',
     })
 
-local LOGO_TIME = 1.8
+local LOGO_TIME = 0.5
 
 -------------------------------------
 -- function init
