@@ -998,6 +998,7 @@
     'UI_ClanAcceptListItem',
     'UI_ClanRaid',
     'UI_ClanRaidRankListItem',
+    'UI_ClanRaidResult',
 
     -- Forest
     'SceneForest',

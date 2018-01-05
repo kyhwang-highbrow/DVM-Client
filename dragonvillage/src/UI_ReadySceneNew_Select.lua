@@ -88,7 +88,7 @@ function UI_ReadySceneNew_Select:init_dragonTableView()
 
     -- 테이블뷰 생성
     local table_view_td = UIC_TableViewTD(list_table_node)
-    table_view_td.m_cellSize = is_mine and cc.size(97, 94) or cc.size(97, 115) -- UI 테이블뷰 사이즈가 변경될 시 조정
+    table_view_td.m_cellSize = is_mine and cc.size(92, 94) or cc.size(92, 115) -- UI 테이블뷰 사이즈가 변경될 시 조정
     table_view_td.m_nItemPerCell = 5 -- UI 테이블뷰 사이즈가 변경될 시 조정
     table_view_td:setCellUIClass(is_mine and UI_DragonCard or UI_FriendDragonCard, create_func)
     local empty_text = is_mine and Str('드래곤이 없습니다.') or Str('친구가 없습니다.\n친구를 추가해보세요!')

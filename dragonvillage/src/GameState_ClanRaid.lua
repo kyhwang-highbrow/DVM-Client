@@ -182,7 +182,8 @@ function GameState_ClanRaid.update_success(self, dt)
     elseif (self.m_stateTimer >= 3.5) then
         if self.m_stateParam then
             self.m_stateParam = false
-            self:changeState(GAME_STATE_RESULT)
+            --self:changeState(GAME_STATE_RESULT)
+            self:makeResultUI(true)
         end
     end
 end
@@ -240,36 +241,83 @@ function GameState_ClanRaid.update_failure(self, dt)
             end
         
         elseif (self:getStepTimer() >= 3.5) then
-            self:changeState(GAME_STATE_RESULT)
+            --self:changeState(GAME_STATE_RESULT)
+            self:makeResultUI(false)
         end
     end
 end
+
 
 -------------------------------------
 -- function update_result
 -------------------------------------
 function GameState_ClanRaid.update_result(self, dt)
     if (self.m_stateTimer == 0) then
-
-        -- 작업 함수들
-        local func_network_game_finish
-        local func_ui_result
-
-        -- 1. 네트워크 통신
-        func_network_game_finish = function()
-            g_gameScene:networkGameFinish(nil, nil, func_ui_result)
-        end
-
-        -- 2. 결과 화면 (지금은 클랜 던전으로 바로 보냄)
-        func_ui_result = function()
-            UINavigator:goTo('clan_raid')
-        end
-
-        -- 최초 실행
-        func_network_game_finish()
     end
 end
 
+-------------------------------------
+-- function makeResultUI
+-------------------------------------
+function GameState_ClanRaid:makeResultUI(is_success)
+    self.m_world:setGameFinish()
+
+    -- 작업 함수들
+    local func_network_game_finish
+    local func_ui_result
+
+    -- UI연출에 필요한 테이블들
+    local t_result_ref = {}
+    t_result_ref['drop_reward_list'] = {}
+
+    -- 1. 네트워크 통신
+    func_network_game_finish = function()
+        local t_param = self:makeGameFinishParam(is_success)
+        g_gameScene:networkGameFinish(t_param, t_result_ref, func_ui_result)
+    end
+
+    -- 2. UI 생성
+    func_ui_result = function()
+        local world = self.m_world
+        local stage_id = world.m_stageID
+        -- 데미지 임의
+        local damage = 10000
+
+        local ui = UI_ClanRaidResult(stage_id,
+            is_success,
+            damage,
+            t_result_ref['drop_reward_list'])
+    end
+
+    -- 최초 실행
+    func_network_game_finish()
+end
+
+-------------------------------------
+-- function makeGameFinishParam
+-------------------------------------
+function GameState:makeGameFinishParam(is_success)
+    local t_param = {}
+
+    do-- 클리어 했는지 여부 ( 0 이면 실패, 1이면 성공)
+        t_param['clear_type'] = is_success and (1 or 0)
+    end
+
+    do-- 미션 성공 여부 (성공시 1, 실패시 0)
+		if (self.m_world.m_missionMgr) then
+			local t_mission = self.m_world.m_missionMgr:getCompleteClearMission()
+			for i = 1, 3 do
+				t_param['clear_mission_' .. i] = (is_success and t_mission['mission_' .. i])
+			end
+		end
+    end
+
+    do-- 사용한 덱 이름
+        t_param['deck_name'] = g_deckData:getSelectedDeckName()
+    end
+
+    return t_param
+end
 -------------------------------------
 -- function disappearAllDragon
 -------------------------------------

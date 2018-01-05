@@ -264,11 +264,14 @@ function UI_ClanRaid:refreshBtn()
     local prev_stage_id = g_stageData:getSimplePrevStage(stage_id)
     vars['prevBtn']:setVisible((prev_stage_id ~= nil))
 
-    local curr_stage_id = g_clanRaidData.m_curr_stageID
+    local curr_stage_id = g_clanRaidData:getChallengStageID()
     local next_stage_id = g_stageData:getNextStage(stage_id)
 
     -- 현재 진행중인 던전 이후는 보여주지 않음 (던전 인스턴스 생성되지 않은 상태)
     vars['nextBtn']:setVisible(curr_stage_id >= next_stage_id)
+
+    -- 시작버튼 활성화/비활성화
+    vars['startBtn']:setEnabled(stage_id >= curr_stage_id)
 end
 
 -------------------------------------
@@ -314,8 +317,7 @@ end
 function UI_ClanRaid:click_startBtn()
     local struct_raid = g_clanRaidData:getClanRaidStruct()
     local stage_id = struct_raid:getStageID()
-
-    UI_ReadySceneNew(stage_id)
+    UI_ReadySceneNew(stage_id) 
 end
 
 --@CHECK

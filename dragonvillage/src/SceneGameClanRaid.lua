@@ -169,7 +169,7 @@ function SceneGameClanRaid:networkGameFinish_response(ret, t_result_ref)
     -- self:networkGameFinish_response_added_dragons(ret, t_result_ref)
 
     -- 드랍 정보 drop_reward
-    -- self:networkGameFinish_response_drop_reward(ret, t_result_ref)
+     self:networkGameFinish_response_drop_reward(ret, t_result_ref)
 
     -- 스테이지 클리어 정보 stage_clear_info
     self:networkGameFinish_response_stage_clear_info(ret)
@@ -293,19 +293,26 @@ end
 -- @breif 드랍 보상 데이터 처리
 -------------------------------------
 function SceneGameClanRaid:networkGameFinish_response_drop_reward(ret, t_result_ref)
-    if (not ret['drop_reward']) then
+    if (not ret['added_items']) then
+        return
+    end
+
+    local items_list = ret['added_items']['items_list']
+    if (not items_list) then
         return
     end
 
     -- 보상 등급 지정
     t_result_ref['drop_reward_grade'] = ret['drop_reward_grade'] or 'c'
-
     local drop_reward_list = t_result_ref['drop_reward_list']
 
-    for i,v in ipairs(ret['drop_reward']) do
-        local item_id = tonumber(v['item_id'])
-        local count = tonumber(v['num'])
-        local t_data = {item_id, count}
+    -- 드랍 아이템
+    for i,v in ipairs(items_list) do
+        local item_id = v['item_id']
+        local count = v['count']
+        local data = nil
+
+        local t_data = {item_id, count, data}
         table.insert(drop_reward_list, t_data)
     end
 end

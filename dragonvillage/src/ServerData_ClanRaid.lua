@@ -9,7 +9,7 @@ ServerData_ClanRaid = class({
         m_endTime = 'number',
 
         -- 현재 진행중인 스테이지 ID
-        m_curr_stageID = 'number',
+        m_challenge_stageID = 'number',
 
         -- 현재 진행중 혹은 선택한 던전 정보
         m_structClanRaid = 'StructClanRaid',
@@ -36,6 +36,13 @@ end
 -------------------------------------
 function ServerData_ClanRaid:getClanRaidStruct()
     return self.m_structClanRaid
+end
+
+-------------------------------------
+-- function getChallengStageID
+-------------------------------------
+function ServerData_ClanRaid:getChallengStageID()
+    return self.m_challenge_stageID
 end
 
 -------------------------------------
@@ -195,7 +202,7 @@ function ServerData_ClanRaid:request_info(stage_id, cb_func)
         self.m_startTime = ret['start_time']
         self.m_endTime = ret['endtime']
 
-        self.m_curr_stageID = ret['cur_stage']
+        self.m_challenge_stageID = ret['cur_stage']
 
         -- 누적 기여도 랭킹
         local rank_list = ret['scores']
