@@ -129,8 +129,7 @@ end
 function UI_ExchangeEvent:click_boxBtn()
     local curr_cnt = g_exchangeEventData.m_nMaterialCnt
     if (curr_cnt < NEED_EXCHANGE) then
-        local item_name = TableItem:getItemName(ITEM_ID_EVENT)
-        UIManager:toastNotificationRed(Str('{1}가 부족합니다.', item_name))
+        UIManager:toastNotificationRed(Str('이벤트 재화가 부족합니다.'))
         return
     end
 
