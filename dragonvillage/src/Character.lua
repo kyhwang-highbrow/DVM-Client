@@ -1465,11 +1465,11 @@ function Character:healAbs(caster, heal, b_make_effect, bFixed, skill_id)
     -- 최소 힐량 1로 표시
     heal = math_max(heal, 1)
 
-    local heal_for_text = heal
 
-    heal = math_min(heal, (self.m_maxHp - self.m_hp))
 
-    self:makeHealFont(heal_for_text, is_critical)
+    local heal_for_log = math_min(heal, (self.m_maxHp - self.m_hp))
+
+    self:makeHealFont(heal, is_critical)
     self:setHp(self.m_hp + heal, bFixed)
 
     if (b_make_effect) then
@@ -1496,10 +1496,10 @@ function Character:healAbs(caster, heal, b_make_effect, bFixed, skill_id)
     end
 
 	-- @LOG_CHAR : 피회복자 피회복량
-	self.m_charLogRecorder:recordLog('be_healed', heal)
+	self.m_charLogRecorder:recordLog('be_healed', heal_for_log)
 	-- @LOG_CHAR : 회복시전자 회복량
 	if (caster) then
-		caster.m_charLogRecorder:recordLog('heal', heal)
+		caster.m_charLogRecorder:recordLog('heal', heal_for_log)
 	end
 end
 
