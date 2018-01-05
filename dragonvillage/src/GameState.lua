@@ -336,10 +336,6 @@ function GameState.update_fight(self, dt)
         world.m_waveMgr:update(dt)
     end
         
-    if (world.m_skillIndicatorMgr) then
-        world.m_skillIndicatorMgr:update(dt)
-    end
-
     -- 자동
     world:updateAuto(dt)
 

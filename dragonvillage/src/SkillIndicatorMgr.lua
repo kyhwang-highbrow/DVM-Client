@@ -39,7 +39,6 @@ SkillIndicatorMgr = class({
         m_touchNode = 'cc.Node',
         m_touchedHero = 'Hero',
         m_selectHero = 'Hero',
-        m_bPauseMode = 'boolean',
         m_startTimer = 'number',
         m_firstTouchPos = '',
         m_firstTouchUIPos = '',
@@ -59,7 +58,6 @@ function SkillIndicatorMgr:init(world)
 
     self.m_touchedHero = nil
     self.m_selectHero = nil
-    self.m_bPauseMode = false
     self.m_startTimer = 0
     self.m_firstTouchPos = nil
     self.m_firstTouchUIPos = nil
@@ -237,7 +235,7 @@ function SkillIndicatorMgr:onTouchEnded(touch, event)
 
                 tamer:dispatch('touch_ended', t_event)
 
-            elseif (self.m_touchedHero.m_skillIndicator) then
+            elseif (self.m_touchedHero.m_charType == 'dragon') then
                 local unit = self.m_touchedHero
 
                 self.m_world.m_gameActiveSkillMgr:addWork(unit)
@@ -261,7 +259,6 @@ function SkillIndicatorMgr:clear(keep_pause)
             self:setPauseMode(false, self.m_selectHero)
         end
         self:setSelectHero(nil)
-        self.m_bPauseMode = false
     end
 end
 
@@ -269,21 +266,17 @@ end
 -- function update
 -------------------------------------
 function SkillIndicatorMgr:update(dt)
-    if (not self.m_world:isPossibleControl()) then
-        self:clear()
-        self:closeSkillToolTip()
-        return 
-    end
-
     if (self:isControlling()) then
-        if (self.m_selectHero:isDead()) or (not self.m_world:isPossibleControl()) then
+        if (self.m_selectHero:isDead() or not self.m_world:isPossibleControl()) then
             self:clear()
-            return
-        
-        elseif (not self.m_bPauseMode) then
-            self:setPauseMode(true, self.m_selectHero)
-                        
+            self:closeSkillToolTip()
+        else
+            self:setPauseMode(true, self.m_selectHero)            
         end
+
+    elseif (not self.m_world:isPossibleControl()) then
+        -- 조작 불가 상태일 경우 터치 시작시 정보를 초기화
+        self:clear()
     end
 end
 
@@ -361,8 +354,13 @@ end
 -- function setPauseMode
 -------------------------------------
 function SkillIndicatorMgr:setPauseMode(b, hero)
-    self.m_world:setTemporaryPause(b, hero)
-    self.m_bPauseMode = b
+    if (b) then
+        if (not self.m_world:isPause()) then
+            self.m_world:setTemporaryPause(true, hero)
+        end
+    else
+        self.m_world:setTemporaryPause(false, hero)
+    end
 end
 
 -------------------------------------

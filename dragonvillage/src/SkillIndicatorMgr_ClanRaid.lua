@@ -9,18 +9,15 @@ SkillIndicatorMgr_ClanRaid = class(PARENT, {})
 -- function update
 -------------------------------------
 function SkillIndicatorMgr_ClanRaid:update(dt)
-    if (not self.m_world.m_gameState:isFight()) then
-        self:clear()
-        self:closeSkillToolTip()
-        return
-    end
-
     if (self:isControlling()) then
         if (self.m_selectHero:isDead()) then
             self:clear()
             self:closeSkillToolTip()
-            return                
         end
+
+    elseif (not self.m_world.m_gameState:isFight()) then
+        -- 전투 중이 아닐 경우만 터치 시작시 정보를 초기화
+        self:clear()
     end
 end
 

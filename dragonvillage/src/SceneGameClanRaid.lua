@@ -10,8 +10,11 @@ SceneGameClanRaid = class(PARENT, {
 -- function init
 -------------------------------------
 function SceneGameClanRaid:init(game_key, stage_id, stage_name, develop_mode, stage_param)
-    self.m_stageName = 'stage_clanraid'
-	self.m_sceneName = 'SceneGameClanRaid'
+    self.m_sceneName = 'SceneGameClanRaid'
+
+    -- 스테이지 속성에 따른 이름을 사용
+    local attr = TableStageData():getStageAttr(stage_id)
+    self.m_stageName = string.format('stage_clanraid_%s', attr)
 end
 
 -------------------------------------

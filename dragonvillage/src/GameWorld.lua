@@ -622,6 +622,11 @@ function GameWorld:updateBefore(dt)
     if (self.m_physWorld) then
         self.m_physWorld:update(dt)
     end
+
+    -- 인디케이터
+    if (self.m_skillIndicatorMgr) then
+        self.m_skillIndicatorMgr:update(dt)
+    end
 end
 
 -------------------------------------
