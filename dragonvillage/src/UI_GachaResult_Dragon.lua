@@ -408,7 +408,7 @@ function UI_GachaResult_Dragon:setDragonCardList()
 		
 		-- 등급에 따른 연출
 		if (t_data['grade'] > 3) then
-			local rarity_effect = MakeAnimator('res/ui/a2d/card/card.vrp')
+			local rarity_effect = MakeAnimator('res/ui/a2d/card_summon/card_summon.vrp')
 			if (t_data['grade'] == 5) then
 				rarity_effect:changeAni('summon_regend', true)
 			else
