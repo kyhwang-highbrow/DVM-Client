@@ -159,14 +159,10 @@ function GameWorldClanRaid:makeHeroDeck()
     local str_sub_deck_name
 
     if (sel_deck == 'up') then
-        self.m_pcGroup = PHYS.HERO_TOP
-        self.m_npcGroup = PHYS.HERO_BOTTOM
         main_deck_name = g_clanRaidData:getDeckName('up')
         sub_deck_name = g_clanRaidData:getDeckName('down')
 
     elseif (sel_deck == 'down') then
-        self.m_pcGroup = PHYS.HERO_BOTTOM
-        self.m_npcGroup = PHYS.HERO_TOP
         main_deck_name = g_clanRaidData:getDeckName('down')
         sub_deck_name = g_clanRaidData:getDeckName('up')
 

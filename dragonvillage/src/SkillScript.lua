@@ -41,25 +41,39 @@ end
 function SkillScript.st_appear(owner, dt)
 	if (owner.m_stateTimer == 0) then        
         -- 주체 유닛 스킬 시작 애니 설정
+        owner.m_owner:changeAni('skill_appear', false)
+        owner.m_owner:addAniHandler(function()
+            owner:changeState('attack')
+        end)
     end
 end
 
 -------------------------------------
--- function st_idle
+-- function st_attack
 -------------------------------------
 function SkillScript.st_attack(owner, dt)
 	if (owner.m_stateTimer == 0) then
         -- 애니메이션
+        owner.m_owner:changeAni('skill_idle', true)
+
         owner:makeMissileLauncher()
 	end
+
+    if (owner.m_stateTimer >= 10) then
+        owner:changeState('end')
+    end
 end
 
 -------------------------------------
--- function st_appear
+-- function st_disappear
 -------------------------------------
-function SkillScript.st_appear(owner, dt)
+function SkillScript.st_disappear(owner, dt)
 	if (owner.m_stateTimer == 0) then
         -- 주체 유닛 스킬 종료 애니 설정
+        owner.m_owner:changeAni('skill_disappear', false)
+        owner.m_owner:addAniHandler(function()
+            owner:changeState('dying')
+        end)
     end
 end
 
@@ -87,8 +101,10 @@ function SkillScript:makeMissileLauncher()
     self.m_world.m_worldNode:addChild(missile_launcher.m_rootNode)
 
     local phys_group = self.m_owner:getMissilePhysGroup()
-    missile_launcher:init_missileLauncherByScript(t_skill, phys_group, self.m_activityCarrier, {})
+    missile_launcher:init_missileLauncherByScript(self.m_scriptName, phys_group, self.m_activityCarrier, {})
     missile_launcher.m_animator:changeAni('animation', true)
+    missile_launcher:setPosition(start_x, start_y)
+    missile_launcher.m_owner = self.m_owner
 end
 
 -------------------------------------

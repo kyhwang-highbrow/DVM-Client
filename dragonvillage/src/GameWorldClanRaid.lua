@@ -41,8 +41,16 @@ function GameWorldClanRaid:init()
     self.m_leftAllParticipants = {}
     self.m_rightAllParticipants = {}
 
-    self.m_pcGroup = PHYS.HERO_TOP
-    self.m_npcGroup = PHYS.HERO_BOTTOM
+    -- 조작 덱 설정
+    local sel_deck = g_clanRaidData:getMainDeck()
+    
+    if (sel_deck == 'down') then
+        self.m_pcGroup = PHYS.HERO_BOTTOM
+        self.m_npcGroup = PHYS.HERO_TOP
+    else
+        self.m_pcGroup = PHYS.HERO_TOP
+        self.m_npcGroup = PHYS.HERO_BOTTOM
+    end
 end
 
 -------------------------------------
@@ -65,7 +73,7 @@ function GameWorldClanRaid:createComponents()
     self.m_heroMana = GameMana(self, self:getPCGroup())
     self.m_heroMana:bindUI(self.m_inGameUI)
     self.m_subHeroMana = GameMana(self, self:getNPCGroup())
-
+    
     -- 아군 자동시 AI
     do
         self.m_heroAuto = GameAuto_Hero(self, self.m_heroMana, self.m_inGameUI)

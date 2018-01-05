@@ -29,8 +29,13 @@ function GameState_ClanRaid:init(world)
 
     -- 체력 설정
     local struct_raid = g_clanRaidData:getClanRaidStruct()
-    self.m_bossMaxHp = struct_raid:getMaxHp()
-    self.m_bossHp = struct_raid:getHp() 
+    if (struct_raid) then
+        self.m_bossMaxHp = struct_raid:getMaxHp()
+        self.m_bossHp = struct_raid:getHp() 
+    else
+        self.m_bossMaxHp = 10000000
+        self.m_bossHp = self.m_bossMaxHp
+    end
 
     self.m_bossMaxHpCount = 0
     self.m_bossHpCount = 0

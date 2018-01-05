@@ -224,13 +224,23 @@ function Monster:updateBonePos(dt)
             
             body.x = pos.x * self.m_animator.m_node:getScaleX()
             body.y = pos.y * self.m_animator.m_node:getScaleY()
+
+            local effect = self.m_mTargetEffect[body.key]
+            if (effect) then
+                effect:setPosition(body['x'], body['y'])
+            end
+            
+            effect = self.m_mNonTargetEffect[body.key]
+            if (effect) then
+                effect:setPosition(body['x'], body['y'])
+            end
         end
         
         -- bone의 위치를 기준값으로 사용할 추가 이펙트
         for effect, bone_name in pairs(self.m_mBoneEffect) do
             local pos = self.m_animator.m_node:getBonePosition(bone_name)
             local scale = self.m_animator.m_node:getBoneScale(bone_name)
-            
+
             if (effect.m_node:getParent() ~= self.m_animator.m_node) then
                 effect:setPositionX(self.pos.x - pos.x) -- 몬스터는 플립되서 사용되기 때문에 마이너스시킴
                 effect:setPositionY(self.pos.y + pos.y)

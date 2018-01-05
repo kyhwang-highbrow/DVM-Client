@@ -19,6 +19,25 @@ function Monster_ClanRaidBoss:init(file_name, body, ...)
 end
 
 -------------------------------------
+-- function updateBonePos
+-- @breif Spine Bone 정보로 갱신이 필요한 처리를 수행
+-------------------------------------
+function Monster_ClanRaidBoss:updateBonePos(dt)
+    PARENT.updateBonePos(self, dt)
+
+    -- 충돌영역 위치로 게이지를 표시하기 위함
+    if (self.m_hpNode and not self.m_bFixedPosHpNode) then
+        local body_list = self:getBodyList()
+        local body = body_list[1]
+
+        local offset_x = self.m_unitInfoOffset[1] + body['x']
+        local offset_y = self.m_unitInfoOffset[2] + body['y']
+
+        self.m_hpNode:setPosition(offset_x, offset_y)
+    end
+end
+
+-------------------------------------
 -- function setStatusCalc
 -------------------------------------
 function Monster_ClanRaidBoss:setStatusCalc(status_calc)

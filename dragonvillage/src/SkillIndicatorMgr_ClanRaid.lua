@@ -13,6 +13,9 @@ function SkillIndicatorMgr_ClanRaid:update(dt)
         if (self.m_selectHero:isDead()) then
             self:clear()
             self:closeSkillToolTip()
+        else
+            -- 인디케이터 충돌 정보를 매프레임 체크해야한다...
+            self.m_selectHero.m_skillIndicator.m_bDirty = true
         end
 
     elseif (not self.m_world.m_gameState:isFight()) then
