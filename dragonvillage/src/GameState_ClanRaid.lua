@@ -414,7 +414,7 @@ end
 function GameState_ClanRaid:setBossHp(hp_count, hp)
     -- 임시... 총 데미지 계산
     if (self.m_bossHp > hp) then
-        self.m_totalDamage = self.m_bossHp - hp
+        self.m_totalDamage = self.m_totalDamage + self.m_bossHp - hp
     end
 
     self.m_bossHpCount = hp_count
