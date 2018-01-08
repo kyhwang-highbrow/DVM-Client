@@ -1034,6 +1034,70 @@
 						skew_y = 0.000000;
 						rotation = 0.000000;
 						visible = true;
+						lua_name = 'dungeonTabLabel';
+						font_name = 'font/common_font_01.ttf';
+						font_size = 26;
+						text = '클랜 던전';
+						h_alignment = 1;
+						v_alignment = 1;
+						color = { 255; 255; 255; };
+						opacity = 255;
+						dimension_width = 290;
+						dimension_height = 50;
+						letter_spacing = 0.000000;
+						has_stroke = false;
+						stroke_type = 0;
+						stroke_detail_level = 0;
+						is_sharp_text = true;
+						stroke_tickness = 2.000000;
+						stroke_color = { 85; 44; 25; };
+						has_shadow = false;
+						shadow_color = { 85; 44; 25; };
+						shadow_opacity = 150;
+						shadow_direction = 0;
+						shadow_distance = 2.000000;
+					};
+					type = 'Button';
+					ui_name = '';
+					x = 150.000000;
+					y = -30.000000;
+					dock_point = { 0.500000; 1.000000; };
+					anchor_point = { 0.500000; 0.500000; };
+					relative_size_type = 0;
+					width = 300;
+					height = 50;
+					scale_x = 1.000000;
+					scale_y = 1.000000;
+					skew_x = 0.000000;
+					skew_y = 0.000000;
+					rotation = 0.000000;
+					visible = true;
+					lua_name = 'dungeonTabBtn';
+					enable = true;
+					normal = 'ui/buttons/base_btn_0101.png';
+					selected = 'ui/buttons/base_btn_0102.png';
+					disable = 'ui/buttons/base_btn_0103.png';
+					image_type = 1;
+				};
+				[2] =
+				{
+					[1] =
+					{
+						type = 'LabelTTF';
+						ui_name = '';
+						x = 0.000000;
+						y = 0.000000;
+						dock_point = { 0.500000; 0.500000; };
+						anchor_point = { 0.500000; 0.500000; };
+						relative_size_type = 0;
+						width = 290;
+						height = 50;
+						scale_x = 1.000000;
+						scale_y = 1.000000;
+						skew_x = 0.000000;
+						skew_y = 0.000000;
+						rotation = 0.000000;
+						visible = true;
 						lua_name = 'colosseumTabLabel';
 						font_name = 'font/common_font_01.ttf';
 						font_size = 26;
@@ -1079,7 +1143,7 @@
 					disable = 'ui/buttons/base_btn_0103.png';
 					image_type = 1;
 				};
-				[2] =
+				[3] =
 				{
 					[1] =
 					{
@@ -1101,7 +1165,7 @@
 						lua_name = 'ancientTabLabel';
 						font_name = 'font/common_font_01.ttf';
 						font_size = 26;
-						text = '고대의탑';
+						text = '고대의 탑';
 						h_alignment = 1;
 						v_alignment = 1;
 						color = { 255; 255; 255; };
@@ -1143,7 +1207,26 @@
 					disable = 'ui/buttons/base_btn_0103.png';
 					image_type = 1;
 				};
-				[3] =
+				[4] =
+				{
+					type = 'Node';
+					ui_name = '';
+					x = 0.000000;
+					y = 0.000000;
+					dock_point = { 0.500000; 0.000000; };
+					anchor_point = { 0.500000; 0.000000; };
+					relative_size_type = 0;
+					width = 1200;
+					height = 380;
+					scale_x = 1.000000;
+					scale_y = 1.000000;
+					skew_x = 0.000000;
+					skew_y = 0.000000;
+					rotation = 0.000000;
+					visible = true;
+					lua_name = 'dungeonNode';
+				};
+				[5] =
 				{
 					type = 'Node';
 					ui_name = '';
@@ -1162,7 +1245,7 @@
 					visible = true;
 					lua_name = 'ancientNode';
 				};
-				[4] =
+				[6] =
 				{
 					type = 'Node';
 					ui_name = '';
@@ -1181,7 +1264,7 @@
 					visible = true;
 					lua_name = 'colosseumNode';
 				};
-				[5] =
+				[7] =
 				{
 					type = 'Node';
 					ui_name = '';
