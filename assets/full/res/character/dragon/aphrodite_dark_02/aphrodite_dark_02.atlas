@@ -1,0 +1,202 @@
+
+aphrodite_dark_02.png
+size: 1555,316
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+aphrodite_dark_02_arm_01
+  rotate: true
+  xy: 1498, 255
+  size: 59, 55
+  orig: 59, 55
+  offset: 0, 0
+  index: -1
+aphrodite_dark_02_arm_02
+  rotate: false
+  xy: 1498, 177
+  size: 26, 76
+  orig: 26, 76
+  offset: 0, 0
+  index: -1
+aphrodite_dark_02_body_01
+  rotate: true
+  xy: 697, 9
+  size: 72, 105
+  orig: 72, 105
+  offset: 0, 0
+  index: -1
+aphrodite_dark_02_body_02
+  rotate: false
+  xy: 465, 5
+  size: 110, 76
+  orig: 110, 76
+  offset: 0, 0
+  index: -1
+aphrodite_dark_02_dress_01
+  rotate: true
+  xy: 351, 5
+  size: 76, 112
+  orig: 76, 112
+  offset: 0, 0
+  index: -1
+aphrodite_dark_02_dress_02
+  rotate: false
+  xy: 1132, 138
+  size: 212, 91
+  orig: 212, 91
+  offset: 0, 0
+  index: -1
+aphrodite_dark_02_dress_03
+  rotate: true
+  xy: 1373, 177
+  size: 137, 123
+  orig: 137, 123
+  offset: 0, 0
+  index: -1
+aphrodite_dark_02_dress_04
+  rotate: true
+  xy: 807, 101
+  size: 70, 145
+  orig: 70, 145
+  offset: 0, 0
+  index: -1
+aphrodite_dark_02_ear_01
+  rotate: true
+  xy: 1307, 2
+  size: 63, 112
+  orig: 63, 112
+  offset: 0, 0
+  index: -1
+aphrodite_dark_02_ear_02
+  rotate: true
+  xy: 577, 6
+  size: 75, 118
+  orig: 75, 118
+  offset: 0, 0
+  index: -1
+aphrodite_dark_02_eff_01
+  rotate: false
+  xy: 2, 15
+  size: 347, 299
+  orig: 347, 299
+  offset: 0, 0
+  index: -1
+aphrodite_dark_02_eff_02
+  rotate: false
+  xy: 1005, 189
+  size: 125, 125
+  orig: 125, 125
+  offset: 0, 0
+  index: -1
+aphrodite_dark_02_eye
+  rotate: true
+  xy: 1526, 187
+  size: 26, 16
+  orig: 26, 16
+  offset: 0, 0
+  index: -1
+aphrodite_dark_02_hand_01
+  rotate: false
+  xy: 934, 7
+  size: 50, 92
+  orig: 50, 92
+  offset: 0, 0
+  index: -1
+aphrodite_dark_02_hand_02
+  rotate: true
+  xy: 721, 94
+  size: 77, 84
+  orig: 77, 84
+  offset: 0, 0
+  index: -1
+aphrodite_dark_02_head_01
+  rotate: false
+  xy: 1421, 3
+  size: 70, 62
+  orig: 70, 62
+  offset: 0, 0
+  index: -1
+aphrodite_dark_02_horn_01
+  rotate: true
+  xy: 986, 27
+  size: 26, 119
+  orig: 26, 119
+  offset: 0, 0
+  index: -1
+aphrodite_dark_02_horn_02
+  rotate: true
+  xy: 807, 23
+  size: 76, 125
+  orig: 76, 125
+  offset: 0, 0
+  index: -1
+aphrodite_dark_02_lace_02
+  rotate: true
+  xy: 721, 173
+  size: 141, 282
+  orig: 141, 282
+  offset: 0, 0
+  index: -1
+aphrodite_dark_02_lace_03
+  rotate: true
+  xy: 1346, 67
+  size: 108, 200
+  orig: 108, 200
+  offset: 0, 0
+  index: -1
+aphrodite_dark_02_lace_04
+  rotate: false
+  xy: 1526, 215
+  size: 26, 38
+  orig: 26, 38
+  offset: 0, 0
+  index: -1
+aphrodite_dark_02_lace_05
+  rotate: true
+  xy: 1307, 75
+  size: 61, 29
+  orig: 61, 29
+  offset: 0, 0
+  index: -1
+aphrodite_dark_02_leg_01
+  rotate: true
+  xy: 1118, 22
+  size: 114, 187
+  orig: 114, 187
+  offset: 0, 0
+  index: -1
+aphrodite_dark_02_leg_02
+  rotate: true
+  xy: 1132, 231
+  size: 83, 239
+  orig: 83, 239
+  offset: 0, 0
+  index: -1
+aphrodite_dark_02_mouth
+  rotate: false
+  xy: 1346, 219
+  size: 10, 10
+  orig: 10, 10
+  offset: 0, 0
+  index: -1
+aphrodite_dark_02_tail
+  rotate: false
+  xy: 351, 83
+  size: 368, 231
+  orig: 368, 231
+  offset: 0, 0
+  index: -1
+aphrodite_dark_02_thing_01
+  rotate: true
+  xy: 1493, 7
+  size: 58, 53
+  orig: 58, 53
+  offset: 0, 0
+  index: -1
+aphrodite_dark_02_weapon
+  rotate: false
+  xy: 1005, 55
+  size: 111, 132
+  orig: 111, 132
+  offset: 0, 0
+  index: -1

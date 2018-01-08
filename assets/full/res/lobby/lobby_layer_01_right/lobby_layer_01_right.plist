@@ -4,19 +4,6 @@
     <dict>
         <key>frames</key>
         <dict>
-            <key>lobby_dragon_manage.png</key>
-            <dict>
-                <key>frame</key>
-                <string>{{2,1284},{270,328}}</string>
-                <key>offset</key>
-                <string>{-12,3}</string>
-                <key>rotated</key>
-                <true/>
-                <key>sourceColorRect</key>
-                <string>{{0,12},{270,328}}</string>
-                <key>sourceSize</key>
-                <string>{294,358}</string>
-            </dict>
             <key>lobby_layer_01_right_00.png</key>
             <dict>
                 <key>frame</key>
@@ -33,11 +20,11 @@
             <key>lobby_layer_01_right_01.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{332,1284},{79,43}}</string>
+                <string>{{121,1284},{79,43}}</string>
                 <key>offset</key>
                 <string>{1,-1}</string>
                 <key>rotated</key>
-                <true/>
+                <false/>
                 <key>sourceColorRect</key>
                 <string>{{8,9},{79,43}}</string>
                 <key>sourceSize</key>
@@ -46,11 +33,11 @@
             <key>lobby_layer_01_right_02.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{332,1365},{66,68}}</string>
+                <string>{{2,1284},{66,68}}</string>
                 <key>offset</key>
                 <string>{1,0}</string>
                 <key>rotated</key>
-                <false/>
+                <true/>
                 <key>sourceColorRect</key>
                 <string>{{14,5},{66,68}}</string>
                 <key>sourceSize</key>
@@ -59,7 +46,7 @@
             <key>lobby_layer_01_right_03.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{396,1284},{48,28}}</string>
+                <string>{{91,1284},{48,28}}</string>
                 <key>offset</key>
                 <string>{-2,-2}</string>
                 <key>rotated</key>
@@ -72,7 +59,7 @@
             <key>lobby_layer_01_right_04.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{332,1472},{34,32}}</string>
+                <string>{{202,1284},{34,32}}</string>
                 <key>offset</key>
                 <string>{-1,0}</string>
                 <key>rotated</key>
@@ -85,11 +72,11 @@
             <key>lobby_layer_01_right_05.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{332,1435},{35,14}}</string>
+                <string>{{173,1329},{35,14}}</string>
                 <key>offset</key>
                 <string>{0,-2}</string>
                 <key>rotated</key>
-                <true/>
+                <false/>
                 <key>sourceColorRect</key>
                 <string>{{4,7},{35,14}}</string>
                 <key>sourceSize</key>
@@ -98,7 +85,7 @@
             <key>lobby_layer_01_right_06.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{377,1284},{56,17}}</string>
+                <string>{{72,1284},{56,17}}</string>
                 <key>offset</key>
                 <string>{1,0}</string>
                 <key>rotated</key>
@@ -111,7 +98,7 @@
             <key>lobby_layer_01_right_07.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{394,1342},{20,13}}</string>
+                <string>{{128,1329},{20,13}}</string>
                 <key>offset</key>
                 <string>{1,0}</string>
                 <key>rotated</key>
@@ -124,7 +111,7 @@
             <key>lobby_layer_01_right_08.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{332,1508},{18,17}}</string>
+                <string>{{143,1329},{18,17}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
@@ -137,11 +124,11 @@
             <key>lobby_layer_01_right_09.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{377,1342},{20,15}}</string>
+                <string>{{106,1334},{20,15}}</string>
                 <key>offset</key>
                 <string>{-1,0}</string>
                 <key>rotated</key>
-                <true/>
+                <false/>
                 <key>sourceColorRect</key>
                 <string>{{4,1},{20,15}}</string>
                 <key>sourceSize</key>
@@ -150,7 +137,7 @@
             <key>lobby_layer_01_right_10.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{357,1435},{30,13}}</string>
+                <string>{{210,1320},{30,13}}</string>
                 <key>offset</key>
                 <string>{0,1}</string>
                 <key>rotated</key>
@@ -163,11 +150,11 @@
             <key>lobby_layer_01_right_11.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{348,1435},{32,7}}</string>
+                <string>{{72,1342},{32,7}}</string>
                 <key>offset</key>
                 <string>{0,1}</string>
                 <key>rotated</key>
-                <true/>
+                <false/>
                 <key>sourceColorRect</key>
                 <string>{{0,4},{32,7}}</string>
                 <key>sourceSize</key>
@@ -176,7 +163,7 @@
             <key>lobby_layer_01_right_12.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{332,1528},{17,9}}</string>
+                <string>{{162,1329},{17,9}}</string>
                 <key>offset</key>
                 <string>{0,1}</string>
                 <key>rotated</key>
@@ -194,9 +181,9 @@
             <key>realTextureFileName</key>
             <string>lobby_layer_01_right.png</string>
             <key>size</key>
-            <string>{964,1556}</string>
+            <string>{964,1352}</string>
             <key>smartupdate</key>
-            <string>$TexturePacker:SmartUpdate:9e6b9fbc3b75e89b1bf4068916a6796d:6695fa1d644c41bb957ce925d7a35c0d:f7c24ace2dd92c596b34f787cbd313dc$</string>
+            <string>$TexturePacker:SmartUpdate:633e5989092cefeef705a767d7eaeb9c:9c8a08d8cd287474f2744dd9778c23c2:f7c24ace2dd92c596b34f787cbd313dc$</string>
             <key>textureFileName</key>
             <string>lobby_layer_01_right.png</string>
         </dict>

@@ -1,0 +1,13 @@
+
+skill_karna_chain_light.png
+size: 1737,85
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+skill_karna_chain_res_02
+  rotate: false
+  xy: 2, 2
+  size: 1733, 81
+  orig: 1733, 81
+  offset: 0, 0
+  index: -1

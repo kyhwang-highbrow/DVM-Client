@@ -1,0 +1,118 @@
+
+effect_kingteddy.png
+size: 1502,307
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+kingteddy_acc_01
+  rotate: false
+  xy: 1321, 187
+  size: 89, 118
+  orig: 89, 118
+  offset: 0, 0
+  index: -1
+kingteddy_arm_01
+  rotate: true
+  xy: 876, 135
+  size: 170, 149
+  orig: 170, 149
+  offset: 0, 0
+  index: -1
+kingteddy_arm_02
+  rotate: false
+  xy: 712, 19
+  size: 169, 106
+  orig: 169, 106
+  offset: 0, 0
+  index: -1
+kingteddy_body_01
+  rotate: false
+  xy: 2, 7
+  size: 331, 298
+  orig: 331, 298
+  offset: 0, 0
+  index: -1
+kingteddy_effect_01
+  rotate: false
+  xy: 1057, 23
+  size: 149, 110
+  orig: 149, 110
+  offset: 0, 0
+  index: -1
+kingteddy_effect_02
+  rotate: false
+  xy: 1208, 24
+  size: 149, 110
+  orig: 149, 110
+  offset: 0, 0
+  index: -1
+kingteddy_effect_03
+  rotate: false
+  xy: 883, 3
+  size: 172, 130
+  orig: 172, 130
+  offset: 0, 0
+  index: -1
+kingteddy_effect_04
+  rotate: true
+  xy: 1359, 38
+  size: 147, 67
+  orig: 147, 67
+  offset: 0, 0
+  index: -1
+kingteddy_effect_05
+  rotate: true
+  xy: 546, 127
+  size: 178, 163
+  orig: 178, 163
+  offset: 0, 0
+  index: -1
+kingteddy_effect_06
+  rotate: true
+  xy: 711, 127
+  size: 178, 163
+  orig: 178, 163
+  offset: 0, 0
+  index: -1
+kingteddy_effect_07
+  rotate: true
+  xy: 1428, 87
+  size: 145, 59
+  orig: 145, 59
+  offset: 0, 0
+  index: -1
+kingteddy_foot_01
+  rotate: true
+  xy: 1175, 136
+  size: 169, 144
+  orig: 169, 144
+  offset: 0, 0
+  index: -1
+kingteddy_foot_02
+  rotate: false
+  xy: 546, 4
+  size: 164, 121
+  orig: 164, 121
+  offset: 0, 0
+  index: -1
+kingteddy_hair_01
+  rotate: false
+  xy: 1027, 135
+  size: 146, 170
+  orig: 146, 170
+  offset: 0, 0
+  index: -1
+kingteddy_head_01
+  rotate: true
+  xy: 335, 2
+  size: 303, 209
+  orig: 303, 209
+  offset: 0, 0
+  index: -1
+kingteddy_horn_01
+  rotate: true
+  xy: 1412, 234
+  size: 71, 88
+  orig: 71, 88
+  offset: 0, 0
+  index: -1

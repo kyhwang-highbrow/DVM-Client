@@ -1,0 +1,286 @@
+
+cupiddragon_dark_03.png
+size: 1781,216
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+cupiddragon_dark_03_acc_01
+  rotate: true
+  xy: 509, 3
+  size: 30, 28
+  orig: 30, 28
+  offset: 0, 0
+  index: -1
+cupiddragon_dark_03_acc_02
+  rotate: true
+  xy: 917, 3
+  size: 60, 64
+  orig: 60, 64
+  offset: 0, 0
+  index: -1
+cupiddragon_dark_03_arm_02
+  rotate: false
+  xy: 589, 7
+  size: 28, 42
+  orig: 28, 42
+  offset: 0, 0
+  index: -1
+cupiddragon_dark_03_arrow_01
+  rotate: true
+  xy: 1550, 6
+  size: 86, 111
+  orig: 86, 111
+  offset: 0, 0
+  index: -1
+cupiddragon_dark_03_body_01
+  rotate: false
+  xy: 1621, 118
+  size: 96, 96
+  orig: 96, 96
+  offset: 0, 0
+  index: -1
+cupiddragon_dark_03_bow_01
+  rotate: false
+  xy: 515, 51
+  size: 218, 163
+  orig: 218, 163
+  offset: 0, 0
+  index: -1
+cupiddragon_dark_03_bow_01_01
+  rotate: true
+  xy: 1285, 4
+  size: 68, 79
+  orig: 68, 79
+  offset: 0, 0
+  index: -1
+cupiddragon_dark_03_bow_01_02
+  rotate: true
+  xy: 619, 8
+  size: 41, 92
+  orig: 41, 92
+  offset: 0, 0
+  index: -1
+cupiddragon_dark_03_cape_01
+  rotate: true
+  xy: 1090, 2
+  size: 65, 64
+  orig: 65, 64
+  offset: 0, 0
+  index: -1
+cupiddragon_dark_03_cape_02
+  rotate: true
+  xy: 713, 12
+  size: 37, 60
+  orig: 37, 60
+  offset: 0, 0
+  index: -1
+cupiddragon_dark_03_cape_03
+  rotate: false
+  xy: 775, 2
+  size: 90, 59
+  orig: 90, 59
+  offset: 0, 0
+  index: -1
+cupiddragon_dark_03_cloud_01
+  rotate: true
+  xy: 1366, 4
+  size: 75, 51
+  orig: 75, 51
+  offset: 0, 0
+  index: -1
+cupiddragon_dark_03_cloud_02
+  rotate: true
+  xy: 989, 67
+  size: 147, 98
+  orig: 147, 98
+  offset: 0, 0
+  index: -1
+cupiddragon_dark_03_cloud_03
+  rotate: false
+  xy: 1419, 3
+  size: 129, 80
+  orig: 129, 80
+  offset: 0, 0
+  index: -1
+cupiddragon_dark_03_effect_01
+  rotate: true
+  xy: 375, 35
+  size: 179, 138
+  orig: 179, 138
+  offset: 0, 0
+  index: -1
+cupiddragon_dark_03_effect_02
+  rotate: false
+  xy: 2, 8
+  size: 319, 206
+  orig: 319, 206
+  offset: 0, 0
+  index: -1
+cupiddragon_dark_03_effect_03
+  rotate: true
+  xy: 323, 17
+  size: 197, 50
+  orig: 197, 50
+  offset: 0, 0
+  index: -1
+cupiddragon_dark_03_effect_04
+  rotate: false
+  xy: 1416, 85
+  size: 112, 129
+  orig: 112, 129
+  offset: 0, 0
+  index: -1
+cupiddragon_dark_03_effect_05
+  rotate: false
+  xy: 1089, 69
+  size: 126, 145
+  orig: 126, 145
+  offset: 0, 0
+  index: -1
+cupiddragon_dark_03_eye_01
+  rotate: false
+  xy: 375, 2
+  size: 33, 31
+  orig: 33, 31
+  offset: 0, 0
+  index: -1
+cupiddragon_dark_03_eye_01_01
+  rotate: false
+  xy: 410, 2
+  size: 33, 31
+  orig: 33, 31
+  offset: 0, 0
+  index: -1
+cupiddragon_dark_03_eye_02
+  rotate: false
+  xy: 473, 2
+  size: 16, 31
+  orig: 16, 31
+  offset: 0, 0
+  index: -1
+cupiddragon_dark_03_eye_02_01
+  rotate: false
+  xy: 491, 2
+  size: 16, 31
+  orig: 16, 31
+  offset: 0, 0
+  index: -1
+cupiddragon_dark_03_eye_03
+  rotate: true
+  xy: 983, 3
+  size: 60, 54
+  orig: 60, 54
+  offset: 0, 0
+  index: -1
+cupiddragon_dark_03_eye_04
+  rotate: false
+  xy: 1719, 160
+  size: 60, 54
+  orig: 60, 54
+  offset: 0, 0
+  index: -1
+cupiddragon_dark_03_foot_01
+  rotate: false
+  xy: 1233, 2
+  size: 50, 70
+  orig: 50, 70
+  offset: 0, 0
+  index: -1
+cupiddragon_dark_03_foot_02
+  rotate: true
+  xy: 1719, 110
+  size: 48, 59
+  orig: 48, 59
+  offset: 0, 0
+  index: -1
+cupiddragon_dark_03_hair_01
+  rotate: true
+  xy: 539, 4
+  size: 45, 48
+  orig: 45, 48
+  offset: 0, 0
+  index: -1
+cupiddragon_dark_03_hand_01
+  rotate: true
+  xy: 1663, 18
+  size: 48, 78
+  orig: 48, 78
+  offset: 0, 0
+  index: -1
+cupiddragon_dark_03_hand_02
+  rotate: true
+  xy: 1717, 76
+  size: 32, 29
+  orig: 32, 29
+  offset: 0, 0
+  index: -1
+cupiddragon_dark_03_hat_01
+  rotate: true
+  xy: 735, 63
+  size: 151, 118
+  orig: 151, 118
+  offset: 0, 0
+  index: -1
+cupiddragon_dark_03_hat_01_01
+  rotate: false
+  xy: 1156, 3
+  size: 75, 64
+  orig: 75, 64
+  offset: 0, 0
+  index: -1
+cupiddragon_dark_03_head_01
+  rotate: false
+  xy: 1530, 94
+  size: 89, 120
+  orig: 89, 120
+  offset: 0, 0
+  index: -1
+cupiddragon_dark_03_head_02
+  rotate: false
+  xy: 867, 2
+  size: 48, 61
+  orig: 48, 61
+  offset: 0, 0
+  index: -1
+cupiddragon_dark_03_leg_01
+  rotate: false
+  xy: 1039, 2
+  size: 49, 63
+  orig: 49, 63
+  offset: 0, 0
+  index: -1
+cupiddragon_dark_03_leg_02
+  rotate: true
+  xy: 1663, 68
+  size: 48, 52
+  orig: 48, 52
+  offset: 0, 0
+  index: -1
+cupiddragon_dark_03_mouth_01
+  rotate: true
+  xy: 445, 2
+  size: 31, 26
+  orig: 31, 26
+  offset: 0, 0
+  index: -1
+cupiddragon_dark_03_tail_01
+  rotate: true
+  xy: 1217, 74
+  size: 140, 104
+  orig: 140, 104
+  offset: 0, 0
+  index: -1
+cupiddragon_dark_03_wing_01
+  rotate: true
+  xy: 855, 65
+  size: 149, 132
+  orig: 149, 132
+  offset: 0, 0
+  index: -1
+cupiddragon_dark_03_wing_02
+  rotate: false
+  xy: 1323, 81
+  size: 91, 133
+  orig: 91, 133
+  offset: 0, 0
+  index: -1

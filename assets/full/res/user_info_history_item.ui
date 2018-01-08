@@ -14,7 +14,7 @@
 				dock_point = { 0.500000; 0.500000; };
 				anchor_point = { 0.500000; 0.500000; };
 				relative_size_type = 0;
-				width = 400;
+				width = 460;
 				height = 30;
 				scale_x = 1.000000;
 				scale_y = 1.000000;
@@ -30,7 +30,7 @@
 				v_alignment = 0;
 				color = { 240; 215; 159; };
 				opacity = 255;
-				dimension_width = 400;
+				dimension_width = 460;
 				dimension_height = 30;
 				letter_spacing = 0.000000;
 				has_stroke = true;
@@ -54,7 +54,7 @@
 				dock_point = { 0.500000; 0.500000; };
 				anchor_point = { 0.500000; 0.500000; };
 				relative_size_type = 0;
-				width = 400;
+				width = 460;
 				height = 30;
 				scale_x = 1.000000;
 				scale_y = 1.000000;
@@ -70,7 +70,7 @@
 				v_alignment = 0;
 				color = { 240; 215; 159; };
 				opacity = 255;
-				dimension_width = 400;
+				dimension_width = 460;
 				dimension_height = 30;
 				letter_spacing = 0.000000;
 				has_stroke = true;
@@ -92,7 +92,7 @@
 			dock_point = { 0.500000; 0.500000; };
 			anchor_point = { 0.500000; 0.500000; };
 			relative_size_type = 0;
-			width = 448;
+			width = 500;
 			height = 30;
 			scale_x = 1.000000;
 			scale_y = 1.000000;
@@ -109,7 +109,7 @@
 		dock_point = { 0.500000; 0.500000; };
 		anchor_point = { 0.500000; 0.500000; };
 		relative_size_type = 3;
-		width = -832;
+		width = -780;
 		height = -690;
 		scale_x = 1.000000;
 		scale_y = 1.000000;

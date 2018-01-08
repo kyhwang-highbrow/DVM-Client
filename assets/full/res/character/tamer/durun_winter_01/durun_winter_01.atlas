@@ -1,0 +1,377 @@
+
+durun_winter_01.png
+size: 919,523
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+durun_winter_01_acc_01
+  rotate: true
+  xy: 102, 16
+  size: 74, 50
+  orig: 74, 50
+  offset: 0, 0
+  index: -1
+durun_winter_01_acc_02
+  rotate: true
+  xy: 900, 287
+  size: 21, 17
+  orig: 21, 17
+  offset: 0, 0
+  index: -1
+durun_winter_01_acc_03
+  rotate: true
+  xy: 865, 3
+  size: 23, 29
+  orig: 23, 29
+  offset: 0, 0
+  index: -1
+durun_winter_01_acc_04
+  rotate: false
+  xy: 773, 12
+  size: 23, 29
+  orig: 23, 29
+  offset: 0, 0
+  index: -1
+durun_winter_01_acc_05
+  rotate: false
+  xy: 833, 4
+  size: 30, 29
+  orig: 30, 29
+  offset: 0, 0
+  index: -1
+durun_winter_01_arm_01
+  rotate: true
+  xy: 802, 44
+  size: 71, 33
+  orig: 71, 33
+  offset: 0, 0
+  index: -1
+durun_winter_01_arm_02
+  rotate: false
+  xy: 522, 100
+  size: 41, 65
+  orig: 41, 65
+  offset: 0, 0
+  index: -1
+durun_winter_01_arm_03
+  rotate: false
+  xy: 410, 4
+  size: 41, 65
+  orig: 41, 65
+  offset: 0, 0
+  index: -1
+durun_winter_01_arm_04
+  rotate: false
+  xy: 860, 266
+  size: 38, 71
+  orig: 38, 71
+  offset: 0, 0
+  index: -1
+durun_winter_01_arm_05
+  rotate: false
+  xy: 522, 27
+  size: 38, 71
+  orig: 38, 71
+  offset: 0, 0
+  index: -1
+durun_winter_01_body_01
+  rotate: true
+  xy: 2, 4
+  size: 86, 98
+  orig: 86, 98
+  offset: 0, 0
+  index: -1
+durun_winter_01_brow_01
+  rotate: false
+  xy: 612, 7
+  size: 32, 22
+  orig: 32, 22
+  offset: 0, 0
+  index: -1
+durun_winter_01_cape_01
+  rotate: false
+  xy: 654, 90
+  size: 72, 72
+  orig: 72, 72
+  offset: 0, 0
+  index: -1
+durun_winter_01_cape_02
+  rotate: false
+  xy: 876, 28
+  size: 34, 44
+  orig: 34, 44
+  offset: 0, 0
+  index: -1
+durun_winter_01_cape_03
+  rotate: true
+  xy: 728, 7
+  size: 34, 43
+  orig: 34, 43
+  offset: 0, 0
+  index: -1
+durun_winter_01_cape_04
+  rotate: false
+  xy: 459, 8
+  size: 61, 157
+  orig: 61, 157
+  offset: 0, 0
+  index: -1
+durun_winter_01_cape_05
+  rotate: false
+  xy: 883, 415
+  size: 34, 106
+  orig: 34, 106
+  offset: 0, 0
+  index: -1
+durun_winter_01_cape_06
+  rotate: false
+  xy: 154, 91
+  size: 140, 142
+  orig: 140, 142
+  offset: 0, 0
+  index: -1
+durun_winter_01_effect_01
+  rotate: true
+  xy: 566, 326
+  size: 195, 194
+  orig: 195, 194
+  offset: 0, 0
+  index: -1
+durun_winter_01_effect_02
+  rotate: false
+  xy: 309, 118
+  size: 148, 148
+  orig: 148, 148
+  offset: 0, 0
+  index: -1
+durun_winter_01_effect_03
+  rotate: false
+  xy: 2, 235
+  size: 305, 286
+  orig: 305, 286
+  offset: 0, 0
+  index: -1
+durun_winter_01_eye_01
+  rotate: false
+  xy: 522, 2
+  size: 27, 23
+  orig: 27, 23
+  offset: 0, 0
+  index: -1
+durun_winter_01_eye_02
+  rotate: false
+  xy: 900, 271
+  size: 17, 14
+  orig: 17, 14
+  offset: 0, 0
+  index: -1
+durun_winter_01_eye_03
+  rotate: false
+  xy: 883, 396
+  size: 27, 17
+  orig: 27, 17
+  offset: 0, 0
+  index: -1
+durun_winter_01_eye_04
+  rotate: true
+  xy: 900, 310
+  size: 27, 17
+  orig: 27, 17
+  offset: 0, 0
+  index: -1
+durun_winter_01_face_01
+  rotate: false
+  xy: 459, 167
+  size: 91, 99
+  orig: 91, 99
+  offset: 0, 0
+  index: -1
+durun_winter_01_face_02
+  rotate: true
+  xy: 903, 243
+  size: 26, 13
+  orig: 26, 13
+  offset: 0, 0
+  index: -1
+durun_winter_01_foot_01
+  rotate: false
+  xy: 854, 74
+  size: 41, 42
+  orig: 41, 42
+  offset: 0, 0
+  index: -1
+durun_winter_01_foot_02
+  rotate: false
+  xy: 860, 222
+  size: 41, 42
+  orig: 41, 42
+  offset: 0, 0
+  index: -1
+durun_winter_01_foot_03
+  rotate: true
+  xy: 860, 179
+  size: 41, 42
+  orig: 41, 42
+  offset: 0, 0
+  index: -1
+durun_winter_01_hair_01
+  rotate: true
+  xy: 802, 4
+  size: 38, 29
+  orig: 38, 29
+  offset: 0, 0
+  index: -1
+durun_winter_01_hair_02
+  rotate: false
+  xy: 410, 71
+  size: 44, 45
+  orig: 44, 45
+  offset: 0, 0
+  index: -1
+durun_winter_01_hand_01
+  rotate: false
+  xy: 562, 46
+  size: 48, 33
+  orig: 48, 33
+  offset: 0, 0
+  index: -1
+durun_winter_01_hand_02
+  rotate: true
+  xy: 612, 31
+  size: 48, 33
+  orig: 48, 33
+  offset: 0, 0
+  index: -1
+durun_winter_01_hand_03
+  rotate: false
+  xy: 562, 11
+  size: 48, 33
+  orig: 48, 33
+  offset: 0, 0
+  index: -1
+durun_winter_01_hand_04
+  rotate: false
+  xy: 837, 35
+  size: 37, 37
+  orig: 37, 37
+  offset: 0, 0
+  index: -1
+durun_winter_01_hand_05
+  rotate: true
+  xy: 243, 6
+  size: 37, 51
+  orig: 37, 51
+  offset: 0, 0
+  index: -1
+durun_winter_01_hat_01
+  rotate: false
+  xy: 296, 5
+  size: 112, 111
+  orig: 112, 111
+  offset: 0, 0
+  index: -1
+durun_winter_01_i_effect_01
+  rotate: false
+  xy: 2, 92
+  size: 150, 141
+  orig: 150, 141
+  offset: 0, 0
+  index: -1
+durun_winter_01_i_effect_02
+  rotate: false
+  xy: 728, 43
+  size: 72, 72
+  orig: 72, 72
+  offset: 0, 0
+  index: -1
+durun_winter_01_i_effect_05
+  rotate: false
+  xy: 654, 16
+  size: 72, 72
+  orig: 72, 72
+  offset: 0, 0
+  index: -1
+durun_winter_01_i_effect_06
+  rotate: false
+  xy: 243, 45
+  size: 44, 44
+  orig: 44, 44
+  offset: 0, 0
+  index: -1
+durun_winter_01_i_effect_08
+  rotate: true
+  xy: 154, 8
+  size: 81, 87
+  orig: 81, 87
+  offset: 0, 0
+  index: -1
+durun_winter_01_i_effect_09
+  rotate: true
+  xy: 565, 81
+  size: 81, 87
+  orig: 81, 87
+  offset: 0, 0
+  index: -1
+durun_winter_01_i_effect_10
+  rotate: true
+  xy: 309, 268
+  size: 253, 255
+  orig: 253, 255
+  offset: 0, 0
+  index: -1
+durun_winter_01_i_effect_11
+  rotate: false
+  xy: 566, 164
+  size: 161, 160
+  orig: 161, 160
+  offset: 0, 0
+  index: -1
+durun_winter_01_leg_01
+  rotate: false
+  xy: 762, 391
+  size: 64, 130
+  orig: 64, 130
+  offset: 0, 0
+  index: -1
+durun_winter_01_leg_02
+  rotate: true
+  xy: 729, 117
+  size: 54, 123
+  orig: 54, 123
+  offset: 0, 0
+  index: -1
+durun_winter_01_lowbody_01
+  rotate: false
+  xy: 729, 173
+  size: 129, 151
+  orig: 129, 151
+  offset: 0, 0
+  index: -1
+durun_winter_01_lowbody_02
+  rotate: false
+  xy: 762, 334
+  size: 73, 55
+  orig: 73, 55
+  offset: 0, 0
+  index: -1
+durun_winter_01_lowbody_03
+  rotate: false
+  xy: 837, 339
+  size: 73, 55
+  orig: 73, 55
+  offset: 0, 0
+  index: -1
+durun_winter_01_neck_01
+  rotate: true
+  xy: 854, 118
+  size: 53, 41
+  orig: 53, 41
+  offset: 0, 0
+  index: -1
+durun_winter_01_wepon_01
+  rotate: false
+  xy: 828, 396
+  size: 53, 125
+  orig: 53, 125
+  offset: 0, 0
+  index: -1

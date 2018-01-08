@@ -7,15 +7,15 @@
             <key>low_sky_temple2_1_a.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{2,2},{1920,800}}</string>
+                <string>{{2,2},{1922,800}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
                 <false/>
                 <key>sourceColorRect</key>
-                <string>{{0,0},{1920,800}}</string>
+                <string>{{0,0},{1922,800}}</string>
                 <key>sourceSize</key>
-                <string>{1920,800}</string>
+                <string>{1922,800}</string>
             </dict>
             <key>low_sky_temple2_4_stone_01.png</key>
             <dict>
@@ -129,9 +129,9 @@
             <key>realTextureFileName</key>
             <string>low_sky_temple2_1.png</string>
             <key>size</key>
-            <string>{1924,1484}</string>
+            <string>{1926,1484}</string>
             <key>smartupdate</key>
-            <string>$TexturePacker:SmartUpdate:ecad42b970ccc19de59ed2ba468e1a02:a880ef70bff0cdc30fc78a3100c1530c:98368455c1dd26bfe8ccbde6f46b2dd3$</string>
+            <string>$TexturePacker:SmartUpdate:4e8008da1886fc7231ac4ec0d47e4053:d8906b8ceeec41d1d2ad7a7d34a853f8:98368455c1dd26bfe8ccbde6f46b2dd3$</string>
             <key>textureFileName</key>
             <string>low_sky_temple2_1.png</string>
         </dict>

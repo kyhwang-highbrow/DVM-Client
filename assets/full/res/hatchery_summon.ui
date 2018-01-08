@@ -19,7 +19,7 @@
 						anchor_point = { 0.500000; 0.500000; };
 						relative_size_type = 0;
 						width = 740;
-						height = 430;
+						height = 600;
 						scale_x = 1.000000;
 						scale_y = 1.000000;
 						skew_x = 0.000000;
@@ -27,7 +27,7 @@
 						rotation = 0.000000;
 						visible = true;
 						lua_name = '';
-						file_name = 'ui/summon/bg_chanceup_02.png';
+						file_name = 'ui/event/bg_chanceup_01.png';
 						color = { 255; 255; 255; };
 						opacity = 255;
 						flip_x = false;
@@ -43,7 +43,7 @@
 					anchor_point = { 0.500000; 0.000000; };
 					relative_size_type = 0;
 					width = 740;
-					height = 430;
+					height = 600;
 					scale_x = 1.000000;
 					scale_y = 1.000000;
 					skew_x = 0.000000;
@@ -152,10 +152,10 @@
 						lua_name = 'dragonNameLabel1';
 						font_name = 'font/common_font_01.ttf';
 						font_size = 24;
-						text = '메탈마그넷 드래곤(물)';
+						text = '(땅) 타이탄';
 						h_alignment = 1;
 						v_alignment = 1;
-						color = { 76; 215; 255; };
+						color = { 88; 234; 102; };
 						opacity = 255;
 						dimension_width = 300;
 						dimension_height = 40;
@@ -192,10 +192,10 @@
 						lua_name = 'dragonNameLabel2';
 						font_name = 'font/common_font_01.ttf';
 						font_size = 24;
-						text = '블랙퀸(어둠)';
+						text = '(물) 미니드래곤';
 						h_alignment = 1;
 						v_alignment = 1;
-						color = { 218; 104; 255; };
+						color = { 76; 215; 255; };
 						opacity = 255;
 						dimension_width = 300;
 						dimension_height = 40;

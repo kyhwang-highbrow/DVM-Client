@@ -1,0 +1,279 @@
+
+demong_gargoyle_dark_03.png
+size: 1646,904
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+demong_gargoyle_dark_03_arm_01
+  rotate: false
+  xy: 2, 567
+  size: 420, 335
+  orig: 420, 335
+  offset: 0, 0
+  index: -1
+demong_gargoyle_dark_03_arm_02
+  rotate: true
+  xy: 726, 668
+  size: 234, 327
+  orig: 234, 327
+  offset: 0, 0
+  index: -1
+demong_gargoyle_dark_03_body_01
+  rotate: true
+  xy: 1399, 710
+  size: 192, 245
+  orig: 192, 245
+  offset: 0, 0
+  index: -1
+demong_gargoyle_dark_03_d_arm_01
+  rotate: false
+  xy: 1547, 147
+  size: 90, 117
+  orig: 90, 117
+  offset: 0, 0
+  index: -1
+demong_gargoyle_dark_03_d_arm_02
+  rotate: true
+  xy: 1055, 668
+  size: 46, 107
+  orig: 46, 107
+  offset: 0, 0
+  index: -1
+demong_gargoyle_dark_03_d_arm_finger_01
+  rotate: true
+  xy: 219, 145
+  size: 29, 39
+  orig: 29, 39
+  offset: 0, 0
+  index: -1
+demong_gargoyle_dark_03_d_body_01
+  rotate: true
+  xy: 1055, 716
+  size: 186, 342
+  orig: 186, 342
+  offset: 0, 0
+  index: -1
+demong_gargoyle_dark_03_d_chain
+  rotate: false
+  xy: 1547, 36
+  size: 91, 109
+  orig: 91, 109
+  offset: 0, 0
+  index: -1
+demong_gargoyle_dark_03_d_corn_01
+  rotate: true
+  xy: 1148, 4
+  size: 44, 47
+  orig: 44, 47
+  offset: 0, 0
+  index: -1
+demong_gargoyle_dark_03_d_corn_02
+  rotate: false
+  xy: 649, 65
+  size: 38, 44
+  orig: 38, 44
+  offset: 0, 0
+  index: -1
+demong_gargoyle_dark_03_d_eye_01
+  rotate: false
+  xy: 649, 27
+  size: 38, 36
+  orig: 38, 36
+  offset: 0, 0
+  index: -1
+demong_gargoyle_dark_03_d_eye_02
+  rotate: false
+  xy: 689, 97
+  size: 13, 12
+  orig: 13, 12
+  offset: 0, 0
+  index: -1
+demong_gargoyle_dark_03_d_eye_03
+  rotate: false
+  xy: 649, 111
+  size: 51, 45
+  orig: 51, 45
+  offset: 0, 0
+  index: -1
+demong_gargoyle_dark_03_d_hair_01
+  rotate: true
+  xy: 482, 26
+  size: 130, 165
+  orig: 130, 165
+  offset: 0, 0
+  index: -1
+demong_gargoyle_dark_03_d_hair_02
+  rotate: false
+  xy: 1197, 10
+  size: 40, 38
+  orig: 40, 38
+  offset: 0, 0
+  index: -1
+demong_gargoyle_dark_03_d_tail_01
+  rotate: false
+  xy: 304, 56
+  size: 75, 65
+  orig: 75, 65
+  offset: 0, 0
+  index: -1
+demong_gargoyle_dark_03_d_wing_01
+  rotate: false
+  xy: 219, 35
+  size: 83, 86
+  orig: 83, 86
+  offset: 0, 0
+  index: -1
+demong_gargoyle_dark_03_eff_0002
+  rotate: false
+  xy: 260, 345
+  size: 220, 220
+  orig: 220, 220
+  offset: 0, 0
+  index: -1
+demong_gargoyle_dark_03_eff_0006
+  rotate: false
+  xy: 482, 380
+  size: 220, 220
+  orig: 220, 220
+  offset: 0, 0
+  index: -1
+demong_gargoyle_dark_03_eff_0010
+  rotate: false
+  xy: 260, 123
+  size: 220, 220
+  orig: 220, 220
+  offset: 0, 0
+  index: -1
+demong_gargoyle_dark_03_eff_0014
+  rotate: false
+  xy: 482, 158
+  size: 220, 220
+  orig: 220, 220
+  offset: 0, 0
+  index: -1
+demong_gargoyle_dark_03_eff_0018
+  rotate: false
+  xy: 726, 446
+  size: 220, 220
+  orig: 220, 220
+  offset: 0, 0
+  index: -1
+demong_gargoyle_dark_03_eff_0022
+  rotate: false
+  xy: 704, 224
+  size: 220, 220
+  orig: 220, 220
+  offset: 0, 0
+  index: -1
+demong_gargoyle_dark_03_eff_0026
+  rotate: false
+  xy: 704, 2
+  size: 220, 220
+  orig: 220, 220
+  offset: 0, 0
+  index: -1
+demong_gargoyle_dark_03_eff_0030
+  rotate: false
+  xy: 948, 446
+  size: 220, 220
+  orig: 220, 220
+  offset: 0, 0
+  index: -1
+demong_gargoyle_dark_03_eff_0034
+  rotate: false
+  xy: 926, 224
+  size: 220, 220
+  orig: 220, 220
+  offset: 0, 0
+  index: -1
+demong_gargoyle_dark_03_eff_0038
+  rotate: false
+  xy: 926, 2
+  size: 220, 220
+  orig: 220, 220
+  offset: 0, 0
+  index: -1
+demong_gargoyle_dark_03_eff_0042
+  rotate: false
+  xy: 1170, 494
+  size: 220, 220
+  orig: 220, 220
+  offset: 0, 0
+  index: -1
+demong_gargoyle_dark_03_eff_0046
+  rotate: false
+  xy: 1392, 488
+  size: 220, 220
+  orig: 220, 220
+  offset: 0, 0
+  index: -1
+demong_gargoyle_dark_03_eff_0050
+  rotate: false
+  xy: 1170, 272
+  size: 220, 220
+  orig: 220, 220
+  offset: 0, 0
+  index: -1
+demong_gargoyle_dark_03_eff_0054
+  rotate: false
+  xy: 1392, 266
+  size: 220, 220
+  orig: 220, 220
+  offset: 0, 0
+  index: -1
+demong_gargoyle_dark_03_eff_0058
+  rotate: false
+  xy: 1148, 50
+  size: 220, 220
+  orig: 220, 220
+  offset: 0, 0
+  index: -1
+demong_gargoyle_dark_03_eff_02
+  rotate: false
+  xy: 424, 602
+  size: 300, 300
+  orig: 300, 300
+  offset: 0, 0
+  index: -1
+demong_gargoyle_dark_03_eye_01
+  rotate: true
+  xy: 704, 584
+  size: 16, 20
+  orig: 16, 20
+  offset: 0, 0
+  index: -1
+demong_gargoyle_dark_03_eye_02
+  rotate: false
+  xy: 424, 585
+  size: 17, 15
+  orig: 17, 15
+  offset: 0, 0
+  index: -1
+demong_gargoyle_dark_03_head_01
+  rotate: false
+  xy: 1370, 62
+  size: 175, 202
+  orig: 175, 202
+  offset: 0, 0
+  index: -1
+demong_gargoyle_dark_03_head_02
+  rotate: false
+  xy: 381, 67
+  size: 75, 54
+  orig: 75, 54
+  offset: 0, 0
+  index: -1
+demong_gargoyle_dark_03_leg_01
+  rotate: true
+  xy: 2, 27
+  size: 147, 215
+  orig: 147, 215
+  offset: 0, 0
+  index: -1
+demong_gargoyle_dark_03_lowerbody_01
+  rotate: false
+  xy: 2, 176
+  size: 256, 389
+  orig: 256, 389
+  offset: 0, 0
+  index: -1

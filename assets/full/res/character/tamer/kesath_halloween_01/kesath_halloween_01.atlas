@@ -1,0 +1,377 @@
+
+kesath_halloween_01.png
+size: 623,1033
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+kesath_halloween_01_acc_03
+  rotate: false
+  xy: 384, 9
+  size: 35, 34
+  orig: 35, 34
+  offset: 0, 0
+  index: -1
+kesath_halloween_01_arm_01
+  rotate: false
+  xy: 569, 855
+  size: 51, 82
+  orig: 51, 82
+  offset: 0, 0
+  index: -1
+kesath_halloween_01_arm_02
+  rotate: false
+  xy: 555, 185
+  size: 65, 63
+  orig: 65, 63
+  offset: 0, 0
+  index: -1
+kesath_halloween_01_arm_03
+  rotate: false
+  xy: 555, 250
+  size: 65, 69
+  orig: 65, 69
+  offset: 0, 0
+  index: -1
+kesath_halloween_01_arm_04
+  rotate: false
+  xy: 583, 658
+  size: 36, 40
+  orig: 36, 40
+  offset: 0, 0
+  index: -1
+kesath_halloween_01_arm_05
+  rotate: true
+  xy: 425, 70
+  size: 36, 40
+  orig: 36, 40
+  offset: 0, 0
+  index: -1
+kesath_halloween_01_body_01
+  rotate: false
+  xy: 422, 336
+  size: 65, 94
+  orig: 65, 94
+  offset: 0, 0
+  index: -1
+kesath_halloween_01_body_02
+  rotate: true
+  xy: 300, 432
+  size: 115, 194
+  orig: 115, 194
+  offset: 0, 0
+  index: -1
+kesath_halloween_01_body_03
+  rotate: true
+  xy: 329, 186
+  size: 54, 82
+  orig: 54, 82
+  offset: 0, 0
+  index: -1
+kesath_halloween_01_body_04
+  rotate: false
+  xy: 384, 45
+  size: 35, 50
+  orig: 35, 50
+  offset: 0, 0
+  index: -1
+kesath_halloween_01_body_05
+  rotate: false
+  xy: 388, 99
+  size: 35, 85
+  orig: 35, 85
+  offset: 0, 0
+  index: -1
+kesath_halloween_01_body_06
+  rotate: false
+  xy: 536, 5
+  size: 25, 26
+  orig: 25, 26
+  offset: 0, 0
+  index: -1
+kesath_halloween_01_brow_01
+  rotate: true
+  xy: 600, 391
+  size: 49, 21
+  orig: 49, 21
+  offset: 0, 0
+  index: -1
+kesath_halloween_01_cape_01
+  rotate: true
+  xy: 475, 655
+  size: 124, 106
+  orig: 124, 106
+  offset: 0, 0
+  index: -1
+kesath_halloween_01_effect_01
+  rotate: false
+  xy: 2, 724
+  size: 296, 307
+  orig: 296, 307
+  offset: 0, 0
+  index: -1
+kesath_halloween_01_effect_02
+  rotate: false
+  xy: 2, 415
+  size: 296, 307
+  orig: 296, 307
+  offset: 0, 0
+  index: -1
+kesath_halloween_01_effect_03
+  rotate: true
+  xy: 2, 2
+  size: 159, 170
+  orig: 159, 170
+  offset: 0, 0
+  index: -1
+kesath_halloween_01_effect_04
+  rotate: false
+  xy: 300, 549
+  size: 173, 230
+  orig: 173, 230
+  offset: 0, 0
+  index: -1
+kesath_halloween_01_effect_05
+  rotate: false
+  xy: 300, 781
+  size: 267, 250
+  orig: 267, 250
+  offset: 0, 0
+  index: -1
+kesath_halloween_01_effect_06
+  rotate: false
+  xy: 2, 163
+  size: 267, 250
+  orig: 267, 250
+  offset: 0, 0
+  index: -1
+kesath_halloween_01_effect_07
+  rotate: false
+  xy: 329, 242
+  size: 81, 87
+  orig: 81, 87
+  offset: 0, 0
+  index: -1
+kesath_halloween_01_effect_08
+  rotate: false
+  xy: 305, 97
+  size: 81, 87
+  orig: 81, 87
+  offset: 0, 0
+  index: -1
+kesath_halloween_01_effect_i_01
+  rotate: true
+  xy: 271, 311
+  size: 102, 56
+  orig: 102, 56
+  offset: 0, 0
+  index: -1
+kesath_halloween_01_effect_i_02
+  rotate: true
+  xy: 271, 207
+  size: 102, 56
+  orig: 102, 56
+  offset: 0, 0
+  index: -1
+kesath_halloween_01_effect_i_03
+  rotate: true
+  xy: 412, 250
+  size: 79, 56
+  orig: 79, 56
+  offset: 0, 0
+  index: -1
+kesath_halloween_01_effect_i_04
+  rotate: true
+  xy: 425, 108
+  size: 79, 40
+  orig: 79, 40
+  offset: 0, 0
+  index: -1
+kesath_halloween_01_eye_01
+  rotate: true
+  xy: 583, 700
+  size: 55, 31
+  orig: 55, 31
+  offset: 0, 0
+  index: -1
+kesath_halloween_01_eye_02
+  rotate: false
+  xy: 467, 73
+  size: 45, 31
+  orig: 45, 31
+  offset: 0, 0
+  index: -1
+kesath_halloween_01_eye_03
+  rotate: true
+  xy: 598, 611
+  size: 45, 17
+  orig: 45, 17
+  offset: 0, 0
+  index: -1
+kesath_halloween_01_face_01
+  rotate: false
+  xy: 329, 331
+  size: 91, 99
+  orig: 91, 99
+  offset: 0, 0
+  index: -1
+kesath_halloween_01_finger_01
+  rotate: true
+  xy: 514, 69
+  size: 35, 30
+  orig: 35, 30
+  offset: 0, 0
+  index: -1
+kesath_halloween_01_finger_02
+  rotate: false
+  xy: 467, 3
+  size: 35, 30
+  orig: 35, 30
+  offset: 0, 0
+  index: -1
+kesath_halloween_01_foot_01
+  rotate: true
+  xy: 583, 757
+  size: 33, 38
+  orig: 33, 38
+  offset: 0, 0
+  index: -1
+kesath_halloween_01_foot_02
+  rotate: false
+  xy: 467, 35
+  size: 39, 36
+  orig: 39, 36
+  offset: 0, 0
+  index: -1
+kesath_halloween_01_foot_03
+  rotate: false
+  xy: 508, 33
+  size: 39, 34
+  orig: 39, 34
+  offset: 0, 0
+  index: -1
+kesath_halloween_01_hair_01
+  rotate: true
+  xy: 489, 321
+  size: 61, 83
+  orig: 61, 83
+  offset: 0, 0
+  index: -1
+kesath_halloween_01_hair_02
+  rotate: false
+  xy: 574, 328
+  size: 47, 54
+  orig: 47, 54
+  offset: 0, 0
+  index: -1
+kesath_halloween_01_hair_03
+  rotate: false
+  xy: 305, 12
+  size: 77, 83
+  orig: 77, 83
+  offset: 0, 0
+  index: -1
+kesath_halloween_01_hair_04
+  rotate: true
+  xy: 413, 189
+  size: 59, 55
+  orig: 59, 55
+  offset: 0, 0
+  index: -1
+kesath_halloween_01_hand_01
+  rotate: false
+  xy: 569, 792
+  size: 45, 61
+  orig: 45, 61
+  offset: 0, 0
+  index: -1
+kesath_halloween_01_hand_03
+  rotate: true
+  xy: 421, 19
+  size: 49, 44
+  orig: 49, 44
+  offset: 0, 0
+  index: -1
+kesath_halloween_01_hat_01
+  rotate: true
+  xy: 470, 242
+  size: 77, 83
+  orig: 77, 83
+  offset: 0, 0
+  index: -1
+kesath_halloween_01_hat_02
+  rotate: true
+  xy: 470, 163
+  size: 77, 83
+  orig: 77, 83
+  offset: 0, 0
+  index: -1
+kesath_halloween_01_leg_01
+  rotate: true
+  xy: 496, 442
+  size: 119, 116
+  orig: 119, 116
+  offset: 0, 0
+  index: -1
+kesath_halloween_01_leg_02
+  rotate: true
+  xy: 475, 563
+  size: 90, 121
+  orig: 90, 121
+  offset: 0, 0
+  index: -1
+kesath_halloween_01_lowbody_01
+  rotate: false
+  xy: 174, 10
+  size: 129, 151
+  orig: 129, 151
+  offset: 0, 0
+  index: -1
+kesath_halloween_01_lowbody_03
+  rotate: false
+  xy: 467, 106
+  size: 73, 55
+  orig: 73, 55
+  offset: 0, 0
+  index: -1
+kesath_halloween_01_wepon_01
+  rotate: true
+  xy: 555, 115
+  size: 68, 57
+  orig: 68, 57
+  offset: 0, 0
+  index: -1
+kesath_halloween_01_wepon_02
+  rotate: false
+  xy: 598, 569
+  size: 22, 40
+  orig: 22, 40
+  offset: 0, 0
+  index: -1
+kesath_halloween_01_wepon_03
+  rotate: false
+  xy: 496, 384
+  size: 102, 56
+  orig: 102, 56
+  offset: 0, 0
+  index: -1
+kesath_halloween_01_wepon_04
+  rotate: false
+  xy: 271, 169
+  size: 30, 36
+  orig: 30, 36
+  offset: 0, 0
+  index: -1
+kesath_halloween_01_wepon_05
+  rotate: false
+  xy: 504, 3
+  size: 30, 28
+  orig: 30, 28
+  offset: 0, 0
+  index: -1
+kesath_halloween_01_wepon_06
+  rotate: true
+  xy: 569, 939
+  size: 92, 50
+  orig: 92, 50
+  offset: 0, 0
+  index: -1

@@ -1,0 +1,237 @@
+
+aphrodite_dark_03.png
+size: 1349,523
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+aphrodite_dark_03_arm_01
+  rotate: false
+  xy: 1177, 19
+  size: 59, 55
+  orig: 59, 55
+  offset: 0, 0
+  index: -1
+aphrodite_dark_03_arm_02
+  rotate: false
+  xy: 1213, 302
+  size: 26, 76
+  orig: 26, 76
+  offset: 0, 0
+  index: -1
+aphrodite_dark_03_body_01
+  rotate: false
+  xy: 1174, 76
+  size: 72, 105
+  orig: 72, 105
+  offset: 0, 0
+  index: -1
+aphrodite_dark_03_body_02
+  rotate: true
+  xy: 1174, 183
+  size: 110, 76
+  orig: 110, 76
+  offset: 0, 0
+  index: -1
+aphrodite_dark_03_dress_01
+  rotate: false
+  xy: 1252, 195
+  size: 76, 112
+  orig: 76, 112
+  offset: 0, 0
+  index: -1
+aphrodite_dark_03_dress_02
+  rotate: true
+  xy: 1256, 309
+  size: 212, 91
+  orig: 212, 91
+  offset: 0, 0
+  index: -1
+aphrodite_dark_03_dress_03
+  rotate: false
+  xy: 652, 121
+  size: 181, 149
+  orig: 181, 149
+  offset: 0, 0
+  index: -1
+aphrodite_dark_03_dress_04
+  rotate: true
+  xy: 962, 113
+  size: 70, 145
+  orig: 70, 145
+  offset: 0, 0
+  index: -1
+aphrodite_dark_03_ear_01
+  rotate: false
+  xy: 1109, 71
+  size: 63, 112
+  orig: 63, 112
+  offset: 0, 0
+  index: -1
+aphrodite_dark_03_ear_02
+  rotate: true
+  xy: 954, 36
+  size: 75, 118
+  orig: 75, 118
+  offset: 0, 0
+  index: -1
+aphrodite_dark_03_eff_01
+  rotate: false
+  xy: 2, 222
+  size: 347, 299
+  orig: 347, 299
+  offset: 0, 0
+  index: -1
+aphrodite_dark_03_eff_02
+  rotate: false
+  xy: 835, 145
+  size: 125, 125
+  orig: 125, 125
+  offset: 0, 0
+  index: -1
+aphrodite_dark_03_eff_03
+  rotate: true
+  xy: 1300, 138
+  size: 55, 47
+  orig: 55, 47
+  offset: 0, 0
+  index: -1
+aphrodite_dark_03_eff_04
+  rotate: false
+  xy: 721, 272
+  size: 249, 249
+  orig: 249, 249
+  offset: 0, 0
+  index: -1
+aphrodite_dark_03_eff_05
+  rotate: false
+  xy: 351, 2
+  size: 299, 286
+  orig: 299, 286
+  offset: 0, 0
+  index: -1
+aphrodite_dark_03_eye
+  rotate: false
+  xy: 652, 272
+  size: 26, 16
+  orig: 26, 16
+  offset: 0, 0
+  index: -1
+aphrodite_dark_03_hand_01
+  rotate: false
+  xy: 1248, 89
+  size: 50, 92
+  orig: 50, 92
+  offset: 0, 0
+  index: -1
+aphrodite_dark_03_hand_02
+  rotate: true
+  xy: 265, 143
+  size: 77, 84
+  orig: 77, 84
+  offset: 0, 0
+  index: -1
+aphrodite_dark_03_head_01
+  rotate: false
+  xy: 1105, 7
+  size: 70, 62
+  orig: 70, 62
+  offset: 0, 0
+  index: -1
+aphrodite_dark_03_horn_01
+  rotate: true
+  xy: 954, 8
+  size: 26, 119
+  orig: 26, 119
+  offset: 0, 0
+  index: -1
+aphrodite_dark_03_horn_02
+  rotate: false
+  xy: 265, 16
+  size: 76, 125
+  orig: 76, 125
+  offset: 0, 0
+  index: -1
+aphrodite_dark_03_lace_01
+  rotate: true
+  xy: 2, 17
+  size: 203, 261
+  orig: 203, 261
+  offset: 0, 0
+  index: -1
+aphrodite_dark_03_lace_02
+  rotate: true
+  xy: 972, 380
+  size: 141, 282
+  orig: 141, 282
+  offset: 0, 0
+  index: -1
+aphrodite_dark_03_lace_03
+  rotate: true
+  xy: 972, 185
+  size: 108, 200
+  orig: 108, 200
+  offset: 0, 0
+  index: -1
+aphrodite_dark_03_lace_04
+  rotate: false
+  xy: 1293, 41
+  size: 26, 38
+  orig: 26, 38
+  offset: 0, 0
+  index: -1
+aphrodite_dark_03_lace_05
+  rotate: true
+  xy: 1074, 50
+  size: 61, 29
+  orig: 61, 29
+  offset: 0, 0
+  index: -1
+aphrodite_dark_03_leg_01
+  rotate: true
+  xy: 652, 5
+  size: 114, 187
+  orig: 114, 187
+  offset: 0, 0
+  index: -1
+aphrodite_dark_03_leg_02
+  rotate: true
+  xy: 972, 295
+  size: 83, 239
+  orig: 83, 239
+  offset: 0, 0
+  index: -1
+aphrodite_dark_03_mouth
+  rotate: false
+  xy: 1252, 183
+  size: 10, 10
+  orig: 10, 10
+  offset: 0, 0
+  index: -1
+aphrodite_dark_03_tail
+  rotate: false
+  xy: 351, 290
+  size: 368, 231
+  orig: 368, 231
+  offset: 0, 0
+  index: -1
+aphrodite_dark_03_thing_01
+  rotate: true
+  xy: 1238, 16
+  size: 58, 53
+  orig: 58, 53
+  offset: 0, 0
+  index: -1
+aphrodite_dark_03_thing_02
+  rotate: true
+  xy: 1300, 81
+  size: 55, 43
+  orig: 55, 43
+  offset: 0, 0
+  index: -1
+aphrodite_dark_03_weapon
+  rotate: false
+  xy: 841, 11
+  size: 111, 132
+  orig: 111, 132
+  offset: 0, 0
+  index: -1

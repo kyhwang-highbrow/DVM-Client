@@ -1,0 +1,188 @@
+
+blackarmordragon_light_02.png
+size: 723,1044
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+blackarmordragon_light_02_arm_01
+  rotate: false
+  xy: 566, 270
+  size: 155, 115
+  orig: 155, 115
+  offset: 0, 0
+  index: -1
+blackarmordragon_light_02_arm_02
+  rotate: true
+  xy: 203, 22
+  size: 85, 111
+  orig: 85, 111
+  offset: 0, 0
+  index: -1
+blackarmordragon_light_02_armor_01
+  rotate: false
+  xy: 484, 216
+  size: 72, 90
+  orig: 72, 90
+  offset: 0, 0
+  index: -1
+blackarmordragon_light_02_armor_02
+  rotate: true
+  xy: 66, 15
+  size: 28, 70
+  orig: 28, 70
+  offset: 0, 0
+  index: -1
+blackarmordragon_light_02_belt_01
+  rotate: false
+  xy: 2, 5
+  size: 62, 38
+  orig: 62, 38
+  offset: 0, 0
+  index: -1
+blackarmordragon_light_02_body_01
+  rotate: false
+  xy: 416, 420
+  size: 168, 237
+  orig: 168, 237
+  offset: 0, 0
+  index: -1
+blackarmordragon_light_02_body_02
+  rotate: true
+  xy: 660, 120
+  size: 65, 60
+  orig: 65, 60
+  offset: 0, 0
+  index: -1
+blackarmordragon_light_02_cloth_01
+  rotate: true
+  xy: 2, 45
+  size: 62, 199
+  orig: 62, 199
+  offset: 0, 0
+  index: -1
+blackarmordragon_light_02_effect_02
+  rotate: false
+  xy: 2, 659
+  size: 490, 383
+  orig: 490, 383
+  offset: 0, 0
+  index: -1
+blackarmordragon_light_02_effect_03
+  rotate: false
+  xy: 2, 465
+  size: 412, 192
+  orig: 412, 192
+  offset: 0, 0
+  index: -1
+blackarmordragon_light_02_foot_01
+  rotate: false
+  xy: 484, 76
+  size: 88, 138
+  orig: 88, 138
+  offset: 0, 0
+  index: -1
+blackarmordragon_light_02_foot_02
+  rotate: false
+  xy: 574, 158
+  size: 84, 110
+  orig: 84, 110
+  offset: 0, 0
+  index: -1
+blackarmordragon_light_02_head_01
+  rotate: false
+  xy: 660, 187
+  size: 58, 81
+  orig: 58, 81
+  offset: 0, 0
+  index: -1
+blackarmordragon_light_02_head_02
+  rotate: false
+  xy: 391, 2
+  size: 35, 56
+  orig: 35, 56
+  offset: 0, 0
+  index: -1
+blackarmordragon_light_02_head_02_01
+  rotate: false
+  xy: 428, 2
+  size: 35, 56
+  orig: 35, 56
+  offset: 0, 0
+  index: -1
+blackarmordragon_light_02_helmet_01
+  rotate: false
+  xy: 574, 83
+  size: 73, 73
+  orig: 73, 73
+  offset: 0, 0
+  index: -1
+blackarmordragon_light_02_helmet_02
+  rotate: true
+  xy: 484, 6
+  size: 68, 77
+  orig: 68, 77
+  offset: 0, 0
+  index: -1
+blackarmordragon_light_02_helmetwing_01
+  rotate: true
+  xy: 316, 4
+  size: 54, 73
+  orig: 54, 73
+  offset: 0, 0
+  index: -1
+blackarmordragon_light_02_helmetwing_02
+  rotate: false
+  xy: 649, 61
+  size: 71, 57
+  orig: 71, 57
+  offset: 0, 0
+  index: -1
+blackarmordragon_light_02_leg_01
+  rotate: false
+  xy: 314, 320
+  size: 87, 143
+  orig: 87, 143
+  offset: 0, 0
+  index: -1
+blackarmordragon_light_02_leg_02
+  rotate: true
+  xy: 403, 308
+  size: 110, 161
+  orig: 110, 161
+  offset: 0, 0
+  index: -1
+blackarmordragon_light_02_shield_01
+  rotate: true
+  xy: 2, 109
+  size: 166, 320
+  orig: 166, 320
+  offset: 0, 0
+  index: -1
+blackarmordragon_light_02_shield_02
+  rotate: false
+  xy: 324, 60
+  size: 158, 246
+  orig: 158, 246
+  offset: 0, 0
+  index: -1
+blackarmordragon_light_02_tail_01
+  rotate: true
+  xy: 494, 666
+  size: 376, 224
+  orig: 376, 224
+  offset: 0, 0
+  index: -1
+blackarmordragon_light_02_wing_01
+  rotate: false
+  xy: 2, 277
+  size: 310, 186
+  orig: 310, 186
+  offset: 0, 0
+  index: -1
+blackarmordragon_light_02_wing_02
+  rotate: true
+  xy: 586, 387
+  size: 277, 119
+  orig: 277, 119
+  offset: 0, 0
+  index: -1

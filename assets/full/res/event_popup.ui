@@ -114,7 +114,7 @@
 				skew_y = 0.000000;
 				rotation = 0.000000;
 				visible = true;
-				lua_name = '';
+				lua_name = 'checkLabel';
 				file_name = 'ui/frames/base_list_0102.png';
 				color = { 0; 0; 0; };
 				opacity = 150;
@@ -229,7 +229,7 @@
 			skew_y = 0.000000;
 			rotation = 0.000000;
 			visible = true;
-			lua_name = '';
+			lua_name = 'mainNode';
 		};
 		type = 'Menu';
 		ui_name = '';

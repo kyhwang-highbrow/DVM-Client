@@ -1,0 +1,258 @@
+
+wild_earth_03.png
+size: 585,522
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+wild_earth_03_arm_l_01
+  rotate: false
+  xy: 178, 374
+  size: 121, 146
+  orig: 121, 146
+  offset: 0, 0
+  index: -1
+wild_earth_03_arm_l_02
+  rotate: false
+  xy: 2, 2
+  size: 81, 85
+  orig: 81, 85
+  offset: 0, 0
+  index: -1
+wild_earth_03_arm_r_01
+  rotate: false
+  xy: 402, 313
+  size: 70, 69
+  orig: 70, 69
+  offset: 0, 0
+  index: -1
+wild_earth_03_arm_r_02
+  rotate: false
+  xy: 161, 156
+  size: 139, 91
+  orig: 139, 91
+  offset: 0, 0
+  index: -1
+wild_earth_03_arm_r_03
+  rotate: true
+  xy: 533, 189
+  size: 37, 50
+  orig: 37, 50
+  offset: 0, 0
+  index: -1
+wild_earth_03_body
+  rotate: false
+  xy: 2, 274
+  size: 174, 246
+  orig: 174, 246
+  offset: 0, 0
+  index: -1
+wild_earth_03_ef_deco_l_01
+  rotate: false
+  xy: 490, 382
+  size: 93, 138
+  orig: 93, 138
+  offset: 0, 0
+  index: -1
+wild_earth_03_ef_deco_l_02
+  rotate: false
+  xy: 398, 165
+  size: 56, 79
+  orig: 56, 79
+  offset: 0, 0
+  index: -1
+wild_earth_03_ef_deco_r_01
+  rotate: false
+  xy: 261, 22
+  size: 88, 132
+  orig: 88, 132
+  offset: 0, 0
+  index: -1
+wild_earth_03_ef_deco_r_02
+  rotate: true
+  xy: 456, 173
+  size: 53, 75
+  orig: 53, 75
+  offset: 0, 0
+  index: -1
+wild_earth_03_eye_01
+  rotate: false
+  xy: 261, 2
+  size: 21, 18
+  orig: 21, 18
+  offset: 0, 0
+  index: -1
+wild_earth_03_eye_02
+  rotate: false
+  xy: 284, 2
+  size: 21, 18
+  orig: 21, 18
+  offset: 0, 0
+  index: -1
+wild_earth_03_eye_03
+  rotate: false
+  xy: 307, 2
+  size: 21, 18
+  orig: 21, 18
+  offset: 0, 0
+  index: -1
+wild_earth_03_eye_ef
+  rotate: false
+  xy: 537, 91
+  size: 26, 26
+  orig: 26, 26
+  offset: 0, 0
+  index: -1
+wild_earth_03_hand_l_01
+  rotate: true
+  xy: 85, 2
+  size: 85, 80
+  orig: 85, 80
+  offset: 0, 0
+  index: -1
+wild_earth_03_hand_l_02
+  rotate: false
+  xy: 521, 119
+  size: 62, 52
+  orig: 62, 52
+  offset: 0, 0
+  index: -1
+wild_earth_03_head
+  rotate: true
+  xy: 303, 253
+  size: 130, 97
+  orig: 130, 97
+  offset: 0, 0
+  index: -1
+wild_earth_03_horn
+  rotate: true
+  xy: 440, 66
+  size: 48, 60
+  orig: 48, 60
+  offset: 0, 0
+  index: -1
+wild_earth_03_leg_l_01
+  rotate: true
+  xy: 161, 90
+  size: 64, 98
+  orig: 64, 98
+  offset: 0, 0
+  index: -1
+wild_earth_03_leg_l_02
+  rotate: true
+  xy: 456, 116
+  size: 55, 63
+  orig: 55, 63
+  offset: 0, 0
+  index: -1
+wild_earth_03_leg_l_03
+  rotate: false
+  xy: 207, 3
+  size: 52, 85
+  orig: 52, 85
+  offset: 0, 0
+  index: -1
+wild_earth_03_leg_r_01
+  rotate: true
+  xy: 301, 385
+  size: 62, 109
+  orig: 62, 109
+  offset: 0, 0
+  index: -1
+wild_earth_03_leg_r_02
+  rotate: true
+  xy: 502, 53
+  size: 61, 33
+  orig: 61, 33
+  offset: 0, 0
+  index: -1
+wild_earth_03_leg_r_03
+  rotate: false
+  xy: 167, 2
+  size: 38, 86
+  orig: 38, 86
+  offset: 0, 0
+  index: -1
+wild_earth_03_mouth_01
+  rotate: false
+  xy: 402, 246
+  size: 65, 65
+  orig: 65, 65
+  offset: 0, 0
+  index: -1
+wild_earth_03_mouth_02
+  rotate: false
+  xy: 455, 7
+  size: 42, 57
+  orig: 42, 57
+  offset: 0, 0
+  index: -1
+wild_earth_03_sound_ef
+  rotate: false
+  xy: 303, 156
+  size: 93, 95
+  orig: 93, 95
+  offset: 0, 0
+  index: -1
+wild_earth_03_sound_ef_02
+  rotate: true
+  xy: 474, 287
+  size: 93, 94
+  orig: 93, 94
+  offset: 0, 0
+  index: -1
+wild_earth_03_tail
+  rotate: false
+  xy: 301, 449
+  size: 187, 71
+  orig: 187, 71
+  offset: 0, 0
+  index: -1
+wild_earth_03_wing_l_01
+  rotate: true
+  xy: 2, 89
+  size: 183, 157
+  orig: 183, 157
+  offset: 0, 0
+  index: -1
+wild_earth_03_wing_l_ef_01
+  rotate: false
+  xy: 469, 228
+  size: 76, 57
+  orig: 76, 57
+  offset: 0, 0
+  index: -1
+wild_earth_03_wing_l_ef_02
+  rotate: false
+  xy: 412, 384
+  size: 76, 63
+  orig: 76, 63
+  offset: 0, 0
+  index: -1
+wild_earth_03_wing_l_ef_03
+  rotate: true
+  xy: 351, 55
+  size: 99, 87
+  orig: 99, 87
+  offset: 0, 0
+  index: -1
+wild_earth_03_wing_r_01
+  rotate: false
+  xy: 178, 249
+  size: 123, 123
+  orig: 123, 123
+  offset: 0, 0
+  index: -1
+wild_earth_03_wing_r_ef_01
+  rotate: true
+  xy: 351, 2
+  size: 51, 50
+  orig: 51, 50
+  offset: 0, 0
+  index: -1
+wild_earth_03_wing_r_ef_02
+  rotate: false
+  xy: 403, 2
+  size: 50, 51
+  orig: 50, 51
+  offset: 0, 0
+  index: -1

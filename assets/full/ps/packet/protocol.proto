@@ -7,26 +7,31 @@ message ClientMessage {
 	required int32			packetId = 2;
 	required bytes			payload = 3;
 	optional int32			recvCounter = 4;
+    optional string         json = 5;
 }
 
 message ServerMessage {
 	required ProtocolCode	pcode = 1;				// protocol number
 	required bytes			payload = 2;
+    optional string         json = 3;
 }
 
 message AdminMessage {
 	required ProtocolCode	pcode = 1;				// protocol number
 	required bytes			payload = 2;
+    optional string         json = 3;
 }
 
 message StringMessage {
 	required string	string = 1;
+    optional string json = 2;
 }
 
 message CharacterMove {
 	optional string	uid = 1;
     required float	x = 2;
     required float	y = 3;
+    optional string json = 4;
 }
 
 enum ProtocolCode {	

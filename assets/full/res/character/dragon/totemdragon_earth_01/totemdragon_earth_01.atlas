@@ -1,0 +1,160 @@
+
+totemdragon_earth_01.png
+size: 1029,273
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+totemdragon_earth_01_anther_01
+  rotate: true
+  xy: 211, 10
+  size: 78, 60
+  orig: 78, 60
+  offset: 0, 0
+  index: -1
+totemdragon_earth_01_anther_02
+  rotate: false
+  xy: 944, 3
+  size: 74, 42
+  orig: 74, 42
+  offset: 0, 0
+  index: -1
+totemdragon_earth_01_arm_01
+  rotate: true
+  xy: 968, 120
+  size: 48, 59
+  orig: 48, 59
+  offset: 0, 0
+  index: -1
+totemdragon_earth_01_body_01
+  rotate: true
+  xy: 820, 13
+  size: 108, 122
+  orig: 108, 122
+  offset: 0, 0
+  index: -1
+totemdragon_earth_01_eye_01
+  rotate: false
+  xy: 1002, 97
+  size: 13, 21
+  orig: 13, 21
+  offset: 0, 0
+  index: -1
+totemdragon_earth_01_foot_01
+  rotate: true
+  xy: 273, 10
+  size: 65, 111
+  orig: 65, 111
+  offset: 0, 0
+  index: -1
+totemdragon_earth_01_foot_02
+  rotate: false
+  xy: 968, 170
+  size: 59, 101
+  orig: 59, 101
+  offset: 0, 0
+  index: -1
+totemdragon_earth_01_hair_01
+  rotate: false
+  xy: 820, 123
+  size: 146, 148
+  orig: 146, 148
+  offset: 0, 0
+  index: -1
+totemdragon_earth_01_hand_01
+  rotate: false
+  xy: 944, 47
+  size: 56, 71
+  orig: 56, 71
+  offset: 0, 0
+  index: -1
+totemdragon_earth_01_hand_02
+  rotate: false
+  xy: 671, 32
+  size: 49, 54
+  orig: 49, 54
+  offset: 0, 0
+  index: -1
+totemdragon_earth_01_head_01
+  rotate: false
+  xy: 618, 31
+  size: 51, 55
+  orig: 51, 55
+  offset: 0, 0
+  index: -1
+totemdragon_earth_01_head_thing_01
+  rotate: false
+  xy: 775, 48
+  size: 37, 38
+  orig: 37, 38
+  offset: 0, 0
+  index: -1
+totemdragon_earth_01_leg_01
+  rotate: true
+  xy: 108, 11
+  size: 77, 101
+  orig: 77, 101
+  offset: 0, 0
+  index: -1
+totemdragon_earth_01_leg_02
+  rotate: false
+  xy: 480, 5
+  size: 63, 70
+  orig: 63, 70
+  offset: 0, 0
+  index: -1
+totemdragon_earth_01_mouth_01
+  rotate: false
+  xy: 775, 15
+  size: 35, 31
+  orig: 35, 31
+  offset: 0, 0
+  index: -1
+totemdragon_earth_01_neck_01
+  rotate: true
+  xy: 2, 7
+  size: 81, 104
+  orig: 81, 104
+  offset: 0, 0
+  index: -1
+totemdragon_earth_01_shoulder_01
+  rotate: false
+  xy: 386, 2
+  size: 92, 73
+  orig: 92, 73
+  offset: 0, 0
+  index: -1
+totemdragon_earth_01_shoulder_02
+  rotate: false
+  xy: 722, 34
+  size: 51, 52
+  orig: 51, 52
+  offset: 0, 0
+  index: -1
+totemdragon_earth_01_tail_01
+  rotate: true
+  xy: 2, 90
+  size: 181, 285
+  orig: 181, 285
+  offset: 0, 0
+  index: -1
+totemdragon_earth_01_thing_04
+  rotate: false
+  xy: 555, 27
+  size: 61, 59
+  orig: 61, 59
+  offset: 0, 0
+  index: -1
+totemdragon_earth_01_wing_01
+  rotate: true
+  xy: 289, 77
+  size: 194, 264
+  orig: 194, 264
+  offset: 0, 0
+  index: -1
+totemdragon_earth_01_wing_02
+  rotate: true
+  xy: 555, 88
+  size: 183, 263
+  orig: 183, 263
+  offset: 0, 0
+  index: -1

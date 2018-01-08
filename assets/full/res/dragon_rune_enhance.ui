@@ -125,7 +125,7 @@
 					anchor_point = { 0.500000; 0.500000; };
 					relative_size_type = 0;
 					width = 128;
-					height = 34;
+					height = 40;
 					scale_x = 1.000000;
 					scale_y = 1.000000;
 					skew_x = 0.000000;
@@ -209,8 +209,8 @@
 				};
 				type = 'Button';
 				ui_name = '';
-				x = 0.000000;
-				y = -229.000000;
+				x = 160.000000;
+				y = -230.000000;
 				dock_point = { 0.500000; 0.500000; };
 				anchor_point = { 0.500000; 0.500000; };
 				relative_size_type = 0;
@@ -230,6 +230,297 @@
 				image_type = 1;
 			};
 			[3] =
+			{
+				[1] =
+				{
+					type = 'LabelTTF';
+					ui_name = '';
+					x = 0.000000;
+					y = 0.000000;
+					dock_point = { 0.500000; 0.500000; };
+					anchor_point = { 0.500000; 0.500000; };
+					relative_size_type = 0;
+					width = 291;
+					height = 64;
+					scale_x = 1.000000;
+					scale_y = 1.000000;
+					skew_x = 0.000000;
+					skew_y = 0.000000;
+					rotation = 0.000000;
+					visible = true;
+					lua_name = '';
+					font_name = 'font/common_font_01.ttf';
+					font_size = 28;
+					text = '중지';
+					h_alignment = 1;
+					v_alignment = 1;
+					color = { 255; 255; 255; };
+					opacity = 255;
+					dimension_width = 291;
+					dimension_height = 64;
+					letter_spacing = 0.000000;
+					has_stroke = false;
+					stroke_type = 0;
+					stroke_detail_level = 0;
+					is_sharp_text = true;
+					stroke_tickness = 2.000000;
+					stroke_color = { 0; 0; 0; };
+					has_shadow = false;
+					shadow_color = { 0; 0; 0; };
+					shadow_opacity = 150;
+					shadow_direction = 0;
+					shadow_distance = 2.000000;
+				};
+				type = 'Button';
+				ui_name = '';
+				x = 160.000000;
+				y = -230.000000;
+				dock_point = { 0.500000; 0.500000; };
+				anchor_point = { 0.500000; 0.500000; };
+				relative_size_type = 0;
+				width = 300;
+				height = 70;
+				scale_x = 1.000000;
+				scale_y = 1.000000;
+				skew_x = 0.000000;
+				skew_y = 0.000000;
+				rotation = 0.000000;
+				visible = false;
+				lua_name = 'stopBtn';
+				enable = true;
+				normal = 'ui/buttons/base_btn_0101.png';
+				selected = 'ui/buttons/base_btn_0102.png';
+				disable = '';
+				image_type = 1;
+			};
+			[4] =
+			{
+				[1] =
+				{
+					type = 'Scale9Sprite';
+					ui_name = '';
+					x = 0.000000;
+					y = 0.000000;
+					dock_point = { 0.500000; 0.500000; };
+					anchor_point = { 0.500000; 0.500000; };
+					relative_size_type = 3;
+					width = 0;
+					height = 0;
+					scale_x = 1.000000;
+					scale_y = 1.000000;
+					skew_x = 0.000000;
+					skew_y = 0.000000;
+					rotation = 0.000000;
+					visible = true;
+					lua_name = '';
+					file_name = 'ui/frames/base_frame_0201.png';
+					color = { 255; 255; 255; };
+					opacity = 255;
+					center_rect_x = 0;
+					center_rect_y = 0;
+					center_rect_width = 0;
+					center_rect_height = 0;
+				};
+				[2] =
+				{
+					type = 'Scale9Sprite';
+					ui_name = '';
+					x = 40.000000;
+					y = 0.000000;
+					dock_point = { 0.000000; 0.500000; };
+					anchor_point = { 0.500000; 0.500000; };
+					relative_size_type = 0;
+					width = 44;
+					height = 44;
+					scale_x = 1.000000;
+					scale_y = 1.000000;
+					skew_x = 0.000000;
+					skew_y = 0.000000;
+					rotation = 0.000000;
+					visible = true;
+					lua_name = '';
+					file_name = 'ui/frames/base_frame_0201.png';
+					color = { 255; 255; 255; };
+					opacity = 255;
+					center_rect_x = 0;
+					center_rect_y = 0;
+					center_rect_width = 0;
+					center_rect_height = 0;
+				};
+				[3] =
+				{
+					type = 'Button';
+					ui_name = '';
+					x = 0.000000;
+					y = 0.000000;
+					dock_point = { 0.500000; 0.500000; };
+					anchor_point = { 0.500000; 0.500000; };
+					relative_size_type = 3;
+					width = 0;
+					height = 0;
+					scale_x = 1.000000;
+					scale_y = 1.000000;
+					skew_x = 0.000000;
+					skew_y = 0.000000;
+					rotation = 0.000000;
+					visible = true;
+					lua_name = 'checkBtn';
+					enable = true;
+					normal = '';
+					selected = '';
+					disable = '';
+					image_type = 0;
+				};
+				[4] =
+				{
+					type = 'LabelTTF';
+					ui_name = '';
+					x = 31.000000;
+					y = 0.000000;
+					dock_point = { 0.500000; 0.500000; };
+					anchor_point = { 0.500000; 0.500000; };
+					relative_size_type = 0;
+					width = 214;
+					height = 64;
+					scale_x = 1.000000;
+					scale_y = 1.000000;
+					skew_x = 0.000000;
+					skew_y = 0.000000;
+					rotation = 0.000000;
+					visible = true;
+					lua_name = '';
+					font_name = 'font/common_font_01.ttf';
+					font_size = 26;
+					text = '1강화 10회 시도';
+					h_alignment = 1;
+					v_alignment = 1;
+					color = { 240; 215; 159; };
+					opacity = 255;
+					dimension_width = 214;
+					dimension_height = 64;
+					letter_spacing = 0.000000;
+					has_stroke = false;
+					stroke_type = 0;
+					stroke_detail_level = 0;
+					is_sharp_text = true;
+					stroke_tickness = 2.000000;
+					stroke_color = { 0; 0; 0; };
+					has_shadow = false;
+					shadow_color = { 0; 0; 0; };
+					shadow_opacity = 150;
+					shadow_direction = 0;
+					shadow_distance = 2.000000;
+				};
+				[5] =
+				{
+					type = 'Sprite';
+					ui_name = '';
+					x = -109.000000;
+					y = 2.000000;
+					dock_point = { 0.500000; 0.500000; };
+					anchor_point = { 0.500000; 0.500000; };
+					relative_size_type = 0;
+					width = 36;
+					height = 27;
+					scale_x = 1.000000;
+					scale_y = 1.000000;
+					skew_x = 0.000000;
+					skew_y = 0.000000;
+					rotation = 0.000000;
+					visible = true;
+					lua_name = 'checkSprite';
+					file_name = 'ui/buttons/check_btn_0101.png';
+					color = { 255; 255; 255; };
+					opacity = 255;
+					flip_x = false;
+					flip_y = false;
+					src_blend = 770;
+					dest_blend = 771;
+				};
+				type = 'Menu';
+				ui_name = '';
+				x = -160.000000;
+				y = -230.000000;
+				dock_point = { 0.500000; 0.500000; };
+				anchor_point = { 0.500000; 0.500000; };
+				relative_size_type = 0;
+				width = 300;
+				height = 70;
+				scale_x = 1.000000;
+				scale_y = 1.000000;
+				skew_x = 0.000000;
+				skew_y = 0.000000;
+				rotation = 0.000000;
+				visible = true;
+				lua_name = 'checkNode';
+			};
+			[5] =
+			{
+				[1] =
+				{
+					type = 'LabelTTF';
+					ui_name = '';
+					x = 0.000000;
+					y = 0.000000;
+					dock_point = { 0.500000; 0.500000; };
+					anchor_point = { 0.500000; 0.500000; };
+					relative_size_type = 0;
+					width = 424;
+					height = 48;
+					scale_x = 1.000000;
+					scale_y = 1.000000;
+					skew_x = 0.000000;
+					skew_y = 0.000000;
+					rotation = 0.000000;
+					visible = true;
+					lua_name = 'runeNameLabel';
+					font_name = 'font/common_font_01.ttf';
+					font_size = 30;
+					text = 'runeNameLabel';
+					h_alignment = 1;
+					v_alignment = 1;
+					color = { 255; 255; 255; };
+					opacity = 255;
+					dimension_width = 424;
+					dimension_height = 48;
+					letter_spacing = 0.000000;
+					has_stroke = false;
+					stroke_type = 0;
+					stroke_detail_level = 0;
+					is_sharp_text = true;
+					stroke_tickness = 1.000000;
+					stroke_color = { 255; 255; 255; };
+					has_shadow = false;
+					shadow_color = { 255; 255; 255; };
+					shadow_opacity = 255;
+					shadow_direction = 0;
+					shadow_distance = 5.000000;
+				};
+				type = 'Scale9Sprite';
+				ui_name = '';
+				x = 104.000000;
+				y = 226.000000;
+				dock_point = { 0.500000; 0.500000; };
+				anchor_point = { 0.500000; 0.500000; };
+				relative_size_type = 0;
+				width = 700;
+				height = 50;
+				scale_x = 1.000000;
+				scale_y = 1.000000;
+				skew_x = 0.000000;
+				skew_y = 0.000000;
+				rotation = 0.000000;
+				visible = true;
+				lua_name = '';
+				file_name = 'ui/frames/title_frame_0101.png';
+				color = { 255; 255; 255; };
+				opacity = 255;
+				center_rect_x = 0;
+				center_rect_y = 0;
+				center_rect_width = 0;
+				center_rect_height = 0;
+			};
+			[6] =
 			{
 				[1] =
 				{
@@ -331,7 +622,7 @@
 					lua_name = 'optionLabel';
 					font_name = 'font/common_font_01.ttf';
 					font_size = 24;
-					text = '공격력\n공격력';
+					text = 'optionLabel';
 					h_alignment = 0;
 					v_alignment = 0;
 					color = { 255; 255; 255; };
@@ -441,7 +732,7 @@
 				center_rect_width = 0;
 				center_rect_height = 0;
 			};
-			[4] =
+			[7] =
 			{
 				type = 'Sprite';
 				ui_name = '';
@@ -467,7 +758,7 @@
 				src_blend = 770;
 				dest_blend = 771;
 			};
-			[5] =
+			[8] =
 			{
 				type = 'Visual';
 				ui_name = '';
@@ -492,7 +783,7 @@
 				color = { 255; 255; 255; };
 				opacity = 255;
 			};
-			[6] =
+			[9] =
 			{
 				type = 'Node';
 				ui_name = '';
@@ -511,7 +802,7 @@
 				visible = true;
 				lua_name = 'runeNode';
 			};
-			[7] =
+			[10] =
 			{
 				type = 'Visual';
 				ui_name = '';
@@ -536,7 +827,7 @@
 				color = { 255; 255; 255; };
 				opacity = 255;
 			};
-			[8] =
+			[11] =
 			{
 				[1] =
 				{
@@ -547,24 +838,24 @@
 					dock_point = { 0.500000; 0.500000; };
 					anchor_point = { 0.500000; 0.500000; };
 					relative_size_type = 0;
-					width = 424;
-					height = 48;
+					width = 300;
+					height = 40;
 					scale_x = 1.000000;
 					scale_y = 1.000000;
 					skew_x = 0.000000;
 					skew_y = 0.000000;
 					rotation = 0.000000;
 					visible = true;
-					lua_name = 'runeNameLabel';
+					lua_name = 'countLabel';
 					font_name = 'font/common_font_01.ttf';
-					font_size = 30;
-					text = 'runeNameLabel';
+					font_size = 24;
+					text = '{1}회 남음';
 					h_alignment = 1;
 					v_alignment = 1;
-					color = { 255; 255; 255; };
+					color = { 255; 173; 91; };
 					opacity = 255;
-					dimension_width = 424;
-					dimension_height = 48;
+					dimension_width = 300;
+					dimension_height = 40;
 					letter_spacing = 0.000000;
 					has_stroke = false;
 					stroke_type = 0;
@@ -580,20 +871,20 @@
 				};
 				type = 'Scale9Sprite';
 				ui_name = '';
-				x = 104.000000;
-				y = 226.000000;
+				x = 160.000000;
+				y = -162.000000;
 				dock_point = { 0.500000; 0.500000; };
 				anchor_point = { 0.500000; 0.500000; };
 				relative_size_type = 0;
-				width = 700;
-				height = 50;
+				width = 375;
+				height = 49;
 				scale_x = 1.000000;
 				scale_y = 1.000000;
 				skew_x = 0.000000;
 				skew_y = 0.000000;
 				rotation = 0.000000;
-				visible = true;
-				lua_name = '';
+				visible = false;
+				lua_name = 'countNode';
 				file_name = 'ui/frames/title_frame_0101.png';
 				color = { 255; 255; 255; };
 				opacity = 255;
@@ -601,70 +892,6 @@
 				center_rect_y = 0;
 				center_rect_width = 0;
 				center_rect_height = 0;
-			};
-			[9] =
-			{
-				[1] =
-				{
-					type = 'LabelTTF';
-					ui_name = '';
-					x = 212.000000;
-					y = 0.000000;
-					dock_point = { 0.500000; 0.500000; };
-					anchor_point = { 0.500000; 0.500000; };
-					relative_size_type = 0;
-					width = 340;
-					height = 70;
-					scale_x = 1.000000;
-					scale_y = 1.000000;
-					skew_x = 0.000000;
-					skew_y = 0.000000;
-					rotation = 0.000000;
-					visible = true;
-					lua_name = '';
-					font_name = 'font/common_font_01.ttf';
-					font_size = 30;
-					text = '룬 강화';
-					h_alignment = 0;
-					v_alignment = 1;
-					color = { 255; 255; 255; };
-					opacity = 255;
-					dimension_width = 340;
-					dimension_height = 70;
-					letter_spacing = 0.000000;
-					has_stroke = false;
-					stroke_type = 0;
-					stroke_detail_level = 0;
-					is_sharp_text = true;
-					stroke_tickness = 1.000000;
-					stroke_color = { 255; 255; 255; };
-					has_shadow = false;
-					shadow_color = { 255; 255; 255; };
-					shadow_opacity = 255;
-					shadow_direction = 0;
-					shadow_distance = 5.000000;
-				};
-				type = 'Button';
-				ui_name = '';
-				x = 60.000000;
-				y = 42.000000;
-				dock_point = { 0.000000; 1.000000; };
-				anchor_point = { 0.500000; 0.500000; };
-				relative_size_type = 0;
-				width = 80;
-				height = 70;
-				scale_x = 1.000000;
-				scale_y = 1.000000;
-				skew_x = 0.000000;
-				skew_y = 0.000000;
-				rotation = 0.000000;
-				visible = true;
-				lua_name = 'closeBtn';
-				enable = true;
-				normal = 'ui/buttons/back_btn_0101.png';
-				selected = 'ui/buttons/back_btn_0102.png';
-				disable = '';
-				image_type = 0;
 			};
 			type = 'Menu';
 			ui_name = '';
@@ -682,6 +909,70 @@
 			rotation = 0.000000;
 			visible = true;
 			lua_name = '';
+		};
+		[4] =
+		{
+			[1] =
+			{
+				type = 'LabelTTF';
+				ui_name = '';
+				x = 212.000000;
+				y = 0.000000;
+				dock_point = { 0.500000; 0.500000; };
+				anchor_point = { 0.500000; 0.500000; };
+				relative_size_type = 0;
+				width = 340;
+				height = 70;
+				scale_x = 1.000000;
+				scale_y = 1.000000;
+				skew_x = 0.000000;
+				skew_y = 0.000000;
+				rotation = 0.000000;
+				visible = true;
+				lua_name = '';
+				font_name = 'font/common_font_01.ttf';
+				font_size = 30;
+				text = '룬 강화';
+				h_alignment = 0;
+				v_alignment = 1;
+				color = { 255; 255; 255; };
+				opacity = 255;
+				dimension_width = 340;
+				dimension_height = 70;
+				letter_spacing = 0.000000;
+				has_stroke = false;
+				stroke_type = 0;
+				stroke_detail_level = 0;
+				is_sharp_text = true;
+				stroke_tickness = 1.000000;
+				stroke_color = { 255; 255; 255; };
+				has_shadow = false;
+				shadow_color = { 255; 255; 255; };
+				shadow_opacity = 255;
+				shadow_direction = 0;
+				shadow_distance = 5.000000;
+			};
+			type = 'Button';
+			ui_name = '';
+			x = 50.000000;
+			y = -36.000000;
+			dock_point = { 0.000000; 1.000000; };
+			anchor_point = { 0.500000; 0.500000; };
+			relative_size_type = 0;
+			width = 80;
+			height = 70;
+			scale_x = 1.000000;
+			scale_y = 1.000000;
+			skew_x = 0.000000;
+			skew_y = 0.000000;
+			rotation = 0.000000;
+			visible = true;
+			lua_name = 'closeBtn';
+			enable = true;
+			normal = 'ui/buttons/back_btn_0101.png';
+			selected = 'ui/buttons/back_btn_0102.png';
+			disable = '';
+			image_type = 0;
 		};
 		type = 'Menu';
 		ui_name = '';

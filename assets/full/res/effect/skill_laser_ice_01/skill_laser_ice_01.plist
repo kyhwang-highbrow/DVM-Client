@@ -15,7 +15,67 @@
                 <key>spriteSourceSize</key>
                 <string>{125,227}</string>
                 <key>textureRect</key>
+                <string>{{615,297},{125,227}}</string>
+                <key>textureRotated</key>
+                <false/>
+            </dict>
+            <key>skill_laser_ice_01_04_d.png</key>
+            <dict>
+                <key>aliases</key>
+                <array/>
+                <key>spriteOffset</key>
+                <string>{0,0}</string>
+                <key>spriteSize</key>
+                <string>{125,227}</string>
+                <key>spriteSourceSize</key>
+                <string>{125,227}</string>
+                <key>textureRect</key>
                 <string>{{234,297},{125,227}}</string>
+                <key>textureRotated</key>
+                <false/>
+            </dict>
+            <key>skill_laser_ice_01_04_e.png</key>
+            <dict>
+                <key>aliases</key>
+                <array/>
+                <key>spriteOffset</key>
+                <string>{0,0}</string>
+                <key>spriteSize</key>
+                <string>{125,227}</string>
+                <key>spriteSourceSize</key>
+                <string>{125,227}</string>
+                <key>textureRect</key>
+                <string>{{488,297},{125,227}}</string>
+                <key>textureRotated</key>
+                <false/>
+            </dict>
+            <key>skill_laser_ice_01_04_f.png</key>
+            <dict>
+                <key>aliases</key>
+                <array/>
+                <key>spriteOffset</key>
+                <string>{0,0}</string>
+                <key>spriteSize</key>
+                <string>{125,227}</string>
+                <key>spriteSourceSize</key>
+                <string>{125,227}</string>
+                <key>textureRect</key>
+                <string>{{361,297},{125,227}}</string>
+                <key>textureRotated</key>
+                <false/>
+            </dict>
+            <key>skill_laser_ice_01_04_l.png</key>
+            <dict>
+                <key>aliases</key>
+                <array/>
+                <key>spriteOffset</key>
+                <string>{0,0}</string>
+                <key>spriteSize</key>
+                <string>{125,227}</string>
+                <key>spriteSourceSize</key>
+                <string>{125,227}</string>
+                <key>textureRect</key>
+                <string>{{742,297},{125,227}}</string>
                 <key>textureRotated</key>
                 <false/>
             </dict>
@@ -225,7 +285,7 @@
                 <key>spriteSourceSize</key>
                 <string>{461,346}</string>
                 <key>textureRect</key>
-                <string>{{361,297},{277,264}}</string>
+                <string>{{1,526},{277,264}}</string>
                 <key>textureRotated</key>
                 <false/>
             </dict>
@@ -240,7 +300,7 @@
                 <key>spriteSourceSize</key>
                 <string>{461,346}</string>
                 <key>textureRect</key>
-                <string>{{640,297},{301,302}}</string>
+                <string>{{280,526},{301,302}}</string>
                 <key>textureRotated</key>
                 <false/>
             </dict>
@@ -303,7 +363,7 @@
             <key>size</key>
             <string>{1024,1024}</string>
             <key>smartupdate</key>
-            <string>$TexturePacker:SmartUpdate:69de3bb6f6025451915ffd98d5e1fa5d:d0e86933dd7493bae26246f49730fc9f:54f0ca898eb76e1a1ee4644d95c44beb$</string>
+            <string>$TexturePacker:SmartUpdate:7c8d0870b54e8e09d6b491589972a6cc:e84af301c0dc1ec076019e979d4ff072:54f0ca898eb76e1a1ee4644d95c44beb$</string>
             <key>textureFileName</key>
             <string>skill_laser_ice_01.png</string>
         </dict>

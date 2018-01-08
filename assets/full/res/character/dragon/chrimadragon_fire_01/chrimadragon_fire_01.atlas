@@ -1,0 +1,181 @@
+
+chrimadragon_fire_01.png
+size: 364,523
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+cri_fire_01_acc_01
+  rotate: false
+  xy: 230, 31
+  size: 56, 56
+  orig: 56, 56
+  offset: 0, 0
+  index: -1
+cri_fire_01_acc_02
+  rotate: false
+  xy: 148, 196
+  size: 99, 100
+  orig: 99, 100
+  offset: 0, 0
+  index: -1
+cri_fire_01_acc_03
+  rotate: false
+  xy: 207, 149
+  size: 45, 45
+  orig: 45, 45
+  offset: 0, 0
+  index: -1
+cri_fire_01_arm_01
+  rotate: true
+  xy: 320, 264
+  size: 45, 38
+  orig: 45, 38
+  offset: 0, 0
+  index: -1
+cri_fire_01_body_01
+  rotate: false
+  xy: 270, 428
+  size: 92, 93
+  orig: 92, 93
+  offset: 0, 0
+  index: -1
+cri_fire_01_ect_02
+  rotate: false
+  xy: 263, 6
+  size: 23, 23
+  orig: 23, 23
+  offset: 0, 0
+  index: -1
+cri_fire_01_ect_03
+  rotate: false
+  xy: 2, 144
+  size: 144, 152
+  orig: 144, 152
+  offset: 0, 0
+  index: -1
+cri_fire_01_ect_05
+  rotate: false
+  xy: 288, 40
+  size: 44, 53
+  orig: 44, 53
+  offset: 0, 0
+  index: -1
+cri_fire_01_ect_06
+  rotate: false
+  xy: 264, 95
+  size: 52, 57
+  orig: 52, 57
+  offset: 0, 0
+  index: -1
+cri_fire_01_ect_08
+  rotate: false
+  xy: 288, 2
+  size: 34, 36
+  orig: 34, 36
+  offset: 0, 0
+  index: -1
+cri_fire_01_effect_04
+  rotate: false
+  xy: 318, 140
+  size: 22, 25
+  orig: 22, 25
+  offset: 0, 0
+  index: -1
+cri_fire_01_effect_05
+  rotate: false
+  xy: 270, 311
+  size: 81, 115
+  orig: 81, 115
+  offset: 0, 0
+  index: -1
+cri_fire_01_eye_01
+  rotate: false
+  xy: 320, 227
+  size: 35, 35
+  orig: 35, 35
+  offset: 0, 0
+  index: -1
+cri_fire_01_eye_02
+  rotate: true
+  xy: 230, 3
+  size: 26, 31
+  orig: 26, 31
+  offset: 0, 0
+  index: -1
+cri_fire_01_face_01
+  rotate: false
+  xy: 165, 2
+  size: 63, 61
+  orig: 63, 61
+  offset: 0, 0
+  index: -1
+cri_fire_01_hair_01
+  rotate: true
+  xy: 165, 65
+  size: 80, 57
+  orig: 80, 57
+  offset: 0, 0
+  index: -1
+cri_fire_01_hand_01
+  rotate: true
+  xy: 320, 195
+  size: 30, 34
+  orig: 30, 34
+  offset: 0, 0
+  index: -1
+cri_fire_01_head_01
+  rotate: true
+  xy: 2, 10
+  size: 132, 161
+  orig: 132, 161
+  offset: 0, 0
+  index: -1
+cri_fire_01_head_02
+  rotate: false
+  xy: 353, 419
+  size: 9, 7
+  orig: 9, 7
+  offset: 0, 0
+  index: -1
+cri_fire_01_neak_01
+  rotate: true
+  xy: 148, 147
+  size: 47, 57
+  orig: 47, 57
+  offset: 0, 0
+  index: -1
+cri_fire_01_ribbon_01
+  rotate: true
+  xy: 254, 154
+  size: 54, 60
+  orig: 54, 60
+  offset: 0, 0
+  index: -1
+cri_fire_01_ribbon_02
+  rotate: false
+  xy: 224, 89
+  size: 38, 58
+  orig: 38, 58
+  offset: 0, 0
+  index: -1
+cri_fire_01_snow_01
+  rotate: false
+  xy: 2, 298
+  size: 266, 223
+  orig: 266, 223
+  offset: 0, 0
+  index: -1
+cri_fire_01_snow_02
+  rotate: false
+  xy: 316, 167
+  size: 26, 26
+  orig: 26, 26
+  offset: 0, 0
+  index: -1
+cri_fire_01_tail_01
+  rotate: true
+  xy: 249, 210
+  size: 86, 69
+  orig: 86, 69
+  offset: 0, 0
+  index: -1

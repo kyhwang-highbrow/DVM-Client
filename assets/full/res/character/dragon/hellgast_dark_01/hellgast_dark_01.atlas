@@ -1,0 +1,181 @@
+
+hellgast_dark_01.png
+size: 1777,483
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+hellgast_dark_01_body_01
+  rotate: true
+  xy: 1578, 102
+  size: 140, 161
+  orig: 140, 161
+  offset: 0, 0
+  index: -1
+hellgast_dark_01_body_02
+  rotate: false
+  xy: 737, 7
+  size: 95, 60
+  orig: 95, 60
+  offset: 0, 0
+  index: -1
+hellgast_dark_01_calf_01
+  rotate: true
+  xy: 1023, 21
+  size: 46, 71
+  orig: 46, 71
+  offset: 0, 0
+  index: -1
+hellgast_dark_01_effect_04
+  rotate: false
+  xy: 2, 23
+  size: 319, 458
+  orig: 319, 458
+  offset: 0, 0
+  index: -1
+hellgast_dark_01_effect_05
+  rotate: false
+  xy: 1535, 22
+  size: 72, 72
+  orig: 72, 72
+  offset: 0, 0
+  index: -1
+hellgast_dark_01_eve_02_01
+  rotate: true
+  xy: 1202, 29
+  size: 38, 69
+  orig: 38, 69
+  offset: 0, 0
+  index: -1
+hellgast_dark_01_eye_01
+  rotate: true
+  xy: 925, 15
+  size: 52, 96
+  orig: 52, 96
+  offset: 0, 0
+  index: -1
+hellgast_dark_01_eye_02
+  rotate: true
+  xy: 1202, 3
+  size: 24, 64
+  orig: 24, 64
+  offset: 0, 0
+  index: -1
+hellgast_dark_01_foot_01
+  rotate: false
+  xy: 1096, 11
+  size: 53, 56
+  orig: 53, 56
+  offset: 0, 0
+  index: -1
+hellgast_dark_01_foot_02
+  rotate: true
+  xy: 1151, 9
+  size: 58, 49
+  orig: 58, 49
+  offset: 0, 0
+  index: -1
+hellgast_dark_01_head_01
+  rotate: true
+  xy: 1609, 5
+  size: 95, 120
+  orig: 95, 120
+  offset: 0, 0
+  index: -1
+hellgast_dark_01_head_03
+  rotate: false
+  xy: 1273, 13
+  size: 97, 81
+  orig: 97, 81
+  offset: 0, 0
+  index: -1
+hellgast_dark_01_head_05
+  rotate: true
+  xy: 834, 7
+  size: 60, 89
+  orig: 60, 89
+  offset: 0, 0
+  index: -1
+hellgast_dark_01_head_06
+  rotate: true
+  xy: 644, 3
+  size: 64, 91
+  orig: 64, 91
+  offset: 0, 0
+  index: -1
+hellgast_dark_01_head_07
+  rotate: false
+  xy: 1741, 197
+  size: 33, 45
+  orig: 33, 45
+  offset: 0, 0
+  index: -1
+hellgast_dark_01_leg_01
+  rotate: true
+  xy: 1372, 4
+  size: 90, 83
+  orig: 90, 83
+  offset: 0, 0
+  index: -1
+hellgast_dark_01_leg_02
+  rotate: true
+  xy: 1457, 11
+  size: 83, 76
+  orig: 83, 76
+  offset: 0, 0
+  index: -1
+hellgast_dark_01_tail_01
+  rotate: true
+  xy: 1578, 244
+  size: 237, 162
+  orig: 237, 162
+  offset: 0, 0
+  index: -1
+hellgast_dark_01_wing_01
+  rotate: false
+  xy: 644, 69
+  size: 287, 412
+  orig: 287, 412
+  offset: 0, 0
+  index: -1
+hellgast_dark_01_wing_01_00
+  rotate: false
+  xy: 1731, 2
+  size: 44, 48
+  orig: 44, 48
+  offset: 0, 0
+  index: -1
+hellgast_dark_01_wing_01_02
+  rotate: false
+  xy: 323, 23
+  size: 319, 458
+  orig: 319, 458
+  offset: 0, 0
+  index: -1
+hellgast_dark_01_wing_01_03
+  rotate: false
+  xy: 933, 69
+  size: 287, 412
+  orig: 287, 412
+  offset: 0, 0
+  index: -1
+hellgast_dark_01_wing_02
+  rotate: false
+  xy: 1222, 96
+  size: 176, 385
+  orig: 176, 385
+  offset: 0, 0
+  index: -1
+hellgast_dark_01_wing_02_03
+  rotate: false
+  xy: 1400, 96
+  size: 176, 385
+  orig: 176, 385
+  offset: 0, 0
+  index: -1
+hellgast_dark_01_wing_04
+  rotate: false
+  xy: 1731, 52
+  size: 44, 48
+  orig: 44, 48
+  offset: 0, 0
+  index: -1

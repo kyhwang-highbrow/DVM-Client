@@ -244,7 +244,7 @@
 					lua_name = '';
 					font_name = 'font/common_font_01.ttf';
 					font_size = 28;
-					text = '역대 시즌 최고 기록';
+					text = '지난 시즌 최고 기록';
 					h_alignment = 1;
 					v_alignment = 1;
 					color = { 64; 224; 208; };

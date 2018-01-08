@@ -238,7 +238,7 @@
 				[4] =
 				{
 					type = 'LabelTTF';
-					ui_name = '';
+					ui_name = 'rich';
 					x = 0.000000;
 					y = -69.000000;
 					dock_point = { 0.500000; 0.500000; };
@@ -258,7 +258,7 @@
 					text = '레벨 {0}';
 					h_alignment = 1;
 					v_alignment = 1;
-					color = { 240; 215; 159; };
+					color = { 255; 255; 255; };
 					opacity = 255;
 					dimension_width = 200;
 					dimension_height = 34;
@@ -744,7 +744,7 @@
 				[4] =
 				{
 					type = 'LabelTTF';
-					ui_name = '';
+					ui_name = 'rich';
 					x = 0.000000;
 					y = -69.000000;
 					dock_point = { 0.500000; 0.500000; };
@@ -764,7 +764,7 @@
 					text = '레벨 {0}';
 					h_alignment = 1;
 					v_alignment = 1;
-					color = { 240; 215; 159; };
+					color = { 255; 255; 255; };
 					opacity = 255;
 					dimension_width = 200;
 					dimension_height = 34;
@@ -1250,7 +1250,7 @@
 				[4] =
 				{
 					type = 'LabelTTF';
-					ui_name = '';
+					ui_name = 'rich';
 					x = 0.000000;
 					y = -69.000000;
 					dock_point = { 0.500000; 0.500000; };
@@ -1270,7 +1270,7 @@
 					text = '레벨 {0}';
 					h_alignment = 1;
 					v_alignment = 1;
-					color = { 240; 215; 159; };
+					color = { 255; 255; 255; };
 					opacity = 255;
 					dimension_width = 200;
 					dimension_height = 34;
@@ -1756,7 +1756,7 @@
 				[4] =
 				{
 					type = 'LabelTTF';
-					ui_name = '';
+					ui_name = 'rich';
 					x = 0.000000;
 					y = -69.000000;
 					dock_point = { 0.500000; 0.500000; };
@@ -1776,7 +1776,7 @@
 					text = '레벨 {0}';
 					h_alignment = 1;
 					v_alignment = 1;
-					color = { 240; 215; 159; };
+					color = { 255; 255; 255; };
 					opacity = 255;
 					dimension_width = 200;
 					dimension_height = 34;
@@ -2262,7 +2262,7 @@
 				[4] =
 				{
 					type = 'LabelTTF';
-					ui_name = '';
+					ui_name = 'rich';
 					x = 0.000000;
 					y = -69.000000;
 					dock_point = { 0.500000; 0.500000; };
@@ -2282,7 +2282,7 @@
 					text = '레벨 {0}';
 					h_alignment = 1;
 					v_alignment = 1;
-					color = { 240; 215; 159; };
+					color = { 255; 255; 255; };
 					opacity = 255;
 					dimension_width = 200;
 					dimension_height = 34;

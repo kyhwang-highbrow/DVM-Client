@@ -78,7 +78,26 @@
 					src_blend = 770;
 					dest_blend = 771;
 				};
-				[2] =
+				type = 'Node';
+				ui_name = '나머지 룬';
+				x = 0.000000;
+				y = 11.000000;
+				dock_point = { 0.500000; 0.500000; };
+				anchor_point = { 0.500000; 0.500000; };
+				relative_size_type = 0;
+				width = 150;
+				height = 150;
+				scale_x = 1.000000;
+				scale_y = 1.000000;
+				skew_x = 0.000000;
+				skew_y = 0.000000;
+				rotation = 0.000000;
+				visible = true;
+				lua_name = 'runeNode';
+			};
+			[3] =
+			{
+				[1] =
 				{
 					type = 'Sprite';
 					ui_name = '';
@@ -105,7 +124,7 @@
 					dest_blend = 771;
 				};
 				type = 'Node';
-				ui_name = '나머지 룬';
+				ui_name = '룬 문자';
 				x = 0.000000;
 				y = 11.000000;
 				dock_point = { 0.500000; 0.500000; };
@@ -119,9 +138,9 @@
 				skew_y = 0.000000;
 				rotation = 0.000000;
 				visible = true;
-				lua_name = 'runeNode';
+				lua_name = 'runeNumberNode';
 			};
-			[3] =
+			[4] =
 			{
 				[1] =
 				{
@@ -166,7 +185,7 @@
 				visible = true;
 				lua_name = 'starNode';
 			};
-			[4] =
+			[5] =
 			{
 				[1] =
 				{
@@ -261,9 +280,9 @@
 				skew_y = 0.000000;
 				rotation = 0.000000;
 				visible = true;
-				lua_name = 'enhanceNode';
+				lua_name = 'numberNode';
 			};
-			[5] =
+			[6] =
 			{
 				type = 'Sprite';
 				ui_name = '잠금 아이콘';
@@ -289,7 +308,33 @@
 				src_blend = 770;
 				dest_blend = 771;
 			};
-			[6] =
+			[7] =
+			{
+				type = 'Sprite';
+				ui_name = '';
+				x = 33.000000;
+				y = 31.000000;
+				dock_point = { 0.500000; 0.500000; };
+				anchor_point = { 0.500000; 0.500000; };
+				relative_size_type = 0;
+				width = 94;
+				height = 93;
+				scale_x = 1.000000;
+				scale_y = 1.000000;
+				skew_x = 0.000000;
+				skew_y = 0.000000;
+				rotation = 0.000000;
+				visible = false;
+				lua_name = 'newSprite';
+				file_name = 'ui/a2d/card/card_cha_new.png';
+				color = { 255; 255; 255; };
+				opacity = 255;
+				flip_x = false;
+				flip_y = false;
+				src_blend = 770;
+				dest_blend = 771;
+			};
+			[8] =
 			{
 				type = 'Sprite';
 				ui_name = '다중선택 체크';
@@ -315,7 +360,7 @@
 				src_blend = 770;
 				dest_blend = 771;
 			};
-			[7] =
+			[9] =
 			{
 				type = 'Sprite';
 				ui_name = '비활성';
@@ -341,7 +386,7 @@
 				src_blend = 770;
 				dest_blend = 771;
 			};
-			[8] =
+			[10] =
 			{
 				type = 'Sprite';
 				ui_name = '선택';
