@@ -18,9 +18,10 @@ PatchCore = class({
         m_state = 'PATCH_STATE',        -- 패치 코어의 상태
         m_finishCB = 'function',        -- 패치가 완료되었을 때 콜백 함수
 
-        m_appVer = 'string',            -- 앱 버전(0.0.0은 추가리소스)
-        m_currPatchVer = 'number',      -- 현재 패치 버전
-
+        m_appVer = 'string',            -- 앱 버전
+        m_downloadPath = 'string',		-- 다운로드 경로
+		
+		m_currPatchVer = 'number',      -- 현재 패치 버전
         m_latestPatchVer = 'number',    -- 최신 패치 번호
         m_lDownloadRes = 'list',        -- 다운받아야 할 리소스 리스트
         
@@ -194,9 +195,13 @@ end
 -- @brief 패치 파일을 다운받을 경로
 -------------------------------------
 function PatchCore:getDownloadPath()
-    local path = cc.FileUtils:getInstance():getWritablePath()
-    local dir = 'patch_' .. replace(self.m_appVer, '.', '_') .. '/'
-    return path .. dir
+	if (not self.m_downloadPath) then
+		local path = cc.FileUtils:getInstance():getWritablePath()
+		local ver_folder = string.gsub(self.m_appVer, '[.]', '_')
+		self.m_downloadPath = string.format('%spatch_%s/', path, ver_folder)
+	end
+
+    return self.m_downloadPath
 end
 
 

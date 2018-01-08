@@ -1,4 +1,7 @@
-﻿local t_module = {
+﻿-- 패치 시점에서도 반드시 필요한 루아 모듈은 
+-- 하단의 loadModuleForPatchScene에도 추가 해주세요
+
+local t_module = {
     'Cocos2d',
     'Cocos2dConstants',
     'lib/net',
@@ -20,6 +23,7 @@
     'perpleLib/crand',
     'perpleLib/PerpleScene',
     'LuaBridge',
+	'Global',
     'SoundMgr',
     'SoundMgrController',
     'SoundMgrProtected',
@@ -49,7 +53,6 @@
     'ConstantStatusEffect',
     'ConstantColosseum',
     'ConstantColor',
-    'Global',
 
     -- Struct
     'Structure',
@@ -1112,6 +1115,7 @@ function loadModuleForPatchScene()
 		'perpleLib/crand',
 		'perpleLib/PerpleScene',
 		'LuaBridge',
+		'Global',
 		'SoundMgr',
 		'SoundMgrController',
 		'SoundMgrProtected',
@@ -1133,7 +1137,6 @@ function loadModuleForPatchScene()
 		-- CONSTANT 
 		'Constant',
 		'ConstantUrl',
-		'Global',
 
 		-- ServerData
 		'ServerData_Adventure',

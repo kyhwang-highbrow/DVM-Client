@@ -7,16 +7,6 @@ print('################################################################')
 print('[Lua Start!!!]')
 print('################################################################')
 
-require 'require'
-require 'lib/class'
-require 'perpleLib/PerpleScene'
-require 'socket.core'
-require 'ErrorTracker'
-require 'PatchChecker'
-require 'Global'
-require 'Analytics'
-require 'SceneLogo'
-
 -------------------------------------
 -- function cclog
 -------------------------------------
@@ -94,25 +84,51 @@ local function main()
     local seed = os.time()
     math.randomseed(seed)
 
+	-- 최소로 필요한 루아 모듈
+	require 'require'
+	require 'lib/class'
+	require 'perpleLib/PerpleScene'
+	require 'socket.core'
+	require 'ErrorTracker'
+	require 'PatchChecker'
+	require 'Global'
+	require 'CppFunctions'
+	require 'Analytics'
+	require 'SceneLogo'
+	require 'ScenePatch'
+	require 'Stopwatch'
+
+	local stop_watch = Stopwatch()
+	stop_watch:start()
+	stop_watch:record('patch : start')
+
+	-- 에러 안나도록..
 	ErrorTracker:getInstance()
     PatchChecker:getInstance()
 
-    local function start_cb()
-        loadModule()
+    -- @analytics
+    Analytics:firstTimeExperience('StartApp')
 
-        -- @analytics
-        Analytics:firstTimeExperience('StartApp')
-    end
+	-- 일단 화면 띄우고 프리징 되도록 콜백으로 사용
+	local function start_cb()
+		-- lua module load
+		loadModuleForPatchScene()
+		stop_watch:record('patch : load module')
+	end
+	-- 로고 후 패치 시작
+	local function finish_cb()
+		local scene = ScenePatch()
+		scene:runScene()
+		stop_watch:record('patch : end')
+		stop_watch:stop()
+		stop_watch:print()
+	end
 
-    local function finish_cb()
-        local scene = ScenePatch()
-        scene:runScene()
-    end
-
-    local logoScene = SceneLogo()
-    logoScene:setStartCB(start_cb)
-    logoScene:setFinishCB(finish_cb)
-    logoScene:runScene()
+	-- 로고 띄움
+	local scene = SceneLogo()
+	scene:setStartCB(start_cb)
+	scene:setFinishCB(finish_cb)
+	scene:runScene()
 end
 
 local status, msg = xpcall(main, __G__TRACKBACK__)
