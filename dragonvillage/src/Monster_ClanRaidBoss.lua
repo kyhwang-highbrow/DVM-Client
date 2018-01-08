@@ -189,8 +189,6 @@ function Monster_ClanRaidBoss:setHp(hp, bFixed)
         local action = cc.Sequence:create(cc.DelayTime:create(0.2), cc.ScaleTo:create(0.5, self.m_hpRatio, 1))
         self.m_hpGauge2:runAction(cc.EaseIn:create(action, 2))
     end
-
-    self.m_world.m_gameState:setBossHp(self.m_hpCount, self.m_hp)
 end
 
 -------------------------------------

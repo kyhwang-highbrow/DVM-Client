@@ -99,7 +99,7 @@ COLOSSEUM_STAGE_ID = 90000
 DEV_STAGE_ID = 999999
 
 INTRO_STAGE_ID = 1010001
-CLAN_RAID_STAGE_ID = 1500005
+CLAN_RAID_STAGE_ID = 1500100
 
 --------------------------------------------------------------------------
 -- PhysKey 상수

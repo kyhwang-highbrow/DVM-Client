@@ -347,8 +347,14 @@ function UI_AdventureStageInfo:click_enterBtn()
             with_friend = true
         end
 
-        local ui = UI_ReadyScene(stage_id, with_friend)
-        ui:setCloseCB(close_cb)
+        if (game_mode == GAME_MODE_CLAN_RAID) then
+            local stage_name = 'stage_' .. stage_id
+            local scene = SceneGameClanRaid(nil, stage_id, stage_name, false)
+            scene:runScene()
+        else
+            local ui = UI_ReadyScene(stage_id, with_friend)
+            ui:setCloseCB(close_cb)
+        end
     end
 
     self:sceneFadeOutAndCallFunc(func)

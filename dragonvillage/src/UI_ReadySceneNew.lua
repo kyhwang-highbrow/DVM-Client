@@ -779,12 +779,6 @@ function UI_ReadySceneNew:click_startBtn()
             scene:runScene()
         end)
         return
-    elseif (stage_id == CLAN_RAID_STAGE_ID) then
-        self:checkChangeDeck(function()
-            local scene = SceneGameClanRaid(nil, CLAN_RAID_STAGE_ID, 'stage_clanraid')
-            scene:runScene()
-        end)
-        return
     end
 
     -- 클랜던전인 경우 상단덱과 하단덱 모두 체크

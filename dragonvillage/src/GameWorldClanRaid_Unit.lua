@@ -417,6 +417,8 @@ end
 function GameWorldClanRaid:bindEnemy(enemy)
     -- 등장 완료 콜백 등록
     enemy:addListener('enemy_appear_done', self.m_gameState)
+    -- 보스 체력 공유 처리를 위함
+    enemy:addListener('character_set_hp', self.m_gameState)
 
     -- 월드에서 중계되는 이벤트
     enemy:addListener('character_recovery', self)

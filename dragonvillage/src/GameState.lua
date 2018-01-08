@@ -1336,8 +1336,8 @@ function GameState:applyBuffByFightTime()
     local str_buff_name = Str('피해량 증가')
 
     for type, value in pairs(add_buff) do
-        -- 아군 및 적군에게 버프 적용
-        do
+        -- 아군 버프 적용(콜로세움일 경우만)
+        if (world.m_gameMode == GAME_MODE_COLOSSEUM) then
             for i, v in ipairs(world.m_leftParticipants) do
                 local status, action = TableOption:parseOptionKey(type)
                 v.m_statusCalc:addOption(action, status, value)
@@ -1347,6 +1347,10 @@ function GameState:applyBuffByFightTime()
                 local status, action = TableOption:parseOptionKey(type)
                 v.m_statusCalc:addOption(action, status, value)
             end
+        end
+
+        -- 적군 버프 적용
+        do
             for i, v in ipairs(world.m_rightParticipants) do
                 local status, action = TableOption:parseOptionKey(type)
                 v.m_statusCalc:addOption(action, status, value)

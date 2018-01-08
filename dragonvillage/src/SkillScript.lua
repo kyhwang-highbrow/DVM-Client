@@ -13,6 +13,7 @@ SkillScript = class(PARENT, {
 -- @param body
 -------------------------------------
 function SkillScript:init(file_name, body, ...)
+    cclog('SkillScript')
 end
 
 
@@ -41,8 +42,8 @@ end
 function SkillScript.st_appear(owner, dt)
 	if (owner.m_stateTimer == 0) then        
         -- 주체 유닛 스킬 시작 애니 설정
-        owner.m_owner:changeAni('skill_appear', false)
-        owner.m_owner:addAniHandler(function()
+        owner.m_owner.m_animator:changeAni('skill_appear', false)
+        owner.m_owner.m_animator:addAniHandler(function()
             owner:changeState('attack')
         end)
     end
@@ -54,12 +55,12 @@ end
 function SkillScript.st_attack(owner, dt)
 	if (owner.m_stateTimer == 0) then
         -- 애니메이션
-        owner.m_owner:changeAni('skill_idle', true)
+        owner.m_owner.m_animator:changeAni('skill_idle', true)
 
         owner:makeMissileLauncher()
 	end
 
-    if (owner.m_stateTimer >= 10) then
+    if (owner.m_stateTimer >= 12) then
         owner:changeState('end')
     end
 end
@@ -70,8 +71,8 @@ end
 function SkillScript.st_disappear(owner, dt)
 	if (owner.m_stateTimer == 0) then
         -- 주체 유닛 스킬 종료 애니 설정
-        owner.m_owner:changeAni('skill_disappear', false)
-        owner.m_owner:addAniHandler(function()
+        owner.m_owner.m_animator:changeAni('skill_disappear', false)
+        owner.m_owner.m_animator:addAniHandler(function()
             owner:changeState('dying')
         end)
     end
@@ -100,8 +101,10 @@ function SkillScript:makeMissileLauncher()
     self.m_world:addToMissileList(missile_launcher)
     self.m_world.m_worldNode:addChild(missile_launcher.m_rootNode)
 
+    local script = TABLE:loadSkillScript(self.m_scriptName)
+    local script_data = script[self.m_scriptName]
     local phys_group = self.m_owner:getMissilePhysGroup()
-    missile_launcher:init_missileLauncherByScript(self.m_scriptName, phys_group, self.m_activityCarrier, {})
+    missile_launcher:init_missileLauncherByScript(script_data['attack_value'], phys_group, self.m_activityCarrier, {})
     missile_launcher.m_animator:changeAni('animation', true)
     missile_launcher:setPosition(start_x, start_y)
     missile_launcher.m_owner = self.m_owner
@@ -115,6 +118,7 @@ function SkillScript:makeSkillInstance(owner, t_skill, t_data)
 	------------------------------------------------------
 	local res = t_skill['res_1']
     local script_name = t_skill['val_1']
+    script_name = 'skill_boss_clanraid_2'
 	
 	-- 인스턴스 생성부
 	------------------------------------------------------

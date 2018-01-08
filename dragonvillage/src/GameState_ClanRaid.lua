@@ -129,6 +129,7 @@ function GameState_ClanRaid.update_fight(self, dt)
     local world = self.m_world
     
     if (self.m_stateTimer == 0) then
+        -- 보스 체력 게이지
         if (not self.m_uiBossHp) then
             self.m_uiBossHp = UI_IngameBossHpForClanRaid(world, world.m_waveMgr.m_lBoss)
                 
@@ -305,7 +306,7 @@ end
 -------------------------------------
 -- function makeGameFinishParam
 -------------------------------------
-function GameState:makeGameFinishParam(is_success)
+function GameState_ClanRaid:makeGameFinishParam(is_success)
     local t_param = {}
 
     do-- 클리어 했는지 여부 ( 0 이면 실패, 1이면 성공)
@@ -424,5 +425,18 @@ function GameState_ClanRaid:setBossHp(hp_count, hp)
 
     for _, boss in ipairs(self.m_world.m_waveMgr.m_lBoss) do
         boss:syncHp(hp_count, hp)
+    end
+end
+
+-------------------------------------
+-- function onEvent
+-- @brief
+-------------------------------------
+function GameState_ClanRaid:onEvent(event_name, t_event, ...)
+    PARENT.onEvent(self, event_name, t_event, ...)
+
+    -- 보스 체력 공유 처리
+    if (event_name == 'character_set_hp') then
+        self:setBossHp(self.m_bossHpCount, t_event['hp'])
     end
 end

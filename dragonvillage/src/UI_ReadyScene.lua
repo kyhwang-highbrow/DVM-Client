@@ -150,12 +150,6 @@ function UI_ReadyScene:checkDeckProper()
         return
     end
 
-    -- 클랜던전 임시 처리
-    if (self.m_stageID == CLAN_RAID_STAGE_ID) then
-        g_deckData:setSelectedDeck('adv')
-        return
-    end
-
 	local curr_mode = TableDrop():getValue(self.m_stageID, 'mode')
 
     -- 고대의 탑인 경우 시험의 탑과 STAGE ID 같이 쓰이므로 덱네임 다시 받아옴
@@ -791,12 +785,6 @@ function UI_ReadyScene:click_startBtn()
     if (stage_id == DEV_STAGE_ID) then
         self:checkChangeDeck(function()
             local scene = SceneGame(nil, stage_id, 'stage_dev', true)
-            scene:runScene()
-        end)
-        return
-    elseif (stage_id == CLAN_RAID_STAGE_ID) then
-        self:checkChangeDeck(function()
-            local scene = SceneGameClanRaid(nil, CLAN_RAID_STAGE_ID, 'stage_clanraid')
             scene:runScene()
         end)
         return
