@@ -152,9 +152,13 @@ function UI_ReadyScene:checkDeckProper()
 
 	local curr_mode = TableDrop():getValue(self.m_stageID, 'mode')
 
-    -- 고대의 탑인 경우 시험의 탑과 STAGE ID 같이 쓰이므로 덱네임 다시 받아옴
+    -- 시험의 탑인 경우 고대의 탑과 STAGE ID 같이 쓰이므로 덱네임 다시 받아옴
     if (curr_mode == 'ancient') then
-        curr_mode = g_attrTowerData:getDeckName(curr_mode)
+        local deck_name = g_attrTowerData:getDeckName()
+        if (deck_name) then
+            g_deckData:setSelectedDeck(deck_name)
+            return
+        end
     end
 
 	local curr_deck_name = g_deckData:getSelectedDeckName()

@@ -33,6 +33,7 @@ function UI_ClanRaidResult:init(stage_id, is_success, damage, t_data)
 
     local vars = self:load('clan_raid_result.ui')
     UIManager:open(self, UIManager.POPUP)
+    self.m_uiName = 'UI_ClanRaidResult'
 
     self:doActionReset()
     self:doAction()
@@ -136,6 +137,7 @@ function UI_ClanRaidResult:direction_showScore()
     local is_win = self.m_bSuccess
     local vars = self.vars
 
+
     local total_score = cc.Label:createWithBMFont('res/font/tower_score.fnt', '')
     total_score:setAnchorPoint(cc.p(0.5, 0.5))
     total_score:setDockPoint(cc.p(0.5, 0.5))
@@ -143,8 +145,8 @@ function UI_ClanRaidResult:direction_showScore()
     total_score:setAdditionalKerning(0)
     vars['scoreNode']:addChild(total_score)
 
-    total_score = NumberLabel(total_score, 0, 0.3)
-    total_score:setNumber(self.m_damage, true)
+    local new_score = NumberLabel(total_score, 0, 0.5)
+    new_score:setNumber(self.m_damage, false)
 
     self:doNextWorkWithDelayTime(0.8)
 end
@@ -194,68 +196,69 @@ function UI_ClanRaidResult:direction_showReward()
 
     local ui = UI()
     ui:load('clan_raid_result_reward.ui')
-    ui.vars['rewardNode'..grade]:setVisible(true)
+    local target_menu = ui.vars['rewardNode'..grade]
+    target_menu:setVisible(false)
     vars['dropRewardMenu']:addChild(ui.root)
 
     self.m_sub_menu = vars['dropRewardMenu']
 
-    local ani_duration = 2.0 -- 애니메이션 두개의 duration 어떻게 가져옴?
+    local ani_duration = 1.0 
     local ani_interval = 0.2
-
     local box_visual = vars['boxVisual']
 
-    -- 박스 열리는 모션후에 아이템 카드 보여주는 액션
-    local box_ani_func = function(item_card, is_last)
-        local ani_1 
-        local ani_2
-        local result
+    local ani_1 
+    local ani_2
+    local result
+    local show_reward
 
-        ani_1 = function()
-            box_visual:setVisible(true)
-            box_visual:changeAni('box_01', false)
-            box_visual:addAniHandler(function()
-                ani_2()
-            end)
-        end
+    ani_1 = function()
+        box_visual:setVisible(true)
+        box_visual:changeAni('box_01', false)
+        box_visual:addAniHandler(function()
+            ani_2()
+        end)
+    end
 
-        ani_2 = function()
-            box_visual:changeAni('box_03', false)
-            box_visual:addAniHandler(function()
-                result()
-            end)
-        end
-
-        result = function()
+    ani_2 = function()
+        box_visual:changeAni('box_03', false)
+        box_visual:addAniHandler(function()
             box_visual:setVisible(false)
-            item_card:setVisible(true)
-            cca.stampShakeAction(item_card, ITEM_CARD_SCALE * 1.1, 0.1, 0, 0, ITEM_CARD_SCALE)
+            target_menu:setVisible(true)
+            result()
+        end)
+    end
 
-            if (is_last) then
-                self:doNextWorkWithDelayTime(0.5)
-            end
+    -- 아이템 카드 보여주는 액션
+    local show_reward = function(item_card, is_last)
+        item_card:setVisible(true)
+        cca.stampShakeAction(item_card, ITEM_CARD_SCALE * 1.1, 0.1, 0, 0, ITEM_CARD_SCALE)
+
+        if (is_last) then
+            self:doNextWorkWithDelayTime(0.5)
         end
-
-        ani_1()
     end
 
-    -- 드랍한 아이템 만큼 연출
-    local reward_list = self.m_reward_list
-    for i, v in ipairs(reward_list) do
-        local item_id = v[1]
-        local count = v[2]
-        local sub_data = v[3]
+    result = function()
+        -- 드랍한 아이템 만큼 연출
+        local reward_list = self.m_reward_list
+        for i, v in ipairs(reward_list) do
+            local item_id = v[1]
+            local count = v[2]
+            local sub_data = v[3]
 
-        local item_card = UI_ItemCard(item_id, count, sub_data)
-        item_card.root:setScale(ITEM_CARD_SCALE)
-        item_card.root:setVisible(false)
+            local item_card = UI_ItemCard(item_id, count, sub_data)
+            item_card.root:setScale(ITEM_CARD_SCALE)
+            item_card.root:setVisible(false)
 
-        local target_node = ui.vars['rewardNode'..grade..'_'..i]
-        target_node:addChild(item_card.root)
+            local target_node = ui.vars['rewardNode'..grade..'_'..i]
+            target_node:addChild(item_card.root)
 
-        local is_last = (i == #reward_list)
-        cca.reserveFunc(self.root, ani_duration * ((i - 1) + ani_interval), function() box_ani_func(item_card.root, is_last) end)
+            local is_last = (i == #reward_list)
+            cca.reserveFunc(self.root, ani_duration * ((i - 1) + ani_interval), function() show_reward(item_card.root, is_last) end)
+        end
     end
 
+    ani_1()
 end
 
 -------------------------------------

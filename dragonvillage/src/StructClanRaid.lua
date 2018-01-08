@@ -134,11 +134,15 @@ end
 -------------------------------------
 -- function getBossNameWithLv
 -------------------------------------
-function StructClanRaid:getBossNameWithLv()
-    local lv = Str('Lv.{1}', self:getLv())
+function StructClanRaid:getBossNameWithLv(is_richlabel)
+    local is_richlabel = is_richlabel or false
+    local lv = self:getLv()
     local name = self:getBossName()
     
-    return string.format('%s %s', lv, name)
+    local str = is_richlabel and
+                string.format('{@deep_gray}%s {@apricot}Lv.%s', name, lv) or
+                string.format('%s Lv.%s', name, lv)
+    return str
 end
 
 -------------------------------------

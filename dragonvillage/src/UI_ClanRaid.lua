@@ -35,7 +35,6 @@ function UI_ClanRaid:init()
     local vars = self:load_keepZOrder('clan_raid_scene.ui')
     UIManager:open(self, UIManager.SCENE)
 
-    self.m_uiName = 'UI_ClanRaid'
     self.m_preRefreshTime = 0
 
     local struct_raid = g_clanRaidData:getClanRaidStruct()
@@ -218,7 +217,8 @@ function UI_ClanRaid:initRaidInfo()
     end
 
     -- 레벨, 이름
-    local name = struct_raid:getBossNameWithLv()
+    local is_rich_label = true
+    local name = struct_raid:getBossNameWithLv(is_rich_label)
     vars['levelLabel']:setString(name)
 
     -- 속성 아이콘
@@ -369,7 +369,6 @@ function UI_ClanRaid:click_startBtn()
             local struct_raid = g_clanRaidData:getClanRaidStruct()
             local state = struct_raid:getState()
             local stage_id = struct_raid:getStageID()
-            ccdump(state)
 
             -- 플레이중인 유저가 있다면
             if (state == CLAN_RAID_STATE.CHALLENGE) then

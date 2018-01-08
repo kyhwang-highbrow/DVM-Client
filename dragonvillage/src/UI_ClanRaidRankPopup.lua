@@ -16,6 +16,7 @@ local CLAN_OFFSET_GAP = 20
 function UI_ClanRaidRankPopup:init()
     local vars = self:load('clan_raid_rank.ui')
     UIManager:open(self, UIManager.POPUP)
+    self.m_uiName = 'UI_ClanRaidRankPopup'
 
     local rank_type = CLAN_RANK['RAID']
     self.m_rank_data = g_clanRankData:getRankData(rank_type)
@@ -57,6 +58,9 @@ end
 -------------------------------------
 function UI_ClanRaidRankPopup:refresh()
     local vars = self.vars
+    -- 종료 시간
+    local status_text = g_clanRaidData:getClanRaidStatusText()
+    vars['timeLabel']:setString(status_text)
 end
 
 -------------------------------------
