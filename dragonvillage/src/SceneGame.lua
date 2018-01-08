@@ -39,6 +39,7 @@ SceneGame = class(PerpleScene, {
         m_inGameUI = '',
 
         m_bDevelopMode = 'boolean',
+        m_bDevelopStage = 'boolean',
 
         m_gameKey = 'number', -- 서버에서 넘어오는 고유 Key
         m_resPreloadMgr = 'ResPreloadMgr',
@@ -68,6 +69,7 @@ function SceneGame:init(game_key, stage_id, stage_name, develop_mode, stage_para
     self.m_bStop = false
     self.m_bPause = false
     self.m_bDevelopMode = develop_mode or false
+    self.m_bDevelopStage = false
     self.m_bShowTopUserInfo = false
 
     self:init_gameMode(stage_id)
@@ -84,6 +86,7 @@ function SceneGame:init_gameMode(stage_id)
     -- game mode
     if (self.m_stageID == DEV_STAGE_ID) then
         self.m_gameMode = GAME_MODE_ADVENTURE
+        self.m_bDevelopStage = self.m_bDevelopMode
     else
         self.m_gameMode = g_stageData:getGameMode(self.m_stageID)
         if (self.m_gameMode == GAME_MODE_NEST_DUNGEON) then
