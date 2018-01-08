@@ -69,7 +69,7 @@ def zipdirectory(path):
 # 전역변수 초기화
 def init_global_var():
     print('# init_global_var ...')
-    global tar_server
+    global TARGET_SERVER
     global source_path
     global patch_work_path
     global dest_path
@@ -91,12 +91,12 @@ def init_global_var():
     dest_path = os.path.join(r'\\', 'PERPLELAB-NAS', 'Dev', 'patch', 'dv_test')
     
     # 패치 타겟 서버
-    tar_server = sys.argv[1]
-    if tar_server == 'DEV':
+    TARGET_SERVER = sys.argv[1]
+    if TARGET_SERVER == 'DEV':
         SERVER_PATH = 'http://dv-test.perplelab.com:9003'
-    elif tar_server == 'QA':
+    elif TARGET_SERVER == 'QA':
         SERVER_PATH = 'http://dv-qa.perplelab.com:9003'
-    elif tar_server == 'LIVE':
+    elif TARGET_SERVER == 'LIVE':
         SERVER_PATH = 'http://dvm-api.perplelab.com'
 
     TOOL_SERVER_PATH = 'http://192.168.1.41:7777/maintenance'
@@ -108,7 +108,7 @@ def init_global_var():
     print('\t' + source_path)
     print('\t' + patch_work_path)
     print('\t' + dest_path)
-    print('\t' + tar_server + SERVER_PATH)
+    print('\t' + TARGET_SERVER + ' - ' + SERVER_PATH)
     print('\t' + app_ver)
     
 # 서버로부터 패치 정보 얻어옴
@@ -242,23 +242,22 @@ def main():
     r = requests.get(TOOL_SERVER_PATH + '/update_patch_dv')
     print('# [tool] upload_patch_dv')
     r = requests.get(TOOL_SERVER_PATH + '/upload_patch_dv')
-
+    
     # 플랫폼 서버에 패치 정보 전달
-    if sys.argv[1] == 'DEV':
-        print zip_file
-        print('# [platform] add patch info')
+    if TARGET_SERVER == 'DEV':
         zip_path = '%s/patch_%d.zip' % (dst_forder, new_patch_ver)
         zip_md5 = md5_log_maker.file2md5(zip_file)
         zip_size = os.path.getsize(zip_file)
-        params = {
+        data = {
             'app_ver': app_ver,
             'version' : new_patch_ver,
             'name' : zip_path,
             'md5' : zip_md5,
             'size' : zip_size
         }
-        print params
-        r = requests.post(PLATFORM_SERVER_PATH + '/versions/addPatchInfo', params = params)
+        print('# [platform] add patch info')
+        print data
+        r = requests.post(PLATFORM_SERVER_PATH + '/versions/addPatchInfo', data = data)
 
     print "###################################"
     print "done"

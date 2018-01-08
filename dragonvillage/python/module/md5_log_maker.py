@@ -38,7 +38,7 @@ def iterfunc(workd_path, rootdir, subdir, hash_dic):
         return
     
     if (utility.is_hidden(path)):
-        print('hidden folder!')
+        print('\t hidden folder : ' + path)
         return
 
     for item in os.listdir(path):
