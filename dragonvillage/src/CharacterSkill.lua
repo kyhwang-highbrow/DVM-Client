@@ -360,7 +360,8 @@ function Character:doSkillBySkillTable(t_skill, t_data)
                 return true
 
             elseif (skill_type == 'skill_script') then
-                SkillScript:makeSkillInstance(self, t_skill, t_data)
+                --SkillScript:makeSkillInstance(self, t_skill, t_data)
+                SkillScript_ClanRaidBoss:makeSkillInstance(self, t_skill, t_data)
                 return true
 			end
 

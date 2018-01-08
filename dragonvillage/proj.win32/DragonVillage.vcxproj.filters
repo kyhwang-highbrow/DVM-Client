@@ -3106,6 +3106,9 @@
     <None Include="..\src\UI_GamePause_ClanRaid.lua">
       <Filter>lua\UI</Filter>
     </None>
+    <None Include="..\src\SkillScript_ClanRaidBoss.lua">
+      <Filter>lua\src</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Classes">

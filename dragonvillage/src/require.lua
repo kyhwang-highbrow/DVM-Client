@@ -525,6 +525,7 @@ local t_module = {
     'SkillRandom',
     'SkillLaserBomb',
     'SkillScript',
+    'SkillScript_ClanRaidBoss',
 
     'SkillHealSingle',
     'SkillHealAround',

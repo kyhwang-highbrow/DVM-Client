@@ -1,65 +1,79 @@
-local PARENT = class(Skill, IStateDelegate:getCloneTable())
+local PARENT = class(SkillScript, IStateDelegate:getCloneTable())
+
+local CON_SKILL_IDLE = 'skill_idle'
 
 -------------------------------------
--- class SkillScript
+-- class SkillScript_ClanRaidBoss
 -------------------------------------
-SkillScript = class(PARENT, {
-        m_scriptName = 'string',
-        m_duration = 'number',
-	})
+SkillScript_ClanRaidBoss = class(PARENT, {})
 
 -------------------------------------
--- function init
--- @param file_name
--- @param body
+-- function initEventListener
+-- @breif 이벤트 처리..
 -------------------------------------
-function SkillScript:init(file_name, body, ...)
+function SkillScript_ClanRaidBoss:initEventListener()
+    PARENT.initEventListener(self)
+
+    self:addListener(CON_SKILL_IDLE, self)
 end
 
-
 -------------------------------------
--- function init_skill
+-- function setSkillParams
+-- @brief 멤버변수 정의
 -------------------------------------
-function SkillScript:init_skill(script_name, duration)
-    PARENT.init_skill(self)
+function SkillScript_ClanRaidBoss:setSkillParams(owner, t_skill, t_data)
+    PARENT.setSkillParams(self, owner, t_skill, t_data)
 
-    self.m_scriptName = script_name
-    --self.m_duration = duration
-    self.m_duration = 12
+    -- 받는 피해 증가 상태효과 설정
+    local struct_status_effect = StructStatusEffect({
+        type = 'dmg_add',
+		target_type = 'self',
+		target_count = 1,
+		trigger = CON_SKILL_IDLE,
+		duration = 12,
+		rate = 100,
+		value = 100,
+        source = '',
+    })
+    table.insert(self.m_lStatusEffect, struct_status_effect)
+
+    -- 다중 광폭화 상태효과 설정
+    for i = 1, 5 do
+        local struct_status_effect = StructStatusEffect({
+            type = 'passive_fury',
+			target_type = 'self',
+			target_count = 1,
+			trigger = CON_SKILL_END,
+			duration = -1,
+			rate = 100,
+			value = 20,
+            source = '',
+        })
+        table.insert(self.m_lStatusEffect, struct_status_effect)
+    end
 end
 
 -------------------------------------
 -- function initState
 -------------------------------------
-function SkillScript:initState()
-	self:setCommonState(self)
-    self:addState('start', SkillScript.st_appear, nil, false)
-    self:addState('attack', SkillScript.st_attack, nil, false)
-    self:addState('end', SkillScript.st_disappear, nil, false)
-end
-
--------------------------------------
--- function st_appear
--------------------------------------
-function SkillScript.st_appear(owner, dt)
-	if (owner.m_stateTimer == 0) then        
-        -- 주체 유닛 스킬 시작 애니 설정
-        owner.m_owner.m_animator:changeAni('skill_appear', false)
-        owner.m_owner.m_animator:addAniHandler(function()
-            owner:changeState('attack')
-        end)
-    end
+function SkillScript_ClanRaidBoss:initState()
+    PARENT.initState(self)
+	
+    self:addState('attack', SkillScript_ClanRaidBoss.st_attack, nil, false)
 end
 
 -------------------------------------
 -- function st_attack
 -------------------------------------
-function SkillScript.st_attack(owner, dt)
+function SkillScript_ClanRaidBoss.st_attack(owner, dt)
 	if (owner.m_stateTimer == 0) then
         -- 애니메이션
         owner.m_owner.m_animator:changeAni('skill_idle', true)
 
         owner:makeMissileLauncher()
+
+        -- idle 애니메이션 시작시 발동되는 status effect를 적용
+		owner:dispatch(CON_SKILL_IDLE, {l_target = {owner.m_targetChar}})
 	end
 
     if (owner.m_stateTimer >= owner.m_duration) then
@@ -68,22 +82,9 @@ function SkillScript.st_attack(owner, dt)
 end
 
 -------------------------------------
--- function st_disappear
--------------------------------------
-function SkillScript.st_disappear(owner, dt)
-	if (owner.m_stateTimer == 0) then
-        -- 주체 유닛 스킬 종료 애니 설정
-        owner.m_owner.m_animator:changeAni('skill_disappear', false)
-        owner.m_owner.m_animator:addAniHandler(function()
-            owner:changeState('dying')
-        end)
-    end
-end
-
--------------------------------------
 -- function makeMissileLauncher
 -------------------------------------
-function SkillScript:makeMissileLauncher()
+function SkillScript_ClanRaidBoss:makeMissileLauncher()
     local missile_launcher = MissileLauncher(nil)
     local t_launcher_option = missile_launcher:getOptionTable()
 
@@ -105,8 +106,7 @@ function SkillScript:makeMissileLauncher()
 
     local script = TABLE:loadSkillScript(self.m_scriptName)
     local script_data = script[self.m_scriptName]
-    local phys_group = self.m_owner:getMissilePhysGroup()
-    
+    local phys_group = PHYS.MISSILE.ENEMY   -- 모든 드래곤을 공격할 수 있도록 설정
     missile_launcher:init_missileLauncherByScript(script_data['attack_value'], phys_group, self.m_activityCarrier, {})
     missile_launcher.m_animator:changeAni('animation', true)
     missile_launcher:setPosition(start_x, start_y)
@@ -116,21 +116,20 @@ end
 -------------------------------------
 -- function makeSkillInstance
 -------------------------------------
-function SkillScript:makeSkillInstance(owner, t_skill, t_data)
+function SkillScript_ClanRaidBoss:makeSkillInstance(owner, t_skill, t_data)
 	-- 변수 선언부
 	------------------------------------------------------
 	local res = t_skill['res_1']
     local script_name = t_skill['val_1']
-    local duration = t_skill['val_3']
 	
 	-- 인스턴스 생성부
 	------------------------------------------------------
 	-- 1. 스킬 생성
-    local skill = SkillScript(res)
+    local skill = SkillScript_ClanRaidBoss(res)
 
 	-- 2. 초기화 관련 함수
 	skill:setSkillParams(owner, t_skill, t_data)
-    skill:init_skill(script_name, duration)
+    skill:init_skill(script_name)
 	skill:initState()
 
 	-- 3. state 시작 
