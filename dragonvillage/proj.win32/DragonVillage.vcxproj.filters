@@ -3109,10 +3109,13 @@
     <None Include="..\src\SkillScript_ClanRaidBoss.lua">
       <Filter>lua\src</Filter>
     </None>
+    <None Include="..\src\UI_SelectServerPopup.lua">
+      <Filter>lua\src</Filter>
+    </None>
     <None Include="..\src\UI_GameClanRaid.lua">
       <Filter>lua\UI</Filter>
     </None>
-	<None Include="..\src\UI_ClanRaidRewardPopup.lua">
+    <None Include="..\src\UI_ClanRaidRewardPopup.lua">
       <Filter>lua\UI</Filter>
     </None>
   </ItemGroup>
