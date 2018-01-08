@@ -100,6 +100,7 @@ function UI_ClanRaid:initButton()
     vars['prevBtn']:registerScriptTapHandler(function() self:click_prevBtn() end)
     vars['nextBtn']:registerScriptTapHandler(function() self:click_nextBtn() end)
     vars['rankBtn']:registerScriptTapHandler(function() self:click_rankBtn() end)
+    vars['rewardBtn']:registerScriptTapHandler(function() self:click_rewardBtn() end)
     vars['startBtn']:registerScriptTapHandler(function() self:click_startBtn() end)
 end
 
@@ -351,6 +352,14 @@ function UI_ClanRaid:click_rankBtn()
     end
 
     g_clanRankData:request_getRank(rank_type, offset, cb_func)
+end
+
+-------------------------------------
+-- function click_rewardBtn
+-- @brief 클랜 던전 보상
+-------------------------------------
+function UI_ClanRaid:click_rewardBtn()
+    UI_ClanRaidRewardPopup()
 end
 
 -------------------------------------

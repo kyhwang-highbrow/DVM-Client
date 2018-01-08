@@ -948,6 +948,13 @@ function UINavigatorDefinition:goTo_clan_raid(...)
     end
         
     local function finish_cb()
+        -- 오픈 상태 여부 체크
+        if (not g_clanRaidData:isOpenClanRaid()) then
+            local msg = Str('클랜던전 오픈 전입니다.\n오픈까지 {1}', g_clanRaidData:getClanRaidStatusText())
+            MakeSimplePopup(POPUP_TYPE.OK, msg)
+            return
+		end
+
         -- 전투 메뉴가 열려있을 경우
         local is_opend, idx, ui = self:findOpendUI('UI_BattleMenu')
         if (is_opend == true) then

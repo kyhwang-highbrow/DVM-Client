@@ -1001,6 +1001,7 @@
     'UI_ClanRaidRankListItem',
     'UI_ClanRaidResult',
     'UI_ClanRaidRankPopup',
+    'UI_ClanRaidRewardPopup',
 
     -- Forest
     'SceneForest',

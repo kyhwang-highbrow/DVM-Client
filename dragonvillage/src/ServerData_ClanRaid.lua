@@ -19,6 +19,8 @@ ServerData_ClanRaid = class({
 
         -- 메인 (수동으로 전투가 가능한) 덱 (up or down)
         m_main_deck = 'string',
+
+        m_bOpen = 'boolean',
     })
 
 -------------------------------------
@@ -119,8 +121,7 @@ function ServerData_ClanRaid:isOpenClanRaid()
     local curr_time = Timer:getServerTime()
     local start_time = (self.m_startTime / 1000)
     local end_time = (self.m_endTime / 1000)
-	
-	return (start_time <= curr_time) and (curr_time <= end_time)
+	return (self.m_bOpen) and (start_time <= curr_time) and (curr_time <= end_time)
 end
 
 -------------------------------------
@@ -199,6 +200,7 @@ function ServerData_ClanRaid:request_info(stage_id, cb_func)
         end
 
         -- 클랜 던전 오픈/종료 시간
+        self.m_bOpen = ret['open']
         self.m_startTime = ret['start_time']
         self.m_endTime = ret['endtime']
 

@@ -1,107 +1,95 @@
-local PARENT = class(UI_IndivisualTab, ITabUI:getCloneTable())
+local PARENT = class(UI, ITabUI:getCloneTable())
 
 -------------------------------------
--- class UI_ClanTabRank
--- @brief 클랜 랭킹 탭
+-- class UI_ClanRaidRewardPopup
 -------------------------------------
-UI_ClanTabRank = class(PARENT,{
-        vars = '',
-        m_mTableViewMap = 'Map<string, UIC_TableView>',
-        m_mOffsetMap = 'number',
+UI_ClanRaidRewardPopup = class(PARENT,{
     })
 
-UI_ClanTabRank.TAB_ANCT = CLAN_RANK['ANCT']
-UI_ClanTabRank.TAB_CLSM = CLAN_RANK['CLSM']
-UI_ClanTabRank.TAB_RAID = CLAN_RANK['RAID']
-
 local CLAN_OFFSET_GAP = 20
+
+local TAB_REWARD_FIGHT = 1 -- 한판 보상
+local TAB_REWARD_CLEAR = 2 -- 클리어 보상
+local TAB_REWARD_SEASON = 3 -- 시즌 보상
 
 -------------------------------------
 -- function init
 -------------------------------------
-function UI_ClanTabRank:init(owner_ui)
-    self.root = owner_ui.vars['rankMenu']
-    self.vars = owner_ui.vars
-    self.m_mTableViewMap = {}
-    self.m_mOffsetMap = {}
-end
+function UI_ClanRaidRewardPopup:init()
+    local vars = self:load('clan_raid_reward.ui')
+    UIManager:open(self, UIManager.POPUP)
+    self.m_uiName = 'UI_ClanRaidRewardPopup'
 
--------------------------------------
--- function onEnterTab
--------------------------------------
-function UI_ClanTabRank:onEnterTab(first)
-    if first then
-        self:initUI()
-        self:initTab()
-    end
-end
+    -- backkey 지정
+    g_currScene:pushBackKeyListener(self, function() self:click_closeBtn() end, 'UI_ClanRaidRewardPopup')
 
--------------------------------------
--- function onExitTab
--------------------------------------
-function UI_ClanTabRank:onExitTab()
+    -- @UI_ACTION
+    --self:addAction(vars['rootNode'], UI_ACTION_TYPE_LEFT, 0, 0.2)
+    self:doActionReset()
+    self:doAction(nil, false)
+
+    self:initUI()
+    self:initButton()
+    self:initTab()
+    self:refresh()
 end
 
 -------------------------------------
 -- function initUI
 -------------------------------------
-function UI_ClanTabRank:initUI()
+function UI_ClanRaidRewardPopup:initUI()
     local vars = self.vars
+--    self:makeMyRank()
+--    self:initTableView()
+end
+
+-------------------------------------
+-- function initButton
+-------------------------------------
+function UI_ClanRaidRewardPopup:initButton()
+    local vars = self.vars
+    vars['closeBtn']:registerScriptTapHandler(function() self:click_closeBtn() end)
 end
 
 -------------------------------------
 -- function initTab
 -------------------------------------
-function UI_ClanTabRank:initTab()
+function UI_ClanRaidRewardPopup:initTab()
     local vars = self.vars
-    local tab_list = {CLAN_RANK['ANCT'], CLAN_RANK['CLSM'], CLAN_RANK['RAID']}
 
-    for i, tab in ipairs(tab_list) do
-        self:addTabAuto(tab, vars, vars[tab .. 'Node'])
-    end
-
-    self:setTab(CLAN_RANK['ANCT'])
+    self:addTabWithLabel(TAB_REWARD_FIGHT, vars['rewardTabBtn1'], vars['rewardTabLabel1'], vars['rewardNode1'])
+    self:addTabWithLabel(TAB_REWARD_CLEAR, vars['rewardTabBtn2'], vars['rewardTabLabel2'], vars['rewardNode2'])
+    self:addTabWithLabel(TAB_REWARD_SEASON, vars['rewardTabBtn3'], vars['rewardTabLabel3'], vars['rewardNode3'])
+    self:setTab(TAB_REWARD_FIGHT)
+    self:setChangeTabCB(function(tab, first) self:onChangeTab(tab, first) end)
 end
 
 -------------------------------------
 -- function onChangeTab
 -------------------------------------
-function UI_ClanTabRank:onChangeTab(tab, first)
-    if (first) then
-        self.m_mOffsetMap[tab] = 1
-        self:request_clanRank(first)
-
-    else
-        self:makeMyRank(tab)
-
-    end
+function UI_ClanRaidRewardPopup:onChangeTab(tab, first)
 end
 
 -------------------------------------
--- function request_clanRank
+-- function refresh
 -------------------------------------
-function UI_ClanTabRank:request_clanRank(first)
-    local rank_type = self.m_currTab
-    local offset = self.m_mOffsetMap[rank_type]
-    local cb_func = function()
-        if (first) then
-            self:makeMyRank(rank_type)
-        end
-        self:makeRankTableview(rank_type)
-    end
-    g_clanRankData:request_getRank(rank_type, offset, cb_func)
+function UI_ClanRaidRewardPopup:refresh()
+    local vars = self.vars
+    -- 종료 시간
+    local status_text = g_clanRaidData:getClanRaidStatusText()
+    vars['timeLabel']:setString(status_text)
 end
 
 -------------------------------------
--- function makeTableViewRanking
+-- function initTableView
 -------------------------------------
-function UI_ClanTabRank:makeRankTableview(tab)
-	local t_tab_data = self.m_mTabData[tab]
-	local node = t_tab_data['tab_node_list'][1]
-	local l_rank_list = g_clanRankData:getRankData(tab)
+function UI_ClanRaidRewardPopup:initTableView()
+    local vars = self.vars
+	local node = vars['listNode']
+	local l_rank_list = self.m_rank_data
 
     -- 이전 보기 추가
-    if (1 < self.m_mOffsetMap[tab]) then
+    if (1 < self.m_offset) then
         l_rank_list['prev'] = 'prev'
     end
 
@@ -112,7 +100,7 @@ function UI_ClanTabRank:makeRankTableview(tab)
         
     -- 이전 랭킹 보기
     local function click_prevBtn()
-        self.m_mOffsetMap[tab] = math_max(self.m_mOffsetMap[tab] - CLAN_OFFSET_GAP, 1)
+        self.m_offset = math_max(self.m_offset - CLAN_OFFSET_GAP, 1)
         self:request_clanRank()
     end
 
@@ -122,7 +110,7 @@ function UI_ClanTabRank:makeRankTableview(tab)
             MakeSimplePopup(POPUP_TYPE.OK, Str('다음 랭킹이 존재하지 않습니다.'))
             return
         end
-        self.m_mOffsetMap[tab] = self.m_mOffsetMap[tab] + CLAN_OFFSET_GAP
+        self.m_offset = self.m_offset + CLAN_OFFSET_GAP
         self:request_clanRank()
     end
 
@@ -145,7 +133,7 @@ function UI_ClanTabRank:makeRankTableview(tab)
         -- 테이블 뷰 인스턴스 생성
         local table_view = UIC_TableView(node)
         table_view.m_defaultCellSize = cc.size(1000, 100 + 5)
-        table_view:setCellUIClass(UI_ClanTabRank.makeRankCell, create_func)
+        table_view:setCellUIClass(UI_ClanRaidRewardPopup.makeRankCell, create_func)
         table_view:setDirection(cc.SCROLLVIEW_DIRECTION_VERTICAL)
         table_view:setItemList(l_rank_list)
 
@@ -182,17 +170,17 @@ function UI_ClanTabRank:makeRankTableview(tab)
             empty_str = Str('랭킹 정보가 없습니다.')
         end
         table_view:makeDefaultEmptyDescLabel(empty_str)
-        self.m_mTableViewMap[tab] = table_view
     end
 end
 
 -------------------------------------
 -- function makeMyRank
 -------------------------------------
-function UI_ClanTabRank:makeMyRank(tab)
-    local node = self.vars['myNode']
+function UI_ClanRaidRewardPopup:makeMyRank()
+    local node = self.vars['myClanNode']
     node:removeAllChildren()
-    local my_rank = g_clanRankData:getMyRankData(tab)
+    local rank_type = CLAN_RANK['RAID']
+    local my_rank = g_clanRankData:getMyRankData(rank_type)
     local ui = self.makeRankCell(my_rank)
     node:addChild(ui.root)
 end
@@ -200,9 +188,9 @@ end
 -------------------------------------
 -- function makeRankCell
 -------------------------------------
-function UI_ClanTabRank.makeRankCell(t_data)
+function UI_ClanRaidRewardPopup.makeRankCell(t_data)
 	local ui = class(UI, ITableViewCell:getCloneTable())()
-	local vars = ui:load('clan_rank_item.ui')
+	local vars = ui:load('clan_raid_rank_item.ui')
     if (not t_data) then
         return ui
     end
@@ -249,4 +237,11 @@ function UI_ClanTabRank.makeRankCell(t_data)
     end)
 
 	return ui
+end
+
+-------------------------------------
+-- function click_closeBtn
+-------------------------------------
+function UI_ClanRaidRewardPopup:click_closeBtn()
+    self:close()
 end
