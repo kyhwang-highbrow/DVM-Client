@@ -365,9 +365,17 @@ function GameWorldClanRaid:getTargetList(char, x, y, team_type, formation_type, 
 
     elseif (team_type == 'enemy') then
         if (bLeftFormation) then
-            for_mgr_delegate = FormationMgrDelegate(rightFormationMgr)
+            if (rule_type == 'all') then
+                for_mgr_delegate = FormationMgrDelegate(self.m_rightFormationMgr, self.m_subRightFormationMgr)
+            else
+                for_mgr_delegate = FormationMgrDelegate(rightFormationMgr)
+            end
         else
-            for_mgr_delegate = FormationMgrDelegate(leftFormationMgr)
+            if (rule_type == 'all') then
+                for_mgr_delegate = FormationMgrDelegate(self.m_leftFormationMgr, self.m_subLeftFormationMgr)
+            else
+                for_mgr_delegate = FormationMgrDelegate(leftFormationMgr)
+            end
         end
 
     elseif (team_type == 'all') then

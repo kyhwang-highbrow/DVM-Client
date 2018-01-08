@@ -7,6 +7,16 @@ local CON_SKILL_IDLE = 'skill_idle'
 -------------------------------------
 SkillScript_ClanRaidBoss = class(PARENT, {})
 
+
+-------------------------------------
+-- function init_skill
+-------------------------------------
+function SkillScript_ClanRaidBoss:init_skill(script_name, duration)
+    PARENT.init_skill(self, script_name, duration)
+
+    self.m_duration = 12
+end
+
 -------------------------------------
 -- function initEventListener
 -- @breif 이벤트 처리..
@@ -69,10 +79,13 @@ end
 -------------------------------------
 function SkillScript_ClanRaidBoss.st_attack(owner, dt)
 	if (owner.m_stateTimer == 0) then
-        -- 애니메이션
-        owner.m_owner.m_animator:changeAni('skill_idle', true)
+        local unit = owner.m_owner
 
-        owner:makeMissileLauncher()
+        -- 애니메이션
+        unit.m_animator:changeAni('skill_idle', true)
+
+        local t_skill = unit:getSkillTable(owner.m_skillId)
+        unit:do_script_shot(t_skill, unit:getAttribute(), PHYS.MISSILE.ENEMY)
 
         -- idle 애니메이션 시작시 발동되는 status effect를 적용
 		owner:dispatch(CON_SKILL_IDLE, {l_target = {owner.m_targetChar}})
@@ -84,38 +97,6 @@ function SkillScript_ClanRaidBoss.st_attack(owner, dt)
 end
 
 -------------------------------------
--- function makeMissileLauncher
--------------------------------------
-function SkillScript_ClanRaidBoss:makeMissileLauncher()
-    local missile_launcher = MissileLauncher(nil)
-    local t_launcher_option = missile_launcher:getOptionTable()
-
-    local start_x, start_y = self:getAttackPositionAtWorld()
-
-    -- 속성
-    t_launcher_option['attr_name'] = self.m_owner:getAttribute()
-
-    -- 타겟 지정
-    t_launcher_option['target'] = self.m_targetChar
-    t_launcher_option['target_list'] = self.m_lTargetChar
-
-    -- 각도 지정
-	local degree = getDegree(start_x, start_y, self.m_targetPos['x'], self.m_targetPos['y'])
-    t_launcher_option['dir'] = degree
-
-    self.m_world:addToMissileList(missile_launcher)
-    self.m_world.m_worldNode:addChild(missile_launcher.m_rootNode)
-
-    local script = TABLE:loadSkillScript(self.m_scriptName)
-    local script_data = script[self.m_scriptName]
-    local phys_group = PHYS.MISSILE.ENEMY   -- 모든 드래곤을 공격할 수 있도록 설정
-    missile_launcher:init_missileLauncherByScript(script_data['attack_value'], phys_group, self.m_activityCarrier, {})
-    missile_launcher.m_animator:changeAni('animation', true)
-    missile_launcher:setPosition(start_x, start_y)
-    missile_launcher.m_owner = self.m_owner
-end
-
--------------------------------------
 -- function makeSkillInstance
 -------------------------------------
 function SkillScript_ClanRaidBoss:makeSkillInstance(owner, t_skill, t_data)
@@ -123,6 +104,7 @@ function SkillScript_ClanRaidBoss:makeSkillInstance(owner, t_skill, t_data)
 	------------------------------------------------------
 	local res = t_skill['res_1']
     local script_name = t_skill['val_1']
+    local duration = t_skill['val_3']
 	
 	-- 인스턴스 생성부
 	------------------------------------------------------
@@ -131,7 +113,7 @@ function SkillScript_ClanRaidBoss:makeSkillInstance(owner, t_skill, t_data)
 
 	-- 2. 초기화 관련 함수
 	skill:setSkillParams(owner, t_skill, t_data)
-    skill:init_skill(script_name)
+    skill:init_skill(script_name, duration)
 	skill:initState()
 
 	-- 3. state 시작 

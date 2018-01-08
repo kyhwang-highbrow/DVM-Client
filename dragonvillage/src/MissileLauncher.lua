@@ -63,8 +63,17 @@ function MissileLauncher:init_missileLauncher(t_skill, object_key, activity_carr
     self:addState('dying', function(owner, dt) return true end, nil, true, 3)
     self:changeState('attack')
 
+    
+    local script_name
+
+    -- 스킬 타입이 skill_script인 경우 val_1값을 스크립트 이름으로 사용
+    if (t_skill['skill_type'] == 'skill_script') then
+        script_name = t_skill['val_1']
+    else
+        script_name = t_skill['skill_type']
+    end
+
     -- data파일에서 로드
-    local script_name = t_skill['skill_type']
     local script = TABLE:loadSkillScript(script_name)
     if (not script) then
         error(script_name .. " DO NOT EXIST!!")

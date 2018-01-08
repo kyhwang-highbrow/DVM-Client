@@ -377,7 +377,10 @@ end
 -- @brief 스크립트 탄막 실행 
 -------------------------------------
 function Character:do_script_shot(t_skill, attr, phys_group, x, y, t_data)
-	
+    local x = x or self.m_attackOffsetX
+    local y = y or self.m_attackOffsetX
+    local t_data = t_data or {}
+
     local start_x = self.pos.x + x
     local start_y = self.pos.y + y
 
@@ -391,7 +394,7 @@ function Character:do_script_shot(t_skill, attr, phys_group, x, y, t_data)
     -- 타겟을 얻는다
     local l_target = self:getTargetListByTable(t_skill)
     if (#l_target == 0) then return false end
-
+    
     self.m_targetChar = l_target[1]
 
     -- 브레스일 경우

@@ -24,8 +24,7 @@ function SkillScript:init_skill(script_name, duration)
     PARENT.init_skill(self)
 
     self.m_scriptName = script_name
-    --self.m_duration = duration
-    self.m_duration = 12
+    self.m_duration = duration
 end
 
 -------------------------------------

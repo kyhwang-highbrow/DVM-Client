@@ -419,6 +419,7 @@ function GameWorld:game_speed_up()
 end
 function GameWorld:game_speed_down()
 	local scale = self.m_gameTimeScale:getBase() - 0.1
+    scale = math_max(scale, 0.1)
     self.m_gameTimeScale:setBase(scale)
 	ccdisplay('게임 속도 ' .. scale)
 end
