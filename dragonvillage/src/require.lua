@@ -303,6 +303,7 @@ local t_module = {
     'TablePackageBundle',
     'TableClanMark',
 	'TableDailyMission',
+	'TablePickDragon',
 
     -- Scene
     'SceneCommon',
@@ -663,6 +664,7 @@ local t_module = {
     'UI_StaminaInfo',
 
     'UI_GachaResult_Dragon',
+	'UI_PickDragon',
     'UI_DragonAppear',
     'UI_GuidePopup',
     'UI_NestDungeonScene',

@@ -194,8 +194,12 @@ function UI_MailPopup:click_rewardBtn(struct_mail)
     if (struct_mail:isChangeNick()) then
         struct_mail:readChangeNick(success_cb)
 
-    -- 드래곤 선택권?
+    -- 드래곤 선택권
+	elseif (struct_mail:isPick()) then
+        struct_mail:readPickDragon(success_cb)
+
     -- 룬 선택권?
+	-- 또 생기면... item_type을 가져와서 분기처리하거나 다른구조로 하자
 
     -- 나머지
     else

@@ -4,13 +4,20 @@ local PARENT = UI
 -- class UI_PickDragon
 -------------------------------------
 UI_PickDragon = class(PARENT,{
+		m_orgDragonList = 'list',
+
+		m_roleRadioButton = 'UIC_RadioButton',
+        m_attrRadioButton = 'UIC_RadioButton',
+
+        m_tableViewTD = 'UIC_TableViewTD',
+        m_sortManager = 'SortManager',
     })
 
 -------------------------------------
 -- function init
 -------------------------------------
-function UI_PickDragon:init()
-    local vars = self:load('clan_raid_reward.ui')
+function UI_PickDragon:init(mid, item_id, cb_func)
+    local vars = self:load('popup_select_regend.ui')
     UIManager:open(self, UIManager.POPUP)
     self.m_uiName = 'UI_PickDragon'
 
@@ -22,9 +29,10 @@ function UI_PickDragon:init()
     self:doActionReset()
     self:doAction(nil, false)
 
+	self.m_orgDragonList = TablePickDragon:getDragonList(item_id)
+
     self:initUI()
     self:initButton()
-    self:initTab()
     self:refresh()
 end
 
@@ -33,8 +41,10 @@ end
 -------------------------------------
 function UI_PickDragon:initUI()
     local vars = self.vars
---    self:makeMyRank()
---    self:initTableView()
+
+    self:initTableView()
+	self:initSortManager()
+	self:initRadioButton()
 end
 
 -------------------------------------
@@ -46,22 +56,121 @@ function UI_PickDragon:initButton()
 end
 
 -------------------------------------
--- function initTab
+-- function initRadioButton
 -------------------------------------
-function UI_PickDragon:initTab()
+function UI_PickDragon:initRadioButton()
     local vars = self.vars
 
-    self:addTabWithLabel(TAB_REWARD_FIGHT, vars['rewardTabBtn1'], vars['rewardTabLabel1'], vars['rewardNode1'])
-    self:addTabWithLabel(TAB_REWARD_CLEAR, vars['rewardTabBtn2'], vars['rewardTabLabel2'], vars['rewardNode2'])
-    self:addTabWithLabel(TAB_REWARD_SEASON, vars['rewardTabBtn3'], vars['rewardTabLabel3'], vars['rewardNode3'])
-    self:setTab(TAB_REWARD_FIGHT)
-    self:setChangeTabCB(function(tab, first) self:onChangeTab(tab, first) end)
+    do -- 역할(role)
+        local radio_button = UIC_RadioButton()
+        radio_button:addButtonWithLabel('all', vars['roleAllRadioBtn'], vars['roleAllRadioLabel'])
+        radio_button:addButtonAuto('tanker', vars)
+        radio_button:addButtonAuto('dealer', vars)
+        radio_button:addButtonAuto('supporter', vars)
+        radio_button:addButtonAuto('healer', vars)
+        radio_button:setSelectedButton('all')
+        radio_button:setChangeCB(function() self:onChangeOption() end)
+        self.m_roleRadioButton = radio_button
+    end
+
+    do -- 속성(attribute)
+        local radio_button = UIC_RadioButton()
+        --radio_button:addButton('all', vars['attrAllBtn'])
+        radio_button:addButtonAuto('fire', vars)
+        radio_button:addButtonAuto('water', vars)
+        radio_button:addButtonAuto('earth', vars)
+        radio_button:addButtonAuto('dark', vars)
+        radio_button:addButtonAuto('light', vars)
+        radio_button:setSelectedButton('fire')
+        radio_button:setChangeCB(function() self:onChangeOption() end)
+        self.m_attrRadioButton = radio_button
+    end
+
+    -- 최초에 한번 실행
+    self:onChangeOption()
 end
 
 -------------------------------------
--- function onChangeTab
+-- function onChangeOption
+-- @brief
 -------------------------------------
-function UI_PickDragon:onChangeTab(tab, first)
+function UI_PickDragon:onChangeOption()
+    local role_option = self.m_roleRadioButton.m_selectedButton
+    local attr_option = self.m_attrRadioButton.m_selectedButton
+
+    local l_item_list = {}
+	for _, t_dragon in ipairs(self.m_orgDragonList) do
+		local b = true
+
+		-- 직군
+		if (role_option ~= 'all') and (role_option ~= t_dragon['role']) then 
+			b = false
+		end
+
+		-- 속성
+		if (attr_option ~= t_dragon['attr']) then
+			b = false
+		end
+
+		if (b) then
+			table.insert(l_item_list, t_dragon)
+		end
+	end
+	
+    -- 리스트 갱신
+    self.m_tableViewTD:setItemList(l_item_list)
+
+    -- 정렬
+    self.m_sortManager:sortExecution(self.m_tableViewTD.m_itemList)
+end
+
+-------------------------------------
+-- function initTableView
+-------------------------------------
+function UI_PickDragon:initTableView()
+    local node = self.vars['listNode']
+
+    local l_item_list = {}
+
+	-- cell_size 지정
+    local item_size = 150
+    local item_scale = 14/15
+    local cell_size = cc.size(item_size*item_scale + 0, item_size*item_scale + 0)
+
+    -- 리스트 아이템 생성 콜백
+    local function create_func(data)
+        local did = data['did']
+		local t_data = {['evolution'] = 1}
+		local ui = MakeSimpleDragonCard(did, t_data)
+		ui.root:setScale(item_scale)
+        return ui
+    end
+
+    -- 테이블 뷰 인스턴스 생성
+    local table_view_td = UIC_TableViewTD(node)
+    table_view_td.m_cellSize = cell_size
+    table_view_td.m_nItemPerCell = 5
+	table_view_td:setCellUIClass(create_func)
+	table_view_td:setDirection(cc.SCROLLVIEW_DIRECTION_VERTICAL)
+    table_view_td:setItemList(l_item_list)
+
+    -- 정렬
+    self.m_tableViewTD = table_view_td
+end
+
+-------------------------------------
+-- function initSortManager
+-- @brief
+-------------------------------------
+function UI_PickDragon:initSortManager()
+    local sort_manager = SortManager_Dragon()
+	
+	-- did 순, 등급 순, 진화도 순으로 정렬
+    sort_manager:pushSortOrder('did')
+    sort_manager:pushSortOrder('grade')
+	sort_manager:pushSortOrder('evolution')
+
+    self.m_sortManager = sort_manager
 end
 
 -------------------------------------
@@ -69,88 +178,6 @@ end
 -------------------------------------
 function UI_PickDragon:refresh()
     local vars = self.vars
-    -- 종료 시간
-    local status_text = g_clanRaidData:getClanRaidStatusText()
-    vars['timeLabel']:setString(status_text)
-end
-
--------------------------------------
--- function initTableView
--------------------------------------
-function UI_PickDragon:initTableView()
-    local vars = self.vars
-	local node = vars['listNode']
-	local l_rank_list = self.m_rank_data
-
-    -- 생성 콜백
-    local function create_func(ui, data)
-
-    end
-
-	do -- 테이블 뷰 생성
-        node:removeAllChildren()
-
-        -- 테이블 뷰 인스턴스 생성
-        local table_view = UIC_TableView(node)
-        table_view.m_defaultCellSize = cc.size(1000, 100 + 5)
-        table_view:setCellUIClass(UI_PickDragon.makeRankCell, create_func)
-        table_view:setDirection(cc.SCROLLVIEW_DIRECTION_VERTICAL)
-        table_view:setItemList(l_rank_list)
-    end
-end
-
--------------------------------------
--- function makeRankCell
--------------------------------------
-function UI_PickDragon.makeRankCell(t_data)
-	local ui = class(UI, ITableViewCell:getCloneTable())()
-	local vars = ui:load('clan_raid_rank_item.ui')
-    if (not t_data) then
-        return ui
-    end
-    if (t_data == 'next') then
-        return ui
-    end
-    if (t_data == 'prev') then
-        return ui
-    end
-
-    local struct_clan_rank = t_data
-
-    -- 클랜 마크
-    local icon = struct_clan_rank:makeClanMarkIcon()
-    vars['markNode']:removeAllChildren()
-    vars['markNode']:addChild(icon)
-
-    -- 클랜 이름
-    local clan_name = struct_clan_rank:getClanName()
-    vars['clanLabel']:setString(clan_name)
-
-    -- 클랜 마스터
-    local clan_master = struct_clan_rank:getMasterNick()
-    vars['masterLabel']:setString(clan_master)
-
-    -- 점수
-    local clan_score = struct_clan_rank:getClanScore()
-    vars['scoreLabel']:setString(clan_score)
-    
-    -- 등수 
-    local clan_rank = struct_clan_rank:getClanRank()
-    vars['rankLabel']:setString(clan_rank)
-    
-    -- 내클랜
-    if (struct_clan_rank:isMyClan()) then
-        vars['mySprite']:setVisible(true)
-        vars['infoBtn']:setVisible(false)
-    end
-
-    -- 정보 보기 버튼
-    vars['infoBtn']:registerScriptTapHandler(function()
-        local clan_object_id = struct_clan_rank:getClanObjectID()
-        g_clanData:requestClanInfoDetailPopup(clan_object_id)
-    end)
-
-	return ui
 end
 
 -------------------------------------

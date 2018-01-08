@@ -152,19 +152,15 @@ function StructMail:getExpireRemainTimeStr()
 end
 
 -------------------------------------
--- function checkTicket
--- @brief 확정권인지 검사한다.
+-- function getFirstItemType
+-- @brief 첫번째 아이템 타입 반환
 -------------------------------------
-function StructMail:checkTicket()
+function StructMail:getFirstItemType()
 	local item_list = self['items_list']
-
-	-- 확정권인지 체크
-	local item_type = TableItem():getValue(item_list[1]['item_id'], 'type')
-	if (item_type == 'ticket') then
-		return true
+	if (item_list[1]) then
+		local item_type = TableItem():getValue(item_list[1]['item_id'], 'type')
+		return item_type
 	end
-
-	return false
 end
 
 -------------------------------------
@@ -172,6 +168,12 @@ end
 -- @brief 모두 받기 가능한 메일인지 검사
 -------------------------------------
 function StructMail:isMailCanReadAll()
+	if (not self['items_list']) then
+		return
+	end
+	if (not self['items_list'][1]) then
+		return
+	end
 	local item_id = self['items_list'][1]['item_id']
 	return (TableItem:getItemTypeFromItemID(item_id) ~= nil)
 end
@@ -192,12 +194,16 @@ function StructMail:readMe(cb_func)
             return
         end
 
+		local item_type = self:getFirstItemType()
+
 		-- 확정권인 경우
-		if (self:checkTicket()) and (#ret['added_items']['dragons'] > 0) then
+		if (item_type == 'ticket') and (#ret['added_items']['dragons'] > 0) then
 			local gacha_type = 'mail'
             UI_GachaResult_Dragon(gacha_type, ret['added_items']['dragons'])
+
         else
             ItemObtainResult_Mail(ret)
+
         end
 
         if (cb_func) then
@@ -227,9 +233,21 @@ function StructMail:readChangeNick(cb_func)
 end
 
 -------------------------------------
--- function readSelection
--- @brief 선택권을 읽는다
+-- function isPick
+-- @brief 선택권 확인 
 -------------------------------------
-function StructMail:readSelection(cb_func)
+function StructMail:isPick()
+    local item_id = self:getItemList()[1]['item_id']
+    local item_type = TableItem:getItemType(item_id)
+    return (item_type == 'pick')
+end
 
+-------------------------------------
+-- function readPickDragon
+-- @brief 드래곤 선택권을 읽는다
+-------------------------------------
+function StructMail:readPickDragon(cb_func)
+	local mid = self:getMid()
+	local item_id = self['items_list'][1]['item_id']
+	UI_PickDragon(mid, item_id, cb_func)
 end
