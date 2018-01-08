@@ -288,7 +288,7 @@ function PatchCore:st_requestPatchInfo()
     end
 
     -- API 호출
-    Network_get_patch_info(self.m_appVer, success_cb, fail_cb)
+    Network_platform_getPatchVersionInfo(self.m_appVer, success_cb, fail_cb)    
 end
 
 -------------------------------------

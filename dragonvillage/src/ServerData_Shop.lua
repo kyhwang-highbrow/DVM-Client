@@ -212,9 +212,23 @@ function ServerData_Shop:request_shopInfo(cb_func, fail_cb)
         self:response_shopInfo(ret)
         g_advertisingData:networkCommonRespone(ret)
 
-		if (cb_func) then
+        if (cb_func) then
 			cb_func(ret)
 		end
+
+        --[[ 앱버전 업데이트 후에 스토에서 인앱상품 정보 받아오기 할때 사용
+        local function onFinish()
+            if (cb_func) then
+			    cb_func(ret)
+		    end
+        end
+
+        if (isAndroid() or isIos()) then
+            self:getBillingItemList( onFinish )		
+        else            
+            onFinish()
+        end
+        --]]
     end
 
     -- 네트워크 통신 UI 생성
@@ -288,6 +302,58 @@ function ServerData_Shop:response_shopInfo(ret)
     self.m_dicBuyCnt = ret['buycnt']
 
     self.m_bDirty = false
+end
+
+
+-------------------------------------
+-- function getBillingItemList
+-- @brief billing item 정보 가져오기(가격, 원화 등등 )
+-------------------------------------
+function ServerData_Shop:getBillingItemList(cb_func)
+    local function call_back(ret, info)
+        cclog('# UI_TitleScene:workBillingGetItemList() result : ' .. tostring(ret))
+        if (ret == 'success') then
+            cclog('#### billingItemInfo success - info : ')
+            ccdump(info)
+
+            local tRet = json_decode(info)
+            for _, v in pairs( tRet ) do
+                cclog( luadump( v ) )                
+                cclog('description : ' .. v.description)
+                cclog('productId : ' .. v.productId)
+                cclog('price : ' .. v.price)
+                cclog('price_currency_code : ' .. v.price_currency_code)
+                cclog('title : ' .. v.title)
+            end
+            
+            --파싱해서 테이블로 만든다.
+            if cb_func then
+                cb_func()
+            end
+            
+        elseif (ret == 'error') then
+            cclog('#### billingItemInfo failed - info : ')
+            ccdump(info)
+            
+            local msg = Str('결제 아이템 정보를 가져오는데 실패했습니다.')
+            
+        else
+            if cb_func then
+                cb_func()
+            end
+        end
+    end
+
+    local skuList = self:getSkuList()
+    if skuList == nil then
+        if cb_func then
+            cb_func()
+        end
+        return
+    end
+
+    cclog('skuList : ' .. skuList );
+    PerpleSDK:billingGetItemList(skuList, call_back)
 end
 
 -------------------------------------
@@ -660,4 +726,37 @@ function ServerData_Shop:getAdventureClearProduct()
     end
     
     return nil
+end
+
+-------------------------------------
+-- function getSkuList
+-- @brief 인앱상품 프러덕트 아이드들을 'x;x;x;'형태로 반환
+-------------------------------------
+function ServerData_Shop:getSkuList()
+    if (not self.m_dicProduct) then
+        return nil
+    end
+
+    local ret
+    local tTemp = {}
+    for _,v in pairs(self.m_dicProduct) do
+        for _,struct_product in pairs(v) do
+            if struct_product['sku'] then
+                if tTemp[ struct_product['sku'] ] == nil then
+                    tTemp[ struct_product['sku'] ] = 1
+                end                
+            end
+        end
+    end
+
+    for sku, _ in pairs( tTemp ) do
+        if ret == nil then
+            ret = sku
+        else
+            ret = ret .. ';' .. sku
+        end
+    end
+
+    
+    return ret
 end

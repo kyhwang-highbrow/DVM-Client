@@ -1,4 +1,4 @@
-URL = {}
+﻿URL = {}
 
 -- Game server 
 URL['SERVER_DEV'] = 'http://dv-test.perplelab.com:9003'
@@ -13,11 +13,18 @@ function GetApiUrl()
     end
     return url
 end
+function SetApiUrl(url)
+    local target_server = CppFunctions:getTargetServer()
+    local key = 'SERVER_' .. target_server
+    URL[key] = url
+end
+
 
 -- Platform server 
-URL['PLATFORM_DEV'] = 'http://dev.platform.perplelab.com/1003'
-URL['PLATFORM_QA'] = 'http://dev.platform.perplelab.com/1003'
-URL['PLATFORM_LIVE'] = 'http://platform.perplelab.com/1003'
+-- 아직 라이브,QA서버는 작업전이라 개발로 전부 붙입니다.
+URL['PLATFORM_DEV'] = 'http://dn3bwi5jsw20r.cloudfront.net/1003'
+URL['PLATFORM_QA'] = 'http://dn3bwi5jsw20r.cloudfront.net/1003'
+URL['PLATFORM_LIVE'] = 'http://dn3bwi5jsw20r.cloudfront.net/1003'
 function GetPlatformApiUrl()
     local target_server = CppFunctions:getTargetServer()
     local key = 'PLATFORM_' .. target_server
@@ -58,6 +65,11 @@ function GetChatServerUrl()
     local port = l_address[2]
     return ip, port
 end
+function SetChatServerUrl(url)
+    local target_server = CppFunctions:getTargetServer()
+    local key = 'CHAT_' .. target_server
+    URL[key] = url
+end
 
 -- Clan Chatting server 
 URL['CLAN_CHAT_DEV'] = 'dv-test.perplelab.com:9014'
@@ -74,6 +86,11 @@ function GetClanChatServerUrl()
     local ip = l_address[1]
     local port = l_address[2]
     return ip, port
+end
+function SetClanChatServerUrl(url)
+    local target_server = CppFunctions:getTargetServer()
+    local key = 'CLAN_CHAT_' .. target_server
+    URL[key] = url
 end
 
 -- Perplelab

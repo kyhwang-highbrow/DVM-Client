@@ -37,11 +37,12 @@ function Network_platform_issueRcode(rcode, os, game_push, pushToken, success_cb
     -- 파라미터 셋팅
     local t_data = {}
     t_data['game_id'] = 1003
-    t_data['fuid'] = g_localData:get('local', 'uid')
+    t_data['uid'] = g_localData:get('local', 'uid')
     t_data['rcode'] = rcode
     t_data['os'] = os
     t_data['game_push'] = game_push
     t_data['pushToken'] = pushToken
+    t_data['server_name'] = g_localData:get('local', 'server')
 
     -- 요청 정보 설정
     local t_request = {}
@@ -183,6 +184,72 @@ function Network_platform_getUserByUid(uid, success_cb, fail_cb)
     -- 요청 정보 설정
     local t_request = {}
     t_request['full_url'] = GetPlatformApiUrl() .. '/user/getUserByUid'
+    t_request['method'] = 'POST'
+    t_request['data'] = t_data
+
+    t_request['check_hmac_md5'] = false
+
+    -- 성공 시 콜백 함수
+    t_request['success'] = success_cb
+
+    -- 실패 시 콜백 함수
+    t_request['fail'] = fail_cb
+
+    -- 네트워크 통신
+    Network:SimpleRequest(t_request)
+end
+
+-------------------------------------
+-- function Network_platform_getPatchVersionInfo
+-- @breif   플랫폼 서버에 패치 정보확인
+-- @param
+--          app_ver : app_ver
+-------------------------------------
+function Network_platform_getPatchVersionInfo(app_ver, success_cb, fail_cb)
+
+    -- 파라미터 셋팅
+    local t_data = {}
+    t_data['game_id'] = 1003
+    t_data['app_ver'] = app_ver
+
+    -- 요청 정보 설정
+    local t_request = {}
+    t_request['full_url'] = GetPlatformApiUrl() .. '/versions/getPatchInfo'
+    t_request['method'] = 'POST'
+    t_request['data'] = t_data
+
+    t_request['check_hmac_md5'] = false
+
+    -- 성공 시 콜백 함수
+    t_request['success'] = success_cb
+
+    -- 실패 시 콜백 함수
+    t_request['fail'] = fail_cb
+
+    -- 네트워크 통신
+    Network:SimpleRequest(t_request)
+end
+
+-------------------------------------
+-- function Network_platform_getServerList
+-- @breif   플랫폼 서버에 서버 리스트 가져오기
+-------------------------------------
+function Network_platform_getServerList(success_cb, fail_cb)
+
+    -- 파라미터 셋팅
+    local t_data = {}    
+    t_data['uid'] = g_localData:get('local', 'uid')    
+    local ip = getIPAddress()
+    local deviceLang = getDeviceLanguage()
+    local locale = getLocale()
+    cclog( 'deviceLang : ' ..deviceLang )
+    cclog( 'locale : ' .. locale )
+    cclog( 'ip : ' .. ip )
+    t_data['ip'] = ip
+
+    -- 요청 정보 설정
+    local t_request = {}
+    t_request['full_url'] = GetPlatformApiUrl() .. '/gateway/serverList'
     t_request['method'] = 'POST'
     t_request['data'] = t_data
 

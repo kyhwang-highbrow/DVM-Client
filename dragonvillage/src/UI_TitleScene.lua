@@ -50,7 +50,8 @@ function UI_TitleScene:init()
     NaverCafeManager:naverCafeShowWidgetWhenUnloadSdk(1) -- @isShowWidget : 1(SDK unload 시 카페 위젯 보여주기) or 0(안 보여주기)
 
 	--네이버 카페 콜백 연동
-    --NaverCafeManager:naverCafeSetCallback()
+    NaverCafeManager:naverCafeSetCallback()
+
 end
 
 -------------------------------------
@@ -295,6 +296,7 @@ function UI_TitleScene:setWorkList()
     table.insert(self.m_lWorkList, 'workTitleAni')
     table.insert(self.m_lWorkList, 'workLoading')
     table.insert(self.m_lWorkList, 'workCheckUserID')
+    table.insert(self.m_lWorkList, 'workSelectServer')
     table.insert(self.m_lWorkList, 'workPlatformLogin')
     table.insert(self.m_lWorkList, 'workGameLogin')
     table.insert(self.m_lWorkList, 'workGetDeck')
@@ -303,7 +305,7 @@ function UI_TitleScene:setWorkList()
 
     -- @perpelsdk
     if (isAndroid() or isIos()) then
-        table.insert(self.m_lWorkList, 'workBillingSetup')
+        table.insert(self.m_lWorkList, 'workBillingSetup')        
     end
 
     table.insert(self.m_lWorkList, 'workSoundPreload')
@@ -563,6 +565,56 @@ function UI_TitleScene:workCheckUserID_click()
 end
 
 -------------------------------------
+-- function workSelectServer
+-- @brief 플랫폼 서버에 서버리스트를 얻어와서 선택한다.
+-------------------------------------
+function UI_TitleScene:workSelectServer()
+    self.m_loadingUI:showLoading(Str('서버 목록을 받아오는 중...'))
+
+    local success_cb = function(ret)
+        self.m_loadingUI:hideLoading()
+        cclog( luadump( ret ) )        
+        if ret['state'] == 0 then
+            --ui 작업 필요, 우선은 Korea로
+            g_localData:lockSaveData()
+            g_localData:applyLocalData('Korea', 'local', 'server')
+            g_localData:unlockSaveData()
+
+            --접속할 게임서버를 여기서 받아오는것으로 
+            local recommandedServer = ret['recommandedServer'] or 1
+            cclog( 'recommandedServer : ' .. recommandedServer )
+            local servers = ret['servers']
+            if servers then
+                for _, server in pairs( servers ) do
+                    if server['server_num'] == recommandedServer then                        
+                        cclog( 'api_server_ip : ' .. server['api_server_ip'] )
+                        cclog( 'chat_server : ' .. server['chat_server'] )
+                        cclog( 'clan_chat_server : ' .. server['clan_chat_server'] )
+                        SetApiUrl(server['api_server_ip'])
+                        SetChatServerUrl(server['chat_server'])
+                        SetClanChatServerUrl(server['clan_chat_server'])
+                        break
+                    end
+                end
+                                
+            end
+
+            self:doNextWork()
+        else
+            --local msg = luadump(ret)
+            self:makeFailPopup(nil, ret)
+        end
+    end
+
+    local fail_cb = function(ret)
+        self.m_loadingUI:hideLoading()
+        self:makeFailPopup(nil, ret)
+    end
+
+    Network_platform_getServerList( success_cb, fail_cb )
+end
+
+-------------------------------------
 -- function workPlatformLogin
 -- @brief 플랫폼 서버에 복구 코드 요청
 --        C/S 처리에 따라 이 과정에서 uid 가 변경될 수 있음
@@ -577,7 +629,7 @@ function UI_TitleScene:workPlatformLogin()
             ccdump(ret)
 
             -- uid 저장
-            g_localData:applyLocalData(ret['fuid'], 'local', 'uid')
+            g_localData:applyLocalData(ret['uid'], 'local', 'uid')
 
             -- 복구코드 저장            
             g_localData:applyLocalData(ret['rcode'], 'local', 'recovery_code')
