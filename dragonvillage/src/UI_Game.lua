@@ -271,6 +271,8 @@ function UI_Game:click_pauseButton()
         UI_GamePause_AncientTower(stage_id, gamekey, start_cb, end_cb)
     elseif (game_mode == GAME_MODE_COLOSSEUM) then
         UI_GamePause_Colosseum(stage_id, gamekey, start_cb, end_cb)
+    elseif (game_mode == GAME_MODE_CLAN_RAID) then
+        UI_GamePause_ClanRaid(stage_id, gamekey, start_cb, end_cb)
     else
         UI_GamePause(stage_id, gamekey, start_cb, end_cb)
     end

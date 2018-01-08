@@ -820,6 +820,7 @@
     'UI_GamePause_NestDungeon',
     'UI_GamePause_SecretDungeon',
     'UI_GamePause_Colosseum',
+    'UI_GamePause_ClanRaid',
 	'UI_GameDPSPopup',
 	'UI_GameDPSListItem',
     'UI_GameDebug',

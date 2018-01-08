@@ -66,6 +66,10 @@ function QuickLinkHelper.gameModeLink(game_mode, dungeon_mode, condition)
     elseif (game_mode == GAME_MODE_SECRET_DUNGEON) then
         link_type = 'ply_rel'
 
+    -- 클랜던전 플레이
+    elseif (game_mode == GAME_MODE_CLAN_RAID) then
+        link_type = 'ply_clan_raid'
+
     -- 모험 모드
     else
         link_type = 'ply_adv'
@@ -154,7 +158,10 @@ T_LINK_FUNC = {
         UINavigator:goTo('secret_relation')
     end,
 
-
+    -- 클랜 던전 플레이
+    ['ply_clan_raid'] = function()
+        UINavigator:goTo('clan_raid')
+    end,
 
     -- 유저 레벨 달성
     ['u_lv'] = function()

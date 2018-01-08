@@ -60,7 +60,9 @@ end
 function StructClanRaid:setState()
     local state = CLAN_RAID_STATE.NORMAL
 
-    if (self['player']) then
+    local player = self['player']
+    -- 본인은 제외 (본인이 플레이 중일 경우 서버에서 끝난걸로 간주)
+    if (player and player['uid'] ~= g_userData:get('uid')) then
         state = CLAN_RAID_STATE.CHALLENGE
 
     elseif (self['finalblow'] == true) and (self['hp'] > 0) then
