@@ -58,6 +58,10 @@ function TablePickDragon:getDragonList(item_id)
 		end
 
 		-- 한정/카드 체크
+		local weight = t_dragon[weight_key .. '_weight']
+		if (not weight) or (weight == 0) then
+			b = false
+		end
 
 		-- 속성 체크
 		if (attr) and (attr ~= '') and (t_dragon['attr'] ~= attr) then

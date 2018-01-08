@@ -160,7 +160,7 @@ function UI_DragonInfoBoard:refresh(t_dragon_data)
     end
 
     self:refresh_dragonSkillsInfo(t_dragon_data, t_dragon)
-    self:refresh_icons(t_dragon_data, t_dragon)
+    self:refresh_icons(t_dragon_data)
     self:refresh_status(t_dragon_data, t_dragon)
     self:refresh_dragonRunes(t_dragon_data)
 end
@@ -226,7 +226,7 @@ end
 -- function refresh_icons
 -- @brief 아이콘 갱신
 -------------------------------------
-function UI_DragonInfoBoard:refresh_icons(t_dragon_data, t_dragon)
+function UI_DragonInfoBoard:refresh_icons(t_dragon_data)
     local vars = self.vars
 
     do -- 희귀도
@@ -255,10 +255,6 @@ function UI_DragonInfoBoard:refresh_icons(t_dragon_data, t_dragon)
 
         vars['typeLabel']:setString(dragonRoleName(role_type))
     end
-
-    -- 드래곤 역할
-    local role_type = t_dragon_data:getRole()
-    vars['typeLabel']:setString(dragonRoleName(role_type))
 end
 
 -------------------------------------
