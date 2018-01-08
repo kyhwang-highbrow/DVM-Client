@@ -16,7 +16,7 @@
 					dock_point = { 0.500000; 0.500000; };
 					anchor_point = { 0.500000; 0.500000; };
 					relative_size_type = 0;
-					width = 329;
+					width = 500;
 					height = 75;
 					scale_x = 1.000000;
 					scale_y = 1.000000;
@@ -219,32 +219,6 @@
 			};
 			[6] =
 			{
-				[1] =
-				{
-					type = 'Sprite';
-					ui_name = '';
-					x = 0.000000;
-					y = -124.000000;
-					dock_point = { 0.500000; 0.500000; };
-					anchor_point = { 0.500000; 0.500000; };
-					relative_size_type = 0;
-					width = 64;
-					height = 64;
-					scale_x = 1.000000;
-					scale_y = 1.000000;
-					skew_x = 0.000000;
-					skew_y = 0.000000;
-					rotation = 0.000000;
-					visible = true;
-					lua_name = '';
-					file_name = 'ui/buttons/64_detail_btn_0101.png';
-					color = { 255; 255; 255; };
-					opacity = 255;
-					flip_x = false;
-					flip_y = false;
-					src_blend = 770;
-					dest_blend = 771;
-				};
 				type = 'Button';
 				ui_name = '';
 				x = -366.000000;
@@ -260,7 +234,7 @@
 				skew_y = 0.000000;
 				rotation = 0.000000;
 				visible = true;
-				lua_name = 'fireBtn';
+				lua_name = 'buyBtn1';
 				enable = true;
 				normal = 'ui/icons/empty.png';
 				selected = '';
@@ -269,32 +243,6 @@
 			};
 			[7] =
 			{
-				[1] =
-				{
-					type = 'Sprite';
-					ui_name = '';
-					x = 0.000000;
-					y = -124.000000;
-					dock_point = { 0.500000; 0.500000; };
-					anchor_point = { 0.500000; 0.500000; };
-					relative_size_type = 0;
-					width = 64;
-					height = 64;
-					scale_x = 1.000000;
-					scale_y = 1.000000;
-					skew_x = 0.000000;
-					skew_y = 0.000000;
-					rotation = 0.000000;
-					visible = true;
-					lua_name = '';
-					file_name = 'ui/buttons/64_detail_btn_0101.png';
-					color = { 255; 255; 255; };
-					opacity = 255;
-					flip_x = false;
-					flip_y = false;
-					src_blend = 770;
-					dest_blend = 771;
-				};
 				type = 'Button';
 				ui_name = '';
 				x = -183.000000;
@@ -310,7 +258,7 @@
 				skew_y = 0.000000;
 				rotation = 0.000000;
 				visible = true;
-				lua_name = 'waterBtn';
+				lua_name = 'buyBtn2';
 				enable = true;
 				normal = 'ui/icons/empty.png';
 				selected = '';
@@ -319,32 +267,6 @@
 			};
 			[8] =
 			{
-				[1] =
-				{
-					type = 'Sprite';
-					ui_name = '';
-					x = 0.000000;
-					y = -124.000000;
-					dock_point = { 0.500000; 0.500000; };
-					anchor_point = { 0.500000; 0.500000; };
-					relative_size_type = 0;
-					width = 64;
-					height = 64;
-					scale_x = 1.000000;
-					scale_y = 1.000000;
-					skew_x = 0.000000;
-					skew_y = 0.000000;
-					rotation = 0.000000;
-					visible = true;
-					lua_name = '';
-					file_name = 'ui/buttons/64_detail_btn_0101.png';
-					color = { 255; 255; 255; };
-					opacity = 255;
-					flip_x = false;
-					flip_y = false;
-					src_blend = 770;
-					dest_blend = 771;
-				};
 				type = 'Button';
 				ui_name = '';
 				x = 0.000000;
@@ -360,7 +282,7 @@
 				skew_y = 0.000000;
 				rotation = 0.000000;
 				visible = true;
-				lua_name = 'earthBtn';
+				lua_name = 'buyBtn3';
 				enable = true;
 				normal = 'ui/icons/empty.png';
 				selected = '';
@@ -369,32 +291,6 @@
 			};
 			[9] =
 			{
-				[1] =
-				{
-					type = 'Sprite';
-					ui_name = '';
-					x = 0.000000;
-					y = -124.000000;
-					dock_point = { 0.500000; 0.500000; };
-					anchor_point = { 0.500000; 0.500000; };
-					relative_size_type = 0;
-					width = 64;
-					height = 64;
-					scale_x = 1.000000;
-					scale_y = 1.000000;
-					skew_x = 0.000000;
-					skew_y = 0.000000;
-					rotation = 0.000000;
-					visible = true;
-					lua_name = '';
-					file_name = 'ui/buttons/64_detail_btn_0101.png';
-					color = { 255; 255; 255; };
-					opacity = 255;
-					flip_x = false;
-					flip_y = false;
-					src_blend = 770;
-					dest_blend = 771;
-				};
 				type = 'Button';
 				ui_name = '';
 				x = 183.000000;
@@ -410,7 +306,7 @@
 				skew_y = 0.000000;
 				rotation = 0.000000;
 				visible = true;
-				lua_name = 'lightBtn';
+				lua_name = 'buyBtn4';
 				enable = true;
 				normal = 'ui/icons/empty.png';
 				selected = '';
@@ -419,32 +315,6 @@
 			};
 			[10] =
 			{
-				[1] =
-				{
-					type = 'Sprite';
-					ui_name = '';
-					x = 0.000000;
-					y = -124.000000;
-					dock_point = { 0.500000; 0.500000; };
-					anchor_point = { 0.500000; 0.500000; };
-					relative_size_type = 0;
-					width = 64;
-					height = 64;
-					scale_x = 1.000000;
-					scale_y = 1.000000;
-					skew_x = 0.000000;
-					skew_y = 0.000000;
-					rotation = 0.000000;
-					visible = true;
-					lua_name = '';
-					file_name = 'ui/buttons/64_detail_btn_0101.png';
-					color = { 255; 255; 255; };
-					opacity = 255;
-					flip_x = false;
-					flip_y = false;
-					src_blend = 770;
-					dest_blend = 771;
-				};
 				type = 'Button';
 				ui_name = '';
 				x = 366.000000;
@@ -460,7 +330,7 @@
 				skew_y = 0.000000;
 				rotation = 0.000000;
 				visible = true;
-				lua_name = 'darkBtn';
+				lua_name = 'buyBtn5';
 				enable = true;
 				normal = 'ui/icons/empty.png';
 				selected = '';

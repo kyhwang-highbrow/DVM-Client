@@ -1,0 +1,286 @@
+
+angra_earth_03.png
+size: 2013,506
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+angra_earth_03_arm_01
+  rotate: false
+  xy: 332, 2
+  size: 128, 147
+  orig: 128, 147
+  offset: 0, 0
+  index: -1
+angra_earth_03_arm_02
+  rotate: false
+  xy: 108, 5
+  size: 170, 133
+  orig: 170, 133
+  offset: 0, 0
+  index: -1
+angra_earth_03_arm_03
+  rotate: false
+  xy: 1709, 324
+  size: 208, 180
+  orig: 208, 180
+  offset: 0, 0
+  index: -1
+angra_earth_03_armer_01
+  rotate: false
+  xy: 2, 2
+  size: 104, 136
+  orig: 104, 136
+  offset: 0, 0
+  index: -1
+angra_earth_03_armer_02
+  rotate: false
+  xy: 587, 2
+  size: 92, 77
+  orig: 92, 77
+  offset: 0, 0
+  index: -1
+angra_earth_03_armer_03
+  rotate: false
+  xy: 1941, 205
+  size: 67, 68
+  orig: 67, 68
+  offset: 0, 0
+  index: -1
+angra_earth_03_armer_04
+  rotate: false
+  xy: 778, 104
+  size: 68, 95
+  orig: 68, 95
+  offset: 0, 0
+  index: -1
+angra_earth_03_armer_05
+  rotate: true
+  xy: 1458, 8
+  size: 116, 124
+  orig: 116, 124
+  offset: 0, 0
+  index: -1
+angra_earth_03_armer_06
+  rotate: false
+  xy: 280, 66
+  size: 45, 72
+  orig: 45, 72
+  offset: 0, 0
+  index: -1
+angra_earth_03_body_01
+  rotate: false
+  xy: 332, 151
+  size: 268, 353
+  orig: 268, 353
+  offset: 0, 0
+  index: -1
+angra_earth_03_effect_01
+  rotate: false
+  xy: 1291, 298
+  size: 206, 206
+  orig: 206, 206
+  offset: 0, 0
+  index: -1
+angra_earth_03_effect_02
+  rotate: false
+  xy: 1626, 153
+  size: 166, 166
+  orig: 166, 166
+  offset: 0, 0
+  index: -1
+angra_earth_03_effect_03
+  rotate: false
+  xy: 1794, 33
+  size: 142, 142
+  orig: 142, 142
+  offset: 0, 0
+  index: -1
+angra_earth_03_effect_04
+  rotate: false
+  xy: 1061, 114
+  size: 200, 189
+  orig: 200, 189
+  offset: 0, 0
+  index: -1
+angra_earth_03_effect_05
+  rotate: false
+  xy: 1078, 305
+  size: 211, 199
+  orig: 211, 199
+  offset: 0, 0
+  index: -1
+angra_earth_03_effect_06
+  rotate: false
+  xy: 848, 9
+  size: 161, 144
+  orig: 161, 144
+  offset: 0, 0
+  index: -1
+angra_earth_03_effect_07
+  rotate: true
+  xy: 1458, 126
+  size: 170, 166
+  orig: 170, 166
+  offset: 0, 0
+  index: -1
+angra_earth_03_effect_08
+  rotate: false
+  xy: 1794, 177
+  size: 145, 145
+  orig: 145, 145
+  offset: 0, 0
+  index: -1
+angra_earth_03_effect_09
+  rotate: false
+  xy: 1938, 18
+  size: 58, 61
+  orig: 58, 61
+  offset: 0, 0
+  index: -1
+angra_earth_03_finger_01
+  rotate: false
+  xy: 1261, 2
+  size: 69, 109
+  orig: 69, 109
+  offset: 0, 0
+  index: -1
+angra_earth_03_finger_02
+  rotate: true
+  xy: 1400, 31
+  size: 80, 56
+  orig: 80, 56
+  offset: 0, 0
+  index: -1
+angra_earth_03_finger_03
+  rotate: false
+  xy: 1941, 148
+  size: 70, 55
+  orig: 70, 55
+  offset: 0, 0
+  index: -1
+angra_earth_03_finger_04
+  rotate: true
+  xy: 762, 5
+  size: 74, 84
+  orig: 74, 84
+  offset: 0, 0
+  index: -1
+angra_earth_03_finger_05
+  rotate: true
+  xy: 1941, 275
+  size: 73, 69
+  orig: 73, 69
+  offset: 0, 0
+  index: -1
+angra_earth_03_finger_06
+  rotate: false
+  xy: 1938, 81
+  size: 56, 65
+  orig: 56, 65
+  offset: 0, 0
+  index: -1
+angra_earth_03_hair_01
+  rotate: false
+  xy: 681, 2
+  size: 79, 77
+  orig: 79, 77
+  offset: 0, 0
+  index: -1
+angra_earth_03_hair_02
+  rotate: true
+  xy: 1919, 350
+  size: 65, 92
+  orig: 65, 92
+  offset: 0, 0
+  index: -1
+angra_earth_03_hair_03
+  rotate: false
+  xy: 848, 155
+  size: 211, 159
+  orig: 211, 159
+  offset: 0, 0
+  index: -1
+angra_earth_03_hand_01
+  rotate: true
+  xy: 462, 2
+  size: 147, 123
+  orig: 147, 123
+  offset: 0, 0
+  index: -1
+angra_earth_03_head_01
+  rotate: true
+  xy: 1626, 33
+  size: 118, 148
+  orig: 118, 148
+  offset: 0, 0
+  index: -1
+angra_earth_03_horn_01
+  rotate: true
+  xy: 1011, 6
+  size: 106, 157
+  orig: 106, 157
+  offset: 0, 0
+  index: -1
+angra_earth_03_horn_02
+  rotate: false
+  xy: 1332, 7
+  size: 66, 104
+  orig: 66, 104
+  offset: 0, 0
+  index: -1
+angra_earth_03_kadeatheye_01
+  rotate: false
+  xy: 1919, 417
+  size: 87, 87
+  orig: 87, 87
+  offset: 0, 0
+  index: -1
+angra_earth_03_leg_01
+  rotate: true
+  xy: 602, 81
+  size: 118, 174
+  orig: 118, 174
+  offset: 0, 0
+  index: -1
+angra_earth_03_sholder_01
+  rotate: true
+  xy: 1170, 11
+  size: 101, 89
+  orig: 101, 89
+  offset: 0, 0
+  index: -1
+angra_earth_03_tail_01
+  rotate: false
+  xy: 1499, 321
+  size: 208, 183
+  orig: 208, 183
+  offset: 0, 0
+  index: -1
+angra_earth_03_tail_02
+  rotate: false
+  xy: 848, 316
+  size: 228, 188
+  orig: 228, 188
+  offset: 0, 0
+  index: -1
+angra_earth_03_wing_01
+  rotate: false
+  xy: 2, 140
+  size: 328, 364
+  orig: 328, 364
+  offset: 0, 0
+  index: -1
+angra_earth_03_wing_02
+  rotate: false
+  xy: 602, 201
+  size: 244, 303
+  orig: 244, 303
+  offset: 0, 0
+  index: -1
+angra_earth_03_wing_03
+  rotate: false
+  xy: 1263, 113
+  size: 193, 183
+  orig: 193, 183
+  offset: 0, 0
+  index: -1

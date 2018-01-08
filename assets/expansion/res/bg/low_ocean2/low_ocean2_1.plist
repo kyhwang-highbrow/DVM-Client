@@ -7,15 +7,15 @@
             <key>bg_low_ocean2_1_a.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{2,2},{1920,800}}</string>
+                <string>{{2,2},{1922,800}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
                 <false/>
                 <key>sourceColorRect</key>
-                <string>{{0,0},{1920,800}}</string>
+                <string>{{0,0},{1922,800}}</string>
                 <key>sourceSize</key>
-                <string>{1920,800}</string>
+                <string>{1922,800}</string>
             </dict>
             <key>bg_low_ocean2_2_smoke_01.png</key>
             <dict>
@@ -33,7 +33,7 @@
             <key>bg_low_ocean2_bubble_01.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{1924,2},{21,23}}</string>
+                <string>{{1926,2},{21,23}}</string>
                 <key>offset</key>
                 <string>{-2,-2}</string>
                 <key>rotated</key>
@@ -79,7 +79,7 @@
             <key>size</key>
             <string>{2041,1738}</string>
             <key>smartupdate</key>
-            <string>$TexturePacker:SmartUpdate:50cdc2418243518aa415be9d2bd40528:a6b8048e1a762ce6cc7caede215e23e0:e7b2a4e9fd149b536c0523435b237b14$</string>
+            <string>$TexturePacker:SmartUpdate:4e0cb29c92c15a77f96b289982d6b9d0:c0a859a92f717d1cc5fbc1be8e3df553:e7b2a4e9fd149b536c0523435b237b14$</string>
             <key>textureFileName</key>
             <string>low_ocean2_1.png</string>
         </dict>

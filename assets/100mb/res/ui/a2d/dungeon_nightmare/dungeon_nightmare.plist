@@ -15,7 +15,7 @@
                 <key>spriteSourceSize</key>
                 <string>{270,580}</string>
                 <key>textureRect</key>
-                <string>{{1,1},{270,580}}</string>
+                <string>{{1,579},{270,580}}</string>
                 <key>textureRotated</key>
                 <false/>
             </dict>
@@ -30,7 +30,7 @@
                 <key>spriteSourceSize</key>
                 <string>{294,294}</string>
                 <key>textureRect</key>
-                <string>{{273,1},{294,294}}</string>
+                <string>{{1,1},{294,294}}</string>
                 <key>textureRotated</key>
                 <false/>
             </dict>
@@ -45,7 +45,7 @@
                 <key>spriteSourceSize</key>
                 <string>{280,280}</string>
                 <key>textureRect</key>
-                <string>{{273,297},{280,280}}</string>
+                <string>{{1,297},{280,280}}</string>
                 <key>textureRotated</key>
                 <false/>
             </dict>
@@ -61,9 +61,9 @@
             <key>realTextureFileName</key>
             <string>dungeon_nightmare.png</string>
             <key>size</key>
-            <string>{568,582}</string>
+            <string>{296,1160}</string>
             <key>smartupdate</key>
-            <string>$TexturePacker:SmartUpdate:9b9dc48ba60ba14454aa610127960297:91023c25788d7165e5c00606108304e3:2463fd8b22873024ce7c6afd779de130$</string>
+            <string>$TexturePacker:SmartUpdate:c761d6f3f52e9148171fb87399337458:63f287e269af9dad03ba552404c11435:2463fd8b22873024ce7c6afd779de130$</string>
             <key>textureFileName</key>
             <string>dungeon_nightmare.png</string>
         </dict>

@@ -1,0 +1,278 @@
+
+boss_nightmare_dragon_dark.png
+size: 2048,2048
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+boss_nightmare_dragon_dark_arm_01
+  rotate: true
+  xy: 1743, 1267
+  size: 381, 303
+  orig: 381, 303
+  offset: 0, 0
+  index: -1
+boss_nightmare_dragon_dark_body_03
+  rotate: true
+  xy: 2, 395
+  size: 630, 765
+  orig: 630, 765
+  offset: 0, 0
+  index: -1
+boss_nightmare_dragon_dark_effect_01
+  rotate: true
+  xy: 1470, 1535
+  size: 113, 219
+  orig: 113, 219
+  offset: 0, 0
+  index: -1
+boss_nightmare_dragon_dark_effect_02
+  rotate: true
+  xy: 529, 282
+  size: 111, 102
+  orig: 111, 102
+  offset: 0, 0
+  index: -1
+boss_nightmare_dragon_dark_effect_03
+  rotate: false
+  xy: 1743, 543
+  size: 285, 102
+  orig: 285, 102
+  offset: 0, 0
+  index: -1
+boss_nightmare_dragon_dark_effect_04
+  rotate: false
+  xy: 1743, 647
+  size: 296, 307
+  orig: 296, 307
+  offset: 0, 0
+  index: -1
+boss_nightmare_dragon_dark_effect_05
+  rotate: true
+  xy: 1743, 956
+  size: 309, 298
+  orig: 309, 298
+  offset: 0, 0
+  index: -1
+boss_nightmare_dragon_dark_finger_01
+  rotate: true
+  xy: 1753, 277
+  size: 264, 258
+  orig: 264, 258
+  offset: 0, 0
+  index: -1
+boss_nightmare_dragon_dark_finger_02
+  rotate: false
+  xy: 1753, 17
+  size: 264, 258
+  orig: 264, 258
+  offset: 0, 0
+  index: -1
+boss_nightmare_dragon_dark_foot_01
+  rotate: true
+  xy: 1470, 1650
+  size: 396, 564
+  orig: 396, 564
+  offset: 0, 0
+  index: -1
+boss_nightmare_dragon_dark_foot_02
+  rotate: true
+  xy: 2, 2
+  size: 391, 525
+  orig: 391, 525
+  offset: 0, 0
+  index: -1
+boss_nightmare_dragon_dark_horn_01
+  rotate: false
+  xy: 769, 3
+  size: 490, 459
+  orig: 490, 459
+  offset: 0, 0
+  index: -1
+boss_nightmare_dragon_dark_mouth_01
+  rotate: false
+  xy: 1261, 3
+  size: 490, 459
+  orig: 490, 459
+  offset: 0, 0
+  index: -1
+boss_nightmare_dragon_dark_wing_01
+  rotate: false
+  xy: 2, 1027
+  size: 566, 1019
+  orig: 566, 1019
+  offset: 0, 0
+  index: -1
+boss_nightmare_dragon_dark_wing_02
+  rotate: true
+  xy: 570, 1473
+  size: 573, 898
+  orig: 573, 898
+  offset: 0, 0
+  index: -1
+boss_nightmare_dragon_dark_wing_03
+  rotate: false
+  xy: 769, 464
+  size: 520, 1007
+  orig: 520, 1007
+  offset: 0, 0
+  index: -1
+boss_nightmare_dragon_dark_wing_04
+  rotate: false
+  xy: 1291, 536
+  size: 450, 935
+  orig: 450, 935
+  offset: 0, 0
+  index: -1
+
+boss_nightmare_dragon_dark2.png
+size: 1916,1584
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+boss_nightmare_dragon_dark_arm_02
+  rotate: true
+  xy: 1600, 590
+  size: 331, 307
+  orig: 331, 307
+  offset: 0, 0
+  index: -1
+boss_nightmare_dragon_dark_body_01
+  rotate: false
+  xy: 2, 361
+  size: 485, 521
+  orig: 485, 521
+  offset: 0, 0
+  index: -1
+boss_nightmare_dragon_dark_body_02
+  rotate: false
+  xy: 2, 884
+  size: 559, 698
+  orig: 559, 698
+  offset: 0, 0
+  index: -1
+boss_nightmare_dragon_dark_body_04
+  rotate: true
+  xy: 563, 1172
+  size: 410, 375
+  orig: 410, 375
+  offset: 0, 0
+  index: -1
+boss_nightmare_dragon_dark_finger_03
+  rotate: false
+  xy: 1650, 1324
+  size: 264, 258
+  orig: 264, 258
+  offset: 0, 0
+  index: -1
+boss_nightmare_dragon_dark_finger_04
+  rotate: false
+  xy: 1323, 286
+  size: 264, 258
+  orig: 264, 258
+  offset: 0, 0
+  index: -1
+boss_nightmare_dragon_dark_finger_05
+  rotate: false
+  xy: 563, 897
+  size: 255, 273
+  orig: 255, 273
+  offset: 0, 0
+  index: -1
+boss_nightmare_dragon_dark_finger_06
+  rotate: false
+  xy: 820, 897
+  size: 255, 273
+  orig: 255, 273
+  offset: 0, 0
+  index: -1
+boss_nightmare_dragon_dark_finger_07
+  rotate: false
+  xy: 1077, 897
+  size: 255, 273
+  orig: 255, 273
+  offset: 0, 0
+  index: -1
+boss_nightmare_dragon_dark_finger_08
+  rotate: false
+  xy: 1334, 923
+  size: 255, 273
+  orig: 255, 273
+  offset: 0, 0
+  index: -1
+boss_nightmare_dragon_dark_hand_01
+  rotate: false
+  xy: 1323, 26
+  size: 264, 258
+  orig: 264, 258
+  offset: 0, 0
+  index: -1
+boss_nightmare_dragon_dark_hand_02
+  rotate: false
+  xy: 1591, 923
+  size: 255, 273
+  orig: 255, 273
+  offset: 0, 0
+  index: -1
+boss_nightmare_dragon_dark_head_01
+  rotate: false
+  xy: 788, 2
+  size: 533, 388
+  orig: 533, 388
+  offset: 0, 0
+  index: -1
+boss_nightmare_dragon_dark_leg_01
+  rotate: true
+  xy: 410, 9
+  size: 350, 376
+  orig: 350, 376
+  offset: 0, 0
+  index: -1
+boss_nightmare_dragon_dark_leg_02
+  rotate: false
+  xy: 1317, 1198
+  size: 331, 384
+  orig: 331, 384
+  offset: 0, 0
+  index: -1
+boss_nightmare_dragon_dark_mouth_02
+  rotate: true
+  xy: 489, 392
+  size: 490, 459
+  orig: 490, 459
+  offset: 0, 0
+  index: -1
+boss_nightmare_dragon_dark_neck_01
+  rotate: true
+  xy: 1600, 263
+  size: 325, 306
+  orig: 325, 306
+  offset: 0, 0
+  index: -1
+boss_nightmare_dragon_dark_neck_02
+  rotate: false
+  xy: 1273, 546
+  size: 325, 349
+  orig: 325, 349
+  offset: 0, 0
+  index: -1
+boss_nightmare_dragon_dark_should_01
+  rotate: true
+  xy: 2, 20
+  size: 339, 406
+  orig: 339, 406
+  offset: 0, 0
+  index: -1
+boss_nightmare_dragon_dark_should_02
+  rotate: false
+  xy: 950, 493
+  size: 321, 402
+  orig: 321, 402
+  offset: 0, 0
+  index: -1
+boss_nightmare_dragon_dark_tail_01
+  rotate: true
+  xy: 940, 1172
+  size: 410, 375
+  orig: 410, 375
+  offset: 0, 0
+  index: -1

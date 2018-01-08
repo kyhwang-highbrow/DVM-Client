@@ -1,0 +1,167 @@
+
+karna_earth_02.png
+size: 743,406
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+karna_earth_02_arm_l_01
+  rotate: true
+  xy: 204, 104
+  size: 52, 98
+  orig: 52, 98
+  offset: 0, 0
+  index: -1
+karna_earth_02_arm_l_02
+  rotate: true
+  xy: 476, 117
+  size: 65, 122
+  orig: 65, 122
+  offset: 0, 0
+  index: -1
+karna_earth_02_arm_l_deco
+  rotate: false
+  xy: 600, 124
+  size: 32, 60
+  orig: 32, 60
+  offset: 0, 0
+  index: -1
+karna_earth_02_arm_r_01
+  rotate: true
+  xy: 556, 186
+  size: 110, 76
+  orig: 110, 76
+  offset: 0, 0
+  index: -1
+karna_earth_02_arm_r_02
+  rotate: true
+  xy: 308, 6
+  size: 99, 138
+  orig: 99, 138
+  offset: 0, 0
+  index: -1
+karna_earth_02_arm_r_deco
+  rotate: true
+  xy: 333, 112
+  size: 44, 75
+  orig: 44, 75
+  offset: 0, 0
+  index: -1
+karna_earth_02_body_01
+  rotate: false
+  xy: 338, 184
+  size: 216, 220
+  orig: 216, 220
+  offset: 0, 0
+  index: -1
+karna_earth_02_eye_01
+  rotate: true
+  xy: 556, 376
+  size: 28, 34
+  orig: 28, 34
+  offset: 0, 0
+  index: -1
+karna_earth_02_eye_02
+  rotate: true
+  xy: 556, 346
+  size: 28, 34
+  orig: 28, 34
+  offset: 0, 0
+  index: -1
+karna_earth_02_eye_03
+  rotate: true
+  xy: 556, 316
+  size: 28, 34
+  orig: 28, 34
+  offset: 0, 0
+  index: -1
+karna_earth_02_hair_01
+  rotate: false
+  xy: 600, 298
+  size: 141, 106
+  orig: 141, 106
+  offset: 0, 0
+  index: -1
+karna_earth_02_head_01
+  rotate: true
+  xy: 410, 110
+  size: 72, 64
+  orig: 72, 64
+  offset: 0, 0
+  index: -1
+karna_earth_02_head_02
+  rotate: false
+  xy: 304, 107
+  size: 27, 49
+  orig: 27, 49
+  offset: 0, 0
+  index: -1
+karna_earth_02_horn_l
+  rotate: false
+  xy: 236, 2
+  size: 70, 100
+  orig: 70, 100
+  offset: 0, 0
+  index: -1
+karna_earth_02_horn_r
+  rotate: false
+  xy: 634, 182
+  size: 98, 114
+  orig: 98, 114
+  offset: 0, 0
+  index: -1
+karna_earth_02_leg_l_01
+  rotate: false
+  xy: 2, 7
+  size: 64, 89
+  orig: 64, 89
+  offset: 0, 0
+  index: -1
+karna_earth_02_leg_l_02
+  rotate: false
+  xy: 68, 13
+  size: 53, 83
+  orig: 53, 83
+  offset: 0, 0
+  index: -1
+karna_earth_02_leg_r_01
+  rotate: false
+  xy: 652, 62
+  size: 64, 118
+  orig: 64, 118
+  offset: 0, 0
+  index: -1
+karna_earth_02_leg_r_02
+  rotate: true
+  xy: 123, 14
+  size: 82, 111
+  orig: 82, 111
+  offset: 0, 0
+  index: -1
+karna_earth_02_mouth_01
+  rotate: false
+  xy: 151, 98
+  size: 51, 58
+  orig: 51, 58
+  offset: 0, 0
+  index: -1
+karna_earth_02_tail_01
+  rotate: false
+  xy: 151, 158
+  size: 185, 246
+  orig: 185, 246
+  offset: 0, 0
+  index: -1
+karna_earth_02_wing_l_01
+  rotate: false
+  xy: 448, 2
+  size: 202, 106
+  orig: 202, 106
+  offset: 0, 0
+  index: -1
+karna_earth_02_wing_r_01
+  rotate: true
+  xy: 2, 98
+  size: 306, 147
+  orig: 306, 147
+  offset: 0, 0
+  index: -1

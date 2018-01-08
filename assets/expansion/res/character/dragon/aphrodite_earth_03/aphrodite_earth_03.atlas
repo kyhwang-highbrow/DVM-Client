@@ -1,0 +1,237 @@
+
+aphrodite_earth_03.png
+size: 697,1032
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+aphrodite_earth_03_arm_01
+  rotate: false
+  xy: 539, 14
+  size: 60, 55
+  orig: 60, 55
+  offset: 0, 0
+  index: -1
+aphrodite_earth_03_arm_02
+  rotate: false
+  xy: 652, 776
+  size: 26, 76
+  orig: 26, 76
+  offset: 0, 0
+  index: -1
+aphrodite_earth_03_body_01
+  rotate: false
+  xy: 532, 165
+  size: 72, 105
+  orig: 72, 105
+  offset: 0, 0
+  index: -1
+aphrodite_earth_03_body_02
+  rotate: true
+  xy: 551, 276
+  size: 110, 76
+  orig: 110, 76
+  offset: 0, 0
+  index: -1
+aphrodite_earth_03_dress_01
+  rotate: false
+  xy: 619, 503
+  size: 76, 112
+  orig: 76, 112
+  offset: 0, 0
+  index: -1
+aphrodite_earth_03_dress_02
+  rotate: false
+  xy: 415, 388
+  size: 212, 91
+  orig: 212, 91
+  offset: 0, 0
+  index: -1
+aphrodite_earth_03_dress_03
+  rotate: false
+  xy: 253, 86
+  size: 150, 149
+  orig: 150, 149
+  offset: 0, 0
+  index: -1
+aphrodite_earth_03_dress_04
+  rotate: false
+  xy: 629, 356
+  size: 66, 145
+  orig: 66, 145
+  offset: 0, 0
+  index: -1
+aphrodite_earth_03_ear_01
+  rotate: false
+  xy: 629, 242
+  size: 63, 112
+  orig: 63, 112
+  offset: 0, 0
+  index: -1
+aphrodite_earth_03_ear_02
+  rotate: true
+  xy: 243, 9
+  size: 75, 118
+  orig: 75, 118
+  offset: 0, 0
+  index: -1
+aphrodite_earth_03_eff_01
+  rotate: false
+  xy: 2, 731
+  size: 347, 299
+  orig: 347, 299
+  offset: 0, 0
+  index: -1
+aphrodite_earth_03_eff_02
+  rotate: false
+  xy: 405, 145
+  size: 125, 125
+  orig: 125, 125
+  offset: 0, 0
+  index: -1
+aphrodite_earth_03_eff_03
+  rotate: true
+  xy: 362, 390
+  size: 55, 47
+  orig: 55, 47
+  offset: 0, 0
+  index: -1
+aphrodite_earth_03_eff_04
+  rotate: false
+  xy: 2, 108
+  size: 249, 249
+  orig: 249, 249
+  offset: 0, 0
+  index: -1
+aphrodite_earth_03_eff_05
+  rotate: false
+  xy: 351, 744
+  size: 299, 286
+  orig: 299, 286
+  offset: 0, 0
+  index: -1
+aphrodite_earth_03_eye
+  rotate: false
+  xy: 2, 2
+  size: 27, 19
+  orig: 27, 19
+  offset: 0, 0
+  index: -1
+aphrodite_earth_03_hand_01
+  rotate: false
+  xy: 539, 71
+  size: 50, 92
+  orig: 50, 92
+  offset: 0, 0
+  index: -1
+aphrodite_earth_03_hand_02
+  rotate: true
+  xy: 606, 163
+  size: 77, 84
+  orig: 77, 84
+  offset: 0, 0
+  index: -1
+aphrodite_earth_03_head_01
+  rotate: false
+  xy: 591, 99
+  size: 70, 62
+  orig: 70, 62
+  offset: 0, 0
+  index: -1
+aphrodite_earth_03_horn_01
+  rotate: false
+  xy: 652, 854
+  size: 26, 119
+  orig: 26, 119
+  offset: 0, 0
+  index: -1
+aphrodite_earth_03_horn_02
+  rotate: false
+  xy: 619, 617
+  size: 76, 125
+  orig: 76, 125
+  offset: 0, 0
+  index: -1
+aphrodite_earth_03_lace_01
+  rotate: false
+  xy: 415, 481
+  size: 202, 261
+  orig: 202, 261
+  offset: 0, 0
+  index: -1
+aphrodite_earth_03_lace_02
+  rotate: false
+  xy: 237, 447
+  size: 176, 282
+  orig: 176, 282
+  offset: 0, 0
+  index: -1
+aphrodite_earth_03_lace_03
+  rotate: false
+  xy: 253, 237
+  size: 107, 208
+  orig: 107, 208
+  offset: 0, 0
+  index: -1
+aphrodite_earth_03_lace_04
+  rotate: true
+  xy: 362, 244
+  size: 26, 38
+  orig: 26, 38
+  offset: 0, 0
+  index: -1
+aphrodite_earth_03_lace_05
+  rotate: true
+  xy: 363, 23
+  size: 61, 29
+  orig: 61, 29
+  offset: 0, 0
+  index: -1
+aphrodite_earth_03_leg_01
+  rotate: true
+  xy: 362, 272
+  size: 114, 187
+  orig: 114, 187
+  offset: 0, 0
+  index: -1
+aphrodite_earth_03_leg_02
+  rotate: true
+  xy: 2, 23
+  size: 83, 239
+  orig: 83, 239
+  offset: 0, 0
+  index: -1
+aphrodite_earth_03_mouth
+  rotate: false
+  xy: 351, 735
+  size: 13, 7
+  orig: 13, 7
+  offset: 0, 0
+  index: -1
+aphrodite_earth_03_tail
+  rotate: true
+  xy: 2, 359
+  size: 370, 233
+  orig: 370, 233
+  offset: 0, 0
+  index: -1
+aphrodite_earth_03_thing_01
+  rotate: false
+  xy: 601, 44
+  size: 58, 53
+  orig: 58, 53
+  offset: 0, 0
+  index: -1
+aphrodite_earth_03_thing_02
+  rotate: true
+  xy: 652, 975
+  size: 55, 43
+  orig: 55, 43
+  offset: 0, 0
+  index: -1
+aphrodite_earth_03_weapon
+  rotate: true
+  xy: 405, 32
+  size: 111, 132
+  orig: 111, 132
+  offset: 0, 0
+  index: -1

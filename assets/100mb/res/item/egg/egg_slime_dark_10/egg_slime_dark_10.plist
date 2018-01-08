@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple Computer//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+    <dict>
+        <key>frames</key>
+        <dict>
+            <key>egg_slime_dark_10_src.png</key>
+            <dict>
+                <key>aliases</key>
+                <array/>
+                <key>spriteOffset</key>
+                <string>{-1,10}</string>
+                <key>spriteSize</key>
+                <string>{549,448}</string>
+                <key>spriteSourceSize</key>
+                <string>{773,810}</string>
+                <key>textureRect</key>
+                <string>{{1,1},{549,448}}</string>
+                <key>textureRotated</key>
+                <true/>
+            </dict>
+        </dict>
+        <key>metadata</key>
+        <dict>
+            <key>format</key>
+            <integer>3</integer>
+            <key>pixelFormat</key>
+            <string>RGBA8888</string>
+            <key>premultiplyAlpha</key>
+            <false/>
+            <key>realTextureFileName</key>
+            <string>egg_slime_dark_10.png</string>
+            <key>size</key>
+            <string>{512,1024}</string>
+            <key>smartupdate</key>
+            <string>$TexturePacker:SmartUpdate:49f8815a3e1a8e5127d28733808e2654:253c1a6847e728102f1458b6836738a8:77a0ebe135a00419462c7201107035c6$</string>
+            <key>textureFileName</key>
+            <string>egg_slime_dark_10.png</string>
+        </dict>
+    </dict>
+</plist>

@@ -1,0 +1,391 @@
+
+dede_halloween_02.png
+size: 1446,401
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+dede_halloween_02_acce_01
+  rotate: true
+  xy: 349, 2
+  size: 24, 21
+  orig: 24, 21
+  offset: 0, 0
+  index: -1
+dede_halloween_02_acce_02
+  rotate: false
+  xy: 918, 10
+  size: 30, 45
+  orig: 30, 45
+  offset: 0, 0
+  index: -1
+dede_halloween_02_acce_03
+  rotate: false
+  xy: 1407, 32
+  size: 30, 45
+  orig: 30, 45
+  offset: 0, 0
+  index: -1
+dede_halloween_02_acce_04
+  rotate: false
+  xy: 837, 115
+  size: 125, 122
+  orig: 125, 122
+  offset: 0, 0
+  index: -1
+dede_halloween_02_arm_01
+  rotate: true
+  xy: 1150, 28
+  size: 30, 64
+  orig: 30, 64
+  offset: 0, 0
+  index: -1
+dede_halloween_02_arm_02
+  rotate: true
+  xy: 950, 15
+  size: 27, 48
+  orig: 27, 48
+  offset: 0, 0
+  index: -1
+dede_halloween_02_arm_03
+  rotate: true
+  xy: 1000, 12
+  size: 30, 45
+  orig: 30, 45
+  offset: 0, 0
+  index: -1
+dede_halloween_02_arm_04
+  rotate: true
+  xy: 441, 3
+  size: 30, 45
+  orig: 30, 45
+  offset: 0, 0
+  index: -1
+dede_halloween_02_arm_05
+  rotate: false
+  xy: 1111, 8
+  size: 30, 29
+  orig: 30, 29
+  offset: 0, 0
+  index: -1
+dede_halloween_02_body_01
+  rotate: false
+  xy: 1335, 302
+  size: 109, 97
+  orig: 109, 97
+  offset: 0, 0
+  index: -1
+dede_halloween_02_body_02
+  rotate: false
+  xy: 1228, 60
+  size: 52, 37
+  orig: 52, 37
+  offset: 0, 0
+  index: -1
+dede_halloween_02_cape_01
+  rotate: true
+  xy: 1071, 39
+  size: 58, 77
+  orig: 58, 77
+  offset: 0, 0
+  index: -1
+dede_halloween_02_cape_02
+  rotate: true
+  xy: 372, 2
+  size: 24, 21
+  orig: 24, 21
+  offset: 0, 0
+  index: -1
+dede_halloween_02_cape_03
+  rotate: false
+  xy: 1096, 99
+  size: 109, 97
+  orig: 109, 97
+  offset: 0, 0
+  index: -1
+dede_halloween_02_effect_01
+  rotate: false
+  xy: 167, 14
+  size: 130, 169
+  orig: 130, 169
+  offset: 0, 0
+  index: -1
+dede_halloween_02_effect_02
+  rotate: false
+  xy: 299, 28
+  size: 130, 169
+  orig: 130, 169
+  offset: 0, 0
+  index: -1
+dede_halloween_02_effect_03
+  rotate: false
+  xy: 782, 239
+  size: 161, 160
+  orig: 161, 160
+  offset: 0, 0
+  index: -1
+dede_halloween_02_effect_04
+  rotate: false
+  xy: 2, 2
+  size: 163, 181
+  orig: 163, 181
+  offset: 0, 0
+  index: -1
+dede_halloween_02_effect_05
+  rotate: false
+  xy: 1304, 168
+  size: 132, 132
+  orig: 132, 132
+  offset: 0, 0
+  index: -1
+dede_halloween_02_effect_06
+  rotate: false
+  xy: 434, 227
+  size: 172, 172
+  orig: 172, 172
+  offset: 0, 0
+  index: -1
+dede_halloween_02_effect_07
+  rotate: false
+  xy: 232, 199
+  size: 200, 200
+  orig: 200, 200
+  offset: 0, 0
+  index: -1
+dede_halloween_02_effect_08
+  rotate: false
+  xy: 608, 227
+  size: 172, 172
+  orig: 172, 172
+  offset: 0, 0
+  index: -1
+dede_halloween_02_effect_09
+  rotate: false
+  xy: 2, 185
+  size: 228, 214
+  orig: 228, 214
+  offset: 0, 0
+  index: -1
+dede_halloween_02_effect_10
+  rotate: false
+  xy: 431, 35
+  size: 149, 146
+  orig: 149, 146
+  offset: 0, 0
+  index: -1
+dede_halloween_02_effect_11
+  rotate: true
+  xy: 582, 35
+  size: 146, 138
+  orig: 146, 138
+  offset: 0, 0
+  index: -1
+dede_halloween_02_effect_12
+  rotate: true
+  xy: 434, 183
+  size: 42, 247
+  orig: 42, 247
+  offset: 0, 0
+  index: -1
+dede_halloween_02_effect_13
+  rotate: false
+  xy: 945, 239
+  size: 161, 160
+  orig: 161, 160
+  offset: 0, 0
+  index: -1
+dede_halloween_02_effect_14
+  rotate: false
+  xy: 1108, 313
+  size: 225, 86
+  orig: 225, 86
+  offset: 0, 0
+  index: -1
+dede_halloween_02_effect_15
+  rotate: true
+  xy: 1108, 198
+  size: 113, 194
+  orig: 113, 194
+  offset: 0, 0
+  index: -1
+dede_halloween_02_effect_16
+  rotate: false
+  xy: 722, 65
+  size: 113, 160
+  orig: 113, 160
+  offset: 0, 0
+  index: -1
+dede_halloween_02_effect_17
+  rotate: true
+  xy: 964, 124
+  size: 113, 130
+  orig: 113, 130
+  offset: 0, 0
+  index: -1
+dede_halloween_02_eye_01
+  rotate: true
+  xy: 1276, 2
+  size: 56, 25
+  orig: 56, 25
+  offset: 0, 0
+  index: -1
+dede_halloween_02_eye_02
+  rotate: false
+  xy: 299, 5
+  size: 48, 21
+  orig: 48, 21
+  offset: 0, 0
+  index: -1
+dede_halloween_02_eye_03
+  rotate: false
+  xy: 535, 12
+  size: 43, 21
+  orig: 43, 21
+  offset: 0, 0
+  index: -1
+dede_halloween_02_foot_01
+  rotate: false
+  xy: 683, 190
+  size: 30, 35
+  orig: 30, 35
+  offset: 0, 0
+  index: -1
+dede_halloween_02_foot_02
+  rotate: false
+  xy: 1047, 2
+  size: 30, 35
+  orig: 30, 35
+  offset: 0, 0
+  index: -1
+dede_halloween_02_hair_01
+  rotate: false
+  xy: 1287, 69
+  size: 109, 97
+  orig: 109, 97
+  offset: 0, 0
+  index: -1
+dede_halloween_02_hair_02
+  rotate: false
+  xy: 1216, 13
+  size: 58, 45
+  orig: 58, 45
+  offset: 0, 0
+  index: -1
+dede_halloween_02_hair_03
+  rotate: false
+  xy: 1150, 60
+  size: 76, 37
+  orig: 76, 37
+  offset: 0, 0
+  index: -1
+dede_halloween_02_hand_01
+  rotate: true
+  xy: 395, 2
+  size: 24, 21
+  orig: 24, 21
+  offset: 0, 0
+  index: -1
+dede_halloween_02_hand_02
+  rotate: true
+  xy: 418, 2
+  size: 24, 21
+  orig: 24, 21
+  offset: 0, 0
+  index: -1
+dede_halloween_02_hand_03
+  rotate: false
+  xy: 1079, 2
+  size: 30, 35
+  orig: 30, 35
+  offset: 0, 0
+  index: -1
+dede_halloween_02_hand_04
+  rotate: false
+  xy: 1071, 102
+  size: 20, 20
+  orig: 20, 20
+  offset: 0, 0
+  index: -1
+dede_halloween_02_hand_05
+  rotate: false
+  xy: 580, 13
+  size: 20, 20
+  orig: 20, 20
+  offset: 0, 0
+  index: -1
+dede_halloween_02_head_01
+  rotate: false
+  xy: 1207, 99
+  size: 78, 97
+  orig: 78, 97
+  offset: 0, 0
+  index: -1
+dede_halloween_02_neck_01
+  rotate: false
+  xy: 1303, 17
+  size: 50, 50
+  orig: 50, 50
+  offset: 0, 0
+  index: -1
+dede_halloween_02_parch_01
+  rotate: true
+  xy: 1143, 2
+  size: 24, 21
+  orig: 24, 21
+  offset: 0, 0
+  index: -1
+dede_halloween_02_parch_02
+  rotate: true
+  xy: 1166, 2
+  size: 24, 21
+  orig: 24, 21
+  offset: 0, 0
+  index: -1
+dede_halloween_02_reg_01
+  rotate: true
+  xy: 964, 44
+  size: 78, 105
+  orig: 78, 105
+  offset: 0, 0
+  index: -1
+dede_halloween_02_reg_02
+  rotate: true
+  xy: 722, 8
+  size: 55, 105
+  orig: 55, 105
+  offset: 0, 0
+  index: -1
+dede_halloween_02_reg_03
+  rotate: false
+  xy: 1398, 79
+  size: 39, 87
+  orig: 39, 87
+  offset: 0, 0
+  index: -1
+dede_halloween_02_reg_04
+  rotate: true
+  xy: 829, 16
+  size: 39, 87
+  orig: 39, 87
+  offset: 0, 0
+  index: -1
+dede_halloween_02_sholder_01
+  rotate: false
+  xy: 1355, 17
+  size: 50, 50
+  orig: 50, 50
+  offset: 0, 0
+  index: -1
+dede_halloween_02_sholder_02
+  rotate: true
+  xy: 488, 3
+  size: 30, 45
+  orig: 30, 45
+  offset: 0, 0
+  index: -1
+dede_halloween_02_wepon_01
+  rotate: true
+  xy: 837, 57
+  size: 56, 120
+  orig: 56, 120
+  offset: 0, 0
+  index: -1

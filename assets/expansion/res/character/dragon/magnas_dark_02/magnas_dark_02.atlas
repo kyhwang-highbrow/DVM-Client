@@ -1,0 +1,216 @@
+
+magnas_dark_02.png
+size: 2032,599
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+magnas_dark_02_arm_01
+  rotate: false
+  xy: 1612, 8
+  size: 116, 102
+  orig: 116, 102
+  offset: 0, 0
+  index: -1
+magnas_dark_02_body_01
+  rotate: false
+  xy: 805, 243
+  size: 299, 354
+  orig: 299, 354
+  offset: 0, 0
+  index: -1
+magnas_dark_02_body_02
+  rotate: true
+  xy: 1114, 25
+  size: 251, 139
+  orig: 251, 139
+  offset: 0, 0
+  index: -1
+magnas_dark_02_effect_01
+  rotate: false
+  xy: 355, 9
+  size: 142, 142
+  orig: 142, 142
+  offset: 0, 0
+  index: -1
+magnas_dark_02_effect_02
+  rotate: true
+  xy: 1903, 322
+  size: 142, 116
+  orig: 142, 116
+  offset: 0, 0
+  index: -1
+magnas_dark_02_effect_03
+  rotate: true
+  xy: 1903, 466
+  size: 131, 127
+  orig: 131, 127
+  offset: 0, 0
+  index: -1
+magnas_dark_02_effect_04
+  rotate: true
+  xy: 1568, 112
+  size: 184, 115
+  orig: 184, 115
+  offset: 0, 0
+  index: -1
+magnas_dark_02_effect_05
+  rotate: true
+  xy: 1851, 209
+  size: 111, 160
+  orig: 111, 160
+  offset: 0, 0
+  index: -1
+magnas_dark_02_effect_06
+  rotate: false
+  xy: 499, 7
+  size: 197, 177
+  orig: 197, 177
+  offset: 0, 0
+  index: -1
+magnas_dark_02_effect_07
+  rotate: true
+  xy: 698, 7
+  size: 177, 188
+  orig: 177, 188
+  offset: 0, 0
+  index: -1
+magnas_dark_02_effect_08
+  rotate: true
+  xy: 1326, 298
+  size: 299, 286
+  orig: 299, 286
+  offset: 0, 0
+  index: -1
+magnas_dark_02_effect_10
+  rotate: false
+  xy: 443, 186
+  size: 360, 411
+  orig: 360, 411
+  offset: 0, 0
+  index: -1
+magnas_dark_02_finger_01
+  rotate: false
+  xy: 1530, 5
+  size: 80, 84
+  orig: 80, 84
+  offset: 0, 0
+  index: -1
+magnas_dark_02_finger_02
+  rotate: false
+  xy: 1730, 16
+  size: 113, 115
+  orig: 113, 115
+  offset: 0, 0
+  index: -1
+magnas_dark_02_hair_01
+  rotate: true
+  xy: 175, 4
+  size: 147, 178
+  orig: 147, 178
+  offset: 0, 0
+  index: -1
+magnas_dark_02_hand_01
+  rotate: true
+  xy: 1685, 133
+  size: 163, 154
+  orig: 163, 154
+  offset: 0, 0
+  index: -1
+magnas_dark_02_head_01
+  rotate: true
+  xy: 888, 8
+  size: 233, 224
+  orig: 233, 224
+  offset: 0, 0
+  index: -1
+magnas_dark_02_horn_01
+  rotate: false
+  xy: 1614, 421
+  size: 126, 176
+  orig: 126, 176
+  offset: 0, 0
+  index: -1
+magnas_dark_02_horn_02
+  rotate: true
+  xy: 1614, 298
+  size: 121, 142
+  orig: 121, 142
+  offset: 0, 0
+  index: -1
+magnas_dark_02_mouth_01
+  rotate: false
+  xy: 1943, 126
+  size: 83, 81
+  orig: 83, 81
+  offset: 0, 0
+  index: -1
+magnas_dark_02_mouth_02
+  rotate: false
+  xy: 1943, 47
+  size: 82, 77
+  orig: 82, 77
+  offset: 0, 0
+  index: -1
+magnas_dark_02_ponbody_01
+  rotate: false
+  xy: 1742, 434
+  size: 159, 163
+  orig: 159, 163
+  offset: 0, 0
+  index: -1
+magnas_dark_02_poneye_01
+  rotate: false
+  xy: 1845, 113
+  size: 96, 94
+  orig: 96, 94
+  offset: 0, 0
+  index: -1
+magnas_dark_02_reg_01
+  rotate: false
+  xy: 2, 2
+  size: 171, 149
+  orig: 171, 149
+  offset: 0, 0
+  index: -1
+magnas_dark_02_reg_02
+  rotate: false
+  xy: 1430, 91
+  size: 136, 205
+  orig: 136, 205
+  offset: 0, 0
+  index: -1
+magnas_dark_02_shoulder_01
+  rotate: true
+  xy: 1758, 320
+  size: 112, 91
+  orig: 112, 91
+  offset: 0, 0
+  index: -1
+magnas_dark_02_shoulder_02
+  rotate: true
+  xy: 1430, 2
+  size: 87, 98
+  orig: 87, 98
+  offset: 0, 0
+  index: -1
+magnas_dark_02_weapon_01
+  rotate: true
+  xy: 2, 153
+  size: 444, 439
+  orig: 444, 439
+  offset: 0, 0
+  index: -1
+magnas_dark_02_wing_01
+  rotate: true
+  xy: 1106, 278
+  size: 319, 218
+  orig: 319, 218
+  offset: 0, 0
+  index: -1
+magnas_dark_02_wing_02
+  rotate: true
+  xy: 1255, 35
+  size: 241, 173
+  orig: 241, 173
+  offset: 0, 0
+  index: -1

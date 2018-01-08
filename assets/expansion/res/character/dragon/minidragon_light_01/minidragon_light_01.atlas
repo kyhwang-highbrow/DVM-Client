@@ -1,0 +1,293 @@
+
+minidragon_light_01.png
+size: 808,523
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+effect_bfx
+  rotate: true
+  xy: 428, 292
+  size: 103, 150
+  orig: 103, 150
+  offset: 0, 0
+  index: -1
+effect_breath_1
+  rotate: true
+  xy: 719, 283
+  size: 114, 87
+  orig: 114, 87
+  offset: 0, 0
+  index: -1
+effect_breath_2
+  rotate: true
+  xy: 215, 2
+  size: 124, 93
+  orig: 124, 93
+  offset: 0, 0
+  index: -1
+effect_breath_3
+  rotate: false
+  xy: 372, 191
+  size: 135, 99
+  orig: 135, 99
+  offset: 0, 0
+  index: -1
+effect_breath_4
+  rotate: true
+  xy: 402, 64
+  size: 125, 110
+  orig: 125, 110
+  offset: 0, 0
+  index: -1
+effect_breath_5
+  rotate: false
+  xy: 580, 283
+  size: 137, 114
+  orig: 137, 114
+  offset: 0, 0
+  index: -1
+effect_breath_6
+  rotate: false
+  xy: 215, 128
+  size: 149, 113
+  orig: 149, 113
+  offset: 0, 0
+  index: -1
+effect_breath_7
+  rotate: false
+  xy: 215, 243
+  size: 155, 118
+  orig: 155, 118
+  offset: 0, 0
+  index: -1
+effect_breath_8
+  rotate: false
+  xy: 428, 397
+  size: 141, 124
+  orig: 141, 124
+  offset: 0, 0
+  index: -1
+effect_breath_9
+  rotate: false
+  xy: 571, 399
+  size: 136, 122
+  orig: 136, 122
+  offset: 0, 0
+  index: -1
+effect_light
+  rotate: false
+  xy: 682, 182
+  size: 99, 99
+  orig: 99, 99
+  offset: 0, 0
+  index: -1
+minidragon_light_01_body
+  rotate: true
+  xy: 572, 107
+  size: 77, 99
+  orig: 77, 99
+  offset: 0, 0
+  index: -1
+minidragon_light_01_bone_01
+  rotate: false
+  xy: 402, 3
+  size: 72, 59
+  orig: 72, 59
+  offset: 0, 0
+  index: -1
+minidragon_light_01_bone_02
+  rotate: false
+  xy: 514, 36
+  size: 71, 68
+  orig: 71, 68
+  offset: 0, 0
+  index: -1
+minidragon_light_01_eff_05
+  rotate: true
+  xy: 310, 14
+  size: 112, 90
+  orig: 112, 90
+  offset: 0, 0
+  index: -1
+minidragon_light_01_eff_07
+  rotate: false
+  xy: 372, 295
+  size: 52, 66
+  orig: 52, 66
+  offset: 0, 0
+  index: -1
+minidragon_light_01_eff_08
+  rotate: true
+  xy: 509, 195
+  size: 95, 66
+  orig: 95, 66
+  offset: 0, 0
+  index: -1
+minidragon_light_01_eff_09
+  rotate: false
+  xy: 577, 186
+  size: 103, 95
+  orig: 103, 95
+  offset: 0, 0
+  index: -1
+minidragon_light_01_eff_099
+  rotate: false
+  xy: 673, 97
+  size: 92, 83
+  orig: 92, 83
+  offset: 0, 0
+  index: -1
+minidragon_light_01_eff_fire_001
+  rotate: false
+  xy: 2, 363
+  size: 211, 158
+  orig: 211, 158
+  offset: 0, 0
+  index: -1
+minidragon_light_01_eff_fire_002
+  rotate: false
+  xy: 2, 203
+  size: 211, 158
+  orig: 211, 158
+  offset: 0, 0
+  index: -1
+minidragon_light_01_eff_fire_003
+  rotate: false
+  xy: 215, 363
+  size: 211, 158
+  orig: 211, 158
+  offset: 0, 0
+  index: -1
+minidragon_light_01_eff_fire_004
+  rotate: false
+  xy: 2, 43
+  size: 211, 158
+  orig: 211, 158
+  offset: 0, 0
+  index: -1
+minidragon_light_01_eye_01
+  rotate: false
+  xy: 476, 35
+  size: 36, 27
+  orig: 36, 27
+  offset: 0, 0
+  index: -1
+minidragon_light_01_eye_02
+  rotate: false
+  xy: 2, 2
+  size: 18, 24
+  orig: 18, 24
+  offset: 0, 0
+  index: -1
+minidragon_light_01_eye_03
+  rotate: false
+  xy: 567, 6
+  size: 37, 28
+  orig: 37, 28
+  offset: 0, 0
+  index: -1
+minidragon_light_01_eye_04
+  rotate: false
+  xy: 783, 261
+  size: 19, 20
+  orig: 19, 20
+  offset: 0, 0
+  index: -1
+minidragon_light_01_eye_05
+  rotate: false
+  xy: 2, 28
+  size: 62, 13
+  orig: 62, 13
+  offset: 0, 0
+  index: -1
+minidragon_light_01_eyebrow_01
+  rotate: true
+  xy: 743, 2
+  size: 6, 8
+  orig: 6, 8
+  offset: 0, 0
+  index: -1
+minidragon_light_01_eyebrow_02
+  rotate: false
+  xy: 310, 4
+  size: 13, 8
+  orig: 13, 8
+  offset: 0, 0
+  index: -1
+minidragon_light_01_foot
+  rotate: false
+  xy: 743, 10
+  size: 31, 37
+  orig: 31, 37
+  offset: 0, 0
+  index: -1
+minidragon_light_01_foot_s
+  rotate: false
+  xy: 606, 6
+  size: 35, 28
+  orig: 35, 28
+  offset: 0, 0
+  index: -1
+minidragon_light_01_fur_01
+  rotate: true
+  xy: 652, 8
+  size: 87, 89
+  orig: 87, 89
+  offset: 0, 0
+  index: -1
+minidragon_light_01_hair
+  rotate: false
+  xy: 587, 36
+  size: 63, 69
+  orig: 63, 69
+  offset: 0, 0
+  index: -1
+minidragon_light_01_hand
+  rotate: false
+  xy: 476, 2
+  size: 42, 31
+  orig: 42, 31
+  offset: 0, 0
+  index: -1
+minidragon_light_01_head
+  rotate: true
+  xy: 709, 399
+  size: 122, 93
+  orig: 122, 93
+  offset: 0, 0
+  index: -1
+minidragon_light_01_leg
+  rotate: false
+  xy: 743, 49
+  size: 46, 46
+  orig: 46, 46
+  offset: 0, 0
+  index: -1
+minidragon_light_01_mouth
+  rotate: false
+  xy: 652, 97
+  size: 16, 8
+  orig: 16, 8
+  offset: 0, 0
+  index: -1
+minidragon_light_01_mouth_1
+  rotate: true
+  xy: 22, 2
+  size: 24, 18
+  orig: 24, 18
+  offset: 0, 0
+  index: -1
+minidragon_light_01_tail
+  rotate: true
+  xy: 514, 106
+  size: 87, 56
+  orig: 87, 56
+  offset: 0, 0
+  index: -1
+minidragon_light_01_wing
+  rotate: false
+  xy: 520, 6
+  size: 45, 28
+  orig: 45, 28
+  offset: 0, 0
+  index: -1

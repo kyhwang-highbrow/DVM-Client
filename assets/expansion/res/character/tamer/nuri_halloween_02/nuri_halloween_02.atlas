@@ -1,0 +1,552 @@
+
+nuri_halloween_02.png
+size: 1746,396
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+nuri_halloween_02_acce_01
+  rotate: true
+  xy: 1188, 57
+  size: 29, 38
+  orig: 29, 38
+  offset: 0, 0
+  index: -1
+nuri_halloween_02_acce_02
+  rotate: true
+  xy: 1228, 57
+  size: 29, 38
+  orig: 29, 38
+  offset: 0, 0
+  index: -1
+nuri_halloween_02_acce_03
+  rotate: false
+  xy: 1222, 26
+  size: 30, 29
+  orig: 30, 29
+  offset: 0, 0
+  index: -1
+nuri_halloween_02_acce_04
+  rotate: true
+  xy: 1254, 25
+  size: 30, 29
+  orig: 30, 29
+  offset: 0, 0
+  index: -1
+nuri_halloween_02_arm_01
+  rotate: false
+  xy: 1706, 234
+  size: 34, 52
+  orig: 34, 52
+  offset: 0, 0
+  index: -1
+nuri_halloween_02_arm_02
+  rotate: true
+  xy: 936, 4
+  size: 24, 38
+  orig: 24, 38
+  offset: 0, 0
+  index: -1
+nuri_halloween_02_arm_03
+  rotate: false
+  xy: 651, 2
+  size: 30, 45
+  orig: 30, 45
+  offset: 0, 0
+  index: -1
+nuri_halloween_02_arm_04
+  rotate: true
+  xy: 1035, 9
+  size: 30, 46
+  orig: 30, 46
+  offset: 0, 0
+  index: -1
+nuri_halloween_02_body_01
+  rotate: true
+  xy: 1527, 18
+  size: 55, 78
+  orig: 55, 78
+  offset: 0, 0
+  index: -1
+nuri_halloween_02_body_02
+  rotate: false
+  xy: 581, 5
+  size: 68, 42
+  orig: 68, 42
+  offset: 0, 0
+  index: -1
+nuri_halloween_02_body_03
+  rotate: true
+  xy: 284, 2
+  size: 28, 38
+  orig: 28, 38
+  offset: 0, 0
+  index: -1
+nuri_halloween_02_body_04
+  rotate: true
+  xy: 1472, 39
+  size: 55, 53
+  orig: 55, 53
+  offset: 0, 0
+  index: -1
+nuri_halloween_02_cat_01
+  rotate: false
+  xy: 538, 6
+  size: 20, 24
+  orig: 20, 24
+  offset: 0, 0
+  index: -1
+nuri_halloween_02_cat_02
+  rotate: true
+  xy: 509, 5
+  size: 25, 27
+  orig: 25, 27
+  offset: 0, 0
+  index: -1
+nuri_halloween_02_cat_tail
+  rotate: false
+  xy: 1706, 288
+  size: 23, 106
+  orig: 23, 106
+  offset: 0, 0
+  index: -1
+nuri_halloween_02_effect_01
+  rotate: true
+  xy: 441, 32
+  size: 146, 138
+  orig: 146, 138
+  offset: 0, 0
+  index: -1
+nuri_halloween_02_effect_02
+  rotate: false
+  xy: 139, 5
+  size: 96, 86
+  orig: 96, 86
+  offset: 0, 0
+  index: -1
+nuri_halloween_02_effect_03
+  rotate: false
+  xy: 1499, 234
+  size: 161, 160
+  orig: 161, 160
+  offset: 0, 0
+  index: -1
+nuri_halloween_02_effect_04
+  rotate: false
+  xy: 746, 195
+  size: 201, 199
+  orig: 201, 199
+  offset: 0, 0
+  index: -1
+nuri_halloween_02_effect_05
+  rotate: false
+  xy: 1151, 88
+  size: 132, 132
+  orig: 132, 132
+  offset: 0, 0
+  index: -1
+nuri_halloween_02_effect_06
+  rotate: false
+  xy: 1151, 222
+  size: 172, 172
+  orig: 172, 172
+  offset: 0, 0
+  index: -1
+nuri_halloween_02_effect_07
+  rotate: false
+  xy: 949, 194
+  size: 200, 200
+  orig: 200, 200
+  offset: 0, 0
+  index: -1
+nuri_halloween_02_effect_08
+  rotate: false
+  xy: 1325, 222
+  size: 172, 172
+  orig: 172, 172
+  offset: 0, 0
+  index: -1
+nuri_halloween_02_effect_09
+  rotate: false
+  xy: 290, 180
+  size: 228, 214
+  orig: 228, 214
+  offset: 0, 0
+  index: -1
+nuri_halloween_02_effect_10
+  rotate: false
+  xy: 290, 32
+  size: 149, 146
+  orig: 149, 146
+  offset: 0, 0
+  index: -1
+nuri_halloween_02_effect_11
+  rotate: false
+  xy: 581, 49
+  size: 146, 138
+  orig: 146, 138
+  offset: 0, 0
+  index: -1
+nuri_halloween_02_effect_12
+  rotate: false
+  xy: 1662, 250
+  size: 42, 144
+  orig: 42, 144
+  offset: 0, 0
+  index: -1
+nuri_halloween_02_effect_13
+  rotate: true
+  xy: 237, 2
+  size: 48, 45
+  orig: 48, 45
+  offset: 0, 0
+  index: -1
+nuri_halloween_02_effect_14
+  rotate: false
+  xy: 2, 93
+  size: 286, 301
+  orig: 286, 301
+  offset: 0, 0
+  index: -1
+nuri_halloween_02_eye_01
+  rotate: false
+  xy: 820, 2
+  size: 56, 25
+  orig: 56, 25
+  offset: 0, 0
+  index: -1
+nuri_halloween_02_eye_02
+  rotate: false
+  xy: 346, 9
+  size: 48, 21
+  orig: 48, 21
+  offset: 0, 0
+  index: -1
+nuri_halloween_02_eye_03
+  rotate: false
+  xy: 396, 9
+  size: 43, 21
+  orig: 43, 21
+  offset: 0, 0
+  index: -1
+nuri_halloween_02_eye_04
+  rotate: false
+  xy: 878, 2
+  size: 56, 25
+  orig: 56, 25
+  offset: 0, 0
+  index: -1
+nuri_halloween_02_face_01
+  rotate: false
+  xy: 1731, 346
+  size: 13, 14
+  orig: 13, 14
+  offset: 0, 0
+  index: -1
+nuri_halloween_02_foot_01
+  rotate: false
+  xy: 683, 8
+  size: 41, 39
+  orig: 41, 39
+  offset: 0, 0
+  index: -1
+nuri_halloween_02_foot_02
+  rotate: false
+  xy: 1472, 2
+  size: 41, 35
+  orig: 41, 35
+  offset: 0, 0
+  index: -1
+nuri_halloween_02_hair_00
+  rotate: false
+  xy: 1683, 15
+  size: 61, 56
+  orig: 61, 56
+  offset: 0, 0
+  index: -1
+nuri_halloween_02_hair_01
+  rotate: false
+  xy: 789, 90
+  size: 109, 103
+  orig: 109, 103
+  offset: 0, 0
+  index: -1
+nuri_halloween_02_hair_02
+  rotate: true
+  xy: 729, 2
+  size: 67, 50
+  orig: 67, 50
+  offset: 0, 0
+  index: -1
+nuri_halloween_02_hair_03
+  rotate: false
+  xy: 1527, 130
+  size: 111, 102
+  orig: 111, 102
+  offset: 0, 0
+  index: -1
+nuri_halloween_02_hair_04
+  rotate: true
+  xy: 237, 52
+  size: 39, 51
+  orig: 39, 51
+  offset: 0, 0
+  index: -1
+nuri_halloween_02_hair_05
+  rotate: true
+  xy: 1222, 2
+  size: 22, 20
+  orig: 22, 20
+  offset: 0, 0
+  index: -1
+nuri_halloween_02_hair_06
+  rotate: false
+  xy: 1244, 3
+  size: 22, 20
+  orig: 22, 20
+  offset: 0, 0
+  index: -1
+nuri_halloween_02_hair_07
+  rotate: false
+  xy: 1413, 96
+  size: 112, 124
+  orig: 112, 124
+  offset: 0, 0
+  index: -1
+nuri_halloween_02_hand_01
+  rotate: false
+  xy: 1083, 7
+  size: 32, 29
+  orig: 32, 29
+  offset: 0, 0
+  index: -1
+nuri_halloween_02_hand_02
+  rotate: false
+  xy: 441, 3
+  size: 32, 27
+  orig: 32, 27
+  offset: 0, 0
+  index: -1
+nuri_halloween_02_hand_03
+  rotate: true
+  xy: 1183, 2
+  size: 21, 23
+  orig: 21, 23
+  offset: 0, 0
+  index: -1
+nuri_halloween_02_hand_04
+  rotate: false
+  xy: 475, 6
+  size: 32, 24
+  orig: 32, 24
+  offset: 0, 0
+  index: -1
+nuri_halloween_02_hand_05
+  rotate: true
+  xy: 324, 2
+  size: 28, 20
+  orig: 28, 20
+  offset: 0, 0
+  index: -1
+nuri_halloween_02_head_01
+  rotate: false
+  xy: 1010, 93
+  size: 91, 99
+  orig: 91, 99
+  offset: 0, 0
+  index: -1
+nuri_halloween_02_head_02
+  rotate: false
+  xy: 1640, 133
+  size: 91, 99
+  orig: 91, 99
+  offset: 0, 0
+  index: -1
+nuri_halloween_02_lowbody_01
+  rotate: true
+  xy: 781, 2
+  size: 67, 37
+  orig: 67, 37
+  offset: 0, 0
+  index: -1
+nuri_halloween_02_mask
+  rotate: true
+  xy: 888, 30
+  size: 58, 36
+  orig: 58, 36
+  offset: 0, 0
+  index: -1
+nuri_halloween_02_reg_01
+  rotate: true
+  xy: 2, 5
+  size: 86, 135
+  orig: 86, 135
+  offset: 0, 0
+  index: -1
+nuri_halloween_02_reg_02
+  rotate: true
+  xy: 1527, 75
+  size: 53, 123
+  orig: 53, 123
+  offset: 0, 0
+  index: -1
+nuri_halloween_02_reg_03
+  rotate: false
+  xy: 1431, 2
+  size: 39, 92
+  orig: 39, 92
+  offset: 0, 0
+  index: -1
+nuri_halloween_02_reg_04
+  rotate: false
+  xy: 1103, 99
+  size: 41, 93
+  orig: 41, 93
+  offset: 0, 0
+  index: -1
+nuri_halloween_02_sholder_01
+  rotate: false
+  xy: 1150, 50
+  size: 36, 36
+  orig: 36, 36
+  offset: 0, 0
+  index: -1
+nuri_halloween_02_sholder_02
+  rotate: false
+  xy: 560, 8
+  size: 18, 22
+  orig: 18, 22
+  offset: 0, 0
+  index: -1
+nuri_halloween_02_wepon_01
+  rotate: false
+  xy: 980, 6
+  size: 53, 33
+  orig: 53, 33
+  offset: 0, 0
+  index: -1
+nuri_halloween_02_wepon_02
+  rotate: true
+  xy: 1731, 379
+  size: 15, 13
+  orig: 15, 13
+  offset: 0, 0
+  index: -1
+nuri_halloween_02_wepon_03
+  rotate: true
+  xy: 1731, 362
+  size: 15, 13
+  orig: 15, 13
+  offset: 0, 0
+  index: -1
+nuri_halloween_02_wepon_04
+  rotate: false
+  xy: 1043, 41
+  size: 53, 50
+  orig: 53, 50
+  offset: 0, 0
+  index: -1
+nuri_halloween_02_wepon_05
+  rotate: true
+  xy: 1098, 38
+  size: 53, 50
+  orig: 53, 50
+  offset: 0, 0
+  index: -1
+nuri_halloween_02_wepon_06
+  rotate: false
+  xy: 980, 41
+  size: 61, 50
+  orig: 61, 50
+  offset: 0, 0
+  index: -1
+nuri_halloween_02_wepon_07
+  rotate: true
+  xy: 1371, 2
+  size: 71, 58
+  orig: 71, 58
+  offset: 0, 0
+  index: -1
+nuri_halloween_02_z2_01
+  rotate: false
+  xy: 520, 189
+  size: 224, 205
+  orig: 224, 205
+  offset: 0, 0
+  index: -1
+nuri_halloween_02_z2_02
+  rotate: false
+  xy: 1285, 92
+  size: 126, 128
+  orig: 126, 128
+  offset: 0, 0
+  index: -1
+nuri_halloween_02_z2_03
+  rotate: false
+  xy: 1285, 2
+  size: 84, 88
+  orig: 84, 88
+  offset: 0, 0
+  index: -1
+nuri_halloween_02_z2_04
+  rotate: true
+  xy: 1117, 6
+  size: 30, 32
+  orig: 30, 32
+  offset: 0, 0
+  index: -1
+nuri_halloween_02_z2_05
+  rotate: false
+  xy: 1151, 16
+  size: 30, 32
+  orig: 30, 32
+  offset: 0, 0
+  index: -1
+nuri_halloween_02_z2_06
+  rotate: true
+  xy: 1188, 25
+  size: 30, 32
+  orig: 30, 32
+  offset: 0, 0
+  index: -1
+nuri_halloween_02_z2_07
+  rotate: false
+  xy: 1607, 2
+  size: 74, 69
+  orig: 74, 69
+  offset: 0, 0
+  index: -1
+nuri_halloween_02_z2_08
+  rotate: false
+  xy: 1652, 73
+  size: 85, 58
+  orig: 85, 58
+  offset: 0, 0
+  index: -1
+nuri_halloween_02_z2_09
+  rotate: true
+  xy: 729, 71
+  size: 116, 58
+  orig: 116, 58
+  offset: 0, 0
+  index: -1
+nuri_halloween_02_z2_10
+  rotate: false
+  xy: 926, 30
+  size: 52, 61
+  orig: 52, 61
+  offset: 0, 0
+  index: -1
+nuri_halloween_02_z_01
+  rotate: false
+  xy: 900, 93
+  size: 108, 99
+  orig: 108, 99
+  offset: 0, 0
+  index: -1
+nuri_halloween_02_z_02
+  rotate: false
+  xy: 820, 29
+  size: 66, 59
+  orig: 66, 59
+  offset: 0, 0
+  index: -1

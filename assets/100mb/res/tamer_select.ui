@@ -434,7 +434,7 @@
 				skew_y = 0.000000;
 				rotation = 0.000000;
 				visible = true;
-				lua_name = 'skillNode1';
+				lua_name = 'skillNode0';
 			};
 			[12] =
 			{
@@ -453,7 +453,7 @@
 				skew_y = 0.000000;
 				rotation = 0.000000;
 				visible = true;
-				lua_name = 'skillNode2';
+				lua_name = 'skillNode1';
 			};
 			[13] =
 			{
@@ -472,7 +472,7 @@
 				skew_y = 0.000000;
 				rotation = 0.000000;
 				visible = true;
-				lua_name = 'skillNode3';
+				lua_name = 'skillNode2';
 			};
 			[14] =
 			{

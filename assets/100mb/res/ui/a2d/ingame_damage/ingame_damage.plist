@@ -15,7 +15,7 @@
                 <key>spriteSourceSize</key>
                 <string>{28,52}</string>
                 <key>textureRect</key>
-                <string>{{98,1},{28,44}}</string>
+                <string>{{98,47},{28,44}}</string>
                 <key>textureRotated</key>
                 <false/>
             </dict>
@@ -30,9 +30,9 @@
                 <key>spriteSourceSize</key>
                 <string>{28,52}</string>
                 <key>textureRect</key>
-                <string>{{71,192},{20,44}}</string>
+                <string>{{47,327},{20,44}}</string>
                 <key>textureRotated</key>
-                <false/>
+                <true/>
             </dict>
             <key>ingame_damage_2.png</key>
             <dict>
@@ -45,7 +45,7 @@
                 <key>spriteSourceSize</key>
                 <string>{28,52}</string>
                 <key>textureRect</key>
-                <string>{{1,296},{28,42}}</string>
+                <string>{{93,297},{28,42}}</string>
                 <key>textureRotated</key>
                 <false/>
             </dict>
@@ -60,9 +60,9 @@
                 <key>spriteSourceSize</key>
                 <string>{28,52}</string>
                 <key>textureRect</key>
-                <string>{{97,47},{28,44}}</string>
+                <string>{{1,253},{28,44}}</string>
                 <key>textureRotated</key>
-                <false/>
+                <true/>
             </dict>
             <key>ingame_damage_4.png</key>
             <dict>
@@ -75,7 +75,7 @@
                 <key>spriteSourceSize</key>
                 <string>{28,52}</string>
                 <key>textureRect</key>
-                <string>{{92,255},{28,42}}</string>
+                <string>{{93,341},{28,42}}</string>
                 <key>textureRotated</key>
                 <false/>
             </dict>
@@ -90,9 +90,9 @@
                 <key>spriteSourceSize</key>
                 <string>{28,52}</string>
                 <key>textureRect</key>
-                <string>{{95,142},{28,44}}</string>
+                <string>{{47,267},{28,44}}</string>
                 <key>textureRotated</key>
-                <false/>
+                <true/>
             </dict>
             <key>ingame_damage_6.png</key>
             <dict>
@@ -105,9 +105,9 @@
                 <key>spriteSourceSize</key>
                 <string>{28,52}</string>
                 <key>textureRect</key>
-                <string>{{36,210},{28,44}}</string>
+                <string>{{1,283},{28,44}}</string>
                 <key>textureRotated</key>
-                <false/>
+                <true/>
             </dict>
             <key>ingame_damage_7.png</key>
             <dict>
@@ -120,9 +120,9 @@
                 <key>spriteSourceSize</key>
                 <string>{28,52}</string>
                 <key>textureRect</key>
-                <string>{{61,268},{28,42}}</string>
+                <string>{{45,349},{28,42}}</string>
                 <key>textureRotated</key>
-                <false/>
+                <true/>
             </dict>
             <key>ingame_damage_8.png</key>
             <dict>
@@ -135,9 +135,9 @@
                 <key>spriteSourceSize</key>
                 <string>{28,52}</string>
                 <key>textureRect</key>
-                <string>{{1,250},{28,44}}</string>
+                <string>{{47,297},{28,44}}</string>
                 <key>textureRotated</key>
-                <false/>
+                <true/>
             </dict>
             <key>ingame_damage_9.png</key>
             <dict>
@@ -150,9 +150,9 @@
                 <key>spriteSourceSize</key>
                 <string>{28,52}</string>
                 <key>textureRect</key>
-                <string>{{31,256},{28,44}}</string>
+                <string>{{1,313},{28,44}}</string>
                 <key>textureRotated</key>
-                <false/>
+                <true/>
             </dict>
             <key>ingame_damage_bash.png</key>
             <dict>
@@ -165,9 +165,9 @@
                 <key>spriteSourceSize</key>
                 <string>{54,33}</string>
                 <key>textureRect</key>
-                <string>{{36,154},{54,33}}</string>
+                <string>{{73,149},{54,33}}</string>
                 <key>textureRotated</key>
-                <true/>
+                <false/>
             </dict>
             <key>ingame_damage_comma.png</key>
             <dict>
@@ -180,9 +180,9 @@
                 <key>spriteSourceSize</key>
                 <string>{28,52}</string>
                 <key>textureRect</key>
-                <string>{{105,299},{18,20}}</string>
+                <string>{{48,218},{18,20}}</string>
                 <key>textureRotated</key>
-                <true/>
+                <false/>
             </dict>
             <key>ingame_damage_critical.png</key>
             <dict>
@@ -195,9 +195,9 @@
                 <key>spriteSourceSize</key>
                 <string>{74,33}</string>
                 <key>textureRect</key>
-                <string>{{36,78},{74,33}}</string>
+                <string>{{1,106},{74,33}}</string>
                 <key>textureRotated</key>
-                <true/>
+                <false/>
             </dict>
             <key>ingame_damage_critical_dodge.png</key>
             <dict>
@@ -210,7 +210,7 @@
                 <key>spriteSourceSize</key>
                 <string>{95,33}</string>
                 <key>textureRect</key>
-                <string>{{1,1},{95,33}}</string>
+                <string>{{1,36},{95,33}}</string>
                 <key>textureRotated</key>
                 <false/>
             </dict>
@@ -225,9 +225,9 @@
                 <key>spriteSourceSize</key>
                 <string>{47,32}</string>
                 <key>textureRect</key>
-                <string>{{95,93},{47,32}}</string>
+                <string>{{79,93},{47,32}}</string>
                 <key>textureRotated</key>
-                <true/>
+                <false/>
             </dict>
             <key>ingame_damage_dot.png</key>
             <dict>
@@ -240,7 +240,7 @@
                 <key>spriteSourceSize</key>
                 <string>{28,52}</string>
                 <key>textureRect</key>
-                <string>{{105,319},{16,16}}</string>
+                <string>{{79,71},{16,16}}</string>
                 <key>textureRotated</key>
                 <false/>
             </dict>
@@ -255,7 +255,7 @@
                 <key>spriteSourceSize</key>
                 <string>{28,52}</string>
                 <key>textureRect</key>
-                <string>{{66,238},{28,24}}</string>
+                <string>{{102,1},{28,24}}</string>
                 <key>textureRotated</key>
                 <true/>
             </dict>
@@ -270,9 +270,9 @@
                 <key>spriteSourceSize</key>
                 <string>{28,52}</string>
                 <key>textureRect</key>
-                <string>{{71,144},{20,46}}</string>
+                <string>{{77,127},{20,46}}</string>
                 <key>textureRotated</key>
-                <false/>
+                <true/>
             </dict>
             <key>ingame_damage_hit.png</key>
             <dict>
@@ -285,7 +285,7 @@
                 <key>spriteSourceSize</key>
                 <string>{70,40}</string>
                 <key>textureRect</key>
-                <string>{{1,36},{70,40}}</string>
+                <string>{{1,141},{70,40}}</string>
                 <key>textureRotated</key>
                 <false/>
             </dict>
@@ -300,9 +300,9 @@
                 <key>spriteSourceSize</key>
                 <string>{45,33}</string>
                 <key>textureRect</key>
-                <string>{{1,156},{45,33}}</string>
+                <string>{{1,218},{45,33}}</string>
                 <key>textureRotated</key>
-                <true/>
+                <false/>
             </dict>
             <key>ingame_damage_maximization.png</key>
             <dict>
@@ -315,9 +315,9 @@
                 <key>spriteSourceSize</key>
                 <string>{76,33}</string>
                 <key>textureRect</key>
-                <string>{{1,78},{76,33}}</string>
+                <string>{{1,71},{76,33}}</string>
                 <key>textureRotated</key>
-                <true/>
+                <false/>
             </dict>
             <key>ingame_damage_minus.png</key>
             <dict>
@@ -330,7 +330,7 @@
                 <key>spriteSourceSize</key>
                 <string>{28,52}</string>
                 <key>textureRect</key>
-                <string>{{31,336},{24,14}}</string>
+                <string>{{102,31},{24,14}}</string>
                 <key>textureRotated</key>
                 <false/>
             </dict>
@@ -345,9 +345,9 @@
                 <key>spriteSourceSize</key>
                 <string>{65,33}</string>
                 <key>textureRect</key>
-                <string>{{93,188},{65,33}}</string>
+                <string>{{1,183},{65,33}}</string>
                 <key>textureRotated</key>
-                <true/>
+                <false/>
             </dict>
             <key>ingame_damage_parenthesis_1.png</key>
             <dict>
@@ -360,9 +360,9 @@
                 <key>spriteSourceSize</key>
                 <string>{28,52}</string>
                 <key>textureRect</key>
-                <string>{{73,36},{22,52}}</string>
+                <string>{{68,184},{22,52}}</string>
                 <key>textureRotated</key>
-                <false/>
+                <true/>
             </dict>
             <key>ingame_damage_parenthesis_2.png</key>
             <dict>
@@ -375,9 +375,9 @@
                 <key>spriteSourceSize</key>
                 <string>{28,52}</string>
                 <key>textureRect</key>
-                <string>{{71,90},{22,52}}</string>
+                <string>{{68,208},{22,52}}</string>
                 <key>textureRotated</key>
-                <false/>
+                <true/>
             </dict>
             <key>ingame_damage_percent.png</key>
             <dict>
@@ -390,7 +390,7 @@
                 <key>spriteSourceSize</key>
                 <string>{38,52}</string>
                 <key>textureRect</key>
-                <string>{{61,312},{38,42}}</string>
+                <string>{{1,343},{38,42}}</string>
                 <key>textureRotated</key>
                 <true/>
             </dict>
@@ -405,9 +405,9 @@
                 <key>spriteSourceSize</key>
                 <string>{28,52}</string>
                 <key>textureRect</key>
-                <string>{{31,302},{28,32}}</string>
+                <string>{{93,267},{28,32}}</string>
                 <key>textureRotated</key>
-                <false/>
+                <true/>
             </dict>
             <key>ingame_damage_shield.png</key>
             <dict>
@@ -420,9 +420,24 @@
                 <key>spriteSourceSize</key>
                 <string>{45,33}</string>
                 <key>textureRect</key>
-                <string>{{1,203},{45,33}}</string>
+                <string>{{68,232},{45,33}}</string>
                 <key>textureRotated</key>
-                <true/>
+                <false/>
+            </dict>
+            <key>ingame_resist.png</key>
+            <dict>
+                <key>aliases</key>
+                <array/>
+                <key>spriteOffset</key>
+                <string>{0,0}</string>
+                <key>spriteSize</key>
+                <string>{99,33}</string>
+                <key>spriteSourceSize</key>
+                <string>{99,33}</string>
+                <key>textureRect</key>
+                <string>{{1,1},{99,33}}</string>
+                <key>textureRotated</key>
+                <false/>
             </dict>
         </dict>
         <key>metadata</key>
@@ -436,9 +451,9 @@
             <key>realTextureFileName</key>
             <string>ingame_damage.png</string>
             <key>size</key>
-            <string>{128,351}</string>
+            <string>{128,384}</string>
             <key>smartupdate</key>
-            <string>$TexturePacker:SmartUpdate:3dc9978819c3d8ea5982adeccb53cef1:1b0ea8a74641275c3a2b6589091d2b71:0fdb1b4405e094835385b44ad28798e8$</string>
+            <string>$TexturePacker:SmartUpdate:ef2ae27f19c355e65669d4048fbf494d:85aab2f51c9c751d2a936c431c93adf2:0fdb1b4405e094835385b44ad28798e8$</string>
             <key>textureFileName</key>
             <string>ingame_damage.png</string>
         </dict>

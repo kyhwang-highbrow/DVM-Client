@@ -254,7 +254,7 @@
 					font_name = 'Helvetica';
 					font_size = 30;
 					font_color = { 255; 255; 255; };
-					placeholder = '16자리의 아이템 코드를 입력하세요.';
+					placeholder = '12자리의 아이템 코드를 입력하세요.';
 					placeholder_font_name = 'Helvetica';
 					placeholder_font_size = 20;
 					placeholder_font_color = { 255; 255; 255; };

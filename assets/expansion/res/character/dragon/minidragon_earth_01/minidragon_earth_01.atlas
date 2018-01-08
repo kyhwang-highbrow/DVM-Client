@@ -1,0 +1,293 @@
+
+minidragon_earth_01.png
+size: 1856,221
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+effect_bfx
+  rotate: false
+  xy: 762, 69
+  size: 103, 150
+  orig: 103, 150
+  offset: 0, 0
+  index: -1
+effect_breath_1
+  rotate: false
+  xy: 1538, 5
+  size: 114, 87
+  orig: 114, 87
+  offset: 0, 0
+  index: -1
+effect_breath_2
+  rotate: true
+  xy: 1561, 95
+  size: 124, 93
+  orig: 124, 93
+  offset: 0, 0
+  index: -1
+effect_breath_3
+  rotate: true
+  xy: 1348, 84
+  size: 135, 99
+  orig: 135, 99
+  offset: 0, 0
+  index: -1
+effect_breath_4
+  rotate: true
+  xy: 1449, 94
+  size: 125, 110
+  orig: 125, 110
+  offset: 0, 0
+  index: -1
+effect_breath_5
+  rotate: true
+  xy: 1108, 82
+  size: 137, 114
+  orig: 137, 114
+  offset: 0, 0
+  index: -1
+effect_breath_6
+  rotate: true
+  xy: 867, 70
+  size: 149, 113
+  orig: 149, 113
+  offset: 0, 0
+  index: -1
+effect_breath_7
+  rotate: true
+  xy: 642, 64
+  size: 155, 118
+  orig: 155, 118
+  offset: 0, 0
+  index: -1
+effect_breath_8
+  rotate: true
+  xy: 982, 78
+  size: 141, 124
+  orig: 141, 124
+  offset: 0, 0
+  index: -1
+effect_breath_9
+  rotate: true
+  xy: 1224, 83
+  size: 136, 122
+  orig: 136, 122
+  offset: 0, 0
+  index: -1
+effect_light
+  rotate: false
+  xy: 1751, 23
+  size: 99, 99
+  orig: 99, 99
+  offset: 0, 0
+  index: -1
+minidragon_earth_01_body
+  rotate: true
+  xy: 1109, 3
+  size: 77, 99
+  orig: 77, 99
+  offset: 0, 0
+  index: -1
+minidragon_earth_01_bone_01
+  rotate: false
+  xy: 642, 3
+  size: 67, 59
+  orig: 67, 59
+  offset: 0, 0
+  index: -1
+minidragon_earth_01_bone_02
+  rotate: false
+  xy: 1210, 12
+  size: 50, 68
+  orig: 50, 68
+  offset: 0, 0
+  index: -1
+minidragon_earth_01_eff_05
+  rotate: true
+  xy: 711, 5
+  size: 57, 61
+  orig: 57, 61
+  offset: 0, 0
+  index: -1
+minidragon_earth_01_eff_07
+  rotate: false
+  xy: 975, 2
+  size: 52, 66
+  orig: 52, 66
+  offset: 0, 0
+  index: -1
+minidragon_earth_01_eff_08
+  rotate: false
+  xy: 878, 2
+  size: 95, 66
+  orig: 95, 66
+  offset: 0, 0
+  index: -1
+minidragon_earth_01_eff_09
+  rotate: false
+  xy: 1751, 124
+  size: 103, 95
+  orig: 103, 95
+  offset: 0, 0
+  index: -1
+minidragon_earth_01_eff_099
+  rotate: false
+  xy: 1654, 10
+  size: 92, 83
+  orig: 92, 83
+  offset: 0, 0
+  index: -1
+minidragon_earth_01_eff_fire_001
+  rotate: true
+  xy: 2, 8
+  size: 211, 158
+  orig: 211, 158
+  offset: 0, 0
+  index: -1
+minidragon_earth_01_eff_fire_002
+  rotate: true
+  xy: 162, 8
+  size: 211, 158
+  orig: 211, 158
+  offset: 0, 0
+  index: -1
+minidragon_earth_01_eff_fire_003
+  rotate: true
+  xy: 322, 8
+  size: 211, 158
+  orig: 211, 158
+  offset: 0, 0
+  index: -1
+minidragon_earth_01_eff_fire_004
+  rotate: true
+  xy: 482, 8
+  size: 211, 158
+  orig: 211, 158
+  offset: 0, 0
+  index: -1
+minidragon_earth_01_eye_01
+  rotate: true
+  xy: 1340, 45
+  size: 36, 27
+  orig: 36, 27
+  offset: 0, 0
+  index: -1
+minidragon_earth_01_eye_02
+  rotate: false
+  xy: 1375, 26
+  size: 18, 24
+  orig: 18, 24
+  offset: 0, 0
+  index: -1
+minidragon_earth_01_eyebrow_01
+  rotate: true
+  xy: 789, 3
+  size: 6, 8
+  orig: 6, 8
+  offset: 0, 0
+  index: -1
+minidragon_earth_01_eyebrow_02
+  rotate: false
+  xy: 1228, 2
+  size: 13, 8
+  orig: 13, 8
+  offset: 0, 0
+  index: -1
+minidragon_earth_01_foot
+  rotate: true
+  xy: 1306, 2
+  size: 31, 37
+  orig: 31, 37
+  offset: 0, 0
+  index: -1
+minidragon_earth_01_foot_s
+  rotate: true
+  xy: 1345, 8
+  size: 35, 28
+  orig: 35, 28
+  offset: 0, 0
+  index: -1
+minidragon_earth_01_fur_01
+  rotate: false
+  xy: 1449, 3
+  size: 87, 89
+  orig: 87, 89
+  offset: 0, 0
+  index: -1
+minidragon_earth_01_hair
+  rotate: false
+  xy: 1029, 3
+  size: 78, 73
+  orig: 78, 73
+  offset: 0, 0
+  index: -1
+minidragon_earth_01_hand
+  rotate: false
+  xy: 1262, 2
+  size: 42, 31
+  orig: 42, 31
+  offset: 0, 0
+  index: -1
+minidragon_earth_01_head
+  rotate: true
+  xy: 1656, 97
+  size: 122, 93
+  orig: 122, 93
+  offset: 0, 0
+  index: -1
+minidragon_earth_01_leg
+  rotate: false
+  xy: 1262, 35
+  size: 46, 46
+  orig: 46, 46
+  offset: 0, 0
+  index: -1
+minidragon_earth_01_mouth
+  rotate: false
+  xy: 1210, 2
+  size: 16, 8
+  orig: 16, 8
+  offset: 0, 0
+  index: -1
+minidragon_earth_01_mouth_2
+  rotate: true
+  xy: 1395, 26
+  size: 24, 18
+  orig: 24, 18
+  offset: 0, 0
+  index: -1
+minidragon_earth_01_tail
+  rotate: false
+  xy: 789, 11
+  size: 87, 56
+  orig: 87, 56
+  offset: 0, 0
+  index: -1
+minidragon_earth_01_wing
+  rotate: true
+  xy: 1310, 36
+  size: 45, 28
+  orig: 45, 28
+  offset: 0, 0
+  index: -1
+minidragon_earth__01_eye_03
+  rotate: true
+  xy: 1369, 52
+  size: 30, 28
+  orig: 30, 28
+  offset: 0, 0
+  index: -1
+minidragon_earth__01_eye_04
+  rotate: false
+  xy: 1375, 4
+  size: 19, 20
+  orig: 19, 20
+  offset: 0, 0
+  index: -1
+minidragon_earth_eye_05
+  rotate: true
+  xy: 774, 5
+  size: 62, 13
+  orig: 62, 13
+  offset: 0, 0
+  index: -1

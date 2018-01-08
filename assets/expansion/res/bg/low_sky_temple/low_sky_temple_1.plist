@@ -7,15 +7,15 @@
             <key>low_sky_temple_1_a.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{2,2},{1920,800}}</string>
+                <string>{{2,2},{1922,800}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
                 <false/>
                 <key>sourceColorRect</key>
-                <string>{{0,0},{1920,800}}</string>
+                <string>{{0,0},{1922,800}}</string>
                 <key>sourceSize</key>
-                <string>{1920,800}</string>
+                <string>{1922,800}</string>
             </dict>
             <key>low_sky_temple_5_sword_01.png</key>
             <dict>
@@ -59,7 +59,7 @@
             <key>low_sky_temple_5_water_02_01.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{1924,70},{38,72}}</string>
+                <string>{{1926,70},{38,72}}</string>
                 <key>offset</key>
                 <string>{328,-391}</string>
                 <key>rotated</key>
@@ -72,7 +72,7 @@
             <key>low_sky_temple_5_water_02_02.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{1924,2},{80,66}}</string>
+                <string>{{1926,2},{80,66}}</string>
                 <key>offset</key>
                 <string>{325,-534}</string>
                 <key>rotated</key>
@@ -85,7 +85,7 @@
             <key>low_sky_temple_5_water_02_03.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{1924,110},{148,70}}</string>
+                <string>{{1926,110},{148,70}}</string>
                 <key>offset</key>
                 <string>{277,-701}</string>
                 <key>rotated</key>
@@ -131,7 +131,7 @@
             <key>size</key>
             <string>{2030,1404}</string>
             <key>smartupdate</key>
-            <string>$TexturePacker:SmartUpdate:771e2102a4059d0153f8a437ec096915:dff4a995f15c97a73c7e7f9738136724:2d182fa6f2b06ba4e9f2a7e56f5e20d8$</string>
+            <string>$TexturePacker:SmartUpdate:7157a8384758c794eb817dc36ea4076a:913eeea2981997db04c499f083759b93:2d182fa6f2b06ba4e9f2a7e56f5e20d8$</string>
             <key>textureFileName</key>
             <string>low_sky_temple_1.png</string>
         </dict>

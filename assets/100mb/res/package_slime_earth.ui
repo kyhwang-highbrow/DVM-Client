@@ -16,7 +16,7 @@
 					dock_point = { 0.500000; 0.500000; };
 					anchor_point = { 0.500000; 0.500000; };
 					relative_size_type = 0;
-					width = 292;
+					width = 347;
 					height = 105;
 					scale_x = 1.000000;
 					scale_y = 1.000000;
@@ -338,8 +338,8 @@
 			{
 				type = 'LabelTTF';
 				ui_name = '';
-				x = -152.000000;
-				y = -100.000000;
+				x = -208.000000;
+				y = -116.000000;
 				dock_point = { 0.500000; 0.500000; };
 				anchor_point = { 0.500000; 0.500000; };
 				relative_size_type = 0;
@@ -379,7 +379,7 @@
 				type = 'LabelTTF';
 				ui_name = '';
 				x = 0.000000;
-				y = -100.000000;
+				y = -116.000000;
 				dock_point = { 0.500000; 0.500000; };
 				anchor_point = { 0.500000; 0.500000; };
 				relative_size_type = 0;
@@ -418,12 +418,12 @@
 			{
 				type = 'LabelTTF';
 				ui_name = '';
-				x = 152.000000;
-				y = -100.000000;
+				x = 208.000000;
+				y = -116.000000;
 				dock_point = { 0.500000; 0.500000; };
 				anchor_point = { 0.500000; 0.500000; };
 				relative_size_type = 0;
-				width = 150;
+				width = 170;
 				height = 100;
 				scale_x = 1.000000;
 				scale_y = 1.000000;
@@ -439,7 +439,7 @@
 				v_alignment = 1;
 				color = { 255; 255; 255; };
 				opacity = 255;
-				dimension_width = 150;
+				dimension_width = 170;
 				dimension_height = 100;
 				letter_spacing = 0.000000;
 				has_stroke = true;

@@ -7,24 +7,63 @@
             <key>bg_low_canyon_1_a_1.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{2,2},{1920,800}}</string>
+                <string>{{2,2},{1922,800}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
+                <true/>
+                <key>sourceColorRect</key>
+                <string>{{0,0},{1922,800}}</string>
+                <key>sourceSize</key>
+                <string>{1922,800}</string>
+            </dict>
+            <key>bg_low_canyon_light_1.png</key>
+            <dict>
+                <key>frame</key>
+                <string>{{804,2},{406,486}}</string>
+                <key>offset</key>
+                <string>{30,-20}</string>
+                <key>rotated</key>
                 <false/>
                 <key>sourceColorRect</key>
-                <string>{{0,0},{1920,800}}</string>
+                <string>{{139,83},{406,486}}</string>
                 <key>sourceSize</key>
-                <string>{1920,800}</string>
+                <string>{624,612}</string>
+            </dict>
+            <key>bg_low_canyon_light_2.png</key>
+            <dict>
+                <key>frame</key>
+                <string>{{1180,490},{22,22}}</string>
+                <key>offset</key>
+                <string>{-1,3}</string>
+                <key>rotated</key>
+                <false/>
+                <key>sourceColorRect</key>
+                <string>{{38,36},{22,22}}</string>
+                <key>sourceSize</key>
+                <string>{100,100}</string>
+            </dict>
+            <key>bg_low_canyon_sand_1.png</key>
+            <dict>
+                <key>frame</key>
+                <string>{{804,490},{254,690}}</string>
+                <key>offset</key>
+                <string>{6,-27}</string>
+                <key>rotated</key>
+                <false/>
+                <key>sourceColorRect</key>
+                <string>{{69,54},{254,690}}</string>
+                <key>sourceSize</key>
+                <string>{380,744}</string>
             </dict>
             <key>bg_low_canyon_windmill_1.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{1924,2},{92,90}}</string>
+                <string>{{1060,490},{92,90}}</string>
                 <key>offset</key>
                 <string>{0,-1}</string>
                 <key>rotated</key>
-                <true/>
+                <false/>
                 <key>sourceColorRect</key>
                 <string>{{22,24},{92,90}}</string>
                 <key>sourceSize</key>
@@ -33,7 +72,7 @@
             <key>bg_low_canyon_windmill_2.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{1924,96},{24,24}}</string>
+                <string>{{1154,490},{24,24}}</string>
                 <key>offset</key>
                 <string>{-3,0}</string>
                 <key>rotated</key>
@@ -51,9 +90,9 @@
             <key>realTextureFileName</key>
             <string>low_canyon_1.png</string>
             <key>size</key>
-            <string>{2016,804}</string>
+            <string>{1212,1926}</string>
             <key>smartupdate</key>
-            <string>$TexturePacker:SmartUpdate:b09a1be2a5ea14ed110f80817300d255:96b6a549cfc2f3d219dcca32b7bc002d:06f32189211ad3f7e59ec5d93e70167f$</string>
+            <string>$TexturePacker:SmartUpdate:cea80ec3586bbc4d239f5f031b66188f:89c26e8e1be911bed7067ad51abd679c:06f32189211ad3f7e59ec5d93e70167f$</string>
             <key>textureFileName</key>
             <string>low_canyon_1.png</string>
         </dict>

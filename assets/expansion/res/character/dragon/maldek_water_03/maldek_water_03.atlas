@@ -1,0 +1,321 @@
+
+maldek_water_03.png
+size: 993,365
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+maldek_water_arm_l
+  rotate: true
+  xy: 479, 67
+  size: 53, 102
+  orig: 53, 102
+  offset: 0, 0
+  index: -1
+maldek_water_arm_l_deco
+  rotate: true
+  xy: 648, 36
+  size: 55, 47
+  orig: 55, 47
+  offset: 0, 0
+  index: -1
+maldek_water_arm_r
+  rotate: true
+  xy: 335, 43
+  size: 46, 105
+  orig: 46, 105
+  offset: 0, 0
+  index: -1
+maldek_water_arm_r_deco
+  rotate: true
+  xy: 648, 93
+  size: 46, 35
+  orig: 46, 35
+  offset: 0, 0
+  index: -1
+maldek_water_body
+  rotate: false
+  xy: 335, 91
+  size: 142, 139
+  orig: 142, 139
+  offset: 0, 0
+  index: -1
+maldek_water_body_deco_01
+  rotate: true
+  xy: 297, 4
+  size: 35, 43
+  orig: 35, 43
+  offset: 0, 0
+  index: -1
+maldek_water_body_deco_02
+  rotate: true
+  xy: 591, 2
+  size: 38, 54
+  orig: 38, 54
+  offset: 0, 0
+  index: -1
+maldek_water_body_deco_03
+  rotate: false
+  xy: 751, 72
+  size: 23, 41
+  orig: 23, 41
+  offset: 0, 0
+  index: -1
+maldek_water_book_01
+  rotate: false
+  xy: 2, 232
+  size: 302, 131
+  orig: 302, 131
+  offset: 0, 0
+  index: -1
+maldek_water_book_02
+  rotate: true
+  xy: 922, 238
+  size: 125, 67
+  orig: 125, 67
+  offset: 0, 0
+  index: -1
+maldek_water_book_03
+  rotate: true
+  xy: 525, 237
+  size: 126, 165
+  orig: 126, 165
+  offset: 0, 0
+  index: -1
+maldek_water_book_ef_01
+  rotate: false
+  xy: 479, 122
+  size: 108, 108
+  orig: 108, 108
+  offset: 0, 0
+  index: -1
+maldek_water_book_ef_02
+  rotate: false
+  xy: 776, 96
+  size: 76, 76
+  orig: 76, 76
+  offset: 0, 0
+  index: -1
+maldek_water_book_ef_03
+  rotate: true
+  xy: 685, 115
+  size: 84, 89
+  orig: 84, 89
+  offset: 0, 0
+  index: -1
+maldek_water_book_ef_04
+  rotate: false
+  xy: 919, 165
+  size: 70, 71
+  orig: 70, 71
+  offset: 0, 0
+  index: -1
+maldek_water_eye_01
+  rotate: false
+  xy: 442, 68
+  size: 30, 21
+  orig: 30, 21
+  offset: 0, 0
+  index: -1
+maldek_water_eye_02
+  rotate: false
+  xy: 789, 30
+  size: 30, 21
+  orig: 30, 21
+  offset: 0, 0
+  index: -1
+maldek_water_eye_03
+  rotate: false
+  xy: 789, 7
+  size: 30, 21
+  orig: 30, 21
+  offset: 0, 0
+  index: -1
+maldek_water_eye_04
+  rotate: false
+  xy: 821, 27
+  size: 30, 20
+  orig: 30, 20
+  offset: 0, 0
+  index: -1
+maldek_water_hair
+  rotate: false
+  xy: 697, 63
+  size: 52, 50
+  orig: 52, 50
+  offset: 0, 0
+  index: -1
+maldek_water_hand_l
+  rotate: false
+  xy: 442, 2
+  size: 63, 63
+  orig: 63, 63
+  offset: 0, 0
+  index: -1
+maldek_water_hand_r
+  rotate: false
+  xy: 854, 93
+  size: 55, 77
+  orig: 55, 77
+  offset: 0, 0
+  index: -1
+maldek_water_head_01
+  rotate: false
+  xy: 692, 256
+  size: 116, 107
+  orig: 116, 107
+  offset: 0, 0
+  index: -1
+maldek_water_head_02
+  rotate: true
+  xy: 911, 63
+  size: 51, 69
+  orig: 51, 69
+  offset: 0, 0
+  index: -1
+maldek_water_head_deco
+  rotate: true
+  xy: 835, 49
+  size: 42, 44
+  orig: 42, 44
+  offset: 0, 0
+  index: -1
+maldek_water_leg_l_01
+  rotate: true
+  xy: 692, 201
+  size: 53, 96
+  orig: 53, 96
+  offset: 0, 0
+  index: -1
+maldek_water_leg_l_02
+  rotate: false
+  xy: 589, 99
+  size: 57, 40
+  orig: 57, 40
+  offset: 0, 0
+  index: -1
+maldek_water_leg_l_03
+  rotate: true
+  xy: 507, 8
+  size: 57, 82
+  orig: 57, 82
+  offset: 0, 0
+  index: -1
+maldek_water_leg_l_deco
+  rotate: false
+  xy: 745, 9
+  size: 42, 42
+  orig: 42, 42
+  offset: 0, 0
+  index: -1
+maldek_water_leg_r_01
+  rotate: false
+  xy: 870, 172
+  size: 47, 79
+  orig: 47, 79
+  offset: 0, 0
+  index: -1
+maldek_water_leg_r_02
+  rotate: false
+  xy: 384, 8
+  size: 41, 33
+  orig: 41, 33
+  offset: 0, 0
+  index: -1
+maldek_water_leg_r_03
+  rotate: true
+  xy: 911, 116
+  size: 47, 80
+  orig: 47, 80
+  offset: 0, 0
+  index: -1
+maldek_water_leg_r_deco
+  rotate: true
+  xy: 342, 6
+  size: 35, 40
+  orig: 35, 40
+  offset: 0, 0
+  index: -1
+maldek_water_mouth
+  rotate: false
+  xy: 776, 53
+  size: 57, 41
+  orig: 57, 41
+  offset: 0, 0
+  index: -1
+maldek_water_tail
+  rotate: false
+  xy: 190, 41
+  size: 143, 189
+  orig: 143, 189
+  offset: 0, 0
+  index: -1
+maldek_water_tail_2
+  rotate: false
+  xy: 881, 65
+  size: 26, 26
+  orig: 26, 26
+  offset: 0, 0
+  index: -1
+maldek_water_tail_deco
+  rotate: true
+  xy: 190, 10
+  size: 29, 105
+  orig: 29, 105
+  offset: 0, 0
+  index: -1
+maldek_water_tail_deco_01
+  rotate: false
+  xy: 591, 42
+  size: 55, 55
+  orig: 55, 55
+  offset: 0, 0
+  index: -1
+maldek_water_tail_deco_02
+  rotate: false
+  xy: 647, 2
+  size: 43, 32
+  orig: 43, 32
+  offset: 0, 0
+  index: -1
+maldek_water_tail_deco_03
+  rotate: true
+  xy: 697, 17
+  size: 44, 46
+  orig: 44, 46
+  offset: 0, 0
+  index: -1
+maldek_water_wing_ef_01
+  rotate: false
+  xy: 810, 253
+  size: 110, 110
+  orig: 110, 110
+  offset: 0, 0
+  index: -1
+maldek_water_wing_ef_02
+  rotate: true
+  xy: 790, 174
+  size: 77, 78
+  orig: 77, 78
+  offset: 0, 0
+  index: -1
+maldek_water_wing_ef_03
+  rotate: false
+  xy: 589, 141
+  size: 94, 94
+  orig: 94, 94
+  offset: 0, 0
+  index: -1
+maldek_water_wing_l
+  rotate: false
+  xy: 2, 4
+  size: 186, 226
+  orig: 186, 226
+  offset: 0, 0
+  index: -1
+maldek_water_wing_r
+  rotate: true
+  xy: 306, 232
+  size: 131, 217
+  orig: 131, 217
+  offset: 0, 0
+  index: -1

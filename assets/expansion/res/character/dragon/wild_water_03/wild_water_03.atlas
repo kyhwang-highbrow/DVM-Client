@@ -1,0 +1,258 @@
+
+wild_water_03.png
+size: 585,522
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+wild_water_03_arm_l_01
+  rotate: false
+  xy: 178, 374
+  size: 121, 146
+  orig: 121, 146
+  offset: 0, 0
+  index: -1
+wild_water_03_arm_l_02
+  rotate: false
+  xy: 2, 2
+  size: 81, 85
+  orig: 81, 85
+  offset: 0, 0
+  index: -1
+wild_water_03_arm_r_01
+  rotate: false
+  xy: 381, 172
+  size: 70, 69
+  orig: 70, 69
+  offset: 0, 0
+  index: -1
+wild_water_03_arm_r_02
+  rotate: true
+  xy: 167, 6
+  size: 139, 91
+  orig: 139, 91
+  offset: 0, 0
+  index: -1
+wild_water_03_arm_r_03
+  rotate: false
+  xy: 450, 33
+  size: 37, 50
+  orig: 37, 50
+  offset: 0, 0
+  index: -1
+wild_water_03_body
+  rotate: false
+  xy: 2, 274
+  size: 174, 246
+  orig: 174, 246
+  offset: 0, 0
+  index: -1
+wild_water_03_ef_deco_l_01
+  rotate: false
+  xy: 490, 382
+  size: 93, 138
+  orig: 93, 138
+  offset: 0, 0
+  index: -1
+wild_water_03_ef_deco_l_02
+  rotate: false
+  xy: 453, 162
+  size: 56, 79
+  orig: 56, 79
+  offset: 0, 0
+  index: -1
+wild_water_03_ef_deco_r_01
+  rotate: false
+  xy: 310, 251
+  size: 88, 132
+  orig: 88, 132
+  offset: 0, 0
+  index: -1
+wild_water_03_ef_deco_r_02
+  rotate: false
+  xy: 414, 85
+  size: 53, 75
+  orig: 53, 75
+  offset: 0, 0
+  index: -1
+wild_water_03_eye_01
+  rotate: false
+  xy: 286, 252
+  size: 21, 18
+  orig: 21, 18
+  offset: 0, 0
+  index: -1
+wild_water_03_eye_02
+  rotate: false
+  xy: 557, 107
+  size: 21, 18
+  orig: 21, 18
+  offset: 0, 0
+  index: -1
+wild_water_03_eye_03
+  rotate: false
+  xy: 450, 13
+  size: 21, 18
+  orig: 21, 18
+  offset: 0, 0
+  index: -1
+wild_water_03_eye_ef
+  rotate: false
+  xy: 557, 127
+  size: 26, 26
+  orig: 26, 26
+  offset: 0, 0
+  index: -1
+wild_water_03_hand_l_01
+  rotate: true
+  xy: 85, 2
+  size: 85, 80
+  orig: 85, 80
+  offset: 0, 0
+  index: -1
+wild_water_03_hand_l_02
+  rotate: false
+  xy: 511, 155
+  size: 62, 52
+  orig: 62, 52
+  offset: 0, 0
+  index: -1
+wild_water_03_head
+  rotate: false
+  xy: 178, 272
+  size: 130, 100
+  orig: 130, 100
+  offset: 0, 0
+  index: -1
+wild_water_03_horn
+  rotate: false
+  xy: 380, 69
+  size: 32, 83
+  orig: 32, 83
+  offset: 0, 0
+  index: -1
+wild_water_03_leg_l_01
+  rotate: false
+  xy: 260, 47
+  size: 64, 98
+  orig: 64, 98
+  offset: 0, 0
+  index: -1
+wild_water_03_leg_l_02
+  rotate: false
+  xy: 326, 2
+  size: 55, 63
+  orig: 55, 63
+  offset: 0, 0
+  index: -1
+wild_water_03_leg_l_03
+  rotate: false
+  xy: 326, 67
+  size: 52, 85
+  orig: 52, 85
+  offset: 0, 0
+  index: -1
+wild_water_03_leg_r_01
+  rotate: true
+  xy: 301, 385
+  size: 62, 109
+  orig: 62, 109
+  offset: 0, 0
+  index: -1
+wild_water_03_leg_r_02
+  rotate: true
+  xy: 469, 99
+  size: 61, 33
+  orig: 61, 33
+  offset: 0, 0
+  index: -1
+wild_water_03_leg_r_03
+  rotate: true
+  xy: 400, 243
+  size: 38, 86
+  orig: 38, 86
+  offset: 0, 0
+  index: -1
+wild_water_03_mouth_01
+  rotate: false
+  xy: 383, 2
+  size: 65, 65
+  orig: 65, 65
+  offset: 0, 0
+  index: -1
+wild_water_03_mouth_02
+  rotate: true
+  xy: 260, 3
+  size: 42, 57
+  orig: 42, 57
+  offset: 0, 0
+  index: -1
+wild_water_03_sound_ef
+  rotate: false
+  xy: 286, 154
+  size: 93, 95
+  orig: 93, 95
+  offset: 0, 0
+  index: -1
+wild_water_03_sound_ef_02
+  rotate: true
+  xy: 489, 287
+  size: 93, 94
+  orig: 93, 94
+  offset: 0, 0
+  index: -1
+wild_water_03_tail
+  rotate: false
+  xy: 301, 449
+  size: 187, 71
+  orig: 187, 71
+  offset: 0, 0
+  index: -1
+wild_water_03_wing_l_01
+  rotate: true
+  xy: 2, 89
+  size: 183, 157
+  orig: 183, 157
+  offset: 0, 0
+  index: -1
+wild_water_03_wing_l_ef_01
+  rotate: true
+  xy: 511, 209
+  size: 76, 57
+  orig: 76, 57
+  offset: 0, 0
+  index: -1
+wild_water_03_wing_l_ef_02
+  rotate: false
+  xy: 412, 384
+  size: 76, 63
+  orig: 76, 63
+  offset: 0, 0
+  index: -1
+wild_water_03_wing_l_ef_03
+  rotate: true
+  xy: 400, 283
+  size: 99, 87
+  orig: 99, 87
+  offset: 0, 0
+  index: -1
+wild_water_03_wing_r_01
+  rotate: false
+  xy: 161, 147
+  size: 123, 123
+  orig: 123, 123
+  offset: 0, 0
+  index: -1
+wild_water_03_wing_r_ef_01
+  rotate: false
+  xy: 504, 103
+  size: 51, 50
+  orig: 51, 50
+  offset: 0, 0
+  index: -1
+wild_water_03_wing_r_ef_02
+  rotate: true
+  xy: 504, 51
+  size: 50, 51
+  orig: 50, 51
+  offset: 0, 0
+  index: -1

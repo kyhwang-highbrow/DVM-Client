@@ -74,7 +74,7 @@
 				skew_y = 0.000000;
 				rotation = 0.000000;
 				visible = true;
-				lua_name = 'fireBtn';
+				lua_name = 'buyBtn1';
 				enable = true;
 				normal = 'ui/icons/empty.png';
 				selected = '';
@@ -98,7 +98,7 @@
 				skew_y = 0.000000;
 				rotation = 0.000000;
 				visible = true;
-				lua_name = 'waterBtn';
+				lua_name = 'buyBtn2';
 				enable = true;
 				normal = 'ui/icons/empty.png';
 				selected = '';
@@ -122,7 +122,7 @@
 				skew_y = 0.000000;
 				rotation = 0.000000;
 				visible = true;
-				lua_name = 'earthBtn';
+				lua_name = 'buyBtn3';
 				enable = true;
 				normal = 'ui/icons/empty.png';
 				selected = '';
@@ -146,7 +146,7 @@
 				skew_y = 0.000000;
 				rotation = 0.000000;
 				visible = true;
-				lua_name = 'lightBtn';
+				lua_name = 'buyBtn4';
 				enable = true;
 				normal = 'ui/icons/empty.png';
 				selected = '';
@@ -170,7 +170,7 @@
 				skew_y = 0.000000;
 				rotation = 0.000000;
 				visible = true;
-				lua_name = 'darkBtn';
+				lua_name = 'buyBtn5';
 				enable = true;
 				normal = 'ui/icons/empty.png';
 				selected = '';

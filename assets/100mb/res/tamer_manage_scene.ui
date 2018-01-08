@@ -78,12 +78,12 @@
 				{
 					type = 'LabelTTF';
 					ui_name = '';
-					x = 0.000000;
+					x = 114.000000;
 					y = 34.000000;
 					dock_point = { 0.500000; 0.500000; };
 					anchor_point = { 0.500000; 0.500000; };
 					relative_size_type = 0;
-					width = 640;
+					width = 460;
 					height = 120;
 					scale_x = 1.000000;
 					scale_y = 1.000000;
@@ -93,13 +93,13 @@
 					visible = true;
 					lua_name = 'tamerDscLabel';
 					font_name = 'font/common_font_01.ttf';
-					font_size = 22;
+					font_size = 20;
 					text = 'tamerDscLabel';
 					h_alignment = 1;
 					v_alignment = 1;
 					color = { 240; 215; 159; };
 					opacity = 255;
-					dimension_width = 640;
+					dimension_width = 460;
 					dimension_height = 120;
 					letter_spacing = 0.000000;
 					has_stroke = true;
@@ -158,12 +158,12 @@
 					};
 					type = 'Button';
 					ui_name = '';
-					x = 0.000000;
+					x = 114.000000;
 					y = -102.000000;
 					dock_point = { 0.500000; 0.500000; };
 					anchor_point = { 0.500000; 0.500000; };
 					relative_size_type = 0;
-					width = 370;
+					width = 480;
 					height = 70;
 					scale_x = 1.000000;
 					scale_y = 1.000000;
@@ -222,12 +222,12 @@
 					};
 					type = 'Button';
 					ui_name = '';
-					x = 0.000000;
+					x = 114.000000;
 					y = -102.000000;
 					dock_point = { 0.500000; 0.500000; };
 					anchor_point = { 0.500000; 0.500000; };
 					relative_size_type = 0;
-					width = 370;
+					width = 480;
 					height = 70;
 					scale_x = 1.000000;
 					scale_y = 1.000000;
@@ -331,12 +331,12 @@
 					};
 					type = 'Button';
 					ui_name = '';
-					x = 0.000000;
+					x = 114.000000;
 					y = -102.000000;
 					dock_point = { 0.500000; 0.500000; };
 					anchor_point = { 0.500000; 0.500000; };
 					relative_size_type = 0;
-					width = 370;
+					width = 480;
 					height = 70;
 					scale_x = 1.000000;
 					scale_y = 1.000000;
@@ -395,19 +395,19 @@
 					};
 					type = 'Scale9Sprite';
 					ui_name = '';
-					x = 0.000000;
+					x = 114.000000;
 					y = -42.000000;
 					dock_point = { 0.500000; 0.500000; };
 					anchor_point = { 0.500000; 0.500000; };
 					relative_size_type = 0;
-					width = 400;
+					width = 460;
 					height = 40;
 					scale_x = 1.000000;
 					scale_y = 1.000000;
 					skew_x = 0.000000;
 					skew_y = 0.000000;
 					rotation = 0.000000;
-					visible = false;
+					visible = true;
 					lua_name = 'lockSprite';
 					file_name = 'ui/frames/base_frame_0301.png';
 					color = { 255; 255; 255; };
@@ -421,7 +421,26 @@
 				{
 					type = 'Node';
 					ui_name = '';
-					x = -164.000000;
+					x = -50.000000;
+					y = 170.000000;
+					dock_point = { 0.500000; 0.500000; };
+					anchor_point = { 0.500000; 0.500000; };
+					relative_size_type = 0;
+					width = 104;
+					height = 148;
+					scale_x = 1.000000;
+					scale_y = 1.000000;
+					skew_x = 0.000000;
+					skew_y = 0.000000;
+					rotation = 0.000000;
+					visible = true;
+					lua_name = 'skillNode0';
+				};
+				[7] =
+				{
+					type = 'Node';
+					ui_name = '';
+					x = 59.000000;
 					y = 170.000000;
 					dock_point = { 0.500000; 0.500000; };
 					anchor_point = { 0.500000; 0.500000; };
@@ -436,11 +455,11 @@
 					visible = true;
 					lua_name = 'skillNode1';
 				};
-				[7] =
+				[8] =
 				{
 					type = 'Node';
 					ui_name = '';
-					x = -55.000000;
+					x = 169.000000;
 					y = 170.000000;
 					dock_point = { 0.500000; 0.500000; };
 					anchor_point = { 0.500000; 0.500000; };
@@ -455,11 +474,11 @@
 					visible = true;
 					lua_name = 'skillNode2';
 				};
-				[8] =
+				[9] =
 				{
 					type = 'Node';
 					ui_name = '';
-					x = 55.000000;
+					x = 278.000000;
 					y = 170.000000;
 					dock_point = { 0.500000; 0.500000; };
 					anchor_point = { 0.500000; 0.500000; };
@@ -474,45 +493,7 @@
 					visible = true;
 					lua_name = 'skillNode3';
 				};
-				[9] =
-				{
-					type = 'Node';
-					ui_name = '';
-					x = 164.000000;
-					y = 170.000000;
-					dock_point = { 0.500000; 0.500000; };
-					anchor_point = { 0.500000; 0.500000; };
-					relative_size_type = 0;
-					width = 104;
-					height = 148;
-					scale_x = 1.000000;
-					scale_y = 1.000000;
-					skew_x = 0.000000;
-					skew_y = 0.000000;
-					rotation = 0.000000;
-					visible = true;
-					lua_name = 'skillNode4';
-				};
 				[10] =
-				{
-					type = 'Node';
-					ui_name = '';
-					x = 296.000000;
-					y = 180.000000;
-					dock_point = { 0.500000; 0.500000; };
-					anchor_point = { 0.500000; 0.500000; };
-					relative_size_type = 0;
-					width = 100;
-					height = 240;
-					scale_x = 0.800000;
-					scale_y = 0.800000;
-					skew_x = 0.000000;
-					skew_y = 0.000000;
-					rotation = 0.000000;
-					visible = true;
-					lua_name = 'tamerSdNode';
-				};
-				[11] =
 				{
 					type = 'Menu';
 					ui_name = '';
@@ -531,14 +512,14 @@
 					visible = true;
 					lua_name = 'profileMenu';
 				};
-				[12] =
+				[11] =
 				{
 					[1] =
 					{
 						type = 'LabelTTF';
 						ui_name = '';
 						x = 0.000000;
-						y = 14.000000;
+						y = 0.000000;
 						dock_point = { 0.500000; 0.500000; };
 						anchor_point = { 0.500000; 0.500000; };
 						relative_size_type = 0;
@@ -589,7 +570,7 @@
 						skew_x = 0.000000;
 						skew_y = 0.000000;
 						rotation = 0.000000;
-						visible = true;
+						visible = false;
 						lua_name = 'tamerTypeLabel';
 						font_name = 'font/common_font_01.ttf';
 						font_size = 30;
@@ -637,6 +618,169 @@
 					center_rect_width = 0;
 					center_rect_height = 0;
 				};
+				[12] =
+				{
+					type = 'Node';
+					ui_name = '';
+					x = -244.000000;
+					y = 140.000000;
+					dock_point = { 0.500000; 0.500000; };
+					anchor_point = { 0.500000; 0.500000; };
+					relative_size_type = 0;
+					width = 100;
+					height = 240;
+					scale_x = -1.200000;
+					scale_y = 1.200000;
+					skew_x = 0.000000;
+					skew_y = 0.000000;
+					rotation = 0.000000;
+					visible = true;
+					lua_name = 'tamerSdNode';
+				};
+				[13] =
+				{
+					type = 'LabelTTF';
+					ui_name = '';
+					x = -244.000000;
+					y = -29.000000;
+					dock_point = { 0.500000; 0.500000; };
+					anchor_point = { 0.500000; 0.500000; };
+					relative_size_type = 0;
+					width = 256;
+					height = 65;
+					scale_x = 1.000000;
+					scale_y = 1.000000;
+					skew_x = 0.000000;
+					skew_y = 0.000000;
+					rotation = 0.000000;
+					visible = false;
+					lua_name = 'costumeStatLabel';
+					font_name = 'font/common_font_01.ttf';
+					font_size = 20;
+					text = '드래곤 공격력+10\n드래곤 방어력+10';
+					h_alignment = 1;
+					v_alignment = 1;
+					color = { 255; 255; 255; };
+					opacity = 255;
+					dimension_width = 256;
+					dimension_height = 65;
+					letter_spacing = 0.000000;
+					has_stroke = true;
+					stroke_type = 0;
+					stroke_detail_level = 0;
+					is_sharp_text = true;
+					stroke_tickness = 2.000000;
+					stroke_color = { 0; 0; 0; };
+					has_shadow = false;
+					shadow_color = { 0; 0; 0; };
+					shadow_opacity = 255;
+					shadow_direction = 0;
+					shadow_distance = 5.000000;
+				};
+				[14] =
+				{
+					type = 'LabelTTF';
+					ui_name = '';
+					x = -244.000000;
+					y = -44.000000;
+					dock_point = { 0.500000; 0.500000; };
+					anchor_point = { 0.500000; 0.500000; };
+					relative_size_type = 0;
+					width = 256;
+					height = 40;
+					scale_x = 1.000000;
+					scale_y = 1.000000;
+					skew_x = 0.000000;
+					skew_y = 0.000000;
+					rotation = 0.000000;
+					visible = true;
+					lua_name = 'costumeTitleLabel';
+					font_name = 'font/common_font_01.ttf';
+					font_size = 24;
+					text = '기본 코스튬';
+					h_alignment = 1;
+					v_alignment = 1;
+					color = { 255; 215; 0; };
+					opacity = 255;
+					dimension_width = 256;
+					dimension_height = 40;
+					letter_spacing = 0.000000;
+					has_stroke = true;
+					stroke_type = 0;
+					stroke_detail_level = 0;
+					is_sharp_text = true;
+					stroke_tickness = 2.000000;
+					stroke_color = { 0; 0; 0; };
+					has_shadow = false;
+					shadow_color = { 0; 0; 0; };
+					shadow_opacity = 255;
+					shadow_direction = 0;
+					shadow_distance = 5.000000;
+				};
+				[15] =
+				{
+					[1] =
+					{
+						type = 'LabelTTF';
+						ui_name = '';
+						x = 0.000000;
+						y = 0.000000;
+						dock_point = { 0.500000; 0.500000; };
+						anchor_point = { 0.500000; 0.500000; };
+						relative_size_type = 0;
+						width = 200;
+						height = 50;
+						scale_x = 1.000000;
+						scale_y = 1.000000;
+						skew_x = 0.000000;
+						skew_y = 0.000000;
+						rotation = 0.000000;
+						visible = true;
+						lua_name = '';
+						font_name = 'font/common_font_01.ttf';
+						font_size = 24;
+						text = '테이머 코스튬';
+						h_alignment = 1;
+						v_alignment = 1;
+						color = { 240; 215; 159; };
+						opacity = 255;
+						dimension_width = 200;
+						dimension_height = 50;
+						letter_spacing = 0.000000;
+						has_stroke = false;
+						stroke_type = 0;
+						stroke_detail_level = 0;
+						is_sharp_text = true;
+						stroke_tickness = 2.000000;
+						stroke_color = { 85; 44; 25; };
+						has_shadow = false;
+						shadow_color = { 85; 44; 25; };
+						shadow_opacity = 150;
+						shadow_direction = 0;
+						shadow_distance = 2.000000;
+					};
+					type = 'Button';
+					ui_name = '';
+					x = -244.000000;
+					y = -102.000000;
+					dock_point = { 0.500000; 0.500000; };
+					anchor_point = { 0.500000; 0.500000; };
+					relative_size_type = 0;
+					width = 200;
+					height = 60;
+					scale_x = 1.000000;
+					scale_y = 1.000000;
+					skew_x = 0.000000;
+					skew_y = 0.000000;
+					rotation = 0.000000;
+					visible = true;
+					lua_name = 'costumeBtn';
+					enable = true;
+					normal = 'ui/buttons/base_btn_0101.png';
+					selected = 'ui/buttons/base_btn_0102.png';
+					disable = '';
+					image_type = 1;
+				};
 				type = 'Menu';
 				ui_name = '';
 				x = 270.000000;
@@ -644,7 +788,7 @@
 				dock_point = { 0.500000; 0.500000; };
 				anchor_point = { 0.500000; 0.500000; };
 				relative_size_type = 0;
-				width = 680;
+				width = 710;
 				height = 630;
 				scale_x = 1.000000;
 				scale_y = 1.000000;
