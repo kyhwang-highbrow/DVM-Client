@@ -129,7 +129,7 @@ end
 function UI_ExchangeEvent:click_boxBtn()
     local curr_cnt = g_exchangeEventData.m_nMaterialCnt
     if (curr_cnt < NEED_EXCHANGE) then
-        UIManager:toastNotificationRed(Str('이벤트 재화가 부족합니다.'))
+        UIManager:toastNotificationRed(Str('이벤트 아이템이 부족합니다.'))
         return
     end
 
