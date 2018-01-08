@@ -19,7 +19,11 @@ function GameTimeScale:init(world)
     self.m_timeScale = 1
     self.m_remainKeepTime = 0
 
-    if (g_autoPlaySetting:get('quick_mode')) then
+    -- 클랜 던전일 경우 2배속 고정
+    if (self.m_world.m_gameMode == GAME_MODE_CLAN_RAID) then
+        self.m_baseTimeScale = g_constant:get('INGAME', 'QUICK_MODE_TIME_SCALE')
+
+    elseif (g_autoPlaySetting:get('quick_mode')) then
         if (self.m_world.m_gameMode ~= GAME_MODE_INTRO) then
             self.m_baseTimeScale = g_constant:get('INGAME', 'QUICK_MODE_TIME_SCALE')
         end

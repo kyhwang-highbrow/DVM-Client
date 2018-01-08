@@ -814,6 +814,7 @@ local t_module = {
 	'UI_Game',
     'UI_Game_Mana',
     'UI_GameColosseum',
+    'UI_GameClanRaid',
     'UI_GameResultNew',
     'UI_GameResult_Adventure',
     'UI_GameResult_AncientTower',

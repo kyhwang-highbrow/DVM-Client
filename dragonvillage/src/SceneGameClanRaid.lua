@@ -1,5 +1,7 @@
 local PARENT = SceneGame
 
+local LIMIT_TIME = 300
+
 -------------------------------------
 -- class SceneGameClanRaid
 -------------------------------------
@@ -46,7 +48,7 @@ function SceneGameClanRaid:onEnter()
     g_autoPlaySetting:setMode(AUTO_NORMAL)
     g_autoPlaySetting:setAutoPlay(false)
     
-    self.m_inGameUI = UI_Game(self)
+    self.m_inGameUI = UI_GameClanRaid(self)
     self.m_resPreloadMgr = ResPreloadMgr()
 end
 
@@ -124,9 +126,12 @@ function SceneGameClanRaid:updateRealTimer(dt)
     self.m_realLiveTimer = self.m_realLiveTimer + (dt / self.m_timeScale)
 
     -- TODO: 시간 제한 체크 및 처리
+    if (self.m_realLiveTimer > LIMIT_TIME) then
+    end
 
-    -- TODO: UI 시간 표기 갱신(차후 남은 시간으로 표시해야할듯)
-    self.m_inGameUI:setTime(self.m_realLiveTimer, true)
+    -- UI 시간 표기 갱신
+    local remain_time = math_max(LIMIT_TIME - self.m_realLiveTimer, 0)
+    self.m_inGameUI:setTime(remain_time, true)
 end
 
 -------------------------------------

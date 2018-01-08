@@ -3105,12 +3105,17 @@
     </None>
     <None Include="..\src\UI_GamePause_ClanRaid.lua">
       <Filter>lua\UI</Filter>
-    </None>    <None Include="..\src\SkillScript_ClanRaidBoss.lua">
+    </None>
+    <None Include="..\src\SkillScript_ClanRaidBoss.lua">
       <Filter>lua\src</Filter>
     </None>
-    <None Include="..\src\UI_ClanRaidRewardPopup.lua">
+    <None Include="..\src\UI_GameClanRaid.lua">
       <Filter>lua\UI</Filter>
-    </None>  </ItemGroup>
+    </None>
+	<None Include="..\src\UI_ClanRaidRewardPopup.lua">
+      <Filter>lua\UI</Filter>
+    </None>
+  </ItemGroup>
   <ItemGroup>
     <Filter Include="Classes">
       <UniqueIdentifier>{b7ee809a-b7d5-48e6-8549-4a35fe5a7886}</UniqueIdentifier>
