@@ -16,10 +16,6 @@ function Character:doSkill(skill_id, x, y, t_data, t_skill_derived)
         return false
 	end
 
-    if (isExistValue(self.m_state, 'delegate', 'stun')) then
-        return false
-    end
-    
 	-- 스킬 테이블 체크
     if (not t_skill) then
         error('ID '.. tostring(skill_id) ..' 에 해당하는 스킬 테이블이 없습니다')
