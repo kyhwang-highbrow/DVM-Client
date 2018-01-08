@@ -125,6 +125,15 @@ function ServerData_ClanRaid:isOpenClanRaid()
 end
 
 -------------------------------------
+-- function isClanRaidStageID
+-------------------------------------
+function ServerData_ClanRaid:isClanRaidStageID(stage_id)
+    if (not stage_id) then return false end
+    local game_mode = g_stageData:getGameMode(stage_id)
+    return (game_mode == GAME_MODE_CLAN_RAID)
+end
+
+-------------------------------------
 -- function getClanRaidStatusText
 -------------------------------------
 function ServerData_ClanRaid:getClanRaidStatusText()

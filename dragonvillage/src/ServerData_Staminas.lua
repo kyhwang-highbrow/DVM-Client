@@ -276,7 +276,10 @@ end
 -------------------------------------
 function ServerData_Staminas:staminaCharge(stage_id, finish_cb)
     local stamina_type, req_count = TableDrop:getStageStaminaType(stage_id)
-
+    -- 클랜던전은 충전개념이 아니라 소비 개념 - 따로 예외처리
+    if (stamina_type == 'cldg') then
+        return
+    end
 
     if (stamina_type == 'st') then
         MakeSimplePopup(POPUP_TYPE.YES_NO, Str('날개가 부족합니다.\n상점으로 이동하시겠습니까?'), function() g_shopDataNew:openShopPopup('st', finish_cb) end)

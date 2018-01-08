@@ -21,7 +21,7 @@ function UI_ClanRaid:initParentVariable()
     -- ITopUserInfo_EventListener의 맴버 변수들 설정
     self.m_uiName = 'UI_ClanRaid'
     self.m_titleStr = Str('클랜던전')
-	--self.m_staminaType = 'pvp'
+	self.m_staminaType = 'cldg'
     self.m_bVisible = true
     self.m_bUseExitBtn = true
     self.m_subCurrency = 'clancoin'
@@ -101,7 +101,7 @@ function UI_ClanRaid:initButton()
     vars['nextBtn']:registerScriptTapHandler(function() self:click_nextBtn() end)
     vars['rankBtn']:registerScriptTapHandler(function() self:click_rankBtn() end)
     vars['rewardBtn']:registerScriptTapHandler(function() self:click_rewardBtn() end)
-    vars['startBtn']:registerScriptTapHandler(function() self:click_startBtn() end)
+    vars['readyBtn']:registerScriptTapHandler(function() self:click_readyBtn() end)
 end
 
 -------------------------------------
@@ -301,7 +301,7 @@ function UI_ClanRaid:refreshBtn()
     vars['nextBtn']:setVisible(curr_stage_id >= next_stage_id)
 
     -- 시작버튼 활성화/비활성화
-    vars['startBtn']:setEnabled(stage_id >= curr_stage_id)
+    vars['readyBtn']:setEnabled(stage_id >= curr_stage_id)
 end
 
 -------------------------------------
@@ -363,10 +363,10 @@ function UI_ClanRaid:click_rewardBtn()
 end
 
 -------------------------------------
--- function click_startBtn
+-- function click_readyBtn
 -- @brief 던전입장
 -------------------------------------
-function UI_ClanRaid:click_startBtn()
+function UI_ClanRaid:click_readyBtn()
 
     -- 갱신 가능 시간인지 체크한다
 	local curr_time = Timer:getServerTime()

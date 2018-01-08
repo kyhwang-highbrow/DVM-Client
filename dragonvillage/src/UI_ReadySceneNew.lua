@@ -460,7 +460,7 @@ function UI_ReadySceneNew:refresh()
         if (stage_id == DEV_STAGE_ID) then
             self.vars['actingPowerLabel']:setString('0')
         else
-            local stamina_type, stamina_value = self:getStageStaminaInfo()
+            local stamina_type, stamina_value = TableDrop:getStageStaminaType(self.m_stageID)
             vars['actingPowerLabel']:setString(stamina_value)
         end
     end
@@ -469,7 +469,7 @@ function UI_ReadySceneNew:refresh()
     if (game_mode == GAME_MODE_ADVENTURE) then
         local active, key, str = g_hotTimeData:getActiveHotTimeInfo_stamina()
         if active then
-            local stamina_type, stamina_value = self:getStageStaminaInfo()
+            local stamina_type, stamina_value = TableDrop:getStageStaminaType(self.m_stageID)
             local cost_value = math_floor(stamina_value / 2)
             vars['actingPowerLabel']:setString(cost_value)
             vars['actingPowerLabel']:setTextColor(cc.c4b(0, 255, 255, 255))
@@ -1012,61 +1012,6 @@ function UI_ReadySceneNew:checkClanRaidDragon()
     return self.m_readySceneDeck:checkClanRaidDragon()
 end
 
---[[
--------------------------------------
--- function init_monsterListView
--------------------------------------
-function UI_ReadySceneNew:init_monsterListView()
-    local node = self.vars['monsterListView']
-    node:removeAllChildren()
-
-    -- 생성 콜백
-    local function create_func(ui, data)
-        ui.root:setScale(0.6)
-    end
-
-    -- stage_id로 몬스터 아이콘 리스트
-    local stage_id = self.m_stageID
-    local l_item_list = g_stageData:getMonsterIDList(stage_id)
-
-    -- 테이블 뷰 인스턴스 생성
-    local table_view = UIC_TableView(node)
-    table_view.m_defaultCellSize = cc.size(94, 98)
-    table_view:setCellUIClass(UI_MonsterCard, create_func)
-    table_view:setDirection(cc.SCROLLVIEW_DIRECTION_HORIZONTAL)
-    table_view:setItemList(l_item_list)
-    table_view.m_bAlignCenterInInsufficient = true -- 리스트 내 개수 부족 시 가운데 정렬
-end
-
--------------------------------------
--- function init_rewardListView
--- @brief 획득 가능 보상
--------------------------------------
-function UI_ReadySceneNew:init_rewardListView()
-    local node = self.vars['rewardListView']
-    node:removeAllChildren()
-
-
-    -- 생성 콜백
-    local function create_func(ui, data)
-        ui.root:setScale(0.6)
-    end
-
-    -- stage_id로 드랍정보를 얻어옴
-    local stage_id = self.m_stageID
-    local drop_helper = DropHelper(stage_id)
-    local l_item_list = drop_helper:getDisplayItemList()
-
-
-    -- 테이블 뷰 인스턴스 생성
-    local table_view = UIC_TableView(node)
-    table_view.m_defaultCellSize = cc.size(94, 98)
-    table_view:setCellUIClass(UI_ItemCard, create_func)
-    table_view:setDirection(cc.SCROLLVIEW_DIRECTION_HORIZONTAL)
-    table_view:setItemList(l_item_list)
-    table_view.m_bAlignCenterInInsufficient = true -- 리스트 내 개수 부족 시 가운데 정렬
-end
-]]
 -------------------------------------
 -- function getStageStaminaInfo
 -- @brief stage_id에 해당하는 필요 스태미너 타입, 갯수 리턴

@@ -61,6 +61,9 @@ function TableDrop:getStageStaminaType(stage_id)
 
     elseif (stage_id == FRIEND_MATCH_STAGE_ID) then
         return 'fpvp', 1
+
+    elseif (g_clanRaidData:isClanRaidStageID(stage_id)) then
+        return 'cldg', 1
     end
 
     local stamina_type = self:getValue(stage_id, 'cost_type')
