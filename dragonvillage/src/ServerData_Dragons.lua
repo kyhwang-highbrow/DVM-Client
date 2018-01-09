@@ -102,6 +102,23 @@ function ServerData_Dragons:getDragonsListWithAttr(attr)
 end
 
 -------------------------------------
+-- function getDragonsListExceptTarget
+-- @brief 해당 드래곤 제외하고 반환
+-------------------------------------
+function ServerData_Dragons:getDragonsListExceptTarget(map_except)
+    local dragon_dictionary = self:getDragonsListRef()
+    local ret_dictionary = {}
+
+    for key,value in pairs(dragon_dictionary) do
+        if (not map_except[key]) then
+            ret_dictionary[key] = value
+        end
+    end
+
+    return ret_dictionary
+end
+
+-------------------------------------
 -- function getDragonSkillMoveList
 -------------------------------------
 function ServerData_Dragons:getDragonSkillMoveList(tar_doid)

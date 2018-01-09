@@ -26,7 +26,9 @@ UI_ReadySceneNew_Deck = class({
         m_cbOnDeckChange = 'function',
 
         m_selRadioButton = 'UIC_RadioButton',
-        m_selTab = ''
+        m_selTab = 'string',
+
+        m_gameMode = 'number'
     })
 
 local TOTAL_POS_CNT = 5
@@ -54,14 +56,14 @@ local TAB_ATTACK_2 = 'down' -- 2 공격대 (하단)
 function UI_ReadySceneNew_Deck:init(ui_ready_scene)
     self.m_uiReadyScene = ui_ready_scene
     self.m_bDirtyDeck = true
+    self.m_gameMode = g_stageData:getGameMode(self.m_uiReadyScene.m_stageID)
 
 	self:initUI()
     self:initButton()
     self:initTab()
-
     self:init_deck()
-    self:makeTouchLayer_formation(self.m_uiReadyScene.vars['formationNode'])
 
+    self:makeTouchLayer_formation(self.m_uiReadyScene.vars['formationNode'])
     self.m_uiReadyScene.root:scheduleUpdateWithPriorityLua(function(dt) self:update(dt) end, 0)
 end
 
@@ -70,11 +72,9 @@ end
 -------------------------------------
 function UI_ReadySceneNew_Deck:initUI()
     local vars = self.m_uiReadyScene.vars
-    local stage_id = self.m_uiReadyScene.m_stageID
 
     -- 클랜 던전 처리
-    local game_mode = g_stageData:getGameMode(stage_id)
-    if (game_mode == GAME_MODE_CLAN_RAID) then
+    if (self.m_gameMode == GAME_MODE_CLAN_RAID) then
         vars['formationNode']:setPositionX(-225)
         vars['clanRaidMenu']:setVisible(true)
     end
@@ -85,11 +85,9 @@ end
 -------------------------------------
 function UI_ReadySceneNew_Deck:initButton()
     local vars = self.m_uiReadyScene.vars
-    local stage_id = self.m_uiReadyScene.m_stageID
 
     -- 클랜 던전 처리 (수동, 자동 선택)
-    local game_mode = g_stageData:getGameMode(stage_id)
-    if (game_mode == GAME_MODE_CLAN_RAID) then
+    if (self.m_gameMode == GAME_MODE_CLAN_RAID) then
         local radio_button = UIC_RadioButton()
         radio_button:addButtonAuto('up', vars)
         radio_button:addButtonAuto('down', vars)
@@ -107,15 +105,14 @@ end
 function UI_ReadySceneNew_Deck:initTab()
     local target = self.m_uiReadyScene
     local vars = self.m_uiReadyScene.vars
-    local stage_id = self.m_uiReadyScene.m_stageID
 
     -- 클랜 던전 처리 (제 1공격대, 2공격대 선택)
-    local game_mode = g_stageData:getGameMode(stage_id)
-    if (game_mode == GAME_MODE_CLAN_RAID) then
+    if (self.m_gameMode == GAME_MODE_CLAN_RAID) then
         target:addTabWithLabel(TAB_ATTACK_1, vars['teamTabBtn1'], vars['teamTabLabel1'])
         target:addTabWithLabel(TAB_ATTACK_2, vars['teamTabBtn2'], vars['teamTabLabel2'])
-
+        
         -- 최초는 1공격대 보여줌
+        self.m_selTab = TAB_ATTACK_1
         target:setTab(TAB_ATTACK_1)
 
         target:setChangeTabCB(function(tab, first) self:onChangeTab(tab, first) end)
@@ -162,6 +159,7 @@ function UI_ReadySceneNew_Deck:onChangeTab(tab, first)
     local next_func = function()
         g_deckData:setSelectedDeck(deck_name)
         self:init_deck()
+        self.m_uiReadyScene:apply_dragonSort()
     end
 
     if (deck_name) then
@@ -174,24 +172,13 @@ end
 -------------------------------------
 function UI_ReadySceneNew_Deck:click_dragonCard(t_dragon_data, skip_sort, idx)
     local doid = t_dragon_data['id']
-    local stage_id = self.m_uiReadyScene.m_stageID
-    local game_mode = g_stageData:getGameMode(stage_id)
 
-    -- 클랜 던전일 경우 제1 공격대와 제2 공격대 드래곤 체크
-    if (game_mode == GAME_MODE_CLAN_RAID) then
+    -- 클랜 던전 처리 - 1, 2 공격대 드래곤 체크
+    if (self.m_gameMode == GAME_MODE_CLAN_RAID) then
         local mode = self.m_selTab
-        local another_deck_name = g_clanRaidData:getAnotherDeckName(mode)
-        local l_deck, formation, deck_name, leader = g_deckData:getDeck(another_deck_name)
-        local is_used = false
+        local map_deck = g_clanRaidData:getAnotherDeckMap(mode)
 
-        for _, v in ipairs(l_deck) do
-            if (v == doid) then
-                is_used = true
-                break
-            end
-        end
-
-        if (is_used) then
+        if (map_deck[doid]) then
             local another_mode = g_clanRaidData:getAnotherMode(mode)
             local team_name = g_clanRaidData:getTeamName(another_mode)
 
@@ -380,6 +367,11 @@ function UI_ReadySceneNew_Deck:clear_deck(skip_sort)
     self.m_lDeckList = {}
     self.m_tDeckMap = {}
 
+    -- 클랜 던전 덱 해제
+    if (self.m_gameMode == GAME_MODE_CLAN_RAID) then
+        g_clanRaidData:clearDeckMap(self.m_selTab)
+    end
+
     -- 드래곤 인벤의 카드 갱신을 위해 호출
     for _,doid in  pairs(l_refresh_dragon_doid) do
         self:refresh_dragonCard(doid)
@@ -527,11 +519,10 @@ function UI_ReadySceneNew_Deck:refresh_dragonCard(doid, is_friend)
     end
 
     cca.uiReactionSlow(ui.root, DC_SCALE, DC_SCALE, DC_SCALE_PICK)
-
     if is_setted then
-        ui:setReadySpriteVisible(true)
+        self:setReadySpriteVisible(ui, true)
     else
-        ui:setReadySpriteVisible(false)
+        self:setReadySpriteVisible(ui, false)
     end
 end
 
@@ -581,6 +572,11 @@ function UI_ReadySceneNew_Deck:setSlot(idx, doid, skip_sort)
 
         -- 친구 드래곤 해제
         g_friendData:delSettedFriendDragonCard(prev_doid)
+
+        -- 클랜 던전 덱 해제
+        if (self.m_gameMode == GAME_MODE_CLAN_RAID) then
+            g_clanRaidData:deleteDeckMap(self.m_selTab, prev_doid)
+        end
     end
 
     -- 새롭게 생성
@@ -593,6 +589,11 @@ function UI_ReadySceneNew_Deck:setSlot(idx, doid, skip_sort)
 
         -- 친구 드래곤 선택 체크
         g_friendData:makeSettedFriendDragonCard(doid, idx)
+
+        -- 클랜 던전 덱 추가
+        if (self.m_gameMode == GAME_MODE_CLAN_RAID) then
+            g_clanRaidData:addDeckMap(self.m_selTab, doid)
+        end
     end
 
     -- 즉시 정렬
@@ -787,9 +788,7 @@ function UI_ReadySceneNew_Deck:checkClanRaidDragon()
             return false
         end
     else
-        local deck_name = g_clanRaidData:getDeckName(mode)
-        local l_deck, formation, deck_name, leader = g_deckData:getDeck(deck_name)
-
+        local l_deck = g_clanRaidData:getDeck(mode)
         if (#l_deck <= 0) then
             toast_func(mode)
             return false
@@ -804,9 +803,7 @@ function UI_ReadySceneNew_Deck:checkClanRaidDragon()
             return false
         end
     else
-        local deck_name = g_clanRaidData:getDeckName(mode)
-        local l_deck, formation, deck_name, leader = g_deckData:getDeck(deck_name)
-
+        local l_deck = g_clanRaidData:getDeck(mode)
         if (#l_deck <= 0) then
             toast_func(mode)
             return false
@@ -1170,4 +1167,17 @@ end
 -------------------------------------
 function UI_ReadySceneNew_Deck:setOnDeckChangeCB(func)
     self.m_cbOnDeckChange = func
+end
+
+-------------------------------------
+-- function setReadySpriteVisible
+-------------------------------------
+function UI_ReadySceneNew_Deck:setReadySpriteVisible(ui, visible)
+    -- 클랜 던전 처리
+    if (self.m_gameMode == GAME_MODE_CLAN_RAID) then
+        local num = self.m_selTab == TAB_ATTACK_1 and 1 or 2
+        ui:setTeamReadySpriteVisible(visible, num)
+    else
+        ui:setReadySpriteVisible(visible)
+    end
 end

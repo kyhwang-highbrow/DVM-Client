@@ -164,6 +164,9 @@ end
 function ServerData_Deck:setSelectedDeck(deck_name)
     self.m_serverData:applyServerData(deck_name, 'local', 'selected_deck')
     self.m_selectedDeck = deck_name
+
+    -- 이걸 해줘야 최초 진입시 모드별 셋팅된 덱을 가져옴 2018-01-09 ks
+    self:resetDragonDeckInfo()
 end
 
 -------------------------------------

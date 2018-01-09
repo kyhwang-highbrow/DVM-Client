@@ -144,6 +144,11 @@ function SceneGameClanRaid:networkGameFinish(t_param, t_result_ref, next_func)
     local function success_cb(ret)
         self:networkGameFinish_response(ret, t_result_ref)
 
+        -- 클랜 던전 정보 갱신
+        if (ret['dungeon']) then
+            g_clanRaidData.m_structClanRaid = StructClanRaid(ret['dungeon'])
+        end
+
         if next_func then
             next_func()
         end
@@ -320,15 +325,16 @@ function SceneGameClanRaid:networkGameFinish_response_drop_reward(ret, t_result_
     end
 
     -- 보상 등급 지정
-    t_result_ref['drop_reward_grade'] = ret['drop_reward_grade'] or 'c'
+    t_result_ref['dmg_rank'] = ret['dmg_rank'] or 1
     local drop_reward_list = t_result_ref['drop_reward_list']
 
     -- 드랍 아이템
     for i,v in ipairs(items_list) do
         local item_id = v['item_id']
         local count = v['count']
+        local from = v['from']
         local data = nil
-
+        
         if v['oids'] then
             -- Object는 하나만 리턴한다고 가정 (dragon or rune)
             local oid = v['oids'][1]
@@ -353,7 +359,8 @@ function SceneGameClanRaid:networkGameFinish_response_drop_reward(ret, t_result_
             end
         end
 
-        local t_data = {item_id, count, data}
+
+        local t_data = {item_id, count, from, data}
         table.insert(drop_reward_list, t_data)
     end
 end

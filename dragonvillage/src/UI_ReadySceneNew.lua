@@ -19,7 +19,8 @@ UI_ReadySceneNew = class(PARENT,{
         m_sortManagerFriendDragon = '',
         m_uicSortList = 'UIC_SortList',
 
-        m_bWithFriend = 'boolean'
+        m_bWithFriend = 'boolean',
+        m_bUseCash = 'boolean'
     })
 
 -------------------------------------
@@ -36,6 +37,7 @@ function UI_ReadySceneNew:init(stage_id, with_friend, sub_info)
     self:init_MemberVariable(stage_id)
 
     self.m_bWithFriend = with_friend or false
+    self.m_bUseCash = false
 
     local vars = self:load('battle_ready_new.ui')
     UIManager:open(self, UIManager.SCENE)
@@ -178,6 +180,28 @@ function UI_ReadySceneNew:checkDeckProper()
 end
 
 -------------------------------------
+-- function condition_clan_raid
+-- @breif 1,2공격대에 설정된 드래곤을 정렬 우선순위로 사용
+-------------------------------------
+function UI_ReadySceneNew:condition_clan_raid(a, b)
+    local is_setted_1, num_1 = g_clanRaidData:isSettedClanRaidDeck(a['data']['id']) 
+    local is_setted_2, num_2 = g_clanRaidData:isSettedClanRaidDeck(b['data']['id']) 
+
+    if (is_setted_1) and (is_setted_2) then
+        return nil
+
+    elseif (is_setted_1) then
+        return true
+
+    elseif (is_setted_2) then
+        return false
+
+    else
+        return nil
+    end
+end
+
+-------------------------------------
 -- function condition_deck_idx
 -- @breif 덱에 설정된 드래곤을 정렬 우선순위로 사용
 -------------------------------------
@@ -233,14 +257,23 @@ function UI_ReadySceneNew:init_sortMgr(stage_id)
     self.m_sortManagerDragon = SortManager_Dragon()
     self.m_sortManagerFriendDragon = SortManager_Dragon()
     
-	-- 나중에 정리
-	do
-		local function cond(a, b)
+    local game_mode = g_stageData:getGameMode(self.m_stageID)
+
+    -- 클랜던전 1,2 공격대 덱을 맨위로
+    if (game_mode == GAME_MODE_CLAN_RAID) then
+        local function cond(a, b)
+			return self:condition_clan_raid(a, b)
+		end
+		self.m_sortManagerDragon:addPreSortType('clan_raid', false, cond)
+    end
+
+    do
+        local function cond(a, b)
 			return self:condition_deck_idx(a, b)
 		end
 		self.m_sortManagerDragon:addPreSortType('deck_idx', false, cond)
         self.m_sortManagerFriendDragon:addPreSortType('deck_idx', false, cond)
-	end
+    end
 
     -- 친구 드래곤인 경우 쿨타임 정렬 추가
     local function cond(a, b)
@@ -253,7 +286,6 @@ function UI_ReadySceneNew:init_sortMgr(stage_id)
     local uic_sort_list = MakeUICSortList_dragonManage(vars['sortBtn'], vars['sortLabel'], UIC_SORT_LIST_TOP_TO_BOT)
     self.m_uicSortList = uic_sort_list
     
-
 	-- 버튼을 통해 정렬이 변경되었을 경우
     local function sort_change_cb(sort_type)
         self.m_sortManagerDragon:pushSortOrder(sort_type)
@@ -335,7 +367,6 @@ function UI_ReadySceneNew:apply_dragonSort_saveData()
         self.m_sortManagerDragon:pushSortOrder(sort_type)
     end
     self.m_sortManagerDragon:setAllAscending(ascending)
-
     self.m_uicSortList:setSelectSortType(sort_type)
 
     do -- 오름차순, 내림차순 아이콘
@@ -483,6 +514,20 @@ function UI_ReadySceneNew:refresh()
         end
     end
 
+    -- 클랜던전 slot light
+    if (game_mode == GAME_MODE_CLAN_RAID) then
+        local up_deck_cnt = g_clanRaidData:getDeckDragonCnt('up')
+        for idx = 1, 5 do
+            local slot_light = vars['slotSprite'..idx]
+            slot_light:setVisible(idx <= up_deck_cnt)
+        end
+
+        local down_deck_cnt = g_clanRaidData:getDeckDragonCnt('down')
+        for idx = 1, 5 do
+            local slot_light = vars['slotSprite'..(idx + 5)]
+            slot_light:setVisible(idx <= down_deck_cnt)
+        end
+    end
 
     self:refresh_tamer()
 	self:refresh_buffInfo()
@@ -690,6 +735,14 @@ function UI_ReadySceneNew:click_autoBtn()
         else
             l_dragon_list = g_dragonsData:getDragonsList()
         end
+
+    elseif (game_mode == GAME_MODE_CLAN_RAID) then
+        local mode = self.m_readySceneDeck.m_selTab
+        local map_except_deck = g_clanRaidData:getAnotherDeckMap(mode)
+
+        -- 클랜던전 다른덱 제외하고 추천덱
+        l_dragon_list = g_dragonsData:getDragonsListExceptTarget(map_except_deck)
+
     else
         l_dragon_list = g_dragonsData:getDragonsList()
     end
@@ -781,84 +834,133 @@ function UI_ReadySceneNew:click_startBtn()
         return
     end
 
-    -- 클랜던전인 경우 상단덱과 하단덱 모두 체크
-    if (game_mode == GAME_MODE_CLAN_RAID) and (not self:checkClanRaidDragon()) then
-        
-    elseif (self:getDragonCount() <= 0) then
-        UIManager:toastNotificationRed(Str('최소 1명 이상은 출전시켜야 합니다.'))
-
-    elseif (not g_stageData:isOpenStage(stage_id)) then
-        MakeSimplePopup(POPUP_TYPE.OK, Str('이전 스테이지를 클리어하세요.'))
-
-    -- 날개 소모
-    elseif (not g_staminasData:checkStageStamina(stage_id)) then
-        g_staminasData:staminaCharge(stage_id)
-                    
-    else
-        local check_deck
-        local check_dragon_inven
-        local check_item_inven
-        local check_attr_tower
-        local start_game
-
-        -- 덱 변경 유무 확인 후 저장
-        check_deck = function()
-            self:checkChangeDeck(check_dragon_inven)
-        end
-
-        -- 드래곤 가방 확인(최대 갯수 초과 시 획득 못함)
-        check_dragon_inven = function()
-            local function manage_func()
-                self:click_manageBtn()
-            end
-            g_dragonsData:checkMaximumDragons(check_item_inven, manage_func)
-        end
-
-        -- 아이템 가방 확인(최대 갯수 초과 시 획득 못함)
-        check_item_inven = function()
-            local function manage_func()
-                UI_Inventory()
-            end
-            g_inventoryData:checkMaximumItems(check_attr_tower, manage_func)
-        end
-
-        -- 시험의 탑 속성 드래곤 확인
-        check_attr_tower = function()
-            if (g_ancientTowerData:isAncientTowerStage(stage_id)) then
-                local l_deck = self.m_readySceneDeck.m_lDeckList
-                if (g_attrTowerData:checkDragonAttr(l_deck)) then
-                    start_game()
-                end
-            else
-                start_game()
-            end
-        end
-
-        -- 게임 시작
-        start_game = function()
-            self:networkGameStart()
-        end
-        
-        check_deck()
+    if (self:check_startCondition(stage_id)) then
+        self:startGame(stage_id)
     end
 end
 
 -------------------------------------
--- function askCashPlay
--- @breif 콜로세움 전용
+-- function check_startCondition
+-- @breif 시작 가능한 상태인지 체크하는 함수 분리 - 가능하면 true, 불가능하면 flase 반환
 -------------------------------------
-function UI_ReadySceneNew:askCashPlay()
-    local function ok_btn_cb()
-        local function next_func()
-            local is_cash = true
-            self:networkGameStart(is_cash)
+function UI_ReadySceneNew:check_startCondition(stage_id)
+    local stamina_charge = true
+
+    -- 클랜던전 - 상단덱과 하단덱 추가 확인
+    if (g_clanRaidData:isClanRaidStageID(stage_id)) then
+
+        -- 클랜던전은 활동력 충전 x 소비 o
+        stamina_charge = false
+
+        -- 상단, 하단 덱 모두 체크
+        if (not self:checkClanRaidDragon()) then
+            return false
         end
 
-        self:checkChangeDeck(next_func)
+    -- 시험의 탑 - 속성별 덱 추가 확인
+    elseif (g_ancientTowerData:isAncientTowerStage(stage_id)) then
+        local l_deck = self.m_readySceneDeck.m_lDeckList
+        if (not g_attrTowerData:checkDragonAttr(l_deck)) then
+            return false
+        end
     end
 
-    local msg = Str('입장권이 부족합니다.\n{@impossible}다이아몬드 1개{@default}를 사용해 진행하시겠습니까?')
-    UI_ConfirmPopup('cash', 1, msg, ok_btn_cb)
+    -- 모드 상관없이 공통으로 체크
+    if (self:getDragonCount() <= 0) then
+        UIManager:toastNotificationRed(Str('최소 1명 이상은 출전시켜야 합니다.'))
+        return false
+
+    elseif (not g_stageData:isOpenStage(stage_id)) then
+        MakeSimplePopup(POPUP_TYPE.OK, Str('이전 스테이지를 클리어하세요.'))
+        return false
+
+    -- 스태미너 소모 체크
+    elseif (stamina_charge) and (not g_staminasData:checkStageStamina(stage_id)) then
+        g_staminasData:staminaCharge(stage_id)
+        return false
+    end
+        
+    return true
+end
+
+-------------------------------------
+-- function startGame
+-- @breif
+-------------------------------------
+function UI_ReadySceneNew:startGame(stage_id)
+    local check_deck
+    local check_dragon_inven
+    local check_item_inven
+    local check_cash
+    local start_game
+
+    -- 덱 변경 유무 확인 후 저장
+    check_deck = function()
+        self:checkChangeDeck(check_dragon_inven)
+    end
+
+    -- 드래곤 가방 확인(최대 갯수 초과 시 획득 못함)
+    check_dragon_inven = function()
+        local function manage_func()
+            self:click_manageBtn()
+        end
+        g_dragonsData:checkMaximumDragons(check_item_inven, manage_func)
+    end
+
+    -- 아이템 가방 확인(최대 갯수 초과 시 획득 못함)
+    check_item_inven = function()
+        local function manage_func()
+            UI_Inventory()
+        end
+        g_inventoryData:checkMaximumItems(check_cash, manage_func)
+    end
+
+    -- 여의주 사용 확인
+    check_cash = function()
+
+        -- 클랜던전 여의주 사용
+        if (g_clanRaidData:isClanRaidStageID(stage_id)) then
+            
+            -- 개발모드에서 클랜던전 무조건 입장
+            if IS_TEST_MODE() then
+                start_game()
+
+            -- 활동력 체크 (소비 타입이 아니어서 여기서 체크)
+            elseif (g_staminasData:checkStageStamina(stage_id)) then
+                start_game()
+
+            -- 여의주 사용가능
+            elseif (g_clanRaidData:isPossibleUseCash()) then
+                local cash_cnt = g_clanRaidData:getUseCashCnt()
+                self:askCashPlay(cash_cnt, start_game)
+
+            else
+                UIManager:toastNotificationRed(Str('더이상 던전에 입장할 수 없습니다.'))
+            end
+        else
+            start_game()
+        end
+    end
+
+    -- 게임 시작
+    start_game = function()
+        self:networkGameStart()
+    end
+        
+    check_deck()
+end
+
+-------------------------------------
+-- function askCashPlay
+-------------------------------------
+function UI_ReadySceneNew:askCashPlay(cnt, next_cb)
+    local function ok_btn_cb()
+        self.m_bUseCash = true
+        next_cb()
+    end
+
+    local msg = Str('입장권이 부족합니다.\n{@impossible}다이아몬드 {1}개{@default}를 사용해 진행하시겠습니까?', cnt)
+    UI_ConfirmPopup('cash', cnt, msg, ok_btn_cb)
 end
 
 -------------------------------------
@@ -976,7 +1078,9 @@ function UI_ReadySceneNew:networkGameStart()
 
     local deck_name = g_deckData:getSelectedDeckName()
     local combat_power = self.m_readySceneDeck:getDeckCombatPower()
-    g_stageData:requestGameStart(self.m_stageID, deck_name, combat_power, finish_cb)
+
+    local is_cash = self.m_bUseCash
+    g_stageData:requestGameStart(self.m_stageID, deck_name, combat_power, finish_cb, is_cash)
 end
 
 -------------------------------------

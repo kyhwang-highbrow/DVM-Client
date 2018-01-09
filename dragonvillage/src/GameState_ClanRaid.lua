@@ -296,7 +296,7 @@ function GameState_ClanRaid:makeResultUI(is_success)
         local ui = UI_ClanRaidResult(stage_id,
             is_success,
             damage,
-            t_result_ref['drop_reward_list'])
+            t_result_ref)
     end
 
     -- 최초 실행

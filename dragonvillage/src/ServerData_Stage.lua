@@ -239,8 +239,9 @@ end
 -------------------------------------
 -- function requestGameStart
 -------------------------------------
-function ServerData_Stage:requestGameStart(stage_id, deck_name, combat_power, finish_cb)
+function ServerData_Stage:requestGameStart(stage_id, deck_name, combat_power, finish_cb, is_cash)
     local uid = g_userData:get('uid')
+    local is_cash = is_cash or false
     local oid
     local response_status_cb
 
@@ -378,9 +379,8 @@ function ServerData_Stage:requestGameStart(stage_id, deck_name, combat_power, fi
     ui_network:setParam('combat_power', combat_power)
     ui_network:setParam('friend', friend_uid)
     ui_network:setParam('oid', oid)
-    if (attr) then
-        ui_network:setParam('attr', attr)
-    end
+    if (attr) then ui_network:setParam('attr', attr) end
+    if (is_cash) then ui_network:setParam('is_cash', is_cash) end
     ui_network:setParam('token', self:makeDragonToken())
     ui_network:setResponseStatusCB(response_status_cb)
     ui_network:setSuccessCB(success_cb)

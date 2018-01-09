@@ -96,8 +96,16 @@ function UI_CharacterCard:refreshDragonInfo()
     do -- 드래곤들의 덱설정 여부 데이터 갱신
         if t_dragon_data and t_dragon_data['id'] then
             local doid = t_dragon_data['id']
-            local is_setted = (g_deckData:isSettedDragon(doid) ~= false)
-            self:setReadySpriteVisible(is_setted)
+            local deck_name = g_deckData:getSelectedDeckName()
+
+            -- 클랜던전 예외처리
+            if (string.find(deck_name, 'clan_raid')) then
+                local is_setted, num = g_clanRaidData:isSettedClanRaidDeck(doid)
+                self:setTeamReadySpriteVisible(is_setted, num)
+            else
+                local is_setted = (g_deckData:isSettedDragon(doid) ~= false)
+                self:setReadySpriteVisible(is_setted)
+            end
         end
     end
 
@@ -266,6 +274,25 @@ end
 function UI_CharacterCard:setReadySpriteVisible(visible)
     local res = 'card_cha_icon_inuse.png'
     local lua_name = 'inuseSprite'
+    self:setSpriteVisible(lua_name, res, visible)
+end
+
+-------------------------------------
+-- function setTeamReadySpriteVisible
+-- @brief 출전중 표시 (클랜던전 전용 - 1,2 공격대)
+-------------------------------------
+function UI_CharacterCard:setTeamReadySpriteVisible(visible, num)
+    if (not num) then
+        return
+    end
+    local lua_name = 'inuseSprite'
+    -- 1, 2 공격대 리소스를 같이쓰므로 항상 재생성 
+    if (visible == true) and (self.vars[lua_name]) then
+        self.vars[lua_name]:setVisible(false)
+        self.vars[lua_name] = nil
+    end
+
+    local res = string.format('card_cha_icon_inuse_team_%d.png', num)
     self:setSpriteVisible(lua_name, res, visible)
 end
 

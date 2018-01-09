@@ -6,7 +6,7 @@ UI_ClanRaidResult = class(UI, {
         m_bSuccess = 'boolean',
         m_grade = 'number',
 
-        m_reward_list = '', -- 보상 정보
+        m_data = '', -- 등급, 보상 정보
 
         m_damage = 'number', -- 피해량
         m_grade = 'number', -- 보상 등급
@@ -28,8 +28,8 @@ function UI_ClanRaidResult:init(stage_id, is_success, damage, t_data)
     self.m_stageID = stage_id
     self.m_bSuccess = is_win
     self.m_damage = damage
-    self.m_reward_list = t_data
-    self.m_grade = math_floor(#t_data/3)
+    self.m_data = t_data
+    self.m_grade = t_data['dmg_rank']
 
     local vars = self:load('clan_raid_result.ui')
     UIManager:open(self, UIManager.POPUP)
@@ -137,7 +137,6 @@ function UI_ClanRaidResult:direction_showScore()
     local is_win = self.m_bSuccess
     local vars = self.vars
 
-
     local total_score = cc.Label:createWithBMFont('res/font/tower_score.fnt', '')
     total_score:setAnchorPoint(cc.p(0.5, 0.5))
     total_score:setDockPoint(cc.p(0.5, 0.5))
@@ -145,7 +144,7 @@ function UI_ClanRaidResult:direction_showScore()
     total_score:setAdditionalKerning(0)
     vars['scoreNode']:addChild(total_score)
 
-    local new_score = NumberLabel(total_score, 0, 0.5)
+    local new_score = NumberLabel(total_score, 0, 0.3)
     new_score:setNumber(self.m_damage, false)
 
     self:doNextWorkWithDelayTime(0.8)
@@ -190,7 +189,7 @@ function UI_ClanRaidResult:direction_showReward()
 
     -- 보상없는 경우 임시처리
     if (grade <= 0) then
-        self:doNextWork()
+        self:show_boss_hp()
         return
     end
 
@@ -199,18 +198,15 @@ function UI_ClanRaidResult:direction_showReward()
     local target_menu = ui.vars['rewardNode'..grade]
     target_menu:setVisible(false)
     vars['dropRewardMenu']:addChild(ui.root)
-
     self.m_sub_menu = vars['dropRewardMenu']
 
-    local ani_duration = 1.0 
-    local ani_interval = 0.2
     local box_visual = vars['boxVisual']
 
     local ani_1 
     local ani_2
     local result
-    local show_reward
-
+    
+    -- 박스 연출
     ani_1 = function()
         box_visual:setVisible(true)
         box_visual:changeAni('box_01', false)
@@ -224,41 +220,99 @@ function UI_ClanRaidResult:direction_showReward()
         box_visual:addAniHandler(function()
             box_visual:setVisible(false)
             target_menu:setVisible(true)
-            result()
+            self:show_item_reward(ui)
         end)
     end
 
+    ani_1()
+end
+
+-------------------------------------
+-- function show_item_reward
+-- @brief 아이템 팡팡 박히는 애니메이션
+-------------------------------------
+function UI_ClanRaidResult:show_item_reward(reward_menu)
+    local ani_duration = 0.5    
+    local ani_interval = 0.0
+
     -- 아이템 카드 보여주는 액션
-    local show_reward = function(item_card, is_last)
+    local function show_reward(item_card, item_grade, is_last)
         item_card:setVisible(true)
         cca.stampShakeAction(item_card, ITEM_CARD_SCALE * 1.1, 0.1, 0, 0, ITEM_CARD_SCALE)
+
+        -- 등급에 따른 연출
+		if (item_grade and item_grade > 3) then
+			local rarity_effect = MakeAnimator('res/ui/a2d/card_summon/card_summon.vrp')
+			if (item_grade == 5) then
+				rarity_effect:changeAni('summon_regend', true)
+			else
+				rarity_effect:changeAni('summon_hero', true)
+			end
+			rarity_effect:setScale(1.7)
+			rarity_effect:setAlpha(0)
+			item_card:addChild(rarity_effect.m_node)
+            rarity_effect.m_node:runAction(cc.FadeIn:create(ani_duration))
+		end
 
         if (is_last) then
             self:doNextWorkWithDelayTime(0.5)
         end
     end
 
-    result = function()
-        -- 드랍한 아이템 만큼 연출
-        local reward_list = self.m_reward_list
-        for i, v in ipairs(reward_list) do
-            local item_id = v[1]
-            local count = v[2]
-            local sub_data = v[3]
+    -- 드랍한 아이템 만큼 연출
+    local reward_list = self.m_data['drop_reward_list']
+    for i, v in ipairs(reward_list) do
+        local item_id = v[1]
+        local count = v[2]            
+        local from = v[3]
+        local sub_data = v[4]
 
-            local item_card = UI_ItemCard(item_id, count, sub_data)
-            item_card.root:setScale(ITEM_CARD_SCALE)
-            item_card.root:setVisible(false)
+        local item_grade = string.find(from, 'grade_') and 
+                           string.gsub(from, 'grade_', '') or nil
 
-            local target_node = ui.vars['rewardNode'..grade..'_'..i]
-            target_node:addChild(item_card.root)
+        local item_card = UI_ItemCard(item_id, count, sub_data)
+        item_card.root:setScale(ITEM_CARD_SCALE)
+        item_card.root:setVisible(false)
 
-            local is_last = (i == #reward_list)
-            cca.reserveFunc(self.root, ani_duration * ((i - 1) + ani_interval), function() show_reward(item_card.root, is_last) end)
-        end
+        local target_node = reward_menu.vars['rewardNode'..self.m_grade..'_'..i]
+        target_node:addChild(item_card.root)
+
+        local is_last = (i == #reward_list)
+        cca.reserveFunc(self.root, 
+                        ani_duration * ((i - 1) + ani_interval), 
+                        function() show_reward(item_card.root, tonumber(item_grade), is_last) end)
     end
+end
 
-    ani_1()
+-------------------------------------
+-- function show_boss_hp
+-- @brief 보상이 없는 경우 보스의 남은 체력 보여줌
+-------------------------------------
+function UI_ClanRaidResult:show_boss_hp()
+    local vars = self.vars
+    self:initReward()
+
+    local raid_data = g_clanRaidData:getClanRaidStruct()
+    vars['bossHpNode']:setVisible(true)
+
+    -- 레벨, 이름
+    local is_rich_label = true
+    local name = struct_raid:getBossNameWithLv(is_rich_label)
+    vars['levelLabel']:setString(name)
+
+    -- 속성 아이콘
+    local attr = struct_raid:getAttr()
+    local icon = IconHelper:getAttributeIcon(attr)
+    vars['attrNode']:removeAllChildren()
+    vars['attrNode']:addChild(icon)
+
+    -- 체력 퍼센트
+    local rate = struct_raid:getHpRate()
+    vars['hpLabel']:setString(string.format('%0.2f%%', rate))
+
+    -- 체력 게이지
+    local action = cc.ProgressTo:create(0.3, rate)
+    vars['bossHpGauge1']:runAction(action)
 end
 
 -------------------------------------
@@ -291,7 +345,7 @@ function UI_ClanRaidResult:initReward()
         ui.vars['rewardNode'..grade]:setVisible(true)
         vars['dropRewardMenu']:addChild(ui.root)
 
-        local reward_list = self.m_reward_list
+        local reward_list = self.m_data['drop_reward_list']
 
         for i, v in ipairs(reward_list) do
             local item_id = v[1]
