@@ -943,6 +943,13 @@ function StructProduct:isBuyAll()
 	return (buy_cnt >= max_buy_cnt)
 end
 
+-------------------------------------
+-- function getMaxBuyCount
+-- @brief 
+-------------------------------------
+function StructProduct:getMaxBuyCount()
+	return tonumber(self['max_buy_count'])
+end
 
 
 

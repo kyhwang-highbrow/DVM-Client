@@ -235,3 +235,12 @@ function LocalData:isGuestAccount()
 	local account_info = g_localData:get('local', 'account_info') or 'Guest'
 	return (account_info == 'Guest')
 end
+
+-------------------------------------
+-- function isInAppReview
+-- @breif
+-------------------------------------
+function LocalData:isInAppReview()
+	local b = (CppFunctions:isIos() and self:get('in_app_review'))
+	return true
+end
