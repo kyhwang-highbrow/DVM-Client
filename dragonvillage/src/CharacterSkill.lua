@@ -359,7 +359,7 @@ function Character:doSkillBySkillTable(t_skill, t_data)
                 SkillRandom:makeSkillInstance(self, t_skill, t_data)
                 return true
 
-            elseif (skill_type == 'skill_boss_clanraid_3') then
+            elseif (skill_type == 'skill_boss_clanraid_2') then
                 SkillScript_ClanRaidBoss:makeSkillInstance(self, t_skill, t_data)
                 return true
 
