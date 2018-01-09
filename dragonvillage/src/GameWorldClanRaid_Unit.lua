@@ -391,16 +391,24 @@ function GameWorldClanRaid:removeHero(hero)
 
     hero:setActive(false)
 
-    -- 팀 전멸 시 남은 팀이 공격 받을 수 있도록 변경(임시)
+    -- 팀 전멸 시 남은 팀이 공격 받을 수 있도록 변경
     if (#participants == 0) then
         if (#self.m_leftParticipants > 0) then
             self.m_subLeftFormationMgr = self.m_leftFormationMgr
-        elseif (#self.m_subLeftFormationMgr > 0) then
+        elseif (#self.m_subLeftParticipants > 0) then
             self.m_leftFormationMgr = self.m_subLeftFormationMgr
         end
 
         self.m_physWorld:modifyGroup(PHYS.HERO_TOP, { PHYS.MISSILE.ENEMY_TOP, PHYS.MISSILE.ENEMY_BOTTOM })
         self.m_physWorld:modifyGroup(PHYS.HERO_BOTTOM, { PHYS.MISSILE.ENEMY_TOP, PHYS.MISSILE.ENEMY_BOTTOM })
+
+        -- 한 팀이 전멸해서 공격 그룹이 변경된 경우
+        -- 특정 패턴은 못하도록 막기 위한 하드코딩...
+        for i, enemy in ipairs(self:getEnemyList()) do
+            if (isInstanceOf(enemy, Monster_ClanRaidBoss)) then
+                enemy:onChangedAttackableGroup()
+            end
+        end
     end
         
     -- 게임 종료 체크(모든 영웅이 죽었을 경우)

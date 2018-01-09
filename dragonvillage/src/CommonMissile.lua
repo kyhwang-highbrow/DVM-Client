@@ -31,6 +31,8 @@ CommonMissile = class(PARENT, {
 		m_fireCnt = 'num',
 		m_maxFireCnt = 'num',
 		m_missileSpeed = 'num',
+
+        m_ownerAnimation = 'string',    -- 해당 스킬 사용시 지정된 애니메이션
      })
 
 -------------------------------------
@@ -65,6 +67,8 @@ function CommonMissile:initCommonMissile(owner, t_skill)
 
 	self.m_target, self.m_lTarget = self:getRandomTargetByRule()
 	self.m_missileTimer = 0
+
+    self.m_ownerAnimation = SkillHelper:getValid(t_skill['animation'], 'attack')
 
 	self:initActvityCarrier()
 	self:initState()
@@ -166,7 +170,7 @@ function CommonMissile:initAttackPos()
 
 	-- 2. attack event 가져옴
     local animator = self.m_owner.m_animator
-    local l_event_data = animator:getEventList('attack', 'attack')
+    local l_event_data = animator:getEventList(self.m_ownerAnimation, 'attack')
 
 	-- 2-1. attack event 못가져오면 탈출
     if (not l_event_data[1]) then

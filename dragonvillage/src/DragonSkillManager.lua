@@ -163,6 +163,11 @@ function IDragonSkillManager:setSkillID(skill_type, skill_id, skill_lv, add_type
         return
     end
 
+    -- 이미 보유한 스킬인지 체크
+    if (self.m_mSkillInfoMap[skill_id]) then
+        return
+    end
+
     -- game_mode 체크
     if (g_gameScene) then
         local t_skill = GetSkillTable(self.m_charType):get(skill_id)
@@ -224,6 +229,29 @@ function IDragonSkillManager:setSkillID(skill_type, skill_id, skill_lv, add_type
 
 	-- 맵으로 저장
 	self.m_mSkillInfoMap[skill_id] = skill_indivisual_info
+end
+
+-------------------------------------
+-- function unsetSkillID
+-- @brief skill_id의 스킬을 삭제시킴
+-------------------------------------
+function IDragonSkillManager:unsetSkillID(skill_id)
+    local skill_type = GetSkillTable(self.m_charType):getSkillType(skill_id)
+    if (not self.m_lSkillIndivisualInfo[skill_type]) then return end
+
+    -- 하나의 스킬만을 가지는 스킬 타입
+	if isExistValue(skill_type, 'active', 'basic', 'leader') then
+        self.m_lSkillIndivisualInfo[skill_type] = nil
+    else
+        for i, skill_info in ipairs(self.m_lSkillIndivisualInfo[skill_type]) do
+		    if (skill_id == skill_info:getSkillID()) then
+                table.remove(self.m_lSkillIndivisualInfo[skill_type], i)
+                break
+            end
+        end
+    end
+
+    self.m_mSkillInfoMap[skill_id] = nil
 end
 
 -------------------------------------

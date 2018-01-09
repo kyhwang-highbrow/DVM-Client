@@ -28,8 +28,10 @@ ActivityCarrier = class({
 
 		m_atkDmgStat = 'str',
 
+        m_bIgnoreAll = 'bool',
 		m_bIgnoreDef = 'bool',
         m_bIgnoreAvoid = 'bool',
+        m_bDefiniteDeath = 'bool',  -- 피격 대상을 무조건 죽임
         
         m_realAttackType = 'str',
 		m_attackType = 'str',		-- 일반공격인지 아닌지 구분
@@ -49,8 +51,10 @@ function ActivityCarrier:init()
     self.m_skillHitCount = 1
     self.m_lStatusEffectRate = {}
 	self.m_atkDmgStat = 'atk'
+    self.m_bIgnoreAll = false
 	self.m_bIgnoreDef = false
     self.m_bIgnoreAvoid = false
+    self.m_bDefiniteDeath = false
     self.m_tParam = {}
 end
 
@@ -247,6 +251,11 @@ function ActivityCarrier:cloneForMissile()
     activity_carrier:setSkillHitCount(self.m_skillHitCount)
     activity_carrier:setPowerRate(self.m_skillCoefficient)
     activity_carrier:setAddCriPowerRate(self.m_skillAddCriCoefficient)
+
+    activity_carrier:setIgnoreAll(self:isIgnoreAll())
+    activity_carrier:setIgnoreDef(self:isIgnoreDef())
+    activity_carrier:setIgnoreAvoid(self:isIgnoreAvoid())
+    activity_carrier:setDefiniteDeath(self:isDefiniteDeath())
 	
 	activity_carrier.m_lFinalStat = clone(self.m_lFinalStat)
     activity_carrier.m_lStatusEffectRate = clone(self.m_lStatusEffectRate)
@@ -375,6 +384,20 @@ function ActivityCarrier:getAddCriPowerRate()
 end
 
 -------------------------------------
+-- function setIgnoreAll
+-------------------------------------
+function ActivityCarrier:setIgnoreAll(bool)
+	self.m_bIgnoreAll = bool
+end
+
+-------------------------------------
+-- function isIgnoreAll
+-------------------------------------
+function ActivityCarrier:isIgnoreAll()
+	return self.m_bIgnoreAll
+end
+
+-------------------------------------
 -- function setIgnoreDef
 -------------------------------------
 function ActivityCarrier:setIgnoreDef(bool)
@@ -385,9 +408,8 @@ end
 -- function isIgnoreDef
 -------------------------------------
 function ActivityCarrier:isIgnoreDef()
-	return self.m_bIgnoreDef
+	return self.m_bIgnoreDef or self.m_bIgnoreAll
 end
-
 
 -------------------------------------
 -- function setIgnoreAvoid
@@ -400,7 +422,21 @@ end
 -- function isIgnoreAvoid
 -------------------------------------
 function ActivityCarrier:isIgnoreAvoid()
-	return self.m_bIgnoreAvoid
+	return self.m_bIgnoreAvoid or self.m_bIgnoreAll
+end
+
+-------------------------------------
+-- function setDefiniteDeath
+-------------------------------------
+function ActivityCarrier:setDefiniteDeath(bool)
+	self.m_bDefiniteDeath = bool
+end
+
+-------------------------------------
+-- function isDefiniteDeath
+-------------------------------------
+function ActivityCarrier:isDefiniteDeath()
+	return self.m_bDefiniteDeath
 end
 
 -------------------------------------

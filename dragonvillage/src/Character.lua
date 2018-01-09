@@ -183,6 +183,8 @@ function Character:init(file_name, body, ...)
     self.m_orgHomePosY = 0
     self.m_homePosX = 0
     self.m_homePosY = 0
+    self.m_attackOffsetX = 0
+    self.m_attackOffsetY = 0
 
     self.m_movement = nil
 
@@ -445,7 +447,7 @@ function Character:checkAvoid(activity_carrier, t_attr_effect)
 		local hit_rates_multifly = 1
 
 		-- 적중률
-		if t_attr_effect['hit_rate'] then
+		if (t_attr_effect['hit_rate']) then
 			hit_rates_multifly = (hit_rates_multifly + (t_attr_effect['hit_rate']/100))
 		end
 
@@ -488,6 +490,12 @@ function Character:undergoAttack(attacker, defender, i_x, i_y, body_key, no_even
     local is_bash = (attr_synastry == 1) and self:checkBash(attacker_char, t_attr_effect['bash'])
     local is_miss = (attr_synastry == -1) and self:checkMiss(attacker_char, t_attr_effect['miss'])
 
+    if (attack_activity_carrier:isIgnoreAll()) then
+        t_attr_effect = {}
+        is_bash = false
+        is_miss = false
+    end
+
     -- 공격력 및 방어력 정보
     local org_atk_dmg = attack_activity_carrier:getAtkDmg(defender)
     local org_def_pwr = self:getStat('def')
@@ -503,13 +511,18 @@ function Character:undergoAttack(attacker, defender, i_x, i_y, body_key, no_even
         reflex_rate = math_max(self:getStat('reflex_normal'), 0) / 100
     end
     
-    if (self.m_isProtected) then
+    -- 무적 상태 체크
+    if (attack_activity_carrier:isIgnoreAll()) then
+        -- 무적 무시
+    elseif (self.m_isProtected) then
         self:makeShieldFont(i_x, i_y)
         return
     end
 
     -- 수호(guard) 상태 체크
-    if (self.m_guard) and (not is_guard) then
+    if (attack_activity_carrier:isIgnoreAll()) then
+        -- 수호 무시
+    elseif (self.m_guard) and (not is_guard) then
 		-- Event Carrier 세팅
 		local t_event = clone(EVENT_HIT_CARRIER)
 		t_event['attacker'] = attacker
@@ -519,21 +532,19 @@ function Character:undergoAttack(attacker, defender, i_x, i_y, body_key, no_even
 		return
     end
 
-    -- 회피 계산(드래그 스킬의 경우는 회피 불가)
-    --if (attack_type ~= 'active') then
+    -- 회피 계산
+    if (attack_activity_carrier:isIgnoreAvoid()) then
         -- 회피 무시 체크
-		if (attack_activity_carrier:isIgnoreAvoid()) then
 
-        elseif (self:checkAvoid(attack_activity_carrier, t_attr_effect)) then
-            self:makeMissFont(i_x, i_y)
-		    -- @EVENT
-		    self:dispatch('avoid_rate')
+    elseif (self:checkAvoid(attack_activity_carrier, t_attr_effect)) then
+        self:makeMissFont(i_x, i_y)
+		-- @EVENT
+		self:dispatch('avoid_rate')
         
-		    -- @LOG_CHAR : 방어자 회피 횟수
-		    self.m_charLogRecorder:recordLog('avoid', 1)
-            return
-        end
-    --end
+		-- @LOG_CHAR : 방어자 회피 횟수
+		self.m_charLogRecorder:recordLog('avoid', 1)
+        return
+    end
 	
     -- 데미지 계산
     do
@@ -645,7 +656,7 @@ function Character:undergoAttack(attacker, defender, i_x, i_y, body_key, no_even
     end
 
     -- 크리티컬 계산
-    do
+    if (not attack_activity_carrier:isIgnoreAll()) then
         if (is_miss) then
             -- 빚맞힘일 경우 크리티컬 없도록 처리
             is_critical = false
@@ -656,7 +667,7 @@ function Character:undergoAttack(attacker, defender, i_x, i_y, body_key, no_even
             local final_critical_chance = CalcCriticalChance(critical_chance, critical_avoid)
 
             -- 속성 상성 적용
-            if t_attr_effect['cri_chance'] then
+            if (t_attr_effect['cri_chance']) then
                 final_critical_chance = (final_critical_chance + t_attr_effect['cri_chance'])
             end
 
@@ -700,7 +711,7 @@ function Character:undergoAttack(attacker, defender, i_x, i_y, body_key, no_even
         local final_dmg_rate = 0
 
         -- 방어자 능력치
-        do
+        if (not attack_activity_carrier:isIgnoreAll()) then
             dmg_adj_rate = self:getStat('dmg_adj_rate') / 100
 
             local rate = math_max(dmg_adj_rate, -1)
@@ -761,7 +772,7 @@ function Character:undergoAttack(attacker, defender, i_x, i_y, body_key, no_even
         end
 
         -- 피해 반사에 따른 받는 피해 감소
-        if (reflex_rate > 0) then
+        if (reflex_rate > 0 and not attack_activity_carrier:isIgnoreAll()) then
             damage_multifly = damage_multifly * (1 - reflex_rate)
 
             -- 반사 데미지 계산
@@ -817,7 +828,7 @@ function Character:undergoAttack(attacker, defender, i_x, i_y, body_key, no_even
     t_event['left_formation'] = self.m_bLeftFormation
 	
 	-- 방어와 관련된 이벤트 처리후 데미지 계산
-	do	
+	if (not attack_activity_carrier:isIgnoreAll()) then
 		-- @EVENT 방어 이벤트 (에너지실드)
 		self:dispatch('hit_shield', t_event)
 
@@ -861,6 +872,8 @@ function Character:undergoAttack(attacker, defender, i_x, i_y, body_key, no_even
         t_info['is_indicator_critical'] = is_indicator_critical
 
 		t_info['is_add_dmg'] = attack_activity_carrier:getParam('add_dmg')
+        t_info['is_definite_death'] = attack_activity_carrier:isDefiniteDeath()
+
         t_info['is_bash'] = is_bash
         t_info['is_miss'] = is_miss
 		t_info['body_key'] = body_key
@@ -1014,7 +1027,7 @@ function Character:setDamage(attacker, defender, i_x, i_y, damage, t_info)
     else
         local prev_hp = self.m_hp
 		        
-		self:setHp(self.m_hp - damage)
+		self:setHp(self.m_hp - damage, t_info['is_definite_death'])
 
         -- 체력을 0으로 만들었을 시 로그
         if (prev_hp > 0 and self:isZeroHp()) then
@@ -1049,6 +1062,9 @@ function Character:setDamage(attacker, defender, i_x, i_y, damage, t_info)
     -- 죽음 체크
     -----------------------------------------------------------------
     local checkDie = function()
+        -- 죽음이 확정된 경우
+        if (t_info['is_definite_death']) then return true end
+
         return (not self:isDead() and self:isZeroHp() and not self.m_isZombie)
     end
 
@@ -1515,7 +1531,7 @@ function Character:setHp(hp, bFixed)
 
     self.m_hp = math_min(hp, self.m_maxHp)
 
-    if (self.m_isImmortal) then
+    if (not bFixed and self.m_isImmortal) then
         self.m_hp = math_max(self.m_hp, 1)
     else
         self.m_hp = math_max(self.m_hp, 0)

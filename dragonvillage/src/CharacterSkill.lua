@@ -3,8 +3,8 @@
 -- @brief 스킬 실행
 -------------------------------------
 function Character:doSkill(skill_id, x, y, t_data, t_skill_derived)
-    local x = x or self.m_attackOffsetX or 0
-    local y = y or self.m_attackOffsetY or 0
+    --local x = x or self.m_attackOffsetX
+    --local y = y or self.m_attackOffsetY
 	local t_data = t_data or {}
 
     local attr = self:getAttribute()
@@ -457,7 +457,7 @@ function Character:do_script_shot(t_skill, attr, phys_group, x, y, t_data)
         end
     end
 
-    return true
+    return true, missile_launcher
 end
 
 -------------------------------------

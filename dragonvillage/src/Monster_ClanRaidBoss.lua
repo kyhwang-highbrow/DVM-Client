@@ -19,6 +19,47 @@ function Monster_ClanRaidBoss:init(file_name, body, ...)
 end
 
 -------------------------------------
+-- function initState
+-------------------------------------
+function Monster_ClanRaidBoss:initState()
+    PARENT.initState(self)
+
+    if (self.m_charTable['type'] == 'clanraid_boss') then
+        self:addState('dying', Monster_ClanRaidBoss.st_dying, 'dying', false, PRIORITY.DYING)
+    end
+end
+
+-------------------------------------
+-- function st_dying
+-------------------------------------
+function Monster_ClanRaidBoss.st_dying(owner, dt)
+    if (owner.m_stateTimer == 0) then
+        -- 사망 처리 시 StateDelegate Kill!
+        owner:killStateDelegate()
+
+        if (owner.m_cbDead) then
+            owner.m_cbDead(owner)
+        end
+
+        local duration = owner.m_animator:getDuration()
+        owner.m_animator:runAction(cc.FadeTo:create(duration, 0))
+
+        -- 에니메이션 종료 시
+        owner:addAniHandler(function()
+            owner:changeState('dead')
+        end)
+
+        if (owner.m_hpNode) then
+            owner.m_hpNode:setVisible(false)
+        end
+
+        if (owner.m_castingNode) then
+            owner.m_castingNode:setVisible(false)
+        end
+    end
+end
+
+-------------------------------------
 -- function updateBonePos
 -- @breif Spine Bone 정보로 갱신이 필요한 처리를 수행
 -------------------------------------
@@ -91,6 +132,20 @@ function Monster_ClanRaidBoss:setDamage(attacker, defender, i_x, i_y, damage, t_
     end
 
     PARENT.setDamage(self, attacker, defender, i_x, i_y, damage, t_info)
+end
+
+-------------------------------------
+-- function onChangedAttackableGroup
+-- @brief 공격할 수 있는 대상 그룹 정보가 변경되었을 경우
+-------------------------------------
+function Monster_ClanRaidBoss:onChangedAttackableGroup()
+    if (self.m_charTable['type'] == 'clanraid_boss') then
+        local l_remove_skill_id = { 250011, 250012, 250013, 250014, 250015 }
+
+        for _, skill_id in ipairs(l_remove_skill_id) do
+            self:unsetSkillID(skill_id)
+        end
+    end
 end
 
 -------------------------------------
@@ -270,13 +325,6 @@ end
 function Monster_ClanRaidBoss:checkSpecialImmune(t_status_effect)
     if (self.m_charTable['type'] == 'clanraid_boss') then
         return PARENT.checkSpecialImmune(self, t_status_effect)
-    else
-        --[[
-        -- 보스 쫄의 경우 기절, 수면에만 면역 처리
-        if (t_status_effect['name'] == 'stun' or t_status_effect['name'] == 'sleep') then
-            return true
-        end
-        ]]--
     end
     
     return false

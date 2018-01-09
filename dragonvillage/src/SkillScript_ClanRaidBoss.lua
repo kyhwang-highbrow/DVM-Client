@@ -86,7 +86,7 @@ function SkillScript_ClanRaidBoss.st_attack(owner, dt)
 
         local t_skill = unit:getSkillTable(owner.m_skillId)
         unit:do_script_shot(t_skill, unit:getAttribute(), PHYS.MISSILE.ENEMY)
-        
+                
         -- idle 애니메이션 시작시 발동되는 status effect를 적용
 		owner:dispatch(CON_SKILL_IDLE, {l_target = {owner.m_targetChar}})
 	end
