@@ -1,0 +1,41 @@
+
+radeboss1_dragon_07_fire.png
+size: 675,378
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+f_Layer 1
+  rotate: false
+  xy: 555, 3
+  size: 58, 59
+  orig: 58, 59
+  offset: 0, 0
+  index: -1
+f_dragon_07_body_01
+  rotate: true
+  xy: 2, 9
+  size: 367, 426
+  orig: 367, 426
+  offset: 0, 0
+  index: -1
+f_dragon_07_body_02
+  rotate: false
+  xy: 430, 64
+  size: 243, 312
+  orig: 243, 312
+  offset: 0, 0
+  index: -1
+f_dragon_07_head_01
+  rotate: false
+  xy: 430, 9
+  size: 61, 53
+  orig: 61, 53
+  offset: 0, 0
+  index: -1
+f_effect_laser
+  rotate: false
+  xy: 493, 2
+  size: 60, 60
+  orig: 60, 60
+  offset: 0, 0
+  index: -1

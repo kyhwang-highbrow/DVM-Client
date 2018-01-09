@@ -291,42 +291,42 @@ d_skill_effect_04
   orig: 247, 247
   offset: 0, 0
   index: -1
-d_skill_effect_fire
+effect_fire
   rotate: false
   xy: 565, 463
   size: 225, 136
   orig: 225, 136
   offset: 0, 0
   index: -1
-d_skill_effect_head
+effect_head
   rotate: true
   xy: 1752, 53
   size: 109, 112
   orig: 109, 112
   offset: 0, 0
   index: -1
-d_skill_effect_light
+effect_light
   rotate: false
   xy: 442, 7
   size: 99, 99
   orig: 99, 99
   offset: 0, 0
   index: -1
-d_skill_effect_lightdust
+effect_lightdust
   rotate: true
   xy: 1527, 75
   size: 127, 99
   orig: 127, 99
   offset: 0, 0
   index: -1
-d_skill_effect_red
+effect_red
   rotate: false
   xy: 1628, 83
   size: 122, 120
   orig: 122, 120
   offset: 0, 0
   index: -1
-d_skill_effect_won
+effect_won
   rotate: false
   xy: 1078, 10
   size: 243, 246
