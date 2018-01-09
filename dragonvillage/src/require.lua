@@ -717,6 +717,10 @@ local t_module = {
 	'UI_CapsuleBoxRewardList',
     'UI_ContentOpenPopup',
 
+	-- UI : 해외
+	'UI_SelectServerPopup',
+	'UI_SelectLanguagePopup',
+
     -- UI : 약관 동의
     'UI_TermsPopup',
 
@@ -1104,9 +1108,9 @@ function loadModuleForPatchScene()
 		'Cocos2d',
 		'Cocos2dConstants',
 		'lib/net',
-		'lib/class',
-		'lib/utils',
-		'lib/Translate',
+		--'lib/class',
+		--'lib/utils',
+		--'lib/Translate',
 		'lib/scheduler',
 		'lib/SocketTCP',
 		'lib/math',
@@ -1120,13 +1124,13 @@ function loadModuleForPatchScene()
 		'perpleLib/crand',
 		'perpleLib/PerpleScene',
 		'LuaBridge',
-		'Global',
+		--'Global',
 		'SoundMgr',
 		'SoundMgrController',
 		'SoundMgrProtected',
 		'PatchData',
 		'PatchCore',
-		'PatchChecker',
+		--'PatchChecker',
 		'ApkExpansion',
 		'Coroutine',
 		'LocalPushMgr',
@@ -1134,7 +1138,7 @@ function loadModuleForPatchScene()
 		'AdsManager',
 		'NaverCafeManager',
 		'ScriptCache',
-		'CppFunctions',
+		--'CppFunctions',
 		'XorCipher',
 		'PackageManager',
 		'FullPopupManager',
@@ -1148,13 +1152,13 @@ function loadModuleForPatchScene()
 
 		-- Util
 		'SDKManager',
-		'ErrorTracker',
+		--'ErrorTracker',
 		'TimeLib',
 		'Table',
 		'TableClass',
 		'SecurityNumber',
 		'ResPreloadMgr',
-		'LocalData',
+		--'LocalData',
 		'NumberLoop',
 		'Stopwatch',
 		'IconHelper',
@@ -1168,8 +1172,8 @@ function loadModuleForPatchScene()
 		'TableLoadingGuide',
 
 		-- Scene
-		'SceneLogo',
-		'ScenePatch',
+		--'SceneLogo',
+		--'ScenePatch',
 
 		-- Animator
 		'Animator',
@@ -1184,6 +1188,7 @@ function loadModuleForPatchScene()
 		'UIC_LabelTTF',
 		'UIC_RichLabel',
 		'UIC_RichLabelCore',
+		'UIC_RadioButton',
 
 		-- UI : 분류 없음
 		'UI_BlockPopup',
@@ -1197,12 +1202,16 @@ function loadModuleForPatchScene()
 		'UI_SimplePopup',
 		'UI_SimplePopup2',
 
+		-- UI : 햬외
+		'UI_SelectServerPopup',
+		'UI_SelectLanguagePopup',
+
 		-- Network
 		'Network',
 		'socket',
 	}
 
-	pl = require 'pl.import_into'()
+	--pl = require 'pl.import_into'()
 	csv = require 'perpleLib/lua_csv'
 	for i,v in ipairs(l_module_for_patch) do
         require(v)

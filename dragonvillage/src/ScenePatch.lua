@@ -28,8 +28,7 @@ function ScenePatch:onEnter()
     UIManager:open(ui, UIManager.SCENE)
 
     self.m_vars['okButton']:registerScriptTapHandler(function() self:click_screenBtn() end)
-    self.m_vars['messageLabel']:setVisible(true)
-    self.m_vars['messageLabel']:setString(Str('패치 확인 중...'))
+
 	self.m_vars['downloadGauge']:setPercentage(0)
 
     do -- 깜빡임 액션 지정
@@ -61,11 +60,24 @@ function ScenePatch:onEnter()
         self.m_vars['animator']:changeAni('01_patch')
     end
 
-	self.m_scene:scheduleUpdateWithPriorityLua(function(dt) self:update(dt) end, 0)
-    self:refreshPatchIdxLabel()
+	self:refreshPatchIdxLabel()
 
-    -- 패치 시작
-    self:runPatchCore()
+	-- 패치 시작
+	local function start_patch()
+		self.m_vars['messageLabel']:setVisible(true)
+		self.m_vars['messageLabel']:setString(Str('패치 확인 중...'))
+
+		self.m_scene:scheduleUpdateWithPriorityLua(function(dt) self:update(dt) end, 0)
+		self:runPatchCore()
+	end
+
+	-- 선택된 언어가 없다면 언어 선택 후 패치 시작
+	if (Translate:getGameLang() == nil) then
+		local ui = UI_SelectLanguagePopup(start_patch)
+
+	else
+		start_patch()
+	end
 end
 
 -------------------------------------

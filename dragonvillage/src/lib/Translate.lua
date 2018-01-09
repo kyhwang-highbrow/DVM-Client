@@ -33,22 +33,27 @@ function Translate:init()
     local lang_idx = cc.Application:sharedApplication():getCurrentLanguage()
     self.m_deviceLang = L_LANG_TYPE[lang_idx]
 
-    -- 저장된 언어가 없을 시 kr 로 박음
-    if (not self.m_gameLang) then
-        self.m_gameLang = 'kr'
-        g_localData:applyLocalData('kr', 'lang')
+	-- 한국어가 아닌 경우 언어 모듈 로드
+	if (self.m_gameLang ~= self.m_stdLang) then
+        self:load(self.m_gameLang)
     end
+
+	cclog()
+	cclog('******* device language : ' .. tostring(self.m_deviceLang))
+	cclog('******* game language : ' .. tostring(self.m_gameLang))
+	cclog()
 end
 
 -------------------------------------
 -- function load
 -------------------------------------
 function Translate:load(lang)
-
     self.m_mLangMap = nil
     if (lang == self.m_stdLang) then
         return
     end
+
+	self.m_gameLang = lang
 
     -- 한국어가 아니라면 m_mLangMap 호출
     if (lang == 'en') then

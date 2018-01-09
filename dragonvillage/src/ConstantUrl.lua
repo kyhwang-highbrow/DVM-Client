@@ -16,6 +16,8 @@ end
 function SetApiUrl(url)
     local target_server = CppFunctions:getTargetServer()
     local key = 'SERVER_' .. target_server
+
+	-- 해당 부분에 강제 접속할 게임 서버 주소 입력
     URL[key] = url
 end
 

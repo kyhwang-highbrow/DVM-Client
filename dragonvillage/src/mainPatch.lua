@@ -91,12 +91,16 @@ local function main()
 	require 'socket.core'
 	require 'ErrorTracker'
 	require 'PatchChecker'
+	require 'LocalData'
+	require 'lib/Translate'
 	require 'Global'
 	require 'CppFunctions'
 	require 'Analytics'
 	require 'SceneLogo'
 	require 'ScenePatch'
 	require 'Stopwatch'
+	require 'lib/utils'
+	pl = require 'pl.import_into'()
 
 	local stop_watch = Stopwatch()
 	stop_watch:start()
@@ -104,7 +108,17 @@ local function main()
 
 	-- 에러 안나도록..
 	ErrorTracker:getInstance()
+	stop_watch:record('ErrorTracker:getInstance()')
     PatchChecker:getInstance()
+	stop_watch:record('PatchChecker:getInstance()')
+
+    -- 설정 언어를 가져오기 위해 localData 불러옴
+    LocalData:getInstance()
+	stop_watch:record('LocalData:getInstance()')
+    
+	-- 번역
+    Translate:init()
+	stop_watch:record('Translate:init()')
 
     -- @analytics
     Analytics:firstTimeExperience('StartApp')
