@@ -236,17 +236,23 @@ end
 -------------------------------------
 function Network_platform_getServerList(success_cb, fail_cb)
 
+    --#define SERVER_LIVE "LIVE"
+    --#define SERVER_QA "QA"
+    --#define SERVER_DEV "DEV"
+
     -- 파라미터 셋팅
-    local t_data = {}    
-    t_data['uid'] = g_localData:get('local', 'uid')    
     local ip = getIPAddress()
     local deviceLang = getDeviceLanguage()
     local locale = getLocale()
     cclog( 'deviceLang : ' ..deviceLang )
     cclog( 'locale : ' .. locale )
     cclog( 'ip : ' .. ip )
-    t_data['ip'] = ip
 
+    local t_data = {}    
+    t_data['uid'] = g_localData:get('local', 'uid')        
+    t_data['ip'] = ip
+    t_data['server'] = CppFunctions:getTargetServer()
+    
     -- 요청 정보 설정
     local t_request = {}
     t_request['full_url'] = GetPlatformApiUrl() .. '/gateway/serverList'
