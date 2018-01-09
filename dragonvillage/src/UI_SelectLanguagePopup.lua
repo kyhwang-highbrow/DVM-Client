@@ -9,13 +9,8 @@ UI_SelectLanguagePopup = class(PARENT, {
 
      })
 
--- Translate에서 주관해야함
-local t_lang_list = {
-	['kr'] = Str('한국어'), 
-	['en'] = Str('영어'), 
-	['ja'] = Str('일본어'), 
-	['zh'] = Str('중국어')
-}
+-- Translate에서 텍스트 참조하기 위해 가져옴
+local t_lang_list = Translate:getLangStrTable()
 
 -------------------------------------
 -- function init
@@ -23,7 +18,12 @@ local t_lang_list = {
 function UI_SelectLanguagePopup:init(cb_func)
     local vars = self:load('popup_language.ui')
     UIManager:open(self, UIManager.POPUP)
-	
+
+	self.m_uiName = 'UI_SelectLanguagePopup'
+
+	-- backkey 지정
+    g_currScene:pushBackKeyListener(self, function() self:click_closeBtn() end, 'UI_PickDragon')
+
     -- @UI_ACTION
     self:doActionReset()
     self:doAction(nil, false)
@@ -53,10 +53,17 @@ function UI_SelectLanguagePopup:initButton()
 
 		local radio_button = UIC_RadioButton()
 
+		-- 언어별로 버튼 등록
 		for lang, text in pairs(t_lang_list) do
 			radio_button:addButtonAuto(lang, vars)
 		end
-		radio_button:setSelectedButton('en')
+
+		-- 현재 언어가 있는 경우에만 선택
+		local curr_lang = g_localData:getLang()
+		if (curr_lang) then
+			radio_button:setSelectedButton(curr_lang)
+		end
+
 		radio_button:setChangeCB(function() self:onChangeOption() end)
 
 		self.m_radioButton = radio_button
@@ -82,7 +89,7 @@ function UI_SelectLanguagePopup:onChangeOption()
 	local msg = Str('{1}를 선택합니다.', name)
 	local function cb_func()
 		-- 언어 저장 및 언어 파일 불러옴
-		g_localData:applyLocalData(lang, 'lang')
+		g_localData:setLang(lang)
 		Translate:load(lang)
 
 		-- 해당 UI 콜백이 패치 시작하는 함수

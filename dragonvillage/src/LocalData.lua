@@ -244,3 +244,19 @@ function LocalData:isInAppReview()
 	local b = (CppFunctions:isIos() and self:get('in_app_review'))
 	return b
 end
+
+-------------------------------------
+-- function setLang
+-- @breif
+-------------------------------------
+function LocalData:setLang(lang)
+	self:applyLocalData(lang, 'lang')
+end
+
+-------------------------------------
+-- function getLang
+-- @breif
+-------------------------------------
+function LocalData:getLang()
+	return self:get('lang')
+end

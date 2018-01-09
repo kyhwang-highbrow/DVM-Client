@@ -27,6 +27,9 @@ function UI_Setting:init_gameTab()
 
     -- 시나리오 재생 설정
     self:init_scenarioPlayerSetting()
+
+	-- 언어
+	self:init_language()
 end
 
 -------------------------------------
@@ -196,9 +199,24 @@ function UI_Setting:init_scenarioPlayerSetting()
 end
 
 -------------------------------------
+-- function init_language
+-- @brief 현재 언어
+-------------------------------------
+function UI_Setting:init_language()
+	local lang = g_localData:getLang()
+	local lang_str = Translate:getLangStrTable()[lang]
+	self.vars['languageLabel']:setString(lang_str)
+end
+
+-------------------------------------
 -- function click_languageBtn
 -- @brief
 -------------------------------------
 function UI_Setting:click_languageBtn()
-    UIManager:toastNotificationRed(Str('"언어 설정"은 준비 중입니다.'))
+	local function change_lang()
+		local msg = Str('새로운 언어를 적용하기 위해\n앱을 재시작 합니다.')
+		MakeNetworkPopup(POPUP_TYPE.OK, msg, function() CppFunctions:restart() end)
+	end
+
+    UI_SelectLanguagePopup(change_lang)
 end

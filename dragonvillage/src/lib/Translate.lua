@@ -27,7 +27,7 @@ local L_LANG_TYPE =
 -------------------------------------
 function Translate:init()
     self.m_stdLang = 'kr'
-    self.m_gameLang = LocalData:getInstance():get('lang')
+    self.m_gameLang = LocalData:getInstance():getLang()
 
     -- deviceLang은 사용 안함
     local lang_idx = cc.Application:sharedApplication():getCurrentLanguage()
@@ -185,4 +185,18 @@ function Translate:getTranslatedPath(full_path)
 	end
     
 	return translated_path
+end
+
+-------------------------------------
+-- function getLangStrTable
+-------------------------------------
+function Translate:getLangStrTable()
+	local T_LANG_STR = {
+		['kr'] = Str('한국어'), 
+		['en'] = Str('영어'), 
+		['ja'] = Str('일본어'), 
+		['zh'] = Str('중국어')
+	}
+
+    return T_LANG_STR
 end
