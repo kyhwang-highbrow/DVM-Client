@@ -148,6 +148,11 @@ function SortManager_Dragon:sort_combat_power(a, b, ascending)
     local a_data = a['data']
     local b_data = b['data']
 
+	-- sturct 타입의 데이터 아닌 경우에 통과
+    if (not a_data.m_objectType) or (not b_data.m_objectType) then
+        return nil
+    end
+
     local a_sort_data = a_data:getDragonSortData()
     local b_sort_data = b_data:getDragonSortData()
 
@@ -196,6 +201,11 @@ function SortManager_Dragon:sort_atk(a, b, ascending)
     local a_data = a['data']
     local b_data = b['data']
 
+    -- sturct 타입의 데이터 아닌 경우에 통과
+    if (not a_data.m_objectType) or (not b_data.m_objectType) then
+        return nil
+    end
+
     local a_sort_data = a_data:getDragonSortData()
     local b_sort_data = b_data:getDragonSortData()
 
@@ -219,6 +229,11 @@ function SortManager_Dragon:sort_def(a, b, ascending)
     local a_data = a['data']
     local b_data = b['data']
 
+	-- sturct 타입의 데이터 아닌 경우에 통과
+    if (not a_data.m_objectType) or (not b_data.m_objectType) then
+        return nil
+    end
+
     local a_sort_data = a_data:getDragonSortData()
     local b_sort_data = b_data:getDragonSortData()
 
@@ -241,6 +256,11 @@ end
 function SortManager_Dragon:sort_hp(a, b, ascending)
     local a_data = a['data']
     local b_data = b['data']
+
+	-- sturct 타입의 데이터 아닌 경우에 통과
+    if (not a_data.m_objectType) or (not b_data.m_objectType) then
+        return nil
+    end
 
     local a_sort_data = a_data:getDragonSortData()
     local b_sort_data = b_data:getDragonSortData()
