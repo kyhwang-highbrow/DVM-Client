@@ -81,7 +81,7 @@ function UI_SelectLanguagePopup:refresh()
 end
 
 -------------------------------------
--- function click_localeBtn
+-- function onChangeOption
 -------------------------------------
 function UI_SelectLanguagePopup:onChangeOption()
 	local lang = self.m_radioButton.m_selectedButton
@@ -106,6 +106,13 @@ end
 -- function click_closeBtn
 -------------------------------------
 function UI_SelectLanguagePopup:click_closeBtn()
+	local curr_lang = g_localData:getLang()
+	if (not curr_lang) then
+		local msg = Str('언어를 선택하지 않으셨습니다!')
+		MakeSimplePopup(POPUP_TYPE.OK, msg)
+		return
+	end
+
     self:close()
 end
 

@@ -11,14 +11,20 @@ UI_Setting = class(PARENT, {
 -- function init
 -------------------------------------
 function UI_Setting:init()
-    local vars = self:load('setting_popup.ui')
+	-- @mskim 해외 빌드 분기 처리
+	local ui_name
+	if (CppFunctionsClass:getAppVer() == '1.0.8') then
+		ui_name = 'setting_popup.ui'
+	else
+		ui_name = 'setting_popup_new.ui'
+	end
+    local vars = self:load(ui_name)
     UIManager:open(self, UIManager.POPUP)
 
     -- backkey 지정
     g_currScene:pushBackKeyListener(self, function() self:click_closeBtn() end, 'UI_Setting')
 
     -- @UI_ACTION
-    --self:addAction(vars['rootNode'], UI_ACTION_TYPE_LEFT, 0, 0.2)
     --self:doActionReset()
     --self:doAction(nil, false)
 

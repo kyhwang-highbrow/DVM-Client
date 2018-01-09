@@ -19,7 +19,8 @@ local LANG = {
 local L_LANG_TYPE = 
 {
     [LANG.ENGLISH] = 'en',
-    [LANG.KOREAN] = 'kr'
+    [LANG.KOREAN] = 'kr',
+	[LANG.JAPANESE] = 'jp',
 }
 
 -------------------------------------
@@ -35,7 +36,12 @@ function Translate:init()
 
 	-- 한국어가 아닌 경우 언어 모듈 로드
 	if (self.m_gameLang ~= self.m_stdLang) then
-        self:load(self.m_gameLang)
+		-- @mskim 해외 빌드 분기 처리
+		if (CppFunctionsClass:getAppVer() == '1.0.8') then
+			
+		else
+			self:load(self.m_gameLang)
+		end
     end
 
 	cclog()
@@ -194,7 +200,7 @@ function Translate:getLangStrTable()
 	local T_LANG_STR = {
 		['kr'] = Str('한국어'), 
 		['en'] = Str('영어'), 
-		['ja'] = Str('일본어'), 
+		['jp'] = Str('일본어'), 
 		['zh'] = Str('중국어')
 	}
 

@@ -73,8 +73,12 @@ function ScenePatch:onEnter()
 
 	-- 선택된 언어가 없다면 언어 선택 후 패치 시작
 	if (Translate:getGameLang() == nil) then
-		local ui = UI_SelectLanguagePopup(start_patch)
-
+		-- @mskim 해외 빌드 분기 처리
+		if (CppFunctionsClass:getAppVer() == '1.0.8') then
+			start_patch()
+		else
+			UI_SelectLanguagePopup(start_patch)
+		end
 	else
 		start_patch()
 	end
