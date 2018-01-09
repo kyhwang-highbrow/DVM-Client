@@ -3121,6 +3121,9 @@
     <None Include="..\src\UI_PickDragon.lua">
       <Filter>lua\UI</Filter>
     </None>
+    <None Include="..\src\TablePickDragon.lua">
+      <Filter>lua\src</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Classes">
