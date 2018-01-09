@@ -176,6 +176,9 @@ local function main()
     Translate:init()
     stopwatch:record('Translate:init()')
 
+    -- 각종 설정 데이터
+    SettingData:getInstance()
+
     stopwatch:stop()
     stopwatch:print()
 
@@ -195,6 +198,7 @@ end
 -------------------------------------
 function removeLocalFiles()
     LocalData:getInstance():clearLocalDataFile()
+    SettingData:getInstance():clearSettingDataFile()
     ServerData:getInstance():clearServerDataFile()
 
     -- 채팅 차단

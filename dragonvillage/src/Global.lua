@@ -266,7 +266,7 @@ end
 -- function SaveLocalSaveJson
 -- @brief
 -------------------------------------
-function SaveLocalSaveJson(filename, t_data)
+function SaveLocalSaveJson(filename, t_data, skip_xor)
     local f = io.open(filename,'w')
     if (not f) then
         return false
@@ -275,7 +275,7 @@ function SaveLocalSaveJson(filename, t_data)
     local content = dkjson.encode(t_data, {indent=true})
 
     -- 테스트 모드에서는 암호화 skip
-    if (not IS_TEST_MODE()) then
+    if (not IS_TEST_MODE()) and (not skip_xor) then
         -- xor 암호화
         content = XorCipher:E(content)
     end

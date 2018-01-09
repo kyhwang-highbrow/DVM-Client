@@ -37,6 +37,7 @@ function UI_TitleScene:init()
 
     -- 로컬 데이터 초기화
     LocalData:getInstance():applySetting()
+    SettingData:getInstance():applySetting()
 
     -- @brief work초기화 용도로 사용함
     self:setWorkList()

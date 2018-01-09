@@ -183,6 +183,7 @@ local t_module = {
     'LevelupDirector_GameResult',
     'MapManager',
     'LocalData',
+    'SettingData',
     'ChatIgnoreList',
     'ScenarioViewingHistory',
 	'ConstantData',
