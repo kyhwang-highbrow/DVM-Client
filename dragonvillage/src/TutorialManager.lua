@@ -6,6 +6,8 @@ TUTORIAL = {
     ANCIENT = 'tutorial_ancient_tower',
     CLAN = 'tutorial_clan',
     CLAN_GUEST = 'tutorial_clan_guest',
+	GACHA11_START = 'tutorial_11_gacha_start',
+	GACHA11_END = 'tutorial_11_gacha_end',
 }
 
 -------------------------------------
