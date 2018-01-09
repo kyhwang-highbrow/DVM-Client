@@ -470,7 +470,7 @@ function replaceScene(target_scene)
 		do
 			target_scene.m_loadingUI = target_scene:makeLoadingUI()
             target_scene.m_scene:addChild(target_scene.m_loadingUI.root, 99999)
-			target_scene.m_loadingUI:setLoadingGauge(5)
+			target_scene.m_loadingUI:setLoadingGauge(33)
 			dt = coroutine.yield()
 			co_timer = co_timer + dt
 		end
@@ -492,7 +492,7 @@ function replaceScene(target_scene)
         --------------------------------------------------------------------------
         do -- prepare
             target_scene:prepare()
-			target_scene.m_loadingUI:setLoadingGauge(19)
+			target_scene.m_loadingUI:setLoadingGauge(50)
             dt = coroutine.yield()
             co_timer = co_timer + dt
         end
@@ -514,9 +514,9 @@ function replaceScene(target_scene)
 				curr_cnt = total_cnt - rest_cnt
 
 				if (total_cnt > 0) then
-					percent = 19 + (unit_pcnt * curr_cnt)
+					percent = 75 + (unit_pcnt * curr_cnt)
 				else
-					percent = 31
+					percent = 100
 				end
 				target_scene.m_loadingUI:setLoadingGauge(percent)
                 dt = coroutine.yield()
@@ -526,30 +526,10 @@ function replaceScene(target_scene)
         --------------------------------------------------------------------------
 
         --------------------------------------------------------------------------
-        -- 로딩 UI 재생
+        -- 로딩 UI 삭제
         if target_scene.m_loadingUI then
-            -- 기본 2초간의 로딩 시간
-            local loading_time = 1
-            if target_scene.m_loadingUIDuration then
-                loading_time = target_scene.m_loadingUIDuration
-                co_timer = 0
-            end
-
-            -- wait
-			local start_percent = target_scene.m_loadingUI:getLoadingGauge()
-			local percent = 0
-            while co_timer < loading_time do
-				percent = start_percent + ((100 - start_percent) * co_timer/loading_time)
-				target_scene.m_loadingUI:setLoadingGauge(percent, true)
-                dt = coroutine.yield()
-                co_timer = co_timer + dt
-            end
-
-            -- loading_ui delete
-            if target_scene.m_loadingUI then
-                target_scene.m_loadingUI.root:removeFromParent(true)
-                target_scene.m_loadingUI = nil
-            end
+            target_scene.m_loadingUI.root:removeFromParent(true)
+            target_scene.m_loadingUI = nil
         end
         --------------------------------------------------------------------------
 
