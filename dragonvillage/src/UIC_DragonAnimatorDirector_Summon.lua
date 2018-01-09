@@ -234,11 +234,13 @@ function UIC_DragonAnimatorDirector_Summon:forceSkipDirecting()
 	PARENT.appearDragonAnimator(self)
 end
 
-
 -------------------------------------
 -- function bindEgg
 -------------------------------------
 function UIC_DragonAnimatorDirector_Summon:bindEgg(egg_id, egg_res)
+	if (not egg_id) then
+		return
+	end
     if (not egg_res) or (egg_res == '') then
         egg_res = 'res/item/egg/egg_common_unknown/egg_common_unknown.vrp'
     end

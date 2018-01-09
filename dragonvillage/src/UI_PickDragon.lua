@@ -31,12 +31,11 @@ function UI_PickDragon:init(mid, item_id, cb_func)
     g_currScene:pushBackKeyListener(self, function() self:click_closeBtn() end, 'UI_PickDragon')
 
     -- @UI_ACTION
-    --self:addAction(vars['rootNode'], UI_ACTION_TYPE_LEFT, 0, 0.2)
     self:doActionReset()
     self:doAction(nil, false)
 	
 	self.m_mid = mid
-	self.m_finishCB = cb_func
+	self.m_finishCB= cb_func
 	self.m_orgDragonList = TablePickDragon:getDragonList(item_id)
 
     self:initUI()
@@ -64,6 +63,7 @@ end
 function UI_PickDragon:initButton()
     local vars = self.vars
     vars['closeBtn']:registerScriptTapHandler(function() self:click_closeBtn() end)
+	vars['bookBtn']:registerScriptTapHandler(function() self:click_bookBtn() end)
 	vars['summonBtn']:registerScriptTapHandler(function() self:click_summonBtn() end)
 end
 
@@ -263,6 +263,20 @@ function UI_PickDragon:click_closeBtn()
 end
 
 -------------------------------------
+-- function click_bookBtn
+-- @brief 도감
+-------------------------------------
+function UI_PickDragon:click_bookBtn()
+    local t_dragon = self.m_currDragonData
+
+	local did = t_dragon['did']
+    local grade = t_dragon['grade']
+    local evolution = t_dragon['evolution']
+
+    UI_BookDetailPopup.open(did, grade, evolution)
+end
+
+-------------------------------------
 -- function click_summonBtn
 -------------------------------------
 function UI_PickDragon:click_summonBtn()
@@ -272,7 +286,7 @@ function UI_PickDragon:click_summonBtn()
 	local msg = Str('{1} 선택하시겠습니까?', name)
 	local function ok_btn_cb()
 		local mid = self.m_mid
-		self:request_pick(mid, did, finish_cb)
+		self:request_pick(mid, did)
 	end
 
 	MakeSimplePopup(POPUP_TYPE.YES_NO, msg, ok_btn_cb)
@@ -282,16 +296,26 @@ end
 -- function request_pick
 -- @brief 드래곤 선택!
 -------------------------------------
-function UI_PickDragon:request_pick(mid, did, finish_cb)
+function UI_PickDragon:request_pick(mid, did)
     -- 유저 ID
     local uid = g_userData:get('uid')
     
     -- 성공 콜백
     local function success_cb(ret)
+		-- 드래곤 추가
+		g_dragonsData:applyDragonData_list(ret['added_dragons'])
+
+		-- 결과화면
+		local gacha_type = 'immediately'
+		local ui = UI_GachaResult_Dragon(gacha_type, ret['added_dragons'])
+		ui:click_skipBtn()
+
+		if (self.m_finishCB) then
+			self.m_finishCB()
+		end
+
+		-- 닫기
 		self:close()
-        if finish_cb then
-            finish_cb(ret)
-        end
     end
 
     -- 네트워크 통신

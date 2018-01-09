@@ -40,6 +40,11 @@ function UI_GachaResult_Dragon:init(gacha_type, l_gacha_dragon_list, l_slime_lis
     self.m_bSkip = false
 	self.m_tSummonData = t_summon_data
 
+	-- 연출없이 즉시 단일 결과 보여주는 타입..
+	if (self.m_type == 'immediately') then
+		self.m_bSkip = true
+	end
+
     -- 드래곤리스트, 슬라임 리스트 copy
     local copy_dragon_list = l_gacha_dragon_list and clone(l_gacha_dragon_list) or {}
     local copy_slime_list = l_slime_list and clone(l_slime_list) or {}
@@ -54,9 +59,6 @@ function UI_GachaResult_Dragon:init(gacha_type, l_gacha_dragon_list, l_slime_lis
         local struct = StructSlimeObject(v)
         table.insert(self.m_lGachaDragonList, struct)
     end
-
-    -- 순서 셔플
-    --self.m_lGachaDragonList = table.sortRandom(self.m_lGachaDragonList)
 
 	-- 연출 제어용으로 원본 따로 저장
     self.m_lGachaDragonListOrg = clone(self.m_lGachaDragonList)
@@ -120,8 +122,12 @@ function UI_GachaResult_Dragon:initEverything()
 	local t_egg_data = self.m_tSummonData
 	local egg_id = self.m_eggID
 
+	-- 선택권, 뽑기권 등..
+	if (self.m_type == 'mail') or (self.m_type == 'immediately') then
+		-- nothing to do
+
 	-- 부화
-	if (self.m_type == 'incubate') then
+	elseif (self.m_type == 'incubate') then
 		local cnt = t_egg_data['count']
         local remain_cnt = t_egg_data['remain_cnt']
 		
