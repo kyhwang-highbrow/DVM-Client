@@ -104,12 +104,7 @@ function TableStageDesc:isBossStage(stage_id)
     end
 
     local is_boss_monster = TableMonster:isBossMonster(monster_id)
-
-    if is_boss_monster then
-        return true, monster_id
-    else
-        return false
-    end
+	return is_boss_monster, monster_id
 end
 
 -------------------------------------

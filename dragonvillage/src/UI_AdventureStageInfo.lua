@@ -207,29 +207,28 @@ function UI_AdventureStageInfo:refresh()
     do -- 보스 스테이지
         local is_boss_stage, monster_id = g_stageData:isBossStage(stage_id)
         vars['bossSprite']:setVisible(is_boss_stage)
-        vars['bossNode']:setVisible(is_boss_stage)
+        vars['bossNode']:setVisible(true)
 
         vars['bossNode']:removeAllChildren()
-        if is_boss_stage then
-            local res, attr, evolution = TableMonster:getMonsterRes(monster_id)
-            local animator = AnimatorHelper:makeMonsterAnimator(res, attr, evolution)
-            animator:changeAni('idle', true)
-            vars['bossNode']:addChild(animator.m_node)
+
+        local res, attr, evolution = TableMonster:getMonsterRes(monster_id)
+        local animator = AnimatorHelper:makeMonsterAnimator(res, attr, evolution)
+        animator:changeAni('idle', true)
+        vars['bossNode']:addChild(animator.m_node)
             
-            -- 황금 던전 보스
-            if isExistValue(monster_id, 135031) then
-                animator:setScale(0.5)
-                animator:setPosition(200, 0)
+        -- 황금 던전 보스
+        if isExistValue(monster_id, 135031) then
+            animator:setScale(0.5)
+            animator:setPosition(200, 0)
 
-            -- 거목 던전 보스
-            elseif isExistValue(monster_id, 135021, 135022, 135023, 135024, 135025) then
-                animator:setScale(0.7)
+        -- 거목 던전 보스
+        elseif isExistValue(monster_id, 135021, 135022, 135023, 135024, 135025) then
+            animator:setScale(0.7)
 
-            -- 악몽 던전 보스
-            elseif isExistValue(monster_id, 136011, 136012, 136013, 136014, 136015, 136021, 136022, 136023, 136024, 136025) then
-                animator:setScale(0.7)
+        -- 악몽 던전 보스
+        elseif isExistValue(monster_id, 136011, 136012, 136013, 136014, 136015, 136021, 136022, 136023, 136024, 136025) then
+            animator:setScale(0.7)
 
-            end
         end
     end
 end
