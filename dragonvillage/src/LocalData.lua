@@ -242,5 +242,5 @@ end
 -------------------------------------
 function LocalData:isInAppReview()
 	local b = (CppFunctions:isIos() and self:get('in_app_review'))
-	return true
+	return b
 end
