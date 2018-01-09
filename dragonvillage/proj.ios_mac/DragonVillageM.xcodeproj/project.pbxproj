@@ -87,9 +87,9 @@
 		3772F40A1FF4ECC300A9EF7A /* SDWebImageDownloaderOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 3772F3F61FF4ECC000A9EF7A /* SDWebImageDownloaderOperation.m */; };
 		3772F40B1FF4ECC300A9EF7A /* SDImageCache.m in Sources */ = {isa = PBXBuildFile; fileRef = 3772F3F81FF4ECC100A9EF7A /* SDImageCache.m */; };
 		3772F40C1FF4ECC300A9EF7A /* SDWebImageDownloader.m in Sources */ = {isa = PBXBuildFile; fileRef = 3772F3FA1FF4ECC100A9EF7A /* SDWebImageDownloader.m */; };
-		3772F4161FF5D56700A9EF7A /* src in Resources */ = {isa = PBXBuildFile; fileRef = 3772F4141FF5D56600A9EF7A /* src */; };
-		3772F4171FF5D56700A9EF7A /* data in Resources */ = {isa = PBXBuildFile; fileRef = 3772F4151FF5D56700A9EF7A /* data */; };
 		3772F4E51FFE1CB300A9EF7A /* libPerpleSDK.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3772F4E41FFE1CB200A9EF7A /* libPerpleSDK.a */; };
+		3772F4F020036D0800A9EF7A /* data_dat in Resources */ = {isa = PBXBuildFile; fileRef = 3772F4EE20036D0700A9EF7A /* data_dat */; };
+		3772F4FA2004EA6200A9EF7A /* ps in Resources */ = {isa = PBXBuildFile; fileRef = 3772F4F92004EA6100A9EF7A /* ps */; };
 		37B3B4581FD67B0E003E172E /* SafariServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 37B3B4571FD67B0E003E172E /* SafariServices.framework */; };
 		37B3B45A1FD67B2F003E172E /* CoreMedia.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 37B3B4591FD67B2F003E172E /* CoreMedia.framework */; };
 		37B3B45C1FD67B50003E172E /* GameKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 37B3B45B1FD67B50003E172E /* GameKit.framework */; };
@@ -346,12 +346,12 @@
 		370B47501F7CB5260072CA71 /* translate */ = {isa = PBXFileReference; lastKnownFileType = folder; name = translate; path = ../../assets/full/translate; sourceTree = "<group>"; };
 		370B47511F7CB5260072CA71 /* Deprecated.lua */ = {isa = PBXFileReference; lastKnownFileType = text; name = Deprecated.lua; path = ../../assets/full/Deprecated.lua; sourceTree = "<group>"; };
 		370B47521F7CB5260072CA71 /* luaj.lua */ = {isa = PBXFileReference; lastKnownFileType = text; name = luaj.lua; path = ../../assets/full/luaj.lua; sourceTree = "<group>"; };
-		370B47541F7CB5270072CA71 /* res */ = {isa = PBXFileReference; lastKnownFileType = folder; name = res; path = ../res; sourceTree = "<group>"; };
+		370B47541F7CB5270072CA71 /* res */ = {isa = PBXFileReference; lastKnownFileType = folder; name = res; path = ../../assets/full/res; sourceTree = "<group>"; };
 		370B47551F7CB5270072CA71 /* fixed_constant.lua */ = {isa = PBXFileReference; lastKnownFileType = text; name = fixed_constant.lua; path = ../../assets/full/fixed_constant.lua; sourceTree = "<group>"; };
 		370B47561F7CB5270072CA71 /* entry_patch.lua */ = {isa = PBXFileReference; lastKnownFileType = text; name = entry_patch.lua; path = ../../assets/full/entry_patch.lua; sourceTree = "<group>"; };
 		370B47571F7CB5270072CA71 /* Cocos2dConstants.lua */ = {isa = PBXFileReference; lastKnownFileType = text; name = Cocos2dConstants.lua; path = ../../assets/full/Cocos2dConstants.lua; sourceTree = "<group>"; };
 		370B47581F7CB5280072CA71 /* DrawPrimitives.lua */ = {isa = PBXFileReference; lastKnownFileType = text; name = DrawPrimitives.lua; path = ../../assets/full/DrawPrimitives.lua; sourceTree = "<group>"; };
-		370B47591F7CB5280072CA71 /* sound */ = {isa = PBXFileReference; lastKnownFileType = folder; name = sound; path = ../sound; sourceTree = "<group>"; };
+		370B47591F7CB5280072CA71 /* sound */ = {isa = PBXFileReference; lastKnownFileType = folder; name = sound; path = ../../assets/full/sound; sourceTree = "<group>"; };
 		370B475A1F7CB5280072CA71 /* DeprecatedEnum.lua */ = {isa = PBXFileReference; lastKnownFileType = text; name = DeprecatedEnum.lua; path = ../../assets/full/DeprecatedEnum.lua; sourceTree = "<group>"; };
 		370B475B1F7CB5280072CA71 /* AudioEngine.lua */ = {isa = PBXFileReference; lastKnownFileType = text; name = AudioEngine.lua; path = ../../assets/full/AudioEngine.lua; sourceTree = "<group>"; };
 		370B475C1F7CB5290072CA71 /* entry_main.lua */ = {isa = PBXFileReference; lastKnownFileType = text; name = entry_main.lua; path = ../../assets/full/entry_main.lua; sourceTree = "<group>"; };
@@ -447,10 +447,10 @@
 		3772F3FB1FF4ECC200A9EF7A /* SDWebImageCompat.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SDWebImageCompat.h; path = "../../libraries/perplesdk/external/naver-cafe-sdk/ios/external-lib/SDWebImage-3.8.2/SDWebImageCompat.h"; sourceTree = "<group>"; };
 		3772F3FC1FF4ECC200A9EF7A /* UIView+WebCacheOperation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "UIView+WebCacheOperation.h"; path = "../../libraries/perplesdk/external/naver-cafe-sdk/ios/external-lib/SDWebImage-3.8.2/UIView+WebCacheOperation.h"; sourceTree = "<group>"; };
 		3772F3FD1FF4ECC200A9EF7A /* SDWebImageManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SDWebImageManager.h; path = "../../libraries/perplesdk/external/naver-cafe-sdk/ios/external-lib/SDWebImage-3.8.2/SDWebImageManager.h"; sourceTree = "<group>"; };
-		3772F4141FF5D56600A9EF7A /* src */ = {isa = PBXFileReference; lastKnownFileType = folder; name = src; path = ../src; sourceTree = "<group>"; };
-		3772F4151FF5D56700A9EF7A /* data */ = {isa = PBXFileReference; lastKnownFileType = folder; name = data; path = ../data; sourceTree = "<group>"; };
 		3772F4CA1FFCCA5B00A9EF7A /* NaverCafeSDKLive.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = NaverCafeSDKLive.framework; path = "../../libraries/perplesdk/external/naver-cafe-sdk/ios/NaverCafeSDKLive.framework"; sourceTree = "<group>"; };
 		3772F4E41FFE1CB200A9EF7A /* libPerpleSDK.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libPerpleSDK.a; path = ../../libraries/perplesdk/prebuilt/ios/libPerpleSDK.a; sourceTree = "<group>"; };
+		3772F4EE20036D0700A9EF7A /* data_dat */ = {isa = PBXFileReference; lastKnownFileType = folder; name = data_dat; path = ../../assets/full/data_dat; sourceTree = "<group>"; };
+		3772F4F92004EA6100A9EF7A /* ps */ = {isa = PBXFileReference; lastKnownFileType = folder; name = ps; path = ../../assets/full/ps; sourceTree = "<group>"; };
 		37B3B4571FD67B0E003E172E /* SafariServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SafariServices.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS11.2.sdk/System/Library/Frameworks/SafariServices.framework; sourceTree = DEVELOPER_DIR; };
 		37B3B4591FD67B2F003E172E /* CoreMedia.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMedia.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS11.2.sdk/System/Library/Frameworks/CoreMedia.framework; sourceTree = DEVELOPER_DIR; };
 		37B3B45B1FD67B50003E172E /* GameKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GameKit.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS11.2.sdk/System/Library/Frameworks/GameKit.framework; sourceTree = DEVELOPER_DIR; };
@@ -463,7 +463,6 @@
 		37D8E3EF1A304EB9005E479B /* PerpSocial.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = PerpSocial.cpp; path = ../Classes/PerpSocial.cpp; sourceTree = "<group>"; };
 		37D8E3F01A304EB9005E479B /* PerpSocial.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PerpSocial.h; path = ../Classes/PerpSocial.h; sourceTree = "<group>"; };
 		37E0007E1B26905C00F23F9E /* ja */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ja; path = ja.lproj/InfoPlist.strings; sourceTree = "<group>"; };
-		37E0007F1B26906300F23F9E /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/InfoPlist.strings"; sourceTree = "<group>"; };
 		37E000801B26906900F23F9E /* zh-Hant */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hant"; path = "zh-Hant.lproj/InfoPlist.strings"; sourceTree = "<group>"; };
 		37E128AF1B45380F00200C23 /* EventKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = EventKit.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS.sdk/System/Library/Frameworks/EventKit.framework; sourceTree = DEVELOPER_DIR; };
 		37E128B31B45384000200C23 /* EventKitUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = EventKitUI.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS.sdk/System/Library/Frameworks/EventKitUI.framework; sourceTree = DEVELOPER_DIR; };
@@ -649,8 +648,8 @@
 		3746350A1F7B8BA0004F8387 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
-				3772F4151FF5D56700A9EF7A /* data */,
-				3772F4141FF5D56600A9EF7A /* src */,
+				3772F4F92004EA6100A9EF7A /* ps */,
+				3772F4EE20036D0700A9EF7A /* data_dat */,
 				370B474D1F7CB5260072CA71 /* config.json */,
 				370B475B1F7CB5280072CA71 /* AudioEngine.lua */,
 				370B47611F7CB52A0072CA71 /* CCBReaderLoad.lua */,
@@ -1052,7 +1051,6 @@
 				Base,
 				ko,
 				ja,
-				"zh-Hans",
 				"zh-Hant",
 				en,
 				he,
@@ -1211,11 +1209,12 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				3772F4171FF5D56700A9EF7A /* data in Resources */,
 				7D50CB851C04459600F8FE3E /* Info.plist in Resources */,
+				3772F4FA2004EA6200A9EF7A /* ps in Resources */,
 				37EF84261B268F3B00EFA299 /* InfoPlist.strings in Resources */,
 				37FB64B71F3AF73300378EE8 /* GoogleService-Info.plist in Resources */,
 				3706F1761F680E9200777433 /* NaverCafeSDK.bundle in Resources */,
+				3772F4F020036D0800A9EF7A /* data_dat in Resources */,
 				370B476B1F7CB6290072CA71 /* config.json in Resources */,
 				370B476C1F7CB6290072CA71 /* AudioEngine.lua in Resources */,
 				370B476D1F7CB6290072CA71 /* CCBReaderLoad.lua in Resources */,
@@ -1230,7 +1229,6 @@
 				370B47751F7CB6290072CA71 /* DrawPrimitives.lua in Resources */,
 				370B47761F7CB6290072CA71 /* entry_main.lua in Resources */,
 				370B47771F7CB6290072CA71 /* entry_patch.lua in Resources */,
-				3772F4161FF5D56700A9EF7A /* src in Resources */,
 				370B47781F7CB6290072CA71 /* extern.lua in Resources */,
 				370B47791F7CB6290072CA71 /* fixed_constant.lua in Resources */,
 				370B477A1F7CB6290072CA71 /* GuiConstants.lua in Resources */,
@@ -1486,7 +1484,6 @@
 				37EF842A1B268F4C00EFA299 /* Base */,
 				37EF842B1B268F7200EFA299 /* ko */,
 				37E0007E1B26905C00F23F9E /* ja */,
-				37E0007F1B26906300F23F9E /* zh-Hans */,
 				37E000801B26906900F23F9E /* zh-Hant */,
 				1CC28FA01B69003F00F75BE8 /* en */,
 			);

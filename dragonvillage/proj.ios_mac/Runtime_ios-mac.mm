@@ -52,7 +52,12 @@ string getRunningApps()
 
 string getDeviceLanguage()
 {
+    NSLocale* locale = [NSLocale autoupdatingCurrentLocale];
+    NSString* code = locale.languageCode;
+    //NSString* language = [locale localizedStringForLanguageCode:code];
+
     //NSString *lan = [NSLocale currentLocale] objectForKey:NSLocaleLanguageCode];
+    /*
     NSString *lan = [[NSLocale preferredLanguages] objectAtIndex:0];
     NSLog(@"language(setted value) : %@", lan);
 
@@ -62,9 +67,11 @@ string getDeviceLanguage()
     } else if ([language isEqualToString:@"zh-hans"]) {
         language = @"zh-cn";
     }
-
     NSLog(@"language(returned value) : %@", language);
-    return [language UTF8String];
+     */
+    NSLog(@"code) : %@", code);
+
+    return [code UTF8String];
 }
 
 string getLocale()

@@ -70,7 +70,6 @@ static AppDelegate s_sharedApplication;
         didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
 
     // Override point for customization after application launch.
-
     [application setApplicationIconBadgeNumber:0];
 
     // local notification
