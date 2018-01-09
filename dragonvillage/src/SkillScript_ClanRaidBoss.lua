@@ -53,8 +53,8 @@ function SkillScript_ClanRaidBoss:setSkillParams(owner, t_skill, t_data)
     for i = 1, 5 do
         local struct_status_effect = StructStatusEffect({
             type = 'passive_fury',
-			target_type = 'self',
-			target_count = 1,
+			target_type = 'ally_all',
+			target_count = '',
 			trigger = CON_SKILL_END,
 			duration = -1,
 			rate = 100,
@@ -86,7 +86,7 @@ function SkillScript_ClanRaidBoss.st_attack(owner, dt)
 
         local t_skill = unit:getSkillTable(owner.m_skillId)
         unit:do_script_shot(t_skill, unit:getAttribute(), PHYS.MISSILE.ENEMY)
-
+        
         -- idle 애니메이션 시작시 발동되는 status effect를 적용
 		owner:dispatch(CON_SKILL_IDLE, {l_target = {owner.m_targetChar}})
 	end

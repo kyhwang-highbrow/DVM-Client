@@ -89,13 +89,14 @@ function WaveMgr_ClanRaid:spawnEnemy_dynamic(enemy_id, level, appear_type, value
 
     -- 레이어 처리
     local zOrder = WORLD_Z_ORDER.BOSS
+    local idx = getDigit(enemy_id, 10, 1)
 
     if (phys_group == PHYS.ENEMY_TOP) then
-        zOrder = WORLD_Z_ORDER.BOSS + 1
-    elseif (enemy_id == 151071) then
+        zOrder = WORLD_Z_ORDER.BOSS + 1    
+    elseif (idx == 7) then
         zOrder = WORLD_Z_ORDER.BOSS
     else
-        zOrder = WORLD_Z_ORDER.BOSS + 1 + getDigit(enemy_id, 10, 1)
+        zOrder = WORLD_Z_ORDER.BOSS + 1 + idx
     end
     self.m_world.m_worldNode:addChild(enemy.m_rootNode, zOrder)
         
