@@ -15,7 +15,7 @@ AUTO_COLOSSEUM = 'colosseum'
 -- function init
 -------------------------------------
 function ServerData_AutoPlaySetting:init()
-    local t_auto_play_setting = g_localData:get('auto_play_setting')
+    local t_auto_play_setting = g_settingData:get('auto_play_setting')
 
     if (not t_auto_play_setting) then
         t_auto_play_setting = {}
@@ -25,7 +25,7 @@ function ServerData_AutoPlaySetting:init()
             self:setDefaultSetting(mode, t_auto_play_setting)
         end
         
-        g_localData:applyLocalData(t_auto_play_setting, 'auto_play_setting')
+        g_settingData:applySettingData(t_auto_play_setting, 'auto_play_setting')
     end
 
     self.m_autoMode = AUTO_NORMAL
@@ -81,7 +81,7 @@ end
 -- function get
 -------------------------------------
 function ServerData_AutoPlaySetting:get(key)
-    local ret = g_localData:get('auto_play_setting', self.m_autoMode, key)
+    local ret = g_settingData:get('auto_play_setting', self.m_autoMode, key)
     return ret
 end
 
@@ -89,14 +89,14 @@ end
 -- function set
 -------------------------------------
 function ServerData_AutoPlaySetting:set(key, data)
-    return g_localData:applyLocalData(data, 'auto_play_setting', self.m_autoMode, key)
+    return g_settingData:applySettingData(data, 'auto_play_setting', self.m_autoMode, key)
 end
 
 -------------------------------------
 -- function setWithoutSaving
 -------------------------------------
 function ServerData_AutoPlaySetting:setWithoutSaving(key, data)
-    local t_auto_play_setting = g_localData:getRef('auto_play_setting')
+    local t_auto_play_setting = g_settingData:getRef('auto_play_setting')
 
     if (not t_auto_play_setting[self.m_autoMode]) then
         self:setDefaultSetting(self.m_autoMode, t_auto_play_setting)

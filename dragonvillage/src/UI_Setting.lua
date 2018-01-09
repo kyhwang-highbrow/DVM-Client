@@ -41,7 +41,7 @@ function UI_Setting:initUI()
     -- 테스트 모드 버튼
     if CppFunctionsClass:isTestMode() then
         vars['testModeBtn']:setVisible(true)
-        local local_test_mode = g_localData:get('test_mode')
+        local local_test_mode = g_settingData:get('test_mode')
         if (local_test_mode == nil) then
             local_test_mode = true
         end
@@ -56,7 +56,7 @@ function UI_Setting:initUI()
         -- 버튼 설정
         local function click()
             local function ok_cb()
-                g_localData:applyLocalData(not local_test_mode, 'test_mode')
+                g_settingData:applySettingData(not local_test_mode, 'test_mode')
                 CppFunctions:restart()
             end
             MakeSimplePopup(POPUP_TYPE.YES_NO, '설정을 변경하면 앱이 재시작됩니다.\n진행하시겠습니까?', ok_cb)

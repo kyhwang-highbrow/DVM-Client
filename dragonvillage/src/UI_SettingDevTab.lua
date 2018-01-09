@@ -34,9 +34,9 @@ end
 -- @brief fps 출력
 -------------------------------------
 function UI_Setting:click_fpsBtn()
-    local value = g_localData:get('fps')
-    g_localData:applyLocalData(not value, 'fps')
-    g_localData:applySetting()
+    local value = g_settingData:get('fps')
+    g_settingData:applySettingData(not value, 'fps')
+    g_settingData:applySetting()
     self:refresh_devTap()
 end
 
@@ -567,14 +567,14 @@ function UI_Setting:refresh_devTap()
     local vars = self.vars
 
     -- fps
-    if g_localData:get('fps') then
+    if g_settingData:get('fps') then
         vars['fpsLabel']:setString('ON')
     else
         vars['fpsLabel']:setString('OFF')
     end
 
     -- new sound module
-    local engine_mode = g_localData:get('sound_module') or cc.SimpleAudioEngine:getInstance():getEngineMode()
+    local engine_mode = g_settingData:get('sound_module') or cc.SimpleAudioEngine:getInstance():getEngineMode()
     if engine_mode == 1 then
         vars['soundModuleLabel']:setString('ON')
     else
@@ -609,8 +609,8 @@ end
 function UI_Setting:click_soundModuleBtn()
     local value = 1 - cc.SimpleAudioEngine:getInstance():getEngineMode()
 
-    g_localData:applyLocalData(value, 'sound_module')
-    g_localData:applySetting()
+    g_settingData:applySettingData(value, 'sound_module')
+    g_settingData:applySetting()
 
     self:refresh_devTap()
 end
@@ -698,6 +698,6 @@ end
 -- @brief 팝업 캐시 리셋
 -------------------------------------
 function UI_Setting:click_popupCacheResetBtn()
-    g_localData:applyLocalData({}, 'event_full_popup')
+    g_settingData:applySettingData({}, 'event_full_popup')
     UIManager:toastNotificationGreen('팝업 캐시가 초기화되었습니다!')
 end

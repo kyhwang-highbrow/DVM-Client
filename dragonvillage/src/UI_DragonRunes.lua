@@ -926,7 +926,7 @@ end
 -- @brief "모험 떠나기"
 -------------------------------------
 function UI_DragonRunes:click_adventureBtn()
-    local stage_id = g_localData:get('adventure_focus_stage')
+    local stage_id = g_settingData:get('adventure_focus_stage')
     UINavigator:goTo('adventure', stage_id)
 end
 

@@ -52,7 +52,7 @@ function FullPopupManager:show(type, show_func)
         local l_list = g_eventData:getEventFullPopupList()
         for _, pid in ipairs(l_list) do
             local save_key = tostring(pid)
-            local is_view = g_localData:get('event_full_popup', save_key) or false
+            local is_view = g_settingData:get('event_full_popup', save_key) or false
 
             -- 봤던 기록 없는 이벤트 풀팝업 띄워줌
             if (not is_view) then
@@ -82,10 +82,10 @@ function FullPopupManager:show(type, show_func)
             end
         end
         local save_key = 'auto_pick'
-        local is_view = g_localData:get('event_full_popup', save_key) or false
+        local is_view = g_settingData:get('event_full_popup', save_key) or false
         if (lv >= need_lv) and (not is_view) then 
             g_subscriptionData:request_subscriptionInfo(cb_func)
-            g_localData:applyLocalData(true, 'event_full_popup', save_key)
+            g_settingData:applySettingData(true, 'event_full_popup', save_key)
         end
 
     -- 스타터 패키지 풀팝업 (부화소 진입시)
@@ -94,10 +94,10 @@ function FullPopupManager:show(type, show_func)
         local lv = g_userData:get('lv')
         local need_lv = 6
         local package_name = 'package_starter'
-        local is_view = g_localData:get('event_full_popup', package_name) or false
+        local is_view = g_settingData:get('event_full_popup', package_name) or false
         if (lv >= need_lv) and (not is_view) then 
             self:showFullPopup(package_name)
-            g_localData:applyLocalData(true, 'event_full_popup', package_name)
+            g_settingData:applySettingData(true, 'event_full_popup', package_name)
         end
 
     -- 캡슐 코인 패키지 풀팝업 (상점 진입시)
@@ -106,21 +106,21 @@ function FullPopupManager:show(type, show_func)
         local lv = g_userData:get('lv')
         local need_lv = 10
         local package_name = 'package_capsule_coin'
-        local is_view = g_localData:get('event_full_popup', package_name) or false
+        local is_view = g_settingData:get('event_full_popup', package_name) or false
         if (lv >= need_lv) and (not is_view) then 
             self:showFullPopup(package_name)
-            g_localData:applyLocalData(true, 'event_full_popup', package_name)
+            g_settingData:applySettingData(true, 'event_full_popup', package_name)
         end
     
     -- 몽땅 다이아 패키지
     -- 조건 : 기간 체크 함
     elseif (type == FULL_POPUP_TYPE.ALL_DIA_PACK) then
         local package_name = 'package_dia_all'
-        local is_view = g_localData:get('event_full_popup', package_name) or false
+        local is_view = g_settingData:get('event_full_popup', package_name) or false
         local is_exist = PackageManager:isExist(package_name)
         if is_exist and (not is_view) then 
             self:showFullPopup(package_name)
-            g_localData:applyLocalData(true, 'event_full_popup', package_name)
+            g_settingData:applySettingData(true, 'event_full_popup', package_name)
         end
 
     -- 강화 패키지 풀팝업 (드래곤 관리 진입 시)
@@ -128,7 +128,7 @@ function FullPopupManager:show(type, show_func)
     elseif (type == FULL_POPUP_TYPE.REINFORCE_PACK) then
         local package_name = 'package_reinforce_point'
         local save_key = type
-        local is_view = g_localData:get('event_full_popup', save_key) or false
+        local is_view = g_settingData:get('event_full_popup', save_key) or false
 		
 		-- 레벨 조건
         local lv = g_userData:get('lv')
@@ -140,13 +140,13 @@ function FullPopupManager:show(type, show_func)
 
         if (lv >= need_lv) and (not is_view) and (is_buyable) then
             self:showFullPopup(package_name)
-            g_localData:applyLocalData(true, 'event_full_popup', save_key)
+            g_settingData:applySettingData(true, 'event_full_popup', save_key)
         end
 
 	-- 밸런스 패치 안내 팝업
     elseif (type == FULL_POPUP_TYPE.ATTR_TOWER) then
         local save_key = type
-        local is_view = g_localData:get('event_full_popup', save_key) or false
+        local is_view = g_settingData:get('event_full_popup', save_key) or false
 		
 		-- 레벨 조건
         local lv = g_userData:get('lv')
@@ -156,7 +156,7 @@ function FullPopupManager:show(type, show_func)
 			-- 굳이 테이블로 등록하지 않고 인위적으로 생성한다.
 			local banner_res = 'banner;res/ui/event/bg_attr_tower.png'
 			self:showFullPopup(banner_res)
-			g_localData:applyLocalData(true, 'event_full_popup', save_key)
+			g_settingData:applySettingData(true, 'event_full_popup', save_key)
         end
 
     end
@@ -179,9 +179,9 @@ end
 function FullPopupManager:initLoacalData()
     g_localData:lockSaveData()
     
-    local list = g_localData:get('event_full_popup') or {}
+    local list = g_settingData:get('event_full_popup') or {}
     for k, v in pairs(list) do
-        g_localData:applyLocalData(false, 'event_full_popup', k)
+        g_settingData:applySettingData(false, 'event_full_popup', k)
     end
     g_localData:unlockSaveData()
 end

@@ -30,7 +30,7 @@ function ServerData_ClanRaid:init(server_data)
     self.m_serverData = server_data
     
     -- 메인덱은 로컬에 저장
-    self.m_main_deck = g_localData:get('clan_raid', 'main_deck') or 'up'
+    self.m_main_deck = g_settingData:get('clan_raid', 'main_deck') or 'up'
 end
 
 -------------------------------------
@@ -68,7 +68,7 @@ end
 function ServerData_ClanRaid:setMainDeck(mode)
     if (mode == 'up' or mode == 'down') then
         self.m_main_deck = mode
-        g_localData:applyLocalData(mode, 'clan_raid', 'main_deck')
+        g_settingData:applySettingData(mode, 'clan_raid', 'main_deck')
     else
         error('ServerData_ClanRaid:setMainDeck - 정의된 mode가 아닙니다.')
     end

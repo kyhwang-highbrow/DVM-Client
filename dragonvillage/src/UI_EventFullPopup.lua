@@ -140,7 +140,7 @@ function UI_EventFullPopup:click_checkBtn()
     -- 다시보지않기
     local product_id = self.m_popupKey
     local save_key = tostring(product_id)
-    g_localData:applyLocalData(true, 'event_full_popup', save_key)
+    g_settingData:applySettingData(true, 'event_full_popup', save_key)
 
     self:close()
 end

@@ -69,7 +69,7 @@ function UI_AdventureSceneNew:init(stage_id)
     self:makeUICSortList()
 
     -- 마지막에 진입한 챕터로 진입
-    local last_stage = (stage_id or g_localData:get('adventure_focus_stage'))
+    local last_stage = (stage_id or g_settingData:get('adventure_focus_stage'))
     local difficulty, chapter, stage = parseAdventureID(last_stage)
     self:refreshChapter(chapter, difficulty, stage)
 

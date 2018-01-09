@@ -161,8 +161,8 @@ function ScenarioViewingHistory:playScenario(scenario_name)
     end 
 
     -- 설정 정보가 있으면 받아옴
-    if g_localData then
-        setting = g_localData:get('scenario_playback_rules')
+    if g_settingData then
+        setting = g_settingData:get('scenario_playback_rules')
     end
 
     -- 설정 정보에 따라 재생 여부 결정

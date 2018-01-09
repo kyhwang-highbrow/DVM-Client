@@ -40,7 +40,7 @@ function UI_Setting:init_bgmSetting()
     radio_button:addButton('on', vars['bgmOnBtn'])
     radio_button:addButton('off', vars['bgmOffBtn'])
 
-    if g_localData:get('bgm') then
+    if g_settingData:get('bgm') then
         radio_button:setSelectedButton('on')
     else
         radio_button:setSelectedButton('off')
@@ -48,11 +48,11 @@ function UI_Setting:init_bgmSetting()
 
     local function change_cb(selected)
         if (selected == 'on') then
-            g_localData:applyLocalData(true, 'bgm')
+            g_settingData:applySettingData(true, 'bgm')
         elseif (selected == 'off') then
-            g_localData:applyLocalData(false, 'bgm')
+            g_settingData:applySettingData(false, 'bgm')
         end
-        g_localData:applySetting()
+        g_settingData:applySetting()
     end
 
     radio_button:setChangeCB(change_cb)
@@ -69,7 +69,7 @@ function UI_Setting:init_sfxSetting()
     radio_button:addButton('on', vars['effectOnBtn'])
     radio_button:addButton('off', vars['effectOffBtn'])
 
-    if g_localData:get('sfx') then
+    if g_settingData:get('sfx') then
         radio_button:setSelectedButton('on')
     else
         radio_button:setSelectedButton('off')
@@ -77,11 +77,11 @@ function UI_Setting:init_sfxSetting()
 
     local function change_cb(selected)
         if (selected == 'on') then
-            g_localData:applyLocalData(true, 'sfx')
+            g_settingData:applySettingData(true, 'sfx')
         elseif (selected == 'off') then
-            g_localData:applyLocalData(false, 'sfx')
+            g_settingData:applySettingData(false, 'sfx')
         end
-        g_localData:applySetting()
+        g_settingData:applySetting()
     end
 
     radio_button:setChangeCB(change_cb)
@@ -98,7 +98,7 @@ function UI_Setting:init_lowResModeSetting()
     radio_button:addButton('on', vars['lowQualOnBtn'])
     radio_button:addButton('off', vars['lowQualOffBtn'])
 
-    if g_localData:get('lowResMode') then
+    if g_settingData:get('lowResMode') then
         radio_button:setSelectedButton('on')
     else
         radio_button:setSelectedButton('off')
@@ -106,11 +106,11 @@ function UI_Setting:init_lowResModeSetting()
 
     local function change_cb(selected)
         if (selected == 'on') then
-            g_localData:applyLocalData(true, 'lowResMode')
+            g_settingData:applySettingData(true, 'lowResMode')
         elseif (selected == 'off') then
-            g_localData:applyLocalData(false, 'lowResMode')
+            g_settingData:applySettingData(false, 'lowResMode')
         end
-        g_localData:applySetting()
+        g_settingData:applySetting()
     end
 
     radio_button:setChangeCB(change_cb)
@@ -185,12 +185,12 @@ function UI_Setting:init_scenarioPlayerSetting()
     local uic_sort_list = MakeUICSortList_scenarioPlayerSetting(vars['scenarioBtn'], vars['scenarioLabel'], 'first')
     
     -- 초기 선택 덱 설정
-    local setting = g_localData:get('scenario_playback_rules')
+    local setting = g_settingData:get('scenario_playback_rules')
     uic_sort_list:setSelectSortType(setting)
 
     -- 버튼을 통해 정렬이 변경되었을 경우
     local function sort_change_cb(sort_type)
-        g_localData:applyLocalData(sort_type, 'scenario_playback_rules')
+        g_settingData:applySettingData(sort_type, 'scenario_playback_rules')
     end
     uic_sort_list:setSortChangeCB(sort_change_cb)
 end

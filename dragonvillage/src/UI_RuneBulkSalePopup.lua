@@ -59,51 +59,51 @@ function UI_RuneBulkSalePopup:initButton()
     vars['sellBtn']:registerScriptTapHandler(function() self:click_sellBtn() end)
 
     do -- 등급
-        local active = g_localData:get('option_rune_bulk_sell', 'grade_6')
+        local active = g_settingData:get('option_rune_bulk_sell', 'grade_6')
         vars['starBtn6'] = UIC_CheckBox(vars['starBtn6'].m_node, vars['starSprite6'], active)
         vars['starBtn6']:registerScriptTapHandler(function() self:click_checkBox() end)
 
-        local active = g_localData:get('option_rune_bulk_sell', 'grade_5')
+        local active = g_settingData:get('option_rune_bulk_sell', 'grade_5')
         vars['starBtn5'] = UIC_CheckBox(vars['starBtn5'].m_node, vars['starSprite5'], active)
         vars['starBtn5']:registerScriptTapHandler(function() self:click_checkBox() end)
 
-        local active = g_localData:get('option_rune_bulk_sell', 'grade_4')
+        local active = g_settingData:get('option_rune_bulk_sell', 'grade_4')
         vars['starBtn4'] = UIC_CheckBox(vars['starBtn4'].m_node, vars['starSprite4'], active)
         vars['starBtn4']:registerScriptTapHandler(function() self:click_checkBox() end)
 
-        local active = g_localData:get('option_rune_bulk_sell', 'grade_3')
+        local active = g_settingData:get('option_rune_bulk_sell', 'grade_3')
         vars['starBtn3'] = UIC_CheckBox(vars['starBtn3'].m_node, vars['starSprite3'], active)
         vars['starBtn3']:registerScriptTapHandler(function() self:click_checkBox() end)
 
-        local active = g_localData:get('option_rune_bulk_sell', 'grade_2')
+        local active = g_settingData:get('option_rune_bulk_sell', 'grade_2')
         vars['starBtn2'] = UIC_CheckBox(vars['starBtn2'].m_node, vars['starSprite2'], active)
         vars['starBtn2']:registerScriptTapHandler(function() self:click_checkBox() end)
 
-        local active = g_localData:get('option_rune_bulk_sell', 'grade_1')
+        local active = g_settingData:get('option_rune_bulk_sell', 'grade_1')
         vars['starBtn1'] = UIC_CheckBox(vars['starBtn1'].m_node, vars['starSprite1'], active)
         vars['starBtn1']:registerScriptTapHandler(function() self:click_checkBox() end)
     end
 
     do -- 레어도
-        local active = g_localData:get('option_rune_bulk_sell', 'rarity_4')
+        local active = g_settingData:get('option_rune_bulk_sell', 'rarity_4')
         vars['rarityBtn4'] = UIC_CheckBox(vars['rarityBtn4'].m_node, vars['raritySprite4'], active)
         vars['rarityBtn4']:registerScriptTapHandler(function() self:click_checkBox() end)
 
-        local active = g_localData:get('option_rune_bulk_sell', 'rarity_3')
+        local active = g_settingData:get('option_rune_bulk_sell', 'rarity_3')
         vars['rarityBtn3'] = UIC_CheckBox(vars['rarityBtn3'].m_node, vars['raritySprite3'], active)
         vars['rarityBtn3']:registerScriptTapHandler(function() self:click_checkBox() end)
 
-        local active = g_localData:get('option_rune_bulk_sell', 'rarity_2')
+        local active = g_settingData:get('option_rune_bulk_sell', 'rarity_2')
         vars['rarityBtn2'] = UIC_CheckBox(vars['rarityBtn2'].m_node, vars['raritySprite2'], active)
         vars['rarityBtn2']:registerScriptTapHandler(function() self:click_checkBox() end)
 
-        local active = g_localData:get('option_rune_bulk_sell', 'rarity_1')
+        local active = g_settingData:get('option_rune_bulk_sell', 'rarity_1')
         vars['rarityBtn1'] = UIC_CheckBox(vars['rarityBtn1'].m_node, vars['raritySprite1'], active)
         vars['rarityBtn1']:registerScriptTapHandler(function() self:click_checkBox() end)
     end
 
     do -- 강화 단계
-        local active = g_localData:get('option_rune_bulk_sell', 'enhance')
+        local active = g_settingData:get('option_rune_bulk_sell', 'enhance')
         vars['enhanceBtn'] = UIC_CheckBox(vars['enhanceBtn'].m_node, vars['enhanceSprite'], active)
         vars['enhanceBtn']:registerScriptTapHandler(function() self:click_checkBox() end)
     end
@@ -310,23 +310,23 @@ function UI_RuneBulkSalePopup:onClose()
     if (self.m_bOptionChanged == true) then
         local vars = self.vars
 
-        g_localData:lockSaveData()
+        g_settingData:lockSaveData()
 
-        g_localData:applyLocalData(vars['starBtn6']:isChecked(), 'option_rune_bulk_sell', 'grade_6')
-        g_localData:applyLocalData(vars['starBtn5']:isChecked(), 'option_rune_bulk_sell', 'grade_5')
-        g_localData:applyLocalData(vars['starBtn4']:isChecked(), 'option_rune_bulk_sell', 'grade_4')
-        g_localData:applyLocalData(vars['starBtn3']:isChecked(), 'option_rune_bulk_sell', 'grade_3')
-        g_localData:applyLocalData(vars['starBtn2']:isChecked(), 'option_rune_bulk_sell', 'grade_2')
-        g_localData:applyLocalData(vars['starBtn1']:isChecked(), 'option_rune_bulk_sell', 'grade_1')
+        g_settingData:applySettingData(vars['starBtn6']:isChecked(), 'option_rune_bulk_sell', 'grade_6')
+        g_settingData:applySettingData(vars['starBtn5']:isChecked(), 'option_rune_bulk_sell', 'grade_5')
+        g_settingData:applySettingData(vars['starBtn4']:isChecked(), 'option_rune_bulk_sell', 'grade_4')
+        g_settingData:applySettingData(vars['starBtn3']:isChecked(), 'option_rune_bulk_sell', 'grade_3')
+        g_settingData:applySettingData(vars['starBtn2']:isChecked(), 'option_rune_bulk_sell', 'grade_2')
+        g_settingData:applySettingData(vars['starBtn1']:isChecked(), 'option_rune_bulk_sell', 'grade_1')
 
-        g_localData:applyLocalData(vars['rarityBtn4']:isChecked(), 'option_rune_bulk_sell', 'rarity_4')
-        g_localData:applyLocalData(vars['rarityBtn3']:isChecked(), 'option_rune_bulk_sell', 'rarity_3')
-        g_localData:applyLocalData(vars['rarityBtn2']:isChecked(), 'option_rune_bulk_sell', 'rarity_2')
-        g_localData:applyLocalData(vars['rarityBtn1']:isChecked(), 'option_rune_bulk_sell', 'rarity_1')
+        g_settingData:applySettingData(vars['rarityBtn4']:isChecked(), 'option_rune_bulk_sell', 'rarity_4')
+        g_settingData:applySettingData(vars['rarityBtn3']:isChecked(), 'option_rune_bulk_sell', 'rarity_3')
+        g_settingData:applySettingData(vars['rarityBtn2']:isChecked(), 'option_rune_bulk_sell', 'rarity_2')
+        g_settingData:applySettingData(vars['rarityBtn1']:isChecked(), 'option_rune_bulk_sell', 'rarity_1')
 
-        g_localData:applyLocalData(vars['enhanceBtn']:isChecked(), 'option_rune_bulk_sell', 'enhance')
+        g_settingData:applySettingData(vars['enhanceBtn']:isChecked(), 'option_rune_bulk_sell', 'enhance')
 
-        g_localData:unlockSaveData()
+        g_settingData:unlockSaveData()
         self.m_bOptionChanged = false
     end
 

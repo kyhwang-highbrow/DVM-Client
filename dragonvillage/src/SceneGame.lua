@@ -293,7 +293,7 @@ function SceneGame:prepare()
 
         -- fps 미터기
         if (g_benchmarkMgr and g_benchmarkMgr:isActive()) or
-            (g_serverData and g_localData:get('fps')) then
+            (g_settingData and g_settingData:get('fps')) then
             local fps_meter = FpsMeter()
             fps_meter:init_physWolrd(self.m_gameWorld.m_physWorld)
             self.m_fpsMeter = fps_meter

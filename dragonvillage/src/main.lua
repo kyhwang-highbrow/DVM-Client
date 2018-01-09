@@ -177,7 +177,8 @@ local function main()
     stopwatch:record('Translate:init()')
 
     -- 각종 설정 데이터
-    SettingData:getInstance()
+    local setting_data_instance = SettingData:getInstance()
+    setting_data_instance:migration(LocalData:getInstance())
 
     stopwatch:stop()
     stopwatch:print()

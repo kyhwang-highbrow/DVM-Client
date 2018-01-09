@@ -10,7 +10,7 @@ function IS_TEST_MODE()
         return false
     end
 
-    local local_test_mode = g_localData and g_localData:get('test_mode')
+    local local_test_mode = g_settingData and g_settingData:get('test_mode')
 
     -- 설정이 되어있지 않을 경우 test_mode로 간주
     if (local_test_mode == nil) then

@@ -345,3 +345,52 @@ function SettingData:applySetting()
     local engine_mode = self:get('sound_module') or cc.SimpleAudioEngine:getInstance():getEngineMode()
     cc.SimpleAudioEngine:getInstance():setEngineMode(engine_mode)
 end
+
+-------------------------------------
+-- function migration
+-- @brief 업데이트 전 LocalData에 저장되어 있는 설정을 SettingData로 옮기는 작업
+-------------------------------------
+function SettingData:migration(local_data_instance)
+    
+    -- 옮겨질 항목들
+    local l_key = {
+        'option_rune_bulk_sell',
+        'dragon_sort_order',
+        'dragon_sort',
+        'dragon_sort_order_fight',
+        'dragon_sort_fight',
+        'dragon_sort_epr',
+        'dragon_sort_forest',
+        'adventure_focus_stage',
+        'scenario_playback_rules',
+        'test_mode',
+        'lowResMode',
+        'bgm',
+        'sfx',
+        'fps',
+
+        'event_full_popup',
+        'auto_play_setting',
+        'exploration_deck',
+        'clan_raid',
+        'sound_module',
+    }
+
+    -- 저장 잠금
+    local_data_instance:lockSaveData()
+
+    -- key를 순회하며 설정 정보 이전
+    for _,key in pairs(l_key) do
+        local value = local_data_instance:get(key)
+        if (value ~= nil) then
+            -- 설정 이전
+            self:applySettingData(value, key)
+
+            -- LocalData에서 해당 값 삭제
+            local_data_instance:applyLocalData(nil, key)
+        end
+    end
+
+    -- 저장 잠금 해제 (한 번에 모두 저장)
+    local_data_instance:unlockSaveData()
+end
