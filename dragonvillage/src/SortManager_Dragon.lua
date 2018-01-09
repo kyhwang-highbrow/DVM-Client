@@ -52,7 +52,8 @@ function SortManager_Dragon:init()
     self.m_mRoleSortLevel['dealer'] = 3
     self.m_mRoleSortLevel['tanker'] = 4
     
-    self:addPreSortType('object_type', false, function(a, b, ascending) return self:sort_object_type(a, b, ascending) end)
+	-- @mskim 보선님 요청으로 삭제
+    -- self:addPreSortType('object_type', false, function(a, b, ascending) return self:sort_object_type(a, b, ascending) end)
 
     self:addSortType('did', false, function(a, b, ascending) return self:sort_did(a, b, ascending) end)
     self:addSortType('combat_power', false, function(a, b, ascending) return self:sort_combat_power(a, b, ascending) end)
@@ -147,11 +148,6 @@ function SortManager_Dragon:sort_combat_power(a, b, ascending)
     local a_data = a['data']
     local b_data = b['data']
 
-    -- 드래곤이 아닐 경우(슬라임) skip 
-    if (a_data.m_objectType ~= 'dragon') or (b_data.m_objectType ~= 'dragon') then
-        return nil
-    end
-
     local a_sort_data = a_data:getDragonSortData()
     local b_sort_data = b_data:getDragonSortData()
 
@@ -200,11 +196,6 @@ function SortManager_Dragon:sort_atk(a, b, ascending)
     local a_data = a['data']
     local b_data = b['data']
 
-    -- 드래곤이 아닐 경우(슬라임) skip 
-    if (a_data.m_objectType ~= 'dragon') or (b_data.m_objectType ~= 'dragon') then
-        return nil
-    end
-
     local a_sort_data = a_data:getDragonSortData()
     local b_sort_data = b_data:getDragonSortData()
 
@@ -228,11 +219,6 @@ function SortManager_Dragon:sort_def(a, b, ascending)
     local a_data = a['data']
     local b_data = b['data']
 
-    -- 드래곤이 아닐 경우(슬라임) skip 
-    if (a_data.m_objectType ~= 'dragon') or (b_data.m_objectType ~= 'dragon') then
-        return nil
-    end
-
     local a_sort_data = a_data:getDragonSortData()
     local b_sort_data = b_data:getDragonSortData()
 
@@ -255,11 +241,6 @@ end
 function SortManager_Dragon:sort_hp(a, b, ascending)
     local a_data = a['data']
     local b_data = b['data']
-    
-    -- 드래곤이 아닐 경우(슬라임) skip 
-    if (a_data.m_objectType ~= 'dragon') or (b_data.m_objectType ~= 'dragon') then
-        return nil
-    end
 
     local a_sort_data = a_data:getDragonSortData()
     local b_sort_data = b_data:getDragonSortData()

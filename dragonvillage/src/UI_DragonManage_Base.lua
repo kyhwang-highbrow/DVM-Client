@@ -527,7 +527,7 @@ function UI_DragonManage_Base:init_mtrDragonSortMgr(slime_first)
 
     -- 정렬 매니저 생성
     self.m_mtrlDragonSortManager = SortManager_Dragon()
-	self.m_mtrlDragonSortManager.m_mPreSortType['object_type']['ascending'] = is_slime_first -- 슬라임이 앞쪽으로 정렬되도록 변경
+	--self.m_mtrlDragonSortManager.m_mPreSortType['object_type']['ascending'] = is_slime_first -- 슬라임이 앞쪽으로 정렬되도록 변경
 
 	local sort_mgr = self.m_mtrlDragonSortManager
     

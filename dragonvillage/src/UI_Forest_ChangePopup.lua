@@ -485,10 +485,8 @@ function UI_Forest_ChangePopup:init_mtrDragonSortMgr(slime_first)
 	local is_slime_first = (slime_first == nil) and true or false
 
     -- 정렬 매니저 생성
-    self.m_mtrlDragonSortManager = SortManager_Dragon()
-	self.m_mtrlDragonSortManager.m_mPreSortType['object_type']['ascending'] = is_slime_first -- 슬라임이 앞쪽으로 정렬되도록 변경
-
-	local sort_mgr = self.m_mtrlDragonSortManager
+	local sort_mgr = SortManager_Dragon()
+	self.m_mtrlDragonSortManager = sort_mgr
     
 	-- 정렬 UI 생성
     local vars = self.vars

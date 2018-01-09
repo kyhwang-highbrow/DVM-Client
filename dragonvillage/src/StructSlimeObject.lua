@@ -238,25 +238,38 @@ function StructSlimeObject:makeSlimeSkillIcon()
 end
 
 -------------------------------------
+-- function makeDragonsSortData
+-- @breif
+-------------------------------------
+function StructSlimeObject:makeDragonsSortData()
+    local t_sort_data = {}
+    t_sort_data['doid'] = self['id']
+    t_sort_data['did'] = self['slime_id']
+    t_sort_data['hp'] = 0
+    t_sort_data['def'] = 0
+    t_sort_data['atk'] = 0
+    t_sort_data['attr'] = 0
+    t_sort_data['lv'] = self['lv']
+    t_sort_data['grade'] = self['grade']
+    t_sort_data['evolution'] = self['evolution']
+    t_sort_data['rarity'] = dragonRarityStrToNum(self:getRarity())
+    t_sort_data['friendship'] = self:getFlv()
+    t_sort_data['combat_power'] = 0
+    t_sort_data['updated_at'] = self['updated_at']
+
+    return t_sort_data
+end
+
+-------------------------------------
 -- function getDragonSortData
 -- @breif
 -------------------------------------
 function StructSlimeObject:getDragonSortData()
-    if self.m_sortData then
-        if (self.m_sortData['updated_at'] ~= self['updated_at']) then
-            self.m_sortData = g_dragonsData:makeDragonsSortData(self)
-        end
-        return self.m_sortData
+    if (not self.m_sortData) then
+		self.m_sortData = self:makeDragonsSortData()
     end
 
-    local doid = self['id']
-
-    if (not doid) or (doid == '') then
-        self.m_sortData = g_dragonsData:makeDragonsSortData(self)
-        return self.m_sortData
-    end
-
-    return g_dragonsData:getDragonsSortData(doid)
+    return self.m_sortData
 end
 
 -------------------------------------

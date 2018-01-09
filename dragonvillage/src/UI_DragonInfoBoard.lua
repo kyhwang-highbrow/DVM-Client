@@ -276,6 +276,13 @@ function UI_DragonInfoBoard:refresh_status(t_dragon_data, t_dragon)
         vars['avoid_label']:setString('0')
         vars['hit_rate_label']:setString('0')
         vars['cri_dmg_label']:setString('0')
+		
+		vars['hp_label3']:setString(0)
+        vars['atk_label3']:setString(0)
+        vars['def_label3']:setString(0)
+        vars['aspd_label3']:setString(0)
+        vars['cri_chance_label3']:setString(0)
+        vars['cri_dmg_label3']:setString(0)
 
         local dr = 0.2
         vars['hp_gauge']:runAction(cc.ProgressTo:create(dr, 0))
