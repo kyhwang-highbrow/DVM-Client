@@ -3097,19 +3097,10 @@
     <None Include="..\src\SkillScript.lua">
       <Filter>lua\src</Filter>
     </None>
-    <None Include="..\src\UI_ClanRaidResult.lua">
-      <Filter>lua\src</Filter>
-    </None>
-    <None Include="..\src\UI_ClanRaidRankPopup.lua">
-      <Filter>lua\src</Filter>
-    </None>
     <None Include="..\src\UI_GamePause_ClanRaid.lua">
       <Filter>lua\UI</Filter>
     </None>
     <None Include="..\src\SkillScript_ClanRaidBoss.lua">
-      <Filter>lua\src</Filter>
-    </None>
-    <None Include="..\src\UI_SelectServerPopup.lua">
       <Filter>lua\src</Filter>
     </None>
     <None Include="..\src\UI_GameClanRaid.lua">
@@ -3123,6 +3114,18 @@
     </None>
     <None Include="..\src\TablePickDragon.lua">
       <Filter>lua\src</Filter>
+    </None>
+    <None Include="..\src\UI_SelectLanguagePopup.lua">
+      <Filter>lua\UI</Filter>
+    </None>
+    <None Include="..\src\UI_ClanRaidRankPopup.lua">
+      <Filter>lua\UI</Filter>
+    </None>
+    <None Include="..\src\UI_ClanRaidResult.lua">
+      <Filter>lua\UI</Filter>
+    </None>
+    <None Include="..\src\UI_SelectServerPopup.lua">
+      <Filter>lua\UI</Filter>
     </None>
   </ItemGroup>
   <ItemGroup>
