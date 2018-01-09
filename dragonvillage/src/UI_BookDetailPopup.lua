@@ -815,7 +815,7 @@ end
 -- @brief 좌우 인덱스 이동은 불가하도록 함
 -- @comment 다시보니 코드가 많이 지져분해져서 정리할 필요가 있다.
 -------------------------------------
-function UI_BookDetailPopup.open(did, grade, evolution)
+function UI_BookDetailPopup.open(did, grade, evolution, is_pick, pick_cb)
     local t_dragon
     if TableSlime:isSlimeID(did) then
         local table_slime = TableSlime()
@@ -832,6 +832,16 @@ function UI_BookDetailPopup.open(did, grade, evolution)
 
 	local ui = UI_BookDetailPopup(t_dragon)
     ui:setUnableIndex()
+
+	-- 선택권에서 진입한 경우... 굳이 여기서 뽑아야하나..!
+	if (is_pick) then
+		ui.vars['attrMenu']:setVisible(false)
+		ui.vars['summonBtn']:setVisible(true)
+		ui.vars['summonBtn']:registerScriptTapHandler(function()
+			pick_cb()
+			ui:close()
+		end)
+	end
 end
 
 

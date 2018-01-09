@@ -31,10 +31,11 @@ function TablePickDragon:getDragonList(item_id)
 	local t_dragon
 
 	-- 종류 지정 (나머지 조건은 무시한다..!)
-	local l_did = t_condition['custom_dids']
-	if (l_did) and (l_did ~= '') then
+	local did_str = t_condition['custom_dids']
+	if (did_str) and (did_str ~= '') then
+		local l_did = plSplit(did_str, ',')
 		for _, did  in ipairs(l_did) do
-			t_dragon = table_dragon:get(did)
+			t_dragon = table_dragon:get(tonumber(did))
 			if (t_dragon) and (t_dragon['test'] == 1) then
 				table.insert(l_ret, t_dragon)
 			end

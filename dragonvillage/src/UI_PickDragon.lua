@@ -272,8 +272,10 @@ function UI_PickDragon:click_bookBtn()
 	local did = t_dragon['did']
     local grade = t_dragon['grade']
     local evolution = t_dragon['evolution']
+	local is_pick = true
+	local pick_cb = function() self:click_summonBtn() end
 
-    UI_BookDetailPopup.open(did, grade, evolution)
+    UI_BookDetailPopup.open(did, grade, evolution, is_pick, pick_cb)
 end
 
 -------------------------------------
