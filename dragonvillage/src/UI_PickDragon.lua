@@ -204,7 +204,7 @@ function UI_PickDragon:refresh(t_dragon)
 	self.m_currDragonData = t_dragon
 
 	-- 드래곤
-	local evolution = 3
+	local evolution = 1
 	self.m_dragonAnimator:setDragonAnimator(t_dragon['did'], evolution)
 
 	-- 이름
@@ -212,7 +212,7 @@ function UI_PickDragon:refresh(t_dragon)
 
 	-- 등급
 	vars['starNode']:removeAllChildren()
-	local dummy_dragon_data = {['did'] = t_dragon['did'], ['grade'] = t_dragon['birthgrade'], ['evolution'] = 1}
+	local dummy_dragon_data = {['did'] = t_dragon['did'], ['grade'] = t_dragon['birthgrade'], ['evolution'] = evolution}
     local star_icon = IconHelper:getDragonGradeIcon(dummy_dragon_data, 2)
     vars['starNode']:addChild(star_icon)
 
@@ -285,7 +285,7 @@ function UI_PickDragon:click_summonBtn()
 	local did = self.m_currDragonData['did']
 	local name = TableDragon:getDragonNameWithAttr(did)
 
-	local msg = Str('{1} 선택하시겠습니까?', name)
+	local msg = Str('{1}\n소환하시겠습니까?', name)
 	local function ok_btn_cb()
 		local mid = self.m_mid
 		self:request_pick(mid, did)
