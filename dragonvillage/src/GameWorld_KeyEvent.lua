@@ -49,6 +49,7 @@ MAP_KEY_FUNC[KEY_RIGHT_ARROW] = 'camera_move_right'
 MAP_KEY_FUNC[KEY_UP_ARROW] = 'camera_move_up'
 MAP_KEY_FUNC[KEY_DOWN_ARROW] = 'camera_move_down'
 ]]--
+MAP_KEY_FUNC[KEY_LEFT_ARROW] = 'kill_one_dragon'
 
 -- 테스트
 MAP_KEY_FUNC[KEY_5] = 'pause_dragon_1'
@@ -191,7 +192,7 @@ function GameWorld:se_on_dragon()
     local enemy_list = self:getEnemyList()
 
     --StatusEffectHelper:doStatusEffect(dragon_list[1], { dragon_list[1] }, 'stun', 'target', 1, 5, 100, 100)
-    StatusEffectHelper:doStatusEffect(dragon_list[1], dragon_list, 'immunity_debuff', 'ally_none', 5, 9999, 100, 100)
+    StatusEffectHelper:doStatusEffect(dragon_list[1], dragon_list, 'barrier_protection_time', 'ally_all', 10, 9999, 100, 100)
 end
 
 -------------------------------------

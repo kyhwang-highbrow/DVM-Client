@@ -495,7 +495,7 @@ function Character:undergoAttack(attacker, defender, i_x, i_y, body_key, no_even
         is_bash = false
         is_miss = false
     end
-
+    
     -- 공격력 및 방어력 정보
     local org_atk_dmg = attack_activity_carrier:getAtkDmg(defender)
     local org_def_pwr = self:getStat('def')

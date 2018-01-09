@@ -1,5 +1,7 @@
 local PARENT = class(Skill, IStateDelegate:getCloneTable())
 
+-- TODO: 스킬과 맞추고 add_option_trigger를 사용하기 위해 발사되는 미사일에 콜백 등록이 필요
+
 -------------------------------------
 -- class SkillScript
 -------------------------------------
@@ -16,7 +18,6 @@ SkillScript = class(PARENT, {
 function SkillScript:init(file_name, body, ...)
 end
 
-
 -------------------------------------
 -- function init_skill
 -------------------------------------
@@ -28,88 +29,49 @@ function SkillScript:init_skill(script_name, duration)
 end
 
 -------------------------------------
--- function initState
+-- function do_script_shot
 -------------------------------------
-function SkillScript:initState()
-	self:setCommonState(self)
-    self:addState('start', SkillScript.st_appear, nil, false)
-    self:addState('attack', SkillScript.st_attack, nil, false)
-    self:addState('end', SkillScript.st_disappear, nil, false)
-end
+function SkillScript:do_script_shot(x, y, phys_group)
+    local t_skill = self.m_owner:getSkillTable(self.m_skillId)
+    local attr = self.m_owner:getAttribute()
+    local phys_group = phys_group or self.m_owner:getAttackablePhysGroup()
 
--------------------------------------
--- function st_appear
--------------------------------------
-function SkillScript.st_appear(owner, dt)
-	if (owner.m_stateTimer == 0) then        
-        -- 주체 유닛 스킬 시작 애니 설정
-        owner.m_owner.m_animator:changeAni('skill_appear', false)
-        owner.m_owner.m_animator:addAniHandler(function()
-            owner:changeState('attack')
-        end)
+    local b, missile_launcher = self.m_owner:do_script_shot(t_skill, attr, phys_group, x, y, {script = self.m_scriptName})
+    if (b and missile_launcher) then
+        missile_launcher.m_activityCarrier = self.m_activityCarrier
     end
 end
 
 -------------------------------------
--- function st_attack
+-- function getOwnerAttackPos
+-- @breif 스킬 소유자의 해당 애니메이션에 있는 attack 이벤트 좌표값을 얻어옴(차후 글로벌 함수로 빼는게 나을듯)
 -------------------------------------
-function SkillScript.st_attack(owner, dt)
-	if (owner.m_stateTimer == 0) then
-        -- 애니메이션
-        owner.m_owner.m_animator:changeAni('skill_idle', true)
+function SkillScript:getOwnerAttackPos(ani_name)
+    local unit = self.m_owner
 
-        owner:makeMissileLauncher()
-	end
+    -- attack event 가져옴
+    local l_event_data = unit.m_animator:getEventList(ani_name, 'attack')
+    if (not l_event_data[1]) then return end
 
-    if (owner.m_stateTimer >= owner.m_duration) then
-        owner:changeState('end')
+    local string_value = l_event_data[1]['stringValue']
+    if (not string_value) or (string_value == '') then return end
+
+    local x, y = 0, 0
+
+    local l_str = seperate(string_value, ',')
+    if (l_str) then
+        local scale = unit.m_animator:getScale()
+        local flip = unit.m_animator.m_bFlip
+                        
+        x = l_str[1] * scale
+        y = l_str[2] * scale
+
+        if flip then
+            x = -x
+        end
     end
-end
 
--------------------------------------
--- function st_disappear
--------------------------------------
-function SkillScript.st_disappear(owner, dt)
-	if (owner.m_stateTimer == 0) then
-        -- 주체 유닛 스킬 종료 애니 설정
-        owner.m_owner.m_animator:changeAni('skill_disappear', false)
-        owner.m_owner.m_animator:addAniHandler(function()
-            owner:changeState('dying')
-        end)
-    end
-end
-
--------------------------------------
--- function makeMissileLauncher
--------------------------------------
-function SkillScript:makeMissileLauncher()
-    local missile_launcher = MissileLauncher(nil)
-    local t_launcher_option = missile_launcher:getOptionTable()
-
-    local start_x, start_y = self:getAttackPositionAtWorld()
-
-    -- 속성
-    t_launcher_option['attr_name'] = self.m_owner:getAttribute()
-
-    -- 타겟 지정
-    t_launcher_option['target'] = self.m_targetChar
-    t_launcher_option['target_list'] = self.m_lTargetChar
-
-    -- 각도 지정
-	local degree = getDegree(start_x, start_y, self.m_targetPos['x'], self.m_targetPos['y'])
-    t_launcher_option['dir'] = degree
-
-    self.m_world:addToMissileList(missile_launcher)
-    self.m_world.m_worldNode:addChild(missile_launcher.m_rootNode)
-
-    local script = TABLE:loadSkillScript(self.m_scriptName)
-    local script_data = script[self.m_scriptName]
-    local phys_group = self.m_owner:getMissilePhysGroup()
-    
-    missile_launcher:init_missileLauncherByScript(script_data['attack_value'], phys_group, self.m_activityCarrier, {})
-    missile_launcher.m_animator:changeAni('animation', true)
-    missile_launcher:setPosition(start_x, start_y)
-    missile_launcher.m_owner = self.m_owner
+    return { x = x, y = y }
 end
 
 -------------------------------------
@@ -120,7 +82,7 @@ function SkillScript:makeSkillInstance(owner, t_skill, t_data)
 	------------------------------------------------------
 	local res = t_skill['res_1']
     local script_name = t_skill['val_1']
-    local duration = t_skill['val_3']
+    local duration = t_skill['val_2']
 	
 	-- 인스턴스 생성부
 	------------------------------------------------------

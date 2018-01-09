@@ -3115,6 +3115,9 @@
     <None Include="..\src\TablePickDragon.lua">
       <Filter>lua\src</Filter>
     </None>
+    <None Include="..\src\SkillScript_ClanRaidBossFinish.lua">
+      <Filter>lua\src</Filter>
+    </None>
     <None Include="..\src\UI_SelectLanguagePopup.lua">
       <Filter>lua\UI</Filter>
     </None>

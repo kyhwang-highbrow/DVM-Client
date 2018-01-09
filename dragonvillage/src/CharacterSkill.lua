@@ -359,9 +359,12 @@ function Character:doSkillBySkillTable(t_skill, t_data)
                 SkillRandom:makeSkillInstance(self, t_skill, t_data)
                 return true
 
-            elseif (skill_type == 'skill_script') then
-                --SkillScript:makeSkillInstance(self, t_skill, t_data)
+            elseif (skill_type == 'skill_boss_clanraid_3') then
                 SkillScript_ClanRaidBoss:makeSkillInstance(self, t_skill, t_data)
+                return true
+
+            elseif (skill_type == 'skill_boss_clanraid_9') then
+                SkillScript_ClanRaidBossFinish:makeSkillInstance(self, t_skill, t_data)
                 return true
 			end
 
@@ -428,7 +431,7 @@ function Character:do_script_shot(t_skill, attr, phys_group, x, y, t_data)
     self.m_world:addToMissileList(missile_launcher)
     self.m_world.m_worldNode:addChild(missile_launcher.m_rootNode)
 
-    missile_launcher:init_missileLauncher(t_skill, phys_group, activity_carrier, 1)
+    missile_launcher:init_missileLauncher(t_skill, phys_group, activity_carrier, 1, t_data['script'])
     missile_launcher.m_animator:changeAni('animation', true)
 
     -- 발사 위치를 해당 캐릭터의 위치를 기준이 되도록 설정

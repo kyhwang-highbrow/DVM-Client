@@ -1,75 +1,45 @@
 local PARENT = class(SkillScript, IStateDelegate:getCloneTable())
 
-local CON_SKILL_IDLE = 'skill_idle'
+-------------------------------------
+-- class SkillScript_ClanRaidBossFinish
+-------------------------------------
+SkillScript_ClanRaidBossFinish = class(PARENT, {})
 
 -------------------------------------
--- class SkillScript_ClanRaidBoss
+-- function initActvityCarrier
 -------------------------------------
-SkillScript_ClanRaidBoss = class(PARENT, {})
+function SkillScript_ClanRaidBossFinish:initActvityCarrier()
+    PARENT.initActvityCarrier(self)
 
--------------------------------------
--- function initEventListener
--- @breif 이벤트 처리..
--------------------------------------
-function SkillScript_ClanRaidBoss:initEventListener()
-    PARENT.initEventListener(self)
-
-    self:addListener(CON_SKILL_IDLE, self)
+    self.m_activityCarrier:setIgnoreAll(true)
+    self.m_activityCarrier:setDefiniteDeath(true)
 end
 
 -------------------------------------
 -- function setSkillParams
 -- @brief 멤버변수 정의
 -------------------------------------
-function SkillScript_ClanRaidBoss:setSkillParams(owner, t_skill, t_data)
+function SkillScript_ClanRaidBossFinish:setSkillParams(owner, t_skill, t_data)
     PARENT.setSkillParams(self, owner, t_skill, t_data)
 
     self.m_lTargetChar = self.m_world:getDragonList()
-
-    -- 받는 피해 증가 상태효과 설정
-    local struct_status_effect = StructStatusEffect({
-        type = 'dmg_add',
-		target_type = 'self',
-		target_count = 1,
-		trigger = CON_SKILL_IDLE,
-		duration = 12,
-		rate = 100,
-		value = 100,
-        source = '',
-    })
-    table.insert(self.m_lStatusEffect, struct_status_effect)
-
-    -- 다중 광폭화 상태효과 설정
-    for i = 1, 5 do
-        local struct_status_effect = StructStatusEffect({
-            type = 'passive_fury',
-			target_type = 'ally_all',
-			target_count = '',
-			trigger = CON_SKILL_END,
-			duration = -1,
-			rate = 100,
-			value = 20,
-            source = '',
-        })
-        table.insert(self.m_lStatusEffect, struct_status_effect)
-    end
 end
 
 -------------------------------------
 -- function initState
 -------------------------------------
-function SkillScript_ClanRaidBoss:initState()
+function SkillScript_ClanRaidBossFinish:initState()
     self:setCommonState(self)
 	
-    self:addState('start', SkillScript_ClanRaidBoss.st_appear, nil, false)
-    self:addState('attack', SkillScript_ClanRaidBoss.st_attack, nil, false)
-    self:addState('end', SkillScript_ClanRaidBoss.st_disappear, nil, false)
+    self:addState('start', SkillScript_ClanRaidBossFinish.st_appear, nil, false)
+    self:addState('attack', SkillScript_ClanRaidBossFinish.st_attack, nil, false)
+    self:addState('end', SkillScript_ClanRaidBossFinish.st_disappear, nil, false)
 end
 
 -------------------------------------
 -- function st_appear
 -------------------------------------
-function SkillScript_ClanRaidBoss.st_appear(owner, dt)
+function SkillScript_ClanRaidBossFinish.st_appear(owner, dt)
 	if (owner.m_stateTimer == 0) then
         local unit = owner.m_owner
 
@@ -84,7 +54,7 @@ end
 -------------------------------------
 -- function st_attack
 -------------------------------------
-function SkillScript_ClanRaidBoss.st_attack(owner, dt)
+function SkillScript_ClanRaidBossFinish.st_attack(owner, dt)
 	if (owner.m_stateTimer == 0) then
         local unit = owner.m_owner
 
@@ -93,9 +63,6 @@ function SkillScript_ClanRaidBoss.st_attack(owner, dt)
 
         -- 미사일 발사
         owner:runAttack()
-                
-        -- idle 애니메이션 시작시 발동되는 status effect를 적용
-		owner:dispatch(CON_SKILL_IDLE, {l_target = {owner.m_targetChar}})
 	end
 
     if (owner.m_stateTimer >= owner.m_duration) then
@@ -106,7 +73,7 @@ end
 -------------------------------------
 -- function st_disappear
 -------------------------------------
-function SkillScript_ClanRaidBoss.st_disappear(owner, dt)
+function SkillScript_ClanRaidBossFinish.st_disappear(owner, dt)
 	if (owner.m_stateTimer == 0) then
         local unit = owner.m_owner
 
@@ -121,7 +88,7 @@ end
 -------------------------------------
 -- function runAttack
 -------------------------------------
-function SkillScript_ClanRaidBoss:runAttack()
+function SkillScript_ClanRaidBossFinish:runAttack()
     -- attack pos 가져옴
     local pos = self:getOwnerAttackPos('skill_idle')
     if (not pos) then
@@ -134,7 +101,7 @@ end
 -------------------------------------
 -- function makeSkillInstance
 -------------------------------------
-function SkillScript_ClanRaidBoss:makeSkillInstance(owner, t_skill, t_data)
+function SkillScript_ClanRaidBossFinish:makeSkillInstance(owner, t_skill, t_data)
 	-- 변수 선언부
 	------------------------------------------------------
 	local res = t_skill['res_1']
@@ -144,7 +111,7 @@ function SkillScript_ClanRaidBoss:makeSkillInstance(owner, t_skill, t_data)
 	-- 인스턴스 생성부
 	------------------------------------------------------
 	-- 1. 스킬 생성
-    local skill = SkillScript_ClanRaidBoss(res)
+    local skill = SkillScript_ClanRaidBossFinish(res)
 
 	-- 2. 초기화 관련 함수
 	skill:setSkillParams(owner, t_skill, t_data)
