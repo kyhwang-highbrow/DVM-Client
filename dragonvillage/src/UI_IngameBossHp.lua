@@ -24,6 +24,9 @@ UI_IngameBossHp = class(PARENT, {
             boss:addListener('character_set_hp', self)
         end
 
+        self:doActionReset()
+        self:doAction()
+
         self:refresh()
     end
 
