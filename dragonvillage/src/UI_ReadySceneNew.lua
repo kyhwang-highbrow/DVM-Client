@@ -63,6 +63,7 @@ function UI_ReadySceneNew:init(stage_id, with_friend, sub_info)
     self.m_readySceneDeck:setOnDeckChangeCB(function() 
 		self:refresh_combatPower()
 		self:refresh_buffInfo()
+        self:refresh_slotLight()
 	end)
 
     self:refresh()
@@ -514,21 +515,6 @@ function UI_ReadySceneNew:refresh()
         end
     end
 
-    -- 클랜던전 slot light
-    if (game_mode == GAME_MODE_CLAN_RAID) then
-        local up_deck_cnt = g_clanRaidData:getDeckDragonCnt('up')
-        for idx = 1, 5 do
-            local slot_light = vars['slotSprite'..idx]
-            slot_light:setVisible(idx <= up_deck_cnt)
-        end
-
-        local down_deck_cnt = g_clanRaidData:getDeckDragonCnt('down')
-        for idx = 1, 5 do
-            local slot_light = vars['slotSprite'..(idx + 5)]
-            slot_light:setVisible(idx <= down_deck_cnt)
-        end
-    end
-
     self:refresh_tamer()
 	self:refresh_buffInfo()
 end
@@ -646,6 +632,30 @@ function UI_ReadySceneNew:refresh_buffInfo()
 
 		vars['formationBuffLabel']:setString(formation_buff)
 	end
+end
+
+-------------------------------------
+-- function refresh_slotLight
+-------------------------------------
+function UI_ReadySceneNew:refresh_slotLight()
+    local vars = self.vars
+    local stage_id = self.m_stageID
+    local game_mode = g_stageData:getGameMode(stage_id)
+
+    -- 클랜던전 slot light
+    if (game_mode == GAME_MODE_CLAN_RAID) then
+        local up_deck_cnt = g_clanRaidData:getDeckDragonCnt('up')
+        for idx = 1, 5 do
+            local slot_light = vars['slotSprite'..idx]
+            slot_light:setVisible(idx <= up_deck_cnt)
+        end
+
+        local down_deck_cnt = g_clanRaidData:getDeckDragonCnt('down')
+        for idx = 1, 5 do
+            local slot_light = vars['slotSprite'..(idx + 5)]
+            slot_light:setVisible(idx <= down_deck_cnt)
+        end
+    end
 end
 
 -------------------------------------
