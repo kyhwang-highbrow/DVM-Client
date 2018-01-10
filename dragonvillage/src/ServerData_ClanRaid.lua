@@ -19,11 +19,16 @@ ServerData_ClanRaid = class({
 
         -- 메인 (수동으로 전투가 가능한) 덱 (up or down)
         m_main_deck = 'string',
+
+        -- 클랜던전 덱 map (임시 저장)
         m_tDeckMap_1 = 'map',
         m_tDeckMap_2 = 'map',
 
         -- 여의주 사용횟수
         m_use_cash = 'number',
+
+        -- 클랜 보상 정보
+        m_tClanRewardInfo = 'table', 
 
         -- 오픈상태 
         m_bOpen = 'boolean',
@@ -345,6 +350,22 @@ function ServerData_ClanRaid:getSimplePrevStageID(stage_id)
 end
 
 -------------------------------------
+-- function setRewardInfo
+-------------------------------------
+function ServerData_ClanRaid:setRewardInfo(ret)
+    if (not ret['reward']) then
+        return
+    end
+    
+    -- 클랜
+    if (ret['last_clan_info']) then
+        self.m_tClanRewardInfo = {}
+        self.m_tClanRewardInfo['rank'] = StructClanRank(ret['last_clan_info'])
+        self.m_tClanRewardInfo['reward_info'] = ret['reward_clan_info']
+    end
+end
+
+-------------------------------------
 -- function request_info
 -------------------------------------
 function ServerData_ClanRaid:request_info(stage_id, cb_func)
@@ -368,6 +389,9 @@ function ServerData_ClanRaid:request_info(stage_id, cb_func)
         self.m_challenge_stageID = ret['cur_stage']
 
         self.m_use_cash = ret['use_cash'] or 0
+
+        -- 시즌 보상
+        self:setRewardInfo(ret)
 
         -- 누적 기여도 랭킹
         local rank_list = ret['scores']

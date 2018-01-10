@@ -1015,6 +1015,7 @@ local t_module = {
     'UI_ClanRaidResult',
     'UI_ClanRaidRankPopup',
     'UI_ClanRaidRewardPopup',
+    'UI_ClanRaidRankingRewardPopup',
 
     -- Forest
     'SceneForest',

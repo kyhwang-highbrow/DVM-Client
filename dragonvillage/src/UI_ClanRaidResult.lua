@@ -240,22 +240,10 @@ function UI_ClanRaidResult:show_item_reward(reward_menu)
 
     -- 아이템 카드 보여주는 액션
     local function show_reward(item_card, item_grade, is_last)
-        item_card:setVisible(true)
-        cca.stampShakeAction(item_card, ITEM_CARD_SCALE * 1.1, 0.1, 0, 0, ITEM_CARD_SCALE)
-
-        -- 등급에 따른 연출
-		if (item_grade and item_grade > 3) then
-			local rarity_effect = MakeAnimator('res/ui/a2d/card_summon/card_summon.vrp')
-			if (item_grade == 5) then
-				rarity_effect:changeAni('summon_regend', true)
-			else
-				rarity_effect:changeAni('summon_hero', true)
-			end
-			rarity_effect:setScale(1.7)
-			rarity_effect:setAlpha(0)
-			item_card:addChild(rarity_effect.m_node)
-            rarity_effect.m_node:runAction(cc.FadeIn:create(ani_duration))
-		end
+        local item_node = item_card.root
+        item_node:setVisible(true)
+        cca.stampShakeAction(item_node, ITEM_CARD_SCALE * 1.1, 0.1, 0, 0, ITEM_CARD_SCALE)
+        self:setItemCardRarity(item_card, item_grade)
 
         if (is_last) then
             self:doNextWorkWithDelayTime(0.5)
@@ -265,16 +253,7 @@ function UI_ClanRaidResult:show_item_reward(reward_menu)
     -- 드랍한 아이템 만큼 연출
     local reward_list = self.m_data['drop_reward_list']
     for i, v in ipairs(reward_list) do
-        local item_id = v[1]
-        local count = v[2]            
-        local from = v[3]
-        local sub_data = v[4]
-
-        local item_grade = string.find(from, 'grade_') and 
-                           string.gsub(from, 'grade_', '') or nil
-
-        local item_card = UI_ItemCard(item_id, count, sub_data)
-        item_card.root:setScale(ITEM_CARD_SCALE)
+        local item_card, item_grade = self:getItemCard(v)
         item_card.root:setVisible(false)
 
         local target_node = reward_menu.vars['rewardNode'..self.m_grade..'_'..i]
@@ -283,8 +262,45 @@ function UI_ClanRaidResult:show_item_reward(reward_menu)
         local is_last = (i == #reward_list)
         cca.reserveFunc(self.root, 
                         ani_duration * ((i - 1) + ani_interval), 
-                        function() show_reward(item_card.root, tonumber(item_grade), is_last) end)
+                        function() show_reward(item_card, item_grade, is_last) end)
     end
+end
+
+-------------------------------------
+-- function setItmeCardRarity()
+-------------------------------------
+function UI_ClanRaidResult:setItemCardRarity(item_card, grade)
+	if (grade > 3) then
+		local rarity_effect = MakeAnimator('res/ui/a2d/card_summon/card_summon.vrp')
+		if (grade == 5) then
+			rarity_effect:changeAni('summon_regend', true)
+		else
+			rarity_effect:changeAni('summon_hero', true)
+		end
+		rarity_effect:setScale(1.7)
+		rarity_effect:setAlpha(0)
+		item_card.root:addChild(rarity_effect.m_node)
+        rarity_effect.m_node:runAction(cc.FadeIn:create(0.5))
+	end
+end
+
+-------------------------------------
+-- function getItemCard
+-------------------------------------
+function UI_ClanRaidResult:getItemCard(data)
+    local visible = visible
+    local item_id = data[1]
+    local count = data[2]            
+    local from = data[3]
+    local sub_data = data[4]
+
+    local item_grade = string.find(from, 'grade_') and 
+                        string.gsub(from, 'grade_', '') or 1
+
+    local item_card = UI_ItemCard(item_id, count, sub_data)
+    item_card.root:setScale(ITEM_CARD_SCALE)
+
+    return item_card, tonumber(item_grade)
 end
 
 -------------------------------------
@@ -293,7 +309,6 @@ end
 -------------------------------------
 function UI_ClanRaidResult:show_boss_hp()
     local vars = self.vars
-    self:initReward()
 
     local struct_raid = g_clanRaidData:getClanRaidStruct()
     vars['bossHpNode']:setVisible(true)
@@ -353,13 +368,8 @@ function UI_ClanRaidResult:initReward()
         local reward_list = self.m_data['drop_reward_list']
 
         for i, v in ipairs(reward_list) do
-            local item_id = v[1]
-            local count = v[2]
-            local from = v[3]
-            local sub_data = v[4]
-
-            local item_card = UI_ItemCard(item_id, count, sub_data)
-            item_card.root:setScale(ITEM_CARD_SCALE)
+            local item_card, item_grade = self:getItemCard(v)
+            self:setItemCardRarity(item_card, item_grade)
 
             local target_node = ui.vars['rewardNode'..grade..'_'..i]
             target_node:addChild(item_card.root)
