@@ -9,6 +9,7 @@ local BOTTOM_DECK_OFFSET_Y = -180
 -- class GameState_ClanRaid
 -------------------------------------
 GameState_ClanRaid = class(PARENT, {
+        m_orgBossHp = 'number',
         m_bossHp = 'number',
         m_bossMaxHp = 'number',
 
@@ -31,15 +32,15 @@ function GameState_ClanRaid:init(world)
     local struct_raid = g_clanRaidData:getClanRaidStruct()
     if (struct_raid) then
         self.m_bossMaxHp = struct_raid:getMaxHp()
-        self.m_bossHp = struct_raid:getHp() 
+        self.m_bossHp = struct_raid:getHp()
     else
-        self.m_bossMaxHp = 10000000
-        self.m_bossHp = self.m_bossMaxHp
+        self.m_bossMaxHp = 10000000000
+        self.m_bossHp = 500000
     end
 
     self.m_bossMaxHpCount = 0
     self.m_bossHpCount = 0
-
+    self.m_orgBossHp = self.m_bossHp
     self.m_totalDamage = 0
 end
 
@@ -273,7 +274,7 @@ function GameState_ClanRaid:makeResultUI(is_success)
     self.m_world:setGameFinish()
 
     local total_damage = math_floor(self.m_totalDamage)
-
+    
     -- 작업 함수들
     local func_network_game_finish
     local func_ui_result
@@ -416,14 +417,12 @@ end
 
 
 -------------------------------------
--- function addTotalDamage
+-- function setTotalDamage
 -------------------------------------
-function GameState_ClanRaid:addTotalDamage(add_damage)
-    if (add_damage <= 0) then return end
+function GameState_ClanRaid:setTotalDamage(total_damage)
+    self.m_totalDamage = total_damage
+    self.m_totalDamage = math_max(self.m_totalDamage, 0)
 
-    self.m_totalDamage = self.m_totalDamage + add_damage
-
-    -- UI 갱신
     self.m_world.m_inGameUI:setTotalDamage(self.m_totalDamage)
 end
 
@@ -431,12 +430,6 @@ end
 -- function setBossHp
 -------------------------------------
 function GameState_ClanRaid:setBossHp(hp_count, hp)
-    -- 총 데미지 갱신
-    if (self.m_bossHp > hp) then
-        local add_damage = self.m_bossHp - hp
-        self:addTotalDamage(add_damage)
-    end
-
     self.m_bossHpCount = hp_count
     self.m_bossHp = hp
 
@@ -454,7 +447,13 @@ function GameState_ClanRaid:onEvent(event_name, t_event, ...)
 
     -- 보스 체력 공유 처리
     if (event_name == 'character_set_hp') then
-        self:setBossHp(self.m_bossHpCount, t_event['hp'])
+        local hp = t_event['hp']
+
+        -- 총 데미지 갱신(정확히는 체력을 깍은 양)
+        self:setTotalDamage(self.m_orgBossHp - hp)
+        
+        -- 남은 체력 저장
+        self:setBossHp(self.m_bossHpCount, hp)
     end
 end
 

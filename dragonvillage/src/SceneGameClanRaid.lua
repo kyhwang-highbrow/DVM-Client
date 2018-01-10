@@ -146,9 +146,11 @@ function SceneGameClanRaid:networkGameComeback(next_func)
     local function success_cb(ret)
         self:networkGameComeback_response(ret)
 
-        -- 클랜 던전 종료 시
-        if (ret['is_gaming'] == false) then
-            
+        -- 이미 클랜 던전 종료되었거나 제한 시간이 오버된 경우
+        if (ret['is_gaming'] == false or self.m_realLiveTimer > LIMIT_TIME) then
+            MakeSimplePopup(POPUP_TYPE.OK, Str('제한시간을 초과하였습니다.'), function()
+                UINavigator:goTo('clan_raid')
+            end)       
         end
 
         if next_func then
@@ -174,6 +176,9 @@ end
 function SceneGameClanRaid:networkGameComeback_response(ret)
     -- server_info 정보를 갱신
     g_serverData:networkCommonRespone(ret)
+
+    -- 클랜 던전 진행 시간 재계산
+    self.m_realLiveTimer = Timer:getServerTime() - self.m_realStartTime
 end
 
 -------------------------------------
@@ -439,8 +444,5 @@ function SceneGameClanRaid:applicationWillEnterForeground()
     PARENT.applicationWillEnterForeground(self)
 
     -- 백그라운드로 나갔다가 진입시 흘러간 시간을 계산하기 위한 서버 통신
-    self:networkGameComeback(function()
-        -- 클랜 던전 진행 시간 재계산
-        self.m_realLiveTimer = Timer:getServerTime() - self.m_realStartTime
-    end)
+    self:networkGameComeback()
 end

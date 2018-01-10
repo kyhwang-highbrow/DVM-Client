@@ -36,6 +36,10 @@ function UI_GameDPSListItem:initUI()
 
 	-- dragon icon
 	local ui = UI_DragonCard(dragon.m_tDragonInfo)
+
+    -- 버튼 막음 처리
+    ui.vars['clickBtn']:setEnabled(false)
+
 	vars['dragonNode']:addChild(ui.root)
 	
 	-- damage per sec
