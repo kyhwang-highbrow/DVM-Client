@@ -31,6 +31,7 @@ GAME_STATE_RESULT = 400
 GameState = class(PARENT, {
         m_world = '',
         m_bPause = 'boolean',
+        m_bTimeOut = 'boolean',
 
         m_stateParam = 'boolean',
         m_fightTimer = 'number',
@@ -68,6 +69,7 @@ GameState = class(PARENT, {
 function GameState:init(world)
     self.m_world = world
     self.m_bPause = false
+    self.m_bTimeOut = false
     self.m_state = GAME_STATE_LOADING
     self.m_stateTimer = -1
     self.m_fightTimer = 0
@@ -1250,6 +1252,8 @@ end
 -- function processTimeOut
 -------------------------------------
 function GameState:processTimeOut()
+    self.m_bTimeOut = true
+
     -- 게임 실패 처리
     self:changeState(GAME_STATE_FAILURE)
 end
@@ -1411,4 +1415,11 @@ function GameState:applyAccumBuffByFightTime(unit)
         local status, action = TableOption:parseOptionKey(type)
         unit.m_statusCalc:addOption(action, status, value)
     end
+end
+
+-------------------------------------
+-- function isTimeOut
+-------------------------------------
+function GameState:isTimeOut()
+    return self.m_bTimeOut
 end

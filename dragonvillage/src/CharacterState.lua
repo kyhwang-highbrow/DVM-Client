@@ -246,6 +246,7 @@ function Character.st_attackDelay(owner, dt)
 
     if (not owner:hasStatusEffectToDisableSkill()) then
         local tParam = {
+            time_out = owner.m_world.m_gameState:isTimeOut(),
             hp_rate = owner.m_hpRatio
         }
 

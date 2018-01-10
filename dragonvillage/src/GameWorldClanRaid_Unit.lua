@@ -427,8 +427,6 @@ function GameWorldClanRaid:bindEnemy(enemy)
     enemy:addListener('enemy_appear_done', self.m_gameState)
     -- 보스 체력 공유 처리를 위함
     enemy:addListener('character_set_hp', self.m_gameState)
-    -- 제한시간이 되었을 경우 콜백 등록(전멸 스킬을 사용시키기 위함)
-    enemy:addListener('time_out', self.m_gameState)
 
     -- 월드에서 중계되는 이벤트
     enemy:addListener('character_recovery', self)

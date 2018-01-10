@@ -1016,8 +1016,13 @@ function Character:setDamage(attacker, defender, i_x, i_y, damage, t_info)
     self:makeDamageFont(damage, i_x, i_y, t_info)
 
     -- 무적 체크 후 데미지 적용
+    local bApplyDamage = false
+
     if (g_benchmarkMgr and g_benchmarkMgr:isActive()) then
         -- NOTHING TO DO
+
+    elseif (t_info['is_definite_death']) then
+        bApplyDamage = true
 	elseif (self.m_bLeftFormation and g_constant:get('DEBUG', 'PLAYER_INVINCIBLE')) then
 		-- NOTHING TO DO
 	elseif (not self.m_bLeftFormation and g_constant:get('DEBUG', 'ENEMY_INVINCIBLE')) then
@@ -1025,6 +1030,10 @@ function Character:setDamage(attacker, defender, i_x, i_y, damage, t_info)
 	elseif (self.m_bInvincibility) then
         -- NOTHING TO DO
     else
+        bApplyDamage = true
+    end
+
+    if (bApplyDamage) then
         local prev_hp = self.m_hp
 		        
 		self:setHp(self.m_hp - damage, t_info['is_definite_death'])

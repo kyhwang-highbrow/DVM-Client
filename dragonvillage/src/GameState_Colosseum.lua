@@ -350,6 +350,8 @@ end
 -- function processTimeOut
 -------------------------------------
 function GameState_Colosseum:processTimeOut()
+    self.m_bTimeOut = true
+
     local inGameUi = self.m_world.m_inGameUI
 
     local hero_hp = inGameUi:getHeroHpGaugePercentage()

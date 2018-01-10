@@ -616,6 +616,23 @@ function IDragonSkillManager:getHpRateSkillID(hp_rate)
 end
 
 -------------------------------------
+-- function getTimeOutSkillID
+-------------------------------------
+function IDragonSkillManager:getTimeOutSkillID()
+    local skill_type = 'time_out'
+	local t_skill_info = self.m_lSkillIndivisualInfo[skill_type]
+    if (not t_skill_info) then return end
+
+    if (table.count(t_skill_info) > 0) then
+        for i,v in pairs(t_skill_info) do
+            if (v:isEndCoolTime()) then
+                return v.m_skillID
+            end
+        end
+    end
+end
+
+-------------------------------------
 -- function getHpRatePerSkillID
 -------------------------------------
 function IDragonSkillManager:getHpRatePerSkillID(hp_rate)
@@ -696,6 +713,11 @@ end
 function IDragonSkillManager:getInterceptableSkillID(tParam)
     local tParam = tParam or {}
     local skill_id = nil
+
+    -- time_out류 스킬
+    if (not skill_id and tParam['time_out']) then
+        skill_id = self:getTimeOutSkillID()
+    end
 
     -- hp_rate_per류 스킬
     if (not skill_id and tParam['hp_rate']) then
