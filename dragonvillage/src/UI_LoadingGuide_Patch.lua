@@ -122,6 +122,15 @@ function UI_LoadingGuide_Patch:showTipInfo(t_loading)
     local tip_icon = IconHelper:getIcon(t_loading['res'])
     vars['tipNode']:addChild(tip_icon)
     vars['tipLabel']:setString(t_loading['t_desc'])
+
+	-- desc가 없다면 큰 이미지. 위치를 조절해준다
+	if (t_loading['t_desc'] == '') then
+		vars['tipNode']:setPositionY(10)
+
+	-- 기본값
+	else
+		vars['tipNode']:setPositionY(94) 
+	end	
 end
 
 -------------------------------------
