@@ -213,7 +213,6 @@ end
 -------------------------------------
 function SkillSpatter:makeSpatterTargetList()
 
-
 	local ally_target_idx = 1
     local enemy_target_idx = 1
 
@@ -236,16 +235,16 @@ function SkillSpatter:makeSpatterTargetList()
     end
     local t_temp_target = {}
 
-    for _ = 1, #self.m_lTargetChar do
+    for _ = 1, self.m_spatterMaxCount do
         if (b_next_formation == self.m_owner.m_bLeftFormation) then
             if (ally_target_idx > #l_ally_target) then
-                ally_target_idx = ally_target_idx - 1
+                ally_target_idx = 1
             end
             table.insert(t_temp_target, l_ally_target[ally_target_idx])
             ally_target_idx = ally_target_idx + 1
         else 
             if (enemy_target_idx > #l_enemy_target) then
-                enemy_target_idx = enemy_target_idx - 1
+                enemy_target_idx = 1
             end
             table.insert(t_temp_target, l_enemy_target[enemy_target_idx])
             enemy_target_idx = enemy_target_idx + 1
@@ -254,6 +253,5 @@ function SkillSpatter:makeSpatterTargetList()
             b_next_formation = not b_next_formation
         end
     end
-    
     return t_temp_target
 end
