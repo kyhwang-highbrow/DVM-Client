@@ -204,7 +204,7 @@ end
 -------------------------------------
 function UI_Setting:init_language()
 	-- @mskim 해외 출시 전 처리
-	if CppFunctions:isAndroid()) then
+	if (CppFunctions:isAndroid()) then
 		self.vars['languageMenu']:setVisible(false)
 		return
 	end
