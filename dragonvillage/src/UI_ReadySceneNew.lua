@@ -932,11 +932,13 @@ function UI_ReadySceneNew:startGame(stage_id)
         if (g_clanRaidData:isClanRaidStageID(stage_id)) then
             
             -- 개발모드에서 클랜던전 무조건 입장
-            if IS_TEST_MODE() then
-                start_game()
+--            if IS_TEST_MODE() then
+--                start_game()
+--                return
+--            end
 
             -- 활동력 체크 (소비 타입이 아니어서 여기서 체크)
-            elseif (g_staminasData:checkStageStamina(stage_id)) then
+            if (g_staminasData:checkStageStamina(stage_id)) then
                 start_game()
 
             -- 여의주 사용가능

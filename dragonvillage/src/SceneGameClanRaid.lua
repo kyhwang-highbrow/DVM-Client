@@ -144,6 +144,9 @@ function SceneGameClanRaid:networkGameFinish(t_param, t_result_ref, next_func)
     local function success_cb(ret)
         self:networkGameFinish_response(ret, t_result_ref)
 
+        -- 보상 등급 지정
+        t_result_ref['dmg_rank'] = ret['dmg_rank'] or 1
+
         -- 클랜 던전 정보 갱신
         if (ret['dungeon']) then
             g_clanRaidData.m_structClanRaid = StructClanRaid(ret['dungeon'])
@@ -324,8 +327,6 @@ function SceneGameClanRaid:networkGameFinish_response_drop_reward(ret, t_result_
         return
     end
 
-    -- 보상 등급 지정
-    t_result_ref['dmg_rank'] = ret['dmg_rank'] or 1
     local drop_reward_list = t_result_ref['drop_reward_list']
 
     -- 드랍 아이템

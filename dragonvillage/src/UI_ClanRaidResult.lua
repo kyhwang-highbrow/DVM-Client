@@ -30,6 +30,7 @@ function UI_ClanRaidResult:init(stage_id, is_success, damage, t_data)
     self.m_damage = damage
     self.m_data = t_data
     self.m_grade = t_data['dmg_rank']
+    
 
     local vars = self:load('clan_raid_result.ui')
     UIManager:open(self, UIManager.POPUP)
@@ -185,10 +186,10 @@ end
 -------------------------------------
 function UI_ClanRaidResult:direction_showReward()
     local vars = self.vars
-    local grade = self.m_grade
+    local reward_list = self.m_data['drop_reward_list']
 
-    -- 보상없는 경우 임시처리
-    if (grade <= 0) then
+    -- 보상없는 경우 -> 보스의 남은 체력 보여줌
+    if (#reward_list == 0) then
         self:show_boss_hp()
         return
     end
@@ -292,7 +293,7 @@ function UI_ClanRaidResult:show_boss_hp()
     local vars = self.vars
     self:initReward()
 
-    local raid_data = g_clanRaidData:getClanRaidStruct()
+    local struct_raid = g_clanRaidData:getClanRaidStruct()
     vars['bossHpNode']:setVisible(true)
 
     -- 레벨, 이름
@@ -313,6 +314,8 @@ function UI_ClanRaidResult:show_boss_hp()
     -- 체력 게이지
     local action = cc.ProgressTo:create(0.3, rate)
     vars['bossHpGauge1']:runAction(action)
+
+    self:doNextWork()
 end
 
 -------------------------------------
