@@ -1,3 +1,10 @@
+local NAVER_NEO_ID_CONSUMER_KEY = '_hBggTZAp2IPapvAxwQl'
+local NAVER_COMMUNITY_ID        = 1013702
+local NAVER_CHANNEL_AMERICA     = 1031345
+local NAVER_CHANNEL_JAPAN       = 1031352
+local NAVER_CHANNEL_ASIA_TH_TW  = 1031353
+local NAVER_CHANNEL_ASIA_EN     = 1031441
+
 -------------------------------------
 -- table NaverCafeManager
 -- @brief 네이버 카페 SDK 매니져
@@ -138,4 +145,17 @@ function NaverCafeManager:onNaverCafeCallback(ret, info)
         
     end
 end
+
+-------------------------------------
+-- function naverInitGlobalPlug(server, lang)
+-- @brief 네이버 글로벌 플러그 init
+-------------------------------------
+function NaverCafeManager:naverInitGlobalPlug(server, lang)
+    if (skip()) then
+        return
+    end
+
+    PerpleSDK:naverCafeInitGlobalPlug(NAVER_NEO_ID_CONSUMER_KEY, NAVER_COMMUNITY_ID, 0)
+end
+
 

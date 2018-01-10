@@ -49,7 +49,7 @@
 #define NAVER_CAFE_CLIENT_SECRET    @"1yzbWtj_Cu"
 #define NAVER_CAFE_ID               29168475
 #define NAVER_NEO_ID_CONSUMER_KEY   @"_hBggTZAp2IPapvAxwQl"
-#define NAVER_COMMUNITY_ID          1013702
+#define NAVER_COMMUNITY_ID          0
 
 // iTunes Connect App ID : 1281873988
 

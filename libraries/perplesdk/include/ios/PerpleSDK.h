@@ -179,6 +179,7 @@ typedef void(^PerpleSDKCallback)(NSString *result, NSString *info);
 - (void) naverCafeSetUseScreenshot:(BOOL)isSetUseScreenshot;
 - (void) naverCafeScreenshot;
 - (void) naverCafeSetCallback:(PerpleSDKCallback)callback;
+- (void) naverCafeInitGlobalPlug:(NSString *)neoIdConsumerKey communityId:(NSInteger)communityId channelID:(NSInteger)channelID;
 
 - (void) googleLogin:(int)connectOnly completion:(PerpleSDKCallback)callback;
 - (void) googleLogout:(int)disconnectOnly;
