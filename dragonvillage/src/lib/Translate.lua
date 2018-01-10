@@ -214,7 +214,7 @@ function Translate:getFontName()
     if game_lang == 'ja' then
         ret = 'common_font_01_ja.ttf'
     elseif game_lang == 'zh' then
-        ret = 'common_font_01_cn.otf'
+        ret = 'common_font_01_cn.ttf'
     end
 
     return ret
