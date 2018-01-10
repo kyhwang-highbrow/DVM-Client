@@ -459,6 +459,6 @@ end
 function GameState_ClanRaid:processTimeOut()
     -- 타임 아웃시 적군 전멸기 사용
     for _, enemy in pairs(self.m_world:getEnemyList()) do
-        enemy:dispatch('time_out')
+        --enemy:dispatch('time_out')
     end
 end

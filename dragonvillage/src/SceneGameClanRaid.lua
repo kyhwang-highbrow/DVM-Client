@@ -127,7 +127,7 @@ function SceneGameClanRaid:updateRealTimer(dt)
 
     -- TODO: 시간 제한 체크 및 처리
     if (self.m_realLiveTimer > LIMIT_TIME) then
-        local game_state = self.m_world.m_gameState
+        local game_state = self.m_gameWorld.m_gameState
         game_state:processTimeOut()
     end
 
@@ -147,7 +147,7 @@ function SceneGameClanRaid:networkGameComeback(next_func)
         self:networkGameComeback_response(ret)
 
         -- 클랜 던전 종료 시
-        if (ret['is_gaming']) then
+        if (ret['is_gaming'] == false) then
             
         end
 
