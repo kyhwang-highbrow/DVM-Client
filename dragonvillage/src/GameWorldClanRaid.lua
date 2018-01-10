@@ -288,7 +288,7 @@ function GameWorldClanRaid:setBattleZone()
             offset_y = offset_y - 270
         end
 
-        local l_pos_list = TableFormation:getFormationPositionList(self.m_deckFormation, 
+        local l_pos_list = TableFormation:getFormationPositionList(self.m_subDeckFormation, 
             (min_x + offset_x),
             (max_x + offset_x),
             (min_y + offset_y),
