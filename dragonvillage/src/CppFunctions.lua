@@ -86,5 +86,21 @@ function CppFunctionsClass:getMd5(path)
     return getMd5(path)
 end
 
+-------------------------------------
+-- function getDeviceLanguage
+-- @return string
+-------------------------------------
+function CppFunctionsClass:getDeviceLanguage()
+    return getDeviceLanguage()
+end
+
+-------------------------------------
+-- function getLocale
+-- @return string
+-------------------------------------
+function CppFunctionsClass:getLocale()
+    return getLocale()
+end
+
 -- instance 생성
 CppFunctions = CppFunctionsClass()
