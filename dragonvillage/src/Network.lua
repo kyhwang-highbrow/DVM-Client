@@ -43,6 +43,7 @@ function Network_platform_issueRcode(rcode, os, game_push, pushToken, success_cb
     t_data['game_push'] = game_push
     t_data['pushToken'] = pushToken
     t_data['server_name'] = g_localData:get('local', 'server')
+    t_data['lang'] = LocalData:getInstance():getLang()
 
     -- 요청 정보 설정
     local t_request = {}
