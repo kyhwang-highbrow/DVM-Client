@@ -114,8 +114,10 @@ function UI_Clan:initButton()
     vars['rewardBtn']:registerScriptTapHandler(function() self:click_rewardBtn() end)
     vars['requestBtn']:registerScriptTapHandler(function() self:click_requestBtn() end)
 
-    -- 개발 스테이지 테스트 모드에서만 on
-    if IS_TEST_MODE() then
+    -- iOS 앱 검수 클랜던전 미노출
+	if (g_localData:isInAppReview()) then
+        vars['raidBtn']:setVisible(false)
+    else
         vars['raidBtn']:setVisible(true)
         vars['raidBtn']:registerScriptTapHandler(function() self:click_raidBtn() end)
     end
