@@ -127,11 +127,53 @@ function SceneGameClanRaid:updateRealTimer(dt)
 
     -- TODO: 시간 제한 체크 및 처리
     if (self.m_realLiveTimer > LIMIT_TIME) then
+        local game_state = self.m_world.m_gameState
+        game_state:processTimeOut()
     end
 
     -- UI 시간 표기 갱신
     local remain_time = math_max(LIMIT_TIME - self.m_realLiveTimer, 0)
     self.m_inGameUI:setTime(remain_time, true)
+end
+
+-------------------------------------
+-- function networkGameComeback
+-- @breif 백그라운드로 나갔다가 복귀햇을 경우 요청
+-------------------------------------
+function SceneGameClanRaid:networkGameComeback(next_func)
+    local uid = g_userData:get('uid')
+
+    local function success_cb(ret)
+        self:networkGameComeback_response(ret)
+
+        -- 클랜 던전 종료 시
+        if (ret['is_gaming']) then
+            
+        end
+
+        if next_func then
+            next_func()
+        end
+    end
+
+    local api_url = '/clans/dungeon_check'
+    
+    local ui_network = UI_Network()
+    ui_network:setUrl(api_url)
+    ui_network:setParam('uid', uid)
+    ui_network:setParam('stage', self.m_stageID)
+    ui_network:setSuccessCB(success_cb)
+    ui_network:request()
+end
+
+
+-------------------------------------
+-- function networkGameComeback_response
+-- @breif
+-------------------------------------
+function SceneGameClanRaid:networkGameComeback_response(ret)
+    -- server_info 정보를 갱신
+    g_serverData:networkCommonRespone(ret)
 end
 
 -------------------------------------
@@ -394,11 +436,11 @@ end
 -- function applicationWillEnterForeground
 -------------------------------------
 function SceneGameClanRaid:applicationWillEnterForeground()
-    -- 백그라운드로 나갔다가 진입시 흘러간 시간을 계산
+    PARENT.applicationWillEnterForeground(self)
 
-
-    -- TODO: 서버 통신(클랜 던전 남은 시간이나 서버 시간 정보 필요)
-    
-    -- 클랜 던전 진행 시간 재계산
-    self.m_realLiveTimer = Timer:getServerTime() - self.m_realStartTime
+    -- 백그라운드로 나갔다가 진입시 흘러간 시간을 계산하기 위한 서버 통신
+    self:networkGameComeback(function()
+        -- 클랜 던전 진행 시간 재계산
+        self.m_realLiveTimer = Timer:getServerTime() - self.m_realStartTime
+    end)
 end

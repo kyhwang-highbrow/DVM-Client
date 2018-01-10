@@ -20,10 +20,31 @@ function UI_GameClanRaid:initUI()
 
     local vars = self.vars
     
+    vars['clanRaidNode']:setVisible(true)
     vars['speedVisual']:setVisible(false)
     vars['speedButton']:setVisible(false)
     vars['autoStartVisual']:setVisible(false)
     vars['autoStartButton']:setVisible(false)
+
+    vars['damageLabel']:setString('0')
+end
+
+-------------------------------------
+-- function init_timeUI
+-------------------------------------
+function UI_GameClanRaid:init_timeUI(display_wave, time)
+    local vars = self.vars
+
+    vars['timeNode']:setVisible(false)
+    vars['waveVisual']:setVisible(false)
+    
+    self.m_timeLabel = vars['clanRaidtimeLabel']
+    
+    if (time) then
+        self.m_timeLabel:setVisible(true)
+
+        self:setTime(time)
+    end
 end
 
 -------------------------------------
@@ -36,4 +57,14 @@ function UI_GameClanRaid:setAutoPlayUI()
     vars['autoStartNode']:setVisible(false)
     vars['autoStartNumberLabel']:setVisible(false)
     vars['autoStartVisual']:setVisible(false)
+end
+
+-------------------------------------
+-- function setAutoPlayUI
+-- @brief 총 피해량 표시
+-------------------------------------
+function UI_GameClanRaid:setTotalDamage(total_damage)
+    local vars = self.vars
+
+    vars['damageLabel']:setString(math_floor(total_damage))
 end

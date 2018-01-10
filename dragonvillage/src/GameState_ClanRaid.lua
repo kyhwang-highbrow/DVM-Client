@@ -411,12 +411,25 @@ end
 
 
 -------------------------------------
+-- function addTotalDamage
+-------------------------------------
+function GameState_ClanRaid:addTotalDamage(add_damage)
+    if (add_damage <= 0) then return end
+
+    self.m_totalDamage = self.m_totalDamage + add_damage
+
+    -- UI 갱신
+    self.m_world.m_inGameUI:setTotalDamage(self.m_totalDamage)
+end
+
+-------------------------------------
 -- function setBossHp
 -------------------------------------
 function GameState_ClanRaid:setBossHp(hp_count, hp)
-    -- 임시... 총 데미지 계산
+    -- 총 데미지 갱신
     if (self.m_bossHp > hp) then
-        self.m_totalDamage = self.m_totalDamage + self.m_bossHp - hp
+        local add_damage = self.m_bossHp - hp
+        self:addTotalDamage(add_damage)
     end
 
     self.m_bossHpCount = hp_count
@@ -437,5 +450,15 @@ function GameState_ClanRaid:onEvent(event_name, t_event, ...)
     -- 보스 체력 공유 처리
     if (event_name == 'character_set_hp') then
         self:setBossHp(self.m_bossHpCount, t_event['hp'])
+    end
+end
+
+-------------------------------------
+-- function processTimeOut
+-------------------------------------
+function GameState_ClanRaid:processTimeOut()
+    -- 타임 아웃시 적군 전멸기 사용
+    for _, enemy in pairs(self.m_world:getEnemyList()) do
+        enemy:dispatch('time_out')
     end
 end

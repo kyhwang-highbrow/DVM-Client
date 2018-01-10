@@ -50,6 +50,7 @@ MAP_KEY_FUNC[KEY_UP_ARROW] = 'camera_move_up'
 MAP_KEY_FUNC[KEY_DOWN_ARROW] = 'camera_move_down'
 ]]--
 MAP_KEY_FUNC[KEY_LEFT_ARROW] = 'kill_one_dragon'
+MAP_KEY_FUNC[KEY_RIGHT_ARROW] = 'background_test'
 
 -- 테스트
 MAP_KEY_FUNC[KEY_5] = 'pause_dragon_1'
@@ -601,4 +602,13 @@ function GameWorld:do_dragon_passive_2()
             v:doSkill(skill_id, 0, 0)
         end
     end
+end
+
+
+-------------------------------------
+-- function background_test
+-------------------------------------
+function GameWorld:background_test()
+    applicationDidEnterBackground()
+    applicationWillEnterForeground()
 end

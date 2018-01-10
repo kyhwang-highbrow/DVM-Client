@@ -430,24 +430,12 @@ end
 function UI_Game:init_timeUI(display_wave, time)
     local vars = self.vars
 
-    vars['timeNode']:setVisible(false)
-    vars['clanRaidTimeNode']:setVisible(false)
+    vars['timeNode']:setVisible(true)
     vars['waveVisual']:setVisible(display_wave)
     
-    local game_mode = self.m_gameScene.m_gameMode
-    local time_node
-
-    if (game_mode == GAME_MODE_CLAN_RAID) then
-        -- 클랜 던전의 경우 별도 라벨 사용
-        time_node = vars['clanRaidTimeNode']
-        self.m_timeLabel = vars['clanRaidtimeLabel']
-    else
-        time_node = vars['timeNode']
-        self.m_timeLabel = vars['timeLabel']
-    end
-
+    self.m_timeLabel = vars['timeLabel']
+    
     if (time) then
-        time_node:setVisible(true)
         self.m_timeLabel:setVisible(true)
 
         self:setTime(time)
