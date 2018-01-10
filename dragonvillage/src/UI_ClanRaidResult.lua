@@ -171,7 +171,7 @@ function UI_ClanRaidResult:direction_showStar()
     visual_node:setVisible(true)
     visual_node:changeAni(ani, false)
 
-    self:doNextWorkWithDelayTime(0.8)
+    self:doNextWorkWithDelayTime(1.5)
 end
 
 -------------------------------------
@@ -355,7 +355,8 @@ function UI_ClanRaidResult:initReward()
         for i, v in ipairs(reward_list) do
             local item_id = v[1]
             local count = v[2]
-            local sub_data = v[3]
+            local from = v[3]
+            local sub_data = v[4]
 
             local item_card = UI_ItemCard(item_id, count, sub_data)
             item_card.root:setScale(ITEM_CARD_SCALE)
