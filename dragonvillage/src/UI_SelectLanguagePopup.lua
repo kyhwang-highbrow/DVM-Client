@@ -69,6 +69,7 @@ function UI_SelectLanguagePopup:initButton()
 		self.m_radioButton = radio_button
 	end
 
+	vars['okBtn']:registerScriptTapHandler(function() self:click_okBtn() end)
 	vars['closeBtn']:registerScriptTapHandler(function() self:click_closeBtn() end)
 end
 
@@ -77,13 +78,18 @@ end
 -------------------------------------
 function UI_SelectLanguagePopup:refresh()
     local vars = self.vars
-
 end
 
 -------------------------------------
 -- function onChangeOption
 -------------------------------------
 function UI_SelectLanguagePopup:onChangeOption()
+end
+
+-------------------------------------
+-- function click_closeBtn
+-------------------------------------
+function UI_SelectLanguagePopup:click_okBtn()
 	local lang = self.m_radioButton.m_selectedButton
 	local name = t_lang_list[lang]
 	local msg = Str('{1}를 선택합니다.', name)
