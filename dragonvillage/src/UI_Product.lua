@@ -134,27 +134,6 @@ function UI_Product:refresh()
     else
         vars['buyBtn']:setEnabled(true)
     end
-
-	-- iOS 앱 검수 세팅
-	self:inAppReviewSetting()
-end
-
--------------------------------------
--- function inAppReviewSetting
--------------------------------------
-function UI_Product:inAppReviewSetting()
-	-- 앱 검수 활성화 체크
-	if (not g_localData:isInAppReview()) then
-		return
-	end
-
-	local vars = self.vars
-
-	-- 구매 제한 표시 숨김
-	vars['maxBuyTermLabel']:setVisible(false)
-
-	-- 기간 한정 표시 숨김
-	vars['badgeNode']:setVisible(false)
 end
 
 -------------------------------

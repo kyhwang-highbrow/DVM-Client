@@ -124,14 +124,6 @@ function ServerData_Shop:insertProduct(struct_product)
         error('지정되어있지 않은 상점 tab : ' .. tab_category)
     end
 
-	-- iOS 앱 검수 세팅
-	if (g_localData:isInAppReview()) then
-		-- 구매 제한 있는 품목 제외
-		if (struct_product:getMaxBuyCount()) then
-			return
-		end
-	end
-
     table.insert(self.m_dicProduct[tab_category], struct_product)
 end
 
