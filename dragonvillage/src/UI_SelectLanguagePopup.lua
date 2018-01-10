@@ -94,6 +94,8 @@ end
 -------------------------------------
 function UI_SelectLanguagePopup:click_okBtn()
 	local lang = self.m_radioButton.m_selectedButton
+
+	-- @mskim 해외 출시 전 처리
 	if (CppFunctions:isAndroid()) then
 		if (lang ~= 'ko') then
 			local msg = '현재 한국어 외의 언어는 선택하실 수 없습니다.'
