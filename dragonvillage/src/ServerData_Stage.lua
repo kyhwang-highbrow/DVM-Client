@@ -239,9 +239,8 @@ end
 -------------------------------------
 -- function requestGameStart
 -------------------------------------
-function ServerData_Stage:requestGameStart(stage_id, deck_name, combat_power, finish_cb, is_cash)
+function ServerData_Stage:requestGameStart(stage_id, deck_name, combat_power, finish_cb)
     local uid = g_userData:get('uid')
-    local is_cash = is_cash or false
     local oid
     local response_status_cb
 
@@ -317,35 +316,6 @@ function ServerData_Stage:requestGameStart(stage_id, deck_name, combat_power, fi
         else
             api_url = '/game/ancient/start'
         end
-
-    -- 클랜 던전
-    elseif (game_mode == GAME_MODE_CLAN_RAID) then
-        api_url = '/clans/dungeon_start'
-
-        -- true를 리턴하면 자체적으로 처리를 완료했다는 뜻
-        response_status_cb = function(ret)
-           
-            -- 클랜던전 UI로 이동
-            local function ok_cb()
-                UINavigator:goTo('clan_raid')
-            end 
-
-            if (ret['status'] == -3871) then
-                MakeSimplePopup(POPUP_TYPE.OK, Str('이미 클랜던전에 입장한 유저가 있습니다.'), ok_cb)
-                return true
-
-            elseif (ret['status'] == -1671) then
-                MakeSimplePopup(POPUP_TYPE.OK, Str('제한시간을 초과하였습니다.'), ok_cb)
-                return true
-
-            elseif (ret['status'] == -1371) then
-                MakeSimplePopup(POPUP_TYPE.OK, Str('유효하지 않은 던전입니다.'), ok_cb)
-                return true
-
-            end
-
-            return false
-        end
     end
 
     local function success_cb(ret)
@@ -380,7 +350,6 @@ function ServerData_Stage:requestGameStart(stage_id, deck_name, combat_power, fi
     ui_network:setParam('friend', friend_uid)
     ui_network:setParam('oid', oid)
     if (attr) then ui_network:setParam('attr', attr) end
-    if (is_cash) then ui_network:setParam('is_cash', is_cash) end
     ui_network:setParam('token', self:makeDragonToken())
     ui_network:setResponseStatusCB(response_status_cb)
     ui_network:setSuccessCB(success_cb)
@@ -621,10 +590,15 @@ end
 -------------------------------------
 -- function makeDragonToken
 -------------------------------------
-function ServerData_Stage:makeDragonToken()
+function ServerData_Stage:makeDragonToken(deckname)
     local token = ''
 
-    local l_deck = g_deckData:getDeck()
+    local l_deck 
+    if (deckname) then
+        l_deck = g_deckData:getDeck(deckname)
+    else
+        l_deck = g_deckData:getDeck()
+    end
 
     for i = 1, 5 do
         local t_dragon_data

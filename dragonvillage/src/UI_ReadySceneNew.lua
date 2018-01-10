@@ -20,7 +20,8 @@ UI_ReadySceneNew = class(PARENT,{
         m_uicSortList = 'UIC_SortList',
 
         m_bWithFriend = 'boolean',
-        m_bUseCash = 'boolean'
+        m_bUseCash = 'boolean',
+        m_gameMode = 'number'
     })
 
 -------------------------------------
@@ -29,7 +30,7 @@ UI_ReadySceneNew = class(PARENT,{
 function UI_ReadySceneNew:init(stage_id, with_friend, sub_info)
     -- spine 캐시 정리
     SpineCacheManager:getInstance():purgeSpineCacheData()
-
+    self.m_gameMode = g_stageData:getGameMode(stage_id)
     self.m_subInfo = sub_info
 	if (not stage_id) then
 		stage_id = COLOSSEUM_STAGE_ID
@@ -79,8 +80,7 @@ function UI_ReadySceneNew:init(stage_id, with_friend, sub_info)
     g_autoPlaySetting:setAutoPlay(false)
 
     -- 매일매일 다이아 풀팝업
-    local game_mode = g_stageData:getGameMode(self.m_stageID)
-    if (game_mode == GAME_MODE_ADVENTURE) then
+    if (self.m_gameMode == GAME_MODE_ADVENTURE) then
         g_fullPopupManager:show(FULL_POPUP_TYPE.AUTO_PICK)
     end
 end
@@ -101,8 +101,7 @@ function UI_ReadySceneNew:initParentVariable()
 
     
 	-- 들어온 경로에 따라 sound가 다름
-	local game_mode = g_stageData:getGameMode(self.m_stageID)
-	if (game_mode == GAME_MODE_ADVENTURE) then
+	if (self.m_gameMode == GAME_MODE_ADVENTURE) then
 		self.m_uiBgm = 'bgm_dungeon_ready'
 	else
 		self.m_uiBgm = 'bgm_lobby'
@@ -116,8 +115,7 @@ end
 function UI_ReadySceneNew:init_MemberVariable(stage_id)
     self.m_stageID = stage_id
 
-    local game_mode = g_stageData:getGameMode(self.m_stageID)
-	if (game_mode == GAME_MODE_SECRET_DUNGEON) then
+	if (self.m_gameMode == GAME_MODE_SECRET_DUNGEON) then
         -- 인연 던전의 경우라면 해당 드래곤의 속성을 스테이지 속성으로 설정
         local t_dungeon_info = g_secretDungeonData:getSelectedSecretDungeonInfo()
         if (t_dungeon_info) then
@@ -258,10 +256,8 @@ function UI_ReadySceneNew:init_sortMgr(stage_id)
     self.m_sortManagerDragon = SortManager_Dragon()
     self.m_sortManagerFriendDragon = SortManager_Dragon()
     
-    local game_mode = g_stageData:getGameMode(self.m_stageID)
-
     -- 클랜던전 1,2 공격대 덱을 맨위로
-    if (game_mode == GAME_MODE_CLAN_RAID) then
+    if (self.m_gameMode == GAME_MODE_CLAN_RAID) then
         local function cond(a, b)
 			return self:condition_clan_raid(a, b)
 		end
@@ -413,8 +409,7 @@ function UI_ReadySceneNew:initUI()
 	end
 
     -- 클랜던전
-    local game_mode = g_stageData:getGameMode(self.m_stageID)
-    if (game_mode == GAME_MODE_CLAN_RAID) then
+    if (self.m_gameMode == GAME_MODE_CLAN_RAID) then
         vars['friendToggleBtn']:setVisible(false)
 		vars['autoStartOnBtn']:setVisible(false)
     end
@@ -467,7 +462,6 @@ end
 -------------------------------------
 function UI_ReadySceneNew:refresh()
     local stage_id = self.m_stageID
-    local game_mode = g_stageData:getGameMode(stage_id)
     local vars = self.vars
 
     do -- 스테이지 이름
@@ -498,7 +492,7 @@ function UI_ReadySceneNew:refresh()
     end
 
     -- 모험 소비 활동력 핫타임 관련
-    if (game_mode == GAME_MODE_ADVENTURE) then
+    if (self.m_gameMode == GAME_MODE_ADVENTURE) then
         local active, key, str = g_hotTimeData:getActiveHotTimeInfo_stamina()
         if active then
             local stamina_type, stamina_value = TableDrop:getStageStaminaType(self.m_stageID)
@@ -526,7 +520,7 @@ function UI_ReadySceneNew:refresh_combatPower()
     local vars = self.vars
 
     local stage_id = self.m_stageID
-    local game_mode = g_stageData:getGameMode(stage_id)
+    local game_mode = self.m_gameMode
 
 	if (stage_id == COLOSSEUM_STAGE_ID or stage_id == FRIEND_MATCH_STAGE_ID or game_mode == GAME_MODE_CLAN_RAID) then
 		vars['cp_Label']:setString('')
@@ -640,10 +634,9 @@ end
 function UI_ReadySceneNew:refresh_slotLight()
     local vars = self.vars
     local stage_id = self.m_stageID
-    local game_mode = g_stageData:getGameMode(stage_id)
 
     -- 클랜던전 slot light
-    if (game_mode == GAME_MODE_CLAN_RAID) then
+    if (self.m_gameMode == GAME_MODE_CLAN_RAID) then
         local up_deck_cnt = g_clanRaidData:getDeckDragonCnt('up')
         for idx = 1, 5 do
             local slot_light = vars['slotSprite'..idx]
@@ -734,7 +727,7 @@ function UI_ReadySceneNew:click_autoBtn()
     local formation = self.m_readySceneDeck.m_currFormation
     local l_dragon_list
 
-    local game_mode = g_stageData:getGameMode(self.m_stageID)
+    local game_mode = self.m_gameMode
     if (game_mode == GAME_MODE_ANCIENT_TOWER) then
         local attr = g_attrTowerData:getSelAttr()
         -- 시험의 탑 (같은 속성 드래곤만 받아옴)
@@ -833,7 +826,6 @@ end
 -------------------------------------
 function UI_ReadySceneNew:click_startBtn()
     local stage_id = self.m_stageID
-    local game_mode = g_stageData:getGameMode(stage_id)
 
     -- 개발 스테이지
     if (stage_id == DEV_STAGE_ID) then
@@ -991,8 +983,7 @@ function UI_ReadySceneNew:click_autoStartOnBtn()
         g_autoPlaySetting:setAutoPlay(false)
         refresh_btn()
     else
-		local game_mode = g_stageData:getGameMode(self.m_stageID)
-        local ui = UI_AutoPlaySettingPopup(game_mode)
+        local ui = UI_AutoPlaySettingPopup(self.m_gameMode)
         ui:setCloseCB(refresh_btn)
     end
 end
@@ -1067,10 +1058,9 @@ function UI_ReadySceneNew:replaceGameScene(game_key)
 
     local stage_id = self.m_stageID
     local stage_name = 'stage_' .. stage_id
-    local game_mode = g_stageData:getGameMode(stage_id)
     local scene
 
-    if (game_mode == GAME_MODE_CLAN_RAID) then
+    if (self.m_gameMode == GAME_MODE_CLAN_RAID) then
         scene = SceneGameClanRaid(game_key, stage_id, stage_name, false)
     else
         scene = SceneGame(game_key, stage_id, stage_name, false)
@@ -1091,8 +1081,12 @@ function UI_ReadySceneNew:networkGameStart()
     local deck_name = g_deckData:getSelectedDeckName()
     local combat_power = self.m_readySceneDeck:getDeckCombatPower()
 
-    local is_cash = self.m_bUseCash
-    g_stageData:requestGameStart(self.m_stageID, deck_name, combat_power, finish_cb, is_cash)
+    if (self.m_gameMode == GAME_MODE_CLAN_RAID) then
+        local is_cash = self.m_bUseCash
+        g_clanRaidData:requestGameStart(self.m_stageID, deck_name, combat_power, finish_cb, is_cash)
+    else
+        g_stageData:requestGameStart(self.m_stageID, deck_name, combat_power, finish_cb)
+    end
 end
 
 -------------------------------------

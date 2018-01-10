@@ -425,3 +425,51 @@ function ServerData_ClanRaid:request_info(stage_id, cb_func)
     ui_network:setReuse(false)
     ui_network:request()
 end
+
+-------------------------------------
+-- function requestGameStart
+-------------------------------------
+function ServerData_ClanRaid:requestGameStart(stage_id, deck_name, combat_power, finish_cb, is_cash)
+    local uid = g_userData:get('uid')
+    local is_cash = is_cash or false
+    local api_url = '/clans/dungeon_start'
+
+    -- 응답 상태 처리 함수
+    local t_error = {
+        [-3871] = Str('이미 클랜던전에 입장한 유저가 있습니다.'),
+        [-1371] = Str('유효하지 않은 던전입니다.'), 
+    }
+    local response_status_cb = MakeResponseCB(t_error)
+
+    local function success_cb(ret)
+        -- server_info, staminas 정보를 갱신
+        g_serverData:networkCommonRespone(ret)
+
+        local game_key = ret['gamekey']
+        finish_cb(game_key)
+
+        -- 스피드핵 방지 실제 플레이 시간 기록
+        g_accessTimeData:startCheckTimer()
+    end
+
+    local deck_name1 = self:getDeckName('up')
+    local deck_name2 = self:getDeckName('down')
+
+    local token1 = g_stageData:makeDragonToken(deck_name1)
+    local token2 = g_stageData:makeDragonToken(deck_name2)
+
+    local ui_network = UI_Network()
+    ui_network:setUrl(api_url)
+    ui_network:setRevocable(true)
+    ui_network:setParam('uid', uid)
+    ui_network:setParam('stage', stage_id)
+    ui_network:setParam('deck_name1', deck_name1)
+    ui_network:setParam('deck_name2', deck_name2)
+    ui_network:setParam('token1', token1)
+    ui_network:setParam('token2', token2)
+    ui_network:setParam('combat_power', combat_power)
+    if (is_cash) then ui_network:setParam('is_cash', is_cash) end
+    ui_network:setResponseStatusCB(response_status_cb)
+    ui_network:setSuccessCB(success_cb)
+    ui_network:request()
+end

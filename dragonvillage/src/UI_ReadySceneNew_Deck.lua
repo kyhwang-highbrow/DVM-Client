@@ -56,7 +56,7 @@ local TAB_ATTACK_2 = 'down' -- 2 공격대 (하단)
 function UI_ReadySceneNew_Deck:init(ui_ready_scene)
     self.m_uiReadyScene = ui_ready_scene
     self.m_bDirtyDeck = true
-    self.m_gameMode = g_stageData:getGameMode(self.m_uiReadyScene.m_stageID)
+    self.m_gameMode = self.m_uiReadyScene.m_gameMode
 
 	self:initUI()
     self:initButton()
