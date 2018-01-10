@@ -1395,7 +1395,7 @@
 							rotation = 0.000000;
 							visible = true;
 							lua_name = '';
-							file_name = 'ui/icons/star/star_yellow_0305.png';
+							file_name = 'ui/icons/star/star_yellow_0304.png';
 							color = { 255; 255; 255; };
 							opacity = 255;
 							flip_x = false;
@@ -2105,7 +2105,7 @@
 					action_type = 5;
 					action_delay_1 = 0.000000;
 					action_delay_2 = 0.000000;
-					action_duration = 0.500000;
+					action_duration = 1.000000;
 					lua_name = '';
 					file_name = 'ui/icons/arrow_0201.png';
 					color = { 255; 215; 0; };
@@ -2118,32 +2118,6 @@
 				[7] =
 				{
 					[1] =
-					{
-						type = 'Sprite';
-						ui_name = '';
-						x = 0.000000;
-						y = 0.000000;
-						dock_point = { 0.500000; 0.500000; };
-						anchor_point = { 0.500000; 0.500000; };
-						relative_size_type = 0;
-						width = 500;
-						height = 500;
-						scale_x = 0.500000;
-						scale_y = 0.500000;
-						skew_x = 0.000000;
-						skew_y = 0.000000;
-						rotation = 0.000000;
-						visible = true;
-						lua_name = '';
-						file_name = 'ui/frames/lobby_side_frame.png';
-						color = { 255; 255; 255; };
-						opacity = 255;
-						flip_x = false;
-						flip_y = false;
-						src_blend = 770;
-						dest_blend = 771;
-					};
-					[2] =
 					{
 						type = 'Sprite';
 						ui_name = '';
@@ -2160,6 +2134,10 @@
 						skew_y = 0.000000;
 						rotation = 0.000000;
 						visible = true;
+						action_type = 5;
+						action_delay_1 = 0.000000;
+						action_delay_2 = 0.000000;
+						action_duration = 0.300000;
 						lua_name = '';
 						file_name = 'ui/icons/clan_boss.png';
 						color = { 255; 255; 255; };
@@ -2169,7 +2147,7 @@
 						src_blend = 770;
 						dest_blend = 771;
 					};
-					[3] =
+					[2] =
 					{
 						type = 'LabelTTF';
 						ui_name = '';
@@ -2209,7 +2187,7 @@
 						shadow_direction = 0;
 						shadow_distance = 5.000000;
 					};
-					[4] =
+					[3] =
 					{
 						type = 'Visual';
 						ui_name = '';
@@ -2226,6 +2204,10 @@
 						skew_y = 0.000000;
 						rotation = 0.000000;
 						visible = true;
+						action_type = 5;
+						action_delay_1 = 0.000000;
+						action_delay_2 = 0.000000;
+						action_duration = 0.700000;
 						lua_name = '';
 						file_name = 'ui/a2d/clan_raid/clan_raid.vrp';
 						auto_play = true;
@@ -2673,8 +2655,8 @@
 							visible = true;
 							lua_name = '';
 							font_name = 'font/common_font_01.ttf';
-							font_size = 24;
-							text = '클랜 지급 보상';
+							font_size = 20;
+							text = '클랜 최대 획득가능 보상';
 							h_alignment = 1;
 							v_alignment = 1;
 							color = { 161; 125; 93; };

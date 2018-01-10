@@ -1524,7 +1524,7 @@
 				skew_x = 0.000000;
 				skew_y = 0.000000;
 				rotation = 0.000000;
-				visible = true;
+				visible = false;
 				lua_name = 'raidBtn';
 				enable = true;
 				normal = 'ui/buttons/clan_raid_0101.png';
