@@ -196,12 +196,10 @@ end
 -- function getLangStrTable
 -------------------------------------
 function Translate:getLangStrTable()
-	local T_LANG_STR = {
-		['kr'] = Str('한국어'), 
+    return {
+		['ko'] = Str('한국어'), 
 		['en'] = Str('영어'), 
-		['jp'] = Str('일본어'), 
+		['ja'] = Str('일본어'), 
 		['zh'] = Str('중국어')
 	}
-
-    return T_LANG_STR
 end

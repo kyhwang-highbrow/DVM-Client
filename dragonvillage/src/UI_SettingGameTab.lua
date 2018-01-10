@@ -214,8 +214,13 @@ end
 -------------------------------------
 function UI_Setting:click_languageBtn()
 	local function change_lang()
-		local msg = Str('새로운 언어를 적용하기 위해\n앱을 재시작 합니다.')
-		MakeNetworkPopup(POPUP_TYPE.OK, msg, function() CppFunctions:restart() end)
+		local msg = Str('선택하신 언어가 적용됩니다.')
+		local function cb_func()
+			local is_use_loading = true
+			local scene = SceneLobby(is_use_loading)
+			scene:runScene()
+		end
+		MakeNetworkPopup(POPUP_TYPE.OK, msg, cb_func)
 	end
 
     UI_SelectLanguagePopup(change_lang)
