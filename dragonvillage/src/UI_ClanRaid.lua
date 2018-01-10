@@ -20,7 +20,7 @@ local RENEW_INTERVAL = 5
 function UI_ClanRaid:initParentVariable()
     -- ITopUserInfo_EventListener의 맴버 변수들 설정
     self.m_uiName = 'UI_ClanRaid'
-    self.m_titleStr = Str('클랜던전')
+    self.m_titleStr = Str('클랜 던전')
 	self.m_staminaType = 'cldg'
     self.m_bVisible = true
     self.m_bUseExitBtn = true

@@ -436,7 +436,7 @@ function ServerData_ClanRaid:requestGameStart(stage_id, deck_name, combat_power,
 
     -- 응답 상태 처리 함수
     local t_error = {
-        [-3871] = Str('이미 클랜던전에 입장한 유저가 있습니다.'),
+        [-3871] = Str('이미 클랜 던전에 입장한 유저가 있습니다.'),
         [-1371] = Str('유효하지 않은 던전입니다.'), 
     }
     local response_status_cb = MakeResponseCB(t_error)

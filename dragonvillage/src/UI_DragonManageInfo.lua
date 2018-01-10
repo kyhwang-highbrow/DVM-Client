@@ -29,9 +29,6 @@ end
 -- function init
 -------------------------------------
 function UI_DragonManageInfo:init(doid, sub_menu)
-    -- 모험모드 출전중인 덱으로 표시
-    g_deckData:setSelectedDeck('adv')
-
     -- spine 캐시 정리 확인
     SpineCacheManager:getInstance():purgeSpineCacheData()
 

@@ -568,6 +568,9 @@ end
 -------------------------------------
 function UI_Lobby:click_dragonManageBtn()
     local func = function()
+        -- 로비에서 진입시 모험모드 출전중인 덱으로 표시
+        g_deckData:setSelectedDeck('adv')
+
         local ui = UI_DragonManageInfo()
         local function close_cb()
             self:sceneFadeInAction()

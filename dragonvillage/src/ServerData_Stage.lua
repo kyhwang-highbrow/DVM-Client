@@ -64,7 +64,7 @@ function ServerData_Stage:getStageName(stage_id)
         
     -- 클랜던전
     elseif (game_mode == GAME_MODE_CLAN_RAID) then
-        name = Str('클랜던전')
+        name = Str('클랜 던전')
 
     -- 콜로세움 모드
     elseif (game_mode == GAME_MODE_COLOSSEUM) then
