@@ -434,7 +434,26 @@ end
 function UI_Setting:click_testCodeBtn()
     ccdisplay('진동 테스트')
     cc.SimpleAudioEngine:getInstance():playVibrate(1000)
-    error()
+	
+	-- 현재 언어 세팅 테스트 용
+	local desc = [[
+		<language check>
+		cocos lang: %s
+		cocos lang code : %s
+		locale : %s
+		device lang : %s
+		curr game lang : %s 
+	]]
+
+	desc = string.format(desc,
+		cc.Application:sharedApplication():getCurrentLanguage(),
+		cc.Application:sharedApplication():getCurrentLanguageCode(),
+		CppFunctions:getLocale(),
+		CppFunctions:getDeviceLanguage(),
+		Translate:getGameLang()
+	)
+
+    error(desc)
 end
 
 -------------------------------------
