@@ -194,6 +194,8 @@ function UI_ClanRaidResult:direction_showReward()
         return
     end
 
+    local grade = self.m_grade
+
     local ui = UI()
     ui:load('clan_raid_result_reward.ui')
     local target_menu = ui.vars['rewardNode'..grade]
