@@ -8,37 +8,30 @@ Translate = {
     m_gameLang = nil,
 }
 
--- cocos 에서 넘어오는 language idx와 일치시킴
-local LANG = {
-    ['ENGLISH'] = 0,
-    ['KOREAN'] = 8,
-    ['JAPANESE'] = 9
-}
-
--- 지원 언어 목록
-local L_LANG_TYPE = 
-{
-    [LANG.ENGLISH] = 'en',
-    [LANG.KOREAN] = 'kr',
-	[LANG.JAPANESE] = 'jp',
-}
-
 -------------------------------------
 -- function init
 -------------------------------------
 function Translate:init()
-    self.m_stdLang = 'kr'
+    self.m_stdLang = 'ko'
     self.m_gameLang = LocalData:getInstance():getLang()
 
-    -- deviceLang은 사용 안함
-    local lang_idx = cc.Application:sharedApplication():getCurrentLanguage()
-    self.m_deviceLang = L_LANG_TYPE[lang_idx]
+	-- @mskim 1/15일에만 동작 시킬 예정
+	-- 현재 한국 라이브 유저들의 설정 일괄 변환 의도
+	if (self.m_gameLang == 'kr') then
+		LocalData:getInstance():setLang('ko')
+		self.m_gameLang = 'ko'
+	end
+
+    -- getDeviceLang을 하면 중국어에서 zh-cn 으로 들어오고
+	-- 엔진에 있는 languageCode가 의도한대로 값이 들어와
+	-- getCurrentLanguageCode 함수를 사용하기로 함
+    self.m_deviceLang = cc.Application:sharedApplication():getCurrentLanguageCode()
 
 	-- 한국어가 아닌 경우 언어 모듈 로드
 	if (self.m_gameLang ~= self.m_stdLang) then
 		-- @mskim 해외 빌드 분기 처리
 		if (CppFunctionsClass:getAppVer() == '1.0.8') then
-			
+			-- nothing to do
 		else
 			self:load(self.m_gameLang)
 		end
@@ -64,8 +57,14 @@ function Translate:load(lang)
     -- 한국어가 아니라면 m_mLangMap 호출
     if (lang == 'en') then
         self.m_mLangMap = require 'translate/lang_en'
-    elseif (lang == 'jp') then
+    elseif (lang == 'ja') then
         self.m_mLangMap = require 'translate/lang_jp'
+	elseif (lang == 'zh') then
+        self.m_mLangMap = require 'translate/lang_en' --lang_zhtw
+
+	-- 정의 되지 않은 언어는 '영어'로 일괄 처리
+	else
+		self.m_mLangMap = require 'translate/lang_en'
     end
 end
 
