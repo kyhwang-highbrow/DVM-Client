@@ -34,7 +34,7 @@ function UI_IngameDragonPanel:initUI()
     local vars = self.vars
     local world = self.m_world
     self.m_lPanelItemList = {}
-    for i=1, 10 do
+    for i=1, 5 do
         local dragon = world.m_myDragons[i]
         if dragon then
             local dragon_idx = i

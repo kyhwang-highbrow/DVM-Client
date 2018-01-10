@@ -170,6 +170,8 @@ function GameWorldClanRaid:makeHeroDeck()
         error('invalid sel_deck : ' .. sel_deck)
     end
 
+    self.m_myDragons = {}
+
     -- 조작할 수 있는 덱을 가져옴
     do
         local l_deck, formation, deck_name, leader = g_deckData:getDeck(main_deck_name)
@@ -179,8 +181,6 @@ function GameWorldClanRaid:makeHeroDeck()
         self.m_deckFormationLv = formation_lv
 
         -- 출전 중인 드래곤 객체를 저장하는 용도 key : 출전 idx, value :Dragon
-        self.m_myDragons = {}
-
         for i, doid in pairs(l_deck) do
             local t_dragon_data = g_dragonsData:getDragonDataFromUid(doid)
             if (t_dragon_data) then
@@ -227,6 +227,7 @@ function GameWorldClanRaid:makeHeroDeck()
                 local status_calc = MakeOwnDragonStatusCalculator(doid)
                 local hero = self:makeDragonNew(t_dragon_data, false, status_calc)
                 if (hero) then
+                    self.m_myDragons[5 + i] = hero
                     hero:setPosIdx(tonumber(i))
 
                     self.m_worldNode:addChild(hero.m_rootNode, WORLD_Z_ORDER.HERO)

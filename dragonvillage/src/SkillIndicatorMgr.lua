@@ -117,7 +117,7 @@ function SkillIndicatorMgr:onTouchBegan(touch, event)
 
     -- 드래곤 검사
     if (not select_hero) then
-        for i, v in pairs(world:getDragonList()) do
+        for i, v in pairs(world.m_leftParticipants) do
             v:dispatch('touch_began', t_event)
 
             if t_event['touch'] then

@@ -61,7 +61,12 @@ end
 -- function updateFightTimer
 -------------------------------------
 function GameState_ClanRaid:updateFightTimer(dt)
-    -- 게임 씬에서 처리
+    if (not isExistValue(self.m_state, GAME_STATE_FIGHT)) then return end
+
+    -- 플레이 시간 계산
+    self.m_fightTimer = self.m_fightTimer + dt
+
+    -- 제한 시간은 게임 씬에서 처리
 end
 
 -------------------------------------
