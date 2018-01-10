@@ -211,6 +211,7 @@ function Network_platform_getPatchVersionInfo(app_ver, success_cb, fail_cb)
     local t_data = {}
     t_data['game_id'] = 1003
     t_data['app_ver'] = app_ver
+    t_data['server'] = CppFunctions:getTargetServer()
 
     -- 요청 정보 설정
     local t_request = {}
