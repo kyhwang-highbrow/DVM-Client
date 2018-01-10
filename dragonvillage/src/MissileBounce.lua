@@ -62,7 +62,7 @@ end
 function MissileBounce.st_move(owner, dt)
     -- 타겟의 위치로 계속 쫓아감 (없거나 죽을 경우 직선)
     if (owner.m_target == nil or owner.m_target:isDead()) then
-        owner.m_target = owner.m_world:findTarget(owner.m_owner:getAttackablePhysGroup(), owner.pos.x + owner.body.x, owner.pos.y + owner.body.y)
+        owner.m_target = owner.m_world:findTarget(owner.m_owner:getAttackablePhysGroup(), owner.pos.x + owner.body.x, owner.pos.y + owner.body.y, owner.m_lPhysKey)
     end
 
     if (owner.m_target) then
