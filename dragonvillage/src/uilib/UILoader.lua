@@ -470,6 +470,11 @@ local function loadNode(ui, data, vars, parent, keep_z_order, use_sprite_frames)
 			node:setAdditionalKerning(data['letter_spacing'])
 		end
 
+        --언어별 스케일
+        local rateX, rateY = Translate:getFontScaleRate()
+        node:setScaleX( rateX )
+        node:setScaleY( rateY )
+
     elseif type == 'EditBox' then
         UILoader.checkTranslate(data)
         if (data.normal == nil) or (data.normal == '') then

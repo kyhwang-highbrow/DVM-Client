@@ -60,7 +60,7 @@ function Translate:load(lang)
     elseif (lang == 'ja') then
         self.m_mLangMap = require 'translate/lang_jp'
 	elseif (lang == 'zh') then
-        self.m_mLangMap = require 'translate/lang_en' --lang_zhtw
+        self.m_mLangMap = require 'translate/lang_zhtw'
 
 	-- 정의 되지 않은 언어는 '영어'로 일괄 처리
 	else
@@ -225,4 +225,20 @@ end
 -------------------------------------
 function Translate:getFontPath()
     return 'res/font/' .. self:getFontName()
+end
+
+-------------------------------------
+-- function getFontScaleRate
+-------------------------------------
+function Translate:getFontScaleRate()
+    local retX = 1
+    local retY = 1
+    local game_lang = self:getGameLang()
+    if game_lang == 'ja' then
+        retX = 0.92
+    elseif game_lang == 'zh' then
+        retY = 1
+    end
+
+    return retX, retY
 end
