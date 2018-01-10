@@ -80,9 +80,7 @@ function UI_SubscriptionPopup:initButton()
     vars['adBtn']:registerScriptTapHandler(function() self:click_adBtn() end)
 	vars['closeBtn']:registerScriptTapHandler(function() self:click_closeBtn() end)
     
-    if vars['infoBtn'] then
-        vars['infoBtn']:registerScriptTapHandler(function() self:click_infoBtn() end)
-    end
+    vars['contractBtn']:registerScriptTapHandler(function() self:click_contractBtn() end)
 end
 
 -------------------------------------
@@ -101,7 +99,7 @@ end
 -------------------------------------
 -- function click_infoBtn
 -------------------------------------
-function UI_SubscriptionPopup:click_infoBtn()
+function UI_SubscriptionPopup:click_contractBtn()
     local url = URL['PERPLELAB_AGREEMENT']
     --SDKManager:goToWeb(url)
     UI_WebView(url)
