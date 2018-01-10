@@ -163,7 +163,7 @@
 					skew_y = 0.000000;
 					rotation = 0.000000;
 					visible = false;
-					lua_name = 'jpnSprite';
+					lua_name = 'jpRadioSprite';
 					file_name = 'ui/buttons/radio_btn_0202.png';
 					color = { 255; 255; 255; };
 					opacity = 255;
@@ -189,7 +189,7 @@
 					skew_y = 0.000000;
 					rotation = 0.000000;
 					visible = true;
-					lua_name = 'jpnBtn';
+					lua_name = 'jpRadioBtn';
 					enable = true;
 					normal = 'ui/icons/empty.png';
 					selected = '';
@@ -321,7 +321,7 @@
 					skew_y = 0.000000;
 					rotation = 0.000000;
 					visible = false;
-					lua_name = 'chnSprite';
+					lua_name = 'zhRadioSprite';
 					file_name = 'ui/buttons/radio_btn_0202.png';
 					color = { 255; 255; 255; };
 					opacity = 255;
@@ -347,7 +347,7 @@
 					skew_y = 0.000000;
 					rotation = 0.000000;
 					visible = true;
-					lua_name = 'chnBtn';
+					lua_name = 'zhRadioBtn';
 					enable = true;
 					normal = 'ui/icons/empty.png';
 					selected = '';
@@ -479,7 +479,7 @@
 					skew_y = 0.000000;
 					rotation = 0.000000;
 					visible = false;
-					lua_name = 'korSprite';
+					lua_name = 'krRadioSprite';
 					file_name = 'ui/buttons/radio_btn_0202.png';
 					color = { 255; 255; 255; };
 					opacity = 255;
@@ -505,7 +505,7 @@
 					skew_y = 0.000000;
 					rotation = 0.000000;
 					visible = true;
-					lua_name = 'korBtn';
+					lua_name = 'krRadioBtn';
 					enable = true;
 					normal = 'ui/icons/empty.png';
 					selected = '';
@@ -636,8 +636,8 @@
 					skew_x = 0.000000;
 					skew_y = 0.000000;
 					rotation = 0.000000;
-					visible = true;
-					lua_name = 'engSprite';
+					visible = false;
+					lua_name = 'enRadioSprite';
 					file_name = 'ui/buttons/radio_btn_0202.png';
 					color = { 255; 255; 255; };
 					opacity = 255;
@@ -663,7 +663,7 @@
 					skew_y = 0.000000;
 					rotation = 0.000000;
 					visible = true;
-					lua_name = 'engBtn';
+					lua_name = 'enRadioBtn';
 					enable = true;
 					normal = 'ui/icons/empty.png';
 					selected = '';
@@ -744,7 +744,7 @@
 				skew_y = 0.000000;
 				rotation = 0.000000;
 				visible = true;
-				lua_name = 'timeLabel';
+				lua_name = '';
 				font_name = 'font/common_font_01.ttf';
 				font_size = 24;
 				text = '변경하실 언어를 선택해 주세요.';

@@ -59,46 +59,6 @@
 			};
 			[3] =
 			{
-				[1] =
-				{
-					type = 'LabelTTF';
-					ui_name = '';
-					x = 0.000000;
-					y = 0.000000;
-					dock_point = { 0.500000; 0.500000; };
-					anchor_point = { 0.500000; 0.500000; };
-					relative_size_type = 0;
-					width = 40;
-					height = 42;
-					scale_x = 1.000000;
-					scale_y = 1.000000;
-					skew_x = 0.000000;
-					skew_y = 0.000000;
-					rotation = 0.000000;
-					visible = true;
-					lua_name = 'rankLabel';
-					font_name = 'font/common_font_01.ttf';
-					font_size = 24;
-					text = '{1}';
-					h_alignment = 1;
-					v_alignment = 1;
-					color = { 170; 139; 115; };
-					opacity = 255;
-					dimension_width = 40;
-					dimension_height = 42;
-					letter_spacing = 0.000000;
-					has_stroke = false;
-					stroke_type = 0;
-					stroke_detail_level = 0;
-					is_sharp_text = true;
-					stroke_tickness = 1.000000;
-					stroke_color = { 255; 255; 255; };
-					has_shadow = false;
-					shadow_color = { 255; 255; 255; };
-					shadow_opacity = 255;
-					shadow_direction = 0;
-					shadow_distance = 5.000000;
-				};
 				type = 'Node';
 				ui_name = '';
 				x = 25.000000;
@@ -117,6 +77,46 @@
 				lua_name = 'rankNode';
 			};
 			[4] =
+			{
+				type = 'LabelTTF';
+				ui_name = '';
+				x = -165.000000;
+				y = 0.000000;
+				dock_point = { 0.500000; 0.500000; };
+				anchor_point = { 0.500000; 0.500000; };
+				relative_size_type = 0;
+				width = 40;
+				height = 42;
+				scale_x = 1.000000;
+				scale_y = 1.000000;
+				skew_x = 0.000000;
+				skew_y = 0.000000;
+				rotation = 0.000000;
+				visible = true;
+				lua_name = 'rankLabel';
+				font_name = 'font/common_font_01.ttf';
+				font_size = 24;
+				text = '{1}';
+				h_alignment = 1;
+				v_alignment = 1;
+				color = { 170; 139; 115; };
+				opacity = 255;
+				dimension_width = 40;
+				dimension_height = 42;
+				letter_spacing = 0.000000;
+				has_stroke = false;
+				stroke_type = 0;
+				stroke_detail_level = 0;
+				is_sharp_text = true;
+				stroke_tickness = 1.000000;
+				stroke_color = { 255; 255; 255; };
+				has_shadow = false;
+				shadow_color = { 255; 255; 255; };
+				shadow_opacity = 255;
+				shadow_direction = 0;
+				shadow_distance = 5.000000;
+			};
+			[5] =
 			{
 				type = 'LabelTTF';
 				ui_name = '';
@@ -156,7 +156,7 @@
 				shadow_direction = 0;
 				shadow_distance = 5.000000;
 			};
-			[5] =
+			[6] =
 			{
 				type = 'LabelTTF';
 				ui_name = '';
