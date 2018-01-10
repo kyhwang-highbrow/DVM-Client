@@ -124,6 +124,10 @@ local function main()
     -- @analytics
     Analytics:firstTimeExperience('StartApp')
 
+	-- 대체 폰트 설정
+	cc.Label:setDefaultFallbackFontTTF('res/font/common_font_01_ja.ttf', 'res/font/common_font_01.ttf')
+    cc.Label:setDefaultFallbackFontTTF('res/font/common_font_01_cn.ttf', 'res/font/common_font_01.ttf')
+    
 	-- 일단 화면 띄우고 프리징 되도록 콜백으로 사용
 	local function start_cb()
 		-- lua module load

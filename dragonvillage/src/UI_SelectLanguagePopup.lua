@@ -105,20 +105,17 @@ function UI_SelectLanguagePopup:click_okBtn()
 	end
 
 	local name = t_lang_list[lang]
-	local msg = Str('{1}를 선택합니다.', name)
-	local function cb_func()
-		-- 언어 저장 및 언어 파일 불러옴
-		g_localData:setLang(lang)
-		Translate:load(lang)
+	
+	-- 언어 저장 및 언어 파일 불러옴
+	g_localData:setLang(lang)
+	Translate:load(lang)
 
-		-- 해당 UI 콜백이 패치 시작하는 함수
-		if (self.m_finishFunc) then
-			self.m_finishFunc()
-		end
-
-		self:close()
+	-- 해당 UI 콜백이 패치 시작하는 함수
+	if (self.m_finishFunc) then
+		self.m_finishFunc()
 	end
-	MakeSimplePopup(POPUP_TYPE.YES_NO, msg, cb_func)
+
+	self:close()
 end
 
 -------------------------------------
