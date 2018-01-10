@@ -399,8 +399,8 @@ function GameWorldClanRaid:removeHero(hero)
             self.m_leftFormationMgr = self.m_subLeftFormationMgr
         end
 
-        self.m_physWorld:modifyGroup(PHYS.HERO_TOP, { PHYS.MISSILE.ENEMY_TOP, PHYS.MISSILE.ENEMY_BOTTOM })
-        self.m_physWorld:modifyGroup(PHYS.HERO_BOTTOM, { PHYS.MISSILE.ENEMY_TOP, PHYS.MISSILE.ENEMY_BOTTOM })
+        self.m_physWorld:modifyGroup(PHYS.HERO_TOP, { PHYS.MISSILE.ENEMY, PHYS.MISSILE.ENEMY_TOP, PHYS.MISSILE.ENEMY_BOTTOM })
+        self.m_physWorld:modifyGroup(PHYS.HERO_BOTTOM, { PHYS.MISSILE.ENEMY, PHYS.MISSILE.ENEMY_TOP, PHYS.MISSILE.ENEMY_BOTTOM })
 
         -- 한 팀이 전멸해서 공격 그룹이 변경된 경우
         -- 특정 패턴은 못하도록 막기 위한 하드코딩...

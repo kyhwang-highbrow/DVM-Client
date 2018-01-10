@@ -96,7 +96,7 @@ function WaveMgr_ClanRaid:spawnEnemy_dynamic(enemy_id, level, appear_type, value
     elseif (idx == 7) then
         zOrder = WORLD_Z_ORDER.BOSS
     else
-        zOrder = WORLD_Z_ORDER.BOSS + 1 + idx
+        zOrder = WORLD_Z_ORDER.BOSS + 1 + 7 - idx
     end
     self.m_world.m_worldNode:addChild(enemy.m_rootNode, zOrder)
         

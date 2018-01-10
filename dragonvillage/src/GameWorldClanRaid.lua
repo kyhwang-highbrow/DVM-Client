@@ -350,13 +350,13 @@ function GameWorldClanRaid:getTargetList(char, x, y, team_type, formation_type, 
 
     elseif (team_type == 'ally') then
         if (bLeftFormation) then
-            if (rule_type == 'all') then
+            if (rule_type == 'all' and self.m_leftFormationMgr ~= self.m_subLeftFormationMgr) then
                 for_mgr_delegate = FormationMgrDelegate(self.m_leftFormationMgr, self.m_subLeftFormationMgr)
             else
                 for_mgr_delegate = FormationMgrDelegate(leftFormationMgr)
             end
         else
-            if (rule_type == 'all') then
+            if (rule_type == 'all' and self.m_rightFormationMgr ~= self.m_subRightFormationMgr) then
                 for_mgr_delegate = FormationMgrDelegate(self.m_rightFormationMgr, self.m_subRightFormationMgr)
             else
                 for_mgr_delegate = FormationMgrDelegate(rightFormationMgr)
@@ -365,13 +365,13 @@ function GameWorldClanRaid:getTargetList(char, x, y, team_type, formation_type, 
 
     elseif (team_type == 'enemy') then
         if (bLeftFormation) then
-            if (rule_type == 'all') then
+            if (rule_type == 'all' and self.m_rightFormationMgr ~= self.m_subRightFormationMgr) then
                 for_mgr_delegate = FormationMgrDelegate(self.m_rightFormationMgr, self.m_subRightFormationMgr)
             else
                 for_mgr_delegate = FormationMgrDelegate(rightFormationMgr)
             end
         else
-            if (rule_type == 'all') then
+            if (rule_type == 'all' and self.m_leftFormationMgr ~= self.m_subLeftFormationMgr) then
                 for_mgr_delegate = FormationMgrDelegate(self.m_leftFormationMgr, self.m_subLeftFormationMgr)
             else
                 for_mgr_delegate = FormationMgrDelegate(leftFormationMgr)

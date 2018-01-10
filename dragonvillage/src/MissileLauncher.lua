@@ -406,16 +406,18 @@ function MissileLauncher:fireMissile(owner, attack_idx, depth, dir_add, offset_a
 		end
 		attack_value.dir_array = {math_random(start_num, end_num)}
 	end
-
+     
     for idx, target_idx in ipairs(l_target_idx) do
         -- 공격 대상
         local target = l_target[target_idx]
-        if (not target) then
+        if (not target or target:isDead()) then
             if (target_idx ~= 1 or idx > 1) then break end
 
             target = self.m_launcherOption['target']
-        end
 
+            if (not target or target:isDead()) then break end
+        end
+        
         -- 공격 위치
         if (type(offset_x) == 'string' and offset_x == 'target') then
             local body = target:getBody()
@@ -531,7 +533,7 @@ function MissileLauncher:fireMissile(owner, attack_idx, depth, dir_add, offset_a
 
 		    -- 런쳐 옵션 체크
 		    if self.m_launcherOption then
-			    self:applyLauncherOption(t_option, target_idx)
+			    self:applyLauncherOption(t_option, target_idx, target)
 		    end
 
 		    self.m_world.m_missileFactory:makeMissile(t_option)
@@ -547,10 +549,10 @@ end
 -------------------------------------
 -- function applyLauncherOption
 -------------------------------------
-function MissileLauncher:applyLauncherOption(t_option, target_idx)
+function MissileLauncher:applyLauncherOption(t_option, target_idx, target)
     -- 타겟 각도를 사용하는 경우(이 경우 target_list는 반드시 존재해야함)
     if (self.m_bUseTargetDir) then
-        local target = self.m_launcherOption['target_list'][target_idx]
+        local target = target or self.m_launcherOption['target_list'][target_idx]
         if (target) then
             local degree = getDegree(self.pos.x, self.pos.y, target.pos.x, target.pos.y)
             t_option['dir'] = t_option['dir'] + degree
@@ -570,7 +572,7 @@ function MissileLauncher:applyLauncherOption(t_option, target_idx)
 
     if (self.m_launcherOption['target_list']) then
         t_option['target_list'] = self.m_launcherOption['target_list']
-        t_option['target'] = self.m_launcherOption['target_list'][target_idx]
+        t_option['target'] = target or self.m_launcherOption['target_list'][target_idx]
     elseif self.m_launcherOption['target'] then
         t_option['target'] = self.m_launcherOption['target']
     end
