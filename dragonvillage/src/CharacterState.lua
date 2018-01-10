@@ -262,8 +262,12 @@ function Character.st_attackDelay(owner, dt)
 
                 owner:reserveSkill(skill_id)
                 owner.m_isAddSkill = false
-                            
-                owner:changeState('attack')
+                
+                if (owner.m_reservedSkillCastTime > 0) then
+                    owner:changeState('casting')
+                else
+                    owner:changeState('attack')
+                end
             else
                 -- 대상이 없을 경우
                 local skill_indivisual_info = owner:findSkillInfoByID(skill_id)
@@ -304,7 +308,7 @@ function Character.st_casting(owner, dt)
         end
 
         -- 캐스팅 이펙트
-        do
+        if (owner.m_bUseCastingEffect) then
             if owner.m_castingEffect then
                 owner.m_castingEffect:release()
             end

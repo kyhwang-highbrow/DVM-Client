@@ -95,6 +95,7 @@ Character = class(PARENT, {
         m_castingUI = '',
         m_castingMarkGauge = '',
         m_castingSpeechVisual = '',
+        m_bUseCastingEffect = 'boolean',
 
         -- @이동 관련
         m_isOnTheMove = 'boolean',
@@ -173,7 +174,7 @@ function Character:init(file_name, body, ...)
     self.m_delaySpasticity = 0
 
     self.m_bInvincibility = false
-	        
+    self.m_bUseCastingEffect = true
 	self.m_isUseAfterImage = false
 
 	self.m_guard = false

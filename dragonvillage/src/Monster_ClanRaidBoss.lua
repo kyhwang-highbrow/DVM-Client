@@ -14,6 +14,8 @@ Monster_ClanRaidBoss = class(PARENT, {
 -- @param body
 -------------------------------------
 function Monster_ClanRaidBoss:init(file_name, body, ...)
+    self.m_bUseCastingEffect = false
+
     self.m_hpCount = 0
     self.m_maxHpCount = 0
 end
@@ -75,6 +77,10 @@ function Monster_ClanRaidBoss:updateBonePos(dt)
         local offset_y = self.m_unitInfoOffset[2] + body['y']
 
         self.m_hpNode:setPosition(offset_x, offset_y)
+
+        if (self.m_castingNode) then
+            self.m_castingNode:setPosition(offset_x, offset_y)
+        end
     end
 end
 
@@ -304,6 +310,10 @@ function Monster_ClanRaidBoss:setPosition(x, y)
         local offset_y = self.m_unitInfoOffset[2] + body['y']
 
         self.m_hpNode:setPosition(offset_x, offset_y)
+
+        if (self.m_castingNode) then
+            self.m_castingNode:setPosition(offset_x, offset_y)
+        end
     end
 end
 
