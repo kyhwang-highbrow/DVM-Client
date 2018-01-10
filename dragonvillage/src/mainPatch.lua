@@ -87,6 +87,8 @@ local function main()
 	-- 최소로 필요한 루아 모듈
 	require 'require'
 	require 'lib/class'
+	require 'lib/utils'
+	require 'perpleLib/dkjson'
 	require 'perpleLib/PerpleScene'
 	require 'socket.core'
 	require 'ErrorTracker'
@@ -99,7 +101,6 @@ local function main()
 	require 'SceneLogo'
 	require 'ScenePatch'
 	require 'Stopwatch'
-	require 'lib/utils'
 	pl = require 'pl.import_into'()
 
 	local stop_watch = Stopwatch()
