@@ -50,6 +50,7 @@ function UI_AttrTowerListItem:initUI(t_data)
     end
 
     local visual_id = g_attrTowerData:getSelAttr() .. '_normal'
+    vars['towerVisual']:setIgnoreLowEndMode(true) -- 저사양 모드 무시
     vars['towerVisual']:changeAni(visual_id, true)
 
     local is_open = g_attrTowerData:isOpenStage(stage_id)

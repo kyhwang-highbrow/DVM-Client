@@ -47,6 +47,7 @@ function UI_AncientTowerListItem:initUI(t_data)
         item_card.vars['clickBtn']:setEnabled(false)
         vars['rewardNode']:addChild(item_card.root)
     end
+    vars['towerVisual']:setIgnoreLowEndMode(true) -- 저사양 모드 무시
     vars['towerVisual']:changeAni('normal', true)
 
     local is_open = g_ancientTowerData:isOpenStage(stage_id)

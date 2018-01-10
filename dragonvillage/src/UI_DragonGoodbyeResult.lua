@@ -63,10 +63,15 @@ function UI_DragonGoodbyeResult:initUI()
         UIManager:blockBackKey(false)
     end
 
+    -- 속도 조절용 (사운드가 1배속에 맞춰져있어 수정하지 못함)
+    local time_scale = 1
+
     -- 배경
     do
         local visual = vars['bg_visual']
-        local move_action = cc.MoveBy:create(1.5, cc.p(0, -800))
+        visual:setIgnoreLowEndMode(true) -- 저사양 모드 무시
+        visual:setTimeScale(time_scale)
+        local move_action = cc.MoveBy:create(1.5 / time_scale, cc.p(0, -800))
         local ease_action = cc.EaseIn:create(move_action, 2)
         visual:runAction(ease_action)
     end
@@ -74,10 +79,12 @@ function UI_DragonGoodbyeResult:initUI()
     -- 작별 연출
     do
         local visual = vars['effect_visual']
+        visual:setIgnoreLowEndMode(true) -- 저사양 모드 무시
+        visual:setTimeScale(time_scale)
         visual:setVisible(true)
         visual:addAniHandler(function() show_popup() end)
 
-        local move_action = cc.MoveBy:create(1.5, cc.p(0, -800))
+        local move_action = cc.MoveBy:create(1.5 / time_scale, cc.p(0, -800))
         local ease_action = cc.EaseIn:create(move_action, 2)
         visual:runAction(ease_action)
     end    

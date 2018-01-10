@@ -29,6 +29,9 @@ function UIC_DragonAnimatorDirector_Summon:initUI()
     self.m_topEffect = MakeAnimator(res_name)
     self.m_bottomEffect = MakeAnimator(res_name)
 
+    self.m_topEffect:setIgnoreLowEndMode(true) -- 저사양 모드 무시
+    self.m_bottomEffect:setIgnoreLowEndMode(true) -- 저사양 모드 무시
+
     self.vars['topEffectNode']:addChild(self.m_topEffect.m_node)
     self.vars['bottomEffectNode']:addChild(self.m_bottomEffect.m_node)
 end
@@ -249,6 +252,7 @@ function UIC_DragonAnimatorDirector_Summon:bindEgg(egg_id, egg_res)
     self.m_bRareSummon = TableSummonGacha:isRareSummon(egg_id)
 
     local animator = MakeAnimator(egg_res)
+    animator:setIgnoreLowEndMode(true) -- 저사양 모드 무시
     animator:changeAni('egg')
     self.m_topEffect.m_node:bindVRP('egg', animator.m_node)
 end

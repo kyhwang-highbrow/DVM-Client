@@ -130,6 +130,8 @@ function UI_Card:makeVisual(lua_name, res, ani)
     vars['clickBtn']:addChild(animator.m_node)
     self:setCardInfo(lua_name, animator)
     vars[lua_name] = animator
+
+    return animator
 end
 
 -------------------------------------
@@ -139,8 +141,9 @@ end
 function UI_Card:setAnimatorVisible(lua_name, res, ani, visible)
     if self.vars[lua_name] then
         self.vars[lua_name]:setVisible(visible)
+        return self.vars[lua_name]
     elseif (visible) then
-        self:makeVisual(lua_name, res, ani)
+        return self:makeVisual(lua_name, res, ani)
     end
 end
 

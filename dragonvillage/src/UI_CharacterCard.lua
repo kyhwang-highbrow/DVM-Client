@@ -410,7 +410,8 @@ function UI_CharacterCard:setBookRewardVisual(visible)
     local lua_name = 'bookRewardVisual'
     local res = 'res/ui/a2d/card/card.vrp'
     local ani = 'book_reward'
-    self:setAnimatorVisible(lua_name, res, ani, visible)
+    local animator = self:setAnimatorVisible(lua_name, res, ani, visible)
+    animator:setIgnoreLowEndMode(true) -- 저사양 모드 무시
 end
 
 -------------------------------------
