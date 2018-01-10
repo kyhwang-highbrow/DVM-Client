@@ -260,3 +260,19 @@ end
 function LocalData:getLang()
 	return self:get('lang')
 end
+
+-------------------------------------
+-- function setServerName
+-- @breif
+-------------------------------------
+function LocalData:setServerName(server)
+	self:applyLocalData(server, 'local', 'server')
+end
+
+-------------------------------------
+-- function getLang
+-- @breif
+-------------------------------------
+function LocalData:getServerName()
+	return self:get('local', 'server')
+end

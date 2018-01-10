@@ -40,6 +40,10 @@ end
 -------------------------------------
 function UI_SelectLanguagePopup:initUI()
     local vars = self.vars
+	vars['enLabel']:setString('English')
+	vars['koLabel']:setString('한국어')
+	vars['zhLabel']:setString('中文(繁體)')
+	vars['jaLabel']:setString('日本語')
 end
 
 -------------------------------------
@@ -50,7 +54,6 @@ function UI_SelectLanguagePopup:initButton()
 
 	-- radio btn
 	do
-
 		local radio_button = UIC_RadioButton()
 
 		-- 언어별로 버튼 등록
@@ -59,13 +62,12 @@ function UI_SelectLanguagePopup:initButton()
 		end
 
 		-- 현재 언어가 있는 경우에만 선택
-		local curr_lang = g_localData:getLang()
+		local curr_lang = Translate:getGameLang()
 		if (curr_lang) then
 			radio_button:setSelectedButton(curr_lang)
 		end
 
 		radio_button:setChangeCB(function() self:onChangeOption() end)
-
 		self.m_radioButton = radio_button
 	end
 
@@ -84,6 +86,7 @@ end
 -- function onChangeOption
 -------------------------------------
 function UI_SelectLanguagePopup:onChangeOption()
+
 end
 
 -------------------------------------
@@ -91,6 +94,14 @@ end
 -------------------------------------
 function UI_SelectLanguagePopup:click_okBtn()
 	local lang = self.m_radioButton.m_selectedButton
+	if (CppFunctions:isAndroid()) then
+		if (lang ~= 'ko') then
+			local msg = '현재 한국어 외의 언어는 선택하실 수 없습니다.'
+			MakeSimplePopup(POPUP_TYPE.OK, msg)
+			return
+		end
+	end
+
 	local name = t_lang_list[lang]
 	local msg = Str('{1}를 선택합니다.', name)
 	local function cb_func()

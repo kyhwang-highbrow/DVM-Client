@@ -12,29 +12,35 @@ Translate = {
 -- function init
 -------------------------------------
 function Translate:init()
-    self.m_stdLang = 'ko'
-    self.m_gameLang = LocalData:getInstance():getLang()
-
-	-- @mskim 1/15일에만 동작 시킬 예정
-	-- 현재 한국 라이브 유저들의 설정 일괄 변환 의도
-	if (self.m_gameLang == 'kr') then
-		LocalData:getInstance():setLang('ko')
-		self.m_gameLang = 'ko'
-	end
 
     -- getDeviceLang을 하면 중국어에서 zh-cn 으로 들어오고
 	-- 엔진에 있는 languageCode가 의도한대로 값이 들어와
 	-- getCurrentLanguageCode 함수를 사용하기로 함
+
+	-- 디바이스 언어
     self.m_deviceLang = cc.Application:sharedApplication():getCurrentLanguageCode()
+	
+	-- 기준 언어
+	self.m_stdLang = 'ko'
+
+	-- 게임 언어 (유저의 선택)
+	self.m_gameLang = g_localData:getLang()
+	
+	-- 신규 유저의 경우 디바이스 언어를 따름
+	if (not self.m_gameLang) then
+		self.m_gameLang = self.m_deviceLang
+	end
+
+	-- @mskim 1/15일에만 동작 시킬 예정
+	-- 현재 한국 라이브 유저들의 설정 일괄 변환 의도
+	if (self.m_gameLang == 'kr') then
+		g_localData:setLang('ko')
+		self.m_gameLang = 'ko'
+	end
 
 	-- 한국어가 아닌 경우 언어 모듈 로드
 	if (self.m_gameLang ~= self.m_stdLang) then
-		-- @mskim 해외 빌드 분기 처리
-		if (CppFunctionsClass:getAppVer() == '1.0.8') then
-			-- nothing to do
-		else
-			self:load(self.m_gameLang)
-		end
+		self:load(self.m_gameLang)
     end
 
 	cclog()
@@ -63,7 +69,7 @@ function Translate:load(lang)
         self.m_mLangMap = require 'translate/lang_zhtw'
 
 	-- 정의 되지 않은 언어는 '영어'로 일괄 처리
-	else
+	elseif (lang) then
 		self.m_mLangMap = require 'translate/lang_en'
     end
 end
