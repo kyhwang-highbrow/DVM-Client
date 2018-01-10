@@ -34,7 +34,7 @@ function SkillScript_ClanRaidBoss:setSkillParams(owner, t_skill, t_data)
 		trigger = CON_SKILL_IDLE,
 		duration = 12,
 		rate = 100,
-		value = 100,
+		value = 250,
         source = '',
     })
     table.insert(self.m_lStatusEffect, struct_status_effect)
