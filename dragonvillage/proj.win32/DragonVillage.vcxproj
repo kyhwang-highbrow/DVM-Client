@@ -492,6 +492,7 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <None Include="..\src\ServerData_Tamer.lua" />
     <None Include="..\src\ServerData_TamerCostume.lua" />
     <None Include="..\src\ServerData_Tutorial.lua" />
+    <None Include="..\src\SettingData.lua" />
     <None Include="..\src\shader\characterDamaged.fsh" />
     <None Include="..\src\shader\gray.fsh" />
     <None Include="..\src\shader\position_texture_color_noMvp_vertex.vsh" />

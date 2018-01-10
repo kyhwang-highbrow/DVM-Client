@@ -142,3 +142,15 @@ function TableMonster:getValue(primary, column)
     local table_dragon = TableDragon()
     return table_dragon:getValue(primary, column)
 end
+
+-------------------------------------
+-- function getMonsterAttr
+-------------------------------------
+function TableMonster:getMonsterAttr(mid)
+    if (self == THIS) then
+        self = THIS()
+    end
+
+    local attr = self:getValue(mid, 'attr')
+    return attr
+end
