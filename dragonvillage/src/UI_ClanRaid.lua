@@ -222,14 +222,21 @@ function UI_ClanRaid:initRaidInfo()
     boss_node:removeAllChildren()
 
     local l_monster = g_stageData:getMonsterIDList(stage_id)
-    for idx, mid in ipairs(l_monster) do
+    for _, mid in ipairs(l_monster) do
         local res, attr, evolution = TableMonster:getMonsterRes(mid)
         animator = AnimatorHelper:makeMonsterAnimator(res, attr, evolution)
         animator:changeAni('idle', true)
         if (animator) then
-            -- 뒤에 몬스터 zorder 더 낮게
-            local zorder = 100 - idx
-            boss_node:addChild(animator.m_node, zorder)
+            local zOrder = WORLD_Z_ORDER.BOSS
+            local idx = getDigit(mid, 10, 1)
+            if (idx == 1) then
+                zOrder = WORLD_Z_ORDER.BOSS + 1    
+            elseif (idx == 7) then
+                zOrder = WORLD_Z_ORDER.BOSS
+            else
+                zOrder = WORLD_Z_ORDER.BOSS + 1 + 7 - idx
+            end
+            boss_node:addChild(animator.m_node, zOrder)
         end
     end
 

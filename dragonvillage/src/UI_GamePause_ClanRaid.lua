@@ -1,4 +1,4 @@
-local PARENT = UI_GamePause
+﻿local PARENT = UI_GamePause
 
 -------------------------------------
 -- class UI_GamePause_ClanRaid
@@ -24,4 +24,17 @@ function UI_GamePause_ClanRaid:click_retryButton()
     end
     
     self:confirmExit(retry_func)
+end
+
+-------------------------------------
+-- function confirmExit
+-------------------------------------
+function UI_GamePause_ClanRaid:confirmExit(exit_cb)
+    local msg = Str('현재까지의 점수로 던전이 종료됩니다.\n종료하시겠습니까?')
+    local function ok_cb()
+        g_gameScene.m_gameWorld.m_gameState:changeState(GAME_STATE_RESULT)
+        self:click_continueButton()
+    end
+
+    MakeSimplePopup(POPUP_TYPE.YES_NO, msg, ok_cb)
 end

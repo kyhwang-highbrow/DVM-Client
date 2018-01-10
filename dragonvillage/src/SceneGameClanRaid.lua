@@ -157,6 +157,16 @@ function SceneGameClanRaid:networkGameFinish(t_param, t_result_ref, next_func)
         end
     end
 
+    -- 응답 상태 처리 함수
+    local t_error = {
+        [-1671] = Str('제한시간을 초과하였습니다.'),
+        [-1371] = Str('유효하지 않은 던전입니다.'), 
+    }
+    local confirm_cb = function()
+        UINavigator:goTo('clan_raid')
+    end
+    local response_status_cb = MakeResponseCB(t_error, confirm_cb)
+
     local api_url = '/clans/dungeon_finish'
     
     local ui_network = UI_Network()
@@ -167,6 +177,7 @@ function SceneGameClanRaid:networkGameFinish(t_param, t_result_ref, next_func)
     -- 데미지 임의 
     ui_network:setParam('damage', t_param['damage'])
     ui_network:setParam('gamekey', self.m_gameKey)
+    ui_network:setResponseStatusCB(response_status_cb)
     ui_network:setSuccessCB(success_cb)
     ui_network:request()
 end
