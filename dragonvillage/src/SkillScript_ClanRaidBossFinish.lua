@@ -82,6 +82,9 @@ function SkillScript_ClanRaidBossFinish.st_disappear(owner, dt)
         unit.m_animator:addAniHandler(function()
             owner:changeState('dying')
         end)
+
+        -- 플레이어 모두 죽임(혹시 안죽는 경우를 방지하기 위함)
+        owner.m_world:removeAllHero()
     end
 end
 

@@ -237,10 +237,10 @@ function Monster_ClanRaidBoss:setHp(hp, bFixed)
     self:dispatch('character_set_hp', t_event, self)
 
     -- 체력바 가감 연출
-    if self.m_hpGauge then
+    if (self.m_hpGauge) then
         self.m_hpGauge:setScaleX(self.m_hpRatio)
     end
-	if self.m_hpGauge2 then
+	if (self.m_hpGauge2) then
         local action = cc.Sequence:create(cc.DelayTime:create(0.2), cc.ScaleTo:create(0.5, self.m_hpRatio, 1))
         self.m_hpGauge2:runAction(cc.EaseIn:create(action, 2))
     end
@@ -272,6 +272,21 @@ end
 -------------------------------------
 function Monster_ClanRaidBoss:makeHPGauge(hp_ui_offset, force)
     PARENT.makeHPGauge(self, hp_ui_offset, false)
+
+    -- 체력 게이지 대신 이름 표시
+    local childs = self.m_statusNode:getChildren()
+    for _, v in pairs(childs) do
+        doAllChildren(v, function(node) node:setVisible(false) end)
+    end
+    
+    self.m_hpGauge = nil
+    self.m_hpGauge2 = nil
+    
+    local label = cc.Label:createWithTTF(self:getName(), 'res/font/common_font_01.ttf', 24, 2, cc.size(250, 100), 1, 1)
+    label:setDockPoint(cc.p(0.5, 0.5))
+    label:setAnchorPoint(cc.p(0.5, 0.5))
+    label:setColor(cc.c3b(255,87,87))
+    self.m_statusNode:addChild(label)
 end
 
 -------------------------------------

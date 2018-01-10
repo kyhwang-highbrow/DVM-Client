@@ -1549,10 +1549,10 @@ function Character:setHp(hp, bFixed)
     self:dispatch('character_set_hp', t_event, self)
 
     -- 체력바 가감 연출
-    if self.m_hpGauge then
+    if (self.m_hpGauge) then
         self.m_hpGauge:setScaleX(self.m_hpRatio)
     end
-	if self.m_hpGauge2 then
+	if (self.m_hpGauge2) then
         local action = cc.Sequence:create(cc.DelayTime:create(0.2), cc.ScaleTo:create(0.5, self.m_hpRatio, 1))
         self.m_hpGauge2:runAction(cc.EaseIn:create(action, 2))
     end
