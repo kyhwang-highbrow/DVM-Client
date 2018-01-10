@@ -632,6 +632,10 @@ function UI_Setting:updateInfo()
         self.vars['loginNode']:addChild(sprite)
     end
 
+	-- 서버 명 표기
+	local server_name = g_localData:getServerName()
+	self.vars['serverLabel']:setString(server_name)
+
     -- dirty -> lobby btn state
     GoogleHelper.setDirty(true)
 end

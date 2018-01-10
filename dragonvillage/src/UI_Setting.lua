@@ -12,13 +12,7 @@ UI_Setting = class(PARENT, {
 -------------------------------------
 function UI_Setting:init()
 	-- @mskim 해외 빌드 분기 처리
-	local ui_name
-	if (CppFunctionsClass:getAppVer() == '1.0.8') then
-		ui_name = 'setting_popup.ui'
-	else
-		ui_name = 'setting_popup_new.ui'
-	end
-    local vars = self:load(ui_name)
+    local vars = self:load('setting_popup.ui')
     UIManager:open(self, UIManager.POPUP)
 
     -- backkey 지정
@@ -34,7 +28,6 @@ function UI_Setting:init()
 
     self.m_loadingUI = UI_TitleSceneLoading()
     self.m_loadingUI:hideLoading()
-
 end
 
 -------------------------------------
