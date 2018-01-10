@@ -124,7 +124,7 @@ function UI_ReadySceneNew:init_MemberVariable(stage_id)
             self.m_stageAttr = TableDragon():getValue(did, 'attr')
         end
     else
-	    self.m_stageAttr = TableDrop():getValue(stage_id, 'attr')
+	    self.m_stageAttr = TableStageData():getValue(stage_id, 'attr')
     end
 end
 

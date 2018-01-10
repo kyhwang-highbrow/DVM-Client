@@ -28,8 +28,7 @@ end
 -------------------------------------
 function DragonAutoSetHelperNew:getAutoDeck()
     -- 스테이지 정보 얻어옴
-    local table_stage_desc = TableStageDesc()
-    local stage_attr = table_stage_desc:getValue(self.m_stageID, 'attr')
+    local stage_attr = TableStageData():getValue(self.m_stageID, 'attr')
 
     -- 1. 드래곤 풀 생성 (추천에 적합한 데이터 형태로 가공)
     --     내가 가진 드래곤의 추천 점수를 계산
