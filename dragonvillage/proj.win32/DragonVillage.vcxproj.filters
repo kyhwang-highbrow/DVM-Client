@@ -3135,7 +3135,11 @@
     </None>
     <None Include="..\src\UI_ClanRaidRankingRewardPopup.lua">
       <Filter>lua\UI</Filter>
-    </None>  </ItemGroup>
+    </None>
+    <None Include="..\src\DragonAutoSetHelperNew.lua">
+      <Filter>lua\src</Filter>
+    </None>
+  </ItemGroup>
   <ItemGroup>
     <Filter Include="Classes">
       <UniqueIdentifier>{b7ee809a-b7d5-48e6-8549-4a35fe5a7886}</UniqueIdentifier>

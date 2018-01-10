@@ -159,6 +159,11 @@ function getCounterAttribute(attr1, attr2)
         initAttributeSynastry()
     end
 
+    -- 무상성인 경우
+    if (t_attr_synastry[attr1][attr2] == nil) then
+        return 0
+    end
+
     -- -1, 0, 1
     return t_attr_synastry[attr1][attr2]
 end

@@ -338,8 +338,8 @@ end
 -- function getCombatPower
 -- @breif
 -------------------------------------
-function StructDragonObject:getCombatPower()
-    local status_calc = MakeDragonStatusCalculator_fromDragonDataTable(self)
+function StructDragonObject:getCombatPower(status_calc)
+    local status_calc = (status_calc or MakeDragonStatusCalculator_fromDragonDataTable(self))
     local combat_power = status_calc:getCombatPower()
     
     -- 스킬 레벨에 따른 전투력 추가

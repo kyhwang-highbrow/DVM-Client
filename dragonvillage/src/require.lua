@@ -190,6 +190,7 @@ local t_module = {
     'CollisionHelper',
     'DropHelper',
     'DragonAutoSetHelper',
+    'DragonAutoSetHelperNew',
     'DragonSkillBonusHelper',
     'DragonSkillManager',
     'DragonSkillIndivisualInfo',
