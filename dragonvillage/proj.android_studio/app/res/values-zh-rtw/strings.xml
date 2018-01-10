@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name" translatable="true">龍村M</string>
+    <string name="wifi_warning_title" translatable="true">注意</string>
+    <string name="wifi_warning_message" translatable="true">你沒有連接到WiFi。\n你想繼續從這個連接下載嗎？\n(可能會發生額外的費用，取決於您目前的費率項目。)</string>
+    <string name="wifi_warning_positive_button" translatable="true">繼續</string>
+    <string name="wifi_warning_negative_button" translatable="true">WiFi設置</string>
+    <string name="link_cafe" translatable="true">咖啡廳鏈接</string>
+</resources>

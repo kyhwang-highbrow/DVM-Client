@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name" translatable="true">ドラゴンビレッジM</string>
+    <string name="wifi_warning_title" translatable="true">通知</string>
+    <string name="wifi_warning_message" translatable="true">あなたはWiFiに接続していません。\nこの接続からのダウンロードを続行しますか？\n(現在のレートの項目によっては追加料金が発生することがあります。)</string>
+    <string name="wifi_warning_positive_button" translatable="true">持続する</string>
+    <string name="wifi_warning_negative_button" translatable="true">WiFi設定</string>
+    <string name="link_cafe" translatable="true">カフェリンク</string>
+</resources>
