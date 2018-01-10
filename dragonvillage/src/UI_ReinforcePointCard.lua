@@ -64,7 +64,7 @@ end
 -------------------------------------
 function UI_ReinforcePointCard:makeNumberLabel(count)
     local vars = self.vars
-    local label = cc.Label:createWithTTF('', 'res/font/common_font_01.ttf', 40, 2, cc.size(100, 50), 2, 1)
+    local label = cc.Label:createWithTTF('', Translate:getFontPath(), 40, 2, cc.size(100, 50), 2, 1)
     label:enableShadow(cc.c4b(0,0,0,255), cc.size(3, -3), 1)
     self:setCardInfo('numberNode', label)
 

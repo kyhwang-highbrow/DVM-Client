@@ -155,7 +155,7 @@ function SensitivityHelper:makeObtainEffect(gift_type, gift_count, parent_node)
 
     -- label
     local font_size = 30
-    local label = cc.Label:createWithTTF('+' .. gift_count, 'res/font/common_font_01.ttf', font_size, 2, cc.size(100, 100), cc.TEXT_ALIGNMENT_CENTER, cc.VERTICAL_TEXT_ALIGNMENT_CENTER)
+    local label = cc.Label:createWithTTF('+' .. gift_count, Translate:getFontPath(), font_size, 2, cc.size(100, 100), cc.TEXT_ALIGNMENT_CENTER, cc.VERTICAL_TEXT_ALIGNMENT_CENTER)
     if (label) then
         local string_width = label:getStringWidth()
         local offset_x = (string_width / 2)
@@ -203,7 +203,7 @@ function SensitivityHelper:makeObtainEffect_Big(item_id, item_cnt, parent_node, 
 
     -- label
     local font_size = 40
-    local label = cc.Label:createWithTTF('+' .. item_cnt, 'res/font/common_font_01.ttf', font_size, 2, cc.size(100, 100), cc.TEXT_ALIGNMENT_CENTER, cc.VERTICAL_TEXT_ALIGNMENT_CENTER)
+    local label = cc.Label:createWithTTF('+' .. item_cnt, Translate:getFontPath(), font_size, 2, cc.size(100, 100), cc.TEXT_ALIGNMENT_CENTER, cc.VERTICAL_TEXT_ALIGNMENT_CENTER)
     if (label) then
         local string_width = label:getStringWidth()
         local offset_x = (string_width / 2)

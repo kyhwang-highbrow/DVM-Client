@@ -8,7 +8,7 @@ function UIC_Factory:MakeTableViewDescLabelTTF(table_view_node, text, font_size,
     -- 테이블뷰에서 사이즈를 얻어옴
     local content_size = table_view_node:getContentSize()
 
-    local font_name = 'res/font/common_font_01.ttf'
+    local font_name = Translate:getFontPath()
     local font_size = (font_size or 24)
     local stroke_tickness = (tickness or 1)
     local dimension = content_size

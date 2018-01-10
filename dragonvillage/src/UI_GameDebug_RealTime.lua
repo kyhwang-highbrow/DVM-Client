@@ -32,7 +32,7 @@ function UI_GameDebug_RealTime:initDebugLayer()
 	self.m_scene:addChild(self.m_debugLayer, 21)
 
 	-- debug label
-	self.m_debugLabel = cc.Label:createWithTTF('----','res/font/common_font_01.ttf', 22, 1, cc.size(600, 50), 1, 1)
+	self.m_debugLabel = cc.Label:createWithTTF('----',Translate:getFontPath(), 22, 1, cc.size(600, 50), 1, 1)
 	self.m_debugLabel:setDockPoint(cc.p(0.5, 0.5))
     self.m_debugLabel:setAnchorPoint(cc.p(0.5, 0.5))
 	self.m_debugLayer:addChild(self.m_debugLabel)

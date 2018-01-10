@@ -288,7 +288,7 @@ function Monster_ClanRaidBoss:makeHPGauge(hp_ui_offset, force)
     self.m_hpGauge = nil
     self.m_hpGauge2 = nil
     
-    local label = cc.Label:createWithTTF(self:getName(), 'res/font/common_font_01.ttf', 24, 2, cc.size(250, 100), 1, 1)
+    local label = cc.Label:createWithTTF(self:getName(), Translate:getFontPath(), 24, 2, cc.size(250, 100), 1, 1)
     label:setDockPoint(cc.p(0.5, 0.5))
     label:setAnchorPoint(cc.p(0.5, 0.5))
     label:setColor(cc.c3b(255,87,87))

@@ -729,7 +729,7 @@ function GameWorld:makePassiveStartEffect(char, str_map)
     -- 패시브명 label 생성
     local i = 1
     for str, category in  pairs(str_map) do
-        local label = cc.Label:createWithTTF(Str(str), 'res/font/common_font_01.ttf', 26, 3, cc.size(200, 50), 1, 1)
+        local label = cc.Label:createWithTTF(Str(str), Translate:getFontPath(), 26, 3, cc.size(200, 50), 1, 1)
         node:addChild(label)
         label:setScale(0.2)
         label:runAction( cc.Sequence:create(cc.ScaleTo:create(0.1, 1.2), cc.ScaleTo:create(0.3, 1), cc.DelayTime:create(1.6), cc.FadeOut:create(0.3), cc.RemoveSelf:create()))

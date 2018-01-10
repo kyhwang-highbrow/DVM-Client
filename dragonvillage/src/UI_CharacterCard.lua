@@ -519,7 +519,7 @@ function UI_FriendDragonCard(t_dragon_data)
         ui.vars['clickBtn']:addChild(sprite, zorder)
 
         local cool_time = friend_info:getDragonUseCoolText()
-        local label = cc.Label:createWithTTF('', 'res/font/common_font_01.ttf', 25, 2, cc.size(140, 60), cc.TEXT_ALIGNMENT_CENTER, cc.VERTICAL_TEXT_ALIGNMENT_CENTER)
+        local label = cc.Label:createWithTTF('', Translate:getFontPath(), 25, 2, cc.size(140, 60), cc.TEXT_ALIGNMENT_CENTER, cc.VERTICAL_TEXT_ALIGNMENT_CENTER)
         label:setDockPoint(CENTER_POINT)
         label:setAnchorPoint(CENTER_POINT)
         label:setPosition(0, 0)
@@ -529,7 +529,7 @@ function UI_FriendDragonCard(t_dragon_data)
 
     -- 친구 닉네임 추가 - 하단 중앙
     do
-        local label = cc.Label:createWithTTF('', 'res/font/common_font_01.ttf', 25, 2, cc.size(140, 30), cc.TEXT_ALIGNMENT_CENTER, cc.VERTICAL_TEXT_ALIGNMENT_CENTER)
+        local label = cc.Label:createWithTTF('', Translate:getFontPath(), 25, 2, cc.size(140, 30), cc.TEXT_ALIGNMENT_CENTER, cc.VERTICAL_TEXT_ALIGNMENT_CENTER)
         label:setDockPoint(cc.p(0.5, 0.0))
         label:setAnchorPoint(cc.p(0.5, 1.0))
         label:setPosition(0, 0)

@@ -203,3 +203,26 @@ function Translate:getLangStrTable()
 		['zh'] = Str('중국어')
 	}
 end
+
+-------------------------------------
+-- function getFontName
+-------------------------------------
+function Translate:getFontName()
+    local game_lang = self:getGameLang()
+    local ret = 'common_font_01.ttf'
+
+    if game_lang == 'ja' then
+        ret = 'common_font_01_ja.ttf'
+    elseif game_lang == 'zh' then
+        ret = 'common_font_01_cn.ttf'
+    end
+
+    return ret
+end
+
+-------------------------------------
+-- function getFontPath
+-------------------------------------
+function Translate:getFontPath()
+    return 'res/font/' .. self:getFontName()
+end

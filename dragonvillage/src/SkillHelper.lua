@@ -272,7 +272,7 @@ function SkillHelper:makePassiveSkillSpeech(dragon, str)
 
     -- 대사
     do
-        self.m_speechLabel = cc.Label:createWithTTF(str, 'res/font/common_font_01.ttf', 24, 2)
+        self.m_speechLabel = cc.Label:createWithTTF(str, Translate:getFontPath(), 24, 2)
         self.m_speechLabel:setAnchorPoint(cc.p(0.5, 0.5))
 	    self.m_speechLabel:setDockPoint(cc.p(0, 0))
 	    self.m_speechLabel:setColor(cc.c3b(255, 255, 255))

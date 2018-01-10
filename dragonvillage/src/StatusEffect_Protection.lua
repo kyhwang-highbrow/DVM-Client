@@ -31,7 +31,7 @@ function StatusEffect_Protection:init(file_name, body, ...)
     self.m_bUseCount = false
     self.m_animator:setIgnoreLowEndMode(true)
 	do
-        local label = cc.Label:createWithTTF('', 'res/font/common_font_01.ttf', 20, 2, cc.size(250, 100), 1, 1)
+        local label = cc.Label:createWithTTF('', Translate:getFontPath(), 20, 2, cc.size(250, 100), 1, 1)
         label:setPosition(0, -100)
         label:setDockPoint(cc.p(0.5, 0.5))
         label:setAnchorPoint(cc.p(0.5, 0.5))

@@ -463,7 +463,7 @@ end
 -- function getFontName
 -------------------------------------
 function UIC_RichLabel:getFontName()
-    return 'res/font/common_font_01.ttf'
+    return Translate:getFontPath()
 end
 
 -------------------------------------

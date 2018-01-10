@@ -190,7 +190,7 @@ function UIC_SortList:addSortType(sort_type, sort_name, t_label_data, rich_label
         button:addChild(rich_label.m_node)
  
     else
-        local font_name = 'res/font/common_font_01.ttf'
+        local font_name = Translate:getFontPath()
         
         -- label 꾸미기
         local t_label_data = t_label_data or {}

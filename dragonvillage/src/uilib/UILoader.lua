@@ -318,7 +318,7 @@ local function loadNode(ui, data, vars, parent, keep_z_order, use_sprite_frames)
     local var = data.lua_name
         
     if data.font_name then
-        --data.font_name = 'font/' .. Translate:getFontName()
+        data.font_name = 'font/' .. Translate:getFontName()
         --data.font_name = 'font/krlangs'
     end
 
@@ -345,8 +345,7 @@ local function loadNode(ui, data, vars, parent, keep_z_order, use_sprite_frames)
         )
         setPropsForScale9Sprite(node, data)
     elseif type == 'LabelSystemFont' then
-        --TODO: 디폴트 폰트 셋팅 과정이 필요
-        --local font_name = data.font_name == 'Custom' and Translate.customFontName or ''
+        --TODO: 디폴트 폰트 셋팅 과정이 필요        
         node = cc.Label:createWithSystemFont(
             Str(data.text)
             , data.font_name

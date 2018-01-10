@@ -393,7 +393,7 @@ function PerpleScene:makeWatermark()
         local msg = '본 게임은 외부 제작업체 \n\'XXX\'에 제공 된 테스트 버전 입니다.'
 
         -- 폰트 지정
-        local font = 'res/font/common_font_01.ttf'
+        local font = Translate:getFontPath()
 
         -- 위치 지정
         local visibleSize = cc.Director:getInstance():getVisibleSize()

@@ -182,7 +182,10 @@ local function main()
 
     stopwatch:stop()
     stopwatch:print()
-
+        
+    cc.Label:setDefaultFallbackFontTTF('res/font/common_font_01_ja.ttf', 'res/font/common_font_01.ttf');
+    cc.Label:setDefaultFallbackFontTTF('res/font/common_font_01_cn.ttf', 'res/font/common_font_01.ttf');
+    
     if DV_SCENE_ACTIVE then
         SceneDV():runScene()
     else

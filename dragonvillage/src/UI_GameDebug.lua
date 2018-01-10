@@ -155,7 +155,7 @@ function UI_GameDebug:makeTableView()
 
         do -- label 생성
             -- left 0, center 1, right 2
-            local label = cc.Label:createWithTTF(data['str'] or 'label', 'res/font/common_font_01.ttf', 20, 2, cc.size(size_width, size_height), 1, 1)
+            local label = cc.Label:createWithTTF(data['str'] or 'label', Translate:getFontPath(), 20, 2, cc.size(size_width, size_height), 1, 1)
             label:setDockPoint(cc.p(0.5, 0.5))
             label:setAnchorPoint(cc.p(0.5, 0.5))
             cell_menu:addChild(label)

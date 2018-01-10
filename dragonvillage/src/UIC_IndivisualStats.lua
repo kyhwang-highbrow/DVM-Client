@@ -50,7 +50,7 @@ function UIC_IndivisualStats:initUIComponent()
     self.m_node:setAnchorPoint(cc.p(0.5, 0.5))
 
     local str = ''
-    local font_name = 'res/font/common_font_01.ttf'
+    local font_name = Translate:getFontPath()
     local font_size = 24
     local stroke_tickness = 2
     local size = cc.size(256, 256)

@@ -93,7 +93,7 @@ function UI_ErrorPopup:initUI(str)
         self.vars[lua_name] = node
 
         -- label
-		local label = cc.Label:createWithTTF(btn_str, 'res/font/common_font_01.ttf', 20, 1, cc.size(100, 50),	cc.TEXT_ALIGNMENT_CENTER, cc.VERTICAL_TEXT_ALIGNMENT_CENTER)
+		local label = cc.Label:createWithTTF(btn_str, Translate:getFontPath(), 20, 1, cc.size(100, 50),	cc.TEXT_ALIGNMENT_CENTER, cc.VERTICAL_TEXT_ALIGNMENT_CENTER)
         label:setColor(COLOR['DESC'])
 		label:setDockPoint(CENTER_POINT)
         label:setAnchorPoint(CENTER_POINT)

@@ -20,7 +20,7 @@ function NotificationBroadcast:init(msg, color)
     node:setDockPoint(cc.p(0.5, 0.5))
     node:setNormalSize(width, height)
 
-    local label = cc.Label:createWithTTF(msg or 'label', 'res/font/common_font_01.ttf', 25, 0, cc.size(width, height-10), 1, 1)
+    local label = cc.Label:createWithTTF(msg or 'label', Translate:getFontPath(), 25, 0, cc.size(width, height-10), 1, 1)
     label:setDockPoint(cc.p(0.5, 0.5))
     label:setAnchorPoint(cc.p(0.5, 0.5))
 

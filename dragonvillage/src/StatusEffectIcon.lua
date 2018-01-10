@@ -33,7 +33,7 @@ function StatusEffectIcon:init(char, status_effect)
 		self.m_icon = icon
 	
 	    if (self.m_icon) then
-		    local label = cc.Label:createWithTTF('', 'res/font/common_font_01.ttf', 40, 0)
+		    local label = cc.Label:createWithTTF('', Translate:getFontPath(), 40, 0)
 		    label:setAlignment(cc.TEXT_ALIGNMENT_CENTER, cc.VERTICAL_TEXT_ALIGNMENT_CENTER)
 		    label:setAnchorPoint(cc.p(0.5, 0.5))
 		    label:setDockPoint(cc.p(0.5, 0.5))
