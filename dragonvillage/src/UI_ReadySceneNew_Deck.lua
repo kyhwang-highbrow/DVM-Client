@@ -781,35 +781,25 @@ function UI_ReadySceneNew_Deck:checkClanRaidDragon()
     end
 
     -- 상단 덱 체크
-    local mode = 'up'
-    if (sel_mode == mode) then
-        if (#self.m_lDeckList <= 0) then
-            toast_func(mode)
-            return false
-        end
-    else
-        local l_deck = g_clanRaidData:getDeck(mode)
-        if (#l_deck <= 0) then
-            toast_func(mode)
-            return false
-        end
-    end
-    
-    -- 하단 덱 체크
-    local mode = 'down'
-    if (sel_mode == mode) then
-        if (#self.m_lDeckList <= 0) then
-            toast_func(mode)
-            return false
-        end
-    else
-        local l_deck = g_clanRaidData:getDeck(mode)
-        if (#l_deck <= 0) then
+    do
+        local mode = 'up'
+        local deck_cnt = g_clanRaidData:getDeckDragonCnt(mode)
+        if (deck_cnt <= 0) then
             toast_func(mode)
             return false
         end
     end
 
+    -- 하단 덱 체크
+    do
+        local mode = 'down'
+        local deck_cnt = g_clanRaidData:getDeckDragonCnt(mode)
+        if (deck_cnt <= 0) then
+            toast_func(mode)
+            return false
+        end
+    end
+    
     return true
 end
 
