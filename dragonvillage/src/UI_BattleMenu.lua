@@ -255,7 +255,6 @@ function UI_BattleMenu:initDungeonTab()
     local scroll_node = vars['dungeonNode']
     local size = scroll_node:getContentSize()
     local target_size = cc.size(interval_x * #l_item + 10, size.height)
-    ccdump(target_size)
     local scroll_view = cc.ScrollView:create()
     scroll_view:setNormalSize(size)
     scroll_view:setContentSize(target_size)

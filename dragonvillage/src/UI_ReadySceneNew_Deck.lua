@@ -557,6 +557,15 @@ function UI_ReadySceneNew_Deck:setSlot(idx, doid, skip_sort)
         return false
     end
 
+    -- 클랜던전 추가로 다른덱 동종 동속성의 드래곤 제외
+    if (self.m_gameMode == GAME_MODE_CLAN_RAID) and (self:checkSameDidAnoterDeck(doid)) then
+        local mode = self.m_selTab
+        local another_mode = g_clanRaidData:getAnotherMode(mode)
+        local team_name = g_clanRaidData:getTeamName(another_mode)
+        UIManager:toastNotificationRed(Str('{1} 출전중인 드래곤과 같은 드래곤은 동시에 출전할 수 없습니다.', team_name))
+        return false
+    end
+
     -- 설정되어 있는 덱 해제
     if self.m_lDeckList[idx] then
         local prev_doid = self.m_lDeckList[idx]
@@ -622,6 +631,28 @@ function UI_ReadySceneNew_Deck:checkSameDid(idx, doid)
     for e_idx, e_doid in pairs(self.m_lDeckList) do
         -- 같은 did면서 idx가 다른 경우 (해제되는 드래곤과 새로 추가되는 드래곤은 같아도 됨)
         if (g_dragonsData:isSameDid(doid, e_doid)) and (idx ~= e_idx) then
+            return true
+        end
+    end
+
+    return false
+end
+
+-------------------------------------
+-- function checkSameDidAnoterDeck
+-- @brief 동종 동속성 드래곤 검사 - 클랜던전 추가로 다른 덱까지 검사
+-------------------------------------
+function UI_ReadySceneNew_Deck:checkSameDidAnoterDeck(doid)
+    if (not doid) then
+        return false
+    end
+
+    local e_t_dragon_data
+    local sel_mode = self.m_selTab
+    local another_deck = g_clanRaidData:getAnotherDeckMap(sel_mode)
+
+    for e_doid, _ in pairs(another_deck) do
+        if (g_dragonsData:isSameDid(doid, e_doid))  then
             return true
         end
     end
