@@ -23,6 +23,7 @@ function ServerData_SecretDungeon:init(server_data)
     self.m_secretDungeonInfo = {}
     self.m_secretDungeonInfoMap = {}
     self.m_bDirtySecretDungeonInfo = true
+	self.m_bSecretDungeonExist = false
 
     self.m_selectedDungeonID = nil
 end
@@ -48,6 +49,9 @@ function ServerData_SecretDungeon:applySecretDungeonInfo(data)
     end
 
     table.sort(self.m_secretDungeonInfo, sort_func)
+
+	-- 인연던전 노티를 위하여 존재 여부 체크
+	self.m_bSecretDungeonExist = (table.count(self.m_secretDungeonInfo) > 0)
 
     self.m_bDirtySecretDungeonInfo = false
 end
