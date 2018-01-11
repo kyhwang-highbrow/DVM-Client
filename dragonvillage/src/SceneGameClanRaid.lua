@@ -8,6 +8,8 @@ local LIMIT_TIME = 300
 SceneGameClanRaid = class(PARENT, {
         m_realStartTime = 'number', -- 클랜 던전 시작 시간
         m_realLiveTimer = 'number', -- 클랜 던전 진행 시간 타이머
+
+        m_uiPopupTimeOut = 'UI',
     })
 
 -------------------------------------
@@ -17,6 +19,7 @@ function SceneGameClanRaid:init(game_key, stage_id, stage_name, develop_mode, st
     self.m_sceneName = 'SceneGameClanRaid'
     self.m_realStartTime = Timer:getServerTime()
     self.m_realLiveTimer = 0
+    self.m_uiPopupTimeOut = nil
 
     -- 스테이지 속성에 따른 이름을 사용
     local attr = TableStageData():getStageAttr(stage_id)
@@ -119,16 +122,32 @@ function SceneGameClanRaid:update(dt)
 end
 
 -------------------------------------
+-- function gameResume
+-------------------------------------
+function SceneGameClanRaid:gameResume()
+    if (self.m_realLiveTimer > LIMIT_TIME) then
+        self:showTimeOutPopup()
+        return
+    end
+
+    PARENT.gameResume(self)
+end
+
+-------------------------------------
 -- function updateRealTimer
 -------------------------------------
 function SceneGameClanRaid:updateRealTimer(dt)
     -- 실제 진행 시간을 계산(배속에 영향을 받지 않도록 함)
     self.m_realLiveTimer = self.m_realLiveTimer + (dt / self.m_timeScale)
 
-    -- TODO: 시간 제한 체크 및 처리
+    -- 시간 제한 체크 및 처리
     if (self.m_realLiveTimer > LIMIT_TIME) then
-        local game_state = self.m_gameWorld.m_gameState
-        game_state:processTimeOut()
+        if (self.m_bPause) then
+            self:showTimeOutPopup()
+        else
+            local game_state = self.m_gameWorld.m_gameState
+            game_state:processTimeOut()
+        end
     end
 
     -- UI 시간 표기 갱신
@@ -148,9 +167,7 @@ function SceneGameClanRaid:networkGameComeback(next_func)
 
         -- 이미 클랜 던전 종료되었거나 제한 시간이 오버된 경우
         if (ret['is_gaming'] == false or self.m_realLiveTimer > LIMIT_TIME) then
-            MakeSimplePopup(POPUP_TYPE.OK, Str('제한시간을 초과하였습니다.'), function()
-                UINavigator:goTo('clan_raid')
-            end)       
+            self:showTimeOutPopup()
         end
 
         if next_func then
@@ -450,4 +467,16 @@ function SceneGameClanRaid:applicationWillEnterForeground()
 
     -- 백그라운드로 나갔다가 진입시 흘러간 시간을 계산하기 위한 서버 통신
     self:networkGameComeback()
+end
+
+-------------------------------------
+-- function showTimeOutPopup
+-- @brief 타임 아웃이 되었을 경우 팝업 후 강제 종료
+-------------------------------------
+function SceneGameClanRaid:showTimeOutPopup()
+    if (self.m_uiPopupTimeOut) then return end
+
+    self.m_uiPopupTimeOut = MakeSimplePopup(POPUP_TYPE.OK, Str('제한시간을 초과하였습니다.'), function()
+        UINavigator:goTo('clan_raid')
+    end)
 end

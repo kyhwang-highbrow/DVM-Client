@@ -97,6 +97,19 @@ function DragonSkillIndivisualInfo:startCoolTime()
     self.m_turnCount = 0
 end
 
+
+-------------------------------------
+-- function startCoolTimeByCasting
+-- @brief 캐스팅을 시작하면 cooldown을 제외한 나머지만 시작시킴
+-------------------------------------
+function DragonSkillIndivisualInfo:startCoolTimeByCasting()
+    if (self.m_skillType == 'indie_time') then
+        self.m_timer = self.m_tSkill['chance_value']
+    end
+
+    self.m_turnCount = 0
+end
+
 -------------------------------------
 -- function isEndCoolTime
 -------------------------------------
@@ -112,7 +125,9 @@ end
 -- function resetCoolTime
 -------------------------------------
 function DragonSkillIndivisualInfo:resetCoolTime()
+    self.m_timer = 0
     self.m_cooldownTimer = 0
+    self.m_turnCount = 0
 end
 
 -------------------------------------

@@ -283,8 +283,15 @@ end
 -- function st_casting
 -------------------------------------
 function Character.st_casting(owner, dt)
-    if (owner.m_stateTimer == 0) then     
+    if (owner.m_stateTimer == 0) then
+        local skill_id = owner.m_reservedSkillId
         local cast_time = owner.m_reservedSkillCastTime
+
+        -- chance_type관련 누적 정보를 초기화(cool_down은 제외)
+        local skill_indivisual_info = owner:findSkillInfoByID(skill_id)
+        if (skill_indivisual_info) then
+            skill_indivisual_info:startCoolTimeByCasting()
+        end
 
         -- 캐스팅 게이지
         if owner.m_castingNode then
