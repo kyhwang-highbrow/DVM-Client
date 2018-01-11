@@ -32,7 +32,7 @@ function SkillScript_ClanRaidBoss:setSkillParams(owner, t_skill, t_data)
 		target_type = 'self',
 		target_count = 1,
 		trigger = CON_SKILL_IDLE,
-		duration = 12,
+		duration = self.m_duration,
 		rate = 100,
 		value = 250,
         source = '',
