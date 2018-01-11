@@ -191,6 +191,11 @@ function SceneGameClanRaid:networkGameFinish(t_param, t_result_ref, next_func)
     local function success_cb(ret)
         self:networkGameFinish_response(ret, t_result_ref)
 
+        -- 메일 갱신
+		if (ret['new_mail'] == true) then
+			g_highlightData:setHighlightMail()
+		end
+
         -- 보상 등급 지정
         t_result_ref['dmg_rank'] = ret['dmg_rank'] or 1
 

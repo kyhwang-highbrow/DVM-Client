@@ -62,6 +62,7 @@ end
 function UI_ClanRaidResult:initButton()
     local vars = self.vars
     vars['okBtn']:registerScriptTapHandler(function() self:click_okBtn() end)
+    vars['statsBtn']:registerScriptTapHandler(function() self:click_statsBtn() end)
     vars['skipBtn']:registerScriptTapHandler(function() self:click_screenBtn() end)
 end
 
@@ -384,6 +385,7 @@ end
 function UI_ClanRaidResult:direction_end()
     local vars = self.vars
     vars['okBtn']:setVisible(true)
+    vars['statsBtn']:setVisible(true)
 end
 
 -------------------------------------
@@ -420,6 +422,14 @@ end
 -------------------------------------
 function UI_ClanRaidResult:click_okBtn()
 	UINavigator:goTo('clan_raid')
+end
+
+-------------------------------------
+-- function click_statsBtn
+-------------------------------------
+function UI_ClanRaidResult:click_statsBtn()
+	-- @TODO g_gameScene.m_gameWorld 사용안하여야 한다.
+	UI_StatisticsPopup(g_gameScene.m_gameWorld)
 end
 
 -------------------------------------

@@ -412,6 +412,7 @@ function UI_ReadySceneNew:initUI()
     if (self.m_gameMode == GAME_MODE_CLAN_RAID) then
         vars['friendToggleBtn']:setVisible(false)
 		vars['autoStartOnBtn']:setVisible(false)
+        vars['manageBtn']:setPositionX(0)
     end
 end
 
