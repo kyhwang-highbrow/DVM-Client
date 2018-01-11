@@ -409,11 +409,22 @@ function UI_Setting:click_allStaminaBtn()
             local key = l_stamina_list[1]
             table.remove(l_stamina_list, 1)
 
-            local ui_network = UI_Network()
-            ui_network:setUrl('/users/update')
+            local ui_network = UI_Network()            
+            local api  
+            -- 클랜던전은 update api로 충전이 안됨.
+            if (key == 'cldg') then
+                api = '/users/manage'
+                ui_network:setParam('act', 'update')
+                ui_network:setParam('key', 'staminas')
+                ui_network:setParam('value', key .. ',' .. 100)
+            else
+                api = '/users/update'
+                ui_network:setParam('act', 'increase')
+                ui_network:setParam('staminas', key .. ',' .. 100)
+            end
+
+            ui_network:setUrl(api)
             ui_network:setParam('uid', uid)
-            ui_network:setParam('act', 'increase')
-            ui_network:setParam('staminas', key .. ',' .. 100)
             ui_network:setSuccessCB(function(ret) success_cb(ret) end)
             ui_network:setRevocable(false)
             ui_network:request()
