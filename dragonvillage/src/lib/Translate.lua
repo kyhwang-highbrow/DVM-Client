@@ -203,10 +203,10 @@ end
 -------------------------------------
 function Translate:getLangStrTable()
     return {
-		['ko'] = Str('한국어'), 
-		['en'] = Str('영어'), 
-		['ja'] = Str('일본어'), 
-		['zh'] = Str('중국어')
+		['ko'] = '한국어', 
+		['en'] = 'English', 
+		['ja'] = '日本語', 
+		['zh'] = '中文(繁體)'
 	}
 end
 

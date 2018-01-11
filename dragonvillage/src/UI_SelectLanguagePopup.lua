@@ -40,10 +40,6 @@ end
 -------------------------------------
 function UI_SelectLanguagePopup:initUI()
     local vars = self.vars
-	vars['enLabel']:setString('English')
-	vars['koLabel']:setString('한국어')
-	vars['zhLabel']:setString('中文(繁體)')
-	vars['jaLabel']:setString('日本語')
 end
 
 -------------------------------------
@@ -59,10 +55,14 @@ function UI_SelectLanguagePopup:initButton()
 		-- 언어별로 버튼 등록
 		for lang, text in pairs(t_lang_list) do
 			radio_button:addButtonAuto(lang, vars)
+
+			-- 묻어가기
+			vars[lang .. 'Label']:setString(text)
 		end
 
 		-- 현재 언어가 있는 경우에만 선택
 		local curr_lang = Translate:getGameLang()
+		ccdisplay(curr_lang)
 		if (curr_lang) then
 			radio_button:setSelectedButton(curr_lang)
 		end
@@ -94,6 +94,10 @@ end
 -------------------------------------
 function UI_SelectLanguagePopup:click_okBtn()
 	local lang = self.m_radioButton.m_selectedButton
+	if (lang == g_localData:getLang()) then
+		self:close()
+		return
+	end
 
 	-- @mskim 해외 출시 전 처리
 	if (CppFunctions:isAndroid()) then
@@ -104,8 +108,6 @@ function UI_SelectLanguagePopup:click_okBtn()
 		end
 	end
 
-	local name = t_lang_list[lang]
-	
 	-- 언어 저장 및 언어 파일 불러옴
 	g_localData:setLang(lang)
 	Translate:load(lang)
