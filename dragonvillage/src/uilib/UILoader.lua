@@ -551,7 +551,7 @@ local function loadNode(ui, data, vars, parent, keep_z_order, use_sprite_frames)
         local res_name = string.sub(data.file_name, 1, string.len(data.file_name) - 4)
 
         -- 번역 이미지 체크
-        -- UILoader.addTranslatedTypoPlist(data)
+        UILoader.addTranslatedTypoPlist(data)
 
         -- vrp 생성
         local vrp_name = res_name .. '.vrp'
