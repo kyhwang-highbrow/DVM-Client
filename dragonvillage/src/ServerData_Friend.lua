@@ -180,7 +180,7 @@ end
 -- function request_friendList
 -- @brief 친구 리스트 받아옴
 -------------------------------------
-function ServerData_Friend:request_friendList(finish_cb, force)
+function ServerData_Friend:request_friendList(finish_cb, force, fail_cb)
     if self.m_lFriendUserList and (not force) then
         if finish_cb then
             finish_cb()
@@ -193,19 +193,7 @@ function ServerData_Friend:request_friendList(finish_cb, force)
 
     -- 콜백 함수
     local function success_cb(ret)
-        self:response_friendCommon(ret)
-
-        self.m_lFriendUserList = {}
-        for i,v in pairs(ret['friends_list']) do
-            local uid = v['uid']
-            self.m_lFriendUserList[uid] = StructUserInfoFriend:create(v)
-        end
-
-        self:setDragonsList()
-
-        if finish_cb then
-            finish_cb(ret)
-        end
+		self:response_friendList(ret, finish_cb)
     end
 
     -- 네트워크 통신 UI 생성
@@ -214,10 +202,32 @@ function ServerData_Friend:request_friendList(finish_cb, force)
     ui_network:setLoadingMsg('친구 정보 받는 중...')
     ui_network:setParam('uid', uid)
     ui_network:setSuccessCB(success_cb)
+	ui_network:setFailCB(fail_cb)
     ui_network:setRevocable(true)
     ui_network:setReuse(false)
     ui_network:request()
+
     return ui_network
+end
+
+-------------------------------------
+-- function response_friendList
+-- @brief lobby 함수 통합에 따라.. response 분리
+-------------------------------------
+function ServerData_Friend:response_friendList(ret, finish_cb)
+    self:response_friendCommon(ret)
+
+    self.m_lFriendUserList = {}
+    for i,v in pairs(ret['friends_list']) do
+        local uid = v['uid']
+        self.m_lFriendUserList[uid] = StructUserInfoFriend:create(v)
+    end
+
+    self:setDragonsList()
+
+    if finish_cb then
+        finish_cb(ret)
+    end
 end
 
 -------------------------------------

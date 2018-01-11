@@ -368,18 +368,7 @@ function ServerData_Event:request_eventList(finish_cb, fail_cb)
 
     -- 성공 콜백
     local function success_cb(ret)
-        self.m_eventList = {}
-        local event_list = ret['table_event_list'] 
-        for _, v in ipairs(event_list) do
-            -- 두칼럼 모두 비어있으면 제외 아니라면 등록
-            if (v['ui_priority'] ~= '') or (v['full_popup'] ~= '') then
-                table.insert(self.m_eventList, v)
-            end
-        end
-
-        if finish_cb then
-            finish_cb(ret)
-        end
+		self:response_eventList(ret, finish_cb)
     end
 
     -- 네트워크 통신
@@ -395,4 +384,22 @@ function ServerData_Event:request_eventList(finish_cb, fail_cb)
     ui_network:request()
 
     return ui_network
+end
+
+-------------------------------------
+-- function response_eventList
+-------------------------------------
+function ServerData_Event:response_eventList(ret, finish_cb)
+    self.m_eventList = {}
+    local event_list = ret['table_event_list'] 
+    for _, v in ipairs(event_list) do
+        -- 두칼럼 모두 비어있으면 제외 아니라면 등록
+        if (v['ui_priority'] ~= '') or (v['full_popup'] ~= '') then
+            table.insert(self.m_eventList, v)
+        end
+    end
+
+    if finish_cb then
+        finish_cb(ret)
+    end
 end

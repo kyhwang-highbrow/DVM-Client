@@ -1339,6 +1339,13 @@ function ServerData_Dragons:request_dragonSell(doids, soids, cb_func)
 end
 
 -------------------------------------
+-- function getBestCombatPower
+-------------------------------------
+function ServerData_Dragons:getBestCombatPower()
+	return self.m_dragonBestCombatPower
+end
+
+-------------------------------------
 -- function request_updatePower
 -------------------------------------
 function ServerData_Dragons:request_updatePower(cb_func)
@@ -1357,12 +1364,7 @@ function ServerData_Dragons:request_updatePower(cb_func)
     local combat_power = self.m_dragonBestCombatPower
 
     local function success_cb(ret)
-        self.m_bUpdatePower = false
-
-		-- 콜백
-		if (cb_func) then
-			cb_func(ret)
-		end
+		self:response_updatePower(ret, cb_func)
     end
 
     local ui_network = UI_Network()
@@ -1375,6 +1377,18 @@ function ServerData_Dragons:request_updatePower(cb_func)
     ui_network:request()
 
     return ui_network
+end
+
+-------------------------------------
+-- function response_updatePower
+-------------------------------------
+function ServerData_Dragons:response_updatePower(ret, cb_func)
+    self.m_bUpdatePower = false
+
+	-- 콜백
+	if (cb_func) then
+		cb_func(ret)
+	end
 end
 
 -------------------------------------

@@ -81,15 +81,7 @@ function ServerData_AccessTime:request_saveTime(finish_cb, fail_cb)
 
     -- 성공 콜백
     local function success_cb(ret)
-        self:networkCommonRespone(ret)
-        -- 접속시간 저장 후에도 보상정보 갱신 (날짜변경된 경우 갱신해줘야함)
-        if (ret['reward']) then
-            self.m_lRewardData = ret['reward']
-        end
-
-        if finish_cb then
-            finish_cb(ret)
-        end
+		self:response_saveTime(ret, finish_cb)
     end
 
     -- 네트워크 통신
@@ -106,6 +98,21 @@ function ServerData_AccessTime:request_saveTime(finish_cb, fail_cb)
     ui_network:request()
 
     return ui_network
+end
+
+-------------------------------------
+-- function response_saveTime
+-------------------------------------
+function ServerData_AccessTime:response_saveTime(ret, finish_cb)
+    self:networkCommonRespone(ret)
+    -- 접속시간 저장 후에도 보상정보 갱신 (날짜변경된 경우 갱신해줘야함)
+    if (ret['reward']) then
+        self.m_lRewardData = ret['reward']
+    end
+
+    if finish_cb then
+        finish_cb(ret)
+    end
 end
 
 -------------------------------------

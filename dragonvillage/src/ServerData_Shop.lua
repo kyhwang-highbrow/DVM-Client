@@ -209,26 +209,7 @@ function ServerData_Shop:request_shopInfo(cb_func, fail_cb)
 
     -- 콜백 함수
     local function success_cb(ret)
-        self:response_shopInfo(ret)
-        g_advertisingData:networkCommonRespone(ret)
-
-        if (cb_func) then
-			cb_func(ret)
-		end
-
-        --[[ 앱버전 업데이트 후에 스토에서 인앱상품 정보 받아오기 할때 사용
-        local function onFinish()
-            if (cb_func) then
-			    cb_func(ret)
-		    end
-        end
-
-        if (isAndroid() or isIos()) then
-            self:getBillingItemList( onFinish )		
-        else            
-            onFinish()
-        end
-        --]]
+        self:response_shopInfo(ret, cb_func)
     end
 
     -- 네트워크 통신 UI 생성
@@ -262,7 +243,7 @@ end
 -------------------------------------
 -- function response_shopInfo
 -------------------------------------
-function ServerData_Shop:response_shopInfo(ret)
+function ServerData_Shop:response_shopInfo(ret, cb_func)
     if (ret['status'] ~= 0) then
         return
     end
@@ -302,6 +283,26 @@ function ServerData_Shop:response_shopInfo(ret)
     self.m_dicBuyCnt = ret['buycnt']
 
     self.m_bDirty = false
+
+	g_advertisingData:networkCommonRespone(ret)
+
+    if (cb_func) then
+		cb_func(ret)
+	end
+
+    --[[ 앱버전 업데이트 후에 스토에서 인앱상품 정보 받아오기 할때 사용
+    local function onFinish()
+        if (cb_func) then
+			cb_func(ret)
+		end
+    end
+
+    if (isAndroid() or isIos()) then
+        self:getBillingItemList( onFinish )		
+    else            
+        onFinish()
+    end
+    --]]
 end
 
 

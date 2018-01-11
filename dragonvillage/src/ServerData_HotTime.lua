@@ -88,14 +88,7 @@ function ServerData_HotTime:request_hottime(finish_cb, fail_cb)
     
     -- 성공 콜백
     local function success_cb(ret)
-
-        self.m_hotTimeInfoList = ret['all']
-        self.m_listExpirationTime = nil
-		self.m_dcExpirationTime = nil
-
-        if finish_cb then
-            finish_cb(ret)
-        end
+		self:response_hottime(ret, finish_cb)
     end
 
     -- 네트워크 통신
@@ -109,6 +102,19 @@ function ServerData_HotTime:request_hottime(finish_cb, fail_cb)
     ui_network:request()
 
     return ui_network
+end
+
+-------------------------------------
+-- function response_hottime
+-------------------------------------
+function ServerData_HotTime:response_hottime(ret, finish_cb)
+    self.m_hotTimeInfoList = ret['all']
+    self.m_listExpirationTime = nil
+	self.m_dcExpirationTime = nil
+
+    if finish_cb then
+        finish_cb(ret)
+    end
 end
 
 -------------------------------------

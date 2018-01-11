@@ -105,14 +105,7 @@ function UI_Lobby:entryCoroutine()
     g_deckData:setSelectedDeck('adv')
 
     local function coroutine_function(dt)
-    
-        local working = false
-
-        -- 터치 불가상태로 만들어 놓음
-        local block_popup = UI_BlockPopup()
-        dt = coroutine.yield()
-
-        local fail_cb = function(ret) working = false end
+		local co = CoroutineHelper()
 
         -- 반드시 통신에 성공해야 하는 통신이 실패하면 로비로 재진입
         local required_fail_cb = function(ret)
@@ -124,117 +117,107 @@ function UI_Lobby:entryCoroutine()
             MakeSimplePopup(POPUP_TYPE.OK, msg, ok_cb)
         end
         
-        --친구 정보 받아옴
-        cclog('# 친구 정보 받는 중')
-        working = true
-        local ui_network = g_friendData:request_friendList(function() working = false end, true)
-        if ui_network then
-            ui_network:hideBGLayerColor()
-            ui_network:setFailCB(required_fail_cb)
-        end
-        while (working) do dt = coroutine.yield() end
+		-- lobby 공통 함수
+		co:work()
+		do
+			-- param
+			local uid = g_userData:get('uid')
+			local time = g_accessTimeData:getTime()
+			local combat_power = g_dragonsData:getBestCombatPower()
+			-- ui_network
+			local ui_network = UI_Network()
+			ui_network:setUrl('/users/lobby')
+			ui_network:setParam('uid', uid)
+			ui_network:setParam('access_time', time)
+			ui_network:setParam('dragon_power', combat_power)
+			ui_network:setRevocable(true)
+			ui_network:setSuccessCB(function(ret)
 
-        cclog('# 출석 정보 받는 중')
-        working = true
-        local ui_network = g_attendanceData:request_attendanceInfo(function(ret) working = false end, required_fail_cb)
-        if ui_network then
-            ui_network:hideBGLayerColor()
-        end
-        while (working) do dt = coroutine.yield() end
+				co:work()
+				cclog('# 친구 정보 받는 중')
+				g_friendData:response_friendList(ret, co.NEXT)
+				if co:waitWork() then return end
 
-        cclog('# 핫타임 정보 요청 중')
-		working = true
-        local ui_network = g_hotTimeData:request_hottime(function(ret) working = false end, required_fail_cb)
-        if ui_network then
-            ui_network:hideBGLayerColor()
-        end
-        while (working) do dt = coroutine.yield() end
+				co:work()
+				cclog('# 출석 정보 받는 중')
+				g_attendanceData:response_attendanceInfo(ret, co.NEXT)
+				if co:waitWork() then return end
 
-        cclog('# 이벤트 정보 받는 중')
-        working = true
-        local ui_network =g_eventData:request_eventList(function(ret) working = false end, required_fail_cb)
-        if ui_network then
-            ui_network:hideBGLayerColor()
-        end
-        while (working) do dt = coroutine.yield() end
+				co:work()
+				cclog('# 핫타임 정보 요청 중')
+				g_hotTimeData:response_hottime(ret, co.NEXT)
+				if co:waitWork() then return end
 
-        if (g_hotTimeData:isActiveEvent('event_exchange')) then
+				co:work()
+				cclog('# 이벤트 정보 받는 중')
+				g_eventData:response_eventList(ret, co.NEXT)
+				if co:waitWork() then return end
+							
+				co:work()
+				cclog('# 상점 정보 받는 중')
+				g_shopDataNew:response_shopInfo(ret, co.NEXT)
+				if co:waitWork() then return end
+
+				co:work()
+				cclog('# 드래곤의 숲 확인 중')
+				ServerData_Forest:getInstance():response_forestInfo(ret, co.NEXT)
+				if co:waitWork() then return end
+
+				co:work()
+				cclog('# 접속시간 저장 중')
+				g_accessTimeData:response_saveTime(ret, co.NEXT)
+				if co:waitWork() then return end
+
+				co:work()
+				cclog('# 드래곤 전투력 저장 중')
+				g_dragonsData:response_updatePower(ret, co.NEXT)
+				if co:waitWork() then return end
+
+				cclog('# 인연 던전 확인 중')
+				g_secretDungeonData:setSecretDungeonExist(ret['secret_dungeon_cnt'] > 0)
+
+				co.NEXT()
+			end)
+			ui_network:setFailCB(required_fail_cb)
+			ui_network:request()
+		end
+		if co:waitWork() then return end
+
+		if (g_hotTimeData:isActiveEvent('event_exchange')) then
+            co:work()
             cclog('# 교환 이벤트 정보 받는 중')
-            working = true
-            g_exchangeEventData:request_eventInfo(function(ret) working = false end, required_fail_cb)
-            while (working) do dt = coroutine.yield() end
+            g_exchangeEventData:request_eventInfo(co.NEXT, required_fail_cb)
+            if co:waitWork() then return end
         end
 
         if (g_hotTimeData:isActiveEvent('event_dice')) then
+            co:work()
             cclog('# 주사위 이벤트 정보 받는 중')
-            working = true
-            g_eventDiceData:request_diceInfo(function(ret) working = false end, required_fail_cb)
-            while (working) do dt = coroutine.yield() end
+            g_eventDiceData:request_diceInfo(co.NEXT, required_fail_cb)
+            if co:waitWork() then return end
         end
-
-        cclog('# 접속시간 저장 중')
-        working = true
-        local ui_network = g_accessTimeData:request_saveTime(function(ret) working = false end, fail_cb)
-        if ui_network then
-            ui_network:hideBGLayerColor()
-        end
-        while (working) do dt = coroutine.yield() end
-
-        cclog('# 상점 정보 받는 중')
-        working = true
-        local ui_network = g_shopDataNew:request_shopInfo(function(ret) working = false end, fail_cb)
-        if ui_network then
-            ui_network:hideBGLayerColor()
-        end
-        while (working) do dt = coroutine.yield() end
-
-        cclog('# 드래곤 전투력 저장 중')
-        working = true
-        local ui_network = g_dragonsData:request_updatePower(function(ret) working = false end, fail_cb)
-        if ui_network then
-            ui_network:hideBGLayerColor()
-        end
-        while (working) do dt = coroutine.yield() end
-
-        cclog('# 인연의 흔적을 흝어보는 중')
-        working = true
-        local ui_network = g_secretDungeonData:requestSecretDungeonInfo(function(ret) working = false end)
-        if ui_network then
-            ui_network:hideBGLayerColor()
-            ui_network:setFailCB(required_fail_cb)
-        end
-        while (working) do dt = coroutine.yield() end
-
-        cclog('# 드래곤의 숲 확인 중')
-        working = true
-        local ui_network = ServerData_Forest:getInstance():request_myForestInfo(function(ret) working = false end)
-        if ui_network then
-            ui_network:hideBGLayerColor()
-            ui_network:setFailCB(required_fail_cb)
-        end
-        while (working) do dt = coroutine.yield() end
 
         -- @ MASTER ROAD
         cclog('# 마스터의 길 확인 중')
-        working = true
-        local _,ui_network = g_masterRoadData:updateMasterRoadAfterReward((function(ret) working = false end))
+        co:work()
+        local _,ui_network = g_masterRoadData:updateMasterRoadAfterReward(co.NEXT)
         if ui_network then
             ui_network:hideBGLayerColor()
             ui_network:setFailCB(required_fail_cb)
         end
-        while (working) do dt = coroutine.yield() end
+        if co:waitWork() then return end
 
 		-- 최초 튜토리얼 시에는 실행하지 않음
         if (g_tutorialData:isTutorialDone(TUTORIAL.FIRST_START)) then
 
             -- 풀팝업 출력 함수
             local function show_func(pid) 
-                working = true
+                co:work()
                 local ui = UI_EventFullPopup(pid)
-                ui:setCloseCB(function(ret) working = false end)
+                ui:setCloseCB(co.NEXT)
                 ui:openEventFullPopup()
 				ui:setBtnBlock() -- 코루틴을 종료 시킬 수가 없어 다른 UI로 못가게 막음
-                while (working) do dt = coroutine.yield() end
+                if co:waitWork() then return end
             end
 
 			-- 지정된 풀팝업 리스트 (최초 로비 실행 시 출력)
@@ -251,28 +234,23 @@ function UI_Lobby:entryCoroutine()
         end
 
         -- @UI_ACTION 액션 종료 후에는 튜토리얼 시작
-        working = true
+        co:work()
         self:doAction(function() 
-            working = false
+            co.NEXT()
             -- @ TUTORIAL
             TutorialManager.getInstance():startTutorial(TUTORIAL.FIRST_START, self)
         end, false)
         g_topUserInfo:doAction()
 		self.root:scheduleUpdateWithPriorityLua(function(dt) self:update(dt) end, 0)
-        while (working) do dt = coroutine.yield() end
-
-        -- 터치 가능하도록 해제
-        block_popup:close()
-        coroutine.yield()
+        if co:waitWork() then return end
 
         -- @ google achievement
         if (not g_localData:get('is_first_google_login_real')) then
-            g_localData:applyLocalData(true, 'is_first_google_login_real')
-
+            co:work()
             cclog('# 구글 업적 확인 중')
-            working = true
-            GoogleHelper.allAchievementCheck((function(ret) working = false end))
-            while (working) do dt = coroutine.yield() end
+            g_localData:applyLocalData(true, 'is_first_google_login_real')
+            GoogleHelper.allAchievementCheck(co.NEXT)
+            if co:waitWork() then return end
         end
     end
 

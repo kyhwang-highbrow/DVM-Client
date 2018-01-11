@@ -48,28 +48,9 @@ function ServerData_Attendance:request_attendanceInfo(finish_cb, fail_cb)
     local uid = g_userData:get('uid')
 
     -- 성공 콜백
-    local function success_cb(ret)
-        self.m_bDirtyAttendanceInfo = false
-
-        g_serverData:networkCommonRespone_addedItems(ret)
-
-        do -- 출석 정보
-            self.m_structAttendanceDataList = {}
-            if ret['attendance_info'] then
-                for i,v in ipairs(ret['attendance_info']) do
-                    -- 이벤트성 출석 보상은 전부 수령후 제외 시킴
-                    if (v['atd_type'] ~= 'basic') and (v['received']) and (v['today_step'] == 7) then
-                        -- nothing to do
-                    else
-                        table.insert(self.m_structAttendanceDataList, StructAttendanceData(v))
-                    end
-                end
-            end
-        end
-
-        if finish_cb then
-            finish_cb(ret)
-        end
+    local function success_cb(ret)	
+		g_serverData:networkCommonRespone_addedItems(ret)
+		self:response_attendanceInfo(ret, finish_cb)
     end
 
     -- 네트워크 통신
@@ -85,6 +66,30 @@ function ServerData_Attendance:request_attendanceInfo(finish_cb, fail_cb)
     ui_network:setReuse(false)
     ui_network:request()
     return ui_network
+end
+
+-------------------------------------
+-- function response_attendanceInfo
+-------------------------------------
+function ServerData_Attendance:response_attendanceInfo(ret, finish_cb)
+    self.m_bDirtyAttendanceInfo = false
+
+	-- 출석 정보
+	self.m_structAttendanceDataList = {}
+    if ret['attendance_info'] then
+        for i,v in ipairs(ret['attendance_info']) do
+            -- 이벤트성 출석 보상은 전부 수령후 제외 시킴
+            if (v['atd_type'] ~= 'basic') and (v['received']) and (v['today_step'] == 7) then
+                -- nothing to do
+            else
+                table.insert(self.m_structAttendanceDataList, StructAttendanceData(v))
+            end
+        end
+    end
+
+    if finish_cb then
+        finish_cb(ret)
+    end
 end
 
 -------------------------------------

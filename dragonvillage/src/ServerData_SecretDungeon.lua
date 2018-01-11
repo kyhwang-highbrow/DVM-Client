@@ -9,6 +9,8 @@ ServerData_SecretDungeon = class({
         m_secretDungeonInfoMap = 'table(map)',
         m_bDirtySecretDungeonInfo = 'boolean',
 
+		m_bSecretDungeonExist = 'boolean',
+
         -- 선택된 던전ID
         m_selectedDungeonID = 'string',
     })
@@ -457,6 +459,13 @@ end
 -------------------------------------
 -- function isSecretDungeonExist
 -------------------------------------
+function ServerData_SecretDungeon:setSecretDungeonExist(b)
+	self.m_bSecretDungeonExist = b
+end
+
+-------------------------------------
+-- function isSecretDungeonExist
+-------------------------------------
 function ServerData_SecretDungeon:isSecretDungeonExist()
-    return (table.count(self.m_secretDungeonInfo) > 0)
+    return self.m_bSecretDungeonExist
 end

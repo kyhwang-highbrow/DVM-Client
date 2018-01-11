@@ -127,10 +127,7 @@ function ServerData_Forest:request_myForestInfo(finish_cb)
     
     -- 성공 콜백
     local function success_cb(ret)
-        self:applyForestInfo(ret)
-        if finish_cb then
-            finish_cb(ret)
-        end
+        self:response_forestInfo(ret, finish_cb)
     end
 
     -- 네트워크 통신
@@ -146,9 +143,9 @@ function ServerData_Forest:request_myForestInfo(finish_cb)
 end
 
 -------------------------------------
--- function applyForestInfo
+-- function response_forestInfo
 -------------------------------------
-function ServerData_Forest:applyForestInfo(t_ret)
+function ServerData_Forest:response_forestInfo(t_ret, finish_cb)
     -- 공용 드래곤의 숲 정보
     self.m_happyRate = t_ret['forest_info']['happy']
         
@@ -170,7 +167,11 @@ function ServerData_Forest:applyForestInfo(t_ret)
             struct_dragon.happy_at = t_dragon_info['happy_at']/1000 or 0
             self.m_tDragonStruct[doid] = struct_dragon
         end
-    end 
+    end
+
+	if finish_cb then
+        finish_cb(ret)
+    end
 end
 
 -------------------------------------
