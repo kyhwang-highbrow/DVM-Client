@@ -726,6 +726,11 @@ function UI_TitleScene:workGameLogin()
         -- server_info 정보를 갱신
         g_serverData:networkCommonRespone(ret)
 
+        -- QA 계정 통계비활성화
+        if (ret['qa'] ~= nil) and (ret['qa'] == true) then
+            Analytics:setEnable(false)
+        end
+
         -- 최초 로그인 상태 저장
         local first_login = ret['first_login'] or false
         FullPopupManager:setFirstLogin(first_login)

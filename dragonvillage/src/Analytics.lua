@@ -63,6 +63,24 @@ CUS_EVENT = {
 }
 
 -------------------------------------
+-- function setEnable
+-------------------------------------
+function Analytics:setEnable(enable)
+    self.m_enable = enalbe
+end
+
+-------------------------------------
+-- function getEnable
+-------------------------------------
+function Analytics:getEnable()
+    if (self.m_enable ~= nil) then
+        return self.m_enable
+    end
+
+    return true
+end
+
+-------------------------------------
 -- function userInfo
 -------------------------------------
 function Analytics:userInfo()
