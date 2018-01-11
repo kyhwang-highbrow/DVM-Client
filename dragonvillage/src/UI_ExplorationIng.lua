@@ -235,8 +235,12 @@ function UI_ExplorationIng:click_completeBtn()
 
     local function request()
         local function finish_cb(ret)
+            local close_cb = self.m_closeCB
+            self:setCloseCB(nil)
             self:close()
-            UI_ExplorationResultPopup(self.m_eprID, ret)
+
+            local ui = UI_ExplorationResultPopup(self.m_eprID, ret)
+            ui:setCloseCB(close_cb)
         end
 
         local epr_id = self.m_eprID
@@ -256,8 +260,12 @@ function UI_ExplorationIng:click_rewardBtn()
     local location_info, my_location_info, status = g_explorationData:getExplorationLocationInfo(self.m_eprID)
 
     local function finish_cb(ret)
+        local close_cb = self.m_closeCB
+        self:setCloseCB(nil)
         self:close()
-        UI_ExplorationResultPopup(self.m_eprID, ret)
+
+        local ui = UI_ExplorationResultPopup(self.m_eprID, ret)
+        ui:setCloseCB(close_cb)
     end
 
     local epr_id = self.m_eprID

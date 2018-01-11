@@ -186,6 +186,7 @@ end
 -------------------------------------
 function UI_ExplorationResultPopup:initButton()
     local vars = self.vars
+    vars['quickBtn']:registerScriptTapHandler(function() self:click_quickBtn() end)
     vars['okBtn']:registerScriptTapHandler(function() self:click_exitBtn() end)
 end
 
@@ -194,6 +195,70 @@ end
 -------------------------------------
 function UI_ExplorationResultPopup:refresh()
     local vars = self.vars
+end
+
+-------------------------------------
+-- function click_quickBtn
+-- @brief 바로 재시작 버튼
+-------------------------------------
+function UI_ExplorationResultPopup:click_quickBtn()
+    local modified_dragons = self.m_data['modified_dragons']
+    local selected_dragon_list = {}
+    for i,v in pairs(modified_dragons) do
+        local doid = v['id']
+        table.insert(selected_dragon_list, doid)
+    end
+
+    -- 인원 체크
+    if (table.count(modified_dragons) < 5) then
+        UIManager:toastNotificationRed(Str('탐험에는 5마리의 드래곤이 필요합니다.'))
+        return
+    end
+
+    local check_dragon_inven
+    local check_item_inven
+    local start_game
+
+    -- 드래곤 가방 확인(최대 갯수 초과 시 획득 못함)
+    check_dragon_inven = function()
+        local function manage_func()
+            UINavigator:goTo('dragon')
+        end
+        g_dragonsData:checkMaximumDragons(check_item_inven, manage_func)
+    end
+
+    -- 아이템 가방 확인(최대 갯수 초과 시 획득 못함)
+    check_item_inven = function()
+        local function manage_func()
+            UI_Inventory()
+        end
+        g_inventoryData:checkMaximumItems(start_game, manage_func)
+    end
+
+    
+    start_game = function()
+        local function request()
+            local function finish_cb(ret)
+                UIManager:toastNotificationGreen(Str('드래곤 5마리가 탐험을 떠났습니다.'))
+                self:close()
+
+                -- 덱 저장
+                local l_doid = g_settingData:setExplorationDec(self.m_eprID, selected_dragon_list)
+            end
+
+            -- params
+            local epr_id = self.m_eprID
+            local doids = listToCsv(selected_dragon_list)
+
+            g_explorationData:request_explorationStart(epr_id, doids, finish_cb)
+        end
+
+        
+        --MakeSimplePopup(POPUP_TYPE.YES_NO, Str('드래곤 5마리를 탐험을 보내시겠습니까?'), request)
+        request() -- 2018-01-11 sgkim 확인 팝업이 불필요한 뎁스라고 느껴져서 제거
+    end
+
+    check_dragon_inven()
 end
 
 -------------------------------------

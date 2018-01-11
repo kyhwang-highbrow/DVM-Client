@@ -346,7 +346,9 @@ function UI_ExplorationReady:click_explorationBtn()
             g_explorationData:request_explorationStart(epr_id, doids, finish_cb)
         end
 
-        MakeSimplePopup(POPUP_TYPE.YES_NO, Str('드래곤 5마리를 탐험을 보내시겠습니까?'), request)
+        
+        --MakeSimplePopup(POPUP_TYPE.YES_NO, Str('드래곤 5마리를 탐험을 보내시겠습니까?'), request)
+        request() -- 2018-01-11 sgkim 확인 팝업이 불필요한 뎁스라고 느껴져서 제거
     end
 
     check_dragon_inven()
