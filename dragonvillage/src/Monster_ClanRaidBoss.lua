@@ -82,6 +82,9 @@ function Monster_ClanRaidBoss:updateBonePos(dt)
             self.m_castingNode:setPosition(offset_x, offset_y)
         end
     end
+
+    -- 본 위치가 이동하면 physworld의 위치정보도 갱신시켜야함
+    self.m_dirtyPos = true
 end
 
 -------------------------------------
