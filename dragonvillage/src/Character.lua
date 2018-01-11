@@ -1066,6 +1066,11 @@ function Character:setDamage(attacker, defender, i_x, i_y, damage, t_info)
     -- @LOG : 유저 드래곤이 총 받은 피해
     if (self.m_bLeftFormation) then
         self.m_world.m_logRecorder:recordLog('total_damage_to_hero', damage)
+
+    -- @LOG : 적군이 총 받은 피해
+    else
+        self.m_world.m_logRecorder:recordLog('total_damage_to_enemy', damage)
+
     end
 
     -----------------------------------------------------------------
@@ -1539,6 +1544,7 @@ function Character:setHp(hp, bFixed)
         if (self:isZeroHp()) then return end
     end
 
+    local prev_hp = self.m_hp
     self.m_hp = math_min(hp, self.m_maxHp)
 
     if (not bFixed and self.m_isImmortal) then
@@ -1552,6 +1558,7 @@ function Character:setHp(hp, bFixed)
     -- 리스너에 전달
 	local t_event = clone(EVENT_CHANGE_HP_CARRIER)
 	t_event['owner'] = self
+    t_event['prev_hp'] = prev_hp
 	t_event['hp'] = self.m_hp
 	t_event['max_hp'] = self.m_maxHp
     t_event['hp_rate'] = self.m_hpRatio

@@ -15,8 +15,8 @@ StructClanRaid = class(PARENT, {
         stage = 'string', -- STAGE_ID : 150000
         finalblow = 'boolean', -- 파이널블로우 상태
 
-        hp = 'number',
-        max_hp = 'number',
+        hp = 'SecurityNumberClass',
+        max_hp = 'SecurityNumberClass',
 
         remain_time = 'number',
         rank_list = 'list',
@@ -52,6 +52,10 @@ function StructClanRaid:applyTableData(data)
             for _, user_data in ipairs(self.rank_list) do
                 user_data:setContribution(total_score)
             end
+
+        elseif (key == 'hp' or key == 'max_hp') then
+            self[key] = SecurityNumberClass(v)
+
         else
             self[key] = v
         end
@@ -71,10 +75,10 @@ function StructClanRaid:setState()
     if (player and player['uid'] ~= g_userData:get('uid')) then
         state = CLAN_RAID_STATE.CHALLENGE
 
-    elseif (self['finalblow'] == true) and (self['hp'] > 0) then
+    elseif (self['finalblow'] == true) and (self['hp']:get() > 0) then
         state = CLAN_RAID_STATE.FINALBLOW
 
-    elseif (self['hp'] <= 0) then
+    elseif (self['hp']:get() <= 0) then
         state = CLAN_RAID_STATE.CLEAR
     end
 
@@ -157,21 +161,21 @@ end
 -- function getHp
 -------------------------------------
 function StructClanRaid:getHp()
-    return self['hp']
+    return self['hp']:get()
 end
 
 -------------------------------------
 -- function getMaxHp
 -------------------------------------
 function StructClanRaid:getMaxHp()
-    return self['max_hp']
+    return self['max_hp']:get()
 end
 -------------------------------------
 -- function getHpRate
 -------------------------------------
 function StructClanRaid:getHpRate()
-    local curr_hp = math_max(self['hp'], 0)
-    local max_hp = self['max_hp']
+    local curr_hp = math_max(self['hp']:get(), 0)
+    local max_hp = self['max_hp']:get()
     return (curr_hp/max_hp) * 100
 end
 

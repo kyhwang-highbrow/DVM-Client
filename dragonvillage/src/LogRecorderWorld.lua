@@ -32,6 +32,9 @@ LogRecorderWorld = class(PARENT, {
 
         -- 기획 밸런스 테스트를 위한 것
         m_totalDamageToHero = 'number', -- 영웅이 받은 총피해(로그 표시마다 초기화 시킴)
+
+        -- 클랜던전에서 총피해량을 맞춰보기 위해서 사용
+        m_totalDamageToEnemy = 'number',-- 적군이 받은 총피해(로그 표시마다 초기화 시킴)
      })
 
 -------------------------------------
@@ -48,6 +51,7 @@ function LogRecorderWorld:init(world)
     self.m_attackCnt = 0
     self.m_dropItemCnt = 0
     self.m_totalDamageToHero = 0
+    self.m_totalDamageToEnemy = 0
 
 	self.m_bossFinishAtk = nil
 
@@ -168,6 +172,9 @@ function LogRecorderWorld:recordLog(key, value)
     elseif (key == 'total_damage_to_hero') then
 		self.m_totalDamageToHero = self.m_totalDamageToHero + value
 
+    elseif (key == 'total_damage_to_enemy') then
+		self.m_totalDamageToEnemy = self.m_totalDamageToEnemy + value
+
 	else
 		error('정의 되지 않은 키 : ' .. key)
 	end
@@ -227,6 +234,9 @@ function LogRecorderWorld:getLog(key)
 
     elseif (key == 'total_damage_to_hero') then
 		return self.m_totalDamageToHero
+
+    elseif (key == 'total_damage_to_enemy') then
+		return self.m_totalDamageToEnemy
 
     else
 		return 0

@@ -3,10 +3,7 @@ local PARENT = Monster
 -------------------------------------
 -- class Monster_ClanRaidBoss
 -------------------------------------
-Monster_ClanRaidBoss = class(PARENT, {
-        m_hpCount = '',
-        m_maxHpCount = '',
-     })
+Monster_ClanRaidBoss = class(PARENT, {})
 
 -------------------------------------
 -- function init
@@ -15,9 +12,6 @@ Monster_ClanRaidBoss = class(PARENT, {
 -------------------------------------
 function Monster_ClanRaidBoss:init(file_name, body, ...)
     self.m_bUseCastingEffect = false
-
-    self.m_hpCount = 0
-    self.m_maxHpCount = 0
 end
 
 -------------------------------------
@@ -100,15 +94,10 @@ function Monster_ClanRaidBoss:setStatusCalc(status_calc)
         -- 외부로부터 현재체력과 최대체력 정보를 얻어서 세팅
         local game_state = self.m_world.m_gameState
 
-        self.m_hpCount = game_state.m_bossHpCount
-        self.m_maxHpCount = game_state.m_bossMaxHpCount
-        self.m_hpCount = math_min(self.m_hpCount, self.m_maxHpCount)
-
-        self.m_hp = self.m_world.m_gameState.m_bossHp
-        self.m_maxHp = self.m_world.m_gameState.m_bossMaxHp
+        self.m_maxHp = game_state.m_bossMaxHp:get()
+        self.m_hp = game_state.m_bossHp:get()
         self.m_hp = math_min(self.m_hp, self.m_maxHp)
         
-        --self.m_hpRatio = self.m_hpCount / self.m_maxHpCount
         self.m_hpRatio = self.m_hp / self.m_maxHp
 
         local indivisual_status = self.m_statusCalc.m_lStatusList['hp']
@@ -206,64 +195,12 @@ function Monster_ClanRaidBoss:makeResistanceFont(x, y, scale)
 end
 
 -------------------------------------
--- function setHp
--------------------------------------
-function Monster_ClanRaidBoss:setHp(hp, bFixed)
-	-- 죽었을시 탈출
-    if (not bFixed) then
-	    if (self:isDead()) then return end
-        if (self:isZeroHp()) then return end
-    end
-
-    while (hp <= 0) do
-        if (self.m_hpCount > 0) then
-            hp = hp + self.m_maxHp
-            self.m_hpCount = self.m_hpCount - 1
-        else
-            hp = 0
-            self.m_hpCount = 0
-            break
-        end
-    end
-
-    self.m_hp = math_min(hp, self.m_maxHp)
-
-    if (self.m_isImmortal) then
-        self.m_hp = math_max(self.m_hp, 1)
-    else
-        self.m_hp = math_max(self.m_hp, 0)
-    end
-        
-    self.m_hpRatio = self.m_hp / self.m_maxHp
-
-    -- 리스너에 전달
-	local t_event = clone(EVENT_CHANGE_HP_CARRIER)
-	t_event['owner'] = self
-	t_event['hp'] = self.m_hp
-	t_event['max_hp'] = self.m_maxHp
-    t_event['hp_rate'] = self.m_hpRatio
-
-    self:dispatch('character_set_hp', t_event, self)
-
-    -- 체력바 가감 연출
-    if (self.m_hpGauge) then
-        self.m_hpGauge:setScaleX(self.m_hpRatio)
-    end
-	if (self.m_hpGauge2) then
-        local action = cc.Sequence:create(cc.DelayTime:create(0.2), cc.ScaleTo:create(0.5, self.m_hpRatio, 1))
-        self.m_hpGauge2:runAction(cc.EaseIn:create(action, 2))
-    end
-end
-
--------------------------------------
 -- function syncHp
 -------------------------------------
-function Monster_ClanRaidBoss:syncHp(hp_count, hp)
+function Monster_ClanRaidBoss:syncHp(hp)
     if (self:isDead()) then return end
 
-    self.m_hpCount = math_min(hp_count, self.m_maxHpCount)
     self.m_hp = math_min(hp, self.m_maxHp)
-    --self.m_hpRatio = self.m_hpCount / self.m_maxHpCount
     self.m_hpRatio = self.m_hp / self.m_maxHp
 
     -- 체력바 가감 연출

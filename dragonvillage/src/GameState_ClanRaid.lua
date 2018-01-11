@@ -12,10 +12,6 @@ GameState_ClanRaid = class(PARENT, {
         m_orgBossHp = 'number',
         m_bossHp = 'number',
         m_bossMaxHp = 'number',
-
-        m_bossHpCount = 'number',
-        m_bossMaxHpCount = 'number',
-
         m_totalDamage = 'number',
 
         m_uiBossHp = 'UI_IngameBossHp',
@@ -26,22 +22,26 @@ GameState_ClanRaid = class(PARENT, {
 -------------------------------------
 function GameState_ClanRaid:init(world)
     self.m_bgmBoss = 'bgm_dungeon_boss'
-    --self.m_limitTime = 300
 
     -- 체력 설정
+    local max_hp
+    local hp
+
     local struct_raid = g_clanRaidData:getClanRaidStruct()
     if (struct_raid) then
-        self.m_bossMaxHp = struct_raid:getMaxHp()
-        self.m_bossHp = struct_raid:getHp()
-    else
-        self.m_bossMaxHp = 10000000000
-        self.m_bossHp = 500000
+        max_hp = struct_raid:getMaxHp()
+        hp = struct_raid:getHp()
+
+    elseif (IS_TEST_MODE()) then
+        max_hp = 10000000000
+        hp = 500000
+
     end
 
-    self.m_bossMaxHpCount = 0
-    self.m_bossHpCount = 0
-    self.m_orgBossHp = self.m_bossHp
-    self.m_totalDamage = 0
+    self.m_bossMaxHp = SecurityNumberClass(max_hp, false)
+    self.m_bossHp = SecurityNumberClass(hp, false)
+    self.m_orgBossHp = SecurityNumberClass(hp, false)
+    self.m_totalDamage = SecurityNumberClass(0, false)
 end
 
 -------------------------------------
@@ -67,7 +67,7 @@ function GameState_ClanRaid:updateFightTimer(dt)
     -- 플레이 시간 계산
     self.m_fightTimer = self.m_fightTimer + dt
 
-    -- 제한 시간은 게임 씬에서 처리
+    -- 제한 시간은 게임 씬에서 처리함(일시정지에 영향을 받지 않는 시간이기 때문)
 end
 
 -------------------------------------
@@ -273,7 +273,7 @@ end
 function GameState_ClanRaid:makeResultUI(is_success)
     self.m_world:setGameFinish()
 
-    local total_damage = math_floor(self.m_totalDamage)
+    local total_damage = self.m_totalDamage:get()
     
     -- 작업 함수들
     local func_network_game_finish
@@ -379,27 +379,6 @@ function GameState_ClanRaid:checkWaveClear(dt)
 end
 
 -------------------------------------
--- function checkWaveClear
--------------------------------------
-function GameState_ClanRaid:checkWaveClear(dt)
-    if (self.m_bossHp <= 0) then
-        self.m_waveClearTimer = self.m_waveClearTimer + dt
-
-        if (self.m_waveClearTimer > 0.5) then
-            self.m_waveClearTimer = 0
-
-            self:changeState(GAME_STATE_SUCCESS_WAIT)
-
-            return true
-        end
-    else
-        self.m_waveClearTimer = 0
-    end
-
-    return false
-end
-
--------------------------------------
 -- function doDirectionForIntermission
 -------------------------------------
 function GameState_ClanRaid:doDirectionForIntermission()
@@ -420,21 +399,20 @@ end
 -- function setTotalDamage
 -------------------------------------
 function GameState_ClanRaid:setTotalDamage(total_damage)
-    self.m_totalDamage = total_damage
-    self.m_totalDamage = math_max(self.m_totalDamage, 0)
+    local total_damage = math_floor(math_max(total_damage, 0))
+    self.m_totalDamage:set(total_damage)
 
-    self.m_world.m_inGameUI:setTotalDamage(self.m_totalDamage)
+    self.m_world.m_inGameUI:setTotalDamage(total_damage)
 end
 
 -------------------------------------
 -- function setBossHp
 -------------------------------------
-function GameState_ClanRaid:setBossHp(hp_count, hp)
-    self.m_bossHpCount = hp_count
-    self.m_bossHp = hp
+function GameState_ClanRaid:setBossHp(hp)
+    self.m_bossHp:set(hp)
 
     for _, boss in ipairs(self.m_world.m_waveMgr.m_lBoss) do
-        boss:syncHp(hp_count, hp)
+        boss:syncHp(hp)
     end
 end
 
@@ -447,13 +425,21 @@ function GameState_ClanRaid:onEvent(event_name, t_event, ...)
 
     -- 보스 체력 공유 처리
     if (event_name == 'character_set_hp') then
-        local hp = t_event['hp']
+        local prev_hp = t_event['prev_hp']
+        local new_hp = t_event['hp']
+
+        -- 이전 체력이 동일한지 검사
+        local safed_hp = self.m_bossHp:get()
+        if (prev_hp ~= safed_hp) then
+            new_hp = safed_hp
+        end
+
+        -- 현재 체력 정보 갱신
+        self:setBossHp(new_hp)
 
         -- 총 데미지 갱신(정확히는 체력을 깍은 양)
-        self:setTotalDamage(self.m_orgBossHp - hp)
-        
-        -- 남은 체력 저장
-        self:setBossHp(self.m_bossHpCount, hp)
+        local total_damage = self.m_orgBossHp:get() - new_hp
+        self:setTotalDamage(total_damage)
     end
 end
 
