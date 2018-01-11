@@ -136,6 +136,10 @@ function UI_ReadySceneNew_Deck:onChangeOption()
         local sprite = vars[mode .. 'RadioSprite']
         sprite:setVisible(true)
 
+        local team_name = g_clanRaidData:getTeamName(mode)
+        local msg = Str('{1}가 수동전투 가능상태로 설정되었습니다.', team_name)
+        UIManager:toastNotificationGreen(msg)
+
         g_clanRaidData:setMainDeck(mode)
     end
 

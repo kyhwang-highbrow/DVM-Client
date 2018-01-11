@@ -212,6 +212,7 @@ function UI_ClanRaid:initRaidInfo()
     local vars = self.vars
     local struct_raid = g_clanRaidData:getClanRaidStruct()
     local stage_id = struct_raid:getStageID()
+    local state = struct_raid:getState()
 
     -- 종료 시간
     local status_text = g_clanRaidData:getClanRaidStatusText()
@@ -225,7 +226,7 @@ function UI_ClanRaid:initRaidInfo()
     for _, mid in ipairs(l_monster) do
         local res, attr, evolution = TableMonster:getMonsterRes(mid)
         animator = AnimatorHelper:makeMonsterAnimator(res, attr, evolution)
-        animator:changeAni('idle', true)
+        
         if (animator) then
             local zOrder = WORLD_Z_ORDER.BOSS
             local idx = getDigit(mid, 10, 1)
@@ -237,6 +238,14 @@ function UI_ClanRaid:initRaidInfo()
                 zOrder = WORLD_Z_ORDER.BOSS + 1 + 7 - idx
             end
             boss_node:addChild(animator.m_node, zOrder)
+
+            -- 클리어한 경우 회색 처리
+            if (state == CLAN_RAID_STATE.CLEAR) then
+                animator:setAnimationPause(true)
+                animator:setBaseShader(SHADER_GRAY)
+            else
+                animator:changeAni('idle', true)
+            end
         end
     end
 
@@ -302,6 +311,12 @@ function UI_ClanRaid:showDungeonStateUI()
     -- 클리어한 상태
     elseif (state == CLAN_RAID_STATE.CLEAR) then
         noti_visual:changeAni('clear', true)
+
+        noti_visual.m_node:setScale(1.3)
+        local act1 = cc.EaseInOut:create(cc.ScaleTo:create(0.1, 0.95), 2)
+        local act2 = cc.EaseInOut:create(cc.ScaleTo:create(0.1, 1.0), 2)
+        local action = cc.Sequence:create(act1, act2)
+        noti_visual:runAction(action)
     end
 end
 

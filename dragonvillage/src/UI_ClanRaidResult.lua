@@ -18,7 +18,7 @@ UI_ClanRaidResult = class(UI, {
      })
 
 local ITEM_CARD_SCALE = 0.65
-
+local ANI_DURATION = 0.2 -- 아이템 카드 보여주는 애니메이션 속도
 -------------------------------------
 -- function init
 -- @param file_name
@@ -236,7 +236,7 @@ end
 -- @brief 아이템 팡팡 박히는 애니메이션
 -------------------------------------
 function UI_ClanRaidResult:show_item_reward(reward_menu)
-    local ani_duration = 0.5    
+    local ani_duration = ANI_DURATION    
     local ani_interval = 0.0
 
     -- 아이템 카드 보여주는 액션
@@ -281,7 +281,7 @@ function UI_ClanRaidResult:setItemCardRarity(item_card, grade)
 		rarity_effect:setScale(1.7)
 		rarity_effect:setAlpha(0)
 		item_card.root:addChild(rarity_effect.m_node)
-        rarity_effect.m_node:runAction(cc.FadeIn:create(0.5))
+        rarity_effect.m_node:runAction(cc.FadeIn:create(ANI_DURATION))
 	end
 end
 
