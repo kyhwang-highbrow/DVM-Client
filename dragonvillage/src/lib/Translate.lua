@@ -154,9 +154,9 @@ function Translate:a2dTranslate(full_path)
     local path, file_name, extension = self:getFileNameInfo(full_path)
     local typo_plist_path = string.format('res/%stypo/%s/%s.plist', path, game_lang, file_name)
 
-    -- 번역본 텍스트가 없을 경우 kr버전으로 나오도록 처리
+    -- 번역본 텍스트가 없을 경우 ko버전으로 나오도록 처리
     if (not LuaBridge:isFileExist(typo_plist_path)) then
-        typo_plist_path = string.format('res/%stypo/kr/%s.plist', path, file_name)
+        typo_plist_path = string.format('res/%stypo/ko/%s.plist', path, file_name)
         if (not LuaBridge:isFileExist(typo_plist_path)) then
             return
         end
@@ -187,7 +187,7 @@ function Translate:getTranslatedPath(full_path)
 
     -- 대상 언어의 경로로 변환
 	local game_lang = Translate:getGameLang()
-	local translated_path = string.gsub(full_path, 'typo/kr', 'typo/' .. game_lang)
+	local translated_path = string.gsub(full_path, 'typo/ko', 'typo/' .. game_lang)
 
     -- 해당 경로에 파일이 없다면 기존 경로를 반환
 	if (not LuaBridge:isFileExist('res/' .. translated_path)) then
