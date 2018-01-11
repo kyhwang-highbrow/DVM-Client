@@ -12,9 +12,10 @@ StructUserInfoClanRaid = class(PARENT, {
         m_nickname = 'string',
         m_leaderDragonObject = '',
 
-        m_score = 'number',      -- score
-        m_rank = 'number',       -- 월드 랭킹
-        m_rankPercent = 'float', -- 월드 랭킹 퍼센트
+        m_score = 'number',        -- score
+        m_rank = 'number',         -- 월드 랭킹
+        m_contribution = 'number', -- 기여도
+        m_rankPercent = 'float',   -- 월드 랭킹 퍼센트
     })
 
 -------------------------------------
@@ -56,11 +57,36 @@ function StructUserInfoClanRaid:applyTableData(data)
 end
 
 -------------------------------------
+-- function setContribution
+-- @brief 기여도 계산 (서버에서 주면 좋지만 유저별로 다 계산해서 주기 어렵다며 클라에서 계산하라 함)
+-------------------------------------
+function StructUserInfoClanRaid:setContribution(total_score)
+    self.m_contribution = (self.m_score/total_score * 100)
+end
+
+-------------------------------------
+-- function getContribution
+-- @brief 기여도 반환
+-------------------------------------
+function StructUserInfoClanRaid:getContribution()
+    return self.m_contribution  or 0
+end
+
+-------------------------------------
+-- function getLvText
+-- @brief
+-------------------------------------
+function StructUserInfoClanRaid:getLvText()
+    local str = Str('Lv.{1}', self.m_lv)
+    return str
+end
+
+-------------------------------------
 -- function getUserText
 -- @brief
 -------------------------------------
 function StructUserInfoClanRaid:getUserText()
-    local str = Str('Lv.{1} : {2}', self.m_lv, self.m_nickname)
+    local str = Str('{1}', self.m_nickname)
     return str
 end
 
@@ -84,5 +110,14 @@ function StructUserInfoClanRaid:getScoreText()
     -- 서버에서 스코어 없을때 -1로 옴
     local score = math_max(self.m_score, 0)
     local text = Str('{1}점', comma_value(score))
+    return text
+end
+
+-------------------------------------
+-- function getContributionText
+-- @brief
+-------------------------------------
+function StructUserInfoClanRaid:getContributionText()
+    local text = (self.m_contribution == 100) and '100%' or string.format('%.2f%%', self.m_contribution)
     return text
 end

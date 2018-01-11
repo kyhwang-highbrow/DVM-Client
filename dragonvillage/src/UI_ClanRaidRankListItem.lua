@@ -29,8 +29,12 @@ function UI_ClanRaidRankListItem:initUI()
     -- 점수 표시
     vars['damageLabel']:setString(t_rank_info:getScoreText())
 
-    -- 유저 정보 표시 (레벨, 닉네임)
+    -- 유저 정보 표시 
+    vars['levelLabel']:setString(t_rank_info:getLvText())
     vars['nameLabel']:setString(t_rank_info:getUserText())
+
+    -- 기여도 
+    vars['percentLabel']:setString(t_rank_info:getContributionText())
 
     -- 순위  
     local rank = t_rank_info.m_rank

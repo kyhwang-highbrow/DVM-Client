@@ -66,6 +66,20 @@ end
 -------------------------------------
 function UI_ClanRaid:checkEnterEvent()
     -- 클랜던전 주간 보상이 있을 경우 여기서 처리
+    if (g_clanRaidData.m_tClanRewardInfo) then
+        local t_info = g_clanRaidData.m_tClanRewardInfo
+        local is_clan = true
+
+        if (ui) then
+            ui:setCloseCB(function()
+                UI_ClanRaidRankingRewardPopup(t_info, is_clan)
+            end)
+        else
+            UI_ClanRaidRankingRewardPopup(t_info, is_clan)
+        end
+
+        g_clanRaidData.m_tClanRewardInfo = nil
+    end
 end
 
 -------------------------------------
@@ -90,22 +104,6 @@ function UI_ClanRaid:initUI()
     -- 클랜 이름
     local clan_name = struct_clan:getClanName()
     vars['clanLabel']:setString(clan_name)
-
-    -- 클랜 보상 팝업 (보상이 있다면)
-    if (g_clanRaidData.m_tClanRewardInfo) then
-        local t_info = g_clanRaidData.m_tClanRewardInfo
-        local is_clan = true
-
-        if (ui) then
-            ui:setCloseCB(function()
-                UI_ClanRaidRankingRewardPopup(t_info, is_clan)
-            end)
-        else
-            UI_ClanRaidRankingRewardPopup(t_info, is_clan)
-        end
-
-        g_clanRaidData.m_tClanRewardInfo = nil
-    end
 end
 
 -------------------------------------

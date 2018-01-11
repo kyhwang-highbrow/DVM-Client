@@ -42,9 +42,15 @@ function StructClanRaid:applyTableData(data)
         if (key == 'scores') then
             self.rank_list = {}
             local rank_list = v
+            local total_score = 0
             for _, user_data in ipairs(rank_list) do
                 local user_info = StructUserInfoClanRaid:create_forRanking(user_data)
+                total_score = total_score + user_info.m_score
                 table.insert(self.rank_list, user_info)
+            end
+
+            for _, user_data in ipairs(self.rank_list) do
+                user_data:setContribution(total_score)
             end
         else
             self[key] = v

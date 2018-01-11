@@ -360,6 +360,10 @@ function ServerData_ClanRaid:setRewardInfo(ret)
     -- 클랜
     if (ret['last_clan_info']) then
         self.m_tClanRewardInfo = {}
+
+        -- 최종 순위 유저 정보
+        self.m_tClanRewardInfo['user_info'] = StructUserInfoClanRaid:create_forRanking(ret['last_scores'][1])
+        self.m_tClanRewardInfo['contribution'] = ret['ratio'] 
         self.m_tClanRewardInfo['rank'] = StructClanRank(ret['last_clan_info'])
         self.m_tClanRewardInfo['reward_info'] = ret['reward_clan_info']
     end
@@ -397,9 +401,17 @@ function ServerData_ClanRaid:request_info(stage_id, cb_func)
         local rank_list = ret['scores']
         if (rank_list) then
             self.m_lRankList = {}
+
+            local total_score = 0
+
             for _, user_data in ipairs(rank_list) do
                 local user_info = StructUserInfoClanRaid:create_forRanking(user_data)
+                total_score = total_score + user_info.m_score
                 table.insert(self.m_lRankList, user_info)
+            end
+
+            for _, user_data in ipairs(self.m_lRankList) do
+                user_data:setContribution(total_score)
             end
         end
         

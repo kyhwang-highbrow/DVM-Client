@@ -88,6 +88,14 @@ function UI_ClanRaidRankingRewardPopup:initUI(t_info, is_clan)
             vars['rewardSprite2']:setPositionX(68)
         end
     end
+
+    -- 내 최종 순위
+    local user_info = t_info['user_info']
+    local contribution = t_info['contribution']
+    user_info.m_contribution = contribution * 100
+
+    local ui = UI_ClanRaidRankListItem(user_info)
+    vars['myRankNode']:addChild(ui.root)
 end
 
 -------------------------------------
