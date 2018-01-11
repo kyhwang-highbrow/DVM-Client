@@ -43,18 +43,21 @@ function UI_BattleMenuItem:initUI()
 
     local content_type = self.m_contentType
 
+    self.root:setSwallowTouch(false)
+    vars['swallowTouchMenu']:setSwallowTouch(false)
+
     -- 컨텐츠에 따라 사용하는 레이아웃이 다름
     if isExistValue(content_type, 'adventure', 'exploation', 'colosseum', 'ancient', 'attr_tower') then
-        vars['itemMenu1']:setVisible(true)
-        vars['itemMenu2']:setVisible(false)
+        vars['enterBtn1']:setVisible(true)
+        vars['enterBtn2']:setVisible(false)
 
         vars['enterBtn'] = vars['enterBtn1']
         vars['itemVisual'] = vars['itemVisual1']
         vars['titleLabel'] = vars['titleLabel1']
         vars['dscLabel'] = vars['dscLabel1']
     else
-        vars['itemMenu1']:setVisible(false)
-        vars['itemMenu2']:setVisible(true)
+        vars['enterBtn1']:setVisible(false)
+        vars['enterBtn2']:setVisible(true)
 
         vars['enterBtn'] = vars['enterBtn2']
         vars['itemVisual'] = vars['itemVisual2']
@@ -120,6 +123,8 @@ function UI_BattleMenuItem:refresh()
     elseif (content_type == 'secret_relation') then
         has_noti = g_secretDungeonData:isSecretDungeonExist()
 
+    elseif (content_type == 'clan_raid') then
+        has_noti = false
     end
 
     if (has_noti) then
@@ -162,6 +167,10 @@ function UI_BattleMenuItem:getDescStr(content_type)
     -- 인연 던전
     elseif (content_type == 'secret_relation') then
         desc = Str('인연포인트 획득 가능')
+
+    -- 클랜 던전
+    elseif (content_type == 'clan_raid') then
+        desc = Str('클랜 던전')
     end
 
     return desc
@@ -213,5 +222,9 @@ function UI_BattleMenuItem:click_enterBtn()
     -- 인연 던전
     elseif (content_type == 'secret_relation') then
         UINavigator:goTo('secret_relation')
+
+    -- 클랜 던전
+    elseif (content_type == 'clan_raid') then
+        UINavigator:goTo('clan_raid')
     end
 end

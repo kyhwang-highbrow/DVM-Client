@@ -235,30 +235,54 @@ function UI_BattleMenu:initDungeonTab()
     local vars = self.vars
 
     local l_btn_ui = {}
+    local l_item = {}
+    table.insert(l_item, 'nest_tree') -- 거목 던전
+    table.insert(l_item, 'nest_evo_stone') -- 진화재료 던전
 
-    -- 거목 던전
-    local ui = UI_BattleMenuItem('nest_tree')
-    ui.root:setPosition(-472, -94)
-    vars['dungeonMenu']:addChild(ui.root)
-    table.insert(l_btn_ui, {['ui']=ui, ['x']=-472, ['y']=-94})
+    -- 클랜 던전은 클랜 가입시에만 오픈
+    if (not g_clanData:isClanGuest()) then
+        table.insert(l_item, 'clan_raid') -- 클랜 던전
+    end
 
-    -- 진화재료 던전
-    local ui = UI_BattleMenuItem('nest_evo_stone')
-    ui.root:setPosition(-158, -94)
-    vars['dungeonMenu']:addChild(ui.root)
-    table.insert(l_btn_ui, {['ui']=ui, ['x']=-158, ['y']=-94})
+    table.insert(l_item, 'nest_nightmare') -- 악몽 던전
+    table.insert(l_item, 'secret_relation') -- 인연 던전
 
-    -- 악몽 던전
-    local ui = UI_BattleMenuItem('nest_nightmare')
-    ui.root:setPosition(158, -94)
-    vars['dungeonMenu']:addChild(ui.root)
-    table.insert(l_btn_ui, {['ui']=ui, ['x']=158, ['y']=-94})
+    -- 메뉴 아이템 x축 간격
+    local interval_x = 312
 
-    -- 인연 던전
-    local ui = UI_BattleMenuItem('secret_relation')
-    ui.root:setPosition(472, -94)
-    vars['dungeonMenu']:addChild(ui.root)
-    table.insert(l_btn_ui, {['ui']=ui, ['x']=472, ['y']=-94})
+    -- 스크롤 뷰로 변경됨
+    -- 테이블 뷰로 생성할 경우 테이블 뷰 액션과 꼬임.
+    local scroll_node = vars['dungeonNode']
+    local size = scroll_node:getContentSize()
+    local target_size = cc.size(interval_x * #l_item + 10, size.height)
+    ccdump(target_size)
+    local scroll_view = cc.ScrollView:create()
+    scroll_view:setNormalSize(size)
+    scroll_view:setContentSize(target_size)
+    scroll_view:setDockPoint(ZERO_POINT)
+    scroll_view:setAnchorPoint(ZERO_POINT)
+    scroll_view:setPosition(ZERO_POINT)
+    scroll_view:setDirection(cc.SCROLLVIEW_DIRECTION_HORIZONTAL)
+    scroll_node:addChild(scroll_view)
+
+    -- 메뉴 아이템 시작점
+    local pos_y = -20
+    for idx, target in ipairs(l_item) do
+        local ui = UI_BattleMenuItem(target)
+        local pos_x = -size.width/2 + interval_x * (idx - 1)
+        ui.root:setPosition(pos_x, pos_y)
+        ui.root:setSwallowTouch(false)
+        scroll_view:addChild(ui.root)
+        table.insert(l_btn_ui, {['ui']=ui, ['x']=pos_x, ['y']=pos_y})
+    end
+
+    -- 중앙포지션 설정
+    local container_node = scroll_view:getContainer()
+    local center_pos = size.width - (interval_x * #l_item) + interval_x/2
+    container_node:setPositionX(center_pos)    
+    
+    -- 메뉴아이템 5개부터만 스크롤 가능하게 수정
+    scroll_view:setTouchEnabled(#l_item > 4)
 
     self.m_lDungeonBtnUI = l_btn_ui
 end
@@ -338,6 +362,13 @@ function UI_BattleMenu:resetButtonsPosition()
     elseif (tab == 'competition') then
         self:runBtnAppearAction(self.m_lCompetitionBtnUI, true) -- param : l_btn_ui, immediately
     end
+end
+
+-------------------------------------
+-- function scrollViewDidScroll
+-------------------------------------
+function UI_BattleMenu:scrollViewDidScroll()
+    
 end
 
 --@CHECK
