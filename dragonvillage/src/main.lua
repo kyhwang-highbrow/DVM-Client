@@ -51,6 +51,7 @@ function __G__TRACKBACK__(msg)
 end
 
 local GAME_RESTART_TIME = 0
+local BACKGROUND_TIME = 0
 
 -------------------------------------
 -- function applicationDidEnterBackground
@@ -61,6 +62,7 @@ function applicationDidEnterBackground()
 
     -- 백그라운드에서 30분간 있을 경우 재시작
     GAME_RESTART_TIME = os.time() + 1800
+    BACKGROUND_TIME = os.time() + 0.5
 
     if (g_accessTimeData) then
         g_accessTimeData:setRecordTime(false)
@@ -93,7 +95,10 @@ function applicationWillEnterForeground()
     end
 
     if (g_gameScene) then
-        g_gameScene:applicationWillEnterForeground()
+        -- 0.5초 이내에 돌아왔을 경우 skip
+        if (0 < BACKGROUND_TIME) and (BACKGROUND_TIME < os.time()) then
+            g_gameScene:applicationWillEnterForeground()
+        end
     end
 end
 
