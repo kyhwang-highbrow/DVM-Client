@@ -248,19 +248,19 @@ def main():
     r = requests.get(TOOL_SERVER_PATH + '/upload_patch_dv')
     
     # 플랫폼 서버에 패치 정보 전달
-	print('# [platform] add patch info')
-	zip_path = '%s/patch_%d.zip' % (dst_forder, new_patch_ver)
-	zip_md5 = md5_log_maker.file2md5(zip_file)
-	zip_size = os.path.getsize(zip_file)
-	data = {
-		'app_ver': app_ver,
-		'version' : new_patch_ver,
-		'name' : zip_path,
-		'md5' : zip_md5,
-		'size' : zip_size
-	}
-	print data
-	r = requests.post(PLATFORM_SERVER_PATH + '/versions/addPatchInfo', data = data)
+    print('# [platform] add patch info')
+    zip_path = '%s/patch_%d.zip' % (dst_forder, new_patch_ver)
+    zip_md5 = md5_log_maker.file2md5(zip_file)
+    zip_size = os.path.getsize(zip_file)
+    data = {
+        'app_ver': app_ver,
+        'version' : new_patch_ver,
+        'name' : zip_path,
+        'md5' : zip_md5,
+        'size' : zip_size
+    }
+    print data
+    r = requests.post(PLATFORM_SERVER_PATH + '/versions/addPatchInfo', data = data)
 
     print "###################################"
     print "done"
