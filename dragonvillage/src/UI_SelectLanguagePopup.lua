@@ -62,7 +62,6 @@ function UI_SelectLanguagePopup:initButton()
 
 		-- 현재 언어가 있는 경우에만 선택
 		local curr_lang = Translate:getGameLang()
-		ccdisplay(curr_lang)
 		if (curr_lang) then
 			radio_button:setSelectedButton(curr_lang)
 		end
