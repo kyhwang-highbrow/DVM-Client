@@ -25,6 +25,13 @@ function SkillScript_ClanRaidBoss:setSkillParams(owner, t_skill, t_data)
     PARENT.setSkillParams(self, owner, t_skill, t_data)
 
     self.m_lTargetChar = self.m_world:getDragonList()
+end
+
+-------------------------------------
+-- function init_skill
+-------------------------------------
+function SkillScript_ClanRaidBoss:init_skill(script_name, duration)
+    PARENT.init_skill(self, script_name, duration)
 
     -- 받는 피해 증가 상태효과 설정
     local struct_status_effect = StructStatusEffect({
