@@ -113,7 +113,6 @@ function Lua( $sheetNames, $locale, $spreadsheet_id, $callback )
 		for( i ; i < len ; i++ )
 		{
 			row = list[ i ];
-
 			arr.push( "['" + quote( row[ 0 ] ) + "']='" + quote( row[ 1 ] ) + "'" );
 		}
 
@@ -128,7 +127,7 @@ function Lua( $sheetNames, $locale, $spreadsheet_id, $callback )
 			var value;
 			try
 			{
-				value = $str.replace( /\'/g, "\\'" ).replace( /\"/g, "\\\"" );
+				value = $str.replace( /\'/g, "\\'" ).replace( /\"/g, "\\\"" ).replace( /\\\\n/g, "\\n" );				
 			}
 			catch( $e )
 			{
