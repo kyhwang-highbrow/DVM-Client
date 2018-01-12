@@ -1,4 +1,4 @@
-local PARENT = class(Skill, ISkillMultiAttack:getCloneTable())
+local PARENT = class(Skill, ISkillMultiAttack:getCloneTable(), IStateDelegate:getCloneTable())
 
 -------------------------------------
 -- class SkillAoESquare
