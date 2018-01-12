@@ -179,6 +179,7 @@ function UI_Lobby:entryCoroutine()
 				co.NEXT()
 			end)
 			ui_network:setFailCB(required_fail_cb)
+			ui_network:hideBGLayerColor()
 			ui_network:request()
 		end
 		if co:waitWork() then return end
