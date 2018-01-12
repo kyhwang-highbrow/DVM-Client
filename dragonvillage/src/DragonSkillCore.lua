@@ -178,7 +178,7 @@ function DragonSkillCore.getSkillDescPure(t_skill)
     local val_3 = (t_skill['desc_3'])
     local val_4 = (t_skill['desc_4'])
     local val_5 = (t_skill['desc_5'])
-    return THIS.getRichTemplate(Str(t_skill['t_desc']), val_1, val_2, val_3, val_4, val_5)
+    return THIS.getRichTemplate(Str(t_skill['t_desc'], val_1, val_2, val_3, val_4, val_5))
 end
 
 -------------------------------------
@@ -192,7 +192,7 @@ function DragonSkillCore.getSkillEnhanceDesc(t_skill)
     local val_3 = (t_skill['desc_3'])
     local val_4 = (t_skill['desc_4'])
     local val_5 = (t_skill['desc_5'])
-    return THIS.getRichTemplateEnhance(Str(t_skill['t_desc']), val_1, val_2, val_3, val_4, val_5)
+    return THIS.getRichTemplateEnhance(Str(t_skill['t_desc'], val_1, val_2, val_3, val_4, val_5))
 end
 
 -------------------------------------
