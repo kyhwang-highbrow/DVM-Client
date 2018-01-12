@@ -249,7 +249,7 @@ function StatusEffectHelper:invokeStatusEffect(caster, target_char, status_effec
         
     elseif (self:isHarmful(status_effect_category) and self:checkStatus(caster, target_char)) then
         if (not skip_resistance_font) then
-            target_char:makeResistanceFont(target_char.pos['x'], target_char.pos['y'], 1.5)
+            target_char:makeResistanceFont(target_char.pos['x'], target_char.pos['y'], 1)
         end
         return nil
     end
