@@ -229,7 +229,7 @@ end
 -- function getLv
 -------------------------------------
 function StructTamerCostume:getName()
-    return self.m_name
+    return Str(self.m_name)
 end
 
 -------------------------------------

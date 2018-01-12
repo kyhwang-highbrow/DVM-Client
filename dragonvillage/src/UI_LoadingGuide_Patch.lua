@@ -108,8 +108,8 @@ function UI_LoadingGuide_Patch:showDragonInfo(t_loading)
 
     local t_dragon = TableDragon():get(did)
     vars['infoLabel']:setVisible(false) -- 높이, 체중 미정
-    vars['nameLabel']:setString(t_dragon['t_name'])
-    vars['dscLabel']:setString(t_dragon['t_desc'])
+    vars['nameLabel']:setString(Str(t_dragon['t_name']))
+    vars['dscLabel']:setString(Str(t_dragon['t_desc']))
 end
 
 -------------------------------------
@@ -121,7 +121,7 @@ function UI_LoadingGuide_Patch:showTipInfo(t_loading)
 
     local tip_icon = IconHelper:getIcon(t_loading['res'])
     vars['tipNode']:addChild(tip_icon)
-    vars['tipLabel']:setString(t_loading['t_desc'])
+    vars['tipLabel']:setString(Str(t_loading['t_desc']))
 
 	-- desc가 없다면 큰 이미지. 위치를 조절해준다
 	if (t_loading['t_desc'] == '') then

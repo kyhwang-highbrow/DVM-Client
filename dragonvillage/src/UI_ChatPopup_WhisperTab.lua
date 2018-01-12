@@ -103,7 +103,7 @@ function UI_ChatPopup_WhisperTab:click_whisperSetUserBtn()
             self.m_peerUserNickname = nickname
 
             if (not nickname) or (nickname == '') then
-                self.vars['whisperSetUserLabel']:setString('귓속말')
+                self.vars['whisperSetUserLabel']:setString(Str('귓속말'))
             else
                 self.vars['whisperSetUserLabel']:setString(nickname)
             end
@@ -126,7 +126,7 @@ function UI_ChatPopup_WhisperTab:setPeerUserNickname(nickname)
     self.m_peerUserNickname = nickname
 
     if (not nickname) or (nickname == '') then
-        self.vars['whisperSetUserLabel']:setString('귓속말')
+        self.vars['whisperSetUserLabel']:setString(Str('귓속말'))
     else
         self.vars['whisperSetUserLabel']:setString(nickname)
     end

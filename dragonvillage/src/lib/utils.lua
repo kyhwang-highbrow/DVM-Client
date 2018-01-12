@@ -319,11 +319,11 @@ function datetime.makeTimeDesc(sec, showSeconds, firstOnly)
     local sec = math.floor(sec)
     if sec < 60 then
         if showSeconds then
-            return string.format('%d초', sec)
-            --return Str('{1}초', sec)
+            --return string.format('%d초', sec)
+            return Str('{1}초', sec)
         else
-            return string.format('1분 미만')
-            --return Str('1분 미만')
+            --return string.format('1분 미만')
+            return Str('1분 미만')
         end
 
     elseif sec < 3600 then

@@ -136,14 +136,14 @@ function UI_InventoryTabEvolutionStone:onChangeSelectedItem(ui, data)
     do -- 아이템 이름
         vars['itemNameLabel']:setVisible(true)
         local name = TableItem():getValue(data['esid'], 't_name')
-        vars['itemNameLabel']:setString(name)
+        vars['itemNameLabel']:setString(Str(name))
     end
 
     do -- 아이템 설명
         vars['itemDscLabel']:setVisible(true)
         local esid = data['esid']
         local desc = TableItem():getValue(esid, 't_desc')
-        vars['itemDscLabel']:setString(desc)
+        vars['itemDscLabel']:setString(Str(desc))
     end
 
     -- 판매 버튼

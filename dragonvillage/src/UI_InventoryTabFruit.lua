@@ -119,14 +119,14 @@ function UI_InventoryTabFruit:onChangeSelectedItem(ui, data)
     do -- 아이템 이름
         vars['itemNameLabel']:setVisible(true)
         local name = TableItem():getValue(data['fid'], 't_name')
-        vars['itemNameLabel']:setString(name)
+        vars['itemNameLabel']:setString(Str(name))
     end
 
     do -- 아이템 설명
         vars['itemDscLabel']:setVisible(true)
         local fid = data['fid']
         local desc = TableItem():getValue(fid, 't_desc')
-        vars['itemDscLabel']:setString(desc)
+        vars['itemDscLabel']:setString(Str(desc))
     end
 
     -- 판매 버튼

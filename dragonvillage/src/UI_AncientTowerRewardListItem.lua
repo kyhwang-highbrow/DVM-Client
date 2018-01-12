@@ -24,7 +24,7 @@ end
 function UI_AncientTowerRewardListItem:initUI()
     local vars = self.vars
     local t_reward_info = self.m_rewardInfo
-    vars['rankingLabel']:setString(t_reward_info['t_name'])
+    vars['rankingLabel']:setString(Str(t_reward_info['t_name']))
 
     local l_reward = TableClass:seperate(t_reward_info['reward'], ',', true)
     for i = 1, #l_reward do

@@ -26,7 +26,7 @@ function UI_TamerListItem:initUI()
     local tamer_data = self.m_tamerData
 
     -- 이름
-    vars['tamerTabLabel']:setString(tamer_data['t_name'])
+    vars['tamerTabLabel']:setString(Str(tamer_data['t_name']))
 
     -- 이미지
     local tid = tamer_data['tid']

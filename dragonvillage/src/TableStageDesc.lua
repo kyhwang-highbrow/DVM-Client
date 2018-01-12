@@ -32,7 +32,7 @@ end
 function TableStageDesc:getStageDesc(stage_id)
     local t_table = self:get(stage_id)
     local desc = t_table['t_desc']
-    return desc
+    return Str(desc)
 end
 
 -------------------------------------

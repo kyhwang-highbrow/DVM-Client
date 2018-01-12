@@ -36,9 +36,8 @@ end
 -------------------------------------
 function UI_AncientTowerClanRewardListItem:refresh()
     local vars = self.vars
-    local t_reward_info = self.m_rewardInfo
-
-    vars['rankLabel']:setString(t_reward_info['t_name'])
+    local t_reward_info = self.m_rewardInfo    
+    vars['rankLabel']:setString(Str(t_reward_info['t_name']))
     
     -- ����
     do

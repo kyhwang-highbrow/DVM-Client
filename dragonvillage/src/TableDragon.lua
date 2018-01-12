@@ -340,7 +340,7 @@ end
 -------------------------------------
 function TableDragon:getDesc_forToolTip(did)
     local t_dragon = self:get(did)
-    local str = '{@SKILL_NAME}' .. t_dragon['t_name']
+    local str = '{@SKILL_NAME}' .. Str(t_dragon['t_name'])
     return str
 end
 

@@ -154,7 +154,7 @@ function UI_HatcheryIncubateTab:onChangeCurrEgg(t_item, idx)
     local t_data = t_item['data']
 
     if t_data['is_shop'] then
-        vars['nameLabel']:setString('상점')
+        vars['nameLabel']:setString(Str('상점'))
         vars['descLabel']:setString(Str('토파즈, 마일리지, 명예를 사용하여 알을 구매할 수 있습니다'))
         return
     end

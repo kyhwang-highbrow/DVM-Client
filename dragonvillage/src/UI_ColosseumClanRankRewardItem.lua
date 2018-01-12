@@ -38,7 +38,7 @@ function UI_ColosseumClanRankRewardItem:refresh()
     local vars = self.vars
     local t_reward_info = self.m_rewardInfo
 
-    vars['rankLabel']:setString(t_reward_info['t_name'])
+    vars['rankLabel']:setString(Str(t_reward_info['t_name']))
     
     -- 보상
     do

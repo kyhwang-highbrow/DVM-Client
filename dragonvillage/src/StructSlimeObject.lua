@@ -94,7 +94,7 @@ end
 -------------------------------------
 function StructSlimeObject:getDragonNameWithEclv()
     local name = TableSlime:getValue(self['slime_id'], 't_name')
-    return name
+    return Str(name)
 end
 
 -------------------------------------

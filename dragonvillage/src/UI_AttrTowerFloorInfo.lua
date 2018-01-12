@@ -40,7 +40,7 @@ function UI_AttrTowerFloorInfo:refresh_floorData()
 
         local stage_id = info.m_stage
         local str_help = TableStageData():getValue(tonumber(stage_id), 't_help')
-        vars['towerDscLabel']:setString(str_help)
+        vars['towerDscLabel']:setString(Str(str_help))
     end
     
     do -- 스테이지에 해당하는 스테미나 아이콘 생성

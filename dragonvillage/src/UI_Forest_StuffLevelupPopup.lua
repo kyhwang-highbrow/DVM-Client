@@ -38,7 +38,7 @@ function UI_Forest_StuffLevelupPopup:initUI()
 
     -- 이름
     local name = t_stuff_info['stuff_name']
-    vars['titleLabel']:setString(name)
+    vars['titleLabel']:setString(Str(name))
 
     -- 애니변경
     local animator = MakeAnimator('res/bg/dragon_forest/dragon_forest.vrp')

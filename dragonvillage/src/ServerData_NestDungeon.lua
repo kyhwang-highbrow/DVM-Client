@@ -567,7 +567,7 @@ function ServerData_NestDungeon:getStageCategoryStr(stage_id)
 
     
 
-    return '네스트던전' .. ' > ' .. mode_str
+    return Str('네스트던전') .. ' > ' .. mode_str
 end
 
 -------------------------------------

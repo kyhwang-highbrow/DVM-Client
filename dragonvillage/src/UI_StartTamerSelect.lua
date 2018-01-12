@@ -171,8 +171,8 @@ function UI_StartTamerSelect:setTamerAni(tid)
     vars['tamerNode']:removeAllChildren()
 	vars['tamerNode']:addChild(ani_tamer.m_node)
 
-    vars['tamerLabel']:setString(t_tamer['t_name'])
-    vars['infoLabel']:setString(t_tamer['t_desc'])
+    vars['tamerLabel']:setString(Str(t_tamer['t_name']))
+    vars['infoLabel']:setString(Str(t_tamer['t_desc']))
 end
 
 -------------------------------------

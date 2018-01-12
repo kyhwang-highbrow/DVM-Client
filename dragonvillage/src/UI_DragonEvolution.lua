@@ -274,7 +274,7 @@ function UI_DragonEvolution:refresh_nextSkillInfo(t_dragon_data, t_dragon, is_ma
     local skill_lv = 1
 
     if (skill_id == '') then
-        vars['skillInfoLabel']:setString('스킬이 지정되지 않았습니다.')
+        vars['skillInfoLabel']:setString(Str('스킬이 지정되지 않았습니다.'))
     else
         local skill_individual_info = DragonSkillIndivisualInfo('dragon', skill_type, skill_id, skill_lv)
         skill_individual_info:applySkillLevel()

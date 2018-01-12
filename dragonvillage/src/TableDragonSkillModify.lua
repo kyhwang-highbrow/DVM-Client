@@ -61,7 +61,7 @@ function TableDragonSkillModify:getSkillModDesc(skill_id, skill_lv)
     local l_skill_list = self:filterList('sid', skill_id)
     for i, t_skill in ipairs(l_skill_list) do
         if (t_skill['lv'] == skill_lv) then
-            return t_skill['t_desc']
+            return Str(t_skill['t_desc'])
         end
     end
 

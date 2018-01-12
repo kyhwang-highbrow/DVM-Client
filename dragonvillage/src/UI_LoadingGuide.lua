@@ -39,7 +39,7 @@ function UI_LoadingGuide:initUI(guide_type)
 		vars['tipLabel']:setString(tip_str)
 
 	else
-		vars['tipLabel']:setString('로딩 중')
+		vars['tipLabel']:setString(Str('로딩 중'))
 
 	end
 

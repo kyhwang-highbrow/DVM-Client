@@ -45,7 +45,7 @@ function UI_MonsterInfoBoard:refresh(t_monster_data)
 
     -- 몬스터 이름
     local name = t_monster_data['t_name'] or ''
-    vars['nameLabel']:setString(name)
+    vars['nameLabel']:setString(Str(name))
 
     self:refresh_monsterSkillsInfo(t_monster_data)
     self:refresh_status(t_monster_data)

@@ -138,7 +138,7 @@ function UI_TamerCostumeShop:refresh()
     vars['costumeTitleLabel']:setString(costume_name)
 
     local tamer_name = table_tamer:getValue(tamer_id, 't_name')
-    vars['tamerNameLabel']:setString(tamer_name)
+    vars['tamerNameLabel']:setString(Str(tamer_name))
 
     -- 상태 (구입가능, 사용중, 사용가능)
     local is_used = costume_data:isUsed()

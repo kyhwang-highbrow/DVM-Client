@@ -52,7 +52,7 @@ end
 -------------------------------------
 function TableMonster:getDesc_forToolTip(monster_id)
     local t_monster = self:get(monster_id)
-    local str = '{@SKILL_NAME}' .. t_monster['t_name']
+    local str = '{@SKILL_NAME}' .. Str(t_monster['t_name'])
     return str
 end
 

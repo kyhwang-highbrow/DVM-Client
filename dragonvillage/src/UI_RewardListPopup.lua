@@ -44,7 +44,7 @@ end
 -------------------------------------
 function UI_RewardListPopup:initButton()
     local vars = self.vars
-    vars['receiveLabel']:setString('닫기')
+    vars['receiveLabel']:setString(Str('닫기'))
     vars['okBtn']:registerScriptTapHandler(function() self:click_okBtn() end)
 end
 
