@@ -4,27 +4,32 @@ local PARENT = UI
 -- class UI_EventPopupTab_Banner
 -------------------------------------
 UI_EventPopupTab_Banner = class(PARENT,{
-        m_structBannerData = 'StructBannerData',
+        m_structBannerData = 'StructEventPopupTab',
     })
 
 -------------------------------------
 -- function init
 -------------------------------------
 function UI_EventPopupTab_Banner:init(owner, struct_event_popup_tab)
-    local vars = self:load('event_banner.ui')
     self.m_structBannerData = struct_event_popup_tab.m_eventData
-
-    -- 배너 이미지 (클릭시 웹뷰로 연결)
-    do
-        local res = self.m_structBannerData['banner']
+    local res = self.m_structBannerData['banner']
+    local is_ui_res = string.match(res, '%.ui') and true or false
+    local target_ui = (is_ui_res == true) and res or 'event_banner.ui'
+    local vars = self:load(target_ui) 
+    
+    -- 리소스가 png인 경우 이미지 추가
+    if (is_ui_res == false) then
         local img = cc.Sprite:create(res)
         if img then
-            img:setDockPoint(cc.p(0.5, 0.5))
-            img:setAnchorPoint(cc.p(0.5, 0.5))
+            img:setDockPoint(CENTER_POINT)
+            img:setAnchorPoint(CENTER_POINT)
             vars['bannerNode']:addChild(img)
         end
+    end
 
-        vars['bannerBtn']:registerScriptTapHandler(function() self:click_bannerBtn() end)
+    local banner_btn = vars['bannerBtn']
+    if (banner_btn) then
+        banner_btn:registerScriptTapHandler(function() self:click_bannerBtn() end)
     end
 end
 

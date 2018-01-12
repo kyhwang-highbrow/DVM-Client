@@ -5,7 +5,6 @@ local PARENT = UI
 -------------------------------------
 UI_EventFullPopup = class(PARENT,{
         m_popupKey = 'string',
-        m_url = 'string',
     })
 
 -------------------------------------
@@ -13,7 +12,6 @@ UI_EventFullPopup = class(PARENT,{
 -------------------------------------
 function UI_EventFullPopup:init(popup_key)
     self.m_popupKey = popup_key
-    self.m_url = ''
 end
 
 -------------------------------------
@@ -45,23 +43,10 @@ function UI_EventFullPopup:initUI()
     -- 이벤트 배너
     if (string.find(popup_key, 'banner')) then
         local l_str = plSplit(popup_key, ';')
-
-        local img_path = l_str[2]
-        if (img_path) then
-            local img = cc.Sprite:create(img_path)
-            if (img) then
-                img:setDockPoint(ZERO_POINT)
-                img:setAnchorPoint(ZERO_POINT)
-
-                local node = vars['eventNode']
-                node:addChild(img)
-            end
-        end
-
-        local url = l_str[3]
-        if (url) then
-            self.m_url = url
-        end
+        local event_data = { banner = l_str[2], url = l_str[3] or ''}
+        local struct_data = StructEventPopupTab(event_data)
+        local ui = UI_EventPopupTab_Banner(self, struct_data)
+        vars['eventNode']:addChild(ui.root)
 
 	-- Daily Mission
 	elseif string.find(popup_key, 'daily_mission') then
@@ -114,7 +99,6 @@ function UI_EventFullPopup:initButton()
     local vars = self.vars
     vars['closeBtn']:registerScriptTapHandler(function() self:click_closeBtn() end)
     vars['checkBtn']:registerScriptTapHandler(function() self:click_checkBtn() end)
-    vars['clickBtn']:registerScriptTapHandler(function() self:click_clickBtn() end)
 end
 
 -------------------------------------
@@ -150,18 +134,6 @@ end
 -------------------------------------
 function UI_EventFullPopup:click_closeBtn()
     self:close()
-end
-
--------------------------------------
--- function click_clickBtn
--------------------------------------
-function UI_EventFullPopup:click_clickBtn()
-    local url = self.m_url
-    if (url == '') then 
-        return 
-    end
-
-	g_eventData:goToEventUrl(url)
 end
 
 --@CHECK
