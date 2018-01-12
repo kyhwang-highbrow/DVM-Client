@@ -66,8 +66,6 @@ function UI_Lobby:initUI()
 
     self:initLobbyWorldAdapter()
     g_topUserInfo:clearBroadcast()
-
-	self:initSnow()
 end
 
 -------------------------------------

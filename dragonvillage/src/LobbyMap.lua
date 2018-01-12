@@ -73,9 +73,9 @@ function LobbyMap:addLayer_lobbyGround(node, perspective_ratio, perspective_rati
     node:addChild(self.m_lobbyIndicator.m_node, self:makeLobbyMapZorder(LobbyMap.Z_ORDER_TYPE_INDICATOR))
 
 	-- 크리스마스 트리
-	self.m_tree = MakeAnimator('res/lobby/lobby_layer_01_center_tree/lobby_layer_01_center_tree.vrp')
-	self.m_tree.m_node:setPosition(235, 145)
-	node:addChild(self.m_tree.m_node, 1)
+	--self.m_tree = MakeAnimator('res/lobby/lobby_layer_01_center_tree/lobby_layer_01_center_tree.vrp')
+	--self.m_tree.m_node:setPosition(235, 145)
+	--node:addChild(self.m_tree.m_node, 1)
 end
 
 -------------------------------------

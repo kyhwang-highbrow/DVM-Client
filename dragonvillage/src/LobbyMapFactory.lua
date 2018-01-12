@@ -38,6 +38,9 @@ function LobbyMapFactory:createLobbyWorld(parent_node, ui_lobby)
     return lobby_map
 end
 
+-- 로비 낮/밤 전환용 임시 변수
+USE_NIGHT = false
+
 -------------------------------------
 -- function makeLobbyLayer
 -------------------------------------
@@ -48,38 +51,49 @@ function LobbyMapFactory:makeLobbyLayer(idx)
 
     local skip_error_msg = true
 	local animator = nil
-	
-	local res_name = string.format('res/lobby/lobby_layer_%.2d_left/lobby_layer_%.2d_left.vrp', idx, idx)
+
+	local night = ''
+	if USE_NIGHT then
+		night = '_night'
+	end
+
+	local res_name = string.format('res/lobby/lobby_layer_%.2d_left/lobby_layer_%.2d_left%s.vrp', idx, idx, night)
 	if (cc.FileUtils:getInstance():isFileExist(res_name)) then
 		animator = MakeAnimator(res_name, skip_error_msg)
     else
-        animator = MakeAnimator(string.format('res/lobby/lobby_layer_%.2d_left.png', idx))
+        animator = MakeAnimator(string.format('res/lobby/lobby_layer_%.2d_left%s.png', idx, night))
     end
-    animator:setDockPoint(cc.p(0.5, 0.5))
-    animator:setAnchorPoint(cc.p(0.5, 0.5))
-    animator:setPositionX(-1280)
-    node:addChild(animator.m_node)
+	if (animator.m_node) then
+		animator:setDockPoint(cc.p(0.5, 0.5))
+		animator:setAnchorPoint(cc.p(0.5, 0.5))
+		animator:setPositionX(-1280)
+		node:addChild(animator.m_node)
+	end
 
-	local res_name = string.format('res/lobby/lobby_layer_%.2d_center/lobby_layer_%.2d_center.vrp', idx, idx)
+	local res_name = string.format('res/lobby/lobby_layer_%.2d_center/lobby_layer_%.2d_center%s.vrp', idx, idx, night)
 	if (cc.FileUtils:getInstance():isFileExist(res_name)) then
 		animator = MakeAnimator(res_name, skip_error_msg)
     else
-        animator = MakeAnimator(string.format('res/lobby/lobby_layer_%.2d_center.png', idx))
+        animator = MakeAnimator(string.format('res/lobby/lobby_layer_%.2d_center%s.png', idx, night))
     end
-    animator:setDockPoint(cc.p(0.5, 0.5))
-    animator:setAnchorPoint(cc.p(0.5, 0.5))
-    node:addChild(animator.m_node)
+	if (animator.m_node) then
+		animator:setDockPoint(cc.p(0.5, 0.5))
+		animator:setAnchorPoint(cc.p(0.5, 0.5))
+		node:addChild(animator.m_node)
+	end
 
-	local res_name = string.format('res/lobby/lobby_layer_%.2d_right/lobby_layer_%.2d_right.vrp', idx, idx)
+	local res_name = string.format('res/lobby/lobby_layer_%.2d_right/lobby_layer_%.2d_right%s.vrp', idx, idx, night)
 	if (cc.FileUtils:getInstance():isFileExist(res_name)) then
 		animator = MakeAnimator(res_name, skip_error_msg)
 	else
-        animator = MakeAnimator(string.format('res/lobby/lobby_layer_%.2d_right.png', idx))
+        animator = MakeAnimator(string.format('res/lobby/lobby_layer_%.2d_right%s.png', idx, night))
     end
-    animator:setDockPoint(cc.p(0.5, 0.5))
-    animator:setAnchorPoint(cc.p(0.5, 0.5))
-    animator:setPositionX(1280)
-    node:addChild(animator.m_node)
+	if (animator.m_node) then
+		animator:setDockPoint(cc.p(0.5, 0.5))
+		animator:setAnchorPoint(cc.p(0.5, 0.5))
+		animator:setPositionX(1280)
+		node:addChild(animator.m_node)
+	end
 
     return node
 end
