@@ -162,10 +162,10 @@ function StructSubscribedInfo:makePopupTitle()
     local res = ''
 
     if (category == 'basic') then
-        res = 'res/ui/typo/kr/package_daily_dia_0101.png'
+        res = 'res/ui/typo/ko/package_daily_dia_0101.png'
 
     elseif (category == 'premium') then
-        res = 'res/ui/typo/kr/package_daily_dia_0102.png'
+        res = 'res/ui/typo/ko/package_daily_dia_0102.png'
 
     else
         error('category : ' .. category)

@@ -76,11 +76,11 @@ function MakeSimpleSecretFindPopup(secret_dungeon)
         local icon
 
         if (t_info['dungeon_mode'] == SECRET_DUNGEON_GOLD) then
-            res_name = 'res/ui/typo/kr/secret_dg_find_gold.png'
+            res_name = 'res/ui/typo/ko/secret_dg_find_gold.png'
             icon = TableStageDesc():getLastMonsterIcon(stage_id)
 
         elseif (t_info['dungeon_mode'] == SECRET_DUNGEON_RELATION) then
-            res_name = 'res/ui/typo/kr/secret_dg_find_relation.png'
+            res_name = 'res/ui/typo/ko/secret_dg_find_relation.png'
             icon = MakeSimpleDragonCard(did)
 
         end
