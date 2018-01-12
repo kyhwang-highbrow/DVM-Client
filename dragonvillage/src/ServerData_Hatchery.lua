@@ -410,7 +410,7 @@ function ServerData_Hatchery:getSummonFreeInfo(with_str)
     end
 
     if (not self.m_hatcheryInfo) or (not self.m_hatcheryInfo['summon_free_time']) then
-        cclog('# ServerData_Hatchery:getSummonFreeTime() 정보가 없음')
+        --cclog('# ServerData_Hatchery:getSummonFreeTime() 정보가 없음')
         return
     end
 
