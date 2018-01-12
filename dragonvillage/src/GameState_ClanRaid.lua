@@ -12,7 +12,9 @@ GameState_ClanRaid = class(PARENT, {
         m_orgBossHp = 'number',
         m_bossHp = 'number',
         m_bossMaxHp = 'number',
-        m_totalDamage = 'number',
+        m_accumDamage = 'number',   -- 누적 데미지(정확히는 체력을 깍은 양)
+        m_finalDamage = 'number',   -- 막타 데미지
+        m_finalSkillId = 'number',   -- 막타 스킬 아이디
 
         m_uiBossHp = 'UI_IngameBossHp',
     })
@@ -41,7 +43,9 @@ function GameState_ClanRaid:init(world)
     self.m_bossMaxHp = SecurityNumberClass(max_hp, false)
     self.m_bossHp = SecurityNumberClass(hp, false)
     self.m_orgBossHp = SecurityNumberClass(hp, false)
-    self.m_totalDamage = SecurityNumberClass(0, false)
+    self.m_accumDamage = SecurityNumberClass(0, false)
+    self.m_finalDamage = 0
+    self.m_finalSkillId = nil
 end
 
 -------------------------------------
@@ -273,9 +277,12 @@ end
 function GameState_ClanRaid:makeResultUI(is_success)
     self.m_world:setGameFinish()
 
-    local total_damage = self.m_totalDamage:get()
-    cclog('total_damage : ' .. total_damage)
-    cclog('total_damage_to_enemy : ' .. self.m_world.m_logRecorder:getLog('total_damage_to_enemy'))
+    local accum_damage = self.m_accumDamage:get()
+    local final_damage = self.m_finalDamage
+    local total_damage = accum_damage + final_damage
+
+    cclog('accum_damage : ' .. accum_damage)
+    cclog('final_damage : ' .. final_damage)
     
     -- 작업 함수들
     local func_network_game_finish
@@ -372,17 +379,6 @@ function GameState_ClanRaid:doDirectionForIntermission()
     self.m_world:changeHeroHomePosByCamera()
 end
 
-
--------------------------------------
--- function setTotalDamage
--------------------------------------
-function GameState_ClanRaid:setTotalDamage(total_damage)
-    local total_damage = math_floor(math_max(total_damage, 0))
-    self.m_totalDamage:set(total_damage)
-
-    self.m_world.m_inGameUI:setTotalDamage(total_damage)
-end
-
 -------------------------------------
 -- function setBossHp
 -------------------------------------
@@ -409,15 +405,44 @@ function GameState_ClanRaid:onEvent(event_name, t_event, ...)
         -- 이전 체력이 동일한지 검사
         local safed_hp = self.m_bossHp:get()
         if (prev_hp ~= safed_hp) then
+            -- 값이 동일하지 않을 경우 해킹인 것으로 간주해서 체력을 깍지 않음
             new_hp = safed_hp
         end
 
         -- 현재 체력 정보 갱신
         self:setBossHp(new_hp)
 
-        -- 총 데미지 갱신(정확히는 체력을 깍은 양)
-        local total_damage = self.m_orgBossHp:get() - new_hp
-        self:setTotalDamage(total_damage)
+        -- 누적 데미지 갱신(정확히는 체력을 깍은 양)
+        local accum_damage = self.m_orgBossHp:get() - new_hp
+        accum_damage = math_floor(math_max(accum_damage, 0))
+        self.m_accumDamage:set(accum_damage)
+        
+        -- UI 갱신
+        local final_damage = self.m_finalDamage
+        local total_damage = accum_damage + final_damage
+
+        self.m_world.m_inGameUI:setTotalDamage(total_damage)
+
+    -- 보스 막타 데미지
+    elseif (event_name == 'clan_boss_final_damage') then
+        local damage = t_event['damage']
+        local skill_id = t_event['skill_id']
+
+        if (not self.m_finalSkillId) then
+            self.m_finalSkillId = skill_id
+        elseif (self.m_finalSkillId ~= skill_id) then
+            return
+        end
+
+        -- 막타 데미지 갱신
+        self.m_finalDamage = self.m_finalDamage + math_floor(damage)
+
+        -- UI 갱신
+        local accum_damage = self.m_accumDamage:get()
+        local final_damage = self.m_finalDamage
+        local total_damage = accum_damage + final_damage
+
+        self.m_world.m_inGameUI:setTotalDamage(total_damage)
     end
 end
 

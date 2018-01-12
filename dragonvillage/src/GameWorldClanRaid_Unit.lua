@@ -428,6 +428,8 @@ function GameWorldClanRaid:bindEnemy(enemy)
     enemy:addListener('enemy_appear_done', self.m_gameState)
     -- 보스 체력 공유 처리를 위함
     enemy:addListener('character_set_hp', self.m_gameState)
+    -- 막타 데미지
+    enemy:addListener('clan_boss_final_damage', self.m_gameState)
 
     -- 월드에서 중계되는 이벤트
     enemy:addListener('character_recovery', self)

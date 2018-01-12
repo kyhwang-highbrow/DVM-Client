@@ -129,7 +129,17 @@ function Monster_ClanRaidBoss:setDamage(attacker, defender, i_x, i_y, damage, t_
         i_x, i_y = self:getCenterPos()
     end
 
-    PARENT.setDamage(self, attacker, defender, i_x, i_y, damage, t_info)
+    local prev_hp = self.m_hp
+    local bApplyDamage = PARENT.setDamage(self, attacker, defender, i_x, i_y, damage, t_info)
+
+    -- 막타 시 데미지 저장(일시 정지 상태일 경우는 모두 합산)
+    if (bApplyDamage) then
+        if (self:isZeroHp()) then
+            if (prev_hp > 0 or self.m_temporaryPause) then
+                self:dispatch('clan_boss_final_damage', { damage = damage, skill_id = t_info['skill_id'] })
+            end
+        end
+    end
 end
 
 -------------------------------------
@@ -137,6 +147,7 @@ end
 -- @brief 공격할 수 있는 대상 그룹 정보가 변경되었을 경우
 -------------------------------------
 function Monster_ClanRaidBoss:onChangedAttackableGroup()
+    -- 클랜 보스 본체의 경우 특정 스킬을 사용하지 못하도록 처리...
     if (self.m_charTable['type'] == 'clanraid_boss') then
         local l_remove_skill_id = { 250011, 250012, 250013, 250014, 250015 }
 
@@ -203,7 +214,7 @@ function Monster_ClanRaidBoss:syncHp(hp)
     self.m_hp = math_min(hp, self.m_maxHp)
     self.m_hpRatio = self.m_hp / self.m_maxHp
 
-    if (self.m_hp <= 0) then
+    if (self:isZeroHp()) then
         self:changeState('dying')
     end
 

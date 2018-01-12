@@ -507,7 +507,7 @@ function Character:undergoAttack(attacker, defender, i_x, i_y, body_key, no_even
     local reflex_rate = 0
 
     if (attack_type == 'active') then 
-        reflex_rate = math_max(self:getStat('reflex_skill'), 0) / 100             
+        reflex_rate = math_max(self:getStat('reflex_skill'), 0) / 100
     else
         reflex_rate = math_max(self:getStat('reflex_normal'), 0) / 100
     end
@@ -867,6 +867,7 @@ function Character:undergoAttack(attacker, defender, i_x, i_y, body_key, no_even
 	-- 공격 데미지 전달
 	do
 		local t_info = {}
+        t_info['skill_id'] = attack_activity_carrier:getSkillId()
 		t_info['attack_type'] = attack_type
 		t_info['attr'] = attack_activity_carrier.m_attribute
 		t_info['is_critical'] = is_critical
@@ -1001,8 +1002,8 @@ end
 -- function setDamage
 -------------------------------------
 function Character:setDamage(attacker, defender, i_x, i_y, damage, t_info)
-    if (self.m_bDead) then return end
-
+    if (self.m_bDead) then return false end
+    
     local t_info = t_info or EMPTY_TABLE
     local dir = 0
     
@@ -1069,7 +1070,7 @@ function Character:setDamage(attacker, defender, i_x, i_y, damage, t_info)
 
     -- @LOG : 적군이 총 받은 피해
     else
-        self.m_world.m_logRecorder:recordLog('total_damage_to_enemy', damage)
+        --self.m_world.m_logRecorder:recordLog('total_damage_to_enemy', damage)
 
     end
 
@@ -1102,6 +1103,8 @@ function Character:setDamage(attacker, defender, i_x, i_y, damage, t_info)
             self:runAction_Hit(attacker, dir)
         end
     end
+
+    return bApplyDamage
 end
 
 -------------------------------------
@@ -2068,7 +2071,7 @@ end
 -- function setTargetEffect
 -------------------------------------
 function Character:setTargetEffect(animator, k)
-    if (self.m_bDead) then return end
+    if (self:isDead()) then return end
 
     self:removeNonTargetEffect(k)
     self.m_mTargetEffect[k] = animator
@@ -2120,7 +2123,7 @@ end
 -- function setNonTargetEffect
 -------------------------------------
 function Character:setNonTargetEffect(animator, k)
-    if (self.m_bDead) then return end
+    if (self:isDead()) then return end
 
     self:removeTargetEffect(k)
     self.m_mNonTargetEffect[k] = animator
