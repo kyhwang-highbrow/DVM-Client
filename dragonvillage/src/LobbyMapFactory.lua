@@ -57,6 +57,11 @@ function LobbyMapFactory:makeLobbyLayer(idx)
 		night = '_night'
 	end
 
+	-- 1. vrp를 먼저 찾고
+	-- 2. 없으면 png를 찾는다
+	-- 3. png도 없다면 불러오지 않는다
+
+	-- left
 	local res_name = string.format('res/lobby/lobby_layer_%.2d_left/lobby_layer_%.2d_left%s.vrp', idx, idx, night)
 	if (cc.FileUtils:getInstance():isFileExist(res_name)) then
 		animator = MakeAnimator(res_name, skip_error_msg)
@@ -70,6 +75,7 @@ function LobbyMapFactory:makeLobbyLayer(idx)
 		node:addChild(animator.m_node)
 	end
 
+	-- center
 	local res_name = string.format('res/lobby/lobby_layer_%.2d_center/lobby_layer_%.2d_center%s.vrp', idx, idx, night)
 	if (cc.FileUtils:getInstance():isFileExist(res_name)) then
 		animator = MakeAnimator(res_name, skip_error_msg)
@@ -82,6 +88,7 @@ function LobbyMapFactory:makeLobbyLayer(idx)
 		node:addChild(animator.m_node)
 	end
 
+	-- right
 	local res_name = string.format('res/lobby/lobby_layer_%.2d_right/lobby_layer_%.2d_right%s.vrp', idx, idx, night)
 	if (cc.FileUtils:getInstance():isFileExist(res_name)) then
 		animator = MakeAnimator(res_name, skip_error_msg)
