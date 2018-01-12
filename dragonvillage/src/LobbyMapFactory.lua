@@ -62,12 +62,12 @@ function LobbyMapFactory:makeLobbyLayer(idx)
 	-- 3. png도 없다면 불러오지 않는다
 
 	-- left
-	local res_name = string.format('res/lobby/lobby_layer_%.2d_left/lobby_layer_%.2d_left%s.vrp', idx, idx, night)
-	if (cc.FileUtils:getInstance():isFileExist(res_name)) then
-		animator = MakeAnimator(res_name, skip_error_msg)
-    else
-        animator = MakeAnimator(string.format('res/lobby/lobby_layer_%.2d_left%s.png', idx, night))
+	local res_name = string.format('lobby_layer_%.2d_left%s', idx, night)
+	local path = string.format('res/lobby/%s/%s.vrp', res_name, res_name)
+	if (cc.FileUtils:getInstance():isFileExist(path) == false) then
+        path = string.format('res/lobby/%s.png', res_name)
     end
+	animator = MakeAnimator(path, skip_error_msg)
 	if (animator.m_node) then
 		animator:setDockPoint(cc.p(0.5, 0.5))
 		animator:setAnchorPoint(cc.p(0.5, 0.5))
@@ -76,12 +76,12 @@ function LobbyMapFactory:makeLobbyLayer(idx)
 	end
 
 	-- center
-	local res_name = string.format('res/lobby/lobby_layer_%.2d_center/lobby_layer_%.2d_center%s.vrp', idx, idx, night)
-	if (cc.FileUtils:getInstance():isFileExist(res_name)) then
-		animator = MakeAnimator(res_name, skip_error_msg)
-    else
-        animator = MakeAnimator(string.format('res/lobby/lobby_layer_%.2d_center%s.png', idx, night))
+	local res_name = string.format('lobby_layer_%.2d_center%s', idx, night)
+	local path = string.format('res/lobby/%s/%s.vrp', res_name, res_name)
+	if (cc.FileUtils:getInstance():isFileExist(path) == false) then
+        path = string.format('res/lobby/%s.png', res_name)
     end
+	animator = MakeAnimator(path, skip_error_msg)
 	if (animator.m_node) then
 		animator:setDockPoint(cc.p(0.5, 0.5))
 		animator:setAnchorPoint(cc.p(0.5, 0.5))
@@ -89,12 +89,12 @@ function LobbyMapFactory:makeLobbyLayer(idx)
 	end
 
 	-- right
-	local res_name = string.format('res/lobby/lobby_layer_%.2d_right/lobby_layer_%.2d_right%s.vrp', idx, idx, night)
-	if (cc.FileUtils:getInstance():isFileExist(res_name)) then
-		animator = MakeAnimator(res_name, skip_error_msg)
-	else
-        animator = MakeAnimator(string.format('res/lobby/lobby_layer_%.2d_right%s.png', idx, night))
+	local res_name = string.format('lobby_layer_%.2d_right%s', idx, night)
+	local path = string.format('res/lobby/%s/%s.vrp', res_name, res_name)
+	if (cc.FileUtils:getInstance():isFileExist(path) == false) then
+        path = string.format('res/lobby/%s.png', res_name)
     end
+	animator = MakeAnimator(path, skip_error_msg)
 	if (animator.m_node) then
 		animator:setDockPoint(cc.p(0.5, 0.5))
 		animator:setAnchorPoint(cc.p(0.5, 0.5))
