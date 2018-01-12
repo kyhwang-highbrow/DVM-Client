@@ -203,6 +203,10 @@ function Monster_ClanRaidBoss:syncHp(hp)
     self.m_hp = math_min(hp, self.m_maxHp)
     self.m_hpRatio = self.m_hp / self.m_maxHp
 
+    if (self.m_hp <= 0) then
+        self:changeState('dying')
+    end
+
     -- 체력바 가감 연출
     if (self.m_hpGauge) then
         self.m_hpGauge:setScaleX(self.m_hpRatio)

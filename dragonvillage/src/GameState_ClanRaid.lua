@@ -274,6 +274,8 @@ function GameState_ClanRaid:makeResultUI(is_success)
     self.m_world:setGameFinish()
 
     local total_damage = self.m_totalDamage:get()
+    cclog('total_damage : ' .. total_damage)
+    cclog('total_damage_to_enemy : ' .. self.m_world.m_logRecorder:getLog('total_damage_to_enemy'))
     
     -- 작업 함수들
     local func_network_game_finish
@@ -352,30 +354,6 @@ function GameState_ClanRaid:disappearAllDragon()
     for i, dragon in ipairs(self.m_world:getEnemyList()) do
         disappearDragon(dragon)
     end
-end
-
--------------------------------------
--- function checkWaveClear
--------------------------------------
-function GameState_ClanRaid:checkWaveClear(dt)
-    local world = self.m_world
-    local enemy_count = #world:getEnemyList()
-
-    -- 클리어 여부 체크
-    if (enemy_count <= 0) then
-        self.m_waveClearTimer = self.m_waveClearTimer + dt
-
-        if (self.m_waveClearTimer > 0.5) then
-            self.m_waveClearTimer = 0
-
-            self:changeState(GAME_STATE_SUCCESS_WAIT)
-            return true
-        end    
-    else
-        self.m_waveClearTimer = 0
-    end
-    
-    return false
 end
 
 -------------------------------------
