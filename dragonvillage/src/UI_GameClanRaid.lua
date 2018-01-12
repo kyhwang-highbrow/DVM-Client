@@ -66,5 +66,5 @@ end
 function UI_GameClanRaid:setTotalDamage(total_damage)
     local vars = self.vars
 
-    vars['damageLabel']:setString(math_floor(total_damage))
+    vars['damageLabel']:setString(comma_value(total_damage))
 end

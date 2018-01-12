@@ -243,6 +243,9 @@ function StatusEffectHelper:invokeStatusEffect(caster, target_char, status_effec
 
     elseif (status_effect_type == 'tamer_add_dmg') then
         -- 테이머의 추가피해는 저항할 수 없도록 처리
+
+    elseif (status_effect_type == 'dmg_add' and caster.m_charTable['type'] == 'clanraid_boss') then
+        -- 클랜 보스가 사용하는 받는 피해 증가 효과는 저항할 수 없도록 처리
         
     elseif (self:isHarmful(status_effect_category) and self:checkStatus(caster, target_char)) then
         if (not skip_resistance_font) then
