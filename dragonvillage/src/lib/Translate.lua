@@ -54,10 +54,6 @@ end
 -------------------------------------
 function Translate:load(lang)
     self.m_mLangMap = nil
-    if (lang == self.m_stdLang) then
-        return
-    end
-
 	self.m_gameLang = lang
 
     -- 한국어가 아니라면 m_mLangMap 호출
@@ -68,9 +64,14 @@ function Translate:load(lang)
 	elseif (lang == 'zh') then
         self.m_mLangMap = require 'translate/lang_zhtw'
 
+	-- 한국어는 m_mLangMap을 생성하지 않는다
+	elseif (lang == 'ko') then
+		-- nothing to do
+
 	-- 정의 되지 않은 언어는 '영어'로 일괄 처리
 	elseif (lang) then
 		self.m_mLangMap = require 'translate/lang_en'
+
     end
 end
 
