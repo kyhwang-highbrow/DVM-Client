@@ -144,6 +144,17 @@ function StructClanRaid:getBossName()
 end
 
 -------------------------------------
+-- function getBossMid
+-------------------------------------
+function StructClanRaid:getBossMid()
+    local name = ''
+    local stage_id = self['stage']
+    local is_boss, monster_id = g_stageData:isBossStage(stage_id)
+
+    return monster_id
+end
+
+-------------------------------------
 -- function getBossNameWithLv
 -------------------------------------
 function StructClanRaid:getBossNameWithLv(is_richlabel)
@@ -151,8 +162,11 @@ function StructClanRaid:getBossNameWithLv(is_richlabel)
     local lv = self:getLv()
     local name = self:getBossName()
     
+    local boss_mid = self:getBossMid()
+    local attr = TableMonster:getMonsterAttr(boss_mid)
+
     local str = is_richlabel and
-                string.format('{@deep_gray}%s {@apricot}Lv.%s', name, lv) or
+                string.format('{@apricot}Lv.%s {@%s}%s', lv, attr, name) or
                 string.format('%s Lv.%s', name, lv)
     return str
 end

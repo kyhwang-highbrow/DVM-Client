@@ -34,7 +34,6 @@ function UI_GameDPSPopup:init(world)
 	self.m_bShow = true
 	self.m_bDPS = true
 	self.m_logKey = 'damage'
-	self.m_rootHeight = vars['listNode']:getContentSize()['height']
 	self.m_dpsTimer = 0
 	self.m_interval = g_constant:get('INGAME', 'DPS_INTERVAL')
 
@@ -63,9 +62,22 @@ end
 -------------------------------------
 function UI_GameDPSPopup:initUI()
 	local vars = self.vars
-	local node = vars['listNode1']
+	local node = vars['listNode']
 
-	self.m_tableView = self:makeTableView(self.m_charList, vars['listNode'])
+    -- 드래곤 5마리 초과하면 listNode 크기 변경
+    if (#self.m_charList > 5) then
+        local multi = 2
+        self.m_rootHeight = node:getContentSize()['height'] * multi
+
+        local size = node:getContentSize()
+        node:setContentSize(cc.size(size.width, self.m_rootHeight))
+        vars['dpsBtn']:setPositionY(vars['dpsBtn']:getPositionY() + self.m_rootHeight/multi)
+        vars['dpsToggleNode']:setPositionY(vars['dpsToggleNode']:getPositionY() + self.m_rootHeight/multi)
+    else
+        self.m_rootHeight = node:getContentSize()['height']
+    end
+
+	self.m_tableView = self:makeTableView(self.m_charList, node)
 
 	-- 최초 UI 출력위해 호출
 	self:setDpsOrHps()
