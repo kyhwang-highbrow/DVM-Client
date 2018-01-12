@@ -382,7 +382,6 @@ function UI_TopUserInfo:show()
 	self.root:runAction(cc.MoveTo:create(0.5, cc.p(0, 0)))
 end
 
-
 -------------------------------------
 -- function refreshChatNotiInfo
 -- @brief 채팅 노티 UI 갱신
@@ -404,4 +403,12 @@ function UI_TopUserInfo:refreshChatNotiInfo()
 
     -- UI 값 설정
     self.vars['chatNotiSprite']:setVisible(visible)
+end
+
+-------------------------------------
+-- function setExitEnbaled
+-- @brief exitBtn enable
+-------------------------------------
+function UI_TopUserInfo:setExitEnbaled(b)
+	self.vars['exitBtn']:setEnabled(b)
 end

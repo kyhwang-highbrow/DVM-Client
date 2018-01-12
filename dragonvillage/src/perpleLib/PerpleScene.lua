@@ -38,7 +38,7 @@ function PerpleScene:init(param)
     self.m_scene = cc.Scene:create()
     self.m_lPrepareFunc = {}
     self.m_bUseLoadingUI = false
-    self.m_loadingUIDuration = 1
+    self.m_loadingUIDuration = nil
     self.m_bShowPushUI = true
     self.m_bRemoveCache = true
     self.m_sceneName = 'PerpleScene'
@@ -437,6 +437,7 @@ function replaceScene(target_scene)
     -- replaceScene
     local coroutine_function = coroutine.create(function(dt)
         local co_timer = 0
+		local block_ui
 
         --------------------------------------------------------------------------
         do -- #1 fade out
@@ -493,6 +494,14 @@ function replaceScene(target_scene)
         do -- prepare
             target_scene:prepare()
 			target_scene.m_loadingUI:setLoadingGauge(50)
+			
+			-- block 처리
+			target_scene:blockBackkey(true)
+			block_ui = UI_BlockPopup()
+			if (g_topUserInfo) then
+				g_topUserInfo:setExitEnbaled(false)
+			end
+
             dt = coroutine.yield()
             co_timer = co_timer + dt
         end
@@ -577,6 +586,13 @@ function replaceScene(target_scene)
 
         -- appearDone
         target_scene:appearDone()
+					
+		-- block 해제
+		target_scene:blockBackkey(false)
+		block_ui:close()
+		if (g_topUserInfo) then
+			g_topUserInfo:setExitEnbaled(true)
+		end
     end)
 
     -- coroutine Schedule함수, 코루틴이 종료되면 스케쥴도 해지
