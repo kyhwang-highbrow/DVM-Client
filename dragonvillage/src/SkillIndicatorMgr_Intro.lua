@@ -144,19 +144,6 @@ function SkillIndicatorMgr_Intro:onTouchEnded(touch, event)
 end
 
 -------------------------------------
--- function clear
--------------------------------------
-function SkillIndicatorMgr_Intro:clear()
-    self.m_touchedHero = nil
-    
-    if (self.m_selectHero) then
-        self:setSelectHero(nil)
-        self.m_bPauseMode = false
-    end
-end
-
-
--------------------------------------
 -- function setSelectHero
 -------------------------------------
 function SkillIndicatorMgr_Intro:setSelectHero(hero)
