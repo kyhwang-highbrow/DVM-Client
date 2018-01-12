@@ -116,10 +116,15 @@ function UI_ClanRaidResult:direction_start()
     local visual_node = vars['resultVisual']
     visual_node:setVisible(true)
 
+    local struct_raid = g_clanRaidData:getClanRaidStruct()
+    local clear = (struct_raid:getState() == CLAN_RAID_STATE.CLEAR)
+    local appear_name = clear and 'clear_appear' or 'result_appear'
+    local idle_name = clear and 'clear_idle' or 'result_idle'
+
     SoundMgr:playBGM('bgm_dungeon_victory', false)    
-    visual_node:changeAni('result_appear', false)
+    visual_node:changeAni(appear_name, false)
     visual_node:addAniHandler(function()
-        visual_node:changeAni('result_idle', true)
+        visual_node:changeAni(idle_name, true)
     end)
 
     self:doNextWorkWithDelayTime(0.8)
