@@ -56,7 +56,7 @@ function ForestStuffUI:refresh()
 
     -- 이름
     local stuff_lv = t_stuff_info['stuff_lv'] or 0
-    local name = t_stuff_info['stuff_name']
+    local name = t_stuff_info['t_stuff_name']
     vars['nameLabel']:setString(string.format('%s Lv.%d', Str(name), stuff_lv))
 
     -- 활성화 되지 않은 상태

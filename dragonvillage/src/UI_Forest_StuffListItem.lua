@@ -47,7 +47,7 @@ function UI_Forest_StuffListItem:refresh()
     vars['objectVisual']:changeAni(stuff_type .. '_idle', true)
 
     -- 이름 레벨
-    local name = Str(t_data['stuff_name'])
+    local name = Str(t_data['t_stuff_name'])
     local lv = t_data['stuff_lv'] or 0
     local display_lv = math_max(lv, 1) -- 1레벨의 정보는 보여주도록 하자
     vars['nameLabel']:setString(string.format('%s Lv.%d', name, display_lv))

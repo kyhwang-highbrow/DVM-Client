@@ -37,7 +37,7 @@ function UI_Forest_StuffLevelupPopup:initUI()
     local t_stuff_info = ServerData_Forest:getInstance():getStuffInfo_Indivisual(self.m_forestStuffType)
 
     -- 이름
-    local name = t_stuff_info['stuff_name']
+    local name = t_stuff_info['t_stuff_name']
     vars['titleLabel']:setString(Str(name))
 
     -- 애니변경
