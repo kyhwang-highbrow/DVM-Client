@@ -176,7 +176,7 @@ function UI_HatcheryCombinePopup:init_TableView()
     self.m_tableViewTD = table_view_td
 
     -- 리스트가 비었을 때
-    table_view_td:makeDefaultEmptyDescLabel('조건에 해당하는 드래곤이 없습니다.')
+    table_view_td:makeDefaultEmptyDescLabel(Str('조건에 해당하는 드래곤이 없습니다.'))
 
     -- 재료로 사용 가능한 리스트를 얻어옴
     local l_dragon_list = self:getDragonList()

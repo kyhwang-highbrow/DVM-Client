@@ -275,7 +275,7 @@ function UI_BookDetailPopup:onChangeDragon()
 
     do -- 드래곤 스토리
         local story_str = t_dragon['t_desc']
-        vars['storyLabel']:setString(story_str)
+        vars['storyLabel']:setString(Str(story_str))
     end
 
     self:addSameTypeDragon(t_dragon)

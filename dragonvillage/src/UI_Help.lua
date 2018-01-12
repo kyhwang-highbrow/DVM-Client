@@ -141,7 +141,7 @@ function UI_Help.makeCellUI_category(t_data)
 	local vars = ui:load('help_popup_item_01.ui')
 	
     local category = t_data['t_category']
-    vars['btnLabel']:setString(category)
+    vars['btnLabel']:setString(Str(category))
     vars['btnLabel']:setTextColor(cc.c4b(240, 215, 159, 255))
 
 	return ui
