@@ -34,14 +34,14 @@ function TableHighbrow:find(game, v2)
 end
 
 local t_game_key_str = {
-    ['dv1'] = Str('드빌1'),
-    ['dv2'] = Str('드빌2'),
+    ['dv1'] = '드빌1',
+    ['dv2'] = '드빌2',
 }
 -------------------------------------
 -- function getGameKeyStr
 -------------------------------------
 function TableHighbrow:getGameKeyStr(game_key)
-    return t_game_key_str[game_key]
+    return Str(t_game_key_str[game_key])
 end
 
 -------------------------------------

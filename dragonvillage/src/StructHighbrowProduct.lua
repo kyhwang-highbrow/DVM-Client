@@ -102,14 +102,14 @@ end
 -- function getGameKey
 -------------------------------------
 function StructHighbrowProduct:getFullName()
-    return TableHighbrow:getFullName(self.game_key, self.name) 
+    return TableHighbrow:getFullName(self.game_key, self:getName()) 
 end
 
 -------------------------------------
 -- function getName
 -------------------------------------
 function StructHighbrowProduct:getName()
-    return self.name
+    return Str(self.name)
 end
 
 -------------------------------------

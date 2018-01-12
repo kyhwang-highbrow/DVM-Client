@@ -182,13 +182,13 @@ function StructUserInfoColosseum:applyTableData(data)
 end
 
 local S_TIER_NAME_MAP = {}
-S_TIER_NAME_MAP['legend']   = Str('레전드')
-S_TIER_NAME_MAP['master']   = Str('마스터')
-S_TIER_NAME_MAP['diamond']  = Str('다이아')
-S_TIER_NAME_MAP['gold']     = Str('골드')
-S_TIER_NAME_MAP['silver']   = Str('실버')
-S_TIER_NAME_MAP['bronze']   = Str('브론즈')
-S_TIER_NAME_MAP['beginner'] = Str('입문자')
+S_TIER_NAME_MAP['legend']   = '레전드'
+S_TIER_NAME_MAP['master']   = '마스터'
+S_TIER_NAME_MAP['diamond']  = '다이아'
+S_TIER_NAME_MAP['gold']     = '골드'
+S_TIER_NAME_MAP['silver']   = '실버'
+S_TIER_NAME_MAP['bronze']   = '브론즈'
+S_TIER_NAME_MAP['beginner'] = '입문자'
 
 -------------------------------------
 -- function getTierName
@@ -202,9 +202,9 @@ function StructUserInfoColosseum:getTierName(tier)
 
     if (S_TIER_NAME_MAP[pure_tier]) then
         if (pure_tier ~= 'master') and (0 < tier_grade) then
-            return S_TIER_NAME_MAP[pure_tier] .. ' ' .. tostring(tier_grade)
+            return Str(S_TIER_NAME_MAP[pure_tier]) .. ' ' .. tostring(tier_grade)
         else
-            return S_TIER_NAME_MAP[pure_tier]
+            return Str(S_TIER_NAME_MAP[pure_tier])
         end
     else
         return '지정되지 않은 티어 이름'
