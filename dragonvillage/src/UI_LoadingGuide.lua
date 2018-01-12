@@ -11,7 +11,9 @@ UI_LoadingGuide = class(PARENT,{
 -- function init
 -------------------------------------
 function UI_LoadingGuide:init(curr_scene)
-    local vars = self:load('loading_tip.ui')
+	self.m_uiName = 'UI_LoadingGuide'
+    
+	local vars = self:load('loading_tip.ui')
 
 	local guide_type = curr_scene.m_loadingGuideType
 	if (guide_type) then

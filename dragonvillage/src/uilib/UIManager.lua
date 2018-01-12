@@ -538,7 +538,6 @@ end
 
 -------------------------------------
 -- function blockBackKey
--- @brief debug 영역을 cleanUp() 호출 시 같이 내려준다.
 -------------------------------------
 function UIManager:blockBackKey(b)
     if (self.m_perpleScene) then

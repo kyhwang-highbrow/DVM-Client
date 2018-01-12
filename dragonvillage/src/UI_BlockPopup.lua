@@ -10,6 +10,8 @@ UI_BlockPopup = class(PARENT, {
 -- function init
 -------------------------------------
 function UI_BlockPopup:init()
+	self.m_uiName = 'UI_BlockPopup'
+
     self:load('empty.ui')
     UIManager:open(self, UIManager.POPUP, true)
 

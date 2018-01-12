@@ -12,7 +12,6 @@ function SceneForest:init()
 
 	self.m_bUseLoadingUI = true
 	self.m_loadingGuideType = 'all'
-	self.m_loadingUIDuration = 1
 end
 
 -------------------------------------
