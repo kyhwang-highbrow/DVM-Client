@@ -259,12 +259,22 @@ function UI_ClanRaid:initRaidInfo()
     vars['attrNode']:addChild(icon)
 
     -- 체력 퍼센트
+    local tween_cb = function(number, label)
+        label:setString(string.format('%0.2f%%', number))
+    end
+
+    local hp_label = vars['hpLabel']
+    hp_label = NumberLabel(hp_label, 0, 0.3)
+    hp_label:setTweenCallback(tween_cb)
+
     local rate = struct_raid:getHpRate()
-    vars['hpLabel']:setString(string.format('%0.2f%%', rate))
+    hp_label:setNumber(rate, false)
 
     -- 체력 게이지
+    local gauge = vars['bossHpGauge1']
+    gauge:setPercentage(0)
     local action = cc.ProgressTo:create(0.3, rate)
-    vars['bossHpGauge1']:runAction(action)
+    gauge:runAction(action)
 
     self:showDungeonStateUI()
 end
