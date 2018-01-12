@@ -39,7 +39,7 @@ function SkillScript_ClanRaidBoss:init_skill(script_name, duration)
 		target_type = 'self',
 		target_count = 1,
 		trigger = CON_SKILL_IDLE,
-		duration = self.m_duration,
+		duration = self.m_duration + 0.5,
 		rate = 100,
 		value = 250,
         source = '',
