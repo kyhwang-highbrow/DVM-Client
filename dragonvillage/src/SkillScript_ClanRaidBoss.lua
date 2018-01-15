@@ -47,19 +47,17 @@ function SkillScript_ClanRaidBoss:init_skill(script_name, duration)
     table.insert(self.m_lStatusEffect, struct_status_effect)
 
     -- 다중 광폭화 상태효과 설정
-    for i = 1, 5 do
-        local struct_status_effect = StructStatusEffect({
-            type = 'passive_fury',
-			target_type = 'ally_all',
-			target_count = '',
-			trigger = CON_SKILL_END,
-			duration = -1,
-			rate = 100,
-			value = 20,
-            source = '',
-        })
-        table.insert(self.m_lStatusEffect, struct_status_effect)
-    end
+    local struct_status_effect = StructStatusEffect({
+        type = 'passive_fury',
+		target_type = 'ally_all',
+		target_count = '',
+		trigger = CON_SKILL_END,
+		duration = -1,
+		rate = 100,
+		value = 100,
+        source = '',
+    })
+    table.insert(self.m_lStatusEffect, struct_status_effect)
 end
 
 -------------------------------------
