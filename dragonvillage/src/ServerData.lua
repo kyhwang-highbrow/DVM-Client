@@ -407,6 +407,11 @@ function ServerData:networkCommonRespone(ret)
             self:applyServerData(ret['mileage'], 'user', 'mileage')
         end
 
+		-- 토파즈
+        if ret['topaz'] then
+            self:applyServerData(ret['topaz'], 'user', 'topaz')
+        end
+
         -- 열매 갯수
         if ret['fruits'] then
             self:applyServerData(ret['fruits'], 'user', 'fruits')
