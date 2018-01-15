@@ -152,7 +152,7 @@ function UI_ObtainPopup:createListUI(t_data)
 
 	-- item label
 	local item_name = table_item:getItemName(item_id)
-    local item_desc = table_item:getValue(item_id, 't_desc')
+    local item_desc = table_item:getItemDesc(item_id)
 
     local item_str = ''
     if item_desc then

@@ -644,11 +644,14 @@ function formatMessage(str, ...)
     local args = {...}
     local value
     for i = 1, #args do
+        --[[
         value = args[i]
         if (type(value) == 'string') then
             value = Translate:get(value)
         end
         str = str:gsub('{'..(i)..'}', value)
+        --]]
+        str = str:gsub('{'..(i)..'}', tostring(args[i]))
     end
     return str
 end

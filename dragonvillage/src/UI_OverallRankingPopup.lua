@@ -98,7 +98,7 @@ function UI_OverallRankingPopup:refresh()
     -- desc
     do
         if (T_DESC[self.m_currTab]) then
-            vars['dscLabel']:setString(T_DESC[self.m_currTab])
+            vars['dscLabel']:setString(Str(T_DESC[self.m_currTab]))
         end
     end
 
