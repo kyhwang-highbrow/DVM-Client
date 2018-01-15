@@ -249,7 +249,7 @@ function UI_ItemCard:getToolTipDesc()
     -- 설정된 별도의 이름이 있으면 우선 사용
     local name = (self.m_itemName or t_item['t_name'])
 
-    local str = Str('{@SKILL_NAME}{1}\n{@DEFAULT}{2}', name, desc)
+    local str = Str('{@SKILL_NAME}{1}\n{@DEFAULT}{2}', Str(name), Str(desc))
     return str
 end
 

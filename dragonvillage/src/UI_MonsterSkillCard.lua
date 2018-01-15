@@ -104,7 +104,7 @@ function UI_MonsterSkillCard:getSkillDescStrAll(skill_id, skill_type)
 
     local desc =  DragonSkillCore.getSimpleSkillDesc(t_skill)
 
-    local str = '{@SKILL_NAME} ' .. t_skill['t_name'] .. '\n {@SKILL_DESC}' .. desc
+    local str = '{@SKILL_NAME} ' .. Str(t_skill['t_name']) .. '\n {@SKILL_DESC}' .. desc
     return str
 end
 

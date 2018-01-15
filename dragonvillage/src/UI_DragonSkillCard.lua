@@ -79,7 +79,7 @@ function UI_DragonSkillCard:getSkillDescStr()
     local skill_type_str = getSkillTypeStr(skill_type, true)
     local desc = self.m_skillIndivisualInfo:getSkillDesc()
 
-    local str = '{@SKILL_NAME} ' .. t_skill['t_name'] .. skill_type_str .. '\n {@SKILL_DESC}' .. desc
+    local str = '{@SKILL_NAME} ' .. Str(t_skill['t_name']) .. skill_type_str .. '\n {@SKILL_DESC}' .. desc
     return str
 end
 

@@ -279,7 +279,7 @@ function TableItem:getToolTipDesc(item_id)
 
     local desc = t_item['t_desc']
     local name = t_item['t_name']
-    local str = Str('{@SKILL_NAME}{1}\n{@DEFAULT}{2}', name, desc)
+    local str = Str('{@SKILL_NAME}{1}\n{@DEFAULT}{2}', Str(name), Str(desc))
     return str
 end
 

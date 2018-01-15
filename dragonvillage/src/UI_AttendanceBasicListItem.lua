@@ -95,6 +95,6 @@ function UI_AttendanceBasicListItem:getToolTipDesc()
     end
 
     local name = t_item['t_name']
-    local str = '{@SKILL_NAME} ' .. name .. '\n {@DEFAULT}' .. desc
+    local str = '{@SKILL_NAME} ' .. Str(name) .. '\n {@DEFAULT}' .. Str(desc)
     return str
 end
