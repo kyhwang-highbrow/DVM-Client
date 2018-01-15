@@ -123,7 +123,7 @@ function UI_FriendMatchReady:initUI_userInfo()
 
         -- 전투력
         local str = user_info:getAtkDeckCombatPower(true)
-        vars['powerLabel1']:setString(Str('전투력 : {1}', str))
+        vars['powerLabel1']:setString(Str('전투력 : {1}', comma_value(str)))
 
         -- 아이콘
         local icon = user_info:getAtkDeckTamerReadyIcon()
@@ -139,7 +139,7 @@ function UI_FriendMatchReady:initUI_userInfo()
 
         -- 전투력
         local str = user_info:getDefDeckCombatPower()
-        vars['powerLabel2']:setString(Str('전투력 : {1}', str))
+        vars['powerLabel2']:setString(Str('전투력 : {1}', comma_value(str)))
 
         -- 아이콘
         local icon = user_info:getDefDeckTamerReadyIcon()
