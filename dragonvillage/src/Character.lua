@@ -2963,6 +2963,13 @@ function Character:getSizeType()
 end
 
 -------------------------------------
+-- function getPosForFormation
+-------------------------------------
+function Character:getPosForFormation()
+    return self:getPosition()
+end
+
+-------------------------------------
 -- function setSilence
 -- @brief 특정 상태효과 면역 체크
 -------------------------------------

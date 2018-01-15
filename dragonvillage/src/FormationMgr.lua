@@ -63,25 +63,6 @@ function FormationMgr:init(left_formation)
 end
 
 -------------------------------------
--- function getFormationRange
--------------------------------------
-function FormationMgr:getFormationRange()
-    if (self.m_bLeftFormation) then
-        local left = self.m_rearStartX
-        local right = self.m_frontEndX
-        local bottom = self.m_minY
-        local top = self.m_maxY
-        return left, right, bottom, top
-    else
-        local left = self.m_frontEndX
-        local right = self.m_rearStartX
-        local bottom = self.m_minY
-        local top = self.m_maxY
-        return left, right, bottom, top
-    end
-end
-
--------------------------------------
 -- function setSplitPos
 -------------------------------------
 function FormationMgr:setSplitPos(start_pos_x, interval)
@@ -142,8 +123,6 @@ function FormationMgr:setFormation(char, formation)
     if curr_formation then
         self:removeChar(curr_formation, char)
     end
-
-    local x = char.pos.x
 
     -- 전방 (front)
     if (formation == FORMATION_FRONT) then
@@ -210,7 +189,9 @@ function FormationMgr:setChangePosCallback(char)
         if (char_:isDead()) then
             return
         end
-        local formation = self:getFormation(char_.pos.x, char_.pos.y) 
+
+        local x, y = char_:getPosForFormation()
+        local formation = self:getFormation(x, y)
 
         if (char_.m_currFormation ~= formation) then
             self:setFormation(char_, formation)
@@ -254,217 +235,6 @@ function FormationMgr:changeFormation()
         cclog('##############################################')
         cclog('##############################################')
     end
-end
-
--------------------------------------
--- function getTypicalTarget
--- @brief 일반적인 타겟
--- @param cahr 반대 진형의 캐릭터
--------------------------------------
-function FormationMgr:getTypicalTarget(char)
-
-    local formation = char.m_currFormation or FORMATION_FRONT
-
-    -- 전방캐릭터의 타겟 로직
-    if (formation == FORMATION_FRONT) then
-        return self:getTypicalTarget_Near(char)
-
-    -- 중간, 후방 캐릭터의 타겟 로직
-    elseif (formation == FORMATION_MIDDLE) or (formation == FORMATION_REAR) then
-        return self:getTypicalTarget_Random(char)
-    end
-
-    return nil
-end
-
-
--------------------------------------
--- function getNearChar
--- @brief 리스트 내에서 가장 가까운 char를 리턴
--------------------------------------
-function FormationMgr:getNearChar(char, char_list)
-    local target = nil
-    local near_dist = nil
-
-    for i,v in ipairs(char_list) do
-        if (not v:isDead()) then
-            local dist = getDistance(char.pos.x, char.pos.y, v.pos.x, v.pos.y)
-
-            if (not near_dist) or (dist < near_dist) then
-                target = v
-                near_dist = dist
-            end
-        end
-    end
-
-    return target
-end
-
--------------------------------------
--- function getTypicalTarget_Near
--- @brief
--------------------------------------
-function FormationMgr:getTypicalTarget_Near(char)
-    local target = nil
-    
-    -- 전방
-    target = self:getNearChar(char, self.m_frontCharList)
-    if target then
-        return target
-    end
-
-    -- 중간
-    target = self:getNearChar(char, self.m_middleCharList)
-    if target then
-        return target
-    end
-
-    -- 후방
-    target = self:getNearChar(char, self.m_rearCharList)
-    if target then
-        return target
-    end
-
-    return nil
-end
-
--------------------------------------
--- function getRandomChar
--- @brief 리스트 내에서 랜덤 char를 리턴
--------------------------------------
-function FormationMgr:getRandomChar(char_list)
-    char_list = char_list or self.m_globalCharList
-    local count = #char_list
-
-    -- 리스트가 비어있을 경우
-    if (count <= 0) then
-        return nil
-
-    -- 리스트에 1개만 존재할 경우
-    elseif (count == 1) then
-        return char_list[1]
-
-    -- 리스트에 2개 이상이 존재할 경우
-    else -- if(count >= 2) then
-        local rand = math_random(1, count)
-        return char_list[rand]
-    end 
-end
-
--------------------------------------
--- function getTypicalTarget_Random
--------------------------------------
-function FormationMgr:getTypicalTarget_Random(char)
--- 죽은 char들은 리스트에서 자동으로 삭제된다고 가정
-    local target = nil
-    
-    -- 전방
-    target = self:getRandomChar(self.m_frontCharList)
-    if target then
-        return target
-    end
-
-    -- 중간
-    target = self:getRandomChar(self.m_middleCharList)
-    if target then
-        return target
-    end
-
-    -- 후방
-    target = self:getRandomChar(self.m_rearCharList)
-    if target then
-        return target
-    end
-
-    return nil
-end
-
--------------------------------------
--- function getTypicalHealTarget
--- @brief 일반적인 회복 타겟
--- @param cahr 캐릭터
--------------------------------------
-function FormationMgr:getTypicalHealTarget(count, l_remove)
-
-    -- 죽은 char들은 리스트에서 자동으로 삭제된다고 가정
-    local l_target = {}
-    
-    -- 전방
-    self:getRandomChar_Heal(self.m_frontCharList, l_target, l_remove, count)
-
-    -- 중간
-    self:getRandomChar_Heal(self.m_middleCharList, l_target, l_remove, count)
-
-    -- 후방
-    self:getRandomChar_Heal(self.m_rearCharList, l_target, l_remove, count)
-
-    return l_target
-end
-
--------------------------------------
--- function getRandomChar_Heal
--- @brief 리스트 내에서 랜덤 char를 리턴
--------------------------------------
-function FormationMgr:getRandomChar_Heal(char_list, l_target, l_remove, count)
-    local max_random = #char_list
-
-    if max_random <= 0 then
-        return
-    end
-
-    local t_rand = {}
-    for i=1, max_random do
-        t_rand[i] = i
-    end
-
-    while (count > #l_target) and (max_random > 0) do
-        local rand_num = math_random(1, max_random)
-        local char = char_list[rand_num]
-
-        if (not l_remove) or (not l_remove[char.phys_idx]) then
-            table.insert(l_target, char)
-            l_remove[char.phys_idx] = true
-        end
-        
-        table.remove(t_rand, rand_num)
-
-        max_random = max_random - 1
-    end
-end
-
--------------------------------------
--- function getRandomHealTarget
--- @brief
--------------------------------------
-function FormationMgr:getRandomHealTarget()
-    local char_list = {}
-    for i,v in pairs(self.m_globalCharList) do
-        if (not v:isDead()) and (not v:isMaxHp()) then
-            table.insert(char_list, v)
-        end
-    end
-
-    if (#char_list == 1) then
-        return char_list[1]
-    elseif (#char_list > 1) then
-        return char_list[math_random(1, #char_list)]
-    else
-         return nil
-    end
-end
-
--------------------------------------
--- local function sortGlobalCharList_left
--------------------------------------
-local function sortGlobalCharList_left(a, b)
-    return (a.pos.x > b.pos.x)
-end
-
--------------------------------------
--- local function sortGlobalCharList_right
--------------------------------------
-local function sortGlobalCharList_right(a, b)
-    return (a.pos.x < b.pos.x)
 end
 
 -------------------------------------
@@ -517,27 +287,6 @@ function FormationMgr:printCharList()
 	end
 	cclog('#########################################################----')
 end
-
--------------------------------------
--- function isFrontLineAlive
--------------------------------------
-function FormationMgr:isFrontLineAlive()
-    for _, v in pairs(self.m_frontCharList) do
-        if (not v:isDead()) then return true end
-    end
-    return false
-end
-
--------------------------------------
--- function isFrontLine
--------------------------------------
-function FormationMgr:isFrontLine(char)
-    for _, v in pairs(self.m_frontCharList) do
-        if (v == char) then return true end
-    end
-    return false
-end
-
 
 -------------------------------------
 -- class FormationMgrDelegate

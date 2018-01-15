@@ -185,7 +185,8 @@ function TargetRule_getTargetList_distance_line(org_list, x, y)
     local t_sort = {}
 
     for i,v in pairs(org_list) do
-        v.m_sortValue = getDistance(x, y, v.pos.x, v.pos.y)
+        local v_x, v_y = v:getPosForFormation()
+        v.m_sortValue = getDistance(x, y, v_x, v_y)
         v.m_sortRandomIdx = nil
         table.insert(t_sort, v)
     end
@@ -208,7 +209,8 @@ function TargetRule_getTargetList_far_line(org_list, x, y)
     local t_sort = {}
 
     for i,v in pairs(org_list) do
-        v.m_sortValue = getDistance(x, y, v.pos.x, v.pos.y)
+        local v_x, v_y = v:getPosForFormation()
+        v.m_sortValue = getDistance(x, y, v_x, v_y)
         v.m_sortRandomIdx = nil
         table.insert(t_sort, v)
     end
@@ -231,7 +233,8 @@ function TargetRule_getTargetList_distance_x(org_list, x)
     local t_sort = {}
 
     for i,v in pairs(org_list) do
-        v.m_sortValue = math_abs(x - v.pos.x)
+        local v_x, v_y = v:getPosForFormation()
+        v.m_sortValue = math_abs(x - v_x)
         v.m_sortRandomIdx = nil
         table.insert(t_sort, v)
     end

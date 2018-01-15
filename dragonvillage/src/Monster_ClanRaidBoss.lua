@@ -77,6 +77,11 @@ function Monster_ClanRaidBoss:updateBonePos(dt)
         end
     end
 
+    -- formationMgr에서의 위치 정보 갱신
+    if (self.m_cbChangePos) then
+        self.m_cbChangePos(self)
+    end
+
     -- 본 위치가 이동하면 physworld의 위치정보도 갱신시켜야함
     self.m_dirtyPos = true
 end
@@ -308,4 +313,11 @@ function Monster_ClanRaidBoss:checkSpecialImmune(t_status_effect)
     end
     
     return false
+end
+
+-------------------------------------
+-- function getPosForFormation
+-------------------------------------
+function Monster_ClanRaidBoss:getPosForFormation()
+    return self:getCenterPos()
 end
