@@ -41,8 +41,7 @@ function UI_DragonSell:init(doid)
     self:refresh()
 
     -- 정렬 도우미
-	local is_slime_fisrt = false
-	self:init_mtrDragonSortMgr(is_slime_fisrt)
+	self:init_mtrDragonSortMgr(false) -- slime_first
 end
 
 -------------------------------------

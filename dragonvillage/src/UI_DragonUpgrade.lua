@@ -50,7 +50,7 @@ function UI_DragonUpgrade:init(doid)
 
     -- 정렬 도우미
     self:init_dragonSortMgr()
-	self:init_mtrDragonSortMgr()
+	self:init_mtrDragonSortMgr(false) -- slime_first
 
     -- 마스터의 길 승급은 허들이 심해 입장만 시키도록 함
     -- @ MASTER ROAD

@@ -46,7 +46,7 @@ function UI_DragonSkillEnhance:init(doid)
 	
 	-- 정렬 도우미
     self:init_dragonSortMgr()
-	self:init_mtrDragonSortMgr()
+	self:init_mtrDragonSortMgr(true) -- slime_first
 end
 
 -------------------------------------

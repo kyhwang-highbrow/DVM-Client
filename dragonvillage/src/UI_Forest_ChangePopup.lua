@@ -64,8 +64,7 @@ function UI_Forest_ChangePopup:init()
     self:refresh()
 
     -- 정렬 도우미
-	local is_slime_fisrt = false
-	self:init_mtrDragonSortMgr(is_slime_fisrt)
+	self:init_mtrDragonSortMgr()
 end
 
 -------------------------------------
@@ -481,9 +480,7 @@ end
 -- function init_mtrDragonSortMgr
 -- @brief 정렬 도우미 - 저장 및 최초 정렬 순서 때문에 재정의
 -------------------------------------
-function UI_Forest_ChangePopup:init_mtrDragonSortMgr(slime_first)
-	local is_slime_first = (slime_first == nil) and true or false
-
+function UI_Forest_ChangePopup:init_mtrDragonSortMgr()
     -- 정렬 매니저 생성
 	local sort_mgr = SortManager_Dragon()
 	self.m_mtrlDragonSortManager = sort_mgr

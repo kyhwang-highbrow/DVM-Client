@@ -41,7 +41,7 @@ function UI_DragonLevelUp:init(doid)
 
     -- 정렬 도우미
     self:init_dragonSortMgr()
-	self:init_mtrDragonSortMgr(true)
+	self:init_mtrDragonSortMgr(true) -- slime_first
 end
 
 -------------------------------------
