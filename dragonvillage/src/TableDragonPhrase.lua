@@ -149,34 +149,34 @@ function TableDragonPhrase:getRandomPhrase_Sensitivity(did, flv, case_type)
 	
 	if (case_type == 'lobby_touch') then
 		for i = 1, 4 do
-			sum_random:addItem(1, 'lobby_touch' .. i)
+			sum_random:addItem(1, 't_lobby_touch' .. i)
 		end
 		self:addPhraseByFlv(sum_random, flv)
 		self:addShotByFlv(sum_random, flv)
 
 	elseif (case_type == 'lobby_hurry_gift') then
-		sum_random:addItem(1, 'lobby_induce')
+		sum_random:addItem(1, 't_lobby_induce')
 	
 	elseif (case_type == 'lobby_get_gift') then
-		sum_random:addItem(1, 'lobby_present')
+		sum_random:addItem(1, 't_lobby_present')
 	
 	elseif (case_type == 'lobby_after_gift') then
-		sum_random:addItem(1, 'lobby_end')
+		sum_random:addItem(1, 't_lobby_end')
 
 	elseif (case_type == 'party_in') then
-		sum_random:addItem(1, 'party_in')
+		sum_random:addItem(1, 't_party_in')
 
 	elseif (case_type == 'party_out') then
-		sum_random:addItem(1, 'party_out')
+		sum_random:addItem(1, 't_party_out')
 
 	elseif (case_type == 'party_in_induce') then
-		sum_random:addItem(1, 'party_in_induce')
+		sum_random:addItem(1, 'party_in_induce')    --아직까지는 사용않함 2018.01.12
 	
 	elseif (case_type == 'fruit_induce') then
-		sum_random:addItem(1, 'fruit_induce')
+		sum_random:addItem(1, 'fruit_induce')   --아직까지는 사용않함 2018.01.12
 
     elseif (case_type == 'forest_heart') then
-        sum_random:addItem(1, 'forest_heart')
+        sum_random:addItem(1, 't_forest_heart')
 
 	else
 		sum_random:addItem(1, 't_normal_phrase1')
@@ -199,5 +199,5 @@ function TableDragonPhrase:getRandomPhrase_Sensitivity(did, flv, case_type)
     local key = sum_random:getRandomValue()
 	
 	local speech = self:getValue(did, key)
-    return speech
+    return Str(speech)
 end
