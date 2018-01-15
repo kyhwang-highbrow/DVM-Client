@@ -527,6 +527,10 @@ function GameWorldClanRaid:removeAllHero()
         -- GameWorld:updateUnit에서 삭제하도록 하기 위함
         v.m_bPossibleRevive = false
     end
+    for i, v in pairs(self.m_subLeftNonparticipants) do
+        -- GameWorld:updateUnit에서 삭제하도록 하기 위함
+        v.m_bPossibleRevive = false
+    end
 end
 
 -------------------------------------
@@ -537,11 +541,17 @@ function GameWorldClanRaid:removeAllEnemy()
     for i, v in pairs(self:getEnemyList()) do
 		--cclog('REMOVE ALL ' .. v:getName())
         if (not v:isDead()) then
-            v:changeState('dying')
+            v:doDie()
+            break
         end
     end
 
     for i, v in pairs(self.m_rightNonparticipants) do
+        -- GameWorld:updateUnit에서 삭제하도록 하기 위함
+        v.m_bPossibleRevive = false
+    end
+
+    for i, v in pairs(self.m_subRightNonparticipants) do
         -- GameWorld:updateUnit에서 삭제하도록 하기 위함
         v.m_bPossibleRevive = false
     end

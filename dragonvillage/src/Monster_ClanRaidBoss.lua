@@ -133,7 +133,7 @@ function Monster_ClanRaidBoss:setDamage(attacker, defender, i_x, i_y, damage, t_
     local bApplyDamage = PARENT.setDamage(self, attacker, defender, i_x, i_y, damage, t_info)
 
     -- 막타 시 데미지 저장(일시 정지 상태일 경우는 모두 합산)
-    if (bApplyDamage) then
+    if (bApplyDamage and t_info and not t_info['is_definite_death']) then
         if (self:isZeroHp()) then
             if (prev_hp > 0 or self.m_temporaryPause) then
                 self:dispatch('clan_boss_final_damage', { damage = damage, skill_id = t_info['skill_id'] })
