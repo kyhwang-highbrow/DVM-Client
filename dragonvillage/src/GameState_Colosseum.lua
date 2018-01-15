@@ -38,7 +38,6 @@ end
 -------------------------------------
 function GameState_Colosseum.update_start(self, dt)
     local world = self.m_world
-    local map_mgr = world.m_mapManager
 
     if (self:getStep() == 0) then
         if (self:isBeginningStep()) then
@@ -116,6 +115,9 @@ function GameState_Colosseum.update_start(self, dt)
                 world.m_enemyTamer:setAnimatorScale(0.5)
                 world.m_enemyTamer.m_barrier:setVisible(true)
             end
+
+            -- 배경 연출 시작
+            world.m_mapManager:setDirecting('floating_1')
 
             self:changeState(GAME_STATE_WAVE_INTERMISSION)
         end
@@ -394,4 +396,13 @@ function GameState_Colosseum:makeResultUI(is_win)
         -- 최초 실행
         func_network_game_finish()
     end
+end
+
+-------------------------------------
+-- function doDirectionForBuff
+-- @brief 버프 연출을 적용
+-------------------------------------
+function GameState_Colosseum:doDirectionForBuff()
+    local level = self.m_buffCount
+    self.m_world.m_mapManager:setDirecting('colosseum_fury_' .. level)
 end

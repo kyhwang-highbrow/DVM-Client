@@ -102,14 +102,21 @@ function ScrollMap:setDirecting(directing_type)
         sequence = cc.Spawn:create(move_action, rotate_action)
 
     -- [광폭화 연출용]
-    elseif (string.find(self.m_bgDirectingType, 'buff_time')) then
-        local level = string.match(self.m_bgDirectingType, '%d')
+    elseif (string.find(self.m_bgDirectingType, 'colosseum_fury')) then
+        local level = tonumber(string.match(self.m_bgDirectingType, '%d'))
+        local ani_name
+
+        if (level <= 0) then                    ani_name = 'idle'
+        elseif (level == 1 or level == 2) then  ani_name = 'idle_1'
+        else                                    ani_name = 'idle_2'
+        end
 
         -- 별도로 배경 색 전환
 		for _, map_layer in pairs(self.m_tMapLayer) do
-            local value = (3 - level) * 50 + 50
-            map_layer:setColor(cc.c3b(255, value, value))
+            map_layer.m_animator:changeAni(ani_name, true)
 		end
+
+        return
 
 	-- [DARKNIX 보스용]
     elseif (string.find(self.m_bgDirectingType, 'darknix')) then

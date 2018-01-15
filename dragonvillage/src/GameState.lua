@@ -378,7 +378,6 @@ function GameState.update_fight(self, dt)
         if (self.m_buffCount < self.m_maxBuffCount) then
             if (self.m_nextBuffTime and self.m_fightTimer > self.m_nextBuffTime) then
                 self:applyBuffByFightTime()
-                --UIManager:toastNotificationRed(Str('공격력이 증가하고 방어력이 감소됩니다.'))
             end
         end
     end
@@ -1376,14 +1375,7 @@ function GameState:applyBuffByFightTime()
         end
     end
     self.m_buffCount = self.m_buffCount + 1
-
-    -- 배경 연출
-    do
-        local level = math_clamp(self.m_buffCount, 1, 3)
-        world.m_mapManager.m_node:stopAllActions()
-        world.m_mapManager:setDirecting('buff_time' .. level)
-    end
-    
+     
     -- 다음 버프 적용 시간 계산
     local start_time = self.m_tBuffInfoByFightTime['start_time']
     local random_time = self.m_tBuffInfoByFightTime['random_time']
@@ -1400,6 +1392,9 @@ function GameState:applyBuffByFightTime()
     else
         self.m_nextBuffTime = nil
     end
+
+    -- 버프 연출
+    self:doDirectionForBuff()
 end
 
 
@@ -1415,6 +1410,13 @@ function GameState:applyAccumBuffByFightTime(unit)
         local status, action = TableOption:parseOptionKey(type)
         unit.m_statusCalc:addOption(action, status, value)
     end
+end
+
+-------------------------------------
+-- function doDirectionForBuff
+-- @brief 버프 연출을 적용
+-------------------------------------
+function GameState:doDirectionForBuff()
 end
 
 -------------------------------------
