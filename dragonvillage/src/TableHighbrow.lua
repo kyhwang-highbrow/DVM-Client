@@ -41,7 +41,7 @@ local t_game_key_str = {
 -- function getGameKeyStr
 -------------------------------------
 function TableHighbrow:getGameKeyStr(game_key)
-    return t_game_key_str[game_key]
+    return Str(t_game_key_str[game_key])
 end
 
 -------------------------------------

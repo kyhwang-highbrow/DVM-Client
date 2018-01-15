@@ -303,9 +303,9 @@ function UI_Network:statusHandler(ret)
         end
 
         if submsg then
-            MakeNetworkPopup2(POPUP_TYPE.OK, msg, submsg, function() closeApplication() end)
+            MakeNetworkPopup2(POPUP_TYPE.OK, Str(msg), Str(submsg), function() closeApplication() end)
         else
-            MakeNetworkPopup(POPUP_TYPE.OK, msg, function() closeApplication() end)
+            MakeNetworkPopup(POPUP_TYPE.OK, Str(msg), function() closeApplication() end)
         end
         self:close()
         return true
@@ -315,9 +315,9 @@ function UI_Network:statusHandler(ret)
     local shop_tab = S_ERROR_STATUS_SHOP[status]
     if (error_str) then
         if (shop_tab) then
-            self:makeShopPopup(error_str .. Str('\n\n상점으로 이동하시겠습니까??'), ret, shop_tab)
+            self:makeShopPopup(Str(error_str).. Str('\n\n상점으로 이동하시겠습니까??'), ret, shop_tab)
         else
-            self:makeCommonPopup(error_str)
+            self:makeCommonPopup(Str(error_str))
         end
         return true
     end

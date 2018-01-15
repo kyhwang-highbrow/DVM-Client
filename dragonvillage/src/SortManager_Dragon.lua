@@ -92,7 +92,7 @@ T_DRAGON_SORT_TYPE_NAME['created_at'] = Str('획득순')
 -------------------------------------
 function SortManager_Dragon:getTopSortingName()
     local top_sorting_type = self:getTopSortingType()
-    return T_DRAGON_SORT_TYPE_NAME[top_sorting_type]
+    return Str(T_DRAGON_SORT_TYPE_NAME[top_sorting_type])
 end
 
 -------------------------------------

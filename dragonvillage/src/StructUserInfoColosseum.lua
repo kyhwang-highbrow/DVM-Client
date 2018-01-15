@@ -202,9 +202,9 @@ function StructUserInfoColosseum:getTierName(tier)
 
     if (S_TIER_NAME_MAP[pure_tier]) then
         if (pure_tier ~= 'master') and (0 < tier_grade) then
-            return S_TIER_NAME_MAP[pure_tier] .. ' ' .. tostring(tier_grade)
+            return Str(S_TIER_NAME_MAP[pure_tier]) .. ' ' .. tostring(tier_grade)
         else
-            return S_TIER_NAME_MAP[pure_tier]
+            return Str(S_TIER_NAME_MAP[pure_tier])
         end
     else
         return '지정되지 않은 티어 이름'
