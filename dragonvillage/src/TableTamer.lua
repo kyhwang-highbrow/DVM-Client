@@ -102,7 +102,7 @@ function TableTamer:getTamerName(tamer_id)
     if (self == THIS) then
         self = THIS()
     end
-    return self:getValue(tamer_id, 't_name')
+    return Str(self:getValue(tamer_id, 't_name'))
 end
 
 -------------------------------------
