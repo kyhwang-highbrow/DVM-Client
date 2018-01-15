@@ -2268,7 +2268,7 @@ end
 -------------------------------------
 function Character:getName()
 	if (self.m_charTable and self.m_charTable['t_name']) then 
-		return self.m_charTable['t_name']
+		return Str(self.m_charTable['t_name'])
 	end
 end
 
