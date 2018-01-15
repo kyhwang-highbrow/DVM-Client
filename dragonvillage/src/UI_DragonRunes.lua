@@ -429,7 +429,7 @@ function UI_DragonRunes:refreshRunesCount()
     for slot= 1, 6 do
         local l_item_list = g_runesData:getFilteredRuneList(unequipped, slot, set_id)
         local count = table.count(l_item_list)
-        vars['runeNumLabel'..slot]:setString(Str('{1}개', count))
+        vars['runeNumLabel'..slot]:setString(Str('{1}개', comma_value(count)))
     end
 end
 

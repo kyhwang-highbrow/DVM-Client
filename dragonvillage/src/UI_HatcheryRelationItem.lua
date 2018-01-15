@@ -62,7 +62,7 @@ function UI_HatcheryRelationItem:refresh()
         color = 'G'
     end
 
-    local str = Str('{@{1}}{2}{@w}/{3}', color, cur_rpoint, req_rpoint)
+    local str = Str('{@{1}}{2}{@w}/{3}', color, comma_value(cur_rpoint), comma_value(req_rpoint))
     vars['relationLabel']:setString(str)
 end
 

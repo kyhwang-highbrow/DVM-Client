@@ -62,7 +62,10 @@ function TableOption:getOptionDesc(option, val_1, val_2, val_3)
     end
 
     local t_desc = self:getValue(option, 't_desc')
-    local desc = Str(t_desc, val_1, val_2, val_3)
+    local desc = Str(t_desc, 
+                    val_1 and comma_value(val_1) or '', 
+                    val_2 and comma_value(val_2) or '', 
+                    val_3 and comma_value(val_3) or '')
     return desc
 end
 

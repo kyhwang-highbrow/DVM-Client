@@ -82,7 +82,7 @@ function UI_StaminaInfo:refresh()
     local st_ad = g_staminasData:getStaminaCount(stamina_type)
     local max_cnt = g_staminasData:getStaminaMaxCnt(stamina_type)
 
-    local str = Str('{1}/{2}', st_ad, max_cnt)
+    local str = Str('{1}/{2}', comma_value(st_ad), comma_value(max_cnt))
     vars['label']:setString(str)
 
     local charging_time = TableStaminaInfo:getChargingTime(stamina_type)

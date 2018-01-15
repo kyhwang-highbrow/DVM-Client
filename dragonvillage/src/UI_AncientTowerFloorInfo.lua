@@ -65,7 +65,11 @@ function UI_AncientTowerFloorInfo:refresh_floorData()
         local season_high_score = info.m_seasonHighScore
         local top_user = info.m_topUserInfo
         local nick = top_user and top_user:getNickname() or ''
-        local str = Str('{@DESC2}{1}점\n{@DESC}{@MUSTARD2}{2}점\n{@DESC}{3}점\n{4}', my_high_score, my_score, season_high_score, nick)
+        local str = Str('{@DESC2}{1}점\n{@DESC}{@MUSTARD2}{2}점\n{@DESC}{3}점\n{4}', 
+                        comma_value(my_high_score), 
+                        comma_value(my_score), 
+                        comma_value(season_high_score), 
+                        nick)
         vars['scoreLabel']:setString(str)
 
         local struct_clan = top_user and top_user:getStructClan() or nil

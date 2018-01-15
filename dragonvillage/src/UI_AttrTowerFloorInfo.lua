@@ -20,7 +20,10 @@ function UI_AttrTowerFloorInfo:refresh_floorData()
         local top_score = info.m_myTopUserScore
         local top_user = info.m_topUserInfo
         local nick = top_user and top_user:getNickname() or ''
-        local str = Str('{@DESC2}{1}점\n{@DESC}{@MUSTARD2}{2}점\n{3}', my_score, top_score, nick)
+        local str = Str('{@DESC2}{1}점\n{@DESC}{@MUSTARD2}{2}점\n{3}', 
+                        comma_value(my_score), 
+                        comma_value(top_score), 
+                        nick)
         vars['scoreLabel']:setString(str)
 
         local struct_clan = top_user and top_user:getStructClan() or nil

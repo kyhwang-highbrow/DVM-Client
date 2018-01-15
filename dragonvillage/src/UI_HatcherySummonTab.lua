@@ -51,7 +51,7 @@ function UI_HatcherySummonTab:initUI()
 
         -- 가격
         local price = t_data['price']
-        btn.vars['priceLabel']:setString(price)
+        btn.vars['priceLabel']:setString(comma_value(price))
 
         -- 가격 아이콘
         local price_type = t_data['price_type']

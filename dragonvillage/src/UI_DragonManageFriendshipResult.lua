@@ -99,13 +99,13 @@ function UI_DragonManageFriendshipResult:refresh(pre_dragon_object, cur_dragon_o
         local max_def = t_friendship_info['def_max']
         local max_hp = t_friendship_info['hp_max']
 
-        vars['atkLabel1']:setString(Str('{1}/{2}', cur_atk, max_atk))
-        vars['defLabel1']:setString(Str('{1}/{2}', cur_def, max_def))
-        vars['hpLabel1']:setString(Str('{1}/{2}', cur_hp, max_hp))
+        vars['atkLabel1']:setString(Str('{1}/{2}', comma_value(cur_atk), comma_value(max_atk)))
+        vars['defLabel1']:setString(Str('{1}/{2}', comma_value(cur_def), comma_value(max_def)))
+        vars['hpLabel1']:setString(Str('{1}/{2}', comma_value(cur_hp), comma_value(max_hp)))
 
-        vars['atkLabel2']:setString(Str('{1}', cur_atk - pre_atk))
-        vars['defLabel2']:setString(Str('{1}', cur_def - pre_def))
-        vars['hpLabel2']:setString(Str('{1}', cur_hp - pre_hp))
+        vars['atkLabel2']:setString(Str('{1}', comma_value(cur_atk - pre_atk)))
+        vars['defLabel2']:setString(Str('{1}', comma_value(cur_def - pre_def)))
+        vars['hpLabel2']:setString(Str('{1}', comma_value(cur_hp - pre_hp)))
 
         local function gauge_act_func(node, pre_per, cur_per)
             node:setPercentage(pre_per * 100)

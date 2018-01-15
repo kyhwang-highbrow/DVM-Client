@@ -268,7 +268,7 @@ function UI_EvolutionStoneCombine:refresh_mtrIcon()
 
         local numLabel = self:getTargetNode('tarNumLabel') 
         local cnt = t_data['target_item_count'] * multi
-        numLabel:setString(Str('{1}개', cnt))
+        numLabel:setString(Str('{1}개', comma_value(cnt)))
     end
 
     -- origin

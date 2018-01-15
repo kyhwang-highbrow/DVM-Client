@@ -279,7 +279,7 @@ function UI_TamerManagePopup:refreshButtonState()
 	
             -- 가격
 	        local price = l_price_info[2]
-            vars['priceLabel']:setString(price)
+            vars['priceLabel']:setString(comma_value(price))
 
 	        -- 가격 아이콘 및 라벨, 배경 조정
 	        UIHelper:makePriceNodeVariable(vars['priceBg'],  vars['priceNode'], vars['priceLabel'])

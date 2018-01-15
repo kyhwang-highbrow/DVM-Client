@@ -385,8 +385,7 @@ function UI_UserInfoDetailPopup:makeContextByTitle(key, value)
 		str = date_format:tostring(date)
 
 	else
-		str = value
-
+		str = comma_value(value)
 	end
 
 	return str

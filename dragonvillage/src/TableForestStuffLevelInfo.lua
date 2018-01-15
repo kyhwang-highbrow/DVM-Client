@@ -121,7 +121,7 @@ function TableForestStuffLevelInfo:getStuffOptionDesc(stuff_type, lv)
     -- 보상이 하나인 경우
     if (reward_2 == '') then
         local template = '{@item_name}{1}분{@DESC}마다 {@count}{2} {3}개{@DESC} 획득'
-        return Str(template, cool, item_name, item_cnt)
+        return Str(template, cool, item_name, comma_value(item_cnt))
     -- 2개인 경우 : 갯수는 빼버린다.
     else
         -- 2번 보상 상세
@@ -131,7 +131,7 @@ function TableForestStuffLevelInfo:getStuffOptionDesc(stuff_type, lv)
         local item_cnt_2 = t_reward_2[2]
 
         local template = '{@item_name}{1}분{@DESC}마다 {@count}{2} {3}개 {@DESC}또는 {@count}{4} {5}개{@DESC} 획득'
-        return Str(template, cool, item_name, item_cnt, item_name_2, item_cnt_2)
+        return Str(template, cool, item_name, comma_value(item_cnt), item_name_2, comma_value(item_cnt_2))
     end
 end
 

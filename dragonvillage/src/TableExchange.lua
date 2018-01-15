@@ -50,16 +50,16 @@ function TableExchange:makeProductDesc(l_product)
 		local str = ''
 
 		if (product_type == 'cash') then
-			str = Str('다이아몬드 {1}개', value_str)
+			str = Str('다이아몬드 {1}개', comma_value(value_str))
 
         elseif (product_type == 'amethyst') then
-			str = Str('자수정 {1}개', value_str)
+			str = Str('자수정 {1}개', comma_value(value_str))
 
 		elseif (product_type == 'gold') then
-			str = Str('골드 {1}개', value_str)
+			str = Str('골드 {1}개', comma_value(value_str))
 
 		elseif (product_type == 'stamina') then
-			str = Str('날개 {1}개', value_str)
+			str = Str('날개 {1}개', comma_value(value_str))
 
 		else
 			cclog('product_type : ' .. product_type)

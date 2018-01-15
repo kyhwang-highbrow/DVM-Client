@@ -181,7 +181,7 @@ function UI_DragonFriendship:refreshFriendship()
             vars['atkGauge']:stopAllActions()
             vars['atkGauge']:runAction(cc.ProgressTo:create(0.3, percent))
 
-            vars['atkLabel']:setString(Str('{1}/{2}', friendship_obj['fatk'], t_friendship_info['atk_max']))
+            vars['atkLabel']:setString(Str('{1}/{2}', comma_value(friendship_obj['fatk']), comma_value(t_friendship_info['atk_max'])))
         end
 
         local percent = (friendship_obj['fdef'] / t_friendship_info['def_max']) * 100
@@ -189,7 +189,7 @@ function UI_DragonFriendship:refreshFriendship()
             vars['defGauge']:stopAllActions()
             vars['defGauge']:runAction(cc.ProgressTo:create(0.3, percent))
 
-            vars['defLabel']:setString(Str('{1}/{2}', friendship_obj['fdef'], t_friendship_info['def_max']))
+            vars['defLabel']:setString(Str('{1}/{2}', comma_value(friendship_obj['fdef']), comma_value(t_friendship_info['def_max'])))
         end
 
         local percent = (friendship_obj['fhp'] / t_friendship_info['hp_max']) * 100
@@ -197,7 +197,7 @@ function UI_DragonFriendship:refreshFriendship()
             vars['hpGauge']:stopAllActions()
             vars['hpGauge']:runAction(cc.ProgressTo:create(0.3, percent))
 
-            vars['hpLabel']:setString(Str('{1}/{2}', friendship_obj['fhp'], t_friendship_info['hp_max']))
+            vars['hpLabel']:setString(Str('{1}/{2}', comma_value(friendship_obj['fhp']), comma_value(t_friendship_info['hp_max'])))
         end
     end
     

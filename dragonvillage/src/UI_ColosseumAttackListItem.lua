@@ -49,7 +49,7 @@ function UI_ColosseumAttackListItem:init(struct_user_info_colosseum)
     vars['powerLabel']:setString(Str('전투력 : {1}', comma_value(combat_power)))
 
     -- 점수 표시
-    vars['scoreLabel']:setString(Str('{1}점', info.m_rp))
+    vars['scoreLabel']:setString(Str('{1}점', comma_value(info.m_rp)))
 
     -- 드래곤 리스트
     local t_deck_dragon_list = info:getDefDeck_dragonList()

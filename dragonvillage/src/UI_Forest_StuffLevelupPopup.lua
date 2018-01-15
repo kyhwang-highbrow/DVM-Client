@@ -103,7 +103,7 @@ function UI_Forest_StuffLevelupPopup:refresh()
 
     -- 가격
     local price = t_stuff_level_info['price_value']
-    vars['priceLabel']:setString(price)
+    vars['priceLabel']:setString(comma_value(price))
 
     -- 레벨업 불가 시 잠금 처리
     local forest_lv = ServerData_Forest:getInstance():getExtensionLV()

@@ -438,9 +438,9 @@ function UI_DiceEvent.makeLap(t_data)
 
     -- 상품 수량은 표기하기 애매한데?
     if (reward_cnt == 1) then
-        vars['cntLabel']:setString(Str('{1}개', value))
+        vars['cntLabel']:setString(Str('{1}개', comma_value(value)))
     else
-        vars['cntLabel']:setString(Str('각 {1}개', value))
+        vars['cntLabel']:setString(Str('각 {1}개', comma_value(value)))
     end
 
     -- 0회차

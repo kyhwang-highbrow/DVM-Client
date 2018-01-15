@@ -228,7 +228,7 @@ function UI_DragonSkillMove:click_moveBtn()
 
     -- 확인 팝업
     local price = self:getSkillMovePrice()
-    local msg = Str('다이아몬드 {1}개를 사용하여\n드래곤 스킬을 이전하시겠습니까?', price)
+    local msg = Str('다이아몬드 {1}개를 사용하여\n드래곤 스킬을 이전하시겠습니까?', comma_value(price))
     UI_ConfirmPopup('cash', price, msg, request_func)
 end
 

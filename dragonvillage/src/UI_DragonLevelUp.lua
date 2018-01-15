@@ -342,7 +342,7 @@ function UI_DragonLevelUp:refresh_selectedMaterial()
     vars['expGauge']:runAction(cc.ProgressTo:create(0.2, (helper.m_expPercentage)))
 
     vars['levelLabel']:setString(Str('레벨{1}/{2}', helper.m_changedLevel, helper.m_maxLevel))
-    vars['expLabel']:setString(Str('{1}/{2}', helper.m_changedExp, helper.m_changedMaxExp))
+    vars['expLabel']:setString(Str('{1}/{2}', comma_value(helper.m_changedExp), comma_value(helper.m_changedMaxExp)))
 
     local plus_level = helper:getPlusLevel()
     vars['gradeLabel']:setString(Str('+{1}', plus_level))

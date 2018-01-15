@@ -81,7 +81,7 @@ function UI_FormationListItem:refresh()
 	else
 		vars['enhanceBtn']:setVisible(true)
         local price = self:getFormationEnhancePrice()
-        vars['priceLabel']:setString(price)
+        vars['priceLabel']:setString(comma_value(price))
 	end
 end
 

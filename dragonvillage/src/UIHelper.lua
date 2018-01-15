@@ -64,7 +64,7 @@ function UIHelper:makeItemName(t_item)
 	local item_name = TableItem:getItemName(item_id)
 	local item_cnt = t_item['count']
 	if (item_cnt) and (item_cnt > 0) then
-		return Str('{@item_name}{1} {@count}{2}개', item_name, item_cnt)
+		return Str('{@item_name}{1} {@count}{2}개', item_name, comma_value(item_cnt))
 	else
 		return Str('{@item_name}{1}', item_name)
 	end
@@ -80,7 +80,7 @@ function UIHelper:makeItemStr(t_item)
 	local item_name = TableItem:getItemName(item_id)
 	local item_cnt = t_item['count']
 	if (item_cnt) and (item_cnt > 0) then
-		return Str('{@count}{1} {2}개{@DESC}를 획득하였습니다.', item_name, item_cnt)
+		return Str('{@count}{1} {2}개{@DESC}를 획득하였습니다.', item_name, comma_value(item_cnt))
 	else
 		return Str('{@item_name}{1}{@DESC}(을)를 획득하였습니다.', item_name)
 	end
