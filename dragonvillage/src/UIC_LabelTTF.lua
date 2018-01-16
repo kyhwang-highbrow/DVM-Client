@@ -96,7 +96,7 @@ function UIC_LabelTTF:getCommonLineHeight()
 		
 	]]
 	local font_height = self.m_node:getCommonLineHeight()
-	local scale = self.m_node:getScale()
+	local scale = self.m_node:getScaleY()
     return font_height * scale
 end
 

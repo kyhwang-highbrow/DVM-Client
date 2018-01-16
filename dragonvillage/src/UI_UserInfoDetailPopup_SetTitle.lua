@@ -139,7 +139,7 @@ function UI_UserInfoDetailPopup_SetTitle:makeCellUI(t_data)
 	local vars = ui:load('user_info_title_item.ui')
     
     local title_id = t_data['title_id']
-    local title = t_data['t_name']
+    local title = Str(t_data['t_name'])
 
 
     -- 보유 여부

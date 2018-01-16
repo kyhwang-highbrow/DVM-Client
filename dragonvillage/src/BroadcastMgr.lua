@@ -287,7 +287,7 @@ function BroadcastMgr:makeMessage(msg_info)
                 return
             end
 
-            local name = TableDragon():getValue(data['did'], 't_name')
+            local name = TableDragon():getDragonName(data['did'])
             local attr = TableDragon():getValue(data['did'], 'attr')
             local str = dragonAttributeName(attr) .. ' ' .. name
 
@@ -295,7 +295,7 @@ function BroadcastMgr:makeMessage(msg_info)
                  
         elseif (value == 'rid') then
             -- 룬 이름
-            t_value[i] = TableItem():getValue(data['rid'], 't_name')
+            t_value[i] = TableItem():getItemName(data['rid'])
 
         elseif (value == 'grade' or value == 'd_grade') then
             -- 등급(룬의 경우는 승급이 존재하지 않음)
@@ -315,7 +315,7 @@ function BroadcastMgr:makeMessage(msg_info)
                 return
             end
 
-            t_value[i] = TableOption():getValue(opiton_type, 't_prefix')
+            t_value[i] = TableOption():getRunePrefix(opiton_type)
 
         else
             t_value[i] = data[value]
