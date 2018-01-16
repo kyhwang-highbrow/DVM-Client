@@ -1,3 +1,10 @@
+local ACTIVE_SKILL_PRIORITY = {
+    TAMER           = 1,    -- 테이머 스킬
+    ALLY_TARGET     = 2,    -- 아군 대상 스킬
+    ENEMY_TARGET    = 3,    -- 적군 대상 스킬
+    DEFAULT         = 4
+}
+
 -------------------------------------
 -- class GameActiveSkillMgr
 -------------------------------------
@@ -61,9 +68,6 @@ function GameActiveSkillMgr:doWork_dragon(t_data)
 
     --cclog('GameActiveSkillMgr:doWork : ' .. unit:getName() .. '(' .. unit.phys_idx .. ')')
 
-    local active_skill_id = unit:getSkillID('active')
-    if (not active_skill_id) then return false end
-
     -- 스킬 사용 위치 설정
     if (pos_x and pos_y) then
         unit.m_skillIndicator:setIndicatorTouchPos(pos_x, pos_y)
@@ -73,6 +77,7 @@ function GameActiveSkillMgr:doWork_dragon(t_data)
     end
 
     -- 스킬 예약
+    local active_skill_id = unit:getSkillID('active')
     unit:reserveSkill(active_skill_id)
 
     -- 크리티컬을 미리 판정하여 크리티컬 시에만 연출 보여줌
@@ -120,6 +125,9 @@ end
 function GameActiveSkillMgr:addWork(unit, pos_x, pos_y)
     --cclog('GameActiveSkillMgr:addWork : ' .. unit:getName() .. '(' .. unit.phys_idx .. ')')
 
+    local active_skill_id = unit:getSkillID('active')
+    if (not active_skill_id) then return end
+
     -- 해당 유닛이 이미 리스트에 존재한다면 삭제
     local t_prev_data = self.m_mWork[unit]
     if (t_prev_data) then
@@ -129,9 +137,28 @@ function GameActiveSkillMgr:addWork(unit, pos_x, pos_y)
         end
         self.m_mWork[unit] = nil
     end
-    
-    local t_data = { unit = unit, pos_x = pos_x, pos_y = pos_y }
+
+    -- 우선순위를 얻음
+    local priority = ACTIVE_SKILL_PRIORITY.DEFAULT
+
+    if (unit:getCharType() == 'tamer') then
+        priority = ACTIVE_SKILL_PRIORITY.TAMER
+    else
+        local skill_indivisual_info = unit:getLevelingSkillByType('active')
+        local t_skill = skill_indivisual_info.m_tSkill
+
+        if (string.find(t_skill['target_type'], 'ally')) then
+            priority = ACTIVE_SKILL_PRIORITY.ALLY_TARGET
+        else
+            priority = ACTIVE_SKILL_PRIORITY.ENEMY_TARGET
+        end
+    end
+        
+    local t_data = { unit = unit, pos_x = pos_x, pos_y = pos_y, priority = priority }
     table.insert(self.m_lWork, t_data)
+
+    -- 우선 순위대로 정렬
+    table.sort(self.m_lWork, function(a, b) return a['priority'] < b['priority'] end)
 
     self.m_mWork[unit] = t_data
 end
