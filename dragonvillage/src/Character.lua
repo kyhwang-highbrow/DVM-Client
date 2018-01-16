@@ -1432,7 +1432,8 @@ function Character:createWithSpriteFrameName(res_name)
         -- @E.T.
 		g_errorTracker:appendFailedRes(res_name)
 
-        cc.SpriteFrameCache:getInstance():addSpriteFrames('res/ui/a2d/ingame_damage/ingame_damage.plist')
+        --cc.SpriteFrameCache:getInstance():addSpriteFrames('res/ui/a2d/ingame_damage/ingame_damage.plist')
+        Translate:a2dTranslate('ui/a2d/ingame_damage/ingame_damage.plist')
         sprite = cc.Sprite:createWithSpriteFrameName(res_name)
     end
 

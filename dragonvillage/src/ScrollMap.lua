@@ -101,6 +101,15 @@ function ScrollMap:setDirecting(directing_type)
         
         sequence = cc.Spawn:create(move_action, rotate_action)
 
+    elseif (self.m_bgDirectingType == 'floating_colosseum') then
+        -- 위아래 흔들림
+        sequence = cc.Sequence:create(
+            cc.EaseOut:create(cc.MoveTo:create(time, cc.p(0, yScope)), 2),
+            cc.EaseIn:create(cc.MoveTo:create(time, cc.p(0, yScope * 2)), 2),
+            cc.EaseOut:create(cc.MoveTo:create(time, cc.p(0, yScope)), 2),
+            cc.EaseIn:create(cc.MoveTo:create(time, cc.p(0, 0)), 2)
+        )
+
     -- [광폭화 연출용]
     elseif (string.find(self.m_bgDirectingType, 'colosseum_fury')) then
         local level = tonumber(string.match(self.m_bgDirectingType, '%d'))

@@ -2,7 +2,6 @@ local PARENT = GameState
 
 local HERO_TAMER_POS_X = 320 - 50
 local ENEMY_TAMER_POS_X = 960 + 50
-local TAMER_POS_Y = -450
 
 -------------------------------------
 -- class GameState_Colosseum
@@ -52,7 +51,7 @@ function GameState_Colosseum.update_start(self, dt)
             -- 카메라 줌인
             world:changeCameraOption({
                 pos_x = 0,
-                pos_y = -300,
+                pos_y = -280,
                 scale = 1,
                 time = 2,
                 cb = function()
@@ -116,9 +115,6 @@ function GameState_Colosseum.update_start(self, dt)
                 world.m_enemyTamer.m_barrier:setVisible(true)
             end
 
-            -- 배경 연출 시작
-            world.m_mapManager:setDirecting('floating_1')
-
             self:changeState(GAME_STATE_WAVE_INTERMISSION)
         end
     end
@@ -148,6 +144,9 @@ function GameState_Colosseum.update_wave_intermission(self, dt)
         world.m_inGameUI:doAction()
 
         self:fight()
+
+        -- 배경 연출 시작
+        world.m_mapManager:setDirecting('floating_colosseum')
 
 		self:changeState(GAME_STATE_FIGHT)
 	end
@@ -338,7 +337,7 @@ function GameState_Colosseum:doDirectionForIntermission()
     local t_camera_info = {}
     	
     t_camera_info['pos_x'] = 0
-	t_camera_info['pos_y'] = 300
+	t_camera_info['pos_y'] = 280
 	t_camera_info['time'] = getInGameConstant("WAVE_INTERMISSION_TIME")
         
     -- 카메라 액션 설정

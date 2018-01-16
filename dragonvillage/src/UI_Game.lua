@@ -52,7 +52,8 @@ function UI_Game:init(game_scene)
     self.m_gameScene = game_scene
 
     cc.SpriteFrameCache:getInstance():addSpriteFrames('res/ui/a2d/ingame_btn/ingame_btn.plist')
-    cc.SpriteFrameCache:getInstance():addSpriteFrames('res/ui/a2d/ingame_damage/ingame_damage.plist')
+    --cc.SpriteFrameCache:getInstance():addSpriteFrames('res/ui/a2d/ingame_damage/ingame_damage.plist')
+    Translate:a2dTranslate('ui/a2d/ingame_damage/ingame_damage.plist')
 
     local vars = self:load(self:getUIFileName(), false, true, true)
     UIManager:open(self, UIManager.NORMAL)

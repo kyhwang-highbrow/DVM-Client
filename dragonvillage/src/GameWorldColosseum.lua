@@ -128,7 +128,8 @@ end
 function GameWorldColosseum:initTamer()
     local HERO_TAMER_POS_X = 320 - 50
     local ENEMY_TAMER_POS_X = 960 + 50
-    local TAMER_POS_Y = -600
+    --local TAMER_POS_Y = -600
+    local TAMER_POS_Y = -580
     local is_friendMatch = g_gameScene.m_bFriendMatch
 
     -- 아군 테이머 생성
@@ -140,7 +141,8 @@ function GameWorldColosseum:initTamer()
 
         self.m_tamer = self:makeTamerNew(t_tamer_data, t_costume_data)
         self.m_tamer:setPosition(HERO_TAMER_POS_X, TAMER_POS_Y)
-        self.m_tamer:setAnimatorScale(1)
+        --self.m_tamer:setAnimatorScale(1)
+        self.m_tamer:setAnimatorScale(0.9)
         self.m_tamer:changeState('appear_colosseum')
         self.m_tamer.m_animator.m_node:pause()
     end

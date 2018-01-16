@@ -271,6 +271,9 @@ function SceneGame:prepare()
 
     self:addLoading(function()
         -- 리소스 프리로드
+
+        Translate:a2dTranslate('ui/a2d/ingame_enemy/ingame_enemy.vrp')
+
         local ret = self.m_resPreloadMgr:loadFromStageId(self.m_stageID)
         return ret
     end)
