@@ -190,8 +190,20 @@ function UI_ClanRaidBossInfo:refresh_SkillInfo()
     local t_monster = TableMonster():get(self.m_sel_mid)
     local t_skill = TableMonsterSkill()
 
-    for i = 1, 6 do
-        local skill_node = vars['skillNode' .. i]
+    -- 기본 공격 표시
+    local skill_node = vars['skillNode1']
+    skill_node:removeAllChildren()
+
+    local skill_id = t_monster['skill_basic']
+    if (skill_id) and (skill_id ~= '') then
+        local t_skill = t_skill:get(skill_id)
+        local icon = UI_MonsterSkillCard('monster', skill_id)
+        skill_node:addChild(icon.root)
+    end
+
+    -- 스킬 표시
+    for i = 1, 5 do
+        local skill_node = vars['skillNode' .. i+1]
         skill_node:removeAllChildren()
 
         local skill_id = t_monster['skill_'..i]
