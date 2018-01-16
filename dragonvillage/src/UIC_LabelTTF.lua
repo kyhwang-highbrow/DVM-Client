@@ -6,6 +6,7 @@ local PARENT = UIC_Node
 UIC_LabelTTF = class(PARENT, {
         m_strokeTickness = 'number',
         m_shadowOffset = 'cc.Size',
+        m_orgFontSize = 'number',
     })
 
 -------------------------------------
@@ -14,13 +15,90 @@ UIC_LabelTTF = class(PARENT, {
 function UIC_LabelTTF:init(node)
     self.m_strokeTickness = 1
     self.m_shadowOffset = cc.size(0, 0)
+
+    local ttfInfo = self.m_node:getTTFConfig()
+    self.m_orgFontSize = ttfInfo.fontSize
+
+    --ui에 text가 들어있는경우 때문에
+    local org = node:getString()
+    self:setString( "" )
+    self:setString( org )
 end
 
 -------------------------------------
 -- function setString
 -------------------------------------
 function UIC_LabelTTF:setString(str)
-    return self.m_node:setString(str)
+    --매틱 들어오는것들 안태우기위해 체크
+    local needCheck = str and (string.len(str) > 0) and (str ~= self.m_node:getString())
+    
+    self.m_node:setString(str)
+
+    --needCheck = false
+
+    ---[[
+    local function checkTextArea()        
+        local sizeDimensions = self.m_node:getDimensions()
+        local stringWith = self.m_node:getStringWidth()
+        
+        if sizeDimensions.width < stringWith then        
+            local ttfInfo = self.m_node:getTTFConfig()
+            local oldFontSize = ttfInfo.fontSize
+            local rate = sizeDimensions.width / stringWith
+            local newFontSize
+            --원래 폰트크기의 최대 70%만 작아지도록
+            newFontSize = math_floor( math_max( oldFontSize * rate, self.m_orgFontSize * 0.7 ) )
+
+            if oldFontSize ~= newFontSize then                
+                ttfInfo.fontSize = newFontSize
+                self.m_node:setTTFConfig( ttfInfo )
+            end
+            --[[
+            cclog('===============================')            
+            cclog('sizeDimension : ' .. luadump(sizeDimensions) )
+            cclog('string : ' .. self:getString() )
+            cclog(string.format('fontsize : %d -> %d', oldFontSize, newFontSize ) )
+            cclog(debug.traceback())
+            cclog('===============================')
+            --]]
+
+            return true
+        end
+
+        return false
+    end
+
+    if needCheck == false then
+        return
+    end
+
+    --local stopwatch = Stopwatch()
+    --stopwatch:start()
+
+    if checkTextArea() == false then
+        local ttfInfo = self.m_node:getTTFConfig()
+        local oldFontSize = ttfInfo.fontSize
+        if oldFontSize ~= self.m_orgFontSize then
+            --[[
+            cclog('===============================')
+            cclog('self.m_orgFontSize ~= oldFontSize' )        
+            cclog('string : ' .. self:getString() )
+            cclog(string.format('fontsize : %d -> %d', oldFontSize, self.m_orgFontSize ) )
+            cclog('===============================')
+            --]]
+
+            ttfInfo.fontSize = self.m_orgFontSize
+            self.m_node:setTTFConfig( ttfInfo )
+
+            --한번더
+            checkTextArea()
+        end
+    end
+
+    --stopwatch:record('textArea' .. str)
+    --stopwatch:stop()
+    --stopwatch:print()
+    --]]
 end
 
 -------------------------------------
@@ -135,3 +213,19 @@ function UIC_LabelTTF:setTextColor(color)
     return self.m_node:setTextColor(color)
 end
 
+-------------------------------------
+-- function setFontSize
+-- @brief 폰트크기변경은 이걸 통해서 해주세요.
+-------------------------------------
+function UIC_LabelTTF:setFontSize(fontSize)    
+    local ttfInfo = self.m_node:getTTFConfig()
+    local oldFontSize = ttfInfo.fontSize
+    if oldFontSize == fontSize then
+        return;
+    end
+
+    ttfInfo.fontSize = fontSize
+    self.m_orgFontSize = fontSize
+    self.m_node:setTTFConfig( ttfInfo )
+    
+end
