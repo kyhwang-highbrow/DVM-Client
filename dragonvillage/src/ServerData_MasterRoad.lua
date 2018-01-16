@@ -267,7 +267,7 @@ function ServerData_MasterRoad:request_roadClear(rid, finish_cb)
     -- 네트워크 통신 UI 생성
     local ui_network = UI_Network()
     ui_network:setUrl('/users/master_road/clear')
-    ui_network:setLoadingMsg('마스터의 길 확인 중...')
+    ui_network:setLoadingMsg(Str('마스터의 길 확인 중...'))
     ui_network:setParam('uid', uid)
     ui_network:setParam('rid', rid)
     ui_network:setSuccessCB(success_cb)

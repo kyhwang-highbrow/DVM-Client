@@ -199,7 +199,7 @@ function ServerData_Friend:request_friendList(finish_cb, force, fail_cb)
     -- 네트워크 통신 UI 생성
     local ui_network = UI_Network()
     ui_network:setUrl('/socials/friend_list')
-    ui_network:setLoadingMsg('친구 정보 받는 중...')
+    ui_network:setLoadingMsg(Str('친구 정보 받는 중...'))
     ui_network:setParam('uid', uid)
     ui_network:setSuccessCB(success_cb)
 	ui_network:setFailCB(fail_cb)

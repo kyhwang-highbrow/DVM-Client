@@ -1249,7 +1249,7 @@ function UI_TitleScene:makeFailPopup(msg, ret)
         self:retryCurrWork()
     end
 
-    local msg = msg or '오류가 발생하였습니다.\n다시 시도하시겠습니까?'
+    local msg = msg or Str('오류가 발생하였습니다.\n다시 시도하시겠습니까?')
 
     if ret then
         local add_msg = '(status : ' .. tostring(ret['status']) .. ', message : ' .. tostring(ret['message']) .. ')'

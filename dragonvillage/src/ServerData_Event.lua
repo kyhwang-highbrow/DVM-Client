@@ -374,7 +374,7 @@ function ServerData_Event:request_eventList(finish_cb, fail_cb)
     -- 네트워크 통신
     local ui_network = UI_Network()
     ui_network:setUrl('/users/event/list')
-    ui_network:setLoadingMsg('이벤트 정보 받는 중...')
+    ui_network:setLoadingMsg(Str('이벤트 정보 받는 중...'))
     ui_network:setParam('uid', uid)
     ui_network:hideLoading()
     ui_network:setSuccessCB(success_cb)

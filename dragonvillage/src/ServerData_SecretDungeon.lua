@@ -100,7 +100,7 @@ function ServerData_SecretDungeon:requestSecretDungeonInfo(cb_func)
 
     local ui_network = UI_Network()
     ui_network:setUrl('/game/secret/info')
-    ui_network:setLoadingMsg('인연의 흔적을 흝어보는 중...')
+    ui_network:setLoadingMsg(Str('인연의 흔적을 흝어보는 중...'))
     ui_network:setParam('uid', uid)
     ui_network:setRevocable(true)
     ui_network:setSuccessCB(function(ret) success_cb(ret) end)
