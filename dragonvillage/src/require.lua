@@ -612,6 +612,7 @@ local t_module = {
     'UI_ItemCard',
     'UI_RuneCard',
     'UI_MonsterCard',
+    'UI_MonsterCustomCard',
 	'UI_RewardCard',
     'UI_DragonSkillCard',
     'UI_MonsterSkillCard',
@@ -1017,6 +1018,7 @@ local t_module = {
     'UI_ClanRaidRankPopup',
     'UI_ClanRaidRewardPopup',
     'UI_ClanRaidRankingRewardPopup',
+    'UI_ClanRaidBossInfo',
 
     -- Forest
     'SceneForest',

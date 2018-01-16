@@ -3139,6 +3139,12 @@
     <None Include="..\src\DragonAutoSetHelperNew.lua">
       <Filter>lua\src</Filter>
     </None>
+    <None Include="..\src\UI_ClanRaidBossInfo.lua">
+      <Filter>lua\UI</Filter>
+    </None>
+    <None Include="..\src\UI_MonsterCustomCard.lua">
+      <Filter>lua\UI</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Classes">

@@ -957,6 +957,7 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <None Include="..\src\UI_ClanMarkListItem.lua" />
     <None Include="..\src\UI_ClanMemberListItem.lua" />
     <None Include="..\src\UI_ClanRaid.lua" />
+    <None Include="..\src\UI_ClanRaidBossInfo.lua" />
     <None Include="..\src\UI_ClanRaidRankingRewardPopup.lua" />
     <None Include="..\src\UI_ClanRaidRankListItem.lua" />
     <None Include="..\src\UI_ClanRaidRankPopup.lua" />
@@ -1012,6 +1013,7 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <None Include="..\src\UI_IngameBossHp.lua" />
     <None Include="..\src\UI_IngameTamerPanelItem.lua" />
     <None Include="..\src\UI_MailRewardPopup.lua" />
+    <None Include="..\src\UI_MonsterCustomCard.lua" />
     <None Include="..\src\UI_MonsterSkillCard.lua" />
     <None Include="..\src\UI_NightmareStageListItem.lua" />
     <None Include="..\src\UI_Package_AdventureClear.lua" />

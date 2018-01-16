@@ -116,6 +116,7 @@ function UI_ClanRaid:initButton()
     vars['rankBtn']:registerScriptTapHandler(function() self:click_rankBtn() end)
     vars['rewardBtn']:registerScriptTapHandler(function() self:click_rewardBtn() end)
     vars['readyBtn']:registerScriptTapHandler(function() self:click_readyBtn() end)
+    vars['bossInfoBtn']:registerScriptTapHandler(function() self:click_bossInfoBtn() end)
 end
 
 -------------------------------------
@@ -240,7 +241,8 @@ function UI_ClanRaid:initRaidInfo()
             -- 클리어한 경우 회색 처리
             if (state == CLAN_RAID_STATE.CLEAR) then
                 animator:setAnimationPause(true)
-                animator:setBaseShader(SHADER_GRAY)
+                animator.m_node:setColor(COLOR['deep_gray']) 
+                --animator:setBaseShader(SHADER_GRAY)
             else
                 animator:changeAni('idle', true)
             end
@@ -447,6 +449,14 @@ function UI_ClanRaid:click_readyBtn()
 		local ramain_time = math_ceil(RENEW_INTERVAL - (curr_time - self.m_preRefreshTime) + 1)
 		UIManager:toastNotificationRed(Str('{1}초 후에 갱신 가능합니다.', ramain_time))
 	end
+end
+
+-------------------------------------
+-- function click_bossInfoBtn
+-- @brief 보스 정보
+-------------------------------------
+function UI_ClanRaid:click_bossInfoBtn()
+    UI_ClanRaidBossInfo()
 end
 
 --@CHECK
