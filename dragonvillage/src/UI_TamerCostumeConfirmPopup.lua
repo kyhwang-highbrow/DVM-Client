@@ -47,7 +47,7 @@ function UI_TamerCostumeConfirmPopup:initUI()
     vars['costumeTitleLabel']:setString(costume_name)
 
     local tamer_name = table_tamer:getValue(tamer_id, 't_name')
-    vars['tamerNameLabel']:setString(tamer_name)
+    vars['tamerNameLabel']:setString(Str(tamer_name))
 
     local shop_info = g_tamerCostumeData:getShopInfo(costume_id)
     if (not shop_info) then 

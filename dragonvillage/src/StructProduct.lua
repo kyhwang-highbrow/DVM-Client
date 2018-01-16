@@ -444,7 +444,7 @@ function StructProduct:buy(cb_func)
 	else
 		-- 아이템 이름 두줄인 경우 한줄로 변경
 		local name = string.gsub(self['t_name'], '\n', '')
-		local msg = Str('{@item_name}"{1}"\n{@default}구매하시겠습니까?', name)
+		local msg = Str('{@item_name}"{1}"\n{@default}구매하시겠습니까?', Str(name))
 
 		local price = self:getPrice()
 		local ui = MakeSimplePopup_Confirm(self['price_type'], price, msg, ok_cb, nil)
