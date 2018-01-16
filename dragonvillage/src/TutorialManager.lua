@@ -1,13 +1,18 @@
 TUTORIAL = {
+	-- 초기 튜토리얼
     INTRO_FIGHT = 'intro',
     FIRST_START = 'tutorial_first_adv_start',
     FIRST_END = 'tutorial_first_adv_end',
+	ADV_1_2_end = 'tutorial_1_2_adv_end',
+
+	GACHA11_START = 'gacha_11_start',
+	GACHA11_END = 'gacha_11_end',
+
+	-- 컨텐츠 튜토리얼
     COLOSSEUM = 'tutorial_colosseum',
     ANCIENT = 'tutorial_ancient_tower',
     CLAN = 'tutorial_clan',
     CLAN_GUEST = 'tutorial_clan_guest',
-	GACHA11_START = 'gacha_11_start',
-	GACHA11_END = 'gacha_11_end',
 }
 
 -------------------------------------
