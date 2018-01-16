@@ -32,12 +32,24 @@ end
 -- function initUI
 -------------------------------------
 function UI_ClanRaidBossInfo:initUI()
+    local vars = self.vars
+
     self:initMonsterList()
     self:initBossVrp()
 
-    -- 최초 보스 선택으로 
     local struct_raid = g_clanRaidData:getClanRaidStruct()
     local stage_id = struct_raid:getStageID()
+
+    -- 배경
+    local attr = struct_raid:getAttr()
+    local animator = ResHelper:getUIDragonBG(attr, 'idle')
+    vars['bgNode']:addChild(animator.m_node)
+
+    -- 속성 아이콘
+    local icon = IconHelper:getAttributeIcon(attr)
+    vars['attrNode']:addChild(icon)
+
+    -- 최초 보스 선택으로 
     local _, boss_mid = g_stageData:isBossStage(stage_id)
     self:click_partInfo(self.m_sel_ui, boss_mid)
 end
@@ -92,6 +104,7 @@ function UI_ClanRaidBossInfo:initMonsterList()
     table_view:setCellUIClass(make_func, create_func)
     table_view:setDirection(cc.SCROLLVIEW_DIRECTION_HORIZONTAL)
     table_view:setItemList(l_monster, true)
+    table_view.m_bAlignCenterInInsufficient = true -- 리스트 내 개수 부족 시 가운데 정렬
 
     local function sort_func(a, b) 
         return a['data'] < b['data']
@@ -175,13 +188,12 @@ function UI_ClanRaidBossInfo:refresh_SkillInfo()
     local t_skill = TableMonsterSkill()
 
     for i = 1, 6 do
+        local skill_node = vars['skillNode' .. i]
+        skill_node:removeAllChildren()
+
         local skill_id = t_monster['skill_'..i]
         if (skill_id) and (skill_id ~= '') then
             local t_skill = t_skill:get(skill_id)
-
-            local skill_node = vars['skillNode' .. i]
-            skill_node:removeAllChildren()
-
             local icon = UI_MonsterSkillCard('monster', skill_id)
             skill_node:addChild(icon.root)
         end
