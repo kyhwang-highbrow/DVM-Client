@@ -978,7 +978,7 @@ function UI_DragonRunes:click_equipBtn()
         local function ok_btn_cb()
             self:request_runeEquip(doid, roid)
         end
-        MakeSimplePopup2(POPUP_TYPE.YES_NO, '기존에 장착된 룬은 파괴됩니다.\n장착하시겠습니까?', Str('(장착된 룬은 골드를 사용하여 "해제"할 수 있습니다)'), ok_btn_cb)
+        MakeSimplePopup2(POPUP_TYPE.YES_NO, Str('기존에 장착된 룬은 파괴됩니다.\n장착하시겠습니까?'), Str('(장착된 룬은 골드를 사용하여 "해제"할 수 있습니다)'), ok_btn_cb)
     else
         self:request_runeEquip(doid, roid)
     end
