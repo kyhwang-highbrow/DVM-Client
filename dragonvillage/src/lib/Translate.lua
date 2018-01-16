@@ -94,6 +94,15 @@ function Translate:get(id)
     id = self:makeUsable(id)
     if self.m_mLangMap and self.m_mLangMap[id] then
         return self.m_mLangMap[id]
+    else
+        if isWin32() and CppFunctionsClass:isTestMode() and string.match(id, '[가-힣]+') then
+            if self.m_mLangMap then                
+                cclog("----------------------------------------")
+                cclog("미번역: " .. id .. "\n")
+                --cclog(debug.traceback())
+                cclog("----------------------------------------")
+            end
+        end
     end
     return id
 end
@@ -242,7 +251,7 @@ function Translate:getFontScaleRate()
     local retY = 1
     local game_lang = self:getGameLang()
     if game_lang == 'ja' then
-        retX = 0.92
+        retX = 1--0.92
     elseif game_lang == 'zh' then
         retY = 1
     end
