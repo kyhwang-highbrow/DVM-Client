@@ -24,12 +24,8 @@ end
 function SceneDV:onEnter()
     PerpleScene.onEnter(self)
     g_currScene:addKeyKeyListener(self)
-	--self:doUpdate()
-
-    --self:scenarioTest()
-	--self:penlightTest()
-
-    self:glCallsTest()
+    
+	self:scenarioTest()
 end
 
 -------------------------------------
@@ -532,20 +528,15 @@ end
 -- function scenarioTest
 -------------------------------------
 function SceneDV:scenarioTest()
+	SoundMgr:entry()
+
     local l_scenario = {
-        'scenario_sample',
-        'scenario_01_12_finish',
+		'scenario_prologue',
         'scenario_intro_start_goni',
         'scenario_intro_start_nuri',
         'scenario_intro_finish_nuri',
-        'scenario_intro_finish_goni',
-        'scenario_01_08_start',
-        'scenario_01_08_finish',
-        'scenario_01_12_start',
-        'scenario_01_12_finish',
-        'scenario_01_04_start',
-        'scenario_01_04_finish',
-    }
+        'scenario_intro_finish_goni'
+	}
 
     local doPlay = nil
     doPlay = function()
