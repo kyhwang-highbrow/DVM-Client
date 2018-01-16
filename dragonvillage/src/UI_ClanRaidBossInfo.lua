@@ -174,7 +174,7 @@ function UI_ClanRaidBossInfo:refresh_BossInfo()
         if (mid == self.m_sel_mid) then
             animator.m_node:setColor(COLOR['white'])
         else
-            animator.m_node:setColor(COLOR['deep_gray'])
+            animator.m_node:setColor(cc.c3b(70, 70, 70))
         end
     end
 end
