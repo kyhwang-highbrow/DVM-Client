@@ -120,7 +120,12 @@ function UI_ScenarioPlayer:applyEffect(effect)
         local vrp = self.m_bgAnimator
         local loop = string.find(key, '_idle') and true or false
         vrp:changeAni(key, loop)
-        vrp:addAniHandler(function() self:next() end)
+        vrp:addAniHandler(function() 
+			-- idle일 경우 auto skip 시간에 따라 진행
+			if (loop == false) then
+				self:next() 
+			end
+		end)
 
     elseif (effect == 'clear_text') then
         self.m_scenarioPlayerTalk:hide()
@@ -207,12 +212,15 @@ end
 -------------------------------------
 -- function effect_narrate
 -------------------------------------
-function UI_ScenarioPlayer:effect_narrate(t_narrate)
-    local ui = UI_ScenarioPlayer_Narrate(t_narrate)
+function UI_ScenarioPlayer:effect_narrate(t_page)
+    local ui = UI_ScenarioPlayer_Narrate(t_page)
     local function close_cb()
+		self.m_narrationUI = nil
         self:next()
     end
     ui:setCloseCB(close_cb)
+
+	self.m_narrationUI = ui
 end
 
 -------------------------------------
@@ -274,6 +282,7 @@ function UI_ScenarioPlayer:changeBg(bg_name)
         local remove_self = cc.RemoveSelf:create()
         self.m_bgAnimator:runAction(cc.Sequence:create(fade_out, remove_self))
         self.m_bgAnimator = nil
+		self.m_bgName = nil
         return
     end
 

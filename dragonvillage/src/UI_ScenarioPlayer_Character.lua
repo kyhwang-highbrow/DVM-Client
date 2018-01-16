@@ -23,6 +23,8 @@ UI_ScenarioPlayer_Character = class({
         m_bSilhouette = 'boolean',
     })
 
+local ACTION_TAG_FOCUS = 1202
+
 -------------------------------------
 -- function init
 -------------------------------------
@@ -221,7 +223,6 @@ function UI_ScenarioPlayer_Character:setCharAni(ani)
     self.m_charAniKey = ani
 end
 
-
 -------------------------------------
 -- function setFocus
 -------------------------------------
@@ -232,7 +233,9 @@ function UI_ScenarioPlayer_Character:setFocus()
     self.m_focusNode:runAction(ease_action)
 
     if self.m_charAnimator and (not self.m_bSilhouette) then
-        self.m_charAnimator:runAction(cc.TintTo:create(0.2, 255, 255, 255))
+		local action = cc.TintTo:create(0.2, 255, 255, 255)
+		action:setTag(ACTION_TAG_FOCUS)
+        self.m_charAnimator:runAction(action)
     end
 end
 
@@ -246,7 +249,9 @@ function UI_ScenarioPlayer_Character:killFocus()
     self.m_focusNode:runAction(ease_action)
 
     if self.m_charAnimator and (not self.m_bSilhouette) then
-        self.m_charAnimator:runAction(cc.TintTo:create(0.2, 127, 127, 127))
+		local action = cc.TintTo:create(0.2, 127, 127, 127)
+		action:setTag(ACTION_TAG_FOCUS)
+        self.m_charAnimator:runAction(action)
     end
 end
 
@@ -261,6 +266,8 @@ function UI_ScenarioPlayer_Character:setSilhouette(silhouette)
     self.m_bSilhouette = silhouette
 
     if self.m_charAnimator then
+		self.m_charAnimator.m_node:stopActionByTag(ACTION_TAG_FOCUS)
+
         if silhouette then
             self.m_charAnimator:setColor(cc.c3b(0, 0, 0))
         else

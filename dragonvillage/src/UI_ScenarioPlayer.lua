@@ -9,6 +9,7 @@ UI_ScenarioPlayer = class(PARENT,{
         m_scenarioTable = 'table',
 
         m_titleUI = '',
+		m_narrationUI = '',
 
         m_bgName = 'bg',
         m_bgAnimator = 'Animator',
@@ -129,6 +130,10 @@ end
 -- function next
 -------------------------------------
 function UI_ScenarioPlayer:next()
+	if (self.m_narrationUI) then
+		return
+	end
+
     -- spine 캐시 정리
     SpineCacheManager:getInstance():purgeSpineCacheData()
 
@@ -196,14 +201,16 @@ function UI_ScenarioPlayer:showPage()
     end
     
     do -- 대사
-        local text = t_page['t_text']
         local text_type = t_page['text_type']
-        local text_pos = t_page['text_pos']
         if (text_type == 'narrate') then
-            self:effect_narrate(text)
+            self:effect_narrate(t_page)
+			-- narration이 있을 경우 해당 UI에서 skip 제어, 좀 이상한데 구조 크게 바꾸지 않는 선에서 함
+			t_page['auto_skip'] = nil
         else
             local char_pos = t_page['char_pos']
             local char_name = (t_page['t_char_name'] or t_page['char'])
+			local text = t_page['t_text']
+			local text_pos = t_page['text_pos']
             self.m_scenarioPlayerTalk:setTalk(char_pos, char_name, text, text_type, text_pos)
         end
     end
@@ -259,10 +266,11 @@ function UI_ScenarioPlayer:showPage()
 
     -- 자동 넘김
     if (t_page['auto_skip']) then
-        if (t_page['auto_skip'] == 0) then
-            return self:next()
+		local time = tonumber(t_page['auto_skip'])
+        if (time == 0) then
+            self:next()
         else
-            local action = cc.Sequence:create(cc.DelayTime:create(t_page['auto_skip']), cc.CallFunc:create(function() self:next() end))
+            local action = cc.Sequence:create(cc.DelayTime:create(time), cc.CallFunc:create(function() self:next() end))
             self.m_autoSkipActionNode:runAction(action)
         end
     end
