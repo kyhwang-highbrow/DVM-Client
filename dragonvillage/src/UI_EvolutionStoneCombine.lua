@@ -338,7 +338,7 @@ function UI_EvolutionStoneCombine:showEffect()
         self:refresh_mtrIcon()
         self:refresh_mtrTableView(true)
 
-        local msg = Str('{1}에 성공하였습니다.', (self.m_selMode == MODE.COMBINE) and '조합' or '분해')
+        local msg = Str('{1}에 성공하였습니다.', (self.m_selMode == MODE.COMBINE) and Str('조합') or Str('분해'))
         UIManager:toastNotificationGreen(msg)
 
         bottom_node:setVisible(false)
