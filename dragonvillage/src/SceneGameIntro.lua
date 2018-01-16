@@ -73,6 +73,8 @@ function SceneGameIntro:prepare()
         -- 리소스 프리로드
         self.m_resPreloadMgr:resCaching('res/ui/a2d/tutorial/tutorial.vrp')
 
+        Translate:a2dTranslate('ui/a2d/ingame_enemy/ingame_enemy.vrp')
+
         local ret = self.m_resPreloadMgr:loadFromStageId(self.m_stageID)
         return ret
     end)

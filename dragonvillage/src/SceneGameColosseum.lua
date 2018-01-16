@@ -75,9 +75,11 @@ function SceneGameColosseum:prepare()
     end)
 
     self:addLoading(function()
+        -- 리소스 프리로드
         self.m_resPreloadMgr:resCaching('res/ui/a2d/colosseum_result/colosseum_result.vrp')
 
-        -- 리소스 프리로드
+        Translate:a2dTranslate('ui/a2d/ingame_enemy/ingame_enemy.vrp')
+
         local ret = self.m_resPreloadMgr:loadForColosseum()
         return ret
     end)
