@@ -81,7 +81,7 @@ function UI_LoadingGuide:setNextLoadingStr()
 
 	local random_str = self.m_lLoadingStrList[1]
 	if (random_str) then
-		self.vars['loadingLabel']:setString(Str(random_str))
+		self.vars['loadingLabel']:setString(random_str)
 		table.remove(self.m_lLoadingStrList, 1)
 	end
 end
