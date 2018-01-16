@@ -895,7 +895,7 @@ function UI_DragonRunes:click_removeBtn()
         g_runesData:request_runesUnequip(doid, slot, finish_cb, fail_cb)
     end
 
-    MakeSimplePopup_Confirm('gold', price, '룬을 해제하시겠습니까?', ok_btn_cb)
+    MakeSimplePopup_Confirm('gold', price, Str('룬을 해제하시겠습니까?'), ok_btn_cb)
 end
 
 
