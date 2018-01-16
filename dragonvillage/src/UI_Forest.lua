@@ -50,7 +50,8 @@ function UI_Forest:initUI()
     self.m_territory = territory
     self.m_territory:setUI(self)
 	
-	self:initSnow()
+    -- 2018-01-16 sgkim 겨울이 지나서 제거함
+	--self:initSnow()
 end
 
 -------------------------------------
