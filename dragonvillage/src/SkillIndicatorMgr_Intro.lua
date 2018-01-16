@@ -53,17 +53,6 @@ function SkillIndicatorMgr_Intro:onTouchBegan(touch, event)
             select_hero = v
             break
         end
-        --[[
-        local x, y = v:getCenterPos()
-	    local distance = math_distance(x, y, node_pos['x'], node_pos['y'])
-
-		if (distance <= 100) then
-			if (near_distance == nil) or (distance < near_distance) then
-				near_distance = distance
-				select_hero = v
-			end
-		end
-        ]]--
     end 
 
     if (select_hero and select_hero == self.m_introHero) then
@@ -99,7 +88,7 @@ function SkillIndicatorMgr_Intro:onTouchEnded(touch, event)
     if (self.m_selectHero) then
         if (not self.m_selectHero.m_skillIndicator:isExistTarget()) then
             -- 대상이 하나도 없을 경우 취소 처리
-            self:clear()
+            self:clear(true)
 
             if (self.m_animatorGuide) then
                 self.m_animatorGuide:setFrame(0)
