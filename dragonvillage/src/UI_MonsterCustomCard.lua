@@ -47,7 +47,7 @@ function UI_MonsterCustomCard:setHighlightSpriteVisible(visible)
     if self.vars[lua_name] then
         self.vars[lua_name]:setVisible(visible)
     elseif (visible) then
-        self:makeSprite(lua_name, res)
+        self:makeSprite(lua_name, res, nil, 99)
         -- 깜빡임 액션
         self.vars[lua_name]:runAction(cca.flash())
     end
@@ -57,9 +57,9 @@ end
 -- function makeSprite
 -- @brief 카드에 사용되는 sprite는 모두 이 로직으로 생성
 -------------------------------------
-function UI_MonsterCustomCard:makeSprite(lua_name, res, no_use_frames)
+function UI_MonsterCustomCard:makeSprite(lua_name, res, no_use_frames, zorder)
     local vars = self.vars
-
+    local zorder = zorder or 0
     if vars[lua_name] then
         vars[lua_name]:removeFromParent()
         vars[lua_name] = nil
@@ -71,6 +71,6 @@ function UI_MonsterCustomCard:makeSprite(lua_name, res, no_use_frames)
     else
         sprite = IconHelper:createWithSpriteFrameName(res)
     end
-    vars['clickBtn']:addChild(sprite)
+    vars['clickBtn']:addChild(sprite, zorder)
     vars[lua_name] = sprite
 end
