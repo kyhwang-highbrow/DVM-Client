@@ -120,6 +120,7 @@ function UI_ClanRaidBossInfo:initBossVrp()
     local vars = self.vars
     local struct_raid = g_clanRaidData:getClanRaidStruct()
     local stage_id = struct_raid:getStageID()
+    local _, boss_mid = g_stageData:isBossStage(stage_id)
 
     -- 보스 animator
     local boss_node = vars['bossNode']
@@ -133,8 +134,10 @@ function UI_ClanRaidBossInfo:initBossVrp()
         if (animator) then
             local zOrder = WORLD_Z_ORDER.BOSS
             local idx = getDigit(mid, 10, 1)
-            if (idx == 1) then
-                zOrder = WORLD_Z_ORDER.BOSS + 1    
+            if (idx == 1) and (mid == boss_mid) then
+                zOrder = WORLD_Z_ORDER.BOSS     
+            elseif (idx == 1) then
+                zOrder = WORLD_Z_ORDER.BOSS + 1
             elseif (idx == 7) then
                 zOrder = WORLD_Z_ORDER.BOSS
             else
