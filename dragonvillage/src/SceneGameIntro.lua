@@ -230,9 +230,7 @@ function SceneGameIntro:checkScenario()
     self.m_tutorialPlayer.root:removeFromParent()
     self.m_tutorialPlayer = nil
 
-    local tid = g_userData:get('start_tamer')
-    local tamer_name = TableTamer():getTamerType(tid) or 'goni'
-    local intro_finish_name = 'scenario_intro_finish_'..tamer_name
+    local intro_finish_name = 'scenario_intro_finish'
 
     local play_intro_finish
     local lobby_func
