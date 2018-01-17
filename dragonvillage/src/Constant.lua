@@ -191,6 +191,21 @@ RES_RANGE = 'res/effect/skill_range/skill_range.vrp'
 -- 상태효과가 걸렸음을 가시적으로 표현하는 모션스트릭
 RES_SE_MS = 'res/effect/motion_streak/motion_streak_feedback.png'
 
+--------------------------------------------
+-- SERVER_NAME
+--------------------------------------------
+SERVER_NAME = {
+    KOREA = 'Korea',
+    AMERICA = 'America',
+    ASIA = 'Asia',
+    JAPAN = 'Japan',
+
+    DEV = 'Dev',
+    QA = 'Qa', 
+}
+
+
+
 -------------------------------------
 -- function monsterRarityStrToNum
 -- @brief 

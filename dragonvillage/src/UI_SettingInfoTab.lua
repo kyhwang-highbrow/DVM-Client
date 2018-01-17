@@ -53,10 +53,13 @@ end
 -- @brief 고객 센터 (브라우저)
 -------------------------------------
 function UI_Setting:click_serviceBtn()
-    local _url = URL['DVM_CS']
+    --한국서버와 나머지 서버
+    local _url = GetCSUrl( g_localData:getServerName() )
     local market = 'android' or 'undefined'
     local ver = getAppVer() or 'undefined'
     local uid = g_userData:get('uid') or 'undefined'
+    local lang = Translate:getGameLang()
+    local server = g_localData:getServerName()
 
     if isAndroid() then
         market = 'android'
@@ -64,7 +67,13 @@ function UI_Setting:click_serviceBtn()
         market = 'ios'
     end
 
-    local url = Str('{1}?market={2}&ver={3}&uid={4}', _url, market, ver, uid)
+    local url;
+    if server == SERVER_NAME.KOREA then
+        url = formatMessage('{1}?market={2}&ver={3}&uid={4}', _url, market, ver, uid)
+    else
+        url = formatMessage('{1}?market={2}&ver={3}&uid={4}&lang={5}&server={6}', _url, market, ver, uid, lang, server)
+    end
+    cclog('url : ' .. url )
     SDKManager:goToWeb(url)
     --UI_WebView(url)
 end

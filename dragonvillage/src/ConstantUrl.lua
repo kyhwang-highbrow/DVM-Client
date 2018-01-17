@@ -102,5 +102,16 @@ URL['PERPLELAB_PI'] = 'http://s3.dvm.perplelab.com/perplelab/personalinformation
 -- Highbrow
 URL['HIGHBROW'] = 'http://account.game.highbrow-inc.com:8080/'
 URL['HIGHBROW_CS'] = 'http://m.dragonvillage.net/support/customer/faq'
-URL['DVM_CS'] = 'http://ask.dvm.perplelab.com'
 URL['DVM_COMMUNITY'] = 'http://m.dragonvillage.net/dvm'
+
+--cs
+URL['DVM_CS'] = 'http://ask.dvm.perplelab.com'
+URL['DVM_CS_GLOBAL'] = 'http://ask.dvm.perplelab.com/index_en.html'
+
+function GetCSUrl( server )
+    if server == SERVER_NAME.KOREA then
+        return URL['DVM_CS']
+    else
+        return URL['DVM_CS_GLOBAL']
+    end
+end

@@ -580,7 +580,7 @@ function UI_TitleScene:workSelectServer()
         if ret['state'] == 0 then
             --ui 작업 필요, 우선은 Korea로
             g_localData:lockSaveData()
-            g_localData:setServerName('Korea')
+            g_localData:setServerName(SERVER_NAME.KOREA)
             g_localData:unlockSaveData()
 
             --접속할 게임서버를 여기서 받아오는것으로 
