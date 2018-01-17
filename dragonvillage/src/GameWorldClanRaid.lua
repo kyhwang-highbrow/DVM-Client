@@ -195,6 +195,7 @@ end
 
 -------------------------------------
 -- function findTarget
+-- @brief 가장 가까운 대상을 찾음
 -------------------------------------
 function GameWorldClanRaid:findTarget(group_key, x, y, l_remove)
     local target
@@ -208,8 +209,8 @@ function GameWorldClanRaid:findTarget(group_key, x, y, l_remove)
     end
 
     for i,v in pairs(unitList) do
-        if v:isDead() then
-        elseif l_remove and table.find(l_remove, v.phys_idx) then
+        if (v:isDead()) then
+        elseif (l_remove and table.find(l_remove, v.phys_idx)) then
         else
             local dist = getDistance(x, y, v.pos.x + v.body.x, v.pos.y + v.body.y)
             if (not distance) or (dist < distance) then

@@ -446,11 +446,11 @@ function GameWorldClanRaid:addEnemy(enemy)
     local participants = {}
     local nonparticipants = {}
 
-    if (group_key == PHYS.ENEMY_TOP) then
+    if (group_key == self:getOpponentPCGroup()) then
         participants = self.m_rightParticipants
         nonparticipants = self.m_rightNonparticipants
 
-    elseif (group_key == PHYS.ENEMY_BOTTOM) then
+    elseif (group_key == self:getOpponentNPCGroup()) then
         participants = self.m_subRightParticipants
         nonparticipants = self.m_subRightNonparticipants
 
@@ -482,11 +482,11 @@ function GameWorldClanRaid:removeEnemy(enemy)
     local participants = {}
     local nonparticipants = {}
 
-    if (group_key == PHYS.ENEMY_TOP) then
+    if (group_key == self:getOpponentPCGroup()) then
         participants = self.m_rightParticipants
         nonparticipants = self.m_rightNonparticipants
 
-    elseif (group_key == PHYS.ENEMY_BOTTOM) then
+    elseif (group_key == self:getOpponentNPCGroup()) then
         participants = self.m_subRightParticipants
         nonparticipants = self.m_subRightNonparticipants
 
