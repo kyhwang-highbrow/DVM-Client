@@ -123,6 +123,12 @@ end
 -- function click_homeButton
 -------------------------------------
 function UI_GamePause:click_homeButton()
+	-- 튜토리얼 진행 중 block
+	if (TutorialManager.getInstance():blockIngamePause(self.m_stageID)) then
+		UIManager:toastNotificationRed(Str('튜토리얼 진행 중입니다.'))
+		return
+	end
+
     local function home_func()
         local game_mode = g_gameScene.m_gameMode
         local dungeon_mode = g_gameScene.m_dungeonMode
@@ -137,6 +143,12 @@ end
 -- function click_retryButton
 -------------------------------------
 function UI_GamePause:click_retryButton()
+	-- 튜토리얼 진행 중 block
+	if (TutorialManager.getInstance():blockIngamePause(self.m_stageID)) then
+		UIManager:toastNotificationRed(Str('튜토리얼 진행 중입니다.'))
+		return
+	end
+
     local function retry_func()
         local stage_id = g_currScene.m_stageID
         UINavigator:goTo('adventure', stage_id)

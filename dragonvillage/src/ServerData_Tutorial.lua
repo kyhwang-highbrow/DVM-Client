@@ -100,7 +100,9 @@ function ServerData_Tutorial:request_tutorialSave(tutorial_key, step, finish_cb,
     local function success_cb(ret)
 
 		-- 튜토리얼 클리어 저장
-        self.m_tTutorialClearInfo[tutorial_key] = true
+		if (not step) then
+	        self.m_tTutorialClearInfo[tutorial_key] = true
+		end
 
 		-- 스텝 정보 저장
 		self.m_tTutorialStepInfo[tutorial_key] = step

@@ -3,7 +3,7 @@ TUTORIAL = {
     INTRO_FIGHT = 'intro',
     FIRST_START = 'tutorial_first_adv_start',
     FIRST_END = 'tutorial_first_adv_end',
-	ADV_1_2_end = 'tutorial_1_2_adv_end',
+	ADV_1_2_END = 'tutorial_1_2_adv_end',
 
 	GACHA11_START = 'gacha_11_start',
 	GACHA11_END = 'gacha_11_end',
@@ -119,12 +119,12 @@ function TutorialManager:checkTutorialInLobby(ui_lobby)
 
 	-- 1-1 end 클리어 여부
 	tutorial_key = TUTORIAL.FIRST_END
+	is_done = g_tutorialData:isTutorialDone(tutorial_key)
 
 	cclog('-------------------------')
 	cclog(tutorial_key)
-
-	is_done = g_tutorialData:isTutorialDone(tutorial_key)
 	cclog(is_done)
+
 	if (not is_done) then
 		local step = g_tutorialData:getStep(tutorial_key)
 		cclog(step)
@@ -156,7 +156,34 @@ function TutorialManager:checkTutorialInLobby(ui_lobby)
 	-- 1-7 e 는 무시?? 기획서좀 찾아보자
 end
 
+-------------------------------------
+-- function blockIngamePause
+-- @comment ingame 진행 중 pause 막아야 하는지 체크
+-------------------------------------
+function TutorialManager:blockIngamePause(stage_id)
+	
+	-- 1-1을 클리어 하지 않고 1-1 end tutorial도 클리어하지 않은 상태
+	if (stage_id == 1110101) then
+		local tutorial_key = TUTORIAL.FIRST_END
+		local clear_cnt = g_adventureData:getStageClearCnt(stage_id)
+		local is_done = g_tutorialData:isTutorialDone(tutorial_key)
+		if (not is_done) and (clear_cnt == 0) then
+			return true
+		end
 
+	-- 1-2를 클리어 하지 않고 1-2 end tutorial도 클리어 하지 않은 상태
+	elseif (stage_id == 1110102) then
+		local tutorial_key = TUTORIAL.ADV_1_2_END
+		local clear_cnt = g_adventureData:getStageClearCnt(stage_id)
+		local is_done = g_tutorialData:isTutorialDone(tutorial_key)
+		if (not is_done) and (clear_cnt == 0) then
+			return true
+		end
+
+	end
+
+	return false
+end
 
 
 
