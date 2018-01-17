@@ -58,7 +58,10 @@ function ResPreloadMgr:loadFromStageId(stage_id)
         self.m_lPreloadList = nil
 
         -- 스테이지에 관련된 것들을 제외한 나머지 리소스들을 추가
-        do
+        local game_mode = getDigit(self.m_stageId, 100000, 2)
+        if (game_mode == GAME_MODE_CLAN_RAID) then
+            self.m_lPreloadList = self:makeResListForClanRaid()
+        else
             self.m_lPreloadList = self:makeResListForGame()
         end
 
@@ -69,7 +72,7 @@ function ResPreloadMgr:loadFromStageId(stage_id)
             local l_preload_full_list = self:loadPreloadFile()
             if (l_preload_full_list) then
                 local l_common = l_preload_full_list['common']
-                local l_stage = l_preload_full_list[tostring(stage_id)]
+                local l_stage = l_preload_full_list[stage_id]
                 
                 -- 공통 리소스
                 if (l_common) then
@@ -95,46 +98,6 @@ end
 --@brief 콜로세움 관련 리소스를 프리로드
 -------------------------------------
 function ResPreloadMgr:loadForColosseum(t_enemy)
-    if (self.m_bCompletedPreload) then
-        -- 이미 프리로드된 경우
-        return true
-    end
-
-    if (not self.m_bPreparedPreloadList) then
-        self.m_bCompletedPreload = false
-        self.m_bPreparedPreloadList = true
-
-        -- 프리로드 리스트 초기화
-        self.m_lPreloadList = nil
-
-        -- 스테이지에 관련된 것들을 제외한 나머지 리소스들을 추가
-        do
-            self.m_lPreloadList = self:makeResListForGame()
-        end
-
-        -- @TODO: 상대편 유닛에 대한 리소스를 추가
-
-        -- 공통 리소스 
-        local l_preload_full_list = self:loadPreloadFile()
-        if (l_preload_full_list) then
-            local l_common = l_preload_full_list['common']
-            if (l_common) then
-                self.m_lPreloadList = table.merge(self.m_lPreloadList, l_common)
-            end
-        end
-
-        return false
-    end
-
-    self.m_bCompletedPreload = self:_loadRes()
-    return self.m_bCompletedPreload
-end
-
--------------------------------------
--- function loadForClanRaid
---@brief 클랜 레이드 관련 리소스를 프리로드
--------------------------------------
-function ResPreloadMgr:loadForClanRaid(t_enemy)
     if (self.m_bCompletedPreload) then
         -- 이미 프리로드된 경우
         return true
@@ -240,7 +203,7 @@ function ResPreloadMgr:makeResListForGame()
     local t_temp = {}
 
     -- 아군 관련 리소스
-    l_res = self:getPreloadList_MyDragon()
+    local l_res = self:getPreloadList_MyDragon()
     for _, k in ipairs(l_res) do
         t_temp[k] = true
     end
@@ -250,6 +213,40 @@ function ResPreloadMgr:makeResListForGame()
         table.insert(l_ret, k)
     end
 
+    return l_ret
+end
+
+-------------------------------------
+-- function makeResListForClanRaid
+-- @brief 클랜 던전 게임 관련 리소스 목록을 얻음
+-------------------------------------
+function ResPreloadMgr:makeResListForClanRaid()
+    local l_ret = {}
+    local t_temp = {}
+    
+    -- 아군 관련 리소스
+
+    do  -- 상단 덱
+        local l_deck = g_deckData:getDeck(g_clanRaidData:getDeckName('up'))
+        local l_res = self:getPreloadList_HeroDeck(l_deck)
+        for _, k in ipairs(l_res) do
+            t_temp[k] = true
+        end
+    end
+
+    do  -- 하단 덱
+        local l_deck = g_deckData:getDeck(g_clanRaidData:getDeckName('down'))
+        local l_res = self:getPreloadList_HeroDeck(l_deck)
+        for _, k in ipairs(l_res) do
+            t_temp[k] = true
+        end
+    end
+
+    -- 인덱스형 테이블로 변환
+    for k, _ in pairs(t_temp) do
+        table.insert(l_ret, k)
+    end
+    
     return l_ret
 end
 
@@ -266,12 +263,31 @@ function ResPreloadMgr:getPreloadList_Tamer()
 end
 
 -------------------------------------
--- function getPreloadList_HeroDeck
+-- function getPreloadList_MyDragon
 -------------------------------------
 function ResPreloadMgr:getPreloadList_MyDragon()
     local ret = {}
 
     local l_deck = g_deckData:getDeck()
+    for _, v in pairs(l_deck) do
+        local t_dragon_data = g_dragonsData:getDragonDataFromUid(v)
+        if (t_dragon_data) then
+            local list = self:getPreloadList_Dragon(t_dragon_data)
+            for i, v in ipairs(list) do
+                table.insert(ret, v)
+            end
+        end
+    end
+
+    return ret
+end
+
+-------------------------------------
+-- function getPreloadList_HeroDeck
+-------------------------------------
+function ResPreloadMgr:getPreloadList_HeroDeck(l_deck)
+    local ret = {}
+
     for _, v in pairs(l_deck) do
         local t_dragon_data = g_dragonsData:getDragonDataFromUid(v)
         if (t_dragon_data) then
