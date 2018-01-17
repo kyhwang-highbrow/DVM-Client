@@ -230,8 +230,7 @@ function UIC_DragonAnimatorDirector_Summon:show_textAnimation()
         local ani_num = math_max((birth_grade - 1), 1) -- 1 ~ 4
         local ani_appear = string.format('text_appear_%02d', ani_num)
         local ani_idle = string.format('text_idle_%02d', ani_num)
-        ccdump(ani_appear)
-        ccdump(ani_idle)
+
         local text_effect = self.m_rarityEffect
         text_effect:setVisible(true)
         text_effect:changeAni(ani_appear, false)
