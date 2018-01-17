@@ -9,6 +9,8 @@ UI_TutorialPlayer = class(PARENT,{
         m_nextEffectName = '',
         m_targetUI = 'UI',
         m_pointingHand = 'Animator',
+
+		m_tutorialKey = 'string',
     })
 
 -------------------------------------
@@ -21,6 +23,7 @@ function UI_TutorialPlayer:init(scenario_name, tar_ui)
     end
 
     self:setTargetUI(tar_ui)
+	self.m_tutorialKey = scenario_name
 end
 
 -------------------------------------
@@ -97,6 +100,40 @@ function UI_TutorialPlayer:next(next_effect)
     else
         self:close()
     end
+end
+
+-------------------------------------
+-- function showPage
+-------------------------------------
+function UI_TutorialPlayer:showPage()
+	PARENT.showPage(self)
+
+	local t_page = self.m_scenarioTable[self.m_currPage]
+	if (t_page) and (t_page['step']) then
+		local tutorial_key = self.m_tutorialKey
+		local step = t_page['step']
+		g_tutorialData:request_tutorialSave(tutorial_key, step)
+	end
+end
+
+-------------------------------------
+-- function setPage
+-------------------------------------
+function UI_TutorialPlayer:setPage(page)
+	self.m_currPage = page - 1
+end
+
+-------------------------------------
+-- function setPageByStep
+-------------------------------------
+function UI_TutorialPlayer:setPageByStep(step)
+	local table_scenario = self.m_scenarioTable
+	for page, t_page in pairs(table_scenario) do
+		if (t_page['step'] == step) then
+			self:setPage(page)
+			break
+		end
+	end
 end
 
 -------------------------------------
@@ -189,19 +226,42 @@ function UI_TutorialPlayer:activeNode(node_name)
 
     local tar_node = self.m_targetUI.vars[node_name]
 
-    if (tar_node) then
-        tutorial_mgr:attachToTutorialNode(tar_node)
+	-- node가 없다면 예외처리 시도한다
+    if (not tar_node) then
+
+		-- 부화소의 특이한 경우
+		if (node_name == 'eggPicker') then
+			local egg_picker = self.m_targetUI.m_tutorialAccessor.m_eggPicker
+			tar_node = egg_picker.m_node
+
+			-- egg_picker에 다음페이지 진행을 등록한다
+			egg_picker:addItemClickCB(function(t_item, idx)
+				-- 상점 알 생성 시키지 않기가 힘들어서..
+				if (t_item['data']['is_shop']) then
+					return
+				end
+
+				if (tutorial_mgr:isDoing()) then
+					-- 다음페이지
+					self:next()
+				end
+			end)
+		end
+
     end
 
-    -- 버튼이라면 스크립트를 추가한다.
-    if (isInstanceOf(tar_node, UIC_Button)) then
-        tar_node:addScriptTapHandler(function()
-            if (tutorial_mgr:isDoing()) then
-                -- 다음페이지
-                self:next()
-            end
-        end)
-    end
+	-- node 최상단에 붙임
+	tutorial_mgr:attachToTutorialNode(tar_node)
+		
+	-- 버튼이라면 스크립트를 추가한다.
+	if (isInstanceOf(tar_node, UIC_Button)) then
+		tar_node:addScriptTapHandler(function()
+			if (tutorial_mgr:isDoing()) then
+				-- 다음페이지
+				self:next()
+			end
+		end)
+	end
 end
 
 -------------------------------------

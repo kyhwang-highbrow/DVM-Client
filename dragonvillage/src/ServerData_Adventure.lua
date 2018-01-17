@@ -104,6 +104,17 @@ function ServerData_Adventure:getStageInfo(stage_id)
 end
 
 -------------------------------------
+-- function getStageClearCnt
+-------------------------------------
+function ServerData_Adventure:getStageClearCnt(stage_id)
+	if (self.m_stageList[stage_id]) then
+		return self.m_stageList[stage_id]['clear_cnt']
+	end
+
+	return 0
+end
+
+-------------------------------------
 -- function organizeChapterAchieveDataTable
 -------------------------------------
 function ServerData_Adventure:organizeChapterAchieveDataTable(chapter_archievement)

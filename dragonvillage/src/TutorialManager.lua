@@ -72,37 +72,95 @@ end
 -- @brief 튜토리얼 실행
 -- @param tutorial_key : tutorial_key이자 tutorial_script이름
 -------------------------------------
-function TutorialManager:startTutorial(tutorial_key, tar_ui)
-    -- 개발모드에서 튜토리얼 동작하지 않도록 함
-    if (IS_TEST_MODE()) then
-
-        -- 지정된 튜토리얼은 개발모드에서만 계속 동작 할 수 있도록 한다.
-        if (g_constant:get('DEBUG', 'TEST_TUTORIAL') == tutorial_key) then
-            -- 튜토리얼 키에 대한 예외처리
-            if (not tutorial_key) then
-                ccdisplay('#### tutorial key is not exist')
-                return
-            end
-            if (not table.find(TUTORIAL, tutorial_key)) then
-                ccdisplay(string.format('#### %s is not registrated', tutorial_key))
-                return
-            end
-            if (not LuaBridge:isFileExist(string.format('data/scenario/%s.csv', tutorial_key))) then
-                ccdisplay(string.format('#### %s.csv is not exist', tutorial_key))
-                return
-            end
-
-            _startTutorial(self, tutorial_key, tar_ui)
-        end
-
-        return
-    end
-
+function TutorialManager:startTutorial(tutorial_key, tar_ui, is_force)
     -- 완료되지 않은 튜토리얼이라면
-    if (not g_tutorialData:isTutorialDone(tutorial_key)) then
+    if (is_force) or (not g_tutorialData:isTutorialDone(tutorial_key)) then
         _startTutorial(self, tutorial_key, tar_ui)
     end
 end
+
+-------------------------------------
+-- function setTutorialStep
+-------------------------------------
+function TutorialManager:setTutorialStep(step)
+	self.m_tutorialPlayer:setPageByStep(step)
+	self.m_tutorialPlayer:next()
+end
+
+-------------------------------------
+-- function checkTutorialInLobby
+-- @comment 하드코딩할 부분을 최대한 몰아서..
+-------------------------------------
+function TutorialManager:checkTutorialInLobby(ui_lobby)
+	cclog('TutorialManager:checkTutorialInLobby')
+	
+	-- 1-1 start 클리어 여부
+	local stage_id = 1110101
+	local tutorial_key = TUTORIAL.FIRST_START
+
+	local clear_cnt = g_adventureData:getStageClearCnt(stage_id)
+	local is_done = g_tutorialData:isTutorialDone(tutorial_key)
+	
+	cclog('-------------------------')
+	cclog(tutorial_key)
+	cclog(is_done)
+	cclog(clear_cnt)
+	
+	if (not is_done) or (clear_cnt == 0) then
+		local is_force = true
+		self:startTutorial(tutorial_key, ui_lobby, is_force)
+		return
+	end
+
+	-- 1-1 end 클리어 여부
+	tutorial_key = TUTORIAL.FIRST_END
+
+	cclog('-------------------------')
+	cclog(tutorial_key)
+
+	is_done = g_tutorialData:isTutorialDone(tutorial_key)
+	cclog(is_done)
+	if (not is_done) then
+		local step = g_tutorialData:getStep(tutorial_key)
+		cclog(step)
+		if (step == 101) then
+			UI_MasterRoadPopup()
+
+		elseif (step == 102) then
+			QuickLinkHelper.quickLink('egg')
+
+		elseif (step == 103) then
+			UI_MasterRoadPopup()
+
+		elseif (step == 104) then
+			stage_id = 1110102
+			QuickLinkHelper.quickLink('clr_stg', stage_id)
+
+		end
+
+		if (step) then
+			local tar_ui = self:findTargetUI()
+			self:startTutorial(tutorial_key, tar_ui)
+			self:setTutorialStep(step)
+			return
+		end
+	end
+
+	-- 1-2 e 는 무시!
+
+	-- 1-7 e 는 무시?? 기획서좀 찾아보자
+end
+
+
+
+
+
+
+
+
+
+
+
 
 -------------------------------------
 -- function doTutorial

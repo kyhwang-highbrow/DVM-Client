@@ -440,12 +440,23 @@ function UIC_EggPicker:click_egg(idx)
     end
 end
 
-
 -------------------------------------
 -- function setItemClickCB
 -------------------------------------
 function UIC_EggPicker:setItemClickCB(func)
     self.m_itemClickCB = func
+end
+
+-------------------------------------
+-- function addItemClickCB
+-------------------------------------
+function UIC_EggPicker:addItemClickCB(func)
+	local old_func = self.m_itemClickCB
+	local function add_func(t_item, idx)
+		old_func(t_item, idx)
+		func(t_item, idx)
+	end
+	self.m_itemClickCB = add_func
 end
 
 -------------------------------------

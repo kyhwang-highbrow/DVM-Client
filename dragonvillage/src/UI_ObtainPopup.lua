@@ -17,6 +17,8 @@ function UI_ObtainPopup:init(l_item, msg, ok_btn_cb)
     local vars = self:load('popup_obtain.ui')
     UIManager:open(self, UIManager.POPUP)
 
+	self.m_uiName = 'UI_ObtainPopup'
+
     -- backkey 지정
     g_currScene:pushBackKeyListener(self, function() self:click_okBtn() end, 'UI_ObtainPopup')
 

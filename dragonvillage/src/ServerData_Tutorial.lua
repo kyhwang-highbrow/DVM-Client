@@ -3,7 +3,8 @@
 -------------------------------------
 ServerData_Tutorial = class({
         m_serverData = 'ServerData',
-        m_tTutorialClearInfo = 'table',
+        m_tTutorialClearInfo = 'table',	-- 클리어한 튜토리얼 테이블
+		m_tTutorialStepInfo = 'table', -- 튜토리얼 별 진행중 스텝 (튜토리얼 테이블에 지정된 스텝만 저장)
     })
 
 -------------------------------------
@@ -12,10 +13,11 @@ ServerData_Tutorial = class({
 function ServerData_Tutorial:init(server_data)
     self.m_serverData = server_data
     self.m_tTutorialClearInfo = {}
+	self.m_tTutorialStepInfo = {}
 end
 
 -------------------------------------
--- function init
+-- function applyData
 -------------------------------------
 function ServerData_Tutorial:applyData(l_tutorial)
     if (not l_tutorial) then
@@ -27,7 +29,7 @@ function ServerData_Tutorial:applyData(l_tutorial)
 end
 
 -------------------------------------
--- function checkTutorialDone
+-- function isTutorialDone
 -- @brief 해당 튜토리얼 클리어 여부
 -------------------------------------
 function ServerData_Tutorial:isTutorialDone(tutorial_key, cb_func)
@@ -36,6 +38,13 @@ function ServerData_Tutorial:isTutorialDone(tutorial_key, cb_func)
 	end
 
     return self.m_tTutorialClearInfo[tutorial_key]
+end
+
+-------------------------------------
+-- function getStep
+-------------------------------------
+function ServerData_Tutorial:getStep(tutorial_key)
+	return self.m_tTutorialStepInfo[tutorial_key]
 end
 
 -------------------------------------
@@ -52,6 +61,9 @@ function ServerData_Tutorial:request_tutorialInfo(finish_cb, fail_cb)
     local function success_cb(ret)
         -- 튜토리얼 클리어 정보 저장
         self:applyData(ret['tutorial_list'])
+		
+		-- 튜토리얼 스텝 정보 저장
+		self.m_tTutorialStepInfo = ret['tutorial_step']
 
         if finish_cb then
             finish_cb(ret)
@@ -77,15 +89,21 @@ end
 -- function request_tutorialSave
 -- @brief 해당 튜토리얼 클리어 상태 저장
 -------------------------------------
-function ServerData_Tutorial:request_tutorialSave(tutorial_key, finish_cb)
+function ServerData_Tutorial:request_tutorialSave(tutorial_key, step, finish_cb, fail_cb)
     -- 유저 ID
     local uid = g_userData:get('uid')
 
     local tutorial_key = tutorial_key
+	local _step = step or 1 -- step 개념이 라이브 중간에 생겨서 nil이 1로 저장됨. 1이면 클리어된 상태
 
     -- 성공 콜백
     local function success_cb(ret)
+
+		-- 튜토리얼 클리어 저장
         self.m_tTutorialClearInfo[tutorial_key] = true
+
+		-- 스텝 정보 저장
+		self.m_tTutorialStepInfo[tutorial_key] = step
 
         if (tutorial_key == TUTORIAL.INTRO_FIGHT) then
             -- @analytics
@@ -102,6 +120,7 @@ function ServerData_Tutorial:request_tutorialSave(tutorial_key, finish_cb)
     ui_network:setUrl('/users/tutorial/done')
     ui_network:setParam('uid', uid)
     ui_network:setParam('tutorial', tutorial_key)
+	ui_network:setParam('step', _step)
     ui_network:hideLoading()
     ui_network:setSuccessCB(success_cb)
     ui_network:setFailCB(fail_cb)

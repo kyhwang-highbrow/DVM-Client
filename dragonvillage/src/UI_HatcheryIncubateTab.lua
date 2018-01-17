@@ -60,6 +60,11 @@ function UI_HatcheryIncubateTab:click_eggItem(t_item, idx)
 	
 	-- 상점으로 보내주는 알
 	if t_data['is_shop'] then
+		-- 튜토리얼 중에는 동작하지 않음
+		if (TutorialManager.getInstance():isDoing()) then
+			return
+		end
+
 		local function close_cb()
 			-- 리스트 갱신
 			self:refreshEggList()

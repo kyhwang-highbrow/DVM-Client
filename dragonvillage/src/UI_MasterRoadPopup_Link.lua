@@ -16,8 +16,9 @@ function UI_MasterRoadPopup_Link:init()
 	local vars = self:load('master_road_popup_link.ui')
 	UIManager:open(self, UIManager.POPUP)
 
-        -- UI 클래스명 지정
+     -- UI 클래스명 지정
     self.m_uiName = 'UI_MasterRoadPopup_Link'
+
 	-- backkey 지정
 	g_currScene:pushBackKeyListener(self, function() self:click_exitBtn() end, 'UI_MasterRoadPopup_Link')
 
@@ -26,7 +27,12 @@ function UI_MasterRoadPopup_Link:init()
 	self:doAction(function()
         if (g_masterRoadData:getFocusRoad() == 10001) then
             -- @ TUTORIAL
-            TutorialManager.getInstance():startTutorial(TUTORIAL.FIRST_END, self)
+			local tutorial_key = TUTORIAL.FIRST_END
+			local step = 101
+			local function finish_cb()
+				TutorialManager.getInstance():startTutorial(tutorial_key, self)
+			end
+			g_tutorialData:request_tutorialSave(tutorial_key, 101, finish_cb)
         end
     end, false)
 

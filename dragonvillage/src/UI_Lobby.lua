@@ -196,16 +196,6 @@ function UI_Lobby:entryCoroutine()
             if co:waitWork() then return end
         end
 
-        -- @ MASTER ROAD
-        cclog('# 마스터의 길 확인 중')
-        co:work()
-        local _,ui_network = g_masterRoadData:updateMasterRoadAfterReward(co.NEXT)
-        if ui_network then
-            ui_network:hideBGLayerColor()
-            ui_network:setFailCB(required_fail_cb)
-        end
-        if co:waitWork() then return end
-
 		-- 최초 튜토리얼 시에는 실행하지 않음
         if (g_tutorialData:isTutorialDone(TUTORIAL.FIRST_START)) then
 
@@ -229,7 +219,25 @@ function UI_Lobby:entryCoroutine()
 			if (g_attendanceData:hasAttendanceReward()) then
                 g_fullPopupManager:show(FULL_POPUP_TYPE.ATTENDANCE, show_func)
 			end
+			
+			-- @ MASTER ROAD
+			cclog('# 마스터의 길 확인 중')
+			co:work()
+			local _,ui_network = g_masterRoadData:updateMasterRoadAfterReward(co.NEXT)
+			if ui_network then
+				ui_network:hideBGLayerColor()
+				ui_network:setFailCB(required_fail_cb)
+			end
+			if co:waitWork() then return end
 
+			-- @ google achievement
+			if (not g_localData:get('is_first_google_login_real')) then
+				co:work()
+				cclog('# 구글 업적 확인 중')
+				g_localData:applyLocalData(true, 'is_first_google_login_real')
+				GoogleHelper.allAchievementCheck(co.NEXT)
+				if co:waitWork() then return end
+			end
         end
 
         -- @UI_ACTION 액션 종료 후에는 튜토리얼 시작
@@ -237,20 +245,11 @@ function UI_Lobby:entryCoroutine()
         self:doAction(function() 
             co.NEXT()
             -- @ TUTORIAL
-            TutorialManager.getInstance():startTutorial(TUTORIAL.FIRST_START, self)
+            TutorialManager.getInstance():checkTutorialInLobby(self)
         end, false)
         g_topUserInfo:doAction()
 		self.root:scheduleUpdateWithPriorityLua(function(dt) self:update(dt) end, 0)
         if co:waitWork() then return end
-
-        -- @ google achievement
-        if (not g_localData:get('is_first_google_login_real')) then
-            co:work()
-            cclog('# 구글 업적 확인 중')
-            g_localData:applyLocalData(true, 'is_first_google_login_real')
-            GoogleHelper.allAchievementCheck(co.NEXT)
-            if co:waitWork() then return end
-        end
     end
 
     Coroutine(coroutine_function, '로비 코루틴')
