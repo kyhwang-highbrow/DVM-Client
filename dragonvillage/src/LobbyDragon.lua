@@ -294,6 +294,7 @@ function LobbyDragon:update_gift(dt)
 			self.m_rootNode:addChild(animator.m_node, 2)
 			animator:changeAni('dragon_fx', true)
 			animator:setPosition(0, LobbyDragon.Y_OFFSET)
+			animator:setIgnoreLowEndMode(true)
 
 			self.m_giftAnimator = animator
 		end
