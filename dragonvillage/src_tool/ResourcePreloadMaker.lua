@@ -5,6 +5,7 @@ require 'TableDragon'
 require 'TableDragonSkill'
 require 'TableMonster'
 require 'TableMonsterSkill'
+require 'TableStageData'
 require 'TableStatusEffect'
 require 'AnimatorHelper'
 require 'EquationHelper'
@@ -43,6 +44,7 @@ local table_dragon = TableDragon()
 local table_monster = TableMonster()
 local table_monster_skill = TableMonsterSkill()
 local table_status_effect = TableStatusEffect()
+local table_stage_data = TableStageData()
 
 -------------------------------------
 -- function makePreloadFile
@@ -95,7 +97,7 @@ function ResourcePreloadMaker:getPreloadList_Common()
         'res/effect/effect_missile_charge/effect_missile_charge.vrp',
         'res/effect/effect_skillcasting_dragon/effect_skillcasting_dragon.vrp',
         'res/effect/effect_skillcasting/effect_skillcasting.vrp',
-        'res/ui/a2d/ingame_enemy/ingame_enemy.vrp',
+        --'res/ui/a2d/ingame_enemy/ingame_enemy.vrp',
 
         -- 인게임에서 높은 확률로 사용되거나 확실히 사용되는 작은 크기의 리소스들 프리로드.
         'res/effect/effect_melee_charge/effect_melee_charge.vrp',
@@ -136,7 +138,18 @@ function ResourcePreloadMaker:getPreloadList_Stage(stage_id)
         table.insert(t_skill_list, 'skill_' .. i)
     end
 
-    local script = TABLE:loadStageScript('stage_' .. stage_id)
+    local game_mode = string.sub(tostring(stage_id), 1, 2)
+    local script_name
+
+    if (game_mode == '15') then
+        -- 클랜 던전의 경우는 스테이지 속성에 따른 이름을 사용
+        local attr = table_stage_data:getStageAttr(stage_id)
+        script_name = string.format('stage_clanraid_%s', attr)
+    else
+        script_name = 'stage_' .. stage_id
+    end
+
+    local script = TABLE:loadStageScript(script_name)
     if script and script['wave'] then
         for _, v in pairs(script['wave']) do
             if v['wave'] then
