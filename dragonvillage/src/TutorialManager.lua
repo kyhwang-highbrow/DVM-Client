@@ -92,6 +92,11 @@ end
 -- @comment 하드코딩할 부분을 최대한 몰아서..
 -------------------------------------
 function TutorialManager:checkTutorialInLobby(ui_lobby)
+	-- 튜토리얼 on/off는 어떻게 처리할까?
+	if (IS_TEST_MODE()) then
+		return
+	end
+
 	cclog('TutorialManager:checkTutorialInLobby')
 	
 	-- 1-1 start 클리어 여부

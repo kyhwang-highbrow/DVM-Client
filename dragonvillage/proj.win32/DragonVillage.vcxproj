@@ -1150,7 +1150,10 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <None Include="..\src\UI_ScenarioPlayer_Talk.lua" />
     <None Include="..\src\UI_SecretDungeonListItem.lua" />
     <None Include="..\src\UI_SelectLanguagePopup.lua" />
+    <None Include="..\src\UI_SelectNickname.lua" />
     <None Include="..\src\UI_SelectServerPopup.lua" />
+    <None Include="..\src\UI_SelectStartingDragon.lua" />
+    <None Include="..\src\UI_SelectStartingDragon_Detail.lua" />
     <None Include="..\src\UI_Setting.lua" />
     <None Include="..\src\UI_SettingAccountTab.lua" />
     <None Include="..\src\UI_SettingDevTab.lua" />
@@ -1164,7 +1167,6 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <None Include="..\src\UI_SimplePopup2.lua" />
     <None Include="..\src\UI_SkillEnhance.lua" />
     <None Include="..\src\UI_StaminaInfo.lua" />
-    <None Include="..\src\UI_StartTamerSelect.lua" />
     <None Include="..\src\UI_StatisticsListItem.lua" />
     <None Include="..\src\UI_StatisticsPopup.lua" />
     <None Include="..\src\UI_IngameBossInfo.lua" />

@@ -2055,9 +2055,6 @@
     <None Include="..\src\ServerData_StartTamer.lua">
       <Filter>lua\src</Filter>
     </None>
-    <None Include="..\src\UI_StartTamerSelect.lua">
-      <Filter>lua\UI</Filter>
-    </None>
     <None Include="..\src\SkillAoERound_Throw.lua">
       <Filter>lua\src</Filter>
     </None>
@@ -3143,6 +3140,15 @@
       <Filter>lua\UI</Filter>
     </None>
     <None Include="..\src\UI_MonsterCustomCard.lua">
+      <Filter>lua\UI</Filter>
+    </None>
+    <None Include="..\src\UI_SelectStartingDragon.lua">
+      <Filter>lua\UI</Filter>
+    </None>
+    <None Include="..\src\UI_SelectStartingDragon_Detail.lua">
+      <Filter>lua\UI</Filter>
+    </None>
+    <None Include="..\src\UI_SelectNickname.lua">
       <Filter>lua\UI</Filter>
     </None>
   </ItemGroup>

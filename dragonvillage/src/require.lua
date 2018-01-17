@@ -727,6 +727,11 @@ local t_module = {
     -- UI : 약관 동의
     'UI_TermsPopup',
 
+	-- UI : 계정 생성
+	'UI_SelectStartingDragon',
+	'UI_SelectStartingDragon_Detail',
+	'UI_SelectNickname',
+
     -- UI : 대화 스크립트 재생기
     'UI_ScenarioPlayer',
     'UI_ScenarioPlayer_util', -- partial class 는 소문자로 적으면 어떨까
@@ -748,9 +753,6 @@ local t_module = {
     'UI_SubscriptionPopup',
     'UI_SubscriptionPopup_Ing',
     'UI_SubscriptionDayListItem',
-
-    -- UI : 계정 생성
-	'UI_StartTamerSelect',
 
 	-- UI : 모험
     'UI_AdventureSceneNew',

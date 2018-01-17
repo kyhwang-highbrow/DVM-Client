@@ -1209,7 +1209,8 @@ function UI_TitleScene:createAccount()
         -- @analytics
         Analytics:firstTimeExperience('Prologue_Finish')
 
-        UI_StartTamerSelect(login_func)
+		-- 스타팅 드래곤 선택 -> 닉네임 입력 : 콜백 계속 전달하여 닉네임 입력후 실행
+        UI_SelectStartingDragon(login_func)
     end
 
     login_func = function()
