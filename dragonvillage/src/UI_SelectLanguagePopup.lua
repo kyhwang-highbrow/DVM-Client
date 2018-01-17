@@ -98,15 +98,6 @@ function UI_SelectLanguagePopup:click_okBtn()
 		return
 	end
 
-	-- @mskim 해외 출시 전 처리
-	if (IS_LIVE_SERVER()) then
-		if (lang ~= 'ko') then
-			local msg = '현재 한국어 외의 언어는 선택하실 수 없습니다.'
-			MakeSimplePopup(POPUP_TYPE.OK, msg)
-			return
-		end
-	end
-
 	-- 언어 저장 및 언어 파일 불러옴
 	g_localData:setLang(lang)
 	Translate:load(lang)
