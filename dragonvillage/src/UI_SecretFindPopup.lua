@@ -72,20 +72,20 @@ function MakeSimpleSecretFindPopup(secret_dungeon)
 
     -- 타이틀 및 보스 썸네일 표시
     do
-        local res_name
+        --local res_name
         local icon
 
         if (t_info['dungeon_mode'] == SECRET_DUNGEON_GOLD) then
-            res_name = 'res/ui/typo/ko/secret_dg_find_gold.png'
+            --res_name = 'res/ui/typo/ko/secret_dg_find_gold.png'
             icon = TableStageDesc():getLastMonsterIcon(stage_id)
 
         elseif (t_info['dungeon_mode'] == SECRET_DUNGEON_RELATION) then
-            res_name = 'res/ui/typo/ko/secret_dg_find_relation.png'
+            --res_name = 'res/ui/typo/ko/secret_dg_find_relation.png'
             icon = MakeSimpleDragonCard(did)
 
         end
-
-        if (res_name) then
+        --[[
+        if (res_name) then            
             res_name = Translate:getTranslatedPath(res_name)
     
             local sprite = cc.Sprite:create(res_name)
@@ -93,7 +93,7 @@ function MakeSimpleSecretFindPopup(secret_dungeon)
             sprite:setDockPoint(cc.p(0.5, 0.5))
             ui.vars['dungeonTitleNode']:addChild(sprite)
         end
-
+        --]]
         if (icon) then
             ui.vars['dragonNode']:addChild(icon.root)
         end
