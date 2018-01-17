@@ -132,6 +132,7 @@ function SDKManager:goToAppStore()
     local appId = 'com.perplelab.dragonvillagem.kr'
     if isIos() then
         -- AppStore App ID
+        appId = '1281873988'
     end
     self:sendEvent('app_gotoStore', appId)
 end

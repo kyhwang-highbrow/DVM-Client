@@ -474,6 +474,9 @@ end
 function UI_Setting:click_testCodeBtn2()
     ccdisplay('로컬푸시 테스트, 앱 종료후 5초 뒤에 푸시가 옵니다.')
     PUSH_TEST = true
+
+    ccdisplay('마켓으로 이동합니다.')
+    SDKManager:goToAppStore()
 end
 
 -------------------------------------
