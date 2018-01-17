@@ -75,25 +75,14 @@ function MakeSimpleSecretFindPopup(secret_dungeon)
         --local res_name
         local icon
 
-        if (t_info['dungeon_mode'] == SECRET_DUNGEON_GOLD) then
-            --res_name = 'res/ui/typo/ko/secret_dg_find_gold.png'
+        if (t_info['dungeon_mode'] == SECRET_DUNGEON_GOLD) then            
             icon = TableStageDesc():getLastMonsterIcon(stage_id)
 
-        elseif (t_info['dungeon_mode'] == SECRET_DUNGEON_RELATION) then
-            --res_name = 'res/ui/typo/ko/secret_dg_find_relation.png'
+        elseif (t_info['dungeon_mode'] == SECRET_DUNGEON_RELATION) then            
             icon = MakeSimpleDragonCard(did)
 
         end
-        --[[
-        if (res_name) then            
-            res_name = Translate:getTranslatedPath(res_name)
-    
-            local sprite = cc.Sprite:create(res_name)
-            sprite:setAnchorPoint(cc.p(0.5, 0.5))
-            sprite:setDockPoint(cc.p(0.5, 0.5))
-            ui.vars['dungeonTitleNode']:addChild(sprite)
-        end
-        --]]
+
         if (icon) then
             ui.vars['dragonNode']:addChild(icon.root)
         end
