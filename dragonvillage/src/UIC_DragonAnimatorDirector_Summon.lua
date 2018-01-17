@@ -13,6 +13,8 @@ UIC_DragonAnimatorDirector_Summon = class(PARENT, {
         m_bAnimate = 'boolean',
         m_bRareSummon = 'boolean', -- 고등급용 소환
         m_bLegend= 'boolean', 
+
+        m_rarityEffect = 'Animator', -- 소환시에 텍스트 애니메이터 추가
     })
 
 -------------------------------------
@@ -25,15 +27,19 @@ end
 -- function initUI
 -------------------------------------
 function UIC_DragonAnimatorDirector_Summon:initUI()
+    Translate:a2dTranslate('ui/a2d/summon/summon_cut.plist')
 	local res_name = 'res/ui/a2d/summon/summon.vrp'
     self.m_topEffect = MakeAnimator(res_name)
     self.m_bottomEffect = MakeAnimator(res_name)
+    self.m_rarityEffect = MakeAnimator(res_name)
 
     self.m_topEffect:setIgnoreLowEndMode(true) -- 저사양 모드 무시
     self.m_bottomEffect:setIgnoreLowEndMode(true) -- 저사양 모드 무시
+    self.m_rarityEffect:setIgnoreLowEndMode(true) -- 저사양 모드 무시
 
     self.vars['topEffectNode']:addChild(self.m_topEffect.m_node)
     self.vars['bottomEffectNode']:addChild(self.m_bottomEffect.m_node)
+    self.vars['rarityNode']:addChild(self.m_rarityEffect.m_node)
 end
 
 -------------------------------------
@@ -55,6 +61,7 @@ function UIC_DragonAnimatorDirector_Summon:startDirecting()
 
 	-- 연출 세팅
     self.m_bottomEffect:setVisible(false)
+    self.m_rarityEffect:setVisible(false)
     self.vars['skipBtn']:setVisible(true)
     self.m_currStep = 1
 	self.m_bAnimate = false
@@ -166,7 +173,6 @@ end
 -- @brief 진화 단계에 따라 연출을 조정한다.
 -------------------------------------
 function UIC_DragonAnimatorDirector_Summon:makeRarityDirecting(did)
-
     local rarity
     local cur_grade
     if TableSlime:isSlimeID(did) then
@@ -203,7 +209,36 @@ function UIC_DragonAnimatorDirector_Summon:appearDragonAnimator()
 	self.m_topEffect:changeAni('top_appear', false)
 	self.m_topEffect:addAniHandler(function()
 		PARENT.appearDragonAnimator(self)
+        self:show_textAnimation()
 	end)
+end
+
+-------------------------------------
+-- function show_textAnimation
+-- @brief 소환시에만 텍스트 연출 추가
+-------------------------------------
+function UIC_DragonAnimatorDirector_Summon:show_textAnimation()
+    local did = self.m_did
+    local birth_grade
+    if TableSlime:isSlimeID(did) then
+        birth_grade = TableSlime:getValue(did, 'birthgrade')
+    else
+        birth_grade = TableDragon:getValue(did, 'birthgrade')
+    end
+
+    if (birth_grade >= 3) then
+        local ani_num = math_max((birth_grade - 1), 1) -- 1 ~ 4
+        local ani_appear = string.format('text_appear_%02d', ani_num)
+        local ani_idle = string.format('text_idle_%02d', ani_num)
+        ccdump(ani_appear)
+        ccdump(ani_idle)
+        local text_effect = self.m_rarityEffect
+        text_effect:setVisible(true)
+        text_effect:changeAni(ani_appear, false)
+        text_effect:addAniHandler(function()
+		    text_effect:changeAni(ani_idle, true)
+	    end)
+    end
 end
 
 -------------------------------------
@@ -235,6 +270,7 @@ function UIC_DragonAnimatorDirector_Summon:forceSkipDirecting()
 
 	-- top_appear연출 생략을 위해 부모함수 호출
 	PARENT.appearDragonAnimator(self)
+    self:show_textAnimation()
 end
 
 -------------------------------------

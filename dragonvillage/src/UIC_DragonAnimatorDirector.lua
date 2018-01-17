@@ -91,7 +91,18 @@ function UIC_DragonAnimatorDirector:appearDragonAnimator()
     
 	-- 드래곤 바닥에 깔 이펙트 보여줌
     self.m_bottomEffect:setVisible(true)
-    self.m_bottomEffect:changeAni('bottom_idle', true)
+    
+    local did = self.m_did
+    local birthgrade
+    if TableSlime:isSlimeID(did) then
+        birthgrade = TableSlime:getValue(did, 'birthgrade')
+    else
+        birthgrade = TableDragon:getValue(did, 'birthgrade')
+    end
+
+    local ani_num = math_max((birthgrade - 1), 1) -- 1 ~ 4
+    local ani_name = string.format('bottom_idle_%02d', ani_num)
+    self.m_bottomEffect:changeAni(ani_name, true)
 
 	-- 드래곤 등장
     self.m_animator:setVisible(true)
