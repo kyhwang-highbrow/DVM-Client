@@ -77,7 +77,10 @@ function UI_EventPopupTab_Attendance:initTableView()
 	self.m_tableView = table_view
 
 	self.m_tableView:update(0)
-	self.m_tableView:relocateContainerFromIndex(today_step, false)			
+
+    -- 오늘 idx가 정중앙이 아닌 2칸 왼쪽에 표시되게 처리 (앞으로 받을 상품을 더 잘 볼 수 있게)
+    local focus_idx = math_min(today_step + 2, table.count(t_item_list))
+	self.m_tableView:relocateContainerFromIndex(focus_idx, false)			
 end
 
 -------------------------------------
