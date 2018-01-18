@@ -238,8 +238,12 @@ function SceneGameIntro:checkScenario()
     play_intro_finish = function()
         self.m_containerLayer:setVisible(false)
         local ui = g_scenarioViewingHistory:playScenario(intro_finish_name)
-        ui:setReplaceSceneCB(lobby_func)
-        ui:next()
+		if (ui) then
+			ui:setReplaceSceneCB(lobby_func)
+			ui:next()
+		else
+			lobby_func()
+		end
     end
 
     lobby_func = function()
