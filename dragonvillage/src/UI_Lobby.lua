@@ -243,9 +243,10 @@ function UI_Lobby:entryCoroutine()
         -- @UI_ACTION 액션 종료 후에는 튜토리얼 시작
         co:work()
         self:doAction(function() 
-            co.NEXT()
             -- @ TUTORIAL
+			cclog('TutorialManager:checkTutorialInLobby')
             TutorialManager.getInstance():checkTutorialInLobby(self)
+            co.NEXT()
         end, false)
         g_topUserInfo:doAction()
 		self.root:scheduleUpdateWithPriorityLua(function(dt) self:update(dt) end, 0)

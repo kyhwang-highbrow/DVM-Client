@@ -12,6 +12,11 @@ UI_HatcheryIncubateTab = class(PARENT,{
 -------------------------------------
 function UI_HatcheryIncubateTab:init(owner_ui)
     local vars = self:load('hatchery_incubate.ui')
+
+	-- @ TUTORIAL
+	local tutorial_key = TUTORIAL.FIRST_END
+	local check_step = 102
+	TutorialManager.getInstance():continueTutorial(tutorial_key, check_step, self)
 end
 
 -------------------------------------
@@ -43,6 +48,9 @@ function UI_HatcheryIncubateTab:onEnterTab(first)
         egg_picker:setChangeCurrFocusIndexCB(onChangeCurrEgg)
 
         self:refreshEggList()
+
+		-- tutorial 에서 접근하기 위함
+		self.m_ownerUI.vars['tutorialEggPicker'] = egg_picker
     end
 end
 

@@ -37,6 +37,16 @@ function UI_MasterRoadPopup:init(auto_close)
 	--self:refresh()
 
     self:sceneFadeInAction()
+
+	-- @ TUTORIAL : 101
+	local tutorial_key = TUTORIAL.FIRST_END
+	local check_step = 101
+	TutorialManager.getInstance():continueTutorial(tutorial_key, check_step, self)
+
+	-- @ TUTORIAL : 103
+	tutorial_key = TUTORIAL.FIRST_END
+	check_step = 103
+	TutorialManager.getInstance():continueTutorial(tutorial_key, check_step, self)
 end
 
 -------------------------------------

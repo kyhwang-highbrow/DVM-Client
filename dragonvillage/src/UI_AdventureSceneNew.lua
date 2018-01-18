@@ -75,6 +75,11 @@ function UI_AdventureSceneNew:init(stage_id)
 
     -- @TODO 임시 처리 mskim
     self.m_uicSortList:setSelectSortType(self.m_currDifficulty)
+
+	-- @ TUTORIAL
+	local tutorial_key = TUTORIAL.FIRST_END
+	local check_step = 104
+	TutorialManager.getInstance():continueTutorial(tutorial_key, check_step, self)
 end
 
 
@@ -392,10 +397,10 @@ function UI_AdventureSceneNew:refreshChapter(chapter, difficulty, stage, force)
             self.m_lStageButton[i] = button
         end
     end
-    -- tutorial 실행중이라면
-    if TutorialManager.getInstance():isDoing() then
-        vars['tutorialStageBtn'] = self.m_lStageButton[1].vars['stageBtn']
-    end
+
+    -- tutorial에서 접근하기 위해 사용
+    vars['tutorialStageBtn'] = self.m_lStageButton[1].vars['stageBtn']
+	vars['tutorialStageBtn2'] = self.m_lStageButton[2].vars['stageBtn']
 
     do -- 최초 보상 클리어 관련
         self.m_lFirstRewardButtons = {}

@@ -3,7 +3,7 @@ TUTORIAL = {
     INTRO_FIGHT = 'intro',
     FIRST_START = 'tutorial_first_adv_start',
     FIRST_END = 'tutorial_first_adv_end',
-	ADV_1_2_END = 'tutorial_1_2_adv_end',
+	ADV_01_02_END = 'tutorial_01_02_adv_end',
 
 	GACHA11_START = 'gacha_11_start',
 	GACHA11_END = 'gacha_11_end',
@@ -21,6 +21,7 @@ TUTORIAL = {
 -------------------------------------
 TutorialManager = class({
     m_isTutorialDoing = 'bool',
+	m_isTouchBlock = 'bool',
 
     m_tutorialNode = 'cc.Node',
     m_tutorialClippingNode = 'cc.ClippingNode',
@@ -50,6 +51,8 @@ function TutorialManager:init(is_singleton)
         error('Singleton class can not be initiated')
     end
     self.m_isTutorialDoing = false
+	self.m_isTouchBlock = true
+	self.m_tTutorialBtnInfoTable = {}
 end
 
 -------------------------------------
@@ -72,15 +75,22 @@ end
 -- @brief 튜토리얼 실행
 -- @param tutorial_key : tutorial_key이자 tutorial_script이름
 -------------------------------------
-function TutorialManager:startTutorial(tutorial_key, tar_ui, is_force)
+function TutorialManager:startTutorial(tutorial_key, tar_ui, step, is_force)
+	cclog('----------------------------------')
+	cclog('START tutorial', tutorial_key, step)
+
     -- 완료되지 않은 튜토리얼이라면
     if (is_force) or (not g_tutorialData:isTutorialDone(tutorial_key)) then
         _startTutorial(self, tutorial_key, tar_ui)
+		if (step) then
+			self:setTutorialStep(step)
+		end
     end
 end
 
 -------------------------------------
 -- function setTutorialStep
+-- @brief tutorial player의 page를 step에 맞춰 세팅
 -------------------------------------
 function TutorialManager:setTutorialStep(step)
 	self.m_tutorialPlayer:setPageByStep(step)
@@ -96,8 +106,6 @@ function TutorialManager:checkTutorialInLobby(ui_lobby)
 	if (IS_TEST_MODE()) then
 		return
 	end
-
-	cclog('TutorialManager:checkTutorialInLobby')
 	
 	-- 1-1 start 클리어 여부
 	local stage_id = 1110101
@@ -105,15 +113,11 @@ function TutorialManager:checkTutorialInLobby(ui_lobby)
 
 	local clear_cnt = g_adventureData:getStageClearCnt(stage_id)
 	local is_done = g_tutorialData:isTutorialDone(tutorial_key)
-	
-	cclog('-------------------------')
-	cclog(tutorial_key)
-	cclog(is_done)
-	cclog(clear_cnt)
-	
+
 	if (not is_done) or (clear_cnt == 0) then
+		local step = nil
 		local is_force = true
-		self:startTutorial(tutorial_key, ui_lobby, is_force)
+		self:startTutorial(tutorial_key, ui_lobby, step, is_force)
 		return
 	end
 
@@ -121,13 +125,8 @@ function TutorialManager:checkTutorialInLobby(ui_lobby)
 	tutorial_key = TUTORIAL.FIRST_END
 	is_done = g_tutorialData:isTutorialDone(tutorial_key)
 
-	cclog('-------------------------')
-	cclog(tutorial_key)
-	cclog(is_done)
-
 	if (not is_done) then
 		local step = g_tutorialData:getStep(tutorial_key)
-		cclog(step)
 		if (step == 101) then
 			UI_MasterRoadPopup()
 
@@ -142,18 +141,11 @@ function TutorialManager:checkTutorialInLobby(ui_lobby)
 			QuickLinkHelper.quickLink('clr_stg', stage_id)
 
 		end
-
-		if (step) then
-			local tar_ui = self:findTargetUI()
-			self:startTutorial(tutorial_key, tar_ui)
-			self:setTutorialStep(step)
-			return
-		end
 	end
 
-	-- 1-2 e 는 무시!
+	-- 1-2 end 는 체크하지 않는다.
 
-	-- 1-7 e 는 무시?? 기획서좀 찾아보자
+	-- 1-7 end
 end
 
 -------------------------------------
@@ -185,8 +177,32 @@ function TutorialManager:blockIngamePause(stage_id)
 	return false
 end
 
+-------------------------------------
+-- function nextIfPlayerWaiting
+-- @brief tutorial player next 호출
+-------------------------------------
+function TutorialManager:nextIfPlayerWaiting()
+	self.m_tutorialPlayer:nextIfWaiting()
+end
 
+-------------------------------------
+-- function continueTutorial
+-- @brief tutorial이 경우에 따라 Scene이 전환되면 날아가 강제로 진행시켜준다.. Scene위에 존재하는 tutorial은 다음에 만들자
+-------------------------------------
+function TutorialManager:continueTutorial(tutorial_key, check_step, tar_ui)
+	local is_done = g_tutorialData:isTutorialDone(tutorial_key)
+	if (not is_done) then
+		local step = g_tutorialData:getStep(tutorial_key)
+		if (step == check_step) then
+			-- continue되는 경우는 이전 튜토리얼 정보를 날려버린다
+			self:deleteNodeAll()
 
+			-- target_ui 찾아서 튜토리얼 시작
+			local tar_ui = tar_ui or self:findTargetUI()
+			self:startTutorial(tutorial_key, tar_ui, step)
+		end
+	end
+end
 
 
 
@@ -207,7 +223,7 @@ function TutorialManager:doTutorial()
     -- 하위 UI가 클릭되지 않도록 레이어 생성
 	local block_layer = cc.Layer:create()
 	local function onTouch(touch, event)
-		if block_layer:isVisible() then
+		if (self.m_isTouchBlock) then
 			event:stopPropagation()
 			return true
 		else
@@ -267,6 +283,14 @@ end
 -------------------------------------
 function TutorialManager:setVisibleTutorial(b)
     self.m_tutorialNode:setVisible(b)
+end
+
+-------------------------------------
+-- function setTouchBlock
+-- @brief 튜토리얼 하위 UI 터치 제어
+-------------------------------------
+function TutorialManager:setTouchBlock(b)
+	self.m_isTouchBlock = b
 end
 
 -------------------------------------

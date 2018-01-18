@@ -11,6 +11,9 @@ UI_TutorialPlayer = class(PARENT,{
         m_pointingHand = 'Animator',
 
 		m_tutorialKey = 'string',
+
+		-- waiting 상태라면 외부에서 호출할 때까지 진행하지 않는다.
+		m_isWaiting = 'boolean',
     })
 
 -------------------------------------
@@ -21,6 +24,8 @@ function UI_TutorialPlayer:init(scenario_name, tar_ui)
     if (not tar_ui) then
         return
     end
+
+	self.m_isWaiting = false
 
     self:setTargetUI(tar_ui)
 	self.m_tutorialKey = scenario_name
@@ -70,6 +75,13 @@ end
 -- function next
 -------------------------------------
 function UI_TutorialPlayer:next(next_effect)
+	if (self.m_isWaiting) then
+		return
+	end
+	if (not self.m_targetUI) then
+		cclog('not exist target UI')
+	end
+
     self.m_currPage = self.m_currPage + 1
 
     local function excute_next_func()
@@ -106,12 +118,13 @@ end
 -- function showPage
 -------------------------------------
 function UI_TutorialPlayer:showPage()
+	cclog('page : ' .. self.m_currPage)
 	PARENT.showPage(self)
 
 	local t_page = self.m_scenarioTable[self.m_currPage]
-	if (t_page) and (t_page['step']) then
+	if (t_page) and (t_page['save']) then
 		local tutorial_key = self.m_tutorialKey
-		local step = t_page['step']
+		local step = t_page['save']
 		g_tutorialData:request_tutorialSave(tutorial_key, step)
 	end
 end
@@ -129,7 +142,7 @@ end
 function UI_TutorialPlayer:setPageByStep(step)
 	local table_scenario = self.m_scenarioTable
 	for page, t_page in pairs(table_scenario) do
-		if (t_page['step'] == step) then
+		if (t_page['goto'] == step) then
 			self:setPage(page)
 			break
 		end
@@ -165,6 +178,16 @@ function UI_TutorialPlayer:applyEffect(effect)
 
     elseif (effect == 'black_layer') then
         self:blackLayerOnOff(val_1)
+
+	elseif (effect == 'wait') then
+		self:setWaiting(true)
+
+	elseif (effect == 'touch_block') then
+		self:touchBlockOnOff(val_1)
+
+	elseif (effect == 'step_close') then
+		self.m_closeCB = nil
+		self:close()
 
     else
         cclog('정말 없는 effect : ' .. effect)
@@ -222,33 +245,19 @@ function UI_TutorialPlayer:activeNode(node_name)
     if (node_name == 'release') then
         tutorial_mgr:revertNodeAll()
         return
+
+	-- 버튼을 되돌릴 필요가 없는 경우 날려버린다.
+	elseif (node_name == 'remove') then
+        tutorial_mgr:deleteNodeAll()
+        return
+
     end
 
+	-- 일반적으로는 targetUI의 lua_name을 체크하지만 특수하게 가져오는 케이스도 있다.
     local tar_node = self.m_targetUI.vars[node_name]
-
-	-- node가 없다면 예외처리 시도한다
-    if (not tar_node) then
-
-		-- 부화소의 특이한 경우
-		if (node_name == 'eggPicker') then
-			local egg_picker = self.m_targetUI.m_tutorialAccessor.m_eggPicker
-			tar_node = egg_picker.m_node
-
-			-- egg_picker에 다음페이지 진행을 등록한다
-			egg_picker:addItemClickCB(function(t_item, idx)
-				-- 상점 알 생성 시키지 않기가 힘들어서..
-				if (t_item['data']['is_shop']) then
-					return
-				end
-
-				if (tutorial_mgr:isDoing()) then
-					-- 다음페이지
-					self:next()
-				end
-			end)
-		end
-
-    end
+	if (not tar_node) then
+		return
+	end
 
 	-- node 최상단에 붙임
 	tutorial_mgr:attachToTutorialNode(tar_node)
@@ -257,10 +266,24 @@ function UI_TutorialPlayer:activeNode(node_name)
 	if (isInstanceOf(tar_node, UIC_Button)) then
 		tar_node:addScriptTapHandler(function()
 			if (tutorial_mgr:isDoing()) then
-				-- 다음페이지
 				self:next()
 			end
 		end)
+
+	-- UIC_EggPicker도 가능하다
+	elseif (isInstanceOf(tar_node, UIC_EggPicker)) then
+		-- egg_picker에 다음페이지 진행을 등록한다
+		tar_node:addItemClickCB(function(t_item, idx)
+			-- 상점 알 생성 시키지 않기가 힘들어서..
+			if (t_item['data']['is_shop']) then
+				return
+			end
+
+			if (tutorial_mgr:isDoing()) then
+				self:next()
+			end
+		end)
+
 	end
 end
 
@@ -272,4 +295,37 @@ end
 function UI_TutorialPlayer:blackLayerOnOff(cmd)
     local b = (cmd == 'on')
     TutorialManager.getInstance():setVisibleTutorial(b)
+end
+
+-------------------------------------
+-- function isWaiting
+-------------------------------------
+function UI_TutorialPlayer:isWaiting()
+	return self.m_isWaiting
+end
+
+-------------------------------------
+-- function setWaiting
+-------------------------------------
+function UI_TutorialPlayer:setWaiting(b)
+	self.m_isWaiting = b
+end
+
+-------------------------------------
+-- function nextIfWaiting
+-------------------------------------
+function UI_TutorialPlayer:nextIfWaiting()
+	if (self:isWaiting()) then
+		self:setWaiting(false)
+		self:next()
+	end
+end
+
+-------------------------------------
+-- function blackLayerOnOff
+-- @brief 튜토리얼 하위 UI 터치 on/off
+-------------------------------------
+function UI_TutorialPlayer:touchBlockOnOff(cmd)
+    local b = (cmd == 'on')
+    TutorialManager.getInstance():setTouchBlock(b)
 end

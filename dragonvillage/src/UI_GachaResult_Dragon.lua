@@ -320,6 +320,11 @@ function UI_GachaResult_Dragon:refresh_dragon(t_dragon_data)
 
                 -- 중복 클릭을 방지하기 위해 막았던 버튼을 풀어줌
                 vars['okBtn']:setEnabled(true)
+
+				-- @ TUTORIAL
+				if (TutorialManager.getInstance():isDoing()) then
+					TutorialManager.getInstance():nextIfPlayerWaiting()
+				end
 			end
             self:doAction(directing_done, false)
 
