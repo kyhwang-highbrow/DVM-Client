@@ -37,7 +37,7 @@ function UI_EggPopup:initUI()
 	local table_item = TableItem()
 
 	-- 이름
-    local name = table_item:getValue(egg_id, 't_name')
+    local name = table_item:getItemName(egg_id)
 	vars['eggNameLabel']:setString(name)
 
 	-- 알 아이콘
