@@ -186,6 +186,7 @@ function UI_GameResultNew:setWorkList()
     table.insert(self.m_lWorkList, 'direction_secretDungeon')
     table.insert(self.m_lWorkList, 'direction_showButton')
     table.insert(self.m_lWorkList, 'direction_moveMenu')
+    table.insert(self.m_lWorkList, 'direction_dragonGuide')
     table.insert(self.m_lWorkList, 'direction_masterRoad')
 end
 
@@ -700,6 +701,25 @@ end
 -- function direction_moveMenu_click
 -------------------------------------
 function UI_GameResultNew:direction_moveMenu_click()
+end
+
+-------------------------------------
+-- function direction_dragonGuide
+-------------------------------------
+function UI_GameResultNew:direction_dragonGuide()
+    local vars = self.vars
+    if (self.m_bSuccess) then
+        self:doNextWork()
+    else
+        local ui = UI_DragonGuidePopup(self.m_lDragonList)
+        ui:setCloseCB(function() self:doNextWork() end)
+    end
+end
+
+-------------------------------------
+-- function direction_dragonGuide_click
+-------------------------------------
+function UI_GameResultNew:direction_dragonGuide_click()
 end
 
 -------------------------------------

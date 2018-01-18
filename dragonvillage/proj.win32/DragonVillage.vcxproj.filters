@@ -3151,6 +3151,15 @@
     <None Include="..\src\UI_SelectNickname.lua">
       <Filter>lua\UI</Filter>
     </None>
+    <None Include="..\src\UI_DragonGuidePopup.lua">
+      <Filter>lua\UI</Filter>
+    </None>
+    <None Include="..\src\UI_DragonGuideListItem.lua">
+      <Filter>lua\UI</Filter>
+    </None>
+    <None Include="..\src\DragonGuideNavigator.lua">
+      <Filter>lua\src</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Classes">

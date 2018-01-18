@@ -294,6 +294,7 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <None Include="..\src\CppFunctions.lua" />
     <None Include="..\src\DirectingCharacter.lua" />
     <None Include="..\src\DragonAutoSetHelperNew.lua" />
+    <None Include="..\src\DragonGuideNavigator.lua" />
     <None Include="..\src\DragonSkillBonusHelper.lua" />
     <None Include="..\src\DragonSkillCore.lua" />
     <None Include="..\src\DragonState.lua" />
@@ -976,6 +977,8 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <None Include="..\src\UI_CouponPopup_Confirm.lua" />
     <None Include="..\src\UI_DailyMisson_Clan.lua" />
     <None Include="..\src\UI_DiceEvent.lua" />
+    <None Include="..\src\UI_DragonGuideListItem.lua" />
+    <None Include="..\src\UI_DragonGuidePopup.lua" />
     <None Include="..\src\UI_DragonReinforceItem.lua" />
     <None Include="..\src\UI_DragonReinforcement.lua" />
     <None Include="..\src\UI_DragonReinforceResult.lua" />

@@ -11,6 +11,9 @@ UI_DragonManageInfo = class(PARENT,{
 
         m_startSubMenu = '',
         m_tNotiIcon = 'table<Sprite>',
+
+        -- SubMenu 종료 후 m_force_close 설정되어있으면 강제로 닫아줌
+        m_force_close = 'boolean' 
     })
 
 -------------------------------------
@@ -41,6 +44,7 @@ function UI_DragonManageInfo:init(doid, sub_menu)
     self:sceneFadeInAction()
 
     self.m_tNotiIcon = {}
+    self.m_force_close = false
 
     self:initUI()
     self:initButton()
@@ -555,6 +559,12 @@ function UI_DragonManageInfo:openSubManageUI(sub_manage_ui, add_param)
 
     -- UI종료 후 콜백
     local function close_cb()
+        -- 서브메뉴 종료 후 바로 닫아줌
+        if (self.m_force_close) then
+            self:click_exitBtn()
+            return
+        end
+
         if ui.m_bChangeDragonList then
             self:init_dragonTableView()
             local dragon_object_id = ui.m_selectDragonOID
@@ -895,6 +905,9 @@ function UI_DragonManageInfo:clickSubMenu(sub_menu)
 
     elseif (sub_menu == 'rune') then
         self:click_runeBtn()
+
+    elseif (sub_menu == 'reinforce') then
+        self:click_reinforceBtn()
 
     end
 end

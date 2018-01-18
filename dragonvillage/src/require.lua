@@ -195,6 +195,7 @@ local t_module = {
     'DragonSkillManager',
     'DragonSkillIndivisualInfo',
     'DragonSkillCore',
+    'DragonGuideNavigator',
     'SumRandom',
 	'NumberLoop',
     'ValidationAssistant',
@@ -719,6 +720,8 @@ local t_module = {
 	'UI_CapsuleBox',
 	'UI_CapsuleBoxRewardList',
     'UI_ContentOpenPopup',
+    'UI_DragonGuidePopup',
+    'UI_DragonGuideListItem',
 
 	-- UI : 해외
 	'UI_SelectServerPopup',
