@@ -4,7 +4,9 @@ TUTORIAL = {
     FIRST_START = 'tutorial_first_adv_start',
     FIRST_END = 'tutorial_first_adv_end',
 	ADV_01_02_END = 'tutorial_01_02_adv_end',
+	ADV_01_07_END = 'tutorial_01_07_adv_end',
 
+	-- 무료뽑기를 서버에 전달하기 위한 축약키
 	GACHA11_START = 'gacha_11_start',
 	GACHA11_END = 'gacha_11_end',
 
@@ -98,15 +100,19 @@ function TutorialManager:setTutorialStep(step)
 end
 
 -------------------------------------
+-- function nextIfPlayerWaiting
+-- @brief tutorial player next 호출
+-------------------------------------
+function TutorialManager:nextIfPlayerWaiting()
+	self.m_tutorialPlayer:nextIfWaiting()
+end
+
+-------------------------------------
 -- function checkTutorialInLobby
 -- @comment 하드코딩할 부분을 최대한 몰아서..
 -------------------------------------
 function TutorialManager:checkTutorialInLobby(ui_lobby)
-	-- 튜토리얼 on/off는 어떻게 처리할까?
-	if (IS_TEST_MODE()) then
-		return
-	end
-	
+
 	-- 1-1 start 클리어 여부
 	local stage_id = 1110101
 	local tutorial_key = TUTORIAL.FIRST_START
@@ -183,17 +189,25 @@ end
 -------------------------------------
 function TutorialManager:showAmazingNewbiePresent()
 	local done_1_1 = g_tutorialData:isTutorialDone(TUTORIAL.FIRST_END)
-	local done_1_7 = g_tutorialData:isTutorialDone(TUTORIAL.GACHA11_END)
+	local done_1_7 = g_tutorialData:isTutorialDone(TUTORIAL.ADV_01_07_END)
 	
+	-- 1-1 end는 클리어 하고 1-7 end는 클리어 하지 않았을 경우
 	return (done_1_1) and (not done_1_7)
 end
 
 -------------------------------------
--- function nextIfPlayerWaiting
--- @brief tutorial player next 호출
+-- function checkStartFreeSummon11
+-- @comment 11연차 무료 튜토리얼 시작 여부
 -------------------------------------
-function TutorialManager:nextIfPlayerWaiting()
-	self.m_tutorialPlayer:nextIfWaiting()
+function TutorialManager:checkStartFreeSummon11() 
+	local stage_id = 1110107
+	local clear_cnt = g_adventureData:getStageClearCnt(1110107)
+
+	local cond_1 = true -- (clear_cnt == 1) --g_masterRoadData:getFocusRoad() == 10011
+	local done_1_2 = g_tutorialData:isTutorialDone(TUTORIAL.ADV_01_02_END)
+
+	-- 1-7 최초 클리어고 1-2 end 튜토리얼 클리어한 경우
+	return (cond_1) and (done_1_2)
 end
 
 -------------------------------------

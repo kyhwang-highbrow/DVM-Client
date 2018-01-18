@@ -120,6 +120,7 @@ end
 -- function showPage
 -------------------------------------
 function UI_TutorialPlayer:showPage()
+	cclog(self.m_targetUI.m_uiName)
 	cclog('page : ' .. self.m_currPage)
 	PARENT.showPage(self)
 

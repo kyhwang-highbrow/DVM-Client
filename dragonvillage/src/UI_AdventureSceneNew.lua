@@ -80,11 +80,6 @@ function UI_AdventureSceneNew:init(stage_id)
 	local tutorial_key = TUTORIAL.FIRST_END
 	local check_step = 104
 	TutorialManager.getInstance():continueTutorial(tutorial_key, check_step, self)
-
-	-- @ TUTORIAL 1-7 클리어 보상
-	if (TutorialManager.getInstance():showAmazingNewbiePresent()) then
-		vars['clearEventSprite']:setVisible(true)
-	end
 end
 
 
@@ -358,6 +353,11 @@ function UI_AdventureSceneNew:refreshChapter(chapter, difficulty, stage, force)
     local vars = self.vars
     self.m_currChapter = chapter
     self.m_currDifficulty = difficulty or self.m_currDifficulty
+
+	-- @ TUTORIAL 1-7 클리어 보상
+	if (TutorialManager.getInstance():showAmazingNewbiePresent()) then
+		vars['clearEventSprite']:setVisible(chapter == 1)
+	end
 
     do -- 챕터 전환 연출
         vars['splashLayer']:setLocalZOrder(1)

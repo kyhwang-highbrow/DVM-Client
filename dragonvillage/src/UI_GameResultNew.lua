@@ -726,6 +726,30 @@ end
 -- function direction_masterRoad
 -------------------------------------
 function UI_GameResultNew:direction_masterRoad()
+	
+	-- @ TUTORIAL
+	local function tutorial_cb()
+		if (TutorialManager.getInstance():checkStartFreeSummon11()) then
+			local function second_network()
+				local tutorial_key = TUTORIAL.GACHA11_START
+				local step = nil
+				g_tutorialData:request_tutorialSave(tutorial_key, step)
+			end
+
+			local tutorial_key = TUTORIAL.ADV_01_07_END
+			local step = 101
+			local function finish_cb()
+				TutorialManager.getInstance():startTutorial(tutorial_key, self)
+				second_network()
+			end
+			g_tutorialData:request_tutorialSave(tutorial_key, step, finish_cb)
+
+			return
+		else
+			UI_MasterRoadPopup_Link()
+		end
+	end
+
     -- 마스터의 길 : 스테이지 체크
     do
         -- @ MASTER ROAD
@@ -735,7 +759,7 @@ function UI_GameResultNew:direction_masterRoad()
             dungeon_mode = g_gameScene.m_dungeonMode, 
             is_success = self.m_bSuccess
         }
-        g_masterRoadData:updateMasterRoad(t_data)
+        g_masterRoadData:updateMasterRoad(t_data, tutorial_cb)
 
         -- @ GOOGLE ACHIEVEMENT
         GoogleHelper.updateAchievement(t_data)
