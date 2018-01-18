@@ -263,6 +263,7 @@ end
 function SceneGameClanRaid:networkGameFinish_response(ret, t_result_ref)
     -- server_info, staminas 정보를 갱신
     g_serverData:networkCommonRespone(ret)
+    g_serverData:networkCommonRespone_addedItems(ret)
 
     -- 유저 정보 변경사항 적용 (레벨, 경험치)
     -- self:networkGameFinish_response_user_info(ret, t_result_ref)
