@@ -153,7 +153,7 @@ function GameWorldIntro:makeMonsterNew(monster_id, level)
     local t_monster = TableMonster():get(monster_id)
     if (t_monster['type'] == 'darknix') then
         monster.m_statusCalc:addBuffMulti('hit_rate', 999)
-        monster.m_statusCalc:appendHpRatio(100)
+        monster.m_statusCalc:appendHpRatio(3)
         monster:setStatusCalc(monster.m_statusCalc)
     end
     
@@ -190,7 +190,6 @@ function GameWorldIntro:makeHeroDeck()
 
             local is_right = false
             local hero = self:makeDragonNew(t_dragon_data, is_right)
-            hero:setInvincibility(true) -- 무적모드
             if (hero) then
                 self.m_myDragons[i] = hero
                 hero:setPosIdx(tonumber(i))
@@ -212,4 +211,6 @@ function GameWorldIntro:makeHeroDeck()
             end
         end
     end
+
+    -- TODO: 튜토리얼 전투에 맞게끔 스킬 정보를 변경시킴
 end

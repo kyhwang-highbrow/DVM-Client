@@ -24,7 +24,6 @@ Character = class(PARENT, {
 		-- 기초 유틸
         m_statusCalc = '',
         m_stateDelegate = 'CharacterStateDelegate',
-        m_activityCarrier = 'ActivityCarrier',
         m_charLogRecorder = 'LogRecorderChar',
 
 		-- 캐릭터의 특정 상태
@@ -53,6 +52,9 @@ Character = class(PARENT, {
         -- @ 예약된 skill 정보
         m_reservedSkillId = 'number',
         m_reservedSkillCastTime = 'number',
+
+        -- @ 예약된 activity carrier 정보
+        m_reservedActivityCarrier = 'ActivityCarrier',  -- 예약된 skill 정보와는 별개로 사용
                 
         m_isAddSkill = 'bool', -- 드래곤이 에약한 스킬이 basic_rate나 basic_turn 인 경우
         m_bActivePassive = 'bool',  -- 패시브 스킬 적용 여부
@@ -1024,6 +1026,7 @@ function Character:setDamage(attacker, defender, i_x, i_y, damage, t_info)
         -- NOTHING TO DO
 
     elseif (t_info['is_definite_death']) then
+        damage = self.m_hp
         bApplyDamage = true
 	elseif (self.m_bLeftFormation and g_constant:get('DEBUG', 'PLAYER_INVINCIBLE')) then
 		-- NOTHING TO DO
@@ -1115,15 +1118,7 @@ function Character:getSkillTable(skill_id)
         return nil
     end
 
-	local t_skill = nil
-
-    -- 캐릭터 유형별(dragon or enemy)로 스킬 테이블 호출하고 가져온다.
-    if (self.m_charType == 'monster') then
-        t_skill = TableMonsterSkill():get(skill_id)
-	else
-        t_skill = self:getLevelingSkillById(skill_id)
-    end
-
+	local t_skill = self:getLevelingSkillById(skill_id)
     return t_skill
 end
 
@@ -2371,7 +2366,9 @@ end
 -- @brief
 -------------------------------------
 function Character:makeAttackDamageInstance()
-    local activity_carrier = ActivityCarrier()
+    local activity_carrier = self.m_reservedActivityCarrier or ActivityCarrier()
+
+    self.m_reservedActivityCarrier = nil
 
 	-- 시전자를 지정
 	activity_carrier:setActivityOwner(self)
@@ -2383,6 +2380,14 @@ function Character:makeAttackDamageInstance()
 	activity_carrier:setStatuses(self.m_statusCalc)
 
     return activity_carrier
+end
+
+-------------------------------------
+-- function reserveAttackDamage
+-- @brief 다음 makeAttackDamageInstance 호출시 가져올 activity carrier를 설정
+-------------------------------------
+function Character:reserveAttackDamage(activity_carrier)
+    self.m_reservedActivityCarrier = activity_carrier
 end
 
 -------------------------------------

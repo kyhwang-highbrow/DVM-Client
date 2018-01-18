@@ -29,6 +29,7 @@ LogRecorderWorld = class(PARENT, {
         -- 인트로 전투에 필요한 것
         m_attackCnt = 'num',        -- 평타 횟수
         m_dropItemCnt = 'num',      -- 드랍 아이템 수
+        m_bossSpecialAttack = 'num',-- 보스 특수 패턴 수
 
         -- 기획 밸런스 테스트를 위한 것
         m_totalDamageToHero = 'number', -- 영웅이 받은 총피해(로그 표시마다 초기화 시킴)
@@ -50,6 +51,7 @@ function LogRecorderWorld:init(world)
     self.m_activeKillCnt = 0
     self.m_attackCnt = 0
     self.m_dropItemCnt = 0
+    self.m_bossSpecialAttack = 0
     self.m_totalDamageToHero = 0
     self.m_totalDamageToEnemy = 0
 
@@ -169,6 +171,9 @@ function LogRecorderWorld:recordLog(key, value)
     elseif (key == 'drop_item_cnt') then
 		self.m_dropItemCnt = self.m_dropItemCnt + value
 
+    elseif (key == 'boss_special_attack') then
+		self.m_bossSpecialAttack = self.m_bossSpecialAttack + value
+
     elseif (key == 'total_damage_to_hero') then
 		self.m_totalDamageToHero = self.m_totalDamageToHero + value
 
@@ -231,6 +236,9 @@ function LogRecorderWorld:getLog(key)
 
     elseif (key == 'drop_item_cnt') then
 		return self.m_dropItemCnt
+
+    elseif (key == 'boss_special_attack') then
+		return self.m_bossSpecialAttack
 
     elseif (key == 'total_damage_to_hero') then
 		return self.m_totalDamageToHero

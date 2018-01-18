@@ -228,7 +228,11 @@ function StatusEffectHelper:invokeStatusEffect(caster, target_char, status_effec
 
     -- status_effect_rate 검사
     if (self:checkRate(caster, target_char, status_effect_rate, add_param)) then
-        return nil
+        if (world.m_gameMode == GAME_MODE_INTRO) then
+            -- 튜토리얼 전투에서는 확률에 걸리지 않아도 넘어가도록 처리
+        else
+            return nil
+        end
     end
 
 	-- 면역 효과
@@ -238,7 +242,9 @@ function StatusEffectHelper:invokeStatusEffect(caster, target_char, status_effec
 	end
 
     -- 효과 적중 및 효과 저항 검사
-    if (status_effect_group == 'dispell') then
+    if (world.m_gameMode == GAME_MODE_INTRO) then
+        -- 튜토리얼 전투에서는 저항 할 수 없도록 처리
+    elseif (status_effect_group == 'dispell') then
         -- 해제효과의 경우는 효과 저항할 수 없도록 처리
 
     elseif (status_effect_type == 'tamer_add_dmg') then
@@ -262,13 +268,19 @@ function StatusEffectHelper:invokeStatusEffect(caster, target_char, status_effec
         status_effect_value = tonumber(status_effect_value)
     end
 
-    if (status_effect) then
-        -- 상태 효과 중첩 혹은 갱신
-        status_effect:addOverlabUnit(caster, skill_id, status_effect_value, status_effect_source, duration, add_param)
-    else
+    if (not status_effect) then
         -- 상태 효과 생성
 		status_effect = StatusEffectHelper:makeStatusEffectInstance(caster, target_char, status_effect_type, status_effect_value, status_effect_source, duration, skill_id, add_param)
+        
+        -- 타켓에게 status_effect 저장
+	    target_char:insertStatusEffect(status_effect)
     end
+
+    -- 상태 효과 중첩 혹은 갱신
+    status_effect:addOverlabUnit(caster, skill_id, status_effect_value, status_effect_source, duration, add_param)
+
+    -- 아이콘을 즉시 갱신
+    target_char:updateStatusEffect(0)
     
     -- 해로운 상태효과 걸렸을 시
 	if (self:isHarmful(status_effect)) then
@@ -278,6 +290,11 @@ function StatusEffectHelper:invokeStatusEffect(caster, target_char, status_effec
 		t_event['status_effect_name'] = status_effect.m_statusEffectName
 		target_char:dispatch('get_debuff', t_event)
 	end
+
+    -- 텍스트 표시(아이콘이 표시되는 경우만)
+    if (t_status_effect['show_icon'] == 1 and t_status_effect['t_desc'] ~= '') then
+        world:addPassiveStartEffect(target_char, t_status_effect['t_desc'], t_status_effect['category'])
+    end
 
 	return status_effect
 end
@@ -421,23 +438,13 @@ function StatusEffectHelper:makeStatusEffectInstance(caster, target_char, status
     status_effect:initWorld(world)
     status_effect:initFromTable(t_status_effect, target_char, caster)
     
-    -- 타켓에게 status_effect 저장
-	target_char:insertStatusEffect(status_effect)
-
     -- 객체 생성
     world.m_missiledNode:addChild(status_effect.m_rootNode, 1)
     world:addToUnitList(status_effect)
 
+    -- 상태효과 시작
+    status_effect:updatePos()
     status_effect:changeState('start')
-
-    -----------------------------------------------------------------
-    -- StatusEffectUnit 생성 및 추가
-    status_effect:addOverlabUnit(caster, skill_id, status_effect_value, status_effect_source, duration, add_param)
-
-    -- 텍스트 표시(아이콘이 표시되는 경우만)
-    if (t_status_effect['show_icon'] == 1 and t_status_effect['t_desc'] ~= '') then
-        world:addPassiveStartEffect(target_char, t_status_effect['t_desc'], t_status_effect['category'])
-    end
 
     return status_effect
 end

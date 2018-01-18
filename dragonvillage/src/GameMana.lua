@@ -100,6 +100,10 @@ end
 -------------------------------------
 function GameMana:setCurrMana(value)
     self.m_value = value + security_key
+
+    self:updateGauge(self.m_prevValue ~= math_floor(value))
+
+    self.m_prevValue = math_floor(value)
 end
 
 -------------------------------------
@@ -112,9 +116,6 @@ function GameMana:addMana(value)
     value = math_min(value, MAX_MANA)
 
     self:setCurrMana(value)
-    self:updateGauge(self.m_prevValue ~= math_floor(value))
-
-    self.m_prevValue = math_floor(value)
 end
 
 -------------------------------------
@@ -127,9 +128,6 @@ function GameMana:subtractMana(value)
     value = math_max(value, 0)
 
     self:setCurrMana(value)
-    self:updateGauge(self.m_prevValue ~= math_floor(value))
-
-    self.m_prevValue = math_floor(value)
 end
 
 -------------------------------------
@@ -139,7 +137,6 @@ function GameMana:resetMana()
     local value = 0
     
     self:setCurrMana(value)
-    self:updateGauge(self.m_prevValue ~= value)
 
     self.m_prevValue = 0
 end

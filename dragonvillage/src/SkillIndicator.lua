@@ -181,9 +181,7 @@ function SkillIndicator:changeSIState(state)
             for i, v in ipairs(self.m_highlightList) do
                 self:removeAllTargetEffect(v)
             end
-            self.m_highlightList = nil
         end
-        self.m_collisionList = nil
     end
 end
 
@@ -712,6 +710,10 @@ end
 -- function setIndicatorTouchPos
 -------------------------------------
 function SkillIndicator:setIndicatorTouchPos(x, y)
+    if (self.m_indicatorTouchPosX == x and self.m_indicatorTouchPosY == y) then
+        return
+    end
+
     self.m_indicatorTouchPosX = x
     self.m_indicatorTouchPosY = y
     self.m_bDirty = true

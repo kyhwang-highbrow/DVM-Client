@@ -96,6 +96,30 @@ function SkillIndicatorMgr_Intro:onTouchEnded(touch, event)
             end
               
         else
+            -- 스마트 드래곤의 힐 스킬은 무조건 번개고룡을 포함시킨다
+            if (self.m_selectHero:getCharId() == 120431) then
+                local indicator = self.m_selectHero.m_skillIndicator
+                local is_exist = false
+
+                for _, v in ipairs(indicator.m_highlightList) do
+                    if (v:getCharId() == 120223) then
+                        is_exist = true
+                        break
+                    end
+                end
+
+                if (not is_exist) then
+                    cclog('add collision')
+                    -- 번개고룡이 대상에 없을 경우 강제로 세팅
+                    local target = self.m_world:getDragonList()[4]
+                    local target_x, target_y = target:getCenterPos()
+                    local collision_data = StructCollisionData(target, 0, 0, target_x, target_y)
+
+                    table.insert(indicator.m_highlightList, target)
+                    table.insert(indicator.m_collisionList, collision_data)
+                end
+            end
+
             ---------------------------------------------------
             -- 액티브 스킬 발동
             ---------------------------------------------------
