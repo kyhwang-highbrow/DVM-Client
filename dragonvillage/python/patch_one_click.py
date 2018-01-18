@@ -261,6 +261,7 @@ def main():
     }
     print data
     r = requests.post(PLATFORM_SERVER_PATH + '/versions/addPatchInfo', data = data)
+    print r.text
 
     print "###################################"
     print "done"
