@@ -107,10 +107,20 @@ end
 -------------------------------------
 function ServerData_Dragons:getDragonsListExceptTarget(map_except)
     local dragon_dictionary = self:getDragonsListRef()
-    local ret_dictionary = {}
 
+    -- 해당 드래곤과 같은 종류 역시 제외하자
+    local map_did = {}
+    for key,value in pairs(map_except) do
+        local dragon = dragon_dictionary[key]
+        ccdump(dragon)
+        local did_key = tostring(dragon['did'])
+        map_did[did_key] = true
+    end
+
+    local ret_dictionary = {}
     for key,value in pairs(dragon_dictionary) do
-        if (not map_except[key]) then
+        local did_key = tostring(value['did'])
+        if (not map_did[did_key] and not map_except[key]) then
             ret_dictionary[key] = value
         end
     end
