@@ -14,6 +14,8 @@ UI_TutorialPlayer = class(PARENT,{
 
 		-- waiting 상태라면 외부에서 호출할 때까지 진행하지 않는다.
 		m_isWaiting = 'boolean',
+
+		m_advUI = 'UI',
     })
 
 -------------------------------------
@@ -188,6 +190,14 @@ function UI_TutorialPlayer:applyEffect(effect)
 	elseif (effect == 'step_close') then
 		self.m_closeCB = nil
 		self:close()
+
+	-- 튜토리얼 중에 1-7 보상 보여주기 위해서... 사용... 
+	elseif (effect == 'adv_open') then
+		local stage_id = 1110107
+		self.m_advUI = UI_AdventureSceneNew(stage_id)
+
+	elseif (effect == 'adv_close') then
+		self.m_advUI:close()
 
     else
         cclog('정말 없는 effect : ' .. effect)

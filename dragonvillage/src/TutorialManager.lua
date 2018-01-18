@@ -178,6 +178,17 @@ function TutorialManager:blockIngamePause(stage_id)
 end
 
 -------------------------------------
+-- function showAmazingNewbiePresent
+-- @comment 1-7 클리어시의 보상 보여준다
+-------------------------------------
+function TutorialManager:showAmazingNewbiePresent()
+	local done_1_1 = g_tutorialData:isTutorialDone(TUTORIAL.FIRST_END)
+	local done_1_7 = g_tutorialData:isTutorialDone(TUTORIAL.GACHA11_END)
+	
+	return (done_1_1) and (not done_1_7)
+end
+
+-------------------------------------
 -- function nextIfPlayerWaiting
 -- @brief tutorial player next 호출
 -------------------------------------

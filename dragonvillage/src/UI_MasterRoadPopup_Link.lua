@@ -34,7 +34,7 @@ function UI_MasterRoadPopup_Link:init()
 			end
 			g_tutorialData:request_tutorialSave(tutorial_key, 101, finish_cb)
 	    
-		elseif (g_masterRoadData:getFocusRoad() == 10004) then
+		elseif (g_masterRoadData:getFocusRoad() == 10003) then
 			local tutorial_key = TUTORIAL.ADV_01_02_END
 			TutorialManager.getInstance():startTutorial(tutorial_key, self)
 
