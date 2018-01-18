@@ -216,6 +216,10 @@ end
 -- function update
 -------------------------------------
 function GameState:update(dt)
+    if (self.m_bPause) then
+        dt = 0
+    end
+
     self:updateFightTimer(dt)
 
     if (not self.m_bPause) then
