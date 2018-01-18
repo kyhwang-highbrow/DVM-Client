@@ -112,7 +112,6 @@ function ServerData_Dragons:getDragonsListExceptTarget(map_except)
     local map_did = {}
     for key,value in pairs(map_except) do
         local dragon = dragon_dictionary[key]
-        ccdump(dragon)
         local did_key = tostring(dragon['did'])
         map_did[did_key] = true
     end
