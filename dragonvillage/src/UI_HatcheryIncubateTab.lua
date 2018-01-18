@@ -26,31 +26,7 @@ function UI_HatcheryIncubateTab:onEnterTab(first)
     self.m_ownerUI:showNpc() -- NPC 등장
 
     if first then
-        local vars = self.vars
-        local parent_node = vars['eggFickerNode']
-
-        -- UIC_EggPicker 생성
-        local egg_picker = UIC_EggPicker:create(parent_node)
-
-        egg_picker.m_itemWidth = 250 -- 알의 가로 크기
-        egg_picker.m_nearItemScale = 0.66
-        self.m_eggPicker = egg_picker
-
-        local function click_egg(t_item, idx)
-            self:click_eggItem(t_item, idx)
-        end
-        egg_picker:setItemClickCB(click_egg)
-
-
-        local function onChangeCurrEgg(t_item, idx)
-            self:onChangeCurrEgg(t_item, idx)
-        end
-        egg_picker:setChangeCurrFocusIndexCB(onChangeCurrEgg)
-
-        self:refreshEggList()
-
-		-- tutorial 에서 접근하기 위함
-		self.m_ownerUI.vars['tutorialEggPicker'] = egg_picker
+		self:initUI()
     end
 end
 
@@ -58,6 +34,37 @@ end
 -- function onExitTab
 -------------------------------------
 function UI_HatcheryIncubateTab:onExitTab()
+end
+
+-------------------------------------
+-- function initUI
+-------------------------------------
+function UI_HatcheryIncubateTab:initUI()
+	local vars = self.vars
+	local parent_node = vars['eggFickerNode']
+
+	-- UIC_EggPicker 생성
+	local egg_picker = UIC_EggPicker:create(parent_node)
+
+	egg_picker.m_itemWidth = 250 -- 알의 가로 크기
+	egg_picker.m_nearItemScale = 0.66
+	self.m_eggPicker = egg_picker
+
+	local function click_egg(t_item, idx)
+		self:click_eggItem(t_item, idx)
+	end
+	egg_picker:setItemClickCB(click_egg)
+
+
+	local function onChangeCurrEgg(t_item, idx)
+		self:onChangeCurrEgg(t_item, idx)
+	end
+	egg_picker:setChangeCurrFocusIndexCB(onChangeCurrEgg)
+
+	self:refreshEggList()
+	
+	-- tutorial 에서 접근하기 위함
+	self.m_ownerUI.vars['tutorialEggPicker'] = egg_picker
 end
 
 -------------------------------------

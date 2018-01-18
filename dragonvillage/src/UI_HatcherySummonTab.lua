@@ -74,6 +74,10 @@ function UI_HatcherySummonTab:initUI()
             self:requestSummon(t_data)
         end)
         
+		-- tutorial 에서 접근하기 위함
+		if (ui_type == 'cash11') then
+			self.m_ownerUI.vars['tutorialSummon11Btn'] = btn.vars['summonBtn']
+		end
     end
 end
 
