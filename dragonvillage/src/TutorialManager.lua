@@ -137,14 +137,14 @@ function TutorialManager:checkTutorialInLobby(ui_lobby)
 			UI_MasterRoadPopup()
 
 		elseif (step == 102) then
-			QuickLinkHelper.quickLink('egg')
+			UINavigator:goTo('hatchery', 'incubate')
 
 		elseif (step == 103) then
 			UI_MasterRoadPopup()
 
 		elseif (step == 104) then
 			stage_id = 1110102
-			QuickLinkHelper.quickLink('clr_stg', stage_id)
+			UINavigator:goTo('adventure', stage_id)
 
 		end
 	end
@@ -152,6 +152,15 @@ function TutorialManager:checkTutorialInLobby(ui_lobby)
 	-- 1-2 end 는 체크하지 않는다.
 
 	-- 1-7 end
+	tutorial_key = TUTORIAL.ADV_01_07_END
+	is_done = g_tutorialData:isTutorialDone(tutorial_key)
+	if (not is_done) then
+		local step = g_tutorialData:getStep(tutorial_key)
+		if (step == 101) then
+			UINavigator:goTo('hatchery')
+
+		end
+	end
 end
 
 -------------------------------------

@@ -127,11 +127,16 @@ end
 -- @breif
 -------------------------------------
 function ServerData_Hatchery:request_summonCash(is_bundle, is_sale, finish_cb, fail_cb)
-    -- 유저 ID
+    -- parameters
     local uid = g_userData:get('uid')
     local is_bundle = is_bundle or false
     local is_sale = is_sale or false
     local prev_mileage = g_userData:get('mileage')
+
+	local tutorial = nil
+	if (TutorialManager.getInstance():isDoing()) then
+		tutorial = TUTORIAL.GACHA11_END
+	end
 
     -- 성공 콜백
     local function success_cb(ret)
@@ -174,6 +179,7 @@ function ServerData_Hatchery:request_summonCash(is_bundle, is_sale, finish_cb, f
     ui_network:setParam('uid', uid)
     ui_network:setParam('bundle', is_bundle)
     ui_network:setParam('sale', is_sale)
+	ui_network:setParam('tutorial', tutorial)
     ui_network:setMethod('POST')
     ui_network:setSuccessCB(success_cb)
     ui_network:setFailCB(fail_cb)
@@ -189,7 +195,7 @@ end
 -- @breif
 -------------------------------------
 function ServerData_Hatchery:request_summonCashEvent(is_bundle, is_sale, finish_cb, fail_cb)
-    -- 유저 ID
+    -- parameters
     local uid = g_userData:get('uid')
     local is_bundle = is_bundle or false
     local is_sale = is_sale or false

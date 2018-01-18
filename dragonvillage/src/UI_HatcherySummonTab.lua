@@ -12,6 +12,11 @@ UI_HatcherySummonTab = class(PARENT,{
 -------------------------------------
 function UI_HatcherySummonTab:init(owner_ui)
     local vars = self:load('hatchery_summon.ui')
+
+	-- @ TUTORIAL
+	local tutorial_key = TUTORIAL.ADV_01_07_END
+	local check_step = 101
+	TutorialManager.getInstance():continueTutorial(tutorial_key, check_step, self)
 end
 
 -------------------------------------
@@ -72,11 +77,21 @@ function UI_HatcherySummonTab:initUI()
         -- 버튼 콜백
         btn.vars['summonBtn']:registerScriptTapHandler(function()
             self:requestSummon(t_data)
+			if (ui_type == 'cash11') then
+				local price = btn.vars['priceLabel']:getString()
+				price = tonumber(price)
+				if (price == nil) then
+					btn.vars['priceLabel']:setString(comma_value(t_data['price']))
+				end
+			end
         end)
         
 		-- tutorial 에서 접근하기 위함
 		if (ui_type == 'cash11') then
-			self.m_ownerUI.vars['tutorialSummon11Btn'] = btn.vars['summonBtn']
+			if (TutorialManager.getInstance():isDoing()) then
+				self.m_ownerUI.vars['tutorialSummon11Btn'] = btn.vars['summonBtn']
+				btn.vars['priceLabel']:setString(Str('무료'))
+			end
 		end
     end
 end
@@ -275,6 +290,9 @@ function UI_HatcherySummonTab:requestSummon(t_egg_data, old_ui, is_again)
         else
             -- ConfirmPrice함수에서 false를 리턴했을 경우 안내 팝업이 뜬 상태
         end
+	elseif (TutorialManager.getInstance():isDoing()) then
+		ok_btn_cb()
+
     else
         local msg = Str('"{1}" 진행하시겠습니까?', t_egg_data['name'])
         MakeSimplePopup_Confirm(item_key, item_value, msg, ok_btn_cb, cancel_btn_cb)
