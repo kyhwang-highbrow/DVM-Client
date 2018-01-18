@@ -70,6 +70,7 @@ function Translate:load(lang)
 
 	-- 정의 되지 않은 언어는 '영어'로 일괄 처리
 	elseif (lang) then
+		self.m_gameLang = 'en'
 		self.m_mLangMap = require 'translate/lang_en'
 
     end
