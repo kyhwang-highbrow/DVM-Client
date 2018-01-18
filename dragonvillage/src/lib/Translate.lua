@@ -252,7 +252,7 @@ function Translate:getFontScaleRate()
     local retY = 1
     local game_lang = self:getGameLang()
     if game_lang == 'ja' then
-        retX = 0.92
+        retX = 1
     elseif game_lang == 'zh' then
         retY = 1
     end

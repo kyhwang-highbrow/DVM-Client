@@ -477,8 +477,8 @@ local function loadNode(ui, data, vars, parent, keep_z_order, use_sprite_frames)
 
         --언어별 스케일
         local rateX, rateY = Translate:getFontScaleRate()
-        node:setScaleX( rateX )
-        node:setScaleY( rateY )
+        delegator:setScaleX( rateX )
+        delegator:setScaleY( rateY )
 
     elseif type == 'EditBox' then
         UILoader.checkTranslate(data)

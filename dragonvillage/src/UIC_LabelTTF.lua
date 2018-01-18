@@ -7,6 +7,8 @@ UIC_LabelTTF = class(PARENT, {
         m_strokeTickness = 'number',
         m_shadowOffset = 'cc.Size',
         m_orgFontSize = 'number',
+        m_orgFontScaleX = 'number',
+        m_orgFontScaleY = 'number',
     })
 
 -------------------------------------
@@ -18,6 +20,9 @@ function UIC_LabelTTF:init(node)
 
     local ttfInfo = self.m_node:getTTFConfig()
     self.m_orgFontSize = ttfInfo.fontSize
+
+    self.m_orgFontScaleX = self:getScaleX()
+    self.m_orgFontScaleY = self:getScaleY()
 
     --ui에 text가 들어있는경우 때문에
     local org = node:getString()
@@ -33,9 +38,77 @@ function UIC_LabelTTF:setString(str)
     local needCheck = str and (string.len(str) > 0) and (str ~= self.m_node:getString())
     
     self.m_node:setString(str)
+        
+    if needCheck == false then
+        return
+    end
 
-    --needCheck = false
+    self:applyBoxWithScale(str)
+end
 
+-------------------------------------
+-- function applyBoxWithScale
+-------------------------------------
+function UIC_LabelTTF:applyBoxWithScale(str)
+    
+    --local stopwatch = Stopwatch()
+    --stopwatch:start()
+
+    local function checkTextArea()        
+        local sizeDimensions = self.m_node:getDimensions()
+        local stringWith = self.m_node:getStringWidth()
+        
+        if sizeDimensions.width < stringWith then        
+            local oldScaleX = self:getScaleX()
+            local oldScaleY = self:getScaleY()            
+            local rate = sizeDimensions.width / stringWith
+            local newScaleX, newScaleY
+            --원래 스케일의 최대 70%만 작아지도록
+            newScaleX = math_max( oldScaleX * rate, 0.7 )
+            newScaleY = math_max( oldScaleY * rate, 0.7 )
+
+            if oldScaleX ~= newScaleX or oldScaleY ~= newScaleY then
+                --cclog('===============================')
+                --cclog(string.format('scaleX : %f -> %f', oldScaleX, newScaleX ) )
+                --cclog(string.format('scaleY : %f -> %f', oldScaleY, newScaleY ) )
+                --cclog(str)
+                --cclog('===============================')
+                
+                self.m_orgFontScaleX = newScaleX
+                self.m_orgFontScaleY = newScaleY
+                self.m_node:setScaleX( newScaleX )
+                self.m_node:setScaleY( newScaleY )
+            end
+            
+            return true
+        end
+
+        return false
+    end
+
+    if checkTextArea() == false then
+        local oldScaleX = self:getScaleX()
+        local oldScaleY = self:getScaleY()            
+        if oldScaleX ~= self.m_orgFontScaleX or oldScaleY ~= self.m_orgFontScaleY then
+            self.m_orgFontScaleX ,self.m_orgFontScaleY = Translate:getFontScaleRate()
+            self.m_node:setScaleX( self.m_orgFontScaleX )
+            self.m_node:setScaleY( self.m_orgFontScaleY )
+
+            --한번더
+            checkTextArea()
+        end
+    end
+
+    --stopwatch:record('textArea' .. str)
+    --stopwatch:stop()
+    --stopwatch:print()
+
+end
+
+-------------------------------------
+-- function applyBoxWithFontSize
+-------------------------------------
+function UIC_LabelTTF:applyBoxWithFontSize(str)
     ---[[
     local function checkTextArea()        
         local sizeDimensions = self.m_node:getDimensions()
@@ -50,6 +123,10 @@ function UIC_LabelTTF:setString(str)
             newFontSize = math_floor( math_max( oldFontSize * rate, self.m_orgFontSize * 0.7 ) )
 
             if oldFontSize ~= newFontSize then                
+                cclog('===============================')
+                cclog(string.format('fontsize : %d -> %d', oldFontSize, newFontSize ) )
+                cclog(str)
+                cclog('===============================')
                 ttfInfo.fontSize = newFontSize
                 self.m_node:setTTFConfig( ttfInfo )
             end
@@ -66,10 +143,6 @@ function UIC_LabelTTF:setString(str)
         end
 
         return false
-    end
-
-    if needCheck == false then
-        return
     end
 
     --local stopwatch = Stopwatch()
@@ -228,4 +301,29 @@ function UIC_LabelTTF:setFontSize(fontSize)
     self.m_orgFontSize = fontSize
     self.m_node:setTTFConfig( ttfInfo )
     
+end
+
+-------------------------------------
+-- function setScaleX
+-- @brief 폰트스케일 변경은 이걸 통해서 해주세요.
+-------------------------------------
+function UIC_LabelTTF:setScaleX(scale)        
+    self.m_node:setScaleX( scale * self.m_orgFontScaleX )
+end
+
+-------------------------------------
+-- function setScaleY
+-- @brief 폰트스케일 변경은 이걸 통해서 해주세요.
+-------------------------------------
+function UIC_LabelTTF:setScaleY(scale)         
+    self.m_node:setScaleY( scale * self.m_orgFontScaleY )
+end
+
+-------------------------------------
+-- function setScale
+-- @brief 폰트스케일 변경은 이걸 통해서 해주세요.
+-------------------------------------
+function UIC_LabelTTF:setScale(scale)        
+    self.m_node:setScaleX( scale * self.m_orgFontScaleX )
+    self.m_node:setScaleY( scale * self.m_orgFontScaleY )
 end
