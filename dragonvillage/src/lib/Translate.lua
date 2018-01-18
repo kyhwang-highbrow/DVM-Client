@@ -8,6 +8,14 @@ Translate = {
     m_gameLang = nil,
 }
 
+local LANG = {
+	['KOREAN'] = 'ko',
+	['JAPANESE'] = 'ja',
+	['CHINESE'] = 'zh',
+	['ENGLISH'] = 'en',
+
+	['KOREAN_OLD'] = 'kr',
+}
 -------------------------------------
 -- function init
 -------------------------------------
@@ -21,7 +29,7 @@ function Translate:init()
     self.m_deviceLang = cc.Application:sharedApplication():getCurrentLanguageCode()
 	
 	-- 기준 언어
-	self.m_stdLang = 'ko'
+	self.m_stdLang = LANG['KOREAN']
 
 	-- 게임 언어 (유저의 선택)
 	self.m_gameLang = g_localData:getLang()
@@ -33,9 +41,9 @@ function Translate:init()
 
 	-- @mskim 1/15일에만 동작 시킬 예정
 	-- 현재 한국 라이브 유저들의 설정 일괄 변환 의도
-	if (self.m_gameLang == 'kr') then
-		g_localData:setLang('ko')
-		self.m_gameLang = 'ko'
+	if (self.m_gameLang == LANG['KOREAN_OLD']) then
+		g_localData:setLang(LANG['KOREAN'])
+		self.m_gameLang = LANG['KOREAN']
 	end
 
 	-- 한국어가 아닌 경우 언어 모듈 로드
@@ -57,20 +65,22 @@ function Translate:load(lang)
 	self.m_gameLang = lang
 
     -- 한국어가 아니라면 m_mLangMap 호출
-    if (lang == 'en') then
+    if (lang == LANG['ENGLISH']) then
         self.m_mLangMap = require 'translate/lang_en'
-    elseif (lang == 'ja') then
+
+    elseif (lang == LANG['JAPANESE']) then
         self.m_mLangMap = require 'translate/lang_jp'
-	elseif (lang == 'zh') then
+
+	elseif (lang == LANG['CHINESE']) then
         self.m_mLangMap = require 'translate/lang_zhtw'
 
 	-- 한국어는 m_mLangMap을 생성하지 않는다
-	elseif (lang == 'ko') then
+	elseif (lang == LANG['KOREAN']) then
 		-- nothing to do
 
 	-- 정의 되지 않은 언어는 '영어'로 일괄 처리
-	elseif (lang) then
-		self.m_gameLang = 'en'
+	else
+		self.m_gameLang = LANG['ENGLISH']
 		self.m_mLangMap = require 'translate/lang_en'
 
     end
@@ -152,7 +162,7 @@ end
 -- @brief a2d파일의 png(plist)파일을 해당하는 국가의 plist로 로드
 -------------------------------------
 function Translate:a2dTranslate(full_path)
-    local game_lang = self.m_gameLang
+    local game_lang = self:getGameLang()
     
     -- 예외 처리
     if (not game_lang) then
@@ -197,7 +207,7 @@ function Translate:getTranslatedPath(full_path)
 	end
 
     -- 대상 언어의 경로로 변환
-	local game_lang = Translate:getGameLang()
+	local game_lang = self:getGameLang()
 	local translated_path = string.gsub(full_path, 'typo/ko', 'typo/' .. game_lang)
 
     -- 해당 경로에 파일이 없다면 기존 경로를 반환
@@ -228,9 +238,9 @@ function Translate:getFontName()
     local game_lang = self:getGameLang()
     local ret = 'common_font_01.ttf'
 
-    if game_lang == 'ja' then
+    if (game_lang == LANG['JAPANESE']) then
         ret = 'common_font_01_ja.ttf'
-    elseif game_lang == 'zh' then
+    elseif (game_lang == LANG['CHINESE']) then
         ret = 'common_font_01_cn.ttf'
     end
 
@@ -251,9 +261,10 @@ function Translate:getFontScaleRate()
     local retX = 1
     local retY = 1
     local game_lang = self:getGameLang()
-    if game_lang == 'ja' then
+
+    if (game_lang == LANG['JAPANESE']) then
         retX = 1
-    elseif game_lang == 'zh' then
+    elseif (game_lang == LANG['CHINESE']) then
         retY = 1
     end
 
