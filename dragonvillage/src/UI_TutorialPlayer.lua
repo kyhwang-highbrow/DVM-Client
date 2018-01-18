@@ -194,7 +194,7 @@ function UI_TutorialPlayer:applyEffect(effect)
 
 	-- 튜토리얼 중에 1-7 보상 보여주기 위해서... 사용... 
 	elseif (effect == 'adv_open') then
-		local stage_id = 1110107
+		local stage_id = 1110101
 		self.m_advUI = UI_AdventureSceneNew(stage_id)
 
 	elseif (effect == 'adv_close') then
