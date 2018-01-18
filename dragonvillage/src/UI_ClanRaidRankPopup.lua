@@ -18,9 +18,6 @@ function UI_ClanRaidRankPopup:init()
     UIManager:open(self, UIManager.POPUP)
     self.m_uiName = 'UI_ClanRaidRankPopup'
 
-    local rank_type = CLAN_RANK['RAID']
-    self.m_rank_data = g_clanRankData:getRankData(rank_type)
-
     self.m_offset = 1
 
     -- backkey 지정
@@ -67,6 +64,9 @@ end
 -- function initTableView
 -------------------------------------
 function UI_ClanRaidRankPopup:initTableView()
+    local rank_type = CLAN_RANK['RAID']
+    self.m_rank_data = g_clanRankData:getRankData(rank_type)
+
     local vars = self.vars
 	local node = vars['listNode']
 	local l_rank_list = self.m_rank_data
