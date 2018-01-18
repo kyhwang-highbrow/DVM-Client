@@ -5,6 +5,7 @@ local PARENT = class(UI, ITopUserInfo_EventListener:getCloneTable(), ITabUI:getC
 -------------------------------------
 UI_ClanRaid = class(PARENT, {
         m_stageID = 'number',
+        m_remainHp = 'number',
         m_preRefreshTime = 'time',
      })
 
@@ -39,6 +40,7 @@ function UI_ClanRaid:init()
 
     local struct_raid = g_clanRaidData:getClanRaidStruct()
     self.m_stageID = struct_raid:getStageID()
+    self.m_remainHp = struct_raid:getHp()
 
     -- backkey 지정
     g_currScene:pushBackKeyListener(self, function() self:click_exitBtn() end, 'UI_ClanRaid')
@@ -429,6 +431,7 @@ function UI_ClanRaid:click_readyBtn()
             local struct_raid = g_clanRaidData:getClanRaidStruct()
             local state = struct_raid:getState()
             local stage_id = struct_raid:getStageID()
+            local hp = struct_raid:getHp()
 
             -- 플레이중인 유저가 있다면
             if (state == CLAN_RAID_STATE.CHALLENGE) then
@@ -438,6 +441,13 @@ function UI_ClanRaid:click_readyBtn()
             elseif (self.m_stageID ~= stage_id) then
                 self.m_stageID = stage_id
                 self:refresh(true)
+
+            -- HP가 변경되었다면 다시 모두 갱신
+            elseif (self.m_remainHp ~= hp) then
+                self.m_remainHp = hp
+                self:refresh(true)
+                self.m_preRefreshTime = 1
+                UIManager:toastNotificationGreen(Str('던전 정보가 갱신되었습니다.'))
 
             else
                 -- 클랜 던전 처리 - 덱 map 추가로 생성
