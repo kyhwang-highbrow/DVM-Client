@@ -203,7 +203,7 @@ end
 -- @brief 현재 언어
 -------------------------------------
 function UI_Setting:init_language()
-	local lang = g_localData:getLang()
+	local lang = Translate:getGameLang()
 	local lang_str = Translate:getLangStrTable()[lang]
 	self.vars['languageLabel']:setString(lang_str)
 end

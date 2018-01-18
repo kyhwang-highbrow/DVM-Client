@@ -93,7 +93,7 @@ end
 -------------------------------------
 function UI_SelectLanguagePopup:click_okBtn()
 	local lang = self.m_radioButton.m_selectedButton
-	if (lang == g_localData:getLang()) then
+	if (lang == Translate:getGameLang()) then
 		self:close()
 		return
 	end
@@ -114,7 +114,7 @@ end
 -- function click_closeBtn
 -------------------------------------
 function UI_SelectLanguagePopup:click_closeBtn()
-	local curr_lang = g_localData:getLang()
+	local curr_lang = Translate:getGameLang()
 	if (not curr_lang) then
 		local msg = Str('언어를 선택하지 않으셨습니다!')
 		MakeSimplePopup(POPUP_TYPE.OK, msg)
