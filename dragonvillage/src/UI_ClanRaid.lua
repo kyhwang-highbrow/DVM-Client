@@ -430,7 +430,7 @@ function UI_ClanRaid:click_readyBtn()
         local finish_cb = function()
             local struct_raid = g_clanRaidData:getClanRaidStruct()
             local state = struct_raid:getState()
-            local stage_id = struct_raid:getStageID()
+            local stage_id = g_clanRaidData:getChallengStageID()
             local hp = struct_raid:getHp()
 
             -- 플레이중인 유저가 있다면
@@ -440,6 +440,7 @@ function UI_ClanRaid:click_readyBtn()
             -- 도전중인 클랜던전이 변경되었다면 다시 모두 갱신
             elseif (self.m_stageID ~= stage_id) then
                 self.m_stageID = stage_id
+                self.m_remainHp = hp
                 self:refresh(true)
 
             -- HP가 변경되었다면 다시 모두 갱신
