@@ -555,6 +555,11 @@ function UIManager:onKeyReleased(keyCode, event)
         return
     end
 
+    -- 인게임에서 동작하지 않도록 설정
+    if (g_gameScene) then
+        return
+    end
+
 	-- UI 클래스 이름 출력 및 클립보드 복사
 	if (keyCode == KEY_U) then
 		local last_ui = table.getLast(self.m_uiList)
