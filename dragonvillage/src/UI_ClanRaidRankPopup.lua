@@ -223,6 +223,18 @@ function UI_ClanRaidRankPopup.makeRankCell(t_data)
 end
 
 -------------------------------------
+-- function request_clanRank
+-------------------------------------
+function UI_ClanRaidRankPopup:request_clanRank(first)
+    local rank_type = CLAN_RANK['RAID']
+    local offset = self.m_offset
+    local cb_func = function()
+        self:initTableView()
+    end
+    g_clanRankData:request_getRank(rank_type, offset, cb_func)
+end
+
+-------------------------------------
 -- function click_closeBtn
 -------------------------------------
 function UI_ClanRaidRankPopup:click_closeBtn()
