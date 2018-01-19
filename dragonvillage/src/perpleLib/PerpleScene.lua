@@ -599,6 +599,16 @@ function replaceScene(target_scene)
     local function updateCoroutine(dt)
         local s, r = coroutine.resume(coroutine_function, dt)
         if s == false then
+            if (isWin32()) then
+                local msg = debug.traceback(coroutine_function, r)
+                if (not string.find(msg, 'cannot resume dead coroutine')) then
+                    cclog("----------------------------------------")
+                    cclog("LUA ERROR in coroutine\n")
+                    cclog(msg)
+                    cclog("----------------------------------------")
+                end
+            end
+
             coroutine_function = nil
             if schedule_handler_id then
                 cc.Director:getInstance():getScheduler():unscheduleScriptEntry(schedule_handler_id)
