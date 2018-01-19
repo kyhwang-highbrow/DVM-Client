@@ -301,6 +301,7 @@ function UI_TitleScene:setWorkList()
     table.insert(self.m_lWorkList, 'workCheckUserID')
     table.insert(self.m_lWorkList, 'workSelectServer')
     table.insert(self.m_lWorkList, 'workPlatformLogin')
+    table.insert(self.m_lWorkList, 'workPlatformNotiServer')  --플랫폼서버에 선택한 서버를 알려줘야하는데 사용하는 uid가 플랫폼서버에서 알려주는걸 사용해야 해서 로그인다음에 합니다.
     table.insert(self.m_lWorkList, 'workGameLogin')
     table.insert(self.m_lWorkList, 'workGetDeck')
     table.insert(self.m_lWorkList, 'workGetServerInfo')
@@ -577,34 +578,14 @@ function UI_TitleScene:workSelectServer()
     local success_cb = function(ret)
         self.m_loadingUI:hideLoading()
         cclog( luadump( ret ) )        
+        
         if ret['state'] == 0 then
-            --ui 작업 필요, 우선은 Korea로
-            g_localData:lockSaveData()
-            g_localData:setServerName(SERVER_NAME.KOREA)
-            g_localData:unlockSaveData()
-
-            --접속할 게임서버를 여기서 받아오는것으로 
-            local recommandedServer = ret['recommandedServer'] or 1
-            cclog( 'recommandedServer : ' .. recommandedServer )
-            local servers = ret['servers']
-            if servers then
-                for _, server in pairs( servers ) do
-                    if server['server_num'] == recommandedServer then                        
-                        cclog( 'api_server_ip : ' .. server['api_server_ip'] )
-                        cclog( 'chat_server : ' .. server['chat_server'] )
-                        cclog( 'clan_chat_server : ' .. server['clan_chat_server'] )
-                        SetApiUrl(server['api_server_ip'])
-                        SetChatServerUrl(server['chat_server'])
-                        SetClanChatServerUrl(server['clan_chat_server'])
-                        break
-                    end
-                end
-                                
+            local function cbFinish()
+                self:doNextWork()
             end
-
-            self:doNextWork()
-        else
-            --local msg = luadump(ret)
+            
+            UI_SelectServerPopup(ret, cbFinish)
+        else            
             self:makeFailPopup(nil, ret)
         end
     end
@@ -683,6 +664,32 @@ function UI_TitleScene:workPlatformLogin()
     Network_platform_issueRcode(rcode, os, game_push, pushToken, success_cb, fail_cb)
 end
 function UI_TitleScene:workPlatformLogin_click()
+end
+
+-------------------------------------
+-- function workPlatformNotiServer
+-- @brief 플랫폼 서버에 선택한 서버를 알려준다.
+-------------------------------------
+function UI_TitleScene:workPlatformNotiServer()
+    self.m_loadingUI:showLoading(Str('서버 선택을 저장 하는 중...'))
+
+    local success_cb = function(ret)
+        self.m_loadingUI:hideLoading()
+        cclog( luadump( ret ) )        
+        
+        if ret['state'] == 0 then
+            self:doNextWork()
+        else            
+            self:makeFailPopup(nil, ret)
+        end
+    end
+
+    local fail_cb = function(ret)
+        self.m_loadingUI:hideLoading()
+        self:makeFailPopup(nil, ret)
+    end
+
+    Network_platform_electionServer( success_cb, fail_cb )
 end
 
 -------------------------------------

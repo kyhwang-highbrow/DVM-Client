@@ -42,7 +42,7 @@ function Network_platform_issueRcode(rcode, os, game_push, pushToken, success_cb
     t_data['os'] = os
     t_data['game_push'] = game_push
     t_data['pushToken'] = pushToken
-    t_data['server_name'] = g_localData:get('local', 'server')
+    t_data['server_name'] = g_localData:getServerName()
     t_data['lang'] = LocalData:getInstance():getLang()
 
     -- 요청 정보 설정
@@ -237,11 +237,6 @@ end
 -- @breif   플랫폼 서버에 서버 리스트 가져오기
 -------------------------------------
 function Network_platform_getServerList(success_cb, fail_cb)
-
-    --#define SERVER_LIVE "LIVE"
-    --#define SERVER_QA "QA"
-    --#define SERVER_DEV "DEV"
-
     -- 파라미터 셋팅
     local ip = getIPAddress()
     local deviceLang = getDeviceLanguage()
@@ -258,6 +253,36 @@ function Network_platform_getServerList(success_cb, fail_cb)
     -- 요청 정보 설정
     local t_request = {}
     t_request['full_url'] = GetPlatformApiUrl() .. '/gateway/serverList'
+    t_request['method'] = 'POST'
+    t_request['data'] = t_data
+
+    t_request['check_hmac_md5'] = false
+
+    -- 성공 시 콜백 함수
+    t_request['success'] = success_cb
+
+    -- 실패 시 콜백 함수
+    t_request['fail'] = fail_cb
+
+    -- 네트워크 통신
+    Network:SimpleRequest(t_request)
+end
+
+-------------------------------------
+-- function Network_platform_electionServer
+-- @breif   플랫폼 서버에 선택한 서버 알려주기
+-------------------------------------
+function Network_platform_electionServer(success_cb, fail_cb)
+    -- 파라미터 셋팅
+    local t_data = {}    
+    t_data['uid'] = g_localData:get('local', 'uid')
+    t_data['server_name'] = g_localData:getServerName()
+    
+    cclog( luadump(t_data) )
+
+    -- 요청 정보 설정
+    local t_request = {}
+    t_request['full_url'] = GetPlatformApiUrl() .. '/gateway/electionServer'
     t_request['method'] = 'POST'
     t_request['data'] = t_data
 

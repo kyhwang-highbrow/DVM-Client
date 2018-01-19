@@ -200,8 +200,8 @@ SERVER_NAME = {
     ASIA = 'Asia',
     JAPAN = 'Japan',
 
-    DEV = 'Dev',
-    QA = 'Qa', 
+    DEV = 'DEV',
+    QA = 'QA', 
 }
 
 
