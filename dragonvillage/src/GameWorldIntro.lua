@@ -190,6 +190,9 @@ function GameWorldIntro:makeHeroDeck()
             t_dragon_data['lv'] =  60
             t_dragon_data['evolution'] = 3
             t_dragon_data['skill_0'] = 1
+			t_dragon_data['skill_1'] = 1
+			t_dragon_data['skill_2'] = 1
+			t_dragon_data['skill_3'] = 1
 
             local is_right = false
             local hero = self:makeDragonNew(t_dragon_data, is_right)
