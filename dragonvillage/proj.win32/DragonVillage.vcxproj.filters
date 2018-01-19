@@ -3160,6 +3160,9 @@
     <None Include="..\src\DragonGuideNavigator.lua">
       <Filter>lua\src</Filter>
     </None>
+    <None Include="..\src\SkillAoERound_Hide.lua">
+      <Filter>lua\src</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Classes">

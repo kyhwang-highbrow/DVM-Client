@@ -491,6 +491,7 @@ local t_module = {
 	'SkillAoERound',
 	'SkillAoERound_Sura',
     'SkillAoERound_Throw',
+    'SkillAoERound_Hide',
     'SkillAoESquare',
     'SkillAoESquare_Height',
     'SkillAoESquare_Height_Top',

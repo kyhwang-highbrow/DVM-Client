@@ -505,6 +505,7 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <None Include="..\src\SkillAoECone.lua" />
     <None Include="..\src\SkillAoECone_Crash.lua" />
     <None Include="..\src\SkillAoECross.lua" />
+    <None Include="..\src\SkillAoERound_Hide.lua" />
     <None Include="..\src\SkillAoERound_Sura.lua" />
     <None Include="..\src\SkillAoERound_Throw.lua" />
     <None Include="..\src\SkillAoESquare.lua" />
