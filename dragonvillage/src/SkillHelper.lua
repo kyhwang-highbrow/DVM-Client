@@ -262,7 +262,6 @@ end
 function SkillHelper:makePassiveSkillSpeech(dragon, str)
     local animatorWindow = MakeAnimator('res/ui/a2d/ingame_dragon_skill/ingame_dragon_skill.vrp')
     animatorWindow:setVisual('skill_gauge', 'bubble')
-    --animatorWindow:setTimeScale(0.5)
     animatorWindow:setRepeat(false)
     animatorWindow:setPosition(0, 50)
     dragon:getDragonSpeechNode():addChild(animatorWindow.m_node, 10)
@@ -272,10 +271,12 @@ function SkillHelper:makePassiveSkillSpeech(dragon, str)
 
     -- 대사
     do
+        local font_scale_x, font_scale_y = Translate:getFontScaleRate()
         self.m_speechLabel = cc.Label:createWithTTF(Str(str), Translate:getFontPath(), 24, 2)
         self.m_speechLabel:setAnchorPoint(cc.p(0.5, 0.5))
 	    self.m_speechLabel:setDockPoint(cc.p(0, 0))
 	    self.m_speechLabel:setColor(cc.c3b(255, 255, 255))
+        self.m_speechLabel:setScale(font_scale_x, font_scale_y)
         self.m_speechLabel:enableOutline(cc.c4b(0, 0, 0, 255), 2)
         self.m_speechLabel:setAlignment(cc.TEXT_ALIGNMENT_LEFT, cc.VERTICAL_TEXT_ALIGNMENT_TOP)
 
@@ -285,7 +286,7 @@ function SkillHelper:makePassiveSkillSpeech(dragon, str)
         local size = self.m_speechLabel:getContentSize()
         if (size['width'] > 110) then
             animatorWindow:setScaleX(2)
-            self.m_speechLabel:setScaleX(0.5)
+            self.m_speechLabel:setScaleX(0.5 * font_scale_x)
         end
         
     end

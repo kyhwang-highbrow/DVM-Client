@@ -74,12 +74,14 @@ function GameDragonSkill:initUI()
     
     local titleNode = self.m_skillDescEffect.m_node:getSocketNode('skill_title')
     local descNode = self.m_skillDescEffect.m_node:getSocketNode('skill_dsc')
+    local font_scale_x, font_scale_y = Translate:getFontScaleRate()
     
     self.m_skillNameLabel = cc.Label:createWithTTF('', Translate:getFontPath(), 60, 3, cc.size(1000, 200), 1, 1)
     self.m_skillNameLabel:setPosition(0, -20)
     self.m_skillNameLabel:setAnchorPoint(cc.p(0.5, 0.5))
 	self.m_skillNameLabel:setDockPoint(cc.p(0, 0))
 	self.m_skillNameLabel:setColor(cc.c3b(84,244,87))
+    self.m_skillNameLabel:setScale(font_scale_x, font_scale_y)
     self.m_skillNameLabel:enableShadow(cc.c4b(0,0,0,255), cc.size(-3, 3), 0)
     titleNode:addChild(self.m_skillNameLabel, 11)
 
@@ -109,6 +111,7 @@ function GameDragonSkill:initUI()
     self.m_speechLabel:setAnchorPoint(cc.p(0.5, 0.5))
 	self.m_speechLabel:setDockPoint(cc.p(0, 0))
 	self.m_speechLabel:setColor(cc.c3b(0,0,0))
+    self.m_speechLabel:setScale(font_scale_x, font_scale_y)
     speechNode:addChild(self.m_speechLabel)
 end
 
