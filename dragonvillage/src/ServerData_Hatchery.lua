@@ -132,11 +132,7 @@ function ServerData_Hatchery:request_summonCash(is_bundle, is_sale, finish_cb, f
     local is_bundle = is_bundle or false
     local is_sale = is_sale or false
     local prev_mileage = g_userData:get('mileage')
-
-	local tutorial = nil
-	if (TutorialManager.getInstance():isDoing()) then
-		tutorial = TUTORIAL.GACHA11_END
-	end
+	local tutorial = TutorialManager.getInstance():isDoing()
 
     -- 성공 콜백
     local function success_cb(ret)

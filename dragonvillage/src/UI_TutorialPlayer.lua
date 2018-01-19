@@ -287,8 +287,15 @@ function UI_TutorialPlayer:activeNode(node_name)
 	elseif (isInstanceOf(tar_node, UIC_EggPicker)) then
 		-- egg_picker에 다음페이지 진행을 등록한다
 		tar_node:addItemClickCB(function(t_item, idx)
+			local t_data = t_item['data']
+
 			-- 상점 알 생성 시키지 않기가 힘들어서..
-			if (t_item['data']['is_shop']) then
+			if (t_data['is_shop']) then
+				return
+			end
+
+			-- 튜토리얼 전용 영웅의 알만 허용
+			if (t_data['egg_id'] ~= 703027) then
 				return
 			end
 

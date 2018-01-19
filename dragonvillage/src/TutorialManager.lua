@@ -197,28 +197,50 @@ end
 -- @comment 1-7 클리어시의 보상 보여준다
 -------------------------------------
 function TutorialManager:showAmazingNewbiePresent()
-	local done_1_1 = g_tutorialData:isTutorialDone(TUTORIAL.FIRST_END)
-	local done_1_7 = g_tutorialData:isTutorialDone(TUTORIAL.ADV_01_07_END)
+
+	-- 1-1 end 튜토리얼 완료 했어야 함
+	if (not g_tutorialData:isTutorialDone(TUTORIAL.FIRST_END)) then
+		return false
+	end
 	
-	-- 1-1 end는 클리어 하고 1-7 end는 클리어 하지 않았을 경우
-	return (done_1_1) and (not done_1_7)
+	-- 1-7 모험 클리어 하지 않은 상태여야 함 (기존 유저 거르기)
+	local stage_id = 1110107
+	local clear_cnt = g_adventureData:getStageClearCnt(stage_id)
+	if (clear_cnt ~= 0) then
+		return false
+	end
+
+	-- 1-7 end 튜토리얼 완료 하지 않아야 함
+	if (g_tutorialData:isTutorialDone(TUTORIAL.ADV_01_07_END)) then
+		return false
+	end
+	
+	return true
 end
 
 -------------------------------------
 -- function checkStartFreeSummon11
 -- @comment 11연차 무료 튜토리얼 시작 여부
 -------------------------------------
-function TutorialManager:checkStartFreeSummon11() 
-	local stage_id = 1110107
-	local clear_cnt = g_adventureData:getStageClearCnt(1110107)
+function TutorialManager:checkStartFreeSummon11(stage_id)
+	-- 1-7에서 왔는지 체크
+	if (stage_id ~= 1110107) then
+		return false
+	end
 
-	cclog(clear_cnt)
-	cclog(g_masterRoadData:getFocusRoad())
-	local cond_1 = false --true -- (clear_cnt == 1) --g_masterRoadData:getFocusRoad() == 10011
-	local done_1_2 = g_tutorialData:isTutorialDone(TUTORIAL.ADV_01_02_END)
+	-- 1-7 최초 클리어여야 함
+	local clear_cnt = g_adventureData:getStageClearCnt(stage_id)
+	cclog('clear_cnt :' .. clear_cnt)
+	if (clear_cnt ~= 0) then
+		return false
+	end
 
-	-- 1-7 최초 클리어고 1-2 end 튜토리얼 클리어한 경우
-	return (cond_1) and (done_1_2)
+	-- 1-2 end 튜토리얼 완료했어야 함 (기존 유저 구분용)	
+	if (not g_tutorialData:isTutorialDone(TUTORIAL.ADV_01_02_END)) then
+		return false
+	end
+
+	return true
 end
 
 -------------------------------------

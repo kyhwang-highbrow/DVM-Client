@@ -733,7 +733,8 @@ function UI_GameResultNew:direction_masterRoad()
 	
 	-- @ TUTORIAL
 	local function tutorial_cb()
-		if (TutorialManager.getInstance():checkStartFreeSummon11()) then
+		local stage_id = self.m_stageID
+		if (TutorialManager.getInstance():checkStartFreeSummon11(stage_id)) then
 			local function second_network()
 				local tutorial_key = TUTORIAL.GACHA11_START
 				local step = nil

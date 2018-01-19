@@ -322,8 +322,10 @@ function UI_GachaResult_Dragon:refresh_dragon(t_dragon_data)
                 vars['okBtn']:setEnabled(true)
 
 				-- @ TUTORIAL
-				if (TutorialManager.getInstance():isDoing()) then
-					TutorialManager.getInstance():nextIfPlayerWaiting()
+				if (table.count(self.m_lGachaDragonList) <= 0) then
+					if (TutorialManager.getInstance():isDoing()) then
+						TutorialManager.getInstance():nextIfPlayerWaiting()
+					end
 				end
 			end
             self:doAction(directing_done, false)
