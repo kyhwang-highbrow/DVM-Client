@@ -45,16 +45,6 @@ function UI_TitleScene:init()
     -- 풀팝업 매니저 인스턴스 생성
     FullPopupManager:initInstance()
 
-    --글로벌 플러그 초기화
-    NaverCafeManager:naverInitGlobalPlug(0, 0)
-
-    -- 카페 위젯 노출 시작
-    NaverCafeManager:naverCafeStartWidget()
-    NaverCafeManager:naverCafeShowWidgetWhenUnloadSdk(1) -- @isShowWidget : 1(SDK unload 시 카페 위젯 보여주기) or 0(안 보여주기)
-
-	--네이버 카페 콜백 연동
-    NaverCafeManager:naverCafeSetCallback()
-
 end
 
 -------------------------------------
@@ -581,6 +571,10 @@ function UI_TitleScene:workSelectServer()
         
         if ret['state'] == 0 then
             local function cbFinish()
+                --네이버 카페 글로벌 세팅(서버 선택이 필요해서 이쪽으로 옮깁니다.)
+                self:initNaverPlug()
+                
+
                 self:doNextWork()
             end
             
@@ -1268,6 +1262,22 @@ function UI_TitleScene:makeFailPopup(msg, ret)
 
     self.m_loadingUI:hideLoading()
     MakeSimplePopup(POPUP_TYPE.OK, msg, ok_btn_cb)
+end
+
+-------------------------------------
+-- function initNaverPlug
+-- @brief
+-------------------------------------
+function UI_TitleScene:initNaverPlug()
+    --글로벌 플러그 초기화
+    NaverCafeManager:naverInitGlobalPlug(g_localData:getServerName(), Translate:getGameLang())
+
+    -- 카페 위젯 노출 시작
+    NaverCafeManager:naverCafeStartWidget()
+    NaverCafeManager:naverCafeShowWidgetWhenUnloadSdk(1) -- @isShowWidget : 1(SDK unload 시 카페 위젯 보여주기) or 0(안 보여주기)
+
+	--네이버 카페 콜백 연동
+    NaverCafeManager:naverCafeSetCallback()
 end
 
 --@CHECK

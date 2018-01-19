@@ -155,7 +155,21 @@ function NaverCafeManager:naverInitGlobalPlug(server, lang)
         return
     end
 
-    PerpleSDK:naverCafeInitGlobalPlug(NAVER_NEO_ID_CONSUMER_KEY, NAVER_COMMUNITY_ID, 0)
+    --선택한서버와 언어에따라 플러그 채널을 강제 선택해줍니다. --김종환이사님
+    local channelID = 0
+    if server == SERVER_NAME.AMERICA then
+        channelID = NAVER_CHANNEL_AMERICA
+    elseif server == SERVER_NAME.JAPAN then
+        channelID = NAVER_CHANNEL_JAPAN
+    elseif server == SERVER_NAME.ASIA then
+        if lang == 'en' then
+            channelID = NAVER_CHANNEL_ASIA_EN
+        else
+            channelID = NAVER_CHANNEL_ASIA_TH_TW
+        end
+    end
+
+    PerpleSDK:naverCafeInitGlobalPlug(NAVER_NEO_ID_CONSUMER_KEY, NAVER_COMMUNITY_ID, channelID)
 end
 
 
