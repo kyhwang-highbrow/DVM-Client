@@ -234,77 +234,75 @@ Upload.prototype.loadSheet = function()
 		if( totalData.length == 0 )
 		{
 			onUpdate();
-
 			return;
-		}
+		}	
 
-		var param = {};
-		param[ "min-row" ] = 2;
-		param[ "max-row" ] = 1 + totalData.length;
-		param[ "min-col" ] = 1;
-		param[ "max-col" ] = col_count;
-		param[ "return-empty" ] = true;
-
-		sheet.getCells( param, onCells );
-
-		function onCells( $err, $cells )
+		var last = 0;
+		var n = 0;
+		function uploadNext()
 		{
-			var i = 0;
-			var len = $cells.length;
-			var row, col;
-			var tempData = [];
-			var tempIdx = 0;
-			var tempMaxCount = 1000;			
-			for( i ; i < len ; i++ )
+			var from = last + 1;
+			var to = Math.min( last + 1000, totalData.length );
+		
+			last = to;
+			var param = {};
+			param[ "min-row" ] = 1 + from;
+			param[ "max-row" ] = 1 + to;
+			param[ "min-col" ] = 1;
+			param[ "max-col" ] = col_count;
+			param[ "return-empty" ] = true;
+	
+			sheet.getCells( param, onCells );
+	
+			function onCells( $err, $cells )
 			{
-				row = Math.floor( i / col_count );
-				col = i % col_count;
+				if( $err )
+					throw $err;
 
-				var value = totalData[ row ][ col ];		
-				if( value == null )
-					console.log("===value is null : " + "row : " + row + ", col : " + col);		
-				if( value.indexOf( "''" ) == 0 )
-					value = value.substr( 1 );
-
-				$cells[ i ].value = "'" + value;
-
-				tempData[ tempIdx ] = $cells[ i ];
-				++tempIdx;
-				
-				if( tempIdx >= tempMaxCount )
+				var i = 0;
+				var len = $cells.length;
+				var row, col;
+				for( i ; i < len ; i++, n++ )
 				{
-					++requestCount;
-					sheet.bulkUpdateCells( tempData, onUpdate );		
-					tempData = [];
-					tempIdx = 0;					
+					row = Math.floor( n / col_count );
+					col = n % col_count;
+	
+					var value = totalData[ row ][ col ];		
+					if( value == null )
+						console.log("===value is null : " + "row : " + row + ", col : " + col);		
+					if( value.indexOf( "''" ) == 0 )
+						value = value.substr( 1 );
+	
+					$cells[ i ].value = "'" + value;
 				}
-			}
-			isFinishOnCell = true;
 
-			if( tempIdx <= 0 )
-			{
-				onUpdate();
-			}
-			else
-			{
-				++requestCount;
-				sheet.bulkUpdateCells( tempData, onUpdate );
+				sheet.bulkUpdateCells( $cells, function( $err )
+				{
+					if( $err )
+						throw $err;
+		
+					if( last >= totalData.length )
+					{
+						console.log( parseInt( 100 * to / totalData.length ) + "%" );
+						
+						onUpdate();
+					}
+					else
+					{
+						console.log( parseInt( 100 * to / totalData.length ) + "%" );
+		
+						uploadNext()
+					}
+				})					
 			}
 		}
+			
+		uploadNext();
 	}
 
-	function onUpdate( $err )
+	function onUpdate()
 	{
-		if( $err )
-			throw $err;
-
-		--requestCount;
-		if( isFinishOnCell == true && requestCount <= 0 )
-		{
-			log( "complete : " + sheetName + " (" + totalData.length + ")" );						
-		}
-		else		
-			log( "onUpdate..." );
+		log( "complete : " + sheetName + " (" + totalData.length + ")" );
 	}
 
 }
