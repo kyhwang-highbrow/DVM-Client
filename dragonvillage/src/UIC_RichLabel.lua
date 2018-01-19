@@ -203,6 +203,9 @@ function UIC_RichLabel:makeIndivisualContent(t_content, pos_x, idx_y)
     local l_line = t_content['lines']
     local is_save = t_content['is_save']
 
+    --언어에 따라 스케일
+    local rateX, rateY = Translate:getFontScaleRate()
+
     -- 임시
 
     local line_height = self.m_fontSize * 1.1
@@ -217,6 +220,9 @@ function UIC_RichLabel:makeIndivisualContent(t_content, pos_x, idx_y)
         while (work_text) do
             -- label 생성
             local label = cc.Label:createWithTTF(work_text, self:getFontName(), self.m_fontSize, self.m_outlineSize)
+            label:setScaleX( rateX )
+            label:setScaleY( rateY )
+
             -- 아웃라인 지정
             if (0 < self.m_outlineSize) then
                 label:enableOutline(self.m_outlineColor, self.m_outlineSize)
@@ -263,7 +269,7 @@ function UIC_RichLabel:makeIndivisualContent(t_content, pos_x, idx_y)
             -- 다음 pos_x
             local prev_x = pos_x
             if (pre_text ~= work_text) then
-                pos_x = pos_x + label:getStringWidth() - self.m_outlineSize -- (outline의 경우 자간에 영향을 줌)
+                pos_x = pos_x + (label:getStringWidth() * rateX) - self.m_outlineSize -- (outline의 경우 자간에 영향을 줌)
             end
 
             -- 컨텐츠 넓이
@@ -329,7 +335,9 @@ end
 -------------------------------------
 function UIC_RichLabel:makeContent_checkTextWidth(label, work_text, pos_x, idx_y, line_height, is_button)
     local msg_width = label:getStringWidth()
-
+    --언어에 따라 스케일
+    local rateX, rateY = Translate:getFontScaleRate()
+    msg_width = msg_width * rateX
     if ((pos_x + msg_width) < self.m_dimension['width']) then
         return pos_x, idx_y, nil, false
     end
