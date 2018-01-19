@@ -361,6 +361,7 @@ end
 -- @brief attr_tower_fire, attr_tower_water, attr_tower_earth ..
 -------------------------------------
 function ServerData_AttrTower:getDeckName()
+    local deck_name
     if (self.m_selectAttr) then
         deck_name = 'attr_tower_' .. self.m_selectAttr
     end
