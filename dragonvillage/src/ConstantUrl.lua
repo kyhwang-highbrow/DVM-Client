@@ -24,8 +24,8 @@ end
 
 -- Platform server 
 -- 아직 라이브,QA서버는 작업전이라 개발로 전부 붙입니다.
-URL['PLATFORM_DEV'] = 'http://dn3bwi5jsw20r.cloudfront.net/1003'
-URL['PLATFORM_QA'] = 'http://dn3bwi5jsw20r.cloudfront.net/1003'
+URL['PLATFORM_DEV'] = 'http://dev.platform.perplelab.com/1003'
+URL['PLATFORM_QA'] = 'http://dev.platform.perplelab.com/1003'
 URL['PLATFORM_LIVE'] = 'http://dn3bwi5jsw20r.cloudfront.net/1003'
 function GetPlatformApiUrl()
     local target_server = CppFunctions:getTargetServer()
