@@ -378,6 +378,8 @@ function ServerData_ClanRaid:request_info(stage_id, cb_func)
     
     -- 콜백 함수
     local function success_cb(ret)
+        -- server_info, staminas 정보를 갱신
+        g_serverData:networkCommonRespone(ret)
 
         -- 클랜 UI가 아닌 battle menu에서 진입시 클랜정보도 받아와야함
         if (not g_clanData.m_structClan) and (ret['clan']) then
