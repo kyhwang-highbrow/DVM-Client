@@ -186,25 +186,25 @@ function DragonGuideNavigator:getText(link)
     local text = ''
 
     if (link == 'level_up') then
-        text = Str('드래곤 레벨업')
+        text = Str('레벨업')
 
     elseif (link == 'rune') then
-        text = Str('룬 장착')
+        text = Str('룬 관리')
 
     elseif (link == 'friendship') then
-        text = Str('드래곤 친밀도')
+        text = Str('친밀도')
 
     elseif (link == 'evolution') then
-        text = Str('드래곤 진화')
+        text = Str('진화')
 
     elseif (link == 'grade') then
-        text = Str('드래곤 승급')
+        text = Str('승급')
 
     elseif (link == 'skill_enc') then
         text = Str('스킬 레벨업')
 
     elseif (link == 'reinforce') then
-        text = Str('드래곤 강화')
+        text = Str('강화')
     end
 
     return text

@@ -712,7 +712,11 @@ function UI_GameResultNew:direction_dragonGuide()
         self:doNextWork()
     else
         local ui = UI_DragonGuidePopup(self.m_lDragonList)
-        ui:setCloseCB(function() self:doNextWork() end)
+        if (g_autoPlaySetting:isAutoPlay()) then
+            self:doNextWork()
+        else
+            ui:setCloseCB(function() self:doNextWork() end)
+        end
     end
 end
 
