@@ -194,6 +194,26 @@ function UI_DragonManage_Base:setDefaultSelectDragon(doid)
 end
 
 -------------------------------------
+-- function checkSelectedDragonIsSlime
+-- @brief 
+-------------------------------------
+function UI_DragonManage_Base:checkSelectedDragonIsSlime()
+	local doid = self.m_selectDragonOID
+	if (g_dragonsData:getDragonDataFromUid(doid) == nil) then
+		-- 슬라임 제외 시킨다
+		local item = nil
+		for i, t_item in pairs(self.m_tableViewExt.m_itemList) do
+			local data = t_item['data']
+			if (data:getObjectType() == 'dragon') then
+				self.m_selectDragonOID = data['id']
+				break
+			end
+		end
+	end
+
+end
+
+-------------------------------------
 -- function refresh_dragonIndivisual
 -- @brief 특정 드래곤의 object_id로 갱신
 -------------------------------------

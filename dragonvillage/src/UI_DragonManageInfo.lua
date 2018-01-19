@@ -885,6 +885,9 @@ end
 -- @brief
 -------------------------------------
 function UI_DragonManageInfo:clickSubMenu(sub_menu)
+	-- 하위 메뉴는 정부 슬라임 이용 불가이므로 이경우 슬라임은 선택되지 않도록 한다
+	self:checkSelectedDragonIsSlime()
+
     if (not sub_menu) then
         -- nothing to do
 
