@@ -41,10 +41,6 @@ end
 -- function show
 -------------------------------------
 function FullPopupManager:show(type, show_func)
-    -- 첫번째 튜토리얼 끝나지 않으면 조건부 풀팝업 노출 시키지 않음
-    if (not g_tutorialData:isTutorialDone(TUTORIAL.FIRST_START)) then
-        return
-    end
 
     -- 로비 진입시 풀팝업
     if (type == FULL_POPUP_TYPE.LOBBY) and (self.m_title_to_lobby) then

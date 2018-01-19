@@ -244,6 +244,28 @@ function TutorialManager:checkStartFreeSummon11(stage_id)
 end
 
 -------------------------------------
+-- function checkFullPopupBlock
+-- @comment 풀팝업 블럭 여부
+-------------------------------------
+function TutorialManager:checkFullPopupBlock()
+	-- 1-1 start 완료 전에 block
+    if (not g_tutorialData:isTutorialDone(TUTORIAL.FIRST_START)) then
+        return true
+    end
+
+	-- 1-1 end 완료 전에 ...
+	if (not g_tutorialData:isTutorialDone(TUTORIAL.FIRST_END)) then
+		-- 저장된 step이 있다면 block
+		local step = g_tutorialData:getStep(TUTORIAL.FIRST_END)
+		if (step) then
+			return true
+		end
+    end
+
+	return false
+end
+
+-------------------------------------
 -- function continueTutorial
 -- @brief tutorial이 경우에 따라 Scene이 전환되면 날아가 강제로 진행시켜준다.. Scene위에 존재하는 tutorial은 다음에 만들자
 -------------------------------------

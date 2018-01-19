@@ -196,8 +196,8 @@ function UI_Lobby:entryCoroutine()
             if co:waitWork() then return end
         end
 
-		-- 최초 튜토리얼 시에는 실행하지 않음
-        if (g_tutorialData:isTutorialDone(TUTORIAL.FIRST_START)) then
+		-- 강제 튜토리얼 진행 하는 동안 풀팝업, 마스터의 길, 구글 업적 일괄 체크, 막음
+        if (TutorialManager.getInstance():checkFullPopupBlock()) then
 
             -- 풀팝업 출력 함수
             local function show_func(pid) 
