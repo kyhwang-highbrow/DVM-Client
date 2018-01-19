@@ -291,16 +291,17 @@ function UI_TutorialPlayer:activeNode(node_name)
 
 			-- 상점 알 생성 시키지 않기가 힘들어서..
 			if (t_data['is_shop']) then
-				return
+				return false
 			end
 
 			-- 튜토리얼 전용 영웅의 알만 허용
 			if (t_data['egg_id'] ~= '703027') then
-				return
+				return false
 			end
 
 			if (tutorial_mgr:isDoing()) then
 				self:next()
+				return true
 			end
 		end)
 
