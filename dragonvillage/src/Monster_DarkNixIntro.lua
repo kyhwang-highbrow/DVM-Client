@@ -24,7 +24,7 @@ function Monster_DarkNixIntro:init_monster(t_monster, monster_id, level)
     do
         local skill_id = 239004 -- 인트로용 스킬 아이디
 
-        -- skill_4 스킬을 해제
+        -- skill_4 스킬을 제거
         self:unsetSkillID(self.m_charTable['skill_4'])
 
         -- 원본 테이블을 참조하지 않고 복사한 후 skill_4 스킬을 변경
@@ -34,6 +34,9 @@ function Monster_DarkNixIntro:init_monster(t_monster, monster_id, level)
         -- 변경된 스킬을 등록
         local t_skill = TableMonsterSkill():get(skill_id)
         self:setSkillID(t_skill['chance_type'], skill_id, 1)
+
+        -- 경질화 스킬을 제거시킴
+        self:unsetSkillID(self.m_charTable['skill_2'])
     end
 end
 
