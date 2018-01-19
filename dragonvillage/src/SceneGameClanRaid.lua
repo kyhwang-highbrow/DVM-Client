@@ -68,7 +68,7 @@ function SceneGameClanRaid:prepare()
 
         -- 레이어 생성
         self:init_layer()
-        self.m_gameWorld = GameWorldClanRaid(self.m_gameMode, self.m_stageID, self.m_worldLayer, self.m_gameNode1, self.m_gameNode2, self.m_gameNode3, self.m_inGameUI)
+        self.m_gameWorld = GameWorldClanRaid(self.m_gameMode, self.m_stageID, self.m_worldLayer, self.m_gameNode1, self.m_gameNode2, self.m_gameNode3, self.m_inGameUI, self.m_bDevelopMode)
         self.m_gameWorld:initGame(self.m_stageName)
         
         -- 스크린 사이즈 초기화

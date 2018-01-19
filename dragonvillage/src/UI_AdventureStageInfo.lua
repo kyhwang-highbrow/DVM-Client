@@ -211,48 +211,50 @@ function UI_AdventureStageInfo:refresh()
 
         vars['bossNode']:removeAllChildren()
 
-        local res, attr, evolution = TableMonster:getMonsterRes(monster_id)
-        local animator = AnimatorHelper:makeMonsterAnimator(res, attr, evolution)
-        animator:changeAni('idle', true)
-        animator:setScale(0.8)
-        vars['bossNode']:addChild(animator.m_node)
+        if (monster_id) then
+            local res, attr, evolution = TableMonster:getMonsterRes(monster_id)
+            local animator = AnimatorHelper:makeMonsterAnimator(res, attr, evolution)
+            animator:changeAni('idle', true)
+            animator:setScale(0.8)
+            vars['bossNode']:addChild(animator.m_node)
             
-        -- 보석 거대용 보스
-        if isExistValue(monster_id, 135031) then
-            animator:setScale(0.5)
-            animator:setPositionX(150)
+            -- 보석 거대용 보스
+            if isExistValue(monster_id, 135031) then
+                animator:setScale(0.5)
+                animator:setPositionX(150)
 
-        -- 거목 던전 보스
-        elseif isExistValue(monster_id, 135021, 135022, 135023, 135024, 135025) then
-            animator:setScale(0.7)
-            animator:setPositionX(-50)
+            -- 거목 던전 보스
+            elseif isExistValue(monster_id, 135021, 135022, 135023, 135024, 135025) then
+                animator:setScale(0.7)
+                animator:setPositionX(-50)
 
-        -- 악몽 던전 보스
-        elseif isExistValue(monster_id, 136011, 136012, 136013, 136014, 136015, 136021, 136022, 136023, 136024, 136025) then
-            animator:setScale(0.7)
-            animator:setPositionX(-50)
-        end
+            -- 악몽 던전 보스
+            elseif isExistValue(monster_id, 136011, 136012, 136013, 136014, 136015, 136021, 136022, 136023, 136024, 136025) then
+                animator:setScale(0.7)
+                animator:setPositionX(-50)
+            end
 
-        do -- 보스 이름, 속성 아이콘
-            -- 이름
-            local name = TableMonster:getMonsterName(monster_id)
-            vars['bossNameLabel']:setString(name)
+            do -- 보스 이름, 속성 아이콘
+                -- 이름
+                local name = TableMonster:getMonsterName(monster_id)
+                vars['bossNameLabel']:setString(name)
 
-            -- 속성
-            local attr = TableMonster:getMonsterAttr(monster_id)
-            vars['bossAttrNode']:removeAllChildren()
-            local icon = IconHelper:getAttributeIcon(attr)
-            vars['bossAttrNode']:addChild(icon)
+                -- 속성
+                local attr = TableMonster:getMonsterAttr(monster_id)
+                vars['bossAttrNode']:removeAllChildren()
+                local icon = IconHelper:getAttributeIcon(attr)
+                vars['bossAttrNode']:addChild(icon)
 
-            -- 위치 조정
-            local str_width = vars['bossNameLabel']:getStringWidth() + 5
-            local w, h = vars['bossAttrNode']:getNormalSize() + 5
+                -- 위치 조정
+                local str_width = vars['bossNameLabel']:getStringWidth() + 5
+                local w, h = vars['bossAttrNode']:getNormalSize() + 5
 
-            local total_width = (str_width + w)
-            local start_x = -(total_width / 2)
+                local total_width = (str_width + w)
+                local start_x = -(total_width / 2)
 
-            vars['bossAttrNode']:setPositionX(start_x + (w/2))
-            vars['bossNameLabel']:setPositionX(start_x + w + (str_width/2))
+                vars['bossAttrNode']:setPositionX(start_x + (w/2))
+                vars['bossNameLabel']:setPositionX(start_x + w + (str_width/2))
+            end
         end
     end
 end
@@ -372,7 +374,7 @@ function UI_AdventureStageInfo:click_enterBtn()
 
         if (game_mode == GAME_MODE_CLAN_RAID) then
             local stage_name = 'stage_' .. stage_id
-            local scene = SceneGameClanRaid(nil, stage_id, stage_name, false)
+            local scene = SceneGameClanRaid(nil, stage_id, stage_name, true)
             scene:runScene()
         else
             local ui = UI_ReadyScene(stage_id, with_friend)

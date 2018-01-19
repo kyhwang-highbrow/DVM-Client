@@ -788,7 +788,8 @@ function UI_ReadyScene:click_startBtn()
     -- 개발 스테이지
     if (stage_id == DEV_STAGE_ID) then
         self:checkChangeDeck(function()
-            local scene = SceneGame(nil, stage_id, 'stage_dev', true)
+            --local scene = SceneGame(nil, stage_id, 'stage_dev', true)
+            local scene = SceneGameIntro()
             scene:runScene()
         end)
         return

@@ -267,7 +267,11 @@ end
 -------------------------------------
 function GameState_ClanRaid.update_result(self, dt)
     if (self.m_stateTimer == 0) then
-        self:makeResultUI(true)
+        if (self.m_world.m_bDevelopMode) then
+            UINavigator:goTo('adventure')
+        else
+            self:makeResultUI(true)
+        end
     end
 end
 
