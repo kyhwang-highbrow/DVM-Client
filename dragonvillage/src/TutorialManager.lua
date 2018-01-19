@@ -212,7 +212,9 @@ function TutorialManager:checkStartFreeSummon11()
 	local stage_id = 1110107
 	local clear_cnt = g_adventureData:getStageClearCnt(1110107)
 
-	local cond_1 = true -- (clear_cnt == 1) --g_masterRoadData:getFocusRoad() == 10011
+	cclog(clear_cnt)
+	cclog(g_masterRoadData:getFocusRoad())
+	local cond_1 = false --true -- (clear_cnt == 1) --g_masterRoadData:getFocusRoad() == 10011
 	local done_1_2 = g_tutorialData:isTutorialDone(TUTORIAL.ADV_01_02_END)
 
 	-- 1-7 최초 클리어고 1-2 end 튜토리얼 클리어한 경우
@@ -551,4 +553,16 @@ end
 -------------------------------------
 function TutorialManager:isDoing()
     return self.m_isTutorialDoing
+end
+
+-------------------------------------
+-- function isDoing
+-- @brief 튜토리얼 실행중 여부
+-------------------------------------
+function TutorialManager:forcedClose()
+	if (self:isDoing()) then
+		if (self.m_tutorialPlayer) then
+			self.m_tutorialPlayer:close()
+		end
+	end
 end

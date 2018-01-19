@@ -603,5 +603,9 @@ function UIManager:onKeyReleased(keyCode, event)
 		USE_NIGHT = not USE_NIGHT
 		SceneLobby(true):runScene()
 
+	-- 튜토리얼 강제 종료
+    elseif (keyCode == KEY_X) then
+		TutorialManager.getInstance():forcedClose()
+
 	end
 end
