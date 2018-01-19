@@ -155,6 +155,9 @@ function GameWorldIntro:makeMonsterNew(monster_id, level)
         monster.m_statusCalc:addBuffMulti('hit_rate', 999)
         monster.m_statusCalc:appendHpRatio(3)
         monster:setStatusCalc(monster.m_statusCalc)
+
+        -- 불사 부여
+        monster:setImmortal(true)
     end
     
 	return monster
@@ -208,9 +211,10 @@ function GameWorldIntro:makeHeroDeck()
 				if (i == leader) then
 					self.m_leaderDragon = hero
 				end
+
+                -- 아군 드래곤 강제 불사 설정
+                hero:setImmortal(true)
             end
         end
     end
-
-    -- TODO: 튜토리얼 전투에 맞게끔 스킬 정보를 변경시킴
 end
