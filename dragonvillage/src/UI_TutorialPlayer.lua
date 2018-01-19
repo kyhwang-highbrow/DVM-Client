@@ -295,7 +295,7 @@ function UI_TutorialPlayer:activeNode(node_name)
 			end
 
 			-- 튜토리얼 전용 영웅의 알만 허용
-			if (t_data['egg_id'] ~= 703027) then
+			if (t_data['egg_id'] ~= '703027') then
 				return
 			end
 
