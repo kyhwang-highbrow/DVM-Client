@@ -233,7 +233,11 @@ function UI_GachaResult_Dragon:refresh()
 		local card = self.m_lDragonCardList[t_gacha_dragon]
 		if (card) then
 			card.root:setVisible(true)
-			self.m_tDragonCardEffectTable[card]:runAction(cc.FadeIn:create(2))
+		end
+
+		-- 항상 모든 등급 이펙트 off
+		for card, rarity_effect in pairs(self.m_tDragonCardEffectTable) do
+			rarity_effect:setOpacity(0)
 		end
 	end
 
@@ -321,6 +325,13 @@ function UI_GachaResult_Dragon:refresh_dragon(t_dragon_data)
 
                 -- 중복 클릭을 방지하기 위해 막았던 버튼을 풀어줌
                 vars['okBtn']:setEnabled(true)
+
+				-- 고등급 드래곤 이펙트 on
+				for card, rarity_effect in pairs(self.m_tDragonCardEffectTable) do
+					if (card.root:isVisible()) then
+						rarity_effect:runAction(cc.FadeIn:create(0.5))
+					end
+				end
 
 				-- @ TUTORIAL
 				if (table.count(self.m_lGachaDragonList) <= 0) then
