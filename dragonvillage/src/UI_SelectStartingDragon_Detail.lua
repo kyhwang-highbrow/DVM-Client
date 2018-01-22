@@ -52,7 +52,13 @@ function UI_SelectStartingDragon_Detail:initButton()
 	-- 스킬 버튼 등록
 	local l_starting_data = UI_SelectStartingDragon.getStartingData()
 	for i, t_data in pairs(l_starting_data) do
-		vars['skillBtn' .. i]:registerScriptTapHandler(function() self:click_skillBtn(t_data['did']) end)
+		for _, j in ipairs(IDragonSkillManager:getSkillKeyList()) do
+			local node_name = string.format('skillBtn_%d_%s', i, j)
+			local btn = vars[node_name]
+			if (btn) then
+				btn:registerScriptTapHandler(function() self:click_skillBtn(t_data['did'], j, btn) end)
+			end
+		end
 	end
 
 	-- 닉네임 입력으로 ~
@@ -100,7 +106,7 @@ end
 -------------------------------------
 -- function setSkillIcon
 -------------------------------------
-function UI_SelectStartingDragon_Detail:click_skillBtn(did)
+function UI_SelectStartingDragon_Detail:click_skillBtn(did, j, btn)
 	local t_data = {
 		['did'] = did,
 		['lv'] = 1,
@@ -113,7 +119,19 @@ function UI_SelectStartingDragon_Detail:click_skillBtn(did)
 		['skill_3'] = 1
 	}
     local t_dragon_data = StructDragonObject(t_data)
-    UI_SkillDetailPopup(t_dragon_data, 1)
+	local skill_mgr = MakeDragonSkillFromDragonData(t_dragon_data)
+	local skill_individual_info = skill_mgr:getSkillIndivisualInfo_usingIdx(j)
+
+	-- 스킬 텍스트 생성
+	local skill_name = skill_individual_info:getSkillName()
+    local desc = skill_individual_info:getSkillDesc()
+    local str = '{@SKILL_NAME} ' .. skill_name .. '\n {@SKILL_DESC}' .. desc
+
+	-- skill tool tip 생성
+	local tool_tip = UI_Tooltip_Skill(0, 0, str)
+
+    -- 자동 위치 지정
+    tool_tip:autoPositioning(btn)
 end
 
 -------------------------------------
