@@ -6,6 +6,7 @@ local PARENT = UI
 -------------------------------------
 SkillHitEffectDirector = class(PARENT, {
         m_hero = '',
+        m_duration = 'number',
         m_hitCount = 'number',
         m_totalDamage = 'number',
         
@@ -23,6 +24,7 @@ SkillHitEffectDirector = class(PARENT, {
 -------------------------------------
 function SkillHitEffectDirector:init(owner)
     self.m_hero = owner
+    self.m_duration = 4.5
     self.m_hitCount = 0
     self.m_totalDamage = 0
     self.m_bEndSkill = false
@@ -63,7 +65,7 @@ function SkillHitEffectDirector:doWork(count, damage, is_heal)
     if (self.m_hitCount == 1) then
         self.root:setVisible(true)
         local width = 400
-        local duration = 3
+        local duration = self.m_duration
 
         self.m_bEndAction = false
         
@@ -247,4 +249,12 @@ function SkillHitEffectDirector:createWithSpriteFrameName(res_name)
 	sprite:setDockPoint(CENTER_POINT)
 	sprite:setAnchorPoint(CENTER_POINT)
 	return sprite
+end
+
+
+-------------------------------------
+-- function setDuration
+-------------------------------------
+function SkillHitEffectDirector:setDuration(duration)
+    self.m_duration = duration
 end
