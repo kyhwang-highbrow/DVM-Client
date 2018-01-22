@@ -120,11 +120,7 @@ end
 -- function showPage
 -------------------------------------
 function UI_TutorialPlayer:showPage()
-    if (self.m_targetUI) then
-	    cclog(self.m_targetUI.m_uiName)
-    end
 	cclog('page : ' .. self.m_currPage)
-	PARENT.showPage(self)
 
 	local t_page = self.m_scenarioTable[self.m_currPage]
 	if (t_page) and (t_page['save']) then
@@ -132,6 +128,8 @@ function UI_TutorialPlayer:showPage()
 		local step = t_page['save']
 		g_tutorialData:request_tutorialSave(tutorial_key, step)
 	end
+
+	PARENT.showPage(self)
 end
 
 -------------------------------------
