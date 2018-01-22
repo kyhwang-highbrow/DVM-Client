@@ -403,6 +403,9 @@ function StatusEffect:update(dt)
                 table.remove(list, v)
             end
         end
+
+        -- 타이머
+        self:updateTimer(modified_dt)
             
         if (self.m_overlabCnt <= 0) then
             self:changeState('end')
@@ -418,9 +421,6 @@ function StatusEffect:update(dt)
     if self.m_bDirtyPos then
         self:updatePos()
     end
-
-    -- 타이머
-    self:updateTimer(dt)
 
     -- 대상자가 죽었을 경우 이펙트 숨김
     if (self.m_owner:isDead()) then

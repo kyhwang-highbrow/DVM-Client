@@ -6,20 +6,28 @@ local PARENT = SkillAoERound
 SkillAoERound_Hide = class(PARENT, {})
 
 -------------------------------------
+-- function init_skill
+-------------------------------------
+function SkillAoERound_Hide:init_skill(aoe_res, attack_count, aoe_res_delay)
+    PARENT.init_skill(self, aoe_res, attack_count, aoe_res_delay)
+
+    self.m_owner.m_rootNode:setVisible(false)
+end
+
+-------------------------------------
 -- function initState
 -------------------------------------
 function SkillAoERound_Hide:initState()
-    PARENT.initState(self)
-
-    self:addState('start', SkillAoERound_Hide.st_appear, nil, false)
+    self:setCommonState(self)
+    self:addState('start', SkillAoERound_Hide.st_appear, 'appear', false)
 	self:addState('attack', PARENT.st_attack, 'idle', false)
+    self:addState('disappear', SkillAoERound_Hide.st_disappear, 'disappear', false)
 end
 
 -------------------------------------
 -- function st_appear
 -------------------------------------
 function SkillAoERound_Hide.st_appear(owner, dt)
-	-- 캐릭터가 사라지는 연출과 동시에 돌진 준비 좌표로 보냄
 	if (owner.m_stateTimer == 0) then
 		local res = 'res/effect/tamer_magic_1/tamer_magic_1.vrp'
 		local function cb_func() 
@@ -28,8 +36,22 @@ function SkillAoERound_Hide.st_appear(owner, dt)
 
 		local char = owner.m_owner
 		owner:makeEffect(res, char.pos.x, char.pos.y, 'bomb', cb_func)
-		char.m_rootNode:setVisible(false)
 	end
+end
+
+-------------------------------------
+-- function st_disappear
+-------------------------------------
+function SkillAoERound_Hide.st_disappear(owner, dt)
+	if (owner.m_stateTimer == 0) then
+        owner:onDisappear()
+
+        local char = owner.m_owner
+        char.m_animator:changeAni('skill_disappear', false) 
+        char.m_animator:addAniHandler(function() 
+			owner:changeState('dying')
+		end)
+    end
 end
 
 -------------------------------------
