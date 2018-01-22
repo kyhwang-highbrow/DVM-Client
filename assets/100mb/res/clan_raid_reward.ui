@@ -256,7 +256,7 @@
 					lua_name = '';
 					font_name = 'font/common_font_01.ttf';
 					font_size = 20;
-					text = '다이아를 사용하여 플레이시 보상이 지급되지 않습니다.';
+					text = '다이아를 사용하여 플레이할 때는 보상이 지급되지 않습니다.';
 					h_alignment = 1;
 					v_alignment = 1;
 					color = { 255; 104; 32; };
@@ -1165,7 +1165,7 @@
 							lua_name = '';
 							font_name = 'font/common_font_01.ttf';
 							font_size = 24;
-							text = '1,000만 이상';
+							text = '800만 이상';
 							h_alignment = 1;
 							v_alignment = 1;
 							color = { 175; 238; 238; };
@@ -1317,7 +1317,7 @@
 							lua_name = '';
 							font_name = 'font/common_font_01.ttf';
 							font_size = 24;
-							text = '750만 이상';
+							text = '600만 이상';
 							h_alignment = 1;
 							v_alignment = 1;
 							color = { 175; 238; 238; };
@@ -1469,7 +1469,7 @@
 							lua_name = '';
 							font_name = 'font/common_font_01.ttf';
 							font_size = 24;
-							text = '500만 이상';
+							text = '400만 이상';
 							h_alignment = 1;
 							v_alignment = 1;
 							color = { 175; 238; 238; };
@@ -1621,7 +1621,7 @@
 							lua_name = '';
 							font_name = 'font/common_font_01.ttf';
 							font_size = 24;
-							text = '250만 이상';
+							text = '200만 이상';
 							h_alignment = 1;
 							v_alignment = 1;
 							color = { 175; 238; 238; };
@@ -1773,7 +1773,7 @@
 							lua_name = '';
 							font_name = 'font/common_font_01.ttf';
 							font_size = 24;
-							text = '250만 미만';
+							text = '200만 미만';
 							h_alignment = 1;
 							v_alignment = 1;
 							color = { 175; 238; 238; };

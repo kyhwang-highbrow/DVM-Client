@@ -59,6 +59,32 @@
 			};
 			[3] =
 			{
+				type = 'Sprite';
+				ui_name = '';
+				x = 25.000000;
+				y = 0.000000;
+				dock_point = { 0.000000; 0.500000; };
+				anchor_point = { 0.500000; 0.500000; };
+				relative_size_type = 0;
+				width = 40;
+				height = 42;
+				scale_x = 1.000000;
+				scale_y = 1.000000;
+				skew_x = 0.000000;
+				skew_y = 0.000000;
+				rotation = 0.000000;
+				visible = true;
+				lua_name = '';
+				file_name = 'ui/icons/rank/clan_raid_0204.png';
+				color = { 255; 255; 255; };
+				opacity = 255;
+				flip_x = false;
+				flip_y = false;
+				src_blend = 770;
+				dest_blend = 771;
+			};
+			[4] =
+			{
 				type = 'Node';
 				ui_name = '';
 				x = 25.000000;
@@ -76,13 +102,93 @@
 				visible = true;
 				lua_name = 'rankNode';
 			};
-			[4] =
+			[5] =
 			{
 				type = 'LabelTTF';
 				ui_name = '';
-				x = -165.000000;
+				x = 50.000000;
 				y = 0.000000;
-				dock_point = { 0.500000; 0.500000; };
+				dock_point = { 0.000000; 0.500000; };
+				anchor_point = { 0.000000; 0.500000; };
+				relative_size_type = 0;
+				width = 217;
+				height = 40;
+				scale_x = 1.000000;
+				scale_y = 1.000000;
+				skew_x = 0.000000;
+				skew_y = 0.000000;
+				rotation = 0.000000;
+				visible = true;
+				lua_name = 'levelLabel';
+				font_name = 'font/common_font_01.ttf';
+				font_size = 20;
+				text = 'Lv.{1}';
+				h_alignment = 0;
+				v_alignment = 1;
+				color = { 240; 215; 159; };
+				opacity = 255;
+				dimension_width = 217;
+				dimension_height = 40;
+				letter_spacing = 0.000000;
+				has_stroke = false;
+				stroke_type = 0;
+				stroke_detail_level = 0;
+				is_sharp_text = true;
+				stroke_tickness = 1.000000;
+				stroke_color = { 255; 255; 255; };
+				has_shadow = false;
+				shadow_color = { 255; 255; 255; };
+				shadow_opacity = 255;
+				shadow_direction = 0;
+				shadow_distance = 5.000000;
+			};
+			[6] =
+			{
+				type = 'LabelTTF';
+				ui_name = '';
+				x = 100.000000;
+				y = 0.000000;
+				dock_point = { 0.000000; 0.500000; };
+				anchor_point = { 0.000000; 0.500000; };
+				relative_size_type = 0;
+				width = 168;
+				height = 40;
+				scale_x = 1.000000;
+				scale_y = 1.000000;
+				skew_x = 0.000000;
+				skew_y = 0.000000;
+				rotation = 0.000000;
+				visible = true;
+				lua_name = 'nameLabel';
+				font_name = 'font/common_font_01.ttf';
+				font_size = 24;
+				text = 'user';
+				h_alignment = 0;
+				v_alignment = 1;
+				color = { 255; 255; 255; };
+				opacity = 255;
+				dimension_width = 168;
+				dimension_height = 40;
+				letter_spacing = 0.000000;
+				has_stroke = false;
+				stroke_type = 0;
+				stroke_detail_level = 0;
+				is_sharp_text = true;
+				stroke_tickness = 1.000000;
+				stroke_color = { 255; 255; 255; };
+				has_shadow = false;
+				shadow_color = { 255; 255; 255; };
+				shadow_opacity = 255;
+				shadow_direction = 0;
+				shadow_distance = 5.000000;
+			};
+			[7] =
+			{
+				type = 'LabelTTF';
+				ui_name = '';
+				x = 25.000000;
+				y = 2.000000;
+				dock_point = { 0.000000; 0.500000; };
 				anchor_point = { 0.500000; 0.500000; };
 				relative_size_type = 0;
 				width = 40;
@@ -116,14 +222,14 @@
 				shadow_direction = 0;
 				shadow_distance = 5.000000;
 			};
-			[5] =
+			[8] =
 			{
 				type = 'LabelTTF';
 				ui_name = '';
-				x = 50.000000;
+				x = -74.000000;
 				y = 0.000000;
-				dock_point = { 0.000000; 0.500000; };
-				anchor_point = { 0.000000; 0.500000; };
+				dock_point = { 1.000000; 0.500000; };
+				anchor_point = { 1.000000; 0.500000; };
 				relative_size_type = 0;
 				width = 217;
 				height = 40;
@@ -133,13 +239,13 @@
 				skew_y = 0.000000;
 				rotation = 0.000000;
 				visible = true;
-				lua_name = 'nameLabel';
+				lua_name = 'damageLabel';
 				font_name = 'font/common_font_01.ttf';
 				font_size = 24;
-				text = 'Lv.{1} user';
-				h_alignment = 0;
+				text = '1,000,000,000점';
+				h_alignment = 2;
 				v_alignment = 1;
-				color = { 255; 255; 255; };
+				color = { 255; 215; 0; };
 				opacity = 255;
 				dimension_width = 217;
 				dimension_height = 40;
@@ -156,7 +262,7 @@
 				shadow_direction = 0;
 				shadow_distance = 5.000000;
 			};
-			[6] =
+			[9] =
 			{
 				type = 'LabelTTF';
 				ui_name = '';
@@ -165,7 +271,7 @@
 				dock_point = { 1.000000; 0.500000; };
 				anchor_point = { 1.000000; 0.500000; };
 				relative_size_type = 0;
-				width = 217;
+				width = 116;
 				height = 40;
 				scale_x = 1.000000;
 				scale_y = 1.000000;
@@ -173,15 +279,15 @@
 				skew_y = 0.000000;
 				rotation = 0.000000;
 				visible = true;
-				lua_name = 'damageLabel';
+				lua_name = 'percentLabel';
 				font_name = 'font/common_font_01.ttf';
-				font_size = 24;
-				text = 'damage';
+				font_size = 20;
+				text = '99.99%';
 				h_alignment = 2;
 				v_alignment = 1;
-				color = { 255; 215; 0; };
+				color = { 152; 251; 152; };
 				opacity = 255;
-				dimension_width = 217;
+				dimension_width = 116;
 				dimension_height = 40;
 				letter_spacing = 0.000000;
 				has_stroke = false;
@@ -203,7 +309,7 @@
 			dock_point = { 0.500000; 0.500000; };
 			anchor_point = { 0.500000; 0.500000; };
 			relative_size_type = 0;
-			width = 380;
+			width = 480;
 			height = 50;
 			scale_x = 1.000000;
 			scale_y = 1.000000;

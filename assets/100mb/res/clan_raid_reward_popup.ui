@@ -159,7 +159,7 @@
 				type = 'Scale9Sprite';
 				ui_name = '';
 				x = 0.000000;
-				y = -124.000000;
+				y = -140.000000;
 				dock_point = { 0.500000; 0.500000; };
 				anchor_point = { 0.500000; 0.500000; };
 				relative_size_type = 0;
@@ -244,7 +244,7 @@
 				type = 'Scale9Sprite';
 				ui_name = '';
 				x = -110.000000;
-				y = -124.000000;
+				y = -140.000000;
 				dock_point = { 0.500000; 0.500000; };
 				anchor_point = { 0.500000; 0.500000; };
 				relative_size_type = 0;
@@ -329,7 +329,7 @@
 				type = 'Scale9Sprite';
 				ui_name = '';
 				x = 110.000000;
-				y = -124.000000;
+				y = -140.000000;
 				dock_point = { 0.500000; 0.500000; };
 				anchor_point = { 0.500000; 0.500000; };
 				relative_size_type = 0;
@@ -352,10 +352,29 @@
 			};
 			[6] =
 			{
+				type = 'Node';
+				ui_name = '';
+				x = 0.000000;
+				y = -55.000000;
+				dock_point = { 0.500000; 0.500000; };
+				anchor_point = { 0.500000; 0.500000; };
+				relative_size_type = 0;
+				width = 480;
+				height = 50;
+				scale_x = 1.000000;
+				scale_y = 1.000000;
+				skew_x = 0.000000;
+				skew_y = 0.000000;
+				rotation = 0.000000;
+				visible = true;
+				lua_name = 'myRankNode';
+			};
+			[7] =
+			{
 				type = 'LabelTTF';
 				ui_name = '';
 				x = 0.000000;
-				y = -54.000000;
+				y = -7.000000;
 				dock_point = { 0.500000; 0.500000; };
 				anchor_point = { 0.500000; 0.500000; };
 				relative_size_type = 0;
@@ -390,38 +409,12 @@
 				shadow_direction = 0;
 				shadow_distance = 3.000000;
 			};
-			[7] =
+			[8] =
 			{
-				[1] =
-				{
-					type = 'Scale9Sprite';
-					ui_name = '';
-					x = 0.000000;
-					y = 0.000000;
-					dock_point = { 0.500000; 0.500000; };
-					anchor_point = { 0.500000; 0.500000; };
-					relative_size_type = 3;
-					width = 0;
-					height = 0;
-					scale_x = 1.000000;
-					scale_y = 1.000000;
-					skew_x = 0.000000;
-					skew_y = 0.000000;
-					rotation = 0.000000;
-					visible = true;
-					lua_name = '';
-					file_name = 'ui/frames/base_frame_0201.png';
-					color = { 255; 255; 255; };
-					opacity = 255;
-					center_rect_x = 0;
-					center_rect_y = 0;
-					center_rect_width = 0;
-					center_rect_height = 0;
-				};
 				type = 'Node';
 				ui_name = '';
 				x = 0.000000;
-				y = 30.000000;
+				y = 80.000000;
 				dock_point = { 0.500000; 0.500000; };
 				anchor_point = { 0.500000; 0.500000; };
 				relative_size_type = 0;
@@ -435,12 +428,12 @@
 				visible = true;
 				lua_name = 'rankNode';
 			};
-			[8] =
+			[9] =
 			{
 				type = 'LabelTTF';
 				ui_name = '';
 				x = 0.000000;
-				y = 100.000000;
+				y = 150.000000;
 				dock_point = { 0.500000; 0.500000; };
 				anchor_point = { 0.500000; 0.500000; };
 				relative_size_type = 0;
@@ -475,7 +468,7 @@
 				shadow_direction = 0;
 				shadow_distance = 2.000000;
 			};
-			[9] =
+			[10] =
 			{
 				type = 'Visual';
 				ui_name = '';
@@ -500,7 +493,7 @@
 				color = { 255; 255; 255; };
 				opacity = 255;
 			};
-			[10] =
+			[11] =
 			{
 				type = 'Sprite';
 				ui_name = '';
@@ -526,12 +519,12 @@
 				src_blend = 770;
 				dest_blend = 771;
 			};
-			[11] =
+			[12] =
 			{
 				type = 'LabelTTF';
 				ui_name = '';
 				x = 0.000000;
-				y = -120.000000;
+				y = -100.000000;
 				dock_point = { 0.500000; 1.000000; };
 				anchor_point = { 0.500000; 0.500000; };
 				relative_size_type = 0;
@@ -574,7 +567,7 @@
 			anchor_point = { 0.500000; 0.500000; };
 			relative_size_type = 0;
 			width = 1300;
-			height = 540;
+			height = 600;
 			scale_x = 1.000000;
 			scale_y = 1.000000;
 			skew_x = 0.000000;

@@ -564,7 +564,7 @@
 					skew_y = 0.000000;
 					rotation = 0.000000;
 					visible = true;
-					lua_name = 'hpLabel';
+					lua_name = 'atkLabel';
 					font_name = 'font/common_font_01.ttf';
 					font_size = 20;
 					text = '{0} / {0}';
@@ -607,7 +607,7 @@
 					lua_name = '';
 					font_name = 'font/common_font_01.ttf';
 					font_size = 24;
-					text = '체력';
+					text = '공격력';
 					h_alignment = 2;
 					v_alignment = 1;
 					color = { 161; 125; 93; };
@@ -643,7 +643,7 @@
 				rotation = 0.000000;
 				visible = true;
 				lua_name = 'hpGauge';
-				file_name = 'ui/gauges/friendship_hp_gg_0101.png';
+				file_name = 'ui/gauges/friendship_atk_gg_0101.png';
 				color = { 255; 255; 255; };
 				opacity = 255;
 				flip_x = false;
@@ -784,7 +784,7 @@
 					skew_y = 0.000000;
 					rotation = 0.000000;
 					visible = true;
-					lua_name = 'atkLabel';
+					lua_name = 'hpLabel';
 					font_name = 'font/common_font_01.ttf';
 					font_size = 20;
 					text = '{0} / {0}';
@@ -827,7 +827,7 @@
 					lua_name = '';
 					font_name = 'font/common_font_01.ttf';
 					font_size = 24;
-					text = '공격력';
+					text = '생명력';
 					h_alignment = 2;
 					v_alignment = 1;
 					color = { 161; 125; 93; };
@@ -863,7 +863,7 @@
 				rotation = 0.000000;
 				visible = true;
 				lua_name = 'atkGauge';
-				file_name = 'ui/gauges/friendship_atk_gg_0101.png';
+				file_name = 'ui/gauges/friendship_hp_gg_0101.png';
 				color = { 255; 255; 255; };
 				opacity = 255;
 				flip_x = false;

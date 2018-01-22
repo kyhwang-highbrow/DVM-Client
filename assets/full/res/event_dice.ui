@@ -49,7 +49,7 @@
 				rotation = 0.000000;
 				visible = true;
 				lua_name = '';
-				file_name = 'ui/typo/kr/event/text_dice.png';
+				file_name = 'ui/typo/ko/event_dice.png';
 				color = { 255; 255; 255; };
 				opacity = 255;
 				flip_x = false;
