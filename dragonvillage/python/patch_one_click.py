@@ -94,11 +94,11 @@ def init_global_var():
     TARGET_SERVER = sys.argv[1]
     if TARGET_SERVER == 'DEV':
         SERVER_PATH = 'http://dv-test.perplelab.com:9003'
-        PLATFORM_SERVER_PATH = 'http://dn3bwi5jsw20r.cloudfront.net/1003'    
+        PLATFORM_SERVER_PATH = 'http://dev.platform.perplelab.com/1003'    
 
     elif TARGET_SERVER == 'QA':
         SERVER_PATH = 'http://dv-qa.perplelab.com:9003'
-        PLATFORM_SERVER_PATH = 'http://dn3bwi5jsw20r.cloudfront.net/1003'
+        PLATFORM_SERVER_PATH = 'http://dev.platform.perplelab.com/1003'
 
     elif TARGET_SERVER == 'LIVE':
         SERVER_PATH = 'http://dvm-api.perplelab.com'
