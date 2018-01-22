@@ -233,6 +233,7 @@ function UI_GachaResult_Dragon:refresh()
 		local card = self.m_lDragonCardList[t_gacha_dragon]
 		if (card) then
 			card.root:setVisible(true)
+			self.m_tDragonCardEffectTable[card]:runAction(cc.FadeIn:create(2))
 		end
 	end
 
