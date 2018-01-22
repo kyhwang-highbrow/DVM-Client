@@ -8,6 +8,9 @@ local ENEMY_TAMER_POS_X = 960 + 50
 -------------------------------------
 GameState_Colosseum = class(PARENT, {
         m_bWin = 'boolean',
+
+        m_bgEffect = '',            -- 배경 연출(광폭화)
+        m_bgEffectStartTime = '',   -- 배경 연출 시작 시간
     })
 
 -------------------------------------
@@ -16,6 +19,19 @@ GameState_Colosseum = class(PARENT, {
 function GameState_Colosseum:init(world)
     -- 콜로세움은 제한시간 5분으로 고정
     self.m_limitTime = 300
+
+    self.m_bgEffectStartTime = 0
+end
+
+-------------------------------------
+-- function initBuffByFightTime
+-------------------------------------
+function GameState_Colosseum:initBuffByFightTime()
+    PARENT.initBuffByFightTime(self)
+
+    -- 실제 버프 시간보다 이전에 연출되어야하는 것들을 처리하기 위한 하드코딩...
+    self.m_nextBuffTime = self.m_nextBuffTime - 2
+    self.m_nextBuffTime = math_max(self.m_nextBuffTime, 1)
 end
 
 -------------------------------------
@@ -366,6 +382,28 @@ function GameState_Colosseum:processTimeOut()
 end
 
 -------------------------------------
+-- function pause
+-------------------------------------
+function GameState_Colosseum:pause()
+    PARENT.pause(self)
+
+    if (self.m_bgEffect) then
+        self.m_bgEffect.m_node:pause()
+    end
+end
+
+-------------------------------------
+-- function resume
+-------------------------------------
+function GameState_Colosseum:resume()
+    PARENT.resume(self)
+
+    if (self.m_bgEffect) then
+        self.m_bgEffect.m_node:resume()
+    end
+end
+
+-------------------------------------
 -- function makeResultUI
 -------------------------------------
 function GameState_Colosseum:makeResultUI(is_win)
@@ -395,6 +433,35 @@ function GameState_Colosseum:makeResultUI(is_win)
         -- 최초 실행
         func_network_game_finish()
     end
+end
+
+
+-------------------------------------
+-- function applyBuffByFightTime
+-- @brief 주기시간에 따른 추가 버프를 적용
+-------------------------------------
+function GameState_Colosseum:applyBuffByFightTime()
+    if (self.m_bgEffectStartTime == self.m_nextBuffTime) then return end
+    self.m_bgEffectStartTime = self.m_nextBuffTime
+
+    -- 연출 먼저 시작 후 중간에 버프 적용
+    if (not self.m_bgEffect) then
+        local cameraHomePosX, cameraHomePosY = self.m_world.m_gameCamera:getHomePos()
+
+        self.m_bgEffect = MakeAnimator('res/bg/colosseum_2/colosseum_2.vrp')
+        self.m_bgEffect:setPosition(cameraHomePosX + (CRITERIA_RESOLUTION_X / 2), cameraHomePosY)
+        self.m_bgEffect:setDockPoint(cc.p(0.5, 0.5))
+		self.m_bgEffect:setAnchorPoint(cc.p(0.5, 0.5))
+        self.m_world.m_worldNode:addChild(self.m_bgEffect.m_node, WORLD_Z_ORDER.FRONT_EFFECT)
+    end
+
+    self.m_bgEffect:changeAni('change', false)
+    self.m_bgEffect:runAction(cc.Sequence:create(cc.DelayTime:create(2), cc.CallFunc:create(function()
+        PARENT.applyBuffByFightTime(self)
+    end)))
+
+    -- 배경 흔들림
+    self.m_world.m_mapManager:setDirecting('colosseum_fury_shake')
 end
 
 -------------------------------------

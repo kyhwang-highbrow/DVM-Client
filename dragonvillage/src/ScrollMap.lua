@@ -108,16 +108,20 @@ function ScrollMap:setDirecting(directing_type)
             cc.EaseInOut:create(cc.MoveTo:create(time * 2, cc.p(0, 0)), 2)
         )
 
-    -- [광폭화 연출용]
+    -- [콜로세움 광폭화 연출용]
+    elseif (string.find(self.m_bgDirectingType, 'colosseum_fury_shake')) then
+        sequence = cc.Sequence:create(
+            cc.MoveTo:create(0.1, cc.p(-5, 0)),
+            cc.MoveTo:create(0.2, cc.p(5, 0)),
+            cc.MoveTo:create(0.1, cc.p(0, 0))
+        )
+
+        self.m_parentNode:setPosition(0, 0)
+        self.m_parentNode:runAction(cc.Repeat:create(sequence, 5))
+        return
+
     elseif (string.find(self.m_bgDirectingType, 'colosseum_fury')) then
         local level = tonumber(string.match(self.m_bgDirectingType, '%d'))
-        
-        -- 별도로 배경 색 전환
-        for _, map_layer in pairs(self.m_tMapLayer) do
-            local value = (3 - level) * 50 + 50
-            map_layer:setColor(cc.c3b(255, value, value))
-		end
-        --[[
         local ani_name
 
         if (level <= 0) then                    ani_name = 'idle'
@@ -128,8 +132,7 @@ function ScrollMap:setDirecting(directing_type)
 		for _, map_layer in pairs(self.m_tMapLayer) do
             map_layer.m_animator:changeAni(ani_name, true)
 		end
-        ]]--
-
+        
         return
 
 	-- [DARKNIX 보스용]
@@ -432,6 +435,7 @@ end
 -------------------------------------
 function ScrollMap:pause()
     self.m_bPause = true
+    self.m_parentNode:pause()
     self.m_node:pause()
 end
 
@@ -440,6 +444,7 @@ end
 -------------------------------------
 function ScrollMap:resume()
     self.m_bPause = false
+    self.m_parentNode:resume()
     self.m_node:resume()
 end
 

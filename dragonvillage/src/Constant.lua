@@ -148,6 +148,7 @@ WORLD_Z_ORDER =
     ENEMY = 20,
     HERO = 30,
 	SE_EFFECT = 40,
+    FRONT_EFFECT = 50,
     CASTING = 100,
 }
 --------------------------------------------
