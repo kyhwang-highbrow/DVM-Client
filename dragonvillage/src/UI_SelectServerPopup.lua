@@ -54,19 +54,32 @@ end
 function UI_SelectServerPopup:initUI()
     local vars = self.vars
 
-    --넘어온 서버목록에 개발이나 qa가 아닌데 개발,qa서버 들어있으면 삭제
-    if CppFunctionsClass:isTestMode() == false then
-        local tserverList = self.m_tServerInfo['servers']
-        local tremove = {}
+    --빌드 서버에따라 사용가능한 서버만빼고 제거
+    local tserverList = self.m_tServerInfo['servers']
+    local tremove = {}
+    local targetServer = CppFunctionsClass:getTargetServer()
+    if targetServer == SERVER_NAME.DEV then
         for i, server in pairs(tserverList) do
-            if server.server_name == SERVER_NAME.DEV or server['server_name'] == SERVER_NAME.QA then
+            if server['server_name'] ~= SERVER_NAME.DEV then
                 table.insert(tremove, 1, i)
             end
         end
-
-        for i,v in ipairs(tremove) do
-            table.remove(tserverList, v)
+    elseif targetServer == SERVER_NAME.QA then
+        for i, server in pairs(tserverList) do
+            if server['server_name'] ~= SERVER_NAME.QA then
+                table.insert(tremove, 1, i)
+            end
         end
+    else
+        for i, server in pairs(tserverList) do
+            if server['server_name'] == SERVER_NAME.DEV or server['server_name'] == SERVER_NAME.QA then
+                table.insert(tremove, 1, i)
+            end
+        end
+    end
+
+    for i,v in ipairs(tremove) do
+        table.remove(tserverList, v)
     end
 
     --넘어오지 않은 서버목록 ui는 visible false    
@@ -102,6 +115,7 @@ function UI_SelectServerPopup:initButton()
         local recentServerName
         local recommandedServerNum = self.m_tServerInfo['recommandedServer']
         local recommandedServerName
+        local defaultServerName
 		-- 서버 버튼 등록
         local tserverList = self.m_tServerInfo['servers']
 		for _, server in pairs(tserverList) do
@@ -115,13 +129,22 @@ function UI_SelectServerPopup:initButton()
             if serverNum == recommandedServerNum then
                 recommandedServerName = serverName
             end
+
+            if defaultServerName == nil then
+                defaultServerName = serverName
+            end
 		end
 
 		-- 최신 선택 서버 or 추천 서버		
 		if recentServerName then
 			radio_button:setSelectedButton(recentServerName)
+            cclog('recentServerName : ' .. recentServerName )
         elseif recommandedServerName then
             radio_button:setSelectedButton(recommandedServerName)
+            cclog('recommandedServerName : ' .. recommandedServerName )
+        elseif defaultServerName then
+            radio_button:setSelectedButton(defaultServerName)
+            cclog('defaultServerName : ' .. defaultServerName )
 		end
         		
 		self.m_radioButton = radio_button
@@ -145,6 +168,8 @@ end
 -------------------------------------
 function UI_SelectServerPopup:click_okBtn()
     local selectServer = self.m_radioButton.m_selectedButton   
+    cclog( 'selectServer : ' .. selectServer )
+
     local function onSelect()         
         g_localData:lockSaveData()
         g_localData:setServerName(selectServer)
