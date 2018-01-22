@@ -241,6 +241,7 @@ function UI_Lobby:entryCoroutine()
         end
 
         -- @UI_ACTION 액션 종료 후에는 튜토리얼 시작
+		local ui = UI_BlockPopup()
         co:work()
         self:doAction(function() 
             -- @ TUTORIAL
@@ -251,6 +252,9 @@ function UI_Lobby:entryCoroutine()
         g_topUserInfo:doAction()
 		self.root:scheduleUpdateWithPriorityLua(function(dt) self:update(dt) end, 0)
         if co:waitWork() then return end
+
+		-- block popup 해제
+		ui:close()
     end
 
     Coroutine(coroutine_function, '로비 코루틴')
