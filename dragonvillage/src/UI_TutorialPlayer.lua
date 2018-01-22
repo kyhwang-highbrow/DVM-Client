@@ -244,11 +244,9 @@ function UI_TutorialPlayer:pointingNode(node_name)
         self.m_pointingHand:setVisible(true)
         tar_node:addChild(self.m_pointingHand.m_node, 99)
 
+		-- 손가락 위치 예외처리
 		if (node_name == 'tutorialEggPicker') then
 			self.m_pointingHand:setPosition(-180, 150)
-			tar_node:focusEggByID(703027)
-			tar_node:setTouchEnabled(false)
-
 		else
 			self.m_pointingHand:setPosition(0, 0)
 		end
@@ -293,6 +291,9 @@ function UI_TutorialPlayer:activeNode(node_name)
 
 	-- UIC_EggPicker도 가능하다
 	elseif (isInstanceOf(tar_node, UIC_EggPicker)) then
+		-- activating 할때 스크롤도 막는다
+		tar_node:setTouchEnabled(false)
+		
 		-- egg_picker에 다음페이지 진행을 등록한다
 		tar_node:addItemClickCB(function(t_item, idx)
 			local t_data = t_item['data']

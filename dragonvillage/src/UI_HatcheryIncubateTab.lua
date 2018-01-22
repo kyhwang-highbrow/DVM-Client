@@ -62,9 +62,13 @@ function UI_HatcheryIncubateTab:initUI()
 	egg_picker:setChangeCurrFocusIndexCB(onChangeCurrEgg)
 
 	self:refreshEggList()
-	
-	-- tutorial 에서 접근하기 위함
-	self.m_ownerUI.vars['tutorialEggPicker'] = egg_picker
+
+	-- @ Tutorial : 1-1 end
+	if (TutorialManager.getInstance():isDoing()) then
+		-- tutorial 에서 접근하기 위함
+		self.m_ownerUI.vars['tutorialEggPicker'] = self.m_eggPicker
+		self.m_eggPicker:focusEggByID(703027)
+	end
 end
 
 -------------------------------------
