@@ -249,18 +249,30 @@ end
 -------------------------------------
 function TutorialManager:checkFullPopupBlock()
 	-- 1-1 start 완료 전에 block
-    if (not g_tutorialData:isTutorialDone(TUTORIAL.FIRST_START)) then
+	local tutorial_key = TUTORIAL.FIRST_START
+    if (not g_tutorialData:isTutorialDone(tutorial_key)) then
         return true
     end
 
 	-- 1-1 end 완료 전에 ...
-	if (not g_tutorialData:isTutorialDone(TUTORIAL.FIRST_END)) then
+	local tutorial_key = TUTORIAL.FIRST_END
+	if (not g_tutorialData:isTutorialDone(tutorial_key)) then
 		-- 저장된 step이 있다면 block
-		local step = g_tutorialData:getStep(TUTORIAL.FIRST_END)
+		local step = g_tutorialData:getStep(tutorial_key)
 		if (step) then
 			return true
 		end
     end
+
+	-- 1-7 end 완료 전에 ... 
+	local tutorial_key = TUTORIAL.ADV_01_07_END
+	if (not g_tutorialData:isTutorialDone(tutorial_key)) then
+		-- 저장된 step이 있다면 block
+		local step = g_tutorialData:getStep(tutorial_key)
+		if (step) then
+			return true
+		end
+	end
 
 	return false
 end
