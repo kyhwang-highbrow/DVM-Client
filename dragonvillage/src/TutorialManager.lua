@@ -296,7 +296,7 @@ function TutorialManager:saveTutorialStepInAdventureResult(stage_id)
     if (g_masterRoadData:getFocusRoad() == 10001) then
 		local tutorial_key = TUTORIAL.FIRST_END
 		local step = 101
-		g_tutorialData:request_tutorialSave(tutorial_key, 101)
+		g_tutorialData:request_tutorialSave(tutorial_key, step)
  
 	-- 1-7 end tutorial
 	elseif (self:checkStartFreeSummon11(stage_id)) then
