@@ -60,7 +60,7 @@ function UI_SelectServerPopup:initUI()
         local tremove = {}
         for i, server in pairs(tserverList) do
             if server.server_name == SERVER_NAME.DEV or server['server_name'] == SERVER_NAME.QA then
-                table.insert(tremove, i)
+                table.insert(tremove, 1, i)
             end
         end
 
