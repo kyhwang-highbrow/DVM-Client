@@ -97,7 +97,7 @@ function getStr( $path, $callback )
 		if( t_text.length > 0 && reg.exec( t_text ) != null )
 		{
 			var basename = path.basename( $path );
-			var str = t_text.replace(/\n|\s\n/g, "\\n");
+			var str = t_text.replace(/\n|\r\n/g, "\\n");
 			var tempData = [ basename, page, t_char_name, str ];
 			data.push( tempData );
 		}				

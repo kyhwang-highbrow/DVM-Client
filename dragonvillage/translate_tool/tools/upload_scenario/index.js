@@ -20,6 +20,7 @@ Upload.prototype.loadSheet = function()
 	var sheetName = this.sheetName;
 	var data = this.data;
 	var localeList = this.localeList;	
+	var totalData = [];
 		
 	var header = [ "fileName", "page", "speaker_kr" ];
 	var i = 0;
@@ -143,13 +144,57 @@ Upload.prototype.loadSheet = function()
 		var i = 0;
 		var len = row_count;
 		var row;		
+		//fileName	page	speaker_kr	speaker_en	speaker_jp	speaker_zhtw	kr	en	jp	zhtw	date
 		for( i ; i < len ; i++ )
 		{
 			row = $rows[ i ];
-			setData( row, localeList);
+			var oldData = [];
+			oldData[0] = row.filename;
+			oldData[1] = row.page;
+			oldData[2] = row.speakerkr;
+			var localeIdx = 0;
+			for( ; localeIdx < localeList.length; ++localeIdx )
+			{				
+				oldData.push( row[ "speaker" + localeList[localeIdx] ] );
+			}	
+			oldData.push( row.kr );
+			localeIdx = 0;
+			for( ; localeIdx < localeList.length; ++localeIdx )
+			{
+				oldData.push( row[ localeList[localeIdx] ] );
+			}				
+			oldData.push( row.date );
+
+			totalData.push( oldData )
+			//setData( row, localeList);
 		}
 
+		mergeData();
 		resizeWorksheet();
+
+		function mergeData()
+		{
+			var i = 0;
+			var krMsgIdx = 3 + localeList.length;	//filename, page, speaker_kr
+			var krSpeakerIdx = 2;	//filename, page
+			for( ; i < data.length; ++i )
+			{
+				var thisData = data[i];
+				if( isExistTotalData( thisData[krMsgIdx], krMsgIdx ) == false || isExistTotalData( thisData[krSpeakerIdx], krSpeakerIdx) == false )
+					totalData.push( thisData );
+			}
+
+			function isExistTotalData( $str, $checkIdx )
+			{
+				var total_i = totalData.length;
+				while( total_i-- )
+				{
+					if( totalData[total_i][$checkIdx] == $str )
+						return true;
+				}
+				return false;
+			}
+		}
 
 		function setData( $row, $localeList )
 		{
@@ -188,7 +233,7 @@ Upload.prototype.loadSheet = function()
 	{
 		var option = {};
 		option.colCount = col_count;
-		option.rowCount = Math.max( 2, data.length + 1 );
+		option.rowCount = Math.max( 2, totalData.length + 1 );
 
 		sheet.clear( function( $err ) 
 		{
@@ -215,20 +260,20 @@ Upload.prototype.loadSheet = function()
 	var isFinishOnCell = false;
 	function uploadData()
 	{
-		if( data.length == 0 )
+		if( totalData.length == 0 )
 		{
 			onUpdate();
 			return;
 		}
 
-		updateSameStr( data, localeList );
+		updateSameStr( totalData, localeList );
 
 		var last = 0;
 		var n = 0;
 		function uploadNext()
 		{
 			var from = last + 1;
-			var to = Math.min( last + 1000, data.length );
+			var to = Math.min( last + 1000, totalData.length );
 		
 			last = to;
 			var param = {};
@@ -253,7 +298,7 @@ Upload.prototype.loadSheet = function()
 					row = Math.floor( n / col_count );
 					col = n % col_count;
 	
-					var value = data[ row ][ col ];		
+					var value = totalData[ row ][ col ];		
 					if( value == null )
 						console.log("===value is null : " + "row : " + row + ", col : " + col);		
 					if( value.indexOf( "''" ) == 0 )
@@ -270,15 +315,15 @@ Upload.prototype.loadSheet = function()
 					if( $err )
 						throw $err;
 		
-					if( last >= data.length )
+					if( last >= totalData.length )
 					{
-						console.log( parseInt( 100 * to / data.length ) + "%" );
+						console.log( parseInt( 100 * to / totalData.length ) + "%" );
 						
 						onUpdate();
 					}
 					else
 					{
-						console.log( parseInt( 100 * to / data.length ) + "%" );
+						console.log( parseInt( 100 * to / totalData.length ) + "%" );
 		
 						uploadNext()
 					}
@@ -291,7 +336,7 @@ Upload.prototype.loadSheet = function()
 
 	function onUpdate( $err )
 	{
-		log( "complete : " + sheetName + " (" + data.length + ")" );
+		log( "complete : " + sheetName + " (" + totalData.length + ")" );
 	}
 
 	function updateSameStr( $data, $localeList )
