@@ -243,9 +243,11 @@ function UI_ScenarioPlayer:showPage()
 
     do -- 사운드
         local sound = t_page['sound']
-        if sound then
-            SoundMgr:playEffect('EFX', sound)
-        end
+		if (sound == 'prologue') then
+			SoundMgr:playEffect('EFFECT', sound)		
+		elseif (sound) then
+			SoundMgr:playEffect('EFX', sound)
+		end
     end
 
     do -- 이전에 disable시킨 것 해제
