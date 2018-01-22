@@ -106,8 +106,8 @@ function UI_SelectServerPopup:initButton()
         local tserverList = self.m_tServerInfo['servers']
 		for _, server in pairs(tserverList) do
             local serverName = server['server_name']
-            local serverNum = server['server_num']
-			radio_button:addButtonAuto(serverName, vars)
+            local serverNum = server['server_num']			
+            radio_button:addButton(serverName, vars[serverName .. 'RadioBtn'], vars[serverName .. 'RadioSprite'])
             if serverNum == recentlyServerNum then
                 recentServerName = serverName
             end
