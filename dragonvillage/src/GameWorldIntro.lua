@@ -153,7 +153,7 @@ function GameWorldIntro:makeMonsterNew(monster_id, level)
     local t_monster = TableMonster():get(monster_id)
     if (t_monster['type'] == 'darknix') then
         monster.m_statusCalc:addBuffMulti('hit_rate', 999)
-        monster.m_statusCalc:appendHpRatio(3)
+        monster.m_statusCalc:appendHpRatio(4)
         monster:setStatusCalc(monster.m_statusCalc)
 
         -- 불사 부여
