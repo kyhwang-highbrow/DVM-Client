@@ -35,7 +35,7 @@ end
 -------------------------------------
 function UIC_LabelTTF:setString(str)
     --매틱 들어오는것들 안태우기위해 체크
-    local needCheck = str and (string.len(str) > 0) and (str ~= self.m_node:getString())
+    local needCheck = false -- str and (string.len(str) > 0) and (str ~= self.m_node:getString())
     
     self.m_node:setString(str)
         
