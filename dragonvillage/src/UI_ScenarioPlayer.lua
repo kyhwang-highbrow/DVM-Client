@@ -44,8 +44,6 @@ function UI_ScenarioPlayer:init(scenario_name)
 	self:loadScenario(scenario_name)
     self.m_maxPage = table.count(self.m_scenarioTable)
 
-    SoundMgr:stopBGM()
-
     self:initUI()
     self:initButton()
     self:refresh()
@@ -63,6 +61,8 @@ function UI_ScenarioPlayer:init_player()
 	g_currScene:pushBackKeyListener(self, function() self:click_skip() end, 'UI_ScenarioPlayer')
 	self.m_bSkipEnable = true
     self.m_bNextEnable = true
+
+    SoundMgr:stopBGM()
 end
 
 -------------------------------------
