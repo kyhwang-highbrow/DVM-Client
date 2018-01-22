@@ -41,8 +41,10 @@ function AnimatorVrp:changeAni(animation_name, loop, checking)
         return
     end
 
-    if self.m_aniAttr then
-        animation_name = self:getAniNameAttr(animation_name)
+    if (self.m_aniAttr) then
+        if animation_name then
+            animation_name = self:getAniNameAttr(animation_name)
+        end
     end
 
     if (not checking) then

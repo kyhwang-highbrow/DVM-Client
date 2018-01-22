@@ -6,18 +6,30 @@ local PARENT = SkillAoERound
 SkillAoERound_Hide = class(PARENT, {})
 
 -------------------------------------
--- function enterAttack
--- @brief 공격이 시작되는 시점에 실행
+-- function initState
 -------------------------------------
-function SkillAoERound_Hide:enterAttack()
-    local char = self.m_owner
-    local res = 'res/effect/tamer_magic_1/tamer_magic_1.vrp'
+function SkillAoERound_Hide:initState()
+    PARENT.initState(self)
 
-	self:makeEffect(res, char.pos.x, char.pos.y, 'bomb')
+    self:addState('start', SkillAoERound_Hide.st_appear, nil, false)
+	self:addState('attack', PARENT.st_attack, 'idle', false)
+end
 
-	char.m_rootNode:setVisible(false)
+-------------------------------------
+-- function st_appear
+-------------------------------------
+function SkillAoERound_Hide.st_appear(owner, dt)
+	-- 캐릭터가 사라지는 연출과 동시에 돌진 준비 좌표로 보냄
+	if (owner.m_stateTimer == 0) then
+		local res = 'res/effect/tamer_magic_1/tamer_magic_1.vrp'
+		local function cb_func() 
+			owner:changeState('attack') 
+		end
 
-    PARENT.enterAttack(self)
+		local char = owner.m_owner
+		owner:makeEffect(res, char.pos.x, char.pos.y, 'bomb', cb_func)
+		char.m_rootNode:setVisible(false)
+	end
 end
 
 -------------------------------------
