@@ -206,7 +206,7 @@ function TutorialManager:showAmazingNewbiePresent()
 	-- 1-7 모험 클리어 하지 않은 상태여야 함 (기존 유저 거르기)
 	local stage_id = 1110107
 	local clear_cnt = g_adventureData:getStageClearCnt(stage_id)
-	if (clear_cnt ~= 0) then
+	if (clear_cnt ~= 1) then
 		return false
 	end
 
