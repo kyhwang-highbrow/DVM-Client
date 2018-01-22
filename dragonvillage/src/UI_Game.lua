@@ -74,6 +74,7 @@ end
 -------------------------------------
 function UI_Game:initUI()
 	local vars = self.vars
+    local game_mode = self.m_gameScene.m_gameMode
     
     --vars['goldLabel']:setString('0')
     
@@ -88,7 +89,13 @@ function UI_Game:initUI()
 
     -- 2배속
     do
-        vars['speedVisual']:setVisible(g_autoPlaySetting:get('quick_mode'))
+        local b = g_autoPlaySetting:get('quick_mode')
+
+        if (game_mode == GAME_MODE_INTRO) then
+            b = true
+        end
+        
+        vars['speedVisual']:setVisible(b)
     end
 
     -- 버프 정보
@@ -668,7 +675,7 @@ function UI_Game:initIntroFight()
     local off_list = {'autoStartButton', 'autoButton', 'speedButton', 
                       'hottimeNode', 'chatBtn', 'pauseButton',
                       'effectBtn', 'buffBtn', 'dpsInfoNode',
-                      'speedVisual', 'autoVisual'}
+                      'autoVisual'}
 
     for i, v in ipairs(off_list) do
         if (vars[v]) then
