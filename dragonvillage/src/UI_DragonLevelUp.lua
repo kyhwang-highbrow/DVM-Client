@@ -204,6 +204,34 @@ function UI_DragonLevelUp:setAttrBonusLabel(dragon_card)
 end
 
 -------------------------------------
+-- function setDefaultSelectDragon
+-- @brief 지정된 드래곤이 없을 경우 기본 드래곤을 설정
+-------------------------------------
+function UI_DragonLevelUp:setDefaultSelectDragon(doid)
+	-- 레벨업 마스터의 길 ... 불속성 슬라임이니 불속성 공격형 드래곤을 선택하도록 한다
+	if (g_masterRoadData:getFocusRoad() == 10010) then
+		local data = nil
+		for i, t_item in pairs(self.m_tableViewExt.m_itemList) do
+			data = t_item['data']
+			-- 불속성 공격형
+			if (data:getAttr() == T_ATTR_LIST[ATTR_FIRE]) and (data:getRole() == 'dealer') then
+				self.m_selectDragonOID = data['id']
+				local b_force = true
+				self:setSelectDragonData(data['id'], b_force)
+				break
+			end
+		end
+
+		-- 불속성 드래곤이 없을린 없지만 없다면 기존 로직을 태움
+		if (data) then
+			return
+		end
+	end
+
+    PARENT.setDefaultSelectDragon(self, doid)
+end
+
+-------------------------------------
 -- function getDragonList
 -- @breif 하단 리스트뷰에 노출될 드래곤 리스트
 -- @override
