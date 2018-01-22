@@ -218,83 +218,80 @@ Upload.prototype.loadSheet = function()
 		if( data.length == 0 )
 		{
 			onUpdate();
-
 			return;
 		}
 
 		updateSameStr( data, localeList );
 
-		var param = {};
-		param[ "min-row" ] = 2;
-		param[ "max-row" ] = 1 + data.length;
-		param[ "min-col" ] = 1;
-		param[ "max-col" ] = col_count;
-		param[ "return-empty" ] = true;
-
-		sheet.getCells( param, onCells );
-
-		function onCells( $err, $cells )
+		var last = 0;
+		var n = 0;
+		function uploadNext()
 		{
-			var i = 0;
-			var len = $cells.length;
-			var row, col;
-			var tempData = [];
-			var tempIdx = 0;
-			var tempMaxCount = 1000;			
-			for( i ; i < len ; i++ )
+			var from = last + 1;
+			var to = Math.min( last + 1000, data.length );
+		
+			last = to;
+			var param = {};
+			param[ "min-row" ] = 1 + from;
+			param[ "max-row" ] = 1 + to;
+			param[ "min-col" ] = 1;
+			param[ "max-col" ] = col_count;
+			param[ "return-empty" ] = true;
+	
+			sheet.getCells( param, onCells );
+	
+			function onCells( $err, $cells )
 			{
-				row = Math.floor( i / col_count );
-				col = i % col_count;
-
-				var value = data[ row ][ col ];		
-				if( value == null )
-					console.log("===value is null : " + "row : " + row + ", col : " + col);		
-				
-				if( value.indexOf( "''" ) == 0 )
-					value = value.substr( 1 );				
-
-				if( value.substr(0,1) == '=' )
-					$cells[ i ].value = value;
-				else
-					$cells[ i ].value = "'" + value;
-
-				tempData[ tempIdx ] = $cells[ i ];
-				++tempIdx;
-				
-				if( tempIdx >= tempMaxCount )
+				if( $err )
+					throw $err;
+	
+				var i = 0;
+				var len = $cells.length;
+				var row, col;
+				for( i ; i < len ; i++, n++ )
 				{
-					++requestCount;
-					sheet.bulkUpdateCells( tempData, onUpdate );		
-					tempData = [];
-					tempIdx = 0;					
-				}
-			}
-			isFinishOnCell = true;
+					row = Math.floor( n / col_count );
+					col = n % col_count;
+	
+					var value = data[ row ][ col ];		
+					if( value == null )
+						console.log("===value is null : " + "row : " + row + ", col : " + col);		
+					if( value.indexOf( "''" ) == 0 )
+						value = value.substr( 1 );
 
-			if( tempIdx <= 0 )
-			{
-				onUpdate();
-			}
-			else
-			{
-				++requestCount;
-				sheet.bulkUpdateCells( tempData, onUpdate );
+					if( value.substr(0,1) == '=' )
+						$cells[ i ].value = value;
+					else
+						$cells[ i ].value = "'" + value;
+				}
+	
+				sheet.bulkUpdateCells( $cells, function( $err )
+				{
+					if( $err )
+						throw $err;
+		
+					if( last >= data.length )
+					{
+						console.log( parseInt( 100 * to / data.length ) + "%" );
+						
+						onUpdate();
+					}
+					else
+					{
+						console.log( parseInt( 100 * to / data.length ) + "%" );
+		
+						uploadNext()
+					}
+				})					
 			}
 		}
+			
+		uploadNext();
 	}
 
 	function onUpdate( $err )
 	{
-		if( $err )
-			throw $err;
-
-		--requestCount;
-		if( isFinishOnCell == true && requestCount <= 0 )
-		{
-			log( "complete : " + sheetName + " (" + data.length + ")" );						
-		}
-		else		
-			log( "onUpdate..." );
+		log( "complete : " + sheetName + " (" + data.length + ")" );
 	}
 
 	function updateSameStr( $data, $localeList )
@@ -309,7 +306,7 @@ Upload.prototype.loadSheet = function()
 			var tempData = dataList[i];
 			//이름 체크
 			var orgName = tempData[nameIdx];
-			if( checkedList.indexOf( orgName ) < 0 )
+			if( orgName.length > 0 && checkedList.indexOf( orgName ) < 0 )
 			{
 				setSameStr( orgName, i, nameIdx );
 				checkedList.push( orgName );
@@ -317,7 +314,7 @@ Upload.prototype.loadSheet = function()
 			
 			//대사 체크
 			var orgStr = tempData[strIdx];
-			if( checkedList.indexOf( orgStr ) < 0 )
+			if( orgStr.length > 0 && checkedList.indexOf( orgStr ) < 0 )
 			{
 				setSameStr( orgStr, i, strIdx );
 				checkedList.push( orgStr );
