@@ -38,6 +38,8 @@ function UI_MasterRoadPopup:init(auto_close)
 
     self:sceneFadeInAction()
 
+	SoundMgr:playBGM('bgm_lobby')
+
 	-- @ TUTORIAL : 101
 	local tutorial_key = TUTORIAL.FIRST_END
 	local check_step = 101
