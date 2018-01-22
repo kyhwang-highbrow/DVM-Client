@@ -223,10 +223,10 @@ function TutorialManager:checkStartFreeSummon11(stage_id)
 		return false
 	end
 
-	-- 1-7 최초 클리어여야 함
+	-- 1-7 clear_cnt 가 1이어야 함 (최초 클리어)
 	local clear_cnt = g_adventureData:getStageClearCnt(stage_id)
-	cclog('clear_cnt :' .. clear_cnt)
-	if (clear_cnt ~= 0) then
+	cclog('stage 1-7 clear_cnt :' .. clear_cnt)
+	if (clear_cnt > 1) then
 		return false
 	end
 
