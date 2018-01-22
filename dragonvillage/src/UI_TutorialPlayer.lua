@@ -245,6 +245,16 @@ function UI_TutorialPlayer:pointingNode(node_name)
         self.m_pointingHand.m_node:removeFromParent()
         self.m_pointingHand:setVisible(true)
         tar_node:addChild(self.m_pointingHand.m_node, 99)
+
+		if (node_name == 'tutorialEggPicker') then
+			self.m_pointingHand:setPosition(-180, 150)
+			tar_node:focusEggByID(703027)
+			tar_node:setTouchEnabled(false)
+
+		else
+			self.m_pointingHand:setPosition(0, 0)
+		end
+
     end
 end
 

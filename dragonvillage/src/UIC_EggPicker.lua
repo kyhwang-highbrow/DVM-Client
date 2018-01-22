@@ -253,7 +253,11 @@ function UIC_EggPicker:scrollViewDidScroll()
     if (item_count <= 0) then
         return
     end
-
+	
+	-- 스크롤 막는다
+	if (not self.m_node:isTouchEnabled()) then
+		return
+	end
 
     local offset = self.m_node:getContentOffset()
 
@@ -407,6 +411,11 @@ end
 -- function setFocus
 -------------------------------------
 function UIC_EggPicker:setFocus(idx, duration)
+	-- 스크롤 막는다
+	if (not self.m_node:isTouchEnabled()) then
+		return
+	end
+
     local pos = self.m_lItemPosLIst[idx] 
     if (not pos) then
         return
@@ -497,4 +506,26 @@ function UIC_EggPicker:setCurrFocusIndex(idx)
         local t_item = self.m_lItemList[idx]
         self.m_changeCurrFocusIndexCB(t_item, idx)
     end
+end
+
+-------------------------------------
+-- function focusEggByID
+-- @brief 특정 id egg 포커싱
+-------------------------------------
+function UIC_EggPicker:focusEggByID(egg_id)
+	for i, t_item in ipairs(self.m_lItemList) do
+		local t_data = t_item['data']
+		if (t_data['egg_id'] == tostring(egg_id)) then
+			self:setFocus(i)
+			break
+		end
+	end
+end
+
+-------------------------------------
+-- function setTouchEnabled
+-- @brief 스크롤 막아야 할 경우 사용
+-------------------------------------
+function UIC_EggPicker:setTouchEnabled(b)
+	self.m_node:setTouchEnabled(b)
 end
