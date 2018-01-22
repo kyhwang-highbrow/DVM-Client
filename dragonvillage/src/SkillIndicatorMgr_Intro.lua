@@ -109,7 +109,6 @@ function SkillIndicatorMgr_Intro:onTouchEnded(touch, event)
                 end
 
                 if (not is_exist) then
-                    cclog('add collision')
                     -- 번개고룡이 대상에 없을 경우 강제로 세팅
                     local target = self.m_world:getDragonList()[4]
                     local target_x, target_y = target:getCenterPos()
@@ -207,7 +206,12 @@ function SkillIndicatorMgr_Intro:startIntro(hero)
     end
     
     self.m_animatorGuide = MakeAnimator('res/ui/a2d/tutorial/tutorial.vrp')
-    self.m_animatorGuide:changeAni('hand_drag_01', true)
+
+    if (hero:getCharId() == 120431) then
+        self.m_animatorGuide:changeAni('hand_drag_02', true)
+    else
+        self.m_animatorGuide:changeAni('hand_drag_01', true)
+    end
     
     g_gameScene.m_inGameUI:bindPanelGuide(self.m_introHero, self.m_animatorGuide.m_node)
 end
