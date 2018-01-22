@@ -160,10 +160,6 @@ function ServerData_MasterRoad:updateMasterRoad(t_data, cb_func)
         return true, ui_network
     end
 
-    if (cb_func) then
-        cb_func()
-    end
-
     return false, nil
 end
 

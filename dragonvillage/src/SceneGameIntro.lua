@@ -263,7 +263,7 @@ function SceneGameIntro:checkScenario()
 
     play_intro_finish = function()
         self.m_containerLayer:setVisible(false)
-        local ui = g_scenarioViewingHistory:playScenario(intro_finish_name)
+        local ui = UI_ScenarioPlayer(intro_finish_name)
 		if (ui) then
 			ui:setReplaceSceneCB(lobby_func)
 			ui:next()
@@ -278,18 +278,8 @@ function SceneGameIntro:checkScenario()
         scene:runScene()
     end
 
-    if (not g_scenarioViewingHistory:isViewed(intro_finish_name)) then
-        -- 튜토리얼 상태 저장
-		-- @mskim 초기 이탈 개선 적용 시 빼야함
-		if (IS_LIVE_SERVER()) then
-			g_tutorialData:request_tutorialSave(TUTORIAL.INTRO_FIGHT, play_intro_finish, lobby_func)
-		else
-			local step = nil
-			g_tutorialData:request_tutorialSave(TUTORIAL.INTRO_FIGHT, step, play_intro_finish, lobby_func)
-		end
-    else
-        lobby_func()
-    end
+	local step = nil
+	g_tutorialData:request_tutorialSave(TUTORIAL.INTRO_FIGHT, step, play_intro_finish, lobby_func)
 end
 
 -------------------------------------

@@ -198,15 +198,10 @@ end
 -------------------------------------
 function TutorialManager:showAmazingNewbiePresent()
 
-	-- 1-1 end 튜토리얼 완료 했어야 함
-	if (not g_tutorialData:isTutorialDone(TUTORIAL.FIRST_END)) then
-		return false
-	end
-	
 	-- 1-7 모험 클리어 하지 않은 상태여야 함 (기존 유저 거르기)
 	local stage_id = 1110107
 	local clear_cnt = g_adventureData:getStageClearCnt(stage_id)
-	if (clear_cnt ~= 1) then
+	if (clear_cnt ~= 0) then
 		return false
 	end
 
