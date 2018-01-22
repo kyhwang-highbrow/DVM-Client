@@ -119,8 +119,9 @@ function TutorialManager:checkTutorialInLobby(ui_lobby)
 
 	local clear_cnt = g_adventureData:getStageClearCnt(stage_id)
 	local is_done = g_tutorialData:isTutorialDone(tutorial_key)
+	local is_master_road_clear = g_masterRoadData:isClearedRoad(10001)
 
-	if (not is_done) or (clear_cnt == 0) then
+	if (not is_done) or (clear_cnt == 0) or (not is_master_road_clear) then
 		local step = nil
 		local is_force = true
 		self:startTutorial(tutorial_key, ui_lobby, step, is_force)
@@ -135,16 +136,20 @@ function TutorialManager:checkTutorialInLobby(ui_lobby)
 		local step = g_tutorialData:getStep(tutorial_key)
 		if (step == 101) then
 			UI_MasterRoadPopup()
+			return
 
 		elseif (step == 102) then
 			UINavigator:goTo('hatchery', 'incubate')
+			return
 
 		elseif (step == 103) then
 			UI_MasterRoadPopup()
+			return 
 
 		elseif (step == 104) then
 			stage_id = 1110102
 			UINavigator:goTo('adventure', stage_id)
+			return
 
 		end
 	end
@@ -158,7 +163,7 @@ function TutorialManager:checkTutorialInLobby(ui_lobby)
 		local step = g_tutorialData:getStep(tutorial_key)
 		if (step == 101) then
 			UINavigator:goTo('hatchery')
-
+			return
 		end
 	end
 end
@@ -248,6 +253,15 @@ function TutorialManager:checkFullPopupBlock()
     if (not g_tutorialData:isTutorialDone(tutorial_key)) then
         return true
     end
+	local stage_id = 1110101
+	local clear_cnt = g_adventureData:getStageClearCnt(stage_id)
+	if (clear_cnt == 0) then
+		return true
+	end
+	local is_master_road_clear = g_masterRoadData:isClearedRoad(10001)
+	if (not is_master_road_clear) then
+		return true
+	end
 
 	-- 1-1 end 완료 전에 ...
 	local tutorial_key = TUTORIAL.FIRST_END
@@ -270,6 +284,32 @@ function TutorialManager:checkFullPopupBlock()
 	end
 
 	return false
+end
+
+-------------------------------------
+-- function saveTutorialStepInAdventureResult
+-- @comment 모험 결과화면에서 튜토리얼 step 저장 하는 경우
+-------------------------------------
+function TutorialManager:saveTutorialStepInAdventureResult(stage_id)
+
+	-- 1-1 end tutorial
+    if (g_masterRoadData:getFocusRoad() == 10001) then
+		local tutorial_key = TUTORIAL.FIRST_END
+		local step = 101
+		g_tutorialData:request_tutorialSave(tutorial_key, 101)
+ 
+	-- 1-7 end tutorial
+	elseif (self:checkStartFreeSummon11(stage_id)) then
+		local tutorial_key = TUTORIAL.ADV_01_07_END
+		local step = 101
+		local function finish_cb()
+			local tutorial_key = TUTORIAL.GACHA11_START
+			local step = nil
+			g_tutorialData:request_tutorialSave(tutorial_key, step)
+		end
+		g_tutorialData:request_tutorialSave(tutorial_key, step, finish_cb)
+
+	end
 end
 
 -------------------------------------

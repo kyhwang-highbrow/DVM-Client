@@ -122,6 +122,21 @@ function ServerData_MasterRoad:hasRewardRoad()
 end
 
 -------------------------------------
+-- function isClearedRoad
+-- @brief 해당 마스터의길이 이미 클리어한건지 여부 (튜토리얼 사용)
+-------------------------------------
+function ServerData_MasterRoad:isClearedRoad(rid)	
+	-- 보상이 있다면 클리어한 것
+	if (self.m_tRewardInfo[tostring(rid)]) then
+		return true
+	end
+
+	-- focus가 더 크다면 클리어한것
+	local focus_road = self.m_focusRoad
+	return (focus_road > rid) 
+end
+
+-------------------------------------
 -- function isClearAllRoad
 -- @brief 마지막 마스터의길까지 클리어했는지 여부
 -------------------------------------

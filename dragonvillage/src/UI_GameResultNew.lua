@@ -731,25 +731,11 @@ end
 -------------------------------------
 function UI_GameResultNew:direction_masterRoad()
 	
-	-- @ TUTORIAL
+	-- @ TUTORIAL : 11연차 무료 튜토리얼 시작 여부
 	local function tutorial_cb()
 		local stage_id = self.m_stageID
 		if (TutorialManager.getInstance():checkStartFreeSummon11(stage_id)) then
-			local function second_network()
-				local tutorial_key = TUTORIAL.GACHA11_START
-				local step = nil
-				g_tutorialData:request_tutorialSave(tutorial_key, step)
-			end
-
-			local tutorial_key = TUTORIAL.ADV_01_07_END
-			local step = 101
-			local function finish_cb()
-				TutorialManager.getInstance():startTutorial(tutorial_key, self)
-				second_network()
-			end
-			g_tutorialData:request_tutorialSave(tutorial_key, step, finish_cb)
-
-			return
+			TutorialManager.getInstance():startTutorial(tutorial_key, self)
 		else
 			UI_MasterRoadPopup_Link()
 		end
