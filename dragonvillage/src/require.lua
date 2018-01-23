@@ -41,6 +41,7 @@ local t_module = {
     'XorCipher',
     'PackageManager',
     'FullPopupManager',
+    'ServerListData',
 
 	-- CONSTANT 
     'Constant',

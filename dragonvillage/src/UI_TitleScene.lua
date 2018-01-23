@@ -11,7 +11,7 @@ UI_TitleScene = class(PARENT,{
 
         m_currWorkRetry = 'number',
 
-		m_stopWatch = 'StopWatch',
+		m_stopWatch = 'StopWatch',        
     })
 
 -------------------------------------
@@ -288,10 +288,9 @@ function UI_TitleScene:setWorkList()
     
     table.insert(self.m_lWorkList, 'workTitleAni')
     table.insert(self.m_lWorkList, 'workLoading')
-    table.insert(self.m_lWorkList, 'workCheckUserID')
-    table.insert(self.m_lWorkList, 'workSelectServer')
-    table.insert(self.m_lWorkList, 'workPlatformLogin')
-    table.insert(self.m_lWorkList, 'workPlatformNotiServer')  --플랫폼서버에 선택한 서버를 알려줘야하는데 사용하는 uid가 플랫폼서버에서 알려주는걸 사용해야 해서 로그인다음에 합니다.
+    table.insert(self.m_lWorkList, 'workGetServerList')
+    table.insert(self.m_lWorkList, 'workCheckUserID')    
+    table.insert(self.m_lWorkList, 'workPlatformLogin')    
     table.insert(self.m_lWorkList, 'workGameLogin')
     table.insert(self.m_lWorkList, 'workGetDeck')
     table.insert(self.m_lWorkList, 'workGetServerInfo')
@@ -461,10 +460,12 @@ function UI_TitleScene:workCheckUserID()
     local target_server = CppFunctions:getTargetServer()
     if isWin32() then
         local uid = g_localData:get('local', 'uid')
-        if uid then
+        local server = g_localData:getServerName()
+        if uid and server then
             self:doNextWork()
-        else
+        else            
             self:makeRandomUid()
+            self:selectWin32Server()
             self:doNextWork()
         end
         return
@@ -529,19 +530,24 @@ function UI_TitleScene:workCheckUserID()
     -- iOS의 경우 앱을 재설치해도 autoLogin이 성공하므로
     -- 로컬데이터가 없는 경우를 재설치 경우로 보고,
     -- 이전 플랫폼 관련 로그인 세션을 모두 로그아웃하고 로그인 팝업 출력
-    if isIos() then
-        if (g_localData:get('local', 'platform_id') == nil) then
-            self.m_loadingUI:hideLoading()
-
-            PerpleSDK:logout()
-            PerpleSDK:googleLogout(0)
-            PerpleSDK:facebookLogout()
-
-            fail_cb()
-            return
-        end
+    local needLogOut = false    
+    if g_localData:getServerName() == nil then  --선택 서버 내용이 없어도.
+        needLogOut = true
+    elseif isIos() and (g_localData:get('local', 'platform_id') == nil) then        
+        needLogOut = true
     end
 
+    if needLogOut then
+        self.m_loadingUI:hideLoading()
+
+        PerpleSDK:logout()
+        PerpleSDK:googleLogout(0)
+        PerpleSDK:facebookLogout()
+
+        fail_cb()
+        return
+    end
+        
     PerpleSDK:autoLogin(function(ret, info)
         self.m_loadingUI:hideLoading()
         if ret == 'success' then
@@ -559,26 +565,18 @@ function UI_TitleScene:workCheckUserID_click()
 end
 
 -------------------------------------
--- function workSelectServer
--- @brief 플랫폼 서버에 서버리스트를 얻어와서 선택한다.
+-- function workGetServerList
+-- @brief 플랫폼 서버에 서버리스트를 얻어 온다
 -------------------------------------
-function UI_TitleScene:workSelectServer()
+function UI_TitleScene:workGetServerList()
     self.m_loadingUI:showLoading(Str('서버 목록을 받아오는 중...'))
 
     local success_cb = function(ret)
         self.m_loadingUI:hideLoading()
-        cclog( luadump( ret ) )        
-        
-        if ret['state'] == 0 then
-            local function cbFinish()
-                --네이버 카페 글로벌 세팅(서버 선택이 필요해서 이쪽으로 옮깁니다.)
-                self:initNaverPlug()
                 
-
-                self:doNextWork()
-            end
-            
-            UI_SelectServerPopup(ret, cbFinish)
+        if ret['state'] == 0 then            
+            ServerListData:createWithData(ret)
+            self:doNextWork()            
         else            
             self:makeFailPopup(nil, ret)
         end
@@ -590,8 +588,6 @@ function UI_TitleScene:workSelectServer()
     end
 
     Network_platform_getServerList( success_cb, fail_cb )
-end
-function UI_TitleScene:workSelectServer_click()
 end
 
 -------------------------------------
@@ -1132,11 +1128,14 @@ function UI_TitleScene:workFinish()
     -- 로딩창 숨김
     self.m_loadingUI:hideLoading()
 
-        -- 신규 유저 바로 진입 가능하게 변경
+    --네이버 카페 글로벌 세팅(서버 선택이 필요해서 이쪽으로 옮깁니다.)
+    self:initNaverPlug()
+
+    -- 신규 유저 바로 진입 가능하게 변경
     if self.m_bNewUser then
         self:workFinish_click()
     else
-        -- 화면을 터치하세요. 출력
+    -- 화면을 터치하세요. 출력
         self:setTouchScreen()
     end
 
@@ -1177,6 +1176,17 @@ function UI_TitleScene:workFinish_click()
     else
         lobby_func()
     end
+end
+
+-------------------------------------
+-- function selectWindowServer
+-------------------------------------
+function UI_TitleScene:selectWin32Server()
+    local server = CppFunctionsClass:getTargetServer()
+    g_localData:lockSaveData()
+    ServerListData:getInstance():selectServer( server )
+    g_localData:setServerName( server )
+    g_localData:unlockSaveData()
 end
 
 -------------------------------------

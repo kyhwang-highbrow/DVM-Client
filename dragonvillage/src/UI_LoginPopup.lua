@@ -4,7 +4,7 @@ local PARENT = UI
 -- class UI_LoginPopup
 -------------------------------------
 UI_LoginPopup = class(PARENT,{
-        m_loadingUI = 'UI_TitleSceneLoading',
+        m_loadingUI = 'UI_TitleSceneLoading',                
     })
 
 -------------------------------------
@@ -13,7 +13,7 @@ UI_LoginPopup = class(PARENT,{
 function UI_LoginPopup:init()
     local vars = self:load('login_popup.ui')
     UIManager:open(self, UIManager.POPUP)
-
+    
     -- backkey 없음
     g_currScene:pushBackKeyListener(self, function() self:click_exitBtn() end, 'UI_LoginPopup')
 
@@ -50,6 +50,7 @@ function UI_LoginPopup:initButton()
     self.vars['gamecenterBtn']:registerScriptTapHandler(function() self:click_gamecenterBtn() end)
     self.vars['googleBtn']:registerScriptTapHandler(function() self:click_googleBtn() end)
     self.vars['guestBtn']:registerScriptTapHandler(function() self:click_guestBtn() end)
+    vars['serverBtn']:registerScriptTapHandler(function() self:click_changeServer() end)
 
     self.vars['closeBtn']:setVisible(false)
 
@@ -77,7 +78,16 @@ end
 -------------------------------------
 -- function refresh
 -------------------------------------
-function UI_LoginPopup:refresh()
+function UI_LoginPopup:refresh()    
+    self:setServerName( ServerListData:getInstance():getSelectServer() )    
+end
+
+-------------------------------------
+-- function setServerName
+-------------------------------------
+function UI_LoginPopup:setServerName(name)
+    local vars = self.vars
+    vars['serverLabel']:setString( string.upper( name ) )
 end
 
 -------------------------------------
@@ -180,6 +190,17 @@ function UI_LoginPopup:click_guestBtn()
 end
 
 -------------------------------------
+-- function click_changeServer()
+-------------------------------------
+function UI_LoginPopup:click_changeServer()
+    local function onFinish( name )        
+        ServerListData:getInstance():selectServer( name )
+        self:setServerName( name )
+    end
+    UI_SelectServerPopup( onFinish )
+end
+
+-------------------------------------
 -- function loginSuccess
 -------------------------------------
 function UI_LoginPopup:loginSuccess(info)
@@ -204,6 +225,11 @@ function UI_LoginPopup:loginSuccess(info)
     else
         g_localData:applyLocalData('off', 'local', 'googleplay_connected')
     end
+
+    --선택 서버 저장
+    g_localData:lockSaveData()
+    g_localData:setServerName( ServerListData:getInstance():getSelectServer() )
+    g_localData:unlockSaveData()
 
     -- 혹시 시스템 오류로 멀티연동이 된 경우 현재 로그인한 플랫폼 이외의 연결은 해제한다.
     UnlinkBrokenPlatform(t_info, platform_id)

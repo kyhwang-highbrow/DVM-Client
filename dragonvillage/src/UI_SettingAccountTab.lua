@@ -12,6 +12,7 @@ function UI_Setting:init_accountTab()
 
     vars['clearBtn']:registerScriptTapHandler(function() self:click_clearBtn() end)
     vars['logoutBtn']:registerScriptTapHandler(function() self:click_logoutBtn() end)
+    vars['serverBtn']:registerScriptTapHandler(function() self:click_serverBtn() end)
 
     -- 테스트 모드에서만 로그아웃, 초기화 버튼을 노출한다
     if IS_TEST_MODE() then
@@ -503,6 +504,32 @@ function UI_Setting:click_logoutBtn()
 end
 
 -------------------------------------
+-- function click_serverBtn
+-------------------------------------
+function UI_Setting:click_serverBtn()
+    local function onChangeServer( serverName )
+        local oldServer = ServerListData:getInstance():getSelectServer()
+        if oldServer == serverName then
+            return
+        end
+
+        local function ok_cb()
+            ServerListData:getInstance():selectServer( serverName )
+
+            g_localData:lockSaveData()        
+            g_localData:setServerName( serverName )
+            g_localData:unlockSaveData()
+
+            CppFunctions:restart()
+        end
+
+        MakeSimplePopup(POPUP_TYPE.YES_NO, '설정을 변경하면 앱이 재시작됩니다.\n진행하시겠습니까?', ok_cb)
+    end
+
+    UI_SelectServerPopup(onChangeServer)
+end
+
+-------------------------------------
 -- function loginSuccess
 -------------------------------------
 function UI_Setting:loginSuccess(info)
@@ -634,7 +661,7 @@ function UI_Setting:updateInfo()
 
 	-- 서버 명 표기
 	local server_name = g_localData:getServerName()
-	self.vars['serverLabel']:setString(server_name)
+	self.vars['serverLabel']:setString( string.upper(server_name) )
 
     -- dirty -> lobby btn state
     GoogleHelper.setDirty(true)
