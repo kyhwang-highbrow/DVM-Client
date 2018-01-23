@@ -192,7 +192,7 @@ function UI_ScenarioPlayer:effect_title(effect, val_1, val_2, val_3)
         -- 하위 UI가 모두 opacity값을 적용되도록
         self.m_titleUI:setOpacityChildren(true)
     end
-    self.m_titleUI.vars['titleLabel']:setString(val_1)
+    self.m_titleUI.vars['titleLabel']:setString(Str(val_1))
 
     self.m_titleUI.root:setVisible(true)
     local action = cc.Sequence:create(cc.DelayTime:create(3), cc.Hide:create())

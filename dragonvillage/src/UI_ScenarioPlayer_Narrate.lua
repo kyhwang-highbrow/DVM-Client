@@ -21,7 +21,7 @@ function UI_ScenarioPlayer_Narrate:init(t_page)
     -- backkey 지정
     g_currScene:pushBackKeyListener(self, function() end, 'UI_ScenarioPlayer_Narrate')
 
-	local text = t_page['t_text']
+	local text = Str(t_page['t_text'])
     self.m_lines = pl.stringx.splitlines(text)
     self.m_currLine = 0
     self.m_richlabelList = {}
