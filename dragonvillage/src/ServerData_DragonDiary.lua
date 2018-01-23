@@ -246,7 +246,6 @@ end
 -- @brief 마지막 마스터의길까지 클리어했는지 여부
 -------------------------------------
 function ServerData_DragonDiary:isClearAll()
-    ccdump(self.m_bEnable)
     -- 이전 계정들은 모두 클리어 처리
     if (self.m_bEnable == false) then
         return true
