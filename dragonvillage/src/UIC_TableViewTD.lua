@@ -352,20 +352,23 @@ function UIC_TableViewTD:scrollViewDidScroll(scroll_view)
         local cell = self._cellsUsed[1]
         local idx = cell['idx']
 
-        while (idx < startIdx) do
-            table.remove(self._cellsUsed, 1)
+		-- @mskim tableview 에러를 잡기 위한 우회처리
+		if (idx) then
+			while (idx < startIdx) do
+				table.remove(self._cellsUsed, 1)
 
-            if cell['ui'] then
-                cell['ui']:setCellVisible(false)
-            end
+				if cell['ui'] then
+					cell['ui']:setCellVisible(false)
+				end
 
-            if (#self._cellsUsed <= 0) then
-                break
-            end
+				if (#self._cellsUsed <= 0) then
+					break
+				end
 
-            cell = self._cellsUsed[1]
-            idx = cell['idx']
-        end
+				cell = self._cellsUsed[1]
+				idx = cell['idx']
+			end
+		end
     end
 
     -- 현재 보이는 item의 뒷쪽 정리
@@ -373,20 +376,23 @@ function UIC_TableViewTD:scrollViewDidScroll(scroll_view)
         local cell = self._cellsUsed[#self._cellsUsed]
         local idx = cell['idx']
 
-        while (idx < maxIdx) and (idx > endIdx) do
-            table.remove(self._cellsUsed, #self._cellsUsed)
+		-- @mskim tableview 에러를 잡기 위한 우회처리
+		if (idx) then
+			while (idx < maxIdx) and (idx > endIdx) do
+				table.remove(self._cellsUsed, #self._cellsUsed)
 
-            if cell['ui'] then
-                cell['ui']:setCellVisible(false)
-            end
+				if cell['ui'] then
+					cell['ui']:setCellVisible(false)
+				end
 
-            if (#self._cellsUsed <= 0) then
-                break
-            end
+				if (#self._cellsUsed <= 0) then
+					break
+				end
 
-            cell = self._cellsUsed[#self._cellsUsed]
-            idx = cell['idx']
-        end
+				cell = self._cellsUsed[#self._cellsUsed]
+				idx = cell['idx']
+			end
+		end
     end
 
     -- 눈에 보이는 item들 설정
