@@ -23,10 +23,12 @@ function SkillSuicideExplosion:init_skill(explosion_res, jump_res)
 	
 	self.m_explosionRes = explosion_res
 
+    -- 목표 좌표 설정
+    local cameraHomePosX, cameraHomePosY = self.m_world.m_gameCamera:getHomePos()
     if (self:isRightFormation()) then
-        self.m_targetPos = { x = 320, y = CRITERIA_RESOLUTION_Y / 2 }
+        self.m_targetPos = { x = 320 + cameraHomePosX, y = cameraHomePosY }
     else
-        self.m_targetPos = { x = 960, y = CRITERIA_RESOLUTION_Y / 2 }
+        self.m_targetPos = { x = 960 + cameraHomePosX, y = cameraHomePosY }
     end
 
     -- 사용자 무적 처리
