@@ -99,6 +99,9 @@ function UIC_DragonAnimatorDirector_Summon:directingContinue()
         return
     end
 
+	-- 사운드 재생 (확정 뽑기도 나옴)
+	SoundMgr:playEffect('UI', 'ui_egg_break')
+
     -- 확정 등급 뽑기는 연출 재생 안함 - 클릭시 바로 결과
     local is_fix = TableSummonGacha:isFixSummon(self.m_eggID)
     if (is_fix) then
@@ -132,8 +135,6 @@ function UIC_DragonAnimatorDirector_Summon:directingContinue()
 		end
         self.m_bAnimate = false
 	end)
-
-	SoundMgr:playEffect('UI', 'ui_egg_break')
 end
 
 -------------------------------------
