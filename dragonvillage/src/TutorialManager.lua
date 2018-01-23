@@ -135,7 +135,8 @@ function TutorialManager:checkTutorialInLobby(ui_lobby)
 	if (not is_done) then
 		local step = g_tutorialData:getStep(tutorial_key)
 		if (step == 101) then
-			UI_MasterRoadPopup()
+			local scene = SceneCommon(UI_MasterRoadPopup)
+            scene:runScene()
 			return
 
 		elseif (step == 102) then

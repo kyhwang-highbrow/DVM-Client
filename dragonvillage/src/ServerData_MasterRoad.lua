@@ -166,7 +166,7 @@ function ServerData_MasterRoad:updateMasterRoad(t_data, cb_func)
     if (self:checkFocusRoadClear(t_data)) then
         local function after_func()
             if (cb_func) then   
-                cb_func()
+                cb_func(true) -- UI_GameResultNew에서 클리어 여부를 받아간다
             else
                 UI_MasterRoadPopup_Link()
             end

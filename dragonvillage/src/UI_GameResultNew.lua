@@ -24,6 +24,8 @@ UI_GameResultNew = class(PARENT, {
 
         m_staminaType = 'string',
         m_autoCount = 'boolean',
+
+		m_isClearMasterRoad = 'boolean',
      })
 
 -------------------------------------
@@ -51,6 +53,9 @@ function UI_GameResultNew:init(stage_id, is_success, time, gold, t_tamer_levelup
     
     -- 백키 지정
     g_currScene:pushBackKeyListener(self, function() self:click_backBtn() end, 'UI_GameResultNew')
+	
+	-- 마스터의 길 미리 체크
+	self:checkMasterRoadClear()
 
     -- @brief work초기화 용도로 사용함
     self:setWorkList()
@@ -166,6 +171,37 @@ function UI_GameResultNew:init_difficultyIcon(stage_id)
         vars['gradeLabel']:setColor(COLOR['diff_hell'])
 
     end
+end
+
+-------------------------------------
+-- function checkMasterRoadClear
+-------------------------------------
+function UI_GameResultNew:checkMasterRoadClear()
+    -- 마스터의 길 : 스테이지 체크
+    if (self.m_bSuccess) then
+        -- @ MASTER ROAD
+        local t_data = {
+            game_mode = g_gameScene.m_gameMode, 
+            stage_id = self.m_stageID, 
+            dungeon_mode = g_gameScene.m_dungeonMode, 
+            is_success = true
+        }
+		local function cb_func(b)
+			self.m_isClearMasterRoad = b or false
+		end
+        g_masterRoadData:updateMasterRoad(t_data, cb_func)
+
+        -- @ GOOGLE ACHIEVEMENT
+        GoogleHelper.updateAchievement(t_data)
+    end
+
+    -- 마스터의 길 : 유저 레벨 체크
+    do
+        -- @ MASTER ROAD
+        local t_data = {clear_key = 'u_lv'}
+        g_masterRoadData:updateMasterRoad(t_data)
+    end
+
 end
 
 -------------------------------------
@@ -730,38 +766,20 @@ end
 -- function direction_masterRoad
 -------------------------------------
 function UI_GameResultNew:direction_masterRoad()
-	
-	-- @ TUTORIAL : 11연차 무료 튜토리얼 시작 여부
-	local function tutorial_cb()
+	-- 승리 시
+	if (self.m_bSuccess) then
+		-- @ TUTORIAL : 11연차 무료 튜토리얼 시작 여부
 		local stage_id = self.m_stageID
 		if (TutorialManager.getInstance():checkStartFreeSummon11(stage_id)) then
+			local tutorial_key = TUTORIAL.ADV_01_07_END
 			TutorialManager.getInstance():startTutorial(tutorial_key, self)
-		else
+
+		-- 마스터의 길 클리어했다면
+		elseif (self.m_isClearMasterRoad) then
 			UI_MasterRoadPopup_Link()
+
 		end
 	end
-
-    -- 마스터의 길 : 스테이지 체크
-    do
-        -- @ MASTER ROAD
-        local t_data = {
-            game_mode = g_gameScene.m_gameMode, 
-            stage_id = self.m_stageID, 
-            dungeon_mode = g_gameScene.m_dungeonMode, 
-            is_success = self.m_bSuccess
-        }
-        g_masterRoadData:updateMasterRoad(t_data, tutorial_cb)
-
-        -- @ GOOGLE ACHIEVEMENT
-        GoogleHelper.updateAchievement(t_data)
-    end
-
-    -- 마스터의 길 : 유저 레벨 체크
-    do
-        -- @ MASTER ROAD
-        local t_data = {clear_key = 'u_lv'}
-        g_masterRoadData:updateMasterRoad(t_data)
-    end
 
     -- 드래곤 성장일지 : 드래곤 등급, 레벨 체크
     local start_dragon_data = g_dragonDiaryData:getStartDragonDataWithList(self.m_lDragonList)
