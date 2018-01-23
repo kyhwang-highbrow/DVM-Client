@@ -302,6 +302,7 @@ end
 function UI_Game:click_speedButton()
     if (not self.m_gameScene.m_gameWorld) then return end
 
+    local game_mode = self.m_gameScene.m_gameMode
 	local gameTimeScale = self.m_gameScene.m_gameWorld.m_gameTimeScale
 	local quick_time_scale = g_constant:get('INGAME', 'QUICK_MODE_TIME_SCALE')
 
@@ -310,13 +311,17 @@ function UI_Game:click_speedButton()
 
         gameTimeScale:setBase(1)
 
-        g_autoPlaySetting:setWithoutSaving('quick_mode', false)
+        if (game_mode ~= GAME_MODE_INTRO) then
+            g_autoPlaySetting:setWithoutSaving('quick_mode', false)
+        end
     else
         UIManager:toastNotificationGreen(Str('빠른모드 활성화'))
 
         gameTimeScale:setBase(quick_time_scale)
 
-        g_autoPlaySetting:setWithoutSaving('quick_mode', true)
+        if (game_mode ~= GAME_MODE_INTRO) then
+            g_autoPlaySetting:setWithoutSaving('quick_mode', true)
+        end
     end
 
     self.vars['speedVisual']:setVisible((gameTimeScale:getBase() >= quick_time_scale))
@@ -672,7 +677,7 @@ end
 -------------------------------------
 function UI_Game:initIntroFight()
     local vars = self.vars
-    local off_list = {'autoStartButton', 'autoButton', 'speedButton', 
+    local off_list = {'autoStartButton', 'autoButton', --'speedButton', 
                       'hottimeNode', 'chatBtn', 'pauseButton',
                       'effectBtn', 'buffBtn', 'dpsInfoNode',
                       'autoVisual'}
