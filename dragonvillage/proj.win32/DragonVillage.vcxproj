@@ -459,6 +459,7 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <None Include="..\src\ServerData_ContentLock.lua" />
     <None Include="..\src\ServerData_DailyMission.lua" />
     <None Include="..\src\ServerData_DragonBoard.lua" />
+    <None Include="..\src\ServerData_DragonDiary.lua" />
     <None Include="..\src\ServerData_Eggs.lua" />
     <None Include="..\src\ServerData_Event.lua" />
     <None Include="..\src\ServerData_EventDice.lua" />
@@ -800,6 +801,7 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <None Include="..\src\TableColosseumBuff.lua" />
     <None Include="..\src\TableDragon.lua" />
     <None Include="..\src\TableDragonCombine.lua" />
+    <None Include="..\src\TableDragonDiary.lua" />
     <None Include="..\src\TableDragonPhrase.lua" />
     <None Include="..\src\TableDragonExp.lua" />
     <None Include="..\src\TableDragonReinforce.lua" />
@@ -978,6 +980,7 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <None Include="..\src\UI_CouponPopup_Confirm.lua" />
     <None Include="..\src\UI_DailyMisson_Clan.lua" />
     <None Include="..\src\UI_DiceEvent.lua" />
+    <None Include="..\src\UI_DragonDiaryPopup.lua" />
     <None Include="..\src\UI_DragonGuideListItem.lua" />
     <None Include="..\src\UI_DragonGuidePopup.lua" />
     <None Include="..\src\UI_DragonReinforceItem.lua" />

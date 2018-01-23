@@ -358,11 +358,19 @@ function UI_DragonFriendship:request_friendshipUp(fid, fcnt, fcnt_120p, fcnt_150
         if (flv >= 8) then
             local desc = (flv == 8) and '행복 상태' or '일심동체 상태'
             Analytics:trackEvent(CUS_CATEGORY.GROWTH, CUS_EVENT.DRA_FR_MAX, 1, desc)
-        end
-        
+        end        
+
         -- @ MASTER ROAD
         local t_data = {clear_key = 'fruit'}
         g_masterRoadData:updateMasterRoad(t_data)
+
+        -- 드래곤 성장일지 : 드래곤 진화 체크
+        local start_dragon_data = g_dragonDiaryData:getStartDragonData(ret['dragon'])
+        if (start_dragon_data) then
+            -- @ DRAGON DIARY
+            local t_data = {clear_key = 'fr_lvup', sub_data = start_dragon_data}
+            g_dragonDiaryData:updateDragonDiary(t_data)
+        end
 
         finish_cb(ret)
     end

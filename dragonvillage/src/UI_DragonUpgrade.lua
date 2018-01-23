@@ -524,6 +524,14 @@ function UI_DragonUpgrade:click_upgradeBtn()
         -- 드래곤 정보 갱신
         g_dragonsData:applyDragonData(ret['modified_dragon'])
 
+        -- 드래곤 성장일지 : 드래곤 승급 체크
+        local start_dragon_data = g_dragonDiaryData:getStartDragonData(ret['modified_dragon'])
+        if (start_dragon_data) then
+            -- @ DRAGON DIARY
+            local t_data = {clear_key = 'd_grup_s', sub_data = start_dragon_data}
+            g_dragonDiaryData:updateDragonDiary(t_data)
+        end
+
         -- 갱신
         g_serverData:networkCommonRespone(ret)
 

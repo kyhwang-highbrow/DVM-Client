@@ -705,6 +705,18 @@ function UI_DragonManageInfo:click_lockBtn()
 	end
 
 	local lock = (not struct_dragon_data:getLock())
+
+    -- 드래곤 성장일지 (퀘스트 진행중이면 잠금 풀 수 없음)
+    local start_dragon_doid = g_userData:get('start_dragon')
+    if (start_dragon_doid) and (not g_dragonDiaryData:isClearAll()) then
+        
+        if (doids == start_dragon_doid) then
+            local msg = Str('육성 퀘스트가 진행중인 드래곤입니다.\n퀘스트를 모두 수행해야 잠금 해제가 가능합니다.')
+            MakeSimplePopup(POPUP_TYPE.OK, msg)
+            return
+        end
+    end
+
 	local function cb_func(ret)
 		-- 메인 잠금 표시 해제
 		self.vars['lockSprite']:setVisible(lock)

@@ -155,6 +155,7 @@ local t_module = {
 	'ServerData_DailyMission',
 	'ServerData_CapsuleBox',
 	'ServerData_AttrTower',
+    'ServerData_DragonDiary',
 
     -- Interface
     'IEventDispatcher',
@@ -280,6 +281,7 @@ local t_module = {
     'TableItemRand',
 	'TableQuest',
 	'TableMasterRoad',
+    'TableDragonDiary',
     'TableSecretDungeon',
     'TableStageMission',
     'TableCalendar',
@@ -723,6 +725,7 @@ local t_module = {
     'UI_ContentOpenPopup',
     'UI_DragonGuidePopup',
     'UI_DragonGuideListItem',
+    'UI_DragonDiaryPopup',
 
 	-- UI : 해외
 	'UI_SelectServerPopup',

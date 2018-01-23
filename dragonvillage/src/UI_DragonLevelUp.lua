@@ -509,6 +509,14 @@ function UI_DragonLevelUp:click_levelupBtn()
         if (prev_lv == curr_lv) then
             self:response_levelup(ret, bonus_rate)
         else
+            -- 드래곤 성장일지 : 드래곤 등급, 레벨 체크
+            local start_dragon_data = g_dragonDiaryData:getStartDragonData(ret['modified_dragon'])
+            if (start_dragon_data) then
+                -- @ DRAGON DIARY
+                local t_data = {clear_key = 'd_lv', sub_data = start_dragon_data}
+                g_dragonDiaryData:updateDragonDiary(t_data)
+            end
+
             -- 드래곤 정보 갱신 (임시 위치)
             g_dragonsData:applyDragonData(ret['modified_dragon'])
             local ui = UI_DragonLevelupResult(StructDragonObject(ret['modified_dragon']), prev_lv, prev_exp, bonus_rate)
@@ -604,6 +612,10 @@ function UI_DragonLevelUp:response_levelup(ret, bonus_rate)
     -- @ MASTER ROAD
     local t_data = {clear_key = 'd_lvup'}
     g_masterRoadData:updateMasterRoad(t_data)
+
+    -- @ DRAGON DIARY
+    local t_data = {clear_key = 'd_lvup', ret = ret}
+    g_dragonDiaryData:updateDragonDiary(t_data)
 end
 
 --@CHECK

@@ -168,6 +168,11 @@ T_LINK_FUNC = {
         UINavigator:goTo('adventure')
     end,
 
+    -- 드래곤 레벨 달성
+    ['d_lv'] = function()
+        UINavigator:goTo('adventure')
+    end,
+
     -- 친구 n명 달성
     ['make_frd'] = function()
         UINavigator:goTo('friend')
@@ -196,6 +201,16 @@ T_LINK_FUNC = {
     ['r_eq'] = function()
         UINavigator:goTo('dragon_manage', 'rune')
     end,    
+    -- 드래곤 성장일지 - 룬 장착
+    ['r_eq_s'] = function()
+        local start_dragon = g_userData:get('start_dragon')
+        UINavigator:goTo('dragon_manage', 'rune', start_dragon)
+    end,
+    -- 드래곤 성장일지 - 특정 능력치 체크 (룬 장착, 강화쪽 체크)
+    ['check_d_stat'] = function()
+        local start_dragon = g_userData:get('start_dragon')
+        UINavigator:goTo('dragon_manage', 'rune', start_dragon)
+    end,
 
     -- 룬 강화
     ['r_enc'] = function()
@@ -238,6 +253,11 @@ T_LINK_FUNC = {
     ['d_evol_3'] = function()
         UINavigator:goTo('dragon_manage', 'evolution')
     end,
+    -- 드래곤 성장일지 - 드래곤 진화
+    ['d_evup_s'] = function()
+        local start_dragon = g_userData:get('start_dragon')
+        UINavigator:goTo('dragon_manage', 'evolution', start_dragon)
+    end,
 
     -- 드래곤 레벨업
     ['d_lvup'] = function()
@@ -262,6 +282,11 @@ T_LINK_FUNC = {
     ['d_grup_6'] = function()
         UINavigator:goTo('dragon_manage', 'grade')
     end,
+    -- 드래곤 성장일지 - 드래곤 성장일지
+    ['d_grup_s'] = function()
+        local start_dragon = g_userData:get('start_dragon')
+        UINavigator:goTo('dragon_manage', 'grade', start_dragon)
+    end,
 
     -- 드래곤 승급 확인하기
     ['check_grup'] = function()
@@ -278,6 +303,11 @@ T_LINK_FUNC = {
     -- 친밀도 일심동체 만들기
     ['d_flv_9'] = function()
         UINavigator:goTo('dragon_manage', 'friendship')
+    end,
+    -- 드래곤 성장일지 - 친밀도 올리기
+    ['fr_lvup'] = function()
+        local start_dragon = g_userData:get('start_dragon')
+        UINavigator:goTo('dragon_manage', 'friendship', start_dragon)
     end,
 
     -- 작별

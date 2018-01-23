@@ -769,6 +769,7 @@ end
 function UINavigatorDefinition:goTo_dragon_manage(...)
     local args = {...}
     local sub_menu = args[1]
+    local tar_dragon = args[2]
 
     -- 해당 UI가 열려있을 경우
     local is_opend, idx, ui = self:findOpendUI('UI_DragonManageInfo')
@@ -782,7 +783,7 @@ function UINavigatorDefinition:goTo_dragon_manage(...)
     local is_opend, idx, ui = self:findOpendUI('UI_Lobby')
     if (is_opend == true) then
         self:closeUIList(idx)
-        local ui = UI_DragonManageInfo()
+        local ui = UI_DragonManageInfo(tar_dragon)
         ui:clickSubMenu(sub_menu)
         return
     end

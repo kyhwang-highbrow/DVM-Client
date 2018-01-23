@@ -373,6 +373,14 @@ function UI_DragonInfoBoard:refresh_status(t_dragon_data, t_dragon)
     if vars['cp_label'] then
         vars['cp_label']:setString(comma_value(t_dragon_data:getCombatPower()))
     end
+
+    -- 드래곤 성장일지 : 능력치 체크
+    local start_dragon_data = g_dragonDiaryData:getStartDragonData(t_dragon_data)
+    if (start_dragon_data) then
+        -- @ DRAGON DIARY
+        local t_data = {clear_key = 'check_d_stat', sub_data = start_dragon_data}
+        g_dragonDiaryData:updateDragonDiary(t_data)
+    end
 end
 
 -------------------------------------

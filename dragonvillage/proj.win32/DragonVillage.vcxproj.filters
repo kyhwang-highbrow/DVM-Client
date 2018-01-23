@@ -3163,6 +3163,15 @@
     <None Include="..\src\SkillAoERound_Hide.lua">
       <Filter>lua\src</Filter>
     </None>
+    <None Include="..\src\ServerData_DragonDiary.lua">
+      <Filter>lua\src</Filter>
+    </None>
+    <None Include="..\src\TableDragonDiary.lua">
+      <Filter>lua\src</Filter>
+    </None>
+    <None Include="..\src\UI_DragonDiaryPopup.lua">
+      <Filter>lua\UI</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Classes">

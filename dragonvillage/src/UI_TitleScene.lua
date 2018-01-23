@@ -926,6 +926,17 @@ function UI_TitleScene:workGetServerInfo()
         end
         if co:waitWork() then return end
 
+        -- 드래곤 성장일지
+        co:work()
+        self.m_loadingUI:showLoading(Str('드래곤 성장일지 쓰는 중...'))
+        local ui_network = g_dragonDiaryData:request_diaryInfo(co.NEXT, fail_cb)
+        if ui_network then
+            ui_network:setRevocable(false)
+            ui_network:setFailCB(fail_cb)
+            ui_network:hideLoading()
+        end
+        if co:waitWork() then return end
+
         -- 레벨업 패키지
         co:work()
         self.m_loadingUI:showLoading(Str('가방을 챙기는 중...'))

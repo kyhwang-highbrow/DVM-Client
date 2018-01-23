@@ -326,6 +326,9 @@ function UI_Lobby:initButton()
     vars['masterRoadBtn']:registerScriptTapHandler(function() self:click_masterRoadBtn() end)
     vars['etcBtn']:registerScriptTapHandler(function() self:click_etcBtn() end)
     
+    -- 드래곤 성장일지
+    vars['dragonDiaryBtn']:registerScriptTapHandler(function() self:click_dragonDiaryBtn() end)
+
     -- 좌측 UI
     vars['mailBtn']:registerScriptTapHandler(function() self:click_mailBtn() end)
     vars['googleGameBtn']:registerScriptTapHandler(function() self:click_googleGameBtn() end)
@@ -375,6 +378,9 @@ function UI_Lobby:refresh()
     -- 마스터의 길 정보 갱신
     self:refresh_masterRoad()
 
+    -- 드래곤 성장일지
+    self:refresh_dragonDiary()
+
     -- 구글 버튼 처리
     self:refresh_google()
 end
@@ -421,6 +427,10 @@ function UI_Lobby:refresh_highlight()
 		-- 마스터의 길
 		local has_reward, _ = g_masterRoadData:hasRewardRoad()
 		vars['masterRoadNotiSprite']:setVisible(has_reward)
+
+        -- 드래곤 성장일지
+        local has_reward, _ = g_dragonDiaryData:hasRewardRoad()
+		vars['dragonDiaryNotiSprite']:setVisible(has_reward)
 
 		-- 도감
 		etc_vars['bookNotiSprite']:setVisible(g_bookData:isHighlightBook())
@@ -526,6 +536,35 @@ function UI_Lobby:refresh_masterRoad()
 end
 
 -------------------------------------
+-- function refresh_dragonDiary
+-------------------------------------
+function UI_Lobby:refresh_dragonDiary()
+    local vars = self.vars
+    
+    local is_clear = g_dragonDiaryData:isClearAll()
+    vars['dragonDiaryBtn']:setVisible(not is_clear)
+    vars['dragonDiaryNode']:setVisible(not is_clear)
+
+    -- 현재 목표 출력
+    if (not is_clear) then
+        local frame_res = g_dragonDiaryData:getStartDragonFrameRes()
+        local frame = cc.Scale9Sprite:create(frame_res)
+        frame:setDockPoint(CENTER_POINT)
+	    frame:setAnchorPoint(CENTER_POINT)
+        vars['dragonDiaryNode']:addChild(frame)
+
+        local rid = g_dragonDiaryData:getFocusRid()
+        local t_diary = TableDragonDiary():get(rid)
+
+        local title = g_dragonDiaryData:getTitleText()
+        vars['dragonDiaryTitle']:setString(title)
+
+        local desc = Str(t_diary['t_desc'])
+        vars['dragonDiaryLabel']:setString(desc)
+    end
+end
+
+-------------------------------------
 -- function refresh_google
 -------------------------------------
 function UI_Lobby:refresh_google()
@@ -590,6 +629,14 @@ end
 -------------------------------------
 function UI_Lobby:click_masterRoadBtn()
     UI_MasterRoadPopup()
+end
+
+-------------------------------------
+-- function click_dragonDiaryBtn
+-- @brief 마스터의 길 버튼
+-------------------------------------
+function UI_Lobby:click_dragonDiaryBtn()
+    UI_DragonDiaryPopup()
 end
 
 -------------------------------------
@@ -854,6 +901,12 @@ function UI_Lobby:update(dt)
         self:refresh_masterRoad()
     end
 
+    -- 드래곤 성장일지 정보 갱신
+    if (g_dragonDiaryData.m_bDirty) then
+        g_dragonDiaryData.m_bDirty = false
+        self:refresh_dragonDiary()
+    end
+    
     -- 구글 버튼 처리
     if (GoogleHelper.isDirty) then
         GoogleHelper.setDirty(false)

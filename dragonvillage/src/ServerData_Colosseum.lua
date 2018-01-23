@@ -810,6 +810,14 @@ function ServerData_Colosseum:makeDragonToken()
         local doid = l_deck[i]
         if (doid) then
             t_dragon_data = g_dragonsData:getDragonDataFromUid(doid)
+
+            -- 드래곤 성장일지 : 콜로세움 출전
+            local start_dragon_doid = g_userData:get('start_dragon')
+            if (start_dragon_doid) and (doid == start_dragon_doid) then
+                -- @ DRAGON DIARY
+                local t_data = {clear_key = 'ply_clsm', sub_data = start_dragon_data}
+                g_dragonDiaryData:updateDragonDiary(t_data)
+            end
         end
 
         if (t_dragon_data) then

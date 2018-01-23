@@ -194,6 +194,9 @@ function ServerData:getInstance()
 	-- 캡슐 신전
 	g_capsuleBoxData = ServerData_CapsuleBox(g_serverData)
 
+    -- 드래곤 성장일지
+    g_dragonDiaryData = ServerData_DragonDiary(g_serverData)
+
     return g_serverData
 end
 

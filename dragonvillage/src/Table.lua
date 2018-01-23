@@ -30,7 +30,7 @@ local TableInfo = {
         stage_desc          = {'table_stage_desc',          'stage',        false},
         secret_dungeon      = {'table_secret_dungeon',      'stage',        false},
         dragon_exp          = {'table_dragon_exp',          'eid',          false},
-        exp_tamer           = {'table_user_level',          'ulv',         false},
+        exp_tamer           = {'table_user_level',          'ulv',          false},
         item                = {'table_item',                'item',         false},
         fruit               = {'table_fruit',               'fid',          false},
         friendbuff          = {'table_dragon_friendbuff',   'rarity',       false},
@@ -44,6 +44,7 @@ local TableInfo = {
 
 		quest			    = {'table_quest',			    'qid',			false},
 		master_road			= {'table_master_road',			'rid',			false},
+        dragon_diary		= {'table_dragon_diary',		'rid',			false},
         table_tamer_title	= {'table_tamer_title',			'title_id',		false},
         table_google_quest	= {'table_google_quest',	    'gqid',			false},
 
@@ -84,6 +85,7 @@ local TableInfo = {
         table_clan_mark = {'table_clan_mark', 'unique_id', false},
 
 		table_pick_dragon = {'table_pick_dragon', 'itemid', false},
+
     }
 
 -------------------------------------

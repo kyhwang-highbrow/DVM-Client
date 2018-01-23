@@ -477,6 +477,14 @@ function UI_DragonEvolution:click_evolutionBtn()
             Analytics:trackEvent(CUS_CATEGORY.GROWTH, CUS_EVENT.DRA_EV, 1, '성룡 진화')
         end
 
+        -- 드래곤 성장일지 : 드래곤 진화 체크
+        local start_dragon_data = g_dragonDiaryData:getStartDragonData(ret['dragon'])
+        if (start_dragon_data) then
+            -- @ DRAGON DIARY
+            local t_data = {clear_key = 'd_evup_s', sub_data = start_dragon_data}
+            g_dragonDiaryData:updateDragonDiary(t_data)
+        end
+
         -- 진화 재료 갱신
         if ret['evolution_stones'] then
             g_serverData:applyServerData(ret['evolution_stones'], 'user', 'evolution_stones')

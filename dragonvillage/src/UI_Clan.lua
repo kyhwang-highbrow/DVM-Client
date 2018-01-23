@@ -48,13 +48,6 @@ function UI_Clan:init()
     end
 
     self:sceneFadeInAction(nil, finich_cb)
-
-    -- 번역 추출되게 임시 커밋 (후에 삭제)
-    local temp = Str('육성 퀘스트가 진행중인 드래곤입니다.\n퀘스트를 모두 수행해야 잠금 해제가 가능합니다.')
-
-    local temp_1 = Str('{1}의 성장일지', name)
-    local temp_2 = Str('드래곤 성장일지')
-    local temp_3 = Str('드래곤 성장일지 확인 중...')
 end
 
 -------------------------------------

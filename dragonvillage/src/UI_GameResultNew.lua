@@ -763,6 +763,14 @@ function UI_GameResultNew:direction_masterRoad()
         g_masterRoadData:updateMasterRoad(t_data)
     end
 
+    -- 드래곤 성장일지 : 드래곤 등급, 레벨 체크
+    local start_dragon_data = g_dragonDiaryData:getStartDragonDataWithList(self.m_lDragonList)
+    if (start_dragon_data) then
+        -- @ DRAGON DIARY
+        local t_data = {clear_key = 'd_lv', sub_data = start_dragon_data}
+        g_dragonDiaryData:updateDragonDiary(t_data)
+    end
+
     -- 마스터 로드 기록 후 연속 전투 체크
     self:checkAutoPlay()
 end

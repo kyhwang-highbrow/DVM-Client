@@ -88,6 +88,14 @@ function ServerData_Runes:request_runesEquip(doid, roid, finish_cb, fail_cb)
         local t_data = {clear_key = 'r_eq'}
         g_masterRoadData:updateMasterRoad(t_data)
 
+        -- 드래곤 성장일지 : 룬 장착 체크
+        local start_dragon_data = g_dragonDiaryData:getStartDragonData(ret['dragon'])
+        if (start_dragon_data) then
+            -- @ DRAGON DIARY
+            local t_data = {clear_key = 'r_eq_s', sub_data = start_dragon_data}
+            g_dragonDiaryData:updateDragonDiary(t_data)
+        end
+
         -- @ GOOGLE ACHIEVEMENT
         GoogleHelper.updateAchievement(t_data)
 
