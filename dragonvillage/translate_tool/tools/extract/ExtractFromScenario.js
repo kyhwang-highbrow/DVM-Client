@@ -66,7 +66,7 @@ function getStr( $path, $callback )
 
 		for( var i = 0; i < header.length; ++i )
 		{
-			if( header[i] != "t_char_name" && header[i] != "page" && header[i] != "char" && header[i] != "t_text" )
+			if( header[i] != "t_char_name" && header[i] != "page" && header[i] != "char" && header[i] != "t_text" && header[i].indexOf("effect_") < 0 )
 				continue;
 			
 			hearderList[ header[i] ] = i;
@@ -101,5 +101,40 @@ function getStr( $path, $callback )
 			var tempData = [ basename, page, t_char_name, str ];
 			data.push( tempData );
 		}				
+
+		//effect_ 시리즈
+		var effectIdx = 1;
+		var effectHeaderIdx = pushHeader["effect_" + effectIdx];
+		while( effectHeaderIdx )
+		{
+			var effectVal = $line[effectHeaderIdx];
+			if( effectVal )
+			{
+				if( effectVal == "title;귀찮은 작업")
+					var a = 0;
+
+				if( effectVal.length > 0 && reg.exec( effectVal ) != null )
+				{
+					//따로 추가해준다.
+					var tokenList = effectVal.split(";");
+					for( var i in tokenList )
+					{
+						var effectText = tokenList[i]
+						if( reg.exec( effectText ) != null )
+						{
+							var basename = path.basename( $path );
+							var str = t_text.replace(/\n|\r\n/g, "\\n");
+							var tempData = [ basename, page, "", effectText ];
+							data.push( tempData );
+						}
+					}
+					
+				}
+			}
+
+			++effectIdx;
+			effectHeaderIdx = pushHeader["effect_" + effectIdx];
+		}
+		
 	}
 }
