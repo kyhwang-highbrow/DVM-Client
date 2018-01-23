@@ -162,16 +162,16 @@ function StructSubscribedInfo:makePopupTitle()
     local res = ''
 
     if (category == 'basic') then
-        res = 'res/ui/typo/ko/package_daily_dia_0101.png'
+        res = 'ui/typo/ko/package_daily_dia_0101.png'
 
     elseif (category == 'premium') then
-        res = 'res/ui/typo/ko/package_daily_dia_0102.png'
+        res = 'ui/typo/ko/package_daily_dia_0102.png'
 
     else
         error('category : ' .. category)
     end
 
-    local bg = cc.Sprite:create(res)
+    local bg = cc.Sprite:create('res/' .. Translate:getTranslatedPath(res) )
     if (not bg) then
         error('res : ' .. res)
     end
