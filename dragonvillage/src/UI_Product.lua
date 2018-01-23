@@ -28,25 +28,53 @@ function UI_Product:initUI()
     local struct_product = self.m_structProduct
 
 	-- 상품 이름
-    vars['itemLabel']:setString(Str(struct_product['t_name']))
+	local product_name = Str(struct_product['t_name'])
+    vars['itemLabel']:setString(product_name)
 
 	-- 상품 설명
-    vars['dscLabel']:setString(struct_product:getDesc())
+	local product_desc = struct_product:getDesc()
+    vars['dscLabel']:setString(product_desc)
 
 	-- 상품 아이콘
-    local icon = struct_product:makeProductIcon()
-    if (icon) then
-        -- 고대주화 상품만 scale, 위치 조절
-        if (struct_product.price_type == 'ancient') then
-            icon:setScale(0.8)
-            icon:setPositionY(-20)
-        end
-        vars['itemNode']:addChild(icon)
-    end
+	local icon = struct_product:makeProductIcon()
+	if (icon) then
+		-- 고대주화 상품만 scale, 위치 조절
+		if (struct_product.price_type == 'ancient') then
+			icon:setScale(0.8)
+			icon:setPositionY(-20)
+		end
+		vars['itemNode']:addChild(icon)
+	end
 
-	-- 가격
-	local price = struct_product:getPriceStr()
-    vars['priceLabel']:setString(price)
+	-- 예외처리
+	-- 패키지
+	if (struct_product:isPackage()) then
+		vars['priceLabel']:setString(Str('구매'))
+
+	-- 그외 현금 상품 (다이아)
+	elseif (struct_product:isPaymentProduct()) then
+		-- 가격
+		local price = struct_product:getPriceStr()
+		vars['priceLabel']:setString(price)
+
+	-- 일반 재화 상품
+	else
+		-- 가격 아이콘
+		local icon = struct_product:makePriceIcon()
+		local price_node = vars['priceNode']
+		if (icon) then
+			price_node:addChild(icon)
+		else
+			price_node:setScale(0)
+		end
+
+		-- 가격
+		local price = struct_product:getPriceStr()
+		vars['priceLabel']:setString(price)
+
+		-- 가격 아이콘 및 라벨, 배경 조정
+		UIHelper:makePriceNodeVariable(vars['priceBg'],  vars['priceNode'], vars['priceLabel'])
+	end
     
     -- 다이아 상점 (토파즈 추가)
     if (struct_product:getTabCategory() == 'cash') then
@@ -106,6 +134,14 @@ end
 function UI_Product:refresh()
 	local vars = self.vars
 	local struct_product = self.m_structProduct
+
+	-- package 예외처리
+	if (struct_product:isPackage()) then
+		vars['maxBuyTermLabel']:setString('')
+		vars['dscLabel']:setString('')
+		vars['buyBtn']:setEnabled(true)
+		return
+	end
 
     -- 구매 제한 설명 텍스트
     local node = vars['maxBuyTermLabel']

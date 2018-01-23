@@ -88,3 +88,20 @@ function TablePackageBundle:getPidsWithName(package_name)
     return {}
 end
 
+-------------------------------------
+-- function getPackageNameWithPid
+-------------------------------------
+function TablePackageBundle:getPids(pid)
+    if (self == THIS) then
+        self = THIS()
+    end
+
+    for _, v in pairs(self.m_orgTable) do
+        local t_pids = v['t_pids']
+        if (string.find(t_pids, tostring(pid))) then
+            return t_pids
+        end
+    end
+
+    return nil
+end

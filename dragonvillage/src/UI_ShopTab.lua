@@ -54,6 +54,11 @@ function UI_ShopTab:init_TableView()
     local tab_name = self.m_tabName
     local l_item_list = g_shopDataNew:getProductList(tab_name)
 
+	-- 패키지 - 번들인 경우 하나만 ui에 나오도록
+	if (tab_name == 'package') then
+		self:dietPackageItemTable(l_item_list) -- 테이블 자체를 함수에서 조작한다
+	end
+
     local scale = 1
     local item_per_cell = 2
     local interval = 15
@@ -88,6 +93,33 @@ function UI_ShopTab:init_TableView()
     self.root = table_view_td.m_scrollView
 
     self:sortProduct()
+end
+
+-------------------------------------
+-- function dietPackageItemTable
+-- @brief 
+-------------------------------------
+function UI_ShopTab:dietPackageItemTable(l_item_list)
+
+	local copied_item_table = clone(l_item_list)
+	local t_bundle_pids_list = {}
+
+	for i, t_product in pairs(copied_item_table) do
+		local product_id = t_product['product_id']
+		local bundle_pids = TablePackageBundle:getPids(product_id)
+
+		if (bundle_pids) then
+			-- 이미 저장한 패키지
+			if (t_bundle_pids_list[bundle_pids]) then
+				-- 삭제
+				l_item_list[product_id] = nil
+
+			-- 패키지 번들 중 최초
+			else
+				t_bundle_pids_list[bundle_pids] = true
+			end
+		end
+	end
 end
 
 -------------------------------------

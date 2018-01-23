@@ -404,6 +404,13 @@ function StructProduct:isPaymentProduct()
 end
 
 -------------------------------------
+-- function isPackage
+-------------------------------------
+function StructProduct:isPackage()
+	return (self:getTabCategory() == 'package')
+end
+
+-------------------------------------
 -- function buy
 -------------------------------------
 function StructProduct:buy(cb_func)
