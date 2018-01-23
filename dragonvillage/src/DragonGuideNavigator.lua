@@ -109,9 +109,14 @@ end
 
 -------------------------------------
 -- function analysis_evolution
--- @brief 진화가 가능한지
+-- @brief 진화가 가능한지 (몬스터 제외)
 -------------------------------------
 function DragonGuideNavigator.analysis_evolution(dragon_data)
+    local did = dragon_data['did']
+	if (TableDragon:isUnderling(did)) then
+		return false
+	end
+
     local curr_evolution = dragon_data['evolution']
     local max_evolution = MAX_DRAGON_EVOLUTION
 
@@ -143,9 +148,14 @@ end
 
 -------------------------------------
 -- function analysis_reinforce
--- @brief 드래곤 강화가 가능한지
+-- @brief 드래곤 강화가 가능한지 (몬스터 제외)
 -------------------------------------
 function DragonGuideNavigator.analysis_reinforce(dragon_data)
+    local did = dragon_data['did']
+	if (TableDragon:isUnderling(did)) then
+		return false
+	end
+
     local curr_reinforce = dragon_data['reinforce']['lv']
     local max_reinforce = MAX_DRAGON_REINFORCE
 

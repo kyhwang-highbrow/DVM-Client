@@ -35,11 +35,24 @@ end
 function UI_DragonGuidePopup:initUI()
     local vars = self.vars
 
-    local analysis_map = {}   
+    local analysis_map = {}
+    local map_cnt = 0   
     for i, v in ipairs(self.m_dragon_list) do
         local dragon_data = v['user_data']
         local analysis_result = DragonGuideNavigator:analysis(dragon_data)
-        analysis_map[tostring(i)] = analysis_result
+        local link_list = analysis_result['link']
+
+        -- 1개 이상 가이드 할 곳이 있다면 등록
+        if (#link_list > 0) then
+            map_cnt = map_cnt + 1
+            analysis_map[tostring(i)] = analysis_result
+        end
+    end
+
+    -- 가이드 할 곳 없다면 바로 종료 
+    if (map_cnt == 0) then
+        self:click_closeBtn()
+        return
     end
 
     local node = vars['listNode']
