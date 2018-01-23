@@ -33,6 +33,9 @@ end
 function UI_ScenarioPlayer_Talk:setTalk(pos, name, text, text_type, text_pos)
     local vars = self.vars
 
+	-- 번역 적용시키자
+	local name = name and Str(name)
+
     if pos and (self.m_currPos ~= pos) then
         -- 현재 위치 이름택 숨김
         if self.m_currPos and vars['nameNode_' .. self.m_currPos] then
@@ -72,7 +75,7 @@ function UI_ScenarioPlayer_Talk:setTalk(pos, name, text, text_type, text_pos)
 
     -- 대사 처리
     if text then
-        vars['talkLabel']:setString(text)
+        vars['talkLabel']:setString(Str(text))
         
         -- 대사 효과
         local text_type = text_type or 'none'

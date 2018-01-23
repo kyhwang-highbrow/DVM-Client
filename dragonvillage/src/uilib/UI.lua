@@ -108,6 +108,14 @@ function UI:close()
 end
 
 -------------------------------------
+-- function close
+-------------------------------------
+function UI:closeWithoutCB()
+	self.m_closeCB = nil
+	self:close()
+end
+
+-------------------------------------
 -- function safeClose
 -------------------------------------
 function UI:safeClose()

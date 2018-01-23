@@ -219,6 +219,10 @@ function UI_ScenarioPlayer:effect_narrate(t_page)
         self:next()
     end
     ui:setCloseCB(close_cb)
+	ui.vars['skipBtn']:registerScriptTapHandler(function()
+		ui:closeWithoutCB()
+		self:click_skip() 
+	end)
 
 	self.m_narrationUI = ui
 end

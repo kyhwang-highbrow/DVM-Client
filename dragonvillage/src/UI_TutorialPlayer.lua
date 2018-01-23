@@ -189,8 +189,7 @@ function UI_TutorialPlayer:applyEffect(effect)
 		self:touchBlockOnOff(val_1)
 
 	elseif (effect == 'step_close') then
-		self.m_closeCB = nil
-		self:close()
+		self:closeWithoutCB()
 
 	-- 튜토리얼 중에 1-7 보상 보여주기 위해서... 사용... 
 	elseif (effect == 'adv_open') then
