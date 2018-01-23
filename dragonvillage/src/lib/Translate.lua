@@ -173,6 +173,8 @@ function Translate:a2dTranslate(full_path)
     end
 
     local path, file_name, extension = self:getFileNameInfo(full_path)
+    path = string.gsub(path,'res/','')
+    path = string.gsub(path,'res\\','')
     local typo_plist_path = string.format('res/%stypo/%s/%s.plist', path, game_lang, file_name)
 
     -- 번역본 텍스트가 없을 경우 ko버전으로 나오도록 처리

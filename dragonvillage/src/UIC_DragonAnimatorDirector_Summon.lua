@@ -284,6 +284,9 @@ function UIC_DragonAnimatorDirector_Summon:bindEgg(egg_id, egg_res)
         egg_res = 'res/item/egg/egg_common_unknown/egg_common_unknown.vrp'
     end
 
+    --번역
+    Translate:a2dTranslate( egg_res )
+
     self.m_eggID = egg_id
     self.m_bRareSummon = TableSummonGacha:isRareSummon(egg_id)
 
