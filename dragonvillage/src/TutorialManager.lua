@@ -78,11 +78,12 @@ end
 -- @param tutorial_key : tutorial_key이자 tutorial_script이름
 -------------------------------------
 function TutorialManager:startTutorial(tutorial_key, tar_ui, step, is_force)
-	cclog('----------------------------------')
-	cclog('START tutorial', tutorial_key, step)
-
     -- 완료되지 않은 튜토리얼이라면
     if (is_force) or (not g_tutorialData:isTutorialDone(tutorial_key)) then
+
+		cclog('----------------------------------')
+		cclog('## START tutorial', tutorial_key, step)
+
         _startTutorial(self, tutorial_key, tar_ui)
 		if (step) then
 			self:setTutorialStep(step)
@@ -231,7 +232,6 @@ function TutorialManager:checkStartFreeSummon11(stage_id)
 
 	-- 1-7 clear_cnt 가 1이어야 함 (최초 클리어)
 	local clear_cnt = g_adventureData:getStageClearCnt(stage_id)
-	cclog('stage 1-7 clear_cnt :' .. clear_cnt)
 	if (clear_cnt > 1) then
 		return false
 	end
