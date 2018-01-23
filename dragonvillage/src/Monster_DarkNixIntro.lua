@@ -47,6 +47,8 @@ function Monster_DarkNixIntro:initState()
     PARENT.initState(self)
 
     self:addState('attack', Monster_DarkNixIntro.st_attack, 'attack', false)
+    self:addState('dying', Monster_DarkNixIntro.st_dying, 'skill_1', false, PRIORITY.DYING)
+    self:addState('escape', Monster_DarkNixIntro.st_escape, 'idle', true, PRIORITY.DYING)
 end
 
 -------------------------------------
@@ -70,4 +72,44 @@ function Monster_DarkNixIntro.st_attack(owner, dt)
     end
 
     PARENT.st_attack(owner, dt)
+end
+
+-------------------------------------
+-- function st_dying
+-------------------------------------
+function Monster_DarkNixIntro.st_dying(owner, dt)
+    if (owner.m_stateTimer == 0) then
+        owner:setSpeed(0)
+
+        -- 사망 처리 시 StateDelegate Kill!
+        owner:killStateDelegate()
+        
+        if (owner.m_hpNode) then
+            owner.m_hpNode:setVisible(false)
+        end
+
+        if (owner.m_castingNode) then
+            owner.m_castingNode:setVisible(false)
+        end
+
+        -- 포효 애니가 끝나면 뒤로 이동
+        owner.m_animator:addAniHandler(function()
+            owner:changeState('escape')
+        end)
+    end
+end
+
+-------------------------------------
+-- function st_escape
+-------------------------------------
+function Monster_DarkNixIntro.st_escape(owner, dt)
+    if (owner.m_stateTimer == 0) then
+        owner:setMove(owner.pos.x + (CRITERIA_RESOLUTION_X / 2), owner.pos.y, 300)
+        owner:setAfterImage(true)
+    end
+
+    -- 이동 완료 시 죽임
+	if (not owner.m_isOnTheMove) then
+        owner:changeState('dead')
+    end
 end
