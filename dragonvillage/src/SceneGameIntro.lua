@@ -306,16 +306,6 @@ function SceneGameIntro:play_tutorialTalk(no_use_next_btn, no_color_layer)
 
     -- 스킵은 항상 불가능
     self.m_tutorialPlayer.vars['skipBtn']:setVisible(false)
-
-    -- PC에서 스킵 가능 
-    if (isWin32()) then
-        self.m_tutorialPlayer.vars['skipBtn']:registerScriptTapHandler(function()  
-            self:checkScenario()
-        end)
-
-        self.m_tutorialPlayer.vars['skipBtn']:setVisible(true)
-    end
-
     self.m_tutorialPlayer.vars['nextBtn']:setVisible(not no_use_next_btn)
     self.m_tutorialPlayer.vars['layerColor2']:setVisible(not no_color_layer)
 
