@@ -3,6 +3,8 @@ local PARENT = GameState
 local HERO_TAMER_POS_X = 320 - 50
 local ENEMY_TAMER_POS_X = 960 + 50
 
+local FURY_EFFECT_START_TIME_FROM_BUFF_TIME = 4
+
 -------------------------------------
 -- class GameState_Colosseum
 -------------------------------------
@@ -30,7 +32,7 @@ function GameState_Colosseum:initBuffByFightTime()
     PARENT.initBuffByFightTime(self)
 
     -- 실제 버프 시간보다 이전에 연출되어야하는 것들을 처리하기 위한 하드코딩...
-    self.m_nextBuffTime = self.m_nextBuffTime - 2
+    self.m_nextBuffTime = self.m_nextBuffTime - FURY_EFFECT_START_TIME_FROM_BUFF_TIME
     self.m_nextBuffTime = math_max(self.m_nextBuffTime, 1)
 end
 
@@ -456,19 +458,15 @@ function GameState_Colosseum:applyBuffByFightTime()
     end
 
     self.m_bgEffect:changeAni('change', false)
-    self.m_bgEffect:runAction(cc.Sequence:create(cc.DelayTime:create(2), cc.CallFunc:create(function()
+    self.m_bgEffect:runAction(cc.Sequence:create(cc.DelayTime:create(FURY_EFFECT_START_TIME_FROM_BUFF_TIME), cc.CallFunc:create(function()
         PARENT.applyBuffByFightTime(self)
+
+        -- 실제 버프 시간보다 이전에 연출되어야하는 것들을 처리하기 위한 하드코딩...
+        self.m_nextBuffTime = self.m_nextBuffTime - FURY_EFFECT_START_TIME_FROM_BUFF_TIME
+        self.m_nextBuffTime = math_max(self.m_nextBuffTime, 1)
     end)))
 
     -- 배경 흔들림
-    self.m_world.m_mapManager:setDirecting('colosseum_fury_shake')
-end
-
--------------------------------------
--- function doDirectionForBuff
--- @brief 버프 연출을 적용
--------------------------------------
-function GameState_Colosseum:doDirectionForBuff()
-    local level = self.m_buffCount
+    local level = self.m_buffCount + 1
     self.m_world.m_mapManager:setDirecting('colosseum_fury_' .. level)
 end

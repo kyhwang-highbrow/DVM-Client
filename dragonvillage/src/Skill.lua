@@ -222,16 +222,14 @@ function Skill:adjustFlip()
         207311, 207312, 207313, 207314, 207341, 207342, 207343, 207344
     }
 
-    local b = true
-        
+    -- 반전 시키지 않아야하는 스킬인지 체크
     for _, sid in ipairs(temp) do
         if (sid == self.m_skillId) then
-            b = false
-            break
+            return
         end
     end
 
-    if (self:isRightFormation() and b) then
+    if (self:isRightFormation()) then
         self.m_animator:setFlip(true)
     end
 end

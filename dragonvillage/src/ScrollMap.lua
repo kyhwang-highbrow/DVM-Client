@@ -109,7 +109,22 @@ function ScrollMap:setDirecting(directing_type)
         )
 
     -- [콜로세움 광폭화 연출용]
-    elseif (string.find(self.m_bgDirectingType, 'colosseum_fury_shake')) then
+    elseif (string.find(self.m_bgDirectingType, 'colosseum_fury')) then
+        local level = tonumber(string.match(self.m_bgDirectingType, '%d'))
+        local ani_idx
+
+        if (level == 1) then        ani_idx = 1
+        elseif (level == 3) then    ani_idx = 2
+        end
+
+        if (ani_idx) then
+            local map_layer = self.m_tMapLayer[1]
+		    map_layer.m_animator:changeAni('appear_' .. ani_idx, false)
+            map_layer.m_animator:addAniHandler(function()
+                map_layer.m_animator:changeAni('idle_' .. ani_idx, true)
+            end)
+		end
+
         sequence = cc.Sequence:create(
             cc.MoveTo:create(0.1, cc.p(-5, 0)),
             cc.MoveTo:create(0.2, cc.p(5, 0)),
@@ -118,21 +133,7 @@ function ScrollMap:setDirecting(directing_type)
 
         self.m_parentNode:setPosition(0, 0)
         self.m_parentNode:runAction(cc.Repeat:create(sequence, 5))
-        return
 
-    elseif (string.find(self.m_bgDirectingType, 'colosseum_fury')) then
-        local level = tonumber(string.match(self.m_bgDirectingType, '%d'))
-        local ani_name
-
-        if (level <= 0) then                    ani_name = 'idle'
-        elseif (level == 1 or level == 2) then  ani_name = 'idle_1'
-        else                                    ani_name = 'idle_2'
-        end
-
-		for _, map_layer in pairs(self.m_tMapLayer) do
-            map_layer.m_animator:changeAni(ani_name, true)
-		end
-        
         return
 
 	-- [DARKNIX 보스용]
@@ -435,8 +436,12 @@ end
 -------------------------------------
 function ScrollMap:pause()
     self.m_bPause = true
-    self.m_parentNode:pause()
-    self.m_node:pause()
+    
+    local function f_pause(node)
+        node:pause()
+    end
+	
+    doAllChildren(self.m_parentNode, f_pause)
 end
 
 -------------------------------------
@@ -444,8 +449,12 @@ end
 -------------------------------------
 function ScrollMap:resume()
     self.m_bPause = false
-    self.m_parentNode:resume()
-    self.m_node:resume()
+
+    local function f_resume(node)
+        node:resume()
+    end
+
+    doAllChildren(self.m_parentNode, f_resume)
 end
 
 -------------------------------------
