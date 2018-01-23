@@ -541,11 +541,12 @@ end
 function TutorialManager:revertNode(uic_node)
     local t_info = self.m_tTutorialBtnInfoTable[uic_node]
     local parent = t_info['parent']
+	local node = uic_node.m_node or uic_node
     local pos = t_info['pos']
     local z_order = t_info['z_order']
 
     -- 원래의 부모에게 붙여줌
-    UIHelper:reattachNode(parent, uic_node.m_node, z_order)
+    UIHelper:reattachNode(parent, node, z_order)
     
     uic_node:setPosition(pos[1], pos[2])
 end

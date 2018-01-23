@@ -41,7 +41,7 @@ end
 -------------------------------------
 function UI_HatcheryIncubateTab:initUI()
 	local vars = self.vars
-	local parent_node = vars['eggFickerNode']
+	local parent_node = vars['eggPickerNode']
 
 	-- UIC_EggPicker 생성
 	local egg_picker = UIC_EggPicker:create(parent_node)
@@ -66,7 +66,8 @@ function UI_HatcheryIncubateTab:initUI()
 	-- @ Tutorial : 1-1 end
 	if (TutorialManager.getInstance():isDoing()) then
 		-- tutorial 에서 접근하기 위함
-		self.m_ownerUI.vars['tutorialEggPicker'] = self.m_eggPicker
+		self.m_ownerUI.vars['tutorialEggPicker'] = vars['eggPickerNode']
+		self.m_ownerUI.vars['UIC_EggPicker'] = self.m_eggPicker
 		self.m_eggPicker:focusEggByID(703027)
 	end
 end

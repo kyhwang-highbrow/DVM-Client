@@ -245,7 +245,7 @@ function UI_TutorialPlayer:pointingNode(node_name)
 
 		-- 손가락 위치 예외처리
 		if (node_name == 'tutorialEggPicker') then
-			self.m_pointingHand:setPosition(-180, 150)
+			self.m_pointingHand:setPosition(-200, 150)
 		else
 			self.m_pointingHand:setPosition(0, 0)
 		end
@@ -289,25 +289,27 @@ function UI_TutorialPlayer:activeNode(node_name)
 		end)
 
 	-- UIC_EggPicker도 가능하다
-	elseif (isInstanceOf(tar_node, UIC_EggPicker)) then
+	elseif (node_name == 'tutorialEggPicker') then
+		local egg_picker = self.m_targetUI.vars['UIC_EggPicker']
+
 		-- activating 할때 스크롤도 막는다
-		tar_node:setTouchEnabled(false)
+		egg_picker:setTouchEnabled(false)
 		
 		-- egg_picker에 다음페이지 진행을 등록한다
-		tar_node:addItemClickCB(function(t_item, idx)
-			local t_data = t_item['data']
-
-			-- 상점 알 생성 시키지 않기가 힘들어서..
-			if (t_data['is_shop']) then
-				return false
-			end
-
-			-- 튜토리얼 전용 영웅의 알만 허용
-			if (t_data['egg_id'] ~= '703027') then
-				return false
-			end
-
+		egg_picker:addItemClickCB(function(t_item, idx)
 			if (tutorial_mgr:isDoing()) then
+				local t_data = t_item['data']
+
+				-- 상점 알 생성 시키지 않기가 힘들어서..
+				if (t_data['is_shop']) then
+					return false
+				end
+
+				-- 튜토리얼 전용 영웅의 알만 허용
+				if (t_data['egg_id'] ~= '703027') then
+					return false
+				end
+
 				self:next()
 				return true
 			end
