@@ -93,8 +93,7 @@ function UI_SelectNickname:click_createBtn()
 
     local function finish_cb()
 		self.m_makeAccountFunc()
-		local ui = UI_Network()
-		ui:setLoadingMsg(Str('계정 생성 중...'))
+		self:close()
 	end
 
     g_startTamerData:request_createAccount(user_type, nil, nick, finish_cb)

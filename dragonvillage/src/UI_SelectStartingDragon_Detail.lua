@@ -139,5 +139,9 @@ end
 -- @brief 드래곤 선택
 -------------------------------------
 function UI_SelectStartingDragon_Detail:click_selectBtn()
-    UI_SelectNickname(self.m_selectIdx, self.m_makeAccountFunc)
+	local function cb_func()
+		self.m_makeAccountFunc()
+		self:close()
+	end
+    UI_SelectNickname(self.m_selectIdx, cb_func)
 end
