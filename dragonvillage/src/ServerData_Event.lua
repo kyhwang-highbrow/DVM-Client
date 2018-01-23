@@ -50,6 +50,17 @@ function ServerData_Event:getEventPopupTabList()
                 is_exist = false
             end
 
+        -- 드빌 전용관은 한국서버에서만 노출
+        elseif (event_type == 'highbrow_shop') then
+            local server = g_localData:getServerName()
+            if (server == SERVER_NAME.KOREA) or 
+               (server == SERVER_NAME.DEV) or 
+               (server == SERVER_NAME.QA) then
+                
+            else
+                is_exist = false
+            end
+
         -- shop 관련 이벤트는 오픈되지 않능 상품이라면 탭 등록 pass 
         elseif (event_type == 'shop') then
             is_exist = g_shopDataNew:isExist('package', event_id)

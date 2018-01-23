@@ -1037,17 +1037,23 @@ function UI_Lobby:refresh_rightButtons()
 
 
     -- 인덱스 1번이 오른쪽
-    local t_btn_name = {
-            'capsuleBtn',
-            'itemAutoBtn',
-            'giftBoxBtn',
-            'exchangeBtn',
-            'diceBtn',
-            'levelupBtn',
-            'adventureClearBtn',
-			'capsuleBoxBtn',
-            'eventBtn',
-        }
+    local t_btn_name = {}
+    local server = g_localData:getServerName()
+
+    -- 드빌 전용관은 한국서버에서만 노출
+    if (server == SERVER_NAME.KOREA) or 
+       (server == SERVER_NAME.DEV) or 
+       (server == SERVER_NAME.QA) then
+        table.insert(t_btn_name, 'capsuleBtn')
+    end
+    table.insert(t_btn_name, 'itemAutoBtn')
+    table.insert(t_btn_name, 'giftBoxBtn')
+    table.insert(t_btn_name, 'exchangeBtn')
+    table.insert(t_btn_name, 'diceBtn')
+    table.insert(t_btn_name, 'levelupBtn')
+    table.insert(t_btn_name, 'adventureClearBtn')
+    table.insert(t_btn_name, 'capsuleBoxBtn')
+    table.insert(t_btn_name, 'eventBtn')
     
     -- visible이 켜진 버튼들 리스트
     local l_btn_list = {}
