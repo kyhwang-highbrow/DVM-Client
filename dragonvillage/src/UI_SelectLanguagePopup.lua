@@ -102,12 +102,24 @@ function UI_SelectLanguagePopup:click_okBtn()
 	g_localData:setLang(lang)
 	Translate:load(lang)
 
-	-- 해당 UI 콜백이 패치 시작하는 함수
-	if (self.m_finishFunc) then
-		self.m_finishFunc()
-	end
+    local ui = UI_Network()
+	ui:setLoadingMsg('')
 
-	self:close()
+    local function onFinish()
+        -- 해당 UI 콜백이 패치 시작하는 함수
+	    if (self.m_finishFunc) then
+		    self.m_finishFunc()
+	    end
+        ui:close()
+	    self:close()
+    end
+
+    local function onFail()
+        ui:close()
+    end
+
+    Network_platform_changeLang( onFinish, onFail )
+
 end
 
 -------------------------------------

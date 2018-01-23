@@ -241,10 +241,7 @@ function Network_platform_getServerList(success_cb, fail_cb)
     local ip = getIPAddress()
     local deviceLang = getDeviceLanguage()
     local locale = getLocale()
-    cclog( 'deviceLang : ' ..deviceLang )
-    cclog( 'locale : ' .. locale )
-    cclog( 'ip : ' .. ip )
-
+    
     local t_data = {}    
     t_data['uid'] = g_localData:get('local', 'uid')        
     t_data['ip'] = ip
@@ -278,11 +275,38 @@ function Network_platform_electionServer(success_cb, fail_cb)
     t_data['uid'] = g_localData:get('local', 'uid')
     t_data['server_name'] = g_localData:getServerName()
     
-    cclog( luadump(t_data) )
-
     -- 요청 정보 설정
     local t_request = {}
     t_request['full_url'] = GetPlatformApiUrl() .. '/gateway/electionServer'
+    t_request['method'] = 'POST'
+    t_request['data'] = t_data
+
+    t_request['check_hmac_md5'] = false
+
+    -- 성공 시 콜백 함수
+    t_request['success'] = success_cb
+
+    -- 실패 시 콜백 함수
+    t_request['fail'] = fail_cb
+
+    -- 네트워크 통신
+    Network:SimpleRequest(t_request)
+end
+
+-------------------------------------
+-- function Network_platform_changeLang
+-- @breif   언어변경 된것 알려주기
+-------------------------------------
+function Network_platform_changeLang(success_cb, fail_cb)
+    -- 파라미터 셋팅
+    local t_data = {}    
+    t_data['uid'] = g_localData:get('local', 'uid')
+    t_data['lang'] = g_localData:getLang()
+    t_data['push_token'] = g_localData:get('local', 'push_token')
+        
+    -- 요청 정보 설정
+    local t_request = {}
+    t_request['full_url'] = GetPlatformApiUrl() .. '/user/changeLang'
     t_request['method'] = 'POST'
     t_request['data'] = t_data
 
