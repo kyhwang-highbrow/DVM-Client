@@ -213,6 +213,7 @@ function Translate:getTranslatedPath(full_path)
     -- 해당 경로에 파일이 없다면 기존 경로를 반환
 	if (not LuaBridge:isFileExist('res/' .. translated_path)) then
         cclog('do not exist translated png : ' .. full_path)
+        cclog('translated_path : ' .. translated_path )
 		return full_path
 	end
     

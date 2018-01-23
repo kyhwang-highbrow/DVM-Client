@@ -78,7 +78,8 @@ function UI_Product:initUI()
     -- 뱃지 아이콘 추가
     local badge = struct_product['badge']
     if (badge) then
-        local img = cc.Sprite:create(string.format('res/ui/package/badge_%s.png', badge))
+        local imgPath = string.format('ui/typo/ko/badge_%s.png', badge)
+        local img = cc.Sprite:create('res/' .. Translate:getTranslatedPath(imgPath))
         if (img) then
             img:setDockPoint(cc.p(0.5, 0.5))
             img:setAnchorPoint(cc.p(0.5, 0.5))
