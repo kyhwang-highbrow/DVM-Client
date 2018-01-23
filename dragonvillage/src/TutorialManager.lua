@@ -166,6 +166,11 @@ function TutorialManager:checkTutorialInLobby(ui_lobby)
 		if (step == 101) then
 			UINavigator:goTo('hatchery')
 			return
+
+		-- 클리어 처리
+		elseif (step == 102) then
+			g_tutorialData:request_tutorialSave(tutorial_key)
+
 		end
 	end
 end
