@@ -525,6 +525,12 @@ function UI_Lobby:refresh_masterRoad()
         --desc = Str('마스터의 길은 계속될겁니다.')
         vars['bottomMasterNode']:setVisible(false)
 
+        -- 성장일지 클리어하지 못했다면 위치 변경
+        local is_clear = g_dragonDiaryData:isClearAll()
+        if (not is_clear) then
+            vars['dragonDiaryBtn']:setPositionY(110)
+        end
+        
     -- 현재 목표 출력
     else
         local rid = g_masterRoadData:getFocusRoad()
