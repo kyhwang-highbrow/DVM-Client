@@ -56,11 +56,6 @@ function SkillHealAoESquare_Width:adjustAnimator()
 
     -- 스킬 애니 속성 세팅
 	self.m_animator:setAniAttr(self.m_owner:getAttribute())
-
-    -- 우측에서 사용한 스킬일 경우 이미지 반전
-    if (self:isRightFormation()) then
-        self.m_animator:setFlip(true)
-    end
 end
 
 -------------------------------------

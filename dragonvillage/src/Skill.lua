@@ -98,6 +98,7 @@ function Skill:init_skill()
 	self:initSkillSize()
 	self:initEventListener()
 	self:adjustAnimator()
+    self:adjustFlip()
 
     -- 타겟이 없다면 기본 타겟 찾음
 	if (not self.m_targetChar) then
@@ -205,9 +206,32 @@ function Skill:adjustAnimator()
 
 	-- 스킬 애니 속성 세팅
 	self.m_animator:setAniAttr(self.m_owner:getAttribute())
+end
 
-    -- 우측에서 사용한 스킬일 경우 이미지 반전
-    if (self:isRightFormation()) then
+-------------------------------------
+-- function adjustFlip
+-- @breif 우측에서 사용한 스킬일 경우 이미지 반전
+-------------------------------------
+function Skill:adjustFlip()
+    -- 반전 시키지 않아야하는 스킬 리스트(이런 경우가 늘어날 경우 별도 정리가 필요할듯...)
+    local temp = { 
+        -- 뇌신
+        208011, 208013, 208014, 208041, 208043, 208044,
+
+        -- 태엽
+        207311, 207312, 207313, 207314, 207341, 207342, 207343, 207344
+    }
+
+    local b = true
+        
+    for _, sid in ipairs(temp) do
+        if (sid == self.m_skillId) then
+            b = false
+            break
+        end
+    end
+
+    if (self:isRightFormation() and b) then
         self.m_animator:setFlip(true)
     end
 end
