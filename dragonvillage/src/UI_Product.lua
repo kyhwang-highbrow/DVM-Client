@@ -47,15 +47,6 @@ function UI_Product:initUI()
 	-- 가격
 	local price = struct_product:getPriceStr()
     vars['priceLabel']:setString(price)
-
-	-- 가격 아이콘
-    local icon = struct_product:makePriceIcon()
-    local price_node = vars['priceNode']
-    if (icon) then
-        price_node:addChild(icon)
-	else
-        price_node:setScale(0)
-    end
     
     -- 다이아 상점 (토파즈 추가)
     if (struct_product:getTabCategory() == 'cash') then
@@ -86,9 +77,6 @@ function UI_Product:initUI()
             vars['badgeNode']:addChild(img)
         end
     end
-
-	-- 가격 아이콘 및 라벨, 배경 조정
-	UIHelper:makePriceNodeVariable(vars['priceBg'],  vars['priceNode'], vars['priceLabel'])
 
     -- 광고
     if (struct_product.price_type == 'advertising') then

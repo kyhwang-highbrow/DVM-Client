@@ -7,6 +7,7 @@ ServerData_Shop = class({
         m_expirationData = 'pl.Date', -- 서버 정보 만료 시간
         m_dicBuyCnt = '[product_id][count]', -- 구매 횟수
         m_ret = 'server response',
+        m_dicMarketPrice = '', -- 마켓에서 받은 가격 (통화까지 표시)
         m_bDirty = 'boolean',
     })
 
@@ -31,6 +32,7 @@ function ServerData_Shop:init(server_data)
     self.m_dicProduct['clancoin'] = {}
     self.m_dicProduct['clan_coin'] = {} -- 당장 클라이언트에서 에러가 나지 않도록 처리하기 위함 sgkim 2017-11-03
     self.m_dicBuyCnt = {}
+    self.m_dicMarketPrice = {}
 
     self:setDirty()
 end
@@ -135,6 +137,7 @@ function ServerData_Shop:getProductList(tab_category)
     local l_product = self.m_dicProduct[tab_category]
     return self:getProductList_(l_product)
 end
+
 
 -------------------------------------
 -- function getProductList_
@@ -289,6 +292,9 @@ function ServerData_Shop:response_shopInfo(ret, cb_func)
     if (cb_func) then
 		cb_func(ret)
 	end
+
+    -- # 루아 코루틴에서 cpp Function 호출시 코루틴 에러남
+    -- # 인앱상품 정보 받아오는 부분은 타이틀 씬에서 처리 (shop_info 호출 빈도 높음)
 
     --[[ 앱버전 업데이트 후에 스토에서 인앱상품 정보 받아오기 할때 사용
     local function onFinish()
@@ -760,4 +766,20 @@ function ServerData_Shop:getSkuList()
 
     
     return ret
+end
+
+-------------------------------------
+-- function setMarketPrice
+-- @brief 마켓에서 받은 가격 string (통화까지 표시)
+-------------------------------------
+function ServerData_Shop:setMarketPrice(market_data)
+    self.m_dicMarketPrice = {}
+    
+    -- sku로 구분함 
+    for _, v in pairs(market_data) do
+        local sku = tostring(v.productId)
+        local price = v.price
+
+        self.m_dicMarketPrice[sku] = price
+    end
 end

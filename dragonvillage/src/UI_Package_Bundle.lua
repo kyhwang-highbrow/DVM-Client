@@ -139,15 +139,6 @@ function UI_Package_Bundle:refresh()
 	        -- 가격
 	        local price = struct_product:getPriceStr()
             setLabelString('priceLabel', idx, price)
-        
-	        -- 가격 아이콘
-            local icon = struct_product:makePriceIcon()
-            if (vars['priceNode'..idx]) then
-                vars['priceNode'..idx]:addChild(icon)
-
-            elseif (idx == 1) and (vars['priceNode']) then   
-                vars['priceNode']:addChild(icon)
-            end
 
 			-- 구매 완료 표시
 			if (vars['completeNode' .. idx]) then

@@ -299,6 +299,7 @@ function UI_TitleScene:setWorkList()
     -- @perpelsdk
     if (isAndroid() or isIos()) then
         table.insert(self.m_lWorkList, 'workBillingSetup')        
+        table.insert(self.m_lWorkList, 'workMarketInfoSetup')
     end
 
     table.insert(self.m_lWorkList, 'workSoundPreload')
@@ -933,6 +934,19 @@ function UI_TitleScene:workGetServerInfo()
         end
         if co:waitWork() then return end
 
+        -- 상점 정보 
+        -- # 먼저 sku를 받아온 후 perplesdk 호출하여 해당 sku에 대한 마켓 정보 받아옴
+        -- # 마켓 정보는 타이틀씬에서만 처리
+        co:work()
+        self.m_loadingUI:showLoading(Str('상점 정보 받는 중...'))
+        local ui_network = g_shopDataNew:request_shopInfo(co.NEXT, fail_cb)
+        if ui_network then
+            ui_network:setRevocable(false)
+            ui_network:setFailCB(fail_cb)
+            ui_network:hideLoading()
+        end
+        if co:waitWork() then return end
+
         -- 레벨업 패키지
         co:work()
         self.m_loadingUI:showLoading(Str('가방을 챙기는 중...'))
@@ -1098,6 +1112,39 @@ function UI_TitleScene:workBillingSetup()
     PerpleSDK:billingSetup(url, call_back)
 end
 function UI_TitleScene:workBillingSetup_click()
+end
+
+-------------------------------------
+-- function workMarketInfoSetup
+-- @brief 마켓 정보 초기화
+-------------------------------------
+function UI_TitleScene:workMarketInfoSetup()
+    self.m_loadingUI:showLoading(Str('상점 정보 받는 중...'))
+
+    local function call_back(ret, info)
+        if (ret == 'success') then
+            local tRet = json_decode(info)
+            g_shopDataNew:setMarketPrice(tRet)
+
+        elseif (ret == 'error') then
+            cclog('#### billingItemInfo failed - info : ')
+            ccdump(info)
+            
+            local msg = Str('결제 아이템 정보를 가져오는데 실패했습니다.')
+        end
+
+        self:doNextWork()
+    end
+
+    local skuList = g_shopDataNew:getSkuList()
+    if skuList == nil then
+        self:doNextWork()
+        return
+    end
+
+    PerpleSDK:billingGetItemList(skuList, call_back)
+end
+function UI_TitleScene:workMarketInfoSetup_click()
 end
 
 -------------------------------------

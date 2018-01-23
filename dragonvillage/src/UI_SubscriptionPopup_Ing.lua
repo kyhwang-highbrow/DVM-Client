@@ -182,15 +182,6 @@ function UI_SubscriptionPopup_Ing:refresh()
 	local price = struct_product:getPriceStr()
     vars['priceLabel']:setString(price)
 
-    -- 가격 아이콘
-    local icon = struct_product:makePriceIcon()
-    vars['priceNode']:removeAllChildren()
-    vars['priceNode']:addChild(icon)
-
-    -- 가격 아이콘 및 라벨, 배경 조정
-    UIHelper:makePriceNodeVariable(vars['priceBg'],  vars['priceNode'], vars['priceLabel'])
-
-
     do -- 할인율 표시
         local price = struct_product:getPrice()
         local base_price = base_product:getPrice()

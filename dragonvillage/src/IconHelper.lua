@@ -518,13 +518,9 @@ end
 -- function getPriceIcon
 -------------------------------------
 function IconHelper:getPriceIcon(price_type)
-    -- 현금 상품
+    -- 현금 상품 (이미지 쓰지 않음)
     if (price_type == 'money') then
-        if isIos() then
-            price_type = 'usd'
-        else
-            price_type = 'krw'
-        end
+        return nil
     end
     
     local res = string.format('res/ui/icons/inbox/inbox_%s.png', price_type)

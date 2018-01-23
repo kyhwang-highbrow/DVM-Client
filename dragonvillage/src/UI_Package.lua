@@ -87,12 +87,6 @@ function UI_Package:refresh()
         vars['priceLabel']:setString(price)
     end
 
-	-- 가격 아이콘
-    if vars['priceNode'] then
-        local icon = struct_product:makePriceIcon()
-        vars['priceNode']:addChild(icon)
-    end
-
     -- 판매종료시간 있는 경우 표시
     local time_label = vars['timeLabel']
     local end_date = struct_product:getEndDateStr()

@@ -45,10 +45,6 @@ function UI_SubscriptionPopup:initUI()
         -- 가격
 	    local price = struct_product:getPriceStr()
         vars['priceLabel1']:setString(price)
-
-        -- 가격 아이콘
-        local icon = struct_product:makePriceIcon()
-        vars['priceNode1']:addChild(icon)
     end
 
     do -- Premium 월정액 패키지 (premium)
@@ -62,10 +58,6 @@ function UI_SubscriptionPopup:initUI()
         -- 가격
 	    local price = struct_product:getPriceStr()
         vars['priceLabel2']:setString(price)
-
-        	-- 가격 아이콘
-        local icon = struct_product:makePriceIcon()
-        vars['priceNode2']:addChild(icon)
 
     end
 end
