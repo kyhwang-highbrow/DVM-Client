@@ -2,6 +2,11 @@ local PARENT = SceneGame
 
 local LIMIT_TIME = 300
 
+local t_error = {
+        [-1671] = Str('제한시간을 초과하였습니다.'),
+        [-1371] = Str('유효하지 않은 던전입니다.'), 
+    }
+
 -------------------------------------
 -- class SceneGameClanRaid
 -------------------------------------
@@ -10,6 +15,9 @@ SceneGameClanRaid = class(PARENT, {
         m_realLiveTimer = 'number', -- 클랜 던전 진행 시간 타이머
 
         m_uiPopupTimeOut = 'UI',
+
+        m_bWaitingNetForPlayStart = 'boolean', -- 게임 시작 직전 서버와 통신 중 여부
+        m_bSuccessNetForPlayStart = 'boolean', -- 게임 시작 직전 서버와 통신 성공 여부(활동력 차감을 위함)
     })
 
 -------------------------------------
@@ -20,6 +28,8 @@ function SceneGameClanRaid:init(game_key, stage_id, stage_name, develop_mode, st
     self.m_realStartTime = Timer:getServerTime()
     self.m_realLiveTimer = 0
     self.m_uiPopupTimeOut = nil
+    self.m_bWaitingNetForPlayStart = false
+    self.m_bSuccessNetForPlayStart = false
 
     -- 스테이지 속성에 따른 이름을 사용
     local attr = TableStageData():getStageAttr(stage_id)
@@ -100,6 +110,27 @@ function SceneGameClanRaid:prepare()
     end)
 end
 
+-------------------------------------
+-- function prepareAfter
+-------------------------------------
+function SceneGameClanRaid:prepareAfter()
+    if (not self.m_bSuccessNetForPlayStart) then
+        if (self.m_bDevelopMode) then
+            self.m_bSuccessNetForPlayStart = true
+
+        elseif (not self.m_bWaitingNetForPlayStart) then
+            self.m_bWaitingNetForPlayStart = true
+
+            -- 활동력 차감을 위한 서버 통신
+            self:networkGamePlayStart(function()
+                self.m_bWaitingNetForPlayStart = false
+                self.m_bSuccessNetForPlayStart = true
+            end)
+        end
+    end
+
+    return self.m_bSuccessNetForPlayStart
+end
 
 -------------------------------------
 -- function prepareDone
@@ -126,7 +157,14 @@ end
 -------------------------------------
 function SceneGameClanRaid:gameResume()
     if (self.m_realLiveTimer > LIMIT_TIME) then
-        self:showTimeOutPopup()
+        -- 제한 시간이 되었을 경우 서버에서 아직 게임이 진행중인지 확인
+        self:networkGameComeback(function()
+            -- 가능하다면 점수 저장 후 종료
+            local game_state = self.m_gameWorld.m_gameState
+            game_state:changeState(GAME_STATE_FAILURE)
+
+            PARENT.gameResume(self)
+        end)
         return
     end
 
@@ -142,10 +180,8 @@ function SceneGameClanRaid:updateRealTimer(dt)
 
     -- 시간 제한 체크 및 처리
     if (self.m_realLiveTimer > LIMIT_TIME) then
-        if (self.m_bPause) then
-            self:showTimeOutPopup()
-        else
-            local game_state = self.m_gameWorld.m_gameState
+        local game_state = self.m_gameWorld.m_gameState
+        if (game_state and game_state:isTimeOut() == false) then
             game_state:processTimeOut()
         end
     end
@@ -156,8 +192,76 @@ function SceneGameClanRaid:updateRealTimer(dt)
 end
 
 -------------------------------------
+-- function networkGamePlayStart
+-- @breif 게임 플레이 시작 시 요청
+-------------------------------------
+function SceneGameClanRaid:networkGamePlayStart(next_func)
+    local uid = g_userData:get('uid')
+
+    local function error_popup(ret)
+        local type
+        local msg
+        local ok_btn_cb
+        local cancel_btn_cb
+        
+        if (ret) then
+            type = POPUP_TYPE.OK
+            msg = t_error[ret['status']]
+            ok_btn_cb = function() UINavigator:goTo('clan_raid') end
+        else
+            type = POPUP_TYPE.YES_NO
+            msg = Str('오류가 발생하였습니다.\n다시 시도하시겠습니까?')
+            ok_btn_cb = function() self:networkGamePlayStart(next_func) end
+            cancel_btn_cb = function() UINavigator:goTo('clan_raid') end
+        end
+
+        local popup = MakeNetworkPopup(type, msg, ok_btn_cb, cancel_btn_cb)
+        popup.root:retain()
+        popup.root:removeFromParent(true)
+        self.m_loadingUI.root:addChild(popup.root)
+        popup.root:release()
+    end
+
+    local function success_cb(ret)
+        self:networkGamePlayStart_response(ret)
+
+        if (next_func) then
+            next_func()
+        end
+    end
+
+    local function fail_cb()
+        error_popup()
+    end
+
+    local function response_status_cb(ret)
+        error_popup(ret)
+    end
+
+    local api_url = '/clans/dungeon_play'
+    
+    local ui_network = UI_Network()
+    ui_network:setUrl(api_url)
+    ui_network:setParam('uid', uid)
+    ui_network:setParam('stage', self.m_stageID)
+    ui_network:setResponseStatusCB(response_status_cb)
+    ui_network:setSuccessCB(success_cb)
+    ui_network:setFailCB(fail_cb)
+    ui_network:request()
+end
+
+-------------------------------------
+-- function networkGamePlayStart_response
+-- @breif
+-------------------------------------
+function SceneGameClanRaid:networkGamePlayStart_response(ret)
+    -- 활동력 갱신
+    g_serverData:networkCommonRespone(ret)
+end
+
+-------------------------------------
 -- function networkGameComeback
--- @breif 백그라운드로 나갔다가 복귀햇을 경우 요청
+-- @breif 게임에 복귀 시 요청
 -------------------------------------
 function SceneGameClanRaid:networkGameComeback(next_func)
     local uid = g_userData:get('uid')
@@ -166,11 +270,19 @@ function SceneGameClanRaid:networkGameComeback(next_func)
         self:networkGameComeback_response(ret)
 
         -- 이미 클랜 던전 종료되었거나 제한 시간이 오버된 경우
-        if (ret['is_gaming'] == false or self.m_realLiveTimer > LIMIT_TIME) then
+        if (ret['is_gaming'] == false) then
+            -- 서버에서 제한시간이 오버된 경우는 즉시 종료
             self:showTimeOutPopup()
+            return
+        
+        elseif (self.m_realLiveTimer > LIMIT_TIME + 120) then
+            -- 클라 제한 시간이 2분이상 오버된 경우라도 즉시 종료
+            self:showTimeOutPopup()
+            return
+
         end
 
-        if next_func then
+        if (next_func) then
             next_func()
         end
     end
@@ -227,10 +339,6 @@ function SceneGameClanRaid:networkGameFinish(t_param, t_result_ref, next_func)
     end
 
     -- 응답 상태 처리 함수
-    local t_error = {
-        [-1671] = Str('제한시간을 초과하였습니다.'),
-        [-1371] = Str('유효하지 않은 던전입니다.'), 
-    }
     local confirm_cb = function()
         UINavigator:goTo('clan_raid')
     end

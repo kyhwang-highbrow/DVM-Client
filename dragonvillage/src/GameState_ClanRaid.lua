@@ -285,8 +285,8 @@ function GameState_ClanRaid:makeResultUI(is_success)
     local final_damage = self.m_finalDamage
     local total_damage = accum_damage + final_damage
 
-    cclog('accum_damage : ' .. accum_damage)
-    cclog('final_damage : ' .. final_damage)
+    --cclog('accum_damage : ' .. accum_damage)
+    --cclog('final_damage : ' .. final_damage)
     
     -- 작업 함수들
     local func_network_game_finish

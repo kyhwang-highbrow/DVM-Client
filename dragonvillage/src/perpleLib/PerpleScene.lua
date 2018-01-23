@@ -128,6 +128,14 @@ function PerpleScene:prepareRes()
 end
 
 -------------------------------------
+-- function prepareAfter
+-- @brief Scene전환 시 로딩이 완료된 직후
+-------------------------------------
+function PerpleScene:prepareAfter()
+    return true
+end
+
+-------------------------------------
 -- function prepareDone
 -- @brief Scene전환 시 로딩이 완료된 상태(화면이 밝아지기 전)
 -------------------------------------
@@ -528,6 +536,19 @@ function replaceScene(target_scene)
 					percent = 100
 				end
 				target_scene.m_loadingUI:setLoadingGauge(percent)
+                dt = coroutine.yield()
+                co_timer = co_timer + dt
+            until (is_break)
+        end
+        --------------------------------------------------------------------------
+
+        --------------------------------------------------------------------------
+        do -- prepareAfter
+            -- 로딩 완료 직후
+            local is_break
+
+            repeat
+                is_break = target_scene:prepareAfter()
                 dt = coroutine.yield()
                 co_timer = co_timer + dt
             until (is_break)

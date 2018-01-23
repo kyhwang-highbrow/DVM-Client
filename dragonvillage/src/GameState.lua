@@ -850,7 +850,12 @@ end
 -- function changeState
 -------------------------------------
 function GameState:changeState(state)
-    -- 이미 Success, Failure상태가 되었을 때 상태를 변경할 수 없도록 처리
+    -- 이미 Result상태가 되었을 때 상태를 변경할 수 없도록 처리
+    if (self.m_state == GAME_STATE_RESULT) then
+        return
+    end
+
+    -- 이미 Success, Failure상태가 되었을 때 Result상태를 제외하고 상태를 변경할 수 없도록 처리
     if (isExistValue(self.m_state, GAME_STATE_SUCCESS, GAME_STATE_FAILURE) and (state ~= GAME_STATE_RESULT)) then
         return
     end
