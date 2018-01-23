@@ -33,9 +33,6 @@ function UI_Hatchery:init(tab)
     if tab then
         self:setTab(tab)
     end
-
-    -- 스타터 패키지 풀팝업
-    g_fullPopupManager:show(FULL_POPUP_TYPE.ALL_DIA_PACK)
 end
 
 -------------------------------------

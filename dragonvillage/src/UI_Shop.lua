@@ -24,9 +24,6 @@ function UI_Shop:init()
 	self:initTab()
 	self:initButton()
 	self:refresh()
-
-    -- 런칭 패키지 풀팝업
-    g_fullPopupManager:show(FULL_POPUP_TYPE.LAUNCH_PACK)
 end
 
 -------------------------------------

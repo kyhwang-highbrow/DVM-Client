@@ -48,11 +48,6 @@ function UI_AncientTower:init()
 
     self.root:scheduleUpdateWithPriorityLua(function(dt) self:update(dt) end, 0)
 
-	-- 시험의 탑 컨텐츠 추가 풀팝업
-	if (g_tutorialData:isTutorialDone(TUTORIAL.ANCIENT)) then
-		g_fullPopupManager:show(FULL_POPUP_TYPE.ATTR_TOWER)
-	end
-
     -- @ TUTORIAL
     TutorialManager.getInstance():startTutorial(TUTORIAL.ANCIENT, self)
 end

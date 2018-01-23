@@ -59,9 +59,6 @@ function UI_DragonManageInfo:init(doid, sub_menu)
     self.m_dragonListLastChangeTime = g_dragonsData:getLastChangeTimeStamp()
 
     self.m_startSubMenu = sub_menu
-
-	-- 런칭 패키지 풀팝업
-    g_fullPopupManager:show(FULL_POPUP_TYPE.REINFORCE_PACK)
 end
 
 -------------------------------------
