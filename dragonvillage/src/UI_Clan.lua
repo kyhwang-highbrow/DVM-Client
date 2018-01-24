@@ -103,6 +103,9 @@ function UI_Clan:initUI()
 
     self:initTab()
 
+    -- 클랜 로비에서는 클랜던전 버튼 보여줌
+    vars['raidBtn']:setVisible(true)
+
     -- 한국 서버가 아닌 경우 - 준비중 표시
     if (not g_localData:isKoreaServer()) then
         vars['raidLabel']:setString('Coming Soon') -- 번역 필요 없음
