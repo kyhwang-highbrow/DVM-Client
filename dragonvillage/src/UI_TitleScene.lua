@@ -1287,6 +1287,7 @@ function UI_TitleScene:createAccount()
     login_func = function()
         self.m_bNewUser = true
         self.m_loadingUI:showLoading()
+		self.vars['messageLabel']:setVisible(false)
         self:retryCurrWork()
     end
     
