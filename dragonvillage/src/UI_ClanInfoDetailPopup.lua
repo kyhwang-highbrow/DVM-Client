@@ -99,7 +99,7 @@ function UI_ClanInfoDetailPopup:refresh()
     vars['clanMasterLabel']:setString(struct_clan['master'])
 
     -- 맴버 수
-    vars['clanMemberLabel']:setString(Str('클랜원 {1}/{2}', struct_clan['member_cnt'], 20))
+    vars['clanMemberLabel']:setString(Str('{1}/{2}', struct_clan['member_cnt'], 20))
     
     -- 클랜 소개
     local str = struct_clan:getClanIntroText()

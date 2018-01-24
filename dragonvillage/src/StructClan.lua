@@ -127,7 +127,7 @@ end
 -------------------------------------
 function StructClan:getMemberCntText()
     local max_member_cnt = 20
-    local text = Str('클랜원 {1}/{2}', self['member_cnt'], max_member_cnt)
+    local text = Str('{1}/{2}', self['member_cnt'], max_member_cnt)
     return text
 end
 
