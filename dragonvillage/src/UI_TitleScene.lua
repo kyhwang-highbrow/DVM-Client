@@ -925,7 +925,7 @@ function UI_TitleScene:workGetServerInfo()
 
         -- 드래곤 성장일지
         co:work()
-        self.m_loadingUI:showLoading(Str('드래곤 성장일지 쓰는 중...'))
+        self.m_loadingUI:showLoading(Str('네트워크 통신 중...'))
         local ui_network = g_dragonDiaryData:request_diaryInfo(co.NEXT, fail_cb)
         if ui_network then
             ui_network:setRevocable(false)
@@ -938,7 +938,7 @@ function UI_TitleScene:workGetServerInfo()
         -- # 먼저 sku를 받아온 후 perplesdk 호출하여 해당 sku에 대한 마켓 정보 받아옴
         -- # 마켓 정보는 타이틀씬에서만 처리
         co:work()
-        self.m_loadingUI:showLoading(Str('상점 정보 받는 중...'))
+        self.m_loadingUI:showLoading(Str('네트워크 통신 중...'))
         local ui_network = g_shopDataNew:request_shopInfo(co.NEXT, fail_cb)
         if ui_network then
             ui_network:setRevocable(false)
@@ -1119,7 +1119,7 @@ end
 -- @brief 마켓 정보 초기화
 -------------------------------------
 function UI_TitleScene:workMarketInfoSetup()
-    self.m_loadingUI:showLoading(Str('상점 정보 받는 중...'))
+    self.m_loadingUI:showLoading(Str('네트워크 통신 중...'))
 
     local function call_back(ret, info)
         if (ret == 'success') then
