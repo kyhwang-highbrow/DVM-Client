@@ -632,11 +632,6 @@ end
 -- @brief 비밀던전 팝업 알림 팝업 표시
 -------------------------------------
 function UI_GameResultNew:direction_secretDungeon()
-	-- 튜토리얼 진행 중 block
-	if (TutorialManager.getInstance():blockIngamePause(self.m_stageID)) then
-		return
-	end
-
     if (self.m_secretDungeon) then
         MakeSimpleSecretFindPopup(self.m_secretDungeon)
     end
