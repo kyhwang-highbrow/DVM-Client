@@ -528,7 +528,7 @@ function StructProduct:payment(cb_func)
 
         local sku = self['sku']
         local product_id = self['product_id']
-        local price = self:getPrice()
+        local price = self['price'] -- self:getPrice()
         local validation_key = nil
         local orderId = nil
 
@@ -693,7 +693,7 @@ function StructProduct:payment_win(cb_func)
 
         local sku = self['sku']
         local product_id = self['product_id']
-        local price = self:getPrice()
+        local price = self['price'] -- self:getPrice()
         local validation_key = nil
         local orderId = nil
 
