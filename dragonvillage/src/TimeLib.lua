@@ -20,6 +20,7 @@ function TimeLib:init()
     self.m_diffServer = 0
     self.m_diffServerUtc = 0
     self.m_utcHour = 9
+    self.m_timeZone = ''
 end
 
 -------------------------------------
