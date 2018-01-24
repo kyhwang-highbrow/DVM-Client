@@ -49,7 +49,7 @@ function UI_Product:initUI()
 	-- 예외처리
 	-- 패키지
 	if (struct_product:isPackage()) then
-		vars['priceLabel']:setString(Str('구매'))
+		vars['priceLabel']:setString(Str('상세보기'))
 
 	-- 그외 현금 상품 (다이아)
 	elseif (struct_product:isPaymentProduct()) then
@@ -132,7 +132,7 @@ function UI_Product:refresh()
 	-- package 예외처리
 	if (struct_product:isPackage()) then
 		vars['maxBuyTermLabel']:setString('')
-		vars['dscLabel']:setString('')
+		--vars['dscLabel']:setString('')
 		vars['buyBtn']:setEnabled(true)
 		return
 	end
