@@ -130,7 +130,7 @@ function ServerData_DragonDiary:getStartDragonData(dragon_data)
         start_dragon_data = dragon_data
     end
     
-    return dragon_data
+    return start_dragon_data
 end
 
 -------------------------------------
