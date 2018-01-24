@@ -114,3 +114,25 @@ function AnimatorHelper:getMonsterResName(res_name, attr, evolution)
     local res_name = string.gsub(res_name, '@', attr)
     return res_name
 end
+
+-------------------------------------
+-- function getTitleAnimator
+-- @brief 언어별 타이틀 애니를 생성한다
+-------------------------------------
+function AnimatorHelper:getTitleAnimator()
+	local lang = g_localData:getLang()
+	
+	local res
+	if (lang == 'ja') then
+		res = 'res/ui/spine/title_ja/title_ja.spine'
+	elseif (lang == 'zh') then
+		res = 'res/ui/spine/title_zh/title_zh.spine'
+	else
+		res = 'res/ui/spine/title/title.spine'
+	end
+	cclog(lang, res)
+	
+	local animator = MakeAnimator(res)
+
+	return animator
+end

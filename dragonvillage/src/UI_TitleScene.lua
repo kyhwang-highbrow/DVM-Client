@@ -54,7 +54,7 @@ function UI_TitleScene:initUI()
     local vars = self.vars
 
     do -- spine으로 리소스 변경
-        local animator = MakeAnimator('res/ui/spine/title/title.spine')
+        local animator = AnimatorHelper:getTitleAnimator()
         vars['animatorNode']:addChild(animator.m_node)
         vars['animator'] = animator
         animator:changeAni('02_scene_replace', true)
