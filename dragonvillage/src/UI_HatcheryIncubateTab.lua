@@ -13,7 +13,7 @@ UI_HatcheryIncubateTab = class(PARENT,{
 function UI_HatcheryIncubateTab:init(owner_ui)
     local vars = self:load('hatchery_incubate.ui')
 
-	-- @ TUTORIAL
+	-- @ TUTORIAL : 1-1 end, 102
 	local tutorial_key = TUTORIAL.FIRST_END
 	local check_step = 102
 	TutorialManager.getInstance():continueTutorial(tutorial_key, check_step, self)
@@ -63,7 +63,7 @@ function UI_HatcheryIncubateTab:initUI()
 
 	self:refreshEggList()
 
-	-- @ Tutorial : 1-1 end
+	-- @ Tutorial : 1-1 end 부화소 세팅
 	if (TutorialManager.getInstance():isDoing()) then
 		-- tutorial 에서 접근하기 위함
 		self.m_ownerUI.vars['tutorialEggPicker'] = vars['eggPickerNode']

@@ -25,11 +25,12 @@ function UI_MasterRoadPopup_Link:init()
 	-- @UI_ACTION
 	self:doActionReset()
 	self:doAction(function()
-        -- @ TUTORIAL
+        -- @ TUTORIAL : 1-1 end start
         if (g_masterRoadData:getFocusRoad() == 10001) then
 			local tutorial_key = TUTORIAL.FIRST_END
 			TutorialManager.getInstance():startTutorial(tutorial_key, self)
 	    
+		-- @ TUTORIAL : 1-2 end start
 		elseif (g_masterRoadData:getFocusRoad() == 10003) then
 			local tutorial_key = TUTORIAL.ADV_01_02_END
 			TutorialManager.getInstance():startTutorial(tutorial_key, self)

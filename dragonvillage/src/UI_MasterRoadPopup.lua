@@ -40,12 +40,12 @@ function UI_MasterRoadPopup:init(auto_close)
 
 	SoundMgr:playBGM('bgm_lobby')
 
-	-- @ TUTORIAL : 101
+	-- @ TUTORIAL : 1-1 end, 101
 	local tutorial_key = TUTORIAL.FIRST_END
 	local check_step = 101
 	TutorialManager.getInstance():continueTutorial(tutorial_key, check_step, self)
 
-	-- @ TUTORIAL : 103
+	-- @ TUTORIAL : 1-1 end, 103
 	tutorial_key = TUTORIAL.FIRST_END
 	check_step = 103
 	TutorialManager.getInstance():continueTutorial(tutorial_key, check_step, self)

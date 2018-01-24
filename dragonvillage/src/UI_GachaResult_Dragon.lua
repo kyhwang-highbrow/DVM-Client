@@ -333,7 +333,7 @@ function UI_GachaResult_Dragon:refresh_dragon(t_dragon_data)
 					end
 				end
 
-				-- @ TUTORIAL
+				-- @ TUTORIAL : 1-1 end, 알 부화 후 wait 처리
 				if (table.count(self.m_lGachaDragonList) <= 0) then
 					if (TutorialManager.getInstance():isDoing()) then
 						TutorialManager.getInstance():nextIfPlayerWaiting()

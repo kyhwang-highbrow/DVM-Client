@@ -88,7 +88,7 @@ function UI_Colosseum:init()
 
     self:sceneFadeInAction(nil, finich_cb)
 
-    -- @ TUTORIAL
+    -- @ TUTORIAL : colosseum
     TutorialManager.getInstance():startTutorial(TUTORIAL.COLOSSEUM, self)
 end
 

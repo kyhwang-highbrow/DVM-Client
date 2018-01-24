@@ -70,7 +70,7 @@ function UI_Clan:checkEnterEvent()
     end
 
     -- 튜토리얼 확인
-    -- @ TUTORIAL
+    -- @ TUTORIAL : clan
     TutorialManager.getInstance():startTutorial(TUTORIAL.CLAN, self)
 end
 

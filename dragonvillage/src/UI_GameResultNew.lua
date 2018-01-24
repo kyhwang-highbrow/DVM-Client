@@ -768,7 +768,7 @@ end
 function UI_GameResultNew:direction_masterRoad()
 	-- 승리 시
 	if (self.m_bSuccess) then
-		-- @ TUTORIAL : 11연차 무료 튜토리얼 시작 여부
+		-- @ TUTORIAL : 1-7 end start
 		local stage_id = self.m_stageID
 		if (TutorialManager.getInstance():checkStartFreeSummon11(stage_id)) then
 			local tutorial_key = TUTORIAL.ADV_01_07_END

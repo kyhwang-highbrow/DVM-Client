@@ -13,7 +13,7 @@ UI_HatcherySummonTab = class(PARENT,{
 function UI_HatcherySummonTab:init(owner_ui)
     local vars = self:load('hatchery_summon.ui')
 
-	-- @ TUTORIAL
+	-- @ TUTORIAL : 1-7 end, 101
 	local tutorial_key = TUTORIAL.ADV_01_07_END
 	local check_step = 101
 	TutorialManager.getInstance():continueTutorial(tutorial_key, check_step, self)

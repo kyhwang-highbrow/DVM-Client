@@ -48,7 +48,7 @@ function UI_AncientTower:init()
 
     self.root:scheduleUpdateWithPriorityLua(function(dt) self:update(dt) end, 0)
 
-    -- @ TUTORIAL
+    -- @ TUTORIAL : ancient
     TutorialManager.getInstance():startTutorial(TUTORIAL.ANCIENT, self)
 end
 

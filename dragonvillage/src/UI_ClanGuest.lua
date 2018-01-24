@@ -41,7 +41,7 @@ function UI_ClanGuest:init()
     self:refresh()
 
     local function finich_cb()
-        -- @ TUTORIAL
+        -- @ TUTORIAL : clan guest
         TutorialManager.getInstance():startTutorial(TUTORIAL.CLAN_GUEST, self)
     end
 

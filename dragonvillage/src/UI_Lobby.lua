@@ -244,7 +244,7 @@ function UI_Lobby:entryCoroutine()
 		local ui = UI_BlockPopup()
         co:work()
         self:doAction(function() 
-            -- @ TUTORIAL
+            -- @ TUTORIAL : check tutorial in lobby
 			cclog('TutorialManager:checkTutorialInLobby')
             TutorialManager.getInstance():checkTutorialInLobby(self)
             co.NEXT()

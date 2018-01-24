@@ -272,7 +272,7 @@ function ServerData_MasterRoad:request_roadClear(rid, finish_cb)
 
         if (finish_cb) then
             finish_cb()
-        end
+        end 
     end
 
     -- 네트워크 통신 UI 생성
