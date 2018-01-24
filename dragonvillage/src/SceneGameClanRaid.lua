@@ -16,7 +16,8 @@ SceneGameClanRaid = class(PARENT, {
 
         m_uiPopupTimeOut = 'UI',
 
-        m_bWaitingNetForPlayStart = 'boolean', -- 게임 시작 직전 서버와 통신 중 여부
+        -- 서버 통신 관련
+        m_bWaitingNet = 'boolean', -- 서버와 통신 중 여부
         m_bSuccessNetForPlayStart = 'boolean', -- 게임 시작 직전 서버와 통신 성공 여부(활동력 차감을 위함)
     })
 
@@ -28,7 +29,7 @@ function SceneGameClanRaid:init(game_key, stage_id, stage_name, develop_mode, st
     self.m_realStartTime = Timer:getServerTime()
     self.m_realLiveTimer = 0
     self.m_uiPopupTimeOut = nil
-    self.m_bWaitingNetForPlayStart = false
+    self.m_bWaitingNet = false
     self.m_bSuccessNetForPlayStart = false
 
     -- 스테이지 속성에 따른 이름을 사용
@@ -118,12 +119,9 @@ function SceneGameClanRaid:prepareAfter()
         if (self.m_bDevelopMode) then
             self.m_bSuccessNetForPlayStart = true
 
-        elseif (not self.m_bWaitingNetForPlayStart) then
-            self.m_bWaitingNetForPlayStart = true
-
+        else
             -- 활동력 차감을 위한 서버 통신
             self:networkGamePlayStart(function()
-                self.m_bWaitingNetForPlayStart = false
                 self.m_bSuccessNetForPlayStart = true
             end)
         end
@@ -153,36 +151,33 @@ function SceneGameClanRaid:update(dt)
 end
 
 -------------------------------------
--- function gameResume
--------------------------------------
-function SceneGameClanRaid:gameResume()
-    if (self.m_realLiveTimer > LIMIT_TIME) then
-        -- 제한 시간이 되었을 경우 서버에서 아직 게임이 진행중인지 확인
-        self:networkGameComeback(function()
-            -- 가능하다면 점수 저장 후 종료
-            local game_state = self.m_gameWorld.m_gameState
-            game_state:changeState(GAME_STATE_FAILURE)
-
-            PARENT.gameResume(self)
-        end)
-        return
-    end
-
-    PARENT.gameResume(self)
-end
-
--------------------------------------
 -- function updateRealTimer
 -------------------------------------
 function SceneGameClanRaid:updateRealTimer(dt)
+    local world = self.m_gameWorld
+    local game_state = self.m_gameWorld.m_gameState
+    
     -- 실제 진행 시간을 계산(배속에 영향을 받지 않도록 함)
     self.m_realLiveTimer = self.m_realLiveTimer + (dt / self.m_timeScale)
 
     -- 시간 제한 체크 및 처리
-    if (self.m_realLiveTimer > LIMIT_TIME) then
-        local game_state = self.m_gameWorld.m_gameState
-        if (game_state and game_state:isTimeOut() == false) then
-            game_state:processTimeOut()
+    if (self.m_realLiveTimer > LIMIT_TIME and not world:isFinished()) then
+        if (self.m_bPause) then
+            -- 일시 정지 상태인 경우 즉시 점수 저장 후 종료
+            world:setGameFinish()
+
+            local t_param = game_state:makeGameFinishParam(false)
+
+            -- 총 데미지
+            t_param['damage'] = game_state:getTotalDamage()
+
+            self:networkGameFinish(t_param, {}, function()
+                self:showTimeOutPopup()
+            end)
+        else
+            if (game_state and game_state:isTimeOut() == false) then
+                game_state:processTimeOut()
+            end
         end
     end
 
@@ -196,6 +191,10 @@ end
 -- @breif 게임 플레이 시작 시 요청
 -------------------------------------
 function SceneGameClanRaid:networkGamePlayStart(next_func)
+--[[
+    if (self.m_bWaitingNet) then return end
+    self.m_bWaitingNet = true
+
     local uid = g_userData:get('uid')
 
     local function error_popup(ret)
@@ -205,8 +204,9 @@ function SceneGameClanRaid:networkGamePlayStart(next_func)
         local cancel_btn_cb
         
         if (ret) then
+            local status = ret['status']
             type = POPUP_TYPE.OK
-            msg = t_error[ret['status']]
+            msg = t_error[status]
             ok_btn_cb = function() UINavigator:goTo('clan_raid') end
         else
             type = POPUP_TYPE.YES_NO
@@ -215,15 +215,24 @@ function SceneGameClanRaid:networkGamePlayStart(next_func)
             cancel_btn_cb = function() UINavigator:goTo('clan_raid') end
         end
 
-        local popup = MakeNetworkPopup(type, msg, ok_btn_cb, cancel_btn_cb)
-        popup.root:retain()
-        popup.root:removeFromParent(true)
-        self.m_loadingUI.root:addChild(popup.root)
-        popup.root:release()
+        if (msg) then
+            local popup = MakeNetworkPopup(type, msg, ok_btn_cb, cancel_btn_cb)
+            popup.root:retain()
+            popup.root:removeFromParent(true)
+            self.m_loadingUI.root:addChild(popup.root)
+            popup.root:release()
+        else
+            -- 기타 에러의 경우는 그냥 통과시킴
+            if (next_func) then
+                next_func()
+            end
+        end
     end
 
     local function success_cb(ret)
         self:networkGamePlayStart_response(ret)
+
+        self.m_bWaitingNet = false
 
         if (next_func) then
             next_func()
@@ -231,10 +240,14 @@ function SceneGameClanRaid:networkGamePlayStart(next_func)
     end
 
     local function fail_cb()
+        self.m_bWaitingNet = false
+
         error_popup()
     end
 
     local function response_status_cb(ret)
+        self.m_bWaitingNet = false
+
         error_popup(ret)
     end
 
@@ -248,6 +261,25 @@ function SceneGameClanRaid:networkGamePlayStart(next_func)
     ui_network:setSuccessCB(success_cb)
     ui_network:setFailCB(fail_cb)
     ui_network:request()
+]]--
+    -- !!!백그라운드로 한번만 요청하면서 다음 스텝으로 진행 시키도록 수정
+    local function success_cb(ret)
+        if (ret['status'] ~= 0) then return end
+
+        self:networkGamePlayStart_response(ret)
+    end
+
+    local t_request = {}
+    t_request['url'] = '/clans/dungeon_play'
+    t_request['method'] = 'POST'
+    t_request['data'] = { uid = g_userData:get('uid'), stage = self.m_stageID }
+    t_request['success'] = success_cb
+    
+    Network:HMacRequest(t_request)
+
+    if (next_func) then
+        next_func()
+    end
 end
 
 -------------------------------------
@@ -264,6 +296,9 @@ end
 -- @breif 게임에 복귀 시 요청
 -------------------------------------
 function SceneGameClanRaid:networkGameComeback(next_func)
+    if (self.m_bWaitingNet) then return end
+    self.m_bWaitingNet = true
+
     local uid = g_userData:get('uid')
 
     local function success_cb(ret)
@@ -271,21 +306,33 @@ function SceneGameClanRaid:networkGameComeback(next_func)
 
         -- 이미 클랜 던전 종료되었거나 제한 시간이 오버된 경우
         if (ret['is_gaming'] == false) then
+            self.m_gameWorld:setGameFinish()
+
             -- 서버에서 제한시간이 오버된 경우는 즉시 종료
             self:showTimeOutPopup()
             return
         
         elseif (self.m_realLiveTimer > LIMIT_TIME + 120) then
+            self.m_gameWorld:setGameFinish()
+
             -- 클라 제한 시간이 2분이상 오버된 경우라도 즉시 종료
             self:showTimeOutPopup()
             return
 
         end
 
+        self.m_bWaitingNet = false
+
         if (next_func) then
             next_func()
         end
     end
+
+    -- 응답 상태 처리 함수
+    local confirm_cb = function()
+        UINavigator:goTo('clan_raid')
+    end
+    local response_status_cb = MakeResponseCB(t_error, confirm_cb)
 
     local api_url = '/clans/dungeon_check'
     
@@ -293,6 +340,7 @@ function SceneGameClanRaid:networkGameComeback(next_func)
     ui_network:setUrl(api_url)
     ui_network:setParam('uid', uid)
     ui_network:setParam('stage', self.m_stageID)
+    ui_network:setResponseStatusCB(response_status_cb)
     ui_network:setSuccessCB(success_cb)
     ui_network:request()
 end
@@ -315,6 +363,9 @@ end
 -- @breif
 -------------------------------------
 function SceneGameClanRaid:networkGameFinish(t_param, t_result_ref, next_func)
+    if (self.m_bWaitingNet) then return end
+    self.m_bWaitingNet = true
+
     local uid = g_userData:get('uid')
 
     local function success_cb(ret)
@@ -332,6 +383,8 @@ function SceneGameClanRaid:networkGameFinish(t_param, t_result_ref, next_func)
         if (ret['dungeon']) then
             g_clanRaidData.m_structClanRaid = StructClanRaid(ret['dungeon'])
         end
+
+        self.m_bWaitingNet = false
 
         if next_func then
             next_func()
@@ -517,6 +570,9 @@ function SceneGameClanRaid:networkGameFinish_response_drop_reward(ret, t_result_
     end
 
     local drop_reward_list = t_result_ref['drop_reward_list']
+    if (not drop_reward_list) then
+        return
+    end
 
     -- 드랍 아이템
     for i,v in ipairs(items_list) do

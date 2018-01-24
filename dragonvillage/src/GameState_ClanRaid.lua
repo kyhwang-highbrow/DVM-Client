@@ -281,13 +281,8 @@ end
 function GameState_ClanRaid:makeResultUI(is_success)
     self.m_world:setGameFinish()
 
-    local accum_damage = self.m_accumDamage:get()
-    local final_damage = self.m_finalDamage
-    local total_damage = accum_damage + final_damage
+    local total_damage = self:getTotalDamage()
 
-    --cclog('accum_damage : ' .. accum_damage)
-    --cclog('final_damage : ' .. final_damage)
-    
     -- 작업 함수들
     local func_network_game_finish
     local func_ui_result
@@ -455,4 +450,15 @@ end
 -------------------------------------
 function GameState_ClanRaid:processTimeOut()
     self.m_bTimeOut = true
+end
+
+-------------------------------------
+-- function getTotalDamage
+-------------------------------------
+function GameState_ClanRaid:getTotalDamage()
+    local accum_damage = self.m_accumDamage:get()
+    local final_damage = self.m_finalDamage
+    local total_damage = accum_damage + final_damage
+
+    return total_damage
 end
