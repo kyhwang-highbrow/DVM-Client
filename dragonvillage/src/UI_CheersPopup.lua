@@ -45,10 +45,9 @@ end
 
 -------------------------------------
 -- function click_suggestBtn
--- @brief 건의하기 - 드빌 커뮤니티로 보냄
+-- @brief 건의하기 - 네이버 카페 플러그로 보냄
 -------------------------------------
 function UI_CheersPopup:click_suggestBtn()
-    local url = URL['DVM_COMMUNITY']
-    SDKManager:goToWeb(url)
+    NaverCafeManager:naverCafeStart(0) -- @tapNumber : 0(Home) or 1(Notice) or 2(Event) or 3(Menu) or 4(Profile)
     self:close()
 end

@@ -87,17 +87,9 @@ end
 
 -------------------------------------
 -- function click_communityBtn
--- @brief 커뮤니티 (브라우저)
+-- @brief 카페 플러그
 -------------------------------------
 function UI_Setting:click_communityBtn()
-
     -- 2017-09-13 sgkim 네이버 카페를 연동하면서 네이버 카페로 연결함
-    if true then
-        NaverCafeManager:naverCafeStart(0) -- @tapNumber : 0(Home) or 1(Notice) or 2(Event) or 3(Menu) or 4(Profile)
-        return
-    end
-
-    local url = URL['DVM_COMMUNITY']
-    SDKManager:goToWeb(url)
-    --UI_WebView(url)
+    NaverCafeManager:naverCafeStart(0) -- @tapNumber : 0(Home) or 1(Notice) or 2(Event) or 3(Menu) or 4(Profile)
 end
