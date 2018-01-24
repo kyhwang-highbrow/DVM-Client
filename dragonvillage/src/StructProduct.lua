@@ -399,8 +399,8 @@ function StructProduct:makeBadgeIcon()
 	local badge = self['badge']
 
     if badge and (badge ~= '') then
-		local path = string.format('ui/typo/ko/badge_%s.png', badge)
-		path = 'res/' .. Translate:getTranslatedPath(path)
+		local path = string.format('res/ui/typo/ko/badge_%s.png', badge)
+		path = Translate:getTranslatedPath(path)
 
         local icon, is_exist = IconHelper:getIcon(path)
         if (is_exist) then
@@ -480,7 +480,7 @@ function StructProduct:buy(cb_func)
 		local name = string.gsub(self['t_name'], '\n', '')
 		local msg = Str('{@item_name}"{1}"\n{@default}구매하시겠습니까?', Str(name))
 
-		local price = self:getPriceStr()
+		local price = (self['price_type'] == 'money') and self:getPriceStr() or self:getPrice()
 		local ui = MakeSimplePopup_Confirm(self['price_type'], price, msg, ok_cb, nil)
 
 		local platform_id = g_localData:get('local', 'platform_id') or 'firebase'
