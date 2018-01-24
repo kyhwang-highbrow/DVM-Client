@@ -206,8 +206,7 @@ end
 -- function click_infoBtn
 -------------------------------------
 function UI_Package_Bundle:click_infoBtn()
-    local url = URL['PERPLELAB_AGREEMENT']
-    UI_WebView(url)
+    GoToAgreeMentUrl()
 end
 
 -------------------------------------

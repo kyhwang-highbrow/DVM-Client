@@ -98,6 +98,9 @@ end
 -- Perplelab
 URL['PERPLELAB_AGREEMENT'] = 'http://s3.dvm.perplelab.com/perplelab/agreement.html'
 URL['PERPLELAB_PI'] = 'http://s3.dvm.perplelab.com/perplelab/personalinformation.html'
+URL['PERPLELAB_AGREEMENT_EN'] = 'http://s3.dvm.perplelab.com/perplelab/agreement_en.html'
+URL['PERPLELAB_PI_EN'] = 'http://s3.dvm.perplelab.com/perplelab/personalinformation_en.html'
+
 
 -- Highbrow
 URL['HIGHBROW'] = 'http://account.game.highbrow-inc.com:8080/'
@@ -114,4 +117,26 @@ function GetCSUrl( server )
     else
         return URL['DVM_CS_GLOBAL']
     end
+end
+
+-- 약관동의 홈페이지 연결
+function GoToAgreeMentUrl()
+    local url
+    if (g_localData:isKoreaServer()) then
+        url = URL['PERPLELAB_AGREEMENT']
+    else
+        url = URL['PERPLELAB_AGREEMENT_EN']
+    end
+    UI_WebView(url)
+end
+
+-- 개인정보 홈페이지 연결
+function GoToPersonalInfoUrl()
+    local url
+    if (g_localData:isKoreaServer()) then
+        url = URL['PERPLELAB_PI']
+    else
+        url = URL['PERPLELAB_PI_EN']
+    end
+    UI_WebView(url)
 end

@@ -144,9 +144,7 @@ end
 -- function click_infoBtn
 -------------------------------------
 function UI_Package:click_infoBtn()
-    local url = URL['PERPLELAB_AGREEMENT']
-    --SDKManager:goToWeb(url)
-    UI_WebView(url)
+    GoToAgreeMentUrl()
 end
 
 -------------------------------------

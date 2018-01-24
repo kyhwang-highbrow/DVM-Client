@@ -41,9 +41,7 @@ end
 -- @brief 이용약관
 -------------------------------------
 function UI_Setting:click_agreementBtn()
-    local url = URL['PERPLELAB_AGREEMENT']
-    --SDKManager:goToWeb(url)
-    UI_WebView(url)
+    GoToAgreeMentUrl()
 end
 
 -------------------------------------
