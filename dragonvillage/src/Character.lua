@@ -2912,7 +2912,7 @@ function Character:getAllInfomationString()
     end
 
     printLine('-------------------------------------------------------')
-	printLine('NAME : ' .. self.m_charTable['t_name'])
+	printLine('NAME : ' .. self:getName())
     printLine('LEVEL : ' .. self.m_lv)
     printLine('CURR_STATE = ' .. (self.m_state or ''))
     printLine('## STATUS EFFECT LIST ##')

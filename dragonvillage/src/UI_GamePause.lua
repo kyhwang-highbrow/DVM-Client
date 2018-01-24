@@ -182,8 +182,20 @@ end
 function UI_GamePause:click_debug_heroInfoButton()
     local world = g_gameScene.m_gameWorld
     local str = ''
+    local list = {}
 
     for _, v in ipairs(world:getDragonList()) do
+        table.insert(list, v)
+    end
+
+    -- 이름 순으로 정렬
+    if (#list > 1) then
+        table.sort(list, function(a, b)
+            return a:getName() < b:getName()
+        end)
+    end
+
+    for _, v in ipairs(list) do
         local str_info = v:getAllInfomationString()
         str = str .. str_info
     end
@@ -202,8 +214,20 @@ end
 function UI_GamePause:click_debug_enemyInfoButton()
     local world = g_gameScene.m_gameWorld
     local str = ''
+    local list = {}
 
     for _, v in ipairs(world:getEnemyList()) do
+        table.insert(list, v)
+    end
+
+    -- 이름 순으로 정렬
+    if (#list > 1) then
+        table.sort(list, function(a, b)
+            return a:getName() < b:getName()
+        end)
+    end
+
+    for _, v in ipairs(list) do
         local str_info = v:getAllInfomationString()
         str = str .. str_info
     end
