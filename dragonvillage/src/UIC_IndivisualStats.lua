@@ -54,13 +54,15 @@ function UIC_IndivisualStats:initUIComponent()
     local font_size = 24
     local stroke_tickness = 2
     local size = cc.size(256, 256)
+    local scaleX, scaleY = Translate:getFontScaleRate()
 
     do
         str = '공격력'
         local node = cc.Label:createWithTTF(str, font_name, font_size, stroke_tickness, size, cc.TEXT_ALIGNMENT_LEFT, cc.VERTICAL_TEXT_ALIGNMENT_CENTER)
         node:setDockPoint(cc.p(0, 0.5))
         node:setAnchorPoint(cc.p(0, 0.5))
-
+        node:setScaleX( scaleX )
+        node:setScaleY( scaleY )
         --node:setTextColor(cc.c4b(r,g,b,a))
         node:setColor(cc.c3b(161, 125, 93))
         node:enableOutline(cc.c4b(0,0,0,255), stroke_tickness)
@@ -74,7 +76,8 @@ function UIC_IndivisualStats:initUIComponent()
         local node = cc.Label:createWithTTF(str, font_name, font_size, stroke_tickness, size, cc.TEXT_ALIGNMENT_RIGHT, cc.VERTICAL_TEXT_ALIGNMENT_CENTER)
         node:setDockPoint(cc.p(0, 0.5))
         node:setAnchorPoint(cc.p(1, 0.5))
-
+        node:setScaleX( scaleX )
+        node:setScaleY( scaleY )
         --node:setTextColor(cc.c4b(r,g,b,a))
         node:setColor(cc.c3b(255, 255, 255))
         node:enableOutline(cc.c4b(0,0,0,255), stroke_tickness)
@@ -96,7 +99,8 @@ function UIC_IndivisualStats:initUIComponent()
         local node = cc.Label:createWithTTF(str, font_name, font_size, stroke_tickness, size, cc.TEXT_ALIGNMENT_LEFT, cc.VERTICAL_TEXT_ALIGNMENT_CENTER)
         node:setDockPoint(cc.p(0, 0.5))
         node:setAnchorPoint(cc.p(0, 0.5))
-
+        node:setScaleX( scaleX )
+        node:setScaleY( scaleY )
         --node:setTextColor(cc.c4b(r,g,b,a))
         node:setColor(cc.c3b(0, 255, 0))
         node:enableOutline(cc.c4b(0,0,0,255), stroke_tickness)
