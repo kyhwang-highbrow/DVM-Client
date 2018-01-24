@@ -393,6 +393,25 @@ function StructProduct:getPriceStr()
 end
 
 -------------------------------------
+-- function makeBadgeIcon
+-------------------------------------
+function StructProduct:makeBadgeIcon()
+	local badge = self['badge']
+
+    if badge and (badge ~= '') then
+		local path = string.format('res/ui/typo/ko/badge_%s.png', badge)
+		path = Translate:getTranslatedPath(path)
+
+        local icon, is_exist = IconHelper:getIcon(path)
+        if (is_exist) then
+            return icon
+        end
+    end
+
+	return nil
+end
+
+-------------------------------------
 -- function isPaymentProduct
 -------------------------------------
 function StructProduct:isPaymentProduct()

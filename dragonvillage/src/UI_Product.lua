@@ -95,15 +95,9 @@ function UI_Product:initUI()
     end
 
     -- 뱃지 아이콘 추가
-    local badge = struct_product['badge']
+    local badge = struct_product:makeBadgeIcon()
     if (badge) then
-        local imgPath = string.format('ui/typo/ko/badge_%s.png', badge)
-        local img = cc.Sprite:create('res/' .. Translate:getTranslatedPath(imgPath))
-        if (img) then
-            img:setDockPoint(cc.p(0.5, 0.5))
-            img:setAnchorPoint(cc.p(0.5, 0.5))
-            vars['badgeNode']:addChild(img)
-        end
+		vars['badgeNode']:addChild(badge)
     end
 
     -- 광고
