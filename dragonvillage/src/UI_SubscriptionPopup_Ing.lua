@@ -180,12 +180,11 @@ function UI_SubscriptionPopup_Ing:refresh()
 
     -- 가격
 	local price = struct_product:getPriceStr()
-    vars['priceLabel']:setString(price)
+	vars['priceLabel']:setString(price)
 
     do -- 할인율 표시
-        local price = struct_product:getPrice()
-        local base_price = base_product:getPrice()
-
+        local price = struct_product['price']
+        local base_price = base_product['price']
         local percentage = math_floor((base_price - price) / base_price * 100)
         vars['saleLabel']:setString(Str('{1}%\n할인!', percentage))
     end
