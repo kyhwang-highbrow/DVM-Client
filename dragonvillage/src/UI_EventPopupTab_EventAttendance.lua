@@ -17,7 +17,11 @@ function UI_EventPopupTab_EventAttendance:init()
     self:initUI()
 
     -- 오늘 보상을 보여주는 팝업
-	cca.reserveFunc(self.root, 0.5, function() self:checkTodayRewardPopup() end)
+	local ui = UI_BlockPopup()
+	cca.reserveFunc(self.root, 0.5, function() 
+		self:checkTodayRewardPopup() 
+		ui:close()
+	end)
 end
 
 -------------------------------------

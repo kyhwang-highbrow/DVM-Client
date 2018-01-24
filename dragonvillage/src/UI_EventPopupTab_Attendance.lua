@@ -18,6 +18,23 @@ function UI_EventPopupTab_Attendance:init(owner)
     self.m_structAttendance = g_attendanceData:getBasicAttendance()
 	self.m_isCheckHot = false
 
+	self:initUI()
+	self:initTableView()
+
+    -- 오늘 보상을 보여주는 팝업
+	local ui = UI_BlockPopup()
+	cca.reserveFunc(self.root, 0.5, function() 
+		self:checkTodayRewardPopup() 
+		ui:close()
+	end)
+end
+
+-------------------------------------
+-- function initUI
+-------------------------------------
+function UI_EventPopupTab_Attendance:initUI()
+	local vars = self.vars
+
 	local struct_attendance_data = self.m_structAttendance
     local today_step = struct_attendance_data['today_step']
 	local step_list = struct_attendance_data['step_list']
@@ -36,11 +53,6 @@ function UI_EventPopupTab_Attendance:init(owner)
 			break
 		end
     end
-
-	self:initTableView()
-
-    -- 오늘 보상을 보여주는 팝업
-	cca.reserveFunc(self.root, 0.5, function() self:checkTodayRewardPopup() end)
 end
 
 -------------------------------------

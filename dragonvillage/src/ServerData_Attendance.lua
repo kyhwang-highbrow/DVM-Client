@@ -74,6 +74,17 @@ end
 function ServerData_Attendance:response_attendanceInfo(ret, finish_cb)
     self.m_bDirtyAttendanceInfo = false
 
+	-- 이전 출석 정보에 아직 보상 수령 안된 상태라면 처리하지 않는다
+	-- 이 상태에서 재접속하면 출석 보상 수령 연출이 안나오겠지만... 현재 구조에서는 어차피 불가능
+	if (self.m_structAttendanceDataList) then
+		if (self:hasAttendanceReward()) then
+			if finish_cb then
+				finish_cb(ret)
+			end
+			return
+		end
+	end
+
 	-- 출석 정보
 	self.m_structAttendanceDataList = {}
     if ret['attendance_info'] then
