@@ -607,13 +607,16 @@ function StatusCalculator:getAllStatString()
         str = str .. _str .. '\n'
     end
 
-	for stat_type, indivisual_status in pairs(self.m_lStatusList) do
-        local final_stat = self:getFinalStat(stat_type)
-        local buff_multi = indivisual_status.m_buffMulti
-        local buff_add = indivisual_status.m_buffAdd
+    for _, stat_type in ipairs(L_STATUS_TYPE) do
+        local indivisual_status = self.m_lStatusList[stat_type]
+        if (indivisual_status) then
+            local final_stat = self:getFinalStat(stat_type)
+            local buff_multi = indivisual_status.m_buffMulti
+            local buff_add = indivisual_status.m_buffAdd
 
-		printLine('- ' .. stat_type .. ' : ' .. final_stat .. ' (' .. buff_multi .. '%, ' .. buff_add .. ')')
-	end
+		    printLine('- ' .. stat_type .. ' : ' .. final_stat .. ' (' .. buff_multi .. '%, ' .. buff_add .. ')')
+        end
+    end
 
     return str
 end
