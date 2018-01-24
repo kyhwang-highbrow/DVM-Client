@@ -137,7 +137,9 @@ function UI_HatcherySummonTab:click_eventSummonBtn(is_bundle, is_sale, t_egg_dat
 
         -- 추가된 마일리지
         local added_mileage = ret['added_mileage'] or 0
-        UIManager:toastNotificationGreen(Str('{1}마일리지가 적립되었습니다.', added_mileage))
+		if (added_mileage > 0) then
+			UIManager:toastNotificationGreen(Str('{1}마일리지가 적립되었습니다.', added_mileage))
+		end
     end
 
     local function fail_cb()
@@ -185,7 +187,9 @@ function UI_HatcherySummonTab:click_cashSummonBtn(is_bundle, is_sale, t_egg_data
 
         -- 추가된 마일리지
         local added_mileage = ret['added_mileage'] or 0
-        UIManager:toastNotificationGreen(Str('{1}마일리지가 적립되었습니다.', added_mileage))
+		if (added_mileage > 0) then
+			UIManager:toastNotificationGreen(Str('{1}마일리지가 적립되었습니다.', added_mileage))
+		end
     end
 
     local function fail_cb()
