@@ -49,7 +49,8 @@ function UI_Product:initUI()
 	-- 예외처리
 	-- 패키지
 	if (struct_product:isPackage()) then
-		vars['priceLabel']:setString(Str('상세보기'))
+		vars['priceLabel']:setString(Str('상품 자세히 보기'))
+		vars['priceLabel']:setScale(0.8)
 
 	-- 그외 현금 상품 (다이아)
 	elseif (struct_product:isPaymentProduct()) then
