@@ -779,14 +779,10 @@ function SceneGame:networkGameFinish_response_drop_reward(ret, t_result_ref)
             
             -- 하이브로 캡슐은 한국서버에서만 드랍 처리
             if (item_id == TableItem:getItemIDFromItemType('capsule')) then
-                local server = g_localData:getServerName()
-                if (server == SERVER_NAME.KOREA) or 
-                   (server == SERVER_NAME.DEV) or 
-                   (server == SERVER_NAME.QA) then
+                if g_localData:isShowHighbrowShop() then
                     local t_data = {item_id, count, from, data}
                     table.insert(drop_reward_list, t_data)
-                end
-            
+                end            
             else
                 local t_data = {item_id, count, from, data}
                 table.insert(drop_reward_list, t_data)

@@ -276,3 +276,20 @@ end
 function LocalData:getServerName()
 	return self:get('local', 'server')
 end
+
+
+-------------------------------------
+-- function isShowHighbrowShop
+-- @breif 하이브로 전용관 노출 여부 (드빌 전용관은 한국서버에서만 노출)
+-------------------------------------
+function LocalData:isShowHighbrowShop()
+	local server = self:getServerName()
+    if (server == SERVER_NAME.KOREA) then
+    elseif (server == SERVER_NAME.DEV) then
+    elseif (server == SERVER_NAME.QA) then
+    else
+        return false
+    end
+
+    return true
+end

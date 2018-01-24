@@ -68,6 +68,21 @@ function DropHelper:getDisplayItemList()
         end
     end
 
+    -- 드빌 전용관은 한국서버에서만 노출 (캡슐 포함)
+    if (not g_localData:isShowHighbrowShop()) then
+        local capsule_item_id = TableItem:getItemIDFromItemType('capsule')
+        local l_remove = {}
+        for i,item_id in ipairs(l_ret) do
+            if (capsule_item_id == item_id) then
+                table.insert(l_remove, 1, i)
+            end
+        end
+
+        for _,idx in ipairs(l_remove) do
+            table.remove(l_ret, idx)
+        end
+    end
+
     return l_ret
 end
 

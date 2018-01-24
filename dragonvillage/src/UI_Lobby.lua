@@ -1006,6 +1006,13 @@ end
 function UI_Lobby:refresh_rightButtons()
     local vars = self.vars
     
+    -- 드빌 전용관은 한국서버에서만 노출
+    if g_localData:isShowHighbrowShop() then
+        vars['capsuleBtn']:setVisible(true)
+    else
+        vars['capsuleBtn']:setVisible(false)
+    end
+
     -- 교환소 버튼
     if g_hotTimeData:isActiveEvent('event_exchange') then
         vars['exchangeBtn']:setVisible(true)
@@ -1044,14 +1051,7 @@ function UI_Lobby:refresh_rightButtons()
 
     -- 인덱스 1번이 오른쪽
     local t_btn_name = {}
-    local server = g_localData:getServerName()
-
-    -- 드빌 전용관은 한국서버에서만 노출
-    if (server == SERVER_NAME.KOREA) or 
-       (server == SERVER_NAME.DEV) or 
-       (server == SERVER_NAME.QA) then
-        table.insert(t_btn_name, 'capsuleBtn')
-    end
+    table.insert(t_btn_name, 'capsuleBtn')
     table.insert(t_btn_name, 'itemAutoBtn')
     table.insert(t_btn_name, 'giftBoxBtn')
     table.insert(t_btn_name, 'exchangeBtn')

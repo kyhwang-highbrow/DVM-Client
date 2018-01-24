@@ -52,12 +52,7 @@ function ServerData_Event:getEventPopupTabList()
 
         -- 드빌 전용관은 한국서버에서만 노출
         elseif (event_type == 'highbrow_shop') then
-            local server = g_localData:getServerName()
-            if (server == SERVER_NAME.KOREA) or 
-               (server == SERVER_NAME.DEV) or 
-               (server == SERVER_NAME.QA) then
-                
-            else
+            if (not g_localData:isShowHighbrowShop()) then
                 is_exist = false
             end
 
