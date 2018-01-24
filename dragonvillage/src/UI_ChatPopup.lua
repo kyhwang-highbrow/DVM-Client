@@ -114,21 +114,21 @@ function UI_ChatPopup:click_enterBtn()
 
     local len = string.len(msg)
     if (len <= 0) then
-        UIManager:toastNotificationRed('메시지를 입력하세요.')
+        UIManager:toastNotificationRed(Str('메시지를 입력하세요.'))
         return
     end
 
     -- 비속어 필터링
     if (not FilterMsg(msg)) then
         vars['editBox']:setText('')
-        UIManager:toastNotificationRed('사용할 수 없는 표현이 포함되어 있습니다.')
+        UIManager:toastNotificationRed(Str('사용할 수 없는 표현이 포함되어 있습니다.'))
         return
     end
 
     if g_chatManager:sendNormalMsg(msg) then
         vars['editBox']:setText('')
     else
-        UIManager:toastNotificationRed('메시지 전송에 실패하였습니다.')
+        UIManager:toastNotificationRed(Str('메시지 전송에 실패하였습니다.'))
     end
 end
 

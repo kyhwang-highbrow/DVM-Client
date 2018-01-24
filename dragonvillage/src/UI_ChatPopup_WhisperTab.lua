@@ -57,21 +57,21 @@ function UI_ChatPopup_WhisperTab:click_enterBtn()
     local vars = self.vars
 
     if (not self.m_peerUserNickname) or (self.m_peerUserNickname == '') then
-        UIManager:toastNotificationRed('귓속말 상대방 닉네임을 입력하세요.')
+        UIManager:toastNotificationRed(Str('귓속말 상대방 닉네임을 입력하세요.'))
         return
     end
     
     local msg = vars['editBox_whisper']:getText()
     local len = string.len(msg)
     if (len <= 0) then
-        UIManager:toastNotificationRed('메시지를 입력하세요.')
+        UIManager:toastNotificationRed(Str('메시지를 입력하세요.'))
         return
     end
 
     -- 비속어 필터링
     if (not FilterMsg(msg)) then
         vars['editBox_whisper']:setText('')
-        UIManager:toastNotificationRed('사용할 수 없는 표현이 포함되어 있습니다.')
+        UIManager:toastNotificationRed(Str('사용할 수 없는 표현이 포함되어 있습니다.'))
         return
     end
 
