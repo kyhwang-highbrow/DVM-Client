@@ -24,6 +24,8 @@ UI_GachaResult_Dragon = class(PARENT, {
 
 		-- 소환 정보
 		m_tSummonData = 'table',
+
+		m_isClearMasterRoad = 'bool',
      })
 
 -------------------------------------
@@ -84,6 +86,13 @@ function UI_GachaResult_Dragon:init(gacha_type, l_gacha_dragon_list, l_slime_lis
     self:refresh()
 
     SoundMgr:stopBGM()
+
+	-- @ MASTER ROAD
+    local t_data = {clear_key = 'egg'}
+	local function cb_func(b)
+		self.m_isClearMasterRoad = b or false
+	end
+    g_masterRoadData:updateMasterRoad(t_data, cb_func)
 end
 
 -------------------------------------
@@ -568,6 +577,9 @@ function UI_GachaResult_Dragon:click_closeBtn()
     if (skip_btn:isEnabled() and skip_btn:isVisible()) then
         self:click_skipBtn()
     else
+		if (self.m_isClearMasterRoad) then 
+			UI_MasterRoadPopup_Link()
+		end
         SoundMgr:playPrevBGM()
         self:close()
     end

@@ -133,9 +133,6 @@ function UI_HatcheryIncubateTab:requestIncubate(egg_id, cnt, old_ui)
 
         local function close_cb()
             self:sceneFadeInAction()
-            -- @ MASTER ROAD
-            local t_data = {clear_key = 'egg'}
-            g_masterRoadData:updateMasterRoad(t_data)
         end
         ui:setCloseCB(close_cb)
 
