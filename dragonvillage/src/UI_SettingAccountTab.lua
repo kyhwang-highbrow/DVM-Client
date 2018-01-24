@@ -523,7 +523,7 @@ function UI_Setting:click_serverBtn()
             CppFunctions:restart()
         end
 
-        MakeSimplePopup(POPUP_TYPE.YES_NO, '설정을 변경하면 앱이 재시작됩니다.\n진행하시겠습니까?', ok_cb)
+        MakeSimplePopup(POPUP_TYPE.OK, Str('앱을 재시작합니다.'), ok_cb)
     end
 
     UI_SelectServerPopup(onChangeServer)

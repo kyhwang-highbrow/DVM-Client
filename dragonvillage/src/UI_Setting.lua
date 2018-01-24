@@ -58,7 +58,7 @@ function UI_Setting:initUI()
                 g_settingData:applySettingData(not local_test_mode, 'test_mode')
                 CppFunctions:restart()
             end
-            MakeSimplePopup(POPUP_TYPE.YES_NO, '설정을 변경하면 앱이 재시작됩니다.\n진행하시겠습니까?', ok_cb)
+            MakeSimplePopup(POPUP_TYPE.YES_NO, Str('설정을 변경하면 앱이 재시작됩니다.\n진행하시겠습니까?'), ok_cb)
         end
         vars['testModeBtn']:registerScriptTapHandler(click)
     else
