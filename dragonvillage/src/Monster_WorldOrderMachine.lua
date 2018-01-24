@@ -22,6 +22,8 @@ Monster_WorldOrderMachine = class(PARENT, {
 		m_magicAtkInterval = 'num',
 
 		m_isMagicStateChanging = 'bool',
+
+        m_activityCarrier = 'ActivityCarrier',
      })
 
 -------------------------------------
@@ -87,7 +89,7 @@ end
 function Monster_WorldOrderMachine:doMagicAttack()
 	if (self:isDead()) then return end 
 
-	local activityCarrier = self:makeAttackDamageInstance()
+	self.m_activityCarrier = self:makeAttackDamageInstance()
 
 	local world = self.m_world
 	local l_dragon = self:getOpponentList()
@@ -96,7 +98,7 @@ function Monster_WorldOrderMachine:doMagicAttack()
 	local state = self.m_magicState
 	if (state == STATE_HUGE_ATTACK) then 
 		-- activity carrier
-		activityCarrier:setPowerRate(self:getValue())
+		self.m_activityCarrier:setPowerRate(self:getValue())
 		
 		-- attack
         if (count == 0) then return end
@@ -111,7 +113,7 @@ function Monster_WorldOrderMachine:doMagicAttack()
 
 	elseif (state == STATE_BABY_ATTACK) then 
 		-- activity carrier
-		activityCarrier:setPowerRate(self:getValue())
+		self.m_activityCarrier:setPowerRate(self:getValue())
 
 		-- attack
 		for i, target_char in pairs(l_dragon) do 
