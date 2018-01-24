@@ -300,10 +300,17 @@ end
 function DragonSkillIndivisualInfo:getCoolTime(t_skill)
 	local t_skill = t_skill or self.m_tSkill
     local cooltime = t_skill['cooldown'] 
-
+    
     -- 예외처리 추가
     if (t_skill['chance_type'] == 'indie_time') then
-        cooltime = t_skill['chance_value']
+        local chance_value = t_skill['chance_value']
+
+        -- indie_time 타입의 경우는 cooldown값과 chance_value값을 비교하여 큰 수를 표시
+        if (cooltime ~= '') then
+            cooltime = (cooltime > chance_value) and cooltime or chance_value
+        else
+            cooltime = chance_value
+        end
     end
 
     -- 예외처리
