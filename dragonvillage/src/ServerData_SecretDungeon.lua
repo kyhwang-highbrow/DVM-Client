@@ -359,7 +359,7 @@ function ServerData_SecretDungeon:getStageName(dungeon_id)
         local did = t_dungeon_info['dragon']
         local dragon_name = TableDragon():getValue(did, 't_name')
 
-        name = Str('인연 던전') .. ' - ' .. Str(dragon_name)
+        name = Str(dragon_name)
     end
 
     return name
