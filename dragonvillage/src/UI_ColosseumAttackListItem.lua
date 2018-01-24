@@ -41,7 +41,7 @@ function UI_ColosseumAttackListItem:init(struct_user_info_colosseum)
     --]]
    
     -- 유저 정보
-    local str = Str('레벨{1} {2}', info.m_lv, info.m_nickname)
+    local str = Str('Lv.{1} {2}', info.m_lv, info.m_nickname)
     vars['userLabel']:setString(str)
 
     -- 전투력 표시

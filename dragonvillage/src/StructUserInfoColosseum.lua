@@ -250,7 +250,7 @@ end
 -- @brief
 -------------------------------------
 function StructUserInfoColosseum:getUserText()
-    local str = Str('레벨 {1} : {2}', self.m_lv, self.m_nickname)
+    local str = Str('Lv.{1} {2}', self.m_lv, self.m_nickname)
     return str
 end
 
