@@ -480,7 +480,7 @@ function StructProduct:buy(cb_func)
 		local name = string.gsub(self['t_name'], '\n', '')
 		local msg = Str('{@item_name}"{1}"\n{@default}구매하시겠습니까?', Str(name))
 
-		local price = self:getPrice()
+		local price = self:getPriceStr()
 		local ui = MakeSimplePopup_Confirm(self['price_type'], price, msg, ok_cb, nil)
 
 		local platform_id = g_localData:get('local', 'platform_id') or 'firebase'
