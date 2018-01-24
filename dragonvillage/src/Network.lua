@@ -35,9 +35,16 @@ end
 -------------------------------------
 function Network_platform_issueRcode(rcode, os, game_push, pushToken, success_cb, fail_cb)
     -- 파라미터 셋팅
+    --체크한번
+    local uid = g_localData:get('local', 'uid')
+    local removeIdx = string.find(uid, '@')    
+    if removeIdx then
+        uid = string.sub( uid, 1, removeIdx - 1 )
+    end
+
     local t_data = {}
     t_data['game_id'] = 1003
-    t_data['uid'] = g_localData:get('local', 'uid')
+    t_data['uid'] = string.format('%s@%s', uid, g_localData:getServerName())
     t_data['rcode'] = rcode
     t_data['os'] = os
     t_data['game_push'] = game_push
