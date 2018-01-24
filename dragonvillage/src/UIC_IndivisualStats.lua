@@ -225,7 +225,7 @@ end
 function UIC_IndivisualStats:setParentNode(node)
     node:addChild(self.m_node)
     local width, height = node:getNormalSize()
-    local arrow_pos = (width * 0.75)
+    local arrow_pos = (width * 0.7)
 
     local x1 = arrow_pos - 20
     local x2 = arrow_pos
