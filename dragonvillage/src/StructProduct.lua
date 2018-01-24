@@ -980,9 +980,9 @@ end
 function StructProduct:getPrice()
     if (self['price_type'] == 'money') then
         if isIos() then
-            return self['price_dollar']
+            return '＄' .. self['price_dollar']
         else
-            return self['price']
+            return '￦' .. self['price']
         end
     end
     
