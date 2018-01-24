@@ -102,6 +102,12 @@ function UI_Clan:initUI()
     local vars = self.vars
 
     self:initTab()
+
+    -- 한국 서버가 아닌 경우 - 준비중 표시
+    if (not g_localData:isKoreaServer()) then
+        vars['raidLabel']:setString('Coming Soon') -- 번역 필요 없음
+        vars['raidBtn']:setEnabled(false)
+    end
 end
 
 -------------------------------------
@@ -113,14 +119,7 @@ function UI_Clan:initButton()
     vars['settingBtn']:registerScriptTapHandler(function() self:click_settingBtn() end)
     vars['rewardBtn']:registerScriptTapHandler(function() self:click_rewardBtn() end)
     vars['requestBtn']:registerScriptTapHandler(function() self:click_requestBtn() end)
-
-    -- iOS 앱 검수 클랜던전 미노출
-	if (g_localData:isInAppReview()) then
-        vars['raidBtn']:setVisible(false)
-    else
-        vars['raidBtn']:setVisible(true)
-        vars['raidBtn']:registerScriptTapHandler(function() self:click_raidBtn() end)
-    end
+    vars['raidBtn']:registerScriptTapHandler(function() self:click_raidBtn() end)
 end
 
 -------------------------------------

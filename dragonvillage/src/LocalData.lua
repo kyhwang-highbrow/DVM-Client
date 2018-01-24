@@ -293,3 +293,19 @@ function LocalData:isShowHighbrowShop()
 
     return true
 end
+
+-------------------------------------
+-- function isKoreaServer
+-- @breif 한국 서버 (QA, DEV 포함)
+-------------------------------------
+function LocalData:isKoreaServer()
+	local server = self:getServerName()
+    if (server == SERVER_NAME.KOREA) then
+    elseif (server == SERVER_NAME.DEV) then
+    elseif (server == SERVER_NAME.QA) then
+    else
+        return false
+    end
+
+    return true
+end
