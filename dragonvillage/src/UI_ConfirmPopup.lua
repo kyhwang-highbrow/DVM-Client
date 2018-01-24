@@ -70,7 +70,11 @@ function UI_ConfirmPopup:refresh()
 
 	vars['titleLabel']:setString(self.m_msg or Str('다음 재화를 사용합니다.\n진행하시겠습니다?'))
 	
-	vars['priceLabel']:setString(comma_value(self.m_itemValue))
+    if (self.m_itemKey == 'money') then
+        vars['moneyLabel']:setString(self.m_itemValue)
+    else
+        vars['priceLabel']:setString(comma_value(self.m_itemValue))
+    end
 
 	local price_icon = IconHelper:getPriceIcon(self.m_itemKey)
 	if (price_icon) then

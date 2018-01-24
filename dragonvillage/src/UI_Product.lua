@@ -55,7 +55,7 @@ function UI_Product:initUI()
 	elseif (struct_product:isPaymentProduct()) then
 		-- 가격
 		local price = struct_product:getPriceStr()
-		vars['priceLabel']:setString(price)
+		vars['moneyLabel']:setString(price)
 
 	-- 일반 재화 상품
 	else
