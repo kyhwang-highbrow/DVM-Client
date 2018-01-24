@@ -214,9 +214,10 @@ end
 -------------------------------------
 function UI_Setting:click_languageBtn()
 	local function change_lang()
-		local is_use_loading = true
-		local scene = SceneLobby(is_use_loading)
-		scene:runScene()
+		--local is_use_loading = true
+		--local scene = SceneLobby(is_use_loading)
+		--scene:runScene()
+        CppFunctionsClass:restart()
 	end
 
     UI_SelectLanguagePopup(change_lang)
