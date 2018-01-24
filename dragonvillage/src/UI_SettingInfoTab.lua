@@ -19,6 +19,13 @@ function UI_Setting:init_infoTab()
     if CppFunctions:isIos() then
         vars['couponBtn']:setVisible(false)
     end
+
+    -- 표준시간 표시
+    local utc_desc = datetime.getTimeUTCDesc()
+    vars['utcLabel']:setString(utc_desc)
+
+    local timezone = Timer:getTimeZone()
+    vars['timezoneLabel']:setString(Str('({1})', timezone))
 end
 
 -------------------------------------

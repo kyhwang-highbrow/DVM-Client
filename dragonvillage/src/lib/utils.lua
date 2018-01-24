@@ -359,6 +359,32 @@ function datetime.strformat(t)
     return os.date('%Y-%m-%d %H:%M', t)
 end
 
+function datetime.getTimeUTCDesc()
+    -- h : UTC 기준 시각 (UTC+h)
+	local h = Timer:getUTCHour()
+    local utc = ''
+    if h >= 0 then
+        utc = Str('UTC+{1}', h)
+    else
+        utc = Str('UTC{1}', h)
+    end
+
+    -- t : 현재시간
+    local t = os.date('*t', Timer:getServerTime())
+
+	local function unit(value)
+		if value < 10 then
+			return  '0' .. tostring(value)
+		else
+			return tostring(value)
+		end
+	end
+
+    local desc = Str('{1}/{2},{3}:{4}({5})', unit(t.month), unit(t.day), unit(t.hour), unit(t.min), utc)
+
+    return desc
+end
+
 --###############################################
 -- utility funciton : Stack
 --###############################################

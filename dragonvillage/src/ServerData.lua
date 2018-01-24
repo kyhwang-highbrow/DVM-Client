@@ -367,6 +367,20 @@ function ServerData:networkCommonRespone(ret)
         local server_time = math_floor(ret['server_info']['server_time'] / 1000)
         Timer:setServerTime(server_time)
 
+        -- UTC 기준 시간 
+        if (ret['server_info']['hour']) then
+            local hour = ret['server_info']['hour'] 
+            Timer:setUTCHour(hour)
+            Timer:setServerTimeUTC(server_time)
+        end
+
+        -- timezone 
+        if (ret['server_info']['timezone']) then
+            local timezone = ret['server_info']['timezone'] 
+            Timer:setTimeZone(timezone)
+        end
+
+        -- 서버 상의 자정 시간
         local server_midnight_time_stamp = ret['server_info']['midnight']
         if server_midnight_time_stamp then
             Timer.m_midnightTimeStamp = (server_midnight_time_stamp / 1000)
