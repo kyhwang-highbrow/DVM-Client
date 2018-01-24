@@ -213,8 +213,16 @@ end
 
 -------------------------------------
 -- function click_autoStartButton
+-- @brief 연속 전투 .. 자동 아님
 -------------------------------------
 function UI_Game:click_autoStartButton()
+	-- 튜토리얼 진행 중 block
+	local stage_id = self.m_gameScene.m_stageID
+	if (TutorialManager.getInstance():blockIngamePause(stage_id)) then
+		UIManager:toastNotificationRed(Str('튜토리얼 진행 중입니다.'))
+		return
+	end
+
     local world = self.m_gameScene.m_gameWorld
     if (not world) then return end
 
@@ -249,6 +257,13 @@ end
 -- function click_pauseButton
 -------------------------------------
 function UI_Game:click_pauseButton()
+	-- 튜토리얼 진행 중 block
+	local stage_id = self.m_gameScene.m_stageID
+	if (TutorialManager.getInstance():blockIngamePause(stage_id)) then
+		UIManager:toastNotificationRed(Str('튜토리얼 진행 중입니다.'))
+		return
+	end
+
     local world = self.m_gameScene.m_gameWorld
     if (not world) then return end
     
