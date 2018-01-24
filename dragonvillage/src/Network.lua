@@ -24,6 +24,35 @@ function Network_get_patch_info(app_ver, success_cb, fail_cb)
 end
 
 -------------------------------------
+-- function MakeGameServerUid
+-- @breif firebase uid와 게임 서버 이름으로 uid 생성
+-------------------------------------
+function MakeGameServerUid()
+    -- 세이브파일에 저장된 uid를 불러옴
+    local uid = g_localData:get('local', 'uid')
+
+    -- 연결할 게임 서버명 얻어옴
+    local server_name = g_localData:getServerName()
+
+    -- 개발 서버는 그대로 리턴
+    if (server_name == 'DEV') or (server_name == 'QA') then
+        -- DEV(개발), QA 서버에서는 라이브 서버의 계정을 복사해서 사용하는 경우가 있기때문에
+        -- 클라이언트에서 저장된 그대로의 uid를 사용
+        return uid
+    end
+
+    -- fuid@server_name 형태의 uid일 경우 @server_name을 떼어줌
+    local removeIdx = string.find(uid, '@')    
+    if removeIdx then
+        uid = string.sub(uid, 1, removeIdx - 1)
+    end
+
+    -- fuid@server_name 형태의 uid 생성
+    local ret_uid = string.format('%s@%s', uid, server_name)
+    return ret_uid
+end
+
+-------------------------------------
 -- function Network_platform_issueRcode
 -- @breif firebase uid로 
 --        복구코드 생성 및pushToken저장
@@ -35,16 +64,9 @@ end
 -------------------------------------
 function Network_platform_issueRcode(rcode, os, game_push, pushToken, success_cb, fail_cb)
     -- 파라미터 셋팅
-    --체크한번
-    local uid = g_localData:get('local', 'uid')
-    local removeIdx = string.find(uid, '@')    
-    if removeIdx then
-        uid = string.sub( uid, 1, removeIdx - 1 )
-    end
-
     local t_data = {}
     t_data['game_id'] = 1003
-    t_data['uid'] = string.format('%s@%s', uid, g_localData:getServerName())
+    t_data['uid'] = MakeGameServerUid()
     t_data['rcode'] = rcode
     t_data['os'] = os
     t_data['game_push'] = game_push
