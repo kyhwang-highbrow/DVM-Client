@@ -59,7 +59,10 @@ function ResPreloadMgr:loadFromStageId(stage_id)
 
         -- 스테이지에 관련된 것들을 제외한 나머지 리소스들을 추가
         local game_mode = getDigit(self.m_stageId, 100000, 2)
-        if (game_mode == GAME_MODE_CLAN_RAID) then
+
+        if (game_mode == GAME_MODE_INTRO) then
+            self.m_lPreloadList = self:makeResListForIntro()
+        elseif (game_mode == GAME_MODE_CLAN_RAID) then
             self.m_lPreloadList = self:makeResListForClanRaid()
         else
             self.m_lPreloadList = self:makeResListForGame()
@@ -213,6 +216,42 @@ function ResPreloadMgr:makeResListForGame()
         table.insert(l_ret, k)
     end
 
+    return l_ret
+end
+
+-------------------------------------
+-- function makeResListForIntro
+-- @brief 인트로 게임 관련 리소스 목록을 얻음
+-------------------------------------
+function ResPreloadMgr:makeResListForIntro()
+    local l_ret = {}
+    local t_temp = {}
+    
+    -- 아군 관련 리소스
+    for _, did in ipairs({ 120011, 120102, 120431, 120223, 120294 }) do
+        local t_dragon_data = StructDragonObject()
+
+        t_dragon_data['did'] = did
+        t_dragon_data['grade'] = 6
+        t_dragon_data['lv'] =  60
+        t_dragon_data['evolution'] = 3
+        t_dragon_data['skill_0'] = 1
+		t_dragon_data['skill_1'] = 1
+		t_dragon_data['skill_2'] = 1
+		t_dragon_data['skill_3'] = 1
+        
+        local l_res = self:getPreloadList_Dragon(t_dragon_data)
+
+        for _, k in ipairs(l_res) do
+            t_temp[k] = true
+        end
+    end
+    
+    -- 인덱스형 테이블로 변환
+    for k, _ in pairs(t_temp) do
+        table.insert(l_ret, k)
+    end
+    
     return l_ret
 end
 

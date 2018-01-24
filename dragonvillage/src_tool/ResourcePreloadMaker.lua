@@ -57,6 +57,10 @@ function ResourcePreloadMaker:makePreloadFile()
     -- 공용 리소스 리스트 삽입
     l_preload_list['common'] = self:getPreloadList_Common()
 
+    -- 인트로 스테이지 리소스 생성
+    local intro_stage_id = 1010001
+    l_preload_list[intro_stage_id] = self:getPreloadList_Stage(intro_stage_id)
+
     -- 스테이지 별 리소스 생성
     for stage_id, _ in pairs(table_stage_desc.m_orgTable) do
         l_preload_list[stage_id] = self:getPreloadList_Stage(stage_id)
