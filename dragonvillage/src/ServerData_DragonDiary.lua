@@ -88,11 +88,10 @@ end
 
 -------------------------------------
 -- function getTitleText
--- @brief 시작 드래곤에 따라 타이틀 문구 달라짐
+-- @brief 시작 드래곤에 따라 타이틀 문구 달라짐 -> 드래곤 성장일지로 변경
 -------------------------------------
 function ServerData_DragonDiary:getTitleText()
-    local name = self:getStartDragonName()
-    local title = Str('{1}의 성장일지', name)
+    local title = Str('드래곤 성장일지')
     return title
 end
 
