@@ -237,7 +237,7 @@ local S_ERROR_STATUS_SHOP = {
 
 -- 재시작
 local S_ERROR_STATUS_RESTART = {
-    [-100] = '', -- 점검 server text
+    [-100] = Str('서버 점검 중입니다.\n잠시 후 다시 시도해 주세요.'), -- 점검 server text
 }
 
 -- 종료 
@@ -284,7 +284,7 @@ function UI_Network:statusHandler(ret)
     local error_str = S_ERROR_STATUS_RESTART[status]
     if (error_str) then
         local notice = ret['notice']
-        error_str = (notice) and notice 
+        error_str = notice or error_str
         MakeNetworkPopup(POPUP_TYPE.OK, error_str, function() closeApplication() end)
         self:close()
         return true
@@ -299,7 +299,7 @@ function UI_Network:statusHandler(ret)
 
         -- 제한된 계정의 경우 서버에서 문구가 왔을 때 서버 문구로 처리
         if (status == -9101) and (ret['ban_msg']) and (type(ret['ban_msg']) == 'string') then
-            msg = ret['ban_msg']
+            msg = ret['ban_msg'] or msg
         end
 
         if submsg then
