@@ -459,11 +459,13 @@ function GameState_Colosseum:applyBuffByFightTime()
 
     self.m_bgEffect:changeAni('change', false)
     self.m_bgEffect:runAction(cc.Sequence:create(cc.DelayTime:create(FURY_EFFECT_START_TIME_FROM_BUFF_TIME), cc.CallFunc:create(function()
-        PARENT.applyBuffByFightTime(self)
+        if (self:isFight()) then
+            PARENT.applyBuffByFightTime(self)
 
-        -- 실제 버프 시간보다 이전에 연출되어야하는 것들을 처리하기 위한 하드코딩...
-        self.m_nextBuffTime = self.m_nextBuffTime - FURY_EFFECT_START_TIME_FROM_BUFF_TIME
-        self.m_nextBuffTime = math_max(self.m_nextBuffTime, 1)
+            -- 실제 버프 시간보다 이전에 연출되어야하는 것들을 처리하기 위한 하드코딩...
+            self.m_nextBuffTime = self.m_nextBuffTime - FURY_EFFECT_START_TIME_FROM_BUFF_TIME
+            self.m_nextBuffTime = math_max(self.m_nextBuffTime, 1)
+        end
     end)))
 
     -- 배경 흔들림

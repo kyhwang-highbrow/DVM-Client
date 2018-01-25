@@ -1351,26 +1351,34 @@ function GameState:applyBuffByFightTime()
         -- 아군 버프 적용(콜로세움일 경우만)
         if (world.m_gameMode == GAME_MODE_COLOSSEUM) then
             for i, v in ipairs(world.m_leftParticipants) do
-                local status, action = TableOption:parseOptionKey(type)
-                v.m_statusCalc:addOption(action, status, value)
-                world:addPassiveStartEffect(v, str_buff_name)
+                if (v.m_statusCalc) then
+                    local status, action = TableOption:parseOptionKey(type)
+                    v.m_statusCalc:addOption(action, status, value)
+                    world:addPassiveStartEffect(v, str_buff_name)
+                end
             end
             for i, v in ipairs(world.m_leftNonparticipants) do
-                local status, action = TableOption:parseOptionKey(type)
-                v.m_statusCalc:addOption(action, status, value)
+                if (v.m_statusCalc) then
+                    local status, action = TableOption:parseOptionKey(type)
+                    v.m_statusCalc:addOption(action, status, value)
+                end
             end
         end
 
         -- 적군 버프 적용
         do
             for i, v in ipairs(world.m_rightParticipants) do
-                local status, action = TableOption:parseOptionKey(type)
-                v.m_statusCalc:addOption(action, status, value)
-                world:addPassiveStartEffect(v, str_buff_name)
+                if (v.m_statusCalc) then
+                    local status, action = TableOption:parseOptionKey(type)
+                    v.m_statusCalc:addOption(action, status, value)
+                    world:addPassiveStartEffect(v, str_buff_name)
+                end
             end
             for i, v in ipairs(world.m_rightNonparticipants) do
-                local status, action = TableOption:parseOptionKey(type)
-                v.m_statusCalc:addOption(action, status, value)
+                if (v.m_statusCalc) then
+                    local status, action = TableOption:parseOptionKey(type)
+                    v.m_statusCalc:addOption(action, status, value)
+                end
             end
         end
 
