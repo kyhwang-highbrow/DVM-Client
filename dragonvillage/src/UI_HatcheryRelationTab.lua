@@ -133,10 +133,10 @@ function UI_HatcheryRelationTab:init_dragonSortMgr()
 
     -- 정렬 UI 생성
     local vars = self.vars
-    local uic_sort_list = MakeUICSortList_dragonManage(vars['sortSelectBtn'], vars['sortSelectLabel'], UIC_SORT_LIST_TOP_TO_BOT)
+	local is_simple_mode = true
+    local uic_sort_list = MakeUICSortList_dragonManage(vars['sortSelectBtn'], vars['sortSelectLabel'], UIC_SORT_LIST_TOP_TO_BOT, is_simple_mode)
     self.m_uicSortList = uic_sort_list
     
-
     -- 버튼을 통해 정렬이 변경되었을 경우
     local function sort_change_cb(sort_type)
         self.m_sortManagerDragon:pushSortOrder(sort_type)
@@ -162,6 +162,7 @@ function UI_HatcheryRelationTab:init_dragonSortMgr()
 
     -- 세이브데이터에 있는 정렬 값을 적용
     --self:apply_dragonSort_saveData()
+	uic_sort_list:setSelectSortType('rarity')
     self:apply_dragonSort()
 end
 

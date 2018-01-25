@@ -461,7 +461,7 @@ end
 
 
 
-function MakeUICSortList_dragonManage(button, label, direction)
+function MakeUICSortList_dragonManage(button, label, direction, is_simple_mode)
 
     local width, height = button:getNormalSize()
     local parent = button:getParent()
@@ -483,16 +483,18 @@ function MakeUICSortList_dragonManage(button, label, direction)
 
     parent:addChild(uic.m_node)
 
-    uic:addSortType('combat_power', Str('전투력'))
-    uic:addSortType('hp', Str('체력'))
-    uic:addSortType('def', Str('방어력'))
-    uic:addSortType('atk', Str('공격력'))
-    uic:addSortType('attr', Str('속성'))
-    uic:addSortType('lv', Str('레벨'))
-    uic:addSortType('grade', Str('등급'))
+	if (not is_simple_mode) then
+		uic:addSortType('combat_power', Str('전투력'))
+		uic:addSortType('grade', Str('등급'))
+		uic:addSortType('lv', Str('레벨'))
+		uic:addSortType('hp', Str('체력'))
+		uic:addSortType('def', Str('방어력'))
+		uic:addSortType('atk', Str('공격력'))
+		uic:addSortType('friendship', Str('친밀도'))
+		uic:addSortType('created_at', Str('획득순'))
+	end
     uic:addSortType('rarity', Str('희귀도'))
-    uic:addSortType('friendship', Str('친밀도'))
-    uic:addSortType('created_at', Str('획득순'))
+	uic:addSortType('attr', Str('속성'))
 	uic:addSortType('did', Str('종류'))
     --uic:show()
 
