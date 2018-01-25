@@ -737,7 +737,7 @@ end
 
 -------------------------------------
 -- function getSkuList
--- @brief 인앱상품 프러덕트 아이드들을 'x;x;x;'형태로 반환
+-- @brief 인앱상품 프러덕트 아이들을 'x;x;x;'형태로 반환
 -------------------------------------
 function ServerData_Shop:getSkuList()
     if (not self.m_dicProduct) then
@@ -756,15 +756,21 @@ function ServerData_Shop:getSkuList()
         end
     end
 
+    -- 월정액 상품 (매일매일 다이아) - 서버에서 shop 정보 주지 않음
+    -- 하드 코딩 - sku 바뀐다면 수정해야함
+
+    -- 일반 월정액 sku
+    local sku_normal = 'dvm_2weekpack01_5k;dvm_2weekpack02_3k;dvm_2weekpack03_1k;'
+
+    -- 프리미엄 월정액 sku
+    local sku_premium = 'dvm_2weekpack11_30k;dvm_2weekpack12_10k;dvm_2weekpack13_5k;'
+
+    ret = sku_normal .. sku_premium
+
     for sku, _ in pairs( tTemp ) do
-        if ret == nil then
-            ret = sku
-        else
-            ret = ret .. ';' .. sku
-        end
+        ret = ret .. ';' .. sku
     end
 
-    
     return ret
 end
 
