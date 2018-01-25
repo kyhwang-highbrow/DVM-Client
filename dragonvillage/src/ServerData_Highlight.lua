@@ -453,3 +453,16 @@ end
 function ServerData_Highlight:onChangeScene()
     self:saveNewDoidMap()
 end
+
+-------------------------------------
+-- function clearNewOidMapFile
+-------------------------------------
+function ServerData_Highlight:clearNewOidMapFile()
+	-- 신규 드래곤 정보 삭제
+	local path_dragon = self:getNewOidMapFileName(NEW_OID_TYPE_DRAGON)
+	os.remove(path_dragon)
+
+	-- 신규 룬 정보 삭제
+	local path_rune = self:getNewOidMapFileName(NEW_OID_TYPE_RUNE)
+	os.remove(path_rune)
+end

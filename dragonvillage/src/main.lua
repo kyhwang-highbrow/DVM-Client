@@ -208,13 +208,15 @@ end
 function removeLocalFiles()
     LocalData:getInstance():clearLocalDataFile()
     SettingData:getInstance():clearSettingDataFile()
-    ServerData:getInstance():clearServerDataFile()
 
     -- 채팅 차단
     ChatIgnoreList:clearChatIgnoreListFile()
 
     -- 시나리오 보기 설정
     ScenarioViewingHistory:clearScenarioViewingHistoryFile()
+
+	-- 신규 룬, 드래곤 로컬 파일 삭제
+	g_highlightData:clearNewOidMapFile()
 end
 
 local status, msg = xpcall(main, __G__TRACKBACK__)

@@ -12,7 +12,7 @@ ServerData = class({
 -- function init
 -------------------------------------
 function ServerData:init()
-    self.m_rootTable = nil
+    self.m_rootTable = {}
     self.m_nLockCnt = 0
     self.m_bDirtyDataTable = false
 end
@@ -26,7 +26,6 @@ function ServerData:getInstance()
     end
     
     g_serverData = ServerData()
-    g_serverData:loadServerDataFile()
 
     -- 'user'
     g_userData = ServerData_User(g_serverData)
@@ -201,73 +200,6 @@ function ServerData:getInstance()
 end
 
 -------------------------------------
--- function getServerDataSaveFileName
--------------------------------------
-function ServerData:getServerDataSaveFileName()
-    local file = 'server_data.json'
-    local path = cc.FileUtils:getInstance():getWritablePath()
-
-    local full_path = string.format('%s%s', path, file)
-    return full_path
-end
-
--------------------------------------
--- function loadServerDataFile
--------------------------------------
-function ServerData:loadServerDataFile()
-    local f = io.open(self:getServerDataSaveFileName(), 'r')
-
-    if f then
-        local content = f:read('*all')
-        f:close()
-
-        if (#content > 0) then
-            self.m_rootTable = json_decode(content)
-            return
-        end
-    end
-        
-    self.m_rootTable = {}
-    self.m_rootTable['local'] = {}
-
-    self:saveServerDataFile()
-end
-
--------------------------------------
--- function saveServerDataFile
--------------------------------------
-function ServerData:saveServerDataFile(force)
-    if (not force) then
-        return
-    end
-
-    if (self.m_nLockCnt > 0) then
-        self.m_bDirtyDataTable = true
-        return
-    end
-
-    local f = io.open(self:getServerDataSaveFileName(),'w')
-    if (not f) then
-        return false
-    end
-
-    -- cclog(luadump(self.m_rootTable))
-    local content = dkjson.encode(self.m_rootTable, {indent=true})
-    f:write(content)
-    f:close()
-
-    return true
-end
-
--------------------------------------
--- function clearServerDataFile
--------------------------------------
-function ServerData:clearServerDataFile()
-    os.remove(self:getServerDataSaveFileName())
-end
-
-
--------------------------------------
 -- function applyServerData
 -- @brief 서버로부터 받은 정보로 세이브 데이터를 갱신
 -------------------------------------
@@ -275,14 +207,11 @@ function ServerData:applyServerData(data, ...)
     local args = {...}
     local cnt = #args
 
-    local dirty = false
-
     local container = self.m_rootTable
     for i,key in ipairs(args) do
         if (i < cnt) then
             if (type(container[key]) ~= 'table') then
                 container[key] = {}
-                dirty = true
             end
             container = container[key]
         else
@@ -292,14 +221,8 @@ function ServerData:applyServerData(data, ...)
                 else
                     container[key] = nil
                 end
-                dirty = true
             end
         end
-    end
-
-    -- 변경사항이 있을 때에만 저장
-    if dirty then
-        self:saveServerDataFile()
     end
 end
 

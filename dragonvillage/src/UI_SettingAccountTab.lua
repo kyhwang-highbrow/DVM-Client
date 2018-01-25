@@ -514,12 +514,21 @@ function UI_Setting:click_serverBtn()
         end
 
         local function ok_cb()
+			-- 선택한 서버 저장
             ServerListData:getInstance():selectServer( serverName )
-
             g_localData:lockSaveData()        
             g_localData:setServerName( serverName )
             g_localData:unlockSaveData()
 
+			-- 설정, 채팅, 시나리오 로컬 파일 삭제
+		    SettingData:getInstance():clearSettingDataFile()
+			ChatIgnoreList:clearChatIgnoreListFile()
+			ScenarioViewingHistory:clearScenarioViewingHistoryFile()
+
+			-- 신규 룬, 드래곤 로컬 파일 삭제
+			g_highlightData:clearNewOidMapFile()
+
+			-- 재시작
             CppFunctions:restart()
         end
 
