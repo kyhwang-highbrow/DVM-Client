@@ -370,7 +370,9 @@ function datetime.getTimeUTCDesc()
     end
 
     -- t : 현재시간
-    local t = os.date('*t', Timer:getServerTime())
+    local utc_time = Timer:getServerTime() - datetime.getTimeZoneOffset() 
+    local hour = Timer:getUTCHour()
+    local t = os.date('*t', utc_time + (hour * 60 * 60))
 
 	local function unit(value)
 		if value < 10 then
