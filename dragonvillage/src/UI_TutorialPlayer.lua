@@ -274,6 +274,17 @@ function UI_TutorialPlayer:activeNode(node_name)
 	-- 일반적으로는 targetUI의 lua_name을 체크하지만 특수하게 가져오는 케이스도 있다.
     local tar_node = self.m_targetUI.vars[node_name]
 	if (not tar_node) then
+		-- tar_node를 못 찾은 경우 1초에 한번씩 다시 시도한다, 통신 지연 등으로 화면 전환이 늦게 되는 경우도 있기 때문!
+		cclog('## UI_TutorialPlayer:activeNode - find again until target_node is exist')
+		local function retry_func()
+			tutorial_mgr:refreshTargetUI()
+			self:activeNode(node_name)
+		end
+		local action = cc.Sequence:create(
+			cc.DelayTime:create(1),
+			cc.CallFunc:create(retry_func)
+		)
+		self.root:runAction(action)
 		return
 	end
 
