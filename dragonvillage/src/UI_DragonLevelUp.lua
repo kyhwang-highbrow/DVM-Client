@@ -152,7 +152,7 @@ function UI_DragonLevelUp:refresh_dragonInfo()
         --local icon = IconHelper:getRoleIcon(role_type)
         --vars['typeNode']:addChild(icon)
 
-        vars['typeLabel']:setString(dragonRoleName(role_type))
+        vars['typeLabel']:setString(dragonRoleTypeName(role_type))
     end
     
     do -- 드래곤 현재 정보 카드

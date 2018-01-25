@@ -254,7 +254,7 @@ function UI_HatcheryRelationTab:refresh()
         local icon = IconHelper:getRoleIcon(role_type)
         vars['typeNode']:addChild(icon)
 
-        vars['typeLabel']:setString(dragonRoleName(role_type))
+        vars['typeLabel']:setString(dragonRoleTypeName(role_type))
     end
 
     -- 드래곤 이름

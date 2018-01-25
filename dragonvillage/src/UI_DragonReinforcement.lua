@@ -157,7 +157,7 @@ function UI_DragonReinforcement:refresh_dragonInfo()
 
     do -- 드래곤 역할(role)
         local role_type = t_dragon_data:getRole()
-        vars['typeLabel']:setString(dragonRoleName(role_type))
+        vars['typeLabel']:setString(dragonRoleTypeName(role_type))
     end
 	
 	do -- 드래곤 등급

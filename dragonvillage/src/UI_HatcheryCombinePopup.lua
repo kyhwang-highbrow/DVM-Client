@@ -73,7 +73,7 @@ function UI_HatcheryCombinePopup:initUI()
         local role_type = t_dragon['role']
         local icon = IconHelper:getRoleIcon(role_type)
         vars['typeNode']:addChild(icon)
-        vars['typeLabel']:setString(dragonRoleName(role_type))
+        vars['typeLabel']:setString(dragonRoleTypeName(role_type))
     end
 
     do -- 드래곤 희귀도

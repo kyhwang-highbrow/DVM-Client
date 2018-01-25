@@ -305,7 +305,7 @@ function UI_GachaResult_Dragon:refresh_dragon(t_dragon_data)
         local icon = IconHelper:getRoleIcon(role_type)
         vars['roleNode']:addChild(icon)
 
-        vars['roleLabel']:setString(dragonRoleName(role_type))
+        vars['roleLabel']:setString(dragonRoleTypeName(role_type))
     end
 
     do -- 드래곤 실리소스

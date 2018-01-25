@@ -207,7 +207,7 @@ function UI_DragonEvolution:refresh_currDragonInfo(t_dragon_data, t_dragon)
         --local icon = IconHelper:getRoleIcon(role_type)
         --vars['typeNode']:addChild(icon)
 
-        vars['typeLabel']:setString(dragonRoleName(role_type))
+        vars['typeLabel']:setString(dragonRoleTypeName(role_type))
     end
 
     do -- 드래곤 리소스
