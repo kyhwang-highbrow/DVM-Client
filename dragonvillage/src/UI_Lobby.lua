@@ -172,7 +172,9 @@ function UI_Lobby:entryCoroutine()
 				if co:waitWork() then return end
 
 				cclog('# 인연 던전 확인 중')
-				g_secretDungeonData:setSecretDungeonExist(ret['secret_dungeon_cnt'] > 0)
+				if (ret['secret_dungeon_cnt']) then
+					g_secretDungeonData:setSecretDungeonExist(ret['secret_dungeon_cnt'] > 0)
+				end
 
 				co.NEXT()
 			end)

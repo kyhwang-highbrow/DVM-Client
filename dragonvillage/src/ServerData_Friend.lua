@@ -218,10 +218,14 @@ function ServerData_Friend:response_friendList(ret, finish_cb)
     self:response_friendCommon(ret)
 
     self.m_lFriendUserList = {}
-    for i,v in pairs(ret['friends_list']) do
-        local uid = v['uid']
-        self.m_lFriendUserList[uid] = StructUserInfoFriend:create(v)
-    end
+
+	local l_friend_list = ret['friends_list']
+	if (l_friend_list) then
+		for i, v in ipairs(l_friend_list) do
+			local uid = v['uid']
+			self.m_lFriendUserList[uid] = StructUserInfoFriend:create(v)
+		end
+	end
 
     self:setDragonsList()
 

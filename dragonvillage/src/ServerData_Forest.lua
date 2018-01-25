@@ -147,27 +147,33 @@ end
 -------------------------------------
 function ServerData_Forest:response_forestInfo(t_ret, finish_cb)
     -- 공용 드래곤의 숲 정보
-    self.m_happyRate = t_ret['forest_info']['happy']
+	if (t_ret['forest_info']) then
+		self.m_happyRate = t_ret['forest_info']['happy']
+	end
         
     -- 드래곤의 숲 오브젝트
     self.m_tStuffInfo = {}
-    local stuff
-    for i, t_stuff in pairs(t_ret['forest_stuffs']) do
-        stuff = t_stuff['stuff']
-        self.m_tStuffInfo[stuff] = t_stuff
-    end
+	local l_forest_stuff_list = t_ret['forest_stuffs']
+	if (l_forest_stuff_list) then
+		for i, t_stuff in pairs(l_forest_stuff_list) do
+			local stuff = t_stuff['stuff']
+			self.m_tStuffInfo[stuff] = t_stuff
+		end
+	end
     
     -- 드래곤의 숲 드래곤 정보
     self.m_tDragonStruct = {}
-    local doid, struct_dragon 
-    for i, t_dragon_info in pairs(t_ret['forest_dragons']) do
-        doid = t_dragon_info['doid']
-        struct_dragon = g_dragonsData:getDragonDataFromUid(doid)
-        if (struct_dragon) then
-            struct_dragon.happy_at = t_dragon_info['happy_at']/1000 or 0
-            self.m_tDragonStruct[doid] = struct_dragon
-        end
-    end
+    local l_forest_dragon_list = t_ret['forest_dragons']
+	if (l_forest_dragon_list) then
+		for i, t_dragon_info in pairs(l_forest_dragon_list) do
+			local doid = t_dragon_info['doid']
+			local struct_dragon = g_dragonsData:getDragonDataFromUid(doid)
+			if (struct_dragon) then
+				struct_dragon.happy_at = t_dragon_info['happy_at']/1000 or 0
+				self.m_tDragonStruct[doid] = struct_dragon
+			end
+		end
+	end
 
 	if finish_cb then
         finish_cb(ret)
