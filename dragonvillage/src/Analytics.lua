@@ -152,12 +152,9 @@ end
 -------------------------------------
 function Analytics:purchase(productId, productName, price)
     if (not IS_ENABLE_ANALYTICS()) then return end
-
+    
+    -- price는 KRW 가격으로만 받음 
     local currencyCode = 'KRW'
-
-    if isIos() then
-        currencyCode = 'USD'
-    end
 
     Adbrix:buy(productId, price)
     FiveRocks:trackPurchase(productName, currencyCode, price)
