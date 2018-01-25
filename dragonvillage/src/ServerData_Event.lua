@@ -342,8 +342,10 @@ function ServerData_Event:openEventPopup(tab)
         if co:waitWork() then return end
         
         co:work('# 하이브로 상점 정보 받는 중')
-        g_highbrowData:request_getHbProductList(co.NEXT, co.ESCAPE)
-        if co:waitWork() then return end
+		if (g_localData:isShowHighbrowShop()) then
+			g_highbrowData:request_getHbProductList(co.NEXT, co.ESCAPE)
+			if co:waitWork() then return end
+		end
 
         co:work('# 일일 미션 받는 중')
 		g_dailyMissionData:request_dailyMissionInfo(co.NEXT, co.ESCAPE)

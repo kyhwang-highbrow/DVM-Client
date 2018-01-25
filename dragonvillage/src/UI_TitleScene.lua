@@ -872,15 +872,17 @@ function UI_TitleScene:workGetServerInfo()
         if co:waitWork() then return end
 
 		-- 드빌 전용관 정보
-		co:work()
-        self.m_loadingUI:showLoading(Str('이전 추억을 되살리는 중...'))
-        local ui_network = g_highbrowData:request_getHbProductList(co.NEXT, fail_cb)
-        if ui_network then
-            ui_network:setRevocable(false)
-            ui_network:setFailCB(fail_cb)
-            ui_network:hideLoading()
-        end
-        if co:waitWork() then return end
+		if (g_localData:isShowHighbrowShop()) then
+			co:work()
+			self.m_loadingUI:showLoading(Str('이전 추억을 되살리는 중...'))
+			local ui_network = g_highbrowData:request_getHbProductList(co.NEXT, fail_cb)
+			if ui_network then
+				ui_network:setRevocable(false)
+				ui_network:setFailCB(fail_cb)
+				ui_network:hideLoading()
+			end
+			if co:waitWork() then return end
+		end
 
         -- 접속시간 이벤트
         co:work()
