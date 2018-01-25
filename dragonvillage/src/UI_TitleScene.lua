@@ -45,6 +45,9 @@ function UI_TitleScene:init()
     -- 풀팝업 매니저 인스턴스 생성
     FullPopupManager:initInstance()
 
+    --네이버 카페 글로벌 세팅(서버 선택이 필요해서 이쪽으로 옮깁니다.)
+    self:initNaverPlug()
+
 end
 
 -------------------------------------
@@ -1174,9 +1177,6 @@ end
 function UI_TitleScene:workFinish()
     -- 로딩창 숨김
     self.m_loadingUI:hideLoading()
-
-    --네이버 카페 글로벌 세팅(서버 선택이 필요해서 이쪽으로 옮깁니다.)
-    self:initNaverPlug()
 
     -- 신규 유저 바로 진입 가능하게 변경
     if self.m_bNewUser then
