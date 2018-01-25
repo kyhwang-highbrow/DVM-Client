@@ -211,7 +211,7 @@ function UI_ExplorationReady:click_dragonBtn(doid, skip_msg)
 
     -- 다른 지역을 탐험 중인 드래곤은 사용할 수 없음
     if (not skip_msg) and g_explorationData:isExplorationUsedDragon(doid) then
-        UIManager:toastNotificationRed('다른 지역을 탐험 중인 드래곤입니다.')
+        UIManager:toastNotificationRed(Str('다른 지역을 탐험 중인 드래곤입니다.'))
         return
     end
 
@@ -223,7 +223,7 @@ function UI_ExplorationReady:click_dragonBtn(doid, skip_msg)
         
         -- 인원 제한
         if (self.m_currDragonCnt >= 5) then
-            UIManager:toastNotificationRed('더 이상 선택할 수 없습니다.')
+            UIManager:toastNotificationRed(Str('더 이상 선택할 수 없습니다.'))
             return
         end
 

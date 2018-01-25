@@ -541,7 +541,7 @@ function UI_ReadySceneNew_Deck:setSlot(idx, doid, skip_sort)
             count = (count - 1)
         end
         if (count >= TOTAL_POS_CNT) then
-            UIManager:toastNotificationRed('5명까지 출전할 수 있습니다.')
+            UIManager:toastNotificationRed(Str('5명까지 출전할 수 있습니다.'))
             return false
         end
     end
@@ -553,7 +553,7 @@ function UI_ReadySceneNew_Deck:setSlot(idx, doid, skip_sort)
 
     -- 동종 동속성의 드래곤 제외
     if (self:checkSameDid(idx, doid)) then
-        UIManager:toastNotificationRed('같은 드래곤은 동시에 출전할 수 없습니다.')
+        UIManager:toastNotificationRed(Str('같은 드래곤은 동시에 출전할 수 없습니다.'))
         return false
     end
 

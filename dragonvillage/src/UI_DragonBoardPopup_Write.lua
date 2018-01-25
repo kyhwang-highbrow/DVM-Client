@@ -104,7 +104,7 @@ function UI_DragonBoardPopup_Write:validateEditText()
 
     -- 비속어 필터링
     if (not FilterMsg(context)) then
-        UIManager:toastNotificationRed('사용할 수 없는 표현이 포함되어 있습니다.')
+        UIManager:toastNotificationRed(Str('사용할 수 없는 표현이 포함되어 있습니다.'))
         context = ''
         vars['editBox']:setText('')
         is_valid = false

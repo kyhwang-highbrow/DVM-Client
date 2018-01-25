@@ -796,7 +796,7 @@ function UI_ReadyScene:click_startBtn()
     end
 
     if (self:getDragonCount() <= 0) then
-        UIManager:toastNotificationRed('최소 1명 이상은 출전시켜야 합니다.')
+        UIManager:toastNotificationRed(Str('최소 1명 이상은 출전시켜야 합니다.'))
 
     elseif (not g_stageData:isOpenStage(stage_id)) then
         MakeSimplePopup(POPUP_TYPE.OK, Str('이전 스테이지를 클리어하세요.'))

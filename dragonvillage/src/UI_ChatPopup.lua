@@ -343,7 +343,7 @@ function UI_ChatPopup:click_changeChannelBtn()
             end
 
             if (not g_chatManager:requestChangeChannel(channel_name)) then
-                UIManager:toastNotificationRed('채널 이동 요청을 실패하였습니다.')
+                UIManager:toastNotificationRed(Str('채널 이동 요청을 실패하였습니다.'))
             end
         end
     end
@@ -358,7 +358,7 @@ function UI_ChatPopup:confirmChannelName(channel_name)
     local channel_num = tonumber(channel_name)
 
     if (not channel_num) or (channel_num <= 0) or (9999 < channel_num) then
-        UIManager:toastNotificationRed('1~9999 사이의 숫자를 입력해주세요.')
+        UIManager:toastNotificationRed(Str('1~9999 사이의 숫자를 입력해주세요.'))
         return false
     end
 
