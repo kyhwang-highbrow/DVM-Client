@@ -1119,6 +1119,12 @@ function Character:getSkillTable(skill_id)
     end
 
 	local t_skill = self:getLevelingSkillById(skill_id)
+
+    if (not t_skill and self.m_charType == 'monster') then
+        t_skill = TableMonsterSkill():get(skill_id)
+        --error('skill_id = ' .. skill_id)
+    end
+
     return t_skill
 end
 
