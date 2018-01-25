@@ -130,9 +130,7 @@ function AnimatorHelper:getTitleAnimator()
 	else
 		res = 'res/ui/spine/title/title.spine'
 	end
-	cclog(lang, res)
-	
-	local animator = MakeAnimator(res)
 
+	local animator = MakeAnimator(res)
 	return animator
 end
