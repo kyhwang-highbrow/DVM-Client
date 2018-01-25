@@ -36,7 +36,13 @@ function Translate:init()
 	
 	-- 신규 유저의 경우 디바이스 언어를 따름
 	if (not self.m_gameLang) then
-		self.m_gameLang = self.m_deviceLang
+		-- 디바이스 언어가 정의되지 않은 언어일 경우 처리
+		if (isExistValue(self.m_deviceLang, 'ko', 'ja', 'zh', 'en')) then
+			self.m_gameLang = self.m_deviceLang
+		else
+			self.m_gameLang = 'en'
+		end
+		g_localData:setLang(self.m_gameLang)
 	end
 
 	-- @mskim 1/15일에만 동작 시킬 예정
