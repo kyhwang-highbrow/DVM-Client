@@ -318,8 +318,13 @@ local function loadNode(ui, data, vars, parent, keep_z_order, use_sprite_frames)
     local var = data.lua_name
         
     if data.font_name then
-        data.font_name = 'font/' .. Translate:getFontName()
-        --data.font_name = 'font/krlangs'
+        -- 시스템 폰트는 폰트명을 지정하지 않게 변경
+        if (type == 'LabelSystemFont') then
+            data.font_name = ''
+        else
+            data.font_name = 'font/' .. Translate:getFontName()
+            --data.font_name = 'font/krlangs'
+        end
     end
 
     if type == 'Node' then
