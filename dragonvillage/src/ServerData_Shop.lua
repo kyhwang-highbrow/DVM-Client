@@ -784,6 +784,9 @@ end
 function ServerData_Shop:setMarketPrice(market_data)
     self.m_dicMarketPrice = {}
     
+    cclog('## 마켓에서 받은 가격 로그')
+    ccdump(market_data)
+
     -- sku로 구분함 
     for _, v in pairs(market_data) do
         local sku = tostring(v.productId)
