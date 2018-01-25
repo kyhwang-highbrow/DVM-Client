@@ -663,7 +663,6 @@ function ValidStrUtils:checkNickName_forGsp(str)
         elseif self:checkKorean(str, idx) then
             idx = idx + 3
 
-        --[[
         -- 일본어
         elseif self:checkJapanese(str, idx) then
             idx = idx + 3
@@ -679,7 +678,6 @@ function ValidStrUtils:checkNickName_forGsp(str)
         -- 태국어
         elseif self:checkThai_3byte(str, idx) then
             idx = idx + 3
-        ]]
 
         else
             --cclog('# checkNickName_forGsp : false', idx)
