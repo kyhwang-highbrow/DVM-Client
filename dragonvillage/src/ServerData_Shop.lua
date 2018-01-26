@@ -580,13 +580,16 @@ function ServerData_Shop:request_checkReceiptValidation(struct_product, validati
 
     -- 콜백 함수
     local function success_cb(ret)
+        
         -- @analytics
         -- 탭조이 매출은 모두 krw 가격으로 보냄
-        local krw_price = struct_product['price'] -- getPrice() 함수 나중에 수정하기
+        if (struct_product) then
+            local krw_price = struct_product['price'] -- getPrice() 함수 나중에 수정하기
 
-        Analytics:purchase(product_id, sku, krw_price)
-        Analytics:trackGetGoodsWithRet(ret, string.format('상품 구매 : %d', product_id))
-
+            Analytics:purchase(product_id, sku, krw_price)
+            Analytics:trackGetGoodsWithRet(ret, string.format('상품 구매 : %d', product_id))
+        end
+        
         g_serverData:networkCommonRespone(ret)
         g_serverData:networkCommonRespone_addedItems(ret)
     
