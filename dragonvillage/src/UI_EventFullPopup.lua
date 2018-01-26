@@ -5,6 +5,7 @@ local PARENT = UI
 -------------------------------------
 UI_EventFullPopup = class(PARENT,{
         m_popupKey = 'string',
+		m_innerUI = 'UI',
     })
 
 -------------------------------------
@@ -39,20 +40,20 @@ end
 function UI_EventFullPopup:initUI()
     local vars = self.vars
     local popup_key = self.m_popupKey
+	local ui
 
     -- 이벤트 배너
     if (string.find(popup_key, 'banner')) then
         local l_str = plSplit(popup_key, ';')
         local event_data = { banner = l_str[2], url = l_str[3] or ''}
         local struct_data = StructEventPopupTab(event_data)
-        local ui = UI_EventPopupTab_Banner(self, struct_data)
+        ui = UI_EventPopupTab_Banner(self, struct_data)
         vars['eventNode']:addChild(ui.root)
 
 	-- Daily Mission
 	elseif string.find(popup_key, 'daily_mission') then
 		local l_str = plSplit(popup_key, ';')
 		local key = l_str[2]
-		local ui
 		if (key == 'clan') then
 			ui = UI_DailyMisson_Clan()
 		end
@@ -63,7 +64,6 @@ function UI_EventFullPopup:initUI()
 	elseif string.find(popup_key, 'attendance') then
 		local l_str = plSplit(popup_key, ';')
 		local key = l_str[2]
-		local ui
 		if (key == 'basic') then
 			ui = UI_EventPopupTab_Attendance()
 		elseif (key == 'event') then
@@ -80,7 +80,7 @@ function UI_EventFullPopup:initUI()
         
         local package_name = popup_key
         local is_popup = false
-        local ui = PackageManager:getTargetUI(package_name, is_popup)
+        ui = PackageManager:getTargetUI(package_name, is_popup)
 
         if (ui) then
             local node = vars['eventNode']
@@ -90,6 +90,8 @@ function UI_EventFullPopup:initUI()
             self:close()
         end
     end
+
+	self.m_innerUI = ui
 end
 
 -------------------------------------
@@ -111,7 +113,24 @@ end
 -- function setBtnBlock
 -------------------------------------
 function UI_EventFullPopup:setBtnBlock()
-	self.vars['clickBtn']:setEnabled(false)
+	if (not self.m_innerUI) then
+		return
+	end
+
+	local ui_vars = self.m_innerUI.vars
+	if (not ui_vars) then
+		return
+	end
+
+	local btn = ui_vars['bannerBtn']
+	if (btn) then
+		btn:setEnabled(false)
+	end
+
+	btn = ui_vars['clickBtn']
+	if (btn) then
+		btn:setEnabled(false)
+	end
 end
 
 -------------------------------------
