@@ -734,31 +734,35 @@ end
 -- @usage UINavigatorDefinition:goTo('friend')
 -------------------------------------
 function UINavigatorDefinition:goTo_friend(...)
-    local args = {...}
+	local args = {...}
 
-    -- 해당 UI가 열려있을 경우
-    local is_opend, idx, ui = self:findOpendUI('UI_FriendPopup')
-    if (is_opend == true) then
-        self:closeUIList(idx, false) -- param : idx, include_idx
-        return
-    end
+	-- 로비 진입후 친구 팝업 뜨기 전까지의 받은 요청이 있을 수 있음, 진입시 하일라이트 정보 갱신!
+	g_highlightData:request_highlightInfo(function() 
 
-    -- 로비가 열려있을 경우
-    local is_opend, idx, ui = self:findOpendUI('UI_Lobby')
-    if (is_opend == true) then
-        self:closeUIList(idx)
-        UI_FriendPopup()
-        return
-    end
+		-- 해당 UI가 열려있을 경우
+		local is_opend, idx, ui = self:findOpendUI('UI_FriendPopup')
+		if (is_opend == true) then
+			self:closeUIList(idx, false) -- param : idx, include_idx
+			return
+		end
 
-    do-- Scene으로 동작
-        local function close_cb()
-            UINavigatorDefinition:goTo('lobby')
-        end
+		-- 로비가 열려있을 경우
+		local is_opend, idx, ui = self:findOpendUI('UI_Lobby')
+		if (is_opend == true) then
+			self:closeUIList(idx)
+			UI_FriendPopup()
+			return
+		end
 
-        local scene = SceneCommon(UI_FriendPopup, close_cb)
-        scene:runScene()
-    end
+		do-- Scene으로 동작
+			local function close_cb()
+				UINavigatorDefinition:goTo('lobby')
+			end
+
+			local scene = SceneCommon(UI_FriendPopup, close_cb)
+			scene:runScene()
+		end
+	end)
 end
 
 -------------------------------------

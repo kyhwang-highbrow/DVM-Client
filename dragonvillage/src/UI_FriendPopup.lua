@@ -32,8 +32,7 @@ function UI_FriendPopup:init()
 	self:initButton()
 	self:refresh()
 
-    -- 로비 진입후 친구 팝업 뜨기 전까지의 받은 요청이 있을 수 있음, 진입시 하일라이트 정보 갱신!
-    g_highlightData:request_highlightInfo(function() self:initHighlight() end)
+	self:initHighlight() 
 end
 
 -------------------------------------
