@@ -15,6 +15,7 @@ ICharacterStatusEffect = {
     m_isZombie      = 'boolean',    -- 좀비 (죽지 않는 상태)
     m_isProtected   = 'boolean',    -- 피해면역 (피격시 데미지 0)
     m_isImmune      = 'boolean',    -- 상태효과 면역
+    m_isCurse       = 'boolean',    -- 저주 (이로운 상태효과 면역)
 }
 
 -------------------------------------
@@ -33,6 +34,7 @@ function ICharacterStatusEffect:init()
     self.m_isZombie = false
     self.m_isProtected = false
     self.m_isImmune = false
+    self.m_isCurse = false
 end
 
 -------------------------------------
@@ -364,6 +366,13 @@ end
 -- function setImmuneSE
 -------------------------------------
 function ICharacterStatusEffect:setImmune(b)
+	self.m_isImmune = b
+end
+
+-------------------------------------
+-- function setCurse
+-------------------------------------
+function ICharacterStatusEffect:setCurse(b)
 	self.m_isImmune = b
 end
 
