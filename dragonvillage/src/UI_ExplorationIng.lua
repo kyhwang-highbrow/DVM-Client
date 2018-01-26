@@ -216,7 +216,7 @@ end
 function UI_ExplorationIng:click_cancelBtn()
     local function request()
         local function finish_cb(ret)
-            UIManager:toastNotificationGreen('탐험을 취소하였습니다.')
+            UIManager:toastNotificationGreen(Str('탐험을 취소하였습니다.'))
             self:close()
         end
 
