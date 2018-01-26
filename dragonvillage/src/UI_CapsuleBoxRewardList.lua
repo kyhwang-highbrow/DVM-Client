@@ -48,7 +48,7 @@ end
 function UI_CapsuleBoxRewardList:initTab()
     local vars = self.vars
 	for i = 1, 6 do
-		self:addTab(i, vars['tabBtn' .. i])
+		self:addTabWithLabel(i, vars['tabBtn' .. i], vars['tabLabel' .. i])
 	end
     self:setTab(1)
 
