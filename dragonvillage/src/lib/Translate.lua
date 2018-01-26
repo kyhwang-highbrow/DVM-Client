@@ -250,7 +250,7 @@ function Translate:getFontName()
     if (game_lang == LANG['JAPANESE']) then
         ret = 'common_font_01_ja.ttf'
     elseif (game_lang == LANG['CHINESE']) then
-        ret = 'common_font_01_cn.ttf'
+        ret = 'common_font_01_cn.ttc'
     end
 
     return ret
