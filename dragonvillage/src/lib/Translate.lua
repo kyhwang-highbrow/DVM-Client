@@ -274,8 +274,8 @@ function Translate:getFontScaleRate()
     if (game_lang == LANG['JAPANESE']) then
         retX = 0.88
     elseif (game_lang == LANG['CHINESE']) then
-        retX = 1
-        retY = 1
+        retX = 0.88
+        retY = 0.98
     end
 
     return retX, retY
