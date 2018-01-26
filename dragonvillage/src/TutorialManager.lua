@@ -296,19 +296,19 @@ end
 -- function saveTutorialStepInAdventureResult
 -- @comment 모험 결과화면에서 튜토리얼 step 저장 하는 경우
 -------------------------------------
-function TutorialManager:saveTutorialStepInAdventureResult(stage_id)
+function TutorialManager:saveTutorialStepInAdventureResult(stage_id, cb_func)
 
 	-- 1-1 end tutorial
     if (g_masterRoadData:getFocusRoad() == 10001) then
 		local tutorial_key = TUTORIAL.FIRST_END
 		local step = 101
-		g_tutorialData:request_tutorialSave(tutorial_key, step)
+		g_tutorialData:request_tutorialSave(tutorial_key, step, cb_func)
  
 	-- 1-2 end tutorial
 	elseif (g_masterRoadData:getFocusRoad() == 10003) then
 		local tutorial_key = TUTORIAL.ADV_01_02_END
 		local step = nil
-		g_tutorialData:request_tutorialSave(tutorial_key, step)
+		g_tutorialData:request_tutorialSave(tutorial_key, step, cb_func)
 
 	-- 1-7 end tutorial
 	elseif (self:checkStartFreeSummon11(stage_id)) then
@@ -317,10 +317,15 @@ function TutorialManager:saveTutorialStepInAdventureResult(stage_id)
 		local function finish_cb()
 			local tutorial_key = TUTORIAL.GACHA11_START
 			local step = nil
-			g_tutorialData:request_tutorialSave(tutorial_key, step)
+			g_tutorialData:request_tutorialSave(tutorial_key, step, cb_func)
 		end
 		g_tutorialData:request_tutorialSave(tutorial_key, step, finish_cb)
 
+	-- 콜백은 항상 동작됨
+	else
+		if (cb_func) then
+			cb_func()
+		end
 	end
 end
 

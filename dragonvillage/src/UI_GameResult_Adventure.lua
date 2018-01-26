@@ -10,8 +10,6 @@ UI_GameResult_Adventure = class(PARENT, {
 -- function init
 -------------------------------------
 function UI_GameResult_Adventure:init(stage_id, is_success, time, gold, t_tamer_levelup_data, l_dragon_list, box_grade, l_drop_item_list, secret_dungeon)
-	-- @ TUTORIAL : 강종을 대비해서 튜토리얼 step만 저장한다
-	TutorialManager.getInstance():saveTutorialStepInAdventureResult(stage_id)
 end
 
 -------------------------------------

@@ -122,7 +122,7 @@ function ServerData_Tutorial:request_tutorialSave(tutorial_key, step, finish_cb,
     ui_network:hideLoading()
     ui_network:setSuccessCB(success_cb)
     ui_network:setFailCB(fail_cb)
-    ui_network:setRevocable(true)
+    ui_network:setRevocable(false)
     ui_network:setReuse(false)
     ui_network:request()
 

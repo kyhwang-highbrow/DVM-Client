@@ -53,9 +53,6 @@ function UI_GameResultNew:init(stage_id, is_success, time, gold, t_tamer_levelup
     
     -- 백키 지정
     g_currScene:pushBackKeyListener(self, function() self:click_backBtn() end, 'UI_GameResultNew')
-	
-	-- 마스터의 길 미리 체크
-	self:checkMasterRoadClear()
 
     -- @brief work초기화 용도로 사용함
     self:setWorkList()
@@ -174,37 +171,6 @@ function UI_GameResultNew:init_difficultyIcon(stage_id)
 end
 
 -------------------------------------
--- function checkMasterRoadClear
--------------------------------------
-function UI_GameResultNew:checkMasterRoadClear()
-    -- 마스터의 길 : 스테이지 체크
-    if (self.m_bSuccess) then
-        -- @ MASTER ROAD
-        local t_data = {
-            game_mode = g_gameScene.m_gameMode, 
-            stage_id = self.m_stageID, 
-            dungeon_mode = g_gameScene.m_dungeonMode, 
-            is_success = true
-        }
-		local function cb_func(b)
-			self.m_isClearMasterRoad = b or false
-		end
-        g_masterRoadData:updateMasterRoad(t_data, cb_func)
-
-        -- @ GOOGLE ACHIEVEMENT
-        GoogleHelper.updateAchievement(t_data)
-    end
-
-    -- 마스터의 길 : 유저 레벨 체크
-    do
-        -- @ MASTER ROAD
-        local t_data = {clear_key = 'u_lv'}
-        g_masterRoadData:updateMasterRoad(t_data)
-    end
-
-end
-
--------------------------------------
 -- function setWorkList
 -------------------------------------
 function UI_GameResultNew:setWorkList()
@@ -212,6 +178,8 @@ function UI_GameResultNew:setWorkList()
 
     self.m_lWorkList = {}
     table.insert(self.m_lWorkList, 'direction_showTamer')
+	table.insert(self.m_lWorkList, 'check_tutorial')
+	table.insert(self.m_lWorkList, 'check_masterRoad')
     table.insert(self.m_lWorkList, 'direction_hideTamer')
     table.insert(self.m_lWorkList, 'direction_showScore')
     table.insert(self.m_lWorkList, 'direction_start')
@@ -259,6 +227,71 @@ function UI_GameResultNew:click_screenBtn()
         if (self:checkAutoPlayRelease()) then return end
         self[func_name](self)
     end
+end
+
+-------------------------------------
+-- function check_tutorial
+-- @brief 강종을 대비해서 미리 튜토리얼을 저장한다
+-------------------------------------
+function UI_GameResultNew:check_tutorial()
+    local stage_id = self.m_stageID
+    local game_mode = g_stageData:getGameMode(stage_id)
+    if (game_mode == GAME_MODE_ADVENTURE) then
+		local function cb_func()
+			self:doNextWork()
+		end
+		-- @ TUTORIAL
+		TutorialManager.getInstance():saveTutorialStepInAdventureResult(stage_id, cb_func)
+	end
+end
+-------------------------------------
+-- function check_tutorial_click
+-------------------------------------
+function UI_GameResultNew:check_tutorial_click()
+    -- nothing to do
+end
+
+-------------------------------------
+-- function check_masterRoad
+-- @brief 마스터의 길 클리어 체크
+-------------------------------------
+function UI_GameResultNew:check_masterRoad()
+    -- 마스터의 길 : 유저 레벨 체크
+    do
+        -- @ MASTER ROAD
+        local t_data = {clear_key = 'u_lv'}
+        g_masterRoadData:updateMasterRoad(t_data)
+    end
+
+    -- 마스터의 길 : 스테이지 체크
+    if (self.m_bSuccess) then
+        -- @ MASTER ROAD
+        local t_data = {
+            game_mode = g_stageData:getGameMode(self.m_stageID),
+            stage_id = self.m_stageID, 
+            dungeon_mode = g_gameScene.m_dungeonMode, 
+            is_success = true
+        }
+		local function cb_func(b)
+			self.m_isClearMasterRoad = b or false
+			self:doNextWork()
+		end
+        g_masterRoadData:updateMasterRoad(t_data, cb_func)
+
+        -- @ GOOGLE ACHIEVEMENT
+        GoogleHelper.updateAchievement(t_data)
+
+	else
+		self:doNextWork()
+
+    end
+
+end
+-------------------------------------
+-- function check_masterRoad_click
+-------------------------------------
+function UI_GameResultNew:check_masterRoad_click()
+	-- nothing to do
 end
 
 -------------------------------------

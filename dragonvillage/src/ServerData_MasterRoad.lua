@@ -173,9 +173,14 @@ function ServerData_MasterRoad:updateMasterRoad(t_data, cb_func)
         end
         local ui_network = self:request_roadClear(self.m_focusRoad, after_func)
         return true, ui_network
-    end
 
-    return false, nil
+	else
+		if (cb_func) then
+			cb_func(false)
+		end
+		return false, nil
+
+    end
 end
 
 -------------------------------------
