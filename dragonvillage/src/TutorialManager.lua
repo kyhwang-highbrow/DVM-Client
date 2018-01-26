@@ -304,6 +304,12 @@ function TutorialManager:saveTutorialStepInAdventureResult(stage_id)
 		local step = 101
 		g_tutorialData:request_tutorialSave(tutorial_key, step)
  
+	-- 1-2 end tutorial
+	elseif (g_masterRoadData:getFocusRoad() == 10003) then
+		local tutorial_key = TUTORIAL.ADV_01_02_END
+		local step = nil
+		g_tutorialData:request_tutorialSave(tutorial_key, step)
+
 	-- 1-7 end tutorial
 	elseif (self:checkStartFreeSummon11(stage_id)) then
 		local tutorial_key = TUTORIAL.ADV_01_07_END
