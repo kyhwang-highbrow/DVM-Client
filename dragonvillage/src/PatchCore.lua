@@ -531,12 +531,19 @@ function PatchCore:st_decompression()
         else
             local msg = Str('추가 리소스 패치 중 오류({1})가 발생하였습니다. 다시 시도하시겠습니까?', ret)
             local popup_type = ''
+
+			-- UNZ_MD5ERROR : MD5 error
             if ret == -111 then
                 msg = Str('다운로드받은 패치 파일에 오류가 있습니다. 다운로드를 다시 시도하시겠습니까?')
+
+			-- UNZ_TARGETFILE_OPENFAIL : 읽기 오류
             elseif ret == -112 then
                 msg = Str('저장 공간이 부족하여 패치 파일을 설치하는데 실패하였습니다.\n불필요한 앱과 파일을 삭제 후 다시 시도해 주세요.')
+
+			-- UNZ_TARGETFILE_WRITEFAIL : 쓰기 오류
             elseif ret == -113 then
                 msg = Str('저장 공간이 부족하여 패치 파일을 저장하는데 실패하였습니다.\n불필요한 앱과 파일을 삭제 후 다시 시도해 주세요.')
+
             end
             self:errorHandler(msg)
         end
