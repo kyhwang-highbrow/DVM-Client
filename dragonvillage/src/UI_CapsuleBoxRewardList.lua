@@ -6,6 +6,7 @@ local PARENT = class(UI, ITabUI:getCloneTable())
 UI_CapsuleBoxRewardList = class(PARENT,{
 		m_structCapsuleBox = '',
 		m_tableView = '',
+		m_lChanceLabelList = 'List<UIC_Label>',
     })
 
 -------------------------------------
@@ -32,6 +33,8 @@ end
 function UI_CapsuleBoxRewardList:initUI()
 	local vars = self.vars
 
+	self.m_lChanceLabelList = {}
+
 	local l_rate = self.m_structCapsuleBox:getRateByRankTable()
 	for rank, rate in pairs(l_rate) do
 		-- 등급 이름
@@ -39,6 +42,8 @@ function UI_CapsuleBoxRewardList:initUI()
 
 		-- 등급별 비율
 		vars['chanceLabel' .. rank]:setString(string.format('%.2f%%', rate * 100))
+
+		table.insert(self.m_lChanceLabelList, vars['chanceLabel' .. rank])
 	end
 end
 
@@ -61,6 +66,20 @@ end
 function UI_CapsuleBoxRewardList:onChangeTab(tab, first)
 	local vars = self.vars
 	self:makeQuestTableView(tab)
+
+	-- 탭 전환시 바뀌는 색이 2가지인데 특이한 경우인 것 같아서 UI에서 직접 구현
+	-- 나중에 사용처가 늘어나면 n개의 label 색상 일괄 변환하도록 iTabUI 수정해야하는데
+	-- 컬러는 가변적이기 힘듬
+	for i, label in ipairs(self.m_lChanceLabelList) do
+		local color
+		if (tab == i) then
+			color = cc.c4b(0, 0, 0, 255)
+		else
+			color = cc.c4b(240, 215, 159, 255)
+		end
+
+		label:setTextColor(color)
+	end
 end
 
 -------------------------------------
