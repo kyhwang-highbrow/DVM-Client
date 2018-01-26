@@ -7,7 +7,6 @@
 //
 
 #import <Foundation/Foundation.h>
-#import <UIKit/UIKit.h>
 #import "NaverThirdPartyLoginConnection.h"
 
 @interface NLoginThirdPartyOAuth20InAppBrowserViewController : UIViewController <UIWebViewDelegate> {
@@ -25,11 +24,8 @@
     BOOL _isCloseBannerView;
     
     UIView *_bottomBar;
-    UIView *_diviView;
+    UIView *_bottomBarTopDivLine;
     UIButton *_closeBt;
-    
-    int _topMargin;
-
     
     UIInterfaceOrientation parentOrientation;
 }

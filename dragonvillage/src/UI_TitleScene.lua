@@ -1341,7 +1341,7 @@ end
 -------------------------------------
 function UI_TitleScene:initNaverPlug()
     --글로벌 플러그 초기화
-    NaverCafeManager:naverInitGlobalPlug(g_localData:getServerName(), Translate:getGameLang())
+    NaverCafeManager:naverInitGlobalPlug(g_localData:getServerName(), g_localData:getLang(), g_localData:getSavedNaverChannel())
 
     -- 카페 위젯 노출 시작
     NaverCafeManager:naverCafeStartWidget()

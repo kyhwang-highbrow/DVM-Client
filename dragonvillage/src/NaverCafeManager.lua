@@ -5,6 +5,11 @@ local NAVER_CHANNEL_JAPAN       = 1031352
 local NAVER_CHANNEL_ASIA_TH_TW  = 1031353
 local NAVER_CHANNEL_ASIA_EN     = 1031441
 
+local NAVER_CHANNEL_CODE_KOREAN = 'ko'
+local NAVER_CHANNEL_CODE_ENGLISH = 'en'
+local NAVER_CHANNEL_CODE_CHINESE_TRADITIONAL ='zh_TW'
+local NAVER_CHANNEL_CODE_JAPANESE = 'ja'
+
 -------------------------------------
 -- table NaverCafeManager
 -- @brief 네이버 카페 SDK 매니져
@@ -147,17 +152,24 @@ function NaverCafeManager:onNaverCafeCallback(ret, info)
 end
 
 -------------------------------------
--- function naverInitGlobalPlug(server, lang)
+-- function naverInitGlobalPlug(server, lang, isSaved)
 -- @brief 네이버 글로벌 플러그 init
 -------------------------------------
-function NaverCafeManager:naverInitGlobalPlug(server, lang)
+function NaverCafeManager:naverInitGlobalPlug(server, lang, isSaved)
     if (skip()) then
         return
     end
 
     --선택한서버와 언어에따라 플러그 채널을 강제 선택해줍니다. --김종환이사님
     local channelID = 0
-    if server == SERVER_NAME.AMERICA then
+    local channelCode    
+    --네이버 sdk버그 때문에 한국서버 한국어 사용자는 강제로 한국 커뮤니티로 자동 세팅한다.
+    if g_localData:isKoreaServer() and lang == 'ko' then
+        channelID = 0
+        channelCode = NAVER_CHANNEL_CODE_KOREAN
+    elseif isSaved and isSaved > 0 then
+        --이때는 sdk에 저장되어 있는값으로 그냥 사용하기 위해서 
+    elseif server == SERVER_NAME.AMERICA then
         channelID = NAVER_CHANNEL_AMERICA
     elseif server == SERVER_NAME.JAPAN then
         channelID = NAVER_CHANNEL_JAPAN
@@ -169,7 +181,18 @@ function NaverCafeManager:naverInitGlobalPlug(server, lang)
         end
     end
 
+    cclog('NaverCafeManager:naverInitGlobalPlug')
+    cclog('isSaved : ' .. (isSaved or 'not') )
+    cclog('server : ' .. ( server or 'not' ) )
+    cclog('lang : ' .. ( lang or  'not' ) )
+    cclog('channelID : ' .. channelID)
+    cclog('channelCode : ' .. (channelCode or 'not') )
+
     PerpleSDK:naverCafeInitGlobalPlug(NAVER_NEO_ID_CONSUMER_KEY, NAVER_COMMUNITY_ID, channelID)
+    if channelCode and CppFunctionsClass:getAppVer() == '1.1.0' then
+        PerpleSDK:naverCafeSetChannelCode(channelCode)
+    end
+
 end
 
 
