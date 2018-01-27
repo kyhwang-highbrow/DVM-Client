@@ -195,6 +195,17 @@ function UI_GameResultNew:setWorkList()
 end
 
 -------------------------------------
+-- function isWorkListDone
+-------------------------------------
+function UI_GameResultNew:isWorkListDone()
+	if (not self.m_workIdx) then
+		return false
+	end
+	local work_list_cnt = #self.m_lWorkList
+	return (self.m_workIdx > work_list_cnt)
+end
+
+-------------------------------------
 -- function doNextWork
 -------------------------------------
 function UI_GameResultNew:doNextWork()
@@ -809,7 +820,7 @@ function UI_GameResultNew:direction_masterRoad()
 
 		-- 마스터의 길 클리어했다면
 		elseif (self.m_isClearMasterRoad) then
-			UI_MasterRoadPopup_Link()
+			UI_MasterRoadPopup_Link(stage_id)
 
 		end
 	end
@@ -1003,6 +1014,9 @@ end
 -- @brief 모드별 백버튼은 여기서 처리
 -------------------------------------
 function UI_GameResultNew:click_backBtn()
+	if (not self:isWorkListDone()) then
+		return
+	end
     local game_mode = g_gameScene.m_gameMode
     local dungeon_mode = g_gameScene.m_dungeonMode
     local condition = self.m_stageID

@@ -12,7 +12,7 @@ UI_MasterRoadPopup_Link = class(PARENT, {
 -------------------------------------
 -- function init
 -------------------------------------
-function UI_MasterRoadPopup_Link:init()
+function UI_MasterRoadPopup_Link:init(stage_id)
 	local vars = self:load('master_road_popup_link.ui')
 	UIManager:open(self, UIManager.POPUP)
 
@@ -20,22 +20,29 @@ function UI_MasterRoadPopup_Link:init()
     self.m_uiName = 'UI_MasterRoadPopup_Link'
 
 	-- backkey 지정
-	g_currScene:pushBackKeyListener(self, function() self:click_exitBtn() end, 'UI_MasterRoadPopup_Link')
+	-- 나중에 고민하고 살릴 예정
+	-- g_currScene:pushBackKeyListener(self, function() self:click_exitBtn() end, 'UI_MasterRoadPopup_Link')
 
 	-- @UI_ACTION
 	self:doActionReset()
 	self:doAction(function()
-        -- @ TUTORIAL : 1-1 end start
-        if (g_masterRoadData:getFocusRoad() == 10001) then
-			local tutorial_key = TUTORIAL.FIRST_END
-			TutorialManager.getInstance():startTutorial(tutorial_key, self)
-	    
-		-- @ TUTORIAL : 1-2 end start
-		elseif (g_masterRoadData:getFocusRoad() == 10003) then
-			local tutorial_key = TUTORIAL.ADV_01_02_END
-			TutorialManager.getInstance():startTutorial(tutorial_key, self)
+		if (stage_id) then
+			local clear_cnt = g_adventureData:getStageClearCnt(stage_id)
 
-        end
+			-- @ TUTORIAL : 1-1 end start
+			if (stage_id == 1110101) and (clear_cnt == 1) then
+				local tutorial_key = TUTORIAL.FIRST_END
+				TutorialManager.getInstance():startTutorial(tutorial_key, self)
+	    
+			-- @ TUTORIAL : 1-2 end start
+			elseif (stage_id == 1110102) and (clear_cnt == 1) then
+				local tutorial_key = TUTORIAL.ADV_01_02_END
+				local step = nil
+				local is_force = true
+				TutorialManager.getInstance():startTutorial(tutorial_key, self, step, is_force)
+
+			end
+		end
 
     end, false)
 

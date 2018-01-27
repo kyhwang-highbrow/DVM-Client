@@ -55,6 +55,14 @@ function ServerData_DragonDiary:applyInfo(ret)
 end
 
 -------------------------------------
+-- function isEnable
+-- @brief 활성화
+-------------------------------------
+function ServerData_DragonDiary:isEnable()
+	return self.m_bEnable
+end
+
+-------------------------------------
 -- function getFocusRid
 -- @brief 현재 진행중인 퀘스트
 -------------------------------------

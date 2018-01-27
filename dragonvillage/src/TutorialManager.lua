@@ -113,6 +113,10 @@ end
 -- @comment 하드코딩할 부분을 최대한 몰아서..
 -------------------------------------
 function TutorialManager:checkTutorialInLobby(ui_lobby)
+	-- 신규유저만 체크하면 되네
+	if (not g_dragonDiaryData:isEnable()) then
+		return
+	end
 
 	-- 1-1 start 클리어 여부
 	local stage_id = 1110101
@@ -170,9 +174,30 @@ function TutorialManager:checkTutorialInLobby(ui_lobby)
 		-- 클리어 처리
 		elseif (step == 102) then
 			g_tutorialData:request_tutorialSave(tutorial_key)
-
+			return
 		end
 	end
+
+	-- 1-7 tutorial 못한 신규 유저 중 1-7 이미 클리어 한 경우
+	if (not is_done) then
+		local stage_id = 1110107
+		local clear_cnt = g_adventureData:getStageClearCnt(stage_id)
+		if (clear_cnt >= 1) then
+			local function cb_func()
+				local step = 101
+				local function go_func()
+					UINavigator:goTo('hatchery')
+				end
+				g_tutorialData:request_tutorialSave(tutorial_key, step, go_func)
+			end
+
+			local gacha_key = TUTORIAL.GACHA11_START
+			g_tutorialData:request_tutorialSave(gacha_key, nil, cb_func)
+			return
+		end
+	end
+
+	-- 후속 처리는 없기를...
 end
 
 -------------------------------------
@@ -242,9 +267,9 @@ function TutorialManager:checkStartFreeSummon11(stage_id)
 	end
 
 	-- 1-2 end 튜토리얼 완료했어야 함 (기존 유저 구분용)	
-	if (not g_tutorialData:isTutorialDone(TUTORIAL.ADV_01_02_END)) then
-		return false
-	end
+	--if (not g_tutorialData:isTutorialDone(TUTORIAL.ADV_01_02_END)) then
+		--return false
+	--end
 
 	return true
 end
@@ -299,16 +324,30 @@ end
 function TutorialManager:saveTutorialStepInAdventureResult(stage_id, cb_func)
 
 	-- 1-1 end tutorial
-    if (g_masterRoadData:getFocusRoad() == 10001) then
-		local tutorial_key = TUTORIAL.FIRST_END
-		local step = 101
-		g_tutorialData:request_tutorialSave(tutorial_key, step, cb_func)
- 
+    if (stage_id == 1110101) then
+		local clear_cnt = g_adventureData:getStageClearCnt(stage_id)
+		if (clear_cnt == 1) then
+			local tutorial_key = TUTORIAL.FIRST_END
+			local step = 101
+			g_tutorialData:request_tutorialSave(tutorial_key, step, cb_func)
+		else
+			if (cb_func) then
+				cb_func()
+			end
+		end
+
 	-- 1-2 end tutorial
-	elseif (g_masterRoadData:getFocusRoad() == 10003) then
-		local tutorial_key = TUTORIAL.ADV_01_02_END
-		local step = nil
-		g_tutorialData:request_tutorialSave(tutorial_key, step, cb_func)
+	elseif (stage_id == 1110102) then
+		local clear_cnt = g_adventureData:getStageClearCnt(stage_id)
+		if (clear_cnt == 1) then
+			local tutorial_key = TUTORIAL.ADV_01_02_END
+			local step = nil
+			g_tutorialData:request_tutorialSave(tutorial_key, step, cb_func)
+		else
+			if (cb_func) then
+				cb_func()
+			end
+		end
 
 	-- 1-7 end tutorial
 	elseif (self:checkStartFreeSummon11(stage_id)) then
