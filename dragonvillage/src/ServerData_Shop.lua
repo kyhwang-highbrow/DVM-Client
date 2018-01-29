@@ -375,7 +375,6 @@ function ServerData_Shop:openShopPopup(tab_type, close_cb)
     self:ckechDirty()
 
     local function cb_func()
-        --UI_ShopPopup()
         local ui_shop_popup = UI_Shop()
 
         if tab_type then

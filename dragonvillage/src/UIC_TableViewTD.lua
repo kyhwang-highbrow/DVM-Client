@@ -34,6 +34,9 @@ UIC_TableViewTD = class(PARENT, {
 		m_makeCellEachTick = 'number',	-- 한틱에 생성할 셀의 갯수
 		m_bMakeAtOnce = 'boolean',		-- 즉시 생성 여부
 
+		-- 리스트 내 개수 부족 시 가운데 정렬
+        m_bAlignCenterInInsufficient = 'boolean',
+
         -- 리스트가 비어있을 때 표시할 노드
         m_emptyDescNode = 'cc.Node',
         m_emptyDescLabel = 'cc.LabelTTF',
@@ -65,6 +68,7 @@ function UIC_TableViewTD:init(node)
     self.m_nItemPerCell = 2
     self.m_bFirstLocation = true
     self.m_bDirtyItemList = false
+	self.m_bAlignCenterInInsufficient = false
 
     -- 스크롤 뷰 생성
     local content_size = node:getContentSize()
@@ -517,6 +521,9 @@ function UIC_TableViewTD:minContainerOffset()
     return x, y
 end
 
+-------------------------------------
+-- function _offsetFromIndex
+-------------------------------------
 function UIC_TableViewTD:_offsetFromIndex(index)
     local offset = self:__offsetFromIndex(index)
 
@@ -536,6 +543,23 @@ function UIC_TableViewTD:_offsetFromIndex(index)
     do -- 가운데 정렬을 위해
         offset['x'] = offset['x'] + (cellSize['width'] / 2)
         offset['y'] = offset['y'] + (cellSize['height'] / 2)
+    end
+    
+	-- 리스트 내 개수 부족 시 가운데 정렬
+    if (self.m_bAlignCenterInInsufficient) then
+        local viewSize = self.m_scrollView:getViewSize()
+
+        -- 가로 (테스트는 안해봄)
+        if (self._direction == cc.SCROLLVIEW_DIRECTION_HORIZONTAL) then
+            if (container_size['width'] < viewSize['width']) then
+                offset['x'] = offset['x'] - (viewSize['width'] - container_size['width']) / 2
+            end
+        -- 세로
+        else
+            if (container_size['height'] < viewSize['height']) then
+                offset['y'] = offset['y'] - (viewSize['height'] - container_size['height']) / 2
+            end
+        end
     end
 
     return offset
@@ -1116,6 +1140,14 @@ function UIC_TableViewTD:refreshAllItemUI()
             ui:refresh()
         end
     end
+end
+
+-------------------------------------
+-- function setAlignCenter
+-- @brief 갯수 부족시 가운데 정렬
+-------------------------------------
+function UIC_TableViewTD:setAlignCenter(b)
+    self.m_bAlignCenterInInsufficient = b
 end
 
 -- _swallowTouch가 false일 경우 CCMenu 클래스의 onTouchBegan함수에서
