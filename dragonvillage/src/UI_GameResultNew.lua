@@ -253,6 +253,8 @@ function UI_GameResultNew:check_tutorial()
 		end
 		-- @ TUTORIAL
 		TutorialManager.getInstance():saveTutorialStepInAdventureResult(stage_id, cb_func)
+	else
+		self:doNextWork()
 	end
 end
 -------------------------------------
@@ -296,7 +298,6 @@ function UI_GameResultNew:check_masterRoad()
 		self:doNextWork()
 
     end
-
 end
 -------------------------------------
 -- function check_masterRoad_click
