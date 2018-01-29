@@ -151,6 +151,19 @@ function NaverCafeManager:onNaverCafeCallback(ret, info)
     end
 end
 
+local function isUseChannelCode( ver )
+    local server = CppFunctionsClass:getTargetServer()
+    if server == "DEV" then
+        return (ver == "0.4.9" or ver == "9.9.9")
+    elseif server == "QA" then
+        return ver == "0.5.0"
+    elseif server == "LIVE" then
+        return ver == "1.1.0"
+    end
+
+    return false
+end
+
 -------------------------------------
 -- function naverInitGlobalPlug(server, lang, isSaved)
 -- @brief 네이버 글로벌 플러그 init
@@ -189,7 +202,7 @@ function NaverCafeManager:naverInitGlobalPlug(server, lang, isSaved)
     cclog('channelCode : ' .. (channelCode or 'not') )
 
     PerpleSDK:naverCafeInitGlobalPlug(NAVER_NEO_ID_CONSUMER_KEY, NAVER_COMMUNITY_ID, channelID)
-    if channelCode and CppFunctionsClass:getAppVer() == '1.1.0' then
+    if channelCode and isUseChannelCode( CppFunctionsClass:getAppVer() ) then        
         PerpleSDK:naverCafeSetChannelCode(channelCode)
     end
 
