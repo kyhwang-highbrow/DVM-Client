@@ -115,6 +115,22 @@ function NaverCafeManager:naverCafeStartImageWrite(fileUri)
 end
 
 -------------------------------------
+-- function naverCafeStartWithArticle
+-- @brief 네이버 카페에 특정게시글 보며 열기 
+-------------------------------------
+function NaverCafeManager:naverCafeStartWithArticle(articeId)
+    if (skip()) then
+        return
+    end
+
+    if not articeId then
+        return
+    end
+
+    PerpleSDK:naverCafeStartWithArticle(articeId)
+end
+
+-------------------------------------
 -- function naverCafeSetCallback
 -- @brief 네이버 카페에 callback 세팅
 -------------------------------------
