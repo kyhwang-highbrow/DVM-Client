@@ -50,6 +50,7 @@
 #define NAVER_CAFE_ID               29168475
 #define NAVER_NEO_ID_CONSUMER_KEY   @"_hBggTZAp2IPapvAxwQl"
 #define NAVER_COMMUNITY_ID          0
+#define ADJUST_TOKKEN_ID            @"esjmkti8vim8"
 
 // iTunes Connect App ID : 1281873988
 
@@ -136,6 +137,7 @@ static AppDelegate s_sharedApplication;
     [[PerpleSDK sharedInstance] initAdColonyWithParentView:viewController appId:ADCOLONY_APP_ID];
     [[PerpleSDK sharedInstance] initNaverWithParentView:viewController isLandspape:YES clientId:NAVER_CAFE_CLIENT_ID clientSecret:NAVER_CAFE_CLIENT_SECRET cafeId:NAVER_CAFE_ID neoIdConsumerKey:NAVER_NEO_ID_CONSUMER_KEY communityId:NAVER_COMMUNITY_ID urlScheme:@"dvmNaverLogin"];
     [[PerpleSDK sharedInstance] initBilling];
+    [[PerpleSDK sharedInstance] initAdjustWithAppKey:ADJUST_TOKKEN_ID debug:isDebug];
     [[PerpleSDK sharedInstance] application:application didFinishLaunchingWithOptions:launchOptions];
 
     cocos2d::Application::getInstance()->run();
@@ -227,6 +229,7 @@ static AppDelegate s_sharedApplication;
     // @perplesdk
     return [[PerpleSDK sharedInstance] application:application openURL:url options:options];
 }
+
 #endif
 
 // @send mail

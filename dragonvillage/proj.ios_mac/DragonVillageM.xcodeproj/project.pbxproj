@@ -18,9 +18,6 @@
 		3706F1781F680EAC00777433 /* NaverCafeSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3706F1771F680EAC00777433 /* NaverCafeSDK.framework */; };
 		3706F1921F680EF000777433 /* libNaverLogin.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3706F18C1F680EF000777433 /* libNaverLogin.a */; };
 		3706F1D41F691E0900777433 /* libApiGateway-MAC.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3706F1D21F691E0900777433 /* libApiGateway-MAC.a */; };
-		370B47661F7CB6160072CA71 /* translate in Resources */ = {isa = PBXBuildFile; fileRef = 370B47501F7CB5260072CA71 /* translate */; };
-		370B47671F7CB6190072CA71 /* sound in Resources */ = {isa = PBXBuildFile; fileRef = 370B47591F7CB5280072CA71 /* sound */; };
-		370B47681F7CB61C0072CA71 /* res in Resources */ = {isa = PBXBuildFile; fileRef = 370B47541F7CB5270072CA71 /* res */; };
 		370B476B1F7CB6290072CA71 /* config.json in Resources */ = {isa = PBXBuildFile; fileRef = 370B474D1F7CB5260072CA71 /* config.json */; };
 		370B476C1F7CB6290072CA71 /* AudioEngine.lua in Resources */ = {isa = PBXBuildFile; fileRef = 370B475B1F7CB5280072CA71 /* AudioEngine.lua */; };
 		370B476D1F7CB6290072CA71 /* CCBReaderLoad.lua in Resources */ = {isa = PBXBuildFile; fileRef = 370B47611F7CB52A0072CA71 /* CCBReaderLoad.lua */; };
@@ -88,8 +85,6 @@
 		3772F40B1FF4ECC300A9EF7A /* SDImageCache.m in Sources */ = {isa = PBXBuildFile; fileRef = 3772F3F81FF4ECC100A9EF7A /* SDImageCache.m */; };
 		3772F40C1FF4ECC300A9EF7A /* SDWebImageDownloader.m in Sources */ = {isa = PBXBuildFile; fileRef = 3772F3FA1FF4ECC100A9EF7A /* SDWebImageDownloader.m */; };
 		3772F4E51FFE1CB300A9EF7A /* libPerpleSDK.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3772F4E41FFE1CB200A9EF7A /* libPerpleSDK.a */; };
-		3772F4F020036D0800A9EF7A /* data_dat in Resources */ = {isa = PBXBuildFile; fileRef = 3772F4EE20036D0700A9EF7A /* data_dat */; };
-		3772F4FA2004EA6200A9EF7A /* ps in Resources */ = {isa = PBXBuildFile; fileRef = 3772F4F92004EA6100A9EF7A /* ps */; };
 		37B3B4581FD67B0E003E172E /* SafariServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 37B3B4571FD67B0E003E172E /* SafariServices.framework */; };
 		37B3B45A1FD67B2F003E172E /* CoreMedia.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 37B3B4591FD67B2F003E172E /* CoreMedia.framework */; };
 		37B3B45C1FD67B50003E172E /* GameKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 37B3B45B1FD67B50003E172E /* GameKit.framework */; };
@@ -99,6 +94,11 @@
 		37B3B4641FD67B98003E172E /* WatchConnectivity.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 37B3B4631FD67B97003E172E /* WatchConnectivity.framework */; };
 		37B3B4661FD67BA9003E172E /* WebKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 37B3B4651FD67BA9003E172E /* WebKit.framework */; };
 		37B3B4681FD67BCD003E172E /* libz.1.2.5.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 37B3B4671FD67BCC003E172E /* libz.1.2.5.tbd */; };
+		37B4B820201EF8E4008B58E6 /* translate in Resources */ = {isa = PBXBuildFile; fileRef = 37B4B81B201EF8E3008B58E6 /* translate */; };
+		37B4B821201EF8E4008B58E6 /* sound in Resources */ = {isa = PBXBuildFile; fileRef = 37B4B81C201EF8E3008B58E6 /* sound */; };
+		37B4B822201EF8E4008B58E6 /* data_dat in Resources */ = {isa = PBXBuildFile; fileRef = 37B4B81D201EF8E4008B58E6 /* data_dat */; };
+		37B4B823201EF8E4008B58E6 /* ps in Resources */ = {isa = PBXBuildFile; fileRef = 37B4B81E201EF8E4008B58E6 /* ps */; };
+		37B4B824201EF8E4008B58E6 /* res in Resources */ = {isa = PBXBuildFile; fileRef = 37B4B81F201EF8E4008B58E6 /* res */; };
 		37D8E3F11A304EB9005E479B /* PerpSocial.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 37D8E3EF1A304EB9005E479B /* PerpSocial.cpp */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		37E128B01B45380F00200C23 /* EventKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 37E128AF1B45380F00200C23 /* EventKit.framework */; };
 		37E128B41B45384000200C23 /* EventKitUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 37E128B31B45384000200C23 /* EventKitUI.framework */; };
@@ -343,15 +343,12 @@
 		370B474C1F7CB5260072CA71 /* extern.lua */ = {isa = PBXFileReference; lastKnownFileType = text; name = extern.lua; path = ../../assets/full/extern.lua; sourceTree = "<group>"; };
 		370B474D1F7CB5260072CA71 /* config.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; name = config.json; path = ../../assets/full/config.json; sourceTree = "<group>"; };
 		370B474F1F7CB5260072CA71 /* luaoc.lua */ = {isa = PBXFileReference; lastKnownFileType = text; name = luaoc.lua; path = ../../assets/full/luaoc.lua; sourceTree = "<group>"; };
-		370B47501F7CB5260072CA71 /* translate */ = {isa = PBXFileReference; lastKnownFileType = folder; name = translate; path = ../../assets/full/translate; sourceTree = "<group>"; };
 		370B47511F7CB5260072CA71 /* Deprecated.lua */ = {isa = PBXFileReference; lastKnownFileType = text; name = Deprecated.lua; path = ../../assets/full/Deprecated.lua; sourceTree = "<group>"; };
 		370B47521F7CB5260072CA71 /* luaj.lua */ = {isa = PBXFileReference; lastKnownFileType = text; name = luaj.lua; path = ../../assets/full/luaj.lua; sourceTree = "<group>"; };
-		370B47541F7CB5270072CA71 /* res */ = {isa = PBXFileReference; lastKnownFileType = folder; name = res; path = ../../assets/full/res; sourceTree = "<group>"; };
 		370B47551F7CB5270072CA71 /* fixed_constant.lua */ = {isa = PBXFileReference; lastKnownFileType = text; name = fixed_constant.lua; path = ../../assets/full/fixed_constant.lua; sourceTree = "<group>"; };
 		370B47561F7CB5270072CA71 /* entry_patch.lua */ = {isa = PBXFileReference; lastKnownFileType = text; name = entry_patch.lua; path = ../../assets/full/entry_patch.lua; sourceTree = "<group>"; };
 		370B47571F7CB5270072CA71 /* Cocos2dConstants.lua */ = {isa = PBXFileReference; lastKnownFileType = text; name = Cocos2dConstants.lua; path = ../../assets/full/Cocos2dConstants.lua; sourceTree = "<group>"; };
 		370B47581F7CB5280072CA71 /* DrawPrimitives.lua */ = {isa = PBXFileReference; lastKnownFileType = text; name = DrawPrimitives.lua; path = ../../assets/full/DrawPrimitives.lua; sourceTree = "<group>"; };
-		370B47591F7CB5280072CA71 /* sound */ = {isa = PBXFileReference; lastKnownFileType = folder; name = sound; path = ../../assets/full/sound; sourceTree = "<group>"; };
 		370B475A1F7CB5280072CA71 /* DeprecatedEnum.lua */ = {isa = PBXFileReference; lastKnownFileType = text; name = DeprecatedEnum.lua; path = ../../assets/full/DeprecatedEnum.lua; sourceTree = "<group>"; };
 		370B475B1F7CB5280072CA71 /* AudioEngine.lua */ = {isa = PBXFileReference; lastKnownFileType = text; name = AudioEngine.lua; path = ../../assets/full/AudioEngine.lua; sourceTree = "<group>"; };
 		370B475C1F7CB5290072CA71 /* entry_main.lua */ = {isa = PBXFileReference; lastKnownFileType = text; name = entry_main.lua; path = ../../assets/full/entry_main.lua; sourceTree = "<group>"; };
@@ -447,10 +444,7 @@
 		3772F3FB1FF4ECC200A9EF7A /* SDWebImageCompat.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SDWebImageCompat.h; path = "../../libraries/perplesdk/external/naver-cafe-sdk/ios/external-lib/SDWebImage-3.8.2/SDWebImageCompat.h"; sourceTree = "<group>"; };
 		3772F3FC1FF4ECC200A9EF7A /* UIView+WebCacheOperation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "UIView+WebCacheOperation.h"; path = "../../libraries/perplesdk/external/naver-cafe-sdk/ios/external-lib/SDWebImage-3.8.2/UIView+WebCacheOperation.h"; sourceTree = "<group>"; };
 		3772F3FD1FF4ECC200A9EF7A /* SDWebImageManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SDWebImageManager.h; path = "../../libraries/perplesdk/external/naver-cafe-sdk/ios/external-lib/SDWebImage-3.8.2/SDWebImageManager.h"; sourceTree = "<group>"; };
-		3772F4CA1FFCCA5B00A9EF7A /* NaverCafeSDKLive.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = NaverCafeSDKLive.framework; path = "../../libraries/perplesdk/external/naver-cafe-sdk/ios/NaverCafeSDKLive.framework"; sourceTree = "<group>"; };
 		3772F4E41FFE1CB200A9EF7A /* libPerpleSDK.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libPerpleSDK.a; path = ../../libraries/perplesdk/prebuilt/ios/libPerpleSDK.a; sourceTree = "<group>"; };
-		3772F4EE20036D0700A9EF7A /* data_dat */ = {isa = PBXFileReference; lastKnownFileType = folder; name = data_dat; path = ../../assets/full/data_dat; sourceTree = "<group>"; };
-		3772F4F92004EA6100A9EF7A /* ps */ = {isa = PBXFileReference; lastKnownFileType = folder; name = ps; path = ../../assets/full/ps; sourceTree = "<group>"; };
 		37B3B4571FD67B0E003E172E /* SafariServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SafariServices.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS11.2.sdk/System/Library/Frameworks/SafariServices.framework; sourceTree = DEVELOPER_DIR; };
 		37B3B4591FD67B2F003E172E /* CoreMedia.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMedia.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS11.2.sdk/System/Library/Frameworks/CoreMedia.framework; sourceTree = DEVELOPER_DIR; };
 		37B3B45B1FD67B50003E172E /* GameKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GameKit.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS11.2.sdk/System/Library/Frameworks/GameKit.framework; sourceTree = DEVELOPER_DIR; };
@@ -460,6 +454,11 @@
 		37B3B4631FD67B97003E172E /* WatchConnectivity.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WatchConnectivity.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS11.2.sdk/System/Library/Frameworks/WatchConnectivity.framework; sourceTree = DEVELOPER_DIR; };
 		37B3B4651FD67BA9003E172E /* WebKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WebKit.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS11.2.sdk/System/Library/Frameworks/WebKit.framework; sourceTree = DEVELOPER_DIR; };
 		37B3B4671FD67BCC003E172E /* libz.1.2.5.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libz.1.2.5.tbd; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS11.2.sdk/usr/lib/libz.1.2.5.tbd; sourceTree = DEVELOPER_DIR; };
+		37B4B81B201EF8E3008B58E6 /* translate */ = {isa = PBXFileReference; lastKnownFileType = folder; name = translate; path = ../../assets/full/translate; sourceTree = "<group>"; };
+		37B4B81C201EF8E3008B58E6 /* sound */ = {isa = PBXFileReference; lastKnownFileType = folder; name = sound; path = ../../assets/full/sound; sourceTree = "<group>"; };
+		37B4B81D201EF8E4008B58E6 /* data_dat */ = {isa = PBXFileReference; lastKnownFileType = folder; name = data_dat; path = ../../assets/full/data_dat; sourceTree = "<group>"; };
+		37B4B81E201EF8E4008B58E6 /* ps */ = {isa = PBXFileReference; lastKnownFileType = folder; name = ps; path = ../../assets/full/ps; sourceTree = "<group>"; };
+		37B4B81F201EF8E4008B58E6 /* res */ = {isa = PBXFileReference; lastKnownFileType = folder; name = res; path = ../../assets/full/res; sourceTree = "<group>"; };
 		37D8E3EF1A304EB9005E479B /* PerpSocial.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = PerpSocial.cpp; path = ../Classes/PerpSocial.cpp; sourceTree = "<group>"; };
 		37D8E3F01A304EB9005E479B /* PerpSocial.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PerpSocial.h; path = ../Classes/PerpSocial.h; sourceTree = "<group>"; };
 		37E0007E1B26905C00F23F9E /* ja */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ja; path = ja.lproj/InfoPlist.strings; sourceTree = "<group>"; };
@@ -577,8 +576,8 @@
 				F293B3DB15EB7BE500256477 /* CoreGraphics.framework in Frameworks */,
 				37E128C21B4538B800200C23 /* CoreLocation.framework in Frameworks */,
 				37E128C41B4538C200200C23 /* CoreMotion.framework in Frameworks */,
-				37E128DC1B45397400200C23 /* CoreTelephony.framework in Frameworks */,
 				37E128D01B45390D00200C23 /* CoreText.framework in Frameworks */,
+				37E128DC1B45397400200C23 /* CoreTelephony.framework in Frameworks */,
 				37E128B01B45380F00200C23 /* EventKit.framework in Frameworks */,
 				37E128B41B45384000200C23 /* EventKitUI.framework in Frameworks */,
 				F293B3D915EB7BE500256477 /* Foundation.framework in Frameworks */,
@@ -648,8 +647,11 @@
 		3746350A1F7B8BA0004F8387 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
-				3772F4F92004EA6100A9EF7A /* ps */,
-				3772F4EE20036D0700A9EF7A /* data_dat */,
+				37B4B81D201EF8E4008B58E6 /* data_dat */,
+				37B4B81E201EF8E4008B58E6 /* ps */,
+				37B4B81F201EF8E4008B58E6 /* res */,
+				37B4B81C201EF8E3008B58E6 /* sound */,
+				37B4B81B201EF8E3008B58E6 /* translate */,
 				370B474D1F7CB5260072CA71 /* config.json */,
 				370B475B1F7CB5280072CA71 /* AudioEngine.lua */,
 				370B47611F7CB52A0072CA71 /* CCBReaderLoad.lua */,
@@ -672,9 +674,6 @@
 				370B475D1F7CB5290072CA71 /* Opengl.lua */,
 				370B47601F7CB5290072CA71 /* OpenglConstants.lua */,
 				370B475F1F7CB5290072CA71 /* StudioConstants.lua */,
-				370B47541F7CB5270072CA71 /* res */,
-				370B47591F7CB5280072CA71 /* sound */,
-				370B47501F7CB5260072CA71 /* translate */,
 				3746350B1F7B8BB9004F8387 /* Images.xcassets */,
 			);
 			name = Resources;
@@ -862,7 +861,6 @@
 			isa = PBXGroup;
 			children = (
 				3772F4E41FFE1CB200A9EF7A /* libPerpleSDK.a */,
-				3772F4CA1FFCCA5B00A9EF7A /* NaverCafeSDKLive.framework */,
 				3772F37F1FF251BA00A9EF7A /* AVKit.framework */,
 				37B3B4651FD67BA9003E172E /* WebKit.framework */,
 				37B3B4631FD67B97003E172E /* WatchConnectivity.framework */,
@@ -1016,7 +1014,7 @@
 				TargetAttributes = {
 					F293B3C715EB7BE500256477 = {
 						DevelopmentTeam = Z769FPRMPG;
-						ProvisioningStyle = Automatic;
+						ProvisioningStyle = Manual;
 						SystemCapabilities = {
 							com.apple.BackgroundModes = {
 								enabled = 1;
@@ -1210,12 +1208,11 @@
 			buildActionMask = 2147483647;
 			files = (
 				7D50CB851C04459600F8FE3E /* Info.plist in Resources */,
-				3772F4FA2004EA6200A9EF7A /* ps in Resources */,
 				37EF84261B268F3B00EFA299 /* InfoPlist.strings in Resources */,
 				37FB64B71F3AF73300378EE8 /* GoogleService-Info.plist in Resources */,
 				3706F1761F680E9200777433 /* NaverCafeSDK.bundle in Resources */,
-				3772F4F020036D0800A9EF7A /* data_dat in Resources */,
 				370B476B1F7CB6290072CA71 /* config.json in Resources */,
+				37B4B821201EF8E4008B58E6 /* sound in Resources */,
 				370B476C1F7CB6290072CA71 /* AudioEngine.lua in Resources */,
 				370B476D1F7CB6290072CA71 /* CCBReaderLoad.lua in Resources */,
 				370B476E1F7CB6290072CA71 /* Cocos2d.lua in Resources */,
@@ -1226,6 +1223,7 @@
 				3772F3D61FF4EC8000A9EF7A /* include in Resources */,
 				370B47731F7CB6290072CA71 /* DeprecatedEnum.lua in Resources */,
 				370B47741F7CB6290072CA71 /* DeprecatedOpenglEnum.lua in Resources */,
+				37B4B823201EF8E4008B58E6 /* ps in Resources */,
 				370B47751F7CB6290072CA71 /* DrawPrimitives.lua in Resources */,
 				370B47761F7CB6290072CA71 /* entry_main.lua in Resources */,
 				370B47771F7CB6290072CA71 /* entry_patch.lua in Resources */,
@@ -1236,13 +1234,13 @@
 				3772F3BF1FF4EC4400A9EF7A /* NaverAuth.bundle in Resources */,
 				370B477C1F7CB6290072CA71 /* luaj.lua in Resources */,
 				370B477D1F7CB6290072CA71 /* luaoc.lua in Resources */,
+				37B4B822201EF8E4008B58E6 /* data_dat in Resources */,
 				370B477E1F7CB6290072CA71 /* Opengl.lua in Resources */,
 				370B477F1F7CB6290072CA71 /* OpenglConstants.lua in Resources */,
 				370B47801F7CB6290072CA71 /* StudioConstants.lua in Resources */,
-				370B47681F7CB61C0072CA71 /* res in Resources */,
-				370B47671F7CB6190072CA71 /* sound in Resources */,
-				370B47661F7CB6160072CA71 /* translate in Resources */,
 				3746350C1F7B8BCA004F8387 /* Images.xcassets in Resources */,
+				37B4B820201EF8E4008B58E6 /* translate in Resources */,
+				37B4B824201EF8E4008B58E6 /* res in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1643,7 +1641,7 @@
 				CODE_SIGN_ENTITLEMENTS = DragonVillage.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				CODE_SIGN_STYLE = Automatic;
+				CODE_SIGN_STYLE = Manual;
 				COMPRESS_PNG_FILES = NO;
 				DEVELOPMENT_TEAM = Z769FPRMPG;
 				ENABLE_BITCODE = NO;
@@ -1676,8 +1674,8 @@
 				OTHER_LDFLAGS = "$(inherited)";
 				PRODUCT_BUNDLE_IDENTIFIER = com.perplelab.dragonvillagem.kr;
 				PRODUCT_NAME = DragonVillage;
-				PROVISIONING_PROFILE = "";
-				PROVISIONING_PROFILE_SPECIFIER = "";
+				PROVISIONING_PROFILE = "c312bab9-9582-4958-8bad-c190e9579232";
+				PROVISIONING_PROFILE_SPECIFIER = "PerpleLab DVM Dev";
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				USER_HEADER_SEARCH_PATHS = "$(inherited) $(SRCROOT)/../Classes/** $(SRCROOT)/../../cocos2d-x/cocos/platform/ios $(SRCROOT)/../../cocos2d-x/external/json $(SRCROOT)/../../libraries/perplesdk/include $(SRCROOT)/../../libraries/perplesdk/include/ios";
@@ -1696,8 +1694,8 @@
 				CLANG_ENABLE_OBJC_WEAK = NO;
 				CODE_SIGN_ENTITLEMENTS = DragonVillage.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				CODE_SIGN_STYLE = Automatic;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
+				CODE_SIGN_STYLE = Manual;
 				COMPRESS_PNG_FILES = NO;
 				DEVELOPMENT_TEAM = Z769FPRMPG;
 				ENABLE_BITCODE = NO;
@@ -1732,8 +1730,8 @@
 				OTHER_LDFLAGS = "$(inherited)";
 				PRODUCT_BUNDLE_IDENTIFIER = com.perplelab.dragonvillagem.kr;
 				PRODUCT_NAME = DragonVillage;
-				PROVISIONING_PROFILE = "";
-				PROVISIONING_PROFILE_SPECIFIER = "";
+				PROVISIONING_PROFILE = "299cfddc-6f20-430d-b501-4cad2a442336";
+				PROVISIONING_PROFILE_SPECIFIER = "PerpleLab DVM";
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				USER_HEADER_SEARCH_PATHS = "$(inherited) $(SRCROOT)/../Classes/** $(SRCROOT)/../../cocos2d-x/cocos/platform/ios $(SRCROOT)/../../cocos2d-x/external/json $(SRCROOT)/../../libraries/perplesdk/include $(SRCROOT)/../../libraries/perplesdk/include/ios";

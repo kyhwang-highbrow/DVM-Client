@@ -80,6 +80,8 @@
 
 #define PERPLESDK_ERROR_UNITYADS_NOTINITIALIZED             "-1800"
 
+#define PERPLESDK_ERROR_ADJUST_NOTINITIALIZED               "-1900"
+
 #pragma mark -
 
 @class PerpleFirebase;
@@ -92,6 +94,7 @@
 @class PerpleUnityAds;
 @class PerpleAdColony;
 @class PerpleBilling;
+@class PerpleAdjust;
 
 typedef void(^PerpleSDKCallback)(NSString *result, NSString *info);
 
@@ -109,6 +112,7 @@ typedef void(^PerpleSDKCallback)(NSString *result, NSString *info);
 @property (nonatomic, retain) PerpleUnityAds *mUnityAds;
 @property (nonatomic, retain) PerpleAdColony *mAdColony;
 @property (nonatomic, retain) PerpleBilling *mBilling;
+@property (nonatomic, retain) PerpleAdjust *mAdjust;
 
 @property (nonatomic, copy) NSString *mPlatformServerEncryptSecretKey;
 @property (nonatomic, copy) NSString *mPlatformServerEncryptAlgorithm;
@@ -207,6 +211,9 @@ typedef void(^PerpleSDKCallback)(NSString *result, NSString *info);
 - (void) billingSubscription:(NSString *)sku payload:(NSString *)payload completion:(PerpleSDKCallback)callback;
 - (void) billingGetItemList:(NSString *)skuList completion:(PerpleSDKCallback)callback;
 
+- (void) adjustTrackEvent:(NSString *)eventKey;
+- (void) adjustTrackPayment:(NSString *)key price:(NSString *)price currency:(NSString *)currency;
+
 #pragma mark - Initialization
 
 // Initialization
@@ -221,6 +228,7 @@ typedef void(^PerpleSDKCallback)(NSString *result, NSString *info);
 - (BOOL) initUnityAdsWithParentView:(UIViewController *)parentView gameId:(NSString *)gameId debug:(BOOL)isDebug;
 - (BOOL) initAdColonyWithParentView:(UIViewController *)parentView appId:(NSString *)appId;
 - (BOOL) initBilling;
+- (BOOL) initAdjustWithAppKey:(NSString *)appKey debug:(BOOL)isDebug;
 
 #pragma mark - Static methods
 
@@ -254,7 +262,7 @@ typedef void(^PerpleSDKCallback)(NSString *result, NSString *info);
 - (BOOL) application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions;
 - (BOOL) application:(UIApplication *)application openURL:(NSURL *)url options:(NSDictionary<NSString *, id> *)options;
 - (BOOL) application:(UIApplication *)application openURL:(NSURL *)url sourceApplication:(NSString *)sourceApplication annotation:(id)annotation;
-
+- (BOOL) application:(UIApplication *)application continueUserActivity:(NSUserActivity *)userActivity restorationHandler:(void (^)(NSArray *restorableObjects))restorationHandler;
 // AppDelegate, Push notifications
 - (void) application:(UIApplication *)application didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken;
 // Before iOS 7.0

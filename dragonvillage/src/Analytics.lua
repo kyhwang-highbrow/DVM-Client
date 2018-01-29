@@ -1,6 +1,7 @@
 Analytics = {}
 Adbrix = {}
 FiveRocks = {}
+Adjust = {}
 
 CUS_CATEGORY = {
 
@@ -157,7 +158,7 @@ function Analytics:purchase(productId, productName, price)
     local currencyCode = 'KRW'
 
     Adbrix:buy(productId, price)
-    FiveRocks:trackPurchase(productName, currencyCode, price)
+    FiveRocks:trackPurchase(productName, currencyCode, price)    
 end
 
 -------------------------------------
@@ -483,5 +484,31 @@ function FiveRocks:trackEvent(category, event, value, param1)
 
     PerpleSDK:tapjoyEvent('trackEvent', arg1, '', function(ret)
     end)
+end
+
+---------------------------------------------------------------------------------------------------------------
+-- Adjust
+---------------------------------------------------------------------------------------------------------------
+-------------------------------------
+-- function trackEvent
+-------------------------------------
+function Adjust:trackEvent(eventKey)
+    --cclog('Adjust:trackEvent : ' .. eventKey)
+
+    PerpleSDK:adjustTrackEvent(eventKey)
+end
+
+-------------------------------------
+-- function adjustTrackPayment
+-- eventkey : dash보드에서 만든 이벤트의 토큰
+-------------------------------------
+function Adjust:adjustTrackPayment(eventKey, currency, price )
+    --cclog('Adjust:adjustTrackPayment : ' .. eventKey)
+    --cclog('Adjust:adjustTrackPayment : ' .. currency)
+    --cclog('Adjust:adjustTrackPayment : ' .. price)
+
+    currency = currency or "KRW"
+
+    PerpleSDK:adjustTrackPayment(eventKey, tostring(price), currency)
 end
 

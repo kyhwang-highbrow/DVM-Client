@@ -30,6 +30,9 @@ target 'DragonVillageM iOS' do
   # Pods for AdColony
   pod 'AdColony'
 
+  # Pods for Adjust
+  pod 'Adjust'
+
 end
 
 target 'DragonVillageM Mac' do
