@@ -131,7 +131,7 @@
 				lua_name = '';
 				font_name = 'font/common_font_01.ttf';
 				font_size = 26;
-				text = '획득한 눈사람';
+				text = '획득한 초콜릿';
 				h_alignment = 0;
 				v_alignment = 1;
 				color = { 237; 212; 157; };
@@ -823,7 +823,7 @@
 				lua_name = '';
 				font_name = 'font/common_font_01.ttf';
 				font_size = 26;
-				text = '누적 눈사람';
+				text = '누적 초콜릿';
 				h_alignment = 0;
 				v_alignment = 1;
 				color = { 237; 212; 157; };
@@ -1091,7 +1091,7 @@
 				lua_name = '';
 				font_name = 'font/common_font_01.ttf';
 				font_size = 40;
-				text = '나랑 같이 눈사람 만들래?';
+				text = '두근두근';
 				h_alignment = 1;
 				v_alignment = 1;
 				color = { 255; 252; 230; };
@@ -1131,7 +1131,7 @@
 				lua_name = '';
 				font_name = 'font/common_font_01.ttf';
 				font_size = 60;
-				text = '눈사람 이벤트';
+				text = '초콜릿 이벤트';
 				h_alignment = 1;
 				v_alignment = 1;
 				color = { 0; 1; 55; };
@@ -1211,7 +1211,7 @@
 				lua_name = '';
 				font_name = 'font/common_font_01.ttf';
 				font_size = 22;
-				text = '획득한 눈사람을 사용해 선물상자와 교환할 수 있어요.';
+				text = '획득한 초콜릿을 사용해 선물상자와 교환할 수 있어요.';
 				h_alignment = 1;
 				v_alignment = 1;
 				color = { 255; 215; 0; };
@@ -1291,7 +1291,7 @@
 				lua_name = '';
 				font_name = 'font/common_font_01.ttf';
 				font_size = 50;
-				text = '누적 눈사람 보상';
+				text = '누적 초콜릿 보상';
 				h_alignment = 1;
 				v_alignment = 1;
 				color = { 0; 1; 55; };
@@ -1331,7 +1331,7 @@
 				lua_name = '';
 				font_name = 'font/common_font_01.ttf';
 				font_size = 22;
-				text = '선물상자 교환에 사용한 눈사람의 누적 사용량에 따라 보상을 획득할 수 있어요.';
+				text = '선물상자 교환에 사용한 초콜릿의 누적 사용량에 따라 보상을 획득할 수 있어요.';
 				h_alignment = 1;
 				v_alignment = 1;
 				color = { 0; 1; 55; };

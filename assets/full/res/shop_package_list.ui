@@ -128,10 +128,10 @@
 				visible = true;
 				lua_name = 'listBtn';
 				enable = true;
-				normal = 'ui/temp/empty.png';
-				selected = '';
+				normal = 'ui/buttons/base_btn_0101.png';
+				selected = 'ui/buttons/base_btn_0102.png';
 				disable = '';
-				image_type = 0;
+				image_type = 1;
 			};
 			type = 'Menu';
 			ui_name = '';
