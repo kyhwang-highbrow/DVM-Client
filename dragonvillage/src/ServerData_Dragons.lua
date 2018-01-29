@@ -1425,6 +1425,15 @@ function ServerData_Dragons:dragonMaterialWarning(oid, next_func, t_warning)
         end
     end
 
+	-- 조합 재료 체크 (조합 재료라면 이후 조건은 체크하지않음)
+	if (false) then
+		local combine_name = ''
+		local msg = Str('{@DEEPSKYBLUE}{1}{@DESC}의 조합 재료인 드래곤입니다.')
+		local submsg = Str('재료로 선택하시겠습니까?')
+		MakeSimplePopup2(POPUP_TYPE.YES_NO, msg, submsg, next_func)
+		return
+	end
+
     -- 진화
     local warning_evolution = t_warning['evolution'] or 2
     if (warning_evolution <= object:getEvolution()) then
