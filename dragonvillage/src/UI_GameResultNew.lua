@@ -202,7 +202,7 @@ function UI_GameResultNew:isWorkListDone()
 		return false
 	end
 	local work_list_cnt = #self.m_lWorkList
-	return (self.m_workIdx > work_list_cnt)
+	return (self.m_workIdx >= work_list_cnt)
 end
 
 -------------------------------------
