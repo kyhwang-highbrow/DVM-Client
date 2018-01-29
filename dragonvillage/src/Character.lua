@@ -2923,11 +2923,11 @@ function Character:getAllInfomationString()
     printLine('CURR_STATE = ' .. (self.m_state or ''))
     printLine('## STATUS EFFECT LIST ##')
     for type, se in pairs(self:getStatusEffectList()) do
-		printLine(string.format('- %s : overlap:%d time:%d', type, se.m_overlabCnt, se:getLatestTimer()))
+		printLine(string.format('- %s : overlap:%d time:%d', type, se:getOverlabCount(), se:getLatestTimer()))
 	end
     printLine('## HIDDEN STATUS EFFECT LIST ##')
     for type, se in pairs(self:getHiddenStatusEffectList()) do
-		printLine(string.format('- %s : overlap:%d time:%d', type, se.m_overlabCnt, se:getLatestTimer()))
+		printLine(string.format('- %s : overlap:%d time:%d', type, se:getOverlabCount(), se:getLatestTimer()))
 	end
 	printLine('## STAT LIST ##')
 	printLine(self.m_statusCalc:getAllStatString())

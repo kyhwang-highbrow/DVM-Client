@@ -59,7 +59,7 @@ end
 -- function setOverlabText
 -------------------------------------
 function StatusEffectIcon:setOverlabText()
-	local overlab_cnt = self.m_statusEffect.m_overlabCnt
+	local overlab_cnt = self.m_statusEffect:getOverlabCount()
 
     if (self.m_label) then
 	    if (overlab_cnt > 1) then

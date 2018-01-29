@@ -69,9 +69,9 @@ function SkillHeartOfRuin.st_idle(owner, dt)
             local statusEffect = list[owner.m_statusEffectType]
 
             if statusEffect then
-                if statusEffect.m_overlabCnt > 6 then       level = 3
-                elseif statusEffect.m_overlabCnt > 3 then   level = 2
-                else                                        level = 1
+                if statusEffect:getOverlabCount() > 6 then      level = 3
+                elseif statusEffect:getOverlabCount() > 3 then  level = 2
+                else                                            level = 1
                 end
             end
 

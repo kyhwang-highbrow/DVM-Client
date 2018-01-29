@@ -393,15 +393,14 @@ function GameWorld:removeHero(hero)
     end
 
     idx = table.find(self.m_leftNonparticipants, hero)
-    if (not idx) then
-        table.insert(self.m_leftNonparticipants, hero)
-    end
-
-    -- 게임 종료 체크(모든 영웅이 죽었을 경우)
-    local hero_count = #self:getDragonList()
-
-    if (hero_count <= 0) then
-        self.m_gameState:changeState(GAME_STATE_FAILURE)
+    if (hero.m_bPossibleRevive) then
+        if (not idx) then
+            table.insert(self.m_leftNonparticipants, hero)
+        end
+    else
+        if (idx) then
+            table.remove(self.m_leftNonparticipants, idx)
+        end
     end
 end
 
@@ -461,8 +460,14 @@ function GameWorld:removeEnemy(enemy)
     end
 
     idx = table.find(self.m_rightNonparticipants, enemy)
-    if (not idx) then
-        table.insert(self.m_rightNonparticipants, enemy)
+    if (enemy.m_bPossibleRevive) then
+        if (not idx) then
+            table.insert(self.m_rightNonparticipants, enemy)
+        end
+    else
+        if (idx) then
+            table.remove(self.m_rightNonparticipants, idx)
+        end
     end
 end
 

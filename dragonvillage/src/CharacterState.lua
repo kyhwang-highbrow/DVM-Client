@@ -76,19 +76,17 @@ end
 -- function st_dead
 -------------------------------------
 function Character.st_dead(owner, dt)
-    if (owner.m_bPossibleRevive) then
-        if (owner.m_stateTimer == 0) then
-            if (owner.m_bLeftFormation) then
-                owner.m_world:removeHero(owner)
-            else
-                owner.m_world:removeEnemy(owner)
-            end
-
-            owner:setDead()
+    if (owner.m_stateTimer == 0) then
+        if (owner.m_bLeftFormation) then
+            owner.m_world:removeHero(owner)
+        else
+            owner.m_world:removeEnemy(owner)
         end
-    else
-        owner:setDead()
 
+        owner:setDead()
+    end
+
+    if (not owner.m_bPossibleRevive) then
         return true
     end
 end

@@ -1125,22 +1125,29 @@ end
 -------------------------------------
 function GameState:checkWaveClear(dt)
     local world = self.m_world
+    local hero_count = #world:getDragonList()
     local enemy_count = #world:getEnemyList()
 
+    -- 패배 여부 체크
+    if(hero_count <= 0) then
+        self:changeState(GAME_STATE_FAILURE)
+        return true
+
     -- 클리어 여부 체크
-    if (enemy_count <= 0 or self:checkToDieHighestRariry()) then
+    elseif (enemy_count <= 0 or self:checkToDieHighestRariry()) then
         self.m_waveClearTimer = self.m_waveClearTimer + dt
 
         if (self.m_waveClearTimer > 0.5) then
             self.m_waveClearTimer = 0
 
-            if (not world.m_waveMgr:isFinalWave()) then
-		        self:changeState(GAME_STATE_WAVE_INTERMISSION_WAIT)
-		    else
-			    self:changeState(GAME_STATE_SUCCESS_WAIT)
+            if (world.m_waveMgr:isFinalWave()) then
+                self:changeState(GAME_STATE_SUCCESS_WAIT)
+            else
+		        self:changeState(GAME_STATE_WAVE_INTERMISSION_WAIT)			    
 		    end
             return true
         end
+
     else
         self.m_waveClearTimer = 0
     end

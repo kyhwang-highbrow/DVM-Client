@@ -103,12 +103,12 @@ function Dragon.st_skillAppear(owner, dt)
 
         -- 액티브 스킬 사용 이벤트 발생
         do
-            owner:dispatch('dragon_active_skill', { is_critical = is_critical }, owner)
+            owner:dispatch('dragon_active_skill', {}, owner)
 
             if (owner.m_bLeftFormation) then
-                owner:dispatch('hero_active_skill', { is_critical = is_critical }, owner)
+                owner:dispatch('hero_active_skill', {}, owner)
             else
-                owner:dispatch('enemy_active_skill', { is_critical = is_critical }, owner)
+                owner:dispatch('enemy_active_skill', {}, owner)
             end
         end
 

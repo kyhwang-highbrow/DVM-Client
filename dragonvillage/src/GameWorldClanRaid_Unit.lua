@@ -411,13 +411,6 @@ function GameWorldClanRaid:removeHero(hero)
             end
         end
     end
-        
-    -- 게임 종료 체크(모든 영웅이 죽었을 경우)
-    local hero_count = #self:getDragonList()
-
-    if (hero_count <= 0) then
-        self.m_gameState:changeState(GAME_STATE_FAILURE)
-    end
 end
 
 -------------------------------------

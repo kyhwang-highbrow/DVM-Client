@@ -325,26 +325,10 @@ function GameState_Colosseum:fight()
 end
 
 -------------------------------------
--- function checkWaveClear
+-- function checkToDieHighestRariry
+-- @brief 가장 높은 등급의 적(보스)가 죽었은지 체크
 -------------------------------------
-function GameState_Colosseum:checkWaveClear(dt)
-    local world = self.m_world
-    local enemy_count = #world:getEnemyList()
-
-    -- 클리어 여부 체크
-    if (enemy_count <= 0) then
-        self.m_waveClearTimer = self.m_waveClearTimer + dt
-
-        if (self.m_waveClearTimer > 0.5) then
-            self.m_waveClearTimer = 0
-
-            self:changeState(GAME_STATE_SUCCESS_WAIT)
-            return true
-        end
-    else
-        self.m_waveClearTimer = 0
-    end
-
+function GameState_Colosseum:checkToDieHighestRariry()
     return false
 end
 

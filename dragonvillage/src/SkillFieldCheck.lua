@@ -73,7 +73,7 @@ function SkillFieldCheck:runAttack()
 				end
 		
 				-- 상태효과 시전
-				for i = 1, status_effect.m_overlabCnt do 
+				for i = 1, status_effect:getOverlabCount() do 
                     self:dispatch(CON_SKILL_HIT, {l_target = {target_char}})
 				end
 	
