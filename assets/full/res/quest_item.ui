@@ -40,8 +40,8 @@
 				dock_point = { 0.000000; 0.500000; };
 				anchor_point = { 0.000000; 0.500000; };
 				relative_size_type = 0;
-				width = 450;
-				height = 50;
+				width = 416;
+				height = 60;
 				scale_x = 1.000000;
 				scale_y = 1.000000;
 				skew_x = 0.000000;
@@ -50,14 +50,14 @@
 				visible = true;
 				lua_name = 'questLabel';
 				font_name = 'font/common_font_01.ttf';
-				font_size = 24;
+				font_size = 23;
 				text = 'questLabel';
 				h_alignment = 0;
 				v_alignment = 1;
 				color = { 240; 215; 159; };
 				opacity = 255;
-				dimension_width = 450;
-				dimension_height = 50;
+				dimension_width = 416;
+				dimension_height = 60;
 				letter_spacing = 0.000000;
 				has_stroke = false;
 				stroke_type = 0;
@@ -94,7 +94,7 @@
 				text = '{0}/{0}';
 				h_alignment = 0;
 				v_alignment = 1;
-				color = { 240; 215; 159; };
+				color = { 255; 255; 255; };
 				opacity = 255;
 				dimension_width = 112;
 				dimension_height = 40;

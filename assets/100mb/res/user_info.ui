@@ -304,7 +304,7 @@
 					dock_point = { 0.000000; 0.500000; };
 					anchor_point = { 0.000000; 0.500000; };
 					relative_size_type = 0;
-					width = 280;
+					width = 545;
 					height = 40;
 					scale_x = 1.000000;
 					scale_y = 1.000000;
@@ -320,7 +320,7 @@
 					v_alignment = 1;
 					color = { 255; 215; 0; };
 					opacity = 255;
-					dimension_width = 280;
+					dimension_width = 545;
 					dimension_height = 40;
 					letter_spacing = 0.000000;
 					has_stroke = true;
@@ -761,7 +761,7 @@
 					dock_point = { 0.500000; 0.000000; };
 					anchor_point = { 0.500000; 0.000000; };
 					relative_size_type = 0;
-					width = 520;
+					width = 560;
 					height = 430;
 					scale_x = 1.000000;
 					scale_y = 1.000000;

@@ -5,6 +5,54 @@
 	{
 		[1] =
 		{
+			type = 'Visual';
+			ui_name = '';
+			x = 0.000000;
+			y = 0.000000;
+			dock_point = { 0.500000; 0.500000; };
+			anchor_point = { 0.500000; 0.500000; };
+			relative_size_type = 0;
+			width = 0;
+			height = 0;
+			scale_x = 1.000000;
+			scale_y = 1.000000;
+			skew_x = 0.000000;
+			skew_y = 0.000000;
+			rotation = 0.000000;
+			visible = true;
+			lua_name = '';
+			file_name = 'bg/ui/dragon_evolution_result/dragon_evolution_result.vrp';
+			auto_play = true;
+			is_repeat = true;
+			visual_id = 'group;idle';
+			color = { 255; 255; 255; };
+			opacity = 150;
+		};
+		[2] =
+		{
+			type = 'LayerColor';
+			ui_name = '';
+			x = 0.000000;
+			y = 0.000000;
+			dock_point = { 0.500000; 0.500000; };
+			anchor_point = { 0.500000; 0.500000; };
+			relative_size_type = 3;
+			width = 0;
+			height = 0;
+			scale_x = 1.000000;
+			scale_y = 1.000000;
+			skew_x = 0.000000;
+			skew_y = 0.000000;
+			rotation = 0.000000;
+			visible = true;
+			lua_name = '';
+			color = { 0; 0; 0; };
+			opacity = 150;
+			src_blend = 770;
+			dest_blend = 771;
+		};
+		[3] =
+		{
 			[1] =
 			{
 				type = 'Scale9Sprite';
@@ -369,12 +417,12 @@
 						{
 							type = 'LabelTTF';
 							ui_name = '';
-							x = 30.000000;
+							x = 25.000000;
 							y = 0.000000;
 							dock_point = { 0.500000; 0.500000; };
 							anchor_point = { 0.500000; 0.500000; };
 							relative_size_type = 0;
-							width = 110;
+							width = 80;
 							height = 64;
 							scale_x = 1.000000;
 							scale_y = 1.000000;
@@ -384,13 +432,13 @@
 							visible = true;
 							lua_name = 'healerRadioLabel';
 							font_name = 'font/common_font_01.ttf';
-							font_size = 22;
+							font_size = 20;
 							text = '회복형';
 							h_alignment = 1;
 							v_alignment = 1;
 							color = { 255; 255; 255; };
 							opacity = 255;
-							dimension_width = 110;
+							dimension_width = 80;
 							dimension_height = 64;
 							letter_spacing = 0.000000;
 							has_stroke = false;
@@ -439,7 +487,7 @@
 						anchor_point = { 0.500000; 0.500000; };
 						relative_size_type = 0;
 						width = 140;
-						height = 50;
+						height = 60;
 						scale_x = 1.000000;
 						scale_y = 1.000000;
 						skew_x = 0.000000;
@@ -459,12 +507,12 @@
 						{
 							type = 'LabelTTF';
 							ui_name = '';
-							x = 30.000000;
+							x = 25.000000;
 							y = 0.000000;
 							dock_point = { 0.500000; 0.500000; };
 							anchor_point = { 0.500000; 0.500000; };
 							relative_size_type = 0;
-							width = 110;
+							width = 80;
 							height = 64;
 							scale_x = 1.000000;
 							scale_y = 1.000000;
@@ -474,13 +522,13 @@
 							visible = true;
 							lua_name = 'supporterRadioLabel';
 							font_name = 'font/common_font_01.ttf';
-							font_size = 22;
+							font_size = 20;
 							text = '지원형';
 							h_alignment = 1;
 							v_alignment = 1;
 							color = { 255; 255; 255; };
 							opacity = 255;
-							dimension_width = 110;
+							dimension_width = 80;
 							dimension_height = 64;
 							letter_spacing = 0.000000;
 							has_stroke = false;
@@ -529,7 +577,7 @@
 						anchor_point = { 0.500000; 0.500000; };
 						relative_size_type = 0;
 						width = 140;
-						height = 50;
+						height = 60;
 						scale_x = 1.000000;
 						scale_y = 1.000000;
 						skew_x = 0.000000;
@@ -549,12 +597,12 @@
 						{
 							type = 'LabelTTF';
 							ui_name = '';
-							x = 30.000000;
+							x = 25.000000;
 							y = 0.000000;
 							dock_point = { 0.500000; 0.500000; };
 							anchor_point = { 0.500000; 0.500000; };
 							relative_size_type = 0;
-							width = 110;
+							width = 80;
 							height = 64;
 							scale_x = 1.000000;
 							scale_y = 1.000000;
@@ -564,13 +612,13 @@
 							visible = true;
 							lua_name = 'dealerRadioLabel';
 							font_name = 'font/common_font_01.ttf';
-							font_size = 22;
+							font_size = 20;
 							text = '공격형';
 							h_alignment = 1;
 							v_alignment = 1;
 							color = { 255; 255; 255; };
 							opacity = 255;
-							dimension_width = 110;
+							dimension_width = 80;
 							dimension_height = 64;
 							letter_spacing = 0.000000;
 							has_stroke = false;
@@ -619,7 +667,7 @@
 						anchor_point = { 0.500000; 0.500000; };
 						relative_size_type = 0;
 						width = 140;
-						height = 50;
+						height = 60;
 						scale_x = 1.000000;
 						scale_y = 1.000000;
 						skew_x = 0.000000;
@@ -639,12 +687,12 @@
 						{
 							type = 'LabelTTF';
 							ui_name = '';
-							x = 30.000000;
+							x = 25.000000;
 							y = 0.000000;
 							dock_point = { 0.500000; 0.500000; };
 							anchor_point = { 0.500000; 0.500000; };
 							relative_size_type = 0;
-							width = 110;
+							width = 80;
 							height = 64;
 							scale_x = 1.000000;
 							scale_y = 1.000000;
@@ -654,13 +702,13 @@
 							visible = true;
 							lua_name = 'tankerRadioLabel';
 							font_name = 'font/common_font_01.ttf';
-							font_size = 22;
+							font_size = 20;
 							text = '방어형';
 							h_alignment = 1;
 							v_alignment = 1;
 							color = { 255; 255; 255; };
 							opacity = 255;
-							dimension_width = 110;
+							dimension_width = 80;
 							dimension_height = 64;
 							letter_spacing = 0.000000;
 							has_stroke = false;
@@ -709,7 +757,7 @@
 						anchor_point = { 0.500000; 0.500000; };
 						relative_size_type = 0;
 						width = 140;
-						height = 50;
+						height = 60;
 						scale_x = 1.000000;
 						scale_y = 1.000000;
 						skew_x = 0.000000;
@@ -773,7 +821,7 @@
 						anchor_point = { 0.500000; 0.500000; };
 						relative_size_type = 0;
 						width = 140;
-						height = 50;
+						height = 60;
 						scale_x = 1.000000;
 						scale_y = 1.000000;
 						skew_x = 0.000000;
@@ -806,10 +854,10 @@
 				};
 				type = 'Menu';
 				ui_name = '';
-				x = 220.000000;
+				x = -50.000000;
 				y = 0.000000;
-				dock_point = { 0.500000; 0.500000; };
-				anchor_point = { 0.500000; 0.500000; };
+				dock_point = { 1.000000; 0.500000; };
+				anchor_point = { 1.000000; 0.500000; };
 				relative_size_type = 0;
 				width = 700;
 				height = 640;
@@ -832,7 +880,7 @@
 					dock_point = { 0.500000; 0.500000; };
 					anchor_point = { 0.500000; 0.500000; };
 					relative_size_type = 0;
-					width = 444;
+					width = 460;
 					height = 624;
 					scale_x = 1.000000;
 					scale_y = 1.000000;
@@ -881,7 +929,7 @@
 						type = 'Node';
 						ui_name = '';
 						x = 0.000000;
-						y = 295.499939;
+						y = 360.000000;
 						dock_point = { 0.500000; 0.000000; };
 						anchor_point = { 0.500000; 0.500000; };
 						relative_size_type = 0;
@@ -902,7 +950,7 @@
 					dock_point = { 0.500000; 0.500000; };
 					anchor_point = { 0.500000; 0.500000; };
 					relative_size_type = 0;
-					width = 440;
+					width = 456;
 					height = 620;
 					scale_x = 1.000000;
 					scale_y = 1.000000;
@@ -1128,8 +1176,8 @@
 						dock_point = { 0.500000; 0.500000; };
 						anchor_point = { 0.500000; 0.500000; };
 						relative_size_type = 0;
-						width = 100;
-						height = 30;
+						width = 80;
+						height = 80;
 						scale_x = 1.000000;
 						scale_y = 1.000000;
 						skew_x = 0.000000;
@@ -1139,13 +1187,13 @@
 						lua_name = 'typeLabel';
 						font_name = 'font/common_font_01.ttf';
 						font_size = 18;
-						text = 'typeLabel';
+						text = 'type\nLabel';
 						h_alignment = 1;
 						v_alignment = 1;
 						color = { 240; 215; 159; };
 						opacity = 255;
-						dimension_width = 100;
-						dimension_height = 30;
+						dimension_width = 80;
+						dimension_height = 80;
 						letter_spacing = 0.000000;
 						has_stroke = true;
 						stroke_type = 0;
@@ -1247,7 +1295,7 @@
 					type = 'Scale9Sprite';
 					ui_name = '';
 					x = 0.000000;
-					y = 170.000000;
+					y = 180.000000;
 					dock_point = { 0.500000; 0.000000; };
 					anchor_point = { 0.500000; 0.500000; };
 					relative_size_type = 0;
@@ -1352,8 +1400,8 @@
 					};
 					type = 'Button';
 					ui_name = '';
-					x = 176.000000;
-					y = 268.000000;
+					x = 190.000000;
+					y = 272.000000;
 					dock_point = { 0.500000; 0.500000; };
 					anchor_point = { 0.500000; 0.500000; };
 					relative_size_type = 0;
@@ -1374,12 +1422,12 @@
 				};
 				type = 'Menu';
 				ui_name = '';
-				x = -370.000000;
+				x = 60.000000;
 				y = 0.000000;
-				dock_point = { 0.500000; 0.500000; };
-				anchor_point = { 0.500000; 0.500000; };
+				dock_point = { 0.000000; 0.500000; };
+				anchor_point = { 0.000000; 0.500000; };
 				relative_size_type = 0;
-				width = 440;
+				width = 460;
 				height = 640;
 				scale_x = 1.000000;
 				scale_y = 1.000000;
@@ -1389,34 +1437,10 @@
 				visible = true;
 				lua_name = '';
 			};
-			[4] =
-			{
-				type = 'Button';
-				ui_name = '';
-				x = -36.000000;
-				y = -24.000000;
-				dock_point = { 1.000000; 1.000000; };
-				anchor_point = { 0.500000; 0.500000; };
-				relative_size_type = 0;
-				width = 70;
-				height = 70;
-				scale_x = 1.000000;
-				scale_y = 1.000000;
-				skew_x = 0.000000;
-				skew_y = 0.000000;
-				rotation = 0.000000;
-				visible = true;
-				lua_name = 'closeBtn';
-				enable = true;
-				normal = 'ui/buttons/70_close_btn_0101.png';
-				selected = 'ui/buttons/70_close_btn_0102.png';
-				disable = '';
-				image_type = 0;
-			};
 			type = 'Menu';
 			ui_name = '';
 			x = 0.000000;
-			y = 0.000000;
+			y = -40.000000;
 			dock_point = { 0.500000; 0.500000; };
 			anchor_point = { 0.500000; 0.500000; };
 			relative_size_type = 0;
@@ -1429,6 +1453,70 @@
 			rotation = 0.000000;
 			visible = true;
 			lua_name = '';
+		};
+		[4] =
+		{
+			[1] =
+			{
+				type = 'LabelTTF';
+				ui_name = '';
+				x = 76.000000;
+				y = 0.000000;
+				dock_point = { 0.000000; 0.500000; };
+				anchor_point = { 0.000000; 0.500000; };
+				relative_size_type = 0;
+				width = 425;
+				height = 82;
+				scale_x = 0.980000;
+				scale_y = 1.000000;
+				skew_x = 0.000000;
+				skew_y = 0.000000;
+				rotation = 0.000000;
+				visible = true;
+				lua_name = '';
+				font_name = 'font/common_font_01.ttf';
+				font_size = 26;
+				text = '전설 드래곤 선택권';
+				h_alignment = 0;
+				v_alignment = 1;
+				color = { 255; 255; 255; };
+				opacity = 255;
+				dimension_width = 425;
+				dimension_height = 82;
+				letter_spacing = 0.000000;
+				has_stroke = true;
+				stroke_type = 0;
+				stroke_detail_level = 0;
+				is_sharp_text = true;
+				stroke_tickness = 2.000000;
+				stroke_color = { 0; 0; 0; };
+				has_shadow = false;
+				shadow_color = { 0; 0; 0; };
+				shadow_opacity = 150;
+				shadow_direction = 0;
+				shadow_distance = 2.000000;
+			};
+			type = 'Button';
+			ui_name = '';
+			x = 150.000000;
+			y = -35.000000;
+			dock_point = { 0.000000; 1.000000; };
+			anchor_point = { 0.500000; 0.500000; };
+			relative_size_type = 0;
+			width = 300;
+			height = 70;
+			scale_x = 1.000000;
+			scale_y = 1.000000;
+			skew_x = 0.000000;
+			skew_y = 0.000000;
+			rotation = 0.000000;
+			visible = true;
+			lua_name = 'closeBtn';
+			enable = true;
+			normal = 'ui/buttons/back_btn_0101.png';
+			selected = 'ui/buttons/back_btn_0102.png';
+			disable = '';
+			image_type = 0;
 		};
 		type = 'Menu';
 		ui_name = '';

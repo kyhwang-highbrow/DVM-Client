@@ -172,8 +172,8 @@
 					dock_point = { 0.500000; 0.500000; };
 					anchor_point = { 0.500000; 0.500000; };
 					relative_size_type = 0;
-					width = 700;
-					height = 40;
+					width = 250;
+					height = 60;
 					scale_x = 1.000000;
 					scale_y = 1.000000;
 					skew_x = 0.000000;
@@ -188,8 +188,8 @@
 					v_alignment = 1;
 					color = { 255; 215; 0; };
 					opacity = 255;
-					dimension_width = 700;
-					dimension_height = 40;
+					dimension_width = 250;
+					dimension_height = 60;
 					letter_spacing = 0.000000;
 					has_stroke = false;
 					stroke_type = 0;
@@ -206,12 +206,12 @@
 				type = 'Scale9Sprite';
 				ui_name = '';
 				x = 0.000000;
-				y = -60.000000;
+				y = -68.000000;
 				dock_point = { 0.500000; 0.500000; };
 				anchor_point = { 0.500000; 0.500000; };
 				relative_size_type = 0;
-				width = 280;
-				height = 34;
+				width = 260;
+				height = 60;
 				scale_x = 1.000000;
 				scale_y = 1.000000;
 				skew_x = 0.000000;

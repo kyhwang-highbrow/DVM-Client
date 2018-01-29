@@ -200,7 +200,7 @@
 				skew_y = 0.000000;
 				rotation = 0.000000;
 				visible = true;
-				lua_name = 'dscLabel';
+				lua_name = '';
 				font_name = 'font/common_font_01.ttf';
 				font_size = 30;
 				text = '부화 하시겠습니까?';

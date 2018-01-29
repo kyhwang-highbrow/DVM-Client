@@ -26,11 +26,11 @@
 					visible = true;
 					lua_name = '';
 					font_name = 'font/common_font_01.ttf';
-					font_size = 60;
-					text = '주말 패키지 1';
+					font_size = 35;
+					text = '주말 한정 환상의 소환 패키지1';
 					h_alignment = 1;
 					v_alignment = 1;
-					color = { 255; 215; 0; };
+					color = { 85; 166; 255; };
 					opacity = 255;
 					dimension_width = 398;
 					dimension_height = 100;
@@ -66,11 +66,11 @@
 					visible = true;
 					lua_name = '';
 					font_name = 'font/common_font_01.ttf';
-					font_size = 60;
-					text = '주말 패키지 2';
+					font_size = 35;
+					text = '주말 한정 환상의 소환 패키지2';
 					h_alignment = 1;
 					v_alignment = 1;
-					color = { 255; 215; 0; };
+					color = { 255; 106; 181; };
 					opacity = 255;
 					dimension_width = 398;
 					dimension_height = 100;
@@ -179,46 +179,6 @@
 			{
 				[1] =
 				{
-					type = 'LabelTTF';
-					ui_name = '';
-					x = 0.000000;
-					y = 0.000000;
-					dock_point = { 0.500000; 0.500000; };
-					anchor_point = { 0.500000; 0.500000; };
-					relative_size_type = 0;
-					width = 200;
-					height = 60;
-					scale_x = 1.000000;
-					scale_y = 1.000000;
-					skew_x = 0.000000;
-					skew_y = 0.000000;
-					rotation = 0.000000;
-					visible = true;
-					lua_name = 'priceLabel1';
-					font_name = 'font/common_font_01.ttf';
-					font_size = 30;
-					text = '{1}';
-					h_alignment = 1;
-					v_alignment = 1;
-					color = { 0; 0; 0; };
-					opacity = 255;
-					dimension_width = 200;
-					dimension_height = 60;
-					letter_spacing = 0.000000;
-					has_stroke = false;
-					stroke_type = 0;
-					stroke_detail_level = 0;
-					is_sharp_text = true;
-					stroke_tickness = 2.000000;
-					stroke_color = { 85; 44; 25; };
-					has_shadow = false;
-					shadow_color = { 85; 44; 25; };
-					shadow_opacity = 150;
-					shadow_direction = 0;
-					shadow_distance = 2.000000;
-				};
-				[2] =
-				{
 					type = 'Node';
 					ui_name = '';
 					x = -160.000000;
@@ -236,7 +196,7 @@
 					visible = true;
 					lua_name = 'priceNode1';
 				};
-				[3] =
+				[2] =
 				{
 					type = 'LabelTTF';
 					ui_name = '';
@@ -276,6 +236,34 @@
 					shadow_direction = 0;
 					shadow_distance = 5.000000;
 				};
+				[3] =
+				{
+					type = 'LabelSystemFont';
+					ui_name = '';
+					x = 0.000000;
+					y = 0.000000;
+					dock_point = { 0.500000; 0.500000; };
+					anchor_point = { 0.500000; 0.500000; };
+					relative_size_type = 0;
+					width = 380;
+					height = 60;
+					scale_x = 1.000000;
+					scale_y = 1.000000;
+					skew_x = 0.000000;
+					skew_y = 0.000000;
+					rotation = 0.000000;
+					visible = true;
+					lua_name = 'priceLabel1';
+					font_name = 'Helvetica';
+					font_size = 30;
+					text = 'price';
+					h_alignment = 1;
+					v_alignment = 1;
+					color = { 0; 0; 0; };
+					opacity = 255;
+					dimension_width = 380;
+					dimension_height = 60;
+				};
 				type = 'Button';
 				ui_name = '';
 				x = -224.000000;
@@ -302,46 +290,6 @@
 			{
 				[1] =
 				{
-					type = 'LabelTTF';
-					ui_name = '';
-					x = 0.000000;
-					y = 0.000000;
-					dock_point = { 0.500000; 0.500000; };
-					anchor_point = { 0.500000; 0.500000; };
-					relative_size_type = 0;
-					width = 200;
-					height = 60;
-					scale_x = 1.000000;
-					scale_y = 1.000000;
-					skew_x = 0.000000;
-					skew_y = 0.000000;
-					rotation = 0.000000;
-					visible = true;
-					lua_name = 'priceLabel2';
-					font_name = 'font/common_font_01.ttf';
-					font_size = 30;
-					text = '{1}';
-					h_alignment = 1;
-					v_alignment = 1;
-					color = { 0; 0; 0; };
-					opacity = 255;
-					dimension_width = 200;
-					dimension_height = 60;
-					letter_spacing = 0.000000;
-					has_stroke = false;
-					stroke_type = 0;
-					stroke_detail_level = 0;
-					is_sharp_text = true;
-					stroke_tickness = 2.000000;
-					stroke_color = { 85; 44; 25; };
-					has_shadow = false;
-					shadow_color = { 85; 44; 25; };
-					shadow_opacity = 150;
-					shadow_direction = 0;
-					shadow_distance = 2.000000;
-				};
-				[2] =
-				{
 					type = 'Node';
 					ui_name = '';
 					x = -160.000000;
@@ -359,7 +307,7 @@
 					visible = true;
 					lua_name = 'priceNode2';
 				};
-				[3] =
+				[2] =
 				{
 					type = 'LabelTTF';
 					ui_name = '';
@@ -398,6 +346,34 @@
 					shadow_opacity = 255;
 					shadow_direction = 0;
 					shadow_distance = 5.000000;
+				};
+				[3] =
+				{
+					type = 'LabelSystemFont';
+					ui_name = '';
+					x = 0.000000;
+					y = 0.000000;
+					dock_point = { 0.500000; 0.500000; };
+					anchor_point = { 0.500000; 0.500000; };
+					relative_size_type = 0;
+					width = 380;
+					height = 60;
+					scale_x = 1.000000;
+					scale_y = 1.000000;
+					skew_x = 0.000000;
+					skew_y = 0.000000;
+					rotation = 0.000000;
+					visible = true;
+					lua_name = 'priceLabel2';
+					font_name = 'Helvetica';
+					font_size = 30;
+					text = 'price';
+					h_alignment = 1;
+					v_alignment = 1;
+					color = { 0; 0; 0; };
+					opacity = 255;
+					dimension_width = 380;
+					dimension_height = 60;
 				};
 				type = 'Button';
 				ui_name = '';
@@ -597,7 +573,7 @@
 				lua_name = 'itemLabel1';
 				font_name = 'font/common_font_01.ttf';
 				font_size = 22;
-				text = 'itemLabel1';
+				text = '다이아 1,000개\n골드 200,000개\n날개 200개\n환상의 알 5개';
 				h_alignment = 1;
 				v_alignment = 1;
 				color = { 255; 255; 255; };
@@ -637,7 +613,7 @@
 				lua_name = 'itemLabel2';
 				font_name = 'font/common_font_01.ttf';
 				font_size = 22;
-				text = 'itemLabel2';
+				text = '다이아 2,400개\n골드 600,000개\n날개 480개\n환상의 알 12개';
 				h_alignment = 1;
 				v_alignment = 1;
 				color = { 255; 255; 255; };

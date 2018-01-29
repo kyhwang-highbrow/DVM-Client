@@ -72,7 +72,7 @@
 					lua_name = 'priceLabel';
 					font_name = 'font/common_font_01.ttf';
 					font_size = 34;
-					text = '{1}';
+					text = '';
 					h_alignment = 2;
 					v_alignment = 1;
 					color = { 240; 215; 159; };
@@ -91,6 +91,34 @@
 					shadow_opacity = 180;
 					shadow_direction = 0;
 					shadow_distance = 3.000000;
+				};
+				[3] =
+				{
+					type = 'LabelSystemFont';
+					ui_name = '';
+					x = 0.000000;
+					y = 0.000000;
+					dock_point = { 0.500000; 0.500000; };
+					anchor_point = { 0.500000; 0.500000; };
+					relative_size_type = 0;
+					width = 200;
+					height = 40;
+					scale_x = 1.000000;
+					scale_y = 1.000000;
+					skew_x = 0.000000;
+					skew_y = 0.000000;
+					rotation = 0.000000;
+					visible = true;
+					lua_name = 'moneyLabel';
+					font_name = 'Helvetica';
+					font_size = 30;
+					text = '';
+					h_alignment = 2;
+					v_alignment = 1;
+					color = { 240; 215; 159; };
+					opacity = 255;
+					dimension_width = 200;
+					dimension_height = 40;
 				};
 				type = 'Scale9Sprite';
 				ui_name = '';

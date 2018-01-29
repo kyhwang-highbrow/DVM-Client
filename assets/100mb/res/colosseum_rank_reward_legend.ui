@@ -9,15 +9,15 @@
 			{
 				type = 'Sprite';
 				ui_name = '';
-				x = -214.000000;
-				y = 0.000000;
+				x = -224.000000;
+				y = 14.000000;
 				dock_point = { 0.500000; 0.500000; };
 				anchor_point = { 0.500000; 0.500000; };
 				relative_size_type = 0;
 				width = 162;
 				height = 162;
-				scale_x = 0.800000;
-				scale_y = 0.800000;
+				scale_x = 0.700000;
+				scale_y = 0.700000;
 				skew_x = 0.000000;
 				skew_y = 0.000000;
 				rotation = 0.000000;
@@ -35,8 +35,8 @@
 			{
 				type = 'LabelTTF';
 				ui_name = '';
-				x = -214.000000;
-				y = -46.000000;
+				x = -224.000000;
+				y = -44.000000;
 				dock_point = { 0.500000; 0.500000; };
 				anchor_point = { 0.500000; 0.500000; };
 				relative_size_type = 0;
@@ -75,8 +75,8 @@
 			{
 				type = 'Sprite';
 				ui_name = '';
-				x = 259.000000;
-				y = -25.000000;
+				x = 270.000000;
+				y = 0.000000;
 				dock_point = { 0.500000; 0.500000; };
 				anchor_point = { 0.500000; 0.500000; };
 				relative_size_type = 0;
@@ -99,56 +99,16 @@
 			};
 			[4] =
 			{
-				type = 'LabelTTF';
-				ui_name = '';
-				x = -42.000000;
-				y = 21.000000;
-				dock_point = { 0.500000; 0.500000; };
-				anchor_point = { 0.500000; 0.500000; };
-				relative_size_type = 0;
-				width = 159;
-				height = 56;
-				scale_x = 1.000000;
-				scale_y = 1.000000;
-				skew_x = 0.000000;
-				skew_y = 0.000000;
-				rotation = 0.000000;
-				visible = true;
-				lua_name = '';
-				font_name = 'font/common_font_01.ttf';
-				font_size = 36;
-				text = '전체 1위';
-				h_alignment = 0;
-				v_alignment = 1;
-				color = { 255; 215; 0; };
-				opacity = 255;
-				dimension_width = 159;
-				dimension_height = 56;
-				letter_spacing = 0.000000;
-				has_stroke = true;
-				stroke_type = 0;
-				stroke_detail_level = 0;
-				is_sharp_text = true;
-				stroke_tickness = 2.000000;
-				stroke_color = { 0; 0; 0; };
-				has_shadow = false;
-				shadow_color = { 0; 0; 0; };
-				shadow_opacity = 255;
-				shadow_direction = 0;
-				shadow_distance = 3.000000;
-			};
-			[5] =
-			{
 				[1] =
 				{
 					type = 'LabelTTF';
 					ui_name = '';
-					x = 123.000000;
-					y = 0.000000;
-					dock_point = { 0.500000; 0.500000; };
-					anchor_point = { 0.500000; 0.500000; };
+					x = 280.000000;
+					y = -20.000000;
+					dock_point = { 0.000000; 0.500000; };
+					anchor_point = { 0.000000; 0.500000; };
 					relative_size_type = 0;
-					width = 114;
+					width = 160;
 					height = 40;
 					scale_x = 1.000000;
 					scale_y = 1.000000;
@@ -158,13 +118,13 @@
 					visible = true;
 					lua_name = 'legendRewardLabel';
 					font_name = 'font/common_font_01.ttf';
-					font_size = 30;
+					font_size = 28;
 					text = '{1}개';
 					h_alignment = 0;
 					v_alignment = 1;
 					color = { 255; 85; 221; };
 					opacity = 255;
-					dimension_width = 114;
+					dimension_width = 160;
 					dimension_height = 40;
 					letter_spacing = 0.000000;
 					has_stroke = false;
@@ -183,8 +143,8 @@
 				{
 					type = 'Sprite';
 					ui_name = '';
-					x = 47.000000;
-					y = 0.000000;
+					x = 44.000000;
+					y = -20.000000;
 					dock_point = { 0.500000; 0.500000; };
 					anchor_point = { 0.500000; 0.500000; };
 					relative_size_type = 0;
@@ -209,12 +169,12 @@
 				{
 					type = 'LabelTTF';
 					ui_name = '';
-					x = -52.000000;
-					y = 0.000000;
-					dock_point = { 0.500000; 0.500000; };
-					anchor_point = { 0.500000; 0.500000; };
+					x = 280.000000;
+					y = 22.000000;
+					dock_point = { 0.000000; 0.500000; };
+					anchor_point = { 0.000000; 0.500000; };
 					relative_size_type = 0;
-					width = 159;
+					width = 160;
 					height = 40;
 					scale_x = 1.000000;
 					scale_y = 1.000000;
@@ -224,13 +184,13 @@
 					visible = true;
 					lua_name = 'legendScoreLabel';
 					font_name = 'font/common_font_01.ttf';
-					font_size = 30;
+					font_size = 28;
 					text = '{1}점 +';
 					h_alignment = 0;
 					v_alignment = 1;
 					color = { 84; 207; 255; };
 					opacity = 255;
-					dimension_width = 159;
+					dimension_width = 160;
 					dimension_height = 40;
 					letter_spacing = 0.000000;
 					has_stroke = false;
@@ -249,8 +209,8 @@
 				{
 					type = 'Sprite';
 					ui_name = '';
-					x = -156.000000;
-					y = 0.000000;
+					x = 44.000000;
+					y = 20.000000;
 					dock_point = { 0.500000; 0.500000; };
 					anchor_point = { 0.500000; 0.500000; };
 					relative_size_type = 0;
@@ -271,15 +231,55 @@
 					src_blend = 770;
 					dest_blend = 771;
 				};
+				[5] =
+				{
+					type = 'LabelTTF';
+					ui_name = '';
+					x = -93.000000;
+					y = 0.000000;
+					dock_point = { 0.500000; 0.500000; };
+					anchor_point = { 0.500000; 0.500000; };
+					relative_size_type = 0;
+					width = 220;
+					height = 80;
+					scale_x = 1.000000;
+					scale_y = 1.000000;
+					skew_x = 0.000000;
+					skew_y = 0.000000;
+					rotation = 0.000000;
+					visible = true;
+					lua_name = '';
+					font_name = 'font/common_font_01.ttf';
+					font_size = 30;
+					text = '전체 1위';
+					h_alignment = 1;
+					v_alignment = 1;
+					color = { 255; 215; 0; };
+					opacity = 255;
+					dimension_width = 220;
+					dimension_height = 80;
+					letter_spacing = 0.000000;
+					has_stroke = true;
+					stroke_type = 0;
+					stroke_detail_level = 0;
+					is_sharp_text = true;
+					stroke_tickness = 2.000000;
+					stroke_color = { 0; 0; 0; };
+					has_shadow = false;
+					shadow_color = { 0; 0; 0; };
+					shadow_opacity = 255;
+					shadow_direction = 0;
+					shadow_distance = 3.000000;
+				};
 				type = 'Scale9Sprite';
 				ui_name = '';
-				x = 56.000000;
-				y = -25.000000;
+				x = 44.000000;
+				y = 0.000000;
 				dock_point = { 0.500000; 0.500000; };
 				anchor_point = { 0.500000; 0.500000; };
 				relative_size_type = 0;
-				width = 360;
-				height = 44;
+				width = 420;
+				height = 90;
 				scale_x = 1.000000;
 				scale_y = 1.000000;
 				skew_x = 0.000000;

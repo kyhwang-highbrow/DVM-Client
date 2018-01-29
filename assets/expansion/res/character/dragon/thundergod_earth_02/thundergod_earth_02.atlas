@@ -1,0 +1,251 @@
+
+thundergod_earth_02.png
+size: 1129,532
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+thundergod_earth_02_back
+  rotate: true
+  xy: 2, 204
+  size: 326, 328
+  orig: 326, 328
+  offset: 0, 0
+  index: -1
+thundergod_earth_02_back_1
+  rotate: true
+  xy: 332, 232
+  size: 298, 306
+  orig: 298, 306
+  offset: 0, 0
+  index: -1
+thundergod_earth_02_body_01
+  rotate: true
+  xy: 332, 9
+  size: 221, 223
+  orig: 221, 223
+  offset: 0, 0
+  index: -1
+thundergod_earth_02_cloud_01
+  rotate: false
+  xy: 797, 154
+  size: 218, 123
+  orig: 218, 123
+  offset: 0, 0
+  index: -1
+thundergod_earth_02_cloud_02
+  rotate: false
+  xy: 2, 54
+  size: 202, 148
+  orig: 202, 148
+  offset: 0, 0
+  index: -1
+thundergod_earth_02_cloud_03
+  rotate: false
+  xy: 729, 409
+  size: 224, 121
+  orig: 224, 121
+  offset: 0, 0
+  index: -1
+thundergod_earth_02_effect_01
+  rotate: false
+  xy: 729, 213
+  size: 60, 64
+  orig: 60, 64
+  offset: 0, 0
+  index: -1
+thundergod_earth_02_effect_02
+  rotate: true
+  xy: 2, 2
+  size: 50, 54
+  orig: 50, 54
+  offset: 0, 0
+  index: -1
+thundergod_earth_02_effect_1
+  rotate: false
+  xy: 797, 27
+  size: 125, 125
+  orig: 125, 125
+  offset: 0, 0
+  index: -1
+thundergod_earth_02_effect_10
+  rotate: true
+  xy: 206, 74
+  size: 128, 124
+  orig: 128, 124
+  offset: 0, 0
+  index: -1
+thundergod_earth_02_effect_bb
+  rotate: true
+  xy: 640, 203
+  size: 327, 87
+  orig: 327, 87
+  offset: 0, 0
+  index: -1
+thundergod_earth_02_effect_boom
+  rotate: false
+  xy: 729, 279
+  size: 190, 128
+  orig: 190, 128
+  offset: 0, 0
+  index: -1
+thundergod_earth_02_effect_electric_1
+  rotate: false
+  xy: 924, 16
+  size: 82, 136
+  orig: 82, 136
+  offset: 0, 0
+  index: -1
+thundergod_earth_02_effect_electric_2
+  rotate: true
+  xy: 921, 279
+  size: 128, 145
+  orig: 128, 145
+  offset: 0, 0
+  index: -1
+thundergod_earth_02_effect_light
+  rotate: false
+  xy: 1017, 178
+  size: 99, 99
+  orig: 99, 99
+  offset: 0, 0
+  index: -1
+thundergod_earth_02_effect_lightdust
+  rotate: false
+  xy: 955, 431
+  size: 127, 99
+  orig: 127, 99
+  offset: 0, 0
+  index: -1
+thundergod_earth_02_eye_01
+  rotate: true
+  xy: 1101, 42
+  size: 48, 26
+  orig: 48, 26
+  offset: 0, 0
+  index: -1
+thundergod_earth_02_eyebrow_01
+  rotate: true
+  xy: 206, 3
+  size: 69, 89
+  orig: 69, 89
+  offset: 0, 0
+  index: -1
+thundergod_earth_02_eyebrow_02
+  rotate: true
+  xy: 58, 6
+  size: 46, 75
+  orig: 46, 75
+  offset: 0, 0
+  index: -1
+thundergod_earth_02_finger_01
+  rotate: false
+  xy: 1008, 8
+  size: 46, 40
+  orig: 46, 40
+  offset: 0, 0
+  index: -1
+thundergod_earth_02_finger_02
+  rotate: true
+  xy: 297, 38
+  size: 34, 33
+  orig: 34, 33
+  offset: 0, 0
+  index: -1
+thundergod_earth_02_finger_03
+  rotate: false
+  xy: 1068, 298
+  size: 55, 66
+  orig: 55, 66
+  offset: 0, 0
+  index: -1
+thundergod_earth_02_hair_01
+  rotate: false
+  xy: 1008, 50
+  size: 91, 40
+  orig: 91, 40
+  offset: 0, 0
+  index: -1
+thundergod_earth_02_hand_01
+  rotate: false
+  xy: 135, 13
+  size: 69, 39
+  orig: 69, 39
+  offset: 0, 0
+  index: -1
+thundergod_earth_02_handacc_01
+  rotate: true
+  xy: 620, 3
+  size: 53, 63
+  orig: 53, 63
+  offset: 0, 0
+  index: -1
+thundergod_earth_02_handacc_02
+  rotate: false
+  xy: 1056, 4
+  size: 37, 44
+  orig: 37, 44
+  offset: 0, 0
+  index: -1
+thundergod_earth_02_handacc_03
+  rotate: false
+  xy: 1017, 92
+  size: 84, 84
+  orig: 84, 84
+  offset: 0, 0
+  index: -1
+thundergod_earth_02_head_01
+  rotate: false
+  xy: 634, 58
+  size: 161, 143
+  orig: 161, 143
+  offset: 0, 0
+  index: -1
+thundergod_earth_02_horn_01
+  rotate: false
+  xy: 557, 154
+  size: 75, 76
+  orig: 75, 76
+  offset: 0, 0
+  index: -1
+thundergod_earth_02_hornacc_01
+  rotate: true
+  xy: 685, 21
+  size: 35, 51
+  orig: 35, 51
+  offset: 0, 0
+  index: -1
+thundergod_earth_02_leg_01
+  rotate: true
+  xy: 557, 2
+  size: 41, 57
+  orig: 41, 57
+  offset: 0, 0
+  index: -1
+thundergod_earth_02_leg_012
+  rotate: true
+  xy: 1068, 366
+  size: 63, 58
+  orig: 63, 58
+  offset: 0, 0
+  index: -1
+thundergod_earth_02_mouth_01
+  rotate: false
+  xy: 738, 21
+  size: 43, 35
+  orig: 43, 35
+  offset: 0, 0
+  index: -1
+thundergod_earth_02_spark_1
+  rotate: true
+  xy: 557, 45
+  size: 107, 61
+  orig: 107, 61
+  offset: 0, 0
+  index: -1
+thundergod_earth_02_spark_2
+  rotate: true
+  xy: 1084, 433
+  size: 97, 39
+  orig: 97, 39
+  offset: 0, 0
+  index: -1

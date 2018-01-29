@@ -4,10 +4,36 @@
     <dict>
         <key>frames</key>
         <dict>
+            <key>colosseum_2_1_door_light_01.png</key>
+            <dict>
+                <key>frame</key>
+                <string>{{1796,1004},{124,270}}</string>
+                <key>offset</key>
+                <string>{0,0}</string>
+                <key>rotated</key>
+                <false/>
+                <key>sourceColorRect</key>
+                <string>{{182,109},{124,270}}</string>
+                <key>sourceSize</key>
+                <string>{488,488}</string>
+            </dict>
+            <key>colosseum_2_1_door_light_03.png</key>
+            <dict>
+                <key>frame</key>
+                <string>{{1796,2},{240,310}}</string>
+                <key>offset</key>
+                <string>{0,0}</string>
+                <key>rotated</key>
+                <false/>
+                <key>sourceColorRect</key>
+                <string>{{124,89},{240,310}}</string>
+                <key>sourceSize</key>
+                <string>{488,488}</string>
+            </dict>
             <key>colosseum_2_blue_light_01.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{1348,901},{160,160}}</string>
+                <string>{{1796,842},{160,160}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
@@ -20,33 +46,20 @@
             <key>colosseum_2_blue_light_02.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{1686,501},{24,26}}</string>
+                <string>{{2012,568},{24,26}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
-                <true/>
+                <false/>
                 <key>sourceColorRect</key>
                 <string>{{60,59},{24,26}}</string>
                 <key>sourceSize</key>
                 <string>{144,144}</string>
             </dict>
-            <key>colosseum_2_blue_light_03.png</key>
-            <dict>
-                <key>frame</key>
-                <string>{{1348,2},{391,459}}</string>
-                <key>offset</key>
-                <string>{15,27}</string>
-                <key>rotated</key>
-                <false/>
-                <key>sourceColorRect</key>
-                <string>{{116,6},{391,459}}</string>
-                <key>sourceSize</key>
-                <string>{593,525}</string>
-            </dict>
             <key>colosseum_2_blue_light_04.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{1714,501},{24,24}}</string>
+                <string>{{2012,596},{24,24}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
@@ -59,7 +72,7 @@
             <key>colosseum_2_blue_light_05.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{1622,463},{62,250}}</string>
+                <string>{{1958,842},{62,250}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
@@ -72,24 +85,37 @@
             <key>colosseum_2_blue_light_06.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{1348,463},{272,214}}</string>
+                <string>{{1796,568},{272,214}}</string>
                 <key>offset</key>
                 <string>{-14,-40}</string>
                 <key>rotated</key>
-                <false/>
+                <true/>
                 <key>sourceColorRect</key>
                 <string>{{0,83},{272,214}}</string>
                 <key>sourceSize</key>
                 <string>{300,300}</string>
             </dict>
+            <key>colosseum_2_door_01.png</key>
+            <dict>
+                <key>frame</key>
+                <string>{{1922,1094},{88,108}}</string>
+                <key>offset</key>
+                <string>{0,-186}</string>
+                <key>rotated</key>
+                <true/>
+                <key>sourceColorRect</key>
+                <string>{{852,804},{88,108}}</string>
+                <key>sourceSize</key>
+                <string>{1792,1344}</string>
+            </dict>
             <key>colosseum_2_fountain_object_01.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{1348,679},{220,252}}</string>
+                <string>{{1796,314},{220,252}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
-                <true/>
+                <false/>
                 <key>sourceColorRect</key>
                 <string>{{40,24},{220,252}}</string>
                 <key>sourceSize</key>
@@ -98,11 +124,11 @@
             <key>colosseum_2_gear_01.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{1686,463},{38,36}}</string>
+                <string>{{1796,1276},{38,36}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
-                <false/>
+                <true/>
                 <key>sourceColorRect</key>
                 <string>{{131,132},{38,36}}</string>
                 <key>sourceSize</key>
@@ -115,7 +141,7 @@
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
-                <true/>
+                <false/>
                 <key>sourceColorRect</key>
                 <string>{{0,0},{1792,1344}}</string>
                 <key>sourceSize</key>
@@ -129,9 +155,9 @@
             <key>realTextureFileName</key>
             <string>colosseum_2_2.png</string>
             <key>size</key>
-            <string>{1741,1796}</string>
+            <string>{2038,1348}</string>
             <key>smartupdate</key>
-            <string>$TexturePacker:SmartUpdate:272a3d39f880395ebd5a3f0c27e5e9a6:58d22ffbe0a18c0aeb834445ec0143b4:905955f367bc35a5093daa3472566446$</string>
+            <string>$TexturePacker:SmartUpdate:974f8d18879b2c7ba3b58f7d769eb4ba:5ed2406e7900b99f09ad68119687c472:905955f367bc35a5093daa3472566446$</string>
             <key>textureFileName</key>
             <string>colosseum_2_2.png</string>
         </dict>

@@ -35,13 +35,13 @@
 			{
 				type = 'LabelTTF';
 				ui_name = '';
-				x = -99.000000;
-				y = 246.000000;
+				x = 0.000000;
+				y = 195.000000;
 				dock_point = { 0.500000; 0.500000; };
 				anchor_point = { 0.500000; 0.500000; };
 				relative_size_type = 0;
-				width = 114;
-				height = 30;
+				width = 320;
+				height = 40;
 				scale_x = 1.000000;
 				scale_y = 1.000000;
 				skew_x = 0.000000;
@@ -50,14 +50,14 @@
 				visible = true;
 				lua_name = 'evolutionLabel';
 				font_name = 'font/common_font_01.ttf';
-				font_size = 20;
-				text = '해츨링';
+				font_size = 18;
+				text = 'evolution';
 				h_alignment = 1;
 				v_alignment = 1;
-				color = { 240; 215; 159; };
+				color = { 255; 173; 91; };
 				opacity = 255;
-				dimension_width = 114;
-				dimension_height = 30;
+				dimension_width = 320;
+				dimension_height = 40;
 				letter_spacing = 0.000000;
 				has_stroke = true;
 				stroke_type = 0;
@@ -76,12 +76,12 @@
 				type = 'LabelTTF';
 				ui_name = '';
 				x = 0.000000;
-				y = 198.000000;
+				y = 217.000000;
 				dock_point = { 0.500000; 0.500000; };
 				anchor_point = { 0.500000; 0.500000; };
 				relative_size_type = 0;
-				width = 400;
-				height = 50;
+				width = 330;
+				height = 40;
 				scale_x = 1.000000;
 				scale_y = 1.000000;
 				skew_x = 0.000000;
@@ -91,13 +91,13 @@
 				lua_name = 'nameLabel';
 				font_name = 'font/common_font_01.ttf';
 				font_size = 24;
-				text = '스비크레센트 드래곤';
+				text = 'dragonName';
 				h_alignment = 1;
 				v_alignment = 1;
 				color = { 255; 234; 91; };
 				opacity = 255;
-				dimension_width = 400;
-				dimension_height = 50;
+				dimension_width = 330;
+				dimension_height = 40;
 				letter_spacing = 0.000000;
 				has_stroke = true;
 				stroke_type = 0;
@@ -217,8 +217,8 @@
 				dock_point = { 0.500000; 0.500000; };
 				anchor_point = { 0.500000; 0.500000; };
 				relative_size_type = 0;
-				width = 100;
-				height = 30;
+				width = 80;
+				height = 80;
 				scale_x = 1.000000;
 				scale_y = 1.000000;
 				skew_x = 0.000000;
@@ -233,8 +233,8 @@
 				v_alignment = 1;
 				color = { 240; 215; 159; };
 				opacity = 255;
-				dimension_width = 100;
-				dimension_height = 30;
+				dimension_width = 80;
+				dimension_height = 80;
 				letter_spacing = 0.000000;
 				has_stroke = true;
 				stroke_type = 0;
@@ -307,7 +307,7 @@
 				visible = true;
 				lua_name = 'lvLabel';
 				font_name = 'font/common_font_01.ttf';
-				font_size = 22;
+				font_size = 20;
 				text = 'Lv.{1}/{1}';
 				h_alignment = 0;
 				v_alignment = 1;
@@ -347,7 +347,7 @@
 				visible = true;
 				lua_name = 'friendshipLabel1';
 				font_name = 'font/common_font_01.ttf';
-				font_size = 22;
+				font_size = 20;
 				text = '친밀도 {1}/10';
 				h_alignment = 0;
 				v_alignment = 1;
@@ -372,7 +372,7 @@
 			{
 				type = 'ProgressTimer';
 				ui_name = '';
-				x = 57.000000;
+				x = 67.000000;
 				y = 78.000000;
 				dock_point = { 0.500000; 0.500000; };
 				anchor_point = { 0.500000; 0.500000; };
@@ -402,7 +402,7 @@
 			{
 				type = 'LabelTTF';
 				ui_name = '';
-				x = 56.000000;
+				x = 66.000000;
 				y = 77.000000;
 				dock_point = { 0.500000; 0.500000; };
 				anchor_point = { 0.500000; 0.500000; };
@@ -442,7 +442,7 @@
 			{
 				type = 'ProgressTimer';
 				ui_name = '';
-				x = 57.000000;
+				x = 67.000000;
 				y = 50.000000;
 				dock_point = { 0.500000; 0.500000; };
 				anchor_point = { 0.500000; 0.500000; };
@@ -512,7 +512,7 @@
 			{
 				type = 'LabelTTF';
 				ui_name = '';
-				x = 56.000000;
+				x = 66.000000;
 				y = 49.000000;
 				dock_point = { 0.500000; 0.500000; };
 				anchor_point = { 0.500000; 0.500000; };
@@ -527,7 +527,7 @@
 				visible = true;
 				lua_name = 'friendshipLabel2';
 				font_name = 'font/common_font_01.ttf';
-				font_size = 20;
+				font_size = 18;
 				text = '무관심';
 				h_alignment = 1;
 				v_alignment = 1;
@@ -736,7 +736,7 @@
 			{
 				type = 'Node';
 				ui_name = '';
-				x = 34.000000;
+				x = 0.000000;
 				y = -20.000000;
 				dock_point = { 0.500000; 1.000000; };
 				anchor_point = { 0.500000; 0.500000; };
@@ -755,7 +755,7 @@
 			{
 				type = 'Button';
 				ui_name = '';
-				x = 153.000000;
+				x = 188.000000;
 				y = 246.000000;
 				dock_point = { 0.500000; 0.500000; };
 				anchor_point = { 0.500000; 0.500000; };
@@ -1253,7 +1253,7 @@
 					visible = true;
 					lua_name = 'cri_dmg_label3';
 					font_name = 'font/common_font_01.ttf';
-					font_size = 20;
+					font_size = 18;
 					text = '{1}%';
 					h_alignment = 2;
 					v_alignment = 1;
@@ -1293,7 +1293,7 @@
 					visible = true;
 					lua_name = 'cri_chance_label3';
 					font_name = 'font/common_font_01.ttf';
-					font_size = 20;
+					font_size = 18;
 					text = '{1}%';
 					h_alignment = 2;
 					v_alignment = 1;
@@ -1333,7 +1333,7 @@
 					visible = true;
 					lua_name = 'aspd_label3';
 					font_name = 'font/common_font_01.ttf';
-					font_size = 20;
+					font_size = 18;
 					text = '{1}%';
 					h_alignment = 2;
 					v_alignment = 1;
@@ -1373,7 +1373,7 @@
 					visible = true;
 					lua_name = 'atk_label3';
 					font_name = 'font/common_font_01.ttf';
-					font_size = 20;
+					font_size = 18;
 					text = '{1}';
 					h_alignment = 2;
 					v_alignment = 1;
@@ -1413,7 +1413,7 @@
 					visible = true;
 					lua_name = 'def_label3';
 					font_name = 'font/common_font_01.ttf';
-					font_size = 20;
+					font_size = 18;
 					text = '{1}';
 					h_alignment = 2;
 					v_alignment = 1;
@@ -1453,7 +1453,7 @@
 					visible = true;
 					lua_name = 'hp_label3';
 					font_name = 'font/common_font_01.ttf';
-					font_size = 20;
+					font_size = 18;
 					text = '{1}';
 					h_alignment = 2;
 					v_alignment = 1;
@@ -1493,7 +1493,7 @@
 					visible = true;
 					lua_name = '';
 					font_name = 'font/common_font_01.ttf';
-					font_size = 20;
+					font_size = 18;
 					text = '치명 피해';
 					h_alignment = 0;
 					v_alignment = 1;
@@ -1533,7 +1533,7 @@
 					visible = true;
 					lua_name = '';
 					font_name = 'font/common_font_01.ttf';
-					font_size = 20;
+					font_size = 18;
 					text = '치명 확률';
 					h_alignment = 0;
 					v_alignment = 1;
@@ -1573,7 +1573,7 @@
 					visible = true;
 					lua_name = '';
 					font_name = 'font/common_font_01.ttf';
-					font_size = 20;
+					font_size = 18;
 					text = '공격 속도';
 					h_alignment = 0;
 					v_alignment = 1;
@@ -1613,7 +1613,7 @@
 					visible = true;
 					lua_name = '';
 					font_name = 'font/common_font_01.ttf';
-					font_size = 20;
+					font_size = 18;
 					text = '공격력';
 					h_alignment = 0;
 					v_alignment = 1;
@@ -1653,7 +1653,7 @@
 					visible = true;
 					lua_name = '';
 					font_name = 'font/common_font_01.ttf';
-					font_size = 20;
+					font_size = 18;
 					text = '방어력';
 					h_alignment = 0;
 					v_alignment = 1;
@@ -1693,7 +1693,7 @@
 					visible = true;
 					lua_name = '';
 					font_name = 'font/common_font_01.ttf';
-					font_size = 20;
+					font_size = 18;
 					text = '생명력';
 					h_alignment = 0;
 					v_alignment = 1;
@@ -1716,12 +1716,12 @@
 				};
 				type = 'Node';
 				ui_name = '';
-				x = 480.000000;
+				x = 516.000000;
 				y = 4.000000;
 				dock_point = { 0.000000; 0.000000; };
 				anchor_point = { 1.000000; 0.000000; };
 				relative_size_type = 0;
-				width = 150;
+				width = 200;
 				height = 150;
 				scale_x = 1.000000;
 				scale_y = 1.000000;
@@ -2662,7 +2662,7 @@
 				{
 					type = 'Sprite';
 					ui_name = '';
-					x = 109.500000;
+					x = 187.000000;
 					y = 77.000000;
 					dock_point = { 0.000000; 0.500000; };
 					anchor_point = { 0.000000; 0.500000; };
@@ -2688,7 +2688,7 @@
 				{
 					type = 'ProgressTimer';
 					ui_name = '';
-					x = 112.000000;
+					x = 190.000000;
 					y = 0.000000;
 					dock_point = { 0.000000; 0.500000; };
 					anchor_point = { 0.000000; 0.500000; };
@@ -2718,7 +2718,7 @@
 				{
 					type = 'ProgressTimer';
 					ui_name = '';
-					x = 112.000000;
+					x = 190.000000;
 					y = 30.000000;
 					dock_point = { 0.000000; 0.500000; };
 					anchor_point = { 0.000000; 0.500000; };
@@ -2748,7 +2748,7 @@
 				{
 					type = 'ProgressTimer';
 					ui_name = '';
-					x = 112.000000;
+					x = 190.000000;
 					y = 60.000000;
 					dock_point = { 0.000000; 0.500000; };
 					anchor_point = { 0.000000; 0.500000; };
@@ -2778,7 +2778,7 @@
 				{
 					type = 'ProgressTimer';
 					ui_name = '';
-					x = 112.000000;
+					x = 190.000000;
 					y = 90.000000;
 					dock_point = { 0.000000; 0.500000; };
 					anchor_point = { 0.000000; 0.500000; };
@@ -2808,7 +2808,7 @@
 				{
 					type = 'ProgressTimer';
 					ui_name = '';
-					x = 112.000000;
+					x = 190.000000;
 					y = 120.000000;
 					dock_point = { 0.000000; 0.500000; };
 					anchor_point = { 0.000000; 0.500000; };
@@ -2838,7 +2838,7 @@
 				{
 					type = 'ProgressTimer';
 					ui_name = '';
-					x = 112.000000;
+					x = 190.000000;
 					y = 150.000000;
 					dock_point = { 0.000000; 0.500000; };
 					anchor_point = { 0.000000; 0.500000; };
@@ -3311,7 +3311,7 @@
 				dock_point = { 1.000000; 0.000000; };
 				anchor_point = { 0.000000; 0.000000; };
 				relative_size_type = 0;
-				width = 580;
+				width = 690;
 				height = 350;
 				scale_x = 1.000000;
 				scale_y = 1.000000;

@@ -125,8 +125,8 @@
 				dock_point = { 0.500000; 0.000000; };
 				anchor_point = { 0.500000; 0.000000; };
 				relative_size_type = 0;
-				width = 124;
-				height = 30;
+				width = 118;
+				height = 60;
 				scale_x = 1.000000;
 				scale_y = 1.000000;
 				skew_x = 0.000000;
@@ -138,11 +138,11 @@
 				font_size = 20;
 				text = '{0}';
 				h_alignment = 1;
-				v_alignment = 1;
+				v_alignment = 2;
 				color = { 255; 215; 0; };
 				opacity = 255;
-				dimension_width = 124;
-				dimension_height = 30;
+				dimension_width = 118;
+				dimension_height = 60;
 				letter_spacing = 0.000000;
 				has_stroke = true;
 				stroke_type = 0;

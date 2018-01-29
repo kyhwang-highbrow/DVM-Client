@@ -490,13 +490,13 @@
 				{
 					type = 'Scale9Sprite';
 					ui_name = '';
-					x = -19.000000;
-					y = 10.000000;
+					x = -9.000000;
+					y = 56.000000;
 					dock_point = { 1.000000; 0.000000; };
 					anchor_point = { 1.000000; 0.000000; };
-					relative_size_type = 2;
-					width = -142;
-					height = 40;
+					relative_size_type = 3;
+					width = -18;
+					height = -122;
 					scale_x = 1.000000;
 					scale_y = 1.000000;
 					skew_x = 0.000000;
@@ -516,13 +516,13 @@
 				{
 					type = 'Scale9Sprite';
 					ui_name = '';
-					x = -9.000000;
-					y = 56.000000;
+					x = -82.000000;
+					y = 10.000000;
 					dock_point = { 1.000000; 0.000000; };
 					anchor_point = { 1.000000; 0.000000; };
-					relative_size_type = 3;
-					width = -18;
-					height = -122;
+					relative_size_type = 0;
+					width = 390;
+					height = 40;
 					scale_x = 1.000000;
 					scale_y = 1.000000;
 					skew_x = 0.000000;
@@ -612,9 +612,9 @@
 						y = 0.000000;
 						dock_point = { 0.500000; 0.500000; };
 						anchor_point = { 0.500000; 0.500000; };
-						relative_size_type = 3;
-						width = 0;
-						height = 0;
+						relative_size_type = 0;
+						width = 150;
+						height = 40;
 						scale_x = 1.000000;
 						scale_y = 1.000000;
 						skew_x = 0.000000;
@@ -623,14 +623,14 @@
 						visible = true;
 						lua_name = 'sortOrderLabel';
 						font_name = 'font/common_font_01.ttf';
-						font_size = 24;
+						font_size = 22;
 						text = '채널';
 						h_alignment = 1;
 						v_alignment = 1;
 						color = { 240; 215; 159; };
 						opacity = 255;
-						dimension_width = 114;
-						dimension_height = 44;
+						dimension_width = 150;
+						dimension_height = 40;
 						letter_spacing = 0.000000;
 						has_stroke = false;
 						stroke_type = 0;
@@ -646,12 +646,12 @@
 					};
 					type = 'Button';
 					ui_name = '';
-					x = 64.000000;
+					x = 88.000000;
 					y = 30.000000;
 					dock_point = { 0.000000; 0.000000; };
 					anchor_point = { 0.500000; 0.500000; };
 					relative_size_type = 0;
-					width = 114;
+					width = 164;
 					height = 44;
 					scale_x = 1.000000;
 					scale_y = 1.000000;
@@ -670,12 +670,12 @@
 				{
 					type = 'EditBox';
 					ui_name = '';
-					x = 134.000000;
+					x = 176.000000;
 					y = 6.000000;
 					dock_point = { 0.000000; 0.000000; };
 					anchor_point = { 0.000000; 0.000000; };
-					relative_size_type = 2;
-					width = -216;
+					relative_size_type = 0;
+					width = 370;
 					height = 50;
 					scale_x = 1.000000;
 					scale_y = 1.000000;
@@ -769,12 +769,12 @@
 				{
 					type = 'Scale9Sprite';
 					ui_name = '';
-					x = -19.000000;
+					x = -82.000000;
 					y = 10.000000;
 					dock_point = { 1.000000; 0.000000; };
 					anchor_point = { 1.000000; 0.000000; };
-					relative_size_type = 2;
-					width = -142;
+					relative_size_type = 0;
+					width = 390;
 					height = 40;
 					scale_x = 1.000000;
 					scale_y = 1.000000;
@@ -795,12 +795,12 @@
 				{
 					type = 'EditBox';
 					ui_name = '';
-					x = 134.000000;
+					x = 176.000000;
 					y = 6.000000;
 					dock_point = { 0.000000; 0.000000; };
 					anchor_point = { 0.000000; 0.000000; };
-					relative_size_type = 2;
-					width = -216;
+					relative_size_type = 0;
+					width = 380;
 					height = 50;
 					scale_x = 1.000000;
 					scale_y = 1.000000;
@@ -900,9 +900,9 @@
 						y = 0.000000;
 						dock_point = { 0.500000; 0.500000; };
 						anchor_point = { 0.500000; 0.500000; };
-						relative_size_type = 3;
-						width = 0;
-						height = 0;
+						relative_size_type = 0;
+						width = 150;
+						height = 40;
 						scale_x = 1.000000;
 						scale_y = 1.000000;
 						skew_x = 0.000000;
@@ -917,8 +917,8 @@
 						v_alignment = 1;
 						color = { 240; 215; 159; };
 						opacity = 255;
-						dimension_width = 114;
-						dimension_height = 44;
+						dimension_width = 150;
+						dimension_height = 40;
 						letter_spacing = 0.000000;
 						has_stroke = false;
 						stroke_type = 0;
@@ -934,12 +934,12 @@
 					};
 					type = 'Button';
 					ui_name = '';
-					x = 64.000000;
+					x = 88.000000;
 					y = 30.000000;
 					dock_point = { 0.000000; 0.000000; };
 					anchor_point = { 0.500000; 0.500000; };
 					relative_size_type = 0;
-					width = 114;
+					width = 164;
 					height = 44;
 					scale_x = 1.000000;
 					scale_y = 1.000000;
@@ -996,13 +996,13 @@
 				{
 					type = 'Scale9Sprite';
 					ui_name = '';
-					x = -19.000000;
-					y = 10.000000;
+					x = -9.000000;
+					y = 56.000000;
 					dock_point = { 1.000000; 0.000000; };
 					anchor_point = { 1.000000; 0.000000; };
-					relative_size_type = 2;
-					width = -142;
-					height = 40;
+					relative_size_type = 3;
+					width = -18;
+					height = -122;
 					scale_x = 1.000000;
 					scale_y = 1.000000;
 					skew_x = 0.000000;
@@ -1022,13 +1022,13 @@
 				{
 					type = 'Scale9Sprite';
 					ui_name = '';
-					x = -9.000000;
-					y = 56.000000;
+					x = -82.000000;
+					y = 10.000000;
 					dock_point = { 1.000000; 0.000000; };
 					anchor_point = { 1.000000; 0.000000; };
-					relative_size_type = 3;
-					width = -18;
-					height = -122;
+					relative_size_type = 0;
+					width = 390;
+					height = 40;
 					scale_x = 1.000000;
 					scale_y = 1.000000;
 					skew_x = 0.000000;
@@ -1112,12 +1112,12 @@
 				{
 					type = 'EditBox';
 					ui_name = '';
-					x = 134.000000;
+					x = 176.000000;
 					y = 6.000000;
 					dock_point = { 0.000000; 0.000000; };
 					anchor_point = { 0.000000; 0.000000; };
-					relative_size_type = 2;
-					width = -216;
+					relative_size_type = 0;
+					width = 380;
 					height = 50;
 					scale_x = 1.000000;
 					scale_y = 1.000000;
@@ -1176,7 +1176,7 @@
 				skew_x = 0.000000;
 				skew_y = 0.000000;
 				rotation = 0.000000;
-				visible = true;
+				visible = false;
 				lua_name = 'clanMenu';
 			};
 			type = 'Menu';

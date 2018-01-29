@@ -120,7 +120,7 @@
 				dock_point = { 0.000000; 0.500000; };
 				anchor_point = { 0.000000; 0.500000; };
 				relative_size_type = 0;
-				width = 210;
+				width = 170;
 				height = 40;
 				scale_x = 1.000000;
 				scale_y = 1.000000;
@@ -136,7 +136,7 @@
 				v_alignment = 1;
 				color = { 240; 215; 159; };
 				opacity = 255;
-				dimension_width = 210;
+				dimension_width = 170;
 				dimension_height = 40;
 				letter_spacing = 0.000000;
 				has_stroke = false;

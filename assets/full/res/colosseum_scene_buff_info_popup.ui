@@ -47,7 +47,7 @@
 				skew_x = 0.000000;
 				skew_y = 0.000000;
 				rotation = 0.000000;
-				visible = true;
+				visible = false;
 				lua_name = '';
 				file_name = 'ui/frames/base_frame_0201.png';
 				color = { 255; 255; 255; };
@@ -59,14 +59,83 @@
 			};
 			[3] =
 			{
+				type = 'LayerColor';
+				ui_name = '';
+				x = 0.000000;
+				y = 128.000000;
+				dock_point = { 0.500000; 0.500000; };
+				anchor_point = { 0.500000; 0.500000; };
+				relative_size_type = 3;
+				width = -600;
+				height = -470;
+				scale_x = 1.000000;
+				scale_y = 1.000000;
+				skew_x = 0.000000;
+				skew_y = 0.000000;
+				rotation = 0.000000;
+				visible = true;
+				lua_name = '';
+				color = { 81; 63; 47; };
+				opacity = 100;
+				src_blend = 770;
+				dest_blend = 771;
+			};
+			[4] =
+			{
+				type = 'LayerColor';
+				ui_name = '';
+				x = 0.000000;
+				y = 72.000000;
+				dock_point = { 0.500000; 0.500000; };
+				anchor_point = { 0.500000; 0.500000; };
+				relative_size_type = 3;
+				width = -600;
+				height = -470;
+				scale_x = 1.000000;
+				scale_y = 1.000000;
+				skew_x = 0.000000;
+				skew_y = 0.000000;
+				rotation = 0.000000;
+				visible = true;
+				lua_name = '';
+				color = { 81; 63; 47; };
+				opacity = 100;
+				src_blend = 770;
+				dest_blend = 771;
+			};
+			[5] =
+			{
+				type = 'LayerColor';
+				ui_name = '';
+				x = 0.000000;
+				y = 17.000000;
+				dock_point = { 0.500000; 0.500000; };
+				anchor_point = { 0.500000; 0.500000; };
+				relative_size_type = 3;
+				width = -600;
+				height = -470;
+				scale_x = 1.000000;
+				scale_y = 1.000000;
+				skew_x = 0.000000;
+				skew_y = 0.000000;
+				rotation = 0.000000;
+				visible = true;
+				lua_name = '';
+				color = { 81; 63; 47; };
+				opacity = 100;
+				src_blend = 770;
+				dest_blend = 771;
+			};
+			[6] =
+			{
 				type = 'LabelTTF';
 				ui_name = '';
-				x = -234.000000;
+				x = -220.000000;
 				y = 73.000000;
 				dock_point = { 0.500000; 0.500000; };
 				anchor_point = { 0.500000; 0.500000; };
 				relative_size_type = 0;
-				width = 223;
+				width = 144;
 				height = 200;
 				scale_x = 1.000000;
 				scale_y = 1.000000;
@@ -78,11 +147,11 @@
 				font_name = 'font/common_font_01.ttf';
 				font_size = 26;
 				text = '1단계\n2단계\n3단계\n4단계\n5단계';
-				h_alignment = 2;
+				h_alignment = 0;
 				v_alignment = 1;
 				color = { 64; 224; 208; };
 				opacity = 255;
-				dimension_width = 223;
+				dimension_width = 144;
 				dimension_height = 200;
 				letter_spacing = 0.000000;
 				has_stroke = false;
@@ -97,16 +166,16 @@
 				shadow_direction = 0;
 				shadow_distance = 5.000000;
 			};
-			[4] =
+			[7] =
 			{
 				type = 'LabelTTF';
 				ui_name = '';
-				x = -88.000000;
+				x = -126.000000;
 				y = 73.000000;
 				dock_point = { 0.500000; 0.500000; };
 				anchor_point = { 0.500000; 0.500000; };
 				relative_size_type = 0;
-				width = 93;
+				width = 154;
 				height = 200;
 				scale_x = 1.000000;
 				scale_y = 1.000000;
@@ -122,7 +191,7 @@
 				v_alignment = 1;
 				color = { 255; 215; 0; };
 				opacity = 255;
-				dimension_width = 93;
+				dimension_width = 154;
 				dimension_height = 200;
 				letter_spacing = 0.000000;
 				has_stroke = false;
@@ -137,16 +206,16 @@
 				shadow_direction = 0;
 				shadow_distance = 5.000000;
 			};
-			[5] =
+			[8] =
 			{
 				type = 'LabelTTF';
 				ui_name = '';
-				x = 143.000000;
+				x = 300.000000;
 				y = 73.000000;
 				dock_point = { 0.500000; 0.500000; };
 				anchor_point = { 0.500000; 0.500000; };
 				relative_size_type = 0;
-				width = 338;
+				width = 653;
 				height = 200;
 				scale_x = 1.000000;
 				scale_y = 1.000000;
@@ -162,7 +231,7 @@
 				v_alignment = 1;
 				color = { 255; 255; 255; };
 				opacity = 255;
-				dimension_width = 338;
+				dimension_width = 653;
 				dimension_height = 200;
 				letter_spacing = 0.000000;
 				has_stroke = false;
@@ -177,16 +246,16 @@
 				shadow_direction = 0;
 				shadow_distance = 5.000000;
 			};
-			[6] =
+			[9] =
 			{
 				type = 'LabelTTF';
 				ui_name = '';
-				x = 86.000000;
+				x = 162.000000;
 				y = -130.000000;
 				dock_point = { 0.500000; 0.500000; };
 				anchor_point = { 0.500000; 0.500000; };
 				relative_size_type = 0;
-				width = 782;
+				width = 934;
 				height = 210;
 				scale_x = 1.000000;
 				scale_y = 1.000000;
@@ -202,7 +271,7 @@
 				v_alignment = 1;
 				color = { 244; 224; 177; };
 				opacity = 255;
-				dimension_width = 782;
+				dimension_width = 934;
 				dimension_height = 210;
 				letter_spacing = 0.000000;
 				has_stroke = false;
@@ -217,7 +286,7 @@
 				shadow_direction = 0;
 				shadow_distance = 5.000000;
 			};
-			[7] =
+			[10] =
 			{
 				type = 'Button';
 				ui_name = '';
@@ -241,12 +310,12 @@
 				disable = '';
 				image_type = 0;
 			};
-			[8] =
+			[11] =
 			{
 				type = 'LabelTTF';
 				ui_name = '';
 				x = 0.000000;
-				y = 207.000000;
+				y = 191.000000;
 				dock_point = { 0.500000; 0.500000; };
 				anchor_point = { 0.500000; 0.500000; };
 				relative_size_type = 0;

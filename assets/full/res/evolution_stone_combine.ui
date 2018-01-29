@@ -39,12 +39,12 @@
 					{
 						type = 'LabelTTF';
 						ui_name = '';
-						x = 86.000000;
+						x = 80.000000;
 						y = 0.000000;
 						dock_point = { 0.500000; 0.500000; };
 						anchor_point = { 0.500000; 0.500000; };
 						relative_size_type = 0;
-						width = 120;
+						width = 220;
 						height = 64;
 						scale_x = 1.000000;
 						scale_y = 1.000000;
@@ -60,7 +60,7 @@
 						v_alignment = 1;
 						color = { 255; 255; 255; };
 						opacity = 255;
-						dimension_width = 120;
+						dimension_width = 220;
 						dimension_height = 64;
 						letter_spacing = 0.000000;
 						has_stroke = false;
@@ -138,10 +138,10 @@
 						};
 						type = 'Scale9Sprite';
 						ui_name = '';
-						x = -40.000000;
+						x = 35.000000;
 						y = 0.000000;
-						dock_point = { 0.500000; 0.500000; };
-						anchor_point = { 0.500000; 0.500000; };
+						dock_point = { 0.000000; 0.500000; };
+						anchor_point = { 0.000000; 0.500000; };
 						relative_size_type = 0;
 						width = 130;
 						height = 40;
@@ -167,7 +167,7 @@
 					dock_point = { 0.500000; 0.000000; };
 					anchor_point = { 0.500000; 0.500000; };
 					relative_size_type = 0;
-					width = 300;
+					width = 400;
 					height = 70;
 					scale_x = 1.000000;
 					scale_y = 1.000000;
@@ -212,17 +212,40 @@
 					};
 					[2] =
 					{
+						[1] =
+						{
+							type = 'LayerColor';
+							ui_name = '';
+							x = 0.000000;
+							y = 0.000000;
+							dock_point = { 0.500000; 0.500000; };
+							anchor_point = { 0.500000; 0.500000; };
+							relative_size_type = 3;
+							width = 0;
+							height = 0;
+							scale_x = 1.000000;
+							scale_y = 1.000000;
+							skew_x = 0.000000;
+							skew_y = 0.000000;
+							rotation = 0.000000;
+							visible = true;
+							lua_name = '';
+							color = { 255; 255; 255; };
+							opacity = 255;
+							src_blend = 770;
+							dest_blend = 771;
+						};
 						type = 'Node';
 						ui_name = '';
-						x = -105.000000;
+						x = 70.000000;
 						y = 0.000000;
-						dock_point = { 0.500000; 0.500000; };
+						dock_point = { 0.000000; 0.500000; };
 						anchor_point = { 0.500000; 0.500000; };
 						relative_size_type = 0;
 						width = 100;
 						height = 100;
-						scale_x = 0.800000;
-						scale_y = 0.800000;
+						scale_x = 0.700000;
+						scale_y = 0.700000;
 						skew_x = 0.000000;
 						skew_y = 0.000000;
 						rotation = 0.000000;
@@ -233,12 +256,12 @@
 					{
 						type = 'LabelTTF';
 						ui_name = '';
-						x = 40.000000;
+						x = 58.000000;
 						y = 16.000000;
 						dock_point = { 0.500000; 0.500000; };
 						anchor_point = { 0.500000; 0.500000; };
 						relative_size_type = 0;
-						width = 240;
+						width = 280;
 						height = 40;
 						scale_x = 1.000000;
 						scale_y = 1.000000;
@@ -254,7 +277,7 @@
 						v_alignment = 1;
 						color = { 240; 215; 159; };
 						opacity = 255;
-						dimension_width = 240;
+						dimension_width = 280;
 						dimension_height = 40;
 						letter_spacing = 0.000000;
 						has_stroke = false;
@@ -273,12 +296,12 @@
 					{
 						type = 'LabelTTF';
 						ui_name = '';
-						x = 40.000000;
+						x = 58.000000;
 						y = -13.000000;
 						dock_point = { 0.500000; 0.500000; };
 						anchor_point = { 0.500000; 0.500000; };
 						relative_size_type = 0;
-						width = 240;
+						width = 280;
 						height = 40;
 						scale_x = 1.000000;
 						scale_y = 1.000000;
@@ -292,9 +315,9 @@
 						text = 'New Label TTF';
 						h_alignment = 1;
 						v_alignment = 1;
-						color = { 255; 215; 0; };
+						color = { 240; 215; 159; };
 						opacity = 255;
-						dimension_width = 240;
+						dimension_width = 280;
 						dimension_height = 40;
 						letter_spacing = 0.000000;
 						has_stroke = false;
@@ -342,7 +365,7 @@
 					dock_point = { 0.500000; 0.500000; };
 					anchor_point = { 0.500000; 0.500000; };
 					relative_size_type = 0;
-					width = 300;
+					width = 400;
 					height = 80;
 					scale_x = 1.000000;
 					scale_y = 1.000000;
@@ -443,11 +466,11 @@
 						visible = true;
 						lua_name = 'tarNameLabel1';
 						font_name = 'font/common_font_01.ttf';
-						font_size = 32;
+						font_size = 26;
 						text = 'New Label TTF';
 						h_alignment = 1;
 						v_alignment = 1;
-						color = { 240; 215; 159; };
+						color = { 255; 215; 0; };
 						opacity = 255;
 						dimension_width = 433;
 						dimension_height = 46;
@@ -615,7 +638,7 @@
 				skew_x = 0.000000;
 				skew_y = 0.000000;
 				rotation = 0.000000;
-				visible = false;
+				visible = true;
 				lua_name = 'combineMenu';
 			};
 			[3] =
@@ -626,12 +649,12 @@
 					{
 						type = 'LabelTTF';
 						ui_name = '';
-						x = 86.000000;
+						x = 80.000000;
 						y = 0.000000;
 						dock_point = { 0.500000; 0.500000; };
 						anchor_point = { 0.500000; 0.500000; };
 						relative_size_type = 0;
-						width = 120;
+						width = 220;
 						height = 64;
 						scale_x = 1.000000;
 						scale_y = 1.000000;
@@ -647,7 +670,7 @@
 						v_alignment = 1;
 						color = { 255; 255; 255; };
 						opacity = 255;
-						dimension_width = 120;
+						dimension_width = 220;
 						dimension_height = 64;
 						letter_spacing = 0.000000;
 						has_stroke = false;
@@ -725,10 +748,10 @@
 						};
 						type = 'Scale9Sprite';
 						ui_name = '';
-						x = -40.000000;
+						x = 35.000000;
 						y = 0.000000;
-						dock_point = { 0.500000; 0.500000; };
-						anchor_point = { 0.500000; 0.500000; };
+						dock_point = { 0.000000; 0.500000; };
+						anchor_point = { 0.000000; 0.500000; };
 						relative_size_type = 0;
 						width = 130;
 						height = 40;
@@ -754,7 +777,7 @@
 					dock_point = { 0.500000; 0.000000; };
 					anchor_point = { 0.500000; 0.500000; };
 					relative_size_type = 0;
-					width = 300;
+					width = 400;
 					height = 70;
 					scale_x = 1.000000;
 					scale_y = 1.000000;
@@ -860,11 +883,11 @@
 						visible = true;
 						lua_name = 'tarNameLabel2';
 						font_name = 'font/common_font_01.ttf';
-						font_size = 32;
+						font_size = 26;
 						text = 'New Label TTF';
 						h_alignment = 1;
 						v_alignment = 1;
-						color = { 240; 215; 159; };
+						color = { 255; 215; 0; };
 						opacity = 255;
 						dimension_width = 433;
 						dimension_height = 46;
@@ -1048,17 +1071,40 @@
 					};
 					[2] =
 					{
+						[1] =
+						{
+							type = 'LayerColor';
+							ui_name = '';
+							x = 0.000000;
+							y = 0.000000;
+							dock_point = { 0.500000; 0.500000; };
+							anchor_point = { 0.500000; 0.500000; };
+							relative_size_type = 0;
+							width = 100;
+							height = 100;
+							scale_x = 1.000000;
+							scale_y = 1.000000;
+							skew_x = 0.000000;
+							skew_y = 0.000000;
+							rotation = 0.000000;
+							visible = true;
+							lua_name = '';
+							color = { 255; 255; 255; };
+							opacity = 255;
+							src_blend = 770;
+							dest_blend = 771;
+						};
 						type = 'Node';
 						ui_name = '';
-						x = -105.000000;
+						x = 70.000000;
 						y = 0.000000;
-						dock_point = { 0.500000; 0.500000; };
+						dock_point = { 0.000000; 0.500000; };
 						anchor_point = { 0.500000; 0.500000; };
 						relative_size_type = 0;
 						width = 100;
 						height = 100;
-						scale_x = 0.800000;
-						scale_y = 0.800000;
+						scale_x = 0.700000;
+						scale_y = 0.700000;
 						skew_x = 0.000000;
 						skew_y = 0.000000;
 						rotation = 0.000000;
@@ -1069,12 +1115,12 @@
 					{
 						type = 'LabelTTF';
 						ui_name = '';
-						x = 40.000000;
+						x = 58.000000;
 						y = 16.000000;
 						dock_point = { 0.500000; 0.500000; };
 						anchor_point = { 0.500000; 0.500000; };
 						relative_size_type = 0;
-						width = 240;
+						width = 280;
 						height = 40;
 						scale_x = 1.000000;
 						scale_y = 1.000000;
@@ -1090,7 +1136,7 @@
 						v_alignment = 1;
 						color = { 240; 215; 159; };
 						opacity = 255;
-						dimension_width = 240;
+						dimension_width = 280;
 						dimension_height = 40;
 						letter_spacing = 0.000000;
 						has_stroke = false;
@@ -1109,12 +1155,12 @@
 					{
 						type = 'LabelTTF';
 						ui_name = '';
-						x = 40.000000;
+						x = 58.000000;
 						y = -13.000000;
 						dock_point = { 0.500000; 0.500000; };
 						anchor_point = { 0.500000; 0.500000; };
 						relative_size_type = 0;
-						width = 240;
+						width = 280;
 						height = 40;
 						scale_x = 1.000000;
 						scale_y = 1.000000;
@@ -1128,9 +1174,9 @@
 						text = 'New Label TTF';
 						h_alignment = 1;
 						v_alignment = 1;
-						color = { 255; 215; 0; };
+						color = { 240; 215; 159; };
 						opacity = 255;
-						dimension_width = 240;
+						dimension_width = 280;
 						dimension_height = 40;
 						letter_spacing = 0.000000;
 						has_stroke = false;
@@ -1178,7 +1224,7 @@
 					dock_point = { 0.500000; 0.500000; };
 					anchor_point = { 0.500000; 0.500000; };
 					relative_size_type = 0;
-					width = 300;
+					width = 400;
 					height = 80;
 					scale_x = 1.000000;
 					scale_y = 1.000000;
@@ -1202,7 +1248,7 @@
 				skew_x = 0.000000;
 				skew_y = 0.000000;
 				rotation = 0.000000;
-				visible = true;
+				visible = false;
 				lua_name = 'divisionMenu';
 			};
 			[4] =

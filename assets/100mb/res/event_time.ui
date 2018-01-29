@@ -80,7 +80,7 @@
 				dock_point = { 0.500000; 0.500000; };
 				anchor_point = { 0.500000; 0.500000; };
 				relative_size_type = 0;
-				width = 200;
+				width = 150;
 				height = 40;
 				scale_x = 1.000000;
 				scale_y = 1.000000;
@@ -90,13 +90,13 @@
 				visible = true;
 				lua_name = '';
 				font_name = 'font/common_font_01.ttf';
-				font_size = 24;
+				font_size = 20;
 				text = '오늘 접속 시간';
 				h_alignment = 1;
 				v_alignment = 1;
 				color = { 255; 255; 255; };
 				opacity = 255;
-				dimension_width = 200;
+				dimension_width = 150;
 				dimension_height = 40;
 				letter_spacing = 0.000000;
 				has_stroke = true;

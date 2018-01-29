@@ -129,7 +129,7 @@
 					dock_point = { 0.500000; 0.500000; };
 					anchor_point = { 0.500000; 0.500000; };
 					relative_size_type = 0;
-					width = 180;
+					width = 200;
 					height = 54;
 					scale_x = 1.000000;
 					scale_y = 1.000000;
@@ -139,13 +139,13 @@
 					visible = true;
 					lua_name = 'rewardTabLabel';
 					font_name = 'font/common_font_01.ttf';
-					font_size = 24;
+					font_size = 22;
 					text = '획득 가능 보상';
 					h_alignment = 1;
 					v_alignment = 1;
 					color = { 255; 255; 255; };
 					opacity = 255;
-					dimension_width = 180;
+					dimension_width = 200;
 					dimension_height = 54;
 					letter_spacing = 0.000000;
 					has_stroke = false;
@@ -162,13 +162,13 @@
 				};
 				type = 'Button';
 				ui_name = '';
-				x = -90.000000;
+				x = -110.000000;
 				y = 169.000000;
 				dock_point = { 0.500000; 0.000000; };
 				anchor_point = { 0.500000; 0.000000; };
 				relative_size_type = 0;
-				width = 180;
-				height = 54;
+				width = 220;
+				height = 50;
 				scale_x = 1.000000;
 				scale_y = 1.000000;
 				skew_x = 0.000000;
@@ -193,7 +193,7 @@
 					dock_point = { 0.500000; 0.500000; };
 					anchor_point = { 0.500000; 0.500000; };
 					relative_size_type = 0;
-					width = 180;
+					width = 200;
 					height = 54;
 					scale_x = 1.000000;
 					scale_y = 1.000000;
@@ -203,13 +203,13 @@
 					visible = true;
 					lua_name = 'enemyInfoTabLabel';
 					font_name = 'font/common_font_01.ttf';
-					font_size = 24;
+					font_size = 22;
 					text = '출현 몬스터';
 					h_alignment = 1;
 					v_alignment = 1;
 					color = { 255; 255; 255; };
 					opacity = 255;
-					dimension_width = 180;
+					dimension_width = 200;
 					dimension_height = 54;
 					letter_spacing = 0.000000;
 					has_stroke = false;
@@ -226,13 +226,13 @@
 				};
 				type = 'Button';
 				ui_name = '';
-				x = 90.000000;
+				x = 110.000000;
 				y = 169.000000;
 				dock_point = { 0.500000; 0.000000; };
 				anchor_point = { 0.500000; 0.000000; };
 				relative_size_type = 0;
-				width = 180;
-				height = 54;
+				width = 220;
+				height = 50;
 				scale_x = 1.000000;
 				scale_y = 1.000000;
 				skew_x = 0.000000;
@@ -614,7 +614,7 @@
 			{
 				type = 'Button';
 				ui_name = '';
-				x = -293.000000;
+				x = -330.000000;
 				y = -25.000000;
 				dock_point = { 0.500000; 1.000000; };
 				anchor_point = { 0.500000; 1.000000; };
@@ -638,7 +638,7 @@
 			{
 				type = 'Button';
 				ui_name = '';
-				x = 293.000000;
+				x = 330.000000;
 				y = -25.000000;
 				dock_point = { 0.500000; 1.000000; };
 				anchor_point = { 0.500000; 1.000000; };

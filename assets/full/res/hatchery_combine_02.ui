@@ -252,12 +252,12 @@
 				{
 					type = 'LabelTTF';
 					ui_name = '';
-					x = 77.000000;
+					x = 80.000000;
 					y = 0.000000;
 					dock_point = { 0.500000; 0.500000; };
 					anchor_point = { 0.500000; 0.500000; };
 					relative_size_type = 0;
-					width = 120;
+					width = 220;
 					height = 64;
 					scale_x = 1.000000;
 					scale_y = 1.000000;
@@ -273,7 +273,7 @@
 					v_alignment = 1;
 					color = { 255; 255; 255; };
 					opacity = 255;
-					dimension_width = 120;
+					dimension_width = 220;
 					dimension_height = 64;
 					letter_spacing = 0.000000;
 					has_stroke = false;
@@ -377,10 +377,10 @@
 					};
 					type = 'Scale9Sprite';
 					ui_name = '';
-					x = -40.000000;
+					x = 35.000000;
 					y = 0.000000;
-					dock_point = { 0.500000; 0.500000; };
-					anchor_point = { 0.500000; 0.500000; };
+					dock_point = { 0.000000; 0.500000; };
+					anchor_point = { 0.000000; 0.500000; };
 					relative_size_type = 0;
 					width = 130;
 					height = 40;
@@ -406,7 +406,7 @@
 				dock_point = { 0.500000; 0.000000; };
 				anchor_point = { 0.500000; 0.500000; };
 				relative_size_type = 0;
-				width = 300;
+				width = 400;
 				height = 70;
 				scale_x = 1.000000;
 				scale_y = 1.000000;
@@ -656,7 +656,7 @@
 				anchor_point = { 0.500000; 0.500000; };
 				relative_size_type = 0;
 				width = 604;
-				height = 74;
+				height = 40;
 				scale_x = 1.000000;
 				scale_y = 1.000000;
 				skew_x = 0.000000;
@@ -672,7 +672,7 @@
 				color = { 240; 215; 159; };
 				opacity = 255;
 				dimension_width = 604;
-				dimension_height = 74;
+				dimension_height = 40;
 				letter_spacing = 0.000000;
 				has_stroke = true;
 				stroke_type = 0;
@@ -696,7 +696,7 @@
 				anchor_point = { 0.500000; 0.500000; };
 				relative_size_type = 0;
 				width = 604;
-				height = 60;
+				height = 50;
 				scale_x = 1.000000;
 				scale_y = 1.000000;
 				skew_x = 0.000000;
@@ -705,14 +705,14 @@
 				visible = true;
 				lua_name = 'descLabel';
 				font_name = 'font/common_font_01.ttf';
-				font_size = 26;
+				font_size = 22;
 				text = '태생 {1}성 이상, {1}성 이상 드래곤';
 				h_alignment = 1;
 				v_alignment = 1;
-				color = { 240; 215; 159; };
+				color = { 255; 215; 0; };
 				opacity = 255;
 				dimension_width = 604;
-				dimension_height = 60;
+				dimension_height = 50;
 				letter_spacing = 0.000000;
 				has_stroke = true;
 				stroke_type = 0;
@@ -874,8 +874,8 @@
 					dock_point = { 0.500000; 0.500000; };
 					anchor_point = { 0.500000; 0.500000; };
 					relative_size_type = 0;
-					width = 100;
-					height = 30;
+					width = 80;
+					height = 80;
 					scale_x = 1.000000;
 					scale_y = 1.000000;
 					skew_x = 0.000000;
@@ -890,8 +890,8 @@
 					v_alignment = 1;
 					color = { 240; 215; 159; };
 					opacity = 255;
-					dimension_width = 100;
-					dimension_height = 30;
+					dimension_width = 80;
+					dimension_height = 80;
 					letter_spacing = 0.000000;
 					has_stroke = true;
 					stroke_type = 0;
@@ -1008,6 +1008,54 @@
 				center_rect_y = 0;
 				center_rect_width = 0;
 				center_rect_height = 0;
+			};
+			[10] =
+			{
+				type = 'Button';
+				ui_name = '';
+				x = 40.000000;
+				y = 40.000000;
+				dock_point = { 0.000000; 0.500000; };
+				anchor_point = { 0.500000; 0.500000; };
+				relative_size_type = 0;
+				width = 80;
+				height = 150;
+				scale_x = 1.000000;
+				scale_y = 1.000000;
+				skew_x = 0.000000;
+				skew_y = 0.000000;
+				rotation = 0.000000;
+				visible = false;
+				lua_name = 'prevBtn';
+				enable = true;
+				normal = 'ui/buttons/book_arrow_btn_0101.png';
+				selected = '';
+				disable = '';
+				image_type = 0;
+			};
+			[11] =
+			{
+				type = 'Button';
+				ui_name = '';
+				x = -40.000000;
+				y = 40.000000;
+				dock_point = { 1.000000; 0.500000; };
+				anchor_point = { 0.500000; 0.500000; };
+				relative_size_type = 0;
+				width = 80;
+				height = 150;
+				scale_x = 1.000000;
+				scale_y = 1.000000;
+				skew_x = 0.000000;
+				skew_y = 0.000000;
+				rotation = 0.000000;
+				visible = false;
+				lua_name = 'nextBtn';
+				enable = true;
+				normal = 'ui/buttons/book_arrow_btn_0102.png';
+				selected = '';
+				disable = '';
+				image_type = 0;
 			};
 			type = 'Menu';
 			ui_name = 'left';

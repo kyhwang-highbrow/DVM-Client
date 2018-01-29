@@ -186,7 +186,7 @@
 				dock_point = { 0.500000; 1.000000; };
 				anchor_point = { 0.500000; 1.000000; };
 				relative_size_type = 0;
-				width = 270;
+				width = 800;
 				height = 52;
 				scale_x = 1.000000;
 				scale_y = 1.000000;
@@ -206,7 +206,7 @@
 				v_alignment = 1;
 				color = { 243; 236; 225; };
 				opacity = 255;
-				dimension_width = 270;
+				dimension_width = 800;
 				dimension_height = 52;
 				letter_spacing = 0.000000;
 				has_stroke = true;
@@ -1822,9 +1822,9 @@
 			y = -44.000000;
 			dock_point = { 0.500000; 1.000000; };
 			anchor_point = { 0.500000; 1.000000; };
-			relative_size_type = 3;
-			width = -882;
-			height = -651;
+			relative_size_type = 0;
+			width = 398;
+			height = 69;
 			scale_x = 1.000000;
 			scale_y = 1.000000;
 			skew_x = 0.000000;

@@ -113,12 +113,12 @@
 					};
 					type = 'Button';
 					ui_name = '';
-					x = 100.000000;
+					x = 107.000000;
 					y = -324.000000;
 					dock_point = { 0.500000; 0.500000; };
 					anchor_point = { 0.500000; 0.500000; };
 					relative_size_type = 0;
-					width = 188;
+					width = 210;
 					height = 50;
 					scale_x = 1.000000;
 					scale_y = 1.000000;
@@ -203,12 +203,12 @@
 					};
 					type = 'Button';
 					ui_name = '';
-					x = -100.000000;
+					x = -107.000000;
 					y = -324.000000;
 					dock_point = { 0.500000; 0.500000; };
 					anchor_point = { 0.500000; 0.500000; };
 					relative_size_type = 0;
-					width = 188;
+					width = 210;
 					height = 50;
 					scale_x = 1.000000;
 					scale_y = 1.000000;
@@ -395,7 +395,7 @@
 						dock_point = { 0.500000; 0.500000; };
 						anchor_point = { 0.500000; 0.500000; };
 						relative_size_type = 0;
-						width = 120;
+						width = 130;
 						height = 46;
 						scale_x = 1.000000;
 						scale_y = 1.000000;
@@ -405,13 +405,13 @@
 						visible = true;
 						lua_name = 'evolutionTabLabel1';
 						font_name = 'font/common_font_01.ttf';
-						font_size = 24;
+						font_size = 22;
 						text = '해치';
 						h_alignment = 1;
 						v_alignment = 1;
 						color = { 240; 215; 159; };
 						opacity = 255;
-						dimension_width = 120;
+						dimension_width = 130;
 						dimension_height = 46;
 						letter_spacing = 0.000000;
 						has_stroke = false;
@@ -428,12 +428,12 @@
 					};
 					type = 'Button';
 					ui_name = '';
-					x = -132.000000;
+					x = -142.000000;
 					y = -30.000000;
 					dock_point = { 0.500000; 0.500000; };
 					anchor_point = { 0.500000; 0.500000; };
 					relative_size_type = 0;
-					width = 120;
+					width = 140;
 					height = 50;
 					scale_x = 1.000000;
 					scale_y = 1.000000;
@@ -459,7 +459,7 @@
 						dock_point = { 0.500000; 0.500000; };
 						anchor_point = { 0.500000; 0.500000; };
 						relative_size_type = 0;
-						width = 120;
+						width = 130;
 						height = 46;
 						scale_x = 1.000000;
 						scale_y = 1.000000;
@@ -469,13 +469,13 @@
 						visible = true;
 						lua_name = 'evolutionTabLabel2';
 						font_name = 'font/common_font_01.ttf';
-						font_size = 24;
+						font_size = 22;
 						text = '해츨링';
 						h_alignment = 1;
 						v_alignment = 1;
 						color = { 240; 215; 159; };
 						opacity = 255;
-						dimension_width = 120;
+						dimension_width = 130;
 						dimension_height = 46;
 						letter_spacing = 0.000000;
 						has_stroke = false;
@@ -497,7 +497,7 @@
 					dock_point = { 0.500000; 0.500000; };
 					anchor_point = { 0.500000; 0.500000; };
 					relative_size_type = 0;
-					width = 120;
+					width = 140;
 					height = 50;
 					scale_x = 1.000000;
 					scale_y = 1.000000;
@@ -523,7 +523,7 @@
 						dock_point = { 0.500000; 0.500000; };
 						anchor_point = { 0.500000; 0.500000; };
 						relative_size_type = 0;
-						width = 120;
+						width = 130;
 						height = 46;
 						scale_x = 1.000000;
 						scale_y = 1.000000;
@@ -533,13 +533,13 @@
 						visible = true;
 						lua_name = 'evolutionTabLabel3';
 						font_name = 'font/common_font_01.ttf';
-						font_size = 24;
+						font_size = 22;
 						text = '성룡';
 						h_alignment = 1;
 						v_alignment = 1;
 						color = { 240; 215; 159; };
 						opacity = 255;
-						dimension_width = 120;
+						dimension_width = 130;
 						dimension_height = 46;
 						letter_spacing = 0.000000;
 						has_stroke = false;
@@ -556,12 +556,12 @@
 					};
 					type = 'Button';
 					ui_name = '';
-					x = 132.000000;
+					x = 142.000000;
 					y = -30.000000;
 					dock_point = { 0.500000; 0.500000; };
 					anchor_point = { 0.500000; 0.500000; };
 					relative_size_type = 0;
-					width = 120;
+					width = 140;
 					height = 50;
 					scale_x = 1.000000;
 					scale_y = 1.000000;
@@ -585,7 +585,7 @@
 					dock_point = { 0.500000; 0.500000; };
 					anchor_point = { 0.500000; 0.500000; };
 					relative_size_type = 0;
-					width = 380;
+					width = 420;
 					height = 40;
 					scale_x = 1.000000;
 					scale_y = 1.000000;
@@ -649,7 +649,7 @@
 						visible = true;
 						lua_name = 'resistance_label';
 						font_name = 'font/common_font_01.ttf';
-						font_size = 22;
+						font_size = 20;
 						text = '{0}';
 						h_alignment = 2;
 						v_alignment = 1;
@@ -689,7 +689,7 @@
 						visible = true;
 						lua_name = 'accuracy_label';
 						font_name = 'font/common_font_01.ttf';
-						font_size = 22;
+						font_size = 20;
 						text = '{0}';
 						h_alignment = 2;
 						v_alignment = 1;
@@ -729,7 +729,7 @@
 						visible = true;
 						lua_name = 'cri_avoid_label';
 						font_name = 'font/common_font_01.ttf';
-						font_size = 22;
+						font_size = 20;
 						text = '{0}';
 						h_alignment = 2;
 						v_alignment = 1;
@@ -769,7 +769,7 @@
 						visible = true;
 						lua_name = 'avoid_label';
 						font_name = 'font/common_font_01.ttf';
-						font_size = 22;
+						font_size = 20;
 						text = '{0}';
 						h_alignment = 2;
 						v_alignment = 1;
@@ -809,7 +809,7 @@
 						visible = true;
 						lua_name = 'hit_rate_label';
 						font_name = 'font/common_font_01.ttf';
-						font_size = 22;
+						font_size = 20;
 						text = '{0}';
 						h_alignment = 2;
 						v_alignment = 1;
@@ -849,7 +849,7 @@
 						visible = true;
 						lua_name = 'cri_dmg_label';
 						font_name = 'font/common_font_01.ttf';
-						font_size = 22;
+						font_size = 20;
 						text = '{0}%';
 						h_alignment = 2;
 						v_alignment = 1;
@@ -889,7 +889,7 @@
 						visible = true;
 						lua_name = 'cri_chance_label';
 						font_name = 'font/common_font_01.ttf';
-						font_size = 22;
+						font_size = 20;
 						text = '{0}%';
 						h_alignment = 2;
 						v_alignment = 1;
@@ -929,7 +929,7 @@
 						visible = true;
 						lua_name = 'aspd_label';
 						font_name = 'font/common_font_01.ttf';
-						font_size = 22;
+						font_size = 20;
 						text = '{0}%';
 						h_alignment = 2;
 						v_alignment = 1;
@@ -969,7 +969,7 @@
 						visible = true;
 						lua_name = 'atk_label';
 						font_name = 'font/common_font_01.ttf';
-						font_size = 22;
+						font_size = 20;
 						text = '{0}';
 						h_alignment = 2;
 						v_alignment = 1;
@@ -1009,7 +1009,7 @@
 						visible = true;
 						lua_name = 'def_label';
 						font_name = 'font/common_font_01.ttf';
-						font_size = 22;
+						font_size = 20;
 						text = '{0}';
 						h_alignment = 2;
 						v_alignment = 1;
@@ -1049,7 +1049,7 @@
 						visible = true;
 						lua_name = 'hp_label';
 						font_name = 'font/common_font_01.ttf';
-						font_size = 22;
+						font_size = 20;
 						text = '{0}';
 						h_alignment = 2;
 						v_alignment = 1;
@@ -1089,7 +1089,7 @@
 						visible = true;
 						lua_name = '';
 						font_name = 'font/common_font_01.ttf';
-						font_size = 22;
+						font_size = 20;
 						text = '효과 저항';
 						h_alignment = 0;
 						v_alignment = 1;
@@ -1129,7 +1129,7 @@
 						visible = true;
 						lua_name = '';
 						font_name = 'font/common_font_01.ttf';
-						font_size = 22;
+						font_size = 20;
 						text = '효과 적중';
 						h_alignment = 0;
 						v_alignment = 1;
@@ -1169,7 +1169,7 @@
 						visible = true;
 						lua_name = '';
 						font_name = 'font/common_font_01.ttf';
-						font_size = 22;
+						font_size = 20;
 						text = '치명 회피';
 						h_alignment = 0;
 						v_alignment = 1;
@@ -1209,7 +1209,7 @@
 						visible = true;
 						lua_name = '';
 						font_name = 'font/common_font_01.ttf';
-						font_size = 22;
+						font_size = 20;
 						text = '회피';
 						h_alignment = 0;
 						v_alignment = 1;
@@ -1249,7 +1249,7 @@
 						visible = true;
 						lua_name = '';
 						font_name = 'font/common_font_01.ttf';
-						font_size = 22;
+						font_size = 20;
 						text = '적중';
 						h_alignment = 0;
 						v_alignment = 1;
@@ -1289,7 +1289,7 @@
 						visible = true;
 						lua_name = '';
 						font_name = 'font/common_font_01.ttf';
-						font_size = 22;
+						font_size = 20;
 						text = '치명 피해';
 						h_alignment = 0;
 						v_alignment = 1;
@@ -1329,7 +1329,7 @@
 						visible = true;
 						lua_name = '';
 						font_name = 'font/common_font_01.ttf';
-						font_size = 22;
+						font_size = 20;
 						text = '치명 확률';
 						h_alignment = 0;
 						v_alignment = 1;
@@ -1369,7 +1369,7 @@
 						visible = true;
 						lua_name = '';
 						font_name = 'font/common_font_01.ttf';
-						font_size = 22;
+						font_size = 20;
 						text = '공격 속도';
 						h_alignment = 0;
 						v_alignment = 1;
@@ -1409,7 +1409,7 @@
 						visible = true;
 						lua_name = '';
 						font_name = 'font/common_font_01.ttf';
-						font_size = 22;
+						font_size = 20;
 						text = '공격력';
 						h_alignment = 0;
 						v_alignment = 1;
@@ -1449,7 +1449,7 @@
 						visible = true;
 						lua_name = '';
 						font_name = 'font/common_font_01.ttf';
-						font_size = 22;
+						font_size = 20;
 						text = '방어력';
 						h_alignment = 0;
 						v_alignment = 1;
@@ -1489,7 +1489,7 @@
 						visible = true;
 						lua_name = '';
 						font_name = 'font/common_font_01.ttf';
-						font_size = 22;
+						font_size = 20;
 						text = '생명력';
 						h_alignment = 0;
 						v_alignment = 1;
@@ -1514,7 +1514,7 @@
 					{
 						type = 'Sprite';
 						ui_name = '';
-						x = 109.000000;
+						x = 180.000000;
 						y = 47.000000;
 						dock_point = { 0.000000; 0.500000; };
 						anchor_point = { 0.000000; 0.500000; };
@@ -1540,7 +1540,7 @@
 					{
 						type = 'ProgressTimer';
 						ui_name = '';
-						x = 112.000000;
+						x = 183.000000;
 						y = -30.000000;
 						dock_point = { 0.000000; 0.500000; };
 						anchor_point = { 0.000000; 0.500000; };
@@ -1570,7 +1570,7 @@
 					{
 						type = 'ProgressTimer';
 						ui_name = '';
-						x = 112.000000;
+						x = 183.000000;
 						y = 0.000000;
 						dock_point = { 0.000000; 0.500000; };
 						anchor_point = { 0.000000; 0.500000; };
@@ -1600,7 +1600,7 @@
 					{
 						type = 'ProgressTimer';
 						ui_name = '';
-						x = 112.000000;
+						x = 183.000000;
 						y = 30.000000;
 						dock_point = { 0.000000; 0.500000; };
 						anchor_point = { 0.000000; 0.500000; };
@@ -1630,7 +1630,7 @@
 					{
 						type = 'ProgressTimer';
 						ui_name = '';
-						x = 112.000000;
+						x = 183.000000;
 						y = 60.000000;
 						dock_point = { 0.000000; 0.500000; };
 						anchor_point = { 0.000000; 0.500000; };
@@ -1660,7 +1660,7 @@
 					{
 						type = 'ProgressTimer';
 						ui_name = '';
-						x = 112.000000;
+						x = 183.000000;
 						y = 90.000000;
 						dock_point = { 0.000000; 0.500000; };
 						anchor_point = { 0.000000; 0.500000; };
@@ -1690,7 +1690,7 @@
 					{
 						type = 'ProgressTimer';
 						ui_name = '';
-						x = 112.000000;
+						x = 183.000000;
 						y = 120.000000;
 						dock_point = { 0.000000; 0.500000; };
 						anchor_point = { 0.000000; 0.500000; };
@@ -1723,7 +1723,7 @@
 					dock_point = { 0.500000; 0.500000; };
 					anchor_point = { 0.500000; 0.500000; };
 					relative_size_type = 0;
-					width = 420;
+					width = 490;
 					height = 420;
 					scale_x = 1.000000;
 					scale_y = 1.000000;
@@ -1737,7 +1737,7 @@
 				{
 					type = 'Button';
 					ui_name = '';
-					x = 166.000000;
+					x = 186.000000;
 					y = 32.000000;
 					dock_point = { 0.500000; 0.500000; };
 					anchor_point = { 0.500000; 0.500000; };
@@ -1841,7 +1841,7 @@
 				{
 					type = 'Button';
 					ui_name = '';
-					x = 166.000000;
+					x = 186.000000;
 					y = 102.000000;
 					dock_point = { 0.500000; 0.500000; };
 					anchor_point = { 0.500000; 0.500000; };
@@ -1865,7 +1865,7 @@
 				{
 					type = 'Button';
 					ui_name = '';
-					x = -166.000000;
+					x = -186.000000;
 					y = 102.000000;
 					dock_point = { 0.500000; 0.500000; };
 					anchor_point = { 0.500000; 0.500000; };
@@ -1929,7 +1929,7 @@
 				{
 					type = 'Button';
 					ui_name = '';
-					x = 166.000000;
+					x = 186.000000;
 					y = 170.000000;
 					dock_point = { 0.500000; 0.500000; };
 					anchor_point = { 0.500000; 0.500000; };
@@ -1953,7 +1953,7 @@
 				{
 					type = 'Button';
 					ui_name = '';
-					x = -166.000000;
+					x = -186.000000;
 					y = 170.000000;
 					dock_point = { 0.500000; 0.500000; };
 					anchor_point = { 0.500000; 0.500000; };
@@ -2166,8 +2166,8 @@
 						dock_point = { 0.500000; 0.500000; };
 						anchor_point = { 0.500000; 0.500000; };
 						relative_size_type = 0;
-						width = 100;
-						height = 30;
+						width = 80;
+						height = 60;
 						scale_x = 1.000000;
 						scale_y = 1.000000;
 						skew_x = 0.000000;
@@ -2182,8 +2182,8 @@
 						v_alignment = 1;
 						color = { 240; 215; 159; };
 						opacity = 255;
-						dimension_width = 100;
-						dimension_height = 30;
+						dimension_width = 80;
+						dimension_height = 60;
 						letter_spacing = 0.000000;
 						has_stroke = true;
 						stroke_type = 0;
@@ -2261,6 +2261,54 @@
 					center_rect_width = 0;
 					center_rect_height = 0;
 				};
+				[26] =
+				{
+					type = 'Button';
+					ui_name = '';
+					x = 20.000000;
+					y = 275.000000;
+					dock_point = { 0.000000; 0.500000; };
+					anchor_point = { 0.500000; 0.500000; };
+					relative_size_type = 0;
+					width = 80;
+					height = 150;
+					scale_x = 1.000000;
+					scale_y = 1.000000;
+					skew_x = 0.000000;
+					skew_y = 0.000000;
+					rotation = 0.000000;
+					visible = true;
+					lua_name = 'prevBtn';
+					enable = true;
+					normal = 'ui/buttons/book_arrow_btn_0101.png';
+					selected = '';
+					disable = '';
+					image_type = 0;
+				};
+				[27] =
+				{
+					type = 'Button';
+					ui_name = '';
+					x = -20.000000;
+					y = 275.000000;
+					dock_point = { 1.000000; 0.500000; };
+					anchor_point = { 0.500000; 0.500000; };
+					relative_size_type = 0;
+					width = 80;
+					height = 150;
+					scale_x = 1.000000;
+					scale_y = 1.000000;
+					skew_x = 0.000000;
+					skew_y = 0.000000;
+					rotation = 0.000000;
+					visible = true;
+					lua_name = 'nextBtn';
+					enable = true;
+					normal = 'ui/buttons/book_arrow_btn_0102.png';
+					selected = '';
+					disable = '';
+					image_type = 0;
+				};
 				type = 'Menu';
 				ui_name = '';
 				x = 390.000000;
@@ -2300,54 +2348,6 @@
 					lua_name = 'dragonNode';
 				};
 				[2] =
-				{
-					type = 'Button';
-					ui_name = '';
-					x = 40.000000;
-					y = 0.000000;
-					dock_point = { 0.000000; 0.500000; };
-					anchor_point = { 0.500000; 0.500000; };
-					relative_size_type = 0;
-					width = 80;
-					height = 150;
-					scale_x = 1.000000;
-					scale_y = 1.000000;
-					skew_x = 0.000000;
-					skew_y = 0.000000;
-					rotation = 0.000000;
-					visible = true;
-					lua_name = 'prevBtn';
-					enable = true;
-					normal = 'ui/buttons/book_arrow_btn_0101.png';
-					selected = '';
-					disable = '';
-					image_type = 0;
-				};
-				[3] =
-				{
-					type = 'Button';
-					ui_name = '';
-					x = -40.000000;
-					y = 0.000000;
-					dock_point = { 1.000000; 0.500000; };
-					anchor_point = { 0.500000; 0.500000; };
-					relative_size_type = 0;
-					width = 80;
-					height = 150;
-					scale_x = 1.000000;
-					scale_y = 1.000000;
-					skew_x = 0.000000;
-					skew_y = 0.000000;
-					rotation = 0.000000;
-					visible = true;
-					lua_name = 'nextBtn';
-					enable = true;
-					normal = 'ui/buttons/book_arrow_btn_0102.png';
-					selected = '';
-					disable = '';
-					image_type = 0;
-				};
-				[4] =
 				{
 					[1] =
 					{
@@ -2816,7 +2816,7 @@
 					visible = true;
 					lua_name = 'attrMenu';
 				};
-				[5] =
+				[3] =
 				{
 					[1] =
 					{

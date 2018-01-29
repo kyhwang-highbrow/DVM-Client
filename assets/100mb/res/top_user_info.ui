@@ -85,12 +85,12 @@
 				{
 					type = 'LabelTTF';
 					ui_name = '';
-					x = 89.000000;
+					x = 76.000000;
 					y = 0.000000;
 					dock_point = { 0.000000; 0.500000; };
 					anchor_point = { 0.000000; 0.500000; };
 					relative_size_type = 0;
-					width = 448;
+					width = 280;
 					height = 82;
 					scale_x = 0.980000;
 					scale_y = 1.000000;
@@ -100,13 +100,13 @@
 					visible = true;
 					lua_name = 'titleLabel';
 					font_name = 'font/common_font_01.ttf';
-					font_size = 30;
+					font_size = 26;
 					text = 'TITLE';
 					h_alignment = 0;
 					v_alignment = 1;
 					color = { 255; 255; 255; };
 					opacity = 255;
-					dimension_width = 448;
+					dimension_width = 280;
 					dimension_height = 82;
 					letter_spacing = 0.000000;
 					has_stroke = true;

@@ -97,7 +97,7 @@
 				type = 'Node';
 				ui_name = '';
 				x = 40.000000;
-				y = 54.000000;
+				y = 46.000000;
 				dock_point = { 0.500000; 0.500000; };
 				anchor_point = { 0.500000; 0.500000; };
 				relative_size_type = 0;
@@ -294,13 +294,13 @@
 				{
 					type = 'LabelTTF';
 					ui_name = '';
-					x = -126.000000;
+					x = -188.000000;
 					y = 12.000000;
 					dock_point = { 0.500000; 0.500000; };
 					anchor_point = { 0.500000; 0.500000; };
 					relative_size_type = 0;
-					width = 171;
-					height = 34;
+					width = 295;
+					height = 40;
 					scale_x = 1.000000;
 					scale_y = 1.000000;
 					skew_x = 0.000000;
@@ -309,16 +309,16 @@
 					visible = true;
 					lua_name = '';
 					font_name = 'font/common_font_01.ttf';
-					font_size = 30;
+					font_size = 28;
 					text = '1 인연포인트';
 					h_alignment = 2;
 					v_alignment = 1;
 					color = { 255; 215; 0; };
 					opacity = 255;
-					dimension_width = 171;
-					dimension_height = 34;
+					dimension_width = 295;
+					dimension_height = 40;
 					letter_spacing = 0.000000;
-					has_stroke = false;
+					has_stroke = true;
 					stroke_type = 0;
 					stroke_detail_level = 0;
 					is_sharp_text = true;
@@ -422,7 +422,7 @@
 				type = 'Sprite';
 				ui_name = 'gauge';
 				x = 44.000000;
-				y = 124.000000;
+				y = 116.000000;
 				dock_point = { 0.500000; 0.500000; };
 				anchor_point = { 0.500000; 0.500000; };
 				relative_size_type = 0;
@@ -447,6 +447,25 @@
 			{
 				[1] =
 				{
+					type = 'Node';
+					ui_name = '';
+					x = 0.000000;
+					y = -18.000000;
+					dock_point = { 0.500000; 0.500000; };
+					anchor_point = { 0.500000; 0.500000; };
+					relative_size_type = 0;
+					width = 240;
+					height = 40;
+					scale_x = 0.900000;
+					scale_y = 0.900000;
+					skew_x = 0.000000;
+					skew_y = 0.000000;
+					rotation = 0.000000;
+					visible = true;
+					lua_name = 'starNode';
+				};
+				[2] =
+				{
 					type = 'LabelTTF';
 					ui_name = '';
 					x = 0.000000;
@@ -454,8 +473,8 @@
 					dock_point = { 0.500000; 0.500000; };
 					anchor_point = { 0.500000; 0.500000; };
 					relative_size_type = 0;
-					width = 600;
-					height = 50;
+					width = 270;
+					height = 70;
 					scale_x = 1.000000;
 					scale_y = 1.000000;
 					skew_x = 0.000000;
@@ -464,14 +483,14 @@
 					visible = true;
 					lua_name = 'dragonNameLabel';
 					font_name = 'font/common_font_01.ttf';
-					font_size = 28;
+					font_size = 24;
 					text = '스비크레센트 드래곤';
 					h_alignment = 1;
 					v_alignment = 1;
 					color = { 255; 215; 0; };
 					opacity = 255;
-					dimension_width = 600;
-					dimension_height = 50;
+					dimension_width = 270;
+					dimension_height = 70;
 					letter_spacing = 0.000000;
 					has_stroke = true;
 					stroke_type = 0;
@@ -485,36 +504,36 @@
 					shadow_direction = 0;
 					shadow_distance = 5.000000;
 				};
-				[2] =
+				[3] =
 				{
 					type = 'Node';
 					ui_name = '';
 					x = -140.000000;
 					y = 14.000000;
 					dock_point = { 0.500000; 0.500000; };
-					anchor_point = { 0.500000; 0.500000; };
+					anchor_point = { 1.000000; 0.500000; };
 					relative_size_type = 0;
 					width = 46;
 					height = 46;
-					scale_x = 1.000000;
-					scale_y = 1.000000;
+					scale_x = 0.900000;
+					scale_y = 0.900000;
 					skew_x = 0.000000;
 					skew_y = 0.000000;
 					rotation = 0.000000;
 					visible = true;
 					lua_name = 'attrNode';
 				};
-				[3] =
+				[4] =
 				{
 					type = 'LabelTTF';
 					ui_name = '';
-					x = 166.000000;
+					x = 140.000000;
 					y = 14.000000;
 					dock_point = { 0.500000; 0.500000; };
-					anchor_point = { 0.500000; 0.500000; };
+					anchor_point = { 0.000000; 0.500000; };
 					relative_size_type = 0;
-					width = 100;
-					height = 50;
+					width = 80;
+					height = 80;
 					scale_x = 1.000000;
 					scale_y = 1.000000;
 					skew_x = 0.000000;
@@ -523,14 +542,14 @@
 					visible = true;
 					lua_name = 'typeLabel';
 					font_name = 'font/common_font_01.ttf';
-					font_size = 24;
+					font_size = 20;
 					text = 'typeLabel';
-					h_alignment = 0;
+					h_alignment = 1;
 					v_alignment = 1;
 					color = { 240; 215; 159; };
 					opacity = 255;
-					dimension_width = 100;
-					dimension_height = 50;
+					dimension_width = 80;
+					dimension_height = 80;
 					letter_spacing = 0.000000;
 					has_stroke = true;
 					stroke_type = 0;
@@ -544,29 +563,10 @@
 					shadow_direction = 0;
 					shadow_distance = 2.000000;
 				};
-				[4] =
-				{
-					type = 'Node';
-					ui_name = '';
-					x = 0.000000;
-					y = -18.000000;
-					dock_point = { 0.500000; 0.500000; };
-					anchor_point = { 0.500000; 0.500000; };
-					relative_size_type = 0;
-					width = 240;
-					height = 40;
-					scale_x = 1.000000;
-					scale_y = 1.000000;
-					skew_x = 0.000000;
-					skew_y = 0.000000;
-					rotation = 0.000000;
-					visible = true;
-					lua_name = 'starNode';
-				};
 				type = 'Scale9Sprite';
 				ui_name = 'titile';
 				x = 0.000000;
-				y = 216.000000;
+				y = 202.000000;
 				dock_point = { 0.500000; 0.500000; };
 				anchor_point = { 0.500000; 0.500000; };
 				relative_size_type = 0;
@@ -746,7 +746,7 @@
 				type = 'Node';
 				ui_name = '';
 				x = -182.000000;
-				y = 128.000000;
+				y = 118.000000;
 				dock_point = { 0.500000; 0.500000; };
 				anchor_point = { 0.500000; 0.500000; };
 				relative_size_type = 0;

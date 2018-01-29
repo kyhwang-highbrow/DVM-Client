@@ -386,7 +386,7 @@
 					dock_point = { 0.500000; 0.500000; };
 					anchor_point = { 0.500000; 0.500000; };
 					relative_size_type = 0;
-					width = 400;
+					width = 690;
 					height = 50;
 					scale_x = 1.000000;
 					scale_y = 1.000000;
@@ -396,13 +396,13 @@
 					visible = true;
 					lua_name = 'titleLabel';
 					font_name = 'font/common_font_01.ttf';
-					font_size = 38;
+					font_size = 34;
 					text = '{0}.titleLabel';
 					h_alignment = 1;
 					v_alignment = 1;
 					color = { 243; 236; 225; };
 					opacity = 255;
-					dimension_width = 400;
+					dimension_width = 690;
 					dimension_height = 50;
 					letter_spacing = 0.000000;
 					has_stroke = true;
@@ -753,15 +753,15 @@
 			};
 			[22] =
 			{
-				type = 'Sprite';
+				type = 'Visual';
 				ui_name = '';
-				x = -10.000000;
-				y = 130.000000;
+				x = 0.000000;
+				y = 138.000000;
 				dock_point = { 0.500000; 0.500000; };
 				anchor_point = { 0.500000; 0.500000; };
 				relative_size_type = 0;
-				width = 375;
-				height = 153;
+				width = 0;
+				height = 0;
 				scale_x = 1.000000;
 				scale_y = 1.000000;
 				skew_x = 0.000000;
@@ -769,13 +769,12 @@
 				rotation = 0.000000;
 				visible = false;
 				lua_name = 'clearEventSprite';
-				file_name = 'ui/typo/ko/event_1_7.png';
+				file_name = 'ui/a2d/stage_map/stage_map.vrp';
+				auto_play = true;
+				is_repeat = true;
+				visual_id = 'group;event';
 				color = { 255; 255; 255; };
 				opacity = 255;
-				flip_x = false;
-				flip_y = false;
-				src_blend = 770;
-				dest_blend = 771;
 			};
 			type = 'Menu';
 			ui_name = '';
@@ -797,6 +796,25 @@
 		[2] =
 		{
 			[1] =
+			{
+				type = 'Node';
+				ui_name = '';
+				x = -368.000000;
+				y = -70.000000;
+				dock_point = { 0.500000; 0.500000; };
+				anchor_point = { 0.500000; 0.500000; };
+				relative_size_type = 0;
+				width = 150;
+				height = 238;
+				scale_x = 1.000000;
+				scale_y = 1.000000;
+				skew_x = 0.000000;
+				skew_y = 0.000000;
+				rotation = 0.000000;
+				visible = true;
+				lua_name = 'stc_stageBtn2';
+			};
+			[2] =
 			{
 				type = 'Node';
 				ui_name = '';
@@ -966,12 +984,12 @@
 			};
 			type = 'Button';
 			ui_name = '';
-			x = -80.000000;
+			x = -110.000000;
 			y = 36.000000;
 			dock_point = { 1.000000; 0.000000; };
 			anchor_point = { 0.500000; 0.500000; };
 			relative_size_type = 0;
-			width = 140;
+			width = 200;
 			height = 50;
 			scale_x = 1.000000;
 			scale_y = 1.000000;
@@ -990,12 +1008,12 @@
 		{
 			type = 'LabelTTF';
 			ui_name = '';
-			x = -80.000000;
-			y = 74.000000;
+			x = -10.000000;
+			y = 59.000000;
 			dock_point = { 1.000000; 0.000000; };
-			anchor_point = { 0.500000; 0.500000; };
+			anchor_point = { 1.000000; 0.000000; };
 			relative_size_type = 0;
-			width = 140;
+			width = 200;
 			height = 30;
 			scale_x = 1.000000;
 			scale_y = 1.000000;
@@ -1011,7 +1029,7 @@
 			v_alignment = 1;
 			color = { 255; 255; 255; };
 			opacity = 255;
-			dimension_width = 140;
+			dimension_width = 200;
 			dimension_height = 30;
 			letter_spacing = 0.000000;
 			has_stroke = true;

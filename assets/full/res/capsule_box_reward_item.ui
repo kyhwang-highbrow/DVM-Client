@@ -60,7 +60,7 @@
 				anchor_point = { 0.500000; 0.500000; };
 				relative_size_type = 0;
 				width = 190;
-				height = 40;
+				height = 74;
 				scale_x = 1.000000;
 				scale_y = 1.000000;
 				skew_x = 0.000000;
@@ -69,14 +69,14 @@
 				visible = true;
 				lua_name = 'rewardLabel';
 				font_name = 'font/common_font_01.ttf';
-				font_size = 24;
+				font_size = 22;
 				text = 'rewardLabel';
 				h_alignment = 1;
 				v_alignment = 1;
 				color = { 255; 255; 255; };
 				opacity = 255;
 				dimension_width = 190;
-				dimension_height = 40;
+				dimension_height = 74;
 				letter_spacing = 0.000000;
 				has_stroke = false;
 				stroke_type = 0;
