@@ -383,9 +383,14 @@ function StructProduct:getPriceStr()
         local dicMarketPrice = g_shopDataNew.m_dicMarketPrice
         local sku = self['sku']
 
-        -- 마켓에서 받은 가격이 있다면 표시
-        if (sku) and (dicMarketPrice[sku]) then
-            return dicMarketPrice[sku]
+        if (price_type == 'money') then
+            -- 마켓에서 받은 가격이 있다면 표시
+            if (sku) and (dicMarketPrice[sku]) then
+                return dicMarketPrice[sku]
+            -- 없다면 기본 달러 표시
+            else
+                return '$' .. comma_value(self:getPrice())
+            end
         else
             return comma_value(self:getPrice())
         end
@@ -997,10 +1002,6 @@ end
 -- function getPrice
 -------------------------------------
 function StructProduct:getPrice()
-    if (self['price_type'] == 'money') then
-        return '＄' .. self['price_dollar']
-    end
-    
     return self['price']
 end
 
