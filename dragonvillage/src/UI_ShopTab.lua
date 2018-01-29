@@ -60,8 +60,8 @@ function UI_ShopTab:init_TableView()
 	end
 
     local scale = 1
-    local item_per_cell = 2
-    local interval = 15
+    local item_per_cell = 3
+    local interval = 2
 
     -- 탭에서 상품 개수가 6개 이상이 되면 3줄로 노출
     --if (6 < table.count(l_item_list)) then
@@ -78,9 +78,9 @@ function UI_ShopTab:init_TableView()
 
     -- 테이블 뷰 인스턴스 생성
     local table_view_td = UIC_TableViewTD(list_table_node)
-    table_view_td.m_cellSize = cc.size((300 + interval) * scale, (280 + interval) * scale)
+    table_view_td.m_cellSize = cc.size((334 + interval) * scale, (286 + interval) * scale)
     table_view_td:setCellUIClass(UI_Product, create_cb_func)
-    table_view_td:setDirection(cc.SCROLLVIEW_DIRECTION_HORIZONTAL)
+    table_view_td:setDirection(cc.SCROLLVIEW_DIRECTION_VERTICAL)
     table_view_td.m_nItemPerCell = item_per_cell
  
     -- 리스트가 비었을 때

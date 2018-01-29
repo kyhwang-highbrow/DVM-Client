@@ -15,6 +15,10 @@ function UI_Product:init(struct_product)
     local vars = self:load('shop_list_01.ui')
 
     self.m_structProduct = struct_product
+    
+    self:initItemNodePos()
+    self:initDscLabelPos()
+
     self:initUI()
 	self:initButton()
 	self:refresh()
@@ -116,6 +120,108 @@ function UI_Product:initUI()
 end
 
 -------------------------------------
+-- function initItemNodePos
+-- @brief 상점 타입별 아이템 포지션, 스케일 변경
+-------------------------------------
+function UI_Product:initItemNodePos()
+    local vars = self.vars
+    local struct_product = self.m_structProduct
+    local type = struct_product:getTabCategory()
+
+    local target_pos 
+    local target_scale
+
+    -- 다이아
+    if (type == 'cash') then
+        target_pos = cc.p(-50, 46)
+
+    -- 골드
+    elseif (type == 'gold') then
+        target_pos = cc.p(0, 46)
+
+    -- 토파즈
+    elseif (type == 'topaz') then
+        local pid = struct_product['product_id']
+        if (not pid) then return end
+
+        if (pid == 30001) or -- 초월의 알
+           (pid == 30002) or -- 신화의 알
+           (pid == 30008) or -- 전설드래곤 선택권
+           (pid == 30009) then -- 캡슐코인
+            target_pos = cc.p(0, 64)
+        end
+
+        if (pid == 30004) or -- 스킬슬라임
+           (pid == 30005) or -- 아르주나
+           (pid == 30006) or -- 카르나
+           (pid == 30007) then -- 앙그라
+            target_pos = cc.p(0, 80)
+            target_scale = 0.8
+        end
+
+    -- 명예
+    elseif (type == 'honor') then
+        local pid = struct_product['product_id']
+        if (not pid) then return end
+
+        if (pid == 50006) or (pid == 50007) then -- 스킬슬라임
+            target_pos = cc.p(0, 80)
+            target_scale = 0.8
+        end
+
+    -- 클랜코인
+    elseif (type == 'clancoin') then
+                local pid = struct_product['product_id']
+        if (not pid) then return end
+
+        if (pid == 60010) or (pid == 60013) or (pid == 60014) then -- 스킬슬라임, 강화포인트
+            target_pos = cc.p(0, 80)
+            target_scale = 0.8
+        end
+
+        if (pid == 60012) then -- 절대적인 전설의알
+            target_pos = cc.p(0, 64)
+        end
+
+
+    -- 고대주화
+    elseif (type == 'ancient') then
+        target_pos = cc.p(0, 80)
+    end
+
+    local node = vars['itemNode']
+    if (target_pos) then
+        node:setPosition(target_pos.x, target_pos.y)
+    end
+
+    if (target_scale) then
+        node:setScale(target_scale)
+    end
+end
+
+-------------------------------------
+-- function initDscLabelPos
+-- @brief 상점 타입별 dscLabel 포지션, 스케일 변경
+-------------------------------------
+function UI_Product:initDscLabelPos()
+    local vars = self.vars
+    local struct_product = self.m_structProduct
+    local type = struct_product:getTabCategory()
+
+    local target_pos = struct_product:getMaxBuyTermStr() == '' and cc.p(0, 100) or cc.p(0, 120)
+
+    -- 고대주화
+    if (type == 'ancient') then
+        target_pos = cc.p(0, 120)
+    end
+
+    local label = vars['dscLabel']
+    if (target_pos) then
+        label:setPosition(target_pos.x, target_pos.y)
+    end
+end
+
+-------------------------------------
 -- function initButton
 -------------------------------------
 function UI_Product:initButton()
@@ -133,7 +239,6 @@ function UI_Product:refresh()
 	-- package 예외처리
 	if (struct_product:isPackage()) then
 		vars['maxBuyTermLabel']:setString('')
-		--vars['dscLabel']:setString('')
 		vars['buyBtn']:setEnabled(true)
 		return
 	end
@@ -142,11 +247,6 @@ function UI_Product:refresh()
     local node = vars['maxBuyTermLabel']
     local str = struct_product:getMaxBuyTermStr()
     node:setString(str)
-
-    -- 구매 제한 설명이 있는 경우 기본 설명 라벨 안보이게 (포지션 겹침)
-    if (node:getString() ~= '') then
-        vars['dscLabel']:setString('')
-    end
 
     -- 판매 가능 여부
     if (struct_product['lock'] == 1) then

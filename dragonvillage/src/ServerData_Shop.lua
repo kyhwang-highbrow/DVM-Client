@@ -380,9 +380,10 @@ function ServerData_Shop:openShopPopup(tab_type, close_cb)
 
         if tab_type then
             -- sgkim 2017-11-03 골드는 "소모품, 골드"탭에서 팔도록 변경되어서 강제로 이동시킴
-            if (tab_type == 'gold') then
+            -- klee 2018-01-29 골드 다시 탭 분리
+            --[[if (tab_type == 'gold') then
                 tab_type = 'st'
-            end
+            end]]--
             ui_shop_popup:setTab(tab_type)
         end
 

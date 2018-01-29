@@ -32,7 +32,7 @@ function ServerData_Event:getEventPopupTabList()
     -- 기타 가변적인 이벤트 (shop, banner, access_time)
     local idx = 1
     for i, v in ipairs(event_list) do
-        local is_exist = true
+        local visible = true
         local event_id = v['event_id']
         local event_type = v['event_type'] 
         local priority = v['ui_priority']
@@ -40,50 +40,49 @@ function ServerData_Event:getEventPopupTabList()
         
         -- ui_priority가 없는 것은 등록하지 않는다.
         if (priority == '') then
-            is_exist = false
+            visible = false
         end
 
         -- 토파즈가 있는 유저에게만 보이는 이벤트
         if (feature == 'topaz') then
             local topaz = g_userData:get('topaz')
             if (topaz <= 0) then
-                is_exist = false
+                visible = false
             end
 
         -- 드빌 전용관은 한국서버에서만 노출
         elseif (event_type == 'highbrow_shop') then
             if (not g_localData:isShowHighbrowShop()) then
-                is_exist = false
+                visible = false
             end
+
+        -- 이벤트 탭에서는 패키지 제외
+        elseif (string.find(event_type, 'package_')) then
+            visible = false
 
         -- shop 관련 이벤트는 오픈되지 않능 상품이라면 탭 등록 pass 
         elseif (event_type == 'shop') then
-            is_exist = g_shopDataNew:isExist('package', event_id)
-
-        -- package 관련 이벤트는 구성품이 오픈되지 않능 상품이라면 탭 등록 pass - ex) 주말패키지
-        elseif (string.find(event_type, 'package_')) then
-            is_exist = PackageManager:isExist(event_type)
+            visible = g_shopDataNew:isExist('package', event_id)
 
 		-- Daily Mission
 		elseif (event_type == 'daily_mission') then
 			-- 전부 클리어 체크
 			if (g_dailyMissionData:getMissionDone(event_id)) then
-				is_exist = false
+				visible = false
 			end
 
 		-- 출석
 		elseif (event_type == 'attendance') then
 			if (not g_attendanceData:getAttendanceData(event_id)) then
-				is_exist = false
+				visible = false
 			end
 
 		-- 한정 이벤트 체크
 		elseif (event_id == 'limited') then
-			is_exist = g_hotTimeData:isActiveEvent(event_type)
+			visible = g_hotTimeData:isActiveEvent(event_type)
+        end
 
-		end
-
-        if (is_exist) then
+        if (visible) then
             local event_popup_tab = StructEventPopupTab(v)
 
             -- 키값은 중복되지 않게
@@ -95,6 +94,45 @@ function ServerData_Event:getEventPopupTabList()
                 event_popup_tab.m_type = type
             end
 
+            item_list[event_popup_tab.m_type] = event_popup_tab
+            self:setEventTabNoti(event_popup_tab)
+        end
+    end
+
+    return item_list
+end
+
+-------------------------------------
+-- function getPackagePopupTabList
+-- @brief 패키지 탭 노출 리스트 (이벤트와 분리)
+-------------------------------------
+function ServerData_Event:getPackagePopupTabList()
+    local item_list = {}
+    local event_list = self.m_eventList
+
+    -- 기타 가변적인 이벤트 (shop, banner, access_time)
+    local idx = 1
+    for i, v in ipairs(event_list) do
+        local visible = true
+        local event_type = v['event_type'] 
+        local priority = v['ui_priority']
+        
+        -- ui_priority가 없는 것은 등록하지 않는다.
+        if (priority == '') then
+            visible = false
+        end
+
+        -- package 관련 이벤트는 구성품이 오픈되지 않능 상품이라면 탭 등록 pass - ex) 주말패키지
+        if (string.find(event_type, 'package_')) then
+            visible = PackageManager:isExist(event_type)
+        else
+            visible = false
+        end
+                
+        if (visible) then
+            local event_popup_tab = StructEventPopupTab(v)
+            local type = v['event_type']
+            event_popup_tab.m_type = type
             item_list[event_popup_tab.m_type] = event_popup_tab
             self:setEventTabNoti(event_popup_tab)
         end

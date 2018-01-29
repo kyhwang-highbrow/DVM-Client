@@ -54,7 +54,7 @@ end
 function UI_Shop:initTab()
     local vars = self.vars
 
-    local l_shop = {'st', 'gold', 'cash', 'amethyst', 'topaz', 'mileage', 'honor', 'package', 'ancient', 'clancoin'}
+    local l_shop = {'st', 'gold', 'cash', 'amethyst', 'topaz', 'mileage', 'honor', 'ancient', 'clancoin'}
     for _, tab in pairs(l_shop) do
         self:addTabWithTabUIAuto(tab, vars, UI_ShopTab(self, tab))
     end
@@ -66,6 +66,7 @@ end
 -- function initButton
 -------------------------------------
 function UI_Shop:initButton()
+    self.vars['packageTabBtn']:registerScriptTapHandler(function() self:click_packageTabBtn() end)
 end
 
 -------------------------------------
@@ -73,6 +74,13 @@ end
 -------------------------------------
 function UI_Shop:refresh()
 	self.vars['cashEventSprite']:setVisible(g_shopDataNew:isExistCashSale())
+end
+
+-------------------------------------
+-- function click_packageTabBtn
+-------------------------------------
+function UI_Shop:click_packageTabBtn()
+    UINavigator:goTo('package_shop')
 end
 
 -------------------------------------

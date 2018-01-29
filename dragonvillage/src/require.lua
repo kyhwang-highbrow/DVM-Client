@@ -727,6 +727,8 @@ local t_module = {
     'UI_DragonGuidePopup',
     'UI_DragonGuideListItem',
     'UI_DragonDiaryPopup',
+    'UI_PackagePopup',
+    'UI_PackageTabButton',
 
 	-- UI : 해외
 	'UI_SelectServerPopup',

@@ -106,4 +106,7 @@ if false then
 
     -- @brief 클랜 던전 UI로 이동
     UINavigator:goTo('clan_raid')
+
+    -- @brief 패키지 팝업 UI로 이동
+    UINavigator:goTo('package_shop')
 end

@@ -61,7 +61,8 @@ end
 -- @brief 기여도 계산 (서버에서 주면 좋지만 유저별로 다 계산해서 주기 어렵다며 클라에서 계산하라 함)
 -------------------------------------
 function StructUserInfoClanRaid:setContribution(total_score)
-    self.m_contribution = (self.m_score/total_score * 100)
+    -- 누적 점수 0 처리
+    self.m_contribution = (total_score == 0) and 0 or (self.m_score/total_score * 100)
 end
 
 -------------------------------------

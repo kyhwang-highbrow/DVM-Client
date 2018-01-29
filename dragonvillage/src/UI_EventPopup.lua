@@ -61,6 +61,8 @@ end
 -- function initButton
 -------------------------------------
 function UI_EventPopup:initButton()
+    local vars = self.vars 
+    vars['packageTabBtn']:registerScriptTapHandler(function() self:click_packageTabBtn() end)
 end
 
 -------------------------------------
@@ -199,17 +201,6 @@ function UI_EventPopup:makeEventPopupTab(tab)
         ui = UI_EventPopupTab_HBShop()
         self:addNodeToTabNodeList(tab, ui.m_webView)
 
-    -- * shop, banner는 중복가능 (string.find로 처리해야함)
-    -- 상점
-    elseif (string.find(tab, 'shop')) then
-        local product_id = struct_event_popup_tab.m_eventData['event_id']
-        local l_item_list = g_shopDataNew:getProductList('package')
-
-        local product = l_item_list[product_id]
-        if (product) then
-            ui = UI_EventPopupTab_Shop(product)
-        end
-
     -- 배너
     elseif (string.find(tab, 'banner')) then
         ui = UI_EventPopupTab_Banner(self, struct_event_popup_tab)
@@ -218,11 +209,6 @@ function UI_EventPopup:makeEventPopupTab(tab)
     elseif (tab == 'notice') then
         ui = UI_EventPopupTab_Notice(self, struct_event_popup_tab)
         self:addNodeToTabNodeList(tab, ui.m_webView)
-
-    -- 성장 패키지 묶음 UI (slime_package, growth_package)
-    elseif (TablePackageBundle:checkBundleWithName(tab)) then
-        local package_name = tab
-        ui = UI_EventPopupTab_Package(package_name)
 
     -- 수집 교환 이벤트
     elseif (string.find(tab, 'event_exchange')) then
@@ -265,6 +251,13 @@ function UI_EventPopup:click_exitBtn()
         -- 운영공지 활성화
         g_broadcastManager:setEnableNotice(true) 
     end
+end
+
+-------------------------------------
+-- function click_packageTabBtn
+-------------------------------------
+function UI_EventPopup:click_packageTabBtn()
+    UINavigator:goTo('package_shop')
 end
 
 -------------------------------------

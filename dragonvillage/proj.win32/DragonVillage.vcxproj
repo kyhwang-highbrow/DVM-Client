@@ -1024,6 +1024,8 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <None Include="..\src\UI_MonsterCustomCard.lua" />
     <None Include="..\src\UI_MonsterSkillCard.lua" />
     <None Include="..\src\UI_NightmareStageListItem.lua" />
+    <None Include="..\src\UI_PackagePopup.lua" />
+    <None Include="..\src\UI_PackageTabButton.lua" />
     <None Include="..\src\UI_Package_AdventureClear.lua" />
     <None Include="..\src\UI_Package_AdventureClearListItem.lua" />
     <None Include="..\src\UI_Package_Bundle.lua" />

@@ -1005,7 +1005,63 @@ function UINavigatorDefinition:goTo_clan_raid(...)
     g_clanRaidData:request_info(stage_id, finish_cb, fail_cb)
 end
 
+-------------------------------------
+-- function goTo_package_shop
+-- @brief 패키지 상점으로 이동
+-- @usage UINavigatorDefinition:goTo('package_shop')
+-------------------------------------
+function UINavigatorDefinition:goTo_package_shop(...)
 
+    -- 해당 UI가 열려있을 경우
+    local is_opend, idx, ui = self:findOpendUI('UI_PackagePopup')
+    if (is_opend == true) then
+        self:closeUIList(idx, false) -- param : idx, include_idx
+        return
+    end
+
+    local function finish_cb()
+
+        -- 이벤트 팝업이 열려있을 경우
+        local is_opend, idx, ui = self:findOpendUI('UI_EventPopup')
+        if (is_opend == true) then
+            self:closeUIList(idx)
+            local ui = UI_PackagePopup()
+            ui:setCloseCB(refresh_cb)
+            return
+        end
+
+        -- 상점이 열려있을 경우
+        local is_opend, idx, ui = self:findOpendUI('UI_Shop')
+        if (is_opend == true) then
+            self:closeUIList(idx)
+            local ui = UI_PackagePopup()
+            ui:setCloseCB(refresh_cb)
+            return
+        end
+
+        -- 로비가 열려있을 경우
+        local is_opend, idx, ui = self:findOpendUI('UI_Lobby')
+        if (is_opend == true) then
+            self:closeUIList(idx)
+            local ui = UI_PackagePopup()
+            ui:setCloseCB(refresh_cb)
+            return
+        end
+
+        do -- Scene으로 동작
+            local function close_cb()
+                refresh_cb()
+                UINavigatorDefinition:goTo('lobby')
+            end
+
+            local scene = SceneCommon(UI_PackagePopup, close_cb, sel_tamer_id)
+            scene:runScene()
+        end
+    end
+
+    -- 정보 요청
+    g_shopDataNew:request_shopInfo(finish_cb)
+end
 
 
 

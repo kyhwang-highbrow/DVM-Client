@@ -42,7 +42,25 @@ function UI_EventPopupTab_Banner:click_bannerBtn()
         return 
     end
 
+    if (url == 'cross_promotion') then
+        self:goToCrossPromotionAppStore()
+        return
+    end
+
     g_eventData:goToEventUrl(url)
+end
+
+-------------------------------------
+-- function goToCrossPromotionAppStore
+-- @brief 크로스 프로모션 마켓 연결 (마이 오아시스)
+-------------------------------------
+function UI_EventPopupTab_Banner:goToCrossPromotionAppStore()
+    local appId = 'com.buffstudio.myoasis'
+    if isIos() then
+        -- AppStore App ID
+        appId = '1247889896'
+    end
+    self:sendEvent('app_gotoStore', appId)
 end
 
 -------------------------------------
