@@ -759,6 +759,7 @@ local t_module = {
     'UI_Package_LevelUpListItem',
     'UI_Package_AdventureClear',
     'UI_Package_AdventureClearListItem',
+    'UI_Package_Step',
     'UI_SubscriptionPopup',
     'UI_SubscriptionPopup_Ing',
     'UI_SubscriptionDayListItem',

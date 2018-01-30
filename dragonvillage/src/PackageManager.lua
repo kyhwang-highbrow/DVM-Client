@@ -32,6 +32,10 @@ function PackageManager:getTargetUI(package_name, is_popup)
         local _struct_product = g_shopDataNew:getAdventureClearProduct()
         target_ui = UI_Package_AdventureClear(_struct_product, is_popup)
 
+    -- 단계별 패키지 UI
+    elseif (_package_name == 'package_step') then
+        target_ui = UI_Package_Step(_package_name, is_popup)
+
     -- 패키지 상품 묶음 UI 
     -- ### 단일 상품도 table_bundle_package에 등록
     elseif (TablePackageBundle:checkBundleWithName(_package_name)) then
