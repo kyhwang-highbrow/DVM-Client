@@ -14,6 +14,7 @@ android {
 
     defaultConfig {
         applicationId "com.perplelab.dragonvillagem.kr"
+
         minSdkVersion 17
         targetSdkVersion PROP_TARGET_SDK_VERSION
         multiDexEnabled true
@@ -132,10 +133,14 @@ android {
     * optional, and the build system does not create them by default.
     */
     productFlavors {
+        // flavor 공통 관리
+        main{
+            versionCode 29
+        }
+
         // DEV
         dev100mbTest{
 			versionName "0.5.0"
-            versionCode 29
             signingConfig signingConfigs.keystore
             externalNativeBuild {
                 ndkBuild {
@@ -149,7 +154,6 @@ android {
         }
         devFullTest{
 			versionName "9.9.9"
-            versionCode 29
             signingConfig signingConfigs.keystore    
             externalNativeBuild {
                 ndkBuild {
@@ -165,7 +169,6 @@ android {
         // QA
         qa100mbTest{
 			versionName "1.1.0"
-            versionCode 29
             signingConfig signingConfigs.keystore
             externalNativeBuild {
                 ndkBuild {
@@ -179,7 +182,6 @@ android {
         }
         qaFullTest{
 			versionName "1.1.0"
-            versionCode 29
             signingConfig signingConfigs.keystore
             externalNativeBuild {
                 ndkBuild {
@@ -195,7 +197,6 @@ android {
         // LIVE
         live100mb{
 			versionName "1.1.0"
-            versionCode 29
             signingConfig signingConfigs.upload_keystore
             externalNativeBuild {
                 ndkBuild {
@@ -209,7 +210,6 @@ android {
         }
         liveFull{
             versionName "1.1.0"
-            versionCode 29
             signingConfig signingConfigs.keystore
             externalNativeBuild {
                 ndkBuild {
@@ -220,11 +220,6 @@ android {
                     cppFlags.add("-DIS_TEST_MODE=false")
                 }
             }
-        }
-
-        // 특정 시점에서의 test 빌드들은 최신 live 빌드의 versionCode와 동일해야 하므로 공통으로 관리 
-        main{
-            versionCode 29
         }
     }
 
@@ -255,14 +250,18 @@ android {
             }
         }
     }
-    // apk 이름 변경 : "dvm_version_flavor_buildtype.apk
+
+    // apk 이름 변경 : "dvm_version_flavor_vc0_buildtype.apk
     applicationVariants.all { variant ->
         variant.outputs.each { output ->
+            def flavors = variant.productFlavors
+
+            def flavor = flavors[0].name // 여기서 0은 dimension 순서를 의미
             def version = variant.versionName
-            def flavor = variant.productFlavors[0].name
+            def versionCode = variant.versionCode
             def buildType = variant.variantData.variantConfiguration.buildType.name
 
-            def newApkName = "dvm_${version}_${flavor}_${buildType}.apk"
+            def newApkName = "dvm_${version}_${flavor}_vc${versionCode}_${buildType}.apk"
 
             output.outputFile = new File(output.outputFile.parent, newApkName)
         }
