@@ -78,7 +78,7 @@ function UI_ShopTab:init_TableView()
 
     -- 테이블 뷰 인스턴스 생성
     local table_view_td = UIC_TableViewTD(list_table_node)
-    table_view_td.m_cellSize = cc.size((334 + interval) * scale, (286 + interval) * scale)
+    table_view_td.m_cellSize = cc.size((334 + interval) * scale, (316 + interval) * scale)
     table_view_td:setCellUIClass(UI_Product, create_cb_func)
     table_view_td:setDirection(cc.SCROLLVIEW_DIRECTION_VERTICAL)
     table_view_td.m_nItemPerCell = item_per_cell
