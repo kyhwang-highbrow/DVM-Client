@@ -67,7 +67,7 @@ function UI_EventPopupTab_Banner:goToCrossPromotionAppStore()
         -- AppStore App ID
         appId = '1247889896'
     end
-    self:sendEvent('app_gotoStore', appId)
+    SDKManager:sendEvent('app_gotoStore', appId)
 end
 
 -------------------------------------
