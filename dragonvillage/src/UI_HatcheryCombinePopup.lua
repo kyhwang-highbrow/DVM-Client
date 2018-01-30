@@ -291,6 +291,7 @@ function UI_HatcheryCombinePopup:click_dragonCard(ui, data)
         t_warning['grade'] = (req_grade + 1)
         t_warning['lv'] = (req_grade_max_lv + 1)
         t_warning['evolution'] = (req_evolution + 1)
+		t_warning['pass_comb'] = true
         g_dragonsData:dragonMaterialWarning(oid, next_func, t_warning)
     end
 end

@@ -191,7 +191,7 @@ function TableDragon:getDragonName(did)
 end
 
 -------------------------------------
--- function getDragonName
+-- function getDragonNameWithAttr
 -------------------------------------
 function TableDragon:getDragonNameWithAttr(did)
     if (self == THIS) then
