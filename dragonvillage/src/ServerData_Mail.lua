@@ -195,7 +195,7 @@ end
 -- function request_mailRead
 -- @brief 우편 읽기 (받기)
 -------------------------------------
-function ServerData_Mail:request_mailRead(mail_id_list, mail_type_list, finish_cb)
+function ServerData_Mail:request_mailRead(mail_id_list, t_mail_type_reward, finish_cb)
     -- 파라미터
     local uid = g_userData:get('uid')
     local mids = listToCsv(mail_id_list)
@@ -204,15 +204,15 @@ function ServerData_Mail:request_mailRead(mail_id_list, mail_type_list, finish_c
     local function success_cb(ret)
 
         -- @analytics
-        for _, type in ipairs(mail_type_list) do
-            if (type == 'q_daily') then
-                Analytics:trackGetGoodsWithRet(ret, '일일 퀘스트')
+        for mail_type, ltem_list in ipairs(t_mail_type_reward) do
+            if (mail_type == 'q_daily') then
+                Analytics:trackGetGoodsWithItemList(item_list, '일일 퀘스트')
 
-            elseif (type == 'chlg') then
-                Analytics:trackGetGoodsWithRet(ret, '업적')
+            elseif (mail_type == 'chlg') then
+                Analytics:trackGetGoodsWithItemList(item_list, '업적')
 
-            elseif (type == 'advertising') then
-                Analytics:trackGetGoodsWithRet(ret, '광고 보상')
+            elseif (mail_type == 'advertising') then
+                Analytics:trackGetGoodsWithItemList(item_list, '광고 보상')
             end
         end
 
@@ -246,15 +246,25 @@ function ServerData_Mail:request_mailReadAll(type, finish_cb)
     -- 적절한 우편 id list 추출
 	local mail_list = self:getMailList(type)
 	local mail_id_list = {}
-    local mail_type_list = {}
+    local t_mail_type_reward = {}
 	for i, struct_mail in pairs(mail_list) do
 		-- 모두 받기 가능한 메일만 테이블에 추가
-		if (struct_mail:isMailCanReadAll()) then 
+		if (struct_mail:isMailCanReadAll()) then
+			-- id list
 			table.insert(mail_id_list, struct_mail:getMid())
-            table.insert(mail_type_list, struct_mail:getMailType())
+
+			-- item_list : 지표 축적을 위해서 가공
+			local mail_type = struct_mail:getMailType()
+			local item_list = struct_mail:getItemList()
+			if (not t_mail_type_reward[mail_type]) then
+				t_mail_type_reward[mail_type] = {}
+			end
+			for i, t_item in ipairs(item_list) do
+				table.insert(t_mail_type_reward[mail_type], t_item)
+			end
 		end
 	end
 
 	-- api로 보냄
-	g_mailData:request_mailRead(mail_id_list, mail_type_list, finish_cb)
+	self:request_mailRead(mail_id_list, t_mail_type_reward, finish_cb)
 end
