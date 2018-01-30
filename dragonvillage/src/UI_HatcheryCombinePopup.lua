@@ -400,6 +400,12 @@ function UI_HatcheryCombinePopup:click_combineBtn()
     MakeSimplePopup_Confirm('gold', t_dragon_combine['req_gold'], msg, ok_btn_cb)
 end
 
+-------------------------------------
+-- function isDirty
+-------------------------------------
+function UI_HatcheryCombinePopup:isDirty()
+	return self.m_bDirty
+end
 
 --@CHECK
 UI:checkCompileError(UI_HatcheryCombinePopup)

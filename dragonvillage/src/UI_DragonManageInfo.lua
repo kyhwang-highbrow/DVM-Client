@@ -835,7 +835,7 @@ function UI_DragonManageInfo:click_combineBtn()
 	if (comb_did) then
 		local ui = UI_HatcheryCombinePopup(comb_did)
 		ui:setCloseCB(function()
-			if (false) then
+			if (ui:isDirty()) then
 				-- 테이블 아이템갱신
 				self:init_dragonTableView()
 
