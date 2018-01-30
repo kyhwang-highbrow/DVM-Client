@@ -17,6 +17,29 @@ function TablePackageBundle:init()
 end
 
 -------------------------------------
+-- function getTableViewMap
+-- @brief 패키지 번들 테이블에 등록되있고 서버에서 상품 정보를 주는 것들만 테이블뷰 맵형태로 반환
+-------------------------------------
+function TablePackageBundle:getTableViewMap()
+    local map = {}
+    local l_item_list = g_shopDataNew:getProductList('package')
+    for i, v in ipairs(self.m_orgTable) do
+
+        local t_pids = v['t_pids']
+        local l_str = pl.stringx.split(t_pids, ',')
+        local target_pid = l_str[1]
+
+        -- 우선 순위는 table_shop_list에서 가져옴
+        local struct_product = l_item_list[tonumber(target_pid)]
+        if (struct_product) then
+            map[tostring(target_pid)] = struct_product
+        end
+    end
+
+    return map
+end
+
+-------------------------------------
 -- function getDataWithName
 -------------------------------------
 function TablePackageBundle:getDataWithName(package_name)

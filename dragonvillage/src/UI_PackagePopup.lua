@@ -26,9 +26,6 @@ function UI_PackagePopup:init()
     self:initUI()
     self:initButton()
     self:refresh()
-
-    -- 번역 추출 임시커밋
-    local temp = Str('초콜릿')
 end
 
 -------------------------------------
@@ -68,9 +65,8 @@ end
 -------------------------------------
 function UI_PackagePopup:init_tableView()
     local node = self.vars['listNode']
-    --node:removeAllChildren()
 
-    local l_item_list = g_eventData:getPackagePopupTabList()
+    local l_item_list = TablePackageBundle():getTableViewMap()
 
     -- 테이블 뷰 인스턴스 생성
     local table_view = UIC_TableView(node)
@@ -82,7 +78,7 @@ function UI_PackagePopup:init_tableView()
     -- 애니메이션 생략하고 바로 정렬하게 수정
     local function sort_func()
         table.sort(table_view.m_itemList, function(a, b)
-            return a['data'].m_sortIdx < b['data'].m_sortIdx
+            return a['data']['m_uiPriority'] > b['data']['m_uiPriority']
         end)
     end
     table_view:setItemList3(l_item_list, sort_func)
@@ -100,18 +96,18 @@ function UI_PackagePopup:initTab()
 
     local initial_tab = nil
     for i,v in pairs(self.m_tableView.m_itemList) do
-        local type = v['data'].m_type
+        local pid = v['data']['product_id']
         local ui = v['ui'] or v['generated_ui']
 
         local continer_node = cc.Node:create()
         continer_node:setDockPoint(cc.p(0.5, 0.5))
         continer_node:setAnchorPoint(cc.p(0.5, 0.5))
         vars['eventNode']:addChild(continer_node)
-        self.m_lContainerForEachType[type] = continer_node
-        self:addTab(type, ui.vars['listBtn'], continer_node, ui.vars['selectSprite'])
+        self.m_lContainerForEachType[pid] = continer_node
+        self:addTab(pid, ui.vars['listBtn'], continer_node, ui.vars['selectSprite'])
 
         if (not initial_tab) then
-            initial_tab = type
+            initial_tab = pid
         end
     end
 
@@ -145,11 +141,10 @@ function UI_PackagePopup:makeEventPopupTab(tab)
 
     local ui = nil
     local item = self.m_tableView:getItem(tab)
-    local struct_event_popup_tab = item['data']
     self.m_mTabUI[tab] = ui
 
-    if (TablePackageBundle:checkBundleWithName(tab)) then
-        local package_name = tab
+    local package_name = TablePackageBundle:getPackageNameWithPid(tab)
+    if (TablePackageBundle:checkBundleWithName(package_name)) then
         ui = UI_EventPopupTab_Package(package_name)
     end
 
