@@ -134,7 +134,8 @@ android {
     productFlavors {
         // DEV
         dev100mbTest{
-			versionName "0.4.5"
+			versionName "0.5.0"
+            versionCode 29
             signingConfig signingConfigs.keystore
             externalNativeBuild {
                 ndkBuild {
@@ -147,7 +148,8 @@ android {
             }
         }
         devFullTest{
-			versionName "0.4.5"
+			versionName "9.9.9"
+            versionCode 29
             signingConfig signingConfigs.keystore    
             externalNativeBuild {
                 ndkBuild {
@@ -162,7 +164,8 @@ android {
 
         // QA
         qa100mbTest{
-			versionName "1.0.8"
+			versionName "1.1.0"
+            versionCode 29
             signingConfig signingConfigs.keystore
             externalNativeBuild {
                 ndkBuild {
@@ -175,12 +178,13 @@ android {
             }
         }
         qaFullTest{
-			versionName "1.0.8"
+			versionName "1.1.0"
+            versionCode 29
             signingConfig signingConfigs.keystore
             externalNativeBuild {
                 ndkBuild {
                     cppFlags.add("-DTARGET_SERVER=SERVER_QA")
-                    cppFlags.add("-DUSE_PATCH=true")
+                    cppFlags.add("-DUSE_PATCH=false")
                     cppFlags.add("-DUSE_OBB=false")
                     cppFlags.add("-DUSE_LUA_EXT=false")
                     cppFlags.add("-DIS_TEST_MODE=true")
@@ -190,7 +194,8 @@ android {
 
         // LIVE
         live100mb{
-			versionName "1.0.8"
+			versionName "1.1.0"
+            versionCode 29
             signingConfig signingConfigs.upload_keystore
             externalNativeBuild {
                 ndkBuild {
@@ -203,12 +208,13 @@ android {
             }
         }
         liveFull{
-            versionName "1.0.8"
+            versionName "1.1.0"
+            versionCode 29
             signingConfig signingConfigs.keystore
             externalNativeBuild {
                 ndkBuild {
                     cppFlags.add("-DTARGET_SERVER=SERVER_LIVE")
-                    cppFlags.add("-DUSE_PATCH=true")
+                    cppFlags.add("-DUSE_PATCH=false")
                     cppFlags.add("-DUSE_OBB=false")
                     cppFlags.add("-DUSE_LUA_EXT=false")
                     cppFlags.add("-DIS_TEST_MODE=false")
@@ -218,7 +224,7 @@ android {
 
         // 특정 시점에서의 test 빌드들은 최신 live 빌드의 versionCode와 동일해야 하므로 공통으로 관리 
         main{
-            versionCode 27
+            versionCode 29
         }
     }
 
@@ -228,7 +234,7 @@ android {
             signingConfig null
 
             minifyEnabled false
-            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.txt'
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.txt', 'proguard-project.txt'
 
             externalNativeBuild {
                 ndkBuild {
@@ -249,7 +255,6 @@ android {
             }
         }
     }
-
     // apk 이름 변경 : "dvm_version_flavor_buildtype.apk
     applicationVariants.all { variant ->
         variant.outputs.each { output ->
@@ -297,17 +302,7 @@ dependencies {
     compile(name:'unity-ads', ext:'aar')
 
     // @naver-cafe
-    compile(name: 'cafeSdk-3.1.0', ext: 'aar')
-
-    compile(name: 'cafeSdk-live-3.1.0', ext:'aar')
-    compile(name:'android-database-sqlcipher-3.5.7', ext:'aar')
-    compile(name:'androidasync-2.2.1', ext:'aar')
-    compile(name:'kaleido-android-1.3.5-SNAPSHOT', ext:'aar')
-
-    compile 'com.android.support:design:25.3.1'
-    compile 'com.android.support:support-v4:25.3.1'
-    compile 'com.android.support:support-annotations:25.1.0'
-    compile 'com.android.support:appcompat-v7:25.1.0'
+    compile(name: 'cafeSdk-3.1.2', ext: 'aar')
 
     compile 'com.navercorp.volleyextensions:volleyer:2.0.1', {
         exclude group: 'com.mcxiaoke.volley', module: 'library'
@@ -333,6 +328,10 @@ dependencies {
 
     // @igawCommon
     compile 'com.android.installreferrer:installreferrer:1.0'
+
+    // @adjust
+    compile 'com.adjust.sdk:adjust-android:4.12.0'
+    compile 'com.google.android.gms:play-services-analytics:11.6.2'
 }
 
 // @firebase

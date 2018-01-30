@@ -95,6 +95,7 @@ public class AppActivity extends Cocos2dxActivity{
     static final int NAVER_COMMUNITY_ID = 0;
 
     static final String ADCOLONY_APP_ID = "app36c426430b1a4ffd96";
+    static final String ADJUST_TOKKEN_ID = "esjmkti8vim8";
 
     static final int RC_WRITE_STORAGE_PERMISSION    = 100;  // must be 8bit value
     static final int RC_APP_PERMISSION              = 101;  // must be 8bit value
@@ -154,6 +155,9 @@ public class AppActivity extends Cocos2dxActivity{
 
         // @naver-cafe
         PerpleSDK.getInstance().initNaverCafe(NAVER_CAFE_CLIENT_ID, NAVER_CAFE_CLIENT_SECRET, NAVER_CAFE_ID, NAVER_NEO_ID_CONSUMER_KEY, NAVER_COMMUNITY_ID);
+
+        // @adjust
+        PerpleSDK.getInstance().initAdjust(ADJUST_TOKKEN_ID, isDebug);
     }
 
     @Override
