@@ -153,7 +153,7 @@ function UI_Product:initDscLabelPos()
     local struct_product = self.m_structProduct
     local type = struct_product:getTabCategory()
 
-    local target_pos = struct_product:getMaxBuyTermStr() == '' and cc.p(0, 100) or cc.p(0, 120)
+    local target_pos = struct_product:getMaxBuyTermStr() == '' and cc.p(0, 100) or cc.p(0, 126)
 
     -- 고대주화
     if (type == 'ancient') then
