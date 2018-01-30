@@ -76,9 +76,6 @@ function ServerData_Highlight:request_highlightInfo(finish_cb, fail_cb)
             finish_cb(ret)
         end
     end
-	cclog()
-	ccdisplay('----------request_highlightInfo------------ ' .. os.time())
-	cclog()
 
     -- 네트워크 통신 UI 생성
     local ui_network = UI_Network()
