@@ -55,17 +55,97 @@ Upload.prototype.loadSheet = function()
 		totalSheet.getRows( param, function( $err, $rows )
 		{
 			var i = 0;
-			var len = $rows.length;
-			var row;
+			var len = data.length;			
+			var removeList = [];
 			for( i ; i < len ; i++ )
 			{
-				row = $rows[ i ];
-				//시나리오 특성상 문맥의 흐름을 위해 total에 있으면 번역문을 가져와 세팅해준다.
-				setFromTotal( row );
+				var speaker = data[ i ][2];
+				var msg = data[i][6];				
+				if( removeStr(speaker, msg, $rows) == true )
+				{
+					removeList.push(i);
+				}
 			}
-
+			
+			var removeLen = removeList.length;
+			while( removeLen > 0 )
+			{
+				data.splice( removeList[removeLen-1], 1 );
+				--removeLen;
+			}
 			loadSheet();
 		} );
+
+		function removeStr( $speaker, $msg, $rows )
+		{
+			var i = $rows.length;			
+			var isExistName = false;
+			var isExistString = false;
+			if($speaker == "" )
+			{
+				isExistName = true;
+			}
+			else
+			{
+				while( i-- )
+				{
+					//이름 찾기
+					if( $rows[i].kr == $speaker )
+					{
+						isExistName = true;
+						break;
+					}				
+				}
+			}
+
+			i = $rows.length;
+			while( i-- )
+			{
+				//텍스트 찾기
+				if( $rows[i].kr == $msg )
+				{
+					isExistString = true;
+					break;
+				}	
+			}
+
+			return isExistName && isExistString;
+		}
+		/*
+		function removeStr( $row )
+		{
+			var i = data.length;
+			var kr = $row.kr;			
+			var isExistName = false;
+			var isExistString = false;
+			while( i-- )
+			{
+				//이름 찾기
+				if( data[i][2] == kr )
+				{
+					isExistName = true;
+					break;
+				}				
+			}
+
+			i = data.length;
+			while( i-- )
+			{
+				//텍스트 찾기
+				if( data[i][6] == kr )
+				{
+					isExistString = true;
+					break;
+				}	
+			}
+
+			//if( data[i][2] == kr && data[i][6] == kr )
+			if( isExistName && isExistString )
+			{
+				data.splice( i, 1 );				
+			}
+		}
+		*/
 
 		function setFromTotal( $row )
 		{

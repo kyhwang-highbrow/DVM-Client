@@ -296,7 +296,7 @@ Total.prototype.loadSheet = function()
 		function uploadNext()
 		{
 			var from = last + 1;
-			var to = Math.min( last + 1000, totalData.length );
+			var to = Math.min( last + 500, totalData.length );
 
 			last = to;
 
@@ -389,6 +389,7 @@ Total.prototype.loadSheet = function()
 
 	function onUpdate()
 	{
+		/*
 		sheetWork.clear( function( $err )
 		{
 			var option = {};
@@ -421,6 +422,8 @@ Total.prototype.loadSheet = function()
 				} );
 			} )
 		} );
+		*/
+		log( "complete total : " + localeList.toString() );
 	}
 
 	function backup( $data )

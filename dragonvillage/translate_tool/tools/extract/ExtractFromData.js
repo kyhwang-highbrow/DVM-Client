@@ -93,7 +93,7 @@ function getStr( $path, $callback )
 				continue;
 			
 			//str = str.replace(/\n|\s\n/g, "\\n");
-			str = str.replace(/\n|\r\n/g, "\\n");
+			str = str.replace(/\n|\r\n/g, "\\n");			
 
 			if( data[ str ] == null )
 				data[ str ] = { hints : [] };
