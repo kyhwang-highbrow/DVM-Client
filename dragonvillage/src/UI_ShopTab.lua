@@ -59,27 +59,30 @@ function UI_ShopTab:init_TableView()
 		self:dietPackageItemTable(l_item_list) -- 테이블 자체를 함수에서 조작한다
 	end
 
-    local scale = 1
+    local ui_class = UI_Product
     local item_per_cell = 3
     local interval = 2
+    local cell_width = 334
+    local cell_height = 316
 
     -- 탭에서 상품 개수가 7개 이상이 되면 4줄로 노출
     if (7 < table.count(l_item_list)) then
-        scale = 0.76
+        ui_class = UI_ProductSmall
         item_per_cell = 4
-        interval = 0
+        interval = 2
+        cell_width = 250
+        cell_height = 288
     end
 
     -- 생성 콜백
 	local function create_cb_func(ui, data)
         ui:setBuyCB(self.m_cbBuy)
-        ui.root:setScale(scale)
 	end    
 
     -- 테이블 뷰 인스턴스 생성
     local table_view_td = UIC_TableViewTD(list_table_node)
-    table_view_td.m_cellSize = cc.size((334 + interval) * scale, (316 + interval) * scale)
-    table_view_td:setCellUIClass(UI_Product, create_cb_func)
+    table_view_td.m_cellSize = cc.size((cell_width + interval), (cell_height + interval))
+    table_view_td:setCellUIClass(ui_class, create_cb_func)
     table_view_td:setDirection(cc.SCROLLVIEW_DIRECTION_VERTICAL)
     table_view_td.m_nItemPerCell = item_per_cell
 	--table_view_td:setAlignCenter(true)

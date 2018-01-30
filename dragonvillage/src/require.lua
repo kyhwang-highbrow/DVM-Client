@@ -753,6 +753,7 @@ local t_module = {
 	'UI_Shop',
     'UI_ShopTab',
     'UI_Product',
+    'UI_ProductSmall',
 	'UI_Package',
     'UI_Package_Bundle',
     'UI_Package_LevelUp',

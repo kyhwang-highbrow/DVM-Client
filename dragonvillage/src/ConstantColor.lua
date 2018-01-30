@@ -143,3 +143,5 @@ COLOR['condition'] = COLOR['ROSE']
 COLOR['item_name'] = COLOR['DEEPSKYBLUE']
 COLOR['count'] = COLOR['MUSTARD']
 COLOR['emphasis'] = COLOR['ROSE']
+COLOR['available'] = COLOR['light_green']
+

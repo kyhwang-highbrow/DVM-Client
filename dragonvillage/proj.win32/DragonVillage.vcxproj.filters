@@ -3181,6 +3181,9 @@
     <None Include="..\src\UI_Package_Step.lua">
       <Filter>lua\UI</Filter>
     </None>
+    <None Include="..\src\UI_ProductSmall.lua">
+      <Filter>lua\UI</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Classes">

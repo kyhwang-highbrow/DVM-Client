@@ -17,7 +17,6 @@ function UI_Product:init(struct_product)
     self.m_structProduct = struct_product
     
     self:initItemNodePos()
-    self:initDscLabelPos()
 
     self:initUI()
 	self:initButton()
@@ -34,10 +33,6 @@ function UI_Product:initUI()
 	-- 상품 이름
 	local product_name = Str(struct_product['t_name'])
     vars['itemLabel']:setString(product_name)
-
-	-- 상품 설명
-	local product_desc = struct_product:getDesc()
-    vars['dscLabel']:setString(product_desc)
 
 	-- 상품 아이콘
 	local icon = struct_product:makeProductIcon()
@@ -117,6 +112,9 @@ function UI_Product:initUI()
         end
         self.root:scheduleUpdateWithPriorityLua(function(dt) update(dt) end, 0)
     end 
+
+    -- 상품명, 설명 등의 위치와 크기 조정
+    self:adjustLayout()
 end
 
 -------------------------------------
@@ -145,28 +143,6 @@ function UI_Product:initItemNodePos()
 end
 
 -------------------------------------
--- function initDscLabelPos
--- @brief 상점 타입별 dscLabel 포지션, 스케일 변경
--------------------------------------
-function UI_Product:initDscLabelPos()
-    local vars = self.vars
-    local struct_product = self.m_structProduct
-    local type = struct_product:getTabCategory()
-
-    local target_pos = struct_product:getMaxBuyTermStr() == '' and cc.p(0, 100) or cc.p(0, 126)
-
-    -- 고대주화
-    if (type == 'ancient') then
-        target_pos = cc.p(0, 120)
-    end
-
-    local label = vars['dscLabel']
-    if (target_pos) then
-        label:setPosition(target_pos.x, target_pos.y)
-    end
-end
-
--------------------------------------
 -- function initButton
 -------------------------------------
 function UI_Product:initButton()
@@ -188,10 +164,28 @@ function UI_Product:refresh()
 		return
 	end
 
-    -- 구매 제한 설명 텍스트
-    local node = vars['maxBuyTermLabel']
-    local str = struct_product:getMaxBuyTermStr()
-    node:setString(str)
+    do -- 구매 제한 설명 텍스트
+        vars['maxBuyTermLabel']:setVisible(false)
+
+        -- 구매 제한 텍스트
+        local str = struct_product:getMaxBuyTermStr()
+
+        -- 상품 설명
+	    local product_desc = struct_product:getDesc()
+
+        -- 상품 설명 + 구매 제한 텍스트 합침
+        if str and (str ~= '') then
+            local rich_str = product_desc
+            if rich_str and (rich_str ~= '') then
+                rich_str = rich_str .. '\n'
+            end
+            rich_str = rich_str .. '{@available}' .. str
+
+            vars['dscLabel']:setString(rich_str)
+        else
+            vars['dscLabel']:setString(product_desc)
+        end
+    end
 
     -- 판매 가능 여부
     if (struct_product['lock'] == 1) then
@@ -239,4 +233,22 @@ end
 -------------------------------------
 function UI_Product:setBuyCB(func)
     self.m_cbBuy = func
+end
+
+
+-------------------------------------
+-- function adjustLayout
+-- @brief 상품명, 설명 등의 위치와 크기 조정
+-------------------------------------
+function UI_Product:adjustLayout()
+    local vars = self.vars
+
+    do -- 상품 이름 (시스템 폰트)
+        local width = 328
+        local str_width = vars['itemLabel']:getStringWidth()
+        if (width < str_width) then
+            local scale = (width / str_width)
+            vars['itemLabel']:setScale(scale)
+        end
+    end
 end
