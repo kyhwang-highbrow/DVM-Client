@@ -294,7 +294,6 @@ function ServerData:networkCommonRespone(ret)
         if (ret['server_info']['hour']) then
             local hour = ret['server_info']['hour'] 
             Timer:setUTCHour(hour)
-            Timer:setServerTimeUTC(server_time)
         end
 
         -- timezone 

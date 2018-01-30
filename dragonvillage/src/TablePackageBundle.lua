@@ -93,6 +93,24 @@ function TablePackageBundle:getPackageNameWithPid(pid)
 end
 
 -------------------------------------
+-- function getPackageDescWithPid
+-------------------------------------
+function TablePackageBundle:getPackageDescWithPid(pid)
+    if (self == THIS) then
+        self = THIS()
+    end
+
+    for _, v in pairs(self.m_orgTable) do
+        local t_pids = v['t_pids']
+        if (string.find(t_pids, tostring(pid))) then
+            return v['t_desc']
+        end
+    end
+
+    return nil
+end
+
+-------------------------------------
 -- function getPids
 -------------------------------------
 function TablePackageBundle:getPidsWithName(package_name)

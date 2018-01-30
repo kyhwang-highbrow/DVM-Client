@@ -37,6 +37,52 @@ function ServerData_Event:getEventPopupTabList()
         local event_type = v['event_type'] 
         local priority = v['ui_priority']
         local feature = v['feature']
+        local user_lv = v['user_lv']
+        local start_date = v['start_date']
+        local end_date = v['end_date']
+
+        -- 유저 레벨 조건 (걸려있는 레벨 이상인 유저에게만 노출)
+        if (user_lv ~= '') then
+            local curr_lv = g_userData:get('lv')
+            visible = curr_lv >= user_lv
+        end
+
+        -- 날짜 조건
+        if (start_date ~= '') or (end_date ~= '') then
+            local start_time
+            local end_time
+            local cur_time = Timer:getServerTime()
+
+            local date_format = 'yyyy-mm-dd HH:MM:SS'
+            local parser = pl.Date.Format(date_format)
+
+            if (start_date ~= '') then
+                local parse_start_date = parser:parse(start_date)
+                if (parse_start_date) then
+                    start_time = parse_start_date['time']
+                end
+            end
+
+            if (end_date ~= '') then
+                local parse_end_date = parser:parse(end_date)
+                if (parse_end_date) then
+                    end_time = parse_end_date['time']
+                end
+            end
+
+            -- 시작 종료 시간 모두 걸려있는 경우
+            if (start_time) and (end_date) then
+                visible = (start_time < cur_time and cur_time < end_time)
+
+            -- 시작 시간만 걸려있는 경우
+            elseif (start_time) then
+                visible = (start_time < cur_time)
+
+            -- 종료 시간만 걸려있는 경우
+            elseif (end_time) then
+                visible = (cur_time < end_time)
+            end
+        end
         
         -- ui_priority가 없는 것은 등록하지 않는다.
         if (priority == '') then
@@ -94,45 +140,6 @@ function ServerData_Event:getEventPopupTabList()
                 event_popup_tab.m_type = type
             end
 
-            item_list[event_popup_tab.m_type] = event_popup_tab
-            self:setEventTabNoti(event_popup_tab)
-        end
-    end
-
-    return item_list
-end
-
--------------------------------------
--- function getPackagePopupTabList
--- @brief 패키지 탭 노출 리스트 (이벤트와 분리)
--------------------------------------
-function ServerData_Event:getPackagePopupTabList()
-    local item_list = {}
-    local event_list = self.m_eventList
-
-    -- 기타 가변적인 이벤트 (shop, banner, access_time)
-    local idx = 1
-    for i, v in ipairs(event_list) do
-        local visible = true
-        local event_type = v['event_type'] 
-        local priority = v['ui_priority']
-        
-        -- ui_priority가 없는 것은 등록하지 않는다.
-        if (priority == '') then
-            visible = false
-        end
-
-        -- package 관련 이벤트는 구성품이 오픈되지 않능 상품이라면 탭 등록 pass - ex) 주말패키지
-        if (string.find(event_type, 'package_')) then
-            visible = PackageManager:isExist(event_type)
-        else
-            visible = false
-        end
-                
-        if (visible) then
-            local event_popup_tab = StructEventPopupTab(v)
-            local type = v['event_type']
-            event_popup_tab.m_type = type
             item_list[event_popup_tab.m_type] = event_popup_tab
             self:setEventTabNoti(event_popup_tab)
         end

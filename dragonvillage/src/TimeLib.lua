@@ -6,7 +6,6 @@
 -------------------------------------
 TimeLib = class({
         m_diffServer = 'number',
-        m_diffServerUtc = 'number',
         m_utcHour = 'number',
         m_timeZone = 'string',
         m_dayOfDayChange = ' number', -- 드빌에서 요일이 변경되는 시점
@@ -18,7 +17,6 @@ TimeLib = class({
 -------------------------------------
 function TimeLib:init()
     self.m_diffServer = 0
-    self.m_diffServerUtc = 0
     self.m_utcHour = 9
     self.m_timeZone = ''
 end
@@ -55,26 +53,6 @@ end
 function TimeLib:getServerTime()
     local server_time = (os.time() + self.m_diffServer)
     return server_time
-end
-
--------------------------------------
--- function setServerTimeUTC
--- @breif 서버의 현재 타임스탬프를 받아와서 클라이언트와의 시간차를 저장
---        서버에서 넘어오는 시간은 1/1000초로 넘어오기때문에 주의해서 사용할 것
--------------------------------------
-function TimeLib:setServerTimeUTC(server_time)
-    local hour = self.m_utcHour or 9
-    local server_time = server_time - (hour * 60 * 60)
-	self.m_diffServerUtc = (os.time() - server_time)
-end
-
--------------------------------------
--- function getServerTimeUTC
--- @brief 단위 (초)
--------------------------------------
-function TimeLib:getServerTimeUTC()
-    local server_time = (os.time() - self.m_diffServerUtc)
-	return server_time
 end
 
 -------------------------------------

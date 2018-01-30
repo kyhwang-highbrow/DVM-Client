@@ -27,10 +27,13 @@ end
 function UI_PackageTabButton:initUI()
     local vars = self.vars
 
-    -- 버튼 이름
+    -- 버튼 이름 (패키지 번들 참조)
     local struct_product = self.m_struct_product
-    local tab_btn_name = struct_product['t_name']
-    vars['listLabel']:setString(tab_btn_name)
+    local pid = struct_product['product_id']
+    local desc = TablePackageBundle:getPackageDescWithPid(pid)
+    if (desc) then
+        vars['listLabel']:setString(desc)
+    end
 
     -- 패키지 뱃지
     local badge = struct_product:makeBadgeIcon()
