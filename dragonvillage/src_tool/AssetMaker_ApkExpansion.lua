@@ -45,7 +45,7 @@ end
 
 -------------------------------------
 -- function moveToExpansion
--- @brief 100mb 이하로 만들기 위해 패치 받는 동안은 없어도 되는 것들 삭제
+-- @brief 100mb 이하로 만들기 위해 패치 받는 동안은 없어도 되는 것들 이동 (obb로 만든다)
 -------------------------------------
 function AssetMaker_ApkExpansion:moveToExpansion()
     cclog('## AssetMaker_ApkExpansion:moveToExpansion')
@@ -54,15 +54,19 @@ function AssetMaker_ApkExpansion:moveToExpansion()
     self:move('\\sound')
     self:move('\\res\\bg')
     self:move('\\res\\effect')
+    self:move('\\res\\item')
+    self:move('\\res\\indicator')
     self:move('\\res\\lobby')
     self:move('\\res\\scene')
     self:move('\\res\\missile')
-    self:move('\\res\\character\\tamer')
-    self:move('\\res\\character\\npc')
-    self:move('\\res\\character\\monster')
+    self:move('\\res\\character')
     self:move('\\res\\ui\\event')
     self:move('\\res\\ui\\package')
-    self:moveDragonRes()
+    self:move('\\res\\ui\\icons')
+
+    -- 패치 시 나오는 드래곤 리소스를 남겼으나 더이상 사용하지 않음
+    --self:moveDragonRes()
+
     self:checkAssetsUnder100MB()
 end
 
@@ -144,7 +148,10 @@ function AssetMaker_ApkExpansion:checkAssetsUnder100MB()
 
     -- 기준 사이즈에 부합한지 비교한다.
     if (assets_size > UNDER_100MB) then
-        error('## ASSETS OVER 100MB !!')
+        cclog('\n\n')
+        cclog('## ASSETS OVER 100MB !!')
+        cclog('\n\n')
+        error('check AssetMaker_ApkExpansion:moveToExpansion()')
     end
 end
 
@@ -157,7 +164,7 @@ function AssetMaker_ApkExpansion:compress()
 
     util.changeDir(ASSETS_PATH_EXPANSION)
 
-    local version_code = 28
+    local version_code = 29
     local package_name = 'com.perplelab.dragonvillagem.kr'
     local obb_path = string.format(OBB_FORMAT, version_code, package_name)
 
