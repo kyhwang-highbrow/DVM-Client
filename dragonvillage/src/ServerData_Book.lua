@@ -338,6 +338,9 @@ function ServerData_Book:request_bookReward(did, evolution, finish_cb)
 		-- 시간 갱신        
 		self:setLastChangeTimeStamp()
 
+		-- 로비 노티 갱신
+		g_highlightData:setDirty(true)
+
         if finish_cb then
             finish_cb(ret['cash'])
         end

@@ -275,6 +275,9 @@ function ServerData_MasterRoad:request_roadClear(rid, finish_cb)
     local function success_cb(ret)
         self:applyInfo(ret)
 
+		-- 노티 정보를 갱신하기 위해서 호출
+		g_highlightData:setDirty(true)
+
         if (finish_cb) then
             finish_cb()
         end 
@@ -310,6 +313,9 @@ function ServerData_MasterRoad:request_roadReward(rid, finish_cb)
         -- 재화 수령 처리
         self.m_serverData:networkCommonRespone_addedItems(ret)
 		
+		-- 노티 정보를 갱신하기 위해서 호출
+		g_highlightData:setDirty(true)
+
         -- @analytics
         Analytics:firstTimeExperience('MasterRoad_Reward')
         Analytics:trackEvent(CUS_CATEGORY.FIRST, CUS_EVENT.MASTER_ROAD, 1, string.format('퀘스트 번호 : %d', rid))

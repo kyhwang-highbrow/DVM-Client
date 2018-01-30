@@ -243,7 +243,7 @@ function UI_EventPopup:click_exitBtn()
         self:close()
 
         -- 노티 정보를 갱신하기 위해서 호출
-        g_highlightData:setLastUpdateTime()
+        g_highlightData:setDirty(true)
 
         -- 방송 활성화
         g_topUserInfo:setEnabledBraodCast(true)

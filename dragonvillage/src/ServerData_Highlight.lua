@@ -4,7 +4,7 @@
 ServerData_Highlight = class({
         m_serverData = 'ServerData',
 
-        m_lastUpdateTime = '',
+		m_isDirtyHighlight = 'bool',
 
         -- 서버에서 넘겨받는 값
         ----------------------------------------------
@@ -36,12 +36,28 @@ local DAY_TO_SEC = 60 * 60 * 24
 function ServerData_Highlight:init(server_data)
     self.m_serverData = server_data
 
+	self.m_isDirtyHighlight = true
+
     self.attendance_reward = 0
     self.attendance_event_reward = 0
     self.quest_reward = 0
     self.explore_reward = 0
     self.summon_free = 0
     self.new_mail = 0
+end
+
+-------------------------------------
+-- function isDirty
+-------------------------------------
+function ServerData_Highlight:isDirty()
+	return self.m_isDirtyHighlight
+end
+
+-------------------------------------
+-- function setDirty
+-------------------------------------
+function ServerData_Highlight:setDirty(b)
+	self.m_isDirtyHighlight = b
 end
 
 -------------------------------------
@@ -60,6 +76,9 @@ function ServerData_Highlight:request_highlightInfo(finish_cb, fail_cb)
             finish_cb(ret)
         end
     end
+	cclog()
+	ccdisplay('----------request_highlightInfo------------ ' .. os.time())
+	cclog()
 
     -- 네트워크 통신 UI 생성
     local ui_network = UI_Network()
@@ -76,7 +95,7 @@ function ServerData_Highlight:request_highlightInfo(finish_cb, fail_cb)
     ui_network:setFailCB(fail_cb)
     ui_network:setRevocable(true)
     ui_network:setReuse(false)
-	ui_network:hideBGLayerColor()
+	ui_network:hideLoading()
     ui_network:request()
 end
 
@@ -106,7 +125,7 @@ function ServerData_Highlight:applyHighlightInfo(ret)
         end
     end
 
-    self:setLastUpdateTime()
+    self:setDirty(false)
 end
 
 -------------------------------------
@@ -296,10 +315,6 @@ function ServerData_Highlight:loadNewDoidMap()
 			end
 		end
     end
-
-    --self:saveNewDoidMap()
-
-    self:setLastUpdateTime()
 end
 
 -------------------------------------
@@ -314,6 +329,9 @@ function ServerData_Highlight:saveNewDoidMap()
 		SaveLocalSaveJson(self:getNewOidMapFileName(NEW_OID_TYPE_RUNE), self.m_newOidMap[NEW_OID_TYPE_RUNE])
 		self.m_bDirtyNewOidMapRune = false
 	end
+
+	-- 로비 노티 갱신
+	g_highlightData:setDirty(true)
 end
 
 -------------------------------------
@@ -361,7 +379,6 @@ function ServerData_Highlight:addNewOid(oid_type, oid, created_at)
 
     self.m_newOidMap[oid_type][oid] = true
     self:setDirtyNewOidMap(oid_type)
-    self:setLastUpdateTime()
 end
 
 -------------------------------------
@@ -394,8 +411,6 @@ function ServerData_Highlight:removeNewOid(oid_type, oid)
 
     self.m_newOidMap[oid_type][oid] = nil
     self:setDirtyNewOidMap(oid_type)
-
-    self:setLastUpdateTime()
 end
 
 -------------------------------------
@@ -431,19 +446,11 @@ function ServerData_Highlight:isNewOid(oid_type, oid)
 end
 
 -------------------------------------
--- function setLastUpdateTime
--------------------------------------
-function ServerData_Highlight:setLastUpdateTime()
-    self.m_lastUpdateTime = Timer:getServerTime()
-end
-
--------------------------------------
 -- function setHighlightMail
 -------------------------------------
 function ServerData_Highlight:setHighlightMail()
     if (self['new_mail'] <= 0) then
         self['new_mail'] = 1
-        self:setLastUpdateTime()
     end
 end
 

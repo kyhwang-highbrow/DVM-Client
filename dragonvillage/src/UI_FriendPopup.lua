@@ -76,7 +76,7 @@ function UI_FriendPopup:click_exitBtn()
     self:close()
 
     -- 노티 정보를 갱신하기 위해서 호출
-    g_highlightData:setLastUpdateTime()
+    g_highlightData:setDirty(true)
 end
 
 -------------------------------------

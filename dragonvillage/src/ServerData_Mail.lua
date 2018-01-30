@@ -222,6 +222,9 @@ function ServerData_Mail:request_mailRead(mail_id_list, t_mail_type_reward, fini
             self:deleteMailData(v)
         end
 
+		-- 로비 노티 갱신
+		g_highlightData:setDirty(true)
+
         if finish_cb then
             finish_cb(ret, mail_id_list)
         end

@@ -56,7 +56,7 @@ function ServerData_Slimes:applySlimeData(t_slime_data)
 
     -- 슬라임 도감에 보상이 있을 경우 하일라이트 정보 갱신을 위해 호출
     if g_bookData:haveBookReward(slime_id, 1) then
-        g_highlightData:setLastUpdateTime()
+        g_highlightData:setDirty(true)
     end
 end
 

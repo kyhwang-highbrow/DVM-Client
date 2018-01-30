@@ -231,10 +231,9 @@ function ServerData_Quest:requestQuestReward(quest, cb_func)
 		    self:applyQuestInfo(ret['quest_info'])
         end
         
-        -- 하이라이트 갱신
-        if (ret['highlight']) then
-            g_highlightData:applyHighlightInfo(ret)
-        end
+		-- 여기서 highlight 정보가 넘어오긴 하는데.. 어차피 로비에서 다시 통신하는 구조이므로
+		-- 노티 정보를 갱신하기 위해서 호출
+		g_highlightData:setDirty(true)
 
         -- 구글 평점 유도 팝업 : 테이머 레벨 7 달성 업적 클리어시 1회 노출
         if (tonumber(qid) == 10106) then

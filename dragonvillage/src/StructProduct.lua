@@ -479,6 +479,9 @@ function StructProduct:buy(cb_func)
 	local function ok_cb(count)
         local function finish_cb(ret)
 
+			-- 로비 노티 갱신
+			g_highlightData:setDirty(true)
+
             -- 상품 리스트 갱신이 필요할 경우
             if (g_shopDataNew.m_bDirty == true) then
                 ret['need_refresh'] = true

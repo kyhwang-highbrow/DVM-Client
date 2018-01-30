@@ -841,7 +841,7 @@ function ServerData_Clan:getAttdRewardInfo(clear)
     if clear then
         self.m_attdRewardInfo = nil
         self.m_bAttdRewardNoti = false
-        g_highlightData:setLastUpdateTime()
+        g_highlightData:setDirty(true)
     end
 
     return reward_info

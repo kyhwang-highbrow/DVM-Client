@@ -337,19 +337,5 @@ function UI_DragonDiaryPopup.refreshCell(ui, t_data)
     vars['completeSprite']:setVisible(reward_state == 'already_done')
 end
 
--------------------------------------
--- function close
--- @brief
--------------------------------------
-function UI_DragonDiaryPopup:close()
-    -- 노티 정보를 갱신하기 위해서 호출
-    g_highlightData:setLastUpdateTime()
-
-    if (self.closed == true) then
-        return
-    end
-    PARENT.close(self)
-end
-
 --@CHECK
 UI:checkCompileError(UI_DragonDiaryPopup)

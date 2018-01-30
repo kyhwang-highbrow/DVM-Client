@@ -345,7 +345,7 @@ function ServerData_DragonDiary:request_diaryClear(rid, finish_cb)
         self:applyInfo(ret)
 
         -- 노티 정보를 갱신하기 위해서 호출
-        g_highlightData:setLastUpdateTime()
+        g_highlightData:setDirty(true)
 
         if (finish_cb) then
             finish_cb()
@@ -380,6 +380,9 @@ function ServerData_DragonDiary:request_diaryReward(rid, finish_cb)
 
         -- 재화 수령 처리
         self.m_serverData:networkCommonRespone_addedItems(ret)
+		
+		-- 노티 정보를 갱신하기 위해서 호출
+		g_highlightData:setDirty(true)
 
         if (finish_cb) then
             finish_cb(ret)

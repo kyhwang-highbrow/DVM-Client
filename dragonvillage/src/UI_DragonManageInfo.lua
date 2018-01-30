@@ -406,6 +406,9 @@ end
 -- function click_exitBtn
 -------------------------------------
 function UI_DragonManageInfo:click_exitBtn()
+    -- 노티 정보를 갱신하기 위해서 호출
+    g_highlightData:setDirty(true)
+
     self:close()
 end
 

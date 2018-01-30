@@ -506,7 +506,7 @@ function ServerData_Forest:update(dt)
     for i, t_stuff in pairs(self.m_tStuffInfo) do
         if t_stuff['reward_at'] and (curr_time > t_stuff['reward_at']/1000) then
             self.m_hasReward = true
-            g_highlightData:setLastUpdateTime()
+            g_highlightData:setDirty(true)
             break
         end
     end

@@ -4,9 +4,6 @@ local PARENT = class(UI, ITopUserInfo_EventListener:getCloneTable())
 -- class UI_Lobby
 -------------------------------------
 UI_Lobby = class(PARENT,{
-        m_hilightTimeStamp = 'time',
-        m_masterRoadTimeStamp = 'time',
-
         m_lobbyWorldAdapter = 'LobbyWorldAdapter',
         m_etcExpendedUI = 'UIC_ExtendedUI',
 
@@ -615,12 +612,7 @@ end
 -- @brief 상점 버튼
 -------------------------------------
 function UI_Lobby:click_shopBtn()
-	-- 노티 정보를 갱신하기 위해서 호출
-	local function cb_func()
-		g_highlightData:setLastUpdateTime()
-	end
-
-    g_shopDataNew:openShopPopup(nil, cb_func)
+    g_shopDataNew:openShopPopup()
 end
 
 -------------------------------------
@@ -693,15 +685,13 @@ end
 -- @brief 우편함
 -------------------------------------
 function UI_Lobby:click_mailBtn()
-    UI_MailPopup():setCloseCB(function(is_dirty)
-        -- 노티 정보를 갱신하기 위해서 호출
-        g_highlightData:setLastUpdateTime()
-
+	local function cb_func(is_dirty)
         if (is_dirty) then
             -- 닉네임 변경으로 인한 처리...
             self:refresh_userInfo()
         end
-    end)
+	end
+    UI_MailPopup():setCloseCB(cb_func)
 end
 
 -------------------------------------
@@ -733,11 +723,7 @@ end
 -- function click_bookBtn
 -------------------------------------
 function UI_Lobby:click_bookBtn()
-    local function close_cb()
-    	-- 노티 정보를 갱신하기 위해서 호출
-        g_highlightData:setLastUpdateTime()
-    end
-	UI_Book():setCloseCB(close_cb)
+	UI_Book()
 end
 
 -------------------------------------
@@ -898,11 +884,11 @@ function UI_Lobby:update(dt)
     ServerData_Forest:getInstance():update(dt)
 
     -- noti 갱신
-    if (g_highlightData.m_lastUpdateTime ~= self.m_hilightTimeStamp) then
-        self.m_hilightTimeStamp = g_highlightData.m_lastUpdateTime
-        self:refresh_highlight()
-    end
-    
+	if (g_highlightData:isDirty()) then
+		g_highlightData:setDirty(false)
+		self:refresh_highlight()
+	end
+
     -- 마스터의 길 정보 갱신
     if (g_masterRoadData.m_bDirtyMasterRoad) then
         g_masterRoadData.m_bDirtyMasterRoad = false
