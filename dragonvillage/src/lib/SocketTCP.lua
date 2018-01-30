@@ -84,7 +84,7 @@ function SocketTCP:connect(host, port, retryConnect)
 end
 
 function SocketTCP:close(...)
-    cclog("SocketTCP.close")
+    --cclog("SocketTCP.close")
     self.tcp:close()
     if self.connectTimeTickSchedulerID then scheduler.unscheduleGlobal(self.connectTimeTickSchedulerID) end
     if self.tickSchedulerID then scheduler.unscheduleGlobal(self.tickSchedulerID) end
