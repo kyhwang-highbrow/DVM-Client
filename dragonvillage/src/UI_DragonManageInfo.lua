@@ -135,7 +135,15 @@ function UI_DragonManageInfo:initButton()
     do 
         -- 룬
         vars['runeBtn']:registerScriptTapHandler(function() self:click_runeBtn() end)
+    end
 
+    -- 상단 버튼
+    do
+        vars['inventoryBtn']:registerScriptTapHandler(function() self:click_inventoryBtn() end)
+    end
+
+	-- 하단 버튼
+    do 
         -- 대표
         vars['leaderBtn']:registerScriptTapHandler(function() self:click_leaderBtn() end)
 
@@ -147,17 +155,12 @@ function UI_DragonManageInfo:initButton()
 
 		-- 평가
 		vars['assessBtn']:registerScriptTapHandler(function() self:click_assessBtn() end)
-    end
 
-    -- 상단 버튼
-    do
-        vars['inventoryBtn']:registerScriptTapHandler(function() self:click_inventoryBtn() end)
-    end
-
-	-- 하단 버튼
-    do 
         -- 도감
         vars['bookBtn']:registerScriptTapHandler(function() self:click_bookBtn() end)
+
+		-- 조합
+		vars['combineBtn']:registerScriptTapHandler(function() self:click_combineBtn() end)
     end
 
     do -- 기타 버튼
@@ -190,17 +193,17 @@ function UI_DragonManageInfo:refresh()
     -- 드래곤 기본 정보 갱신
     self:refresh_dragonBasicInfo(t_dragon_data)
 
-    -- 드래곤이 장착 중인 룬 정보 갱신
-    --self:refresh_dragonRunes(t_dragon_data)
-
     -- 리더 드래곤 여부 표시
     self:refresh_leaderDragon(t_dragon_data)
 
     -- 가방
     self:refresh_inventoryLabel()
 
-    -- 진화/승급/스킬강화 알림
+    -- 진화/승급/스킬강화 알림 - 개발 하다가 중단 
     --self:refresh_buttonNoti()
+
+	-- 조합 드래곤
+	self:refresh_combination()
 
 	-- 잠금 표시
 	self.vars['lockSprite']:setVisible(t_dragon_data:getLock())
@@ -240,6 +243,16 @@ function UI_DragonManageInfo:refresh_buttonState()
         vars['reinforceBtn']:setEnabled(not is_slime_object)
     end
 
+    -- 룬 버튼
+	do
+        self.m_dragonInfoBoardUI.vars['equipSlotBtn1']:setEnabled(not is_slime_object)
+        self.m_dragonInfoBoardUI.vars['equipSlotBtn2']:setEnabled(not is_slime_object)
+        self.m_dragonInfoBoardUI.vars['equipSlotBtn3']:setEnabled(not is_slime_object)
+        self.m_dragonInfoBoardUI.vars['equipSlotBtn4']:setEnabled(not is_slime_object)
+        self.m_dragonInfoBoardUI.vars['equipSlotBtn5']:setEnabled(not is_slime_object)
+        self.m_dragonInfoBoardUI.vars['equipSlotBtn6']:setEnabled(not is_slime_object)
+	end
+
 	-- 좌측 버튼들 초기화
     do 
 		-- 룬
@@ -253,26 +266,6 @@ function UI_DragonManageInfo:refresh_buttonState()
 		
         -- 잠금
         vars['lockBtn']:setVisible(true)
-
-        -- 스킬 버튼
-        self.m_dragonInfoBoardUI.vars['equipSlotBtn1']:setEnabled(not is_slime_object)
-        self.m_dragonInfoBoardUI.vars['equipSlotBtn2']:setEnabled(not is_slime_object)
-        self.m_dragonInfoBoardUI.vars['equipSlotBtn3']:setEnabled(not is_slime_object)
-        self.m_dragonInfoBoardUI.vars['equipSlotBtn4']:setEnabled(not is_slime_object)
-        self.m_dragonInfoBoardUI.vars['equipSlotBtn5']:setEnabled(not is_slime_object)
-        self.m_dragonInfoBoardUI.vars['equipSlotBtn6']:setEnabled(not is_slime_object)
-    end
-
-    do -- 기타 버튼
-        -- 장비 개별 버튼 1~3
-        --[[ @TODO77
-        vars['equipSlotBtn1']:setVisible(not is_slime_object)
-        vars['equipSlotBtn2']:setVisible(not is_slime_object)
-        vars['equipSlotBtn3']:setVisible(not is_slime_object)
-        vars['equipSlotBtn4']:setVisible(not is_slime_object)
-        vars['equipSlotBtn5']:setVisible(not is_slime_object)
-        vars['equipSlotBtn6']:setVisible(not is_slime_object)
-        --]]
     end
 
 	-- 룬 할인 이벤트
@@ -326,6 +319,32 @@ function UI_DragonManageInfo:refresh_buttonNoti()
 end
 
 -------------------------------------
+-- function refresh_combination
+-- @brief 조합
+-------------------------------------
+function UI_DragonManageInfo:refresh_combination()
+	local vars = self.vars
+	local did = self.m_selectDragonData['did']
+	local comb_did = TableDragonCombine:getCombinationDid(did)
+
+	-- 조합 드래곤 있는 경우
+	if (comb_did) then
+		vars['combineBtn']:setVisible(true)
+		vars['combineNode']:removeAllChildren()
+
+		local comb_card = MakeBirthDragonCard(comb_did)
+		comb_card.vars['clickBtn']:setEnabled(false)
+
+		vars['combineNode']:addChild(comb_card.root)
+
+	-- 없음
+	else
+		vars['combineBtn']:setVisible(false)
+
+	end
+end
+
+-------------------------------------
 -- function refresh_dragonBasicInfo
 -- @brief 드래곤 기본 정보 갱신
 -------------------------------------
@@ -345,59 +364,6 @@ function UI_DragonManageInfo:refresh_dragonBasicInfo(t_dragon_data)
     -- 드래곤 실리소스
     if self.m_dragonAnimator then
         self.m_dragonAnimator:setDragonAnimator(t_dragon_data['did'], t_dragon_data['evolution'], t_dragon_data:getFlv())
-    end
-end
-
--------------------------------------
--- function refresh_dragonRunes
--- @brief 드래곤이 장착 중인 룬 정보 갱신
--------------------------------------
-function UI_DragonManageInfo:refresh_dragonRunes(t_dragon_data)
-    local vars = self.vars
-
-    if (t_dragon_data.m_objectType ~= 'dragon') then
-        for slot=1, RUNE_SLOT_MAX do
-            vars['runeSlotNode' .. slot]:removeAllChildren()
-        end
-
-        vars['runeSetNode']:removeAllChildren()
-        return
-    end
-
-    do -- 장착된 룬 표시
-        for slot=1, RUNE_SLOT_MAX do
-            vars['runeSlotNode' .. slot]:removeAllChildren()
-            local rune_obj = t_dragon_data:getRuneObjectBySlot(slot)
-            if rune_obj then
-				local card = UI_RuneCard(rune_obj)
-				card:setBtnEnabled(false)
-                vars['runeSlotNode' .. slot]:addChild(icon)
-            end
-        end
-    end
-
-    do -- 룬 세트
-        local rune_set_obj = t_dragon_data:getStructRuneSetObject()
-        local active_set_list = rune_set_obj:getActiveRuneSetList()
-        vars['runeSetNode']:removeAllChildren()
-
-        local l_pos = getSortPosList(70, #active_set_list)
-        for i,set_id in ipairs(active_set_list) do
-            local ui = UI()
-            ui:load('dragon_manage_rune_set.ui')
-
-            -- 색상 지정
-            local c3b = TableRuneSet:getRuneSetColorC3b(set_id)
-            ui.vars['runeBgSprite']:setColor(c3b)
-
-            -- 세트 이름
-            local set_name = TableRuneSet:getRuneSetName(set_id)
-            ui.vars['runeSetLabel']:setString(set_name)
-
-            -- AddCHild, 위치 지정
-            vars['runeSetNode']:addChild(ui.root)
-            ui.root:setPositionX(l_pos[i])
-        end
     end
 end
 
@@ -856,6 +822,31 @@ function UI_DragonManageInfo:click_bookBtn()
     local evolution = t_dragon_data['evolution']
 
     UI_BookDetailPopup.open(did, grade, evolution)
+end
+
+-------------------------------------
+-- function click_combineBtn
+-- @brief 조합 하러가기
+-------------------------------------
+function UI_DragonManageInfo:click_combineBtn()
+	local did = self.m_selectDragonData['did']
+	local comb_did = TableDragonCombine:getCombinationDid(did)
+
+	if (comb_did) then
+		local ui = UI_HatcheryCombinePopup(comb_did)
+		ui:setCloseCB(function()
+			if (false) then
+				-- 테이블 아이템갱신
+				self:init_dragonTableView()
+
+				-- 기존에 선택되어 있던 드래곤 교체
+				self:setDefaultSelectDragon()
+
+				-- 정렬
+				self:apply_dragonSort_saveData()
+			end
+		end)
+	end
 end
 
 -------------------------------------

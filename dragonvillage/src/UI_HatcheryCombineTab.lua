@@ -97,16 +97,8 @@ end
 -------------------------------------
 function UI_HatcheryCombineTab:click_dragonCard(did)
     local ui = UI_HatcheryCombinePopup(did)
-    
-    self.root:setVisible(false)
-    self.m_ownerUI:hideNpc() -- NPC 퇴장
-    self.m_ownerUI.vars['tabMenu']:setVisible(false)
 
     local function close_cb()
-        self.root:setVisible(true)
-        self.m_ownerUI:showNpc() -- NPC 등장
-        self.m_ownerUI.vars['tabMenu']:setVisible(true)
-
         -- 하일라이트 노티 갱신을 위해 호출
         if ui.m_bDirty then
             self.m_ownerUI:refresh_highlight()

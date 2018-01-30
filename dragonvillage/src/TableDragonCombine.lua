@@ -31,3 +31,23 @@ function TableDragonCombine:init()
     self.m_orgTable = TABLE:get(self.m_tableName)
 end
 
+-------------------------------------
+-- function getCombinationDid
+-- @brief 받아온 did가 재료인 조합 드래곤 did를 찾는다
+-------------------------------------
+function TableDragonCombine:getCombinationDid(did)
+	if (self == THIS) then
+        self = THIS()
+    end
+
+	for _, t_data in pairs(self.m_orgTable) do
+		for i = 1, 4 do
+			local mtrl_did = t_data['material_' .. i]
+			if (mtrl_did == did) then
+				return t_data['did']
+			end
+		end
+	end
+
+	return nil
+end

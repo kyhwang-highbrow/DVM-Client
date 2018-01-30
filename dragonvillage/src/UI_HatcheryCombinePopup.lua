@@ -30,7 +30,7 @@ function UI_HatcheryCombinePopup:init(did)
     self.m_dragonID = did
 
     local vars = self:load('hatchery_combine_02.ui')
-    UIManager:open(self, UIManager.POPUP, true)
+    UIManager:open(self, UIManager.SCENE, true)
 
     -- backkey 지정
     g_currScene:pushBackKeyListener(self, function() self:click_exitBtn() end, 'UI_HatcheryCombinePopup')
