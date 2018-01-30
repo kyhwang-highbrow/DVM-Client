@@ -918,7 +918,7 @@
 					visible = true;
 					lua_name = '';
 					font_name = 'font/common_font_01.ttf';
-					font_size = 30;
+					font_size = 28;
 					text = '1단계';
 					h_alignment = 1;
 					v_alignment = 1;

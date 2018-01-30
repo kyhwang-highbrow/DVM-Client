@@ -17,7 +17,7 @@
 					anchor_point = { 0.500000; 0.500000; };
 					relative_size_type = 0;
 					width = 320;
-					height = 110;
+					height = 100;
 					scale_x = 1.000000;
 					scale_y = 1.000000;
 					skew_x = 0.000000;
@@ -126,7 +126,7 @@
 				anchor_point = { 0.500000; 0.500000; };
 				relative_size_type = 0;
 				width = 320;
-				height = 110;
+				height = 100;
 				scale_x = 1.000000;
 				scale_y = 1.000000;
 				skew_x = 0.000000;
@@ -135,10 +135,10 @@
 				visible = true;
 				lua_name = 'listBtn';
 				enable = true;
-				normal = 'ui/temp/empty.png';
-				selected = '';
+				normal = 'ui/buttons/base_btn_0101.png';
+				selected = 'ui/buttons/base_btn_0102.png';
 				disable = '';
-				image_type = 0;
+				image_type = 1;
 			};
 			type = 'Menu';
 			ui_name = '';
@@ -148,7 +148,7 @@
 			anchor_point = { 0.500000; 0.500000; };
 			relative_size_type = 0;
 			width = 320;
-			height = 110;
+			height = 100;
 			scale_x = 1.000000;
 			scale_y = 1.000000;
 			skew_x = 0.000000;
@@ -165,7 +165,7 @@
 		anchor_point = { 0.500000; 0.500000; };
 		relative_size_type = 3;
 		width = -960;
-		height = -610;
+		height = -620;
 		scale_x = 1.000000;
 		scale_y = 1.000000;
 		skew_x = 0.000000;

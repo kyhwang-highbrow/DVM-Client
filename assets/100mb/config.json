@@ -1,6 +1,6 @@
 {
     "init_cfg": {
-        "appVer": "1.0.9",
+        "appVer": "1.1.0",
         "width": 1280,
         "height": 720,
         "scale": 1,
