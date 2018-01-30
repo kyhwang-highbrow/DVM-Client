@@ -31,10 +31,16 @@ function UI_EventPopupTab_Banner:init(owner, struct_event_popup_tab)
     if (banner_btn) then
         banner_btn:registerScriptTapHandler(function() self:click_bannerBtn() end)
     end
+
+    -- bannerBtn 경우 풀팝업에서는 막히지만 linkBtn은 막히지 않게
+    local link_btn = vars['linkBtn']
+    if (link_btn) then
+        link_btn:registerScriptTapHandler(function() self:click_bannerBtn() end)
+    end
 end
 
 -------------------------------------
--- function click_closeBtn
+-- function click_bannerBtn
 -------------------------------------
 function UI_EventPopupTab_Banner:click_bannerBtn()
     local url = self.m_structBannerData['url']
@@ -55,6 +61,7 @@ end
 -- @brief 크로스 프로모션 마켓 연결 (마이 오아시스)
 -------------------------------------
 function UI_EventPopupTab_Banner:goToCrossPromotionAppStore()
+    if isWin32() then return end 
     local appId = 'com.buffstudio.myoasis'
     if isIos() then
         -- AppStore App ID
