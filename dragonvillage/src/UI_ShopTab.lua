@@ -82,7 +82,7 @@ function UI_ShopTab:init_TableView()
     table_view_td:setCellUIClass(UI_Product, create_cb_func)
     table_view_td:setDirection(cc.SCROLLVIEW_DIRECTION_VERTICAL)
     table_view_td.m_nItemPerCell = item_per_cell
-	table_view_td:setAlignCenter(true)
+	--table_view_td:setAlignCenter(true)
 
     -- 리스트가 비었을 때
     table_view_td:makeDefaultEmptyDescLabel('')
