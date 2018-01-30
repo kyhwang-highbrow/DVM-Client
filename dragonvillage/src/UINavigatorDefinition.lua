@@ -11,6 +11,11 @@ function UINavigatorDefinition:goTo(location_name, ...)
         return
     end
 
+	-- SceneCommon 이 실행 중이라면 lobby로 가는 콜백을 없애 버린다
+	if (isInstanceOf(g_currScene, SceneCommon)) then
+		g_currScene:removeUICloseCB()
+	end
+
     -- 모드별 실행 함수 호출
     local function_name = 'goTo_' .. location_name
     if self[function_name] then

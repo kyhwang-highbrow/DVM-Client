@@ -6,6 +6,7 @@ SceneCommon = class(PerpleScene, {
         m_classUI = 'class',
         m_uiCloseCB = 'function',
         m_args = 'list',
+		m_uiInstance = 'UI',
     })
 
 -------------------------------------
@@ -33,5 +34,14 @@ function SceneCommon:onEnter()
 		-- 매개변수가 10개를 넘지 않는다는 가정 sgkim 2017-08-08
         local ui = self.m_classUI(args[1], args[2], args[3], args[4], args[5], args[6], args[7], args[8], args[9], args[10])
         ui:setCloseCB(self.m_uiCloseCB)
+
+		self.m_uiInstance = ui
     end
+end
+
+-------------------------------------
+-- function removeUICloseCB
+-------------------------------------
+function SceneCommon:removeUICloseCB()
+	self.m_uiInstance:setCloseCB(nil)
 end
