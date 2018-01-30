@@ -11,11 +11,6 @@ function UINavigatorDefinition:goTo(location_name, ...)
         return
     end
 
-	-- SceneCommon 이 실행 중이라면 lobby로 가는 콜백을 없애 버린다
-	if (isInstanceOf(g_currScene, SceneCommon)) then
-		g_currScene:removeUICloseCB()
-	end
-
     -- 모드별 실행 함수 호출
     local function_name = 'goTo_' .. location_name
     if self[function_name] then
@@ -496,8 +491,16 @@ function UINavigatorDefinition:goTo_nestdungeon_core(...)
     -- 해당 UI가 열려있을 경우
     local is_opend, idx, ui = self:findOpendUI('UI_NestDungeonScene')
     if (is_opend == true) then
+        -- 기존 UI에 등록된 콜백 저장
+        local close_cb = ui.m_closeCB
+        ui:setCloseCB(nil)
+
+        -- 해당 UI까지 포함해서 삭제
         self:closeUIList(idx, true) -- param : idx, include_idx
-        UI_NestDungeonScene(stage_id, dungeon_type)
+
+        -- 새로 생성 (갱신을 위해)
+        local new_ui = UI_NestDungeonScene(stage_id, dungeon_type)
+        new_ui:setCloseCB(close_cb)
         return
     end
 
@@ -564,8 +567,16 @@ function UINavigatorDefinition:goTo_secret_relation(...)
     -- 해당 UI가 열려있을 경우
     local is_opend, idx, ui = self:findOpendUI('UI_SecretDungeonScene')
     if (is_opend == true) then
+        -- 기존 UI에 등록된 콜백 저장
+        local close_cb = ui.m_closeCB
+        ui:setCloseCB(nil)
+
+        -- 해당 UI까지 포함해서 삭제
         self:closeUIList(idx, true) -- param : idx, include_idx
-        UI_SecretDungeonScene(stage_id)
+
+        -- 새로 생성 (갱신을 위해)
+        local new_ui = UI_SecretDungeonScene(stage_id)
+        new_ui:setCloseCB(close_cb)
         return
     end
 
