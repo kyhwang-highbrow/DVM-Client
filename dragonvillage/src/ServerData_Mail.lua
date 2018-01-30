@@ -204,7 +204,7 @@ function ServerData_Mail:request_mailRead(mail_id_list, t_mail_type_reward, fini
     local function success_cb(ret)
 
         -- @analytics
-        for mail_type, item_list in ipairs(t_mail_type_reward) do
+        for mail_type, item_list in pairs(t_mail_type_reward) do
             if (mail_type == 'q_daily') then
                 Analytics:trackGetGoodsWithItemList(item_list, '일일 퀘스트')
 
