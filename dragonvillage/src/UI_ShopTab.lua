@@ -63,12 +63,12 @@ function UI_ShopTab:init_TableView()
     local item_per_cell = 3
     local interval = 2
 
-    -- 탭에서 상품 개수가 6개 이상이 되면 3줄로 노출
-    --if (6 < table.count(l_item_list)) then
-    --    scale = 0.7
-    --    item_per_cell = 3
-    --    interval = 0
-    --end
+    -- 탭에서 상품 개수가 7개 이상이 되면 4줄로 노출
+    if (7 < table.count(l_item_list)) then
+        scale = 0.76
+        item_per_cell = 4
+        interval = 0
+    end
 
     -- 생성 콜백
 	local function create_cb_func(ui, data)

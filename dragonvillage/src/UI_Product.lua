@@ -128,74 +128,19 @@ function UI_Product:initItemNodePos()
     local struct_product = self.m_structProduct
     local type = struct_product:getTabCategory()
 
-    local target_pos 
-    local target_scale
-
-    -- 다이아
-    if (type == 'cash') then
-        target_pos = cc.p(-50, 46)
-
-    -- 골드
-    elseif (type == 'gold') then
-        target_pos = cc.p(0, 46)
-
-    -- 토파즈
-    elseif (type == 'topaz') then
-        local pid = struct_product['product_id']
-        if (not pid) then return end
-
-        if (pid == 30001) or -- 초월의 알
-           (pid == 30002) or -- 신화의 알
-           (pid == 30008) or -- 전설드래곤 선택권
-           (pid == 30009) then -- 캡슐코인
-            target_pos = cc.p(0, 64)
-        end
-
-        if (pid == 30004) or -- 스킬슬라임
-           (pid == 30005) or -- 아르주나
-           (pid == 30006) or -- 카르나
-           (pid == 30007) then -- 앙그라
-            target_pos = cc.p(0, 80)
-            target_scale = 0.8
-        end
-
-    -- 명예
-    elseif (type == 'honor') then
-        local pid = struct_product['product_id']
-        if (not pid) then return end
-
-        if (pid == 50006) or (pid == 50007) then -- 스킬슬라임
-            target_pos = cc.p(0, 80)
-            target_scale = 0.8
-        end
-
-    -- 클랜코인
-    elseif (type == 'clancoin') then
-                local pid = struct_product['product_id']
-        if (not pid) then return end
-
-        if (pid == 60010) or (pid == 60013) or (pid == 60014) then -- 스킬슬라임, 강화포인트
-            target_pos = cc.p(0, 80)
-            target_scale = 0.8
-        end
-
-        if (pid == 60012) then -- 절대적인 전설의알
-            target_pos = cc.p(0, 64)
-        end
-
-
-    -- 고대주화
-    elseif (type == 'ancient') then
-        target_pos = cc.p(0, 80)
-    end
-
+    local ui_pos = struct_product:getUIPos()
+    local ui_scale = struct_product:getUIScale()
+    
     local node = vars['itemNode']
-    if (target_pos) then
-        node:setPosition(target_pos.x, target_pos.y)
+    if (ui_pos) and (ui_pos ~= '') then
+        local l_str = seperate(ui_pos, ',')
+        local x = l_str[1] or 0
+        local y = l_str[2] or 0
+        node:setPosition(x, y)
     end
 
-    if (target_scale) then
-        node:setScale(target_scale)
+    if (ui_scale) and (ui_scale ~= '') then
+        node:setScale(ui_scale)
     end
 end
 

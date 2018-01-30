@@ -25,6 +25,10 @@ StructProduct = class(PARENT, {
 		package_res = 'string',
 		package_frame_type = 'number',
 
+        -- shop ui pos, scale
+        ui_pos = 'number',
+        ui_scale = 'number',
+
         -- subscription (구독 상품)
         subscription = 'string',
 
@@ -159,6 +163,34 @@ end
 -------------------------------------
 function StructProduct:getUIPriority()
     return self.m_uiPriority
+end
+
+-------------------------------------
+-- function setUIPos
+-------------------------------------
+function StructProduct:setUIPos(pos)
+    self['ui_pos'] = pos
+end
+
+-------------------------------------
+-- function getUIPos
+-------------------------------------
+function StructProduct:getUIPos()
+    return self['ui_pos']
+end
+
+-------------------------------------
+-- function setUIScale
+-------------------------------------
+function StructProduct:setUIScale(scale)
+    self['ui_scale'] = scale
+end
+
+-------------------------------------
+-- function getUIScale
+-------------------------------------
+function StructProduct:getUIScale()
+    return self['ui_scale']
 end
 
 -------------------------------------
@@ -953,13 +985,13 @@ function StructProduct:getMaxBuyTermStr()
 
     local str = ''
     if (max_buy_term == 'permanent') then
-        str = Str('구매가능 {1}/{2}', buy_cnt, max_buy_cnt)
+        str = Str('구매가능 {1}/{2}', max_buy_cnt - buy_cnt, max_buy_cnt)
 
     elseif (max_buy_term == 'monthly') then
-        str = Str('월간 구매가능 {1}/{2}', buy_cnt, max_buy_cnt)
+        str = Str('월간 구매가능 {1}/{2}', max_buy_cnt - buy_cnt, max_buy_cnt)
 
     elseif (max_buy_term == 'weekly') then
-        str = Str('주간 구매가능 {1}/{2}', buy_cnt, max_buy_cnt)
+        str = Str('주간 구매가능 {1}/{2}', max_buy_cnt - buy_cnt, max_buy_cnt)
 
     end
 

@@ -279,6 +279,16 @@ function ServerData_Shop:response_shopInfo(ret, cb_func)
             struct_product:setEndDate(end_date) -- 판매 종료 시간
             struct_product:setDependency(dependency) -- 상품 의존성 (대체 상품)
             struct_product:setUIPriority(ui_priority) -- UI정렬 순선 (높으면 앞쪽에 노출)
+            
+            -- 2018.01.30 - klee 상품별 UI 포지션, 스케일 정보 추가 
+            local t_basic_info = table_shop_basic[product_id]
+            if (t_basic_info) then
+                local ui_pos = t_basic_info['ui_pos']
+                local ui_scale = t_basic_info['ui_scale']
+                struct_product:setUIPos(ui_pos) 
+                struct_product:setUIScale(ui_scale) 
+            end
+
             self:insertProduct(struct_product)
         end
     end
