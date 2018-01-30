@@ -175,8 +175,7 @@ function SceneGameIntro:update(dt)
 
     -- 세번째 웨이브 - 파워드래곤 스킬
     if (idx == 5) and (recorder:getLog('use_skill') > 0 and self.m_focusingDragon.m_state == 'attackDelay') then
-        cclog('idx : 5')
-
+        
         -- 해당 드래곤의 액티브 스킬에 필요한 마나를 추가
         self.m_focusingDragon = world:getDragonList()[1]
         world.m_heroMana:setCurrMana(self.m_focusingDragon:getSkillManaCost())
@@ -186,23 +185,20 @@ function SceneGameIntro:update(dt)
 
 	-- 세번째 웨이브 - 스마트 드래곤 대사
 	if (idx == 6) and (recorder:getLog('use_skill') > 1 and self.m_focusingDragon.m_state == 'attackDelay') then
-        cclog('idx : 6')
-
+        
 		self:play_tutorialTalk()
 	end
 
     -- 세번째 웨이브 - 보스 스킬 사용 직전
 	-- @jjo 다크닉스 공격으로 애들 피가 많이 깎임. 죽으면 안됨.
     if (idx == 7) and (boss.m_patternAtkIdx == '1' and boss.m_state == 'attack') then
-        cclog('idx : 7')
-
+        
         self:play_tutorialTalk()
     end
 
 	-- 세번째 웨이브 - 스마트 드래곤 힐
 	if (idx == 8) and (recorder:getLog('boss_special_attack') > 0 and boss.m_state == 'pattern_wait') then
-        cclog('idx : 8')
-
+        
         -- 해당 드래곤의 액티브 스킬에 필요한 마나를 추가
         self.m_focusingDragon = world:getDragonList()[3]
         world.m_heroMana:setCurrMana(self.m_focusingDragon:getSkillManaCost())
@@ -211,15 +207,13 @@ function SceneGameIntro:update(dt)
     end
 
     if (idx == 9) and (recorder:getLog('use_skill') > 2 and self.m_focusingDragon.m_state == 'attackDelay') then
-        cclog('idx : 9')
-
+        
         self:play_tutorialTalk()
     end
 
     -- 세번째 웨이브 - 번개고룡 패시브 및 드래그
 	if (idx == 10) and (world.m_heroMana:getCurrMana() > 0.5) then
-        cclog('idx : 10')
-
+        
         -- 해당 드래곤의 액티브 스킬에 필요한 마나를 추가
         self.m_focusingDragon = world:getDragonList()[4]
         world.m_heroMana:setCurrMana(self.m_focusingDragon:getSkillManaCost())
