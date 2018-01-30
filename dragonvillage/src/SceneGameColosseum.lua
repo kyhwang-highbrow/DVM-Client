@@ -101,6 +101,13 @@ function SceneGameColosseum:prepare()
     end)
 end
 
+-------------------------------------
+-- function prepareAfter
+-------------------------------------
+function SceneGameColosseum:prepareAfter()
+    -- 콜로세움은 어뷰징 이슈로 playstart 요청을 하지 않음
+    return true
+end
 
 -------------------------------------
 -- function prepareDone

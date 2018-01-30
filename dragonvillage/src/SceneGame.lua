@@ -45,6 +45,9 @@ SceneGame = class(PerpleScene, {
         m_resPreloadMgr = 'ResPreloadMgr',
         m_fpsMeter = 'FpsMeter',
 
+        -- 서버 통신 관련
+        m_bSuccessNetForPlayStart = 'boolean', -- 게임 시작 직전 서버와 통신 성공 여부(활동력 차감을 위함)
+
     })
 
 -------------------------------------
@@ -71,6 +74,7 @@ function SceneGame:init(game_key, stage_id, stage_name, develop_mode, stage_para
     self.m_bDevelopMode = develop_mode or false
     self.m_bDevelopStage = false
     self.m_bShowTopUserInfo = false
+    self.m_bSuccessNetForPlayStart = false
 
     self:init_gameMode(stage_id)
 	self:init_loadingGuideType()
@@ -304,6 +308,25 @@ function SceneGame:prepare()
 end
 
 -------------------------------------
+-- function prepareAfter
+-------------------------------------
+function SceneGame:prepareAfter()
+    if (not self.m_bSuccessNetForPlayStart) then
+        if (self.m_bDevelopMode) then
+            self.m_bSuccessNetForPlayStart = true
+
+        else
+            -- 활동력 차감을 위한 서버 통신
+            self:networkGamePlayStart(function()
+                self.m_bSuccessNetForPlayStart = true
+            end)
+        end
+    end
+
+    return self.m_bSuccessNetForPlayStart
+end
+
+-------------------------------------
 -- function prepareDone
 -------------------------------------
 function SceneGame:prepareDone()
@@ -485,6 +508,43 @@ function SceneGame:flashOut(tParam)
 			end
 		end)
 	))
+end
+
+-------------------------------------
+-- function networkGamePlayStart
+-- @breif 게임 플레이 시작 시 요청
+-------------------------------------
+function SceneGame:networkGamePlayStart(next_func)
+    -- 백그라운드로 한번만 요청하면서 다음 스텝으로 진행시킴
+    local function success_cb(ret)
+        if (ret['status'] ~= 0) then return end
+
+        self:networkGamePlayStart_response(ret)
+    end
+
+    local t_request = {}
+    t_request['url'] = '/game/stage/play'
+    t_request['method'] = 'POST'
+    t_request['data'] = { uid = g_userData:get('uid'), stage = self.m_stageID }
+    t_request['success'] = success_cb
+    
+    Network:HMacRequest(t_request)
+
+    -- @E.T.
+	g_errorTracker:appendAPI(t_request['url'])
+
+    if (next_func) then
+        next_func()
+    end
+end
+
+-------------------------------------
+-- function networkGamePlayStart_response
+-- @breif
+-------------------------------------
+function SceneGame:networkGamePlayStart_response(ret)
+    -- 활동력 갱신
+    g_serverData:networkCommonRespone(ret)
 end
 
 -------------------------------------

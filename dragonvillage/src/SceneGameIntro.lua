@@ -91,6 +91,13 @@ function SceneGameIntro:prepare()
 end
 
 -------------------------------------
+-- function prepareAfter
+-------------------------------------
+function SceneGameIntro:prepareAfter()
+    return true
+end
+
+-------------------------------------
 -- function prepareDone
 -------------------------------------
 function SceneGameIntro:prepareDone()

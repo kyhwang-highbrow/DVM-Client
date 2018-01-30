@@ -18,7 +18,6 @@ SceneGameClanRaid = class(PARENT, {
 
         -- 서버 통신 관련
         m_bWaitingNet = 'boolean', -- 서버와 통신 중 여부
-        m_bSuccessNetForPlayStart = 'boolean', -- 게임 시작 직전 서버와 통신 성공 여부(활동력 차감을 위함)
     })
 
 -------------------------------------
@@ -30,7 +29,6 @@ function SceneGameClanRaid:init(game_key, stage_id, stage_name, develop_mode, st
     self.m_realLiveTimer = 0
     self.m_uiPopupTimeOut = nil
     self.m_bWaitingNet = false
-    self.m_bSuccessNetForPlayStart = false
 
     -- 스테이지 속성에 따른 이름을 사용
     local attr = TableStageData():getStageAttr(stage_id)
@@ -112,25 +110,6 @@ function SceneGameClanRaid:prepare()
 end
 
 -------------------------------------
--- function prepareAfter
--------------------------------------
-function SceneGameClanRaid:prepareAfter()
-    if (not self.m_bSuccessNetForPlayStart) then
-        if (self.m_bDevelopMode) then
-            self.m_bSuccessNetForPlayStart = true
-
-        else
-            -- 활동력 차감을 위한 서버 통신
-            self:networkGamePlayStart(function()
-                self.m_bSuccessNetForPlayStart = true
-            end)
-        end
-    end
-
-    return self.m_bSuccessNetForPlayStart
-end
-
--------------------------------------
 -- function prepareDone
 -------------------------------------
 function SceneGameClanRaid:prepareDone()
@@ -191,78 +170,7 @@ end
 -- @breif 게임 플레이 시작 시 요청
 -------------------------------------
 function SceneGameClanRaid:networkGamePlayStart(next_func)
---[[
-    if (self.m_bWaitingNet) then return end
-    self.m_bWaitingNet = true
-
-    local uid = g_userData:get('uid')
-
-    local function error_popup(ret)
-        local type
-        local msg
-        local ok_btn_cb
-        local cancel_btn_cb
-        
-        if (ret) then
-            local status = ret['status']
-            type = POPUP_TYPE.OK
-            msg = t_error[status]
-            ok_btn_cb = function() UINavigator:goTo('clan_raid') end
-        else
-            type = POPUP_TYPE.YES_NO
-            msg = Str('오류가 발생하였습니다.\n다시 시도하시겠습니까?')
-            ok_btn_cb = function() self:networkGamePlayStart(next_func) end
-            cancel_btn_cb = function() UINavigator:goTo('clan_raid') end
-        end
-
-        if (msg) then
-            local popup = MakeNetworkPopup(type, msg, ok_btn_cb, cancel_btn_cb)
-            popup.root:retain()
-            popup.root:removeFromParent(true)
-            self.m_loadingUI.root:addChild(popup.root)
-            popup.root:release()
-        else
-            -- 기타 에러의 경우는 그냥 통과시킴
-            if (next_func) then
-                next_func()
-            end
-        end
-    end
-
-    local function success_cb(ret)
-        self:networkGamePlayStart_response(ret)
-
-        self.m_bWaitingNet = false
-
-        if (next_func) then
-            next_func()
-        end
-    end
-
-    local function fail_cb()
-        self.m_bWaitingNet = false
-
-        error_popup()
-    end
-
-    local function response_status_cb(ret)
-        self.m_bWaitingNet = false
-
-        error_popup(ret)
-    end
-
-    local api_url = '/clans/dungeon_play'
-    
-    local ui_network = UI_Network()
-    ui_network:setUrl(api_url)
-    ui_network:setParam('uid', uid)
-    ui_network:setParam('stage', self.m_stageID)
-    ui_network:setResponseStatusCB(response_status_cb)
-    ui_network:setSuccessCB(success_cb)
-    ui_network:setFailCB(fail_cb)
-    ui_network:request()
-]]--
-    -- !!!백그라운드로 한번만 요청하면서 다음 스텝으로 진행 시키도록 수정
+    -- 백그라운드로 한번만 요청하면서 다음 스텝으로 진행시킴
     local function success_cb(ret)
         if (ret['status'] ~= 0) then return end
 
@@ -277,18 +185,12 @@ function SceneGameClanRaid:networkGamePlayStart(next_func)
     
     Network:HMacRequest(t_request)
 
+    -- @E.T.
+	g_errorTracker:appendAPI(t_request['url'])
+
     if (next_func) then
         next_func()
     end
-end
-
--------------------------------------
--- function networkGamePlayStart_response
--- @breif
--------------------------------------
-function SceneGameClanRaid:networkGamePlayStart_response(ret)
-    -- 활동력 갱신
-    g_serverData:networkCommonRespone(ret)
 end
 
 -------------------------------------
