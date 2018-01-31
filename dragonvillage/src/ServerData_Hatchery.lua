@@ -291,7 +291,7 @@ function ServerData_Hatchery:getSummonEggList()
         --t_data['price'] = ServerData_Hatchery.FP__BUNDLE_SUMMON_PRICE
         --table.insert(l_item_list, t_data)
 
-        local t_data = {['egg_id']=700003, ['bundle']=false,  ['full_type'] = 'egg_friendship', ['name']=Str('우정 부화'), ['desc']=Str('1~3★ 드래곤 부화')}
+        local t_data = {['egg_id']=700003, ['bundle']=false,  ['full_type'] = 'egg_friendship', ['name']=Str('우정 부화'), ['desc']=Str('★1~3 드래곤 부화')}
         t_data['egg_res'] = 'res/item/egg/egg_friendship/egg_friendship.vrp'
         t_data['price_type'] = 'fp'
         t_data['price'] = ServerData_Hatchery.FP__SUMMON_PRICE
