@@ -595,8 +595,9 @@ function ServerData_Shop:request_checkReceiptValidation(struct_product, validati
         -- 탭조이 매출은 모두 krw 가격으로 보냄
         if (struct_product) then
             local krw_price = struct_product['price'] -- getPrice() 함수 나중에 수정하기
+            local token = struct_product['token']   --adjust용 토큰
 
-            Analytics:purchase(product_id, sku, krw_price)
+            Analytics:purchase(product_id, sku, krw_price, token)
             Analytics:trackGetGoodsWithRet(ret, string.format('상품 구매 : %d', product_id))
         end
         
