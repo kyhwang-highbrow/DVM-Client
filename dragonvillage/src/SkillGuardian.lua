@@ -369,8 +369,35 @@ function SkillGuardian:setTemporaryPause(pause)
         end
     end
 
+    local setOpacity = function(opacity)
+        for k, v in pairs(self.m_barEffect) do
+	        if (self.m_barEffect[k]) then
+                self.m_barEffect[k]:setOpacity(opacity)
+            end
+        end
+
+        if (self.m_shieldEffect) then
+            self.m_shieldEffect:setOpacity(opacity)
+        end
+
+        if (self.m_barrierEffect1) then
+            self.m_barrierEffect1:setOpacity(opacity)
+        end
+
+        for k, v in pairs(self.m_barrierEffect2) do
+            if (self.m_barrierEffect2[k]) then
+                self.m_barrierEffect2[k]:setOpacity(opacity)
+            end
+        end
+    end
+
     if (PARENT.setTemporaryPause(self, pause)) then
         --setVisible(not pause)
+        if (pause) then
+            setOpacity(127)
+        else
+            setOpacity(255)
+        end
 
         return true
     end
