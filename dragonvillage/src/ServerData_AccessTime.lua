@@ -90,11 +90,11 @@ function ServerData_AccessTime:request_saveTime(finish_cb, fail_cb)
     ui_network:setLoadingMsg(Str('접속 동기화 중...'))
     ui_network:setParam('uid', uid)
     ui_network:setParam('access_time', time)
-    ui_network:hideLoading()
     ui_network:setSuccessCB(success_cb)
     ui_network:setFailCB(fail_cb)
     ui_network:setRevocable(true)
     ui_network:setReuse(false)
+    ui_network:hideBGLayerColor()
     ui_network:request()
 
     return ui_network

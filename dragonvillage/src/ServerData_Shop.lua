@@ -219,11 +219,11 @@ function ServerData_Shop:request_shopInfo(cb_func, fail_cb)
     local ui_network = UI_Network()
     ui_network:setUrl('/shop/list')
     ui_network:setParam('uid', uid)
-    ui_network:hideLoading()
     ui_network:setSuccessCB(success_cb)
     ui_network:setFailCB(fail_cb)
     ui_network:setRevocable(true)
     ui_network:setReuse(false)
+    ui_network:hideBGLayerColor()
     ui_network:request()
 
     return ui_network

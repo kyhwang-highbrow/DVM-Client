@@ -92,7 +92,7 @@ function ServerData_Highlight:request_highlightInfo(finish_cb, fail_cb)
     ui_network:setFailCB(fail_cb)
     ui_network:setRevocable(true)
     ui_network:setReuse(false)
-	ui_network:hideLoading()
+	ui_network:hideBGLayerColor()
     ui_network:request()
 end
 

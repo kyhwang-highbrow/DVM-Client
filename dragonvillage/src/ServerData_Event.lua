@@ -72,6 +72,7 @@ function ServerData_Event:getEventPopupTabList()
 
             -- 시작 종료 시간 모두 걸려있는 경우
             if (start_time) and (end_date) then
+				cclog(start_tiem, cur_time, end_time)
                 visible = (start_time < cur_time and cur_time < end_time)
 
             -- 시작 시간만 걸려있는 경우
@@ -429,11 +430,11 @@ function ServerData_Event:request_eventList(finish_cb, fail_cb)
     ui_network:setUrl('/users/event/list')
     ui_network:setLoadingMsg(Str('이벤트 정보 받는 중...'))
     ui_network:setParam('uid', uid)
-    ui_network:hideLoading()
     ui_network:setSuccessCB(success_cb)
     ui_network:setFailCB(fail_cb)
     ui_network:setRevocable(true)
     ui_network:setReuse(false)
+    ui_network:hideBGLayerColor()
     ui_network:request()
 
     return ui_network

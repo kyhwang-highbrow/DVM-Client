@@ -137,6 +137,7 @@ function ServerData_Forest:request_myForestInfo(finish_cb)
     ui_network:setSuccessCB(success_cb)
     ui_network:setRevocable(true)
     ui_network:setReuse(false)
+	ui_network:hideBGLayerColor()
     ui_network:request()
 
     return ui_network
