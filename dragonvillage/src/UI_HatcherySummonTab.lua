@@ -97,6 +97,7 @@ function UI_HatcherySummonTab:initUI()
 
     -- 소환 확률 안내 (네이버 sdk 링크)
     vars['infoBtn']:registerScriptTapHandler(function() self:click_infoBtn() end)
+    vars['infoBtn']:setVisible(false) -- 네이버 카페 SDK에서 체널과 게시글을 동시에 지정하는 기능이 없어서 보류 sgkim 2018-01-31
 end
 
 
