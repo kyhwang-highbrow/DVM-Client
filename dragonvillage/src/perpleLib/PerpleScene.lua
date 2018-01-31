@@ -158,15 +158,15 @@ function PerpleScene.onKeyReleased(keyCode, event)
 		return 
 	end
 
-    cclog('keyCode = ' .. keyCode)
+    --cclog('keyCode = ' .. keyCode)
 
     -- KEY_ESCAPE == 6(android 하드웨어 back key에 매핑)
     if (keyCode == KEY_ESCAPE) then
-		cclog('------------------------------------------')
-		for i,v in pairs(g_currScene.m_tBackKeyListener) do
-			cclog(string.format('Back Key Event Listener %d : %s', i, v.name))
-		end
-		cclog('\n\n')
+		--cclog('------------------------------------------')
+		--for i,v in pairs(g_currScene.m_tBackKeyListener) do
+			--cclog(string.format('Back Key Event Listener %d : %s', i, v.name))
+		--end
+		--cclog('\n\n')
 
         if g_currScene.m_tBackKeyListener[1] and g_currScene.m_tBackKeyListener[1]['cb'] then
             if not g_currScene.m_bBlockBackkey then
