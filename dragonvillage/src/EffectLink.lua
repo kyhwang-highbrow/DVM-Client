@@ -220,6 +220,15 @@ function EffectLink:setColor(color)
 end
 
 -------------------------------------
+-- function setOpacity
+-------------------------------------
+function EffectLink:setOpacity(opacity)
+    self.m_startPointNode:setOpacity(opacity)
+    self.m_effectNode:setOpacity(opacity)
+    self.m_endPointNode:setOpacity(opacity)
+end
+
+-------------------------------------
 -- function addAniHandler
 -- @brief 구조상 필요
 -------------------------------------
