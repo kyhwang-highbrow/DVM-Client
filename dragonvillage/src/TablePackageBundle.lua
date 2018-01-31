@@ -27,12 +27,16 @@ function TablePackageBundle:getTableViewMap()
 
         local t_pids = v['t_pids']
         local l_str = pl.stringx.split(t_pids, ',')
-        local target_pid = l_str[1]
 
-        -- 우선 순위는 table_shop_list에서 가져옴
-        local struct_product = l_item_list[tonumber(target_pid)]
-        if (struct_product) then
-            map[tostring(target_pid)] = struct_product
+        for _i, _v in ipairs(l_str) do
+            local target_pid = l_str[_i]
+
+            -- 우선 순위는 table_shop_list에서 가져옴
+            local struct_product = l_item_list[tonumber(target_pid)]
+            if (struct_product) then
+                map[tostring(target_pid)] = struct_product
+                break
+            end
         end
     end
 
