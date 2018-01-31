@@ -1322,8 +1322,30 @@ function GameState:getBossAnimator()
     if (isMonster(boss_id)) then
         local res_name = TableMonster():getMonsterRes(boss_id)
         local attr = TableMonster():getValue(boss_id, 'attr')
+        local type = TableMonster():getValue(boss_id, 'type')
         animator = AnimatorHelper:makeMonsterAnimator(res_name, attr)
         scale = TableMonster():getValue(boss_id, 'scale')
+
+        -- 거대용
+        if (type == 'giantdragon') then
+            scale = scale * 0.5
+
+        -- 보석 거대용 보스
+        elseif (type == 'jeweldragon') then
+            animator:setPositionX(-150)
+            scale = scale * 0.5
+
+        -- 거목 던전 보스
+        elseif (type == 'treant') then
+            animator:setPositionX(50)
+            scale = scale * 0.7
+
+        -- 악몽 던전 보스
+        elseif (string.find(type, 'nightmare_dragon')) then
+            animator:setPositionX(50)
+            scale = scale * 0.7
+
+        end
 
     elseif (isDragon(boss_id)) then
         local res_name = TableDragon():getDragonRes(boss_id, evolution)
