@@ -82,11 +82,7 @@ function SkillAoECross.st_attack(owner, dt)
             for _, collision in ipairs(owner.m_lCollision) do
 	            owner:makeEffect(owner.m_aoeRes, collision:getPosX(), collision:getPosY())
             end
-            --[[
-            for _, target in ipairs(owner.m_lTarget) do
-	            owner:makeEffect(owner.m_aoeRes, target.pos.x, target.pos.y)
-            end
-            ]]--
+            
             owner.m_multiAttackEffectFlag = false
         end
     end
@@ -112,9 +108,6 @@ function SkillAoECross:runAttack(l_collision)
     for _, collision in ipairs(l_collision) do
         self:attack(collision)
     end
-
-	-- 특수한 부가 효과 구현
-	self:doSpecialEffect()
 
 	self:doCommonAttackEffect()
 end

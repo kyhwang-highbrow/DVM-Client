@@ -8,6 +8,7 @@ ISkillMultiAttack = {
 		
 		m_hitInterval = 'number',
 		m_multiAtkTimer = 'dt',
+        m_multiAtkDelay = 'number',
      }
 
 -------------------------------------
@@ -18,6 +19,7 @@ function ISkillMultiAttack:init()
     self.m_maxAttackCount = 0
     self.m_hitInterval = 0
     self.m_multiAtkTimer = 0
+    self.m_multiAtkDelay = 0
 end
 
 -------------------------------------
@@ -45,8 +47,9 @@ function ISkillMultiAttack.st_attack(owner, dt)
     end
 	
     owner.m_multiAtkTimer = owner.m_multiAtkTimer + dt
+
 	-- 반복 공격
-    if (owner.m_multiAtkTimer > owner.m_hitInterval) then
+    if (owner.m_multiAtkTimer > owner.m_hitInterval + owner.m_multiAtkDelay) then
 		-- 공격 횟수 초과시 탈출
 		if (owner.m_attackCount >= owner.m_maxAttackCount) then
 			owner:escapeAttack()

@@ -648,13 +648,6 @@ function Skill:doCommonAttackEffect()
 end
 
 -------------------------------------
--- function doSpecialEffect
--- @brief 로직화 할 수 없는 특수 효과들은 이함수를 통해서 실행 시키고 특정 상위 수준에서 실행한다
--------------------------------------
-function Skill:doSpecialEffect()
-end
-
--------------------------------------
 -- function findCollision
 -- @brief 모든 충돌 대상 찾음(Body 기준)
 -- @default 직선거리에서 범위를 기준으로 충돌여부 판단

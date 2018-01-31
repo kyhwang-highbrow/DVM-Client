@@ -66,8 +66,6 @@ function SkillEnumrate_Penetration:fireMissile(idx)
         
 	t_option['cbFunction'] = function(attacker, defender, x, y)
 		self:onAttack(defender)
-
-		self:doSpecialEffect()
 	end
 
     local l_target = self:getProperTargetList()

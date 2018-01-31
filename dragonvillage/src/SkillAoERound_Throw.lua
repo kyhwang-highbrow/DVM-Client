@@ -45,7 +45,6 @@ function SkillAoERound_Throw:initState()
     self:addState('start', SkillAoERound_Throw.st_idle, nil, true)
     self:addState('draw', SkillAoERound_Throw.st_draw, 'idle', true)
 	self:addState('attack', PARENT.st_attack, 'disappear', false)
-    --self:addState('disappear', SkillAoERound_Throw.st_disappear, nil, false)
     self:addState('disappear', PARENT.st_disappear, nil, false)
 end
 
@@ -72,41 +71,6 @@ function SkillAoERound_Throw.st_draw(owner, dt)
 
 		owner:runAction(cc.Sequence:create(cc.EaseIn:create(action, 1), cbFunc))
     end
-end
-
---[[
--------------------------------------
--- function st_disappear
--------------------------------------
-function SkillAoERound_Throw.st_disappear(owner, dt)
-    if (owner.m_stateTimer == 0) then
-		owner:onDisappear()
-
-        -- 스킬 종료시 발동되는 status effect를 적용
-		owner:dispatch(CON_SKILL_END, {l_target = {owner.m_targetChar}})
-
-		return true
-    end
-end
-]]--
-
--------------------------------------
--- function runAttack
--------------------------------------
-function SkillAoERound_Throw:runAttack()
-    local l_target, l_collision = self:findTarget()
-
-    for _, collision in ipairs(l_collision) do
-        self:attack(collision)
-
-        -- 타겟별 리소스
-        self:makeEffect(self.m_aoeRes, collision:getPosX(), collision:getPosY())
-    end
-    
-	-- 특수한 부가 효과 구현
-	self:doSpecialEffect(l_target)
-
-	self:doCommonAttackEffect()
 end
 
 -------------------------------------

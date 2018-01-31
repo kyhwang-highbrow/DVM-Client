@@ -41,9 +41,19 @@ function SkillAoERound_Sura:initState()
 	if (self.m_addAttackCount > 0) then 
 		add_str = 'effect_'
 	end
-    self:addState('start', SkillAoERound.st_appear, add_str .. 'appear', false)
-    self:addState('attack', SkillAoERound.st_attack, add_str .. 'idle', true)
-	self:addState('disappear', SkillAoERound.st_disappear, add_str .. 'disappear', false)
+    self:addState('start', PARENT.st_appear, add_str .. 'appear', false)
+    self:addState('attack', PARENT.st_attack, add_str .. 'idle', true)
+	self:addState('disappear', PARENT.st_disappear, add_str .. 'disappear', false)
+end
+
+-------------------------------------
+-- function runAttack
+-------------------------------------
+function SkillAoERound_Sura:runAttack()
+    PARENT.runAttack(self)
+    
+	-- 특수한 부가 효과 구현
+	self:doSpecialEffect()
 end
 
 -------------------------------------
