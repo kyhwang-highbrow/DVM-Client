@@ -42,7 +42,7 @@ Upload.prototype.loadSheet = function()
 	var uploadCount = 0;
 	function onInit( $info )
 	{
-		var totalSheet = spreadsheet.getWorksheet( "total_dev" );
+		var totalSheet = spreadsheet.getWorksheet( sheetName + "_backup" );
 
 		var param = {};
 		param.offset = 1;

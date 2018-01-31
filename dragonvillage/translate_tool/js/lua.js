@@ -7,7 +7,12 @@ module.exports = Lua;
 function Lua( $sheetNames, $locale, $spreadsheet_id, $callback )
 {
 	const sheetNameList = $sheetNames.split(";");
-	sheetNameList.push("total_dev");
+	var sheetNameLen = sheetNameList.length;
+	var i = 0;
+	for( ; i < sheetNameLen; ++i )
+	{
+		sheetNameList.push(sheetNameList[i] + "_backup");
+	}	
 	
 	const locale = $locale;
 	const spreadsheet_id = $spreadsheet_id;

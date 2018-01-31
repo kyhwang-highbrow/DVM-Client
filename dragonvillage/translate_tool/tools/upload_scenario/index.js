@@ -46,7 +46,7 @@ Upload.prototype.loadSheet = function()
 	var uploadCount = 0;
 	function onInit( $info )
 	{
-		var totalSheet = spreadsheet.getWorksheet( "total_dev" );
+		var totalSheet = spreadsheet.getWorksheet( sheetName + "_backup" );
 
 		var param = {};
 		param.offset = 1;
@@ -58,10 +58,8 @@ Upload.prototype.loadSheet = function()
 			var len = data.length;			
 			var removeList = [];
 			for( i ; i < len ; i++ )
-			{
-				var speaker = data[ i ][2];
-				var msg = data[i][6];				
-				if( removeStr(speaker, msg, $rows) == true )
+			{				
+				if( removeStr(data[i], $rows) == true )
 				{
 					removeList.push(i);
 				}
@@ -76,12 +74,14 @@ Upload.prototype.loadSheet = function()
 			loadSheet();
 		} );
 
-		function removeStr( $speaker, $msg, $rows )
+		function removeStr( $data, $rows )
 		{
 			var i = $rows.length;			
 			var isExistName = false;
 			var isExistString = false;
-			if($speaker == "" )
+			var speaker = $data[2];
+			var msg = $data[6];				
+			if(speaker == "" )
 			{
 				isExistName = true;
 			}
@@ -90,9 +90,17 @@ Upload.prototype.loadSheet = function()
 				while( i-- )
 				{
 					//이름 찾기
-					if( $rows[i].kr == $speaker )
+					if( $rows[i].speakerkr == speaker )
 					{
 						isExistName = true;
+						//찾은거 혹시모르니 넣어준다.
+						var localeIdx = 0;
+						for( ; localeIdx < localeList.length; ++localeIdx )
+						{
+							var locale_speaker = "speaker" + localeList[localeIdx];
+							var locale_speaker_idx = 2 + localeIdx + 1;
+							$data[locale_speaker_idx] = $rows[i][locale_speaker];
+						}	
 						break;
 					}				
 				}
@@ -102,9 +110,17 @@ Upload.prototype.loadSheet = function()
 			while( i-- )
 			{
 				//텍스트 찾기
-				if( $rows[i].kr == $msg )
+				if( $rows[i].kr == msg )
 				{
 					isExistString = true;
+					//찾은거 혹시모르니 넣어준다.
+					var localeIdx = 0;
+					for( ; localeIdx < localeList.length; ++localeIdx )
+					{
+						var locale_msg = localeList[localeIdx];
+						var locale_msg_idx = 6 + localeIdx + 1;
+						$data[locale_msg_idx] = $rows[i][locale_msg];
+					}	
 					break;
 				}	
 			}
