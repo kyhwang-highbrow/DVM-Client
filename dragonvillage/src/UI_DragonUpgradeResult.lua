@@ -67,8 +67,10 @@ function UI_DragonUpgradeResult:refresh(dragon_object)
         vars['dragonNode']:addChild(dragon_animator.m_node)
         dragon_animator:setDragonAnimator(dragon_object['did'], dragon_object['evolution'], dragon_object['friendship']['flv'])
         local function cb()
-            -- 액션 후 백키 블럭 해제
-            self:doAction(function() UIManager:blockBackKey(false) end, false)
+			-- 백키 블럭 해제
+			UIManager:blockBackKey(false)
+
+            self:doAction(nil, false)
 			SoundMgr:playEffect('UI', 'ui_star_up')
             
             -- 등급 비주얼

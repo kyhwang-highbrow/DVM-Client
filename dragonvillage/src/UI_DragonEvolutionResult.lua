@@ -161,10 +161,13 @@ function UI_DragonEvolutionResult:showEvolutionEffect(dragon_object)
         -- 결과 메뉴 보여줌
         local show_action2 = cc.CallFunc:create(function()
             shake_mgr:doShakeGrowling(0.05, 10, 35, 2)
+			
+			-- 백키 블럭 해제
+			UIManager:blockBackKey(false)
 
             SoundMgr:playEffect('UI', 'ui_grow_result')
             self:doActionReset()
-            self:doAction(function() UIManager:blockBackKey(false) end, false)
+            self:doAction(nil, false)
         end)
 
         local action = cc.Sequence:create(delay_action1, show_action1,
