@@ -47,6 +47,9 @@ end
 -- function click_reportBtn
 -------------------------------------
 function UI_ErrorPopup_Live:click_reportBtn()
+	-- @mskim 간혹.. 같은 에러가 3~4번씩 오는 경우가 있어 통신 지연시 터치가 여러번 되는 것을 의심
+	UI_BlockPopup()
+
     local error_str = self.m_errorStr
     local function cb_func()
         UIManager:toastNotificationGreen('전송이 완료되었다고라.')
