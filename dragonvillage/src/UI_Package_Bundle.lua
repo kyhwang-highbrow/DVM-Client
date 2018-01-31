@@ -133,8 +133,13 @@ function UI_Package_Bundle:refresh()
             end
 
             -- 구매 제한
-            local limit = struct_product:getMaxBuyTermStr()
-            setLabelString('buyLabel', idx, limit)
+            local str = struct_product:getMaxBuyTermStr()
+
+            -- 구매 가능/불가능 텍스트 컬러 변경
+            local is_buy_all = struct_product:isBuyAll()
+            local color_key = is_buy_all and '{@impossible}' or '{@available}'
+            local rich_str = color_key .. str
+            setLabelString('buyLabel', idx, rich_str)
 
 	        -- 가격
 	        local price = struct_product:getPriceStr()

@@ -82,8 +82,13 @@ function UI_Package_Step:refresh(step)
                 vars['priceLabel']:setString(struct_product:getPriceStr())
 
                 -- 구매 가능
-                local buy_str = (self.m_curr_step < idx) and '' or struct_product:getMaxBuyTermStr()
-                vars['buyLabel']:setString(buy_str)
+                local buy_str = struct_product:getMaxBuyTermStr()
+
+                -- 구매 가능/불가능 텍스트 컬러 변경
+                local is_buy_all = struct_product:isBuyAll()
+                local color_key = is_buy_all and '{@impossible}' or '{@available}'
+                local rich_str = color_key .. buy_str
+                vars['buyLabel']:setString(rich_str)
 
                 -- 현재 단계보다 높으면 구매 불가
                 vars['buyBtn']:setEnabled(self.m_curr_step >= idx)

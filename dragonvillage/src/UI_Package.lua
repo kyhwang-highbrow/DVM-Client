@@ -77,8 +77,12 @@ function UI_Package:refresh()
 
     -- 구매 제한
     if vars['buyLabel'] then
-        local limit = struct_product:getMaxBuyTermStr()
-        vars['buyLabel']:setString(limit)
+        local str = struct_product:getMaxBuyTermStr()
+        -- 구매 가능/불가능 텍스트 컬러 변경
+        local is_buy_all = struct_product:isBuyAll()
+        local color_key = is_buy_all and '{@impossible}' or '{@available}'
+        local rich_str = color_key .. str
+        vars['buyLabel']:setString(rich_str)
     end
 
 	-- 가격

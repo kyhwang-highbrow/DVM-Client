@@ -179,7 +179,12 @@ function UI_Product:refresh()
             if rich_str and (rich_str ~= '') then
                 rich_str = rich_str .. '\n'
             end
-            rich_str = rich_str .. '{@available}' .. str
+
+            -- 구매 가능/불가능 텍스트 컬러 변경
+            local is_buy_all = struct_product:isBuyAll()
+            local color_key = is_buy_all and '{@impossible}' or '{@available}'
+
+            rich_str = rich_str .. color_key .. str
 
             vars['dscLabel']:setString(rich_str)
         else
