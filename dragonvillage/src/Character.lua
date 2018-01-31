@@ -1260,11 +1260,10 @@ function Character:makeDamageFont(damage, x, y, tParam)
     local node = cc.Node:create()
     node:setPosition(x, y)
     node:setCascadeOpacityEnabled(true)
+
     -- 애니메이션 적용
     if (is_critical) then
-        
         node:runAction( cc.Sequence:create(cc.ScaleTo:create(0.05, 3.5), cc.ScaleTo:create(0.3, 1), cc.DelayTime:create(0.4), cc.FadeOut:create(0.3), cc.RemoveSelf:create()))
-        --node:runAction( cc.Sequence:create(cc.FadeIn:create(0.3), cc.DelayTime:create(0.4), cc.FadeOut:create(0.5), cc.RemoveSelf:create()))
         node:runAction(cc.EaseIn:create(cc.MoveTo:create(1, cc.p(x, y + 80)), 1))
     else
         node:runAction( cc.Sequence:create(cc.FadeIn:create(0.3), cc.DelayTime:create(0.2), cc.FadeOut:create(0.5), cc.RemoveSelf:create()))
@@ -1367,6 +1366,7 @@ end
 -- function makeMissFont
 -------------------------------------
 function Character:makeMissFont(x, y)
+    local y = y + 60
 
     -- 일반 데미지
     local sprite = self:createWithSpriteFrameName('ingame_damage_dodge.png')
@@ -1374,24 +1374,27 @@ function Character:makeMissFont(x, y)
     local scale = 1
 
     sprite:setPosition(x, y)
-    sprite:runAction( cc.Sequence:create(cc.ScaleTo:create(0.05, 1.5 * scale), cc.ScaleTo:create(0.1, 1 * scale), cc.DelayTime:create(0.2), cc.FadeOut:create(0.3), cc.RemoveSelf:create()))
-    sprite:runAction(cc.EaseIn:create(cc.MoveTo:create(1, cc.p(x, y + 170)), 1))
-    self.m_world:addChild3(sprite, DEPTH_MISS_FONT)
+    sprite:runAction( cc.Sequence:create(cc.FadeIn:create(0.3), cc.DelayTime:create(0.2), cc.FadeOut:create(0.5), cc.RemoveSelf:create()))
+    sprite:runAction(cc.EaseIn:create(cc.MoveTo:create(1, cc.p(x, y + 80)), 1))
+    --self.m_world:addChild3(sprite, DEPTH_MISS_FONT)
+    self.m_world:addChild3(sprite, DEPTH_DAMAGE_FONT)
 end
 
 -------------------------------------
 -- function makeShieldFont
 -------------------------------------
 function Character:makeShieldFont(x, y)
+    local y = y + 60
 
     local sprite = self:createWithSpriteFrameName('ingame_damage_shield.png')
 
     local scale = 1
 
     sprite:setPosition(x, y)
-    sprite:runAction( cc.Sequence:create(cc.ScaleTo:create(0.05, 1.5 * scale), cc.ScaleTo:create(0.1, 1 * scale), cc.DelayTime:create(0.2), cc.FadeOut:create(0.3), cc.RemoveSelf:create()))
-    sprite:runAction(cc.EaseIn:create(cc.MoveTo:create(1, cc.p(x, y + 170)), 1))
-    self.m_world:addChild3(sprite, DEPTH_BLOCK_FONT)
+    sprite:runAction( cc.Sequence:create(cc.FadeIn:create(0.3), cc.DelayTime:create(0.2), cc.FadeOut:create(0.5), cc.RemoveSelf:create()))
+    sprite:runAction(cc.EaseIn:create(cc.MoveTo:create(1, cc.p(x, y + 80)), 1))
+    --self.m_world:addChild3(sprite, DEPTH_BLOCK_FONT)
+    self.m_world:addChild3(sprite, DEPTH_DAMAGE_FONT)
 end
 
 -------------------------------------
