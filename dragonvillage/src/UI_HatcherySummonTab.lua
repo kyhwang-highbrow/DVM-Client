@@ -94,6 +94,9 @@ function UI_HatcherySummonTab:initUI()
 			end
 		end
     end
+
+    -- 소환 확률 안내 (네이버 sdk 링크)
+    vars['infoBtn']:registerScriptTapHandler(function() self:click_infoBtn() end)
 end
 
 
@@ -330,4 +333,12 @@ function UI_HatcherySummonTab:summonApiFinished()
 
     local fail_cb = nil
     g_hatcheryData:update_hatcheryInfo(finish_cb, fail_cb)
+end
+
+-------------------------------------
+-- function click_infoBtn
+-- @brief 소환 확률 안내 (네이버 sdk 링크)
+-------------------------------------
+function UI_HatcherySummonTab:click_infoBtn()
+    NaverCafeManager:naverCafeStartWithArticle('summon_info')
 end

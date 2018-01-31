@@ -1,9 +1,18 @@
 local NAVER_NEO_ID_CONSUMER_KEY = '_hBggTZAp2IPapvAxwQl'
 local NAVER_COMMUNITY_ID        = 1013702
+local NAVER_CHANNEL_KOREA       = 0
 local NAVER_CHANNEL_AMERICA     = 1031345
 local NAVER_CHANNEL_JAPAN       = 1031352
 local NAVER_CHANNEL_ASIA_TH_TW  = 1031353
 local NAVER_CHANNEL_ASIA_EN     = 1031441
+
+-- 네이버 SDK로 게시글 바로가기에 사용되는 테이블 키 값(table_naver_article)
+local T_ARTICLE_TABLE_KEY = {}
+T_ARTICLE_TABLE_KEY[NAVER_CHANNEL_KOREA] = 'korea'
+T_ARTICLE_TABLE_KEY[NAVER_CHANNEL_AMERICA] = 'america'
+T_ARTICLE_TABLE_KEY[NAVER_CHANNEL_JAPAN] = 'japan'
+T_ARTICLE_TABLE_KEY[NAVER_CHANNEL_ASIA_EN] = 'asia_en'
+T_ARTICLE_TABLE_KEY[NAVER_CHANNEL_ASIA_TH_TW] = 'asia_twzh'
 
 local NAVER_CHANNEL_CODE_KOREAN = 'ko'
 local NAVER_CHANNEL_CODE_ENGLISH = 'en'
@@ -118,16 +127,59 @@ end
 -- function naverCafeStartWithArticle
 -- @brief 네이버 카페에 특정게시글 보며 열기 
 -------------------------------------
-function NaverCafeManager:naverCafeStartWithArticle(articeId)
+function NaverCafeManager:naverCafeStartWithArticle(article_key, server_name, lang)
+    -- skip확인은 함수 아래 부분에서 처리 (window에서 해당 article의 id까지 찾아오는지 확인이 필요하기 때문)
+
+    local function error_log(msg)
+        cclog('==============================================================')
+        cclog('## function NaverCafeManager:naverCafeStartWithArticle')
+        cclog('## msg : ' .. tostring(msg))
+        cclog('==============================================================')
+    end
+
+    -- 파라미터 확인
+    if (not article_key) then
+        error_log('article_key가 nil입니다.')
+        return
+    end
+
+    -- 테이블 확인
+    local table_naver_article = TABLE:get('table_naver_article')
+    if (not table_naver_article) then
+        error_log('table_naver_article가 nil입니다.')
+        return
+    end
+
+    -- 테이블에 해당 값 확인
+    local t_data = table_naver_article[article_key]
+    if (not t_data) then
+        error_log('table_naver_article에서 ' .. article_key .. '값이 없습니다.')
+        return
+    end
+
+    -- 채널 선택 (현재 선택된 채널을 알 수 없는 상태여서 서버와 언어로 다시 채널을 설정)
+    local _server_name = (server_name or g_localData:getServerName())
+    local _lang = (lang or g_localData:getLang())
+    local channelID = self:naverInitGlobalPlug(_server_name, _lang)
+    local key = T_ARTICLE_TABLE_KEY[channelID]
+    local artice_id = t_data[key]
+
+    cclog('NaverCafeManager:naverCafeStartWithArticle')
+    cclog('channelID: ' .. tostring(channelID))
+    cclog('channel_name : ' .. tostring(key))
+    cclog('artice_id : ' .. tostring(artice_id))
+
     if (skip()) then
+        -- 윈도우에서 확인용으로 사용하는 것이니 번역 필요 없음
+        if (isWin32()) then 
+            ccdisplay('channel_name : ' .. tostring(key))
+            ccdisplay('artice_id : ' .. tostring(artice_id))
+        end
         return
     end
 
-    if not articeId then
-        return
-    end
-
-    PerpleSDK:naverCafeStartWithArticle(articeId)
+    -- 네이버 SDK 호출
+    PerpleSDK:naverCafeStartWithArticle(artice_id)
 end
 
 -------------------------------------
@@ -186,7 +238,7 @@ end
 -------------------------------------
 function NaverCafeManager:naverInitGlobalPlug(server, lang, isSaved)
     if (skip()) then
-        return
+        return NAVER_CHANNEL_KOREA
     end
 
     --선택한서버와 언어에따라 플러그 채널을 강제 선택해줍니다. --김종환이사님
@@ -222,6 +274,5 @@ function NaverCafeManager:naverInitGlobalPlug(server, lang, isSaved)
         PerpleSDK:naverCafeSetChannelCode(channelCode)
     end
 
+    return channelID
 end
-
-

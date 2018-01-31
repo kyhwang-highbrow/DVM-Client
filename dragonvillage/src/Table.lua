@@ -110,6 +110,7 @@ local TableInfo_fromServer = {
 		-- 기타
         ['table_req_gold'] = {'table_req_gold', 'lv'},
         ['table_stamina_info'] = {'table_stamina_info', 'stamina_type'},
+        ['table_naver_article'] = {'table_naver_article', 'article'},
 
         --  친밀도
         ['table_dragon_friendship'] = {'table_dragon_friendship', 'friendship'},
