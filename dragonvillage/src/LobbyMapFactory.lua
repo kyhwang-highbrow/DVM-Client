@@ -8,6 +8,8 @@ LobbyMapFactory = {}
 -------------------------------------
 function LobbyMapFactory:createLobbyWorld(parent_node, ui_lobby)
 
+	self:chcekDayOrNight()
+
     local lobby_map = LobbyMap(parent_node)
     self.m_lobbyMap = lobby_map
     lobby_map:setContainerSize(1280*3, 960)
@@ -103,4 +105,25 @@ function LobbyMapFactory:makeLobbyLayer(idx)
 	end
 
     return node
+end
+
+-------------------------------------
+-- function chcekDayOrNight
+-- @brief 낮/밤을 체크한다
+-------------------------------------
+function LobbyMapFactory:chcekDayOrNight()
+	local curr_time = Timer:getServerTime()
+	local date = pl.Date()
+	date:set(curr_time)
+
+	local hour = date:hour()
+
+	-- 오전 6시 ~ 오후 6시 사이는 낮
+	if (hour > 6) and (hour < 18) then
+		USE_NIGHT = false
+
+	-- 밤
+	else
+		USE_NIGHT = true
+	end
 end
