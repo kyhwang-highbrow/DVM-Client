@@ -370,7 +370,7 @@ function SkillGuardian:setTemporaryPause(pause)
     end
 
     if (PARENT.setTemporaryPause(self, pause)) then
-        setVisible(not pause)
+        --setVisible(not pause)
 
         return true
     end
