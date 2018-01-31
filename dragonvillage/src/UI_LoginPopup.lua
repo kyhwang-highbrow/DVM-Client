@@ -27,6 +27,9 @@ function UI_LoginPopup:init()
 
     self.m_loadingUI = UI_TitleSceneLoading()
     self.m_loadingUI:hideLoading()
+
+    --서버선택 팝업으로 최초에 보여주도록 
+    self:click_changeServer()
 end
 
 -------------------------------------
