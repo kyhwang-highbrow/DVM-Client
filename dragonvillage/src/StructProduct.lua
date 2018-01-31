@@ -19,6 +19,7 @@ StructProduct = class(PARENT, {
         max_buy_term = 'string',
         badge = 'string',
         lock = 'number',
+        token = 'string',
 
 		-- package 용
 		banner_res = 'string',
