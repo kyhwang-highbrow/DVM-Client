@@ -343,6 +343,7 @@ function UI_Lobby:initButton()
     vars['levelupBtn']:registerScriptTapHandler(function() self:click_lvUpPackBtn() end) -- 레벨업 패키지
     vars['adventureClearBtn']:registerScriptTapHandler(function() self:click_adventureClearBtn() end) -- 모험돌파 패키지
 	vars['capsuleBoxBtn']:registerScriptTapHandler(function() self:click_capsuleBoxBtn() end) -- 캡슐 뽑기 버튼
+    vars['ddayBtn']:registerScriptTapHandler(function() self:click_ddayBtn() end) -- 출석 이벤트탭 이동
 
     do -- 기타 UI
         local etc_vars = self.m_etcExpendedUI.vars
@@ -566,6 +567,45 @@ function UI_Lobby:refresh_dragonDiary()
 
         local desc = Str(t_diary['t_desc'])
         vars['dragonDiaryLabel']:setString(desc)
+    end
+end
+
+-------------------------------------
+-- function refresh_attendanceDday
+-------------------------------------
+function UI_Lobby:refresh_attendanceDday()
+    local vars = self.vars
+
+    local function showDday(t_info, target_day)
+        local today_step = t_info['today_step']
+        local received = t_info['received']
+        local d_day = target_day - today_step
+
+        -- 7일 이하만 카운트
+        if (d_day > 7) then
+            return
+        end
+
+        -- 획득하는 날은 안받은 상태에서만 표시
+        if ((d_day == 0) and (received == false)) or (d_day > 0) then
+            vars['ddayBtn']:setVisible(true)
+            vars['ddayLabel']:setString(string.format('D-%d', d_day))
+        else 
+            vars['ddayBtn']:setVisible(false)
+        end
+    end
+
+    -- 이벤트 출석 D-day 표시 
+    if (g_attendanceData:getAttendanceData('event')) then
+        local t_info = g_attendanceData:getAttendanceData('event')
+        local target_day = g_attendanceData:getLegendaryDragonDay('event')
+        showDday(t_info, target_day)
+
+    -- 기본 출석 D-day 표시
+    else
+        local t_info = g_attendanceData:getAttendanceData('basic')
+        local target_day = g_attendanceData:getLegendaryDragonDay('basic')
+        showDday(t_info, target_day)
     end
 end
 
@@ -865,6 +905,13 @@ function UI_Lobby:click_capsuleBoxBtn()
 end
 
 -------------------------------------
+-- function click_ddayBtn
+-------------------------------------
+function UI_Lobby:click_ddayBtn()
+    g_eventData:openEventPopup('attendance')
+end
+
+-------------------------------------
 -- function click_exitBtn
 -- @brief 종료
 -------------------------------------
@@ -911,6 +958,12 @@ function UI_Lobby:update(dt)
     if (g_eventData.m_bDirty) then
         g_eventData.m_bDirty = false
         self:refresh_rightButtons()
+    end
+
+    -- 로비 출석 D-day 표시
+    if (g_attendanceData.m_bDirtyAttendanceInfo) then
+        g_attendanceData.m_bDirtyAttendanceInfo = false
+        self:refresh_attendanceDday()
     end
 
     -- 광고 (자동재화, 선물상자 정보)

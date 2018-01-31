@@ -60,6 +60,9 @@ function UI_EventPopupTab_EventAttendance:checkTodayRewardPopup()
     local msg = struct_attendance_data:getDesc()
     local ok_btn_cb = nil
     UI_ObtainPopup(l_item_list, msg, ok_btn_cb)
+
+    -- 로비 출석 D-day 표시를 위해 갱신 true
+    g_attendanceData.m_bDirtyAttendanceInfo = true
 end
 
 -------------------------------------

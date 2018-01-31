@@ -72,10 +72,12 @@ end
 -- function response_attendanceInfo
 -------------------------------------
 function ServerData_Attendance:response_attendanceInfo(ret, finish_cb)
-    self.m_bDirtyAttendanceInfo = false
+    -- 로비 출석 D-day 표시를 위해 갱신 true
+    self.m_bDirtyAttendanceInfo = true
 
 	-- 이전 출석 정보에 아직 보상 수령 안된 상태라면 처리하지 않는다
 	-- 이 상태에서 재접속하면 출석 보상 수령 연출이 안나오겠지만... 현재 구조에서는 어차피 불가능
+
 	if (self.m_structAttendanceDataList) then
 		if (self:hasAttendanceReward()) then
 			if finish_cb then
@@ -108,12 +110,14 @@ end
 -- @brief 풀팝업에서 사용
 -------------------------------------
 function ServerData_Attendance:hasAttendanceReward()
-	for i,v in pairs(self.m_structAttendanceDataList) do
-		if v:hasReward() then
-			return true
-		end
+    if (self.m_structAttendanceDataList) then
+        for i,v in pairs(self.m_structAttendanceDataList) do
+		    if v:hasReward() then
+			    return true
+		    end
+        end
     end
-
+	
     return false
 end
 
@@ -121,12 +125,14 @@ end
 -- function getAttendanceData
 -------------------------------------
 function ServerData_Attendance:getAttendanceData(atdc_type)
-    for i,v in pairs(self.m_structAttendanceDataList) do
-        if (v.attendance_type == atdc_type) then
-            return v
+    if (self.m_structAttendanceDataList) then
+        for i,v in pairs(self.m_structAttendanceDataList) do
+            if (v.attendance_type == atdc_type) then
+                return v
+            end
         end
     end
-
+    
     return nil
 end
 
@@ -142,4 +148,25 @@ end
 -------------------------------------
 function ServerData_Attendance:getAttendanceDataList()
     return self.m_structAttendanceDataList
+end
+
+-------------------------------------
+-- function getLegendaryDragonDay
+-- @brief 전설의 알 획득 날짜
+-------------------------------------
+function ServerData_Attendance:getLegendaryDragonDay(atdc_type)
+    local t_info = self:getAttendanceData(atdc_type)
+    local legendary_egg_id = 703005
+    local day
+    if (t_info) then
+        local step_list = t_info['step_list']
+        for _, v in ipairs(step_list) do
+            local item_id = v['item_id']
+            if (item_id == legendary_egg_id) then
+                day = v['step']
+                break
+            end
+        end
+    end
+    return day
 end

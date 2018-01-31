@@ -121,6 +121,9 @@ function UI_EventPopupTab_Attendance:checkTodayRewardPopup()
     local msg = Str('{1}일 차 보상이 우편함으로 전송되었습니다.', today_step)
     local ok_btn_cb = nil
     UI_ObtainPopup(l_item_list, msg, ok_btn_cb)
+
+    -- 로비 출석 D-day 표시를 위해 갱신 true
+    g_attendanceData.m_bDirtyAttendanceInfo = true
 end
 
 -------------------------------------
