@@ -107,7 +107,7 @@ function TablePackageBundle:getPackageDescWithPid(pid)
     for _, v in pairs(self.m_orgTable) do
         local t_pids = v['t_pids']
         if (string.find(t_pids, tostring(pid))) then
-            return v['t_desc']
+            return Str(v['t_desc'])
         end
     end
 
