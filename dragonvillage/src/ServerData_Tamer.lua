@@ -263,6 +263,9 @@ function ServerData_Tamer:request_getTamer(tid, type, cb_func)
         -- 재화 갱신
         self.m_serverData:networkCommonRespone(ret)
 
+		-- 로비 노티 갱신
+		g_highlightData:setDirty(true)
+
         -- @ MASTER ROAD
         local t_data = {clear_key = 't_get', clear_value = self:getTamerCount()}
         g_masterRoadData:updateMasterRoad(t_data)

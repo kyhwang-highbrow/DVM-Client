@@ -327,8 +327,8 @@ function ServerData_Highlight:saveNewDoidMap()
 		self.m_bDirtyNewOidMapRune = false
 	end
 
-	-- 로비 노티 갱신
-	g_highlightData:setDirty(true)
+	-- 로비 노티 갱신 : 드래곤 획득 시 일로 들어온다
+	self:setDirty(true)
 end
 
 -------------------------------------
