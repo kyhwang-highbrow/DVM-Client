@@ -72,7 +72,6 @@ function ServerData_Event:getEventPopupTabList()
 
             -- 시작 종료 시간 모두 걸려있는 경우
             if (start_time) and (end_date) then
-				cclog(start_tiem, cur_time, end_time)
                 visible = (start_time < cur_time and cur_time < end_time)
 
             -- 시작 시간만 걸려있는 경우
