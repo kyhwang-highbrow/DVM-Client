@@ -112,7 +112,7 @@ end
 -- @brief 낮/밤을 체크한다
 -------------------------------------
 function LobbyMapFactory:chcekDayOrNight()
-	local curr_time = Timer:getServerTime()
+	local curr_time = os.time()
 	local date = pl.Date()
 	date:set(curr_time)
 
