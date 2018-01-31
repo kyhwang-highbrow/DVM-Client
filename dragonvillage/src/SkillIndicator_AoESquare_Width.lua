@@ -74,18 +74,10 @@ function SkillIndicator_AoESquare_Width:findCollision(x, y)
 
     local l_ret = SkillTargetFinder:findCollision_AoESquare(l_target, x, y, width, height, true)
 
-    -- 스킬 시전자의 진형 왼/오 에 따라 x값이 작은/큰 순으로 정렬
+    -- x값이 작은 순으로 정렬
     if (#l_ret > 1) then
         table.sort(l_ret, function(a, b)
-            local ret = a:getPosX() < b:getPosX()
-            if (self.m_hero) then
-                if (self.m_hero.m_bLeftFormation) then
-                    return ret
-                else
-                    return not ret
-                end
-            end
-            return ret
+            return a:getPosX() < b:getPosX()
         end)
     end
 
