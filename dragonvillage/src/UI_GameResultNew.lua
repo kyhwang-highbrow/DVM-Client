@@ -1011,11 +1011,19 @@ function UI_GameResultNew:sortDragonNode(dragon_cnt)
 end
 
 -------------------------------------
+-- function blockButtonUntilWorkDone
+-- @brief 모드별 백버튼은 여기서 처리
+-------------------------------------
+function UI_GameResultNew:blockButtonUntilWorkDone()
+	return (self.m_isClearMasterRoad and (not self:isWorkListDone()))
+end
+
+-------------------------------------
 -- function click_backBtn
 -- @brief 모드별 백버튼은 여기서 처리
 -------------------------------------
 function UI_GameResultNew:click_backBtn()
-	if (not self:isWorkListDone()) then
+	if (self:blockButtonUntilWorkDone()) then
 		return
 	end
     local game_mode = g_gameScene.m_gameMode
@@ -1028,6 +1036,10 @@ end
 -- function click_quickBtn
 -------------------------------------
 function UI_GameResultNew:click_quickBtn()
+	if (self:blockButtonUntilWorkDone()) then
+		return
+	end
+
     local stage_id = self.m_stageID
 
     local function finish_cb(game_key)
@@ -1087,6 +1099,10 @@ end
 -- function click_statsBtn
 -------------------------------------
 function UI_GameResultNew:click_statsBtn()
+	if (self:blockButtonUntilWorkDone()) then
+		return
+	end
+
 	-- @TODO g_gameScene.m_gameWorld 사용안하여야 한다.
 	UI_StatisticsPopup(g_gameScene.m_gameWorld)
 end
@@ -1095,6 +1111,10 @@ end
 -- function click_homeBtn
 -------------------------------------
 function UI_GameResultNew:click_homeBtn()
+	if (self:blockButtonUntilWorkDone()) then
+		return
+	end
+
 	local is_use_loading = true
     local scene = SceneLobby(is_use_loading)
     scene:runScene()
@@ -1104,6 +1124,10 @@ end
 -- function click_againBtn
 -------------------------------------
 function UI_GameResultNew:click_againBtn()
+	if (self:blockButtonUntilWorkDone()) then
+		return
+	end
+
     local stage_id = self.m_stageID
     UINavigator:goTo('adventure', stage_id)
 end

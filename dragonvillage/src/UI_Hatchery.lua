@@ -5,8 +5,6 @@ local PARENT = class(UI, ITopUserInfo_EventListener:getCloneTable(), ITabUI:getC
 -------------------------------------
 UI_Hatchery = class(PARENT,{
         m_npcAnimator = 'Animator',
-
-		m_tutorialAccessor = 'UI', -- 튜토리얼에서 접근해야할 UI 추가
     })
 
 -------------------------------------
@@ -107,8 +105,6 @@ function UI_Hatchery:initTab()
     self:addTabWithTabUIAndLabel('relation', vars['relationTabBtn'], vars['relationTabLabel'], relation_tab) -- 인연
 
     self:setTab('summon')
-
-	self.m_tutorialAccessor = incubate_tab
 end
 
 

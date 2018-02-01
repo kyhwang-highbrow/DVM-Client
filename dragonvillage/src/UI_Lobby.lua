@@ -240,20 +240,21 @@ function UI_Lobby:entryCoroutine()
 			end
         end
 
-        -- @UI_ACTION 액션 종료 후에는 튜토리얼 시작
+        -- @ UI_ACTION
         co:work()
-        self:doAction(function() 
-            -- @ TUTORIAL : check tutorial in lobby
+	    self:doAction(function() 
+			-- @ TUTORIAL : check tutorial in lobby
 			cclog('TutorialManager:checkTutorialInLobby')
-            TutorialManager.getInstance():checkTutorialInLobby(self)
-            co.NEXT()
+			TutorialManager.getInstance():checkTutorialInLobby(self)
+
+			-- block popup 해제
+			block_ui:close()
+
+	        co.NEXT()
         end, false)
         g_topUserInfo:doAction()
 		self.root:scheduleUpdateWithPriorityLua(function(dt) self:update(dt) end, 0)
         if co:waitWork() then return end
-
-		-- block popup 해제
-		block_ui:close()
     end
 
     Coroutine(coroutine_function, '로비 코루틴')
