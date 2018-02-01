@@ -257,6 +257,14 @@ end
 -- function click_packageTabBtn
 -------------------------------------
 function UI_EventPopup:click_packageTabBtn()
+	-- 하이브로... 웹뷰가 남아있는 케이스가 있어 제거
+	if (self.m_currTab == 'highbrow_shop') then
+		local ui = self.m_mTabUI[self.m_currTab]
+		local webview = ui.m_webView
+		if (webview) then
+			webview:setVisible(false)
+		end
+	end
     UINavigator:goTo('package_shop')
 end
 
