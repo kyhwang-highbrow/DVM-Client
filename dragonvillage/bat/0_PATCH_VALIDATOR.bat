@@ -1,6 +1,3 @@
-::UTF-8�� ����
-chcp 65001
-
 cd ../bat
 call Validate_Data_Table.bat
 
