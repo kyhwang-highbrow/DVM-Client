@@ -378,13 +378,16 @@ function UI_DragonSkillEnhance:click_dragonMaterial(data)
     local list_item_ui = list_item['ui']
     
     local function set_ui()
-        if (self.m_selectedUI) then
-            self.m_selectedUI:setCheckSpriteVisible(false)
-        end
+		-- 재료 경고
+        g_dragonsData:dragonMaterialWarning(doid, function()
+			if (self.m_selectedUI) then
+				self.m_selectedUI:setCheckSpriteVisible(false)
+			end
 
-        self.m_selectedMtrl = data['id']
-        self.m_selectedUI = list_item_ui
-		list_item_ui:setCheckSpriteVisible(true)
+			self.m_selectedMtrl = data['id']
+			self.m_selectedUI = list_item_ui
+			list_item_ui:setCheckSpriteVisible(true)
+		end)
     end
 
 	-- 선택된 재료가 있는 경우
