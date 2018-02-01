@@ -1,4 +1,6 @@
-Analytics = {}
+Analytics = {
+    enable = true,
+}
 Adbrix = {}
 FiveRocks = {}
 Adjust = {}
@@ -67,15 +69,15 @@ CUS_EVENT = {
 -- function setEnable
 -------------------------------------
 function Analytics:setEnable(enable)
-    self.m_enable = enalbe
+    self['enable'] = enable
 end
 
 -------------------------------------
 -- function getEnable
 -------------------------------------
 function Analytics:getEnable()
-    if (self.m_enable ~= nil) then
-        return self.m_enable
+    if (self['enable'] ~= nil) then
+        return self['enable']
     end
 
     return true
