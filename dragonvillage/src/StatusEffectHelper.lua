@@ -511,17 +511,17 @@ function StatusEffectHelper:releaseStatusEffectDebuff(char, max_release_cnt, sta
 	    for type, status_effect in pairs(char:getStatusEffectList()) do
             -- 해로운 효과 해제
             if (status_effect:isErasable() and status_effect:isHarmful()) then
-		        for i, v in ipairs(status_effect.m_lUnit) do
-                    status_effect:unapplyOverlab(v)
-                    local idx = table.find(status_effect.m_lUnit, v)
-                    table.remove(status_effect.m_lUnit, idx)
-                    release_cnt = release_cnt + 1
-            		-- 갯수 체크
-                    if (release_cnt >= max_release_cnt) then
-			            return (release_cnt > 0)
-		            end
+		        for _ = 1, #status_effect.m_lUnit do
+                    if (status_effect.m_lUnit[1]) then
+                        status_effect:unapplyOverlab(status_effect.m_lUnit[1])
+                        table.remove(status_effect.m_lUnit, 1)
+                        release_cnt = release_cnt + 1
+            		    -- 갯수 체크
+                        if (release_cnt >= max_release_cnt) then
+			                return (release_cnt > 0)
+		                end
+                    end
                 end
-			    
             end
 
 	    end
@@ -530,15 +530,16 @@ function StatusEffectHelper:releaseStatusEffectDebuff(char, max_release_cnt, sta
             -- 해로운 효과 해제
             if (status_effect:isErasable() and status_effect:isHarmful()) then
                 if(status_effect_name == status_effect.m_statusEffectName) then
-                    for i, v in ipairs(status_effect.m_lUnit) do
-                        status_effect:unapplyOverlab(v)
-                        local idx = table.find(status_effect.m_lUnit, v)
-                        table.remove(status_effect.m_lUnit, idx)
-                        release_cnt = release_cnt + 1
-            		    -- 갯수 체크
-                        if (release_cnt >= max_release_cnt) then
-			                return (release_cnt > 0)
-		                end
+                    for _ = 1, #status_effect.m_lUnit do
+                        if (status_effect.m_lUnit[1]) then
+                            status_effect:unapplyOverlab(status_effect.m_lUnit[1])
+                            table.remove(status_effect.m_lUnit, 1)
+                            release_cnt = release_cnt + 1
+            		        -- 갯수 체크
+                            if (release_cnt >= max_release_cnt) then
+			                    return (release_cnt > 0)
+		                    end
+                        end
                     end
                 end
             end
@@ -560,18 +561,18 @@ function StatusEffectHelper:releaseStatusEffectBuff(char, max_release_cnt, statu
     if (not status_effect_name) then
         -- 해제
         for type, status_effect in pairs(char:getStatusEffectList()) do
-            -- 이로운 효과 해제
+            -- 이로운 효과 해제 
 	        if (status_effect:isErasable() and not status_effect:isHarmful()) then
-		        for i, v in ipairs(status_effect.m_lUnit) do
-                    status_effect:unapplyOverlab(v)
-                    local idx = table.find(status_effect.m_lUnit, v)
-                    table.remove(status_effect.m_lUnit, idx)
-
-                    release_cnt = release_cnt + 1
-            		-- 갯수 체크
-                    if (release_cnt >= max_release_cnt) then
-			            return (release_cnt > 0)
-		            end
+		        for _ = 1, #status_effect.m_lUnit do
+                    if (status_effect.m_lUnit[1]) then
+                        status_effect:unapplyOverlab(status_effect.m_lUnit[1])
+                        table.remove(status_effect.m_lUnit, 1)
+                        release_cnt = release_cnt + 1
+            		    -- 갯수 체크
+                        if (release_cnt >= max_release_cnt) then
+			                return (release_cnt > 0)
+		                end
+                    end
                 end
             end
 
@@ -582,15 +583,16 @@ function StatusEffectHelper:releaseStatusEffectBuff(char, max_release_cnt, statu
             -- 이로운 효과 해제
 	        if (status_effect:isErasable() and not status_effect:isHarmful()) then
                 if(status_effect_name == status_effect.m_statusEffectName) then
-                    for i, v in ipairs(status_effect.m_lUnit) do
-                        status_effect:unapplyOverlab(v)
-                        local idx = table.find(status_effect.m_lUnit, v)
-                        table.remove(status_effect.m_lUnit, idx)
-                        release_cnt = release_cnt + 1
-            		    -- 갯수 체크
-                        if (release_cnt >= max_release_cnt) then
-			                return (release_cnt > 0)
-		                end
+                    for _ = 1, #status_effect.m_lUnit do
+                        if (status_effect.m_lUnit[1]) then
+                            status_effect:unapplyOverlab(status_effect.m_lUnit[1])
+                            table.remove(status_effect.m_lUnit, 1)
+                            release_cnt = release_cnt + 1
+            		        -- 갯수 체크
+                            if (release_cnt >= max_release_cnt) then
+			                    return (release_cnt > 0)
+		                    end
+                        end
                     end
                 end
             end
