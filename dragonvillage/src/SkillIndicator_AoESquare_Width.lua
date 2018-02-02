@@ -79,6 +79,9 @@ function SkillIndicator_AoESquare_Width:findCollision(x, y)
         table.sort(l_ret, function(a, b)
             return a:getPosX() < b:getPosX()
         end)
+        if (not self.m_hero.m_bLeftFormation) then
+            l_ret = table.reverse(l_ret)
+        end
     end
 
     -- 타겟 수 만큼만 얻어옴
