@@ -99,7 +99,7 @@ function FormationMgr:getFormation(x, y)
     local y = y - self.m_offsetY
 
     -- 전방 (front)
-    if (self.m_frontStartX <= x) and (x <= self.m_frontEndX) then
+    if (x <= self.m_frontEndX) then
         return FORMATION_FRONT
 
     -- 중간 (middle)
@@ -107,7 +107,6 @@ function FormationMgr:getFormation(x, y)
         return FORMATION_MIDDLE
 
     -- 후방 (rear)
-    --elseif (self.m_rearStartX <= x) and (x <= self.m_rearEndX) then
     else
         return FORMATION_REAR
 
@@ -355,8 +354,18 @@ end
 function FormationMgrDelegate:getTargetList(x, y, team_type, formation_type, rule_type, t_data)
     local t_ret = {}
 
-	-- @TODO 임시 처리 self formation
-	if (team_type == 'self') then
+    -- 18/02/02 formation_type(front, middle, back)의 기능 변경
+    -- front : 가장 가까운 적 우선
+    -- back : 가장 먼 적 우선
+    if (formation_type == 'front') then
+        local t_org_list_1 = self.m_globalCharList
+        self:addList(t_ret, TargetRule_getTargetList('front', t_org_list_1, x, y, t_data))
+        
+    elseif (formation_type == 'back') then
+        local t_org_list_1 = self.m_globalCharList
+        self:addList(t_ret, TargetRule_getTargetList('back', t_org_list_1, x, y, t_data))
+
+    elseif (team_type == 'self') then
 		local t_org_list_1 = self.m_globalCharList
         self:addList(t_ret, TargetRule_getTargetList('self', t_org_list_1, x, y, t_data))
 

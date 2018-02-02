@@ -84,8 +84,9 @@ function TargetRule_getTargetList(type, org_list, x, y, t_data)
            pl.stringx.startswith(type, 'supporter') or pl.stringx.startswith(type, 'healer') then
 		return TargetRule_getTargetList_role(org_list, type)
 
-	elseif (type == 'buff') then		
+	elseif (type == 'buff') then
 		return TargetRule_getTargetList_buff(org_list)
+
 	elseif (pl.stringx.startswith(type, 'debuff')) then		
 		local t_debuff, t_not_debuff =  TargetRule_getTargetList_debuff(org_list, type)
         if (pl.stringx.startswith(type, 'debuff_not')) then
@@ -93,6 +94,12 @@ function TargetRule_getTargetList(type, org_list, x, y, t_data)
         else
             return t_debuff
         end
+
+    elseif (type == 'front') then
+		return TargetRule_getTargetList_front(org_list)
+
+    elseif (type == 'back') then
+		return TargetRule_getTargetList_back(org_list)
 
 	else
         error("미구현 Target Rule!! : " .. type)
@@ -543,6 +550,64 @@ function TargetRule_getTargetList_hp_high(org_list)
     end
 
     table.sort(t_sort, sortDescending)
+
+    for i,v in ipairs(t_sort) do
+        table.insert(t_ret, v)
+    end
+
+    return t_ret
+end
+
+-------------------------------------
+-- function TargetRule_getTargetList_front
+-- @brief 
+-------------------------------------
+function TargetRule_getTargetList_front(org_list)
+    local t_ret = {}
+    local t_sort = {}
+
+    for i,v in pairs(org_list) do
+        local v_x, v_y = v:getPosForFormation()
+
+        if (v.m_bLeftFormation) then
+            v.m_sortValue = -v_x
+        else
+            v.m_sortValue = v_x
+        end
+        v.m_sortRandomIdx = nil
+        table.insert(t_sort, v)
+    end
+
+    table.sort(t_sort, sortAscending)
+
+    for i,v in ipairs(t_sort) do
+        table.insert(t_ret, v)
+    end
+
+    return t_ret
+end
+
+-------------------------------------
+-- function TargetRule_getTargetList_back
+-- @brief 
+-------------------------------------
+function TargetRule_getTargetList_back(org_list)
+    local t_ret = {}
+    local t_sort = {}
+
+    for i,v in pairs(org_list) do
+        local v_x, v_y = v:getPosForFormation()
+
+        if (v.m_bLeftFormation) then
+            v.m_sortValue = v_x
+        else
+            v.m_sortValue = -v_x
+        end
+        v.m_sortRandomIdx = nil
+        table.insert(t_sort, v)
+    end
+
+    table.sort(t_sort, sortAscending)
 
     for i,v in ipairs(t_sort) do
         table.insert(t_ret, v)

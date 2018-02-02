@@ -1235,7 +1235,6 @@ function GameWorld:changeHeroHomePosByCamera(offsetX, offsetY, move_time, no_tam
 
     if (scale == 0.6) then
         self.m_leftFormationMgr:setSplitPos(self.m_leftFormationMgr.m_rearStartX - 200, 122)
-        self.m_rightFormationMgr:setSplitPos(self.m_rightFormationMgr.m_rearEndX + 200, 122)
     end
 
     for _, v in pairs(l_temp) do

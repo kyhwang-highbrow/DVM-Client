@@ -413,7 +413,6 @@ function GameWorldClanRaid:changeSubHeroHomePosByCamera(offsetX, offsetY, move_t
 
     if (scale == 0.6) then
         self.m_subLeftFormationMgr:setSplitPos(self.m_leftFormationMgr.m_rearStartX - 200, 122)
-        self.m_subRightFormationMgr:setSplitPos(self.m_rightFormationMgr.m_rearEndX + 200, 122)
     end
 
     for _, v in pairs(l_temp) do
