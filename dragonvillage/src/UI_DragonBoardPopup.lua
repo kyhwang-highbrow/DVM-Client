@@ -86,7 +86,7 @@ function UI_DragonBoardPopup:refresh()
 
 	local table_char = getCharTable(did)
 	local t_char = table_char:get(did)
-	local t_board_data = g_boardData:getBoards(did)
+	local t_board_data = g_boardData:getBoards(did) or {}
 	self.m_tBoardData = t_board_data
 
 	-- 이름
@@ -98,7 +98,8 @@ function UI_DragonBoardPopup:refresh()
 	vars['dragonNode']:addChild(card.root)
 
 	-- 평점
-	self:refresh_rate(t_board_data['rate'])
+	local rate = t_board_data['rate'] or 0
+	self:refresh_rate(rate)
 
 	-- tableView
 	self:makeTableView()
