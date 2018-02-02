@@ -67,6 +67,9 @@ end
 -------------------------------------
 function UI_Hatchery:initButton()
     local vars = self.vars
+
+    -- 마일리지 샵
+    vars['mileageBtn']:registerScriptTapHandler(function() self:click_mileageBtn() end)
 end
 
 -------------------------------------
@@ -117,20 +120,13 @@ function UI_Hatchery:refresh_mileage()
     -- 마일리지 표시
     vars['mileageLabel']:setString(comma_value(mileage))
 
-    -- 마일리지 샵
-    vars['mileageBtn']:registerScriptTapHandler(function()
-        -- navigator에 붙여야겠다
-        g_shopDataNew:openShopPopup('mileage')
-    end)
-
     -- 마일리지 상태에 따른 애니메이션 
     local ani_key_1, ani_key_2 = g_hatcheryData:getMileageAnimationKey()
-    if (ani_key_1) then
-        vars['mileageVisual1']:changeAni(ani_key_1, true)
-    end
-    if (ani_key_2) then
-        vars['mileageVisual2']:changeAni(ani_key_2, true)
-    end
+    vars['mileageVisual1']:changeAni(ani_key_1, true)
+    vars['mileageVisual2']:changeAni(ani_key_2, true)
+
+    -- 획득 가능 라벨
+    vars['availableLabel']:setVisible(ani_key_1 ~= nil)
 end
 
 -------------------------------------
@@ -144,6 +140,16 @@ function UI_Hatchery:refresh_highlight()
     vars['incubateNotiSprite']:setVisible(t_highlight['incubate'])
     vars['relationNotiSprite']:setVisible(t_highlight['relation'])
     vars['combineNotiSprite']:setVisible(t_highlight['combine'])
+end
+
+-------------------------------------
+-- function click_mileageBtn
+-------------------------------------
+function UI_Hatchery:click_mileageBtn()
+    local function finish_cb()
+        self:refresh_mileage()
+    end
+    g_shopDataNew:openShopPopup('mileage', finish_cb)
 end
 
 -------------------------------------

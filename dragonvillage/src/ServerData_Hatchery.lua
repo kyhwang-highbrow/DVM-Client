@@ -427,8 +427,8 @@ function ServerData_Hatchery:getMileageAnimationKey()
             ['egg_id'] = 703005
         },
     }
-    local ani_key_1
-    local ani_key_2
+    local ani_key_1 = 'mileage_0'
+    local ani_key_2 = 'reward_0'
 
     local mileage = g_userData:get('mileage')
     for i = #L_MILEAGE_INFO, 1, -1 do

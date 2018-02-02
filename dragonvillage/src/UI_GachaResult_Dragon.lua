@@ -140,10 +140,7 @@ function UI_GachaResult_Dragon:initEverything()
         
         -- 마일리지 상태에 따른 애니메이션 
         local ani_key_1 = g_hatcheryData:getMileageAnimationKey()
-        if (ani_key_1) then
-            vars['mileageVisual1']:changeAni(ani_key_1, true)
-        end
-
+        vars['mileageVisual1']:changeAni(ani_key_1, true)
         vars['mileageLabel2']:setString(comma_value(self.m_added_mileage))
     end
 
