@@ -107,31 +107,6 @@ function UI_Hatchery:initTab()
     self:setTab('summon')
 end
 
-
--- 이정보는 어디서 받아올지 찾아야함
-local L_MILEAGE_INFO = {
-    {
-        ['mileage'] = 50,
-        ['egg_id'] = 703004
-    },
-    {
-        ['mileage'] = 170,
-        ['egg_id'] = 703002
-    },
-    {
-        ['mileage'] = 260,
-        ['egg_id'] = 703019
-    },
-    {
-        ['mileage'] = 700,
-        ['egg_id'] = 703003
-    },
-    {
-        ['mileage'] = 1500,
-        ['egg_id'] = 703005
-    },
-}
-
 -------------------------------------
 -- function refresh_mileage
 -------------------------------------
@@ -141,8 +116,6 @@ function UI_Hatchery:refresh_mileage()
 
     -- 마일리지 표시
     vars['mileageLabel']:setString(comma_value(mileage))
-    vars['mileageGauge']:setPercentage(0)
-    vars['mileageGauge']:runAction(cc.ProgressTo:create(0.5, mileage/1500*100))
 
     -- 마일리지 샵
     vars['mileageBtn']:registerScriptTapHandler(function()
@@ -150,30 +123,13 @@ function UI_Hatchery:refresh_mileage()
         g_shopDataNew:openShopPopup('mileage')
     end)
 
-    -- 마일리지 노드 생성
-    for i, t_mileage in ipairs(L_MILEAGE_INFO) do
-        local ui = UI()
-        local ui_vars = ui:load('hatchery_mileage_item.ui')
-        
-        -- 마일리지
-        local need_mileage = t_mileage['mileage']
-        ui_vars['mileageLabel']:setString(need_mileage)
-        
-        -- 아이콘
-        local item_id = t_mileage['egg_id']
-        local item_card = UI_ItemCard(item_id, 1)
-        item_card.vars['bgSprite']:setVisible(false)
-        item_card.vars['commonSprite']:setVisible(false)
-        item_card.vars['numberLabel']:setVisible(false)
-        ui_vars['itemNode']:addChild(item_card.root)
-        
-        -- 잠금 표시
-        if (need_mileage > mileage) then
-            ui_vars['lockSprite']:setVisible(true)
-        end
-
-        vars['mileageNode' .. i]:removeAllChildren(true)
-        vars['mileageNode' .. i]:addChild(ui.root)
+    -- 마일리지 상태에 따른 애니메이션 
+    local ani_key_1, ani_key_2 = g_hatcheryData:getMileageAnimationKey()
+    if (ani_key_1) then
+        vars['mileageVisual1']:changeAni(ani_key_1, true)
+    end
+    if (ani_key_2) then
+        vars['mileageVisual2']:changeAni(ani_key_2, true)
     end
 end
 

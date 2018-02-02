@@ -129,7 +129,9 @@ function UI_HatcherySummonTab:click_eventSummonBtn(is_bundle, is_sale, t_egg_dat
         local l_slime_list = ret['added_slimes']
         local egg_id = t_egg_data['egg_id']
         local egg_res = t_egg_data['egg_res']
-        local ui = UI_GachaResult_Dragon(gacha_type, l_dragon_list, l_slime_list, egg_id, egg_res, t_egg_data)
+        local added_mileage = ret['added_mileage'] or 0
+
+        local ui = UI_GachaResult_Dragon(gacha_type, l_dragon_list, l_slime_list, egg_id, egg_res, t_egg_data, added_mileage)
 
         local function close_cb()
             self:summonApiFinished()
@@ -138,12 +140,6 @@ function UI_HatcherySummonTab:click_eventSummonBtn(is_bundle, is_sale, t_egg_dat
 
         -- 이어서 뽑기 설정
         self:subsequentSummons(ui, t_egg_data)
-
-        -- 추가된 마일리지
-        local added_mileage = ret['added_mileage'] or 0
-		if (added_mileage > 0) then
-			UIManager:toastNotificationGreen(Str('{1}마일리지가 적립되었습니다.', added_mileage))
-		end
     end
 
     local function fail_cb()
@@ -179,7 +175,8 @@ function UI_HatcherySummonTab:click_cashSummonBtn(is_bundle, is_sale, t_egg_data
         local l_slime_list = ret['added_slimes']
         local egg_res = t_egg_data['egg_res']
         local egg_id = t_egg_data['egg_id']
-        local ui = UI_GachaResult_Dragon(gacha_type, l_dragon_list, l_slime_list, egg_id, egg_res, t_egg_data)
+        local added_mileage = ret['added_mileage'] or 0
+        local ui = UI_GachaResult_Dragon(gacha_type, l_dragon_list, l_slime_list, egg_id, egg_res, t_egg_data, added_mileage)
 
         local function close_cb()
             self:summonApiFinished()
@@ -188,12 +185,6 @@ function UI_HatcherySummonTab:click_cashSummonBtn(is_bundle, is_sale, t_egg_data
 
         -- 이어서 뽑기 설정
         self:subsequentSummons(ui, t_egg_data)
-
-        -- 추가된 마일리지
-        local added_mileage = ret['added_mileage'] or 0
-		if (added_mileage > 0) then
-			UIManager:toastNotificationGreen(Str('{1}마일리지가 적립되었습니다.', added_mileage))
-		end
     end
 
     local function fail_cb()

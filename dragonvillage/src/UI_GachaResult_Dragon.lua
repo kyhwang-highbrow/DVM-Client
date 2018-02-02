@@ -26,12 +26,15 @@ UI_GachaResult_Dragon = class(PARENT, {
 		m_tSummonData = 'table',
 
 		m_isClearMasterRoad = 'bool',
+
+        -- 마일리지
+        m_added_mileage = 'number',
      })
 
 -------------------------------------
 -- function init
 -------------------------------------
-function UI_GachaResult_Dragon:init(gacha_type, l_gacha_dragon_list, l_slime_list, egg_id, egg_res, t_summon_data)
+function UI_GachaResult_Dragon:init(gacha_type, l_gacha_dragon_list, l_slime_list, egg_id, egg_res, t_summon_data, added_mileage)
 
     -- spine 캐시 정리 확인
     SpineCacheManager:getInstance():purgeSpineCacheData_checkNumber()
@@ -41,6 +44,7 @@ function UI_GachaResult_Dragon:init(gacha_type, l_gacha_dragon_list, l_slime_lis
     self.m_eggRes = egg_res
     self.m_bSkip = false
 	self.m_tSummonData = t_summon_data
+    self.m_added_mileage = added_mileage
 
 	-- 연출없이 즉시 단일 결과 보여주는 타입..
 	if (self.m_type == 'immediately') then
@@ -130,6 +134,18 @@ function UI_GachaResult_Dragon:initEverything()
 	-- 공통 데이터
 	local t_egg_data = self.m_tSummonData
 	local egg_id = self.m_eggID
+
+    -- 마일리지 표시
+    if (self.m_added_mileage) and (self.m_added_mileage > 0) then
+        
+        -- 마일리지 상태에 따른 애니메이션 
+        local ani_key_1 = g_hatcheryData:getMileageAnimationKey()
+        if (ani_key_1) then
+            vars['mileageVisual1']:changeAni(ani_key_1, true)
+        end
+
+        vars['mileageLabel2']:setString(comma_value(self.m_added_mileage))
+    end
 
 	-- 선택권, 뽑기권 등..
 	if (self.m_type == 'mail') or (self.m_type == 'immediately') then

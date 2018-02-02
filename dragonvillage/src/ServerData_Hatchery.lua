@@ -401,6 +401,52 @@ function ServerData_Hatchery:setHacheryInfoTable(t_data)
 end
 
 -------------------------------------
+-- function getMileageAnimationKey
+-- @breif 마일리지 상태에 따른 애니메이션 키 반환 (부화소, 가차 결과 UI)
+-------------------------------------
+function ServerData_Hatchery:getMileageAnimationKey()
+    local L_MILEAGE_INFO = {
+        {
+            ['mileage'] = 50,
+            ['egg_id'] = 703004
+        },
+        {
+            ['mileage'] = 170,
+            ['egg_id'] = 703002
+        },
+        {
+            ['mileage'] = 260,
+            ['egg_id'] = 703019
+        },
+        {
+            ['mileage'] = 700,
+            ['egg_id'] = 703003
+        },
+        {
+            ['mileage'] = 1500,
+            ['egg_id'] = 703005
+        },
+    }
+    local ani_key_1
+    local ani_key_2
+
+    local mileage = g_userData:get('mileage')
+    for i = #L_MILEAGE_INFO, 1, -1 do
+        local t_mileage = L_MILEAGE_INFO[i]
+        local need_mileage = t_mileage['mileage']
+
+        -- 마일리지 충분하다면 해당 애니메이션 키 반환
+        if (need_mileage <= mileage) then
+            ani_key_1 = string.format('mileage_%d', i)
+            ani_key_2 = string.format('reward_%d', i)
+            break            
+        end
+    end
+
+    return ani_key_1, ani_key_2
+end
+
+-------------------------------------
 -- function getSummonFreeInfo
 -- @breif
 -------------------------------------
