@@ -108,7 +108,7 @@ end
 -- function click_quickPopupBtn
 -------------------------------------
 function UI_TopUserInfo:click_quickPopupBtn()
-    UI_QuickPopup()
+    UI_QuickPopupNew()
 end
 
 -------------------------------------

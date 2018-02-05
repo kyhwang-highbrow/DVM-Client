@@ -723,6 +723,14 @@ function UINavigatorDefinition:goTo_hatchery(...)
     end
 
     local function finish_cb()
+        -- 퀵메뉴 열려있을 경우
+        local is_opend, idx, ui = self:findOpendUI('UI_QuickPopupNew')
+        if (is_opend == true) then
+            self:closeUIList(idx)
+            UI_Hatchery(tab)
+            return
+        end
+        
         -- 로비가 열려있을 경우
         local is_opend, idx, ui = self:findOpendUI('UI_Lobby')
         if (is_opend == true) then
@@ -927,6 +935,14 @@ function UINavigatorDefinition:goTo_clan(...)
             target_ui_class = UI_ClanGuest
         else
             target_ui_class = UI_Clan
+        end
+
+        -- 퀵메뉴 열려있을 경우
+        local is_opend, idx, ui = self:findOpendUI('UI_QuickPopupNew')
+        if (is_opend == true) then
+            self:closeUIList(idx)
+            local ui = target_ui_class(sel_tamer_id)
+            return
         end
 
         -- 로비가 열려있을 경우
