@@ -596,8 +596,9 @@ function ServerData_Shop:request_checkReceiptValidation(struct_product, validati
         if (struct_product) then
             local krw_price = struct_product['price'] -- getPrice() 함수 나중에 수정하기
             local token = struct_product['token']   --adjust용 토큰
-
-            Analytics:purchase(product_id, sku, krw_price, token)
+            local first_buy = ret['first_buy']  --첫번째 결제인지
+            
+            Analytics:purchase(product_id, sku, krw_price, token, first_buy)
             Analytics:trackGetGoodsWithRet(ret, string.format('상품 구매 : %d', product_id))
         end
         

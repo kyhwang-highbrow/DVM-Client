@@ -3,7 +3,12 @@ Analytics = {
 }
 Adbrix = {}
 FiveRocks = {}
-Adjust = {}
+Adjust = {
+    EVENT = {
+        FIRST_PURCHASE = '2aprct',
+        PURCHASE = '33qpix',
+    }
+}
 
 CUS_CATEGORY = {
 
@@ -153,7 +158,7 @@ end
 -------------------------------------
 -- function purchase
 -------------------------------------
-function Analytics:purchase(productId, productName, price, token)
+function Analytics:purchase(productId, productName, price, token, first_buy)
     if (not IS_ENABLE_ANALYTICS()) then return end
     
     -- price는 KRW 가격으로만 받음 
@@ -161,6 +166,15 @@ function Analytics:purchase(productId, productName, price, token)
 
     Adbrix:buy(productId, price)
     FiveRocks:trackPurchase(productName, currencyCode, price)
+
+    --adjust 
+    --첫구매(2aprct)    
+    if first_buy then
+        Adjust:adjustTrackPayment(Adjust.EVENT.FIRST_PURCHASE, currencyCode, price )
+    end
+    --구매 통합(33qpix)
+    Adjust:adjustTrackPayment(Adjust.EVENT.PURCHASE, currencyCode, price )
+    --항목별 구매
     if token then
         Adjust:adjustTrackPayment(token, currencyCode, price )
     end
