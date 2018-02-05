@@ -268,9 +268,7 @@ end
 function Network_platform_getServerList(success_cb, fail_cb)
     -- 파라미터 셋팅
     local ip = getIPAddress()
-    local deviceLang = getDeviceLanguage()
-    local locale = getLocale()
-    
+        
     local t_data = {}    
     t_data['uid'] = g_localData:get('local', 'uid')        
     t_data['ip'] = ip
