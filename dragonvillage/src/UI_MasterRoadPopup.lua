@@ -229,10 +229,10 @@ function UI_MasterRoadPopup:click_questLinkBtn()
 
     QuickLinkHelper.quickLink(clear_type, clear_cond)
 
-    -- "바로 가기"버튼을 클릭했을 때 팝업이 자도응로 닫힐지 여부
+    -- "바로 가기"버튼을 클릭했을 때 팝업이 자동으로 닫힐지 여부
     if (self.m_bAutoClose) then
         self:setCloseCB(nil)
-        self:closeWithAction()
+        self:close()
     end
 end
 
@@ -240,7 +240,7 @@ end
 -- function click_exitBtn
 -------------------------------------
 function UI_MasterRoadPopup:click_exitBtn()
-    self:closeWithAction()
+    self:close()
 end
 
 -------------------------------------
