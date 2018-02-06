@@ -50,8 +50,9 @@ end
 function SkillHelper:makeStructStatusEffectList(t_skill)
 	local l_ret = {}
 
-	for i = 1, 2 do
-		if (t_skill['add_option_type_' .. i] ~= '') then
+	for i = 1, 4 do
+        local type = t_skill['add_option_type_' .. i]
+		if (type and type ~= '') then
 			local struct_status_effect = StructStatusEffect({
 				type = t_skill['add_option_type_' .. i],
 				target_type = t_skill['add_option_target_' .. i],

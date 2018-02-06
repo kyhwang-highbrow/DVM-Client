@@ -5,10 +5,16 @@ local l_columnToUseEquation = {
     'power_source',
     'add_option_rate_1',
     'add_option_rate_2',
+    'add_option_rate_3',
+    'add_option_rate_4',
     'add_option_source_1',
     'add_option_source_2',
+    'add_option_source_3',
+    'add_option_source_4',
     'add_option_value_1',
-    'add_option_value_2'
+    'add_option_value_2',
+    'add_option_value_3',
+    'add_option_value_4'
 }
 
 -------------------------------------

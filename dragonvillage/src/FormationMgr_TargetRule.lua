@@ -74,7 +74,7 @@ function TargetRule_getTargetList(type, org_list, x, y, t_data)
            pl.stringx.startswith(type, 'hit_rate') then
 		return TargetRule_getTargetList_stat(org_list, type)
 
-	-- 속성 관련
+    -- 속성 관련
 	elseif pl.stringx.startswith(type, 'earth') or pl.stringx.startswith(type, 'water') or pl.stringx.startswith(type, 'fire') or
            pl.stringx.startswith(type, 'light') or pl.stringx.startswith(type, 'dark') then
 		return TargetRule_getTargetList_attr(org_list, type)
@@ -352,20 +352,35 @@ end
 -- function TargetRule_getTargetList_role
 -- @brief 해당 직업군의 리스트 반환
 -------------------------------------
-function TargetRule_getTargetList_role(org_list, keyword)
+function TargetRule_getTargetList_role(org_list, str)
 	-- 테이블을 복사한 후 무작위로 섞는다
 	local t_char = table.sortRandom(table.clone(org_list))
     local t_ret = {}
 
+    local role
+    local sub_type
+    
+    -- 부조건 타입을 가져오기 위한 처리
+    if (string.find(str, '_')) then
+        role = string.gsub(str, '_.+', '')
+        sub_type = string.gsub(str, '%l+_', '', 1)
+    else
+        role = str
+    end
+
 	-- 직업군이 같은 아이들을 추출한다
     for i = #t_char, 1, -1 do
-		if (string.find(keyword, t_char[i]:getRole())) then
+		if (string.find(role, t_char[i]:getRole())) then
 			table.insert(t_ret, t_char[i])
 			table.remove(t_char, i)
 		end
 	end
     
-    if(not pl.stringx.endswith(keyword, 'only')) then
+    if (sub_type and sub_type ~= '' and sub_type ~= 'only') then
+        -- 부조건 타입이 존재하는 경우는 무조건 only로 처리(남은 애들을 다시 담지 않음)
+        t_ret = TargetRule_getTargetList(sub_type, t_ret)
+
+    elseif(not pl.stringx.endswith(str, 'only')) then
 	    -- 남은 애들도 다시 담는다.
 	    for i, char in pairs(t_char) do
 		    table.insert(t_ret, char)
@@ -379,27 +394,43 @@ end
 -- function TargetRule_getTargetList_attr
 -- @brief 해당 속성의 리스트 반환
 -------------------------------------
-function TargetRule_getTargetList_attr(org_list, keyword)
+function TargetRule_getTargetList_attr(org_list, str)
 	-- 테이블을 복사한 후 무작위로 섞는다
 	local t_char = table.sortRandom(table.clone(org_list))
     local t_ret = {}
+
+    local attr
+    local sub_type
     
+    -- 부조건 타입을 가져오기 위한 처리
+    if (string.find(str, '_')) then
+        attr = string.gsub(str, '_.+', '')
+        sub_type = string.gsub(str, '%l+_', '', 1)
+    else
+        attr = str
+    end
+
 	-- 속성이 같은 아이들을 추출한다.
     -- index를 검사하는 와중에 remove를 하면 table의 전체 index가 바뀌기 때문에, 테이블 index를 역순으로 검사하여 
     -- 모든 구성요소들이 검사될 수 있도록 한다.
     for i = #t_char, 1, -1 do
-		if (string.find(keyword, t_char[i]:getAttribute())) then
+		if (string.find(attr, t_char[i]:getAttribute())) then
 			table.insert(t_ret, t_char[i])
 			table.remove(t_char, i)
     	end
 	end
-    
-    if (not pl.stringx.endswith(keyword, 'only')) then
+
+    if (sub_type and sub_type ~= '' and sub_type ~= 'only') then
+        -- 부조건 타입이 존재하는 경우는 무조건 only로 처리(남은 애들을 다시 담지 않음)
+        t_ret = TargetRule_getTargetList(sub_type, t_ret)
+
+    elseif (not pl.stringx.endswith(str, 'only')) then
 	    -- 남은 애들도 다시 담는다.
 	    for i, char in pairs(t_char) do
 		    table.insert(t_ret, char)
 	    end
     end
+
     return t_ret
 end
 
