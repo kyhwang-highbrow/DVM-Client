@@ -17,6 +17,8 @@ StatusEffect_Dispell = class(PARENT, {
 -------------------------------------
 function StatusEffect_Dispell:init(file_name, body, ...)
     self.m_dispellTarget = {}
+
+    self.m_bStopUntilSkillEnd = false
 end
 
 -------------------------------------
