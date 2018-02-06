@@ -1012,10 +1012,10 @@ end
 
 -------------------------------------
 -- function blockButtonUntilWorkDone
--- @brief 모드별 백버튼은 여기서 처리
+-- @brief 연출이 끝날때까지 back key를 막는다
 -------------------------------------
 function UI_GameResultNew:blockButtonUntilWorkDone()
-	return (self.m_isClearMasterRoad and (not self:isWorkListDone()))
+	return (not self:isWorkListDone())
 end
 
 -------------------------------------
@@ -1040,12 +1040,12 @@ function UI_GameResultNew:click_quickBtn()
 		return
 	end
 
+	-- 시작이 두번 되지 않도록 하기 위함
+	local block_ui = UI_BlockPopup()
+
     local stage_id = self.m_stageID
 
     local function finish_cb(game_key)
-        -- 시작이 두번 되지 않도록 하기 위함
-        UI_BlockPopup()
-
         -- 연속 전투일 경우 횟수 증가
         if (g_autoPlaySetting:isAutoPlay()) then
             g_autoPlaySetting.m_autoPlayCnt = (g_autoPlaySetting.m_autoPlayCnt + 1)
@@ -1060,6 +1060,7 @@ function UI_GameResultNew:click_quickBtn()
     if (not g_staminasData:checkStageStamina(stage_id)) then
         local function finish_cb()
             self:show_staminaInfo()
+			block_ui:close()
         end
         g_staminasData:staminaCharge(stage_id, finish_cb)
         return
@@ -1073,6 +1074,7 @@ function UI_GameResultNew:click_quickBtn()
     check_dragon_inven = function()
         local function manage_func()
             self:click_manageBtn()
+			block_ui:close()
         end
         g_dragonsData:checkMaximumDragons(check_item_inven, manage_func)
     end
@@ -1081,6 +1083,7 @@ function UI_GameResultNew:click_quickBtn()
     check_item_inven = function()
         local function manage_func()
             UI_Inventory()
+			block_ui:close()
         end
         g_inventoryData:checkMaximumItems(start_game, manage_func)
     end
