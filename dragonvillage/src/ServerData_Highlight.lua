@@ -410,7 +410,7 @@ function ServerData_Highlight:removeNewOid(oid_type, oid)
     self:setDirtyNewOidMap(oid_type)
 
 	-- 로비 노티 갱신 : 신규 룬 또는 드래곤 해제 시
-	self:setDirth(true)
+	self:setDirty(true)
 end
 
 -------------------------------------
