@@ -37,9 +37,9 @@ end
 -------------------------------------
 function SkillAoESquare:initState()
 	self:setCommonState(self)
-	self:addState('start', SkillAoESquare.st_appear, 'appear', false)
-    self:addState('attack', SkillAoESquare.st_attack, 'idle', true)
-	self:addState('disappear', SkillAoESquare.st_disappear, 'disappear', false)
+	self:addState('start', PARENT.st_appear, 'appear', false)
+    self:addState('attack', PARENT.st_attack, 'idle', true)
+	self:addState('disappear', PARENT.st_disappear, 'disappear', false)
 end
 
 -------------------------------------
