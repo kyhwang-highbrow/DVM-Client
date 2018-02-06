@@ -139,19 +139,53 @@ function TutorialManager:checkTutorialInLobby(ui_lobby)
 
 	if (not is_done) then
 		local step = g_tutorialData:getStep(tutorial_key)
+
+		-- 101 : 마스터의길 보상 수령
 		if (step == 101) then
 			local scene = SceneCommon(UI_MasterRoadPopup)
             scene:runScene()
 			return
 
+		-- 102 : 튜토리얼 알 부화
 		elseif (step == 102) then
-			UINavigator:goTo('hatchery', 'incubate')
-			return
+			-- 튜토리얼 전용 알 존재 여부 체크
+			local is_exist_egg = g_eggsData:isExistTutorialEgg()
+			if (is_exist_egg) then
+				UINavigator:goTo('hatchery', 'incubate')
+				return
+			else
+				-- 마스터의길 10002 보상 수령 여부
+				local has_reward, rid = g_masterRoadData:hasRewardRoad()
+				if has_reward and (rid == 10002) then
+					g_tutorialData:setStep(tutorial_key, 103)
+					UI_MasterRoadPopup()
+					return
 
+				-- 이도 저도 아니고 막 꼬인상태..?
+				else
+					g_tutorialData:setStep(tutorial_key, 104)
+					stage_id = 1110102
+					UINavigator:goTo('adventure', stage_id)
+					return
+				end
+			end
+
+		-- 103 : 마스터의길 보상 수령
 		elseif (step == 103) then
-			UI_MasterRoadPopup()
-			return 
+			-- 마스터의길 10002 보상 수령 여부
+			local has_reward, rid = g_masterRoadData:hasRewardRoad()
+			if has_reward and (rid == 10002) then
+				g_tutorialData:setStep(tutorial_key, 103)
+				UI_MasterRoadPopup()
+				return
+			else
+				g_tutorialData:setStep(tutorial_key, 104)
+				stage_id = 1110102
+				UINavigator:goTo('adventure', stage_id)
+				return
+			end
 
+		-- 104 : 1-2 전투 시작
 		elseif (step == 104) then
 			stage_id = 1110102
 			UINavigator:goTo('adventure', stage_id)

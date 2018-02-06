@@ -57,6 +57,28 @@ function ServerData_Eggs:request_incubate(egg_id, cnt, finish_cb, fail_cb)
 end
 
 -------------------------------------
+-- function isExistEgg
+-- @brief 해당 알 존재 여부
+-------------------------------------
+function ServerData_Eggs:isExistEgg(egg_id)
+	local egg_id = tostring(egg_id)
+	local egg_count = self.m_serverData:get('user', 'eggs', egg_id)
+	if (egg_count) and (egg_count > 1) then 
+		return true
+	else
+		return false
+	end
+end
+
+-------------------------------------
+-- function isExistEgg
+-- @brief 해당 알 존재 여부
+-------------------------------------
+function ServerData_Eggs:isExistTutorialEgg()
+	return self:isExistEgg(703027)
+end
+
+-------------------------------------
 -- function getEggCount
 -- @brief 보유중인 알 갯수 리턴
 -------------------------------------

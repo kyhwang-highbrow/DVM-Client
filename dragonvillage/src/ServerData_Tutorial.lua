@@ -37,6 +37,13 @@ function ServerData_Tutorial:isTutorialDone(tutorial_key, cb_func)
 end
 
 -------------------------------------
+-- function setStep
+-------------------------------------
+function ServerData_Tutorial:setStep(tutorial_key, step)
+	self.m_tTutorialStepInfo[tutorial_key] = step
+end
+
+-------------------------------------
 -- function getStep
 -------------------------------------
 function ServerData_Tutorial:getStep(tutorial_key)
@@ -101,7 +108,7 @@ function ServerData_Tutorial:request_tutorialSave(tutorial_key, step, finish_cb,
 		end
 
 		-- 스텝 정보 저장
-		self.m_tTutorialStepInfo[tutorial_key] = step
+		self:setStep(tutorial_key, step)
 
         if (tutorial_key == TUTORIAL.INTRO_FIGHT) then
             -- @analytics
