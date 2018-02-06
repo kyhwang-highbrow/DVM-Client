@@ -44,7 +44,7 @@ function UI_GachaResult_Dragon:init(gacha_type, l_gacha_dragon_list, l_slime_lis
     self.m_eggRes = egg_res
     self.m_bSkip = false
 	self.m_tSummonData = t_summon_data
-    self.m_added_mileage = added_mileage
+    self.m_added_mileage = added_mileage or 0
 
 	-- 연출없이 즉시 단일 결과 보여주는 타입..
 	if (self.m_type == 'immediately') then
@@ -135,15 +135,6 @@ function UI_GachaResult_Dragon:initEverything()
 	local t_egg_data = self.m_tSummonData
 	local egg_id = self.m_eggID
 
-    -- 마일리지 표시
-    if (self.m_added_mileage) and (self.m_added_mileage > 0) then
-        
-        -- 마일리지 상태에 따른 애니메이션 
-        local ani_key_1 = g_hatcheryData:getMileageAnimationKey()
-        vars['mileageVisual1']:changeAni(ani_key_1, true)
-        vars['mileageLabel2']:setString(comma_value(self.m_added_mileage))
-    end
-
 	-- 선택권, 뽑기권 등..
 	if (self.m_type == 'mail') or (self.m_type == 'immediately') then
 		-- nothing to do
@@ -196,15 +187,23 @@ function UI_GachaResult_Dragon:initEverything()
 		end
 
 		-- UI 연출 조정
-		self:registerOpenNode('againBtn')
-		self:registerOpenNode('inventoryBtn')
+		do
+			-- 공통
+			self:registerOpenNode('againBtn')
+			self:registerOpenNode('inventoryBtn')
 
-		if (is_cash) then
-			self:registerOpenNode('mileageNode')
-			self:registerOpenNode('diaNode')
-		else
-			self:registerOpenNode('fpNode')
-		end 
+			-- 마일리지
+			if (self.m_added_mileage > 0) then
+				self:registerOpenNode('mileageNode')
+			end
+
+			-- 캐시 혹은 우정포인트
+			if (is_cash) then
+				self:registerOpenNode('diaNode')
+			else
+				self:registerOpenNode('fpNode')
+			end
+		end
 	end
 end
 
@@ -499,7 +498,15 @@ function UI_GachaResult_Dragon:refresh_wealth()
 		-- 마일리지
 		local mileage = g_userData:get('mileage')
 		vars['mileageLabel']:setString(comma_value(mileage))
-	
+		
+		-- 적립한 마일리지
+		local added_mileage = self.m_added_mileage
+		vars['mileageLabel2']:setString(comma_value(self.m_added_mileage))
+        
+		-- 마일리지 상태에 따른 애니메이션 
+        local ani_key_1 = g_hatcheryData:getMileageAnimationKey()
+        vars['mileageVisual1']:changeAni(ani_key_1, true)
+
 	elseif (self.m_type == 'fp') then
 		-- 우정 포인트
 		local fp = g_userData:get('fp')
