@@ -88,18 +88,24 @@ end
 -- @brief
 -------------------------------------
 function UI_Forest_ExtensionBoard:click_lvUpBtn()
-    local btn = self.vars['lvUpBtn']
-    if (not btn:isVisible()) or (not btn:isEnabled()) then
+	local vars = self.vars
+    local lv_btn = vars['lvUpBtn']
+    if (not lv_btn:isVisible()) or (not lv_btn:isEnabled()) then
         return
     end
+	
+	lv_btn:setEnabled(false)
 
     local function cb_func(ret)
-        self:refresh()
-        self.vars['forestVisual']:changeAni('home_lvup')
+        vars['forestVisual']:changeAni('home_lvup')
+		vars['forestVisual']:addAniHandler(function()
+			self:refresh()
+			lv_btn:setEnabled(true)
+			if self.m_cbForestLVChange then
+				self.m_cbForestLVChange(ret)
+			end
+		end)
         SoundMgr:playEffect('UI', 'ui_dragon_level_up')
-        if self.m_cbForestLVChange then
-            self.m_cbForestLVChange(ret)
-        end
 	end
 
     ServerData_Forest:getInstance():extendMaxCount(cb_func)
