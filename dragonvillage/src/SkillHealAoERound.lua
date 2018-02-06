@@ -49,9 +49,14 @@ function SkillHealAoERound:initState()
 end
 
 -------------------------------------
--- function onAppear
+-- function onStateDelegateEnter
+-- @brief 
 -------------------------------------
-function SkillHealAoERound:onAppear()
+function SkillHealAoERound:onStateDelegateEnter()
+    local owner = self.m_character
+
+    owner.m_tStateAni['delegate'] = 'skill_disappear'
+    owner.m_tStateAniLoop['delegate'] = false
 end
 
 -------------------------------------

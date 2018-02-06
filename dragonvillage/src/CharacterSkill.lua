@@ -323,9 +323,11 @@ function Character:doSkillBySkillTable(t_skill, t_data)
 				SkillTransform:makeSkillInstance(self, t_skill, t_data)
 				return true
 
+            --[[
 			elseif (skill_type == 'skill_counterattack') then
 				SkillCounterAttack:makeSkillInstance(self, t_skill, t_data)
 				return true
+            ]]--
 
 			elseif (skill_type == 'skill_heart_of_ruin') then
 				SkillHeartOfRuin:makeSkillInstance(self, t_skill, t_data)

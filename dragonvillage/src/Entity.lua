@@ -142,6 +142,14 @@ function Entity:updateState()
             -- idle 애니메이션에 한해서 중복 체크
             local check = isExistValue(self.m_state, 'idle', 'attackDelay', 'pattern_wait')
             self.m_animator:changeAni(self.m_tStateAni[self.m_state], self.m_tStateAniLoop[self.m_state], check)
+
+            -- delegate 상태이고 idle 애니가 아닐 경우 재생 후 idle 애니로 변경
+            if (self.m_state == 'delegate' and self.m_tStateAni[self.m_state] ~= 'idle') then
+                self.m_animator:addAniHandler(function()
+                    self.m_animator:changeAni('idle', true)
+                end)
+            end
+
         end
     end
 

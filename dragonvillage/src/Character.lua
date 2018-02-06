@@ -2547,6 +2547,10 @@ function Character:setStateDelegate(state_delegate)
     self.m_stateDelegate = state_delegate
 
     if self.m_stateDelegate then
+        -- delegate 상태에서의 애니메이션 정보를 초기화(외부에서 변경될 수 있기 때문)
+        self.m_tStateAni['delegate'] = 'idle'
+        self.m_tStateAniLoop['delegate'] = true
+
         self.m_stateDelegate:setOwnerCharacter(self)
 
         if (self.m_state ~= 'delegate') then
