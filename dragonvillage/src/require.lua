@@ -764,7 +764,12 @@ local t_module = {
     'UI_Package_Step',
     'UI_SubscriptionPopup',
     'UI_SubscriptionPopup_Ing',
+    'UI_SubscriptionPopupNew',
+    'UI_SubscriptionPopupNew_Ing',
+    'UI_AutoItemPickPopup',
+    'UI_AutoItemPickPopup_Ing',
     'UI_SubscriptionDayListItem',
+    'UI_SubscriptionDayListItemNew',
 
 	-- UI : 모험
     'UI_AdventureSceneNew',

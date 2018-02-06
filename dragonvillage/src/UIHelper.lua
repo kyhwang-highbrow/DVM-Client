@@ -64,7 +64,12 @@ function UIHelper:makeItemName(t_item)
 	local item_name = TableItem:getItemName(item_id)
 	local item_cnt = t_item['count']
 	if (item_cnt) and (item_cnt > 0) then
-		return Str('{@item_name}{1} {@count}{2}개', item_name, comma_value(item_cnt))
+        -- 자동 줍기 아이템 예외 처리
+        if (item_id == ITEM_ID_AUTO_PICK) then
+            return Str('{@item_name}{1} {@count}{2}시간', item_name, comma_value(item_cnt))
+        else
+            return Str('{@item_name}{1} {@count}{2}개', item_name, comma_value(item_cnt))
+        end
 	else
 		return Str('{@item_name}{1}', item_name)
 	end

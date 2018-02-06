@@ -933,6 +933,8 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <None Include="..\src\UI_AttrTowerMenuItem.lua" />
     <None Include="..\src\UI_AttrTowerMenuScene.lua" />
     <None Include="..\src\UI_AttrTowerRank.lua" />
+    <None Include="..\src\UI_AutoItemPickPopup.lua" />
+    <None Include="..\src\UI_AutoItemPickPopup_Ing.lua" />
     <None Include="..\src\UI_AutoPlaySettingPopup.lua" />
     <None Include="..\src\UI_BattleMenu.lua" />
     <None Include="..\src\UI_BattleMenuItem.lua" />
@@ -1223,7 +1225,10 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <None Include="..\src\UI_RewardCard.lua" />
     <None Include="..\src\UI_RewardListPopup.lua" />
     <None Include="..\src\UI_SubscriptionDayListItem.lua" />
+    <None Include="..\src\UI_SubscriptionDayListItemNew.lua" />
     <None Include="..\src\UI_SubscriptionPopup.lua" />
+    <None Include="..\src\UI_SubscriptionPopupNew.lua" />
+    <None Include="..\src\UI_SubscriptionPopupNew_Ing.lua" />
     <None Include="..\src\UI_SubscriptionPopup_Ing.lua" />
     <None Include="..\src\UI_TamerCostumeConfirmPopup.lua" />
     <None Include="..\src\UI_TamerCostumeListItem.lua" />

@@ -13,6 +13,7 @@ ServerData_Subscription = class({
         m_bDirty = 'bool',
         m_dicProduct = '[subscription_category][struct_product]',
         m_subscribedInfoList = 'list[StructSubscribedInfo]', -- 구독 중인 상품 정보
+        m_ingameDropInfoMap = 'map', -- 인게임 드랍 정보 
     })
 
 -------------------------------------
@@ -35,10 +36,33 @@ function ServerData_Subscription:openSubscriptionPopup()
     self:ckechDirty()
 
     local function cb_func()
-        if self:getSubscribedInfo() then
+
+        -- 구독 정보
+        local subscribed_info = self:getSubscribedInfo()
+
+        -- 자동줍기 이용권
+        local auto_pick_item = g_userData:get('auto_root')
+        local is_used_item = g_autoItemPickData:isActiveAutoItemPickWithType('auto_root')
+
+        -- 프리미엄 상품은 삭제 (but 구독중인 유저들까지는 기존 UI 노출)
+        if (subscribed_info) and (subscribed_info['category'] == 'premium') then
             UI_SubscriptionPopup_Ing()
+
+        -- 구독중 (새로운 UI)
+        elseif (subscribed_info) then
+            UI_SubscriptionPopupNew_Ing()
+        
+        -- 자동줍기 이용권 사용중
+        elseif (is_used_item) then
+            UI_AutoItemPickPopup_Ing()
+
+        -- 쓸 수 있는 자동줍기 이용권이 있음
+        elseif (auto_pick_item) and (auto_pick_item > 0) then
+            UI_AutoItemPickPopup()
+
+        -- 아무것도 사용안하고 있음 
         else
-            UI_SubscriptionPopup()
+            UI_SubscriptionPopupNew()
         end
     end
 
@@ -81,6 +105,39 @@ function ServerData_Subscription:request_subscriptionInfo(cb_func, fail_cb)
 end
 
 -------------------------------------
+-- function request_useAutoPickItem
+-------------------------------------
+function ServerData_Subscription:request_useAutoPickItem(cb_func, fail_cb)
+
+    -- 파라미터
+    local uid = g_userData:get('uid')
+
+    -- 콜백 함수
+    local function success_cb(ret)
+        -- auto_item_pick 갱신
+        g_serverData:networkCommonRespone(ret)
+
+        -- 인게임 드랍 정보 갱신
+        self:response_ingameDropInfo(ret)
+
+		if (cb_func) then
+			cb_func(ret)
+		end
+    end
+
+    -- 네트워크 통신 UI 생성
+    local ui_network = UI_Network()
+    ui_network:setUrl('/shop/auto_root')
+    ui_network:setParam('uid', uid)
+    ui_network:hideLoading()
+    ui_network:setSuccessCB(success_cb)
+    ui_network:setFailCB(fail_cb)
+    ui_network:setRevocable(true)
+    ui_network:setReuse(false)
+    ui_network:request()
+end
+
+-------------------------------------
 -- function response_subscriptionInfo
 -------------------------------------
 function ServerData_Subscription:response_subscriptionInfo(ret)
@@ -111,6 +168,19 @@ function ServerData_Subscription:response_subscriptionInfo(ret)
     for i,v in pairs(user_subscription_list) do
         local struct_subsc_info = StructSubscribedInfo(v)
         table.insert(self.m_subscribedInfoList, struct_subsc_info)
+    end
+
+    self:response_ingameDropInfo(ret)
+end
+
+-------------------------------------
+-- function response_ingameDropInfo
+-------------------------------------
+function ServerData_Subscription:response_ingameDropInfo(ret)
+    -- 인게임 드랍 정보
+    self.m_ingameDropInfoMap = {}
+    if (ret['ingame_drop_stats']) then
+        self.m_ingameDropInfoMap = ret['ingame_drop_stats']
     end
 end
 
@@ -236,6 +306,14 @@ end
 -------------------------------------
 function ServerData_Subscription:getPremiumSubscriptionProductInfo()
     return self:getSubscriptionProductInfo('premium')
+end
+
+-------------------------------------
+-- function getIngameDropInfo
+-- @brief 인게임 드랍 정보
+-------------------------------------
+function ServerData_Subscription:getIngameDropInfo()
+    return self.m_ingameDropInfoMap
 end
 
 

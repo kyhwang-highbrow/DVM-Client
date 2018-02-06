@@ -72,18 +72,18 @@ function FullPopupManager:show(type, show_func)
     elseif (type == FULL_POPUP_TYPE.AUTO_PICK) then
         local lv = g_userData:get('lv')
         local need_lv = 10
+        local save_key = 'auto_pick'
         local function cb_func()
             if not (g_subscriptionData:getSubscribedInfo()) then
-                UI_SubscriptionPopup()
+                g_subscriptionData:openSubscriptionPopup()
+                g_settingData:applySettingData(true, 'event_full_popup', save_key)
             end
         end
-        local save_key = 'auto_pick'
+
         local is_view = g_settingData:get('event_full_popup', save_key) or false
         if (lv >= need_lv) and (not is_view) then 
             g_subscriptionData:request_subscriptionInfo(cb_func)
-            g_settingData:applySettingData(true, 'event_full_popup', save_key)
         end
-
     end
 end
 

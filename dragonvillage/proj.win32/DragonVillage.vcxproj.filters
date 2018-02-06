@@ -3187,6 +3187,21 @@
     <None Include="..\src\UI_QuickPopupNew.lua">
       <Filter>lua\UI</Filter>
     </None>
+    <None Include="..\src\UI_AutoItemPickPopup_Ing.lua">
+      <Filter>lua\UI</Filter>
+    </None>
+    <None Include="..\src\UI_AutoItemPickPopup.lua">
+      <Filter>lua\UI</Filter>
+    </None>
+    <None Include="..\src\UI_SubscriptionPopupNew_Ing.lua">
+      <Filter>lua\UI</Filter>
+    </None>
+    <None Include="..\src\UI_SubscriptionDayListItemNew.lua">
+      <Filter>lua\UI</Filter>
+    </None>
+    <None Include="..\src\UI_SubscriptionPopupNew.lua">
+      <Filter>lua\UI</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Classes">

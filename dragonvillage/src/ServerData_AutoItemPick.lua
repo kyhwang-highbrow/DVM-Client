@@ -48,6 +48,39 @@ function ServerData_AutoItemPick:isActiveAutoItemPick()
 end
 
 -------------------------------------
+-- function isActiveAutoItemPickWithType
+-- @brief 타입별로 현재 자동줍기 적용중인지 
+-- @param type - 'advertising', 'auto_root'
+-------------------------------------
+function ServerData_AutoItemPick:isActiveAutoItemPickWithType(type)
+    local expired = self:getAutoItemPickExpired()
+
+    -- 만료 시간이 없으면 비활성 상태
+    if (not expired) then
+        return false
+    end
+
+    -- 만료 시간이 지났는지 체크
+    expired = (expired / 1000)
+    local curr_time = Timer:getServerTime()
+    if (expired < curr_time) then
+        return false
+    end
+
+    local is_active = false
+    for i,v in pairs(self.m_autoItemPickList) do
+        local auto_item_type = v['type'] 
+        
+        if (auto_item_type) and (auto_item_type == type) then
+            is_active = true
+            break
+        end
+    end
+
+    return is_active
+end
+
+-------------------------------------
 -- function getAutoItemPickExpired
 -------------------------------------
 function ServerData_AutoItemPick:getAutoItemPickExpired()
@@ -61,4 +94,3 @@ function ServerData_AutoItemPick:getAutoItemPickExpired()
 
     return expired
 end
-
