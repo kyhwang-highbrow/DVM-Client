@@ -327,7 +327,7 @@ function ServerData_Highlight:saveNewDoidMap()
 		self.m_bDirtyNewOidMapRune = false
 	end
 
-	-- 로비 노티 갱신 : 드래곤 획득 시 일로 들어온다
+	-- 로비 노티 갱신 : 신규 룬 또는 드래곤 획득 시
 	self:setDirty(true)
 end
 
@@ -408,6 +408,9 @@ function ServerData_Highlight:removeNewOid(oid_type, oid)
 
     self.m_newOidMap[oid_type][oid] = nil
     self:setDirtyNewOidMap(oid_type)
+
+	-- 로비 노티 갱신 : 신규 룬 또는 드래곤 해제 시
+	self:setDirth(true)
 end
 
 -------------------------------------
