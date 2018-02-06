@@ -138,14 +138,17 @@ function GameAuto:doCheck()
     local debuffUnitCount = 0
 
     for i, unit in ipairs(self.m_lUnitList) do
-        totalHp = unit.m_hp
-        totalMaxHp = unit.m_maxHp
+        if (not unit.m_isZombie) then
+            totalHp = totalHp + unit.m_hp
+            totalMaxHp = totalMaxHp + unit.m_maxHp
 
-        if (unit:getHpRate() < 0.6) then
-            nextState = TEAM_STATE.DANGER
-            break
+            if (unit:getHpRate() < 0.6) then
+                nextState = TEAM_STATE.DANGER
+                break
+            end
+        end
 
-        elseif (unit:hasHarmfulStatusEffect()) then
+        if (unit:hasHarmfulStatusEffect()) then
             debuffUnitCount = debuffUnitCount + 1
 
         end

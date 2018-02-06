@@ -72,7 +72,7 @@ function TargetRule_getTargetList(type, org_list, x, y, t_data)
     elseif pl.stringx.startswith(type, 'def') or pl.stringx.startswith(type, 'atk') or pl.stringx.startswith(type, 'hp') or
            pl.stringx.startswith(type, 'aspd') or pl.stringx.startswith(type, 'avoid') or pl.stringx.startswith(type, 'cri') or
            pl.stringx.startswith(type, 'hit_rate') then
-		return TargetRule_getTargetList_stat(org_list, type)
+		return TargetRule_getTargetList_stat(org_list, type, t_data)
 
     -- 속성 관련
 	elseif pl.stringx.startswith(type, 'earth') or pl.stringx.startswith(type, 'water') or pl.stringx.startswith(type, 'fire') or
@@ -310,7 +310,7 @@ end
 -- @param org_list : 전체 타겟 리스트
 -- @param stat_type : stat명_높낮이
 -------------------------------------
-function TargetRule_getTargetList_stat(org_list, stat_type)
+function TargetRule_getTargetList_stat(org_list, stat_type, t_data)
 	local t_ret = org_list or {}
 
 	local temp = seperate(stat_type, '_')
@@ -322,9 +322,19 @@ function TargetRule_getTargetList_stat(org_list, stat_type)
 
 	-- 별도 로직이 필요한 정렬
 	if (target_stat == 'hp') then
+        local team_type = t_data['team_type']
+        local is_ally = (team_type == 'ally')
+
 		table.sort(t_ret, function(a, b)
 			local a_stat = a:getHpRate()
 			local b_stat = b:getHpRate()
+
+            -- 아군을 찾을 경우 좀비에 대한 예외처리
+            if (is_ally) then
+                if (a.m_isZombie) then a_stat = 1 end
+                if (b.m_isZombie) then b_stat = 1 end
+            end
+
 			if (is_descending) then
 				return a_stat > b_stat
 			else
