@@ -443,12 +443,6 @@ end
 -- @brief 테스트 코드
 -------------------------------------
 function UI_Setting:click_testCodeBtn()
-    -- sgkim 2018-01-31 네이버 카페 게시글 바로가기 테스트 중(날짜 지나면 지워도 됨)
-    if true then
-        NaverCafeManager:naverCafeStartWithArticle('summon_info', 'America', 'en')
-        return
-    end
-
     ccdisplay('진동 테스트')
     cc.SimpleAudioEngine:getInstance():playVibrate(1000)
 	
