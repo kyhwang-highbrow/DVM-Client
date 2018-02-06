@@ -778,7 +778,11 @@ function IDragonSkillManager:getCastTimeFromSkillID(skill_id)
         error('스킬 테이블이 존재하지 않는다.' .. tostring(skill_id))
     end
 
-    local cast_time = tonumber(t_skill['casting_time'] or 0)
+    local cast_time = t_skill['casting_time']
+
+    if (not cast_time or cast_time == '') then
+        cast_time = 0
+    end
 
     return cast_time
 end
@@ -826,13 +830,13 @@ function IDragonSkillManager:printSkillInfo()
                 local t_skill = GetSkillTable(self.m_charType):get(v.m_skillID)
 
                 cclog('## SKILL ID LIST : 1 ##')
-                cclog(t_skill['t_name'] .. ' - ' .. v.m_skillID)
+                cclog(t_skill['t_name'] .. ' - ' .. v.m_skillID .. ' cooldown : ' .. v.m_cooldownTimer)
             else
                 cclog('## SKILL ID LIST : ' .. table.count(v) .. ' ##')
                 for _, skill_indivisual_info in pairs(v) do
                     local t_skill = GetSkillTable(self.m_charType):get(skill_indivisual_info.m_skillID)
                     
-                    cclog(t_skill['t_name'] .. ' - ' .. skill_indivisual_info.m_skillID)
+                    cclog(t_skill['t_name'] .. ' - ' .. skill_indivisual_info.m_skillID .. ' cooldown : ' .. skill_indivisual_info.m_cooldownTimer)
                 end
             end
         end
