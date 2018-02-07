@@ -1,6 +1,8 @@
 local PARENT = class(IEventListener:getCloneClass(), IEventDispatcher:getCloneTable())
 local security_key = math.random(-6758472,7637467)
 
+local ACCEL_VALUE = 1
+
 START_MANA = 2
 MAX_MANA = 7
 
@@ -19,7 +21,9 @@ GameMana = class(PARENT, {
         m_incValuePerSec = 'number',
 
         m_bEnable = 'boolean',
+
         m_accelValue = 'number',
+        m_accelDurationTimer = 'number',
     })
 
 -------------------------------------
@@ -39,7 +43,9 @@ function GameMana:init(world, group_key)
         self.m_incValuePerSec = 1 / g_constant:get('INGAME', 'MANA_INTERVAL')
     end
     self.m_bEnable = true
+
     self.m_accelValue = 0
+    self.m_accelDurationTimer = 0
 end
 
 -------------------------------------
@@ -48,11 +54,26 @@ end
 function GameMana:update(dt)
     local add = 0
 
+    -- 마나 증가량 계산
     if (self.m_bEnable) then
         add = (self.m_incValuePerSec * (1 + self.m_accelValue)) * dt
     end
 
+    -- 마나 갱신
     self:addMana(add)
+
+    -- 배속 타이머 업데이트
+    if (self.m_accelDurationTimer > 0) then
+        self.m_accelDurationTimer = self.m_accelDurationTimer - dt
+
+        -- 타이머가 끝났을 경우 배속 해제
+        if (self.m_accelDurationTimer <= 0) then
+            self.m_accelValue = 0
+            self.m_accelDurationTimer = 0
+
+            self:updateGauge(false)
+        end
+    end
 end
 
 -------------------------------------
@@ -142,13 +163,18 @@ function GameMana:resetMana()
 end
 
 -------------------------------------
--- function setManaAccelValue
+-- function startManaAccel
 -------------------------------------
-function GameMana:setManaAccelValue(value)
-    if (self.m_accelValue ~= value) then
-        self.m_accelValue = value
-
+function GameMana:startManaAccel(duration)
+    if (self.m_accelValue ~= ACCEL_VALUE) then
+        self.m_accelValue = ACCEL_VALUE
+        self.m_accelDurationTimer = duration
+        
         self:updateGauge(false)
+
+    elseif (self.m_accelDurationTimer < duration) then
+        self.m_accelDurationTimer = duration
+        
     end
 end
 

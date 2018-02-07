@@ -1533,14 +1533,13 @@ function GameWorld:getMana(char)
 end
 
 -------------------------------------
--- function setManaAccelValue
+-- function startManaAccel
 -------------------------------------
-function GameWorld:setManaAccelValue(char, value)
+function GameWorld:startManaAccel(char, duration)
     local game_mana = self:getMana(char)
 
-    game_mana:setManaAccelValue(value)
+    game_mana:startManaAccel(duration)
 end
-
 
 -------------------------------------
 -- function getManaAccelValue
