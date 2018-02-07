@@ -50,13 +50,9 @@ end
 function StatusEffect_ConditionalBuff:getTriggerFunction()
     local trigger_func = function(t_event)
         if (self:checkCondition(t_event)) then
-            --if (not self.m_bApply) then
-                self:buffOn()
-            --end
+            self:buffOn()
         else
-            --if(self.m_bApply) then
-                self:buffOff()
-            --end
+            self:buffOff()
         end
     end
     return trigger_func
@@ -145,10 +141,10 @@ end
 function StatusEffect_ConditionalBuff:addTriggerToCaster(caster, event_name, func)
     if (not self.m_lTriggerFunc[event_name]) then
         self.m_lTriggerFunc[event_name] = {}
-
-        -- listner 등록
-        caster:addListener(event_name, self)
     end
+
+    -- listner 등록
+    caster:addListener(event_name, self)
 
     table.insert(self.m_lTriggerFunc[event_name], func)
 end
