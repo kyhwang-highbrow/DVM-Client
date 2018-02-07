@@ -5,7 +5,7 @@ ICharacterStatusEffect = {
     m_mStatusEffect = 'table',
     m_mHiddenStatusEffect = 'table',-- 숨겨져서 노출되지 않는 상태효과(리더, 패시브)
 
-    m_lStatusIcon = 'sprite table',
+    m_mStatusIcon = 'sprite table',
 
     m_mStatusEffectGroggy = 'table',    -- 그로기 효과를 가진 status effect
     
@@ -23,7 +23,7 @@ ICharacterStatusEffect = {
 function ICharacterStatusEffect:init()
     self.m_mStatusEffect = {}
     self.m_mHiddenStatusEffect = {}
-	self.m_lStatusIcon = {}
+	self.m_mStatusIcon = {}
 
     self.m_mStatusEffectGroggy = {}
     
@@ -39,48 +39,48 @@ end
 -- function updateStatusEffect
 -------------------------------------
 function ICharacterStatusEffect:updateStatusEffect(dt)
-    -------------------------------------------------------
-    -- 아이콘
-    -------------------------------------------------------
-	local count = 1
+    
+    -- 아이콘 추가 및 표시 설정
+    for type, status_effect in pairs(self.m_mStatusEffect) do
+        if (not status_effect:isHidden()) then
+            local icon = self:getStatusIcon(status_effect)
 
-	for type, status_effect in pairs(self.m_mStatusEffect) do
-        local status_effect_type = status_effect:getTypeName()
-        local icon = self.m_lStatusIcon[status_effect_type]
-        if (status_effect.m_bApply and not status_effect:isHidden()) then
-		    count = self:setStatusIcon(status_effect, count)
             if (icon and icon.m_icon) then
-                icon.m_icon:setVisible(true)
-            end
-        else
-            if (icon and icon.m_icon) then
-                icon.m_icon:setVisible(false)
+                icon.m_icon:setVisible(status_effect.m_bApply)
             end
         end
 	end
 
-	for i, v in pairs(self.m_lStatusIcon) do
-		v:update(dt)
-	end
+    -- 아이콘별 업데이트
+    do
+        local idx = 1
+
+	    for _, v in pairs(self.m_mStatusIcon) do
+		    v:update(dt)
+            v:updatePositionFromIndex(idx)
+
+            idx = idx + 1
+	    end
+    end
 end
 
-
 -------------------------------------
--- function setStatusIcon
+-- function getStatusIcon
 -------------------------------------
-function ICharacterStatusEffect:setStatusIcon(status_effect, idx)
-	local status_effect_type = status_effect:getTypeName()
-	local idx = idx 
+function ICharacterStatusEffect:getStatusIcon(status_effect)
+    local status_effect_type = status_effect:getTypeName()
 
-	-- icon 생성 또는 있는것에 접근
+    -- icon 생성 또는 있는것에 접근
 	local icon = nil
-	if (self.m_lStatusIcon[status_effect_type]) then 
-		icon = self.m_lStatusIcon[status_effect_type]
+	if (self.m_mStatusIcon[status_effect_type]) then 
+		icon = self.m_mStatusIcon[status_effect_type]
 	else
 		icon = StatusEffectIcon(self, status_effect)
 
-        self.m_lStatusIcon[status_effect_type] = icon
+        self.m_mStatusIcon[status_effect_type] = icon
 	end
+
+    return icon
 end
 
 -------------------------------------
@@ -88,7 +88,7 @@ end
 -------------------------------------
 function ICharacterStatusEffect:removeStatusIcon(status_effect)
 	local status_effect_type = status_effect:getTypeName()
-	self.m_lStatusIcon[status_effect_type] = nil
+	self.m_mStatusIcon[status_effect_type] = nil
 end
 
 

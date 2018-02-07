@@ -27,23 +27,24 @@ function StatusEffectIcon:init(char, status_effect)
 
 	if (char.m_statusNode) then
 		local icon, is_exist = IconHelper:getStatusEffectIcon(status_effect_type)
-        if (not is_exist) then return nil end
+        if (icon == nil or is_exist == false) then return nil end
+
 		icon:setScale(0.375)
+
         char.m_statusNode:addChild(icon, 0)
 		self.m_icon = icon
 	
-	    if (self.m_icon) then
-		    local label = cc.Label:createWithTTF('', Translate:getFontPath(), 40, 0)
+	    local label = cc.Label:createWithTTF('', Translate:getFontPath(), 40, 0)
+        if (label) then
 		    label:setAlignment(cc.TEXT_ALIGNMENT_CENTER, cc.VERTICAL_TEXT_ALIGNMENT_CENTER)
 		    label:setAnchorPoint(cc.p(0.5, 0.5))
 		    label:setDockPoint(cc.p(0.5, 0.5))
 		    label:setPosition(0, 0)
 		    label:enableOutline(cc.c4b(0, 0, 0, 255), 3)
+
 		    self.m_icon:addChild(label)
 		    self.m_label = label
-        else
-            error('StatusEffectIcon:init status_effect_type : ' .. status_effect_type)
-	    end
+        end
     end
 end
 
@@ -51,8 +52,25 @@ end
 -- function update
 -------------------------------------
 function StatusEffectIcon:update(dt)
-	self:setOverlabText()
+    self:setOverlabText()
 	self:checkDuration()
+end
+
+-------------------------------------
+-- function updatePositionFromIndex
+-------------------------------------
+function StatusEffectIcon:updatePositionFromIndex(idx)
+    local owner = self.m_char
+
+    if (owner.m_infoUI) then
+        local x, y = owner.m_infoUI:getPositionForStatusIcon(owner.m_bLeftFormation, idx)
+        local scale = owner.m_infoUI:getScaleForStatusIcon()
+
+        if (self.m_icon) then
+            self.m_icon:setPosition(x, y)
+            self.m_icon:setScale(scale)
+        end
+    end
 end
 
 -------------------------------------
@@ -98,7 +116,7 @@ function StatusEffectIcon:checkDuration()
         self.m_bBlink = b
     end
     
-	-- 1. 제한 시간이 있는 상태 효과 
+	-- 1. 제한 시간이 없는 상태인 경우
 	if (self.m_statusEffect:isInfinity()) then 
         setBlink(false)
     else
