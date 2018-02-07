@@ -77,6 +77,15 @@ function ServerData_Runes:request_runesEquip(doid, roid, finish_cb, fail_cb)
 
         if ret['modified_rune'] then
             self:applyRuneData(ret['modified_rune'])
+
+            -- @adjust
+            local rid = ret['modified_rune']['rid'] 
+            if (rid) then
+                local grade = tonumber(rid)%10
+                if (grade == 6) then
+                    Adjust:trackEvent(Adjust.EVENT.RUNE_EQUIP)
+                end
+            end
         end
         
         -- 반드시 룬을 먼저 갱신하고 dragon을 갱신할 것
@@ -95,9 +104,6 @@ function ServerData_Runes:request_runesEquip(doid, roid, finish_cb, fail_cb)
             local t_data = {clear_key = 'r_eq_s', sub_data = start_dragon_data}
             g_dragonDiaryData:updateDragonDiary(t_data)
         end
-
-        -- @adjust
-        Adjust:trackEvent(Adjust.EVENT.RUNE_EQUIP)
 
         -- @ GOOGLE ACHIEVEMENT
         GoogleHelper.updateAchievement(t_data)
