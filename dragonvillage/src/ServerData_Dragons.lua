@@ -471,7 +471,12 @@ function ServerData_Dragons:getDragonsSortData(doid)
     local struct_dragon_object = self:getDragonDataFromUid(doid)
     local t_sort_data = self.m_lSortData[doid]
 
-    if (not t_sort_data) or (t_sort_data['updated_at'] ~= struct_dragon_object['updated_at']) then
+	-- @mskim 간혹 kibana에 보고되는 에러, 예외처리함
+	if (not struct_dragon_object) then
+		if (not t_sort_data) then
+			t_sort_data = self:setDragonsSortData(doid)
+		end
+	elseif (not t_sort_data) or (t_sort_data['updated_at'] ~= struct_dragon_object['updated_at']) then
         t_sort_data = self:setDragonsSortData(doid)
     end
 
