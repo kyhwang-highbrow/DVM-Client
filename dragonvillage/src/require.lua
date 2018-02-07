@@ -768,6 +768,7 @@ local t_module = {
     'UI_SubscriptionPopupNew_Ing',
     'UI_AutoItemPickPopup',
     'UI_AutoItemPickPopup_Ing',
+    'UI_AutoItemPickResultPopup',
     'UI_SubscriptionDayListItem',
     'UI_SubscriptionDayListItemNew',
 

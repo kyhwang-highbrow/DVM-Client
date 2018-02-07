@@ -61,6 +61,14 @@ function UI_AutoItemPickPopup_Ing:initUI()
         vars['itemLabel3']:setString(Str('{1}개', comma_value(amethyst_cnt)))
     end
 
+    -- 자동줍기 24시간 이용권 있는 경우 보유량 보여줌
+    local auto_pick_item = g_userData:get('auto_root')
+    if (auto_pick_item) and (auto_pick_item > 0) then
+        local cnt = math_floor(auto_pick_item/24)
+        vars['marbleLabel']:setString(Str('x{1}', cnt))
+        vars['marbleBtn']:setVisible(true)
+    end
+
     do -- 월정액 패키지 (basic)
         local struct_product = g_subscriptionData:getBasicSubscriptionProductInfo()
         self.m_basicProduct = struct_product
@@ -78,12 +86,28 @@ function UI_AutoItemPickPopup_Ing:initButton()
 	local vars = self.vars
     vars['buyBtn1']:registerScriptTapHandler(function() self:click_buyBtn(self.m_basicProduct) end)
 	vars['closeBtn']:registerScriptTapHandler(function() self:click_closeBtn() end)
-    
+    vars['marbleBtn']:registerScriptTapHandler(function() self:click_marbleBtn() end)
     vars['contractBtn']:registerScriptTapHandler(function() self:click_contractBtn() end)
 end
 
 -------------------------------------
--- function click_infoBtn
+-- function click_marbleBtn
+-------------------------------------
+function UI_AutoItemPickPopup_Ing:click_marbleBtn()
+    local auto_pick_item = g_userData:get('auto_root')
+    if (auto_pick_item) and (auto_pick_item > 0) then
+        local cnt = math_floor(auto_pick_item/24)
+
+        local msg = Str('24시간 자동줍기 사용권 {1}개 보유중입니다.\n현재 적용중인 자동줍기 종료 후 사용할 수 있습니다.', cnt)
+        local tool_tip = UI_Tooltip_Skill(70, -145, msg)
+
+        -- 자동 위치 지정
+        tool_tip:autoPositioning(self.vars['marbleBtn'])
+    end
+end
+
+-------------------------------------
+-- function click_contractBtn
 -------------------------------------
 function UI_AutoItemPickPopup_Ing:click_contractBtn()
     GoToAgreeMentUrl()

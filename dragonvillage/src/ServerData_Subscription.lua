@@ -114,6 +114,9 @@ function ServerData_Subscription:request_useAutoPickItem(cb_func, fail_cb)
 
     -- 콜백 함수
     local function success_cb(ret)
+        -- 사용후에는 무조건 0개로 
+        g_serverData:applyServerData(0, 'user', 'auto_root')
+
         -- auto_item_pick 갱신
         g_serverData:networkCommonRespone(ret)
 

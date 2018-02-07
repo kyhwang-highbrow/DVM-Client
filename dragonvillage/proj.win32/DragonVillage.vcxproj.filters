@@ -3202,6 +3202,9 @@
     <None Include="..\src\UI_SubscriptionPopupNew.lua">
       <Filter>lua\UI</Filter>
     </None>
+    <None Include="..\src\UI_AutoItemPickResultPopup.lua">
+      <Filter>lua\UI</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Classes">

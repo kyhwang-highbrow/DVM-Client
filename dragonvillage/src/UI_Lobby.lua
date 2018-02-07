@@ -174,6 +174,11 @@ function UI_Lobby:entryCoroutine()
 					g_secretDungeonData:setSecretDungeonExist(ret['secret_dungeon_cnt'] > 0)
 				end
 
+                cclog('# 자동줍기 결과 확인 중')
+                if (ret['hours'] and ret['ingame_drop_stats']) then
+					UI_AutoItemPickResultPopup(ret['hours'], ret['ingame_drop_stats'])
+				end
+
 				co.NEXT()
 			end)
 			ui_network:setFailCB(required_fail_cb)
