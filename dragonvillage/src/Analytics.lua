@@ -5,26 +5,26 @@ Adbrix = {}
 FiveRocks = {}
 Adjust = {
     EVENT = {
-        FIRST_PURCHASE = 'vooktq',
-        PURCHASE = '33qpix',
+        FIRST_PURCHASE = 'vooktq',              --첫구매
+        PURCHASE = '33qpix',                    --구매 통합
 
-        CREATE_NICKNAME = 'kfwvim',
-        TUTORIAL_FINISH_INTRO = '8kbl5r',
-        TUTORIAL_FINISH_1_2 = '8muhb5',
-        STAGE_FINISH_1_7 = 'jvsd8a',
-        TAMER_LV_4 = 'jwr2ph',
-        TAMER_LV_6 = 'cr2mhh',
-        TAMER_LV_8 = 'vu1op6',
-        TAMER_LV_10 = 'qdp5xl',
-        TAMER_LV_12 = 'isdc0l',
-        TAMER_LV_15 = '7jdlbl',
-        DRAGON_ENVOLVE = 'm2n4v9',
-        DRAGON_RANKUP = 'l3gjj6',
-        DRAGON_MAKE_6GRADE = 't17tqo',
-        RUNE_EQUIP = 'oe7bdp',
-        PURCHASE_10_US = 'y7mq3a',
-        PURCHASE_100_US = '6c2snf',
-        PURCHASE_1000_US = 'yu1up4',
+        CREATE_NICKNAME = 'kfwvim',             --닉네임 생성
+        TUTORIAL_FINISH_INTRO = '8kbl5r',       --인트로 전투 끝
+        TUTORIAL_FINISH_1_2 = '8muhb5',         --1-2스테이지 끝
+        STAGE_FINISH_1_7 = 'jvsd8a',            --1-7 스테이지 끝
+        TAMER_LV_4 = 'jwr2ph',                  --테이머 레벨4
+        TAMER_LV_6 = 'cr2mhh',                  --테이머 레벨6
+        TAMER_LV_8 = 'vu1op6',                  --테이머 레벨8
+        TAMER_LV_10 = 'qdp5xl',                 --테이머 레벨10
+        TAMER_LV_12 = 'isdc0l',                 --테이머 레벨12
+        TAMER_LV_15 = '7jdlbl',                 --테이머 레벨15
+        DRAGON_ENVOLVE = 'm2n4v9',              --드래곤 진화
+        DRAGON_RANKUP = 'l3gjj6',               --드래곤 승급
+        DRAGON_MAKE_6GRADE = 't17tqo',          --6성드래곤 만듬
+        RUNE_EQUIP = 'oe7bdp',                  --6성 룬 장비
+        PURCHASE_10_US = 'y7mq3a',              --누적 결제금액 1만원 이상
+        PURCHASE_100_US = '6c2snf',             --누적 결제금액 10만원 이상
+        PURCHASE_1000_US = 'yu1up4',            --누적 결제금액 100만원 이상
     }
 }
 
@@ -195,15 +195,7 @@ function Analytics:purchase(productId, productName, price, token, first_buy)
     --항목별 구매
     if token then
         Adjust:adjustTrackPayment(token, currencyCode, price )
-    end
-    --가격별
-    if price >= 1000000 then    --100만원이상
-        Adjust:trackEvent(Adjust.EVENT.PURCHASE_1000_US )
-    elseif price >= 100000 then --10만원 이상
-        Adjust:trackEvent(Adjust.EVENT.PURCHASE_100_US)
-    elseif price >= 10000 then  --1만원 이상
-        Adjust:trackEvent(Adjust.EVENT.PURCHASE_10_US)
-    end
+    end    
 end
 
 -------------------------------------
@@ -559,3 +551,17 @@ function Adjust:adjustTrackPayment(eventKey, currency, price )
     PerpleSDK:adjustTrackPayment(eventKey, tostring(price), currency)
 end
 
+-------------------------------------
+-- function trackEventSumPrice
+-- eventkey : 총 결제 금액에 따른 adjust
+-------------------------------------
+function Adjust:trackEventSumPrice(sum_money)
+    --가격별
+    if sum_money >= 1000000 then    --100만원이상
+        Adjust:trackEvent(Adjust.EVENT.PURCHASE_1000_US )
+    elseif sum_money >= 100000 then --10만원 이상
+        Adjust:trackEvent(Adjust.EVENT.PURCHASE_100_US)
+    elseif sum_money >= 10000 then  --1만원 이상
+        Adjust:trackEvent(Adjust.EVENT.PURCHASE_10_US)
+    end
+end
