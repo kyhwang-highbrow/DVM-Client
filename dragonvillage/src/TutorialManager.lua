@@ -78,6 +78,12 @@ end
 -- @param tutorial_key : tutorial_key이자 tutorial_script이름
 -------------------------------------
 function TutorialManager:startTutorial(tutorial_key, tar_ui, step, is_force)
+	-- 여기서 체크하게 되면 
+	-- 1. 계정 새로 생성 / 2. 개발모드 off / 3. 튜토리얼 시작 이 가능하다
+	if (IS_TEST_MODE()) then
+		return
+	end
+
     -- 완료되지 않은 튜토리얼이라면
     if (is_force) or (not g_tutorialData:isTutorialDone(tutorial_key)) then
 

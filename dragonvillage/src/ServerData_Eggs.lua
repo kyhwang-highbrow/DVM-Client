@@ -63,7 +63,7 @@ end
 function ServerData_Eggs:isExistEgg(egg_id)
 	local egg_id = tostring(egg_id)
 	local egg_count = self.m_serverData:get('user', 'eggs', egg_id)
-	if (egg_count) and (egg_count > 1) then 
+	if (egg_count) and (egg_count > 0) then 
 		return true
 	else
 		return false
