@@ -78,8 +78,8 @@ end
 function UI_QuickPopupNew:init_dungeonBtn()
     local vars = self.vars
     local l_content = {}
-    table.insert(l_content, 'nest_evo_stone')
     table.insert(l_content, 'nest_tree')
+    table.insert(l_content, 'nest_evo_stone')
 
     -- 클랜 던전은 클랜 가입시에만 오픈, 한국서버에서만 오픈
     if (not g_clanData:isClanGuest()) and (g_localData:isKoreaServer()) then
