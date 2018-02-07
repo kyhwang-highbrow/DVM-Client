@@ -210,7 +210,7 @@ function UI_Colosseum:click_refreshBtn()
     end
 
     if (not g_colosseumData:isFreeRefresh()) then
-        UI_ConfirmPopup('cash', 10, '새로고침을 하시겠습니까?', ok_cb)
+        UI_ConfirmPopup('cash', 10, Str('새로고침을 하시겠습니까?'), ok_cb)
     else
         ok_cb()
     end
