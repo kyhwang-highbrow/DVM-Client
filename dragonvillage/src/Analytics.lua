@@ -7,6 +7,24 @@ Adjust = {
     EVENT = {
         FIRST_PURCHASE = '2aprct',
         PURCHASE = '33qpix',
+
+        CREATE_NICKNAME = 'kfwvim',
+        TUTORIAL_FINISH_INTRO = '8kbl5r',
+        TUTORIAL_FINISH_1_2 = '8muhb5',
+        STAGE_FINISH_1_7 = 'jvsd8a',
+        TAMER_LV_4 = 'jwr2ph',
+        TAMER_LV_6 = 'cr2mhh',
+        TAMER_LV_8 = 'vu1op6',
+        TAMER_LV_10 = 'qdp5xl',
+        TAMER_LV_12 = 'isdc0l',
+        TAMER_LV_15 = '7jdlbl',
+        DRAGON_ENVOLVE = 'm2n4v9',
+        DRAGON_RANKUP = 'l3gjj6',
+        DRAGON_MAKE_6GRADE = 't17tqo',
+        RUNE_EQUIP = 'oe7bdp',
+        PURCHASE_10_US = 'y7mq3a',
+        PURCHASE_100_US = '6c2snf',
+        PURCHASE_1000_US = 'yu1up4',
     }
 }
 
@@ -177,6 +195,14 @@ function Analytics:purchase(productId, productName, price, token, first_buy)
     --항목별 구매
     if token then
         Adjust:adjustTrackPayment(token, currencyCode, price )
+    end
+    --가격별
+    if price >= 1000000 then    --100만원이상
+        Adjust:trackEvent(Adjust.EVENT.PURCHASE_1000_US )
+    elseif price >= 100000 then --10만원 이상
+        Adjust:trackEvent(Adjust.EVENT.PURCHASE_100_US)
+    elseif price >= 10000 then  --1만원 이상
+        Adjust:trackEvent(Adjust.EVENT.PURCHASE_10_US)
     end
 end
 

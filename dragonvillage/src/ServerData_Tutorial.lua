@@ -113,6 +113,7 @@ function ServerData_Tutorial:request_tutorialSave(tutorial_key, step, finish_cb,
         if (tutorial_key == TUTORIAL.INTRO_FIGHT) then
             -- @analytics
             Analytics:firstTimeExperience('Tutorial_Intro_Finish')
+            Adjust:trackEvent(Adjust.EVENT.TUTORIAL_FINISH_INTRO)
         end
 
         if finish_cb then

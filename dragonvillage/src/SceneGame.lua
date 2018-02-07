@@ -939,6 +939,15 @@ function SceneGame:networkGameFinish_response_stage_clear_info(ret)
                 -- @analytics
                 Analytics:firstTimeExperience(msg)
             end
+
+            --adjust
+            if difficulty == 1 then
+                if chapter == 1 and stage == 2 then
+                    Adjust:trackEvent(Adjust.EVENT.TUTORIAL_FINISH_1_2)
+                elseif chapter == 1 and stage == 7 then
+                    Adjust:trackEvent(Adjust.EVENT.STAGE_FINISH_1_7)
+                end
+            end
         end
 
     elseif (self.m_gameMode == GAME_MODE_NEST_DUNGEON) then
