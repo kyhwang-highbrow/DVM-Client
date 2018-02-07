@@ -593,7 +593,7 @@ function UI_ReadyScene:refresh_buffInfo()
 		if (leader_doid) then
 			local t_dragon_data = g_dragonsData:getDragonDataFromUid(leader_doid)
 			local skill_mgr = MakeDragonSkillFromDragonData(t_dragon_data)
-			local skill_info = skill_mgr:getSkillIndivisualInfo_usingIdx('Leader')
+			local skill_info = skill_mgr and skill_mgr:getSkillIndivisualInfo_usingIdx('Leader')
 
 			if (skill_info) then
 				leader_buff = skill_info:getSkillDesc()
