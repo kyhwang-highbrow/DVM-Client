@@ -5,7 +5,7 @@ Adbrix = {}
 FiveRocks = {}
 Adjust = {
     EVENT = {
-        FIRST_PURCHASE = '2aprct',
+        FIRST_PURCHASE = 'vooktq',
         PURCHASE = '33qpix',
 
         CREATE_NICKNAME = 'kfwvim',
@@ -549,6 +549,7 @@ end
 -- eventkey : dash보드에서 만든 이벤트의 토큰
 -------------------------------------
 function Adjust:adjustTrackPayment(eventKey, currency, price )
+    if (not IS_ENABLE_ANALYTICS()) then return end
     --cclog('Adjust:adjustTrackPayment : ' .. eventKey)
     --cclog('Adjust:adjustTrackPayment : ' .. currency)
     --cclog('Adjust:adjustTrackPayment : ' .. price)
