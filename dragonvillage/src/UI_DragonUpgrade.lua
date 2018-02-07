@@ -499,12 +499,12 @@ function UI_DragonUpgrade:click_upgradeBtn()
 
             local desc = string.format('%d성 드래곤', grade)
             Analytics:trackEvent(CUS_CATEGORY.GROWTH, CUS_EVENT.DRA_UP, 1, desc)
-        end
 
-        -- @adjust
-        Adjust:trackEvent(Adjust.EVENT.DRAGON_RANKUP)
-        if (grade == 6) then 
-            Adjust:trackEvent(Adjust.EVENT.DRAGON_MAKE_6GRADE)
+            -- @adjust
+            Adjust:trackEvent(Adjust.EVENT.DRAGON_RANKUP)
+            if (grade == 6) then 
+                Adjust:trackEvent(Adjust.EVENT.DRAGON_MAKE_6GRADE)
+            end
         end
 
         -- 재료로 사용된 드래곤 삭제
