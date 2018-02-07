@@ -61,7 +61,7 @@ function Character:doSkillBySkillTable(t_skill, t_data)
             -- 텍스트
             if (self.m_charType == 'dragon') then
                 if (t_skill['sid'] == self.m_charTable['skill_1'] or t_skill['sid'] == self.m_charTable['skill_2']) then
-                    SkillHelper:makePassiveSkillSpeech(self, t_skill['t_name'])
+                    self.m_world:addSkillSpeech(self, t_skill['t_name'])
                 end
             end
         end
@@ -101,7 +101,7 @@ function Character:doSkillBySkillTable(t_skill, t_data)
             
             -- 텍스트
             if ( self.m_charType == 'dragon') then
-                SkillHelper:makePassiveSkillSpeech(self, t_skill['t_name'])
+                self.m_world:addSkillSpeech(self, t_skill['t_name'])
             end
 			return true
 
@@ -111,7 +111,7 @@ function Character:doSkillBySkillTable(t_skill, t_data)
             -- 텍스트
             if ( self.m_charType == 'dragon') then
                 if ( t_skill['sid'] == self.m_charTable['skill_1'] or t_skill['sid'] == self.m_charTable['skill_2']) then
-                    SkillHelper:makePassiveSkillSpeech(self, t_skill['t_name'])
+                    self.m_world:addSkillSpeech(self, t_skill['t_name'])
                 end
             end
 			-- 공용탄 영역-------------------------------------------

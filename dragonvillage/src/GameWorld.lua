@@ -100,7 +100,8 @@ GameWorld = class(IEventDispatcher:getCloneClass(), IEventListener:getCloneTable
 		m_missionMgr = 'StageMissionMgr',
 		m_logRecorder = 'LogRecorderWorld',
 
-        m_mPassiveEffect = 'list',  -- 게임시작시 발동하는 패시브들의 연출을 위한 테이블
+        m_mPassiveEffect = 'list',  -- 버프 텍스트를 표시하기 위한 테이블
+        m_mSkillSpeech = 'list',    -- 스킬 이름을 표시하기 위한 테이블
 
         -- 친구 영웅 관련
         m_bUsedFriend = 'boolean',
@@ -217,6 +218,7 @@ function GameWorld:init(game_mode, stage_id, world_node, game_node1, game_node2,
     self.m_tCollisionTime = {}
 
     self.m_mPassiveEffect = {}
+    self.m_mSkillSpeech = {}
 
     self.m_bUsedFriend = false
     self.m_friendDragon = nil
@@ -689,12 +691,24 @@ function GameWorld:updateAfter(dt)
         self.m_gameHighlight:update(dt)
     end
 
-    -- 패시브 연출
+    -- 버프 텍스트
     do
         for char, v in pairs(self.m_mPassiveEffect) do
-            self:makePassiveStartEffect(char, v)
+            if (not char:isDead()) then
+                self:makePassiveStartEffect(char, v)
+            end
         end
         self.m_mPassiveEffect = {}
+    end
+
+    -- 스킬 이름
+    do
+        for char, v in pairs(self.m_mSkillSpeech) do
+            if (not char:isDead()) then
+                SkillHelper:makePassiveSkillSpeech(char, v)
+            end
+        end
+        self.m_mSkillSpeech = {}
     end
 
     -- 사용 등록된 액티브 스킬 처리
@@ -767,6 +781,17 @@ function GameWorld:makePassiveStartEffect(char, str_map)
     end, 0)
 
     return root_node
+end
+
+-------------------------------------
+-- function addSkillSpeech
+-- @brief
+-------------------------------------
+function GameWorld:addSkillSpeech(char, str)
+    if (not self.m_mSkillSpeech[char]) then
+		self.m_mSkillSpeech[char] = {}
+	end
+	self.m_mSkillSpeech[char] = str
 end
 
 -------------------------------------
