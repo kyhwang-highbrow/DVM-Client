@@ -70,15 +70,15 @@ function UI_TamerCostumeListItem:refresh()
         local img
         -- 할인
         if (is_sale) then            
-            img = cc.Sprite:create('res/' .. Translate:getTranslatedPath('ui/typo/ko/badge_discount.png'))
+            img = cc.Sprite:create('res/' .. Translate:getTranslatedPath('ui/typo/ko/costume_badge_discount.png'))
 
         -- 기간한정
         elseif (is_limit) then
-            img = cc.Sprite:create('res/' .. Translate:getTranslatedPath('ui/typo/ko/badge_period.png'))
+            img = cc.Sprite:create('res/' .. Translate:getTranslatedPath('ui/typo/ko/costume_badge_period.png'))
 
         -- 판매종료
         elseif (is_end) then
-            img = cc.Sprite:create('res/' .. Translate:getTranslatedPath('ui/typo/ko/badge_finish.png'))
+            img = cc.Sprite:create('res/' .. Translate:getTranslatedPath('ui/typo/ko/costume_badge_finish.png'))
         end
 
         if (img) then
