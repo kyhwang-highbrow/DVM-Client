@@ -194,7 +194,7 @@ function UI_TamerCostumeShop:refresh()
         end
 
         local is_limit, msg = costume_data:isLimit()
-        vars['limitNode']:setPositionY(is_sale and -161 or -201)
+        vars['limitNode']:setPositionY(is_sale and -161 or -190)
 
         -- 기간한정
         if (is_limit) then
