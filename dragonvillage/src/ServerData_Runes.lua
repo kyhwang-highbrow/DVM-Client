@@ -96,6 +96,9 @@ function ServerData_Runes:request_runesEquip(doid, roid, finish_cb, fail_cb)
             g_dragonDiaryData:updateDragonDiary(t_data)
         end
 
+        -- @adjust
+        Adjust:trackEvent(Adjust.EVENT.RUNE_EQUIP)
+
         -- @ GOOGLE ACHIEVEMENT
         GoogleHelper.updateAchievement(t_data)
 

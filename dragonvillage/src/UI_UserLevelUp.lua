@@ -35,6 +35,20 @@ function UI_UserLevelUp:initUI()
     local prev_lv = t_levelup_data['prev_lv']
     local curr_lv = t_levelup_data['curr_lv']
 
+    -- @adjust 
+    do
+        local check_lv_list = {15, 12, 10, 8, 6, 4}
+        for _, lv in ipairs(check_lv_list) do
+            if (curr_lv >= lv) then
+                local key = Adjust.EVENT['TAMER_LV_'..tostring(lv)]
+                if (key) then
+                    Adjust:trackEvent(key)
+                end                
+                break
+            end
+        end
+    end
+
     -- 레벨 
     do
         local label = cc.Label:createWithBMFont('res/font/level_font.fnt', '')

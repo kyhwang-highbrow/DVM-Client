@@ -477,6 +477,9 @@ function UI_DragonEvolution:click_evolutionBtn()
             Analytics:trackEvent(CUS_CATEGORY.GROWTH, CUS_EVENT.DRA_EV, 1, '성룡 진화')
         end
 
+        -- @adjust
+        Adjust:trackEvent(Adjust.EVENT.DRAGON_ENVOLVE)
+
         -- 드래곤 성장일지 : 드래곤 진화 체크
         local start_dragon_data = g_dragonDiaryData:getStartDragonData(ret['dragon'])
         if (start_dragon_data) then

@@ -501,6 +501,12 @@ function UI_DragonUpgrade:click_upgradeBtn()
             Analytics:trackEvent(CUS_CATEGORY.GROWTH, CUS_EVENT.DRA_UP, 1, desc)
         end
 
+        -- @adjust
+        Adjust:trackEvent(Adjust.EVENT.DRAGON_RANKUP)
+        if (grade == 6) then 
+            Adjust:trackEvent(Adjust.EVENT.DRAGON_MAKE_6GRADE)
+        end
+
         -- 재료로 사용된 드래곤 삭제
         if ret['deleted_dragons_oid'] then
             for _,doid in pairs(ret['deleted_dragons_oid']) do

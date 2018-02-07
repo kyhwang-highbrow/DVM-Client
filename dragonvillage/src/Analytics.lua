@@ -538,6 +538,7 @@ end
 -- function trackEvent
 -------------------------------------
 function Adjust:trackEvent(eventKey)
+    if (not IS_ENABLE_ANALYTICS()) then return end
     --cclog('Adjust:trackEvent : ' .. eventKey)
 
     PerpleSDK:adjustTrackEvent(eventKey)
