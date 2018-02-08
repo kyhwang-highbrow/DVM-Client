@@ -9,6 +9,7 @@ Adjust = {
         PURCHASE = '33qpix',                    --구매 통합
 
         CREATE_NICKNAME = 'kfwvim',             --닉네임 생성
+        CREATE_NICKNAME_REPEAT = 'j878iw',      --닉네임 생성 unique아닌거(리세마라 체크용)
         TUTORIAL_FINISH_INTRO = '8kbl5r',       --인트로 전투 끝
         TUTORIAL_FINISH_1_2 = '8muhb5',         --1-2스테이지 끝
         STAGE_FINISH_1_7 = 'jvsd8a',            --1-7 스테이지 끝

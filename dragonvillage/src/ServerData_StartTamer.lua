@@ -50,6 +50,7 @@ function ServerData_StartTamer:request_createAccount(user_type, pre_occupancy_co
         -- 기존 게임 서버 로그인이 아닌 계정 생성할때 로그인으로 집계
         Analytics:firstTimeExperience('Login_CreateAccount')
         Adjust:trackEvent(Adjust.EVENT.CREATE_NICKNAME)
+        Adjust.trackEvent(Adjust.EVENT.CREATE_NICKNAME_REPEAT)
         local nick = ret['nick']
 
         if finish_cb then
