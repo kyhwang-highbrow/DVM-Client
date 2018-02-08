@@ -189,10 +189,10 @@ function Analytics:purchase(productId, productName, price, token, first_buy)
     --adjust 
     --첫구매(2aprct)    
     if first_buy then
-        Adjust:adjustTrackPayment(Adjust.EVENT.FIRST_PURCHASE, currencyCode, price )
+        Adjust:trackEvent(Adjust.EVENT.FIRST_PURCHASE )
     end
     --구매 통합(33qpix)
-    Adjust:adjustTrackPayment(Adjust.EVENT.PURCHASE, currencyCode, price )
+    Adjust:trackEvent(Adjust.EVENT.PURCHASE )
     --항목별 구매
     if token then
         Adjust:adjustTrackPayment(token, currencyCode, price )
