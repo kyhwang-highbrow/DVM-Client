@@ -44,19 +44,12 @@ function UI_QuickPopupNew:initButton()
     self:init_competitionBtn()
 
     vars['closeBtn']:registerScriptTapHandler(function() self:click_closeBtn() end)
-    vars['settingBtn']:registerScriptTapHandler(function() self:click_settingBtn() end)
     vars['homeBtn']:registerScriptTapHandler(function() UINavigator:goTo('lobby') end)
 
     -- 하단
-    vars['dragonManageBtn']:registerScriptTapHandler(function() self:click_dragonManageBtn() end) -- 드래곤
-    vars['tamerBtn']:registerScriptTapHandler(function() self:click_tamerBtn() end) -- 테이머
+    vars['settingBtn']:registerScriptTapHandler(function() self:click_settingBtn() end)
     vars['forestBtn']:registerScriptTapHandler(function() self:click_forestBtn() end) -- 드래곤의숲
-    vars['questBtn']:registerScriptTapHandler(function() self:click_questBtn() end) -- 퀘스트
-    vars['shopBtn']:registerScriptTapHandler(function() self:click_shopBtn() end) -- 상점
-    vars['drawBtn']:registerScriptTapHandler(function() self:click_drawBtn() end) -- 부화소
     vars['clanBtn']:registerScriptTapHandler(function() self:click_clanBtn() end) -- 클랜 버튼
-    vars['inventoryBtn']:registerScriptTapHandler(function() self:click_inventoryBtn() end)-- 가방
-    vars['bookBtn']:registerScriptTapHandler(function() self:click_bookBtn() end) -- 도감 버튼
 end
 
 -------------------------------------
@@ -131,8 +124,7 @@ function UI_QuickPopupNew:checkLockContent(l_content)
         else
             vars[content .. 'Btn']:setVisible(true)
             vars[content .. 'Btn']:registerScriptTapHandler(function() 
-                ccdump(content)
-                UINavigator:goTo(content) 
+                self:goTo(content) 
             end)
         end
 
@@ -184,64 +176,19 @@ function UI_QuickPopupNew:click_settingBtn()
 end
 
 -------------------------------------
--- function click_dragonManageBtn
--- @brief 드래곤 관리 버튼
+-- function goTo
 -------------------------------------
-function UI_QuickPopupNew:click_dragonManageBtn()
-    UI_DragonManageInfo()
-end
-
--------------------------------------
--- function click_tamerBtn
--------------------------------------
-function UI_QuickPopupNew:click_tamerBtn()
-    UI_TamerManagePopup()
+function UI_QuickPopupNew:goTo(content)
+    self:close()
+    UINavigator:goTo(content)
 end
 
 -------------------------------------
 -- function click_forestBtn
+-- @brief 드래곤 숲
 -------------------------------------
 function UI_QuickPopupNew:click_forestBtn()
-    UINavigator:goTo('forest')
-end
-
--------------------------------------
--- function click_questBtn
--- @brief 퀘스트 버튼
--------------------------------------
-function UI_QuickPopupNew:click_questBtn()
-    UI_QuestPopup()
-end
-
--------------------------------------
--- function click_shopBtn
--- @brief 상점 버튼
--------------------------------------
-function UI_QuickPopupNew:click_shopBtn()
-    g_shopDataNew:openShopPopup()
-end
-
--------------------------------------
--- function click_drawBtn
--- @brief 드래곤 소환 (가챠)
--------------------------------------
-function UI_QuickPopupNew:click_drawBtn()
-    UINavigator:goTo('hatchery', nil)
-end
-
--------------------------------------
--- function click_bookBtn
--------------------------------------
-function UI_QuickPopupNew:click_bookBtn()
-	UI_Book()
-end
-
--------------------------------------
--- function click_inventoryBtn
--- @brief 가방 버튼
--------------------------------------
-function UI_QuickPopupNew:click_inventoryBtn()
-    UI_Inventory()
+    self:goTo('forest')
 end
 
 -------------------------------------
@@ -249,5 +196,5 @@ end
 -- @brief 클랜 버튼
 -------------------------------------
 function UI_QuickPopupNew:click_clanBtn()
-    UINavigator:goTo('clan')
+    self:goTo('clan')
 end

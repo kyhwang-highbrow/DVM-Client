@@ -915,14 +915,14 @@ end
 function UINavigatorDefinition:goTo_clan(...)
 
     -- 클랜 게스트 UI가 열려있을 경우
-    local is_opend, idx, ui = self:findOpendUI(UI_ClanGuest)
+    local is_opend, idx, ui = self:findOpendUI('UI_ClanGuest')
     if (is_opend == true) then
         self:closeUIList(idx)
         return
     end
     
     -- 클랜 UI가 열려있을 경우
-    local is_opend, idx, ui = self:findOpendUI(UI_Clan)
+    local is_opend, idx, ui = self:findOpendUI('UI_Clan')
     if (is_opend == true) then
         self:closeUIList(idx)
         return
