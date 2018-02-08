@@ -314,6 +314,8 @@ function UI_NestDungeonScene:closeSubMenu()
     self.m_tableView:setDirtyItemList()
 
     vars['tableViewNode']:setVisible(true)
+
+	vars['dragonInfoBtn']:stopAllActions()
 	vars['dragonInfoBtn']:setVisible(false)
 
     for i,v in ipairs(self.m_tableView.m_itemList) do
