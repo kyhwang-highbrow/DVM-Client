@@ -84,22 +84,18 @@ function UI_Forest_StuffLevelupPopup:refresh()
     vars['levelLabel1']:setString(string.format('Lv.%d', lv))
     local desc = TableForestStuffLevelInfo:getStuffOptionDesc(stuff_type, lv)
     vars['dscLabel1']:setString(desc)
+    
+	-- 다음 레벨의 정보
+    lv = lv + 1
+    local t_stuff_level_info = self.m_tableStuff[lv]
+    if (not t_stuff_level_info) then
+        return
+    end
 
     -- 다음 레벨 정보
-    lv = lv + 1
     vars['levelLabel2']:setString(string.format('Lv.%d', lv))
     desc = TableForestStuffLevelInfo:getStuffOptionDesc(stuff_type, lv)
     vars['dscLabel2']:setString(desc)
-
-    -- 다음 레벨의 정보
-    local t_stuff_level_info = self.m_tableStuff[lv]
-
-    -- 레벨업 후 만렙을 달성하였을 경우를 상정
-    if (not t_stuff_level_info) then
-        UIManager:toastNotificationGreen(Str('최대 레벨을 달성하였습니다.'))
-        self:close()
-        return
-    end
 
     -- 가격
     local price = t_stuff_level_info['price_value']
@@ -137,11 +133,12 @@ function UI_Forest_StuffLevelupPopup:click_levelupBtn()
     local stuff_type = self.m_forestStuffType
     
     vars['levelupBtn']:setEnabled(false)
-
-    do -- 재화가 충분히 있는지 체크
-        local t_stuff_info = ServerData_Forest:getInstance():getStuffInfo_Indivisual(stuff_type)
-        local lv = t_stuff_info['stuff_lv']
-
+    
+    local t_stuff_info = ServerData_Forest:getInstance():getStuffInfo_Indivisual(stuff_type)
+	local lv = t_stuff_info['stuff_lv']
+	
+	-- 재화가 충분히 있는지 체크
+    do
         local table_stuff = TableForestStuffLevelInfo:getStuffTable(stuff_type)
         local t_next = table_stuff[lv + 1]
         if (not t_next) then
@@ -156,17 +153,30 @@ function UI_Forest_StuffLevelupPopup:click_levelupBtn()
         end
     end
 
+	-- 통신 콜백
     local function finish_cb(t_stuff)
         self.m_animator:changeAni('stuff_lvup_' .. stuff_type, false)
         self.m_animator:addAniHandler(function()
-            self.m_animator:changeAni(stuff_type .. '_idle', true)
-            vars['levelupBtn']:setEnabled(true)
-            self:refresh()
-            if self.m_stuffObject then
-                -- 레벨 갱신
-                self.m_stuffObject.m_tStuffInfo['stuff_lv'] = t_stuff['stuff_lv']
+			local new_lv = t_stuff['stuff_lv']
+            
+			-- 레벨 갱신
+			if self.m_stuffObject then
+                self.m_stuffObject.m_tStuffInfo['stuff_lv'] = new_lv
                 self.m_stuffObject.m_ui:refresh()
             end
+
+			-- ui 갱신
+			if (new_lv < TableForestStuffLevelInfo:getStuffMaxLV(stuff_type)) then
+				self.m_animator:changeAni(stuff_type .. '_idle', true)
+				vars['levelupBtn']:setEnabled(true)
+				self:refresh()
+
+			-- 만렙 달성 시 ui 닫음
+			else
+			    UIManager:toastNotificationGreen(Str('최대 레벨을 달성하였습니다.'))
+				local delayed_close_action = cc.Sequence:create(cc.DelayTime:create(0.3), cc.CallFunc:create(function() self:close() end))
+				self.root:runAction(delayed_close_action)
+			end  
         end)
 
         SoundMgr:playEffect('UI', 'ui_dragon_level_up')

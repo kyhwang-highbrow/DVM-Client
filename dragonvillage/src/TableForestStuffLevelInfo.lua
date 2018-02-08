@@ -136,15 +136,15 @@ function TableForestStuffLevelInfo:getStuffOptionDesc(stuff_type, lv)
 end
 
 -------------------------------------
--- function getExtensionMaxLV
--- @brief 드래곤의 숲 확장 최대 레벨
+-- function getStuffMaxLV
+-- @brief 드래곤의 숲 오브젝트 최대 레벨
 -------------------------------------
-function TableForestStuffLevelInfo:getExtensionMaxLV()
+function TableForestStuffLevelInfo:getStuffMaxLV(stuff_type)
     if (self == THIS) then
         self = THIS()
     end
 
-    local l_data = self:filterList('stuff_type', 'extension')
+    local l_data = self:filterList('stuff_type', stuff_type)
     local function sort_func(a, b)
         return a['stuff_lv'] > b['stuff_lv']
     end
@@ -157,6 +157,18 @@ function TableForestStuffLevelInfo:getExtensionMaxLV()
 
     local max_lv = t_data['stuff_lv'] or 0
     return max_lv
+end
+
+-------------------------------------
+-- function getExtensionMaxLV
+-- @brief 드래곤의 숲 확장 최대 레벨
+-------------------------------------
+function TableForestStuffLevelInfo:getExtensionMaxLV()
+    if (self == THIS) then
+        self = THIS()
+    end
+
+    return self:getStuffMaxLV('extension')
 end
 
 -------------------------------------

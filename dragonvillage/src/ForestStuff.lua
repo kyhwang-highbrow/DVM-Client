@@ -103,13 +103,15 @@ end
 -- function touchStuff
 -------------------------------------
 function ForestStuff:touchStuff()
+	-- 잠금 : 열리지 않음
     if (self.m_isLock) then
         return
     end
+    
+	local stuff_type = self.m_tStuffInfo['stuff_type']
 
     -- 재화 수령 가능한 상태
     if (self.m_hasReward) then
-        local stuff_type = self.m_tStuffInfo['stuff_type']
         local function finish_cb(t_stuff, t_item_info)
             -- 보상 수령 상태 갱신
             self.m_tStuffInfo['reward_at'] = t_stuff['reward_at']
@@ -140,6 +142,8 @@ function ForestStuff:touchStuff()
     end
 
     -- 레벨업 UI 오픈
-    UI_Forest_StuffLevelupPopup(nil, self)
+	if (self.m_tStuffInfo['stuff_lv'] < TableForestStuffLevelInfo:getStuffMaxLV(stuff_type)) then
+		UI_Forest_StuffLevelupPopup(nil, self)
+	end
 end
 
