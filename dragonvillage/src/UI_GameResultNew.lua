@@ -1058,7 +1058,7 @@ function UI_GameResultNew:click_quickBtn()
 	-- 활동력도 체크 (준비화면에 가는게 아니므로)
 	check_stamina = function()
 		if (g_staminasData:checkStageStamina(stage_id)) then
-			manage_func()
+			check_dragon_inven()
 		else
 			fail_cb()
 
