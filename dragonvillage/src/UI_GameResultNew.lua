@@ -1041,40 +1041,40 @@ function UI_GameResultNew:click_quickBtn()
 	end
 
 	-- 씬 전환을 두번 호출 하지 않도록 하기 위함
-	local block_ui = UI_BlockPopup()
+	local quick_btn = self.vars['quickBtn']
+	quick_btn:setEnabled(false)
+
+	-- 게임 시작 실패시 동작
+	local function fail_cb()
+		quick_btn:setEnabled(true)
+	end
 
     local stage_id = self.m_stageID
-
-    local function finish_cb(game_key)
-        -- 연속 전투일 경우 횟수 증가
-        if (g_autoPlaySetting:isAutoPlay()) then
-            g_autoPlaySetting.m_autoPlayCnt = (g_autoPlaySetting.m_autoPlayCnt + 1)
-        end
-
-        local stage_name = 'stage_' .. stage_id
-        local scene = SceneGame(game_key, stage_id, stage_name, false)
-        scene:runScene()
-    end
-
-    -- 활동력도 체크 (준비화면에 가는게 아니므로)
-    if (not g_staminasData:checkStageStamina(stage_id)) then
-        local function finish_cb()
-            self:show_staminaInfo()
-			block_ui:close()
-        end
-        g_staminasData:staminaCharge(stage_id, finish_cb)
-        return
-    end
-
+	local check_stamina
     local check_dragon_inven
     local check_item_inven
     local start_game
+	
+	-- 활동력도 체크 (준비화면에 가는게 아니므로)
+	check_stamina = function()
+		if (g_staminasData:checkStageStamina(stage_id)) then
+			manage_func()
+		else
+			fail_cb()
+
+			-- 스태미나 충전
+			local function finish_cb()
+				self:show_staminaInfo()
+			end
+			g_staminasData:staminaCharge(stage_id, finish_cb)
+		end
+	end
 
     -- 드래곤 가방 확인(최대 갯수 초과 시 획득 못함)
     check_dragon_inven = function()
         local function manage_func()
             self:click_manageBtn()
-			block_ui:close()
+			fail_cb()
         end
         g_dragonsData:checkMaximumDragons(check_item_inven, manage_func)
     end
@@ -1083,7 +1083,7 @@ function UI_GameResultNew:click_quickBtn()
     check_item_inven = function()
         local function manage_func()
             UI_Inventory()
-			block_ui:close()
+			fail_cb()
         end
         g_inventoryData:checkMaximumItems(start_game, manage_func)
     end
@@ -1092,10 +1092,21 @@ function UI_GameResultNew:click_quickBtn()
         -- 빠른 재시작
         local deck_name = g_deckData:getSelectedDeckName()
         local combat_power = g_deckData:getDeckCombatPower(deck_name)
-        g_stageData:requestGameStart(self.m_stageID, deck_name, combat_power, finish_cb)
+		local function finish_cb(game_key)
+			-- 연속 전투일 경우 횟수 증가
+			if (g_autoPlaySetting:isAutoPlay()) then
+				g_autoPlaySetting.m_autoPlayCnt = (g_autoPlaySetting.m_autoPlayCnt + 1)
+			end
+
+			local stage_name = 'stage_' .. stage_id
+			local scene = SceneGame(game_key, stage_id, stage_name, false)
+			scene:runScene()
+		end
+
+        g_stageData:requestGameStart(self.m_stageID, deck_name, combat_power, finish_cb, fail_cb)
     end
 
-    check_dragon_inven()
+    check_stamina()
 end
 
 -------------------------------------

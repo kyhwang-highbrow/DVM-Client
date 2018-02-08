@@ -239,7 +239,7 @@ end
 -------------------------------------
 -- function requestGameStart
 -------------------------------------
-function ServerData_Stage:requestGameStart(stage_id, deck_name, combat_power, finish_cb)
+function ServerData_Stage:requestGameStart(stage_id, deck_name, combat_power, finish_cb, fail_cb)
     local uid = g_userData:get('uid')
     local oid
     local response_status_cb
@@ -353,6 +353,7 @@ function ServerData_Stage:requestGameStart(stage_id, deck_name, combat_power, fi
     ui_network:setParam('token', self:makeDragonToken())
     ui_network:setResponseStatusCB(response_status_cb)
     ui_network:setSuccessCB(success_cb)
+	ui_network:setFailCB(fail_cb)
     ui_network:request()
 end
 
