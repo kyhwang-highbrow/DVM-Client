@@ -414,14 +414,10 @@ function UI_ReadySceneNew:initUI()
 
         vars['friendToggleBtn']:setVisible(false)
 		vars['autoStartOnBtn']:setVisible(false)
-        
+        vars['cpNode2']:setVisible(false)
+
         vars['formationNode']:setPositionX(-230)
         vars['manageBtn']:setPositionX(0)
-    end
-
-    -- 모험모드 예외처리
-    if (self.m_gameMode == GAME_MODE_ADVENTURE) then
-        vars['cpNode2']:setVisible(true)
     end
 end
 
