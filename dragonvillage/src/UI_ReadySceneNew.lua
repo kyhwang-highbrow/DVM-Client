@@ -402,6 +402,7 @@ function UI_ReadySceneNew:initUI()
 		vars['friendToggleBtn']:setVisible(false)
 		vars['autoStartOnBtn']:setVisible(false)
         vars['cpNode2']:setVisible(false)
+        vars['manageBtn']:setPositionX(0)
 
 		-- 배경 아무거나 넣어준다
 		vars['bgNode']:removeAllChildren()
