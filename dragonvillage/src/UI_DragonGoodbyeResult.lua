@@ -68,10 +68,13 @@ function UI_DragonGoodbyeResult:initUI()
 
     -- 배경
     do
+        local scr_size = cc.Director:getInstance():getWinSize()
+        local height_scale = CRITERIA_RESOLUTION_Y / scr_size['height']
+
         local visual = vars['bg_visual']
         visual:setIgnoreLowEndMode(true) -- 저사양 모드 무시
         visual:setTimeScale(time_scale)
-        local move_action = cc.MoveBy:create(1.5 / time_scale, cc.p(0, -800))
+        local move_action = cc.MoveBy:create(1.5 / time_scale, cc.p(0, -800 * height_scale))
         local ease_action = cc.EaseIn:create(move_action, 2)
         visual:runAction(ease_action)
     end
