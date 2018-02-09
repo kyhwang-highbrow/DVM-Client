@@ -408,7 +408,7 @@ function UI_ReadySceneNew:initUI()
         vars['bgNode']:addChild(animator.m_node)
 	end
 
-    -- 클랜던전
+    -- 클랜던전 예외처리
     if (self.m_gameMode == GAME_MODE_CLAN_RAID) then
         vars['clanRaidMenu']:setVisible(true)
 
@@ -417,6 +417,11 @@ function UI_ReadySceneNew:initUI()
         
         vars['formationNode']:setPositionX(-230)
         vars['manageBtn']:setPositionX(0)
+    end
+
+    -- 모험모드 예외처리
+    if (self.m_gameMode == GAME_MODE_ADVENTURE) then
+        vars['cpNode2']:setVisible(true)
     end
 end
 
