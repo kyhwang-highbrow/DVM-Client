@@ -814,6 +814,7 @@ local t_module = {
     'UI_ColosseumRankingRewardPopup',
     'UI_ColosseumHistoryListItem',
     'UI_ColosseumDeckSettings',
+    'UI_2DDeck',
     'UI_3DDeck',
 
     -- UI : 친선전

@@ -1,4 +1,4 @@
-local PARENT = UI_ReadyScene
+local PARENT = UI_ReadySceneNew
 
 -------------------------------------
 -- class UI_ColosseumDeckSettings

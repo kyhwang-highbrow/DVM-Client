@@ -4,7 +4,7 @@ local PARENT = class(UI, ITopUserInfo_EventListener:getCloneTable())
 -- class UI_FriendMatchReady
 -------------------------------------
 UI_FriendMatchReady = class(PARENT,{
-        m_player3DDeck = 'UI_3Ddeck',
+        m_player2DDeck = 'UI_2DDeck',
         m_bClosedTag = 'boolean', -- 시즌이 종료되어 처리를 했는지 여부
     })
 
@@ -63,43 +63,46 @@ function UI_FriendMatchReady:initUI()
     vars['actingPowerLabel']:setString('1')
 
     do -- 플레이어 유저 덱
-        local player_3d_deck = UI_3DDeck()
-        player_3d_deck:setDirection('left', 50)
-        player_3d_deck.root:setPosition(-300, 76 - 30)
-        self.root:addChild(player_3d_deck.root)
-        player_3d_deck:initUI()
+        local t_pvp_deck = g_colosseumData.m_playerUserInfo.m_pvpAtkDeck
+
+        local player_2d_deck = UI_2DDeck()
+        player_2d_deck:setDirection('left')
+        player_2d_deck.root:setPosition(-380, 76)
+        self.root:addChild(player_2d_deck.root)
+        player_2d_deck:initUI()
 
         local l_dragon_obj = g_friendMatchData.m_playerUserInfo:getAtkDeck_dragonList()
-        player_3d_deck:setDragonObjectList(l_dragon_obj)
-        self.m_player3DDeck = player_3d_deck
-
+        local leader = t_pvp_deck['leader'] or 0
+        player_2d_deck:setDragonObjectList(l_dragon_obj, leader)
+        self.m_player2DDeck = player_2d_deck
 
         -- 진형 설정
-        local t_pvp_deck = g_friendMatchData.m_playerUserInfo.m_pvpAtkDeck
         local formation = 'attack'
         if t_pvp_deck then
             formation = t_pvp_deck['formation'] or 'attack'
         end
-        self.m_player3DDeck:setFormation(formation)
+        self.m_player2DDeck:setFormation(formation)
     end
 
     do -- 상대방 유저 덱
-        local player_3d_deck = UI_3DDeck()
-        player_3d_deck:setDirection('right', -50)
-        player_3d_deck.root:setPosition(300, 76- 30)
-        self.root:addChild(player_3d_deck.root)
-        player_3d_deck:initUI()
+        local t_pvp_deck = g_friendMatchData.m_matchInfo.m_pvpDefDeck
+
+        local player_2d_deck = UI_2DDeck()
+        player_2d_deck:setDirection('right')
+        player_2d_deck.root:setPosition(380, 76)
+        self.root:addChild(player_2d_deck.root)
+        player_2d_deck:initUI()
 
         local l_dragon_obj = g_friendMatchData.m_matchInfo:getDefDeck_dragonList()
-        player_3d_deck:setDragonObjectList(l_dragon_obj)
+        local leader = t_pvp_deck['leader'] or 0
+        player_2d_deck:setDragonObjectList(l_dragon_obj, leader)
 
         -- 진형 설정
-        local t_pvp_deck = g_friendMatchData.m_matchInfo.m_pvpDefDeck
         local formation = 'attack'
         if t_pvp_deck then
             formation = t_pvp_deck['formation'] or 'attack'
         end
-        player_3d_deck:setFormation(formation)
+        player_2d_deck:setFormation(formation)
     end
 
     do -- 친구대전 보상 표시
@@ -172,10 +175,10 @@ function UI_FriendMatchReady:click_deckBtn()
     local with_friend = nil
     local ui = UI_FriendMatchDeckSettings(FRIEND_MATCH_STAGE_ID, with_friend, 'fatk')
     local function close_cb()
-        local player_3d_deck = self.m_player3DDeck
+        local player_2d_deck = self.m_player2DDeck
         local l_dragon_obj = g_friendMatchData.m_playerUserInfo:getAtkDeck_dragonList()
         
-        player_3d_deck:setDragonObjectList(l_dragon_obj)
+        player_2d_deck:setDragonObjectList(l_dragon_obj)
 
         -- 진형 설정
         local formation = 'attack'
@@ -183,7 +186,7 @@ function UI_FriendMatchReady:click_deckBtn()
         if t_pvp_deck then
             formation = t_pvp_deck['formation'] or 'attack'
         end
-        self.m_player3DDeck:setFormation(formation)
+        self.m_player2DDeck:setFormation(formation)
 
         -- 유저 정보도 변경 (테이머가 갱신될 수 있음)
         self:initUI_userInfo()
