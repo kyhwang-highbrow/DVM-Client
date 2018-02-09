@@ -44,6 +44,7 @@ function UI_QuickPopupNew:initButton()
     self:init_competitionBtn()
     self:init_underBtn()
 
+    vars['homeBtn']:registerScriptTapHandler(function() UINavigator:goTo('lobby') end)
     vars['closeBtn']:registerScriptTapHandler(function() self:click_closeBtn() end)
 end
 
