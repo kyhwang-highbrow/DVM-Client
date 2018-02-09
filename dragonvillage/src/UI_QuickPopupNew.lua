@@ -45,7 +45,7 @@ function UI_QuickPopupNew:initButton()
 
     vars['closeBtn']:registerScriptTapHandler(function() self:click_closeBtn() end)
     vars['homeBtn']:registerScriptTapHandler(function() UINavigator:goTo('lobby') end)
-
+    
     -- 하단
     vars['dragonManageBtn']:registerScriptTapHandler(function() self:click_dragonManageBtn() end) -- 드래곤
     vars['tamerBtn']:registerScriptTapHandler(function() self:click_tamerBtn() end) -- 테이머
@@ -56,6 +56,7 @@ function UI_QuickPopupNew:initButton()
     vars['clanBtn']:registerScriptTapHandler(function() self:click_clanBtn() end) -- 클랜 버튼
     vars['inventoryBtn']:registerScriptTapHandler(function() self:click_inventoryBtn() end)-- 가방
     vars['bookBtn']:registerScriptTapHandler(function() self:click_bookBtn() end) -- 도감 버튼
+    vars['settingBtn']:registerScriptTapHandler(function() self:click_settingBtn() end)
 end
 
 -------------------------------------
