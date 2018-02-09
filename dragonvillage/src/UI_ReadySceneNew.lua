@@ -401,6 +401,7 @@ function UI_ReadySceneNew:initUI()
 	if (self.m_stageID == COLOSSEUM_STAGE_ID or self.m_stageID == FRIEND_MATCH_STAGE_ID) then
 		vars['friendToggleBtn']:setVisible(false)
 		vars['autoStartOnBtn']:setVisible(false)
+        vars['cpNode2']:setVisible(false)
 
 		-- 배경 아무거나 넣어준다
 		vars['bgNode']:removeAllChildren()
