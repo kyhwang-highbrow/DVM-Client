@@ -47,9 +47,15 @@ function UI_QuickPopupNew:initButton()
     vars['homeBtn']:registerScriptTapHandler(function() UINavigator:goTo('lobby') end)
 
     -- 하단
-    vars['settingBtn']:registerScriptTapHandler(function() self:click_settingBtn() end)
+    vars['dragonManageBtn']:registerScriptTapHandler(function() self:click_dragonManageBtn() end) -- 드래곤
+    vars['tamerBtn']:registerScriptTapHandler(function() self:click_tamerBtn() end) -- 테이머
     vars['forestBtn']:registerScriptTapHandler(function() self:click_forestBtn() end) -- 드래곤의숲
+    vars['questBtn']:registerScriptTapHandler(function() self:click_questBtn() end) -- 퀘스트
+    vars['shopBtn']:registerScriptTapHandler(function() self:click_shopBtn() end) -- 상점
+    vars['drawBtn']:registerScriptTapHandler(function() self:click_drawBtn() end) -- 부화소
     vars['clanBtn']:registerScriptTapHandler(function() self:click_clanBtn() end) -- 클랜 버튼
+    vars['inventoryBtn']:registerScriptTapHandler(function() self:click_inventoryBtn() end)-- 가방
+    vars['bookBtn']:registerScriptTapHandler(function() self:click_bookBtn() end) -- 도감 버튼
 end
 
 -------------------------------------
@@ -162,6 +168,27 @@ function UI_QuickPopupNew:refresh()
 end
 
 -------------------------------------
+-- function goTo
+-------------------------------------
+function UI_QuickPopupNew:goTo(content)
+    self:close()
+    self:closeDragonManageInfo()
+
+    UINavigator:goTo(content)
+end
+
+-------------------------------------
+-- function closeDragonManageInfo
+-- @brief 드래곤 관리 UI가 열려있다면 닫아줌 - 갱신 문제
+------------------------------------- 
+function UI_QuickPopupNew:closeDragonManageInfo()
+    local is_opend, idx, ui = UINavigatorDefinition:findOpendUI('UI_DragonManageInfo')
+    if (is_opend == true) and (ui) then
+        UINavigatorDefinition:closeUIList(idx, true)
+    end
+end
+
+-------------------------------------
 -- function click_closeBtn
 -------------------------------------
 function UI_QuickPopupNew:click_closeBtn()
@@ -176,11 +203,59 @@ function UI_QuickPopupNew:click_settingBtn()
 end
 
 -------------------------------------
--- function goTo
+-- function click_dragonManageBtn
+-- @brief 드래곤 관리 버튼
 -------------------------------------
-function UI_QuickPopupNew:goTo(content)
-    self:close()
-    UINavigator:goTo(content)
+function UI_QuickPopupNew:click_dragonManageBtn()
+    self:goTo('dragon')
+end
+
+-------------------------------------
+-- function click_tamerBtn
+-- @brief 테이머 관리 버튼
+-------------------------------------
+function UI_QuickPopupNew:click_tamerBtn()
+    self:goTo('tamer')
+end
+
+-------------------------------------
+-- function click_questBtn
+-- @brief 퀘스트 버튼
+-------------------------------------
+function UI_QuickPopupNew:click_questBtn()
+    self:goTo('quest')
+end
+
+-------------------------------------
+-- function click_shopBtn
+-- @brief 상점 버튼
+-------------------------------------
+function UI_QuickPopupNew:click_shopBtn()
+    self:goTo('shop')
+end
+
+-------------------------------------
+-- function click_drawBtn
+-- @brief 드래곤 소환 (가챠)
+-------------------------------------
+function UI_QuickPopupNew:click_drawBtn()
+    self:goTo('hatchery')
+end
+
+-------------------------------------
+-- function click_bookBtn
+-- @brief 도감 버튼
+-------------------------------------
+function UI_QuickPopupNew:click_bookBtn()
+    self:goTo('book')
+end
+
+-------------------------------------
+-- function click_inventoryBtn
+-- @brief 가방 버튼
+-------------------------------------
+function UI_QuickPopupNew:click_inventoryBtn()
+    self:goTo('inventory')
 end
 
 -------------------------------------

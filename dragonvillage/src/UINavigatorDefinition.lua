@@ -73,6 +73,93 @@ function UINavigatorDefinition:goTo_lobby(...)
 end
 
 -------------------------------------
+-- function goTo_tamer
+-- @brief 테이머 관리로 이동
+-- @usage UINavigatorDefinition:goTo('tamer')
+-------------------------------------
+function UINavigatorDefinition:goTo_tamer(...)
+    -- 해당 UI가 열려있을 경우
+    local is_opend, idx, ui = self:findOpendUI('UI_TamerManagePopup')
+    if (is_opend == true) then
+        self:closeUIList(idx)
+        return
+    end
+
+    UI_TamerManagePopup()
+end
+
+-------------------------------------
+-- function goTo_quest
+-- @brief 퀘스트 팝업으로 이동
+-- @usage UINavigatorDefinition:goTo('quest')
+-------------------------------------
+function UINavigatorDefinition:goTo_quest(...)
+    -- 해당 UI가 열려있을 경우
+    local is_opend, idx, ui = self:findOpendUI('UI_QuestPopup')
+    if (is_opend == true) then
+        self:closeUIList(idx)
+        return
+    end
+
+    UI_QuestPopup()
+end
+
+-------------------------------------
+-- function goTo_book
+-- @brief 도감으로 이동
+-- @usage UINavigatorDefinition:goTo('book')
+-------------------------------------
+function UINavigatorDefinition:goTo_book(...)
+    -- 해당 UI가 열려있을 경우
+    local is_opend, idx, ui = self:findOpendUI('UI_Book')
+    if (is_opend == true) then
+        self:closeUIList(idx)
+        return
+    end
+
+    UI_Book()
+end
+
+-------------------------------------
+-- function goTo_inventory
+-- @brief 가방으로 이동
+-- @usage UINavigatorDefinition:goTo('inventory')
+-------------------------------------
+function UINavigatorDefinition:goTo_inventory(...)
+    -- 해당 UI가 열려있을 경우
+    local is_opend, idx, ui = self:findOpendUI('UI_Inventory')
+    if (is_opend == true) then
+        self:closeUIList(idx)
+        return
+    end
+
+    do-- Scene으로 동작
+        local function close_cb()
+            UINavigatorDefinition:goTo('lobby')
+        end
+
+        local scene = SceneCommon(UI_Inventory, close_cb)
+        scene:runScene()
+    end
+end
+
+-------------------------------------
+-- function goTo_shop
+-- @brief 상점으로 이동
+-- @usage UINavigatorDefinition:goTo('shop')
+-------------------------------------
+function UINavigatorDefinition:goTo_shop(...)
+    -- 해당 UI가 열려있을 경우
+    local is_opend, idx, ui = self:findOpendUI('UI_Shop')
+    if (is_opend == true) then
+        self:closeUIList(idx)
+        return
+    end
+
+    g_shopDataNew:openShopPopup()
+end
+
+-------------------------------------
 -- function goTo_adventure
 -- @brief 모험 모드로 이동
 -- @usage UINavigatorDefinition:goTo('adventure', stage_id)
