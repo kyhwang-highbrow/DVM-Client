@@ -202,7 +202,7 @@ function SkillIndicatorMgr_Intro:startIntro(hero)
 
     -- 가이드 비주얼
     if (self.m_animatorGuide) then
-        self.m_animatorGuide:removeFromParent(true)
+        self.m_animatorGuide:release()
     end
     
     self.m_animatorGuide = MakeAnimator('res/ui/a2d/tutorial/tutorial.vrp')
