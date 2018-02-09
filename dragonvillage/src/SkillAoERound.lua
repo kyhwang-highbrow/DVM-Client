@@ -142,6 +142,8 @@ end
 -- @brief 개별 이펙트를 표시
 -------------------------------------
 function SkillAoERound:doAoeEffect()
+    if (not self.m_aoeRes) then return end
+
     local collisions = self.m_lCollision
 
     -- 타겟별 리소스

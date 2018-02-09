@@ -47,7 +47,7 @@ function StatusEffectHelper:doStatusEffect(caster, l_skill_target, type, target_
 
         local l_target = l_skill_target
         for _, target in ipairs(l_target) do
-			if (StatusEffectHelper:invokeStatusEffect(caster, target, type, value, source, rate, duration, skill_id, add_param)) then
+            if (not target:isDead() and StatusEffectHelper:invokeStatusEffect(caster, target, type, value, source, rate, duration, skill_id, add_param)) then
                 table.insert(l_ret, target)
 
                 if (cb_invoke) then
@@ -66,7 +66,7 @@ function StatusEffectHelper:doStatusEffect(caster, l_skill_target, type, target_
         l_target = table.getPartList(l_target, target_count)
 
         for _, target in ipairs(l_target) do
-            if (StatusEffectHelper:invokeStatusEffect(caster, target, type, value, source, rate, duration, skill_id, add_param)) then
+            if (not target:isDead() and StatusEffectHelper:invokeStatusEffect(caster, target, type, value, source, rate, duration, skill_id, add_param)) then
                 table.insert(l_ret, target)
 
                 if (cb_invoke) then

@@ -1631,6 +1631,9 @@ function Character:release()
 	self:release_EventDispatcher()
     self:release_EventListener()
 
+    -- 상태효과 아이콘 해제
+    self:removeStatusIconAll()
+
     PARENT.release(self)
 end
 
@@ -2707,6 +2710,19 @@ function Character:addGroggy(statusEffectName)
     if (self.m_isGroggy) then
         self:changeState('stun')
     end
+end
+
+-------------------------------------
+-- function setStatusIconPosition
+-------------------------------------
+function Character:setStatusIconPosition(status_icon, idx)
+    if (not self.m_infoUI) then return end
+
+    local x, y = self.m_infoUI:getPositionForStatusIcon(self.m_bLeftFormation, idx)
+    local scale = self.m_infoUI:getScaleForStatusIcon()
+
+    status_icon:setPosition(x, y)
+    status_icon:setScale(scale)
 end
 
 -------------------------------------

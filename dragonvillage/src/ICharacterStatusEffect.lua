@@ -5,7 +5,8 @@ ICharacterStatusEffect = {
     m_mStatusEffect = 'table',
     m_mHiddenStatusEffect = 'table',-- 숨겨져서 노출되지 않는 상태효과(리더, 패시브)
 
-    m_mStatusIcon = 'sprite table',
+    m_lStatusIcon = 'table',
+    m_mStatusIcon = 'table',
 
     m_mStatusEffectGroggy = 'table',    -- 그로기 효과를 가진 status effect
     
@@ -23,6 +24,8 @@ ICharacterStatusEffect = {
 function ICharacterStatusEffect:init()
     self.m_mStatusEffect = {}
     self.m_mHiddenStatusEffect = {}
+
+    self.m_lStatusIcon = {}
 	self.m_mStatusIcon = {}
 
     self.m_mStatusEffectGroggy = {}
@@ -40,55 +43,80 @@ end
 -------------------------------------
 function ICharacterStatusEffect:updateStatusEffect(dt)
     
-    -- 아이콘 추가 및 표시 설정
+    -- 아이콘 추가
     for type, status_effect in pairs(self.m_mStatusEffect) do
         if (not status_effect:isHidden()) then
-            local icon = self:getStatusIcon(status_effect)
+            local status_effect_type = status_effect:getTypeName()
+            local status_icon = self.m_mStatusIcon[status_effect_type]
 
-            if (icon and icon.m_icon) then
-                icon.m_icon:setVisible(status_effect.m_bApply)
+            if (not status_icon) then
+                self:addStatusIcon(status_effect)
             end
         end
 	end
 
     -- 아이콘별 업데이트
     do
-        local idx = 1
+        local t_remove = {}
+        local pos_idx = 1
 
-	    for _, v in pairs(self.m_mStatusIcon) do
-		    v:update(dt)
-            v:updatePositionFromIndex(idx)
+	    for i, v in ipairs(self.m_lStatusIcon) do
+		    if (v:update(dt)) then
+                local status_effect_type = v:getStatusEffectName()
 
-            idx = idx + 1
+                table.insert(t_remove, 1, i)
+                v:release()
+
+                self.m_mStatusIcon[status_effect_type] = nil
+
+            elseif (v:isVisible()) then
+                self:setStatusIconPosition(v, pos_idx)
+                
+                pos_idx = pos_idx + 1
+
+            end
 	    end
+
+        for i, v in ipairs(t_remove) do
+            table.remove(self.m_lStatusIcon, v)
+        end
     end
 end
 
 -------------------------------------
--- function getStatusIcon
+-- function setStatusIconPosition
+-- @brief 파라미터의 상태효과 아이콘과 해당 아이콘의 인덱스 값으로 직접 위치나 스케일을 변경(하위 클래스에서 재정의 필요)
 -------------------------------------
-function ICharacterStatusEffect:getStatusIcon(status_effect)
-    local status_effect_type = status_effect:getTypeName()
-
-    -- icon 생성 또는 있는것에 접근
-	local icon = nil
-	if (self.m_mStatusIcon[status_effect_type]) then 
-		icon = self.m_mStatusIcon[status_effect_type]
-	else
-		icon = StatusEffectIcon(self, status_effect)
-
-        self.m_mStatusIcon[status_effect_type] = icon
-	end
-
-    return icon
+function ICharacterStatusEffect:setStatusIconPosition(status_icon, idx)
 end
 
 -------------------------------------
--- function removeStatusIcon
+-- function addStatusIcon
 -------------------------------------
-function ICharacterStatusEffect:removeStatusIcon(status_effect)
-	local status_effect_type = status_effect:getTypeName()
-	self.m_mStatusIcon[status_effect_type] = nil
+function ICharacterStatusEffect:addStatusIcon(status_effect)
+    local status_effect_type = status_effect:getTypeName()
+
+    -- StatusEffectIcon 생성
+	local status_icon = StatusEffectIcon(self, status_effect)
+    table.insert(self.m_lStatusIcon, status_icon)
+
+    self.m_mStatusIcon[status_effect_type] = status_icon
+	
+    return status_icon
+end
+
+-------------------------------------
+-- function removeStatusIconAll
+-------------------------------------
+function ICharacterStatusEffect:removeStatusIconAll()
+    --[[
+    for i, v in ipairs(self.m_lStatusIcon) do
+        v:release()
+    end
+    ]]--
+
+	self.m_lStatusIcon = {}
+    self.m_mStatusIcon = {}
 end
 
 
