@@ -42,21 +42,9 @@ function UI_QuickPopupNew:initButton()
     self:init_adventureBtn()
     self:init_dungeonBtn()
     self:init_competitionBtn()
+    self:init_underBtn()
 
     vars['closeBtn']:registerScriptTapHandler(function() self:click_closeBtn() end)
-    vars['homeBtn']:registerScriptTapHandler(function() UINavigator:goTo('lobby') end)
-    
-    -- 하단
-    vars['dragonManageBtn']:registerScriptTapHandler(function() self:click_dragonManageBtn() end) -- 드래곤
-    vars['tamerBtn']:registerScriptTapHandler(function() self:click_tamerBtn() end) -- 테이머
-    vars['forestBtn']:registerScriptTapHandler(function() self:click_forestBtn() end) -- 드래곤의숲
-    vars['questBtn']:registerScriptTapHandler(function() self:click_questBtn() end) -- 퀘스트
-    vars['shopBtn']:registerScriptTapHandler(function() self:click_shopBtn() end) -- 상점
-    vars['drawBtn']:registerScriptTapHandler(function() self:click_drawBtn() end) -- 부화소
-    vars['clanBtn']:registerScriptTapHandler(function() self:click_clanBtn() end) -- 클랜 버튼
-    vars['inventoryBtn']:registerScriptTapHandler(function() self:click_inventoryBtn() end)-- 가방
-    vars['bookBtn']:registerScriptTapHandler(function() self:click_bookBtn() end) -- 도감 버튼
-    vars['settingBtn']:registerScriptTapHandler(function() self:click_settingBtn() end)
 end
 
 -------------------------------------
@@ -106,6 +94,30 @@ function UI_QuickPopupNew:init_competitionBtn()
     table.insert(l_content, 'colosseum')
     self:checkLockContent(l_content)
     self:adjustPosX(l_content)
+end
+
+-------------------------------------
+-- function init_underBtn
+-------------------------------------
+function UI_QuickPopupNew:init_underBtn()
+    local vars = self.vars
+
+     -- 하단 메뉴 잠금 처리
+    local l_content = {}
+    table.insert(l_content, 'clan')
+    self:checkLockContent(l_content)
+
+    -- 드래곤 관리
+    vars['dragonManageBtn']:registerScriptTapHandler(function() self:click_dragonManageBtn() end) 
+    vars['tamerBtn']:registerScriptTapHandler(function() self:click_tamerBtn() end) -- 테이머
+    vars['forestBtn']:registerScriptTapHandler(function() self:click_forestBtn() end) -- 드래곤의숲
+    vars['questBtn']:registerScriptTapHandler(function() self:click_questBtn() end) -- 퀘스트
+    vars['shopBtn']:registerScriptTapHandler(function() self:click_shopBtn() end) -- 상점
+    vars['drawBtn']:registerScriptTapHandler(function() self:click_drawBtn() end) -- 부화소
+    vars['clanBtn']:registerScriptTapHandler(function() self:click_clanBtn() end) -- 클랜 버튼
+    vars['inventoryBtn']:registerScriptTapHandler(function() self:click_inventoryBtn() end)-- 가방
+    vars['bookBtn']:registerScriptTapHandler(function() self:click_bookBtn() end) -- 도감 버튼
+    vars['settingBtn']:registerScriptTapHandler(function() self:click_settingBtn() end) -- 설정
 end
 
 -------------------------------------
