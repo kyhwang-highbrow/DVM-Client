@@ -29,7 +29,7 @@ function SceneNestDungeon:onEnter()
         UI_NestDungeonScene(stage_id, self.m_dungeonType)
 
         if (self.m_bReady) then
-            UI_ReadyScene(stage_id)
+            UI_ReadySceneNew(stage_id)
         end
     else
         UI_NestDungeonScene(nil, self.m_dungeonType)

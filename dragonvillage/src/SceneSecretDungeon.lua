@@ -22,7 +22,7 @@ function SceneSecretDungeon:onEnter()
     if self.m_startDungeonID then
         local dungeon_id = self.m_startDungeonID
         UI_SecretDungeonScene(dungeon_id)
-        UI_ReadyScene(dungeon_id)
+        UI_ReadySceneNew(dungeon_id)
     else
         UI_SecretDungeonScene()
     end

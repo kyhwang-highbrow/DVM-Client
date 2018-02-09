@@ -225,7 +225,7 @@ function UI_AttrTower:click_readyBtn()
             self:sceneFadeInAction()
         end
 
-        local ui = UI_ReadyScene(stage_id)
+        local ui = UI_ReadySceneNew(stage_id)
         ui:setCloseCB(close_cb)
     end
 

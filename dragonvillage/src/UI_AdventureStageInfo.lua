@@ -377,7 +377,7 @@ function UI_AdventureStageInfo:click_enterBtn()
             local scene = SceneGameClanRaid(nil, stage_id, stage_name, true)
             scene:runScene()
         else
-            local ui = UI_ReadyScene(stage_id, with_friend)
+            local ui = UI_ReadySceneNew(stage_id, with_friend)
             ui:setCloseCB(close_cb)
         end
     end

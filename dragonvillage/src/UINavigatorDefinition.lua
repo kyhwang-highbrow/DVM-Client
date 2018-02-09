@@ -978,7 +978,7 @@ end
 -------------------------------------
 function UINavigatorDefinition:goTo_clan_raid(...)
     -- 클랜 던전 UI가 열려있을 경우
-    local is_opend, idx, ui = self:findOpendUI(UI_ClanRaid)
+    local is_opend, idx, ui = self:findOpendUI('UI_ClanRaid')
     if (is_opend == true) then
         self:closeUIList(idx)
         return

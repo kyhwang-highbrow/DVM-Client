@@ -410,8 +410,12 @@ function UI_ReadySceneNew:initUI()
 
     -- 클랜던전
     if (self.m_gameMode == GAME_MODE_CLAN_RAID) then
+        vars['clanRaidMenu']:setVisible(true)
+
         vars['friendToggleBtn']:setVisible(false)
 		vars['autoStartOnBtn']:setVisible(false)
+        
+        vars['formationNode']:setPositionX(-230)
         vars['manageBtn']:setPositionX(0)
     end
 end
