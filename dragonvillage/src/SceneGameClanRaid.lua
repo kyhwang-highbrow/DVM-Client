@@ -297,7 +297,21 @@ function SceneGameClanRaid:networkGameFinish(t_param, t_result_ref, next_func)
     local confirm_cb = function()
         UINavigator:goTo('clan_raid')
     end
-    local response_status_cb = MakeResponseCB(t_error, confirm_cb)
+
+    -- true를 리턴하면 자체적으로 처리를 완료했다는 뜻
+    local function response_status_cb(ret)
+        -- invalid season
+        if (ret['status'] == -1364) then
+            -- 로비로 이동
+            local function ok_cb()
+                UINavigator:goTo('lobby')
+            end 
+            MakeSimplePopup(POPUP_TYPE.OK, Str('시즌이 종료되었습니다.'), ok_cb)
+            return true
+        end
+
+        return false
+    end
 
     local api_url = '/clans/dungeon_finish'
     
