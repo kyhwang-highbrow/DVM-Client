@@ -234,6 +234,36 @@ function UI_GameResult_AncientTower:removeScore()
 end
 
 -------------------------------------
+-- function startGame
+-- @override
+-------------------------------------
+function UI_GameResult_AncientTower:startGame()
+	local stage_id = self.m_stageID
+	local deck_name = g_deckData:getSelectedDeckName()
+    local combat_power = g_deckData:getDeckCombatPower(deck_name)
+
+	-- 연속 전투 : 다음 층 도전
+	if (g_autoPlaySetting:isAutoPlay()) then
+		if (g_autoPlaySetting:get('tower_next_floor')) then
+			stage_id = (stage_id % 100 == 50) and 1401050 or stage_id + 1
+		end
+	end
+
+	local function finish_cb(game_key)
+		-- 연속 전투일 경우 횟수 증가
+		if (g_autoPlaySetting:isAutoPlay()) then
+			g_autoPlaySetting.m_autoPlayCnt = (g_autoPlaySetting.m_autoPlayCnt + 1)
+		end
+
+		local stage_name = 'stage_' .. stage_id
+		local scene = SceneGame(game_key, stage_id, stage_name, false)
+		scene:runScene()
+	end
+
+    g_stageData:requestGameStart(stage_id, deck_name, combat_power, finish_cb, fail_cb)
+end
+
+-------------------------------------
 -- function click_againBtn
 -- @brief 다시하기
 -------------------------------------

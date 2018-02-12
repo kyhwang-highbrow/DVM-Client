@@ -1090,23 +1090,32 @@ function UI_GameResultNew:click_quickBtn()
 
     start_game = function()
         -- 빠른 재시작
-        local deck_name = g_deckData:getSelectedDeckName()
-        local combat_power = g_deckData:getDeckCombatPower(deck_name)
-		local function finish_cb(game_key)
-			-- 연속 전투일 경우 횟수 증가
-			if (g_autoPlaySetting:isAutoPlay()) then
-				g_autoPlaySetting.m_autoPlayCnt = (g_autoPlaySetting.m_autoPlayCnt + 1)
-			end
-
-			local stage_name = 'stage_' .. stage_id
-			local scene = SceneGame(game_key, stage_id, stage_name, false)
-			scene:runScene()
-		end
-
-        g_stageData:requestGameStart(self.m_stageID, deck_name, combat_power, finish_cb, fail_cb)
+        self:startGame()
     end
 
     check_stamina()
+end
+
+-------------------------------------
+-- function startGame
+-------------------------------------
+function UI_GameResultNew:startGame()
+    local stage_id = self.m_stageID
+	local deck_name = g_deckData:getSelectedDeckName()
+    local combat_power = g_deckData:getDeckCombatPower(deck_name)
+
+	local function finish_cb(game_key)
+		-- 연속 전투일 경우 횟수 증가
+		if (g_autoPlaySetting:isAutoPlay()) then
+			g_autoPlaySetting.m_autoPlayCnt = (g_autoPlaySetting.m_autoPlayCnt + 1)
+		end
+
+		local stage_name = 'stage_' .. stage_id
+		local scene = SceneGame(game_key, stage_id, stage_name, false)
+		scene:runScene()
+	end
+
+    g_stageData:requestGameStart(self.m_stageID, deck_name, combat_power, finish_cb, fail_cb)
 end
 
 -------------------------------------

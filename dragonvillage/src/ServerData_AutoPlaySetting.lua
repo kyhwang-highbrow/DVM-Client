@@ -42,28 +42,17 @@ function ServerData_AutoPlaySetting:setDefaultSetting(mode, t_auto_play_setting)
         ['stop_condition_lose'] = true,
         -- 드래곤의 현재 승급 상태 중 레벨MAX가 되면 연속 모험 종료
         ['stop_condition_dragon_lv_max'] = true,
-        -- 드래곤의 가방이 가득차면 연속 모험 종료
-        ['stop_condition_dragon_inventory_max'] = true,
-        -- 룬 가방이 가득차면 연속 모험 종료
-        ['stop_condition_rune_inventory_max'] = true,
-        -- 인연던전 발견 시 연속 모험 종료
+		-- 인연던전 발견 시 연속 모험 종료
         ['stop_condition_find_rel_dungeon'] = true,
+		-- 고대의탑 / 시험의탑 다음 층 도전
+		['tower_next_floor'] = false,
 
-        -- 드래곤 공격 스킬 사용
-        ['dragon_atk_skill'] = 'at_cool',
-
-        -- 드래곤 치유 스킬 사용
-        ['dragon_heal_skill'] = 'at_cool',
-
-        -- 자동 모드 사용
+	    -- 자동 모드 사용
         ['auto_mode'] = false,
-
         -- 빠른 모드 사용
         ['quick_mode'] = true,
-
         -- DPS 패널 사용
         ['dps_panel'] = true,
-
         -- 연출 스킵 모드 사용
         ['skip_mode'] = false
     }
