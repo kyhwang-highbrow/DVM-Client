@@ -177,13 +177,15 @@ function UI_ColosseumReady:click_deckBtn()
     local with_friend = nil
     local ui = UI_ColosseumDeckSettings(COLOSSEUM_STAGE_ID, with_friend, 'atk')
     local function close_cb()
+        local t_pvp_deck = g_colosseumData.m_playerUserInfo.m_pvpAtkDeck
+
         local player_2d_deck = self.m_player2DDeck
         local l_dragon_obj = g_colosseumData.m_playerUserInfo:getAtkDeck_dragonList()
-        player_2d_deck:setDragonObjectList(l_dragon_obj)
+        local leader = t_pvp_deck['leader'] or 0
+        player_2d_deck:setDragonObjectList(l_dragon_obj, leader)
 
         -- 진형 설정
         local formation = 'attack'
-        local t_pvp_deck = g_colosseumData.m_playerUserInfo.m_pvpAtkDeck
         if t_pvp_deck then
             formation = t_pvp_deck['formation'] or 'attack'
         end
