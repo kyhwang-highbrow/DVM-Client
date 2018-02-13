@@ -39,7 +39,7 @@ function DragonSkillIndivisualInfo:init(char_type, skill_type, skill_id, skill_l
 
     if (self.m_skillType == 'indie_time') then
         -- indie_time 타입의 스킬은 해당 값만큼 먼저 기다리도록 초기값 설정
-        self.m_timer = t_skill['chance_value']
+        self.m_timer = t_skill['chance_value'] * math_random(50, 100) / 100
 
     elseif (self.m_skillType == 'hp_rate') then
         self.m_hpRate = t_skill['chance_value']
