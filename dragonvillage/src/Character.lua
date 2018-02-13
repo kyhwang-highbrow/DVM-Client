@@ -85,7 +85,8 @@ Character = class(PARENT, {
         m_bFixedPosHpNode = 'boolean',
 
         -- @status UI
-        m_statusNode = '',
+        m_unitStatusIconNode = 'cc.Node',
+        m_unitStatusTextNode = 'cc.Node',
 
         -- @charge
         m_chargeEffect = '',
@@ -200,6 +201,8 @@ function Character:init(file_name, body, ...)
 
     self.m_mTargetEffect = {}
     self.m_mNonTargetEffect = {}
+
+    self.m_unitInfoOffset = { 0, 0 }
 end
 
 -------------------------------------
@@ -208,6 +211,23 @@ end
 -------------------------------------
 function Character:initWorld(game_world)
     PARENT.initWorld(self, game_world)
+
+    -- 월드 상의 레이어별 배치노드를 사용하기 위한 유닛별 노드 생성
+    if (not self.m_unitStatusIconNode) then
+        self.m_unitStatusIconNode = cc.Node:create()
+        self.m_world.m_unitStatusNode:addChild(self.m_unitStatusIconNode, 1)
+        
+        -- 하이라이트 노드 설정
+        self:addHighlightNode(self.m_unitStatusIconNode)
+    end
+
+    if (not self.m_unitStatusTextNode) then
+        self.m_unitStatusTextNode = cc.Node:create()
+        self.m_world.m_unitStatusNode:addChild(self.m_unitStatusTextNode, 3)
+        
+        -- 하이라이트 노드 설정
+        self:addHighlightNode(self.m_unitStatusTextNode)
+    end
 
     if (not self.m_unitInfoNode) then
         self.m_unitInfoNode = cc.Node:create()
@@ -1595,6 +1615,14 @@ function Character:release()
         end
     end
 
+    if (self.m_unitStatusIconNode) then
+        self.m_unitStatusIconNode:removeFromParent(true)
+    end
+
+    if (self.m_unitStatusTextNode) then
+        self.m_unitStatusTextNode:removeFromParent(true)
+    end
+
     if (self.m_unitInfoNode) then
         self.m_unitInfoNode:removeFromParent(true)
     end
@@ -1613,12 +1641,12 @@ function Character:release()
         self.m_dragonSpeechNode = nil
     end
 
+    self.m_unitStatusIconNode = nil
+    self.m_unitStatusTextNode = nil
     self.m_unitInfoNode = nil
 
     self.m_hpNode = nil
     self.m_hpGauge = nil
-
-    self.m_statusNode = nil
 
     self.m_castingNode = nil
     self.m_castingGauge = nil
@@ -1683,11 +1711,6 @@ function Character:makeHPGauge(hp_ui_offset)
 
     if (self.m_hpNode) then
         self.m_hpNode:removeFromParent()
-        self.m_hpNode = nil
-        self.m_hpGauge = nil
-        self.m_hpGauge2 = nil
-        self.m_statusNode = nil
-        self.m_infoUI = nil
     end
     
     local ui = UI_IngameUnitInfo(self)
@@ -1699,11 +1722,11 @@ function Character:makeHPGauge(hp_ui_offset)
     self.m_hpGauge = ui.vars['hpGauge']
     self.m_hpGauge2 = ui.vars['hpGauge2']
 
-    self.m_statusNode = self.m_hpNode
-
     self.m_unitInfoNode:addChild(self.m_hpNode)
 
 	self.m_infoUI = ui
+
+    self:makeStatusIconNode(self.m_unitStatusIconNode, self.m_unitStatusTextNode)
 end
 
 -------------------------------------
@@ -1739,6 +1762,14 @@ end
 function Character:setPosition(x, y)
 	PARENT.setPosition(self, x, y)
 
+    if (self.m_unitStatusIconNode) then
+        self.m_unitStatusIconNode:setPosition(x, y)
+    end
+
+    if (self.m_unitStatusTextNode) then
+        self.m_unitStatusTextNode:setPosition(x, y)
+    end
+
     if (self.m_unitInfoNode) then
         self.m_unitInfoNode:setPosition(x, y)
     end
@@ -1747,8 +1778,12 @@ function Character:setPosition(x, y)
         self.m_lockOnNode:setPosition(x, y)
     end
 
-    if (self.m_hpNode and not self.m_bFixedPosHpNode) then
-        self.m_hpNode:setPosition(self.m_unitInfoOffset[1], self.m_unitInfoOffset[2])
+    if (not self.m_bFixedPosHpNode) then
+        if (self.m_hpNode) then
+            self.m_hpNode:setPosition(self.m_unitInfoOffset[1], self.m_unitInfoOffset[2])
+        end
+
+        self:setPositionStatusIcons(self.m_unitInfoOffset[1], self.m_unitInfoOffset[2])
     end
 
     if (self.m_castingNode) then

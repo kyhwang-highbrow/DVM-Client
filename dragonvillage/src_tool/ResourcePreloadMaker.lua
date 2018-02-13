@@ -116,6 +116,7 @@ function ResourcePreloadMaker:getPreloadList_Common()
         'res/effect/effect_hit_01/effect_hit_01.vrp',
         'res/effect/effect_hit_melee/effect_hit_melee.vrp',
         'res/effect/effect_appear/effect_appear.json',
+        'res/ui/a2d/ingame_status_effect/ingame_status_effect.plist',
 
         -- 테이머 기본 리소스
         'res/effect/tamer_magic_1/tamer_magic_1.plist',
@@ -201,9 +202,9 @@ function ResourcePreloadMaker:getPreloadList_Stage(stage_id)
                                     end
 
                                     -- 상태효과
-                                    for i = 1, 2 do
+                                    for i = 1, 4 do
                                         local type = t_skill['add_option_type_' .. i]
-                                        if (type ~= '') then
+                                        if (type and type ~= '') then
                                             local t_status_effect = table_status_effect:get(type)
                                             if (t_status_effect) then
                                                 if (t_status_effect['res'] ~= '') then

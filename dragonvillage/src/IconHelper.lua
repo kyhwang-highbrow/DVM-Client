@@ -458,9 +458,23 @@ end
 -- @brief 상태효과 아이콘 생성
 -------------------------------------
 function IconHelper:getStatusEffectIcon(status_effect_type)
-	local res = TableStatusEffect():get(status_effect_type)['res_icon']
-	local sprite, is_exist = self:getIcon(res, 'res/ui/icons/noti_icon_0101.png' )
-    return sprite, is_exist
+	local res_name = TableStatusEffect():get(status_effect_type)['res_icon']
+    local sprite
+
+    if (res_name and res_name ~= '') then
+        local path, file_name, extension = string.match(res_name, "(.-)([^//]-)(%.[^%.]+)$")
+        res_name = string.format('ingame_status_effect_%s.png', file_name)
+        sprite = cc.Sprite:createWithSpriteFrameName(res_name)
+
+        if (not sprite) then
+            cc.SpriteFrameCache:getInstance():addSpriteFrames('res/ui/a2d/ingame_status_effect/ingame_status_effect.plist')
+            sprite = cc.Sprite:createWithSpriteFrameName(res_name)
+        end
+    else
+        sprite = self:getIcon(res_name, 'res/ui/icons/noti_icon_0101.png' )    
+    end
+	
+    return sprite
 end
 
 -------------------------------------

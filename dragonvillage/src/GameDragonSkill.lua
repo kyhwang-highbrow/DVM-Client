@@ -505,6 +505,7 @@ end
 -- function setVisible_UnitInfo
 -------------------------------------
 function GameDragonSkill:setVisible_UnitInfo(b)
+    self.m_world.m_unitStatusNode:setVisible(b)
     self.m_world.m_unitInfoNode:setVisible(b)
 end
 

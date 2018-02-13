@@ -257,17 +257,12 @@ end
 -- function makeHPGauge
 -------------------------------------
 function Monster:makeHPGauge(hp_ui_offset, force)
-    if (force or (self.m_charTable['rarity'] == 'boss' and force == nil)) then
+    if (force or (force == nil and self.m_charTable['rarity'] == 'boss')) then
         self.m_unitInfoOffset = hp_ui_offset
 
         if (self.m_hpNode) then
             self.m_hpNode:removeFromParent()
-            self.m_hpNode = nil
-            self.m_hpGauge = nil
-            self.m_hpGauge2 = nil
-            self.m_statusNode = nil
-            self.m_infoUI = nil
-
+            
             if (isInstanceOf(self, MonsterLua_Boss)) then
                 self.m_actionGauge = nil
             end
@@ -283,8 +278,6 @@ function Monster:makeHPGauge(hp_ui_offset, force)
         self.m_hpGauge = ui.vars['bossHpGauge1']
         self.m_hpGauge2 = ui.vars['bossHpGauge2']
 
-        self.m_statusNode = ui.vars['bossStatusNode']
-
         if (isInstanceOf(self, MonsterLua_Boss)) then
             self.m_actionGauge = ui.vars['bossSKillGauge']
         end
@@ -293,6 +286,11 @@ function Monster:makeHPGauge(hp_ui_offset, force)
 
         self.m_infoUI = ui
 
+        -- 상태효과 아이콘 표시를 위해 ui내의 node를 사용하도록 설정
+        self.m_statusIconNode = ui.vars['bossStatusNode']
+        self.m_statusTextNode = ui.vars['bossStatusNode']
+
+        -- hp노드의 위치를 고정
         self.m_bFixedPosHpNode = true
     else
         PARENT.makeHPGauge(self, hp_ui_offset)

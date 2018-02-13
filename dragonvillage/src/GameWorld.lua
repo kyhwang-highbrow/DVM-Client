@@ -22,6 +22,7 @@ GameWorld = class(IEventDispatcher:getCloneClass(), IEventListener:getCloneTable
         m_worldNode = 'cc.Node',
         m_missiledNode = 'cc.Node',
 
+        m_unitStatusNode = 'cc.Node',
         m_lockOnNode = 'cc.Node',
 		m_unitInfoNode = 'cc.Node',
         m_enemySpeechNode = 'cc.Node',
@@ -168,6 +169,9 @@ function GameWorld:init(game_mode, stage_id, world_node, game_node1, game_node2,
     self.m_gameNode1:addChild(self.m_missiledNode, INGAME_LAYER_Z_ORDER.MISSILE_LAYER)
 	
     do -- 유닛 공통 레이어 (적군)
+        self.m_unitStatusNode = cc.Node:create()
+        self.m_gameNode1:addChild(self.m_unitStatusNode, INGAME_LAYER_Z_ORDER.UNIT_STATUS_LAYER)
+
 	    self.m_unitInfoNode = cc.Node:create()
         self.m_gameNode1:addChild(self.m_unitInfoNode, INGAME_LAYER_Z_ORDER.UNIT_INFO_LAYER)
 

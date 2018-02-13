@@ -257,6 +257,22 @@ end
 -- @param game_world
 -------------------------------------
 function Dragon:initWorld(game_world)
+    if (not self.m_unitStatusIconNode) then
+        self.m_unitStatusIconNode = cc.Node:create()
+        game_world.m_unitStatusNode:addChild(self.m_unitStatusIconNode, 2)
+        
+        -- 하이라이트 노드 설정
+        self:addHighlightNode(self.m_unitStatusIconNode)
+    end
+
+    if (not self.m_unitStatusTextNode) then
+        self.m_unitStatusTextNode = cc.Node:create()
+        game_world.m_unitStatusNode:addChild(self.m_unitStatusTextNode, 4)
+        
+        -- 하이라이트 노드 설정
+        self:addHighlightNode(self.m_unitStatusTextNode)
+    end
+
     if (not self.m_unitInfoNode) then
         self.m_unitInfoNode = cc.Node:create()
         game_world.m_dragonInfoNode:addChild(self.m_unitInfoNode)
@@ -286,20 +302,6 @@ function Dragon:setDead()
 end
 
 -------------------------------------
--- function release
--------------------------------------
-function Dragon:release()
-    if (self.m_hpNode) then
-        self.m_hpNode:removeFromParent(true)
-        self.m_hpNode = nil
-    end
-        
-    self.m_hpGauge = nil
-    
-    PARENT.release(self)
-end
-
--------------------------------------
 -- function doRevive
 -- @brief 부할
 -------------------------------------
@@ -317,11 +319,6 @@ function Dragon:makeHPGauge(hp_ui_offset)
 
     if (self.m_hpNode) then
         self.m_hpNode:removeFromParent()
-        self.m_hpNode = nil
-        self.m_hpGauge = nil
-        self.m_hpGauge2 = nil
-        self.m_statusNode = nil
-        self.m_infoUI = nil
     end
 
     local ui
@@ -340,11 +337,11 @@ function Dragon:makeHPGauge(hp_ui_offset)
     self.m_hpGauge = ui.vars['hpGauge']
     self.m_hpGauge2 = ui.vars['hpGauge2']
 
-    self.m_statusNode = self.m_hpNode
-    
     self.m_unitInfoNode:addChild(self.m_hpNode, 5)
 
     self.m_infoUI = ui
+
+    self:makeStatusIconNode(self.m_unitStatusIconNode, self.m_unitStatusTextNode)
 end
 
 -------------------------------------
@@ -657,6 +654,14 @@ end
 -------------------------------------
 function Dragon:runAction_Highlight(duration, level)
     PARENT.runAction_Highlight(self, duration, level)
+
+    if (self.m_unitStatusIconNode) then
+        self.m_unitStatusIconNode:setVisible(level == 255)
+    end
+
+    if (self.m_unitStatusTextNode) then
+        self.m_unitStatusTextNode:setVisible(level == 255)
+    end
     
     if (self.m_unitInfoNode) then
         self.m_unitInfoNode:setVisible(level == 255)

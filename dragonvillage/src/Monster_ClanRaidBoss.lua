@@ -70,11 +70,15 @@ function Monster_ClanRaidBoss:updateBonePos(dt)
         local offset_x = self.m_unitInfoOffset[1] + body['x']
         local offset_y = self.m_unitInfoOffset[2] + body['y']
 
-        self.m_hpNode:setPosition(offset_x, offset_y)
+        if (self.m_hpNode) then
+            self.m_hpNode:setPosition(offset_x, offset_y)
+        end
 
         if (self.m_castingNode) then
             self.m_castingNode:setPosition(offset_x, offset_y)
         end
+
+        self:setPositionStatusIcons(offset_x, offset_y)
     end
 
     -- formationMgr에서의 위치 정보 갱신
@@ -239,22 +243,23 @@ end
 function Monster_ClanRaidBoss:makeHPGauge(hp_ui_offset, force)
     PARENT.makeHPGauge(self, hp_ui_offset, false)
 
-    -- 체력 게이지 대신 이름 표시
-    local childs = self.m_statusNode:getChildren()
+    -- 유닛별 체력 게이지 사용 안함
+    self.m_hpGauge = nil
+    self.m_hpGauge2 = nil
+
+    local childs = self.m_hpNode:getChildren()
     for _, v in pairs(childs) do
         doAllChildren(v, function(node) node:setVisible(false) end)
     end
     
-    self.m_hpGauge = nil
-    self.m_hpGauge2 = nil
-    
+    -- 체력 게이지 대신 이름 표시
     local font_scale_x, font_scale_y = Translate:getFontScaleRate()
     local label = cc.Label:createWithTTF(self:getName(), Translate:getFontPath(), 24, 2, cc.size(250, 100), 1, 1)
     label:setDockPoint(cc.p(0.5, 0.5))
     label:setAnchorPoint(cc.p(0.5, 0.5))
     label:setColor(cc.c3b(255,87,87))
     label:setScale(font_scale_x, font_scale_y)
-    self.m_statusNode:addChild(label)
+    self.m_hpNode:addChild(label)
 end
 
 -------------------------------------

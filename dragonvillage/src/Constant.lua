@@ -167,13 +167,14 @@ INGAME_LAYER_Z_ORDER =
     WORLD_LAYER = 6,
     MISSILE_LAYER = 7,
 
-    UNIT_INFO_LAYER = 8,
-    ENEMY_SPEECH_LAYER = 9,
+    UNIT_STATUS_LAYER = 8,
+    UNIT_INFO_LAYER = 9,
+    ENEMY_SPEECH_LAYER = 10,
 
-    DRAGON_INFO_LAYER = 10,
-    DRAGON_SPEECH_LAYER = 11,
+    DRAGON_INFO_LAYER = 11,
+    DRAGON_SPEECH_LAYER = 12,
 
-    LOCK_ON_LAYER = 12,
+    LOCK_ON_LAYER = 13,
 }
 
 --------------------------------------------

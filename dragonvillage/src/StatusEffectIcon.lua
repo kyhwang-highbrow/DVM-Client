@@ -2,12 +2,14 @@
 -- class StatusEffectIcon
 -------------------------------------
 StatusEffectIcon = class({
+        m_statusEffectName = 'str',
 		m_statusEffect = 'status effect',
-		m_char = 'Character',
-		m_icon = 'icon',
+		
+        m_parentNode = 'cc.Node',
 
-		m_label = 'cc.Label',
-		m_statusEffectName = 'str',
+        m_icon = 'cc.Sprite',
+		m_overlabNode = 'cc.Node',
+        m_overlabCount = 'number',
 
 		m_bBlink = 'bool',
      })
@@ -15,43 +17,29 @@ StatusEffectIcon = class({
 -------------------------------------
 -- function init
 -------------------------------------
-function StatusEffectIcon:init(char, status_effect)
-	self.m_statusEffect = status_effect
-	self.m_char = char
-	self.m_bBlink = false
-
-	local status_effect_type = status_effect:getTypeName()
-	self.m_statusEffectName = status_effect_type
-
-	if (char.m_statusNode) then
-		local icon, is_exist = IconHelper:getStatusEffectIcon(status_effect_type)
-        if (icon == nil or is_exist == false) then return nil end
-
-		icon:setScale(0.375)
-
-        char.m_statusNode:addChild(icon, 0)
-		self.m_icon = icon
+function StatusEffectIcon:init(parent_node, status_effect)
+    local status_effect_type = status_effect:getTypeName()
 	
-	    local label = cc.Label:createWithTTF('', Translate:getFontPath(), 40, 0)
-        if (label) then
-		    label:setAlignment(cc.TEXT_ALIGNMENT_CENTER, cc.VERTICAL_TEXT_ALIGNMENT_CENTER)
-		    label:setAnchorPoint(cc.p(0.5, 0.5))
-		    label:setDockPoint(cc.p(0.5, 0.5))
-		    label:setPosition(0, 0)
-		    label:enableOutline(cc.c4b(0, 0, 0, 255), 3)
+    self.m_statusEffectName = status_effect_type
+    self.m_statusEffect = status_effect
+    self.m_parentNode = parent_node
+    self.m_overlabCount = 1
+	self.m_bBlink = false
+        
+	self.m_icon = IconHelper:getStatusEffectIcon(status_effect_type)
+    if (not self.m_icon) then return nil end
 
-		    self.m_icon:addChild(label)
-		    self.m_label = label
-        end
-    end
+	self.m_icon:setScale(0.375)
+
+    self.m_parentNode:addChild(self.m_icon, 1)
 end
 
 -------------------------------------
 -- function update
 -------------------------------------
 function StatusEffectIcon:update(dt)
-    -- 주체 대상이 해당 statusEffect를 가지고 있지 않은 상태라면 삭제 시킴
-    if (self.m_char.m_mStatusEffect[self.m_statusEffectName] == nil or self.m_statusEffect.m_state == 'end') then
+    -- 해당 상태효과가 종료 상태라면 삭제
+    if (self.m_statusEffect.m_state == 'end') then
         return true
     end
 
@@ -96,53 +84,81 @@ function StatusEffectIcon:update(dt)
     end
 
     -- 중첩 표시
-    self:setOverlabText()
-end
+    do
+        local overlab_cnt = self.m_statusEffect:getOverlabCount()
 
--------------------------------------
--- function updatePositionFromIndex
--------------------------------------
-function StatusEffectIcon:updatePositionFromIndex(idx)
-    local owner = self.m_char
-
-    if (owner.m_infoUI) then
-        local x, y = owner.m_infoUI:getPositionForStatusIcon(owner.m_bLeftFormation, idx)
-        local scale = owner.m_infoUI:getScaleForStatusIcon()
-
-        if (self.m_icon) then
-            self.m_icon:setPosition(x, y)
-            self.m_icon:setScale(scale)
-        end
+        self:setOverlabLabel(overlab_cnt)
     end
 end
 
 -------------------------------------
--- function setOverlabText
+-- function setOverlabLabel
 -------------------------------------
-function StatusEffectIcon:setOverlabText()
-	local overlab_cnt = self.m_statusEffect:getOverlabCount()
+function StatusEffectIcon:setOverlabLabel(overlab_cnt)
+    if (self.m_overlabCount == overlab_cnt) then return end
+    self.m_overlabCount = overlab_cnt
 
-    if (self.m_label) then
-	    if (overlab_cnt > 1) then
-		    self.m_label:setString(overlab_cnt)
-        else
-            self.m_label:setString('')
-	    end
+    -- 이미 중첩 표시를 위한 노드가 존재했다면 삭제
+    if (self.m_overlabNode) then
+        self.m_overlabNode:removeFromParent(true)
+        self.m_overlabNode = nil
     end
+
+    -- 1 중첩의 경우는 숫자를 표시하지 않음
+    if (overlab_cnt <= 1) then return end
+
+    -- 중첩 표시를 위한 노드 생성
+    local x_offset = 0
+    local str = comma_value(overlab_cnt)
+    local length = #str
+    self.m_overlabNode = cc.Node:create()
+
+    for i = 1, #str do
+        local v = str:sub(i, i)
+        local sprite = self:createSpriteWithSpriteFrameName('ingame_status_effect_num_'.. v.. '.png')
+        
+        sprite:setPosition(x_offset, 0)
+        self.m_overlabNode:addChild(sprite)
+
+        x_offset = x_offset + (sprite:getContentSize()['width'] / 2)
+    end
+    
+    self.m_overlabNode:setPosition(-(x_offset/2), 0)
+    self.m_overlabNode:setCascadeOpacityEnabled(true)
+
+    self.m_parentNode:addChild(self.m_overlabNode, 2)
 end
 
 -------------------------------------
 -- function release
 -------------------------------------
 function StatusEffectIcon:release()
-    if (self.m_label) then
-	    self.m_label:removeFromParent(true)
-	    self.m_label = nil
-    end
-	if (self.m_icon) then
+    if (self.m_icon) then
 	    self.m_icon:removeFromParent(true)
 	    self.m_icon = nil
     end
+    if (self.m_overlabNode) then
+	    self.m_overlabNode:removeFromParent(true)
+	    self.m_overlabNode = nil
+    end
+end
+
+-------------------------------------
+-- function createSpriteWithSpriteFrameName
+-------------------------------------
+function StatusEffectIcon:createSpriteWithSpriteFrameName(res_name)
+	local sprite = cc.Sprite:createWithSpriteFrameName(res_name)
+    if (not sprite) then
+        -- @E.T.
+		g_errorTracker:appendFailedRes(res_name)
+
+        cc.SpriteFrameCache:getInstance():addSpriteFrames('res/ui/a2d/ingame_status_effect/ingame_status_effect.plist')
+        sprite = cc.Sprite:createWithSpriteFrameName(res_name)
+    end
+
+	sprite:setDockPoint(CENTER_POINT)
+	sprite:setAnchorPoint(CENTER_POINT)
+	return sprite
 end
 
 -------------------------------------
@@ -156,36 +172,39 @@ end
 -- function setPosition
 -------------------------------------
 function StatusEffectIcon:setPosition(x, y)
-    if (not self.m_icon) then return end
+    if (self.m_icon) then
+        self.m_icon:setPosition(x, y)
+    end
 
-    self.m_icon:setPosition(x, y)
+    if (self.m_overlabNode) then
+        self.m_overlabNode:setPosition(x, y)
+    end
 end
 
 -------------------------------------
 -- function setScale
 -------------------------------------
 function StatusEffectIcon:setScale(scale)
-    if (not self.m_icon) then return end
+    if (self.m_icon) then
+        self.m_icon:setScale(scale)
+    end
 
-    self.m_icon:setScale(scale)
+    if (self.m_overlabNode) then
+        self.m_overlabNode:setScale(scale)
+    end
 end
 
 -------------------------------------
 -- function setVisible
 -------------------------------------
 function StatusEffectIcon:setVisible(b)
-    if (not self.m_icon) then return end
+    if (self.m_icon) then
+        self.m_icon:setVisible(b)
+    end
 
-    self.m_icon:setVisible(b)
-end
-
--------------------------------------
--- function setVisible
--------------------------------------
-function StatusEffectIcon:setVisible(b)
-    if (not self.m_icon) then return end
-
-    self.m_icon:setVisible(b)
+    if (self.m_overlabNode) then
+        self.m_overlabNode:setVisible(b)
+    end
 end
 
 -------------------------------------

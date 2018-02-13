@@ -2,6 +2,9 @@
 -- interface ICharacterStatusEffect
 -------------------------------------
 ICharacterStatusEffect = {
+    m_statusIconNode = 'cc.Node',
+    m_statusTextNode = 'cc.Node',
+
     m_mStatusEffect = 'table',
     m_mHiddenStatusEffect = 'table',-- 숨겨져서 노출되지 않는 상태효과(리더, 패시브)
 
@@ -42,6 +45,7 @@ end
 -- function updateStatusEffect
 -------------------------------------
 function ICharacterStatusEffect:updateStatusEffect(dt)
+    if (not self.m_statusIconNode) then return end
     
     -- 아이콘 추가
     for type, status_effect in pairs(self.m_mStatusEffect) do
@@ -61,9 +65,14 @@ function ICharacterStatusEffect:updateStatusEffect(dt)
         local pos_idx = 1
 
 	    for i, v in ipairs(self.m_lStatusIcon) do
-		    if (v:update(dt)) then
-                local status_effect_type = v:getStatusEffectName()
+            local status_effect_type = v:getStatusEffectName()
+            local b_remove = true
 
+            if (self.m_mStatusEffect[status_effect_type]) then
+                b_remove = v:update(dt)
+            end 
+
+            if (b_remove) then
                 table.insert(t_remove, 1, i)
                 v:release()
 
@@ -83,6 +92,34 @@ function ICharacterStatusEffect:updateStatusEffect(dt)
     end
 end
 
+
+-------------------------------------
+-- function makeHPGauge
+-------------------------------------
+function ICharacterStatusEffect:makeStatusIconNode(icon_node, text_node)
+    if (icon_node) then
+        if (self.m_statusIconNode) then
+            self.m_statusIconNode:removeFromParent()
+        end
+
+        self.m_statusIconNode = cc.Node:create()
+        self.m_statusIconNode:setDockPoint(cc.p(0.5, 0.5))
+        self.m_statusIconNode:setAnchorPoint(cc.p(0.5, 0.5))
+        icon_node:addChild(self.m_statusIconNode)
+    end
+
+    if (text_node) then
+        if (self.m_statusTextNode) then
+            self.m_statusTextNode:removeFromParent()
+        end
+
+        self.m_statusTextNode = cc.Node:create()
+        self.m_statusTextNode:setDockPoint(cc.p(0.5, 0.5))
+        self.m_statusTextNode:setAnchorPoint(cc.p(0.5, 0.5))
+        text_node:addChild(self.m_statusTextNode)
+    end
+end
+
 -------------------------------------
 -- function setStatusIconPosition
 -- @brief 파라미터의 상태효과 아이콘과 해당 아이콘의 인덱스 값으로 직접 위치나 스케일을 변경(하위 클래스에서 재정의 필요)
@@ -97,7 +134,8 @@ function ICharacterStatusEffect:addStatusIcon(status_effect)
     local status_effect_type = status_effect:getTypeName()
 
     -- StatusEffectIcon 생성
-	local status_icon = StatusEffectIcon(self, status_effect)
+	--local status_icon = StatusEffectIcon(self.m_statusIconNode, self.m_statusTextNode, status_effect)
+    local status_icon = StatusEffectIcon(self.m_statusIconNode, status_effect)
     table.insert(self.m_lStatusIcon, status_icon)
 
     self.m_mStatusIcon[status_effect_type] = status_icon
@@ -109,11 +147,9 @@ end
 -- function removeStatusIconAll
 -------------------------------------
 function ICharacterStatusEffect:removeStatusIconAll()
-    --[[
     for i, v in ipairs(self.m_lStatusIcon) do
         v:release()
     end
-    ]]--
 
 	self.m_lStatusIcon = {}
     self.m_mStatusIcon = {}
@@ -456,7 +492,18 @@ function ICharacterStatusEffect:checkSpecialImmune(t_status_effect)
     return false
 end
 
+-------------------------------------
+-- function setPositionStatusIcons
+-------------------------------------
+function ICharacterStatusEffect:setPositionStatusIcons(x, y)
+    if (self.m_statusIconNode) then
+        self.m_statusIconNode:setPosition(x, y)
+    end
 
+    if (self.m_statusTextNode) then
+        self.m_statusTextNode:setPosition(x, y)
+    end
+end
 
 
 
