@@ -7,7 +7,7 @@ TableColosseumWinReward = class(PARENT, {
     })
 
 local THIS = TableColosseumWinReward
-
+local L_REWARD
 -------------------------------------
 -- function init
 -------------------------------------
@@ -25,14 +25,23 @@ function TableColosseumWinReward:getNextReawardInfo(curr_win)
         self = THIS()
     end
 
+	-- 최초 호출 할 때 정렬된 인덱스 테이블을 생성한다
+	if (not L_REWARD) then
+		L_REWARD = {}
+		for _, t_reward in pairs(self.m_orgTable) do
+			table.insert(L_REWARD, t_reward)
+		end
+		table.sort(L_REWARD, function(a, b)
+			return tonumber(a['win']) < tonumber(b['win'])
+		end)
+	end
+
+	-- 다음 승수의 보상 테이블을 찾는다
 	local t_ret
-	for win, t_reward in pairs(self.m_orgTable) do
-		if (win > curr_win) then
-			if (not t_ret) then
-				t_ret = t_reward
-			elseif (t_ret['win'] > win) then
-				t_ret = t_reward
-			end
+	for _, t_reward in ipairs(L_REWARD) do
+		if (t_reward['win'] > curr_win) then
+			t_ret = t_reward
+			break
 		end
 	end
 
@@ -41,7 +50,7 @@ function TableColosseumWinReward:getNextReawardInfo(curr_win)
 	if (t_ret) then
 		local l_item = plSplit(t_ret['reward'], ';')
 		t_ret['t_item'] = {
-			['item_id'] = l_item[1],
+			['item_id'] = tonumber(l_item[1]) or l_item[1],
 			['count'] = tonumber(l_item[2])
 		}
 	end

@@ -164,7 +164,7 @@ function IconHelper:getItemIcon(item_id, t_sub_data)
 
     local table_item = TableItem()
 
-	if (type(item_id) == 'string') then
+	if (table_item:getItemIDFromItemType(item_id)) then
 		item_id = table_item:getItemIDFromItemType(item_id)
 	end
 

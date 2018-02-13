@@ -247,7 +247,7 @@ function TableItem:getItemName(item_id)
         self = THIS()
     end
 
-	if (type(item_id) == 'string') then
+	if (self:getItemIDFromItemType(item_id)) then
 		item_id = self:getItemIDFromItemType(item_id)
 	end
 
