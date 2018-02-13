@@ -182,6 +182,8 @@ function Dragon.st_skillIdle(owner, dt)
         elseif owner.m_castingNode then
             owner.m_castingNode:setVisible(false)
         end
+
+        owner.m_animator:setRotation(90)
     
     elseif (owner.m_aiParamNum and (owner.m_stateTimer >= owner.m_aiParamNum)) then
         if (owner.m_bFinishAttack) then

@@ -101,8 +101,7 @@ function ResourcePreloadMaker:getPreloadList_Common()
         'res/effect/effect_missile_charge/effect_missile_charge.vrp',
         'res/effect/effect_skillcasting_dragon/effect_skillcasting_dragon.vrp',
         'res/effect/effect_skillcasting/effect_skillcasting.vrp',
-        --'res/ui/a2d/ingame_enemy/ingame_enemy.vrp',
-
+        
         -- 인게임에서 높은 확률로 사용되거나 확실히 사용되는 작은 크기의 리소스들 프리로드.
         'res/effect/effect_melee_charge/effect_melee_charge.vrp',
         'res/effect/tamer_magic_1/tamer_magic_1.vrp',

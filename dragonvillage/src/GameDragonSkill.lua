@@ -209,6 +209,19 @@ function GameDragonSkill.st_playDragSkill(self, dt)
             -- 드래곤 애니메이션
             dragon.m_animator:changeAni('skill_idle', false)
 
+            -- 특정 스킬의 경우 애니메이션과 동시에 회전 연출...
+            do
+                local active_skill_id = dragon:getSkillID('active')
+                local t_dragon_skill = TableDragonSkill():get(active_skill_id)
+
+                if (t_dragon_skill['skill_type'] == 'skill_laser_zet') then
+                    local indicatorData = dragon.m_skillIndicator:getIndicatorData()
+                    local dir = indicatorData['dir'] + 90
+                    dragon.m_animator:setRotation(dir)
+                end
+            end
+
+
             -- 드래곤 애니메이션 속도 조정
             local duration = dragon:getAniDuration()
             dragon:setTimeScale(duration / delayTime)
@@ -557,6 +570,8 @@ end
 -------------------------------------
 function GameDragonSkill:releaseFocusingDragon()
     if (self.m_dragon) then
+        self.m_dragon.m_animator:setRotation(90)
+
         self.m_dragon:removeListener('damaged', self)
 
         if (self.m_bReservedDie) then

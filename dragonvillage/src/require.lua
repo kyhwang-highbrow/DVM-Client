@@ -486,6 +486,7 @@ local t_module = {
 	'Skill',
     'SkillLaser',
     'SkillLaser_Darknix',
+    'SkillLaser_Zet',
 	'SkillChainLightning',
 	'SkillThrowBuff',
     'SkillGuardian',

@@ -3208,6 +3208,9 @@
     <None Include="..\src\UI_2DDeck.lua">
       <Filter>lua\UI</Filter>
     </None>
+    <None Include="..\src\SkillLaser_Zet.lua">
+      <Filter>lua\src</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Classes">
