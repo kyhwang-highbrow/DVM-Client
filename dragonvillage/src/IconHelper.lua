@@ -162,8 +162,13 @@ end
 -------------------------------------
 function IconHelper:getItemIcon(item_id, t_sub_data)
 
-    local table_item = TABLE:get('item')
-    local t_item = table_item[item_id]
+    local table_item = TableItem()
+
+	if (type(item_id) == 'string') then
+		item_id = table_item:getItemIDFromItemType(item_id)
+	end
+
+    local t_item = table_item:get(item_id)
 
     if (not t_item) then
         error('item_id : ' .. item_id)

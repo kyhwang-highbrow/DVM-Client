@@ -179,6 +179,18 @@ function UI_Lobby:entryCoroutine()
 					UI_AutoItemPickResultPopup(ret['hours'], ret['ingame_drop_stats'])
 				end
 
+				cclog('# 경쟁 메뉴 보상 정보 확인 중')
+				if (ret['ancient_clear_stage']) then
+					--g_ancientTowerData:setCurrStage(ret['ancient_clear_stage'])
+				end
+				if (ret['quest_info']) then
+					--g_questData:setQuestInfo(ret['quest_info'])
+				end
+				if (ret['season'] and ret['weekly_reward']) then
+					g_colosseumData:refresh_playerUserInfo(ret['season'], nil)
+					g_colosseumData:setRewardInfo(ret)
+				end
+
 				co.NEXT()
 			end)
 			ui_network:setFailCB(required_fail_cb)

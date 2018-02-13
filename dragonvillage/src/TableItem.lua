@@ -247,6 +247,10 @@ function TableItem:getItemName(item_id)
         self = THIS()
     end
 
+	if (type(item_id) == 'string') then
+		item_id = self:getItemIDFromItemType(item_id)
+	end
+
     local item_name = self:getValue(item_id, 't_name')
     return Str(item_name)
 end

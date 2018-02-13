@@ -308,6 +308,14 @@ function StructUserInfoColosseum:getRPText()
 end
 
 -------------------------------------
+-- function getWinCnt
+-- @brief 승수
+-------------------------------------
+function StructUserInfoColosseum:getWinCnt()
+	return self.m_winCnt
+end
+
+-------------------------------------
 -- function getWinRateText
 -- @brief 승률
 -------------------------------------

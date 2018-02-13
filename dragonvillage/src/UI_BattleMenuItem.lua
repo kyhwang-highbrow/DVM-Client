@@ -90,10 +90,48 @@ function UI_BattleMenuItem:initUI()
         end
     end
 
+	-- 경쟁 컨텐츠 (고탑, 시탑, 콜로) 는 보상 정보를 찍어준다.
+	if isExistValue(content_type, 'ancient', 'attr_tower', 'colosseum') then
+		self:initCompetitionRewardInfo(content_type)
+	end
+
     -- 컨텐츠 타입별 지정
     vars['itemVisual']:changeAni(content_type, true)
     vars['titleLabel']:setString(getContentName(content_type))
     vars['dscLabel']:setString(self:getDescStr(content_type))
+end
+
+-------------------------------------
+-- function initCompetitionRewardInfo
+-- @brief 경쟁 메뉴 보상 안내
+-- @comment 갱신되는 케이스는 없어 initialize 로 만듬
+-------------------------------------
+function UI_BattleMenuItem:initCompetitionRewardInfo(content_type)
+	local vars = self.vars
+
+	if (content_type == 'ancient') then
+
+	elseif (content_type == 'attr_tower') then
+
+	elseif (content_type == 'colosseum') then
+		local win = g_colosseumData:getPlayerColosseumUserInfo():getWinCnt()
+		local next_reward_info = TableColosseumWinReward:getNextReawardInfo(win)
+		if (next_reward_info) then
+			vars['rewardMenu']:setVisible(true)
+
+			local t_item = next_reward_info['t_item']
+			local item_id = t_item['item_id']
+
+			local icon = IconHelper:getItemIcon(item_id)
+			vars['itemNode']:addChild(icon)
+
+			local item_name = UIHelper:makeItemNamePlain(t_item)
+			vars['rewardLabel1']:setString(Str('{1} 획득까지', item_name))
+
+			local left_cnt = next_reward_info['win'] - win
+			vars['rewardLabel2']:setString(Str('{1}승 남음', left_cnt)) 
+		end
+	end
 end
 
 -------------------------------------

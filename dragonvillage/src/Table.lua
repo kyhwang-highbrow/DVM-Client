@@ -102,7 +102,8 @@ local TableInfo_fromServer = {
 
 		-- 모드 관련
         ['table_exploration_list'] = {'table_exploration_list', 'epr_id'},
-        ['table_colosseum'] = {'table_colosseum', 'tid'},
+        ['table_colosseum'] = {'table_colosseum', 'tid'}, -- 랭킹 보상
+		['table_colosseum_reward'] = {'table_colosseum_reward', 'win'}, -- 주간 보상
         ['table_content_lock'] = {'table_content_lock', 'content_name'},
         ['table_clan_reward'] = {'table_clan_reward', 'rank_id'},
         ['table_ancient_reward'] = {'anc_floor_reward', 'stage'},
