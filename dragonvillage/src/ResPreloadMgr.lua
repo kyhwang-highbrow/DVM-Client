@@ -30,6 +30,13 @@ function ResPreloadMgr:loadPreloadFile()
     -- 프리로드 파일이 존재하는지 확인 한 후에 불러온다.
     if (LuaBridge:isFileExist('ps/table/preload.ps') or LuaBridge:isFileExist('src/table/preload.lua')) then
         L_PRELOAD_LIST = require 'table/preload'
+    elseif (isWin32()) then
+        cclog('## not exist preload lua')
+        L_PRELOAD_LIST = {
+            ['common'] = {
+                'res/ui/a2d/ingame_status_effect/ingame_status_effect.plist'
+            }
+        }
     else
         cclog('## not exist preload lua')
         L_PRELOAD_LIST = {}
