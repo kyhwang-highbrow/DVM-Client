@@ -131,6 +131,8 @@ function UI_BattleMenuItem:initCompetitionRewardInfo(content_type)
 
 	-- 시험의 탑
 	elseif (content_type == 'attr_tower') then
+		local struct_quest = g_questData:getQuest(TableQuest.CHALLENGE, 14501)
+		return
 
 	-- 콜로세움
 	elseif (content_type == 'colosseum') then
