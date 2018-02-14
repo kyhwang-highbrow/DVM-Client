@@ -93,6 +93,21 @@ function ServerData_AncientTower:getStageName(stage_id)
 end
 
 -------------------------------------
+-- function setClearStage
+-------------------------------------
+function ServerData_AncientTower:setClearStage(stage_id)
+	self.m_clearStageID = stage_id
+	self.m_clearFloor = (stage_id % ANCIENT_TOWER_STAGE_ID_START)
+end
+
+-------------------------------------
+-- function getClearStage
+-------------------------------------
+function ServerData_AncientTower:getClearStage()
+	return self.m_clearFloor
+end
+
+-------------------------------------
 -- function isAncientTowerStage
 -------------------------------------
 function ServerData_AncientTower:isAncientTowerStage(stage_id)
@@ -141,8 +156,7 @@ function ServerData_AncientTower:request_ancientTowerInfo(stage, finish_cb, fail
         self.m_challengingStageID = t_challenging_info['stage']
         self.m_challengingFloor = (self.m_challengingStageID % ANCIENT_TOWER_STAGE_ID_START)
 
-        self.m_clearStageID = ret['ancient_clear_stage']
-        self.m_clearFloor = (ret['ancient_clear_stage'] % ANCIENT_TOWER_STAGE_ID_START)
+        self:setClearStage(ret['ancient_clear_stage'])
 
         self.m_challengingCount = t_challenging_info['fail_cnt']
         self.m_startTime = ret['start_time']

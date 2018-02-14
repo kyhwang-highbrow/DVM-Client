@@ -47,66 +47,68 @@ function ServerData_Quest:applyQuestInfo(t_quest_info)
     do
         local quest_type = TableQuest.DAILY
         local t_daily = t_quest_info[quest_type]
-    
-        -- server_data 분류
-        local t_focus = t_daily['focus']
-        local l_reward = t_daily['reward']
+		if (t_daily) then
+			-- server_data 분류
+			local t_focus = t_daily['focus']
+			local l_reward = t_daily['reward']
 
-        -- 클라 데이터 생성 (테이블 기반)
-        local l_quest = {}
-        local l_quest_list = self.m_tableQuest:filterList('type', quest_type)
+			-- 클라 데이터 생성 (테이블 기반)
+			local l_quest = {}
+			local l_quest_list = self.m_tableQuest:filterList('type', quest_type)
 
-        for _, t_quest in pairs(l_quest_list) do
-            qid_n = tonumber(t_quest['qid'])
-            rawcnt = t_focus[tostring(qid_n)]
-            reward = table.find(l_reward, qid_n) and true or false
-            is_end = (rawcnt == nil) and (reward == false)
+			for _, t_quest in pairs(l_quest_list) do
+				qid_n = tonumber(t_quest['qid'])
+				rawcnt = t_focus[tostring(qid_n)]
+				reward = table.find(l_reward, qid_n) and true or false
+				is_end = (rawcnt == nil) and (reward == false)
 
-            -- StructQuestData 생성
-            t_data ={['qid'] = qid_n, ['rawcnt'] = rawcnt, ['quest_type'] = quest_type, ['reward'] = reward, ['is_end'] = is_end, ['t_quest'] = t_quest}
-            struct_quest = StructQuestData(t_data)
+				-- StructQuestData 생성
+				t_data ={['qid'] = qid_n, ['rawcnt'] = rawcnt, ['quest_type'] = quest_type, ['reward'] = reward, ['is_end'] = is_end, ['t_quest'] = t_quest}
+				struct_quest = StructQuestData(t_data)
 
-            -- 데일리 클리어는 따로 빼준다.
-            if (t_quest['key'] == 'dq_clear') then
-                self.m_dailyClearQuest = struct_quest
-            else
-                table.insert(l_quest, struct_quest)
-            end
-        end
+				-- 데일리 클리어는 따로 빼준다.
+				if (t_quest['key'] == 'dq_clear') then
+					self.m_dailyClearQuest = struct_quest
+				else
+					table.insert(l_quest, struct_quest)
+				end
+			end
 
-        self.m_tQuestInfo[quest_type] = l_quest
+			self.m_tQuestInfo[quest_type] = l_quest
+		end
     end
 
     -- CHALLENGE
     do
         local quest_type = TableQuest.CHALLENGE
         local t_challenge = t_quest_info[quest_type]
-    
-        -- server_data 분류
-        local t_focus = t_challenge['focus']
-        local l_reward = t_challenge['reward']
+		if (t_challenge) then
+			-- server_data 분류
+			local t_focus = t_challenge['focus']
+			local l_reward = t_challenge['reward']
 
-        -- 클라 데이터 생성 (서버 정보 기반)
-        local l_quest = {}
-        for qid, rawcnt in pairs(t_focus) do
-            qid_n = tonumber(qid)
-            t_quest = self.m_tableQuest:get(qid_n)
-            reward = table.find(l_reward, qid_n) and true or false
+			-- 클라 데이터 생성 (서버 정보 기반)
+			local l_quest = {}
+			for qid, rawcnt in pairs(t_focus) do
+				qid_n = tonumber(qid)
+				t_quest = self.m_tableQuest:get(qid_n)
+				reward = table.find(l_reward, qid_n) and true or false
             
-            -- 보상도 받았고 달성도 했는데 다음 focus를 안준다면 이미 클리어한것
-            is_end = false
-            if (rawcnt >= t_quest['clear_value']) and (reward == false) then
-                is_end = true
-            end
+				-- 보상도 받았고 달성도 했는데 다음 focus를 안준다면 이미 클리어한것
+				is_end = false
+				if (rawcnt >= t_quest['clear_value']) and (reward == false) then
+					is_end = true
+				end
 
-            -- StructQuestData 생성
-            t_data ={['qid'] = qid_n, ['rawcnt'] = rawcnt, ['quest_type'] = quest_type, ['reward'] = reward, ['is_end'] = is_end, ['t_quest'] = t_quest}
-            struct_quest = StructQuestData(t_data)
+				-- StructQuestData 생성
+				t_data ={['qid'] = qid_n, ['rawcnt'] = rawcnt, ['quest_type'] = quest_type, ['reward'] = reward, ['is_end'] = is_end, ['t_quest'] = t_quest}
+				struct_quest = StructQuestData(t_data)
 
-            table.insert(l_quest, struct_quest)
-        end
+				table.insert(l_quest, struct_quest)
+			end
 
-        self.m_tQuestInfo[quest_type] = l_quest
+			self.m_tQuestInfo[quest_type] = l_quest
+		end
     end
 
 end

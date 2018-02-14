@@ -109,29 +109,58 @@ end
 function UI_BattleMenuItem:initCompetitionRewardInfo(content_type)
 	local vars = self.vars
 
-	if (content_type == 'ancient') then
+	local t_item, text_1, text_2
 
+	-- 고대의 탑
+	if (content_type == 'ancient') then
+		local curr_floor = g_ancientTowerData:getClearStage()
+
+		-- 탈출
+		if (curr_floor >= 50) then
+			return
+		end
+
+		t_item = {['item_id'] = 779215, ['count'] = 1} -- 스킬 슬라임
+		
+		local item_name = UIHelper:makeItemNamePlain(t_item)
+		text_1 = Str('{1} 획득까지', item_name)
+
+		local goal_floor = (50 > curr_floor) and (curr_floor >= 30) and 50 or 30
+		local left_cnt = goal_floor - curr_floor
+		text_2 = Str('{1}층 남음', left_cnt)
+
+	-- 시험의 탑
 	elseif (content_type == 'attr_tower') then
 
+	-- 콜로세움
 	elseif (content_type == 'colosseum') then
 		local win = g_colosseumData:getPlayerColosseumUserInfo():getWinCnt()
 		local next_reward_info = TableColosseumWinReward:getNextReawardInfo(win)
-		if (next_reward_info) then
-			vars['rewardMenu']:setVisible(true)
 
-			local t_item = next_reward_info['t_item']
-			local item_id = t_item['item_id']
-
-			local icon = IconHelper:getItemIcon(item_id)
-			vars['itemNode']:addChild(icon)
-
-			local item_name = UIHelper:makeItemNamePlain(t_item)
-			vars['rewardLabel1']:setString(Str('{1} 획득까지', item_name))
-
-			local left_cnt = next_reward_info['win'] - win
-			vars['rewardLabel2']:setString(Str('{1}승 남음', left_cnt)) 
+		-- 탈출
+		if (not next_reward_info) then
+			return
 		end
+
+		t_item = next_reward_info['t_item']
+
+		local item_name = UIHelper:makeItemNamePlain(t_item)
+		text_1 = Str('{1} 획득까지', item_name)
+
+		local left_cnt = next_reward_info['win'] - win
+		text_2 = Str('{1}승 남음', left_cnt)
 	end
+
+	-- visible on
+	vars['rewardMenu']:setVisible(true)
+
+	-- 아이콘
+	local icon = IconHelper:getItemIcon(t_item['item_id'])
+	vars['itemNode']:addChild(icon)
+	
+	-- 텍스트
+	vars['rewardLabel1']:setString(text_1)
+	vars['rewardLabel2']:setString(text_2)			
 end
 
 -------------------------------------

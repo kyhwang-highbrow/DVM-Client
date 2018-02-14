@@ -181,10 +181,10 @@ function UI_Lobby:entryCoroutine()
 
 				cclog('# 경쟁 메뉴 보상 정보 확인 중')
 				if (ret['ancient_clear_stage']) then
-					--g_ancientTowerData:setCurrStage(ret['ancient_clear_stage'])
+					g_ancientTowerData:setClearStage(ret['ancient_clear_stage'])
 				end
 				if (ret['quest_info']) then
-					--g_questData:setQuestInfo(ret['quest_info'])
+					g_questData:applyQuestInfo(ret['quest_info'])
 				end
 				if (ret['season']) then
 					g_colosseumData:refresh_playerUserInfo(ret['season'], nil)
