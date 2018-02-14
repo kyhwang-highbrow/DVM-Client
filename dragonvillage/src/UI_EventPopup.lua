@@ -186,10 +186,15 @@ function UI_EventPopup:makeEventPopupTab(tab)
 	-- 출석 (일반)
     if string.find(tab, 'attendance') then
 		local event_id = struct_event_popup_tab.m_eventData['event_id']
-		if (event_id == 'basic') then
+        -- 기본 출석
+		if (event_id == 'normal') then
 			ui = UI_EventPopupTab_Attendance()
-		elseif (event_id == 'event') then
-			ui = UI_EventPopupTab_EventAttendance()
+        -- 이벤트 출석 (스페셜)
+		elseif (event_id == 'open_event') then
+			ui = UI_EventPopupTab_EventAttendance(event_id)
+        -- 이벤트 출석 (복귀유저)
+		elseif (event_id == 'comeback') then
+			ui = UI_EventPopupTab_EventAttendance(event_id)
 		end
 
     -- 접속시간 이벤트

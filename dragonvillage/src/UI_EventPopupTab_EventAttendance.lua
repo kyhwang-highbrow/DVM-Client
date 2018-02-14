@@ -10,10 +10,10 @@ UI_EventPopupTab_EventAttendance = class(PARENT,{
 -------------------------------------
 -- function init
 -------------------------------------
-function UI_EventPopupTab_EventAttendance:init()
+function UI_EventPopupTab_EventAttendance:init(event_id)
     local vars = self:load('event_attendance_special.ui')
-    self.m_structAttendanceData = g_attendanceData:getAttendanceData('event')
-
+    self.m_structAttendanceData = g_attendanceData:getAttendanceData(event_id)
+    
     self:initUI()
 
     -- 오늘 보상을 보여주는 팝업

@@ -64,14 +64,16 @@ function UI_EventFullPopup:initUI()
 	elseif string.find(popup_key, 'attendance') then
 		local l_str = plSplit(popup_key, ';')
 		local key = l_str[2]
-		if (key == 'basic') then
+        -- 기본출석 
+		if (key == 'normal') then
 			ui = UI_EventPopupTab_Attendance()
-		elseif (key == 'event') then
-			ui = UI_EventPopupTab_EventAttendance()
-		elseif (key == 'newbie') then
-			ui = UI_EventPopupTab_EventAttendance()
-
-		end
+        -- 이벤트 출석 (스페셜)
+		elseif (key == 'open_event') then
+			ui = UI_EventPopupTab_EventAttendance(key)
+        -- 이벤트 출석 (복귀유저)
+		elseif (key == 'comeback') then
+			ui = UI_EventPopupTab_EventAttendance(key)
+        end
 
         vars['eventNode']:addChild(ui.root)
 

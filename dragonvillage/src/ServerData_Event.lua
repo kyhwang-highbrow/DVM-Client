@@ -118,7 +118,7 @@ function ServerData_Event:getEventPopupTabList()
 			end
 
 		-- 출석
-		elseif (event_type == 'attendance') then
+		elseif (string.find(event_type, 'attendance')) then
 			if (not g_attendanceData:getAttendanceData(event_id)) then
 				visible = false
 			end

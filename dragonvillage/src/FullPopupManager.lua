@@ -63,7 +63,8 @@ function FullPopupManager:show(type, show_func)
 		for i, v in ipairs(g_attendanceData:getAttendanceDataList()) do
 			if (v:hasReward()) then
 				local atdc_type = v.attendance_type
-				show_func('attendance;' .. atdc_type)
+                local atdc_category = v.category
+				show_func('attendance_'..atdc_type..';'..atdc_category)
 			end
 		end
 
