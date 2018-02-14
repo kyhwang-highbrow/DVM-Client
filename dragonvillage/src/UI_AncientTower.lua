@@ -136,6 +136,27 @@ function UI_AncientTower:initUI()
         self.m_tableView:relocateContainerFromIndex(floor + 1)
     end
 
+	-- 스킬 슬라임 보상 강조
+	local curr_floor = g_ancientTowerData:getClearStage()
+	if (curr_floor < 50) then
+		local slime_id = 129215
+		local t_slime = TableSlime():get(slime_id)
+    
+		local res_name = t_slime['res']
+		local evolution = 1
+		local attr = t_slime['attr']
+
+		vars['itemNode']:removeAllChildren()
+		local animator = AnimatorHelper:makeDragonAnimator(res_name, evolution, attr)
+		vars['itemNode']:addChild(animator.m_node)
+
+		local goal_floor = (50 > curr_floor) and (curr_floor >= 30) and 50 or 30
+		local left_cnt = goal_floor - curr_floor
+		vars['rewardLabel2']:setString(Str('{1}층 남음', left_cnt))
+
+		vars['rewardBtn']:setVisible(true)
+	end
+
     -- 시즌 보상 팝업 (보상이 있다면)
     local ui
     if (g_ancientTowerData.m_tSeasonRewardInfo) then
