@@ -46,7 +46,7 @@ end
 function UIHelper:makeItemNamePlain(t_item)
 	local item_id = t_item['item_id']
 	local item_name = TableItem:getItemName(item_id)
-	local item_cnt = t_item['count']
+	local item_cnt = tonumber(t_item['count'])
 	if (item_cnt) and (item_cnt > 0) then
         -- 자동 줍기 아이템 예외 처리
         if (item_id == ITEM_ID_AUTO_PICK) then
@@ -67,7 +67,7 @@ end
 function UIHelper:makeItemName(t_item)
 	local item_id = t_item['item_id']
 	local item_name = TableItem:getItemName(item_id)
-	local item_cnt = t_item['count']
+	local item_cnt = tonumber(t_item['count'])
 	if (item_cnt) and (item_cnt > 0) then
         -- 자동 줍기 아이템 예외 처리
         if (item_id == ITEM_ID_AUTO_PICK) then
@@ -88,7 +88,7 @@ end
 function UIHelper:makeItemStr(t_item)
 	local item_id = t_item['item_id']
 	local item_name = TableItem:getItemName(item_id)
-	local item_cnt = t_item['count']
+	local item_cnt = tonumber(t_item['count'])
 	if (item_cnt) and (item_cnt > 0) then
 		return Str('{@count}{1} {2}개{@DESC}를 획득하였습니다.', item_name, comma_value(item_cnt))
 	else
@@ -102,7 +102,7 @@ end
 function UIHelper:makeGoodbyeStr(t_item, dragon_name)
 	local item_id = t_item['item_id']
 	local rel_name = TableItem:getItemName(item_id)
-	local rel_cnt = t_item['count']
+	local rel_cnt = tonumber(t_item['count'])
 	return Str('{@ROSE}{2}{@DESC}(을)를 {@count}{3}{@DESC}개 획득했습니다.', dragon_name, rel_name, rel_cnt)
 end
 
