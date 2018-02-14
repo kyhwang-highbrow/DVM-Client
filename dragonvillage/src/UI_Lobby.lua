@@ -186,9 +186,8 @@ function UI_Lobby:entryCoroutine()
 				if (ret['quest_info']) then
 					--g_questData:setQuestInfo(ret['quest_info'])
 				end
-				if (ret['season'] and ret['weekly_reward']) then
+				if (ret['season']) then
 					g_colosseumData:refresh_playerUserInfo(ret['season'], nil)
-					g_colosseumData:setRewardInfo(ret)
 				end
 
 				co.NEXT()

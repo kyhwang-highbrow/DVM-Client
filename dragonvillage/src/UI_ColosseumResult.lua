@@ -67,6 +67,7 @@ function UI_ColosseumResult:setWorkList()
     table.insert(self.m_lWorkList, 'direction_hideTamer')
     table.insert(self.m_lWorkList, 'direction_start')
     table.insert(self.m_lWorkList, 'direction_end')
+	table.insert(self.m_lWorkList, 'direction_winReward')
     table.insert(self.m_lWorkList, 'direction_masterRoad')
 end
 
@@ -262,6 +263,45 @@ end
 -- function direction_end
 -------------------------------------
 function UI_ColosseumResult:direction_end_click()
+end
+
+-------------------------------------
+-- function direction_winReward
+-------------------------------------
+function UI_ColosseumResult:direction_winReward()
+	local t_data = self.m_resultData
+	if (not t_data['mail_item_info']) then
+		self:doNextWork()
+		return
+	end
+
+	-- 주간 승리 보상 (승수에 따라 고정 지급)
+	local ui = UI()
+	ui:load('colosseum_win_reward_popup.ui')
+	UIManager:open(ui, UIManager.POPUP)
+
+	-- backkey 지정
+	g_currScene:pushBackKeyListener(ui, function() ui:close() end, 'temp')
+
+	-- 승수 표시
+	local win = t_data['season']['win']
+	ui.vars['winLabel']:setString(Str('콜로세움 {1}승 달성!', win))
+
+	-- 보상 아이템 표기
+	local t_item = t_data['mail_item_info'][1]
+	local icon = IconHelper:getItemIcon(t_item['item_id'])
+	ui.vars['rewardNode']:addChild(icon)
+	ui.vars['rewardLabel']:setString(t_item['count'])
+
+	-- 버튼
+	ui.vars['okBtn']:registerScriptTapHandler(function() ui:close() end)
+
+	ui:setCloseCB(function() self:doNextWork() end)
+end
+-------------------------------------
+-- function direction_winReward
+-------------------------------------
+function UI_ColosseumResult:direction_winReward_click()
 end
 
 -------------------------------------

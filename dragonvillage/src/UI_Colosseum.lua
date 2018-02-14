@@ -147,9 +147,8 @@ end
 function UI_Colosseum:refresh()
     local vars = self.vars
 
+    local struct_user_info = g_colosseumData:getPlayerColosseumUserInfo()
     do
-        local struct_user_info = g_colosseumData:getPlayerColosseumUserInfo()
-
         -- 티어 아이콘
         vars['tierIconNode']:removeAllChildren()
         local icon = struct_user_info:makeTierIcon(nil, 'big')
@@ -159,7 +158,6 @@ function UI_Colosseum:refresh()
         local tier_name = struct_user_info:getTierName()
         vars['tierLabel']:setString(tier_name)
 
-
         -- 순위, 점수, 승률, 연승
         local str = struct_user_info:getRankText() .. '\n'
             .. struct_user_info:getRPText()  .. '\n'
@@ -167,6 +165,16 @@ function UI_Colosseum:refresh()
             .. struct_user_info:getWinstreakText()
         vars['rankingLabel']:setString(str)
     end
+
+	-- 주간 승수 보상
+	local curr_win = struct_user_info:getWinCnt()
+	local temp
+	if curr_win > 20 thenv
+		temp = 4
+	else
+		temp = math_floor(curr_win/5)
+	end
+	vars['rewardVisual']:changeAni('reward_' .. temp)
 end
 
 -------------------------------------
