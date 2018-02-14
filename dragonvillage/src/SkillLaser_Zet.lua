@@ -48,8 +48,20 @@ end
 function SkillLaser_Zet:initState()
     PARENT.initState(self)
     
-    self:addState('start', SkillLaser_Zet.st_idle, 'idle', nil)
-    self:addState('disappear', SkillLaser_Zet.st_disappear)
+    self:addState('start', SkillLaser_Zet.st_appear, 'appear', false)
+    self:addState('idle', SkillLaser_Zet.st_idle, 'idle', false)
+    self:addState('disappear', SkillLaser_Zet.st_disappear, 'disappear', false)
+end
+
+-------------------------------------
+-- function st_idle
+-------------------------------------
+function SkillLaser_Zet.st_appear(owner, dt)
+    if (owner.m_stateTimer == 0) then
+        owner:addAniHandler(function()
+            owner:changeState('idle')
+        end)
+    end
 end
 
 -------------------------------------
@@ -60,6 +72,7 @@ function SkillLaser_Zet.st_idle(owner, dt)
         local duration = owner.m_animator:getDuration()
         
         owner.m_multiHitTime = duration / owner.m_maxClearCount
+        owner.m_multiHitTimer = 0
     end
     
     owner.m_multiHitTimer = owner.m_multiHitTimer + dt
