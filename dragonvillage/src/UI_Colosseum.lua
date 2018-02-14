@@ -169,7 +169,7 @@ function UI_Colosseum:refresh()
 	-- 주간 승수 보상
 	local curr_win = struct_user_info:getWinCnt()
 	local temp
-	if curr_win > 20 thenv
+	if curr_win > 20 then
 		temp = 4
 	else
 		temp = math_floor(curr_win/5)
