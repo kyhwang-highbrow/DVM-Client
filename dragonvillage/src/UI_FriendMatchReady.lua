@@ -72,7 +72,7 @@ function UI_FriendMatchReady:initUI()
         player_2d_deck:initUI()
 
         local l_dragon_obj = g_friendMatchData.m_playerUserInfo:getAtkDeck_dragonList()
-        local leader = t_pvp_deck['leader'] or 0
+        local leader = t_pvp_deck and t_pvp_deck['leader'] or 0
         player_2d_deck:setDragonObjectList(l_dragon_obj, leader)
         self.m_player2DDeck = player_2d_deck
 
@@ -94,7 +94,7 @@ function UI_FriendMatchReady:initUI()
         player_2d_deck:initUI()
 
         local l_dragon_obj = g_friendMatchData.m_matchInfo:getDefDeck_dragonList()
-        local leader = t_pvp_deck['leader'] or 0
+        local leader = t_pvp_deck and t_pvp_deck['leader'] or 0
         player_2d_deck:setDragonObjectList(l_dragon_obj, leader)
 
         -- 진형 설정
