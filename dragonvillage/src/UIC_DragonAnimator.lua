@@ -51,23 +51,17 @@ function UIC_DragonAnimator:setDragonAnimator(did, evolution, flv)
     
     local t_dragon
     if is_slime then
-        local table_slime = TableSlime()
-        t_dragon = table_slime:get(did)
+        t_dragon = TableSlime():get(did)
     else
-        local table_dragon = TableDragon()
-        t_dragon = table_dragon:get(did)
+        t_dragon = TableDragon():get(did)
     end
     
     local res_name = t_dragon['res']
     local attr = t_dragon['attr']
 
-    local dragon_res_name = AnimatorHelper:getDragonResName(res_name, evolution, attr)
-
-    local vars = self.vars
-
-    vars['dragonNode']:removeAllChildren()
+    self.vars['dragonNode']:removeAllChildren()
     self.m_animator = AnimatorHelper:makeDragonAnimator(res_name, evolution, attr)
-    vars['dragonNode']:addChild(self.m_animator.m_node)
+    self.vars['dragonNode']:addChild(self.m_animator.m_node)
     
     -- 자코 몹들은 1.5배로 키워서 출력!
     if (t_dragon['birthgrade'] == 1) then
