@@ -278,6 +278,12 @@ function UI_DragonManage_Base:init_dragonTableView()
 
     local l_item_list = self:getDragonList()
     self.m_tableViewExt:setItemList(l_item_list)
+
+    -- 드래곤 선택 버튼이 있다면
+    local list_btn = self.vars['listBtn']
+    if (list_btn) then
+        list_btn:registerScriptTapHandler(function() self:click_listBtn() end)
+    end
 end
 
 -------------------------------------
@@ -535,6 +541,26 @@ end
 -------------------------------------
 function UI_DragonManage_Base:click_dragonSkillMove(data)
 	error('미정의된 함수 click_dragonSkillMove')
+end
+
+-------------------------------------
+-- function click_listBtn
+-- @brief 드래곤 선택 팝업 (바로가기)
+-------------------------------------
+function UI_DragonManage_Base:click_listBtn()
+    local ui = UI_DragonSelectPopup()
+    local function close_cb(data)
+        if (data) then
+            local doid = data['id']
+            local b_force = true
+            self:setSelectDragonData(doid, b_force)
+
+            local item = self.m_tableViewExt:getItem(doid)
+            local idx = item['idx'] or 1
+            self.m_tableViewExt:relocateContainerFromIndex(idx, false)
+        end
+    end
+    ui:setCloseCB(close_cb)
 end
 
 -------------------------------------

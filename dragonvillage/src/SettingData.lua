@@ -89,6 +89,26 @@ function SettingData:makeDefaultSettingData()
         root_table['option_rune_bulk_sell'] = t_data
     end
 
+    do -- 드래곤 선택 (바로가기)
+        local t_data = {}
+        t_data['grade_1'] = false
+        t_data['grade_2'] = false
+        t_data['grade_3'] = true
+        t_data['grade_4'] = true
+        t_data['grade_5'] = true
+        t_data['grade_6'] = true
+        t_data['attr_1'] = true
+        t_data['attr_2'] = true
+        t_data['attr_3'] = true
+        t_data['attr_4'] = true
+        t_data['attr_5'] = true
+        t_data['type_1'] = true
+        t_data['type_2'] = true
+        t_data['type_3'] = true
+        t_data['type_4'] = true
+        root_table['option_dragon_select'] = t_data
+    end
+
     do -- 드래곤 정렬 (관리)
         local t_data = {}
         do
@@ -111,6 +131,30 @@ function SettingData:makeDefaultSettingData()
         end
         root_table['dragon_sort_order'] = t_list
         root_table['dragon_sort'] = t_data
+    end
+
+    do -- 드래곤 정렬 (바로가기)
+        local t_data = {}
+        do
+            local t_list = {}
+            table.insert(t_list, 'grade')
+            table.insert(t_list, 'lv')
+            table.insert(t_list, 'rarity')
+            table.insert(t_list, 'friendship')
+            table.insert(t_list, 'attr')
+            table.insert(t_list, 'hp')
+            table.insert(t_list, 'def')
+            table.insert(t_list, 'atk')
+            table.insert(t_list, 'role')
+            table.insert(t_list, 'did')
+            t_data['order'] = t_list
+        end
+
+        do
+            t_data['ascending'] = false
+        end
+        root_table['dragon_sort_order_select'] = t_list
+        root_table['dragon_sort_select'] = t_data
     end
 
     do -- 드래곤 정렬 (전투)

@@ -3214,6 +3214,9 @@
     <None Include="..\src\TableColosseumWinReward.lua">
       <Filter>lua\src</Filter>
     </None>
+    <None Include="..\src\UI_DragonSelectPopup.lua">
+      <Filter>lua\UI</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Classes">
