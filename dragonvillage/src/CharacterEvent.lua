@@ -10,7 +10,11 @@ function Character:initTriggerListener()
 		if not isExistValue(skill_type, 'active', 'basic', 'leader') then
 			-- 존재 여부는 갯수로 체크
 			if (table.count(t_individual_info) > 0) then
-				self:addListener(skill_type, self)
+                if (skill_type == 'hp_rate_per_short') then
+                    skill_type = 'under_self_hp'
+                end
+                
+                self:addListener(skill_type, self)
 			end
 		end
 	end
@@ -142,7 +146,7 @@ function Character:onEvent_underSelfHp(hp, max_hp)
     if (self.m_lSkillIndivisualInfo['hp_rate_per_short']) then
         for i, v in pairs(self.m_lSkillIndivisualInfo['hp_rate_per_short']) do
             if (v:isEndCoolTime()) then
-                if (hp_rate <= v.m_hpRate) then
+                if (percentage <= v.m_hpRate) then
                     v.m_hpRate = math_max(v.m_hpRate - v.m_tSkill['chance_value'], 0)
 
                     self:doSkill(v.m_skillID, 0, 0)
