@@ -10,10 +10,19 @@ UI_AttendanceSpecialListItem = class(PARENT, {
 -------------------------------------
 -- function init
 -------------------------------------
-function UI_AttendanceSpecialListItem:init(t_item_data)
+function UI_AttendanceSpecialListItem:init(t_item_data, event_id)
     self.m_tItemData = t_item_data
 
-    local vars = self:load('event_attendance_special_item.ui')
+    local ui_name 
+    -- 이벤트 출석 (스페셜)
+    if (event_id == 'newbie') then
+        ui_name = 'event_attendance_special_item.ui'
+    -- 이벤트 출석 (복귀유저)
+    elseif (event_id == 'comeback') then
+        ui_name = 'event_attendance_return.ui'
+    end
+
+    local vars = self:load(ui_name)
 
     self:initUI()
     self:initButton()

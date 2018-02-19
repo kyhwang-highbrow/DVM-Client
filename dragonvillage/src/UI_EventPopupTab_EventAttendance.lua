@@ -5,6 +5,7 @@ local PARENT = UI
 -------------------------------------
 UI_EventPopupTab_EventAttendance = class(PARENT,{
         m_structAttendanceData = 'StructAttendanceData',
+        m_eventID = 'string',
     })
 
 -------------------------------------
@@ -13,7 +14,7 @@ UI_EventPopupTab_EventAttendance = class(PARENT,{
 function UI_EventPopupTab_EventAttendance:init(event_id)
     local vars = self:load('event_attendance_special.ui')
     self.m_structAttendanceData = g_attendanceData:getAttendanceData(event_id)
-    
+    self.m_eventID = event_id
     self:initUI()
 
     -- 오늘 보상을 보여주는 팝업
@@ -30,7 +31,8 @@ end
 function UI_EventPopupTab_EventAttendance:initUI()
     local node = self.vars['listNode']
     local data = self.m_structAttendanceData
-    local list_ui = UI_AttendanceSpecialListItem(data)
+    local event_id = self.m_eventID
+    local list_ui = UI_AttendanceSpecialListItem(data, event_id)
     node:addChild(list_ui.root)
 end
 

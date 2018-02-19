@@ -125,7 +125,7 @@ end
 -- function getAttendanceData
 -------------------------------------
 function ServerData_Attendance:getAttendanceData(atdc_type)
-    -- 2018.02.14 klee : attendance_type 이 아닌 category로 구분 (normal, open_event, comeback)
+    -- 2018.02.14 klee : attendance_type 이 아닌 category로 구분 (normal, newbie, comeback)
     if (self.m_structAttendanceDataList) then
         for i,v in pairs(self.m_structAttendanceDataList) do
             if (v.category == atdc_type) then
