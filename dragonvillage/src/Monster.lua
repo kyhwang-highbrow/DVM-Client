@@ -422,7 +422,7 @@ end
 function Monster:reserveSkill(skill_id)
     PARENT.reserveSkill(self, skill_id)
 
-    if (skill_id) then
+    if (skill_id and skill_id ~= 0) then
         -- 스킬 사용 위치값 저장
         local t_skill = self:getSkillTable(skill_id)
         if (t_skill['pos']) then

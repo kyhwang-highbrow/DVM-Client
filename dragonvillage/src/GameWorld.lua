@@ -319,6 +319,11 @@ function GameWorld:createComponents()
         -- 4. 고대의 탑
         elseif (self.m_gameMode == GAME_MODE_ANCIENT_TOWER) then
             self.m_gameState = GameState_AncientTower(self)
+
+        -- 5. 이벤트 금화 던전
+        elseif (self.m_gameMode == GAME_MODE_EVENT_GOLD) then
+            self.m_gameState = GameState_EventGold(self)
+
         end
 
         --self.m_inGameUI:init_timeUI(display_wave, display_time)

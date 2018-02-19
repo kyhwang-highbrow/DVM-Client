@@ -791,8 +791,6 @@ function GameState.update_success(self, dt)
 
         self.m_stateParam = true
 
-        world:dispatch('stage_clear')
-
     elseif (self.m_stateTimer >= 3.5) then
         if self.m_stateParam then
             self.m_stateParam = false

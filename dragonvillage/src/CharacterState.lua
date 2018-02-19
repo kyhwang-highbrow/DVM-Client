@@ -235,7 +235,9 @@ function Character.st_attackDelay(owner, dt)
         owner:runAction_Floating()
 
     elseif (owner.m_stateTimer >= owner.m_attackPeriod) then
-        if (owner.m_reservedSkillCastTime > 0) then
+        if (not owner.m_reservedSkillId) then
+            owner:changeState('attackDelay')
+        elseif (owner.m_reservedSkillCastTime > 0) then
             owner:changeState('casting')
         else
             owner:changeState('charge')

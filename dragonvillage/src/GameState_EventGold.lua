@@ -1,0 +1,170 @@
+local PARENT = GameState
+
+-------------------------------------
+-- class GameState_EventGold
+-------------------------------------
+GameState_EventGold = class(PARENT, {
+        m_accumDamage = 'number',   -- 누적 데미지(정확히는 체력을 깍은 양)
+    })
+
+-------------------------------------
+-- function init
+-------------------------------------
+function GameState_EventGold:init(world)
+    self.m_bgmBoss = 'bgm_dungeon_boss'
+
+    -- 제한시간 1분으로 고정
+    self.m_limitTime = 60
+
+    self.m_accumDamage = SecurityNumberClass(0, false)
+end
+
+-------------------------------------
+-- function initState
+-- @brief 상태(state)별 동작 함수 추가
+-------------------------------------
+function GameState_EventGold:initState()
+    PARENT.initState(self)
+
+    self:addState(GAME_STATE_SUCCESS,                GameState_EventGold.update_success)
+end
+
+-------------------------------------
+-- function processTimeOut
+-------------------------------------
+function GameState_EventGold:processTimeOut()
+    self.m_bTimeOut = true
+
+    self:changeState(GAME_STATE_SUCCESS_WAIT)
+end
+
+-------------------------------------
+-- function onEvent
+-- @brief
+-------------------------------------
+function GameState_EventGold:onEvent(event_name, t_event, ...)
+    PARENT.onEvent(self, event_name, t_event, ...)
+
+    -- 보스 체력 공유 처리
+    if (event_name == 'character_set_damage') then
+        local damage = t_event['damage']
+
+        -- 누적 데미지 갱신(정확히는 체력을 깍은 양)
+        local accum_damage = self.m_accumDamage:get() + damage
+        accum_damage = math_floor(math_max(accum_damage, 0))
+        self.m_accumDamage:set(accum_damage)
+        
+        -- UI 갱신
+        self.m_world.m_inGameUI:setTotalDamage(accum_damage)
+
+        t_event['accum_damage'] = accum_damage
+    end
+end
+
+-------------------------------------
+-- function update_success
+-------------------------------------
+function GameState_EventGold.update_success(self, dt)
+    if (self.m_stateTimer == 0) then
+        local world = self.m_world
+        world:setGameFinish()
+
+        -- 모든 적들을 죽임
+        world:removeAllEnemy()
+
+        -- 스킬과 미사일도 다 날려 버리자
+	    world:removeMissileAndSkill()
+        world:removeEnemyDebuffs()
+        world:cleanupItem()
+
+        -- 기본 배속으로 변경
+        world.m_gameTimeScale:setBase(1)
+
+        world:setWaitAllCharacter(false) -- 포즈 연출을 위해 wait에서 해제
+
+        for i,dragon in ipairs(world:getDragonList()) do
+            if (not dragon:isDead()) then
+                dragon:killStateDelegate()
+                dragon:changeState('success_pose') -- 포즈 후 오른쪽으로 사라짐
+            end
+        end
+
+        if (world.m_tamer) then
+            world.m_tamer:changeState('success_pose')
+        end
+
+        -- 모든 아이템 획득
+        if (world.m_dropItemMgr) then
+            world.m_dropItemMgr:setImmediatelyObtain()
+        end
+
+        world.m_inGameUI:doActionReverse(function()
+            world.m_inGameUI.root:setVisible(false)
+        end)
+
+        self.m_stateParam = true
+
+    elseif (self.m_stateTimer >= 3.5) then
+        if self.m_stateParam then
+            self.m_stateParam = false
+
+            local function cb_func()
+                self:makeResultUI(true)
+            end
+            -- 시나리오 체크 및 시작
+            g_gameScene:startIngameScenario('snro_finish', cb_func)        
+        end
+    end
+end
+
+-------------------------------------
+-- function makeResultUI
+-------------------------------------
+function GameState_EventGold:makeResultUI(is_success)
+    self.m_world:setGameFinish()
+
+    local is_use_loading = true
+    local scene = SceneLobby(is_use_loading)
+    scene:runScene()
+    --[[
+    -- 작업 함수들
+    local func_network_game_finish
+    local func_ui_result
+
+    -- UI연출에 필요한 테이블들
+    local t_result_ref = {}
+    t_result_ref['user_levelup_data'] = {}
+    t_result_ref['dragon_levelu_data_list'] = {}
+    t_result_ref['drop_reward_list'] = {}
+    t_result_ref['secret_dungeon'] = nil
+
+    -- 1. 네트워크 통신
+    func_network_game_finish = function()
+        local t_param = self:makeGameFinishParam(is_success)
+        g_gameScene:networkGameFinish(t_param, t_result_ref, func_ui_result)
+    end
+
+    -- 2. UI 생성
+    func_ui_result = function()
+        local world = self.m_world
+        local stage_id = world.m_stageID
+        
+		-- GameState는 Adventure모드를 기본으로 한다. 다른 모드는 상속을 받아서 처리한다.
+        local ui = UI_GameResult_Adventure(stage_id,
+            is_success,
+            self.m_fightTimer,
+            t_result_ref['default_gold'],
+            t_result_ref['user_levelup_data'],
+            t_result_ref['dragon_levelu_data_list'],
+            t_result_ref['drop_reward_grade'],
+            t_result_ref['drop_reward_list'],
+            t_result_ref['secret_dungeon'])
+
+        local l_hottime = t_result_ref['hottime']
+        ui:setHotTimeInfo(l_hottime)
+    end
+
+    -- 최초 실행
+    func_network_game_finish()
+    ]]--
+end

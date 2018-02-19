@@ -3214,7 +3214,16 @@
     <None Include="..\src\TableColosseumWinReward.lua">
       <Filter>lua\src</Filter>
     </None>
+    <None Include="..\src\GameState_EventGold.lua">
+      <Filter>lua\src</Filter>
+    </None>
+    <None Include="..\src\Monster_GiantMandragora.lua">
+      <Filter>lua\src</Filter>
+    </None>
     <None Include="..\src\UI_DragonSelectPopup.lua">
+      <Filter>lua\UI</Filter>
+    </None>
+    <None Include="..\src\UI_GameEventGold.lua">
       <Filter>lua\UI</Filter>
     </None>
   </ItemGroup>

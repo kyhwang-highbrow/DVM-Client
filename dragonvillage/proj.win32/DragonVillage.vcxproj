@@ -328,6 +328,7 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <None Include="..\src\GameState_AncientTower.lua" />
     <None Include="..\src\GameState_ClanRaid.lua" />
     <None Include="..\src\GameState_Colosseum.lua" />
+    <None Include="..\src\GameState_EventGold.lua" />
     <None Include="..\src\GameState_Intro.lua" />
     <None Include="..\src\GameState_NestDungeon.lua" />
     <None Include="..\src\GameState_NestDungeon_Dragon.lua" />
@@ -375,6 +376,7 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <None Include="..\src\Monster_DarkNix.lua" />
     <None Include="..\src\Monster_DarkNixIntro.lua" />
     <None Include="..\src\Monster_GoldDragon.lua" />
+    <None Include="..\src\Monster_GiantMandragora.lua" />
     <None Include="..\src\Monster_Tree.lua" />
     <None Include="..\src\Monster_WorldOrderMachine.lua" />
     <None Include="..\src\NaverCafeManager.lua" />
@@ -1021,6 +1023,7 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <None Include="..\src\UI_GameClanRaid.lua" />
     <None Include="..\src\UI_GameDebug_InfoPopup.lua" />
     <None Include="..\src\UI_DragonGoodbyeResult.lua" />
+    <None Include="..\src\UI_GameEventGold.lua" />
     <None Include="..\src\UI_GamePause_ClanRaid.lua" />
     <None Include="..\src\UI_Game_Mana.lua" />
     <None Include="..\src\UI_GoodsInfo.lua" />

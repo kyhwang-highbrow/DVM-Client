@@ -29,6 +29,7 @@ function Monster_GoldDragon:releaseAnimator()
             self.m_animator.m_node:removeFromParent(true)
             
             self.m_world.m_bgNode:addChild(self.m_animator.m_node)
+            self.m_animator.m_node:release()
         end
         self.m_animator = nil
     end

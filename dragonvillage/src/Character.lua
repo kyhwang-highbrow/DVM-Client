@@ -2414,9 +2414,7 @@ function Character:runAction_Shake()
     if (not self.m_animator) then return end
     
     local target_node = self.m_animator.m_node
-    if (not target_node) then
-        return
-    end
+    if (not target_node) then return end
 
     local x = -math_random(20, 25)
     local y = math_random(20, 30)
@@ -2476,12 +2474,10 @@ end
 -- @brief 피격 시 캐릭터 밀림 효과
 -------------------------------------
 function Character:runAction_Knockback(dir)
-    local dir = dir
-
+    if (not self.m_animator) then return end
+    
     local target_node = self.m_animator.m_node
-    if (not target_node) then
-        return
-    end
+    if (not target_node) then return end
 
     -- 좌우 밀림만 사용
     if self.m_bLeftFormation then   dir = 180
@@ -2505,13 +2501,10 @@ end
 -- @brief 캐릭터 부유중 효과
 -------------------------------------
 function Character:runAction_Floating()
-    if (not self.m_animator) then
-        return
-    end
+    if (not self.m_animator) then return end
+    
     local target_node = self.m_animator.m_node
-    if (not target_node) then
-        return
-    end
+    if (not target_node) then return end
     
     -- 행동 불가 상태일 경우
     if (self:hasStatusEffectToDisableBehavior()) then
@@ -2621,8 +2614,7 @@ end
 -- @brief 사용될 스킬을 예약
 -------------------------------------
 function Character:reserveSkill(skill_id)
-     if (skill_id) then
-        local t_skill = self:getSkillTable(skill_id)
+     if (skill_id and skill_id ~= 0) then
         local cast_time = self:getCastTimeFromSkillID(skill_id)
     
         self.m_reservedSkillId = skill_id

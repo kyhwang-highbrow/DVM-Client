@@ -47,6 +47,7 @@ end
 -------------------------------------
 function StatusEffectUnit_Dot_Damage:calculateDotDmg()
     local t_status_effect = TableStatusEffect():get(self.m_statusEffectName)
+    local unit_type = self.m_owner.m_charTable['type']
 	local damage_org
     local damage
 
@@ -55,6 +56,10 @@ function StatusEffectUnit_Dot_Damage:calculateDotDmg()
     -----------------------------------------------------------
     if (isInstanceOf(self.m_owner, Monster_ClanRaidBoss)) then
         -- 클랜 던전 보스의 경우는 고정 데미지 3000으로 설정
+        damage_org = 3000
+
+    elseif (isExistValue(unit_type, 'event_gmandragora')) then
+        -- 이벤트 금화 던전의 만드라고라의 경우는 고정 데미지 3000으로 설정
         damage_org = 3000
 
     elseif (t_status_effect['abs_switch'] == 1) then 

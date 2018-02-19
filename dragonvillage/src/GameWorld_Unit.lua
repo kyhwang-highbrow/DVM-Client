@@ -182,6 +182,8 @@ function GameWorld:tryPatternMonster(t_monster, body)
 		monster = Monster_WorldOrderMachine(t_monster['res'], body)
     elseif (type == 'darknix') then
 		monster = Monster_DarkNix(t_monster['res'], body)
+    elseif (type == 'event_gmandragora') then
+		monster = Monster_GiantMandragora(t_monster['res'], body)
     elseif (script and not is_pattern_ignore) then
         monster = MonsterLua_Boss(t_monster['res'], body)
         monster:initAnimatorMonster(t_monster['res'], t_monster['attr'], nil, t_monster['size_type'])
@@ -408,7 +410,7 @@ end
 -- function bindEnemy
 -------------------------------------
 function GameWorld:bindEnemy(enemy)
-    if self.m_dropItemMgr then
+    if (self.m_dropItemMgr) then
         enemy:addListener('character_dead', self.m_dropItemMgr)
     end
     
@@ -429,6 +431,12 @@ function GameWorld:bindEnemy(enemy)
     enemy:addListener('character_dead', self)
     enemy:addListener('character_set_hp', self)
     enemy:addListener('get_status_effect', self)
+
+    -- 모드별 특수한 이벤트
+    if (self.m_gameMode == GAME_MODE_EVENT_GOLD) then
+        -- 딜량에 따른 총 점수 계산을 위함
+        enemy:addListener('character_set_damage', self.m_gameState)
+    end
 end
 
 -------------------------------------

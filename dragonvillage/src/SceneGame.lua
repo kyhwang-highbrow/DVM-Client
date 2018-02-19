@@ -114,6 +114,9 @@ function SceneGame:init_gameMode(stage_id)
 	elseif (self.m_gameMode == GAME_MODE_ANCIENT_TOWER) then
 		self.m_bgmName = 'bgm_dungeon_special'
 
+    elseif (self.m_gameMode == GAME_MODE_EVENT_GOLD) then
+		self.m_bgmName = 'bgm_dungeon_special'
+
     else
         self.m_bgmName = 'bgm_dungeon'
     end
@@ -150,6 +153,9 @@ function SceneGame:init_loadingGuideType()
 
 	elseif (self.m_gameMode == GAME_MODE_ANCIENT_TOWER) then
 		self.m_loadingGuideType = 'in_adventure'
+
+    elseif (self.m_gameMode == GAME_MODE_EVENT_GOLD) then
+		self.m_loadingGuideType = 'all'
 
 	else
         self.m_loadingGuideType = 'all'
@@ -236,7 +242,12 @@ function SceneGame:onEnter()
     
     g_autoPlaySetting:setMode(AUTO_NORMAL)
 
-    self.m_inGameUI = UI_Game(self)
+    if (self.m_gameMode == GAME_MODE_EVENT_GOLD) then
+        self.m_inGameUI = UI_GameEventGold(self)
+    else
+        self.m_inGameUI = UI_Game(self)
+    end
+
     self.m_resPreloadMgr = ResPreloadMgr()
 end
 
