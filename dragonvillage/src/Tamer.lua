@@ -396,6 +396,7 @@ end
 function Tamer:updateBasicSkillTimer(dt)
     PARENT.updateBasicSkillTimer(self, dt)
 
+    -- 콜로세움에서 적군 테이머만 사용됨
     if (not self.m_bLeftFormation) then
         if (self.m_lSkillIndivisualInfo['indie_time']) then
             -- 기획적으로 indie_time스킬은 1개만을 사용하도록 한다.

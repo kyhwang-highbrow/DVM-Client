@@ -1975,6 +1975,15 @@ function Character:updateBasicSkillTimer(dt)
     end
     
     PARENT.updateBasicSkillTimer(self, dt)
+
+    -- indie_time_short 타입 스킬
+    if (self.m_lSkillIndivisualInfo['indie_time_short']) then
+        for i, v in pairs(self.m_lSkillIndivisualInfo['indie_time_short']) do
+            if (v:isEndCoolTime()) then
+                self:doSkill(v.m_skillID, 0, 0)
+            end
+        end
+    end
 end
 
 -------------------------------------

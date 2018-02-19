@@ -216,7 +216,14 @@ function GameDragonSkill.st_playDragSkill(self, dt)
 
                 if (t_dragon_skill['skill_type'] == 'skill_laser_zet') then
                     local indicatorData = dragon.m_skillIndicator:getIndicatorData()
-                    local dir = indicatorData['dir'] + 90
+                    local dir = indicatorData['dir']
+
+                    if (dragon.m_bLeftFormation) then
+                        dir = dir + 90
+                    else
+                        dir = dir - 90
+                    end
+
                     dragon.m_animator:setRotation(dir)
                 end
             end

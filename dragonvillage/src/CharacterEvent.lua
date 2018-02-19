@@ -125,15 +125,28 @@ end
 -- function onEvent_underSelfHp
 -------------------------------------
 function Character:onEvent_underSelfHp(hp, max_hp)
-    if (not self.m_lSkillIndivisualInfo['under_self_hp']) then return end
     if (not self.m_statusCalc) then return end
 
     local percentage = (hp / max_hp) * 100
 
-    for i, v in pairs(self.m_lSkillIndivisualInfo['under_self_hp']) do
-        if (v:isEndCoolTime()) then
-            if (percentage <= v.m_tSkill['chance_value']) then
-                self:doSkill(v.m_skillID, 0, 0)
+    if (self.m_lSkillIndivisualInfo['under_self_hp']) then
+        for i, v in pairs(self.m_lSkillIndivisualInfo['under_self_hp']) do
+            if (v:isEndCoolTime()) then
+                if (percentage <= v.m_tSkill['chance_value']) then
+                    self:doSkill(v.m_skillID, 0, 0)
+                end
+            end
+        end
+    end
+
+    if (self.m_lSkillIndivisualInfo['hp_rate_per_short']) then
+        for i, v in pairs(self.m_lSkillIndivisualInfo['hp_rate_per_short']) do
+            if (v:isEndCoolTime()) then
+                if (hp_rate <= v.m_hpRate) then
+                    v.m_hpRate = math_max(v.m_hpRate - v.m_tSkill['chance_value'], 0)
+
+                    self:doSkill(v.m_skillID, 0, 0)
+                end
             end
         end
     end

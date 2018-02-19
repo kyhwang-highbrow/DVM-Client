@@ -37,14 +37,14 @@ function DragonSkillIndivisualInfo:init(char_type, skill_type, skill_id, skill_l
     
     local t_skill = GetSkillTable(self.m_charType):get(self.m_skillID)
 
-    if (self.m_skillType == 'indie_time') then
+    if (self.m_skillType == 'indie_time' or self.m_skillType == 'indie_time_short') then
         -- indie_time 타입의 스킬은 해당 값만큼 먼저 기다리도록 초기값 설정
         self.m_timer = t_skill['chance_value'] * math_random(50, 100) / 100
 
     elseif (self.m_skillType == 'hp_rate') then
         self.m_hpRate = t_skill['chance_value']
     
-    elseif (self.m_skillType == 'hp_rate_per') then
+    elseif (self.m_skillType == 'hp_rate_per' or self.m_skillType == 'hp_rate_per_short') then
         -- hp_rate_per 타입의 스킬은 초기 조건 설정
         self.m_hpRate = 100 - t_skill['chance_value']
 
@@ -90,7 +90,7 @@ function DragonSkillIndivisualInfo:startCoolTime()
         self.m_cooldownTimer = tonumber(self.m_tSkill['cooldown'])
     end
 
-    if (self.m_skillType == 'indie_time') then
+    if (self.m_skillType == 'indie_time' or self.m_skillType == 'indie_time_short') then
         self.m_timer = self.m_tSkill['chance_value']
     end
 
@@ -103,7 +103,7 @@ end
 -- @brief 캐스팅을 시작하면 cooldown을 제외한 나머지만 시작시킴
 -------------------------------------
 function DragonSkillIndivisualInfo:startCoolTimeByCasting()
-    if (self.m_skillType == 'indie_time') then
+    if (self.m_skillType == 'indie_time' or self.m_skillType == 'indie_time_short') then
         self.m_timer = self.m_tSkill['chance_value']
     end
 
@@ -114,7 +114,7 @@ end
 -- function isEndCoolTime
 -------------------------------------
 function DragonSkillIndivisualInfo:isEndCoolTime()
-    if (self.m_skillType == 'indie_time') then
+    if (self.m_skillType == 'indie_time' or self.m_skillType == 'indie_time_short') then
         return (self.m_cooldownTimer == 0 and self.m_timer == 0)
     else
         return (self.m_cooldownTimer == 0)
@@ -168,14 +168,14 @@ function DragonSkillIndivisualInfo:applySkillLevel()
 	local _, t_add_value = DragonSkillCore.applySkillLevel(self.m_charType, t_skill, skill_lv)
 	self.m_tAddedValue = t_add_value
 
-    if (self.m_skillType == 'indie_time') then
+    if (self.m_skillType == 'indie_time' or self.m_skillType == 'indie_time_short') then
         -- indie_time 타입의 스킬은 해당 값만큼 먼저 기다리도록 초기값 설정
-        self.m_timer = self.m_tSkill['chance_value']
+        self.m_timer = self.m_tSkill['chance_value'] * math_random(50, 100) / 100
 
     elseif (self.m_skillType == 'hp_rate') then
         self.m_hpRate = t_skill['chance_value']
     
-    elseif (self.m_skillType == 'hp_rate_per') then
+    elseif (self.m_skillType == 'hp_rate_per' or self.m_skillType == 'hp_rate_per_short') then
         -- hp_rate_per 타입의 스킬은 초기 조건 설정
         self.m_hpRate = 100 - t_skill['chance_value']
 
@@ -302,7 +302,7 @@ function DragonSkillIndivisualInfo:getCoolTime(t_skill)
     local cooltime = t_skill['cooldown'] 
     
     -- 예외처리 추가
-    if (t_skill['chance_type'] == 'indie_time') then
+    if (t_skill['chance_type'] == 'indie_time' or self.m_skillType == 'indie_time_short') then
         local chance_value = t_skill['chance_value']
 
         -- indie_time 타입의 경우는 cooldown값과 chance_value값을 비교하여 큰 수를 표시
