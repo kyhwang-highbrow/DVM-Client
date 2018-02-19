@@ -1284,6 +1284,25 @@ function UI_GameResultNew:checkAutoPlay()
         return 
     end
         
+	local auto_play_stop, msg = self:checkAutoPlayCondition()
+    
+    if (auto_play_stop == true) then
+        -- 자동 전투 off
+        g_autoPlaySetting:setAutoPlay(false)
+
+        -- 메세지 있는 경우에만 팝업 출력
+        if (msg) then MakeSimplePopup(POPUP_TYPE.OK, msg) end
+        return
+    end
+
+    self.root:runAction(cc.Sequence:create(cc.DelayTime:create(1), cc.CallFunc:create(function() self:countAutoPlay()  end)))
+end
+
+-------------------------------------
+-- function checkAutoPlayCondition
+-- @brief
+-------------------------------------
+function UI_GameResultNew:checkAutoPlayCondition()
     local auto_play_stop = false
     local msg = nil
 
@@ -1313,17 +1332,8 @@ function UI_GameResultNew:checkAutoPlay()
             auto_play_stop = true
         end
     end
-    
-    if (auto_play_stop == true) then
-        -- 자동 전투 off
-        g_autoPlaySetting:setAutoPlay(false)
 
-        -- 메세지 있는 경우에만 팝업 출력
-        if (msg) then MakeSimplePopup(POPUP_TYPE.OK, msg) end
-        return
-    end
-
-    self.root:runAction(cc.Sequence:create(cc.DelayTime:create(1), cc.CallFunc:create(function() self:countAutoPlay()  end)))
+	return auto_play_stop, msg
 end
 
 -------------------------------------
