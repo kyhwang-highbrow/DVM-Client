@@ -67,11 +67,8 @@ function UI_EventFullPopup:initUI()
         -- 기본출석 
 		if (key == 'normal') then
 			ui = UI_EventPopupTab_Attendance()
-        -- 이벤트 출석 (신규)
-		elseif (key == 'newbie') then
-			ui = UI_EventPopupTab_EventAttendance(key)
-        -- 이벤트 출석 (복귀유저)
-		elseif (key == 'comeback') then
+        -- 이벤트 출석 (오픈, 신규, 복귀)
+		elseif (key == 'open_event' or key == 'newbie' or key == 'comeback') then
 			ui = UI_EventPopupTab_EventAttendance(key)
         end
 

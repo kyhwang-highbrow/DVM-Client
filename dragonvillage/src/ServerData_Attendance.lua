@@ -158,7 +158,7 @@ end
 function ServerData_Attendance:getLegendaryDragonDayInfo()
 
     -- 신규, 복귀유저, 기본 출석순으로 D-day 체크
-    local check_list = {'newbie', 'comeback', 'normal'}
+    local check_list = {'open_event', 'newbie', 'comeback', 'normal'}
     local legendary_egg_id = 703005
 
     local target_info 
@@ -169,23 +169,13 @@ function ServerData_Attendance:getLegendaryDragonDayInfo()
         if (t_info) then
             local step_list = t_info['step_list']
             local today_step = t_info['today_step']
-            local received = t_info['received']
-
+           
             for _, v in ipairs(step_list) do
                 local step = v['step']
                 local item_id = v['item_id']
                 if (item_id == legendary_egg_id) then
                     local d_day =  step - today_step
-
-                    -- 획득하는 날은 안받은 상태에서만 추가
-                    if ((d_day == 0) and (received == false)) then
-                        target_day = d_day
-                        target_info = t_info
-                        break
-                    end
-
-                    if (d_day < target_day) or
-                       (d_day >= 0 and d_day <= 7) then -- 7일 이하만 추가
+                    if (d_day < target_day) and (d_day >= 0 and d_day <= 7) then -- 7일 이하만 추가
                         target_day = d_day
                         target_info = t_info
                     end

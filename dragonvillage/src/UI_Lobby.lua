@@ -594,8 +594,16 @@ function UI_Lobby:refresh_attendanceDday()
     local vars = self.vars
     local target_info, target_day = g_attendanceData:getLegendaryDragonDayInfo()
     if (target_info) then
+        local received = target_info['received']
         vars['ddayBtn']:setVisible(true)
         vars['ddayLabel']:setString(string.format('D-%d', target_day))
+
+        -- 획득하는 날은 안받은 상태에서만 노출
+        if (target_day == 0) and (received == true) then
+            vars['ddayBtn']:setVisible(false)
+        end
+    else
+        vars['ddayBtn']:setVisible(false)
     end
 end
 
