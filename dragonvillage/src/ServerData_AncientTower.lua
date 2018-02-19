@@ -101,9 +101,9 @@ function ServerData_AncientTower:setClearStage(stage_id)
 end
 
 -------------------------------------
--- function getClearStage
+-- function getClearFloor
 -------------------------------------
-function ServerData_AncientTower:getClearStage()
+function ServerData_AncientTower:getClearFloor()
 	return self.m_clearFloor
 end
 

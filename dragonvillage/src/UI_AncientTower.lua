@@ -137,7 +137,7 @@ function UI_AncientTower:initUI()
     end
 
 	-- 스킬 슬라임 보상 강조
-	local curr_floor = g_ancientTowerData:getClearStage()
+	local curr_floor = g_ancientTowerData:getClearFloor()
 	if (curr_floor < 50) then
 		local slime_id = 129215
 		local t_slime = TableSlime():get(slime_id)

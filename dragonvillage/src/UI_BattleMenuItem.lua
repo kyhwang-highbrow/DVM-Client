@@ -91,7 +91,7 @@ function UI_BattleMenuItem:initUI()
     end
 
 	-- 경쟁 컨텐츠 (고탑, 시탑, 콜로) 는 보상 정보를 찍어준다.
-	if isExistValue(content_type, 'ancient', 'attr_tower', 'colosseum') then
+	if (not is_content_lock) and isExistValue(content_type, 'ancient', 'attr_tower', 'colosseum') then
 		self:initCompetitionRewardInfo(content_type)
 	end
 
@@ -113,7 +113,7 @@ function UI_BattleMenuItem:initCompetitionRewardInfo(content_type)
 
 	-- 고대의 탑
 	if (content_type == 'ancient') then
-		local curr_floor = g_ancientTowerData:getClearStage()
+		local curr_floor = g_ancientTowerData:getClearFloor() or 0
 
 		-- 탈출 : 정보 없거나 50층까지 전부 클리어 시
 		if (not curr_floor) or (curr_floor >= 50) then
@@ -141,21 +141,18 @@ function UI_BattleMenuItem:initCompetitionRewardInfo(content_type)
 		t_item = struct_quest:getRewardInfoList()[1]
 
 		local item_name = UIHelper:makeItemNamePlain(t_item)
-		text_1 = Str('업적 보상 - {1}', item_name)
+		text_1 = struct_quest:getQuestDesc()
 
 		local _, text = struct_quest:getProgressInfo()
-		text_2 = string.format('%s : %s', Str('달성'), text)
+		text_2 = Str('달성 : {1}', text)
 
 	-- 콜로세움
 	elseif (content_type == 'colosseum') then
 		-- 승수
 		local struct_user = g_colosseumData:getPlayerColosseumUserInfo()
-		if (not struct_user) then
-			return
-		end
+		local win = struct_user and struct_user:getWinCnt() or 0
 
 		-- 다음 승리 보상
-		local win = struct_user:getWinCnt()
 		local next_reward_info = TableColosseumWinReward:getNextReawardInfo(win)
 		if (not next_reward_info) then
 			return
