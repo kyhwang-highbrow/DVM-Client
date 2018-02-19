@@ -174,7 +174,7 @@ function UI_Colosseum:refresh()
 	else
 		temp = math_floor(curr_win/5)
 	end
-	vars['rewardVisual']:changeAni('reward_' .. temp)
+	vars['rewardVisual']:changeAni('reward_' .. temp, true)
 end
 
 -------------------------------------
