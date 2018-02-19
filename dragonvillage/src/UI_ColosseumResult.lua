@@ -291,7 +291,8 @@ function UI_ColosseumResult:direction_winReward()
 	local t_item = t_data['mail_item_info'][1]
 	local icon = IconHelper:getItemIcon(t_item['item_id'])
 	ui.vars['rewardNode']:addChild(icon)
-	ui.vars['rewardLabel']:setString(t_item['count'])
+	local count = comma_value(t_item['count'])
+	ui.vars['rewardLabel']:setString(count)
 
 	-- 버튼
 	ui.vars['okBtn']:registerScriptTapHandler(function() ui:close() end)
