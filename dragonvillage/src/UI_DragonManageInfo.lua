@@ -26,6 +26,7 @@ function UI_DragonManageInfo:initParentVariable()
     self.m_bVisible = true or false
     self.m_titleStr = nil
     self.m_bUseExitBtn = true or false -- click_exitBtn()함구 구현이 반드시 필요함
+    self.m_bShowInvenBtn = true 
 end
 
 -------------------------------------
@@ -137,11 +138,6 @@ function UI_DragonManageInfo:initButton()
         vars['runeBtn']:registerScriptTapHandler(function() self:click_runeBtn() end)
     end
 
-    -- 상단 버튼
-    do
-        vars['inventoryBtn']:registerScriptTapHandler(function() self:click_inventoryBtn() end)
-    end
-
 	-- 하단 버튼
     do 
         -- 대표
@@ -195,9 +191,6 @@ function UI_DragonManageInfo:refresh()
 
     -- 리더 드래곤 여부 표시
     self:refresh_leaderDragon(t_dragon_data)
-
-    -- 가방
-    self:refresh_inventoryLabel()
 
     -- 진화/승급/스킬강화 알림 - 개발 하다가 중단 
     --self:refresh_buttonNoti()
@@ -388,18 +381,6 @@ function UI_DragonManageInfo:refresh_leaderDragon(t_dragon_data)
             vars['leaderSprite']:setVisible(false)
         end
     end
-end
-
--------------------------------------
--- function refresh_inventoryLabel
--- @brief
--------------------------------------
-function UI_DragonManageInfo:refresh_inventoryLabel()
-    local vars = self.vars
-    local inven_type = 'dragon'
-    local dragon_count = g_dragonsData:getDragonsCnt()
-    local max_count = g_inventoryData:getMaxCount(inven_type)
-    self.vars['inventoryLabel']:setString(Str('{1}/{2}', dragon_count, max_count))
 end
 
 -------------------------------------
@@ -850,19 +831,6 @@ function UI_DragonManageInfo:click_combineBtn()
 			end
 		end)
 	end
-end
-
--------------------------------------
--- function click_inventoryBtn
--- @brief 인벤 확장
--------------------------------------
-function UI_DragonManageInfo:click_inventoryBtn()
-    local item_type = 'dragon'
-    local function finish_cb()
-        self:refresh_inventoryLabel()
-    end
-
-    g_inventoryData:extendInventory(item_type, finish_cb)
 end
 
 -------------------------------------

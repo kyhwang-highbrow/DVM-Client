@@ -13,6 +13,9 @@ ITopUserInfo_EventListener = {
     m_subCurrency = 'string', -- 서브 재화 (amethyst, fp)
     m_bShowChatBtn = '',
 
+    m_invenType = 'string', 
+    m_bShowInvenBtn = '',
+
     m_uiBgm = 'string',
 }
 
@@ -26,6 +29,8 @@ function ITopUserInfo_EventListener:init()
 	self.m_staminaType = 'st'
     self.m_subCurrency = 'amethyst'
     self.m_bShowChatBtn = true
+    self.m_invenType = 'dragon'
+    self.m_bShowInvenBtn = false
     self.m_uiBgm = nil
 end
 

@@ -19,6 +19,7 @@ function UI_DragonSell:initParentVariable()
     self.m_bVisible = true
     self.m_titleStr = Str('')
     self.m_bUseExitBtn = true
+    self.m_bShowInvenBtn = true 
 end
 
 -------------------------------------
@@ -60,14 +61,12 @@ end
 function UI_DragonSell:initButton()
     local vars = self.vars
     vars['sellBtn']:registerScriptTapHandler(function() self:click_sellBtn() end)
-    vars['inventoryBtn']:registerScriptTapHandler(function() self:click_inventoryBtn() end)
 end
 
 -------------------------------------
 -- function refresh
 -------------------------------------
 function UI_DragonSell:refresh()
-    self:refresh_inventoryLabel()
     self:refresh_selectedMaterial()
 	self:refresh_dragonMaterialTableView()
 end
@@ -243,18 +242,6 @@ function UI_DragonSell:refresh_selectedMaterial()
 end
 
 -------------------------------------
--- function refresh_inventoryLabel
--- @brief
--------------------------------------
-function UI_DragonSell:refresh_inventoryLabel()
-    local vars = self.vars
-    local inven_type = 'dragon'
-    local dragon_count = g_dragonsData:getDragonsCnt()
-    local max_count = g_inventoryData:getMaxCount(inven_type)
-    self.vars['inventoryLabel']:setString(Str('{1}/{2}', dragon_count, max_count))
-end
-
--------------------------------------
 -- function checkDragonSelect
 -- @brief 선택이 가능한 드래곤인지 여부
 -- @override
@@ -269,19 +256,6 @@ function UI_DragonSell:checkDragonSelect(doid)
         UIManager:toastNotificationRed(msg)
         return false
     end
-end
-
--------------------------------------
--- function click_inventoryBtn
--- @brief 인벤 확장
--------------------------------------
-function UI_DragonSell:click_inventoryBtn()
-    local item_type = 'dragon'
-    local function finish_cb()
-        self:refresh_inventoryLabel()
-    end
-
-    g_inventoryData:extendInventory(item_type, finish_cb)
 end
 
 -------------------------------------
@@ -321,7 +295,6 @@ function UI_DragonSell:click_sellBtn()
 		-- 다시 초기화
 		self.m_price = 0
 		self.m_tSellTable = {}
-        self:refresh_inventoryLabel()
 		self:refresh_dragonMaterialTableView()
         self:refresh_selectedMaterial()
 

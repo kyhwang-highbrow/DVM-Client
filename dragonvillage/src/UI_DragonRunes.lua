@@ -25,6 +25,8 @@ function UI_DragonRunes:initParentVariable()
     self.m_bVisible = true or false
     self.m_titleStr = Str('')
     self.m_bUseExitBtn = true or false -- click_exitBtn()함구 구현이 반드시 필요함
+    self.m_invenType = 'rune' 
+    self.m_bShowInvenBtn = true 
 end
 
 -------------------------------------
@@ -50,7 +52,6 @@ function UI_DragonRunes:init(doid, slot_idx)
 
     self:initUI()
     self:initButton()
-    self:refresh_inventoryLabel()
 
     -- 정렬 도우미
     self:init_dragonSortMgr()
@@ -114,8 +115,6 @@ end
 -------------------------------------
 function UI_DragonRunes:initButton()
     local vars = self.vars
-    -- 인벤 확장
-    vars['inventoryBtn']:registerScriptTapHandler(function() self:click_inventoryBtn() end)
 
     -- 장착된 룬
     vars['useEnhanceBtn']:registerScriptTapHandler(function() self:click_useEnhanceBtn() end)
@@ -541,18 +540,6 @@ function UI_DragonRunes:refreshEquippedRunes()
 end
 
 -------------------------------------
--- function refresh_inventoryLabel
--- @brief
--------------------------------------
-function UI_DragonRunes:refresh_inventoryLabel()
-    local vars = self.vars
-    local inven_type = 'rune'
-    local item_count = g_inventoryData:getItemCount()
-    local max_count = g_inventoryData:getMaxCount(inven_type)
-    self.vars['inventoryLabel']:setString(Str('{1}/{2}', item_count, max_count))
-end
-
--------------------------------------
 -- function setEquipedRuneObject
 -- @brief
 -------------------------------------
@@ -762,7 +749,6 @@ function UI_DragonRunes:click_sellBtn()
         local function finish_cb(ret)
             -- 판매된 룬을 리스트에서 제거하기 위해 refresh
             self:refreshTableViewList()
-            self:refresh_inventoryLabel()
         end
 
         g_runesData:request_runeSell(roid, finish_cb)
@@ -938,19 +924,6 @@ function UI_DragonRunes:click_runeInfoBtn()
 	UI_Help('rune')
 end
 
-
--------------------------------------
--- function click_inventoryBtn
--------------------------------------
-function UI_DragonRunes:click_inventoryBtn()
-    local item_type = 'rune'
-    local function finish_cb()
-        self:refresh_inventoryLabel()
-    end
-
-    g_inventoryData:extendInventory(item_type, finish_cb)
-end
-
 -------------------------------------
 -- function click_equipBtn
 -- @brief 룬 장착 버튼
@@ -992,7 +965,6 @@ function UI_DragonRunes:request_runeEquip(doid, roid)
     local function finish_cb(ret)
         self:refreshTableViewList()
         self.m_bChangeDragonList = true
-        self:refresh_inventoryLabel()
     end
 
     g_runesData:request_runesEquip(doid, roid, finish_cb)

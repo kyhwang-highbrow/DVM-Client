@@ -8,6 +8,7 @@ UI_TopUserInfo = class(PARENT,{
         m_ownerUIIdx = 'number',
 
 		m_staminaType = 'string',
+        m_invenType = 'string',
 
         m_mAddedSubCurrency = 'table',
 
@@ -186,6 +187,12 @@ function UI_TopUserInfo:changeOwnerUI(ui)
 	-- 스태미나 관련
     self:setStaminaType(ui.m_staminaType)
 
+    -- 인벤버튼 관련
+    vars['inventoryBtn']:setVisible(ui.m_bShowInvenBtn)
+    if (ui.m_bShowInvenBtn) then
+        self:setInvenBtn(ui.m_invenType)
+    end
+
     do -- 스태미너 업데이트 관련 임시 위치
         if ui.m_bVisible then
             g_staminasData:updateOn()
@@ -312,6 +319,44 @@ function UI_TopUserInfo:setStaminaType(stamina_type)
     end
 
     self.m_staminaInfo:setStaminaType(stamina_type)
+end
+
+-------------------------------------
+-- function setInvenBtn
+-------------------------------------
+function UI_TopUserInfo:setInvenBtn(inven_type)
+    local vars = self.vars
+    self.m_invenType = inven_type
+    self:refresh_inventoryLabel()
+    vars['inventoryBtn']:registerScriptTapHandler(function() self:click_inventoryBtn() end)
+
+    vars['inven_rune']:setVisible(false)
+    vars['inven_dragon']:setVisible(false)
+    vars['inven_'..inven_type]:setVisible(true)
+end
+
+-------------------------------------
+-- function refresh_inventoryLabel
+-------------------------------------
+function UI_TopUserInfo:refresh_inventoryLabel()
+    local vars = self.vars
+    local inven_type = self.m_invenType
+    local dragon_count = g_dragonsData:getDragonsCnt()
+    local max_count = g_inventoryData:getMaxCount(inven_type)
+    self.vars['inventoryLabel']:setString(Str('{1}/{2}', dragon_count, max_count))
+end
+
+-------------------------------------
+-- function click_inventoryBtn
+-- @brief 인벤 확장
+-------------------------------------
+function UI_TopUserInfo:click_inventoryBtn()
+    local inven_type = self.m_invenType
+    local function finish_cb()
+        self:refresh_inventoryLabel()
+    end
+
+    g_inventoryData:extendInventory(inven_type, finish_cb)
 end
 
 -------------------------------------

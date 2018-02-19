@@ -22,7 +22,8 @@ function UI_DragonSelectPopup:initParentVariable()
     self.m_uiName = 'UI_DragonSelectPopup'
     self.m_bVisible = true 
     self.m_titleStr = nil
-    self.m_bUseExitBtn = true 
+    self.m_bUseExitBtn = true
+    self.m_bShowInvenBtn = true 
 end
 
 -------------------------------------
@@ -40,12 +41,10 @@ function UI_DragonSelectPopup:init()
     -- backkey 지정
     g_currScene:pushBackKeyListener(self, function() self:click_exitBtn() end, 'UI_DragonSelectPopup')
 
-    self:sceneFadeInAction()
-
     self:initUI()
     self:initButton()
     self:init_tableView()
-    self:init_dragonSortMgr()    
+    self:init_dragonSortMgr()        
 end
 
 -------------------------------------
@@ -86,17 +85,21 @@ function UI_DragonSelectPopup:init_tableView()
     local node = self.vars['listNode']
 
     -- 리스트 아이템 생성 콜백
+    local function make_func(object)
+        return UI_DragonCard(object)
+    end
+
     local function create_func(ui, data)
-        ui.root:setScale(0.80)
+        ui.root:setScale(0.66)
         -- 클릭 버튼 설정
         ui.vars['clickBtn']:registerScriptTapHandler(function() self:click_dragon(data) end)
     end
 
     -- 테이블뷰 생성
     local table_view_td = UIC_TableViewTD(node)
-    table_view_td.m_cellSize = cc.size(128.8, 128.8)
-    table_view_td.m_nItemPerCell = 8
-    table_view_td:setCellUIClass(UI_DragonCard, create_func)
+    table_view_td.m_cellSize = cc.size(102, 102)
+    table_view_td.m_nItemPerCell = 10
+    table_view_td:setCellUIClass(make_func, create_func)
     self.m_tableView = table_view_td
 
     -- 재료로 사용 가능한 리스트를 얻어옴
