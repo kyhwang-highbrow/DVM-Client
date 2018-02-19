@@ -115,8 +115,8 @@ function UI_BattleMenuItem:initCompetitionRewardInfo(content_type)
 	if (content_type == 'ancient') then
 		local curr_floor = g_ancientTowerData:getClearStage()
 
-		-- 탈출 : 50층까지 전부 클리어 시
-		if (curr_floor >= 50) then
+		-- 탈출 : 정보 없거나 50층까지 전부 클리어 시
+		if (not curr_floor) or (curr_floor >= 50) then
 			return
 		end
 
@@ -134,7 +134,7 @@ function UI_BattleMenuItem:initCompetitionRewardInfo(content_type)
 		local struct_quest = g_questData:getQuest(TableQuest.CHALLENGE, 14501)
 		
 		-- 탈출 : 업적 달성 시
-		if (struct_quest:isEnd())then
+		if (not struct_quest) or (struct_quest:isEnd())then
 			return
 		end
 
@@ -148,10 +148,15 @@ function UI_BattleMenuItem:initCompetitionRewardInfo(content_type)
 
 	-- 콜로세움
 	elseif (content_type == 'colosseum') then
-		local win = g_colosseumData:getPlayerColosseumUserInfo():getWinCnt()
-		local next_reward_info = TableColosseumWinReward:getNextReawardInfo(win)
+		-- 승수
+		local struct_user = g_colosseumData:getPlayerColosseumUserInfo()
+		if (not struct_user) then
+			return
+		end
 
-		-- 탈출 : 다음 승리 보상 없을 경우
+		-- 다음 승리 보상
+		local win = struct_user:getWinCnt()
+		local next_reward_info = TableColosseumWinReward:getNextReawardInfo(win)
 		if (not next_reward_info) then
 			return
 		end
