@@ -474,11 +474,17 @@ end
 -------------------------------------
 function Dragon:updateActiveSkillCool(dt)
 	if (self:isDead()) then return end
-    
+
+    local drag_cool = self:getStat('drag_cool') or 0
+    local rate = 1 + (drag_cool / 100)
+    rate = math_max(rate , 0)
+
     -- 드래그 스킬 쿨타임 갱신
     if (self.m_activeSkillCoolTimer > 0) then
         if (not self:isCasting() and self.m_state ~= 'skillPrepare') then
-            self.m_activeSkillCoolTimer = self.m_activeSkillCoolTimer - dt
+            local modified_dt = dt * rate
+
+            self.m_activeSkillCoolTimer = self.m_activeSkillCoolTimer - modified_dt
 
             if (self.m_activeSkillCoolTimer < 0) then
                 self.m_activeSkillCoolTimer = 0
@@ -490,7 +496,7 @@ function Dragon:updateActiveSkillCool(dt)
     if (self.m_bLeftFormation) then
 	    local t_event = clone(EVENT_DRAGON_SKILL_GAUGE)
 	    t_event['owner'] = self
-        t_event['cool_time'] = self.m_activeSkillCoolTimer
+        t_event['cool_time'] = self.m_activeSkillCoolTimer / rate
 	    t_event['percentage'] = (self.m_activeSkillCoolTime - self.m_activeSkillCoolTimer) / self.m_activeSkillCoolTime * 100
         t_event['enough_mana'] = (self.m_activeSkillManaCost:get() <= self.m_world:getMana(self):getCurrMana())
         

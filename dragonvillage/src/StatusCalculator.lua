@@ -23,6 +23,7 @@ L_SPECIAL_STATUS_TYPE_ONLY_ADD = {
     'accuracy',     -- 효과 적중 +{1}%
     'resistance',   -- 효과 저항 +{1}%
     'cool_actu',    -- 쿨타임 스킬 시간 +{1}%
+    'drag_cool',    -- 드래그 쿨타임 시간 +{1}%
 
     -- 스테이지 버프로 추가된 능력치
     'hp_drain',         -- 공격 명중시 피해량의 +{1}% 만큼 HP회복
