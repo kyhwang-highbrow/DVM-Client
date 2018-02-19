@@ -121,7 +121,7 @@ function ServerData_Event:getEventPopupTabList()
 		elseif (string.find(event_type, 'attendance')) then
 			if (not g_attendanceData:getAttendanceData(event_id)) then
 				visible = false
-			end
+            end
 
 		-- 한정 이벤트 체크
 		elseif (event_id == 'limited') then
@@ -131,13 +131,17 @@ function ServerData_Event:getEventPopupTabList()
         if (visible) then
             local event_popup_tab = StructEventPopupTab(v)
 
-            -- 키값은 중복되지 않게
-            local type = v['event_type']
-            if (item_list[type]) then
-                event_popup_tab.m_type = type .. idx
+            -- 키값은 중복되지 않게 (shop, banner)
+            if (item_list[event_type]) then
+                event_popup_tab.m_type = event_type .. idx
                 idx = idx + 1
+
+            -- 출석은 event_id 추가 (event_id로 구분)
+            elseif (string.find(event_type, 'attendance')) then
+                event_popup_tab.m_type = event_type .. event_id
+
             else
-                event_popup_tab.m_type = type
+                event_popup_tab.m_type = event_type
             end
 
             item_list[event_popup_tab.m_type] = event_popup_tab
@@ -377,10 +381,6 @@ function ServerData_Event:openEventPopup(tab)
             g_eventDiceData:request_diceInfo(co.NEXT, co.ESCAPE)
             if co:waitWork() then return end
         end
-
-        co:work('# 상점 정보 받는 중')
-        g_shopDataNew:request_shopInfo(co.NEXT, co.ESCAPE)
-        if co:waitWork() then return end
 
         co:work('# 접속시간 저장 중')
         g_accessTimeData:request_saveTime(co.NEXT, co.ESCAPE)

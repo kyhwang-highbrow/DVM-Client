@@ -152,22 +152,51 @@ function ServerData_Attendance:getAttendanceDataList()
 end
 
 -------------------------------------
--- function getLegendaryDragonDay
--- @brief 전설의 알 획득 날짜
+-- function getLegendaryDragonDayInfo
+-- @brief 전설의 알 획득 날짜와 출석 정보
 -------------------------------------
-function ServerData_Attendance:getLegendaryDragonDay(atdc_type)
-    local t_info = self:getAttendanceData(atdc_type)
+function ServerData_Attendance:getLegendaryDragonDayInfo()
+
+    -- 신규, 복귀유저, 기본 출석순으로 D-day 체크
+    local check_list = {'newbie', 'comeback', 'normal'}
     local legendary_egg_id = 703005
-    local day
-    if (t_info) then
-        local step_list = t_info['step_list']
-        for _, v in ipairs(step_list) do
-            local item_id = v['item_id']
-            if (item_id == legendary_egg_id) then
-                day = v['step']
-                break
+
+    local target_day 
+    local target_info 
+
+    for _, category in ipairs(check_list) do
+        local t_info = self:getAttendanceData(category)
+        if (t_info) then
+            local step_list = t_info['step_list']
+            for _, v in ipairs(step_list) do
+                local item_id = v['item_id']
+                if (item_id == legendary_egg_id) then
+                    local d_day = v['step']
+                    if (target_day == nil) or (d_day < target_day) then
+                        target_day = d_day
+                        target_info = t_info
+                    end
+                end
             end
         end
     end
-    return day
+
+    return target_info, target_day
+end
+
+-------------------------------------
+-- function openEventPopup
+-- @brief 출석 이벤트 팝업 오픈 
+-------------------------------------
+function ServerData_Attendance:openEventPopup(t_info)
+    local category = t_info['category']
+    local event_tab
+      
+    if (category == 'normal') then
+        event_tab = 'attendance_basic'
+    else
+        event_tab = 'attendance_event'
+    end
+
+    g_eventData:openEventPopup(event_tab .. category)
 end

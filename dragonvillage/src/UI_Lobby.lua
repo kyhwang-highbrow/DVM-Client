@@ -612,22 +612,9 @@ function UI_Lobby:refresh_attendanceDday()
         end
     end
 
-    -- 이벤트 출석 D-day 표시 
-    if (g_attendanceData:getAttendanceData('newbie')) then
-        local t_info = g_attendanceData:getAttendanceData('newbie')
-
-        local target_day = g_attendanceData:getLegendaryDragonDay('newbie')
-        if (target_day) then
-            showDday(t_info, target_day)
-        end
-
-    -- 기본 출석 D-day 표시
-    else
-        local t_info = g_attendanceData:getAttendanceData('normal')
-        local target_day = g_attendanceData:getLegendaryDragonDay('normal')
-        if (target_day) then
-            showDday(t_info, target_day)
-        end
+    local target_info, target_day = g_attendanceData:getLegendaryDragonDayInfo()
+    if (target_info) then
+        showDday(target_info, target_day)
     end
 end
 
@@ -930,13 +917,9 @@ end
 -- function click_ddayBtn
 -------------------------------------
 function UI_Lobby:click_ddayBtn()
-    -- 이벤트 출석
-    if (g_attendanceData:getAttendanceData('newbie')) then
-        g_eventData:openEventPopup('newbie')
-
-    -- 기본 출석
-    else
-        g_eventData:openEventPopup('normal')
+    local target_info, target_day = g_attendanceData:getLegendaryDragonDayInfo()
+    if (target_info) then
+        g_attendanceData:openEventPopup(target_info)
     end
 end
 
