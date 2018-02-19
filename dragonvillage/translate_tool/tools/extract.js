@@ -18,7 +18,7 @@ const ignoreFolder = [
 ];
 
 // 1. 프로젝트 루트 설정.
-var isDebug = false;
+var isDebug = false;	//디버그할때 사용하기 위해서
 var hod_root = process.env.HOD_ROOT;
 if( isDebug )
 	hod_root = "C:/Work_Perplelab/dragonvillage/res/emulator/translate_tool";
@@ -138,24 +138,4 @@ function addData( $data )
 				data[ str ].push( hint );
 		}
 	}
-}
-
-function getRoot()
-{
-	var root = getArgs( 2 );
-
-	if( root == null )
-		throw new Error( "Please pass a path of hod root path." );
-
-	root = path.resolve( __dirname + "/" + root );
-
-	return root;
-}
-
-function getArgs( index )
-{
-	if( process.argv.length > index )
-		return process.argv[ index ];
-
-	return null;
 }

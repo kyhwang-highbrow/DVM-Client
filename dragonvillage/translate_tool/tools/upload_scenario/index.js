@@ -272,7 +272,7 @@ Upload.prototype.loadSheet = function()
 		{
 			var i = 0;
 			var krMsgIdx = 3 + localeList.length;	//filename, page, speaker_kr
-			var krSpeakerIdx = 2;	//filename, page
+			var krSpeakerIdx = 2;					//filename, page
 			for( ; i < data.length; ++i )
 			{
 				var thisData = data[i];

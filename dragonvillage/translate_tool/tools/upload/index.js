@@ -23,6 +23,7 @@ Upload.prototype.loadSheet = function()
 	var totalData = [];
 
 	//var header = [ "kr", locale, "hints", "date" ];
+	//번역이 필요한 언어별로 header(컬럼)을 만든다.
 	var header = [ "kr" ];
 	var i = 0;
 	for( ; i < localeList.length; ++i )
@@ -42,6 +43,7 @@ Upload.prototype.loadSheet = function()
 	var uploadCount = 0;
 	function onInit( $info )
 	{
+		//_backup시트를 가져와서 겹치는거 제거
 		var totalSheet = spreadsheet.getWorksheet( sheetName + "_backup" );
 
 		var param = {};

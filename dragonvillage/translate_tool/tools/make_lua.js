@@ -64,23 +64,3 @@ function saveFile( $file, $data )
 	util.file.writeFile( tmpDir + $file, $data );
 	util.file.writeFile( hod_root + "/../translate/" + $file, $data );
 }
-
-function getRoot()
-{
-	var root = getArgs( 2 );
-
-	if( root == null )
-		throw new Error( "Please pass a path of hod root path." );
-
-	root = path.resolve( __dirname + "/" + root );
-
-	return root;
-}
-
-function getArgs( index )
-{
-	if( process.argv.length > index )
-		return process.argv[ index ];
-
-	return null;
-}
