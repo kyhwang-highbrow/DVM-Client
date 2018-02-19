@@ -234,6 +234,24 @@ function UI_GameResult_AncientTower:removeScore()
 end
 
 -------------------------------------
+-- function checkAutoPlayCondition
+-- @override
+-------------------------------------
+function UI_GameResult_AncientTower:checkAutoPlayCondition()
+	local auto_play_stop, msg = PARENT.checkAutoPlayCondition(self)
+
+	-- 50층 도달 시 다음 층 연속 전투 중지
+	if (g_autoPlaySetting:get('tower_next_floor')) then
+		if (self.m_stageID % 100 == 50) then
+			auto_play_stop = true
+			msg = Str('모든 층을 클리어하여 연속 전투가 종료되었습니다.')
+		end
+	end
+
+	return auto_play_stop, msg
+end
+
+-------------------------------------
 -- function startGame
 -- @override
 -------------------------------------
@@ -243,19 +261,7 @@ function UI_GameResult_AncientTower:startGame()
 	if (g_autoPlaySetting:isAutoPlay()) then
 		if (g_autoPlaySetting:get('tower_next_floor')) then
 			local stage_id = self.m_stageID
-
-			-- 50층 도달 시 연속 전투 중지
-			if (stage_id % 100 == 50) then
-				MakeSimplePopup(POPUP_TYPE.OK, Str('모든 층을 클리어하여 연속 전투가 종료되었습니다.'))
-				
-				-- 자동 전투 off
-				g_autoPlaySetting:setAutoPlay(false)
-
-				return
-			else
-				self.m_stageID = stage_id + 1
-
-			end
+			self.m_stageID = stage_id + 1
 		end
 	end
 
