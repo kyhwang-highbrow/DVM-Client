@@ -142,6 +142,8 @@ end
 -- function click_exitBtn
 -------------------------------------
 function UI_Forest:click_exitBtn()
+	self:setExitEnbaled(false)
+
     local is_use_loading = true
     local scene = SceneLobby(is_use_loading)
     scene:runScene()

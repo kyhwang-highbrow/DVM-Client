@@ -61,6 +61,14 @@ function ITopUserInfo_EventListener:click_exitBtn()
 end
 
 -------------------------------------
+-- function setExitEnbaled
+-- @brief 필요한 경우 exit 버튼을 막도록 한다
+-------------------------------------
+function ITopUserInfo_EventListener:setExitEnbaled(b)
+	g_topUserInfo:setExitEnbaled(b)
+end
+
+-------------------------------------
 -- function initParentVariable
 -- @brief 자식 클래스에서 반드시 구현할 것
 -------------------------------------
