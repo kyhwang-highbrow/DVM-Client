@@ -592,29 +592,10 @@ end
 -------------------------------------
 function UI_Lobby:refresh_attendanceDday()
     local vars = self.vars
-
-    local function showDday(t_info, target_day)
-        local today_step = t_info['today_step']
-        local received = t_info['received']
-        local d_day = target_day - today_step
-
-        -- 7일 이하만 카운트
-        if (d_day > 7) then
-            return
-        end
-
-        -- 획득하는 날은 안받은 상태에서만 표시
-        if ((d_day == 0) and (received == false)) or (d_day > 0) then
-            vars['ddayBtn']:setVisible(true)
-            vars['ddayLabel']:setString(string.format('D-%d', d_day))
-        else 
-            vars['ddayBtn']:setVisible(false)
-        end
-    end
-
     local target_info, target_day = g_attendanceData:getLegendaryDragonDayInfo()
     if (target_info) then
-        showDday(target_info, target_day)
+        vars['ddayBtn']:setVisible(true)
+        vars['ddayLabel']:setString(string.format('D-%d', target_day))
     end
 end
 
