@@ -4,7 +4,6 @@ local PARENT = UI_ColosseumReady
 -- class UI_ColosseumReadyForDev
 -------------------------------------
 UI_ColosseumReadyForDev = class(PARENT,{
-        m_enemy3DDeck = 'UI_3Ddeck',
     })
 
 -------------------------------------
@@ -44,45 +43,46 @@ function UI_ColosseumReadyForDev:initUI()
     vars['actingPowerLabel']:setString('0')
 
     do -- 플레이어 유저 덱
-        local player_3d_deck = UI_3DDeck()
-        player_3d_deck:setDirection('left', 50)
-        player_3d_deck.root:setPosition(-300, 76 - 80)
-        self.root:addChild(player_3d_deck.root)
-        player_3d_deck:initUI()
+        local t_pvp_deck = g_colosseumData.m_playerUserInfo.m_pvpAtkDeck
+
+        local player_2d_deck = UI_2DDeck()
+        player_2d_deck:setDirection('left')
+        player_2d_deck.root:setPosition(-380, 76)
+        self.root:addChild(player_2d_deck.root)
+        player_2d_deck:initUI()
 
         local l_dragon_obj = g_colosseumData.m_playerUserInfo:getAtkDeck_dragonList()
-        player_3d_deck:setDragonObjectList(l_dragon_obj)
-        self.m_player3DDeck = player_3d_deck
-
+        local leader = t_pvp_deck and t_pvp_deck['leader'] or 0
+        player_2d_deck:setDragonObjectList(l_dragon_obj, leader)
+        self.m_player2DDeck = player_2d_deck
 
         -- 진형 설정
-        local t_pvp_deck = g_colosseumData.m_playerUserInfo.m_pvpAtkDeck
         local formation = 'attack'
         if t_pvp_deck then
             formation = t_pvp_deck['formation'] or 'attack'
-            formation = 'attack'
         end
-        self.m_player3DDeck:setFormation(formation)
+        self.m_player2DDeck:setFormation(formation)
     end
 
     do -- 상대방 유저 덱
-        local player_3d_deck = UI_3DDeck()
-        player_3d_deck:setDirection('right', 50)
-        player_3d_deck.root:setPosition(300, 76- 80)
-        self.root:addChild(player_3d_deck.root)
-        player_3d_deck:initUI()
+        local t_pvp_deck = g_colosseumData.m_playerUserInfo.m_pvpDefDeck
+
+        local player_2d_deck = UI_2DDeck()
+        player_2d_deck:setDirection('right')
+        player_2d_deck.root:setPosition(380, 76)
+        self.root:addChild(player_2d_deck.root)
+        player_2d_deck:initUI()
 
         local l_dragon_obj = g_colosseumData.m_playerUserInfo:getDefDeck_dragonList()
-        player_3d_deck:setDragonObjectList(l_dragon_obj)
-        self.m_enemy3DDeck = player_3d_deck
+        local leader = t_pvp_deck and t_pvp_deck['leader'] or 0
+        player_2d_deck:setDragonObjectList(l_dragon_obj, leader)
 
         -- 진형 설정
-        local t_pvp_deck = g_colosseumData.m_playerUserInfo.m_pvpDefDeck
         local formation = 'attack'
         if t_pvp_deck then
             formation = t_pvp_deck['formation'] or 'attack'
         end
-        player_3d_deck:setFormation(formation)
+        player_2d_deck:setFormation(formation)
     end
 
     -- UI가 enter로 진입되었을 때 update함수 호출
