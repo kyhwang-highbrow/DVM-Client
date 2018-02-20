@@ -288,7 +288,6 @@ function Monster:makeHPGauge(hp_ui_offset, force)
 
         -- 상태효과 아이콘 표시를 위해 ui내의 node를 사용하도록 설정
         self.m_statusIconNode = ui.vars['bossStatusNode']
-        self.m_statusTextNode = ui.vars['bossStatusNode']
 
         -- hp노드의 위치를 고정
         self.m_bFixedPosHpNode = true

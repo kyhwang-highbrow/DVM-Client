@@ -3,7 +3,6 @@
 -------------------------------------
 ICharacterStatusEffect = {
     m_statusIconNode = 'cc.Node',
-    m_statusTextNode = 'cc.Node',
 
     m_mStatusEffect = 'table',
     m_mHiddenStatusEffect = 'table',-- 숨겨져서 노출되지 않는 상태효과(리더, 패시브)
@@ -96,7 +95,7 @@ end
 -------------------------------------
 -- function makeHPGauge
 -------------------------------------
-function ICharacterStatusEffect:makeStatusIconNode(icon_node, text_node)
+function ICharacterStatusEffect:makeStatusIconNode(icon_node)
     if (icon_node) then
         if (self.m_statusIconNode) then
             self.m_statusIconNode:removeFromParent()
@@ -106,17 +105,6 @@ function ICharacterStatusEffect:makeStatusIconNode(icon_node, text_node)
         self.m_statusIconNode:setDockPoint(cc.p(0.5, 0.5))
         self.m_statusIconNode:setAnchorPoint(cc.p(0.5, 0.5))
         icon_node:addChild(self.m_statusIconNode)
-    end
-
-    if (text_node) then
-        if (self.m_statusTextNode) then
-            self.m_statusTextNode:removeFromParent()
-        end
-
-        self.m_statusTextNode = cc.Node:create()
-        self.m_statusTextNode:setDockPoint(cc.p(0.5, 0.5))
-        self.m_statusTextNode:setAnchorPoint(cc.p(0.5, 0.5))
-        text_node:addChild(self.m_statusTextNode)
     end
 end
 
@@ -134,8 +122,7 @@ function ICharacterStatusEffect:addStatusIcon(status_effect)
     local status_effect_type = status_effect:getTypeName()
 
     -- StatusEffectIcon 생성
-	--local status_icon = StatusEffectIcon(self.m_statusIconNode, self.m_statusTextNode, status_effect)
-    local status_icon = StatusEffectIcon(self.m_statusIconNode, status_effect)
+	local status_icon = StatusEffectIcon(self.m_statusIconNode, status_effect)
     table.insert(self.m_lStatusIcon, status_icon)
 
     self.m_mStatusIcon[status_effect_type] = status_icon
@@ -498,10 +485,6 @@ end
 function ICharacterStatusEffect:setPositionStatusIcons(x, y)
     if (self.m_statusIconNode) then
         self.m_statusIconNode:setPosition(x, y)
-    end
-
-    if (self.m_statusTextNode) then
-        self.m_statusTextNode:setPosition(x, y)
     end
 end
 

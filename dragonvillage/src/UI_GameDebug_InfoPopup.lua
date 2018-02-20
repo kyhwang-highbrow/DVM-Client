@@ -20,7 +20,7 @@ function UI_GameDebug_InfoPopup:init(str, end_cb)
     self.m_endCB = end_cb
 
     self:load('empty.ui')
-    UIManager:open(self, UIManager.POPUP, true)
+    UIManager:open(self, UIManager.POPUP)
 
     self.m_uiName = 'UI_GameDebug_InfoPopup'
 

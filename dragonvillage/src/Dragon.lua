@@ -265,14 +265,6 @@ function Dragon:initWorld(game_world)
         self:addHighlightNode(self.m_unitStatusIconNode)
     end
 
-    if (not self.m_unitStatusTextNode) then
-        self.m_unitStatusTextNode = cc.Node:create()
-        game_world.m_unitStatusNode:addChild(self.m_unitStatusTextNode, 4)
-        
-        -- 하이라이트 노드 설정
-        self:addHighlightNode(self.m_unitStatusTextNode)
-    end
-
     if (not self.m_unitInfoNode) then
         self.m_unitInfoNode = cc.Node:create()
         game_world.m_dragonInfoNode:addChild(self.m_unitInfoNode)
@@ -341,7 +333,7 @@ function Dragon:makeHPGauge(hp_ui_offset)
 
     self.m_infoUI = ui
 
-    self:makeStatusIconNode(self.m_unitStatusIconNode, self.m_unitStatusTextNode)
+    self:makeStatusIconNode(self.m_unitStatusIconNode)
 end
 
 -------------------------------------
@@ -663,10 +655,6 @@ function Dragon:runAction_Highlight(duration, level)
 
     if (self.m_unitStatusIconNode) then
         self.m_unitStatusIconNode:setVisible(level == 255)
-    end
-
-    if (self.m_unitStatusTextNode) then
-        self.m_unitStatusTextNode:setVisible(level == 255)
     end
     
     if (self.m_unitInfoNode) then

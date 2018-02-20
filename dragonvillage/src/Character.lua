@@ -86,7 +86,6 @@ Character = class(PARENT, {
 
         -- @status UI
         m_unitStatusIconNode = 'cc.Node',
-        m_unitStatusTextNode = 'cc.Node',
 
         -- @charge
         m_chargeEffect = '',
@@ -219,14 +218,6 @@ function Character:initWorld(game_world)
         
         -- 하이라이트 노드 설정
         self:addHighlightNode(self.m_unitStatusIconNode)
-    end
-
-    if (not self.m_unitStatusTextNode) then
-        self.m_unitStatusTextNode = cc.Node:create()
-        self.m_world.m_unitStatusNode:addChild(self.m_unitStatusTextNode, 3)
-        
-        -- 하이라이트 노드 설정
-        self:addHighlightNode(self.m_unitStatusTextNode)
     end
 
     if (not self.m_unitInfoNode) then
@@ -1619,10 +1610,6 @@ function Character:release()
         self.m_unitStatusIconNode:removeFromParent(true)
     end
 
-    if (self.m_unitStatusTextNode) then
-        self.m_unitStatusTextNode:removeFromParent(true)
-    end
-
     if (self.m_unitInfoNode) then
         self.m_unitInfoNode:removeFromParent(true)
     end
@@ -1642,7 +1629,6 @@ function Character:release()
     end
 
     self.m_unitStatusIconNode = nil
-    self.m_unitStatusTextNode = nil
     self.m_unitInfoNode = nil
 
     self.m_hpNode = nil
@@ -1726,7 +1712,7 @@ function Character:makeHPGauge(hp_ui_offset)
 
 	self.m_infoUI = ui
 
-    self:makeStatusIconNode(self.m_unitStatusIconNode, self.m_unitStatusTextNode)
+    self:makeStatusIconNode(self.m_unitStatusIconNode)
 end
 
 -------------------------------------
@@ -1764,10 +1750,6 @@ function Character:setPosition(x, y)
 
     if (self.m_unitStatusIconNode) then
         self.m_unitStatusIconNode:setPosition(x, y)
-    end
-
-    if (self.m_unitStatusTextNode) then
-        self.m_unitStatusTextNode:setPosition(x, y)
     end
 
     if (self.m_unitInfoNode) then
