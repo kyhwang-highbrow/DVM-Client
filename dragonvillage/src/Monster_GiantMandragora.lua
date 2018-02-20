@@ -23,6 +23,11 @@ function Monster_GiantMandragora:init_monster(t_monster, monster_id, level)
 
     if (self.m_animator and self.m_animator.m_node) then
         self.m_orgAnimatorScale = self.m_animator:getScale()
+
+        self.m_animator.m_node:setMix('idle', 'damage', 0.2)
+        self.m_animator.m_node:setMix('damage', 'damage', 0.2)
+        self.m_animator.m_node:setMix('damage', 'idle', 0.2)
+        self.m_animator.m_node:setMix('damage', 'attack', 0.1)
     else
         self.m_orgAnimatorScale = 1
     end
@@ -72,14 +77,15 @@ function Monster_GiantMandragora.st_dying(owner, dt)
         end)
 
         local accum_damage = owner.m_world.m_gameState.m_accumDamage:get()
-        local drop_count = math_floor(accum_damage / DAMAGE_UNIT)
+        local drop_count = math_floor(accum_damage / DAMAGE_UNIT) + 10
+        drop_count = math_min(drop_count, 110)
 
         owner.m_dropInterval = owner.m_animator:getDuration() / drop_count
         owner.m_dropTimer = 0
     end
 
     while (owner.m_dropInterval <= owner.m_dropTimer) do
-        owner:dispatch('drop_gold', {}, owner)
+        owner:dispatch('drop_gold_final', {}, owner)
         owner.m_dropTimer = owner.m_dropTimer - owner.m_dropInterval
     end
 
@@ -116,6 +122,12 @@ end
 -- @brief 체력은 변경 할 수 없도록 처리
 -------------------------------------
 function Monster_GiantMandragora:setHp(hp, bFixed)
+    -- 죽었을시 탈출
+    if (not bFixed) then
+	    if (self:isDead()) then return end
+        if (self:isZeroHp()) then return end
+    end
+
     local dv = hp - self.m_hp
 
     -- 데미지가 아닌 경우
@@ -129,8 +141,14 @@ function Monster_GiantMandragora:setHp(hp, bFixed)
     -- 리스너에 전달
 	self:dispatch('character_set_damage', t_event, self)
 
+    local accum_damage = t_event['accum_damage']
+
     -- 누적 데미지량에 따라 키움
-    self:growByAccumDamage(t_event['accum_damage'])
+    self:growByAccumDamage(accum_damage)
+
+    -- 누적 데미지량에 따라 아이템 드랍
+    local prev_accum_damage = accum_damage - damage
+    self:dropItemByAccumDamage(accum_damage, prev_accum_damage)
 end
 
 -------------------------------------
@@ -140,21 +158,41 @@ function Monster_GiantMandragora:growByAccumDamage(accum_damage)
     if (not accum_damage) then return end
 
     -- 5만 데미지를 받을 때마다 1%씩 크기를 키움
-    local grow_count = math_floor(accum_damage / 50000)
+    local grow_count = math_floor(accum_damage / (DAMAGE_UNIT / 2))
     local new_scale = 0.01 * grow_count + self.m_orgAnimatorScale
 
     -- 최대 300%
-    new_scale = math_min(new_scale, 3)
+    new_scale = math_min(new_scale, 3 * self.m_orgAnimatorScale)
 
     if (self.m_curAnimatorScale ~= new_scale) then
         self:runAction_Grow(new_scale)
-
-        -- TODO: body 크기도 키워야함...
 
         self.m_curAnimatorScale = new_scale
     end
 end
 
+-------------------------------------
+-- function dropItemByAccumDamage
+-------------------------------------
+function Monster_GiantMandragora:dropItemByAccumDamage(accum_damage, prev_accum_damage)
+    if (not accum_damage or not prev_accum_damage) then return end
+
+    -- 일정 단위를 넘지 못한 경우
+    if (math_floor(accum_damage / DAMAGE_UNIT) <= math_floor(prev_accum_damage / DAMAGE_UNIT)) then return end
+
+    -- 피격 애니메이션
+    self.m_animator:changeAni('damage', false)
+    self:addAniHandler(function()
+        self.m_animator:changeAni('idle', true)
+    end)
+
+    -- 아이템 드랍
+    local count = math_random(2, 3)
+
+    for i = 1, count do
+        self:dispatch('drop_gold', {}, self)
+    end
+end
 -------------------------------------
 -- function runAction_Grow
 -------------------------------------

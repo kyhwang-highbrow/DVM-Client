@@ -3,7 +3,9 @@ local PARENT = DropItemMgr
 -------------------------------------
 -- class DropItemMgr_EventGold
 -------------------------------------
-DropItemMgr_EventGold = class(PARENT, {})
+DropItemMgr_EventGold = class(PARENT, {
+    m_remainFinalItemCnt = 'number',
+})
 
 -------------------------------------
 -- function init
@@ -18,10 +20,15 @@ end
 function DropItemMgr_EventGold:designateDropMonster()
     self.m_lDropItemStack = {}
 
-    -- 최대 100개까지만 드랍
-    self.m_remainItemCnt = 100
+    -- 전투 중 30개까지만 드랍
+    self.m_remainItemCnt = 30
 
-    for i = 1, self.m_remainItemCnt do
+    -- 전투 종료시 110개까지만 드랍
+    self.m_remainFinalItemCnt = 110
+
+    local total_count = self.m_remainItemCnt + self.m_remainFinalItemCnt
+
+    for i = 1, total_count do
         local t_item = {
             type = 'gold',
             value = math_random(300, 700)
@@ -60,16 +67,27 @@ end
 -- function onEvent
 -------------------------------------
 function DropItemMgr_EventGold:onEvent(event_name, t_event, ...)
+    local arg = {...}
+    local enemy = arg[1]
+
     if (event_name == 'drop_gold') then
-        local arg = {...}
-        local enemy = arg[1]
-        
+        -- 전투 중 드랍 갯수 체크
         if (0 < self.m_remainItemCnt) then
             local pos_x = enemy.pos.x
             local pos_y = enemy.pos.y
 
             self:dropItem(pos_x, pos_y)
             self.m_remainItemCnt = (self.m_remainItemCnt - 1)
+        end
+
+    elseif (event_name == 'drop_gold_final') then
+        -- 전투 종료 시드랍 갯수 체크
+        if (0 < self.m_remainFinalItemCnt) then
+            local pos_x = enemy.pos.x
+            local pos_y = enemy.pos.y
+
+            self:dropItem(pos_x, pos_y)
+            self.m_remainFinalItemCnt = (self.m_remainFinalItemCnt - 1)
         end
     end
 end

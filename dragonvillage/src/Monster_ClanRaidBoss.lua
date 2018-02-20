@@ -311,7 +311,7 @@ function Monster_ClanRaidBoss:insertStatusEffect(status_effect)
 end
 
 -------------------------------------
--- function setSilence
+-- function checkSpecialImmune
 -- @brief 특정 상태효과 면역 체크
 -------------------------------------
 function Monster_ClanRaidBoss:checkSpecialImmune(t_status_effect)

@@ -31,6 +31,8 @@ function DropItemMgr:init(world)
     self:makeTouchLayer(self.m_touchNode)
 
     self.m_lItemlist = {}
+
+    self.m_remainItemCnt = 0
     self.m_dropCount = 0
     self.m_obtainedItemList = {}
     self.m_bImmediatelyObtain = false
@@ -44,7 +46,7 @@ end
 -- @brief 드랍 몬스터 지정
 -------------------------------------
 function DropItemMgr:designateDropMonster()
-    if (not self.m_world.m_bDevelopMode) then return end
+    if (self.m_world.m_bDevelopMode) then return end
 
     local stage_id = self.m_world.m_stageID
 

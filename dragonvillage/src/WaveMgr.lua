@@ -436,7 +436,7 @@ end
 -------------------------------------
 function WaveMgr:spawnEnemy_dynamic(enemy_id, level, appear_type, value1, value2, value3, movement, phys_group)
     local rarity = self:getRarity(enemy_id, level)
-    local isBoss = (rarity == self.m_highestRarity and self:isFinalWave())
+    local isBoss = (rarity == self.m_highestRarity and self.m_currWave == self.m_maxWave)
     local enemy
     local phys_group = phys_group or PHYS.ENEMY
 
@@ -452,7 +452,7 @@ function WaveMgr:spawnEnemy_dynamic(enemy_id, level, appear_type, value1, value2
     else
         enemy = self.m_world:makeMonsterNew(enemy_id, level)
     end
-        
+    
     if (isBoss) then
         enemy.m_isBoss = true
 

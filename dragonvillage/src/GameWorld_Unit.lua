@@ -433,8 +433,11 @@ function GameWorld:bindEnemy(enemy)
         -- 딜량에 따른 총 점수 계산을 위함
         enemy:addListener('character_set_damage', self.m_gameState)
 
-        -- 다잉 애니메이션 중에 드랍되도록 함
+        -- 전투 중에 드랍
         enemy:addListener('drop_gold', self.m_dropItemMgr)
+
+        -- 전투 시간 종료 후 드랍
+        enemy:addListener('drop_gold_final', self.m_dropItemMgr)
 
     elseif (self.m_dropItemMgr) then
         -- 완전히 죽었을 경우 드랍되도록 함
