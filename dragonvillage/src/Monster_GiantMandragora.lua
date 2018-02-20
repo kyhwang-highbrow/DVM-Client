@@ -162,8 +162,8 @@ function Monster_GiantMandragora:growByAccumDamage(accum_damage)
     local grow_count = math_floor(accum_damage / (DAMAGE_UNIT / 2))
     local new_scale = 0.01 * grow_count + self.m_orgAnimatorScale
 
-    -- 최대 300%
-    new_scale = math_min(new_scale, 3 * self.m_orgAnimatorScale)
+    -- 최대 500%
+    new_scale = math_min(new_scale, 5 * self.m_orgAnimatorScale)
 
     if (self.m_curAnimatorScale ~= new_scale) then
         self:runAction_Grow(new_scale)
