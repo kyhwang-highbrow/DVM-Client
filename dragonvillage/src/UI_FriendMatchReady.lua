@@ -63,7 +63,7 @@ function UI_FriendMatchReady:initUI()
     vars['actingPowerLabel']:setString('1')
 
     do -- 플레이어 유저 덱
-        local t_pvp_deck = g_colosseumData.m_playerUserInfo.m_pvpAtkDeck
+        local t_pvp_deck = g_friendMatchData.m_playerUserInfo.m_pvpAtkDeck
 
         local player_2d_deck = UI_2DDeck()
         player_2d_deck:setDirection('left')
