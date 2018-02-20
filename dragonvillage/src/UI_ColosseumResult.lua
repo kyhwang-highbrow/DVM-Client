@@ -282,9 +282,6 @@ function UI_ColosseumResult:direction_winReward()
 
 	-- backkey 지정
 	g_currScene:pushBackKeyListener(ui, function() ui:close() end, 'temp')
-	table.insert(t_data['mail_item_info'], t_data['mail_item_info'][1])
-	table.insert(t_data['mail_item_info'], t_data['mail_item_info'][1])
-	table.insert(t_data['mail_item_info'], t_data['mail_item_info'][1])
 
 	if (table.count(t_data['mail_item_info']) == 1) then
 		-- 승수 표시
