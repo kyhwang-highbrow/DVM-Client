@@ -145,11 +145,7 @@ end
 -------------------------------------
 function GameState_EventGold:makeResultUI(is_success)
     self.m_world:setGameFinish()
-
-    local is_use_loading = true
-    local scene = SceneLobby(is_use_loading)
-    scene:runScene()
-    --[[
+    
     -- 작업 함수들
     local func_network_game_finish
     local func_ui_result
@@ -189,5 +185,59 @@ function GameState_EventGold:makeResultUI(is_success)
 
     -- 최초 실행
     func_network_game_finish()
-    ]]--
+end
+
+-------------------------------------
+-- function makeGameFinishParam
+-------------------------------------
+function GameState_EventGold:makeGameFinishParam(is_success)
+    local t_param = {}
+
+    do-- 클리어 했는지 여부 ( 0 이면 실패, 1이면 성공)
+        t_param['clear_type'] = 1
+    end
+
+    do-- 클리어한 웨이브 수
+        t_param['clear_wave'] = self.m_world.m_waveMgr.m_maxWave
+    end
+
+    -- 경험치 보정치 ( 실패했을 경우 사용 ) ex : 66% 인경우 66
+    if is_success then
+        t_param['exp_rate'] = 100
+    else
+        local wave_rate = ((self.m_world.m_waveMgr.m_currWave - 1) / self.m_world.m_waveMgr.m_maxWave)
+        wave_rate = math_floor(wave_rate * 100)
+        t_param['exp_rate'] = math_clamp(wave_rate, 0, 100)
+    end
+
+    do-- 미션 성공 여부 (성공시 1, 실패시 0)
+		if (self.m_world.m_missionMgr) then
+			local t_mission = self.m_world.m_missionMgr:getCompleteClearMission()
+			for i = 1, 3 do
+				t_param['clear_mission_' .. i] = (is_success and t_mission['mission_' .. i])
+			end
+		end
+    end
+
+    -- 획득 골드
+    if self.m_world.m_dropItemMgr then
+        t_param['gold'] = self.m_world.m_dropItemMgr:getObtainedGold()
+        t_param['gold_rate'] = 100
+    end
+
+    do-- 사용한 덱 이름
+        t_param['deck_name'] = g_deckData:getSelectedDeckName()
+    end
+
+    -- 드랍 아이템
+    if self.m_world.m_dropItemMgr then
+        t_param['bonus_items'] = self.m_world.m_dropItemMgr:makeObtainedDropItemStr()
+    end
+
+    -- 클리어 타임
+    do
+        t_param['clear_time'] = self.m_world.m_logRecorder.m_lapTime
+    end
+
+    return t_param
 end

@@ -5,12 +5,15 @@ local PARENT = DropItemMgr
 -------------------------------------
 DropItemMgr_EventGold = class(PARENT, {
     m_remainFinalItemCnt = 'number',
+
+    m_obtainedGold = 'number',  -- 획득한 골드량
 })
 
 -------------------------------------
 -- function init
 -------------------------------------
 function DropItemMgr_EventGold:init(world)
+    self.m_obtainedGold = SecurityNumberClass(0, false)
 end
 
 -------------------------------------
@@ -106,5 +109,17 @@ function DropItemMgr_EventGold:obtainItem(item)
     local type = t_data['type']
     local value = t_data['value']
     item:setObtained(type, value)
-    table.insert(self.m_obtainedItemList, {type, value})
+
+    --
+    if (type == 'gold') then
+        local obtained_gold = self.m_obtainedGold:get() + value
+        self.m_obtainedGold:set(obtained_gold)
+    end
+end
+
+-------------------------------------
+-- function getObtainedGold
+-------------------------------------
+function DropItemMgr_EventGold:getObtainedGold()
+    return self.m_obtainedGold:get()
 end

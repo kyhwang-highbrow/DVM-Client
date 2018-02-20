@@ -610,6 +610,8 @@ function SceneGame:networkGameFinish(t_param, t_result_ref, next_func)
         else
             api_url = '/game/ancient/finish'
         end
+    elseif (game_mode == GAME_MODE_EVENT_GOLD) then
+        api_url = '/game/event_dungeon/finish'
     end
 
     local ui_network = UI_Network()

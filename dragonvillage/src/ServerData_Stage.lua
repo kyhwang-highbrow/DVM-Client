@@ -110,6 +110,10 @@ function ServerData_Stage:isOpenStage(stage_id)
             ret = g_ancientTowerData:isOpenStage(stage_id)
         end
 
+    -- 이벤트 금화 모드
+    elseif (game_mode == GAME_MODE_EVENT_GOLD) then
+        ret = true
+
     -- 클랜 던전 모드
     elseif (game_mode == GAME_MODE_CLAN_RAID) then
         ret = g_clanRaidData:isOpenClanRaid()
@@ -315,6 +319,22 @@ function ServerData_Stage:requestGameStart(stage_id, deck_name, combat_power, fi
         -- 고대의 탑
         else
             api_url = '/game/ancient/start'
+        end
+    elseif (game_mode == GAME_MODE_EVENT_GOLD) then
+        api_url = '/game/event_dungeon/start'
+
+        -- true를 리턴하면 자체적으로 처리를 완료했다는 뜻
+        response_status_cb = function(ret)
+            if (ret['status'] == -1350) then
+                -- 전투 UI로 이동
+                local function ok_cb()
+                    UINavigator:goTo('battle_menu', 'dungeon')
+                end 
+                MakeSimplePopup(POPUP_TYPE.OK, Str('이미 종료된 던전입니다.'), ok_cb)
+                return true
+            end
+
+            return false
         end
     end
 
