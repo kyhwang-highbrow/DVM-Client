@@ -77,6 +77,7 @@ function UI_TopUserInfo:refreshData()
     end
 
     self.m_staminaInfo:refresh()
+    self:refresh_inventoryLabel()
 end
 
 -------------------------------------
@@ -327,7 +328,7 @@ end
 function UI_TopUserInfo:setInvenBtn(inven_type)
     local vars = self.vars
     self.m_invenType = inven_type
-    self:refresh_inventoryLabel()
+
     vars['inventoryBtn']:registerScriptTapHandler(function() self:click_inventoryBtn() end)
 
     vars['inven_rune']:setVisible(false)
@@ -341,9 +342,9 @@ end
 function UI_TopUserInfo:refresh_inventoryLabel()
     local vars = self.vars
     local inven_type = self.m_invenType
-    local dragon_count = g_dragonsData:getDragonsCnt()
+    local inven_count = g_inventoryData:getCount(inven_type)
     local max_count = g_inventoryData:getMaxCount(inven_type)
-    self.vars['inventoryLabel']:setString(Str('{1}/{2}', dragon_count, max_count))
+    self.vars['inventoryLabel']:setString(Str('{1}/{2}', inven_count, max_count))
 end
 
 -------------------------------------

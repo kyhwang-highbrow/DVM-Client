@@ -101,6 +101,23 @@ function ServerData_Inventory:checkMaximumItems(ignore_func, manage_func)
 end
 
 -------------------------------------
+-- function getCount
+-- @param invent_type : rune, dragon
+-------------------------------------
+function ServerData_Inventory:getCount(inven_type)
+    if (inven_type ~= 'rune') and (inven_type ~= 'dragon') then return 0 end
+    local inven_count
+
+    if (inven_type == 'dragon') then
+        inven_count = g_dragonsData:getDragonsCnt()
+    else
+        inven_count = g_inventoryData:getItemCount()
+    end
+
+    return inven_count
+end
+
+-------------------------------------
 -- function getMaxCount
 -- @param invent_type : rune, dragon
 -------------------------------------
