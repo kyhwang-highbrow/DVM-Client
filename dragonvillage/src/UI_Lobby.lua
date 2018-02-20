@@ -532,29 +532,45 @@ end
 
 -------------------------------------
 -- function refresh_masterRoad
+-- @brief 마스터의길 안내와 드빌 도우미 안내를 같이 쓴다
 -------------------------------------
 function UI_Lobby:refresh_masterRoad()
     local vars = self.vars
-    local desc = ''
-    
-    -- 마지막까지 클리어했다면..?
-    if (g_masterRoadData:isClearAllRoad()) then
-        --desc = Str('마스터의 길은 계속될겁니다.')
-        vars['bottomMasterNode']:setVisible(false)
 
-        -- 성장일지 클리어하지 못했다면 위치 변경
-        local is_clear = g_dragonDiaryData:isClearAll()
-        if (not is_clear) then
-            vars['dragonDiaryBtn']:setPositionY(110)
-        end
-        
-    -- 현재 목표 출력
-    else
-        local rid = g_masterRoadData:getFocusRoad()
+	local title, desc
+	local is_show_master_road
+	local has_reward, _ = g_masterRoadData:hasRewardRoad()
+
+	-- 마스터의 길 보상이 있는 경우
+	if (has_reward) then
+		is_show_master_road = true
+
+	-- 마스터의 길을 전부 클리어한 경우
+	elseif (g_masterRoadData:isClearAllRoad()) then
+		is_show_master_road = false
+
+	-- 랜덤
+	else
+		is_show_master_road = (math_random(2) == 1)
+
+	end
+
+	-- 마스터의 길
+	if (is_show_master_road) then
+		local rid = g_masterRoadData:getFocusRoad()
         local t_road = TableMasterRoad():get(rid)
+
+		title = Str('마스터의 길')
         desc = Str(t_road['t_desc'], t_road['desc_1'], t_road['desc_2'], t_road['desc_3'])
 
-    end
+	-- 드빌 도우미
+	else
+		title = Str('캡슐 뽑기')
+		desc = Str('캡슐 뽑기 1등급 보상은 매 주 화요일, 토요일에 변경됩니다.')
+
+	end
+
+	vars['roadTitleLabel']:setString(title)
     vars['roadDescLabel']:setString(desc)
 end
 
