@@ -76,8 +76,7 @@ function Monster_GiantMandragora:growByAccumDamage(accum_damage)
     if (not accum_damage) then return end
 
     -- 10만 데미지를 받을 때마다 5%씩 크기를 키움
-    --local grow_count = math_floor(accum_damage / 100000)
-    local grow_count = math_floor(accum_damage / 10000)
+    local grow_count = math_floor(accum_damage / 100000)
     local new_scale = 0.05 * grow_count + self.m_orgAnimatorScale
 
     -- 최대 500%
@@ -85,6 +84,8 @@ function Monster_GiantMandragora:growByAccumDamage(accum_damage)
 
     if (self.m_curAnimatorScale ~= new_scale) then
         self:runAction_Grow(new_scale)
+
+        -- TODO: body 크기도 키워야함...
 
         self.m_curAnimatorScale = new_scale
     end
