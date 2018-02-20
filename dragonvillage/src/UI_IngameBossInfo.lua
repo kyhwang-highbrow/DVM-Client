@@ -32,8 +32,7 @@ function UI_IngameBossInfo:initUI()
 
     if (vars['attrNode']) then
         local attr_str = boss:getAttribute()
-        local res = 'res/ui/icons/attr/attr_' .. attr_str .. '_02.png'
-        local icon = cc.Sprite:create(res)
+        local icon = IconHelper:getAttributeIcon(attr_str)
         if icon then
             icon:setDockPoint(cc.p(0.5, 0.5))
             icon:setAnchorPoint(cc.p(0.5, 0.5))

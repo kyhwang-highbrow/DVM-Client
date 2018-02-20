@@ -1,4 +1,4 @@
-ATTR_NONE = 0
+ATTR_NONE = 6
 ATTR_EARTH = 1
 ATTR_WATER = 2
 ATTR_FIRE = 3
@@ -8,6 +8,7 @@ ATTR_DARK = 5
 ATTR_LAST = ATTR_DARK
 
 T_ATTR_LIST = {}
+T_ATTR_LIST[ATTR_NONE] = 'none'
 T_ATTR_LIST[ATTR_EARTH] = 'earth'
 T_ATTR_LIST[ATTR_WATER] = 'water'
 T_ATTR_LIST[ATTR_FIRE] = 'fire'
@@ -299,7 +300,7 @@ function getAttrSynastryEffect(attr1, attr2, atk_attr_adj_rate, def_attr_adj_rat
 
     -- 무상성
     if (not attr_synastry) or (attr_synastry == 0) then
-        return {}
+        return {}, 0
     end
 
     -- attr1의 속성 테이블 얻어옴
