@@ -282,17 +282,40 @@ function UI_ColosseumResult:direction_winReward()
 
 	-- backkey 지정
 	g_currScene:pushBackKeyListener(ui, function() ui:close() end, 'temp')
+	table.insert(t_data['mail_item_info'], t_data['mail_item_info'][1])
+	table.insert(t_data['mail_item_info'], t_data['mail_item_info'][1])
+	table.insert(t_data['mail_item_info'], t_data['mail_item_info'][1])
 
-	-- 승수 표시
-	local win = t_data['season']['win']
-	ui.vars['winLabel']:setString(Str('콜로세움 {1}승 달성!', win))
+	if (table.count(t_data['mail_item_info']) == 1) then
+		-- 승수 표시
+		local win = t_data['season']['win']
+		ui.vars['winLabel']:setString(Str('콜로세움 {1}승 달성!', win))
 
-	-- 보상 아이템 표기
-	local t_item = t_data['mail_item_info'][1]
-	local icon = IconHelper:getItemIcon(t_item['item_id'])
-	ui.vars['rewardNode']:addChild(icon)
-	local count = comma_value(t_item['count'])
-	ui.vars['rewardLabel']:setString(count)
+		-- 보상 아이템 표기
+		local t_item = t_data['mail_item_info'][1]
+		local icon = IconHelper:getItemIcon(t_item['item_id'])
+		ui.vars['rewardNode']:addChild(icon)
+		local count = comma_value(t_item['count'])
+		ui.vars['rewardLabel']:setString(count)
+
+	-- 패치후 최초 업데이트 시점을 위한 분기 처리 (나중에 정리)
+	else
+		local total_cnt = table.count(t_data['mail_item_info'])
+		for idx, t_item in ipairs(t_data['mail_item_info']) do
+			local item_id = t_item['item_id']
+			local item_cnt = t_item['count']
+			local card = UI_ItemCard(item_id, item_cnt)
+			ui.vars['rewardTempNode']:addChild(card.root)
+
+			local pos_x = UIHelper:getCardPosX(total_cnt, idx)
+			card.root:setPositionX(pos_x)
+
+			ui.vars['winLabel']:setString(Str('콜로세움 주간 승리 보상'))
+			ui.vars['rewardFrameNode']:setVisible(false)
+			ui.vars['rankRewardLabel']:setVisible(false)
+		end
+
+	end
 
 	-- 버튼
 	ui.vars['okBtn']:registerScriptTapHandler(function() ui:close() end)
