@@ -412,7 +412,7 @@ function UI_Setting:click_allStaminaBtn()
             local ui_network = UI_Network()            
             local api  
             -- 클랜던전은 update api로 충전이 안됨.
-            if (key == 'cldg') then
+            if (key == 'cldg' or key == 'event_st') then
                 api = '/users/manage'
                 ui_network:setParam('act', 'update')
                 ui_network:setParam('key', 'staminas')
