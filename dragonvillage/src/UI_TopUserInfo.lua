@@ -9,6 +9,7 @@ UI_TopUserInfo = class(PARENT,{
 
 		m_staminaType = 'string',
         m_invenType = 'string',
+        m_bShowInvenBtn = 'boolean',
 
         m_mAddedSubCurrency = 'table',
 
@@ -30,6 +31,9 @@ function UI_TopUserInfo:init()
     --vars['settingBtn']:registerScriptTapHandler(function() self:click_settingBtn() end)
     vars['quickBtn']:registerScriptTapHandler(function() self:click_quickPopupBtn() end)    
     vars['chatBtn']:registerScriptTapHandler(function() self:click_chatBtn() end)
+    vars['inventoryBtn']:registerScriptTapHandler(function() self:click_inventoryBtn() end)
+
+    self.m_bShowInvenBtn = false
 
     self:initGoodsUI()
     self:clearOwnerUI()
@@ -77,7 +81,7 @@ function UI_TopUserInfo:refreshData()
     end
 
     self.m_staminaInfo:refresh()
-    self:refresh_inventoryLabel()
+    self:refreshInventory()
 end
 
 -------------------------------------
@@ -189,10 +193,8 @@ function UI_TopUserInfo:changeOwnerUI(ui)
     self:setStaminaType(ui.m_staminaType)
 
     -- 인벤버튼 관련
-    vars['inventoryBtn']:setVisible(ui.m_bShowInvenBtn)
-    if (ui.m_bShowInvenBtn) then
-        self:setInvenBtn(ui.m_invenType)
-    end
+    self.m_bShowInvenBtn = ui.m_bShowInvenBtn
+    self.m_invenType = ui.m_invenType
 
     do -- 스태미너 업데이트 관련 임시 위치
         if ui.m_bVisible then
@@ -323,28 +325,23 @@ function UI_TopUserInfo:setStaminaType(stamina_type)
 end
 
 -------------------------------------
--- function setInvenBtn
+-- function refreshInventory
 -------------------------------------
-function UI_TopUserInfo:setInvenBtn(inven_type)
+function UI_TopUserInfo:refreshInventory()
     local vars = self.vars
-    self.m_invenType = inven_type
+    local b_show = self.m_bShowInvenBtn
+    vars['inventoryBtn']:setVisible(b_show)
 
-    vars['inventoryBtn']:registerScriptTapHandler(function() self:click_inventoryBtn() end)
+    if (b_show) then
+        local inven_type = self.m_invenType
+        vars['inven_rune']:setVisible(false)
+        vars['inven_dragon']:setVisible(false)
+        vars['inven_'..inven_type]:setVisible(true)
 
-    vars['inven_rune']:setVisible(false)
-    vars['inven_dragon']:setVisible(false)
-    vars['inven_'..inven_type]:setVisible(true)
-end
-
--------------------------------------
--- function refresh_inventoryLabel
--------------------------------------
-function UI_TopUserInfo:refresh_inventoryLabel()
-    local vars = self.vars
-    local inven_type = self.m_invenType
-    local inven_count = g_inventoryData:getCount(inven_type)
-    local max_count = g_inventoryData:getMaxCount(inven_type)
-    self.vars['inventoryLabel']:setString(Str('{1}/{2}', inven_count, max_count))
+        local inven_count = g_inventoryData:getCount(inven_type)
+        local max_count = g_inventoryData:getMaxCount(inven_type)
+        vars['inventoryLabel']:setString(Str('{1}/{2}', inven_count, max_count))
+    end
 end
 
 -------------------------------------
@@ -354,7 +351,7 @@ end
 function UI_TopUserInfo:click_inventoryBtn()
     local inven_type = self.m_invenType
     local function finish_cb()
-        self:refresh_inventoryLabel()
+        self:refreshInventory()
     end
 
     g_inventoryData:extendInventory(inven_type, finish_cb)
