@@ -356,7 +356,7 @@ end
 -------------------------------------
 -- function openEventPopup
 -------------------------------------
-function ServerData_Event:openEventPopup(tab)
+function ServerData_Event:openEventPopup(tab, close_cb)
 
     local function coroutine_function(dt)
         local co = CoroutineHelper()
@@ -405,13 +405,18 @@ function ServerData_Event:openEventPopup(tab)
         co:close()
 
         self.m_bDirty = true
+        local ui
         if (tab) then
             local noti = false -- 탭 타겟을 정한 경우 이벤트 노티 체크하는 부분이랑 꼬임, 노티 꺼줌
-            local ui = UI_EventPopup(noti)
+            ui = UI_EventPopup(noti)
             ui:setTab(tab, true)
         else
             local noti = true
-            UI_EventPopup(noti)
+            ui = UI_EventPopup(noti)
+        end
+
+        if (close_cb) then
+            ui:setCloseCB(close_cb)
         end
     end
 

@@ -166,21 +166,8 @@ function GameState_EventGold:makeResultUI(is_success)
     -- 2. UI 생성
     func_ui_result = function()
         local world = self.m_world
-        local stage_id = world.m_stageID
-        
-		-- GameState는 Adventure모드를 기본으로 한다. 다른 모드는 상속을 받아서 처리한다.
-        local ui = UI_GameResult_Adventure(stage_id,
-            is_success,
-            self.m_fightTimer,
-            t_result_ref['default_gold'],
-            t_result_ref['user_levelup_data'],
-            t_result_ref['dragon_levelu_data_list'],
-            t_result_ref['drop_reward_grade'],
-            t_result_ref['drop_reward_list'],
-            t_result_ref['secret_dungeon'])
-
-        local l_hottime = t_result_ref['hottime']
-        ui:setHotTimeInfo(l_hottime)
+        local stage_id = world.m_stageID        
+        local ui = UI_EventGoldDungeonResult(stage_id, t_result_ref)
     end
 
     -- 최초 실행

@@ -1183,6 +1183,31 @@ function UINavigatorDefinition:goTo_package_shop(...)
 end
 
 
+-------------------------------------
+-- function goTo_event_gold_dungeon
+-- @brief 황금던전 이벤트 탭으로 이동
+-- @usage UINavigatorDefinition:goTo('event_gold_dungeon')
+-------------------------------------
+function UINavigatorDefinition:goTo_event_gold_dungeon(...)
+    local args = {...}
+    local sub_menu = args[1]
+    local tar_dragon = args[2]
+
+    -- 해당 UI가 열려있을 경우
+    local is_opend, idx, ui = self:findOpendUI('UI_EventGoldDungeon')
+    if (is_opend == true) then
+        self:closeUIList(idx, false) -- param : idx, include_idx
+        return
+    end
+
+    do-- Scene으로 동작
+        local function close_cb()
+            UINavigatorDefinition:goTo('lobby')
+        end
+
+        g_eventData:openEventPopup('event_gold_dungeon', close_cb)
+    end
+end
 
 
 

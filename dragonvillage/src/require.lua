@@ -865,6 +865,7 @@ local t_module = {
     'UI_GamePause_SecretDungeon',
     'UI_GamePause_Colosseum',
     'UI_GamePause_ClanRaid',
+    'UI_GamePause_EventGoldDungeon',
 	'UI_GameDPSPopup',
 	'UI_GameDPSListItem',
     'UI_GameDebug',
@@ -878,6 +879,7 @@ local t_module = {
     'UI_IngameBossInfo',
     'UI_IngameBossHp',
     'UI_AutoPlaySettingPopup',
+    'UI_EventGoldDungeonResult',
 
 	-- UI : 가방
     'UI_Inventory',

@@ -1005,6 +1005,7 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <None Include="..\src\UI_EventFullPopup.lua" />
     <None Include="..\src\UI_EventGoldDungeon.lua" />
     <None Include="..\src\UI_EventGoldDungeonListItem.lua" />
+    <None Include="..\src\UI_EventGoldDungeonResult.lua" />
     <None Include="..\src\UI_EventPopupTab_HBShop.lua" />
     <None Include="..\src\UI_EventPopupTab_HBShop_Coupon.lua" />
     <None Include="..\src\UI_EventPopupTab_Package.lua" />
@@ -1029,6 +1030,7 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <None Include="..\src\UI_DragonGoodbyeResult.lua" />
     <None Include="..\src\UI_GameEventGold.lua" />
     <None Include="..\src\UI_GamePause_ClanRaid.lua" />
+    <None Include="..\src\UI_GamePause_EventGoldDungeon.lua" />
     <None Include="..\src\UI_Game_Mana.lua" />
     <None Include="..\src\UI_GoodsInfo.lua" />
     <None Include="..\src\UI_Help.lua" />
