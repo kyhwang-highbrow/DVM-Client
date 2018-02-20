@@ -174,14 +174,15 @@ end
 -- function request_clearReward
 -- @brief 황금던전 클리어 누적보상
 -------------------------------------
-function ServerData_EventGoldDungeon:request_clearReward(finish_cb, fail_cb)
+function ServerData_EventGoldDungeon:request_clearReward(step, finish_cb, fail_cb)
     -- 유저 ID
     local uid = g_userData:get('uid')
 
     -- 콜백
-    local function success_cb(ret)        
+    local function success_cb(ret)                    
         self:networkCommonRespone(ret)
-                    
+        self:confirm_reward(ret)
+        
         if finish_cb then
             finish_cb(ret)
         end
@@ -189,8 +190,9 @@ function ServerData_EventGoldDungeon:request_clearReward(finish_cb, fail_cb)
 
     -- 네트워크 통신
     local ui_network = UI_Network()
-    ui_network:setUrl('/shop/dice/reward')
+    ui_network:setUrl('/game/event_dungeon/reward')
     ui_network:setParam('uid', uid)
+    ui_network:setParam('step', step)
     ui_network:setSuccessCB(success_cb)
     ui_network:setFailCB(fail_cb)
     ui_network:setRevocable(true)

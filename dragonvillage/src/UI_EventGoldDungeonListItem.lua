@@ -43,7 +43,7 @@ function UI_EventGoldDungeonListItem:initUI()
 
     -- 보상버튼
     vars['receiveBtn']:registerScriptTapHandler(function() 
-        g_eventGoldDungeonData:request_eventReward(step, function() self:refresh() end)
+        g_eventGoldDungeonData:request_clearReward(step, function() self:refresh() end)
     end)
 end
 
