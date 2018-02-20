@@ -466,6 +466,7 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <None Include="..\src\ServerData_Eggs.lua" />
     <None Include="..\src\ServerData_Event.lua" />
     <None Include="..\src\ServerData_EventDice.lua" />
+    <None Include="..\src\ServerData_EventGoldDungeon.lua" />
     <None Include="..\src\ServerData_EvolutionStone.lua" />
     <None Include="..\src\ServerData_Exchange.lua" />
     <None Include="..\src\ServerData_ExchangeEvent.lua" />
@@ -1002,6 +1003,8 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <None Include="..\src\UI_EggPopup.lua" />
     <None Include="..\src\UI_ErrorPopup_Live.lua" />
     <None Include="..\src\UI_EventFullPopup.lua" />
+    <None Include="..\src\UI_EventGoldDungeon.lua" />
+    <None Include="..\src\UI_EventGoldDungeonListItem.lua" />
     <None Include="..\src\UI_EventPopupTab_HBShop.lua" />
     <None Include="..\src\UI_EventPopupTab_HBShop_Coupon.lua" />
     <None Include="..\src\UI_EventPopupTab_Package.lua" />

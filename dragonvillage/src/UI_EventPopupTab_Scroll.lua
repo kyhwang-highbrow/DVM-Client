@@ -64,13 +64,19 @@ function UI_EventPopupTab_Scroll:onEnterTab()
     local scroll_view = self.m_scrollView
     local container_node = scroll_view:getContainer()
 
-    if (event_type == 'event_exchange') then
-
+    local function repos_func(has_reward)
         -- 받을 누적 보상이 있다면 누적 보상쪽 스크롤
-        if (g_exchangeEventData:hasReward()) then
+        if (has_reward) then
             container_node:setPositionY(-80)
         else
             container_node:setPositionY(self.m_originPosY)
         end
+    end
+
+    if (event_type == 'event_exchange') then
+        repos_func(g_exchangeEventData:hasReward())
+    
+    elseif (event_type == 'event_gold_dungeon') then
+        repos_func(false)
     end
 end

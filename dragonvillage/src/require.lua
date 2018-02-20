@@ -157,6 +157,7 @@ local t_module = {
 	'ServerData_CapsuleBox',
 	'ServerData_AttrTower',
     'ServerData_DragonDiary',
+    'ServerData_EventGoldDungeon',
 
     -- Interface
     'IEventDispatcher',
@@ -996,6 +997,8 @@ local t_module = {
     'UI_ExchangeEventListItem',
     'UI_DiceEvent',
 	'UI_DailyMisson_Clan',
+    'UI_EventGoldDungeon',
+    'UI_EventGoldDungeonListItem',
 
 	-- UI : 연출
 	'DirectingCharacter',

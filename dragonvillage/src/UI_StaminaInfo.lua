@@ -83,6 +83,12 @@ function UI_StaminaInfo:refresh()
     local max_cnt = g_staminasData:getStaminaMaxCnt(stamina_type)
 
     local str = Str('{1}/{2}', comma_value(st_ad), comma_value(max_cnt))
+
+    -- 황금던전 이벤트 스태미너는 MAX 존재하지 않음
+    if (stamina_type == 'event_st') then
+        str = Str('{1}', comma_value(st_ad))
+    end
+
     vars['label']:setString(str)
 
     local charging_time = TableStaminaInfo:getChargingTime(stamina_type)

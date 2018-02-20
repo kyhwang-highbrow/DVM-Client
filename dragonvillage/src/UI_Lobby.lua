@@ -218,6 +218,12 @@ function UI_Lobby:entryCoroutine()
             if co:waitWork() then return end
         end
 
+        if (g_hotTimeData:isActiveEvent('event_gold_dungeon')) then
+            co:work('# 황금던전 이벤트 정보 받는 중')
+            g_eventGoldDungeonData:request_dungeonInfo(co.NEXT, co.ESCAPE)
+            if co:waitWork() then return end
+        end
+
 		-- 강제 튜토리얼 진행 하는 동안 풀팝업, 마스터의 길, 구글 업적 일괄 체크, 막음
         if (not TutorialManager.getInstance():checkFullPopupBlock()) then
 
@@ -363,6 +369,7 @@ function UI_Lobby:initButton()
     vars['giftBoxBtn']:registerScriptTapHandler(function() self:click_giftBoxBtn() end) -- 랜덤박스(광고)
     vars['exchangeBtn']:registerScriptTapHandler(function() self:click_exchangeBtn() end) -- 교환이벤트
     vars['diceBtn']:registerScriptTapHandler(function() self:click_diceBtn() end) -- 주사위이벤트
+    vars['goldDungeonBtn']:registerScriptTapHandler(function() self:click_goldDungeonBtn() end) -- 황금던전 이벤트
     vars['levelupBtn']:registerScriptTapHandler(function() self:click_lvUpPackBtn() end) -- 레벨업 패키지
     vars['adventureClearBtn']:registerScriptTapHandler(function() self:click_adventureClearBtn() end) -- 모험돌파 패키지
 	vars['capsuleBoxBtn']:registerScriptTapHandler(function() self:click_capsuleBoxBtn() end) -- 캡슐 뽑기 버튼
@@ -801,6 +808,17 @@ function UI_Lobby:click_diceBtn()
 end
 
 -------------------------------------
+-- function click_goldDungeonBtn
+-- @brief 황금던전 이벤트
+-------------------------------------
+function UI_Lobby:click_goldDungeonBtn()
+    if (not g_hotTimeData:isActiveEvent('event_gold_dungeon')) then
+        return
+    end
+    g_eventData:openEventPopup('event_gold_dungeon')
+end
+
+-------------------------------------
 -- function click_lvUpPackBtn
 -- @brief 레벨업 패키지 버튼
 -------------------------------------
@@ -814,13 +832,6 @@ end
 -------------------------------------
 function UI_Lobby:click_adventureClearBtn()
     UI_Package_AdventureClear(nil, true) -- param : struct_product, is_popup
-end
-
--------------------------------------
--- function click_guildBtn
--------------------------------------
-function UI_Lobby:click_guildBtn()
-    UIManager:toastNotificationRed('"길드"는 준비 중입니다.')
 end
 
 -------------------------------------
@@ -1051,6 +1062,13 @@ function UI_Lobby:refresh_rightButtons()
         vars['diceBtn']:setVisible(false)
     end
 
+    -- 황금던전 버튼
+    if g_hotTimeData:isActiveEvent('event_gold_dungeon') then
+        vars['goldDungeonBtn']:setVisible(true)
+    else
+        vars['goldDungeonBtn']:setVisible(false)
+    end
+
 	-- 캡슐 신전 버튼
 	if (g_capsuleBoxData:isOpen()) then
 		vars['capsuleBoxBtn']:setVisible(true)
@@ -1083,6 +1101,7 @@ function UI_Lobby:refresh_rightButtons()
     table.insert(t_btn_name, 'levelupBtn')
     table.insert(t_btn_name, 'adventureClearBtn')
     table.insert(t_btn_name, 'capsuleBoxBtn')
+    table.insert(t_btn_name, 'goldDungeonBtn')
     table.insert(t_btn_name, 'eventBtn')
     
     -- visible이 켜진 버튼들 리스트

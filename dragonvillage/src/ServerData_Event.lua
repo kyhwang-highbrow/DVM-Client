@@ -382,6 +382,12 @@ function ServerData_Event:openEventPopup(tab)
             if co:waitWork() then return end
         end
 
+        if (g_hotTimeData:isActiveEvent('event_gold_dungeon')) then
+            co:work('# 황금던전 이벤트 정보 받는 중')
+            g_eventGoldDungeonData:request_dungeonInfo(co.NEXT, co.ESCAPE)
+            if co:waitWork() then return end
+        end
+
         co:work('# 접속시간 저장 중')
         g_accessTimeData:request_saveTime(co.NEXT, co.ESCAPE)
         if co:waitWork() then return end

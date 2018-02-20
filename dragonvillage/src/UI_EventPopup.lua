@@ -213,13 +213,18 @@ function UI_EventPopup:makeEventPopupTab(tab)
         self:addNodeToTabNodeList(tab, ui.m_webView)
 
     -- 수집 교환 이벤트
-    elseif (string.find(tab, 'event_exchange')) then
+    elseif (tab =='event_exchange') then
         local inner_ui = UI_ExchangeEvent()
         ui = UI_EventPopupTab_Scroll(self, struct_event_popup_tab, inner_ui)
 
     -- 주사위 이벤트
-    elseif (string.find(tab, 'event_dice')) then
+    elseif (tab =='event_dice') then
         local inner_ui = UI_DiceEvent()
+        ui = UI_EventPopupTab_Scroll(self, struct_event_popup_tab, inner_ui)
+
+    -- 황금던전 이벤트
+    elseif (tab =='event_gold_dungeon') then
+        local inner_ui = UI_EventGoldDungeon()
         ui = UI_EventPopupTab_Scroll(self, struct_event_popup_tab, inner_ui)
 
 	-- Daily Mission

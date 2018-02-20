@@ -421,6 +421,12 @@ function UI_ReadySceneNew:initUI()
         vars['formationNode']:setPositionX(-230)
         vars['manageBtn']:setPositionX(0)
     end
+
+    -- 이벤트 골드 던전 예외처리
+    if (self.m_stageID == EVENT_GOLD_STAGE_ID) then
+        vars['autoStartOnBtn']:setVisible(false)
+        vars['manageBtn']:setPositionX(0)
+    end
 end
 
 -------------------------------------

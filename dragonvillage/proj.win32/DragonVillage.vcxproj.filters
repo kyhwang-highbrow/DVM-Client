@@ -3232,6 +3232,15 @@
     <None Include="..\src\UIC_LobbyGuide.lua">
       <Filter>lua\UIC</Filter>
     </None>
+    <None Include="..\src\UI_EventGoldDungeon.lua">
+      <Filter>lua\UI</Filter>
+    </None>
+    <None Include="..\src\UI_EventGoldDungeonListItem.lua">
+      <Filter>lua\UI</Filter>
+    </None>
+    <None Include="..\src\ServerData_EventGoldDungeon.lua">
+      <Filter>lua\src</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Classes">
