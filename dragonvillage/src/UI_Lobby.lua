@@ -6,6 +6,7 @@ local PARENT = class(UI, ITopUserInfo_EventListener:getCloneTable())
 UI_Lobby = class(PARENT,{
         m_lobbyWorldAdapter = 'LobbyWorldAdapter',
         m_etcExpendedUI = 'UIC_ExtendedUI',
+		m_lobbyGuide = 'UIC_LobbyGuide',
 
         -- 버튼 상태
         m_bItemAutoEnabled = 'bool',
@@ -56,10 +57,15 @@ end
 -- function initUI
 -------------------------------------
 function UI_Lobby:initUI()
+	local vars = self.vars
+
+	-- 로비 가이드
+	self.m_lobbyGuide = UIC_LobbyGuide(vars['roadTitleLabel'], vars['roadDescLabel'], vars['masterRoadNotiSprite'])
+
     -- 기타 버튼 생성
     local ui = UIC_ExtendedUI:create('lobby_etc_extended.ui')
     self.m_etcExpendedUI = ui
-    self.vars['extendedNode']:addChild(ui.m_node)
+    vars['extendedNode']:addChild(ui.m_node)
 
     self:initLobbyWorldAdapter()
     g_topUserInfo:clearBroadcast()
@@ -441,10 +447,6 @@ function UI_Lobby:refresh_highlight()
 		-- 테이머
 		vars['tamerNotiSprite']:setVisible(g_tamerData:isHighlightTamer())
 
-		-- 마스터의 길
-		local has_reward, _ = g_masterRoadData:hasRewardRoad()
-		vars['masterRoadNotiSprite']:setVisible(has_reward)
-
         -- 드래곤 성장일지
         local has_reward, _ = g_dragonDiaryData:hasRewardRoad()
 		vars['dragonDiaryNotiSprite']:setVisible(has_reward)
@@ -535,43 +537,7 @@ end
 -- @brief 마스터의길 안내와 드빌 도우미 안내를 같이 쓴다
 -------------------------------------
 function UI_Lobby:refresh_masterRoad()
-    local vars = self.vars
-
-	local title, desc
-	local is_show_master_road
-	local has_reward, _ = g_masterRoadData:hasRewardRoad()
-
-	-- 마스터의 길 보상이 있는 경우
-	if (has_reward) then
-		is_show_master_road = true
-
-	-- 마스터의 길을 전부 클리어한 경우
-	elseif (g_masterRoadData:isClearAllRoad()) then
-		is_show_master_road = false
-
-	-- 랜덤
-	else
-		is_show_master_road = (math_random(2) == 1)
-
-	end
-
-	-- 마스터의 길
-	if (is_show_master_road) then
-		local rid = g_masterRoadData:getFocusRoad()
-        local t_road = TableMasterRoad():get(rid)
-
-		title = Str('마스터의 길')
-        desc = Str(t_road['t_desc'], t_road['desc_1'], t_road['desc_2'], t_road['desc_3'])
-
-	-- 드빌 도우미
-	else
-		title = Str('캡슐 뽑기')
-		desc = Str('캡슐 뽑기 1등급 보상은 매 주 화요일, 토요일에 변경됩니다.')
-
-	end
-
-	vars['roadTitleLabel']:setString(title)
-    vars['roadDescLabel']:setString(desc)
+    self.m_lobbyGuide:refresh()
 end
 
 -------------------------------------
@@ -682,7 +648,7 @@ end
 -- @brief 마스터의 길 버튼
 -------------------------------------
 function UI_Lobby:click_masterRoadBtn()
-    UI_MasterRoadPopup()
+	self.m_lobbyGuide:onClick()
 end
 
 -------------------------------------

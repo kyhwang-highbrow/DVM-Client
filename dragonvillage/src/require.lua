@@ -1,4 +1,4 @@
-﻿-- 패치 시점에서도 반드시 필요한 루아 모듈은 
+-- 패치 시점에서도 반드시 필요한 루아 모듈은 
 -- 하단의 loadModuleForPatchScene에도 추가 해주세요
 
 local t_module = {
@@ -613,7 +613,8 @@ local t_module = {
     'UIC_EggPicker',
     'UIC_ExtendedUI',
     'UIC_ScrollButton',
-
+	'UIC_LobbyGuide',
+	
     -- UI : CARD
     'UI_Card',
     'UI_CharacterCard',

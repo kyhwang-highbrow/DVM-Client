@@ -194,7 +194,7 @@ end
 -------------------------------------
 -- function openCapsuleBoxUI
 -------------------------------------
-function ServerData_CapsuleBox:openCapsuleBoxUI()
+function ServerData_CapsuleBox:openCapsuleBoxUI(show_reward_list)
 	if (not self:isOpen()) then
 		local msg = Str('캡슐 뽑기 준비중입니다.')
 		UIManager:toastNotificationRed(msg)
@@ -210,7 +210,12 @@ function ServerData_CapsuleBox:openCapsuleBoxUI()
 	end
 
 	self:request_capsuleBoxStatus(function()
-		UI_CapsuleBox()
+		local ui = UI_CapsuleBox()
+
+		-- 나중에 2번 박스도 보여줘야 한다면 구조화하는게 좋을듯
+		if (show_reward_list) then
+			ui:click_rewardBtn('first')
+		end
 	end)
 end
 
