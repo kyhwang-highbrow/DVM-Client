@@ -259,12 +259,14 @@ function UI_Lobby:entryCoroutine()
 			if co:waitWork() then return end
 
 			-- @ google achievement
-			if (not g_localData:get('is_first_google_login_real')) then
-				co:work()
-				cclog('# 구글 업적 확인 중')
-				g_localData:applyLocalData(true, 'is_first_google_login_real')
-				GoogleHelper.allAchievementCheck(co.NEXT)
-				if co:waitWork() then return end
+			if (g_localData:isGooglePlayConnected()) then
+				if (not g_localData:get('is_first_google_login_real')) then
+					co:work()
+					cclog('# 구글 업적 확인 중')
+					g_localData:applyLocalData(true, 'is_first_google_login_real')
+					GoogleHelper.allAchievementCheck(co.NEXT)
+					if co:waitWork() then return end
+				end
 			end
         end
 
