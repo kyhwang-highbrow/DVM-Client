@@ -100,6 +100,9 @@ function UI_DragonSelectPopup:init_tableView()
     table_view_td.m_cellSize = cc.size(102, 102)
     table_view_td.m_nItemPerCell = 10
     table_view_td:setCellUIClass(make_func, create_func)
+    table_view_td:setCellCreateInterval(0)
+	table_view_td:setCellCreateDirecting(CELL_CREATE_DIRECTING['fadein'])
+    table_view_td:setCellCreatePerTick(3)
     self.m_tableView = table_view_td
 
     -- 재료로 사용 가능한 리스트를 얻어옴
