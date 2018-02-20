@@ -77,7 +77,7 @@ function Monster_GiantMandragora.st_dying(owner, dt)
         end)
 
         local accum_damage = owner.m_world.m_gameState.m_accumDamage:get()
-        local drop_count = math_floor(accum_damage / DAMAGE_UNIT) + 10
+        local drop_count = math_floor(accum_damage / DAMAGE_UNIT) + 20
         drop_count = math_min(drop_count, 110)
 
         owner.m_dropInterval = owner.m_animator:getDuration() / drop_count
@@ -148,6 +148,7 @@ function Monster_GiantMandragora:setHp(hp, bFixed)
 
     -- 누적 데미지량에 따라 아이템 드랍
     local prev_accum_damage = accum_damage - damage
+    prev_accum_damage = math_max(prev_accum_damage, 0)
     self:dropItemByAccumDamage(accum_damage, prev_accum_damage)
 end
 
@@ -178,20 +179,21 @@ function Monster_GiantMandragora:dropItemByAccumDamage(accum_damage, prev_accum_
     if (not accum_damage or not prev_accum_damage) then return end
 
     -- 일정 단위를 넘지 못한 경우
-    if (math_floor(accum_damage / DAMAGE_UNIT) <= math_floor(prev_accum_damage / DAMAGE_UNIT)) then return end
+    local value1 = math_floor(accum_damage / (DAMAGE_UNIT * 2))
+    local value2 = math_floor(prev_accum_damage / (DAMAGE_UNIT * 2))
+    if (value1 <= value2) then return end
 
     -- 피격 애니메이션
-    self.m_animator:changeAni('damage', false)
-    self:addAniHandler(function()
-        self.m_animator:changeAni('idle', true)
-    end)
+    if (self.m_state == 'attackDelay') then
+        self.m_animator:changeAni('damage', false)
+
+        self:addAniHandler(function()
+            self.m_animator:changeAni('idle', true)
+        end)
+    end
 
     -- 아이템 드랍
-    local count = math_random(2, 3)
-
-    for i = 1, count do
-        self:dispatch('drop_gold', {}, self)
-    end
+    self:dispatch('drop_gold', {}, self)
 end
 -------------------------------------
 -- function runAction_Grow

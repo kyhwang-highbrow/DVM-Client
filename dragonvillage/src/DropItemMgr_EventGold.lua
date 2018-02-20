@@ -23,18 +23,18 @@ end
 function DropItemMgr_EventGold:designateDropMonster()
     self.m_lDropItemStack = {}
 
-    -- 전투 중 30개까지만 드랍
-    self.m_remainItemCnt = 30
+    -- 전투 중 100개까지만 드랍
+    self.m_remainItemCnt = 100
 
-    -- 전투 종료시 110개까지만 드랍
-    self.m_remainFinalItemCnt = 110
+    -- 전투 종료시 120개까지만 드랍
+    self.m_remainFinalItemCnt = 120
 
     local total_count = self.m_remainItemCnt + self.m_remainFinalItemCnt
 
     for i = 1, total_count do
         local t_item = {
             type = 'gold',
-            value = math_random(300, 700)
+            value = math_random(100, 500)
         }
         
         table.insert(self.m_lDropItemStack, t_item)
