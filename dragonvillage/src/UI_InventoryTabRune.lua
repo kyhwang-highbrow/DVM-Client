@@ -78,10 +78,8 @@ function UI_InventoryTabRune:init_runeTableView(slot_idx)
             self.m_inventoryUI:setSelectedItem(ui, data)
 			
 			-- 신규 룬 표시 삭제
-			if (is_new) then
-				local roid = data['roid']
-				g_highlightData:removeNewRoid(roid)
-			end
+			local roid = data['roid']
+			g_highlightData:removeNewRoid(roid)
         end
         ui.vars['clickBtn']:registerScriptTapHandler(click_func)
     end

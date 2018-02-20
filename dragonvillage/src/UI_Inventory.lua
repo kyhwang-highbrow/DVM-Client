@@ -88,6 +88,7 @@ end
 -- function click_exitBtn
 -------------------------------------
 function UI_Inventory:click_exitBtn()
+	g_highlightData:saveNewDoidMap()
     self:close()
 end
 
