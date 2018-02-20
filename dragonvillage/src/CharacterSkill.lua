@@ -97,12 +97,23 @@ function Character:doSkillBySkillTable(t_skill, t_data)
 
 		-- [상태 효과]만 거는 스킬
 		elseif string.find(skill_type, 'status_effect') then
-			StatusEffectHelper:doStatusEffectByTable(self, t_skill, nil, t_data)
+            -- 특정 스킬의 말풍선 표시를 추가 상태효과가 부여되었을때만 표시하기 위한 하드코딩...
+            if (isExistValue(t_skill['sid'], 208131, 208132, 208134)) then
+                StatusEffectHelper:doStatusEffectByTable(self, t_skill, function()
+                    -- 텍스트
+                    if ( self.m_charType == 'dragon') then
+                        self.m_world:addSkillSpeech(self, t_skill['t_name'])
+                    end
+                end, t_data)
+            else
+			    StatusEffectHelper:doStatusEffectByTable(self, t_skill, nil, t_data)
             
-            -- 텍스트
-            if ( self.m_charType == 'dragon') then
-                self.m_world:addSkillSpeech(self, t_skill['t_name'])
+                -- 텍스트
+                if ( self.m_charType == 'dragon') then
+                    self.m_world:addSkillSpeech(self, t_skill['t_name'])
+                end
             end
+
 			return true
 
 		-- [스킬]
