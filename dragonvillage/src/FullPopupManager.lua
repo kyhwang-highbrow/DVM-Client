@@ -14,7 +14,6 @@ FULL_POPUP_TYPE = {
 -- class FullPopupManager
 -------------------------------------
 FullPopupManager = class({
-        m_first_login = 'boolean',
         m_title_to_lobby = 'boolean',
     })
 
@@ -33,7 +32,6 @@ end
 -- function init
 -------------------------------------
 function FullPopupManager:init()
-    self.m_first_login = false
     self.m_title_to_lobby = false
 end
 
@@ -97,38 +95,6 @@ function FullPopupManager:showFullPopup(pid)
     ui.vars['checkBtn']:setVisible(false)
     ui.vars['checkLabel']:setVisible(false)
     ui.vars['mainNode']:setPositionY(0)
-end
-
--------------------------------------
--- function initLoacalData
--------------------------------------
-function FullPopupManager:initLoacalData()
-    g_localData:lockSaveData()
-    
-    local list = g_settingData:get('event_full_popup') or {}
-    for k, v in pairs(list) do
-        g_settingData:applySettingData(false, 'event_full_popup', k)
-    end
-    g_localData:unlockSaveData()
-end
-
--------------------------------------
--- function setFirstLogin
--------------------------------------
-function FullPopupManager:setFirstLogin(bool)
-    self.m_first_login = bool
-
-    -- 로컬데이터 초기화 팝업 보여줄때가 아닌 최초 로그인으로 변경
-    if (self.m_first_login == true) then
-        self:initLoacalData()
-    end
-end
-
--------------------------------------
--- function isFirstLogin
--------------------------------------
-function FullPopupManager:isFirstLogin()
-    return self.m_first_login 
 end
 
 -------------------------------------

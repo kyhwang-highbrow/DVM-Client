@@ -60,7 +60,7 @@ function UI_Lobby:initUI()
 	local vars = self.vars
 
 	-- 로비 가이드
-	self.m_lobbyGuide = UIC_LobbyGuide(vars['roadTitleLabel'], vars['roadDescLabel'], vars['masterRoadNotiSprite'])
+	self.m_lobbyGuide = UIC_LobbyGuide(vars['masterRoadBtn'], vars['roadTitleLabel'], vars['roadDescLabel'], vars['masterRoadNotiSprite'])
 
     -- 기타 버튼 생성
     local ui = UIC_ExtendedUI:create('lobby_etc_extended.ui')
@@ -545,6 +545,14 @@ end
 -------------------------------------
 function UI_Lobby:refresh_masterRoad()
     self.m_lobbyGuide:refresh()
+	
+	-- 로비 가이드 off이고 성장일지 클리어하지 못했다면 위치 변경
+	if (self.m_lobbyGuide:isOffMode()) then
+		local is_clear = g_dragonDiaryData:isClearAll()
+		if (not is_clear) then
+			vars['dragonDiaryBtn']:setPositionY(110)
+		end
+	end
 end
 
 -------------------------------------

@@ -366,6 +366,48 @@ function SettingData:setExplorationDec(epr_id, l_doid)
 end
 
 -------------------------------------
+-- function getLobbyGuideSeen
+-- @breif
+-------------------------------------
+function SettingData:getLobbyGuideSeen(guide_mode)
+    return self:get('lobby_guide_seen', guide_mode)
+end
+
+-------------------------------------
+-- function setLobbyGuideSeen
+-- @breif
+-------------------------------------
+function SettingData:setLobbyGuideSeen(guide_mode)
+    self:applySettingData(true, 'lobby_guide_seen', guide_mode)
+end
+
+-------------------------------------
+-- function clearDataList
+-- @breif
+-------------------------------------
+function SettingData:clearDataList(key)
+	local list = g_settingData:get(key)
+	if (not list) then 
+		return
+	end
+
+    for k, v in pairs(list) do
+        g_settingData:applySettingData(false, key, k)
+    end
+end
+
+-------------------------------------
+-- function clearDataListDaily
+-- @breif
+-------------------------------------
+function SettingData:clearDataListDaily()
+	self:lockSaveData()
+    self:clearDataList('event_full_popup')
+	self:clearDataList('lobby_guide_seen')
+	self:unlockSaveData()
+end
+
+-------------------------------------
 -- function applySetting
 -------------------------------------
 function SettingData:applySetting()

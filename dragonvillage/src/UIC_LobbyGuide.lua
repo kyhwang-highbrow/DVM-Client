@@ -1,12 +1,15 @@
 local GUIDE_MODE =
 {
-	['master_road'] = 1,
-	['capsule_box'] = 2,
+	['capsule_box'] = 1,
+
+	['master_road'] = 98,
+	['off'] = 99,
 }
 -------------------------------------
 -- class UIC_LobbyGuide
 -------------------------------------
 UIC_LobbyGuide = class({
+		m_root = '',
 		m_titleLabel = 'UIC_Label',
 		m_descLabel = 'UIC_Label',
 		m_notiIcon = 'cc.Sprite',
@@ -16,8 +19,10 @@ UIC_LobbyGuide = class({
 
 -------------------------------------
 -- function init
+-- @comment 당초 예상보다 필요한게 많아서... 나중에 필요하면 UI로 만들자
 -------------------------------------
-function UIC_LobbyGuide:init(title_label, desc_label, noti_icon)
+function UIC_LobbyGuide:init(root, title_label, desc_label, noti_icon)
+	self.m_root = root
 	self.m_titleLabel = title_label
 	self.m_descLabel = desc_label
 	self.m_notiIcon = noti_icon
@@ -29,21 +34,13 @@ end
 function UIC_LobbyGuide:refresh()
 	local title, desc
 	local is_show_master_road
-	local has_reward, _ = g_masterRoadData:hasRewardRoad()
-
-	-- 마스터의 길 보상이 있는 경우
-	if (has_reward) then
-		is_show_master_road = true
-	-- 마스터의 길을 전부 클리어한 경우
-	elseif (g_masterRoadData:isClearAllRoad()) then
-		is_show_master_road = false
-	-- 랜덤
-	else
-		is_show_master_road = (math_random(2) == 1)
-	end
+	
+	-- 안내 모드
+	local mode = self:getModeByCondition()
+	self.m_mode = mode
 
 	-- 마스터의 길
-	if (is_show_master_road) then
+	if (mode == GUIDE_MODE['master_road']) then
 		self.m_mode = GUIDE_MODE['master_road']
 
 		local rid = g_masterRoadData:getFocusRoad()
@@ -52,16 +49,22 @@ function UIC_LobbyGuide:refresh()
 		title = Str('마스터의 길')
         desc = Str(t_road['t_desc'], t_road['desc_1'], t_road['desc_2'], t_road['desc_3'])
 
+		local has_reward, _ = g_masterRoadData:hasRewardRoad()
 		self:setVisibleNotiIcon(has_reward)
 		
-	-- 드빌 도우미
-	else
+	-- 캡슐
+	elseif (mode == GUIDE_MODE['capsule_box']) then
 		self.m_mode = GUIDE_MODE['capsule_box']
 
 		title = Str('캡슐 뽑기')
 		desc = Str('1등급 보상 변경')
 
 		self:setVisibleNotiIcon(true)
+
+	-- off
+	elseif (mode == GUIDE_MODE['off']) then
+		self.m_root:setVisible(false)
+		return
 
 	end
 
@@ -71,18 +74,57 @@ function UIC_LobbyGuide:refresh()
 end
 
 -------------------------------------
+-- function getModeByCondition
+-- @brief 조건에 맞춰 도우미 모드를 선택한다.
+-------------------------------------
+function UIC_LobbyGuide:getModeByCondition()
+	-- 마스터의 길 보상 (최우선)
+	local has_reward, _ = g_masterRoadData:hasRewardRoad()
+	if (has_reward) then
+		return GUIDE_MODE['master_road']
+	end
+
+	-- 각종 조건들
+	local wday = pl.Date():weekday_name()
+	local lv = g_userData:get('lv')
+
+	-- 캡슐
+	local seen_capsule = g_settingData:getLobbyGuideSeen(GUIDE_MODE['capsule_box'])
+	if (not seen_capsule) and (lv >= 20) then
+		if (wday == 'Tue') or (wday == 'Sat') then
+			return GUIDE_MODE['capsule_box']
+		end
+	end
+
+	
+	-- 그외 여러 컨텐츠 안내 추가 예정
+	
+
+	-- 다른 조건에 안걸리고 마스터의 길도 전부 클리어
+	if (g_masterRoadData:isClearAllRoad()) then
+		return GUIDE_MODE['off']
+	else
+		return GUIDE_MODE['master_road']
+	end
+end
+
+-------------------------------------
 -- function onClick
 -------------------------------------
 function UIC_LobbyGuide:onClick()
+	-- 마스터의 길
     if (self.m_mode == GUIDE_MODE['master_road']) then
 		local ui = UI_MasterRoadPopup()
 		ui:setCloseCB(function()
 			self:refresh()
 		end)
 
+	-- 캡슐
 	elseif (self.m_mode == GUIDE_MODE['capsule_box']) then
 		g_capsuleBoxData:openCapsuleBoxUI(true) -- show_reward_list
-		self:setVisibleNotiIcon(false)
+
+		g_settingData:setLobbyGuideSeen(GUIDE_MODE['capsule_box'])
+		self:refresh()
 
 	end
 end
@@ -92,6 +134,13 @@ end
 -------------------------------------
 function UIC_LobbyGuide:setVisibleNotiIcon(b)
 	self.m_notiIcon:setVisible(b)
+end
+
+-------------------------------------
+-- function isOffMode
+-------------------------------------
+function UIC_LobbyGuide:isOffMode()
+	return (self.m_mode == GUIDE_MODE['off'])
 end
 
 --@CHECK

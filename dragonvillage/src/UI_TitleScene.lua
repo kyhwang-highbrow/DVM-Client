@@ -734,9 +734,10 @@ function UI_TitleScene:workGameLogin()
             Analytics:setEnable(false)
         end
 
-        -- 최초 로그인 상태 저장
-        local first_login = ret['first_login'] or false
-        FullPopupManager:setFirstLogin(first_login)
+        -- 일일 데이터 초기화 (풀팝업, 로비 도우미 본 기록 등)
+        if (ret['first_login']) then
+			g_settingData:clearDataListDaily()
+		end
         
         self:doNextWork()
     end
