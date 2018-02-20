@@ -27,7 +27,7 @@ end
 function UI_PackageTabButton:initUI()
     local vars = self.vars
 
-    -- ¹öÆ° ÀÌ¸§ (ÆĞÅ°Áö ¹øµé ÂüÁ¶)
+    -- ë²„íŠ¼ ì´ë¦„ (íŒ¨í‚¤ì§€ ë²ˆë“¤ ì°¸ì¡°)
     local struct_product = self.m_struct_product
     local pid = struct_product['product_id']
     local desc = TablePackageBundle:getPackageDescWithPid(pid)
@@ -35,7 +35,7 @@ function UI_PackageTabButton:initUI()
         vars['listLabel']:setString(desc)
     end
 
-    -- ÆĞÅ°Áö ¹îÁö
+    -- íŒ¨í‚¤ì§€ ë±ƒì§€
     local badge = struct_product:makeBadgeIcon()
     if (badge) then
 		vars['badgeNode']:addChild(badge)

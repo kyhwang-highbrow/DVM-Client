@@ -14,12 +14,12 @@ function SkillIndicatorMgr_ClanRaid:update(dt)
             self:clear()
             self:closeSkillToolTip()
         else
-            -- ÀÎµğÄÉÀÌÅÍ Ãæµ¹ Á¤º¸¸¦ ¸ÅÇÁ·¹ÀÓ Ã¼Å©ÇØ¾ßÇÑ´Ù...
+            -- ì¸ë””ì¼€ì´í„° ì¶©ëŒ ì •ë³´ë¥¼ ë§¤í”„ë ˆì„ ì²´í¬í•´ì•¼í•œë‹¤...
             self.m_selectHero.m_skillIndicator.m_bDirty = true
         end
 
     elseif (not self.m_world.m_gameState:isFight()) then
-        -- ÀüÅõ ÁßÀÌ ¾Æ´Ò °æ¿ì¸¸ ÅÍÄ¡ ½ÃÀÛ½Ã Á¤º¸¸¦ ÃÊ±âÈ­
+        -- ì „íˆ¬ ì¤‘ì´ ì•„ë‹ ê²½ìš°ë§Œ í„°ì¹˜ ì‹œì‘ì‹œ ì •ë³´ë¥¼ ì´ˆê¸°í™”
         self:clear()
     end
 end

@@ -1,4 +1,4 @@
-﻿URL = {}
+URL = {}
 
 -- Game server 
 URL['SERVER_DEV'] = 'http://dv-test.perplelab.com:9003'

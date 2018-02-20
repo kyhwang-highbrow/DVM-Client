@@ -1,4 +1,4 @@
-﻿local PARENT = UI_GamePause
+local PARENT = UI_GamePause
 
 -------------------------------------
 -- class UI_GamePause_ClanRaid

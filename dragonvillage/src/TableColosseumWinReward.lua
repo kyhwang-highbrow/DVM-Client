@@ -18,14 +18,14 @@ end
 
 -------------------------------------
 -- function getNextReawardInfo
--- @brief ÇöÀç ½Â¼ö¿Í ºñ±³ÇÏ¿© ´ÙÀ½¿¡ ¹ŞÀ» ½Â¸® º¸»óÀ» Ã£´Â´Ù
+-- @brief í˜„ì¬ ìŠ¹ìˆ˜ì™€ ë¹„êµí•˜ì—¬ ë‹¤ìŒì— ë°›ì„ ìŠ¹ë¦¬ ë³´ìƒì„ ì°¾ëŠ”ë‹¤
 -------------------------------------
 function TableColosseumWinReward:getNextReawardInfo(curr_win)
     if (self == THIS) then
         self = THIS()
     end
 
-	-- ÃÖÃÊ È£Ãâ ÇÒ ¶§ Á¤·ÄµÈ ÀÎµ¦½º Å×ÀÌºíÀ» »ı¼ºÇÑ´Ù
+	-- ìµœì´ˆ í˜¸ì¶œ í•  ë•Œ ì •ë ¬ëœ ì¸ë±ìŠ¤ í…Œì´ë¸”ì„ ìƒì„±í•œë‹¤
 	if (not L_REWARD) then
 		L_REWARD = {}
 		for _, t_reward in pairs(self.m_orgTable) do
@@ -36,7 +36,7 @@ function TableColosseumWinReward:getNextReawardInfo(curr_win)
 		end)
 	end
 
-	-- ´ÙÀ½ ½Â¼öÀÇ º¸»ó Å×ÀÌºíÀ» Ã£´Â´Ù
+	-- ë‹¤ìŒ ìŠ¹ìˆ˜ì˜ ë³´ìƒ í…Œì´ë¸”ì„ ì°¾ëŠ”ë‹¤
 	local t_ret
 	for _, t_reward in ipairs(L_REWARD) do
 		if (t_reward['win'] > curr_win) then
@@ -45,8 +45,8 @@ function TableColosseumWinReward:getNextReawardInfo(curr_win)
 		end
 	end
 
-	-- ¼¼¹ÌÅ¬·Ğ ¹®ÀÚ¿­À» È°¿ëÇÏ±â ÆíÇÏµµ·Ï t_itemÀ¸·Î ¹Ù²ãÁØ´Ù
-	-- ³ªÁß¿¡ ÇÔ¼ö·Î ¸¸µé¾î µÎÀÚ
+	-- ì„¸ë¯¸í´ë¡  ë¬¸ìì—´ì„ í™œìš©í•˜ê¸° í¸í•˜ë„ë¡ t_itemìœ¼ë¡œ ë°”ê¿”ì¤€ë‹¤
+	-- ë‚˜ì¤‘ì— í•¨ìˆ˜ë¡œ ë§Œë“¤ì–´ ë‘ì
 	if (t_ret) then
 		local l_item = plSplit(t_ret['reward'], ';')
 		t_ret['t_item'] = {
