@@ -32,20 +32,43 @@ function DropItemMgr_EventGold:designateDropMonster()
 end
 
 -------------------------------------
+-- function dropItem
+-------------------------------------
+function DropItemMgr_EventGold:dropItem(x, y)
+    local item = DropItem(nil, {0, 0, 15})
+    item.m_world = self.m_world
+    item:init_item('item_marbl_gold')
+    item:initState()
+    item:setPosition(x + math_random(-300, 300), y + math_random(-300, 300))
+
+    self:addItem(item)
+
+    self.m_dropCount = (self.m_dropCount + 1)
+
+    self.m_world.m_logRecorder:recordLog('drop_item_cnt', 1)
+
+    -- 자동 획득 활성화일 경우 즉시 획득
+    if (self.m_bActiveAutoItemPick == true) then
+        self:obtainItem(item)
+        item:changeState('appear_auto_obtain')
+    end
+
+    return item
+end
+
+-------------------------------------
 -- function onEvent
 -------------------------------------
 function DropItemMgr_EventGold:onEvent(event_name, t_event, ...)
     if (event_name == 'drop_gold') then
         local arg = {...}
         local enemy = arg[1]
-        local pos_x = enemy.pos.x - 600
-        local pos_y = enemy.pos.y
-
+        
         if (0 < self.m_remainItemCnt) then
-            local offset_x = math_random(-300, 300)
-            local offset_y = math_random(-300, 300)
+            local pos_x = enemy.pos.x
+            local pos_y = enemy.pos.y
 
-            self:dropItem(pos_x + offset_x, pos_y + offset_y)
+            self:dropItem(pos_x, pos_y)
             self.m_remainItemCnt = (self.m_remainItemCnt - 1)
         end
     end

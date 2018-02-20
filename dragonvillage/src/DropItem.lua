@@ -29,6 +29,8 @@ function DropItem:init_item(type)
         
     if (self.m_type == 'item_marbl') then
         file_name = 'res/item/item_marble/item_marble.vrp'
+    elseif (self.m_type == 'item_marbl_gold') then
+        file_name = 'res/item/item_marble_gold/item_marble_gold.vrp'
     end
 
     self:initAnimatorItem(file_name)

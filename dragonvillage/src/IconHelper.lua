@@ -432,12 +432,7 @@ end
 -------------------------------------
 function IconHelper:getAttributeIcon(attribute)
     attribute = attributeNumToStr(attribute)
-
-    -- 무속성의 경우
-    if (attribute == T_ATTR_LIST[ATTR_NONE]) then
-        attribute = 'all'
-    end
-
+    
     local res_name = string.format('res/ui/icons/attr/attr_%s_02.png', attribute)
     local sprite = self:getIcon(res_name)
     return sprite

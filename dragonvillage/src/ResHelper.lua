@@ -5,7 +5,14 @@ ResHelper = {}
 -- @brief UI에서 드래곤 속성별 배경 이미지 생성
 -------------------------------------
 function ResHelper:getUIDragonBG(attr, animation)
-    local res = string.format('res/bg/ui/dragon_bg_%s/dragon_bg_%s.vrp', attr, attr)
+    local res
+
+    if (attr == T_ATTR_LIST[ATTR_NONE]) then
+        res = 'res/bg/ui/dragon_goodbye/dragon_goodbye.vrp'
+    else
+        res = string.format('res/bg/ui/dragon_bg_%s/dragon_bg_%s.vrp', attr, attr)
+    end
+
     local animator = MakeAnimator(res)
 
     animation = animation or 'mini'
