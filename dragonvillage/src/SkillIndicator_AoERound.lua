@@ -1,5 +1,15 @@
 local PARENT = SkillIndicator
 
+-- 자동시 최적의 위치를 찾기 위해 사용되는 것들
+local L_DIR = {}
+
+do
+    -- 순회할 각도 리스트 초기화
+    for i = 1, 12 do
+        table.insert(L_DIR, (i - 1) * 5)
+    end
+end
+
 -------------------------------------
 -- class SkillIndicator_AoERound
 -------------------------------------
@@ -185,15 +195,17 @@ function SkillIndicator_AoERound:optimizeIndicatorData(l_target, fixed_target)
         return count
     end
 
+    -- 각도 리스트의 를 랜덤하게 한번 섞음
+    L_DIR = randomShuffle(L_DIR)
+
     for _, v in ipairs(l_target) do
         for i, body in ipairs(v:getBodyList()) do
             local x = v.pos['x'] + body['x']
             local y = v.pos['y'] + body['y']
             local skill_half = self.m_range
             local distance = body['size'] + skill_half
-            local dir = 0
 
-            while (dir < 360) do
+            for _, dir in ipairs(L_DIR) do
                 local pos = getPointFromAngleAndDistance(dir, distance - 1)
                 local count = setIndicator(v, x + pos['x'], y + pos['y'])
 
@@ -207,15 +219,13 @@ function SkillIndicator_AoERound:optimizeIndicatorData(l_target, fixed_target)
                     }
                 end
 
-                dir = dir + 5
-
                 if (max_count >= self.m_targetLimit) then break end
             end
 
             if (max_count >= self.m_targetLimit) then break end
         end
     end
-    
+
     if (max_count > 0) then
         setIndicator(t_best['target'], t_best['x'], t_best['y'])
         return true

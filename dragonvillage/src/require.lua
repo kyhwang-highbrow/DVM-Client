@@ -373,6 +373,7 @@ local t_module = {
     'GameTimeScale',
     'GameHighlightMgr',
     'DropItemMgr',
+    'DropItemMgr_EventGold',
     'DropItemMgr_Intro',
 	'ShakeManager',
     'BenchmarkManager',

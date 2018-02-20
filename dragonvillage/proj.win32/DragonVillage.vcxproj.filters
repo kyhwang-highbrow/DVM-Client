@@ -3226,6 +3226,9 @@
     <None Include="..\src\UI_GameEventGold.lua">
       <Filter>lua\UI</Filter>
     </None>
+    <None Include="..\src\DropItemMgr_EventGold.lua">
+      <Filter>lua\src</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Classes">

@@ -410,10 +410,6 @@ end
 -- function bindEnemy
 -------------------------------------
 function GameWorld:bindEnemy(enemy)
-    if (self.m_dropItemMgr) then
-        enemy:addListener('character_dead', self.m_dropItemMgr)
-    end
-    
     -- 등장 완료 콜백 등록
     enemy:addListener('enemy_appear_done', self.m_gameState)
 
@@ -432,10 +428,18 @@ function GameWorld:bindEnemy(enemy)
     enemy:addListener('character_set_hp', self)
     enemy:addListener('get_status_effect', self)
 
-    -- 모드별 특수한 이벤트
+    -- 모드별 이벤트
     if (self.m_gameMode == GAME_MODE_EVENT_GOLD) then
         -- 딜량에 따른 총 점수 계산을 위함
         enemy:addListener('character_set_damage', self.m_gameState)
+
+        -- 다잉 애니메이션 중에 드랍되도록 함
+        enemy:addListener('drop_gold', self.m_dropItemMgr)
+
+    elseif (self.m_dropItemMgr) then
+        -- 완전히 죽었을 경우 드랍되도록 함
+        enemy:addListener('character_dead', self.m_dropItemMgr)
+
     end
 end
 

@@ -26,7 +26,8 @@ end
 function GameState_EventGold:initState()
     PARENT.initState(self)
 
-    self:addState(GAME_STATE_SUCCESS,                GameState_EventGold.update_success)
+    self:addState(GAME_STATE_SUCCESS_WAIT,  GameState_EventGold.update_success_wait)
+    self:addState(GAME_STATE_SUCCESS,       GameState_EventGold.update_success)
 end
 
 -------------------------------------
@@ -62,24 +63,46 @@ function GameState_EventGold:onEvent(event_name, t_event, ...)
 end
 
 -------------------------------------
+-- function update_success_wait
+-------------------------------------
+function GameState_EventGold.update_success_wait(self, dt)
+    local world = self.m_world
+
+    if (self.m_stateTimer == 0) then
+        world:setGameFinish()
+
+        if world.m_skillIndicatorMgr then
+            world.m_skillIndicatorMgr:clear(true)
+        end
+
+        -- 스킬 다 날려 버리자
+		world:removeMissileAndSkill()
+        world:removeHeroDebuffs()
+
+        -- 모든 적들을 죽임
+        world:removeAllEnemy()
+
+        -- 기본 배속으로 변경
+        world.m_gameTimeScale:setBase(1)
+        
+		-- @LOG : 스테이지 성공 시 클리어 시간
+		self.m_world.m_logRecorder:recordLog('lap_time', self.m_fightTimer)
+    end
+
+    local enemy_count = #world:getEnemyList()
+    if (enemy_count == 0) then
+        self:changeState(GAME_STATE_SUCCESS)
+    end
+end
+
+-------------------------------------
 -- function update_success
 -------------------------------------
 function GameState_EventGold.update_success(self, dt)
     if (self.m_stateTimer == 0) then
         local world = self.m_world
         world:setGameFinish()
-
-        -- 모든 적들을 죽임
-        world:removeAllEnemy()
-
-        -- 스킬과 미사일도 다 날려 버리자
-	    world:removeMissileAndSkill()
-        world:removeEnemyDebuffs()
         world:cleanupItem()
-
-        -- 기본 배속으로 변경
-        world.m_gameTimeScale:setBase(1)
-
         world:setWaitAllCharacter(false) -- 포즈 연출을 위해 wait에서 해제
 
         for i,dragon in ipairs(world:getDragonList()) do

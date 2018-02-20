@@ -390,12 +390,14 @@ function GameWorld:initGame(stage_name)
     -- 드랍 아이템 매니져 생성
     if (self.m_gameMode == GAME_MODE_ADVENTURE) then
         self.m_dropItemMgr = DropItemMgr(self)
-
-        if (self.m_dropItemMgr.m_bActiveAutoItemPick == true) then
-            self.m_inGameUI:showAutoItemPickUI()
-        end
+    elseif (self.m_gameMode == GAME_MODE_EVENT_GOLD) then
+        self.m_dropItemMgr = DropItemMgr_EventGold(self)
     end
 
+    if (self.m_dropItemMgr and self.m_dropItemMgr.m_bActiveAutoItemPick == true) then
+        self.m_inGameUI:showAutoItemPickUI()
+    end
+    
     do -- 카메라 초기 위치 설정이 있다면 적용
         local t_camera = self.m_waveMgr:getBaseCameraScriptData()
         if (t_camera) then

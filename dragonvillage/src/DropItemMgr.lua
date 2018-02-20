@@ -36,9 +36,7 @@ function DropItemMgr:init(world)
     self.m_bImmediatelyObtain = false
 
     -- 아이템을 드랍할 몬스터 지정
-    if (not self.m_world.m_bDevelopMode) then
-        self:designateDropMonster()
-    end
+    self:designateDropMonster()
 end
 
 -------------------------------------
@@ -46,6 +44,8 @@ end
 -- @brief 드랍 몬스터 지정
 -------------------------------------
 function DropItemMgr:designateDropMonster()
+    if (not self.m_world.m_bDevelopMode) then return end
+
     local stage_id = self.m_world.m_stageID
 
     local gamekey = self.m_world:getGameKey()

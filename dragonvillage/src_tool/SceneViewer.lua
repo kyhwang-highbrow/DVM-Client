@@ -649,14 +649,14 @@ function SceneViewer:makeDarkModeHeroVisual()
             end
         end
     end
-    --[[
+    
     do -- 이펙트(앞 레이어)
         local effect = makeDarkModeBoneEffect('monstereffect', 'res/effect/effect_monsterdragon/effect_monsterdragon_f.vrp')
         if (effect) then
             self.m_animator.m_node:addChild(effect.m_node)
         end
     end
-    ]]--
+    
     do -- 이펙트(뒤 레이어)
         local effect = makeDarkModeBoneEffect('monstereffect', 'res/effect/effect_monsterdragon/effect_monsterdragon_b.vrp')
         if (effect) then
