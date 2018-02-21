@@ -73,6 +73,11 @@ function ServerData_Stage:getStageName(stage_id)
     -- 인트로 전투
     elseif (game_mode == GAME_MODE_INTRO) then
         name = Str('시나리오 전투')
+
+    -- 황금던전
+    elseif (game_mode == GAME_MODE_EVENT_GOLD) then
+        name = Str('황금 던전')
+
     end
 
     return name
