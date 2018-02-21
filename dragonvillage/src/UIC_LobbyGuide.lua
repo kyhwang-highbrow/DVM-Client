@@ -87,13 +87,10 @@ function UIC_LobbyGuide:getModeByCondition()
 	local wday = pl.Date():weekday_name()
 	local lv = g_userData:get('lv')
 
-	-- 캡슐
+	-- 캡슐 : 1일 1회 / 매주 화, 토 / 20렙 이상
 	local seen_capsule = g_settingData:getLobbyGuideSeen(GUIDE_MODE['capsule_box'])
 	if (not seen_capsule) and (lv >= 20) then
-		-- QA 테스트 용도
-		if (not IS_LIVE_SERVER()) then
-			return GUIDE_MODE['capsule_box']
-		elseif (wday == 'Tue') or (wday == 'Sat') then
+		if (wday == 'Tue') or (wday == 'Sat') then
 			return GUIDE_MODE['capsule_box']
 		end
 	end
