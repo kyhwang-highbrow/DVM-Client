@@ -79,7 +79,8 @@ end
 -------------------------------------
 function UINavigatorDefinition:goTo_tamer(...)
     -- 해당 UI가 열려있을 경우
-    local is_opend, idx, ui = self:findOpendUI('UI_TamerManagePopup')
+    -- UI_SkillDetailPopup_Tamer로 닫아줘야 중복해서 팝업 뜰 때 오류가 안남.
+    local is_opend, idx, ui = self:findOpendUI('UI_SkillDetailPopup_Tamer')
     if (is_opend == true) then
         self:closeUIList(idx)
         return
