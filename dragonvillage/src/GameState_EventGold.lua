@@ -93,7 +93,7 @@ function GameState_EventGold.update_success_wait(self, dt)
     local item_count = world.m_dropItemMgr:getItemCount()
 
     if (enemy_count == 0) then
-        if (item_count == 0 or self.m_stateTimer > 20) then
+        if (item_count == 0 or self.m_stateTimer > 30) then
             self:changeState(GAME_STATE_SUCCESS)
         end
     end
