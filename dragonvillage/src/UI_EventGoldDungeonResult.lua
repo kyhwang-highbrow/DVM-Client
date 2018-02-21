@@ -32,7 +32,7 @@ function UI_EventGoldDungeonResult:init(stage_id, damage, t_data)
     cc.Director:getInstance():getScheduler():setTimeScale(1)
 
     -- 백키 지정
-    g_currScene:pushBackKeyListener(self, function() self:click_okBtn() end, 'UI_EventGoldDungeonResult')
+    g_currScene:pushBackKeyListener(self, function() self:click_againBtn() end, 'UI_EventGoldDungeonResult')
 
     self:initUI()
     self:initButton()
@@ -53,7 +53,10 @@ end
 -------------------------------------
 function UI_EventGoldDungeonResult:initButton()
     local vars = self.vars
-    vars['okBtn']:registerScriptTapHandler(function() self:click_okBtn() end)
+    vars['homeBtn']:registerScriptTapHandler(function() self:click_homeBtn() end)
+    vars['againBtn']:registerScriptTapHandler(function() self:click_againBtn() end)
+    vars['eventBtn']:registerScriptTapHandler(function() self:click_eventBtn() end)
+    vars['quickBtn']:registerScriptTapHandler(function() self:click_quickBtn() end)
     vars['statsBtn']:registerScriptTapHandler(function() self:click_statsBtn() end)
     vars['skipBtn']:registerScriptTapHandler(function() self:click_screenBtn() end)
 end
@@ -187,6 +190,9 @@ end
 function UI_EventGoldDungeonResult:show_item_reward()
     local vars = self.vars
 
+    local target_node = vars['rewardNode']
+    target_node:setVisible(true)
+
     -- 드랍한 아이템 만큼 연출
     local reward_list = self.m_data['drop_reward_list']
     for i, v in ipairs(reward_list) do
@@ -195,7 +201,6 @@ function UI_EventGoldDungeonResult:show_item_reward()
 
         local item_card = UI_ItemCard(item_id, count)
         item_card.root:setScale(ITEM_CARD_SCALE)
-        local target_node = vars['rewardNode']
         target_node:addChild(item_card.root)
     end
 
@@ -222,8 +227,7 @@ function UI_EventGoldDungeonResult:direction_end()
     vars['energyIconNode']:addChild(icon)
 
     vars['energyNode']:setVisible(true)
-    vars['okBtn']:setVisible(true)
-    vars['statsBtn']:setVisible(true)
+    vars['btnMenu']:setVisible(true)
 end
 
 -------------------------------------
@@ -255,10 +259,63 @@ function UI_EventGoldDungeonResult:doNextWorkWithDelayTime(second)
 end
 
 -------------------------------------
--- function click_okBtn
--- @brief "확인" 버튼
+-- function startGame
 -------------------------------------
-function UI_EventGoldDungeonResult:click_okBtn()
+function UI_EventGoldDungeonResult:startGame()
+    local stage_id = EVENT_GOLD_STAGE_ID
+	local deck_name = g_deckData:getSelectedDeckName()
+    local combat_power = g_deckData:getDeckCombatPower(deck_name)
+
+	local function finish_cb(game_key)
+		local stage_name = 'stage_' .. stage_id
+		local scene = SceneGame(game_key, stage_id, stage_name, false)
+		scene:runScene()
+	end
+
+    g_stageData:requestGameStart(stage_id, deck_name, combat_power, finish_cb, fail_cb)
+end
+
+-------------------------------------
+-- function click_homeBtn
+-- @brief 로비 버튼
+-------------------------------------
+function UI_EventGoldDungeonResult:click_homeBtn()
+	UINavigator:goTo('lobby')
+end
+
+-------------------------------------
+-- function click_againBtn
+-- @brief 다시하기 버튼
+-------------------------------------
+function UI_EventGoldDungeonResult:click_againBtn()
+	UINavigator:goTo('event_gold_dungeon')
+end
+
+-------------------------------------
+-- function click_quickBtn
+-- @brief 바로재시작 버튼
+-------------------------------------
+function UI_EventGoldDungeonResult:click_quickBtn()
+    local stamina_cnt = g_staminasData:getStaminaCount('event_st')
+    -- 충전 불가능한 형태의 입장권
+	if (stamina_cnt <= 0) then
+        local msg = Str('입장권이 부족합니다.')
+        MakeSimplePopup(POPUP_TYPE.OK, msg)
+        return
+    end
+
+    -- 씬 전환을 두번 호출 하지 않도록 하기 위함
+	local quick_btn = self.vars['quickBtn']
+	quick_btn:setEnabled(false)
+
+    self:startGame()
+end
+
+-------------------------------------
+-- function click_eventBtn
+-- @brief 황금던전 버튼
+-------------------------------------
+function UI_EventGoldDungeonResult:click_eventBtn()
 	UINavigator:goTo('event_gold_dungeon')
 end
 
