@@ -166,8 +166,9 @@ function GameState_EventGold:makeResultUI(is_success)
     -- 2. UI 생성
     func_ui_result = function()
         local world = self.m_world
-        local stage_id = world.m_stageID        
-        local ui = UI_EventGoldDungeonResult(stage_id, t_result_ref)
+        local stage_id = world.m_stageID      
+        local damage = self.m_accumDamage:get()  
+        local ui = UI_EventGoldDungeonResult(stage_id, damage, t_result_ref)
     end
 
     -- 최초 실행

@@ -3,6 +3,8 @@
 -------------------------------------
 UI_EventGoldDungeonResult = class(UI, {
         m_stageID = 'number',
+        m_damage = 'number',
+
         m_workIdx = 'number',
         m_lWorkList = 'list',
 
@@ -13,8 +15,9 @@ local ITEM_CARD_SCALE = 0.65
 -------------------------------------
 -- function init
 -------------------------------------
-function UI_EventGoldDungeonResult:init(stage_id, t_data)
+function UI_EventGoldDungeonResult:init(stage_id, damage, t_data)
     self.m_stageID = stage_id
+    self.m_damage = damage
     self.m_data = t_data
 
     local vars = self:load('event_gold_dungeon_result.ui')
@@ -63,8 +66,7 @@ function UI_EventGoldDungeonResult:setWorkList()
     self.m_lWorkList = {}
 
     table.insert(self.m_lWorkList, 'direction_start')
---    table.insert(self.m_lWorkList, 'direction_showScore')
---    table.insert(self.m_lWorkList, 'direction_showStar')
+    table.insert(self.m_lWorkList, 'direction_showScore')
     table.insert(self.m_lWorkList, 'direction_showReward')
     table.insert(self.m_lWorkList, 'direction_end')
 end
@@ -125,6 +127,19 @@ end
 -- @brief 점수 연출
 -------------------------------------
 function UI_EventGoldDungeonResult:direction_showScore()
+    local vars = self.vars
+
+    local total_score = cc.Label:createWithBMFont('res/font/tower_score.fnt', '')
+    total_score:setAnchorPoint(cc.p(0.5, 0.5))
+    total_score:setDockPoint(cc.p(0.5, 0.5))
+    total_score:setAlignment(cc.TEXT_ALIGNMENT_CENTER, cc.VERTICAL_TEXT_ALIGNMENT_CENTER)
+    total_score:setAdditionalKerning(0)
+    vars['scoreNode']:addChild(total_score)
+
+    local new_score = NumberLabel(total_score, 0, 0.3)
+    new_score:setNumber(self.m_damage, false)
+
+    self:doNextWorkWithDelayTime(0.8)
 end
 
 -------------------------------------

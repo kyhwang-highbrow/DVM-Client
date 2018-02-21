@@ -38,8 +38,8 @@ function UI_EventGoldDungeon:initUI()
     -- 모드별 입장권 획득 개수
     local stamina_info = event_data:getStaminaInfo()
     if (stamina_info) then
-        local total_ticket = 0
-        local max_total_ticket = 0
+        local total_ticket = 1 -- 하루에 한개는 충전되므로 1 default
+        local max_total_ticket = 1
         for mode, data in pairs(stamina_info) do
             local curr_ticket = data['ticket'] or 0
             total_ticket = total_ticket + curr_ticket
@@ -77,6 +77,9 @@ function UI_EventGoldDungeon:initUI()
     -- 입장 버튼 활성화/비활성화 처리
     local stamina_cnt = event_data:getStaminaCount()
     vars['dungeonBtn']:setEnabled(stamina_cnt > 0)
+
+    vars['upMenu']:setSwallowTouch(false)
+    vars['downMenu']:setSwallowTouch(false)
 end
 
 -------------------------------------
