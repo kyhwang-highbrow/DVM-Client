@@ -81,7 +81,7 @@ function TutorialManager:startTutorial(tutorial_key, tar_ui, step, is_force)
 	-- 여기서 체크하게 되면 
 	-- 1. 계정 새로 생성 / 2. 개발모드 off / 3. 튜토리얼 시작 이 가능하다
 	if (IS_TEST_MODE()) then
-		return
+		--return
 	end
 
     -- 완료되지 않은 튜토리얼이라면
@@ -148,6 +148,14 @@ function TutorialManager:checkTutorialInLobby(ui_lobby)
 
 		-- 101 : 마스터의길 보상 수령
 		if (step == 101) then
+			-- 스텝 101에서 알 보상을 수령 후 스텝102 저장&진입 하기 전에 끝(?)나는 케이스가 있다 그거에 대한 보정
+			local is_exist_egg = g_eggsData:isExistTutorialEgg()
+			if (is_exist_egg) then
+				g_tutorialData:setStep(tutorial_key, 102)
+				UINavigator:goTo('hatchery', 'incubate')
+				return
+			end
+
 			local scene = SceneCommon(UI_MasterRoadPopup)
             scene:runScene()
 			return
