@@ -92,6 +92,7 @@ function GameState_EventGold.update_success_wait(self, dt)
     local enemy_count = #world:getEnemyList()
     local item_count = world.m_dropItemMgr:getItemCount()
 
+    -- 보스가 죽은 이후 드랍아이템이 모두 루팅 되었거나 일정시간이 지나면 종료
     if (enemy_count == 0) then
         if (item_count == 0 or self.m_stateTimer > 30) then
             self:changeState(GAME_STATE_SUCCESS)
