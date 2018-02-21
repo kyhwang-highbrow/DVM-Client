@@ -516,12 +516,18 @@ function LobbyMap:updateLobbyTamer(uid, struct_user_info)
     if (prev_dragon:getDid() ~= curr_dragon:getDid()) or 
         (prev_dragon:getEvolution() ~= curr_dragon:getEvolution()) then
 
+		local lobby_dragon = tamer.m_dragon
+
         -- did 변경
-        tamer.m_dragon.m_dragonID = curr_dragon:getDid()
+        lobby_dragon.m_dragonID = curr_dragon:getDid()
+		lobby_dragon.m_evolution = curr_dragon:getEvolution()
 
         -- res 변경
         local res = curr_dragon:getIngameRes()
-        tamer.m_dragon:initAnimator(res)
+        lobby_dragon:initAnimator(res)
+		
+		-- 위치 갱신
+		lobby_dragon:moveToTamer()
     end
 
     -- 복사를 해서 사용함 (변경 여부를 관리하기 위해)
