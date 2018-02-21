@@ -34,7 +34,7 @@ function DropItemMgr_EventGold:designateDropMonster()
     for i = 1, total_count do
         local t_item = {
             type = 'gold',
-            value = math_random(100, 500)
+            value = math_random(250, 650)
         }
         
         table.insert(self.m_lDropItemStack, t_item)
