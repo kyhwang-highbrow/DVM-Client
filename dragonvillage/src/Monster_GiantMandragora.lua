@@ -9,6 +9,8 @@ Monster_GiantMandragora = class(PARENT, {
         m_orgAnimatorScale = 'number',
         m_curAnimatorScale = 'number',
 
+        -- 전투 종료 후 드랍 관련
+        m_dropCount = 'number',
         m_dropInterval = 'number',
         m_dropTimer = 'number',
      })
@@ -78,18 +80,22 @@ function Monster_GiantMandragora.st_dying(owner, dt)
 
         local accum_damage = owner.m_world.m_gameState.m_accumDamage:get()
         local drop_count = math_floor(accum_damage / DAMAGE_UNIT) + 20
-        drop_count = math_min(drop_count, 120)
-
+        
+        owner.m_dropCount = math_min(drop_count, 120)
         owner.m_dropInterval = owner.m_animator:getDuration() / drop_count
         owner.m_dropTimer = 0
     end
 
-    while (owner.m_dropInterval <= owner.m_dropTimer) do
-        owner:dispatch('drop_gold_final', {}, owner)
-        owner.m_dropTimer = owner.m_dropTimer - owner.m_dropInterval
-    end
+    if (owner.m_dropCount > 0) then
+        while (owner.m_dropInterval <= owner.m_dropTimer) do
+            owner:dispatch('drop_gold_final', {}, owner)
 
-    owner.m_dropTimer = owner.m_dropTimer + dt
+            owner.m_dropCount = owner.m_dropCount - 1
+            owner.m_dropTimer = owner.m_dropTimer - owner.m_dropInterval
+        end
+
+        owner.m_dropTimer = owner.m_dropTimer + dt
+    end
 end
 
 -------------------------------------
