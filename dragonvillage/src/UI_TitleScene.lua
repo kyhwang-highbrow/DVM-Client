@@ -462,7 +462,8 @@ function UI_TitleScene:workCheckUserID()
     SoundMgr.m_bStopPreload = false
 
     local target_server = CppFunctions:getTargetServer()
-    if isWin32() then
+    -- QA 서버는 플랫폼 타지 않도록 변경
+    if isWin32() or target_server == 'QA' then
         local uid = g_localData:get('local', 'uid')
         local server = g_localData:getServerName()
         if uid and server then
