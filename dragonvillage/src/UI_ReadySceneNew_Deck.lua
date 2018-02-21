@@ -486,6 +486,15 @@ function UI_ReadySceneNew_Deck:makeSettedDragonCard(t_dragon_data, idx)
 
     vars['positionNode' .. idx]:addChild(ui.root, ZORDER.DRAGON_CARD)
 
+    -- 선택된 드래곤 포지션 노드 zorder 높게 변경 (2D 덱으로 바뀌면서 드래곤 대사가 겹침)
+    for i = 1, 5 do
+        local node = vars['positionNode' .. i]
+        if (node) then
+            local zorder = (i == idx) and 1 or 0
+            node:setLocalZOrder(zorder)
+        end
+    end
+
     self.m_lSettedDragonCard[idx] = ui
 
     ui.vars['clickBtn']:setEnabled(false) -- 드래그로 개편
