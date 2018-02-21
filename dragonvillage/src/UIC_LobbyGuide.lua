@@ -1,6 +1,9 @@
 local GUIDE_MODE =
 {
 	['capsule_box'] = 1,
+	['ancient'] = 2,
+	['colosseum'] = 3,
+	['shop'] = 4,
 
 	['master_road'] = 98,
 	['off'] = 99,
@@ -41,8 +44,6 @@ function UIC_LobbyGuide:refresh()
 
 	-- 마스터의 길
 	if (mode == GUIDE_MODE['master_road']) then
-		self.m_mode = GUIDE_MODE['master_road']
-
 		local rid = g_masterRoadData:getFocusRoad()
         local t_road = TableMasterRoad():get(rid)
 
@@ -54,8 +55,6 @@ function UIC_LobbyGuide:refresh()
 		
 	-- 캡슐
 	elseif (mode == GUIDE_MODE['capsule_box']) then
-		self.m_mode = GUIDE_MODE['capsule_box']
-
 		title = Str('캡슐 뽑기')
 		desc = Str('1등급 보상 변경')
 
@@ -91,7 +90,10 @@ function UIC_LobbyGuide:getModeByCondition()
 	-- 캡슐
 	local seen_capsule = g_settingData:getLobbyGuideSeen(GUIDE_MODE['capsule_box'])
 	if (not seen_capsule) and (lv >= 20) then
-		if (wday == 'Tue') or (wday == 'Sat') then
+		-- QA 테스트 용도
+		if (not IS_LIVE_SERVER()) then
+			return GUIDE_MODE['capsule_box']
+		elseif (wday == 'Tue') or (wday == 'Sat') then
 			return GUIDE_MODE['capsule_box']
 		end
 	end

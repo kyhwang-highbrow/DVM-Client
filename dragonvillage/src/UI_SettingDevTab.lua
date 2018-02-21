@@ -26,6 +26,7 @@ function UI_Setting:init_devTab()
     vars['clanCacheResetBtn']:registerScriptTapHandler(function() self:click_clanCacheResetBtn() end)
     vars['setUidBtn']:registerScriptTapHandler(function() self:click_setUidBtn() end)
     vars['popupCacheResetBtn']:registerScriptTapHandler(function() self:click_popupCacheResetBtn() end)
+    vars['lobbyGuideResetBtn']:registerScriptTapHandler(function() self:click_lobbyGuideResetBtn() end)
     self:refresh_devTap()
 end
 
@@ -737,6 +738,15 @@ end
 -- @brief 팝업 캐시 리셋
 -------------------------------------
 function UI_Setting:click_popupCacheResetBtn()
-    g_settingData:applySettingData({}, 'event_full_popup')
+    g_settingData:clearDataList('event_full_popup')
     UIManager:toastNotificationGreen('팝업 캐시가 초기화되었습니다!')
+end
+
+-------------------------------------
+-- function click_lobbyGuideResetBtn
+-- @brief 팝업 캐시 리셋
+-------------------------------------
+function UI_Setting:click_lobbyGuideResetBtn()
+    g_settingData:clearDataList('lobby_guide_seen')
+    UIManager:toastNotificationGreen('마을 도움말이 초기화되었습니다!')
 end
