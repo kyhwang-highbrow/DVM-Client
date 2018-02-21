@@ -432,6 +432,10 @@ end
 -------------------------------------
 function IconHelper:getAttributeIcon(attribute)
     attribute = attributeNumToStr(attribute)
+
+    if (attribute == 'none') then
+        attribute = 'all'
+    end
     
     local res_name = string.format('res/ui/icons/attr/attr_%s_02.png', attribute)
     local sprite = self:getIcon(res_name)
