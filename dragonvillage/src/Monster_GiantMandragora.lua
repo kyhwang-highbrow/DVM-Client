@@ -1,6 +1,7 @@
 local PARENT = Monster
 
-local DAMAGE_UNIT = 100000
+--local DAMAGE_UNIT = 100000
+local DAMAGE_UNIT = 100
 
 -------------------------------------
 -- class Monster_GiantMandragora
@@ -78,7 +79,7 @@ function Monster_GiantMandragora.st_dying(owner, dt)
 
         local accum_damage = owner.m_world.m_gameState.m_accumDamage:get()
         local drop_count = math_floor(accum_damage / DAMAGE_UNIT) + 20
-        drop_count = math_min(drop_count, 110)
+        drop_count = math_min(drop_count, 120)
 
         owner.m_dropInterval = owner.m_animator:getDuration() / drop_count
         owner.m_dropTimer = 0
