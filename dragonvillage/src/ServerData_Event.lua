@@ -49,39 +49,7 @@ function ServerData_Event:getEventPopupTabList()
 
         -- 날짜 조건
         if (start_date ~= '') or (end_date ~= '') then
-            local start_time
-            local end_time
-            local cur_time = Timer:getServerTime()
-
-            local date_format = 'yyyy-mm-dd HH:MM:SS'
-            local parser = pl.Date.Format(date_format)
-
-            if (start_date ~= '') then
-                local parse_start_date = parser:parse(start_date)
-                if (parse_start_date) then
-                    start_time = parse_start_date['time']
-                end
-            end
-
-            if (end_date ~= '') then
-                local parse_end_date = parser:parse(end_date)
-                if (parse_end_date) then
-                    end_time = parse_end_date['time']
-                end
-            end
-
-            -- 시작 종료 시간 모두 걸려있는 경우
-            if (start_time) and (end_date) then
-                visible = (start_time < cur_time and cur_time < end_time)
-
-            -- 시작 시간만 걸려있는 경우
-            elseif (start_time) then
-                visible = (start_time < cur_time)
-
-            -- 종료 시간만 걸려있는 경우
-            elseif (end_time) then
-                visible = (cur_time < end_time)
-            end
+            visible = self:checkEventTime(start_date, end_date)
         end
         
         -- ui_priority가 없는 것은 등록하지 않는다.
@@ -168,22 +136,36 @@ function ServerData_Event:getEventFullPopupList()
             local event_type = v['event_type']
 			local event_id = v['event_id']
             local feature = v['feature']
-            local is_exist = true
+            local visible = true
+            local user_lv = v['user_lv']
+            local start_date = v['start_date']
+            local end_date = v['end_date']
 
 			-- feature 조건 체크
 			do
 				-- aos에서만 노출
 				if (feature == 'only_aos') then
-					is_exist = not CppFunctions:isIos()
+					visible = not CppFunctions:isIos()
 
 				-- 토파즈가 있는 유저에게만 보이는 이벤트
 				elseif (feature == 'topaz') then
 					local topaz = g_userData:get('topaz')
 					if (topaz <= 0) then
-						is_exist = false
+						visible = false
 					end
 				end
 			end
+
+            -- 유저 레벨 조건 (걸려있는 레벨 이상인 유저에게만 노출)
+            if (user_lv ~= '') then
+                local curr_lv = g_userData:get('lv')
+                visible = curr_lv >= user_lv
+            end
+
+            -- 날짜 조건
+            if (start_date ~= '') or (end_date ~= '') then
+                visible = self:checkEventTime(start_date, end_date)
+            end
 
             -- 단일 상품인 경우 (type:shop) event_id로 등록
             if (event_type == 'shop') then
@@ -192,12 +174,12 @@ function ServerData_Event:getEventFullPopupList()
             -- 레벨업 패키지인 경우 구매했을 경우 노출시키지 않음.
             elseif (event_type == 'package_levelup') then
                 if (g_levelUpPackageData:isActive()) then
-                    is_exist = false
+                    visible = false
                 end
 
             -- 패키지인 경우 모두 구매시 노출시키지 않음.
             elseif (string.find(event_type, 'package')) and (PackageManager:isBuyAll(event_type)) then
-                is_exist = false
+                visible = false
 
             -- banner type인 경우 resource, url까지 등록
             elseif (event_type == 'banner') then
@@ -207,18 +189,18 @@ function ServerData_Event:getEventFullPopupList()
 			elseif (event_type == 'daily_mission') then
 				-- 전부 클리어 체크
 				if (g_dailyMissionData:getMissionDone(event_id)) then
-					is_exist = false
+					visible = false
 				else
 					event_type = event_type .. ';' .. event_id
 				end
 
 			-- 한정 이벤트 리스트
 			elseif (event_id == 'limited') then
-				is_exist = g_hotTimeData:isActiveEvent(event_type)
+				visible = g_hotTimeData:isActiveEvent(event_type)
 
             end
             
-            if (is_exist) then
+            if (visible) then
                 l_priority[event_type] = tonumber(priority)
                 table.insert(l_list, event_type)
             end
@@ -230,6 +212,48 @@ function ServerData_Event:getEventFullPopupList()
     end)
 
     return l_list
+end
+
+-------------------------------------
+-- function checkEventTime
+-- @brief true : 활성화, false : 비활성화
+-------------------------------------
+function ServerData_Event:checkEventTime(start_date, end_date)
+    local start_time
+    local end_time
+    local cur_time = Timer:getServerTime()
+
+    local date_format = 'yyyy-mm-dd HH:MM:SS'
+    local parser = pl.Date.Format(date_format)
+
+    if (start_date ~= '') then
+        local parse_start_date = parser:parse(start_date)
+        if (parse_start_date) then
+            start_time = parse_start_date['time']
+        end
+    end
+
+    if (end_date ~= '') then
+        local parse_end_date = parser:parse(end_date)
+        if (parse_end_date) then
+            end_time = parse_end_date['time']
+        end
+    end
+
+    -- 시작 종료 시간 모두 걸려있는 경우
+    if (start_time) and (end_date) then
+        return (start_time < cur_time and cur_time < end_time)
+
+    -- 시작 시간만 걸려있는 경우
+    elseif (start_time) then
+        return (start_time < cur_time)
+
+    -- 종료 시간만 걸려있는 경우
+    elseif (end_time) then
+        return (cur_time < end_time)
+    end
+
+    return true
 end
 
 -------------------------------------
