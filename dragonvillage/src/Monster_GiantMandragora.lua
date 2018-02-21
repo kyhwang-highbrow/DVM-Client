@@ -1,7 +1,6 @@
 local PARENT = Monster
 
---local DAMAGE_UNIT = 100000
-local DAMAGE_UNIT = 100
+local DAMAGE_UNIT = 100000
 
 -------------------------------------
 -- class Monster_GiantMandragora
