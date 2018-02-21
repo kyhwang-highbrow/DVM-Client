@@ -556,7 +556,7 @@ function UI_DragonManage_Base:click_listBtn()
             self:setSelectDragonData(doid, b_force)
 
             local item = self.m_tableViewExt:getItem(doid)
-            local idx = item['idx'] or 1
+            local idx = item and item['idx'] or 1
             self.m_tableViewExt:relocateContainerFromIndex(idx, false)
         end
     end
