@@ -6,6 +6,8 @@ local PARENT = LobbyCharacter
 LobbyDragon = class(PARENT, {
         m_dragonID = 'number',
 		m_flv = 'number',
+		m_evolution = 'number',
+
         m_bAwake = 'bool',
         m_bWating = 'bool',
         m_targetX = '',
@@ -31,11 +33,12 @@ LobbyDragon.GIFT_HURRY_TIME = 5
 -------------------------------------
 -- function init
 -------------------------------------
-function LobbyDragon:init(did, flv, is_bot)
+function LobbyDragon:init(did, flv, evolution, is_bot)
     self.m_dragonID = did
     self.m_bInitFirstPos = false
 	self.m_flv = flv or 0
-	
+	self.m_evolution = evolution
+
 	self.m_hasGift = false
 	self.m_hasSomethingToTalk = false
 	self.m_userDragon = not is_bot
@@ -111,10 +114,11 @@ function LobbyDragon:onEvent(event_name, t_event, ...)
         -- 최초 위치가 설정되지 않았을 경우
         if (not self.m_bInitFirstPos) then
             local flip = lobby_tamer.m_animator.m_bFlip
+			local factor = (self.m_evolution == 3) and 150 or 100
             if (not flip) then
-                x = x - 100
+                x = x - factor
             else
-                x = x + 100
+                x = x + factor
             end
             self:setPosition(x, y)
             self.m_animator:setFlip(flip)
@@ -177,20 +181,20 @@ end
 -- function moveToTamer
 -------------------------------------
 function LobbyDragon:moveToTamer()
-    local dragon_x, dragon_y = self.m_rootNode:getPosition()
+    --local dragon_x, dragon_y = self.m_rootNode:getPosition()
 
     local x = self.m_targetX
+	local y = self.m_targetY
 
     local flip = self.m_targetTamer.m_animator.m_bFlip
-
-    --if (dragon_x < self.m_targetX) then
+	local factor = (self.m_evolution == 3) and 150 or 100
     if (not flip) then
-        x = x - 100
+        x = x - factor
     else
-        x = x + 100
+        x = x + factor
     end
 
-    self:setMove(x, self.m_targetY, LobbyDragon.SPEED)
+    self:setMove(x, y, LobbyDragon.SPEED)
 end
 
 -------------------------------------

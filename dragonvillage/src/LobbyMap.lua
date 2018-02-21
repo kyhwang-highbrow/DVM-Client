@@ -556,7 +556,7 @@ function LobbyMap:addLobbyDragon(tamer, is_bot, struct_user_info)
     local res = AnimatorHelper:getDragonResName(t_dragon['res'], evolution, t_dragon['attr'])
 
     -- 드래곤 생성
-    local lobby_dragon = LobbyDragon(t_dragon['did'], flv, is_bot)
+    local lobby_dragon = LobbyDragon(t_dragon['did'], flv, evolution, is_bot)
     lobby_dragon:initAnimator(res)
     self.m_groudNode:addChild(lobby_dragon.m_rootNode)
 
