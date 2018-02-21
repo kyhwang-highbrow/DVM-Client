@@ -30,7 +30,7 @@ function UI_EventGoldDungeon:initUI()
 
     -- 현재 입장권 개수
     local stamina_cnt = event_data:getStaminaCount()
-    vars['numberLabel1']:setString(stamina_cnt)
+    vars['numberLabel1']:setString(Str('{1}개', comma_value(stamina_cnt)))
 
     -- 필요 입장권 개수
     vars['staminaLabel']:setString('1')
@@ -60,7 +60,7 @@ function UI_EventGoldDungeon:initUI()
 
     -- 누적 플레이 횟수
     local play_cnt = event_data:getPlayCount()
-    vars['numberLabel2']:setString(play_cnt)
+    vars['numberLabel2']:setString(Str('{1}회', comma_value(play_cnt)))
 
     -- 누적 보상 정보
     local product_info = event_data:getProductInfo()
