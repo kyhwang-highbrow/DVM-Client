@@ -41,13 +41,18 @@ function UI_EventGoldDungeon:initUI()
         local total_ticket = 1 -- 하루에 한개는 충전되므로 1 default
         local max_total_ticket = 1
         for mode, data in pairs(stamina_info) do
+            local curr_play = data['play'] or 0
+            local max_play = data['max_play'] or 0
+
+             vars[mode..'CntLabel']:setString(Str('({1}/{2})', curr_play, max_play))
+
             local curr_ticket = data['ticket'] or 0
             total_ticket = total_ticket + curr_ticket
 
             local max_ticket = data['max_ticket'] or 0
             max_total_ticket = max_total_ticket + max_ticket
 
-            vars[mode..'TicketLabel']:setString(Str('(일일 최대 {1}/{2}개)', curr_ticket, max_ticket))
+            vars[mode..'TicketLabel']:setString(Str('(일일 최대 {1}/{2})', curr_ticket, max_ticket))
         end
 
         vars['totalTicketLabel']:setString(Str('(일일 최대 {1}/{2}개 획득 가능)', total_ticket, max_total_ticket))

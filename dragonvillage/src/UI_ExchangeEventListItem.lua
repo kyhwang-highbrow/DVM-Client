@@ -39,12 +39,15 @@ function UI_ExchangeEventListItem:initUI()
 
         local item_card = UI_ItemCard(id, cnt)
         vars['itemNode'..i]:addChild(item_card.root)
+        item_card.root:setSwallowTouch(false)
     end
 
     -- 보상버튼
     vars['receiveBtn']:registerScriptTapHandler(function() 
         g_exchangeEventData:request_eventReward(step, function() self:refresh() end)
     end)
+
+    vars['itemMenu']:setSwallowTouch(false)
 end
 
 -------------------------------------
