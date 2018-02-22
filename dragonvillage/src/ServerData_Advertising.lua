@@ -212,6 +212,8 @@ function ServerData_Advertising:request_adv_reward(ad_type, finish_cb, fail_cb)
         self:networkCommonRespone(ret)
         self:showRewardResult(ret)
         
+		g_highlightData:setDirty(true)
+
         if finish_cb then
             finish_cb(ret)
         end

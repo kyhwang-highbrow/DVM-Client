@@ -451,6 +451,7 @@ end
 function ServerData_Highlight:setHighlightMail()
     if (self['new_mail'] <= 0) then
         self['new_mail'] = 1
+		self:setDirty(true)
     end
 end
 
