@@ -48,7 +48,11 @@ function ICharacterStatusEffect:updateStatusEffect(dt)
     
     -- 아이콘 추가
     for type, status_effect in pairs(self.m_mStatusEffect) do
-        if (not status_effect:isHidden()) then
+        -- 아이콘이 저징되지 않은 경우 표시하지 않음
+        local t_status_effect = TableStatusEffect():get(type)
+        if (not t_status_effect) then
+        elseif (not t_status_effect['res_icon'] or t_status_effect['res_icon'] == '') then
+        elseif (not status_effect:isHidden()) then
             local status_effect_type = status_effect:getTypeName()
             local status_icon = self.m_mStatusIcon[status_effect_type]
 
