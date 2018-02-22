@@ -1,8 +1,5 @@
 require 'LuaStandAlone'
 
-require 'TableLoadingGuide'
-require 'TableDragon'
-
 -------------------------------------
 -- class AssetMaker_ApkExpansion
 -------------------------------------
@@ -64,9 +61,6 @@ function AssetMaker_ApkExpansion:moveToExpansion()
     self:move('\\res\\ui\\package')
     self:move('\\res\\ui\\icons')
 
-    -- 패치 시 나오는 드래곤 리소스를 남겼으나 더이상 사용하지 않음
-    --self:moveDragonRes()
-
     self:checkAssetsUnder100MB()
 end
 
@@ -77,63 +71,6 @@ end
 function AssetMaker_ApkExpansion:move(dir)
     cclog('## AssetMaker_ApkExpansion:move - ' .. dir)
     util.moveDirectory(ASSETS_PATH .. dir, ASSETS_PATH_EXPANSION .. dir)
-end
-
--------------------------------------
--- function moveDragonRes
--- @brief 패치 시 필요한 드래곤은 남기고 나머지는 이동
--------------------------------------
-function AssetMaker_ApkExpansion:moveDragonRes()
-    cclog('## AssetMaker_ApkExpansion:moveNotUseDragonRes')
-    
-    -- 패치에서 사용하는 드래곤 가져옴
-    local t_loading_dragon_res = self:makeGuideDragonTable()
-
-    -- 리소스 경로
-    local dragon_path = '\\res\\character\\dragon'
-
-    -- robocopy 커맨드에 넣기 위해 제외할 폴더명 문자열로 변경
-    local exception_list_str = ''
-    for res, _ in pairs(t_loading_dragon_res) do
-        exception_list_str = string.format('%s %s', exception_list_str, res)
-    end
-
-    -- robocopy move
-    os.execute(string.format('robocopy "%s" "%s" /MOVE /E /NFL /NDL /NJH /NJS /XD .svn %s', ASSETS_PATH .. dragon_path, ASSETS_PATH_EXPANSION .. dragon_path, exception_list_str))
-end
-
-
--------------------------------------
--- function makeGuideDragonTable
--- @brief 패치 시 필요한 드래곤 리소스 추출
--------------------------------------
-function AssetMaker_ApkExpansion:makeGuideDragonTable()
-    cclog('## AssetMaker_ApkExpansion:makeGuideDragonTable')
-    local l_loading_dragon = {}
-    
-    -- loading table에서 필요한 드래곤 id 가져온다.
-    local table_loading = TableLoadingGuide()
-    for i, t_loading in pairs(table_loading.m_orgTable) do
-        if (t_loading['did'] ~= '') then
-            table.insert(l_loading_dragon, t_loading['did'])
-        end
-    end
-
-    -- 해당 리소스 네임 추출하여 저장
-    local t_res = {}
-    local table_dragon = TableDragon()
-    local t_dragon, res, dragon_name, attr, evolution, complete_res
-    for i, did in pairs(l_loading_dragon) do
-        t_dragon = table_dragon:get(did)
-        dragon_name = t_dragon['type']
-        attr = t_dragon['attr']
-        evolution = 3
-
-        res = string.format('%s_%s_%02d', dragon_name, attr, evolution)
-        t_res[res] = true
-    end
-
-    return t_res
 end
 
 -------------------------------------
