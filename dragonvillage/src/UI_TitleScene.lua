@@ -594,6 +594,8 @@ function UI_TitleScene:workGetServerList()
 
     Network_platform_getServerList( success_cb, fail_cb )
 end
+function UI_TitleScene:workGetServerList_click()
+end
 
 -------------------------------------
 -- function workPlatformLogin
