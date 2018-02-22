@@ -1262,6 +1262,8 @@ function UINavigatorDefinition:closeUIList(idx, include_idx)
 
     for i=#UIManager.m_uiList, dest_idx, -1 do
         local ui = UIManager.m_uiList[i]
-        ui:close()
+        if (ui) then
+            ui:close()
+        end
     end
 end
