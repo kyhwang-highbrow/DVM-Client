@@ -104,7 +104,7 @@ function ServerData_AdventureClearPackage:isVisible_adventureClearPack()
 
     local l_item_list = TABLE:get('table_package_stage')
     for i,v in pairs(l_item_list) do
-        local stage_id = v['stage_id']
+        local stage_id = v['stage']
         if (self:isReceived(stage_id) == false) then
             return true
         end
