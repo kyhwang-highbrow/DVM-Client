@@ -56,11 +56,6 @@ function UIC_LobbyGuide:refresh()
 		local has_reward, _ = g_masterRoadData:hasRewardRoad()
 		self:setVisibleNotiIcon(has_reward)
 
-        -- 마스터의 길을 모두 마친 유저일 경우 버튼 off
-        if g_masterRoadData:isClearAllRoad() then
-            self.m_root:setVisible(false)
-        end
-		
 	-- 캡슐
 	elseif (mode == GUIDE_MODE['capsule_box']) then
 		title = Str('캡슐 뽑기')

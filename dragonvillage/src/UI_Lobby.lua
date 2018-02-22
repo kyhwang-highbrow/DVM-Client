@@ -60,7 +60,7 @@ function UI_Lobby:initUI()
 	local vars = self.vars
 
 	-- 로비 가이드
-	self.m_lobbyGuide = UIC_LobbyGuide(vars['masterRoadBtn'], vars['roadTitleLabel'], vars['roadDescLabel'], vars['masterRoadNotiSprite'])
+	self.m_lobbyGuide = UIC_LobbyGuide(vars['bottomMasterNode'], vars['roadTitleLabel'], vars['roadDescLabel'], vars['masterRoadNotiSprite'])
 
     -- 기타 버튼 생성
     local ui = UIC_ExtendedUI:create('lobby_etc_extended.ui')
@@ -552,7 +552,7 @@ function UI_Lobby:refresh_masterRoad()
 	if (self.m_lobbyGuide:isOffMode()) then
 		local is_clear = g_dragonDiaryData:isClearAll()
 		if (not is_clear) then
-			vars['dragonDiaryBtn']:setPositionY(110)
+			self.vars['dragonDiaryBtn']:setPositionY(110)
 		end
 	end
 end
