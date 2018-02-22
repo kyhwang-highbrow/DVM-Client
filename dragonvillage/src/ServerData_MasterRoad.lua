@@ -115,7 +115,9 @@ function ServerData_MasterRoad:hasRewardRoad()
 
     -- 실제 마지막 미션과 비교
     local real_last_road = TableMasterRoad:getLastRoad()
-    last_rid = math_min(last_rid, real_last_road)
+    if (last_rid > real_last_road) then
+		last_rid = 0
+	end
 
     -- 위의 계산을 통해서 last_rid가 0이라면 보상이 하나도 없는 것을 알 수 있다.
     return (last_rid ~= 0), last_rid
@@ -214,11 +216,15 @@ function ServerData_MasterRoad:checkFocusRoadClear(t_data)
         return false
     end
 
-    local rid = self:getFocusRoad()
+    local rid = self.m_focusRoad
     -- 이미 클리어하여 보상이 있는 경우
     if (self.m_tRewardInfo[tostring(rid)] == 1) then
         return false
     end
+	-- focusRoad는 서버에서 테이블에 없는 값까지 주기 때문에 검증
+	if (rid > TableMasterRoad:getLastRoad()) then
+		return false
+	end
 
     local t_road = TableMasterRoad():get(rid)
     
