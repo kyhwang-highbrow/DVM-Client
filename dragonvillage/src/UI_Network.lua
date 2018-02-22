@@ -216,6 +216,7 @@ local S_ERROR_STATUS = {
     -- full
     [-1407] = Str('상대방에게 더 이상 친구요청을 할 수 없습니다.'), -- full friend
     [-1507] = Str('더는 우정포인트를 보낼 수 없습니다.'), -- too many friend
+    [-2607] = Str('상대방의 친구 목록이 가득 찼습니다.'), 
 
     -- highbrow coupon
     [-1367] = Str('일시적인 오류입니다.\n잠시 후에 다시 시도 해주세요.'), -- invalid item 연결이 안되거나 에러인 경우
