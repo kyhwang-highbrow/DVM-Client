@@ -42,6 +42,9 @@ function UIC_LobbyGuide:refresh()
 	local mode = self:getModeByCondition()
 	self.m_mode = mode
 
+    -- NPC 버튼 visible을 켜두고 아래 조건들에서 off를 설정
+    self.m_root:setVisible(true)
+
 	-- 마스터의 길
 	if (mode == GUIDE_MODE['master_road']) then
 		local rid = g_masterRoadData:getFocusRoad()
@@ -52,6 +55,11 @@ function UIC_LobbyGuide:refresh()
 
 		local has_reward, _ = g_masterRoadData:hasRewardRoad()
 		self:setVisibleNotiIcon(has_reward)
+
+        -- 마스터의 길을 모두 마친 유저일 경우 버튼 off
+        if g_masterRoadData:isClearAllRoad() then
+            self.m_root:setVisible(false)
+        end
 		
 	-- 캡슐
 	elseif (mode == GUIDE_MODE['capsule_box']) then
