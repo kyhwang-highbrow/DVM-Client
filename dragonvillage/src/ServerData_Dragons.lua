@@ -491,9 +491,10 @@ function ServerData_Dragons:setDragonsSortData(doid)
     local t_sort_data = self:makeDragonsSortData(struct_dragon_object)
     self.m_lSortData[doid] = t_sort_data
 
-    -- 개별 드래곤 최고 전투력 저장
+    -- 개별 드래곤 최고 전투력 저장 (친구 드래곤 제외)
+    local is_friend_dragon = g_friendData:checkFriendDragonFromDoid(doid)
     local combat_power = t_sort_data['combat_power']
-    if (self.m_dragonBestCombatPower < combat_power) then
+    if (not is_friend_dragon) and (self.m_dragonBestCombatPower < combat_power) then
         self.m_dragonBestCombatPower = combat_power
         self.m_bUpdatePower = true
     end
