@@ -2478,9 +2478,6 @@
     <None Include="..\src_tool\entry_viewer.lua">
       <Filter>lua_tool</Filter>
     </None>
-    <None Include="..\src_tool\entry_wave_maker.lua">
-      <Filter>lua_tool</Filter>
-    </None>
     <None Include="..\src_tool\LuaBridgeWindows.lua">
       <Filter>lua_tool</Filter>
     </None>

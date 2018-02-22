@@ -1297,7 +1297,6 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <None Include="..\src_tool\Development.lua" />
     <None Include="..\src_tool\DragonValidator.lua" />
     <None Include="..\src_tool\entry_viewer.lua" />
-    <None Include="..\src_tool\entry_wave_maker.lua" />
     <None Include="..\src_tool\LuaBridgeWindows.lua" />
     <None Include="..\src_tool\LuaGlobal.lua" />
     <None Include="..\src_tool\LuaStandAlone.lua" />
