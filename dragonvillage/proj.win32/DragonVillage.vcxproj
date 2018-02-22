@@ -1291,7 +1291,6 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <None Include="..\src\XorCipher.lua" />
     <None Include="..\src_tool\AssetMaker.lua" />
     <None Include="..\src_tool\AssetMaker_ApkExpansion.lua" />
-    <None Include="..\src_tool\AssetRemover_100MB.lua" />
     <None Include="..\src_tool\CsvToLuaTableStr.lua" />
     <None Include="..\src_tool\DataTableValidator.lua" />
     <None Include="..\src_tool\Development.lua" />

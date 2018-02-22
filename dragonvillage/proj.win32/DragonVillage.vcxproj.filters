@@ -2610,9 +2610,6 @@
     <None Include="..\src_tool\LuaUtility.lua">
       <Filter>lua_tool</Filter>
     </None>
-    <None Include="..\src_tool\AssetRemover_100MB.lua">
-      <Filter>lua_tool</Filter>
-    </None>
     <None Include="..\src\UI_EventPopupTab_PackageGrowth.lua">
       <Filter>lua\UI</Filter>
     </None>
