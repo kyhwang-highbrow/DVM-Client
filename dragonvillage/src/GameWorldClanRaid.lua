@@ -316,7 +316,8 @@ function GameWorldClanRaid:getTargetList(char, x, y, team_type, formation_type, 
 	local t_data = t_data or {}
 
     t_data['self'] = char
-        
+    t_data['team_type'] = team_type
+    
     -- 팀 타입에 따른 델리게이트
     local for_mgr_delegate = nil
     local leftFormationMgr = self.m_leftFormationMgr
