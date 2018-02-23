@@ -44,7 +44,7 @@ function StatusEffectIcon:update(dt)
     end
 
     -- 해당 상태효과가 활성화 중인지 체크
-    local is_active = self.m_statusEffect.m_bApply
+    local is_active = self.m_statusEffect:isActiveIcon()
     self:setVisible(is_active)
 
     if (not is_active) then

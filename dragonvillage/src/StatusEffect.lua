@@ -824,6 +824,12 @@ function StatusEffect:getUnit(caster, skill_id)
 end
 
 
+-------------------------------------
+-- function isActiveIcon
+-------------------------------------
+function StatusEffect:isActiveIcon()
+    return (self.m_bApply and not self.m_owner:isDead())
+end
 
 -------------------------------------
 -- function getTypeName
