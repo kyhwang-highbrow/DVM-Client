@@ -15,6 +15,7 @@ function UI_Setting:init_devTab()
     vars['allMaterialBtn']:registerScriptTapHandler(function() self:click_allMaterialBtn() end)
     vars['allRuneBtn']:registerScriptTapHandler(function() self:click_allRuneBtn() end)
     vars['allStaminaBtn']:registerScriptTapHandler(function() self:click_allStaminaBtn() end)
+    vars['allCostumeBtn']:registerScriptTapHandler(function() self:click_allCostumeBtn() end)
     vars['testCodeBtn']:registerScriptTapHandler(function() self:click_testCodeBtn() end)
     vars['testCodeBtn2']:registerScriptTapHandler(function() self:click_testCodeBtn2() end)
     vars['allEggBtn']:registerScriptTapHandler(function() self:click_allEggBtn() end)
@@ -433,6 +434,56 @@ function UI_Setting:click_allStaminaBtn()
         end
 
         UIManager:toastNotificationGreen('모든 입장권 추가!')
+        co:close()
+    end
+
+    Coroutine(coroutine_function)
+end
+
+-------------------------------------
+-- function click_allCostumeBtn
+-- @brief 모든 코스튬 추가
+-------------------------------------
+function UI_Setting:click_allCostumeBtn()
+    local l_costume_list = {}
+    local table_stamina_info = TABLE:get('tamer_costume')
+    for k,v in pairs(table_stamina_info) do
+        table.insert(l_costume_list, k)
+    end
+
+    local function coroutine_function(dt)
+        local co = CoroutineHelper()
+        co:setBlockPopup()
+
+        while (0 < #l_costume_list) do
+            co:work()
+            local uid = g_userData:get('uid')
+
+            local function success_cb(ret)
+                if ret['user'] then
+                    g_serverData:applyServerData(ret['user'], 'user')
+                end
+                g_topUserInfo:refreshData()
+                co.NEXT()
+            end
+
+            local key = l_costume_list[1]
+            table.remove(l_costume_list, 1)
+
+            local ui_network = UI_Network()            
+            local api = '/users/manage'
+            ui_network:setParam('act', 'update')
+            ui_network:setParam('key', 'costumes')
+            ui_network:setParam('value', key .. ',' .. 1)
+            ui_network:setUrl(api)
+            ui_network:setParam('uid', uid)
+            ui_network:setSuccessCB(function(ret) success_cb(ret) end)
+            ui_network:setRevocable(false)
+            ui_network:request()
+            if co:waitWork() then return end
+        end
+
+        UIManager:toastNotificationGreen('모든 코스튬 추가!')
         co:close()
     end
 
