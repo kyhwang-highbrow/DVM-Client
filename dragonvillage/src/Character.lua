@@ -1606,6 +1606,9 @@ function Character:release()
         end
     end
 
+    -- 상태효과 아이콘 해제(m_unitStatusIconNode보다 먼저 되어야함!!)
+    self:removeStatusIconAll()
+
     if (self.m_unitStatusIconNode) then
         self.m_unitStatusIconNode:removeFromParent(true)
     end
@@ -1644,9 +1647,6 @@ function Character:release()
 	-- 이벤트 해제
 	self:release_EventDispatcher()
     self:release_EventListener()
-
-    -- 상태효과 아이콘 해제
-    self:removeStatusIconAll()
 
     PARENT.release(self)
 end
