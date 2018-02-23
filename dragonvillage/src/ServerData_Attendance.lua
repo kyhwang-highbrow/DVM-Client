@@ -91,8 +91,11 @@ function ServerData_Attendance:response_attendanceInfo(ret, finish_cb)
 	self.m_structAttendanceDataList = {}
     if ret['attendance_info'] then
         for i,v in ipairs(ret['attendance_info']) do
+            local step_list = v['step_list']
+            local last_step = (step_list) and #step_list or 0
+
             -- 이벤트성 출석 보상은 전부 수령후 제외 시킴
-            if (v['atd_type'] ~= 'basic') and (v['received']) and (v['today_step'] == 7) then
+            if (v['atd_type'] ~= 'basic') and (v['received']) and (v['today_step'] == last_step) then
                 -- nothing to do
             else
                 table.insert(self.m_structAttendanceDataList, StructAttendanceData(v))
