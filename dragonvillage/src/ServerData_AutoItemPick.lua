@@ -53,7 +53,7 @@ end
 -- @param type - 'advertising', 'auto_root'
 -------------------------------------
 function ServerData_AutoItemPick:isActiveAutoItemPickWithType(type)
-    local expired = self:getAutoItemPickExpired()
+    local expired = self:getAutoItemPickExpiredWithType(type)
 
     -- 만료 시간이 없으면 비활성 상태
     if (not expired) then
@@ -89,6 +89,21 @@ function ServerData_AutoItemPick:getAutoItemPickExpired()
     for i,v in pairs(self.m_autoItemPickList) do
         if (not expired) or (expired < v['expired']) then
             expired = v['expired']
+        end
+    end
+
+    return expired
+end
+
+-------------------------------------
+-- function getAutoItemPickExpiredWithType
+-------------------------------------
+function ServerData_AutoItemPick:getAutoItemPickExpiredWithType(type)
+    local expired = nil
+
+    for i,v in pairs(self.m_autoItemPickList) do
+        if (type == v['type']) then
+            expired = v['expired'] or nil
         end
     end
 

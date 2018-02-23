@@ -182,6 +182,7 @@ function UI_Lobby:entryCoroutine()
 
                 cclog('# 자동줍기 결과 확인 중')
                 if (ret['hours'] and ret['ingame_drop_stats']) then
+                    g_serverData:networkCommonRespone(ret) -- expired 갱신
 					UI_AutoItemPickResultPopup(ret['hours'], ret['ingame_drop_stats'])
 				end
 
