@@ -55,6 +55,26 @@ function ServerData_EventGoldDungeon:getStaminaInfo()
 end
 
 -------------------------------------
+-- function hasReward
+-- @brief 받아야 할 보상이 있는지 (누적 보상)
+-------------------------------------
+function ServerData_EventGoldDungeon:hasReward()
+    local event_info = self.m_productInfo
+    local reward_info = self.m_rewardInfo
+
+    local curr_cnt = self.m_playCount
+    for i, v in ipairs(event_info) do
+        local step = tostring(v['step'])
+        local need_cnt = v['price']
+        if (reward_info[step] == 0) and (curr_cnt >= need_cnt) then
+            return true
+        end
+    end
+
+    return false
+end
+
+-------------------------------------
 -- function parseProductInfo
 -------------------------------------
 function ServerData_EventGoldDungeon:parseProductInfo(product_info)

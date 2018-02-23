@@ -77,6 +77,6 @@ function UI_EventPopupTab_Scroll:onEnterTab()
         repos_func(g_exchangeEventData:hasReward())
     
     elseif (event_type == 'event_gold_dungeon') then
-        repos_func(false)
+        repos_func(g_eventGoldDungeonData:hasReward())
     end
 end
