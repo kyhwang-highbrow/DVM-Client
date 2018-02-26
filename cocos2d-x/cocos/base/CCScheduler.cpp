@@ -300,7 +300,7 @@ void Scheduler::schedule(const ccSchedulerFunc& callback, void *target, float in
     }
     else
     {
-        CCASSERT(element->paused == paused, "");
+        CCASSERT(element->paused == paused, "element's paused should be paused!");
     }
 
     if (element->timers == nullptr)
@@ -447,6 +447,7 @@ void Scheduler::appendIn(_listEntry **list, const ccSchedulerFunc& callback, voi
     listElement->callback = callback;
     listElement->target = target;
     listElement->paused = paused;
+    listElement->priority = 0;
     listElement->markedForDeletion = false;
 
     DL_APPEND(*list, listElement);
@@ -465,13 +466,17 @@ void Scheduler::schedulePerFrame(const ccSchedulerFunc& callback, void *target, 
     HASH_FIND_PTR(_hashForUpdates, &target, hashElement);
     if (hashElement)
     {
-#if COCOS2D_DEBUG >= 1
-        CCASSERT(hashElement->entry->markedForDeletion,"");
-#endif
-        // TODO: check if priority has changed!
-
-        hashElement->entry->markedForDeletion = false;
-        return;
+        // change priority: should unschedule it first
+        if (hashElement->entry->priority != priority)
+        {
+            unscheduleUpdate(target);
+        }
+        else
+        {
+            // don't add it again
+            CCLOG("warning: don't update it again");
+            return;
+        }
     }
 
     // most of the updates are going to be 0, that's way there
@@ -535,7 +540,13 @@ void Scheduler::removeUpdateFromHash(struct _listEntry *entry)
     {
         // list entry
         DL_DELETE(*element->list, element->entry);
-        CC_SAFE_DELETE(element->entry);
+        if (!_updateHashLocked)
+            CC_SAFE_DELETE(element->entry);
+        else
+        {
+            element->entry->markedForDeletion = true;
+            _updateDeleteVector.push_back(element->entry);
+        }
 
         // hash entry
         HASH_DEL(_hashForUpdates, element);
@@ -554,14 +565,7 @@ void Scheduler::unscheduleUpdate(void *target)
     HASH_FIND_PTR(_hashForUpdates, &target, element);
     if (element)
     {
-        if (_updateHashLocked)
-        {
-            element->entry->markedForDeletion = true;
-        }
-        else
-        {
-            this->removeUpdateFromHash(element->entry);
-        }
+        this->removeUpdateFromHash(element->entry);
     }
 }
 
@@ -678,7 +682,7 @@ void Scheduler::unscheduleScriptEntry(unsigned int scheduleScriptEntryID)
 
 void Scheduler::resumeTarget(void *target)
 {
-    CCASSERT(target != nullptr, "");
+    CCASSERT(target != nullptr, "target can't be nullptr!");
 
     // custom selectors
     tHashTimerEntry *element = nullptr;
@@ -693,14 +697,14 @@ void Scheduler::resumeTarget(void *target)
     HASH_FIND_PTR(_hashForUpdates, &target, elementUpdate);
     if (elementUpdate)
     {
-        CCASSERT(elementUpdate->entry != nullptr, "");
+        CCASSERT(elementUpdate->entry != nullptr, "elementUpdate's entry can't be nullptr!");
         elementUpdate->entry->paused = false;
     }
 }
 
 void Scheduler::pauseTarget(void *target)
 {
-    CCASSERT(target != nullptr, "");
+    CCASSERT(target != nullptr, "target can't be nullptr!");
 
     // custom selectors
     tHashTimerEntry *element = nullptr;
@@ -715,7 +719,7 @@ void Scheduler::pauseTarget(void *target)
     HASH_FIND_PTR(_hashForUpdates, &target, elementUpdate);
     if (elementUpdate)
     {
-        CCASSERT(elementUpdate->entry != nullptr, "");
+        CCASSERT(elementUpdate->entry != nullptr, "elementUpdate's entry can't be nullptr!");
         elementUpdate->entry->paused = true;
     }
 }
@@ -894,33 +898,11 @@ void Scheduler::update(float dt)
         }
     }
 
-    // delete all updates that are marked for deletion
-    // updates with priority < 0
-    DL_FOREACH_SAFE(_updatesNegList, entry, tmp)
-    {
-        if (entry->markedForDeletion)
-        {
-            this->removeUpdateFromHash(entry);
-        }
-    }
+    // delete all updates that are removed in update
+    for (auto &e : _updateDeleteVector)
+        delete e;
 
-    // updates with priority == 0
-    DL_FOREACH_SAFE(_updates0List, entry, tmp)
-    {
-        if (entry->markedForDeletion)
-        {
-            this->removeUpdateFromHash(entry);
-        }
-    }
-
-    // updates with priority > 0
-    DL_FOREACH_SAFE(_updatesPosList, entry, tmp)
-    {
-        if (entry->markedForDeletion)
-        {
-            this->removeUpdateFromHash(entry);
-        }
-    }
+    _updateDeleteVector.clear();
 
     _updateHashLocked = false;
     _currentTarget = nullptr;
@@ -985,7 +967,7 @@ void Scheduler::schedule(SEL_SCHEDULE selector, Ref *target, float interval, uns
     }
     else
     {
-        CCASSERT(element->paused == paused, "");
+        CCASSERT(element->paused == paused, "element's paused should be paused.");
     }
     
     if (element->timers == nullptr)
