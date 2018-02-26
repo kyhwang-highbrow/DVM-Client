@@ -10,13 +10,14 @@ preBuild {
 // task android build
 android {
     compileSdkVersion 27
-    buildToolsVersion "25.0.3"
+    buildToolsVersion "26.0.2"
 
     defaultConfig {
         applicationId "com.perplelab.dragonvillagem.kr"
 		versionCode 29
-		
-        minSdkVersion 17
+        versionNameSuffix "-vc29"
+
+        minSdkVersion PROP_MIN_SDK_VERSION
         targetSdkVersion PROP_TARGET_SDK_VERSION
 		
         multiDexEnabled true
@@ -60,27 +61,12 @@ android {
     // productFlavors or buildType 에 따른 개별적인 source 설정 가능
     // favors + buildType 가능
     sourceSets{
-        dev100mbTest{
+        market{
             assets.srcDir "../../../assets/100mb"
         }
-        devFullTest{
+        full{
             assets.srcDir "../../../assets/full"
         }
-
-        qa100mbTest{
-            assets.srcDir "../../../assets/100mb"
-        }
-        qaFullTest{
-            assets.srcDir "../../../assets/full"
-        }
-
-        live100mb{
-            assets.srcDir "../../../assets/100mb"
-        }
-        liveFull{
-            assets.srcDir "../../../assets/full"
-        }
-
         main {
             java.srcDir "./src"
             res.srcDir "./res"
@@ -126,7 +112,7 @@ android {
     // when Gradle merges variant sources and configurations. You must assign
     // each product flavor you configure to one of the flavor dimensions.
 
-    // flavorDimensions "server", "assets", "mode"
+    flavorDimensions "server", "asset"
 
     /**
     * The productFlavors {} block is where you can configure multiple product
@@ -135,94 +121,64 @@ android {
     * optional, and the build system does not create them by default.
     */
     productFlavors {
-        // flavor 공통 관리 .. 희망사항 찾아보는 중
-        main{
-            versionCode 29
-        }
-
-        // DEV
-        dev100mbTest{
-			versionName "0.5.0"
+        // dimension server
+        dev{
+            dimension "server"
+            versionName "0.5.0"
             signingConfig signingConfigs.keystore
             externalNativeBuild {
                 ndkBuild {
                     cppFlags.add("-DTARGET_SERVER=SERVER_DEV")
-                    cppFlags.add("-DUSE_PATCH=true")
-                    cppFlags.add("-DUSE_OBB=true")
                     cppFlags.add("-DUSE_LUA_EXT=false")
                     cppFlags.add("-DIS_TEST_MODE=true")
                 }
             }
         }
-        devFullTest{
-			versionName "0.5.0"
-            signingConfig signingConfigs.keystore    
-            externalNativeBuild {
-                ndkBuild {
-                    cppFlags.add("-DTARGET_SERVER=SERVER_DEV")
-                    cppFlags.add("-DUSE_PATCH=false")
-                    cppFlags.add("-DUSE_OBB=false")
-                    cppFlags.add("-DUSE_LUA_EXT=true")
-                    cppFlags.add("-DIS_TEST_MODE=true")
-                }
-            }
-        }
-
-        // QA
-        qa100mbTest{
-			versionName "0.5.1"
+        qa{
+            dimension "server"
+            versionName "0.5.1"
             signingConfig signingConfigs.keystore
             externalNativeBuild {
                 ndkBuild {
                     cppFlags.add("-DTARGET_SERVER=SERVER_QA")
-                    cppFlags.add("-DUSE_PATCH=true")
-                    cppFlags.add("-DUSE_OBB=true")
                     cppFlags.add("-DUSE_LUA_EXT=false")
                     cppFlags.add("-DIS_TEST_MODE=true")
                 }
             }
         }
-        qaFullTest{
-			versionName "0.5.1"
-            signingConfig signingConfigs.keystore
-            externalNativeBuild {
-                ndkBuild {
-                    cppFlags.add("-DTARGET_SERVER=SERVER_QA")
-                    cppFlags.add("-DUSE_PATCH=false")
-                    cppFlags.add("-DUSE_OBB=false")
-                    cppFlags.add("-DUSE_LUA_EXT=false")
-                    cppFlags.add("-DIS_TEST_MODE=true")
-                }
-            }
-        }
-
-        // LIVE
-        live100mb{
-			versionName "1.1.0"
+        live{
+            dimension "server"
+            versionName "1.1.0"
             signingConfig signingConfigs.upload_keystore
             externalNativeBuild {
                 ndkBuild {
                     cppFlags.add("-DTARGET_SERVER=SERVER_LIVE")
-                    cppFlags.add("-DUSE_PATCH=true")
-                    cppFlags.add("-DUSE_OBB=true")
                     cppFlags.add("-DUSE_LUA_EXT=false")
                     cppFlags.add("-DIS_TEST_MODE=false")
                 }
             }
         }
-        liveFull{
-            versionName "1.1.0"
-            signingConfig signingConfigs.keystore
+
+        //dimension asset
+        market{
+            dimension "asset"
             externalNativeBuild {
                 ndkBuild {
-                    cppFlags.add("-DTARGET_SERVER=SERVER_LIVE")
-                    cppFlags.add("-DUSE_PATCH=false")
-                    cppFlags.add("-DUSE_OBB=false")
-                    cppFlags.add("-DUSE_LUA_EXT=false")
-                    cppFlags.add("-DIS_TEST_MODE=false")
+                    cppFlags.add("-DUSE_PATCH=true")
+                    cppFlags.add("-DUSE_OBB=true")
                 }
             }
         }
+        full{
+            dimension "asset"
+            externalNativeBuild {
+                ndkBuild {
+                    cppFlags.add("-DUSE_PATCH=true")
+                    cppFlags.add("-DUSE_OBB=false")
+                }
+            }
+        }
+
     }
 
     buildTypes {
@@ -253,25 +209,10 @@ android {
         }
     }
 
-    // apk 이름 변경 : "dvm_version_flavor_vc0_buildtype.apk
-    applicationVariants.all { variant ->
-        variant.outputs.each { output ->
-            def flavors = variant.productFlavors
-
-            def flavor = flavors[0].name // 여기서 0은 dimension 순서를 의미
-            def version = variant.versionName
-            def versionCode = defaultConfig.versionCode
-            def buildType = variant.variantData.variantConfiguration.buildType.name
-
-            def newApkName = "dvm_${version}_${flavor}_vc${versionCode}_${buildType}.apk"
-
-            output.outputFile = new File(output.outputFile.parent, newApkName)
-        }
-    }
-
     configurations {
         all*.exclude group: 'com.android.support', module: 'support-annotations'
     }
+
 } // end:android
 
 allprojects {
@@ -284,55 +225,55 @@ allprojects {
 }
 
 dependencies {
-    compile fileTree(dir: 'libs', include: ['*.jar'])
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
 
     // @cocos2d-x
-    compile project(':libcocos2dx')
+    implementation project(':libcocos2dx')
 
     // @apk-expansion
-    compile project(':downloader_library')
+    implementation project(':downloader_library')
 
     // @perplesdk
-    compile(name:'perplesdk', ext:'aar')
+    implementation(name:'perplesdk', ext:'aar')
 
     // @adcolony
-    compile 'com.adcolony:sdk:3.3.0'
-    compile 'com.google.android.gms:play-services-ads:11.6.2'
+    implementation 'com.adcolony:sdk:3.3.0'
+    implementation 'com.google.android.gms:play-services-ads:11.8.0'
 
     // @unity-ads
-    compile(name:'unity-ads', ext:'aar')
+    implementation(name:'unity-ads', ext:'aar')
 
     // @naver-cafe
-    compile(name: 'cafeSdk-3.1.2', ext: 'aar')
+    implementation(name: 'cafeSdk-3.2.0', ext: 'aar')
 
-    compile 'com.navercorp.volleyextensions:volleyer:2.0.1', {
+    implementation 'com.navercorp.volleyextensions:volleyer:2.0.1', {
         exclude group: 'com.mcxiaoke.volley', module: 'library'
     }
-    compile 'com.google.code.gson:gson:2.8.0'
-    compile 'com.github.bumptech.glide:glide:3.7.0'
-    compile 'com.squareup:otto:1.3.8'
+    implementation 'com.google.code.gson:gson:2.8.0'
+    implementation 'com.github.bumptech.glide:glide:3.7.0'
+    implementation 'com.squareup:otto:1.3.8'
 
     // @firebase
-    compile 'com.google.firebase:firebase-core:11.6.2'
-    compile 'com.google.firebase:firebase-auth:11.6.2'
-    compile 'com.google.firebase:firebase-messaging:11.6.2'
+    implementation 'com.google.firebase:firebase-core:11.8.0'
+    implementation 'com.google.firebase:firebase-auth:11.8.0'
+    implementation 'com.google.firebase:firebase-messaging:11.8.0'
 
     // @google
-    compile 'com.google.android.gms:play-services-auth:11.6.2'
-    compile 'com.google.android.gms:play-services-games:11.6.2'
+    implementation 'com.google.android.gms:play-services-auth:11.8.0'
+    implementation 'com.google.android.gms:play-services-games:11.8.0'
 
     // @facebook
-    compile 'com.facebook.android:facebook-android-sdk:4.28.0'
+    implementation 'com.facebook.android:facebook-android-sdk:4.30.0'
 
     // @multidex below Android 6.0
-    compile 'com.android.support:multidex:1.0.1'
+    implementation 'com.android.support:multidex:1.0.2'
 
     // @igawCommon
-    compile 'com.android.installreferrer:installreferrer:1.0'
+    implementation 'com.android.installreferrer:installreferrer:1.0'
 
     // @adjust
-    compile 'com.adjust.sdk:adjust-android:4.12.0'
-    compile 'com.google.android.gms:play-services-analytics:11.6.2'
+    implementation 'com.adjust.sdk:adjust-android:4.12.0'
+    implementation 'com.google.android.gms:play-services-analytics:11.8.0'
 }
 
 // @firebase
