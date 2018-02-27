@@ -47,7 +47,7 @@ function RemoveUnreleasedRes:removeDragonRes()
         if (file ~= ".") and (file ~= "..") then
             if not (self:findTargetDragon(table_dragon, file)) then
                 -- 디렉토리 삭제
-                --util.removeDirectory(dragon_res_path .. '\\' .. file)
+                util.removeDirectory(dragon_res_path .. '\\' .. file)
                 cclog('delete', file)
             end
         end
