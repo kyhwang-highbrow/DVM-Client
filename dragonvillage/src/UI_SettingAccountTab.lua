@@ -522,6 +522,7 @@ function UI_Setting:click_serverBtn()
 
 			-- 설정, 채팅, 시나리오 로컬 파일 삭제
 		    SettingData:getInstance():clearSettingDataFile()
+            LobbyGuideData:getInstance():clearLobbyGuideDataFile()
 			ChatIgnoreList:clearChatIgnoreListFile()
 			ScenarioViewingHistory:clearScenarioViewingHistoryFile()
 

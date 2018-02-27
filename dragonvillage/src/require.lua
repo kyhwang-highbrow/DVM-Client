@@ -187,6 +187,7 @@ local t_module = {
     'MapManager',
     'LocalData',
     'SettingData',
+    'LobbyGuideData',
     'ChatIgnoreList',
     'ScenarioViewingHistory',
 	'ConstantData',

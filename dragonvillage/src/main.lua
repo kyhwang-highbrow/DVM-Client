@@ -184,6 +184,7 @@ local function main()
     -- 각종 설정 데이터
     local setting_data_instance = SettingData:getInstance()
     setting_data_instance:migration(LocalData:getInstance())
+    LobbyGuideData:getInstance()
 
     stopwatch:stop()
     stopwatch:print()
@@ -208,6 +209,7 @@ end
 function removeLocalFiles()
     LocalData:getInstance():clearLocalDataFile()
     SettingData:getInstance():clearSettingDataFile()
+    LobbyGuideData:getInstance():clearLobbyGuideDataFile()
 
     -- 채팅 차단
     ChatIgnoreList:clearChatIgnoreListFile()
