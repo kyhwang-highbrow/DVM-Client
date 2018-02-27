@@ -84,6 +84,17 @@ function NaverCafeManager:naverCafeStop()
 end
 
 -------------------------------------
+-- function naverCafeGetChannelCode
+-------------------------------------
+function NaverCafeManager:naverCafeGetChannelCode()
+    if (skip()) then 
+        return
+    end
+
+    return PerpleSDK:naverCafeGetChannelCode()
+end
+
+-------------------------------------
 -- function naverCafeSyncGameUserId
 -- @brief 네이버 카페에 user id 연동
 -------------------------------------
@@ -201,6 +212,8 @@ end
 -- @brief 네이버 카페에 callback 세팅
 -------------------------------------
 function NaverCafeManager:onNaverCafeCallback(ret, info)
+	cclog('## naver cafe call back', ret, info)
+
     if ret == 'screenshot' or ret == 'article' then
         local size = cc.Director:getInstance():getWinSize()
         local texture = cc.RenderTexture:create( size.width, size.height, cc.TEXTURE2_D_PIXEL_FORMAT_RGB_A8888, gl.DEPTH24_STENCIL8_OES )
@@ -215,7 +228,26 @@ function NaverCafeManager:onNaverCafeCallback(ret, info)
             cclog( 'retFileName : ' .. retFileName )
             self:naverCafeStartImageWrite( retFileName )
         end )
-        
+
+	elseif (ret == 'start') then
+	elseif (ret == 'stop') then
+    elseif (ret == 'join') then
+
+	-- onPostedComment / info = articleId
+	elseif (ret == 'comment') then
+	
+	-- onClickAppSchemeBanner / info = appScheme
+	elseif (ret == 'banner') then
+
+	-- onVoted / info = articleId
+	elseif (ret == 'vote') then
+
+	-- onRecordFinished / info = url
+	elseif (ret == 'record') then
+
+	-- onError / info = info
+	elseif (ret == 'error') then
+
     end
 end
 
