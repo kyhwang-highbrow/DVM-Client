@@ -70,7 +70,10 @@ function UIC_RichLabel:init()
         local function update(dt)
             self:update(dt)
         end
-        self.m_root:scheduleUpdateWithPriorityLua(update, 0)
+
+        if (event == 'enter') then
+            self.m_root:scheduleUpdateWithPriorityLua(update, 0)
+        end
     end)    
 end
 
