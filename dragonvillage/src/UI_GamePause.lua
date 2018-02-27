@@ -231,10 +231,20 @@ end
 -- function confirmExit
 -------------------------------------
 function UI_GamePause:confirmExit(exit_cb)
-    local msg = Str('지금 종료하면 드래곤 경험치와 보상을 받을 수 없습니다.\n그래도 나가시겠습니까?')
+    local msg = Str('지금 퇴장하면 {@RED}패배로 처리{@default}됩니다.\n그래도 나가시겠습니까?')
 
     local function ok_cb()
-        g_stageData:requestGameCancel(self.m_stageID, self.m_gameKey, exit_cb)
+        -- 멈춘 상태에서 바로 종료될시 어색하므로 resume 시키고 종료
+        local world = g_gameScene.m_gameWorld
+        world.m_gameState:changeState(GAME_STATE_FAILURE)
+
+        if self.m_endCB then
+            self.m_endCB()
+        end
+
+        -- 터치는 안되게 
+        UI_BlockPopup()
+        self.root:setVisible(false)
     end
 
     MakeSimplePopup(POPUP_TYPE.YES_NO, msg, ok_cb)
