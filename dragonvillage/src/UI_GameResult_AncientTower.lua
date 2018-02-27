@@ -274,7 +274,11 @@ end
 -------------------------------------
 function UI_GameResult_AncientTower:click_againBtn()
     local stage_id = self.m_stageID
-    g_ancientTowerData:checkAttrTowerAndGoStage(stage_id)
+    local function close_cb()
+        g_ancientTowerData:checkAttrTowerAndGoStage(stage_id)
+    end
+
+    UINavigator:goTo('battle_ready', stage_id, close_cb)
 end
 
 -------------------------------------
@@ -284,7 +288,12 @@ function UI_GameResult_AncientTower:click_nextBtn()
     local stage_id = self.m_stageID
     local use_scene = true
     local next_stage_id = g_stageData:getNextStage(stage_id)
-    g_ancientTowerData:checkAttrTowerAndGoStage(next_stage_id)
+    
+    local function close_cb()
+        g_ancientTowerData:checkAttrTowerAndGoStage(next_stage_id)
+    end
+
+    UINavigator:goTo('battle_ready', next_stage_id, close_cb)
 end
 
 -------------------------------------
@@ -294,7 +303,12 @@ function UI_GameResult_AncientTower:click_prevBtn()
     local stage_id = self.m_stageID
     local use_scene = true
     local prev_stage_id = g_stageData:getSimplePrevStage(stage_id)
-    g_ancientTowerData:checkAttrTowerAndGoStage(prev_stage_id)
+    
+    local function close_cb()
+        g_ancientTowerData:checkAttrTowerAndGoStage(prev_stage_id)
+    end
+
+    UINavigator:goTo('battle_ready', prev_stage_id, close_cb)
 end
 
 -------------------------------------

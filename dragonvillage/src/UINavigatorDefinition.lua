@@ -1183,7 +1183,6 @@ function UINavigatorDefinition:goTo_package_shop(...)
     g_shopDataNew:request_shopInfo(finish_cb)
 end
 
-
 -------------------------------------
 -- function goTo_event_gold_dungeon
 -- @brief 황금던전 이벤트 탭으로 이동
@@ -1207,6 +1206,37 @@ function UINavigatorDefinition:goTo_event_gold_dungeon(...)
         end
 
         g_eventData:openEventPopup('event_gold_dungeon', close_cb)
+    end
+end
+
+-------------------------------------
+-- function goTo_battle_ready
+-- @brief 전투 준비 화면으로 이동
+-- @usage UINavigatorDefinition:goTo('battle_ready')
+-------------------------------------
+function UINavigatorDefinition:goTo_battle_ready(...)
+    local args = {...}
+    local stage_id = args[1]
+    local finish_cb = args[2]
+
+    -- 해당 UI가 열려있을 경우
+    local is_opend, idx, ui = self:findOpendUI('UI_ReadySceneNew')
+    if (is_opend == true) then
+        self:closeUIList(idx, false) -- param : idx, include_idx
+        return
+    end
+
+    do-- Scene으로 동작
+        local function close_cb()
+            if (finish_cb) then
+                finish_cb()
+            else
+                UINavigatorDefinition:goTo('lobby')
+            end
+        end
+
+        local scene = SceneCommon(UI_ReadySceneNew, close_cb, stage_id)
+        scene:runScene()
     end
 end
 

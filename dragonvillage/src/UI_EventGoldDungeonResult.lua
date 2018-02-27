@@ -288,7 +288,12 @@ end
 -- @brief 다시하기 버튼
 -------------------------------------
 function UI_EventGoldDungeonResult:click_againBtn()
-	UINavigator:goTo('event_gold_dungeon')
+    local stage_id = self.m_stageID
+    local function close_cb()
+        UINavigator:goTo('event_gold_dungeon')
+    end
+
+    UINavigator:goTo('battle_ready', stage_id, close_cb)
 end
 
 -------------------------------------

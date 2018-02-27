@@ -40,7 +40,12 @@ end
 -- function click_againBtn
 -------------------------------------
 function UI_GameResult_SecretDungeon:click_againBtn()
-    UINavigator:goTo('secret_relation', self.m_stageID)
+    local stage_id = self.m_stageID
+    local function close_cb()
+        UINavigator:goTo('secret_relation', stage_id)
+    end
+
+    UINavigator:goTo('battle_ready', stage_id, close_cb)
 end
 
 -------------------------------------

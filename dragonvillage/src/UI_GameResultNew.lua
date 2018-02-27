@@ -1155,7 +1155,11 @@ function UI_GameResultNew:click_againBtn()
 	end
 
     local stage_id = self.m_stageID
-    UINavigator:goTo('adventure', stage_id)
+    local function close_cb()
+        UINavigator:goTo('adventure', stage_id)
+    end
+
+    UINavigator:goTo('battle_ready', stage_id, close_cb)
 end
 
 -------------------------------------
@@ -1169,7 +1173,11 @@ function UI_GameResultNew:click_nextBtn()
         g_stageData:setFocusStage(next_stage_id)
     end
 
-    UINavigator:goTo('adventure', next_stage_id)
+    local function close_cb()
+        UINavigator:goTo('adventure', next_stage_id)
+    end
+
+    UINavigator:goTo('battle_ready', next_stage_id, close_cb)
 end
 
 -------------------------------------
@@ -1194,7 +1202,11 @@ function UI_GameResultNew:click_prevBtn()
         g_stageData:setFocusStage(prev_stage_id)
     end
 
-    UINavigator:goTo('adventure', prev_stage_id)
+    local function close_cb()
+        UINavigator:goTo('adventure', prev_stage_id)
+    end
+
+    UINavigator:goTo('battle_ready', prev_stage_id, close_cb)
 end
 
 -------------------------------------
