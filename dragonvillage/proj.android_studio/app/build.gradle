@@ -5,6 +5,11 @@ apply plugin: 'com.android.application'
 // task preBuild excuted before android build 
 preBuild {
     println '[task preBuild] do it before build'
+    println PROP_PACKAGE_NAME
+    println PROP_VERSION_CODE
+    println PROP_APPVER_DEV
+    println PROP_APPVER_QA
+    println PROP_APPVER_LIVE
 }
 
 // task android build
@@ -13,13 +18,11 @@ android {
     buildToolsVersion "26.0.2"
 
     defaultConfig {
-        applicationId "com.perplelab.dragonvillagem.kr"
-		versionCode 29
-        versionNameSuffix "-vc29"
-
+        applicationId PROP_PACKAGE_NAME
+		versionCode PROP_VERSION_CODE.toInteger()
         minSdkVersion PROP_MIN_SDK_VERSION
         targetSdkVersion PROP_TARGET_SDK_VERSION
-		
+
         multiDexEnabled true
 
         externalNativeBuild {
@@ -124,7 +127,7 @@ android {
         // dimension server
         dev{
             dimension "server"
-            versionName "0.5.0"
+            versionName PROP_APPVER_DEV
             signingConfig signingConfigs.keystore
             externalNativeBuild {
                 ndkBuild {
@@ -136,7 +139,7 @@ android {
         }
         qa{
             dimension "server"
-            versionName "0.5.1"
+            versionName PROP_APPVER_QA
             signingConfig signingConfigs.keystore
             externalNativeBuild {
                 ndkBuild {
@@ -148,7 +151,7 @@ android {
         }
         live{
             dimension "server"
-            versionName "1.1.0"
+            versionName PROP_APPVER_LIVE
             signingConfig signingConfigs.upload_keystore
             externalNativeBuild {
                 ndkBuild {
@@ -212,6 +215,22 @@ android {
     configurations {
         all*.exclude group: 'com.android.support', module: 'support-annotations'
     }
+
+    // apk 이름 변경 : "dvm_version_vc00_server_asset_buildtype.apk
+    applicationVariants.all { variant ->
+        variant.outputs.all {
+            def flavors = variant.productFlavors
+
+            def server_flavor = flavors[0].name // 여기서 0은 dimension 순서를 의미
+            def asset_flaver = flavors[1].name // market or full
+            def version = variant.versionName
+            def versionCode = defaultConfig.versionCode
+            def buildType = variant.variantData.variantConfiguration.buildType.name
+
+            outputFileName = "dvm_${version}_vc${versionCode}_${server_flavor}_${asset_flaver}_${buildType}.apk"
+        }
+    }
+
 
 } // end:android
 
