@@ -92,6 +92,9 @@ function SkillMeleeHack.st_attack(owner, dt)
             owner:attackMelee()
         end
         char.m_animator:setEventHandler(attack_cb)
+
+    elseif (owner.m_stateTimer > 3) then
+        owner:changeState('comeback')
     end
 end
 
