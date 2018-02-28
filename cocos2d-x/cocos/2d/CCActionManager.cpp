@@ -167,8 +167,8 @@ void ActionManager::resumeTargets(const Vector<Node*>& targetsToResume)
 
 void ActionManager::addAction(Action *action, Node *target, bool paused)
 {
-    CCASSERT(action != nullptr, "");
-    CCASSERT(target != nullptr, "");
+    CCASSERT(action != nullptr, "ActionManager::addAction 1");
+    CCASSERT(target != nullptr, "ActionManager::addAction 2");
 
     tHashElement *element = nullptr;
     // we should convert it to Ref*, because we save it as Ref*
@@ -185,7 +185,7 @@ void ActionManager::addAction(Action *action, Node *target, bool paused)
 
      actionAllocWithHashElement(element);
  
-     CCASSERT(! ccArrayContainsObject(element->actions, action), "");
+     CCASSERT(! ccArrayContainsObject(element->actions, action), "ActionManager::addAction 3");
      ccArrayAppendObject(element->actions, action);
  
      action->startWithTarget(target);
@@ -264,8 +264,8 @@ void ActionManager::removeAction(Action *action)
 
 void ActionManager::removeActionByTag(int tag, Node *target)
 {
-    CCASSERT(tag != Action::INVALID_TAG, "");
-    CCASSERT(target != nullptr, "");
+    CCASSERT(tag != Action::INVALID_TAG, "ActionManager::removeActionByTag 1");
+    CCASSERT(target != nullptr, "ActionManager::removeActionByTag 2");
 
     tHashElement *element = nullptr;
     HASH_FIND_PTR(_targets, &target, element);
@@ -292,7 +292,7 @@ void ActionManager::removeActionByTag(int tag, Node *target)
 // and, it is not possible to get the address of a reference
 Action* ActionManager::getActionByTag(int tag, const Node *target) const
 {
-    CCASSERT(tag != Action::INVALID_TAG, "");
+    CCASSERT(tag != Action::INVALID_TAG, "ActionManager::getActionByTag");
 
     tHashElement *element = nullptr;
     HASH_FIND_PTR(_targets, &target, element);

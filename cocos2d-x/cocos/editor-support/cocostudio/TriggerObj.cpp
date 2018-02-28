@@ -176,10 +176,10 @@ void TriggerObj::serialize(const rapidjson::Value &val)
         if(con == nullptr)
         {
             CCLOG("class %s can not be implemented!", classname);
-            CCASSERT(con != nullptr, "");
+            CCASSERT(con != nullptr, "TriggerObj::serialize 1");
         }
         
-        CCASSERT(con != nullptr, "");
+        CCASSERT(con != nullptr, "TriggerObj::serialize 2");
         con->serialize(subDict);
         con->init();
         _cons.pushBack(con);
@@ -198,7 +198,7 @@ void TriggerObj::serialize(const rapidjson::Value &val)
         if(act == nullptr)
         {
             CCLOG("class %s can not be implemented!", classname);
-            CCASSERT(act != nullptr, "");
+            CCASSERT(act != nullptr, "TriggerObj::serialize 3");
         }
         act->serialize(subDict);
         act->init();

@@ -120,7 +120,7 @@ void Vec2::add(const Vec2& v)
 
 void Vec2::add(const Vec2& v1, const Vec2& v2, Vec2* dst)
 {
-    GP_ASSERT(dst);
+    CCASSERT(dst, "Vec2::add");
 
     dst->x = v1.x + v2.x;
     dst->y = v1.y + v2.y;
@@ -128,7 +128,7 @@ void Vec2::add(const Vec2& v1, const Vec2& v2, Vec2* dst)
 
 void Vec2::clamp(const Vec2& min, const Vec2& max)
 {
-    GP_ASSERT(!(min.x > max.x || min.y > max.y ));
+    CCASSERT(!(min.x > max.x || min.y > max.y ), "Vec2::clamp");
 
     // Clamp the x value.
     if (x < min.x)
@@ -145,8 +145,8 @@ void Vec2::clamp(const Vec2& min, const Vec2& max)
 
 void Vec2::clamp(const Vec2& v, const Vec2& min, const Vec2& max, Vec2* dst)
 {
-    GP_ASSERT(dst);
-    GP_ASSERT(!(min.x > max.x || min.y > max.y ));
+    CCASSERT(dst, "Vec2::clamp");
+    CCASSERT(!(min.x > max.x || min.y > max.y ), "Vec2::clamp1");
 
     // Clamp the x value.
     dst->x = v.x;
@@ -269,7 +269,7 @@ void Vec2::set(float xx, float yy)
 
 void Vec2::set(const float* array)
 {
-    GP_ASSERT(array);
+    CCASSERT(array, "Vec2::set");
 
     x = array[0];
     y = array[1];
@@ -295,7 +295,7 @@ void Vec2::subtract(const Vec2& v)
 
 void Vec2::subtract(const Vec2& v1, const Vec2& v2, Vec2* dst)
 {
-    GP_ASSERT(dst);
+    CCASSERT(dst, "Vec2::subtract");
 
     dst->x = v1.x - v2.x;
     dst->y = v1.y - v2.y;

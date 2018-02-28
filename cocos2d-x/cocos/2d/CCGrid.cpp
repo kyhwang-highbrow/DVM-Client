@@ -237,17 +237,17 @@ void GridBase::afterDraw(cocos2d::Node *target)
 
 void GridBase::blit(void)
 {
-    CCASSERT(0, "");
+    CCASSERT(0, "GridBase::blit(");
 }
 
 void GridBase::reuse(void)
 {
-    CCASSERT(0, "");
+    CCASSERT(0, "GridBase::reuse");
 }
 
 void GridBase::calculateVertexPoints(void)
 {
-    CCASSERT(0, "");
+    CCASSERT(0, " GridBase::calculateVertexPoints");
 }
 
 // implementation of Grid3D

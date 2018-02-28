@@ -131,13 +131,13 @@ void ActionInterval::setAmplitudeRate(float amp)
 {
     CC_UNUSED_PARAM(amp);
     // Abstract class needs implementation
-    CCASSERT(0, "");
+    CCASSERT(0, "ActionInterval::setAmplitudeRate");
 }
 
 float ActionInterval::getAmplitudeRate(void)
 {
     // Abstract class needs implementation
-    CCASSERT(0, "");
+    CCASSERT(0, "ActionInterval::getAmplitudeRate");
 
     return 0;
 }
@@ -245,8 +245,8 @@ Sequence* Sequence::create(const Vector<FiniteTimeAction*>& arrayOfActions)
 
 bool Sequence::initWithTwoActions(FiniteTimeAction *actionOne, FiniteTimeAction *actionTwo)
 {
-    CCASSERT(actionOne != nullptr, "");
-    CCASSERT(actionTwo != nullptr, "");
+    CCASSERT(actionOne != nullptr, "Sequence::initWithTwoActions 1");
+    CCASSERT(actionTwo != nullptr, "Sequence::initWithTwoActions 2");
 
     float d = actionOne->getDuration() + actionTwo->getDuration();
     ActionInterval::initWithDuration(d);
@@ -501,7 +501,7 @@ RepeatForever *RepeatForever::create(ActionInterval *action)
 
 bool RepeatForever::initWithAction(ActionInterval *action)
 {
-    CCASSERT(action != nullptr, "");
+    CCASSERT(action != nullptr, "RepeatForever::initWithAction");
     action->retain();
     _innerAction = action;
     return true;
@@ -640,8 +640,8 @@ Spawn* Spawn::createWithTwoActions(FiniteTimeAction *action1, FiniteTimeAction *
 
 bool Spawn::initWithTwoActions(FiniteTimeAction *action1, FiniteTimeAction *action2)
 {
-    CCASSERT(action1 != nullptr, "");
-    CCASSERT(action2 != nullptr, "");
+    CCASSERT(action1 != nullptr, "Spawn::initWithTwoActions 1");
+    CCASSERT(action2 != nullptr, "Spawn::initWithTwoActions 2");
 
     bool ret = false;
 
@@ -2081,8 +2081,8 @@ ReverseTime* ReverseTime::create(FiniteTimeAction *action)
 
 bool ReverseTime::initWithAction(FiniteTimeAction *action)
 {
-    CCASSERT(action != nullptr, "");
-    CCASSERT(action != _other, "");
+    CCASSERT(action != nullptr, "ReverseTime::initWithAction 1");
+    CCASSERT(action != _other, "ReverseTime::initWithAction 2");
 
     if (ActionInterval::initWithDuration(action->getDuration()))
     {

@@ -45,13 +45,13 @@ Application * Application::sm_pSharedApplication = 0;
 
 Application::Application()
 {
-    CCAssert(! sm_pSharedApplication, "");
+    CCAssert(! sm_pSharedApplication, "Application::Application");
     sm_pSharedApplication = this;
 }
 
 Application::~Application()
 {
-    CCAssert(this == sm_pSharedApplication, "");
+    CCAssert(this == sm_pSharedApplication, "Application::~Application");
     sm_pSharedApplication = NULL;
 }
 
@@ -76,7 +76,7 @@ void Application::setAnimationInterval(double interval)
 //////////////////////////////////////////////////////////////////////////
 Application* Application::getInstance()
 {
-    CCAssert(sm_pSharedApplication, "");
+    CCAssert(sm_pSharedApplication, "Application::getInstance()");
     return sm_pSharedApplication;
 }
 

@@ -91,7 +91,7 @@ Skin::Skin()
 
 bool Skin::initWithSpriteFrameName(const std::string& spriteFrameName)
 {
-    CCAssert(spriteFrameName != "", "");
+    CCAssert(spriteFrameName != "", "Skin::initWithSpriteFrameName");
 
     SpriteFrame *pFrame = SpriteFrameCache::getInstance()->getSpriteFrameByName(spriteFrameName);
     bool ret = true;

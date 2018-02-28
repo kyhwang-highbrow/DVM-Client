@@ -324,6 +324,8 @@ Data FileUtilsAndroid::getData(const std::string& filename, bool forString)
     }
     else
     {
+		CCLOG("not relative full path = %s", fullPath.c_str());
+		CCLOG("not relative filename = %s", filename.c_str());
         std::lock_guard<std::mutex> lk(__SLFileUtilsMutex);
         return FileUtils::getData(filename, forString);
     }

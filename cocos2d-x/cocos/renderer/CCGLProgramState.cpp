@@ -148,28 +148,28 @@ void UniformValue::setInt(int value)
 
 void UniformValue::setVec2(const Vec2& value)
 {
-    CCASSERT (_uniform->type == GL_FLOAT_VEC2, "");
+    CCASSERT (_uniform->type == GL_FLOAT_VEC2, "UniformValue::setVec2");
 	memcpy(_value.v2Value, &value, sizeof(_value.v2Value));
     _useCallback = false;
 }
 
 void UniformValue::setVec3(const Vec3& value)
 {
-    CCASSERT (_uniform->type == GL_FLOAT_VEC3, "");
+    CCASSERT (_uniform->type == GL_FLOAT_VEC3, "UniformValue::setVec3(");
 	memcpy(_value.v3Value, &value, sizeof(_value.v3Value));
 	_useCallback = false;
 }
 
 void UniformValue::setVec4(const Vec4& value)
 {
-    CCASSERT (_uniform->type == GL_FLOAT_VEC4, "");
+    CCASSERT (_uniform->type == GL_FLOAT_VEC4, "UniformValue::setVec4");
 	memcpy(_value.v4Value, &value, sizeof(_value.v4Value));
 	_useCallback = false;
 }
 
 void UniformValue::setMat4(const Mat4& value)
 {
-    CCASSERT(_uniform->type == GL_FLOAT_MAT4, "");
+    CCASSERT(_uniform->type == GL_FLOAT_MAT4, "UniformValue::setMat4");
 	memcpy(_value.matrixValue, &value, sizeof(_value.matrixValue));
 	_useCallback = false;
 }

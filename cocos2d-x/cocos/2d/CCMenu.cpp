@@ -428,11 +428,11 @@ void Menu::alignItemsInColumnsWithArray(const ValueVector& rows)
     int rowColumns = 0;
 
     for(const auto &child : _children) {
-        CCASSERT(row < rows.size(), "");
+        CCASSERT(row < rows.size(), "Menu::alignItemsInColumnsWithArra size");
         
         rowColumns = rows[row].asInt();
         // can not have zero columns on a row
-        CCASSERT(rowColumns, "");
+        CCASSERT(rowColumns, " Menu::alignItemsInColumnsWithArra column");
         
         float tmp = child->getContentSize().height;
         rowHeight = (unsigned int)((rowHeight >= tmp || isnan(tmp)) ? rowHeight : tmp);
@@ -449,7 +449,7 @@ void Menu::alignItemsInColumnsWithArray(const ValueVector& rows)
     }
 
     // check if too many rows/columns for available menu items
-    CCASSERT(! columnsOccupied, "");
+    CCASSERT(! columnsOccupied, " Menu::alignItemsInColumnsWithArra columnsOccupied");
 
     Size winSize = Director::getInstance()->getWinSize();
 
@@ -524,11 +524,11 @@ void Menu::alignItemsInRowsWithArray(const ValueVector& columns)
 
     for(const auto &child : _children) {
         // check if too many menu items for the amount of rows/columns
-        CCASSERT(column < columns.size(), "");
+        CCASSERT(column < columns.size(), "Menu::alignItemsInRowsWithArray size");
 
         columnRows = columns[column].asInt();
         // can't have zero rows on a column
-        CCASSERT(columnRows, "");
+        CCASSERT(columnRows, "Menu::alignItemsInRowsWithArray columnRows");
 
         // columnWidth = fmaxf(columnWidth, [item contentSize].width);
         float tmp = child->getContentSize().width;
@@ -551,7 +551,7 @@ void Menu::alignItemsInRowsWithArray(const ValueVector& columns)
     }
 
     // check if too many rows/columns for available menu items.
-    CCASSERT(! rowsOccupied, "");
+    CCASSERT(! rowsOccupied, "Menu::alignItemsInRowsWithArray rowsOccupied");
 
     Size winSize = Director::getInstance()->getWinSize();
 
