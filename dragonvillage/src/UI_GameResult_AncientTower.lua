@@ -240,8 +240,8 @@ end
 function UI_GameResult_AncientTower:checkAutoPlayCondition()
 	local auto_play_stop, msg = PARENT.checkAutoPlayCondition(self)
 
-	-- 50층 도달 시 다음 층 연속 전투 중지
 	if (g_autoPlaySetting:get('tower_next_floor')) then
+		-- 50층 도달 시 다음 층 연속 전투 중지
 		if (self.m_stageID % 100 == 50) then
 			auto_play_stop = true
 			msg = Str('모든 층을 클리어하여 연속 전투가 종료되었습니다.')
@@ -260,8 +260,10 @@ function UI_GameResult_AncientTower:startGame()
 	-- 연속 전투 : 다음 층 도전
 	if (g_autoPlaySetting:isAutoPlay()) then
 		if (g_autoPlaySetting:get('tower_next_floor')) then
-			local stage_id = self.m_stageID
-			self.m_stageID = stage_id + 1
+			if (self.m_bSuccess) then
+				local stage_id = self.m_stageID
+				self.m_stageID = stage_id + 1
+			end
 		end
 	end
 
