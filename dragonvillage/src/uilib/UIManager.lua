@@ -556,7 +556,7 @@ function UIManager:onKeyReleased(keyCode, event)
     end
 
     -- 인게임에서 동작하지 않도록 설정
-    if (g_gameScene) then
+    if (g_gameScene or DV_SCENE_ACTIVE) then
         return
     end
 

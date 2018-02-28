@@ -1806,14 +1806,13 @@ function Character:calcAttackPeriod(calc_attack_tick)
 
             self.m_aspdRatio = aspd_ratio
             
-
-            -- 공속 버프 비율만큼 애니메이션 속도를 보정
-            if (not self.m_temporaryPause) then
-                self:setTimeScale()
-            end
-            
             attack_duration = attack_duration / self.m_aspdRatio
             charge_duration = charge_duration / self.m_aspdRatio
+        end
+
+        -- 공속 버프 비율만큼 애니메이션 속도를 보정
+        if (not self.m_temporaryPause) then
+            self:setTimeScale()
         end
     end
 
@@ -2250,7 +2249,6 @@ end
 -------------------------------------
 function Character:onEnabledBehavior()
     if (not self.m_temporaryPause) then
-        --self:setTimeScale()
         self:runAction_Floating()
     end
 end
@@ -2260,7 +2258,6 @@ end
 -- @brief 행동 불가능 상태가 되었을 때 호출
 -------------------------------------
 function Character:onDisabledBehavior()
-    --self:setTimeScale(0)
     if (self.m_animator and self.m_animator.m_node) then
         cca.stopAction(self.m_animator.m_node, CHARACTER_ACTION_TAG__FLOATING)
     end

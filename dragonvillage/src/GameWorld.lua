@@ -1018,18 +1018,6 @@ function GameWorld:addInstantEffect(res, ani_name, x, y)
 end
 
 -------------------------------------
--- function effectSyncPos
--- @brief
--------------------------------------
-function GameWorld:effectSyncPos(owner, effect, offset_x, offset_y)
-    local function update(dt)
-        effect:setPosition(owner.pos.x + offset_x, owner.pos.y + offset_y)
-    end
-
-    effect.m_node:scheduleUpdateWithPriorityLua(update, 0)
-end
-
--------------------------------------
 -- function setBattleZone
 -- @brief 전투영역 설정
 -------------------------------------

@@ -224,6 +224,9 @@ function GameState_ClanRaid.update_failure(self, dt)
             world:removeEnemyDebuffs()
             world:cleanupItem()
 
+            -- 드래곤을 모두 죽임
+            world:removeAllHero()
+
             -- 기본 배속으로 변경
             world.m_gameTimeScale:setBase(1)
 

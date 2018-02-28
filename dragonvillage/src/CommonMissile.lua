@@ -68,8 +68,8 @@ function CommonMissile:initCommonMissile(owner, t_skill)
 	self.m_target, self.m_lTarget = self:getRandomTargetByRule()
 	self.m_missileTimer = 0
 
-    -- 공격 모션 없이 사용되는 스킬의 경우
     if (self.m_owner:getCharType() == 'dragon') then
+        -- 드래곤의 경우 기본탄을 제외하고 attack 이벤트 위치값을 사용하지 않도록 함
         if (self.m_owner:getSkillID('basic') == self.m_skillId) then
             self.m_ownerAnimation = SkillHelper:getValid(t_skill['animation'], 'attack')
         else
