@@ -40,6 +40,7 @@ function ServerData_Event:getEventPopupTabList()
         local user_lv = v['user_lv']
         local start_date = v['start_date']
         local end_date = v['end_date']
+        local target_server = v['target_server'] or ''
 
         -- 유저 레벨 조건 (걸려있는 레벨 이상인 유저에게만 노출)
         if (user_lv ~= '') then
@@ -47,8 +48,14 @@ function ServerData_Event:getEventPopupTabList()
             visible = curr_lv >= user_lv
         end
 
+        -- 서버 조건
+        if (visible) and (target_server ~= '') then
+            visible = self:checkTargetServer(target_server)
+            ccdump(visible)
+        end
+
         -- 날짜 조건
-        if (start_date ~= '') or (end_date ~= '') then
+        if (visible) and ((start_date ~= '') or (end_date ~= '')) then
             visible = self:checkEventTime(start_date, end_date)
         end
         
@@ -140,6 +147,7 @@ function ServerData_Event:getEventFullPopupList()
             local user_lv = v['user_lv']
             local start_date = v['start_date']
             local end_date = v['end_date']
+            local target_server = v['target_server'] or ''
 
 			-- feature 조건 체크
 			do
@@ -162,8 +170,14 @@ function ServerData_Event:getEventFullPopupList()
                 visible = curr_lv >= user_lv
             end
 
+            -- 서버 조건
+            if (visible) and (target_server ~= '') then
+                visible = self:checkTargetServer(target_server)
+                ccdump(visible)
+            end
+
             -- 날짜 조건
-            if (start_date ~= '') or (end_date ~= '') then
+            if (visible) and ((start_date ~= '') or (end_date ~= '')) then
                 visible = self:checkEventTime(start_date, end_date)
             end
 
@@ -218,6 +232,26 @@ function ServerData_Event:getEventFullPopupList()
     end)
 
     return l_list
+end
+
+-------------------------------------
+-- function checkTargetServer
+-- @brief true : 활성화, false : 비활성화
+-------------------------------------
+function ServerData_Event:checkTargetServer(target_server)
+    local l_str =  pl.stringx.split(target_server, ';')
+    -- 개발서버와 QA서버는 테스트를 위해 등록
+    table.insert(l_str, 'DEV')
+    table.insert(l_str, 'QA')
+
+    local server = g_localData:getServerName()
+    for _, v in ipairs(l_str) do
+        if (string.match(v, server)) then
+            return true
+        end
+    end
+
+    return false
 end
 
 -------------------------------------
