@@ -263,6 +263,42 @@ function Monster_ClanRaidBoss:makeHPGauge(hp_ui_offset, force)
 end
 
 -------------------------------------
+-- function runAction_Floating
+-- @brief 캐릭터 부유중 효과
+-------------------------------------
+function Monster_ClanRaidBoss:runAction_Floating()
+    if (not self.m_animator) then return end
+    
+    local target_node = self.m_animator.m_node
+    if (not target_node) then return end
+    
+    -- 행동 불가 상태일 경우
+    if (self:hasStatusEffectToDisableBehavior()) then
+        return
+    end
+    
+    target_node:setPosition(0, 0)
+
+	local floating_x_max = g_constant:get('MODE_DIRECTING', 'CHARACTER_FLOATING_MAX_X_SCOPE')
+	local floating_y_max = g_constant:get('MODE_DIRECTING', 'CHARACTER_FLOATING_MAX_Y_SCOPE')
+	local floating_x_min = g_constant:get('MODE_DIRECTING', 'CHARACTER_FLOATING_MIN_X_SCOPE')
+	local floating_y_min = g_constant:get('MODE_DIRECTING', 'CHARACTER_FLOATING_MIN_Y_SCOPE')
+	local floating_time = g_constant:get('MODE_DIRECTING', 'CHARACTER_FLOATING_TIME') * 2
+
+    local function getTime()
+        return math_random(5, 15) * 0.1 * floating_time / 2
+    end
+
+    local sequence = cc.Sequence:create(
+        cc.MoveTo:create(getTime(), cc.p(math_random(-floating_x_max, -floating_x_min), math_random(-floating_y_max, -floating_y_min))),
+        cc.MoveTo:create(getTime(), cc.p(math_random(floating_x_min, floating_x_max), math_random(floating_y_min, floating_y_max)))
+    )
+
+    local action = cc.RepeatForever:create(sequence)
+    cca.runAction(target_node, action, CHARACTER_ACTION_TAG__FLOATING)
+end
+
+-------------------------------------
 -- function setPosition
 -------------------------------------
 function Monster_ClanRaidBoss:setPosition(x, y)
@@ -282,6 +318,20 @@ function Monster_ClanRaidBoss:setPosition(x, y)
             self.m_castingNode:setPosition(offset_x, offset_y)
         end
     end
+end
+
+-------------------------------------
+-- function setTimeScale
+-------------------------------------
+function Monster_ClanRaidBoss:setTimeScale(time_scale)
+    local time_scale = time_scale or self.m_aspdRatio
+
+    -- 쫄들만 속도를 조정
+    if (self.m_charTable['type'] ~= 'clanraid_boss') then
+        time_scale = time_scale * 0.3
+    end
+    
+    PARENT.setTimeScale(self, time_scale)
 end
 
 -------------------------------------
