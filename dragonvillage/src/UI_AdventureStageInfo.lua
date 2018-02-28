@@ -122,7 +122,7 @@ function UI_AdventureStageInfo:refresh()
 
     -- 모험 소비 활동력 핫타임 관련
     if (game_mode == GAME_MODE_ADVENTURE) then
-        local active, key, str = g_hotTimeData:getActiveHotTimeInfo_stamina()
+        local active, value = g_hotTimeData:getActiveHotTimeInfo_stamina()
         if active then
             local table_drop = TABLE:get('drop')
             local t_drop = table_drop[stage_id]
@@ -130,7 +130,7 @@ function UI_AdventureStageInfo:refresh()
             vars['actingPowerLabel']:setString(cost_value)
             vars['actingPowerLabel']:setTextColor(cc.c4b(0, 255, 255, 255))
             vars['hotTimeSprite']:setVisible(true)
-            vars['hotTimeStLabel']:setString(str)
+            vars['hotTimeStLabel']:setString('1/2')
             vars['staminaNode']:setVisible(false)
         else
             vars['actingPowerLabel']:setTextColor(cc.c4b(240, 215, 159, 255))

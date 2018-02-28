@@ -220,6 +220,9 @@ function StructProduct:isDisplayed()
 
     elseif (max_buy_term == 'monthly') then
         return true
+
+    elseif (buy_term == 'daily') then
+		return true
    
     elseif (max_buy_term == 'permanent') then
         return self:isItBuyable()
@@ -325,6 +328,8 @@ function StructProduct:getBuyCountDesc()
 		term_str = Str('주간')
 	elseif (buy_term == 'monthly') then
 		term_str = Str('월간')
+    elseif (buy_term == 'daily') then
+		term_str = Str('일일')
 	end
 
 	-- 구메 제한 str 있으면 추가
@@ -996,6 +1001,9 @@ function StructProduct:getMaxBuyTermStr()
 
     elseif (max_buy_term == 'weekly') then
         str = Str('주간 구매가능 {1}/{2}', max_buy_cnt - buy_cnt, max_buy_cnt)
+
+    elseif (max_buy_term == 'daily') then
+        str = Str('일일 구매가능 {1}/{2}', max_buy_cnt - buy_cnt, max_buy_cnt)
 
     end
 

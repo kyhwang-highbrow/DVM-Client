@@ -228,6 +228,12 @@ function ServerData_Mail:request_mailRead(mail_id_list, t_mail_type_reward, fini
         if finish_cb then
             finish_cb(ret, mail_id_list)
         end
+
+        -- 부스터 아이템 - 핫타임 정보 갱신
+        if (ret['hottime'] and ret['all']) then
+            g_hotTimeData:response_hottime(ret)
+            g_hotTimeData:refreshActiveList()
+        end
     end
 
     -- 네트워크 통신 UI 생성

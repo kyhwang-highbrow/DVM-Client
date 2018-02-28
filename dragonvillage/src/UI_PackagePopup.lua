@@ -7,12 +7,15 @@ UI_PackagePopup = class(PARENT,{
         m_tableView = 'UIC_TableView',
         m_lContainerForEachType = 'list[node]', -- (tab)타입별 컨테이너
         m_mTabUI = 'map',
+        m_initial_tab = '',
     })
 
 -------------------------------------
 -- function init
 -------------------------------------
-function UI_PackagePopup:init()
+function UI_PackagePopup:init(initial_tab)
+    self.m_initial_tab = initial_tab
+
     local vars = self:load('shop_package.ui')
     UIManager:open(self, UIManager.SCENE)
 
@@ -94,7 +97,7 @@ function UI_PackagePopup:initTab()
 
     self.m_lContainerForEachType = {}
 
-    local initial_tab = nil
+    local initial_tab = self.m_initial_tab
     for i,v in pairs(self.m_tableView.m_itemList) do
         local pid = v['data']['product_id']
         local ui = v['ui'] or v['generated_ui']

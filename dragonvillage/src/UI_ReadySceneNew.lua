@@ -461,6 +461,14 @@ function UI_ReadySceneNew:initButton()
 	-- 진형 관리
     vars['fomationBtn']:registerScriptTapHandler(function() self:click_fomationBtn() end)
 
+    -- 광고 보기
+    vars['itemAutoBtn']:registerScriptTapHandler(function() self:click_itemAutoBtn() end)
+
+    -- 골드 부스터
+    vars['goldBoosterBtn']:registerScriptTapHandler(function() self:click_goldBoosterBtn() end)
+
+    -- 경험치 부스터 
+    vars['expBoosterBtn']:registerScriptTapHandler(function() self:click_expBoosterBtn() end)
 
     -- 콜로세움일 경우
     if (self.m_stageID == COLOSSEUM_STAGE_ID or self.m_stageID == FRIEND_MATCH_STAGE_ID) then
@@ -507,24 +515,28 @@ function UI_ReadySceneNew:refresh()
 
     -- 모험 소비 활동력 핫타임 관련
     if (self.m_gameMode == GAME_MODE_ADVENTURE) then
-        local active, key, str = g_hotTimeData:getActiveHotTimeInfo_stamina()
+        local active, value = g_hotTimeData:getActiveHotTimeInfo_stamina()
         if active then
             local stamina_type, stamina_value = TableDrop:getStageStaminaType(self.m_stageID)
             local cost_value = math_floor(stamina_value / 2)
             vars['actingPowerLabel']:setString(cost_value)
             vars['actingPowerLabel']:setTextColor(cc.c4b(0, 255, 255, 255))
             vars['hotTimeSprite']:setVisible(true)
-            vars['hotTimeStLabel']:setString(str)
+            vars['hotTimeStLabel']:setString('1/2')
             vars['staminaNode']:setVisible(false)
         else
             vars['actingPowerLabel']:setTextColor(cc.c4b(255, 255, 255, 255))
             vars['hotTimeSprite']:setVisible(false)
             vars['staminaNode']:setVisible(true)
         end
+
+        vars['itemMenu']:setVisible(true)
+        self.root:scheduleUpdateWithPriorityLua(function(dt) self:update(dt) end, 0.1)
     end
 
     self:refresh_tamer()
 	self:refresh_buffInfo()
+    self:refresh_combatPower()
 end
 
 -------------------------------------
@@ -679,6 +691,35 @@ function UI_ReadySceneNew:refresh_buffInfo_TamerBuff()
 	local tamer_buff = skill_info:getSkillDesc()
 
 	vars['tamerBuffLabel']:setString(tamer_buff)
+end
+
+-------------------------------------
+-- function update
+-- @brief
+-------------------------------------
+function UI_ReadySceneNew:update(dt)    
+    local vars = self.vars
+    -- 광고보기 (추가)
+    do
+        local str, active = g_advertisingData:getCoolTimeStatus(AD_TYPE.AUTO_ITEM_PICK)
+        vars['itemAutoLabel']:setString(str)
+    end
+
+    -- 경험치 부스터
+    do
+        local str, active = g_hotTimeData:getHotTimeBuffText('buff_exp2x')
+        vars['expBoosterVisual']:setVisible(active)
+        vars['expBoosterLabel']:setString(str)
+        vars['expBoosterBtn']:setEnabled(not active)
+    end
+
+    -- 골드 부스터
+    do
+        local str, active = g_hotTimeData:getHotTimeBuffText('buff_gold2x')
+        vars['goldBoosterVisual']:setVisible(active)
+        vars['goldBoosterLabel']:setString(str)
+        vars['goldBoosterBtn']:setEnabled(not active)
+    end
 end
 
 -------------------------------------
@@ -1021,6 +1062,38 @@ function UI_ReadySceneNew:click_fomationBtn()
         end
 	end
 	ui:setCloseCB(close_cb)
+end
+
+-------------------------------------
+-- function click_itemAutoBtn
+-- @breif 광고 보기
+-------------------------------------
+function UI_ReadySceneNew:click_itemAutoBtn()
+    g_subscriptionData:openSubscriptionPopup()
+end
+
+-------------------------------------
+-- function click_goldBoosterBtn 
+-- @breif 골드 부스터
+-------------------------------------
+function UI_ReadySceneNew:click_goldBoosterBtn()
+    local target_product = TablePackageBundle:getPidsWithName('package_daily_shop')
+    local pid = tonumber(target_product[1])
+
+    -- 일일 상점 탭 설정
+    UINavigator:goTo('package_shop', pid)
+end
+
+-------------------------------------
+-- function click_expBoosterBtn 
+-- @breif 경험치 부스터
+-------------------------------------
+function UI_ReadySceneNew:click_expBoosterBtn()
+    local target_product = TablePackageBundle:getPidsWithName('package_daily_shop')
+    local pid = tonumber(target_product[1])
+
+    -- 일일 상점 탭 설정
+    UINavigator:goTo('package_shop', pid)
 end
 
 -------------------------------------

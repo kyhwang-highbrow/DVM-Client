@@ -1131,6 +1131,8 @@ end
 -- @usage UINavigatorDefinition:goTo('package_shop')
 -------------------------------------
 function UINavigatorDefinition:goTo_package_shop(...)
+    local args = {...}
+    local initial_tab = args[1]
 
     -- 해당 UI가 열려있을 경우
     local is_opend, idx, ui = self:findOpendUI('UI_PackagePopup')
@@ -1145,7 +1147,7 @@ function UINavigatorDefinition:goTo_package_shop(...)
         local is_opend, idx, ui = self:findOpendUI('UI_EventPopup')
         if (is_opend == true) then
             self:closeUIList(idx)
-            local ui = UI_PackagePopup()
+            local ui = UI_PackagePopup(initial_tab)
             ui:setCloseCB(refresh_cb)
             return
         end
@@ -1154,7 +1156,7 @@ function UINavigatorDefinition:goTo_package_shop(...)
         local is_opend, idx, ui = self:findOpendUI('UI_Shop')
         if (is_opend == true) then
             self:closeUIList(idx)
-            local ui = UI_PackagePopup()
+            local ui = UI_PackagePopup(initial_tab)
             ui:setCloseCB(refresh_cb)
             return
         end
@@ -1163,7 +1165,7 @@ function UINavigatorDefinition:goTo_package_shop(...)
         local is_opend, idx, ui = self:findOpendUI('UI_Lobby')
         if (is_opend == true) then
             self:closeUIList(idx)
-            local ui = UI_PackagePopup()
+            local ui = UI_PackagePopup(initial_tab)
             ui:setCloseCB(refresh_cb)
             return
         end
@@ -1174,7 +1176,7 @@ function UINavigatorDefinition:goTo_package_shop(...)
                 UINavigatorDefinition:goTo('lobby')
             end
 
-            local scene = SceneCommon(UI_PackagePopup, close_cb, sel_tamer_id)
+            local scene = SceneCommon(UI_PackagePopup, close_cb, initial_tab)
             scene:runScene()
         end
     end

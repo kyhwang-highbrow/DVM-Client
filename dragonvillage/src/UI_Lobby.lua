@@ -377,6 +377,7 @@ function UI_Lobby:initButton()
     vars['adventureClearBtn']:registerScriptTapHandler(function() self:click_adventureClearBtn() end) -- 모험돌파 패키지
 	vars['capsuleBoxBtn']:registerScriptTapHandler(function() self:click_capsuleBoxBtn() end) -- 캡슐 뽑기 버튼
     vars['ddayBtn']:registerScriptTapHandler(function() self:click_ddayBtn() end) -- 출석 이벤트탭 이동
+    vars['dailyShopBtn']:registerScriptTapHandler(function() self:click_dailyShopBtn() end) -- 일일 상점
 
     do -- 기타 UI
         local etc_vars = self.m_etcExpendedUI.vars
@@ -917,6 +918,17 @@ function UI_Lobby:click_ddayBtn()
 end
 
 -------------------------------------
+-- function click_dailyShopBtn
+-------------------------------------
+function UI_Lobby:click_dailyShopBtn()
+    local target_product = TablePackageBundle:getPidsWithName('package_daily_shop')
+    local pid = tonumber(target_product[1])
+
+    -- 일일 상점 탭 설정
+    UINavigator:goTo('package_shop', pid)
+end
+
+-------------------------------------
 -- function click_exitBtn
 -- @brief 종료
 -------------------------------------
@@ -1101,6 +1113,8 @@ function UI_Lobby:refresh_rightButtons()
         vars['adventureClearBtn']:setVisible(false)
     end
 
+    -- 일일상점 버튼
+    vars['dailyShopBtn']:setVisible(true)
 
     -- 인덱스 1번이 오른쪽
     local t_btn_name = {}
@@ -1113,6 +1127,7 @@ function UI_Lobby:refresh_rightButtons()
     table.insert(t_btn_name, 'adventureClearBtn')
     table.insert(t_btn_name, 'capsuleBoxBtn')
     table.insert(t_btn_name, 'goldDungeonBtn')
+    table.insert(t_btn_name, 'dailyShopBtn')
     table.insert(t_btn_name, 'eventBtn')
     
     -- visible이 켜진 버튼들 리스트

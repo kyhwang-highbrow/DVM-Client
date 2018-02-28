@@ -42,7 +42,8 @@ function ServerData_HotTime:init_hotTimeType()
         local key = 'gold_1_5x'
         local t_data = {}
         t_data['key'] = key
-        t_data['tool_tip'] = Str('획득 골드량 1.5배')
+        t_data['title'] = Str('핫타임 이벤트')
+        t_data['tool_tip'] = Str('획득 골드량 50% 증가')
         self.m_hotTimeType[key] = t_data
     end
 
@@ -50,7 +51,8 @@ function ServerData_HotTime:init_hotTimeType()
         local key = 'gold_2x'
         local t_data = {}
         t_data['key'] = key
-        t_data['tool_tip'] = Str('획득 골드량 2배')
+        t_data['title'] = Str('핫타임 이벤트')
+        t_data['tool_tip'] = Str('획득 골드량 100% 증가')
         self.m_hotTimeType[key] = t_data
     end
 
@@ -58,7 +60,8 @@ function ServerData_HotTime:init_hotTimeType()
         local key = 'exp_1_5x'
         local t_data = {}
         t_data['key'] = key
-        t_data['tool_tip'] = Str('드래곤 경험치 획득량 1.5배')
+        t_data['title'] = Str('핫타임 이벤트')
+        t_data['tool_tip'] = Str('드래곤 경험치 획득량 50% 증가')
         self.m_hotTimeType[key] = t_data
     end
 
@@ -66,7 +69,8 @@ function ServerData_HotTime:init_hotTimeType()
         local key = 'exp_2x'
         local t_data = {}
         t_data['key'] = key
-        t_data['tool_tip'] = Str('드래곤 경험치 획득량 2배')
+        t_data['title'] = Str('핫타임 이벤트')
+        t_data['tool_tip'] = Str('드래곤 경험치 획득량 100% 증가')
         self.m_hotTimeType[key] = t_data
     end
 
@@ -74,7 +78,27 @@ function ServerData_HotTime:init_hotTimeType()
         local key = 'stamina_50p'
         local t_data = {}
         t_data['key'] = key
+        t_data['title'] = Str('핫타임 이벤트')
         t_data['tool_tip'] = Str('소비 입장권 50% 할인')
+        self.m_hotTimeType[key] = t_data
+    end
+
+    -- 버프 아이템
+    do
+        local key = 'buff_gold2x'
+        local t_data = {}
+        t_data['key'] = key
+        t_data['title'] = Str('골드 부스터')
+        t_data['tool_tip'] = Str('획득 골드량 100% 증가')
+        self.m_hotTimeType[key] = t_data
+    end
+
+    do
+        local key = 'buff_exp2x'
+        local t_data = {}
+        t_data['key'] = key
+        t_data['title'] = Str('경험치 부스터')
+        t_data['tool_tip'] = Str('드래곤 경험치 획득량 100% 증가')
         self.m_hotTimeType[key] = t_data
     end
 end
@@ -146,7 +170,6 @@ function ServerData_HotTime:refreshActiveList()
     self.m_activeEventList = {}
 
     for i,v in pairs(self.m_hotTimeInfoList) do
-
         local expiration_time = nil
 
         -- 핫타임 시작 시간 전
@@ -207,17 +230,23 @@ end
 -- function getActiveHotTimeInfo
 -- @brief content 항목 검사 .. 이것들은 미리 정의되어야 한다
 -------------------------------------
-function ServerData_HotTime:getActiveHotTimeInfo(hottime_nmae)
+function ServerData_HotTime:getActiveHotTimeInfo(hottime_name)
     self:refreshActiveList()
 
     local t_event = nil
-    for i,v in pairs(self.m_activeEventList) do
+    for k,v in pairs(self.m_activeEventList) do
         local l_contents = v['contents']
         for _,name in ipairs(l_contents) do
-            if (hottime_nmae == name) then
+            if (hottime_name == name) then
                 t_event = v
                 break
             end
+        end
+
+        -- 버프 아이템은 contents가 아닌 이벤트 name으로 검사
+        if (hottime_name == k) then
+            t_event = v
+            break
         end
     end
 
@@ -229,40 +258,76 @@ end
 -------------------------------------
 function ServerData_HotTime:getActiveHotTimeInfo_stamina()
     if g_hotTimeData:getActiveHotTimeInfo('stamina_50p') then
-        return true, 'stamina_50p', '50%'
+        return true, 50
     end
 
     return false
+end
+
+-------------------------------------
+-- function getHotTimeBuffText
+-------------------------------------
+function ServerData_HotTime:getHotTimeBuffText(type)
+    local active = false
+    local str = ''
+    local t_info = g_hotTimeData:getActiveHotTimeInfo(type)
+    if (t_info) then
+        active = true
+        local curr_time = Timer:getServerTime()
+        local end_time = t_info['enddate']/1000
+        local time = (end_time - curr_time)
+        str = Str('{1} 남음', datetime.makeTimeDesc(time))
+    else
+        str = Str('구매 가능')
+    end
+
+    return str, active
 end
 
 -------------------------------------
 -- function getActiveHotTimeInfo_gold
 -------------------------------------
 function ServerData_HotTime:getActiveHotTimeInfo_gold()
-    if g_hotTimeData:getActiveHotTimeInfo('gold_2x') then
-        return true, 'gold_2x', 'x2'
+    local active = false
+    local value = 0
+
+    -- 핫타임과 버프아이템 중복처리
+    local t_info = {}
+    t_info['gold_2x'] = 100
+    t_info['gold_1_5x'] = 50
+    t_info['buff_gold2x'] = 100
+    
+    for k, v in pairs(t_info) do
+        if (g_hotTimeData:getActiveHotTimeInfo(k)) then
+            active = true
+            value = value + v
+        end
     end
 
-    if g_hotTimeData:getActiveHotTimeInfo('gold_1_5x') then
-        return true, 'gold_1_5x', 'x1.5'
-    end
-
-    return false
+    return active, value
 end
 
 -------------------------------------
 -- function getActiveHotTimeInfo_exp
 -------------------------------------
 function ServerData_HotTime:getActiveHotTimeInfo_exp()
-    if g_hotTimeData:getActiveHotTimeInfo('exp_2x') then
-        return true, 'exp_2x', 'x2'
+    local active = false
+    local value = 0
+
+    -- 핫타임과 버프아이템 중복처리
+    local t_info = {}
+    t_info['exp_2x'] = 100
+    t_info['exp_1_5x'] = 50
+    t_info['buff_exp2x'] = 100
+
+    for k, v in pairs(t_info) do
+        if (g_hotTimeData:getActiveHotTimeInfo(k)) then
+            active = true
+            value = value + v
+        end
     end
 
-    if g_hotTimeData:getActiveHotTimeInfo('exp_1_5x') then
-        return true, 'exp_1_5x', 'x1.5'
-    end
-
-    return false
+    return active, value
 end
 
 -------------------------------------
@@ -300,22 +365,28 @@ end
 
 -------------------------------------
 -- function makeHotTimeToolTip
+-- param hottime_type : stamina, gold, exp
 -------------------------------------
-function ServerData_HotTime:makeHotTimeToolTip(hottime_name, btn)
-    
+function ServerData_HotTime:makeHotTimeToolTip(hottime_type, btn)
+    local title = ''
     local desc = ''
+    local str = ''
 
-    local t_hot_time_type = self.m_hotTimeType[hottime_name]
-
-    if (t_hot_time_type and t_hot_time_type['tool_tip']) then
-        desc = t_hot_time_type['tool_tip']
+    for k, v in pairs(self.m_hotTimeType) do
+        if (string.find(k, hottime_type)) and (g_hotTimeData:getActiveHotTimeInfo(k)) then
+            title = v['title']
+            desc = v['tool_tip']
+            local _str = '{@SKILL_NAME} ' .. title .. '\n {@SKILL_DESC}' .. desc
+            str = (str == '') and  (_str) or (str .. '\n\n' .. _str)
+        end
     end
 
-    local str = '{@SKILL_NAME} ' .. Str('핫타임 이벤트') .. '\n {@SKILL_DESC}' .. desc
-    local tooltip = UI_Tooltip_Skill(0, 0, str)
+    if (str ~= '') then
+        local tooltip = UI_Tooltip_Skill(0, 0, str)
 
-    if (tooltip and btn) then
-        tooltip:autoPositioning(btn)
+        if (tooltip and btn) then
+            tooltip:autoPositioning(btn)
+        end
     end
 end
 

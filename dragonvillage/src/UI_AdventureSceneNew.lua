@@ -624,27 +624,30 @@ function UI_AdventureSceneNew:refreshHotTimeInfo()
     end
 
     -- 경험치 핫타임
-    local active, key, str = g_hotTimeData:getActiveHotTimeInfo_exp()
+    local active, value = g_hotTimeData:getActiveHotTimeInfo_exp()
     if active then
         table.insert(l_active_hot, 'hotTimeExpBtn')
+        local str = string.format('+%d%%', value)
         vars['hotTimeExpLabel']:setString(str)
-        vars['hotTimeExpBtn']:registerScriptTapHandler(function() g_hotTimeData:makeHotTimeToolTip(key, vars['hotTimeExpBtn']) end)
+        vars['hotTimeExpBtn']:registerScriptTapHandler(function() g_hotTimeData:makeHotTimeToolTip('exp', vars['hotTimeExpBtn']) end)
     end
 
     -- 골드 핫타임
-    local active, key, str = g_hotTimeData:getActiveHotTimeInfo_gold()
+    local active, value = g_hotTimeData:getActiveHotTimeInfo_gold()
     if active then
         table.insert(l_active_hot, 'hotTimeGoldBtn')
+        local str = string.format('+%d%%', value)
         vars['hotTimeGoldLabel']:setString(str)
-        vars['hotTimeGoldBtn']:registerScriptTapHandler(function() g_hotTimeData:makeHotTimeToolTip(key, vars['hotTimeGoldBtn']) end)
+        vars['hotTimeGoldBtn']:registerScriptTapHandler(function() g_hotTimeData:makeHotTimeToolTip('gold', vars['hotTimeGoldBtn']) end)
     end
 
     -- 스태미나 핫타임
-    local active, key, str = g_hotTimeData:getActiveHotTimeInfo_stamina()
+    local active, value = g_hotTimeData:getActiveHotTimeInfo_stamina()
     if active then
         table.insert(l_active_hot, 'hotTimeStBtn')
+        local str = '1/2'
         vars['hotTimeStLabel']:setString(str)
-        vars['hotTimeStBtn']:registerScriptTapHandler(function() g_hotTimeData:makeHotTimeToolTip(key, vars['hotTimeStBtn']) end)
+        vars['hotTimeStBtn']:registerScriptTapHandler(function() g_hotTimeData:makeHotTimeToolTip('stamina', vars['hotTimeStBtn']) end)
     end
 
     for i,v in ipairs(l_active_hot) do

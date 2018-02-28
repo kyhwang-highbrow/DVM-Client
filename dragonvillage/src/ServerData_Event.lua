@@ -173,7 +173,6 @@ function ServerData_Event:getEventFullPopupList()
             -- 서버 조건
             if (visible) and (target_server ~= '') then
                 visible = self:checkTargetServer(target_server)
-                ccdump(visible)
             end
 
             -- 날짜 조건
