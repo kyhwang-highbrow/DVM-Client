@@ -190,6 +190,7 @@ local t_module = {
     'LobbyGuideData',
     'LobbyGuideAbstract',
     'LobbyGuide_CapsuleBox',
+    'LobbyGuide_Adventure',
     'ChatIgnoreList',
     'ScenarioViewingHistory',
 	'ConstantData',
@@ -805,6 +806,9 @@ local t_module = {
 	-- UI : 전투 통계
 	'UI_StatisticsPopup',
 	'UI_StatisticsListItem',
+
+    -- UI : 로비 도움말
+    'UI_LobbyGuideAdventure',
 
 	-- UI : 콜로세움
     'UI_Colosseum',

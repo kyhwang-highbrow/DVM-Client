@@ -60,8 +60,16 @@ function UIC_LobbyGuide:refresh()
 
     -- 로비 가이드
     local t_table_lobby_guide = TABLE:get('table_lobby_guide')
+    local l_lobby_guide = {}
     for i,v in pairs(t_table_lobby_guide) do
+        table.insert(l_lobby_guide, v)
+    end
+    local function sort_func(a, b)
+        return a['priority'] < b['priority']
+    end
+    table.sort(l_lobby_guide, sort_func)
 
+    for i,v in ipairs(l_lobby_guide) do
         -- 해당 클래스가 load되어 있는지 확인
         local lua_class = v['lua_class']
         if package.loaded[lua_class] then
@@ -71,7 +79,7 @@ function UIC_LobbyGuide:refresh()
             if lobby_guide_class then
 
                 -- 인스턴스 생성
-                local pointer = lobby_guide_class(v['t_title'], v['t_sub_title'])
+                local pointer = lobby_guide_class(v)
 
                 -- 조건 확인
                 pointer:checkCondition()

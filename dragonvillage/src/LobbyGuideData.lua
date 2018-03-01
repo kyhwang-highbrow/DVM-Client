@@ -72,13 +72,14 @@ function LobbyGuideData:makeDefaultLobbyGuideData()
     local root_table = {}
 
     root_table['last_date'] = {}
-    root_table['last_date']['day_str'] = '2018-03-01'
-    root_table['last_date']['week_str'] = '63'
-    root_table['last_date']['month_str'] = '2018-03'
+    root_table['last_date']['day_str'] = '2018-01-01'
+    root_table['last_date']['week_str'] = '0'
+    root_table['last_date']['month_str'] = '2018-01'
 
     root_table['daily'] = {}
     root_table['weekly'] = {}
     root_table['monthly'] = {}
+    root_table['timestamp'] = {}
 
     return root_table
 end
@@ -369,4 +370,21 @@ end
 -------------------------------------
 function LobbyGuideData:setMonthlySeen(key)
     self:applyLobbyGuideData(true, 'monthly', key)
+end
+
+-------------------------------------
+-- function getTimestamp
+-- @breif
+-------------------------------------
+function LobbyGuideData:getTimestamp(key)
+    return self:get('timestamp', key)
+end
+
+-------------------------------------
+-- function setTimestamp
+-- @breif
+-------------------------------------
+function LobbyGuideData:setTimestamp(key)
+    local server_time = Timer:getServerTime()
+    return self:applyLobbyGuideData(server_time, 'timestamp', key)
 end

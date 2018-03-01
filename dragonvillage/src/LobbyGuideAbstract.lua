@@ -8,18 +8,16 @@
 -- class LobbyGuideAbstract
 -------------------------------------
 LobbyGuideAbstract = class({
+        m_tData = 'table',
         m_bActiveGuide = 'boolean',
-        m_titleStr = 'string',
-        m_subTitleStr = 'string',
     })
 
 -------------------------------------
 -- function init
 -------------------------------------
-function LobbyGuideAbstract:init(title_str, sub_title_str)
+function LobbyGuideAbstract:init(data)
+    self.m_tData = data
     self.m_bActiveGuide = false
-    self.m_titleStr = title_str or 'title'
-    self.m_subTitleStr = sub_title_str or 'sub title'
 end
 
 
@@ -38,7 +36,7 @@ end
 -- @return string
 -------------------------------------
 function LobbyGuideAbstract:getGuideTitleStr()
-    return self.m_titleStr
+    return self.m_tData['t_title']
 end
 
 -------------------------------------
@@ -47,7 +45,7 @@ end
 -- @return string
 -------------------------------------
 function LobbyGuideAbstract:getGuideSubTitleStr()
-    return self.m_subTitleStr
+    return self.m_tData['t_sub_title']
 end
 
 -------------------------------------
@@ -55,7 +53,42 @@ end
 -- @brief 안내 시작
 -------------------------------------
 function LobbyGuideAbstract:startGuide()
-    -- 주로 팝업을 띄움
+    self:startCustomGuide()
+
+    local data = self.m_tData
+
+    -- 기간 체크
+    local term = data['term']
+    local key = data['key']
+
+    -- 일간
+    if (term == 'daily') then
+        g_lobbyGuideData:setDailySeen(key)
+
+    -- 주간
+    elseif (term == 'weekly') then
+        g_lobbyGuideData:setWeeklySeen(key)
+
+    -- 월간
+    elseif (term == 'monthly') then
+        g_lobbyGuideData:setMonthlySeen(key)
+
+    -- 특정 시간
+    else
+        local term_day = tonumber(term)
+        if term_day then
+            local server_time = Timer:getServerTime()
+            g_lobbyGuideData:setTimestamp(key, server_time)
+        end
+    end
+end
+
+-------------------------------------
+-- function startCustomGuide
+-- @brief 안내 시작
+-------------------------------------
+function LobbyGuideAbstract:startCustomGuide()
+
 end
 
 -------------------------------------
@@ -63,4 +96,68 @@ end
 -- @brief 조건 확인
 -------------------------------------
 function LobbyGuideAbstract:checkCondition()
+    self.m_bActiveGuide = false
+    local data = self.m_tData
+
+    -- 레벨 체크
+    local lv = g_userData:get('lv')
+    if (lv < data['lv']) then
+        return
+    end
+
+    -- 요일 조건 체크
+	local wday = pl.Date():weekday_name()
+	if (data[wday] ~= 'O') then
+        return
+    end
+
+    -- 기간 체크
+    local term = data['term']
+    local key = data['key']
+    if (term == 'daily') then -- 일간
+        if g_lobbyGuideData:getDailySeen(key) then
+            return
+        end
+
+    elseif (term == 'weekly') then -- 주간
+        if g_lobbyGuideData:getWeeklySeen(key) then
+            return
+        end
+
+    elseif (term == 'monthly') then -- 월간
+        if g_lobbyGuideData:getMonthlySeen(key) then
+            return
+        end
+
+    else -- 특정 시간
+        local term_day = tonumber(term)
+        if term_day then
+            local term_sec = (term_day * 24 * 60 * 60)
+            local server_time = Timer:getServerTime()
+            local timestamp = g_lobbyGuideData:getTimestamp(key) or (server_time - term_sec)
+
+            local gap = (server_time - timestamp)
+            
+
+            if (gap < term_sec) then
+                return
+            end
+        end
+    end
+
+
+
+    if (not self:checkCustomCondition()) then
+        return
+    end
+
+    self.m_bActiveGuide = true
+end
+
+-------------------------------------
+-- function checkCustomCondition
+-- @brief 조건 확인
+-------------------------------------
+function LobbyGuideAbstract:checkCustomCondition()
+    return true
 end
