@@ -57,27 +57,22 @@ function UI_LoginPopup:initButton()
     vars['guestBtn']:registerScriptTapHandler(function() self:click_guestBtn() end)
     vars['serverBtn']:registerScriptTapHandler(function() self:click_changeServer() end)
 
-    self.vars['closeBtn']:setVisible(false)
+    vars['closeBtn']:setVisible(false)
 
-    if isIos() then
-        -- iOS
-        self.vars['gamecenterBtn']:setVisible(true)
+    -- iOS
+    if CppFunctions:isIos() then
+        vars['gamecenterBtn']:setVisible(true)
 
-        local diff = 54
-        local posXFacebookBtn = vars['facebookBtn']:getPositionX() - diff
-		local posXTwitterBtn = vars['twitterBtn']:getPositionX() - diff
-        local posXGoogleBtn = vars['googleBtn']:getPositionX() - diff
-        local posXgamecenterBtn = vars['gamecenterBtn']:getPositionX() + diff
-        local posXguestBtn = vars['guestBtn']:getPositionX() + diff
-
-        vars['facebookBtn']:setPositionX(posXFacebookBtn)
-		vars['twitterBtn']:setPositionX(posXTwitterBtn)
-        vars['googleBtn']:setPositionX(posXGoogleBtn)
-        vars['gamecenterBtn']:setPositionX(posXgamecenterBtn)
-        vars['guestBtn']:setPositionX(posXguestBtn)
+        local gap = 120
+        local pos_x_gc = vars['gamecenterBtn']:getPositionX() + gap
+        local pos_x_guest = vars['guestBtn']:getPositionX() + gap
+        vars['gamecenterBtn']:setPositionX(pos_x_gc)
+        vars['guestBtn']:setPositionX(pos_x_guest)
+    
+	-- Android, Win32
     else
-        -- Android, Win32
         vars['gamecenterBtn']:setVisible(false)
+
     end
 
 end
