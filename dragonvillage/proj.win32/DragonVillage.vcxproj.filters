@@ -3244,6 +3244,12 @@
     <None Include="..\src\LobbyGuideData.lua">
       <Filter>lua\src</Filter>
     </None>
+    <None Include="..\src\LobbyGuideAbstract.lua">
+      <Filter>lua\src</Filter>
+    </None>
+    <None Include="..\src\LobbyGuide_CapsuleBox.lua">
+      <Filter>lua\src</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Classes">

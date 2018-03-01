@@ -85,7 +85,7 @@ local TableInfo = {
         table_clan_mark = {'table_clan_mark', 'unique_id', false},
 
 		table_pick_dragon = {'table_pick_dragon', 'itemid', false},
-
+        table_lobby_guide = {'table_lobby_guide', 'key', false},
     }
 
 -------------------------------------

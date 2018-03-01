@@ -366,22 +366,6 @@ function SettingData:setExplorationDec(epr_id, l_doid)
 end
 
 -------------------------------------
--- function getLobbyGuideSeen
--- @breif
--------------------------------------
-function SettingData:getLobbyGuideSeen(guide_mode)
-    return self:get('lobby_guide_seen', guide_mode)
-end
-
--------------------------------------
--- function setLobbyGuideSeen
--- @breif
--------------------------------------
-function SettingData:setLobbyGuideSeen(guide_mode)
-    self:applySettingData(true, 'lobby_guide_seen', guide_mode)
-end
-
--------------------------------------
 -- function clearDataList
 -- @breif
 -------------------------------------

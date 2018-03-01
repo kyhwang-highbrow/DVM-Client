@@ -551,7 +551,7 @@ function UI_Lobby:refresh_masterRoad()
     self.m_lobbyGuide:refresh()
 	
 	-- 로비 가이드 off이고 성장일지 클리어하지 못했다면 위치 변경
-	if (self.m_lobbyGuide:isOffMode()) then
+	if (not self.vars['bottomMasterNode']:isVisible()) then
 		local is_clear = g_dragonDiaryData:isClearAll()
 		if (not is_clear) then
 			self.vars['dragonDiaryBtn']:setPositionY(110)

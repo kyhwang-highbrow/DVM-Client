@@ -188,6 +188,8 @@ local t_module = {
     'LocalData',
     'SettingData',
     'LobbyGuideData',
+    'LobbyGuideAbstract',
+    'LobbyGuide_CapsuleBox',
     'ChatIgnoreList',
     'ScenarioViewingHistory',
 	'ConstantData',
@@ -1127,7 +1129,7 @@ function reloadModule()
         end
     end
 
-    TABLE:init()
+    TABLE:init()    
 	g_constant:readDataFile()
 
     -- 서버에서 받아서 저장 중인 테이블 적용

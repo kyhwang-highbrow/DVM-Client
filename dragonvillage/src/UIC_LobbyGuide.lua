@@ -18,6 +18,7 @@ UIC_LobbyGuide = class({
 		m_notiIcon = 'cc.Sprite',
 
 		m_mode = 'enum',
+        m_lobbyGuidePointer = 'LobbyGuideAbstract',
      })
 
 -------------------------------------
@@ -35,100 +36,85 @@ end
 -- function refresh
 -------------------------------------
 function UIC_LobbyGuide:refresh()
-	local title, desc
-	local is_show_master_road
+    self.m_lobbyGuidePointer = nil
 	
-	-- 안내 모드
-	local mode = self:getModeByCondition()
-	self.m_mode = mode
-
-    -- NPC 버튼 visible을 켜두고 아래 조건들에서 off를 설정
-    self.m_root:setVisible(true)
-
-	-- 마스터의 길
-	if (mode == GUIDE_MODE['master_road']) then
-		local rid = g_masterRoadData:getFocusRoad()
+    -- 마스터의 길
+    if g_masterRoadData:isClearAllRoad() then
+        self.m_root:setVisible(false)
+    else
+        self.m_root:setVisible(true)
+        
+        local rid = g_masterRoadData:getFocusRoad()
         local t_road = TableMasterRoad():get(rid)
 
-		title = Str('마스터의 길')
-        desc = Str(t_road['t_desc'], t_road['desc_1'], t_road['desc_2'], t_road['desc_3'])
+        -- 마스터의 길 제목, 내용 텍스트 표시
+		local title = Str('마스터의 길')
+        local desc = Str(t_road['t_desc'], t_road['desc_1'], t_road['desc_2'], t_road['desc_3'])
+        self.m_titleLabel:setString(title)
+        self.m_descLabel:setString(desc)
 
+        -- 획득 가능한 보상이 있으면 아이콘 표시
 		local has_reward, _ = g_masterRoadData:hasRewardRoad()
 		self:setVisibleNotiIcon(has_reward)
+        if has_reward then
+            return
+        end
+    end
 
-	-- 캡슐
-	elseif (mode == GUIDE_MODE['capsule_box']) then
-		title = Str('캡슐 뽑기')
-		desc = Str('1등급 보상 변경')
 
-		self:setVisibleNotiIcon(true)
+    -- 로비 가이드
+    local t_table_lobby_guide = TABLE:get('table_lobby_guide')
+    for i,v in pairs(t_table_lobby_guide) do
 
-	-- off
-	elseif (mode == GUIDE_MODE['off']) then
-		self.m_root:setVisible(false)
-		return
+        -- 해당 클래스가 load되어 있는지 확인
+        local lua_class = v['lua_class']
+        if package.loaded[lua_class] then
 
-	end
+            -- 해당 클래스 require통해서 얻어옴
+            local lobby_guide_class = require(lua_class)
+            if lobby_guide_class then
 
-	-- 텍스트 입력	
-	self.m_titleLabel:setString(title)
-    self.m_descLabel:setString(desc)
-end
+                -- 인스턴스 생성
+                local pointer = lobby_guide_class(v['t_title'], v['t_sub_title'])
 
--------------------------------------
--- function getModeByCondition
--- @brief 조건에 맞춰 도우미 모드를 선택한다.
--------------------------------------
-function UIC_LobbyGuide:getModeByCondition()
-	-- 마스터의 길 보상 (최우선)
-	local has_reward, _ = g_masterRoadData:hasRewardRoad()
-	if (has_reward) then
-		return GUIDE_MODE['master_road']
-	end
+                -- 조건 확인
+                pointer:checkCondition()
 
-	-- 각종 조건들
-	local wday = pl.Date():weekday_name()
-	local lv = g_userData:get('lv')
+                -- 안내가 유효할 경우
+                if (pointer:isActiveGuide() == true) then
+                    self.m_root:setVisible(true)
+                    self:setVisibleNotiIcon(true)
 
-	-- 캡슐 : 1일 1회 / 매주 화, 토 / 20렙 이상
-	local seen_capsule = g_settingData:getLobbyGuideSeen(GUIDE_MODE['capsule_box'])
-	if (not seen_capsule) and (lv >= 20) then
-		if (wday == 'Tue') or (wday == 'Sat') then
-			return GUIDE_MODE['capsule_box']
-		end
-	end
-
-	
-	-- 그외 여러 컨텐츠 안내 추가 예정
-	
-
-	-- 다른 조건에 안걸리고 마스터의 길도 전부 클리어
-	if (g_masterRoadData:isClearAllRoad()) then
-		return GUIDE_MODE['off']
-	else
-		return GUIDE_MODE['master_road']
-	end
+                    -- 텍스트 입력	
+	                self.m_titleLabel:setString(pointer:getGuideTitleStr())
+                    self.m_descLabel:setString(pointer:getGuideSubTitleStr())
+                    self.m_lobbyGuidePointer = pointer
+                    pointer = nil
+                    return
+                end
+                pointer = nil
+            end
+        end
+    end
 end
 
 -------------------------------------
 -- function onClick
 -------------------------------------
 function UIC_LobbyGuide:onClick()
-	-- 마스터의 길
-    if (self.m_mode == GUIDE_MODE['master_road']) then
-		local ui = UI_MasterRoadPopup()
-		ui:setCloseCB(function()
-			self:refresh()
-		end)
+    -- 도움말
+    if self.m_lobbyGuidePointer then
+        self.m_lobbyGuidePointer:startGuide()
+        self:refresh()
+        return
+    end
 
-	-- 캡슐
-	elseif (self.m_mode == GUIDE_MODE['capsule_box']) then
-		g_capsuleBoxData:openCapsuleBoxUI(true) -- show_reward_list
-
-		g_settingData:setLobbyGuideSeen(GUIDE_MODE['capsule_box'])
-		self:refresh()
-
-	end
+    -- 마스터의 길
+    local ui = UI_MasterRoadPopup()
+    local function close_cb()
+        self:refresh()
+    end
+	ui:setCloseCB(close_cb)
 end
 
 -------------------------------------
@@ -136,13 +122,6 @@ end
 -------------------------------------
 function UIC_LobbyGuide:setVisibleNotiIcon(b)
 	self.m_notiIcon:setVisible(b)
-end
-
--------------------------------------
--- function isOffMode
--------------------------------------
-function UIC_LobbyGuide:isOffMode()
-	return (self.m_mode == GUIDE_MODE['off'])
 end
 
 --@CHECK
