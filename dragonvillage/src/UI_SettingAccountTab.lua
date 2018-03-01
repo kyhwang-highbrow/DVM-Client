@@ -7,6 +7,7 @@ function UI_Setting:init_accountTab()
     vars['copyBtn']:registerScriptTapHandler(function() self:click_copyBtn() end)
 
     vars['facebookBtn']:registerScriptTapHandler(function() self:click_facebookBtn() end)
+	vars['twitterBtn']:registerScriptTapHandler(function() self:click_twitterBtn() end)
     vars['gamecenterBtn']:registerScriptTapHandler(function() self:click_gamecenterBtn() end)
     vars['googleBtn']:registerScriptTapHandler(function() self:click_googleBtn() end)
 
@@ -251,6 +252,17 @@ function UI_Setting:click_facebookBtn()
                             cclog('Firebase unlink from Google failed.')
                         end
                     end)
+				
+				-- 기존 트위터 연결은 끊는다.
+                elseif old_platform_id == 'twitter.com' then
+                    PerpleSDK:unlinkWithTwitter(function(ret, info)
+                        if ret == 'success' then
+                            cclog('Firebase unlink from Twitter was successful.')
+                        elseif ret == 'fail' then
+                            cclog('Firebase unlink from Twitter failed.')
+                        end
+                    end)
+
                 -- 기존 게임센터 연결은 끊는다.
                 elseif old_platform_id == 'gamecenter' then
                     PerpleSDK:unlinkWithGameCenter(function(ret, info)
@@ -350,6 +362,17 @@ function UI_Setting:click_googleBtn()
                             cclog('Firebase unlink from Facebook failed.')
                         end
                     end)
+				
+				-- 기존 트위터 연결은 끊는다.
+                elseif old_platform_id == 'twitter.com' then
+                    PerpleSDK:unlinkWithTwitter(function(ret, info)
+                        if ret == 'success' then
+                            cclog('Firebase unlink from Twitter was successful.')
+                        elseif ret == 'fail' then
+                            cclog('Firebase unlink from Twitter failed.')
+                        end
+                    end)
+
                 -- 기존 게임센터 연결은 끊는다.
                 elseif old_platform_id == 'gamecenter' then
                     PerpleSDK:unlinkWithGameCenter(function(ret, info)
@@ -410,6 +433,118 @@ function UI_Setting:click_googleBtn()
         elseif ret == 'cancel' then
 
             cclog('Firebase Google link canceled.')
+            self.m_loadingUI:hideLoading()
+
+        end
+    end)
+
+end
+
+-------------------------------------
+-- function click_twitterBtn
+-------------------------------------
+function UI_Setting:click_twitterBtn()
+    if isWin32() then
+        UIManager:toastNotificationRed(Str('Windows에서는 동작하지 않습니다.'))
+        return
+    end
+
+    self.m_loadingUI:showLoading(Str('계정 연동 중...'))
+
+    local old_platform_id = g_localData:get('local', 'platform_id')
+
+    PerpleSDK:linkWithTwitter(function(ret, info)
+
+        if ret == 'success' then
+
+            cclog('Firebase Twitter link was successful.')
+            self.m_loadingUI:hideLoading()
+
+            self:loginSuccess(info)
+
+            MakeSimplePopup(POPUP_TYPE.OK, Str('계정 연동에 성공하였습니다.'), function()
+                -- 기존 구글 연결은 끊는다.
+                if old_platform_id == 'google.com' then
+                    PerpleSDK:googleLogout(1)
+                    PerpleSDK:unlinkWithGoogle(function(ret, info)
+                        if ret == 'success' then
+                            cclog('Firebase unlink from Google was successful.')
+                        elseif ret == 'fail' then
+                            cclog('Firebase unlink from Google failed.')
+                        end
+                    end)
+				
+				-- 기존 페이스북 연결은 끊는다.
+                elseif old_platform_id == 'facebook.com' then
+                    PerpleSDK:unlinkWithFacebook(function(ret, info)
+                        if ret == 'success' then
+                            cclog('Firebase unlink from Facebook was successful.')
+                        elseif ret == 'fail' then
+                            cclog('Firebase unlink from Facebook failed.')
+                        end
+                    end)
+
+                -- 기존 게임센터 연결은 끊는다.
+                elseif old_platform_id == 'gamecenter' then
+                    PerpleSDK:unlinkWithGameCenter(function(ret, info)
+                        if ret == 'success' then
+                            cclog('Firebase unlink from GameCenter was successful.')
+                        elseif ret == 'fail' then
+                            cclog('Firebase unlink from GameCenter failed.')
+                        end
+                    end)
+                end
+            end)
+
+
+        elseif ret == 'already_in_use' then
+
+            local ok_btn_cb = function()
+                self.m_loadingUI:showLoading(Str('계정 전환 중...'))
+                PerpleSDK:logout()
+                PerpleSDK:loginWithFacebook(function(ret, info)
+                    self.m_loadingUI:hideLoading()
+                    if ret == 'success' then
+                        cclog('Firebase Twitter link was successful.(already_in_use)')
+
+                        self:loginSuccess(info)
+
+                        if (old_platform_id == 'google.com') then
+                            PerpleSDK:googleLogout(1)
+                        end
+
+                        -- 앱 재시작
+                        CppFunctions:restart()
+
+                    elseif ret == 'fail' then
+                        local t_info = dkjson.decode(info)
+                        local msg = t_info.msg
+                        cclog('Firebase unknown error !!!- ' .. msg)
+                    elseif ret == 'cancel' then
+                        cclog('Firebase unknown error !!!')
+                    end
+                end)
+            end
+
+            local cancel_btn_cb = nil
+
+            self.m_loadingUI:hideLoading()
+            local msg = Str('이미 연결되어 있는 계정입니다.\n계정에 연결되어 있는 기존의 게임 데이터를 불러오시겠습니까?')
+            local submsg = Str('현재의 게임데이터는 유실되므로 주의바랍니다.')
+            MakeSimplePopup2(POPUP_TYPE.YES_NO, msg, submsg, ok_btn_cb, cancel_btn_cb)
+
+        elseif ret == 'fail' then
+
+            local t_info = dkjson.decode(info)
+            local msg = t_info.msg
+            cclog('Firebase Facebook link failed - ' .. msg)
+
+            self.m_loadingUI:hideLoading()
+            MakeSimplePopup(POPUP_TYPE.OK, msg)
+
+        elseif ret == 'cancel' then
+
+            cclog('Firebase Twitter link canceled.')
             self.m_loadingUI:hideLoading()
 
         end

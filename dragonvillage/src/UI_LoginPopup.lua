@@ -49,10 +49,12 @@ end
 -------------------------------------
 function UI_LoginPopup:initButton()
     local vars = self.vars
-    self.vars['facebookBtn']:registerScriptTapHandler(function() self:click_facebookBtn() end)
-    self.vars['gamecenterBtn']:registerScriptTapHandler(function() self:click_gamecenterBtn() end)
-    self.vars['googleBtn']:registerScriptTapHandler(function() self:click_googleBtn() end)
-    self.vars['guestBtn']:registerScriptTapHandler(function() self:click_guestBtn() end)
+    
+	vars['facebookBtn']:registerScriptTapHandler(function() self:click_facebookBtn() end)
+	vars['twitterBtn']:registerScriptTapHandler(function() self:click_twitterBtn() end)
+    vars['gamecenterBtn']:registerScriptTapHandler(function() self:click_gamecenterBtn() end)
+    vars['googleBtn']:registerScriptTapHandler(function() self:click_googleBtn() end)
+    vars['guestBtn']:registerScriptTapHandler(function() self:click_guestBtn() end)
     vars['serverBtn']:registerScriptTapHandler(function() self:click_changeServer() end)
 
     self.vars['closeBtn']:setVisible(false)
@@ -62,18 +64,20 @@ function UI_LoginPopup:initButton()
         self.vars['gamecenterBtn']:setVisible(true)
 
         local diff = 54
-        local posXFacebookBtn = self.vars['facebookBtn']:getPositionX() - diff
-        local posXGoogleBtn = self.vars['googleBtn']:getPositionX() - diff
-        local posXgamecenterBtn = self.vars['gamecenterBtn']:getPositionX() + diff
-        local posXguestBtn = self.vars['guestBtn']:getPositionX() + diff
+        local posXFacebookBtn = vars['facebookBtn']:getPositionX() - diff
+		local posXTwitterBtn = vars['twitterBtn']:getPositionX() - diff
+        local posXGoogleBtn = vars['googleBtn']:getPositionX() - diff
+        local posXgamecenterBtn = vars['gamecenterBtn']:getPositionX() + diff
+        local posXguestBtn = vars['guestBtn']:getPositionX() + diff
 
-        self.vars['facebookBtn']:setPositionX(posXFacebookBtn)
-        self.vars['googleBtn']:setPositionX(posXGoogleBtn)
-        self.vars['gamecenterBtn']:setPositionX(posXgamecenterBtn)
-        self.vars['guestBtn']:setPositionX(posXguestBtn)
+        vars['facebookBtn']:setPositionX(posXFacebookBtn)
+		vars['twitterBtn']:setPositionX(posXTwitterBtn)
+        vars['googleBtn']:setPositionX(posXGoogleBtn)
+        vars['gamecenterBtn']:setPositionX(posXgamecenterBtn)
+        vars['guestBtn']:setPositionX(posXguestBtn)
     else
         -- Android, Win32
-        self.vars['gamecenterBtn']:setVisible(false)
+        vars['gamecenterBtn']:setVisible(false)
     end
 
 end
@@ -115,6 +119,27 @@ function UI_LoginPopup:click_facebookBtn()
 
         if ret == 'success' then
             cclog('Firebase Facebook login was successful.')
+            self:loginSuccess(info)
+            self:close()
+        elseif ret == 'fail' then
+            self:loginFail(info)
+        elseif ret == 'cancel' then
+        end
+    end)
+
+end
+
+-------------------------------------
+-- function click_twitterBtn
+-------------------------------------
+function UI_LoginPopup:click_twitterBtn()
+    self.m_loadingUI:showLoading(Str('로그인 중...'))
+
+    PerpleSDK:loginWithTwitter(function(ret, info)
+        self.m_loadingUI:hideLoading()
+
+        if ret == 'success' then
+            cclog('Firebase Twitter login was successful.')
             self:loginSuccess(info)
             self:close()
         elseif ret == 'fail' then
