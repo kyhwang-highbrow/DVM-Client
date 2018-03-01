@@ -1,13 +1,3 @@
-local GUIDE_MODE =
-{
-	['capsule_box'] = 1,
-	['ancient'] = 2,
-	['colosseum'] = 3,
-	['shop'] = 4,
-
-	['master_road'] = 98,
-	['off'] = 99,
-}
 -------------------------------------
 -- class UIC_LobbyGuide
 -------------------------------------
@@ -17,19 +7,26 @@ UIC_LobbyGuide = class({
 		m_descLabel = 'UIC_Label',
 		m_notiIcon = 'cc.Sprite',
 
-		m_mode = 'enum',
         m_lobbyGuidePointer = 'LobbyGuideAbstract',
+        m_refreshDelegateFunc = 'function',
      })
 
 -------------------------------------
 -- function init
 -- @comment 당초 예상보다 필요한게 많아서... 나중에 필요하면 UI로 만들자
 -------------------------------------
-function UIC_LobbyGuide:init(root, title_label, desc_label, noti_icon)
+function UIC_LobbyGuide:init(root, title_label, desc_label, noti_icon, refresh_delegate_func)
 	self.m_root = root
 	self.m_titleLabel = title_label
 	self.m_descLabel = desc_label
 	self.m_notiIcon = noti_icon
+    self.m_refreshDelegateFunc = refresh_delegate_func
+
+    if (not self.m_refreshDelegateFunc) then
+        self.m_refreshDelegateFunc = function()
+            self:refresh()
+        end
+    end
 end
 
 -------------------------------------
@@ -60,7 +57,6 @@ function UIC_LobbyGuide:refresh()
             return
         end
     end
-
 
     -- 로비 가이드
     local t_table_lobby_guide = TABLE:get('table_lobby_guide')
@@ -105,14 +101,14 @@ function UIC_LobbyGuide:onClick()
     -- 도움말
     if self.m_lobbyGuidePointer then
         self.m_lobbyGuidePointer:startGuide()
-        self:refresh()
+        self.m_refreshDelegateFunc()
         return
     end
 
     -- 마스터의 길
     local ui = UI_MasterRoadPopup()
     local function close_cb()
-        self:refresh()
+        self.m_refreshDelegateFunc()
     end
 	ui:setCloseCB(close_cb)
 end

@@ -70,6 +70,16 @@ end
 -------------------------------------
 function LobbyGuideData:makeDefaultLobbyGuideData()
     local root_table = {}
+
+    root_table['last_date'] = {}
+    root_table['last_date']['day_str'] = '2018-03-01'
+    root_table['last_date']['week_str'] = '63'
+    root_table['last_date']['month_str'] = '2018-03'
+
+    root_table['daily'] = {}
+    root_table['weekly'] = {}
+    root_table['monthly'] = {}
+
     return root_table
 end
 

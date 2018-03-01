@@ -60,7 +60,10 @@ function UI_Lobby:initUI()
 	local vars = self.vars
 
 	-- 로비 가이드
-	self.m_lobbyGuide = UIC_LobbyGuide(vars['bottomMasterNode'], vars['roadTitleLabel'], vars['roadDescLabel'], vars['masterRoadNotiSprite'])
+    local function refresh()
+        self:refresh_masterRoad()
+    end
+	self.m_lobbyGuide = UIC_LobbyGuide(vars['bottomMasterNode'], vars['roadTitleLabel'], vars['roadDescLabel'], vars['masterRoadNotiSprite'], refresh)
 
     -- 기타 버튼 생성
     local ui = UIC_ExtendedUI:create('lobby_etc_extended.ui')
