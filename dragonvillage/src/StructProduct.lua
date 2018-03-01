@@ -994,16 +994,16 @@ function StructProduct:getMaxBuyTermStr()
 
     local str = ''
     if (max_buy_term == 'permanent') then
-        str = Str('구매가능 {1}/{2}', max_buy_cnt - buy_cnt, max_buy_cnt)
+        str = Str('구매 가능 {1}/{2}', max_buy_cnt - buy_cnt, max_buy_cnt)
 
     elseif (max_buy_term == 'monthly') then
-        str = Str('월간 구매가능 {1}/{2}', max_buy_cnt - buy_cnt, max_buy_cnt)
+        str = Str('월간 구매 가능 {1}/{2}', max_buy_cnt - buy_cnt, max_buy_cnt)
 
     elseif (max_buy_term == 'weekly') then
-        str = Str('주간 구매가능 {1}/{2}', max_buy_cnt - buy_cnt, max_buy_cnt)
+        str = Str('주간 구매 가능 {1}/{2}', max_buy_cnt - buy_cnt, max_buy_cnt)
 
     elseif (max_buy_term == 'daily') then
-        str = Str('일일 구매가능 {1}/{2}', max_buy_cnt - buy_cnt, max_buy_cnt)
+        str = Str('일일 구매 가능 {1}/{2}', max_buy_cnt - buy_cnt, max_buy_cnt)
 
     end
 
