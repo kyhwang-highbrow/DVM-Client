@@ -3256,6 +3256,12 @@
     <None Include="..\src\UI_LobbyGuideAdventure.lua">
       <Filter>lua\UI</Filter>
     </None>
+    <None Include="..\src\LobbyGuide_WeeklyShop.lua">
+      <Filter>lua\src</Filter>
+    </None>
+    <None Include="..\src\UI_LobbyGuideWeeklyShop.lua">
+      <Filter>lua\UI</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Classes">

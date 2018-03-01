@@ -359,6 +359,7 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <None Include="..\src\LobbyGuideData.lua" />
     <None Include="..\src\LobbyGuide_Adventure.lua" />
     <None Include="..\src\LobbyGuide_CapsuleBox.lua" />
+    <None Include="..\src\LobbyGuide_WeeklyShop.lua" />
     <None Include="..\src\LobbyManager.lua" />
     <None Include="..\src\LobbyManager_Clan.lua" />
     <None Include="..\src\LobbyMap.lua" />
@@ -1042,6 +1043,7 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <None Include="..\src\UI_IngameTamerPanelItem.lua" />
     <None Include="..\src\UIC_LobbyGuide.lua" />
     <None Include="..\src\UI_LobbyGuideAdventure.lua" />
+    <None Include="..\src\UI_LobbyGuideWeeklyShop.lua" />
     <None Include="..\src\UI_MailRewardPopup.lua" />
     <None Include="..\src\UI_MonsterCustomCard.lua" />
     <None Include="..\src\UI_MonsterSkillCard.lua" />
