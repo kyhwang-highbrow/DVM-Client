@@ -343,7 +343,7 @@ end
 -- @breif
 -------------------------------------
 function LobbyGuideData:getWeeklySeen(key)
-    self:checkWeekly()()
+    self:checkWeekly()
     return self:get('weekly', key)
 end
 
