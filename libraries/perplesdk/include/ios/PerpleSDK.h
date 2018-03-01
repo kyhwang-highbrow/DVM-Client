@@ -82,11 +82,15 @@
 
 #define PERPLESDK_ERROR_ADJUST_NOTINITIALIZED               "-1900"
 
+#define PERPLESDK_ERROR_TWITTER_NOTINITIALIZED              "-2000"
+#define PERPLESDK_ERROR_TWITTER_LOGIN                       "-2001"
+
 #pragma mark -
 
 @class PerpleFirebase;
 @class PerpleGoogle;
 @class PerpleFacebook;
+@class PerpleTwitter;
 @class PerpleAdbrix;
 @class PerpleTapjoy;
 @class PerpleNaver;
@@ -105,6 +109,7 @@ typedef void(^PerpleSDKCallback)(NSString *result, NSString *info);
 @property (nonatomic, retain) PerpleFirebase *mFirebase;
 @property (nonatomic, retain) PerpleGoogle *mGoogle;
 @property (nonatomic, retain) PerpleFacebook *mFacebook;
+@property (nonatomic, retain) PerpleTwitter *mTwitter;
 @property (nonatomic, retain) PerpleAdbrix *mAdbrix;
 @property (nonatomic, retain) PerpleTapjoy *mTapjoy;
 @property (nonatomic, retain) PerpleNaver *mNaver;
@@ -134,19 +139,26 @@ typedef void(^PerpleSDKCallback)(NSString *result, NSString *info);
 - (void) loginAnonymouslyWithCompletion:(PerpleSDKCallback)callback;
 - (void) loginWithGoogleWithCompletion:(PerpleSDKCallback)callback;
 - (void) loginWithFacebookWithCompletion:(PerpleSDKCallback)callback;
+- (void) loginWithTwitterWithCompletion:(PerpleSDKCallback)callback;
 - (void) loginWithGameCenter:(NSString *)param1 completion:(PerpleSDKCallback)callback;
 - (void) loginWithEmail:(NSString *)email password:(NSString *)password completion:(PerpleSDKCallback)callback;
+
 - (void) linkWithGoogleWithCompletion:(PerpleSDKCallback)callback;
 - (void) linkWithFacebookWithCompletion:(PerpleSDKCallback)callback;
+- (void) linkWithTwitterWithCompletion:(PerpleSDKCallback)callback;
 - (void) linkWithEmail:(NSString *)email password:(NSString *)password completion:(PerpleSDKCallback)callback;
+
 - (void) unlinkWithGoogleWithCompletion:(PerpleSDKCallback)callback;
 - (void) unlinkWithFacebookWithCompletion:(PerpleSDKCallback)callback;
+- (void) unlinkWithTwitterWithCompletion:(PerpleSDKCallback)callback;
 - (void) unlinkWithEmailWithCompletion:(PerpleSDKCallback)callback;
+
 - (void) logout;
 - (void) deleteUserWithCompletion:(PerpleSDKCallback)callback;
 - (void) createUserWithEmail:(NSString *)email password:(NSString *)password completion:(PerpleSDKCallback)callback;
 - (void) sendPasswordResetWithEmail:(NSString *)email completion:(PerpleSDKCallback)callback;
 
+// @facebook
 - (void) facebookLoginWithCompletion:(PerpleSDKCallback)callback;
 - (void) facebookLogout;
 - (void) facebookSendRequest:(NSString *)data completion:(PerpleSDKCallback)callback;
@@ -157,8 +169,14 @@ typedef void(^PerpleSDKCallback)(NSString *result, NSString *info);
 - (BOOL) facebookIsGrantedPermission:(NSString *)permission;
 - (void) facebookAskPermission:(NSString *)permission completion:(PerpleSDKCallback)callback;
 
+// @twitter
+- (void) twitterLoginWithCompletion:(PerpleSDKCallback)callback;
+- (void) twitterLogout;
+
+// @adbrix
 - (void) adbrixEvent:(NSString *)cmd param1:(NSString *)param1 param2:(NSString *)param2;
 
+// @tapjoy
 - (void) tapjoyEvent:(NSString *)cmd param1:(NSString *)param1 param2:(NSString *)param2;
 - (void) tapjoySetTrackPurchase:(BOOL)flag;
 - (void) tapjoySetPlacement:(NSString *)placemantName completion:(PerpleSDKCallback)callback;
@@ -168,6 +186,7 @@ typedef void(^PerpleSDKCallback)(NSString *result, NSString *info);
 - (void) tapjoySpendCurrency:(int)amount completion:(PerpleSDKCallback)callback;
 - (void) tapjoyAwardCurrency:(int)amount completion:(PerpleSDKCallback)callback;
 
+// @naver
 - (BOOL) naverCafeIsShowGlink;
 - (void) naverCafeShowWidgetWhenUnloadSdk:(BOOL)isShowWidget;
 - (void) naverCafeSetWidgetStartPosition:(NSString *)arg0 andY:(NSString *)arg1;
@@ -185,8 +204,10 @@ typedef void(^PerpleSDKCallback)(NSString *result, NSString *info);
 - (void) naverCafeSetCallback:(PerpleSDKCallback)callback;
 - (void) naverCafeInitGlobalPlug:(NSString *)neoIdConsumerKey communityId:(NSInteger)communityId channelID:(NSInteger)channelID;
 - (void) naverCafeSetChannelCode:(NSString *)channelCode;
+- (NSString *) naverCafeGetChannelCode;
 - (void) naverCafeStartWithArticle:(int)articleId;
 
+// @google
 - (void) googleLogin:(int)connectOnly completion:(PerpleSDKCallback)callback;
 - (void) googleLogout:(int)disconnectOnly;
 - (void) googleShowAchievementsWithCompletion:(PerpleSDKCallback)callback;
@@ -196,22 +217,27 @@ typedef void(^PerpleSDKCallback)(NSString *result, NSString *info);
 - (void) googleUpdateLeaderboards:(NSString *)leaderboardId finalScore:(NSString *)finalScore completion:(PerpleSDKCallback)callback;
 - (void) googleUpdateQuestEvents:(NSString *)eventId incrementCount:(NSString *)incrementCount completion:(PerpleSDKCallback)callback;
 
+// @gamecenter
 - (void) gameCenterLoginWithCompletion:(PerpleSDKCallback)callback;
 
+// @unityads
 - (void) unityAdsStart:(BOOL)isTestMode metaData:(NSString *)metaData completion:(PerpleSDKCallback)callback;
 - (void) unityAdsShow:(NSString *)placementId metaData:(NSString *)metaData;
 
+// @adColonoy
 - (void) adColonyStart:(NSString *)zoneIds userId:(NSString *)userId;
 - (void) adColonySetUserId:(NSString *)userId;
 - (void) adColonyRequest:(NSString *)zoneId completion:(PerpleSDKCallback)callback;
 - (void) adColonyShow:(NSString *)zoneId;
 
+// @billing
 - (void) billingSetup:(NSString *)checkReceiptServerUrl completion:(PerpleSDKCallback)callback;
 - (void) billingConfirm:(NSString *)orderId;
 - (void) billingPurchase:(NSString *)sku payload:(NSString *)payload completion:(PerpleSDKCallback)callback;
 - (void) billingSubscription:(NSString *)sku payload:(NSString *)payload completion:(PerpleSDKCallback)callback;
 - (void) billingGetItemList:(NSString *)skuList completion:(PerpleSDKCallback)callback;
 
+// @adjust
 - (void) adjustTrackEvent:(NSString *)eventKey;
 - (void) adjustTrackPayment:(NSString *)key price:(NSString *)price currency:(NSString *)currency;
 
@@ -222,6 +248,7 @@ typedef void(^PerpleSDKCallback)(NSString *result, NSString *info);
 - (BOOL) initSDKWithGcmSenderId:(NSString *)gcmSenderId debug:(BOOL)isDebug;
 - (BOOL) initGoogleWithClientId:(NSString *)clientId parentView:(UIViewController *)parentView;
 - (BOOL) initFacebookWithParentView:(UIViewController *)parentView;
+- (BOOL) initTwitterWithCustomerKey:(NSString *)customerKey secret:(NSString *)customerSecret;
 - (BOOL) initAdbrixWithAppKey:(NSString *)appKey hashKey:(NSString *)hashKey logLevel:(int)logLevel;
 - (BOOL) initTapjoyWithAppKey:(NSString *)appKey usePush:(BOOL)isUsePush debug:(BOOL)isDebug;
 - (BOOL) initNaverWithParentView:(UIViewController *)parentView isLandspape:(BOOL)isLandscape clientId:(NSString *)clientId clientSecret:(NSString *)clientSecret cafeId:(NSInteger)cafeId neoIdConsumerKey:(NSString *)neoIdConsumerKey communityId:(NSInteger)communityId urlScheme:(NSString *)urlScheme;
@@ -229,7 +256,7 @@ typedef void(^PerpleSDKCallback)(NSString *result, NSString *info);
 - (BOOL) initUnityAdsWithParentView:(UIViewController *)parentView gameId:(NSString *)gameId debug:(BOOL)isDebug;
 - (BOOL) initAdColonyWithParentView:(UIViewController *)parentView appId:(NSString *)appId;
 - (BOOL) initBilling;
-- (BOOL) initAdjustWithAppKey:(NSString *)appKey debug:(BOOL)isDebug;
+- (BOOL) initAdjustWithAppKey:(NSString *)appKey secret:(NSArray *)secretKey debug:(BOOL)isDebug;
 
 #pragma mark - Static methods
 

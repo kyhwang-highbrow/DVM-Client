@@ -51,6 +51,8 @@
 #define NAVER_NEO_ID_CONSUMER_KEY   @"_hBggTZAp2IPapvAxwQl"
 #define NAVER_COMMUNITY_ID          0
 #define ADJUST_TOKKEN_ID            @"esjmkti8vim8"
+#define TWITTER_CUSTOMER_KEY        @"kJlCsOmKdhLpsVitieEs6DL5R"
+#define TWITTER_CUSTOMER_SECRET     @"jLuByWszPl4P3CYLBf2y70QcT559EXTeDemGr34a45wndbBbxA"
 
 // iTunes Connect App ID : 1281873988
 
@@ -61,8 +63,7 @@ extern void sdkEventResult(const char *id, const char *result, const char *info)
 
 @implementation AppController
 
-#pragma mark -
-#pragma mark Application lifecycle
+#pragma mark - Application lifecycle
 
 // cocos2d application instance
 static AppDelegate s_sharedApplication;
@@ -125,10 +126,13 @@ static AppDelegate s_sharedApplication;
     cocos2d::Director::getInstance()->setOpenGLView(glview);
 
     // @perplesdk
+    NSArray *adjustSecretKey = @[ @1, @562501988, @1877997235, @662395286, @1781468312 ];
+
     BOOL isDebug = NO;
     if ([[PerpleSDK sharedInstance] initSDKWithGcmSenderId:SENDER_ID debug:isDebug]) {
         [[PerpleSDK sharedInstance] initGoogleWithClientId:CLIENT_ID parentView:viewController];
         [[PerpleSDK sharedInstance] initFacebookWithParentView:viewController];
+        [[PerpleSDK sharedInstance] initTwitterWithCustomerKey:TWITTER_CUSTOMER_KEY secret:TWITTER_CUSTOMER_SECRET];
         [[PerpleSDK sharedInstance] initGameCenterWithParentView:viewController];
     }
     [[PerpleSDK sharedInstance] initAdbrixWithAppKey:ADBRIX_APP_KEY hashKey:ADBRIX_HASH_KEY logLevel:0];
@@ -137,7 +141,7 @@ static AppDelegate s_sharedApplication;
     [[PerpleSDK sharedInstance] initAdColonyWithParentView:viewController appId:ADCOLONY_APP_ID];
     [[PerpleSDK sharedInstance] initNaverWithParentView:viewController isLandspape:YES clientId:NAVER_CAFE_CLIENT_ID clientSecret:NAVER_CAFE_CLIENT_SECRET cafeId:NAVER_CAFE_ID neoIdConsumerKey:NAVER_NEO_ID_CONSUMER_KEY communityId:NAVER_COMMUNITY_ID urlScheme:@"dvmNaverLogin"];
     [[PerpleSDK sharedInstance] initBilling];
-    [[PerpleSDK sharedInstance] initAdjustWithAppKey:ADJUST_TOKKEN_ID debug:isDebug];
+    [[PerpleSDK sharedInstance] initAdjustWithAppKey:ADJUST_TOKKEN_ID secret:adjustSecretKey debug:isDebug];
     [[PerpleSDK sharedInstance] application:application didFinishLaunchingWithOptions:launchOptions];
 
     cocos2d::Application::getInstance()->run();

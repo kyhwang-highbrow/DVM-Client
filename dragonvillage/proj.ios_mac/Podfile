@@ -20,6 +20,9 @@ target 'DragonVillageM iOS' do
   pod 'FBSDKShareKit'
   pod 'FBSDKLoginKit'
 
+  # Pods for Twitter
+  pod 'TwitterKit'
+
   # Pods for IGAWorks
   pod 'IgaworksCore'
   pod 'AdBrix'

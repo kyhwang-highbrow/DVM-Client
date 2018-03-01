@@ -45,6 +45,9 @@
 		373E2D861A038712004EF0DB /* PerpSupportPatch.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 373E2D821A038712004EF0DB /* PerpSupportPatch.cpp */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		3744D21519FDD5DE003D7120 /* ioapi.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3744D20C19FDD5DE003D7120 /* ioapi.cpp */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		3744D21719FDD5DE003D7120 /* unzip.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3744D21119FDD5DE003D7120 /* unzip.cpp */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		37450C6520219B7200960316 /* res in Resources */ = {isa = PBXBuildFile; fileRef = 37450C6220219B7100960316 /* res */; };
+		37450C872048936F00960316 /* data_dat in Resources */ = {isa = PBXBuildFile; fileRef = 37450C852048936F00960316 /* data_dat */; };
+		37450C882048936F00960316 /* ps in Resources */ = {isa = PBXBuildFile; fileRef = 37450C862048936F00960316 /* ps */; };
 		3746350C1F7B8BCA004F8387 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3746350B1F7B8BB9004F8387 /* Images.xcassets */; };
 		374D47A71F42E70600D5AC0F /* DeviceDetector.m in Sources */ = {isa = PBXBuildFile; fileRef = 374D47A61F42E70600D5AC0F /* DeviceDetector.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		37519C041A6657A200406F47 /* PerpLua.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 37519C031A6657A200406F47 /* PerpLua.cpp */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
@@ -96,9 +99,6 @@
 		37B3B4681FD67BCD003E172E /* libz.1.2.5.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 37B3B4671FD67BCC003E172E /* libz.1.2.5.tbd */; };
 		37B4B820201EF8E4008B58E6 /* translate in Resources */ = {isa = PBXBuildFile; fileRef = 37B4B81B201EF8E3008B58E6 /* translate */; };
 		37B4B821201EF8E4008B58E6 /* sound in Resources */ = {isa = PBXBuildFile; fileRef = 37B4B81C201EF8E3008B58E6 /* sound */; };
-		37B4B822201EF8E4008B58E6 /* data_dat in Resources */ = {isa = PBXBuildFile; fileRef = 37B4B81D201EF8E4008B58E6 /* data_dat */; };
-		37B4B823201EF8E4008B58E6 /* ps in Resources */ = {isa = PBXBuildFile; fileRef = 37B4B81E201EF8E4008B58E6 /* ps */; };
-		37B4B824201EF8E4008B58E6 /* res in Resources */ = {isa = PBXBuildFile; fileRef = 37B4B81F201EF8E4008B58E6 /* res */; };
 		37D8E3F11A304EB9005E479B /* PerpSocial.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 37D8E3EF1A304EB9005E479B /* PerpSocial.cpp */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		37E128B01B45380F00200C23 /* EventKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 37E128AF1B45380F00200C23 /* EventKit.framework */; };
 		37E128B41B45384000200C23 /* EventKitUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 37E128B31B45384000200C23 /* EventKitUI.framework */; };
@@ -374,6 +374,9 @@
 		3744D21219FDD5DE003D7120 /* unzip.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = unzip.h; path = ../Classes/unzip.h; sourceTree = "<group>"; };
 		3744D21319FDD5DE003D7120 /* zconf.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = zconf.h; path = ../Classes/zconf.h; sourceTree = "<group>"; };
 		3744D21419FDD5DE003D7120 /* zlib.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = zlib.h; path = ../Classes/zlib.h; sourceTree = "<group>"; };
+		37450C6220219B7100960316 /* res */ = {isa = PBXFileReference; lastKnownFileType = folder; name = res; path = ../res; sourceTree = "<group>"; };
+		37450C852048936F00960316 /* data_dat */ = {isa = PBXFileReference; lastKnownFileType = folder; name = data_dat; path = ../../assets/full/data_dat; sourceTree = "<group>"; };
+		37450C862048936F00960316 /* ps */ = {isa = PBXFileReference; lastKnownFileType = folder; name = ps; path = ../../assets/full/ps; sourceTree = "<group>"; };
 		3746350B1F7B8BB9004F8387 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = ios/Images.xcassets; sourceTree = SOURCE_ROOT; };
 		374D47A51F42E70600D5AC0F /* DeviceDetector.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DeviceDetector.h; sourceTree = "<group>"; };
 		374D47A61F42E70600D5AC0F /* DeviceDetector.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DeviceDetector.m; sourceTree = "<group>"; };
@@ -456,9 +459,6 @@
 		37B3B4671FD67BCC003E172E /* libz.1.2.5.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libz.1.2.5.tbd; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS11.2.sdk/usr/lib/libz.1.2.5.tbd; sourceTree = DEVELOPER_DIR; };
 		37B4B81B201EF8E3008B58E6 /* translate */ = {isa = PBXFileReference; lastKnownFileType = folder; name = translate; path = ../../assets/full/translate; sourceTree = "<group>"; };
 		37B4B81C201EF8E3008B58E6 /* sound */ = {isa = PBXFileReference; lastKnownFileType = folder; name = sound; path = ../../assets/full/sound; sourceTree = "<group>"; };
-		37B4B81D201EF8E4008B58E6 /* data_dat */ = {isa = PBXFileReference; lastKnownFileType = folder; name = data_dat; path = ../../assets/full/data_dat; sourceTree = "<group>"; };
-		37B4B81E201EF8E4008B58E6 /* ps */ = {isa = PBXFileReference; lastKnownFileType = folder; name = ps; path = ../../assets/full/ps; sourceTree = "<group>"; };
-		37B4B81F201EF8E4008B58E6 /* res */ = {isa = PBXFileReference; lastKnownFileType = folder; name = res; path = ../../assets/full/res; sourceTree = "<group>"; };
 		37D8E3EF1A304EB9005E479B /* PerpSocial.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = PerpSocial.cpp; path = ../Classes/PerpSocial.cpp; sourceTree = "<group>"; };
 		37D8E3F01A304EB9005E479B /* PerpSocial.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PerpSocial.h; path = ../Classes/PerpSocial.h; sourceTree = "<group>"; };
 		37E0007E1B26905C00F23F9E /* ja */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ja; path = ja.lproj/InfoPlist.strings; sourceTree = "<group>"; };
@@ -647,9 +647,9 @@
 		3746350A1F7B8BA0004F8387 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
-				37B4B81D201EF8E4008B58E6 /* data_dat */,
-				37B4B81E201EF8E4008B58E6 /* ps */,
-				37B4B81F201EF8E4008B58E6 /* res */,
+				37450C862048936F00960316 /* ps */,
+				37450C852048936F00960316 /* data_dat */,
+				37450C6220219B7100960316 /* res */,
 				37B4B81C201EF8E3008B58E6 /* sound */,
 				37B4B81B201EF8E3008B58E6 /* translate */,
 				370B474D1F7CB5260072CA71 /* config.json */,
@@ -1208,9 +1208,11 @@
 			buildActionMask = 2147483647;
 			files = (
 				7D50CB851C04459600F8FE3E /* Info.plist in Resources */,
+				37450C882048936F00960316 /* ps in Resources */,
 				37EF84261B268F3B00EFA299 /* InfoPlist.strings in Resources */,
 				37FB64B71F3AF73300378EE8 /* GoogleService-Info.plist in Resources */,
 				3706F1761F680E9200777433 /* NaverCafeSDK.bundle in Resources */,
+				37450C872048936F00960316 /* data_dat in Resources */,
 				370B476B1F7CB6290072CA71 /* config.json in Resources */,
 				37B4B821201EF8E4008B58E6 /* sound in Resources */,
 				370B476C1F7CB6290072CA71 /* AudioEngine.lua in Resources */,
@@ -1223,24 +1225,22 @@
 				3772F3D61FF4EC8000A9EF7A /* include in Resources */,
 				370B47731F7CB6290072CA71 /* DeprecatedEnum.lua in Resources */,
 				370B47741F7CB6290072CA71 /* DeprecatedOpenglEnum.lua in Resources */,
-				37B4B823201EF8E4008B58E6 /* ps in Resources */,
 				370B47751F7CB6290072CA71 /* DrawPrimitives.lua in Resources */,
 				370B47761F7CB6290072CA71 /* entry_main.lua in Resources */,
 				370B47771F7CB6290072CA71 /* entry_patch.lua in Resources */,
 				370B47781F7CB6290072CA71 /* extern.lua in Resources */,
 				370B47791F7CB6290072CA71 /* fixed_constant.lua in Resources */,
+				37450C6520219B7200960316 /* res in Resources */,
 				370B477A1F7CB6290072CA71 /* GuiConstants.lua in Resources */,
 				370B477B1F7CB6290072CA71 /* json.lua in Resources */,
 				3772F3BF1FF4EC4400A9EF7A /* NaverAuth.bundle in Resources */,
 				370B477C1F7CB6290072CA71 /* luaj.lua in Resources */,
 				370B477D1F7CB6290072CA71 /* luaoc.lua in Resources */,
-				37B4B822201EF8E4008B58E6 /* data_dat in Resources */,
 				370B477E1F7CB6290072CA71 /* Opengl.lua in Resources */,
 				370B477F1F7CB6290072CA71 /* OpenglConstants.lua in Resources */,
 				370B47801F7CB6290072CA71 /* StudioConstants.lua in Resources */,
 				3746350C1F7B8BCA004F8387 /* Images.xcassets in Resources */,
 				37B4B820201EF8E4008B58E6 /* translate in Resources */,
-				37B4B824201EF8E4008B58E6 /* res in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1307,6 +1307,7 @@
 				"${PODS_ROOT}/GoogleSignIn/Resources/GoogleSignIn.bundle",
 				"${PODS_ROOT}/TapjoySDK/TapjoySDK_iOS_v11.11.1/Libraries/Tapjoy.embeddedframework/Resources/TapjoyResources.bundle",
 				"${PODS_ROOT}/TapjoySDK/TapjoySDK_iOS_v11.11.1/Libraries/Tapjoy.embeddedframework/Tapjoy.framework/Versions/A/Resources/TapjoyResources.bundle",
+				"${PODS_ROOT}/TwitterKit/iOS/TwitterKit.framework/Versions/A/Resources/TwitterKitResources.bundle",
 			);
 			name = "[CP] Copy Pods Resources";
 			outputPaths = (
