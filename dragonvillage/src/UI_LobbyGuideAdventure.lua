@@ -47,6 +47,8 @@ function UI_LobbyGuideAdventure:initUI()
     local vars = self.vars
 
     -- npc 일러스트
+    -- res/character/npc/narvi/narvi.spine
+    -- npcNode
     local res = 'res/character/dragon/aphrodite_fire_03/aphrodite_fire_03.spine'
     if self:checkVarsKey('dragonNode', res) then
 	    vars['dragonNode']:removeAllChildren(true)
