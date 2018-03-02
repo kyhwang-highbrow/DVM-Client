@@ -427,7 +427,7 @@ function StructProduct:getPriceStr()
                 return dicMarketPrice[sku]
             -- 없다면 기본 달러 표시
             else
-                return '$' .. comma_value(self:getPrice())
+                return '￦' .. comma_value(self:getPrice())
             end
         else
             return comma_value(self:getPrice())
