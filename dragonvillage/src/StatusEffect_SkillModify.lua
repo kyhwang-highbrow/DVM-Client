@@ -33,8 +33,6 @@ function StatusEffect_SkillModify:initFromTable(t_status_effect, target_char)
             idx = idx + 1
         end
     end
-
-    --cclog('self.m_lSkillColumn = ' .. luadump(self.m_lSkillColumn))
 end
 
 -------------------------------------
