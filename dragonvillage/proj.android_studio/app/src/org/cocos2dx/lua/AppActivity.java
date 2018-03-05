@@ -53,7 +53,6 @@ import android.content.pm.PackageManager;
 //@perplesdk
 import com.perplelab.PerpleSDK;
 
-import java.security.Permission;
 import java.util.Locale;
 
 public class AppActivity extends Cocos2dxActivity{
@@ -87,6 +86,10 @@ public class AppActivity extends Cocos2dxActivity{
     // @unity-ads
     static final String UNITY_ADS_GAME_ID = "1515686";
 
+    // @twitter
+    static final String TWITTER_CONSUMER_KEY = "kJlCsOmKdhLpsVitieEs6DL5R";
+    static final String TWITTER_CONSUMER_SECRET = "jLuByWszPl4P3CYLBf2y70QcT559EXTeDemGr34a45wndbBbxA";
+
     // @naver-cafe
     static final String NAVER_CAFE_CLIENT_ID = "nQGxfwLZ1Rf4Lwhozq4G";
     static final String NAVER_CAFE_CLIENT_SECRET = "1yzbWtj_Cu";
@@ -94,8 +97,12 @@ public class AppActivity extends Cocos2dxActivity{
     static final String NAVER_NEO_ID_CONSUMER_KEY = "_hBggTZAp2IPapvAxwQl";
     static final int NAVER_COMMUNITY_ID = 0;
 
+    // @adcolony
     static final String ADCOLONY_APP_ID = "app36c426430b1a4ffd96";
+
+    // @adjust
     static final String ADJUST_TOKKEN_ID = "esjmkti8vim8";
+    static final long[] ADJUST_SECRET_KEY = {1, 562501988, 1877997235, 662395286, 1781468312};
 
     static final int RC_WRITE_STORAGE_PERMISSION    = 100;  // must be 8bit value
     static final int RC_APP_PERMISSION              = 101;  // must be 8bit value
@@ -138,7 +145,10 @@ public class AppActivity extends Cocos2dxActivity{
             PerpleSDK.getInstance().initGoogle(getString(R.string.default_web_client_id));
 
             // @facebook
-            PerpleSDK.getInstance().initFacebook(savedInstanceState);
+            PerpleSDK.getInstance().initFacebook();
+
+            // @twitter
+            PerpleSDK.getInstance().initTwitter(TWITTER_CONSUMER_KEY, TWITTER_CONSUMER_SECRET);
         }
 
         // @adbrix
@@ -157,7 +167,7 @@ public class AppActivity extends Cocos2dxActivity{
         PerpleSDK.getInstance().initNaverCafe(NAVER_CAFE_CLIENT_ID, NAVER_CAFE_CLIENT_SECRET, NAVER_CAFE_ID, NAVER_NEO_ID_CONSUMER_KEY, NAVER_COMMUNITY_ID);
 
         // @adjust
-        PerpleSDK.getInstance().initAdjust(ADJUST_TOKKEN_ID, isDebug);
+        PerpleSDK.getInstance().initAdjust(ADJUST_TOKKEN_ID, ADJUST_SECRET_KEY, isDebug);
     }
 
     @Override
