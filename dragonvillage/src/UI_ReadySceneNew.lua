@@ -531,7 +531,7 @@ function UI_ReadySceneNew:refresh()
         end
 
         vars['itemMenu']:setVisible(true)
-        self.root:scheduleUpdateWithPriorityLua(function(dt) self:update(dt) end, 0.1)
+        vars['itemMenu']:scheduleUpdateWithPriorityLua(function(dt) self:update_item(dt) end, 0.1)
     end
 
     self:refresh_tamer()
@@ -694,10 +694,10 @@ function UI_ReadySceneNew:refresh_buffInfo_TamerBuff()
 end
 
 -------------------------------------
--- function update
+-- function update_item
 -- @brief
 -------------------------------------
-function UI_ReadySceneNew:update(dt)    
+function UI_ReadySceneNew:update_item(dt)    
     local vars = self.vars
     -- 광고보기 (추가)
     do
