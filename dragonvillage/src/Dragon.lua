@@ -468,6 +468,8 @@ function Dragon:updateActiveSkillCool(dt)
 	if (self:isDead()) then return end
 
     local drag_cool = self:getStat('drag_cool') or 0
+    drag_cool = math_min(drag_cool, 99)
+
     local rate = 1 + (drag_cool / (100 - drag_cool))
     rate = math_max(rate , 0)
 
