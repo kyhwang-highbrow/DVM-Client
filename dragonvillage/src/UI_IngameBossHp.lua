@@ -75,6 +75,15 @@ UI_IngameBossHp = class(PARENT, {
 UI_IngameBossHpForClanRaid = class(UI_IngameBossHp, {})
 
     -------------------------------------
+    -- function init
+    -------------------------------------
+    function UI_IngameBossHpForClanRaid:init(world, boss_list)
+        local vars = self.vars
+
+        vars['bossHpLabel']:setVisible(true)
+    end
+
+    -------------------------------------
     -- function refresh
     -------------------------------------
     function UI_IngameBossHpForClanRaid:refresh()
@@ -84,6 +93,12 @@ UI_IngameBossHpForClanRaid = class(UI_IngameBossHp, {})
         local totalMaxHp = self.m_lBoss[1].m_maxHp
 
         local percentage = totalHp / totalMaxHp
+
+        -- 체력 수치 표시
+        do
+            local str = string.format('%s / %s (%.2f%%)', comma_value(math_floor(totalHp)), comma_value(totalMaxHp), percentage * 100)
+            vars['bossHpLabel']:setString(str)
+        end
 
         -- 체력바 가감 연출
         if (vars['bossHpGauge1']) then
