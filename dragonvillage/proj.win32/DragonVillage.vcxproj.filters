@@ -3262,6 +3262,9 @@
     <None Include="..\src\UI_LobbyGuideWeeklyShop.lua">
       <Filter>lua\UI</Filter>
     </None>
+    <None Include="..\src\StatusEffect_SkillModify.lua">
+      <Filter>lua\src</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Classes">

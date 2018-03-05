@@ -12,6 +12,8 @@ local SPEED_COMEBACK = 1500
 -- class Character
 -------------------------------------
 Character = class(PARENT, {
+        m_charTable ='table',
+
 		-- 캐릭터 기초 스탯
         m_lv = '',
         m_maxHp = '',
@@ -2270,6 +2272,13 @@ function Character:getName()
 	if (self.m_charTable and self.m_charTable['t_name']) then 
 		return Str(self.m_charTable['t_name'])
 	end
+end
+
+-------------------------------------
+-- function getCharTable
+-------------------------------------
+function Character:getCharTable()
+	return self.m_charTable
 end
 
 -------------------------------------

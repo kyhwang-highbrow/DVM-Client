@@ -309,13 +309,17 @@ function StatusEffectHelper:makeStatusEffectInstance(caster, target_char, status
     local status_effect = nil
     local res = TableStatusEffect():getRes(status_effect_type, caster:getAttribute())
 
-    ----------- 상태효과 변경 ------------------
+    ----------- 상태효과 전이 ------------------
 	if (status_effect_group == 'transfer') then
         status_effect = StatusEffect_Transfer(res)
 
     ----------- 상태효과 변경 ------------------
 	elseif (status_effect_group == 'modify') then
         status_effect = StatusEffect_Modify(res)
+
+    ----------- 스킬정보 변경 ------------------
+	elseif (status_effect_group == 'skill_modify') then
+        status_effect = StatusEffect_SkillModify(res)
 
     ---------- 부활 ------------
     elseif (status_effect_group == 'resurrect') then

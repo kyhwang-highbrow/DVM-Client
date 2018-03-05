@@ -469,6 +469,7 @@ local t_module = {
     'StatusEffect_Immortal',
     'StatusEffect_Immune',
     'StatusEffect_Modify',
+    'StatusEffect_SkillModify',
     'StatusEffect_AddMana',
     'StatusEffect_ManaReduce',
     'StatusEffect_Resurrect',
