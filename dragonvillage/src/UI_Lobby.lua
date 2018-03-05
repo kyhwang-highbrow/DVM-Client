@@ -243,8 +243,13 @@ function UI_Lobby:entryCoroutine()
 
 			-- 지정된 풀팝업 리스트 (최초 로비 실행 시 출력)
             if (g_fullPopupManager:isTitleToLobby()) then
-                NaverCafeManager:naverCafeStart(0) -- 네이버 카페
-                g_fullPopupManager:show(FULL_POPUP_TYPE.LOBBY, show_func)
+
+                -- 5 레벨 미만은 마을에서 네이버 SDK와 풀 팝업을 띄우지 않음
+                local lv = g_userData:get('lv')
+                if (5 <= lv) then
+                    NaverCafeManager:naverCafeStart(0) -- 네이버 카페
+                    g_fullPopupManager:show(FULL_POPUP_TYPE.LOBBY, show_func)
+                end
             end
             
 			-- 출석 보상 정보 (보상 존재할 경우 출력)
