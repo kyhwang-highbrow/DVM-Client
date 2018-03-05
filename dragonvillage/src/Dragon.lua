@@ -468,7 +468,7 @@ function Dragon:updateActiveSkillCool(dt)
 	if (self:isDead()) then return end
 
     local drag_cool = self:getStat('drag_cool') or 0
-    local rate = 1 + (drag_cool / 100)
+    local rate = 1 + (drag_cool / (100 - drag_cool))
     rate = math_max(rate , 0)
 
     -- 드래그 스킬 쿨타임 갱신

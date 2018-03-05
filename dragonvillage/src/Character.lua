@@ -1951,7 +1951,7 @@ function Character:updateBasicSkillTimer(dt)
     do
         -- @ RUNE
         local cool_actu = self:getStat('cool_actu') or 0
-        local rate = 1 + (cool_actu / 100)
+        local rate = 1 + (cool_actu / (100 - cool_actu))
         rate = math_max(rate , 0)
 
         dt = dt * rate
