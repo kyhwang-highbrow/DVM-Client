@@ -784,6 +784,7 @@ local t_module = {
     'UI_AutoItemPickResultPopup',
     'UI_SubscriptionDayListItem',
     'UI_SubscriptionDayListItemNew',
+    'UI_ShopDaily',
 
 	-- UI : 모험
     'UI_AdventureSceneNew',

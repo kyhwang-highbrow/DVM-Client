@@ -1077,11 +1077,7 @@ end
 -- @breif 골드 부스터
 -------------------------------------
 function UI_ReadySceneNew:click_goldBoosterBtn()
-    local target_product = TablePackageBundle:getPidsWithName('package_daily_shop')
-    local pid = tonumber(target_product[1])
-
-    -- 일일 상점 탭 설정
-    UINavigator:goTo('package_shop', pid)
+    UINavigator:goTo('shop_daily')
 end
 
 -------------------------------------
@@ -1089,11 +1085,7 @@ end
 -- @breif 경험치 부스터
 -------------------------------------
 function UI_ReadySceneNew:click_expBoosterBtn()
-    local target_product = TablePackageBundle:getPidsWithName('package_daily_shop')
-    local pid = tonumber(target_product[1])
-
-    -- 일일 상점 탭 설정
-    UINavigator:goTo('package_shop', pid)
+    UINavigator:goTo('shop_daily')
 end
 
 -------------------------------------

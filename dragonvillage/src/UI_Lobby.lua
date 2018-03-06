@@ -929,11 +929,7 @@ end
 -- function click_dailyShopBtn
 -------------------------------------
 function UI_Lobby:click_dailyShopBtn()
-    local target_product = TablePackageBundle:getPidsWithName('package_daily_shop')
-    local pid = tonumber(target_product[1])
-
-    -- 일일 상점 탭 설정
-    UINavigator:goTo('package_shop', pid)
+    UINavigator:goTo('shop_daily')
 end
 
 -------------------------------------

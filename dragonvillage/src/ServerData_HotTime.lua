@@ -336,7 +336,8 @@ end
 function ServerData_HotTime:isHighlightHotTime()
     for _,v in pairs(self.m_hotTimeType) do
         local key = v['key']
-        if self:getActiveHotTimeInfo(key) then
+        -- 부스터는 포함하지 않음
+        if (not string.find(key, 'buff')) and (self:getActiveHotTimeInfo(key)) then
             return true
         end
     end

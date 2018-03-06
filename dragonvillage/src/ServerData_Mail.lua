@@ -277,3 +277,55 @@ function ServerData_Mail:request_mailReadAll(type, finish_cb)
 	-- api로 보냄
 	self:request_mailRead(mail_id_list, t_mail_type_reward, finish_cb)
 end
+
+-------------------------------------
+-- function request_summonTicket
+-- @brief 우편 읽기 (고급소환권)
+-------------------------------------
+function ServerData_Mail:request_summonTicket(mail_id_list, finish_cb)
+    -- 파라미터
+    local uid = g_userData:get('uid')
+    local mids = listToCsv(mail_id_list)
+
+    -- 콜백 함수
+    local function success_cb(ret)
+        g_serverData:networkCommonRespone_addedItems(ret)
+
+        for i,v in ipairs(mail_id_list) do
+            self:deleteMailData(v)
+        end
+
+		-- 로비 노티 갱신
+		g_highlightData:setDirty(true)
+
+        if finish_cb then
+            finish_cb(ret, mail_id_list)
+        end
+
+        -- 고급소환 정보 가져옴
+        local t_egg_data
+        for _, t_data in pairs(g_hatcheryData:getGachaList()) do
+            if (t_data['egg_id'] == 700002) then
+                t_egg_data = t_data
+                break
+            end
+        end
+
+		local gacha_type = 'summon_ticket'
+        local l_dragon_list = ret['added_dragons']
+        local l_slime_list = ret['added_slimes']
+        local egg_id = t_egg_data['egg_id']
+        local egg_res = t_egg_data['egg_res']
+        local ui = UI_GachaResult_Dragon(gacha_type, l_dragon_list, l_slime_list, egg_id, egg_res, t_egg_data, 0)
+    end
+
+    -- 네트워크 통신 UI 생성
+    local ui_network = UI_Network()
+    ui_network:setUrl('/shop/summon/mail')
+    ui_network:setParam('uid', uid)
+    ui_network:setParam('mid', mids)
+    ui_network:setSuccessCB(success_cb)
+    ui_network:setRevocable(true)
+    ui_network:setReuse(false)
+    ui_network:request()
+end

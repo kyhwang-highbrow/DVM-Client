@@ -136,7 +136,7 @@ function UI_GachaResult_Dragon:initEverything()
 	local egg_id = self.m_eggID
 
 	-- 선택권, 뽑기권 등..
-	if (self.m_type == 'mail') or (self.m_type == 'immediately') then
+	if (self.m_type == 'mail') or (self.m_type == 'immediately') or (self.m_type == 'summon_ticket') then
 		-- nothing to do
 
 	-- 부화

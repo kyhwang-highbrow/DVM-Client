@@ -210,8 +210,13 @@ function StructMail:readMe(cb_func)
             cb_func()
         end
 	end
-    
-	g_mailData:request_mailRead(mail_id_list, mail_type_list, finish_cb)
+
+    -- 고급 소환권 api 
+    if self:isSummonTicket() then
+        g_mailData:request_summonTicket(mail_id_list, finish_cb)
+    else
+        g_mailData:request_mailRead(mail_id_list, mail_type_list, finish_cb)
+    end
 end
 
 -------------------------------------
@@ -222,6 +227,15 @@ function StructMail:isChangeNick()
     local item_id = self:getItemList()[1]['item_id']
     local item_type = TableItem:getItemType(item_id)
     return (item_type == 'rename')
+end
+
+-------------------------------------
+-- function isSummonTicket
+-- @brief 고급소환권 확인 
+-------------------------------------
+function StructMail:isSummonTicket()
+    local item_id = self:getItemList()[1]['item_id']
+    return (item_id == ITEM_ID_SUMMON_TICKET)
 end
 
 -------------------------------------
