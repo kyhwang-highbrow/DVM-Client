@@ -1065,6 +1065,13 @@ end
 -- @usage UINavigatorDefinition:goTo('clan_raid')
 -------------------------------------
 function UINavigatorDefinition:goTo_clan_raid(...)
+    -- 클랜 가입이 되지 않은 상태에서 진입시에
+    if (g_clanData:isClanGuest()) then
+        local msg = Str('클랜이 존재하지 않습니다.')
+        MakeSimplePopup(POPUP_TYPE.OK, msg)
+        return
+    end
+
     -- 클랜 던전 UI가 열려있을 경우
     local is_opend, idx, ui = self:findOpendUI('UI_ClanRaid')
     if (is_opend == true) then

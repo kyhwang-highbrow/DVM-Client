@@ -19,7 +19,7 @@ end
 -------------------------------------
 function UI_GamePause_ClanRaid:click_retryButton()
     local function retry_func()
-        link_type = 'ply_clan_raid'
+        link_type = 'ply_cldg'
         QuickLinkHelper.quickLink(link_type, condition)
     end
     

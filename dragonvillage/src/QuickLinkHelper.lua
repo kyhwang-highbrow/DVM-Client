@@ -68,7 +68,7 @@ function QuickLinkHelper.gameModeLink(game_mode, dungeon_mode, condition)
 
     -- 클랜던전 플레이
     elseif (game_mode == GAME_MODE_CLAN_RAID) then
-        link_type = 'ply_clan_raid'
+        link_type = 'ply_cldg'
 
     -- 모험 모드
     else
@@ -159,7 +159,7 @@ T_LINK_FUNC = {
     end,
 
     -- 클랜 던전 플레이
-    ['ply_clan_raid'] = function()
+    ['ply_cldg'] = function()
         UINavigator:goTo('clan_raid')
     end,
 
