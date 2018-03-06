@@ -1,6 +1,0 @@
-patisdk_cppbase_withlua_20150701_r2682_#110
-patisdk_cppbase_withlua_20150813_r2933_#114
-patisdk_cppbase_withlua_20150821_r2983_#116
-patisdk_cppbase_withlua_20151106_r3200_#137
-
-patisdk_cppbase_withlua_20160412_r3443_#154
