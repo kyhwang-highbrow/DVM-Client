@@ -6,17 +6,20 @@ local PARENT = class(UI, ITabUI:getCloneTable())
 UI_ClanRaidBossInfo = class(PARENT,{
         m_sel_mid = 'number',
         m_sel_ui = 'UI_MonsterCard',
-        m_map_animator = ''
+        m_map_animator = '',
+
+        m_initial_tab = 'string'
     })
 
 -------------------------------------
 -- function init
 -------------------------------------
-function UI_ClanRaidBossInfo:init()
+function UI_ClanRaidBossInfo:init(tab)
     local vars = self:load('clan_raid_boss_info.ui')
     UIManager:open(self, UIManager.POPUP)
     self.m_uiName = 'UI_ClanRaidBossInfo'
     self.m_map_animator = {}
+    self.m_initial_tab = tab or 'info'
 
     -- backkey 지정
     g_currScene:pushBackKeyListener(self, function() self:click_closeBtn() end, 'UI_ClanRaidBossInfo')
@@ -26,16 +29,71 @@ function UI_ClanRaidBossInfo:init()
 
     self:initUI()
     self:initButton()
+    self:initTab()
 end
 
 -------------------------------------
 -- function initUI
 -------------------------------------
 function UI_ClanRaidBossInfo:initUI()
+end
+
+-------------------------------------
+-- function initButton
+-------------------------------------
+function UI_ClanRaidBossInfo:initButton()
+    local vars = self.vars
+    vars['closeBtn']:registerScriptTapHandler(function() self:click_closeBtn() end)
+end
+
+-------------------------------------
+-- function initTab
+-------------------------------------
+function UI_ClanRaidBossInfo:initTab()
     local vars = self.vars
 
+    -- 보스 정보
+    self:addTabWithLabel('info', vars['bossTabBtn'], vars['rankRewardTabLabel'], vars['bossMenu'])
+    -- 상성 정보
+    self:addTabWithLabel('synastry', vars['synastryTabBtn'], vars['matchRewardTabLabel'], vars['synastryMenu'])
+    -- 파이널 블로우 정보
+    self:addTabWithLabel('finalblow', vars['fbTabBtn'], vars['clanRewardTabLabel'], vars['fbMenu'])
+
+    self:setTab(self.m_initial_tab)
+end
+
+-------------------------------------
+-- function onChangeTab
+-------------------------------------
+function UI_ClanRaidBossInfo:onChangeTab(tab, first)
+    if (first) then
+        local vars = self.vars
+        local target_node 
+        if (tab == 'info') then
+            target_node = vars['bossNode']
+            self:initUI_info()
+
+        elseif (tab == 'synastry') then
+            target_node = vars['bossNode2']
+            self:initUI_synastry()
+
+        elseif (tab == 'finalblow') then
+            target_node = vars['bossNode3']
+            self:initUI_finalblow()
+        end
+
+        if (target_node) then
+            self:initBossVrp(target_node)
+        end
+    end
+end
+
+-------------------------------------
+-- function initUI_info
+-------------------------------------
+function UI_ClanRaidBossInfo:initUI_info()
+    local vars = self.vars
     self:initMonsterList()
-    self:initBossVrp()
 
     local struct_raid = g_clanRaidData:getClanRaidStruct()
     local stage_id = struct_raid:getStageID()
@@ -55,11 +113,19 @@ function UI_ClanRaidBossInfo:initUI()
 end
 
 -------------------------------------
--- function initButton
+-- function initUI_synastry
 -------------------------------------
-function UI_ClanRaidBossInfo:initButton()
+function UI_ClanRaidBossInfo:initUI_synastry()
     local vars = self.vars
-    vars['closeBtn']:registerScriptTapHandler(function() self:click_closeBtn() end)
+
+end
+
+-------------------------------------
+-- function initUI_finalblow
+-------------------------------------
+function UI_ClanRaidBossInfo:initUI_finalblow()
+    local vars = self.vars
+
 end
 
 -------------------------------------
@@ -116,14 +182,14 @@ end
 -------------------------------------
 -- function initBossVrp
 -------------------------------------
-function UI_ClanRaidBossInfo:initBossVrp()
+function UI_ClanRaidBossInfo:initBossVrp(target_node)
     local vars = self.vars
     local struct_raid = g_clanRaidData:getClanRaidStruct()
     local stage_id = struct_raid:getStageID()
     local _, boss_mid = g_stageData:isBossStage(stage_id)
 
     -- 보스 animator
-    local boss_node = vars['bossNode']
+    local boss_node = target_node
     boss_node:removeAllChildren()
 
     local l_monster = g_stageData:getMonsterIDList(stage_id)

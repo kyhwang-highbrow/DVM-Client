@@ -118,7 +118,11 @@ function UI_ClanRaid:initButton()
     vars['rankBtn']:registerScriptTapHandler(function() self:click_rankBtn() end)
     vars['rewardBtn']:registerScriptTapHandler(function() self:click_rewardBtn() end)
     vars['readyBtn']:registerScriptTapHandler(function() self:click_readyBtn() end)
-    vars['bossInfoBtn']:registerScriptTapHandler(function() self:click_bossInfoBtn() end)
+    
+    -- 상세 정보 팝업
+    vars['bossInfoBtn']:registerScriptTapHandler(function() self:click_bossInfoBtn('info') end)
+    vars['synastryInfoBtn']:registerScriptTapHandler(function() self:click_bossInfoBtn('synastry') end)
+    vars['fbInfoBtn']:registerScriptTapHandler(function() self:click_bossInfoBtn('finalblow') end)
 end
 
 -------------------------------------
@@ -276,6 +280,13 @@ function UI_ClanRaid:initRaidInfo()
 
     local rate = struct_raid:getHpRate()
     hp_label:setNumber(rate, false)
+
+    -- 체력 수치
+    local cur_hp = struct_raid:getHp()
+    local max_hp = struct_raid:getMaxHp() 
+    local hp_label2 = vars['hpLabel2']
+    local str_hp = string.format('%s/%s', comma_value(cur_hp), comma_value(max_hp))
+    hp_label2:setString(str_hp)
 
     -- 체력 게이지
     local gauge = vars['bossHpGauge1']
@@ -469,8 +480,8 @@ end
 -- function click_bossInfoBtn
 -- @brief 보스 정보
 -------------------------------------
-function UI_ClanRaid:click_bossInfoBtn()
-    UI_ClanRaidBossInfo()
+function UI_ClanRaid:click_bossInfoBtn(tab)
+    UI_ClanRaidBossInfo(tab)
 end
 
 --@CHECK
