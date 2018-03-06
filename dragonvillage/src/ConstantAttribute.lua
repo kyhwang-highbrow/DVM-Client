@@ -170,6 +170,26 @@ function getCounterAttribute(attr1, attr2)
 end
 
 -------------------------------------
+-- function getCounterAttribute_ClanRaid
+-- @brief attr이 클랜던전 보스의 카운터 속성인지를 확인 (클랜던전은 다른 모드와 다르게 패널티 정보가 다름)
+-- @return number 1=상성, 0=무상성, -1역상성
+-------------------------------------
+function getCounterAttribute_ClanRaid(attr, bonus_info, penalty_info)
+    if (attr == nil or bonus_info == nil or penalty_info == nil) then return 0 end
+    if (attr1 == 'none' or attr2 == 'none') then return 0 end
+
+    if (bonus_info[attr]) then
+        return 1
+    end
+
+    if (penalty_info[attr]) then
+        return -1
+    end
+
+    return 0
+end
+
+-------------------------------------
 -- function attributeStrToNum
 -- @brief 속성을 number타입으로 표현
 -------------------------------------

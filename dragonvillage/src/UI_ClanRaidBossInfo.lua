@@ -88,11 +88,11 @@ function UI_ClanRaidBossInfo:onChangeTab(tab, first)
         if (target_node) then
             self:initBossVrp(target_node, check_part)
         end
-    else
-        -- 탭할때마다 액션 
-        self:doActionReset()
-        self:doAction(nil, false)
     end
+
+    -- 탭할때마다 액션 
+    self:doActionReset()
+    self:doAction(nil, false)
 end
 
 -------------------------------------

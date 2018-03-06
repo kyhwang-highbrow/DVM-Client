@@ -66,6 +66,7 @@ function UI_ReadySceneNew_Select:init_dragonTableView()
     list_table_node:removeAllChildren()
 
     local is_mine = not self.m_bFriend
+    local game_mode = g_stageData:getGameMode(self.m_uiReadyScene.m_stageID)
 
     local function create_func(ui, data)
         ui.root:setScale(DC_SCALE)	-- UI 테이블뷰 사이즈가 변경될 시 조정
@@ -83,7 +84,15 @@ function UI_ReadySceneNew_Select:init_dragonTableView()
         -- 상성
         local dragon_attr = TableDragon():getValue(data['did'], 'attr')
         local stage_attr = self.m_uiReadyScene.m_stageAttr
-        ui:setAttrSynastry(getCounterAttribute(dragon_attr, stage_attr))
+
+        if (game_mode == GAME_MODE_CLAN_RAID) then
+            local raid_info = g_clanRaidData:getClanRaidStruct()
+            local _, bonus_info = raid_info:getBonusSynastryInfo()
+            local _, penalty_info = raid_info:getPenaltySynastryInfo()
+            ui:setAttrSynastry(getCounterAttribute_ClanRaid(dragon_attr, bonus_info, penalty_info))
+        else
+            ui:setAttrSynastry(getCounterAttribute(dragon_attr, stage_attr))
+        end
     end
 
     -- 테이블뷰 생성
@@ -96,7 +105,6 @@ function UI_ReadySceneNew_Select:init_dragonTableView()
 
     -- 리스트 설정
     local l_dragon_list
-    local game_mode = g_stageData:getGameMode(self.m_uiReadyScene.m_stageID)
     if (game_mode == GAME_MODE_ANCIENT_TOWER) then
         local attr = g_attrTowerData:getSelAttr()
         -- 시험의 탑 (같은 속성 드래곤만 받아옴)

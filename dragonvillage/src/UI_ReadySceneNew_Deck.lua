@@ -503,9 +503,14 @@ function UI_ReadySceneNew_Deck:makeSettedDragonCard(t_dragon_data, idx)
     self:refresh_dragonCard(t_dragon_data['id'])
 
     -- 상성
-    local dragon_attr = TableDragon():getValue(t_dragon_data['did'], 'attr')
-    local stage_attr = self.m_uiReadyScene.m_stageAttr
-    ui:setAttrSynastry(getCounterAttribute(dragon_attr, stage_attr))
+    if (self.m_gameMode == GAME_MODE_CLAN_RAID) then
+        local raid_info = g_clanRaidData:getClanRaidStruct()
+        local _, bonus_info = raid_info:getBonusSynastryInfo()
+        local _, penalty_info = raid_info:getPenaltySynastryInfo()
+        ui:setAttrSynastry(getCounterAttribute_ClanRaid(dragon_attr, bonus_info, penalty_info))
+    else
+        ui:setAttrSynastry(getCounterAttribute(dragon_attr, stage_attr))
+    end
 end
 
 -------------------------------------
