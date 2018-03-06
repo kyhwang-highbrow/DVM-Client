@@ -508,6 +508,7 @@ function UI_ClanRaid:click_readyBtn()
 
             else
                 -- 클랜 던전 처리 - 덱 map 추가로 생성
+                self.m_preRefreshTime = 0
                 g_clanRaidData:makeDeckMap()
                 UI_ReadySceneNew(self.m_stageID) 
             end

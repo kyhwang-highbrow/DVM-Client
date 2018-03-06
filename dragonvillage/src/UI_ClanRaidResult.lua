@@ -401,12 +401,41 @@ function UI_ClanRaidResult:direction_end()
     local vars = self.vars
     vars['okBtn']:setVisible(true)
     vars['statsBtn']:setVisible(true)
+
+    local reward_info = self.m_data['mail_reward_list'] or {}
+    if (#reward_info > 0) then
+        self:show_finalblowReward(reward_info)
+    end
 end
 
 -------------------------------------
 -- function direction_end_click
 -------------------------------------
 function UI_ClanRaidResult:direction_end_click()
+end
+
+-------------------------------------
+-- function show_finalblowReward
+-- @brief 파이널 블로우 추가 보상 팝업
+-------------------------------------
+function UI_ClanRaidResult:show_finalblowReward(reward_info)
+    local ui = UI()
+	ui:load('clan_raid_clear_reward.ui')
+	UIManager:open(ui, UIManager.POPUP)
+
+    local vars = ui.vars
+    vars['okBtn']:registerScriptTapHandler(function() ui:close() end)
+
+    for i, item_data in ipairs(reward_info) do
+        local item_id = item_data['item_id']
+        local item_cnt = item_data['count']
+
+        local icon = IconHelper:getItemIcon(item_id, item_cnt)
+        if (vars['rewardNode'..i]) then
+            vars['rewardNode'..i]:addChild(icon)
+            vars['rewardLabel'..i]:setString(comma_value(item_cnt))
+        end
+    end
 end
 
 -------------------------------------

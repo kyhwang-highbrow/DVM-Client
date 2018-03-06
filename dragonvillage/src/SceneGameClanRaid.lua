@@ -352,7 +352,10 @@ function SceneGameClanRaid:networkGameFinish_response(ret, t_result_ref)
     -- self:networkGameFinish_response_added_dragons(ret, t_result_ref)
 
     -- 드랍 정보 drop_reward
-     self:networkGameFinish_response_drop_reward(ret, t_result_ref)
+    self:networkGameFinish_response_drop_reward(ret, t_result_ref)
+
+    -- 메일 보상 정보 mail_reward
+    self:networkGameFinish_response_mail_reward(ret, t_result_ref)
 
     -- 스테이지 클리어 정보 stage_clear_info
     self:networkGameFinish_response_stage_clear_info(ret)
@@ -525,6 +528,18 @@ function SceneGameClanRaid:networkGameFinish_response_drop_reward(ret, t_result_
         local t_data = {item_id, count, from, data}
         table.insert(drop_reward_list, t_data)
     end
+end
+
+-------------------------------------
+-- function networkGameFinish_response_mail_reward
+-- @breif 수신함 보상 데이터 처리
+-------------------------------------
+function SceneGameClanRaid:networkGameFinish_response_mail_reward(ret, t_result_ref)
+    if (not ret['reward_info']) then
+        return
+    end
+
+    t_result_ref['mail_reward_list'] = ret['reward_info']
 end
 
 -------------------------------------
