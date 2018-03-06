@@ -69,8 +69,11 @@ function UI_ClanRaidBossInfo:onChangeTab(tab, first)
     if (first) then
         local vars = self.vars
         local target_node 
+        local check_part = false
+
         if (tab == 'info') then
             target_node = vars['bossNode']
+            check_part = true
             self:initUI_info()
 
         elseif (tab == 'synastry') then
@@ -83,7 +86,7 @@ function UI_ClanRaidBossInfo:onChangeTab(tab, first)
         end
 
         if (target_node) then
-            self:initBossVrp(target_node)
+            self:initBossVrp(target_node, check_part)
         end
     else
         -- 탭할때마다 액션 
@@ -252,7 +255,7 @@ end
 -------------------------------------
 -- function initBossVrp
 -------------------------------------
-function UI_ClanRaidBossInfo:initBossVrp(target_node)
+function UI_ClanRaidBossInfo:initBossVrp(target_node, check_part)
     local vars = self.vars
     local struct_raid = g_clanRaidData:getClanRaidStruct()
     local stage_id = struct_raid:getStageID()
@@ -284,7 +287,9 @@ function UI_ClanRaidBossInfo:initBossVrp(target_node)
             animator:changeAni('idle', true)
         end
 
-        self.m_map_animator[mid] = animator
+        if (check_part) then
+            self.m_map_animator[mid] = animator
+        end
     end
 end
 
