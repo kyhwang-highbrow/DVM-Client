@@ -143,6 +143,7 @@ function UnlinkBrokenPlatform(info, platform_id)
     for idx = 1, #info.providerData do
         local providerId = info.providerData[idx].providerId
         if providerId ~= platform_id and providerId ~= 'firebase' then
+			-- @google
             if providerId == 'google.com' then
                 PerpleSDK:unlinkWithGoogle(function(ret, info)
                     if ret == 'success' then
@@ -152,6 +153,8 @@ function UnlinkBrokenPlatform(info, platform_id)
                     end
                 end)
             end
+
+			-- @facebook
             if providerId == 'facebook.com' then
                 PerpleSDK:unlinkWithFacebook(function(ret, info)
                     if ret == 'success' then
@@ -161,6 +164,18 @@ function UnlinkBrokenPlatform(info, platform_id)
                     end
                 end)
             end
+
+			-- @twitter
+            if providerId == 'twitter.com' then
+                PerpleSDK:unlinkWithTwitter(function(ret, info)
+                    if ret == 'success' then
+                        cclog('Firebase unlink from Twitter was successful.')
+                    elseif ret == 'fail' then
+                        cclog('Firebase unlink from Twitter failed.')
+                    end
+                end)
+            end
+
         end
     end
 

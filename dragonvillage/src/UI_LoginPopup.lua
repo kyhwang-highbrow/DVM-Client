@@ -37,11 +37,6 @@ end
 -------------------------------------
 function UI_LoginPopup:initUI()
     local vars = self.vars
-	--vars['facebookBtn'] -- Button
-	--vars['gamecenterBtn'] -- Button
-	--vars['googleBtn'] -- Button
-	--vars['guestBtn'] -- Button
-	--vars['closeBtn'] -- Button
 end
 
 -------------------------------------
@@ -50,31 +45,26 @@ end
 function UI_LoginPopup:initButton()
     local vars = self.vars
     
+    vars['googleBtn']:registerScriptTapHandler(function() self:click_googleBtn() end)
 	vars['facebookBtn']:registerScriptTapHandler(function() self:click_facebookBtn() end)
 	vars['twitterBtn']:registerScriptTapHandler(function() self:click_twitterBtn() end)
     vars['gamecenterBtn']:registerScriptTapHandler(function() self:click_gamecenterBtn() end)
-    vars['googleBtn']:registerScriptTapHandler(function() self:click_googleBtn() end)
     vars['guestBtn']:registerScriptTapHandler(function() self:click_guestBtn() end)
     vars['serverBtn']:registerScriptTapHandler(function() self:click_changeServer() end)
 
     vars['closeBtn']:setVisible(false)
 
     -- iOS
-    if CppFunctions:isIos() then
+    if (CppFunctions:isIos()) then
         vars['gamecenterBtn']:setVisible(true)
-
-        local gap = 120
-        local pos_x_gc = vars['gamecenterBtn']:getPositionX() + gap
-        local pos_x_guest = vars['guestBtn']:getPositionX() + gap
-        vars['gamecenterBtn']:setPositionX(pos_x_gc)
-        vars['guestBtn']:setPositionX(pos_x_guest)
-    
-	-- Android, Win32
     else
         vars['gamecenterBtn']:setVisible(false)
-
     end
+	
+	-- twitter 추후에 공개
+	vars['twitterBtn']:setVisible(true)
 
+	local l_btn_list = {'google', 'facebook', 'twitter', 'gamecenter', 'guest'}
 end
 
 -------------------------------------

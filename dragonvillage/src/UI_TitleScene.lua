@@ -500,6 +500,7 @@ function UI_TitleScene:workCheckUserID()
         -- 현재 로그인된 계정의 플랫폼ID
         -- Google: 'google.com'
         -- Facebook: 'facebook.com'
+		-- TWitter : 'twitter.com'
         -- Guest: 'firebase'
         g_localData:applyLocalData(platform_id, 'local', 'platform_id')
 
@@ -547,6 +548,7 @@ function UI_TitleScene:workCheckUserID()
         PerpleSDK:logout()
         PerpleSDK:googleLogout(0)
         PerpleSDK:facebookLogout()
+		PerpleSDK:twitterLogout()
 
         fail_cb()
         return
