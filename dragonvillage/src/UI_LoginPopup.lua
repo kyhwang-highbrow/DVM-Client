@@ -64,6 +64,9 @@ function UI_LoginPopup:alignButton()
     vars['closeBtn']:setVisible(false)
 
 	-- visible on/off
+	--vars['googleBtn']:setVisible(true)
+	--vars['facebookBtn']:setVisible(true)
+	--vars['twitterBtn']:setVisible(true)
 	vars['gamecenterBtn']:setVisible(CppFunctions:isIos())
 	vars['twitterBtn']:setVisible(false)
 

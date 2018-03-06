@@ -710,106 +710,106 @@ end
 -- function updateInfo
 -------------------------------------
 function UI_Setting:updateInfo()
+	local vars = self.vars
 
-    local platform_id = g_localData:get('local', 'platform_id') or 'firebase'
+	local platform_id = g_localData:get('local', 'platform_id') or 'firebase'
     local account_info = g_localData:get('local', 'account_info') or 'Guest'
     local recovery_code = g_localData:get('local', 'recovery_code')
+	local desc = ''
 
     -- 버튼 상태 업데이트
     if platform_id == 'gamecenter' then
-        self.vars['descLabel']:setString(Str('현재 게임 데이터가 안전하게 보호되고 있습니다.\n(게임센터 로그인 상태에서는 다른 플랫품 계정으로 계정 전환을 하실 수 없습니다.)'))
-        self.vars['codeMenu']:setVisible(false)
+		desc = Str('현재 게임 데이터가 안전하게 보호되고 있습니다.\n(게임센터 로그인 상태에서는 다른 플랫품 계정으로 계정 전환을 하실 수 없습니다.)')
+        
+        vars['codeMenu']:setVisible(false)
+        vars['googleBtn']:setVisible(false)
+        vars['facebookBtn']:setVisible(false)
+        vars['twitterBtn']:setVisible(false)
+        vars['gamecenterBtn']:setVisible(false)
 
-        self.vars['googleBtn']:setEnabled(false)
-        self.vars['googleBtn']:setVisible(false)
-        self.vars['googleDisableSprite']:setVisible(false)
-
-        self.vars['facebookBtn']:setEnabled(false)
-        self.vars['facebookBtn']:setVisible(false)
-        self.vars['facebookDisableSprite']:setVisible(false)
-
-		self.vars['twitterBtn']:setEnabled(false)
-        self.vars['twitterBtn']:setVisible(false)
-        self.vars['twitterDisableSprite']:setVisible(false)
-
-        self.vars['gamecenterBtn']:setEnabled(false)
-        self.vars['gamecenterBtn']:setVisible(false)
-        self.vars['gamecenterDisableSprite']:setVisible(false)
+	-- 이것이 게스트
     elseif platform_id == 'firebase' then
-        self.vars['descLabel']:setString(Str('계정 연동을 통해 게임 데이터를 안전하게 보호하세요.\n계정 연동은 이전에 계정 연동을 한 적이 없는 새로운 계정으로만 가능합니다.\n복구 코드는 게스트 상태의 게임 데이터 복구시 필요하며 복구 처리는 고객센터를 통해서만 가능하니 주의 바랍니다.'))
-        self.vars['codeMenu']:setVisible(true)
+        desc = Str('계정 연동을 통해 게임 데이터를 안전하게 보호하세요.\n계정 연동은 이전에 계정 연동을 한 적이 없는 새로운 계정으로만 가능합니다.\n복구 코드는 게스트 상태의 게임 데이터 복구시 필요하며 복구 처리는 고객센터를 통해서만 가능하니 주의 바랍니다.')
+		
+		vars['codeMenu']:setVisible(true)
+        vars['gamecenterBtn']:setVisible(true) --CppFunctions:isIos())
+        vars['googleBtn']:setVisible(true)
+        vars['facebookBtn']:setVisible(true)
 
-        if isIos() then
-            self.vars['gamecenterBtn']:setEnabled(true)
-            self.vars['gamecenterBtn']:setVisible(true)
-            self.vars['gamecenterDisableSprite']:setVisible(false)
-
-            local diff = 50
-            local posXFacebookBtn = self.vars['facebookBtn']:getPositionX() - diff
-            local posXGoogleBtn = self.vars['googleBtn']:getPositionX() - diff
-            local posXgamecenterBtn = self.vars['gamecenterBtn']:getPositionX() + diff
-
-            self.vars['facebookBtn']:setPositionX(posXFacebookBtn)
-            self.vars['googleBtn']:setPositionX(posXGoogleBtn)
-            self.vars['gamecenterBtn']:setPositionX(posXgamecenterBtn)
-        else
-            self.vars['gamecenterBtn']:setEnabled(false)
-            self.vars['gamecenterBtn']:setVisible(false)
-            self.vars['gamecenterDisableSprite']:setVisible(false)
-        end
-
-        self.vars['googleBtn']:setEnabled(true)
-        self.vars['googleBtn']:setVisible(true)
-        self.vars['googleDisableSprite']:setVisible(false)
-
-        self.vars['facebookBtn']:setEnabled(true)
-        self.vars['facebookBtn']:setVisible(true)
-        self.vars['facebookDisableSprite']:setVisible(false)
     else
         if isIos() then
-            self.vars['descLabel']:setString(Str('현재 게임 데이터가 안전하게 보호되고 있습니다.\n\n다른 플랫폼 계정으로 계정 전환이 가능합니다.\n(이전에 계정 연동을 한 적이 없는 새로운 계정으로만 가능하며, 게임센터로의 전환은 불가능합니다.)'))
+            desc = Str('현재 게임 데이터가 안전하게 보호되고 있습니다.\n\n다른 플랫폼 계정으로 계정 전환이 가능합니다.\n(이전에 계정 연동을 한 적이 없는 새로운 계정으로만 가능하며, 게임센터로의 전환은 불가능합니다.)')
         else
-            self.vars['descLabel']:setString(Str('현재 게임 데이터가 안전하게 보호되고 있습니다.\n\n다른 플랫폼 계정으로 계정 전환이 가능합니다.\n(이전에 계정 연동을 한 적이 없는 새로운 계정으로만 가능)'))
+            desc = Str('현재 게임 데이터가 안전하게 보호되고 있습니다.\n\n다른 플랫폼 계정으로 계정 전환이 가능합니다.\n(이전에 계정 연동을 한 적이 없는 새로운 계정으로만 가능)')
         end
-        self.vars['codeMenu']:setVisible(false)
 
-        self.vars['googleBtn']:setVisible(true)
-        self.vars['googleBtn']:setEnabled(platform_id ~= 'google.com')
-        self.vars['googleDisableSprite']:setVisible(platform_id == 'google.com')
+        vars['codeMenu']:setVisible(false)
+        vars['googleBtn']:setEnabled(platform_id ~= 'google.com')
+        vars['facebookBtn']:setEnabled(platform_id ~= 'facebook.com')
+        vars['gamecenterBtn']:setVisible(false)
 
-        self.vars['facebookBtn']:setVisible(true)
-        self.vars['facebookBtn']:setEnabled(platform_id ~= 'facebook.com')
-        self.vars['facebookDisableSprite']:setVisible(platform_id == 'facebook.com')
+    end
 
-        -- 구글/페북 연동 상태에서 게임센터로 계정전환할 수 없음
-        self.vars['gamecenterBtn']:setEnabled(false)
-        self.vars['gamecenterBtn']:setVisible(false)
-        self.vars['gamecenterDisableSprite']:setVisible(false)
-    end 
-
-    self.vars['accountLabel']:setString(account_info)
-    self.vars['uidLabel']:setString(recovery_code)
+	-- setString info
+	vars['descLabel']:setString(desc)
+    vars['accountLabel']:setString(account_info)
+    vars['uidLabel']:setString(recovery_code)
 
     -- 계정 플랫폼 아이콘 표시
-    self.vars['loginNode']:removeAllChildren()
-    local sprite = nil
-    if platform_id == 'google.com' then
-        sprite = cc.Sprite:create('res/ui/icons/login_google.png')
-    elseif platform_id == 'facebook.com' then
-        sprite = cc.Sprite:create('res/ui/icons/login_facebook.png')
-    elseif platform_id == 'gamecenter' then
-        sprite = cc.Sprite:create('res/ui/icons/login_gamecenter.png')
-    end
+	do
+		vars['loginNode']:removeAllChildren()
+		local sprite = nil
+		if platform_id == 'google.com' then
+			sprite = IconHelper:getIcon('res/ui/icons/login_google.png')
+		elseif platform_id == 'facebook.com' then
+			sprite = IconHelper:getIcon('res/ui/icons/login_facebook.png')
+		elseif platform_id == 'twitter.com' then
+			sprite = IconHelper:getIcon('res/ui/icons/login_twitter.png')
+		elseif platform_id == 'gamecenter' then
+			sprite = IconHelper:getIcon('res/ui/icons/login_gamecenter.png')
+		end
+		if (sprite) then
+			vars['loginNode']:addChild(sprite)
+		end
+	end
 
-    if sprite then
-        sprite:setDockPoint(cc.p(0.5, 0.5))
-        sprite:setAnchorPoint(cc.p(0.5, 0.5))
-        self.vars['loginNode']:addChild(sprite)
-    end
+	-- 버튼 위치 정렬 및 비활성화 처리
+	do
+		platform_id = 'gamecenter'
+		local l_prefix_list = {'google', 'facebook', 'twitter', 'gamecenter'}
+		local l_active_btn_list = {}
+		local btn = nil
+		for _, prefix in ipairs(l_prefix_list) do
+			btn = vars[prefix .. 'Btn']
+			sprite = vars[prefix .. 'DisableSprite']
 
+			-- 비활성화 처리
+			-- 게임센터는 전부 비활성화
+			if (platform_id == 'gamecenter') then
+				sprite:setVisible(true)
+				btn:setEnabled(false)
+			else
+				-- 그외는 로그인한 플랫폼만 비활성화
+				if (string.find(platform_id, prefix)) then
+					sprite:setVisible(true)
+					btn:setEnabled(false)
+				end
+			end
+
+			if (btn:isVisible()) then
+				table.insert(l_active_btn_list, btn)
+			end
+		end
+		-- 버튼 정렬
+		local l_pos_x = getSortPosList(280, #l_active_btn_list)
+		for i, btn in ipairs(l_active_btn_list) do
+			btn:setPositionX(l_pos_x[i])
+		end
+	end
+	
 	-- 서버 명 표기
 	local server_name = g_localData:getServerName()
-	self.vars['serverLabel']:setString( string.upper(server_name) )
+	vars['serverLabel']:setString( string.upper(server_name) )
 
     -- dirty -> lobby btn state
     GoogleHelper.setDirty(true)
