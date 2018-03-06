@@ -15,6 +15,9 @@ ServerData_HotTime = class({
 		-- 할인 이벤트는 따로 관리
 		m_activeDcEventTable = 'table', -- <dc_target, dv_value>
 		m_dcExpirationTime = 'timestamp',
+
+        -- 부스터 아이템 정보
+        m_boosterMailInfo = 'map',
     })
 
 -------------------------------------
@@ -29,14 +32,15 @@ function ServerData_HotTime:init(server_data)
 	self.m_activeDcEventTable = {}
     self.m_dcExpirationTime = nil
 
+    self.m_boosterMailInfo = {}
+
 	self:init_hotTimeType()
 end
 
 -------------------------------------
 -- function init_hotTimeType
 -------------------------------------
-function ServerData_HotTime:init_hotTimeType()
-    self.m_hotTimeType = {}
+function ServerData_HotTime:init_hotTimeType()self.m_hotTimeType = {}
 
     do
         local key = 'gold_1_5x'
@@ -277,6 +281,10 @@ function ServerData_HotTime:getHotTimeBuffText(type)
         local end_time = t_info['enddate']/1000
         local time = (end_time - curr_time)
         str = Str('{1} 남음', datetime.makeTimeDesc(time))
+
+    elseif (self.m_boosterMailInfo[type]) then
+        str = Str('사용하기')
+        
     else
         str = Str('구매 가능')
     end
@@ -473,6 +481,29 @@ function ServerData_HotTime:getDiscountEventList()
 	self:refreshActivatedDiscountEvent()
 
 	return self.m_activeDcEventTable
+end
+
+-------------------------------------
+-- function refresh_boosterMailInfo
+-------------------------------------
+function ServerData_HotTime:refresh_boosterMailInfo()
+    local function update_booster(ret)
+        self.m_boosterMailInfo = {} 
+        local item_mail_map = g_mailData.m_mMailMap['item']
+        if (item_mail_map) then
+            for _, struct_mail in pairs(item_mail_map) do
+                if (struct_mail:isExpBooster()) then
+                    self.m_boosterMailInfo['buff_exp2x'] = struct_mail
+                end
+
+                if (struct_mail:isGoldBooster()) then
+                    self.m_boosterMailInfo['buff_gold2x'] = struct_mail
+                end
+            end
+        end
+    end
+
+    g_mailData:request_mailList(update_booster)
 end
 
 -------------------------------------
