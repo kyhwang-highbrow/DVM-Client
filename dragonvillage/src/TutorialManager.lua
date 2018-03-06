@@ -156,7 +156,11 @@ function TutorialManager:checkTutorialInLobby(ui_lobby)
 				return
 			end
 
-			local scene = SceneCommon(UI_MasterRoadPopup)
+            local function close_cb()
+                UINavigatorDefinition:goTo('lobby')
+            end
+
+			local scene = SceneCommon(UI_MasterRoadPopup, close_cb)
             scene:runScene()
 			return
 
