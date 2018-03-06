@@ -252,6 +252,9 @@ dependencies {
     // @apk-expansion
     implementation project(':downloader_library')
 
+    // @multidex below Android 6.0
+    implementation 'com.android.support:multidex:1.0.2'
+
     // @perplesdk
     implementation(name:'perplesdk', ext:'aar')
 
@@ -286,9 +289,6 @@ dependencies {
 
     // @twitter
     implementation 'com.twitter.sdk.android:twitter:3.1.1'
-
-    // @multidex below Android 6.0
-    implementation 'com.android.support:multidex:1.0.2'
 
     // @igawCommon
     implementation 'com.android.installreferrer:installreferrer:1.0'
