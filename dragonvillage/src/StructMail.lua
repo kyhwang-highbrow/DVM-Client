@@ -239,6 +239,24 @@ function StructMail:isSummonTicket()
 end
 
 -------------------------------------
+-- function isExpBooster
+-- @brief 경험치 부스터 확인 
+-------------------------------------
+function StructMail:isExpBooster()
+    local item_id = self:getItemList()[1]['item_id']
+    return (item_id == ITEM_ID_EXP_BOOSTER)
+end
+
+-------------------------------------
+-- function isGoldBooster
+-- @brief 골드 부스터 확인 
+-------------------------------------
+function StructMail:isGoldBooster()
+    local item_id = self:getItemList()[1]['item_id']
+    return (item_id == ITEM_ID_GOLD_BOOSTER)
+end
+
+-------------------------------------
 -- function readChangeNick
 -- @brief 닉네임 변경권을 읽는다
 -------------------------------------

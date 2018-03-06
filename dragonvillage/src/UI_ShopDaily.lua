@@ -74,10 +74,10 @@ function UI_ShopDaily:refresh()
             vars['priceLabel'..idx]:setString(price)
 
 			-- 구매 완료 표시
-			if (vars['completeNode' .. idx]) then
-				vars['completeNode' .. idx]:setVisible(struct_product:isBuyAll())
-            end
+            local buy_all = struct_product:isBuyAll()
+			vars['completeNode' .. idx]:setVisible(buy_all)
 
+            vars['buyBtn' .. idx]:setEnabled(not buy_all)
             vars['buyBtn' .. idx]:registerScriptTapHandler(function() self:click_buyBtn(struct_product) end)
         end
     end
@@ -88,6 +88,10 @@ end
 -------------------------------------
 function UI_ShopDaily:click_buyBtn(struct_product)
 	local function cb_func(ret)
+        if (self.m_cbBuy) then
+            self.m_cbBuy()
+        end
+
         -- 아이템 획득 결과창
         ItemObtainResult_Shop(ret)
         
@@ -110,4 +114,11 @@ end
 -------------------------------------
 function UI_ShopDaily:click_closeBtn()
     self:close()
+end
+
+-------------------------------------
+-- function setBuyCB
+-------------------------------------
+function UI_ShopDaily:setBuyCB(func)
+    self.m_cbBuy = func
 end

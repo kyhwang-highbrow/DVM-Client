@@ -21,7 +21,9 @@ UI_ReadySceneNew = class(PARENT,{
 
         m_bWithFriend = 'boolean',
         m_bUseCash = 'boolean',
-        m_gameMode = 'number'
+        m_gameMode = 'number',
+
+        m_boosterInfo = 'map',
     })
 
 -------------------------------------
@@ -530,6 +532,9 @@ function UI_ReadySceneNew:refresh()
             vars['staminaNode']:setVisible(true)
         end
 
+        self.m_boosterInfo = {}
+        self:refresh_boosterInfo()
+
         vars['itemMenu']:setVisible(true)
         vars['itemMenu']:scheduleUpdateWithPriorityLua(function(dt) self:update_item(dt) end, 0.1)
     end
@@ -694,11 +699,35 @@ function UI_ReadySceneNew:refresh_buffInfo_TamerBuff()
 end
 
 -------------------------------------
+-- function refresh_boosterInfo
+-------------------------------------
+function UI_ReadySceneNew:refresh_boosterInfo()
+    local function update_booster(ret)
+        self.m_boosterInfo = {} 
+        local item_mail_map = g_mailData.m_mMailMap['item']
+        if (item_mail_map) then
+            for _, struct_mail in pairs(item_mail_map) do
+                if (struct_mail:isExpBooster()) then
+                    self.m_boosterInfo['exp_booster'] = struct_mail
+                end
+
+                if (struct_mail:isGoldBooster()) then
+                    self.m_boosterInfo['gold_booster'] = struct_mail
+                end
+            end
+        end
+    end
+
+    g_mailData:request_mailList(update_booster)
+end
+
+-------------------------------------
 -- function update_item
 -- @brief
 -------------------------------------
 function UI_ReadySceneNew:update_item(dt)    
     local vars = self.vars
+
     -- 광고보기 (추가)
     do
         local str, active = g_advertisingData:getCoolTimeStatus(AD_TYPE.AUTO_ITEM_PICK)
@@ -709,6 +738,12 @@ function UI_ReadySceneNew:update_item(dt)
     do
         local str, active = g_hotTimeData:getHotTimeBuffText('buff_exp2x')
         vars['expBoosterVisual']:setVisible(active)
+
+        -- 사용가능한 상태
+        if (not active) and (self.m_boosterInfo['exp_booster']) then
+            str = Str('사용하기')
+        end
+
         vars['expBoosterLabel']:setString(str)
         vars['expBoosterBtn']:setEnabled(not active)
     end
@@ -717,6 +752,12 @@ function UI_ReadySceneNew:update_item(dt)
     do
         local str, active = g_hotTimeData:getHotTimeBuffText('buff_gold2x')
         vars['goldBoosterVisual']:setVisible(active)
+
+        -- 사용가능한 상태
+        if (not active) and (self.m_boosterInfo['gold_booster']) then
+            str = Str('사용하기')
+        end
+
         vars['goldBoosterLabel']:setString(str)
         vars['goldBoosterBtn']:setEnabled(not active)
     end
@@ -1077,7 +1118,22 @@ end
 -- @breif 골드 부스터
 -------------------------------------
 function UI_ReadySceneNew:click_goldBoosterBtn()
-    UINavigator:goTo('shop_daily')
+    local refresh_cb = function()
+        self:refresh_boosterInfo()
+    end
+
+    local booster_info = self.m_boosterInfo['gold_booster']
+    -- 사용하기
+    if (booster_info) then
+        local use_cb = function()
+            booster_info:readMe(refresh_cb)
+        end
+        MakeSimplePopup(POPUP_TYPE.YES_NO, Str('골드 부스터를 사용하시겠습니까?'), use_cb)
+
+    -- 상점
+    else
+        UINavigator:goTo('shop_daily', refresh_cb)
+    end
 end
 
 -------------------------------------
@@ -1085,7 +1141,22 @@ end
 -- @breif 경험치 부스터
 -------------------------------------
 function UI_ReadySceneNew:click_expBoosterBtn()
-    UINavigator:goTo('shop_daily')
+    local refresh_cb = function()
+        self:refresh_boosterInfo()
+    end
+
+    local booster_info = self.m_boosterInfo['exp_booster']
+    -- 사용하기
+    if (booster_info) then
+        local use_cb = function()
+            booster_info:readMe(refresh_cb)
+        end
+        MakeSimplePopup(POPUP_TYPE.YES_NO, Str('경험치 부스터를 사용하시겠습니까?'), use_cb)
+
+    -- 상점
+    else
+        UINavigator:goTo('shop_daily', refresh_cb)
+    end
 end
 
 -------------------------------------

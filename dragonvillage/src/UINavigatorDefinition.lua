@@ -1255,6 +1255,9 @@ end
 -- @usage UINavigatorDefinition:goTo('shop_daily')
 -------------------------------------
 function UINavigatorDefinition:goTo_shop_daily(...)
+    local args = {...}
+    local buy_cb = args[1]
+
     -- 해당 UI가 열려있을 경우
     local is_opend, idx, ui = self:findOpendUI('UI_ShopDaily')
     if (is_opend == true) then
@@ -1263,7 +1266,10 @@ function UINavigatorDefinition:goTo_shop_daily(...)
     end
     
     local function finish_cb()
-        UI_ShopDaily()
+        local ui = UI_ShopDaily()
+        if (buy_cb) then
+            ui:setBuyCB(buy_cb)
+        end
     end
      -- 서버에 상품정보 요청
 	g_shopDataNew:request_shopInfo(finish_cb)

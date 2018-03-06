@@ -18,6 +18,9 @@ ITEM_ID_DICE = 700203
 ITEM_ID_SUMMON_TICKET = 700305
 ITEM_ID_AUTO_PICK = 700401
 
+ITEM_ID_EXP_BOOSTER = 700402
+ITEM_ID_GOLD_BOOSTER = 700403
+
 -------------------------------------
 -- function init
 -------------------------------------
