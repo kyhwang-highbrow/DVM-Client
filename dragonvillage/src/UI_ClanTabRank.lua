@@ -127,6 +127,11 @@ function UI_ClanTabRank:makeRankTableview(tab)
     end
 
     -- 생성 콜백
+    local function make_func(data)
+        local rank_type = self.m_currTab
+        return UI_ClanTabRank.makeRankCell(data, rank_type)
+    end
+
     local function create_func(ui, data)
         if (data == 'prev') then
             ui.vars['prevBtn']:setVisible(true)
@@ -145,7 +150,7 @@ function UI_ClanTabRank:makeRankTableview(tab)
         -- 테이블 뷰 인스턴스 생성
         local table_view = UIC_TableView(node)
         table_view.m_defaultCellSize = cc.size(1000, 100 + 5)
-        table_view:setCellUIClass(UI_ClanTabRank.makeRankCell, create_func)
+        table_view:setCellUIClass(make_func, create_func)
         table_view:setDirection(cc.SCROLLVIEW_DIRECTION_VERTICAL)
         table_view:setItemList(l_rank_list)
 
@@ -193,14 +198,15 @@ function UI_ClanTabRank:makeMyRank(tab)
     local node = self.vars['myNode']
     node:removeAllChildren()
     local my_rank = g_clanRankData:getMyRankData(tab)
-    local ui = self.makeRankCell(my_rank)
+    local rank_type = self.m_currTab
+    local ui = self.makeRankCell(my_rank, rank_type)
     node:addChild(ui.root)
 end
 
 -------------------------------------
 -- function makeRankCell
 -------------------------------------
-function UI_ClanTabRank.makeRankCell(t_data)
+function UI_ClanTabRank.makeRankCell(t_data, rank_type)
 	local ui = class(UI, ITableViewCell:getCloneTable())()
 	local vars = ui:load('clan_rank_item.ui')
     if (not t_data) then
@@ -240,6 +246,13 @@ function UI_ClanTabRank.makeRankCell(t_data)
     if (struct_clan_rank:isMyClan()) then
         vars['mySprite']:setVisible(true)
         vars['infoBtn']:setVisible(false)
+    end
+
+    -- 진행중 단계 (클랜던전만 표시)
+    if (rank_type) and (rank_type == 'dungeon') then
+        local lv = struct_clan_rank['cdlv'] or 1
+        vars['bossLabel']:setVisible(true)
+        vars['bossLabel']:setString(string.format('Lv.%d', lv))
     end
 
     -- 정보 보기 버튼

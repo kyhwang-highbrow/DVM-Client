@@ -13,6 +13,7 @@ local TAB_TOTAL = 1 -- 누적 기여도
 local TAB_CURRENT = 2 -- 현재 기여도
 
 local RENEW_INTERVAL = 5
+local SHOW_NEXT_LEVEL_LIMIT = 4 
 
 -------------------------------------
 -- function initParentVariable
@@ -293,6 +294,41 @@ function UI_ClanRaid:initRaidInfo()
     gauge:setPercentage(0)
     local action = cc.ProgressTo:create(0.3, rate)
     gauge:runAction(action)
+    
+    -- 보너스 속성
+    do
+        local str, map_attr = struct_raid:getBonusSynastryInfo()
+
+        for k, v in pairs(map_attr) do
+            -- 속성 아이콘
+            local icon = IconHelper:getAttributeIcon(k)
+            local target_node = vars['bonusAttrNode']
+            target_node:removeAllChildren()
+            target_node:addChild(icon)
+        end
+    end
+
+    -- 페널티 속성
+    do
+        vars['panaltyAttrNode']:removeAllChildren()
+        for i = 1, 4 do
+            vars['panaltyAttrNode'..i]:removeAllChildren()
+        end
+
+        local str, map_attr = struct_raid:getPenaltySynastryInfo()
+        local cnt = table.count(map_attr)
+        local idx = 0
+
+        for k, v in pairs(map_attr) do
+            idx = idx + 1
+            -- 속성 아이콘
+            local icon = IconHelper:getAttributeIcon(k)
+            local target_node = (cnt == 1) and 
+                                vars['panaltyAttrNode'] or 
+                                vars['panaltyAttrNode'..idx]
+            target_node:addChild(icon)
+        end
+    end
 
     self:showDungeonStateUI()
 end
@@ -308,6 +344,11 @@ function UI_ClanRaid:showDungeonStateUI()
     local noti_visual = vars['notiVisual']
     noti_visual:setVisible(state ~= CLAN_RAID_STATE.NORMAL)
 
+    -- 잠금 표시
+    local curr_stage_id = g_clanRaidData:getChallengStageID()
+    local stage_id = struct_raid:getStageID()
+    vars['lockNode']:setVisible(stage_id > curr_stage_id)
+
     -- 다른 유저 도전중인 상태 
     if (state == CLAN_RAID_STATE.CHALLENGE) then
         local player = struct_raid:getPlayer()
@@ -316,7 +357,11 @@ function UI_ClanRaid:showDungeonStateUI()
             local label = vars['atkLabel']
             noti_visual:changeAni('atk', true)
             label:setVisible(true)
-            label:setString(Str('{1}님이 전투중입니다.', nick))
+
+            local start_time = struct_raid:getStartTime()
+            local curr_time = Timer:getServerTime()
+            local play_time = curr_time - start_time
+            label:setString(Str('{1}님이 전투중입니다.\n{2} 경과되었습니다.', nick, datetime.makeTimeDesc(play_time, true)))
 
             cca.reserveFunc(self.root, 2.0, function() 
                 label:setString('')
@@ -361,11 +406,11 @@ function UI_ClanRaid:refreshBtn()
     local curr_stage_id = g_clanRaidData:getChallengStageID()
     local next_stage_id = g_stageData:getNextStage(stage_id)
 
-    -- 현재 진행중인 던전 이후는 보여주지 않음 (던전 인스턴스 생성되지 않은 상태)
-    vars['nextBtn']:setVisible(curr_stage_id >= next_stage_id)
+    -- 현재 진행중인 던전 이후는 특정 레벨까지만 보여줌 (던전 인스턴스 생성되지 않은 상태)
+    vars['nextBtn']:setVisible(curr_stage_id + SHOW_NEXT_LEVEL_LIMIT >= next_stage_id)
 
     -- 시작버튼 활성화/비활성화
-    vars['readyBtn']:setEnabled(stage_id >= curr_stage_id)
+    vars['readyBtn']:setEnabled(stage_id == curr_stage_id)
 end
 
 -------------------------------------

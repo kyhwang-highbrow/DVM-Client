@@ -213,6 +213,10 @@ function UI_ClanRaidRankPopup.makeRankCell(t_data)
         vars['infoBtn']:setVisible(false)
     end
 
+    -- 진행중 단계
+    local lv = struct_clan_rank['cdlv'] or 1
+    vars['bossLabel']:setString(string.format('Lv.%d', lv))
+
     -- 정보 보기 버튼
     vars['infoBtn']:registerScriptTapHandler(function()
         local clan_object_id = struct_clan_rank:getClanObjectID()

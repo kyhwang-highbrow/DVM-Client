@@ -85,6 +85,10 @@ function UI_ClanRaidBossInfo:onChangeTab(tab, first)
         if (target_node) then
             self:initBossVrp(target_node)
         end
+    else
+        -- 탭할때마다 액션 
+        self:doActionReset()
+        self:doAction(nil, false)
     end
 end
 
@@ -118,6 +122,72 @@ end
 function UI_ClanRaidBossInfo:initUI_synastry()
     local vars = self.vars
 
+    local struct_raid = g_clanRaidData:getClanRaidStruct()
+    local stage_id = struct_raid:getStageID()
+
+    -- 보스 이름
+    local origin_name = struct_raid:getBossName()
+    vars['bossNameLabel']:setString(origin_name)
+    
+    -- 보스 레벨
+    local lv = struct_raid:getLv()
+    vars['bossLevelNode']:setString(string.format('Lv.%s', lv))
+
+    -- 보스 속성
+    local attr = struct_raid:getAttr()
+    local icon = IconHelper:getAttributeIcon(attr)
+    vars['bossAttrNode']:addChild(icon)
+
+    local attr_name = dragonAttributeName(attr) 
+    vars['bossAttrLabel']:setString(attr_name)
+    vars['bossAttrLabel']:setColor(COLOR[attr])
+
+    -- 보너스 속성
+    do
+        local str, map_attr = struct_raid:getBonusSynastryInfo()
+        vars['bonusAttrDscLabel']:setString(str)
+
+        for k, v in pairs(map_attr) do
+            -- 속성 아이콘
+            local icon = IconHelper:getAttributeIcon(k)
+            local target_node = vars['bonusAttrNode']
+            target_node:addChild(icon)
+
+            -- 속성 이름
+            local name = dragonAttributeName(k)
+            local target_label = vars['bonusAttrLabel']
+            target_label:setString(name)
+            target_label:setColor(COLOR[k])
+        end
+    end
+
+    -- 페널티 속성
+    do
+        local str, map_attr = struct_raid:getPenaltySynastryInfo()
+        vars['panaltyAttrDscLabel']:setString(str)
+
+        local cnt = table.count(map_attr)
+        local idx = 0
+
+        for k, v in pairs(map_attr) do
+            idx = idx + 1
+            -- 속성 아이콘
+            local icon = IconHelper:getAttributeIcon(k)
+            local target_node = (cnt == 1) and 
+                                vars['panaltyAttrNode'] or 
+                                vars['panaltyAttrNode'..idx]
+            target_node:addChild(icon)
+
+            -- 속성 이름
+            local name = dragonAttributeName(k)
+            local target_label = (cnt == 1) and 
+                                 vars['panaltyAttrLabel'] or 
+                                 vars['panaltyAttrLabel'..idx]
+
+            target_label:setString(name)
+            target_label:setColor(COLOR[k])
+        end
+    end
 end
 
 -------------------------------------

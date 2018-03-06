@@ -213,3 +213,79 @@ end
 function StructClanRaid:getFinalblow()
     return self['finalblow']
 end
+
+-------------------------------------
+-- function getStartTime
+-- @brief 서버에서는 플레이 최대 시간을 줌 (시작시간은 10분 감소)
+-------------------------------------
+function StructClanRaid:getStartTime()
+    return self['remain_time']/1000 - (60 * 10)
+end
+
+-------------------------------------
+-- function getBonusSynastryInfo
+-- @brief 해당 던전 보너스 상성 정보
+-------------------------------------
+function StructClanRaid:getBonusSynastryInfo()
+    local stage_id = self:getStageID()
+    local ret = TableStageData:getStageBuff(stage_id)
+
+    local map_attr = {}
+    local map_buff_type = {}
+    local str = '' 
+    for _, v in ipairs(ret) do
+        local buff_attr = v['condition_value']
+        local buff_type = v['buff_type']
+        local buff_value = v['buff_value']
+
+        -- 보너스
+        if (buff_value) and (buff_value > 0) then
+            if (map_buff_type[buff_type] == nil) then
+                local str_buff = TableOption:getOptionDesc(buff_type, buff_value)
+                str = (str == '') and str_buff or str..'\n'..str_buff
+
+                map_buff_type[buff_type] = true
+            end 
+
+            if (map_attr[buff_attr] == nil) then
+                map_attr[buff_attr] = true
+            end
+        end
+    end
+
+    return str, map_attr
+end
+
+-------------------------------------
+-- function getPenaltySynastryInfo
+-- @brief 해당 던전 패널티 상성 정보
+-------------------------------------
+function StructClanRaid:getPenaltySynastryInfo()
+    local stage_id = self:getStageID()
+    local ret = TableStageData:getStageBuff(stage_id)
+
+    local map_attr = {}
+    local map_buff_type = {}
+    local str = '' 
+    for _, v in ipairs(ret) do
+        local buff_attr = v['condition_value']
+        local buff_type = v['buff_type']
+        local buff_value = v['buff_value']
+
+        -- 패널티
+        if (buff_value) and (buff_value < 0) then
+            if (map_buff_type[buff_type] == nil) then
+                local str_buff = TableOption:getOptionDesc(buff_type, math_abs(buff_value))
+                str = (str == '') and str_buff or str..'\n'..str_buff
+
+                map_buff_type[buff_type] = true
+            end 
+
+            if (map_attr[buff_attr] == nil) then
+                map_attr[buff_attr] = true
+            end
+        end
+    end
+
+    return str, map_attr
+end
