@@ -426,6 +426,12 @@ function UI_ClanRaidResult:show_finalblowReward(reward_info)
     local vars = ui.vars
     vars['okBtn']:registerScriptTapHandler(function() ui:close() end)
 
+    table.sort(reward_info, function(a, b)
+		local a_item_id = tonumber(a['item_id'])
+        local b_item_id = tonumber(b['item_id'])
+        return a_item_id < b_item_id
+	end)
+
     for i, item_data in ipairs(reward_info) do
         local item_id = item_data['item_id']
         local item_cnt = item_data['count']
