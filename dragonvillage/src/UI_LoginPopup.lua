@@ -52,19 +52,48 @@ function UI_LoginPopup:initButton()
     vars['guestBtn']:registerScriptTapHandler(function() self:click_guestBtn() end)
     vars['serverBtn']:registerScriptTapHandler(function() self:click_changeServer() end)
 
+	self:alignButton()
+end
+
+-------------------------------------
+-- function alignButton
+-------------------------------------
+function UI_LoginPopup:alignButton()
+	local vars = self.vars
+	
     vars['closeBtn']:setVisible(false)
 
-    -- iOS
-    if (CppFunctions:isIos()) then
-        vars['gamecenterBtn']:setVisible(true)
-    else
-        vars['gamecenterBtn']:setVisible(false)
-    end
-	
-	-- twitter 추후에 공개
-	vars['twitterBtn']:setVisible(true)
+	-- visible on/off
+	vars['gamecenterBtn']:setVisible(CppFunctions:isIos())
+	vars['twitterBtn']:setVisible(false)
 
-	local l_btn_list = {'google', 'facebook', 'twitter', 'gamecenter', 'guest'}
+	-- visible로 구분하여 활성화된 버튼을 찾아 정렬
+	local l_prefix_list = {'google', 'facebook', 'twitter', 'gamecenter', 'guest'}
+	local l_active_btn_list = {}
+	local active_cnt = 0
+	for _, prefix in ipairs(l_prefix_list) do
+		if (vars[prefix .. 'Btn']:isVisible()) then
+			active_cnt = active_cnt + 1
+			table.insert(l_active_btn_list, vars[prefix .. 'Btn'])
+		end
+	end
+
+	-- 3개 이하
+	if (active_cnt <= 3) then
+		for i, btn in ipairs(l_active_btn_list) do
+			btn:setPosition(0, 110 - (70 * i))
+		end
+		
+	-- 4개 이상
+	else
+		local odd, step = 0, 0
+		for i, btn in ipairs(l_active_btn_list) do
+			odd = (i % 2)
+			step = math_floor((i - 1)/ 2)
+			btn:setPosition((odd == 1) and -150 or 150, 40 - (70 * step))
+		end
+
+	end	
 end
 
 -------------------------------------
