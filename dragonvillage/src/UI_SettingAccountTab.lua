@@ -613,7 +613,7 @@ function UI_Setting:click_logoutBtn()
                 PerpleSDK:logout()
                 PerpleSDK:googleLogout(0)
                 PerpleSDK:facebookLogout()
-				PerpleSDK:twitterLogout()
+				--PerpleSDK:twitterLogout()
 
                 clear()
             end
