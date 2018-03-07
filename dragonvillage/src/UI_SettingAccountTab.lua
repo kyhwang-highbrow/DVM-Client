@@ -747,7 +747,6 @@ function UI_Setting:updateInfo()
         vars['googleBtn']:setEnabled(platform_id ~= 'google.com')
         vars['facebookBtn']:setEnabled(platform_id ~= 'facebook.com')
         vars['gamecenterBtn']:setVisible(false)
-
     end
 
 	-- setString info
@@ -775,7 +774,6 @@ function UI_Setting:updateInfo()
 
 	-- 버튼 위치 정렬 및 비활성화 처리
 	do
-		platform_id = 'gamecenter'
 		local l_prefix_list = {'google', 'facebook', 'twitter', 'gamecenter'}
 		local l_active_btn_list = {}
 		local btn = nil
@@ -796,6 +794,7 @@ function UI_Setting:updateInfo()
 				end
 			end
 
+			-- 활성화 버튼
 			if (btn:isVisible()) then
 				table.insert(l_active_btn_list, btn)
 			end
