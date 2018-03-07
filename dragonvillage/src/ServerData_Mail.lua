@@ -298,6 +298,12 @@ function ServerData_Mail:request_summonTicket(mail_id_list, finish_cb)
 		-- 로비 노티 갱신
 		g_highlightData:setDirty(true)
 
+        -- 드래곤들 추가
+        g_dragonsData:applyDragonData_list(ret['added_dragons'])
+
+        -- 슬라임들 추가
+        g_slimesData:applySlimeData_list(ret['added_slimes'])
+
         if finish_cb then
             finish_cb(ret, mail_id_list)
         end
