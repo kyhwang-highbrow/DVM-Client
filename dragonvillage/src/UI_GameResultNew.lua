@@ -792,11 +792,28 @@ function UI_GameResultNew:direction_dragonGuide()
     if (self.m_bSuccess) then
         self:doNextWork()
     else
-        local ui = UI_DragonGuidePopup(self.m_lDragonList)
-        if (g_autoPlaySetting:isAutoPlay()) then
-            self:doNextWork()
+        local b_guide = false   
+        for i, v in ipairs(self.m_lDragonList) do
+            local dragon_data = v['user_data']
+            local analysis_result = DragonGuideNavigator:analysis(dragon_data)
+            local link_list = analysis_result['link']
+
+            if (#link_list > 0) then
+                b_guide = true
+                break
+            end
+        end
+
+        -- 가이드 가능한 상태에서만 UI 띄워줌
+        if (b_guide) then
+            local ui = UI_DragonGuidePopup(self.m_lDragonList)
+            if (g_autoPlaySetting:isAutoPlay()) then
+                self:doNextWork()
+            else
+                ui:setCloseCB(function() self:doNextWork() end)
+            end
         else
-            ui:setCloseCB(function() self:doNextWork() end)
+            self:doNextWork()
         end
     end
 end
