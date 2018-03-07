@@ -717,7 +717,7 @@ function UI_Setting:updateInfo()
     local recovery_code = g_localData:get('local', 'recovery_code')
 
 	local is_guest = (platform_id == 'firebase')
-	local is_gamecenter = (plaform_id == 'gamecenter')
+	local is_gamecenter = (platform_id == 'gamecenter')
 
 	-- 연동 안내 텍스트
 	local desc = ''
@@ -759,11 +759,15 @@ function UI_Setting:updateInfo()
 	do
 		local l_prefix_list = {'google', 'facebook', 'twitter', 'gamecenter'}
 		local l_active_btn_list = {}
-		local btn = nil
+		local btn, sprite = nil
 		for _, prefix in ipairs(l_prefix_list) do
 			btn = vars[prefix .. 'Btn']
 			sprite = vars[prefix .. 'DisableSprite']
 
+            -- 초기화
+            sprite:setVisible(false)
+            btn:setEnabled(true)
+                    
 			-- 비활성화 처리
 			-- 게임센터는 전부 비활성화
 			if (platform_id == 'gamecenter') then
