@@ -712,7 +712,7 @@ end
 function UI_Setting:updateInfo()
 	local vars = self.vars
 
-	local platform_id = 'firebase' --g_localData:get('local', 'platform_id') or 'firebase'
+	local platform_id = g_localData:get('local', 'platform_id') or 'firebase'
     local account_info = g_localData:get('local', 'account_info') or 'Guest'
     local recovery_code = g_localData:get('local', 'recovery_code')
 
