@@ -96,7 +96,18 @@ function FullPopupManager:show(type, show_func)
         end
 
         local is_view = g_settingData:get('event_full_popup', save_key) or false
-        if (lv >= need_lv) and (not is_view) then 
+
+        -- 모두 구매한 유저는 노출하지 않음
+        local is_buy_all = true
+        local l_item_list = g_shopDataNew:getProductList('daily')
+        for _, struct_product in pairs(l_item_list) do
+            if (struct_product:isItBuyable()) then
+                is_buy_all = false
+                break
+            end
+        end
+        
+        if (lv >= need_lv) and (not is_view) and (not is_buy_all) then 
             local is_popup = true
             local ui = UI_ShopDaily(is_popup)
             ui:setCloseCB(cb_func)
