@@ -732,7 +732,7 @@ function UI_Setting:updateInfo()
         desc = Str('계정 연동을 통해 게임 데이터를 안전하게 보호하세요.\n계정 연동은 이전에 계정 연동을 한 적이 없는 새로운 계정으로만 가능합니다.\n복구 코드는 게스트 상태의 게임 데이터 복구시 필요하며 복구 처리는 고객센터를 통해서만 가능하니 주의 바랍니다.')
 		
 		vars['codeMenu']:setVisible(true)
-        vars['gamecenterBtn']:setVisible(true) --CppFunctions:isIos())
+        vars['gamecenterBtn']:setVisible(CppFunctions:isIos())
         vars['googleBtn']:setVisible(true)
         vars['facebookBtn']:setVisible(true)
 
