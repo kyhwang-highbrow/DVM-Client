@@ -404,7 +404,8 @@ function UI_ClanRaidResult:direction_end()
 
     local reward_info = self.m_data['mail_reward_list'] or {}
     if (#reward_info > 0) then
-        self:show_finalblowReward(reward_info)
+        local action = cc.Sequence:create(cc.DelayTime:create(0.5), cc.CallFunc:create(function() self:show_finalblowReward(reward_info) end))
+        self.root:runAction(action)
     end
 end
 

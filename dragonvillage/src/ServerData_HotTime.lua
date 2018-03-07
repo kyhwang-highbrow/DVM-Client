@@ -18,6 +18,7 @@ ServerData_HotTime = class({
 
         -- 부스터 아이템 정보
         m_boosterMailInfo = 'map',
+        m_boosterInfoDirty = 'boolean',
     })
 
 -- 부스터 아이템도 핫타임으로 관리 (사용시 핫타임에 등록됨)
@@ -40,6 +41,7 @@ function ServerData_HotTime:init(server_data)
     self.m_dcExpirationTime = nil
 
     self.m_boosterMailInfo = {}
+    self.m_boosterInfoDirty = false
 
 	self:init_hotTimeType()
 end
@@ -94,7 +96,7 @@ function ServerData_HotTime:init_hotTimeType()self.m_hotTimeType = {}
         self.m_hotTimeType[key] = t_data
     end
 
-    -- 버프 아이템
+    -- 부스터 아이템
     do
         local key = 'buff_gold2x'
         local t_data = {}
@@ -124,6 +126,7 @@ function ServerData_HotTime:request_hottime(finish_cb, fail_cb)
     -- 성공 콜백
     local function success_cb(ret)
 		self:response_hottime(ret, finish_cb)
+        self.m_boosterInfoDirty = true
     end
 
     -- 네트워크 통신
@@ -146,7 +149,7 @@ function ServerData_HotTime:response_hottime(ret, finish_cb)
     self.m_hotTimeInfoList = ret['all']
     self.m_listExpirationTime = nil
 	self.m_dcExpirationTime = nil
-
+    
     if finish_cb then
         finish_cb(ret)
     end
@@ -254,7 +257,7 @@ function ServerData_HotTime:getActiveHotTimeInfo(hottime_name)
             end
         end
 
-        -- 버프 아이템은 contents가 아닌 이벤트 name으로 검사
+        -- 부스터 아이템은 contents가 아닌 이벤트 name으로 검사
         if (hottime_name == k) then
             t_event = v
             break
@@ -285,16 +288,14 @@ function ServerData_HotTime:getHotTimeBuffText(type)
 
     -- 현재 사용중
     if (t_info) then
-
         state = BOOSTER_ITEM_STATE.INUSE
         local curr_time = Timer:getServerTime()
         local end_time = t_info['enddate']/1000
         local time = (end_time - curr_time)
-        str = Str('{@AQUA}{1} 남음', datetime.makeTimeDesc(time))
+        str = Str('{@AQUA}{1} 남음', datetime.makeTimeDesc(time, true, true))
 
     -- 수신함에 있다면 사용가능한 상태
     elseif (self.m_boosterMailInfo[type]) then
-
         state = BOOSTER_ITEM_STATE.AVAILABLE
         str = Str('{@green}사용하기')
         
@@ -312,7 +313,7 @@ function ServerData_HotTime:getActiveHotTimeInfo_gold()
     local active = false
     local value = 0
 
-    -- 핫타임과 버프아이템 중복처리
+    -- 핫타임과 부스터아이템 중복처리
     local t_info = {}
     t_info['gold_2x'] = 100
     t_info['gold_1_5x'] = 50
@@ -335,7 +336,7 @@ function ServerData_HotTime:getActiveHotTimeInfo_exp()
     local active = false
     local value = 0
 
-    -- 핫타임과 버프아이템 중복처리
+    -- 핫타임과 부스터아이템 중복처리
     local t_info = {}
     t_info['exp_2x'] = 100
     t_info['exp_1_5x'] = 50

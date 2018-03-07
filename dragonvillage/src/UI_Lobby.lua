@@ -372,6 +372,8 @@ function UI_Lobby:initButton()
     vars['mailBtn']:registerScriptTapHandler(function() self:click_mailBtn() end)
     vars['googleGameBtn']:registerScriptTapHandler(function() self:click_googleGameBtn() end)
     vars['googleAchievementBtn']:registerScriptTapHandler(function() self:click_googleAchievementBtn() end)
+    vars['expBoosterBtn']:registerScriptTapHandler(function() self:click_expBoosterBtn() end)
+    vars['goldBoosterBtn']:registerScriptTapHandler(function() self:click_goldBoosterBtn() end)
 
     -- 우측 UI
     vars['eventBtn']:registerScriptTapHandler(function() self:click_eventBtn() end) -- 이벤트(출석) 버튼 
@@ -902,6 +904,22 @@ function UI_Lobby:click_googleAchievementBtn()
 end
 
 -------------------------------------
+-- function click_expBoosterBtn
+-------------------------------------
+function UI_Lobby:click_expBoosterBtn()
+    local vars = self.vars
+    g_hotTimeData:makeHotTimeToolTip('exp', vars['expBoosterBtn'])
+end
+
+-------------------------------------
+-- function click_goldBoosterBtn
+-------------------------------------
+function UI_Lobby:click_goldBoosterBtn()
+    local vars = self.vars
+    g_hotTimeData:makeHotTimeToolTip('gold', vars['goldBoosterBtn'])
+end
+
+-------------------------------------
 -- function click_capsuleBtn
 -------------------------------------
 function UI_Lobby:click_capsuleBtn()
@@ -987,10 +1005,11 @@ function UI_Lobby:update(dt)
         self:refresh_attendanceDday()
     end
 
+    local vars = self.vars
+
     -- 광고 (자동재화, 선물상자 정보)
     do
         -- 자동줍기
-        local vars = self.vars
         local msg1, enable1 = g_advertisingData:getCoolTimeStatus(AD_TYPE.AUTO_ITEM_PICK)
         vars['itemAutoLabel']:setString(msg1)
         --vars['itemAutoBtn']:setEnabled(enable1) -- 매일매일 다이아 ui를 띄우는 것으로 변경함 (항상 enabled로!) 2017-09-21 sgkim
@@ -1007,6 +1026,32 @@ function UI_Lobby:update(dt)
             self.m_bGiftBoxEnabled = enable2
             vars['giftBoxBtn']:setAutoShake(self.m_bGiftBoxEnabled)
         end
+    end
+
+    -- 경험치 부스터
+    local function refresh_exp_booster()
+        local str, state = g_hotTimeData:getHotTimeBuffText('buff_exp2x')
+        local is_used = state == BOOSTER_ITEM_STATE.INUSE
+        vars['expBoosterLabel']:setString(is_used and str or '')
+        vars['expBoosterBtn']:setVisible(is_used)
+    end
+
+    -- 골드 부스터
+    local function refresh_gold_booster()
+        local str, state = g_hotTimeData:getHotTimeBuffText('buff_gold2x')
+        local is_used = state == BOOSTER_ITEM_STATE.INUSE
+        vars['goldBoosterLabel']:setString(is_used and str or '')
+        vars['goldBoosterBtn']:setVisible(is_used)
+    end
+
+    if (g_hotTimeData.m_boosterInfoDirty) then
+        g_hotTimeData.m_boosterInfoDirty = false
+        refresh_exp_booster()
+        refresh_gold_booster()
+        self:refresh_leftButtons() 
+    else
+        refresh_exp_booster()
+        refresh_gold_booster()
     end
 
     -- spine 캐시 정리 확인
@@ -1059,6 +1104,37 @@ function UI_Lobby:onFocus()
 
     self:refresh_userInfo()
     self:refresh_rightButtons()
+end
+
+-------------------------------------
+-- function refresh_leftButtons
+-- @brief
+-------------------------------------
+function UI_Lobby:refresh_leftButtons()
+    local vars = self.vars
+
+    -- 인덱스 1번이 왼쪽
+    local t_btn_name = {}
+    table.insert(t_btn_name, 'expBoosterBtn')
+    table.insert(t_btn_name, 'goldBoosterBtn')
+    
+    -- visible이 켜진 버튼들 리스트
+    local l_btn_list = {}
+    for _,name in ipairs(t_btn_name) do
+        local btn = vars[name]
+        if (btn and btn:isVisible()) then
+            table.insert(l_btn_list, btn)
+        end
+    end
+
+    local pos_x = -130
+    local interval = 90
+
+    -- 버튼들의 위치 지정
+    for i,v in ipairs(l_btn_list) do
+        local _pos_x = pos_x + ((i-1) * interval)
+        v:setPositionX(_pos_x)
+    end
 end
 
 -------------------------------------
@@ -1116,7 +1192,7 @@ function UI_Lobby:refresh_rightButtons()
     else
         vars['adventureClearBtn']:setVisible(false)
     end
-
+        
     -- 일일상점 버튼
     vars['dailyShopBtn']:setVisible(true)
 
