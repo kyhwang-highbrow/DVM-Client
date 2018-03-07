@@ -6,20 +6,23 @@ local PARENT = UI
 UI_ShopDaily = class(PARENT,{
         m_cbBuy = 'function',
         m_data = 'table',
+        m_isPopup = 'boolean',
     })
 
 -------------------------------------
 -- function init
 -------------------------------------
-function UI_ShopDaily:init()
+function UI_ShopDaily:init(is_popup)
     local vars = self:load('package_daily_shop.ui')
-
+    self.m_isPopup = is_popup or false
 	self.m_uiName = 'UI_ShopDaily'
 
-    UIManager:open(self, UIManager.POPUP)
-    -- 백키 지정
-    g_currScene:pushBackKeyListener(self, function() self:click_closeBtn() end, 'UI_ShopDaily')
-
+    if (self.m_isPopup) then
+        UIManager:open(self, UIManager.POPUP)
+            -- 백키 지정
+        g_currScene:pushBackKeyListener(self, function() self:click_closeBtn() end, 'UI_ShopDaily')
+    end
+    
     self:initUI()
 	self:initButton()
     self:refresh()
@@ -29,6 +32,10 @@ end
 -- function initUI
 -------------------------------------
 function UI_ShopDaily:initUI()
+    local vars = self.vars
+    if (not self.m_isPopup) then
+        vars['closeBtn']:setVisible(false)
+    end
 end
 
 -------------------------------------

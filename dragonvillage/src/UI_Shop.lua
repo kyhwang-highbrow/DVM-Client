@@ -24,6 +24,9 @@ function UI_Shop:init()
 	self:initTab()
 	self:initButton()
 	self:refresh()
+
+    -- 하루 한번 일일상점 풀팝업 노출
+    g_fullPopupManager:show(FULL_POPUP_TYPE.SHOP_DAILY)
 end
 
 -------------------------------------

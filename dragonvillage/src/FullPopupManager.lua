@@ -9,6 +9,7 @@ FULL_POPUP_TYPE = {
 	REINFORCE_PACK = 'reinforce_package', -- 강화 포인트 패키지
     
 	ATTR_TOWER = 'attr_tower', -- 시험의 탑 안내
+    SHOP_DAILY = 'shop_daily',
 }
 -------------------------------------
 -- class FullPopupManager
@@ -82,6 +83,23 @@ function FullPopupManager:show(type, show_func)
         local is_view = g_settingData:get('event_full_popup', save_key) or false
         if (lv >= need_lv) and (not is_view) then 
             g_subscriptionData:request_subscriptionInfo(cb_func)
+        end
+
+    -- 일일상점 (상점 진입시)
+    -- 조건 : 유저 LV 10 이상
+    elseif (type == FULL_POPUP_TYPE.SHOP_DAILY) then
+        local lv = g_userData:get('lv')
+        local need_lv = 10
+        local save_key = 'shop_daily'
+        local function cb_func()
+            g_settingData:applySettingData(true, 'event_full_popup', save_key)
+        end
+
+        local is_view = g_settingData:get('event_full_popup', save_key) or false
+        if (lv >= need_lv) and (not is_view) then 
+            local is_popup = true
+            local ui = UI_ShopDaily(is_popup)
+            ui:setCloseCB(cb_func)
         end
     end
 end

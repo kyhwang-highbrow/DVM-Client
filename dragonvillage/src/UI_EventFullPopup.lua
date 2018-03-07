@@ -88,6 +88,15 @@ function UI_EventFullPopup:initUI()
             -- 이벤트 프로덕트 정보 없을 경우 비활성화라고 생각하고 닫아줌 (주말 패키지)
             self:close()
         end
+
+    -- 일일 상점
+    elseif string.find(popup_key, 'shop_daily') then
+
+        ui = UI_ShopDaily()
+        if (ui) then
+            local node = vars['eventNode']
+            node:addChild(ui.root)
+        end
     end
 
 	self.m_innerUI = ui

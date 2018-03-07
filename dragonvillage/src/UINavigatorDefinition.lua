@@ -1256,7 +1256,8 @@ end
 -------------------------------------
 function UINavigatorDefinition:goTo_shop_daily(...)
     local args = {...}
-    local buy_cb = args[1]
+    local is_popup = args[1] or false
+    local buy_cb = args[2]
 
     -- 해당 UI가 열려있을 경우
     local is_opend, idx, ui = self:findOpendUI('UI_ShopDaily')
@@ -1266,7 +1267,7 @@ function UINavigatorDefinition:goTo_shop_daily(...)
     end
     
     local function finish_cb()
-        local ui = UI_ShopDaily()
+        local ui = UI_ShopDaily(is_popup)
         if (buy_cb) then
             ui:setBuyCB(buy_cb)
         end

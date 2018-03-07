@@ -1115,7 +1115,8 @@ function UI_ReadySceneNew:click_goldBoosterBtn()
 
     -- 상점
     else
-        UINavigator:goTo('shop_daily', refresh_cb)
+        local is_popup = true
+        UINavigator:goTo('shop_daily', is_popup, refresh_cb)
     end
 end
 
@@ -1138,7 +1139,8 @@ function UI_ReadySceneNew:click_expBoosterBtn()
 
     -- 상점
     else
-        UINavigator:goTo('shop_daily', refresh_cb)
+        local is_popup = true
+        UINavigator:goTo('shop_daily', is_popup, refresh_cb)
     end
 end
 

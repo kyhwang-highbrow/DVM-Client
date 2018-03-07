@@ -947,7 +947,8 @@ end
 -- function click_dailyShopBtn
 -------------------------------------
 function UI_Lobby:click_dailyShopBtn()
-    UINavigator:goTo('shop_daily')
+    local is_popup = true
+    UINavigator:goTo('shop_daily', is_popup)
 end
 
 -------------------------------------
