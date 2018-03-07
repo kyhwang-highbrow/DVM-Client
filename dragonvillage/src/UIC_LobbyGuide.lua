@@ -90,8 +90,8 @@ function UIC_LobbyGuide:refresh()
                     self:setVisibleNotiIcon(true)
 
                     -- 텍스트 입력	
-	                self.m_titleLabel:setString(pointer:getGuideTitleStr())
-                    self.m_descLabel:setString(pointer:getGuideSubTitleStr())
+	                self.m_titleLabel:setString(Str(pointer:getGuideTitleStr()))
+                    self.m_descLabel:setString(Str(pointer:getGuideSubTitleStr()))
                     self.m_lobbyGuidePointer = pointer
                     pointer = nil
                     return
