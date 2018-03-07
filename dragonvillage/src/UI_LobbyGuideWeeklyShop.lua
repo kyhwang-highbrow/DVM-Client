@@ -4,6 +4,7 @@ local PARENT = class(UI, ITopUserInfo_EventListener:getCloneTable())
 -- class UI_LobbyGuideWeeklyShop
 -------------------------------------
 UI_LobbyGuideWeeklyShop = class(PARENT, {
+        m_lProductUI = 'list[UI_Product]',
     })
 
 -------------------------------------
@@ -60,17 +61,21 @@ function UI_LobbyGuideWeeklyShop:initUI()
         vars['npcNode']:addChild(animator.m_node)
     end
 
+    self.m_lProductUI = {}
+
     -- 명에 스킬 슬라임 아이템
     local product_honor = g_shopDataNew:getProduct('honor', 50006)
     local product_ui = UI_ProductSmall(product_honor)
     vars['productNode1']:addChild(product_ui.root)
     product_ui:setBuyCB(function() product_ui:refresh() end)
+    table.insert(self.m_lProductUI, product_ui)
 
     -- 클랜코인 스킬 슬라임 아이템
     local product_clancoin = g_shopDataNew:getProduct('clancoin', 60010)
     local product_ui = UI_ProductSmall(product_clancoin)
     vars['productNode2']:addChild(product_ui.root)
     product_ui:setBuyCB(function() product_ui:refresh() end)
+    table.insert(self.m_lProductUI, product_ui)
 
     -- 상점에서 명예 추가
     if (g_topUserInfo) then
@@ -110,6 +115,22 @@ function UI_LobbyGuideWeeklyShop:onDestroyUI()
         g_topUserInfo:deleteGoodsUI('honor') 
     end
 end
+
+-------------------------------------
+-- function onFocus
+-------------------------------------
+function UI_LobbyGuideWeeklyShop:onFocus()
+    if (not self.m_lProductUI) then
+        return
+    end
+
+    -- 다른 경로를 통해 상품이 갱신되었을 수 있기 때문에 refresh를 해줌
+    for i,v in pairs(self.m_lProductUI) do
+        -- v : UI_Product or UI_ProductSmall
+        v:refresh()
+    end 
+end
+
 
 --@CHECK
 UI:checkCompileError(UI_LobbyGuideWeeklyShop)
