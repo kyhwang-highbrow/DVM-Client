@@ -79,6 +79,7 @@ COLOR = {
     ['YELLOW'] = cc.c3b(255,255,0),
     ['RED'] = cc.c3b(255,0,0),
     ['BLUE'] = cc.c3b(0,0,255),
+    ['AQUA'] = cc.c3b(0,255,246),
 
     -- text 용 c4b
     ['diff_normal'] = cc.c4b(105, 236, 87, 255),

@@ -710,18 +710,39 @@ function UI_ReadySceneNew:update_item(dt)
 
     -- 경험치 부스터
     do
-        local str, active = g_hotTimeData:getHotTimeBuffText('buff_exp2x')
-        vars['expBoosterVisual']:setVisible(active)
+        local str, state = g_hotTimeData:getHotTimeBuffText('buff_exp2x')
+        local is_used = state == BOOSTER_ITEM_STATE.INUSE
+        vars['expBoosterVisual']:setVisible(is_used)
         vars['expBoosterLabel']:setString(str)
-        vars['expBoosterBtn']:setEnabled(not active)
+
+        local btn = vars['expBoosterBtn']
+        btn:setEnabled(not is_used)
+
+        if (state == BOOSTER_ITEM_STATE.AVAILABLE) and (btn.m_bAutoShakeAction == false) then
+            btn:setAutoShake(true)
+
+        elseif (state ~= BOOSTER_ITEM_STATE.AVAILABLE) then
+            btn:setAutoShake(false)
+        end
+
     end
 
     -- 골드 부스터
     do
-        local str, active = g_hotTimeData:getHotTimeBuffText('buff_gold2x')
-        vars['goldBoosterVisual']:setVisible(active)
+        local str, state = g_hotTimeData:getHotTimeBuffText('buff_gold2x')
+        local is_used = state == BOOSTER_ITEM_STATE.INUSE
+        vars['goldBoosterVisual']:setVisible(is_used)
         vars['goldBoosterLabel']:setString(str)
-        vars['goldBoosterBtn']:setEnabled(not active)
+
+        local btn = vars['goldBoosterBtn']
+        btn:setEnabled(not is_used)
+
+        if (state == BOOSTER_ITEM_STATE.AVAILABLE) and (btn.m_bAutoShakeAction == false) then
+            btn:setAutoShake(true)
+
+        elseif (state ~= BOOSTER_ITEM_STATE.AVAILABLE) then
+            btn:setAutoShake(false)
+        end
     end
 end
 

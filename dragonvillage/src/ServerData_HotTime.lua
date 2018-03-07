@@ -20,6 +20,13 @@ ServerData_HotTime = class({
         m_boosterMailInfo = 'map',
     })
 
+-- 부스터 아이템도 핫타임으로 관리 (사용시 핫타임에 등록됨)
+BOOSTER_ITEM_STATE = {
+    NORMAL = 1, -- 구매 가능
+    AVAILABLE = 2, -- 사용 가능
+    INUSE = 3, -- 사용 중
+}
+
 -------------------------------------
 -- function init
 -------------------------------------
@@ -272,24 +279,30 @@ end
 -- function getHotTimeBuffText
 -------------------------------------
 function ServerData_HotTime:getHotTimeBuffText(type)
-    local active = false
+    local state = BOOSTER_ITEM_STATE.NORMAL
     local str = ''
     local t_info = g_hotTimeData:getActiveHotTimeInfo(type)
+
+    -- 현재 사용중
     if (t_info) then
-        active = true
+
+        state = BOOSTER_ITEM_STATE.INUSE
         local curr_time = Timer:getServerTime()
         local end_time = t_info['enddate']/1000
         local time = (end_time - curr_time)
-        str = Str('{1} 남음', datetime.makeTimeDesc(time))
+        str = Str('{@AQUA}{1} 남음', datetime.makeTimeDesc(time))
 
+    -- 수신함에 있다면 사용가능한 상태
     elseif (self.m_boosterMailInfo[type]) then
-        str = Str('사용하기')
+
+        state = BOOSTER_ITEM_STATE.AVAILABLE
+        str = Str('{@green}사용하기')
         
     else
         str = Str('구매 가능')
     end
 
-    return str, active
+    return str, state
 end
 
 -------------------------------------
