@@ -186,19 +186,13 @@ function Analytics:purchase(productId, productName, price, token, first_buy)
     Adbrix:buy(productId, price)
     FiveRocks:trackPurchase(productName, currencyCode, price)
 
-    --adjust 
-    --첫구매(2aprct)    
+    -- 첫 구매는 event로 지표를 남김 (token : vooktq)
     if first_buy then
-        Adjust:adjustTrackPayment(Adjust.EVENT.FIRST_PURCHASE, currencyCode, price)
+        Adjust:trackEvent(Adjust.EVENT.FIRST_PURCHASE)
     end
 
-    --구매 통합(33qpix)
+    -- 구매 내역은 payment로 지표를 남김 (token : 33qpix)
     Adjust:adjustTrackPayment(Adjust.EVENT.PURCHASE, currencyCode, price)
-    
-	--항목별 구매
-    --if token then
-        --Adjust:adjustTrackPayment(token, currencyCode, price )
-    --end    
 end
 
 -------------------------------------
