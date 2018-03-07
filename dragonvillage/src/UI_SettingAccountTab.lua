@@ -712,42 +712,33 @@ end
 function UI_Setting:updateInfo()
 	local vars = self.vars
 
-	local platform_id = g_localData:get('local', 'platform_id') or 'firebase'
+	local platform_id = 'firebase' --g_localData:get('local', 'platform_id') or 'firebase'
     local account_info = g_localData:get('local', 'account_info') or 'Guest'
     local recovery_code = g_localData:get('local', 'recovery_code')
+
+	local is_guest = (platform_id == 'firebase')
+	local is_gamecenter = (plaform_id == 'gamecenter')
+
+	-- 연동 안내 텍스트
 	local desc = ''
-
-    -- 버튼 상태 업데이트
-    if platform_id == 'gamecenter' then
+    if is_gamecenter then
 		desc = Str('현재 게임 데이터가 안전하게 보호되고 있습니다.\n(게임센터 로그인 상태에서는 다른 플랫품 계정으로 계정 전환을 하실 수 없습니다.)')
-        
-        vars['codeMenu']:setVisible(false)
-        vars['googleBtn']:setVisible(false)
-        vars['facebookBtn']:setVisible(false)
-        vars['twitterBtn']:setVisible(false)
-        vars['gamecenterBtn']:setVisible(false)
-
-	-- 이것이 게스트
-    elseif platform_id == 'firebase' then
+    elseif is_guest then
         desc = Str('계정 연동을 통해 게임 데이터를 안전하게 보호하세요.\n계정 연동은 이전에 계정 연동을 한 적이 없는 새로운 계정으로만 가능합니다.\n복구 코드는 게스트 상태의 게임 데이터 복구시 필요하며 복구 처리는 고객센터를 통해서만 가능하니 주의 바랍니다.')
-		
-		vars['codeMenu']:setVisible(true)
-        vars['gamecenterBtn']:setVisible(CppFunctions:isIos())
-        vars['googleBtn']:setVisible(true)
-        vars['facebookBtn']:setVisible(true)
-
     else
         if isIos() then
             desc = Str('현재 게임 데이터가 안전하게 보호되고 있습니다.\n\n다른 플랫폼 계정으로 계정 전환이 가능합니다.\n(이전에 계정 연동을 한 적이 없는 새로운 계정으로만 가능하며, 게임센터로의 전환은 불가능합니다.)')
         else
             desc = Str('현재 게임 데이터가 안전하게 보호되고 있습니다.\n\n다른 플랫폼 계정으로 계정 전환이 가능합니다.\n(이전에 계정 연동을 한 적이 없는 새로운 계정으로만 가능)')
         end
+	end
 
-        vars['codeMenu']:setVisible(false)
-        vars['googleBtn']:setEnabled(platform_id ~= 'google.com')
-        vars['facebookBtn']:setEnabled(platform_id ~= 'facebook.com')
-        vars['gamecenterBtn']:setVisible(false)
-    end
+    -- 버튼 visible on/off
+	vars['codeMenu']:setVisible(is_guest)
+    vars['gamecenterBtn']:setVisible(is_guest and CppFunctions:isIos())
+    vars['googleBtn']:setVisible(not is_gamecenter)
+    vars['facebookBtn']:setVisible(not is_gamecenter)
+	vars['twitterBtn']:setVisible(false)
 
 	-- setString info
 	vars['descLabel']:setString(desc)
@@ -757,17 +748,9 @@ function UI_Setting:updateInfo()
     -- 계정 플랫폼 아이콘 표시
 	do
 		vars['loginNode']:removeAllChildren()
-		local sprite = nil
-		if platform_id == 'google.com' then
-			sprite = IconHelper:getIcon('res/ui/icons/login_google.png')
-		elseif platform_id == 'facebook.com' then
-			sprite = IconHelper:getIcon('res/ui/icons/login_facebook.png')
-		elseif platform_id == 'twitter.com' then
-			sprite = IconHelper:getIcon('res/ui/icons/login_twitter.png')
-		elseif platform_id == 'gamecenter' then
-			sprite = IconHelper:getIcon('res/ui/icons/login_gamecenter.png')
-		end
-		if (sprite) then
+		if (not is_guest) then
+			local platform = string.gsub(platform_id, '.com', '')
+			local sprite = IconHelper:getIcon(string.format('res/ui/icons/login_%s.png', platform))
 			vars['loginNode']:addChild(sprite)
 		end
 	end
