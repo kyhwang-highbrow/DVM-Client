@@ -1193,8 +1193,14 @@ function UI_GameResultNew:click_nextBtn()
     local function close_cb()
         UINavigator:goTo('adventure', next_stage_id)
     end
+    
+    if next_stage_id then
+        UINavigator:goTo('battle_ready', next_stage_id, close_cb)
 
-    UINavigator:goTo('battle_ready', next_stage_id, close_cb)
+    -- 다음 스테이지 없는 경우엔 모험맵으로 이동
+    else
+        UINavigator:goTo('adventure', stage_id)
+    end
 end
 
 -------------------------------------
