@@ -239,8 +239,8 @@ function UI_BattleMenu:initDungeonTab()
     table.insert(l_item, 'nest_tree') -- 거목 던전
     table.insert(l_item, 'nest_evo_stone') -- 진화재료 던전
 
-    -- 클랜 던전은 클랜 가입시에만 오픈, 한국서버에서만 오픈 
-    if (not g_clanData:isClanGuest()) and (g_localData:isKoreaServer()) then
+    -- 클랜 던전은 클랜 가입시에만 오픈
+    if (not g_clanData:isClanGuest()) then
         table.insert(l_item, 'clan_raid') -- 클랜 던전
     end
 
