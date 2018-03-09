@@ -325,10 +325,6 @@ function Character:doSkillBySkillTable(t_skill, t_data)
 				SkillLinkedSoul:makeSkillInstance(self, t_skill, t_data)
 				return true
 
-			elseif (skill_type == 'skill_conditional_add_effect') then
-				SkillConditionalAddEffect:makeSkillInstance(self, t_skill, t_data)
-				return true
-
 			-- 특수 스킬들 또는 몬스터 전용 스킬 .. (특수하게 처리)-------------------
 			elseif (skill_type == 'skill_summon') then
 				local is_success = SkillSummon:makeSkillInstance(self, t_skill, t_data)

@@ -69,8 +69,8 @@ function ResPreloadMgr:loadFromStageId(stage_id)
 
         if (game_mode == GAME_MODE_INTRO) then
             self.m_lPreloadList = self:makeResListForIntro()
-        elseif (game_mode == GAME_MODE_CLAN_RAID) then
-            self.m_lPreloadList = self:makeResListForClanRaid()
+        elseif (game_mode == GAME_MODE_CLAN_RAID or game_mode == GAME_MODE_ANICENT_RUIN) then
+            self.m_lPreloadList = self:makeResListForDoubleTeam(game_mode)
         else
             self.m_lPreloadList = self:makeResListForGame()
         end
@@ -263,17 +263,24 @@ function ResPreloadMgr:makeResListForIntro()
 end
 
 -------------------------------------
--- function makeResListForClanRaid
+-- function makeResListForDoubleTeam
 -- @brief 클랜 던전 게임 관련 리소스 목록을 얻음
 -------------------------------------
-function ResPreloadMgr:makeResListForClanRaid()
+function ResPreloadMgr:makeResListForDoubleTeam(game_mode)
     local l_ret = {}
     local t_temp = {}
+    local g_data
+
+    if (game_mode == GAME_MODE_CLAN_RAID) then
+        g_data = g_clanRaidData
+    elseif (game_mode == GAME_MODE_ANICENT_RUIN) then
+        g_data = g_clanRaidData
+    end
     
     -- 아군 관련 리소스
 
     do  -- 상단 덱
-        local l_deck = g_deckData:getDeck(g_clanRaidData:getDeckName('up'))
+        local l_deck = g_deckData:getDeck(g_data:getDeckName('up'))
         local l_res = self:getPreloadList_HeroDeck(l_deck)
         for _, k in ipairs(l_res) do
             t_temp[k] = true
@@ -281,7 +288,7 @@ function ResPreloadMgr:makeResListForClanRaid()
     end
 
     do  -- 하단 덱
-        local l_deck = g_deckData:getDeck(g_clanRaidData:getDeckName('down'))
+        local l_deck = g_deckData:getDeck(g_data:getDeckName('down'))
         local l_res = self:getPreloadList_HeroDeck(l_deck)
         for _, k in ipairs(l_res) do
             t_temp[k] = true

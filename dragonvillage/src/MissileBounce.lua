@@ -36,7 +36,7 @@ function MissileBounce.hitCB(attacker, defender, i_x, i_y)
 
     table.insert(self.m_lPhysKey, defender.phys_idx)
     
-    self.m_target = attacker.m_world:findTarget(self.m_owner:getAttackablePhysGroup(), self.pos.x + self.body.x, self.pos.y + self.body.y, self.m_lPhysKey)
+    self.m_target = attacker.m_world:findTarget(self.m_owner, self.pos.x + self.body.x, self.pos.y + self.body.y, self.m_lPhysKey)
 
     if (self.m_bounceCount <= 2) then
         self.speed = self.speed * 1.1
@@ -62,7 +62,7 @@ end
 function MissileBounce.st_move(owner, dt)
     -- 타겟의 위치로 계속 쫓아감 (없거나 죽을 경우 직선)
     if (owner.m_target == nil or owner.m_target:isDead()) then
-        owner.m_target = owner.m_world:findTarget(owner.m_owner:getAttackablePhysGroup(), owner.pos.x + owner.body.x, owner.pos.y + owner.body.y, owner.m_lPhysKey)
+        owner.m_target = owner.m_world:findTarget(owner.m_owner, owner.pos.x + owner.body.x, owner.pos.y + owner.body.y, owner.m_lPhysKey)
     end
 
     if (owner.m_target) then

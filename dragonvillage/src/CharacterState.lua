@@ -36,10 +36,8 @@ function Character.st_dying(owner, dt)
         -- 사망 처리 시 StateDelegate Kill!
         owner:killStateDelegate()
 
-        if (owner.m_cbDead) then
-            owner.m_cbDead(owner)
-        end
-
+        owner:dispatch('character_dying', {}, owner)
+        
 	    -- 사망 사운드
 	    if (owner.m_charType == 'dragon') then
 		    if (owner.m_charTable['c_appearance'] == 2) then

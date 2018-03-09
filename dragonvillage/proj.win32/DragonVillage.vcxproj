@@ -338,8 +338,10 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <None Include="..\src\GameState_NestDungeon_Nightmare.lua" />
     <None Include="..\src\GameState_NestDungeon_Tree.lua" />
     <None Include="..\src\GameState_SecretDungeon_Relation.lua" />
-    <None Include="..\src\GameWorldClanRaid_Unit.lua" />
+    <None Include="..\src\GameUnitGroup.lua" />
     <None Include="..\src\GameWorldColosseum.lua" />
+    <None Include="..\src\GameWorldForDoubleTeam.lua" />
+    <None Include="..\src\GameWorldForDoubleTeam_Unit.lua" />
     <None Include="..\src\GameWorldIntro.lua" />
     <None Include="..\src\GameWorldClanRaid.lua" />
     <None Include="..\src\GameWorld_Gold.lua" />
@@ -378,6 +380,7 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <None Include="..\src\LuaBridge.lua" />
     <None Include="..\src\MailHelper.lua" />
     <None Include="..\src\MissileGuide.lua" />
+    <None Include="..\src\Monster_AncientRuinDragon.lua" />
     <None Include="..\src\Monster_ClanRaidBoss.lua" />
     <None Include="..\src\Monster_DarkNix.lua" />
     <None Include="..\src\Monster_DarkNixIntro.lua" />
@@ -532,7 +535,6 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <None Include="..\src\SkillBurst.lua" />
     <None Include="..\src\SkillChainLightning.lua" />
     <None Include="..\src\SkillCharge.lua" />
-    <None Include="..\src\SkillConditionalAddEffect.lua" />
     <None Include="..\src\SkillCross.lua" />
     <None Include="..\src\SkillEnumrate_Curve.lua" />
     <None Include="..\src\SkillEnumrate_Normal.lua" />
@@ -634,7 +636,6 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <None Include="..\src\GameState.lua" />
     <None Include="..\src\GameTimeScale.lua" />
     <None Include="..\src\GameWorld.lua" />
-    <None Include="..\src\GameWorld_Formation.lua" />
     <None Include="..\src\Dragon.lua" />
     <None Include="..\src\IconHelper.lua" />
     <None Include="..\src\IEventDispatcher.lua" />

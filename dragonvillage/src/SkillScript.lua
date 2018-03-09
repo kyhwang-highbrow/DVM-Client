@@ -34,8 +34,7 @@ end
 function SkillScript:do_script_shot(x, y, phys_group)
     local t_skill = self.m_owner:getSkillTable(self.m_skillId)
     local attr = self.m_owner:getAttribute()
-    local phys_group = phys_group or self.m_owner:getAttackablePhysGroup()
-
+    
     local b, missile_launcher = self.m_owner:do_script_shot(t_skill, attr, phys_group, x, y, {script = self.m_scriptName})
     if (b and missile_launcher) then
         missile_launcher.m_activityCarrier = self.m_activityCarrier

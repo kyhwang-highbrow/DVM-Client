@@ -25,8 +25,8 @@ function GameWorldIntro:createComponents()
 
     self.m_gameState = GameState_Intro(self)
 
-    self.m_heroMana:setEnable(false)
-    self.m_enemyMana:setEnable(false)
+    self.m_mUnitGroup[PHYS.HERO]:getMana():setEnable(false)
+    self.m_mUnitGroup[PHYS.ENEMY]:getMana():setEnable(false)
 
     self.m_inGameUI:init_timeUI(true, self.m_gameState.m_limitTime)
     self.m_inGameUI:initIntroFight()
@@ -47,9 +47,6 @@ function GameWorldIntro:initGame(stage_name)
 
     -- 월드 크기 설정
     self:changeWorldSize(1)
-        
-    -- 위치 표시 이펙트 생성
-    self:init_formation()
 
 	-- Game Log Recorder 생성
 	self.m_logRecorder = LogRecorderWorld(self)
@@ -204,15 +201,13 @@ function GameWorldIntro:makeHeroDeck()
                 self.m_physWorld:addObject(PHYS.HERO, hero)
                 self:bindHero(hero)
                 self:addHero(hero)
-
-                self.m_leftFormationMgr:setChangePosCallback(hero)
-
+                
                 -- 진형 버프 적용
                 hero.m_statusCalc:applyFormationBonus(formation, 1, i)
 
 				-- 리더 등록
 				if (i == leader) then
-					self.m_leaderDragon = hero
+					self.m_mUnitGroup[PHYS.HERO]:setLeader(hero)
 				end
 
                 -- 아군 드래곤 강제 불사 설정

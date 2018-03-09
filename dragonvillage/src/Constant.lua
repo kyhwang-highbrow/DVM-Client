@@ -103,6 +103,7 @@ DEV_STAGE_ID = 999999
 INTRO_STAGE_ID = 1010001
 CLAN_RAID_STAGE_ID = 1500100
 EVENT_GOLD_STAGE_ID = 1900001
+ANCIENT_RUIN_STAGE_ID = 1600001
 
 --------------------------------------------------------------------------
 -- PhysKey 상수

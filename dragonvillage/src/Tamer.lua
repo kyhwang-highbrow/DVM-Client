@@ -578,8 +578,27 @@ function Tamer:isRequiredHighLight()
 end
 
 -------------------------------------
+-- function getFellowList
+-- @brief 어떤 진형이든 항상 아군을 가져온다.
+-------------------------------------
+function Tamer:getFellowList()
+	if (self.m_bLeftFormation) then 
+		return self.m_world:getDragonList()
+	else
+		return self.m_world:getEnemyList()
+	end
+end
+
+-------------------------------------
 -- function isPlayingActiveSkill
 -------------------------------------
 function Tamer:isPlayingActiveSkill()
     return (self.m_state == 'active')
+end
+
+-------------------------------------
+-- function getZOrder
+-------------------------------------
+function Tamer:getZOrder()
+    return WORLD_Z_ORDER.TAMER
 end

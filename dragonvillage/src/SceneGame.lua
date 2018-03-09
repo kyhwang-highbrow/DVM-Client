@@ -277,7 +277,12 @@ function SceneGame:prepare()
 
         -- 레이어 생성
         self:init_layer()
-        self.m_gameWorld = GameWorld(self.m_gameMode, self.m_stageID, self.m_worldLayer, self.m_gameNode1, self.m_gameNode2, self.m_gameNode3, self.m_inGameUI, self.m_bDevelopMode)
+
+        if (self.m_gameMode == GAME_MODE_ANICENT_RUIN) then
+            self.m_gameWorld = GameWorldForDoubleTeam(self.m_gameMode, self.m_stageID, self.m_worldLayer, self.m_gameNode1, self.m_gameNode2, self.m_gameNode3, self.m_inGameUI, self.m_bDevelopMode)
+        else
+            self.m_gameWorld = GameWorld(self.m_gameMode, self.m_stageID, self.m_worldLayer, self.m_gameNode1, self.m_gameNode2, self.m_gameNode3, self.m_inGameUI, self.m_bDevelopMode)
+        end
         self.m_gameWorld:initGame(self.m_stageName)
         
         -- 스크린 사이즈 초기화

@@ -48,7 +48,7 @@ function MissileGuid.st_move(owner, dt)
 
         -- 타겟이 없거나, 타겟이 죽었을 경우 .. 0.3 초 이후 매 프레임 타겟을 찾던 것은 제외
         if (owner.m_target == nil or owner.m_target:isDead()) then 
-            owner.m_target = owner.m_world:findTarget(owner.m_owner:getAttackablePhysGroup(), owner.pos.x + owner.body.x, owner.pos.y + owner.body.y)
+            owner.m_target = owner.m_world:findTarget(owner.m_owner, owner.pos.x + owner.body.x, owner.pos.y + owner.body.y)
         end
 
         if owner.m_target then
@@ -98,7 +98,7 @@ function MissileGuid.st_move_hero(owner, dt)
 
         -- 타겟이 없거나, 타겟이 죽었을 경우 .. 0.3 초 이후 매 프레임 타겟을 찾던 것은 제외
         if (owner.m_target == nil or owner.m_target:isDead()) then
-            owner.m_target = owner.m_world:findTarget(owner.m_owner:getAttackablePhysGroup(), owner.pos.x + owner.body.x, owner.pos.y + owner.body.y)
+            owner.m_target = owner.m_world:findTarget(owner.m_owner, owner.pos.x + owner.body.x, owner.pos.y + owner.body.y)
         end
 
         if owner.m_target then

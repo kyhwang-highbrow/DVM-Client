@@ -65,9 +65,7 @@ function WaveMgr_AncientTower:spawnEnemy_dynamic(enemy_id, level, appear_type, v
     self.m_world.m_physWorld:addObject(phys_group, enemy)
     self.m_world:bindEnemy(enemy)
     self.m_world:addEnemy(enemy)
-
-	self.m_world.m_rightFormationMgr:setChangePosCallback(enemy)
-
+    
 	-- 등장 움직임 설정
     if (EnemyAppear[appear_type]) then
         EnemyAppear[appear_type](enemy, value1, value2, value3)

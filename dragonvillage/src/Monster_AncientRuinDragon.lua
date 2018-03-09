@@ -1,102 +1,40 @@
 local PARENT = Monster
 
 -------------------------------------
--- class Monster_ClanRaidBoss
+-- class Monster_AncientRuinDragon
 -------------------------------------
-Monster_ClanRaidBoss = class(PARENT, {})
+Monster_AncientRuinDragon = class(PARENT, {})
 
 -------------------------------------
 -- function init
 -- @param file_name
 -- @param body
 -------------------------------------
-function Monster_ClanRaidBoss:init(file_name, body, ...)
+function Monster_AncientRuinDragon:init(file_name, body, ...)
     self.m_bUseCastingEffect = false
 end
 
 -------------------------------------
--- function initState
+-- function initFormation
 -------------------------------------
-function Monster_ClanRaidBoss:initState()
-    PARENT.initState(self)
-
-    if (self.m_charTable['type'] == 'clanraid_boss') then
-        self:addState('dying', Monster_ClanRaidBoss.st_dying, 'dying', false, PRIORITY.DYING)
-    end
+function Monster_AncientRuinDragon:initFormation(body_size)
+    PARENT.initFormation(self, body_size)
+    
+    -- ¸®¼Ò½º°¡ ÁÂ¿ì ¹İ´ë·Î Á¦ÀÛµÇ¾î¼­ ¿©±â¼­ ¹İÀüÃ³¸®...
+    self.m_animator:setFlip(false)
 end
-
--------------------------------------
--- function st_dying
--------------------------------------
-function Monster_ClanRaidBoss.st_dying(owner, dt)
-    if (owner.m_stateTimer == 0) then
-        -- ì‚¬ë§ ì²˜ë¦¬ ì‹œ StateDelegate Kill!
-        owner:killStateDelegate()
-
-        owner:dispatch('character_dying', {}, owner)
-
-        local duration = owner.m_animator:getDuration()
-        owner.m_animator:runAction(cc.FadeTo:create(duration, 0))
-
-        -- ì—ë‹ˆë©”ì´ì…˜ ì¢…ë£Œ ì‹œ
-        owner:addAniHandler(function()
-            owner:changeState('dead')
-        end)
-
-        if (owner.m_hpNode) then
-            owner.m_hpNode:setVisible(false)
-        end
-
-        if (owner.m_castingNode) then
-            owner.m_castingNode:setVisible(false)
-        end
-    end
-end
-
--------------------------------------
--- function updateBonePos
--- @breif Spine Bone ì •ë³´ë¡œ ê°±ì‹ ì´ í•„ìš”í•œ ì²˜ë¦¬ë¥¼ ìˆ˜í–‰
--------------------------------------
-function Monster_ClanRaidBoss:updateBonePos(dt)
-    PARENT.updateBonePos(self, dt)
-
-    -- ì¶©ëŒì˜ì—­ ìœ„ì¹˜ë¡œ ê²Œì´ì§€ë¥¼ í‘œì‹œí•˜ê¸° ìœ„í•¨
-    if (self.m_hpNode and not self.m_bFixedPosHpNode) then
-        local body_list = self:getBodyList()
-        local body = body_list[1]
-
-        local offset_x = self.m_unitInfoOffset[1] + body['x']
-        local offset_y = self.m_unitInfoOffset[2] + body['y']
-
-        if (self.m_hpNode) then
-            self.m_hpNode:setPosition(offset_x, offset_y)
-        end
-
-        if (self.m_castingNode) then
-            self.m_castingNode:setPosition(offset_x, offset_y)
-        end
-
-        self:setPositionStatusIcons(offset_x, offset_y)
-    end
-
-    -- formationMgrì—ì„œì˜ ìœ„ì¹˜ ì •ë³´ ê°±ì‹ 
-    --self:dispatch('character_update_pos', {}, self)
-
-    -- ë³¸ ìœ„ì¹˜ê°€ ì´ë™í•˜ë©´ physworldì˜ ìœ„ì¹˜ì •ë³´ë„ ê°±ì‹ ì‹œì¼œì•¼í•¨
-    self.m_dirtyPos = true
-end
-
+--[[
 -------------------------------------
 -- function setStatusCalc
 -------------------------------------
-function Monster_ClanRaidBoss:setStatusCalc(status_calc)
+function Monster_AncientRuinDragon:setStatusCalc(status_calc)
     self.m_statusCalc = status_calc
 
     if (not self.m_statusCalc) then return end
 
-    -- hp ì„¤ì •
+    -- hp ¼³Á¤
     do
-        -- ì™¸ë¶€ë¡œë¶€í„° í˜„ì¬ì²´ë ¥ê³¼ ìµœëŒ€ì²´ë ¥ ì •ë³´ë¥¼ ì–»ì–´ì„œ ì„¸íŒ…
+        -- ¿ÜºÎ·ÎºÎÅÍ ÇöÀçÃ¼·Â°ú ÃÖ´ëÃ¼·Â Á¤º¸¸¦ ¾ò¾î¼­ ¼¼ÆÃ
         local game_state = self.m_world.m_gameState
 
         self.m_maxHp = game_state.m_bossMaxHp:get()
@@ -109,27 +47,27 @@ function Monster_ClanRaidBoss:setStatusCalc(status_calc)
         indivisual_status:setBasicStat(self.m_maxHp, 0, 0, 0, 0)
     end
     
-    -- ê³µì† ì„¤ì •
+    -- °ø¼Ó ¼³Á¤
     self:calcAttackPeriod(true)
 end
 
 -------------------------------------
 -- function undergoAttack
 -------------------------------------
-function Monster_ClanRaidBoss:undergoAttack(attacker, defender, i_x, i_y, body_key, no_event, is_guard)
-    -- ì¶©ëŒì˜ì—­ ìœ„ì¹˜ë¡œ ë³€ê²½
+function Monster_AncientRuinDragon:undergoAttack(attacker, defender, i_x, i_y, body_key, no_event, is_guard)
+    -- Ãæµ¹¿µ¿ª À§Ä¡·Î º¯°æ
     if (self.pos['x'] == i_x and self.pos['y'] == i_y) then
         i_x, i_y = self:getCenterPos()
     end
 
     PARENT.undergoAttack(self, attacker, defender, i_x, i_y, body_key, no_event, is_guard)
 end
-
+]]--
 -------------------------------------
 -- function setDamage
 -------------------------------------
-function Monster_ClanRaidBoss:setDamage(attacker, defender, i_x, i_y, damage, t_info)
-    -- ì¶©ëŒì˜ì—­ ìœ„ì¹˜ë¡œ ë³€ê²½
+function Monster_AncientRuinDragon:setDamage(attacker, defender, i_x, i_y, damage, t_info)
+    -- Ãæµ¹¿µ¿ª À§Ä¡·Î º¯°æ
     if (self.pos['x'] == i_x and self.pos['y'] == i_y) then
         i_x, i_y = self:getCenterPos()
     end
@@ -137,7 +75,7 @@ function Monster_ClanRaidBoss:setDamage(attacker, defender, i_x, i_y, damage, t_
     local prev_hp = self.m_hp
     local bApplyDamage = PARENT.setDamage(self, attacker, defender, i_x, i_y, damage, t_info)
 
-    -- ë§‰íƒ€ ì‹œ ë°ë¯¸ì§€ ì €ì¥(ì¼ì‹œ ì •ì§€ ìƒíƒœì¼ ê²½ìš°ëŠ” ëª¨ë‘ í•©ì‚°)
+    -- ¸·Å¸ ½Ã µ¥¹ÌÁö ÀúÀå(ÀÏ½Ã Á¤Áö »óÅÂÀÏ °æ¿ì´Â ¸ğµÎ ÇÕ»ê)
     if (bApplyDamage and t_info and not t_info['is_definite_death']) then
         if (self:isZeroHp()) then
             if (prev_hp > 0 or self.m_temporaryPause) then
@@ -146,13 +84,13 @@ function Monster_ClanRaidBoss:setDamage(attacker, defender, i_x, i_y, damage, t_
         end
     end
 end
-
+--[[
 -------------------------------------
 -- function onChangedAttackableGroup
--- @brief ê³µê²©í•  ìˆ˜ ìˆëŠ” ëŒ€ìƒ ê·¸ë£¹ ì •ë³´ê°€ ë³€ê²½ë˜ì—ˆì„ ê²½ìš°
+-- @brief °ø°İÇÒ ¼ö ÀÖ´Â ´ë»ó ±×·ì Á¤º¸°¡ º¯°æµÇ¾úÀ» °æ¿ì
 -------------------------------------
-function Monster_ClanRaidBoss:onChangedAttackableGroup()
-    -- í´ëœ ë³´ìŠ¤ ë³¸ì²´ì˜ ê²½ìš° íŠ¹ì • ìŠ¤í‚¬ì„ ì‚¬ìš©í•˜ì§€ ëª»í•˜ë„ë¡ ì²˜ë¦¬...
+function Monster_AncientRuinDragon:onChangedAttackableGroup()
+    -- Å¬·£ º¸½º º»Ã¼ÀÇ °æ¿ì Æ¯Á¤ ½ºÅ³À» »ç¿ëÇÏÁö ¸øÇÏµµ·Ï Ã³¸®...
     if (self.m_charTable['type'] == 'clanraid_boss') then
         local l_remove_skill_id = { 250011, 250012, 250013, 250014, 250015 }
 
@@ -165,8 +103,8 @@ end
 -------------------------------------
 -- function makeMissFont
 -------------------------------------
-function Monster_ClanRaidBoss:makeMissFont(x, y)
-    -- ì¶©ëŒì˜ì—­ ìœ„ì¹˜ë¡œ ë³€ê²½
+function Monster_AncientRuinDragon:makeMissFont(x, y)
+    -- Ãæµ¹¿µ¿ª À§Ä¡·Î º¯°æ
     if (self.pos['x'] == x and self.pos['y'] == y) then
         x, y = self:getCenterPos()
     end
@@ -177,8 +115,8 @@ end
 -------------------------------------
 -- function makeShieldFont
 -------------------------------------
-function Monster_ClanRaidBoss:makeShieldFont(x, y)
-    -- ì¶©ëŒì˜ì—­ ìœ„ì¹˜ë¡œ ë³€ê²½
+function Monster_AncientRuinDragon:makeShieldFont(x, y)
+    -- Ãæµ¹¿µ¿ª À§Ä¡·Î º¯°æ
     if (self.pos['x'] == x and self.pos['y'] == y) then
         x, y = self:getCenterPos()
     end
@@ -189,8 +127,8 @@ end
 -------------------------------------
 -- function makeImmuneFont
 -------------------------------------
-function Monster_ClanRaidBoss:makeImmuneFont(x, y, scale)
-    -- ì¶©ëŒì˜ì—­ ìœ„ì¹˜ë¡œ ë³€ê²½
+function Monster_AncientRuinDragon:makeImmuneFont(x, y, scale)
+    -- Ãæµ¹¿µ¿ª À§Ä¡·Î º¯°æ
     if (self.pos['x'] == x and self.pos['y'] == y) then
         x, y = self:getCenterPos()
     end
@@ -201,19 +139,19 @@ end
 -------------------------------------
 -- function makeResistanceFont
 -------------------------------------
-function Monster_ClanRaidBoss:makeResistanceFont(x, y, scale)
-    -- ì¶©ëŒì˜ì—­ ìœ„ì¹˜ë¡œ ë³€ê²½
+function Monster_AncientRuinDragon:makeResistanceFont(x, y, scale)
+    -- Ãæµ¹¿µ¿ª À§Ä¡·Î º¯°æ
     if (self.pos['x'] == x and self.pos['y'] == y) then
         x, y = self:getCenterPos()
     end
 
     PARENT.makeResistanceFont(self, x, y, scale)
 end
-
+]]--
 -------------------------------------
 -- function syncHp
 -------------------------------------
-function Monster_ClanRaidBoss:syncHp(hp)
+function Monster_AncientRuinDragon:syncHp(hp)
     if (self:isDead()) then return end
 
     self.m_hp = math_min(hp, self.m_maxHp)
@@ -223,7 +161,7 @@ function Monster_ClanRaidBoss:syncHp(hp)
         self:changeState('dying')
     end
 
-    -- ì²´ë ¥ë°” ê°€ê° ì—°ì¶œ
+    -- Ã¼·Â¹Ù °¡°¨ ¿¬Ãâ
     if (self.m_hpGauge) then
         self.m_hpGauge:setScaleX(self.m_hpRatio)
     end
@@ -236,10 +174,10 @@ end
 -------------------------------------
 -- function makeHPGauge
 -------------------------------------
-function Monster_ClanRaidBoss:makeHPGauge(hp_ui_offset, force)
+function Monster_AncientRuinDragon:makeHPGauge(hp_ui_offset, force)
     PARENT.makeHPGauge(self, hp_ui_offset, false)
 
-    -- ìœ ë‹›ë³„ ì²´ë ¥ ê²Œì´ì§€ ì‚¬ìš© ì•ˆí•¨
+    -- À¯´Öº° Ã¼·Â °ÔÀÌÁö »ç¿ë ¾ÈÇÔ
     self.m_hpGauge = nil
     self.m_hpGauge2 = nil
 
@@ -248,7 +186,7 @@ function Monster_ClanRaidBoss:makeHPGauge(hp_ui_offset, force)
         doAllChildren(v, function(node) node:setVisible(false) end)
     end
     
-    -- ì²´ë ¥ ê²Œì´ì§€ ëŒ€ì‹  ì´ë¦„ í‘œì‹œ
+    -- Ã¼·Â °ÔÀÌÁö ´ë½Å ÀÌ¸§ Ç¥½Ã
     local font_scale_x, font_scale_y = Translate:getFontScaleRate()
     local label = cc.Label:createWithTTF(self:getName(), Translate:getFontPath(), 24, 2, cc.size(250, 100), 1, 1)
     label:setDockPoint(cc.p(0.5, 0.5))
@@ -257,18 +195,18 @@ function Monster_ClanRaidBoss:makeHPGauge(hp_ui_offset, force)
     label:setScale(font_scale_x, font_scale_y)
     self.m_hpNode:addChild(label)
 end
-
+--[[
 -------------------------------------
 -- function runAction_Floating
--- @brief ìºë¦­í„° ë¶€ìœ ì¤‘ íš¨ê³¼
+-- @brief Ä³¸¯ÅÍ ºÎÀ¯Áß È¿°ú
 -------------------------------------
-function Monster_ClanRaidBoss:runAction_Floating()
+function Monster_AncientRuinDragon:runAction_Floating()
     if (not self.m_animator) then return end
     
     local target_node = self.m_animator.m_node
     if (not target_node) then return end
     
-    -- í–‰ë™ ë¶ˆê°€ ìƒíƒœì¼ ê²½ìš°
+    -- Çàµ¿ ºÒ°¡ »óÅÂÀÏ °æ¿ì
     if (self:hasStatusEffectToDisableBehavior()) then
         return
     end
@@ -297,10 +235,10 @@ end
 -------------------------------------
 -- function setPosition
 -------------------------------------
-function Monster_ClanRaidBoss:setPosition(x, y)
+function Monster_AncientRuinDragon:setPosition(x, y)
 	PARENT.setPosition(self, x, y)
 
-    -- ì¶©ëŒì˜ì—­ ìœ„ì¹˜ë¡œ ê²Œì´ì§€ë¥¼ í‘œì‹œí•˜ê¸° ìœ„í•¨
+    -- Ãæµ¹¿µ¿ª À§Ä¡·Î °ÔÀÌÁö¸¦ Ç¥½ÃÇÏ±â À§ÇÔ
     if (self.m_hpNode and not self.m_bFixedPosHpNode) then
         local body_list = self:getBodyList()
         local body = body_list[1]
@@ -319,10 +257,10 @@ end
 -------------------------------------
 -- function setTimeScale
 -------------------------------------
-function Monster_ClanRaidBoss:setTimeScale(time_scale)
+function Monster_AncientRuinDragon:setTimeScale(time_scale)
     local time_scale = time_scale or self.m_aspdRatio
 
-    -- ì«„ë“¤ë§Œ ì†ë„ë¥¼ ì¡°ì •
+    -- ÂÌµé¸¸ ¼Óµµ¸¦ Á¶Á¤
     if (self.m_charTable['type'] ~= 'clanraid_boss') then
         time_scale = time_scale * 0.3
     end
@@ -332,10 +270,10 @@ end
 
 -------------------------------------
 -- function updateDebugingInfo
--- @brief ì¸ê²Œì„ ì •ë³´ ì¶œë ¥ìš© ì—…ë°ì´íŠ¸
+-- @brief ÀÎ°ÔÀÓ Á¤º¸ Ãâ·Â¿ë ¾÷µ¥ÀÌÆ®
 -------------------------------------
-function Monster_ClanRaidBoss:updateDebugingInfo()
-	-- í™”ë©´ì— ì²´ë ¥ í‘œì‹œ
+function Monster_AncientRuinDragon:updateDebugingInfo()
+	-- È­¸é¿¡ Ã¼·Â Ç¥½Ã
 	if g_constant:get('DEBUG', 'DISPLAY_UNIT_HP') then 
 		--self.m_infoUI.m_label:setString(string.format('%d/%d\n%d/%d\n(%d%%)',self.m_hp, self.m_maxHp, self.m_hpCount, self.m_maxHpCount, self:getHpRate() * 100))
         self.m_infoUI.m_label:setString(self.m_hp .. '/' .. self.m_maxHp .. '\n' .. '(' .. self:getHpRate() * 100 .. '%)')
@@ -347,7 +285,7 @@ end
 -------------------------------------
 -- function insertStatusEffect
 -------------------------------------
-function Monster_ClanRaidBoss:insertStatusEffect(status_effect)
+function Monster_AncientRuinDragon:insertStatusEffect(status_effect)
     PARENT.insertStatusEffect(self, status_effect)
 
     local body_list = self:getBodyList()
@@ -358,9 +296,9 @@ end
 
 -------------------------------------
 -- function checkSpecialImmune
--- @brief íŠ¹ì • ìƒíƒœíš¨ê³¼ ë©´ì—­ ì²´í¬
+-- @brief Æ¯Á¤ »óÅÂÈ¿°ú ¸é¿ª Ã¼Å©
 -------------------------------------
-function Monster_ClanRaidBoss:checkSpecialImmune(t_status_effect)
+function Monster_AncientRuinDragon:checkSpecialImmune(t_status_effect)
     if (self.m_charTable['type'] == 'clanraid_boss') then
         return PARENT.checkSpecialImmune(self, t_status_effect)
     end
@@ -371,26 +309,7 @@ end
 -------------------------------------
 -- function getPosForFormation
 -------------------------------------
-function Monster_ClanRaidBoss:getPosForFormation()
+function Monster_AncientRuinDragon:getPosForFormation()
     return self:getCenterPos()
 end
-
--------------------------------------
--- function getZOrder
--------------------------------------
-function Monster_ClanRaidBoss:getZOrder()
-    local zOrder = WORLD_Z_ORDER.BOSS
-    local enemy_id = self:getCharId()
-    local idx = getDigit(enemy_id, 1000, 1)
-    local sub_idx = getDigit(enemy_id, 10, 1)
-
-    if (idx == 0) then
-        zOrder = WORLD_Z_ORDER.BOSS + 1    
-    elseif (sub_idx == 7) then
-        zOrder = WORLD_Z_ORDER.BOSS
-    else
-        zOrder = WORLD_Z_ORDER.BOSS + 1 + 7 - sub_idx
-    end
-
-    return zOrder
-end
+]]--

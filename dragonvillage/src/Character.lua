@@ -35,9 +35,6 @@ Character = class(PARENT, {
 		        
         -- @ for FormationMgr
         m_bLeftFormation = 'boolean',   -- 왼쪽 진형일 경우 true, 오른쪽 진형일 경우 false
-        m_currFormation = '',
-        m_cbChangePos = 'function',
-        m_cbDead = 'function',
 
         -- @ 공격 속도
         m_chargeDuration = 'number',
@@ -1601,7 +1598,9 @@ end
 -------------------------------------
 function Character:release()
     if (self.m_world) then
-        if (self.m_bLeftFormation) then
+        if (self.m_charType == 'tamer') then
+
+        elseif (self.m_bLeftFormation) then
             self.m_world:removeHero(self)
         else
             self.m_world:removeEnemy(self)
@@ -1642,11 +1641,7 @@ function Character:release()
     self.m_castingNode = nil
     self.m_castingGauge = nil
 
-    -- formationMgr
-    self.m_cbChangePos = nil
-    self.m_cbDead = nil
-
-	-- 이벤트 해제
+    -- 이벤트 해제
 	self:release_EventDispatcher()
     self:release_EventListener()
 
@@ -1774,10 +1769,6 @@ function Character:setPosition(x, y)
         self.m_castingNode:setPosition(self.m_unitInfoOffset[1], self.m_unitInfoOffset[2])
     end
 
-    if (self.m_cbChangePos) then
-        self.m_cbChangePos(self)
-    end
-
     if (self.m_dragonSpeechNode) then
         self.m_dragonSpeechNode:setPosition(x, y)
     end
@@ -1785,6 +1776,8 @@ function Character:setPosition(x, y)
     if (self.m_enemySpeechNode) then
         self.m_enemySpeechNode:setPosition(x, y)
     end
+
+    --self:dispatch('character_update_pos', {}, self)
 end
 
 -------------------------------------
@@ -2822,31 +2815,6 @@ function Character:getMissilePhysGroup()
 end
 
 -------------------------------------
--- function getAttackablePhysGroup
--- @brief 해당 캐릭터의 공격 가능한 대상의 PhysGruop 가져온다.
--------------------------------------
-function Character:getAttackablePhysGroup()
-    if (self.phys_key == PHYS.HERO) then
-        return PHYS.ENEMY
-
-    elseif (self.phys_key == PHYS.HERO_TOP) then
-        return PHYS.ENEMY_TOP
-
-    elseif (self.phys_key == PHYS.HERO_BOTTOM) then
-        return PHYS.ENEMY_BOTTOM
-
-    elseif (self.phys_key == PHYS.ENEMY_TOP) then
-        return PHYS.HERO_TOP
-
-    elseif (self.phys_key == PHYS.ENEMY_BOTTOM) then
-        return PHYS.HERO_BOTTOM
-
-    else
-        return PHYS.HERO
-    end
-end
-
--------------------------------------
 -- function getFellowList
 -- @brief 어떤 진형이든 항상 아군을 가져온다.
 -------------------------------------
@@ -3014,4 +2982,17 @@ function Character:checkSpecialImmune(t_status_effect)
     end
 
     return false
+end
+
+-------------------------------------
+-- function getZOrder
+-------------------------------------
+function Character:getZOrder()
+    if (self.m_bLeftFormation) then 
+        return WORLD_Z_ORDER.HERO
+    elseif (self:isBoss()) then
+        return WORLD_Z_ORDER.BOSS
+    else
+        return WORLD_Z_ORDER.ENEMY
+    end
 end

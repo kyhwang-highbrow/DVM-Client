@@ -158,3 +158,45 @@ function TableStageData:getRecommendedCombatPower(stage_id, game_mode)
 
     return combat_power
 end
+
+-------------------------------------
+-- function verifyTable
+-------------------------------------
+function TableStageData:verifyTable()
+    if (self == THIS) then
+        self = THIS()
+    end
+
+    local l_stage_id = {}
+
+    local function doTest(stage_id, is_enemy)
+        local list = self:getStageBuff(stage_id, is_enemy)
+        if (not list) then return end
+
+        for i, data in ipairs(list) do
+            for _, key in ipairs({'condition_type', 'condition_value', 'buff_type', 'buff_value'}) do
+                if (not data[key]) then
+                    table.insert(l_stage_id, stage_id)
+                    return
+                end
+            end
+        end
+    end
+
+    cclog('TableStageData:verifyTable()')
+
+    for stage_id, v in pairs(self.m_orgTable) do
+        -- 아군 버프
+        doTest(stage_id)
+
+        -- 적군 버프
+        doTest(stage_id, true)
+    end
+
+    table.sort(l_stage_id, function(a, b) return a < b end)
+
+    -- log
+    for _, stage_id in ipairs(l_stage_id) do
+        cclog('invalid buff data stage  : ' .. stage_id)
+    end
+end

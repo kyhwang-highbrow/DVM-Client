@@ -129,6 +129,7 @@ function SceneGameIntro:update(dt)
     
     local world = self.m_gameWorld
     local recorder = world.m_logRecorder
+    local mana = world:getMana()
     local boss = world.m_boss
     local idx = self.m_nIdx
 
@@ -155,15 +156,15 @@ function SceneGameIntro:update(dt)
         self:play_tutorialTalk()
 
         -- 마나 게이지 활성화 시키면서 회복속도를 조절
-        world.m_heroMana:setEnable(true)
-        world.m_heroMana.m_incValuePerSec = 1 / 8
+        mana:setEnable(true)
+        mana.m_incValuePerSec = 1 / 8
     end
 
     -- 세번째 웨이브 - 빙하고룡 스킬
-    if (idx == 4) and (world.m_heroMana:getCurrMana() > 1) then
+    if (idx == 4) and (world:getMana():getCurrMana() > 1) then
         -- 해당 드래곤의 액티브 스킬에 필요한 마나를 추가
         self.m_focusingDragon = world:getDragonList()[2]
-        world.m_heroMana:setCurrMana(self.m_focusingDragon:getSkillManaCost())
+        mana:setCurrMana(self.m_focusingDragon:getSkillManaCost())
 
         -- 빙하고룡의 얼음조각 최대로 스택시켜줌
         for i = 1, 5 do
@@ -178,7 +179,7 @@ function SceneGameIntro:update(dt)
         
         -- 해당 드래곤의 액티브 스킬에 필요한 마나를 추가
         self.m_focusingDragon = world:getDragonList()[1]
-        world.m_heroMana:setCurrMana(self.m_focusingDragon:getSkillManaCost())
+        mana:setCurrMana(self.m_focusingDragon:getSkillManaCost())
         
         self:play_tutorialTalk(false, true)
     end
@@ -201,7 +202,7 @@ function SceneGameIntro:update(dt)
         
         -- 해당 드래곤의 액티브 스킬에 필요한 마나를 추가
         self.m_focusingDragon = world:getDragonList()[3]
-        world.m_heroMana:setCurrMana(self.m_focusingDragon:getSkillManaCost())
+        mana:setCurrMana(self.m_focusingDragon:getSkillManaCost())
                 
         self:play_tutorialTalk(false, true)
     end
@@ -212,11 +213,11 @@ function SceneGameIntro:update(dt)
     end
 
     -- 세번째 웨이브 - 번개고룡 패시브 및 드래그
-	if (idx == 10) and (world.m_heroMana:getCurrMana() > 0.5) then
+	if (idx == 10) and (mana:getCurrMana() > 0.5) then
         
         -- 해당 드래곤의 액티브 스킬에 필요한 마나를 추가
         self.m_focusingDragon = world:getDragonList()[4]
-        world.m_heroMana:setCurrMana(self.m_focusingDragon:getSkillManaCost())
+        mana:setCurrMana(self.m_focusingDragon:getSkillManaCost())
 
         -- 번개고룡 스킬 사용 후 다크닉스 사망
         local activity_carrier = self.m_focusingDragon:makeAttackDamageInstance()

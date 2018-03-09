@@ -28,7 +28,7 @@ function MissileTarget.st_move(owner, dt)
 
     if owner.m_stateTimer == 0 then
         local dir = 0
-        local target = owner.m_world:findTarget(owner.m_owner:getAttackablePhysGroup(), owner.pos.x + owner.body.x, owner.pos.y + owner.body.y)
+        local target = owner.m_world:findTarget(owner.m_owner, owner.pos.x + owner.body.x, owner.pos.y + owner.body.y)
         
         if target then
             dir = getDegree(owner.pos.x + owner.body.x, owner.pos.y + owner.body.y, target.pos.x + target.body.x, target.pos.y + target.body.y)

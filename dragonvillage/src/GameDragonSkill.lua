@@ -625,8 +625,8 @@ function GameDragonSkill:doPlay(unit, skip)
             skip_mode = skip
         end
 
-        -- 클랜 던전의 경우 AI팀의 드래곤은 연출 강제 스킵
-        if (self.m_world.m_gameMode == GAME_MODE_CLAN_RAID) then
+        -- 더블 팀 모드의 경우 AI팀의 드래곤은 연출 강제 스킵
+        if (isInstanceOf(self.m_world, GameWorldForDoubleTeam)) then
             if (dragon:getPhysGroup() == self.m_world:getNPCGroup()) then
                 skip_mode = true
             end

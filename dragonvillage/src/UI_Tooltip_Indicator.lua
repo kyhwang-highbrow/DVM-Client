@@ -23,8 +23,8 @@ function UI_Tooltip_Indicator:init(world)
 
 	self:doActionReverse()
 
-    -- 클랜 던전의 경우 위치 조정
-    if (world.m_gameMode == GAME_MODE_CLAN_RAID) then
+    -- 더블 팀 모드의 경우 위치 조정
+    if (isInstanceOf(world, GameWorldForDoubleTeam)) then
         if (world:getPCGroup() == PHYS.HERO_TOP) then
             vars['bottomMenu']:setAnchorPoint(cc.p(0, 0))
             vars['bottomMenu']:setDockPoint(cc.p(0, 0))

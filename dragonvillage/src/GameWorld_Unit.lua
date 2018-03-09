@@ -146,9 +146,11 @@ function GameWorld:makeMonsterNew(monster_id, level)
         end
     end
 
-    -- 스테이지별 hp_ratio 적용.
-    local hp_ratio = TableStageData():getValue(self.m_stageID, 'hp_ratio') or 1
-    monster.m_statusCalc:appendHpRatio(hp_ratio)
+    -- 스테이지별 hp_ratio 적용(클랜 던전의 경우는 서버로부터 실제 체력값을 받음)
+    if (self.m_gameMode ~= GAME_MODE_CLAN_RAID) then
+        local hp_ratio = TableStageData():getValue(self.m_stageID, 'hp_ratio') or 1
+        monster.m_statusCalc:appendHpRatio(hp_ratio)
+    end
     
     monster:setStatusCalc(monster.m_statusCalc)
     self:dispatch('make_monster', {['monster']=monster})
@@ -182,8 +184,12 @@ function GameWorld:tryPatternMonster(t_monster, body)
 		monster = Monster_WorldOrderMachine(t_monster['res'], body)
     elseif (type == 'darknix') then
 		monster = Monster_DarkNix(t_monster['res'], body)
+    elseif (string.find(type, 'clanraid_boss')) then
+		monster = Monster_ClanRaidBoss(t_monster['res'], body)
     elseif (type == 'event_gmandragora') then
 		monster = Monster_GiantMandragora(t_monster['res'], body)
+    elseif (type == 'ancient_ruin_dragon') then
+		monster = Monster_AncientRuinDragon(t_monster['res'], body)
     elseif (script and not is_pattern_ignore) then
         monster = MonsterLua_Boss(t_monster['res'], body)
         monster:initAnimatorMonster(t_monster['res'], t_monster['attr'], nil, t_monster['size_type'])
@@ -224,8 +230,6 @@ function GameWorld:makeHeroDeck()
                 self:bindHero(hero)
                 self:addHero(hero)
 
-                self.m_leftFormationMgr:setChangePosCallback(hero)
-
                 -- 진형 버프 적용
                 hero.m_statusCalc:applyFormationBonus(formation, formation_lv, i)
 
@@ -235,7 +239,7 @@ function GameWorld:makeHeroDeck()
 
 				-- 리더 등록
 				if (i == leader) then
-					self.m_leaderDragon = hero
+                    self.m_mUnitGroup[PHYS.HERO]:setLeader(hero)
 				end
             end
         end
@@ -284,8 +288,6 @@ function GameWorld:joinFriendHero(posIdx)
     self:bindHero(self.m_friendDragon)
     self:addHero(self.m_friendDragon)
     
-    self.m_leftFormationMgr:setChangePosCallback(self.m_friendDragon)
-
     -- 진형 버프 적용
     self.m_friendDragon.m_statusCalc:applyFormationBonus(self.m_deckFormation, self.m_deckFormationLv, posIdx)
 
@@ -331,9 +333,7 @@ function GameWorld:passiveActivate_Left()
     end
     
 	-- 아군 리더 버프
-	if (self.m_leaderDragon) then
-		self.m_leaderDragon:doSkill_leader()
-	end
+    self.m_mUnitGroup[PHYS.HERO]:doSkill_leader()
 end
 
 -------------------------------------
@@ -351,13 +351,13 @@ end
 -- function bindHero
 -------------------------------------
 function GameWorld:bindHero(hero)
-    hero:addListener('dragon_active_skill', self.m_heroMana)
+    local group_key = hero:getPhysGroup()
+    self.m_mUnitGroup[group_key]:joinUnit(hero)
+
+    -- 이벤트
     hero:addListener('set_global_cool_time_passive', self.m_gameCoolTime)
     hero:addListener('set_global_cool_time_active', self.m_gameCoolTime)
-
-    -- 자동 AI를 위한 이벤트
-    hero:addListener('hero_active_skill', self.m_heroAuto)
-        
+    
     -- 월드에서 중계되는 이벤트
     hero:addListener('character_recovery', self)
     hero:addListener('character_set_hp', self)
@@ -380,6 +380,9 @@ function GameWorld:addHero(hero)
         table.remove(self.m_leftNonparticipants, idx)
     end
 
+    local group_key = hero:getPhysGroup()
+    self.m_mUnitGroup[group_key]:addSurvivor(hero)
+
     hero:setActive(true)
 end
 
@@ -387,8 +390,6 @@ end
 -- function removeHero
 -------------------------------------
 function GameWorld:removeHero(hero)
-    hero:setActive(false)
-
     local idx = table.find(self.m_leftParticipants, hero)
     if (idx) then
         table.remove(self.m_leftParticipants, idx)
@@ -404,22 +405,29 @@ function GameWorld:removeHero(hero)
             table.remove(self.m_leftNonparticipants, idx)
         end
     end
+
+    local group_key = hero:getPhysGroup()
+    local unit_group = self.m_mUnitGroup[group_key]
+    if (unit_group) then
+        unit_group:removeSurvivor(hero)
+    end
+
+    hero:setActive(false)
 end
 
 -------------------------------------
 -- function bindEnemy
 -------------------------------------
 function GameWorld:bindEnemy(enemy)
-    -- 등장 완료 콜백 등록
+    local group_key = enemy:getPhysGroup()
+    self.m_mUnitGroup[group_key]:joinUnit(enemy)
+
+    -- 이벤트
     enemy:addListener('enemy_appear_done', self.m_gameState)
 
     if (enemy.m_charType == 'dragon') then
-        enemy:addListener('dragon_active_skill', self.m_enemyMana)
-        
-        if (self.m_enemyAuto) then
-            -- 자동 AI를 위한 이벤트
-            enemy:addListener('enemy_active_skill', self.m_enemyAuto)
-        end
+        enemy:addListener('set_global_cool_time_passive', self.m_gameCoolTime)
+        enemy:addListener('set_global_cool_time_active', self.m_gameCoolTime)
     end
 
     -- 월드에서 중계되는 이벤트
@@ -460,6 +468,9 @@ function GameWorld:addEnemy(enemy)
         table.remove(self.m_rightNonparticipants, idx)
     end
 
+    local group_key = enemy:getPhysGroup()
+    self.m_mUnitGroup[group_key]:addSurvivor(enemy)
+
     enemy:setActive(true)
 end
 
@@ -467,8 +478,6 @@ end
 -- function removeEnemy
 -------------------------------------
 function GameWorld:removeEnemy(enemy)
-    enemy:setActive(false)
-
     local idx = table.find(self.m_rightParticipants, enemy)
     if (idx) then
         table.remove(self.m_rightParticipants, idx)
@@ -484,6 +493,11 @@ function GameWorld:removeEnemy(enemy)
             table.remove(self.m_rightNonparticipants, idx)
         end
     end
+
+    local group_key = enemy:getPhysGroup()
+    self.m_mUnitGroup[group_key]:removeSurvivor(enemy)
+
+    enemy:setActive(false)
 end
 
 -------------------------------------
@@ -491,7 +505,7 @@ end
 -- @brief
 -------------------------------------
 function GameWorld:removeAllHero()
-    for i,v in pairs(self:getDragonList()) do
+    for i,v in pairs(self.m_leftParticipants) do
         if (not v:isDead()) then
             v:changeState('dying')
 
@@ -499,6 +513,7 @@ function GameWorld:removeAllHero()
             effect:setScale(0.8)
         end
     end
+
     for i, v in pairs(self.m_leftNonparticipants) do
         -- GameWorld:updateUnit에서 삭제하도록 하기 위함
         v.m_bPossibleRevive = false
@@ -510,7 +525,7 @@ end
 -- @brief
 -------------------------------------
 function GameWorld:removeAllEnemy()
-    for i, v in pairs(self:getEnemyList()) do
+    for i, v in pairs(self.m_rightParticipants) do
 		--cclog('REMOVE ALL ' .. v:getName())
         if (not v:isDead()) then
             v:changeState('dying')
@@ -528,16 +543,50 @@ end
 -------------------------------------
 -- function getEnemyList
 -------------------------------------
-function GameWorld:getEnemyList()
-	return self.m_rightParticipants
+function GameWorld:getEnemyList(char)
+    if (char) then
+        -- char는 Character클래스가 아닐 수 있다
+        local group_key = char['phys_key']
+
+        return self.m_mUnitGroup[group_key]:getSurvivorList()
+    else
+        return self.m_rightParticipants
+    end
 end
 
 -------------------------------------
 -- function getDragonList
--- @brief 활성화된 드래곤 리스트 반환, 기획상 기준이 바뀔 가능성이 높기 때문에 함수로 관리
+-- @brief char가 소속된 그룹의 살아있는 아군 리스트를 반환
 -------------------------------------
-function GameWorld:getDragonList()
-	return self.m_leftParticipants
+function GameWorld:getDragonList(char)
+    if (char) then
+        -- char는 Character클래스가 아닐 수 있다
+        local group_key = char['phys_key']
+        return self.m_mUnitGroup[group_key]:getSurvivorList()
+    else
+        return self.m_leftParticipants
+    end
+end
+
+-------------------------------------
+-- function getUnitGroupConsideredTamer
+-- @brief unit에 대응하는 GameUnitGroup을 리턴(테이머의 경우는 조작중인 덱을 가져옴)
+-------------------------------------
+function GameWorld:getUnitGroupConsideredTamer(unit)
+    local group_key = unit:getPhysGroup()
+    local unit_group = self.m_mUnitGroup[group_key]
+
+    if (not unit_group) then
+        if (unit.m_bLeftFormation) then
+            group_key = self:getPCGroup()
+        else
+            group_key = self:getOpponentPCGroup()
+        end
+
+        unit_group = self.m_mUnitGroup[group_key]
+    end
+
+    return unit_group
 end
 
 -------------------------------------

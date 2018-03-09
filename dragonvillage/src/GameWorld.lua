@@ -39,10 +39,11 @@ GameWorld = class(IEventDispatcher:getCloneClass(), IEventListener:getCloneTable
 		m_lSpecailMissileList = 'table',
         
         -- unit
-        m_leftParticipants = 'table',       -- 전투에 참여중인 아군
-        m_rightParticipants = 'table',      -- 전투에 참여중인 적군(드래곤이라도 적 진형이라면 여기에 추가됨)
+        m_leftParticipants = 'table',     -- 전투에 참여중인 아군
+        m_rightParticipants = 'table',    -- 전투에 참여중인 적군(드래곤이라도 적 진형이라면 여기에 추가됨)
         m_leftNonparticipants = 'table',  -- 참여중인 아군 중 죽은 아군(부활 가능한 대상만)
         m_rightNonparticipants = 'table', -- 참여중인 적군 중 죽은 적군(부활 가능한 대상만)
+        m_mUnitGroup = 'table',           -- 유닛 그룹별 GameUnitGroup 맵
 		
         m_deckFormation = 'string',
         m_deckFormationLv = 'number',
@@ -56,9 +57,6 @@ GameWorld = class(IEventDispatcher:getCloneClass(), IEventListener:getCloneTable
         m_waveMgr = '',
 
         m_gameState = '',
-
-        m_heroAuto = '',        -- 아군 자동시 AI
-        m_enemyAuto = '',       -- 적군(드래곤) AI
         m_gameCoolTime = '',
         m_gameActiveSkillMgr = '',
         m_gameDragonSkill = '',
@@ -75,15 +73,7 @@ GameWorld = class(IEventDispatcher:getCloneClass(), IEventListener:getCloneTable
 
         -- callback
         m_lWorldScaleChangeCB = 'list',
-
-        -- mana
-        m_heroMana = 'GameMana',
-        m_enemyMana = 'GameMana',
-        
-        -- # GameWorld_Formation
-        m_leftFormationMgr = '',
-        m_rightFormationMgr = '',
-
+ 
         m_skillIndicatorMgr = 'SkillIndicatorMgr',
         m_enemyMovementMgr = 'EnemyMovementMgr',
 
@@ -110,9 +100,6 @@ GameWorld = class(IEventDispatcher:getCloneClass(), IEventListener:getCloneTable
 
         -- 출전 중인 드래곤 객체를 저장하는 용도 key : 출전 idx, value :Dragon
         m_myDragons = 'Dragons',
-
-		-- 덱의 리더 드래곤
-		m_leaderDragon = 'Dragon',
 
         m_bGameFinish = 'bool',
     })
@@ -201,6 +188,7 @@ function GameWorld:init(game_mode, stage_id, world_node, game_node1, game_node2,
     self.m_physWorld = PhysWorld(self.m_gameNode1, false)
     self.m_physWorld:initGroup()
 
+    self.m_mUnitGroup = {}
     self.m_leftParticipants = {}
     self.m_rightParticipants = {}
     self.m_leftNonparticipants = {}
@@ -246,19 +234,17 @@ function GameWorld:createComponents()
     self.m_gameCoolTime = GameCoolTime(self)
     self:addListener('set_global_cool_time_passive', self.m_gameCoolTime)
     self:addListener('set_global_cool_time_active', self.m_gameCoolTime)
-        
-    -- 마나 관리자 생성
-    self.m_heroMana = GameMana(self, PHYS.HERO)
-    self.m_heroMana:bindUI(self.m_inGameUI)
-    self.m_enemyMana = GameMana(self, PHYS.ENEMY)
 
-    -- 아군 자동시 AI
-    self.m_heroAuto = GameAuto_Hero(self, self.m_heroMana, self.m_inGameUI)
-    self:addListener('auto_start', self.m_heroAuto)
-    self:addListener('auto_end', self.m_heroAuto)
+    -- 유닛 그룹별 관리자 생성
+    self.m_mUnitGroup[PHYS.HERO] = GameUnitGroup(self, PHYS.HERO)
+    self.m_mUnitGroup[PHYS.HERO]:createMana(self.m_inGameUI)
+    self.m_mUnitGroup[PHYS.HERO]:createAuto(self.m_inGameUI)
+    self.m_mUnitGroup[PHYS.HERO]:setAttackbleGroupKeys({PHYS.ENEMY})
 
-    -- 적군(드래곤) AI
-    self.m_enemyAuto = GameAuto_Enemy(self, self.m_enemyMana)
+    self.m_mUnitGroup[PHYS.ENEMY] = GameUnitGroup(self, PHYS.ENEMY)
+    self.m_mUnitGroup[PHYS.ENEMY]:createMana()
+    self.m_mUnitGroup[PHYS.ENEMY]:createAuto()
+    self.m_mUnitGroup[PHYS.ENEMY]:setAttackbleGroupKeys({PHYS.HERO})
 
     -- 상태 관리자
     do
@@ -358,11 +344,7 @@ function GameWorld:initGame(stage_name)
 
     -- 월드 크기 설정
     self:changeWorldSize(1)
-        
-    -- 위치 표시 이펙트 생성
-    self:init_formation()
-
-
+    
     -- 테이머 생성
     self:initTamer()
 
@@ -376,7 +358,7 @@ function GameWorld:initGame(stage_name)
     self:initActiveSkillCool(self:getDragonList())
     
     -- 초기 마나 설정
-    self.m_heroMana:addMana(START_MANA)
+    self.m_mUnitGroup[PHYS.HERO]:getMana():addMana(START_MANA)
 
     do -- 진형 시스템 초기화
         self:setBattleZone(self.m_deckFormation, true)
@@ -853,20 +835,14 @@ end
 -------------------------------------
 -- function findTarget
 -------------------------------------
-function GameWorld:findTarget(group_key, x, y, l_remove)
-    local target
-    local unitList
+function GameWorld:findTarget(char, x, y, l_remove)
+    local unitList = self:getTargetList(char, x, y, 'enemy', nil, 'distance_line')
     local distance = nil
-
-    if (group_key == PHYS.ENEMY) then
-        unitList = self:getEnemyList()
-    else
-        unitList = self:getDragonList()
-    end
+    local target
 
     for i,v in pairs(unitList) do
-        if v:isDead() then
-        elseif l_remove and table.find(l_remove, v.phys_idx) then
+        if (v:isDead()) then
+        elseif (l_remove and table.find(l_remove, v.phys_idx)) then
         else
             local dist = getDistance(x, y, v.pos.x + v.body.x, v.pos.y + v.body.y)
             if (not distance) or (dist < distance) then
@@ -1197,48 +1173,51 @@ end
 -- function getTargetList
 -------------------------------------
 function GameWorld:getTargetList(char, x, y, team_type, formation_type, rule_type, t_data)
-    local bLeftFormation = char.m_bLeftFormation
-	local t_data = t_data or {}
+    local group_key = char:getPhysGroup()
+    local unit_group = self:getUnitGroupConsideredTamer(char)
+                
+    local t_data = t_data or {}
 
     t_data['self'] = char
     t_data['team_type'] = team_type
-        
+
     -- 팀 타입에 따른 델리게이트
-    local for_mgr_delegate = nil
-	
-	-- @TODO 임시 처리
-    if (team_type == 'self') then
-		if (bLeftFormation) then
-            for_mgr_delegate = FormationMgrDelegate(self.m_leftFormationMgr)
-        else
-            for_mgr_delegate = FormationMgrDelegate(self.m_rightFormationMgr)
-        end
+    local for_mgr_delegate = FormationMgrDelegate()
+    
+    if (isExistValue(team_type, 'self', 'teammate', 'ally')) then
+        local mgr = unit_group:getFormationMgr()
 
-    elseif (team_type == 'teammate') then
-        if (bLeftFormation) then
-            for_mgr_delegate = FormationMgrDelegate(self.m_leftFormationMgr)
-        else
-            for_mgr_delegate = FormationMgrDelegate(self.m_rightFormationMgr)
-        end
-
-    elseif (team_type == 'ally') then
-        if (bLeftFormation) then
-            for_mgr_delegate = FormationMgrDelegate(self.m_leftFormationMgr)
-        else
-            for_mgr_delegate = FormationMgrDelegate(self.m_rightFormationMgr)
-        end
+        for_mgr_delegate:addGlobalList(mgr.m_globalCharList)
+        for_mgr_delegate:addDiedList(mgr.m_diedCharList)
 
     elseif (team_type == 'enemy') then
-        if (bLeftFormation) then
-            for_mgr_delegate = FormationMgrDelegate(self.m_rightFormationMgr)
-        else
-            for_mgr_delegate = FormationMgrDelegate(self.m_leftFormationMgr)
+        for _, group_key in ipairs(unit_group:getAttackbleGroupKeys()) do
+            local mgr = self.m_mUnitGroup[group_key]:getFormationMgr()
+
+            for_mgr_delegate:addGlobalList(mgr.m_globalCharList)
+            for_mgr_delegate:addDiedList(mgr.m_diedCharList)
+        end
+
+        -- 만약 해당 그룹에 적이 하나도 없을 경우 모든 적을 대상으로 변경
+        if (for_mgr_delegate:isEmpty()) then
+            if (char.m_bLeftFormation) then
+                for_mgr_delegate:addGlobalList(self.m_rightParticipants)
+                for_mgr_delegate:addDiedList(self.m_rightNonparticipants)
+            else
+                for_mgr_delegate:addGlobalList(self.m_leftParticipants)
+                for_mgr_delegate:addDiedList(self.m_leftNonparticipants)
+            end
         end
 
     elseif (team_type == 'all') then
-        for_mgr_delegate = FormationMgrDelegate(self.m_leftFormationMgr, self.m_rightFormationMgr)
-	else
+        for_mgr_delegate:addGlobalList(self.m_leftParticipants)
+        for_mgr_delegate:addGlobalList(self.m_rightParticipants)
+        for_mgr_delegate:addDiedList(self.m_leftNonparticipants)
+        for_mgr_delegate:addDiedList(self.m_rightNonparticipants)
+
+    else
 		error('GameWorld:getTargetList 정의 되지 않은 team_type  : ' .. team_type)
+
     end
 
     return for_mgr_delegate:getTargetList(x, y, team_type, formation_type, rule_type, t_data)
@@ -1270,10 +1249,6 @@ function GameWorld:changeHeroHomePosByCamera(offsetX, offsetY, move_time, no_tam
 
     -- 아군 홈 위치를 카메라의 홈위치 기준으로 변경
     local l_temp = table.merge(self.m_leftParticipants, self.m_leftNonparticipants)
-
-    if (scale == 0.6) then
-        self.m_leftFormationMgr:setSplitPos(self.m_leftFormationMgr.m_rearStartX - 200, 122)
-    end
 
     for _, v in pairs(l_temp) do
         -- 변경된 카메라 위치에 맞게 홈 위치 변경 및 이동
@@ -1513,33 +1488,27 @@ end
 -- function prepareAuto
 -------------------------------------
 function GameWorld:prepareAuto()
-    if (self.m_heroAuto) then
-        self.m_heroAuto:prepare(self:getDragonList())
+    self.m_mUnitGroup[PHYS.HERO]:prepareAuto()
+end
+
+-------------------------------------
+-- function prepareEnemyAuto
+-------------------------------------
+function GameWorld:prepareEnemyAuto()
+    local group_key = self:getOpponentPCGroup()
+    
+    local auto = self.m_mUnitGroup[group_key]:getAuto()
+    if (auto) then
+        auto:prepare(self:getEnemyList())
     end
 end
 
 -------------------------------------
--- function updateAuto
+-- function updateUnitGroupMgr
 -------------------------------------
-function GameWorld:updateAuto(dt)
-    if (self.m_heroAuto) then
-        self.m_heroAuto:update(dt)
-    end
-
-    if (self.m_enemyAuto) then
-        self.m_enemyAuto:update(dt)
-    end
-end
-
--------------------------------------
--- function updateMana
--------------------------------------
-function GameWorld:updateMana(dt)
-    if (self.m_heroMana) then
-        self.m_heroMana:update(dt)
-    end
-    if (self.m_enemyMana) then
-        self.m_enemyMana:update(dt)
+function GameWorld:updateUnitGroupMgr(dt)
+    for _, v in pairs(self.m_mUnitGroup) do
+        v:update(dt)
     end
 end
 
@@ -1549,11 +1518,7 @@ end
 function GameWorld:getMana(char)
     local group_key = char and char:getPhysGroup() or self:getPCGroup()
 
-    if (group_key == self:getPCGroup()) then
-        return self.m_heroMana
-    else
-        return self.m_enemyMana
-    end
+    return self.m_mUnitGroup[group_key]:getMana()
 end
 
 -------------------------------------
@@ -1572,6 +1537,25 @@ function GameWorld:getManaAccelValue(char)
     local game_mana = self:getMana(char)
 
     return game_mana.m_accelValue
+end
+
+-------------------------------------
+-- function resetEnemyMana
+-------------------------------------
+function GameWorld:resetEnemyMana()
+    local mana = self.m_mUnitGroup[PHYS.ENEMY]:getMana()
+    if (mana) then
+        mana:resetMana()
+    end
+end
+
+-------------------------------------
+-- function getAuto
+-------------------------------------
+function GameWorld:getAuto(char)
+    local group_key = char and char:getPhysGroup() or self:getPCGroup()
+
+    return self.m_mUnitGroup[group_key]:getAuto()
 end
 
 -------------------------------------
@@ -1600,7 +1584,7 @@ end
 -- function isAutoPlay
 -------------------------------------
 function GameWorld:isAutoPlay()
-    return self.m_heroAuto:isActive()
+    return self:getAuto():isActive()
 end
 
 -------------------------------------
@@ -1616,4 +1600,26 @@ end
 -------------------------------------
 function GameWorld:getPCGroup()
     return PHYS.HERO
+end
+
+-------------------------------------
+-- function getOpponentPCGroup
+-- @brief 조작할 수 있는 그룹의 상대편 그룹(키값)을 리턴
+-------------------------------------
+function GameWorld:getOpponentPCGroup()
+    return PHYS.ENEMY
+end
+
+-------------------------------------
+-- function getHeroGroups
+-------------------------------------
+function GameWorld:getHeroGroups()
+    return { PHYS.HERO }
+end
+
+-------------------------------------
+-- function getEnemyGroups
+-------------------------------------
+function GameWorld:getEnemyGroups()
+    return { PHYS.ENEMY }
 end

@@ -6,6 +6,8 @@ DV_SCENE_ACTIVE = false
 SceneDV = class(PerpleScene, {
 		m_lSpineAni = {},
 		m_gridNode = 'nodeGrid',
+
+        m_richLabel = '',
     })
 
 -------------------------------------
@@ -25,7 +27,7 @@ function SceneDV:onEnter()
     PerpleScene.onEnter(self)
     g_currScene:addKeyKeyListener(self)
     
-	self:scenarioTest()
+	--self:scenarioTest()
 end
 
 -------------------------------------
@@ -36,6 +38,7 @@ function SceneDV:glCallsTest()
         local drawnBatches = cc.Director:getInstance():getDrawnBatches()
         cclog('drawnBatches : ' .. drawnBatches)
     end
+    cclog('scheduleUpdateWithPriorityLua : glCallsTest')
     self.m_scene:scheduleUpdateWithPriorityLua(update, 0)
 end
 
@@ -43,6 +46,7 @@ end
 -- function doUpdate
 -------------------------------------
 function SceneDV:doUpdate()
+    cclog('scheduleUpdateWithPriorityLua : doUpdate')
 	self.m_scene:scheduleUpdateWithPriorityLua(function(dt) self:update(dt) end, 0)
 	cc.Director:getInstance():setDisplayStats(true)
 end
@@ -176,11 +180,21 @@ end
 -- function onKeyReleased
 -------------------------------------
 function SceneDV:onKeyReleased(keyCode, event)
-	if keyCode == KEY_A then
-        --local json_name = 'res/character/dragon/godaeshinryong_light_03/godaeshinryong_light_03.json'
-        local json_name = 'res/character/dragon/orpheusdragon_earth_03/orpheusdragon_earth_03.json'
-        self:setAni(json_name, 400, 350)
-		self:setMonsterDragon(json_name, 900, 350)
+    if keyCode == KEY_A then
+        if (not self.m_richLabel) then
+            self.m_richLabel = self:richLabelTest()
+            self.m_gridNode:addChild(self.m_richLabel)
+
+            --local action = cc.Sequence:create(cc.DelayTime:create(5), cc.RemoveSelf:create())
+            --self.m_richLabel:runAction(action)
+        end
+                
+	elseif keyCode == KEY_D then
+        self.m_gridNode:removeAllChildren()
+
+        self.m_richLabel = nil
+
+        --SceneDV():runScene()
 
     elseif keyCode == KEY_Z then
         local duration = 1
@@ -192,12 +206,6 @@ function SceneDV:onKeyReleased(keyCode, event)
 
     elseif keyCode == KEY_C then
         self.m_gridNode:stopAllActions()
-
-	elseif keyCode == KEY_S then
-		local rand_x = math_random(100, 900)
-		local rand_y = math_random(200, 600)
-		local res_name = 'res/effect/skill_thunder_cloud/skill_thunder_cloud_fire.vrp'
-		self:setAni(res_name, rand_x, rand_y)
 
 	elseif keyCode == KEY_Q then
 		self:shaderTest_sample()
@@ -212,73 +220,6 @@ function SceneDV:onKeyReleased(keyCode, event)
 			v:release()
 		end
 		self.m_lSpineAni = {}
-
-    elseif keyCode == KEY_1 then
-		local animator = MakeAnimator('res/character/monster/boss_gdragon_fire/boss_gdragon_head_fire.json')
-        animator:setPosition(200, 200)
-		self.m_scene:addChild(animator.m_node)
-
-        animator:changeAni('casting', true)
-
-        local shader = ShaderCache:getShader(SHADER_DARK)
-        animator.m_node:setGLProgram(shader)
-
-        local slotList = animator:getSlotList()
-        cclog('slotList = ' .. luadump(slotList))
-        
-        for i, slotName in ipairs(slotList) do
-            if startsWith(slotName, 'effect_') then
-                animator.m_node:setSlotGLProgramName(slotName, cc.SHADER_POSITION_TEXTURE_COLOR)
-            end
-        end
-
-    elseif keyCode == KEY_2 then
-		local animator = MakeAnimator('res/character/monster/boss_drake_water/boss_drake_water.json')
-        animator:setPosition(400, 200)
-		self.m_scene:addChild(animator.m_node)
-
-        animator:changeAni('skill_3', true)
-
-        local shader = ShaderCache:getShader(SHADER_CHARACTER_DAMAGED)
-        animator.m_node:setGLProgram(shader)
-
-        for i = 1, 11 do
-            animator.m_node:setSlotGLProgramName(string.format('boss_drake_water_effect_%02d', i), cc.SHADER_POSITION_TEXTURE_COLOR)
-        end
-        animator.m_node:setSlotGLProgramName('boss_drake_water_effect_9', cc.SHADER_POSITION_TEXTURE_COLOR)
-
-    elseif keyCode == KEY_3 then
-		local animator = MakeAnimator('res/character/monster/boss_spider_queen_fire/boss_spider_queen_fire.json')
-        animator:setPosition(400, 200)
-		self.m_scene:addChild(animator.m_node)
-
-        animator:changeAni('idle', true)
-
-        local shader = ShaderCache:getShader(SHADER_CHARACTER_DAMAGED)
-        animator.m_node:setGLProgram(shader)
-
-        animator.m_node:setSlotGLProgramName('effect_01', cc.SHADER_POSITION_TEXTURE_COLOR)
-
-        local slotList = animator:getSlotList()
-        --cclog('slotList = ' .. luadump(slotList))
-
-    elseif keyCode == KEY_4 then
-        do
-            local res_name = 'res/bg/ocean2/ocean2.vrp'
-            local animator = MakeAnimator(res_name)
-            animator:setPosition(0, 0)
-            animator:setScale(0.8)
-            animator:changeAni('layer_1_b', true)
-		    self.m_scene:addChild(animator.m_node, 0)
-        end
-        do
-            local res_name = 'res/bg/ocean2/ocean2.vrp'
-            local animator = MakeAnimator(res_name)
-            animator:setPosition(700, 800)
-            animator:setScale(0.8)
-            animator:changeAni('layer_3_a', true)
-		    self.m_gridNode:addChild(animator.m_node)
-        end
         
     elseif (keyCode == KEY_UP_ARROW) then
         self:setTimeScale(10)
@@ -618,29 +559,43 @@ end
 -- function richLabelTest
 -------------------------------------
 function SceneDV:richLabelTest()
-    -- 글자가 잘보이게 프레임배경 생성
-    local bubble = cc.Scale9Sprite:create('res/ui/frames/adventure_map_reward_0101.png')
-    bubble:setDockPoint(CENTER_POINT)
-    bubble:setAnchorPoint(CENTER_POINT)
-    bubble:setContentSize(500, 300)
-    bubble:setPosition(0, 0)
-    self.m_scene:addChild(bubble)
-
+    cclog('richLabelTest')
     local str = '{@BLACK}15초마다 생명력이 가장 낮은 아군 2명{@RED}에게 공격력의 {@MUSTARD}200%{@BLACK} 만큼 생명력 회복'
-    
-    -- rich 생성 
-    local rich_label = UIC_RichLabel()
+
+    -- 베이스 노드
+	local node = cc.Node:create()
+	node:setDockPoint(CENTER_POINT)
+	node:setAnchorPoint(CENTER_POINT)
+
+	-- 말풍선 프레임
+	local frame = cc.Scale9Sprite:create('res/ui/frames/master_road_navi_0101.png')
+	frame:setDockPoint(CENTER_POINT)
+	frame:setAnchorPoint(CENTER_POINT)
+
+	-- 텍스트 (rich_label)
+	local rich_label = UIC_RichLabel()
     rich_label:setString(str)
-    rich_label:setFontSize(20)
-    rich_label:setDimension(284, 154)
-    rich_label:setPosition(0, 0)
-    rich_label:setDockPoint(CENTER_POINT)
-    rich_label:setAnchorPoint(CENTER_POINT)
+    rich_label:setFontSize(24)
+    rich_label:setDimension(500, 70)
     rich_label:setAlignment(cc.TEXT_ALIGNMENT_CENTER, cc.VERTICAL_TEXT_ALIGNMENT_CENTER)
-    self.m_scene:addChild(rich_label.m_node)
-    
-    -- rich label 영역 그리기
-    rich_label:initGLNode()
+	rich_label:setDockPoint(CENTER_POINT)
+    rich_label:setAnchorPoint(CENTER_POINT)
+	--rich_label:setPosition(0, 10)
+    rich_label:setPosition(640, 300)
+
+	-- label 사이즈로 프레임 조정
+	local width = math_max(226, rich_label:getStringWidth() + 50)
+	local size = frame:getContentSize()
+	frame:setNormalSize(width, size['height'])
+
+	-- addChild
+    node:addChild(frame)
+	frame:addChild(rich_label.m_node)
+
+	-- fade out을 위해 설정
+	doAllChildren(node, function(node) node:setCascadeOpacityEnabled(true) end)
+
+    return node
 end
 
 -------------------------------------

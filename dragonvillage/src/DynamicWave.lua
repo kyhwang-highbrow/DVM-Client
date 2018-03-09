@@ -65,7 +65,8 @@ function DynamicWave:init(wave_mgr, data, delay)
     self.m_luaValue1 = l_str[4]
     self.m_luaValue2 = l_str[5]
     self.m_luaValue3 = l_str[6]
-    self.m_movement = l_str[7]
+    self.m_movement = SkillHelper:getValid(l_str[7], nil)
+    self.m_physGroup = SkillHelper:getValid(l_str[8], nil)
     
     self.m_lScheduledSpawn = {}
     self.m_lScheduledSpawn[1] = tonumber(delay)
@@ -76,13 +77,6 @@ end
 -------------------------------------
 function DynamicWave:setRegenInfo(table)
 	self.m_regenInfo = table
-end
-
--------------------------------------
--- function setPhysGroup
--------------------------------------
-function DynamicWave:setPhysGroup(physGroup)
-	self.m_physGroup = physGroup
 end
 
 -------------------------------------

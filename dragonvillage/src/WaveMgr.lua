@@ -229,8 +229,7 @@ function WaveMgr:setDynamicWave(l_wave, l_data, t_param)
 
     local t_param = t_param or {}
     local regen_group_key = t_param['regen_group_key']
-    local phys_group_key = t_param['phys_group_key']
-    
+        
     local obj_key = 1
 
 	for time, v in pairs(l_data) do
@@ -248,20 +247,12 @@ function WaveMgr:setDynamicWave(l_wave, l_data, t_param)
 
                 local struct_group = self.m_mRegenGroup[regen_group_key]
                 struct_group:setObjInfo(obj_key, true)
-
-                -- regen 정보에 phys group 정보가 있다면 가져옴
-                phys_group_key = struct_group.m_physGroup
-
+                
                 -- 등장 연출로 이동하지 않도록 임시 처리
                 dynamic_wave.m_luaValue1 = dynamic_wave.m_luaValue2
                 dynamic_wave.m_luaValue3 = 1
 			end
 
-            if (phys_group_key) then
-                -- 해당 wave가 추가될 phys group을 저장
-                dynamic_wave:setPhysGroup(phys_group_key)
-            end
-			
 			table.insert(l_wave, dynamic_wave)
             
             -- 해당 웨이브에서 가장 높은 Rarity를 저장
@@ -436,7 +427,7 @@ end
 -------------------------------------
 function WaveMgr:spawnEnemy_dynamic(enemy_id, level, appear_type, value1, value2, value3, movement, phys_group)
     local rarity = self:getRarity(enemy_id, level)
-    local isBoss = (rarity == self.m_highestRarity and self.m_currWave == self.m_maxWave)
+    local isBoss = (rarity == self.m_highestRarity and self:isFinalWave())
     local enemy
     local phys_group = phys_group or PHYS.ENEMY
 
@@ -452,6 +443,8 @@ function WaveMgr:spawnEnemy_dynamic(enemy_id, level, appear_type, value1, value2
     else
         enemy = self.m_world:makeMonsterNew(enemy_id, level)
     end
+
+    local z_order = enemy:getZOrder()
     
     if (isBoss) then
         enemy.m_isBoss = true
@@ -466,17 +459,15 @@ function WaveMgr:spawnEnemy_dynamic(enemy_id, level, appear_type, value1, value2
         enemy.m_statusCalc:appendHpRatio(boss_hp_ratio)
         enemy:setStatusCalc(enemy.m_statusCalc)
 
-        self.m_world.m_worldNode:addChild(enemy.m_rootNode, WORLD_Z_ORDER.BOSS)
+        self.m_world.m_worldNode:addChild(enemy.m_rootNode, z_order)
     else
-        self.m_world.m_worldNode:addChild(enemy.m_rootNode, WORLD_Z_ORDER.ENEMY)
+        self.m_world.m_worldNode:addChild(enemy.m_rootNode, z_order)
     end
     
     self.m_world.m_physWorld:addObject(phys_group, enemy)
     self.m_world:bindEnemy(enemy)
     self.m_world:addEnemy(enemy)
-
-	self.m_world.m_rightFormationMgr:setChangePosCallback(enemy)
-
+    
 	-- 등장 움직임 설정
     if (EnemyAppear[appear_type]) then
         EnemyAppear[appear_type](enemy, value1, value2, value3)

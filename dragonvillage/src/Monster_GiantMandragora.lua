@@ -57,9 +57,7 @@ function Monster_GiantMandragora.st_dying(owner, dt)
         -- »ç¸Á Ã³¸® ½Ã StateDelegate Kill!
         owner:killStateDelegate()
 
-        if (owner.m_cbDead) then
-            owner.m_cbDead(owner)
-        end
+        owner:dispatch('character_dying', {}, owner)
 
         SoundMgr:playEffect('EFX', 'efx_midboss_die')
 

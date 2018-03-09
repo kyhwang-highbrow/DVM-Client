@@ -579,14 +579,14 @@ function UI_Game:setAutoMode(b)
     if (b) then
         UIManager:toastNotificationGreen(Str('자동전투 활성화'))
 
-        world.m_heroAuto:onStart() 
+        world:getAuto():onStart() 
 
         g_autoPlaySetting:setWithoutSaving('auto_mode', true)
 
     else
         UIManager:toastNotificationGreen(Str('자동전투 비활성화'))
 
-        world.m_heroAuto:onEnd()
+        world:getAuto():onEnd()
 
         g_autoPlaySetting:setWithoutSaving('auto_mode', false)
     end

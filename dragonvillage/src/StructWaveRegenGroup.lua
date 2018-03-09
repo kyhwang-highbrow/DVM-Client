@@ -9,8 +9,6 @@ StructWaveRegenGroup = class({
 
         m_interval = 'table',       -- 리젠 주기
         m_timer = 'table',          -- 리젠 시간
-
-        m_physGroup = 'string',
     })
 
 -------------------------------------
@@ -22,8 +20,6 @@ function StructWaveRegenGroup:init(key, data, interval, phys_group)
     self.m_mObjMap = nil
 
     self.m_timer = 0
-
-    self.m_physGroup = phys_group
 
     self:setInterval(interval)
 end

@@ -353,11 +353,8 @@ function GameState.update_fight(self, dt)
         world.m_waveMgr:update(dt)
     end
         
-    -- 자동
-    world:updateAuto(dt)
-
-    -- 마나
-    world:updateMana(dt)
+    -- 자동AI 및 마나
+    world:updateUnitGroupMgr(dt)
 
     if (world.m_enemyMovementMgr) then
         world.m_enemyMovementMgr:update(dt)
@@ -582,10 +579,8 @@ function GameState.update_enemy_appear(self, dt)
         end
 
         -- 적 AI 초기화
-        if (world.m_enemyAuto) then
-            world.m_enemyAuto:prepare(world:getEnemyList())
-        end
-
+        world:prepareEnemyAuto()
+        
         self:changeState(GAME_STATE_FIGHT_WAIT)
     end
     
@@ -1074,10 +1069,8 @@ function GameState:waveChange()
     end
 
     -- 적 마나 초기화
-    if (world.m_enemyMana) then
-        world.m_enemyMana:resetMana()
-    end
-
+    world:resetEnemyMana()
+    
     -- 다음 웨이브 생성
     world.m_waveMgr:newScenario()
 

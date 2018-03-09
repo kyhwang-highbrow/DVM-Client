@@ -575,8 +575,8 @@ end
 -------------------------------------
 function PhysWorld:initGroup()
     -- 왼쪽이 방어자, 오른쪽이 공격자
-    self:addGroup(PHYS.HERO, {PHYS.MISSILE.ENEMY}, {0, 255, 0, 127})
-    self:addGroup(PHYS.ENEMY, {PHYS.MISSILE.HERO}, {0, 255, 200, 127})
+    self:addGroup(PHYS.HERO, {PHYS.MISSILE.ENEMY, PHYS.MISSILE.ENEMY_TOP, PHYS.MISSILE.ENEMY_BOTTOM}, {0, 255, 0, 127})
+    self:addGroup(PHYS.ENEMY, {PHYS.MISSILE.HERO, PHYS.MISSILE.HERO_TOP, PHYS.MISSILE.HERO_BOTTOM}, {0, 255, 200, 127})
     
     self:addGroup(PHYS.MISSILE.HERO, {}, {255, 0, 0, 127})
     self:addGroup(PHYS.MISSILE.ENEMY, {}, {255, 0, 200, 127})    
@@ -585,7 +585,7 @@ function PhysWorld:initGroup()
     
     self:addGroup(PHYS.TAMER, {}, {255, 255, 0, 127})
 
-    -- 레이드
+    -- 더블팀 모드일 경우 사용되는 그룹
     self:addGroup(PHYS.HERO_TOP, {PHYS.MISSILE.ENEMY, PHYS.MISSILE.ENEMY_TOP}, {0, 255, 0, 127})
     self:addGroup(PHYS.HERO_BOTTOM, {PHYS.MISSILE.ENEMY, PHYS.MISSILE.ENEMY_BOTTOM}, {0, 255, 0, 127})
     self:addGroup(PHYS.ENEMY_TOP, {PHYS.MISSILE.HERO, PHYS.MISSILE.HERO_TOP}, {0, 255, 200, 127})

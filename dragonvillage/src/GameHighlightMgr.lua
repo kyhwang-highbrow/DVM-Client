@@ -48,8 +48,8 @@ function GameHighlightMgr:update(dt)
         bPass = true
         darkLevel = math_max(darkLevel, g_constant:get('INGAME', 'HIGHLIGHT_LEVEL_FOR_INDICATOR') or 200)
 
-        -- 클랜 던전의 경우 암전을 약하게 처리
-        if (world.m_gameMode == GAME_MODE_CLAN_RAID) then
+        -- 더블 팀 모드의 경우 암전을 약하게 처리
+        if (isInstanceOf(world, GameWorldForDoubleTeam)) then
             darkLevel = darkLevel / 2
         end
 

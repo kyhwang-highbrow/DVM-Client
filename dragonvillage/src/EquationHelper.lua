@@ -201,6 +201,7 @@ function EquationHelper:setEquationParamOnMapForSkill(target_map, skill_entity)
         target_map[EV_BOSS_RARITY] = world.m_waveMgr.m_highestRarity
     end
 
+    -- TODO: 스킬 보유자 그룹 기준으로 설정되어야함
     if (skill_entity.m_owner.m_bLeftFormation) then
         target_map[EV_DIED_ALLY_COUNT] = #world.m_leftNonparticipants
     else

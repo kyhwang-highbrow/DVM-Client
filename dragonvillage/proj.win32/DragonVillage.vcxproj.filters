@@ -1080,9 +1080,6 @@
     <None Include="..\src\GameWorld.lua">
       <Filter>lua\src</Filter>
     </None>
-    <None Include="..\src\GameWorld_Formation.lua">
-      <Filter>lua\src</Filter>
-    </None>
     <None Include="..\src\GameWorld_Gold.lua">
       <Filter>lua\src</Filter>
     </None>
@@ -1447,9 +1444,6 @@
       <Filter>lua\src</Filter>
     </None>
     <None Include="..\src\SkillCharge.lua">
-      <Filter>lua\src</Filter>
-    </None>
-    <None Include="..\src\SkillConditionalAddEffect.lua">
       <Filter>lua\src</Filter>
     </None>
     <None Include="..\src\SkillCounterAttack.lua">
@@ -2949,9 +2943,6 @@
     <None Include="..\src\GameState_ClanRaid.lua">
       <Filter>lua\src</Filter>
     </None>
-    <None Include="..\src\GameWorldClanRaid_Unit.lua">
-      <Filter>lua\src</Filter>
-    </None>
     <None Include="..\src\WaveMgr_ClanRaid.lua">
       <Filter>lua\src</Filter>
     </None>
@@ -3267,6 +3258,18 @@
     </None>
     <None Include="..\src\UI_ShopDaily.lua">
       <Filter>lua\UI</Filter>
+    </None>
+    <None Include="..\src\Monster_AncientRuinDragon.lua">
+      <Filter>lua\src</Filter>
+    </None>
+    <None Include="..\src\GameWorldForDoubleTeam.lua">
+      <Filter>lua\src</Filter>
+    </None>
+    <None Include="..\src\GameWorldForDoubleTeam_Unit.lua">
+      <Filter>lua\src</Filter>
+    </None>
+    <None Include="..\src\GameUnitGroup.lua">
+      <Filter>lua\src</Filter>
     </None>
   </ItemGroup>
   <ItemGroup>

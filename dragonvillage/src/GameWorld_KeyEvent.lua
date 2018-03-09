@@ -50,7 +50,7 @@ MAP_KEY_FUNC[KEY_UP_ARROW] = 'camera_move_up'
 MAP_KEY_FUNC[KEY_DOWN_ARROW] = 'camera_move_down'
 ]]--
 MAP_KEY_FUNC[KEY_LEFT_ARROW] = 'kill_one_dragon'
-MAP_KEY_FUNC[KEY_RIGHT_ARROW] = 'background_test'
+MAP_KEY_FUNC[KEY_RIGHT_ARROW] = 'print_skill_info'
 
 -- 테스트
 MAP_KEY_FUNC[KEY_5] = 'pause_dragon_1'
@@ -94,9 +94,10 @@ function GameWorld:skill_charge()
         self.m_tamer:resetActiveSkillCool()
     end
 
-    -- 마나
-    if (self.m_heroMana) then
-        self.m_heroMana:addMana(10)
+    -- 마나(조작 중인 팀의 마나)
+    local mana = self:getMana()
+    if (mana) then
+        mana:addMana(10)
     end
 
     -- 쿨타임
@@ -181,7 +182,8 @@ end
 -- @brief 적군의 상태, 버프, 디버프 및 패시브 적용 확인
 -------------------------------------
 function GameWorld:visible_ingame_ui()
-    self.m_inGameUI.root:runAction(cc.ToggleVisibility:create())
+    --self.m_inGameUI.root:runAction(cc.ToggleVisibility:create())
+    self.m_unitStatusNode:setVisible(not self.m_unitStatusNode:isVisible())
 end
 
 -------------------------------------
@@ -193,7 +195,17 @@ function GameWorld:se_on_dragon()
     local enemy_list = self:getEnemyList()
 
     --StatusEffectHelper:doStatusEffect(dragon_list[1], { dragon_list[1] }, 'stun', 'target', 1, 5, 100, 100)
-    StatusEffectHelper:doStatusEffect(dragon_list[1], dragon_list, 'barrier_protection_time', 'ally_all', 10, 9999, 100, 100)
+    --StatusEffectHelper:doStatusEffect(dragon_list[1], dragon_list, 'barrier_protection_time', 'ally_all', 10, 9999, 100, 100)
+    --StatusEffectHelper:doStatusEffect(dragon_list[1], dragon_list, 'accel_mana', 'ally_all', 5, 9999, 100, 100)
+
+    local temp = { 'atk_up', 'aspd_up', 'cri_chance_up', 'def_up', 'cri_avoid_up', 'avoid_up',  'hit_rate_up', 'hp_drain' }
+
+    for i, v in ipairs(temp) do
+        StatusEffectHelper:doStatusEffect(dragon_list[1], dragon_list, v, 'ally_all', 5, 10, 100, 100)
+        StatusEffectHelper:doStatusEffect(dragon_list[1], dragon_list, v, 'ally_all', 5, 10, 100, 100)
+        StatusEffectHelper:doStatusEffect(enemy_list[1], enemy_list, v, 'ally_all', 5, 10, 100, 100)
+        StatusEffectHelper:doStatusEffect(enemy_list[1], enemy_list, v, 'ally_all', 5, 10, 100, 100)
+    end
 end
 
 -------------------------------------
@@ -202,7 +214,7 @@ end
 -------------------------------------
 function GameWorld:se_on_monster()
     for i,v in ipairs(self:getEnemyList()) do
-        StatusEffectHelper:doStatusEffect(v, { v }, 'silence', 'target', 1, 99999, 100, 100)
+        StatusEffectHelper:doStatusEffect(v, { v }, 'stun', 'target', 5, 5, 100, 100)
     end
 end
 
@@ -299,10 +311,11 @@ end
 -- @brief 
 -------------------------------------
 function GameWorld:pause_on_off_auto()
-    if (self.m_heroAuto:isActive()) then
-        self.m_heroAuto:onEnd()
+    local auto = self:getAuto()
+    if (auto:isActive()) then
+        auto:onEnd()
     else
-        self.m_heroAuto:onStart()
+        auto:onStart()
     end
 end
 
@@ -493,12 +506,12 @@ end
 -- @brief 아군들의 보유 스킬 정보를 로그로 표시
 -------------------------------------
 function GameWorld:print_skill_info()
-    if (self.m_tamer) then
-        self.m_tamer:printSkillInfo()
-    end
-
     for i, hero in ipairs(self:getDragonList()) do
         hero:printSkillInfo()
+    end
+    
+    for i, enemy in ipairs(self:getEnemyList()) do
+        enemy:printSkillInfo()
     end
 end
 
@@ -513,7 +526,6 @@ end
 -- function auto_info
 -------------------------------------
 function GameWorld:auto_info()
-    --self.m_enemyAuto:printInfo()
     self.m_shakeMgr:doShake(500, 500, 1)
 end
 

@@ -6,7 +6,6 @@ local PARENT = GameWorld
 GameWorldColosseum = class(PARENT, {
         m_enemyTamer = '',
 
-        m_leaderEnemy = '',
 		m_lEnemyDragons = '',
         m_bFriendMatch = 'boolean',
         m_enemyDeckFormation = 'string',
@@ -53,9 +52,6 @@ function GameWorldColosseum:initGame(stage_name)
 
     -- 월드 크기 설정
     self:changeWorldSize(1)
-        
-    -- 위치 표시 이펙트 생성
-    self:init_formation()
 
 	-- Game Log Recorder 생성
 	self.m_logRecorder = LogRecorderWorld(self)
@@ -74,8 +70,8 @@ function GameWorldColosseum:initGame(stage_name)
     self:initActiveSkillCool(self:getEnemyList())
 
     -- 초기 마나 설정
-    self.m_heroMana:addMana(START_MANA)
-    self.m_enemyMana:addMana(START_MANA)
+    self.m_mUnitGroup[PHYS.HERO]:getMana():addMana(START_MANA)
+    self.m_mUnitGroup[PHYS.ENEMY]:getMana():addMana(START_MANA)
 
     -- 진형 시스템 초기화
     self:setBattleZone(self.m_deckFormation, true)
@@ -189,28 +185,7 @@ function GameWorldColosseum:passiveActivate_Right()
     end
 
     -- 적 리더 버프
-	if (self.m_leaderEnemy) then
-        self.m_leaderEnemy:doSkill_leader()
-	end
-end
-
--------------------------------------
--- function bindEnemy
--------------------------------------
-function GameWorldColosseum:bindEnemy(enemy)
-    enemy:addListener('dragon_active_skill', self.m_gameDragonSkill)
-    enemy:addListener('dragon_active_skill', self.m_enemyMana)
-    enemy:addListener('set_global_cool_time_passive', self.m_gameCoolTime)
-    enemy:addListener('set_global_cool_time_active', self.m_gameCoolTime)
-
-    -- 자동 AI를 위한 이벤트
-    enemy:addListener('enemy_active_skill', self.m_enemyAuto)
-    
-    -- 월드에서 중계되는 이벤트
-    enemy:addListener('character_recovery', self)
-    enemy:addListener('character_dead', self)
-    enemy:addListener('character_set_hp', self)
-    enemy:addListener('get_status_effect', self)
+    self.m_mUnitGroup[PHYS.ENEMY]:doSkill_leader()
 end
 
 -------------------------------------
@@ -316,8 +291,8 @@ end
 -- function prepareAuto
 -------------------------------------
 function GameWorldColosseum:prepareAuto()
-    self.m_heroAuto:prepare(self:getDragonList())
-    self.m_enemyAuto:prepare(self:getEnemyList())
+    self.m_mUnitGroup[PHYS.HERO]:prepareAuto()
+    self.m_mUnitGroup[PHYS.ENEMY]:prepareAuto()
 end
 
 -------------------------------------
@@ -355,8 +330,6 @@ function GameWorldColosseum:makeHeroDeck()
                 self:bindHero(hero)
                 self:addHero(hero)
 
-                self.m_leftFormationMgr:setChangePosCallback(hero)
-
                 -- 진형 버프 적용
                 hero.m_statusCalc:applyFormationBonus(formation, formation_lv, i)
 
@@ -366,7 +339,7 @@ function GameWorldColosseum:makeHeroDeck()
 
 				-- 리더 등록
 				if (i == leader) then
-					self.m_leaderDragon = hero
+					self.m_mUnitGroup[PHYS.HERO]:setLeader(hero)
 				end
             end
         end
@@ -422,8 +395,6 @@ function GameWorldColosseum:makeEnemyDeck()
                 self:bindEnemy(enemy)
                 self:addEnemy(enemy, tonumber(i))
 
-                self.m_rightFormationMgr:setChangePosCallback(enemy)
-
                 -- 진형 버프 적용
                 enemy.m_statusCalc:applyFormationBonus(formation, formation_lv, i)
 
@@ -433,31 +404,12 @@ function GameWorldColosseum:makeEnemyDeck()
 
                 -- 리더 등록
 				if (i == leader) then
-                    self.m_leaderEnemy = enemy
+                    self.m_mUnitGroup[PHYS.ENEMY]:setLeader(enemy)
 				end
             end
         end
     end
 end
-
--------------------------------------
--- function init_formation
--- @brief
--------------------------------------
-function GameWorldColosseum:init_formation()
-    -- 왼쪽 지형
-    self.m_leftFormationMgr = FormationMgr(true)
-    self.m_leftFormationMgr:setSplitPos(20, 122)
-
-    self.m_gameCamera:addListener('camera_set_home', self.m_leftFormationMgr)
-
-    -- 오른쪽 지형
-    self.m_rightFormationMgr = FormationMgr(false)
-    self.m_rightFormationMgr:setSplitPos(1280-20, 122)
-
-    self.m_gameCamera:addListener('camera_set_home', self.m_rightFormationMgr)
-end
-
 
 -------------------------------------
 -- function print_tamer_skill
