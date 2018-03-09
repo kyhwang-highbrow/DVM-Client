@@ -135,8 +135,8 @@ public class AppActivity extends Cocos2dxActivity{
         // 디버그 메시지 출력
         boolean isDebug = false;
 
-        // @perplesdk
-        if (PerpleSDK.getInstance().initSDK(getString(R.string.gcm_defaultSenderId), BASE64_PUBLIC_KEY, isDebug)) {
+        // @perplesdk // getString(R.string.gcm_defaultSenderId) GCM is deprecated, use FCM
+        if (PerpleSDK.getInstance().initSDK(BASE64_PUBLIC_KEY, isDebug)) {
 
             // firebase FCM 알림을 포그라운드 상태에서도 받고자 할 경우 true로 설정
             PerpleSDK.getInstance().setReceivePushOnForeground(false);
