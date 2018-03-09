@@ -1029,30 +1029,33 @@ function UI_Lobby:update(dt)
         end
     end
 
+    if (g_hotTimeData.m_boosterInfoDirty) then
+        g_hotTimeData.m_boosterInfoDirty = false
+        self:refresh_boosterButtons() 
+    end
+
     -- 경험치 부스터
-    local function refresh_exp_booster()
+    do
         local str, state = g_hotTimeData:getHotTimeBuffText('buff_exp2x')
         local is_used = state == BOOSTER_ITEM_STATE.INUSE
         vars['expBoosterLabel']:setString(is_used and str or '')
-        vars['expBoosterBtn']:setVisible(is_used)
+
+        -- 로비에서 종료될 경우
+        if (not is_used and vars['expBoosterBtn']:isVisible()) then
+            self:refresh_boosterButtons() 
+        end
     end
 
     -- 골드 부스터
-    local function refresh_gold_booster()
+    do
         local str, state = g_hotTimeData:getHotTimeBuffText('buff_gold2x')
         local is_used = state == BOOSTER_ITEM_STATE.INUSE
         vars['goldBoosterLabel']:setString(is_used and str or '')
-        vars['goldBoosterBtn']:setVisible(is_used)
-    end
 
-    if (g_hotTimeData.m_boosterInfoDirty) then
-        g_hotTimeData.m_boosterInfoDirty = false
-        refresh_exp_booster()
-        refresh_gold_booster()
-        self:refresh_leftButtons() 
-    else
-        refresh_exp_booster()
-        refresh_gold_booster()
+        -- 로비에서 종료될 경우
+        if (not is_used and vars['goldBoosterBtn']:isVisible()) then
+            self:refresh_boosterButtons() 
+        end
     end
 
     -- spine 캐시 정리 확인
@@ -1108,11 +1111,21 @@ function UI_Lobby:onFocus()
 end
 
 -------------------------------------
--- function refresh_leftButtons
+-- function refresh_boosterButtons
 -- @brief
 -------------------------------------
-function UI_Lobby:refresh_leftButtons()
+function UI_Lobby:refresh_boosterButtons()
     local vars = self.vars
+
+    do
+        local str, state = g_hotTimeData:getHotTimeBuffText('buff_exp2x')
+        vars['expBoosterBtn']:setVisible(state == BOOSTER_ITEM_STATE.INUSE)
+    end
+    
+    do
+        local str, state = g_hotTimeData:getHotTimeBuffText('buff_gold2x')
+        vars['goldBoosterBtn']:setVisible(state == BOOSTER_ITEM_STATE.INUSE)
+    end
 
     -- 인덱스 1번이 왼쪽
     local t_btn_name = {}

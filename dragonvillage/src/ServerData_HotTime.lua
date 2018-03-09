@@ -126,7 +126,6 @@ function ServerData_HotTime:request_hottime(finish_cb, fail_cb)
     -- 성공 콜백
     local function success_cb(ret)
 		self:response_hottime(ret, finish_cb)
-        self.m_boosterInfoDirty = true
     end
 
     -- 네트워크 통신
@@ -149,7 +148,7 @@ function ServerData_HotTime:response_hottime(ret, finish_cb)
     self.m_hotTimeInfoList = ret['all']
     self.m_listExpirationTime = nil
 	self.m_dcExpirationTime = nil
-    
+
     if finish_cb then
         finish_cb(ret)
     end
@@ -207,6 +206,9 @@ function ServerData_HotTime:refreshActiveList()
             end
         end
     end
+
+    -- 활성화된 항목 추출할때 부스터 아이템 로비에서 상태 갱신
+    self.m_boosterInfoDirty = true
 end
 
 --[[
