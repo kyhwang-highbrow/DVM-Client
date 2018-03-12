@@ -10,6 +10,7 @@ UI_EvolutionStoneCombine = class(PARENT,{
         m_selID = 'number',
         m_selCard = 'table',
         m_selMulti = 'number',
+        m_selDragonData = '',
 
         m_bUpdate = 'boolean',
     })
@@ -34,12 +35,13 @@ end
 -------------------------------------
 -- function init
 -------------------------------------
-function UI_EvolutionStoneCombine:init(item_id)
+function UI_EvolutionStoneCombine:init(item_id, dragon_data)
     local vars = self:load('evolution_stone_combine.ui')
     UIManager:open(self, UIManager.POPUP)
 
     -- 선택되지 않았다면 중급 진화의 보석 기본 선택
     self.m_selID = item_id or 701012 
+    self.m_selDragonData = dragon_data
 
     -- 가방에서 최하위 선택하고 들어온 경우 다음 단계로 처리
     if (self.m_selID % 10 == 1) then
@@ -65,6 +67,7 @@ end
 -- function initUI
 -------------------------------------
 function UI_EvolutionStoneCombine:initUI()
+    local vars = self.vars
     self:init_mtrableView()
 end
 
@@ -87,6 +90,7 @@ end
 -- function refresh
 -------------------------------------
 function UI_EvolutionStoneCombine:refresh()
+    self:refresh_dragonMtrCount()
 end
 
 -------------------------------------
@@ -98,6 +102,18 @@ function UI_EvolutionStoneCombine:initTab()
     self:addTabAuto(MODE.DIVISION, vars, vars['divisionMenu'])
     self:setTab(MODE.COMBINE)
 end
+
+-------------------------------------
+-- function setTab
+-- @brief 최상위, 최하위 분해 조합 불가능한 경우는 탭 안되게 
+-------------------------------------
+function UI_EvolutionStoneCombine:setTab(tab, force)
+    if (not self:check_possible(self.m_selID, tab)) then
+        return
+    end
+    PARENT.setTab(self, tab, force)
+end
+
 -------------------------------------
 -- function onChangeTab
 -- @brief 모드 변경, 개수 초기화
@@ -200,10 +216,10 @@ end
 
 -------------------------------------
 -- function getOriginID
--- @brief 조합인 경우 아래 단계가 재료가 됨
+-- @brief 조합인 경우 아래 단계가 재료가 됨, 분해인 경우 윗 단계가 재료가 됨
 -------------------------------------
 function UI_EvolutionStoneCombine:getOriginID()
-    local sel_id = (self.m_selMode == MODE.COMBINE) and (self.m_selID - 1) or (self.m_selID)
+    local sel_id = (self.m_selMode == MODE.COMBINE) and (self.m_selID - 1) or (self.m_selID + 1)
     return sel_id
 end
 
@@ -233,6 +249,26 @@ function UI_EvolutionStoneCombine:checkCondition(origin_id, need)
 end
 
 -------------------------------------
+-- function getOriginCnt
+-------------------------------------
+function UI_EvolutionStoneCombine:getOriginCnt(origin_id, multi)
+    local origin_id = origin_id or self:getOriginID()
+    local combine_table = TableEvolutionItemCombine()
+    local mode = self.m_selMode
+
+    local t_data 
+    if (mode == MODE.COMBINE) then
+        t_data = combine_table:getCombineTargetInfo(origin_id)
+
+    elseif (mode == MODE.DIVISION) then
+        t_data = combine_table:getDivisionTargetInfo(origin_id)
+    end
+
+    local origin_cnt = t_data['origin_item_count'] * multi
+    return origin_cnt
+end
+
+-------------------------------------
 -- function refresh_mtrIcon
 -------------------------------------
 function UI_EvolutionStoneCombine:refresh_mtrIcon()
@@ -252,7 +288,7 @@ function UI_EvolutionStoneCombine:refresh_mtrIcon()
     end
 
     if (not t_data) then return end
-
+    
     -- target
     do
         local tarItemNode = self:getTargetNode('tarItemNode')
@@ -269,6 +305,14 @@ function UI_EvolutionStoneCombine:refresh_mtrIcon()
         local numLabel = self:getTargetNode('tarNumLabel') 
         local cnt = t_data['target_item_count'] * multi
         numLabel:setString(Str('{1}개', comma_value(cnt)))
+
+        local beforeLabel = self:getTargetNode('tarNumBeforeLabel')
+        local before_cnt = g_evolutionStoneData:getCount(target_id)
+        beforeLabel:setString(comma_value(before_cnt))
+
+        local afterLabel = self:getTargetNode('tarNumAfterLabel')
+        local after_cnt = before_cnt + cnt
+        afterLabel:setString(comma_value(after_cnt))
     end
 
     -- origin
@@ -287,6 +331,14 @@ function UI_EvolutionStoneCombine:refresh_mtrIcon()
         local cnt = t_data['origin_item_count'] * multi
         numLabel:setString(Str('{1}개', cnt))
 
+        local beforeLabel = self:getTargetNode('oriNumBeforeLabel')
+        local before_cnt = g_evolutionStoneData:getCount(origin_id)
+        beforeLabel:setString(comma_value(before_cnt))
+
+        local afterLabel = self:getTargetNode('oriNumAfterLabel')
+        local after_cnt = before_cnt - cnt
+        afterLabel:setString(comma_value(after_cnt))
+
         self:checkCondition(origin_id, cnt)
     end
 
@@ -297,6 +349,58 @@ function UI_EvolutionStoneCombine:refresh_mtrIcon()
 
         local price_icon = IconHelper:getPriceIcon('gold')
         self:getTargetNode('priceNode'):addChild(price_icon)
+    end
+end
+
+-------------------------------------
+-- function refresh_dragonMtrCount
+-------------------------------------
+function UI_EvolutionStoneCombine:refresh_dragonMtrCount()
+    local vars = self.vars
+    local t_dragon_data = self.m_selDragonData
+    if (not t_dragon_data) then return end
+
+    vars['itemNode']:setVisible(true)
+
+    local table_item = TableItem()
+
+    local did = t_dragon_data['did']
+    local table_dragon_evolution = TABLE:get('dragon_evolution')
+    local t_dragon_evolution = table_dragon_evolution[did]
+
+    local evolution = t_dragon_data['evolution'] + 1
+    local evolution_str = ''
+    if (evolution == 2) then
+        evolution_str = 'hatchling'
+    elseif (evolution == 3) then
+        evolution_str = 'adult'
+    else
+        error('evolution : ' .. evolution)
+    end
+
+    for i = 1,3 do
+        local item_id = t_dragon_evolution[evolution_str .. '_item' .. i]
+        local item_value = t_dragon_evolution[evolution_str .. '_value' .. i]
+
+        do -- 진화재료 아이콘
+            vars['itemNode' .. i]:removeAllChildren()
+            local item_icon = IconHelper:getItemIcon(item_id)
+            vars['itemNode' .. i]:addChild(item_icon)
+        end
+        
+        do -- 갯수 체크
+            local req_count = item_value
+            local own_count = g_userData:get('evolution_stones', tostring(item_id)) or 0
+            local str = Str('{1} / {2}', own_count, req_count)
+
+            if (req_count <= own_count) then
+                str = '{@possible}' .. str
+            else
+                str = '{@impossible}' .. str
+            end
+
+            vars['itemLabel' .. i]:setString(str)
+        end
     end
 end
 
@@ -337,6 +441,7 @@ function UI_EvolutionStoneCombine:showEffect()
         self.m_selMulti = 1
         self:refresh_mtrIcon()
         self:refresh_mtrTableView(true)
+        self:refresh_dragonMtrCount()
 
         local msg = Str('{1}에 성공하였습니다.', (self.m_selMode == MODE.COMBINE) and Str('조합') or Str('분해'))
         UIManager:toastNotificationGreen(msg)
@@ -361,10 +466,7 @@ function UI_EvolutionStoneCombine:click_mtrBtn(item_id)
         return
     end
 
-    -- 최하위 등급은 조합, 분해 선택 불가능
-    if (item_id % 10 == 1) then
-        local msg = Str('최하위 등급은 선택이 불가능합니다.')
-        UIManager:toastNotificationRed(msg)
+    if (not self:check_possible(item_id)) then
         return
     end
 
@@ -373,15 +475,47 @@ function UI_EvolutionStoneCombine:click_mtrBtn(item_id)
     end
     
     self.m_selID = item_id
+    self.m_selMulti = 1
     self:refresh_mtrIcon()
     self:refresh_mtrTableView()
+end
+
+-------------------------------------
+-- function check_possible
+-------------------------------------
+function UI_EvolutionStoneCombine:check_possible(item_id, mode)
+    local mode = mode or self.m_selMode
+
+    -- 최하위 등급 - 조합 불가능
+    if (item_id % 10 == 1) and (mode == MODE.COMBINE) then
+        local msg = Str('최하위 등급은 조합으로 획득할 수 없습니다.')
+        UIManager:toastNotificationRed(msg)
+        return false
+    end
+
+    -- 최상위 등급 - 분해 불가능
+    if (item_id % 10 == 4) and (mode == MODE.DIVISION) then
+        local msg = Str('최상위 등급은 분해로 획득할 수 없습니다.')
+        UIManager:toastNotificationRed(msg)
+        return false
+    end
+
+    return true
 end
 
 -------------------------------------
 -- function click_plusBtn
 -------------------------------------
 function UI_EvolutionStoneCombine:click_plusBtn()
-    self.m_selMulti = self.m_selMulti + 1
+    local origin_id = self:getOriginID()
+    local add_multi = self.m_selMulti + 1
+    local need = self:getOriginCnt(origin_id, add_multi)
+    local curr_cnt = g_evolutionStoneData:getCount(origin_id)
+    if (need > curr_cnt) then
+        return
+    end
+
+    self.m_selMulti = add_multi
     self:refresh_mtrIcon()
 end
 
@@ -389,8 +523,17 @@ end
 -- function click_minusBtn
 -------------------------------------
 function UI_EvolutionStoneCombine:click_minusBtn()
+    local origin_id = self:getOriginID()
+    local sub_multi = self.m_selMulti - 1
+    local need = self:getOriginCnt(origin_id, sub_multi)
+    local curr_cnt = g_evolutionStoneData:getCount(origin_id)
+    if (need > curr_cnt) then
+        return
+    end
+
     if(self.m_selMulti <= 1) then return end 
-    self.m_selMulti = self.m_selMulti - 1
+
+    self.m_selMulti = sub_multi
     self:refresh_mtrIcon()
 end
 

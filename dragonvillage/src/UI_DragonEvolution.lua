@@ -540,9 +540,11 @@ function UI_DragonEvolution:click_combineBtn(i)
         self:refresh()
     end
 
-    local ui = UI_EvolutionStoneCombine()
-    ui:setCloseCB(update_cb)
+    local item_id = nil
+    local dragon_data = self.m_selectDragonData
 
+    local ui = UI_EvolutionStoneCombine(item_id, dragon_data)
+    ui:setCloseCB(update_cb)
 end
 
 --@CHECK
