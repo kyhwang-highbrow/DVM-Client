@@ -177,14 +177,18 @@ end
 
 -------------------------------------
 -- function fail
+-- @comment 통신을 실패한 케이스로 타임아웃 되거나 잘못된 주소인 경우		
+--			통신은 성공했으나 서버에서 에러로 처리된 경우는 success로 간다.
+--			fail handler 동작부 : net.lua line 154
+--			대부분 타임아웃으로 판단되나 잘못된 주소인 경우는 판별할 수 없다.
 -------------------------------------
-function UI_Network.fail(self, ret)
+function UI_Network.fail(self, error_text)
     if self.m_failCB then
         self.m_failCB(ret)
-        self:close()
     else
-        self:makeFailPopup(nil, ret)
+        self:makeNetworkFailPopup(error_text)
     end
+    self:close()
 end
 
 local S_ERROR_STATUS = {
@@ -324,19 +328,39 @@ function UI_Network:statusHandler(ret)
     end
 
     -- 미리 정의 되지 못한 error_status
-    self:makeFailPopup(nil, ret)
+    self:makeErrorPopup(nil, ret)
     return true
 end
 
 -------------------------------------
--- function makeFailPopup
--- @brief
+-- function makeErrorPopup
+-- @brief 서버에서의 에러를 처리하는 팝업
 -------------------------------------
-function UI_Network:makeFailPopup(msg, ret)
-    local function ok_btn_cb()
+function UI_Network:makeErrorPopup(_msg, ret)
+	-- popup_type
+	local popup_type
+    if (self.m_bRevocable == true) then
+        popup_type = POPUP_TYPE.YES_NO
+    else
+        popup_type = POPUP_TYPE.OK
+    end
+
+	-- msg
+    local msg
+    if ret then    
+        msg = _msg or Str('오류가 발생하였습니다.\n다시 시도하시겠습니까?')
+			.. '\n\n' 
+			.. '(status : ' .. tostring(ret['status']) .. ', message : ' .. tostring(ret['message']) .. ')'
+	else
+		msg = _msg or Str('오류가 발생하였습니다.\n다시 시도하시겠습니까?')
+    end
+
+	-- ok_btn_cb
+	local function ok_btn_cb()
         self:request()
     end
 
+	-- cancel_btn_cb
     local function cancel_btn_cb()
         if self.m_failCB then
             self.m_failCB(ret)
@@ -344,23 +368,42 @@ function UI_Network:makeFailPopup(msg, ret)
         self:close()
     end
 
-    local msg = msg or Str('오류가 발생하였습니다.\n다시 시도하시겠습니까?')
+    MakeNetworkPopup(popup_type, msg, ok_btn_cb, cancel_btn_cb)
+    self:close()
+end
 
-    if ret then
-        local add_msg = '(status : ' .. tostring(ret['status']) .. ', message : ' .. tostring(ret['message']) .. ')'
-        msg =  msg .. '\n\n' .. add_msg
-    end
-
-    local popup_type
-
+-------------------------------------
+-- function makeNetworkFailPopup
+-- @brief 통신 실패된 경우 처리하는 팝업
+-------------------------------------
+function UI_Network:makeNetworkFailPopup(error_text)
+	-- popup_type
+	local popup_type
     if (self.m_bRevocable == true) then
         popup_type = POPUP_TYPE.YES_NO
     else
         popup_type = POPUP_TYPE.OK
     end
 
+	-- msg
+    local msg
+	if (error_text ~= nil) and (error_text ~= '') then
+		msg = error_text
+	else
+		msg = Str('통신이 지연되고 있습니다.\n네트워크 상태를 확인해주세요.')
+	end
+
+	-- ok_btn_cb
+	local function ok_btn_cb()
+        self:request()
+    end
+
+	-- cancel_btn_cb
+    local function cancel_btn_cb()
+        self:close()
+    end
+
     MakeNetworkPopup(popup_type, msg, ok_btn_cb, cancel_btn_cb)
-    self:close()
 end
 
 -------------------------------------

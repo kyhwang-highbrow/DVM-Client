@@ -113,8 +113,8 @@ function Network:start(req, delay)
 	--cclog('url: ' .. req.url)
 	--cclog('data: ' .. luadump(req.data))
 	local request = cc.XMLHttpRequest:new()
-	request.responseType = 5
-	request.timeoutForConnect = 10 --10 테섭이 회사 내부만 접속이 가능하므로 임시로 타임아웃을 2초로 변경 @TODO 향후 원복할 것!
+	request.responseType = 5		-- ResponseType::JSON (lua_xml_http_request.h)
+	request.timeoutForConnect = 10
     request.timeoutForRead = 60
 
 	-- 다운로드 경로 설정 및 recv콜백 설정
@@ -271,8 +271,8 @@ function Network:SimpleRequest(t, do_decode)
             success(jsondata)
         end
 	end
-	r['failHandler'] = function()
-		fail()
+	r['failHandler'] = function(data)
+		fail(data)
 	end
 
     -- platform server 암호화
@@ -378,8 +378,8 @@ function Network:HMacRequest(t, do_decode)
             success(jsondata)
         end
 	end
-	r['failHandler'] = function()
-		fail()
+	r['failHandler'] = function(data)
+		fail(data)
 	end
 
 	r.hmac = hmac
