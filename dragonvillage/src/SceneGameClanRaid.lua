@@ -1,6 +1,6 @@
 local PARENT = SceneGame
 
-local LIMIT_TIME = 20
+local LIMIT_TIME = 300
 
 local t_error = {
         [-1671] = Str('제한시간을 초과하였습니다.'),
