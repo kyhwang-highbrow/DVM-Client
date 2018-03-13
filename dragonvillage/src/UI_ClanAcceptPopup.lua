@@ -4,6 +4,8 @@ local PARENT = UI
 -- class UI_ClanAcceptPopup
 -------------------------------------
 UI_ClanAcceptPopup = class(PARENT, {
+        m_sortManager = '',
+        m_tableView = '',
      })
 
 -------------------------------------
@@ -39,6 +41,7 @@ end
 function UI_ClanAcceptPopup:initUI()
     local vars = self.vars
     self:init_TableView()
+    self:init_memberSortMgr()
 end
 
 -------------------------------------
@@ -80,5 +83,53 @@ function UI_ClanAcceptPopup:init_TableView()
     -- 리스트가 비었을 때
     table_view:makeDefaultEmptyDescLabel(Str('가입 요청이 없습니다.'))
 
-    -- 정렬
+    self.m_tableView = table_view
+end
+
+-------------------------------------
+-- function init_memberSortMgr
+-- @brief 정렬 도우미
+-------------------------------------
+function UI_ClanAcceptPopup:init_memberSortMgr()
+    -- 정렬 매니저 생성
+    self.m_sortManager = SortManager_ClanRequest()
+
+    -- 정렬 UI 생성
+    local vars = self.vars
+    local uic_sort_list = MakeUICSortList_clanRequest(vars['sortSelectBtn'], vars['sortSelectLabel'], UIC_SORT_LIST_BOT_TO_TOP)
+    
+
+    -- 버튼을 통해 정렬이 변경되었을 경우
+    local function sort_change_cb(sort_type)
+        self.m_sortManager:pushSortOrder(sort_type)
+        self:apply_memberSort()
+    end
+    uic_sort_list:setSortChangeCB(sort_change_cb)
+
+    -- 오름차순/내림차순 버튼
+    vars['sortSelectOrderBtn']:registerScriptTapHandler(function()
+            local ascending = (not self.m_sortManager.m_defaultSortAscending)
+            self.m_sortManager:setAllAscending(ascending)
+            self:apply_memberSort()
+
+            vars['sortSelectOrderSprite']:stopAllActions()
+            if ascending then
+                vars['sortSelectOrderSprite']:runAction(cc.RotateTo:create(0.15, 180))
+            else
+                vars['sortSelectOrderSprite']:runAction(cc.RotateTo:create(0.15, 0))
+            end
+        end)
+
+    -- 첫 정렬 타입 지정
+    uic_sort_list:setSelectSortType('active_time')
+end
+
+-------------------------------------
+-- function apply_memberSort
+-- @brief 테이블 뷰에 정렬 적용
+-------------------------------------
+function UI_ClanAcceptPopup:apply_memberSort()
+    local list = self.m_tableView.m_itemList
+    self.m_sortManager:sortExecution(list)
+    self.m_tableView:setDirtyItemList()
 end

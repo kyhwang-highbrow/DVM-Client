@@ -3271,6 +3271,9 @@
     <None Include="..\src\GameUnitGroup.lua">
       <Filter>lua\src</Filter>
     </None>
+    <None Include="..\src\SortManager_ClanRequest.lua">
+      <Filter>lua\src</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Classes">
