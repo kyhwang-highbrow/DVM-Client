@@ -45,7 +45,7 @@ function UI_BundlePopup:initUI()
         -- 고대주화 상품만 scale, 위치 조절
         if (struct_product.price_type == 'ancient') then
             icon:setScale(0.8)
-            icon:setPositionY(-20)
+            icon:setPositionY(20)
         end
         vars['itemNode']:addChild(icon)
     end
