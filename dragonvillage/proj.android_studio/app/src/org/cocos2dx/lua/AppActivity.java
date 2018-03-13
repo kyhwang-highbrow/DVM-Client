@@ -87,8 +87,8 @@ public class AppActivity extends Cocos2dxActivity{
     static final String UNITY_ADS_GAME_ID = "1515686";
 
     // @twitter
-    static final String TWITTER_CONSUMER_KEY = "kJlCsOmKdhLpsVitieEs6DL5R";
-    static final String TWITTER_CONSUMER_SECRET = "jLuByWszPl4P3CYLBf2y70QcT559EXTeDemGr34a45wndbBbxA";
+    static final String TWITTER_CONSUMER_KEY = "VCJ9gb6EjeIQO74rAbUl9B6aj";
+    static final String TWITTER_CONSUMER_SECRET = "D0kt613Jye142Efej1DxtvJguItaK5PtgvYyJfY34Pvqs1HCBH";
 
     // @naver-cafe
     static final String NAVER_CAFE_CLIENT_ID = "nQGxfwLZ1Rf4Lwhozq4G";
