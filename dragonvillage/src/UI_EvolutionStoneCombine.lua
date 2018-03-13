@@ -241,9 +241,6 @@ function UI_EvolutionStoneCombine:checkCondition(origin_id, need)
     local current = g_evolutionStoneData:getCount(origin_id)
 
     local possible = (need <= current)
-    self:getTargetNode('oriNumLabel'):setColor(possible and possible_color or impossible_color)
-    self:getTargetNode('tarNumLabel'):setColor(possible and possible_color or impossible_color)
-
     self.vars['combineBtn']:setEnabled(possible)
     self.vars['divisionBtn']:setEnabled(possible)
 end
@@ -304,14 +301,15 @@ function UI_EvolutionStoneCombine:refresh_mtrIcon()
 
         local numLabel = self:getTargetNode('tarNumLabel') 
         local cnt = t_data['target_item_count'] * multi
-        numLabel:setString(Str('{1}개', comma_value(cnt)))
+        local target_str = (self.m_selMode == MODE.COMBINE) and Str('조합') or Str('분해')
+        numLabel:setString(string.format('{@user_title}%s {@possible}x%s', target_str, comma_value(cnt)))
 
         local beforeLabel = self:getTargetNode('tarNumBeforeLabel')
         local before_cnt = g_evolutionStoneData:getCount(target_id)
         beforeLabel:setString(comma_value(before_cnt))
 
         local afterLabel = self:getTargetNode('tarNumAfterLabel')
-        local after_cnt = before_cnt + cnt
+        local after_cnt = math_max(0, before_cnt + cnt)
         afterLabel:setString(comma_value(after_cnt))
     end
 
@@ -329,14 +327,14 @@ function UI_EvolutionStoneCombine:refresh_mtrIcon()
 
         local numLabel = self:getTargetNode('oriNumLabel') 
         local cnt = t_data['origin_item_count'] * multi
-        numLabel:setString(Str('{1}개', cnt))
+        numLabel:setString(Str('{@dark_brown}재료 사용 {@possible}x{1}', cnt))
 
         local beforeLabel = self:getTargetNode('oriNumBeforeLabel')
         local before_cnt = g_evolutionStoneData:getCount(origin_id)
         beforeLabel:setString(comma_value(before_cnt))
 
         local afterLabel = self:getTargetNode('oriNumAfterLabel')
-        local after_cnt = before_cnt - cnt
+        local after_cnt = math_max(0, before_cnt - cnt)
         afterLabel:setString(comma_value(after_cnt))
 
         self:checkCondition(origin_id, cnt)
@@ -512,6 +510,7 @@ function UI_EvolutionStoneCombine:click_plusBtn()
     local need = self:getOriginCnt(origin_id, add_multi)
     local curr_cnt = g_evolutionStoneData:getCount(origin_id)
     if (need > curr_cnt) then
+        UIManager:toastNotificationRed(Str('진화재료가 부족합니다.'))
         return
     end
 
@@ -528,6 +527,7 @@ function UI_EvolutionStoneCombine:click_minusBtn()
     local need = self:getOriginCnt(origin_id, sub_multi)
     local curr_cnt = g_evolutionStoneData:getCount(origin_id)
     if (need > curr_cnt) then
+        UIManager:toastNotificationRed(Str('진화재료가 부족합니다.'))
         return
     end
 
