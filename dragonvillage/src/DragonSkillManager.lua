@@ -714,11 +714,6 @@ function IDragonSkillManager:getInterceptableSkillID(tParam)
     local tParam = tParam or {}
     local skill_id = nil
 
-    -- time_out류 스킬
-    if (not skill_id and tParam['time_out']) then
-        skill_id = self:getTimeOutSkillID()
-    end
-
     -- hp_rate_per류 스킬
     if (not skill_id and tParam['hp_rate']) then
         skill_id = self:getHpRatePerSkillID(tParam['hp_rate'])

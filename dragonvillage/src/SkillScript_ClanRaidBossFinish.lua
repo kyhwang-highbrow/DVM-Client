@@ -1,4 +1,4 @@
-local PARENT = class(SkillScript, IStateDelegate:getCloneTable())
+local PARENT = SkillScript
 
 -------------------------------------
 -- class SkillScript_ClanRaidBossFinish

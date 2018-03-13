@@ -403,6 +403,9 @@ function GameState_ClanRaid:onEvent(event_name, t_event, ...)
         local prev_hp = t_event['prev_hp']
         local new_hp = t_event['hp']
 
+        -- 이미 타임 아웃된 경우 점수 처리 하지 않음
+        if (self.m_bTimeOut) then return end
+
         -- 이전 체력이 동일한지 검사
         local safed_hp = self.m_bossHp:get()
         if (prev_hp ~= safed_hp) then
@@ -429,6 +432,9 @@ function GameState_ClanRaid:onEvent(event_name, t_event, ...)
         local damage = t_event['damage']
         local skill_id = t_event['skill_id']
 
+        -- 이미 타임 아웃된 경우 점수 처리 하지 않음
+        if (self.m_bTimeOut) then return end
+
         if (not self.m_finalSkillId) then
             self.m_finalSkillId = skill_id
         elseif (self.m_finalSkillId ~= skill_id) then
@@ -452,6 +458,12 @@ end
 -------------------------------------
 function GameState_ClanRaid:processTimeOut()
     self.m_bTimeOut = true
+
+    for _, v in ipairs(self.m_world:getEnemyList()) do
+        if (isInstanceOf(v, Monster_ClanRaidBoss)) then
+            v:onTimeOut()
+        end
+    end
 end
 
 -------------------------------------

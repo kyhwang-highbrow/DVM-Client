@@ -30,6 +30,41 @@ function UI_GameClanRaid:initUI()
 end
 
 -------------------------------------
+-- function click_pauseButton
+-------------------------------------
+function UI_GameClanRaid:click_pauseButton()
+	local world = self.m_gameScene.m_gameWorld
+    if (not world or world:isFinished()) then return end
+    
+    if (world.m_skillIndicatorMgr and world.m_skillIndicatorMgr:isControlling()) then
+        world.m_skillIndicatorMgr:clear()
+    end
+
+    -- 이미 타임 아웃 상태에서 일시정지를 누를 경우
+    local game_state = world.m_gameState
+    if (game_state and game_state:isTimeOut()) then
+        world:setGameFinish()
+
+        game_state:changeState(GAME_STATE_FAILURE)
+        return
+    end
+
+    local stage_id = self.m_gameScene.m_stageID
+    local game_mode = self.m_gameScene.m_gameMode
+    local gamekey = self.m_gameScene.m_gameKey
+
+    local function start_cb()
+        self.m_gameScene:gamePause()
+    end
+
+    local function end_cb()
+        self.m_gameScene:gameResume()
+    end
+
+    UI_GamePause_ClanRaid(stage_id, gamekey, start_cb, end_cb)
+end
+
+-------------------------------------
 -- function init_timeUI
 -------------------------------------
 function UI_GameClanRaid:init_timeUI(display_wave, time)

@@ -910,7 +910,8 @@ function UI_ReadySceneNew:click_startBtn()
     if (stage_id == DEV_STAGE_ID) then
         self:checkChangeDeck(function()
             --local scene = SceneGame(nil, stage_id, 'stage_dev', true)
-            local scene = SceneGame(nil, EVENT_GOLD_STAGE_ID, 'stage_' .. EVENT_GOLD_STAGE_ID, true)
+            --local scene = SceneGame(nil, EVENT_GOLD_STAGE_ID, 'stage_' .. EVENT_GOLD_STAGE_ID, true)
+            local scene = SceneGame(nil, ANCIENT_RUIN_STAGE_ID, 'stage_' .. ANCIENT_RUIN_STAGE_ID, true)
             scene:runScene()
         end)
         return

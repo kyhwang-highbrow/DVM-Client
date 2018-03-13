@@ -3,7 +3,9 @@ local PARENT = Monster
 -------------------------------------
 -- class Monster_ClanRaidBoss
 -------------------------------------
-Monster_ClanRaidBoss = class(PARENT, {})
+Monster_ClanRaidBoss = class(PARENT, {
+    m_isProtectedForTimeOut = 'boolean',
+})
 
 -------------------------------------
 -- function init
@@ -12,6 +14,7 @@ Monster_ClanRaidBoss = class(PARENT, {})
 -------------------------------------
 function Monster_ClanRaidBoss:init(file_name, body, ...)
     self.m_bUseCastingEffect = false
+    self.m_isProtectedForTimeOut = false
 end
 
 -------------------------------------
@@ -132,6 +135,11 @@ function Monster_ClanRaidBoss:setDamage(attacker, defender, i_x, i_y, damage, t_
     -- 충돌영역 위치로 변경
     if (self.pos['x'] == i_x and self.pos['y'] == i_y) then
         i_x, i_y = self:getCenterPos()
+    end
+
+    -- 타임 아웃시 무적 처리
+    if (self.m_isProtectedForTimeOut) then
+        damage = 0
     end
 
     local prev_hp = self.m_hp
@@ -361,11 +369,39 @@ end
 -- @brief 특정 상태효과 면역 체크
 -------------------------------------
 function Monster_ClanRaidBoss:checkSpecialImmune(t_status_effect)
+    -- 타임 아웃시 상태효과 면역 처리
+    if (self.m_isProtectedForTimeOut) then
+        return true
+    end
+
     if (self.m_charTable['type'] == 'clanraid_boss') then
         return PARENT.checkSpecialImmune(self, t_status_effect)
     end
     
     return false
+end
+
+-------------------------------------
+-- function getInterceptableSkillID
+-- @return	skill_id
+-------------------------------------
+function Monster_ClanRaidBoss:getInterceptableSkillID(tParam)
+    local skill_id = nil
+    
+    -- time_out류 스킬 처리를 위한 하드코딩
+    if (g_gameScene) then
+        local ramain_time = g_gameScene:getRemainTimer()
+
+        if (ramain_time < 14) then
+            skill_id = self:getTimeOutSkillID()
+        end
+    end
+
+    if (not skill_id) then
+        skill_id = PARENT.getInterceptableSkillID(self, tParam)
+    end
+
+    return skill_id
 end
 
 -------------------------------------
@@ -393,4 +429,16 @@ function Monster_ClanRaidBoss:getZOrder()
     end
 
     return zOrder
+end
+
+-------------------------------------
+-- function onTimeOut
+-- @brief 타임 아웃 되었을 때 호출
+-------------------------------------
+function Monster_ClanRaidBoss:onTimeOut()
+    -- 모든 디버프 해제
+    StatusEffectHelper:releaseStatusEffectDebuff(self)
+
+    -- 무적 처리
+    self.m_isProtectedForTimeOut = true
 end

@@ -1,4 +1,4 @@
-local PARENT = class(SkillScript, IStateDelegate:getCloneTable())
+local PARENT = SkillScript
 
 local CON_SKILL_IDLE = 'skill_idle'
 

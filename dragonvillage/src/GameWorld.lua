@@ -1192,10 +1192,13 @@ function GameWorld:getTargetList(char, x, y, team_type, formation_type, rule_typ
 
     elseif (team_type == 'enemy') then
         for _, group_key in ipairs(unit_group:getAttackbleGroupKeys()) do
-            local mgr = self.m_mUnitGroup[group_key]:getFormationMgr()
+            local unit_group = self.m_mUnitGroup[group_key]
+            if (unit_group) then
+                local mgr = unit_group:getFormationMgr()
 
-            for_mgr_delegate:addGlobalList(mgr.m_globalCharList)
-            for_mgr_delegate:addDiedList(mgr.m_diedCharList)
+                for_mgr_delegate:addGlobalList(mgr.m_globalCharList)
+                for_mgr_delegate:addDiedList(mgr.m_diedCharList)
+            end
         end
 
         -- 만약 해당 그룹에 적이 하나도 없을 경우 모든 적을 대상으로 변경

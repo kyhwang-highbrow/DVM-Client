@@ -242,7 +242,9 @@ function SceneGame:onEnter()
     
     g_autoPlaySetting:setMode(AUTO_NORMAL)
 
-    if (self.m_gameMode == GAME_MODE_EVENT_GOLD) then
+    if (self.m_gameMode == GAME_MODE_ANICENT_RUIN) then
+        self.m_inGameUI = UI_GameClanRaid(self)
+    elseif (self.m_gameMode == GAME_MODE_EVENT_GOLD) then
         self.m_inGameUI = UI_GameEventGold(self)
     else
         self.m_inGameUI = UI_Game(self)

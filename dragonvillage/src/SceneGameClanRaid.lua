@@ -1,6 +1,6 @@
 local PARENT = SceneGame
 
-local LIMIT_TIME = 300
+local LIMIT_TIME = 20
 
 local t_error = {
         [-1671] = Str('제한시간을 초과하였습니다.'),
@@ -161,8 +161,16 @@ function SceneGameClanRaid:updateRealTimer(dt)
     end
 
     -- UI 시간 표기 갱신
-    local remain_time = math_max(LIMIT_TIME - self.m_realLiveTimer, 0)
+    local remain_time = self:getRemainTimer()
     self.m_inGameUI:setTime(remain_time, true)
+end
+
+-------------------------------------
+-- function getRemainTimer
+-------------------------------------
+function SceneGameClanRaid:getRemainTimer()
+    local remain_time = math_max(LIMIT_TIME - self.m_realLiveTimer, 0)
+    return remain_time
 end
 
 -------------------------------------
