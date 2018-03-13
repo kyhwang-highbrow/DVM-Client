@@ -143,6 +143,12 @@ function UI_FormationDetailPopup:click_enhanceBtn()
         self.m_enhanceLevel = (self.m_formationLevel == USER_MAX_LV) and USER_MAX_LV or self.m_formationLevel + 1
         self:refresh()
 
+        -- 이펙트 추가
+        local visual = self.vars['enhanceVisual']
+        visual:setVisible(true)
+        visual:changeAni('slot_fx_01', false)
+        visual:addAniHandler(function() visual:setVisible(false) end)
+
 		UIManager:toastNotificationGreen(Str('강화에 성공하였습니다.'))
 	end	
 
