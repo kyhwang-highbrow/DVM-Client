@@ -356,12 +356,15 @@ end
 function UI_EvolutionStoneCombine:refresh_dragonMtrCount()
     local vars = self.vars
     local t_dragon_data = self.m_selDragonData
-    if (not t_dragon_data) then return end
+    if (not t_dragon_data) then 
+        vars['combineMenu2']:setPositionY(10)
+        vars['divisionMenu2']:setPositionY(10)
+        return 
+    end
 
     vars['itemNode']:setVisible(true)
 
     local table_item = TableItem()
-
     local did = t_dragon_data['did']
     local table_dragon_evolution = TABLE:get('dragon_evolution')
     local t_dragon_evolution = table_dragon_evolution[did]
@@ -386,6 +389,10 @@ function UI_EvolutionStoneCombine:refresh_dragonMtrCount()
             vars['itemNode' .. i]:addChild(item_icon)
         end
         
+        do -- 바로가기 버튼
+            vars['itemBtn' .. i]:registerScriptTapHandler(function() self:click_mtrBtn(item_id) end)
+        end
+
         do -- 갯수 체크
             local req_count = item_value
             local own_count = g_userData:get('evolution_stones', tostring(item_id)) or 0
