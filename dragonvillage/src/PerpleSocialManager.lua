@@ -49,12 +49,9 @@ end
 -- function twitterFollow
 -- 별도 창을 띄워서 팔로우 하러 보낸다, 세션 유지는 안되고 새로 로그인 해야함.
 -------------------------------------
-function PerpleSocialManager:twitterFollow(cb_func)
+function PerpleSocialManager:twitterFollow()
 	local url = 'https://twitter.com/intent/follow?user_id=955608372073586688'
 	SDKManager:goToWeb(url)
-	if (cb_func) then
-		cb_func()
-	end
 end
 
 -------------------------------------
@@ -64,7 +61,5 @@ end
 function PerpleSocialManager:twitterFollowWebView(cb_func)
 	local url = 'https://twitter.com/intent/follow?user_id=955608372073586688'
 	UI_WebView(url):setCloseCB(cb_func)
-
-	--SDKManager:goToWeb(url)
 end
 

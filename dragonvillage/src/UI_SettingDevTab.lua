@@ -495,28 +495,10 @@ end
 -- @brief 테스트 코드
 -------------------------------------
 function UI_Setting:click_testCodeBtn()
-    ccdisplay('진동 테스트')
-    cc.SimpleAudioEngine:getInstance():playVibrate(1000)
-	
-	-- 현재 언어 세팅 테스트 용
-	local desc = [[
-		<language check>
-		cocos lang: %s
-		cocos lang code : %s
-		locale : %s
-		device lang : %s
-		curr game lang : %s 
-	]]
-
-	desc = string.format(desc,
-		cc.Application:sharedApplication():getCurrentLanguage(),
-		cc.Application:sharedApplication():getCurrentLanguageCode(),
-		CppFunctions:getLocale(),
-		CppFunctions:getDeviceLanguage(),
-		Translate:getGameLang()
-	)
-
-    error(desc)
+	local function cb_func()
+		ccdisplay('follow check')
+	end
+	PerpleSocialManager:twitterFollowWebView(cb_func)
 end
 
 -------------------------------------
@@ -524,7 +506,18 @@ end
 -- @brief 테스트 코드
 -------------------------------------
 function UI_Setting:click_testCodeBtn2()
-    ccdisplay('Channel Code Test : ', NaverCafeManager:naverCafeGetChannelCode())
+    --ccdisplay('Channel Code Test : ', NaverCafeManager:naverCafeGetChannelCode())
+
+	local function success_cb()
+		ccdisplay('success success success') 
+	end
+	local function fail_cb()
+		ccdisplay('failure failure failure')
+	end
+	local function cancel_cb()
+		ccdisplay('cancel cancel cancel ##')
+	end
+	PerpleSocialManager:twitterComposeTweet(success_cb, fail_cb, cancel_cb)
 end
 
 -------------------------------------
