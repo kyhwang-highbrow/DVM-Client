@@ -36,6 +36,7 @@ local t_module = {
     'Analytics',
     'AdsManager',
     'NaverCafeManager',
+	'PerpleSocialManager',
     'ScriptCache',
     'CppFunctions',
     'XorCipher',

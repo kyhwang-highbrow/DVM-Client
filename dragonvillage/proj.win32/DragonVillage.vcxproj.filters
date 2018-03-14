@@ -3283,6 +3283,9 @@
     <None Include="..\src\StructTeamBonus.lua">
       <Filter>lua\src</Filter>
     </None>
+    <None Include="..\src\PerpleSocialManager.lua">
+      <Filter>lua\src</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Classes">
