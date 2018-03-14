@@ -660,7 +660,7 @@ function UI_ReadySceneNew:refresh_buffInfo()
     do
         local l_doid = self.m_readySceneDeck.m_lDeckList
 
-        local l_teambonus_data = TeamBonusHelper:getTeamBonusFromDeck(l_doid)
+        local l_teambonus_data = TeamBonusHelper:getTeamBonusDataFromDeck(l_doid)
     end
     ]]--
 end

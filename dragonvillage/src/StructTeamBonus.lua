@@ -6,13 +6,9 @@ StructTeamBonus = class({
 
         m_type = 'string',
 
-        m_skill_1 = '',
-        m_value_1 = '',
-        m_skill_2 = '',
-        m_value_2 = '',
-        m_skill_3 = '',
-        m_value_3 = '',
-		
+        m_lSkill = 'table',     -- 보너스 효과 기능 리스트(스킬 아이디 or 옵션 타입명)
+        m_lValue = 'table',     -- 보너스 효과 수치 리스트(옵션 적용값)
+
         m_bSatisfy = 'boolean', -- 조건 만족 여부
         m_lSatisfied = 'table', -- 조건을 만족시킨 대상 리스트
 	})
@@ -23,14 +19,18 @@ StructTeamBonus = class({
 function StructTeamBonus:init(data)
     self.m_id = data['id']
     self.m_type = data['skill_type']
-    
-    self.m_skill_1 = data['skill_1']
-    self.m_value_1 = data['value_1']
-    self.m_skill_2 = data['skill_2']
-    self.m_value_2 = data['value_2']
-    self.m_skill_3 = data['skill_3']
-    self.m_value_3 = data['value_3']
 
+    self.m_lSkill = {}
+    self.m_lValue = {}
+
+    for i = 1, 3 do
+        local type = data['skill_' .. i]
+        if (type and type ~= '') then
+            self.m_lSkill[i] = data['skill_' .. i]
+            self.m_lValue[i] = data['value_' .. i]
+        end
+    end
+    
     self.m_bSatisfy = false
     self.m_lSatisfied = {}
 end
@@ -53,4 +53,19 @@ function StructTeamBonus:setFromDragonObjectList(l_dragon_data)
             cclog(dragon_data:getDragonNameWithEclv())
         end
     end
+end
+
+-------------------------------------
+-- function isSatisfied
+-- @brief 해당 팀보너스의 조건이 충족되었는지 여부
+-------------------------------------
+function StructTeamBonus:isSatisfied()
+    return self.m_bSatisfy
+end
+
+-------------------------------------
+-- function getType
+-------------------------------------
+function StructTeamBonus:getType()
+    return self.m_type
 end

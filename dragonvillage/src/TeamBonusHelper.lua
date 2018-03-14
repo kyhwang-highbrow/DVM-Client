@@ -6,9 +6,10 @@ local MAX_CONDITION_COUNT = 5
 TeamBonusHelper = {}
 
 -------------------------------------
--- function getTeamBonus
+-- function getTeamBonusDataFromDeck
+-- @brief 파리미터의 덱으로 설정된 모든 팀보너스 정보를 가져온다
 -------------------------------------
-function TeamBonusHelper:getTeamBonusFromDeck(l_deck)
+function TeamBonusHelper:getTeamBonusDataFromDeck(l_deck)
     local table_teambonus = TableTeamBonus()
     local l_teambonus_data = {}
     local l_dragon_data = {}
@@ -35,10 +36,25 @@ function TeamBonusHelper:getTeamBonusFromDeck(l_deck)
         teambonus_data:setFromDragonObjectList(l_dragon_data)
     end
 
-    -- TODO: 현재는 모든 팀보너스를 리턴하는데 UI에서 필요한 정보에 따라 변경되어야할듯하다
     return l_teambonus_data
 end
 
+-------------------------------------
+-- function getValidTeamBonusDataFromDeck
+-- @brief 파리미터의 덱으로 적용될 수 있는 팀보너스 정보만 가져온다
+-------------------------------------
+function TeamBonusHelper:getValidTeamBonusDataFromDeck(l_deck)
+    local l_teambonus_data = self:getTeamBonusDataFromDeck(l_deck)
+    local l_ret = {}
+
+    for _, teambonus_data in ipairs(l_teambonus_data) do
+        if (teambonus_data:isSatisfied()) then
+            table.insert(l_ret, teambonus_data)
+        end
+    end
+
+    return l_ret
+end
 
 -------------------------------------
 -- function checkCondition
@@ -125,4 +141,33 @@ function TeamBonusHelper:findVaildDragonsFromCondition(condition_type, condition
     end
 
     return is_exist, m_valid_dragon_data
+end
+
+-------------------------------------
+-- function applyTeamBonusToDragonInGame
+-- @brief 인게임 내에서 드래곤에게 팀보너스를 적용
+-- @param teambonus_data : StructTeamBonus 객체
+-- @param dragon : Dragon 객체
+-------------------------------------
+function TeamBonusHelper:applyTeamBonusToDragonInGame(teambonus_data, dragon)
+    if (teambonus_data:getType() == 'option') then
+        for i = 1, 3 do
+            local buff_type = teambonus_data.m_lSkill[i]
+            local buff_value = teambonus_data.m_lValue[i]
+
+            if (buff_type) then
+                local t_option = TableOption():get(buff_type)
+                if (t_option) then
+                    local status_type = t_option['status']
+                    if (status_type) then
+                        if (t_option['action'] == 'multi') then
+                            dragon.m_statusCalc:addPassiveMulti(status_type, buff_value)
+                        elseif (t_option['action'] == 'add') then
+                            dragon.m_statusCalc:addPassiveAdd(status_type, buff_value)
+                        end
+                    end
+                end
+            end
+        end
+    end
 end
