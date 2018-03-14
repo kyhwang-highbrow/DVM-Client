@@ -128,7 +128,7 @@ static AppDelegate s_sharedApplication;
     // @perplesdk
     NSArray *adjustSecretKey = @[ @1, @562501988, @1877997235, @662395286, @1781468312 ];
 
-    //[[PerpleSDK sharedInstance] setMParentView:viewController];
+    [[PerpleSDK sharedInstance] setMViewController:viewController];
 
     BOOL isDebug = NO;
     if ([[PerpleSDK sharedInstance] initSDKWithGcmSenderId:SENDER_ID debug:isDebug]) {
