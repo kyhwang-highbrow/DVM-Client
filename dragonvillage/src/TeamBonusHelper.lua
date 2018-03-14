@@ -20,6 +20,7 @@ function TeamBonusHelper:getTeamBonusFromDeck(l_deck)
         table.insert(l_teambonus_data, teambonus_data)
     end
 
+    -- 덱에 포함된 드래곤들의 StructDragonObject 리스트를 생성
     for i, doid in ipairs(l_deck) do
         local t_dragon_data = g_dragonsData:getDragonDataFromUid(doid)
         if (t_dragon_data) then
@@ -29,10 +30,12 @@ function TeamBonusHelper:getTeamBonusFromDeck(l_deck)
         end
     end
 
+    -- 모든 팀보너스를 검사
     for _, teambonus_data in ipairs(l_teambonus_data) do
         teambonus_data:setFromDragonObjectList(l_dragon_data)
     end
 
+    -- TODO: 현재는 모든 팀보너스를 리턴하는데 UI에서 필요한 정보에 따라 변경되어야할듯하다
     return l_teambonus_data
 end
 

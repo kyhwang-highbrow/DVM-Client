@@ -656,12 +656,13 @@ function UI_ReadySceneNew:refresh_buffInfo()
 	end
 
     -- 팀보너스
+    --[[
     do
         local l_doid = self.m_readySceneDeck.m_lDeckList
 
         local l_teambonus_data = TeamBonusHelper:getTeamBonusFromDeck(l_doid)
-        --cclog('l_teambonus_data = ' .. luadump(l_teambonus_data))
     end
+    ]]--
 end
 
 -------------------------------------
