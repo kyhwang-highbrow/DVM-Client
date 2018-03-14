@@ -98,6 +98,7 @@ local t_module = {
 	'StructDailyMission',
 	'StructCapsuleBox',
 	'StructCapsuleBoxReward',
+    'StructTeamBonus',
 
 	-- ServerData
     'ServerData',
@@ -219,6 +220,7 @@ local t_module = {
 	'SkillTargetFinder',
     'StatusEffectHelper',
     'AreaOfEffectHelper',
+    'TeamBonusHelper',
     'ShaderCache',
     'SortManager',
     'SortManager_Rune',
@@ -318,6 +320,7 @@ local t_module = {
     'TableClanMark',
 	'TableDailyMission',
 	'TablePickDragon',
+    'TableTeamBonus',
 
     -- Scene
     'SceneCommon',

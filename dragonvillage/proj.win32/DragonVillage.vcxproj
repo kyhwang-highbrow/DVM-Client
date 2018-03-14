@@ -798,6 +798,7 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <None Include="..\src\StructStatusEffect.lua" />
     <None Include="..\src\StructSubscribedInfo.lua" />
     <None Include="..\src\StructTamerCostume.lua" />
+    <None Include="..\src\StructTeamBonus.lua" />
     <None Include="..\src\Structure.lua" />
     <None Include="..\src\StructUserInfo.lua" />
     <None Include="..\src\StructUserInfoAncientTower.lua" />
@@ -871,12 +872,14 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <None Include="..\src\TableTamerCostume.lua" />
     <None Include="..\src\TableTamerSkill.lua" />
     <None Include="..\src\TableTamerTitle.lua" />
+    <None Include="..\src\TableTeamBonus.lua" />
     <None Include="..\src\TableUILocation.lua" />
     <None Include="..\src\TableUserLevel.lua" />
     <None Include="..\src\TableClass.lua" />
     <None Include="..\src\TableDailyMission.lua" />
     <None Include="..\src\Tamer.lua" />
     <None Include="..\src\TamerSkill.lua" />
+    <None Include="..\src\TeamBonusHelper.lua" />
     <None Include="..\src\TimeLib.lua" />
     <None Include="..\src\TriggerHpPercent.lua" />
     <None Include="..\src\TriggerTime.lua" />

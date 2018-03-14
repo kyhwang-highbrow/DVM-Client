@@ -1,0 +1,125 @@
+local MAX_CONDITION_COUNT = 5
+
+-------------------------------------
+-- table TeamBonusHelper
+-------------------------------------
+TeamBonusHelper = {}
+
+-------------------------------------
+-- function getTeamBonus
+-------------------------------------
+function TeamBonusHelper:getTeamBonusFromDeck(l_deck)
+    local table_teambonus = TableTeamBonus()
+    local l_teambonus_data = {}
+    local l_dragon_data = {}
+    local l_ret = {}
+    
+    -- 모든 팀보너스를 위한 StructTeamBonus 생성
+    for _, v in pairs(table_teambonus.m_orgTable) do
+        local teambonus_data = StructTeamBonus(v)
+        table.insert(l_teambonus_data, teambonus_data)
+    end
+
+    for i, doid in ipairs(l_deck) do
+        local t_dragon_data = g_dragonsData:getDragonDataFromUid(doid)
+        if (t_dragon_data) then
+            table.insert(l_dragon_data, t_dragon_data)
+        else
+            error('no exist dragon_data : ' .. doid)
+        end
+    end
+
+    for _, teambonus_data in ipairs(l_teambonus_data) do
+        teambonus_data:setFromDragonObjectList(l_dragon_data)
+    end
+
+    return l_teambonus_data
+end
+
+
+-------------------------------------
+-- function checkCondition
+-- @brief 하나의 팀보너스에 대해 파라미터의 드래곤들이 조건을 만족하는지 검사
+-------------------------------------
+function TeamBonusHelper:checkCondition(t_teambonus, l_dragon_data)
+    local condition_type = t_teambonus['condition_type']
+    local req_count = t_teambonus['condition_count']
+
+    -- l_dragon_data내의 드래곤 중에서 해당 팀 보너스 효과를 받는 드래곤들을 저장하기 위한 리스트
+    local l_valid_dragon_data = {}
+
+    -- 이미 포함된 드래곤을 제외시키기 위한 맵
+    local m_doid_to_except = {}
+    local m_temp = {}
+    local m_satisfiedCondition = {}
+        
+    for i = 1, MAX_CONDITION_COUNT do
+        local condition = t_teambonus['condition_' .. i]
+        if (condition and condition ~= '') then
+            local is_exist, m_valid_dragon_data = self:findVaildDragonsFromCondition(condition_type, condition, l_dragon_data, m_doid_to_except)
+
+            if (is_exist) then
+                for idx, dragon_data in pairs(m_valid_dragon_data) do
+                    m_doid_to_except[dragon_data['id']] = true
+
+                    m_temp[idx] = m_valid_dragon_data[idx]
+                end
+
+                m_satisfiedCondition[i] = true
+            end
+        end
+    end
+
+    -- 맵형태에서 리스트로 변환
+    for _, dragon_data in pairs(m_temp) do
+        table.insert(l_valid_dragon_data, dragon_data)
+    end
+
+    -- 조건 갯수 이상 충족 시 달성
+    local achievement_count = table.count(m_satisfiedCondition)
+    local b = (achievement_count >= req_count)
+
+    return b, l_valid_dragon_data
+end
+
+-------------------------------------
+-- function findVaildDragonsFromCondition
+-- @brief 파라미터의 조건에 해당하는 드래곤을 l_dragon_data내에서 찾음
+-------------------------------------
+function TeamBonusHelper:findVaildDragonsFromCondition(condition_type, condition, l_dragon_data, m_doid_to_except)
+    if (not condition or condition == '') then
+        return false
+    end
+
+    local m_doid_to_except = m_doid_to_except or {}
+
+    local table_dragon = TableDragon()
+    local m_valid_dragon_data = {}
+    local is_exist = false
+
+    for idx, dragon_data in ipairs(l_dragon_data) do
+        local doid = dragon_data['id']
+
+        if (not m_doid_to_except[doid]) then
+            local did = dragon_data['did']
+            local t_dragon = TableDragon():get(did)
+
+            if (condition_type == 'did_attr') then
+                -- 조건 타입이 속성을 모두 포함한 특정 드래곤인 경우
+                -- !!이 경우 해당하는 드래곤이 여러 마리가 될 수 있음
+                local did_ignore_attr = did - (did % 10)
+                if (did_ignore_attr == condition) then
+                    m_valid_dragon_data[idx] = dragon_data
+                    is_exist = true
+                end
+
+            elseif (t_dragon[condition_type] == condition) then
+                m_valid_dragon_data[idx] = dragon_data
+                is_exist = true
+                break
+            end
+        end
+    end
+
+    return is_exist, m_valid_dragon_data
+end

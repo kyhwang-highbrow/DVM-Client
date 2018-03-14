@@ -3274,6 +3274,15 @@
     <None Include="..\src\SortManager_ClanRequest.lua">
       <Filter>lua\src</Filter>
     </None>
+    <None Include="..\src\TableTeamBonus.lua">
+      <Filter>lua\src</Filter>
+    </None>
+    <None Include="..\src\TeamBonusHelper.lua">
+      <Filter>lua\src</Filter>
+    </None>
+    <None Include="..\src\StructTeamBonus.lua">
+      <Filter>lua\src</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Classes">
