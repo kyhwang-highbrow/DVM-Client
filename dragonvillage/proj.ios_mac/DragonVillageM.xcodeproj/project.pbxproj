@@ -45,9 +45,6 @@
 		373E2D861A038712004EF0DB /* PerpSupportPatch.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 373E2D821A038712004EF0DB /* PerpSupportPatch.cpp */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		3744D21519FDD5DE003D7120 /* ioapi.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3744D20C19FDD5DE003D7120 /* ioapi.cpp */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		3744D21719FDD5DE003D7120 /* unzip.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3744D21119FDD5DE003D7120 /* unzip.cpp */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
-		37450C6520219B7200960316 /* res in Resources */ = {isa = PBXBuildFile; fileRef = 37450C6220219B7100960316 /* res */; };
-		37450C872048936F00960316 /* data_dat in Resources */ = {isa = PBXBuildFile; fileRef = 37450C852048936F00960316 /* data_dat */; };
-		37450C882048936F00960316 /* ps in Resources */ = {isa = PBXBuildFile; fileRef = 37450C862048936F00960316 /* ps */; };
 		3746350C1F7B8BCA004F8387 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3746350B1F7B8BB9004F8387 /* Images.xcassets */; };
 		374D47A71F42E70600D5AC0F /* DeviceDetector.m in Sources */ = {isa = PBXBuildFile; fileRef = 374D47A61F42E70600D5AC0F /* DeviceDetector.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		37519C041A6657A200406F47 /* PerpLua.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 37519C031A6657A200406F47 /* PerpLua.cpp */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
@@ -125,6 +122,9 @@
 		37E128E01B45399A00200C23 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 37E128DF1B45399A00200C23 /* SystemConfiguration.framework */; };
 		37E128E21B4539A900200C23 /* MediaPlayer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 37E128E11B4539A800200C23 /* MediaPlayer.framework */; };
 		37E128E61B4539C500200C23 /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 37E128E51B4539C500200C23 /* CFNetwork.framework */; };
+		37EF419C2059106700759D34 /* data_dat in Resources */ = {isa = PBXBuildFile; fileRef = 37EF41992059106700759D34 /* data_dat */; };
+		37EF419D2059106700759D34 /* ps in Resources */ = {isa = PBXBuildFile; fileRef = 37EF419A2059106700759D34 /* ps */; };
+		37EF419E2059106700759D34 /* res in Resources */ = {isa = PBXBuildFile; fileRef = 37EF419B2059106700759D34 /* res */; };
 		37EF84261B268F3B00EFA299 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 37EF84281B268F3B00EFA299 /* InfoPlist.strings */; };
 		37FB64B71F3AF73300378EE8 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 37FB64B61F3AF73200378EE8 /* GoogleService-Info.plist */; };
 		5023811817EBBCAC00990C9B /* AppController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 5023810817EBBCAC00990C9B /* AppController.mm */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
@@ -334,7 +334,6 @@
 		1AF4C402178663F200122817 /* libz.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.dylib; path = ../../../../../../../../usr/lib/libz.dylib; sourceTree = "<group>"; };
 		1C414383B493D1248EDE6883 /* Pods-DragonVillageM Mac.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DragonVillageM Mac.debug.xcconfig"; path = "Pods/Target Support Files/Pods-DragonVillageM Mac/Pods-DragonVillageM Mac.debug.xcconfig"; sourceTree = "<group>"; };
 		1CC28FA01B69003F00F75BE8 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
-		3258954AE64EE960F2AF3E56 /* Pods-DragonVillageT Mac.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DragonVillageT Mac.release.xcconfig"; path = "Pods/Target Support Files/Pods-DragonVillageT Mac/Pods-DragonVillageT Mac.release.xcconfig"; sourceTree = "<group>"; };
 		3706F1751F680E9100777433 /* NaverCafeSDK.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; name = NaverCafeSDK.bundle; path = "../../libraries/perplesdk/external/naver-cafe-sdk/ios/NaverCafeSDK.bundle"; sourceTree = "<group>"; };
 		3706F1771F680EAC00777433 /* NaverCafeSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = NaverCafeSDK.framework; path = "../../libraries/perplesdk/external/naver-cafe-sdk/ios/NaverCafeSDK.framework"; sourceTree = "<group>"; };
 		3706F18C1F680EF000777433 /* libNaverLogin.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libNaverLogin.a; path = "../../libraries/perplesdk/external/naver-cafe-sdk/ios/external-lib/NaverLogin-thirdPartyModule/libNaverLogin.a"; sourceTree = "<group>"; };
@@ -350,13 +349,13 @@
 		370B47571F7CB5270072CA71 /* Cocos2dConstants.lua */ = {isa = PBXFileReference; lastKnownFileType = text; name = Cocos2dConstants.lua; path = ../../assets/full/Cocos2dConstants.lua; sourceTree = "<group>"; };
 		370B47581F7CB5280072CA71 /* DrawPrimitives.lua */ = {isa = PBXFileReference; lastKnownFileType = text; name = DrawPrimitives.lua; path = ../../assets/full/DrawPrimitives.lua; sourceTree = "<group>"; };
 		370B475A1F7CB5280072CA71 /* DeprecatedEnum.lua */ = {isa = PBXFileReference; lastKnownFileType = text; name = DeprecatedEnum.lua; path = ../../assets/full/DeprecatedEnum.lua; sourceTree = "<group>"; };
-		370B475B1F7CB5280072CA71 /* AudioEngine.lua */ = {isa = PBXFileReference; lastKnownFileType = text; name = AudioEngine.lua; path = ../../assets/full/AudioEngine.lua; sourceTree = "<group>"; };
+		370B475B1F7CB5280072CA71 /* AudioEngine.lua */ = {isa = PBXFileReference; lastKnownFileType = text; name = AudioEngine.lua; path = ../../assets/full/AudioEngine.lua; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.lua; };
 		370B475C1F7CB5290072CA71 /* entry_main.lua */ = {isa = PBXFileReference; lastKnownFileType = text; name = entry_main.lua; path = ../../assets/full/entry_main.lua; sourceTree = "<group>"; };
 		370B475D1F7CB5290072CA71 /* Opengl.lua */ = {isa = PBXFileReference; lastKnownFileType = text; name = Opengl.lua; path = ../../assets/full/Opengl.lua; sourceTree = "<group>"; };
 		370B475E1F7CB5290072CA71 /* DeprecatedClass.lua */ = {isa = PBXFileReference; lastKnownFileType = text; name = DeprecatedClass.lua; path = ../../assets/full/DeprecatedClass.lua; sourceTree = "<group>"; };
 		370B475F1F7CB5290072CA71 /* StudioConstants.lua */ = {isa = PBXFileReference; lastKnownFileType = text; name = StudioConstants.lua; path = ../../assets/full/StudioConstants.lua; sourceTree = "<group>"; };
 		370B47601F7CB5290072CA71 /* OpenglConstants.lua */ = {isa = PBXFileReference; lastKnownFileType = text; name = OpenglConstants.lua; path = ../../assets/full/OpenglConstants.lua; sourceTree = "<group>"; };
-		370B47611F7CB52A0072CA71 /* CCBReaderLoad.lua */ = {isa = PBXFileReference; lastKnownFileType = text; name = CCBReaderLoad.lua; path = ../../assets/full/CCBReaderLoad.lua; sourceTree = "<group>"; };
+		370B47611F7CB52A0072CA71 /* CCBReaderLoad.lua */ = {isa = PBXFileReference; lastKnownFileType = text; name = CCBReaderLoad.lua; path = ../../assets/full/CCBReaderLoad.lua; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.lua; };
 		370B47621F7CB52A0072CA71 /* CocoStudio.lua */ = {isa = PBXFileReference; lastKnownFileType = text; name = CocoStudio.lua; path = ../../assets/full/CocoStudio.lua; sourceTree = "<group>"; };
 		370B47631F7CB52A0072CA71 /* DeprecatedOpenglEnum.lua */ = {isa = PBXFileReference; lastKnownFileType = text; name = DeprecatedOpenglEnum.lua; path = ../../assets/full/DeprecatedOpenglEnum.lua; sourceTree = "<group>"; };
 		370B47641F7CB52A0072CA71 /* GuiConstants.lua */ = {isa = PBXFileReference; lastKnownFileType = text; name = GuiConstants.lua; path = ../../assets/full/GuiConstants.lua; sourceTree = "<group>"; };
@@ -374,9 +373,6 @@
 		3744D21219FDD5DE003D7120 /* unzip.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = unzip.h; path = ../Classes/unzip.h; sourceTree = "<group>"; };
 		3744D21319FDD5DE003D7120 /* zconf.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = zconf.h; path = ../Classes/zconf.h; sourceTree = "<group>"; };
 		3744D21419FDD5DE003D7120 /* zlib.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = zlib.h; path = ../Classes/zlib.h; sourceTree = "<group>"; };
-		37450C6220219B7100960316 /* res */ = {isa = PBXFileReference; lastKnownFileType = folder; name = res; path = ../res; sourceTree = "<group>"; };
-		37450C852048936F00960316 /* data_dat */ = {isa = PBXFileReference; lastKnownFileType = folder; name = data_dat; path = ../../assets/full/data_dat; sourceTree = "<group>"; };
-		37450C862048936F00960316 /* ps */ = {isa = PBXFileReference; lastKnownFileType = folder; name = ps; path = ../../assets/full/ps; sourceTree = "<group>"; };
 		3746350B1F7B8BB9004F8387 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = ios/Images.xcassets; sourceTree = SOURCE_ROOT; };
 		374D47A51F42E70600D5AC0F /* DeviceDetector.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DeviceDetector.h; sourceTree = "<group>"; };
 		374D47A61F42E70600D5AC0F /* DeviceDetector.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DeviceDetector.m; sourceTree = "<group>"; };
@@ -488,13 +484,14 @@
 		37E128DF1B45399A00200C23 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS.sdk/System/Library/Frameworks/SystemConfiguration.framework; sourceTree = DEVELOPER_DIR; };
 		37E128E11B4539A800200C23 /* MediaPlayer.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MediaPlayer.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS.sdk/System/Library/Frameworks/MediaPlayer.framework; sourceTree = DEVELOPER_DIR; };
 		37E128E51B4539C500200C23 /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS.sdk/System/Library/Frameworks/CFNetwork.framework; sourceTree = DEVELOPER_DIR; };
+		37EF41992059106700759D34 /* data_dat */ = {isa = PBXFileReference; lastKnownFileType = folder; name = data_dat; path = ../../assets/full/data_dat; sourceTree = "<group>"; };
+		37EF419A2059106700759D34 /* ps */ = {isa = PBXFileReference; lastKnownFileType = folder; name = ps; path = ../../assets/full/ps; sourceTree = "<group>"; };
+		37EF419B2059106700759D34 /* res */ = {isa = PBXFileReference; lastKnownFileType = folder; name = res; path = ../../assets/full/res; sourceTree = "<group>"; };
 		37EF842A1B268F4C00EFA299 /* Base */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = Base; path = Base.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		37EF842B1B268F7200EFA299 /* ko */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ko; path = ko.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		37FB64941F3AD0D000378EE8 /* DragonVillage.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = DragonVillage.entitlements; sourceTree = "<group>"; };
 		37FB64B61F3AF73200378EE8 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
-		3D1A129B749AC451AD40A97F /* Pods-DragonVillageT Mac.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DragonVillageT Mac.debug.xcconfig"; path = "Pods/Target Support Files/Pods-DragonVillageT Mac/Pods-DragonVillageT Mac.debug.xcconfig"; sourceTree = "<group>"; };
 		45A8F369AC48C70B07989DD8 /* libPods-DragonVillageM Mac.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-DragonVillageM Mac.a"; sourceTree = BUILT_PRODUCTS_DIR; };
-		49FA42D918718EB105DB6BD8 /* Pods-DragonVillageT iOS.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DragonVillageT iOS.release.xcconfig"; path = "Pods/Target Support Files/Pods-DragonVillageT iOS/Pods-DragonVillageT iOS.release.xcconfig"; sourceTree = "<group>"; };
 		5023810717EBBCAC00990C9B /* AppController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppController.h; sourceTree = "<group>"; };
 		5023810817EBBCAC00990C9B /* AppController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; lineEnding = 0; path = AppController.mm; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
 		5023811317EBBCAC00990C9B /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -514,7 +511,6 @@
 		B9CDC362947295326AAB4A07 /* libPods-DragonVillageM iOS.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-DragonVillageM iOS.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		C03781AE18BF654500FE4F13 /* cocos2d_lua_bindings.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = cocos2d_lua_bindings.xcodeproj; path = "../../cocos2d-x/cocos/scripting/lua-bindings/proj.ios_mac/cocos2d_lua_bindings.xcodeproj"; sourceTree = "<group>"; };
 		C06E23C318CEF9740093C81A /* main.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
-		C4DF7F6EF264EB05F3787727 /* Pods-DragonVillageT iOS.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DragonVillageT iOS.debug.xcconfig"; path = "Pods/Target Support Files/Pods-DragonVillageT iOS/Pods-DragonVillageT iOS.debug.xcconfig"; sourceTree = "<group>"; };
 		F293B3C815EB7BE500256477 /* DragonVillage.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DragonVillage.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F293B3CC15EB7BE500256477 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		F293B3D015EB7BE500256477 /* OpenAL.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenAL.framework; path = System/Library/Frameworks/OpenAL.framework; sourceTree = SDKROOT; };
@@ -647,9 +643,9 @@
 		3746350A1F7B8BA0004F8387 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
-				37450C862048936F00960316 /* ps */,
-				37450C852048936F00960316 /* data_dat */,
-				37450C6220219B7100960316 /* res */,
+				37EF41992059106700759D34 /* data_dat */,
+				37EF419A2059106700759D34 /* ps */,
+				37EF419B2059106700759D34 /* res */,
 				37B4B81C201EF8E3008B58E6 /* sound */,
 				37B4B81B201EF8E3008B58E6 /* translate */,
 				370B474D1F7CB5260072CA71 /* config.json */,
@@ -817,10 +813,6 @@
 		DB90B45C0128DC47F1A79FD2 /* Pods */ = {
 			isa = PBXGroup;
 			children = (
-				3D1A129B749AC451AD40A97F /* Pods-DragonVillageT Mac.debug.xcconfig */,
-				3258954AE64EE960F2AF3E56 /* Pods-DragonVillageT Mac.release.xcconfig */,
-				C4DF7F6EF264EB05F3787727 /* Pods-DragonVillageT iOS.debug.xcconfig */,
-				49FA42D918718EB105DB6BD8 /* Pods-DragonVillageT iOS.release.xcconfig */,
 				1C414383B493D1248EDE6883 /* Pods-DragonVillageM Mac.debug.xcconfig */,
 				6E029427B4D8BFD265188CE7 /* Pods-DragonVillageM Mac.release.xcconfig */,
 				7D7A2500A4C49ABE4AA8493A /* Pods-DragonVillageM iOS.debug.xcconfig */,
@@ -1208,11 +1200,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				7D50CB851C04459600F8FE3E /* Info.plist in Resources */,
-				37450C882048936F00960316 /* ps in Resources */,
 				37EF84261B268F3B00EFA299 /* InfoPlist.strings in Resources */,
 				37FB64B71F3AF73300378EE8 /* GoogleService-Info.plist in Resources */,
 				3706F1761F680E9200777433 /* NaverCafeSDK.bundle in Resources */,
-				37450C872048936F00960316 /* data_dat in Resources */,
 				370B476B1F7CB6290072CA71 /* config.json in Resources */,
 				37B4B821201EF8E4008B58E6 /* sound in Resources */,
 				370B476C1F7CB6290072CA71 /* AudioEngine.lua in Resources */,
@@ -1225,22 +1215,24 @@
 				3772F3D61FF4EC8000A9EF7A /* include in Resources */,
 				370B47731F7CB6290072CA71 /* DeprecatedEnum.lua in Resources */,
 				370B47741F7CB6290072CA71 /* DeprecatedOpenglEnum.lua in Resources */,
+				37EF419D2059106700759D34 /* ps in Resources */,
 				370B47751F7CB6290072CA71 /* DrawPrimitives.lua in Resources */,
 				370B47761F7CB6290072CA71 /* entry_main.lua in Resources */,
 				370B47771F7CB6290072CA71 /* entry_patch.lua in Resources */,
 				370B47781F7CB6290072CA71 /* extern.lua in Resources */,
 				370B47791F7CB6290072CA71 /* fixed_constant.lua in Resources */,
-				37450C6520219B7200960316 /* res in Resources */,
 				370B477A1F7CB6290072CA71 /* GuiConstants.lua in Resources */,
 				370B477B1F7CB6290072CA71 /* json.lua in Resources */,
 				3772F3BF1FF4EC4400A9EF7A /* NaverAuth.bundle in Resources */,
 				370B477C1F7CB6290072CA71 /* luaj.lua in Resources */,
 				370B477D1F7CB6290072CA71 /* luaoc.lua in Resources */,
+				37EF419C2059106700759D34 /* data_dat in Resources */,
 				370B477E1F7CB6290072CA71 /* Opengl.lua in Resources */,
 				370B477F1F7CB6290072CA71 /* OpenglConstants.lua in Resources */,
 				370B47801F7CB6290072CA71 /* StudioConstants.lua in Resources */,
 				3746350C1F7B8BCA004F8387 /* Images.xcassets in Resources */,
 				37B4B820201EF8E4008B58E6 /* translate in Resources */,
+				37EF419E2059106700759D34 /* res in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1307,11 +1299,17 @@
 				"${PODS_ROOT}/GoogleSignIn/Resources/GoogleSignIn.bundle",
 				"${PODS_ROOT}/TapjoySDK/TapjoySDK_iOS_v11.11.1/Libraries/Tapjoy.embeddedframework/Resources/TapjoyResources.bundle",
 				"${PODS_ROOT}/TapjoySDK/TapjoySDK_iOS_v11.11.1/Libraries/Tapjoy.embeddedframework/Tapjoy.framework/Versions/A/Resources/TapjoyResources.bundle",
-				"${PODS_ROOT}/TwitterKit/iOS/TwitterKit.framework/Versions/A/Resources/TwitterKitResources.bundle",
+				"${PODS_ROOT}/TwitterKit/iOS/TwitterKit.framework/TwitterKitResources.bundle",
+				"${PODS_ROOT}/TwitterKit/iOS/TwitterKit.framework/TwitterShareExtensionUIResources.bundle",
 			);
 			name = "[CP] Copy Pods Resources";
 			outputPaths = (
-				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/FacebookSDKStrings.bundle",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/GTMOAuth2ViewTouch.nib",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/GoogleSignIn.bundle",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/TapjoyResources.bundle",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/TwitterKitResources.bundle",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/TwitterShareExtensionUIResources.bundle",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -1342,9 +1340,14 @@
 			files = (
 			);
 			inputPaths = (
+				"${SRCROOT}/Pods/Target Support Files/Pods-DragonVillageM iOS/Pods-DragonVillageM iOS-frameworks.sh",
+				"${PODS_ROOT}/TwitterCore/iOS/TwitterCore.framework",
+				"${PODS_ROOT}/TwitterKit/iOS/TwitterKit.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/TwitterCore.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/TwitterKit.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -1575,7 +1578,7 @@
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				HEADER_SEARCH_PATHS = "$(inherited)";
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LIBRARY_SEARCH_PATHS = "$(inherited)";
 				MACOSX_DEPLOYMENT_TARGET = 10.6;
 				ONLY_ACTIVE_ARCH = NO;
@@ -1609,7 +1612,7 @@
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				HEADER_SEARCH_PATHS = "$(inherited)";
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LIBRARY_SEARCH_PATHS = "$(inherited)";
 				MACOSX_DEPLOYMENT_TARGET = 10.6;
 				ONLY_ACTIVE_ARCH = NO;
@@ -1662,7 +1665,7 @@
 				);
 				HEADER_SEARCH_PATHS = "$(inherited)";
 				INFOPLIST_FILE = ios/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1675,7 +1678,7 @@
 				OTHER_LDFLAGS = "$(inherited)";
 				PRODUCT_BUNDLE_IDENTIFIER = com.perplelab.dragonvillagem.kr;
 				PRODUCT_NAME = DragonVillage;
-				PROVISIONING_PROFILE = "c312bab9-9582-4958-8bad-c190e9579232";
+				PROVISIONING_PROFILE = "4e0a386e-34fe-49ab-aebb-940dd53b7d68";
 				PROVISIONING_PROFILE_SPECIFIER = "PerpleLab DVM Dev";
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -1715,7 +1718,7 @@
 				);
 				HEADER_SEARCH_PATHS = "$(inherited)";
 				INFOPLIST_FILE = ios/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
