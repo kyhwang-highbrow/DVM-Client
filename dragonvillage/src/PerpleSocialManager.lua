@@ -25,17 +25,17 @@ function PerpleSocialManager:twitterComposeTweet(success_cb, fail_cb, cancel_cb)
     texture:saveToFile(file_name, cc.IMAGE_FORMAT_PNG, true, function(node, ret_file_name)
         cclog('ret_file_name : ' .. ret_file_name)
 		PerpleSDK:twitterComposeTweet(ret_file_name, function(ret, info)
-			if (info == 'success') then
+			if (result == 'success') then
 				--ccdisplay('twitter compose tweet SUCCESS')
 				if (success_cb) then
 					success_cb()
 				end
-			elseif (info == 'fail') then
+			elseif (result == 'fail') then
 				--ccdisplay('twitter compose tweet FAILURE')
 				if (fail_cb) then
 					fail_cb()
 				end
-			elseif (info == 'cancel') then
+			elseif (result == 'cancel') then
 				--ccdisplay('twitter compose tweet CANCEL')
 				if (cancel_cb) then
 					cancel_cb()
