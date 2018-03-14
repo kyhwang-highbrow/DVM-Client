@@ -211,6 +211,17 @@ function Tamer.st_roam(owner, dt)
 end
 
 -------------------------------------
+-- function st_dead
+-------------------------------------
+function Tamer.st_dead(owner, dt)
+    if (owner.m_stateTimer == 0) then
+        owner:setDead()
+    end
+
+    return true
+end
+
+-------------------------------------
 -- function getRoamPos
 -- @brief 테이머 배회 이동 좌표를 얻음
 -------------------------------------
