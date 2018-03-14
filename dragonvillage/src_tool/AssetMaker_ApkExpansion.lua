@@ -101,7 +101,7 @@ function AssetMaker_ApkExpansion:compress()
 
     util.changeDir(ASSETS_PATH_EXPANSION)
 
-    local version_code = 29
+    local version_code = 00
     local package_name = 'com.perplelab.dragonvillagem.kr'
     local obb_path = string.format(OBB_FORMAT, version_code, package_name)
 
