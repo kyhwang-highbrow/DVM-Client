@@ -51,8 +51,8 @@
 #define NAVER_NEO_ID_CONSUMER_KEY   @"_hBggTZAp2IPapvAxwQl"
 #define NAVER_COMMUNITY_ID          0
 #define ADJUST_TOKKEN_ID            @"esjmkti8vim8"
-#define TWITTER_CUSTOMER_KEY        @"kJlCsOmKdhLpsVitieEs6DL5R"
-#define TWITTER_CUSTOMER_SECRET     @"jLuByWszPl4P3CYLBf2y70QcT559EXTeDemGr34a45wndbBbxA"
+#define TWITTER_CUSTOMER_KEY        @"VCJ9gb6EjeIQO74rAbUl9B6aj"
+#define TWITTER_CUSTOMER_SECRET     @"D0kt613Jye142Efej1DxtvJguItaK5PtgvYyJfY34Pvqs1HCBH"
 
 // iTunes Connect App ID : 1281873988
 
@@ -127,6 +127,8 @@ static AppDelegate s_sharedApplication;
 
     // @perplesdk
     NSArray *adjustSecretKey = @[ @1, @562501988, @1877997235, @662395286, @1781468312 ];
+
+    //[[PerpleSDK sharedInstance] setMParentView:viewController];
 
     BOOL isDebug = NO;
     if ([[PerpleSDK sharedInstance] initSDKWithGcmSenderId:SENDER_ID debug:isDebug]) {

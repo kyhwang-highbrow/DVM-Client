@@ -172,6 +172,7 @@ typedef void(^PerpleSDKCallback)(NSString *result, NSString *info);
 // @twitter
 - (void) twitterLoginWithCompletion:(PerpleSDKCallback)callback;
 - (void) twitterLogout;
+- (void) twitterComposeTweet:(NSString *)imageUri completion:(PerpleSDKCallback)callback;
 
 // @adbrix
 - (void) adbrixEvent:(NSString *)cmd param1:(NSString *)param1 param2:(NSString *)param2;
