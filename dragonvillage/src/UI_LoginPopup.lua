@@ -68,7 +68,6 @@ function UI_LoginPopup:alignButton()
 	--vars['facebookBtn']:setVisible(true)
 	--vars['twitterBtn']:setVisible(true)
 	vars['gamecenterBtn']:setVisible(CppFunctions:isIos())
-	vars['twitterBtn']:setVisible(false)
 
 	-- visible로 구분하여 활성화된 버튼을 찾아 정렬
 	local l_prefix_list = {'google', 'facebook', 'twitter', 'gamecenter', 'guest'}

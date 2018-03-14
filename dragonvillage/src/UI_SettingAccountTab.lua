@@ -613,7 +613,7 @@ function UI_Setting:click_logoutBtn()
                 PerpleSDK:logout()
                 PerpleSDK:googleLogout(0)
                 PerpleSDK:facebookLogout()
-				--PerpleSDK:twitterLogout()
+				PerpleSDK:twitterLogout()
 
                 clear()
             end
@@ -738,7 +738,7 @@ function UI_Setting:updateInfo()
     vars['gamecenterBtn']:setVisible(is_guest and CppFunctions:isIos())
     vars['googleBtn']:setVisible(not is_gamecenter)
     vars['facebookBtn']:setVisible(not is_gamecenter)
-	vars['twitterBtn']:setVisible(false)
+	vars['twitterBtn']:setVisible(not is_gamecenter)
 
 	-- setString info
 	vars['descLabel']:setString(desc)
