@@ -1,0 +1,356 @@
+
+zetdragon_water_03.png
+size: 1383,781
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+zetdragon_water_03_arm_01
+  rotate: false
+  xy: 628, 43
+  size: 139, 87
+  orig: 139, 87
+  offset: 0, 0
+  index: -1
+zetdragon_water_03_arm_02
+  rotate: false
+  xy: 628, 132
+  size: 146, 91
+  orig: 146, 91
+  offset: 0, 0
+  index: -1
+zetdragon_water_03_arm_03
+  rotate: true
+  xy: 629, 225
+  size: 150, 171
+  orig: 150, 171
+  offset: 0, 0
+  index: -1
+zetdragon_water_03_arm_04
+  rotate: false
+  xy: 802, 261
+  size: 64, 114
+  orig: 64, 114
+  offset: 0, 0
+  index: -1
+zetdragon_water_03_blue
+  rotate: false
+  xy: 2, 82
+  size: 328, 87
+  orig: 328, 87
+  offset: 0, 0
+  index: -1
+zetdragon_water_03_body_01
+  rotate: false
+  xy: 2, 386
+  size: 395, 246
+  orig: 395, 246
+  offset: 0, 0
+  index: -1
+zetdragon_water_03_booster_01
+  rotate: false
+  xy: 881, 2
+  size: 59, 49
+  orig: 59, 49
+  offset: 0, 0
+  index: -1
+zetdragon_water_03_booster_02
+  rotate: true
+  xy: 1078, 212
+  size: 54, 46
+  orig: 54, 46
+  offset: 0, 0
+  index: -1
+zetdragon_water_03_booster_03
+  rotate: true
+  xy: 769, 2
+  size: 98, 110
+  orig: 98, 110
+  offset: 0, 0
+  index: -1
+zetdragon_water_03_booster_04
+  rotate: false
+  xy: 976, 159
+  size: 100, 107
+  orig: 100, 107
+  offset: 0, 0
+  index: -1
+zetdragon_water_03_booster_05
+  rotate: false
+  xy: 1128, 203
+  size: 108, 87
+  orig: 108, 87
+  offset: 0, 0
+  index: -1
+zetdragon_water_03_dust
+  rotate: false
+  xy: 2, 171
+  size: 369, 213
+  orig: 369, 213
+  offset: 0, 0
+  index: -1
+zetdragon_water_03_effect_01
+  rotate: true
+  xy: 373, 109
+  size: 101, 156
+  orig: 101, 156
+  offset: 0, 0
+  index: -1
+zetdragon_water_03_effect_02
+  rotate: true
+  xy: 2, 6
+  size: 74, 228
+  orig: 74, 228
+  offset: 0, 0
+  index: -1
+zetdragon_water_03_effect_03
+  rotate: false
+  xy: 1128, 292
+  size: 108, 219
+  orig: 108, 219
+  offset: 0, 0
+  index: -1
+zetdragon_water_03_effect_04
+  rotate: false
+  xy: 1185, 37
+  size: 64, 63
+  orig: 64, 63
+  offset: 0, 0
+  index: -1
+zetdragon_water_03_effect_05
+  rotate: false
+  xy: 1251, 37
+  size: 64, 63
+  orig: 64, 63
+  offset: 0, 0
+  index: -1
+zetdragon_water_03_effect_06
+  rotate: false
+  xy: 1317, 37
+  size: 64, 63
+  orig: 64, 63
+  offset: 0, 0
+  index: -1
+zetdragon_water_03_effect_light
+  rotate: false
+  xy: 776, 102
+  size: 99, 99
+  orig: 99, 99
+  offset: 0, 0
+  index: -1
+zetdragon_water_03_effect_lightdust
+  rotate: false
+  xy: 1238, 216
+  size: 127, 99
+  orig: 127, 99
+  offset: 0, 0
+  index: -1
+zetdragon_water_03_foot_01
+  rotate: false
+  xy: 531, 235
+  size: 96, 164
+  orig: 96, 164
+  offset: 0, 0
+  index: -1
+zetdragon_water_03_hair_01
+  rotate: true
+  xy: 1238, 102
+  size: 112, 118
+  orig: 112, 118
+  offset: 0, 0
+  index: -1
+zetdragon_water_03_hair_02
+  rotate: false
+  xy: 976, 71
+  size: 99, 86
+  orig: 99, 86
+  offset: 0, 0
+  index: -1
+zetdragon_water_03_hand_01
+  rotate: false
+  xy: 1045, 3
+  size: 62, 66
+  orig: 62, 66
+  offset: 0, 0
+  index: -1
+zetdragon_water_03_hand_02
+  rotate: false
+  xy: 880, 586
+  size: 32, 38
+  orig: 32, 38
+  offset: 0, 0
+  index: -1
+zetdragon_water_03_hand_03
+  rotate: false
+  xy: 1213, 178
+  size: 23, 23
+  orig: 23, 23
+  offset: 0, 0
+  index: -1
+zetdragon_water_03_hand_04
+  rotate: false
+  xy: 332, 137
+  size: 35, 32
+  orig: 35, 32
+  offset: 0, 0
+  index: -1
+zetdragon_water_03_head_01
+  rotate: false
+  xy: 531, 83
+  size: 95, 150
+  orig: 95, 150
+  offset: 0, 0
+  index: -1
+zetdragon_water_03_head_02
+  rotate: true
+  xy: 1122, 126
+  size: 75, 89
+  orig: 75, 89
+  offset: 0, 0
+  index: -1
+zetdragon_water_03_head_03
+  rotate: false
+  xy: 1078, 158
+  size: 42, 52
+  orig: 42, 52
+  offset: 0, 0
+  index: -1
+zetdragon_water_03_jet
+  rotate: true
+  xy: 1238, 317
+  size: 211, 127
+  orig: 211, 127
+  offset: 0, 0
+  index: -1
+zetdragon_water_03_skill_03
+  rotate: false
+  xy: 2, 634
+  size: 500, 145
+  orig: 500, 145
+  offset: 0, 0
+  index: -1
+zetdragon_water_03_skill_05
+  rotate: false
+  xy: 504, 626
+  size: 409, 153
+  orig: 409, 153
+  offset: 0, 0
+  index: -1
+zetdragon_water_03_tail_01
+  rotate: true
+  xy: 399, 401
+  size: 223, 281
+  orig: 223, 281
+  offset: 0, 0
+  index: -1
+zetdragon_water_03_tail_02
+  rotate: false
+  xy: 310, 2
+  size: 59, 78
+  orig: 59, 78
+  offset: 0, 0
+  index: -1
+zetdragon_water_03_tail_03
+  rotate: false
+  xy: 802, 207
+  size: 61, 52
+  orig: 61, 52
+  offset: 0, 0
+  index: -1
+zetdragon_water_03_tail_04
+  rotate: false
+  xy: 682, 377
+  size: 183, 74
+  orig: 183, 74
+  offset: 0, 0
+  index: -1
+zetdragon_water_03_wing2_01
+  rotate: false
+  xy: 877, 150
+  size: 97, 116
+  orig: 97, 116
+  offset: 0, 0
+  index: -1
+zetdragon_water_03_wing2_02
+  rotate: false
+  xy: 881, 53
+  size: 91, 95
+  orig: 91, 95
+  offset: 0, 0
+  index: -1
+zetdragon_water_03_wing2_03
+  rotate: false
+  xy: 232, 2
+  size: 76, 78
+  orig: 76, 78
+  offset: 0, 0
+  index: -1
+zetdragon_water_03_wing2_04
+  rotate: false
+  xy: 974, 2
+  size: 69, 67
+  orig: 69, 67
+  offset: 0, 0
+  index: -1
+zetdragon_water_03_wing_01
+  rotate: true
+  xy: 371, 7
+  size: 100, 135
+  orig: 100, 135
+  offset: 0, 0
+  index: -1
+zetdragon_water_03_wing_02
+  rotate: false
+  xy: 682, 453
+  size: 196, 171
+  orig: 196, 171
+  offset: 0, 0
+  index: -1
+zetdragon_water_03_wing_03
+  rotate: false
+  xy: 915, 513
+  size: 286, 266
+  orig: 286, 266
+  offset: 0, 0
+  index: -1
+zetdragon_water_03_wing_04
+  rotate: false
+  xy: 508, 2
+  size: 95, 79
+  orig: 95, 79
+  offset: 0, 0
+  index: -1
+zetdragon_water_03_wing_05
+  rotate: false
+  xy: 1109, 54
+  size: 74, 70
+  orig: 74, 70
+  offset: 0, 0
+  index: -1
+zetdragon_water_03_wing_06
+  rotate: false
+  xy: 629, 379
+  size: 37, 20
+  orig: 37, 20
+  offset: 0, 0
+  index: -1
+zetdragon_water_03_wing_07
+  rotate: true
+  xy: 1203, 530
+  size: 249, 177
+  orig: 249, 177
+  offset: 0, 0
+  index: -1
+zetdragon_water_03_wingback_01
+  rotate: false
+  xy: 373, 212
+  size: 156, 172
+  orig: 156, 172
+  offset: 0, 0
+  index: -1
+zetdragon_water_03_won
+  rotate: true
+  xy: 880, 268
+  size: 243, 246
+  orig: 243, 246
+  offset: 0, 0
+  index: -1

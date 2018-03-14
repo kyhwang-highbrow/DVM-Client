@@ -1095,12 +1095,12 @@
 				type = 'Scale9Sprite';
 				ui_name = '';
 				x = 0.000000;
-				y = -244.000000;
+				y = -269.000000;
 				dock_point = { 0.500000; 0.500000; };
 				anchor_point = { 0.500000; 0.500000; };
 				relative_size_type = 0;
-				width = 440;
-				height = 100;
+				width = 490;
+				height = 80;
 				scale_x = 1.000000;
 				scale_y = 1.000000;
 				skew_x = 0.000000;
@@ -1118,106 +1118,21 @@
 			};
 			[3] =
 			{
-				type = 'Sprite';
-				ui_name = '';
-				x = 0.000000;
-				y = 196.000000;
-				dock_point = { 0.500000; 0.500000; };
-				anchor_point = { 0.500000; 0.500000; };
-				relative_size_type = 0;
-				width = 254;
-				height = 316;
-				scale_x = 1.000000;
-				scale_y = 1.000000;
-				skew_x = 0.000000;
-				skew_y = 0.000000;
-				rotation = 0.000000;
-				visible = true;
-				lua_name = '';
-				file_name = 'ui/frames/colosseum_tier_0101.png';
-				color = { 255; 255; 255; };
-				opacity = 255;
-				flip_x = false;
-				flip_y = false;
-				src_blend = 770;
-				dest_blend = 771;
-			};
-			[4] =
-			{
-				type = 'Node';
-				ui_name = '';
-				x = 0.000000;
-				y = 208.000000;
-				dock_point = { 0.500000; 0.500000; };
-				anchor_point = { 0.500000; 0.500000; };
-				relative_size_type = 0;
-				width = 162;
-				height = 162;
-				scale_x = 1.000000;
-				scale_y = 1.000000;
-				skew_x = 0.000000;
-				skew_y = 0.000000;
-				rotation = 0.000000;
-				visible = true;
-				lua_name = 'tierIconNode';
-			};
-			[5] =
-			{
-				type = 'LabelTTF';
-				ui_name = '';
-				x = 0.000000;
-				y = 124.000000;
-				dock_point = { 0.500000; 0.500000; };
-				anchor_point = { 0.500000; 0.500000; };
-				relative_size_type = 0;
-				width = 281;
-				height = 50;
-				scale_x = 1.000000;
-				scale_y = 1.000000;
-				skew_x = 0.000000;
-				skew_y = 0.000000;
-				rotation = 0.000000;
-				visible = true;
-				lua_name = 'tierLabel';
-				font_name = 'font/common_font_01.ttf';
-				font_size = 28;
-				text = 'tierLabel';
-				h_alignment = 1;
-				v_alignment = 1;
-				color = { 255; 215; 0; };
-				opacity = 255;
-				dimension_width = 281;
-				dimension_height = 50;
-				letter_spacing = 0.000000;
-				has_stroke = true;
-				stroke_type = 0;
-				stroke_detail_level = 0;
-				is_sharp_text = true;
-				stroke_tickness = 2.000000;
-				stroke_color = { 0; 0; 0; };
-				has_shadow = false;
-				shadow_color = { 0; 0; 0; };
-				shadow_opacity = 255;
-				shadow_direction = 0;
-				shadow_distance = 3.000000;
-			};
-			[6] =
-			{
 				type = 'Scale9Sprite';
 				ui_name = '';
 				x = 0.000000;
-				y = 110.000000;
+				y = -35.000000;
 				dock_point = { 0.500000; 0.500000; };
 				anchor_point = { 0.500000; 0.500000; };
 				relative_size_type = 0;
 				width = 460;
-				height = 50;
+				height = 91;
 				scale_x = 1.000000;
 				scale_y = 1.000000;
 				skew_x = 0.000000;
 				skew_y = 0.000000;
 				rotation = 0.000000;
-				visible = false;
+				visible = true;
 				lua_name = '';
 				file_name = 'ui/frames/title_frame_0101.png';
 				color = { 255; 255; 255; };
@@ -1227,12 +1142,95 @@
 				center_rect_width = 0;
 				center_rect_height = 0;
 			};
-			[7] =
+			[4] =
+			{
+				[1] =
+				{
+					type = 'Node';
+					ui_name = '';
+					x = 0.000000;
+					y = 16.000000;
+					dock_point = { 0.500000; 0.500000; };
+					anchor_point = { 0.500000; 0.500000; };
+					relative_size_type = 0;
+					width = 162;
+					height = 162;
+					scale_x = 1.000000;
+					scale_y = 1.000000;
+					skew_x = 0.000000;
+					skew_y = 0.000000;
+					rotation = 0.000000;
+					visible = true;
+					lua_name = 'tierIconNode';
+				};
+				[2] =
+				{
+					type = 'LabelTTF';
+					ui_name = '';
+					x = 0.000000;
+					y = -66.000000;
+					dock_point = { 0.500000; 0.500000; };
+					anchor_point = { 0.500000; 0.500000; };
+					relative_size_type = 0;
+					width = 281;
+					height = 50;
+					scale_x = 1.000000;
+					scale_y = 1.000000;
+					skew_x = 0.000000;
+					skew_y = 0.000000;
+					rotation = 0.000000;
+					visible = true;
+					lua_name = 'tierLabel';
+					font_name = 'font/common_font_01.ttf';
+					font_size = 28;
+					text = 'tierLabel';
+					h_alignment = 1;
+					v_alignment = 1;
+					color = { 255; 215; 0; };
+					opacity = 255;
+					dimension_width = 281;
+					dimension_height = 50;
+					letter_spacing = 0.000000;
+					has_stroke = true;
+					stroke_type = 0;
+					stroke_detail_level = 0;
+					is_sharp_text = true;
+					stroke_tickness = 2.000000;
+					stroke_color = { 0; 0; 0; };
+					has_shadow = false;
+					shadow_color = { 0; 0; 0; };
+					shadow_opacity = 255;
+					shadow_direction = 0;
+					shadow_distance = 3.000000;
+				};
+				type = 'Button';
+				ui_name = '';
+				x = 0.000000;
+				y = 210.000000;
+				dock_point = { 0.500000; 0.500000; };
+				anchor_point = { 0.500000; 0.500000; };
+				relative_size_type = 0;
+				width = 193;
+				height = 222;
+				scale_x = 1.000000;
+				scale_y = 1.000000;
+				skew_x = 0.000000;
+				skew_y = 0.000000;
+				rotation = 0.000000;
+				visible = true;
+				lua_name = 'rankDetailBtn';
+				enable = true;
+				normal = 'ui/frames/colosseum_tier_0101.png';
+				selected = '';
+				disable = '';
+				image_type = 0;
+			};
+			[5] =
 			{
 				type = 'LabelTTF';
 				ui_name = '';
-				x = 60.000000;
-				y = -10.000000;
+				x = 48.000000;
+				y = 70.000000;
 				dock_point = { 0.000000; 0.500000; };
 				anchor_point = { 0.000000; 0.500000; };
 				relative_size_type = 0;
@@ -1246,7 +1244,7 @@
 				visible = true;
 				lua_name = '';
 				font_name = 'font/common_font_01.ttf';
-				font_size = 24;
+				font_size = 22;
 				text = '현재 순위\n현재 점수\n현재 승률\n현재 연승 기록';
 				h_alignment = 0;
 				v_alignment = 1;
@@ -1267,12 +1265,12 @@
 				shadow_direction = 0;
 				shadow_distance = 5.000000;
 			};
-			[8] =
+			[6] =
 			{
 				type = 'LabelTTF';
 				ui_name = '';
-				x = -60.000000;
-				y = -10.000000;
+				x = -48.000000;
+				y = 70.000000;
 				dock_point = { 1.000000; 0.500000; };
 				anchor_point = { 1.000000; 0.500000; };
 				relative_size_type = 0;
@@ -1286,8 +1284,8 @@
 				visible = true;
 				lua_name = 'rankingLabel';
 				font_name = 'font/common_font_01.ttf';
-				font_size = 24;
-				text = '{0}위({0}%)\n{1}점\n{1}승{1}패{1}%){0}회';
+				font_size = 22;
+				text = '{0}위({0}%)\n{1}점\n{1}승{1}패{1}%\n{0}회';
 				h_alignment = 2;
 				v_alignment = 1;
 				color = { 255; 255; 255; };
@@ -1307,12 +1305,12 @@
 				shadow_direction = 0;
 				shadow_distance = 5.000000;
 			};
-			[9] =
+			[7] =
 			{
 				type = 'LabelTTF';
 				ui_name = '';
-				x = 60.000000;
-				y = -104.000000;
+				x = 48.000000;
+				y = -9.000000;
 				dock_point = { 0.000000; 0.500000; };
 				anchor_point = { 0.000000; 0.500000; };
 				relative_size_type = 0;
@@ -1326,7 +1324,7 @@
 				visible = true;
 				lua_name = 'buffLabel1';
 				font_name = 'font/common_font_01.ttf';
-				font_size = 24;
+				font_size = 22;
 				text = '연승 버프 5단계';
 				h_alignment = 0;
 				v_alignment = 1;
@@ -1347,12 +1345,12 @@
 				shadow_direction = 0;
 				shadow_distance = 5.000000;
 			};
-			[10] =
+			[8] =
 			{
 				type = 'LabelTTF';
 				ui_name = '';
-				x = 60.000000;
-				y = -134.000000;
+				x = 48.000000;
+				y = -33.000000;
 				dock_point = { 0.000000; 0.500000; };
 				anchor_point = { 0.000000; 0.500000; };
 				relative_size_type = 0;
@@ -1366,7 +1364,7 @@
 				visible = true;
 				lua_name = 'buffLabel2';
 				font_name = 'font/common_font_01.ttf';
-				font_size = 24;
+				font_size = 22;
 				text = '59분 59초 남음';
 				h_alignment = 0;
 				v_alignment = 1;
@@ -1387,12 +1385,12 @@
 				shadow_direction = 0;
 				shadow_distance = 5.000000;
 			};
-			[11] =
+			[9] =
 			{
 				type = 'LabelTTF';
 				ui_name = '';
-				x = 60.000000;
-				y = -164.000000;
+				x = 48.000000;
+				y = -58.000000;
 				dock_point = { 0.000000; 0.500000; };
 				anchor_point = { 0.000000; 0.500000; };
 				relative_size_type = 0;
@@ -1406,7 +1404,7 @@
 				visible = true;
 				lua_name = 'buffLabel3';
 				font_name = 'font/common_font_01.ttf';
-				font_size = 26;
+				font_size = 22;
 				text = '10연승 : 체력+15%, 공격력+15%';
 				h_alignment = 0;
 				v_alignment = 1;
@@ -1427,7 +1425,7 @@
 				shadow_direction = 0;
 				shadow_distance = 5.000000;
 			};
-			[12] =
+			[10] =
 			{
 				[1] =
 				{
@@ -1471,8 +1469,8 @@
 				};
 				type = 'Button';
 				ui_name = '';
-				x = -110.000000;
-				y = -244.000000;
+				x = -70.000000;
+				y = -268.000000;
 				dock_point = { 1.000000; 0.500000; };
 				anchor_point = { 0.500000; 0.500000; };
 				relative_size_type = 0;
@@ -1491,7 +1489,7 @@
 				disable = 'ui/buttons/base_btn_0102.png';
 				image_type = 1;
 			};
-			[13] =
+			[11] =
 			{
 				[1] =
 				{
@@ -1555,12 +1553,12 @@
 				disable = 'ui/buttons/base_btn_0102.png';
 				image_type = 1;
 			};
-			[14] =
+			[12] =
 			{
 				type = 'Button';
 				ui_name = '';
-				x = -82.000000;
-				y = -112.000000;
+				x = -43.000000;
+				y = -32.000000;
 				dock_point = { 1.000000; 0.500000; };
 				anchor_point = { 0.500000; 0.500000; };
 				relative_size_type = 0;
@@ -1579,31 +1577,7 @@
 				disable = '';
 				image_type = 0;
 			};
-			[15] =
-			{
-				type = 'Button';
-				ui_name = '';
-				x = -82.000000;
-				y = 110.000000;
-				dock_point = { 1.000000; 0.500000; };
-				anchor_point = { 0.500000; 0.500000; };
-				relative_size_type = 0;
-				width = 64;
-				height = 64;
-				scale_x = 1.000000;
-				scale_y = 1.000000;
-				skew_x = 0.000000;
-				skew_y = 0.000000;
-				rotation = 0.000000;
-				visible = true;
-				lua_name = 'rankDetailBtn';
-				enable = true;
-				normal = 'ui/buttons/64_detail_btn_0101.png';
-				selected = 'ui/buttons/64_detail_btn_0102.png';
-				disable = '';
-				image_type = 1;
-			};
-			[16] =
+			[13] =
 			{
 				[1] =
 				{
@@ -1667,12 +1641,12 @@
 				disable = 'ui/buttons/base_btn_0102.png';
 				image_type = 1;
 			};
-			[17] =
+			[14] =
 			{
 				type = 'LabelTTF';
 				ui_name = '';
-				x = 60.000000;
-				y = -259.000000;
+				x = 48.000000;
+				y = -285.000000;
 				dock_point = { 0.000000; 0.500000; };
 				anchor_point = { 0.000000; 0.500000; };
 				relative_size_type = 0;
@@ -1707,12 +1681,12 @@
 				shadow_direction = 0;
 				shadow_distance = 2.000000;
 			};
-			[18] =
+			[15] =
 			{
 				type = 'LabelTTF';
 				ui_name = '';
-				x = 60.000000;
-				y = -227.000000;
+				x = 48.000000;
+				y = -253.000000;
 				dock_point = { 0.000000; 0.500000; };
 				anchor_point = { 0.000000; 0.500000; };
 				relative_size_type = 0;
@@ -1733,6 +1707,231 @@
 				color = { 244; 224; 177; };
 				opacity = 255;
 				dimension_width = 262;
+				dimension_height = 40;
+				letter_spacing = 0.000000;
+				has_stroke = false;
+				stroke_type = 0;
+				stroke_detail_level = 0;
+				is_sharp_text = true;
+				stroke_tickness = 1.000000;
+				stroke_color = { 255; 255; 255; };
+				has_shadow = false;
+				shadow_color = { 255; 255; 255; };
+				shadow_opacity = 255;
+				shadow_direction = 0;
+				shadow_distance = 5.000000;
+			};
+			[16] =
+			{
+				type = 'Visual';
+				ui_name = '';
+				x = 0.000000;
+				y = -156.000000;
+				dock_point = { 0.500000; 0.500000; };
+				anchor_point = { 0.500000; 0.500000; };
+				relative_size_type = 0;
+				width = 0;
+				height = 0;
+				scale_x = 1.000000;
+				scale_y = 1.000000;
+				skew_x = 0.000000;
+				skew_y = 0.000000;
+				rotation = 0.000000;
+				visible = true;
+				lua_name = 'rewardVisual';
+				file_name = 'ui/a2d/coloseeum_reward/coloseeum_reward.vrp';
+				auto_play = true;
+				is_repeat = true;
+				visual_id = 'group;reward_0';
+				color = { 255; 255; 255; };
+				opacity = 255;
+			};
+			[17] =
+			{
+				type = 'LabelTTF';
+				ui_name = '';
+				x = 48.000000;
+				y = -100.000000;
+				dock_point = { 0.000000; 0.500000; };
+				anchor_point = { 0.000000; 0.500000; };
+				relative_size_type = 0;
+				width = 250;
+				height = 40;
+				scale_x = 1.000000;
+				scale_y = 1.000000;
+				skew_x = 0.000000;
+				skew_y = 0.000000;
+				rotation = 0.000000;
+				visible = true;
+				lua_name = '';
+				font_name = 'font/common_font_01.ttf';
+				font_size = 22;
+				text = '승리 보상';
+				h_alignment = 0;
+				v_alignment = 1;
+				color = { 64; 224; 208; };
+				opacity = 255;
+				dimension_width = 250;
+				dimension_height = 40;
+				letter_spacing = 0.000000;
+				has_stroke = false;
+				stroke_type = 0;
+				stroke_detail_level = 0;
+				is_sharp_text = true;
+				stroke_tickness = 1.000000;
+				stroke_color = { 255; 255; 255; };
+				has_shadow = false;
+				shadow_color = { 255; 255; 255; };
+				shadow_opacity = 255;
+				shadow_direction = 0;
+				shadow_distance = 5.000000;
+			};
+			[18] =
+			{
+				type = 'LabelTTF';
+				ui_name = '';
+				x = -157.000000;
+				y = -205.000000;
+				dock_point = { 0.500000; 0.500000; };
+				anchor_point = { 0.500000; 0.500000; };
+				relative_size_type = 0;
+				width = 110;
+				height = 40;
+				scale_x = 1.000000;
+				scale_y = 1.000000;
+				skew_x = 0.000000;
+				skew_y = 0.000000;
+				rotation = 0.000000;
+				visible = true;
+				lua_name = '';
+				font_name = 'font/common_font_01.ttf';
+				font_size = 20;
+				text = '5승';
+				h_alignment = 1;
+				v_alignment = 1;
+				color = { 244; 224; 177; };
+				opacity = 255;
+				dimension_width = 110;
+				dimension_height = 40;
+				letter_spacing = 0.000000;
+				has_stroke = false;
+				stroke_type = 0;
+				stroke_detail_level = 0;
+				is_sharp_text = true;
+				stroke_tickness = 1.000000;
+				stroke_color = { 255; 255; 255; };
+				has_shadow = false;
+				shadow_color = { 255; 255; 255; };
+				shadow_opacity = 255;
+				shadow_direction = 0;
+				shadow_distance = 5.000000;
+			};
+			[19] =
+			{
+				type = 'LabelTTF';
+				ui_name = '';
+				x = -52.000000;
+				y = -205.000000;
+				dock_point = { 0.500000; 0.500000; };
+				anchor_point = { 0.500000; 0.500000; };
+				relative_size_type = 0;
+				width = 110;
+				height = 40;
+				scale_x = 1.000000;
+				scale_y = 1.000000;
+				skew_x = 0.000000;
+				skew_y = 0.000000;
+				rotation = 0.000000;
+				visible = true;
+				lua_name = '';
+				font_name = 'font/common_font_01.ttf';
+				font_size = 20;
+				text = '10승';
+				h_alignment = 1;
+				v_alignment = 1;
+				color = { 244; 224; 177; };
+				opacity = 255;
+				dimension_width = 110;
+				dimension_height = 40;
+				letter_spacing = 0.000000;
+				has_stroke = false;
+				stroke_type = 0;
+				stroke_detail_level = 0;
+				is_sharp_text = true;
+				stroke_tickness = 1.000000;
+				stroke_color = { 255; 255; 255; };
+				has_shadow = false;
+				shadow_color = { 255; 255; 255; };
+				shadow_opacity = 255;
+				shadow_direction = 0;
+				shadow_distance = 5.000000;
+			};
+			[20] =
+			{
+				type = 'LabelTTF';
+				ui_name = '';
+				x = 52.000000;
+				y = -205.000000;
+				dock_point = { 0.500000; 0.500000; };
+				anchor_point = { 0.500000; 0.500000; };
+				relative_size_type = 0;
+				width = 110;
+				height = 40;
+				scale_x = 1.000000;
+				scale_y = 1.000000;
+				skew_x = 0.000000;
+				skew_y = 0.000000;
+				rotation = 0.000000;
+				visible = true;
+				lua_name = '';
+				font_name = 'font/common_font_01.ttf';
+				font_size = 20;
+				text = '15승';
+				h_alignment = 1;
+				v_alignment = 1;
+				color = { 244; 224; 177; };
+				opacity = 255;
+				dimension_width = 110;
+				dimension_height = 40;
+				letter_spacing = 0.000000;
+				has_stroke = false;
+				stroke_type = 0;
+				stroke_detail_level = 0;
+				is_sharp_text = true;
+				stroke_tickness = 1.000000;
+				stroke_color = { 255; 255; 255; };
+				has_shadow = false;
+				shadow_color = { 255; 255; 255; };
+				shadow_opacity = 255;
+				shadow_direction = 0;
+				shadow_distance = 5.000000;
+			};
+			[21] =
+			{
+				type = 'LabelTTF';
+				ui_name = '';
+				x = 157.000000;
+				y = -205.000000;
+				dock_point = { 0.500000; 0.500000; };
+				anchor_point = { 0.500000; 0.500000; };
+				relative_size_type = 0;
+				width = 110;
+				height = 40;
+				scale_x = 1.000000;
+				scale_y = 1.000000;
+				skew_x = 0.000000;
+				skew_y = 0.000000;
+				rotation = 0.000000;
+				visible = true;
+				lua_name = '';
+				font_name = 'font/common_font_01.ttf';
+				font_size = 20;
+				text = '20승';
+				h_alignment = 1;
+				v_alignment = 1;
+				color = { 244; 224; 177; };
+				opacity = 255;
+				dimension_width = 110;
 				dimension_height = 40;
 				letter_spacing = 0.000000;
 				has_stroke = false;
@@ -1827,13 +2026,13 @@
 			{
 				type = 'Node';
 				ui_name = '';
-				x = -374.000000;
-				y = -168.000000;
+				x = -357.000000;
+				y = -71.000000;
 				dock_point = { 0.500000; 0.500000; };
 				anchor_point = { 0.500000; 0.500000; };
 				relative_size_type = 0;
-				width = 418;
-				height = 108;
+				width = 448;
+				height = 98;
 				scale_x = 1.000000;
 				scale_y = 1.000000;
 				skew_x = 0.000000;

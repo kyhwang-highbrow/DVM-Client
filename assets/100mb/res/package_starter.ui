@@ -265,7 +265,7 @@
 				[2] =
 				{
 					type = 'LabelTTF';
-					ui_name = '';
+					ui_name = 'rich';
 					x = 0.000000;
 					y = -4.000000;
 					dock_point = { 0.500000; 1.000000; };
@@ -285,7 +285,7 @@
 					text = '계정 1회 구매 가능 ({1}/1)';
 					h_alignment = 1;
 					v_alignment = 1;
-					color = { 255; 215; 0; };
+					color = { 255; 255; 255; };
 					opacity = 255;
 					dimension_width = 400;
 					dimension_height = 40;

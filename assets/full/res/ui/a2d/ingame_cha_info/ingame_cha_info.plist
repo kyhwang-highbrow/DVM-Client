@@ -64,7 +64,7 @@
                 <key>textureRotated</key>
                 <false/>
             </dict>
-            <key>ingame_cha_info_attr_water_0101.png</key>
+            <key>ingame_cha_info_attr_none_0101.png</key>
             <dict>
                 <key>aliases</key>
                 <array/>
@@ -79,6 +79,21 @@
                 <key>textureRotated</key>
                 <false/>
             </dict>
+            <key>ingame_cha_info_attr_water_0101.png</key>
+            <dict>
+                <key>aliases</key>
+                <array/>
+                <key>spriteOffset</key>
+                <string>{0,0}</string>
+                <key>spriteSize</key>
+                <string>{26,26}</string>
+                <key>spriteSourceSize</key>
+                <string>{26,26}</string>
+                <key>textureRect</key>
+                <string>{{141,1},{26,26}}</string>
+                <key>textureRotated</key>
+                <false/>
+            </dict>
             <key>ingame_cha_info_hp_gg_0101.png</key>
             <dict>
                 <key>aliases</key>
@@ -90,7 +105,7 @@
                 <key>spriteSourceSize</key>
                 <string>{70,10}</string>
                 <key>textureRect</key>
-                <string>{{141,1},{70,10}}</string>
+                <string>{{169,1},{70,10}}</string>
                 <key>textureRotated</key>
                 <false/>
             </dict>
@@ -105,7 +120,7 @@
                 <key>spriteSourceSize</key>
                 <string>{64,4}</string>
                 <key>textureRect</key>
-                <string>{{141,13},{64,4}}</string>
+                <string>{{169,13},{64,4}}</string>
                 <key>textureRotated</key>
                 <false/>
             </dict>
@@ -120,7 +135,7 @@
                 <key>spriteSourceSize</key>
                 <string>{64,4}</string>
                 <key>textureRect</key>
-                <string>{{141,19},{64,4}}</string>
+                <string>{{169,19},{64,4}}</string>
                 <key>textureRotated</key>
                 <false/>
             </dict>
@@ -135,7 +150,7 @@
                 <key>spriteSourceSize</key>
                 <string>{64,4}</string>
                 <key>textureRect</key>
-                <string>{{141,25},{64,4}}</string>
+                <string>{{169,25},{64,4}}</string>
                 <key>textureRotated</key>
                 <false/>
             </dict>
@@ -151,9 +166,9 @@
             <key>realTextureFileName</key>
             <string>ingame_cha_info.png</string>
             <key>size</key>
-            <string>{212,30}</string>
+            <string>{240,30}</string>
             <key>smartupdate</key>
-            <string>$TexturePacker:SmartUpdate:646da99948e46f5d39f210a03e9e3511:e76175919c7bb3d6f37c6d13b7d53bde:094b7db99b74d5910093ed99b6908546$</string>
+            <string>$TexturePacker:SmartUpdate:2d072901899eb893773978f161be42a0:e2c98cd8c4f5399cb00b64128f59622f:094b7db99b74d5910093ed99b6908546$</string>
             <key>textureFileName</key>
             <string>ingame_cha_info.png</string>
         </dict>

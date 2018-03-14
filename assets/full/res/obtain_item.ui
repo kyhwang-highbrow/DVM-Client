@@ -35,13 +35,13 @@
 			{
 				type = 'LabelTTF';
 				ui_name = 'rich';
-				x = 120.000000;
+				x = 106.000000;
 				y = 0.000000;
 				dock_point = { 0.000000; 0.500000; };
 				anchor_point = { 0.000000; 0.500000; };
 				relative_size_type = 0;
-				width = 415;
-				height = 85;
+				width = 570;
+				height = 90;
 				scale_x = 1.000000;
 				scale_y = 1.000000;
 				skew_x = 0.000000;
@@ -56,8 +56,8 @@
 				v_alignment = 1;
 				color = { 161; 125; 93; };
 				opacity = 255;
-				dimension_width = 415;
-				dimension_height = 85;
+				dimension_width = 570;
+				dimension_height = 90;
 				letter_spacing = 0.000000;
 				has_stroke = false;
 				stroke_type = 0;
@@ -75,7 +75,7 @@
 			{
 				type = 'Node';
 				ui_name = '';
-				x = 21.000000;
+				x = 9.000000;
 				y = 0.000000;
 				dock_point = { 0.000000; 0.500000; };
 				anchor_point = { 0.000000; 0.500000; };
@@ -97,7 +97,7 @@
 			dock_point = { 0.500000; 0.500000; };
 			anchor_point = { 0.500000; 0.500000; };
 			relative_size_type = 0;
-			width = 550;
+			width = 680;
 			height = 100;
 			scale_x = 1.000000;
 			scale_y = 1.000000;
@@ -114,7 +114,7 @@
 		dock_point = { 0.500000; 0.500000; };
 		anchor_point = { 0.500000; 0.500000; };
 		relative_size_type = 3;
-		width = -730;
+		width = -600;
 		height = -620;
 		scale_x = 1.000000;
 		scale_y = 1.000000;

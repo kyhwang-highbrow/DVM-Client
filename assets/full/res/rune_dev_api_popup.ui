@@ -861,7 +861,7 @@
 				lua_name = 'moptEditBox';
 				enable = true;
 				input_mode = 6;
-				input_flag = 4;
+				input_flag = 1;
 				return_type = 1;
 				max_length = 0;
 				text = '';
@@ -1080,7 +1080,7 @@
 				lua_name = 'uoptEditBox';
 				enable = true;
 				input_mode = 6;
-				input_flag = 4;
+				input_flag = 1;
 				return_type = 1;
 				max_length = 0;
 				text = '';
@@ -1219,7 +1219,7 @@
 				lua_name = 'soptEditBox1';
 				enable = true;
 				input_mode = 6;
-				input_flag = 4;
+				input_flag = 1;
 				return_type = 1;
 				max_length = 0;
 				text = '';
@@ -1358,7 +1358,7 @@
 				lua_name = 'soptEditBox2';
 				enable = true;
 				input_mode = 6;
-				input_flag = 4;
+				input_flag = 1;
 				return_type = 1;
 				max_length = 0;
 				text = '';
@@ -1497,7 +1497,7 @@
 				lua_name = 'soptEditBox3';
 				enable = true;
 				input_mode = 6;
-				input_flag = 4;
+				input_flag = 1;
 				return_type = 1;
 				max_length = 0;
 				text = '';
@@ -1636,7 +1636,7 @@
 				lua_name = 'soptEditBox4';
 				enable = true;
 				input_mode = 6;
-				input_flag = 4;
+				input_flag = 1;
 				return_type = 1;
 				max_length = 0;
 				text = '';

@@ -143,7 +143,7 @@
 				[3] =
 				{
 					type = 'LabelTTF';
-					ui_name = '';
+					ui_name = 'rich';
 					x = 0.000000;
 					y = -4.000000;
 					dock_point = { 0.500000; 1.000000; };
@@ -163,7 +163,7 @@
 					text = '구매 가능 (1/1)';
 					h_alignment = 1;
 					v_alignment = 1;
-					color = { 255; 215; 0; };
+					color = { 255; 255; 255; };
 					opacity = 255;
 					dimension_width = 400;
 					dimension_height = 40;
@@ -562,7 +562,7 @@
 				lua_name = '';
 				font_name = 'font/common_font_01.ttf';
 				font_size = 40;
-				text = '모험모드 3★ 돌파 패키지';
+				text = '모험모드 ★3 돌파 패키지';
 				h_alignment = 1;
 				v_alignment = 1;
 				color = { 255; 215; 0; };

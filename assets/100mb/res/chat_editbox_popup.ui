@@ -115,7 +115,7 @@
 				lua_name = 'editBox';
 				enable = true;
 				input_mode = 6;
-				input_flag = 4;
+				input_flag = 1;
 				return_type = 1;
 				max_length = 0;
 				text = '';

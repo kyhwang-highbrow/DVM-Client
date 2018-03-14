@@ -224,7 +224,7 @@
 				dock_point = { 0.500000; 0.000000; };
 				anchor_point = { 0.500000; 0.000000; };
 				relative_size_type = 0;
-				width = 244;
+				width = 400;
 				height = 62;
 				scale_x = 1.000000;
 				scale_y = 1.000000;
@@ -240,7 +240,7 @@
 				v_alignment = 2;
 				color = { 255; 255; 255; };
 				opacity = 255;
-				dimension_width = 244;
+				dimension_width = 400;
 				dimension_height = 62;
 				letter_spacing = 0.000000;
 				has_stroke = true;
@@ -274,7 +274,7 @@
 				visible = true;
 				lua_name = 'maxBuyTermLabel';
 				font_name = 'font/common_font_01.ttf';
-				font_size = 18;
+				font_size = 20;
 				text = 'Weekly Puchase Restriction 3/3';
 				h_alignment = 1;
 				v_alignment = 2;
@@ -300,7 +300,7 @@
 				type = 'LabelTTF';
 				ui_name = 'rich';
 				x = 0.000000;
-				y = 124.000000;
+				y = 100.000000;
 				dock_point = { 0.500000; 0.000000; };
 				anchor_point = { 0.500000; 0.000000; };
 				relative_size_type = 0;
@@ -314,7 +314,7 @@
 				visible = true;
 				lua_name = 'dscLabel';
 				font_name = 'font/common_font_01.ttf';
-				font_size = 18;
+				font_size = 20;
 				text = '첫 구매 혜택 1+1';
 				h_alignment = 1;
 				v_alignment = 2;

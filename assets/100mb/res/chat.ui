@@ -686,7 +686,7 @@
 					lua_name = 'editBox';
 					enable = false;
 					input_mode = 6;
-					input_flag = 4;
+					input_flag = 1;
 					return_type = 1;
 					max_length = 0;
 					text = '';
@@ -734,7 +734,7 @@
 				skew_x = 0.000000;
 				skew_y = 0.000000;
 				rotation = 0.000000;
-				visible = false;
+				visible = true;
 				lua_name = 'generalMenu';
 			};
 			[11] =
@@ -811,7 +811,7 @@
 					lua_name = 'editBox_whisper';
 					enable = false;
 					input_mode = 6;
-					input_flag = 4;
+					input_flag = 1;
 					return_type = 1;
 					max_length = 0;
 					text = '';
@@ -1128,7 +1128,7 @@
 					lua_name = 'clanEditBox';
 					enable = false;
 					input_mode = 6;
-					input_flag = 4;
+					input_flag = 1;
 					return_type = 1;
 					max_length = 0;
 					text = '';

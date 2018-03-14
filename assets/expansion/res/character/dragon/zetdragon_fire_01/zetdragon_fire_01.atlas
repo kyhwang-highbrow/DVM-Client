@@ -1,0 +1,174 @@
+
+zetdragon_fire_01.png
+size: 1199,292
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+zetdragon_fire_01_arm_01
+  rotate: false
+  xy: 733, 5
+  size: 62, 117
+  orig: 62, 117
+  offset: 0, 0
+  index: -1
+zetdragon_fire_01_arm_02
+  rotate: false
+  xy: 1144, 228
+  size: 48, 62
+  orig: 48, 62
+  offset: 0, 0
+  index: -1
+zetdragon_fire_01_blue
+  rotate: false
+  xy: 247, 203
+  size: 328, 87
+  orig: 328, 87
+  offset: 0, 0
+  index: -1
+zetdragon_fire_01_body_01
+  rotate: false
+  xy: 577, 124
+  size: 220, 166
+  orig: 220, 166
+  offset: 0, 0
+  index: -1
+zetdragon_fire_01_booster_1
+  rotate: false
+  xy: 1151, 11
+  size: 46, 46
+  orig: 46, 46
+  offset: 0, 0
+  index: -1
+zetdragon_fire_01_booster_2
+  rotate: false
+  xy: 1151, 59
+  size: 46, 49
+  orig: 46, 49
+  offset: 0, 0
+  index: -1
+zetdragon_fire_01_effect_01
+  rotate: false
+  xy: 247, 2
+  size: 209, 101
+  orig: 209, 101
+  offset: 0, 0
+  index: -1
+zetdragon_fire_01_effect_02
+  rotate: false
+  xy: 247, 105
+  size: 284, 96
+  orig: 284, 96
+  offset: 0, 0
+  index: -1
+zetdragon_fire_01_effect_03
+  rotate: true
+  xy: 799, 120
+  size: 64, 125
+  orig: 64, 125
+  offset: 0, 0
+  index: -1
+zetdragon_fire_01_effect_04
+  rotate: false
+  xy: 1125, 110
+  size: 64, 79
+  orig: 64, 79
+  offset: 0, 0
+  index: -1
+zetdragon_fire_01_effect_aa
+  rotate: true
+  xy: 458, 2
+  size: 101, 156
+  orig: 101, 156
+  offset: 0, 0
+  index: -1
+zetdragon_fire_01_effect_light
+  rotate: false
+  xy: 797, 19
+  size: 99, 99
+  orig: 99, 99
+  offset: 0, 0
+  index: -1
+zetdragon_fire_01_effect_lightdust
+  rotate: false
+  xy: 1015, 191
+  size: 127, 99
+  orig: 127, 99
+  offset: 0, 0
+  index: -1
+zetdragon_fire_01_eye_01
+  rotate: false
+  xy: 2, 2
+  size: 37, 40
+  orig: 37, 40
+  offset: 0, 0
+  index: -1
+zetdragon_fire_01_head_01
+  rotate: false
+  xy: 616, 11
+  size: 115, 111
+  orig: 115, 111
+  offset: 0, 0
+  index: -1
+zetdragon_fire_01_head_02
+  rotate: true
+  xy: 996, 2
+  size: 61, 74
+  orig: 61, 74
+  offset: 0, 0
+  index: -1
+zetdragon_fire_01_head_03
+  rotate: true
+  xy: 1072, 4
+  size: 59, 77
+  orig: 59, 77
+  offset: 0, 0
+  index: -1
+zetdragon_fire_01_jet_01
+  rotate: false
+  xy: 799, 186
+  size: 214, 104
+  orig: 214, 104
+  offset: 0, 0
+  index: -1
+zetdragon_fire_01_jet_02
+  rotate: false
+  xy: 898, 57
+  size: 96, 61
+  orig: 96, 61
+  offset: 0, 0
+  index: -1
+zetdragon_fire_01_jet_02_1
+  rotate: false
+  xy: 1027, 128
+  size: 96, 61
+  orig: 96, 61
+  offset: 0, 0
+  index: -1
+zetdragon_fire_01_jet_02_2
+  rotate: false
+  xy: 1027, 65
+  size: 96, 61
+  orig: 96, 61
+  offset: 0, 0
+  index: -1
+zetdragon_fire_01_wing_01
+  rotate: false
+  xy: 926, 120
+  size: 99, 64
+  orig: 99, 64
+  offset: 0, 0
+  index: -1
+zetdragon_fire_01_wing_02
+  rotate: false
+  xy: 898, 6
+  size: 54, 49
+  orig: 54, 49
+  offset: 0, 0
+  index: -1
+zetdragon_fire_01_won
+  rotate: false
+  xy: 2, 44
+  size: 243, 246
+  orig: 243, 246
+  offset: 0, 0
+  index: -1

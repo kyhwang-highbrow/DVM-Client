@@ -85,8 +85,8 @@
 				dock_point = { 0.500000; 0.500000; };
 				anchor_point = { 0.500000; 0.500000; };
 				relative_size_type = 0;
-				width = 200;
-				height = 48;
+				width = 231;
+				height = 60;
 				scale_x = 1.000000;
 				scale_y = 1.000000;
 				skew_x = 0.000000;
@@ -95,14 +95,14 @@
 				visible = true;
 				lua_name = 'skillNameLabel';
 				font_name = 'font/common_font_01.ttf';
-				font_size = 26;
+				font_size = 22;
 				text = 'skillNameLabel';
 				h_alignment = 1;
 				v_alignment = 1;
 				color = { 240; 215; 159; };
 				opacity = 255;
-				dimension_width = 200;
-				dimension_height = 48;
+				dimension_width = 231;
+				dimension_height = 60;
 				letter_spacing = 0.000000;
 				has_stroke = false;
 				stroke_type = 0;
@@ -406,7 +406,7 @@
 				rotation = 0.000000;
 				visible = false;
 				lua_name = 'EnhanceVisual';
-				file_name = 'ui/a2d/dragon_upgrade/dragon_upgrade.vrp';
+				file_name = 'ui/a2d/skill_up/skill_up.vrp';
 				auto_play = false;
 				is_repeat = false;
 				visual_id = 'group;slot_fx_01';

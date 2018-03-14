@@ -39,13 +39,13 @@
                 <key>aliases</key>
                 <array/>
                 <key>spriteOffset</key>
-                <string>{0,0}</string>
+                <string>{2,0}</string>
                 <key>spriteSize</key>
-                <string>{515,12}</string>
+                <string>{485,12}</string>
                 <key>spriteSourceSize</key>
                 <string>{515,12}</string>
                 <key>textureRect</key>
-                <string>{{1,223},{515,12}}</string>
+                <string>{{1,223},{485,12}}</string>
                 <key>textureRotated</key>
                 <false/>
             </dict>
@@ -93,7 +93,7 @@
             <key>size</key>
             <string>{557,236}</string>
             <key>smartupdate</key>
-            <string>$TexturePacker:SmartUpdate:24c71d3ddf51d76eef243386641cb1dc:c042482de5729ce9d11c3fcc47b9bf57:717db6516b1d2394031775c65f74c6f8$</string>
+            <string>$TexturePacker:SmartUpdate:ceb3711db8b673363c9e6a136a62b15a:25f5af5d68c885cb95639a2dba594dd0:717db6516b1d2394031775c65f74c6f8$</string>
             <key>textureFileName</key>
             <string>clan_raid.png</string>
         </dict>

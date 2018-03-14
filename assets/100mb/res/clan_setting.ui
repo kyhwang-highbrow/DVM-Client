@@ -966,7 +966,7 @@
 					lua_name = 'introduceEditBox';
 					enable = false;
 					input_mode = 6;
-					input_flag = 4;
+					input_flag = 1;
 					return_type = 1;
 					max_length = 0;
 					text = '';
@@ -1190,7 +1190,7 @@
 					lua_name = 'noticeEditBox';
 					enable = false;
 					input_mode = 6;
-					input_flag = 4;
+					input_flag = 1;
 					return_type = 1;
 					max_length = 0;
 					text = '';

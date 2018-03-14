@@ -1,0 +1,468 @@
+
+mellowdragon_light_03.png
+size: 1211,1032
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+mellowdragon_light_03_arm_01
+  rotate: false
+  xy: 1138, 238
+  size: 54, 54
+  orig: 54, 54
+  offset: 0, 0
+  index: -1
+mellowdragon_light_03_arm_02
+  rotate: false
+  xy: 1166, 59
+  size: 43, 33
+  orig: 43, 33
+  offset: 0, 0
+  index: -1
+mellowdragon_light_03_body_01
+  rotate: true
+  xy: 785, 261
+  size: 106, 129
+  orig: 106, 129
+  offset: 0, 0
+  index: -1
+mellowdragon_light_03_ear_01
+  rotate: false
+  xy: 2, 12
+  size: 149, 102
+  orig: 149, 102
+  offset: 0, 0
+  index: -1
+mellowdragon_light_03_ear_02
+  rotate: false
+  xy: 153, 12
+  size: 100, 102
+  orig: 100, 102
+  offset: 0, 0
+  index: -1
+mellowdragon_light_03_effect_01
+  rotate: false
+  xy: 1072, 438
+  size: 128, 128
+  orig: 128, 128
+  offset: 0, 0
+  index: -1
+mellowdragon_light_03_effect_02
+  rotate: false
+  xy: 270, 154
+  size: 256, 256
+  orig: 256, 256
+  offset: 0, 0
+  index: -1
+mellowdragon_light_03_effect_03
+  rotate: false
+  xy: 913, 424
+  size: 157, 154
+  orig: 157, 154
+  offset: 0, 0
+  index: -1
+mellowdragon_light_03_effect_04
+  rotate: false
+  xy: 528, 216
+  size: 149, 155
+  orig: 149, 155
+  offset: 0, 0
+  index: -1
+mellowdragon_light_03_effect_05
+  rotate: false
+  xy: 729, 8
+  size: 58, 63
+  orig: 58, 63
+  offset: 0, 0
+  index: -1
+mellowdragon_light_03_effect_06
+  rotate: false
+  xy: 864, 5
+  size: 58, 63
+  orig: 58, 63
+  offset: 0, 0
+  index: -1
+mellowdragon_light_03_effect_07
+  rotate: true
+  xy: 1047, 140
+  size: 58, 63
+  orig: 58, 63
+  offset: 0, 0
+  index: -1
+mellowdragon_light_03_effect_08
+  rotate: true
+  xy: 1112, 139
+  size: 58, 63
+  orig: 58, 63
+  offset: 0, 0
+  index: -1
+mellowdragon_light_03_effect_09
+  rotate: false
+  xy: 924, 54
+  size: 58, 63
+  orig: 58, 63
+  offset: 0, 0
+  index: -1
+mellowdragon_light_03_effect_blue
+  rotate: false
+  xy: 780, 726
+  size: 328, 87
+  orig: 328, 87
+  offset: 0, 0
+  index: -1
+mellowdragon_light_03_effect_fire
+  rotate: true
+  xy: 785, 369
+  size: 210, 126
+  orig: 210, 126
+  offset: 0, 0
+  index: -1
+mellowdragon_light_03_effect_light
+  rotate: false
+  xy: 1054, 294
+  size: 128, 128
+  orig: 128, 128
+  offset: 0, 0
+  index: -1
+mellowdragon_light_03_effect_lightdust
+  rotate: true
+  xy: 1110, 686
+  size: 127, 99
+  orig: 127, 99
+  offset: 0, 0
+  index: -1
+mellowdragon_light_03_effect_red
+  rotate: true
+  xy: 679, 169
+  size: 91, 94
+  orig: 91, 94
+  offset: 0, 0
+  index: -1
+mellowdragon_light_03_eye_01
+  rotate: false
+  xy: 1054, 247
+  size: 82, 45
+  orig: 82, 45
+  offset: 0, 0
+  index: -1
+mellowdragon_light_03_eye_02
+  rotate: false
+  xy: 1051, 200
+  size: 82, 45
+  orig: 82, 45
+  offset: 0, 0
+  index: -1
+mellowdragon_light_03_eye_03
+  rotate: false
+  xy: 924, 166
+  size: 82, 45
+  orig: 82, 45
+  offset: 0, 0
+  index: -1
+mellowdragon_light_03_eye_04
+  rotate: false
+  xy: 924, 119
+  size: 82, 45
+  orig: 82, 45
+  offset: 0, 0
+  index: -1
+mellowdragon_light_03_foot_02
+  rotate: false
+  xy: 924, 2
+  size: 54, 50
+  orig: 54, 50
+  offset: 0, 0
+  index: -1
+mellowdragon_light_03_gloves_01
+  rotate: true
+  xy: 984, 55
+  size: 62, 52
+  orig: 62, 52
+  offset: 0, 0
+  index: -1
+mellowdragon_light_03_goggles_01
+  rotate: false
+  xy: 916, 213
+  size: 133, 76
+  orig: 133, 76
+  offset: 0, 0
+  index: -1
+mellowdragon_light_03_hand_01
+  rotate: false
+  xy: 1111, 92
+  size: 53, 45
+  orig: 53, 45
+  offset: 0, 0
+  index: -1
+mellowdragon_light_03_hand_01_01
+  rotate: true
+  xy: 883, 96
+  size: 46, 39
+  orig: 46, 39
+  offset: 0, 0
+  index: -1
+mellowdragon_light_03_head_01
+  rotate: false
+  xy: 538, 71
+  size: 121, 143
+  orig: 121, 143
+  offset: 0, 0
+  index: -1
+mellowdragon_light_03_horn_01
+  rotate: false
+  xy: 661, 78
+  size: 71, 89
+  orig: 71, 89
+  offset: 0, 0
+  index: -1
+mellowdragon_light_03_joy_01
+  rotate: false
+  xy: 1019, 4
+  size: 36, 49
+  orig: 36, 49
+  offset: 0, 0
+  index: -1
+mellowdragon_light_03_joy_02
+  rotate: true
+  xy: 887, 225
+  size: 34, 19
+  orig: 34, 19
+  offset: 0, 0
+  index: -1
+mellowdragon_light_03_joy_03
+  rotate: true
+  xy: 1094, 696
+  size: 28, 14
+  orig: 28, 14
+  offset: 0, 0
+  index: -1
+mellowdragon_light_03_joy_03_01
+  rotate: false
+  xy: 883, 77
+  size: 26, 17
+  orig: 26, 17
+  offset: 0, 0
+  index: -1
+mellowdragon_light_03_joy_04
+  rotate: false
+  xy: 887, 196
+  size: 28, 15
+  orig: 28, 15
+  offset: 0, 0
+  index: -1
+mellowdragon_light_03_joy_04_01
+  rotate: false
+  xy: 1008, 119
+  size: 27, 17
+  orig: 27, 17
+  offset: 0, 0
+  index: -1
+mellowdragon_light_03_joy_05
+  rotate: false
+  xy: 775, 196
+  size: 110, 63
+  orig: 110, 63
+  offset: 0, 0
+  index: -1
+mellowdragon_light_03_leg_01
+  rotate: true
+  xy: 734, 73
+  size: 94, 64
+  orig: 94, 64
+  offset: 0, 0
+  index: -1
+mellowdragon_light_03_leg_02
+  rotate: false
+  xy: 800, 126
+  size: 77, 68
+  orig: 77, 68
+  offset: 0, 0
+  index: -1
+mellowdragon_light_03_mouth_01
+  rotate: false
+  xy: 1166, 94
+  size: 43, 43
+  orig: 43, 43
+  offset: 0, 0
+  index: -1
+mellowdragon_light_03_rocket_01
+  rotate: false
+  xy: 785, 581
+  size: 201, 143
+  orig: 201, 143
+  offset: 0, 0
+  index: -1
+mellowdragon_light_03_rocket_01_01
+  rotate: true
+  xy: 1094, 13
+  size: 44, 35
+  orig: 44, 35
+  offset: 0, 0
+  index: -1
+mellowdragon_light_03_rocket_01_02
+  rotate: false
+  xy: 1047, 93
+  size: 62, 45
+  orig: 62, 45
+  offset: 0, 0
+  index: -1
+mellowdragon_light_03_rocket_01_03
+  rotate: true
+  xy: 1094, 568
+  size: 116, 89
+  orig: 116, 89
+  offset: 0, 0
+  index: -1
+mellowdragon_light_03_rocket_02
+  rotate: true
+  xy: 988, 580
+  size: 144, 104
+  orig: 144, 104
+  offset: 0, 0
+  index: -1
+mellowdragon_light_03_rocket_02_01
+  rotate: true
+  xy: 679, 262
+  size: 109, 104
+  orig: 109, 104
+  offset: 0, 0
+  index: -1
+mellowdragon_light_03_rocket_03
+  rotate: false
+  xy: 270, 2
+  size: 266, 150
+  orig: 266, 150
+  offset: 0, 0
+  index: -1
+mellowdragon_light_03_rocket_03_01
+  rotate: true
+  xy: 528, 373
+  size: 37, 74
+  orig: 37, 74
+  offset: 0, 0
+  index: -1
+mellowdragon_light_03_rocket_03_02
+  rotate: true
+  xy: 1135, 199
+  size: 37, 74
+  orig: 37, 74
+  offset: 0, 0
+  index: -1
+mellowdragon_light_03_rocket_03_03
+  rotate: false
+  xy: 1008, 138
+  size: 37, 73
+  orig: 37, 73
+  offset: 0, 0
+  index: -1
+mellowdragon_light_03_rocket_03_04
+  rotate: false
+  xy: 2, 116
+  size: 266, 294
+  orig: 266, 294
+  offset: 0, 0
+  index: -1
+mellowdragon_light_03_rocket_03_05
+  rotate: false
+  xy: 780, 815
+  size: 425, 215
+  orig: 425, 215
+  offset: 0, 0
+  index: -1
+mellowdragon_light_03_rocket_04
+  rotate: true
+  xy: 613, 373
+  size: 347, 170
+  orig: 347, 170
+  offset: 0, 0
+  index: -1
+mellowdragon_light_03_rocket_04_01
+  rotate: true
+  xy: 789, 10
+  size: 58, 73
+  orig: 58, 73
+  offset: 0, 0
+  index: -1
+mellowdragon_light_03_rocket_04_02
+  rotate: true
+  xy: 1185, 632
+  size: 52, 22
+  orig: 52, 22
+  offset: 0, 0
+  index: -1
+mellowdragon_light_03_rocket_04_03
+  rotate: true
+  xy: 879, 144
+  size: 50, 43
+  orig: 50, 43
+  offset: 0, 0
+  index: -1
+mellowdragon_light_03_rocket_04_04
+  rotate: true
+  xy: 984, 2
+  size: 51, 33
+  orig: 51, 33
+  offset: 0, 0
+  index: -1
+mellowdragon_light_03_rocket_04_05
+  rotate: false
+  xy: 1038, 56
+  size: 49, 35
+  orig: 49, 35
+  offset: 0, 0
+  index: -1
+mellowdragon_light_03_rocket_04_06
+  rotate: true
+  xy: 1057, 5
+  size: 49, 35
+  orig: 49, 35
+  offset: 0, 0
+  index: -1
+mellowdragon_light_03_rocket_04_07
+  rotate: false
+  xy: 2, 412
+  size: 609, 308
+  orig: 609, 308
+  offset: 0, 0
+  index: -1
+mellowdragon_light_03_rocket_04_08
+  rotate: false
+  xy: 2, 722
+  size: 776, 308
+  orig: 776, 308
+  offset: 0, 0
+  index: -1
+mellowdragon_light_03_scarf_01
+  rotate: false
+  xy: 800, 70
+  size: 81, 54
+  orig: 81, 54
+  offset: 0, 0
+  index: -1
+mellowdragon_light_03_scarf_02
+  rotate: true
+  xy: 1177, 152
+  size: 45, 30
+  orig: 45, 30
+  offset: 0, 0
+  index: -1
+mellowdragon_light_03_tail_01
+  rotate: false
+  xy: 649, 4
+  size: 78, 65
+  orig: 78, 65
+  offset: 0, 0
+  index: -1
+mellowdragon_light_03_wing_01
+  rotate: false
+  xy: 916, 291
+  size: 136, 131
+  orig: 136, 131
+  offset: 0, 0
+  index: -1
+mellowdragon_light_03_wing_02
+  rotate: false
+  xy: 538, 2
+  size: 109, 67
+  orig: 109, 67
+  offset: 0, 0
+  index: -1

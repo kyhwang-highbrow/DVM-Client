@@ -146,7 +146,7 @@
 						type = 'Node';
 						ui_name = '';
 						x = 0.000000;
-						y = 10.000000;
+						y = 16.000000;
 						dock_point = { 0.500000; 0.500000; };
 						anchor_point = { 0.500000; 0.500000; };
 						relative_size_type = 0;
@@ -165,7 +165,7 @@
 						type = 'LabelTTF';
 						ui_name = '';
 						x = 0.000000;
-						y = -74.000000;
+						y = -66.000000;
 						dock_point = { 0.500000; 0.500000; };
 						anchor_point = { 0.500000; 0.500000; };
 						relative_size_type = 0;
@@ -207,8 +207,8 @@
 					dock_point = { 0.500000; 0.500000; };
 					anchor_point = { 0.500000; 0.500000; };
 					relative_size_type = 0;
-					width = 254;
-					height = 316;
+					width = 193;
+					height = 222;
 					scale_x = 1.000000;
 					scale_y = 1.000000;
 					skew_x = 0.000000;
@@ -396,7 +396,7 @@
 						type = 'Node';
 						ui_name = '';
 						x = 0.000000;
-						y = 10.000000;
+						y = 16.000000;
 						dock_point = { 0.500000; 0.500000; };
 						anchor_point = { 0.500000; 0.500000; };
 						relative_size_type = 0;
@@ -415,7 +415,7 @@
 						type = 'LabelTTF';
 						ui_name = '';
 						x = 0.000000;
-						y = -74.000000;
+						y = -66.000000;
 						dock_point = { 0.500000; 0.500000; };
 						anchor_point = { 0.500000; 0.500000; };
 						relative_size_type = 0;
@@ -457,8 +457,8 @@
 					dock_point = { 0.500000; 0.500000; };
 					anchor_point = { 0.500000; 0.500000; };
 					relative_size_type = 0;
-					width = 254;
-					height = 316;
+					width = 193;
+					height = 222;
 					scale_x = 1.000000;
 					scale_y = 1.000000;
 					skew_x = 0.000000;

@@ -829,7 +829,7 @@
 					rotation = 0.000000;
 					visible = false;
 					lua_name = 'enhanceVisual';
-					file_name = 'ui/a2d/dragon_upgrade/dragon_upgrade.vrp';
+					file_name = 'ui/a2d/skill_up/skill_up.vrp';
 					auto_play = false;
 					is_repeat = false;
 					visual_id = 'group;slot_fx_01';

@@ -1191,8 +1191,8 @@
 			};
 			type = 'Scale9Sprite';
 			ui_name = '';
-			x = 279.270874;
-			y = -98.150635;
+			x = -10.000000;
+			y = -134.000000;
 			dock_point = { 1.000000; 1.000000; };
 			anchor_point = { 1.000000; 0.500000; };
 			relative_size_type = 0;
