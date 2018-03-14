@@ -105,6 +105,7 @@ typedef void(^PerpleSDKCallback)(NSString *result, NSString *info);
 @interface PerpleSDK : NSObject
 
 #pragma mark - Properties
+@property (nonatomic, retain) UIViewController *mViewController;
 
 @property (nonatomic, retain) PerpleFirebase *mFirebase;
 @property (nonatomic, retain) PerpleGoogle *mGoogle;
