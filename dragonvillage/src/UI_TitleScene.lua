@@ -1106,7 +1106,7 @@ function UI_TitleScene:workBillingSetup()
                 end
             end
             
-        elseif (ret == 'error') then
+        elseif (ret == 'fail') then
             cclog('#### billingSetup failed - info : ')
             ccdump(info)
             --local info_json = dkjson.decode(info)
@@ -1145,7 +1145,7 @@ function UI_TitleScene:workMarketInfoSetup()
             local tRet = json_decode(info)
             g_shopDataNew:setMarketPrice(tRet)
 
-        elseif (ret == 'error') then
+        elseif (ret == 'fail') then
             cclog('#### billingItemInfo failed - info : ')
             ccdump(info)
             
