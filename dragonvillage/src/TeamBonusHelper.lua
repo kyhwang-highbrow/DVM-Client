@@ -82,6 +82,11 @@ end
 -------------------------------------
 function TeamBonusHelper:checkCondition(t_teambonus, l_dragon_data)
     local condition_type = t_teambonus['condition_type']
+
+    if (condition_type == 'did_attr_same') then
+        return self:checkComplexCondition(t_teambonus, l_dragon_data)
+    end
+    
     local req_count = t_teambonus['condition_count']
 
     -- l_dragon_data내의 드래곤 중에서 해당 팀 보너스 효과를 받는 드래곤들을 저장하기 위한 리스트
@@ -89,7 +94,7 @@ function TeamBonusHelper:checkCondition(t_teambonus, l_dragon_data)
 
     -- 이미 포함된 드래곤을 제외시키기 위한 맵
     local m_doid_to_except = {}
-    local m_temp = {}
+    local m_all_valid_dragon_data = {}
     local m_satisfiedCondition = {}
         
     for i = 1, MAX_CONDITION_COUNT do
@@ -101,16 +106,16 @@ function TeamBonusHelper:checkCondition(t_teambonus, l_dragon_data)
                 for idx, dragon_data in pairs(m_valid_dragon_data) do
                     m_doid_to_except[dragon_data['id']] = true
 
-                    m_temp[idx] = m_valid_dragon_data[idx]
+                    m_all_valid_dragon_data[idx] = m_valid_dragon_data[idx]
                 end
 
-                m_satisfiedCondition[i] = true
+                m_satisfiedCondition[i] = m_valid_dragon_data
             end
         end
     end
 
     -- 맵형태에서 리스트로 변환
-    for _, dragon_data in pairs(m_temp) do
+    for _, dragon_data in pairs(m_all_valid_dragon_data) do
         table.insert(l_valid_dragon_data, dragon_data)
     end
 
@@ -121,6 +126,51 @@ function TeamBonusHelper:checkCondition(t_teambonus, l_dragon_data)
     return b, l_valid_dragon_data
 end
 
+
+-------------------------------------
+-- function checkComplexCondition
+-- @brief 조건 개별로 검사가 불가능한 조건을 가진 경우를 처리하기 위함(did_attr_same)
+-------------------------------------
+function TeamBonusHelper:checkComplexCondition(t_teambonus, l_dragon_data)
+    local condition_type = t_teambonus['condition_type']
+    local req_count = t_teambonus['condition_count']
+    local l_valid_dragon_data = {}
+    local m_dragon_data_per_attr = {}
+        
+    for i = 1, MAX_CONDITION_COUNT do
+        local condition = t_teambonus['condition_' .. i]
+        if (condition and condition ~= '') then
+            for _, dragon_data in ipairs(l_dragon_data) do
+                local did = dragon_data['did']
+                local did_ignore_attr = did - (did % 10)
+                if (did_ignore_attr == condition) then
+                    local attr = dragon_data:getAttr()
+
+                    if (not m_dragon_data_per_attr[attr]) then
+                        m_dragon_data_per_attr[attr] = {}
+                    end
+
+                    table.insert(m_dragon_data_per_attr[attr], dragon_data)
+                end
+            end
+        end
+    end
+
+    local b = false
+
+    -- 조건에 해당되어 버프를 적용해야하는 드래곤들을 리스트에 저장
+    for attr, list in pairs(m_dragon_data_per_attr) do
+        if (#list >= req_count) then
+            for _, v in ipairs(list) do
+                table.insert(l_valid_dragon_data, v)
+            end
+
+            b = true
+        end
+    end
+
+    return b, l_valid_dragon_data
+end
 
 -------------------------------------
 -- function checkConditionFromDid
@@ -242,7 +292,7 @@ function TeamBonusHelper:applyTeamBonusToDragonInGame(teambonus_data, dragon)
 
             if (skill_id) then
                 local t_skill = TableDragonSkill():get(skill_id)
-                cclog('skill name : ' .. Str(t_skill['t_name']))
+                cclog('teambonus skill name : ' .. Str(t_skill['t_name']))
                 dragon:setSkillID(t_skill['chance_type'], skill_id, 1, 'new')
             end
         end
