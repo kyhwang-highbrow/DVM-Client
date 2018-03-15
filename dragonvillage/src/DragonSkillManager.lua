@@ -229,6 +229,9 @@ function IDragonSkillManager:setSkillID(skill_type, skill_id, skill_lv, add_type
 			
 		end
 
+        if (self.m_bInGameMode) then
+            table.sort(self.m_lSkillIndivisualInfo[skill_type], function(a, b) return a.m_skillID > b.m_skillID end)
+        end
     end
 
     -- 스킬 레벨 적용

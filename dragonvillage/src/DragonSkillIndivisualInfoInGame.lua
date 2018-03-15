@@ -23,6 +23,7 @@ function DragonSkillIndivisualInfoInGame:init(char_type, skill_type, skill_id, s
     self.m_className = 'DragonSkillIndivisualInfoInGame'
 
     self.m_bDirtyBuff = false
+    self.m_lBuff = {}
 
     self.m_turnCount = 0
     self.m_timer = 0
@@ -57,7 +58,7 @@ function DragonSkillIndivisualInfoInGame:update(dt)
 
     -- 버프 적용
     if (self.m_bDirtyBuff) then
-        applyBuff()
+        self:applyBuff()
     end
 end
 
@@ -157,9 +158,11 @@ function DragonSkillIndivisualInfoInGame:addBuff(column, value, action)
         action = action or 'add'
     }
 
-    table.inself(self.m_lBuff, data)
+    table.insert(self.m_lBuff, data)
 
     self.m_bDirtyBuff = true
+
+    self:applyBuff()
 end
 
 -------------------------------------
