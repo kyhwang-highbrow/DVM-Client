@@ -26,23 +26,36 @@ function StatusEffect_SkillModify:initFromTable(t_status_effect, target_char)
     for i = 1, 4 do
         local str = t_status_effect['val_' .. i]
         if (str and str ~= '') then
-            local temp = pl.stringx.split(str, ';')
-            local skill_id
-            
-            if (type(temp[1]) == 'number') then
-                skill_id = temp[1]
-            else
-                -- 드래곤 테이블에서 해당하는 칼럼의 스킬 아이디를 가져온다
-                local column = temp[1]
-                local char_table = self.m_owner:getCharTable()
-                skill_id = char_table[column]
+            local param = pl.stringx.split(str, ';')
+            local l_skill_id = {}
+
+            -- 첫번째 인자는 스킬 아이디 or table_dragon의 칼럼명(이 경우 테이블 참조해서 스킬 아이디를 가져옴)
+            do
+                local l_skill_key = pl.stringx.split(param[1], ',')
+                local idx = 1
+
+                while (l_skill_key[idx]) do
+                    local skill_id
+                    local char_table = self.m_owner:getCharTable()
+                    local temp = char_table[l_skill_key[idx]]
+
+                    if (temp) then
+                        skill_id = temp
+                    else
+                        skill_id = l_skill_key[idx]
+                    end
+
+                    table.insert(l_skill_id, skill_id)
+
+                    idx = idx + 1
+                end
             end
 
             local t_info = {
-                skill_id = skill_id,
-                col = temp[2],
-                val = temp[3],
-                action = temp[4]
+                l_skill_id = l_skill_id,
+                col = param[2],
+                val = param[3],
+                action = param[4]
             }
 
             table.insert(self.m_lModifyInfo, t_info)
@@ -60,15 +73,21 @@ function StatusEffect_SkillModify:onApplyOverlab(unit)
     local cooltime_rate = unit.m_duration / 100
 
     for _, v in ipairs(self.m_lModifyInfo) do
-        local skill_indivisual_info = self.m_owner:findSkillInfoByID(v['skill_id'])
-        if (skill_indivisual_info) then
-            -- 남은 쿨타임 시간 변경
-            skill_indivisual_info.m_timer = skill_indivisual_info.m_timer * cooltime_rate
-            skill_indivisual_info.m_cooldownTimer = skill_indivisual_info.m_cooldownTimer * cooltime_rate
+        local l_skill_id = v['l_skill_id']
 
-            -- 스킬 테이블 변경
-            if (v['col'] and v['val']) then
-                skill_indivisual_info:addBuff(v['col'], v['val'], v['action'])
+        for _, skill_id in ipairs(l_skill_id) do
+            local skill_indivisual_info = self.m_owner:findSkillInfoByID(skill_id)
+            if (skill_indivisual_info) then
+                -- 남은 쿨타임 시간 변경
+                if (cooltime_rate ~= 1) then
+                    skill_indivisual_info.m_timer = skill_indivisual_info.m_timer * cooltime_rate
+                    skill_indivisual_info.m_cooldownTimer = skill_indivisual_info.m_cooldownTimer * cooltime_rate
+                end
+
+                -- 스킬 테이블 변경
+                if (v['col'] and v['val']) then
+                    skill_indivisual_info:addBuff(v['col'], v['val'], v['action'])
+                end
             end
         end
     end
