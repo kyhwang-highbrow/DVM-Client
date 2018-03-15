@@ -5,6 +5,7 @@ local PARENT = UI
 -------------------------------------
 UI_TeamBonus_Detail = class(PARENT, {
         m_selDid = 'number',
+        m_closeCB = 'function',
     })
 
 -------------------------------------
@@ -12,13 +13,8 @@ UI_TeamBonus_Detail = class(PARENT, {
 -------------------------------------
 function UI_TeamBonus_Detail:init(did)
     local vars = self:load('team_bonus_dragon.ui')
-    UIManager:open(self, UIManager.POPUP)
-
-    -- backkey 지정
-    g_currScene:pushBackKeyListener(self, function() self:click_dragonListBtn() end, 'UI_TeamBonus')
 
     self.m_selDid = did
-
     self:initUI()
     self:initTableView()
     self:initButton()
@@ -65,8 +61,19 @@ function UI_TeamBonus_Detail:initTableView()
 end
 
 -------------------------------------
+-- function setCloseCB
+-------------------------------------
+function UI_TeamBonus_Detail:setCloseCB(func)
+    self.m_closeCB = func
+end
+
+-------------------------------------
 -- function click_dragonListBtn
 -------------------------------------
 function UI_TeamBonus_Detail:click_dragonListBtn()
-    self:close()
+    self.root:removeFromParent()
+
+    if (self.m_closeCB) then
+        self.m_closeCB()
+    end
 end

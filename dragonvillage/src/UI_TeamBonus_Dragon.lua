@@ -10,6 +10,8 @@ UI_TeamBonus_Dragon = class({
 
         m_tableViewTD = 'UIC_TableViewTD',
         m_sortManager = 'SortManager',
+
+        m_detail_popup = '',
     })
 
 -------------------------------------
@@ -27,6 +29,11 @@ function UI_TeamBonus_Dragon:onEnterTab(first)
         self:initUI()
         self:initButton()
     end
+
+    -- 상세 팝업 노출시 리스트 노출 안함
+    if (self.m_detail_popup) then
+        self.m_owner_ui.vars['dragonListNode1']:setVisible(false)
+    end
 end
 
 -------------------------------------
@@ -39,7 +46,7 @@ function UI_TeamBonus_Dragon:initUI()
     --- 선택한 드래곤이 있다면 진입시 상세 팝업 노출
     local sel_did = self.m_owner_ui.m_selDid
     if (sel_did) then
-        UI_TeamBonus_Detail(sel_did)
+        self:showDetailPopup(sel_did)
     end
 end
 
@@ -219,6 +226,28 @@ function UI_TeamBonus_Dragon:cellCreateCB(ui, data)
 
 	-- 버튼 클릭시 적용가능한 팀보너스 보여줌
 	ui.vars['clickBtn']:registerScriptTapHandler(function()
-        UI_TeamBonus_Detail(did)
+        self:showDetailPopup(did)
 	end)
+end
+
+-------------------------------------
+-- function showDetailPopup
+-------------------------------------
+function UI_TeamBonus_Dragon:showDetailPopup(did)
+    local vars = self.m_owner_ui.vars
+    local node = vars['dragonListNode1']
+    node:setVisible(false)
+
+    local menu = vars['detailMenu']
+    menu:removeAllChildren()
+
+    local ui = UI_TeamBonus_Detail(did)
+    ui:setCloseCB(function() 
+        self.m_detail_popup = nil
+        node:setVisible(true) 
+    end)
+
+    self.m_detail_popup = ui
+
+    menu:addChild(ui.root)
 end

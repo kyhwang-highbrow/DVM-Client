@@ -86,6 +86,10 @@ function UI_TeamBonus:onChangeTab(tab, first)
         return
     end
 
+    -- 상세보기는 드래곤 별 팀 보너스에만 노출
+    local detail_popup = self.vars['detailMenu']
+    detail_popup:setVisible(tab == TEAM_BONUS_MODE.DRAGON)
+
     self.m_tTabClass[tab]:onEnterTab(first)
 end
 
