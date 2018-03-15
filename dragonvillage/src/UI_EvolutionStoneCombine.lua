@@ -187,13 +187,7 @@ function UI_EvolutionStoneCombine:refresh_mtrTableView(update)
 
         -- count refesh option
         if (update) then
-            local t_data 
-            if (mode == MODE.COMBINE) then
-                t_data = combine_table:getCombineTargetInfo(origin_id)
-
-            elseif (mode == MODE.DIVISION) then
-                t_data = combine_table:getDivisionTargetInfo(origin_id)
-            end
+            local t_data = self:getCombineData()
 
             local origin_id = t_data['origin_item_id']
             if (btn_map[origin_id]) then
@@ -253,13 +247,7 @@ function UI_EvolutionStoneCombine:getOriginCnt(origin_id, multi)
     local combine_table = TableEvolutionItemCombine()
     local mode = self.m_selMode
 
-    local t_data 
-    if (mode == MODE.COMBINE) then
-        t_data = combine_table:getCombineTargetInfo(origin_id)
-
-    elseif (mode == MODE.DIVISION) then
-        t_data = combine_table:getDivisionTargetInfo(origin_id)
-    end
+    local t_data = self:getCombineData()
 
     local origin_cnt = t_data['origin_item_count'] * multi
     return origin_cnt
@@ -274,15 +262,7 @@ function UI_EvolutionStoneCombine:refresh_mtrIcon()
     local multi = self.m_selMulti
 
     local origin_id = self:getOriginID()
-    local combine_table = TableEvolutionItemCombine()
-
-    local t_data 
-    if (mode == MODE.COMBINE) then
-        t_data = combine_table:getCombineTargetInfo(origin_id)
-
-    elseif (mode == MODE.DIVISION) then
-        t_data = combine_table:getDivisionTargetInfo(origin_id)
-    end
+    local t_data = self:getCombineData()
 
     if (not t_data) then return end
     
@@ -414,10 +394,13 @@ end
 -------------------------------------
 function UI_EvolutionStoneCombine:makeConfirmPopup(ok_cb)
     local mode = self.m_selMode
+    local multi = self.m_selMulti
+
+    local t_data = self:getCombineData()
     local ori_name = self:getTargetNode('oriNameLabel'):getString()
-    local ori_cnt = self:getTargetNode('oriNumLabel'):getString()
+    local ori_cnt = string.format('x%d', t_data['origin_item_count'] * multi)
     local tar_name = self:getTargetNode('tarNameLabel'):getString()
-    local tar_cnt = self:getTargetNode('tarNumLabel'):getString()
+    local tar_cnt = string.format('x%d', t_data['target_item_count'] * multi)
 
     local msg 
     if (mode == MODE.COMBINE) then
@@ -506,6 +489,24 @@ function UI_EvolutionStoneCombine:check_possible(item_id, mode)
     end
 
     return true
+end
+
+-------------------------------------
+-- function getCombineData
+-------------------------------------
+function UI_EvolutionStoneCombine:getCombineData()
+    local mode = self.m_selMode
+    local origin_id = self:getOriginID()
+    local combine_table = TableEvolutionItemCombine()
+    local t_data 
+    if (mode == MODE.COMBINE) then
+        t_data = combine_table:getCombineTargetInfo(origin_id)
+
+    elseif (mode == MODE.DIVISION) then
+        t_data = combine_table:getDivisionTargetInfo(origin_id)
+    end
+
+    return t_data
 end
 
 -------------------------------------
