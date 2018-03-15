@@ -51,6 +51,10 @@ function TeamBonusCardFactory:makeUIList_Deck(l_dragon)
 
     for _, dragon_data in ipairs(l_dragon) do
         local card = UI_DragonCard(dragon_data)
+        local inuse_sprite = card.vars['inuseSprite']
+        if (inuse_sprite) then
+            inuse_sprite:setVisible(false)
+        end
         table.insert(l_card, card.root)
     end
     
