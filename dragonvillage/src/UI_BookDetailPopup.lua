@@ -137,6 +137,9 @@ function UI_BookDetailPopup:refresh_exception()
 	for i = 1, 3 do
 		self.vars['evolutionTabBtn' .. i]:setVisible(not (underling or is_slime))
 	end
+
+    -- 팀 보너스 버튼
+    self.vars['teamBonusBtn']:setVisible(not (underling or is_slime))
 end
 
 -------------------------------------
