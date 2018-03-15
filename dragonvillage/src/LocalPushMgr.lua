@@ -112,9 +112,9 @@ end
 function LocalPushMgr:getPushString(category)
     if (category == 'epr') then
         local l_str = {
-            '테이머님 드래곤들이 탐험을 완료했어요!',
-            '기특한 드래곤들이 탐험 보상을 들고 왔네요!',
-            '탐험이 완료되었습니다. 선물을 확인해볼까요?',
+            Str('테이머님 드래곤들이 탐험을 완료했어요!'),
+            Str('기특한 드래곤들이 탐험 보상을 들고 왔네요!'),
+            Str('탐험이 완료되었습니다. 선물을 확인해볼까요?'),
         }
         return Str(table.getRandom(l_str))
     else
