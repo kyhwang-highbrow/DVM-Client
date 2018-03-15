@@ -45,7 +45,7 @@ function StatusEffect_SkillModify:initFromTable(t_status_effect, target_char)
                         skill_id = l_skill_key[idx]
                     end
 
-                    table.insert(l_skill_id, skill_id)
+                    table.insert(l_skill_id, tonumber(skill_id))
 
                     idx = idx + 1
                 end

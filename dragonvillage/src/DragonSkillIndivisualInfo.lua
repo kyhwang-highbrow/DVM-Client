@@ -34,8 +34,11 @@ function DragonSkillIndivisualInfo:init(char_type, skill_type, skill_id, skill_l
     local t_skill = GetSkillTable(self.m_charType):get(self.m_skillID)
 
     if (self.m_skillType == 'indie_time' or self.m_skillType == 'indie_time_short') then
-        -- indie_time 타입의 스킬은 해당 값만큼 먼저 기다리도록 초기값 설정
-        self.m_timer = t_skill['chance_value'] * math_random(50, 100) / 100
+        -- 스킬 아이디가 40만번대인 경우 적용시키지 않음(팀보너스 스킬)
+        if (math_floor(skill_id / 100000) ~= 4) then
+            -- indie_time 타입의 스킬은 해당 값만큼 먼저 기다리도록 초기값 설정
+            self.m_timer = t_skill['chance_value'] * math_random(50, 100) / 100
+        end
 
     elseif (self.m_skillType == 'hp_rate') then
         self.m_hpRate = t_skill['chance_value']
