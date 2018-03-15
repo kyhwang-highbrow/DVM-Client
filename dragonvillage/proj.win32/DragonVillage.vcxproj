@@ -881,6 +881,7 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <None Include="..\src\TableDailyMission.lua" />
     <None Include="..\src\Tamer.lua" />
     <None Include="..\src\TamerSkill.lua" />
+    <None Include="..\src\TeamBonusCardFactory.lua" />
     <None Include="..\src\TeamBonusHelper.lua" />
     <None Include="..\src\TimeLib.lua" />
     <None Include="..\src\TriggerHpPercent.lua" />
@@ -1266,6 +1267,12 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <None Include="..\src\UI_TamerCostumeShop.lua" />
     <None Include="..\src\UI_TamerListItem.lua" />
     <None Include="..\src\UI_TamerManagePopup_Colosseum.lua" />
+    <None Include="..\src\UI_TeamBonus.lua" />
+    <None Include="..\src\UI_TeamBonusListItem.lua" />
+    <None Include="..\src\UI_TeamBonus_Apply.lua" />
+    <None Include="..\src\UI_TeamBonus_Detail.lua" />
+    <None Include="..\src\UI_TeamBonus_Dragon.lua" />
+    <None Include="..\src\UI_TeamBonus_Total.lua" />
     <None Include="..\src\UI_TermsPopup.lua" />
     <None Include="..\src\UI_ToastPopup.lua" />
     <None Include="..\src\UI_RuneBulkSalePopup.lua" />

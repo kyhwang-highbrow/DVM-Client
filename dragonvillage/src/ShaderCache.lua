@@ -10,6 +10,9 @@ SHADER_BLUE = 'shader_blue'
 
 SHADER_DARK = 'shader_dark'
 
+SHADER_GRAY_PNG  = 'shader_gray_png'
+
+POSITION_TEXTURE_COLOR_P_VERTEX = 'shader/position_texture_color_P_vertex.vsh'
 POSITION_TEXTURE_COLOR_NO_MVP_VERTEX = 'shader/position_texture_color_noMvp_vertex.vsh'
 
 -------------------------------------
@@ -26,6 +29,9 @@ function ShaderCache:init()
     self:addShader(SHADER_BLUE, POSITION_TEXTURE_COLOR_NO_MVP_VERTEX, 'shader/blue.fsh')
 
     self:addShader(SHADER_DARK, POSITION_TEXTURE_COLOR_NO_MVP_VERTEX, 'shader/dark.fsh')
+
+    -- png 인 경우 projection matrix 사용하여야 포지션이 틀어지지 않음 
+    self:addShader(SHADER_GRAY_PNG, POSITION_TEXTURE_COLOR_P_VERTEX, 'shader/gray.fsh')
 end
 
 -------------------------------------
@@ -50,4 +56,3 @@ function ShaderCache:getShader(key)
 
     return shader
 end
-

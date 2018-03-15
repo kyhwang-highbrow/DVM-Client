@@ -40,6 +40,25 @@ function TeamBonusHelper:getTeamBonusDataFromDeck(l_deck)
 end
 
 -------------------------------------
+-- function getTeamBonusDataFromDid
+-- @brief did로 적용될 수 있는 팀보너스 정보만 가져온다
+-------------------------------------
+function TeamBonusHelper:getTeamBonusDataFromDid(did)
+    local table_teambonus = TableTeamBonus()
+    local l_ret = {}
+    
+    -- 모든 팀보너스를 검사
+    for _, teambonus_data in pairs(table_teambonus.m_orgTable) do
+        local is_satisfy = self:checkConditionFromDid(teambonus_data, did)
+        if (is_satisfy) then
+            table.insert(l_ret, teambonus_data)
+        end
+    end
+
+    return l_ret
+end
+
+-------------------------------------
 -- function getValidTeamBonusDataFromDeck
 -- @brief 파리미터의 덱으로 적용될 수 있는 팀보너스 정보만 가져온다
 -------------------------------------
@@ -99,6 +118,52 @@ function TeamBonusHelper:checkCondition(t_teambonus, l_dragon_data)
     local b = (achievement_count >= req_count)
 
     return b, l_valid_dragon_data
+end
+
+
+-------------------------------------
+-- function checkConditionFromDid
+-- @brief 하나의 팀보너스에 대해 did의 드래곤이 조건을 만족하는지 검사
+-------------------------------------
+function TeamBonusHelper:checkConditionFromDid(t_teambonus, did)
+    local type = t_teambonus['condition_type']
+    local t_dragon = TableDragon():get(did)
+    local is_satisfy = false
+
+    for i = 1, MAX_CONDITION_COUNT do
+        local condition = t_teambonus['condition_' .. i]
+        if (condition and condition ~= '') then
+            -- 속성 체크
+            if (type == 'attr') then
+                local attr = t_dragon['attr']
+                is_satisfy = (condition == attr)
+
+            -- 역할 체크
+            elseif (type == 'role') then
+                local role = t_dragon['role']
+                is_satisfy = (condition == role)
+
+            -- DID와 속성 체크
+            elseif (type == 'did_attr' or type == 'did_attr_same') then
+                for i = 1, 5 do
+                    local _did = condition + i
+                    local name = TableDragon:getDragonName(did)
+                    if (name) then
+                        if (did == _did) then
+                            is_satisfy = true
+                            break
+                        end
+                    end
+                end
+
+            -- DID 체크
+            elseif (type == 'did') then
+                is_satisfy = (condition == did)
+            end
+        end
+    end
+
+    return is_satisfy
 end
 
 -------------------------------------

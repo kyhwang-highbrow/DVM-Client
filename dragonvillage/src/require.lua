@@ -223,6 +223,7 @@ local t_module = {
     'StatusEffectHelper',
     'AreaOfEffectHelper',
     'TeamBonusHelper',
+    'TeamBonusCardFactory',
     'ShaderCache',
     'SortManager',
     'SortManager_Rune',
@@ -750,6 +751,12 @@ local t_module = {
     'UI_DragonDiaryPopup',
     'UI_PackagePopup',
     'UI_PackageTabButton',
+    'UI_TeamBonus',
+    'UI_TeamBonus_Apply',
+    'UI_TeamBonus_Dragon',
+    'UI_TeamBonus_Total',
+    'UI_TeamBonus_Detail',
+    'UI_TeamBonusListItem',
 
 	-- UI : 해외
 	'UI_SelectServerPopup',

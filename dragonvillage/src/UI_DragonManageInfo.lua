@@ -157,6 +157,9 @@ function UI_DragonManageInfo:initButton()
 
 		-- 조합
 		vars['combineBtn']:registerScriptTapHandler(function() self:click_combineBtn() end)
+
+        -- 팀보너스
+		vars['teamBonusBtn']:registerScriptTapHandler(function() self:click_teamBonusBtn() end)
     end
 
     do -- 기타 버튼
@@ -831,6 +834,15 @@ function UI_DragonManageInfo:click_combineBtn()
 			end
 		end)
 	end
+end
+
+-------------------------------------
+-- function click_teamBonusBtn
+-- @brief 팀보너스
+-------------------------------------
+function UI_DragonManageInfo:click_teamBonusBtn()
+    local sel_did = self.m_selectDragonData['did']
+	UI_TeamBonus(TEAM_BONUS_MODE.DRAGON, sel_did)
 end
 
 -------------------------------------

@@ -101,6 +101,9 @@ function UI_BookDetailPopup:initButton()
 
 	-- 획득 방법
 	vars['getBtn']:registerScriptTapHandler(function() self:click_getBtn() end)
+
+    -- 팀보너스
+	vars['teamBonusBtn']:registerScriptTapHandler(function() self:click_teamBonusBtn() end)
 end
 
 -------------------------------------
@@ -737,6 +740,15 @@ function UI_BookDetailPopup:click_sameTypeCard(t_dragon)
 
     -- refresh
     self:refresh()
+end
+
+-------------------------------------
+-- function click_teamBonusBtn
+-- @brief 팀보너스
+-------------------------------------
+function UI_BookDetailPopup:click_teamBonusBtn()
+    local sel_did = self.m_originDid
+	UI_TeamBonus(TEAM_BONUS_MODE.DRAGON, sel_did)
 end
 
 -------------------------------------
