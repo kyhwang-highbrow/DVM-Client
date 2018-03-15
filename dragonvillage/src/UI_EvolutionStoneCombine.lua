@@ -420,10 +420,10 @@ function UI_EvolutionStoneCombine:showEffect()
     local block_ui = UI_BlockPopup()
     local vars = self.vars
 
-    local bottom_node = self:getTargetNode('bottomVisual')
-    bottom_node:setVisible(true)
-    bottom_node:changeAni('success_bottom', false)
-    bottom_node:addAniHandler(function()
+    local top_node = self:getTargetNode('topVisual')
+    top_node:setVisible(true)
+    top_node:changeAni('stone_top', false)
+    top_node:addAniHandler(function()
         self.m_bUpdate = true
 
         self.m_selMulti = 1
@@ -434,15 +434,8 @@ function UI_EvolutionStoneCombine:showEffect()
         local msg = Str('{1}에 성공하였습니다.', (self.m_selMode == MODE.COMBINE) and Str('조합') or Str('분해'))
         UIManager:toastNotificationGreen(msg)
 
-        bottom_node:setVisible(false)
-        block_ui:close()
-    end)
-
-    local top_node = self:getTargetNode('topVisual')
-    top_node:setVisible(true)
-    top_node:changeAni('success_top', false)
-    top_node:addAniHandler(function()
         top_node:setVisible(false)
+        block_ui:close()
     end)
 end
 
