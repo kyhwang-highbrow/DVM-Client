@@ -139,7 +139,7 @@ function UI_BookDetailPopup:refresh_exception()
 	end
 
     -- 팀 보너스 버튼
-    self.vars['teamBonusBtn']:setVisible(not (underling or is_slime))
+    self.vars['teamBonusBtn']:setVisible(not is_slime)
 end
 
 -------------------------------------

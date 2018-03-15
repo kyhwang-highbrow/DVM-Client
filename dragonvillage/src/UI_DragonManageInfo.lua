@@ -237,6 +237,9 @@ function UI_DragonManageInfo:refresh_buttonState()
 
 		-- 드래곤 강화
         vars['reinforceBtn']:setEnabled(not is_slime_object)
+
+        -- 팀 보너스 
+        vars['teamBonusBtn']:setVisible(not is_slime_object)
     end
 
     -- 룬 버튼

@@ -97,8 +97,9 @@ end
 function UI_TeamBonus_Dragon:makeSortManager()
     local sort_manager = SortManager_Dragon()
 	
-	-- did 순으로 정렬
+	-- did 순, 등급 순으로 정렬
     sort_manager:pushSortOrder('did')
+    sort_manager:pushSortOrder('grade')
 
     self.m_sortManager = sort_manager
 end
@@ -187,20 +188,14 @@ function UI_TeamBonus_Dragon:getDragonList(role_type, attr_type)
         else
             local did = v['did']
 			local key = did
-			
-			-- 자코는 진화하지 않으므로 evolution 1 만 담는다.
-			if (table_dragon:isUnderling(did)) then
+			local t_dragon = clone(v)
 
-			-- 진화도를 만들어준다.
-			else
-				local t_dragon = clone(v)
-
-                -- 무조건 해치로
-				t_dragon['evolution'] = 1
-				t_dragon['bookType'] = 'dragon'
-                t_dragon['lv'] = 1
-				l_ret[key + (i * 1000000)] = t_dragon
-			end
+            -- 무조건 해치로
+			t_dragon['evolution'] = 1
+            t_dragon['grade'] = TableDragon:getBirthGrade(did)
+			t_dragon['bookType'] = 'dragon'
+            t_dragon['lv'] = 1
+			l_ret[key + (i * 1000000)] = t_dragon
         end
     end
     return l_ret
@@ -218,6 +213,9 @@ function UI_TeamBonus_Dragon:cellCreateCB(ui, data)
 
     -- scale 조정
 	ui.root:setScale(0.8)
+
+    -- 등급은 노출 안함
+    ui.vars['starNode']:setVisible(false)
 
 	-- 버튼 클릭시 적용가능한 팀보너스 보여줌
 	ui.vars['clickBtn']:registerScriptTapHandler(function()
