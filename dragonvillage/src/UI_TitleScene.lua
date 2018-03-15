@@ -1013,6 +1013,15 @@ function UI_TitleScene:workGetServerInfo()
                 ui_network:hideLoading()
             end
             if co:waitWork() then return end
+
+            -- 콜로세움 정보 받아옴
+            co:work()
+            self.m_loadingUI:showLoading(Str('신발을 신는 중...'))
+            local ui_network = g_colosseumData:request_colosseumInfo(co.NEXT, fail_cb)
+            if ui_network then
+                ui_network:hideLoading()
+            end
+            if co:waitWork() then return end
         end
 
         co:close()
