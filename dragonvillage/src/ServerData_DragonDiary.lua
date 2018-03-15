@@ -427,7 +427,13 @@ function ServerData_DragonDiary.checkClear(rid, sub_data)
     if (clear_type == 'd_lv') then
         local grade = sub_data['grade']
         local lv = sub_data['lv']
-        if (clear_target <= grade) and (clear_value <= lv) then
+
+        -- 등급이 높으면 무조건 클리어 처리
+        if (clear_target < grade) then
+            return true
+        end
+
+        if (clear_target == grade) and (clear_value <= lv) then
             return true
         end
 
