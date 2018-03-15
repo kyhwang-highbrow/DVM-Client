@@ -247,7 +247,8 @@ function UI_Lobby:entryCoroutine()
                 -- 5 레벨 미만은 마을에서 네이버 SDK와 풀 팝업을 띄우지 않음
                 local lv = g_userData:get('lv')
                 if (5 <= lv) then
-                    NaverCafeManager:naverCafeStart(0) -- 네이버 카페
+                    -- sgkim 2018-03-15 네이버 SDK에서 터치가 안되는 현상이 잦아서 띄우는 시점을 풀 팝업 이후로 변경함
+                    --NaverCafeManager:naverCafeStart(0) -- 네이버 카페
                     g_fullPopupManager:show(FULL_POPUP_TYPE.LOBBY, show_func)
                 end
             end
@@ -256,6 +257,12 @@ function UI_Lobby:entryCoroutine()
 			if (g_attendanceData:hasAttendanceReward()) then
                 g_fullPopupManager:show(FULL_POPUP_TYPE.ATTENDANCE, show_func)
 			end
+
+            -- 5 레벨 미만은 마을에서 네이버 SDK와 풀 팝업을 띄우지 않음
+            local lv = g_userData:get('lv')
+            if (5 <= lv) then
+                NaverCafeManager:naverCafeStart(0) -- 네이버 카페
+            end
 			
 			-- @ MASTER ROAD
 			cclog('# 마스터의 길 확인 중')
