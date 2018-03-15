@@ -204,6 +204,7 @@ local t_module = {
     'DragonSkillBonusHelper',
     'DragonSkillManager',
     'DragonSkillIndivisualInfo',
+    'DragonSkillIndivisualInfoInGame',
     'DragonSkillCore',
     'DragonGuideNavigator',
     'SumRandom',

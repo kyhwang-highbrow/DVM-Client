@@ -69,7 +69,7 @@ function Tamer:init_tamer(t_tamer_data, bLeftFormationend)
         self:setDragonSkillLevelList(t_tamer_data['skill_lv1'], t_tamer_data['skill_lv2'], t_tamer_data['skill_lv3'], t_tamer_data['skill_lv4'])    
     end
 
-	self:initDragonSkillManager('tamer', t_tamer['tid'])
+	self:initDragonSkillManager('tamer', t_tamer['tid'], nil, true)
 	self:initLogRecorder(t_tamer['tid'])
 
 	self.m_world:addListener('dragon_summon', self)

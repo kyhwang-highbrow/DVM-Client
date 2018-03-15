@@ -36,7 +36,7 @@ end
 function Monster:init_monster(t_monster, monster_id, level)
     -- 각종 init 함수 실행
 	do
-		self:initDragonSkillManager('monster', monster_id, 6) -- monster는 skill_1~skill_6을 모두 사용
+		self:initDragonSkillManager('monster', monster_id, 6, true) -- monster는 skill_1~skill_6을 모두 사용
 		self:initStatus(t_monster, level, 0, 0, 0)
 
 		self:initAnimatorMonster(t_monster['res'], t_monster['attr'], t_monster['scale'], t_monster['size_type'])

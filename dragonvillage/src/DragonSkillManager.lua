@@ -2,6 +2,8 @@
 -- interface IDragonSkillManager
 -------------------------------------
 IDragonSkillManager = {
+        m_bInGameMode = 'boolean',
+
         -- [external variable]
         m_charType = 'string',
         m_charID = 'number',
@@ -26,6 +28,8 @@ IDragonSkillManager = {
 -- function init
 -------------------------------------
 function IDragonSkillManager:init()
+    self.m_bInGameMode = false
+
     self.m_lReserveTurnSkillID = {}
     self.m_mReserveTurnSkillID = {}
 
@@ -36,7 +40,8 @@ end
 -------------------------------------
 -- function initDragonSkillManager
 -------------------------------------
-function IDragonSkillManager:initDragonSkillManager(char_type, char_id, evolution_lv)
+function IDragonSkillManager:initDragonSkillManager(char_type, char_id, evolution_lv, b_ingame_mode)
+    self.m_bInGameMode = b_ingame_mode or false
     self.m_charType = char_type
     self.m_charID = char_id
     self.m_openSkillCount = open_skill_count
@@ -184,7 +189,13 @@ function IDragonSkillManager:setSkillID(skill_type, skill_id, skill_lv, add_type
     end
 
 	-- skill info 생성
-    local skill_indivisual_info = DragonSkillIndivisualInfo(self.m_charType, skill_type, skill_id, skill_lv)
+    local skill_indivisual_info
+
+    if (self.m_bInGameMode) then
+        skill_indivisual_info = DragonSkillIndivisualInfoInGame(self.m_charType, skill_type, skill_id, skill_lv)
+    else
+        skill_indivisual_info = DragonSkillIndivisualInfo(self.m_charType, skill_type, skill_id, skill_lv)
+    end
 
 	-- skill 입력 및 덮어씌우기
 	local old_skill_info
@@ -221,8 +232,7 @@ function IDragonSkillManager:setSkillID(skill_type, skill_id, skill_lv, add_type
     end
 
     -- 스킬 레벨 적용
-    skill_indivisual_info:applySkillLevel()
-	skill_indivisual_info:mergeSkillInfo(old_skill_info)
+    skill_indivisual_info:applySkillLevel(old_skill_info)
 
 	-- 스킬 desc 세팅
 	skill_indivisual_info:applySkillDesc()

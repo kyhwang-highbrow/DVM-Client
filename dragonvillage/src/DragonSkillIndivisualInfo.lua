@@ -28,10 +28,6 @@ function DragonSkillIndivisualInfo:init(char_type, skill_type, skill_id, skill_l
     self.m_skillType = skill_type
     self.m_skillID = skill_id
     self.m_skillLevel = (skill_level or 1)
-    self.m_turnCount = 0
-    self.m_timer = 0
-    self.m_cooldownTimer = 0
-    self.m_hpRate = 100
 
 	self.m_tAddedValue = nil
     
@@ -52,82 +48,6 @@ function DragonSkillIndivisualInfo:init(char_type, skill_type, skill_id, skill_l
             error('hp_rate_per skill error : invalid chance_value(' .. t_skill['chance_value'] .. ')')
         end
     end
-end
-
--------------------------------------
--- function update
--------------------------------------
-function DragonSkillIndivisualInfo:update(dt)
-    -- TODO: 차후 드래그 스킬 쿨타임도 여기서 처리될 수 있도록 수정해야할듯...
-    if (self.m_skillType == 'active') then return end
-
-    -- indie_time 타이머
-    if (self.m_timer > 0) then
-        self.m_timer = self.m_timer - dt
-
-        if (self.m_timer <= 0) then
-            self.m_timer = 0
-        end
-    end
-    
-    -- 스킬 쿨타임
-    if (self.m_cooldownTimer > 0) then
-        self.m_cooldownTimer = self.m_cooldownTimer - dt
-
-        if (self.m_cooldownTimer <= 0) then
-            self.m_cooldownTimer = 0
-        end
-    end
-end
-
--------------------------------------
--- function startCoolTime
--------------------------------------
-function DragonSkillIndivisualInfo:startCoolTime()
-    if (not self.m_tSkill['cooldown'] or self.m_tSkill['cooldown'] == '') then
-        self.m_cooldownTimer = 0
-    else
-        self.m_cooldownTimer = tonumber(self.m_tSkill['cooldown'])
-    end
-
-    if (self.m_skillType == 'indie_time' or self.m_skillType == 'indie_time_short') then
-        self.m_timer = self.m_tSkill['chance_value']
-    end
-
-    self.m_turnCount = 0
-end
-
-
--------------------------------------
--- function startCoolTimeByCasting
--- @brief 캐스팅을 시작하면 cooldown을 제외한 나머지만 시작시킴
--------------------------------------
-function DragonSkillIndivisualInfo:startCoolTimeByCasting()
-    if (self.m_skillType == 'indie_time' or self.m_skillType == 'indie_time_short') then
-        self.m_timer = self.m_tSkill['chance_value']
-    end
-
-    self.m_turnCount = 0
-end
-
--------------------------------------
--- function isEndCoolTime
--------------------------------------
-function DragonSkillIndivisualInfo:isEndCoolTime()
-    if (self.m_skillType == 'indie_time' or self.m_skillType == 'indie_time_short') then
-        return (self.m_cooldownTimer == 0 and self.m_timer == 0)
-    else
-        return (self.m_cooldownTimer == 0)
-    end
-end
-
--------------------------------------
--- function resetCoolTime
--------------------------------------
-function DragonSkillIndivisualInfo:resetCoolTime()
-    self.m_timer = 0
-    self.m_cooldownTimer = 0
-    self.m_turnCount = 0
 end
 
 -------------------------------------

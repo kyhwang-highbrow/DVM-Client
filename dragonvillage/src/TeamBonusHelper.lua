@@ -169,5 +169,16 @@ function TeamBonusHelper:applyTeamBonusToDragonInGame(teambonus_data, dragon)
                 end
             end
         end
+        
+    elseif (teambonus_data:getType() == 'skill') then
+        for i = 1, 3 do
+            local skill_id = teambonus_data.m_lSkill[i]
+
+            if (skill_id) then
+                local t_skill = TableDragonSkill():get(skill_id)
+                cclog('skill name : ' .. Str(t_skill['t_name']))
+                dragon:setSkillID(t_skill['chance_type'], skill_id, 1, 'new')
+            end
+        end
     end
 end

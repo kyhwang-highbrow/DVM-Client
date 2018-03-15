@@ -972,9 +972,6 @@
     <None Include="..\src\DragonSkillBonusHelper.lua">
       <Filter>lua\src</Filter>
     </None>
-    <None Include="..\src\DragonSkillIndivisualInfo.lua">
-      <Filter>lua\src</Filter>
-    </None>
     <None Include="..\src\DragonSkillManager.lua">
       <Filter>lua\src</Filter>
     </None>
@@ -3284,6 +3281,12 @@
       <Filter>lua\src</Filter>
     </None>
     <None Include="..\src\PerpleSocialManager.lua">
+      <Filter>lua\src</Filter>
+    </None>
+    <None Include="..\src\DragonSkillIndivisualInfo.lua">
+      <Filter>lua\src</Filter>
+    </None>
+    <None Include="..\src\DragonSkillIndivisualInfoInGame.lua">
       <Filter>lua\src</Filter>
     </None>
   </ItemGroup>

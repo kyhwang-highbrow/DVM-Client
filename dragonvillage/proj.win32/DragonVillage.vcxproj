@@ -297,6 +297,7 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <None Include="..\src\DragonGuideNavigator.lua" />
     <None Include="..\src\DragonSkillBonusHelper.lua" />
     <None Include="..\src\DragonSkillCore.lua" />
+    <None Include="..\src\DragonSkillIndivisualInfo.lua" />
     <None Include="..\src\DragonState.lua" />
     <None Include="..\src\DropItem.lua" />
     <None Include="..\src\DropItemMgr_EventGold.lua" />
@@ -621,7 +622,7 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <None Include="..\src\Counter.lua" />
     <None Include="..\src\DamageCalc.lua" />
     <None Include="..\src\DragonAutoSetHelper.lua" />
-    <None Include="..\src\DragonSkillIndivisualInfo.lua" />
+    <None Include="..\src\DragonSkillIndivisualInfoInGame.lua" />
     <None Include="..\src\DragonSkillManager.lua" />
     <None Include="..\src\DropHelper.lua" />
     <None Include="..\src\DynamicWave.lua" />

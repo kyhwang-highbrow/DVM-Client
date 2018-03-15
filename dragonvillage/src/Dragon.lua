@@ -75,7 +75,7 @@ function Dragon:init_dragon(dragon_id, t_dragon_data, t_dragon, bLeftFormation, 
 	-- 각종 init 함수 실행
 	do
 		self:setDragonSkillLevelList(t_dragon_data['skill_0'], t_dragon_data['skill_1'], t_dragon_data['skill_2'], t_dragon_data['skill_3'])
-		self:initDragonSkillManager('dragon', dragon_id, evolution)
+		self:initDragonSkillManager('dragon', dragon_id, evolution, true)
 		self:initStatus(t_dragon, lv, grade, evolution, doid, eclv)
     
 		self:initAnimatorDragon(t_dragon['res'], evolution, attr, scale)
