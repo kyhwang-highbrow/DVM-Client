@@ -10,6 +10,7 @@ TeamBonusHelper = {}
 -- @brief 파리미터의 덱으로 설정된 모든 팀보너스 정보를 가져온다
 -------------------------------------
 function TeamBonusHelper:getTeamBonusDataFromDeck(l_deck)
+    local l_deck = l_deck or {}
     local table_teambonus = TableTeamBonus()
     local l_teambonus_data = {}
     local l_dragon_data = {}
@@ -51,7 +52,7 @@ function TeamBonusHelper:getTeamBonusDataFromDid(did)
     for _, teambonus_data in pairs(table_teambonus.m_orgTable) do
         local is_satisfy = self:checkConditionFromDid(teambonus_data, did)
         if (is_satisfy) then
-            table.insert(l_ret, teambonus_data)
+            table.insert(l_ret, StructTeamBonus(teambonus_data))
         end
     end
 

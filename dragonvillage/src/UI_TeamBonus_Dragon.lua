@@ -97,10 +97,8 @@ end
 function UI_TeamBonus_Dragon:makeSortManager()
     local sort_manager = SortManager_Dragon()
 	
-	-- did 순, 등급 순, 진화도 순으로 정렬
+	-- did 순으로 정렬
     sort_manager:pushSortOrder('did')
-    sort_manager:pushSortOrder('grade')
-	sort_manager:pushSortOrder('evolution')
 
     self.m_sortManager = sort_manager
 end

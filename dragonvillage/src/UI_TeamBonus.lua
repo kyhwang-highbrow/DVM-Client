@@ -5,6 +5,7 @@ local PARENT = class(UI, ITopUserInfo_EventListener:getCloneTable(), ITabUI:getC
 -------------------------------------
 UI_TeamBonus = class(PARENT,{
         m_initail_tab = '',
+        m_selDeck = '',
         m_selDid = 'number',
 
         m_tTabClass = 'table',
@@ -24,18 +25,19 @@ function UI_TeamBonus:initParentVariable()
     -- ITopUserInfo_EventListener의 맴버 변수들 설정
     self.m_uiName = 'UI_TeamBonus'
     self.m_bVisible = true 
-    self.m_titleStr = Str('팀보너스')
+    self.m_titleStr = Str('팀 보너스')
     self.m_bUseExitBtn = true -- click_exitBtn()함구 구현이 반드시 필요함
 end
 
 -------------------------------------
 -- function init
 -------------------------------------
-function UI_TeamBonus:init(initail_tab, sel_did)
+function UI_TeamBonus:init(initail_tab, l_deck, sel_did)
     local vars = self:load('team_bonus.ui')
     UIManager:open(self, UIManager.POPUP)
 
     self.m_initail_tab = initail_tab or TEAM_BONUS_MODE.APPLY
+    self.m_selDeck = l_deck
     self.m_selDid = sel_did
 
     -- backkey 지정

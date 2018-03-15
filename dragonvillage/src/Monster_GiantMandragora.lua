@@ -9,7 +9,7 @@ Monster_GiantMandragora = class(PARENT, {
         m_orgAnimatorScale = 'number',
         m_curAnimatorScale = 'number',
 
-        -- ÀüÅõ Á¾·á ÈÄ µå¶ø °ü·Ã
+        -- ì „íˆ¬ ì¢…ë£Œ í›„ ë“œë ê´€ë ¨
         m_dropCount = 'number',
         m_dropInterval = 'number',
         m_dropTimer = 'number',
@@ -54,7 +54,7 @@ function Monster_GiantMandragora.st_dying(owner, dt)
     if (owner.m_stateTimer == 0) then
         owner:setSpeed(0)
 
-        -- »ç¸Á Ã³¸® ½Ã StateDelegate Kill!
+        -- ì‚¬ë§ ì²˜ë¦¬ ì‹œ StateDelegate Kill!
         owner:killStateDelegate()
 
         owner:dispatch('character_dying', {}, owner)
@@ -102,7 +102,7 @@ end
 function Monster_GiantMandragora:makeHPGauge(hp_ui_offset, force)
     PARENT.makeHPGauge(self, hp_ui_offset, false)
 
-    -- À¯´Öº° Ã¼·Â °ÔÀÌÁö »ç¿ë ¾ÈÇÔ
+    -- ìœ ë‹›ë³„ ì²´ë ¥ ê²Œì´ì§€ ì‚¬ìš© ì•ˆí•¨
     self.m_hpGauge = nil
     self.m_hpGauge2 = nil
 
@@ -111,7 +111,7 @@ function Monster_GiantMandragora:makeHPGauge(hp_ui_offset, force)
         doAllChildren(v, function(node) node:setVisible(false) end)
     end
     
-    -- Ã¼·Â °ÔÀÌÁö ´ë½Å ÀÌ¸§ Ç¥½Ã
+    -- ì²´ë ¥ ê²Œì´ì§€ ëŒ€ì‹  ì´ë¦„ í‘œì‹œ
     local font_scale_x, font_scale_y = Translate:getFontScaleRate()
     local label = cc.Label:createWithTTF(self:getName(), Translate:getFontPath(), 24, 2, cc.size(250, 100), 1, 1)
     label:setDockPoint(cc.p(0.5, 0.5))
@@ -123,10 +123,10 @@ end
 
 -------------------------------------
 -- function setHp
--- @brief Ã¼·ÂÀº º¯°æ ÇÒ ¼ö ¾øµµ·Ï Ã³¸®
+-- @brief ì²´ë ¥ì€ ë³€ê²½ í•  ìˆ˜ ì—†ë„ë¡ ì²˜ë¦¬
 -------------------------------------
 function Monster_GiantMandragora:setHp(hp, bFixed)
-    -- Á×¾úÀ»½Ã Å»Ãâ
+    -- ì£½ì—ˆì„ì‹œ íƒˆì¶œ
     if (not bFixed) then
 	    if (self:isDead()) then return end
         if (self:isZeroHp()) then return end
@@ -134,7 +134,7 @@ function Monster_GiantMandragora:setHp(hp, bFixed)
 
     local dv = hp - self.m_hp
 
-    -- µ¥¹ÌÁö°¡ ¾Æ´Ñ °æ¿ì
+    -- ë°ë¯¸ì§€ê°€ ì•„ë‹Œ ê²½ìš°
     if (dv >= 0) then return end
 
     local damage = -dv
@@ -142,15 +142,15 @@ function Monster_GiantMandragora:setHp(hp, bFixed)
     local t_event = {}
     t_event['damage'] = damage
 
-    -- ¸®½º³Ê¿¡ Àü´Ş
+    -- ë¦¬ìŠ¤ë„ˆì— ì „ë‹¬
 	self:dispatch('character_set_damage', t_event, self)
 
     local accum_damage = t_event['accum_damage']
 
-    -- ´©Àû µ¥¹ÌÁö·®¿¡ µû¶ó Å°¿ò
+    -- ëˆ„ì  ë°ë¯¸ì§€ëŸ‰ì— ë”°ë¼ í‚¤ì›€
     self:growByAccumDamage(accum_damage)
 
-    -- ´©Àû µ¥¹ÌÁö·®¿¡ µû¶ó ¾ÆÀÌÅÛ µå¶ø
+    -- ëˆ„ì  ë°ë¯¸ì§€ëŸ‰ì— ë”°ë¼ ì•„ì´í…œ ë“œë
     local prev_accum_damage = accum_damage - damage
     prev_accum_damage = math_max(prev_accum_damage, 0)
     self:dropItemByAccumDamage(accum_damage, prev_accum_damage)
@@ -162,11 +162,11 @@ end
 function Monster_GiantMandragora:growByAccumDamage(accum_damage)
     if (not accum_damage) then return end
 
-    -- 5¸¸ µ¥¹ÌÁö¸¦ ¹ŞÀ» ¶§¸¶´Ù 1%¾¿ Å©±â¸¦ Å°¿ò
+    -- 5ë§Œ ë°ë¯¸ì§€ë¥¼ ë°›ì„ ë•Œë§ˆë‹¤ 1%ì”© í¬ê¸°ë¥¼ í‚¤ì›€
     local grow_count = math_floor(accum_damage / (DAMAGE_UNIT / 2))
     local new_scale = 0.01 * grow_count + self.m_orgAnimatorScale
 
-    -- ÃÖ´ë 500%
+    -- ìµœëŒ€ 500%
     new_scale = math_min(new_scale, 5 * self.m_orgAnimatorScale)
 
     if (self.m_curAnimatorScale ~= new_scale) then
@@ -182,12 +182,12 @@ end
 function Monster_GiantMandragora:dropItemByAccumDamage(accum_damage, prev_accum_damage)
     if (not accum_damage or not prev_accum_damage) then return end
 
-    -- ÀÏÁ¤ ´ÜÀ§¸¦ ³ÑÁö ¸øÇÑ °æ¿ì
+    -- ì¼ì • ë‹¨ìœ„ë¥¼ ë„˜ì§€ ëª»í•œ ê²½ìš°
     local value1 = math_floor(accum_damage / (DAMAGE_UNIT * 2))
     local value2 = math_floor(prev_accum_damage / (DAMAGE_UNIT * 2))
     if (value1 <= value2) then return end
 
-    -- ÇÇ°İ ¾Ö´Ï¸ŞÀÌ¼Ç
+    -- í”¼ê²© ì• ë‹ˆë©”ì´ì…˜
     if (self.m_state == 'attackDelay') then
         self.m_animator:changeAni('damage', false)
 
@@ -196,7 +196,7 @@ function Monster_GiantMandragora:dropItemByAccumDamage(accum_damage, prev_accum_
         end)
     end
 
-    -- ¾ÆÀÌÅÛ µå¶ø
+    -- ì•„ì´í…œ ë“œë
     self:dispatch('drop_gold', {}, self)
 end
 -------------------------------------

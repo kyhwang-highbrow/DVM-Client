@@ -1,4 +1,4 @@
--------------------------------------
+﻿-------------------------------------
 -- class UI_TeamBonus_Apply
 -------------------------------------
 UI_TeamBonus_Apply = class({
@@ -25,4 +25,16 @@ end
 -- function initTableView
 -------------------------------------
 function UI_TeamBonus_Apply:initTableView()
+    local vars = self.m_owner_ui.vars
+    local node = vars['useListNode']
+
+    local l_deck = self.m_owner_ui.m_selDeck or {}
+    local l_teambonus = TeamBonusHelper:getValidTeamBonusDataFromDeck(l_deck)
+
+    local table_view = UIC_TableView(node)
+    table_view.m_defaultCellSize = cc.size(1200, 130)
+    table_view:setCellUIClass(UI_TeamBonusListItem)
+    table_view:setDirection(cc.SCROLLVIEW_DIRECTION_VERTICAL)
+    table_view:setItemList(l_teambonus)
+    table_view:makeDefaultEmptyMandragora(Str('적용중인 팀 보너스가 없다고라'))
 end

@@ -838,11 +838,11 @@ end
 
 -------------------------------------
 -- function click_teamBonusBtn
--- @brief 팀보너스
+-- @brief 팀 보너스
 -------------------------------------
 function UI_DragonManageInfo:click_teamBonusBtn()
     local sel_did = self.m_selectDragonData['did']
-	UI_TeamBonus(TEAM_BONUS_MODE.DRAGON, sel_did)
+	UI_TeamBonus(TEAM_BONUS_MODE.DRAGON, nil, sel_did)
 end
 
 -------------------------------------

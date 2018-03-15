@@ -20,7 +20,7 @@ end
 function Monster_AncientRuinDragon:initFormation(body_size)
     PARENT.initFormation(self, body_size)
     
-    -- ¸®¼Ò½º°¡ ÁÂ¿ì ¹İ´ë·Î Á¦ÀÛµÇ¾î¼­ ¿©±â¼­ ¹İÀüÃ³¸®...
+    -- ë¦¬ì†ŒìŠ¤ê°€ ì¢Œìš° ë°˜ëŒ€ë¡œ ì œì‘ë˜ì–´ì„œ ì—¬ê¸°ì„œ ë°˜ì „ì²˜ë¦¬...
     self.m_animator:setFlip(false)
 end
 --[[
@@ -32,9 +32,9 @@ function Monster_AncientRuinDragon:setStatusCalc(status_calc)
 
     if (not self.m_statusCalc) then return end
 
-    -- hp ¼³Á¤
+    -- hp ì„¤ì •
     do
-        -- ¿ÜºÎ·ÎºÎÅÍ ÇöÀçÃ¼·Â°ú ÃÖ´ëÃ¼·Â Á¤º¸¸¦ ¾ò¾î¼­ ¼¼ÆÃ
+        -- ì™¸ë¶€ë¡œë¶€í„° í˜„ì¬ì²´ë ¥ê³¼ ìµœëŒ€ì²´ë ¥ ì •ë³´ë¥¼ ì–»ì–´ì„œ ì„¸íŒ…
         local game_state = self.m_world.m_gameState
 
         self.m_maxHp = game_state.m_bossMaxHp:get()
@@ -47,7 +47,7 @@ function Monster_AncientRuinDragon:setStatusCalc(status_calc)
         indivisual_status:setBasicStat(self.m_maxHp, 0, 0, 0, 0)
     end
     
-    -- °ø¼Ó ¼³Á¤
+    -- ê³µì† ì„¤ì •
     self:calcAttackPeriod(true)
 end
 
@@ -55,7 +55,7 @@ end
 -- function undergoAttack
 -------------------------------------
 function Monster_AncientRuinDragon:undergoAttack(attacker, defender, i_x, i_y, body_key, no_event, is_guard)
-    -- Ãæµ¹¿µ¿ª À§Ä¡·Î º¯°æ
+    -- ì¶©ëŒì˜ì—­ ìœ„ì¹˜ë¡œ ë³€ê²½
     if (self.pos['x'] == i_x and self.pos['y'] == i_y) then
         i_x, i_y = self:getCenterPos()
     end
@@ -67,7 +67,7 @@ end
 -- function setDamage
 -------------------------------------
 function Monster_AncientRuinDragon:setDamage(attacker, defender, i_x, i_y, damage, t_info)
-    -- Ãæµ¹¿µ¿ª À§Ä¡·Î º¯°æ
+    -- ì¶©ëŒì˜ì—­ ìœ„ì¹˜ë¡œ ë³€ê²½
     if (self.pos['x'] == i_x and self.pos['y'] == i_y) then
         i_x, i_y = self:getCenterPos()
     end
@@ -80,10 +80,10 @@ end
 --[[
 -------------------------------------
 -- function onChangedAttackableGroup
--- @brief °ø°İÇÒ ¼ö ÀÖ´Â ´ë»ó ±×·ì Á¤º¸°¡ º¯°æµÇ¾úÀ» °æ¿ì
+-- @brief ê³µê²©í•  ìˆ˜ ìˆëŠ” ëŒ€ìƒ ê·¸ë£¹ ì •ë³´ê°€ ë³€ê²½ë˜ì—ˆì„ ê²½ìš°
 -------------------------------------
 function Monster_AncientRuinDragon:onChangedAttackableGroup()
-    -- Å¬·£ º¸½º º»Ã¼ÀÇ °æ¿ì Æ¯Á¤ ½ºÅ³À» »ç¿ëÇÏÁö ¸øÇÏµµ·Ï Ã³¸®...
+    -- í´ëœ ë³´ìŠ¤ ë³¸ì²´ì˜ ê²½ìš° íŠ¹ì • ìŠ¤í‚¬ì„ ì‚¬ìš©í•˜ì§€ ëª»í•˜ë„ë¡ ì²˜ë¦¬...
     if (self.m_charTable['type'] == 'clanraid_boss') then
         local l_remove_skill_id = { 250011, 250012, 250013, 250014, 250015 }
 
@@ -97,7 +97,7 @@ end
 -- function makeMissFont
 -------------------------------------
 function Monster_AncientRuinDragon:makeMissFont(x, y)
-    -- Ãæµ¹¿µ¿ª À§Ä¡·Î º¯°æ
+    -- ì¶©ëŒì˜ì—­ ìœ„ì¹˜ë¡œ ë³€ê²½
     if (self.pos['x'] == x and self.pos['y'] == y) then
         x, y = self:getCenterPos()
     end
@@ -109,7 +109,7 @@ end
 -- function makeShieldFont
 -------------------------------------
 function Monster_AncientRuinDragon:makeShieldFont(x, y)
-    -- Ãæµ¹¿µ¿ª À§Ä¡·Î º¯°æ
+    -- ì¶©ëŒì˜ì—­ ìœ„ì¹˜ë¡œ ë³€ê²½
     if (self.pos['x'] == x and self.pos['y'] == y) then
         x, y = self:getCenterPos()
     end
@@ -121,7 +121,7 @@ end
 -- function makeImmuneFont
 -------------------------------------
 function Monster_AncientRuinDragon:makeImmuneFont(x, y, scale)
-    -- Ãæµ¹¿µ¿ª À§Ä¡·Î º¯°æ
+    -- ì¶©ëŒì˜ì—­ ìœ„ì¹˜ë¡œ ë³€ê²½
     if (self.pos['x'] == x and self.pos['y'] == y) then
         x, y = self:getCenterPos()
     end
@@ -133,7 +133,7 @@ end
 -- function makeResistanceFont
 -------------------------------------
 function Monster_AncientRuinDragon:makeResistanceFont(x, y, scale)
-    -- Ãæµ¹¿µ¿ª À§Ä¡·Î º¯°æ
+    -- ì¶©ëŒì˜ì—­ ìœ„ì¹˜ë¡œ ë³€ê²½
     if (self.pos['x'] == x and self.pos['y'] == y) then
         x, y = self:getCenterPos()
     end
@@ -154,7 +154,7 @@ function Monster_AncientRuinDragon:syncHp(hp)
         self:changeState('dying')
     end
 
-    -- Ã¼·Â¹Ù °¡°¨ ¿¬Ãâ
+    -- ì²´ë ¥ë°” ê°€ê° ì—°ì¶œ
     if (self.m_hpGauge) then
         self.m_hpGauge:setScaleX(self.m_hpRatio)
     end
@@ -170,7 +170,7 @@ end
 function Monster_AncientRuinDragon:makeHPGauge(hp_ui_offset, force)
     PARENT.makeHPGauge(self, hp_ui_offset, false)
 
-    -- À¯´Öº° Ã¼·Â °ÔÀÌÁö »ç¿ë ¾ÈÇÔ
+    -- ìœ ë‹›ë³„ ì²´ë ¥ ê²Œì´ì§€ ì‚¬ìš© ì•ˆí•¨
     self.m_hpGauge = nil
     self.m_hpGauge2 = nil
 
@@ -179,7 +179,7 @@ function Monster_AncientRuinDragon:makeHPGauge(hp_ui_offset, force)
         doAllChildren(v, function(node) node:setVisible(false) end)
     end
     
-    -- Ã¼·Â °ÔÀÌÁö ´ë½Å ÀÌ¸§ Ç¥½Ã
+    -- ì²´ë ¥ ê²Œì´ì§€ ëŒ€ì‹  ì´ë¦„ í‘œì‹œ
     local font_scale_x, font_scale_y = Translate:getFontScaleRate()
     local label = cc.Label:createWithTTF(self:getName(), Translate:getFontPath(), 24, 2, cc.size(250, 100), 1, 1)
     label:setDockPoint(cc.p(0.5, 0.5))
@@ -191,7 +191,7 @@ end
 --[[
 -------------------------------------
 -- function runAction_Floating
--- @brief Ä³¸¯ÅÍ ºÎÀ¯Áß È¿°ú
+-- @brief ìºë¦­í„° ë¶€ìœ ì¤‘ íš¨ê³¼
 -------------------------------------
 function Monster_AncientRuinDragon:runAction_Floating()
     if (not self.m_animator) then return end
@@ -199,7 +199,7 @@ function Monster_AncientRuinDragon:runAction_Floating()
     local target_node = self.m_animator.m_node
     if (not target_node) then return end
     
-    -- Çàµ¿ ºÒ°¡ »óÅÂÀÏ °æ¿ì
+    -- í–‰ë™ ë¶ˆê°€ ìƒíƒœì¼ ê²½ìš°
     if (self:hasStatusEffectToDisableBehavior()) then
         return
     end
@@ -231,7 +231,7 @@ end
 function Monster_AncientRuinDragon:setPosition(x, y)
 	PARENT.setPosition(self, x, y)
 
-    -- Ãæµ¹¿µ¿ª À§Ä¡·Î °ÔÀÌÁö¸¦ Ç¥½ÃÇÏ±â À§ÇÔ
+    -- ì¶©ëŒì˜ì—­ ìœ„ì¹˜ë¡œ ê²Œì´ì§€ë¥¼ í‘œì‹œí•˜ê¸° ìœ„í•¨
     if (self.m_hpNode and not self.m_bFixedPosHpNode) then
         local body_list = self:getBodyList()
         local body = body_list[1]
@@ -253,7 +253,7 @@ end
 function Monster_AncientRuinDragon:setTimeScale(time_scale)
     local time_scale = time_scale or self.m_aspdRatio
 
-    -- ÂÌµé¸¸ ¼Óµµ¸¦ Á¶Á¤
+    -- ì«„ë“¤ë§Œ ì†ë„ë¥¼ ì¡°ì •
     if (self.m_charTable['type'] ~= 'clanraid_boss') then
         time_scale = time_scale * 0.3
     end
@@ -263,10 +263,10 @@ end
 
 -------------------------------------
 -- function updateDebugingInfo
--- @brief ÀÎ°ÔÀÓ Á¤º¸ Ãâ·Â¿ë ¾÷µ¥ÀÌÆ®
+-- @brief ì¸ê²Œì„ ì •ë³´ ì¶œë ¥ìš© ì—…ë°ì´íŠ¸
 -------------------------------------
 function Monster_AncientRuinDragon:updateDebugingInfo()
-	-- È­¸é¿¡ Ã¼·Â Ç¥½Ã
+	-- í™”ë©´ì— ì²´ë ¥ í‘œì‹œ
 	if g_constant:get('DEBUG', 'DISPLAY_UNIT_HP') then 
 		--self.m_infoUI.m_label:setString(string.format('%d/%d\n%d/%d\n(%d%%)',self.m_hp, self.m_maxHp, self.m_hpCount, self.m_maxHpCount, self:getHpRate() * 100))
         self.m_infoUI.m_label:setString(self.m_hp .. '/' .. self.m_maxHp .. '\n' .. '(' .. self:getHpRate() * 100 .. '%)')
@@ -289,7 +289,7 @@ end
 
 -------------------------------------
 -- function checkSpecialImmune
--- @brief Æ¯Á¤ »óÅÂÈ¿°ú ¸é¿ª Ã¼Å©
+-- @brief íŠ¹ì • ìƒíƒœíš¨ê³¼ ë©´ì—­ ì²´í¬
 -------------------------------------
 function Monster_AncientRuinDragon:checkSpecialImmune(t_status_effect)
     if (self.m_charTable['type'] == 'clanraid_boss') then

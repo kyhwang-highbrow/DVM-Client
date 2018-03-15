@@ -9,10 +9,10 @@ UI_ReadySceneNew = class(PARENT,{
         m_stageAttr = 'attr',
 
         -- UI_ReadyScene_Select 관련 변수
-        m_readySceneSelect = 'UI_ReadyScene_Select',
+        m_readySceneSelect = 'UI_ReadySceneNew_Select',
 
         -- UI_ReadyScene_Deck 관련 변수
-        m_readySceneDeck = 'UI_ReadyScene_Deck',
+        m_readySceneDeck = 'UI_ReadySceneNew_Deck',
 
         -- 정렬 도우미
 		m_sortManagerDragon = '',
@@ -438,6 +438,9 @@ function UI_ReadySceneNew:initButton()
 	-- 드래곤 관리
     vars['manageBtn']:registerScriptTapHandler(function() self:click_manageBtn() end)
 
+    -- 팀 보너스
+    vars['teamBonusBtn']:registerScriptTapHandler(function() self:click_teamBonusBtn() end)
+
 	-- 추천 배치, 모두 해제
     vars['autoBtn']:registerScriptTapHandler(function() self:click_autoBtn() end)
     vars['removeBtn']:registerScriptTapHandler(function() self:click_removeBtn() end)
@@ -654,15 +657,6 @@ function UI_ReadySceneNew:refresh_buffInfo()
 
 		vars['formationBuffLabel']:setString(formation_buff)
 	end
-
-    -- 팀보너스
-    --[[
-    do
-        local l_doid = self.m_readySceneDeck.m_lDeckList
-
-        local l_teambonus_data = TeamBonusHelper:getTeamBonusDataFromDeck(l_doid)
-    end
-    ]]--
 end
 
 -------------------------------------
@@ -804,6 +798,15 @@ function UI_ReadySceneNew:click_manageBtn()
     
     -- 덱 저장 후 이동
     self:checkChangeDeck(next_func)
+end
+
+-------------------------------------
+-- function click_teamBonusBtn
+-- @breif 팀 보너스
+-------------------------------------
+function UI_ReadySceneNew:click_teamBonusBtn()
+    local l_deck = self.m_readySceneDeck.m_lDeckList
+	UI_TeamBonus(TEAM_BONUS_MODE.APPLY, l_deck)
 end
 
 -------------------------------------

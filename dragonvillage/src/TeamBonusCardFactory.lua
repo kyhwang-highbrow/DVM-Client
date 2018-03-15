@@ -8,28 +8,32 @@ TeamBonusCardFactory = {}
 ------------------------------------
 -- function makeUIList
 -- @brief 해당 팀보너스 DragonCard UI 리스트 생성
--- @param teambonus_data : TableTeamBonus Data
--- @param l_dragon : 적용중인지 체크하고자 하는 Dragon 객체 리스트 (없는 경우 체크 안함)
+-- @param teambonus_data : StructTeamBonus Data
+-- @param l_dragon : 적용중인 Dragon객체 리스트
 -------------------------------------
 function TeamBonusCardFactory:makeUIList(t_teambonus, l_dragon)
     local l_card
     local type = t_teambonus['condition_type']
-    
+
+    -- 적용중인 드래곤이 있다면 
+    if (l_dragon) and (#l_dragon > 0) then
+        l_card = self:makeUIList_Deck(l_dragon)
+
     -- 속성 조건
-    if (type == 'attr') then
-        l_card = self:makeUIList_Attr(t_teambonus, l_dragon)
+    elseif (type == 'attr') then
+        l_card = self:makeUIList_Attr(t_teambonus)
 
     -- 역할 조건
     elseif (type == 'role') then
-        l_card = self:makeUIList_Role(t_teambonus, l_dragon)
+        l_card = self:makeUIList_Role(t_teambonus)
 
     -- 같은 드래곤 조건 (모든 속성 포함)
     elseif (type == 'did_attr') or (type == 'did_attr_same') then
-        l_card = self:makeUIList_Did_Attr(t_teambonus, l_dragon)
+        l_card = self:makeUIList_Did_Attr(t_teambonus)
 
     -- 같은 드래곤 조건
     elseif (type == 'did') then
-        l_card = self:makeUIList_Did(t_teambonus, l_dragon)
+        l_card = self:makeUIList_Did(t_teambonus)
 
     else
         error('TeamBonusCardFactory - 정의 되지 않은 condition_type : ' .. type)
@@ -39,36 +43,44 @@ function TeamBonusCardFactory:makeUIList(t_teambonus, l_dragon)
 end
 
 -------------------------------------
+-- function makeUIList_Deck
+-- @brief 적용중인 드래곤 카드 생성
+-------------------------------------
+function TeamBonusCardFactory:makeUIList_Deck(l_dragon)
+    local l_card = {}
+
+    for _, dragon_data in ipairs(l_dragon) do
+        local card = UI_DragonCard(dragon_data)
+        table.insert(l_card, card.root)
+    end
+    
+    return l_card
+end
+
+-------------------------------------
 -- function makeUIList_Attr
 -- @brief 속성 조건 카드 생성
 -------------------------------------
-function TeamBonusCardFactory:makeUIList_Attr(t_teambonus, l_dragon)
+function TeamBonusCardFactory:makeUIList_Attr(t_teambonus)
     local l_card = {}
+    local condition_cnt = t_teambonus['condition_count']
 
-    -- 활성화 체크
-    if (l_dragon) then
+    for i = 1, MAX_CONDITION_COUNT do
+        local condition = t_teambonus['condition_' .. i]
+        if (condition ~= '') and (i <= condition_cnt) then
+            local attr = condition
+            local card = UI_CharacterCard()
+            card:makeFrame()
+            card:makeAttrIcon(attr)
 
+            local res = 'res/ui/icons/cha/developing.png'
+            card:makeSprite('chaNode', res, true)
+            card.vars['clickBtn']:setEnabled(false)
 
-    -- 단순 전체보기
-    else
-        local condition_cnt = t_teambonus['condition_count']
-        for i = 1, MAX_CONDITION_COUNT do
-            local condition = t_teambonus['condition_' .. i]
-            if (condition ~= '') and (i <= condition_cnt) then
-                local attr = condition
-                local card = UI_CharacterCard()
-                card:makeFrame()
-                card:makeAttrIcon(attr)
-
-                local res = 'res/ui/icons/cha/developing.png'
-                card:makeSprite('chaNode', res, true)
-                card.vars['clickBtn']:setEnabled(false)
-
-                table.insert(l_card, card.root)
-            end
+            table.insert(l_card, card.root)
         end
     end
-       
+    
     return l_card
 end
 
@@ -76,33 +88,26 @@ end
 -- function makeUIList_Role
 -- @brief 역할 조건 카드 생성
 -------------------------------------
-function TeamBonusCardFactory:makeUIList_Role(t_teambonus, l_dragon)
+function TeamBonusCardFactory:makeUIList_Role(t_teambonus)
     local l_card = {}
+    local condition_cnt = t_teambonus['condition_count']
 
-    -- 활성화 체크
-    if (l_dragon) then
+    for i = 1, MAX_CONDITION_COUNT do
+        local condition = t_teambonus['condition_' .. i]
+        if (condition ~= '') and (i <= condition_cnt) then
+            local role = condition
+            local card = UI_CharacterCard()
+            card:makeFrame()
 
+            local res = string.format('res/ui/icons/book/role_%s.png', role)
+            card:makeSprite('chaNode', res, true)
 
-    -- 단순 전체보기
-    else
-        local condition_cnt = t_teambonus['condition_count']
-        for i = 1, MAX_CONDITION_COUNT do
-            local condition = t_teambonus['condition_' .. i]
-            if (condition ~= '') and (i <= condition_cnt) then
-                local role = condition
-                local card = UI_CharacterCard()
-                card:makeFrame()
+            card.vars['clickBtn']:setEnabled(false)
 
-                local res = string.format('res/ui/icons/book/role_%s.png', role)
-                card:makeSprite('chaNode', res, true)
-
-                card.vars['clickBtn']:setEnabled(false)
-
-                table.insert(l_card, card.root)
-            end
+            table.insert(l_card, card.root)
         end
     end
-
+    
     return l_card
 end
 
@@ -110,49 +115,41 @@ end
 -- function makeUIList_Did_Attr
 -- @brief 같은 드래곤 조건 (모든 속성 포함) 카드 생성
 -------------------------------------
-function TeamBonusCardFactory:makeUIList_Did_Attr(t_teambonus, l_dragon)
+function TeamBonusCardFactory:makeUIList_Did_Attr(t_teambonus)
     local l_card = {}
 
-    -- 활성화 체크
-    if (l_dragon) then
-
-
-    -- 단순 전체보기
-    else
-        -- 모든 속성인 경우 존재하는 첫번째 속성 드래곤 카드 찍어줌
-        local get_did = function(start_did)
-            for i = 1, 5 do
-                local did = start_did + i
-                local name = TableDragon:getDragonName(did)
-                if (name) then
-                    return did
-                end
+    -- 모든 속성인 경우 존재하는 첫번째 속성 드래곤 카드 찍어줌
+    local get_did = function(start_did)
+        for i = 1, 5 do
+            local did = start_did + i
+            local name = TableDragon:getDragonName(did)
+            if (name) then
+                return did
             end
+        end
             
-            error('TeamBonusCardFactory - did 존재 하지 않음 : ' .. start_did)
-        end
-
-       
-        for i = 1, MAX_CONDITION_COUNT do
-            local condition = t_teambonus['condition_' .. i]
-            if (condition ~= '') then
-                local did = get_did(condition)
-                local is_all = true
-                local card = self:getDefaultCard(did, is_all)
-
-                -- 모든속성 아이콘 
-                card:makeAttrIcon('all')
-                -- 모든속성 배경 보여주지 않음
-                card.vars['bgNode']:setVisible(false)
-                -- 셰이더 효과
-                local shader = ShaderCache:getShader(SHADER_GRAY_PNG)
-                card.vars['chaNode']:setGLProgram(shader)
-
-                table.insert(l_card, card.root)
-            end
-        end
+        error('TeamBonusCardFactory - did 존재 하지 않음 : ' .. start_did)
     end
 
+    for i = 1, MAX_CONDITION_COUNT do
+        local condition = t_teambonus['condition_' .. i]
+        if (condition ~= '') then
+            local did = get_did(condition)
+            local is_all = true
+            local card = self:getDefaultCard(did, is_all)
+
+            -- 모든속성 아이콘 
+            card:makeAttrIcon('all')
+            -- 모든속성 배경 보여주지 않음
+            card.vars['bgNode']:setVisible(false)
+            -- 셰이더 효과
+            local shader = ShaderCache:getShader(SHADER_GRAY_PNG)
+            card.vars['chaNode']:setGLProgram(shader)
+
+            table.insert(l_card, card.root)
+        end
+    end
+    
     return l_card
 end
 
@@ -160,22 +157,15 @@ end
 -- function makeUIList_Did
 -- @brief 같은 드래곤 조건 카드 생성
 -------------------------------------
-function TeamBonusCardFactory:makeUIList_Did(t_teambonus, l_dragon)
+function TeamBonusCardFactory:makeUIList_Did(t_teambonus)
     local l_card = {}
 
-    -- 활성화 체크
-    if (l_dragon) then
-
-
-    -- 단순 전체보기
-    else
-        for i = 1, MAX_CONDITION_COUNT do
-            local condition = t_teambonus['condition_' .. i]
-            if (condition ~= '') then
-                local did = condition
-                local card = self:getDefaultCard(did)
-                table.insert(l_card, card.root)
-            end
+    for i = 1, MAX_CONDITION_COUNT do
+        local condition = t_teambonus['condition_' .. i]
+        if (condition ~= '') then
+            local did = condition
+            local card = self:getDefaultCard(did)
+            table.insert(l_card, card.root)
         end
     end
 
