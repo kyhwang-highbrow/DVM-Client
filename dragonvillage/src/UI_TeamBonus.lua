@@ -17,6 +17,18 @@ TEAM_BONUS_MODE = {
 }
 
 -------------------------------------
+-- function initParentVariable
+-- @brief 자식 클래스에서 반드시 구현할 것
+-------------------------------------
+function UI_TeamBonus:initParentVariable()
+    -- ITopUserInfo_EventListener의 맴버 변수들 설정
+    self.m_uiName = 'UI_TeamBonus'
+    self.m_bVisible = true 
+    self.m_titleStr = Str('팀보너스')
+    self.m_bUseExitBtn = true -- click_exitBtn()함구 구현이 반드시 필요함
+end
+
+-------------------------------------
 -- function init
 -------------------------------------
 function UI_TeamBonus:init(initail_tab, sel_did)
@@ -27,7 +39,7 @@ function UI_TeamBonus:init(initail_tab, sel_did)
     self.m_selDid = sel_did
 
     -- backkey 지정
-    g_currScene:pushBackKeyListener(self, function() self:close() end, 'UI_TeamBonus')
+    g_currScene:pushBackKeyListener(self, function() self:click_exitBtn() end, 'UI_TeamBonus')
 
     -- @UI_ACTION
     self:doActionReset()
@@ -86,6 +98,13 @@ end
 -- function refresh
 -------------------------------------
 function UI_TeamBonus:refresh()
+end
+
+-------------------------------------
+-- function click_exitBtn
+-------------------------------------
+function UI_TeamBonus:click_exitBtn()
+    self:close()
 end
 
 --@CHECK
