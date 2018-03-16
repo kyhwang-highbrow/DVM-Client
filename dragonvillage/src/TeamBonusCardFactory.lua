@@ -195,9 +195,15 @@ function TeamBonusCardFactory:getDefaultCard(did, is_all)
     local btn = card.vars['clickBtn']
     local tap_func = function()
         local name = TableDragon:getDragonName(did)
-        local desc = is_all and Str('(모든 속성)') or ''
-        
-        local str = '{@SKILL_NAME}' .. name .. ' ' .. desc
+        local attr = TableDragon:getDragonAttr(did)
+        local str_attr = is_all and Str('(모든 속성)') or 
+                         string.format('(%s)', dragonAttributeName(attr))
+        name = name .. str_attr
+
+        local desc = TableDragon:getDragonStoryStr(did)
+
+        local str = Str('{@SKILL_NAME}{1}\n{@DEFAULT}{2}', name, desc)
+
         local tooltip = UI_Tooltip_Skill(0, 0, str)
         if (tooltip) then
             tooltip:autoPositioning(btn)
