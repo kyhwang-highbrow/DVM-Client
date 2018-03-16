@@ -23,7 +23,7 @@ function TeamBonusHelper:getTeamBonusDataFromDeck(l_deck)
     end
 
     -- 덱에 포함된 드래곤들의 StructDragonObject 리스트를 생성
-    for i, doid in ipairs(l_deck) do
+    for _, doid in pairs(l_deck) do
         local t_dragon_data = g_dragonsData:getDragonDataFromUid(doid)
         if (t_dragon_data) then
             table.insert(l_dragon_data, t_dragon_data)
