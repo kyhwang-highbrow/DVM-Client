@@ -211,6 +211,9 @@ local S_ERROR_STATUS = {
     [-1350] = Str('이미 종료된 던전입니다.'), -- invalid stage
     [-1351] = Str('잘못된 시간 정보입니다.'), -- invalid time
     [-1364] = Str('시즌이 종료되었습니다.'), -- invalid season
+	
+	-- 원기님 제보 사항 추후 처리! : 통신 실패로 서버에 콜은 들어갔으나 response를 못 받은 경우 발생 이 경우 앱 재시작해야함
+	--[-1393] = Str(''), -- invalid game key
 
     -- already
     [-3026] = Str('이미 존재하는 닉네임입니다.'), -- already exist nick
