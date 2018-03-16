@@ -38,7 +38,8 @@ function UI_TeamBonusListItem:initUI()
     vars['titleLabel']:setString(str)
 
     -- 설명
-    local desc = orgin_data['r_desc'] or ''
+    --local desc = orgin_data['r_desc'] or ''
+    local desc = TableTeamBonus():getDesc(data.m_id)
     vars['dscLabel']:setString(desc)
 
     -- 드래곤 카드
