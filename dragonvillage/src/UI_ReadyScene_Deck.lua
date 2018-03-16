@@ -442,7 +442,7 @@ function UI_ReadyScene_Deck:setSlot(idx, doid, skip_sort)
             count = (count - 1)
         end
         if (count >= TOTAL_POS_CNT) then
-            UIManager:toastNotificationRed(Str('5명까지 출전할 수 있습니다.'))
+            UIManager:toastNotificationRed(Str('5마리까지 출전할 수 있습니다.'))
             return false
         end
     end
