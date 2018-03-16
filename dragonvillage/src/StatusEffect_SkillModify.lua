@@ -26,6 +26,7 @@ function StatusEffect_SkillModify:initFromTable(t_status_effect, target_char)
     for i = 1, 4 do
         local str = t_status_effect['val_' .. i]
         if (str and str ~= '') then
+            --cclog('val_' .. i .. ' : ' .. str)
             local param = pl.stringx.split(str, ';')
             local l_skill_id = {}
 
@@ -54,7 +55,7 @@ function StatusEffect_SkillModify:initFromTable(t_status_effect, target_char)
             local t_info = {
                 l_skill_id = l_skill_id,
                 col = param[2],
-                val = param[3],
+                val = tonumber(param[3]),
                 action = param[4]
             }
 
@@ -86,6 +87,7 @@ function StatusEffect_SkillModify:onApplyOverlab(unit)
 
                 -- 스킬 테이블 변경
                 if (v['col'] and v['val']) then
+                    --cclog('StatusEffect_SkillModify : ' .. luadump(v))
                     skill_indivisual_info:addBuff(v['col'], v['val'], v['action'])
                 end
             end

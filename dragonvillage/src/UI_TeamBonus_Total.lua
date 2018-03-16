@@ -27,7 +27,7 @@ end
 function UI_TeamBonus_Total:initTableView()
     local vars = self.m_owner_ui.vars
 
-    local l_teambonus = TeamBonusHelper:getTeamBonusDataFromDeck()
+    local l_teambonus = TeamBonusHelper:getAllTeamBonusDataFromDeck()
 
     local node = vars['allListNode']
     local table_view = UIC_TableView(node)

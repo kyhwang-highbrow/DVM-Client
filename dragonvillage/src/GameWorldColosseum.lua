@@ -312,6 +312,9 @@ function GameWorldColosseum:makeHeroDeck()
     self.m_deckFormation = formation
     self.m_deckFormationLv = formation_lv
 
+    -- 팀보너스를 가져옴
+    local l_teambonus_data = TeamBonusHelper:getTeamBonusDataFromDeck(l_deck)
+
     -- 출전 중인 드래곤 객체를 저장하는 용도 key : 출전 idx, value :Dragon
     self.m_myDragons = {}
 
@@ -336,6 +339,11 @@ function GameWorldColosseum:makeHeroDeck()
                 -- 스테이지 버프 적용
                 hero.m_statusCalc:applyStageBonus(self.m_stageID)
                 hero:setStatusCalc(hero.m_statusCalc)
+
+                -- 팀보너스 적용
+                for i, teambonus_data in ipairs(l_teambonus_data) do
+                    TeamBonusHelper:applyTeamBonusToDragonInGame(teambonus_data, hero)
+                end
 
 				-- 리더 등록
 				if (i == leader) then
@@ -376,6 +384,9 @@ function GameWorldColosseum:makeEnemyDeck()
     self.m_enemyDeckFormation = formation
     self.m_enemyDeckFormationLv = formation_lv
 
+    -- 팀보너스를 가져옴
+    local l_teambonus_data = TeamBonusHelper:getTeamBonusDataFromDeck(l_deck)
+
     -- 출전 중인 적드래곤 객체를 저장하는 용도 key : 출전 idx, value :Dragon
     self.m_lEnemyDragons = {}
 
@@ -401,6 +412,11 @@ function GameWorldColosseum:makeEnemyDeck()
                 -- 스테이지 버프 적용
                 enemy.m_statusCalc:applyStageBonus(self.m_stageID)
                 enemy:setStatusCalc(enemy.m_statusCalc)
+
+                -- 팀보너스 적용
+                for i, teambonus_data in ipairs(l_teambonus_data) do
+                    TeamBonusHelper:applyTeamBonusToDragonInGame(teambonus_data, enemy)
+                end
 
                 -- 리더 등록
 				if (i == leader) then

@@ -213,7 +213,7 @@ function GameWorld:makeHeroDeck()
     self.m_deckFormationLv = formation_lv
 
     -- 팀보너스를 가져옴
-    local l_teambonus_data = TeamBonusHelper:getValidTeamBonusDataFromDeck(l_deck)
+    local l_teambonus_data = TeamBonusHelper:getTeamBonusDataFromDeck(l_deck)
 
     -- 출전 중인 드래곤 객체를 저장하는 용도 key : 출전 idx, value :Dragon
     self.m_myDragons = {}

@@ -6,10 +6,10 @@ local MAX_CONDITION_COUNT = 5
 TeamBonusHelper = {}
 
 -------------------------------------
--- function getTeamBonusDataFromDeck
+-- function getAllTeamBonusDataFromDeck
 -- @brief 파리미터의 덱으로 설정된 모든 팀보너스 정보를 가져온다
 -------------------------------------
-function TeamBonusHelper:getTeamBonusDataFromDeck(l_deck)
+function TeamBonusHelper:getAllTeamBonusDataFromDeck(l_deck)
     local l_deck = l_deck or {}
     local table_teambonus = TableTeamBonus()
     local l_teambonus_data = {}
@@ -60,11 +60,11 @@ function TeamBonusHelper:getTeamBonusDataFromDid(did)
 end
 
 -------------------------------------
--- function getValidTeamBonusDataFromDeck
+-- function getTeamBonusDataFromDeck
 -- @brief 파리미터의 덱으로 적용될 수 있는 팀보너스 정보만 가져온다
 -------------------------------------
-function TeamBonusHelper:getValidTeamBonusDataFromDeck(l_deck)
-    local l_teambonus_data = self:getTeamBonusDataFromDeck(l_deck)
+function TeamBonusHelper:getTeamBonusDataFromDeck(l_deck)
+    local l_teambonus_data = self:getAllTeamBonusDataFromDeck(l_deck)
     local l_ret = {}
 
     for _, teambonus_data in ipairs(l_teambonus_data) do

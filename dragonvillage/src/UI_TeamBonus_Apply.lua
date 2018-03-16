@@ -29,7 +29,7 @@ function UI_TeamBonus_Apply:initTableView()
     local node = vars['useListNode']
 
     local l_deck = self.m_owner_ui.m_selDeck or {}
-    local l_teambonus = TeamBonusHelper:getValidTeamBonusDataFromDeck(l_deck)
+    local l_teambonus = TeamBonusHelper:getTeamBonusDataFromDeck(l_deck)
 
     -- 생성 콜백
 	local create_func = function(data)

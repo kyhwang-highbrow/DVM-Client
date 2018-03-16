@@ -41,6 +41,9 @@ function GameWorldForDoubleTeam:makeHeroDeck()
         self.m_deckFormation = formation
         self.m_deckFormationLv = formation_lv
 
+        -- 팀보너스를 가져옴
+        local l_teambonus_data = TeamBonusHelper:getTeamBonusDataFromDeck(l_deck)
+
         -- 출전 중인 드래곤 객체를 저장하는 용도 key : 출전 idx, value :Dragon
         for i, doid in pairs(l_deck) do
             local t_dragon_data = g_dragonsData:getDragonDataFromUid(doid)
@@ -63,6 +66,11 @@ function GameWorldForDoubleTeam:makeHeroDeck()
                     hero.m_statusCalc:applyStageBonus(self.m_stageID)
                     hero:setStatusCalc(hero.m_statusCalc)
 
+                    -- 팀보너스 적용
+                    for i, teambonus_data in ipairs(l_teambonus_data) do
+                        TeamBonusHelper:applyTeamBonusToDragonInGame(teambonus_data, hero)
+                    end
+
 				    -- 리더 등록
 				    if (i == leader) then
 					    self.m_mUnitGroup[self:getPCGroup()]:setLeader(hero)
@@ -79,6 +87,9 @@ function GameWorldForDoubleTeam:makeHeroDeck()
     
         self.m_subDeckFormation = formation
         self.m_subDeckFormationLv = formation_lv
+
+        -- 팀보너스를 가져옴
+        local l_teambonus_data = TeamBonusHelper:getTeamBonusDataFromDeck(l_deck)
 
         for i, doid in pairs(l_deck) do
             local t_dragon_data = g_dragonsData:getDragonDataFromUid(doid)
@@ -100,6 +111,11 @@ function GameWorldForDoubleTeam:makeHeroDeck()
                     -- 스테이지 버프 적용
                     hero.m_statusCalc:applyStageBonus(self.m_stageID)
                     hero:setStatusCalc(hero.m_statusCalc)
+
+                    -- 팀보너스 적용
+                    for i, teambonus_data in ipairs(l_teambonus_data) do
+                        TeamBonusHelper:applyTeamBonusToDragonInGame(teambonus_data, hero)
+                    end
 
 				    -- 리더 등록
 				    if (i == leader) then

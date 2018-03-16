@@ -489,7 +489,7 @@ function Character:doSkill_passive()
 
     local l_passive = self.m_lSkillIndivisualInfo['passive']
     if (l_passive) then
-        for i, skill_info in pairs(l_passive) do
+        for i, skill_info in ipairs(l_passive) do
             local skill_id = skill_info.m_skillID
             self:doSkill(skill_id, 0, 0)
         end
