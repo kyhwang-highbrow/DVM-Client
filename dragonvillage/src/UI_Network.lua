@@ -386,11 +386,14 @@ function UI_Network:makeNetworkFailPopup(error_text)
     end
 
 	-- msg
-    local msg
+    local msg = Str('통신이 지연되고 있습니다.\n네트워크 상태를 확인해주세요.')
 	if (error_text ~= nil) and (error_text ~= '') then
-		msg = error_text
-	else
-		msg = Str('통신이 지연되고 있습니다.\n네트워크 상태를 확인해주세요.')
+		-- Couldn't resolve host '~~' 이 문구는 출력하지 않도록 함
+		if (string.find(error_text, 'resolve host')) then
+
+		else
+			msg = string.format('%s\n(%s)', msg, error_text)
+		end
 	end
 
 	-- ok_btn_cb
