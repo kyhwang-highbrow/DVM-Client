@@ -150,9 +150,9 @@ function ServerData_Eggs:getEggListForUI()
         if (a_priority ~= b_priority) then
             return a_priority > b_priority
 
-        -- egg_id(item_id) (큰 값이 앞쪽)
+        -- egg_id(item_id) (작은 값이 앞쪽)
         elseif (a_id ~= b_id) then
-            return a_id > b_id
+            return a_id < b_id
 
         -- count가 높은게 우선순위가 높음
         else
