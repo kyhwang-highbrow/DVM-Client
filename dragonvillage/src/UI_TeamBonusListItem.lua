@@ -50,6 +50,7 @@ function UI_TeamBonusListItem:initUI()
     if (l_card) then
         for i, ui in ipairs(l_card) do
             vars['dragonNode' .. i]:addChild(ui)
+            ui:setSwallowTouch(false)
         end
     end
 end
