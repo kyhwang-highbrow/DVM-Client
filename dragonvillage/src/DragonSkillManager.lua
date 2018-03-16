@@ -282,7 +282,9 @@ function IDragonSkillManager:findSkillInfoByID(skill_id)
     -- 하나의 스킬만을 가지는 스킬 타입
 	if isExistValue(skill_type, 'active', 'basic', 'leader') then
         local skill_info = self.m_lSkillIndivisualInfo[skill_type]
-        return skill_info
+        if (skill_id == skill_info:getSkillID()) then
+            return skill_info
+        end
     else
 	    for i, skill_info in pairs(self.m_lSkillIndivisualInfo[skill_type]) do
 		    if (skill_id == skill_info:getSkillID()) then
