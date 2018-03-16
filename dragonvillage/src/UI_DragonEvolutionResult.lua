@@ -4,7 +4,12 @@ local PARENT = UI
 -- class UI_DragonEvolutionResult
 -------------------------------------
 UI_DragonEvolutionResult = class(PARENT, {
+        m_dragon_object = '',
+        m_dragon_animator = '',
      })
+
+local ZOOM_SCALE = 1.5
+local ZOOM_TIME = 2.5
 
 -------------------------------------
 -- function init
@@ -23,6 +28,7 @@ function UI_DragonEvolutionResult:init(dragon_object)
     -- 백키 블럭
     UIManager:blockBackKey(true)
 
+    vars['skipBtn']:registerScriptTapHandler(function() self:click_skipBtn() end)
     vars['okBtn']:registerScriptTapHandler(function() self:click_exitBtn() end)
 
     self:setResultText(dragon_object)
@@ -62,21 +68,22 @@ end
 function UI_DragonEvolutionResult:showEvolutionEffect(dragon_object)
     local vars = self.vars
 
+    self.m_dragon_object = dragon_object
+
     local did = dragon_object['did']
     local evolution = dragon_object['evolution']
 
     -- vrp 줌 액션
-    local zoom_scale = 1.5
-    local zoom_time = 2.5
     local zoom_action_func = function(node)
-        local zoom_action = cc.ScaleTo:create(zoom_time, zoom_scale)
-        local move_action = cc.MoveBy:create(zoom_time, cc.p(0, 150))
+        local zoom_action = cc.ScaleTo:create(ZOOM_TIME, ZOOM_SCALE)
+        local move_action = cc.MoveBy:create(ZOOM_TIME, cc.p(0, 150))
         local spawn_action = cc.Spawn:create(zoom_action, move_action)
         node:runAction(spawn_action)
     end
 
     -- 좌우 흔듬
     do
+        local node = vars['shakeNode']
         local move_time = 0.5
         local level = 50
         local move_action = cc.Sequence:create(
@@ -86,7 +93,7 @@ function UI_DragonEvolutionResult:showEvolutionEffect(dragon_object)
             cc.MoveBy:create( move_time, cc.p( level, 0) ),
 		    cc.MoveBy:create( move_time, cc.p(-level, 0) )
 	    )
-        self.root:runAction(move_action)
+        node:runAction(move_action)
     end
 
     -- 배경 이펙트
@@ -118,10 +125,9 @@ function UI_DragonEvolutionResult:showEvolutionEffect(dragon_object)
         end)
     end
 
-    local dragon_node = vars['dragonNode']
-
     -- 기존 드래곤
     do
+        local dragon_node = vars['dragonNode']
         local dragon_animator = AnimatorHelper:makeDragonAnimator_usingDid(did, evolution-1)
         dragon_node:addChild(dragon_animator.m_node)
 
@@ -134,46 +140,58 @@ function UI_DragonEvolutionResult:showEvolutionEffect(dragon_object)
         visual:runAction(action)
     end
 
-    -- 진화 드래곤
-    do
-        local dragon_animator = AnimatorHelper:makeDragonAnimator_usingDid(did, evolution)
-        dragon_node:addChild(dragon_animator.m_node)
+    self:showResult()
+end
 
-        local visual = dragon_animator.m_node
-        visual:setVisible(false)
-        visual:setScale(zoom_scale)
-        local shake_mgr = ShakeManager(self, self.root)
+-------------------------------------
+-- function showResult
+-------------------------------------
+function UI_DragonEvolutionResult:showResult(immediately)
+    local vars = self.vars
 
-        local delay_action1 = cc.DelayTime:create(6)
+    local dragon_node = vars['dragonNode']
+    local dragon_object = self.m_dragon_object 
 
-        -- 진화 드래곤 등장 
-        local show_action1 = cc.CallFunc:create(function()
-            visual:setVisible(true)
-            dragon_node:setPositionY(0)
-            dragon_animator:changeAni('attack', false)
-            dragon_animator:addAniHandler(function()
-                dragon_animator:changeAni('idle', true)
-            end)
+    local did = dragon_object['did']
+    local evolution = dragon_object['evolution']
+
+    local dragon_animator = AnimatorHelper:makeDragonAnimator_usingDid(did, evolution)
+    dragon_node:addChild(dragon_animator.m_node)
+
+    local visual = dragon_animator.m_node
+    visual:setVisible(false)
+    visual:setScale(ZOOM_SCALE)
+
+    local delay_action1 = immediately and cc.DelayTime:create(0) or cc.DelayTime:create(6)
+
+    -- 진화 드래곤 등장 
+    local show_action1 = cc.CallFunc:create(function()
+        vars['skipBtn']:setVisible(false)
+
+        visual:setVisible(true)
+        dragon_node:setPositionY(0)
+        dragon_animator:changeAni('attack', false)
+        dragon_animator:addAniHandler(function()
+            dragon_animator:changeAni('idle', true)
         end)
+    end)
 
-        local delay_action2 = cc.DelayTime:create(0.5)
+    local delay_action2 = cc.DelayTime:create(0.5)
 
-        -- 결과 메뉴 보여줌
-        local show_action2 = cc.CallFunc:create(function()
-            shake_mgr:doShakeGrowling(0.05, 10, 35, 2)
+    -- 결과 메뉴 보여줌
+    local show_action2 = cc.CallFunc:create(function()
 			
-			-- 백키 블럭 해제
-			UIManager:blockBackKey(false)
+		-- 백키 블럭 해제
+		UIManager:blockBackKey(false)
 
-            SoundMgr:playEffect('UI', 'ui_grow_result')
-            self:doActionReset()
-            self:doAction(nil, false)
-        end)
+        SoundMgr:playEffect('UI', 'ui_grow_result')
+        self:doActionReset()
+        self:doAction(nil, false)
+    end)
 
-        local action = cc.Sequence:create(delay_action1, show_action1,
-                                          delay_action2, show_action2) 
-        visual:runAction(action)
-    end
+    local action = cc.Sequence:create(delay_action1, show_action1,
+                                        delay_action2, show_action2) 
+    visual:runAction(action)
 end
 
 -------------------------------------
@@ -181,6 +199,46 @@ end
 -------------------------------------
 function UI_DragonEvolutionResult:click_exitBtn()
     self:fadeOutClose()
+end
+
+-------------------------------------
+-- function click_skipBtn
+-------------------------------------
+function UI_DragonEvolutionResult:click_skipBtn()
+    local vars = self.vars 
+
+    -- 페이드인 효과
+    self:sceneFadeInAction(nil, nil, 1.0)
+
+    do
+        local node = vars['shakeNode']
+        node:stopAllActions()
+    end
+
+    -- 배경 이펙트
+    do
+        local visual = vars['bg_visual']
+        visual:stopAllActions()
+    end
+
+    -- 드래곤 하단 이펙트
+    do 
+        local visual = vars['evolutionVisual1']
+        visual:stopAllActions()
+    end
+
+    -- 드래곤 상단 이펙트
+    do 
+        local visual = vars['evolutionVisual2']
+        visual:stopAllActions()
+        visual:changeAni('idle', true)
+    end
+
+    local dragon_node = vars['dragonNode']
+    dragon_node:removeAllChildren()
+
+    local immediately = true
+    self:showResult(immediately)
 end
 
 -------------------------------------
