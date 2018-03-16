@@ -151,7 +151,7 @@ end
 -------------------------------------
 -- function addBuff
 -------------------------------------
-function DragonSkillIndivisualInfoInGame:addBuff(column, value, action)
+function DragonSkillIndivisualInfoInGame:addBuff(column, value, action, immediately)
     local data = {
         col = column,
         val = value or 0,
@@ -162,7 +162,9 @@ function DragonSkillIndivisualInfoInGame:addBuff(column, value, action)
 
     self.m_bDirtyBuff = true
 
-    self:applyBuff()
+    if (immediately) then
+        self:applyBuff()
+    end
 end
 
 -------------------------------------

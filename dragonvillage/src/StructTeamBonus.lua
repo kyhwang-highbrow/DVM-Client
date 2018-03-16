@@ -45,10 +45,6 @@ function StructTeamBonus:setFromDragonObjectList(l_dragon_data)
     self.m_bSatisfy, self.m_lSatisfied = TeamBonusHelper:checkCondition(t_teambonus, l_dragon_data)
 
     if (self.m_bSatisfy) then
-        cclog('ID :  ' .. self.m_id)
-        cclog('NAME : ' .. Str(t_teambonus['t_name']))
-        cclog('DRAGONS : ')
-
         for i, dragon_data in ipairs(self.m_lSatisfied) do
             cclog(dragon_data:getDragonNameWithEclv())
         end

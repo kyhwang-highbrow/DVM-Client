@@ -87,8 +87,7 @@ function StatusEffect_SkillModify:onApplyOverlab(unit)
 
                 -- 스킬 테이블 변경
                 if (v['col'] and v['val']) then
-                    --cclog('StatusEffect_SkillModify : ' .. luadump(v))
-                    skill_indivisual_info:addBuff(v['col'], v['val'], v['action'])
+                    skill_indivisual_info:addBuff(v['col'], v['val'], v['action'], true)
                 end
             end
         end
