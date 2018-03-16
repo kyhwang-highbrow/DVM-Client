@@ -143,7 +143,11 @@ function TeamBonusHelper:checkComplexCondition(t_teambonus, l_dragon_data)
             for _, dragon_data in ipairs(l_dragon_data) do
                 local did = dragon_data['did']
                 local did_ignore_attr = did - (did % 10)
-                if (did_ignore_attr == condition) then
+
+                if (TableSlime:isSlimeID(did)) then
+                    -- 슬라임의 경우 제외
+
+                elseif (did_ignore_attr == condition) then
                     local attr = dragon_data:getAttr()
 
                     if (not m_dragon_data_per_attr[attr]) then
@@ -234,9 +238,12 @@ function TeamBonusHelper:findVaildDragonsFromCondition(condition_type, condition
 
     for idx, dragon_data in ipairs(l_dragon_data) do
         local doid = dragon_data['id']
+        local did = dragon_data['did']
 
-        if (not m_doid_to_except[doid]) then
-            local did = dragon_data['did']
+        if (TableSlime:isSlimeID(did)) then
+            -- 슬라임의 경우 제외
+
+        elseif (not m_doid_to_except[doid]) then
             local t_dragon = TableDragon():get(did)
 
             if (condition_type == 'did_attr') then
