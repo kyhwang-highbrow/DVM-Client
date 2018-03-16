@@ -175,7 +175,8 @@ function UI_NestDungeonScene:makeNestModeTableView()
         table_view:setCellUIClass(UI_NestDungeonStageListItem, create_func)
     end    
     table_view:setDirection(cc.SCROLLVIEW_DIRECTION_VERTICAL)
-    table_view:setItemList(stage_list)
+    local make_item = true
+    table_view:setItemList(stage_list, make_item)
 
     local content_size = node:getContentSize()
     table_view.m_cellUIAppearCB = function(ui)
@@ -184,6 +185,20 @@ function UI_NestDungeonScene:makeNestModeTableView()
         ui.root:setPosition(new_x, y)
 
         ui:cellMoveTo(0.25, cc.p(x, y))
+    end
+
+    -- 최종 클리어한 스테이지 focus
+    do
+        local focus_idx  
+        for _, v in ipairs(table_view.m_itemList) do
+            local idx = v['unique_id']
+            local stage_id = v['data']['stage']
+            local is_open = g_stageData:isOpenStage(stage_id)
+            if (is_open) then
+                focus_idx = idx
+            end
+        end
+        table_view:relocateContainerFromIndex(focus_idx, false)
     end
 end
 

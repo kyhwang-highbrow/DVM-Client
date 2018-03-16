@@ -105,6 +105,13 @@ end
 function ITableViewCell:cellMoveTo(duration, offset)
     local node = self.root
 
+    -- UIC_TableView의 cellMoveTo와 외부에서 선언한 cellMoveTo의 액션이 겹치는 것을 방지
+    -- TAG_CELL_MOVE_TO 액션 실행중이면 skip 
+    local action = node:getActionByTag(TAG_CELL_MOVE_TO)
+    if action then
+        return
+    end
+
     local move_action = cc.MoveTo:create(duration, offset)
     action = cc.EaseInOut:create(move_action, 2)
     cca.runAction(node, action, TAG_CELL_MOVE_TO)
