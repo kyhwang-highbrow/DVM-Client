@@ -182,9 +182,10 @@ end
 -------------------------------------
 function TeamBonusHelper:checkConditionFromDid(t_teambonus, did)
     local type = t_teambonus['condition_type']
-    local t_dragon = TableDragon():get(did)
+    local table_dragon = TableDragon()
+    local t_dragon = table_dragon:get(did)
     local is_satisfy = false
-
+    
     for i = 1, MAX_CONDITION_COUNT do
         local condition = t_teambonus['condition_' .. i]
         if (condition and condition ~= '') then
@@ -202,8 +203,7 @@ function TeamBonusHelper:checkConditionFromDid(t_teambonus, did)
             elseif (type == 'did_attr' or type == 'did_attr_same') then
                 for i = 1, 5 do
                     local _did = condition + i
-                    local name = TableDragon:getDragonName(did)
-                    if (name) then
+                    if (table_dragon:exists(did)) then
                         if (did == _did) then
                             is_satisfy = true
                             break

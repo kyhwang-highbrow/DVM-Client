@@ -206,6 +206,7 @@ end
 -------------------------------------
 function UI_DragonEvolutionResult:click_skipBtn()
     local vars = self.vars 
+    vars['skipBtn']:setEnabled(false)
 
     -- 페이드인 효과
     self:sceneFadeInAction(nil, nil, 1.0)

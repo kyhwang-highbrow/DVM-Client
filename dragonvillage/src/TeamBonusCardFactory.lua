@@ -121,13 +121,13 @@ end
 -------------------------------------
 function TeamBonusCardFactory:makeUIList_Did_Attr(t_teambonus)
     local l_card = {}
+    local table_dragon = TableDragon()
 
     -- 모든 속성인 경우 존재하는 첫번째 속성 드래곤 카드 찍어줌
     local get_did = function(start_did)
         for i = 1, 5 do
             local did = start_did + i
-            local name = TableDragon:getDragonName(did)
-            if (name) then
+            if (table_dragon:exists(did)) then
                 return did
             end
         end
