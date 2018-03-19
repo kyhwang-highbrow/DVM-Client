@@ -29,7 +29,17 @@ function UI_TeamBonus_Apply:initTableView()
     local node = vars['useListNode']
 
     local l_deck = self.m_owner_ui.m_selDeck or {}
-    local l_teambonus = TeamBonusHelper:getTeamBonusDataFromDeck(l_deck)
+
+    -- doid 리스트인지, dragon_struct 리스트인지 (내 덱이 아닌 경우)
+    local is_struct_dragon = false
+    for _, v in ipairs(l_deck) do
+        if (v['id']) then
+            is_struct_dragon = true
+            break
+        end
+    end
+
+    local l_teambonus = TeamBonusHelper:getTeamBonusDataFromDeck(l_deck, is_struct_dragon)
 
     -- 생성 콜백
 	local create_func = function(data)
