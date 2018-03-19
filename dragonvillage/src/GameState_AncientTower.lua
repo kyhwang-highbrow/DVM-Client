@@ -80,9 +80,11 @@ function GameState_AncientTower.update_fight(self, dt)
     if (self.m_stateTimer == 0) then
         if (world.m_waveMgr:isFinalWave()) then
             if (not self.m_uiBossHp) then
-                self.m_uiBossHp = UI_IngameBossHp(world, world.m_waveMgr.m_lBoss)
-                
-                world.m_inGameUI.root:addChild(self.m_uiBossHp.root, 102)
+                local parent = world.m_inGameUI.root
+                local boss_list = world.m_waveMgr.m_lBoss
+
+                self.m_uiBossHp = UI_IngameBossHp(parent, boss_list)
+                self.m_uiBossHp:refresh()
             end
         end
     end

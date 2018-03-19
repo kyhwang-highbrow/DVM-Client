@@ -3316,6 +3316,9 @@
     <None Include="..\src\LobbyGuide_Colosseum.lua">
       <Filter>lua\src</Filter>
     </None>
+    <None Include="..\src\GameStateForDoubleTeam.lua">
+      <Filter>lua\src</Filter>
+    </None>
     <None Include="..\src\LobbyGuide_AncientTower.lua">
       <Filter>lua\src</Filter>
     </None>

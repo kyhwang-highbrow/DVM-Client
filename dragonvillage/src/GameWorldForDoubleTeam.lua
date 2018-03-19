@@ -79,9 +79,9 @@ function GameWorldForDoubleTeam:createComponents()
         self.m_gameState = GameState_ClanRaid(self)
         self.m_inGameUI:init_timeUI(false, 0)
 
-    elseif (self.m_gameMode == GAME_MODE_ANICENT_RUIN) then
-        self.m_gameState = GameState_ClanRaid(self)
-        self.m_inGameUI:init_timeUI(false, 0)
+    else
+        self.m_gameState = GameStateForDoubleTeam(self)
+        self.m_inGameUI:init_timeUI(true, 0)
 
     end
 end
@@ -97,7 +97,7 @@ function GameWorldForDoubleTeam:initGame(stage_name)
     if (self.m_gameMode == GAME_MODE_CLAN_RAID) then
         self.m_waveMgr = WaveMgr_ClanRaid(self, stage_name, self.m_stageID, self.m_bDevelopMode)
     elseif (self.m_gameMode == GAME_MODE_ANICENT_RUIN) then
-        self.m_waveMgr = WaveMgr_ClanRaid(self, stage_name, self.m_stageID, self.m_bDevelopMode)
+        self.m_waveMgr = WaveMgr(self, stage_name, self.m_stageID, self.m_bDevelopMode)
     else
         error('invalid game mode : ' .. self.m_gameMode)
     end

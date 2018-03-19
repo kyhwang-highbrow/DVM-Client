@@ -508,7 +508,13 @@ end
 -- function getGold
 -------------------------------------
 function GameWorld:getGold()
-    return math_floor(self.m_gameWorldGold:getObtainGold())
+    local gold = 0
+
+    if (self.m_gameWorldGold) then
+        gold = math_floor(self.m_gameWorldGold:getObtainGold())
+    end
+
+    return gold
 end
 
 -------------------------------------

@@ -1,9 +1,4 @@
-local PARENT = GameState
-
-local TOP_DECK_OFFSET_X = 0
-local TOP_DECK_OFFSET_Y = 180
-local BOTTOM_DECK_OFFSET_X = 0
-local BOTTOM_DECK_OFFSET_Y = -180
+local PARENT = GameStateForDoubleTeam
 
 -------------------------------------
 -- class GameState_ClanRaid
@@ -16,33 +11,14 @@ GameState_ClanRaid = class(PARENT, {
         m_finalDamage = 'number',   -- 막타 데미지
         m_finalSkillId = 'number',   -- 막타 스킬 아이디
 
-        m_uiBossHp = 'UI_IngameBossHp',
+        m_uiBossHp = 'UI_IngameSharedBossHp',
     })
 
 -------------------------------------
 -- function init
 -------------------------------------
 function GameState_ClanRaid:init(world)
-    self.m_bgmBoss = 'bgm_dungeon_boss'
-
-    -- 체력 설정
-    local max_hp
-    local hp
-
-    local struct_raid = g_clanRaidData:getClanRaidStruct()
-    if (struct_raid) then
-        max_hp = struct_raid:getMaxHp()
-        hp = struct_raid:getHp()
-
-    elseif (IS_TEST_MODE()) then
-        max_hp = 10000000000
-        hp = 500000
-
-    end
-
-    self.m_bossMaxHp = SecurityNumberClass(max_hp, false)
-    self.m_bossHp = SecurityNumberClass(hp, false)
-    self.m_orgBossHp = SecurityNumberClass(hp, false)
+    self.m_orgBossHp = SecurityNumberClass(0, false)
     self.m_accumDamage = SecurityNumberClass(0, false)
     self.m_finalDamage = 0
     self.m_finalSkillId = nil
@@ -56,7 +32,6 @@ function GameState_ClanRaid:initState()
     PARENT.initState(self)
 
     self:addState(GAME_STATE_START, GameState_ClanRaid.update_start)
-    self:addState(GAME_STATE_FIGHT, GameState_ClanRaid.update_fight)
     self:addState(GAME_STATE_SUCCESS, GameState_ClanRaid.update_success)
     self:addState(GAME_STATE_FAILURE, GameState_ClanRaid.update_failure)
     self:addState(GAME_STATE_RESULT, GameState_ClanRaid.update_result)
@@ -133,38 +108,6 @@ function GameState_ClanRaid.update_start(self, dt)
 end
 
 -------------------------------------
--- function update_fight
--------------------------------------
-function GameState_ClanRaid.update_fight(self, dt)
-    local world = self.m_world
-    
-    if (self.m_stateTimer == 0) then
-        -- 보스 체력 게이지
-        if (not self.m_uiBossHp) then
-            self.m_uiBossHp = UI_IngameBossHpForClanRaid(world, world.m_waveMgr.m_lBoss)
-                
-            world.m_inGameUI.root:addChild(self.m_uiBossHp.root, 102)
-        end
-    end
-
-    PARENT.update_fight(self, dt)
-end
-
--------------------------------------
--- function update_success
--------------------------------------
-function GameState_ClanRaid.update_success_wait(self, dt)
-    if (self.m_stateTimer == 0) then
-        if (self.m_uiBossHp) then
-            self.m_uiBossHp.root:removeFromParent(true)
-            self.m_uiBossHp = nil
-        end
-    end
-
-    PARENT.update_success_wait(self, dt)
-end
-
--------------------------------------
 -- function update_success
 -------------------------------------
 function GameState_ClanRaid.update_success(self, dt)
@@ -178,8 +121,6 @@ function GameState_ClanRaid.update_success(self, dt)
 
         -- 기본 배속으로 변경
         world.m_gameTimeScale:setBase(1)
-
-        --world:setWaitAllCharacter(false) -- 포즈 연출을 위해 wait에서 해제
 
         for i, hero in ipairs(world:getDragonList()) do
             if (not hero:isDead()) then
@@ -343,6 +284,7 @@ function GameState_ClanRaid:makeGameFinishParam(is_success)
 
     return t_param
 end
+
 -------------------------------------
 -- function disappearAllDragon
 -------------------------------------
@@ -356,10 +298,6 @@ function GameState_ClanRaid:disappearAllDragon()
     end
     
     for i, dragon in ipairs(self.m_world:getDragonList()) do
-        disappearDragon(dragon)
-    end
-
-    for i, dragon in ipairs(self.m_world:getEnemyList()) do
         disappearDragon(dragon)
     end
 end
@@ -381,14 +319,26 @@ function GameState_ClanRaid:doDirectionForIntermission()
 end
 
 -------------------------------------
--- function setBossHp
+-- function makeBossHp
 -------------------------------------
-function GameState_ClanRaid:setBossHp(hp)
+function GameState_ClanRaid:makeBossHp()
+    local world = self.m_world
+    local boss = world.m_waveMgr.m_lBoss[1]
+    local max_hp = boss.m_maxHp
+    local hp = boss.m_hp
+    
+    self.m_orgBossHp:set(hp)
     self.m_bossHp:set(hp)
+    self.m_bossMaxHp:set(max_hp)
 
-    for _, boss in ipairs(self.m_world.m_waveMgr.m_lBoss) do
-        boss:syncHp(hp)
+    -- 체력 게이지 UI 생성
+    if (not self.m_uiBossHp) then
+        local parent = world.m_inGameUI.root
+
+        self.m_uiBossHp = UI_IngameSharedBossHp(parent, world.m_waveMgr.m_lBoss, true)
     end
+
+    self.m_uiBossHp:refresh(hp, max_hp)
 end
 
 -------------------------------------
@@ -459,6 +409,7 @@ end
 function GameState_ClanRaid:processTimeOut()
     self.m_bTimeOut = true
 
+    -- 타임 아웃이 되었을때 무적처리를 위함
     for _, v in ipairs(self.m_world:getEnemyList()) do
         if (isInstanceOf(v, Monster_ClanRaidBoss)) then
             v:onTimeOut()

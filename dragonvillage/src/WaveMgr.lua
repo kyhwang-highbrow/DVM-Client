@@ -49,7 +49,7 @@ function WaveMgr:init(world, stage_name, stage_id, develop_mode)
     self.m_lDynamicWave = {}
 	self.m_lSummonWave = {}
 
-    self.m_bDevelopMode = develop_mode or (stage_name == 'stage_dev') or false
+    --self.m_bDevelopMode = develop_mode or (stage_name == 'stage_dev') or false
 	
     if self.m_scriptData then
 		-- 최대 웨이브 갯수 체크
@@ -432,16 +432,11 @@ function WaveMgr:spawnEnemy_dynamic(enemy_id, level, appear_type, value1, value2
     local phys_group = phys_group or PHYS.ENEMY
 
     -- Enemy 생성
-    if isDragon(enemy_id) then
-        -- @TODO 드래곤일 경우 등급 및 진화, 친밀도의 데이터도 추가 정리 필요
-        enemy = self.m_world:makeDragonNew(StructDragonObject({
-            did = enemy_id,
-            lv = level,
-            grade = 1,
-            skill_0 = 1
-        }), true)
-    else
+    if (isMonster(enemy_id)) then
         enemy = self.m_world:makeMonsterNew(enemy_id, level)
+    else
+        local enemy_dragon_data = self:getEnemyDragonData(enemy_id, level, isBoss)
+        enemy = self.m_world:makeDragonNew(enemy_dragon_data, true)
     end
 
     local z_order = enemy:getZOrder()
@@ -454,16 +449,11 @@ function WaveMgr:spawnEnemy_dynamic(enemy_id, level, appear_type, value1, value2
         end
         table.insert(self.m_lBoss, enemy)
 
-        -- 스테이지별 boss_hp_ratio 적용
-        local boss_hp_ratio = TableStageData():getValue(self.m_world.m_stageID, 'boss_hp_ratio') or 1
-        enemy.m_statusCalc:appendHpRatio(boss_hp_ratio)
-        enemy:setStatusCalc(enemy.m_statusCalc)
-
-        self.m_world.m_worldNode:addChild(enemy.m_rootNode, z_order)
-    else
-        self.m_world.m_worldNode:addChild(enemy.m_rootNode, z_order)
+        -- 보스 특수 스텟 적용
+        self:applyBossStatus(enemy)
     end
     
+    self.m_world.m_worldNode:addChild(enemy.m_rootNode, z_order)
     self.m_world.m_physWorld:addObject(phys_group, enemy)
     self.m_world:bindEnemy(enemy)
     self.m_world:addEnemy(enemy)
@@ -622,4 +612,28 @@ function WaveMgr:hasMultipleBosses()
     if (not self.m_lBossInfo) then return false end
 
     return (#self.m_lBossInfo > 1)
+end
+
+-------------------------------------
+-- function getEnemyDragonData
+-- @brief 적군으로 등장하는 드래곤 정보를 리턴
+-------------------------------------
+function WaveMgr:getEnemyDragonData(enemy_id, level, is_boss)
+    return StructDragonObject({
+            did = enemy_id,
+            lv = level,
+            grade = 1,
+            skill_0 = 1
+        })
+end
+
+-------------------------------------
+-- function applyBossStatus
+-- @brief 특수한 보스 스텟을 적용
+-------------------------------------
+function WaveMgr:applyBossStatus(boss)
+    -- 스테이지별 boss_hp_ratio 적용
+    local boss_hp_ratio = TableStageData():getValue(self.m_world.m_stageID, 'boss_hp_ratio') or 1
+    boss.m_statusCalc:appendHpRatio(boss_hp_ratio)
+    boss:setStatusCalc(boss.m_statusCalc)
 end

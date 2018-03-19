@@ -43,12 +43,6 @@ function StructTeamBonus:setFromDragonObjectList(l_dragon_data)
     local t_teambonus = TableTeamBonus():get(self.m_id)
 
     self.m_bSatisfy, self.m_lSatisfied = TeamBonusHelper:checkCondition(t_teambonus, l_dragon_data)
-
-    if (self.m_bSatisfy) then
-        for i, dragon_data in ipairs(self.m_lSatisfied) do
-            cclog(dragon_data:getDragonNameWithEclv())
-        end
-    end
 end
 
 -------------------------------------

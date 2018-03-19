@@ -169,7 +169,7 @@ function GameWorldForDoubleTeam:bindEnemy(enemy)
     PARENT.bindEnemy(self, enemy)
 
     -- 보스 체력 공유 처리를 위함
-    if (enemy:isBoss()) then
+    if (self.m_waveMgr:isFinalWave() and enemy:isBoss()) then
         enemy:addListener('character_set_hp', self.m_gameState)
     end
 end

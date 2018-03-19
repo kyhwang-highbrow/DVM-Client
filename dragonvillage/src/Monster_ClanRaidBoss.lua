@@ -90,33 +90,6 @@ function Monster_ClanRaidBoss:updateBonePos(dt)
 end
 
 -------------------------------------
--- function setStatusCalc
--------------------------------------
-function Monster_ClanRaidBoss:setStatusCalc(status_calc)
-    self.m_statusCalc = status_calc
-
-    if (not self.m_statusCalc) then return end
-
-    -- hp 설정
-    do
-        -- 외부로부터 현재체력과 최대체력 정보를 얻어서 세팅
-        local game_state = self.m_world.m_gameState
-
-        self.m_maxHp = game_state.m_bossMaxHp:get()
-        self.m_hp = game_state.m_bossHp:get()
-        self.m_hp = math_min(self.m_hp, self.m_maxHp)
-        
-        self.m_hpRatio = self.m_hp / self.m_maxHp
-
-        local indivisual_status = self.m_statusCalc.m_lStatusList['hp']
-        indivisual_status:setBasicStat(self.m_maxHp, 0, 0, 0, 0)
-    end
-    
-    -- 공속 설정
-    self:calcAttackPeriod(true)
-end
-
--------------------------------------
 -- function undergoAttack
 -------------------------------------
 function Monster_ClanRaidBoss:undergoAttack(attacker, defender, i_x, i_y, body_key, no_event, is_guard)
