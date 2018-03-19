@@ -174,9 +174,9 @@ function UI_DragonLevelUp:refresh_dragonInfo()
 
     -- 레벨업 가능 여부 처리
 	local possible = g_dragonsData:possibleDragonLevelUp(self.m_selectDragonOID)
+	vars['lockSprite']:setVisible(not possible)
     if (not possible) then
         local next_grade = t_dragon_data['grade'] + 1
-	    vars['lockSprite']:setVisible(true)
         vars['infoLabel2']:setString(Str('{1}성 승급시 레벨업 할 수 있어요', next_grade))
     end
 end
