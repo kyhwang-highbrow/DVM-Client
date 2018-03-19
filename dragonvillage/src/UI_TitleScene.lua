@@ -1024,6 +1024,15 @@ function UI_TitleScene:workGetServerInfo()
             if co:waitWork() then return end
         end
 
+        -- 고대의 탑 정보 받아옴
+        co:work()
+        self.m_loadingUI:showLoading(Str('신발을 신는 중...'))
+        local ui_network = g_ancientTowerData:request_ancientTowerInfo(nil, co.NEXT, fail_cb)
+        if ui_network then
+            ui_network:hideLoading()
+        end
+        if co:waitWork() then return end
+
         co:close()
 
         -- 다음 work로 이동
