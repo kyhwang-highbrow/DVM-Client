@@ -3322,6 +3322,12 @@
     <None Include="..\src\UI_LobbyGuideAncientTower.lua">
       <Filter>lua\UI</Filter>
     </None>
+    <None Include="..\src\LobbyGuide_AttrTower.lua">
+      <Filter>lua\src</Filter>
+    </None>
+    <None Include="..\src\UI_LobbyGuideAttrTower.lua">
+      <Filter>lua\UI</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Classes">
