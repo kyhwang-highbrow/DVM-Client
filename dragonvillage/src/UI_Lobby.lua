@@ -72,6 +72,8 @@ function UI_Lobby:initUI()
 
     self:initLobbyWorldAdapter()
     g_topUserInfo:clearBroadcast()
+
+	self:initLobbyParticle()
 end
 
 -------------------------------------
@@ -83,17 +85,17 @@ function UI_Lobby:init_after()
 end
 
 -------------------------------------
--- function initSnow
+-- function initLobbyParticle
 -------------------------------------
-function UI_Lobby:initSnow()
+function UI_Lobby:initLobbyParticle()
 	-- 저사양 모드에서는 실행하지 않는다.
 	if (isLowEndMode()) then
 		return
 	end
 
-	local particle = cc.ParticleSystemQuad:create("res/ui/particle/dv_snow.plist")
-	particle:setAnchorPoint(cc.p(0.5, 1))
-	particle:setDockPoint(cc.p(0.5, 1))
+	local particle = cc.ParticleSystemQuad:create("res/ui/particle/particle_cherry.plist")
+	particle:setAnchorPoint(cc.p(0.5, 0.5))
+	particle:setDockPoint(cc.p(0.5, 0.5))
 	self.root:addChild(particle)
 end
 

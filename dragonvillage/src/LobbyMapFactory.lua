@@ -17,7 +17,8 @@ function LobbyMapFactory:createLobbyWorld(parent_node, ui_lobby)
     lobby_map:addLayer(self:makeLobbyLayer(4), 0.7) -- 하늘
     lobby_map:addLayer(self:makeLobbyLayer(3), 0.8) -- 마을
     lobby_map:addLayer(self:makeLobbyLayer(2), 0.9) -- 분수
-
+	lobby_map:addLayer(self:makeLobbyDecoLayer('wanted'), 1) -- 전단지
+	lobby_map:addLayer(self:makeLobbyDecoLayer('blossom'), 1) -- 벚꽃
     local lobby_ground = self:makeLobbyLayer(1) -- 땅
 
     lobby_map:addLayer_lobbyGround(lobby_ground, 1, 1, ui_lobby)
@@ -48,8 +49,8 @@ USE_NIGHT = false
 -------------------------------------
 function LobbyMapFactory:makeLobbyLayer(idx)
     local node = cc.Node:create()
-    node:setDockPoint(cc.p(0.5, 0.5))
-    node:setAnchorPoint(cc.p(0.5, 0.5))
+    node:setDockPoint(CENTER_POINT)
+    node:setAnchorPoint(CENTER_POINT)
 
     local skip_error_msg = true
 	local animator = nil
@@ -71,8 +72,8 @@ function LobbyMapFactory:makeLobbyLayer(idx)
     end
 	animator = MakeAnimator(path, skip_error_msg)
 	if (animator.m_node) then
-		animator:setDockPoint(cc.p(0.5, 0.5))
-		animator:setAnchorPoint(cc.p(0.5, 0.5))
+		animator:setDockPoint(CENTER_POINT)
+		animator:setAnchorPoint(CENTER_POINT)
 		animator:setPositionX(-1280)
 		node:addChild(animator.m_node)
 	end
@@ -85,8 +86,8 @@ function LobbyMapFactory:makeLobbyLayer(idx)
     end
 	animator = MakeAnimator(path, skip_error_msg)
 	if (animator.m_node) then
-		animator:setDockPoint(cc.p(0.5, 0.5))
-		animator:setAnchorPoint(cc.p(0.5, 0.5))
+		animator:setDockPoint(CENTER_POINT)
+		animator:setAnchorPoint(CENTER_POINT)
 		node:addChild(animator.m_node)
 	end
 
@@ -98,13 +99,57 @@ function LobbyMapFactory:makeLobbyLayer(idx)
     end
 	animator = MakeAnimator(path, skip_error_msg)
 	if (animator.m_node) then
-		animator:setDockPoint(cc.p(0.5, 0.5))
-		animator:setAnchorPoint(cc.p(0.5, 0.5))
+		animator:setDockPoint(CENTER_POINT)
+		animator:setAnchorPoint(CENTER_POINT)
 		animator:setPositionX(1280)
 		node:addChild(animator.m_node)
 	end
 
     return node
+end
+
+-------------------------------------
+-- function makeLobbyLayer
+-------------------------------------
+function LobbyMapFactory:makeLobbyDecoLayer(idx)
+    local node = cc.Node:create()
+    node:setDockPoint(cc.p(0.5, 0.5))
+    node:setAnchorPoint(cc.p(0.5, 0.5))
+
+    local skip_error_msg = false
+	local animator = nil
+
+	local night = ''
+	if USE_NIGHT then
+		night = '_night'
+	end
+
+	-- 벚꽃 나무
+	if (idx == 'blossom') then
+		local full_path = string.format('res/lobby/lobby_season_deco/lobby_blossom%s.png', night)
+		animator = MakeAnimator(full_path, skip_error_msg)
+		if (animator.m_node) then
+			animator:setDockPoint(CENTER_POINT)
+			animator:setAnchorPoint(CENTER_POINT)
+			animator:setPosition(185, 0)
+			node:addChild(animator.m_node)
+		end
+
+	-- 전단지
+	elseif (idx == 'wanted') then
+		local full_path = string.format('res/lobby/lobby_season_deco/lobby_wanted%s.png', night)
+		animator = MakeAnimator(full_path, skip_error_msg)
+		if (animator.m_node) then
+			animator:setDockPoint(CENTER_POINT)
+			animator:setAnchorPoint(CENTER_POINT)
+			animator:setPosition(0, 0)
+			node:addChild(animator.m_node)
+		end
+
+	end
+
+
+	return node
 end
 
 -------------------------------------
