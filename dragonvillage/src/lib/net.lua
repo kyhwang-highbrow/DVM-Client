@@ -272,7 +272,7 @@ function Network:SimpleRequest(t, do_decode)
         end
 	end
 	r['failHandler'] = function(data)
-		fail(data)
+		fail(fail({['status'] = -9998, ['message'] = data}))
 	end
 
     -- platform server 암호화
@@ -379,7 +379,7 @@ function Network:HMacRequest(t, do_decode)
         end
 	end
 	r['failHandler'] = function(data)
-		fail(data)
+		fail({['status'] = -9998, ['message'] = data})
 	end
 
 	r.hmac = hmac

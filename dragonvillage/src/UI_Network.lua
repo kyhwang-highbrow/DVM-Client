@@ -182,11 +182,11 @@ end
 --			fail handler 동작부 : net.lua line 154
 --			대부분 타임아웃으로 판단되나 잘못된 주소인 경우는 판별할 수 없다.
 -------------------------------------
-function UI_Network.fail(self, error_text)
+function UI_Network.fail(self, ret)
     if self.m_failCB then
         self.m_failCB(ret)
     else
-        self:makeNetworkFailPopup(error_text)
+        self:makeNetworkFailPopup(ret)
     end
     self:close()
 end
@@ -379,7 +379,7 @@ end
 -- function makeNetworkFailPopup
 -- @brief 통신 실패된 경우 처리하는 팝업
 -------------------------------------
-function UI_Network:makeNetworkFailPopup(error_text)
+function UI_Network:makeNetworkFailPopup(t_error)
 	-- popup_type
 	local popup_type
     if (self.m_bRevocable == true) then
@@ -389,13 +389,26 @@ function UI_Network:makeNetworkFailPopup(error_text)
     end
 
 	-- msg
-    local msg = Str('통신이 지연되고 있습니다.\n네트워크 상태를 확인해주세요.')
-	if (error_text ~= nil) and (error_text ~= '') then
-		-- Couldn't resolve host '~~' 이 문구는 출력하지 않도록 함
-		if (string.find(error_text, 'resolve host')) then
+	local msg = nil
+	do
+		local staus = t_error['status'] or 0
 
-		else
-			msg = string.format('%s\n(%s)', msg, error_text)
+		-- status -9998 : 통신 실패
+		if (staus == -9998) then
+			msg = Str('통신이 지연되고 있습니다.\n네트워크 상태를 확인해주세요.')
+			local error_msg = t_error['message']
+		
+			-- Couldn't resolve host '~~' 이 문구는 출력하지 않도록 함
+			if (string.find(error_msg, 'resolve host')) then
+
+			else
+				msg = string.format('%s\n(%s)', msg, error_msg)
+			end
+
+		-- status -9999 : 서버 통신 후 unknown error 발생
+		elseif (staus == -9999) then
+			msg = Str('오류가 발생하였습니다.\n다시 시도하시겠습니까?')
+
 		end
 	end
 
