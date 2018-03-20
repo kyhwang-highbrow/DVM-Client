@@ -223,8 +223,10 @@ function TeamBonusHelper:checkConditionFromDid(t_teambonus, did)
 
             -- DID 체크
             elseif (type == 'did') then
-                is_satisfy = (condition == did)
-                break
+                if (condition == did) then
+                    is_satisfy = true
+                    break
+                end
             end
         end
     end
