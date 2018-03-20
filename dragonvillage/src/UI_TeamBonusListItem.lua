@@ -32,13 +32,12 @@ function UI_TeamBonusListItem:initUI()
     local name = orgin_data['t_name'] or ''
     local condition = orgin_data['t_condition_desc'] or ''
     if (condition ~= '') then
-        condition = ' - ' .. condition
+        condition = ' - ' .. Str(condition)
     end
-    local str = '{@apricot}'..name..'{@sky_blue}'..condition
+    local str = '{@apricot}'..Str(name)..'{@sky_blue}'..condition
     vars['titleLabel']:setString(str)
 
     -- 설명
-    --local desc = orgin_data['r_desc'] or ''
     local desc = TableTeamBonus():getDesc(data.m_id)
     vars['dscLabel']:setString(desc)
 
