@@ -26,7 +26,12 @@ end
 function UI_TeamBonusListItem:initUI()
     local vars = self.vars
     local data = self.m_data
+
     local orgin_data = TableTeamBonus():get(data.m_id)
+    if (not orgin_data) then
+        vars['emptySprite']:setVisible(true)
+        return
+    end
 
     -- 이름 & 조건
     local name = orgin_data['t_name'] or ''
@@ -62,7 +67,6 @@ end
 -- function initButton
 -------------------------------------
 function UI_TeamBonusListItem:initButton()
-    local vars = self.vars
 end
 
 -------------------------------------

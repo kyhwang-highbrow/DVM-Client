@@ -28,17 +28,31 @@ function UI_TeamBonus_Total:initTableView()
     local vars = self.m_owner_ui.vars
 
     local l_deck = self.m_owner_ui.m_selDeck or {}
-    local is_struct_dragon = false
+    local is_struct = false
     for _, v in ipairs(l_deck) do
         if (v['id']) then
-            is_struct_dragon = true
+            is_struct = true
             break
         end
     end
 
-    local l_teambonus = TeamBonusHelper:getAllTeamBonusDataFromDeck(l_deck, is_struct_dragon)
+    local l_teambonus = TeamBonusHelper:getAllTeamBonusDataFromDeck(l_deck, is_struct)
+    local l_my_teambonus = TeamBonusHelper:getTeamBonusDataFromDeck(l_deck, is_struct)
 
-    -- ?ìš© ì¤‘ì¸ ?€ë³´ë„ˆ???„ë¡œ
+    -- Àû¿ëÁßÀÎ ÆÀº¸³Ê½º°¡ ¾øÀ» °æ¿ì cell ÇÏ³ª Ãß°¡ÇØÁÜ
+    local initail_tab = self.m_owner_ui.m_initail_tab 
+    if (initail_tab == TEAM_BONUS_MODE.TOTAL) and (#l_my_teambonus == 0) then
+        local temp_data = {
+            id = 0,
+            skill_type = 'none',
+        }
+
+        local temp_struct_teambonus = StructTeamBonus(temp_data)
+        temp_struct_teambonus.m_bSatisfy = true
+        table.insert(l_teambonus, temp_struct_teambonus)
+    end
+
+    -- Àû¿ëÁßÀÎ ÆÀº¸³Ê½º À§·Î
     table.sort(l_teambonus, function(a, b)
 		local a_value = a:isSatisfied() and 99 or 0
 		local b_value = b:isSatisfied() and 99 or 0
