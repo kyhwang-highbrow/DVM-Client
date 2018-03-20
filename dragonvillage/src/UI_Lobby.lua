@@ -73,7 +73,7 @@ function UI_Lobby:initUI()
     self:initLobbyWorldAdapter()
     g_topUserInfo:clearBroadcast()
 
-	self:initLobbyParticle()
+	self:initPraticle()
 end
 
 -------------------------------------
@@ -85,17 +85,17 @@ function UI_Lobby:init_after()
 end
 
 -------------------------------------
--- function initLobbyParticle
+-- function initPraticle
 -------------------------------------
-function UI_Lobby:initLobbyParticle()
+function UI_Lobby:initPraticle()
 	-- 저사양 모드에서는 실행하지 않는다.
 	if (isLowEndMode()) then
 		return
 	end
 
 	local particle = cc.ParticleSystemQuad:create("res/ui/particle/particle_cherry.plist")
-	particle:setAnchorPoint(cc.p(0.5, 0.5))
-	particle:setDockPoint(cc.p(0.5, 0.5))
+	particle:setAnchorPoint(CENTER_POINT)
+	particle:setDockPoint(CENTER_POINT)
 	self.root:addChild(particle)
 end
 

@@ -50,24 +50,22 @@ function UI_Forest:initUI()
     self.m_territory = territory
     self.m_territory:setUI(self)
 	
-    -- 2018-01-16 sgkim 겨울이 지나서 제거함
-	--self:initSnow()
+	self:initParticle()
 end
 
 -------------------------------------
--- function initSnow
+-- function initParticle
 -------------------------------------
-function UI_Forest:initSnow()
+function UI_Forest:initParticle()
 	-- 저사양 모드에서는 실행하지 않는다.
 	if (isLowEndMode()) then
 		return
 	end
 
-	local particle = cc.ParticleSystemQuad:create("res/ui/particle/dv_snow.plist")
-	particle:setAnchorPoint(cc.p(0.5, 1))
-	particle:setDockPoint(cc.p(0.5, 1))
+	local particle = cc.ParticleSystemQuad:create("res/ui/particle/particle_cherry.plist")
+	particle:setAnchorPoint(CENTER_POINT)
+	particle:setDockPoint(CENTER_POINT)
 	self.root:addChild(particle)
-	--self.m_territory:setColorAllLayer(COLOR['light_gray'])
 end
 
 -------------------------------------
