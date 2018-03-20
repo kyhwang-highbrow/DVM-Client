@@ -195,7 +195,7 @@ function TeamBonusHelper:checkConditionFromDid(t_teambonus, did)
     local table_dragon = TableDragon()
     local t_dragon = table_dragon:get(did)
     local is_satisfy = false
-    
+
     for i = 1, MAX_CONDITION_COUNT do
         local condition = t_teambonus['condition_' .. i]
         if (condition and condition ~= '') then
@@ -286,6 +286,10 @@ end
 -- @param dragon : Dragon 객체
 -------------------------------------
 function TeamBonusHelper:applyTeamBonusToDragonInGame(teambonus_data, dragon)
+    if (not teambonus_data:findDidFromSatisfiedList(dragon.m_dragonID)) then
+        return
+    end
+
     if (teambonus_data:getType() == 'option') then
         for i = 1, 3 do
             local buff_type = teambonus_data.m_lSkill[i]
@@ -294,6 +298,7 @@ function TeamBonusHelper:applyTeamBonusToDragonInGame(teambonus_data, dragon)
             if (buff_type) then
                 local t_option = TableOption():get(buff_type)
                 if (t_option) then
+                    --cclog('teambonus option name : ' .. Str(teambonus_data:getName()))
                     local status_type = t_option['status']
                     if (status_type) then
                         if (t_option['action'] == 'multi') then
@@ -312,7 +317,7 @@ function TeamBonusHelper:applyTeamBonusToDragonInGame(teambonus_data, dragon)
 
             if (skill_id) then
                 local t_skill = TableDragonSkill():get(skill_id)
-                cclog('teambonus skill name : ' .. Str(t_skill['t_name']))
+                --cclog('teambonus skill name : ' .. Str(t_skill['t_name']))
                 dragon:setSkillID(t_skill['chance_type'], skill_id, 1, 'new')
             end
         end

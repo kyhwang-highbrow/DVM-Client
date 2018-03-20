@@ -46,6 +46,24 @@ function StructTeamBonus:setFromDragonObjectList(l_dragon_data)
 end
 
 -------------------------------------
+-- function findFromSatisfiedList
+-- @brief 파라미터의 드래곤이 팀보너스를 만족시킨 대상에 들어가는지 확인
+-------------------------------------
+function StructTeamBonus:findDidFromSatisfiedList(did)
+    -- 만족시킨 대상에 포함되는지 확인
+    local is_exist = false
+
+    for _, v in ipairs(self.m_lSatisfied) do
+        if (did == v['did']) then
+            is_exist = true
+            break
+        end
+    end
+
+    return is_exist
+end
+
+-------------------------------------
 -- function isSatisfied
 -- @brief 해당 팀보너스의 조건이 충족되었는지 여부
 -------------------------------------
@@ -58,4 +76,11 @@ end
 -------------------------------------
 function StructTeamBonus:getType()
     return self.m_type
+end
+
+-------------------------------------
+-- function getName
+-------------------------------------
+function StructTeamBonus:getName()
+    return TableTeamBonus():getName(self.m_id)
 end
