@@ -78,23 +78,49 @@ end
 -- @param tutorial_key : tutorial_key이자 tutorial_script이름
 -------------------------------------
 function TutorialManager:startTutorial(tutorial_key, tar_ui, step, is_force)
-	-- 여기서 체크하게 되면 
-	-- 1. 계정 새로 생성 / 2. 개발모드 off / 3. 튜토리얼 시작 이 가능하다
-	if (IS_TEST_MODE()) then
+	-- 튜토리얼 가능 상태
+	if (not self:isCanTutorial(tutorial_key)) then
 		return
 	end
 
-    -- 완료되지 않은 튜토리얼이라면
-    if (is_force) or (not g_tutorialData:isTutorialDone(tutorial_key)) then
-
-		cclog('----------------------------------')
-		cclog('## START tutorial', tutorial_key, step)
-
-        _startTutorial(self, tutorial_key, tar_ui)
-		if (step) then
-			self:setTutorialStep(step)
-		end
+    -- 완료 체크
+    if (not is_force) and (g_tutorialData:isTutorialDone(tutorial_key)) then
+		return
     end
+
+	-- strat
+	cclog('----------------------------------')
+	cclog('## START tutorial', tutorial_key, step)
+
+    _startTutorial(self, tutorial_key, tar_ui)
+	if (step) then
+		self:setTutorialStep(step)
+	end
+end
+
+-------------------------------------
+-- function isCanTutorial
+-- @param : tutorial_key - Nilable : default = 'adv'
+-------------------------------------
+function TutorialManager:isCanTutorial(tutorial_key)
+	-- 여기서 체크하게 되면 
+	-- 1. 계정 새로 생성 / 2. 개발모드 off / 3. 튜토리얼 시작 이 가능하다
+	if (IS_TEST_MODE()) then
+		return false
+	end
+
+	-- 신규 유저
+	if (not g_dragonDiaryData:isEnable()) then
+		return false
+	end
+
+	-- 임시방편 : 모험 튜토리얼은 렙 10이 넘어가는 경우 시작하지 않도록 함
+	local tutorial_key = tutorial_key or 'adv'
+	if (g_userData:get('lv') >= 10) and (string.find(tutorial_key, 'adv')) then
+		return false
+	end
+
+	return true
 end
 
 -------------------------------------
@@ -119,8 +145,8 @@ end
 -- @comment 하드코딩할 부분을 최대한 몰아서..
 -------------------------------------
 function TutorialManager:checkTutorialInLobby(ui_lobby)
-	-- 신규유저만 체크하면 되네
-	if (not g_dragonDiaryData:isEnable()) then
+	-- 튜토리얼 가능 상태
+	if (not self:isCanTutorial()) then
 		return
 	end
 
