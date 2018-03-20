@@ -201,22 +201,29 @@ function ServerData_CapsuleBox:openCapsuleBoxUI(show_reward_list)
 		return
 	end
 
+	-- ui open function
+	local function open_box()
+		self:request_capsuleBoxStatus(function()
+			local ui = UI_CapsuleBox()
+
+			-- 나중에 2번 박스도 보여줘야 한다면 구조화하는게 좋을듯
+			if (show_reward_list) then
+				ui:click_rewardBtn('first')
+			end
+		end)
+	end
+
 	-- 종료시간과 비교하여 다음날 정보를 가져온다.
 	if (self:checkReopen()) then
 		local msg = Str('캡슐 상품을 갱신합니다.')
 		UIManager:toastNotificationGreen(msg)
-		self:request_capsuleBoxInfo()
-		return	
+		self:request_capsuleBoxInfo(open_box)
+		
+	-- 바로 오픈
+	else
+		open_box()
+
 	end
-
-	self:request_capsuleBoxStatus(function()
-		local ui = UI_CapsuleBox()
-
-		-- 나중에 2번 박스도 보여줘야 한다면 구조화하는게 좋을듯
-		if (show_reward_list) then
-			ui:click_rewardBtn('first')
-		end
-	end)
 end
 
 -------------------------------------
