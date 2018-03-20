@@ -295,6 +295,11 @@ function ServerData_Highlight:loadNewDoidMap()
 				object_data = dragons_map[oid]
 			elseif (oid_type == NEW_OID_TYPE_RUNE) then
 				object_data = runes_map[oid]
+
+                -- 드래곤에 장착된 룬이라면 new를 붙이지 않음
+                if (object_data and object_data:isEquippedRune()) then
+                    self.m_newOidMap[oid_type][oid] = nil
+                end
 			end
 
 			-- 드래곤 정보가 없는 경우 삭제
