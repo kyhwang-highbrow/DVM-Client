@@ -229,13 +229,6 @@ end
 -------------------------------------
 -- function checkReopen
 -------------------------------------
-function ServerData_CapsuleBox:isOpen()
-	return self.m_open
-end
-
--------------------------------------
--- function checkReopen
--------------------------------------
 function ServerData_CapsuleBox:checkReopen()
 	local curr_time = Timer:getServerTime()
 	return (curr_time > self.m_endTime)
