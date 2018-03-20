@@ -27,13 +27,13 @@ end
 
 -------------------------------------
 -- function applyBossStatus
--- @brief Æ¯¼öÇÑ º¸½º ½ºÅÝÀ» Àû¿ë
+-- @brief íŠ¹ìˆ˜í•œ ë³´ìŠ¤ ìŠ¤í…Ÿì„ ì ìš©
 -------------------------------------
 function WaveMgr_ClanRaid:applyBossStatus(boss)
-    -- Ã¼·Â ¼³Á¤
+    -- ì²´ë ¥ ì„¤ì •
     do
-        -- ´øÀü Á¤º¸·ÎºÎÅÍ º¸½º Ã¼·ÂÀ» °¡Á®¿È
-        -- (!!´øÀü Á¤º¸°¡ ¾øÀ» °æ¿ì Å×½ºÆ® ¸ðµå¿¡¼­¸¸ ÀÓ½Ã Ã¼·ÂÀ» »ç¿ë)
+        -- ë˜ì „ ì •ë³´ë¡œë¶€í„° ë³´ìŠ¤ ì²´ë ¥ì„ ê°€ì ¸ì˜´
+        -- (!!ë˜ì „ ì •ë³´ê°€ ì—†ì„ ê²½ìš° í…ŒìŠ¤íŠ¸ ëª¨ë“œì—ì„œë§Œ ìž„ì‹œ ì²´ë ¥ì„ ì‚¬ìš©)
         local max_hp
         local hp
 

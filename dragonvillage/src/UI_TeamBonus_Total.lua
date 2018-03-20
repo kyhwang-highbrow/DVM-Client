@@ -38,7 +38,7 @@ function UI_TeamBonus_Total:initTableView()
 
     local l_teambonus = TeamBonusHelper:getAllTeamBonusDataFromDeck(l_deck, is_struct_dragon)
 
-    -- Àû¿ë ÁßÀÎ ÆÀº¸³Ê½º À§·Î
+    -- ?ìš© ì¤‘ì¸ ?€ë³´ë„ˆ???„ë¡œ
     table.sort(l_teambonus, function(a, b)
 		local a_value = a:isSatisfied() and 99 or 0
 		local b_value = b:isSatisfied() and 99 or 0

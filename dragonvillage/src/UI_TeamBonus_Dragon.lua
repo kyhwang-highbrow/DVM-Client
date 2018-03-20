@@ -1,4 +1,4 @@
--------------------------------------
+ï»¿-------------------------------------
 -- class UI_TeamBonus_Dragon
 -------------------------------------
 UI_TeamBonus_Dragon = class({
@@ -32,7 +32,7 @@ function UI_TeamBonus_Dragon:onEnterTab(first)
         self:initButton()
     end
 
-    -- »ó¼¼ ÆË¾÷ ³ëÃâ½Ã ¸®½ºÆ® ³ëÃâ ¾ÈÇÔ
+    -- ìƒì„¸ íŒì—… ë…¸ì¶œì‹œ ë¦¬ìŠ¤íŠ¸ ë…¸ì¶œ ì•ˆí•¨
     if (self.m_detail_popup) then
         self.m_owner_ui.vars['dragonListNode1']:setVisible(false)
     end
@@ -48,7 +48,7 @@ function UI_TeamBonus_Dragon:initUI()
     self:makeSortManager()
     self:initTableView()
 
-    --- ¼±ÅÃÇÑ µå·¡°ïÀÌ ÀÖ´Ù¸é ÁøÀÔ½Ã »ó¼¼ ÆË¾÷ ³ëÃâ
+    --- ì„ íƒí•œ ë“œë˜ê³¤ì´ ìˆë‹¤ë©´ ì§„ì…ì‹œ ìƒì„¸ íŒì—… ë…¸ì¶œ
     local sel_did = self.m_owner_ui.m_selDid
     if (sel_did) then
         self:showDetailPopup(sel_did)
@@ -60,10 +60,10 @@ end
 -------------------------------------
 function UI_TeamBonus_Dragon:initButton()
     local vars = self.m_owner_ui.vars
-    -- º¸À¯ÇÑ µå·¡°ï¸¸ º¸±â
+    -- ë³´ìœ í•œ ë“œë˜ê³¤ë§Œ ë³´ê¸°
     vars['checkBtn']:registerScriptTapHandler(function() self:click_checkBtn() end)
 
-    do -- ¿ªÇÒ(role)
+    do -- ì—­í• (role)
         local radio_button = UIC_RadioButton()
         radio_button:addButtonWithLabel('all', vars['roleAllRadioBtn'], vars['roleAllRadioLabel'])
         radio_button:addButtonAuto('tanker', vars)
@@ -75,7 +75,7 @@ function UI_TeamBonus_Dragon:initButton()
         self.m_roleRadioButton = radio_button
     end
 
-    do -- ¼Ó¼º(attribute)
+    do -- ì†ì„±(attribute)
         local radio_button = UIC_RadioButton()
         radio_button:addButtonAuto('fire', vars)
         radio_button:addButtonAuto('water', vars)
@@ -87,7 +87,7 @@ function UI_TeamBonus_Dragon:initButton()
         self.m_attrRadioButton = radio_button
     end
 
-    -- ¼±ÅÃÇÑ µå·¡°ïÀÌ ÀÖ´Ù¸é ÇØ´ç ¿ªÇÒ, ¼Ó¼º ÃÖÃÊ ÁøÀÔ½Ã ¼±ÅÃ
+    -- ì„ íƒí•œ ë“œë˜ê³¤ì´ ìˆë‹¤ë©´ í•´ë‹¹ ì—­í• , ì†ì„± ìµœì´ˆ ì§„ì…ì‹œ ì„ íƒ
     local sel_did = self.m_owner_ui.m_selDid
     if (sel_did) then
         local table_dragon = TableDragon()
@@ -100,7 +100,7 @@ function UI_TeamBonus_Dragon:initButton()
         self.m_roleRadioButton:setSelectedButton(role)
     end
 
-    -- ÃÖÃÊ¿¡ ÇÑ¹ø ½ÇÇà
+    -- ìµœì´ˆì— í•œë²ˆ ì‹¤í–‰
     self:onChangeOption()
 end
 
@@ -111,7 +111,7 @@ end
 function UI_TeamBonus_Dragon:makeSortManager()
     local sort_manager = SortManager_Dragon()
 	
-	-- did ¼ø, µî±Ş ¼øÀ¸·Î Á¤·Ä
+	-- did ìˆœ, ë“±ê¸‰ ìˆœìœ¼ë¡œ ì •ë ¬
     sort_manager:pushSortOrder('did')
     sort_manager:pushSortOrder('grade')
 
@@ -126,7 +126,7 @@ function UI_TeamBonus_Dragon:onChangeOption()
     local role_option = self.m_roleRadioButton.m_selectedButton
     local attr_option = self.m_attrRadioButton.m_selectedButton
 
-	-- ¼Ó¼ºÀ» ¿Å±æ °æ¿ì Ç×»ó ÀüÃ¼Á÷¾÷±ºÀ» °¡¸®Å°µµ·Ï ÇÑ´Ù.
+	-- ì†ì„±ì„ ì˜®ê¸¸ ê²½ìš° í•­ìƒ ì „ì²´ì§ì—…êµ°ì„ ê°€ë¦¬í‚¤ë„ë¡ í•œë‹¤.
 	if (role_option ~= 'all') and (attr_option ~= self.m_preAttr) then
 		self.m_preAttr = attr_option
 		self.m_roleRadioButton:setSelectedButton('all')
@@ -135,10 +135,10 @@ function UI_TeamBonus_Dragon:onChangeOption()
 
     local l_item_list = self:getDragonList(role_option, attr_option)
 
-    -- ¸®½ºÆ® ¸ÓÁö (Á¶°Ç¿¡ ¸Â´Â Ç×¸ñ¸¸ ³ëÃâ)
+    -- ë¦¬ìŠ¤íŠ¸ ë¨¸ì§€ (ì¡°ê±´ì— ë§ëŠ” í•­ëª©ë§Œ ë…¸ì¶œ)
     self.m_tableViewTD:mergeItemList(l_item_list)
 
-    -- Á¤·Ä
+    -- ì •ë ¬
     self.m_sortManager:sortExecution(self.m_tableViewTD.m_itemList)
 
 	self.m_preAttr = attr_option
@@ -153,19 +153,19 @@ function UI_TeamBonus_Dragon:initTableView()
 
     local l_item_list = {}
 
-	-- cell_size ÁöÁ¤
+	-- cell_size ì§€ì •
     local item_size = 150
     local item_scale = 0.75
     local cell_size = cc.size(item_size*item_scale + 12, item_size*item_scale + 12)
 
 	local table_view_td
 
-    -- ¸®½ºÆ® ¾ÆÀÌÅÛ »ı¼º Äİ¹é
+    -- ë¦¬ìŠ¤íŠ¸ ì•„ì´í…œ ìƒì„± ì½œë°±
     local function create_func(ui, data)
         self:cellCreateCB(ui, data)
     end
 
-    -- Å×ÀÌºí ºä ÀÎ½ºÅÏ½º »ı¼º
+    -- í…Œì´ë¸” ë·° ì¸ìŠ¤í„´ìŠ¤ ìƒì„±
     table_view_td = UIC_TableViewTD(node)
     table_view_td.m_cellSize = cell_size
     table_view_td.m_nItemPerCell = 8
@@ -175,9 +175,9 @@ function UI_TeamBonus_Dragon:initTableView()
 	table_view_td:setCellCreateInterval(0)
 	table_view_td:setCellCreateDirecting(CELL_CREATE_DIRECTING['fadein'])
     table_view_td:setCellCreatePerTick(3)
-    table_view_td:makeDefaultEmptyMandragora(Str('º¸À¯ÁßÀÎ µå·¡°ïÀÌ ¾ø´Ù°í¶ó'))
+    table_view_td:makeDefaultEmptyMandragora(Str('ë³´ìœ ì¤‘ì¸ ë“œë˜ê³¤ì´ ì—†ë‹¤ê³ ë¼'))
 
-    -- Á¤·Ä
+    -- ì •ë ¬
     self.m_tableViewTD = table_view_td
 end
 
@@ -195,7 +195,7 @@ function UI_TeamBonus_Dragon:getDragonList(role_type, attr_type)
         local did = data['did']
 		local t_dragon = clone(data)
 
-        -- ¹«Á¶°Ç ÇØÄ¡·Î
+        -- ë¬´ì¡°ê±´ í•´ì¹˜ë¡œ
 		t_dragon['evolution'] = 1
         t_dragon['grade'] = TableDragon:getBirthGrade(did)
 		t_dragon['bookType'] = 'dragon'
@@ -204,16 +204,16 @@ function UI_TeamBonus_Dragon:getDragonList(role_type, attr_type)
     end
 
     for i, v in pairs(table_dragon.m_orgTable) do
-        -- °³¹ß ÁßÀÎ µå·¡°ïÀº µµ°¨¿¡ ³ªÅ¸³»Áö ¾Ê´Â´Ù.
+        -- ê°œë°œ ì¤‘ì¸ ë“œë˜ê³¤ì€ ë„ê°ì— ë‚˜íƒ€ë‚´ì§€ ì•ŠëŠ”ë‹¤.
         if (v['test'] == 0) then
 		
-        -- Á÷¾÷±º, ¼Ó¼º °É·¯³»±â
+        -- ì§ì—…êµ°, ì†ì„± ê±¸ëŸ¬ë‚´ê¸°
 		elseif (role_type ~= 'all') and (role_type ~= v['role']) then
         elseif (attr_type ~= 'all') and (attr_type ~= v['attr']) then
 
-        -- À§ Á¶°Çµé¿¡ ÇØ´çÇÏÁö ¾ÊÀº °æ¿ì¸¸ Ãß°¡
+        -- ìœ„ ì¡°ê±´ë“¤ì— í•´ë‹¹í•˜ì§€ ì•Šì€ ê²½ìš°ë§Œ ì¶”ê°€
         else
-            -- º¸À¯µå·¡°ï Ã¼Å©µÈ »óÅÂ
+            -- ë³´ìœ ë“œë˜ê³¤ ì²´í¬ëœ ìƒíƒœ
             if (self.m_haveDragon) then
                 local did = v['did']
                 if (g_dragonsData:getNumOfDragonsByDid(did) > 0) then
@@ -230,20 +230,20 @@ end
 -------------------------------------
 -- function cellCreateCB
 -- @static
--- @brief cell »ı¼º ÈÄÀÇ Äİ¹é
+-- @brief cell ìƒì„± í›„ì˜ ì½œë°±
 -------------------------------------
 function UI_TeamBonus_Dragon:cellCreateCB(ui, data)
 	local did = data['did']
 	local grade = data['grade']
 	local evolution = data['evolution']
 
-    -- scale Á¶Á¤
+    -- scale ì¡°ì •
 	ui.root:setScale(0.8)
 
-    -- µî±ŞÀº ³ëÃâ ¾ÈÇÔ
+    -- ë“±ê¸‰ì€ ë…¸ì¶œ ì•ˆí•¨
     ui.vars['starNode']:setVisible(false)
 
-	-- ¹öÆ° Å¬¸¯½Ã Àû¿ë°¡´ÉÇÑ ÆÀº¸³Ê½º º¸¿©ÁÜ
+	-- ë²„íŠ¼ í´ë¦­ì‹œ ì ìš©ê°€ëŠ¥í•œ íŒ€ë³´ë„ˆìŠ¤ ë³´ì—¬ì¤Œ
 	ui.vars['clickBtn']:registerScriptTapHandler(function()
         self:showDetailPopup(did)
 	end)
@@ -262,10 +262,10 @@ function UI_TeamBonus_Dragon:click_checkBtn()
     local attr_option = self.m_attrRadioButton.m_selectedButton
     local l_item_list = self:getDragonList(role_option, attr_option)
 
-    -- ¸®½ºÆ® ¸ÓÁö (Á¶°Ç¿¡ ¸Â´Â Ç×¸ñ¸¸ ³ëÃâ)
+    -- ë¦¬ìŠ¤íŠ¸ ë¨¸ì§€ (ì¡°ê±´ì— ë§ëŠ” í•­ëª©ë§Œ ë…¸ì¶œ)
     self.m_tableViewTD:mergeItemList(l_item_list)
 
-    -- Á¤·Ä
+    -- ì •ë ¬
     self.m_sortManager:sortExecution(self.m_tableViewTD.m_itemList)
 end
 
