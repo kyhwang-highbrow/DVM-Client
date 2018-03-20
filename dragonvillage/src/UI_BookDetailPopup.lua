@@ -750,7 +750,7 @@ end
 -- @brief 팀 보너스
 -------------------------------------
 function UI_BookDetailPopup:click_teamBonusBtn()
-    local sel_did = self.m_originDid
+    local sel_did = self.m_tDragon['did']
 	UI_TeamBonus(TEAM_BONUS_MODE.DRAGON, nil, sel_did)
 end
 

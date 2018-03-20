@@ -42,8 +42,12 @@ function UI_TeamBonusListItem:initUI()
     vars['dscLabel']:setString(desc)
 
     -- 드래곤 카드
-    local l_dragon = data['m_lSatisfied'] -- 팀 보너스 조건 만족하는 드래곤 리스트
     local t_teambonus = TableTeamBonus():get(orgin_data['id'])
+    local l_dragon
+    if (data:isSatisfied()) then -- 적용중인 상태에서만 만족하는 드래곤 리스트 찍어줌
+        l_dragon = data.m_lSatisfied 
+        vars['selectSprite']:setVisible(true)
+    end
     local l_card = TeamBonusCardFactory:makeUIList(t_teambonus, l_dragon)
 
     if (l_card) then

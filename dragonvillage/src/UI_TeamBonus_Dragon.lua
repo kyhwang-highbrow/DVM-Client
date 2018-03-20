@@ -11,6 +11,7 @@ UI_TeamBonus_Dragon = class({
         m_tableViewTD = 'UIC_TableViewTD',
         m_sortManager = 'SortManager',
 
+        m_haveDragon = 'boolean',
         m_detail_popup = '',
     })
 
@@ -19,6 +20,7 @@ UI_TeamBonus_Dragon = class({
 -------------------------------------
 function UI_TeamBonus_Dragon:init(owner_ui)
     self.m_owner_ui = owner_ui
+    self.m_haveDragon = false
 end
 
 -------------------------------------
@@ -40,6 +42,9 @@ end
 -- function initUI
 -------------------------------------
 function UI_TeamBonus_Dragon:initUI()
+    local vars = self.m_owner_ui.vars
+    vars['checkSprite']:setVisible(self.m_haveDragon)
+
     self:makeSortManager()
     self:initTableView()
 
@@ -55,6 +60,8 @@ end
 -------------------------------------
 function UI_TeamBonus_Dragon:initButton()
     local vars = self.m_owner_ui.vars
+    -- 보유한 드래곤만 보기
+    vars['checkBtn']:registerScriptTapHandler(function() self:click_checkBtn() end)
 
     do -- 역할(role)
         local radio_button = UIC_RadioButton()
@@ -168,6 +175,7 @@ function UI_TeamBonus_Dragon:initTableView()
 	table_view_td:setCellCreateInterval(0)
 	table_view_td:setCellCreateDirecting(CELL_CREATE_DIRECTING['fadein'])
     table_view_td:setCellCreatePerTick(3)
+    table_view_td:makeDefaultEmptyMandragora(Str('보유중인 드래곤이 없다고라'))
 
     -- 정렬
     self.m_tableViewTD = table_view_td
@@ -181,8 +189,20 @@ function UI_TeamBonus_Dragon:getDragonList(role_type, attr_type)
     local attr_type = (attr_type or 'all')
 
     local l_ret = {}
-
     local table_dragon = TableDragon()
+
+    local function insert_dragon(data, idx)
+        local did = data['did']
+		local t_dragon = clone(data)
+
+        -- 무조건 해치로
+		t_dragon['evolution'] = 1
+        t_dragon['grade'] = TableDragon:getBirthGrade(did)
+		t_dragon['bookType'] = 'dragon'
+        t_dragon['lv'] = 1
+		l_ret[did + (idx * 1000000)] = t_dragon
+    end
+
     for i, v in pairs(table_dragon.m_orgTable) do
         -- 개발 중인 드래곤은 도감에 나타내지 않는다.
         if (v['test'] == 0) then
@@ -193,16 +213,15 @@ function UI_TeamBonus_Dragon:getDragonList(role_type, attr_type)
 
         -- 위 조건들에 해당하지 않은 경우만 추가
         else
-            local did = v['did']
-			local key = did
-			local t_dragon = clone(v)
-
-            -- 무조건 해치로
-			t_dragon['evolution'] = 1
-            t_dragon['grade'] = TableDragon:getBirthGrade(did)
-			t_dragon['bookType'] = 'dragon'
-            t_dragon['lv'] = 1
-			l_ret[key + (i * 1000000)] = t_dragon
+            -- 보유드래곤 체크된 상태
+            if (self.m_haveDragon) then
+                local did = v['did']
+                if (g_dragonsData:getNumOfDragonsByDid(did) > 0) then
+                    insert_dragon(v, i)
+                end
+            else
+                insert_dragon(v, i)
+            end
         end
     end
     return l_ret
@@ -228,6 +247,26 @@ function UI_TeamBonus_Dragon:cellCreateCB(ui, data)
 	ui.vars['clickBtn']:registerScriptTapHandler(function()
         self:showDetailPopup(did)
 	end)
+end
+
+-------------------------------------
+-- function click_checkBtn
+-------------------------------------
+function UI_TeamBonus_Dragon:click_checkBtn()
+    cclog('click_checkBtn')
+    local vars = self.m_owner_ui.vars
+    self.m_haveDragon = not self.m_haveDragon
+    vars['checkSprite']:setVisible(self.m_haveDragon)
+
+    local role_option = self.m_roleRadioButton.m_selectedButton
+    local attr_option = self.m_attrRadioButton.m_selectedButton
+    local l_item_list = self:getDragonList(role_option, attr_option)
+
+    -- 리스트 머지 (조건에 맞는 항목만 노출)
+    self.m_tableViewTD:mergeItemList(l_item_list)
+
+    -- 정렬
+    self.m_sortManager:sortExecution(self.m_tableViewTD.m_itemList)
 end
 
 -------------------------------------

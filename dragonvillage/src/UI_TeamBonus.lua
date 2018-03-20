@@ -12,7 +12,6 @@ UI_TeamBonus = class(PARENT,{
     })
 
 TEAM_BONUS_MODE = {
-    APPLY  = 'use', -- 적용 팀 보너스
     DRAGON = 'dragon', -- 드래곤 별 팀 보너스
     TOTAL  = 'all', -- 전체 팀 보너스
 }
@@ -64,12 +63,10 @@ end
 -------------------------------------
 function UI_TeamBonus:initTab()
     self.m_tTabClass = {}
-    self.m_tTabClass[TEAM_BONUS_MODE.APPLY] = UI_TeamBonus_Apply(self)
     self.m_tTabClass[TEAM_BONUS_MODE.DRAGON] = UI_TeamBonus_Dragon(self)
     self.m_tTabClass[TEAM_BONUS_MODE.TOTAL] = UI_TeamBonus_Total(self)
 
     local vars = self.vars
-    self:addTabAuto(TEAM_BONUS_MODE.APPLY, vars, vars['useListNode'])
     self:addTabAuto(TEAM_BONUS_MODE.DRAGON, vars, vars['dragonListNode1'])
     self:addTabAuto(TEAM_BONUS_MODE.TOTAL, vars, vars['allListNode'])
 

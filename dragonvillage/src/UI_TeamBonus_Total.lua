@@ -27,7 +27,30 @@ end
 function UI_TeamBonus_Total:initTableView()
     local vars = self.m_owner_ui.vars
 
-    local l_teambonus = TeamBonusHelper:getAllTeamBonusDataFromDeck()
+    local l_deck = self.m_owner_ui.m_selDeck or {}
+    local is_struct_dragon = false
+    for _, v in ipairs(l_deck) do
+        if (v['id']) then
+            is_struct_dragon = true
+            break
+        end
+    end
+
+    local l_teambonus = TeamBonusHelper:getAllTeamBonusDataFromDeck(l_deck, is_struct_dragon)
+
+    -- 적용 중인 팀보너스 위로
+    table.sort(l_teambonus, function(a, b)
+		local a_value = a:isSatisfied() and 99 or 0
+		local b_value = b:isSatisfied() and 99 or 0
+
+		if (a_value == b_value) then
+			local a_id = a.m_id
+			local b_id = b.m_id
+			return a_id < b_id
+		else
+			return a_value > b_value
+		end
+	end)
 
     local node = vars['allListNode']
     local table_view = UIC_TableView(node)

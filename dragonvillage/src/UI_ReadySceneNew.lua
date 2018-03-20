@@ -806,7 +806,7 @@ end
 -------------------------------------
 function UI_ReadySceneNew:click_teamBonusBtn()
     local l_deck = self.m_readySceneDeck.m_lDeckList
-	UI_TeamBonus(TEAM_BONUS_MODE.APPLY, l_deck)
+	UI_TeamBonus(TEAM_BONUS_MODE.TOTAL, l_deck)
 end
 
 -------------------------------------
