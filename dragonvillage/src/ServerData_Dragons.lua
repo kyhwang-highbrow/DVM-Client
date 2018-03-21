@@ -610,6 +610,7 @@ function ServerData_Dragons:getNumOfDragonsByDid(did)
 
     if self.m_bDirtyNumOfDragonsByDid then
         local l_dragons = self.m_serverData:getRef('dragons')
+        self.m_mNumOfDragonsByDid = {}
 
         for i,v in pairs(l_dragons) do
             local did_ = tonumber(v['did'])
