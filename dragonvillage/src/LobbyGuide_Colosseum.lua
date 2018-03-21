@@ -36,7 +36,7 @@ function LobbyGuide_Colosseum:checkCustomCondition()
     -- 주간 승리 보상 20승을 채우지 않은 상태
     local struct_user_info = g_colosseumData:getPlayerColosseumUserInfo()
     local curr_win = struct_user_info:getWinCnt()
-    if (20 < curr_win) then
+    if (20 <= curr_win) then
         return false
     end
 
