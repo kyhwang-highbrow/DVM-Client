@@ -33,7 +33,7 @@ end
 -------------------------------------
 function UI_TeamBonus:init(initail_tab, l_deck, sel_did)
     local vars = self:load('team_bonus.ui')
-    UIManager:open(self, UIManager.POPUP)
+    UIManager:open(self, UIManager.SCENE)
 
     self.m_initail_tab = initail_tab or TEAM_BONUS_MODE.DRAGON
     self.m_selDeck = l_deck

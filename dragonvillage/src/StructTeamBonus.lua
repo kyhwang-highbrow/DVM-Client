@@ -11,6 +11,8 @@ StructTeamBonus = class({
 
         m_bSatisfy = 'boolean', -- 조건 만족 여부
         m_lSatisfied = 'table', -- 조건을 만족시킨 대상 리스트
+
+        m_priority = 'number', -- 우선순위
 	})
 
 -------------------------------------
@@ -33,6 +35,9 @@ function StructTeamBonus:init(data)
     
     self.m_bSatisfy = false
     self.m_lSatisfied = {}
+
+    local t_teambonus = TableTeamBonus():get(self.m_id)
+    self.m_priority = t_teambonus['ui_priority'] or 0
 end
 
 -------------------------------------

@@ -58,9 +58,9 @@ function UI_TeamBonus_Total:initTableView()
 		local b_value = b:isSatisfied() and 99 or 0
 
 		if (a_value == b_value) then
-			local a_id = a.m_id
-			local b_id = b.m_id
-			return a_id < b_id
+			local a_priority = a.m_priority or 0
+			local b_priority = b.m_priority or 0
+			return a_priority > b_priority
 		else
 			return a_value > b_value
 		end

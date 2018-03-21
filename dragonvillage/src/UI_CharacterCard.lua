@@ -13,6 +13,8 @@ local PARENT = UI_Card
     friendSprite
     leaderSprite
     lockSprite
+    checkBoxSprite1
+    checkBoxSprite2
 
     levelNode
 	reinforceNode
@@ -375,6 +377,26 @@ end
 function UI_CharacterCard:setNewSpriteVisible(visible)
     local res = 'card_cha_new.png'
     local lua_name = 'newSprite'
+    self:setSpriteVisible(lua_name, res, visible)
+end
+
+-------------------------------------
+-- function setTeamBonusCheckBoxSpriteVisible
+-- @brief 보유 드래곤 체크 박스 표시 (팀 보너스 UI에 사용)
+-------------------------------------
+function UI_CharacterCard:setTeamBonusCheckBoxSpriteVisible(visible)
+    local res = 'card_check_0101.png'
+    local lua_name = 'checkBoxSprite1'
+    self:setSpriteVisible(lua_name, res, visible)
+end
+
+-------------------------------------
+-- function setTeamBonusCheckSpriteVisible
+-- @brief 보유 드래곤 체크 표시 (팀 보너스 UI에 사용)
+-------------------------------------
+function UI_CharacterCard:setTeamBonusCheckSpriteVisible(visible)
+    local res = 'card_check_0102.png'
+    local lua_name = 'checkBoxSprite2'
     self:setSpriteVisible(lua_name, res, visible)
 end
 

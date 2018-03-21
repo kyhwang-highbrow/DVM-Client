@@ -176,23 +176,31 @@ function TeamBonusCardFactory:makeUIList_Did(t_teambonus)
     return l_card
 end
 
-
 -------------------------------------
 -- function getDefaultCard
 -------------------------------------
 function TeamBonusCardFactory:getDefaultCard(did, is_all)
     local is_all = is_all or false
+    local table_dragon = TableDragon()
+
+    -- 무조건 성룡
+    local evolution = 3
+    local grade = table_dragon:getBirthGrade(did)
 
     local t_dragon_data = {}
     t_dragon_data['did'] = did
-
-    -- 무조건 해치
-    t_dragon_data['evolution'] = 1
+    t_dragon_data['evolution'] = evolution
+    t_dragon_data['grade'] = grade
 
     local card = UI_DragonCard(StructDragonObject(t_dragon_data))
+    -- 등급 표시 안함
+    card:setSpriteVisible('starNode', res, false)
 
     -- 눌렀을 경우 드래곤 이름 툴팁 출력                
     local btn = card.vars['clickBtn']
+    ccdump(btn)
+    ccdump(btn:isEnabled())
+    ccdump(btn:isSelected())
     local tap_func = function()
         local name = TableDragon:getDragonName(did)
         local attr = TableDragon:getDragonAttr(did)
@@ -209,8 +217,46 @@ function TeamBonusCardFactory:getDefaultCard(did, is_all)
             tooltip:autoPositioning(btn)
         end
     end
-
     btn:registerScriptTapHandler(tap_func)
+
+    -- 꾹 눌렀을 경우 드래곤 도감 (팀보너스 버튼은 노출 안되게)
+    local press_func = function()
+        local t_dragon = clone(table_dragon:get(did))
+        t_dragon['bookType'] = 'dragon'
+	    t_dragon['grade'] = grade 
+	    t_dragon['evolution'] = evolution 
+
+        local is_popup = true -- scene으로 열 경우 버튼 액션이 남이있음, 콜백으로 처리하려해도 UIC_BUTTON update에서 꼬여버림
+
+        -- open으로 열 경우 팀보너스 버튼 제어 못함
+        local ui = UI_BookDetailPopup(t_dragon, is_popup)
+        ui:setUnableIndex()
+        ui.vars['teamBonusBtn']:setVisible(false)
+    end
+    btn:registerScriptPressHandler(press_func)
+
+    -- 보유하고 있는 드래곤이 있다면 체크 표시
+    card:setTeamBonusCheckBoxSpriteVisible(true)
+
+    -- 모든 속성일 경우 모든 did 체크
+    local check_exist_func = function(start_did)
+        for i = 0, 5 do
+            local _did = start_did + i
+            if (table_dragon:exists(_did)) and (g_dragonsData:getNumOfDragonsByDid(_did) > 0) then
+                return true
+            end
+        end
+
+        return false
+    end
+
+    local is_exist = is_all and 
+                     (check_exist_func(did)) or -- 모든 속성 검사
+                     (g_dragonsData:getNumOfDragonsByDid(did) > 0) -- 일반 did 검사
+
+    if (is_exist) then
+        card:setTeamBonusCheckSpriteVisible(true)
+    end
 
     return card
 end

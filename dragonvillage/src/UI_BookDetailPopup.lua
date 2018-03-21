@@ -27,9 +27,11 @@ UI_BookDetailPopup = class(PARENT,{
 -------------------------------------
 -- function init
 -------------------------------------
-function UI_BookDetailPopup:init(t_dragon)
+function UI_BookDetailPopup:init(t_dragon, is_popup)
     local vars = self:load('book_detail_popup.ui')
-    UIManager:open(self, UIManager.SCENE)
+    local is_popup = is_popup or false
+    local mode = is_popup and UIManager.POPUP or UIManager.SCENE
+    UIManager:open(self, mode)
 
     -- backkey 지정
     g_currScene:pushBackKeyListener(self, function() self:close() end, 'UI_BookDetailPopup')
