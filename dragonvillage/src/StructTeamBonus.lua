@@ -36,8 +36,8 @@ function StructTeamBonus:init(data)
     self.m_bSatisfy = false
     self.m_lSatisfied = {}
 
-    local t_teambonus = TableTeamBonus():get(self.m_id)
-    if (t_teambonus) then
+    if (TableTeamBonus():exists(self.m_id)) then
+        local t_teambonus = TableTeamBonus():get(self.m_id)
         self.m_priority = t_teambonus['ui_priority'] or 0
     end
 end

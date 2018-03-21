@@ -27,11 +27,13 @@ function UI_TeamBonusListItem:initUI()
     local vars = self.vars
     local data = self.m_data
 
-    local orgin_data = TableTeamBonus():get(data.m_id)
-    if (not orgin_data) then
+    -- 적용중인 팀보너스 없을 경우 id : 0
+    if (not TableTeamBonus():exists(data.m_id)) then
         vars['emptySprite']:setVisible(true)
         return
     end
+
+    local orgin_data = TableTeamBonus():get(data.m_id)
 
     -- 이름 & 조건
     local name = orgin_data['t_name'] or ''
