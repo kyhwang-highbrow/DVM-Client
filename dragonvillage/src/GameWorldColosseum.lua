@@ -394,7 +394,7 @@ function GameWorldColosseum:makeEnemyDeck()
             table.insert(l_dragon_data, t_dragon_data)
         end
 
-        l_teambonus_data = TeamBonusHelper:getTeamBonusDataFromDeck(l_dragon_data, true)
+        l_teambonus_data = TeamBonusHelper:getTeamBonusDataFromDeck(l_dragon_data)
     end
 
     -- 출전 중인 적드래곤 객체를 저장하는 용도 key : 출전 idx, value :Dragon

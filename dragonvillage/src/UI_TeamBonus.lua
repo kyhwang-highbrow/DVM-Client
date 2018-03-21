@@ -74,6 +74,20 @@ function UI_TeamBonus:initTab()
 end
 
 -------------------------------------
+-- function setOnlyMyTeamBonus
+-- @brief 적용중인 팀보너스만 보여줌
+-------------------------------------
+function UI_TeamBonus:setOnlyMyTeamBonus()
+    local vars = self.vars
+    vars['dragonTabBtn']:setVisible(false)
+    vars['allTabBtn']:setPositionX(0)
+
+    local teambonus_total = self.m_tTabClass[TEAM_BONUS_MODE.TOTAL]
+    local only_my_team = true
+    teambonus_total:initTableView(only_my_team)
+end
+
+-------------------------------------
 -- function onChangeTab
 -------------------------------------
 function UI_TeamBonus:onChangeTab(tab, first)

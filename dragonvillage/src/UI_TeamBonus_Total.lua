@@ -24,20 +24,19 @@ end
 -------------------------------------
 -- function initTableView
 -------------------------------------
-function UI_TeamBonus_Total:initTableView()
+function UI_TeamBonus_Total:initTableView(only_my_team)
     local vars = self.m_owner_ui.vars
-
+    local only_my_team = only_my_team or false
     local l_deck = self.m_owner_ui.m_selDeck or {}
-    local is_struct = false
-    for _, v in ipairs(l_deck) do
-        if (v['id']) then
-            is_struct = true
-            break
-        end
+
+    local l_teambonus
+    if (only_my_team) then
+        l_teambonus = TeamBonusHelper:getTeamBonusDataFromDeck(l_deck) 
+    else
+        l_teambonus = TeamBonusHelper:getAllTeamBonusDataFromDeck(l_deck) 
     end
 
-    local l_teambonus = TeamBonusHelper:getAllTeamBonusDataFromDeck(l_deck, is_struct)
-    local l_my_teambonus = TeamBonusHelper:getTeamBonusDataFromDeck(l_deck, is_struct)
+    local l_my_teambonus = TeamBonusHelper:getTeamBonusDataFromDeck(l_deck)
 
     -- 적용중인 팀보너스가 없을 경우 cell 하나 추가해줌
     local initail_tab = self.m_owner_ui.m_initail_tab 
@@ -67,6 +66,8 @@ function UI_TeamBonus_Total:initTableView()
 	end)
 
     local node = vars['allListNode']
+    node:removeAllChildren()
+
     local table_view = UIC_TableView(node)
     table_view.m_defaultCellSize = cc.size(1200, 130)
     table_view:setCellUIClass(UI_TeamBonusListItem)

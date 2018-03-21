@@ -8,10 +8,8 @@ TeamBonusHelper = {}
 -------------------------------------
 -- function getAllTeamBonusDataFromDeck
 -- @brief 파리미터의 덱으로 설정된 모든 팀보너스 정보를 가져온다
--- @brief is_struct:내 덱이 아닌경우 StructDragonObject 리스트 파라미터
 -------------------------------------
-function TeamBonusHelper:getAllTeamBonusDataFromDeck(l_deck, is_struct)
-    local is_struct = is_struct or false
+function TeamBonusHelper:getAllTeamBonusDataFromDeck(l_deck)
     local l_deck = l_deck or {}
     local table_teambonus = TableTeamBonus()
     local l_teambonus_data = {}
@@ -24,24 +22,23 @@ function TeamBonusHelper:getAllTeamBonusDataFromDeck(l_deck, is_struct)
         table.insert(l_teambonus_data, teambonus_data)
     end
 
-    -- 이미 StructDragonObject 리스트로 받은 경우
-    if (is_struct) then
-        for _, t_dragon_data in pairs(l_deck) do
+    for _, v in pairs(l_deck) do
+        -- 이미 StructDragonObject 리스트로 받은 경우
+        if (type(v) == 'table') then
+            local t_dragon_data = v
             table.insert(l_dragon_data, t_dragon_data)
-        end
-    -- 덱에 포함된 드래곤들의 StructDragonObject 리스트를 생성
-    else
-        for _, doid in pairs(l_deck) do
-            local t_dragon_data = g_dragonsData:getDragonDataFromUid(doid)
+
+        -- 덱에 포함된 드래곤들의 StructDragonObject 리스트를 생성
+        else
+            local t_dragon_data = g_dragonsData:getDragonDataFromUid(v)
             if (t_dragon_data) then
                 table.insert(l_dragon_data, t_dragon_data)
             else
                 error('no exist dragon_data : ' .. doid)
             end
-        end
+        end            
     end
 
-   
     -- 모든 팀보너스를 검사
     for _, teambonus_data in ipairs(l_teambonus_data) do
         teambonus_data:setFromDragonObjectList(l_dragon_data)
@@ -73,8 +70,8 @@ end
 -- function getTeamBonusDataFromDeck
 -- @brief 파리미터의 덱으로 적용될 수 있는 팀보너스 정보만 가져온다
 -------------------------------------
-function TeamBonusHelper:getTeamBonusDataFromDeck(l_deck, is_struct)
-    local l_teambonus_data = self:getAllTeamBonusDataFromDeck(l_deck, is_struct)
+function TeamBonusHelper:getTeamBonusDataFromDeck(l_deck)
+    local l_teambonus_data = self:getAllTeamBonusDataFromDeck(l_deck)
     local l_ret = {}
 
     for _, teambonus_data in ipairs(l_teambonus_data) do

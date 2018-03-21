@@ -294,7 +294,10 @@ function UI_ColosseumReady:click_teamBonusBtn(mine)
         l_deck = g_colosseumData:getMatchUserInfo():getDefDeck_dragonList()
     end
 
-	UI_TeamBonus(TEAM_BONUS_MODE.TOTAL, l_deck)
+    local ui = UI_TeamBonus(TEAM_BONUS_MODE.TOTAL, l_deck)
+    if (not mine) then
+        ui:setOnlyMyTeamBonus()
+    end
 end
 
 -------------------------------------
