@@ -195,8 +195,8 @@ function UI_TeamBonus_Dragon:getDragonList(role_type, attr_type)
         local did = data['did']
 		local t_dragon = clone(data)
 
-        -- 무조건 해치로
-		t_dragon['evolution'] = 1
+        -- 무조건 성룡
+		t_dragon['evolution'] = 3
         t_dragon['grade'] = TableDragon:getBirthGrade(did)
 		t_dragon['bookType'] = 'dragon'
         t_dragon['lv'] = 1
