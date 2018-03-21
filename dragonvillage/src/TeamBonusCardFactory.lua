@@ -231,6 +231,7 @@ function TeamBonusCardFactory:getDefaultCard(did, is_all)
         -- open으로 열 경우 팀보너스 버튼 제어 못함
         local ui = UI_BookDetailPopup(t_dragon, is_popup)
         ui:setUnableIndex()
+        ui:setShowTemaBonus(false)
         ui.vars['teamBonusBtn']:setVisible(false)
     end
     btn:registerScriptPressHandler(press_func)

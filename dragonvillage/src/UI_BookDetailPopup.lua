@@ -22,6 +22,8 @@ UI_BookDetailPopup = class(PARENT,{
 
         m_dragonAnimator = 'UIC_DragonAnimator',
         m_originDid = 'number',
+
+        m_showTeamBonus = 'boolean',
     })
 
 -------------------------------------
@@ -41,6 +43,8 @@ function UI_BookDetailPopup:init(t_dragon, is_popup)
     self:doAction(nil, false)
 
     self:sceneFadeInAction()
+
+    self.m_showTeamBonus = true
 
 	-- initialize
 	self:setDragon(t_dragon, true)
@@ -141,7 +145,7 @@ function UI_BookDetailPopup:refresh_exception()
 	end
 
     -- 팀 보너스 버튼
-    self.vars['teamBonusBtn']:setVisible(not is_slime)
+    self.vars['teamBonusBtn']:setVisible(not is_slime and self.m_showTeamBonus)
 end
 
 -------------------------------------
@@ -821,6 +825,13 @@ function UI_BookDetailPopup:setUnableIndex()
     vars['prevBtn']:setVisible(false)
 end
 
+-------------------------------------
+-- function setShowTemaBonus
+-- @brief 팀보너스 UI에서 카드 클릭하여 들어온 경우 팀보너스 버튼 보여주지 않음
+-------------------------------------
+function UI_BookDetailPopup:setShowTemaBonus(boolean)
+    self.m_showTeamBonus = boolean
+end
 
 
 
