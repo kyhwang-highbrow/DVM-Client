@@ -253,10 +253,15 @@ end
 -- function click_checkBtn
 -------------------------------------
 function UI_TeamBonus_Dragon:click_checkBtn()
-    cclog('click_checkBtn')
     local vars = self.m_owner_ui.vars
     self.m_haveDragon = not self.m_haveDragon
     vars['checkSprite']:setVisible(self.m_haveDragon)
+
+    -- 연속 클릭시 테이블뷰 리스트 머지 꼬이는 현상 방지
+    local block_time = 0.5
+    local btn = vars['checkBtn']
+    btn:setEnabled(false)
+    cca.reserveFunc(btn, block_time, function() btn:setEnabled(true) end)
 
     local role_option = self.m_roleRadioButton.m_selectedButton
     local attr_option = self.m_attrRadioButton.m_selectedButton
