@@ -525,6 +525,16 @@ local function loadNode(ui, data, vars, parent, keep_z_order, use_sprite_frames)
             )
         setPropsForButton(node, data)
         delegator = UIC_Button(node)
+
+        -- 2018-03-21 klee 청약철회 문구가 국내법이라 국내 유저에게만 노출되어야함 (노출여부는 언어선택으로)
+        -- 모든 UI 파일 네이밍 검사한 결과 contractBtn은 상품쪽에서만 쓰이고 있고 앞으로도 상품쪽에서만 쓰기로 결정
+        local res_name = ui.m_resName or ''
+        if (string.find(res_name, 'package') and data.lua_name == 'contractBtn') then
+            local lang = g_localData:getLang() or ''
+            local visible = (lang == 'ko')
+            node:setVisible(visible)
+        end
+
     elseif type == 'TableView' then
         -- 2017-07-10 sgkim TableView대신 UIC_TableView로 전환함
 		cclog('2017-07-10 sgkim TableView대신 UIC_TableView로 전환함')
