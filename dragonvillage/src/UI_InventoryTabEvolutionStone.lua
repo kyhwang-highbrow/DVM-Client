@@ -212,8 +212,9 @@ function UI_InventoryTabEvolutionStone:click_combineBtn(item_id)
         self.m_inventoryUI:clearSelectedItem()
         self:refresh_tableView()
     end
-    
+    -- 진화재료 조합/분해 진입시 선택판매는 비활성화로 변경 
+    self.m_inventoryUI.m_selectSellItemsUI:setActive(false)
+
     local ui = UI_EvolutionStoneCombine(item_id)
     ui:setCloseCB(update_cb)
 end
-
