@@ -158,3 +158,19 @@ function UI_ColosseumReadyForDev:click_startBtn()
         scene:runScene()
     end
 end
+
+-------------------------------------
+-- function click_teamBonusBtn
+-------------------------------------
+function UI_ColosseumReadyForDev:click_teamBonusBtn(mine)
+    local l_deck
+    -- 내 덱
+    if (mine) then
+        l_deck = g_colosseumData.m_playerUserInfo:getAtkDeck_dragonList()
+    -- 상대 덱
+    else
+        l_deck = g_colosseumData.m_playerUserInfo:getDefDeck_dragonList()
+    end
+
+	UI_TeamBonus(TEAM_BONUS_MODE.TOTAL, l_deck)
+end
