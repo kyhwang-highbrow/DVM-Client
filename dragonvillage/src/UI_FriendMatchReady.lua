@@ -158,6 +158,8 @@ function UI_FriendMatchReady:initButton()
     local vars = self.vars
     vars['deckBtn']:registerScriptTapHandler(function() self:click_deckBtn() end)
     vars['startBtn']:registerScriptTapHandler(function() self:click_startBtn() end)
+    vars['teamBonusBtn1']:registerScriptTapHandler(function() self:click_teamBonusBtn(true) end)
+    vars['teamBonusBtn2']:registerScriptTapHandler(function() self:click_teamBonusBtn(false) end)
 end
 
 -------------------------------------
@@ -255,6 +257,21 @@ function UI_FriendMatchReady:click_startBtn()
     check_dragon_inven()
 end
 
+-------------------------------------
+-- function click_teamBonusBtn
+-------------------------------------
+function UI_FriendMatchReady:click_teamBonusBtn(mine)
+    local l_deck
+    -- 내 덱
+    if (mine) then
+        l_deck = g_friendMatchData.m_playerUserInfo:getAtkDeck_dragonList()
+    -- 상대 덱
+    else
+        l_deck = g_friendMatchData.m_matchInfo:getDefDeck_dragonList()
+    end
+
+	UI_TeamBonus(TEAM_BONUS_MODE.TOTAL, l_deck)
+end
 
 -------------------------------------
 -- function click_manageBtn
