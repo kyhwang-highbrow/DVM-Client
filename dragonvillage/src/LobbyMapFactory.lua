@@ -158,7 +158,8 @@ function LobbyMapFactory:makeLobbyDeco_onLayer(node, deco_type)
 		if (animator.m_node) then
 			animator:setDockPoint(CENTER_POINT)
 			animator:setAnchorPoint(CENTER_POINT)
-			animator:setPosition(645, 110)  
+			animator:setPosition(645, 110)
+			animator:setLocalZOrder(1)
 			node:addChild(animator.m_node)
 		end
 	end
