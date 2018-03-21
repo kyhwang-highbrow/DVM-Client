@@ -446,6 +446,12 @@ function UI_Lobby:refresh_highlight()
     local etc_vars = self.m_etcExpendedUI.vars
 
     local function highlight_func()
+
+        -- 네트워크 통신이 비동기로 실행되기 때문에 UI가 close된 상태에서 콜백이 올 수 있음을 예방함 sgkim
+        if self.closed then
+            return
+        end
+
         -- 전투 메뉴
         vars['battleNotiSprite']:setVisible(g_highlightData:isHighlightExploration() or g_secretDungeonData:isSecretDungeonExist())
 

@@ -70,6 +70,17 @@ function PerpleScene:runScene()
         if self.m_bUseLoadingUI then
             replaceScene(self)
         else
+            
+            -- sgkim 2018-03-21
+            -- 현재 동작 중인 scene의 모든 node를 pause처리
+            -- replaceScene이 진행되는 중간에 node들의 update가 1회 동작되면서 오류를 유발하는 것을 방지
+            local function f_pause(node)
+                node:pause()
+            end
+            local _scene = cc.Director:getInstance():getRunningScene()
+            doAllChildren(_scene, f_pause)
+
+            -- scene 전환
             cc.Director:getInstance():replaceScene(self.m_scene)
         end
     else
