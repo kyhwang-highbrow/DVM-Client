@@ -7,8 +7,7 @@ UI_TitleScene = class(PARENT,{
         m_lWorkList = 'list',
         m_workIdx = 'number',
         m_loadingUI = 'UI_TitleSceneLoading',
-        m_bNewUser = 'boolean',
-
+        
         m_currWorkRetry = 'number',
 
 		m_stopWatch = 'StopWatch',        
@@ -703,16 +702,11 @@ function UI_TitleScene:workGameLogin()
     NaverCafeManager:naverCafeSyncGameUserId(uid)
 
     local success_cb = function(ret)
-        do -- 사전 등록 닉네임 선점 정보 저장 (nil이면 비활성화)
-            g_serverData:applyServerData(ret['preoccupancy_nick'], 'preoccupancy_nick')
-        end
 
         -- 최초 로그인인 경우 계정 생성
         if ret['newuser'] then
-            self.m_bNewUser = true
             g_startTamerData:setData(ret)
-            self.m_loadingUI:hideLoading()
-            self:setTouchScreen()
+			self.createAccount()
             return
         end
 
@@ -760,15 +754,10 @@ function UI_TitleScene:workGameLogin()
 
     SDKManager:deviceInfo(cb_func)
 end
-
 -------------------------------------
 -- function workGameLogin_click
--- @brief 신규계정 생성시에만 클릭 가능함
 -------------------------------------
 function UI_TitleScene:workGameLogin_click()
-    if self.m_bNewUser then
-        self:createAccount()
-    end
 end
 
 -------------------------------------
@@ -1203,23 +1192,13 @@ function UI_TitleScene:workFinish()
     -- 로딩창 숨김
     self.m_loadingUI:hideLoading()
 
-    -- 신규 유저 바로 진입 가능하게 변경
-    if self.m_bNewUser then
-        self:workFinish_click()
-    else
     -- 화면을 터치하세요. 출력
-        self:setTouchScreen()
-    end
-
+    self:setTouchScreen()
+    
 	self.m_stopWatch:stop()
     self.m_stopWatch:print()
 end
-
 function UI_TitleScene:workFinish_click()
-    -- 모든 작업이 끝난 경우 로비로 전환
-    local lobby_func
-    local check_intro_func
-    
     -- @analytics
     Analytics:userInfo()
     Analytics:setAppDataVersion()
@@ -1227,27 +1206,11 @@ function UI_TitleScene:workFinish_click()
     -- 계정 생성시에는 lobby_func 타지 않으므로 여기서 title_to_lobby 저장 
     g_fullPopupManager:setTitleToLobby(true)
 
-    -- 로비 진입
-    lobby_func = function() 
-        -- 시작이 두번 되지 않도록 하기 위함
-        UI_BlockPopup()
+    UI_BlockPopup()
 
-        local is_use_loading = true
-        local scene = SceneLobby(is_use_loading)
-        scene:runScene()
-    end
-	
-    -- 인트로 시나리오 체크
-    check_intro_func = function()
-        g_scenarioViewingHistory:checkIntroScenario(lobby_func)
-    end
-
-    -- 인트로 시나리오 로비씬 진입전 체크로 수정 - 신규유저일때만
-    if (self.m_bNewUser) then
-        check_intro_func()
-    else
-        lobby_func()
-    end
+    local is_use_loading = true
+    local scene = SceneLobby(is_use_loading)
+    scene:runScene()
 end
 
 -------------------------------------
@@ -1280,43 +1243,6 @@ function UI_TitleScene:makeRandomUid()
         g_localData:applyLocalData('Guest', 'local', 'account_info')
     end
 
-end
-
--------------------------------------
--- function createAccount
--- @brief 신규 계정일 경우 계정 생성
--------------------------------------
-function UI_TitleScene:createAccount()
-    local prologue_func     -- 프롤로그 재생
-    local tamer_sel_func    -- 테이머 선택
-    local login_func        -- 계정 생성후 재로그인
-
-    prologue_func = function()
-        -- @analytics
-        Analytics:firstTimeExperience('Prologue_Start')
-
-        local scenario_name = 'scenario_prologue'
-        local prologue = UI_ScenarioPlayer(scenario_name)
-        prologue:setCloseCB(tamer_sel_func)
-        prologue:next()
-    end
-
-    tamer_sel_func = function()
-        -- @analytics
-        Analytics:firstTimeExperience('Prologue_Finish')
-
-		-- 스타팅 드래곤 선택 -> 닉네임 입력 : 콜백 계속 전달하여 닉네임 입력후 실행
-        UI_SelectStartingDragon(login_func)
-    end
-
-    login_func = function()
-        self.m_bNewUser = true
-        self.m_loadingUI:showLoading()
-		self.vars['messageLabel']:setVisible(false)
-        self:retryCurrWork()
-    end
-    
-    prologue_func()
 end
 
 ------------------------------------------------------------------------------------------------------------------------
@@ -1372,6 +1298,73 @@ function UI_TitleScene:initNaverPlug()
 
 	--네이버 카페 콜백 연동
     NaverCafeManager:naverCafeSetCallback()
+end
+
+-------------------------------------
+-- function createAccount
+-- @non-self
+-- @brief 신규 계정일 경우 계정 생성
+-------------------------------------
+function UI_TitleScene.createAccount()
+    local prologue_func     -- 프롤로그 재생
+	local play_intro_start	-- 인트로 시작 시나리오
+    local play_intro_fight	-- 인트로 전투
+	local play_intro_end	-- 인트로 종료 시나리오
+    local tamer_sel_func    -- 테이머 선택
+    local comeback_title_fucn   -- 타이틀로 돌아와 로그인 실행
+
+	-- 프롤로그    
+    prologue_func = function()
+        -- @analytics
+        Analytics:firstTimeExperience('Prologue_Start')
+
+        local scenario_name = 'scenario_prologue'
+        local prologue = UI_ScenarioPlayer(scenario_name)
+        prologue:setCloseCB(play_intro_start)
+        prologue:next()
+    end
+
+	-- 인트로 시작 시나리오
+	play_intro_start = function()
+        -- @analytics
+        Analytics:firstTimeExperience('Tutorial_Intro_Start')
+
+        -- 시나리오는 조건 체크하지 않고 바로 생성
+        local ui = UI_ScenarioPlayer('scenario_intro_start_goni')
+        ui:setReplaceSceneCB(play_intro_fight)
+        ui:next()
+    end
+
+	-- 인트로 전투
+    play_intro_fight = function()
+        local scene = SceneGameIntro()
+		scene:setNextCB(play_intro_end)
+        scene:runScene()
+    end
+
+	-- 인트로 종료 시나리오
+	play_intro_end = function()
+        local ui = UI_ScenarioPlayer('scenario_intro_finish')
+        ui:setCloseCB(tamer_sel_func)
+        ui:next()
+    end
+
+	-- 계정 생성
+    tamer_sel_func = function()
+        -- @analytics
+        Analytics:firstTimeExperience('Prologue_Finish')
+
+		-- 스타팅 드래곤 선택 -> 닉네임 입력 : 콜백 계속 전달하여 닉네임 입력후 실행
+        UI_SelectStartingDragon(comeback_title_fucn)
+    end
+    
+	-- 타이틀을 다시 불러와 시작
+    comeback_title_fucn = function()
+		local scene = SceneTitle()
+        scene:runScene()
+    end
+	
+    prologue_func()
 end
 
 --@CHECK

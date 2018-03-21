@@ -10,6 +10,8 @@ SceneGameIntro = class(PARENT, {
         m_tutorialPlayer = 'UI_TutorialPlayer',
 
         m_focusingDragon = 'Dragon',
+
+		m_nextCB = 'function',
     })
 
 -------------------------------------
@@ -23,6 +25,13 @@ function SceneGameIntro:init(game_key, stage_id, stage_name, develop_mode)
     self.m_bDoAction = false
     
     self.m_nIdx = 1
+end
+
+-------------------------------------
+-- function setNextCB
+-------------------------------------
+function SceneGameIntro:setNextCB(cb)
+	self.m_nextCB = cb
 end
 
 -------------------------------------
@@ -248,40 +257,12 @@ end
 -- function networkGameFinish
 -------------------------------------
 function SceneGameIntro:networkGameFinish(t_param, t_result_ref, next_func)
-    self:checkScenario()
-end
-
--------------------------------------
--- function checkScenario()
--------------------------------------
-function SceneGameIntro:checkScenario()
     self.m_tutorialPlayer.root:removeFromParent()
     self.m_tutorialPlayer = nil
 
-    local intro_finish_name = 'scenario_intro_finish'
-
-    local play_intro_finish
-    local lobby_func
-
-    play_intro_finish = function()
-        self.m_containerLayer:setVisible(false)
-        local ui = UI_ScenarioPlayer(intro_finish_name)
-		if (ui) then
-			ui:setReplaceSceneCB(lobby_func)
-			ui:next()
-		else
-			lobby_func()
-		end
-    end
-
-    lobby_func = function()
-        local is_use_loading = true
-        local scene = SceneLobby(is_use_loading)
-        scene:runScene()
-    end
-
-	local step = nil
-	g_tutorialData:request_tutorialSave(TUTORIAL.INTRO_FIGHT, step, play_intro_finish, lobby_func)
+	if self.m_nextCB then
+		self.m_nextCB()
+	end
 end
 
 -------------------------------------

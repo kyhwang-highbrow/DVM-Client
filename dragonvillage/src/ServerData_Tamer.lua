@@ -62,8 +62,14 @@ end
 -------------------------------------
 function ServerData_Tamer:getCurrTamerID()
     local tamer_id = self.m_serverData:getRef('user', 'tamer')
+
+	-- 예전 테이머 개발 전 데이터 커버리지 코드
 	if (tamer_id == 0) then
 		tamer_id = g_constant:get('INGAME', 'TAMER_ID')
+
+	-- @ intro : 인트로 전투 시작 시 테이머 고니로 고정
+	elseif (not tamer_id) then
+		tamer_id = 110001
 	end
 
     return tamer_id
