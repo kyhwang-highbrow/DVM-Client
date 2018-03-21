@@ -198,9 +198,6 @@ function TeamBonusCardFactory:getDefaultCard(did, is_all)
 
     -- 눌렀을 경우 드래곤 이름 툴팁 출력                
     local btn = card.vars['clickBtn']
-    ccdump(btn)
-    ccdump(btn:isEnabled())
-    ccdump(btn:isSelected())
     local tap_func = function()
         local name = TableDragon:getDragonName(did)
         local attr = TableDragon:getDragonAttr(did)
