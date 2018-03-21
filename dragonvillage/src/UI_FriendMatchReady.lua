@@ -67,8 +67,7 @@ function UI_FriendMatchReady:initUI()
 
         local player_2d_deck = UI_2DDeck()
         player_2d_deck:setDirection('left')
-        player_2d_deck.root:setPosition(-380, 76)
-        self.root:addChild(player_2d_deck.root)
+        vars['formationNode1']:addChild(player_2d_deck.root)
         player_2d_deck:initUI()
 
         local l_dragon_obj = g_friendMatchData.m_playerUserInfo:getAtkDeck_dragonList()
@@ -89,8 +88,7 @@ function UI_FriendMatchReady:initUI()
 
         local player_2d_deck = UI_2DDeck()
         player_2d_deck:setDirection('right')
-        player_2d_deck.root:setPosition(380, 76)
-        self.root:addChild(player_2d_deck.root)
+        vars['formationNode2']:addChild(player_2d_deck.root)
         player_2d_deck:initUI()
 
         local l_dragon_obj = g_friendMatchData.m_matchInfo:getDefDeck_dragonList()
