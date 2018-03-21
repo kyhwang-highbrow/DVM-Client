@@ -127,35 +127,59 @@ function UI_ClanMark:init_TableView()
     local node = self.vars['bgNode']
     node:removeAllChildren()
 
+    local table_clan_mark = TableClanMark()
     local l_item_list = self:getTableViewItemList()
 
 	-- cell_size 지정
     local item_size = 100
     local cell_size = cc.size(item_size+ 12, item_size + 12)
+    local color_size = cc.size(item_size, item_size)
 
 	local table_view_td
 
     -- 리스트 아이템 생성 콜백
     local function create_func(ui, data)
-        local struct_clan_mark = self.m_structClanMark:copy()
         local idx = data['idx']
+        local curr_idx, icon
+        local struct_clan_mark = self.m_structClanMark:copy()
 
-        local curr_idx
+        -- 심볼은 무채색 적당한 책상의 문양만 출력 : 클랜 마크 완성본에 가까움
         if (self.m_currTab == 'symbol') then
             curr_idx = struct_clan_mark.m_symbolIdx
             struct_clan_mark.m_symbolIdx = idx
+            struct_clan_mark.m_colorIdx1 = 25
+            struct_clan_mark.m_colorIdx2 = 27
+            struct_clan_mark.m_bgIdx = 30
+            icon = struct_clan_mark:makeClanMarkIcon()
 
+        -- 색상만 출력
         elseif (self.m_currTab == 'symbolColor1') then
             curr_idx = struct_clan_mark.m_colorIdx1
-            struct_clan_mark.m_colorIdx1 = idx
+            local color = table_clan_mark:getColor(idx)
 
+            icon = cc.LayerColor:create(cc.c4b(0,0,0,255))
+            icon:setDockPoint(cc.p(0.5, 0.5))
+            icon:setAnchorPoint(cc.p(0.5, 0.5))
+            icon:setContentSize(color_size)
+            icon:setColor(color)
+
+        -- 색상만 출력
         elseif (self.m_currTab == 'symbolColor2') then
             curr_idx = struct_clan_mark.m_colorIdx2
-            struct_clan_mark.m_colorIdx2 = idx
+            local color = table_clan_mark:getColor(idx)
 
+            icon = cc.LayerColor:create(cc.c4b(0,0,0,255))
+            icon:setDockPoint(cc.p(0.5, 0.5))
+            icon:setAnchorPoint(cc.p(0.5, 0.5))
+            icon:setContentSize(color_size)
+            icon:setColor(color)
+
+        -- 배경만 출력
         elseif (self.m_currTab == 'bg') then
             curr_idx = struct_clan_mark.m_bgIdx
-            struct_clan_mark.m_bgIdx = idx
+            local bg_res = table_clan_mark:getBgRes(idx)
+
+            icon = IconHelper:getIcon(bg_res)
 
         end
 
@@ -165,9 +189,7 @@ function UI_ClanMark:init_TableView()
             ui.vars['selectSprite']:setVisible(false)
         end
 
-        local icon = struct_clan_mark:makeClanMarkIcon()
         ui.vars['markNode']:addChild(icon)
-
         ui.vars['clickBtn']:registerScriptTapHandler(function() self:click_listItem(ui, data) end)
     end
 

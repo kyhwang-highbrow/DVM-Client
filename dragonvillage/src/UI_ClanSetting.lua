@@ -348,7 +348,7 @@ end
 -- @brief 클랜 마크
 -------------------------------------
 function UI_ClanSetting:click_markBtn()
-    local ui = UI_ClanMarkTwo(self:getClanMarkStruct())
+    local ui = UI_ClanMark(self:getClanMarkStruct())
 
     local function close_cb()
         if ui.m_bChanged then
