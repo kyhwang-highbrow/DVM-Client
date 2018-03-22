@@ -1229,7 +1229,13 @@ function UI_GameResultNew:click_prevBtn()
         UINavigator:goTo('adventure', prev_stage_id)
     end
 
-    UINavigator:goTo('battle_ready', prev_stage_id, close_cb)
+    if prev_stage_id then
+        UINavigator:goTo('battle_ready', prev_stage_id, close_cb)
+
+    -- 이전 스테이지 없는 경우엔 모험맵으로 이동
+    else
+        UINavigator:goTo('adventure', stage_id)
+    end
 end
 
 -------------------------------------
