@@ -244,7 +244,8 @@ function UI_Lobby:entryCoroutine()
             end
 
 			-- 지정된 풀팝업 리스트 (최초 로비 실행 시 출력)
-            if (g_fullPopupManager:isTitleToLobby()) then
+            local is_title_to_lobby = g_fullPopupManager:isTitleToLobby()
+            if (is_title_to_lobby) then
 
                 -- 5 레벨 미만은 마을에서 네이버 SDK와 풀 팝업을 띄우지 않음
                 local lv = g_userData:get('lv')
@@ -260,10 +261,13 @@ function UI_Lobby:entryCoroutine()
                 g_fullPopupManager:show(FULL_POPUP_TYPE.ATTENDANCE, show_func)
 			end
 
-            -- 5 레벨 미만은 마을에서 네이버 SDK와 풀 팝업을 띄우지 않음
-            local lv = g_userData:get('lv')
-            if (5 <= lv) then
-                NaverCafeManager:naverCafeStart(0) -- 네이버 카페
+            -- 지정된 풀팝업 리스트 (최초 로비 실행 시 출력)
+            if (is_title_to_lobby) then
+                -- 5 레벨 미만은 마을에서 네이버 SDK와 풀 팝업을 띄우지 않음
+                local lv = g_userData:get('lv')
+                if (5 <= lv) then
+                    NaverCafeManager:naverCafeStart(0) -- 네이버 카페
+                end
             end
 			
 			-- @ MASTER ROAD
