@@ -2831,10 +2831,10 @@ end
 -- @brief 어떤 진형이든 항상 적군을 가져온다.
 -------------------------------------
 function Character:getOpponentList()
-	if (self.m_bLeftFormation) then 
-		return self.m_world:getEnemyList(self)
+	if (self.m_bLeftFormation) then
+		return self.m_world:getEnemyList()
 	else
-		return self.m_world:getDragonList(self)
+		return self.m_world:getDragonList()
 	end
 end
 
