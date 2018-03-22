@@ -6,6 +6,62 @@ local PARENT = WaveMgr
 WaveMgr_AncientTower = class(PARENT, {})
 
 -------------------------------------
+-- function spawnEnemy_dynamic
+-------------------------------------
+function WaveMgr_AncientTower:spawnEnemy_dynamic(enemy_id, level, appear_type, value1, value2, value3, movement, phys_group)
+    local rarity = self:getRarity(enemy_id, level)
+    local isBoss = (rarity == self.m_highestRarity and self:isFinalWave())
+    local enemy
+    local phys_group = phys_group or PHYS.ENEMY
+
+    -- Enemy 생성
+    if (isMonster(enemy_id)) then
+        enemy = self.m_world:makeMonsterNew(enemy_id, level)
+    else
+        local enemy_dragon_data = self:getEnemyDragonData(enemy_id, level, isBoss)
+        enemy = self.m_world:makeDragonNew(enemy_dragon_data, true)
+    end
+
+    local z_order = enemy:getZOrder()
+    
+    if (isBoss) then
+        enemy.m_isBoss = true
+
+        if (not self.m_lBoss) then
+            self.m_lBoss = {}
+        end
+        table.insert(self.m_lBoss, enemy)
+
+        -- 보스 특수 스텟 적용
+        self:applyBossStatus(enemy)
+    end
+    
+    self.m_world.m_worldNode:addChild(enemy.m_rootNode, z_order)
+    self.m_world.m_physWorld:addObject(phys_group, enemy)
+    self.m_world:bindEnemy(enemy)
+    self.m_world:addEnemy(enemy)
+    
+	-- 등장 움직임 설정
+    if (EnemyAppear[appear_type]) then
+        EnemyAppear[appear_type](enemy, value1, value2, value3)
+    end
+
+    -- 이동 패턴 설정
+    do
+        if (not movement) then
+            movement = self.m_currWave
+        end
+
+        -- 로밍 임시 처리
+        if (self.m_world.m_enemyMovementMgr) then
+            self.m_world.m_enemyMovementMgr:addEnemy(movement, enemy)
+        end
+    end
+    
+	return enemy
+end
+
+-------------------------------------
 -- function getEnemyDragonData
 -- @brief 적군으로 등장하는 드래곤 정보를 리턴
 -------------------------------------
