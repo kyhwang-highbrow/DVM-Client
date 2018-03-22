@@ -33,8 +33,6 @@ function TeamBonusHelper:getAllTeamBonusDataFromDeck(l_deck)
             local t_dragon_data = g_dragonsData:getDragonDataFromUid(v)
             if (t_dragon_data) then
                 table.insert(l_dragon_data, t_dragon_data)
-            else
-                error('no exist dragon_data : ' .. doid)
             end
         end            
     end
