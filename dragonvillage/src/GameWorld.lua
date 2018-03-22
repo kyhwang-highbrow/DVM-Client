@@ -1231,10 +1231,34 @@ function GameWorld:getTargetList(char, x, y, team_type, formation_type, rule_typ
         end
 
     elseif (team_type == 'all') then
-        for_mgr_delegate:addGlobalList(self.m_leftParticipants)
-        for_mgr_delegate:addGlobalList(self.m_rightParticipants)
-        for_mgr_delegate:addDiedList(self.m_leftNonparticipants)
-        for_mgr_delegate:addDiedList(self.m_rightNonparticipants)
+        if (rule_type == '' or rule_type == 'all') then
+            -- 팀에 상관없이 아군, 적군 모두 대상
+            for_mgr_delegate:addGlobalList(self.m_leftParticipants)
+            for_mgr_delegate:addGlobalList(self.m_rightParticipants)
+            for_mgr_delegate:addDiedList(self.m_leftNonparticipants)
+            for_mgr_delegate:addDiedList(self.m_rightNonparticipants)
+        else
+            -- 자신의 팀
+            do
+                local mgr = unit_group:getFormationMgr()
+
+                for_mgr_delegate:addGlobalList(mgr.m_globalCharList)
+                for_mgr_delegate:addDiedList(mgr.m_diedCharList)
+            end
+            
+            -- 공격 가능한 팀이 대상
+            do
+                for _, group_key in ipairs(unit_group:getAttackbleGroupKeys()) do
+                    local unit_group = self.m_mUnitGroup[group_key]
+                    if (unit_group) then
+                        local mgr = unit_group:getFormationMgr()
+
+                        for_mgr_delegate:addGlobalList(mgr.m_globalCharList)
+                        for_mgr_delegate:addDiedList(mgr.m_diedCharList)
+                    end
+                end
+            end
+        end
 
     else
 		error('GameWorld:getTargetList 정의 되지 않은 team_type  : ' .. team_type)
