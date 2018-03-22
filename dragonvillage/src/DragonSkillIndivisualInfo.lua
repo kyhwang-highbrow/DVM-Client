@@ -74,7 +74,7 @@ end
 -------------------------------------
 -- function applySkillLevel
 -------------------------------------
-function DragonSkillIndivisualInfo:applySkillLevel()
+function DragonSkillIndivisualInfo:applySkillLevel(old_skill_info)
 	local skill_id = self.m_skillID
     local t_skill = GetSkillTable(self.m_charType):get(skill_id)
 
@@ -110,6 +110,10 @@ function DragonSkillIndivisualInfo:applySkillLevel()
         if (self.m_hpRate <= 0 and self.m_hpRate >= 100) then
             error('hp_rate_per skill error : invalid chance_value(' .. t_skill['chance_value'] .. ')')
         end
+    end
+
+    if (old_skill_info) then
+        self:mergeSkillInfo(old_skill_info)
     end
 end
 
