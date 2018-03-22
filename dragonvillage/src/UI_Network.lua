@@ -396,15 +396,10 @@ function UI_Network:makeNetworkFailPopup(t_error)
 		-- status -9998 : 통신 실패
 		if (staus == -9998) then
 			msg = Str('통신이 지연되고 있습니다.\n네트워크 상태를 확인해주세요.')
-			local error_msg = t_error['message']
+			
+			-- 추후에 메세지를 정리해보자
+			-- local error_msg = t_error['message']
 		
-			-- Couldn't resolve host '~~' 이 문구는 출력하지 않도록 함
-			if (string.find(error_msg, 'resolve host')) then
-
-			else
-				msg = string.format('%s\n(%s)', msg, error_msg)
-			end
-
 		-- status -9999 : 서버 통신 후 unknown error 발생
 		elseif (staus == -9999) then
 			msg = Str('오류가 발생하였습니다.\n다시 시도하시겠습니까?')
