@@ -3331,6 +3331,9 @@
     <None Include="..\src\UI_LobbyGuideAttrTower.lua">
       <Filter>lua\UI</Filter>
     </None>
+    <None Include="..\src\StatusEffect_SkillCoolReduce.lua">
+      <Filter>lua\src</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Classes">

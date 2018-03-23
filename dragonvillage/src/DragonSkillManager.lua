@@ -766,15 +766,27 @@ end
 -------------------------------------
 -- function updateBasicSkillTimer
 -------------------------------------
-function IDragonSkillManager:updateBasicSkillTimer(dt)
+function IDragonSkillManager:updateBasicSkillTimer(dt, reduced_cool)
     if (not self.m_lSkillIndivisualInfo) then return end
 
     for type, list in pairs(self.m_lSkillIndivisualInfo) do
         if not isExistValue(type, 'active', 'basic', 'leader') then
             for _, v in pairs(list) do
-                v:update(dt)
+                v:update(dt, reduced_cool)
             end
         end
+    end
+end
+
+-------------------------------------
+-- function updateActiveSkillTimer
+-------------------------------------
+function IDragonSkillManager:updateActiveSkillTimer(dt, reduced_cool)
+    if (not self.m_lSkillIndivisualInfo) then return end
+
+    local skill_info = self.m_lSkillIndivisualInfo['active']
+    if (skill_info) then
+        skill_info:update(dt, reduced_cool)
     end
 end
 

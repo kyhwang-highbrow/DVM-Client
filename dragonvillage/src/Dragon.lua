@@ -19,10 +19,6 @@ Dragon = class(PARENT, {
         m_activeSkillManaCost = 'SecurityNumberClass',
         m_originActiveSkillManaCost = 'SecurityNumberClass',
 
-        -- 스킬 쿨타임
-        m_activeSkillCoolTimer = 'number',
-        m_activeSkillCoolTime = 'number',
-
         m_skillPrepareEffect = '',
 		
         m_isUseMovingAfterImage = 'boolean',
@@ -44,9 +40,6 @@ function Dragon:init(file_name, body, ...)
 
     self.m_activeSkillManaCost = SecurityNumberClass(0) -- Mana Reduce 등에 의해 가변
     self.m_originActiveSkillManaCost = SecurityNumberClass(0) -- 테이블의 값 그대로 가지고 있음. 불변.
-
-    self.m_activeSkillCoolTimer = 0
-    self.m_activeSkillCoolTime = 0
 
     self.m_isUseMovingAfterImage = false
     self.m_skillPrepareEffect = nil
@@ -300,7 +293,7 @@ end
 function Dragon:doRevive(hp_rate)
     PARENT.doRevive(self, hp_rate)
 
-    self:updateActiveSkillCool(0)
+    self:updateActiveSkillTimer(0)
 end
 
 -------------------------------------
@@ -444,57 +437,43 @@ end
 -- @brief 드래그 쿨타임은 세팅
 -------------------------------------
 function Dragon:initActiveSkillCool(sec)
-    local active_skill_id = self:getSkillID('active')
-    if (active_skill_id == 0) then return end
+    if (not self.m_lSkillIndivisualInfo) then return end
 
     local sec = sec or 0
-    local t_skill = GetSkillTable(self.m_charType):get(active_skill_id)
-    if (not t_skill) then
-        cclog('no skill table : ' .. active_skill_id)
-        return
+    local skill_info = self.m_lSkillIndivisualInfo['active']
+
+    if (skill_info) then
+        skill_info.m_timer = sec
+        skill_info.m_cooldownTimer = sec
     end
-
-    local cooldown = tonumber(t_skill['cooldown'])
-
-    self.m_activeSkillCoolTimer = sec
-    self.m_activeSkillCoolTime = cooldown
 end
 
 -------------------------------------
--- function updateActiveSkillCool
+-- function updateActiveSkillTimer
 -- @brief 초당 드래그 게이지 증가
 -------------------------------------
-function Dragon:updateActiveSkillCool(dt)
+function Dragon:updateActiveSkillTimer(dt)
 	if (self:isDead()) then return end
+    if (self:isCasting()) then return end
+    if (self.m_state == 'skillPrepare') then return end
 
     local drag_cool = self:getStat('drag_cool') or 0
-    drag_cool = math_min(drag_cool, 99)
-
-    local rate = 1 + (drag_cool / (100 - drag_cool))
-    rate = math_max(rate , 0)
-
-    -- 드래그 스킬 쿨타임 갱신
-    if (self.m_activeSkillCoolTimer > 0) then
-        if (not self:isCasting() and self.m_state ~= 'skillPrepare') then
-            local modified_dt = dt * rate
-
-            self.m_activeSkillCoolTimer = self.m_activeSkillCoolTimer - modified_dt
-
-            if (self.m_activeSkillCoolTimer < 0) then
-                self.m_activeSkillCoolTimer = 0
-            end
-        end
-    end
+    PARENT.updateActiveSkillTimer(self, dt, drag_cool)
 
     -- 드래그 스킬 게이지 갱신
     if (self.m_bLeftFormation) then
-	    local t_event = clone(EVENT_DRAGON_SKILL_GAUGE)
-	    t_event['owner'] = self
-        t_event['cool_time'] = self.m_activeSkillCoolTimer / rate
-	    t_event['percentage'] = (self.m_activeSkillCoolTime - self.m_activeSkillCoolTimer) / self.m_activeSkillCoolTime * 100
-        t_event['enough_mana'] = (self.m_activeSkillManaCost:get() <= self.m_world:getMana(self):getCurrMana())
+        local skill_info = self:getLevelingSkillByType('active')
+        if (skill_info) then
+            local timer, percentage = skill_info:getCoolTimeForGauge()
+            local t_event = clone(EVENT_DRAGON_SKILL_GAUGE)
+
+	        t_event['owner'] = self
+            t_event['cool_time'] = timer
+	        t_event['percentage'] = percentage
+            t_event['enough_mana'] = (self.m_activeSkillManaCost:get() <= self.m_world:getMana(self):getCurrMana())
         
-        self:dispatch('dragon_skill_gauge', t_event)
+            self:dispatch('dragon_skill_gauge', t_event)
+        end
     end
 end
 
@@ -502,7 +481,10 @@ end
 -- function startActiveSkillCoolTime
 -------------------------------------
 function Dragon:startActiveSkillCoolTime()
-    self.m_activeSkillCoolTimer = self.m_activeSkillCoolTime
+    local skill_info = self.m_lSkillIndivisualInfo['active']
+    if (skill_info) then
+        skill_info:startCoolTime()
+    end
 
     self:dispatch('set_global_cool_time_active')
 end
@@ -511,7 +493,8 @@ end
 -- function isEndActiveSkillCool
 -------------------------------------
 function Dragon:isEndActiveSkillCool()
-    if (self.m_activeSkillCoolTimer > 0) then
+    local skill_info = self.m_lSkillIndivisualInfo['active']
+    if (skill_info and not skill_info:isEndCoolTime()) then
         return false
     end
 

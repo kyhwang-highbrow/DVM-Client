@@ -354,7 +354,9 @@ function GameState.update_fight(self, dt)
     end
         
     -- 자동AI 및 마나
-    world:updateUnitGroupMgr(dt)
+    do
+        world:updateUnitGroupMgr(dt)
+    end
 
     if (world.m_enemyMovementMgr) then
         world.m_enemyMovementMgr:update(dt)
@@ -362,14 +364,14 @@ function GameState.update_fight(self, dt)
 
     do -- 아군 스킬 쿨타임 증가
         for _ ,dragon in pairs(world:getDragonList()) do
-            dragon:updateActiveSkillCool(dt)
+            dragon:updateActiveSkillTimer(dt)
         end
     end
 
     do -- 적군 스킬 쿨타임 증가
         for _, enemy in pairs(self.m_world:getEnemyList()) do
             if (isInstanceOf(enemy, Dragon)) then
-                enemy:updateActiveSkillCool(dt)
+                enemy:updateActiveSkillTimer(dt)
             end
         end
     end
@@ -382,26 +384,7 @@ function GameState.update_fight(self, dt)
             end
         end
     end
-
-    -- 벤치마크 중 60초를 넘어가면 웨이브 종료
-    if g_benchmarkMgr and g_benchmarkMgr:isActive() then
-        local time = g_benchmarkMgr.m_waveTime
-        if self.m_world.m_waveMgr:isFinalWave() then
-            time = g_benchmarkMgr.m_lastWaveTime
-        end
-        if (self.m_stateTimer >= time) then
-            self.m_world:removeAllEnemy()
-
-            if (not self.m_world.m_waveMgr:isFinalWave()) then
-		        self:changeState(GAME_STATE_WAVE_INTERMISSION_WAIT)
-		    else
-                cclog('GAME_STATE_SUCCESS_WAIT')
-			    self:changeState(GAME_STATE_SUCCESS_WAIT)
-		    end
-            return
-        end
-    end
-
+    
     -- 클리어 여부 체크
     self:checkWaveClear(dt)
 end
@@ -1119,6 +1102,27 @@ function GameState:checkWaveClear(dt)
     local hero_count = #world:getDragonList()
     local enemy_count = #world:getEnemyList()
 
+    -- 벤치마크 중 60초를 넘어가면 웨이브 종료
+    if (g_benchmarkMgr and g_benchmarkMgr:isActive()) then
+        local time = g_benchmarkMgr.m_waveTime
+
+        if (self.m_world.m_waveMgr:isFinalWave()) then
+            time = g_benchmarkMgr.m_lastWaveTime
+        end
+        
+        if (self.m_stateTimer >= time) then
+            self.m_world:removeAllEnemy()
+
+            if (not self.m_world.m_waveMgr:isFinalWave()) then
+		        self:changeState(GAME_STATE_WAVE_INTERMISSION_WAIT)
+		    else
+                cclog('GAME_STATE_SUCCESS_WAIT')
+			    self:changeState(GAME_STATE_SUCCESS_WAIT)
+		    end
+            return
+        end
+    end
+
     -- 패배 여부 체크
     if(hero_count <= 0) then
         self:changeState(GAME_STATE_FAILURE)
@@ -1164,7 +1168,6 @@ end
 -------------------------------------
 function GameState:doDirectionForIntermission()
     local world = self.m_world
-    local map_mgr = world.m_mapManager
 
     local t_wave_data, is_final_wave = world.m_waveMgr:getNextWaveScriptData()
     local t_camera_info = t_wave_data['camera'] or {}

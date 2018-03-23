@@ -492,6 +492,7 @@ local t_module = {
     'StatusEffect_ConditionalModify',
     'StatusEffect_AccelMana',
     'StatusEffect_ProtectionByTime',
+    'StatusEffect_SkillCoolReduce',
 
     'StatusEffectEdgeDirector',
 	'StatusEffectIcon',

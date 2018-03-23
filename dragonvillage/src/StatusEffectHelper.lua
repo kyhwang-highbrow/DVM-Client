@@ -321,6 +321,9 @@ function StatusEffectHelper:makeStatusEffectInstance(caster, target_char, status
 	elseif (status_effect_group == 'skill_modify') then
         status_effect = StatusEffect_SkillModify(res)
 
+    elseif (status_effect_group == 'skill_cool_reduce') then
+        status_effect = StatusEffect_SkillCoolReduce(res)
+
     ---------- 부활 ------------
     elseif (status_effect_group == 'resurrect') then
         status_effect = StatusEffect_Resurrect(res)

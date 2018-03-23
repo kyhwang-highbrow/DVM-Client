@@ -1940,27 +1940,27 @@ function Character:updateBasicSkillTimer(dt)
         return
     end
 
-    -- cool_actu 스텟 적용(쿨타임 감소)
-    do
-        -- @ RUNE
-        local cool_actu = self:getStat('cool_actu') or 0
-        if (cool_actu ~= 0) then
-            cool_actu = math_min(cool_actu, 99)
-
-            local rate = 1 + (cool_actu / (100 - cool_actu))
-            rate = math_max(rate , 0)
-
-            dt = dt * rate
-        end
-    end
+    -- 쿨타임 감소를 적용하여 스킬별 쿨타임 갱신
+    local cool_actu = self:getStat('cool_actu') or 0
+    PARENT.updateBasicSkillTimer(self, dt, cool_actu)
     
-    PARENT.updateBasicSkillTimer(self, dt)
+    -- 특정 발동 조건을 가진 스킬들은 실시간으로 체크
+    do
+        -- indie_time_short 타입 스킬
+        if (self.m_lSkillIndivisualInfo['indie_time_short']) then
+            for i, v in pairs(self.m_lSkillIndivisualInfo['indie_time_short']) do
+                if (v:isEndCoolTime()) then
+                    self:doSkill(v.m_skillID, 0, 0)
+                end
+            end
+        end
 
-    -- indie_time_short 타입 스킬
-    if (self.m_lSkillIndivisualInfo['indie_time_short']) then
-        for i, v in pairs(self.m_lSkillIndivisualInfo['indie_time_short']) do
-            if (v:isEndCoolTime()) then
-                self:doSkill(v.m_skillID, 0, 0)
+        -- hp_rate_short 타입 스킬
+        if (self.m_lSkillIndivisualInfo['hp_rate_short']) then
+            for i, v in pairs(self.m_lSkillIndivisualInfo['hp_rate_short']) do
+                if (v:isEndCoolTime()) then
+                    self:doSkill(v.m_skillID, 0, 0)
+                end
             end
         end
     end

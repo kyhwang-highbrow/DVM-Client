@@ -11,11 +11,6 @@ DragonSkillIndivisualInfo = class({
         m_skillLevel = 'number',
         m_skillType = 'string',
 		m_tAddedValue = 'table',
-
-        m_turnCount = 'number', -- 턴 공격 횟수 저장용
-        m_timer = 'number',     -- 타임 공격 저장용
-        m_cooldownTimer = 'number', -- 쿨타임 시간 저장용
-        m_hpRate = 'number',    -- 체력 조건 저장용
     })
 
 -------------------------------------
@@ -30,29 +25,6 @@ function DragonSkillIndivisualInfo:init(char_type, skill_type, skill_id, skill_l
     self.m_skillLevel = (skill_level or 1)
 
 	self.m_tAddedValue = nil
-
-    self.m_timer = 0
-    
-    local t_skill = GetSkillTable(self.m_charType):get(self.m_skillID)
-
-    if (self.m_skillType == 'indie_time' or self.m_skillType == 'indie_time_short') then
-        -- 스킬 아이디가 40만번대인 경우 적용시키지 않음(팀보너스 스킬)
-        if (math_floor(skill_id / 100000) ~= 4) then
-            -- indie_time 타입의 스킬은 해당 값만큼 먼저 기다리도록 초기값 설정
-            self.m_timer = t_skill['chance_value'] * math_random(50, 100) / 100
-        end
-
-    elseif (self.m_skillType == 'hp_rate') then
-        self.m_hpRate = t_skill['chance_value']
-    
-    elseif (self.m_skillType == 'hp_rate_per' or self.m_skillType == 'hp_rate_per_short') then
-        -- hp_rate_per 타입의 스킬은 초기 조건 설정
-        self.m_hpRate = 100 - t_skill['chance_value']
-
-        if (self.m_hpRate <= 0 and self.m_hpRate >= 100) then
-            error('hp_rate_per skill error : invalid chance_value(' .. t_skill['chance_value'] .. ')')
-        end
-    end
 end
 
 -------------------------------------
@@ -92,25 +64,6 @@ function DragonSkillIndivisualInfo:applySkillLevel(old_skill_info)
 	-- 레벨이 반영된 데이터 계산
 	local _, t_add_value = DragonSkillCore.applySkillLevel(self.m_charType, t_skill, skill_lv)
 	self.m_tAddedValue = t_add_value
-
-    if (self.m_skillType == 'indie_time' or self.m_skillType == 'indie_time_short') then
-        -- 스킬 아이디가 40만번대인 경우 적용시키지 않음(팀보너스 스킬)
-        if (math_floor(skill_id / 100000) ~= 4) then
-            -- indie_time 타입의 스킬은 해당 값만큼 먼저 기다리도록 초기값 설정
-            self.m_timer = self.m_tSkill['chance_value'] * math_random(50, 100) / 100
-        end
-
-    elseif (self.m_skillType == 'hp_rate') then
-        self.m_hpRate = t_skill['chance_value']
-    
-    elseif (self.m_skillType == 'hp_rate_per' or self.m_skillType == 'hp_rate_per_short') then
-        -- hp_rate_per 타입의 스킬은 초기 조건 설정
-        self.m_hpRate = 100 - t_skill['chance_value']
-
-        if (self.m_hpRate <= 0 and self.m_hpRate >= 100) then
-            error('hp_rate_per skill error : invalid chance_value(' .. t_skill['chance_value'] .. ')')
-        end
-    end
 
     if (old_skill_info) then
         self:mergeSkillInfo(old_skill_info)
