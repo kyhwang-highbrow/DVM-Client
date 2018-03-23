@@ -270,21 +270,19 @@ function UI_DragonManageInfo:refresh_buttonState()
 	-- 할인 이벤트
 	local l_dc_event = g_hotTimeData:getDiscountEventList()
     for i, dc_target in ipairs(l_dc_event) do
-        local sprite 
+        local name 
         if (dc_target == HOTTIME_SALE_EVENT.RUNE_RELEASE) then
-            sprite = vars['runeEventSprite']
+            name = 'runeEventSprite'
 
         elseif (dc_target == HOTTIME_SALE_EVENT.RUNE_ENHANCE) then
-            sprite = vars['runeEventSprite']
+            name = 'runeEventSprite'
 
         elseif (dc_target == HOTTIME_SALE_EVENT.SKILL_MOVE) then
-            sprite = vars['skillEnhanceEventSprite']
+            name = 'skillEnhanceEventSprite'
         end
 
-        if (sprite) then
-            sprite:setVisible(true)
-            local action = cca.buttonShakeAction()
-            sprite:runAction(action)
+        if (name) then
+           g_hotTimeData:setDiscountEventNode(dc_target, vars, name)
         end
     end
 	

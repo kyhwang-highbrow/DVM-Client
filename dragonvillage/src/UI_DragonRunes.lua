@@ -159,16 +159,12 @@ function UI_DragonRunes:refresh()
 	local l_dc_event = g_hotTimeData:getDiscountEventList()
     for i, dc_target in ipairs(l_dc_event) do
         local only_value = true
-        local dc_text = g_hotTimeData:getDiscountEventText(dc_target, only_value)
         if (dc_target == HOTTIME_SALE_EVENT.RUNE_RELEASE) then
-            vars['removeEventSprite']:setVisible(true)
-            vars['removeEventLabel']:setString(dc_text)
+            g_hotTimeData:setDiscountEventNode(dc_target, vars, 'removeEventSprite', only_value)
 
         elseif (dc_target == HOTTIME_SALE_EVENT.RUNE_ENHANCE) then
-            vars['useEnhanceEventSprite']:setVisible(true)
-            vars['useEnhanceEventLabel']:setString(dc_text)
-            vars['selectEnhanceEventSprite']:setVisible(true)
-            vars['selectEnhanceEventLabel']:setString(dc_text)
+            g_hotTimeData:setDiscountEventNode(dc_target, vars, 'useEnhanceEventSprite', only_value)
+            g_hotTimeData:setDiscountEventNode(dc_target, vars, 'selectEnhanceEventSprite', only_value)
         end
     end
 

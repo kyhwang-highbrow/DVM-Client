@@ -1119,16 +1119,7 @@ function UI_Lobby:onFocus()
 	-- 할인 이벤트
 	local l_dc_event = g_hotTimeData:getDiscountEventList()
     for i, dc_target in ipairs(l_dc_event) do
-        local text = g_hotTimeData:getDiscountEventText(dc_target)
-        local sprite = vars['dragonEventSprite'..i]
-        local label = vars['dragonEventLabel'..i]
-        if (text and label) then
-            sprite:setVisible(true)
-            label:setString(text)
-        end
-
-        local action = cca.buttonShakeAction()
-        sprite:runAction(action)
+        g_hotTimeData:setDiscountEventNode(dc_target, vars, 'dragonEventSprite'..i)
     end
 
     -- 할인 이벤트에 따라 마스터로드, 성장일지 올려줌

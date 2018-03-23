@@ -132,13 +132,7 @@ function UI_DragonRunesEnhance:refresh()
 
     -- 할인 이벤트
     local only_value = true
-    local dc_text = g_hotTimeData:getDiscountEventText(HOTTIME_SALE_EVENT.RUNE_ENHANCE, only_value)
-    if (dc_text and dc_text ~= '') then
-        vars['enhanceEventSprite']:setVisible(true)
-        vars['enhanceEventLabel']:setString(dc_text)
-    else
-        vars['enhanceEventSprite']:setVisible(false)
-    end
+    g_hotTimeData:setDiscountEventNode(HOTTIME_SALE_EVENT.RUNE_ENHANCE, vars, 'enhanceEventSprite', only_value)
 
     local is_max_lv = rune_obj:isMaxRuneLv()
     vars['enhanceBtn']:setVisible(not is_max_lv)

@@ -85,13 +85,7 @@ function UI_DragonSkillMove:refresh()
 
     -- 할인 이벤트
     local only_value = true
-    local dc_text = g_hotTimeData:getDiscountEventText(HOTTIME_SALE_EVENT.SKILL_MOVE, only_value)
-    if (dc_text and dc_text ~= '') then
-        vars['moveEventSprite']:setVisible(true)
-        vars['moveEventLabel']:setString(dc_text)
-    else
-        vars['moveEventSprite']:setVisible(false)
-    end
+    g_hotTimeData:setDiscountEventNode(HOTTIME_SALE_EVENT.SKILL_MOVE, vars, 'moveEventSprite', only_value)
 end
 
 -------------------------------------

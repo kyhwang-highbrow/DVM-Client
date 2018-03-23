@@ -630,6 +630,32 @@ function ServerData_HotTime:getDiscountEventText_Value(dc_target, only_value)
 end
 
 -------------------------------------
+-- function setDiscountEventNode
+-- @param : dc_target - HOTTIME_SALE_EVENT key
+-- @param : vars - ui vars
+-- @param : lua_name - sprite lua_name
+-- @param : only_value - full text or value text
+-------------------------------------
+function ServerData_HotTime:setDiscountEventNode(dc_target, vars, lua_name, only_value)
+    local sprite = vars[lua_name]
+    if (sprite) then
+        sprite:setVisible(true)
+
+        -- 흔들림 액션 추가
+        local action = cca.buttonShakeAction(1, 2)
+        sprite:runAction(action)
+    end
+
+    -- 라벨이 있는 경우 텍스트 표기
+    local _lua_name = string.gsub(lua_name, 'Sprite', 'Label')
+    local label = vars[_lua_name]
+    local text = self:getDiscountEventText(dc_target, only_value)
+    if (label) then
+        label:setString(text)
+    end
+end
+
+-------------------------------------
 -- function getDiscountEventList
 -------------------------------------
 function ServerData_HotTime:getDiscountEventList()
