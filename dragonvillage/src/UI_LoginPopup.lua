@@ -140,6 +140,7 @@ function UI_LoginPopup:click_facebookBtn()
         elseif ret == 'fail' then
             self:loginFail(info)
         elseif ret == 'cancel' then
+		    self:loginCancel()
         end
     end)
 
@@ -161,6 +162,7 @@ function UI_LoginPopup:click_twitterBtn()
         elseif ret == 'fail' then
             self:loginFail(info)
         elseif ret == 'cancel' then
+			self:loginCancel()
         end
     end)
 
@@ -182,6 +184,7 @@ function UI_LoginPopup:click_gamecenterBtn()
         elseif ret == 'fail' then
             self:loginFail(info)
         elseif ret == 'cancel' then
+			self:loginCancel()
         end
     end)
 
@@ -203,6 +206,7 @@ function UI_LoginPopup:click_googleBtn()
         elseif ret == 'fail' then
             self:loginFail(info)
         elseif ret == 'cancel' then
+			self:loginCancel()
         end
     end)
 
@@ -294,6 +298,14 @@ function UI_LoginPopup:loginFail(info)
     local subcode = t_info.subcode
     local msg = t_info.msg
 
+    MakeSimplePopup(POPUP_TYPE.OK, msg)
+end
+
+-------------------------------------
+-- function loginCancel
+-------------------------------------
+function UI_LoginPopup:loginCancel()
+    local msg = Str('로그인을 취소했습니다.')
     MakeSimplePopup(POPUP_TYPE.OK, msg)
 end
 
