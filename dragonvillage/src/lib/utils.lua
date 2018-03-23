@@ -314,7 +314,7 @@ function datetime.getTimestamp(tbl)
 end
 
 --fixed Str -> string.format(2012/11/15 by jjo)
-function datetime.makeTimeDesc(sec, showSeconds, firstOnly)
+function datetime.makeTimeDesc(sec, showSeconds, firstOnly, timeOnly)
     local showSeconds = showSeconds and true or false
     local sec = math.floor(sec)
     if sec < 60 then
@@ -335,7 +335,7 @@ function datetime.makeTimeDesc(sec, showSeconds, firstOnly)
             return Str('{1}분 {2}초', min, sec)
         end
 
-    elseif sec < 86400 then
+    elseif sec < 86400 or timeOnly then
         local hour = math.floor(sec / 3600)
         local min = math.floor(sec / 60) % 60
         if min == 0 or firstOnly then
