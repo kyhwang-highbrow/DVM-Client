@@ -83,6 +83,7 @@ function UI_Setting:click_gamecenterBtn()
 
                         elseif ret == 'cancel' then
                             cclog('Firebase GameCenter login canceled.')
+							UI_LoginPopup:loginCancel()
                             -- no nothing
                         end
                     end)
@@ -124,6 +125,7 @@ function UI_Setting:click_gamecenterBtn()
 
         elseif ret == 'cancel' then
             cclog('GameCenter login canceled.')
+			UI_LoginPopup:loginCancel()
             self.m_loadingUI:hideLoading()
         end
     end)
@@ -301,6 +303,7 @@ function UI_Setting:click_facebookBtn()
                         cclog('Firebase unknown error !!!- ' .. msg)
                     elseif ret == 'cancel' then
                         cclog('Firebase unknown error !!!')
+						UI_LoginPopup:loginCancel()
                     end
                 end)
             end
@@ -324,6 +327,7 @@ function UI_Setting:click_facebookBtn()
         elseif ret == 'cancel' then
 
             cclog('Firebase Facebook link canceled.')
+			UI_LoginPopup:loginCancel()
             self.m_loadingUI:hideLoading()
 
         end
@@ -410,6 +414,7 @@ function UI_Setting:click_googleBtn()
                         cclog('Firebase unknown error !!!- ' .. msg)
                     elseif ret == 'cancel' then
                         cclog('Firebase unknown error !!!')
+						UI_LoginPopup:loginCancel()
                     end
                 end)
             end
@@ -433,6 +438,7 @@ function UI_Setting:click_googleBtn()
         elseif ret == 'cancel' then
 
             cclog('Firebase Google link canceled.')
+			UI_LoginPopup:loginCancel()
             self.m_loadingUI:hideLoading()
 
         end
@@ -521,6 +527,7 @@ function UI_Setting:click_twitterBtn()
                         local msg = t_info.msg
                         cclog('Firebase unknown error !!!- ' .. msg)
                     elseif ret == 'cancel' then
+						UI_LoginPopup:loginCancel()
                         cclog('Firebase unknown error !!!')
                     end
                 end)
@@ -545,6 +552,7 @@ function UI_Setting:click_twitterBtn()
         elseif ret == 'cancel' then
 
             cclog('Firebase Twitter link canceled.')
+			UI_LoginPopup:loginCancel()
             self.m_loadingUI:hideLoading()
 
         end
