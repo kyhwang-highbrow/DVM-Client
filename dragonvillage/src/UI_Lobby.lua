@@ -1160,8 +1160,8 @@ function UI_Lobby:refresh_boosterButtons()
         end
     end
 
-    local pos_x = -130
-    local interval = 90
+    local pos_x = -124
+    local interval = 106
 
     -- 버튼들의 위치 지정
     for i,v in ipairs(l_btn_list) do
