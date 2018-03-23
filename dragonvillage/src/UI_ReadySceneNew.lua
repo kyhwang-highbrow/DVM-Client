@@ -397,36 +397,36 @@ function UI_ReadySceneNew:initUI()
         vars['bgNode']:addChild(animator.m_node)
     end
 
-	-- 콜로세움 에외처리
-	if (self.m_stageID == COLOSSEUM_STAGE_ID or self.m_stageID == FRIEND_MATCH_STAGE_ID) then
-		vars['friendToggleBtn']:setVisible(false)
-		vars['autoStartOnBtn']:setVisible(false)
-        vars['cpNode2']:setVisible(false)
-        vars['manageBtn']:setPositionX(0)
+    -- 연속전투 불가능할때 UI 처리
+    local set_autobtn_off = function()
+        vars['autoStartOnBtn']:setVisible(false)
+        vars['manageBtn']:setPositionX(80)
+        vars['teamBonusBtn']:setPositionX(-80)
+    end
 
+	-- 콜로세움 예외처리
+	if (self.m_stageID == COLOSSEUM_STAGE_ID or self.m_stageID == FRIEND_MATCH_STAGE_ID) then		
+        vars['cpNode2']:setVisible(false)
+        
 		-- 배경 아무거나 넣어준다
 		vars['bgNode']:removeAllChildren()
 		local animator = ResHelper:getUIDragonBG('fire', 'idle')
         vars['bgNode']:addChild(animator.m_node)
+
+        set_autobtn_off()
 	end
 
     -- 클랜던전 예외처리
     if (self.m_gameMode == GAME_MODE_CLAN_RAID) then
         vars['clanRaidMenu']:setVisible(true)
-
-        vars['friendToggleBtn']:setVisible(false)
-		vars['autoStartOnBtn']:setVisible(false)
         vars['cpNode2']:setVisible(false)
-
         vars['formationNode']:setPositionX(-230)
-        vars['manageBtn']:setPositionX(80)
-        vars['teamBonusBtn']:setPositionX(-80)
+        set_autobtn_off()
     end
 
     -- 이벤트 골드 던전 예외처리
     if (self.m_stageID == EVENT_GOLD_STAGE_ID) then
-        vars['autoStartOnBtn']:setVisible(false)
-        vars['manageBtn']:setPositionX(0)
+        set_autobtn_off()
     end
 end
 
