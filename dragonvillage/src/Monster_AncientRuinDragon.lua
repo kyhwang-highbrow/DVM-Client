@@ -1,9 +1,11 @@
-local PARENT = Monster
+local PARENT = MonsterLua_Boss
 
 -------------------------------------
 -- class Monster_AncientRuinDragon
 -------------------------------------
-Monster_AncientRuinDragon = class(PARENT, {})
+Monster_AncientRuinDragon = class(PARENT, {
+    m_cbAppearEnd   = 'function',       -- appear 상태가 끝났을때 호출될 콜백 함수
+})
 
 -------------------------------------
 -- function init
@@ -15,14 +17,63 @@ function Monster_AncientRuinDragon:init(file_name, body, ...)
 end
 
 -------------------------------------
+-- function init
+-- @param file_name
+-- @param body
+-------------------------------------
+function Monster_AncientRuinDragon:init_monster(t_monster, monster_id, level)
+    PARENT.init_monster(self, t_monster, monster_id, level)
+
+    if (self.m_animator and self.m_animator.m_node) then
+        self.m_animator.m_node:setMix('boss_appear', 'idle', 1)
+    end
+end
+
+-------------------------------------
 -- function initFormation
 -------------------------------------
 function Monster_AncientRuinDragon:initFormation(body_size)
     PARENT.initFormation(self, body_size)
-    
+
     -- 리소스가 좌우 반대로 제작되어서 여기서 반전처리...
     self.m_animator:setFlip(false)
 end
+
+
+-------------------------------------
+-- function initState
+-------------------------------------
+function Monster_AncientRuinDragon:initState()
+    PARENT.initState(self)
+
+    self:addState('appear', Monster_AncientRuinDragon.st_appear, 'boss_appear', false)
+end
+
+
+-------------------------------------
+-- function st_appear
+-------------------------------------
+function Monster_AncientRuinDragon.st_appear(owner, dt)
+    if (owner.m_stateTimer == 0) then
+        owner.m_animator:addAniHandler(function()
+            if (owner.m_cbAppearEnd) then
+                owner.m_cbAppearEnd()
+            end
+        end)
+
+        owner.m_animator.m_node:pause()
+    end
+
+    local map_manager = owner.m_world.m_mapManager
+    local pos_x = owner.m_homePosX - (map_manager.m_addMoveDestDistance - map_manager.m_addMoveCurDistance)
+
+    owner:setPosition(pos_x, owner.pos.y)
+
+    if (pos_x == owner.m_homePosX) then
+        owner.m_animator.m_node:resume()
+    end
+end
+
 --[[
 -------------------------------------
 -- function undergoAttack
@@ -158,121 +209,19 @@ function Monster_AncientRuinDragon:makeHPGauge(hp_ui_offset, force)
     label:setScale(font_scale_x, font_scale_y)
     self.m_hpNode:addChild(label)
 end
---[[
+
 -------------------------------------
 -- function runAction_Floating
 -- @brief 캐릭터 부유중 효과
 -------------------------------------
 function Monster_AncientRuinDragon:runAction_Floating()
-    if (not self.m_animator) then return end
-    
-    local target_node = self.m_animator.m_node
-    if (not target_node) then return end
-    
-    -- 행동 불가 상태일 경우
-    if (self:hasStatusEffectToDisableBehavior()) then
-        return
-    end
-    
-    target_node:setPosition(0, 0)
-
-	local floating_x_max = g_constant:get('MODE_DIRECTING', 'CHARACTER_FLOATING_MAX_X_SCOPE')
-	local floating_y_max = g_constant:get('MODE_DIRECTING', 'CHARACTER_FLOATING_MAX_Y_SCOPE')
-	local floating_x_min = g_constant:get('MODE_DIRECTING', 'CHARACTER_FLOATING_MIN_X_SCOPE')
-	local floating_y_min = g_constant:get('MODE_DIRECTING', 'CHARACTER_FLOATING_MIN_Y_SCOPE')
-	local floating_time = g_constant:get('MODE_DIRECTING', 'CHARACTER_FLOATING_TIME') * 2
-
-    local function getTime()
-        return math_random(5, 15) * 0.1 * floating_time / 2
-    end
-
-    local sequence = cc.Sequence:create(
-        cc.MoveTo:create(getTime(), cc.p(math_random(-floating_x_max, -floating_x_min), math_random(-floating_y_max, -floating_y_min))),
-        cc.MoveTo:create(getTime(), cc.p(math_random(floating_x_min, floating_x_max), math_random(floating_y_min, floating_y_max)))
-    )
-
-    local action = cc.RepeatForever:create(sequence)
-    cca.runAction(target_node, action, CHARACTER_ACTION_TAG__FLOATING)
 end
 
 -------------------------------------
--- function setPosition
+-- function doAppear
 -------------------------------------
-function Monster_AncientRuinDragon:setPosition(x, y)
-	PARENT.setPosition(self, x, y)
+function Monster_AncientRuinDragon:doAppear(cb)
+    self.m_cbAppearEnd = cb
 
-    -- 충돌영역 위치로 게이지를 표시하기 위함
-    if (self.m_hpNode and not self.m_bFixedPosHpNode) then
-        local body_list = self:getBodyList()
-        local body = body_list[1]
-
-        local offset_x = self.m_unitInfoOffset[1] + body['x']
-        local offset_y = self.m_unitInfoOffset[2] + body['y']
-
-        self.m_hpNode:setPosition(offset_x, offset_y)
-
-        if (self.m_castingNode) then
-            self.m_castingNode:setPosition(offset_x, offset_y)
-        end
-    end
+    self:changeState('appear')
 end
-
--------------------------------------
--- function setTimeScale
--------------------------------------
-function Monster_AncientRuinDragon:setTimeScale(time_scale)
-    local time_scale = time_scale or self.m_aspdRatio
-
-    -- 쫄들만 속도를 조정
-    if (self.m_charTable['type'] ~= 'clanraid_boss') then
-        time_scale = time_scale * 0.3
-    end
-    
-    PARENT.setTimeScale(self, time_scale)
-end
-
--------------------------------------
--- function updateDebugingInfo
--- @brief 인게임 정보 출력용 업데이트
--------------------------------------
-function Monster_AncientRuinDragon:updateDebugingInfo()
-	-- 화면에 체력 표시
-	if g_constant:get('DEBUG', 'DISPLAY_UNIT_HP') then 
-		--self.m_infoUI.m_label:setString(string.format('%d/%d\n%d/%d\n(%d%%)',self.m_hp, self.m_maxHp, self.m_hpCount, self.m_maxHpCount, self:getHpRate() * 100))
-        self.m_infoUI.m_label:setString(self.m_hp .. '/' .. self.m_maxHp .. '\n' .. '(' .. self:getHpRate() * 100 .. '%)')
-    else
-        PARENT.updateDebugingInfo(self)
-    end
-end
-
--------------------------------------
--- function insertStatusEffect
--------------------------------------
-function Monster_AncientRuinDragon:insertStatusEffect(status_effect)
-    PARENT.insertStatusEffect(self, status_effect)
-
-    local body_list = self:getBodyList()
-    local body = body_list[1]
-
-    status_effect:setOffsetPos(body)
-end
-
--------------------------------------
--- function checkSpecialImmune
--- @brief 특정 상태효과 면역 체크
--------------------------------------
-function Monster_AncientRuinDragon:checkSpecialImmune(t_status_effect)
-    if (self.m_charTable['type'] == 'clanraid_boss') then
-        return PARENT.checkSpecialImmune(self, t_status_effect)
-    end
-    
-    return false
-end
-
--------------------------------------
--- function getPosForFormation
--------------------------------------
-function Monster_AncientRuinDragon:getPosForFormation()
-    return self:getCenterPos()
-end
-]]--

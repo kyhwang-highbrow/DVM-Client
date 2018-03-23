@@ -361,9 +361,9 @@ local MAP_HEIGHT = 1600
     end
 
 -------------------------------------
--- class ScrollMapLayerFixed
+-- class ScrollMapLayerNoRepeat
 -------------------------------------
-ScrollMapLayerFixed = class(IScrollMapLayer, {
+ScrollMapLayerNoRepeat = class(IScrollMapLayer, {
     m_cameraAppRateX = 'number', -- 카메라 적용 배율
     m_cameraAppRateY = 'number',
     m_cameraAppRateScale = 'number',
@@ -373,7 +373,7 @@ ScrollMapLayerFixed = class(IScrollMapLayer, {
     -------------------------------------
     -- function init
     -------------------------------------
-    function ScrollMapLayerFixed:init(parent, tParam)
+    function ScrollMapLayerNoRepeat:init(parent, tParam)
         self.m_cameraAppRateX = tParam['camera_app_rate_x'] or 1
         self.m_cameraAppRateY = tParam['camera_app_rate_y'] or 1
         self.m_cameraAppRateScale = tParam['camera_app_rate_scale'] or 1
@@ -392,7 +392,7 @@ ScrollMapLayerFixed = class(IScrollMapLayer, {
     -------------------------------------
     -- function update
     -------------------------------------
-    function ScrollMapLayerFixed:update(dt, tParam)
+    function ScrollMapLayerNoRepeat:update(dt, tParam)
         local tParam = tParam or {}
         local cameraX = tParam['cameraX'] or 0
         local cameraY = tParam['cameraY'] or 0
@@ -422,7 +422,7 @@ ScrollMapLayerFixed = class(IScrollMapLayer, {
     -------------------------------------
     -- function resume
     -------------------------------------
-    function ScrollMapLayerFixed:resume()
+    function ScrollMapLayerNoRepeat:resume()
         IScrollMapLayer.resume(self)
 
         self.m_bPause = false

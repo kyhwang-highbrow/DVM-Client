@@ -206,6 +206,38 @@ function EnemyAppear.Basic2(owner, luaValue1, luaValue2, luaValue3)
 end
 
 -------------------------------------
+-- function AncientRuinDragon
+-------------------------------------
+function EnemyAppear.AncientRuinDragon(owner, luaValue1, luaValue2, luaValue3)
+    -- m_luaValue1 출발 위치
+    -- m_luaValue2 도착 위치
+    -- m_luaValue3 등장 시간
+    local pos1 = getWorldEnemyPos(owner, luaValue1)
+    local pos2 = getWorldEnemyPos(owner, luaValue2)
+    local duration = luaValue3 or 1
+    local world = owner.m_world
+
+    pos1 = {
+        x = pos2.x + 2000,
+        y = pos2.y
+    }
+
+    -- 출발 위치 지정
+    owner:setOrgHomePos(pos2.x, pos2.y)
+    owner:setHomePos(pos2.x, pos2.y)
+    owner:setPosition(pos1.x, pos1.y)
+    owner:doAppear(function()
+        owner:changeState('idle')
+        owner:setPosition(pos2.x, pos2.y)
+
+        owner:dispatch('enemy_appear_done', {}, owner)
+    end)
+
+    world.m_mapManager:setSpeed(0)
+    world.m_mapManager:setAddMove(pos2.x - pos1.x, 4)
+end
+
+-------------------------------------
 -- function Burn
 -- @brief 등장 후 죽을때까지 전투 + 등장시 등장 이펙트 추가
 -- @param value1 = 출발 위치

@@ -18,6 +18,13 @@ ScrollMap = class(MapManager, IEventListener:getCloneTable(), {
         m_bgDirectingType = 'number',
 
         m_bPause = 'boolean',
+
+        -- 추가 이동 처리를 위한 것들(설정되어있을 경우 speed가 0일때 이동시킴)
+        m_bUseAddMove = 'boolean',
+        m_addMoveDestTime = 'number',
+        m_addMoveDestDistance = 'number',
+        m_addMoveCurTime = 'number',
+        m_addMoveCurDistance = 'number',
     })
 
 -------------------------------------
@@ -38,6 +45,8 @@ function ScrollMap:init(node)
 
     self.m_bgDirectingType = 'floating_1'
     self.m_bPause = false
+
+    self.m_bUseAddMove = false
 end
 
 -------------------------------------
@@ -377,7 +386,7 @@ function ScrollMap:makeLayer(tParam, bFixedLayer)
     local map_layer
 
     if bFixedLayer then
-        map_layer = ScrollMapLayerFixed(self.m_node, tParam)
+        map_layer = ScrollMapLayerNoRepeat(self.m_node, tParam)
     else
         map_layer = ScrollMapLayer(self.m_node, tParam)
     end
@@ -400,7 +409,12 @@ function ScrollMap:update(dt)
     if (self.m_bPause) then return self.m_totalMove end
 
     local distance = 0
-    distance = self.m_speed * dt
+
+    if (self.m_speed ~= 0) then
+        distance = self.m_speed * dt
+    elseif (self.m_bUseAddMove) then
+        distance = self:getAddMoveDistance(dt)
+    end
 
     self.m_totalMove = self.m_totalMove + distance
 
@@ -429,6 +443,13 @@ end
 -------------------------------------
 function ScrollMap:setSpeed(speed)
     self.m_speed = speed
+end
+
+-------------------------------------
+-- function setDecel
+-------------------------------------
+function ScrollMap:setDecel(decel)
+    self.m_decel = decel
 end
 
 -------------------------------------
@@ -468,7 +489,7 @@ function ScrollMap:onEvent(event_name, t_event, ...)
     if (event_name == 'nest_dragon_start') then
         -- 거대용 던전 시작시 연출
         for i, v in ipairs(self.m_tMapLayer) do
-            if v.m_group == 'nest_dragon_body' then
+            if (v.m_group == 'nest_dragon_body') then
                 v.m_rootNode:setPosition(-7000, 0)
 
                 local animator = v.m_animator
@@ -488,7 +509,7 @@ function ScrollMap:onEvent(event_name, t_event, ...)
     elseif (event_name == 'nest_dragon_final_wave') then
         -- 거대용 마지막 웨이브 시작시 연출
         for i, v in ipairs(self.m_tMapLayer) do
-            if v.m_group == 'nest_dragon_body' then
+            if (v.m_group == 'nest_dragon_body') then
                 local animator = v.m_animator
                 animator:changeAni('endwave_2', false)
                                                 
@@ -504,7 +525,7 @@ function ScrollMap:onEvent(event_name, t_event, ...)
     elseif (event_name == 'nest_tree_appear') then
         -- 거목 마지막 웨이브 시작시 연출
         for i, v in ipairs(self.m_tMapLayer) do
-            if v.m_group == 'nest_tree' then
+            if (v.m_group == 'nest_tree') then
                 --local animator = v.m_animator
                 --animator:setVisible(false)
                 v:setVisible(false)
@@ -514,7 +535,7 @@ function ScrollMap:onEvent(event_name, t_event, ...)
     elseif (event_name == 'nest_tree_die') then
         -- 거목 마지막 웨이브 클리어시 연출
         for i, v in ipairs(self.m_tMapLayer) do
-            if v.m_group == 'nest_tree_bg' then
+            if (v.m_group == 'nest_tree_bg') then
                 local xPos = v.m_rootNode:getPositionX()
 
                 v:doAction(cc.Sequence:create(
@@ -524,4 +545,49 @@ function ScrollMap:onEvent(event_name, t_event, ...)
             end
         end
     end
+end
+
+-------------------------------------
+-- function setAddMove
+-------------------------------------
+function ScrollMap:setAddMove(distance, time)
+    self.m_bUseAddMove = true
+
+    self.m_addMoveDestTime = time
+    self.m_addMoveDestDistance = distance
+    self.m_addMoveCurTime = 0
+    self.m_addMoveCurDistance = 0
+end
+
+-------------------------------------
+-- function getAddMoveDistance
+-------------------------------------
+function ScrollMap:getAddMoveDistance(dt)
+    self.m_addMoveCurTime = self.m_addMoveCurTime + dt
+
+    local distance = 0
+
+    if (self.m_addMoveCurTime > self.m_addMoveDestTime) then
+        self.m_bUseAddMove = false
+
+        local prev_distance = self.m_addMoveCurDistance
+
+        self.m_addMoveCurDistance = self.m_addMoveDestDistance
+        distance = self.m_addMoveDestDistance - prev_distance
+        
+    else
+        local prev_distance = self.m_addMoveCurDistance
+
+        self.m_addMoveCurDistance = (self.m_addMoveCurTime / self.m_addMoveDestTime) * self.m_addMoveDestDistance
+        distance = self.m_addMoveCurDistance - prev_distance
+    end
+
+    return distance
+end
+
+-------------------------------------
+-- function getAddMoveCurDistance
+-------------------------------------
+function ScrollMap:getAddMoveCurDistance()
+    return self.m_addMoveCurDistance
 end
