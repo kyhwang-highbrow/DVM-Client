@@ -8,6 +8,9 @@ StructClanMark = class(PARENT, {
         m_symbolIdx = 'number',
         m_colorIdx1 = 'number',
         m_colorIdx2 = 'number',
+
+		-- 이벤트 클랜 전용 마크
+		m_eventMark = 'string',
     })
 
 local THIS = StructClanMark
@@ -28,8 +31,8 @@ end
 function StructClanMark:copy()
     local struct_clan_mark = StructClanMark()
 
-    for i,v in pairs(self) do
-        struct_clan_mark[i] = v
+    for i, v in pairs(self) do
+		struct_clan_mark[i] = v
     end
 
     return struct_clan_mark
@@ -47,7 +50,10 @@ function StructClanMark:create(str)
         struct_clan_mark.m_symbolIdx = tonumber(l_str[2])
         struct_clan_mark.m_colorIdx1 = tonumber(l_str[3])
         struct_clan_mark.m_colorIdx2 = tonumber(l_str[4])
+	else
+		struct_clan_mark.m_eventMark = str
     end
+
     return struct_clan_mark
 end
 
@@ -73,24 +79,33 @@ function StructClanMark:makeClanMarkIcon()
 
     local root
 
-    -- 배경 지정
-    local bg_res = table_clan_mark:getBgRes(self.m_bgIdx)
-    local icon = IconHelper:getIcon(bg_res)
-    root = icon
+	-- @eventmark 이벤트 마크 사용
+	if (self.m_eventMark and self.m_eventMark ~= '') then
+		root = IconHelper:getIcon(string.format(TableClanMark.getEventMarkPath(), self.m_eventMark))
 
-    -- 심볼 생성
-    local res = table_clan_mark:getSymbolRes(self.m_symbolIdx, 1)
-    local color = table_clan_mark:getColor(self.m_colorIdx1)
-    local icon = IconHelper:getIcon(res)
-    icon:setColor(color)
-    root:addChild(icon)
+	-- 일반 마크
+	else
+		-- 배경 지정
+		local bg_res = table_clan_mark:getBgRes(self.m_bgIdx)
+		local icon = IconHelper:getIcon(bg_res)
+		root = icon
 
-    -- 심볼 생성
-    local res = table_clan_mark:getSymbolRes(self.m_symbolIdx, 2)
-    local color = table_clan_mark:getColor(self.m_colorIdx2)
-    local icon = IconHelper:getIcon(res)
-    icon:setColor(color)
-    root:addChild(icon)
+		-- 심볼 생성
+		local res = table_clan_mark:getSymbolRes(self.m_symbolIdx, 1)
+		local color = table_clan_mark:getColor(self.m_colorIdx1)
+		local icon = IconHelper:getIcon(res)
+		icon:setColor(color)
+		root:addChild(icon)
+
+		-- 심볼 생성
+		local res = table_clan_mark:getSymbolRes(self.m_symbolIdx, 2)
+		local color = table_clan_mark:getColor(self.m_colorIdx2)
+		local icon = IconHelper:getIcon(res)
+		icon:setColor(color)
+		root:addChild(icon)
+
+	end
+
     
     return root
 end
@@ -99,6 +114,11 @@ end
 -- function tostring
 -------------------------------------
 function StructClanMark:tostring()
+	-- @eventmark
+	if (self.m_eventMark) then
+		return self.m_eventMark
+	end
+
     local str = '' .. self.m_bgIdx .. ';' .. self.m_symbolIdx .. ';' .. self.m_colorIdx1 .. ';' .. self.m_colorIdx2
     return str
 end

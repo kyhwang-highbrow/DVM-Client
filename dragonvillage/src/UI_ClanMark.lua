@@ -146,11 +146,21 @@ function UI_ClanMark:init_TableView()
         -- 심볼은 무채색 적당한 책상의 문양만 출력 : 클랜 마크 완성본에 가까움
         if (self.m_currTab == 'symbol') then
             curr_idx = struct_clan_mark.m_symbolIdx
-            struct_clan_mark.m_symbolIdx = idx
-            struct_clan_mark.m_colorIdx1 = 25
-            struct_clan_mark.m_colorIdx2 = 27
-            struct_clan_mark.m_bgIdx = 30
-            icon = struct_clan_mark:makeClanMarkIcon()
+
+			-- @eventmark 이벤트 커스텀 클랜 마크
+			if (idx == 21) then
+				struct_clan_mark.m_eventMark = data['res']
+
+			-- 일반 클랜 마크
+			else
+				struct_clan_mark.m_symbolIdx = idx
+				struct_clan_mark.m_colorIdx1 = 25
+				struct_clan_mark.m_colorIdx2 = 27
+				struct_clan_mark.m_bgIdx = 30
+				struct_clan_mark.m_eventMark = nil
+			end
+
+			icon = struct_clan_mark:makeClanMarkIcon()
 
         -- 색상만 출력
         elseif (self.m_currTab == 'symbolColor1') then
@@ -221,6 +231,13 @@ function UI_ClanMark:getTableViewItemList()
     if (self.m_currTab == 'symbol') then
         l_item_list = table_clan_mark.m_symbolMap
 
+		-- @eventmark 커스텀 마크 가능하다면 추가
+		local name = string.format('%s_%s', g_localData:getServerName(), g_clanData:getClanStruct():getClanName())
+		local path = string.format(TableClanMark.getEventMarkPath(), name)
+		if (cc.FileUtils:getInstance():isFileExist(path)) then
+			table.insert(l_item_list, {['idx'] = 21, ['res'] = name})
+		end
+
     elseif (self.m_currTab == 'symbolColor1') then
         l_item_list = table_clan_mark.m_colorMap
 
@@ -244,7 +261,14 @@ function UI_ClanMark:click_listItem(ui, data)
     local prev_idx
     if (self.m_currTab == 'symbol') then
         prev_idx = self.m_structClanMark.m_symbolIdx
-        self.m_structClanMark.m_symbolIdx = idx
+
+		-- @eventmark 이벤트 커스텀 클랜 마크
+		if (idx == 21) then
+			self.m_structClanMark.m_eventMark = data['res']
+		else
+			self.m_structClanMark.m_eventMark = nil
+			self.m_structClanMark.m_symbolIdx = idx
+		end
 
     elseif (self.m_currTab == 'symbolColor1') then
         prev_idx = self.m_structClanMark.m_colorIdx1

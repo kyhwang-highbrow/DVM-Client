@@ -87,3 +87,11 @@ function TableClanMark:getColor(idx)
     local color = cc.c3b(t_data['color_r'], t_data['color_g'], t_data['color_b'])
     return color
 end
+
+-------------------------------------
+-- function getEventMarkPath
+-- @eventmark
+-------------------------------------
+function TableClanMark.getEventMarkPath()
+	return 'res/ui/icons/clan/eventmark_%s.png'
+end
