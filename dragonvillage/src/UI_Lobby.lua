@@ -583,7 +583,7 @@ function UI_Lobby:refresh_masterRoad()
 	if (not self.vars['bottomMasterNode']:isVisible()) then
 		local is_clear = g_dragonDiaryData:isClearAll()
 		if (not is_clear) then
-			self.vars['dragonDiaryBtn']:setPositionY(110)
+			self.vars['dragonDiaryBtn']:setPositionY(0)
 		end
 	end
 end
@@ -1126,6 +1126,15 @@ function UI_Lobby:onFocus()
             sprite:setVisible(true)
             label:setString(text)
         end
+
+        local action = cca.buttonShakeAction()
+        sprite:runAction(action)
+    end
+
+    -- 할인 이벤트에 따라 마스터로드, 성장일지 올려줌
+    if (#l_dc_event > 0) then
+        local interval = 28
+        vars['masterMenu']:setPositionY(130 + (interval * #l_dc_event))
     end
 
     self:refresh_userInfo()
