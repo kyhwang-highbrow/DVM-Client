@@ -154,7 +154,7 @@ function UI_DiceEvent:refresh()
     vars['diceLabel']:setString(curr_dice)
 
     -- 현재 완주 횟수
-    vars['lapLabel']:setString(Str('{1}회', lap_cnt))
+    vars['lapLabel']:setString(Str('{1}회 완주', lap_cnt))
 
     -- 셀렉트 처리
     self:selectCell(curr_cell)
@@ -445,7 +445,7 @@ function UI_DiceEvent.makeLap(t_data)
 
     -- 0회차
     local lap = t_data['lap']
-    vars['timeLabel']:setString(Str('{1}회차', lap))
+    vars['timeLabel']:setString(Str('{1}회 완주', lap))
 
     -- 터치시 툴팁
     vars['clickBtn']:registerScriptTapHandler(function()
