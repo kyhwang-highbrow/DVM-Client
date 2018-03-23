@@ -81,7 +81,13 @@ function StructClanMark:makeClanMarkIcon()
 
 	-- @custommark 이벤트 마크 사용
 	if (self.m_customMark and self.m_customMark ~= '') then
-		root = IconHelper:getIcon(string.format(TableClanMark.getCustomMarkPath(), self.m_customMark))
+		-- 배경 지정 (검정)
+		local bg_res = table_clan_mark:getBgRes(30)
+		root = IconHelper:getIcon(bg_res)
+		
+		-- 커스텀 마크
+		local icon = IconHelper:getIcon(string.format(TableClanMark.getCustomMarkPath(), self.m_customMark))
+		root:addChild(icon)
 
 	-- 일반 마크
 	else
