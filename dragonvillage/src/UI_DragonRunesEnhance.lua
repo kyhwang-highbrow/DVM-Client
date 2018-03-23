@@ -130,6 +130,16 @@ function UI_DragonRunesEnhance:refresh()
     vars['enhancePriceLabel']:setString(comma_value(req_gold))
     cca.uiReactionSlow(vars['enhancePriceLabel'])
 
+    -- 할인 이벤트
+    local only_value = true
+    local dc_text = g_hotTimeData:getDiscountEventText(HOTTIME_SALE_EVENT.RUNE_ENHANCE, only_value)
+    if (dc_text and dc_text ~= '') then
+        vars['enhanceEventSprite']:setVisible(true)
+        vars['enhanceEventLabel']:setString(dc_text)
+    else
+        vars['enhanceEventSprite']:setVisible(false)
+    end
+
     local is_max_lv = rune_obj:isMaxRuneLv()
     vars['enhanceBtn']:setVisible(not is_max_lv)
 	vars['checkNode']:setVisible(not is_max_lv)

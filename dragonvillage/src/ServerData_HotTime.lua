@@ -1,3 +1,24 @@
+--[[ 
+### 등록된 핫타임 ###
+    event_exchange : 수집 이벤트 (운영툴에서 event, event_open 역시 활성화 되있어야 함)
+    event_dice : 주사위 이벤트
+    event_gold_dungeon : 황금던전 이벤트
+
+    dc_rune_50 : 룬 해제 50% 할인 이벤트
+    dc_rune_100 : 룬 해제 무료 이벤트
+    dc_runelvup_50 : 룬 강화 50% 할인 이벤트
+    dc_skillmove_50 : 스킬 이전 50% 할인 이벤트
+
+    exp_1_5x : 경험치 1.5배 이벤트
+    exp_2x : 경험치 2배 이벤트
+    gold_1_5x : 골드 1.5배 이벤트
+    gold_2x : 골드 2배 이벤트
+    stamina_50p : 활동력 1/2배 이벤트
+
+    buff_exp2x : 경험치 부스터 사용중
+    buff_gold2x : 골드 부스터 사용중
+]]
+
 -------------------------------------
 -- class ServerData_HotTime
 -- @brief 핫타임 뿐만 아니라 운영툴에서 걸어주는 이벤트를 관리한다.
@@ -20,6 +41,13 @@ ServerData_HotTime = class({
         m_boosterMailInfo = 'map',
         m_boosterInfoDirty = 'boolean',
     })
+
+-- 할인 이벤트 
+HOTTIME_SALE_EVENT = {
+    RUNE_RELEASE = 'rune', -- 룬 해제 할인
+    RUNE_ENHANCE = 'runelvup', -- 룬 강화 할인
+    SKILL_MOVE= 'skillmove', -- 스킬 이전 할인
+}
 
 -- 부스터 아이템도 핫타임으로 관리 (사용시 핫타임에 등록됨)
 BOOSTER_ITEM_STATE = {
@@ -540,19 +568,79 @@ function ServerData_HotTime:getDiscountEventValue(dc_target)
 end
 
 -------------------------------------
--- function getDiscountEventValue
+-- function getDiscountEventText
 -------------------------------------
-function ServerData_HotTime:getDiscountEventText(dc_target)
+function ServerData_HotTime:getDiscountEventText(dc_target, only_value)
 	local dc_value = self:getDiscountEventValue(dc_target)
-	
 	local dc_text
 	if (dc_value == 0) then
-		-- nothing to do
+	    -- nothing to do
 	elseif (dc_value == 100) then
-		dc_text = Str('무료')
+		dc_text = self:getDiscountEventText_Free(dc_target, only_value)
 	else
-		dc_text = string.format('%d%%', dc_value)
+		dc_text = self:getDiscountEventText_Value(dc_target, only_value)
 	end
 	
 	return dc_text
+end
+
+-------------------------------------
+-- function getDiscountEventText_Free
+-------------------------------------
+function ServerData_HotTime:getDiscountEventText_Free(dc_target, only_value)
+    local dc_text = ''
+
+    if (only_value) then
+        dc_text = Str('무료')
+
+    elseif (dc_target == HOTTIME_SALE_EVENT.RUNE_RELEASE) then
+        dc_text = Str('룬 해제 무료')
+
+    elseif (dc_target == HOTTIME_SALE_EVENT.RUNE_ENHANCE) then
+        dc_text = Str('룬 강화 무료')
+
+    elseif (dc_target == HOTTIME_SALE_EVENT.SKILL_MOVE) then
+        dc_text = Str('스킬 이전 무료')
+    end
+
+    return dc_text
+end
+
+-------------------------------------
+-- function getDiscountEventText_Value
+-------------------------------------
+function ServerData_HotTime:getDiscountEventText_Value(dc_target, only_value)
+    local dc_value = self:getDiscountEventValue(dc_target)
+    local dc_text = ''
+
+    if (only_value) then
+        dc_text = Str('{1}% 할인', dc_value)
+
+    elseif (dc_target == HOTTIME_SALE_EVENT.RUNE_RELEASE) then
+        dc_text = Str('룬 해제 {1}% 할인', dc_value)
+
+    elseif (dc_target == HOTTIME_SALE_EVENT.RUNE_ENHANCE) then
+        dc_text = Str('룬 강화 {1}% 할인', dc_value)
+
+    elseif (dc_target == HOTTIME_SALE_EVENT.SKILL_MOVE) then
+        dc_text = Str('스킬 이전 {1}% 할인', dc_value)
+    end
+
+    return dc_text
+end
+
+-------------------------------------
+-- function getDiscountEventList
+-------------------------------------
+function ServerData_HotTime:getDiscountEventList()
+    local l_dc_event = {}
+    for k, v in pairs(HOTTIME_SALE_EVENT) do
+        local dc_target = v
+        local dc_value = self:getDiscountEventValue(dc_target)
+        if (dc_value > 0) then
+            table.insert(l_dc_event, dc_target)
+        end
+    end
+	
+	return l_dc_event
 end

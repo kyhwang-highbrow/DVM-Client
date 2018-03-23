@@ -167,6 +167,17 @@ function UI_DragonSkillEnhance:refresh()
         end
     end
 
+    -- 할인 이벤트
+	local l_dc_event = g_hotTimeData:getDiscountEventList()
+    for i, dc_target in ipairs(l_dc_event) do
+        local only_value = true
+        local dc_text = g_hotTimeData:getDiscountEventText(dc_target, only_value)
+        if (dc_target == HOTTIME_SALE_EVENT.SKILL_MOVE) then
+            vars['moveEventSprite']:setVisible(true)
+            vars['moveEventLabel']:setString(dc_text)
+        end
+    end
+
 	-- 소모 골드 표시
 	local price = self:getSkillEnhancePrice()
 	vars['priceLabel']:setString(comma_value(price))

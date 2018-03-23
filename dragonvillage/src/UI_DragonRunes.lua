@@ -155,14 +155,22 @@ function UI_DragonRunes:refresh()
         vars['bgNode']:addChild(animator.m_node)
     end    
 
-	-- 룬 할인 이벤트
-	local dc_text = g_hotTimeData:getDiscountEventText('rune')
-	if (dc_text) then
-		vars['eventRemoveLabel']:setString(dc_text)
-		vars['eventRemoveSprite']:setVisible(true)
-	else
-		vars['eventRemoveSprite']:setVisible(false)
-	end
+	-- 할인 이벤트
+	local l_dc_event = g_hotTimeData:getDiscountEventList()
+    for i, dc_target in ipairs(l_dc_event) do
+        local only_value = true
+        local dc_text = g_hotTimeData:getDiscountEventText(dc_target, only_value)
+        if (dc_target == HOTTIME_SALE_EVENT.RUNE_RELEASE) then
+            vars['removeEventSprite']:setVisible(true)
+            vars['removeEventLabel']:setString(dc_text)
+
+        elseif (dc_target == HOTTIME_SALE_EVENT.RUNE_ENHANCE) then
+            vars['useEnhanceEventSprite']:setVisible(true)
+            vars['useEnhanceEventLabel']:setString(dc_text)
+            vars['selectEnhanceEventSprite']:setVisible(true)
+            vars['selectEnhanceEventLabel']:setString(dc_text)
+        end
+    end
 
 	-- 추천 룬
 	self:refreshRecommendRune()

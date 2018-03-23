@@ -82,6 +82,16 @@ function UI_DragonSkillMove:refresh()
 
         self.m_src_ui = ui
     end
+
+    -- 할인 이벤트
+    local only_value = true
+    local dc_text = g_hotTimeData:getDiscountEventText(HOTTIME_SALE_EVENT.SKILL_MOVE, only_value)
+    if (dc_text and dc_text ~= '') then
+        vars['moveEventSprite']:setVisible(true)
+        vars['moveEventLabel']:setString(dc_text)
+    else
+        vars['moveEventSprite']:setVisible(false)
+    end
 end
 
 -------------------------------------
@@ -99,7 +109,12 @@ function UI_DragonSkillMove:getSkillMovePrice()
     }
 
     local birth_grade = TableDragon:getBirthGrade(self.m_tar_dragon_data['did'])
-	return move_cost[birth_grade]
+
+    -- 스킬 이전 할인 합산
+    local dc_value = g_hotTimeData:getDiscountEventValue(HOTTIME_SALE_EVENT.SKILL_MOVE)
+    local dc_rate = (100 - dc_value)/100
+
+	return math_floor(move_cost[birth_grade] * dc_rate)
 end
 
 -------------------------------------

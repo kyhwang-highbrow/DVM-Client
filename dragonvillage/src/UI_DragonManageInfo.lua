@@ -267,15 +267,20 @@ function UI_DragonManageInfo:refresh_buttonState()
         vars['lockBtn']:setVisible(true)
     end
 
-	-- 룬 할인 이벤트
-	local dc_text = g_hotTimeData:getDiscountEventText('rune')
-	if (dc_text) then
-		vars['eventRemoveLabel']:setString(dc_text)
-		vars['eventRemoveSprite']:setVisible(true)
-	else
-		vars['eventRemoveSprite']:setVisible(false)
-	end
+	-- 할인 이벤트
+	local l_dc_event = g_hotTimeData:getDiscountEventList()
+    for i, dc_target in ipairs(l_dc_event) do
+        if (dc_target == HOTTIME_SALE_EVENT.RUNE_RELEASE) then
+            vars['runeEventSprite']:setVisible(true)
 
+        elseif (dc_target == HOTTIME_SALE_EVENT.RUNE_ENHANCE) then
+            vars['runeEventSprite']:setVisible(true)
+
+        elseif (dc_target == HOTTIME_SALE_EVENT.SKILL_MOVE) then
+            vars['skillEnhanceEventSprite']:setVisible(true)
+        end
+    end
+	
     -- 드래곤 개발 API
     self.m_dragonInfoBoardUI.vars['equipmentBtn']:setEnabled(not is_slime_object)
 end

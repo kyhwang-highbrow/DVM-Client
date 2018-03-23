@@ -1116,14 +1116,17 @@ function UI_Lobby:onFocus()
     -- 핫타임 정보 갱신
     vars['battleHotSprite']:setVisible(g_hotTimeData:isHighlightHotTime())
 	
-	-- 룬 할인 이벤트
-	local dc_text = g_hotTimeData:getDiscountEventText('rune')
-	if (dc_text) then
-		vars['eventRemoveLabel']:setString(dc_text)
-		vars['eventRemoveSprite']:setVisible(true)
-	else
-		vars['eventRemoveSprite']:setVisible(false)
-	end
+	-- 할인 이벤트
+	local l_dc_event = g_hotTimeData:getDiscountEventList()
+    for i, dc_target in ipairs(l_dc_event) do
+        local text = g_hotTimeData:getDiscountEventText(dc_target)
+        local sprite = vars['dragonEventSprite'..i]
+        local label = vars['dragonEventLabel'..i]
+        if (text and label) then
+            sprite:setVisible(true)
+            label:setString(text)
+        end
+    end
 
     self:refresh_userInfo()
     self:refresh_rightButtons()
