@@ -184,7 +184,8 @@ function UI_NestDungeonScene:makeNestModeTableView()
         local new_x = x + content_size['width']
         ui.root:setPosition(new_x, y)
 
-        ui:cellMoveTo(0.25, cc.p(x, y))
+        local force = true
+        ui:cellMoveTo(0.25, cc.p(x, y), force)
     end
 
     -- 최종 클리어한 스테이지 focus

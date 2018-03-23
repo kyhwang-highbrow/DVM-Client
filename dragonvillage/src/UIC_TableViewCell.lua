@@ -5,6 +5,7 @@
 TAG_CELL_MOVE_TO = 10002
 TAG_CELL_WIDTH_TO = 10003
 TAG_CELL_HEIGHT_TO = 10003
+TAG_CELL_MOVE_TO_FORCE = 10004
 
 -------------------------------------
 -- class ITableViewCell
@@ -102,19 +103,20 @@ end
 -- function cellMoveTo
 -- @param
 -------------------------------------
-function ITableViewCell:cellMoveTo(duration, offset)
+function ITableViewCell:cellMoveTo(duration, offset, force)
     local node = self.root
 
     -- UIC_TableView의 cellMoveTo와 외부에서 선언한 cellMoveTo의 액션이 겹치는 것을 방지
-    -- TAG_CELL_MOVE_TO 액션 실행중이면 skip 
-    local action = node:getActionByTag(TAG_CELL_MOVE_TO)
+    -- TAG_CELL_MOVE_TO_FORCE 액션 실행중이면 skip 
+    local action = node:getActionByTag(TAG_CELL_MOVE_TO_FORCE)
     if action then
         return
     end
 
     local move_action = cc.MoveTo:create(duration, offset)
     action = cc.EaseInOut:create(move_action, 2)
-    cca.runAction(node, action, TAG_CELL_MOVE_TO)
+    local tag = force and TAG_CELL_MOVE_TO_FORCE or TAG_CELL_MOVE_TO
+    cca.runAction(node, action, tag)
 end
 
 -------------------------------------
