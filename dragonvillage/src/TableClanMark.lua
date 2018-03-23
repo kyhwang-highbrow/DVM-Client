@@ -89,9 +89,9 @@ function TableClanMark:getColor(idx)
 end
 
 -------------------------------------
--- function getEventMarkPath
--- @eventmark
+-- function getCustomMarkPath
+-- @custommark
 -------------------------------------
-function TableClanMark.getEventMarkPath()
-	return 'res/ui/icons/clan/eventmark_%s.png'
+function TableClanMark.getCustomMarkPath()
+	return 'res/ui/icons/clan/custom/mark_%s.png'
 end

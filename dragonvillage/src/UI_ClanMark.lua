@@ -147,9 +147,9 @@ function UI_ClanMark:init_TableView()
         if (self.m_currTab == 'symbol') then
             curr_idx = struct_clan_mark.m_symbolIdx
 
-			-- @eventmark 이벤트 커스텀 클랜 마크
+			-- @custommark 이벤트 커스텀 클랜 마크
 			if (idx == 21) then
-				struct_clan_mark.m_eventMark = data['res']
+				struct_clan_mark.m_customMark = data['res']
 
 			-- 일반 클랜 마크
 			else
@@ -157,7 +157,7 @@ function UI_ClanMark:init_TableView()
 				struct_clan_mark.m_colorIdx1 = 25
 				struct_clan_mark.m_colorIdx2 = 27
 				struct_clan_mark.m_bgIdx = 30
-				struct_clan_mark.m_eventMark = nil
+				struct_clan_mark.m_customMark = nil
 			end
 
 			icon = struct_clan_mark:makeClanMarkIcon()
@@ -231,9 +231,9 @@ function UI_ClanMark:getTableViewItemList()
     if (self.m_currTab == 'symbol') then
         l_item_list = table_clan_mark.m_symbolMap
 
-		-- @eventmark 커스텀 마크 가능하다면 추가
+		-- @custommark 커스텀 마크 가능하다면 추가
 		local name = string.format('%s_%s', g_localData:getServerName(), g_clanData:getClanStruct():getClanName())
-		local path = string.format(TableClanMark.getEventMarkPath(), name)
+		local path = string.format(TableClanMark.getCustomMarkPath(), name)
 		if (cc.FileUtils:getInstance():isFileExist(path)) then
 			table.insert(l_item_list, {['idx'] = 21, ['res'] = name})
 		end
@@ -262,11 +262,11 @@ function UI_ClanMark:click_listItem(ui, data)
     if (self.m_currTab == 'symbol') then
         prev_idx = self.m_structClanMark.m_symbolIdx
 
-		-- @eventmark 이벤트 커스텀 클랜 마크
+		-- @custommark 이벤트 커스텀 클랜 마크
 		if (idx == 21) then
-			self.m_structClanMark.m_eventMark = data['res']
+			self.m_structClanMark.m_customMark = data['res']
 		else
-			self.m_structClanMark.m_eventMark = nil
+			self.m_structClanMark.m_customMark = nil
 			self.m_structClanMark.m_symbolIdx = idx
 		end
 

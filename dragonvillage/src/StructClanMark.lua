@@ -10,7 +10,7 @@ StructClanMark = class(PARENT, {
         m_colorIdx2 = 'number',
 
 		-- 이벤트 클랜 전용 마크
-		m_eventMark = 'string',
+		m_customMark = 'string',
     })
 
 local THIS = StructClanMark
@@ -51,7 +51,7 @@ function StructClanMark:create(str)
         struct_clan_mark.m_colorIdx1 = tonumber(l_str[3])
         struct_clan_mark.m_colorIdx2 = tonumber(l_str[4])
 	else
-		struct_clan_mark.m_eventMark = str
+		struct_clan_mark.m_customMark = str
     end
 
     return struct_clan_mark
@@ -79,9 +79,9 @@ function StructClanMark:makeClanMarkIcon()
 
     local root
 
-	-- @eventmark 이벤트 마크 사용
-	if (self.m_eventMark and self.m_eventMark ~= '') then
-		root = IconHelper:getIcon(string.format(TableClanMark.getEventMarkPath(), self.m_eventMark))
+	-- @custommark 이벤트 마크 사용
+	if (self.m_customMark and self.m_customMark ~= '') then
+		root = IconHelper:getIcon(string.format(TableClanMark.getCustomMarkPath(), self.m_customMark))
 
 	-- 일반 마크
 	else
@@ -114,9 +114,9 @@ end
 -- function tostring
 -------------------------------------
 function StructClanMark:tostring()
-	-- @eventmark
-	if (self.m_eventMark) then
-		return self.m_eventMark
+	-- @custommark
+	if (self.m_customMark) then
+		return self.m_customMark
 	end
 
     local str = '' .. self.m_bgIdx .. ';' .. self.m_symbolIdx .. ';' .. self.m_colorIdx1 .. ';' .. self.m_colorIdx2
