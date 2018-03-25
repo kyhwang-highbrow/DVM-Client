@@ -393,6 +393,9 @@ function Dragon:initSkillIndicator()
 
     elseif (indicator_type == 'square_height_top') then
         self.m_skillIndicator = SkillIndicator_AoESquare_Height_Top(self, t_skill)
+
+    elseif (indicator_type == 'square_height_touch') then
+        self.m_skillIndicator = SkillIndicator_AoESquare_Height_Touch(self, t_skill)
 	
     -- 굵은 가로형 직사각형
     elseif (indicator_type == 'square_width' or indicator_type == 'square_width_left') then
@@ -401,6 +404,10 @@ function Dragon:initSkillIndicator()
     -- 굵은 가로형 직사각형(오른쪽 기준)
     elseif (indicator_type == 'square_width_right') then
         self.m_skillIndicator = SkillIndicator_AoESquare_Width_Right(self, t_skill, true)
+
+    -- 굵은 가로형 직사각형(터치 기준)
+    elseif (indicator_type == 'square_width_touch') then
+        self.m_skillIndicator = SkillIndicator_AoESquare_Width_Touch(self, t_skill, true)
     
 	-- 여러 다발의 관통형
 	elseif (indicator_type == 'penetration') then

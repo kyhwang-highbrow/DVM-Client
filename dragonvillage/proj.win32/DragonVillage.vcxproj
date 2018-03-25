@@ -556,9 +556,11 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <None Include="..\src\SkillIndicator_AoECone.lua" />
     <None Include="..\src\SkillIndicator_AoESquare.lua" />
     <None Include="..\src\SkillIndicator_AoESquare_Height_Top.lua" />
+    <None Include="..\src\SkillIndicator_AoESquare_Height_Touch.lua" />
     <None Include="..\src\SkillIndicator_AoESquare_Multi.lua" />
     <None Include="..\src\SkillIndicator_AoESquare_Width.lua" />
     <None Include="..\src\SkillIndicator_AoESquare_Width_Right.lua" />
+    <None Include="..\src\SkillIndicator_AoESquare_Width_Touch.lua" />
     <None Include="..\src\SkillIndicator_AoEWedge.lua" />
     <None Include="..\src\SkillIndicator_Cross.lua" />
     <None Include="..\src\SkillIndicator_Penetration.lua" />

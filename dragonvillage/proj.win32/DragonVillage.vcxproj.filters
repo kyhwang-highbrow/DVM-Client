@@ -3334,6 +3334,12 @@
     <None Include="..\src\StatusEffect_SkillCoolReduce.lua">
       <Filter>lua\src</Filter>
     </None>
+    <None Include="..\src\SkillIndicator_AoESquare_Width_Touch.lua">
+      <Filter>lua\src</Filter>
+    </None>
+    <None Include="..\src\SkillIndicator_AoESquare_Height_Touch.lua">
+      <Filter>lua\src</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Classes">

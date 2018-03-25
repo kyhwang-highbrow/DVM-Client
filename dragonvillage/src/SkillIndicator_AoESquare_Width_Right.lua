@@ -76,9 +76,15 @@ function SkillIndicator_AoESquare_Width_Right:findCollision(x, y)
 
     -- x값이 큰 순으로 정렬
     if (#l_ret > 1) then
-        table.sort(l_ret, function(a, b)
-            return a:getPosX() > b:getPosX()
-        end)
+        if (self.m_hero.m_bLeftFormation) then
+            table.sort(l_ret, function(a, b)
+                return a:getPosX() > b:getPosX()
+            end)
+        else
+            table.sort(l_ret, function(a, b)
+                return a:getPosX() < b:getPosX()
+            end)
+        end
     end
 
     -- 타겟 수 만큼만 얻어옴
