@@ -637,6 +637,11 @@ end
 -- @param : only_value - full text or value text
 -------------------------------------
 function ServerData_HotTime:setDiscountEventNode(dc_target, vars, lua_name, only_value)
+    local dc_value = self:getDiscountEventValue(dc_target)
+    if (not dc_value) or (dc_value == 0) then
+        return
+    end
+
     local sprite = vars[lua_name]
     if (sprite) then
         sprite:setVisible(true)
@@ -648,8 +653,8 @@ function ServerData_HotTime:setDiscountEventNode(dc_target, vars, lua_name, only
 
     -- 라벨이 있는 경우 텍스트 표기
     local _lua_name = string.gsub(lua_name, 'Sprite', 'Label')
-    local label = vars[_lua_name]
     local text = self:getDiscountEventText(dc_target, only_value)
+    local label = vars[_lua_name]
     if (label) then
         label:setString(text)
     end
