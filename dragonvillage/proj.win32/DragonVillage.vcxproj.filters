@@ -3340,6 +3340,9 @@
     <None Include="..\src\SkillIndicator_AoESquare_Height_Touch.lua">
       <Filter>lua\src</Filter>
     </None>
+    <None Include="..\src\TableClanMarkCustom.lua">
+      <Filter>lua\src</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Classes">
