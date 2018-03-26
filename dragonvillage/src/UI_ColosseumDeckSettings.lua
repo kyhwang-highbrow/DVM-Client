@@ -10,7 +10,7 @@ UI_ColosseumDeckSettings = class(PARENT,{
 -------------------------------------
 -- function init
 -------------------------------------
-function UI_ColosseumDeckSettings:init(stage_id, with_friend, sub_info)
+function UI_ColosseumDeckSettings:init(stage_id, sub_info)
 end
 
 -------------------------------------

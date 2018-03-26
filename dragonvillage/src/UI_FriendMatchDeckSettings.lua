@@ -10,7 +10,7 @@ UI_FriendMatchDeckSettings = class(PARENT,{
 -------------------------------------
 -- function init
 -------------------------------------
-function UI_FriendMatchDeckSettings:init(stage_id, with_friend, sub_info)
+function UI_FriendMatchDeckSettings:init(stage_id, sub_info)
 end
 
 -------------------------------------

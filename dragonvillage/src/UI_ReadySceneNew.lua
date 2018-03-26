@@ -27,7 +27,7 @@ UI_ReadySceneNew = class(PARENT,{
 -------------------------------------
 -- function init
 -------------------------------------
-function UI_ReadySceneNew:init(stage_id, with_friend, sub_info)
+function UI_ReadySceneNew:init(stage_id, sub_info)
     -- spine 캐시 정리
     SpineCacheManager:getInstance():purgeSpineCacheData()
     self.m_gameMode = g_stageData:getGameMode(stage_id)
@@ -37,7 +37,8 @@ function UI_ReadySceneNew:init(stage_id, with_friend, sub_info)
 	end
     self:init_MemberVariable(stage_id)
 
-    self.m_bWithFriend = with_friend or false
+    -- 모험모드에서만 친구사용
+    self.m_bWithFriend = (self.m_gameMode == GAME_MODE_ADVENTURE) and true or false
     self.m_bUseCash = false
 
     local vars = self:load('battle_ready_new.ui')

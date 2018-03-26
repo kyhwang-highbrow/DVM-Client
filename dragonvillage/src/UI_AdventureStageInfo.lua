@@ -365,19 +365,13 @@ function UI_AdventureStageInfo:click_enterBtn()
         local function close_cb()
             self:sceneFadeInAction()
         end
-        -- 모험모드만 친구드래곤 사용 가능
-        local with_friend = false
-        local game_mode = g_stageData:getGameMode(stage_id)
-        if (game_mode == GAME_MODE_ADVENTURE) then
-            with_friend = true
-        end
 
         if (game_mode == GAME_MODE_CLAN_RAID) then
             local stage_name = 'stage_' .. stage_id
             local scene = SceneGameClanRaid(nil, stage_id, stage_name, true)
             scene:runScene()
         else
-            local ui = UI_ReadySceneNew(stage_id, with_friend)
+            local ui = UI_ReadySceneNew(stage_id)
             ui:setCloseCB(close_cb)
         end
     end

@@ -172,8 +172,7 @@ end
 -- @brief 출전 덱 변경
 -------------------------------------
 function UI_FriendMatchReady:click_deckBtn()
-    local with_friend = nil
-    local ui = UI_FriendMatchDeckSettings(FRIEND_MATCH_STAGE_ID, with_friend, 'fatk')
+    local ui = UI_FriendMatchDeckSettings(FRIEND_MATCH_STAGE_ID, 'fatk')
     local function close_cb()
         local player_2d_deck = self.m_player2DDeck
         local l_dragon_obj = g_friendMatchData.m_playerUserInfo:getAtkDeck_dragonList()

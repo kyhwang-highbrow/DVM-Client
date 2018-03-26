@@ -174,8 +174,7 @@ end
 -- @brief 출전 덱 변경
 -------------------------------------
 function UI_ColosseumReady:click_deckBtn()
-    local with_friend = nil
-    local ui = UI_ColosseumDeckSettings(COLOSSEUM_STAGE_ID, with_friend, 'atk')
+    local ui = UI_ColosseumDeckSettings(COLOSSEUM_STAGE_ID, 'atk')
     local function close_cb()
         local t_pvp_deck = g_colosseumData.m_playerUserInfo.m_pvpAtkDeck
 
