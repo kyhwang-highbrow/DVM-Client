@@ -237,6 +237,141 @@ function TeamBonusHelper:checkConditionFromDid(t_teambonus, did)
 end
 
 -------------------------------------
+-- function getExistDragonByDid
+-- @brief 해당 did의 최고 전투력의 StructDragonObject 반환
+-------------------------------------
+function TeamBonusHelper:getExistDragonByDid(did, is_all)
+    local is_all = is_all or false
+    local struct_dragon_data  
+    local table_dragon = TableDragon()
+
+    -- 모든 속성 순회하며 did 검사
+    if (is_all) then
+        local compare_map = {}
+        local combat_power = 0
+        for i = 0, 5 do
+            local _did = did + i
+            if (table_dragon:exists(_did)) and (g_dragonsData:getNumOfDragonsByDid(_did) > 0) then
+                local _struct_dragon_data = g_dragonsData:getBestDragonByDid(_did)
+                local doid = _struct_dragon_data['id']
+                compare_map[doid] = _struct_dragon_data
+            end
+        end
+
+        for _, v in pairs(compare_map) do
+            local sort_data = v:getDragonSortData()
+            local _combat_power = sort_data['combat_power']
+            if (combat_power < _combat_power) then
+                struct_dragon_data = v
+                combat_power = _combat_power
+            end
+        end
+
+    -- 해당 속성 did 검사
+    elseif (g_dragonsData:getNumOfDragonsByDid(did) > 0) then
+        struct_dragon_data = g_dragonsData:getBestDragonByDid(did)
+    end
+    
+    return struct_dragon_data
+end
+
+-------------------------------------
+-- function getExistDragonByAttr
+-- @brief 해당 attr의 최고 전투력의 StructDragonObject List 반환
+-------------------------------------
+function TeamBonusHelper:getExistDragonByAttr(attr)
+    local map_dragon_data = g_dragonsData:getDragonsListWithAttr(attr)
+    local l_dragon_data = table.MapToList(map_dragon_data)
+    table.sort(l_dragon_data, function(a,b)
+        local a_sort_data = a:getDragonSortData()
+        local b_sort_data = b:getDragonSortData()
+        local a_combat = a_sort_data['combat_power']
+        local b_combat = b_sort_data['combat_power']
+        return a_combat > b_combat
+    end)
+
+    local l_new_dragon_data = {}
+    for i, v in ipairs(l_dragon_data) do
+        if (i > MAX_CONDITION_COUNT) then
+            break
+        end
+
+        table.insert(l_new_dragon_data, v)
+    end
+
+    return l_new_dragon_data
+end
+
+-------------------------------------
+-- function getExistDragonByRole
+-- @brief 해당 role의 최고 전투력의 StructDragonObject List 반환
+-------------------------------------
+function TeamBonusHelper:getExistDragonByRole(role)
+    local map_dragon_data = g_dragonsData:getDragonsListWithRole(role)
+    local l_dragon_data = table.MapToList(map_dragon_data)
+    table.sort(l_dragon_data, function(a,b)
+        local a_sort_data = a:getDragonSortData()
+        local b_sort_data = b:getDragonSortData()
+        local a_combat = a_sort_data['combat_power']
+        local b_combat = b_sort_data['combat_power']
+        return a_combat > b_combat
+    end)
+
+    local l_new_dragon_data = {}
+    for i, v in ipairs(l_dragon_data) do
+        if (i > MAX_CONDITION_COUNT) then
+            break
+        end
+
+        table.insert(l_new_dragon_data, v)
+    end
+
+    return l_new_dragon_data
+end
+
+-------------------------------------
+-- function isSatisfiedByMyDragons
+-- @brief 내가 보유한 드래곤으로 해당 팀보너스의 조건이 충족되는지 여부
+-------------------------------------
+function TeamBonusHelper:isSatisfiedByMyDragons(t_teambonus)
+    local map_dragon_data = g_dragonsData:getDragonsList()
+    local l_dragon_data = table.MapToList(map_dragon_data)
+    local b_satisfied, _, l_all_dragon_data = self:checkCondition(t_teambonus, l_dragon_data)
+
+    local new_all_dragon_data = {}
+    local type = t_teambonus['condition_type']
+
+    if (l_all_dragon_data) then
+        for i, struct_dragon_data in ipairs(l_all_dragon_data) do
+            
+            -- ## 전투력 가장 높은 드래곤 우선시
+            -- did 관련
+            if (string.find(type, 'did')) then
+                local did = struct_dragon_data['did']
+                local is_all = ((type == 'did_attr') or (type == 'did_attr_same')) and true or false
+                local new_struct_dragon_data = self:getExistDragonByDid(did)
+                if (new_struct_dragon_data) then
+                    table.insert(new_all_dragon_data, new_struct_dragon_data)
+                end
+            
+            -- 속성
+            elseif (type == 'attr') then
+                local attr = struct_dragon_data:getAttr()
+                new_all_dragon_data = self:getExistDragonByAttr(attr)
+
+            -- 역할 
+            elseif (type == 'role') then
+                local role = struct_dragon_data:getRole()
+                new_all_dragon_data = self:getExistDragonByRole(role)
+
+            end
+        end
+    end
+    
+    return b_satisfied, new_all_dragon_data
+end
+
+-------------------------------------
 -- function findVaildDragonsFromCondition
 -- @brief 파라미터의 조건에 해당하는 드래곤을 l_dragon_data내에서 찾음
 -------------------------------------

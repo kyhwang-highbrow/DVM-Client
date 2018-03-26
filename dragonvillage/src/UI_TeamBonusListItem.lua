@@ -5,13 +5,17 @@ local PARENT = class(UI, ITableViewCell:getCloneTable())
 -------------------------------------
 UI_TeamBonusListItem = class(PARENT, {
         m_data = 'StructTeamBonus',
+        m_bRecommend = 'boolean', -- 추천배치 가능한 모드
+        m_applyFunc = 'function',
      })
 
 -------------------------------------
 -- function init
 -------------------------------------
-function UI_TeamBonusListItem:init(data)
+function UI_TeamBonusListItem:init(data, b_recommend, apply_func)
     self.m_data = data
+    self.m_bRecommend = b_recommend or false
+    self.m_applyFunc = apply_func or nil
 
     local vars = self:load('team_bonus_item.ui')
 
@@ -25,14 +29,16 @@ end
 -------------------------------------
 function UI_TeamBonusListItem:initUI()
     local vars = self.vars
-    local data = self.m_data
+    local struct_teambonus = self.m_data
+    local id = struct_teambonus.m_id
 
     -- 적용중인 팀보너스 없을 경우 id : 0
-    if (not TableTeamBonus():exists(data.m_id)) then
+    if (not TableTeamBonus():exists(id)) then
         vars['emptySprite']:setVisible(true)
         return
     end
-    local t_teambonus = TableTeamBonus():get(data.m_id)
+
+    local t_teambonus = TableTeamBonus():get(id)
 
     -- 이름 & 조건
     local name = t_teambonus['t_name'] or ''
@@ -44,16 +50,24 @@ function UI_TeamBonusListItem:initUI()
     vars['titleLabel']:setString(str)
 
     -- 설명
-    local desc = TableTeamBonus():getDesc(data.m_id)
+    local desc = TableTeamBonus():getDesc(id)
     vars['dscLabel']:setString(desc)
 
-    -- 드래곤 카드
-    if (data:isSatisfied()) then -- 적용중인 상태에서만 만족하는 드래곤 리스트 찍어줌
+    -- 적용중인 상태
+    if (struct_teambonus:isSatisfied()) then 
         vars['selectSprite']:setVisible(true)
+
+    -- 추천배치 가능한 상태
+    elseif (self.m_bRecommend) then
+        local is_satisfied, l_dragon_list = TeamBonusHelper:isSatisfiedByMyDragons(t_teambonus)
+        if (is_satisfied) then
+            vars['applyBtn']:setVisible(true)
+            vars['applyBtn']:registerScriptTapHandler(function() self:click_applyBtn(l_dragon_list, t_teambonus) end)
+        end
     end
 
-    local l_card = TeamBonusCardFactory:makeUIList(data)
-
+    -- 드래곤 카드
+    local l_card = TeamBonusCardFactory:makeUIList(struct_teambonus)
     if (l_card) then
         for i, ui in ipairs(l_card) do
             vars['dragonNode' .. i]:addChild(ui)
@@ -72,4 +86,18 @@ end
 -- function refresh
 -------------------------------------
 function UI_TeamBonusListItem:refresh()
+end
+
+-------------------------------------
+-- function click_applyBtn
+-------------------------------------
+function UI_TeamBonusListItem:click_applyBtn(l_dragon_list, t_teambonus) 
+    local function ok_cb()
+        if (self.m_applyFunc) then
+            self.m_applyFunc(l_dragon_list)
+        end
+    end
+    local name = t_teambonus['t_name'] 
+    local msg = Str('현재 편성된 팀을 해제하고 {@sky_blue}{1}{@default}팀을 배치합니다.\n진행하시겠습니까?', name)
+    MakeSimplePopup(POPUP_TYPE.YES_NO, msg, ok_cb)
 end

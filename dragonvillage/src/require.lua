@@ -236,6 +236,7 @@ local t_module = {
     'SortManager_Friend',
     'SortManager_ClanMember',
     'SortManager_ClanRequest',
+    'SortManager_TeamBonus',
     'SimplePrimitivesDraw',
 	'StageMissionMgr',
 	'LogRecorder',

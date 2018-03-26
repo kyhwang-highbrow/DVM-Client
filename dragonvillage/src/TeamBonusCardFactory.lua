@@ -175,44 +175,6 @@ function TeamBonusCardFactory:makeUIList_Did(t_teambonus)
 end
 
 -------------------------------------
--- function getExistDragonByDid
--- @brief 해당 did의 최고 전투력의 StructDragonObject 반환
--------------------------------------
-function TeamBonusCardFactory:getExistDragonByDid(did, is_all)
-    local is_all = is_all or false
-    local struct_dragon_data  
-    local table_dragon = TableDragon()
-
-    -- 모든 속성 순회하며 did 검사
-    if (is_all) then
-        local compare_map = {}
-        local combat_power = 0
-        for i = 0, 5 do
-            local _did = did + i
-            if (table_dragon:exists(_did)) and (g_dragonsData:getNumOfDragonsByDid(_did) > 0) then
-                local _struct_dragon_data = g_dragonsData:getBestDragonByDid(_did)
-                local doid = _struct_dragon_data['id']
-                compare_map[doid] = _struct_dragon_data
-            end
-        end
-
-        for _, v in pairs(compare_map) do
-            local _combat_power = v:getCombatPower()
-            if (combat_power < _combat_power) then
-                struct_dragon_data = v
-                combat_power = _combat_power
-            end
-        end
-
-    -- 해당 속성 did 검사
-    elseif (g_dragonsData:getNumOfDragonsByDid(did) > 0) then
-        struct_dragon_data = g_dragonsData:getBestDragonByDid(did)
-    end
-    
-    return struct_dragon_data
-end
-
--------------------------------------
 -- function getExistFirstDid
 -- @brief 존재하는 속성 did 반환
 -------------------------------------
@@ -249,7 +211,9 @@ function TeamBonusCardFactory:getDefaultCard(did, is_all)
     local card = UI_DragonCard(StructDragonObject(t_dragon_data))
     local btn = card.vars['clickBtn']
 
-    local struct_dragon_data = self:getExistDragonByDid(did, is_all)
+    -- did 관련 팀보너스만 보유시 해당 드래곤 표시함
+    -- 후에 바뀔 수 있음
+    local struct_dragon_data = TeamBonusHelper:getExistDragonByDid(did, is_all)
     card:setTeamBonusCheckBoxSpriteVisible(true)
 
     -- 드래곤 보유하고 있다면 해당 드래곤 데이터로 갱신

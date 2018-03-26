@@ -3343,6 +3343,9 @@
     <None Include="..\src\TableClanMarkCustom.lua">
       <Filter>lua\src</Filter>
     </None>
+    <None Include="..\src\SortManager_TeamBonus.lua">
+      <Filter>lua\src</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Classes">

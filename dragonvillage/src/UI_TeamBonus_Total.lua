@@ -36,41 +36,45 @@ function UI_TeamBonus_Total:initTableView(only_my_team)
         l_teambonus = TeamBonusHelper:getAllTeamBonusDataFromDeck(l_deck) 
     end
 
-    local l_my_teambonus = TeamBonusHelper:getTeamBonusDataFromDeck(l_deck)
-
     -- 적용중인 팀보너스가 없을 경우 cell 하나 추가해줌
     local initail_tab = self.m_owner_ui.m_initail_tab 
-    if (initail_tab == TEAM_BONUS_MODE.TOTAL) and (#l_my_teambonus == 0) then
-        local temp_data = {
-            id = 0,
-            skill_type = 'none',
-        }
+    if (initail_tab == TEAM_BONUS_MODE.TOTAL) then
+        local l_my_teambonus = TeamBonusHelper:getTeamBonusDataFromDeck(l_deck)
+        if (#l_my_teambonus == 0) then
+            local temp_data = {
+                id = 0,
+                skill_type = 'none',
+            }
 
-        local temp_struct_teambonus = StructTeamBonus(temp_data)
-        temp_struct_teambonus.m_bSatisfy = true
-        table.insert(l_teambonus, temp_struct_teambonus)
+            local temp_struct_teambonus = StructTeamBonus(temp_data)
+            temp_struct_teambonus.m_bSatisfy = true
+            table.insert(l_teambonus, temp_struct_teambonus)
+        end
     end
 
-    -- 적용중인 팀보너스 위로
-    table.sort(l_teambonus, function(a, b)
-		local a_value = a:isSatisfied() and 99 or 0
-		local b_value = b:isSatisfied() and 99 or 0
-
-		if (a_value == b_value) then
-			local a_priority = a.m_priority or 0
-			local b_priority = b.m_priority or 0
-			return a_priority > b_priority
-		else
-			return a_value > b_value
-		end
-	end)
-
+    -- 덱이 설정되었다면 추천 기능 활성화
+    local b_recommend = (self.m_owner_ui.m_selDeck) and true or false
     local node = vars['allListNode']
     node:removeAllChildren()
 
+    local make_func = function(data)
+        local apply_func
+        if (b_recommend) then
+            apply_func = function(l_dragon_list)
+                self.m_owner_ui:applyDeck(l_dragon_list) 
+            end
+        end
+       
+        return UI_TeamBonusListItem(data, b_recommend, apply_func)
+    end
+
     local table_view = UIC_TableView(node)
     table_view.m_defaultCellSize = cc.size(1200, 130)
-    table_view:setCellUIClass(UI_TeamBonusListItem)
+    table_view:setCellUIClass(make_func)
     table_view:setDirection(cc.SCROLLVIEW_DIRECTION_VERTICAL)
     table_view:setItemList(l_teambonus)
+
+    local sort_mgr = SortManager_TeamBonus(b_recommend)
+    sort_mgr:sortExecution(table_view.m_itemList)
+    table_view:setDirtyItemList()
 end

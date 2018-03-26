@@ -9,6 +9,8 @@ UI_TeamBonus = class(PARENT,{
         m_selDid = 'number',
 
         m_tTabClass = 'table',
+
+        m_applyDeck = '',
     })
 
 TEAM_BONUS_MODE = {
@@ -50,8 +52,6 @@ function UI_TeamBonus:init(initail_tab, l_deck, sel_did)
     self:initTab()
     self:initButton()
     self:refresh()
-
-    local temp = Str('현재 편성된 팀을 해제하고 {1}팀을 배치합니다.\n진행하시겠습니까?', name)
 end
 
 -------------------------------------
@@ -120,9 +120,23 @@ function UI_TeamBonus:refresh()
 end
 
 -------------------------------------
+-- function applyDeck
+-------------------------------------
+function UI_TeamBonus:applyDeck(l_dragon_list)
+    self.m_applyDeck = l_dragon_list
+    self:click_exitBtn()
+end
+
+-------------------------------------
 -- function click_exitBtn
 -------------------------------------
 function UI_TeamBonus:click_exitBtn()
+    local apply_deck = self.m_applyDeck
+    if (apply_deck) then
+        self.m_closeCB(apply_deck)
+    end
+
+    self.m_closeCB = nil
     self:close()
 end
 

@@ -808,7 +808,12 @@ end
 -------------------------------------
 function UI_ReadySceneNew:click_teamBonusBtn()
     local l_deck = self.m_readySceneDeck.m_lDeckList
-	UI_TeamBonus(TEAM_BONUS_MODE.TOTAL, l_deck)
+	local ui = UI_TeamBonus(TEAM_BONUS_MODE.TOTAL, l_deck)
+    local refresh_cb = function(l_dragon_list)
+        self:applyDeck(l_dragon_list)
+    end
+
+    ui:setCloseCB(refresh_cb)
 end
 
 -------------------------------------
@@ -845,14 +850,22 @@ function UI_ReadySceneNew:click_autoBtn()
 
     local helper = DragonAutoSetHelperNew(stage_id, formation, l_dragon_list)
     local l_auto_deck = helper:getAutoDeck()
-    l_auto_deck = UI_ReadySceneNew_Deck:convertSimpleDeck(l_auto_deck)
+    
+    self:applyDeck(l_auto_deck)
+end
+
+-------------------------------------
+-- function applyDeck
+-------------------------------------
+function UI_ReadySceneNew:applyDeck(l_deck)
+    local new_deck = UI_ReadySceneNew_Deck:convertSimpleDeck(l_deck)
 
     -- 1. 덱을 비움
     local skip_sort = true
     self.m_readySceneDeck:clear_deck(skip_sort)
 
     -- 2. 덱을 채움
-    for i,t_dragon_data in pairs(l_auto_deck) do
+    for i,t_dragon_data in pairs(new_deck) do
         self.m_readySceneDeck:setFocusDeckSlotEffect(i)
         local skip_sort = true
         self:click_dragonCard(t_dragon_data, skip_sort, i)
