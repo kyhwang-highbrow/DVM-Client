@@ -100,7 +100,7 @@ function UI_Book:initButton()
         radio_button:addButtonAuto('earth', vars)
         radio_button:addButtonAuto('dark', vars)
         radio_button:addButtonAuto('light', vars)
-        radio_button:setSelectedButton('fire')
+        radio_button:setSelectedButton('earth')
         radio_button:setChangeCB(function() self:onChangeOption() end)
         self.m_attrRadioButton = radio_button
     end
