@@ -760,7 +760,6 @@ local t_module = {
     'UI_PackagePopup',
     'UI_PackageTabButton',
     'UI_TeamBonus',
-    'UI_TeamBonus_Apply',
     'UI_TeamBonus_Dragon',
     'UI_TeamBonus_Total',
     'UI_TeamBonus_Detail',
