@@ -273,6 +273,7 @@ function ServerData_Stage:requestGameStart(stage_id, deck_name, combat_power, fi
     local api_url = ''
     local game_mode = g_stageData:getGameMode(stage_id)
     local attr
+    local teambonus_ids
     if (game_mode == GAME_MODE_ADVENTURE) then
         api_url = '/game/stage/start'
 
@@ -335,10 +336,12 @@ function ServerData_Stage:requestGameStart(stage_id, deck_name, combat_power, fi
         -- 시험의 탑
         if (_attr) then
             attr = _attr
+            teambonus_ids = g_stageData:getTeamBonusIds(deck_name)
             api_url = '/game/attr_tower/start'
 
         -- 고대의 탑
         else
+            teambonus_ids = g_stageData:getTeamBonusIds(deck_name)
             api_url = '/game/ancient/start'
         end
     elseif (game_mode == GAME_MODE_EVENT_GOLD) then
@@ -390,7 +393,12 @@ function ServerData_Stage:requestGameStart(stage_id, deck_name, combat_power, fi
     ui_network:setParam('combat_power', combat_power)
     ui_network:setParam('friend', friend_uid)
     ui_network:setParam('oid', oid)
-    if (attr) then ui_network:setParam('attr', attr) end
+    if (attr) then 
+        ui_network:setParam('attr', attr) 
+    end
+    if (teambonus_ids) then
+        ui_network:setParam('team_bonus', teambonus_ids) 
+    end
     ui_network:setParam('token', self:makeDragonToken())
     ui_network:setResponseStatusCB(response_status_cb)
     ui_network:setSuccessCB(success_cb)
@@ -665,4 +673,30 @@ function ServerData_Stage:makeDragonToken(deckname)
     token = HEX(AES_Encrypt(HEX2BIN(CONSTANT['AES_KEY']), token))
     
     return token
+end
+
+-------------------------------------
+-- function getTeamBonusIds
+-------------------------------------
+function ServerData_Stage:getTeamBonusIds(deckname)
+    local ids = ''
+
+    local l_deck 
+    if (deckname) then
+        l_deck = g_deckData:getDeck(deckname)
+    else
+        l_deck = g_deckData:getDeck()
+    end
+
+    local l_teambonus = TeamBonusHelper:getTeamBonusDataFromDeck(l_deck)
+    for _, struct_teambonus in ipairs(l_teambonus) do
+        local id = tostring(struct_teambonus:getID() or '') 
+        if (ids == '') then
+            ids = id
+        else
+            ids = ids .. ',' .. id
+        end
+    end
+    
+    return ids
 end

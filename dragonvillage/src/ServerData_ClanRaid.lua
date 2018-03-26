@@ -481,6 +481,8 @@ function ServerData_ClanRaid:requestGameStart(stage_id, deck_name, combat_power,
 
     local token1 = g_stageData:makeDragonToken(deck_name1)
     local token2 = g_stageData:makeDragonToken(deck_name2)
+    local teambonus1 = g_stageData:getTeamBonusIds(deck_name1)
+    local teambonus2 = g_stageData:getTeamBonusIds(deck_name2)
 
     local ui_network = UI_Network()
     ui_network:setUrl(api_url)
@@ -492,6 +494,9 @@ function ServerData_ClanRaid:requestGameStart(stage_id, deck_name, combat_power,
     ui_network:setParam('token1', token1)
     ui_network:setParam('token2', token2)
     ui_network:setParam('combat_power', combat_power)
+    ui_network:setParam('team_bonus1', teambonus1)
+    ui_network:setParam('team_bonus2', teambonus2)
+
     if (is_cash) then ui_network:setParam('is_cash', is_cash) end
     ui_network:setResponseStatusCB(response_status_cb)
     ui_network:setSuccessCB(success_cb)

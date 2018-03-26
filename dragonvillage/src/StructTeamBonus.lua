@@ -91,3 +91,10 @@ end
 function StructTeamBonus:getName()
     return TableTeamBonus():getName(self.m_id)
 end
+
+-------------------------------------
+-- function getID
+-------------------------------------
+function StructTeamBonus:getID()
+    return self.m_id
+end

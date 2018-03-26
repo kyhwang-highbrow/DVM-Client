@@ -471,6 +471,7 @@ function ServerData_Colosseum:request_colosseumStart(is_cash, vsuid, finish_cb, 
     ui_network:setParam('vsuid', vsuid)
     ui_network:setParam('combat_power', combat_power)
     ui_network:setParam('token', self:makeDragonToken())
+    ui_network:setParam('team_bonus', self:getTeamBonusIds())
     ui_network:setMethod('POST')
     ui_network:setSuccessCB(success_cb)
     ui_network:setFailCB(fail_cb)
@@ -796,7 +797,6 @@ function ServerData_Colosseum:request_playerColosseumDeck(deckname, finish_cb, f
     return ui_network
 end
 
-
 -------------------------------------
 -- function makeDragonToken
 -------------------------------------
@@ -836,4 +836,24 @@ function ServerData_Colosseum:makeDragonToken()
     token = HEX(AES_Encrypt(HEX2BIN(CONSTANT['AES_KEY']), token))
     
     return token
+end
+
+-------------------------------------
+-- function getTeamBonusIds
+-------------------------------------
+function ServerData_Colosseum:getTeamBonusIds()
+    local ids = ''
+
+    local l_deck = g_colosseumData.m_playerUserInfo:getAtkDeck_dragonList(true)
+    local l_teambonus = TeamBonusHelper:getTeamBonusDataFromDeck(l_deck)
+    for _, struct_teambonus in ipairs(l_teambonus) do
+        local id = tostring(struct_teambonus:getID() or '') 
+        if (ids == '') then
+            ids = id
+        else
+            ids = ids .. ',' .. id
+        end
+    end
+    
+    return ids
 end
