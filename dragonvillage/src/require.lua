@@ -324,6 +324,7 @@ local t_module = {
     'TableEvolutionItemCombine',
     'TablePackageBundle',
     'TableClanMark',
+	'TableClanMarkCustom',
 	'TableDailyMission',
 	'TablePickDragon',
     'TableTeamBonus',

@@ -233,8 +233,8 @@ function UI_ClanMark:getTableViewItemList()
 
 		-- @custommark 커스텀 마크 가능하다면 추가
 		local name = string.format('%s_%s', g_localData:getServerName(), g_clanData:getClanStruct():getClanName())
-		local path = string.format(TableClanMark.getCustomMarkPath(), name)
-		if (cc.FileUtils:getInstance():isFileExist(path)) then
+		local path = TableClanMarkCustom:findCustomMarkRes(name)
+		if (path) then
 			table.insert(l_item_list, {['idx'] = 21, ['res'] = name})
 		end
 

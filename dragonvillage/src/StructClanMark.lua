@@ -86,7 +86,8 @@ function StructClanMark:makeClanMarkIcon()
 		root = IconHelper:getIcon(bg_res)
 		
 		-- 커스텀 마크
-		local icon = IconHelper:getIcon(string.format(TableClanMark.getCustomMarkPath(), self.m_customMark))
+		local path = TableClanMarkCustom:findCustomMarkRes(self.m_customMark)
+		local icon = IconHelper:getIcon(path)
 		root:addChild(icon)
 
 	-- 일반 마크
