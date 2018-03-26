@@ -50,6 +50,8 @@ function UI_TeamBonus:init(initail_tab, l_deck, sel_did)
     self:initTab()
     self:initButton()
     self:refresh()
+
+    local temp = Str('현재 편성된 팀을 해제하고 {1}팀을 배치합니다.\n진행하시겠습니까?', name)
 end
 
 -------------------------------------
