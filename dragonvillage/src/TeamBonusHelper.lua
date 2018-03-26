@@ -96,6 +96,7 @@ function TeamBonusHelper:checkCondition(t_teambonus, l_dragon_data)
 
     -- l_dragon_data내의 드래곤 중에서 해당 팀 보너스 효과를 받는 드래곤들을 저장하기 위한 리스트
     local l_valid_dragon_data = {}
+    local l_all_dragon_data = {}
 
     -- 이미 포함된 드래곤을 제외시키기 위한 맵
     local m_doid_to_except = {}
@@ -112,9 +113,15 @@ function TeamBonusHelper:checkCondition(t_teambonus, l_dragon_data)
                     m_doid_to_except[dragon_data['id']] = true
 
                     m_all_valid_dragon_data[idx] = m_valid_dragon_data[idx]
+                    l_all_dragon_data[i] = m_valid_dragon_data[idx]
                 end
 
                 m_satisfiedCondition[i] = m_valid_dragon_data
+            else
+                -- did 포함한 팀보너스는 적용중이지 않은 드래곤들도 체크
+                if (string.find(condition_type, 'did')) then
+                    l_all_dragon_data[i] = { did = condition }
+                end
             end
         end
     end
@@ -128,7 +135,7 @@ function TeamBonusHelper:checkCondition(t_teambonus, l_dragon_data)
     local achievement_count = table.count(m_satisfiedCondition)
     local b = (achievement_count >= req_count)
 
-    return b, l_valid_dragon_data
+    return b, l_valid_dragon_data, l_all_dragon_data
 end
 
 

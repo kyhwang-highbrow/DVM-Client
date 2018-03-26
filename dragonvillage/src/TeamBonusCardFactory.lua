@@ -8,16 +8,16 @@ TeamBonusCardFactory = {}
 ------------------------------------
 -- function makeUIList
 -- @brief 해당 팀보너스 DragonCard UI 리스트 생성
--- @param teambonus_data : StructTeamBonus Data
--- @param l_dragon : 적용중인 Dragon객체 리스트
+-- @param data : StructTeamBonus Data
 -------------------------------------
-function TeamBonusCardFactory:makeUIList(t_teambonus, l_dragon)
+function TeamBonusCardFactory:makeUIList(data)
     local l_card
+    local t_teambonus = TableTeamBonus():get(data.m_id)
     local type = t_teambonus['condition_type']
 
     -- 적용중인 드래곤이 있다면 
-    if (l_dragon) and (#l_dragon > 0) then
-        l_card = self:makeUIList_Deck(l_dragon)
+    if (data:isSatisfied()) then
+        l_card = self:makeUIList_Deck(data)
 
     -- 속성 조건
     elseif (type == 'attr') then
@@ -46,16 +46,33 @@ end
 -- function makeUIList_Deck
 -- @brief 적용중인 드래곤 카드 생성
 -------------------------------------
-function TeamBonusCardFactory:makeUIList_Deck(l_dragon)
-    local l_card = {}
+function TeamBonusCardFactory:makeUIList_Deck(data)
+    local t_teambonus = TableTeamBonus():get(data.m_id)
+    local l_dragon_data = data.m_lAllDragonData -- 팀보너스 적용 안되는 드래곤까지 받아옴
 
-    for _, dragon_data in ipairs(l_dragon) do
-        local card = UI_DragonCard(dragon_data)
-        local inuse_sprite = card.vars['inuseSprite']
-        if (inuse_sprite) then
-            inuse_sprite:setVisible(false)
+    local l_card = {}
+    for _, struct_dragon_data in ipairs(l_dragon_data) do
+
+        -- 팀보너스 적용중인 드래곤
+        if (struct_dragon_data and struct_dragon_data['id']) then
+            local card = UI_DragonCard(struct_dragon_data)
+            local inuse_sprite = card.vars['inuseSprite']
+            if (inuse_sprite) then
+                inuse_sprite:setVisible(false)
+            end
+            card:setTeamBonusCheckBoxSpriteVisible(true)
+            card:setTeamBonusCheckSpriteVisible(true)
+            table.insert(l_card, card.root)
+
+        -- 적용중이진 않지만 리스트에는 노출
+        else
+            local type = t_teambonus['condition_type']
+            local did = struct_dragon_data['did']
+            local is_all = ((type == 'did_attr') or (type == 'did_attr_same')) and true or false
+
+            local card = self:getDefaultCard(did, is_all)
+            table.insert(l_card, card.root)
         end
-        table.insert(l_card, card.root)
     end
     
     return l_card
@@ -124,32 +141,12 @@ function TeamBonusCardFactory:makeUIList_Did_Attr(t_teambonus)
     local table_dragon = TableDragon()
 
     -- 모든 속성인 경우 존재하는 첫번째 속성 드래곤 카드 찍어줌
-    local get_did = function(start_did)
-        for i = 1, 5 do
-            local did = start_did + i
-            if (table_dragon:exists(did)) then
-                return did
-            end
-        end
-            
-        error('TeamBonusCardFactory - did 존재 하지 않음 : ' .. start_did)
-    end
-
     for i = 1, MAX_CONDITION_COUNT do
         local condition = t_teambonus['condition_' .. i]
         if (condition ~= '') then
-            local did = get_did(condition)
+            local did = self:getExistFirstDid(condition)
             local is_all = true
             local card = self:getDefaultCard(did, is_all)
-
-            -- 모든속성 아이콘 
-            card:makeAttrIcon('all')
-            -- 모든속성 배경 보여주지 않음
-            card.vars['bgNode']:setVisible(false)
-            -- 셰이더 효과
-            local shader = ShaderCache:getShader(SHADER_GRAY_PNG)
-            card.vars['chaNode']:setGLProgram(shader)
-
             table.insert(l_card, card.root)
         end
     end
@@ -169,11 +166,68 @@ function TeamBonusCardFactory:makeUIList_Did(t_teambonus)
         if (condition ~= '') then
             local did = condition
             local card = self:getDefaultCard(did)
+
             table.insert(l_card, card.root)
         end
     end
 
     return l_card
+end
+
+-------------------------------------
+-- function getExistDragonByDid
+-- @brief 해당 did의 최고 전투력의 StructDragonObject 반환
+-------------------------------------
+function TeamBonusCardFactory:getExistDragonByDid(did, is_all)
+    local is_all = is_all or false
+    local struct_dragon_data  
+    local table_dragon = TableDragon()
+
+    -- 모든 속성 순회하며 did 검사
+    if (is_all) then
+        local compare_map = {}
+        local combat_power = 0
+        for i = 0, 5 do
+            local _did = did + i
+            if (table_dragon:exists(_did)) and (g_dragonsData:getNumOfDragonsByDid(_did) > 0) then
+                local _struct_dragon_data = g_dragonsData:getBestDragonByDid(_did)
+                local doid = _struct_dragon_data['id']
+                compare_map[doid] = _struct_dragon_data
+            end
+        end
+
+        for _, v in pairs(compare_map) do
+            local _combat_power = v:getCombatPower()
+            if (combat_power < _combat_power) then
+                struct_dragon_data = v
+                combat_power = _combat_power
+            end
+        end
+
+    -- 해당 속성 did 검사
+    elseif (g_dragonsData:getNumOfDragonsByDid(did) > 0) then
+        struct_dragon_data = g_dragonsData:getBestDragonByDid(did)
+    end
+    
+    return struct_dragon_data
+end
+
+-------------------------------------
+-- function getExistFirstDid
+-- @brief 존재하는 속성 did 반환
+-------------------------------------
+function TeamBonusCardFactory:getExistFirstDid(start_did)
+    local table_dragon = TableDragon()
+    local exist_did 
+    for i = 0, 5 do
+        local did = start_did + i
+        if (table_dragon:exists(did)) then
+            exist_did = did
+            break
+        end
+    end
+
+    return exist_did
 end
 
 -------------------------------------
@@ -193,31 +247,82 @@ function TeamBonusCardFactory:getDefaultCard(did, is_all)
     t_dragon_data['grade'] = grade
 
     local card = UI_DragonCard(StructDragonObject(t_dragon_data))
+    local btn = card.vars['clickBtn']
+
+    local struct_dragon_data = self:getExistDragonByDid(did, is_all)
+    card:setTeamBonusCheckBoxSpriteVisible(true)
+
+    -- 드래곤 보유하고 있다면 해당 드래곤 데이터로 갱신
+    if (struct_dragon_data) then
+        card.m_dragonData['did'] = struct_dragon_data['did']
+        card.m_dragonData['evolution'] = struct_dragon_data['evolution']
+        card.m_dragonData['grade'] = struct_dragon_data['grade']
+        local attr = struct_dragon_data:getAttr()
+        card:makeAttrIcon(attr)
+        card:refreshDragonInfo()
+
+    -- 없을 경우 셰이더 효과
+    else
+        if (is_all) then
+            -- 존재하는 속성 did로 변경
+            did = self:getExistFirstDid(did)
+            -- 모든속성 아이콘 
+            card:makeAttrIcon('all')
+            -- 모든속성 배경 보여주지 않음
+            card.vars['bgNode']:setVisible(false)
+        end
+        
+        local shader = ShaderCache:getShader(SHADER_GRAY_PNG)
+        card.vars['chaNode']:setGLProgram(shader)
+    end
+
     -- 등급 표시 안함
     card:setSpriteVisible('starNode', res, false)
 
-    -- 눌렀을 경우 드래곤 이름 툴팁 출력                
-    local btn = card.vars['clickBtn']
-    local tap_func = function()
-        local name = TableDragon:getDragonName(did)
-        local attr = TableDragon:getDragonAttr(did)
-        local str_attr = is_all and Str('(모든 속성)') or 
-                         string.format('(%s)', dragonAttributeName(attr))
-        name = name .. str_attr
+    -- 눌렀을 경우             
+    btn:registerScriptTapHandler(function() self:defaultCardTapHandler(did, btn, is_all) end)
 
-        local desc = TableDragon:getDragonStoryStr(did)
+    -- 꾹 눌렀을 경우 
+    btn:registerScriptPressHandler(function() self:defaultCardPressHandler(did, btn, struct_dragon_data) end)
 
-        local str = Str('{@SKILL_NAME}{1}\n{@DEFAULT}{2}', name, desc)
+    return card
+end
 
-        local tooltip = UI_Tooltip_Skill(0, 0, str)
-        if (tooltip) then
-            tooltip:autoPositioning(btn)
-        end
+-------------------------------------
+-- function defaultCardTapHandler
+-------------------------------------
+function TeamBonusCardFactory:defaultCardTapHandler(did, btn, is_all)
+    -- 이름 툴팁 
+    local name = TableDragon:getDragonName(did)
+    local attr = TableDragon:getDragonAttr(did)
+    local str_attr = is_all and Str('(모든 속성)') or 
+                        string.format('(%s)', dragonAttributeName(attr))
+    name = name .. str_attr
+
+    local desc = TableDragon:getDragonStoryStr(did)
+
+    local str = Str('{@SKILL_NAME}{1}\n{@DEFAULT}{2}', name, desc)
+
+    local tooltip = UI_Tooltip_Skill(0, 0, str)
+    if (tooltip) then
+        tooltip:autoPositioning(btn)
     end
-    btn:registerScriptTapHandler(tap_func)
+end
 
-    -- 꾹 눌렀을 경우 드래곤 도감 (팀보너스 버튼은 노출 안되게)
-    local press_func = function()
+-------------------------------------
+-- function defaultCardPressHandler
+-------------------------------------
+function TeamBonusCardFactory:defaultCardPressHandler(did, btn, struct_dragon_data)
+    -- 드래곤 정보팝업 노출
+    if (struct_dragon_data) then
+        UI_SimpleDragonInfoPopup(struct_dragon_data)
+
+    -- 도감 상세보기 노출
+    else
+        local table_dragon = TableDragon()
+        local evolution = 3
+        local grade = table_dragon:getBirthGrade(did)
+
         local t_dragon = clone(table_dragon:get(did))
         t_dragon['bookType'] = 'dragon'
 	    t_dragon['grade'] = grade 
@@ -231,30 +336,4 @@ function TeamBonusCardFactory:getDefaultCard(did, is_all)
         ui:setShowTemaBonus(false)
         ui.vars['teamBonusBtn']:setVisible(false)
     end
-    btn:registerScriptPressHandler(press_func)
-
-    -- 보유하고 있는 드래곤이 있다면 체크 표시
-    card:setTeamBonusCheckBoxSpriteVisible(true)
-
-    -- 모든 속성일 경우 모든 did 체크
-    local check_exist_func = function(start_did)
-        for i = 0, 5 do
-            local _did = start_did + i
-            if (table_dragon:exists(_did)) and (g_dragonsData:getNumOfDragonsByDid(_did) > 0) then
-                return true
-            end
-        end
-
-        return false
-    end
-
-    local is_exist = is_all and 
-                     (check_exist_func(did)) or -- 모든 속성 검사
-                     (g_dragonsData:getNumOfDragonsByDid(did) > 0) -- 일반 did 검사
-
-    if (is_exist) then
-        card:setTeamBonusCheckSpriteVisible(true)
-    end
-
-    return card
 end

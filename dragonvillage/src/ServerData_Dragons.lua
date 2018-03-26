@@ -629,6 +629,42 @@ function ServerData_Dragons:getNumOfDragonsByDid(did)
     return number
 end
 
+-------------------------------------
+-- function getDragonsByDid
+-- @brief 해당 did의 드래곤들 반환
+-------------------------------------
+function ServerData_Dragons:getDragonsByDid(did)
+    local dragon_dictionary = self:getDragonsListRef()
+    local did = tonumber(did)
+    local ret_dictionary = {}
+    for key,value in pairs(dragon_dictionary) do
+        local _did = tonumber(value['did'])
+        if (_did == did) then
+            ret_dictionary[key] = value
+        end
+    end
+
+    return ret_dictionary
+end
+
+-------------------------------------
+-- function getBestDragonByDid
+-- @brief 해당 did의 드래곤중 전투력 높은 드래곤 반환
+-------------------------------------
+function ServerData_Dragons:getBestDragonByDid(did)
+    local ret_dictionary = self:getDragonsByDid(did)
+    local struct_dragon_data
+    local combat_power = 0
+    for k, v in pairs(ret_dictionary) do
+        local _combat_power = v:getCombatPower()
+        if (combat_power < _combat_power) then
+            struct_dragon_data = v
+            combat_power = _combat_power
+        end
+    end
+
+    return struct_dragon_data
+end
 
 -------------------------------------
 -- function getDragonSupportRequstTargetList

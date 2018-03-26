@@ -11,6 +11,7 @@ StructTeamBonus = class({
 
         m_bSatisfy = 'boolean', -- 조건 만족 여부
         m_lSatisfied = 'table', -- 조건을 만족시킨 대상 리스트
+        m_lAllDragonData = 'table', -- 모든 드래곤 리스트 (활성화/비활성화 모두 포함)
 
         m_priority = 'number', -- 우선순위
 	})
@@ -35,7 +36,7 @@ function StructTeamBonus:init(data)
     
     self.m_bSatisfy = false
     self.m_lSatisfied = {}
-
+    self.m_lAllDragonData = {}
     if (TableTeamBonus():exists(self.m_id)) then
         local t_teambonus = TableTeamBonus():get(self.m_id)
         self.m_priority = t_teambonus['ui_priority'] or 0
@@ -48,8 +49,7 @@ end
 -------------------------------------
 function StructTeamBonus:setFromDragonObjectList(l_dragon_data)
     local t_teambonus = TableTeamBonus():get(self.m_id)
-
-    self.m_bSatisfy, self.m_lSatisfied = TeamBonusHelper:checkCondition(t_teambonus, l_dragon_data)
+    self.m_bSatisfy, self.m_lSatisfied, self.m_lAllDragonData = TeamBonusHelper:checkCondition(t_teambonus, l_dragon_data)
 end
 
 -------------------------------------
