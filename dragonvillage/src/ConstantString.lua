@@ -392,7 +392,16 @@ function getIndicatorName(indicator_type)
     elseif (indicator_type == 'square_height_top') then
         indicator_name = Str('세로')
 
+    elseif (indicator_type == 'square_height_touch') then
+        indicator_name = Str('세로')
+
     elseif (indicator_type == 'square_width') then
+        indicator_name = Str('가로')
+
+    elseif (indicator_type == 'square_width_right') then
+        indicator_name = Str('가로')
+
+    elseif (indicator_type == 'square_width_touch') then
         indicator_name = Str('가로')
 
     elseif (indicator_type == 'target_cone') then
