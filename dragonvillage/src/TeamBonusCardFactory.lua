@@ -216,11 +216,12 @@ function TeamBonusCardFactory:getDefaultCard(did, is_all)
     local struct_dragon_data = TeamBonusHelper:getExistDragonByDid(did, is_all)
     card:setTeamBonusCheckBoxSpriteVisible(true)
 
+    -- 등급 표시 안함
+    card:setSpriteVisible('starNode', res, false)
+
     -- 드래곤 보유하고 있다면 해당 드래곤 데이터로 갱신
     if (struct_dragon_data) then
-        card.m_dragonData['did'] = struct_dragon_data['did']
-        card.m_dragonData['evolution'] = struct_dragon_data['evolution']
-        card.m_dragonData['grade'] = struct_dragon_data['grade']
+        card.m_dragonData = struct_dragon_data
         local attr = struct_dragon_data:getAttr()
         card:makeAttrIcon(attr)
         card:refreshDragonInfo()
@@ -240,8 +241,6 @@ function TeamBonusCardFactory:getDefaultCard(did, is_all)
         card.vars['chaNode']:setGLProgram(shader)
     end
 
-    -- 등급 표시 안함
-    card:setSpriteVisible('starNode', res, false)
 
     -- 눌렀을 경우             
     btn:registerScriptTapHandler(function() self:defaultCardTapHandler(did, btn, is_all) end)
