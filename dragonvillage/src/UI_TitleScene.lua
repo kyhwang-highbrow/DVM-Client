@@ -1275,10 +1275,10 @@ function UI_TitleScene:makeFailPopup(msg, ret)
 
     local msg = msg or Str('오류가 발생하였습니다.\n다시 시도하시겠습니까?')
 
-    if ret then
-        local add_msg = '(status : ' .. tostring(ret['status']) .. ', message : ' .. tostring(ret['message']) .. ')'
-        msg =  msg .. '\n\n' .. add_msg
-    end
+    --if ret then
+        --local add_msg = '(status : ' .. tostring(ret['status']) .. ', message : ' .. tostring(ret['message']) .. ')'
+        --msg =  msg .. '\n\n' .. add_msg
+    --end
 
     self.m_loadingUI:hideLoading()
     MakeSimplePopup(POPUP_TYPE.OK, msg, ok_btn_cb)
