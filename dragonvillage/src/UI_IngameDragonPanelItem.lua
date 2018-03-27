@@ -125,6 +125,8 @@ function UI_IngameDragonPanelItem:initUI()
         elseif (pl.stringx.endswith(indicator_type, '_top')) then
             indicator_type = string.gsub(indicator_type, '_top', '')
             rotate = 180
+        elseif (pl.stringx.endswith(indicator_type, '_touch')) then
+            indicator_type = string.gsub(indicator_type, '_touch', '')
         end
         
         local res = 'ingame_panel_indicater_' .. str_target .. '_' .. indicator_type .. '.png'

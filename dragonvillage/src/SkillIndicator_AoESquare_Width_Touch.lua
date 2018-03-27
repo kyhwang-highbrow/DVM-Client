@@ -72,7 +72,7 @@ function SkillIndicator_AoESquare_Width_Touch:findCollision(x, y)
 	local width = self.m_skillWidth
 	local height = (self.m_skillHeight / 2)
 
-    local l_ret = SkillTargetFinder:findCollision_AoESquare(l_target, x, y, width, height, true)
+    local l_ret = SkillTargetFinder:findCollision_AoESquare(l_target, x, y, width, height)
 
     -- 타겟 수 만큼만 얻어옴
     l_ret = table.getPartList(l_ret, self.m_targetLimit)
