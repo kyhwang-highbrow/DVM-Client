@@ -105,7 +105,7 @@ function UI_TeamBonusListItem:click_applyBtn(l_dragon_list, t_teambonus)
             self.m_applyFunc(l_dragon_list)
         end
     end
-    local name = t_teambonus['t_name'] 
+    local name = Str(t_teambonus['t_name'])
     local msg = Str('현재 편성된 팀을 해제하고 {@sky_blue}{1}{@default}팀을 배치합니다.\n진행하시겠습니까?', name)
     MakeSimplePopup(POPUP_TYPE.YES_NO, msg, ok_cb)
 end
