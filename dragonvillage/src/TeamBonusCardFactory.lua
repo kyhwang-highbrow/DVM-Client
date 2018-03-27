@@ -52,10 +52,19 @@ end
 -------------------------------------
 function TeamBonusCardFactory:makeUIList_Deck(data)
     local t_teambonus = TableTeamBonus():get(data.m_id)
-    local l_dragon_data = data.m_lAllDragonData -- 팀보너스 적용 안되는 드래곤까지 받아옴
+    local l_all_dragon_data = data.m_lAllDragonData -- 팀보너스 적용 안되는 드래곤까지 받아옴
+    local l_dragon_data = data.m_lSatisfied -- 조건을 만족시키는 드래곤
+
+    -- 몇 마리 이상일 경우 조건을 만족시키는 드래곤 리스트가 더 많을 수 있음.
+    local l_target_data 
+    if (#l_dragon_data > #l_all_dragon_data) then
+        l_target_data = l_dragon_data
+    else
+        l_target_data = l_all_dragon_data
+    end
 
     local l_card = {}
-    for _, struct_dragon_data in ipairs(l_dragon_data) do
+    for _, struct_dragon_data in ipairs(l_target_data) do
 
         -- 팀보너스 적용중인 드래곤
         if (struct_dragon_data and struct_dragon_data['id']) then
