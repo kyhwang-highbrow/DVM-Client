@@ -28,8 +28,12 @@ function TeamBonusCardFactory:makeUIList(data)
         l_card = self:makeUIList_Role(t_teambonus)
 
     -- 같은 드래곤 조건 (모든 속성 포함)
-    elseif (type == 'did_attr') or (type == 'did_attr_same') then
+    elseif (type == 'did_attr')  then
         l_card = self:makeUIList_Did_Attr(t_teambonus)
+
+    -- 같은 드래곤 조건 (개별은 모든 속성이지만 팀보너스는 같은 속성이어야 발동)
+    elseif (type == 'did_attr_same') then
+        l_card = self:makeUIList_Did_Attr_Same(t_teambonus)
 
     -- 같은 드래곤 조건
     elseif (type == 'did') then
@@ -69,7 +73,6 @@ function TeamBonusCardFactory:makeUIList_Deck(data)
             local type = t_teambonus['condition_type']
             local did = struct_dragon_data['did']
             local is_all = ((type == 'did_attr') or (type == 'did_attr_same')) and true or false
-
             local card = self:getDefaultCard(did, is_all)
             table.insert(l_card, card.root)
         end
@@ -137,6 +140,28 @@ end
 -- @brief 같은 드래곤 조건 (모든 속성 포함) 카드 생성
 -------------------------------------
 function TeamBonusCardFactory:makeUIList_Did_Attr(t_teambonus)
+    local l_card = {}
+    local table_dragon = TableDragon()
+
+    -- 모든 속성인 경우 존재하는 첫번째 속성 드래곤 카드 찍어줌
+    for i = 1, MAX_CONDITION_COUNT do
+        local condition = t_teambonus['condition_' .. i]
+        if (condition ~= '') then
+            local did = condition
+            local is_all = true
+            local card = self:getDefaultCard(did, is_all)
+            table.insert(l_card, card.root)
+        end
+    end
+    
+    return l_card
+end
+
+-------------------------------------
+-- function makeUIList_Did_Attr_Same
+-- @brief 같은 드래곤 조건 (같은 속성) 카드 생성
+-------------------------------------
+function TeamBonusCardFactory:makeUIList_Did_Attr_Same(t_teambonus)
     local l_card = {}
     local table_dragon = TableDragon()
 

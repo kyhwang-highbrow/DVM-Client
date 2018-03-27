@@ -285,7 +285,7 @@ function UI_TeamBonus_Dragon:showDetailPopup(did)
     local menu = vars['detailMenu']
     menu:removeAllChildren()
 
-    local ui = UI_TeamBonus_Detail(did)
+    local ui = UI_TeamBonus_Detail(self.m_owner_ui, did)
     ui:setCloseCB(function() 
         self.m_detail_popup = nil
         node:setVisible(true) 

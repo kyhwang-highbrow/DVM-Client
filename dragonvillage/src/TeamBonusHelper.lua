@@ -148,7 +148,8 @@ function TeamBonusHelper:checkComplexCondition(t_teambonus, l_dragon_data)
     local req_count = t_teambonus['condition_count']
     local l_valid_dragon_data = {}
     local m_dragon_data_per_attr = {}
-        
+    local l_all_dragon_data = {}
+
     for i = 1, MAX_CONDITION_COUNT do
         local condition = t_teambonus['condition_' .. i]
         if (condition and condition ~= '') then
@@ -166,6 +167,7 @@ function TeamBonusHelper:checkComplexCondition(t_teambonus, l_dragon_data)
                         m_dragon_data_per_attr[attr] = {}
                     end
 
+                    l_all_dragon_data[i] = dragon_data
                     table.insert(m_dragon_data_per_attr[attr], dragon_data)
                 end
             end
@@ -185,7 +187,7 @@ function TeamBonusHelper:checkComplexCondition(t_teambonus, l_dragon_data)
         end
     end
 
-    return b, l_valid_dragon_data
+    return b, l_valid_dragon_data, l_all_dragon_data
 end
 
 -------------------------------------
@@ -336,39 +338,85 @@ end
 function TeamBonusHelper:isSatisfiedByMyDragons(t_teambonus)
     local map_dragon_data = g_dragonsData:getDragonsList()
     local l_dragon_data = table.MapToList(map_dragon_data)
-    local b_satisfied, _, l_all_dragon_data = self:checkCondition(t_teambonus, l_dragon_data)
-
-    local new_all_dragon_data = {}
     local type = t_teambonus['condition_type']
+    local is_all = ((type == 'did_attr') or (type == 'did_attr_same')) and true or false
 
-    if (l_all_dragon_data) then
-        for i, struct_dragon_data in ipairs(l_all_dragon_data) do
-            
-            -- ## 전투력 가장 높은 드래곤 우선시
-            -- did 관련
-            if (string.find(type, 'did')) then
-                local did = struct_dragon_data['did']
-                local is_all = ((type == 'did_attr') or (type == 'did_attr_same')) and true or false
-                local new_struct_dragon_data = self:getExistDragonByDid(did)
-                if (new_struct_dragon_data) then
-                    table.insert(new_all_dragon_data, new_struct_dragon_data)
+     if (type == 'did_attr_same') then
+         local b_satisfied, l_valid_dragon_data, l_all_dragon_data = self:checkComplexCondition(t_teambonus, l_dragon_data)
+         local new_all_dragon_data = {}
+         local check_map = {}
+
+         -- 만족하는 경우라면 같은 속성별 개별 전투력이 가장 높은 드래곤 셋팅
+         if (b_satisfied) then
+            local attr
+            local combat_power = 0
+            for i, struct_dragon_data in ipairs(l_valid_dragon_data) do
+                local sort_data = struct_dragon_data:getDragonSortData()
+                local _combat_power = sort_data['combat_power']
+                if (_combat_power > combat_power) then
+                    combat_power = _combat_power
+                    attr = struct_dragon_data:getAttr()
                 end
+            end
+
+            for i, struct_dragon_data in ipairs(l_valid_dragon_data) do
+                local _attr = struct_dragon_data:getAttr()
+                if (_attr == attr) then
+                    local did = struct_dragon_data['did']
+                    local new_struct_dragon_data = self:getExistDragonByDid(did)
+                    if (check_map[did] == nil and new_struct_dragon_data) then
+                        check_map[did] = true
+                        table.insert(new_all_dragon_data, new_struct_dragon_data)
+                    end
+                end
+            end
+
+         -- 만족하지 않는다면 보유하고 있는 개별 전투력이 가장 높은 드래곤 셋팅
+         else
+            if (l_all_dragon_data) then
+                for i, struct_dragon_data in ipairs(l_all_dragon_data) do
+                    local did = struct_dragon_data['did']
+                    local new_struct_dragon_data = self:getExistDragonByDid(did)
+                    if (check_map[did] == nil and new_struct_dragon_data) then
+                        check_map[did] = true
+                        table.insert(new_all_dragon_data, new_struct_dragon_data)
+                    end
+                end
+            end
+         end
+
+         return b_satisfied, new_all_dragon_data
+    else
+        local b_satisfied, _, l_all_dragon_data = self:checkCondition(t_teambonus, l_dragon_data)
+        local new_all_dragon_data = {}
+        if (l_all_dragon_data) then
+            for i, struct_dragon_data in ipairs(l_all_dragon_data) do
             
-            -- 속성
-            elseif (type == 'attr') then
-                local attr = struct_dragon_data:getAttr()
-                new_all_dragon_data = self:getExistDragonByAttr(attr)
+                -- ## 전투력 가장 높은 드래곤 세팅
+                -- did 관련
+                if (string.find(type, 'did')) then
+                    local did = struct_dragon_data['did']
+                    local new_struct_dragon_data = self:getExistDragonByDid(did)
+                    if (new_struct_dragon_data) then
+                        table.insert(new_all_dragon_data, new_struct_dragon_data)
+                    end
+            
+                -- 속성
+                elseif (type == 'attr') then
+                    local attr = struct_dragon_data:getAttr()
+                    new_all_dragon_data = self:getExistDragonByAttr(attr)
 
-            -- 역할 
-            elseif (type == 'role') then
-                local role = struct_dragon_data:getRole()
-                new_all_dragon_data = self:getExistDragonByRole(role)
+                -- 역할 
+                elseif (type == 'role') then
+                    local role = struct_dragon_data:getRole()
+                    new_all_dragon_data = self:getExistDragonByRole(role)
 
+                end
             end
         end
-    end
     
-    return b_satisfied, new_all_dragon_data
+        return b_satisfied, new_all_dragon_data
+    end
 end
 
 -------------------------------------

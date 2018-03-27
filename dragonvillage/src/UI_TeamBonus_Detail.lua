@@ -6,14 +6,16 @@ local PARENT = UI
 UI_TeamBonus_Detail = class(PARENT, {
         m_selDid = 'number',
         m_closeCB = 'function',
+        m_owner_ui = '',
     })
 
 -------------------------------------
 -- function init
 -------------------------------------
-function UI_TeamBonus_Detail:init(did)
+function UI_TeamBonus_Detail:init(owener_ui, did)
     local vars = self:load('team_bonus_dragon.ui')
 
+    self.m_owner_ui = owener_ui
     self.m_selDid = did
     self:initUI()
     self:initTableView()
@@ -47,30 +49,32 @@ function UI_TeamBonus_Detail:initTableView()
     end
 
     local vars = self.vars
+    -- 덱이 설정되었다면 추천 기능 활성화
+    local b_recommend = (self.m_owner_ui.m_selDeck) and true or false
     local node = vars['dragonListNode2']
     node:removeAllChildren()
 
+    local make_func = function(data)
+        local apply_func
+        if (b_recommend) then
+            apply_func = function(l_dragon_list)
+                self.m_owner_ui:applyDeck(l_dragon_list) 
+            end
+        end
+       
+        return UI_TeamBonusListItem(data, b_recommend, apply_func)
+    end
+
     local did = self.m_selDid
     local l_teambonus = TeamBonusHelper:getTeamBonusDataFromDid(did)
-
-    table.sort(l_teambonus, function(a, b)
-		local a_value = a:isSatisfied() and 99 or 0
-		local b_value = b:isSatisfied() and 99 or 0
-
-		if (a_value == b_value) then
-			local a_priority = a.m_priority or 0
-			local b_priority = b.m_priority or 0
-			return a_priority > b_priority
-		else
-			return a_value > b_value
-		end
-	end)
-
     local table_view = UIC_TableView(node)
     table_view.m_defaultCellSize = cc.size(1200, 130)
-    table_view:setCellUIClass(UI_TeamBonusListItem)
+    table_view:setCellUIClass(make_func)
     table_view:setDirection(cc.SCROLLVIEW_DIRECTION_VERTICAL)
     table_view:setItemList(l_teambonus)
+
+    local sort_mgr = SortManager_TeamBonus(b_recommend)
+    sort_mgr:sortExecution(table_view.m_itemList)
 end
 
 -------------------------------------
