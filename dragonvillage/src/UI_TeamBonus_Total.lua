@@ -42,7 +42,7 @@ function UI_TeamBonus_Total:initTableView(only_my_team)
         local l_my_teambonus = TeamBonusHelper:getTeamBonusDataFromDeck(l_deck)
         if (#l_my_teambonus == 0) then
             local temp_data = {
-                id = 0,
+                id = TEAMBONUS_EMPTY_TAG,
                 skill_type = 'none',
             }
 

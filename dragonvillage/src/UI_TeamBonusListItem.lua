@@ -9,6 +9,7 @@ UI_TeamBonusListItem = class(PARENT, {
         m_applyFunc = 'function',
      })
 
+TEAMBONUS_EMPTY_TAG = 0
 -------------------------------------
 -- function init
 -------------------------------------
@@ -32,8 +33,8 @@ function UI_TeamBonusListItem:initUI()
     local struct_teambonus = self.m_data
     local id = struct_teambonus.m_id
 
-    -- 적용중인 팀보너스 없을 경우 id : 0
-    if (not TableTeamBonus():exists(id)) then
+    -- 적용중인 팀보너스 없을 경우 
+    if (id == TEAMBONUS_EMPTY_TAG) then
         vars['emptySprite']:setVisible(true)
         return
     end
