@@ -144,7 +144,7 @@ function TeamBonusCardFactory:makeUIList_Did_Attr(t_teambonus)
     for i = 1, MAX_CONDITION_COUNT do
         local condition = t_teambonus['condition_' .. i]
         if (condition ~= '') then
-            local did = self:getExistFirstDid(condition)
+            local did = condition
             local is_all = true
             local card = self:getDefaultCard(did, is_all)
             table.insert(l_card, card.root)
@@ -197,8 +197,12 @@ end
 -------------------------------------
 function TeamBonusCardFactory:getDefaultCard(did, is_all)
     local is_all = is_all or false
-    local table_dragon = TableDragon()
+    -- 존재하는 did 체크
+    if (is_all) then
+        did = self:getExistFirstDid(did)
+    end
 
+    local table_dragon = TableDragon()
     -- 무조건 성룡
     local evolution = 3
     local grade = table_dragon:getBirthGrade(did)
@@ -229,8 +233,6 @@ function TeamBonusCardFactory:getDefaultCard(did, is_all)
     -- 없을 경우 셰이더 효과
     else
         if (is_all) then
-            -- 존재하는 속성 did로 변경
-            did = self:getExistFirstDid(did)
             -- 모든속성 아이콘 
             card:makeAttrIcon('all')
             -- 모든속성 배경 보여주지 않음
@@ -241,6 +243,11 @@ function TeamBonusCardFactory:getDefaultCard(did, is_all)
         card.vars['chaNode']:setGLProgram(shader)
     end
 
+    -- 적용중 표시 x
+    local inuse_sprite = card.vars['inuseSprite']
+    if (inuse_sprite) then
+        inuse_sprite:setVisible(false)
+    end
 
     -- 눌렀을 경우             
     btn:registerScriptTapHandler(function() self:defaultCardTapHandler(did, btn, is_all) end)
