@@ -112,7 +112,6 @@ function TeamBonusHelper:checkCondition(t_teambonus, l_dragon_data)
             if (is_exist) then
                 for idx, dragon_data in pairs(m_valid_dragon_data) do
                     m_doid_to_except[dragon_data['id']] = true
-                    
                     m_did_to_except[dragon_data['did']] = true
                     m_all_valid_dragon_data[idx] = m_valid_dragon_data[idx]
                     l_all_dragon_data[i] = m_valid_dragon_data[idx]
@@ -171,6 +170,7 @@ function TeamBonusHelper:checkComplexCondition(t_teambonus, l_dragon_data)
 
                     l_all_dragon_data[i] = dragon_data
                     table.insert(m_dragon_data_per_attr[attr], dragon_data)
+                    break
                 end
             end
         end
