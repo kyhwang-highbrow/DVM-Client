@@ -559,7 +559,7 @@ function ServerData_Shop:request_checkReceiptValidation(struct_product, validati
     ui_network:setParam('product_id', product_id)
     ui_network:setParam('iswin', iswin)
 	
-	if true then
+	if (IS_LIVE_SERVER()) then
 		local os = getTargetOSName()
 		local game_lang = Translate:getGameLang()
 		local device_lang = Translate:getDeviceLang()
