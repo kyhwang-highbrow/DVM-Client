@@ -424,7 +424,7 @@ function TeamBonusHelper:isSatisfiedByMyDragons(t_teambonus)
                 -- did 관련
                 if (string.find(type, 'did')) then
                     local did = struct_dragon_data['did']
-                    local new_struct_dragon_data = self:getExistDragonByDid(did)
+                    local new_struct_dragon_data = self:getExistDragonByDid(did, is_all)
                     if (new_struct_dragon_data) then
                         table.insert(new_all_dragon_data, new_struct_dragon_data)
                     end
