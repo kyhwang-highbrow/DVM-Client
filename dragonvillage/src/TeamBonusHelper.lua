@@ -151,10 +151,15 @@ function TeamBonusHelper:checkComplexCondition(t_teambonus, l_dragon_data)
     local m_dragon_data_per_attr = {}
     local l_all_dragon_data = {}
 
+    -- 이미 포함된 드래곤을 제외시키기 위한 맵
+    local m_doid_to_except = {}
+    local m_did_to_except = {}
+
     for i = 1, MAX_CONDITION_COUNT do
         local condition = t_teambonus['condition_' .. i]
         if (condition and condition ~= '') then
             for _, dragon_data in ipairs(l_dragon_data) do
+                local doid = dragon_data['id']
                 local did = dragon_data['did']
                 local did_ignore_attr = did - (did % 10)
 
@@ -169,8 +174,13 @@ function TeamBonusHelper:checkComplexCondition(t_teambonus, l_dragon_data)
                     end
 
                     l_all_dragon_data[i] = dragon_data
-                    table.insert(m_dragon_data_per_attr[attr], dragon_data)
-                    break
+
+                    if (not m_doid_to_except[doid] and not m_did_to_except[did]) then
+                        m_doid_to_except[doid] = true
+                        m_did_to_except[did] = true
+
+                        table.insert(m_dragon_data_per_attr[attr], dragon_data)
+                    end
                 end
             end
         end
