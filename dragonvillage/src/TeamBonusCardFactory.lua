@@ -67,7 +67,7 @@ function TeamBonusCardFactory:makeUIList_Deck(data)
             end
             card:setTeamBonusCheckBoxSpriteVisible(true)
             card:setTeamBonusCheckSpriteVisible(true)
-            table.insert(l_card, card.root)
+            table.insert(l_card, card)
 
             map_check[id] = true
         end
@@ -82,7 +82,7 @@ function TeamBonusCardFactory:makeUIList_Deck(data)
             local did = struct_dragon_data['did']
             local is_all = ((type == 'did_attr') or (type == 'did_attr_same')) and true or false
             local card = self:getDefaultCard(did, is_all)
-            table.insert(l_card, card.root)
+            table.insert(l_card, card)
         end
     end
     
@@ -109,7 +109,7 @@ function TeamBonusCardFactory:makeUIList_Attr(t_teambonus)
             card:makeSprite('chaNode', res, true)
             card.vars['clickBtn']:setEnabled(false)
 
-            table.insert(l_card, card.root)
+            table.insert(l_card, card)
         end
     end
     
@@ -136,7 +136,7 @@ function TeamBonusCardFactory:makeUIList_Role(t_teambonus)
 
             card.vars['clickBtn']:setEnabled(false)
 
-            table.insert(l_card, card.root)
+            table.insert(l_card, card)
         end
     end
     
@@ -158,7 +158,7 @@ function TeamBonusCardFactory:makeUIList_Did_Attr(t_teambonus)
             local did = condition
             local is_all = true
             local card = self:getDefaultCard(did, is_all)
-            table.insert(l_card, card.root)
+            table.insert(l_card, card)
         end
     end
     
@@ -197,7 +197,7 @@ function TeamBonusCardFactory:makeUIList_Did_Attr_Same(data)
         if (condition ~= '') then
             local did, is_all = get_vailid_did(condition)
             local card = self:getDefaultCard(did, is_all)
-            table.insert(l_card, card.root)
+            table.insert(l_card, card)
         end
     end
     
@@ -217,7 +217,7 @@ function TeamBonusCardFactory:makeUIList_Did(t_teambonus)
             local did = condition
             local card = self:getDefaultCard(did)
 
-            table.insert(l_card, card.root)
+            table.insert(l_card, card)
         end
     end
 
