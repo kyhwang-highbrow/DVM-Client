@@ -302,6 +302,7 @@ function UI_TitleScene:setWorkList()
     if (isAndroid() or isIos()) then
         table.insert(self.m_lWorkList, 'workBillingSetup')        
         table.insert(self.m_lWorkList, 'workMarketInfoSetup')
+		table.insert(self.m_lWorkList, 'workNetworkUserInfo')
     end
 
     table.insert(self.m_lWorkList, 'workSoundPreload')
@@ -1162,6 +1163,19 @@ function UI_TitleScene:workMarketInfoSetup()
     PerpleSDK:billingGetItemList(skuList, call_back)
 end
 function UI_TitleScene:workMarketInfoSetup_click()
+end
+
+-------------------------------------
+-- function workNetworkUserInfo
+-- @brief 기본 유저 정보 통신
+-------------------------------------
+function UI_TitleScene:workNetworkUserInfo()
+	local function success_cb()
+		self:doNextWork()
+	end
+	g_errorTracker:sendUserInfoLog(success_cb)
+end
+function UI_TitleScene:workNetworkUserInfo_click()
 end
 
 -------------------------------------

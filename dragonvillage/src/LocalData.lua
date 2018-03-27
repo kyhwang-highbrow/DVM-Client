@@ -270,13 +270,28 @@ function LocalData:setServerName(server)
 end
 
 -------------------------------------
--- function getLang
+-- function getServerName
 -- @breif
 -------------------------------------
 function LocalData:getServerName()
 	return self:get('local', 'server')
 end
 
+-------------------------------------
+-- function setAuth
+-- @breif
+-------------------------------------
+function LocalData:setAuth(auth)
+	self:applyLocalData(auth, 'local', 'platform_id')
+end
+
+-------------------------------------
+-- function getAuth
+-- @breif
+-------------------------------------
+function LocalData:getAuth()
+	return self:get('local', 'platform_id') or 'firebase'
+end
 
 -------------------------------------
 -- function isShowHighbrowShop
