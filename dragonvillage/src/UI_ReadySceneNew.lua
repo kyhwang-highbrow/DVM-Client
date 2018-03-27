@@ -859,6 +859,14 @@ end
 -------------------------------------
 function UI_ReadySceneNew:applyDeck(l_deck)
     local new_deck = UI_ReadySceneNew_Deck:convertSimpleDeck(l_deck)
+    local stage_id = self.m_stageID
+
+    -- 시험의 탑 - 속성별 덱 추가 확인
+    if (g_ancientTowerData:isAncientTowerStage(stage_id)) then
+        if (not g_attrTowerData:checkDragonAttr(new_deck)) then
+            return
+        end
+    end
 
     -- 1. 덱을 비움
     local skip_sort = true

@@ -392,7 +392,8 @@ function ServerData_AttrTower:checkDragonAttr(l_deck)
         return true
     end
 
-    for _, doid in pairs(l_deck) do
+    for _, v in pairs(l_deck) do
+        local doid = v['id'] or v
         local dragon = g_dragonsData:getDragonDataFromUid(doid)
         local did = dragon['did']
         local attr = TableDragon:getDragonAttr(did)
