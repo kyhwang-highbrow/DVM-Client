@@ -73,6 +73,13 @@ function UI_TeamBonusListItem:initUI()
             vars['dragonNode' .. i]:addChild(ui)
             ui:setSwallowTouch(false)
         end
+
+        local cnt = #l_card
+        -- 스케일 조절
+        if (cnt > 5) then
+            local scale = 5 / cnt
+            vars['dragonNode']:setScale(scale)
+        end
     end
 end
 

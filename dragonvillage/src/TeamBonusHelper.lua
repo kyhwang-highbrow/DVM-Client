@@ -100,18 +100,20 @@ function TeamBonusHelper:checkCondition(t_teambonus, l_dragon_data)
 
     -- 이미 포함된 드래곤을 제외시키기 위한 맵
     local m_doid_to_except = {}
+    local m_did_to_except = {}
     local m_all_valid_dragon_data = {}
     local m_satisfiedCondition = {}
         
     for i = 1, MAX_CONDITION_COUNT do
         local condition = t_teambonus['condition_' .. i]
         if (condition and condition ~= '') then
-            local is_exist, m_valid_dragon_data = self:findVaildDragonsFromCondition(condition_type, condition, l_dragon_data, m_doid_to_except)
+            local is_exist, m_valid_dragon_data = self:findVaildDragonsFromCondition(condition_type, condition, l_dragon_data, m_doid_to_except, m_did_to_except)
 
             if (is_exist) then
                 for idx, dragon_data in pairs(m_valid_dragon_data) do
                     m_doid_to_except[dragon_data['id']] = true
-
+                    
+                    m_did_to_except[dragon_data['did']] = true
                     m_all_valid_dragon_data[idx] = m_valid_dragon_data[idx]
                     l_all_dragon_data[i] = m_valid_dragon_data[idx]
                 end
@@ -344,30 +346,46 @@ function TeamBonusHelper:isSatisfiedByMyDragons(t_teambonus)
      if (type == 'did_attr_same') then
          local b_satisfied, l_valid_dragon_data, l_all_dragon_data = self:checkComplexCondition(t_teambonus, l_dragon_data)
          local new_all_dragon_data = {}
-         local check_map = {}
+         local map_check = {}
 
-         -- 만족하는 경우라면 같은 속성별 개별 전투력이 가장 높은 드래곤 셋팅
+         -- 만족하는 경우라면 같은 속성별 보너스 전투력이 가장 높은 드래곤 셋팅
          if (b_satisfied) then
             local attr
             local combat_power = 0
             for i, struct_dragon_data in ipairs(l_valid_dragon_data) do
-                local sort_data = struct_dragon_data:getDragonSortData()
-                local _combat_power = sort_data['combat_power']
-                if (_combat_power > combat_power) then
-                    combat_power = _combat_power
-                    attr = struct_dragon_data:getAttr()
+                local attr = struct_dragon_data:getAttr()
+                local did = struct_dragon_data['did']
+               
+                if (map_check[attr] == nil) then
+                    map_check[attr] = {}
                 end
+
+                map_check[attr][did] = self:getExistDragonByDid(did)
             end
 
-            for i, struct_dragon_data in ipairs(l_valid_dragon_data) do
-                local _attr = struct_dragon_data:getAttr()
-                if (_attr == attr) then
-                    local did = struct_dragon_data['did']
-                    local new_struct_dragon_data = self:getExistDragonByDid(did)
-                    if (check_map[did] == nil and new_struct_dragon_data) then
-                        check_map[did] = true
-                        table.insert(new_all_dragon_data, new_struct_dragon_data)
+            local condition_cnt = t_teambonus['condition_count']
+            local t_attr = {'fire', 'water', 'earth', 'light', 'dark'}
+            local target_data
+            local combat_power = 0
+            for _, v in ipairs(t_attr) do
+                local map_attr = map_check[v]
+                if (map_attr) then
+                    local l_attr = table.MapToList(map_attr)
+                    if (#l_attr == condition_cnt) then
+                        for k, struct_dragon_data in pairs(map_attr) do
+                            local _combat_power = struct_dragon_data:getDragonSortData()['combat_power']
+                            if (_combat_power > combat_power) then
+                                combat_power = _combat_power
+                                target_data = map_attr
+                            end
+                        end
                     end
+                end
+            end
+            
+            if (target_data) then
+                for i, struct_dragon_data in pairs(target_data) do
+                    table.insert(new_all_dragon_data, struct_dragon_data)
                 end
             end
 
@@ -377,8 +395,8 @@ function TeamBonusHelper:isSatisfiedByMyDragons(t_teambonus)
                 for i, struct_dragon_data in ipairs(l_all_dragon_data) do
                     local did = struct_dragon_data['did']
                     local new_struct_dragon_data = self:getExistDragonByDid(did)
-                    if (check_map[did] == nil and new_struct_dragon_data) then
-                        check_map[did] = true
+                    if (map_check[did] == nil and new_struct_dragon_data) then
+                        map_check[did] = true
                         table.insert(new_all_dragon_data, new_struct_dragon_data)
                     end
                 end
@@ -423,12 +441,13 @@ end
 -- function findVaildDragonsFromCondition
 -- @brief 파라미터의 조건에 해당하는 드래곤을 l_dragon_data내에서 찾음
 -------------------------------------
-function TeamBonusHelper:findVaildDragonsFromCondition(condition_type, condition, l_dragon_data, m_doid_to_except)
+function TeamBonusHelper:findVaildDragonsFromCondition(condition_type, condition, l_dragon_data, m_doid_to_except, m_did_to_except)
     if (not condition or condition == '') then
         return false
     end
 
     local m_doid_to_except = m_doid_to_except or {}
+    local m_did_to_except = m_did_to_except or {}
 
     local table_dragon = TableDragon()
     local m_valid_dragon_data = {}
@@ -441,7 +460,7 @@ function TeamBonusHelper:findVaildDragonsFromCondition(condition_type, condition
         if (TableSlime:isSlimeID(did)) then
             -- 슬라임의 경우 제외
 
-        elseif (not m_doid_to_except[doid]) then
+        elseif (not m_doid_to_except[doid] and not m_did_to_except[did]) then
             local t_dragon = TableDragon():get(did)
 
             if (condition_type == 'did_attr') then

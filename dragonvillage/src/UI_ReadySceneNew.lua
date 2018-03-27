@@ -810,7 +810,9 @@ function UI_ReadySceneNew:click_teamBonusBtn()
     local l_deck = self.m_readySceneDeck.m_lDeckList
 	local ui = UI_TeamBonus(TEAM_BONUS_MODE.TOTAL, l_deck)
     local refresh_cb = function(l_dragon_list)
-        self:applyDeck(l_dragon_list)
+        if (l_dragon_list) then
+            self:applyDeck(l_dragon_list)
+        end
     end
 
     ui:setCloseCB(refresh_cb)
