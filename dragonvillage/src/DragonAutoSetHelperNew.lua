@@ -28,7 +28,18 @@ end
 -------------------------------------
 function DragonAutoSetHelperNew:getAutoDeck()
     -- 스테이지 정보 얻어옴
-    local stage_attr = TableStageData():getValue(self.m_stageID, 'attr')
+    local stage_attr 
+    local game_mode = g_stageData:getGameMode(self.m_stageID)
+    if (game_mode == GAME_MODE_SECRET_DUNGEON) then
+        -- 인연 던전의 경우라면 해당 드래곤의 속성을 스테이지 속성으로 설정
+        local t_dungeon_info = g_secretDungeonData:getSelectedSecretDungeonInfo()
+        if (t_dungeon_info) then
+            local did = t_dungeon_info['dragon']
+            stage_attr = TableDragon():getValue(did, 'attr')
+        end
+    else
+        stage_attr = TableStageData():getValue(self.m_stageID, 'attr')
+    end
 
     -- 1. 드래곤 풀 생성 (추천에 적합한 데이터 형태로 가공)
     --     내가 가진 드래곤의 추천 점수를 계산
