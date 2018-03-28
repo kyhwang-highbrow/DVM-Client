@@ -52,8 +52,8 @@ function UI_TeamBonus_Total:initTableView(only_my_team)
         end
     end
 
-    -- 덱이 설정되었다면 추천 기능 활성화
-    local b_recommend = (self.m_owner_ui.m_selDeck) and true or false
+    -- 배치 기능 활성화 여부
+    local b_recommend = self.m_owner_ui.m_bRecommend
     local node = vars['allListNode']
     node:removeAllChildren()
 

@@ -7,7 +7,7 @@ UI_TeamBonus = class(PARENT,{
         m_initail_tab = '',
         m_selDeck = '',
         m_selDid = 'number',
-
+        m_bRecommend = 'boolean',
         m_tTabClass = 'table',
 
         m_applyDeck = '',
@@ -33,13 +33,14 @@ end
 -------------------------------------
 -- function init
 -------------------------------------
-function UI_TeamBonus:init(initail_tab, l_deck, sel_did)
+function UI_TeamBonus:init(initail_tab, l_deck, sel_did, b_recommend)
     local vars = self:load('team_bonus.ui')
     UIManager:open(self, UIManager.SCENE)
 
     self.m_initail_tab = initail_tab or TEAM_BONUS_MODE.DRAGON
     self.m_selDeck = l_deck
     self.m_selDid = sel_did
+    self.m_bRecommend = b_recommend or false
 
     -- backkey 지정
     g_currScene:pushBackKeyListener(self, function() self:click_exitBtn() end, 'UI_TeamBonus')
