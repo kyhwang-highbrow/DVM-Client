@@ -53,6 +53,14 @@
     <!-- @billing -->
     <uses-permission
         android:name="com.android.vending.BILLING" />
+    
+    <!-- @tapjoy permission remove -->
+    <uses-permission 
+        android:name="android.permission.ACCESS_FINE_LOCATION" 
+        tools:node="remove"/>
+    <uses-permission 
+        android:name="android.permission.ACCESS_COARSE_LOCATION" 
+        tools:node="remove"/>
 
     <application
         android:name="android.support.multidex.MultiDexApplication"
