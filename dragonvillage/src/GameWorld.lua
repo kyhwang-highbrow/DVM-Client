@@ -1206,7 +1206,7 @@ function GameWorld:getTargetList(char, x, y, team_type, formation_type, rule_typ
                 l_attackable_group_key = self:getEnemyGroups()
             end
         else
-            l_attackable_group_key = { group_key }
+            l_attackable_group_key = { unit_group:getGroupKey() }
         end
 
         for _, group_key in ipairs(l_attackable_group_key) do

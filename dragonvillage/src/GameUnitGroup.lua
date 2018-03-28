@@ -143,6 +143,14 @@ function GameUnitGroup:removeSurvivor(unit)
     end
 end
 
+
+-------------------------------------
+-- function getGroupKey
+-------------------------------------
+function GameUnitGroup:getGroupKey()
+    return self.m_groupKey
+end
+
 -------------------------------------
 -- function getOpponentGroupKey
 -- @brief 대응하는 상대측의 phys_group값을 리턴
