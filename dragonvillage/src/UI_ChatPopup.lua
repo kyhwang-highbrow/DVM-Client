@@ -31,8 +31,10 @@ function UI_ChatPopup:init()
         self:msgQueueCB(msg)
     end
 
-    for i,msg in ipairs(g_clanChatManager.m_lMessage) do
-        self:msgQueueCB_clan(msg)
+    if (g_clanChatManager) then
+        for i,msg in ipairs(g_clanChatManager.m_lMessage) do
+            self:msgQueueCB_clan(msg)
+        end
     end
 
     self:refresh_connectStatus(g_chatManager:getStatus())

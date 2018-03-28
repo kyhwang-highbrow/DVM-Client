@@ -1243,14 +1243,8 @@ function GameWorld:getTargetList(char, x, y, team_type, formation_type, rule_typ
         end
 
         -- 만약 해당 그룹에 적이 하나도 없을 경우 모든 적을 대상으로 변경
-        if (for_mgr_delegate:isEmpty()) then
-            if (char.m_bLeftFormation) then
-                for_mgr_delegate:addGlobalList(self.m_rightParticipants)
-                for_mgr_delegate:addDiedList(self.m_rightNonparticipants)
-            else
-                for_mgr_delegate:addGlobalList(self.m_leftParticipants)
-                for_mgr_delegate:addDiedList(self.m_leftNonparticipants)
-            end
+        if (for_mgr_delegate:isEmpty() and rule_type ~= 'all') then
+            return self:getTargetList(char, x, y, team_type, formation_type, 'all', t_data)
         end
 
     elseif (team_type == 'all') then
