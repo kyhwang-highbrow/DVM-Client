@@ -1189,12 +1189,35 @@ function GameWorld:getTargetList(char, x, y, team_type, formation_type, rule_typ
 
     -- 팀 타입에 따른 델리게이트
     local for_mgr_delegate = FormationMgrDelegate()
-    
-    if (isExistValue(team_type, 'self', 'teammate', 'ally')) then
+
+    if (team_type == 'self') then
         local mgr = unit_group:getFormationMgr()
 
         for_mgr_delegate:addGlobalList(mgr.m_globalCharList)
         for_mgr_delegate:addDiedList(mgr.m_diedCharList)
+    
+    elseif (isExistValue(team_type, 'teammate', 'ally')) then
+        local l_attackable_group_key = {}
+
+        if (rule_type == 'all') then
+            if (char.m_bLeftFormation) then
+                l_attackable_group_key = self:getHeroGroups()
+            else
+                l_attackable_group_key = self:getEnemyGroups()
+            end
+        else
+            l_attackable_group_key = { group_key }
+        end
+
+        for _, group_key in ipairs(l_attackable_group_key) do
+            local unit_group = self.m_mUnitGroup[group_key]
+            if (unit_group) then
+                local mgr = unit_group:getFormationMgr()
+
+                for_mgr_delegate:addGlobalList(mgr.m_globalCharList)
+                for_mgr_delegate:addDiedList(mgr.m_diedCharList)
+            end
+        end
 
     elseif (team_type == 'enemy') then
         local l_attackable_group_key = {}
