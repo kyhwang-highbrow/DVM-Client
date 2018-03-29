@@ -646,12 +646,17 @@ function ServerData_HotTime:setDiscountEventNode(dc_target, vars, lua_name, only
     end
 
     local sprite = vars[lua_name]
+    local action_tag = 99
     if (sprite) then
         sprite:setVisible(true)
-
-        -- 흔들림 액션 추가
-        local action = cca.buttonShakeAction(1, 2)
-        sprite:runAction(action)
+        -- 액션이 없는 경우에만 추가
+        local is_play = sprite:getActionByTag(action_tag)
+        if (not is_play) then
+            -- 흔들림 액션 추가
+            local action = cca.buttonShakeAction(1, 2)
+            action:setTag(action_tag)
+            sprite:runAction(action)
+        end
     end
 
     -- 라벨이 있는 경우 텍스트 표기
