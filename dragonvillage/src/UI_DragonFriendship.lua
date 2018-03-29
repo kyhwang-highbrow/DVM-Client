@@ -199,6 +199,8 @@ function UI_DragonFriendship:refreshFriendship()
 
             vars['hpLabel']:setString(Str('{1}/{2}', comma_value(friendship_obj['fhp']), comma_value(t_friendship_info['hp_max'])))
         end
+    else
+        self.m_fruitFeedPressHelper.m_block = true
     end
     
     -- 기분 게이지
@@ -253,6 +255,7 @@ function UI_DragonFriendship:setHeartGauge(percentage, b_init)
                 visual:changeAni('idle', false)
                 visual:addAniHandler(function()
                     block_ui:close()
+                    self.m_fruitFeedPressHelper.m_block = false
                     local ui = UI_DragonManageFriendshipResult(self.m_preDragonData, self.m_selectDragonData)
                     ui:setCloseCB(function() self:refreshFriendship() end)
                 end)

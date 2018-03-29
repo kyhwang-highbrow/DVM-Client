@@ -23,6 +23,8 @@ UI_FruitFeedPress = class({
         m_feedCount = 'number', -- 열매를 준 갯수
         m_feedCount120p = 'number',
         m_feedCount150p = 'number',
+
+        m_block = 'boolean',
     })
 
 -------------------------------------
@@ -59,6 +61,10 @@ end
 -- function fruitPressHandler
 -------------------------------------
 function UI_FruitFeedPress:fruitPressHandler(fruit_id, fruit_btn, fruit_label)
+    if (self.m_block) then
+        return
+    end
+
     if (self.m_currFruitBtn) then
         return
     end
