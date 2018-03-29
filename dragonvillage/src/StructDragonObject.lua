@@ -17,6 +17,7 @@ StructDragonObject = class({
         eclv = 'number', -- 초월 단계
         friendship = '',
         reinforce = 'number', -- 강화 단계
+        transform = 'number', -- 외형 변환
 
 		rlv = '',	-- 타인의 리더 드래곤 아이콘용 강화 레벨
 
