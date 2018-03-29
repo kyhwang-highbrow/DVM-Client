@@ -204,10 +204,14 @@ function ScenePatch:runApkExpansion()
     local patch_data = PatchData:getInstance()
     local t_apk_extension = patch_data:getApkExtensionInfo()
 
+	-- 사용 안함
     local file = t_apk_extension['file'] -- ex) 'main.8.com.perplelab.dragonvillagem.kr.obb'
-    local version_code = t_apk_extension['version_code'] -- ex) 8
-    local file_size = t_apk_extension['size'] -- ex) 268371750
     local md5 = t_apk_extension['md5'] -- ex) ''
+    
+	-- 중요! 둘다 크리티컬하게 동작한다
+	-- 참조 : https://perplelab.atlassian.net/wiki/spaces/DV/pages/408518659/Apk+expansion
+	local version_code = t_apk_extension['version_code'] -- ex) 8
+    local file_size = t_apk_extension['size'] -- ex) 268371750
 
     local apk_expansion = ApkExpansion(self, version_code, file_size)
     self.m_apkExpansion = apk_expansion
