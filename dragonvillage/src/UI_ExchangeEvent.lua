@@ -66,6 +66,11 @@ function UI_ExchangeEvent:refresh()
     local cur_cnt = g_exchangeEventData.m_nMaterialCnt
     vars['numberLabel1']:setString(Str('{1}개', comma_value(cur_cnt)))
 
+    -- 일일 획득량
+    local max_cnt = 2000
+    local today_cnt = g_exchangeEventData.m_nMaterialGet
+    vars['obtainLabel']:setString(Str('일일 최대 {1}/{2}개 획득 가능', comma_value(today_cnt), comma_value(max_cnt)))
+
     -- 소모량
     local use_cnt = g_exchangeEventData.m_nMaterialUse
     vars['numberLabel2']:setString(Str('{1}개', comma_value(use_cnt)))
