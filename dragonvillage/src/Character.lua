@@ -1959,7 +1959,10 @@ function Character:updateBasicSkillTimer(dt)
         if (self.m_lSkillIndivisualInfo['hp_rate_short']) then
             for i, v in pairs(self.m_lSkillIndivisualInfo['hp_rate_short']) do
                 if (v:isEndCoolTime()) then
-                    self:doSkill(v.m_skillID, 0, 0)
+                    local hp_rate = self.m_hpRatio * 100
+                    if (hp_rate <= v.m_hpRate) then
+                        self:doSkill(v.m_skillID, 0, 0)
+                    end
                 end
             end
         end

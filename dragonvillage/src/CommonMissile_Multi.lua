@@ -25,8 +25,7 @@ function CommonMissile_Multi:initCommonMissile(owner, t_skill)
 	self.m_maxFireCnt = 3
 	
 	-- 타겟 리스트 생성
-	local l_enemy = owner:getOpponentList()
-	self.m_lTargetList = table.getRandomList(l_enemy, self.m_maxFireCnt)
+	self.m_lTargetList = table.getRandomList(self.m_lTarget, self.m_maxFireCnt)
 end
 
 -------------------------------------

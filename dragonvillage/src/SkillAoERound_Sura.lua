@@ -47,16 +47,6 @@ function SkillAoERound_Sura:initState()
 end
 
 -------------------------------------
--- function runAttack
--------------------------------------
-function SkillAoERound_Sura:runAttack()
-    PARENT.runAttack(self)
-    
-	-- 특수한 부가 효과 구현
-	self:doSpecialEffect()
-end
-
--------------------------------------
 -- function setAttackInterval
 -- @Overridding
 -------------------------------------
@@ -64,40 +54,6 @@ function SkillAoERound_Sura:setAttackInterval()
 	-- 공격 애니 재생시간을 hit수로 나눔
 	self.m_hitInterval = (self.m_animator:getDuration() / self.m_maxAttackCount)
     self.m_hitInterval = self.m_hitInterval / 2
-end
-
--------------------------------------
--- function doSpecialEffect
--- @Overridding
--------------------------------------
-function SkillAoERound_Sura:doSpecialEffect(t_target)
-	-- 직접 타격한 대상이 없다면 탈출
-	if (not t_target) or (table.count(t_target) == 0) then 
-		return 
-	end
-
-	-- 랜덤한 순서의 전체 적군 리스트
-	local l_enemy_list = table.sortRandom(self.m_owner:getOpponentList())
-	for i, enemy in pairs(l_enemy_list) do 
-		-- 최대 공격횟수 초과했다면 탈출
-		if (i > self.m_addAttackCount) then 
-			break
-		end
-
-		-- 현재 타겟리스트를 순회하여 스킬의 본공격 대상이라면 제외
-		local is_attackable = true
-		for _, target in pairs(t_target) do
-			if (enemy == target) then
-				is_attackable = false
-				break
-			end
-		end
-		
-		-- 스킬 공격 맞고 있는 대상이 아닐 경우 공격
-		if (is_attackable) then
-			self:fireMissile(enemy)
-		end
-	end
 end
 
 -------------------------------------

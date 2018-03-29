@@ -190,6 +190,9 @@ function GameWorld:tryPatternMonster(t_monster, body)
 		monster = Monster_GiantMandragora(t_monster['res'], body)
     elseif (type == 'ancient_ruin_dragon') then
 		monster = Monster_AncientRuinDragon(t_monster['res'], body)
+        monster:initAnimatorMonster(t_monster['res'], t_monster['attr'], nil, t_monster['size_type'])
+        monster:initScript(script_name, t_monster['mid'], is_boss)
+
     elseif (script and not is_pattern_ignore) then
         monster = MonsterLua_Boss(t_monster['res'], body)
         monster:initAnimatorMonster(t_monster['res'], t_monster['attr'], nil, t_monster['size_type'])
