@@ -139,7 +139,6 @@ function TeamBonusHelper:checkCondition(t_teambonus, l_dragon_data)
     return b, l_valid_dragon_data, l_all_dragon_data
 end
 
-
 -------------------------------------
 -- function checkComplexCondition
 -- @brief 조건 개별로 검사가 불가능한 조건을 가진 경우를 처리하기 위함(did_attr_same)
@@ -344,97 +343,57 @@ function TeamBonusHelper:getExistDragonByRole(role)
 end
 
 -------------------------------------
+-- function isAllAttr
+-- @brief 모든 속성 조건인지 
+-------------------------------------
+function TeamBonusHelper:isAllAttr(t_teambonus)
+    local type = t_teambonus['condition_type']
+    if (type == 'did_attr') then
+    elseif (type == 'did_attr_same') then
+    else
+        return false
+    end
+
+    return true
+end
+
+-------------------------------------
 -- function isSatisfiedByMyDragons
--- @brief 내가 보유한 드래곤으로 해당 팀보너스의 조건이 충족되는지 여부
+-- @brief 내가 보유한 드래곤으로 해당 팀보너스의 조건이 충족되는지 검사
+-- @brief 충족된다면 추천룰에 의해 선별된 StructDragonObject List 반환
 -------------------------------------
 function TeamBonusHelper:isSatisfiedByMyDragons(t_teambonus)
     local map_dragon_data = g_dragonsData:getDragonsList()
     local l_dragon_data = table.MapToList(map_dragon_data)
+
     local type = t_teambonus['condition_type']
-    local is_all = ((type == 'did_attr') or (type == 'did_attr_same')) and true or false
+    local is_all = self:isAllAttr(t_teambonus)
 
-     if (type == 'did_attr_same') then
-         local b_satisfied, l_valid_dragon_data, l_all_dragon_data = self:checkComplexCondition(t_teambonus, l_dragon_data)
-         local new_all_dragon_data = {}
-         local map_check = {}
+    -- 속성별 조합 전투력 계산이 필요함
+    if (type == 'did_attr_same') then
+        local b_satisfied, new_all_dragon_data = self:getBestDragons_Did_Attr_Same(t_teambonus, l_dragon_data) 
 
-         -- 만족하는 경우라면 같은 속성별 보너스 전투력이 가장 높은 드래곤 셋팅
-         if (b_satisfied) then
-            local attr
-            local combat_power = 0
-            for i, struct_dragon_data in ipairs(l_valid_dragon_data) do
-                local attr = struct_dragon_data:getAttr()
-                local did = struct_dragon_data['did']
-               
-                if (map_check[attr] == nil) then
-                    map_check[attr] = {}
-                end
-
-                map_check[attr][did] = self:getExistDragonByDid(did)
-            end
-
-            local condition_cnt = t_teambonus['condition_count']
-            local t_attr = {'fire', 'water', 'earth', 'light', 'dark'}
-            local target_data
-            local combat_power = 0
-            for _, v in ipairs(t_attr) do
-                local map_attr = map_check[v]
-                if (map_attr) then
-                    local l_attr = table.MapToList(map_attr)
-                    if (#l_attr == condition_cnt) then
-                        for k, struct_dragon_data in pairs(map_attr) do
-                            local _combat_power = struct_dragon_data:getDragonSortData()['combat_power']
-                            if (_combat_power > combat_power) then
-                                combat_power = _combat_power
-                                target_data = map_attr
-                            end
-                        end
-                    end
-                end
-            end
-            
-            if (target_data) then
-                for i, struct_dragon_data in pairs(target_data) do
-                    table.insert(new_all_dragon_data, struct_dragon_data)
-                end
-            end
-
-         -- 만족하지 않는다면 보유하고 있는 개별 전투력이 가장 높은 드래곤 셋팅
-         else
-            if (l_all_dragon_data) then
-                for i, struct_dragon_data in ipairs(l_all_dragon_data) do
-                    local did = struct_dragon_data['did']
-                    local new_struct_dragon_data = self:getExistDragonByDid(did)
-                    if (map_check[did] == nil and new_struct_dragon_data) then
-                        map_check[did] = true
-                        table.insert(new_all_dragon_data, new_struct_dragon_data)
-                    end
-                end
-            end
-         end
-
-         return b_satisfied, new_all_dragon_data
+        return b_satisfied, new_all_dragon_data
     else
         local b_satisfied, _, l_all_dragon_data = self:checkCondition(t_teambonus, l_dragon_data)
         local new_all_dragon_data = {}
         if (l_all_dragon_data) then
             for i, struct_dragon_data in ipairs(l_all_dragon_data) do
-            
+
                 -- ## 전투력 가장 높은 드래곤 세팅
-                -- did 관련
-                if (string.find(type, 'did')) then
+                if (type == 'did' or type == 'did_attr') then
                     local did = struct_dragon_data['did']
                     local new_struct_dragon_data = self:getExistDragonByDid(did, is_all)
                     if (new_struct_dragon_data) then
                         table.insert(new_all_dragon_data, new_struct_dragon_data)
                     end
             
-                -- 속성
+                -- ## 같은 속성중 전투력 가장 높은 드래곤 세팅
                 elseif (type == 'attr') then
                     local attr = struct_dragon_data:getAttr()
                     new_all_dragon_data = self:getExistDragonByAttr(attr)
 
-                -- 역할 
+                -- ## 같은 역할중 전투력 가장 높은 드래곤 세팅 
                 elseif (type == 'role') then
                     local role = struct_dragon_data:getRole()
                     new_all_dragon_data = self:getExistDragonByRole(role)
@@ -445,6 +404,75 @@ function TeamBonusHelper:isSatisfiedByMyDragons(t_teambonus)
     
         return b_satisfied, new_all_dragon_data
     end
+end
+
+-------------------------------------
+-- function getBestDragons_Did_Attr_Same
+-- @brief 같은 드래곤 조건 (같은 속성)
+-- @brief 속성별 조합 전투력을 계산하여 높은 StructDragonObject List 반환
+-------------------------------------
+function TeamBonusHelper:getBestDragons_Did_Attr_Same(t_teambonus, l_dragon_data)
+    local b_satisfied, l_valid_dragon_data, l_all_dragon_data = self:checkComplexCondition(t_teambonus, l_dragon_data)
+
+    local new_all_dragon_data = {}
+    local map_check = {}
+
+    -- 팀보너스 조건 만족하는 경우라면 같은 속성별 보너스 전투력이 가장 높은 드래곤 셋팅
+    if (b_satisfied) then
+    local attr
+    local combat_power = 0
+    for i, struct_dragon_data in ipairs(l_valid_dragon_data) do
+        local attr = struct_dragon_data:getAttr()
+        local did = struct_dragon_data['did']
+               
+        if (map_check[attr] == nil) then
+            map_check[attr] = {}
+        end
+
+        map_check[attr][did] = self:getExistDragonByDid(did)
+    end
+
+    local condition_cnt = t_teambonus['condition_count']
+    local t_attr = {'fire', 'water', 'earth', 'light', 'dark'}
+    local target_data
+    local combat_power = 0
+    for _, v in ipairs(t_attr) do
+        local map_attr = map_check[v]
+        if (map_attr) then
+            local l_attr = table.MapToList(map_attr)
+            if (#l_attr == condition_cnt) then
+                for k, struct_dragon_data in pairs(map_attr) do
+                    local _combat_power = struct_dragon_data:getDragonSortData()['combat_power']
+                    if (_combat_power > combat_power) then
+                        combat_power = _combat_power
+                        target_data = map_attr
+                    end
+                end
+            end
+        end
+    end
+            
+    if (target_data) then
+        for i, struct_dragon_data in pairs(target_data) do
+            table.insert(new_all_dragon_data, struct_dragon_data)
+        end
+    end
+
+    -- 팀보너스 조건 만족하지 않는다면 보유하고 있는 개별 전투력이 가장 높은 드래곤 셋팅
+    else
+        if (l_all_dragon_data) then
+            for i, struct_dragon_data in ipairs(l_all_dragon_data) do
+                local did = struct_dragon_data['did']
+                local new_struct_dragon_data = self:getExistDragonByDid(did)
+                if (map_check[did] == nil and new_struct_dragon_data) then
+                    map_check[did] = true
+                    table.insert(new_all_dragon_data, new_struct_dragon_data)
+                end
+            end
+        end
+    end
+
+    return b_satisfied, new_all_dragon_data
 end
 
 -------------------------------------

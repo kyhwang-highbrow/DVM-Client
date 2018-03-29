@@ -28,7 +28,7 @@ function UI_TeamBonus_Total:initTableView(only_my_team)
     local vars = self.m_owner_ui.vars
     local only_my_team = only_my_team or false
     local l_deck = self.m_owner_ui.m_selDeck or {}
-
+    
     local l_teambonus
     if (only_my_team) then
         l_teambonus = TeamBonusHelper:getTeamBonusDataFromDeck(l_deck) 
@@ -58,16 +58,15 @@ function UI_TeamBonus_Total:initTableView(only_my_team)
     node:removeAllChildren()
 
     local make_func = function(data)
-        local apply_func
-        if (b_recommend) then
-            apply_func = function(l_dragon_list)
-                self.m_owner_ui:applyDeck(l_dragon_list) 
-            end
+        local ui = UI_TeamBonusListItem(data, b_recommend)
+        local apply_func = function(l_dragon_list)
+            if (not l_dragon_list) then return end
+            self.m_owner_ui:applyDeck(l_dragon_list) 
         end
+        ui:setCloseCB(apply_func)
        
-        return UI_TeamBonusListItem(data, b_recommend, apply_func)
+        return ui
     end
-
     local table_view = UIC_TableView(node)
     table_view.m_defaultCellSize = cc.size(1200, 130)
     table_view:setCellUIClass(make_func)
@@ -76,5 +75,4 @@ function UI_TeamBonus_Total:initTableView(only_my_team)
 
     local sort_mgr = SortManager_TeamBonus(b_recommend)
     sort_mgr:sortExecution(table_view.m_itemList)
-    table_view:setDirtyItemList()
 end

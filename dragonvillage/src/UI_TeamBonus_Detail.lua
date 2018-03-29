@@ -55,14 +55,14 @@ function UI_TeamBonus_Detail:initTableView()
     node:removeAllChildren()
 
     local make_func = function(data)
-        local apply_func
-        if (b_recommend) then
-            apply_func = function(l_dragon_list)
-                self.m_owner_ui:applyDeck(l_dragon_list) 
-            end
+        local ui = UI_TeamBonusListItem(data, b_recommend)
+        local apply_func = function(l_dragon_list)
+            if (not l_dragon_list) then return end
+            self.m_owner_ui:applyDeck(l_dragon_list) 
         end
+        ui:setCloseCB(apply_func)
        
-        return UI_TeamBonusListItem(data, b_recommend, apply_func)
+        return ui
     end
 
     local did = self.m_selDid

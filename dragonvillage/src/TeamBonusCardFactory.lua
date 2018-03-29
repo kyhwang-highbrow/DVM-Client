@@ -1,4 +1,5 @@
 local MAX_CONDITION_COUNT = 5
+local DEFAULT_EVOLUTION = 3
 
 -------------------------------------
 -- table TeamBonusCardFactory
@@ -78,9 +79,8 @@ function TeamBonusCardFactory:makeUIList_Deck(data)
     for _, struct_dragon_data in ipairs(l_all_dragon_data) do
         local id = struct_dragon_data['id']
         if (not map_check[id]) then
-            local type = t_teambonus['condition_type']
             local did = struct_dragon_data['did']
-            local is_all = ((type == 'did_attr') or (type == 'did_attr_same')) and true or false
+            local is_all = TeamBonusHelper:isAllAttr(t_teambonus)
             local card = self:getDefaultCard(did, is_all)
             table.insert(l_card, card)
         end
@@ -156,7 +156,7 @@ function TeamBonusCardFactory:makeUIList_Did_Attr(t_teambonus)
         local condition = t_teambonus['condition_' .. i]
         if (condition ~= '') then
             local did = condition
-            local is_all = true
+            local is_all = TeamBonusHelper:isAllAttr(t_teambonus)
             local card = self:getDefaultCard(did, is_all)
             table.insert(l_card, card)
         end
@@ -173,6 +173,7 @@ function TeamBonusCardFactory:makeUIList_Did_Attr_Same(data)
     local l_card = {}
     local table_dragon = TableDragon()
     local t_teambonus = TableTeamBonus():get(data.m_id)
+
     -- 개별 조건은 모든 속성인데 팀 보너스는 같은 속성인 경우 한번 더 체크가 필요함
     local is_satisfied, l_dragon_list = TeamBonusHelper:isSatisfiedByMyDragons(t_teambonus) -- 팀보너스 적용 안되는 드래곤까지 받아옴
 
@@ -255,7 +256,7 @@ function TeamBonusCardFactory:getDefaultCard(did, is_all)
     end
 
     -- 무조건 성룡
-    local evolution = 3
+    local evolution = DEFAULT_EVOLUTION
     local grade = table_dragon:getBirthGrade(did)
 
     local t_dragon_data = {}
@@ -342,7 +343,7 @@ function TeamBonusCardFactory:defaultCardPressHandler(did, btn, struct_dragon_da
     -- 도감 상세보기 노출
     else
         local table_dragon = TableDragon()
-        local evolution = 3
+        local evolution = DEFAULT_EVOLUTION
         local grade = table_dragon:getBirthGrade(did)
 
         local t_dragon = clone(table_dragon:get(did))
