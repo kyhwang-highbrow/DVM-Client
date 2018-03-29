@@ -333,3 +333,35 @@ function SkillHelper:setIndicatorDataByAuto(unit)
     -- 인디케이터 정보를 설정
     return unit.m_skillIndicator:setIndicatorDataByAuto(l_target, fixed_target)
 end
+
+-------------------------------------
+-- function getValidSkillIdFromKey
+-- @brief 해당 유닛이 가진 스킬 중 key 조건에 해당하는 스킬의 아이디 리스트를 반환
+-------------------------------------
+function SkillHelper:getValidSkillIdFromKey(unit, key)
+    local skill_id
+    local char_table = unit:getCharTable()
+    local temp = char_table[key]
+
+    -- 특수한 조건을 먼저 검사
+    if (string.find(key, 'req_mana_')) then
+        -- 필요 마나 수에 해당하는 스킬만 가져옴(액티브만 해당)
+        local req_mana = tonumber(string.match(key, '%d'))
+        local skill_indivisual_info = unit:getSkillIndivisualInfo('active')
+
+        if (unit:getOriginSkillManaCost() == req_mana and skill_indivisual_info) then
+            skill_id = skill_indivisual_info:getSkillID()
+        end
+
+    elseif (temp) then
+        -- key의 이름으로된 칼럼이 존재하는 경우 해당 값을 사용
+        skill_id = temp
+
+    else
+        -- 그 이외에는 key값이 스킬 아이디로 사용된 것으로 처리
+        skill_id = l_skill_key[idx]
+
+    end
+
+    return skill_id
+end

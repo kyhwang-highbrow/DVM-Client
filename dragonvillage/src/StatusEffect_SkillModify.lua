@@ -36,17 +36,12 @@ function StatusEffect_SkillModify:initFromTable(t_status_effect, target_char)
                 local idx = 1
 
                 while (l_skill_key[idx]) do
-                    local skill_id
-                    local char_table = self.m_owner:getCharTable()
-                    local temp = char_table[l_skill_key[idx]]
+                    local key = l_skill_key[idx]
+                    local skill_id = SkillHelper:getValidSkillIdFromKey(self.m_owner, key)
 
-                    if (temp) then
-                        skill_id = temp
-                    else
-                        skill_id = l_skill_key[idx]
+                    if (self.m_owner:findSkillInfoByID(skill_id)) then
+                        table.insert(l_skill_id, tonumber(skill_id))
                     end
-
-                    table.insert(l_skill_id, tonumber(skill_id))
 
                     idx = idx + 1
                 end
