@@ -318,11 +318,14 @@ function ServerData_HotTime:getHotTimeBuffText(type)
 
     -- 현재 사용중
     if (t_info) then
-        state = BOOSTER_ITEM_STATE.INUSE
         local curr_time = Timer:getServerTime()
         local end_time = t_info['enddate']/1000
         local time = (end_time - curr_time)
-        str = Str('{@AQUA}{1} 남음', datetime.makeTimeDesc(time, true, true, true))
+        -- 남은시간이 양수인 경우만 상태 변경 
+        if (time > 0) then
+            state = BOOSTER_ITEM_STATE.INUSE
+            str = Str('{@AQUA}{1} 남음', datetime.makeTimeDesc(time, true, true, true))
+        end
 
     -- 수신함에 있다면 사용가능한 상태
     elseif (self.m_boosterMailInfo[type]) then
