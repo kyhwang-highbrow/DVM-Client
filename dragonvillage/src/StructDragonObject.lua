@@ -522,6 +522,16 @@ function StructDragonObject:setLock(b)
 end
 
 -------------------------------------
+-- function isPossibleTransformChange
+-- @breif
+-------------------------------------
+function StructDragonObject:isPossibleTransformChange()
+    local is_undering = TableDragon():isUnderling(self['did'])
+    local is_possible = (not is_undering) and (self['evolution'] >= POSSIBLE_TRANSFORM_CHANGE_EVO)
+    return is_possible
+end
+
+-------------------------------------
 -- function getIconRes
 -- @breif
 -------------------------------------

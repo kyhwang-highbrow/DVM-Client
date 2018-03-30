@@ -84,6 +84,22 @@ function UIC_DragonAnimator:setDragonAnimator(did, evolution, flv)
 end
 
 -------------------------------------
+-- function setDragonAnimatorByTransform
+-------------------------------------
+function UIC_DragonAnimator:setDragonAnimatorByTransform(struct_dragon_data)
+    local did = struct_dragon_data['did']
+    local evolution = struct_dragon_data['evolution']
+    local flv = struct_dragon_data:getFlv()
+
+    -- 성체부터 외형변환 적용
+    if (evolution == POSSIBLE_TRANSFORM_CHANGE_EVO) then
+        evolution = struct_dragon_data['transform'] or evolution
+    end
+
+    self:setDragonAnimator(did, evolution, flv)
+end
+
+-------------------------------------
 -- function click_dragonButton
 -------------------------------------
 function UIC_DragonAnimator:click_dragonButton(idle_motion)

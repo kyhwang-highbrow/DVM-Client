@@ -369,6 +369,11 @@ function ServerData:networkCommonRespone(ret)
             self:applyServerData(ret['evolution_stones'], 'user', 'evolution_stones')
         end
 
+        -- 외형 변환 재료 갱신
+        if ret['transform_materials'] then
+            self:applyServerData(ret['transform_materials'], 'user', 'transform_materials')
+        end
+
         -- 강화 포인트 갱신
         if ret['reinforce_point'] then
             self:applyServerData(ret['reinforce_point'], 'user', 'reinforce_point')

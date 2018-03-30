@@ -83,7 +83,8 @@ function UI_UserInfoDetailPopup_SetLeader:refresh_dragon(t_dragon_data)
 	local t_dragon = TableDragon():get(did)
 
 	-- 드래곤 애니
-	local animator = AnimatorHelper:makeDragonAnimator(t_dragon['res'], t_dragon_data['evolution'], t_dragon['attr'])
+    -- 외형 변환 적용 Animator
+	local animator = AnimatorHelper:makeDragonAnimatorByTransform(t_dragon_data)
 	animator:setScale(0.6)
 	vars['dragonNode']:addChild(animator.m_node)
 

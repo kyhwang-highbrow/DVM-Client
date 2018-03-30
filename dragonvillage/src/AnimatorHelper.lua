@@ -31,6 +31,32 @@ function AnimatorHelper:makeDragonAnimator(res_name, evolution, attr)
 end
 
 -------------------------------------
+-- function makeDragonAnimatorByTransform
+-------------------------------------
+function AnimatorHelper:makeDragonAnimatorByTransform(struct_dragon_data)
+    local did = struct_dragon_data['did']
+    local evolution = struct_dragon_data['evolution']
+    local is_slime = TableSlime:isSlimeID(did)
+
+    local t_dragon
+    if is_slime then
+        t_dragon = TableSlime():get(did)
+    else
+        t_dragon = TableDragon():get(did)
+    end
+    
+    local res_name = t_dragon['res']
+    local attr = t_dragon['attr']
+
+    -- 성체부터 외형변환 적용
+    if (evolution == POSSIBLE_TRANSFORM_CHANGE_EVO) then
+        evolution = struct_dragon_data['transform'] or evolution
+    end
+
+    return self:makeDragonAnimator(res_name, evolution, attr)
+end
+
+-------------------------------------
 -- function makeDragonAnimator_usingDid
 -------------------------------------
 function AnimatorHelper:makeDragonAnimator_usingDid(did, evolution)

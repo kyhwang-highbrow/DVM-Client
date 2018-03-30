@@ -120,6 +120,16 @@ function ServerData_User:getEvolutionStoneCount(evolution_stone_id)
 end
 
 -------------------------------------
+-- function getTransformMaterialCount
+-- @brief 보유중인 외현 변환 재료 갯수 리턴
+-------------------------------------
+function ServerData_User:getTransformMaterialCount(material_id)
+    local material_id = tostring(material_id)
+    local count = self:get('transform_materials', material_id) or 0
+    return count
+end
+
+-------------------------------------
 -- function getUserLevelInfo
 -- @brief
 -------------------------------------

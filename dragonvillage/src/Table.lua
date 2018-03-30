@@ -128,6 +128,9 @@ local TableInfo_fromServer = {
         -- 진화재료 조합
         ['table_item_evolution_combine'] = {'table_item_evolution_combine', 'id'},
 
+        -- 외형변환 재료
+        ['table_transform'] = {'table_dragon_transform', 'd_grade'},
+
 		-- 레벨업 패키지 레벨별 보상 리스트
         ['table_package_levelup'] = {'table_package_levelup', 'level'}, 
         ['table_package_stage'] = {'table_package_stage', 'stage'}, 

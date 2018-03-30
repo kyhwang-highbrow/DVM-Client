@@ -3346,6 +3346,15 @@
     <None Include="..\src\SortManager_TeamBonus.lua">
       <Filter>lua\src</Filter>
     </None>
+    <None Include="..\src\UI_DragonTransformChangeResult.lua">
+      <Filter>lua\UI</Filter>
+    </None>
+    <None Include="..\src\UI_DragonTransFormChange.lua">
+      <Filter>lua\UI</Filter>
+    </None>
+    <None Include="..\src\TableDragonTransform.lua">
+      <Filter>lua\src</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Classes">

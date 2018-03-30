@@ -281,6 +281,14 @@ function StructSlimeObject:getLock()
 end
 
 -------------------------------------
+-- function isPossibleTransformChange
+-- @breif
+-------------------------------------
+function StructSlimeObject:isPossibleTransformChange()
+    return false
+end
+
+-------------------------------------
 -- function getGrade
 -- @breif
 -------------------------------------

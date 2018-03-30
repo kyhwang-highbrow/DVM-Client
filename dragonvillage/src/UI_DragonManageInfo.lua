@@ -119,6 +119,9 @@ function UI_DragonManageInfo:initButton()
         -- 진화
         vars['evolutionBtn']:registerScriptTapHandler(function() self:click_evolutionBtn() end)
 
+        -- 외형 변환
+        vars['transformBtn']:registerScriptTapHandler(function() self:click_transformBtn() end)
+
         -- 친밀도
         vars['friendshipBtn']:registerScriptTapHandler(function() self:click_friendshipBtn() end)
 
@@ -203,6 +206,11 @@ function UI_DragonManageInfo:refresh()
 
 	-- 잠금 표시
 	self.vars['lockSprite']:setVisible(t_dragon_data:getLock())
+
+    -- 외형 변환 표시
+    local b_transform_change = t_dragon_data:isPossibleTransformChange()
+    self.vars['transformBtn']:setVisible(b_transform_change)
+    self.vars['evolutionBtn']:setVisible(not b_transform_change)
 
     -- spine 캐시 정리 확인
     SpineCacheManager:getInstance():purgeSpineCacheData_checkNumber()
@@ -372,7 +380,8 @@ function UI_DragonManageInfo:refresh_dragonBasicInfo(t_dragon_data)
 
     -- 드래곤 실리소스
     if self.m_dragonAnimator then
-        self.m_dragonAnimator:setDragonAnimator(t_dragon_data['did'], t_dragon_data['evolution'], t_dragon_data:getFlv())
+        -- 외형 변환 적용 Animator
+        self.m_dragonAnimator:setDragonAnimatorByTransform(t_dragon_data)
     end
 end
 
@@ -462,6 +471,14 @@ function UI_DragonManageInfo:click_evolutionBtn()
     end
 
     self:openSubManageUI(UI_DragonEvolution)
+end
+
+-------------------------------------
+-- function click_transformBtn
+-- @brief 외형 변환 버튼
+-------------------------------------
+function UI_DragonManageInfo:click_transformBtn()
+    self:openSubManageUI(UI_DragonTransformChange)
 end
 
 -------------------------------------

@@ -19,7 +19,7 @@ function UI_InvenDevApiPopup:init()
     -- backkey 지정
     g_currScene:pushBackKeyListener(self, function() self:close() end, 'UI_InvenDevApiPopup')
 
-    self.m_lTabNameList = {'dragon', 'evolutionStone', 'fruit', 'rune', 'egg'}
+    self.m_lTabNameList = {'dragon', 'evolutionStone', 'fruit', 'rune', 'egg', 'transform'}
     self.m_lInitData = {}
 
     self:initUI()
@@ -71,6 +71,8 @@ function UI_InvenDevApiPopup:onChangeTab(tab, first)
             self:init_runeTableView()
         elseif (tab == 'egg') then
             self:init_eggTableView()
+        elseif (tab == 'transform') then
+            self:init_transformTableView()
         end
     end
 end
@@ -521,6 +523,105 @@ function UI_InvenDevApiPopup:init_eggTableView()
     table_view_td.m_nItemPerCell = 5
     table_view_td:setCellUIClass(UI_ItemCard, create_func)
     table_view_td:setItemList(l_item_list)
+end
+
+-------------------------------------
+-- function init_transformTableView
+-- @brief 외형 변환 재료 리스트
+-------------------------------------
+function UI_InvenDevApiPopup:init_transformTableView()
+    if self.m_lInitData['transform'] then
+        return
+    end
+    self.m_lInitData['transform'] = true
+
+    local list_table_node = self.vars['transformListNode']
+    list_table_node:removeAllChildren()
+
+    local table_item = TableItem()
+    local l_transform = table_item:filterTable('type', 'transform_material')
+
+    local item_size = 150
+    local item_scale = 1
+    local item_adjust_size = (item_size * item_scale)
+
+    -- 생성
+    local function create_func(ui, data)
+        local esid = data
+        ui.root:setScale(item_scale)
+
+        ui.vars['numberLabel']:setVisible(true)
+        local count = g_userData:getTransformMaterialCount(esid)
+        ui.vars['numberLabel']:setString(comma_value(count))
+
+        local name = table_item:getValue(esid, 't_name')
+        local label = cc.Label:createWithTTF(name, Translate:getFontPath(), 20, 1, cc.size(600, 50), 1, 1)
+        label:setDockPoint(cc.p(0.5, 0.5))
+        label:setAnchorPoint(cc.p(0.5, 0.5))
+        label:setPositionY(50)
+        ui.root:addChild(label)
+
+        ui.vars['clickBtn']:registerScriptTapHandler(function() self:network_tarnsformMaterial(ui, esid) end)
+    end
+
+    local l_item_list = {}
+    for item_id,_ in pairs(l_transform) do
+        table.insert(l_item_list, item_id)
+    end
+
+    local table_view_td = UIC_TableViewTD(list_table_node)
+    table_view_td:setDirection(cc.SCROLLVIEW_DIRECTION_VERTICAL)
+    table_view_td.m_cellSize = cc.size(item_adjust_size, item_adjust_size)
+    table_view_td.m_nItemPerCell = 6
+    table_view_td:setCellUIClass(UI_ItemCard, create_func)
+    table_view_td:setItemList(l_item_list)
+
+    do-- 정렬
+        local function default_sort_func(a, b)
+            local a = a['data']
+            local b = b['data']
+
+            return a < b
+        end
+        table.sort(table_view_td.m_itemList, default_sort_func)
+    end
+end
+
+-------------------------------------
+-- function network_tarnsformMaterial
+-- @brief 외형 변환 재료 추가
+-------------------------------------
+function UI_InvenDevApiPopup:network_tarnsformMaterial(ui, material_id)
+    local uid = g_userData:get('uid')
+    local table_item = TableItem()
+
+    local function success_cb(ret)
+        if ret['user'] then
+            g_serverData:applyServerData(ret['user'], 'user')
+        end
+
+        do -- UI 갱신
+            local count = g_userData:getTransformMaterialCount(material_id)
+            ui.vars['numberLabel']:setString(comma_value(count))
+        end
+
+        local name = table_item:getValue(material_id, 't_name')
+        UIManager:toastNotificationRed('"' .. name .. '" 50개가 추가되었습니다.')
+    end
+
+    local ui_network = UI_Network()
+    ui_network:setRevocable(true)
+    ui_network:setUrl('/users/manage')
+    ui_network:setParam('uid', uid)
+    ui_network:setParam('act', 'increase')
+    ui_network:setParam('key', 'transform_materials')
+    ui_network:setParam('value', tostring(material_id) .. ',' .. tostring(50))
+
+    local name = table_item:getValue(material_id, 't_name')
+    local msg = '"' .. name .. '" 50개 추가 중...'
+    ui_network:setLoadingMsg(msg)
+    ui_network:setSuccessCB(success_cb)
+    ui_network:request()
 end
 
 -------------------------------------

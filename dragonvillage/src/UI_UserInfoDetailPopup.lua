@@ -241,7 +241,8 @@ function UI_UserInfoDetailPopup:refresh_dragon()
 	local t_dragon = TableDragon():get(did)
 
 	-- 드래곤 애니
-	local animator = AnimatorHelper:makeDragonAnimator(t_dragon['res'], t_dragon_data['evolution'], t_dragon['attr'])
+	-- 외형 변환 적용 Animator
+	local animator = AnimatorHelper:makeDragonAnimatorByTransform(t_dragon_data)
 	vars['dragonNode']:addChild(animator.m_node)
 
 	-- 드래곤 이름

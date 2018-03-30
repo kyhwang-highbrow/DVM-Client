@@ -329,6 +329,7 @@ local t_module = {
 	'TableDailyMission',
 	'TablePickDragon',
     'TableTeamBonus',
+    'TableDragonTransform',
 
     -- Scene
     'SceneCommon',
@@ -971,6 +972,7 @@ local t_module = {
     'UI_DragonSkillMove',
     'UI_DragonSkillInfo',
     'UI_DragonSelectPopup',
+    'UI_DragonTransformChange',
 
 	-- UI : 드래곤 관리 - 결과
     'UI_DragonManageFriendshipResult',
@@ -979,6 +981,7 @@ local t_module = {
     'UI_DragonLevelupResult',
 	'UI_DragonSkillEnhance_Result',
 	'UI_DragonReinforceResult',
+    'UI_DragonTransformChangeResult',
 
 	-- UI : 드래곤 평가
 	'UI_DragonBoardPopup',
