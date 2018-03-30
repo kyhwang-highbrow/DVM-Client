@@ -36,7 +36,7 @@ function UI_TeamBonus_Total:initTableView(only_my_team)
         l_teambonus = TeamBonusHelper:getAllTeamBonusDataFromDeck(l_deck) 
     end
 
-    -- Àû¿ëÁßÀÎ ÆÀº¸³Ê½º°¡ ¾øÀ» °æ¿ì cell ÇÏ³ª Ãß°¡ÇØÁÜ
+    -- ì ìš©ì¤‘ì¸ íŒ€ë³´ë„ˆìŠ¤ê°€ ì—†ì„ ê²½ìš° cell í•˜ë‚˜ ì¶”ê°€í•´ì¤Œ
     local initail_tab = self.m_owner_ui.m_initail_tab 
     if (initail_tab == TEAM_BONUS_MODE.TOTAL) then
         local l_my_teambonus = TeamBonusHelper:getTeamBonusDataFromDeck(l_deck)
@@ -52,7 +52,7 @@ function UI_TeamBonus_Total:initTableView(only_my_team)
         end
     end
 
-    -- ¹èÄ¡ ±â´É È°¼ºÈ­ ¿©ºÎ
+    -- ë°°ì¹˜ ê¸°ëŠ¥ í™œì„±í™” ì—¬ë¶€
     local b_recommend = self.m_owner_ui.m_bRecommend
     local node = vars['allListNode']
     node:removeAllChildren()

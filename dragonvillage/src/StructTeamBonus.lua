@@ -6,14 +6,14 @@ StructTeamBonus = class({
 
         m_type = 'string',
 
-        m_lSkill = 'table',     -- º¸³Ê½º È¿°ú ±â´É ¸®½ºÆ®(½ºÅ³ ¾ÆÀÌµğ or ¿É¼Ç Å¸ÀÔ¸í)
-        m_lValue = 'table',     -- º¸³Ê½º È¿°ú ¼öÄ¡ ¸®½ºÆ®(¿É¼Ç Àû¿ë°ª)
+        m_lSkill = 'table',     -- ë³´ë„ˆìŠ¤ íš¨ê³¼ ê¸°ëŠ¥ ë¦¬ìŠ¤íŠ¸(ìŠ¤í‚¬ ì•„ì´ë”” or ì˜µì…˜ íƒ€ì…ëª…)
+        m_lValue = 'table',     -- ë³´ë„ˆìŠ¤ íš¨ê³¼ ìˆ˜ì¹˜ ë¦¬ìŠ¤íŠ¸(ì˜µì…˜ ì ìš©ê°’)
 
-        m_bSatisfy = 'boolean', -- Á¶°Ç ¸¸Á· ¿©ºÎ
-        m_lSatisfied = 'table', -- Á¶°ÇÀ» ¸¸Á·½ÃÅ² ´ë»ó ¸®½ºÆ®
-        m_lAllDragonData = 'table', -- ¸ğµç µå·¡°ï ¸®½ºÆ® (È°¼ºÈ­/ºñÈ°¼ºÈ­ ¸ğµÎ Æ÷ÇÔ)
+        m_bSatisfy = 'boolean', -- ì¡°ê±´ ë§Œì¡± ì—¬ë¶€
+        m_lSatisfied = 'table', -- ì¡°ê±´ì„ ë§Œì¡±ì‹œí‚¨ ëŒ€ìƒ ë¦¬ìŠ¤íŠ¸
+        m_lAllDragonData = 'table', -- ëª¨ë“  ë“œë˜ê³¤ ë¦¬ìŠ¤íŠ¸ (í™œì„±í™”/ë¹„í™œì„±í™” ëª¨ë‘ í¬í•¨)
 
-        m_priority = 'number', -- ¿ì¼±¼øÀ§
+        m_priority = 'number', -- ìš°ì„ ìˆœìœ„
 	})
 
 -------------------------------------
@@ -45,7 +45,7 @@ end
 
 -------------------------------------
 -- function setFromDragonObjectList
--- @brief ÆÄ¶ó¹ÌÅÍÀÇ µå·¡°ïµéÀ» ´ë»óÀ¸·Î ÇØ´çÇÏ´Â ÆÀº¸³Ê½º Á¤º¸¸¦ ¼³Á¤
+-- @brief íŒŒë¼ë¯¸í„°ì˜ ë“œë˜ê³¤ë“¤ì„ ëŒ€ìƒìœ¼ë¡œ í•´ë‹¹í•˜ëŠ” íŒ€ë³´ë„ˆìŠ¤ ì •ë³´ë¥¼ ì„¤ì •
 -------------------------------------
 function StructTeamBonus:setFromDragonObjectList(l_dragon_data)
     local t_teambonus = TableTeamBonus():get(self.m_id)
@@ -54,10 +54,10 @@ end
 
 -------------------------------------
 -- function findFromSatisfiedList
--- @brief ÆÄ¶ó¹ÌÅÍÀÇ µå·¡°ïÀÌ ÆÀº¸³Ê½º¸¦ ¸¸Á·½ÃÅ² ´ë»ó¿¡ µé¾î°¡´ÂÁö È®ÀÎ
+-- @brief íŒŒë¼ë¯¸í„°ì˜ ë“œë˜ê³¤ì´ íŒ€ë³´ë„ˆìŠ¤ë¥¼ ë§Œì¡±ì‹œí‚¨ ëŒ€ìƒì— ë“¤ì–´ê°€ëŠ”ì§€ í™•ì¸
 -------------------------------------
 function StructTeamBonus:findDidFromSatisfiedList(did)
-    -- ¸¸Á·½ÃÅ² ´ë»ó¿¡ Æ÷ÇÔµÇ´ÂÁö È®ÀÎ
+    -- ë§Œì¡±ì‹œí‚¨ ëŒ€ìƒì— í¬í•¨ë˜ëŠ”ì§€ í™•ì¸
     local is_exist = false
 
     for _, v in ipairs(self.m_lSatisfied) do
@@ -72,7 +72,7 @@ end
 
 -------------------------------------
 -- function isSatisfied
--- @brief ÇØ´ç ÆÀº¸³Ê½ºÀÇ Á¶°ÇÀÌ ÃæÁ·µÇ¾ú´ÂÁö ¿©ºÎ
+-- @brief í•´ë‹¹ íŒ€ë³´ë„ˆìŠ¤ì˜ ì¡°ê±´ì´ ì¶©ì¡±ë˜ì—ˆëŠ”ì§€ ì—¬ë¶€
 -------------------------------------
 function StructTeamBonus:isSatisfied()
     return self.m_bSatisfy

@@ -49,7 +49,7 @@ function UI_TeamBonus_Detail:initTableView()
     end
 
     local vars = self.vars
-    -- ¹èÄ¡ ±â´É È°¼ºÈ­ ¿©ºÎ
+    -- ë°°ì¹˜ ê¸°ëŠ¥ í™œì„±í™” ì—¬ë¶€
     local b_recommend = self.m_owner_ui.m_bRecommend
     local node = vars['dragonListNode2']
     node:removeAllChildren()
