@@ -17,7 +17,6 @@ end
 -- @brief 조건 확인
 -------------------------------------
 function LobbyGuide_AncientTower:checkCustomCondition()
-    cclog('LobbyGuide_AncientTower:checkCustomCondition()')
     -- 오픈 상태 여부 체크 (오픈 시간으로 체크)
     if (not g_ancientTowerData:isOpenAncientTower()) then
         return false

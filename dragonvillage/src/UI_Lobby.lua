@@ -1117,7 +1117,6 @@ end
 -- @brief 탑바가 Lobby UI에 포커싱 되었을 때
 -------------------------------------
 function UI_Lobby:onFocus()
-	cclog('UI_Lobby:onFocus()')
 	local vars = self.vars
 
     SpineCacheManager:getInstance():purgeSpineCacheData()
@@ -1142,7 +1141,6 @@ end
 -- @brief 핫타임 관련 UI 갱신
 -------------------------------------
 function UI_Lobby:refresh_hottime()
-	cclog('UI_Lobby:onFinishEntryCoroutine()')
 	local vars = self.vars
 
     -- 핫타임 정보 갱신
