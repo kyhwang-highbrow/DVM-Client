@@ -71,7 +71,7 @@ end
 -- function applySkillLevel
 -------------------------------------
 function DragonSkillIndivisualInfoInGame:applySkillLevel(old_skill_info)
-    PARENT.applySkillLevel(old_skill_info)
+    PARENT.applySkillLevel(self, old_skill_info)
     
     self:initRuntimeInfo()
 
@@ -192,16 +192,6 @@ function DragonSkillIndivisualInfoInGame:resetCoolTime()
     self.m_timer = 0
     self.m_cooldownTimer = 0
     self.m_turnCount = 0
-end
-
--------------------------------------
--- function applySkillLevel
--------------------------------------
-function DragonSkillIndivisualInfoInGame:applySkillLevel(old_skill_info)
-    PARENT.applySkillLevel(self, old_skill_info)
-
-    -- 원본 테이블 저장
-    self.m_tOrgSkill = clone(self.m_tSkill)
 end
 
 -------------------------------------
