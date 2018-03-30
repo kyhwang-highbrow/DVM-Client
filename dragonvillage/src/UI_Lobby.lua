@@ -292,6 +292,9 @@ function UI_Lobby:entryCoroutine()
 			end
         end
 
+		-- @ hottime
+		self:refresh_hottime()
+
         -- @ UI_ACTION
         co:work()
 	    self:doAction(function() 
@@ -1099,6 +1102,7 @@ end
 -- @brief 탑바가 Lobby UI에 포커싱 되었을 때
 -------------------------------------
 function UI_Lobby:onFocus()
+	cclog('UI_Lobby:onFocus()')
 	local vars = self.vars
 
     SpineCacheManager:getInstance():purgeSpineCacheData()
@@ -1113,6 +1117,19 @@ function UI_Lobby:onFocus()
         g_clanChatManager:checkRetryClanChat()
     end
 
+    self:refresh_hottime()
+    self:refresh_userInfo()
+    self:refresh_rightButtons()
+end
+
+-------------------------------------
+-- function refresh_hottime
+-- @brief 핫타임 관련 UI 갱신
+-------------------------------------
+function UI_Lobby:refresh_hottime()
+	cclog('UI_Lobby:onFinishEntryCoroutine()')
+	local vars = self.vars
+
     -- 핫타임 정보 갱신
     vars['battleHotSprite']:setVisible(g_hotTimeData:isHighlightHotTime())
 	
@@ -1121,15 +1138,12 @@ function UI_Lobby:onFocus()
     for i, dc_target in ipairs(l_dc_event) do
         g_hotTimeData:setDiscountEventNode(dc_target, vars, 'dragonEventSprite'..i)
     end
-
+	
     -- 할인 이벤트에 따라 마스터로드, 성장일지 올려줌
     if (#l_dc_event > 0) then
         local interval = 28
         vars['masterMenu']:setPositionY(130 + (interval * #l_dc_event))
     end
-
-    self:refresh_userInfo()
-    self:refresh_rightButtons()
 end
 
 -------------------------------------

@@ -457,7 +457,7 @@ end
 
 
 -------------------------------------
--- function getDiscountEventList
+-- function refreshActivatedDiscountEvent
 -------------------------------------
 function ServerData_HotTime:refreshActivatedDiscountEvent()
     local curr_time = Timer:getServerTime()
@@ -522,15 +522,6 @@ function ServerData_HotTime:refreshActivatedDiscountEvent()
 end
 
 -------------------------------------
--- function getDiscountEventList
--------------------------------------
-function ServerData_HotTime:getDiscountEventList()
-	self:refreshActivatedDiscountEvent()
-
-	return self.m_activeDcEventTable
-end
-
--------------------------------------
 -- function refresh_boosterMailInfo
 -------------------------------------
 function ServerData_HotTime:refresh_boosterMailInfo()
@@ -557,7 +548,9 @@ end
 -- function getDiscountEventValue
 -------------------------------------
 function ServerData_HotTime:getDiscountEventValue(dc_target)
-	self:refreshActivatedDiscountEvent()
+	if (not self.m_activeDcEventTable) then
+		return
+	end
 
 	local dc_value = 0
 	for target, v in pairs(self.m_activeDcEventTable) do
@@ -672,6 +665,13 @@ end
 -- function getDiscountEventList
 -------------------------------------
 function ServerData_HotTime:getDiscountEventList()
+	-- 통신 아직 안 했을 경우
+	if (not self.m_hotTimeInfoList) then
+		return {}
+	end
+
+	self:refreshActivatedDiscountEvent()
+
     local l_dc_event = {}
     for k, v in pairs(HOTTIME_SALE_EVENT) do
         local dc_target = v

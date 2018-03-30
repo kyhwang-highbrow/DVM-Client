@@ -296,7 +296,6 @@ function UI_TitleScene:setWorkList()
     table.insert(self.m_lWorkList, 'workGameLogin')
     table.insert(self.m_lWorkList, 'workGetDeck')
     table.insert(self.m_lWorkList, 'workGetServerInfo')
-    table.insert(self.m_lWorkList, 'workBook')
 
     -- @perpelsdk
     if (isAndroid() or isIos()) then
@@ -833,32 +832,10 @@ function UI_TitleScene:workGetServerInfo()
         end
         if co:waitWork() then return end
 
-        --[[
-        -- 탐험 정보 받기
-        co:work()
-        self.m_loadingUI:showLoading(Str('탐험지역을 탐색 중...'))
-        local ui_network = g_explorationData:request_explorationInfo(co.NEXT)
-        ui_network:setRevocable(false)
-        ui_network:setFailCB(fail_cb)
-        ui_network:hideLoading()
-        if co:waitWork() then return end
-        --]]
-
         -- 부화소 정보 받기
         co:work()
         self.m_loadingUI:showLoading(Str('알 부화를 준비 중...'))
         local ui_network = g_hatcheryData:request_hatcheryInfo(co.NEXT, fail_cb)
-        if ui_network then
-            ui_network:setRevocable(false)
-            ui_network:setFailCB(fail_cb)
-            ui_network:hideLoading()
-        end
-        if co:waitWork() then return end
-
-		-- 핫 타임
-        co:work()
-        self.m_loadingUI:showLoading(Str('핫타임 정보 요청 중...'))
-        local ui_network = g_hotTimeData:request_hottime(co.NEXT, fail_cb)
         if ui_network then
             ui_network:setRevocable(false)
             ui_network:setFailCB(fail_cb)
@@ -1023,6 +1000,16 @@ function UI_TitleScene:workGetServerInfo()
         end
         if co:waitWork() then return end
 
+		-- 도감 정보 받아옴
+        co:work()
+        self.m_loadingUI:showLoading(Str('도감 정보 받는 중...'))
+        local ui_network = g_bookData:request_bookInfo(co.NEXT)
+        if ui_network then
+			ui_network:setFailCB(fail_cb)
+            ui_network:hideLoading()
+        end
+        if co:waitWork() then return end
+
         co:close()
 
         -- 다음 work로 이동
@@ -1032,30 +1019,6 @@ function UI_TitleScene:workGetServerInfo()
     Coroutine(coroutine_function)
 end
 function UI_TitleScene:workGetServerInfo_click()
-end
-
--------------------------------------
--- function workBook
--- @brief
--------------------------------------
-function UI_TitleScene:workBook()
-    self.m_loadingUI:showLoading(Str('도감 정보 받는 중...'))
-
-    local success_cb = function(ret)
-        self:doNextWork()
-    end
-
-    local fail_cb = function(ret)
-        self:makeFailPopup(nil, ret)
-        return true
-    end
-
-    local ui_network = g_bookData:request_bookInfo(success_cb)
-    ui_network:setFailCB(fail_cb)
-    ui_network:setLoadingMsg('')
-    ui_network:hideLoading()
-end
-function UI_TitleScene:workBook_click()
 end
 
 -------------------------------------
