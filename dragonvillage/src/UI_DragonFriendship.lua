@@ -367,9 +367,12 @@ function UI_DragonFriendship:request_friendshipUp(fid, fcnt, fcnt_120p, fcnt_150
         local t_data = {clear_key = 'fruit'}
         g_masterRoadData:updateMasterRoad(t_data)
 
-        -- 드래곤 성장일지 : 드래곤 진화 체크
-        local start_dragon_data = g_dragonDiaryData:getStartDragonData(ret['dragon'])
-        if (start_dragon_data) then
+        -- 드래곤 성장일지 : 드래곤 친밀도 체크
+        local dragon_data = g_dragonDiaryData:getStartDragonData(ret['dragon'])
+        if (dragon_data) then
+            -- 서버에서 받은 드래곤 정보 바로 넘길 경우 친밀도 오브젝트가 생성이 안되있음
+            -- 진입 체크 부분과 맞추기 위해 친밀도 오브젝트 생성후 넘김
+            local start_dragon_data = StructDragonObject(dragon_data)
             -- @ DRAGON DIARY
             local t_data = {clear_key = 'fr_lvup', sub_data = start_dragon_data}
             g_dragonDiaryData:updateDragonDiary(t_data)

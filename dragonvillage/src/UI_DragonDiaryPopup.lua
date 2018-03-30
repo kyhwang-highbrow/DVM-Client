@@ -7,21 +7,12 @@ UI_DragonDiaryPopup = class(PARENT, {
         m_tableView = '',
 		m_currRid = 'number',
 		m_selectedSprite = 'cc.Sprite',
-
-        -- "바로 가기"버튼을 클릭했을 때 팝업이 자동으로 닫힐지 여부
-        m_bAutoClose = 'boolean',
     })
 
 -------------------------------------
 -- function init
 -------------------------------------
-function UI_DragonDiaryPopup:init(auto_close)
-    if (auto_close == nil) then
-        self.m_bAutoClose = true
-    else
-        self.m_bAutoClose = auto_close
-    end
-
+function UI_DragonDiaryPopup:init()
 	local vars = self:load('dragon_diary.ui')
 	UIManager:open(self, UIManager.SCENE)
 
@@ -208,12 +199,6 @@ function UI_DragonDiaryPopup:click_questLinkBtn()
     local clear_cond = t_road['clear_value']
 
     QuickLinkHelper.quickLink(clear_type, clear_cond)
-
-    -- "바로 가기"버튼을 클릭했을 때 팝업이 자도응로 닫힐지 여부
-    if (self.m_bAutoClose) then
-        self:setCloseCB(nil)
-        self:closeWithAction()
-    end
 end
 
 -------------------------------------

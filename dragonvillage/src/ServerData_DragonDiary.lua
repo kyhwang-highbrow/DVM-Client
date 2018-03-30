@@ -133,8 +133,10 @@ function ServerData_DragonDiary:getStartDragonData(dragon_data)
     end
 
     local start_dragon_data
-    if (dragon_data['id'] == start_dragon_doid) then
+    if (dragon_data and dragon_data['id'] == start_dragon_doid) then
         start_dragon_data = dragon_data
+    else
+        start_dragon_data = g_dragonsData:getDragonDataFromUid(start_dragon_doid)
     end
     
     return start_dragon_data
@@ -265,12 +267,51 @@ function ServerData_DragonDiary:isClearAll()
 end
 
 -------------------------------------
+-- function checkAlreadyClear
+-- @brief 통신 실패로 클리어한 퀘스트가 있는데 클리어 처리가 안된 경우 UI 진입시 다시 검사
+-------------------------------------
+function ServerData_DragonDiary:checkAlreadyClear(finish_cb)
+    local finish_cb = finish_cb or function() end
+
+    local start_dragon_data = g_dragonDiaryData:getStartDragonData()
+    if (not start_dragon_data) then
+        finish_cb()
+    end
+    
+    local check_list = {}
+    table.insert(check_list, 'd_lv') -- 레벨업 체크
+    table.insert(check_list, 'd_grup_s') -- 승급 체크
+    table.insert(check_list, 'd_evup_s') -- 진화 체크
+    table.insert(check_list, 'check_d_stat') -- 능력치 체크
+    table.insert(check_list, 'fr_lvup') -- 친밀도 체크
+
+    local function coroutine_function(dt)
+        local co = CoroutineHelper()
+        co:setBlockPopup()
+
+        for _, key in ipairs(check_list) do
+            co:work('check_key :'..key)
+            local t_data = {clear_key = key, sub_data = start_dragon_data}
+            g_dragonDiaryData:updateDragonDiary(t_data, co.NEXT)
+            if co:waitWork() then return end
+        end
+        co:close()
+        finish_cb()
+    end
+
+    Coroutine(coroutine_function, 'DragonDiary 코루틴')
+end
+
+-------------------------------------
 -- function updateDragonDiary
 -- @brief 클리어 키값에 해당하는 부분 클라이언트에서 검사
 -------------------------------------
-function ServerData_DragonDiary:updateDragonDiary(t_data)
+function ServerData_DragonDiary:updateDragonDiary(t_data, finish_cb)
+    local finish_cb = finish_cb or function() end
+
     -- 모두 클리어한 경우 
     if (self:isClearAll()) then
+        finish_cb()
         return
     end
 
@@ -298,7 +339,9 @@ function ServerData_DragonDiary:updateDragonDiary(t_data)
                     param .. ',' .. str_rid
          end
 
-         self:request_diaryClear(param)
+         self:request_diaryClear(param, finish_cb)
+    else
+        finish_cb()
     end
 end
 
@@ -437,10 +480,10 @@ function ServerData_DragonDiary.checkClear(rid, sub_data)
             return true
         end
 
-     -- # 드래곤 친밀도
+    -- # 드래곤 친밀도
     -- # clear_value - flv
     elseif (clear_type == 'fr_lvup') then
-        local flv = sub_data['friendship']['lv']
+        local flv = sub_data['friendship']['flv']
         if (clear_value <= flv) then
             return true
         end

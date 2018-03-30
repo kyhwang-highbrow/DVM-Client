@@ -1276,6 +1276,26 @@ function UINavigatorDefinition:goTo_shop_daily(...)
 	g_shopDataNew:request_shopInfo(finish_cb)
 end
 
+-------------------------------------
+-- function goTo_dragon_diary
+-- @brief 드래곤 성장일지로 이동
+-- @usage UINavigatorDefinition:goTo('dragon_diary')
+-------------------------------------
+function UINavigatorDefinition:goTo_dragon_diary(...)
+    -- 해당 UI가 열려있을 경우
+    local is_opend, idx, ui = self:findOpendUI('UI_DragonDiaryPopup')
+    if (is_opend == true) then
+        self:closeUIList(idx)
+        return
+    end
+    
+    local function finish_cb()
+        UI_DragonDiaryPopup()
+    end
+
+	g_dragonDiaryData:checkAlreadyClear(finish_cb)
+end
+
 
 
 

@@ -701,10 +701,10 @@ end
 
 -------------------------------------
 -- function click_dragonDiaryBtn
--- @brief 마스터의 길 버튼
+-- @brief 드래곤 성장일지 버튼
 -------------------------------------
 function UI_Lobby:click_dragonDiaryBtn()
-    UI_DragonDiaryPopup()
+    UINavigator:goTo('dragon_diary')
 end
 
 -------------------------------------
