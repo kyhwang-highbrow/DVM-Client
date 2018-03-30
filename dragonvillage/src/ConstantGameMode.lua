@@ -106,7 +106,7 @@ function getInGameConstant(type)
         ret = t_game_mode_constant[game_mode_str][dungeon_str][type]
 
     --
-    elseif (t_game_mode_constant[game_mode_str]) then
+    elseif (t_game_mode_constant[game_mode_str] and t_game_mode_constant[game_mode_str][type]) then
 		
         ret = t_game_mode_constant[game_mode_str][type]
 
