@@ -338,16 +338,16 @@ function TutorialManager:checkStartFreeSummon11(stage_id)
 		return false
 	end
 
+	-- 올드 유저는 못함
+	if (not g_dragonDiaryData:isEnable()) then
+		return false
+	end
+
 	-- 1-7 clear_cnt 가 1이어야 함 (최초 클리어)
 	local clear_cnt = g_adventureData:getStageClearCnt(stage_id)
 	if (clear_cnt > 1) then
 		return false
 	end
-
-	-- 1-2 end 튜토리얼 완료했어야 함 (기존 유저 구분용)	
-	--if (not g_tutorialData:isTutorialDone(TUTORIAL.ADV_01_02_END)) then
-		--return false
-	--end
 
 	return true
 end
