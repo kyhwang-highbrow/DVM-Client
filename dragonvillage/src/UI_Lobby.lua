@@ -194,27 +194,11 @@ function UI_Lobby:entryCoroutine()
 				cclog('# 고대의 탑 정보 확인 중')
 				if (ret['ancient_info']) then
 					g_ancientTowerData:setInfoForLobby(ret['ancient_info'])
-
-				elseif (ret['ancient_clear_stage']) then
-					g_ancientTowerData:setClearStage(ret['ancient_clear_stage'])
-					
-					-- test
-					g_ancientTowerData.m_bOpen = true
-					g_ancientTowerData.m_startTime = 1522285200000
-					g_ancientTowerData.m_endTime = 1523458800000
 				end
 
 				cclog('# 콜로세움 정보 확인 중')
 				if (ret['pvp_info']) then
 					g_colosseumData:setInfoForLobby(ret['pvp_info'])
-
-				elseif (ret['season']) then
-					g_colosseumData:refresh_playerUserInfo(ret['season'], nil)
-
-					-- test
-					g_colosseumData.m_bOpen = true
-					g_colosseumData.m_startTime = 1522285200000
-					g_colosseumData.m_endTime = 1523458800000
 				end
 
 				co.NEXT()
