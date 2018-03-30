@@ -50,7 +50,6 @@ function ServerData_Colosseum:request_colosseumInfo(finish_cb, fail_cb)
     -- 성공 콜백
     local function success_cb(ret)
         self:response_colosseumInfo(ret)
-        self.m_bOpen = ret['open']
 
         if finish_cb then
             finish_cb(ret)
@@ -81,8 +80,9 @@ function ServerData_Colosseum:response_colosseumInfo(ret)
 
     self:refresh_matchList(ret['matchlist'])
 
+	self.m_bOpen = ret['open']
     self.m_startTime = ret['start_time']
-    self.m_endTime = ret['endtime']
+    self.m_endTime = ret['end_time'] or ret['endtime']
 
     self:refresh_playerUserInfo(ret['season'], ret['deck'])
     self:refresh_playerUserInfo_highRecord(ret['hiseason'])
@@ -161,6 +161,16 @@ function ServerData_Colosseum:isOpenColosseum()
     local end_time = (self.m_endTime / 1000)
 	
 	return (start_time <= curr_time) and (curr_time <= end_time)
+end
+
+-------------------------------------
+-- function setInfoForLobby
+-------------------------------------
+function ServerData_Colosseum:setInfoForLobby(t_info)
+	self:refresh_playerUserInfo(t_info['season'], nil)
+	self.m_bOpen = t_info['open']
+	self.m_startTime = t_info['start_time']
+	self.m_endTime = t_info['end_time']
 end
 
 -------------------------------------

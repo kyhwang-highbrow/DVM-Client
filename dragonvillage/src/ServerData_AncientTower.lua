@@ -101,6 +101,16 @@ function ServerData_AncientTower:setClearStage(stage_id)
 end
 
 -------------------------------------
+-- function setInfoForLobby
+-------------------------------------
+function ServerData_AncientTower:setInfoForLobby(t_info)
+	self:setClearStage(t_info['ancient_clear_stage'])
+	self.m_bOpen = t_info['open']
+	self.m_startTime = t_info['start_time']
+	self.m_endTime = t_info['end_time']
+end
+
+-------------------------------------
 -- function getClearFloor
 -------------------------------------
 function ServerData_AncientTower:getClearFloor()

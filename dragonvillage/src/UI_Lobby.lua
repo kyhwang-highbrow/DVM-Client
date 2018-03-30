@@ -41,9 +41,9 @@ function UI_Lobby:init()
 
     self:initUI()
     self:initButton()
-    self:refresh()
+    --self:refresh()
 
-    -- 로비 진입 시
+    -- 로비 진입 시 - 코루틴 통신 끝난 후에 refresh 함
     self:entryCoroutine()
     
     -- @analytics
@@ -159,11 +159,6 @@ function UI_Lobby:entryCoroutine()
 				cclog('# 이벤트 정보 받는 중')
 				g_eventData:response_eventList(ret, co.NEXT)
 				if co:waitWork() then return end
-							
-				co:work()
-				cclog('# 상점 정보 받는 중')
-				g_shopDataNew:response_shopInfo(ret, co.NEXT)
-				if co:waitWork() then return end
 
 				co:work()
 				cclog('# 드래곤의 숲 확인 중')
@@ -191,15 +186,35 @@ function UI_Lobby:entryCoroutine()
 					UI_AutoItemPickResultPopup(ret['hours'], ret['ingame_drop_stats'])
 				end
 
-				cclog('# 경쟁 메뉴 보상 정보 확인 중')
-				if (ret['ancient_clear_stage']) then
-					g_ancientTowerData:setClearStage(ret['ancient_clear_stage'])
-				end
+				cclog('# 퀘스트 확인 중')
 				if (ret['quest_info']) then
 					g_questData:applyQuestInfo(ret['quest_info'])
 				end
-				if (ret['season']) then
+
+				cclog('# 고대의 탑 정보 확인 중')
+				if (ret['ancient_info']) then
+					g_ancientTowerData:setInfoForLobby(ret['ancient_info'])
+
+				elseif (ret['ancient_clear_stage']) then
+					g_ancientTowerData:setClearStage(ret['ancient_clear_stage'])
+					
+					-- test
+					g_ancientTowerData.m_bOpen = true
+					g_ancientTowerData.m_startTime = 1522285200000
+					g_ancientTowerData.m_endTime = 1523458800000
+				end
+
+				cclog('# 콜로세움 정보 확인 중')
+				if (ret['pvp_info']) then
+					g_colosseumData:setInfoForLobby(ret['pvp_info'])
+
+				elseif (ret['season']) then
 					g_colosseumData:refresh_playerUserInfo(ret['season'], nil)
+
+					-- test
+					g_colosseumData.m_bOpen = true
+					g_colosseumData.m_startTime = 1522285200000
+					g_colosseumData.m_endTime = 1523458800000
 				end
 
 				co.NEXT()
@@ -292,7 +307,7 @@ function UI_Lobby:entryCoroutine()
 			end
         end
 
-		-- @ hottime
+		self:refresh()
 		self:refresh_hottime()
 
         -- @ UI_ACTION
