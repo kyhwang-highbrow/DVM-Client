@@ -45,7 +45,7 @@ end
 -- function onStart
 -------------------------------------
 function StatusEffect_ManaReduce:onStart()
-    if (self.m_owner.m_charType ~= 'dragon') then
+    if (not self.m_owner:isDragon()) then
         return
     end
 

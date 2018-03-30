@@ -349,7 +349,7 @@ function SkillHelper:getValidSkillIdFromKey(unit, key)
         local req_mana = tonumber(string.match(key, '%d'))
         local skill_indivisual_info = unit:getSkillIndivisualInfo('active')
 
-        if (unit:getOriginSkillManaCost() == req_mana and skill_indivisual_info) then
+        if (unit:isDragon() and unit:getOriginSkillManaCost() == req_mana and skill_indivisual_info) then
             skill_id = skill_indivisual_info:getSkillID()
         end
 
