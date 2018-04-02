@@ -97,12 +97,7 @@ function ServerData_CapsuleBox:request_capsuleBoxInfo(finish_cb, fail_cb)
 
     -- 콜백 함수
     local function success_cb(ret)
-		if (ret['capsule_box']) then
-			self:init_data(ret['capsule_box'])
-		end
-
-		self.m_startTime = ret['start_time']/1000
-		self.m_endTime = ret['end_time']/1000
+		self:response_capsuleBoxInfo(ret)
 
         if finish_cb then
             finish_cb(ret)
@@ -120,6 +115,18 @@ function ServerData_CapsuleBox:request_capsuleBoxInfo(finish_cb, fail_cb)
     ui_network:request()
 
 	return ui_network
+end
+
+-------------------------------------
+-- function response_capsuleBoxInfo
+-------------------------------------
+function ServerData_CapsuleBox:response_capsuleBoxInfo(ret)
+	if (ret['capsule_box']) then
+		self:init_data(ret['capsule_box'])
+	end
+
+	self.m_startTime = ret['start_time']/1000
+	self.m_endTime = ret['end_time']/1000
 end
 
 -------------------------------------

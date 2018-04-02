@@ -882,47 +882,47 @@ function UI_TitleScene:workGetServerInfo()
         -- 상점 정보 
         -- # 먼저 sku를 받아온 후 perplesdk 호출하여 해당 sku에 대한 마켓 정보 받아옴
         -- # 마켓 정보는 타이틀씬에서만 처리
-        co:work()
-        self.m_loadingUI:showLoading(Str('네트워크 통신 중...'))
-        local ui_network = g_shopDataNew:request_shopInfo(co.NEXT, fail_cb)
-        if ui_network then
-            ui_network:setRevocable(false)
-            ui_network:setFailCB(fail_cb)
-            ui_network:hideLoading()
-        end
-        if co:waitWork() then return end
+        -- co:work()
+        -- self.m_loadingUI:showLoading(Str('네트워크 통신 중...'))
+        -- local ui_network = g_shopDataNew:request_shopInfo(co.NEXT, fail_cb)
+        -- if ui_network then
+        --     ui_network:setRevocable(false)
+        --     ui_network:setFailCB(fail_cb)
+        --     ui_network:hideLoading()
+        -- end
+        -- if co:waitWork() then return end
 
         -- 레벨업 패키지
-        co:work()
-        self.m_loadingUI:showLoading(Str('가방을 챙기는 중...'))
-        local ui_network = g_levelUpPackageData:request_lvuppackInfo(co.NEXT, fail_cb)
-        if ui_network then
-            ui_network:setRevocable(false)
-            ui_network:setFailCB(fail_cb)
-            ui_network:hideLoading()
-        end
-        if co:waitWork() then return end
+        -- co:work()
+        -- self.m_loadingUI:showLoading(Str('가방을 챙기는 중...'))
+        -- local ui_network = g_levelUpPackageData:request_lvuppackInfo(co.NEXT, fail_cb)
+        -- if ui_network then
+        --     ui_network:setRevocable(false)
+        --     ui_network:setFailCB(fail_cb)
+        --     ui_network:hideLoading()
+        -- end
+        -- if co:waitWork() then return end
 
-        -- 레벨업 패키지
-        co:work()
-        self.m_loadingUI:showLoading(Str('가방을 챙기는 중...'))
-        local ui_network = g_adventureClearPackageData:request_adventureClearInfo(co.NEXT, fail_cb)
-        if ui_network then
-            ui_network:setRevocable(false)
-            ui_network:setFailCB(fail_cb)
-            ui_network:hideLoading()
-        end
-        if co:waitWork() then return end
+        -- -- 레벨업 패키지
+        -- co:work()
+        -- self.m_loadingUI:showLoading(Str('가방을 챙기는 중...'))
+        -- local ui_network = g_adventureClearPackageData:request_adventureClearInfo(co.NEXT, fail_cb)
+        -- if ui_network then
+        --     ui_network:setRevocable(false)
+        --     ui_network:setFailCB(fail_cb)
+        --     ui_network:hideLoading()
+        -- end
+        -- if co:waitWork() then return end
 
 		-- @ capsule box
-		co:work()
-        self.m_loadingUI:showLoading(Str('캡슐 뽑기 채워넣는 중...'))
-        local ui_network = g_capsuleBoxData:request_capsuleBoxInfo(co.NEXT, fail_cb)
-        if ui_network then
-            ui_network:setRevocable(false)
-            ui_network:hideLoading()
-        end
-        if co:waitWork() then return end
+		-- co:work()
+        -- self.m_loadingUI:showLoading(Str('캡슐 뽑기 채워넣는 중...'))
+        -- local ui_network = g_capsuleBoxData:request_capsuleBoxInfo(co.NEXT, fail_cb)
+        -- if ui_network then
+        --     ui_network:setRevocable(false)
+        --     ui_network:hideLoading()
+        -- end
+        -- if co:waitWork() then return end
 
 		-- -- 도감 정보 받아옴
         -- co:work()
@@ -947,7 +947,8 @@ function UI_TitleScene:workGetServerInfo()
 			ui_network:setUrl('/users/title')
             ui_network:setParam('uid', uid)
 			ui_network:setRevocable(true)
-			ui_network:setSuccessCB(function(ret)
+            ui_network:setSuccessCB(function(ret)
+                -- contents 관련  
                 if (ret['stage_list']) then
                     cclog('# 모험 스테이지 리스트')
                     g_adventureData:response_adventureInfo(ret['stage_list'])
@@ -978,9 +979,30 @@ function UI_TitleScene:workGetServerInfo()
                     g_bookData:response_bookInfo(ret['book_info'])
                 end
 
-                if (ret['atk_deck'] or ret['def_deck']) then
+                if (ret['pvpdeck_info']) then
                     cclog('# 콜로세움 공격덱 방어덱')
-                    g_colosseumData:response_playerColosseumDeck({ret['atk_deck'], ret['def_deck']})
+                    g_colosseumData:response_playerColosseumDeck(ret['pvpdeck_info'])
+                end
+
+                -- shop 관련
+                if (ret['shop_list']) then
+                    cclog('# 상점 리스트')
+                    g_shopDataNew:response_shopInfo(ret['shop_list'])
+                end
+
+                if (ret['lvuppack_info']) then
+                    cclog('# 레벨업 패키지 정보')
+                    g_levelUpPackageData:response_lvuppackInfo(ret['lvuppack_info'])
+                end
+
+                if (ret['stagepack_info']) then
+                    cclog('# 모험 패키지 정보')
+                    g_adventureClearPackageData:response_adventureClearInfo(ret['stagepack_info'])
+                end
+
+                if (ret['capsulebox_info']) then
+                    cclog('# 상점 리스트')
+                    g_capsuleBoxData:response_capsuleBoxInfo(ret['capsulebox_info'])
                 end
 
                 co.NEXT()
