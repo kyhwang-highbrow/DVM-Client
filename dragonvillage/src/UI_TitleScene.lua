@@ -823,6 +823,9 @@ function UI_TitleScene:workGetServerInfo()
         end
         if co:waitWork() then return end
 
+
+
+
 		-- 스테이지 리스트 받기
         co:work()
         self.m_loadingUI:showLoading(Str('지난 흔적을 찾는 중...'))
@@ -833,28 +836,28 @@ function UI_TitleScene:workGetServerInfo()
         if co:waitWork() then return end
 
         -- 부화소 정보 받기
-        co:work()
-        self.m_loadingUI:showLoading(Str('알 부화를 준비 중...'))
-        local ui_network = g_hatcheryData:request_hatcheryInfo(co.NEXT, fail_cb)
-        if ui_network then
-            ui_network:setRevocable(false)
-            ui_network:setFailCB(fail_cb)
-            ui_network:hideLoading()
-        end
-        if co:waitWork() then return end
+        --co:work()
+        --self.m_loadingUI:showLoading(Str('알 부화를 준비 중...'))
+        --local ui_network = g_hatcheryData:request_hatcheryInfo(co.NEXT, fail_cb)
+        --if ui_network then
+            --ui_network:setRevocable(false)
+            --ui_network:setFailCB(fail_cb)
+            --ui_network:hideLoading()
+        --end
+        --if co:waitWork() then return end
 
 		-- 드빌 전용관 정보
-		if (g_localData:isShowHighbrowShop()) then
-			co:work()
-			self.m_loadingUI:showLoading(Str('이전 추억을 되살리는 중...'))
-			local ui_network = g_highbrowData:request_getHbProductList(co.NEXT, fail_cb)
-			if ui_network then
-				ui_network:setRevocable(false)
-				ui_network:setFailCB(fail_cb)
-				ui_network:hideLoading()
-			end
-			if co:waitWork() then return end
-		end
+		--if (g_localData:isShowHighbrowShop()) then
+			--co:work()
+			--self.m_loadingUI:showLoading(Str('이전 추억을 되살리는 중...'))
+			--local ui_network = g_highbrowData:request_getHbProductList(co.NEXT, fail_cb)
+			--if ui_network then
+				--ui_network:setRevocable(false)
+				--ui_network:setFailCB(fail_cb)
+				--ui_network:hideLoading()
+			--end
+			--if co:waitWork() then return end
+		--end
 
         -- 접속시간 이벤트
         co:work()
@@ -867,16 +870,16 @@ function UI_TitleScene:workGetServerInfo()
         end
         if co:waitWork() then return end
 
-        -- 네스트 던전 정보
-        co:work()
-        self.m_loadingUI:showLoading(Str('던전 정보를 확인 중...'))
-        local ui_network = g_nestDungeonData:requestNestDungeonInfo(co.NEXT)
-        if ui_network then
-            ui_network:setRevocable(false)
-            ui_network:setFailCB(fail_cb)
-            ui_network:hideLoading()
-        end
-        if co:waitWork() then return end
+        ---- 네스트 던전 정보
+        --co:work()
+        --self.m_loadingUI:showLoading(Str('던전 정보를 확인 중...'))
+        --local ui_network = g_nestDungeonData:requestNestDungeonInfo(co.NEXT)
+        --if ui_network then
+            --ui_network:setRevocable(false)
+            --ui_network:setFailCB(fail_cb)
+            --ui_network:hideLoading()
+        --end
+        --if co:waitWork() then return end
 
         -- 튜토리얼
         co:work()
@@ -946,15 +949,15 @@ function UI_TitleScene:workGetServerInfo()
         end
         if co:waitWork() then return end
 
-		-- @ daily mission
-		co:work()
-        self.m_loadingUI:showLoading(Str('오늘의 미션 확인 중...'))
-        local ui_network = g_dailyMissionData:request_dailyMissionInfo(co.NEXT, fail_cb)
-        if ui_network then
-            ui_network:setRevocable(false)
-            ui_network:hideLoading()
-        end
-        if co:waitWork() then return end
+		---- @ daily mission
+		--co:work()
+        --self.m_loadingUI:showLoading(Str('오늘의 미션 확인 중...'))
+        --local ui_network = g_dailyMissionData:request_dailyMissionInfo(co.NEXT, fail_cb)
+        --if ui_network then
+            --ui_network:setRevocable(false)
+            --ui_network:hideLoading()
+        --end
+        --if co:waitWork() then return end
 
 		-- @ capsule box
 		co:work()
@@ -966,22 +969,6 @@ function UI_TitleScene:workGetServerInfo()
         end
         if co:waitWork() then return end
 
-        do -- 콜로세움 덱 정보 받기 (추후 통합 API 제작할 것!) sgkim
-            co:work()
-            self.m_loadingUI:showLoading(Str('간식을 챙기는 중...'))
-            local ui_network = g_colosseumData:request_playerColosseumDeck('atk', co.NEXT, fail_cb)
-            ui_network:hideLoading()
-            if co:waitWork() then return end
-
-            co:work()
-            self.m_loadingUI:showLoading(Str('신발을 신는 중...'))
-            local ui_network = g_colosseumData:request_playerColosseumDeck('def', co.NEXT, fail_cb)
-            if ui_network then
-                ui_network:hideLoading()
-            end
-            if co:waitWork() then return end
-        end
-
 		-- 도감 정보 받아옴
         co:work()
         self.m_loadingUI:showLoading(Str('도감 정보 받는 중...'))
@@ -992,6 +979,33 @@ function UI_TitleScene:workGetServerInfo()
         end
         if co:waitWork() then return end
 
+		-- /users/title : title 통합 api
+		co:work()
+		self.m_loadingUI:showLoading(Str('던전 정보를 확인 중...'))
+        do
+			-- param
+			local uid = g_userData:get('uid')
+			local time = g_accessTimeData:getTime()
+			local combat_power = g_dragonsData:getBestCombatPower()
+			-- ui_network
+			local ui_network = UI_Network()
+			ui_network:setUrl('/users/title')
+			ui_network:setParam('uid', uid)
+			ui_network:setRevocable(true)
+			ui_network:setSuccessCB(function(ret)
+				
+				co:work()
+				cclog('# 자신의 덱 정보 받는 중')
+				g_colosseumData:response_playerColosseumDeck(ret, co.NEXT)
+				if co:waitWork() then return end
+
+			end)
+			ui_network:setFailCB(fail_cb)
+			ui_network:hideLoading()
+			ui_network:request()
+        end
+        if co:waitWork() then return end
+	
         co:close()
 
         -- 다음 work로 이동

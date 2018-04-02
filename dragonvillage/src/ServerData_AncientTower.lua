@@ -48,6 +48,8 @@ function ServerData_AncientTower:init(server_data)
     self.m_lStage = nil
     self.m_nStage = 0
     self.m_bOpen = true
+	self.m_startTime = 0
+	self.m_endTime = 0
 
     self:setWeakGradeCountList()
 end
