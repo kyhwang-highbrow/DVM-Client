@@ -895,7 +895,7 @@ function UI_TitleScene:workGetServerInfo()
                 end
 
                 if (ret['capsulebox_info']) then
-                    cclog('# 상점 리스트')
+                    cclog('# 캡슐 뽑기 정보')
                     g_capsuleBoxData:response_capsuleBoxInfo(ret['capsulebox_info'])
                 end
 
