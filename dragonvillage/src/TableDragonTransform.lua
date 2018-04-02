@@ -6,6 +6,7 @@ local PARENT = TableClass
 TableDragonTransform = class(PARENT, {
     })
 
+-- 외형 변환 가능한 진화 단계
 POSSIBLE_TRANSFORM_CHANGE_EVO = 3
 
 -------------------------------------
@@ -39,7 +40,6 @@ end
     ['gold']=1250000,
     ['d_grade']=5,
 --]]
-        
 -------------------------------------
 function TableDragonTransform:getMaterialInfoByDragon(struct_dragon_data)
     local map_material = {}
@@ -72,4 +72,23 @@ function TableDragonTransform:getMaterialInfoByDragon(struct_dragon_data)
     end
 
     return map_material
+end
+
+-------------------------------------
+-- function getPrice
+-- @brief 해당 드래곤의 외형 변환 소모 골드 반환
+-------------------------------------
+function TableDragonTransform:getPrice(struct_dragon_data)
+    if (not struct_dragon_data) then
+        return nil
+    end
+
+    local t_dragon = TableDragon()
+    local did = struct_dragon_data['did']
+    local birth_grade = t_dragon:getBirthGrade(did)
+
+    -- 태생등급에 따라 재료가 다름
+    local t_transform = self:get(birth_grade)
+    local gold = t_transform['gold']
+    return gold
 end

@@ -275,8 +275,12 @@ function UI_DragonTransformChange:click_transformBtn()
         return
     end
 
-    -- 골드 부족
-
+    -- 골드 체크
+    local struct_dragon_data = self.m_selectDragonData
+    local price = TableDragonTransform():getPrice(struct_dragon_data)
+    if (not ConfirmPrice('gold', price)) then
+        return
+    end
 
     local name = evolutionName(self.m_targetEvolution)
     local msg = Str('외형 변환{@sky_blue}({1}){@default}을 진행하시겠습니까?', name)
@@ -306,7 +310,7 @@ function UI_DragonTransformChange:request_transform_change()
 		self.m_bChangeDragonList = true
 
         local new_struct_dragon_data = StructDragonObject(ret['dragon'])
-        UI_DragonTransformChangeResult(before_transform, new_struct_dragon_data)
+        UI_DragonTransformChangeResult(new_struct_dragon_data, before_transform)
 
         self:setSelectDragonDataRefresh()
         self:refresh()
