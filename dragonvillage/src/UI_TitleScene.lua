@@ -208,7 +208,12 @@ function UI_TitleScene:makeUserDataForChatSocket()
     local leader_dragon = g_dragonsData:getLeaderDragon()
     local did = leader_dragon and tostring(leader_dragon['did']) or ''
     if (did ~= '') then
-        did = did .. ';' .. leader_dragon['evolution'] .. ';' .. leader_dragon['transform']
+        did = did .. ';' .. leader_dragon['evolution']
+        -- 외형 변환 존재하는 경우에 추가 
+        local transform = leader_dragon['transform'] 
+        if (transform) then
+            did = did .. ';' .. transform
+        end
     end
 
     local t_data = {}
