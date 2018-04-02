@@ -3349,13 +3349,13 @@
     <None Include="..\src\UI_DragonTransformChangeResult.lua">
       <Filter>lua\UI</Filter>
     </None>
-    <None Include="..\src\UI_DragonTransFormChange.lua">
-      <Filter>lua\UI</Filter>
-    </None>
     <None Include="..\src\TableDragonTransform.lua">
       <Filter>lua\src</Filter>
     </None>
     <None Include="..\src\UI_DragonChangeResult.lua">
+      <Filter>lua\UI</Filter>
+    </None>
+    <None Include="..\src\UI_DragonTransformChange.lua">
       <Filter>lua\UI</Filter>
     </None>
   </ItemGroup>

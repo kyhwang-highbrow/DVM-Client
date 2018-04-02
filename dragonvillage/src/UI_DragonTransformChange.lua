@@ -11,7 +11,7 @@ UI_DragonTransformChange = class(PARENT,{
         m_targetEvolution = 'number',
     })
 
-local DRAGON_SCALE = 0.7
+local DRAGON_SCALE = 1
 
 -------------------------------------
 -- function initParentVariable
@@ -82,10 +82,15 @@ end
 -- function onChangeOption
 -------------------------------------
 function UI_DragonTransformChange:onChangeOption()
+    local vars = self.vars 
     local slot = self.m_transformRadioButton.m_selectedButton
     local target_evolution = self.m_targetMap[slot]
     if (target_evolution) then
         self.m_targetEvolution = target_evolution
+        
+        vars['selectVisual1']:setVisible(false)
+        vars['selectVisual2']:setVisible(false)
+        vars['selectVisual'..target_evolution]:setVisible(true)
     end
 end
 
