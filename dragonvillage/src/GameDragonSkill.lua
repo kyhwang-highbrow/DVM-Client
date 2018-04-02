@@ -138,7 +138,7 @@ function GameDragonSkill.st_playDragSkill(self, dt)
     if (self:getStep() == 0) then
         if (self:isBeginningStep()) then
             -- 해당 유닛을 제외한 일시 정지
-            world:setTemporaryPause(true, dragon)
+            world:setTemporaryPause(true, dragon, INGAME_PAUSE__ACTIVE_SKILL)
 
             -- 경직 중이라면 즉시 해제
             dragon:setSpasticity(false)
@@ -150,7 +150,7 @@ function GameDragonSkill.st_playDragSkill(self, dt)
     elseif (self:getStep() == 1) then
         if (self:isBeginningStep()) then
             -- 일시 정지
-            world:setTemporaryPause(true)
+            world:setTemporaryPause(true, nil, INGAME_PAUSE__ACTIVE_SKILL)
 
             -- 화면 쉐이킹 멈춤
             world.m_shakeMgr:stopShake()
@@ -204,7 +204,7 @@ function GameDragonSkill.st_playDragSkill(self, dt)
     elseif (self:getStep() == 3) then
         if (self:isBeginningStep()) then
             -- 드래곤만 일시 정지 제외시킴
-            world:setTemporaryPause(true, dragon)
+            world:setTemporaryPause(true, dragon, INGAME_PAUSE__ACTIVE_SKILL)
 
             -- 드래곤 애니메이션
             dragon.m_animator:changeAni('skill_idle', false)
@@ -300,7 +300,7 @@ function GameDragonSkill.st_playDragSkill(self, dt)
             self:releaseFocusingDragon()
 
             -- 스킬 시전 드래곤을 제외한 게임 오브젝트 resume
-            world:setTemporaryPause(false, dragon)
+            world:setTemporaryPause(false, dragon, INGAME_PAUSE__ACTIVE_SKILL)
 
             self:changeState(STATE.WAIT)
         end
@@ -636,7 +636,7 @@ function GameDragonSkill:doPlay(unit, skip)
     self.m_bSkipMode = skip_mode
 
     -- 일시 정지
-    self.m_world:setTemporaryPause(true)
+    self.m_world:setTemporaryPause(true, nil, INGAME_PAUSE__ACTIVE_SKILL)
 
     -- 연출 드래곤 설정
     self:setFocusingDragon(dragon)

@@ -192,6 +192,15 @@ CHARACTER_ACTION_TAG__DYING = 9
 TAMER_ACTION_TAG__MOVE_Z = 10
 ANIMATOR_ACTION_TAG__END = 999
 
+--------------------------------------------
+-- INGAME_PAUSE_TAG
+--------------------------------------------
+INGAME_PAUSE__TUTORIAL_TALK = 1
+INGAME_PAUSE__ACTIVE_SKILL = 2
+INGAME_PAUSE__INDICATOR = 3
+INGAME_PAUSE__NEXT_FRAME = 99
+
+
 -- 스킬 시전후 스킬 시전 범위 나타내는 이펙트..빨간색
 RES_RANGE = 'res/effect/skill_range/skill_range.vrp'
 

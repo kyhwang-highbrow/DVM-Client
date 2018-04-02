@@ -128,9 +128,9 @@ function SkillIndicatorMgr_Intro:onTouchEnded(touch, event)
             local location = touch:getLocation()
             local node_pos = self.m_touchNode:convertToNodeSpace(location)
 
-            self:clear(true)
+            self.m_world.m_gameActiveSkillMgr:addWork(unit, node_pos['x'], node_pos['y'], true)
 
-            self.m_world.m_gameActiveSkillMgr:addWork(unit, node_pos['x'], node_pos['y'])
+            self:clear()
 
             if (self.m_animatorGuide) then
                 self.m_animatorGuide:release()
@@ -156,35 +156,16 @@ function SkillIndicatorMgr_Intro:onTouchEnded(touch, event)
 end
 
 -------------------------------------
--- function setSelectHero
+-- function clear
 -------------------------------------
-function SkillIndicatorMgr_Intro:setSelectHero(hero)
-    self.m_startTimer = 0
-        
-    if (hero) then
-        SoundMgr:playEffect('UI', 'ui_drag_ready')
-
-        local active_skill_id = hero:getSkillID('active')
-        hero:reserveSkill(active_skill_id)
-
-        hero:changeState('skillPrepare')
-
-        hero.m_skillIndicator:changeSIState(SI_STATE_READY)
-        hero.m_skillIndicator:changeSIState(SI_STATE_APPEAR)
-        hero.m_skillIndicator:setIndicatorTouchPos(self.m_firstTouchPos['x'], self.m_firstTouchPos['y'])
-        hero.m_skillIndicator:update()
-
-        self.m_selectHero = hero
-    else
-        if (self.m_selectHero) then
-            self.m_selectHero.m_skillIndicator:changeSIState(SI_STATE_DISAPPEAR)
-            
-            if (self.m_selectHero.m_state == 'skillPrepare') then
-                self.m_selectHero:changeState('attackDelay', true)
-            end
+function SkillIndicatorMgr_Intro:clear(keep_pause)
+    self.m_touchedHero = nil
+    
+    if (self.m_selectHero) then
+        if (not keep_pause) then
+            self:setPauseMode(false, self.m_selectHero)
         end
-
-        self.m_selectHero = nil
+        self:setSelectHero(nil)
     end
 end
 
@@ -196,7 +177,8 @@ function SkillIndicatorMgr_Intro:startIntro(hero)
 
     local world = self.m_world
 
-    world:setTemporaryPause(true)
+    self:setPauseMode(true)
+    
     world.m_gameHighlight:setToForced(true)
     --world.m_gameHighlight:addForcedHighLightList(self.m_introHero)
 

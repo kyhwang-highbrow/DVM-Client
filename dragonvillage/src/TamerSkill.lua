@@ -20,7 +20,7 @@ function Tamer.st_active(owner, dt)
 		    owner:stopAllActions()
 
 		    -- world 일시 정지
-		    world:setTemporaryPause(true, owner)
+		    world:setTemporaryPause(true, owner, INGAME_PAUSE__ACTIVE_SKILL)
 
 		    -- 스킬 이름 말풍선
             local skill_indivisual_info = owner:getLevelingSkillByType('active')
@@ -72,7 +72,7 @@ function Tamer.st_active(owner, dt)
 				    -- 5. 스킬 종료
 				    local cb_func_action_2 = cc.CallFunc:create(function()
 					    -- 일시정지 해제
-					    owner.m_world:setTemporaryPause(false, owner)
+					    owner.m_world:setTemporaryPause(false, owner, INGAME_PAUSE__ACTIVE_SKILL)
 					    -- roam상태로 변경
 					    owner:changeStateWithCheckHomePos('roam')
 					    -- 애프터 이미지 해제

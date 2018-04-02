@@ -281,7 +281,7 @@ function SceneGameIntro:play_tutorialTalk(no_use_next_btn, no_color_layer)
     local no_color_layer = no_color_layer or no_use_next_btn
 
     local world = self.m_gameWorld
-    world:setTemporaryPause(true)
+    world:setTemporaryPause(true, nil, INGAME_PAUSE__TUTORIAL_TALK)
     world.m_gameHighlight:setToForced(no_use_next_btn)
 	
     self.m_nIdx = self.m_nIdx + 1
@@ -294,6 +294,8 @@ function SceneGameIntro:play_tutorialTalk(no_use_next_btn, no_color_layer)
 
     -- 튜토리얼 대사 후 콜백 함수
     local function next_cb()
+        self.m_gameWorld:setTemporaryPause(false, nil, INGAME_PAUSE__TUTORIAL_TALK)
+
         if (self.m_nIdx == 5) then
             -- 드래그 스킬 입력 가이드 시작(빙하고룡)
             world.m_skillIndicatorMgr:startIntro(self.m_focusingDragon)
@@ -305,9 +307,7 @@ function SceneGameIntro:play_tutorialTalk(no_use_next_btn, no_color_layer)
             world.m_skillIndicatorMgr:startIntro(self.m_focusingDragon)
         elseif (self.m_nIdx == 11) then
             -- 드래그 스킬 입력 가이드 시작(번개고룡드래곤)
-            world.m_skillIndicatorMgr:startIntro(self.m_focusingDragon)
-        else
-            self.m_gameWorld:setTemporaryPause(false)
+            world.m_skillIndicatorMgr:startIntro(self.m_focusingDragon)    
         end
     end
 

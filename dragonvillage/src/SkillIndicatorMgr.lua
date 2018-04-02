@@ -216,9 +216,9 @@ function SkillIndicatorMgr:onTouchEnded(touch, event)
             local location = touch:getLocation()
             local node_pos = self.m_touchNode:convertToNodeSpace(location)
 
-            self:clear(true)
+            self.m_world.m_gameActiveSkillMgr:addWork(unit, node_pos['x'], node_pos['y'], true)
 
-            self.m_world.m_gameActiveSkillMgr:addWork(unit, node_pos['x'], node_pos['y'])
+            self:clear()
         end
     
     elseif (self.m_touchedHero) then
@@ -238,7 +238,7 @@ function SkillIndicatorMgr:onTouchEnded(touch, event)
             elseif (self.m_touchedHero.m_charType == 'dragon') then
                 local unit = self.m_touchedHero
 
-                self.m_world.m_gameActiveSkillMgr:addWork(unit)
+                self.m_world.m_gameActiveSkillMgr:addWork(unit, nil, nil, true)
             end
         end
 
@@ -251,13 +251,11 @@ end
 -------------------------------------
 -- function clear
 -------------------------------------
-function SkillIndicatorMgr:clear(keep_pause)
+function SkillIndicatorMgr:clear()
     self.m_touchedHero = nil
     
     if (self.m_selectHero) then
-        if (not keep_pause) then
-            self:setPauseMode(false, self.m_selectHero)
-        end
+        self:setPauseMode(false, self.m_selectHero)
         self:setSelectHero(nil)
     end
 end
@@ -356,10 +354,10 @@ end
 function SkillIndicatorMgr:setPauseMode(b, hero)
     if (b) then
         if (not self.m_world:isPause()) then
-            self.m_world:setTemporaryPause(true, hero)
+            self.m_world:setTemporaryPause(true, hero, INGAME_PAUSE__INDICATOR)
         end
     else
-        self.m_world:setTemporaryPause(false, hero)
+        self.m_world:setTemporaryPause(false, hero, INGAME_PAUSE__INDICATOR)
     end
 end
 

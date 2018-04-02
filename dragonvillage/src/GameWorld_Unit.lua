@@ -580,6 +580,19 @@ function GameWorld:getDragonList(char)
 end
 
 -------------------------------------
+-- function getDeadList
+-- @brief char가 소속된 그룹의 죽은 아군 리스트를 반환
+-------------------------------------
+function GameWorld:getDeadList(char)
+    if (char) then
+        local group_key = char['phys_key']
+        return self.m_mUnitGroup[group_key]:getDeadList()
+    else
+        return nil
+    end
+end
+
+-------------------------------------
 -- function getUnitGroupConsideredTamer
 -- @brief unit에 대응하는 GameUnitGroup을 리턴(테이머의 경우는 조작중인 덱을 가져옴)
 -------------------------------------

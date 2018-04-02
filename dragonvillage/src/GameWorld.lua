@@ -7,6 +7,7 @@ GameWorld = class(IEventDispatcher:getCloneClass(), IEventListener:getCloneTable
         m_inGameUI = 'UI_Game',
         m_bDevelopMode = 'boolean',
         m_bPauseMode = 'boolean',
+        m_mPauseTag = 'table',      -- 기능별 일시정지 여부를 저장하기 위한 맵(현재는 액티브 스킬 연출이나 인디케이터 조작시 저장)
 
         m_worldLayer = 'cc.Node',
         m_gameNode1 = 'cc.Node',
@@ -122,6 +123,7 @@ function GameWorld:init(game_mode, stage_id, world_node, game_node1, game_node2,
         
     self.m_bDevelopMode = develop_mode or false
     self.m_bPauseMode = false
+    self.m_mPauseTag = {}
 
     self.m_bgNode = cc.Node:create()
     self.m_gameNode1:addChild(self.m_bgNode, INGAME_LAYER_Z_ORDER.BG_LAYER)
@@ -1485,7 +1487,29 @@ end
 -- function setTemporaryPause
 -- @brief 스킬 사용 도중 시전 드래곤을 제외하고 일시 정지
 -------------------------------------
-function GameWorld:setTemporaryPause(pause, excluded_dragon)
+function GameWorld:setTemporaryPause(pause, excluded_dragon, tag)
+    if (not tag) then return end
+
+    self.m_mPauseTag[tag] = pause
+
+    if (pause) then
+        -- 일시정지 제외될 드래곤이 없을 경우는 현상 유지
+        if (self.m_bPauseMode and not excluded_dragon) then
+            return
+        end
+    else
+        -- 모든 태그별 일시정지가 해제된 경우가 아니면 일시정지를 유지시킴
+        for tag, v in pairs(self.m_mPauseTag) do
+            if (v) then
+                if (excluded_dragon) then
+                    excluded_dragon:setTemporaryPause(true)
+                end
+
+                return
+            end
+        end
+    end
+
     -- 일시 정지
     if (pause) then
         -- UI 일시 정지

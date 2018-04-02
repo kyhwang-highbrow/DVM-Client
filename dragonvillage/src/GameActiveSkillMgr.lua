@@ -30,7 +30,7 @@ end
 -------------------------------------
 function GameActiveSkillMgr:update(dt)
     if (not self:isPossible()) then return end
-        
+    
     while (not table.isEmpty(self.m_lWork)) do
         local t_data = table.remove(self.m_lWork, 1)
         local unit = t_data['unit']
@@ -41,6 +41,11 @@ function GameActiveSkillMgr:update(dt)
         if (b) then
             if (self:doWork(t_data)) then break end
         end
+    end
+
+    -- 만약 다음 프레임까지 일시정지 상태였다면 해제
+    do
+        self.m_world:setTemporaryPause(false, nil, INGAME_PAUSE__NEXT_FRAME)
     end
 end
 
@@ -111,7 +116,7 @@ function GameActiveSkillMgr:doWork_tamer(t_data)
     if (not skill_indivisual_info) then return false end
 
     -- 일시 정지
-    self.m_world:setTemporaryPause(true, unit)
+    self.m_world:setTemporaryPause(true, unit, INGAME_PAUSE__ACTIVE_SKILL)
 
     unit:changeState('active')
 
@@ -122,7 +127,7 @@ end
 -- function addWork
 -- @brief 액티브 스킬 사용 등록
 -------------------------------------
-function GameActiveSkillMgr:addWork(unit, pos_x, pos_y)
+function GameActiveSkillMgr:addWork(unit, pos_x, pos_y, is_touch_event)
     --cclog('GameActiveSkillMgr:addWork : ' .. unit:getName() .. '(' .. unit.phys_idx .. ')')
 
     local active_skill_id = unit:getSkillID('active')
@@ -161,6 +166,12 @@ function GameActiveSkillMgr:addWork(unit, pos_x, pos_y)
     table.sort(self.m_lWork, function(a, b) return a['priority'] < b['priority'] end)
 
     self.m_mWork[unit] = t_data
+
+    -- 터치 이벤트로부터 등록된 경우 다음 프레임까지 멈춘 상태가 되도록 처리
+    if (is_touch_event) then
+        -- 일시 정지
+        self.m_world:setTemporaryPause(true, nil, INGAME_PAUSE__NEXT_FRAME)
+    end
 end
 
 -------------------------------------
