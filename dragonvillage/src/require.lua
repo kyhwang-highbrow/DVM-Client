@@ -976,13 +976,14 @@ local t_module = {
 
 	-- UI : 드래곤 관리 - 결과
     'UI_DragonManageFriendshipResult',
+    'UI_DragonChangeResult',
     'UI_DragonEvolutionResult',
     'UI_DragonUpgradeResult',
     'UI_DragonLevelupResult',
 	'UI_DragonSkillEnhance_Result',
 	'UI_DragonReinforceResult',
     'UI_DragonTransformChangeResult',
-
+    
 	-- UI : 드래곤 평가
 	'UI_DragonBoardPopup',
 	'UI_DragonBoardListItem',
