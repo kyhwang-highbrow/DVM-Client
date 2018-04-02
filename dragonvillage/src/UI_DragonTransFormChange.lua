@@ -340,7 +340,7 @@ function UI_DragonTransformChange:request_transform_change()
 		self.m_bChangeDragonList = true
 
         local new_struct_dragon_data = StructDragonObject(ret['dragon'])
-        UI_DragonTransformChangeResult(new_struct_dragon_data, before_transform)
+        UI_DragonTransformChangeResult(new_struct_dragon_data, before_transform, target_transform)
 
         self:setSelectDragonDataRefresh()
         self:refresh()

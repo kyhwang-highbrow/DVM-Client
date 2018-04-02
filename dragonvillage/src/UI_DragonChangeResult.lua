@@ -8,6 +8,7 @@ UI_DragonChangeResult = class(PARENT, {
         m_dragon_animator = '',
 
         m_before_evolution = 'number',
+        m_after_evolution = 'number',
      })
 
 local ZOOM_SCALE = 1.5
@@ -16,9 +17,10 @@ local ZOOM_TIME = 2.5
 -------------------------------------
 -- function init
 -------------------------------------
-function UI_DragonChangeResult:init(dragon_data, before_evolution)
+function UI_DragonChangeResult:init(dragon_data, before_evolution, after_evolution)
     self.m_dragon_data = dragon_data
     self.m_before_evolution = before_evolution
+    self.m_after_evolution = after_evolution
     -- ### 파생 클래스에서 구현 ###
 end
 
@@ -132,7 +134,8 @@ function UI_DragonChangeResult:showResult(immediately)
     local did = dragon_object['did']
     local evolution = dragon_object['evolution']
 
-    local dragon_animator = AnimatorHelper:makeDragonAnimator_usingDid(did, evolution)
+    local target_evolution = self.m_after_evolution or evolution
+    local dragon_animator = AnimatorHelper:makeDragonAnimator_usingDid(did, target_evolution)
     dragon_node:addChild(dragon_animator.m_node)
 
     local visual = dragon_animator.m_node

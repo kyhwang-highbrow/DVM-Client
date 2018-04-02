@@ -8,7 +8,7 @@ UI_DragonEvolutionResult = class(PARENT, {})
 -------------------------------------
 -- function init
 -------------------------------------
-function UI_DragonEvolutionResult:init(dragon_data, before_evolution)
+function UI_DragonEvolutionResult:init(dragon_data, before_evolution, after_evolution)
     local vars = self:load('dragon_evolution_result.ui')
     UIManager:open(self, UIManager.SCENE)
 
