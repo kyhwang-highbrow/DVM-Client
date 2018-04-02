@@ -45,11 +45,7 @@ function ServerData_AccessTime:request_accessTime(finish_cb, fail_cb)
 
     -- 성공 콜백
     local function success_cb(ret)
-        g_serverData:networkCommonRespone_addedItems(ret)
-        self:networkCommonRespone(ret)
-        self.m_lEventData = ret['table_access_time'] or nil
-        self.m_lRewardData = ret['reward'] or nil
-        self.m_bEvent = (self.m_lEventData) and true or false
+        self:response_accessTime(ret)
         
         if finish_cb then
             finish_cb(ret)
@@ -67,6 +63,17 @@ function ServerData_AccessTime:request_accessTime(finish_cb, fail_cb)
     ui_network:request()
 
     return ui_network
+end
+
+-------------------------------------
+-- function response_accessTime
+-------------------------------------
+function ServerData_AccessTime:response_accessTime(ret)
+    g_serverData:networkCommonRespone_addedItems(ret)
+    self:networkCommonRespone(ret)
+    self.m_lEventData = ret['table_access_time'] or nil
+    self.m_lRewardData = ret['reward'] or nil
+    self.m_bEvent = (self.m_lEventData) and true or false
 end
 
 -------------------------------------

@@ -826,82 +826,47 @@ function UI_TitleScene:workGetServerInfo()
 
 
 
-		-- 스테이지 리스트 받기
-        co:work()
-        self.m_loadingUI:showLoading(Str('지난 흔적을 찾는 중...'))
-        local ui_network = g_adventureData:request_adventureInfo(co.NEXT, fail_cb)
-        if ui_network then
-            ui_network:hideLoading()
-        end
-        if co:waitWork() then return end
+		-- -- 스테이지 리스트 받기
+        -- co:work()
+        -- self.m_loadingUI:showLoading(Str('지난 흔적을 찾는 중...'))
+        -- local ui_network = g_adventureData:request_adventureInfo(co.NEXT, fail_cb)
+        -- if ui_network then
+        --     ui_network:hideLoading()
+        -- end
+        -- if co:waitWork() then return end
 
-        -- 부화소 정보 받기
-        --co:work()
-        --self.m_loadingUI:showLoading(Str('알 부화를 준비 중...'))
-        --local ui_network = g_hatcheryData:request_hatcheryInfo(co.NEXT, fail_cb)
-        --if ui_network then
-            --ui_network:setRevocable(false)
-            --ui_network:setFailCB(fail_cb)
-            --ui_network:hideLoading()
-        --end
-        --if co:waitWork() then return end
+        -- -- 접속시간 이벤트
+        -- co:work()
+        -- self.m_loadingUI:showLoading(Str('접속시간 정보 요청 중...'))
+        -- local ui_network = g_accessTimeData:request_accessTime(co.NEXT, fail_cb)
+        -- if ui_network then
+        --     ui_network:setRevocable(false)
+        --     ui_network:setFailCB(fail_cb)
+        --     ui_network:hideLoading()
+        -- end
+        -- if co:waitWork() then return end
 
-		-- 드빌 전용관 정보
-		--if (g_localData:isShowHighbrowShop()) then
-			--co:work()
-			--self.m_loadingUI:showLoading(Str('이전 추억을 되살리는 중...'))
-			--local ui_network = g_highbrowData:request_getHbProductList(co.NEXT, fail_cb)
-			--if ui_network then
-				--ui_network:setRevocable(false)
-				--ui_network:setFailCB(fail_cb)
-				--ui_network:hideLoading()
-			--end
-			--if co:waitWork() then return end
-		--end
+        -- -- 튜토리얼
+        -- co:work()
+        -- self.m_loadingUI:showLoading(Str('튜토리얼 정보를 가져오는 중...'))
+        -- local ui_network = g_tutorialData:request_tutorialInfo(co.NEXT, fail_cb)
+        -- if ui_network then
+        --     ui_network:setRevocable(false)
+        --     ui_network:setFailCB(fail_cb)
+        --     ui_network:hideLoading()
+        -- end
+        -- if co:waitWork() then return end
 
-        -- 접속시간 이벤트
-        co:work()
-        self.m_loadingUI:showLoading(Str('접속시간 정보 요청 중...'))
-        local ui_network = g_accessTimeData:request_accessTime(co.NEXT, fail_cb)
-        if ui_network then
-            ui_network:setRevocable(false)
-            ui_network:setFailCB(fail_cb)
-            ui_network:hideLoading()
-        end
-        if co:waitWork() then return end
-
-        ---- 네스트 던전 정보
-        --co:work()
-        --self.m_loadingUI:showLoading(Str('던전 정보를 확인 중...'))
-        --local ui_network = g_nestDungeonData:requestNestDungeonInfo(co.NEXT)
-        --if ui_network then
-            --ui_network:setRevocable(false)
-            --ui_network:setFailCB(fail_cb)
-            --ui_network:hideLoading()
-        --end
-        --if co:waitWork() then return end
-
-        -- 튜토리얼
-        co:work()
-        self.m_loadingUI:showLoading(Str('튜토리얼 정보를 가져오는 중...'))
-        local ui_network = g_tutorialData:request_tutorialInfo(co.NEXT, fail_cb)
-        if ui_network then
-            ui_network:setRevocable(false)
-            ui_network:setFailCB(fail_cb)
-            ui_network:hideLoading()
-        end
-        if co:waitWork() then return end
-
-        -- 마스터의 길
-        co:work()
-        self.m_loadingUI:showLoading(Str('마스터의 길을 닦는 중...'))
-        local ui_network = g_masterRoadData:request_roadInfo(co.NEXT, fail_cb)
-        if ui_network then
-            ui_network:setRevocable(false)
-            ui_network:setFailCB(fail_cb)
-            ui_network:hideLoading()
-        end
-        if co:waitWork() then return end
+        -- -- 마스터의 길
+        -- co:work()
+        -- self.m_loadingUI:showLoading(Str('마스터의 길을 닦는 중...'))
+        -- local ui_network = g_masterRoadData:request_roadInfo(co.NEXT, fail_cb)
+        -- if ui_network then
+        --     ui_network:setRevocable(false)
+        --     ui_network:setFailCB(fail_cb)
+        --     ui_network:hideLoading()
+        -- end
+        -- if co:waitWork() then return end
 
         -- 드래곤 성장일지
         co:work()
@@ -949,16 +914,6 @@ function UI_TitleScene:workGetServerInfo()
         end
         if co:waitWork() then return end
 
-		---- @ daily mission
-		--co:work()
-        --self.m_loadingUI:showLoading(Str('오늘의 미션 확인 중...'))
-        --local ui_network = g_dailyMissionData:request_dailyMissionInfo(co.NEXT, fail_cb)
-        --if ui_network then
-            --ui_network:setRevocable(false)
-            --ui_network:hideLoading()
-        --end
-        --if co:waitWork() then return end
-
 		-- @ capsule box
 		co:work()
         self.m_loadingUI:showLoading(Str('캡슐 뽑기 채워넣는 중...'))
@@ -969,15 +924,15 @@ function UI_TitleScene:workGetServerInfo()
         end
         if co:waitWork() then return end
 
-		-- 도감 정보 받아옴
-        co:work()
-        self.m_loadingUI:showLoading(Str('도감 정보 받는 중...'))
-        local ui_network = g_bookData:request_bookInfo(co.NEXT)
-        if ui_network then
-			ui_network:setFailCB(fail_cb)
-            ui_network:hideLoading()
-        end
-        if co:waitWork() then return end
+		-- -- 도감 정보 받아옴
+        -- co:work()
+        -- self.m_loadingUI:showLoading(Str('도감 정보 받는 중...'))
+        -- local ui_network = g_bookData:request_bookInfo(co.NEXT)
+        -- if ui_network then
+		-- 	ui_network:setFailCB(fail_cb)
+        --     ui_network:hideLoading()
+        -- end
+        -- if co:waitWork() then return end
 
 		-- /users/title : title 통합 api
 		co:work()
@@ -990,15 +945,45 @@ function UI_TitleScene:workGetServerInfo()
 			-- ui_network
 			local ui_network = UI_Network()
 			ui_network:setUrl('/users/title')
-			ui_network:setParam('uid', uid)
+            ui_network:setParam('uid', uid)
 			ui_network:setRevocable(true)
 			ui_network:setSuccessCB(function(ret)
-				
-				co:work()
-				cclog('# 자신의 덱 정보 받는 중')
-				g_colosseumData:response_playerColosseumDeck(ret, co.NEXT)
-				if co:waitWork() then return end
+                if (ret['stage_list']) then
+                    cclog('# 모험 스테이지 리스트')
+                    g_adventureData:response_adventureInfo(ret['stage_list'])
+                end
 
+                if (ret['accesstime_info']) then
+                    cclog('# 접속 시간 정보')
+                    g_accessTimeData:response_accessTime(ret['accesstime_info'])
+                end
+
+                if (ret['tutorial_info']) then
+                    cclog('# 튜토리얼 정보')
+                    g_tutorialData:response_tutorialInfo(ret['tutorial_info'])
+                end
+
+                if (ret['masterroad_info']) then
+                    cclog('# 마스터의 길 정보')
+                    g_masterRoadData:applyInfo(ret['masterroad_info'])
+                end
+
+                if (ret['dragondiary_info']) then
+                    cclog('# 드래곤의 길 정보')
+                    g_dragonDiaryData:applyInfo(ret['dragondiary_info'])
+                end
+
+                if (ret['book_info']) then
+                    cclog('# 도감 정보')
+                    g_bookData:response_bookInfo(ret['book_info'])
+                end
+
+                if (ret['atk_deck'] or ret['def_deck']) then
+                    cclog('# 콜로세움 공격덱 방어덱')
+                    g_colosseumData:response_playerColosseumDeck({ret['atk_deck'], ret['def_deck']})
+                end
+
+                co.NEXT()
 			end)
 			ui_network:setFailCB(fail_cb)
 			ui_network:hideLoading()

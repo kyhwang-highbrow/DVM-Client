@@ -62,11 +62,7 @@ function ServerData_Tutorial:request_tutorialInfo(finish_cb, fail_cb)
 
     -- 성공 콜백
     local function success_cb(ret)
-        -- 튜토리얼 클리어 정보 저장
-        self:applyData(ret['tutorial_list'])
-		
-		-- 튜토리얼 스텝 정보 저장
-		self.m_tTutorialStepInfo = ret['tutorial_step']
+        self:response_tutorialInfo(ret)
 
         if finish_cb then
             finish_cb(ret)
@@ -86,6 +82,17 @@ function ServerData_Tutorial:request_tutorialInfo(finish_cb, fail_cb)
     ui_network:request()
 
     return ui_network
+end
+
+-------------------------------------
+-- function response_tutorialInfo
+-------------------------------------
+function ServerData_Tutorial:response_tutorialInfo(ret)
+    -- 튜토리얼 클리어 정보 저장
+    self:applyData(ret['tutorial_list'])
+    
+    -- 튜토리얼 스텝 정보 저장
+    self.m_tTutorialStepInfo = ret['tutorial_step']
 end
 
 -------------------------------------

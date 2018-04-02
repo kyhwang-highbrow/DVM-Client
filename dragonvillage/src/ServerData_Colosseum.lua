@@ -766,16 +766,8 @@ end
 -- function response_playerColosseumDeck
 -- @comment 이아이는 짝꿍 request method가 없다
 -------------------------------------
-function ServerData_Colosseum:response_playerColosseumDeck(t_ret, finish_cb)
-	local l_deck = {
-		t_ret['atk_deck'],
-		t_ret['def_deck'],
-	}
-    self:refresh_playerUserInfo(nil, l_deck)
-
-	if finish_cb then
-        finish_cb(ret)
-    end
+function ServerData_Colosseum:response_playerColosseumDeck(l_deck)
+	self:refresh_playerUserInfo(nil, l_deck)
 end
 
 -------------------------------------

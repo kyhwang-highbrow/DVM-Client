@@ -31,18 +31,11 @@ function ServerData_Adventure:request_adventureInfo(finish_cb, fail_cb)
 
     -- 콜백 함수
     local function success_cb(ret)
-        --self:response_colosseumInfo(ret, cb)
-
-        self:organizeStageList(ret['stage_list'])
-        self:organizeChapterAchieveInfoList(ret['chapter_list'])
-        self:organizeChapterAchieveDataTable(ret['chapter_archievement'])
-        g_adventureFirstRewardData:organizeFirstRewardDataTable(ret['first_reward_list'])
-
+        self:response_adventureInfo(ret)
+        
         if finish_cb then
             return finish_cb(ret)
         end
-
-        --ccdump(ret)
     end
 
     -- 네트워크 통신 UI 생성
@@ -57,6 +50,16 @@ function ServerData_Adventure:request_adventureInfo(finish_cb, fail_cb)
     ui_network:request()
 
 	return ui_network
+end
+
+-------------------------------------
+-- function response_adventureInfo
+-------------------------------------
+function ServerData_Adventure:response_adventureInfo(ret)
+    self:organizeStageList(ret['stage_list'])
+    self:organizeChapterAchieveInfoList(ret['chapter_list'])
+    self:organizeChapterAchieveDataTable(ret['chapter_archievement'])
+    g_adventureFirstRewardData:organizeFirstRewardDataTable(ret['first_reward_list'])
 end
 
 -------------------------------------
