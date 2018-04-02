@@ -72,6 +72,10 @@ function UI_DragonTransformChange:initButton()
     self.m_transformRadioButton = radio_button
 
     vars['transformBtn']:registerScriptTapHandler(function() self:click_transformBtn() end)
+    vars['materialBtn1']:registerScriptTapHandler(function() self:click_materialInfo(1) end)
+    vars['materialBtn2']:registerScriptTapHandler(function() self:click_materialInfo(2) end)
+    vars['materialBtn3']:registerScriptTapHandler(function() self:click_materialInfo(3) end)
+    vars['materialBtn4']:registerScriptTapHandler(function() self:click_materialInfo(4) end)
 end
 
 -------------------------------------
@@ -93,6 +97,16 @@ function UI_DragonTransformChange:refresh()
 
     if (not struct_dragon_data) then
         return
+    end
+
+    local vars = self.vars
+
+    -- 배경
+    local attr = struct_dragon_data:getAttr()
+    if self:checkVarsKey('bgNode', attr) then    
+        vars['bgNode']:removeAllChildren()
+        local animator = ResHelper:getUIDragonBG(attr, 'idle')
+        vars['bgNode']:addChild(animator.m_node)
     end
 
     -- 드래곤 정보
@@ -256,6 +270,22 @@ function UI_DragonTransformChange:getDragonList()
     end
 
     return dragon_dic
+end
+
+-------------------------------------
+-- function click_materialInfo
+-- @breif 재료 획득 장소
+-------------------------------------
+function UI_DragonTransformChange:click_materialInfo(i)
+    local key = 'material_'..tostring(i)
+    local struct_dragon_data = self.m_selectDragonData
+    local map_material = TableDragonTransform():getMaterialInfoByDragon(struct_dragon_data)
+    local t_transform = map_material[key]
+
+    if (t_transform) then
+        local item_id = t_transform['item_id']
+         UI_ItemInfoPopup(item_id)
+    end
 end
 
 -------------------------------------
