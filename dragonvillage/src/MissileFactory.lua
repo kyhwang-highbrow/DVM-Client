@@ -160,8 +160,13 @@ function MissileFactory:makeMissile_(t_option)
     local lua_missile = nil
 
     -- 리소스명 변경 (@를 속성명으로 변경)
-    if (missile_res_name) and (t_option['attr_name']) then
-        missile_res_name = string.gsub(missile_res_name, '@', t_option['attr_name'])
+    if (t_option['attr_name']) then
+        if (missile_res_name) then
+            missile_res_name = string.gsub(missile_res_name, '@', t_option['attr_name'])
+        end
+        if (visual) then
+            visual = string.gsub(visual, '@', t_option['attr_name'])
+        end
     end
 
     -- 미사일 생성
