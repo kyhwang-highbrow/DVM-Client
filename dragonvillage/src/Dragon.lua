@@ -145,7 +145,8 @@ function Dragon:initAnimatorDragon(file_name, evolution, attr, scale)
     end
 
     -- Animator 생성
-    self.m_animator = AnimatorHelper:makeDragonAnimator(file_name, evolution, attr)
+    self.m_animator = AnimatorHelper:makeDragonAnimatorByTransform(self.m_tDragonInfo)
+    --self.m_animator = AnimatorHelper:makeDragonAnimator(file_name, evolution, attr)
     
     if (self.m_animator.m_node) then
         self.m_rootNode:addChild(self.m_animator.m_node)
