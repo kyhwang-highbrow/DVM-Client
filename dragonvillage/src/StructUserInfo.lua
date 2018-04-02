@@ -284,6 +284,11 @@ function StructUserInfo:syncSUser(server_user)
         if str_list[2] then
             data['evolution'] = tonumber(str_list[2])
         end
+
+        if str_list[3] then
+            data['transform'] = tonumber(str_list[3])
+        end
+
         self.m_leaderDragonObject = StructDragonObject(data)
     end
 

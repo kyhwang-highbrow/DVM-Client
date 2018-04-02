@@ -208,7 +208,7 @@ function UI_TitleScene:makeUserDataForChatSocket()
     local leader_dragon = g_dragonsData:getLeaderDragon()
     local did = leader_dragon and tostring(leader_dragon['did']) or ''
     if (did ~= '') then
-        did = did .. ';' .. leader_dragon['evolution']
+        did = did .. ';' .. leader_dragon['evolution'] .. ';' .. leader_dragon['transform']
     end
 
     local t_data = {}

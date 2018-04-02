@@ -559,6 +559,15 @@ function LobbyMap:addLobbyDragon(tamer, is_bot, struct_user_info)
     end
 
     t_dragon = table_dragon:get(did)
+
+    -- 외형 변환 적용된 경우
+    if (evolution >= POSSIBLE_TRANSFORM_CHANGE_EVO) then
+        local transform = leader_dragon['transform']
+        if (transform) then
+            evolution = transform
+        end
+    end
+
     local res = AnimatorHelper:getDragonResName(t_dragon['res'], evolution, t_dragon['attr'])
 
     -- 드래곤 생성
