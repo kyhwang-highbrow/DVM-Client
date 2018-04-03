@@ -83,7 +83,7 @@ function GameHighlightMgr:update(dt)
     end
 
     -- 테이머 스킬 연출 중
-    if (not bPass and world.m_tamer and world.m_tamer:isRequiredHighLight()) then
+    if (not bPass and world.m_gameDragonSkill:isPlayingTamerSkill()) then
         darkLevel = math_max(darkLevel, 170)
 
         local dragons = self.m_world:getDragonList()

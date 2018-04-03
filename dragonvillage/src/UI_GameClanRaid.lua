@@ -26,6 +26,10 @@ function UI_GameClanRaid:initUI()
     vars['autoStartVisual']:setVisible(false)
     vars['autoStartButton']:setVisible(false)
 
+    if (NEW_CLAN_DUNGEON) then
+        vars['effectBtn']:setVisible(false)
+    end
+
     vars['damageLabel']:setString('0')
 end
 

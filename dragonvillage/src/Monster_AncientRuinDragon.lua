@@ -1,4 +1,4 @@
-local PARENT = MonsterLua_Boss
+local PARENT = class(MonsterLua_Boss, ICharacterBinding:getCloneTable())
 
 -------------------------------------
 -- class Monster_AncientRuinDragon
@@ -15,11 +15,26 @@ Monster_AncientRuinDragon = class(PARENT, {
 function Monster_AncientRuinDragon:init(file_name, body, ...)
     self.m_bUseCastingEffect = false
 end
+--[[
+-------------------------------------
+-- function initPhys
+-- @param body
+-------------------------------------
+function Monster_AncientRuinDragon:initPhys(body)
+    PARENT.initPhys(self, { 0, 0, 0 })
+end
+]]--
+-------------------------------------
+-- function initCharacterBinding
+-- @brief 바인딩 관련 초기값 지정(m_classDef은 반드시 설정되어야함)
+-- @override
+-------------------------------------
+function Monster_AncientRuinDragon:initCharacterBinding()
+    self.m_classDef = MonsterLua_Boss
+end
 
 -------------------------------------
--- function init
--- @param file_name
--- @param body
+-- function init_monster
 -------------------------------------
 function Monster_AncientRuinDragon:init_monster(t_monster, monster_id, level)
     PARENT.init_monster(self, t_monster, monster_id, level)
@@ -74,19 +89,6 @@ function Monster_AncientRuinDragon.st_appear(owner, dt)
     end
 end
 
---[[
--------------------------------------
--- function undergoAttack
--------------------------------------
-function Monster_AncientRuinDragon:undergoAttack(attacker, defender, i_x, i_y, body_key, no_event, is_guard)
-    -- 충돌영역 위치로 변경
-    if (self.pos['x'] == i_x and self.pos['y'] == i_y) then
-        i_x, i_y = self:getCenterPos()
-    end
-
-    PARENT.undergoAttack(self, attacker, defender, i_x, i_y, body_key, no_event, is_guard)
-end
-]]--
 -------------------------------------
 -- function setDamage
 -------------------------------------
@@ -97,92 +99,6 @@ function Monster_AncientRuinDragon:setDamage(attacker, defender, i_x, i_y, damag
     end
 
     PARENT.setDamage(self, attacker, defender, i_x, i_y, damage, t_info)
-end
---[[
--------------------------------------
--- function onChangedAttackableGroup
--- @brief 공격할 수 있는 대상 그룹 정보가 변경되었을 경우
--------------------------------------
-function Monster_AncientRuinDragon:onChangedAttackableGroup()
-    -- 클랜 보스 본체의 경우 특정 스킬을 사용하지 못하도록 처리...
-    if (self.m_charTable['type'] == 'clanraid_boss') then
-        local l_remove_skill_id = { 250011, 250012, 250013, 250014, 250015 }
-
-        for _, skill_id in ipairs(l_remove_skill_id) do
-            self:unsetSkillID(skill_id)
-        end
-    end
-end
-
--------------------------------------
--- function makeMissFont
--------------------------------------
-function Monster_AncientRuinDragon:makeMissFont(x, y)
-    -- 충돌영역 위치로 변경
-    if (self.pos['x'] == x and self.pos['y'] == y) then
-        x, y = self:getCenterPos()
-    end
-
-    PARENT.makeMissFont(self, x, y)
-end
-
--------------------------------------
--- function makeShieldFont
--------------------------------------
-function Monster_AncientRuinDragon:makeShieldFont(x, y)
-    -- 충돌영역 위치로 변경
-    if (self.pos['x'] == x and self.pos['y'] == y) then
-        x, y = self:getCenterPos()
-    end
-
-    PARENT.makeShieldFont(self, x, y)
-end
-
--------------------------------------
--- function makeImmuneFont
--------------------------------------
-function Monster_AncientRuinDragon:makeImmuneFont(x, y, scale)
-    -- 충돌영역 위치로 변경
-    if (self.pos['x'] == x and self.pos['y'] == y) then
-        x, y = self:getCenterPos()
-    end
-
-    PARENT.makeImmuneFont(self, x, y, scale)
-end
-
--------------------------------------
--- function makeResistanceFont
--------------------------------------
-function Monster_AncientRuinDragon:makeResistanceFont(x, y, scale)
-    -- 충돌영역 위치로 변경
-    if (self.pos['x'] == x and self.pos['y'] == y) then
-        x, y = self:getCenterPos()
-    end
-
-    PARENT.makeResistanceFont(self, x, y, scale)
-end
-]]--
--------------------------------------
--- function syncHp
--------------------------------------
-function Monster_AncientRuinDragon:syncHp(hp)
-    if (self:isDead()) then return end
-
-    self.m_hp = math_min(hp, self.m_maxHp)
-    self.m_hpRatio = self.m_hp / self.m_maxHp
-
-    if (self:isZeroHp()) then
-        self:changeState('dying')
-    end
-
-    -- 체력바 가감 연출
-    if (self.m_hpGauge) then
-        self.m_hpGauge:setScaleX(self.m_hpRatio)
-    end
-	if (self.m_hpGauge2) then
-        local action = cc.Sequence:create(cc.DelayTime:create(0.2), cc.ScaleTo:create(0.5, self.m_hpRatio, 1))
-        self.m_hpGauge2:runAction(cc.EaseIn:create(action, 2))
-    end
 end
 
 -------------------------------------

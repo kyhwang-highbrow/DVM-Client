@@ -199,6 +199,9 @@ function ServerData:getInstance()
     -- 드래곤 성장일지
     g_dragonDiaryData = ServerData_DragonDiary(g_serverData)
 
+    -- 시즌
+    g_seasonData = ServerData_Season(g_serverData)
+
     return g_serverData
 end
 

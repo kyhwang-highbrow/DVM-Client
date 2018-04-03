@@ -33,6 +33,10 @@ function SceneGameClanRaid:init(game_key, stage_id, stage_name, develop_mode, st
     -- 스테이지 속성에 따른 이름을 사용
     local attr = TableStageData():getStageAttr(stage_id)
     self.m_stageName = string.format('stage_clanraid_%s', attr)
+
+    if (NEW_CLAN_DUNGEON) then
+        LIMIT_TIME = 180
+    end
 end
 
 -------------------------------------
@@ -137,7 +141,17 @@ function SceneGameClanRaid:updateRealTimer(dt)
     local game_state = self.m_gameWorld.m_gameState
     
     -- 실제 진행 시간을 계산(배속에 영향을 받지 않도록 함)
-    if (not world:isPause() or self.m_bPause) then
+    local bUpdateRealLiveTimer = false
+
+    if (NEW_CLAN_DUNGEON) then
+        if (not world:isPause() or self.m_bPause) then
+            bUpdateRealLiveTimer = true
+        end
+    else
+        bUpdateRealLiveTimer = true
+    end
+
+    if (bUpdateRealLiveTimer) then
         self.m_realLiveTimer = self.m_realLiveTimer + (dt / self.m_timeScale)
     end
 

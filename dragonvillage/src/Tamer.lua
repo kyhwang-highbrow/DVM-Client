@@ -111,7 +111,8 @@ function Tamer:initState()
     self:addState('roam', Tamer.st_roam, 'i_idle', true)
     self:addState('bring', Tamer.st_bring, 'i_idle', true)
 
-	self:addState('active', Tamer.st_active, 'i_idle', false)
+	self:addState('skillAppear', Tamer.st_skillAppear, 'i_idle', false)
+    self:addState('skillIdle', Tamer.st_skillIdle, 'skill_2', false)
 	
     self:addState('wait', Tamer.st_wait, 'i_idle', true)
     self:addState('move', Tamer.st_move, 'i_idle', true)
@@ -571,24 +572,6 @@ function Tamer:stopAllActions()
 end
 
 -------------------------------------
--- function isRequiredHighLight
--- @brief 하이라이트가 필요한 상태인지 여부
--------------------------------------
-function Tamer:isRequiredHighLight()
-    -- 액티브 스킬 연출 중
-    if (self.m_state == 'active') then
-        return true
-
-    -- 발동형 스킬 연출 중
-    elseif (self.m_state == 'event') then
-        return false
-
-    end
-
-    return false
-end
-
--------------------------------------
 -- function getFellowList
 -- @brief 어떤 진형이든 항상 아군을 가져온다.
 -------------------------------------
@@ -598,13 +581,6 @@ function Tamer:getFellowList()
 	else
 		return self.m_world:getEnemyList()
 	end
-end
-
--------------------------------------
--- function isPlayingActiveSkill
--------------------------------------
-function Tamer:isPlayingActiveSkill()
-    return (self.m_state == 'active')
 end
 
 -------------------------------------

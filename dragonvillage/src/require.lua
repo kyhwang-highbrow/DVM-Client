@@ -160,12 +160,14 @@ local t_module = {
 	'ServerData_AttrTower',
     'ServerData_DragonDiary',
     'ServerData_EventGoldDungeon',
+    'ServerData_Season',
 
     -- Interface
     'IEventDispatcher',
 	'IEventListener',
     'IHighlight',
     'IStateHelper',
+    'ICharacterBinding',
     'ICharacterStatusEffect',
     'ITopUserInfo_EventListener',
     'ITabUI',

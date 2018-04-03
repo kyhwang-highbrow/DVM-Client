@@ -182,8 +182,13 @@ end
 -- @brief 적군의 상태, 버프, 디버프 및 패시브 적용 확인
 -------------------------------------
 function GameWorld:visible_ingame_ui()
-    --self.m_inGameUI.root:runAction(cc.ToggleVisibility:create())
-    self.m_unitStatusNode:setVisible(not self.m_unitStatusNode:isVisible())
+    self.m_inGameUI.root:runAction(cc.ToggleVisibility:create())
+    --self.m_unitStatusNode:setVisible(not self.m_unitStatusNode:isVisible())
+
+    for _, boss in ipairs(self.m_waveMgr.m_lBoss) do
+        local is_visible = boss.m_rootNode:isVisible()
+        boss.m_rootNode:setVisible(not is_visible)
+    end
 end
 
 -------------------------------------
@@ -194,10 +199,12 @@ function GameWorld:se_on_dragon()
 	local dragon_list = self:getDragonList()
     local enemy_list = self:getEnemyList()
 
+    StatusEffectHelper:doStatusEffect(dragon_list[1], dragon_list, 'skill_cooldown_reduce', 'ally_all', 5, 10, 100, 15)
+
     --StatusEffectHelper:doStatusEffect(dragon_list[1], { dragon_list[1] }, 'stun', 'target', 1, 5, 100, 100)
     --StatusEffectHelper:doStatusEffect(dragon_list[1], dragon_list, 'barrier_protection_time', 'ally_all', 10, 9999, 100, 100)
     --StatusEffectHelper:doStatusEffect(dragon_list[1], dragon_list, 'accel_mana', 'ally_all', 5, 9999, 100, 100)
-
+    --[[
     local temp = { 'atk_up', 'aspd_up', 'cri_chance_up', 'def_up', 'cri_avoid_up', 'avoid_up',  'hit_rate_up', 'hp_drain' }
 
     for i, v in ipairs(temp) do
@@ -206,6 +213,7 @@ function GameWorld:se_on_dragon()
         StatusEffectHelper:doStatusEffect(enemy_list[1], enemy_list, v, 'ally_all', 5, 10, 100, 100)
         StatusEffectHelper:doStatusEffect(enemy_list[1], enemy_list, v, 'ally_all', 5, 10, 100, 100)
     end
+    ]]--
 end
 
 -------------------------------------
@@ -339,7 +347,7 @@ end
 -------------------------------------
 function GameWorld:tamer_active_skill()
     if (self.m_tamer) then
-        self.m_tamer:changeState('active')
+        self.m_gameActiveSkillMgr:addWork(self.m_tamer)
     end
 end
 

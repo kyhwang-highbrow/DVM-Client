@@ -351,6 +351,7 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <None Include="..\src\GameWorld_Unit.lua" />
     <None Include="..\src\Global.lua" />
     <None Include="..\src\GoogleHelper.lua" />
+    <None Include="..\src\ICharacterBinding.lua" />
     <None Include="..\src\IEventListener.lua" />
     <None Include="..\src\IHighlight.lua" />
     <None Include="..\src\ISkillMultiAttack.lua" />
@@ -502,6 +503,7 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <None Include="..\src\ServerData_Quest.lua" />
     <None Include="..\src\ServerData_Ranking.lua" />
     <None Include="..\src\ServerData_Runes.lua" />
+    <None Include="..\src\ServerData_Season.lua" />
     <None Include="..\src\ServerData_SecretDungeon.lua" />
     <None Include="..\src\ServerData_Shop.lua" />
     <None Include="..\src\ServerData_Slimes.lua" />

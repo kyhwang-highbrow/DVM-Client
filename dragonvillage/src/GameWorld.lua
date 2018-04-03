@@ -1164,13 +1164,8 @@ function GameWorld:isPossibleControl()
         return false
     end
 
-    -- 드래곤 스킬 연출 중일 경우
+    -- 액티브 스킬 연출 중일 경우
     if (self.m_gameDragonSkill:isPlaying()) then
-        return false
-    end
-
-    -- 테이머 스킬 연출 중일 경우
-    if (self.m_tamer and self.m_tamer:isPlayingActiveSkill()) then
         return false
     end
 

@@ -88,10 +88,6 @@ end
 -------------------------------------
 function GameStateForDoubleTeam:setBossHp(hp)
     self.m_bossHp:set(hp)
-
-    for _, boss in ipairs(self.m_world.m_waveMgr.m_lBoss) do
-        boss:syncHp(hp)
-    end
 end
 
 -------------------------------------

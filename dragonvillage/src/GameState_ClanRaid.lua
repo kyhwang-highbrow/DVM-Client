@@ -342,6 +342,17 @@ function GameState_ClanRaid:makeBossHp()
 end
 
 -------------------------------------
+-- function setBossHp
+-------------------------------------
+function GameState_ClanRaid:setBossHp(hp)
+    PARENT.setBossHp(self, hp)
+
+    for _, boss in ipairs(self.m_world.m_waveMgr.m_lBoss) do
+        boss:syncHp(hp)
+    end
+end
+
+-------------------------------------
 -- function onEvent
 -- @brief
 -------------------------------------

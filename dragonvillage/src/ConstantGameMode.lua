@@ -63,6 +63,9 @@ PLAYER_VERSUS_MODE[GAME_MODE_EVENT_GOLD] = 'pvp'
 PLAYER_VERSUS_MODE[GAME_MODE_CLAN_RAID] = 'pve'
 PLAYER_VERSUS_MODE[GAME_MODE_ANICENT_RUIN] = 'pve'
 
+-- 클랜던전 신규 버전 적용 여부
+NEW_CLAN_DUNGEON = true
+
 -------------------------------------
 -- function getInGameConstant
 -------------------------------------

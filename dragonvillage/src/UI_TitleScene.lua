@@ -862,6 +862,11 @@ function UI_TitleScene:workGetServerInfo()
                     g_colosseumData:response_playerColosseumDeck(ret['pvpdeck_info'])
                 end
 
+                if (ret['season_info']) then
+                    cclog('# 시즌 정보')
+                    g_seasonData:applyInfo(ret['season_info'])
+                end
+
                 -- shop 관련
                 if (ret['shop_list']) then
                     cclog('# 상점 리스트')

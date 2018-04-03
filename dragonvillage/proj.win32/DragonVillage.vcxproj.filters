@@ -3343,6 +3343,9 @@
     <None Include="..\src\SortManager_TeamBonus.lua">
       <Filter>lua\src</Filter>
     </None>
+    <None Include="..\src\ICharacterBinding.lua">
+      <Filter>lua\src</Filter>
+    </None>
     <None Include="..\src\UI_DragonTransformChangeResult.lua">
       <Filter>lua\UI</Filter>
     </None>
@@ -3360,6 +3363,9 @@
     </None>
     <None Include="..\src\UI_MailSelectPopup.lua">
       <Filter>lua\UI</Filter>
+    </None>
+    <None Include="..\src\ServerData_Season.lua">
+      <Filter>lua\src</Filter>
     </None>
   </ItemGroup>
   <ItemGroup>

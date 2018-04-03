@@ -114,11 +114,9 @@ function GameActiveSkillMgr:doWork_tamer(t_data)
 
     local skill_indivisual_info = unit:getLevelingSkillByType('active')
     if (not skill_indivisual_info) then return false end
-
-    -- 일시 정지
-    self.m_world:setTemporaryPause(true, unit, INGAME_PAUSE__ACTIVE_SKILL)
-
-    unit:changeState('active')
+    
+    -- 연출 시작
+    self.m_world.m_gameDragonSkill:doPlay(unit)
 
     return true
 end
@@ -196,13 +194,8 @@ function GameActiveSkillMgr:isPossible()
         return false
     end
 
-    -- 드래곤 스킬 연출 중일 경우
+    -- 액티브 스킬 연출 중일 경우
     if (world.m_gameDragonSkill:isPlaying()) then
-        return false
-    end
-
-    -- 테이머 스킬 연출 중일 경우
-    if (world.m_tamer and world.m_tamer:isPlayingActiveSkill()) then
         return false
     end
 

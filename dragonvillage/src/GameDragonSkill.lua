@@ -8,6 +8,7 @@ local STATE = {
 
 -------------------------------------
 -- class GameDragonSkill
+-- @brief 액티브 스킬(드래그 or 테이머 스킬) 연출을 위한 싱글톤으로 사용되는 클래스
 -------------------------------------
 GameDragonSkill = class(PARENT, {
         m_world = 'GameWorld',
@@ -122,7 +123,8 @@ end
 -------------------------------------
 function GameDragonSkill:initState()
     self:addState(STATE.WAIT,   function(self, dt) end)
-    self:addState(STATE.PLAY_DRAG_SKILL,   GameDragonSkill.st_playDragSkill)
+    self:addState(STATE.PLAY_DRAG_SKILL,    GameDragonSkill.st_playDragSkill)
+    self:addState(STATE.PLAY_TAMER_SKILL,   GameDragonSkill.st_playTamerSkill)
 end
 
 -------------------------------------
@@ -139,8 +141,8 @@ function GameDragonSkill.st_playDragSkill(self, dt)
     if (self:getStep() == 0) then
         if (self:isBeginningStep()) then
             -- 클랜 던전의 경우 배속 조절
-            if (world.m_gameMode == GAME_MODE_CLAN_RAID) then
-                world.m_gameTimeScale:setBase(2)
+            if (NEW_CLAN_DUNGEON and world.m_gameMode == GAME_MODE_CLAN_RAID) then
+                world.m_gameTimeScale:set(1.33)
             end
 
             -- 해당 유닛을 제외한 일시 정지
@@ -304,13 +306,13 @@ function GameDragonSkill.st_playDragSkill(self, dt)
     elseif (self:getStep() == 6) then
         if (dragon.m_state ~= 'delegate') then
             -- 클랜 던전의 경우 배속 조절
-            if (world.m_gameMode == GAME_MODE_CLAN_RAID) then
-                world.m_gameTimeScale:setBase(g_constant:get('INGAME', 'QUICK_MODE_TIME_SCALE'))
+            if (NEW_CLAN_DUNGEON and world.m_gameMode == GAME_MODE_CLAN_RAID) then
+                world.m_gameTimeScale:reset()
             end
 
             self:releaseFocusingUnit()
 
-            -- 스킬 시전 드래곤을 제외한 게임 오브젝트 resume
+            -- 스킬 시전 주체를 제외한 게임 오브젝트 resume
             world:setTemporaryPause(false, dragon, INGAME_PAUSE__ACTIVE_SKILL)
 
             self:changeState(STATE.WAIT)
@@ -327,6 +329,112 @@ function GameDragonSkill.st_playDragSkill(self, dt)
             self.m_skillOpeningCutBg:setFlip(false)
         else
             self.m_skillOpeningCutBg:setFlip(true)
+        end
+    end
+end
+
+-------------------------------------
+-- function st_playTamerSkill
+-------------------------------------
+function GameDragonSkill.st_playTamerSkill(self, dt)
+    local world = self.m_world
+    local ui = self.m_world.m_inGameUI
+    local tamer = self.m_unit
+    local timeScale = 1
+    local delayTime = 2
+
+    if (self.m_bSkipMode) then
+        delayTime = 1
+    end
+	
+    if (self:getStep() == 0) then
+        if (self:isBeginningStep()) then
+            -- 해당 유닛을 제외한 일시 정지
+            world:setTemporaryPause(true, tamer, INGAME_PAUSE__ACTIVE_SKILL)
+
+            tamer:changeState('skillAppear')
+
+            self:nextStep()
+        end
+    elseif (self:getStep() == 1) then
+        if (self:isBeginningStep()) then
+            local l_ally = tamer:getFellowList()
+		
+		    local cameraHomePosX, cameraHomePosY = world.m_gameCamera:getHomePos()
+		    local move_pos_x = cameraHomePosX + CRITERIA_RESOLUTION_X/2
+		    local move_pos_y = cameraHomePosY + 200
+
+            -- 스킬 이름 말풍선
+            local skill_indivisual_info = tamer:getLevelingSkillByType('active')
+            local t_skill = skill_indivisual_info.m_tSkill
+		    SkillHelper:makePassiveSkillSpeech(tamer, t_skill['t_name'])
+
+            if (self.m_bSkipMode) then
+                self:nextStep()
+            else
+		        -- 연출 이동
+		        tamer:setHomePos(tamer.pos.x, tamer.pos.y)
+		        tamer:setMove(move_pos_x, move_pos_y, 2000)
+		        tamer:runAction_MoveZ(0.1, 0)
+			
+		        -- 애프터 이미지
+		        tamer:setAfterImage(true)
+            end
+
+        elseif (tamer.m_isOnTheMove == false) then
+            if (not self.m_bSkipMode) then
+                self:nextStep()
+            end
+        end
+
+    elseif (self:getStep() == 2) then
+        if (self:isBeginningStep()) then
+            if (self.m_bSkipMode) then
+                self:nextStep()
+            else
+                local skill_indivisual_info = tamer:getLevelingSkillByType('active')
+                local t_skill = skill_indivisual_info.m_tSkill
+		        local res_1 = t_skill['res_1']	-- 전화면 컷씬 리소스
+		        local res_2 = t_skill['res_2']	-- 스킬 발동 리소스
+
+                -- 전화면 컷씬 연출 시작
+		        SkillHelper:makeEffectOnView(res_1, 'idle', function()
+                    SkillHelper:makeEffectOnView(res_2, 'idle')
+
+                    self:nextStep()
+                end)
+            end
+        end
+
+    elseif (self:getStep() == 3) then
+        if (self:isBeginningStep()) then
+            -- 테이머 스킬 애니메이션 시작
+            tamer:changeState('skillIdle')
+
+            self:nextStep()
+        end
+
+    elseif (self:getStep() == 4) then
+        if (self:isBeginningStep()) then
+            -- 테이머 애니메이션 속도 조정
+            local duration = tamer:getAniDuration()
+            tamer:setTimeScale(duration / delayTime)
+
+        elseif (self:isPassedStepTime(delayTime)) then
+            -- 애니메이션 속도 되돌림
+            tamer:setTimeScale()
+
+            self:nextStep()
+        end
+
+    elseif (self:getStep() == 5) then
+        if (self:isBeginningStep()) then
+            self:releaseFocusingUnit()
+
+            -- 스킬 시전 주체를 제외한 게임 오브젝트 resume
+            world:setTemporaryPause(false, tamer, INGAME_PAUSE__ACTIVE_SKILL)
+
+            self:changeState(STATE.WAIT)
         end
     end
 end
@@ -597,8 +705,11 @@ function GameDragonSkill:releaseFocusingUnit()
             self.m_unit:doDie()
 
         elseif (self.m_unit.m_state ~= 'delegate') then
-            self.m_unit:changeState('attackDelay')
-
+            if (self.m_unit:getCharType() == 'tamer') then    
+                self.m_unit:changeStateWithCheckHomePos('roam')
+            else
+                self.m_unit:changeState('attackDelay')
+            end
         end
     end
     
@@ -610,7 +721,7 @@ end
 -- function isPlaying
 -------------------------------------
 function GameDragonSkill:isPlaying()
-    return (self:isPlayingActiveSkill())
+    return (self:isPlayingActiveSkill() or self:isPlayingTamerSkill())
 end
 
 -------------------------------------
@@ -642,7 +753,7 @@ function GameDragonSkill:doPlay(unit, skip)
             skip_mode = skip
         end
 
-        if (self.m_world.m_gameMode == GAME_MODE_CLAN_RAID) then
+        if (NEW_CLAN_DUNGEON and self.m_world.m_gameMode == GAME_MODE_CLAN_RAID) then
             -- 클랜 던전의 경우 무조건 스킵
             skip_mode = true
 
@@ -662,7 +773,11 @@ function GameDragonSkill:doPlay(unit, skip)
     -- 연출 유닛 설정
     self:setFocusingUnit(unit)
 
-    if (unit:getCharType() == 'tamer') then    
+    if (unit:getCharType() == 'tamer') then
+        if (not NEW_CLAN_DUNGEON) then
+            self.m_bSkipMode = false
+        end
+
         self:changeState(STATE.PLAY_TAMER_SKILL)
     else
         self:changeState(STATE.PLAY_DRAG_SKILL)
