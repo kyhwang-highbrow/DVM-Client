@@ -1,58 +1,61 @@
 local PARENT = UI
 
 -------------------------------------
--- class UI_ShopDaily
+-- class UI_ShopBasic
 -------------------------------------
-UI_ShopDaily = class(PARENT,{
+UI_ShopBasic = class(PARENT,{
         m_cbBuy = 'function',
         m_data = 'table',
         m_isPopup = 'boolean',
+
+        m_productList = 'table',
     })
 
 -------------------------------------
 -- function init
 -------------------------------------
-function UI_ShopDaily:init(is_popup)
-    local vars = self:load('package_daily_shop.ui')
+function UI_ShopBasic:init(is_popup)
     self.m_isPopup = is_popup or false
-	self.m_uiName = 'UI_ShopDaily'
-
-    if (self.m_isPopup) then
-        UIManager:open(self, UIManager.POPUP)
-            -- 백키 지정
-        g_currScene:pushBackKeyListener(self, function() self:click_closeBtn() end, 'UI_ShopDaily')
-    end
-    
-    self:initUI()
-	self:initButton()
-    self:refresh()
 end
 
 -------------------------------------
 -- function initUI
 -------------------------------------
-function UI_ShopDaily:initUI()
-    local vars = self.vars
-    if (not self.m_isPopup) then
-        vars['closeBtn']:setVisible(false)
-    end
+function UI_ShopBasic:initUI()    
 end
 
 -------------------------------------
 -- function initButton
 -------------------------------------
-function UI_ShopDaily:initButton()
+function UI_ShopBasic:initButton()
     local vars = self.vars
+
+    if (not self.m_isPopup) then
+        vars['closeBtn']:setVisible(false)
+    else
+        vars['closeBtn']:registerScriptTapHandler(function() self:click_closeBtn() end)
+    end
+
     vars['contractBtn']:registerScriptTapHandler(function() self:click_infoBtn() end)
-    vars['closeBtn']:registerScriptTapHandler(function() self:click_closeBtn() end)
+end
+
+-------------------------------------
+-- function checkPopupUI
+-------------------------------------
+function UI_ShopBasic:checkPopupUI()
+    if (not self.m_isPopup) then return end
+
+    UIManager:open(self, UIManager.POPUP)
+    g_currScene:pushBackKeyListener(self, function() self:click_closeBtn() end, 'UI_ShopBooster')
 end
 
 -------------------------------------
 -- function refresh
 -------------------------------------
-function UI_ShopDaily:refresh()
+function UI_ShopBasic:refresh()
+
     local vars = self.vars
-    local l_item_list = g_shopDataNew:getProductList('daily')
+    local l_item_list = self.m_productList
     
     local idx = 0
     for pid, struct_product in pairs(l_item_list) do
@@ -93,7 +96,7 @@ end
 -------------------------------------
 -- function click_buyBtn
 -------------------------------------
-function UI_ShopDaily:click_buyBtn(struct_product)
+function UI_ShopBasic:click_buyBtn(struct_product)
 	local function cb_func(ret)
         if (self.m_cbBuy) then
             self.m_cbBuy()
@@ -112,20 +115,75 @@ end
 -------------------------------------
 -- function click_infoBtn
 -------------------------------------
-function UI_ShopDaily:click_infoBtn()
+function UI_ShopBasic:click_infoBtn()
     GoToAgreeMentUrl()
 end
 
 -------------------------------------
 -- function click_closeBtn
 -------------------------------------
-function UI_ShopDaily:click_closeBtn()
+function UI_ShopBasic:click_closeBtn()
     self:close()
 end
 
 -------------------------------------
 -- function setBuyCB
 -------------------------------------
-function UI_ShopDaily:setBuyCB(func)
+function UI_ShopBasic:setBuyCB(func)
     self.m_cbBuy = func
+end
+
+
+
+
+
+
+
+
+-------------------------------------
+-- class UI_ShopDaily ##일일 상점
+-------------------------------------
+UI_ShopDaily = class(UI_ShopBasic,{})
+
+-------------------------------------
+-- function init
+-------------------------------------
+function UI_ShopDaily:init(is_popup)
+    local vars = self:load('package_daily_shop.ui')
+	self.m_uiName = 'UI_ShopDaily'
+    self:checkPopupUI()
+
+    self.m_productList = g_shopDataNew:getProductList('daily')
+
+    self:initUI()
+	self:initButton()
+    self:refresh()
+end
+
+
+-------------------------------------
+-- class UI_ShopBooster ##부스터 상점
+-------------------------------------
+UI_ShopBooster = class(UI_ShopBasic,{})
+
+-------------------------------------
+-- function init
+-------------------------------------
+function UI_ShopBooster:init(is_popup)
+    local vars = self:load('shop_booster_01.ui')
+	self.m_uiName = 'UI_ShopBooster'
+    self:checkPopupUI()
+    
+    local l_exp_booster = g_shopDataNew:getProductList_byItemType('exp_booster')
+    local l_gold_booster = g_shopDataNew:getProductList_byItemType('gold_booster')
+    local l_ret = table.merge(l_exp_booster, l_gold_booster)
+    table.sort(l_ret, function(a, b) 
+        return a['product_id'] < b['product_id']
+    end)
+    
+    self.m_productList = l_ret
+
+    self:initUI()
+	self:initButton()
+    self:refresh()
 end

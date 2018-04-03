@@ -1070,6 +1070,7 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <None Include="..\src\UI_LobbyGuideColosseum.lua" />
     <None Include="..\src\UI_LobbyGuideWeeklyShop.lua" />
     <None Include="..\src\UI_MailRewardPopup.lua" />
+    <None Include="..\src\UI_MailSelectPopup.lua" />
     <None Include="..\src\UI_MonsterCustomCard.lua" />
     <None Include="..\src\UI_MonsterSkillCard.lua" />
     <None Include="..\src\UI_NightmareStageListItem.lua" />
@@ -1222,7 +1223,7 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <None Include="..\src\UI_SettingGameTab.lua" />
     <None Include="..\src\UI_SettingInfoTab.lua" />
     <None Include="..\src\UI_Shop.lua" />
-    <None Include="..\src\UI_ShopDaily.lua" />
+    <None Include="..\src\UI_ShopBasic.lua" />
     <None Include="..\src\UI_ShopTab.lua" />
     <None Include="..\src\UI_SimpleEditBoxPopup.lua" />
     <None Include="..\src\UI_SimpleMonsterInfoPopup.lua" />

@@ -144,6 +144,10 @@ function ServerData_Mail:makeMailMap(l_mail_list)
 			    elseif string.find(item_type, 'fp') then
 					category = 'friend'
 
+                -- booster는 '아이템'으로 보내준다.		
+			    elseif string.find(item_type, 'booster') then
+					category = 'item'
+
 				-- stamina가 없고 item type이 있다면 모두 '재화'에 해당
 				else
 					category = 'goods'

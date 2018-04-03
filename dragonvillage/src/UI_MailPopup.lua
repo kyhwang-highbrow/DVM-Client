@@ -188,6 +188,15 @@ function UI_MailPopup:click_rewardBtn(struct_mail)
         self.m_dirty = true
     end
 
+    self:check_readType(struct_mail, success_cb)
+end
+
+-------------------------------------
+-- function check_readType
+-- @brief 메일 타입별 액션 - 외부에서도 쓰기 위해 분리함 (UI_MailSelectPopup)
+-------------------------------------
+function UI_MailPopup:check_readType(struct_mail, success_cb)
+
     -- 일반 메일 외에 별도 처리가 필요한 것들을 걸러냄
     -- 종류가 너무 많아진다면 여기에서 처리하지 말구 더 분화하자
     -- 닉네임 변경권
@@ -198,6 +207,10 @@ function UI_MailPopup:click_rewardBtn(struct_mail)
 	elseif (struct_mail:isPick()) then
         struct_mail:readPickDragon(success_cb)
 
+    -- 부스터 아이템
+    elseif (struct_mail:isBooster()) then
+        struct_mail:readBoosterItem(success_cb)
+        
     -- 룬 선택권?
 	-- 또 생기면... item_type을 가져와서 분기처리하거나 다른구조로 하자
 

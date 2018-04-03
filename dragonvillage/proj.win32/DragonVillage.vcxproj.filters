@@ -3253,9 +3253,6 @@
     <None Include="..\src\StatusEffect_SkillModify.lua">
       <Filter>lua\src</Filter>
     </None>
-    <None Include="..\src\UI_ShopDaily.lua">
-      <Filter>lua\UI</Filter>
-    </None>
     <None Include="..\src\Monster_AncientRuinDragon.lua">
       <Filter>lua\src</Filter>
     </None>
@@ -3356,6 +3353,12 @@
       <Filter>lua\UI</Filter>
     </None>
     <None Include="..\src\UI_DragonTransformChange.lua">
+      <Filter>lua\UI</Filter>
+    </None>
+    <None Include="..\src\UI_ShopBasic.lua">
+      <Filter>lua\UI</Filter>
+    </None>
+    <None Include="..\src\UI_MailSelectPopup.lua">
       <Filter>lua\UI</Filter>
     </None>
   </ItemGroup>

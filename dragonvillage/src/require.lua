@@ -726,6 +726,7 @@ local t_module = {
     'UI_MailPopup',
     'UI_MailListItem',
     'UI_MailRewardPopup',
+    'UI_MailSelectPopup',
     'UI_AcquisitionRegionInformation',
     'UI_AcquisitionRegionListItem',
     'UI_NotificationInfoElement',
@@ -807,7 +808,7 @@ local t_module = {
     'UI_AutoItemPickResultPopup',
     'UI_SubscriptionDayListItem',
     'UI_SubscriptionDayListItemNew',
-    'UI_ShopDaily',
+    'UI_ShopBasic',
 
 	-- UI : 모험
     'UI_AdventureSceneNew',

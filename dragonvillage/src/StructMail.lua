@@ -239,6 +239,13 @@ function StructMail:isSummonTicket()
 end
 
 -------------------------------------
+-- function isBooster
+-------------------------------------
+function StructMail:isBooster()
+    return (self:isExpBooster() or self:isGoldBooster())
+end
+
+-------------------------------------
 -- function isExpBooster
 -- @brief 경험치 부스터 확인 
 -------------------------------------
@@ -282,4 +289,23 @@ function StructMail:readPickDragon(cb_func)
 	local mid = self:getMid()
 	local item_id = self['items_list'][1]['item_id']
 	UI_PickDragon(mid, item_id, cb_func)
+end
+
+-------------------------------------
+-- function readBoosterItem
+-- @brief 부스터 아이템을 읽는다
+-------------------------------------
+function StructMail:readBoosterItem(cb_func)
+    local t_item = self:getItemList()[1]
+	local item_name = UIHelper:makeItemName(t_item)
+
+    local str_name = Str('{1}', item_name)
+    local str_msg = Str('사용하시겠습니까?')
+    local msg = str_name .. '\n{@default}' .. str_msg
+
+    local str_msg_sub_1 = Str('사용 중인 부스터가 있으면 시간이 연장됩니다.')
+    local str_msg_sub_2 = Str('부스터 사용 중 점검이 진행될 경우 점검시간만큼 시간이 연장됩니다')
+    local msg_sub = str_msg_sub_1 .. '\n' .. str_msg_sub_2
+
+    MakeSimplePopup2(POPUP_TYPE.YES_NO, msg, msg_sub, function() self:readMe(cb_func) end)
 end

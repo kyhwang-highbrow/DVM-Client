@@ -52,8 +52,8 @@ function UIHelper:makeItemNamePlain(t_item)
         if (item_id == ITEM_ID_AUTO_PICK) then
             return Str('{1} {2}시간', item_name, comma_value(item_cnt))
         -- 부스터 아이템 예외 처리
-        elseif (item_id == ITEM_ID_EXP_BOOSTER or item_id == ITEM_ID_EXP_BOOSTER) then
-            return Str('{1} {2}시간', item_name, comma_value(item_cnt*24))
+        elseif (item_id == ITEM_ID_EXP_BOOSTER or item_id == ITEM_ID_GOLD_BOOSTER) then
+            return Str('{1} {2}일', item_name, comma_value(item_cnt))
         else
             return Str('{1} {2}개', item_name, comma_value(item_cnt))
         end
@@ -76,8 +76,8 @@ function UIHelper:makeItemName(t_item)
         if (item_id == ITEM_ID_AUTO_PICK) then
             return Str('{@item_name}{1} {@count}{2}시간', item_name, comma_value(item_cnt))
         -- 부스터 아이템 예외 처리
-        elseif (item_id == ITEM_ID_EXP_BOOSTER or item_id == ITEM_ID_EXP_BOOSTER) then
-            return Str('{@item_name}{1} {@count}{2}시간', item_name, comma_value(item_cnt*24))
+        elseif (item_id == ITEM_ID_EXP_BOOSTER or item_id == ITEM_ID_GOLD_BOOSTER) then
+            return Str('{@item_name}{1} {@count}{2}일', item_name, comma_value(item_cnt))
         else
             return Str('{@item_name}{1} {@count}{2}개', item_name, comma_value(item_cnt))
         end

@@ -1251,7 +1251,7 @@ end
 
 -------------------------------------
 -- function goTo_shop_daily
--- @brief 상점으로 이동
+-- @brief 일일 상점으로 이동
 -- @usage UINavigatorDefinition:goTo('shop_daily')
 -------------------------------------
 function UINavigatorDefinition:goTo_shop_daily(...)
@@ -1268,6 +1268,33 @@ function UINavigatorDefinition:goTo_shop_daily(...)
     
     local function finish_cb()
         local ui = UI_ShopDaily(is_popup)
+        if (buy_cb) then
+            ui:setBuyCB(buy_cb)
+        end
+    end
+     -- 서버에 상품정보 요청
+	g_shopDataNew:request_shopInfo(finish_cb)
+end
+
+-------------------------------------
+-- function goTo_shop_booster
+-- @brief 부스터 상점으로 이동
+-- @usage UINavigatorDefinition:goTo('shop_booster')
+-------------------------------------
+function UINavigatorDefinition:goTo_shop_booster(...)
+    local args = {...}
+    local is_popup = args[1] or false
+    local buy_cb = args[2]
+
+    -- 해당 UI가 열려있을 경우
+    local is_opend, idx, ui = self:findOpendUI('UI_ShopBooster')
+    if (is_opend == true) then
+        self:closeUIList(idx)
+        return
+    end
+    
+    local function finish_cb()
+        local ui = UI_ShopBooster(is_popup)
         if (buy_cb) then
             ui:setBuyCB(buy_cb)
         end
@@ -1294,6 +1321,34 @@ function UINavigatorDefinition:goTo_dragon_diary(...)
     end
 
 	g_dragonDiaryData:checkAlreadyClear(finish_cb)
+end
+
+-------------------------------------
+-- function goTo_mail_select
+-- @brief 선택한 아이템만 노출되는 우편함으로 이동
+-- @usage UINavigatorDefinition:goTo('mail_select')
+-------------------------------------
+function UINavigatorDefinition:goTo_mail_select(...)
+    local args = {...}
+    local select_type = args[1] or MAIL_SELECT_TYPE.NONE
+    local close_cb = args[2]
+
+    -- 해당 UI가 열려있을 경우
+    local is_opend, idx, ui = self:findOpendUI('UI_MailSelectPopup')
+    if (is_opend == true) then
+        self:closeUIList(idx)
+        return
+    end
+    
+    local function finish_cb()
+        local ui = UI_MailSelectPopup(select_type)
+        if (close_cb) then
+            ui:setCloseCB(close_cb)
+        end
+    end
+
+    -- 수신함 
+	g_mailData:request_mailList(finish_cb)
 end
 
 

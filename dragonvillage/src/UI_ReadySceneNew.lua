@@ -1141,21 +1141,22 @@ end
 -------------------------------------
 function UI_ReadySceneNew:click_goldBoosterBtn()
     local refresh_cb = function()
+        -- 부스터 버튼 액션이 update문에서 엇갈려서 여기서 다시 액션 멈춰줌
+        self.vars['expBoosterBtn']:setAutoShake(false)
+        self.vars['goldBoosterBtn']:setAutoShake(false)
+
         g_hotTimeData:refresh_boosterMailInfo()
     end
 
     local booster_mail_info = g_hotTimeData.m_boosterMailInfo['buff_gold2x']
     -- 사용하기
     if (booster_mail_info) then
-        local use_cb = function()
-            booster_mail_info:readMe(refresh_cb)
-        end
-        MakeSimplePopup(POPUP_TYPE.YES_NO, Str('골드 부스터를 사용하시겠습니까?'), use_cb)
+        UINavigator:goTo('mail_select', MAIL_SELECT_TYPE.GOLD_BOOSTER, refresh_cb)
 
     -- 상점
     else
         local is_popup = true
-        UINavigator:goTo('shop_daily', is_popup, refresh_cb)
+        UINavigator:goTo('shop_booster', is_popup, refresh_cb)
     end
 end
 
@@ -1171,15 +1172,12 @@ function UI_ReadySceneNew:click_expBoosterBtn()
     local booster_mail_info = g_hotTimeData.m_boosterMailInfo['buff_exp2x']
     -- 사용하기
     if (booster_mail_info) then
-        local use_cb = function()
-            booster_mail_info:readMe(refresh_cb)
-        end
-        MakeSimplePopup(POPUP_TYPE.YES_NO, Str('경험치 부스터를 사용하시겠습니까?'), use_cb)
+        UINavigator:goTo('mail_select', MAIL_SELECT_TYPE.EXP_BOOSTER, refresh_cb)
 
     -- 상점
     else
         local is_popup = true
-        UINavigator:goTo('shop_daily', is_popup, refresh_cb)
+        UINavigator:goTo('shop_booster', is_popup, refresh_cb)
     end
 end
 
