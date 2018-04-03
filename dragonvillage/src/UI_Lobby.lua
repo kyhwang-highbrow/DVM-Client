@@ -294,6 +294,10 @@ function UI_Lobby:entryCoroutine()
 		self:refresh()
 		self:refresh_hottime()
 
+        -- 우측 버튼 정렬을 위해 이벤트 데이터 갱신
+        -- 최초 진입시에는 onFocus 후에 entryCoroutine 진입함 
+        g_eventData.m_bDirty = true
+
         -- @ UI_ACTION
         co:work()
 	    self:doAction(function() 
@@ -1101,6 +1105,7 @@ end
 -- @brief 탑바가 Lobby UI에 포커싱 되었을 때
 -------------------------------------
 function UI_Lobby:onFocus()
+    cclog('onFocus')
 	local vars = self.vars
 
     SpineCacheManager:getInstance():purgeSpineCacheData()
