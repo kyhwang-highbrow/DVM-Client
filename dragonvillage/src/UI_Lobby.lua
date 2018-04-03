@@ -1105,7 +1105,6 @@ end
 -- @brief 탑바가 Lobby UI에 포커싱 되었을 때
 -------------------------------------
 function UI_Lobby:onFocus()
-    cclog('onFocus')
 	local vars = self.vars
 
     SpineCacheManager:getInstance():purgeSpineCacheData()
