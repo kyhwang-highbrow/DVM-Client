@@ -345,6 +345,16 @@ function UI_DragonTransformChange:request_transform_change()
         -- 드래곤 관리 UI 갱신
 		self.m_bChangeDragonList = true
 
+        -- 대표드래곤인 경우 정보 저장
+		if (ret['leaders']) then
+			g_userData:applyServerData(ret['leaders'], 'leaders')
+
+            -- 채팅 서버에 변경사항 적용
+            if g_chatClientSocket then
+                g_chatClientSocket:globalUpdatePlayerUserInfo()
+            end
+		end
+
         local new_struct_dragon_data = StructDragonObject(ret['dragon'])
         UI_DragonTransformChangeResult(new_struct_dragon_data, before_transform, target_transform)
 

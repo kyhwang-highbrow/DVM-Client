@@ -514,8 +514,8 @@ function LobbyMap:updateLobbyTamer(uid, struct_user_info)
     local prev_dragon = tamer.m_userData:getLeaderDragonObject()
     local curr_dragon = struct_user_info:getLeaderDragonObject()
     if (prev_dragon:getDid() ~= curr_dragon:getDid()) or 
-        (prev_dragon:getEvolution() ~= curr_dragon:getEvolution()) then
-
+       (prev_dragon:getEvolution() ~= curr_dragon:getEvolution()) or 
+       (prev_dragon:getTransform() ~= curr_dragon:getTransform()) then
 		local lobby_dragon = tamer.m_dragon
 
         -- did 변경
@@ -799,7 +799,10 @@ end
 -------------------------------------
 function LobbyMap:refreshUserDragon()
 	local lobby_dragon = self.m_lobbyTamerUser.m_dragon
+    cclog('lobby_dragon')
+    ccdump(lobby_dragon)
 	local res = g_tamerData:getCurrTamerTable('res_sd')
+
 	lobby_dragon:initAnimator(res)
 end
 

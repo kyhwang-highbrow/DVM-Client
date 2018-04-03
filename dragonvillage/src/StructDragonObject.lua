@@ -498,6 +498,14 @@ function StructDragonObject:getEvolution()
 end
 
 -------------------------------------
+-- function getTransform
+-- @breif
+-------------------------------------
+function StructDragonObject:getTransform()
+    return self['transform']
+end
+
+-------------------------------------
 -- function getLv
 -- @breif
 -------------------------------------
@@ -589,9 +597,10 @@ end
 function StructDragonObject:getIngameRes()
     local table_dragon = TableDragon()
     local t_dragon = table_dragon:get(self['did'])
-
-    local res = AnimatorHelper:getDragonResName(t_dragon['res'], self:getEvolution(), t_dragon['attr'])
-
+    -- 외형 변환 적용
+    local transform = self['transform']
+    local evolution = transform and transform or self:getEvolution()
+    local res = AnimatorHelper:getDragonResName(t_dragon['res'], evolution, t_dragon['attr'])
     return res
 end
 
