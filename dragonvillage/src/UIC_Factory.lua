@@ -44,5 +44,8 @@ function UIC_Factory:MakeTableViewEmptyMandragora(text)
     local sprite = vars['talkSprite']
     sprite:setContentSize(new_size)
 
+    -- 기본 visible off
+    ui.root:setVisible(false)
+
     return ui
 end

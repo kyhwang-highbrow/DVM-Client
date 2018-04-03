@@ -109,9 +109,7 @@ function UI_DragonFriendship:refresh()
 
     -- 드래곤 실리소스
     if self.m_dragonAnimator then
-        local evolution = t_dragon_data['evolution']
-        local flv = t_dragon_data['friendship']['flv']
-        self.m_dragonAnimator:setDragonAnimator(did, evolution, flv)
+        self.m_dragonAnimator:setDragonAnimatorByTransform(t_dragon_data)
     end
 
     self:refreshFruits(attr)

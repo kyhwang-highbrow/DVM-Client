@@ -109,14 +109,18 @@ function UI_ExplorationLocationButton:refresh()
         self:update(0)
     end
 
-
     -- 드래곤 실 리소스 생성
     vars['dragonNode']:removeAllChildren()
     if isExistValue(status, 'exploration_ing', 'exploration_complete') then
         local doid = my_location_info['doid_list'][1]
         local animator = g_dragonsData:getDragonAnimator(doid)
-        if animator then
-            vars['dragonNode']:addChild(animator.m_node)
+        local struct_dragon_data = g_dragonsData:getDragonDataFromUid(doid)
+
+        if (struct_dragon_data) then
+            local animator = AnimatorHelper:makeDragonAnimatorByTransform(struct_dragon_data)
+            if (animator) then
+                vars['dragonNode']:addChild(animator.m_node)
+            end
         end
     end
 end

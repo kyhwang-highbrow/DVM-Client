@@ -72,7 +72,7 @@ function ForestDragon:initAnimator(file_name)
     self:releaseAnimator()
 
     -- Animator 생성
-    self.m_animator = AnimatorHelper:makeDragonAnimator(file_name)
+    self.m_animator = AnimatorHelper:makeDragonAnimatorByTransform(self.m_structDragon)
     if self.m_animator.m_node then
         self.m_rootNode:addChild(self.m_animator.m_node, 1)
         self.m_animator:setPositionY(ForestDragon.OFFSET_Y)
