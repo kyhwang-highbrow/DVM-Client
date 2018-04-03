@@ -18,6 +18,14 @@ function ServerData_Deck:init(server_data)
 end
 
 -------------------------------------
+-- function response_deckInfo
+-- @brief users/get_deck에 해당하는 response이며 users/title에서 함께 받는 것으로 수정됨
+-------------------------------------
+function ServerData_Deck:response_deckInfo(l_deck)
+    self.m_serverData:applyServerData(l_deck, 'deck')
+end
+
+-------------------------------------
 -- function get
 -------------------------------------
 function ServerData_Deck:get(key)

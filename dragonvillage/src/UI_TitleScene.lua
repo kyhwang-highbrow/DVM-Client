@@ -299,7 +299,6 @@ function UI_TitleScene:setWorkList()
     table.insert(self.m_lWorkList, 'workCheckUserID')    
     table.insert(self.m_lWorkList, 'workPlatformLogin')    
     table.insert(self.m_lWorkList, 'workGameLogin')
-    table.insert(self.m_lWorkList, 'workGetDeck')
     table.insert(self.m_lWorkList, 'workGetServerInfo')
 
     -- @perpelsdk
@@ -770,30 +769,6 @@ function UI_TitleScene:workGameLogin_click()
 end
 
 -------------------------------------
--- function workGetDeck
--- @brief
--------------------------------------
-function UI_TitleScene:workGetDeck()
-    self.m_loadingUI:showLoading(Str('덱 정보 요청 중...'))
-
-    local uid = g_localData:get('local', 'uid')
-
-    local success_cb = function(ret)
-        g_serverData:applyServerData(ret['deck'], 'deck')
-        
-        self:doNextWork()
-    end
-
-    local fail_cb = function(ret)
-        self:makeFailPopup(nil, ret)
-    end
-
-    Network_get_deck(uid, success_cb, fail_cb)
-end
-function UI_TitleScene:workGetDeck_click()
-end
-
--------------------------------------
 -- function workGetServerInfo
 -- @brief
 -------------------------------------
@@ -875,6 +850,11 @@ function UI_TitleScene:workGetServerInfo()
                 if (ret['book_info']) then
                     cclog('# 도감 정보')
                     g_bookData:response_bookInfo(ret['book_info'])
+                end
+
+                if (ret['deck_info']) then
+                    cclog('# 각 모드 덱')
+                    g_deckData:response_deckInfo(ret['deck_info'])
                 end
 
                 if (ret['pvpdeck_info']) then
