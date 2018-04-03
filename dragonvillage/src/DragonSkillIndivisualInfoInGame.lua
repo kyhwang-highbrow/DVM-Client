@@ -92,6 +92,8 @@ function DragonSkillIndivisualInfoInGame:update(dt, reduced_cool)
         self.m_recentReducedCoolRate = math_max(rate , 0.5)    -- 쿨타임 증가는 2배까지만 적용
 
         dt = dt * self.m_recentReducedCoolRate
+    else
+        self.m_recentReducedCoolRate = 1
     end
 
     -- 타이머 갱신
