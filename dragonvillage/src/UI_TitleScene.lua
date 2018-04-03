@@ -22,7 +22,7 @@ function UI_TitleScene:init()
 
 	self.m_stopWatch = Stopwatch() --G_STOPWATCH
 	self.m_stopWatch:start()
-	self.m_stopWatch:record('init titleScene')
+	self.m_stopWatch:record('start')
 
     -- backkey 지정
     g_currScene:pushBackKeyListener(self, function() self:click_exitBtn() end, 'UI_TitleScene')
@@ -323,7 +323,11 @@ function UI_TitleScene:doNextWork()
     local func_name = self.m_lWorkList[self.m_workIdx]
 
     if func_name and (self[func_name]) then
-		self.m_stopWatch:record(func_name .. '_start')
+        local pre_func_name = self.m_lWorkList[self.m_workIdx - 1]
+        if (pre_func_name) then
+            self.m_stopWatch:record(pre_func_name)
+        end
+
         cclog('\n')
         cclog('############################################################')
         cclog('# idx : ' .. self.m_workIdx .. ', func_name : ' .. func_name)
@@ -1069,8 +1073,10 @@ function UI_TitleScene:workFinish()
     -- 화면을 터치하세요. 출력
     self:setTouchScreen()
     
+    self.m_stopWatch:record('finish')
 	self.m_stopWatch:stop()
     self.m_stopWatch:print()
+    self.m_stopWatch = nil
 end
 function UI_TitleScene:workFinish_click()
     -- @analytics
