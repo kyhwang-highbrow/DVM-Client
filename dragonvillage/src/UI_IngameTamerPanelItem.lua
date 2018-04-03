@@ -173,7 +173,7 @@ function UI_IngameTamerPanelItem:click_tamerSkillBtn()
         vars['tamerSkillVisual']:setVisible(false)
         vars['tamerSkilllLockSprite']:setVisible(true)
 		
-        world.m_gameActiveSkillMgr:addWork(tamer)
+        world.m_gameActiveSkillMgr:addWork(tamer, nil, nil, true)
 	else
 		UIManager:toastNotificationRed(Str('더 이상 사용 할 수 없습니다.'))
 	end

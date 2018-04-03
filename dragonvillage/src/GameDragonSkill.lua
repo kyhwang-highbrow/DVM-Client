@@ -2,7 +2,8 @@ local PARENT = class(IEventListener:getCloneClass(), IStateHelper:getCloneTable(
 
 local STATE = {
     WAIT = 0,
-    PLAY_DRAG_SKILL = 1
+    PLAY_DRAG_SKILL = 1,
+    PLAY_TAMER_SKILL = 2
 }
 
 -------------------------------------
@@ -16,7 +17,7 @@ GameDragonSkill = class(PARENT, {
         m_bSkipMode = 'boolean',
                 
         -- 스킬을 사용할 드래곤 정보
-        m_dragon = 'Dragon',
+        m_unit = 'Character',         -- Dragon이나 Tamer 객체
         m_bReservedDie = 'boolean',     -- 연출 종료후 드래곤을 죽여야하는지 여부(반사데미지 등)
                 
         m_skillOpeningCutBg = 'Animator',
@@ -43,7 +44,7 @@ function GameDragonSkill:init(world)
 
     self.m_state = STATE.WAIT
 
-    self.m_dragon = nil
+    self.m_unit = nil
     self.m_bReservedDie = false
             
     self:initState()
@@ -130,13 +131,18 @@ end
 function GameDragonSkill.st_playDragSkill(self, dt)
     local world = self.m_world
     local ui = self.m_world.m_inGameUI
-    local dragon = self.m_dragon
+    local dragon = self.m_unit
     local timeScale = 1
 	local t_dragon_skill_time = g_constant:get('INGAME', 'DRAGON_SKILL_DIRECTION_DURATION')
     local delayTime = t_dragon_skill_time[1]
 
     if (self:getStep() == 0) then
         if (self:isBeginningStep()) then
+            -- 클랜 던전의 경우 배속 조절
+            if (world.m_gameMode == GAME_MODE_CLAN_RAID) then
+                world.m_gameTimeScale:setBase(2)
+            end
+
             -- 해당 유닛을 제외한 일시 정지
             world:setTemporaryPause(true, dragon, INGAME_PAUSE__ACTIVE_SKILL)
 
@@ -297,7 +303,12 @@ function GameDragonSkill.st_playDragSkill(self, dt)
 
     elseif (self:getStep() == 6) then
         if (dragon.m_state ~= 'delegate') then
-            self:releaseFocusingDragon()
+            -- 클랜 던전의 경우 배속 조절
+            if (world.m_gameMode == GAME_MODE_CLAN_RAID) then
+                world.m_gameTimeScale:setBase(g_constant:get('INGAME', 'QUICK_MODE_TIME_SCALE'))
+            end
+
+            self:releaseFocusingUnit()
 
             -- 스킬 시전 드래곤을 제외한 게임 오브젝트 resume
             world:setTemporaryPause(false, dragon, INGAME_PAUSE__ACTIVE_SKILL)
@@ -541,8 +552,8 @@ function GameDragonSkill:onEvent(event_name, t_event, ...)
         -- 연출 중인 드래곤이 데미지를 입고 죽었을 경우(반사 데미지 등)
         -- 강제로 죽음 막음 처리 후 연출 종료시 죽도록 처리
         if (self:isPlaying()) then
-            if (will_die and dragon == self.m_dragon) then
-                self.m_dragon:setZombie(true)
+            if (will_die and dragon == self.m_unit) then
+                self.m_unit:setZombie(true)
                 self.m_bReservedDie = true
             end
         end
@@ -550,48 +561,48 @@ function GameDragonSkill:onEvent(event_name, t_event, ...)
 end
 
 -------------------------------------
--- function getFocusingDragon
+-- function getFocusingUnit
 -------------------------------------
-function GameDragonSkill:getFocusingDragon()
-    return self.m_dragon
+function GameDragonSkill:getFocusingUnit()
+    return self.m_unit
 end
 
 -------------------------------------
--- function setFocusingDragon
+-- function setFocusingUnit
 -------------------------------------
-function GameDragonSkill:setFocusingDragon(dragon)
-    if (not dragon) then return end
+function GameDragonSkill:setFocusingUnit(unit)
+    if (not unit) then return end
 
-    if (self.m_dragon and self.m_dragon ~= dragon) then
-        self:releaseFocusingDragon()
+    if (self.m_unit and self.m_unit ~= unit) then
+        self:releaseFocusingUnit()
     end
 
-    self.m_dragon = dragon
+    self.m_unit = unit
     self.m_bReservedDie = false
 
-    self.m_dragon:addListener('damaged', self)
+    self.m_unit:addListener('damaged', self)
 end
 
 -------------------------------------
--- function releaseFocusingDragon
+-- function releaseFocusingUnit
 -------------------------------------
-function GameDragonSkill:releaseFocusingDragon()
-    if (self.m_dragon) then
-        self.m_dragon.m_animator:setRotation(90)
+function GameDragonSkill:releaseFocusingUnit()
+    if (self.m_unit) then
+        self.m_unit.m_animator:setRotation(90)
 
-        self.m_dragon:removeListener('damaged', self)
+        self.m_unit:removeListener('damaged', self)
 
         if (self.m_bReservedDie) then
-            self.m_dragon:setZombie(false)
-            self.m_dragon:doDie()
+            self.m_unit:setZombie(false)
+            self.m_unit:doDie()
 
-        elseif (self.m_dragon.m_state ~= 'delegate') then
-            self.m_dragon:changeState('attackDelay')
+        elseif (self.m_unit.m_state ~= 'delegate') then
+            self.m_unit:changeState('attackDelay')
 
         end
     end
     
-    self.m_dragon = nil
+    self.m_unit = nil
     self.m_bReservedDie = false
 end
 
@@ -609,6 +620,13 @@ function GameDragonSkill:isPlayingActiveSkill()
     return (self.m_state == STATE.PLAY_DRAG_SKILL)
 end
 
+-------------------------------------
+-- function isPlayingTamerSkill
+-------------------------------------
+function GameDragonSkill:isPlayingTamerSkill()
+    return (self.m_state == STATE.PLAY_TAMER_SKILL)
+end
+
 
 
 
@@ -617,7 +635,6 @@ end
 -- function doPlay
 -------------------------------------
 function GameDragonSkill:doPlay(unit, skip)
-    local dragon = unit
     local skip_mode = g_autoPlaySetting:get('skip_mode') or false
 
     if (not skip_mode) then
@@ -631,7 +648,7 @@ function GameDragonSkill:doPlay(unit, skip)
 
         elseif (isInstanceOf(self.m_world, GameWorldForDoubleTeam)) then
             -- 더블 팀 모드의 경우 AI팀의 드래곤은 연출 강제 스킵
-            if (dragon:getPhysGroup() == self.m_world:getNPCGroup()) then
+            if (unit:getPhysGroup() == self.m_world:getNPCGroup()) then
                 skip_mode = true
             end
         end
@@ -642,8 +659,12 @@ function GameDragonSkill:doPlay(unit, skip)
     -- 일시 정지
     self.m_world:setTemporaryPause(true, nil, INGAME_PAUSE__ACTIVE_SKILL)
 
-    -- 연출 드래곤 설정
-    self:setFocusingDragon(dragon)
+    -- 연출 유닛 설정
+    self:setFocusingUnit(unit)
 
-    self:changeState(STATE.PLAY_DRAG_SKILL)
+    if (unit:getCharType() == 'tamer') then    
+        self:changeState(STATE.PLAY_TAMER_SKILL)
+    else
+        self:changeState(STATE.PLAY_DRAG_SKILL)
+    end
 end

@@ -66,7 +66,7 @@ function GameHighlightMgr:update(dt)
         darkLevel = math_max(darkLevel, g_constant:get('INGAME', 'HIGHLIGHT_LEVEL_FOR_DRAG_SKILL') or 255)
 
         -- 드래그 스킬일 경우, 맞는 대상을 제외한 적들에게 부분 암전을 건다
-        local dragon = world.m_gameDragonSkill:getFocusingDragon()
+        local dragon = world.m_gameDragonSkill:getFocusingUnit()
         local dragons = dragon:getFellowList()
         local enemys = dragon.m_skillIndicator:getTargetForHighlight()
         
