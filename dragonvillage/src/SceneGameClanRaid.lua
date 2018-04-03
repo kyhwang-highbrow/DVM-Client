@@ -137,7 +137,9 @@ function SceneGameClanRaid:updateRealTimer(dt)
     local game_state = self.m_gameWorld.m_gameState
     
     -- 실제 진행 시간을 계산(배속에 영향을 받지 않도록 함)
-    self.m_realLiveTimer = self.m_realLiveTimer + (dt / self.m_timeScale)
+    if (not world:isPause()) then
+        self.m_realLiveTimer = self.m_realLiveTimer + (dt / self.m_timeScale)
+    end
 
     -- 시간 제한 체크 및 처리
     if (self.m_realLiveTimer > LIMIT_TIME and not world:isFinished()) then
