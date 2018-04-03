@@ -525,7 +525,9 @@ function ServerData_Event:response_eventList(ret, finish_cb)
 			if (v['ui_priority'] ~= '') or (v['full_popup'] ~= '') then
 				table.insert(self.m_eventList, v)
 			end
-		end
+        end
+
+        self.m_bDirty = true
 	end
 
     if finish_cb then

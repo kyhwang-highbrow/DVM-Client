@@ -61,7 +61,7 @@ function UI_Lobby:initUI()
 
 	-- 로비 가이드
     local function refresh()
-        self:refresh_masterRoad()
+        self:update_masterRoad()
     end
 	self.m_lobbyGuide = UIC_LobbyGuide(vars['bottomMasterNode'], vars['roadTitleLabel'], vars['roadDescLabel'], vars['masterRoadNotiSprite'], refresh)
 
@@ -291,12 +291,8 @@ function UI_Lobby:entryCoroutine()
 			end
         end
 
-		self:refresh()
-		self:refresh_hottime()
-
-        -- 우측 버튼 정렬을 위해 이벤트 데이터 갱신
-        -- 최초 진입시에는 onFocus 후에 entryCoroutine 진입함 
-        g_eventData.m_bDirty = true
+        -- hard refresh
+		self:refresh(true)
 
         -- @ UI_ACTION
         co:work()
@@ -433,25 +429,32 @@ end
 
 -------------------------------------
 -- function refresh
+-- @comment hard refresh : entryCoroutine, 
+--          soft refresh : onFocus, dragonManageInfo close callback
 -------------------------------------
-function UI_Lobby:refresh()
-    -- 유저 정보 갱신
+function UI_Lobby:refresh(is_hard_refresh)
     self:refresh_userInfo()
+    self:refresh_hottime()
 
-    -- 마스터의 길 정보 갱신
-    self:refresh_masterRoad()
+    -- update()와 중복 : 강제 동작하되 또 실행되지 않도록 함
+    g_eventData.m_bDirty = false
+    self:update_rightButtons()
 
-    -- 드래곤 성장일지
-    self:refresh_dragonDiary()
+    -- hard refresh
+    if (is_hard_refresh) then
+        -- update()와 중복
+        g_masterRoadData.m_bDirtyMasterRoad = false
+        self:update_masterRoad()
 
-    -- 구글 버튼 처리
-    self:refresh_google()
+        g_dragonDiaryData.m_bDirty = false
+        self:update_dragonDiary()
+    end
 end
 
 -------------------------------------
--- function refresh_highlight
+-- function update_highlight
 -------------------------------------
-function UI_Lobby:refresh_highlight()
+function UI_Lobby:update_highlight()
     local vars = self.vars
     local etc_vars = self.m_etcExpendedUI.vars
 
@@ -579,10 +582,10 @@ function UI_Lobby:refresh_userInfo()
 end
 
 -------------------------------------
--- function refresh_masterRoad
+-- function update_masterRoad
 -- @brief 마스터의길 안내와 드빌 도우미 안내를 같이 쓴다
 -------------------------------------
-function UI_Lobby:refresh_masterRoad()
+function UI_Lobby:update_masterRoad()
     self.m_lobbyGuide:refresh()
 	
 	-- 로비 가이드 off이고 성장일지 클리어하지 못했다면 위치 변경
@@ -595,9 +598,9 @@ function UI_Lobby:refresh_masterRoad()
 end
 
 -------------------------------------
--- function refresh_dragonDiary
+-- function update_dragonDiary
 -------------------------------------
-function UI_Lobby:refresh_dragonDiary()
+function UI_Lobby:update_dragonDiary()
     local vars = self.vars
     
     local is_clear = g_dragonDiaryData:isClearAll()
@@ -624,9 +627,9 @@ function UI_Lobby:refresh_dragonDiary()
 end
 
 -------------------------------------
--- function refresh_attendanceDday
+-- function update_attendanceDday
 -------------------------------------
-function UI_Lobby:refresh_attendanceDday()
+function UI_Lobby:update_attendanceDday()
     local vars = self.vars
     local target_info, target_day = g_attendanceData:getLegendaryDragonDayInfo()
     if (target_info) then
@@ -644,9 +647,9 @@ function UI_Lobby:refresh_attendanceDday()
 end
 
 -------------------------------------
--- function refresh_google
+-- function update_google
 -------------------------------------
-function UI_Lobby:refresh_google()
+function UI_Lobby:update_google()
     local vars = self.vars
 
     if (g_localData:isGooglePlayConnected()) then
@@ -998,37 +1001,37 @@ function UI_Lobby:update(dt)
     -- noti 갱신
 	if (g_highlightData:isDirty()) then
 		g_highlightData:setDirty(false)
-		self:refresh_highlight()
+		self:update_highlight()
 	end
 
     -- 마스터의 길 정보 갱신
     if (g_masterRoadData.m_bDirtyMasterRoad) then
         g_masterRoadData.m_bDirtyMasterRoad = false
-        self:refresh_masterRoad()
+        self:update_masterRoad()
     end
 
     -- 드래곤 성장일지 정보 갱신
     if (g_dragonDiaryData.m_bDirty) then
         g_dragonDiaryData.m_bDirty = false
-        self:refresh_dragonDiary()
+        self:update_dragonDiary()
     end
     
     -- 구글 버튼 처리
     if (GoogleHelper.isDirty) then
         GoogleHelper.setDirty(false)
-        self:refresh_google()
+        self:update_google()
     end
 
     -- 이벤트 갱신된 경우
     if (g_eventData.m_bDirty) then
         g_eventData.m_bDirty = false
-        self:refresh_rightButtons()
+        self:update_rightButtons()
     end
 
     -- 로비 출석 D-day 표시
     if (g_attendanceData.m_bDirtyAttendanceInfo) then
         g_attendanceData.m_bDirtyAttendanceInfo = false
-        self:refresh_attendanceDday()
+        self:update_attendanceDday()
     end
 
     local vars = self.vars
@@ -1056,7 +1059,7 @@ function UI_Lobby:update(dt)
 
     if (g_hotTimeData.m_boosterInfoDirty) then
         g_hotTimeData.m_boosterInfoDirty = false
-        self:refresh_boosterButtons() 
+        self:update_boosterButtons() 
     end
 
     -- 경험치 부스터
@@ -1067,7 +1070,7 @@ function UI_Lobby:update(dt)
 
         -- 로비에서 종료될 경우
         if (not is_used and vars['expBoosterBtn']:isVisible()) then
-            self:refresh_boosterButtons() 
+            self:update_boosterButtons() 
         end
     end
 
@@ -1079,7 +1082,7 @@ function UI_Lobby:update(dt)
 
         -- 로비에서 종료될 경우
         if (not is_used and vars['goldBoosterBtn']:isVisible()) then
-            self:refresh_boosterButtons() 
+            self:update_boosterButtons() 
         end
     end
 
@@ -1119,9 +1122,7 @@ function UI_Lobby:onFocus()
         g_clanChatManager:checkRetryClanChat()
     end
 
-    self:refresh_hottime()
-    self:refresh_userInfo()
-    self:refresh_rightButtons()
+    self:refresh()
 end
 
 -------------------------------------
@@ -1148,10 +1149,10 @@ function UI_Lobby:refresh_hottime()
 end
 
 -------------------------------------
--- function refresh_boosterButtons
+-- function update_boosterButtons
 -- @brief
 -------------------------------------
-function UI_Lobby:refresh_boosterButtons()
+function UI_Lobby:update_boosterButtons()
     local vars = self.vars
 
     do
@@ -1189,10 +1190,10 @@ function UI_Lobby:refresh_boosterButtons()
 end
 
 -------------------------------------
--- function refresh_rightButtons
+-- function update_rightButtons
 -- @brief
 -------------------------------------
-function UI_Lobby:refresh_rightButtons()
+function UI_Lobby:update_rightButtons()
     local vars = self.vars
     
     -- 드빌 전용관은 한국서버에서만 노출
