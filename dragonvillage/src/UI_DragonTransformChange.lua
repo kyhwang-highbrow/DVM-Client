@@ -90,7 +90,8 @@ function UI_DragonTransformChange:onChangeOption()
         
         vars['selectVisual1']:setVisible(false)
         vars['selectVisual2']:setVisible(false)
-        vars['selectVisual'..target_evolution]:setVisible(true)
+        local num = string.gsub(slot, 'slot_', '')
+        vars['selectVisual'..num]:setVisible(true)
     end
 end
 
