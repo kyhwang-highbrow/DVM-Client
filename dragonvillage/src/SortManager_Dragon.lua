@@ -31,9 +31,9 @@ function SortManager_Dragon:init()
     self.m_mAttrSortLevel['reset'] = 0
     self.m_mAttrSortLevel['light'] = 1
     self.m_mAttrSortLevel['dark'] = 2
-    self.m_mAttrSortLevel['earth'] = 3
+    self.m_mAttrSortLevel['fire'] = 3
     self.m_mAttrSortLevel['water'] = 4
-    self.m_mAttrSortLevel['fire'] = 5
+    self.m_mAttrSortLevel['earth'] = 5
     self.m_mAttrSortLevel['global'] = 6
 
     -- 희귀도별 정렬 레벨
