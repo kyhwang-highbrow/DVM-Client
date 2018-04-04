@@ -364,8 +364,13 @@ function Monster_ClanRaidBoss:getInterceptableSkillID(tParam)
     -- time_out류 스킬 처리를 위한 하드코딩
     if (g_gameScene) then
         local ramain_time = g_gameScene:getRemainTimer()
+        local delay_time = 14
 
-        if (ramain_time < 14) then
+        if (NEW_CLAN_DUNGEON) then
+             delay_time = 10
+        end
+
+        if (ramain_time < delay_time) then
             skill_id = self:getTimeOutSkillID()
         end
     end
