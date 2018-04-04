@@ -183,12 +183,6 @@ end
 -------------------------------------
 function GameWorld:visible_ingame_ui()
     self.m_inGameUI.root:runAction(cc.ToggleVisibility:create())
-    --self.m_unitStatusNode:setVisible(not self.m_unitStatusNode:isVisible())
-
-    for _, boss in ipairs(self.m_waveMgr.m_lBoss) do
-        local is_visible = boss.m_rootNode:isVisible()
-        boss.m_rootNode:setVisible(not is_visible)
-    end
 end
 
 -------------------------------------
