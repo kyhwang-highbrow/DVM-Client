@@ -229,6 +229,9 @@ function UI_Lobby:entryCoroutine()
             if co:waitWork() then return end
         end
 
+        -- hard refresh
+        self:refresh(true)
+
 		-- 강제 튜토리얼 진행 하는 동안 풀팝업, 마스터의 길, 구글 업적 일괄 체크, 막음
         if (not TutorialManager.getInstance():checkFullPopupBlock()) then
 
@@ -290,9 +293,6 @@ function UI_Lobby:entryCoroutine()
 				end
 			end
         end
-
-        -- hard refresh
-		self:refresh(true)
 
         -- @ UI_ACTION
         co:work()
@@ -448,6 +448,9 @@ function UI_Lobby:refresh(is_hard_refresh)
 
         g_dragonDiaryData.m_bDirty = false
         self:update_dragonDiary()
+
+        GoogleHelper.setDirty(false)
+        self:update_google()
     end
 end
 
