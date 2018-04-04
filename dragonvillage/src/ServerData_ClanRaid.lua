@@ -154,28 +154,24 @@ function ServerData_ClanRaid:makeDeckMap()
     do
         local deck_name = self:getDeckName('up')
         local l_deck = g_deckData:getDeck(deck_name)
-        if (#l_deck > 0) then
-            for i = 1, #l_deck do
-                local doid = l_deck[i]
-                if (doid) then
-                    self.m_tDeckMap_1[doid] = i
-                end
+        for k, v in pairs(l_deck) do
+            local doid = v
+            if (doid) then
+                self.m_tDeckMap_1[doid] = k
             end
-        end 
+        end
     end
 
     -- 2 공격대
     do
         local deck_name = self:getDeckName('down')
         local l_deck = g_deckData:getDeck(deck_name)
-        if (#l_deck > 0) then
-            for i = 1, #l_deck do
-                local doid = l_deck[i]
-                if (doid) then
-                    self.m_tDeckMap_2[doid] = i
-                end
+        for k, v in pairs(l_deck) do
+            local doid = v
+            if (doid) then
+                self.m_tDeckMap_2[doid] = k
             end
-        end        
+        end
     end
 end
 
