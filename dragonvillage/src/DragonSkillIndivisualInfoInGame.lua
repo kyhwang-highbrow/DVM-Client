@@ -86,7 +86,7 @@ function DragonSkillIndivisualInfoInGame:update(dt, reduced_cool)
     -- 쿨타임 감소 % 적용(모든 패시브 쿨감 + 특정 스킬 쿨감)
     local reduced_cool = reduced_cool + self.m_reducedCoolPercentage
     if (reduced_cool and reduced_cool ~= 0) then
-        reduced_cool = math_min(reduced_cool, 99)   -- 최대 99%까지만 적용
+        reduced_cool = math_min(reduced_cool, 80)   -- 최대 80%까지만 적용
 
         local rate = 1 + (reduced_cool / (100 - reduced_cool))
         self.m_recentReducedCoolRate = math_max(rate , 0.5)    -- 쿨타임 증가는 2배까지만 적용
