@@ -248,7 +248,7 @@ end
 -- function response_shopInfo
 -------------------------------------
 function ServerData_Shop:response_shopInfo(ret, cb_func)
-    if (ret['status'] ~= 0) then
+    if (ret['status'] and ret['status'] ~= 0) then
         return
     end
 
