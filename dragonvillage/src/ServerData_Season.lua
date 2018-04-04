@@ -24,6 +24,11 @@ function ServerData_Season:applyInfo(ret)
     if (ret['clandungeon_week']) then
         self.m_clandungeonWeek = ret['clandungeon_week']
 
-        NEW_CLAN_DUNGEON = (self.m_clandungeonWeek > 201814) 
+        NEW_CLAN_DUNGEON = (self.m_clandungeonWeek > 201814)
+
+        -- 테스트를 위해 강제로 설정
+        if (NEW_CLAN_DUNGEON) then
+            NEW_CLAN_DUNGEON = true
+        end
     end
 end
