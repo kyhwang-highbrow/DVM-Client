@@ -155,18 +155,36 @@ function ServerData_Attendance:getAttendanceDataList()
 end
 
 -------------------------------------
+-- function getAttendanceDdayInfo
+-------------------------------------
+function ServerData_Attendance:getAttendanceDdayInfo()
+    local tar_info, tar_day, tar_item_id
+
+    -- 모든 출석 전설의 알 획득 날짜 체크
+    tar_info, tar_day, tar_item_id = self:getLegendaryDragonDayInfo()
+
+    -- 기본 출석 스페셜 보상 날짜 체크
+    if (not tar_info) then
+        tar_info, tar_day, tar_item_id = self:getSpecialDayInfo()
+    end
+
+    return tar_info, tar_day, tar_item_id
+end
+
+-------------------------------------
 -- function getLegendaryDragonDayInfo
--- @brief 전설의 알 획득 날짜와 출석 정보
+-- @brief 모든 출석에서 전설의 알 획득 날짜 D-day 표시
 -------------------------------------
 function ServerData_Attendance:getLegendaryDragonDayInfo()
-
-    -- 신규, 복귀유저, 기본 출석순으로 D-day 체크
+    -- 출시기념, 신규, 복귀, 기본 출석순으로 D-day 체크
     local check_list = {'open_event', 'newbie', 'comeback', 'normal'}
     local legendary_egg_id = 703005
 
-    local target_info 
-    local target_day = 99
-    
+    local tar_info 
+    local tar_day = 99
+    local tar_item_id 
+    local count_day = 7 -- 7일 전부터 count
+
     for _, category in ipairs(check_list) do
         local t_info = self:getAttendanceData(category)
         if (t_info) then
@@ -178,16 +196,52 @@ function ServerData_Attendance:getLegendaryDragonDayInfo()
                 local item_id = v['item_id']
                 if (item_id == legendary_egg_id) then
                     local d_day =  step - today_step
-                    if (d_day < target_day) and (d_day >= 0 and d_day <= 7) then -- 7일 이하만 추가
-                        target_day = d_day
-                        target_info = t_info
+                    if (d_day < tar_day) and (d_day >= 0 and d_day <= count_day) then 
+                        tar_day = d_day
+                        tar_info = t_info
+                        tar_item_id = legendary_egg_id
+                        break
                     end
                 end
             end
         end
     end
 
-    return target_info, target_day
+    return tar_info, tar_day, tar_item_id
+end
+
+-------------------------------------
+-- function getSpecialDayInfo
+-- @brief 기본 출석인 경우 7, 14, 21, 28 D-day 표시
+-------------------------------------
+function ServerData_Attendance:getSpecialDayInfo()
+    local tar_info 
+    local tar_day = 99
+    local tar_item_id
+
+    local t_info = self:getAttendanceData('normal')
+    if (t_info) then
+        local step_list = t_info['step_list']
+        local today_step = t_info['today_step']
+           
+        for _, v in ipairs(step_list) do
+            local step = v['step']
+            local item_id = v['item_id']
+
+            if (step % 7 == 0) then
+                local d_day =  step - today_step
+                local count_day = (step > 21) and 7 or 2 -- 마지막 보상은 7일 카운트, 나머진 2일 카운트
+                if (d_day < tar_day) and (d_day >= 0 and d_day <= count_day) then
+                    tar_day = d_day
+                    tar_info = t_info
+                    tar_item_id = item_id
+                    break
+                end
+            end
+        end
+    end
+    
+    return tar_info, tar_day, tar_item_id
 end
 
 -------------------------------------

@@ -631,18 +631,28 @@ end
 -------------------------------------
 function UI_Lobby:update_attendanceDday()
     local vars = self.vars
-    local target_info, target_day = g_attendanceData:getLegendaryDragonDayInfo()
+    local target_info, target_day, target_item_id = g_attendanceData:getAttendanceDdayInfo()
+    local btn = vars['ddayBtn']
+
     if (target_info) then
-        local received = target_info['received']
-        vars['ddayBtn']:setVisible(true)
+        btn:setVisible(true)
         vars['ddayLabel']:setString(string.format('D-%d', target_day))
 
+        local item_name = getItemNameWithStar(target_item_id)
+        vars['ddayItemLabel']:setString(item_name)
+
+        local visual = vars['ddayVisual']
+        local socketNode = visual.m_node:getSocketNode('lobby_item')
+        local icon = IconHelper:getItemIcon(target_item_id)
+        socketNode:addChild(icon)
+
         -- 획득하는 날은 안받은 상태에서만 노출
+        local received = target_info['received']
         if (target_day == 0) and (received == true) then
-            vars['ddayBtn']:setVisible(false)
+            btn:setVisible(false)
         end
     else
-        vars['ddayBtn']:setVisible(false)
+        btn:setVisible(false)
     end
 end
 
@@ -965,7 +975,7 @@ end
 -- function click_ddayBtn
 -------------------------------------
 function UI_Lobby:click_ddayBtn()
-    local target_info, target_day = g_attendanceData:getLegendaryDragonDayInfo()
+    local target_info = g_attendanceData:getAttendanceDdayInfo()
     if (target_info) then
         g_attendanceData:openEventPopup(target_info)
     end

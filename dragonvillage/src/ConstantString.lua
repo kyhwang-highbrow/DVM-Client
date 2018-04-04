@@ -441,3 +441,22 @@ function getIndicatorSizeName(size)
 
     return indicator_size_name
 end
+
+-------------------------------------
+-- function getItemNameWithStar
+-- @brief 아이템 알인 경우 부화등급까지 표시
+-------------------------------------
+function getItemNameWithStar(item_id)
+    local map_grade = {}
+    map_grade['703001'] = '★5' -- 신화의 알
+    map_grade['703005'] = '★5' -- 전설의 알
+    map_grade['703003'] = '★4~5' -- 초월의 알
+    map_grade['703019'] = '★4~5' -- 고대의 알
+
+    local item_name = TableItem():getItemName(item_id)
+    local grade = map_grade[tostring(item_id)]
+    if (grade) then
+        item_name = grade .. ' ' .. item_name
+    end
+    return item_name
+end
