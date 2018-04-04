@@ -106,6 +106,14 @@ function ServerData_Tutorial:request_tutorialSave(tutorial_key, step, finish_cb,
     local tutorial_key = tutorial_key
 	local _step = step or 1 -- step 개념이 라이브 중간에 생겨서 nil이 1로 저장됨. 1이면 클리어된 상태
 
+    -- 이미 클리어된 튜토리얼이라면 저장하지 않는다
+    if (self:isTutorialDone(tutorial_key)) then
+        if (finish_cb) then
+            finish_cb()
+        end
+        return
+    end
+    
     -- 성공 콜백
     local function success_cb(ret)
 
