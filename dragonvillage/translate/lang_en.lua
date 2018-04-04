@@ -171,7 +171,7 @@ return {['UFO 크래시 발동 시 100% 확률로 마나를 1개 획득합니다
 ['흡수의 서가 100% 확률로 대상을 3초간 침묵시킵니다.']='Book of Absorbing has 100% chance to silence target for 3 sec.',
 ['흡수의 서가 대상에게 걸린 이로운 효과를 1개 해제합니다.']='Book of Absorbing removes 1 beneficial effect from target.',
 ['흡수의 서를 펼쳐 적에게 피해를 줍니다.\n대상이 6명 이상 지정되면 최종 피해량이 100% 증가합니다.']='Open the Book of Absorbing to inflict damage to enemies.\nIf there are 6 or more targets, final damage is doubled.',
-[' 골드 부스터 7일']='Gold Booster 7 Days',
+['골드 부스터 7일']='Gold Booster 7 Days',
 ['3,000,000 골드']='3,000,000 Gold',
 ['거대한 나무를 소환하여 적들에게 피해를 줍니다. 추가로 소비 마나가 3인 아군의 드래그 스킬의 재사용 시간을 10초간 50% 감소시킵니다.']='Summon a giant tree to inflict damage. In addition, decrease cooldown of allies\' Drag Skill whose Mana Cost is 3 by 50% for 10 sec.',
 ['거대한 나무를 소환하여 적들에게 피해를 줍니다. 추가로 자신을 제외한 소비 마나가 2인 아군의 드래그 스킬의 재사용 시간을 10초간 40% 감소시킵니다.']='Summon a giant tree to inflict damage. In addition, decrease cooldown of other allies\' Drag Skill whose Mana Cost is 2 by 40% for 10 sec.',
