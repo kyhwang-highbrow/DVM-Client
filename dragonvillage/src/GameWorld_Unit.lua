@@ -439,6 +439,7 @@ function GameWorld:bindEnemy(enemy)
     if (enemy.m_charType == 'dragon') then
         enemy:addListener('set_global_cool_time_passive', self.m_gameCoolTime)
         enemy:addListener('set_global_cool_time_active', self.m_gameCoolTime)
+        enemy:addListener('dragon_active_skill', self)
     end
 
     -- 월드에서 중계되는 이벤트
