@@ -807,6 +807,15 @@ function UI_TitleScene:workGetServerInfo()
         end
         if co:waitWork() then return end
 
+		-- 스테이지 리스트 받기 (users/title에서 정보 안줌 hotfix 후에 정리)
+        co:work()
+        self.m_loadingUI:showLoading(Str('지난 흔적을 찾는 중...'))
+        local ui_network = g_nestDungeonData:requestNestDungeonInfo(co.NEXT, fail_cb)
+        if ui_network then
+            ui_network:hideLoading()
+        end
+        if co:waitWork() then return end
+
 		-- /users/title : title 통합 api
 		co:work()
 		self.m_loadingUI:showLoading(Str('던전 정보를 확인 중...'))
