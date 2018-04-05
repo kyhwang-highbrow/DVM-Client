@@ -508,6 +508,9 @@ function ServerData:networkCommonRespone_addedItems(ret)
     -- 진화 재료 갱신 (전체 갱신)
     RefreshGoods(t_added_items, 'evolution_stones')
 
+    -- 외형 변환 갱신 (전체 갱신)
+    RefreshGoods(t_added_items, 'transform_materials')
+
     -- 강화 포인트 (전체 갱신)
     RefreshGoods(t_added_items, 'reinforce_point')
 
