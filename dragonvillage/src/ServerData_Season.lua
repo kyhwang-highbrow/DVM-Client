@@ -25,5 +25,8 @@ function ServerData_Season:applyInfo(ret)
         self.m_clandungeonWeek = ret['clandungeon_week']
 
         NEW_CLAN_DUNGEON = (self.m_clandungeonWeek > 201814)
+
+        -- 주차 상관없도록 임시 처리
+        NEW_CLAN_DUNGEON = true
     end
 end
