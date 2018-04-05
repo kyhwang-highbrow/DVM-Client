@@ -359,7 +359,7 @@ function SkillHelper:getValidSkillIdFromKey(unit, key)
 
     else
         -- 그 이외에는 key값이 스킬 아이디로 사용된 것으로 처리
-        skill_id = l_skill_key[idx]
+        skill_id = key
 
     end
 
