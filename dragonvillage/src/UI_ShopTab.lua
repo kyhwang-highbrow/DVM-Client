@@ -66,7 +66,7 @@ function UI_ShopTab:init_TableView()
     local cell_height = 316
 
     -- 탭에서 상품 개수가 7개 이상이 되면 4줄로 노출
-    if (7 < table.count(l_item_list)) then
+    if (7 <= table.count(l_item_list)) then
         ui_class = UI_ProductSmall
         item_per_cell = 4
         interval = 2
