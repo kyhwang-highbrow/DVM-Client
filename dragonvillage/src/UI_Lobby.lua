@@ -589,6 +589,7 @@ end
 -- @brief 마스터의길 안내와 드빌 도우미 안내를 같이 쓴다
 -------------------------------------
 function UI_Lobby:update_masterRoad()
+    self.vars['masterMenu']:setVisible(true)
     self.m_lobbyGuide:refresh()
 	
 	-- 로비 가이드 off이고 성장일지 클리어하지 못했다면 위치 변경
