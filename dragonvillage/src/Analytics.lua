@@ -2,7 +2,7 @@ Analytics = {
     enable = true,
 }
 Adbrix = {}
-FiveRocks = {}
+Tapjoy = {}
 Adjust = {
     EVENT = {
         FIRST_PURCHASE = 'vooktq',              --첫구매
@@ -115,7 +115,7 @@ function Analytics:userInfo()
 
     local uid = g_userData:get('uid')
     Adbrix:userInfo(uid)
-    FiveRocks:userInfo(uid)
+    Tapjoy:userInfo(uid)
 end
 
 -------------------------------------
@@ -124,7 +124,7 @@ end
 function Analytics:setAppDataVersion()
     if (not IS_ENABLE_ANALYTICS()) then return end
 
-    FiveRocks:setAppDataVersion()
+    Tapjoy:setAppDataVersion()
 end
 -------------------------------------
 -- function cohort
@@ -171,7 +171,7 @@ end
 function Analytics:trackEvent(category, event, value, param1)
     if (not IS_ENABLE_ANALYTICS()) then return end
 
-    FiveRocks:trackEvent(category, event, value, param1)
+    Tapjoy:trackEvent(category, event, value, param1)
 end
 
 -------------------------------------
@@ -184,7 +184,7 @@ function Analytics:purchase(productId, productName, price, token, first_buy)
     local currencyCode = 'KRW'
 
     Adbrix:buy(productId, price)
-    FiveRocks:trackPurchase(productName, currencyCode, price)
+    Tapjoy:trackPurchase(productName, currencyCode, price)
 
     -- 첫 구매는 event로 지표를 남김 (token : vooktq)
     if first_buy then
@@ -447,11 +447,11 @@ end
 -------------------------------------
 -- function userInfo
 -------------------------------------
-function FiveRocks:userInfo(userId)
+function Tapjoy:userInfo(userId)
     local arg1 = tostring(userId)
     local arg2 = tostring((g_userData:get('lv') or 0))
 
-    cclog('FiveRocks:userInfo : ' .. arg1)
+    cclog('Tapjoy:userInfo : ' .. arg1)
 
     PerpleSDK:tapjoyEvent('userID', arg1, '', function(ret)
     end)
@@ -463,12 +463,12 @@ end
 -------------------------------------
 -- function trackPurchase
 -------------------------------------
-function FiveRocks:trackPurchase(productName, currencyCode, price)
+function Tapjoy:trackPurchase(productName, currencyCode, price)
     local arg1 = tostring(productName)
     arg1 = arg1 .. ';' .. tostring(currencyCode)
     arg1 = arg1 .. ';' .. tostring(price)
 
-    cclog('FiveRocks:trackPurchase : ' .. arg1)
+    cclog('Tapjoy:trackPurchase : ' .. arg1)
 
     PerpleSDK:tapjoyEvent('trackPurchase', arg1, '', function(ret)
     end)
@@ -477,11 +477,11 @@ end
 -------------------------------------
 -- function customCohort
 -------------------------------------
-function FiveRocks:customCohort(cohortNo, cohortDesc)
+function Tapjoy:customCohort(cohortNo, cohortDesc)
     local arg1 = tostring(cohortNo)
     local arg2 = cohortDesc
 
-    cclog('FiveRocks:customCohort : ' .. arg1 .. ',' .. arg2)
+    cclog('Tapjoy:customCohort : ' .. arg1 .. ',' .. arg2)
 
     PerpleSDK:tapjoyEvent('userCohortVariable', arg1, arg2, function(ret)
     end)
@@ -490,10 +490,10 @@ end
 -------------------------------------
 -- function setAppDataVersion
 -------------------------------------
-function FiveRocks:setAppDataVersion()
+function Tapjoy:setAppDataVersion()
     local arg1 = getAppVer()
 
-    cclog('FiveRocks:setAppDataVersion : ' .. arg1)
+    cclog('Tapjoy:setAppDataVersion : ' .. arg1)
 
     PerpleSDK:tapjoyEvent('appDataVersion', arg1, '', function(ret)
     end)
@@ -502,7 +502,7 @@ end
 -------------------------------------
 -- function trackEvent
 -------------------------------------
-function FiveRocks:trackEvent(category, event, value, param1)
+function Tapjoy:trackEvent(category, event, value, param1)
     -- @format : category;event;event_name;param1;param2;value;
      
     local category = tostring(category)
@@ -514,7 +514,7 @@ function FiveRocks:trackEvent(category, event, value, param1)
     
     local arg1 = category..';'..event_name..';'..param1..';'..param2..';'..value_name..';'..value 
 
-    cclog('FiveRocks:trackEvent : ' .. arg1)
+    cclog('Tapjoy:trackEvent : ' .. arg1)
 
     PerpleSDK:tapjoyEvent('trackEvent', arg1, '', function(ret)
     end)
