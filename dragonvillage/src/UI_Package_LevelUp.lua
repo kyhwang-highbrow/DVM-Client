@@ -48,7 +48,6 @@ function UI_Package_LevelUp:refresh()
         vars['buyBtn']:setVisible(false)
     else
         vars['completeNode']:setVisible(false)
-        vars['contractBtn']:setVisible(true)
         vars['buyBtn']:setVisible(true)
     end
 end
