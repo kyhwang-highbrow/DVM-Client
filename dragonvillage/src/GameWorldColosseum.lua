@@ -35,6 +35,12 @@ function GameWorldColosseum:createComponents()
         baseTimeScale = baseTimeScale * g_constant:get('INGAME', 'QUICK_MODE_TIME_SCALE')
     end
     self.m_gameTimeScale:setBase(baseTimeScale)
+
+    -- 적 마나 및 쿨타임 표시 상태인 경우 처리
+    if (g_constant:get('DEBUG', 'DISPLAY_ENEMY_MANA_COOLDOWN')) then
+        self.m_mUnitGroup[PHYS.HERO]:getMana():bindUI(nil)
+        self.m_mUnitGroup[PHYS.ENEMY]:getMana():bindUI(self.m_inGameUI)
+    end
 end
 
 -------------------------------------
