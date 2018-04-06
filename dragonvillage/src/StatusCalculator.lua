@@ -176,7 +176,7 @@ end
 
 -------------------------------------
 -- function getBasicStat
--- @brief 기본 + 레벨 + 등급 + 진화 + 친밀도
+-- @brief 기본 + 레벨 + 등급 + 진화 + 친밀도 + 강화
 -------------------------------------
 function StatusCalculator:getBasicStat(stat_type)
     local indivisual_status = self.m_lStatusList[stat_type]
@@ -189,8 +189,8 @@ function StatusCalculator:getBasicStat(stat_type)
 end
 
 -------------------------------------
--- function getBasicStat
--- @brief 기본 + 레벨 + 등급 + 진화 + 친밀도
+-- function getLevelStat
+-- @brief 기본 + 레벨 + 등급 + 진화 + 친밀도 + 강화
 -------------------------------------
 function StatusCalculator:getLevelStat(stat_type)
     local indivisual_status = self.m_lStatusList[stat_type]

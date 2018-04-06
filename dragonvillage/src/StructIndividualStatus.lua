@@ -26,6 +26,7 @@ StructIndividualStatus = class({
         m_roleStat = '',        -- 롤(방어형, 공격형, ...) 능력치
 		
 		m_reinforceMulti = '',	-- 드래곤 강화 능력치
+        m_reinforceStat = '',
 
         m_friendshipStat = '',  -- 친밀도 능력치
         ----------------------------------------------------
@@ -78,6 +79,7 @@ function StructIndividualStatus:init(status_name)
     self.m_roleStat = 0
 
 	self.m_reinforceMulti = 0
+    self.m_reinforceStat = 0
 
     self.m_friendshipStat = 0
 
@@ -149,9 +151,10 @@ function StructIndividualStatus:calcT2()
 
 	-- 강화 능력치
 	local reinforce_multi = (self.m_reinforceMulti / 100)
+    self.m_reinforceStat = (t0 * reinforce_multi)
 
-	-- 강화 + 직군 + 친밀도
-	local t1 = t0 + (t0 * reinforce_multi) + self.m_roleStat + self.m_friendshipStat
+	-- 강화 + 직군 + 친밀도 
+	local t1 = t0 + self.m_reinforceStat + self.m_roleStat + self.m_friendshipStat
 
     -- 룬 능력치
     local rune_multi = (self.m_runeMulti / 100)
@@ -183,7 +186,8 @@ function StructIndividualStatus:getBasicStat()
     local t1 = (self.m_baseStat +
                 self.m_lvStat + self.m_gradeStat + self.m_evolutionStat + self.m_eclvStat +
                 self.m_roleStat +
-                self.m_friendshipStat)
+                self.m_friendshipStat +
+                self.m_reinforceStat)
     return t1
 end
 
