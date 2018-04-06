@@ -718,3 +718,24 @@ end
 function Dragon:getSizeType()
     return self.m_evolutionLv, 'dragon'
 end
+
+-------------------------------------
+-- function updateDebugingInfo
+-- @brief 인게임 정보 출력용 업데이트
+-------------------------------------
+function Dragon:updateDebugingInfo()
+    -- 화면에 드래그 쿨타임 표시
+	if (g_constant:get('DEBUG', 'DISPLAY_ENEMY_MANA_COOLDOWN')) then 
+        local skill_info = self.m_lSkillIndivisualInfo['active']
+        if (skill_info and not skill_info:isEndCoolTime()) then
+            local cool_time = skill_info:getCoolTimeForGauge()
+            self.m_infoUI.m_label:setString(string.format('%d', cool_time))
+        else
+            self.m_infoUI.m_label:setString('')
+        end
+
+    else
+        PARENT.updateDebugingInfo(self)
+
+    end
+end

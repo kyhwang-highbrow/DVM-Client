@@ -85,7 +85,7 @@ end
 function GameMana:updateGauge(updated_int)
     if (not self.m_inGameUI) then return end
 
-    self.m_inGameUI:setMana(self:getCurrMana(), updated_int)
+    self.m_inGameUI:setMana(self:getCurrMana(), updated_int, self.m_accelValue)
 end
 
 -------------------------------------
@@ -108,6 +108,8 @@ end
 -------------------------------------
 function GameMana:bindUI(ui)
     self.m_inGameUI = ui
+
+    self:updateGauge(true)
 end
 
 -------------------------------------

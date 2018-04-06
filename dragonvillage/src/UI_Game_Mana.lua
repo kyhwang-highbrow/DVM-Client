@@ -22,7 +22,7 @@ end
 -- function setMana
 -- @param updated_int : 정수값이 갱신되었는지 여부
 -------------------------------------
-function UI_Game:setMana(mana, updated_int)
+function UI_Game:setMana(mana, updated_int, accel_value)
     local vars = self.vars
 
     local decimal_part = ((mana * 100) % 100) / 100
@@ -67,7 +67,7 @@ function UI_Game:setMana(mana, updated_int)
     -- 현재 차고 있는 마나
     do
         local world = self.m_gameScene.m_gameWorld
-        local accel_value = world:getManaAccelValue()
+        local accel_value = accel_value or 0
         local ani
         
         -- 가속 및 감속 여부에 따라 비주얼 변경

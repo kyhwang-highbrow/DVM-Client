@@ -257,6 +257,19 @@ function UI_GameDebug:makeTableView()
             table.insert(item_info, item)
         end
     end
+    
+    -- 적 마나 및 드래그 쿨타임 표시
+    if (self.m_world.m_gameMode == GAME_MODE_COLOSSEUM) then
+        local item = {}
+        item['cb1'] = UI_GameDebug.enemyManaCooldownButton
+        if cc.Director:getInstance():isDisplayStats() then
+            item['str'] = '적 마나 및 쿨타임 표시 ON'
+        else
+            item['str'] = '적 마나 및 쿨타임 표시 OFF'
+        end
+
+        table.insert(item_info, item)
+    end
 
     do -- FPS on/off
         local item = {}
@@ -455,6 +468,46 @@ function UI_GameDebug.physDebugButton(self, item, idx)
     local phys_world = self.m_world.m_physWorld
     local debug = (not phys_world.m_bDebug)
     phys_world:setDebug(debug)
+end
+
+-------------------------------------
+-- function enemyManaCooldownButton
+-------------------------------------
+function UI_GameDebug.enemyManaCooldownButton(self, item, idx)
+    local set_data = not g_constant:get('DEBUG', 'DISPLAY_ENEMY_MANA_COOLDOWN')
+    g_constant:set(set_data, 'DEBUG', 'DISPLAY_ENEMY_MANA_COOLDOWN')
+
+    local world = self.m_world
+
+    do
+        local group_key = world:getPCGroup()
+        local unit_group = world.m_mUnitGroup[group_key]
+        if (unit_group) then
+            if (set_data) then
+                unit_group:getMana():bindUI(nil)
+            else
+                unit_group:getMana():bindUI(world.m_inGameUI)
+            end
+        end
+    end
+
+    do
+        local group_key = world:getOpponentPCGroup()
+        local unit_group = world.m_mUnitGroup[group_key]
+        if (unit_group) then
+            if (set_data) then
+                unit_group:getMana():bindUI(world.m_inGameUI)
+            else
+                unit_group:getMana():bindUI(nil)
+            end
+        end
+    end
+
+    if (set_data) then
+        item['label']:setString('적 마나 및 쿨타임 표시 ON')
+    else
+        item['label']:setString('적 마나 및 쿨타임 표시 OFF')
+    end
 end
 
 -------------------------------------

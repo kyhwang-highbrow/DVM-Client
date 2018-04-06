@@ -1654,17 +1654,13 @@ end
 function Character:setActive(active)
     self.m_bActive = active
 
-    if self.m_bActive then
-        self.enable_body = true
-        if self.m_rootNode then
-            self.m_rootNode:setVisible(true)
-        end
-    else
-        self.enable_body = false
-        if self.m_rootNode then
-            self.m_rootNode:setVisible(false)
-        end
+    self:setEnableBody(self.m_bActive)
 
+    if (self.m_rootNode) then
+        self.m_rootNode:setVisible(self.m_bActive)
+    end
+
+    if (not self.m_bActive) then
         -- 이동 중지
         self:resetMove()
     end
@@ -1776,8 +1772,6 @@ function Character:setPosition(x, y)
     if (self.m_enemySpeechNode) then
         self.m_enemySpeechNode:setPosition(x, y)
     end
-
-    --self:dispatch('character_update_pos', {}, self)
 end
 
 -------------------------------------

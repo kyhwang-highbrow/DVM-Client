@@ -40,7 +40,7 @@ function StatusEffect_SkillModify:initFromTable(t_status_effect, target_char)
                     local skill_id = SkillHelper:getValidSkillIdFromKey(self.m_owner, key)
 
                     if (self.m_owner:findSkillInfoByID(skill_id)) then
-                        table.insert(l_skill_id, tonumber(skill_id))
+                        table.insert(l_skill_id, skill_id)
                     end
 
                     idx = idx + 1

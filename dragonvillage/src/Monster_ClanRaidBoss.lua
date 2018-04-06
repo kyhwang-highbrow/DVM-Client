@@ -82,9 +82,6 @@ function Monster_ClanRaidBoss:updateBonePos(dt)
         self:setPositionStatusIcons(offset_x, offset_y)
     end
 
-    -- formationMgr에서의 위치 정보 갱신
-    --self:dispatch('character_update_pos', {}, self)
-
     -- 본 위치가 이동하면 physworld의 위치정보도 갱신시켜야함
     self.m_dirtyPos = true
 end

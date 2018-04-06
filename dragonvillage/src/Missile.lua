@@ -454,11 +454,7 @@ function Missile:updateMissileOption(dt)
 
     -- n초 후 부터 충돌 체크 시작
     if self.m_collisionCheckTime then
-		if (self.m_stateTimer <= self.m_collisionCheckTime) then 
-			self.enable_body = false
-		else
-            self.enable_body = true
-        end
+        self:setEnableBody(self.m_stateTimer > self.m_collisionCheckTime)
     end
 
 
