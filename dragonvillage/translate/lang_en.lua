@@ -12084,7 +12084,7 @@ return {['UFO 크래시 발동 시 100% 확률로 마나를 1개 획득합니다
 ['[빛의 수호자가 없는 한, 이 세상에서 나를 상대할 존재는 없다.]']='[Without the Guardian of Light, there is nothing in this world that can oppose me.]',
 ['[순순히 영원한 죽음을 받아들여라.]']='[Surrender, and accept your death.]',
 ['하아~ 솔직히 네가 두른 님보다 더 재미가 없는 것만은 사실이야.']='*Sigh…* You are definitely less funny than Doorn.',
-['[어둠의 수호자, 너의 페배는 이미 정해져있다.]']='[Guardian of Darkness, your fate is already sealed.]',
+['[어둠의 수호자, 너의 패배는 이미 정해져있다.]']='[Guardian of Darkness, your fate is already sealed.]',
 ['[제 아무리 거대한 어둠일지라도, 그 아무리 작은 빛이라 할지도!]']='[Even if it is a fight between the greatest darkness and the weakest light...]',
 ['[어둠은 결코 빛을 이길 수 없다!]']='[Darkness can never defeat the light!]',
 ['스승님, 4대신룡들이에요!']='Master, it\'s the four God Dragons!',
