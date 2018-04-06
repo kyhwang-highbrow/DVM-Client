@@ -48,8 +48,7 @@ function UI_EventFullPopup:initUI()
         local event_data = { banner = l_str[2], url = l_str[3] or ''}
         local struct_data = StructEventPopupTab(event_data)
         ui = UI_EventPopupTab_Banner(self, struct_data)
-        vars['eventNode']:addChild(ui.root)
-
+        
 	-- Daily Mission
 	elseif string.find(popup_key, 'daily_mission') then
 		local l_str = plSplit(popup_key, ';')
@@ -57,8 +56,6 @@ function UI_EventFullPopup:initUI()
 		if (key == 'clan') then
 			ui = UI_DailyMisson_Clan()
 		end
-
-        vars['eventNode']:addChild(ui.root)
 
 	-- 출석
 	elseif string.find(popup_key, 'attendance') then
@@ -72,8 +69,6 @@ function UI_EventFullPopup:initUI()
 			ui = UI_EventPopupTab_EventAttendance(key)
         end
 
-        vars['eventNode']:addChild(ui.root)
-
     -- 패키지 상품 
     elseif string.find(popup_key, 'package') then
         
@@ -81,22 +76,31 @@ function UI_EventFullPopup:initUI()
         local is_popup = false
         ui = PackageManager:getTargetUI(package_name, is_popup)
 
-        if (ui) then
-            local node = vars['eventNode']
-            node:addChild(ui.root)
-        else
+        if (not ui) then
             -- 이벤트 프로덕트 정보 없을 경우 비활성화라고 생각하고 닫아줌 (주말 패키지)
             self:close()
         end
 
     -- 일일 상점
     elseif string.find(popup_key, 'shop_daily') then
-
         ui = UI_ShopDaily()
-        if (ui) then
-            local node = vars['eventNode']
-            node:addChild(ui.root)
+    end
+
+    -- 패키지 UI 크기에 따라 풀팝업 UI 사이즈 변경후 추가
+    if (ui) and (ui.root) then
+        
+        local l_children = ui.root:getChildren()
+        local tar_menu = l_children[1]
+
+        -- 최상위 메뉴 사이즈로 변경
+        if (tar_menu) then
+            local size = tar_menu:getContentSize()
+            local width = size['width']
+            local height = 640
+            vars['mainNode']:setContentSize(cc.size(width, height))
         end
+
+        vars['eventNode']:addChild(ui.root)
     end
 
 	self.m_innerUI = ui
