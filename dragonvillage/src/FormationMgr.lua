@@ -155,16 +155,18 @@ end
 -- function getTargetList
 -------------------------------------
 function FormationMgrDelegate:getTargetList(x, y, team_type, formation_type, rule_type, t_data)
+    local formation_type = formation_type or ''
+
     local t_ret = {}
 
     -- 18/02/02 formation_type(front, middle, back)의 기능 변경
     -- front : 가장 가까운 적 우선
     -- back : 가장 먼 적 우선
-    if (formation_type == 'front') then
+    if (string.find(formation_type, 'front')) then
         local t_org_list_1 = self.m_globalCharList
         self:addList(t_ret, TargetRule_getTargetList('front', t_org_list_1, x, y, t_data))
         
-    elseif (formation_type == 'back') then
+    elseif (string.find(formation_type, 'back')) then
         local t_org_list_1 = self.m_globalCharList
         self:addList(t_ret, TargetRule_getTargetList('back', t_org_list_1, x, y, t_data))
 
@@ -187,12 +189,10 @@ function FormationMgrDelegate:getTargetList(x, y, team_type, formation_type, rul
         end
 
     -- 항목에 데이터가 없다면 전, 중, 후 구별을 하지 않고 모두를 타겟
-	elseif (formation_type == '') or (not formation_type) then
+	else
         local t_org_list_1 = self.m_globalCharList
         self:addList(t_ret, TargetRule_getTargetList(rule_type, t_org_list_1, x, y, t_data))
 
-    else
-        error("미구현 Formation Type!! : " .. formation_type)
     end
 
     -- 자기 자신은 제외

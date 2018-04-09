@@ -1176,9 +1176,10 @@ end
 -- function getTargetList
 -------------------------------------
 function GameWorld:getTargetList(char, x, y, team_type, formation_type, rule_type, t_data)
+    local formation_type = formation_type or ''
     local group_key = char:getPhysGroup()
     local unit_group = self:getUnitGroupConsideredTamer(char)
-                
+
     local t_data = t_data or {}
 
     t_data['self'] = char
@@ -1225,6 +1226,21 @@ function GameWorld:getTargetList(char, x, y, team_type, formation_type, rule_typ
             else
                 l_attackable_group_key = self:getHeroGroups()
             end
+
+        elseif (string.find(formation_type, 'team1')) then
+            if (char.m_bLeftFormation) then
+                l_attackable_group_key = { PHYS.ENEMY_TOP }
+            else
+                l_attackable_group_key = { PHYS.HERO_TOP }
+            end
+            
+        elseif (string.find(formation_type, 'team2')) then
+            if (char.m_bLeftFormation) then
+                l_attackable_group_key = { PHYS.ENEMY_BOTTOM }
+            else
+                l_attackable_group_key = { PHYS.HERO_BOTTOM }
+            end
+            
         else
             l_attackable_group_key = unit_group:getAttackbleGroupKeys()
         end
