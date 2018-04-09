@@ -66,7 +66,7 @@ function UI_InventoryTabFruit:createCard(t_data)
     local item_id = t_data['fid']
     local count = t_data['count']
     local ui = UI_ItemCard(tonumber(item_id), 0)
-    ui:setAniNumber(count)
+    ui:setNumberLabel(count)
 
     return ui
 end
@@ -183,18 +183,22 @@ function UI_InventoryTabFruit:refresh_tableView()
         l_item_map[fid] = count
     end
 
+    self.m_inventoryUI:clearSelectedItem()
+    
     local table_view = self.m_fruitsTableView
-
     for idx,item in pairs(table_view.m_itemMap) do
         local fid = tonumber(item['data']['fid'])
-        if (not l_item_map[fid]) or (l_item_map[fid] == 0) then
+        if (not l_item_map[fid]) then
             table_view:delItem(idx)
         else
             local count = l_item_map[fid]
             if (item['data']['count'] ~= count) then
                 item['data']['count'] = count
-                if item['ui'] then
-                    item['ui']:setString(Str('{1}', comma_value(count)))
+                local ui = item['ui']
+                if (ui) then
+                    ui:setNumberLabel(comma_value(count))
+                    ui:setCheckSpriteVisible(false)
+                    ui:setHighlightSpriteVisible(false)
                 end
             end
         end

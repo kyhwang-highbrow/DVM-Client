@@ -60,7 +60,7 @@ function UI_InventoryTabEgg:createCard(t_data)
     local item_id = t_data['egg_id']
     local count = t_data['count']
     local ui = UI_ItemCard(tonumber(item_id), 0)
-    ui:setAniNumber(count)
+    ui:setNumberLabel(count)
 
     return ui
 end

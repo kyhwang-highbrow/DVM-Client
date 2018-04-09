@@ -69,7 +69,7 @@ function UI_InventoryTabEvolutionStone:createCard(t_data)
     local item_id = t_data['esid']
     local count = t_data['count']
     local ui = UI_ItemCard(tonumber(item_id), 0)
-    ui:setAniNumber(count)
+    ui:setNumberLabel(count)
 
     return ui
 end
@@ -194,6 +194,11 @@ function UI_InventoryTabEvolutionStone:refresh_tableView()
         local old_data = item['data']
         if (old_data['esid'] == new_data['esid']) then
             self.m_evolutionStoneTableView:replaceItemUI(new_data['esid'], new_data)
+        end
+
+        if (item['ui']) then
+            local count = new_data['count']
+            item['ui']:setNumberLabel(comma_value(count))
         end
     end
 

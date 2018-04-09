@@ -66,7 +66,7 @@ function UI_InventoryTabTransform:createCard(t_data)
     local item_id = t_data['mid']
     local count = t_data['count']
     local ui = UI_ItemCard(tonumber(item_id), 0)
-    ui:setAniNumber(count)
+    ui:setNumberLabel(count)
 
     return ui
 end
@@ -143,7 +143,7 @@ end
 -- @brief
 -------------------------------------
 function UI_InventoryTabTransform:sellBtn(data)
-    local item_id = data['mid']
+    local item_id = tonumber(data['mid'])
     local count = data['count']
 
     local function sell_cb(ret)
@@ -183,18 +183,22 @@ function UI_InventoryTabTransform:refresh_tableView()
         l_item_map[mid] = count
     end
 
-    local table_view = self.m_transformTableView
+    self.m_inventoryUI:clearSelectedItem()
 
+    local table_view = self.m_transformTableView
     for idx,item in pairs(table_view.m_itemMap) do
         local mid = tonumber(item['data']['mid'])
-        if (not l_item_map[mid]) or (l_item_map[mid] == 0) then
+        if (not l_item_map[mid]) then
             table_view:delItem(idx)
         else
             local count = l_item_map[mid]
             if (item['data']['count'] ~= count) then
                 item['data']['count'] = count
-                if item['ui'] then
-                    item['ui']:setString(Str('{1}', comma_value(count)))
+                local ui = item['ui']
+                if (ui) then
+                    ui:setNumberLabel(comma_value(count))
+                    ui:setCheckSpriteVisible(false)
+                    ui:setHighlightSpriteVisible(false)
                 end
             end
         end

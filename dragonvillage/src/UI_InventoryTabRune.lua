@@ -208,9 +208,7 @@ function UI_InventoryTabRune:sellBtn(t_rune_data)
     -- 서버에 판매 요청
     request_item_sell = function()
         local rune_oids = t_rune_data['roid']
-        local evolution_stones = nil
-        local fruits = nil
-        local tickets = nil
+        local items = nil
 
         -- 선택된 룬이 판매되었으니 선택 해제
         local function cb(ret)
@@ -219,7 +217,7 @@ function UI_InventoryTabRune:sellBtn(t_rune_data)
 			self:refresh_noti()
         end
 
-        g_inventoryData:request_itemSell(rune_oids, evolution_stones, fruits, tickets, cb)
+        g_inventoryData:request_itemSell(rune_oids, items, cb)
     end
 
     ask_item_sell()

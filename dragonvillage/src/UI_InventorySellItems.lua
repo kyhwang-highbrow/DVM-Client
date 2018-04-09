@@ -209,19 +209,8 @@ function UI_InventorySellItems:click_sellBtn()
     local count = self.m_currCount
 
     local rune_oids = nil
-    local evolution_stones = nil
-    local fruits = nil
-    local tickets = nil
-
-    local type = TableItem():getValue(item_id, 'type')
-
-    if (type == 'evolution_stone') then
-        evolution_stones = tostring(item_id) .. ':' .. count
-    elseif (type == 'fruit') then
-        fruits = tostring(item_id) .. ':' .. count
-    elseif (type == 'ticket') then
-        tickets = tostring(item_id) .. ':' .. count
-    end
+    local items = nil
+    items = tostring(item_id) .. ':' .. count
 
     local function cb(ret)
         if self.m_sellCB then
@@ -230,5 +219,5 @@ function UI_InventorySellItems:click_sellBtn()
 
         self:close()
     end
-    g_inventoryData:request_itemSell(rune_oids, evolution_stones, fruits, tickets, cb)
+    g_inventoryData:request_itemSell(rune_oids, items, cb)
 end

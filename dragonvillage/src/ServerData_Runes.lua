@@ -224,11 +224,8 @@ end
 -------------------------------------
 function ServerData_Runes:request_runeSell(roid, finish_cb)
     local rune_oids = roid
-    local evolution_stones = nil
-    local fruits = nil
-    local tickets = nil
-
-    g_inventoryData:request_itemSell(rune_oids, evolution_stones, fruits, tickets, finish_cb)
+    local items = nil
+    g_inventoryData:request_itemSell(rune_oids, items, finish_cb)
 end
 
 

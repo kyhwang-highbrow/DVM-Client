@@ -21,7 +21,7 @@ end
 -- function request_itemSell
 -- @brief
 -------------------------------------
-function ServerData_Inventory:request_itemSell(rune_oids, evolution_stones, fruits, tickets, cb)
+function ServerData_Inventory:request_itemSell(rune_oids, items, cb)
     -- 파라미터
     local uid = g_userData:get('uid')
 
@@ -35,9 +35,7 @@ function ServerData_Inventory:request_itemSell(rune_oids, evolution_stones, frui
     ui_network:setUrl('/inventory/sell')
     ui_network:setParam('uid', uid)
     ui_network:setParam('rune_oids', rune_oids)
-    ui_network:setParam('evolution_stones', evolution_stones)
-    ui_network:setParam('fruits', fruits)
-    ui_network:setParam('tickets', tickets)
+    ui_network:setParam('items', items)
     ui_network:setSuccessCB(success_cb)
     ui_network:setRevocable(true)
     ui_network:setReuse(false)

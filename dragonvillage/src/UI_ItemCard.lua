@@ -166,13 +166,11 @@ function UI_ItemCard:init_reinforcePoint(t_item, count)
 end
 
 -------------------------------------
--- function setAniNumber
+-- function setNumberLabel
 -------------------------------------
-function UI_ItemCard:setAniNumber(num, immediately)
+function UI_ItemCard:setNumberLabel(str)
     local vars = self.vars
-
-   vars['numberLabel'] = NumberLabel(vars['numberLabel'], 0, 0.3)
-   vars['numberLabel']:setNumber(num, immediately)
+    vars['numberLabel']:setString(str)
 end
 
 -------------------------------------

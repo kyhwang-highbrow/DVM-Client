@@ -143,10 +143,7 @@ function UI_InventorySelectSellItems:click_sellBtn()
         return
     end
 
-    local rune_oids
-    local evolution_stones
-    local fruits
-    local tickets
+    local items
 
     local total_price = 0
 
@@ -169,36 +166,15 @@ function UI_InventorySelectSellItems:click_sellBtn()
                 rune_oids = rune_oids .. ',' .. roid
             end
         
-        -- 진화석 판매
-        elseif (item_type == 'evolution_stone') then
+        -- 그외 (진화석, 외형변환, 열매)
+        else
             item_count = data['count']
             local str = tostring(item_id) .. ':' .. item_count
-            if (not evolution_stones) then
-                evolution_stones = str
+            if (not items) then
+                items = str
             else
-                evolution_stones = evolution_stones .. ',' .. str
+                items = items .. ',' .. str
             end
-        
-        -- 열매 판매
-        elseif (item_type == 'fruit') then
-            item_count = data['count']
-            local str = tostring(item_id) .. ':' .. item_count
-            if (not fruits) then
-                fruits = str
-            else
-                fruits = fruits .. ',' .. str
-            end
-
-        -- 티켓 판매
-        elseif (item_type == 'ticket') then
-            item_count = data['count']
-            local str = tostring(item_id) .. ':' .. item_count
-            if (not tickets) then
-                tickets = str
-            else
-                tickets = tickets .. ',' .. str
-            end
-
         end
 
         total_price = total_price + (price * item_count)
@@ -214,7 +190,7 @@ function UI_InventorySelectSellItems:click_sellBtn()
     end
 
     local function request_item_sell()
-        g_inventoryData:request_itemSell(rune_oids, evolution_stones, fruits, tickets, cb)
+        g_inventoryData:request_itemSell(rune_oids, items, cb)
     end
 
     local msg = Str('{1}개의 아이템을 {2}골드에 판매하시겠습니까?', count, comma_value(total_price))
