@@ -1,35 +1,32 @@
 local PARENT = UI_InventoryTab
 
 -------------------------------------
--- class UI_InventoryTabEvolutionStone
+-- class UI_InventoryTabTransform
 -------------------------------------
-UI_InventoryTabEvolutionStone = class(PARENT, {
-        m_evolutionStoneTableView = 'UIC_TableViewTD',
-        m_evolutionStoneSortManager = 'SortManager_EvolutionStone',
+UI_InventoryTabTransform = class(PARENT, {
+        m_transformTableView = 'UIC_TableViewTD',
+        m_transformSortManager = 'SortManager_Transform',
      })
 
 -------------------------------------
 -- function init
 -------------------------------------
-function UI_InventoryTabEvolutionStone:init(inventory_ui)
+function UI_InventoryTabTransform:init(inventory_ui)
     local vars = self.vars
 end
 
 -------------------------------------
--- function init_evolutionStoneTableView
+-- function init_transformTableView
 -------------------------------------
-function UI_InventoryTabEvolutionStone:init_evolutionStoneTableView()
-    if self.m_evolutionStoneTableView then
+function UI_InventoryTabTransform:init_transformTableView()
+    if self.m_transformTableView then
         return
     end
 
-    local node = self.vars['materialTableViewNode']
+    local node = self.vars['transformTableViewNode']
 
     local is_all = true
-    local l_item_list = g_evolutionStoneData:getEvolutionStoneList(is_all)
-    local function make_func(data)
-        return self:createCard(data)
-    end
+    local l_item_list = g_userData:getTransformList(is_all)
 
     -- 생성 콜백
     local function create_func(ui, data)
@@ -42,7 +39,7 @@ function UI_InventoryTabEvolutionStone:init_evolutionStoneTableView()
         ui.vars['clickBtn']:registerScriptTapHandler(click_func)
     end
 
-    -- 열매 아이콘 생성 함수(내부에서 Item Card)
+    -- 외형변환 아이콘 생성 함수(내부에서 Item Card)
     local function make_func(t_data)
         return self:createCard(t_data)
     end
@@ -55,18 +52,18 @@ function UI_InventoryTabEvolutionStone:init_evolutionStoneTableView()
     table_view_td:setItemList(l_item_list)
 
     -- 정렬
-    local sort_manager = SortManager_EvolutionStone()
+    local sort_manager = SortManager_Transform()
     sort_manager:sortExecution(table_view_td.m_itemList)
-    self.m_evolutionStoneSortManager = sort_manager
-    
-    self.m_evolutionStoneTableView = table_view_td
+    self.m_transformSortManager = sort_manager
+
+    self.m_transformTableView = table_view_td
 end
 
 -------------------------------------
 -- function createCard
 -------------------------------------
-function UI_InventoryTabEvolutionStone:createCard(t_data)
-    local item_id = t_data['esid']
+function UI_InventoryTabTransform:createCard(t_data)
+    local item_id = t_data['mid']
     local count = t_data['count']
     local ui = UI_ItemCard(tonumber(item_id), 0)
     ui:setAniNumber(count)
@@ -77,9 +74,9 @@ end
 -------------------------------------
 -- function onEnterInventoryTab
 -------------------------------------
-function UI_InventoryTabEvolutionStone:onEnterInventoryTab(first)
+function UI_InventoryTabTransform:onEnterInventoryTab(first)
     if first then
-        self:init_evolutionStoneTableView()
+        self:init_transformTableView()
     end
 
     PARENT.onEnterInventoryTab(self, first)
@@ -87,20 +84,13 @@ end
 
 -------------------------------------
 -- function onChangeSortAscending
--------------------------------------
-function UI_InventoryTabEvolutionStone:onChangeSortAscending()
-    PARENT.onChangeSortAscending(self)
-end
-
--------------------------------------
--- function onChangeSortAscending
 -- @brief 오름차순, 내림차순이 변경되었을 때
 -------------------------------------
-function UI_InventoryTabEvolutionStone:onChangeSortAscending(ascending)
+function UI_InventoryTabTransform:onChangeSortAscending(ascending)
     PARENT.onChangeSortAscending(self)
 
-    local table_view_td = self.m_evolutionStoneTableView
-    local sort_manager = self.m_evolutionStoneSortManager
+    local table_view_td = self.m_transformTableView
+    local sort_manager = self.m_transformSortManager
 
     -- 오름차순, 내림차순 정렬 변경
     sort_manager:setAllAscending(ascending)
@@ -111,7 +101,7 @@ end
 -------------------------------------
 -- function onChangeSelectedItem
 -------------------------------------
-function UI_InventoryTabEvolutionStone:onChangeSelectedItem(ui, data)
+function UI_InventoryTabTransform:onChangeSelectedItem(ui, data)
     local vars = self.vars
 
     do-- 아이콘 표시
@@ -125,22 +115,18 @@ function UI_InventoryTabEvolutionStone:onChangeSelectedItem(ui, data)
 
     -- 획득 지역 안내
     vars['locationBtn']:setVisible(true)
-    vars['locationBtn']:registerScriptTapHandler(function() self:openAcuisitionRegionInformation(data['esid']) end)
-
-    -- 조합/분해
-    vars['combineBtn']:setVisible(true)
-    vars['combineBtn']:registerScriptTapHandler(function() self:click_combineBtn(data['esid']) end)
+    vars['locationBtn']:registerScriptTapHandler(function() self:openAcuisitionRegionInformation(data['mid']) end)
 
     do -- 아이템 이름
         vars['itemNameLabel']:setVisible(true)
-        local name = TableItem():getValue(data['esid'], 't_name')
+        local name = TableItem():getValue(data['mid'], 't_name')
         vars['itemNameLabel']:setString(Str(name))
     end
 
     do -- 아이템 설명
         vars['itemDscLabel']:setVisible(true)
-        local esid = data['esid']
-        local desc = TableItem():getValue(esid, 't_desc')
+        local mid = data['mid']
+        local desc = TableItem():getValue(mid, 't_desc')
         vars['itemDscLabel']:setString(Str(desc))
     end
 
@@ -149,24 +135,22 @@ function UI_InventoryTabEvolutionStone:onChangeSelectedItem(ui, data)
         vars['sellBtn']:setVisible(true)
     end
     vars['sellBtn']:registerScriptTapHandler(function() self:sellBtn(data) end)
-
-
 end
 
 -------------------------------------
 -- function sellBtn
 -- @brief
 -------------------------------------
-function UI_InventoryTabEvolutionStone:sellBtn(data)
-    local item_id = data['esid']
+function UI_InventoryTabTransform:sellBtn(data)
+    local item_id = data['mid']
     local count = data['count']
 
     local function sell_cb(ret)
         self.m_inventoryUI:response_itemSell(ret)
         
         local item = nil
-        for i,v in pairs(self.m_evolutionStoneTableView.m_itemMap) do
-            if (v['data']['esid'] == item_id) then
+        for i,v in pairs(self.m_transformTableView.m_itemMap) do
+            if (v['data']['mid'] == item_id) then
                 item = v
                 break
             end
@@ -184,34 +168,34 @@ end
 -------------------------------------
 -- function refresh_tableView
 -------------------------------------
-function UI_InventoryTabEvolutionStone:refresh_tableView()
-    if (not self.m_evolutionStoneTableView) then
+function UI_InventoryTabTransform:refresh_tableView()
+    if (not self.m_transformTableView) then
         return
     end
 
-    local function refresh_func(item, new_data)
-        local old_data = item['data']
-        if (old_data['esid'] == new_data['esid']) then
-            self.m_evolutionStoneTableView:replaceItemUI(new_data['esid'], new_data)
+    local is_all = true
+    local l_item_list = g_userData:getTransformList(is_all)
+    local l_item_map = {}
+    for i,v in pairs(l_item_list) do
+        local mid = tonumber(v['mid'])
+        local count = v['count']
+        l_item_map[mid] = count
+    end
+
+    local table_view = self.m_transformTableView
+
+    for idx,item in pairs(table_view.m_itemMap) do
+        local mid = tonumber(item['data']['mid'])
+        if (not l_item_map[mid]) or (l_item_map[mid] == 0) then
+            table_view:delItem(idx)
+        else
+            local count = l_item_map[mid]
+            if (item['data']['count'] ~= count) then
+                item['data']['count'] = count
+                if item['ui'] then
+                    item['ui']:setString(Str('{1}', comma_value(count)))
+                end
+            end
         end
     end
-
-    local is_all = true
-    local l_item_list = g_evolutionStoneData:getEvolutionStoneList(is_all)
-    self.m_evolutionStoneTableView:mergeItemList(l_item_list, refresh_func)
-end
-
--------------------------------------
--- function click_combineBtn
--------------------------------------
-function UI_InventoryTabEvolutionStone:click_combineBtn(item_id)
-    local function update_cb()
-        self.m_inventoryUI:clearSelectedItem()
-        self:refresh_tableView()
-    end
-    -- 진화재료 조합/분해 진입시 선택판매는 비활성화로 변경 
-    self.m_inventoryUI.m_selectSellItemsUI:setActive(false)
-
-    local ui = UI_EvolutionStoneCombine(item_id)
-    ui:setCloseCB(update_cb)
 end

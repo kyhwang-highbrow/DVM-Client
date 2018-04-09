@@ -33,9 +33,9 @@ function SortManager_EvolutionStone:init()
     self.m_mAttrSortLevel['reset'] = 0
     self.m_mAttrSortLevel['dark'] = 1
     self.m_mAttrSortLevel['light'] = 2
-    self.m_mAttrSortLevel['earth'] = 3
+    self.m_mAttrSortLevel['fire'] = 3
     self.m_mAttrSortLevel['water'] = 4
-    self.m_mAttrSortLevel['fire'] = 5
+    self.m_mAttrSortLevel['earth'] = 5
     self.m_mAttrSortLevel['global'] = 6
     self.m_mAttrSortLevel['all'] = 7
 

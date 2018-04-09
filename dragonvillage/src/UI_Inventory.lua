@@ -11,6 +11,10 @@ UI_Inventory = class(PARENT, {
         m_selectSellItemsUI = 'UI_InventorySelectSellItems',
      })
 
+-- 모든 탭에 일괄적용하기 위해
+UI_Inventory.CARD_SCALE = 0.63
+UI_Inventory.CARD_CELL_SIZE = cc.size(97, 97)
+
 -------------------------------------
 -- function init
 -------------------------------------
@@ -52,6 +56,8 @@ function UI_Inventory:initUI()
         self.m_tTabClass['rune'] = UI_InventoryTabRune(self)
         self.m_tTabClass['material'] = UI_InventoryTabEvolutionStone(self)
         self.m_tTabClass['fruit'] = UI_InventoryTabFruit(self)
+        self.m_tTabClass['transform'] = UI_InventoryTabTransform(self)
+        self.m_tTabClass['egg'] = UI_InventoryTabEgg(self)
     end
 
 
@@ -60,6 +66,8 @@ function UI_Inventory:initUI()
         self.m_mainTabMgr:addTabAuto('rune', vars, vars['runeNode'])
         self.m_mainTabMgr:addTabAuto('material', vars, vars['materialNode'])
         self.m_mainTabMgr:addTabAuto('fruit', vars, vars['fruitNode'])
+        self.m_mainTabMgr:addTabAuto('transform', vars, vars['transformNode'])
+        self.m_mainTabMgr:addTabAuto('egg', vars, vars['eggNode'])
     
 		
         self.m_mainTabMgr:setChangeTabCB(function(tab, first) self:onChangeMainTab(tab, first) end)
@@ -159,6 +167,10 @@ end
 -- @brief
 -------------------------------------
 function UI_Inventory:setSelectedItem(ui, data)
+    if (ui == nil) then
+        return
+    end
+    
     if self.m_selectedItemUI then
         self.m_selectedItemUI:setHighlightSpriteVisible(false)
     end
@@ -168,9 +180,6 @@ function UI_Inventory:setSelectedItem(ui, data)
 
     self:clearItemInfo()
 
-    if (ui == nil) then
-        return
-    end
 
     local tab = self.m_mainTabMgr.m_currTab
     if (not self.m_tTabClass[tab]) then
@@ -178,7 +187,7 @@ function UI_Inventory:setSelectedItem(ui, data)
     end
 
     self.m_tTabClass[tab]:onChangeSelectedItem(ui, data)
-    cca.uiReactionSlow(ui.root, 0.72, 0.72)
+    cca.uiReactionSlow(ui.root, UI_Inventory.CARD_SCALE, UI_Inventory.CARD_SCALE)
 
     ui:setHighlightSpriteVisible(true)
 

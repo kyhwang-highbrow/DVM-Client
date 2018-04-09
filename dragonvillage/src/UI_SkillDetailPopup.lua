@@ -237,8 +237,8 @@ function UI_SkillDetailPopup:addSameTypeDragon()
     self.m_dragonSelectSprite = select_sprite
 
     -- 초기화
-    local t_attr = {'fire', 'water', 'earth', 'light', 'dark'}
-    for _, attr in ipairs(t_attr) do
+    local l_attr = getAttrTextList()
+    for _, attr in ipairs(l_attr) do
         vars['emptyNode_'..attr]:setVisible(true)
         vars['dragonCardNode_'..attr]:removeAllChildren()
     end

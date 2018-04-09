@@ -1,10 +1,10 @@
 local PARENT = SortManager
 
 -------------------------------------
--- class SortManager_Fruit
--- @breif 열매 정렬 관리자
+-- class SortManager_Transform
+-- @breif 외형 변환 정렬 관리자
 -------------------------------------
-SortManager_Fruit = class(PARENT, {
+SortManager_Transform = class(PARENT, {
         m_tableItem = 'TableItem',
         m_mAttrSortLevel = 'map',
     })
@@ -12,7 +12,7 @@ SortManager_Fruit = class(PARENT, {
 -------------------------------------
 -- function init
 -------------------------------------
-function SortManager_Fruit:init()
+function SortManager_Transform:init()
     self.m_tableItem = TableItem()
 
     -- 속성별 정렬 레벨
@@ -27,7 +27,6 @@ function SortManager_Fruit:init()
     self.m_mAttrSortLevel['earth'] = 5
     self.m_mAttrSortLevel['global'] = 6
 
-    self:addSortType('grade', false, function(a, b, ascending) return self:sort_grade(a, b, ascending) end)
     self:addSortType('attr', false, function(a, b, ascending) return self:sort_attr(a, b, ascending) end)
     self:setDefaultSortFunc(function(a, b, ascending) return self:sort_fid(a, b, ascending) end)
 end
@@ -37,12 +36,12 @@ end
 -- function sort_attr
 -- @brief 속성
 -------------------------------------
-function SortManager_Fruit:sort_attr(a, b, ascending)
+function SortManager_Transform:sort_attr(a, b, ascending)
     local a_data = a['data']
     local b_data = b['data']
 
-    local a_item = self.m_tableItem:get(a_data['fid'])
-    local b_item = self.m_tableItem:get(b_data['fid'])
+    local a_item = self.m_tableItem:get(a_data['mid'])
+    local b_item = self.m_tableItem:get(b_data['mid'])
 
     local a_value = a_item['attr']
     local b_value = b_item['attr']
@@ -63,43 +62,17 @@ function SortManager_Fruit:sort_attr(a, b, ascending)
 end
 
 -------------------------------------
--- function sort_grade
--- @brief 등급
--------------------------------------
-function SortManager_Fruit:sort_grade(a, b, ascending)
-    local a_data = a['data']
-    local b_data = b['data']
-
-    local a_item = self.m_tableItem:get(a_data['fid'])
-    local b_item = self.m_tableItem:get(b_data['fid'])
-
-    local a_value = a_item['grade']
-    local b_value = b_item['grade']
-
-    if (a_value == b_value) then
-        return nil
-    end
-
-    -- 오름차순 or 내림차순
-    if ascending then
-        return a_value < b_value
-    else
-        return a_value > b_value
-    end
-end
-
--------------------------------------
 -- function sort_fid
--- @brief 열매 ID
+-- @brief 외형변환 ID
 -------------------------------------
-function SortManager_Fruit:sort_fid(a, b, ascending)
+function SortManager_Transform:sort_fid(a, b, ascending)
     local a_data = a['data']
     local b_data = b['data']
 
     -- 최종 정렬 조건으로 사용하기때문에 같은 경우에도 리턴함
     if ascending then
-        return a_data['fid'] < b_data['fid']
+        return a_data['mid'] < b_data['mid']
     else
-        return a_data['fid'] > b_data['fid']
+        return a_data['mid'] > b_data['mid']
     end
 end

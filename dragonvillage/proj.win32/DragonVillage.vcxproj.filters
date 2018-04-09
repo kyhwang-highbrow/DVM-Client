@@ -3367,6 +3367,15 @@
     <None Include="..\src\ServerData_Season.lua">
       <Filter>lua\src</Filter>
     </None>
+    <None Include="..\src\SortManager_Transform.lua">
+      <Filter>lua\src</Filter>
+    </None>
+    <None Include="..\src\UI_InventoryTabEgg.lua">
+      <Filter>lua\UI</Filter>
+    </None>
+    <None Include="..\src\UI_InventoryTabTransform.lua">
+      <Filter>lua\UI</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Classes">

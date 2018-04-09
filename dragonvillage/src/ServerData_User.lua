@@ -37,7 +37,8 @@ end
 -- function getFruitList
 -- @brief 보유중인 열매 리스트 리턴(가방에서 사용)
 -------------------------------------
-function ServerData_User:getFruitList()
+function ServerData_User:getFruitList(is_all)
+    local is_all = is_all or false
     local l_fruis = self:getRef('fruits')
 
     -- key가 item_id(=fruit_id)이고 value가 count인 리스트 생성
@@ -52,6 +53,11 @@ function ServerData_User:getFruitList()
         if (count > 0) then
             table.insert(l_ret, t_data)
         end
+    end
+
+    -- 소유하지 않은 열매도 count 0으로 만듬
+    if (is_all) then    
+        l_ret = self:makeEmptyData(l_ret, 'fruit')
     end
 
     return l_ret
@@ -89,7 +95,8 @@ end
 -- function getEvolutionStoneList
 -- @brief 보유중인 진화석 리스트 리턴(가방에서 사용)
 -------------------------------------
-function ServerData_User:getEvolutionStoneList()
+function ServerData_User:getEvolutionStoneList(is_all)
+    local is_all = is_all or false
     local l_evolution_stone = self:getRef('evolution_stones')
 
     -- key가 item_id(=esid)이고 value가 count인 리스트 생성
@@ -106,6 +113,10 @@ function ServerData_User:getEvolutionStoneList()
         end
     end
 
+    if (is_all) then
+        l_ret = self:makeEmptyData(l_ret, 'evolution_stones')
+    end
+
     return l_ret
 end
 
@@ -120,13 +131,101 @@ function ServerData_User:getEvolutionStoneCount(evolution_stone_id)
 end
 
 -------------------------------------
+-- function getTransformList
+-- @brief 보유중인 외형 변환 리스트 리턴(가방에서 사용)
+-------------------------------------
+function ServerData_User:getTransformList(is_all)
+    local is_all = is_all or false
+    local l_transform = self:getRef('transform_materials')
+
+    -- key가 item_id(=material_id)이고 value가 count인 리스트 생성
+    local l_ret = {}
+    for k,v in pairs(l_transform) do
+        local material_id = tonumber(k)
+        local count = v
+
+        local t_data = {}
+        t_data['mid'] = material_id
+        t_data['count'] = count
+        if (count > 0) then
+            table.insert(l_ret, t_data)
+        end
+    end
+
+    if (is_all) then
+        l_ret = self:makeEmptyData(l_ret, 'transform')
+    end
+
+    return l_ret
+end
+
+-------------------------------------
 -- function getTransformMaterialCount
--- @brief 보유중인 외현 변환 재료 갯수 리턴
+-- @brief 보유중인 외형 변환 재료 갯수 리턴
 -------------------------------------
 function ServerData_User:getTransformMaterialCount(material_id)
     local material_id = tostring(material_id)
     local count = self:get('transform_materials', material_id) or 0
     return count
+end
+
+-------------------------------------
+-- function makeEmptyData
+-- @brief 보유하지 않은 아이템도 count 0으로 생성 (진화재료, 열매, 외형변환)
+-------------------------------------
+function ServerData_User:makeEmptyData(l_ret, type)
+    local key
+    local base_item_id
+    local map_id = {}
+      
+    if (type == 'evolution_stones') then
+        key = 'esid'
+        base_item_id = 7011
+        -- 진화재료는 속성별 아이템 말고 전체 아이템 따로 추가
+        map_id['701011'] = 0
+        map_id['701012'] = 0
+        map_id['701013'] = 0
+        map_id['701014'] = 0
+
+    elseif (type == 'fruit') then
+        key = 'fid'
+        base_item_id = 7020
+
+    elseif (type == 'transform') then
+        key = 'mid'
+        base_item_id = 7050
+    end
+
+    -- 속성별로 
+    for attr_no = 1, 5 do
+        -- 4단계
+        for idx = 1, 4 do
+            local tar_id = string.format('%d%d%d', base_item_id, idx, attr_no)
+            map_id[tar_id] = 0
+        end
+    end
+
+    for tar_id, _ in pairs(map_id) do
+        local tar_id = tonumber(tar_id)
+        local is_exist = false
+
+        for i,v in ipairs(l_ret) do
+            local check_id = v[key]
+            if (check_id == tar_id) then
+                is_exist = true
+                break
+            end
+        end
+
+        if (not is_exist) then
+            local t_data = {}
+            t_data[key] = tar_id
+            t_data['count'] = 0
+            table.insert(l_ret, t_data)
+        end
+    end
+
+    return l_ret
 end
 
 -------------------------------------

@@ -401,3 +401,17 @@ function getAttributeColor(attr)
 	local attr_num = attributeStrToNum(attr)
 	return ATTR_COLOR[attr_num]
 end
+
+-------------------------------------
+-- function getAttrTextList
+-------------------------------------
+function getAttrTextList()
+    local l_attr = {}
+    -- 땅, 불, 물, 빛, 어둠 순서 지키자!
+    table.insert(l_attr, 'earth')
+    table.insert(l_attr, 'water')
+    table.insert(l_attr, 'fire')
+    table.insert(l_attr, 'light')
+    table.insert(l_attr, 'dark')
+    return l_attr
+end

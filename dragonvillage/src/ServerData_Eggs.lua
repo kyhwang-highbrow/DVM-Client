@@ -89,6 +89,33 @@ function ServerData_Eggs:getEggCount(egg_id)
 end
 
 -------------------------------------
+-- function getEggList
+-- @brief 보유중인 알 리스트 리턴
+-------------------------------------
+function ServerData_Eggs:getEggList(is_all)
+    local is_all = is_all or false
+    local egg_list = self.m_serverData:getRef('user', 'eggs')
+    local table_item = TableItem()
+
+    local t_ret = {}
+
+    -- 리스트 생성
+    for i,v in pairs(egg_list) do
+        local egg_id = i
+        local count = v
+
+        if (is_all or 0 < count) then
+            table.insert(t_ret, {['egg_id']=egg_id, ['count']=count})
+        end
+    end
+    
+    -- 정렬
+    table.sort(t_ret, function(a, b) return self:sort_egg(a, b) end)
+
+    return t_ret
+end
+
+-------------------------------------
 -- function getEggListForUI
 -- @brief UI에서 사용될 보유중인 알 리스트 리턴
 -------------------------------------
@@ -135,31 +162,34 @@ function ServerData_Eggs:getEggListForUI()
         end
     end
 
-
     -- 정렬
-    local function sort_func(a, b)
-        local table_summon_gacha = TableSummonGacha()
-
-        local a_id = a['egg_id']
-        local b_id = b['egg_id']
-
-        local a_priority = table_summon_gacha:getUIPriority(a_id)
-        local b_priority = table_summon_gacha:getUIPriority(b_id)
-
-        -- UI 우선순위 (큰 값이 앞쪽)
-        if (a_priority ~= b_priority) then
-            return a_priority > b_priority
-
-        -- egg_id(item_id) (작은 값이 앞쪽)
-        elseif (a_id ~= b_id) then
-            return a_id < b_id
-
-        -- count가 높은게 우선순위가 높음
-        else
-            return a['count'] > b['count']
-        end
-    end
-    table.sort(t_ret, sort_func)
+    table.sort(t_ret, function(a, b) return self:sort_egg(a, b) end)
 
     return t_ret
+end
+
+-------------------------------------
+-- function sort_egg
+-------------------------------------
+function ServerData_Eggs:sort_egg(a, b)
+    local table_summon_gacha = TableSummonGacha()
+
+    local a_id = a['egg_id']
+    local b_id = b['egg_id']
+
+    local a_priority = table_summon_gacha:getUIPriority(a_id)
+    local b_priority = table_summon_gacha:getUIPriority(b_id)
+
+    -- UI 우선순위 (큰 값이 앞쪽)
+    if (a_priority ~= b_priority) then
+        return a_priority > b_priority
+
+    -- egg_id(item_id) (작은 값이 앞쪽)
+    elseif (a_id ~= b_id) then
+        return a_id < b_id
+
+    -- count가 높은게 우선순위가 높음
+    else
+        return a['count'] > b['count']
+    end
 end

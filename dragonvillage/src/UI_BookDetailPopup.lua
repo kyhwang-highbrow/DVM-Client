@@ -300,8 +300,8 @@ end
 function UI_BookDetailPopup:addSameTypeDragon(t_dragon)
     local vars = self.vars
 
-    local t_attr = {'fire', 'water', 'earth', 'light', 'dark'}
-    for _, attr in ipairs(t_attr) do
+    local l_attr = getAttrTextList()
+    for _, attr in ipairs(l_attr) do
         vars['emptyNode_'..attr]:setVisible(true)
         vars['dragonCardNode_'..attr]:removeAllChildren()
     end

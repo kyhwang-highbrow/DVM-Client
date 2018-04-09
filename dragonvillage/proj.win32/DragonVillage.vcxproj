@@ -592,6 +592,7 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <None Include="..\src\SortManager_Fruit.lua" />
     <None Include="..\src\SortManager_Rune.lua" />
     <None Include="..\src\SortManager_TeamBonus.lua" />
+    <None Include="..\src\SortManager_Transform.lua" />
     <None Include="..\src\SpineCacheManager.lua" />
     <None Include="..\src\StageMissionMgr.lua" />
     <None Include="..\src\ICharacterStatusEffect.lua" />
@@ -1066,6 +1067,8 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <None Include="..\src\UI_IngameBossHp.lua" />
     <None Include="..\src\UI_IngameTamerPanelItem.lua" />
     <None Include="..\src\UIC_LobbyGuide.lua" />
+    <None Include="..\src\UI_InventoryTabEgg.lua" />
+    <None Include="..\src\UI_InventoryTabTransform.lua" />
     <None Include="..\src\UI_LobbyGuideAdventure.lua" />
     <None Include="..\src\UI_LobbyGuideAncientTower.lua" />
     <None Include="..\src\UI_LobbyGuideAttrTower.lua" />

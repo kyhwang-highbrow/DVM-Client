@@ -100,6 +100,18 @@ function UI_InventorySelectSellItems:setSelectedItem(ui, data)
     local item_id = ui.m_itemID
     local item_type = TableItem():getValue(item_id, 'type')
 
+    -- 알은 선택 판매 불가
+    if (item_type == 'egg') then
+        UIManager:toastNotificationRed(Str('알은 판매할 수 없습니다.'))
+        return
+    end
+
+    -- 0개인 아이템도 표시 - 선택 판매 불가능하게 막아줌
+    if (item_type ~= 'rune' and data['count'] and data['count'] == 0) then
+        UIManager:toastNotificationRed(Str('보유한 아이템이 아닙니다.'))
+        return
+    end
+
     local unique_id
     if (item_type == 'rune') then
         if (data['lock']) then

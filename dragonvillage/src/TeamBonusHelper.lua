@@ -433,10 +433,10 @@ function TeamBonusHelper:getBestDragons_Did_Attr_Same(t_teambonus, l_dragon_data
     end
 
     local condition_cnt = t_teambonus['condition_count']
-    local t_attr = {'fire', 'water', 'earth', 'light', 'dark'}
+    local l_attr = getAttrTextList()
     local target_data
     local combat_power = 0
-    for _, v in ipairs(t_attr) do
+    for _, v in ipairs(l_attr) do
         local map_attr = map_check[v]
         if (map_attr) then
             local l_attr = table.MapToList(map_attr)

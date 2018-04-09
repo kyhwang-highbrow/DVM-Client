@@ -166,6 +166,16 @@ function UI_ItemCard:init_reinforcePoint(t_item, count)
 end
 
 -------------------------------------
+-- function setAniNumber
+-------------------------------------
+function UI_ItemCard:setAniNumber(num, immediately)
+    local vars = self.vars
+
+   vars['numberLabel'] = NumberLabel(vars['numberLabel'], 0, 0.3)
+   vars['numberLabel']:setNumber(num, immediately)
+end
+
+-------------------------------------
 -- function setRarityVisibled
 -------------------------------------
 function UI_ItemCard:setRarityVisibled(visible)

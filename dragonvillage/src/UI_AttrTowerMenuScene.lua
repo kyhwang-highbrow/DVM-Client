@@ -49,6 +49,7 @@ end
 function UI_AttrTowerMenuScene:initUI()
     local vars = self.vars
 	
+    -- 던전은 화수목 따라서 불,물,땅 순서임..
     local l_attr = {'fire', 'water', 'earth', 'light', 'dark'}
 
     for i, attr in ipairs(l_attr) do

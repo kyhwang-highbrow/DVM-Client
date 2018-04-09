@@ -26,7 +26,8 @@ end
 -- function getEvolutionStoneList
 -- @brief 테이블뷰 진화재료 맵 형태 반환해줌 (개별)
 -------------------------------------
-function ServerData_EvolutionStone:getEvolutionStoneList()
+function ServerData_EvolutionStone:getEvolutionStoneList(is_all)
+    local is_all = is_all or false
     local table_item = TableItem()
     local l_evolution_stone = table_item:filterTable('type', 'evolution_stone')
 
@@ -34,7 +35,7 @@ function ServerData_EvolutionStone:getEvolutionStoneList()
 
     for stone_id, v in pairs(l_evolution_stone) do
         local count = self:getCount(stone_id)
-        if (count > 0) then
+        if (is_all or count > 0) then
             map_ev_stone[stone_id] = {}
             map_ev_stone[stone_id]['esid'] = stone_id
             map_ev_stone[stone_id]['count'] = count

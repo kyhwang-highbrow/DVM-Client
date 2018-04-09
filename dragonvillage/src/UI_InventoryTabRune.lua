@@ -55,7 +55,7 @@ function UI_InventoryTabRune:init_runeTableView(slot_idx)
 
     -- 생성 콜백
     local function create_func(ui, data)
-        ui.root:setScale(0.7)
+        ui.root:setScale(UI_Inventory.CARD_SCALE)
         		
 		-- 새로 획득한 룬 뱃지
         local is_new = data:isNewRune()
@@ -86,8 +86,8 @@ function UI_InventoryTabRune:init_runeTableView(slot_idx)
 
     -- 테이블 뷰 인스턴스 생성
     local table_view_td = UIC_TableViewTD(node)
-    table_view_td.m_cellSize = cc.size(108, 108)
-    table_view_td.m_nItemPerCell = 7
+    table_view_td.m_cellSize = UI_Inventory.CARD_CELL_SIZE
+    table_view_td.m_nItemPerCell = 8
     table_view_td:setCellUIClass(UI_RuneCard, create_func)
     table_view_td:setItemList(l_item_list)
     table_view_td:makeDefaultEmptyDescLabel(Str('룬 가방이 비어있습니다.\n다양한 전투를 통해 룬을 획득해보세요!'))

@@ -1,33 +1,31 @@
 local PARENT = UI_InventoryTab
 
 -------------------------------------
--- class UI_InventoryTabFruit
+-- class UI_InventoryTabEgg
 -------------------------------------
-UI_InventoryTabFruit = class(PARENT, {
-        m_fruitsTableView = 'UIC_TableViewTD',
+UI_InventoryTabEgg = class(PARENT, {
+        m_eggTableView = 'UIC_TableViewTD',
         m_fruitSortManager = 'SortManager_Fruit',
      })
 
 -------------------------------------
 -- function init
 -------------------------------------
-function UI_InventoryTabFruit:init(inventory_ui)
+function UI_InventoryTabEgg:init(inventory_ui)
     local vars = self.vars
 end
 
 -------------------------------------
--- function init_fruitTableView
+-- function init_eggTableView
 -------------------------------------
-function UI_InventoryTabFruit:init_fruitTableView()
-    if self.m_fruitsTableView then
+function UI_InventoryTabEgg:init_eggTableView()
+    if self.m_eggTableView then
         return
     end
 
-    local node = self.vars['fruitTableViewNode']
-
-    local is_all = true
-    local l_item_list = g_userData:getFruitList(is_all)
-
+    local node = self.vars['eggTableViewNode']
+    local l_item_list = g_eggsData:getEggList()
+        
     -- 생성 콜백
     local function create_func(ui, data)
         ui.root:setScale(UI_Inventory.CARD_SCALE)
@@ -50,20 +48,16 @@ function UI_InventoryTabFruit:init_fruitTableView()
     table_view_td.m_nItemPerCell = 8
     table_view_td:setCellUIClass(make_func, create_func)
     table_view_td:setItemList(l_item_list)
+    table_view_td:makeDefaultEmptyDescLabel(Str('보유한 알이 없습니다.'))
 
-    -- 정렬
-    local sort_manager = SortManager_Fruit()
-    sort_manager:sortExecution(table_view_td.m_itemList)
-    self.m_fruitSortManager = sort_manager
-
-    self.m_fruitsTableView = table_view_td
+    self.m_eggTableView = table_view_td
 end
 
 -------------------------------------
 -- function createCard
 -------------------------------------
-function UI_InventoryTabFruit:createCard(t_data)
-    local item_id = t_data['fid']
+function UI_InventoryTabEgg:createCard(t_data)
+    local item_id = t_data['egg_id']
     local count = t_data['count']
     local ui = UI_ItemCard(tonumber(item_id), 0)
     ui:setAniNumber(count)
@@ -74,9 +68,9 @@ end
 -------------------------------------
 -- function onEnterInventoryTab
 -------------------------------------
-function UI_InventoryTabFruit:onEnterInventoryTab(first)
+function UI_InventoryTabEgg:onEnterInventoryTab(first)
     if first then
-        self:init_fruitTableView()
+        self:init_eggTableView()
     end
 
     PARENT.onEnterInventoryTab(self, first)
@@ -86,10 +80,10 @@ end
 -- function onChangeSortAscending
 -- @brief 오름차순, 내림차순이 변경되었을 때
 -------------------------------------
-function UI_InventoryTabFruit:onChangeSortAscending(ascending)
+function UI_InventoryTabEgg:onChangeSortAscending(ascending)
     PARENT.onChangeSortAscending(self)
 
-    local table_view_td = self.m_fruitsTableView
+    local table_view_td = self.m_eggTableView
     local sort_manager = self.m_fruitSortManager
 
     -- 오름차순, 내림차순 정렬 변경
@@ -101,7 +95,7 @@ end
 -------------------------------------
 -- function onChangeSelectedItem
 -------------------------------------
-function UI_InventoryTabFruit:onChangeSelectedItem(ui, data)
+function UI_InventoryTabEgg:onChangeSelectedItem(ui, data)
     local vars = self.vars
 
     do-- 아이콘 표시
@@ -114,82 +108,52 @@ function UI_InventoryTabFruit:onChangeSelectedItem(ui, data)
     end
 
     -- 획득 지역 안내
-    vars['locationBtn']:setVisible(true)
-    vars['locationBtn']:registerScriptTapHandler(function() self:openAcuisitionRegionInformation(data['fid']) end)
+    vars['locationBtn']:setVisible(false)
+
 
     do -- 아이템 이름
         vars['itemNameLabel']:setVisible(true)
-        local name = TableItem():getValue(data['fid'], 't_name')
+        local name = TableItem():getValue(data['egg_id'], 't_name')
         vars['itemNameLabel']:setString(Str(name))
     end
 
     do -- 아이템 설명
         vars['itemDscLabel']:setVisible(true)
-        local fid = data['fid']
-        local desc = TableItem():getValue(fid, 't_desc')
+        local egg_id = tonumber(data['egg_id'])
+        local desc = TableItem():getValue(egg_id, 't_desc')
         vars['itemDscLabel']:setString(Str(desc))
     end
 
     -- 판매 버튼
     if self.m_inventoryUI.m_selectSellItemsUI and (not self.m_inventoryUI.m_selectSellItemsUI.m_bActive) then
-        vars['sellBtn']:setVisible(true)
+        vars['sellBtn']:setVisible(false)
     end
-    vars['sellBtn']:registerScriptTapHandler(function() self:sellBtn(data) end)
-end
-
--------------------------------------
--- function sellBtn
--- @brief
--------------------------------------
-function UI_InventoryTabFruit:sellBtn(data)
-    local item_id = data['fid']
-    local count = data['count']
-
-    local function sell_cb(ret)
-        self.m_inventoryUI:response_itemSell(ret)
-        
-        local item = nil
-        for i,v in pairs(self.m_fruitsTableView.m_itemMap) do
-            if (v['data']['fid'] == item_id) then
-                item = v
-                break
-            end
-        end
-
-        self.m_inventoryUI:clearSelectedItem()
-        if item then
-            self.m_inventoryUI:setSelectedItem(item['ui'], item['data'])
-        end
-    end
-
-    UI_InventorySellItems(item_id, count, sell_cb)
 end
 
 -------------------------------------
 -- function refresh_tableView
 -------------------------------------
-function UI_InventoryTabFruit:refresh_tableView()
-    if (not self.m_fruitsTableView) then
+function UI_InventoryTabEgg:refresh_tableView()
+    if (not self.m_eggTableView) then
         return
     end
 
-    local is_all = true
-    local l_item_list = g_userData:getFruitList(is_all)
+    local l_item_list = g_eggsData:getEggList()
     local l_item_map = {}
     for i,v in pairs(l_item_list) do
-        local fid = tonumber(v['fid'])
+        local egg_id = tonumber(v['egg_id'])
         local count = v['count']
-        l_item_map[fid] = count
+        l_item_map[egg_id] = count
     end
 
-    local table_view = self.m_fruitsTableView
+    local table_view = self.m_eggTableView
 
     for idx,item in pairs(table_view.m_itemMap) do
-        local fid = tonumber(item['data']['fid'])
-        if (not l_item_map[fid]) or (l_item_map[fid] == 0) then
+        local egg_id = tonumber(item['data']['egg_id'])
+        if (not l_item_map[egg_id]) or (l_item_map[egg_id] == 0) then
             table_view:delItem(idx)
         else
-            local count = l_item_map[fid]
+            local count = l_item_map[egg_id]
             if (item['data']['count'] ~= count) then
                 item['data']['count'] = count
                 if item['ui'] then
