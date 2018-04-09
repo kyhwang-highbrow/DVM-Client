@@ -3367,6 +3367,9 @@
     <None Include="..\src\ServerData_Season.lua">
       <Filter>lua\src</Filter>
     </None>
+    <None Include="..\src\Monster_AncientRuinDragonBodyPart.lua">
+      <Filter>lua\src</Filter>
+    </None>
     <None Include="..\src\SortManager_Transform.lua">
       <Filter>lua\src</Filter>
     </None>

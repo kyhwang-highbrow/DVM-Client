@@ -35,6 +35,8 @@ function IDragonSkillManager:init()
 
     self.m_lReserveHpRatePerSkillID = {}
     self.m_mReserveHpRatePerSkillID = {}
+
+    self:initSkillIDList()
 end
 
 -------------------------------------

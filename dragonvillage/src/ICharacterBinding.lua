@@ -43,7 +43,7 @@ end
 -- @brief 부모의 위치 정보가 갱신 되었을 경우 호출
 -- @override
 -------------------------------------
-function ICharacterBinding:onUpdateParentCharacterPos()
+function ICharacterBinding:onUpdateParentCharacterPos(x, y)
 end
 
 -------------------------------------
@@ -81,6 +81,18 @@ function ICharacterBinding:removeChildCharacter(child)
 end
 
 -------------------------------------
+-- function removeAllChildCharacter
+-------------------------------------
+function ICharacterBinding:removeAllChildCharacter()
+    for _, child in ipairs(self.m_lChildChar) do
+        child:setParentCharacter(nil)
+    end
+
+    self.m_lChildChar = {}
+end
+
+--[[
+-------------------------------------
 -- function setDamage
 -------------------------------------
 function ICharacterBinding:setDamage(attacker, defender, i_x, i_y, damage, t_info)
@@ -108,11 +120,11 @@ function ICharacterBinding:setPosition(x, y)
 
     for _, child in ipairs(self.m_lChildChar) do
         if (child:isSettedBindingFlag(CHARACTER_BINDING_FLAG_KEY.USE_PARENT_POS)) then
-            child:onUpdateParentCharacterPos()
+            child:onUpdateParentCharacterPos(x, y)
         end
     end
 end
-
+]]--
 -------------------------------------
 -- function setBindingFlag
 -------------------------------------

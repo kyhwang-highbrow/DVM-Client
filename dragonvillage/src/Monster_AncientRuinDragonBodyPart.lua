@@ -1,0 +1,57 @@
+local PARENT = class(Monster, ICharacterBinding:getCloneTable())
+
+-------------------------------------
+-- class Monster_AncientRuinDragonBodyPart
+-------------------------------------
+Monster_AncientRuinDragonBodyPart = class(PARENT, {})
+
+
+-------------------------------------
+-- function init_monster
+-------------------------------------
+function Monster_AncientRuinDragonBodyPart:init_monster(t_monster, monster_id, level)
+    self:initDragonSkillManager('monster', monster_id, 6, true)
+    self:initStatus(t_monster, level, 0, 0, 0)
+
+    -- 피격 처리
+    self:addDefCallback(function(attacker, defender, i_x, i_y, k, b)
+        if (self.m_parentChar) then
+            self.m_parentChar:undergoAttack(attacker, self.m_parentChar, i_x, i_y, k or 0, b)
+        end
+    end)
+end
+
+-------------------------------------
+-- function initCharacterBinding
+-- @brief 바인딩 관련 초기값 지정(m_classDef은 반드시 설정되어야함)
+-- @override
+-------------------------------------
+function Monster_AncientRuinDragonBodyPart:initCharacterBinding()
+    self.m_classDef = Monster
+end
+
+-------------------------------------
+-- function makeHPGauge
+-------------------------------------
+function Monster_AncientRuinDragonBodyPart:makeHPGauge(hp_ui_offset, force)
+end
+
+-------------------------------------
+-- function setDamage
+-------------------------------------
+function Monster_AncientRuinDragonBodyPart:setDamage(attacker, defender, i_x, i_y, damage, t_info)
+    if (self.m_parentChar) then
+        PARENT.setDamage(self.m_parentChar, attacker, self.m_parentChar, i_x, i_y, damage, t_info)
+    end
+end
+
+-------------------------------------
+-- function release
+-------------------------------------
+function Monster_AncientRuinDragonBodyPart:release()
+    if (self.m_parentChar) then
+        self.m_parentChar:removeChildCharacter(self)
+    end
+
+    PARENT.release(self)
+end

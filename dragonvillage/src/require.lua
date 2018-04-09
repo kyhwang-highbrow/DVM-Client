@@ -443,6 +443,7 @@ local t_module = {
     'Monster_DarkNixIntro',
     'Monster_ClanRaidBoss',
     'Monster_AncientRuinDragon',
+    'Monster_AncientRuinDragonBodyPart',
     'Tamer',
 	'TamerSkill',
     'require_EnemyLua',

@@ -113,3 +113,15 @@ function GameStateForDoubleTeam:onEvent(event_name, t_event, ...)
         self:setBossHp(new_hp)
     end
 end
+
+-------------------------------------
+-- function setBossHp
+-------------------------------------
+function GameStateForDoubleTeam:makeResultUI(is_success)
+    if (self.m_world.m_gameMode == GAME_MODE_ANICENT_RUIN) then
+        local scene = SceneGame(nil, ANCIENT_RUIN_STAGE_ID, 'stage_' .. ANCIENT_RUIN_STAGE_ID)
+        scene:runScene()
+    else
+        PARENT.makeResultUI(self, is_success)
+    end
+end

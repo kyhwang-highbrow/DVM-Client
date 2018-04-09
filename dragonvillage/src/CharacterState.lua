@@ -53,8 +53,10 @@ function Character.st_dying(owner, dt)
 		    end
 	    end
 
-        owner.m_animator:runAction(cc.FadeTo:create(0.5, 0))
-        owner.m_animator:runAction(cc.RotateTo:create(0.5, -45))
+        if (owner.m_animator) then
+            owner.m_animator:runAction(cc.FadeTo:create(0.5, 0))
+            owner.m_animator:runAction(cc.RotateTo:create(0.5, -45))
+        end
 
         if (owner.m_hpNode) then
             owner.m_hpNode:setVisible(false)
@@ -98,8 +100,10 @@ function Character.st_revive(owner, dt)
         -- 홈 위치로 즉시 이동시킴
         owner:setPosition(owner.m_homePosX, owner.m_homePosY)
 
-        owner.m_animator:setRotation(90)
-        owner.m_animator:runAction(cc.FadeTo:create(0.5, 255))
+        if (owner.m_animator) then
+            owner.m_animator:setRotation(90)
+            owner.m_animator:runAction(cc.FadeTo:create(0.5, 255))
+        end
         
         owner:addAniHandler(function()
             owner:changeState('attackDelay')

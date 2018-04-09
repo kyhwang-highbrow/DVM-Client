@@ -35,7 +35,6 @@ function FormationMgr:setChangePosCallback(char)
 
     char.m_bLeftFormation = self.m_bLeftFormation
 
-    char:addListener('character_update_pos', self)
     char:addListener('character_dying', self)
     char:addListener('character_revive', self)
 end
@@ -44,17 +43,9 @@ end
 -- function onEvent
 -------------------------------------
 function FormationMgr:onEvent(event_name, t_event, ...)
-    -- 케릭터 이동
-    if (event_name == 'character_update_pos') then
-        local arg = {...}
-        local char = arg[1]
-
-        if (char:isDead()) then
-            return
-        end
-                
+                    
     -- 캐릭터 죽음
-    elseif (event_name == 'character_dying') then
+    if (event_name == 'character_dying') then
         local arg = {...}
         local char = arg[1]
 
@@ -213,6 +204,19 @@ function FormationMgrDelegate:getTargetList(x, y, team_type, formation_type, rul
                 break
             end
         end
+    end
+
+    -- 적군 대상인 경우면 바디가 활성화된 대상만 가져옴
+    if (team_type == 'enemy') then
+        local ret = {}
+        
+        for i, target in pairs(t_ret) do
+            if (target.enable_body) then
+                table.insert(ret, target)
+            end
+        end
+
+        t_ret = ret
     end
 
     return t_ret

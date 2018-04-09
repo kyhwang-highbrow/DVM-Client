@@ -109,7 +109,10 @@ end
 -------------------------------------
 function Monster:initFormation(body_size)
     self:makeHPGauge({0, -(body_size[3] * 1.5)})
-    self.m_animator:setFlip(true)
+
+    if (self.m_animator) then
+        self.m_animator:setFlip(true)
+    end
 end
 
 -------------------------------------
