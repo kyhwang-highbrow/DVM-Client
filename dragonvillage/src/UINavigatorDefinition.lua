@@ -802,6 +802,7 @@ end
 function UINavigatorDefinition:goTo_hatchery(...)
     local args = {...}
     local tab = args[1]
+    local focus_id = args[2]
 
     -- 해당 UI가 열려있을 경우
     local is_opend, idx, ui = self:findOpendUI('UI_Hatchery')
@@ -815,7 +816,7 @@ function UINavigatorDefinition:goTo_hatchery(...)
         local is_opend, idx, ui = self:findOpendUI('UI_QuickPopupNew')
         if (is_opend == true) then
             self:closeUIList(idx)
-            UI_Hatchery(tab)
+            UI_Hatchery(tab, focus_id)
             return
         end
         
@@ -823,7 +824,7 @@ function UINavigatorDefinition:goTo_hatchery(...)
         local is_opend, idx, ui = self:findOpendUI('UI_Lobby')
         if (is_opend == true) then
             self:closeUIList(idx)
-            UI_Hatchery(tab)
+            UI_Hatchery(tab, focus_id)
             return
         end
 

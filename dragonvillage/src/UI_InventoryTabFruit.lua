@@ -114,6 +114,7 @@ function UI_InventoryTabFruit:onChangeSelectedItem(ui, data)
     end
 
     -- 획득 지역 안내
+    vars['hatcheryBtn']:setVisible(false)
     vars['locationBtn']:setVisible(true)
     vars['locationBtn']:registerScriptTapHandler(function() self:openAcuisitionRegionInformation(data['fid']) end)
 

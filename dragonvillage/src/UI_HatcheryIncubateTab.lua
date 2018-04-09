@@ -5,13 +5,15 @@ local PARENT = UI_IndivisualTab
 -------------------------------------
 UI_HatcheryIncubateTab = class(PARENT,{
         m_eggPicker = '',
+        m_focus_id = '',
     })
 
 -------------------------------------
 -- function init
 -------------------------------------
-function UI_HatcheryIncubateTab:init(owner_ui)
+function UI_HatcheryIncubateTab:init(owner_ui, focus_id)
     local vars = self:load('hatchery_incubate.ui')
+    self.m_focus_id = focus_id
 
 	-- @ TUTORIAL : 1-1 end, 102
 	local tutorial_key = TUTORIAL.FIRST_END
@@ -69,7 +71,12 @@ function UI_HatcheryIncubateTab:initUI()
 		self.m_ownerUI.vars['tutorialEggPicker'] = vars['eggPickerNode']
 		self.m_ownerUI.vars['UIC_EggPicker'] = self.m_eggPicker
 		self.m_eggPicker:focusEggByID(703027)
-	end
+
+    --  @ focus_id
+	elseif (self.m_focus_id) then
+        local id = tonumber(self.m_focus_id)
+        self.m_eggPicker:focusEggByID(id)
+    end
 end
 
 -------------------------------------

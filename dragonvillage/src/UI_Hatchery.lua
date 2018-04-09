@@ -10,7 +10,7 @@ UI_Hatchery = class(PARENT,{
 -------------------------------------
 -- function init
 -------------------------------------
-function UI_Hatchery:init(tab)
+function UI_Hatchery:init(tab, focus_id)
     local vars = self:load('hatchery.ui')
     UIManager:open(self, UIManager.SCENE)
 
@@ -23,6 +23,7 @@ function UI_Hatchery:init(tab)
     self:doAction(nil, false)
 
     self:initUI()
+    self:initTab(focus_id)
     self:initButton()
     self:refresh()
 
@@ -58,8 +59,6 @@ function UI_Hatchery:initUI()
         self.vars['npcNode']:addChild(animator.m_node)
         self.m_npcAnimator = animator
     end
-
-    self:initTab()
 end
 
 -------------------------------------
@@ -90,11 +89,11 @@ end
 -------------------------------------
 -- function initTab
 -------------------------------------
-function UI_Hatchery:initTab()
+function UI_Hatchery:initTab(focus_id)
     local vars = self.vars
 
     local summon_tab = UI_HatcherySummonTab(self)
-    local incubate_tab = UI_HatcheryIncubateTab(self)
+    local incubate_tab = UI_HatcheryIncubateTab(self, focus_id)
     local combine_tab = UI_HatcheryCombineTab(self)
     local relation_tab = UI_HatcheryRelationTab(self)
     vars['indivisualTabMenu']:addChild(summon_tab.root)

@@ -110,6 +110,9 @@ function UI_InventoryTabEgg:onChangeSelectedItem(ui, data)
     -- 획득 지역 안내
     vars['locationBtn']:setVisible(false)
 
+    -- 부화소 바로 가기 
+    vars['hatcheryBtn']:setVisible(true)
+    vars['hatcheryBtn']:registerScriptTapHandler(function() self:click_hatcheryBtn(data['egg_id']) end)
 
     do -- 아이템 이름
         vars['itemNameLabel']:setVisible(true)
@@ -162,4 +165,11 @@ function UI_InventoryTabEgg:refresh_tableView()
             end
         end
     end
+end
+
+-------------------------------------
+-- function click_hatcheryBtn
+-------------------------------------
+function UI_InventoryTabEgg:click_hatcheryBtn(target_id)
+    UINavigator:goTo('hatchery', 'incubate', target_id)
 end

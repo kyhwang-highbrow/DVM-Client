@@ -152,6 +152,7 @@ function UI_InventoryTabRune:onChangeSelectedItem(ui, data)
     end
 
     -- 획득 지역 안내
+    vars['hatcheryBtn']:setVisible(false)
     vars['locationBtn']:setVisible(true)
     vars['locationBtn']:registerScriptTapHandler(function() self:openAcuisitionRegionInformation(t_rune_data['rid']) end)
 
