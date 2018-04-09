@@ -33,7 +33,9 @@ function Monster_AncientRuinDragon:initPhys(body)
                       
             self.m_world:addToUnitList(body_part)
 
-            body_part:init_monster(t_monster, 152022, self:getTotalLevel())
+            local monster_id = attributeStrToNum(self.m_attributeOrg) + 152020
+
+            body_part:init_monster(t_monster, monster_id, self:getTotalLevel())
             body_part:initState()
 	        body_part:initFormation(body_size)
             body_part:initPhys({0, 0, 25})
@@ -44,6 +46,8 @@ function Monster_AncientRuinDragon:initPhys(body)
                 body_part.m_statusCalc = self.m_statusCalc
                 body_part.m_mStatusEffect = self.m_mStatusEffect
                 body_part.m_mHiddenStatusEffect = self.m_mHiddenStatusEffect
+                body_part.m_lStatusIcon = self.m_lStatusIcon
+                body_part.m_mStatusIcon = self.m_mStatusIcon
                 body_part.m_mStatusEffectGroggy = self.m_mStatusEffectGroggy
             end
 
@@ -175,18 +179,7 @@ function Monster_AncientRuinDragon:updateBonePos(dt)
     end
 end
 
--------------------------------------
--- function setDamage
--------------------------------------
-function Monster_AncientRuinDragon:setDamage(attacker, defender, i_x, i_y, damage, t_info)
-    -- 충돌영역 위치로 변경
-    if (self.pos['x'] == i_x and self.pos['y'] == i_y) then
-        i_x, i_y = self:getCenterPos()
-    end
-
-    PARENT.setDamage(self, attacker, defender, i_x, i_y, damage, t_info)
-end
-
+--[[
 -------------------------------------
 -- function makeHPGauge
 -------------------------------------
@@ -211,6 +204,7 @@ function Monster_AncientRuinDragon:makeHPGauge(hp_ui_offset, force)
     label:setScale(font_scale_x, font_scale_y)
     self.m_hpNode:addChild(label)
 end
+]]--
 
 -------------------------------------
 -- function release
