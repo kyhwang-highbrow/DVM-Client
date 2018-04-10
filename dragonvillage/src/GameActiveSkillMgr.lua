@@ -29,17 +29,17 @@ end
 -- function update
 -------------------------------------
 function GameActiveSkillMgr:update(dt)
-    if (not self:isPossible()) then return end
-    
-    while (not table.isEmpty(self.m_lWork)) do
-        local t_data = table.remove(self.m_lWork, 1)
-        local unit = t_data['unit']
+    if (self:isPossible()) then
+        while (not table.isEmpty(self.m_lWork)) do
+            local t_data = table.remove(self.m_lWork, 1)
+            local unit = t_data['unit']
 
-        self.m_mWork[unit] = nil
+            self.m_mWork[unit] = nil
 
-        local b, m_reason = unit:isPossibleActiveSkill()
-        if (b) then
-            if (self:doWork(t_data)) then break end
+            local b, m_reason = unit:isPossibleActiveSkill()
+            if (b) then
+                if (self:doWork(t_data)) then break end
+            end
         end
     end
 
