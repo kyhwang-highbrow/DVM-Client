@@ -2,20 +2,24 @@
 -- class MultiDeckMgr
 -------------------------------------
 MultiDeckMgr = class({	
+        -- 게임 모드 
         m_mode = '',
 
-        -- 메인 (수동으로 전투가 가능한) 덱 (up or down)
+        -- 메인 (수동으로 전투가 가능한) 덱 (up or down) - 로컬에 저장
         m_main_deck = 'string',
 
         -- 덱 map (임시 저장)
-		m_tDeckMap_1 = 'map',
-        m_tDeckMap_2 = 'map',
+		m_tDeckMap_1 = 'map', -- 인게임 상단덱 (1공격대)
+        m_tDeckMap_2 = 'map', -- 인게임 하단덱 (2공격대)
      })
 
 
+-- 선택한 MULTI_DECK_MODE 이름 뒤에 _up, _down 으로 2개의 덱이 저장됨
+-- ex) MULTI_DECK_MODE.CLAN_RAID : clan_raid_up, clan_raid_down
+
 MULTI_DECK_MODE = {
-    CLAN_RAID = 'clan_raid', -- 클랜 던전
-    RUNE_RAID = 'rune_raid', -- 신규 룬던전
+    CLAN_RAID = 'clan_raid',        -- 클랜 던전
+    ANICENT_RUIN = 'anicent_ruin',  -- 고대 유적 던전
 }
 
 -------------------------------------
@@ -27,7 +31,7 @@ function MultiDeckMgr:init(deck_mode, make_deck)
     -- 메인덱은 로컬에 저장
     self.m_main_deck = g_settingData:get(self.m_mode, 'main_deck') or 'up'
 
-    -- up, down 덱 맵형태로 생성
+    -- up, down 덱 map생성
     if (make_deck) then
         self:makeDeckMap()
     end
@@ -35,7 +39,7 @@ end
 
 -------------------------------------
 -- function makeDeckMap
--- @breif Multi 덱 map 형태로 임시 저장 (리스트일 경우 sort 시간 오래걸림)
+-- @breif Multi 덱 map생성 (리스트일 경우 sort 시간 오래걸림)
 -------------------------------------
 function MultiDeckMgr:makeDeckMap()
     self.m_tDeckMap_1 = {}
@@ -68,7 +72,7 @@ end
 
 -------------------------------------
 -- function getDeckMap
--- @breif 선택한 위치 덱 Map (임시로 저장된 덱)
+-- @breif 선택한 위치 덱 Map
 -------------------------------------
 function MultiDeckMgr:getDeckMap(pos)
     return (pos == 'up') and self.m_tDeckMap_1 or self.m_tDeckMap_2
@@ -76,7 +80,7 @@ end
 
 -------------------------------------
 -- function getAnotherDeckMap
--- @breif 선택한 다른 위치 덱 Map (임시로 저장된 덱)
+-- @breif 선택한 다른 위치 덱 Map
 -------------------------------------
 function MultiDeckMgr:getAnotherDeckMap(pos)
     return (pos == 'up') and self.m_tDeckMap_2 or self.m_tDeckMap_1
@@ -84,7 +88,7 @@ end
 
 -------------------------------------
 -- function addDragon
--- @breif Multi 덱 해당 드래곤 추가 (임시로 저장된 덱)
+-- @breif Multi 덱 해당 드래곤 추가 
 -------------------------------------
 function MultiDeckMgr:addDragon(pos, doid)
     local target = pos == 'up' and self.m_tDeckMap_1 or self.m_tDeckMap_2
@@ -93,7 +97,7 @@ end
 
 -------------------------------------
 -- function deleteDragon
--- @breif Multi 덱 해당 드래곤 삭제 (임시로 저장된 덱)
+-- @breif Multi 덱 해당 드래곤 삭제 
 -------------------------------------
 function MultiDeckMgr:deleteDragon(pos, doid)
     local target = pos == 'up' and self.m_tDeckMap_1 or self.m_tDeckMap_2
@@ -102,7 +106,7 @@ end
 
 -------------------------------------
 -- function clearDeckMap
--- @breif Multi 덱 Map 초기화 (임시로 저장된 덱)
+-- @breif Multi 덱 Map 초기화 
 -------------------------------------
 function MultiDeckMgr:clearDeckMap(pos)
     if (pos == 'up') then
@@ -196,7 +200,7 @@ end
 
 -------------------------------------
 -- function sort_multi_deck
--- @breif 1, 2공격대에 설정된 드래곤을 정렬 우선순위로 사용
+-- @breif 1, 2공격대에 설정된 드래곤을 정렬시 우선
 -------------------------------------
 function MultiDeckMgr:sort_multi_deck(a, b)
     local is_setted_1, num_1 = self:isSettedDragon(a['data']['id']) 

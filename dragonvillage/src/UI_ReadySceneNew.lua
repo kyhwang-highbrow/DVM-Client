@@ -23,7 +23,7 @@ UI_ReadySceneNew = class(PARENT,{
         m_bUseCash = 'boolean',
         m_gameMode = 'number',
 
-        -- 멀티덱 사용하는 경우 (클랜던전, 신규룬던전)
+        -- 멀티덱 사용하는 경우 (클랜 던전, 고대 유적 던전)
         m_multiDeckMgr = 'MultiDeckMgr',
     })
 
@@ -361,12 +361,18 @@ end
 
 -------------------------------------
 -- function initMultiDeckMode
--- @brief 멀티 덱 설정
+-- @brief 멀티 덱 모드
 -------------------------------------
 function UI_ReadySceneNew:initMultiDeckMode()
+    local make_deck = true
+
+    -- @ 클랜 던전
     if (self.m_gameMode == GAME_MODE_CLAN_RAID) then
-        local make_deck = true
         self.m_multiDeckMgr = MultiDeckMgr(MULTI_DECK_MODE.CLAN_RAID, make_deck)
+
+    -- @ 고대 유적 던전
+    elseif (self.m_gameMode == GAME_MODE_ANICENT_RUIN) then
+        self.m_multiDeckMgr = MultiDeckMgr(MULTI_DECK_MODE.ANICENT_RUIN, make_deck)
     end
 end
 
