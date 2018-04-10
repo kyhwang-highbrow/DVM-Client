@@ -65,7 +65,8 @@ end
 -------------------------------------
 function LobbyMap:addLayer_lobbyGround(node, perspective_ratio, perspective_ratio_y, ui_lobby)
     self:addLayer(node, perspective_ratio, perspective_ratio_y)
-
+    self.m_groudNode = node
+    
 	-- 이동 인디케이터
     self.m_lobbyIndicator = MakeAnimator('res/ui/a2d/lobby_indicator/lobby_indicator.vrp')
     self.m_lobbyIndicator:setVisible(false)
