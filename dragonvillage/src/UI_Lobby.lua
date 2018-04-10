@@ -678,10 +678,7 @@ end
 -- @brief "전투" 버튼
 -------------------------------------
 function UI_Lobby:click_battleBtn()
-    self:doActionReset()
-    g_topUserInfo:doActionReset()
-    
-    --UI_BattleMenu()
+    UI_BattleMenu()
 end
 
 -------------------------------------
@@ -810,12 +807,7 @@ end
 -- function click_forestBtn
 -------------------------------------
 function UI_Lobby:click_forestBtn()
-    if (math.random(2) == 1) then
-        self.m_lobbyWorldAdapter.m_lobbyMap:actionZoom(1, 0.75)
-    else
-        self.m_lobbyWorldAdapter.m_lobbyMap:actionZoom(1, 1)
-    end
-    --UINavigatorDefinition:goTo('forest')
+    UINavigatorDefinition:goTo('forest')
 end
 
 -------------------------------------
