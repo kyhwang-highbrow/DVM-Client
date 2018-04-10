@@ -5,6 +5,8 @@ local PARENT = class(MonsterLua_Boss, ICharacterBinding:getCloneTable())
 -------------------------------------
 Monster_AncientRuinDragon = class(PARENT, {
     m_cbAppearEnd   = 'function',       -- appear 상태가 끝났을때 호출될 콜백 함수
+
+    m_bCreateParts  = 'boolean',
 })
 
 -------------------------------------
@@ -14,6 +16,8 @@ Monster_AncientRuinDragon = class(PARENT, {
 -------------------------------------
 function Monster_AncientRuinDragon:init(file_name, body, ...)
     self.m_bUseCastingEffect = false
+
+    self.m_bCreateParts = false
 end
 
 -------------------------------------
@@ -24,45 +28,49 @@ function Monster_AncientRuinDragon:initPhys(body)
     PARENT.initPhys(self, body)
 
     if (self.m_animator and self.m_animator.m_type == ANIMATOR_TYPE_SPINE) then
-        local t_monster = self:getCharTable()
-        local body_size = self:getBodySize(t_monster['size_type'])
+        if (not self.m_bCreateParts) then
+            local t_monster = self:getCharTable()
+            local body_size = self:getBodySize(t_monster['size_type'])
 
-        for idx, body in ipairs(self.m_lBodyToUseBone) do
-            local body_part = Monster_AncientRuinDragonBodyPart()
-            self:addChildCharacter(body_part)
+            for idx, body in ipairs(self.m_lBodyToUseBone) do
+                local body_part = Monster_AncientRuinDragonBodyPart()
+                self:addChildCharacter(body_part)
                       
-            self.m_world:addToUnitList(body_part)
+                self.m_world:addToUnitList(body_part)
 
-            local monster_id = attributeStrToNum(self.m_attributeOrg) + 152020
+                local monster_id = attributeStrToNum(self.m_attributeOrg) + 152020
 
-            body_part:init_monster(t_monster, monster_id, self:getTotalLevel())
-            body_part:initState()
-	        body_part:initFormation(body_size)
-            body_part:initPhys({0, 0, 25})
+                body_part:init_monster(t_monster, monster_id, self:getTotalLevel())
+                body_part:initState()
+	            body_part:initFormation(body_size)
+                body_part:initPhys({0, 0, 25})
 
-            -- 스텟 정보는 본체와 공유
-            do
-                body_part.m_bodyKey = body['key']
-                body_part.m_isBoss = true
-                body_part.m_statusCalc = self.m_statusCalc
-                body_part.m_mStatusEffect = self.m_mStatusEffect
-                body_part.m_mHiddenStatusEffect = self.m_mHiddenStatusEffect
-                body_part.m_lStatusIcon = self.m_lStatusIcon
-                body_part.m_mStatusIcon = self.m_mStatusIcon
-                body_part.m_mStatusEffectGroggy = self.m_mStatusEffectGroggy
-            end
+                -- 스텟 정보는 본체와 공유
+                do
+                    body_part.m_bodyKey = body['key']
+                    body_part.m_isBoss = true
+                    body_part.m_statusCalc = self.m_statusCalc
+                    body_part.m_mStatusEffect = self.m_mStatusEffect
+                    body_part.m_mHiddenStatusEffect = self.m_mHiddenStatusEffect
+                    body_part.m_lStatusIcon = self.m_lStatusIcon
+                    body_part.m_mStatusIcon = self.m_mStatusIcon
+                    body_part.m_mStatusEffectGroggy = self.m_mStatusEffectGroggy
+                end
 
-            self.m_world.m_worldNode:addChild(body_part.m_rootNode, self:getZOrder() + 1)
+                self.m_world.m_worldNode:addChild(body_part.m_rootNode, self:getZOrder() + 1)
 
-            if (idx > 2) then
-                self.m_world.m_physWorld:addObject(PHYS.ENEMY_BOTTOM, body_part)
-            else
-                self.m_world.m_physWorld:addObject(PHYS.ENEMY_TOP, body_part)
-            end
-            self.m_world:bindEnemy(body_part)
-            self.m_world:addEnemy(body_part)
+                if (idx > 2) then
+                    self.m_world.m_physWorld:addObject(PHYS.ENEMY_BOTTOM, body_part)
+                else
+                    self.m_world.m_physWorld:addObject(PHYS.ENEMY_TOP, body_part)
+                end
+                self.m_world:bindEnemy(body_part)
+                self.m_world:addEnemy(body_part)
             
-            body_part:dispatch('enemy_appear_done', {}, body_part)
+                body_part:dispatch('enemy_appear_done', {}, body_part)
+            end
+
+            self.m_bCreateParts = true
         end
     end
 end

@@ -16,6 +16,11 @@ function Monster_AncientRuinDragonBodyPart:init_monster(t_monster, monster_id, l
 	do
         self:initDragonSkillManager('monster', monster_id, 6, true)
         self:initStatus(t_monster, level, 0, 0, 0)
+
+        -- 하이라이트 노드 설정
+        if (self.m_parentChar) then
+            self:addHighlightNode(self.m_parentChar.m_animator.m_node)
+        end
     end
 
     -- 피격 처리
@@ -66,4 +71,13 @@ function Monster_AncientRuinDragonBodyPart:release()
     end
 
     PARENT.release(self)
+end
+
+-------------------------------------
+-- function setHighlight
+-------------------------------------
+function Monster_AncientRuinDragonBodyPart:setHighlight(highlightLevel)
+    if (self.m_parentChar) then
+        self.m_parentChar:setHighlight(highlightLevel)
+    end
 end
