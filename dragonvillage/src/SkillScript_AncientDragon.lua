@@ -1,0 +1,171 @@
+local PARENT = SkillScript
+
+-------------------------------------
+-- class SkillScript_AncientDragon
+-------------------------------------
+SkillScript_AncientDragon = class(PARENT, {
+    m_hitCount = 'number',
+})
+
+-------------------------------------
+-- function init
+-------------------------------------
+function SkillScript_AncientDragon:init()
+    self.m_hitCount = 0
+end
+
+-------------------------------------
+-- function initEventListener
+-- @breif 이벤트 처리..
+-------------------------------------
+function SkillScript_AncientDragon:initEventListener()
+    PARENT.initEventListener(self)
+
+    -- 스킬 사용자 피격시 이벤트 등록
+    self.m_owner:addListener('under_atk', self)
+end
+
+-------------------------------------
+-- function setSkillParams
+-- @brief 멤버변수 정의
+-------------------------------------
+function SkillScript_AncientDragon:setSkillParams(owner, t_skill, t_data)
+    PARENT.setSkillParams(self, owner, t_skill, t_data)
+
+    self.m_lTargetChar = self.m_world:getDragonList()
+end
+
+-------------------------------------
+-- function initState
+-------------------------------------
+function SkillScript_AncientDragon:initState()
+    self:setCommonState(self)
+	
+    self:addState('start', SkillScript_AncientDragon.st_charge, nil, false)
+    self:addState('attack', SkillScript_AncientDragon.st_attack, nil, false)
+    self:addState('cancel', SkillScript_AncientDragon.st_cancel, nil, false)
+    self:addState('end', SkillScript_AncientDragon.st_disappear, nil, false)
+end
+
+-------------------------------------
+-- function st_charge
+-------------------------------------
+function SkillScript_AncientDragon.st_charge(owner, dt)
+	if (owner.m_stateTimer == 0) then
+        local unit = owner.m_owner
+
+        -- 주체 유닛 애니 설정
+        unit.m_animator:changeAni('skill_1_appear', false)
+    end
+
+    if (owner.m_stateTimer > 15) then
+        owner:changeState('attack')
+    end
+end
+
+-------------------------------------
+-- function st_attack
+-------------------------------------
+function SkillScript_AncientDragon.st_attack(owner, dt)
+	if (owner.m_stateTimer == 0) then
+        local unit = owner.m_owner
+
+        -- 주체 유닛 애니 설정
+        unit.m_animator:changeAni('skill_1_idle', true)
+
+        -- 미사일 발사
+        owner:runAttack()
+	end
+
+    if (owner.m_stateTimer >= owner.m_duration) then
+        owner:changeState('end')
+    end
+end
+
+-------------------------------------
+-- function st_cancel
+-------------------------------------
+function SkillScript_AncientDragon.st_cancel(owner, dt)
+	if (owner.m_stateTimer == 0) then
+        local unit = owner.m_owner
+
+        -- 주체 유닛 애니 설정
+        unit.m_animator:changeAni('skill_1_cancel', false)
+        unit.m_animator:addAniHandler(function()
+            owner:changeState('dying')
+        end)
+    end
+end
+
+-------------------------------------
+-- function st_disappear
+-------------------------------------
+function SkillScript_AncientDragon.st_disappear(owner, dt)
+	if (owner.m_stateTimer == 0) then
+        local unit = owner.m_owner
+
+        -- 주체 유닛 애니 설정
+        unit.m_animator:changeAni('skill_1_disappear', false)
+        unit.m_animator:addAniHandler(function()
+            owner:changeState('dying')
+        end)
+    end
+end
+
+-------------------------------------
+-- function runAttack
+-------------------------------------
+function SkillScript_AncientDragon:runAttack()
+    -- attack pos 가져옴
+    local pos = self:getOwnerAttackPos('skill_1_idle')
+    if (not pos) then
+        pos = { x = 0, y = 0 }
+    end
+
+    self:do_script_shot(pos['x'], pos['y'], PHYS.MISSILE.ENEMY)
+end
+
+-------------------------------------
+-- function onEvent
+-------------------------------------
+function SkillScript_AncientDragon:onEvent(event_name, t_event, ...)
+    local t_event = t_event or {}
+
+	if (string.find(event_name, 'under_atk')) then
+        if (t_event['body_key'] == 'bone90') then
+            self.m_hitCount = m_hitCount + 1
+        end
+    else
+        PARENT.onEvent(self, event_name, t_event, ...)
+    end
+end
+
+-------------------------------------
+-- function makeSkillInstance
+-------------------------------------
+function SkillScript_AncientDragon:makeSkillInstance(owner, t_skill, t_data)
+	-- 변수 선언부
+	------------------------------------------------------
+	local res = t_skill['res_1']
+    local script_name = t_skill['val_1']
+    local duration = t_skill['val_2']
+	
+	-- 인스턴스 생성부
+	------------------------------------------------------
+	-- 1. 스킬 생성
+    local skill = SkillScript_AncientDragon(res)
+
+	-- 2. 초기화 관련 함수
+	skill:setSkillParams(owner, t_skill, t_data)
+    skill:init_skill(script_name, duration)
+	skill:initState()
+
+	-- 3. state 시작 
+    skill:changeState('delay')
+
+    -- 4. Physics, Node, GameMgr에 등록
+    local world = skill.m_owner.m_world
+    local missileNode = world:getMissileNode('bottom')
+    missileNode:addChild(skill.m_rootNode, 0)
+    world:addToSkillList(skill)
+end

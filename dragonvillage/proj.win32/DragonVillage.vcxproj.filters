@@ -3382,6 +3382,9 @@
     <None Include="..\src\MultiDeckMgr.lua">
       <Filter>lua\src</Filter>
     </None>
+    <None Include="..\src\SkillScript_AncientDragon.lua">
+      <Filter>lua\src</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Classes">

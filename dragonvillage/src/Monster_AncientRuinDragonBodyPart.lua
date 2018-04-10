@@ -3,21 +3,24 @@ local PARENT = class(Monster, ICharacterBinding:getCloneTable())
 -------------------------------------
 -- class Monster_AncientRuinDragonBodyPart
 -------------------------------------
-Monster_AncientRuinDragonBodyPart = class(PARENT, {})
+Monster_AncientRuinDragonBodyPart = class(PARENT, {
+    m_bodyKey = 'number',
+})
 
 
 -------------------------------------
 -- function init_monster
 -------------------------------------
 function Monster_AncientRuinDragonBodyPart:init_monster(t_monster, monster_id, level)
-    self:initDragonSkillManager('monster', monster_id, 6, true)
-    self:initStatus(t_monster, level, 0, 0, 0)
+    -- 각종 init 함수 실행
+	do
+        self:initDragonSkillManager('monster', monster_id, 6, true)
+        self:initStatus(t_monster, level, 0, 0, 0)
+    end
 
     -- 피격 처리
     self:addDefCallback(function(attacker, defender, i_x, i_y, k, b)
-        if (self.m_parentChar) then
-            self.m_parentChar:undergoAttack(attacker, self.m_parentChar, i_x, i_y, k or 0, b)
-        end
+        self:undergoAttack(attacker, defender, i_x, i_y, k or 0, b)
     end)
 end
 
@@ -34,6 +37,15 @@ end
 -- function makeHPGauge
 -------------------------------------
 function Monster_AncientRuinDragonBodyPart:makeHPGauge(hp_ui_offset, force)
+end
+
+-------------------------------------
+-- function undergoAttack
+-------------------------------------
+function Monster_AncientRuinDragonBodyPart:undergoAttack(attacker, defender, i_x, i_y, body_key, no_event, is_guard)
+    if (self.m_parentChar) then
+        self.m_parentChar:undergoAttack(attacker, self.m_parentChar, i_x, i_y, self.m_bodyKey, no_event, is_guard)
+    end
 end
 
 -------------------------------------

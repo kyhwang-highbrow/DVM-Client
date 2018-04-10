@@ -42,6 +42,7 @@ function Monster_AncientRuinDragon:initPhys(body)
 
             -- 스텟 정보는 본체와 공유
             do
+                body_part.m_bodyKey = body['key']
                 body_part.m_isBoss = true
                 body_part.m_statusCalc = self.m_statusCalc
                 body_part.m_mStatusEffect = self.m_mStatusEffect
@@ -83,6 +84,16 @@ function Monster_AncientRuinDragon:init_monster(t_monster, monster_id, level)
 
     if (self.m_animator and self.m_animator.m_node) then
         self.m_animator.m_node:setMix('boss_appear', 'idle', 1)
+        self.m_animator.m_node:setMix('idle', 'skill_1_appear', 0.2)
+        self.m_animator.m_node:setMix('skill_1_appear', 'skill_1_cancel', 0.2)
+        self.m_animator.m_node:setMix('skill_1_appear', 'skill_1_idle', 0.2)
+        self.m_animator.m_node:setMix('idle', 'skill_2', 0.2)
+        self.m_animator.m_node:setMix('idle', 'skill_3', 0.2)
+        self.m_animator.m_node:setMix('idle', 'skill_5', 0.2)
+        self.m_animator.m_node:setMix('idle', 'skill_6', 0.2)
+        self.m_animator.m_node:setMix('idle', 'skill_7', 0.2)
+        self.m_animator.m_node:setMix('idle', 'skill_8', 0.2)
+        self.m_animator.m_node:setMix('idle', 'boss_die', 0.2)
     end
 end
 

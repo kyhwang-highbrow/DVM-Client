@@ -839,6 +839,7 @@ function Character:undergoAttack(attacker, defender, i_x, i_y, body_key, no_even
     t_event['i_x'] = i_x
     t_event['i_y'] = i_y
     t_event['left_formation'] = self.m_bLeftFormation
+    t_event['body_key'] = body_key
 	
 	-- 방어와 관련된 이벤트 처리후 데미지 계산
 	if (not attack_activity_carrier:isIgnoreAll()) then
