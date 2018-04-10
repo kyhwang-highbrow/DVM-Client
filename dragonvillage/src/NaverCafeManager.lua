@@ -214,7 +214,9 @@ end
 function NaverCafeManager:onNaverCafeCallback(ret, info)
 	cclog('## naver cafe call back', ret, info)
 
-    if ret == 'screenshot' or ret == 'article' then
+    -- onWidgetScreenshotClick / info = nil
+    -- widget의 스크린샷 버튼 클릭
+    if ret == 'screenshot' then
         local size = cc.Director:getInstance():getWinSize()
         local texture = cc.RenderTexture:create( size.width, size.height, cc.TEXTURE2_D_PIXEL_FORMAT_RGB_A8888, gl.DEPTH24_STENCIL8_OES )
         texture:setPosition( size.width / 2, size.height / 2 )
@@ -229,9 +231,20 @@ function NaverCafeManager:onNaverCafeCallback(ret, info)
             self:naverCafeStartImageWrite( retFileName )
         end )
 
+    -- onSdkStarted / info = nil
+    -- 카페 plug open (앱 구동시는 아님. 띄울때마다 동작)
 	elseif (ret == 'start') then
+
+    -- onSdkStopped / info = nil
+    -- 카페 plug close
 	elseif (ret == 'stop') then
+
+    -- onJoined / info = nil
     elseif (ret == 'join') then
+
+    -- onPostedArticle / info = {menuId, imageCount, videoCount}
+    elseif (ret == 'article') then
+        ccdump(info)
 
 	-- onPostedComment / info = articleId
 	elseif (ret == 'comment') then
