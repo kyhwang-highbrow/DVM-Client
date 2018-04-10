@@ -73,7 +73,7 @@ function UI_Lobby:initUI()
     self:initLobbyWorldAdapter()
     g_topUserInfo:clearBroadcast()
 
-	self:initPraticle()
+	--self:initParticle()
 end
 
 -------------------------------------
@@ -85,9 +85,9 @@ function UI_Lobby:init_after()
 end
 
 -------------------------------------
--- function initPraticle
+-- function:initParticle
 -------------------------------------
-function UI_Lobby:initPraticle()
+function UI_Lobby:initParticle()
 	-- 저사양 모드에서는 실행하지 않는다.
 	if (isLowEndMode()) then
 		return
@@ -678,7 +678,10 @@ end
 -- @brief "전투" 버튼
 -------------------------------------
 function UI_Lobby:click_battleBtn()
-    UI_BattleMenu()
+    self:doActionReset()
+    g_topUserInfo:doActionReset()
+    
+    --UI_BattleMenu()
 end
 
 -------------------------------------
@@ -807,7 +810,12 @@ end
 -- function click_forestBtn
 -------------------------------------
 function UI_Lobby:click_forestBtn()
-    UINavigatorDefinition:goTo('forest')
+    if (math.random(2) == 1) then
+        self.m_lobbyWorldAdapter.m_lobbyMap:actionZoom(1, 0.75)
+    else
+        self.m_lobbyWorldAdapter.m_lobbyMap:actionZoom(1, 1)
+    end
+    --UINavigatorDefinition:goTo('forest')
 end
 
 -------------------------------------
