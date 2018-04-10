@@ -272,9 +272,10 @@ function ResPreloadMgr:makeResListForDoubleTeam(game_mode)
     local g_data
 
     if (game_mode == GAME_MODE_CLAN_RAID) then
-        g_data = g_clanRaidData
+        g_data = MultiDeckMgr(MULTI_DECK_MODE.CLAN_RAID)
+
     elseif (game_mode == GAME_MODE_ANICENT_RUIN) then
-        g_data = g_clanRaidData
+        g_data = MultiDeckMgr(MULTI_DECK_MODE.CLAN_RAID)
     end
     
     -- 아군 관련 리소스

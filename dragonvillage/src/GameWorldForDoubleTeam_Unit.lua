@@ -7,9 +7,11 @@ function GameWorldForDoubleTeam:makeHeroDeck()
     local g_data
 
     if (self.m_gameMode == GAME_MODE_CLAN_RAID) then
-        g_data = g_clanRaidData
+        g_data = MultiDeckMgr(MULTI_DECK_MODE.CLAN_RAID)
+
     elseif (self.m_gameMode == GAME_MODE_ANICENT_RUIN) then
-        g_data = g_clanRaidData
+        g_data = MultiDeckMgr(MULTI_DECK_MODE.CLAN_RAID)
+
     else
         error('invalid game mode : ' .. self.m_gameMode)
     end

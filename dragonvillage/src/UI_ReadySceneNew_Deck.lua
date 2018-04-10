@@ -8,7 +8,7 @@ UI_ReadySceneNew_Deck = class({
 
         -- slot idx, dragon object id
         m_lDeckList = 'table',
-        m_tDeckMap = 'tabke',
+        m_tDeckMap = 'table',
 
         -- deck info
         m_lSettedDragonCard = 'list',
@@ -72,9 +72,10 @@ end
 -------------------------------------
 function UI_ReadySceneNew_Deck:initUI()
     local vars = self.m_uiReadyScene.vars
+    local multi_deck_mgr = self.m_uiReadyScene.m_multiDeckMgr
 
-    -- 클랜 던전 처리
-    if (self.m_gameMode == GAME_MODE_CLAN_RAID) then
+    -- 멀티 덱 처리
+    if (multi_deck_mgr) then
         vars['formationNode']:setPositionX(-225)
         vars['clanRaidMenu']:setVisible(true)
     end
@@ -85,16 +86,17 @@ end
 -------------------------------------
 function UI_ReadySceneNew_Deck:initButton()
     local vars = self.m_uiReadyScene.vars
+    local multi_deck_mgr = self.m_uiReadyScene.m_multiDeckMgr
 
-    -- 클랜 던전 처리 (수동, 자동 선택)
-    if (self.m_gameMode == GAME_MODE_CLAN_RAID) then
+    -- 멀티 덱 처리 (수동, 자동 선택)
+    if (multi_deck_mgr) then
         local radio_button = UIC_RadioButton()
         radio_button:addButtonAuto('up', vars)
         radio_button:addButtonAuto('down', vars)
         radio_button:setChangeCB(function() self:onChangeOption() end)
         self.m_selRadioButton = radio_button
 
-        local sel_deck = g_clanRaidData:getMainDeck()
+        local sel_deck = multi_deck_mgr:getMainDeck()
         self.m_selRadioButton:setSelectedButton(sel_deck)
     end
 end
@@ -103,19 +105,19 @@ end
 -- function initTab
 -------------------------------------
 function UI_ReadySceneNew_Deck:initTab()
-    local target = self.m_uiReadyScene
     local vars = self.m_uiReadyScene.vars
+    local multi_deck_mgr = self.m_uiReadyScene.m_multiDeckMgr
 
-    -- 클랜 던전 처리 (제 1공격대, 2공격대 선택)
-    if (self.m_gameMode == GAME_MODE_CLAN_RAID) then
-        target:addTabWithLabel(TAB_ATTACK_1, vars['teamTabBtn1'], vars['teamTabLabel1'])
-        target:addTabWithLabel(TAB_ATTACK_2, vars['teamTabBtn2'], vars['teamTabLabel2'])
+    -- 멀티 덱 처리 (제 1공격대, 2공격대 선택)
+    if (multi_deck_mgr) then
+        self.m_uiReadyScene:addTabWithLabel(TAB_ATTACK_1, vars['teamTabBtn1'], vars['teamTabLabel1'])
+        self.m_uiReadyScene:addTabWithLabel(TAB_ATTACK_2, vars['teamTabBtn2'], vars['teamTabLabel2'])
         
         -- 최초는 1공격대 보여줌
         self.m_selTab = TAB_ATTACK_1
-        target:setTab(TAB_ATTACK_1)
+        self.m_uiReadyScene:setTab(TAB_ATTACK_1)
 
-        target:setChangeTabCB(function(tab, first) self:onChangeTab(tab, first) end)
+        self.m_uiReadyScene:setChangeTabCB(function(tab, first) self:onChangeTab(tab, first) end)
     end
 end
 
@@ -126,6 +128,7 @@ end
 function UI_ReadySceneNew_Deck:onChangeOption()
     local vars = self.m_uiReadyScene.vars
     local mode = self.m_selRadioButton.m_selectedButton
+    local multi_deck_mgr = self.m_uiReadyScene.m_multiDeckMgr
 
     -- 선택한 모드 메인덱으로 저장 (수동 전투)
     do 
@@ -136,16 +139,16 @@ function UI_ReadySceneNew_Deck:onChangeOption()
         local sprite = vars[mode .. 'RadioSprite']
         sprite:setVisible(true)
 
-        local team_name = g_clanRaidData:getTeamName(mode)
+        local team_name = multi_deck_mgr:getTeamName(mode)
         local msg = Str('{1}가 수동전투 가능상태로 설정되었습니다.', team_name)
         UIManager:toastNotificationGreen(msg)
 
-        g_clanRaidData:setMainDeck(mode)
+        multi_deck_mgr:setMainDeck(mode)
     end
 
     -- 다른 모드는 자동 전투
     do 
-        local anoter_mode = g_clanRaidData:getAnotherMode(mode)
+        local anoter_mode = multi_deck_mgr:getAnotherPos(mode)
         local label = vars[anoter_mode .. 'RadioLabel']
         label:setString(Str('자동 전투'))
     end
@@ -158,8 +161,8 @@ function UI_ReadySceneNew_Deck:onChangeTab(tab, first)
     if (self.m_selTab == tab) then return end
     
     self.m_selTab = tab
-
-    local deck_name = g_clanRaidData:getDeckName(tab)
+    local multi_deck_mgr = self.m_uiReadyScene.m_multiDeckMgr
+    local deck_name = multi_deck_mgr:getDeckName(tab)
     local next_func = function()
         g_deckData:setSelectedDeck(deck_name)
         self:init_deck()
@@ -176,15 +179,16 @@ end
 -------------------------------------
 function UI_ReadySceneNew_Deck:click_dragonCard(t_dragon_data, skip_sort, idx)
     local doid = t_dragon_data['id']
+    local multi_deck_mgr = self.m_uiReadyScene.m_multiDeckMgr
 
-    -- 클랜 던전 처리 - 1, 2 공격대 드래곤 체크
-    if (self.m_gameMode == GAME_MODE_CLAN_RAID) then
+    -- 멀티 덱 처리 - 1, 2 공격대 드래곤 체크
+    if (multi_deck_mgr) then
         local mode = self.m_selTab
-        local map_deck = g_clanRaidData:getAnotherDeckMap(mode)
+        local map_deck = multi_deck_mgr:getAnotherDeckMap(mode)
 
         if (map_deck[doid]) then
-            local another_mode = g_clanRaidData:getAnotherMode(mode)
-            local team_name = g_clanRaidData:getTeamName(another_mode)
+            local another_mode = multi_deck_mgr:getAnotherPos(mode)
+            local team_name = multi_deck_mgr:getTeamName(another_mode)
 
             local msg = Str('{1}에 출전중인 드래곤입니다.', team_name)
             UIManager:toastNotificationRed(msg)
@@ -371,9 +375,10 @@ function UI_ReadySceneNew_Deck:clear_deck(skip_sort)
     self.m_lDeckList = {}
     self.m_tDeckMap = {}
 
-    -- 클랜 던전 덱 해제
-    if (self.m_gameMode == GAME_MODE_CLAN_RAID) then
-        g_clanRaidData:clearDeckMap(self.m_selTab)
+    -- 멀티 덱 해제
+    local multi_deck_mgr = self.m_uiReadyScene.m_multiDeckMgr
+    if (multi_deck_mgr) then
+        multi_deck_mgr:clearDeckMap(self.m_selTab)
     end
 
     -- 드래곤 인벤의 카드 갱신을 위해 호출
@@ -551,7 +556,6 @@ end
 -- function setSlot
 -------------------------------------
 function UI_ReadySceneNew_Deck:setSlot(idx, doid, skip_sort)
-
     do -- 갯수 체크
         local count = table.count(self.m_tDeckMap)
         if self.m_lDeckList[idx] then
@@ -574,12 +578,10 @@ function UI_ReadySceneNew_Deck:setSlot(idx, doid, skip_sort)
         return false
     end
 
-    -- 클랜던전 추가로 다른덱 동종 동속성의 드래곤 제외
-    if (self.m_gameMode == GAME_MODE_CLAN_RAID) and (self:checkSameDidAnoterDeck(doid)) then
-        local mode = self.m_selTab
-        local another_mode = g_clanRaidData:getAnotherMode(mode)
-        local team_name = g_clanRaidData:getTeamName(another_mode)
-        UIManager:toastNotificationRed(Str('{1} 출전중인 드래곤과 같은 드래곤은 동시에 출전할 수 없습니다.', team_name))
+    -- 멀티 덱 - 다른 위치 덱 동종 동속성의 드래곤 제외
+    local multi_deck_mgr = self.m_uiReadyScene.m_multiDeckMgr
+    local deck_pos = self.m_selTab
+    if (multi_deck_mgr) and (multi_deck_mgr:checkSameDidAnoterDeck(deck_pos, doid)) then
         return false
     end
 
@@ -603,9 +605,9 @@ function UI_ReadySceneNew_Deck:setSlot(idx, doid, skip_sort)
         -- 친구 드래곤 해제
         g_friendData:delSettedFriendDragonCard(prev_doid)
 
-        -- 클랜 던전 덱 해제
-        if (self.m_gameMode == GAME_MODE_CLAN_RAID) then
-            g_clanRaidData:deleteDeckMap(self.m_selTab, prev_doid)
+        -- 멀티 덱 해제
+        if (multi_deck_mgr) then
+            multi_deck_mgr:deleteDragon(self.m_selTab, prev_doid)
         end
     end
 
@@ -620,9 +622,9 @@ function UI_ReadySceneNew_Deck:setSlot(idx, doid, skip_sort)
         -- 친구 드래곤 선택 체크
         g_friendData:makeSettedFriendDragonCard(doid, idx)
 
-        -- 클랜 던전 덱 추가
-        if (self.m_gameMode == GAME_MODE_CLAN_RAID) then
-            g_clanRaidData:addDeckMap(self.m_selTab, doid)
+        -- 멀티 덱 추가
+        if (multi_deck_mgr) then
+            multi_deck_mgr:addDragon(self.m_selTab, doid)
         end
     end
 
@@ -644,32 +646,9 @@ function UI_ReadySceneNew_Deck:checkSameDid(idx, doid)
         return false
     end
 
-    local e_t_dragon_data
     for e_idx, e_doid in pairs(self.m_lDeckList) do
         -- 같은 did면서 idx가 다른 경우 (해제되는 드래곤과 새로 추가되는 드래곤은 같아도 됨)
         if (g_dragonsData:isSameDid(doid, e_doid)) and (idx ~= e_idx) then
-            return true
-        end
-    end
-
-    return false
-end
-
--------------------------------------
--- function checkSameDidAnoterDeck
--- @brief 동종 동속성 드래곤 검사 - 클랜던전 추가로 다른 덱까지 검사
--------------------------------------
-function UI_ReadySceneNew_Deck:checkSameDidAnoterDeck(doid)
-    if (not doid) then
-        return false
-    end
-
-    local e_t_dragon_data
-    local sel_mode = self.m_selTab
-    local another_deck = g_clanRaidData:getAnotherDeckMap(sel_mode)
-
-    for e_doid, _ in pairs(another_deck) do
-        if (g_dragonsData:isSameDid(doid, e_doid))  then
             return true
         end
     end
@@ -818,41 +797,6 @@ end
 function UI_ReadySceneNew_Deck:getDragonCount()
     local count = table.count(self.m_lDeckList)
     return count
-end
-
--------------------------------------
--- function checkClanRaidDragon
--------------------------------------
-function UI_ReadySceneNew_Deck:checkClanRaidDragon()
-    local sel_mode = self.m_selTab
-
-    local toast_func = function(mode)
-        local team_name = g_clanRaidData:getTeamName(mode)
-        local msg = Str('{1}에 최소 1명 이상은 출전시켜야 합니다', team_name)
-        UIManager:toastNotificationRed(msg)
-    end
-
-    -- 상단 덱 체크
-    do
-        local mode = 'up'
-        local deck_cnt = g_clanRaidData:getDeckDragonCnt(mode)
-        if (deck_cnt <= 0) then
-            toast_func(mode)
-            return false
-        end
-    end
-
-    -- 하단 덱 체크
-    do
-        local mode = 'down'
-        local deck_cnt = g_clanRaidData:getDeckDragonCnt(mode)
-        if (deck_cnt <= 0) then
-            toast_func(mode)
-            return false
-        end
-    end
-    
-    return true
 end
 
 -------------------------------------
@@ -1215,8 +1159,9 @@ end
 -- function setReadySpriteVisible
 -------------------------------------
 function UI_ReadySceneNew_Deck:setReadySpriteVisible(ui, visible)
-    -- 클랜 던전 처리
-    if (self.m_gameMode == GAME_MODE_CLAN_RAID) then
+    -- 멀티 덱 1, 2 공격대 표시
+    local multi_deck_mgr = self.m_uiReadyScene.m_multiDeckMgr
+    if (multi_deck_mgr) then
         local num = self.m_selTab == TAB_ATTACK_1 and 1 or 2
         ui:setTeamReadySpriteVisible(visible, num)
     else

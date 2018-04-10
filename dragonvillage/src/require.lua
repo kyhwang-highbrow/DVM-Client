@@ -249,7 +249,8 @@ local t_module = {
     'UINavigator',
     'RenderTextureBatchNode',
     'AncientTowerScoreCalc',
-	
+	'MultiDeckMgr',
+
 	'IconHelper',
     'ResHelper',
     'AnimatorHelper',

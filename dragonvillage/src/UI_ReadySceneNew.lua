@@ -22,6 +22,9 @@ UI_ReadySceneNew = class(PARENT,{
         m_bWithFriend = 'boolean',
         m_bUseCash = 'boolean',
         m_gameMode = 'number',
+
+        -- 멀티덱 사용하는 경우 (클랜던전, 신규룬던전)
+        m_multiDeckMgr = 'MultiDeckMgr',
     })
 
 -------------------------------------
@@ -53,8 +56,8 @@ function UI_ReadySceneNew:init(stage_id, sub_info)
     -- backkey 지정
     g_currScene:pushBackKeyListener(self, function() self:click_backBtn() end, 'UI_ReadySceneNew')
 
+    self:initMultiDeckMode()
 	self:checkDeckProper()
-    
 	self:initUI()
     self:initButton()
 	
@@ -157,7 +160,7 @@ function UI_ReadySceneNew:checkDeckProper()
 
     -- 클랜 던전 별도 처리 
     if (curr_mode == 'clan') then
-        local deck_name = g_clanRaidData:getDeckName()
+        local deck_name = self.m_multiDeckMgr:getDeckName()
         if (deck_name) then
             g_deckData:setSelectedDeck(deck_name)
             return
@@ -177,28 +180,6 @@ function UI_ReadySceneNew:checkDeckProper()
 	if not (curr_mode == curr_deck_name) then
 		g_deckData:setSelectedDeck(curr_mode)
 	end
-end
-
--------------------------------------
--- function condition_clan_raid
--- @breif 1,2공격대에 설정된 드래곤을 정렬 우선순위로 사용
--------------------------------------
-function UI_ReadySceneNew:condition_clan_raid(a, b)
-    local is_setted_1, num_1 = g_clanRaidData:isSettedClanRaidDeck(a['data']['id']) 
-    local is_setted_2, num_2 = g_clanRaidData:isSettedClanRaidDeck(b['data']['id']) 
-
-    if (is_setted_1) and (is_setted_2) then
-        return nil
-
-    elseif (is_setted_1) then
-        return true
-
-    elseif (is_setted_2) then
-        return false
-
-    else
-        return nil
-    end
 end
 
 -------------------------------------
@@ -257,12 +238,12 @@ function UI_ReadySceneNew:init_sortMgr(stage_id)
     self.m_sortManagerDragon = SortManager_Dragon()
     self.m_sortManagerFriendDragon = SortManager_Dragon()
     
-    -- 클랜던전 1,2 공격대 덱을 맨위로
-    if (self.m_gameMode == GAME_MODE_CLAN_RAID) then
+    -- 멀티덱 사용시 우선순위 추가
+    if (self.m_multiDeckMgr) then
         local function cond(a, b)
-			return self:condition_clan_raid(a, b)
+			return self.m_multiDeckMgr:sort_multi_deck(a, b)
 		end
-		self.m_sortManagerDragon:addPreSortType('clan_raid', false, cond)
+        self.m_sortManagerDragon:addPreSortType('multi_deck', false, cond)
     end
 
     do
@@ -377,6 +358,18 @@ function UI_ReadySceneNew:apply_dragonSort_saveData()
         end
     end
 end
+
+-------------------------------------
+-- function initMultiDeckMode
+-- @brief 멀티 덱 설정
+-------------------------------------
+function UI_ReadySceneNew:initMultiDeckMode()
+    if (self.m_gameMode == GAME_MODE_CLAN_RAID) then
+        local make_deck = true
+        self.m_multiDeckMgr = MultiDeckMgr(MULTI_DECK_MODE.CLAN_RAID, make_deck)
+    end
+end
+
 -------------------------------------
 -- function initUI
 -------------------------------------
@@ -666,17 +659,15 @@ end
 -------------------------------------
 function UI_ReadySceneNew:refresh_slotLight()
     local vars = self.vars
-    local stage_id = self.m_stageID
-
-    -- 클랜던전 slot light
-    if (self.m_gameMode == GAME_MODE_CLAN_RAID) then
-        local up_deck_cnt = g_clanRaidData:getDeckDragonCnt('up')
+    local multi_deck_mgr = self.m_multiDeckMgr
+    if (multi_deck_mgr) then
+        local up_deck_cnt = multi_deck_mgr:getDeckDragonCnt('up')
         for idx = 1, 5 do
             local slot_light = vars['slotSprite'..idx]
             slot_light:setVisible(idx <= up_deck_cnt)
         end
 
-        local down_deck_cnt = g_clanRaidData:getDeckDragonCnt('down')
+        local down_deck_cnt = multi_deck_mgr:getDeckDragonCnt('down')
         for idx = 1, 5 do
             local slot_light = vars['slotSprite'..(idx + 5)]
             slot_light:setVisible(idx <= down_deck_cnt)
@@ -829,6 +820,7 @@ function UI_ReadySceneNew:click_autoBtn()
     local l_dragon_list
 
     local game_mode = self.m_gameMode
+    local multi_deck_mgr = self.m_multiDeckMgr
     if (game_mode == GAME_MODE_ANCIENT_TOWER) then
         local attr = g_attrTowerData:getSelAttr()
         -- 시험의 탑 (같은 속성 드래곤만 받아옴)
@@ -840,11 +832,10 @@ function UI_ReadySceneNew:click_autoBtn()
             l_dragon_list = g_dragonsData:getDragonsList()
         end
 
-    elseif (game_mode == GAME_MODE_CLAN_RAID) then
+    -- 멀티덱 사용시 다른 위치 덱은 제외하고 추천
+    elseif (multi_deck_mgr) then
         local mode = self.m_readySceneDeck.m_selTab
-        local map_except_deck = g_clanRaidData:getAnotherDeckMap(mode)
-
-        -- 클랜던전 다른덱 제외하고 추천덱
+        local map_except_deck = multi_deck_mgr:getAnotherDeckMap(mode)
         l_dragon_list = g_dragonsData:getDragonsListExceptTarget(map_except_deck)
 
     else
@@ -966,15 +957,16 @@ end
 -------------------------------------
 function UI_ReadySceneNew:check_startCondition(stage_id)
     local stamina_charge = true
+    local multi_deck_mgr = self.m_multiDeckMgr
 
-    -- 클랜던전 - 상단덱과 하단덱 추가 확인
-    if (g_clanRaidData:isClanRaidStageID(stage_id)) then
+    -- 멀티덱 - 상단덱과 하단덱 추가 확인
+    if (multi_deck_mgr) then
 
         -- 클랜던전은 활동력 충전 x 소비 o
         stamina_charge = false
 
         -- 상단, 하단 덱 모두 체크
-        if (not self:checkClanRaidDragon()) then
+        if (not multi_deck_mgr:cehckDeckCondition()) then
             return false
         end
 
@@ -1041,12 +1033,6 @@ function UI_ReadySceneNew:startGame(stage_id)
 
         -- 클랜던전 여의주 사용
         if (g_clanRaidData:isClanRaidStageID(stage_id)) then
-            
-            -- 개발모드에서 클랜던전 무조건 입장
---            if IS_TEST_MODE() then
---                start_game()
---                return
---            end
 
             -- 활동력 체크 (소비 타입이 아니어서 여기서 체크)
             if (g_staminasData:checkStageStamina(stage_id)) then
@@ -1286,13 +1272,6 @@ end
 -------------------------------------
 function UI_ReadySceneNew:getDragonCount()
     return self.m_readySceneDeck:getDragonCount()
-end
-
--------------------------------------
--- function checkClanRaidDragon
--------------------------------------
-function UI_ReadySceneNew:checkClanRaidDragon()
-    return self.m_readySceneDeck:checkClanRaidDragon()
 end
 
 -------------------------------------

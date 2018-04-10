@@ -19,9 +19,13 @@ function GameWorldForDoubleTeam:init()
     local sel_deck
 
     if (self.m_gameMode == GAME_MODE_CLAN_RAID) then
-        sel_deck = g_clanRaidData:getMainDeck()
+        local multi_deck_mgr = MultiDeckMgr(MULTI_DECK_MODE.CLAN_RAID)
+        sel_deck = multi_deck_mgr:getMainDeck()
+
     elseif (self.m_gameMode == GAME_MODE_ANICENT_RUIN) then
-        sel_deck = g_clanRaidData:getMainDeck()
+        local multi_deck_mgr = MultiDeckMgr(MULTI_DECK_MODE.CLAN_RAID)
+        sel_deck = multi_deck_mgr:getMainDeck()
+
     else
         error('invalid game mode : ' .. self.m_gameMode)
     end

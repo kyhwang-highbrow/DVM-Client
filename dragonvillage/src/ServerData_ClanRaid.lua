@@ -17,13 +17,6 @@ ServerData_ClanRaid = class({
         -- 누적 기여 랭킹 리스트 (현재 진행중인 기여도 랭킹 리스트는 StructClanRaid 에서 받아옴)
         m_lRankList = 'list',
 
-        -- 메인 (수동으로 전투가 가능한) 덱 (up or down)
-        m_main_deck = 'string',
-
-        -- 클랜던전 덱 map (임시 저장)
-        m_tDeckMap_1 = 'map',
-        m_tDeckMap_2 = 'map',
-
         -- 여의주 사용횟수
         m_use_cash = 'number',
 
@@ -42,9 +35,6 @@ local USE_CASH_CNT = 200
 -------------------------------------
 function ServerData_ClanRaid:init(server_data)
     self.m_serverData = server_data
-    
-    -- 메인덱은 로컬에 저장
-    self.m_main_deck = g_settingData:get('clan_raid', 'main_deck') or 'up'
 end
 
 -------------------------------------
@@ -69,190 +59,10 @@ function ServerData_ClanRaid:getRankList()
 end
 
 -------------------------------------
--- function getClanRaidStruct
--- @brief 메인 (수동으로 전투가 가능한) 덱 (up or down)
--------------------------------------
-function ServerData_ClanRaid:getMainDeck()
-    return self.m_main_deck
-end
-
--------------------------------------
--- function setMainDeck
--------------------------------------
-function ServerData_ClanRaid:setMainDeck(mode)
-    if (mode == 'up' or mode == 'down') then
-        self.m_main_deck = mode
-        g_settingData:applySettingData(mode, 'clan_raid', 'main_deck')
-    else
-        error('ServerData_ClanRaid:setMainDeck - 정의된 mode가 아닙니다.')
-    end
-end
-
--------------------------------------
--- function getAnotherMode
--------------------------------------
-function ServerData_ClanRaid:getAnotherMode(mode)
-    local mode = (mode == 'up') and 'down' or 'up'
-    return mode
-end
-
--------------------------------------
--- function getDeckName
--------------------------------------
-function ServerData_ClanRaid:getDeckName(mode)
-    local mode = mode or 'up' -- or 'down'
-    local deck_name = 'clan_raid_' .. mode
-    return deck_name
-end
-
--------------------------------------
 -- function getUseCashCnt
 -------------------------------------
 function ServerData_ClanRaid:getUseCashCnt()
     return USE_CASH_CNT
-end
-
--------------------------------------
--- function getDeck
--- @breif 선택한 모드 덱 가져옴 (서버에 저장된 덱)
--------------------------------------
-function ServerData_ClanRaid:getDeck(mode)
-    local deck_name = 'clan_raid_' .. mode
-    return g_deckData:getDeck(another_deck_name)
-end
-
--------------------------------------
--- function getAnotherDeck
--- @breif 선택한 다른 모드 덱 가져옴 (서버에 저장된 덱, 상단 -> 하단, 하단 -> 상단)
--------------------------------------
-function ServerData_ClanRaid:getAnotherDeck(mode)
-    local another_mode = self:getAnotherMode(mode)
-    local deck_name = 'clan_raid_' .. another_mode
-    return g_deckData:getDeck(another_deck_name)
-end
-
--------------------------------------
--- function getTeamName
--------------------------------------
-function ServerData_ClanRaid:getTeamName(mode)
-    local mode = mode or 'up' -- or 'down'
-    local team_name = (mode == 'up') and 
-                      Str('1 공격대') or
-                      Str('2 공격대') 
-    return team_name
-end
-
--------------------------------------
--- function makeDeckMap
--- @breif 클랜던전 덱 map 형태로 임시 저장 (리스트일 경우 sort 시간 오래걸림)
--------------------------------------
-function ServerData_ClanRaid:makeDeckMap()
-    self.m_tDeckMap_1 = {}
-    self.m_tDeckMap_2 = {}
-
-    -- 1 공격대
-    do
-        local deck_name = self:getDeckName('up')
-        local l_deck = g_deckData:getDeck(deck_name)
-        for k, v in pairs(l_deck) do
-            local doid = v
-            if (doid) then
-                self.m_tDeckMap_1[doid] = k
-            end
-        end
-    end
-
-    -- 2 공격대
-    do
-        local deck_name = self:getDeckName('down')
-        local l_deck = g_deckData:getDeck(deck_name)
-        for k, v in pairs(l_deck) do
-            local doid = v
-            if (doid) then
-                self.m_tDeckMap_2[doid] = k
-            end
-        end
-    end
-end
-
--------------------------------------
--- function getDeckMap
--- @breif 선택한 모드 덱 Map (임시로 저장된 덱)
--------------------------------------
-function ServerData_ClanRaid:getDeckMap(mode)
-    return (mode == 'up') and self.m_tDeckMap_1 or self.m_tDeckMap_2
-end
-
--------------------------------------
--- function getAnotherDeckMap
--- @breif 선택한 다른 모드 덱 Map (임시로 저장된 덱, 상단 -> 하단, 하단 -> 상단)
--------------------------------------
-function ServerData_ClanRaid:getAnotherDeckMap(mode)
-    return (mode == 'up') and self.m_tDeckMap_2 or self.m_tDeckMap_1
-end
-
--------------------------------------
--- function addDeckMap
--- @breif 클랜던전 덱 Map 추가 (임시로 저장된 덱)
--------------------------------------
-function ServerData_ClanRaid:addDeckMap(mode, doid)
-    local target = mode == 'up' and self.m_tDeckMap_1 or self.m_tDeckMap_2
-    target[doid] = 1
-end
-
--------------------------------------
--- function deleteDeckMap
--- @breif 클랜던전 덱 Map 삭제 (임시로 저장된 덱)
--------------------------------------
-function ServerData_ClanRaid:deleteDeckMap(mode, doid)
-    local target = mode == 'up' and self.m_tDeckMap_1 or self.m_tDeckMap_2
-    target[doid] = nil
-end
-
--------------------------------------
--- function clearDeckMap
--- @breif 클랜던전 덱 Map 초기화 (임시로 저장된 덱)
--------------------------------------
-function ServerData_ClanRaid:clearDeckMap(mode)
-    if (mode == 'up') then
-        self.m_tDeckMap_1 = {}
-    else
-        self.m_tDeckMap_2 = {}
-    end
-end
-
--------------------------------------
--- function getDeckDragonCnt
--- @breif 클랜던전 덱 셋팅된 드래곤 수
--------------------------------------
-function ServerData_ClanRaid:getDeckDragonCnt(mode)
-    local target = mode == 'up' and self.m_tDeckMap_1 or self.m_tDeckMap_2
-    local cnt = 0
-    for _, k in pairs(target) do
-        cnt = cnt + 1
-    end
-
-    return cnt
-end
-
--------------------------------------
--- function isSettedClanRaidDeck
--- @breif 클랜던전 덱인지
--------------------------------------
-function ServerData_ClanRaid:isSettedClanRaidDeck(doid)
-    local is_setted = self.m_tDeckMap_1[doid] or nil
-    -- 1 공격대
-    if (is_setted) then
-        return is_setted, 1
-    end
-
-    -- 2 공격대
-    local is_setted = self.m_tDeckMap_2[doid] or nil
-    if (is_setted) then
-        return is_setted, 2
-    end
-
-    return false, 99
 end
 
 -------------------------------------
@@ -472,8 +282,9 @@ function ServerData_ClanRaid:requestGameStart(stage_id, deck_name, combat_power,
         g_accessTimeData:startCheckTimer()
     end
 
-    local deck_name1 = self:getDeckName('up')
-    local deck_name2 = self:getDeckName('down')
+    local multi_deck_mgr = MultiDeckMgr(MULTI_DECK_MODE.CLAN_RAID)
+    local deck_name1 = multi_deck_mgr:getDeckName('up')
+    local deck_name2 = multi_deck_mgr:getDeckName('down')
 
     local token1 = g_stageData:makeDragonToken(deck_name1)
     local token2 = g_stageData:makeDragonToken(deck_name2)

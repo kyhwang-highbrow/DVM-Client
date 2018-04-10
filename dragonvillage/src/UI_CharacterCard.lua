@@ -102,7 +102,9 @@ function UI_CharacterCard:refreshDragonInfo()
 
             -- 클랜던전 예외처리
             if (string.find(deck_name, 'clan_raid')) then
-                local is_setted, num = g_clanRaidData:isSettedClanRaidDeck(doid)
+                local make_deck = true
+                local multi_deck_mgr = MultiDeckMgr(MULTI_DECK_MODE.CLAN_RAID, make_deck)
+                local is_setted, num = multi_deck_mgr:isSettedDragon(doid)
                 self:setTeamReadySpriteVisible(is_setted, num)
             else
                 local is_setted = (g_deckData:isSettedDragon(doid) ~= false)

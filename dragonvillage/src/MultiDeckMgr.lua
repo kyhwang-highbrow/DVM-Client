@@ -1,0 +1,276 @@
+-------------------------------------
+-- class MultiDeckMgr
+-------------------------------------
+MultiDeckMgr = class({	
+        m_mode = '',
+
+        -- 메인 (수동으로 전투가 가능한) 덱 (up or down)
+        m_main_deck = 'string',
+
+        -- 덱 map (임시 저장)
+		m_tDeckMap_1 = 'map',
+        m_tDeckMap_2 = 'map',
+     })
+
+
+MULTI_DECK_MODE = {
+    CLAN_RAID = 'clan_raid', -- 클랜 던전
+    RUNE_RAID = 'rune_raid', -- 신규 룬던전
+}
+
+-------------------------------------
+-- function init
+-------------------------------------
+function MultiDeckMgr:init(deck_mode, make_deck)
+	self.m_mode = deck_mode
+
+    -- 메인덱은 로컬에 저장
+    self.m_main_deck = g_settingData:get(self.m_mode, 'main_deck') or 'up'
+
+    -- up, down 덱 맵형태로 생성
+    if (make_deck) then
+        self:makeDeckMap()
+    end
+end
+
+-------------------------------------
+-- function makeDeckMap
+-- @breif Multi 덱 map 형태로 임시 저장 (리스트일 경우 sort 시간 오래걸림)
+-------------------------------------
+function MultiDeckMgr:makeDeckMap()
+    self.m_tDeckMap_1 = {}
+    self.m_tDeckMap_2 = {}
+
+    -- 1 공격대
+    do
+        local deck_name = self:getDeckName('up')
+        local l_deck = g_deckData:getDeck(deck_name)
+        for k, v in pairs(l_deck) do
+            local doid = v
+            if (doid) then
+                self.m_tDeckMap_1[doid] = k
+            end
+        end
+    end
+
+    -- 2 공격대
+    do
+        local deck_name = self:getDeckName('down')
+        local l_deck = g_deckData:getDeck(deck_name)
+        for k, v in pairs(l_deck) do
+            local doid = v
+            if (doid) then
+                self.m_tDeckMap_2[doid] = k
+            end
+        end
+    end
+end
+
+-------------------------------------
+-- function getDeckMap
+-- @breif 선택한 위치 덱 Map (임시로 저장된 덱)
+-------------------------------------
+function MultiDeckMgr:getDeckMap(pos)
+    return (pos == 'up') and self.m_tDeckMap_1 or self.m_tDeckMap_2
+end
+
+-------------------------------------
+-- function getAnotherDeckMap
+-- @breif 선택한 다른 위치 덱 Map (임시로 저장된 덱)
+-------------------------------------
+function MultiDeckMgr:getAnotherDeckMap(pos)
+    return (pos == 'up') and self.m_tDeckMap_2 or self.m_tDeckMap_1
+end
+
+-------------------------------------
+-- function addDragon
+-- @breif Multi 덱 해당 드래곤 추가 (임시로 저장된 덱)
+-------------------------------------
+function MultiDeckMgr:addDragon(pos, doid)
+    local target = pos == 'up' and self.m_tDeckMap_1 or self.m_tDeckMap_2
+    target[doid] = 1
+end
+
+-------------------------------------
+-- function deleteDragon
+-- @breif Multi 덱 해당 드래곤 삭제 (임시로 저장된 덱)
+-------------------------------------
+function MultiDeckMgr:deleteDragon(pos, doid)
+    local target = pos == 'up' and self.m_tDeckMap_1 or self.m_tDeckMap_2
+    target[doid] = nil
+end
+
+-------------------------------------
+-- function clearDeckMap
+-- @breif Multi 덱 Map 초기화 (임시로 저장된 덱)
+-------------------------------------
+function MultiDeckMgr:clearDeckMap(pos)
+    if (pos == 'up') then
+        self.m_tDeckMap_1 = {}
+    else
+        self.m_tDeckMap_2 = {}
+    end
+end
+
+-------------------------------------
+-- function getAnotherPos
+-------------------------------------
+function MultiDeckMgr:getAnotherPos(pos)
+    local pos = (pos == 'up') and 'down' or 'up'
+    return pos
+end
+
+-------------------------------------
+-- function getDeckName
+-------------------------------------
+function MultiDeckMgr:getDeckName(pos)
+    local pos = pos or 'up' -- or 'down'
+    local deck_name = self.m_mode .. '_' .. pos
+    return deck_name
+end
+
+-------------------------------------
+-- function setMainDeck
+-- @brief 메인덱 설정 (수동전투 선택) (up or down)
+-------------------------------------
+function MultiDeckMgr:setMainDeck(pos)
+    if (pos == 'up' or pos == 'down') then
+        self.m_main_deck = pos
+        g_settingData:applySettingData(pos, self.m_mode, 'main_deck')
+    end
+end
+
+-------------------------------------
+-- function getMainDeck
+-- @brief 메인덱 (수동전투 가능한) (up or down)
+-------------------------------------
+function MultiDeckMgr:getMainDeck()
+    return self.m_main_deck
+end
+
+-------------------------------------
+-- function getTeamName
+-------------------------------------
+function MultiDeckMgr:getTeamName(pos)
+    local pos = pos or 'up' -- or 'down'
+    local team_name = (pos == 'up') and 
+                      Str('1 공격대') or
+                      Str('2 공격대') 
+    return team_name
+end
+
+-------------------------------------
+-- function getDeckDragonCnt
+-- @breif 선택한 덱 셋팅된 드래곤 수
+-------------------------------------
+function MultiDeckMgr:getDeckDragonCnt(pos)
+    local target = pos == 'up' and self.m_tDeckMap_1 or self.m_tDeckMap_2
+    local cnt = 0
+    for _, k in pairs(target) do
+        cnt = cnt + 1
+    end
+
+    return cnt
+end
+
+-------------------------------------
+-- function isSettedDragon
+-- @breif Multi 덱에 출전중인 드래곤인지
+-------------------------------------
+function MultiDeckMgr:isSettedDragon(doid)
+    local is_setted = self.m_tDeckMap_1[doid] or nil
+    -- 1 공격대
+    if (is_setted) then
+        return is_setted, 1
+    end
+
+    -- 2 공격대
+    local is_setted = self.m_tDeckMap_2[doid] or nil
+    if (is_setted) then
+        return is_setted, 2
+    end
+
+    return false, 99
+end
+
+
+-------------------------------------
+-- function sort_multi_deck
+-- @breif 1, 2공격대에 설정된 드래곤을 정렬 우선순위로 사용
+-------------------------------------
+function MultiDeckMgr:sort_multi_deck(a, b)
+    local is_setted_1, num_1 = self:isSettedDragon(a['data']['id']) 
+    local is_setted_2, num_2 = self:isSettedDragon(b['data']['id']) 
+
+    if (is_setted_1) and (is_setted_2) then
+        return nil
+
+    elseif (is_setted_1) then
+        return true
+
+    elseif (is_setted_2) then
+        return false
+
+    else
+        return nil
+    end
+end
+
+
+-------------------------------------
+-- function checkSameDidAnoterDeck
+-- @brief 다른 위치 덱 - 동종 동속성 드래곤 검사 
+-------------------------------------
+function MultiDeckMgr:checkSameDidAnoterDeck(sel_pos, doid)
+    if (not doid) then
+        return false
+    end
+
+    local another_deck = self:getAnotherDeckMap(sel_pos)
+    for e_doid, _ in pairs(another_deck) do
+        if (g_dragonsData:isSameDid(doid, e_doid)) then
+            local another_pos = self:getAnotherPos(sel_pos)
+            local team_name = self:getTeamName(another_pos)
+            local msg = Str('{1} 출전중인 드래곤과 같은 드래곤은 동시에 출전할 수 없습니다.', team_name)
+            UIManager:toastNotificationRed(msg)
+
+            return true
+        end
+    end
+
+    return false
+end
+
+-------------------------------------
+-- function cehckDeckCondition
+-- @brief 상단덱 하단덱 출전 조건 체크
+-------------------------------------
+function MultiDeckMgr:cehckDeckCondition()
+    local toast_func = function(pos)
+        local team_name = self:getTeamName(pos)
+        local msg = Str('{1}에 최소 1명 이상은 출전시켜야 합니다', team_name)
+        UIManager:toastNotificationRed(msg)
+    end
+
+    -- 상단 덱 체크
+    do
+        local pos = 'up'
+        local deck_cnt = self:getDeckDragonCnt(pos)
+        if (deck_cnt <= 0) then
+            toast_func(pos)
+            return false
+        end
+    end
+
+    -- 하단 덱 체크
+    do
+        local pos = 'down'
+        local deck_cnt = self:getDeckDragonCnt(pos)
+        if (deck_cnt <= 0) then
+            toast_func(pos)
+            return false
+        end
+    end
+    
+    return true
+end

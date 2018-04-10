@@ -40,7 +40,7 @@ function UI_Inventory:initParentVariable()
     -- ITopUserInfo_EventListener의 맴버 변수들 설정
     self.m_uiName = 'UI_Inventory'
     self.m_bUseExitBtn = true
-    self.m_titleStr = Str('가방')
+    self.m_titleStr = nil -- 인벤 확장 버튼 있으므로 타이틀 삭제
     self.m_invenType = 'rune'
     self.m_bShowInvenBtn = true 
 end
