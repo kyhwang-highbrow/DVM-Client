@@ -666,6 +666,14 @@ function MakeAnimator(file_name, skip_error_msg)
     elseif string.match(file_name, '%.vrp') then
         animator = AnimatorVrp(file_name)
 
+    -- a2d .. 는 개발 중 테스트용
+    elseif string.match(file_name, '%.a2d') then
+        animator = AnimatorVrp()
+        animator.m_node = cc.AzVisual:create(file_name)
+        animator.m_node:loadPlistFiles('')
+        animator.m_node:buildSprite('')
+        animator:changeAni('idle', true, true)
+
     -- PNG
     elseif string.match(file_name, '%.png') then
         animator = AnimatorPng(file_name)
