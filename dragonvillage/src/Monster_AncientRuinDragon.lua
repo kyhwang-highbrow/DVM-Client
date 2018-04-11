@@ -7,6 +7,7 @@ Monster_AncientRuinDragon = class(PARENT, {
     m_cbAppearEnd   = 'function',       -- appear 상태가 끝났을때 호출될 콜백 함수
 
     m_bCreateParts  = 'boolean',
+    m_bExistDron    = 'boolean',
 })
 
 -------------------------------------
@@ -18,6 +19,7 @@ function Monster_AncientRuinDragon:init(file_name, body, ...)
     self.m_bUseCastingEffect = false
 
     self.m_bCreateParts = false
+    self.m_bExistDron = false
 end
 
 -------------------------------------
@@ -180,6 +182,34 @@ function Monster_AncientRuinDragon.st_dying(owner, dt)
 end
 
 -------------------------------------
+-- function update
+-------------------------------------
+function Monster_AncientRuinDragon:update(dt)
+    self.m_bExistDron = false
+
+    -- 드론이 존재하는지 여부 저장
+    local list
+
+    if (self.m_bLeftFormation) then 
+        list = self.m_world:getDragonList()
+    else
+        list = self.m_world:getEnemyList()
+    end
+
+    for _, v in ipairs(list) do
+        if (not v:isDead()) then
+            local t_char = v:getCharTable()
+            if (t_char and t_char['type'] == 'ancient_ruin_dragon_drone') then
+                self.m_bExistDron = true
+                break
+            end
+        end
+    end
+
+    return PARENT.update(self, dt)
+end
+
+-------------------------------------
 -- function updateBonePos
 -- @breif Spine Bone 정보로 갱신이 필요한 처리를 수행
 -------------------------------------
@@ -198,33 +228,6 @@ function Monster_AncientRuinDragon:updateBonePos(dt)
     end
 end
 
---[[
--------------------------------------
--- function makeHPGauge
--------------------------------------
-function Monster_AncientRuinDragon:makeHPGauge(hp_ui_offset, force)
-    PARENT.makeHPGauge(self, hp_ui_offset, false)
-
-    -- 유닛별 체력 게이지 사용 안함
-    self.m_hpGauge = nil
-    self.m_hpGauge2 = nil
-
-    local childs = self.m_hpNode:getChildren()
-    for _, v in pairs(childs) do
-        doAllChildren(v, function(node) node:setVisible(false) end)
-    end
-    
-    -- 체력 게이지 대신 이름 표시
-    local font_scale_x, font_scale_y = Translate:getFontScaleRate()
-    local label = cc.Label:createWithTTF(self:getName(), Translate:getFontPath(), 24, 2, cc.size(250, 100), 1, 1)
-    label:setDockPoint(cc.p(0.5, 0.5))
-    label:setAnchorPoint(cc.p(0.5, 0.5))
-    label:setColor(cc.c3b(255,87,87))
-    label:setScale(font_scale_x, font_scale_y)
-    self.m_hpNode:addChild(label)
-end
-]]--
-
 -------------------------------------
 -- function release
 -------------------------------------
@@ -232,6 +235,25 @@ function Monster_AncientRuinDragon:release()
     self:removeAllChildCharacter()
 
     PARENT.release(self)
+end
+
+-------------------------------------
+-- function checkAttributeCounter
+-- @brief 속성 상성
+-------------------------------------
+function Monster_AncientRuinDragon:checkAttributeCounter(attacker_char)
+    local t_attr_effect, attr_synastry = PARENT.checkAttributeCounter(self, attacker_char)
+
+    -- 드론이 존재할 경우 특수 효과
+    if (self.m_bExistDron) then
+        -- 자신의 약점이 아닌 속성의 공격을 받았을 시 데미지 감소 처리
+        if (attr_synastry ~= 1) then
+            local value = g_constant:get('INGAME', 'ANCIENT_RUIN_BOSS_DRON_DAMAGE_REDUCE') or 0
+            t_attr_effect['damage'] = t_attr_effect['damage'] - value
+        end
+    end
+
+    return t_attr_effect, attr_synastry
 end
 
 -------------------------------------
