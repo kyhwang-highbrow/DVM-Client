@@ -90,6 +90,10 @@ function UI_DragonSelectPopup:init_tableView()
     end
 
     local function create_func(ui, data)
+        -- 새로 획득한 드래곤 뱃지
+        local is_new_dragon = data:isNewDragon()
+        ui:setNewSpriteVisible(is_new_dragon)
+
         ui.root:setScale(0.66)
         -- 클릭 버튼 설정
         ui.vars['clickBtn']:registerScriptTapHandler(function() self:click_dragon(data) end)
@@ -235,7 +239,7 @@ end
 function UI_DragonSelectPopup:getDragonList()
     local vars = self.vars
 
-    local l_dragon = g_dragonsData:getDragonsList() 
+    local l_dragon = g_dragonsData:getDragonListWithSlime() 
     local l_ret_list = {}
     -- 등급
     local l_stars = {}
@@ -260,11 +264,21 @@ function UI_DragonSelectPopup:getDragonList()
     l_role['healer'] = vars['typeBtn4']:isChecked()
 
     local table_dragon = TableDragon()
+    local table_slime = TableSlime()
     for i,v in pairs(l_dragon) do
         local did = v['did']
         local grade = v['grade']
-        local attr = table_dragon:getValue(did, 'attr')
-        local role = table_dragon:getValue(did, 'role')
+        local attr 
+        local role 
+
+        -- 슬라임 추가
+        if table_slime:isSlimeID(did) then
+            attr = table_slime:getValue(did, 'attr')
+            role = table_slime:getValue(did, 'role')
+        else
+            attr = table_dragon:getValue(did, 'attr')
+            role = table_dragon:getValue(did, 'role')
+        end
 
         if (l_stars[grade] and l_attr[attr] and l_role[role]) then
             l_ret_list[i] = v
