@@ -2841,14 +2841,16 @@ end
 -------------------------------------
 function Character:setTemporaryPause(pause)
     if (PARENT.setTemporaryPause(self, pause)) then
-        if (pause and self.m_animator) then
-            local target_node = self.m_animator.m_node
-
+        if (pause) then
             -- 위치 좌표값 동기화
             self:syncAniAndPhys()
 
-            -- 액션 정지
-            cca.stopAction(target_node, CHARACTER_ACTION_TAG__FLOATING)
+            if (self.m_animator) then
+                local target_node = self.m_animator.m_node
+                
+                -- 액션 정지
+                cca.stopAction(target_node, CHARACTER_ACTION_TAG__FLOATING)
+            end
         else
             self:runAction_Floating()
         end
