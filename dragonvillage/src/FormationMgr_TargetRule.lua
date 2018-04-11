@@ -430,9 +430,17 @@ function TargetRule_getTargetList_attr(org_list, str)
     	end
 	end
 
-    if (sub_type and sub_type ~= '' and sub_type ~= 'only') then
+    if (sub_type and sub_type ~= '' and sub_type ~= 'only' and sub_type ~= 'not') then
         -- 부조건 타입이 존재하는 경우는 무조건 only로 처리(남은 애들을 다시 담지 않음)
         t_ret = TargetRule_getTargetList(sub_type, t_ret)
+
+    elseif (pl.stringx.endswith(str, 'not')) then
+	    -- 남은 애들로 채운다
+        t_ret = {}
+
+	    for i, char in pairs(t_char) do
+		    table.insert(t_ret, char)
+	    end
 
     elseif (not pl.stringx.endswith(str, 'only')) then
 	    -- 남은 애들도 다시 담는다.

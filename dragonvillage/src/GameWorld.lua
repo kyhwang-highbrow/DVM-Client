@@ -1220,7 +1220,7 @@ function GameWorld:getTargetList(char, x, y, team_type, formation_type, rule_typ
     elseif (team_type == 'enemy') then
         local l_attackable_group_key = {}
 
-        if (rule_type == 'all') then
+        if (rule_type == 'all' or t_data['all']) then
             if (char.m_bLeftFormation) then
                 l_attackable_group_key = self:getEnemyGroups()
             else
@@ -1257,7 +1257,8 @@ function GameWorld:getTargetList(char, x, y, team_type, formation_type, rule_typ
 
         -- 만약 해당 그룹에 적이 하나도 없을 경우 모든 적을 대상으로 변경
         if (for_mgr_delegate:isEmpty() and rule_type ~= 'all') then
-            return self:getTargetList(char, x, y, team_type, formation_type, 'all', t_data)
+            t_data['all'] = true
+            return self:getTargetList(char, x, y, team_type, formation_type, rule_type, t_data)
         end
 
     elseif (team_type == 'all') then
