@@ -141,7 +141,7 @@ function GameDragonSkill.st_playDragSkill(self, dt)
     if (self:getStep() == 0) then
         if (self:isBeginningStep()) then
             -- 클랜 던전의 경우 배속 조절
-            if (NEW_CLAN_DUNGEON and world.m_gameMode == GAME_MODE_CLAN_RAID) then
+            if (world.m_gameMode == GAME_MODE_CLAN_RAID) then
                 world.m_gameTimeScale:set(1.33)
             end
 
@@ -306,7 +306,7 @@ function GameDragonSkill.st_playDragSkill(self, dt)
     elseif (self:getStep() == 6) then
         if (dragon.m_state ~= 'delegate') then
             -- 클랜 던전의 경우 배속 조절
-            if (NEW_CLAN_DUNGEON and world.m_gameMode == GAME_MODE_CLAN_RAID) then
+            if (world.m_gameMode == GAME_MODE_CLAN_RAID) then
                 world.m_gameTimeScale:reset()
             end
 
@@ -753,7 +753,7 @@ function GameDragonSkill:doPlay(unit, skip)
             skip_mode = skip
         end
 
-        if (NEW_CLAN_DUNGEON and self.m_world.m_gameMode == GAME_MODE_CLAN_RAID) then
+        if (self.m_world.m_gameMode == GAME_MODE_CLAN_RAID) then
             -- 클랜 던전의 경우 무조건 스킵
             skip_mode = true
 
@@ -774,10 +774,6 @@ function GameDragonSkill:doPlay(unit, skip)
     self:setFocusingUnit(unit)
 
     if (unit:getCharType() == 'tamer') then
-        if (not NEW_CLAN_DUNGEON) then
-            self.m_bSkipMode = false
-        end
-
         self:changeState(STATE.PLAY_TAMER_SKILL)
     else
         self:changeState(STATE.PLAY_DRAG_SKILL)

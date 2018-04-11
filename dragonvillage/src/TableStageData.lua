@@ -12,12 +12,7 @@ local THIS = TableStageData
 -- function init
 -------------------------------------
 function TableStageData:init()
-    if (NEW_CLAN_DUNGEON) then
-        self.m_tableName = 'stage_data_new'
-    else
-        self.m_tableName = 'stage_data'
-    end
-
+    self.m_tableName = 'stage_data'
     self.m_orgTable = TABLE:get(self.m_tableName)
 end
 
