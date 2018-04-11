@@ -283,7 +283,7 @@ end
 -- @override
 -------------------------------------
 function UI_DragonSkillEnhance:getDragonMaterialList(doid)
-    local t_dragon_data = g_dragonsData:getDragonDataFromUid(doid)
+    local t_dragon_data = g_dragonsData:getDragonDataFromUid(doid) -- StructDragonObject
     
     local dragon_dic = g_dragonsData:getDragonListWithSlime()
 
@@ -294,6 +294,9 @@ function UI_DragonSkillEnhance:getDragonMaterialList(doid)
 	local ret_dic = {}
 	local did_digit = math_floor(t_dragon_data['did']/10)
 	local tar_digit
+    local birthgrade = t_dragon_data:getBirthGrade()
+    
+    -- v = StructDragonObject or StructSlimeObject
     for oid, v in pairs(dragon_dic) do
 
 		-- 드래곤의 경우 동일종 추가
@@ -306,7 +309,11 @@ function UI_DragonSkillEnhance:getDragonMaterialList(doid)
 		-- 스킬 강화 슬라임 추가
 		else
             if (v:getSlimeType() == 'skill') then
-			    ret_dic[oid] = v
+
+                -- 스킬 슬라임은 태생이 같아야 사용 가능
+                if (v:getBirthGrade() == birthgrade) then
+			        ret_dic[oid] = v
+                end
             end
 		end
     end

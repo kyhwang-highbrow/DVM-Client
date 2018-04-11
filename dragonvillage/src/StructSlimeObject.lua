@@ -50,6 +50,16 @@ function StructSlimeObject:applyTableData(data)
     local replacement = {}
     --replacement['id'] = 'soid'
 
+    -- 2018.04.11 sgkim
+    -- 기존 스킬 슬라임은 등급 구분 없이 129215 아이디로만 개발되어 있었음
+    -- 3, 4, 5 태생의 스킬 슬라임을 구분하면서 기존에 1태생으로 되어있는 스킬 슬라임을
+    -- 5성으로 취급할 필요가 생김
+    if (data['slime_id'] == 129215) then
+        if (data['grade'] == 1) then
+            data['grade'] = 5
+        end
+    end
+
     for i,v in pairs(data) do
         local key = replacement[i] and replacement[i] or i
         self[key] = v

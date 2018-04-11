@@ -83,6 +83,7 @@ function ServerData_Book:getBookList(role_type, attr_type)
 		-- 직업군, 속성 걸러내기
 		if (role_type ~= 'all') and (role_type ~= v['role']) then
         elseif (attr_type ~= 'all') and (attr_type ~= v['attr']) then
+        elseif (129215 == v['slime']) then -- 스킬 슬라임이 등급별(129235, 129245, 129255)로 개편되면서 기존 스슬은 도감에서 노출되지 않도록 변경
 
         -- 위 조건들에 해당하지 않은 경우만 추가
         else
