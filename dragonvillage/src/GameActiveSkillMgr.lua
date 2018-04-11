@@ -13,6 +13,8 @@ GameActiveSkillMgr = class({
 
         m_lWork = 'table',      -- 작업 리스트
         m_mWork = 'table',
+
+        m_bPauseWorld = 'boolean',
      })
 
 -------------------------------------
@@ -23,6 +25,8 @@ function GameActiveSkillMgr:init(world)
 
     self.m_lWork = {}
     self.m_mWork = {}
+
+    self.m_bPauseWorld = false
 end
 
 -------------------------------------
@@ -44,7 +48,9 @@ function GameActiveSkillMgr:update(dt)
     end
 
     -- 만약 다음 프레임까지 일시정지 상태였다면 해제
-    do
+    if (self.m_bPauseWorld) then
+        self.m_bPauseWorld = false
+
         self.m_world:setTemporaryPause(false, nil, INGAME_PAUSE__NEXT_FRAME)
     end
 end
@@ -169,6 +175,8 @@ function GameActiveSkillMgr:addWork(unit, pos_x, pos_y, is_touch_event)
     if (is_touch_event) then
         -- 일시 정지
         self.m_world:setTemporaryPause(true, nil, INGAME_PAUSE__NEXT_FRAME)
+
+        self.m_bPauseWorld = true
     end
 end
 
