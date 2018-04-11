@@ -5,6 +5,7 @@ local PARENT = SkillScript
 -------------------------------------
 SkillScript_AncientDragon = class(PARENT, {
     m_hitCount = 'number',
+    m_hitCountForCancel = 'number',
 })
 
 -------------------------------------
@@ -12,6 +13,20 @@ SkillScript_AncientDragon = class(PARENT, {
 -------------------------------------
 function SkillScript_AncientDragon:init()
     self.m_hitCount = 0
+    self.m_hitCountForCancel = 10
+end
+
+-------------------------------------
+-- function init_skill
+-------------------------------------
+function SkillScript_AncientDragon:init_skill(script_name, duration)
+    PARENT.init_skill(self, script_name, duration)
+
+    -- 스킬 캔슬에 필요한 히트수 저장
+    local value = TableStageData():getValue(self.m_world.m_stageID, 'val_1')
+    if (value and value ~= '') then
+        self.m_hitCountForCancel = tonumber(value)
+    end
 end
 
 -------------------------------------
@@ -58,7 +73,9 @@ function SkillScript_AncientDragon.st_charge(owner, dt)
         unit.m_animator:changeAni('skill_1_appear', false)
     end
 
-    if (owner.m_stateTimer > 15) then
+    if (owner.m_hitCount >= owner.m_hitCountForCancel) then
+        owner:changeState('cancel')
+    elseif (owner.m_stateTimer > 15) then
         owner:changeState('attack')
     end
 end
@@ -133,7 +150,7 @@ function SkillScript_AncientDragon:onEvent(event_name, t_event, ...)
 
 	if (string.find(event_name, 'under_atk')) then
         if (t_event['body_key'] == 'bone90') then
-            self.m_hitCount = m_hitCount + 1
+            self.m_hitCount = self.m_hitCount + 1
         end
     else
         PARENT.onEvent(self, event_name, t_event, ...)
