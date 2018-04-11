@@ -22,8 +22,8 @@ function GameWorldForDoubleTeam:init()
         local multi_deck_mgr = MultiDeckMgr(MULTI_DECK_MODE.CLAN_RAID)
         sel_deck = multi_deck_mgr:getMainDeck()
 
-    elseif (self.m_gameMode == GAME_MODE_ANICENT_RUIN) then
-        local multi_deck_mgr = MultiDeckMgr(MULTI_DECK_MODE.CLAN_RAID)
+    elseif (self.m_gameMode == GAME_MODE_ANCIENT_RUIN) then
+        local multi_deck_mgr = MultiDeckMgr(MULTI_DECK_MODE.ANCIENT_RUIN)
         sel_deck = multi_deck_mgr:getMainDeck()
 
     else
@@ -100,7 +100,7 @@ function GameWorldForDoubleTeam:initGame(stage_name)
     -- 웨이브 매니져 생성
     if (self.m_gameMode == GAME_MODE_CLAN_RAID) then
         self.m_waveMgr = WaveMgr_ClanRaid(self, stage_name, self.m_stageID, self.m_bDevelopMode)
-    elseif (self.m_gameMode == GAME_MODE_ANICENT_RUIN) then
+    elseif (self.m_gameMode == GAME_MODE_ANCIENT_RUIN) then
         self.m_waveMgr = WaveMgr(self, stage_name, self.m_stageID, self.m_bDevelopMode)
     else
         error('invalid game mode : ' .. self.m_gameMode)

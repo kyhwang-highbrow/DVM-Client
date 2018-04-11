@@ -567,6 +567,17 @@ function UINavigatorDefinition:goTo_nest_nightmare(...)
 end
 
 -------------------------------------
+-- function goTo_ancient_ruin
+-- @brief 고대 유적 던전으로 이동
+-- @usage UINavigatorDefinition:goTo('ancient_ruin', stage_id)
+-------------------------------------
+function UINavigatorDefinition:goTo_ancient_ruin(...)
+    local args = {...}
+    local stage_id = args[1]
+    self:goTo_nestdungeon_core(stage_id, NEST_DUNGEON_ANCIENT_RUIN)
+end
+
+-------------------------------------
 -- function goTo_nestdungeon_core
 -- @brief 네스트던전으로 이동
 -- @usage UINavigatorDefinition:goTo('nestdungeon', stage_id, dungeon_type)

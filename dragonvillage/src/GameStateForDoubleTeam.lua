@@ -118,7 +118,7 @@ end
 -- function setBossHp
 -------------------------------------
 function GameStateForDoubleTeam:makeResultUI(is_success)
-    if (self.m_world.m_gameMode == GAME_MODE_ANICENT_RUIN) then
+    if (self.m_world.m_gameMode == GAME_MODE_ANCIENT_RUIN) then
         local scene = SceneGame(nil, ANCIENT_RUIN_STAGE_ID, 'stage_' .. ANCIENT_RUIN_STAGE_ID)
         scene:runScene()
     else

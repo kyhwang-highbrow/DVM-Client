@@ -58,6 +58,8 @@ function UI_NestDungeonScene:initParentVariable()
 		self.m_titleStr = Str('악몽 던전')
 	elseif (self.m_dungeonType == NEST_DUNGEON_GOLD) then
 		self.m_titleStr = Str('황금 던전')
+    elseif (self.m_dungeonType == NEST_DUNGEON_ANCIENT_RUIN) then
+		self.m_titleStr = Str('고대 유적 던전')
 	end
     self.m_uiBgm = 'bgm_lobby'
 end

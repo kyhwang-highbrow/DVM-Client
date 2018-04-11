@@ -560,6 +560,9 @@ function ServerData_NestDungeon:getStageCategoryStr(stage_id)
 
     elseif (dungeon_mode == NEST_DUNGEON_GOLD) then
         mode_str = Str('황금 던전')
+    
+    elseif (dungeon_mode == NEST_DUNGEON_ANCIENT_RUIN) then
+        mode_str = Str('고대 유적 던전')
 
     else
         error('dungeon_mode : ' .. dungeon_mode)

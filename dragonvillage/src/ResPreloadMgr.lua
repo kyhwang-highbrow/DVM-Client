@@ -69,7 +69,7 @@ function ResPreloadMgr:loadFromStageId(stage_id)
 
         if (game_mode == GAME_MODE_INTRO) then
             self.m_lPreloadList = self:makeResListForIntro()
-        elseif (game_mode == GAME_MODE_CLAN_RAID or game_mode == GAME_MODE_ANICENT_RUIN) then
+        elseif (game_mode == GAME_MODE_CLAN_RAID or game_mode == GAME_MODE_ANCIENT_RUIN) then
             self.m_lPreloadList = self:makeResListForDoubleTeam(game_mode)
         else
             self.m_lPreloadList = self:makeResListForGame()
@@ -274,8 +274,8 @@ function ResPreloadMgr:makeResListForDoubleTeam(game_mode)
     if (game_mode == GAME_MODE_CLAN_RAID) then
         g_data = MultiDeckMgr(MULTI_DECK_MODE.CLAN_RAID)
 
-    elseif (game_mode == GAME_MODE_ANICENT_RUIN) then
-        g_data = MultiDeckMgr(MULTI_DECK_MODE.CLAN_RAID)
+    elseif (game_mode == GAME_MODE_ANCIENT_RUIN) then
+        g_data = MultiDeckMgr(MULTI_DECK_MODE.ANCIENT_RUIN)
     end
     
     -- 아군 관련 리소스

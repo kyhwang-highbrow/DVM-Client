@@ -278,7 +278,7 @@ function SceneGame:prepare()
         -- 레이어 생성
         self:init_layer()
 
-        if (self.m_gameMode == GAME_MODE_ANICENT_RUIN) then
+        if (self.m_gameMode == GAME_MODE_ANCIENT_RUIN) then
             self.m_gameWorld = GameWorldForDoubleTeam(self.m_gameMode, self.m_stageID, self.m_worldLayer, self.m_gameNode1, self.m_gameNode2, self.m_gameNode3, self.m_inGameUI, self.m_bDevelopMode)
         else
             self.m_gameWorld = GameWorld(self.m_gameMode, self.m_stageID, self.m_worldLayer, self.m_gameNode1, self.m_gameNode2, self.m_gameNode3, self.m_inGameUI, self.m_bDevelopMode)

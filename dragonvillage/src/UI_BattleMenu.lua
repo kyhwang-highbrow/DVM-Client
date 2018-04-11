@@ -244,6 +244,11 @@ function UI_BattleMenu:initDungeonTab()
         table.insert(l_item, 'clan_raid') -- 클랜 던전
     end
 
+    -- 테스트 모드일때 신규 룬 던전 임의로 추가
+    if CppFunctionsClass:isTestMode() then
+        table.insert(l_item, 'ancient_ruin') 
+    end
+
     table.insert(l_item, 'nest_nightmare') -- 악몽 던전
     table.insert(l_item, 'secret_relation') -- 인연 던전
 

@@ -158,8 +158,9 @@ function UI_ReadySceneNew:checkDeckProper()
 
 	local curr_mode = TableDrop():getValue(self.m_stageID, 'mode')
 
-    -- 클랜 던전 별도 처리 
-    if (curr_mode == 'clan') then
+    -- 멀티덱 예외처리 (클랜 던전, 고대 유적 던전)
+    local multi_deck_mgr = self.m_multiDeckMgr 
+    if (multi_deck_mgr) then
         local deck_name = self.m_multiDeckMgr:getDeckName()
         if (deck_name) then
             g_deckData:setSelectedDeck(deck_name)
@@ -371,8 +372,8 @@ function UI_ReadySceneNew:initMultiDeckMode()
         self.m_multiDeckMgr = MultiDeckMgr(MULTI_DECK_MODE.CLAN_RAID, make_deck)
 
     -- @ 고대 유적 던전
-    elseif (self.m_gameMode == GAME_MODE_ANICENT_RUIN) then
-        self.m_multiDeckMgr = MultiDeckMgr(MULTI_DECK_MODE.ANICENT_RUIN, make_deck)
+    elseif (self.m_gameMode == GAME_MODE_ANCIENT_RUIN) then
+        self.m_multiDeckMgr = MultiDeckMgr(MULTI_DECK_MODE.ANCIENT_RUIN, make_deck)
     end
 end
 
@@ -416,8 +417,9 @@ function UI_ReadySceneNew:initUI()
         set_autobtn_off()
 	end
 
-    -- 클랜던전 예외처리
-    if (self.m_gameMode == GAME_MODE_CLAN_RAID) then
+    -- 멀티덱 예외처리 (클랜 던전, 고대 유적 던전)
+    local multi_deck_mgr = self.m_multiDeckMgr
+    if (multi_deck_mgr) then
         vars['clanRaidMenu']:setVisible(true)
         vars['cpNode2']:setVisible(false)
         vars['formationNode']:setPositionX(-230)
@@ -949,6 +951,13 @@ function UI_ReadySceneNew:click_startBtn()
             local scene = SceneGame(nil, ANCIENT_RUIN_STAGE_ID, 'stage_' .. ANCIENT_RUIN_STAGE_ID)
             scene:runScene()
         end)
+        return
+    end
+
+    -- 고대 유적 던전 테스트
+    if (self.m_gameMode == GAME_MODE_ANCIENT_RUIN) then
+        local scene = SceneGame(nil, stage_id, 'stage_' .. stage_id)
+        scene:runScene()
         return
     end
 

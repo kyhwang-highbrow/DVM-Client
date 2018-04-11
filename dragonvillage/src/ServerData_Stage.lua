@@ -79,7 +79,7 @@ function ServerData_Stage:getStageName(stage_id)
         name = Str('황금 던전')
 
     -- 고대유적던전
-    elseif (game_mode == GAME_MODE_ANICENT_RUIN) then
+    elseif (game_mode == GAME_MODE_ANCIENT_RUIN) then
         name = Str('고대 유적 던전')
 
     end
@@ -128,8 +128,8 @@ function ServerData_Stage:isOpenStage(stage_id)
         ret = g_clanRaidData:isOpenClanRaid()
 
     -- 고대 유적 던전 모드
-    elseif (game_mode == GAME_MODE_ANICENT_RUIN) then
-        ret = g_clanRaidData:isOpenClanRaid()
+    elseif (game_mode == GAME_MODE_ANCIENT_RUIN) then
+        ret = true
 
     end
 
@@ -170,7 +170,7 @@ function ServerData_Stage:getNextStage(stage_id)
         ret = g_clanRaidData:getNextStageID(stage_id)
 
     -- 고대 유적 던전 모드
-    elseif (game_mode == GAME_MODE_ANICENT_RUIN) then
+    elseif (game_mode == GAME_MODE_ANCIENT_RUIN) then
         ret = g_clanRaidData:getNextStageID(stage_id)
     end
 
@@ -240,7 +240,7 @@ function ServerData_Stage:getSimplePrevStage(stage_id)
         ret = g_clanRaidData:getSimplePrevStageID(stage_id)
 
     -- 고대 유적 던전 모드
-    elseif (game_mode == GAME_MODE_ANICENT_RUIN) then
+    elseif (game_mode == GAME_MODE_ANCIENT_RUIN) then
         ret = g_clanRaidData:getSimplePrevStageID(stage_id)
     end
 
