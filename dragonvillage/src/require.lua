@@ -161,7 +161,8 @@ local t_module = {
     'ServerData_DragonDiary',
     'ServerData_EventGoldDungeon',
     'ServerData_Season',
-
+    'ServerData_NaverEvent',
+    
     -- Interface
     'IEventDispatcher',
 	'IEventListener',
@@ -334,6 +335,7 @@ local t_module = {
 	'TablePickDragon',
     'TableTeamBonus',
     'TableDragonTransform',
+    'TableNaverEvent',
 
     -- Scene
     'SceneCommon',

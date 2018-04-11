@@ -876,6 +876,11 @@ function UI_TitleScene:workGetServerInfo()
                     g_seasonData:applyInfo(ret['season_info'])
                 end
 
+                if (ret['naver_info']) then
+                    cclog('# 네이버 카페 이벤트 정보')
+                    g_naverEventData:response_naverEventInfo(ret['naver_info'])
+                end
+
                 -- shop 관련
                 if (ret['shop_list']) then
                     cclog('# 상점 리스트')

@@ -135,61 +135,45 @@ function NaverCafeManager:naverCafeStartImageWrite(fileUri)
 end
 
 -------------------------------------
--- function naverCafeStartWithArticle
+-- function naverCafeStartWithArticleByKey
 -- @brief 네이버 카페에 특정게시글 보며 열기 
 -------------------------------------
-function NaverCafeManager:naverCafeStartWithArticle(article_key, server_name, lang)
-    -- skip확인은 함수 아래 부분에서 처리 (window에서 해당 article의 id까지 찾아오는지 확인이 필요하기 때문)
-
-    local function error_log(msg)
-        cclog('==============================================================')
-        cclog('## function NaverCafeManager:naverCafeStartWithArticle')
-        cclog('## msg : ' .. tostring(msg))
-        cclog('==============================================================')
-    end
-
+function NaverCafeManager:naverCafeStartWithArticleByKey(article_key, server_name, lang)
     -- 파라미터 확인
     if (not article_key) then
-        error_log('article_key가 nil입니다.')
+        cclog('article_key가 nil입니다.')
         return
     end
 
     -- 테이블 확인
     local table_naver_article = TABLE:get('table_naver_article')
     if (not table_naver_article) then
-        error_log('table_naver_article가 nil입니다.')
+        cclog('table_naver_article가 nil입니다.')
         return
     end
 
     -- 테이블에 해당 값 확인
     local t_data = table_naver_article[article_key]
     if (not t_data) then
-        error_log('table_naver_article에서 ' .. article_key .. '값이 없습니다.')
+        cclog('table_naver_article에서 ' .. article_key .. '값이 없습니다.')
         return
     end
 
-    -- 채널 선택 (현재 선택된 채널을 알 수 없는 상태여서 서버와 언어로 다시 채널을 설정)
-    local _server_name = (server_name or g_localData:getServerName())
-    local _lang = (lang or g_localData:getLang())
-    local channelID = self:naverInitGlobalPlug(_server_name, _lang)
-    local key = T_ARTICLE_TABLE_KEY[channelID]
-    local artice_id = t_data[key]
-
-    cclog('NaverCafeManager:naverCafeStartWithArticle')
-    cclog('channelID: ' .. tostring(channelID))
-    cclog('channel_name : ' .. tostring(key))
-    cclog('artice_id : ' .. tostring(artice_id))
-
-    if (skip()) then
-        -- 윈도우에서 확인용으로 사용하는 것이니 번역 필요 없음
-        if (isWin32()) then 
-            ccdisplay('channel_name : ' .. tostring(key))
-            ccdisplay('artice_id : ' .. tostring(artice_id))
-        end
-        return
-    end
+    local channel_code = self:naverCafeGetChannelCode()
+    local article_id = t_data[channel_code]
+    cclog('article id : ' .. article_id)
 
     -- 네이버 SDK 호출
+    self:naverCafeStartWithArticle(artice_id)
+end
+
+-------------------------------------
+-- function naverCafeStartWithArticle
+-------------------------------------
+function NaverCafeManager:naverCafeStartWithArticle(artice_id)
+    if (skip()) then
+        return
+    end
     PerpleSDK:naverCafeStartWithArticle(artice_id)
 end
 
@@ -201,14 +185,11 @@ function NaverCafeManager:naverCafeSetCallback()
     if (skip()) then
         return
     end
-
-    --콜백 세팅할때 세팅되는게 필요해서
-    --현재는 스크린샷 기능만 콜백으로 사용
     PerpleSDK:naverCafeSetCallback(function(ret, info) self:onNaverCafeCallback(ret, info) end)
 end
 
 -------------------------------------
--- function naverCafeSetCallback
+-- function onNaverCafeCallback
 -- @brief 네이버 카페에 callback 세팅
 -------------------------------------
 function NaverCafeManager:onNaverCafeCallback(ret, info)
@@ -262,19 +243,54 @@ function NaverCafeManager:onNaverCafeCallback(ret, info)
 	elseif (ret == 'error') then
 
     end
+
+    -- event 처리
+    self:naverCafeEvent(ret, info)
 end
 
-local function isUseChannelCode( ver )
-    local server = CppFunctionsClass:getTargetServer()
-    if server == "DEV" then
-        return (ver == "0.4.9" or ver == "9.9.9")
-    elseif server == "QA" then
-        return ver == "0.5.0"
-    elseif server == "LIVE" then
-        return ver == "1.1.0"
-    end
+-------------------------------------
+-- function 
+-- @brief 
+-------------------------------------
+function NaverCafeManager:naverCafeEvent(event_type, info)
+    cclog('## naverCafeEvent')
+    cclog(event_type)
+    ccdump(info)
+    cclog('###############################')
 
-    return false
+    -- 활성 이벤트 체크
+    local l_active_event = TableNaverEvent:getActiveEventList()
+    ccdump(l_active_event)
+
+    -- 조건 충족 체크
+    local condition = nil
+    local event_key = nil
+    local channel_code = self:naverCafeGetChannelCode()
+    for i, t_event in ipairs(l_active_event) do
+        
+        event_key = t_event['event_key']
+        if (event_type == 'article') then
+            condition = info['menuId']
+        else
+            condition = info
+        end
+        
+        -- 이벤트 수행 여부 확인
+        if not (g_naverEventData:isAlreadyDone(event_key)) then
+    
+            cclog('## naver cafe plug event request : ', event_key, event_type, condition)
+            if (event_type == t_event['event_type']) then
+                if (condition == t_event['cond_' .. channel_code]) then
+                    local function finish_cb()
+                        self:naverCafeStop()
+                    end
+                    g_naverEventData:request_naverEventReward(event_key, event_type, finish_cb)
+                    break
+                end
+            end
+        end
+    end
+    
 end
 
 -------------------------------------
@@ -315,7 +331,7 @@ function NaverCafeManager:naverInitGlobalPlug(server, lang, isSaved)
     cclog('channelCode : ' .. (channelCode or 'not') )
 
     PerpleSDK:naverCafeInitGlobalPlug(NAVER_NEO_ID_CONSUMER_KEY, NAVER_COMMUNITY_ID, channelID)
-    if channelCode and isUseChannelCode( CppFunctionsClass:getAppVer() ) then        
+    if channelCode then        
         PerpleSDK:naverCafeSetChannelCode(channelCode)
     end
 

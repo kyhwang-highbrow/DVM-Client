@@ -202,6 +202,9 @@ function ServerData:getInstance()
     -- 시즌
     g_seasonData = ServerData_Season(g_serverData)
 
+    -- 네이버 이벤트
+    g_naverEventData = ServerData_NaverEvent(g_serverData)
+    
     return g_serverData
 end
 
