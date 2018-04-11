@@ -158,6 +158,8 @@ end
 -- function onDying
 -------------------------------------
 function SkillScript_AncientDragon:onDying()
+    PARENT.onDying(self)
+
     -- 이펙트 삭제
     self:removeEffect()
 end
@@ -182,8 +184,15 @@ function SkillScript_AncientDragon:onEvent(event_name, t_event, ...)
     local t_event = t_event or {}
 
 	if (string.find(event_name, 'under_atk')) then
-        if (t_event['body_key'] == WEAK_POINT_BONE) then
-            self.m_hitCount = self.m_hitCount + 1
+        local body_key = t_event['body_key']
+        if (body_key) then
+            local body = self.m_owner:getBody(body_key)
+            if (not body) then
+                cclog('invalid body key : ' .. body_key)
+            elseif (body['bone'] == WEAK_POINT_BONE) then
+                self.m_hitCount = self.m_hitCount + 1
+                cclog('self.m_hitCount : ' .. self.m_hitCount)
+            end
         end
     else
         PARENT.onEvent(self, event_name, t_event, ...)

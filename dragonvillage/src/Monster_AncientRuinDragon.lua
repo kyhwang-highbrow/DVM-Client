@@ -7,7 +7,7 @@ Monster_AncientRuinDragon = class(PARENT, {
     m_cbAppearEnd   = 'function',       -- appear 상태가 끝났을때 호출될 콜백 함수
 
     m_bCreateParts  = 'boolean',
-    m_bExistDron    = 'boolean',
+    m_bExistDrone    = 'boolean',
 })
 
 -------------------------------------
@@ -19,7 +19,7 @@ function Monster_AncientRuinDragon:init(file_name, body, ...)
     self.m_bUseCastingEffect = false
 
     self.m_bCreateParts = false
-    self.m_bExistDron = false
+    self.m_bExistDrone = false
 end
 
 -------------------------------------
@@ -185,7 +185,7 @@ end
 -- function update
 -------------------------------------
 function Monster_AncientRuinDragon:update(dt)
-    self.m_bExistDron = false
+    self.m_bExistDrone = false
 
     -- 드론이 존재하는지 여부 저장
     local list
@@ -200,7 +200,7 @@ function Monster_AncientRuinDragon:update(dt)
         if (not v:isDead()) then
             local t_char = v:getCharTable()
             if (t_char and t_char['type'] == 'ancient_ruin_dragon_drone') then
-                self.m_bExistDron = true
+                self.m_bExistDrone = true
                 break
             end
         end
@@ -245,7 +245,7 @@ function Monster_AncientRuinDragon:checkAttributeCounter(attacker_char)
     local t_attr_effect, attr_synastry = PARENT.checkAttributeCounter(self, attacker_char)
 
     -- 드론이 존재할 경우 특수 효과
-    if (self.m_bExistDron) then
+    if (self.m_bExistDrone) then
         -- 자신의 약점이 아닌 속성의 공격을 받았을 시 데미지 감소 처리
         if (attr_synastry ~= 1) then
             local value = g_constant:get('INGAME', 'ANCIENT_RUIN_BOSS_DRON_DAMAGE_REDUCE') or 0
