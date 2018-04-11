@@ -1256,7 +1256,7 @@ function GameWorld:getTargetList(char, x, y, team_type, formation_type, rule_typ
         end
 
         -- 만약 해당 그룹에 적이 하나도 없을 경우 모든 적을 대상으로 변경
-        if (for_mgr_delegate:isEmpty() and rule_type ~= 'all') then
+        if (for_mgr_delegate:isEmpty() and rule_type ~= 'all' and not t_data['all']) then
             t_data['all'] = true
             return self:getTargetList(char, x, y, team_type, formation_type, rule_type, t_data)
         end
