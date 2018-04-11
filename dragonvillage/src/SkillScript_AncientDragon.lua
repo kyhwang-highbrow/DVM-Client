@@ -1,11 +1,15 @@
 local PARENT = SkillScript
 
+local WEAK_POINT_BONE = 'bone79'
+
 -------------------------------------
 -- class SkillScript_AncientDragon
 -------------------------------------
 SkillScript_AncientDragon = class(PARENT, {
     m_hitCount = 'number',
     m_hitCountForCancel = 'number',
+
+    m_effectWeakPoint = '',
 })
 
 -------------------------------------
@@ -14,6 +18,7 @@ SkillScript_AncientDragon = class(PARENT, {
 function SkillScript_AncientDragon:init()
     self.m_hitCount = 0
     self.m_hitCountForCancel = 10
+    self.m_effectWeakPoint = nil
 end
 
 -------------------------------------
@@ -26,6 +31,14 @@ function SkillScript_AncientDragon:init_skill(script_name, duration)
     local value = TableStageData():getValue(self.m_world.m_stageID, 'val_1')
     if (value and value ~= '') then
         self.m_hitCountForCancel = tonumber(value)
+    end
+
+    -- 약점 이펙트 생성
+    if (not self.m_effectWeakPoint) then
+        self.m_effectWeakPoint = MakeAnimator('res/effect/effect_weak_point/effect_weak_point.vrp')
+        self.m_effectWeakPoint:changeAni('idle', true)
+        self.m_effectWeakPoint:setVisible(false)
+        self.m_world:getMissileNode():addChild(self.m_effectWeakPoint.m_node, 1)
     end
 end
 
@@ -67,12 +80,18 @@ end
 -------------------------------------
 function SkillScript_AncientDragon.st_charge(owner, dt)
 	if (owner.m_stateTimer == 0) then
-        local unit = owner.m_owner
-
         -- 주체 유닛 애니 설정
+        local unit = owner.m_owner
         unit.m_animator:changeAni('skill_1_appear', false)
+
+        -- 약점 이펙트 표시
+        if (owner.m_effectWeakPoint) then
+            owner.m_effectWeakPoint:setVisible(true)
+        end
     end
 
+    owner:updateEffectPos()
+    
     if (owner.m_hitCount >= owner.m_hitCountForCancel) then
         owner:changeState('cancel')
     elseif (owner.m_stateTimer > 15) then
@@ -85,9 +104,11 @@ end
 -------------------------------------
 function SkillScript_AncientDragon.st_attack(owner, dt)
 	if (owner.m_stateTimer == 0) then
-        local unit = owner.m_owner
+        -- 이펙트 삭제
+        owner:removeEffect()
 
         -- 주체 유닛 애니 설정
+        local unit = owner.m_owner
         unit.m_animator:changeAni('skill_1_idle', true)
 
         -- 미사일 발사
@@ -104,9 +125,11 @@ end
 -------------------------------------
 function SkillScript_AncientDragon.st_cancel(owner, dt)
 	if (owner.m_stateTimer == 0) then
-        local unit = owner.m_owner
+        -- 이펙트 삭제
+        owner:removeEffect()
 
         -- 주체 유닛 애니 설정
+        local unit = owner.m_owner
         unit.m_animator:changeAni('skill_1_cancel', false)
         unit.m_animator:addAniHandler(function()
             owner:changeState('dying')
@@ -119,14 +142,24 @@ end
 -------------------------------------
 function SkillScript_AncientDragon.st_disappear(owner, dt)
 	if (owner.m_stateTimer == 0) then
-        local unit = owner.m_owner
+        -- 이펙트 삭제
+        owner:removeEffect()
 
         -- 주체 유닛 애니 설정
+        local unit = owner.m_owner
         unit.m_animator:changeAni('skill_1_disappear', false)
         unit.m_animator:addAniHandler(function()
             owner:changeState('dying')
         end)
     end
+end
+
+-------------------------------------
+-- function onDying
+-------------------------------------
+function SkillScript_AncientDragon:onDying()
+    -- 이펙트 삭제
+    self:removeEffect()
 end
 
 -------------------------------------
@@ -149,11 +182,36 @@ function SkillScript_AncientDragon:onEvent(event_name, t_event, ...)
     local t_event = t_event or {}
 
 	if (string.find(event_name, 'under_atk')) then
-        if (t_event['body_key'] == 'bone90') then
+        if (t_event['body_key'] == WEAK_POINT_BONE) then
             self.m_hitCount = self.m_hitCount + 1
         end
     else
         PARENT.onEvent(self, event_name, t_event, ...)
+    end
+end
+
+
+-------------------------------------
+-- function updateEffectPos
+-------------------------------------
+function SkillScript_AncientDragon:updateEffectPos()
+    if (self.m_effectWeakPoint) then
+        local unit = self.m_owner
+        local bone_pos = unit.m_animator.m_node:getBonePosition(WEAK_POINT_BONE)
+        local x = unit.pos['x'] + bone_pos['x'] * unit.m_animator.m_node:getScaleX()
+        local y = unit.pos['y'] + bone_pos['y'] * unit.m_animator.m_node:getScaleY()
+        
+        self.m_effectWeakPoint:setPosition(x, y)
+    end
+end
+
+-------------------------------------
+-- function removeEffect
+-------------------------------------
+function SkillScript_AncientDragon:removeEffect()
+    if (self.m_effectWeakPoint) then
+        self.m_effectWeakPoint:release()
+        self.m_effectWeakPoint = nil
     end
 end
 

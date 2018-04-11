@@ -249,6 +249,10 @@ function Monster_AncientRuinDragon:checkAttributeCounter(attacker_char)
         -- 자신의 약점이 아닌 속성의 공격을 받았을 시 데미지 감소 처리
         if (attr_synastry ~= 1) then
             local value = g_constant:get('INGAME', 'ANCIENT_RUIN_BOSS_DRON_DAMAGE_REDUCE') or 0
+
+            if (not t_attr_effect['damage']) then
+                t_attr_effect['damage'] = 0
+            end
             t_attr_effect['damage'] = t_attr_effect['damage'] - value
         end
     end
