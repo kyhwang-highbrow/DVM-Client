@@ -7,7 +7,7 @@ TableNaverEvent = class(PARENT, {
     })
 
     
-local THIS = TableDragon
+local THIS = TableNaverEvent
 
 -------------------------------------
 -- function init

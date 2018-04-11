@@ -63,7 +63,11 @@ function ServerData_NaverEvent:request_naverEventReward(event_key, event_type, f
 
     -- 성공 콜백
     local function success_cb(ret)
-        ItemObtainResult(ret, true)
+        local l_item = ret['mail_item_info']
+        local msg = Str('보상이 우편함으로 전송되었습니다.')
+        local ok_btn_cb = nil
+        UI_ObtainPopup(l_item, msg, ok_btn_cb)
+
         self.m_lDoneList = ret['done_list']
 
         if (finish_cb) then
