@@ -101,7 +101,7 @@ function StructRuneSetObject:getRuneSetStatus()
             end
             l_multi_status[stat_type] = l_multi_status[stat_type] + value
 
-        else
+        elseif (stat_type) then
             error('# action : ' .. action)
 
         end

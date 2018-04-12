@@ -346,6 +346,9 @@ function GameWorldColosseum:makeHeroDeck()
                 hero.m_statusCalc:applyStageBonus(self.m_stageID)
                 hero:setStatusCalc(hero.m_statusCalc)
 
+                -- 룬세트 적용
+                
+
                 -- 팀보너스 적용
                 for i, teambonus_data in ipairs(l_teambonus_data) do
                     TeamBonusHelper:applyTeamBonusToDragonInGame(teambonus_data, hero)
@@ -428,6 +431,8 @@ function GameWorldColosseum:makeEnemyDeck()
                 -- 스테이지 버프 적용
                 enemy.m_statusCalc:applyStageBonus(self.m_stageID)
                 enemy:setStatusCalc(enemy.m_statusCalc)
+
+                -- 룬세트 적용
 
                 -- 팀보너스 적용
                 for i, teambonus_data in ipairs(l_teambonus_data) do

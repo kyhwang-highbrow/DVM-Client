@@ -76,8 +76,14 @@ function TableRuneSet:makeRuneSetDescRichText(set_id)
 
     local option = t_table['key']
     local value = t_table['value']
+    local text = ''
 
-    local text = '{@rune_set}' .. Str('{1} {2}세트', name, need_equip) .. '\n' .. TableOption:getOptionDesc(option, value)
+    if (type(option) == 'number') then
+        text = '{@rune_set}' .. Str('{1} {2}세트', name, need_equip) .. '\n' .. TableDragonSkill():getSkillDesc(option)
+    else
+        text = '{@rune_set}' .. Str('{1} {2}세트', name, need_equip) .. '\n' .. TableOption:getOptionDesc(option, value)
+    end
+    
     return text
 end
 
@@ -97,8 +103,14 @@ function TableRuneSet:makeRuneSetFullNameRichText(set_id)
     local option = t_table['key']
     local value = t_table['value']
     local tag = self:getRuneSetColorRichTag(set_id)
+    local text = ''
 
-    local text = Str('{1}{2}{@DESC} ({3}세트 ', tag, name, need_equip)..TableOption:getOptionDesc(option, value)..')'  
+    if (type(option) == 'number') then
+        text = Str('{1}{2}{@DESC} ({3}세트 ', tag, name, need_equip)..TableDragonSkill():getSkillDesc(option)..')'
+    else
+        text = Str('{1}{2}{@DESC} ({3}세트 ', tag, name, need_equip)..TableOption:getOptionDesc(option, value)..')'  
+    end
+
     return text
 end
 
@@ -114,8 +126,13 @@ function TableRuneSet:makeRuneSetEffectText(set_id)
 
     local option = t_table['key']
     local value = t_table['value']
+    local text = ''
 
-    local text = TableOption:getOptionDesc(option, value)
+    if (type(option) == 'number') then
+        text = TableDragonSkill():getSkillDesc(option)
+    else
+        text = TableOption:getOptionDesc(option, value)
+    end
 
     return text
 end
@@ -229,6 +246,11 @@ function TableRuneSet:getRuneSetStatus(set_id)
 
     local t_table = self:get(set_id)
     local key = t_table['key']
+
+    -- key값이 숫자인 경우면 스킬이기 때문에 스텟 정보는 없음
+    if (type(key) == 'number') then
+        return
+    end 
 
     local table_option = TableOption()
 
