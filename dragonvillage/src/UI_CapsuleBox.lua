@@ -114,6 +114,9 @@ function UI_CapsuleBox:initButton()
 
 	-- 캡슐 코인 구매
 	vars['firstCoinBtn']:registerScriptTapHandler(function() self:click_firstCoinBtn() end)
+
+    -- 캡슐 코인 (5+1) 구매
+    vars['buyBtn']:registerScriptTapHandler(function() self:click_buyBtn() end)
 end
 
 -------------------------------------
@@ -152,6 +155,30 @@ function UI_CapsuleBox:refresh()
 	-- 캡슐 코인 구매 버튼 온오프
 	vars['firstCoinBtn']:setVisible(capsule_coin == 0)
 	vars['firstDrawBtn1']:setVisible(capsule_coin ~= 0)
+
+    -- 캡슐 코인 5+1 패키지 갱신
+    self:refresh_dailyCapsulePackage()
+end
+
+-------------------------------------
+-- function refresh_dailyCapsulePackage
+-- @brief 캡슐코인 5+1 상품은 패키지 등록되지 않은 상태서 UI_CapsuleBox에서만 구입 가능
+-------------------------------------
+function UI_CapsuleBox:refresh_dailyCapsulePackage()
+    local vars = self.vars
+    local struct_product = g_shopDataNew:getDailyCapsulePackage()
+    if (struct_product and struct_product:isItBuyable()) then
+        vars['buyBtn']:setVisible(true)
+        vars['buyBtn']:setAutoShake(true)
+
+        local str_term = struct_product:getMaxBuyTermStr()
+        vars['buyLabel']:setString(str_term)
+
+        local str_price = struct_product:getPriceStr()
+        vars['priceLabel']:setString(str_price)
+    else
+        vars['buyBtn']:setVisible(false)
+    end
 end
 
 -------------------------------------
@@ -306,6 +333,20 @@ end
 function UI_CapsuleBox:click_firstCoinBtn()
 	local package_name = 'package_capsule_coin'
 	g_fullPopupManager:showFullPopup(package_name)
+end
+
+-------------------------------------
+-- function click_buyBtn
+-- @brief 캡슐코인 5+1 구매
+-------------------------------------
+function UI_CapsuleBox:click_buyBtn()
+	local struct_product = g_shopDataNew:getDailyCapsulePackage()
+	if (struct_product) then
+        local refresh_func = function()
+            self:refresh()
+        end
+        struct_product:buy(refresh_func)
+    end
 end
 
 -------------------------------------

@@ -1049,6 +1049,12 @@ function UI_Lobby:update(dt)
 
     local vars = self.vars
 
+    -- 캡슐뽑기 노티 (1개 이상 보유시)
+    do
+        local visible = (g_userData:get('capsule_coin') > 0)
+        vars['capsuleBoxNotiSprite']:setVisible(visible)
+    end
+    
     -- 광고 (자동재화, 선물상자 정보)
     do
         -- 자동줍기

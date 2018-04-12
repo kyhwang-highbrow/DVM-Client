@@ -657,10 +657,9 @@ function ServerData_Shop:request_couponList(cb_func)
 end
 
 -------------------------------------
--- function getLevelUpPackageProduct
--- @brief 레벨업 패키지 상품 정보
+-- function getTargetProduct
 -------------------------------------
-function ServerData_Shop:getLevelUpPackageProduct()
+function ServerData_Shop:getTargetProduct(product_id)
     if (not self.m_dicProduct) then
         return nil
     end
@@ -673,7 +672,7 @@ function ServerData_Shop:getLevelUpPackageProduct()
     end
 
     for _,struct_product in ipairs(l_product_list) do
-        if (struct_product['product_id'] == 90037) then
+        if (struct_product['product_id'] == product_id) then
             return struct_product
         end
     end
@@ -682,28 +681,30 @@ function ServerData_Shop:getLevelUpPackageProduct()
 end
 
 -------------------------------------
+-- function getLevelUpPackageProduct
+-- @brief 레벨업 패키지 상품 정보
+-------------------------------------
+function ServerData_Shop:getLevelUpPackageProduct()
+    local product_id = 90037
+    return self:getTargetProduct(product_id)
+end
+
+-------------------------------------
 -- function getAdventureClearProduct
 -- @brief 모험돌파 패키지 상품 정보
 -------------------------------------
 function ServerData_Shop:getAdventureClearProduct()
-    if (not self.m_dicProduct) then
-        return nil
-    end
+    local product_id = 90057
+    return self:getTargetProduct(product_id)
+end
 
-    local l_product_list = {}
-    for _,v in pairs(self.m_dicProduct) do
-        for _,struct_product in pairs(v) do
-            table.insert(l_product_list, struct_product)
-        end
-    end
-
-    for _,struct_product in ipairs(l_product_list) do
-        if (struct_product['product_id'] == 90057) then
-            return struct_product
-        end
-    end
-    
-    return nil
+-------------------------------------
+-- function getDailyCapsulePackage
+-- @brief 일일 캡슐코인 패키지 (5 + 1) 상품 정보
+-------------------------------------
+function ServerData_Shop:getDailyCapsulePackage()
+    local product_id = 90094
+    return self:getTargetProduct(product_id)
 end
 
 -------------------------------------
