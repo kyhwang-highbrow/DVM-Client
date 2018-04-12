@@ -10,6 +10,9 @@ SkillScript_AncientDragon = class(PARENT, {
     m_hitCountForCancel = 'number',
 
     m_effectWeakPoint = '',
+
+    m_hpGaugeFrame = '',
+    m_hpGauge = '',
 })
 
 -------------------------------------
@@ -18,7 +21,11 @@ SkillScript_AncientDragon = class(PARENT, {
 function SkillScript_AncientDragon:init()
     self.m_hitCount = 0
     self.m_hitCountForCancel = 10
+
     self.m_effectWeakPoint = nil
+
+    self.m_hpGaugeFrame = nil
+    self.m_hpGauge = nil
 end
 
 -------------------------------------
@@ -39,6 +46,22 @@ function SkillScript_AncientDragon:init_skill(script_name, duration)
         self.m_effectWeakPoint:changeAni('idle', true)
         self.m_effectWeakPoint:setVisible(false)
         self.m_world:getMissileNode():addChild(self.m_effectWeakPoint.m_node, 1)
+    end
+
+    -- 게이지 생성
+    if (not self.m_hpGaugeFrame) then
+        self.m_hpGaugeFrame = cc.Sprite:createWithSpriteFrameName('ingame_cha_info_hp_gg_0101.png')
+        self.m_hpGaugeFrame:setPosition(-35, -25)
+        self.m_hpGaugeFrame:setAnchorPoint(cc.p(0, 0.5))
+        self.m_hpGaugeFrame:setDockPoint(cc.p(0, 0.5))
+        self.m_effectWeakPoint:addChild(self.m_hpGaugeFrame, 1)
+    end
+    if (not self.m_hpGauge) then
+        self.m_hpGauge = cc.Sprite:createWithSpriteFrameName('ingame_cha_info_hp_gg_0104.png')
+        self.m_hpGauge:setPosition(-32, -25)
+        self.m_hpGauge:setAnchorPoint(cc.p(0, 0.5))
+        self.m_hpGauge:setDockPoint(cc.p(0, 0.5))
+        self.m_effectWeakPoint:addChild(self.m_hpGauge, 2)
     end
 end
 
@@ -91,6 +114,7 @@ function SkillScript_AncientDragon.st_charge(owner, dt)
     end
 
     owner:updateEffectPos()
+    owner:updateGauge()
     
     if (owner.m_hitCount >= owner.m_hitCountForCancel) then
         owner:changeState('cancel')
@@ -187,10 +211,14 @@ function SkillScript_AncientDragon:onEvent(event_name, t_event, ...)
         local body_key = t_event['body_key']
         if (body_key) then
             local body = self.m_owner:getBody(body_key)
+
             if (not body) then
             elseif (body['bone'] == WEAK_POINT_BONE) then
                 self.m_hitCount = self.m_hitCount + 1
                 cclog('self.m_hitCount : ' .. self.m_hitCount)
+
+                -- 게이지 갱신
+                self:updateGauge()
             end
         end
     else
@@ -214,6 +242,18 @@ function SkillScript_AncientDragon:updateEffectPos()
 end
 
 -------------------------------------
+-- function updateGauge
+-------------------------------------
+function SkillScript_AncientDragon:updateGauge()
+    if (self.m_hpGauge) then
+        local hitCount = math_min(self.m_hitCount, self.m_hitCountForCancel)
+        local ratio = (self.m_hitCountForCancel - hitCount) / self.m_hitCountForCancel
+
+        self.m_hpGauge:setScaleX(ratio)
+    end
+end
+
+-------------------------------------
 -- function removeEffect
 -------------------------------------
 function SkillScript_AncientDragon:removeEffect()
@@ -221,6 +261,9 @@ function SkillScript_AncientDragon:removeEffect()
         self.m_effectWeakPoint:release()
         self.m_effectWeakPoint = nil
     end
+
+    self.m_hpGaugeFrame = nil
+    self.m_hpGauge = nil
 end
 
 -------------------------------------
