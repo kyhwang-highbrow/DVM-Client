@@ -95,8 +95,8 @@ if false then
     -- @param optional sub_menu (level_up, grade, evolution, friendship, skill_enc, rune)
     UINavigator:goTo('dragon_manage', sub_menu)
 
-    -- @brief 테이머 코스튬 상점으로 이동
-    UINavigator:goTo('costume_shop', sel_tamer_id)
+    -- @brief 테이머 코스튬 상점으로 이동 (테이머 관리와 통합)
+    UINavigator:goTo('tamer', sel_tamer_id)
 
     -- @brief 드래곤의 숲으로 이동
     UINavigator:goTo('forest')

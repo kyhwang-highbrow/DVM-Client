@@ -1289,7 +1289,6 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <None Include="..\src\UI_SubscriptionPopup_Ing.lua" />
     <None Include="..\src\UI_TamerCostumeConfirmPopup.lua" />
     <None Include="..\src\UI_TamerCostumeListItem.lua" />
-    <None Include="..\src\UI_TamerCostumeShop.lua" />
     <None Include="..\src\UI_TamerListItem.lua" />
     <None Include="..\src\UI_TamerManagePopup_Colosseum.lua" />
     <None Include="..\src\UI_TamerSkillCard.lua" />
@@ -1315,7 +1314,6 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <None Include="..\src\UI_SkillDetailPopupListItem_Tamer.lua" />
     <None Include="..\src\UI_SkillDetailPopup_Tamer.lua" />
     <None Include="..\src\UI_TableViewCellClass.lua" />
-    <None Include="..\src\UI_TamerManageItem.lua" />
     <None Include="..\src\UI_TamerManagePopup.lua" />
     <None Include="..\src\UI_TitleScene.lua" />
     <None Include="..\src\UI_TitleSceneLoading.lua" />

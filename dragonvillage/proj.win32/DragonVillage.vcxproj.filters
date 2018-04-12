@@ -591,9 +591,6 @@
     <None Include="..\src\UI_TamerManagePopup.lua">
       <Filter>lua\UI</Filter>
     </None>
-    <None Include="..\src\UI_TamerManageItem.lua">
-      <Filter>lua\UI</Filter>
-    </None>
     <None Include="..\src\UI_SkillDetailPopupListItem_Tamer.lua">
       <Filter>lua\UI</Filter>
     </None>
@@ -2701,9 +2698,6 @@
       <Filter>lua\src</Filter>
     </None>
     <None Include="..\src\UI_TamerListItem.lua">
-      <Filter>lua\UI</Filter>
-    </None>
-    <None Include="..\src\UI_TamerCostumeShop.lua">
       <Filter>lua\UI</Filter>
     </None>
     <None Include="..\src\UI_TamerCostumeListItem.lua">

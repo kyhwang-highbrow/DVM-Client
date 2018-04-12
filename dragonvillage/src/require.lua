@@ -1005,9 +1005,7 @@ local t_module = {
 	-- UI : 테이머 관리
 	'UI_TamerManagePopup',
     'UI_TamerManagePopup_Colosseum',
-    'UI_TamerManageItem',
     'UI_TamerListItem',
-    'UI_TamerCostumeShop',
     'UI_TamerCostumeListItem',
     'UI_TamerCostumeConfirmPopup',
 	'UI_SkillDetailPopup_Tamer',

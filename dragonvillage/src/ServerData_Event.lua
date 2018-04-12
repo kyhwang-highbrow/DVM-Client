@@ -324,7 +324,7 @@ function ServerData_Event:goToEventTarget(event_type)
     -- 코스튬 상점
     elseif (event_type == 'costume_shop') then
         local tamer_id = g_tamerData:getCurrTamerID()
-        UINavigator:goTo('costume_shop', tamer_id)
+        UINavigator:goTo('tamer', tamer_id)
 
     -- 단일 상품
     elseif (string.find(event_type, 'shop')) then
@@ -345,7 +345,7 @@ end
 function ServerData_Event:goToEventUrl(url)
     if (url == 'costume_shop') then
         local tamer_id = g_tamerData:getCurrTamerID()
-        UINavigator:goTo('costume_shop', tamer_id)
+        UINavigator:goTo('tamer', tamer_id)
 
     elseif (url == 'shop_topaz') then
         g_shopDataNew:openShopPopup('topaz')
