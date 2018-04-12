@@ -61,7 +61,6 @@ local TableInfo = {
 
 		loading_guide       = {'table_loading_guide',		'gid',		    false},
         table_colosseum_buff= {'table_colosseum_buff',		'wins',		    false},
-        table_inventory     = {'table_inventory',		    'lv',		    false},
 
         -- 드래곤 관리 관련
         grade_info          = {'table_dragon_grade_info',    'grade',        false},
@@ -147,6 +146,9 @@ local TableInfo_fromServer = {
 
         -- 네이버 카페 플러그 이벤트 관리
         ['table_naver_event'] = {'table_naver_event', 'id'},
+
+        -- 가방
+         ['table_inventory'] = {'table_inventory', 'lv'},
     }
 
 -------------------------------------

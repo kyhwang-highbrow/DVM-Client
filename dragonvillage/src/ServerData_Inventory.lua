@@ -155,14 +155,17 @@ function ServerData_Inventory:extendInventory(inven_type, finish_cb)
     local lv = g_userData:get(key_lv)
     local curr_slot = t_inven[lv][key_slot]
 
+    -- 드래곤과 룬쪽 최대 확장이 다를 수 있어서 수정
     local next_info = t_inven[(lv + 1)]
-    -- 최대 확장 상태
     if (not next_info) then
         UIManager:toastNotificationRed(Str('더 이상 확장할 수 없습니다.'))
         return
     end
-
     local next_slot = next_info[key_slot]
+    if (not next_slot) or (next_slot == '') then
+        UIManager:toastNotificationRed(Str('더 이상 확장할 수 없습니다.'))
+        return
+    end
 
     local lvup_price = t_inven[lv][key_price]
     local l_str = seperate(lvup_price, ';')
