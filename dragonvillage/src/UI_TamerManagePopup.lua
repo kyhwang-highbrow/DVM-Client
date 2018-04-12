@@ -95,7 +95,7 @@ function UI_TamerManagePopup:refreshTamerMenu()
     for _, v in pairs(self.m_tamerTalbeView.m_itemList) do
         local ui = v['ui']
         if ui then
-            ui:refresh()
+            ui:refresh(self.m_currTamerID)
         end
     end
 end
@@ -135,6 +135,8 @@ function UI_TamerManagePopup:initTamerTableView()
         local btn = ui.vars['tamerBtn']
         local label = ui.vars['tamerNameLabel']
         local tid = data['tid']
+        ui:refresh(self.m_currTamerID)
+
         self:addTabWithLabel(tid, btn, label)
     end
 

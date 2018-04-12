@@ -40,7 +40,7 @@ end
 -------------------------------------
 -- function refresh
 -------------------------------------
-function UI_TamerListItem:refresh()
+function UI_TamerListItem:refresh(select_tamer)
     local vars = self.vars
     local tamer_data = self.m_tamerData
 
@@ -58,6 +58,6 @@ function UI_TamerListItem:refresh()
     vars['lockSprite']:setVisible(not has_tamer)
 
     -- 사용중
-    local is_use = (g_tamerData:getCurrTamerID() == tid)
+    local is_use = (select_tamer) and (select_tamer == tid) or false
     vars['useSprite']:setVisible(is_use)
 end
