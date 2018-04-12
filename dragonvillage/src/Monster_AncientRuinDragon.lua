@@ -7,7 +7,9 @@ Monster_AncientRuinDragon = class(PARENT, {
     m_cbAppearEnd   = 'function',       -- appear 상태가 끝났을때 호출될 콜백 함수
 
     m_bCreateParts  = 'boolean',
-    m_bExistDrone    = 'boolean',
+    m_bExistDrone   = 'boolean',
+
+    m_effectTimer   = 'number',
 })
 
 -------------------------------------
@@ -20,6 +22,8 @@ function Monster_AncientRuinDragon:init(file_name, body, ...)
 
     self.m_bCreateParts = false
     self.m_bExistDrone = false
+
+    self.m_effectTimer = 0
 end
 
 -------------------------------------
@@ -59,7 +63,7 @@ function Monster_AncientRuinDragon:initPhys(body)
                     body_part.m_mStatusEffectGroggy = self.m_mStatusEffectGroggy
                 end
 
-                self.m_world.m_worldNode:addChild(body_part.m_rootNode, self:getZOrder() + 1)
+                self.m_world.m_worldNode:addChild(body_part.m_rootNode, body_part:getZOrder())
 
                 if (idx > 2) then
                     self.m_world.m_physWorld:addObject(PHYS.ENEMY_BOTTOM, body_part)
@@ -93,6 +97,32 @@ function Monster_AncientRuinDragon:init_monster(t_monster, monster_id, level)
     PARENT.init_monster(self, t_monster, monster_id, level)
 
     if (self.m_animator and self.m_animator.m_node) then
+        local function makeSteamBoneEffect(bone_name, visual_name)
+            -- 해당 본이 존재하는지 체크
+            if (not self.m_animator.m_node:isExistBone(bone_name)) then return end
+
+            -- 본 위치 사용 준비
+            self.m_animator.m_node:useBonePosition(bone_name)
+
+            local effect = MakeAnimator('res/effect/effect_steam/effect_steam.spine')
+            if (effect) then
+                cclog(bone_name .. ' : ' .. visual_name)
+                effect:changeAni(visual_name, false)
+                self.m_mBoneEffect[effect] = bone_name
+            end
+            return effect
+        end
+
+        for i = 1, 4 do
+            local bone_name = string.format('steam_01_%02d', i)
+            local visual_name = string.format('steam_%02d', (i - 1) % 2 + 1)
+            local effect = makeSteamBoneEffect(bone_name, visual_name)
+            if (effect) then
+                effect:setScale(10)
+                self.m_animator.m_node:addChild(effect.m_node, 1)
+            end
+        end
+
         self.m_animator.m_node:setMix('boss_appear', 'idle', 1)
         self.m_animator.m_node:setMix('idle', 'skill_1_appear', 0.2)
         self.m_animator.m_node:setMix('skill_1_appear', 'skill_1_cancel', 0.2)
@@ -185,23 +215,39 @@ end
 -- function update
 -------------------------------------
 function Monster_AncientRuinDragon:update(dt)
-    self.m_bExistDrone = false
-
     -- 드론이 존재하는지 여부 저장
-    local list
+    do
+        self.m_bExistDrone = false
+        
+        local list
 
-    if (self.m_bLeftFormation) then 
-        list = self.m_world:getDragonList()
-    else
-        list = self.m_world:getEnemyList()
+        if (self.m_bLeftFormation) then 
+            list = self.m_world:getDragonList()
+        else
+            list = self.m_world:getEnemyList()
+        end
+
+        for _, v in ipairs(list) do
+            if (not v:isDead()) then
+                local t_char = v:getCharTable()
+                if (t_char and t_char['type'] == 'ancient_ruin_dragon_drone') then
+                    self.m_bExistDrone = true
+                    break
+                end
+            end
+        end
     end
 
-    for _, v in ipairs(list) do
-        if (not v:isDead()) then
-            local t_char = v:getCharTable()
-            if (t_char and t_char['type'] == 'ancient_ruin_dragon_drone') then
-                self.m_bExistDrone = true
-                break
+    -- 이펙트 타이머(해당 이펙트가 loop기능이 안되는 이슈로 임시 처리함)
+    if (not isExistValue(self.m_state, 'appear', 'dying')) then
+        self.m_effectTimer = self.m_effectTimer + dt
+
+        if (self.m_effectTimer > 1) then
+            self.m_effectTimer = 0
+
+            for effect, bone_name in pairs(self.m_mBoneEffect) do
+                local ani = effect.m_currAnimation
+                effect:changeAni(ani, false)
             end
         end
     end

@@ -81,3 +81,11 @@ function Monster_AncientRuinDragonBodyPart:setHighlight(highlightLevel)
         self.m_parentChar:setHighlight(highlightLevel)
     end
 end
+
+-------------------------------------
+-- function getZOrder
+-------------------------------------
+function Monster_AncientRuinDragonBodyPart:getZOrder()
+    local zOrder = WORLD_Z_ORDER.BOSS + 1
+    return zOrder
+end

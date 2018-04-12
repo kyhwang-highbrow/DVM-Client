@@ -438,8 +438,6 @@ function WaveMgr:spawnEnemy_dynamic(enemy_id, level, appear_type, value1, value2
         local enemy_dragon_data = self:getEnemyDragonData(enemy_id, level, isBoss)
         enemy = self.m_world:makeDragonNew(enemy_dragon_data, true)
     end
-
-    local z_order = enemy:getZOrder()
     
     if (isBoss) then
         enemy.m_isBoss = true
@@ -452,7 +450,9 @@ function WaveMgr:spawnEnemy_dynamic(enemy_id, level, appear_type, value1, value2
         -- 보스 특수 스텟 적용
         self:applyBossStatus(enemy)
     end
-    
+
+    local z_order = enemy:getZOrder()
+        
     self.m_world.m_worldNode:addChild(enemy.m_rootNode, z_order)
     self.m_world.m_physWorld:addObject(phys_group, enemy)
     self.m_world:bindEnemy(enemy)

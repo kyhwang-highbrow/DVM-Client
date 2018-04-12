@@ -188,7 +188,6 @@ function SkillScript_AncientDragon:onEvent(event_name, t_event, ...)
         if (body_key) then
             local body = self.m_owner:getBody(body_key)
             if (not body) then
-                cclog('invalid body key : ' .. body_key)
             elseif (body['bone'] == WEAK_POINT_BONE) then
                 self.m_hitCount = self.m_hitCount + 1
                 cclog('self.m_hitCount : ' .. self.m_hitCount)
