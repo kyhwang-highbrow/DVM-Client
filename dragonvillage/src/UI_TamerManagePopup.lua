@@ -164,9 +164,12 @@ function UI_TamerManagePopup:onChangeTab(tab, first)
     self.m_selectedTamerID = tab
     self.m_selectCostumeData = g_tamerCostumeData:getUsedStructCostumeData(self.m_selectedTamerID)
 
-    -- 스킬 팝업 열려있는 경우 닫아줌
+    -- 스킬 팝업 열려있는 경우 -- 선택한 테이머로 갱신
 	if (self.m_skillUI:isShow()) then
-        self.m_skillUI:hide()
+        local table_tamer = TableTamer()
+	    local t_tamer = table_tamer:get(self.m_selectedTamerID)
+	    local t_tamer_data = self:_getTamerServerInfo(self.m_selectedTamerID)
+        self.m_skillUI:refresh(t_tamer)
 	end
 
     self:refresh()

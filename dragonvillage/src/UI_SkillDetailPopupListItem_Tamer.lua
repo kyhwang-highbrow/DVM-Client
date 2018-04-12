@@ -13,7 +13,7 @@ UI_SkillDetailPopupListItem_Tamer = class(PARENT, {
 -------------------------------------
 -- function init
 -------------------------------------
-function UI_SkillDetailPopupListItem_Tamer:init(t_tamer, skill_mgr, skill_idx, is_simple_mode)
+function UI_SkillDetailPopupListItem_Tamer:init(t_tamer, skill_mgr, skill_idx)
     local vars = self:load('tamer_skill_detail_popup_item.ui')
     
 	self.m_tableTamer = t_tamer
@@ -32,11 +32,12 @@ end
 function UI_SkillDetailPopupListItem_Tamer:initUI()
     local vars = self.vars
     local skill_indivisual_info = self.m_skillMgr:getSkillIndivisualInfo_usingIdx(self.m_skillIdx)
-    
+    local skill_type = skill_indivisual_info:getSkillTypeForUI()
+
     do -- 스킬 타입
-        local skill_idx = self.m_skillIdx
-        local str = getSkillType_Tamer(skill_idx)
+        local str, color = getSkillTypeStr_Tamer(skill_type)
         vars['typeLabel']:setString(str)
+        vars['typeLabel']:setColor(color)
     end
 
     do -- 스킬 아이콘
@@ -81,7 +82,7 @@ function UI_SkillDetailPopupListItem_Tamer:refresh()
     end
 
     do -- 레벨 표시
-		vars['lvLabel']:setString(Str('Lv.{1}/{2}', skill_level, max_skill_lv))
+		vars['lvLabel']:setString(Str('Lv.{1}', skill_level))
     end
 
     do -- 스킬 설명

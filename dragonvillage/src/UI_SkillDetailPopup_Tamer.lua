@@ -5,14 +5,12 @@ local PARENT = UI
 -------------------------------------
 UI_SkillDetailPopup_Tamer = class(PARENT, {
         m_cbUpgradeBtn = 'function',
-        m_bSimpleMode = 'boolean',
      })
 
 -------------------------------------
 -- function init
 -------------------------------------
 function UI_SkillDetailPopup_Tamer:init(t_tamer)
-    self.m_bSimpleMode = is_simple_mode
     self.m_uiName = 'UI_SkillDetailPopup_Tamer'
 
     local vars = self:load('tamer_skill_detail_popup.ui')
@@ -57,7 +55,7 @@ function UI_SkillDetailPopup_Tamer:refresh(t_tamer, skill_mgr)
     local vars = self.vars
     for i= 0, 3 do
         vars['skillNode' .. i]:removeAllChildren()
-        local ui = UI_SkillDetailPopupListItem_Tamer(t_tamer, skill_mgr, i, self.m_bSimpleMode)
+        local ui = UI_SkillDetailPopupListItem_Tamer(t_tamer, skill_mgr, i)
         vars['skillNode' .. i]:addChild(ui.root)
     end
 end

@@ -22,8 +22,10 @@ function UI_TamerSkillCard:init(skill_indivisual_info)
     local icon = IconHelper:getSkillIcon(char_type, skill_id)
     vars['skillNode']:addChild(icon)
 
-    do -- 스킬 타입 표시
-        self:setTypeText(char_type, skill_type)
+    do -- 스킬 타입 
+        local str, color = getSkillTypeStr_Tamer(skill_type)
+        vars['typeLabel']:setString(str)
+        vars['typeLabel']:setColor(color)
     end    
 
     -- 스킬 레벨
@@ -46,7 +48,7 @@ end
 -------------------------------------
 function UI_TamerSkillCard:getSkillNameStr()
     local t_skill = self.m_skillIndivisualInfo.m_tSkill
-    local str = '{@SKILL_NAME} ' .. Str(t_skill['t_name'])
+    local str = '{@ivory}' .. Str(t_skill['t_name'])
     return str
 end
 
@@ -59,7 +61,7 @@ function UI_TamerSkillCard:getSkillDescStr()
     local skill_type_str = getSkillTypeStr(skill_type, true)
     local desc = self.m_skillIndivisualInfo:getSkillDesc()
 
-    local str = '{@SKILL_NAME} ' .. Str(t_skill['t_name']) .. skill_type_str .. '\n {@SKILL_DESC}' .. desc
+    local str = '{@ivory}' .. Str(t_skill['t_name']) .. skill_type_str .. '\n{@SKILL_DESC}' .. desc
     return str
 end
 
@@ -69,63 +71,4 @@ end
 function UI_TamerSkillCard:setButtonEnabled(enable)
     local vars = self.vars
     vars['clickBtn']:setEnabled(enable)
-end
-
--------------------------------------
--- function setSkillTypeText
--- @brief skill_type
--------------------------------------
-function UI_TamerSkillCard:setTypeText(char_type, skill_type)
-    local vars = self.vars
-
-    if (skill_type == 'basic') then
-        vars['typeLabel']:setString(Str('기본'))
-
-    elseif (skill_type == 'leader') then
-        vars['typeLabel']:setString(Str('리더'))
-
-    elseif (skill_type == 'active') then
-        if (char_type == 'tamer') then vars['typeLabel']:setString(Str('액티브'))
-        else vars['typeLabel']:setString(Str('드래그'))
-        end
-
-    elseif (skill_type == 'passive') then
-        vars['typeLabel']:setString(Str('패시브'))
-
-    elseif (skill_type == 'colosseum') then
-        vars['typeLabel']:setString(Str('콜로세움'))
-
-    else
-        vars['typeLabel']:setString(Str('패시브'))
-        vars['typeLabel']:setColor(cc.c3b(255,231,160))
-    end
-
-    local color = self.setTypeTextColor(skill_type)
-    vars['typeLabel']:setColor(color)
-end
-
--------------------------------------
--- function setTypeTextColor
--- @brief skill_type
--------------------------------------
-function UI_TamerSkillCard.setTypeTextColor(skill_type)
-    if (skill_type == 'basic') then
-        return cc.c3b(255,255,255)
-
-    elseif (skill_type == 'leader') then
-        return cc.c3b(199,69,255)
-
-    elseif (skill_type == 'active') then
-        return cc.c3b(244,191,5)
-
-    elseif (skill_type == 'passive') then
-        return cc.c3b(255,231,160)
-
-    elseif (skill_type == 'colosseum') then
-        return cc.c3b(255,85,149)
-
-    else
-        return cc.c3b(255,231,160)
-
-    end
 end

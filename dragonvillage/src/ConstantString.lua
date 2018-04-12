@@ -236,6 +236,40 @@ function getSkillTypeStr(skill_type, is_use_brakets)
 end
 
 -------------------------------------
+-- function getSkillTypeStr_Tamer
+-- @brief 테이머쪽 스킬이름은 줄여서 씀, 드래그 스킬도 액티브로 보여줌
+-------------------------------------
+function getSkillTypeStr_Tamer(skill_type)
+    local skill_type_str = ''
+    local color 
+    if (skill_type == 'basic') then
+        skill_type_str =  Str('기본')
+        color = cc.c3b(255,255,255)
+
+    elseif (skill_type == 'leader') then
+        skill_type_str = Str('리더')
+        color = cc.c3b(199,69,255)
+
+    elseif (skill_type == 'active') then
+        skill_type_str = Str('액티브')
+        color = cc.c3b(244,191,5)
+
+    elseif (skill_type == 'passive') then
+        skill_type_str = Str('패시브')
+        color = cc.c3b(255,231,160)
+
+    elseif (skill_type == 'colosseum') then
+        skill_type_str = Str('콜로세움')
+        color = cc.c3b(255,85,149)
+    else
+        skill_type_str = Str('패시브')
+        color = cc.c3b(255,231,160)
+    end
+
+    return skill_type_str, color
+end
+
+-------------------------------------
 -- function getSkillType_Tamer
 -- @brief 테이머 스킬 이름
 -------------------------------------
