@@ -1,4 +1,4 @@
-local PARENT = class(UI, ITopUserInfo_EventListener:getCloneTable())
+local PARENT = class(UI, ITopUserInfo_EventListener:getCloneTable(), ITabUI:getCloneTable())
 
 -------------------------------------
 -- class UI_TamerManagePopup
@@ -6,16 +6,20 @@ local PARENT = class(UI, ITopUserInfo_EventListener:getCloneTable())
 UI_TamerManagePopup = class(PARENT, {
 		m_currTamerID = 'num',
 		m_selectedTamerID = 'num',
-		m_lTamerItemList = '',
 
 		m_skillUI = 'UI',
+
+        m_selectCostumeData = 'StructTamerCostume',
+
+        m_tamerTalbeView = 'UIC_TableView', -- 테이머 
+        m_costumeTalbeView = 'UIC_TableView', -- 코스튬 
      })
 
 -------------------------------------
 -- function init
 -------------------------------------
 function UI_TamerManagePopup:init(tamer_id)
-    local vars = self:load('tamer_manage_scene.ui')
+    local vars = self:load('tamer_manage_scene_new.ui')
     UIManager:open(self, UIManager.SCENE)
 
     -- 씬 전환 효과
@@ -31,7 +35,6 @@ function UI_TamerManagePopup:init(tamer_id)
 	-- 멤버 변수
 	self.m_currTamerID = tamer_id or g_tamerData:getCurrTamerID()
 	self.m_selectedTamerID = self.m_currTamerID
-	self.m_lTamerItemList = {}
 	
 	-- skill popup 생성
 	self.m_skillUI = UI_SkillDetailPopup_Tamer()
@@ -58,7 +61,7 @@ end
 -- function initUI
 -------------------------------------
 function UI_TamerManagePopup:initUI()
-    self:initTamerItem()
+    self:initTamerTableView()
 end
 
 -------------------------------------
@@ -68,7 +71,6 @@ function UI_TamerManagePopup:initButton()
     local vars = self.vars
 	vars['selectBtn']:registerScriptTapHandler(function() self:click_selectBtn() end)
 	vars['buyBtn']:registerScriptTapHandler(function() self:click_buyBtn() end)
-    vars['costumeBtn']:registerScriptTapHandler(function() self:click_costumeBtn() end)
 end
 
 -------------------------------------
@@ -78,78 +80,116 @@ function UI_TamerManagePopup:refresh()
 	self:setTamerRes()
 	self:setTamerText()
 	self:setTamerSkill()
+    self:refreshTamerMenu()
 	self:refreshButtonState()
-	self:refreshTamerItem()
 
     -- spine 캐시 정리
     SpineCacheManager:getInstance():purgeSpineCacheData()
 end
 
 -------------------------------------
--- function initTamerItem
--- @brief 테이머 아이템 생성
+-- function refreshTamerMenu
+-- @brief 왼쪽 테이머 메뉴 갱신
 -------------------------------------
-function UI_TamerManagePopup:initTamerItem()
-	local vars = self.vars
-	local curr_tamer_id = self.m_currTamerID
+function UI_TamerManagePopup:refreshTamerMenu()
+    for _, v in pairs(self.m_tamerTalbeView.m_itemList) do
+        local ui = v['ui']
+        if ui then
+            ui:refresh()
+        end
+    end
+end
+
+-------------------------------------
+-- function refreshCostumeData
+-- @brief 해당 테이머 코스튬 메뉴 갱신
+-------------------------------------
+function UI_TamerManagePopup:refreshCostumeData()
+    if (self.m_selectCostumeData) then
+        for _, v in pairs(self.m_costumeTalbeView.m_itemList) do
+            local ui = v['ui']
+            if ui then
+                local cid = self.m_selectCostumeData:getCid()
+                ui:setSelected(cid)
+                ui:refresh()
+            end
+        end
+    end
+end
+
+-------------------------------------
+-- function initTamerTableView
+-- @brief 테이머 리스트
+-------------------------------------
+function UI_TamerManagePopup:initTamerTableView()
+    local vars = self.vars
 
     local table_tamer = TableTamer()
-  
-    local l_tamer = {}
-    for i,v in pairs(table_tamer.m_orgTable) do
-        table.insert(l_tamer, v)
-    end
-    local function sort_func(a, b)
+    local tamer_list = table.MapToList(table_tamer.m_orgTable)
+    table.sort(tamer_list, function(a, b)
         return a['tid'] < b['tid']
+    end)
+
+    -- 테이머 선택 버튼 
+    local function create_func(ui, data)
+        local btn = ui.vars['tamerBtn']
+        local label = ui.vars['tamerNameLabel']
+        local tid = data['tid']
+        self:addTabWithLabel(tid, btn, label)
     end
-    table.sort(l_tamer, sort_func)
 
-    local l_pos = getSortPosList(112, table.count(table_tamer.m_orgTable))
-	for idx, t_tamer in ipairs(l_tamer) do
-        local tamer_id = t_tamer['tid']
-		-- 테이머 아이템 생성
-		local tamer_item = UI_TamerManageItem(t_tamer)
-		-- 버튼 콜백 등록
-		tamer_item.vars['tamerBtn']:registerScriptTapHandler(function() self:click_tamerBtn(tamer_item) end)
-		-- 사용중 테이머 표시 + 선택도 함
-		if (curr_tamer_id == tamer_id) then
-			tamer_item:setUseTamer(true)
-			tamer_item:selectTamer(true)
-		else
-            tamer_item:setUseTamer(false)
-			tamer_item:selectTamer(false)
-        end
+    local node = vars['profileMenu']
+    local table_view = UIC_TableView(node)
+    table_view.m_defaultCellSize = cc.size(240, 100)
+    table_view:setCellUIClass(UI_TamerListItem, create_func)
+    table_view:setDirection(cc.SCROLLVIEW_DIRECTION_VERTICAL)
 
-		-- 테이머 아이템 맵핑
-		self.m_lTamerItemList[tamer_id] = tamer_item
+    local make_item = true
+    table_view:setItemList(tamer_list, make_item)
 
-        local pos_x = l_pos[idx]
-        tamer_item.root:setPositionX(pos_x)
+    self.m_tamerTalbeView = table_view
 
-        vars['profileMenu']:addChild(tamer_item.root)        
+    self:setTab(self.m_selectedTamerID)
+end
+
+-------------------------------------
+-- function onChangeTab
+-- @brief 테이머 선택
+-------------------------------------
+function UI_TamerManagePopup:onChangeTab(tab, first)
+    if (self.m_selectedTamerID == tab) and (not first) then
+        return
+    end
+
+    self.m_selectedTamerID = tab
+    self.m_selectCostumeData = g_tamerCostumeData:getUsedStructCostumeData(self.m_selectedTamerID)
+
+    -- 스킬 팝업 열려있는 경우 닫아줌
+	if (self.m_skillUI:isShow()) then
+        self.m_skillUI:hide()
 	end
+
+    self:refresh()
+
+    -- 테이머 변경때만 코스튬 테이블뷰 초기화
+    self:setTamerCostume()
 end
 
 -------------------------------------
 -- function setTamerRes
--- @brief 테이머 illustration 과 SD
+-- @brief 테이머 SD
 -------------------------------------
-function UI_TamerManagePopup:setTamerRes()
+function UI_TamerManagePopup:setTamerRes(costume_data)
 	local vars = self.vars
-	local t_tamer = self.m_lTamerItemList[self.m_selectedTamerID]:getTamerTable()
+    local table_tamer = TableTamer()
+    local target_id = costume_data and costume_data:getTamerID() or self.m_selectedTamerID
+	local t_tamer = table_tamer:get(target_id)
 
 	-- 기존 이미지 정리
-	vars['tamerNode']:removeAllChildren(true)
 	vars['tamerSdNode']:removeAllChildren(true)
 
-	-- 테이머 일러스트
-	local illustration_res = t_tamer['res']
-    local illustration_animator = MakeAnimator(illustration_res)
-	illustration_animator:changeAni('idle', true)
-    vars['tamerNode']:addChild(illustration_animator.m_node)
-
 	-- 테이머 SD
-    local costume_data = g_tamerCostumeData:getCostumeDataWithTamerID(self.m_selectedTamerID)
+    local costume_data = costume_data or g_tamerCostumeData:getCostumeDataWithTamerID(target_id)
     local sd_res = costume_data:getResSD()
 
 	local sd_animator = MakeAnimator(sd_res)
@@ -160,8 +200,7 @@ function UI_TamerManagePopup:setTamerRes()
     vars['costumeTitleLabel']:setString(costume_name)
 
 	-- 없는 테이머는 음영 처리
-	if (not self:_hasTamer(self.m_selectedTamerID)) then
-		illustration_animator:setColor(COLOR['gray'])
+	if (not self:_hasTamer(target_id)) then
 		sd_animator:setColor(COLOR['gray'])
 	end
 end
@@ -172,25 +211,28 @@ end
 -------------------------------------
 function UI_TamerManagePopup:setTamerText()
 	local vars = self.vars
-	local t_tamer = self.m_lTamerItemList[self.m_selectedTamerID]:getTamerTable()
+
+	local table_tamer = TableTamer()
+	local t_tamer = table_tamer:get(self.m_selectedTamerID)
 
 	-- 테이머 이름
 	local tamer_name = t_tamer['t_name']
 	vars['tamerNameLabel']:setString(Str(tamer_name))
 
-	-- 테이머 타입
-	local tamer_type = t_tamer['t_title_desc']
-	vars['tamerTypeLabel']:setString(Str(tamer_type))
-
 	-- 테이머 설명
 	local tamer_desc = t_tamer['t_desc']
 	vars['tamerDscLabel']:setString(Str(tamer_desc))
 
-	-- 테이머 없을 시 획득 조건
+	-- 테이머 없을 시 획득 조건 & 코스튬 정보
+    local msg = Str('코스튬')
 	if (not self:_hasTamer(self.m_selectedTamerID)) then
 		local obtain_desc = TableTamer:getTamerObtainDesc(t_tamer)
 		vars['lockLabel']:setString(Str(obtain_desc))
+
+        msg = Str('테이머 구입 후 코스튬을 사용할 수 있습니다.')
 	end
+
+    vars['costumeInfoLabel']:setString(msg)
 end
 
 -------------------------------------
@@ -200,12 +242,13 @@ end
 function UI_TamerManagePopup:setTamerSkill()
 	local vars = self.vars
 	
-	local t_tamer = self.m_lTamerItemList[self.m_selectedTamerID]:getTamerTable()
+	local table_tamer = TableTamer()
+	local t_tamer = table_tamer:get(self.m_selectedTamerID)
 	local t_tamer_data = self:_getTamerServerInfo(self.m_selectedTamerID)
 
 	-- 스킬 정보 및 스킬 상세보기 팝업 등록
 	local skill_mgr = MakeTamerSkillManager(t_tamer_data)
-	local l_skill_icon = skill_mgr:getDragonSkillIconList()
+	local l_skill_icon = skill_mgr:getTamerSkillIconList()
 	local func_skill_detail_btn = function()
         self.m_skillUI:show()
 		self.m_skillUI:refresh(t_tamer, skill_mgr)
@@ -217,10 +260,50 @@ function UI_TamerManagePopup:setTamerSkill()
 			vars['skillNode' .. i]:removeAllChildren()
 			vars['skillNode' .. i]:addChild(skill_icon.root)
 
-			skill_icon.vars['clickBtn']:registerScriptTapHandler(func_skill_detail_btn)
-			skill_icon.vars['clickBtn']:setActionType(UIC_Button.ACTION_TYPE_WITHOUT_SCAILING)
+			skill_icon.vars['skillBtn']:registerScriptTapHandler(func_skill_detail_btn)
+			skill_icon.vars['skillBtn']:setActionType(UIC_Button.ACTION_TYPE_WITHOUT_SCAILING)
 		end
 	end
+end
+
+-------------------------------------
+-- function setTamerCostume
+-- @brief 해당 테이머 코스튬 테이블뷰 생성
+-------------------------------------
+function UI_TamerManagePopup:setTamerCostume()
+	local vars = self.vars
+
+    local node = vars['costumeListNode']
+    node:removeAllChildren()
+
+    local l_struct_costume = g_tamerCostumeData:makeStructCostumeList(self.m_selectedTamerID)
+
+    -- 코스튬 버튼
+    local function create_func(ui, data)
+        -- 코스튬 미리보기
+        ui.vars['costumeBtn']:registerScriptTapHandler(function()
+            self:click_costume(ui.m_costumeData)
+        end)
+
+        -- 코스튬 선택하기
+        ui.vars['selectBtn']:registerScriptTapHandler(function()
+            self:click_select_costume(ui.m_costumeData)
+        end)
+
+        -- 코스튬 구입하기
+        ui.vars['buyBtn']:registerScriptTapHandler(function()
+            self:click_buy_costume(ui.m_costumeData)
+        end)
+    end
+
+    -- 테이블 뷰 인스턴스 생성
+    local table_view = UIC_TableView(node)
+    table_view.m_defaultCellSize = cc.size(170, 280)
+    table_view:setCellUIClass(UI_TamerCostumeListItem, create_func)
+    table_view:setDirection(cc.SCROLLVIEW_DIRECTION_HORIZONTAL)
+    table_view:setItemList(l_struct_costume)
+
+    self.m_costumeTalbeView = table_view
 end
 
 -------------------------------------
@@ -260,7 +343,8 @@ function UI_TamerManagePopup:refreshButtonState()
 
         do
             local vars = self.vars
-            local t_tamer = self.m_lTamerItemList[self.m_selectedTamerID]:getTamerTable()
+            local table_tamer = TableTamer()
+	        local t_tamer = table_tamer:get(self.m_selectedTamerID)
             
             -- 구매 조건 체크
             local buy_type
@@ -288,45 +372,6 @@ function UI_TamerManagePopup:refreshButtonState()
 end
 
 -------------------------------------
--- function refreshTamerItem
--- @brief
--------------------------------------
-function UI_TamerManagePopup:refreshTamerItem()
-	for i, v in pairs(self.m_lTamerItemList) do
-		v:refresh()
-	end
-end
-
--------------------------------------
--- function click_tamerBtn
--------------------------------------
-function UI_TamerManagePopup:click_tamerBtn(tamer_item)
-	-- 기존 선택한 테이머와 같은 것이면 탈출
-	local tamer_id = tamer_item:getTamerId()
-
-	if (self.m_selectedTamerID == tamer_id) then 
-		return
-	end
-
-	-- 기존 테이머 unSelect
-	local old_tamer_item = self.m_lTamerItemList[self.m_selectedTamerID]
-	old_tamer_item:selectTamer(false)
-
-	-- 새로운 테이머 select
-	tamer_item:selectTamer(true)
-	self.m_selectedTamerID = tamer_id
-
-	-- refresh
-	self:refresh()
-
-	-- skill popup refresh
-	if (self.m_skillUI:isShow()) then
-		local t_tamer = tamer_item:getTamerTable()
-		self.m_skillUI:refresh(t_tamer)
-	end
-end
-
--------------------------------------
 -- function click_selectBtn
 -- @brief tamer 선택
 -------------------------------------
@@ -335,25 +380,23 @@ function UI_TamerManagePopup:click_selectBtn()
 
 	-- 콜백
 	local function cb_func()
-		-- 기존 테이머 unUse
-		local old_tamer_item = self.m_lTamerItemList[self.m_currTamerID]
-		old_tamer_item:setUseTamer(false)
-
-		-- 새로운 테이머 use
-		local new_tamer_item = self.m_lTamerItemList[tamer_id]
-		new_tamer_item:setUseTamer(true)
-
 		-- 사용중 테이머 ID 갱신
 		self.m_currTamerID = tamer_id
 
 		-- 테이머 선택 확인 노티
-		local t_tamer = new_tamer_item:getTamerTable()
+		local table_tamer = TableTamer()
+	    local t_tamer = table_tamer:get(self.m_currTamerID)
 		local tamer_str = Str('[{1}](이)가 선택되었습니다.', Str(t_tamer['t_name']))
-		--UIManager:toastNotificationGreen(tamer_str)
 		UI_ToastPopup(tamer_str)
 
 		-- ui 갱신
 		self:refresh()
+
+        -- 테이머 선택시 해당 테이머 코스튬 정보로 초기화
+        self.m_selectCostumeData = g_tamerCostumeData:getUsedStructCostumeData(self.m_currTamerID)
+
+        -- 코스튬 테이블뷰 초기화
+        self:refreshCostumeData()
 	end
 
 	-- 선택 테이머 변경 요청
@@ -366,6 +409,7 @@ end
 -------------------------------------
 function UI_TamerManagePopup:click_buyBtn()
 	local tamer_id = self.m_selectedTamerID
+    local table_tamer = TableTamer()
     local buy_type, price_type
     if (g_tamerData:isObtainable(self.m_selectedTamerID)) then
         buy_type = 'clear'
@@ -375,11 +419,8 @@ function UI_TamerManagePopup:click_buyBtn()
 
 	-- 콜백
 	local function cb_func()
-		-- 획득한 테이머
-		local new_tamer_item = self.m_lTamerItemList[tamer_id]
-
 		-- 테이머 선택 확인 노티
-		local t_tamer = new_tamer_item:getTamerTable()
+	    local t_tamer = table_tamer:get(tamer_id)
 		local tamer_str = Str('[{1}](을)를 획득하였습니다.', Str(t_tamer['t_name']))
 		UI_ToastPopup(tamer_str)
 
@@ -393,21 +434,91 @@ function UI_TamerManagePopup:click_buyBtn()
     end
 
     -- 재화 사용 확인 팝업
-    local t_tamer = self.m_lTamerItemList[self.m_selectedTamerID]:getTamerTable()
+    local t_tamer = table_tamer:get(self.m_selectedTamerID)
     local l_price_info = seperate(t_tamer['price_' .. buy_type], ';')
     MakeSimplePopup_Confirm(l_price_info[1], tonumber(l_price_info[2]), nil, buy_func)
 end
 
+
 -------------------------------------
--- function click_costumeBtn
+-- function click_costume
+-- @brief 코스튬 미리보기
 -------------------------------------
-function UI_TamerManagePopup:click_costumeBtn()
-    local function refresh_cb()
-        self:refresh()
+function UI_TamerManagePopup:click_costume(costume_data)
+    if (self.m_selectCostumeData:getCid() == costume_data:getCid()) then
+        return
     end
 
-    local tamer_id = self.m_selectedTamerID
-    UINavigator:goTo('costume_shop', tamer_id, refresh_cb)
+    self.m_selectCostumeData = costume_data
+    self:refreshCostumeData()
+
+    -- 테이머 Res만 변경
+    self:setTamerRes(costume_data)
+end
+
+-------------------------------------
+-- function click_select_costume
+-- @brief 코스튬 선택
+-------------------------------------
+function UI_TamerManagePopup:click_select_costume(costume_data)
+    self.m_selectCostumeData = costume_data
+    local costume_id = costume_data:getCid()
+    local tamer_id = costume_data:getTamerID()
+    local has_tamer = self:_hasTamer(tamer_id)
+
+    -- 변경 불가
+    if (not has_tamer) then
+        UIManager:toastNotificationRed(Str('열려있지 않은 테이머는 코스튬을 변경 할 수 없습니다.'))
+
+    -- 코스튬 선택
+    else
+        local function finish_cb()
+            UIManager:toastNotificationGreen(Str('코스튬을 변경하였습니다.'))
+
+            -- 모든 상태 변경
+            self:refresh()
+            -- 코스튬 테이블뷰 초기화
+            self:refreshCostumeData()
+        end
+
+        g_tamerCostumeData:request_costumeSelect(costume_id, tamer_id, finish_cb)
+    end
+end
+
+-------------------------------------
+-- function click_buy_costume
+-- @brief 코스튬 구입
+-------------------------------------
+function UI_TamerManagePopup:click_buy_costume(costume_data)
+    self.m_selectCostumeData = costume_data
+
+    local function finish_cb()
+        UIManager:toastNotificationGreen(Str('코스튬을 구입하였습니다.'))
+
+        -- 모든 상태 변경
+        self:refresh()
+        -- 코스튬 테이블뷰 초기화
+        self:refreshCostumeData()
+    end
+    
+    local function show_popup()
+        local ui = UI_TamerCostumeConfirmPopup(self.m_selectCostumeData)
+        ui:setCloseCB(finish_cb)
+    end
+
+    local is_open = costume_data:isOpen() 
+    local is_lock = costume_data:isTamerLock()
+    local is_buyable = costume_data:isBuyable()
+
+    if (not is_buyable) then
+        return
+
+    -- 열려있지않은 테이머라면 한번더 경고 문구
+    elseif (not is_open and is_lock) then
+        MakeSimplePopup(POPUP_TYPE.YES_NO, Str('해당 테이머를 소유하지 못했습니다.\n그래도 구매하시겠습니까?'), show_popup)
+    else
+        show_popup()
+    end
 end
 
 -------------------------------------

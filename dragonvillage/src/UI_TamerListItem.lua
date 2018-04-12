@@ -11,11 +11,12 @@ UI_TamerListItem = class(PARENT, {
 -- function init
 -------------------------------------
 function UI_TamerListItem:init(tamer_data)
-    local vars = self:load('tamer_costume_tamer_item.ui')
+    local vars = self:load('tamer_manage_scene_item_new.ui')
     self.m_tamerData = tamer_data
 
     self:initUI()
     self:initButton()
+    self:refresh()
 end
 
 -------------------------------------
@@ -26,22 +27,7 @@ function UI_TamerListItem:initUI()
     local tamer_data = self.m_tamerData
 
     -- 이름
-    vars['tamerTabLabel']:setString(Str(tamer_data['t_name']))
-
-    -- 이미지
-    local tid = tamer_data['tid']
-    local tamer_image = TableTamer:getTamerSDImage(tid)
-	if (tamer_image) then
-        tamer_image:setDockPoint(CENTER_POINT)
-        tamer_image:setAnchorPoint(CENTER_POINT)
-		vars['tamerNode']:addChild(tamer_image)
-	end
-
-    -- 잠금
-    local has_tamer = g_tamerData:hasTamer(tid)
-    if (not has_tamer) then
-        vars['lockSprite']:setVisible(true)
-    end
+    vars['tamerNameLabel']:setString(Str(tamer_data['t_name']))
 end
 
 -------------------------------------
@@ -49,4 +35,29 @@ end
 -------------------------------------
 function UI_TamerListItem:initButton()
     local vars = self.vars
+end
+
+-------------------------------------
+-- function refresh
+-------------------------------------
+function UI_TamerListItem:refresh()
+    local vars = self.vars
+    local tamer_data = self.m_tamerData
+
+    -- 이미지 (적용중인 코스튬 있을 경우 코스튬 SD 이미지로)
+    local tid = tamer_data['tid']
+    local coustume_data = g_tamerCostumeData:getUsedStructCostumeData(tid)
+    local icon = coustume_data:getTamerSDIcon()
+	if (icon) then
+        vars['tamerNode']:removeAllChildren(true)
+		vars['tamerNode']:addChild(icon)
+	end
+
+    -- 잠금
+    local has_tamer = g_tamerData:hasTamer(tid)
+    vars['lockSprite']:setVisible(not has_tamer)
+
+    -- 사용중
+    local is_use = (g_tamerData:getCurrTamerID() == tid)
+    vars['useSprite']:setVisible(is_use)
 end

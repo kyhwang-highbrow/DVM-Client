@@ -19,7 +19,7 @@ function GameWorld:makeTamerNew(t_tamer_data, t_costume_data, bRightFormation)
     -- tamer 생성 시작
     local tamer = Tamer(tamer_res, {0, 0, 0})
     tamer.m_tamerID = t_tamer['tid']
-    
+    tamer.m_costumeData = t_costume_data
     tamer:initWorld(self)
     tamer:init_tamer(t_tamer_data, bLeftFormation)
     tamer:initFormation()

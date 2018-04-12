@@ -172,6 +172,14 @@ function StructTamerCostume:isEnd()
 end
 
 -------------------------------------
+-- function isBuyable
+-- @brief 구매가능한가
+-------------------------------------
+function StructTamerCostume:isBuyable()
+    return (not self:isOpen()) and (not self:isEnd())
+end
+
+-------------------------------------
 -- function isTamerLock
 -- @brief 해당 코스튬 테이머가 열려있는지
 -------------------------------------

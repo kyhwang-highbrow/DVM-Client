@@ -652,8 +652,13 @@ end
 -- @brief 공격덱 테이머 준비화면 아이콘
 -------------------------------------
 function StructUserInfoColosseum:getAtkDeckTamerReadyIcon()
-    local tamer_id = self:getAtkDeckTamerID()
-    return self:makeTamerReadyIcon(tamer_id)
+    local tamer_info = self:getAtkDeckTamerInfo()
+    if (tamer_info) then
+        return self:makeTamerReadyIconWithCostume(tamer_info)
+    else
+        local tamer_id = self:getAtkDeckTamerID()
+        return self:makeTamerReadyIcon(tamer_id)
+    end
 end
 
 -------------------------------------
@@ -661,8 +666,13 @@ end
 -- @brief 방어덱 테이머 준비화면 아이콘
 -------------------------------------
 function StructUserInfoColosseum:getDefDeckTamerReadyIcon()
-    local tamer_id = self:getDefDeckTamerID()
-    return self:makeTamerReadyIcon(tamer_id)
+    local tamer_info = self:getDefDeckTamerInfo()
+    if (tamer_info) then
+        return self:makeTamerReadyIconWithCostume(tamer_info)
+    else
+        local tamer_id = self:getDefDeckTamerID()
+        return self:makeTamerReadyIcon(tamer_id)
+    end
 end
 
 -------------------------------------
@@ -670,13 +680,14 @@ end
 -- @brief
 -------------------------------------
 function StructUserInfoColosseum:makeTamerReadyIcon(tamer_id)
-    local table_tamer = TableTamer()
-    local type = table_tamer:getValue(tamer_id, 'type')
-    local res = string.format('res/ui/icons/tamer/colosseum_ready_%s.png', type)
+    return IconHelper:makeTamerReadyIcon(tamer_id)
+end
 
-    local icon = cc.Sprite:create(res)
-    icon:setDockPoint(cc.p(0.5, 0.5))
-    icon:setAnchorPoint(cc.p(0.5, 0.5))
-
-    return icon
+-------------------------------------
+-- function makeTamerReadyIconWithCostume
+-- @brief
+-------------------------------------
+function StructUserInfoColosseum:makeTamerReadyIconWithCostume(tamer_info)
+    local costume_id = tamer_info['costume'] or 110001
+    return IconHelper:getTamerProfileIconWithCostumeID(costume_id)
 end

@@ -118,7 +118,7 @@ function ServerData_Tamer:hasTamer(tamer_id)
 end
 
 -------------------------------------
--- function hasTamer
+-- function getTamerCount
 -- @brief 테이머 존재 여부 체크
 -------------------------------------
 function ServerData_Tamer:getTamerCount()

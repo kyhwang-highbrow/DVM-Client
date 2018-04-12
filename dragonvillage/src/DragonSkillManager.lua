@@ -447,6 +447,31 @@ function IDragonSkillManager:makeSkillIcon_usingIndex(idx)
 end
 
 -------------------------------------
+-- function getTamerSkillIconList
+-------------------------------------
+function IDragonSkillManager:getTamerSkillIconList()
+    local l_skill_icon = {}
+
+    for _, i in ipairs(self:getSkillKeyList()) do
+        l_skill_icon[i] = self:makeTamerSkillIcon_usingIndex(i)
+    end
+
+    return l_skill_icon
+end
+
+-------------------------------------
+-- function makeTamerSkillIcon_usingIndex
+-------------------------------------
+function IDragonSkillManager:makeTamerSkillIcon_usingIndex(idx)
+    local skill_indivisual_info = self:getSkillIndivisualInfo_usingIdx(idx)
+    if skill_indivisual_info then
+        return UI_TamerSkillCard(skill_indivisual_info)
+    else
+        return nil
+    end
+end
+
+-------------------------------------
 -- function getDragonSkillImageList
 -- @brief 이미지만 필요한 경우
 -------------------------------------

@@ -34,16 +34,26 @@ function UI_DragonBoardListItem:initUI()
 	local reviewer = string.format('Lv. %d %s', lv, nick)
 	vars['infoLabel']:setString(reviewer)
 
-	-- 테이머 아이콘 갱신
+	-- 테이머 아이콘 갱신 
 	local tid = t_data['tamer']
 	if (tid == 0) then
 		tid = 110002
 	end
-    local type = TableTamer:getTamerType(tid)
-    local icon = IconHelper:getTamerProfileIcon(type)
-    vars['profileNode']:removeAllChildren()
-    vars['profileNode']:addChild(icon)
+    -- 코스튬 적용
+    local icon
+    local costume_id = t_data['costume']
+    if (costume_id) then
+        icon = IconHelper:getTamerProfileIconWithCostumeID(costume_id)
+    else
+        local type = TableTamer:getTamerType(tid)
+        icon = IconHelper:getTamerProfileIcon(type)
+    end
 
+    vars['profileNode']:removeAllChildren()
+    if (icon) then
+        vars['profileNode']:addChild(icon)
+    end
+    
 	-- 작성 시간
 	local date = pl.Date()
 	date:set(t_data['date']/1000)

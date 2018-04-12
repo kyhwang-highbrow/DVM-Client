@@ -517,6 +517,39 @@ function IconHelper:getTamerProfileIcon(type)
 end
 
 -------------------------------------
+-- function getTamerProfileIconWithCostumeID
+-- @breif 코스튬 SD 아이콘 반환
+-------------------------------------
+function IconHelper:getTamerProfileIconWithCostumeID(costume_id)
+    local costume_data 
+    if (costume_id) then
+        costume_data = g_tamerCostumeData:getCostumeDataWithCostumeID(costume_id)
+    else
+        local curr_tamer_id = g_tamerData:getCurrTamerID() or 110001
+        costume_data = g_tamerCostumeData:getUsedStructCostumeData(curr_tamer_id)
+    end
+
+    local sd_icon = costume_data:getTamerSDIcon()
+    return sd_icon
+end
+
+-------------------------------------
+-- function makeTamerReadyIcon
+-- @brief 콜로세움 테이머 아이콘
+-------------------------------------
+function IconHelper:makeTamerReadyIcon(tamer_id)
+    local table_tamer = TableTamer()
+    local type = table_tamer:getValue(tamer_id, 'type')
+    local res = string.format('res/ui/icons/tamer/colosseum_ready_%s.png', type)
+
+    local icon = cc.Sprite:create(res)
+    icon:setDockPoint(cc.p(0.5, 0.5))
+    icon:setAnchorPoint(cc.p(0.5, 0.5))
+
+    return icon
+end
+
+-------------------------------------
 -- function getFormationIcon
 -- @brief 진형 아이콘 생성
 -------------------------------------

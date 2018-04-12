@@ -14,7 +14,7 @@ UI_SkillDetailPopupListItem_Tamer = class(PARENT, {
 -- function init
 -------------------------------------
 function UI_SkillDetailPopupListItem_Tamer:init(t_tamer, skill_mgr, skill_idx, is_simple_mode)
-    local vars = self:load('tamer_skill_detail_popup_item.ui')
+    local vars = self:load('tamer_skill_detail_popup_item_new.ui')
     
 	self.m_tableTamer = t_tamer
     self.m_skillMgr = skill_mgr
@@ -32,21 +32,20 @@ end
 function UI_SkillDetailPopupListItem_Tamer:initUI()
     local vars = self.vars
     local skill_indivisual_info = self.m_skillMgr:getSkillIndivisualInfo_usingIdx(self.m_skillIdx)
-
+    
     do -- 스킬 타입
         local skill_idx = self.m_skillIdx
         local str = getSkillType_Tamer(skill_idx)
-        vars['skillTypeLabel']:setString(str)
+        vars['typeLabel']:setString(str)
     end
 
-    -- 스킬 아이콘
-    if skill_icon then
-        vars['skillNode']:addChild(skill_icon.root)
-    else
-		local char_type = skill_indivisual_info.m_charType
+    do -- 스킬 아이콘
+        local char_type = skill_indivisual_info.m_charType
         local skill_id = skill_indivisual_info:getSkillID()
         local icon = IconHelper:getSkillIcon(char_type, skill_id)
-        vars['skillNode']:addChild(icon)
+        if (icon) then
+            vars['skillNode']:addChild(icon)
+        end
     end
 
     do -- 스킬 이름
@@ -73,13 +72,16 @@ function UI_SkillDetailPopupListItem_Tamer:refresh()
     local max_skill_lv = self.m_maxSkillLevel
 
     do -- 스킬 아이콘
-        vars['skillNode']:removeAllChildren()
-        local ui = self.m_skillMgr:makeSkillIcon_usingIndex(self.m_skillIdx)
-        vars['skillNode']:addChild(ui.root)
+        local char_type = skill_indivisual_info.m_charType
+        local skill_id = skill_indivisual_info:getSkillID()
+        local icon = IconHelper:getSkillIcon(char_type, skill_id)
+        if (icon) then
+            vars['skillNode']:addChild(icon)
+        end
     end
 
     do -- 레벨 표시
-		vars['skillEnhanceLabel']:setString(Str('Lv.{1}/{2}', skill_level, max_skill_lv))
+		vars['lvLabel']:setString(Str('Lv.{1}/{2}', skill_level, max_skill_lv))
     end
 
     do -- 스킬 설명

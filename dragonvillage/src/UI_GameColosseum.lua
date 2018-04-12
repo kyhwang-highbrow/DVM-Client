@@ -60,27 +60,26 @@ end
 -------------------------------------
 function UI_GameColosseum:initTamerUI(hero_tamer, enemy_tamer)
     local vars = self.vars
-
-    local makeTamerReadyIcon = function(tamer_id)
-        local table_tamer = TableTamer()
-        local type = table_tamer:getValue(tamer_id, 'type')
-        local res = string.format('res/ui/icons/tamer/colosseum_ready_%s.png', type)
-
-        local icon = cc.Sprite:create(res)
-        icon:setDockPoint(cc.p(0.5, 0.5))
-        icon:setAnchorPoint(cc.p(0.5, 0.5))
-
-        return icon
+    do
+        local icon
+        if (hero_tamer.m_costumeData) then
+            local costume_id = hero_tamer.m_costumeData:getCid()
+            icon = IconHelper:getTamerProfileIconWithCostumeID(costume_id)
+        else
+            icon = IconHelper:makeTamerReadyIcon(hero_tamer.m_tamerID)
+        end
+        vars['tamerNode1']:addChild(icon, 1)
     end
 
     do
-        local sprite = makeTamerReadyIcon(hero_tamer.m_tamerID)
-        vars['tamerNode1']:addChild(sprite, 1)
-    end
-
-    do
-        local sprite = makeTamerReadyIcon(enemy_tamer.m_tamerID)
-        vars['tamerNode2']:addChild(sprite, 1)
+        local icon
+        if (enemy_tamer.m_costumeData) then
+            local costume_id = enemy_tamer.m_costumeData:getCid()
+            icon = IconHelper:getTamerProfileIconWithCostumeID(costume_id)
+        else
+            icon = IconHelper:makeTamerReadyIcon(enemy_tamer.m_tamerID)
+        end
+        vars['tamerNode2']:addChild(icon, 1)
     end
 end
 

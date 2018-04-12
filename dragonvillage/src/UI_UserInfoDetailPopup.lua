@@ -403,16 +403,14 @@ end
 -- function click_tamerBtn
 -------------------------------------
 function UI_UserInfoDetailPopup:click_tamerBtn()
-	local function close_cb()
+	local function refresh_cb()
         self.m_tUserInfo['tamer'] = g_tamerData:getCurrTamerID()
         if (self.m_tUserInfo['tamer_info']) then
             self.m_tUserInfo['tamer_info']['costume'] = g_tamerCostumeData:getCostumeID()
         end
         self:refresh_tamer()
 	end
-
-    local ui = UI_TamerManagePopup()
-	ui:setCloseCB(close_cb)
+	UINavigator:goTo('tamer', nil, refresh_cb)
 end
 
 -------------------------------------

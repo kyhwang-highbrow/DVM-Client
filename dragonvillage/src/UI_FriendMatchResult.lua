@@ -69,8 +69,8 @@ end
 function UI_FriendMatchResult:setWorkList()
     self.m_workIdx = 0
     self.m_lWorkList = {}
-    table.insert(self.m_lWorkList, 'direction_showTamer')
-    table.insert(self.m_lWorkList, 'direction_hideTamer')
+--    table.insert(self.m_lWorkList, 'direction_showTamer')
+--    table.insert(self.m_lWorkList, 'direction_hideTamer')
     table.insert(self.m_lWorkList, 'direction_start')
     table.insert(self.m_lWorkList, 'direction_end')
     table.insert(self.m_lWorkList, 'direction_masterRoad')

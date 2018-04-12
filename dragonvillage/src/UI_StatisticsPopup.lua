@@ -80,10 +80,20 @@ function UI_StatisticsPopup:initUI()
 			vars['userNode1']:setVisible(true)
 			local user_info = (is_friendMatch) and g_friendMatchData.m_playerUserInfo or g_colosseumData.m_playerUserInfo
             if (user_info) then
-			    vars['name1']:setString(user_info.m_nickname)
-			    local tamer_type = g_tamerData:getCurrTamerTable('type')
-			    local profile_icon = IconHelper:getTamerProfileIcon(tamer_type)
-			    vars['tamerNode1']:addChild(profile_icon)
+                vars['name1']:setString(user_info.m_nickname)
+
+                local profile_icon
+                local tamer_info = user_info:getPvpAtkDeck()['tamerInfo']
+                if (tamer_info) then
+                    profile_icon = user_info:makeTamerReadyIconWithCostume(tamer_info)
+                else
+                    local tamer_type = g_tamerData:getCurrTamerTable('type')
+			        profile_icon = IconHelper:getTamerProfileIcon(tamer_type)
+                end
+
+			    if (profile_icon) then
+                    vars['tamerNode1']:addChild(profile_icon)
+                end			    
             end
 		end
 
@@ -94,14 +104,24 @@ function UI_StatisticsPopup:initUI()
 			    vars['userNode2']:setVisible(true)
 			    vars['name2']:setString(user_info.m_nickname)
 
-			    local tid = user_info:getTamer()
-			    if (tid == 0) then
-				    tid = g_constant:get('INGAME', 'TAMER_ID')
-			    end
-			    local t_tamer = TableTamer():get(tid)
-			    local tamer_type = t_tamer['type']
-			    local profile_icon = IconHelper:getTamerProfileIcon(tamer_type)
-			    vars['tamerNode2']:addChild(profile_icon)
+                local profile_icon
+                local tamer_info = user_info:getPvpDefDeck()['tamerInfo']
+                if (tamer_info) then
+                    profile_icon = user_info:makeTamerReadyIconWithCostume(tamer_info)
+                else
+                    local tid = user_info:getTamer()
+			        if (tid == 0) then
+				        tid = g_constant:get('INGAME', 'TAMER_ID')
+			        end
+
+                    local t_tamer = TableTamer():get(tid)
+			        local tamer_type = t_tamer['type']
+			        profile_icon = IconHelper:getTamerProfileIcon(tamer_type)
+                end
+
+			    if (profile_icon) then
+                    vars['tamerNode2']:addChild(profile_icon)
+                end
             end
 		end
 	end

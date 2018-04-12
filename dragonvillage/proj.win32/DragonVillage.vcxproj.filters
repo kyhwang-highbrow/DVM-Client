@@ -3385,6 +3385,9 @@
     <None Include="..\src\SkillScript_AncientDragon.lua">
       <Filter>lua\src</Filter>
     </None>
+    <None Include="..\src\UI_TamerSkillCard.lua">
+      <Filter>lua\UI</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Classes">

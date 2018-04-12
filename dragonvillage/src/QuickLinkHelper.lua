@@ -187,11 +187,11 @@ T_LINK_FUNC = {
 
     -- 테이머 겟
     ['t_get'] = function()
-        UI_TamerManagePopup()
+        UINavigator:goTo('tamer')
     end,
     -- 테이머 스킬 레벨 업
     ['t_sklvup'] = function()
-        UI_TamerManagePopup()
+        UINavigator:goTo('tamer')
     end,
     
 

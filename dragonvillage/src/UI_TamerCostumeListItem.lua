@@ -40,6 +40,8 @@ function UI_TamerCostumeListItem:initUI()
     -- 생성시에는 사용중인 코스튬 선택처리
     local is_used = costume_data:isUsed()
     vars['selectSprite']:setVisible(is_used)
+
+    vars['costumeMenu']:setSwallowTouch(false)
 end
 
 -------------------------------------
@@ -51,6 +53,7 @@ end
 
 -------------------------------------
 -- function refresh
+-------------------------------------
 function UI_TamerCostumeListItem:refresh()
     local vars = self.vars
     local costume_data = self.m_costumeData
@@ -61,46 +64,53 @@ function UI_TamerCostumeListItem:refresh()
     local is_open = costume_data:isOpen()
     local badge_node = vars['badgeNode']
     badge_node:removeAllChildren()
-
-    -- 배지 추가 (할인, 기간한정)
+    
+    local badge
     if (not is_open) then
-        local is_sale = costume_data:isSale()
-        local is_limit = costume_data:isLimit()
+        local is_sale, msg_sale = costume_data:isSale()
+        local is_limit, msg_limit = costume_data:isLimit()
         local is_end = costume_data:isEnd()
-        local img
+        
         -- 할인
         if (is_sale) then            
-            img = cc.Sprite:create('res/' .. Translate:getTranslatedPath('ui/typo/ko/costume_badge_discount.png'))
+            badge = cc.Sprite:create('res/' .. Translate:getTranslatedPath('ui/typo/ko/costume_badge_discount.png'))
+            self:setPriceData(is_sale)
 
         -- 기간한정
         elseif (is_limit) then
-            img = cc.Sprite:create('res/' .. Translate:getTranslatedPath('ui/typo/ko/costume_badge_period.png'))
+            badge = cc.Sprite:create('res/' .. Translate:getTranslatedPath('ui/typo/ko/costume_badge_period.png'))
+
+            vars['limitNode']:setVisible(true)
+            vars['limitLabel']:setString(msg_limit)
+            self:setPriceData()
 
         -- 판매종료
         elseif (is_end) then
-            img = cc.Sprite:create('res/' .. Translate:getTranslatedPath('ui/typo/ko/costume_badge_finish.png'))
-        end
+            badge = cc.Sprite:create('res/' .. Translate:getTranslatedPath('ui/typo/ko/costume_badge_finish.png'))
 
-        if (img) then
-            img:setDockPoint(cc.p(0.5, 0.5))
-            img:setAnchorPoint(cc.p(0.5, 0.5))
-            badge_node:addChild(img)
+            vars['finishBtn']:setVisible(true)
+            vars['finishBtn']:setEnabled(false)
+
+        -- 판매중
+        else
+            self:setPriceData()
         end
     end
 
+    if (badge) then
+        badge:setDockPoint(CENTER_POINT)
+        badge:setAnchorPoint(CENTER_POINT)
+        badge_node:addChild(badge)
+    end
+
+    -- 선택 버튼
+    vars['selectBtn']:setVisible(not is_used and is_open)
+
+    -- 사용 버튼
+    vars['useBtn']:setVisible(is_used)
+
     -- 테이머 잠금이 아니라 오픈 여부로 변경
     vars['lockSprite']:setVisible(not is_open)
-end
-
--------------------------------------
--- function setClickHandler
--------------------------------------
-function UI_TamerCostumeListItem:setClickHandler(click_func)
-    local vars = self.vars
-
-    vars['costumeBtn']:registerScriptTapHandler(function()
-        click_func(self.m_costumeData)
-    end)
 end
 
 -------------------------------------
@@ -112,4 +122,34 @@ function UI_TamerCostumeListItem:setSelected(sel_id)
     local cid = costume_data:getCid()
 
     vars['selectSprite']:setVisible(cid == sel_id)
+end
+
+-------------------------------------
+-- function setPriceData
+-------------------------------------
+function UI_TamerCostumeListItem:setPriceData(is_sale)
+    local vars = self.vars
+    local is_sale = is_sale or false
+    local costume_data = self.m_costumeData
+
+    -- 가격 정보
+    local costume_id = costume_data:getCid()
+    local shop_info = g_tamerCostumeData:getShopInfo(costume_id)
+    local origin_price = shop_info['origin_price'] 
+    local price = is_sale and shop_info['sale_price'] or shop_info['origin_price'] 
+    local price_type = shop_info['price_type']
+    local price_icon = IconHelper:getPriceIcon(price_type)
+
+    if (is_sale) then
+        vars['saleNode']:setVisible(true)
+        vars['salePriceLabel1']:setString(comma_value(origin_price))
+        vars['salePriceLabel2']:setString(comma_value(price))
+        vars['priceLabel']:setString('')
+        vars['saleTimeLabel']:setString(msg)
+        vars['salePriceNode']:addChild(price_icon)
+    else
+        vars['priceLabel']:setString(comma_value(price))
+        vars['priceNode']:removeAllChildren()
+        vars['priceNode']:addChild(price_icon)
+    end
 end

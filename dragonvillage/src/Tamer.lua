@@ -9,6 +9,7 @@ local TAMER_ACTION_TAG__MOVE_Z = 10
 Tamer = class(PARENT, {
         -- 기본 정보
         m_tamerID = '',    -- 드래곤의 고유 ID
+        m_costumeData = 'StructTamerCostume', -- 코스튬 데이터 추가
 
         m_skillIndicator = '',
 

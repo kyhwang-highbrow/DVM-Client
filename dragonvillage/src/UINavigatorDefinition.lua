@@ -78,6 +78,10 @@ end
 -- @usage UINavigatorDefinition:goTo('tamer')
 -------------------------------------
 function UINavigatorDefinition:goTo_tamer(...)
+    local args = {...}
+    local sel_tamer_id = args[1] or g_tamerData:getCurrTamerID()
+    local refresh_cb = args[2]
+
     -- 해당 UI가 열려있을 경우
     -- UI_SkillDetailPopup_Tamer로 닫아줘야 중복해서 팝업 뜰 때 오류가 안남.
     local is_opend, idx, ui = self:findOpendUI('UI_SkillDetailPopup_Tamer')
@@ -86,7 +90,15 @@ function UINavigatorDefinition:goTo_tamer(...)
         return
     end
 
-    UI_TamerManagePopup()
+    local function finish_cb()
+        local ui = UI_TamerManagePopup(sel_tamer_id)
+        if (refresh_cb) then
+            ui:setCloseCB(refresh_cb)
+        end
+    end
+    
+    -- 정보 요청 (테이머 관리에 코스튬 합쳐지면서 통신 필요함)
+    g_tamerCostumeData:request_costumeInfo(finish_cb)
 end
 
 -------------------------------------

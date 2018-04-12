@@ -53,7 +53,7 @@ end
 -- function getCostumeDataWithCostumeID 
 -- @brief 코스튬 정보 반환
 -------------------------------------
-function ServerData_TamerCostume:getCostumeDataWithCostumeID(costume_id, key)
+function ServerData_TamerCostume:getCostumeDataWithCostumeID(costume_id)
     local table_tamer = TableTamerCostume()
     local t_costume = table_tamer:get(costume_id)
 

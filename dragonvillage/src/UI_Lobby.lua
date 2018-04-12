@@ -550,8 +550,7 @@ function UI_Lobby:refresh_userInfo()
     end
 
     do -- 테이머 아이콘 갱신
-        local type = g_tamerData:getCurrTamerTable('type')
-        local icon = IconHelper:getTamerProfileIcon(type)
+        local icon = IconHelper:getTamerProfileIconWithCostumeID()
         vars['userNode']:removeAllChildren()
         vars['userNode']:addChild(icon)
     end
@@ -800,7 +799,7 @@ function UI_Lobby:click_tamerBtn()
 	local function close_cb()
 		self:refresh_userInfo()
 	end
-	UI_TamerManagePopup():setCloseCB(close_cb)
+	UINavigator:goTo('tamer', nil, close_cb)
 end
 
 -------------------------------------

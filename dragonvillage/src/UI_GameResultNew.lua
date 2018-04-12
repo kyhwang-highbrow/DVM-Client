@@ -177,10 +177,10 @@ function UI_GameResultNew:setWorkList()
     self.m_workIdx = 0
 
     self.m_lWorkList = {}
-    table.insert(self.m_lWorkList, 'direction_showTamer')
+--    table.insert(self.m_lWorkList, 'direction_showTamer')
 	table.insert(self.m_lWorkList, 'check_tutorial')
 	table.insert(self.m_lWorkList, 'check_masterRoad')
-    table.insert(self.m_lWorkList, 'direction_hideTamer')
+--    table.insert(self.m_lWorkList, 'direction_hideTamer')
     table.insert(self.m_lWorkList, 'direction_showScore')
     table.insert(self.m_lWorkList, 'direction_start')
     table.insert(self.m_lWorkList, 'direction_end')

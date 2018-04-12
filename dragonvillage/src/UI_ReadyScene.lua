@@ -919,12 +919,12 @@ end
 -- @breif
 -------------------------------------
 function UI_ReadyScene:click_tamerBtn()
-    local ui = UI_TamerManagePopup()
-	ui:setCloseCB(function() 
+    local function refresh_cb()
 		self:refresh_tamer()
         self:refresh_combatPower()
 		self:refresh_buffInfo()
-	end)
+	end
+	UINavigator:goTo('tamer', nil, refresh_cb)
 end
 
 -------------------------------------
