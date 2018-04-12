@@ -82,7 +82,13 @@ function UI_SkillDetailPopupListItem_Tamer:refresh()
     end
 
     do -- 레벨 표시
-		vars['lvLabel']:setString(Str('Lv.{1}', skill_level))
+        if (skill_level == 0) then
+            vars['lvLabel']:setVisible(false)
+            vars['typeLabel']:setPositionX(110)
+        else
+            vars['lvLabel']:setVisible(true)
+            vars['lvLabel']:setString(Str('Lv.{1}', skill_level))
+        end
     end
 
     do -- 스킬 설명

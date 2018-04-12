@@ -33,11 +33,14 @@ function UI_TamerSkillCard:init(skill_indivisual_info)
     local lv_str
     if (not skill_lv) or (skill_lv == 0) then
         lv_str = ''
+        vars['lvLabel']:setVisible(false)
+        vars['typeLabel']:setPositionX(70)
     else
         lv_str = Str('Lv.{1}', skill_lv)
+        vars['lvLabel']:setVisible(true)
+        vars['lvLabel']:setString(lv_str)
     end
-    vars['lvLabel']:setString(lv_str)
-
+    
     -- 스킬 이름
     local skill_name = self:getSkillNameStr()
     vars['skillNameLabel']:setString(skill_name)
