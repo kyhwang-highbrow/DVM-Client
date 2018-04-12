@@ -19,7 +19,7 @@ UI_TamerManagePopup = class(PARENT, {
 -- function init
 -------------------------------------
 function UI_TamerManagePopup:init(tamer_id)
-    local vars = self:load('tamer_manage_scene_new.ui')
+    local vars = self:load('tamer_manage_scene.ui')
     UIManager:open(self, UIManager.SCENE)
 
     -- 씬 전환 효과

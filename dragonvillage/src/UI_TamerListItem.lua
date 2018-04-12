@@ -11,7 +11,7 @@ UI_TamerListItem = class(PARENT, {
 -- function init
 -------------------------------------
 function UI_TamerListItem:init(tamer_data)
-    local vars = self:load('tamer_manage_scene_item_new.ui')
+    local vars = self:load('tamer_manage_scene_item.ui')
     self.m_tamerData = tamer_data
 
     self:initUI()

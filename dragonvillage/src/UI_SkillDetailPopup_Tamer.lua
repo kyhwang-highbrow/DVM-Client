@@ -15,7 +15,7 @@ function UI_SkillDetailPopup_Tamer:init(t_tamer)
     self.m_bSimpleMode = is_simple_mode
     self.m_uiName = 'UI_SkillDetailPopup_Tamer'
 
-    local vars = self:load('tamer_skill_detail_popup_new.ui')
+    local vars = self:load('tamer_skill_detail_popup.ui')
     UIManager:open(self, UIManager.NORMAL)
 
 	-- @UI_ACTION

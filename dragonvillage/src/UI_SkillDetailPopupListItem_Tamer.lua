@@ -14,7 +14,7 @@ UI_SkillDetailPopupListItem_Tamer = class(PARENT, {
 -- function init
 -------------------------------------
 function UI_SkillDetailPopupListItem_Tamer:init(t_tamer, skill_mgr, skill_idx, is_simple_mode)
-    local vars = self:load('tamer_skill_detail_popup_item_new.ui')
+    local vars = self:load('tamer_skill_detail_popup_item.ui')
     
 	self.m_tableTamer = t_tamer
     self.m_skillMgr = skill_mgr
