@@ -857,8 +857,7 @@ function UINavigatorDefinition:goTo_hatchery(...)
             local function close_cb()
                 UINavigatorDefinition:goTo('lobby')
             end
-
-            local scene = SceneCommon(UI_Hatchery, close_cb, tab)
+            local scene = SceneCommon(UI_Hatchery, close_cb, tab, focus_id)
             scene:runScene()
         end
     end
