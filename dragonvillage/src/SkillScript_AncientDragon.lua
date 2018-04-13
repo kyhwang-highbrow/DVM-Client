@@ -215,7 +215,7 @@ function SkillScript_AncientDragon:onEvent(event_name, t_event, ...)
             if (not body) then
             elseif (body['bone'] == WEAK_POINT_BONE) then
                 self.m_hitCount = self.m_hitCount + 1
-                cclog('self.m_hitCount : ' .. self.m_hitCount)
+                --cclog('self.m_hitCount : ' .. self.m_hitCount)
 
                 -- 게이지 갱신
                 self:updateGauge()

@@ -9,7 +9,7 @@ Monster_AncientRuinDragon = class(PARENT, {
     m_bCreateParts  = 'boolean',
     m_bExistDrone   = 'boolean',
 
-    m_effectTimer   = 'number',
+    m_mEffectTimer  = 'table',
 })
 
 -------------------------------------
@@ -23,7 +23,7 @@ function Monster_AncientRuinDragon:init(file_name, body, ...)
     self.m_bCreateParts = false
     self.m_bExistDrone = false
 
-    self.m_effectTimer = 0
+    self.m_mEffectTimer = {}
 end
 
 -------------------------------------
@@ -106,7 +106,6 @@ function Monster_AncientRuinDragon:init_monster(t_monster, monster_id, level)
 
             local effect = MakeAnimator('res/effect/effect_steam/effect_steam.spine')
             if (effect) then
-                cclog(bone_name .. ' : ' .. visual_name)
                 effect:changeAni(visual_name, false)
                 self.m_mBoneEffect[effect] = bone_name
             end
@@ -118,7 +117,7 @@ function Monster_AncientRuinDragon:init_monster(t_monster, monster_id, level)
             local visual_name = string.format('steam_%02d', (i - 1) % 2 + 1)
             local effect = makeSteamBoneEffect(bone_name, visual_name)
             if (effect) then
-                effect:setScale(10)
+                self.m_mEffectTimer[effect] = math_random(0, 9) / 10
                 self.m_animator.m_node:addChild(effect.m_node, 1)
             end
         end
@@ -239,13 +238,13 @@ function Monster_AncientRuinDragon:update(dt)
     end
 
     -- 이펙트 타이머(해당 이펙트가 loop기능이 안되는 이슈로 임시 처리함)
-    if (not isExistValue(self.m_state, 'appear', 'dying')) then
-        self.m_effectTimer = self.m_effectTimer + dt
+    if (not self:isDead() and not isExistValue(self.m_state, 'appear', 'dying')) then
+        for effect, _ in pairs(self.m_mBoneEffect) do
+            self.m_mEffectTimer[effect] = self.m_mEffectTimer[effect] + dt
+            
+            if (self.m_mEffectTimer[effect] > 2) then
+                self.m_mEffectTimer[effect] = math_random(0, 5) / 10
 
-        if (self.m_effectTimer > 1) then
-            self.m_effectTimer = 0
-
-            for effect, bone_name in pairs(self.m_mBoneEffect) do
                 local ani = effect.m_currAnimation
                 effect:changeAni(ani, false)
             end
