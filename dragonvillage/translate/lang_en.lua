@@ -179,7 +179,7 @@ return {['UFO 크래시 발동 시 100% 확률로 마나를 1개 획득합니다
 ['골드 패키지']='Gold Package',
 ['넘치는 마력']='Overflowing Magical Power',
 ['다이아 1,590개']='1,590 Diamonds',
-['다이아 10,200개']='10,2000 Diamonds',
+['다이아 10,200개']='10,200 Diamonds',
 ['다이아 17,700개']='17,700 Diamonds',
 ['다이아 3,300개']='3,300 Diamonds',
 ['다이아 37,800개']='37,800 Diamonds',
