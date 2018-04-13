@@ -257,20 +257,14 @@ end
 -- @brief 
 -------------------------------------
 function NaverCafeManager:naverCafeEvent(event_type, info)
-    cclog('## naverCafeEvent')
-    cclog(event_type)
-    ccdump(info)
-    cclog('###############################')
-
     -- 활성 이벤트 체크
     local l_active_event = TableNaverEvent:getActiveEventList()
-    ccdump(l_active_event)
 
-    -- 조건 충족 체크
     local condition = nil
     local event_key = nil
     local channel_code = self:naverCafeGetChannelCode()
     
+    -- 조건 충족 체크
     for i, t_event in ipairs(l_active_event) do
         event_key = t_event['event_key']
         if (event_type == 'article') then
@@ -281,17 +275,13 @@ function NaverCafeManager:naverCafeEvent(event_type, info)
         
         -- 이벤트 수행 여부 확인
         if not (g_naverEventData:isAlreadyDone(event_key)) then
-            if (event_type == t_event['event_type']) then
-                cclog(condition, t_event['cond_' .. channel_code])
-
-                if (condition == t_event['cond_' .. channel_code]) then
-                    cclog('## naver cafe plug event request : ', event_key, event_type, condition)
-                    local function finish_cb()
-                        self:naverCafeStop()
-                    end
-                    g_naverEventData:request_naverEventReward(event_key, event_type, finish_cb)
-                    break
+            if (event_type == t_event['event_type']) and (condition == t_event['cond_' .. channel_code]) then
+                cclog('## naver cafe plug event request : ', event_key, event_type, condition)
+                local function finish_cb()
+                    self:naverCafeStop()
                 end
+                g_naverEventData:request_naverEventReward(event_key, event_type, finish_cb)
+                break
             end
         end
     end
