@@ -194,10 +194,21 @@ end
 -------------------------------------
 function NaverCafeManager:onNaverCafeCallback(ret, info)
 	cclog('## naver cafe call back', ret, info)
+    
+    -- onSdkStarted / info = nil
+    -- 카페 plug open (앱 구동시는 아님. 띄울때마다 동작)
+    if (ret == 'start') then
+        cclog('# channel_code : ' .. self:naverCafeGetChannelCode())
+        return
+
+    -- onSdkStopped / info = nil
+    -- 카페 plug close
+    elseif (ret == 'stop') then
+        return
 
     -- onWidgetScreenshotClick / info = nil
     -- widget의 스크린샷 버튼 클릭
-    if ret == 'screenshot' then
+    elseif ret == 'screenshot' then
         local size = cc.Director:getInstance():getWinSize()
         local texture = cc.RenderTexture:create( size.width, size.height, cc.TEXTURE2_D_PIXEL_FORMAT_RGB_A8888, gl.DEPTH24_STENCIL8_OES )
         texture:setPosition( size.width / 2, size.height / 2 )
@@ -211,15 +222,7 @@ function NaverCafeManager:onNaverCafeCallback(ret, info)
             cclog( 'retFileName : ' .. retFileName )
             self:naverCafeStartImageWrite( retFileName )
         end )
-
-    -- onSdkStarted / info = nil
-    -- 카페 plug open (앱 구동시는 아님. 띄울때마다 동작)
-	elseif (ret == 'start') then
-
-    -- onSdkStopped / info = nil
-    -- 카페 plug close
-	elseif (ret == 'stop') then
-
+        
     -- onJoined / info = nil
     elseif (ret == 'join') then
 
@@ -249,7 +252,7 @@ function NaverCafeManager:onNaverCafeCallback(ret, info)
 end
 
 -------------------------------------
--- function 
+-- function naverCafeEvent
 -- @brief 
 -------------------------------------
 function NaverCafeManager:naverCafeEvent(event_type, info)
@@ -266,7 +269,9 @@ function NaverCafeManager:naverCafeEvent(event_type, info)
     local condition = nil
     local event_key = nil
     local channel_code = self:naverCafeGetChannelCode()
+    cclog('## code : ' .. channel_code)
     for i, t_event in ipairs(l_active_event) do
+        ccdump(t_event)
         
         event_key = t_event['event_key']
         if (event_type == 'article') then
@@ -277,10 +282,15 @@ function NaverCafeManager:naverCafeEvent(event_type, info)
         
         -- 이벤트 수행 여부 확인
         if not (g_naverEventData:isAlreadyDone(event_key)) then
-    
-            cclog('## naver cafe plug event request : ', event_key, event_type, condition)
+            
+            cclog(event_type, t_event['event_type'])
+
             if (event_type == t_event['event_type']) then
+
+                cclog(condition, t_event['cond_' .. channel_code])
+
                 if (condition == t_event['cond_' .. channel_code]) then
+                    cclog('## naver cafe plug event request : ', event_key, event_type, condition)
                     local function finish_cb()
                         self:naverCafeStop()
                     end
