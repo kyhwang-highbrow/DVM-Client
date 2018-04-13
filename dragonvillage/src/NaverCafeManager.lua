@@ -191,6 +191,7 @@ end
 -------------------------------------
 -- function onNaverCafeCallback
 -- @brief 네이버 카페에 callback 세팅
+-- @param info : String
 -------------------------------------
 function NaverCafeManager:onNaverCafeCallback(ret, info)
 	cclog('## naver cafe call back', ret, info)
@@ -269,24 +270,18 @@ function NaverCafeManager:naverCafeEvent(event_type, info)
     local condition = nil
     local event_key = nil
     local channel_code = self:naverCafeGetChannelCode()
-    cclog('## code : ' .. channel_code)
+    
     for i, t_event in ipairs(l_active_event) do
-        ccdump(t_event)
-        
         event_key = t_event['event_key']
         if (event_type == 'article') then
-            condition = info['menuId']
+            condition = tonumber(info['menuId'])
         else
-            condition = info
+            condition = tonumber(info)
         end
         
         -- 이벤트 수행 여부 확인
         if not (g_naverEventData:isAlreadyDone(event_key)) then
-            
-            cclog(event_type, t_event['event_type'])
-
             if (event_type == t_event['event_type']) then
-
                 cclog(condition, t_event['cond_' .. channel_code])
 
                 if (condition == t_event['cond_' .. channel_code]) then
