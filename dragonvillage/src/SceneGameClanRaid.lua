@@ -1,6 +1,6 @@
 local PARENT = SceneGame
 
-local LIMIT_TIME = 300
+local LIMIT_TIME = 180
 
 local t_error = {
         [-1671] = Str('제한시간을 초과하였습니다.'),
@@ -13,6 +13,7 @@ local t_error = {
 SceneGameClanRaid = class(PARENT, {
         m_realStartTime = 'number', -- 클랜 던전 시작 시간
         m_realLiveTimer = 'number', -- 클랜 던전 진행 시간 타이머
+        m_enterBackTime = 'number', -- 백그라운드로 나갔을때 실제시간
 
         m_uiPopupTimeOut = 'UI',
 
@@ -27,14 +28,13 @@ function SceneGameClanRaid:init(game_key, stage_id, stage_name, develop_mode, st
     self.m_sceneName = 'SceneGameClanRaid'
     self.m_realStartTime = Timer:getServerTime()
     self.m_realLiveTimer = 0
+    self.m_enterBackTime = nil
     self.m_uiPopupTimeOut = nil
     self.m_bWaitingNet = false
 
     -- 스테이지 속성에 따른 이름을 사용
     local attr = TableStageData():getStageAttr(stage_id)
     self.m_stageName = string.format('stage_clanraid_%s', attr)
-
-    LIMIT_TIME = 180
 end
 
 -------------------------------------
@@ -231,14 +231,6 @@ function SceneGameClanRaid:networkGameComeback(next_func)
             -- 서버에서 제한시간이 오버된 경우는 즉시 종료
             self:showTimeOutPopup()
             return
-        
-        elseif (self.m_realLiveTimer > LIMIT_TIME + 120) then
-            self.m_gameWorld:setGameFinish()
-
-            -- 클라 제한 시간이 2분이상 오버된 경우라도 즉시 종료
-            self:showTimeOutPopup()
-            return
-
         end
 
         self.m_bWaitingNet = false
@@ -274,8 +266,13 @@ function SceneGameClanRaid:networkGameComeback_response(ret)
     -- server_info 정보를 갱신
     g_serverData:networkCommonRespone(ret)
 
-    -- 클랜 던전 진행 시간 재계산
-    self.m_realLiveTimer = Timer:getServerTime() - self.m_realStartTime
+    -- 클랜 던전 진행 시간 재계산(백그라운드 이후 포그라운드로 진입까지 걸린 시간만큼 계산)
+    if (self.m_enterBackTime) then
+        local add_time = Timer:getServerTime() - self.m_enterBackTime
+        self.m_realLiveTimer = self.m_realLiveTimer + add_time
+
+        self.m_enterBackTime = nil
+    end
 end
 
 -------------------------------------
@@ -572,6 +569,14 @@ function SceneGameClanRaid:networkGameFinish_response_stage_clear_info(ret)
     -- TODO: 클리어 정보 저장
 end
 
+-------------------------------------
+-- function applicationDidEnterBackground
+-------------------------------------
+function SceneGameClanRaid:applicationDidEnterBackground()
+    PARENT.applicationDidEnterBackground(self)
+
+    self.m_enterBackTime = Timer:getServerTime()
+end
 
 -------------------------------------
 -- function applicationWillEnterForeground
