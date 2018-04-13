@@ -40,10 +40,15 @@ function UI_IngameTamerPanelItem:initUI()
     local vars = self.vars
         
     do -- 테이머 아이콘
-        local tamer_id = tamer.m_tamerID
-        local tamer_type = TableTamer:getTamerType(tamer_id)
-        local res = 'res/ui/icons/tamer/colosseum_ready_' .. tamer_type .. '.png'
-        local icon = cc.Sprite:create(res)
+        -- 코스튬 적용
+        local icon
+        if (tamer.m_costumeData) then
+            local costume_id = tamer.m_costumeData:getCid()
+            icon = IconHelper:getTamerProfileIconWithCostumeID(costume_id)
+        else
+            icon = IconHelper:makeTamerReadyIcon(tamer.m_tamerID)
+        end
+
         if icon then
             icon:setDockPoint(CENTER_POINT)
             icon:setAnchorPoint(CENTER_POINT)
