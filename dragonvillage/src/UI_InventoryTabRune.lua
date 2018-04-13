@@ -88,6 +88,9 @@ function UI_InventoryTabRune:init_runeTableView(slot_idx)
     local table_view_td = UIC_TableViewTD(node)
     table_view_td.m_cellSize = UI_Inventory.CARD_CELL_SIZE
     table_view_td.m_nItemPerCell = 8
+    table_view_td:setCellCreateInterval(0)
+	table_view_td:setCellCreateDirecting(CELL_CREATE_DIRECTING['fadein'])
+    table_view_td:setCellCreatePerTick(3)
     table_view_td:setCellUIClass(UI_RuneCard, create_func)
     table_view_td:setItemList(l_item_list)
     table_view_td:makeDefaultEmptyDescLabel(Str('룬 가방이 비어있습니다.\n다양한 전투를 통해 룬을 획득해보세요!'))

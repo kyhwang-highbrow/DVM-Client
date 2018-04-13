@@ -52,6 +52,9 @@ function UI_InventoryTabEvolutionStone:init_evolutionStoneTableView()
     table_view_td.m_cellSize = UI_Inventory.CARD_CELL_SIZE
     table_view_td.m_nItemPerCell = 8
     table_view_td:setCellUIClass(make_func, create_func)
+    table_view_td:setCellCreateInterval(0)
+	table_view_td:setCellCreateDirecting(CELL_CREATE_DIRECTING['fadein'])
+    table_view_td:setCellCreatePerTick(3)
     table_view_td:setItemList(l_item_list)
 
     -- 정렬

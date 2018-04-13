@@ -105,6 +105,9 @@ function UI_DragonSell:refresh_dragonMaterialTableView()
     local table_view_td = UIC_TableViewTD(list_table_node)
     table_view_td.m_cellSize = cc.size(128.8, 128.8)
     table_view_td.m_nItemPerCell = 9
+    table_view_td:setCellCreateInterval(0)
+	table_view_td:setCellCreateDirecting(CELL_CREATE_DIRECTING['fadein'])
+    table_view_td:setCellCreatePerTick(3)
     table_view_td:setCellUIClass(UI_DragonCard, create_func)
     self.m_mtrlTableViewTD = table_view_td
 
