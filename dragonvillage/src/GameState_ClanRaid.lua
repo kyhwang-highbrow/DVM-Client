@@ -1,4 +1,4 @@
-local PARENT = GameStateForDoubleTeam
+local PARENT = GameState
 
 -------------------------------------
 -- class GameState_ClanRaid
@@ -19,9 +19,12 @@ GameState_ClanRaid = class(PARENT, {
 -------------------------------------
 function GameState_ClanRaid:init(world)
     self.m_orgBossHp = SecurityNumberClass(0, false)
+    self.m_bossHp = SecurityNumberClass(0, false)
+    self.m_bossMaxHp = SecurityNumberClass(0, false)
     self.m_accumDamage = SecurityNumberClass(0, false)
     self.m_finalDamage = 0
     self.m_finalSkillId = nil
+    self.m_uiBossHp = nil
 end
 
 -------------------------------------
@@ -32,6 +35,8 @@ function GameState_ClanRaid:initState()
     PARENT.initState(self)
 
     self:addState(GAME_STATE_START, GameState_ClanRaid.update_start)
+    self:addState(GAME_STATE_FIGHT, GameState_ClanRaid.update_fight)
+    self:addState(GAME_STATE_SUCCESS_WAIT, GameState_ClanRaid.update_success_wait)
     self:addState(GAME_STATE_SUCCESS, GameState_ClanRaid.update_success)
     self:addState(GAME_STATE_FAILURE, GameState_ClanRaid.update_failure)
     self:addState(GAME_STATE_RESULT, GameState_ClanRaid.update_result)
@@ -105,6 +110,36 @@ function GameState_ClanRaid.update_start(self, dt)
             self:changeState(GAME_STATE_ENEMY_APPEAR)
         end
     end
+end
+
+-------------------------------------
+-- function update_fight
+-------------------------------------
+function GameState_ClanRaid.update_fight(self, dt)
+    local world = self.m_world
+    
+    if (self.m_stateTimer == 0) then
+        if (world.m_waveMgr:isFinalWave()) then
+            -- 보스 체력 게이지
+            self:makeBossHp()
+        end
+    end
+
+    PARENT.update_fight(self, dt)
+end
+
+-------------------------------------
+-- function update_success
+-------------------------------------
+function GameState_ClanRaid.update_success_wait(self, dt)
+    if (self.m_stateTimer == 0) then
+        if (self.m_uiBossHp) then
+            self.m_uiBossHp.root:removeFromParent(true)
+            self.m_uiBossHp = nil
+        end
+    end
+
+    PARENT.update_success_wait(self, dt)
 end
 
 -------------------------------------
@@ -345,7 +380,7 @@ end
 -- function setBossHp
 -------------------------------------
 function GameState_ClanRaid:setBossHp(hp)
-    PARENT.setBossHp(self, hp)
+    self.m_bossHp:set(hp)
 
     for _, boss in ipairs(self.m_world.m_waveMgr.m_lBoss) do
         boss:syncHp(hp)

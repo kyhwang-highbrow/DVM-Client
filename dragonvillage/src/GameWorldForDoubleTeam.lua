@@ -83,9 +83,12 @@ function GameWorldForDoubleTeam:createComponents()
         self.m_gameState = GameState_ClanRaid(self)
         self.m_inGameUI:init_timeUI(false, 0)
 
-    else
-        self.m_gameState = GameStateForDoubleTeam(self)
+    elseif (self.m_gameMode == GAME_MODE_ANCIENT_RUIN) then
+        self.m_gameState = GameState_AncientRuin(self)
         self.m_inGameUI:init_timeUI(true, 0)
+
+    else
+        error('invalid game mode : ' .. self.m_gameMode)
 
     end
 end

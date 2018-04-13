@@ -843,10 +843,7 @@ function Character:undergoAttack(attacker, defender, i_x, i_y, body_key, no_even
 	
 	-- 방어와 관련된 이벤트 처리후 데미지 계산
 	if (not attack_activity_carrier:isIgnoreAll()) then
-		-- @EVENT 방어 이벤트 (에너지실드)
-		self:dispatch('hit_shield', t_event)
-
-		-- @EVENT 방어 이벤트 (횟수)
+		-- @EVENT 방어 이벤트
 		self:dispatch('hit_barrier', t_event)
 	
 		damage = t_event['damage']

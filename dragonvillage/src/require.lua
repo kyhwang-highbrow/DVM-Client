@@ -375,7 +375,7 @@ local t_module = {
     'GameWorldIntro',
     'GameWorldClanRaid',
     'GameState',
-    'GameStateForDoubleTeam',
+    'GameState_AncientRuin',
     'GameState_AncientTower',
     'GameState_NestDungeon',
     'GameState_NestDungeon_Dragon',

@@ -327,7 +327,7 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <None Include="..\src\DropItemMgr.lua" />
     <None Include="..\src\GameHighlightMgr.lua" />
     <None Include="..\src\GameMana.lua" />
-    <None Include="..\src\GameStateForDoubleTeam.lua" />
+    <None Include="..\src\GameState_AncientRuin.lua" />
     <None Include="..\src\GameState_AncientTower.lua" />
     <None Include="..\src\GameState_ClanRaid.lua" />
     <None Include="..\src\GameState_Colosseum.lua" />

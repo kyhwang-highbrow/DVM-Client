@@ -48,7 +48,7 @@ function StatusEffect_Protection:initFromTable(t_status_effect, target_char)
 
     self.m_bUseCount = self:isCountShield()
 
-    self:addTrigger('hit_shield', self:getTriggerFunction())
+    self:addTrigger('hit_barrier', self:getTriggerFunction())
 end
 
 -------------------------------------
