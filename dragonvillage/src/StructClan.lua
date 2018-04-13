@@ -20,6 +20,9 @@ StructClan = class(PARENT, {
         master = 'string', -- 클랜 마스터 닉네임
         empty = '', -- ??
 
+        timestamp = 'number',
+        mcnt = 'number',
+
         m_structClanMark = 'StructClanMark',
         m_memberList = 'list[StructUserInfoCLan]',
     })
