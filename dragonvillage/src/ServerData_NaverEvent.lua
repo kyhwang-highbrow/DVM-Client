@@ -17,7 +17,7 @@ end
 -- function isAlreadyDone
 -------------------------------------
 function ServerData_NaverEvent:isAlreadyDone(event_key)
-    return table.find(self.m_lDoneList, event_key)
+    return table.find(self.m_lDoneList, event_key) ~= nil
 end
 
 -------------------------------------

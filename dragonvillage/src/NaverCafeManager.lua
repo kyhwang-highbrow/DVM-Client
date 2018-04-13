@@ -254,35 +254,40 @@ end
 
 -------------------------------------
 -- function naverCafeEvent
--- @brief 
 -------------------------------------
-function NaverCafeManager:naverCafeEvent(event_type, info)
+function NaverCafeManager:naverCafeEvent(cb_type, cb_info)
     -- 활성 이벤트 체크
     local l_active_event = TableNaverEvent:getActiveEventList()
 
-    local condition = nil
-    local event_key = nil
     local channel_code = self:naverCafeGetChannelCode()
+    local event_key, event_cond = nil
     
+    -- 타입에 따라 별도 처리
+    if (cb_type == 'article') then
+        cb_info = tonumber(cb_info['menuId'])
+    elseif isExistValue(cb_type, 'comment', 'article', 'vote') then
+        cb_info = tonumber(cb_info)
+    end
+
     -- 조건 충족 체크
     for i, t_event in ipairs(l_active_event) do
         event_key = t_event['event_key']
-        if (event_type == 'article') then
-            condition = tonumber(info['menuId'])
-        else
-            condition = tonumber(info)
-        end
-        
+        event_cond = t_event['cond_' .. channel_code]
+
         -- 이벤트 수행 여부 확인
-        if not (g_naverEventData:isAlreadyDone(event_key)) then
-            if (event_type == t_event['event_type']) and (condition == t_event['cond_' .. channel_code]) then
-                cclog('## naver cafe plug event request : ', event_key, event_type, condition)
-                local function finish_cb()
-                    self:naverCafeStop()
-                end
-                g_naverEventData:request_naverEventReward(event_key, event_type, finish_cb)
-                break
+        if (not g_naverEventData:isAlreadyDone(event_key))
+        and (cb_type == t_event['event_type'])
+        and ((cb_info == event_cond) or (cb_info == '')) then
+                    
+            -- (cb_info == '')
+            -- cb_type 중에서 join과 같이 별도의 info가 넘어오지 않는 경우 통과시키기 위한 처리
+            
+            cclog('## naver cafe plug event request : ', event_key, cb_type, cb_info)
+            local function finish_cb()
+                self:naverCafeStop()
             end
+            g_naverEventData:request_naverEventReward(event_key, cb_type, finish_cb)
+            break
         end
     end
     
@@ -314,7 +319,7 @@ function NaverCafeManager:naverInitGlobalPlug(server, lang, isSaved)
         if lang == 'en' then
             channelID = NAVER_CHANNEL_ASIA_EN
         else
-            channelID = NAVER_CHANNEL_ASIA_TH_TW
+            channelID = NAVER_CHANNEL_ASIA_TH_TW  
         end
     end
 
