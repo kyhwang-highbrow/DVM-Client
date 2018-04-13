@@ -96,9 +96,11 @@ function UINavigatorDefinition:goTo_tamer(...)
             ui:setCloseCB(refresh_cb)
         end
     end
-    
+
     -- 정보 요청 (테이머 관리에 코스튬 합쳐지면서 통신 필요함)
-    g_tamerCostumeData:request_costumeInfo(finish_cb)
+    -- 코스튬 정보가 있다면 굳이 갱신이 필요하지 않아 통신하지 않음
+    local check_shop_info = true
+    g_tamerCostumeData:request_costumeInfo(finish_cb, check_shop_info)
 end
 
 -------------------------------------

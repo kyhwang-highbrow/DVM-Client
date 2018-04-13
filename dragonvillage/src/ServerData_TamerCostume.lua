@@ -128,7 +128,18 @@ end
 -------------------------------------
 -- function request_costumeInfo
 -------------------------------------
-function ServerData_TamerCostume:request_costumeInfo(cb_func)
+function ServerData_TamerCostume:request_costumeInfo(cb_func, check_shop_info)
+    -- check_shop_info = true 일 경우 코스튬 상품 정보가 있다면 통신 하지 않음 (불필요한 통신 줄이기위해)
+    if (check_shop_info) then
+        local l_shop = table.MapToList(self.m_shopInfo)
+        if (#l_shop > 0) then
+            if (cb_func) then
+			    cb_func()
+		    end
+            return
+        end
+    end
+
     -- 파라미터
     local uid = g_userData:get('uid')
 
