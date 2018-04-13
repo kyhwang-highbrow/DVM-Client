@@ -273,3 +273,24 @@ function TableRuneSet:getRuneSetVisualName(slot_id, set_id)
 
     return string.format('%s_%02d', color, tonumber(slot_id))
 end
+
+-------------------------------------
+-- function getRuneSetSkill
+--
+-------------------------------------
+function TableRuneSet:getRuneSetSkill(set_id)
+    if (self == THIS) then
+        self = THIS()
+    end
+
+    local t_table = self:get(set_id)
+    local key = t_table['key']
+
+    -- key값이 문자인 경우는 스텟 정보로 스킬 정보는 없음
+    if (type(key) == 'string') then
+        return
+    end
+
+    local skill_id = key
+    return skill_id
+end

@@ -241,6 +241,16 @@ function StructDragonObject:getRuneSetStatus()
 end
 
 -------------------------------------
+-- function getRuneSetSkill
+-- @breif
+-------------------------------------
+function StructDragonObject:getRuneSetSkill()
+    local rune_set_obj = self:getStructRuneSetObject()
+    local m_skill_id = rune_set_obj:getRuneSetSkill()
+    return m_skill_id
+end
+
+-------------------------------------
 -- function getFriendshipObject
 -- @breif
 -------------------------------------

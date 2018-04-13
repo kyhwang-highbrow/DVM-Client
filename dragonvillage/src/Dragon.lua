@@ -68,7 +68,7 @@ function Dragon:init_dragon(dragon_id, t_dragon_data, t_dragon, bLeftFormation, 
 	-- 각종 init 함수 실행
 	do
 		self:setDragonSkillLevelList(t_dragon_data['skill_0'], t_dragon_data['skill_1'], t_dragon_data['skill_2'], t_dragon_data['skill_3'])
-		self:initDragonSkillManager('dragon', dragon_id, evolution, true)
+		self:initDragonSkillManager(t_dragon_data)
 		self:initStatus(t_dragon, lv, grade, evolution, doid, eclv)
     
 		self:initAnimatorDragon(t_dragon['res'], evolution, attr, scale)
@@ -83,6 +83,41 @@ function Dragon:init_dragon(dragon_id, t_dragon_data, t_dragon, bLeftFormation, 
     self:addDefCallback(function(attacker, defender, i_x, i_y)
         self:undergoAttack(attacker, defender, i_x, i_y, 0)
     end)
+end
+
+-------------------------------------
+-- function initDragonSkillManager
+-------------------------------------
+function Dragon:initDragonSkillManager(t_dragon_data)
+    local evolution = t_dragon_data['evolution'] or 1
+    local table_dragon_skill = TableDragonSkill()
+
+    PARENT.initDragonSkillManager(self, 'dragon', self.m_dragonID, evolution, true)
+
+    -- 룬 셋트 스킬 적용
+    local dragon_obj = StructDragonObject(t_dragon_data)
+
+    for skill_id, count in pairs(dragon_obj:getRuneSetSkill()) do
+        local t_skill = table_dragon_skill:get(skill_id)
+        if (not t_skill) then
+            error('invalid rune set skill : ' .. skill_id)
+        end
+        
+        cclog('rune set skill name : ' .. Str(t_skill['t_name']) .. '(' .. count .. ')')
+
+        -- 특정 룬 세트(생존) 효과의 경우는 중첩시 별도 처리...(지속 시간 증가)
+        if (skill_id == 500300) then
+            local skill_indivisual_info = self:setSkillID(t_skill['chance_type'], skill_id, 1, 'new')
+                
+            if (count > 1) then
+                skill_indivisual_info:addBuff('add_option_time_1', count, 'multi', true)
+            end
+        else
+            for i = 1, count do
+                self:setSkillID(t_skill['chance_type'], skill_id, 1, 'new')
+            end
+        end
+    end
 end
 
 -------------------------------------

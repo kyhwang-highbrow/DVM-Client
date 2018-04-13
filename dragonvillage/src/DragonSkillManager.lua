@@ -244,6 +244,8 @@ function IDragonSkillManager:setSkillID(skill_type, skill_id, skill_lv, add_type
 
 	-- 맵으로 저장
 	self.m_mSkillInfoMap[skill_id] = skill_indivisual_info
+
+    return skill_indivisual_info
 end
 
 -------------------------------------

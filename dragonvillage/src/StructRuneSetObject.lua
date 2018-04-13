@@ -110,3 +110,27 @@ function StructRuneSetObject:getRuneSetStatus()
 
     return l_add_status, l_multi_status
 end
+
+-------------------------------------
+-- function getRuneSetSkill
+-------------------------------------
+function StructRuneSetObject:getRuneSetSkill()
+    local m_skill_id = {}
+
+    local active_set_list = self:getActiveRuneSetList()
+
+    local table_rune_set = TableRuneSet()
+    for _, set_id in pairs(active_set_list) do
+        local skill_id = table_rune_set:getRuneSetSkill(set_id)
+        if (skill_id) then
+            if (not m_skill_id[skill_id]) then
+                m_skill_id[skill_id] = 0
+            end
+
+            -- 중첩 카운트를 계산
+            m_skill_id[skill_id] = m_skill_id[skill_id] + 1
+        end
+    end
+
+    return m_skill_id
+end
