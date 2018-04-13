@@ -561,6 +561,12 @@ function MakeUICSortList_runeManageFilter(button, label)
     local table_rune_set = TableRuneSet()
 
     for i,v in ipairs(table_rune_set.m_orgTable) do
+        
+        -- 일딴 기존 세트까지만 출력
+        if (i > 8) then
+            break
+        end
+
         local set_id = i
         local text = TableRuneSet:makeRuneSetFullNameRichText(set_id)
         uic:addSortType(set_id, text, nil, true)
