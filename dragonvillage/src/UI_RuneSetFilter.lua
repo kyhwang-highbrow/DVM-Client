@@ -49,6 +49,9 @@ function UI_RuneSetFilter:initButton()
     local vars = self.vars
     vars['closeBtn']:registerScriptTapHandler(function() self:click_setFilter(set_id) end)
 
+    -- 전체 정렬
+    vars['allBtn']:registerScriptTapHandler(function() self:click_setFilter(0) end)
+
     local table_rune_set = TableRuneSet()
     for i,v in ipairs(table_rune_set.m_orgTable) do
         local set_id = i
