@@ -401,7 +401,7 @@ function ServerData_NestDungeon:requestNestDungeonStageList(cb_func)
     local ui_network = UI_Network()
     ui_network:setUrl('/game/stage/list')
     ui_network:setParam('uid', uid)
-    ui_network:setParam('type', GAME_MODE_NEST_DUNGEON)
+    ui_network:setParam('type', GAME_MODE_NEST_DUNGEON) -- GAME_MODE_ANCIENT_RUIN 던전 정보까지 받아옴
     ui_network:setRevocable(true)
     ui_network:setSuccessCB(success_cb)
     ui_network:request()

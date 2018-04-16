@@ -60,7 +60,6 @@ function UI_Setting:click_allClearBtn()
     local ui_network = UI_Network()
     ui_network:setUrl('/manage/stage_clear')
     ui_network:setParam('uid', uid)
-    ui_network:setParam('type', GAME_MODE_ADVENTURE) -- 모험모드를 뜻함
     ui_network:setParam('stage', 'all')
     ui_network:setSuccessCB(success_cb)
     ui_network:setRevocable(true) -- 통신 실패 시 취소 가능 여부
