@@ -300,7 +300,6 @@ function ServerData_Event:checkEventTime(start_date, end_date)
         end
     end
 
-    cclog(start_time, cur_time, end_time)
     -- 시작 종료 시간 모두 걸려있는 경우
     if (start_time) and (end_time) then
         return (start_time < cur_time and cur_time < end_time)
