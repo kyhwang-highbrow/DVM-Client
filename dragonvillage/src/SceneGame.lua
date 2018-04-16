@@ -999,7 +999,7 @@ function SceneGame:networkGameFinish_response_stage_clear_info(ret)
             end
         end
 
-    elseif (self.m_gameMode == GAME_MODE_NEST_DUNGEON) then
+    elseif (self.m_gameMode == GAME_MODE_NEST_DUNGEON or self.m_gameMode == GAME_MODE_ANCIENT_RUIN) then
         g_nestDungeonData:applyNestStageClearCnt(stage_id, stage_clear_info['cl_cnt'])
 
     elseif (self.m_gameMode == GAME_MODE_SECRET_DUNGEON) then
