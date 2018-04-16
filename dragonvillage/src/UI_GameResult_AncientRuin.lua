@@ -112,3 +112,11 @@ function UI_GameResult_AncientRuin:direction_moveMenu()
     self:show_staminaInfo()
     self:doNextWork()
 end
+
+-------------------------------------
+-- function direction_dragonGuide
+-------------------------------------
+function UI_GameResult_AncientRuin:direction_dragonGuide()
+    -- 고대 유적 던전은 패배시 성장 가이드 노출 X - 10마리 가이드 불가..
+    self:doNextWork()
+end
