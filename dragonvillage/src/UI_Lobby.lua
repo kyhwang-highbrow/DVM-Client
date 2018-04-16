@@ -225,7 +225,7 @@ function UI_Lobby:entryCoroutine()
 
         if (g_hotTimeData:isActiveEvent('event_gold_dungeon')) then
             co:work('# 황금던전 이벤트 정보 받는 중')
-            g_eventGoldDungeonData:request_dungeonInfo(co.NEXT, co.ESCAPE)
+            g_eventGoldDungeonData:request_dungeonInfo(co.NEXT, required_fail_cb)
             if co:waitWork() then return end
         end
 
@@ -234,7 +234,6 @@ function UI_Lobby:entryCoroutine()
 
 		-- 강제 튜토리얼 진행 하는 동안 풀팝업, 마스터의 길, 구글 업적 일괄 체크, 막음
         if (not TutorialManager.getInstance():checkFullPopupBlock()) then
-
             -- 풀팝업 출력 함수
             local function show_func(pid) 
                 co:work()
