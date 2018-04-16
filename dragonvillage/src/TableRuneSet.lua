@@ -106,9 +106,9 @@ function TableRuneSet:makeRuneSetFullNameRichText(set_id)
     local text = ''
 
     if (type(option) == 'number') then
-        text = Str('{1}{2}{@DESC} ({3}세트 ', tag, name, need_equip)..TableDragonSkill():getSkillDesc(option)..')'
+        text = Str('{1}{2}{@DESC} ({3}세트): ', tag, name, need_equip)..TableDragonSkill():getSkillDesc(option)
     else
-        text = Str('{1}{2}{@DESC} ({3}세트 ', tag, name, need_equip)..TableOption:getOptionDesc(option, value)..')'  
+        text = Str('{1}{2}{@DESC} ({3}세트): ', tag, name, need_equip)..TableOption:getOptionDesc(option, value)  
     end
 
     return text
