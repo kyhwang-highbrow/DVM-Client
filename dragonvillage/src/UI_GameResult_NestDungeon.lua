@@ -5,6 +5,7 @@ local PARENT = UI_GameResultNew
 -------------------------------------
 UI_GameResult_NestDungeon = class(PARENT, {
         m_nestDungeonInfo = 'table',
+        m_ancient_ruin_open = 'boolean'
      })
 
 -------------------------------------
@@ -12,8 +13,9 @@ UI_GameResult_NestDungeon = class(PARENT, {
 -- @param file_name
 -- @param body
 -------------------------------------
-function UI_GameResult_NestDungeon:init(stage_id, is_success, time, gold, t_tamer_levelup_data, l_dragon_list, box_grade, l_drop_item_list, secret_dungeon)
-    
+function UI_GameResult_NestDungeon:init(stage_id, is_success, time, gold, t_tamer_levelup_data, l_dragon_list, box_grade, l_drop_item_list, secret_dungeon, content_open)
+    self.m_ancient_ruin_open = content_open['open'] or false
+
     -- 서버에서 받아온 네스트 던전의 정보
     self.m_nestDungeonInfo = g_nestDungeonData:getNestDungeonInfoIndividual(stage_id)
 end
@@ -91,4 +93,18 @@ function UI_GameResult_NestDungeon:direction_end()
             vars['againBtn']:setVisible(false)
         end
     end
+end
+
+-------------------------------------
+-- function direction_masterRoad
+-------------------------------------
+function UI_GameResult_NestDungeon:direction_masterRoad()
+     -- 고대 유적 던전 컨텐츠 오픈 팝업
+    if (self.m_ancient_ruin_open) then
+        -- 오픈된 상태에서 네스트 던전 정보 다시 받아와야함
+        g_nestDungeonData.m_bDirtyNestDungeonInfo = true
+        UI_ContentOpenPopup('ancient_ruin')
+    end 
+
+    PARENT.direction_masterRoad(self)
 end

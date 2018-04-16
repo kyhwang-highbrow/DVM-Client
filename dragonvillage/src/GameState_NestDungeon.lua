@@ -90,6 +90,7 @@ function GameState_NestDungeon:makeResultUI(is_success)
     t_result_ref['drop_reward_grade'] = 'c'
     t_result_ref['drop_reward_list'] = {}
     t_result_ref['secret_dungeon'] = nil
+    t_result_ref['content_open'] = {}
 
     -- 1. 네트워크 통신
     func_network_game_finish = function()
@@ -110,7 +111,8 @@ function GameState_NestDungeon:makeResultUI(is_success)
             t_result_ref['dragon_levelu_data_list'],
             t_result_ref['drop_reward_grade'],
             t_result_ref['drop_reward_list'],
-            t_result_ref['secret_dungeon'])
+            t_result_ref['secret_dungeon'],
+            t_result_ref['content_open'])
     end
 
     -- 최초 실행

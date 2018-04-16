@@ -759,12 +759,19 @@ function SceneGame:networkGameFinish_response_user_info(ret, t_result_ref)
     -- 레벨이 아닌 다른 컨텐츠 오픈 조건
     local t_content_open = t_result_ref['content_open']
     if (t_content_open) then
+        do -- 시험의 탑 오픈 정보
+            local open = ret['attr_tower_open']
+            if (open and open == true) then
+                t_content_open['open'] = open
+                g_userData:applyServerData(open, 'attr_tower_open')
+            end
+        end
 
-        -- 시험의 탑 오픈 정보
-        local open = ret['attr_tower_open']
-        if (open == true) then
-            t_content_open['open'] = open
-            g_userData:applyServerData(open, 'attr_tower_open')
+        do -- 고대 유적 던전 오픈 정보
+            local open = ret['ruin_open']
+            if (open and open == true) then
+                t_content_open['open'] = open
+            end
         end
     end
 end
