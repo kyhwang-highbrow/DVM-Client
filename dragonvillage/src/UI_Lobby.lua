@@ -230,6 +230,7 @@ function UI_Lobby:entryCoroutine()
         end
 
         -- hard refresh
+        cclog('# UI 갱신')
         self:refresh(true)
 
 		-- 강제 튜토리얼 진행 하는 동안 풀팝업, 마스터의 길, 구글 업적 일괄 체크, 막음
@@ -243,31 +244,25 @@ function UI_Lobby:entryCoroutine()
                 if co:waitWork() then return end
             end
 
+            -- 5 레벨 미만은 마을에서 네이버 SDK와 풀 팝업을 띄우지 않음
+            local is_show = (g_fullPopupManager:isTitleToLobby() and (g_userData:get('lv') >= 5))
+            
 			-- 지정된 풀팝업 리스트 (최초 로비 실행 시 출력)
-            local is_title_to_lobby = g_fullPopupManager:isTitleToLobby()
-            if (is_title_to_lobby) then
-
-                -- 5 레벨 미만은 마을에서 네이버 SDK와 풀 팝업을 띄우지 않음
-                local lv = g_userData:get('lv')
-                if (5 <= lv) then
-                    -- sgkim 2018-03-15 네이버 SDK에서 터치가 안되는 현상이 잦아서 띄우는 시점을 풀 팝업 이후로 변경함
-                    --NaverCafeManager:naverCafeStart(0) -- 네이버 카페
-                    g_fullPopupManager:show(FULL_POPUP_TYPE.LOBBY, show_func)
-                end
+            if (is_show) then
+                cclog('# 풀팝업 show')
+                g_fullPopupManager:show(FULL_POPUP_TYPE.LOBBY, show_func)
             end
             
 			-- 출석 보상 정보 (보상 존재할 경우 출력)
-			if (g_attendanceData:hasAttendanceReward()) then
+            if (g_attendanceData:hasAttendanceReward()) then
+                cclog('# 출석 show')
                 g_fullPopupManager:show(FULL_POPUP_TYPE.ATTENDANCE, show_func)
 			end
 
-            -- 지정된 풀팝업 리스트 (최초 로비 실행 시 출력)
-            if (is_title_to_lobby) then
-                -- 5 레벨 미만은 마을에서 네이버 SDK와 풀 팝업을 띄우지 않음
-                local lv = g_userData:get('lv')
-                if (5 <= lv) then
-                    NaverCafeManager:naverCafeStart(0) -- 네이버 카페
-                end
+            -- 카페 플러그 커뮤니티
+            if (is_show) then
+                cclog('# 카페 플러그 커뮤니티')
+                NaverCafeManager:naverCafeStart(0) -- 네이버 카페
             end
 
             -- @ MASTER ROAD
