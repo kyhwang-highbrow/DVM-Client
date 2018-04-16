@@ -482,6 +482,62 @@ function Character:checkAvoid(activity_carrier, t_attr_effect)
 end
 
 -------------------------------------
+-- function checkGuard
+-- @brief 피해 이전 여부 검사
+-------------------------------------
+function Character:checkGuard(attacker, defender)
+    if (self.m_guard) then
+		-- Event Carrier 세팅
+		local t_event = clone(EVENT_HIT_CARRIER)
+		t_event['attacker'] = attacker
+        t_event['defender'] = defender
+		-- @EVENT
+		self:dispatch('guardian', t_event)
+		return true
+    else
+        -- 룬 세트 효과(결의) : 자신보다 후방에 위치한 아군이 받는 피해를 스텟값(%)의 확률로 대신 받음
+        local guard_list = {}
+        local rate = 0
+        local b = false
+        local pos_x, pos_y = self:getPosForFormation()
+        local v_x, v_y
+        
+        for _, v in pairs(self:getFellowList()) do
+            rate = v:getStat('guard_rear')
+
+            if (v ~= self and rate > 0) then
+                b = false
+                v_x, v_y = v:getPosForFormation()
+
+                if (self.m_bLeftFormation and v_x > pos_x) then
+                    b = true
+                elseif (not self.m_bLeftFormation and v_x < pos_x) then
+                    b = true
+                end
+
+                if (b and math_random(1, 100) <= rate) then
+                    table.insert(guard_list, v)
+                end
+            end
+        end
+
+        if (#guard_list > 0) then
+            guard_list = randomShuffle(guard_list)
+
+            local guarder = guard_list[1]
+            guarder:undergoAttack(attacker, guarder, guarder.pos.x, guarder.pos.y, 0, false, true)
+
+            -- 이펙트
+            MakeEffectGuard(self.m_world, self, guarder)
+            
+		    return true
+        end
+    end
+
+    return false
+end
+
+-------------------------------------
 -- function undergoAttack
 -------------------------------------
 function Character:undergoAttack(attacker, defender, i_x, i_y, body_key, no_event, is_guard)
@@ -537,52 +593,8 @@ function Character:undergoAttack(attacker, defender, i_x, i_y, body_key, no_even
     -- 수호(guard) 상태 체크
     if (attack_activity_carrier:isIgnoreAll()) then
         -- 수호 무시
-    elseif (self.m_guard) and (not is_guard) then
-		-- Event Carrier 세팅
-		local t_event = clone(EVENT_HIT_CARRIER)
-		t_event['attacker'] = attacker
-        t_event['defender'] = defender
-		-- @EVENT
-		self:dispatch('guardian', t_event)
-		return
-    else
-        -- 룬 세트 효과(결의) : 자신보다 후방에 위치한 아군이 받는 피해를 스텟값(%)의 확률로 대신 받음
-        local guard_list = {}
-        local rate = 0
-        local b = false
-        local pos_x, pos_y = self:getPosForFormation()
-        local v_x, v_y
-        
-        for _, v in pairs(self:getFellowList()) do
-            rate = v:getStat('guard_rear')
-
-            if (v ~= self and rate > 0) then
-                b = false
-                v_x, v_y = v:getPosForFormation()
-
-                if (self.m_bLeftFormation and v_x > pos_x) then
-                    b = true
-                elseif (not self.m_bLeftFormation and v_x < pos_x) then
-                    b = true
-                end
-
-                if (b and math_random(1, 100) <= rate) then
-                    table.insert(guard_list, v)
-                end
-            end
-        end
-
-        if (#guard_list > 0) then
-            guard_list = randomShuffle(guard_list)
-
-            local guarder = guard_list[1]
-            guarder:undergoAttack(attacker, guarder, guarder.pos.x, guarder.pos.y, 0, false, true)
-
-            -- 이펙트
-            --EffectGuard(self.m_world, 'res/effect/effect_damage_reflect/effect_damage_reflect.vrp', self, guarder)
-            
-		    return
-        end
+    elseif (not is_guard and self:checkGuard(attacker, defender)) then
+        return
     end
 
     -- 회피 계산

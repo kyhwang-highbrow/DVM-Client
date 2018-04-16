@@ -469,6 +469,7 @@ DEPTH_MISSILE = counter:get()
 DEPTH_ITEM_GOLD = counter:get()
 DEPTH_ITEM_CHARGE = counter:get()
 
+DEPTH_GUARD_EFFECT = counter:get()
 DEPTH_DAMAGE_EFFECT = counter:get()
 DEPTH_INSTANT_EFFECT = counter:get()
 

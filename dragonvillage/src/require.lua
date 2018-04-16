@@ -510,6 +510,7 @@ local t_module = {
 
 	-- EFFECT
 	'EffectLink',
+    'EffectGuard',
     'EffectLinearDot',
     'EffectBezierLink',
 	'EffectHeal',
