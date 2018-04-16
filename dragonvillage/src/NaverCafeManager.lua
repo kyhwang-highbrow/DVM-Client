@@ -141,19 +141,19 @@ function NaverCafeManager:naverCafeStartWithArticleByKey(article_key, server_nam
     local channel_code = self:naverCafeGetChannelCode()
     local article_id = t_data[channel_code]
     cclog('article id : ' .. article_id)
-
+    
     -- 네이버 SDK 호출
-    self:naverCafeStartWithArticle(artice_id)
+    self:naverCafeStartWithArticle(article_id)
 end
 
 -------------------------------------
 -- function naverCafeStartWithArticle
 -------------------------------------
-function NaverCafeManager:naverCafeStartWithArticle(artice_id)
+function NaverCafeManager:naverCafeStartWithArticle(article_id)
     if (skip()) then
         return
     end
-    PerpleSDK:naverCafeStartWithArticle(artice_id)
+    PerpleSDK:naverCafeStartWithArticle(article_id)
 end
 
 -------------------------------------
