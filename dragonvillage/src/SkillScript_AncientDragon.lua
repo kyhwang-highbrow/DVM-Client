@@ -9,6 +9,7 @@ SkillScript_AncientDragon = class(PARENT, {
     m_hitCount = 'number',
     m_hitCountForCancel = 'number',
 
+    m_effectRootNode = '',
     m_effectWeakPoint = '',
 
     m_hpGaugeFrame = '',
@@ -22,6 +23,7 @@ function SkillScript_AncientDragon:init()
     self.m_hitCount = 0
     self.m_hitCountForCancel = 10
 
+    self.m_effectRootNode = nil
     self.m_effectWeakPoint = nil
 
     self.m_hpGaugeFrame = nil
@@ -41,12 +43,20 @@ function SkillScript_AncientDragon:init_skill(script_name, duration)
     end
 
     -- 약점 이펙트 생성
+    if (not self.m_effectRootNode) then
+        self.m_effectRootNode = cc.Node:create()
+        self.m_effectRootNode:setVisible(false)
+        self.m_world:getMissileNode():addChild(self.m_effectRootNode)
+    end
+
+    --[[
     if (not self.m_effectWeakPoint) then
         self.m_effectWeakPoint = MakeAnimator('res/effect/effect_weak_point/effect_weak_point.vrp')
         self.m_effectWeakPoint:changeAni('idle', true)
         self.m_effectWeakPoint:setVisible(false)
-        self.m_world:getMissileNode():addChild(self.m_effectWeakPoint.m_node, 1)
+        self.m_effectRootNode:addChild(self.m_effectWeakPoint.m_node, 1)
     end
+    ]]--
 
     -- 게이지 생성
     if (not self.m_hpGaugeFrame) then
@@ -54,14 +64,14 @@ function SkillScript_AncientDragon:init_skill(script_name, duration)
         self.m_hpGaugeFrame:setPosition(-35, -25)
         self.m_hpGaugeFrame:setAnchorPoint(cc.p(0, 0.5))
         self.m_hpGaugeFrame:setDockPoint(cc.p(0, 0.5))
-        self.m_effectWeakPoint:addChild(self.m_hpGaugeFrame, 1)
+        self.m_effectRootNode:addChild(self.m_hpGaugeFrame, 2)
     end
     if (not self.m_hpGauge) then
         self.m_hpGauge = cc.Sprite:createWithSpriteFrameName('ingame_cha_info_hp_gg_0104.png')
         self.m_hpGauge:setPosition(-32, -25)
         self.m_hpGauge:setAnchorPoint(cc.p(0, 0.5))
         self.m_hpGauge:setDockPoint(cc.p(0, 0.5))
-        self.m_effectWeakPoint:addChild(self.m_hpGauge, 2)
+        self.m_effectRootNode:addChild(self.m_hpGauge, 3)
     end
 end
 
@@ -108,8 +118,8 @@ function SkillScript_AncientDragon.st_charge(owner, dt)
         unit.m_animator:changeAni('skill_1_appear', false)
 
         -- 약점 이펙트 표시
-        if (owner.m_effectWeakPoint) then
-            owner.m_effectWeakPoint:setVisible(true)
+        if (owner.m_effectRootNode) then
+            owner.m_effectRootNode:setVisible(true)
         end
     end
 
@@ -231,13 +241,13 @@ end
 -- function updateEffectPos
 -------------------------------------
 function SkillScript_AncientDragon:updateEffectPos()
-    if (self.m_effectWeakPoint) then
+    if (self.m_effectRootNode) then
         local unit = self.m_owner
         local bone_pos = unit.m_animator.m_node:getBonePosition(WEAK_POINT_BONE)
         local x = unit.pos['x'] + bone_pos['x'] * unit.m_animator.m_node:getScaleX()
         local y = unit.pos['y'] + bone_pos['y'] * unit.m_animator.m_node:getScaleY()
         
-        self.m_effectWeakPoint:setPosition(x, y)
+        self.m_effectRootNode:setPosition(x, y)
     end
 end
 
@@ -257,11 +267,12 @@ end
 -- function removeEffect
 -------------------------------------
 function SkillScript_AncientDragon:removeEffect()
-    if (self.m_effectWeakPoint) then
-        self.m_effectWeakPoint:release()
-        self.m_effectWeakPoint = nil
+    if (self.m_effectRootNode) then
+        self.m_effectRootNode:removeFromParent(true)
+        self.m_effectRootNode = nil
     end
 
+    self.m_effectWeakPoint = nil
     self.m_hpGaugeFrame = nil
     self.m_hpGauge = nil
 end
