@@ -19,8 +19,11 @@ end
 function ServerData_AncientRuin:isOpenAncientRuin()
     local mode_id = 1650100
     local t_dungeon = g_nestDungeonData:getNestDungeonInfoIndividual(mode_id)
-    local is_open = t_dungeon and t_dungeon['is_open'] or false
+    if (not t_dungeon) then
+        return false
+    end
 
+    local is_open = (t_dungeon['is_open'] == 1) and true or false
     return is_open
 end
 

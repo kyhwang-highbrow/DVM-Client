@@ -261,6 +261,10 @@ function ServerData_NestDungeon:checkNeedUpdateNestDungeonInfo()
     local time_stamp
 
     for i,v in pairs(l_dungeon_list) do
+        -- 고대 유적 던전은 체크하지 않음
+        if (v['sub_mode'] == NEST_DUNGEON_ANCIENT_RUIN) then
+            return false
+        end
 
         -- 오픈되어있는 던전일 경우 닫힐 때까지의 시간
         if (v['is_open'] == 1) then
