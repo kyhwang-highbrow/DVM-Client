@@ -14,6 +14,19 @@ function ServerData_NaverEvent:init(server_data)
 end
 
 -------------------------------------
+-- function isActiveEvent
+-------------------------------------
+function ServerData_NaverEvent:isActiveEvent(event_key)
+    local l_active_event = TableNaverEvent:getOnTimeEventList()
+    for i, t_event in ipairs(l_active_event) do
+        if (t_event['event_key'] == event_key) then
+            return true
+        end
+    end
+    return false
+end
+
+-------------------------------------
 -- function isAlreadyDone
 -------------------------------------
 function ServerData_NaverEvent:isAlreadyDone(event_key)

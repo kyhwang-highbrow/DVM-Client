@@ -18,10 +18,10 @@ function TableNaverEvent:init()
 end
 
 -------------------------------------
--- function getActiveEventList
+-- function getOnTimeEventList
 -- @breif
 -------------------------------------
-function TableNaverEvent:getActiveEventList()
+function TableNaverEvent:getOnTimeEventList()
     if (self == THIS) then
         self = THIS()
     end

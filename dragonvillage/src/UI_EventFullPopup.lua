@@ -84,6 +84,14 @@ function UI_EventFullPopup:initUI()
     -- 일일 상점
     elseif string.find(popup_key, 'shop_daily') then
         ui = UI_ShopDaily()
+
+    -- 카페 플러그 이벤트 (banner와 똑같지만 노출 처리 조건 때문에 타입 추가)
+    elseif (string.find(popup_key, 'event_cafe')) then
+        local l_str = plSplit(popup_key, ';')
+        local event_data = { banner = l_str[2], url = l_str[3] or ''}
+        local struct_data = StructEventPopupTab(event_data)
+        ui = UI_EventPopupTab_Banner(self, struct_data)
+        
     end
 
     -- 패키지 UI 크기에 따라 풀팝업 UI 사이즈 변경후 추가

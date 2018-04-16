@@ -235,6 +235,10 @@ function UI_EventPopup:makeEventPopupTab(tab)
 			ui = UI_DailyMisson_Clan()
 		end
 
+    -- 카페플러그 이벤트 (banner와 똑같지만 노출 처리 조건 때문에 타입 추가)
+    elseif (tab =='event_cafe') then
+        ui = UI_EventPopupTab_Banner(self, struct_event_popup_tab)
+
     end
 
     self.m_mTabUI[tab] = ui

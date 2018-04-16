@@ -97,9 +97,19 @@ function ServerData_Event:getEventPopupTabList()
 				visible = false
             end
 
-		-- 한정 이벤트 체크
-		elseif (event_id == 'limited') then
-			visible = g_hotTimeData:isActiveEvent(event_type)
+        -- Cafe Plug Event
+        elseif (event_type == 'event_cafe') then
+            -- 활성 카페 플러그 이벤트 중 참여하지 않은것 체크
+            if (not g_naverEventData:isActiveEvent(event_id)) then
+                visible = false
+            elseif (g_naverEventData:isAlreadyDone(event_id)) then
+                visible = false
+            end
+            
+        -- 한정 이벤트 체크
+        elseif (event_id == 'limited') then
+            visible = g_hotTimeData:isActiveEvent(event_type)
+            
         end
 
         if (visible) then
@@ -212,7 +222,20 @@ function ServerData_Event:getEventFullPopupList()
 					event_type = event_type .. ';' .. event_id
 				end
 
-			-- 한정 이벤트 리스트
+            -- 카페 플러그 이벤트
+            elseif (event_type == 'event_cafe') then
+                -- 활성 카페 플러그 이벤트 중 참여하지 않은것 체크
+                if (not g_naverEventData:isActiveEvent(event_id)) then
+                    visible = false
+                elseif (g_naverEventData:isAlreadyDone(event_id)) then
+                    visible = false
+                end
+                if (visible) then
+                    event_type = event_type .. ';' .. v['banner'] .. ';' .. v['url']
+                end
+                cclog('## full popup')
+                cclog(event_type)
+            -- 한정 이벤트 리스트
 			elseif (event_id == 'limited') then
 				visible = g_hotTimeData:isActiveEvent(event_type)
 
@@ -306,7 +329,7 @@ function ServerData_Event:getTargetEventFullPopupRes(feature)
 	end
 	return nil
 end
-
+--[[
 -------------------------------------
 -- function goToEventTarget
 -- @brief 로비 스크롤 배너 클릭시 이동
@@ -337,7 +360,7 @@ function ServerData_Event:goToEventTarget(event_type)
         g_eventData:openEventPopup(event_type)
     end
 end
-
+]]
 -------------------------------------
 -- function goToEventUrl
 -- @brief 풀팝업, 이벤트탭에서 url 존재 할 경우 처리
@@ -358,6 +381,12 @@ function ServerData_Event:goToEventUrl(url)
 
 	elseif (url == 'capsule_box') then
 		g_capsuleBoxData:openCapsuleBoxUI()
+
+    -- 카페 게시글
+    elseif (string.find(url, 'article')) then
+        local l_str = seperate(url, ';')
+        local article_key = l_str[2]
+        NaverCafeManager:naverCafeStartWithArticleByKey(article_key)
 
     else
         SDKManager:goToWeb(url)
