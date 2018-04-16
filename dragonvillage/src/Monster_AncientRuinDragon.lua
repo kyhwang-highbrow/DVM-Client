@@ -193,7 +193,7 @@ function Monster_AncientRuinDragon.st_dying(owner, dt)
         owner:dispatch('character_dying', {}, owner)
 
         local duration = owner.m_animator:getDuration()
-        owner.m_animator:runAction(cc.FadeTo:create(duration, 0))
+        owner.m_animator:runAction(cc.Sequence:create(cc.DelayTime:create(1), cc.FadeTo:create(duration, 0)))
 
         -- 에니메이션 종료 시
         owner:addAniHandler(function()
