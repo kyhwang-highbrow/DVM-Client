@@ -159,7 +159,15 @@ function Skill:initEventListener()
 
     -- 특정 이벤트 추가
     local l_target = self.m_owner:getTargetListByType(self.m_targetType, nil, nil)
-    for _, target in pairs(l_target) do
+    local target
+
+    for _, unit in pairs(l_target) do
+        if (unit.m_bUseBinding and unit.m_parentChar) then
+            target = unit.m_parentChar
+        else
+            target = unit
+        end
+
         if (target.m_bLeftFormation ~= self.m_owner.m_bLeftFormation) then
             target:addListener(CON_SKILL_HIT_CRI, self)
             target:addListener(CON_SKILL_HIT_KILL, self)

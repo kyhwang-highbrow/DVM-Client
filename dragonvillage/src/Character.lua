@@ -144,6 +144,9 @@ Character = class(PARENT, {
 
         -- 부활 가능한지 여부
         m_bPossibleRevive = 'boolean',
+
+        -- ICharacterBinding 사용 여부
+        m_bUseBinding = 'boolean',
      })
 
 local SpasticityTime = 0.2
@@ -196,6 +199,7 @@ function Character:init(file_name, body, ...)
     self.m_isBoss = false
 
     self.m_bPossibleRevive = false
+    self.m_bUseBinding = false
 
     self.m_mTargetEffect = {}
     self.m_mNonTargetEffect = {}

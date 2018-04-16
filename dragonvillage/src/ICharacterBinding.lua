@@ -1,8 +1,3 @@
-CHARACTER_BINDING_FLAG_KEY = {
-    USE_PARENT_POS = 1,
-    USE_PARENT_HP = 2,
-}
-
 -------------------------------------
 -- interface ICharacterBinding
 -------------------------------------
@@ -11,8 +6,6 @@ ICharacterBinding = {
 
     m_parentChar    = 'Character',
     m_lChildChar    = 'table',
-
-    m_mBindingFlag  = 'table',
 }
 
 -------------------------------------
@@ -21,11 +14,8 @@ ICharacterBinding = {
 function ICharacterBinding:init()
     self.m_parentChar = nil
     self.m_lChildChar = {}
-    self.m_mBindingFlag = {}
 
-    -- 기본 설정
-    self:setBindingFlag(CHARACTER_BINDING_FLAG_KEY.USE_PARENT_POS)
-    self:setBindingFlag(CHARACTER_BINDING_FLAG_KEY.USE_PARENT_HP)
+    self.m_bUseBinding = true
 
     self:initCharacterBinding()
 end
@@ -36,14 +26,6 @@ end
 -- @override
 -------------------------------------
 function ICharacterBinding:initCharacterBinding()
-end
-
--------------------------------------
--- function onUpdateParentCharacterPos
--- @brief 부모의 위치 정보가 갱신 되었을 경우 호출
--- @override
--------------------------------------
-function ICharacterBinding:onUpdateParentCharacterPos(x, y)
 end
 
 -------------------------------------
@@ -89,55 +71,6 @@ function ICharacterBinding:removeAllChildCharacter()
     end
 
     self.m_lChildChar = {}
-end
-
---[[
--------------------------------------
--- function setDamage
--------------------------------------
-function ICharacterBinding:setDamage(attacker, defender, i_x, i_y, damage, t_info)
-    local bApplyDamage
-
-    if (self.m_parentChar and self:isSettedBindingFlag(CHARACTER_BINDING_FLAG_KEY.USE_PARENT_HP)) then
-        -- 부모에게 데미지를 준다
-        bApplyDamage = self.m_parentChar:setDamage(attacker, self.m_parentChar, i_x, i_y, damage, t_info)
-
-    elseif (self.m_classDef) then
-        bApplyDamage = self.m_classDef.setDamage(self, attacker, defender, i_x, i_y, damage, t_info)
-
-    end
-
-    return bApplyDamage
-end
-
--------------------------------------
--- function setPosition
--------------------------------------
-function ICharacterBinding:setPosition(x, y)
-    if (self.m_classDef) then
-        self.m_classDef.setPosition(self, x, y)
-    end
-
-    for _, child in ipairs(self.m_lChildChar) do
-        if (child:isSettedBindingFlag(CHARACTER_BINDING_FLAG_KEY.USE_PARENT_POS)) then
-            child:onUpdateParentCharacterPos(x, y)
-        end
-    end
-end
-]]--
--------------------------------------
--- function setBindingFlag
--------------------------------------
-function ICharacterBinding:setBindingFlag(key)
-    self.m_mBindingFlag[key] = true
-end
-
--------------------------------------
--- function isSettedBindingFlag
--------------------------------------
-function ICharacterBinding:isSettedBindingFlag(key)
-    local b = self.m_mBindingFlag[key] or false
-    return b
 end
 
 -------------------------------------
