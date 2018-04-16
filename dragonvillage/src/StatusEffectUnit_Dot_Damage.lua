@@ -54,7 +54,7 @@ function StatusEffectUnit_Dot_Damage:calculateDotDmg()
     -----------------------------------------------------------
     -- 데미지 계산
     -----------------------------------------------------------
-    if (isInstanceOf(self.m_owner, Monster_AncientRuinDragon)) then
+    if (isInstanceOf(self.m_owner, Monster_AncientRuinDragon) or isInstanceOf(self.m_owner, Monster_AncientRuinDragonBodyPart)) then
         -- 고대 유적 보스의 경우는 고정 데미지 3000으로 설정
         damage_org = 3000
 
