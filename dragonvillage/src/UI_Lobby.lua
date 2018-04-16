@@ -241,7 +241,6 @@ function UI_Lobby:entryCoroutine()
                 local ui = UI_EventFullPopup(pid)
                 ui:setCloseCB(co.NEXT)
                 ui:openEventFullPopup()
-				ui:setBtnBlock() -- 코루틴을 종료 시킬 수가 없어 다른 UI로 못가게 막음
                 if co:waitWork() then return end
             end
 
@@ -271,29 +270,29 @@ function UI_Lobby:entryCoroutine()
                     NaverCafeManager:naverCafeStart(0) -- 네이버 카페
                 end
             end
-			
-			-- @ MASTER ROAD
-			cclog('# 마스터의 길 확인 중')
-			co:work()
-			local _,ui_network = g_masterRoadData:updateMasterRoadAfterReward(co.NEXT)
-			if ui_network then
-				ui_network:hideBGLayerColor()
-				ui_network:setFailCB(required_fail_cb)
-			end
-			if co:waitWork() then return end
 
-			-- @ google achievement
-			if (g_localData:isGooglePlayConnected()) then
-				if (not g_localData:get('is_first_google_login_real')) then
-					co:work()
-					cclog('# 구글 업적 확인 중')
-					g_localData:applyLocalData(true, 'is_first_google_login_real')
-					GoogleHelper.allAchievementCheck(co.NEXT)
-					if co:waitWork() then return end
-				end
-			end
+            -- @ MASTER ROAD
+            cclog('# 마스터의 길 확인 중')
+            co:work()
+            local _,ui_network = g_masterRoadData:updateMasterRoadAfterReward(co.NEXT)
+            if ui_network then
+                ui_network:hideBGLayerColor()
+                ui_network:setFailCB(required_fail_cb)
+            end
+            if co:waitWork() then return end
+    
+            -- @ google achievement
+            if (g_localData:isGooglePlayConnected()) then
+                if (not g_localData:get('is_first_google_login_real')) then
+                    co:work()
+                    cclog('# 구글 업적 확인 중')
+                    g_localData:applyLocalData(true, 'is_first_google_login_real')
+                    GoogleHelper.allAchievementCheck(co.NEXT)
+                    if co:waitWork() then return end
+                end
+            end
         end
-
+        
         -- @ UI_ACTION
         co:work()
 	    self:doAction(function() 

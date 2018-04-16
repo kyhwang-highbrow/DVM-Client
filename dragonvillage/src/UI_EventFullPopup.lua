@@ -41,6 +41,7 @@ function UI_EventFullPopup:initUI()
     local vars = self.vars
     local popup_key = self.m_popupKey
 	local ui
+    local is_btn_lock = true
 
     -- 이벤트 배너
     if (string.find(popup_key, 'banner')) then
@@ -91,24 +92,40 @@ function UI_EventFullPopup:initUI()
         local event_data = { banner = l_str[2], url = l_str[3] or ''}
         local struct_data = StructEventPopupTab(event_data)
         ui = UI_EventPopupTab_Banner(self, struct_data)
-        
+        is_btn_lock = false
+
     end
 
-    -- 패키지 UI 크기에 따라 풀팝업 UI 사이즈 변경후 추가
     if (ui) and (ui.root) then
-        
-        local l_children = ui.root:getChildren()
-        local tar_menu = l_children[1]
+        -- 패키지 UI 크기에 따라 풀팝업 UI 사이즈 변경후 추가
+        do
+            local l_children = ui.root:getChildren()
+            local tar_menu = l_children[1]
 
-        -- 최상위 메뉴 사이즈로 변경
-        if (tar_menu) then
-            local size = tar_menu:getContentSize()
-            local width = size['width']
-            local height = 640
-            vars['mainNode']:setContentSize(cc.size(width, height))
+            -- 최상위 메뉴 사이즈로 변경
+            if (tar_menu) then
+                local size = tar_menu:getContentSize()
+                local width = size['width']
+                local height = 640
+                vars['mainNode']:setContentSize(cc.size(width, height))
+            end
+
+            vars['eventNode']:addChild(ui.root)
+        end
+        
+        -- 풀팝업 기본은 버튼 클릭을 막음
+        if (is_btn_lock) then
+            local btn = ui.vars['bannerBtn']
+            if (btn) then
+                btn:setEnabled(false)
+            end
+        
+            btn = ui.vars['clickBtn']
+            if (btn) then
+                btn:setEnabled(false)
+            end
         end
 
-        vars['eventNode']:addChild(ui.root)
     end
 
 	self.m_innerUI = ui
