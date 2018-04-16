@@ -231,7 +231,7 @@ function ServerData_Event:getEventFullPopupList()
                     visible = false
                 end
                 if (visible) then
-                    event_type = event_type .. ';' .. v['banner'] .. ';' .. v['url']
+                    event_type = event_type .. ':' .. v['banner'] .. ':' .. v['url']
                 end
                 cclog('## full popup')
                 cclog(event_type)
@@ -384,6 +384,7 @@ function ServerData_Event:goToEventUrl(url)
 
     -- 카페 게시글
     elseif (string.find(url, 'article')) then
+        cclog(url)
         local l_str = seperate(url, ';')
         local article_key = l_str[2]
         NaverCafeManager:naverCafeStartWithArticleByKey(article_key)

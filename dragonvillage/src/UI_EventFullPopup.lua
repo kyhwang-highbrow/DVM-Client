@@ -88,7 +88,7 @@ function UI_EventFullPopup:initUI()
 
     -- 카페 플러그 이벤트 (banner와 똑같지만 노출 처리 조건 때문에 타입 추가)
     elseif (string.find(popup_key, 'event_cafe')) then
-        local l_str = plSplit(popup_key, ';')
+        local l_str = plSplit(popup_key, ':')
         local event_data = { banner = l_str[2], url = l_str[3] or ''}
         local struct_data = StructEventPopupTab(event_data)
         ui = UI_EventPopupTab_Banner(self, struct_data)
@@ -112,7 +112,7 @@ function UI_EventFullPopup:initUI()
 
             vars['eventNode']:addChild(ui.root)
         end
-        
+
         -- 풀팝업 기본은 버튼 클릭을 막음
         if (is_btn_lock) then
             local btn = ui.vars['bannerBtn']
