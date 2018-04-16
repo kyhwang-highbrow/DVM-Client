@@ -26,7 +26,7 @@ end
 -------------------------------------
 -- function initFromTable
 -------------------------------------
-function StatusEffect_ConditionalBuff:initFromTable(t_status_effect, target_char, caster)
+function StatusEffect_ConditionalBuff:initFromTable(t_status_effect, target_char)
     PARENT.initFromTable(self, t_status_effect, target_char)
 
     -- 변경할 상태효과를 구분하기 위한 조건 정보를 저장

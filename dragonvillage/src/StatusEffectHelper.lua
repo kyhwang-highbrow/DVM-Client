@@ -443,7 +443,7 @@ function StatusEffectHelper:makeStatusEffectInstance(caster, target_char, status
 
     -- 초기값 설정
     status_effect:initWorld(world)
-    status_effect:initFromTable(t_status_effect, target_char, caster)
+    status_effect:initFromTable(t_status_effect, target_char)
     
     -- 객체 생성
     world.m_missiledNode:addChild(status_effect.m_rootNode, 1)

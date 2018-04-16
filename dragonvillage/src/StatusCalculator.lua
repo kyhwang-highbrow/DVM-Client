@@ -24,6 +24,7 @@ L_SPECIAL_STATUS_TYPE_ONLY_ADD = {
     'resistance',   -- 효과 저항 +{1}%
     'cool_actu',    -- 패시브 쿨타임 시간 +{1}% 감소
     'drag_cool',    -- 드래그 쿨타임 시간 +{1}% 감소
+    'guard_rear',   -- 자신보다 후방에 있는 아군의 피해를 대신 받아줄 확률 +{1}%
 
     -- 스테이지 버프로 추가된 능력치
     'hp_drain',         -- 공격 명중시 피해량의 +{1}% 만큼 HP회복
@@ -50,7 +51,8 @@ M_SPECIAL_STATUS_TYPE_ONLY_ADD = {
     cri_dmg = true,
     cri_avoid = true,
     hit_rate = true,
-    avoid = true
+    avoid = true,
+    guard_rear = true
 }
 
 M_SPECIAL_STATUS_TYPE_ONLY_MULTI = {}
@@ -238,6 +240,8 @@ function StatusCalculator:getFinalStat(stat_type)
         final_stat = math_max(final_stat, 50)
     elseif (stat_type == 'dmg_adj_rate') then
         final_stat = math_max(final_stat, -80)
+    elseif (stat_type == 'guard_rear') then
+        final_stat = math_clamp(final_stat, 0, 100)
 
     -- 특정 타입의 스텟들은 제외한 나머지는 최소값을 0으로 처리
     elseif (not M_SPECIAL_STATUS_TYPE_ONLY_ADD[stat_type]) then

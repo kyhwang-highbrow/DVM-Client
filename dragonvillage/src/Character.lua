@@ -316,6 +316,8 @@ end
 -- function checkTarget
 -------------------------------------
 function Character:checkTarget(t_skill, t_data)
+    if (not t_skill) then return false end
+
 	if (t_data and t_data['target']) then
 		-- 인디케이터에서 받아온 정보가 있다면
 		self.m_targetChar = t_data['target']
@@ -543,6 +545,44 @@ function Character:undergoAttack(attacker, defender, i_x, i_y, body_key, no_even
 		-- @EVENT
 		self:dispatch('guardian', t_event)
 		return
+    else
+        -- 룬 세트 효과(결의) : 자신보다 후방에 위치한 아군이 받는 피해를 스텟값(%)의 확률로 대신 받음
+        local guard_list = {}
+        local rate = 0
+        local b = false
+        local pos_x, pos_y = self:getPosForFormation()
+        local v_x, v_y
+        
+        for _, v in pairs(self:getFellowList()) do
+            rate = v:getStat('guard_rear')
+
+            if (v ~= self and rate > 0) then
+                b = false
+                v_x, v_y = v:getPosForFormation()
+
+                if (self.m_bLeftFormation and v_x > pos_x) then
+                    b = true
+                elseif (not self.m_bLeftFormation and v_x < pos_x) then
+                    b = true
+                end
+
+                if (b and math_random(1, 100) <= rate) then
+                    table.insert(guard_list, v)
+                end
+            end
+        end
+
+        if (#guard_list > 0) then
+            guard_list = randomShuffle(guard_list)
+
+            local guarder = guard_list[1]
+            guarder:undergoAttack(attacker, guarder, guarder.pos.x, guarder.pos.y, 0, false, true)
+
+            -- 이펙트
+            --EffectGuard(self.m_world, 'res/effect/effect_damage_reflect/effect_damage_reflect.vrp', self, guarder)
+            
+		    return
+        end
     end
 
     -- 회피 계산
@@ -934,7 +974,7 @@ function Character:undergoAttack(attacker, defender, i_x, i_y, body_key, no_even
 		if (is_critical) then
 			self:dispatch('under_atk_cri', t_event)
 
-            for k, v in pairs(self:getFellowList()) do
+            for _, v in pairs(self:getFellowList()) do
                 v:dispatch('ally_under_atk_cri', t_event)
                 if (v ~= self) then
                     v:dispatch('teammate_under_atk_cri', t_event)
@@ -1153,7 +1193,9 @@ function Character:doAttack(skill_id, x, y)
     -- 지정된 스킬이 발동되지 않았을 경우 또는 basic_turn, rate 인 경우 기본 스킬 발동
     if self.m_isAddSkill or (not b_run_skill) then
         local basic_skill_id = self:getSkillID('basic')
-        self:doSkill(basic_skill_id, x, y)
+        if (basic_skill_id and basic_skill_id ~= 0) then
+            self:doSkill(basic_skill_id, x, y)
+        end
     end
 
 	self:dispatch('char_do_atk')
