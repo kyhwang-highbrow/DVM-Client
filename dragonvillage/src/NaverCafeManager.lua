@@ -265,7 +265,7 @@ function NaverCafeManager:naverCafeEvent(cb_type, cb_info)
             local function finish_cb()
                 self:naverCafeStop()
             end
-            g_naverEventData:request_naverEventReward(event_key, cb_type, finish_cb)
+            g_naverEventData:request_naverEventReward(event_key, cb_type, t_event['t_event_name'], finish_cb)
             break
         end
     end

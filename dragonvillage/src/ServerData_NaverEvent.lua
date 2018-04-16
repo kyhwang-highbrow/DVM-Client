@@ -70,14 +70,15 @@ end
 -------------------------------------
 -- function request_naverEventReward
 -------------------------------------
-function ServerData_NaverEvent:request_naverEventReward(event_key, event_type, finish_cb)
+function ServerData_NaverEvent:request_naverEventReward(event_key, event_type, event_name, finish_cb)
     -- 유저 ID
     local uid = g_userData:get('uid')
 
     -- 성공 콜백
     local function success_cb(ret)
         local l_item = ret['mail_item_info']
-        local msg = Str('보상이 우편함으로 전송되었습니다.')
+        event_name = event_name or Str('이벤트')
+        local msg = Str('{@item_name}{1}\n{@default}보상이 우편함으로 전송되었습니다.', event_name)
         local ok_btn_cb = nil
         UI_ObtainPopup(l_item, msg, ok_btn_cb)
 
