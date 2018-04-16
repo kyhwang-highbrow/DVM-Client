@@ -22,7 +22,7 @@ function UI_GameResult_AncientRuin:init(stage_id, is_success, time, gold, t_tame
    
     btn_menu:setPositionY( btn_menu:getPositionY() + 260 )
     reward_menu:setPositionY( reward_menu:getPositionY() + 245 )
-    no_reward_menu:setPositionY( reward_menu:getPositionY() + 245 )
+    no_reward_menu:setPositionY( no_reward_menu:getPositionY() + 245 )
     reward_visual:setPositionY( reward_visual:getPositionY() + 245 )
 end
 
