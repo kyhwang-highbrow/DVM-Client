@@ -128,7 +128,7 @@ function ServerData_Stage:isOpenStage(stage_id)
 
     -- 고대 유적 던전 모드
     elseif (game_mode == GAME_MODE_ANCIENT_RUIN) then
-        ret = true
+        ret = g_nestDungeonData:isOpenStage(stage_id)
 
     end
 

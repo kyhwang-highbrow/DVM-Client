@@ -13,6 +13,24 @@ function ServerData_AncientRuin:init(server_data)
 end
 
 -------------------------------------
+-- function isOpenAncientRuin
+-- @brief 고대 유적 던전의 경우 악몽 던전 마지막 스테이지 클리어 여부로 검사
+-------------------------------------
+function ServerData_AncientRuin:isOpenAncientRuin()
+    local last_stage_id = 1220110
+    local t_stage_clear_info = g_nestDungeonData:getNestDungeonStageClearInfo(last_stage_id)
+    local clear_cnt = t_stage_clear_info['clear_cnt'] or 0
+    return (clear_cnt > 0)
+end
+
+-------------------------------------
+-- function isOpenStage
+-- @brief
+-------------------------------------
+function ServerData_AncientRuin:isOpenStage(stage_id)
+    return g_nestDungeonData:isOpenStage(stage_id)
+end
+-------------------------------------
 -- function getStageName
 -------------------------------------
 function ServerData_AncientRuin:getStageName(stage_id)

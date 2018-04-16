@@ -246,12 +246,13 @@ function UI_BattleMenu:initDungeonTab()
         table.insert(l_item, 'clan_raid') -- 클랜 던전
     end
 
-    -- 테스트 모드일때 신규 룬 던전 임의로 추가
-    if CppFunctionsClass:isTestMode() then
-        table.insert(l_item, 'ancient_ruin') 
+    table.insert(l_item, 'nest_nightmare') -- 악몽 던전
+
+    -- 고대 유적 던전은 열린 경우에만 노출
+    if (g_ancientRuinData:isOpenAncientRuin()) then
+        table.insert(l_item, 'ancient_ruin') -- 고대 유적 던전
     end
 
-    table.insert(l_item, 'nest_nightmare') -- 악몽 던전
     table.insert(l_item, 'secret_relation') -- 인연 던전
 
     -- 스크롤 뷰로 변경됨

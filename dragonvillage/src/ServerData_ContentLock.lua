@@ -24,6 +24,7 @@ end
 --        attr_tower     시험의 탑
 --        colosseum	     콜로세움
 --        nest_nightmare [네스트] 악몽 던전
+--        ancient_ruin   [네스트] 고대 유적 던전
 -------------------------------------
 function ServerData_ContentLock:isContentLock(content_name)
     local table_content_lock = TABLE:get('table_content_lock')
@@ -46,6 +47,12 @@ function ServerData_ContentLock:isContentLock(content_name)
     if (content_name == 'clan_raid') then
         local is_guest = g_clanData:isClanGuest()
         return is_guest
+    end
+
+    -- 고대 유적 던전의 경우 악몽 던전 클리어 여부로 검사
+    if (content_name == 'ancient_ruin') then
+        local is_open = g_ancientRuinData:isOpenAncientRuin()
+        return (not is_open)
     end
 
     -- 필요 유저 레벨 지정
