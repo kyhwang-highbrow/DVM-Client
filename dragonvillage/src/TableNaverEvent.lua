@@ -28,6 +28,7 @@ function TableNaverEvent:getOnTimeEventList()
 
     local l_ret = {}
     for i, t_event in pairs(self.m_orgTable) do
+        ccdump(t_event)
         -- 날짜 조건
         if (ServerData_Event:checkEventTime(t_event['start_date'], t_event['end_date'])) then
             table.insert(l_ret, t_event)
