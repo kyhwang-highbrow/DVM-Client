@@ -117,7 +117,7 @@ end
 -- function naverCafeStartWithArticleByKey
 -- @brief 네이버 카페에 특정게시글 보며 열기 
 -------------------------------------
-function NaverCafeManager:naverCafeStartWithArticleByKey(article_key, server_name, lang)
+function NaverCafeManager:naverCafeStartWithArticleByKey(article_key)
     -- 파라미터 확인
     if (not article_key) then
         cclog('article_key가 nil입니다.')
