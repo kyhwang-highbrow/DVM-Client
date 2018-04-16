@@ -133,6 +133,7 @@ function UI_GameResultNew:initButton()
     vars['dragonBtn']:registerScriptTapHandler(function() self:click_backBtn() end)
     vars['towerBtn']:registerScriptTapHandler(function() self:click_backBtn() end)
     vars['attrTowerBtn']:registerScriptTapHandler(function() self:click_backBtn() end)
+    vars['ancientRuinBtn']:registerScriptTapHandler(function() self:click_backBtn() end)
     vars['quickBtn']:registerScriptTapHandler(function() self:click_quickBtn() end)
     vars['skipBtn']:registerScriptTapHandler(function() self:click_screenBtn() end)
     vars['switchBtn']:registerScriptTapHandler(function() self:click_switchBtn() end)
@@ -622,21 +623,7 @@ function UI_GameResultNew:direction_dropItem()
     local count = #self.m_lDropItemList
     local l_pos = getSortPosList(interval, count)
 
-    -- 보상이 없을때
-    if (count <= 0) then
-        vars['noRewardMenu']:setVisible(true)
-
-        local animator = MakeAnimator('res/character/monster/common_elemental_lava_fire/common_elemental_lava_fire.spine')
-        vars['noRewardMenu']:addChild(animator.m_node)
-        animator:setAnchorPoint(cc.p(0.5, 0.5))
-        animator:setDockPoint(cc.p(0.5, 0.5))
-        animator:setPositionY(50)
-        animator:setScale(1.5)
-    end
-
     for i,v in ipairs(self.m_lDropItemList) do
-        --self:makeRewardItem(i, v)
-
         local item_id = v[1]
         local count = v[2]
         local from = v[3]
@@ -751,7 +738,11 @@ function UI_GameResultNew:set_modeButton()
         else
             vars['towerBtn']:setVisible(true)
         end
-       
+
+    -- 고대 유적 던전
+    elseif (game_mode == GAME_MODE_ANCIENT_RUIN) then
+        vars['ancientRuinBtn']:setVisible(true)
+
     -- 모험 
     else
         vars['mapBtn']:setVisible(true)
@@ -1287,30 +1278,6 @@ function UI_GameResultNew:show_staminaInfo()
 
     local icon = IconHelper:getStaminaInboxIcon(stamina_type)
     vars['energyIconNode']:addChild(icon)
-end
-
--------------------------------------
--- function makeRewardItem
--------------------------------------
-function UI_GameResultNew:makeRewardItem(i, v)
-    local vars = self.vars
-
-    local item_id = v[1]
-    local count = v[2]
-
-    local item_card = UI_ItemCard(item_id, count)
-    item_card:setRarityVisibled(true)
-
-    local icon = item_card.root--DropHelper:getItemIconFromIID(item_id)
-    vars['rewardNode' .. i]:setVisible(true)
-    vars['rewardIconNode' .. i]:addChild(icon)
-
-    local table_item = TABLE:get('item')
-    local t_item = table_item[item_id]
-    
-    vars['rewardLabel' .. i]:setString(t_item['t_name'] .. '\nX ' .. count)
-
-    return item_card
 end
 
 -------------------------------------

@@ -954,13 +954,6 @@ function UI_ReadySceneNew:click_startBtn()
         return
     end
 
-    -- 고대 유적 던전 테스트
-    if (self.m_gameMode == GAME_MODE_ANCIENT_RUIN) then
-        local scene = SceneGame(nil, stage_id, 'stage_' .. stage_id)
-        scene:runScene()
-        return
-    end
-
     if (self:check_startCondition(stage_id)) then
         self:startGame(stage_id)
     end
@@ -1258,6 +1251,10 @@ function UI_ReadySceneNew:networkGameStart()
     if (self.m_gameMode == GAME_MODE_CLAN_RAID) then
         local is_cash = self.m_bUseCash
         g_clanRaidData:requestGameStart(self.m_stageID, deck_name, combat_power, finish_cb, is_cash)
+
+    elseif (self.m_gameMode == GAME_MODE_ANCIENT_RUIN) then
+        g_ancientRuinData:requestGameStart(self.m_stageID, deck_name, combat_power, finish_cb)
+
     else
         g_stageData:requestGameStart(self.m_stageID, deck_name, combat_power, finish_cb)
     end

@@ -47,30 +47,3 @@ function UI_GameResult_SecretDungeon:click_againBtn()
 
     UINavigator:goTo('battle_ready', stage_id, close_cb)
 end
-
--------------------------------------
--- function makeRewardItem
--------------------------------------
-function UI_GameResult_SecretDungeon:makeRewardItem(i, v)
-    local item_card = PARENT.makeRewardItem(self, i, v)
-
-    -- 등록된 보너스 아이템이 없을 경우 리턴
-    local l_bonus_value = seperate(self.m_secretDungeonInfo['bonus_value'], ',')
-    if (not l_bonus_value) or (#l_bonus_value <= 0) then
-        return item_card
-    end
-
-    local item_id = v[1]
-
-    -- 보너스 보상 비율 표시
-    for i,v in ipairs(l_bonus_value) do
-        if (item_id == tonumber(v)) then
-            item_card.vars['bonusSprite']:setVisible(true)
-            local bonus_rate = 1 + (self.m_secretDungeonInfo['bonus_rate'] / 100)
-            item_card.vars['bonusLabel']:setString('X' .. bonus_rate)
-            break
-        end
-    end
-
-    return item_card
-end

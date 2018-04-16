@@ -162,6 +162,7 @@ local t_module = {
     'ServerData_EventGoldDungeon',
     'ServerData_Season',
     'ServerData_NaverEvent',
+    'ServerData_AncientRuin',
     
     -- Interface
     'IEventDispatcher',
@@ -728,6 +729,9 @@ local t_module = {
     'UI_UserDeckInfoPopup',
     'UI_BattleMenu',
     'UI_BattleMenuItem',
+    'UI_BattleMenuItem_Adventure',
+    'UI_BattleMenuItem_Dungeon',
+    'UI_BattleMenuItem_Competition',
 	'UI_QuestPopup',
     'UI_QuestListItem',
 	'UI_MasterRoadPopup',
@@ -906,6 +910,7 @@ local t_module = {
     'UI_GameResult_AncientTower',
     'UI_GameResult_NestDungeon',
     'UI_GameResult_SecretDungeon',
+    'UI_GameResult_AncientRuin',
     'UI_GamePause',
     'UI_GamePause_AncientTower',
     'UI_GamePause_NestDungeon',

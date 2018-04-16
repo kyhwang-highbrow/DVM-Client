@@ -3382,6 +3382,21 @@
     <None Include="..\src\GameState_AncientRuin.lua">
       <Filter>lua\src</Filter>
     </None>
+    <None Include="..\src\UI_GameResult_AncientRuin.lua">
+      <Filter>lua\UI</Filter>
+    </None>
+    <None Include="..\src\UI_BattleMenuItem_Competition.lua">
+      <Filter>lua\UI</Filter>
+    </None>
+    <None Include="..\src\UI_BattleMenuItem_Dungeon.lua">
+      <Filter>lua\UI</Filter>
+    </None>
+    <None Include="..\src\UI_BattleMenuItem_Adventure.lua">
+      <Filter>lua\UI</Filter>
+    </None>
+    <None Include="..\src\ServerData_AncientRuin.lua">
+      <Filter>lua\src</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Classes">

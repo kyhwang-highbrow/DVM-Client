@@ -35,7 +35,7 @@ function UI_SecretDungeonListItem:initUI(t_data)
     vars['timeLabel']:setString('')
 
     -- 보상 설명
-    local desc = UI_BattleMenuItem:getDescStr('secret_relation')
+    local desc = UI_BattleMenuItem_Dungeon:getDescStr('secret_relation')
     vars['rewardLabel']:setString(desc)
 end
 

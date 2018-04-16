@@ -465,6 +465,7 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <None Include="..\src\ServerData_AdventureClearPackage.lua" />
     <None Include="..\src\ServerData_AdventureFirstReward.lua" />
     <None Include="..\src\ServerData_Advertising.lua" />
+    <None Include="..\src\ServerData_AncientRuin.lua" />
     <None Include="..\src\ServerData_AncientTower.lua" />
     <None Include="..\src\ServerData_Attendance.lua" />
     <None Include="..\src\ServerData_AttrTower.lua" />
@@ -976,6 +977,9 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <None Include="..\src\UI_AutoPlaySettingPopup.lua" />
     <None Include="..\src\UI_BattleMenu.lua" />
     <None Include="..\src\UI_BattleMenuItem.lua" />
+    <None Include="..\src\UI_BattleMenuItem_Adventure.lua" />
+    <None Include="..\src\UI_BattleMenuItem_Competition.lua" />
+    <None Include="..\src\UI_BattleMenuItem_Dungeon.lua" />
     <None Include="..\src\UI_Book.lua" />
     <None Include="..\src\UI_BookDetailPopup.lua" />
     <None Include="..\src\UI_BundlePopup.lua" />
@@ -1064,6 +1068,7 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <None Include="..\src\UI_GameEventGold.lua" />
     <None Include="..\src\UI_GamePause_ClanRaid.lua" />
     <None Include="..\src\UI_GamePause_EventGoldDungeon.lua" />
+    <None Include="..\src\UI_GameResult_AncientRuin.lua" />
     <None Include="..\src\UI_Game_Mana.lua" />
     <None Include="..\src\UI_GoodsInfo.lua" />
     <None Include="..\src\UI_Help.lua" />

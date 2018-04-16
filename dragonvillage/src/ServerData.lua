@@ -204,6 +204,9 @@ function ServerData:getInstance()
 
     -- 네이버 이벤트
     g_naverEventData = ServerData_NaverEvent(g_serverData)
+
+    -- 고대 유적 던전
+    g_ancientRuinData = ServerData_AncientRuin(g_serverData)
     
     return g_serverData
 end

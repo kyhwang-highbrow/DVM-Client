@@ -204,14 +204,14 @@ end
 -------------------------------------
 function UI_BattleMenu:initAdventureTab()
     local vars = self.vars
-
+    -- 메뉴 아이템 x축 간격
+    local interval_x = 210
     local l_btn_ui = {}
-
     -- 모험
-    local ui = UI_BattleMenuItem('adventure')
-    ui.root:setPosition(-184, -94)
+    local ui = UI_BattleMenuItem_Adventure('adventure')
+    ui.root:setPosition(-interval_x, -94)
     vars['adventureMenu']:addChild(ui.root)
-    table.insert(l_btn_ui, {['ui']=ui, ['x']=-184, ['y']=-94})
+    table.insert(l_btn_ui, {['ui']=ui, ['x']=-interval_x, ['y']=-94})
 
     -- tutorial 실행중이라면
     if TutorialManager.getInstance():isDoing() then
@@ -219,10 +219,10 @@ function UI_BattleMenu:initAdventureTab()
     end
 
     -- 탐험
-    local ui = UI_BattleMenuItem('exploation')
-    ui.root:setPosition(184, -94)
+    local ui = UI_BattleMenuItem_Adventure('exploation')
+    ui.root:setPosition(interval_x, -94)
     vars['adventureMenu']:addChild(ui.root)
-    table.insert(l_btn_ui, {['ui']=ui, ['x']=184, ['y']=-94})
+    table.insert(l_btn_ui, {['ui']=ui, ['x']=interval_x, ['y']=-94})
 
     self.m_lAdventureBtnUI = l_btn_ui
 end
@@ -233,6 +233,8 @@ end
 -------------------------------------
 function UI_BattleMenu:initDungeonTab()
     local vars = self.vars
+    -- 메뉴 아이템 x축 간격
+    local interval_x = 208
 
     local l_btn_ui = {}
     local l_item = {}
@@ -252,14 +254,11 @@ function UI_BattleMenu:initDungeonTab()
     table.insert(l_item, 'nest_nightmare') -- 악몽 던전
     table.insert(l_item, 'secret_relation') -- 인연 던전
 
-    -- 메뉴 아이템 x축 간격
-    local interval_x = 312
-
     -- 스크롤 뷰로 변경됨
     -- 테이블 뷰로 생성할 경우 테이블 뷰 액션과 꼬임.
     local scroll_node = vars['dungeonNode']
     local size = scroll_node:getContentSize()
-    local target_size = cc.size(interval_x * #l_item + 10, size.height)
+    local target_size = cc.size(interval_x * #l_item, size.height)
     local scroll_view = cc.ScrollView:create()
     scroll_view:setNormalSize(size)
     scroll_view:setContentSize(target_size)
@@ -272,7 +271,7 @@ function UI_BattleMenu:initDungeonTab()
     -- 메뉴 아이템 시작점
     local pos_y = -20
     for idx, target in ipairs(l_item) do
-        local ui = UI_BattleMenuItem(target)
+        local ui = UI_BattleMenuItem_Dungeon(target)
         local pos_x = -size.width/2 + interval_x * (idx - 1)
         ui.root:setPosition(pos_x, pos_y)
         ui.root:setSwallowTouch(false)
@@ -285,8 +284,8 @@ function UI_BattleMenu:initDungeonTab()
     local center_pos = size.width - (interval_x * #l_item) + interval_x/2
     container_node:setPositionX(center_pos)    
     
-    -- 메뉴아이템 5개부터만 스크롤 가능하게 수정
-    scroll_view:setTouchEnabled(#l_item > 4)
+    -- 스크롤 x (후에 추가되면 풀어주자)
+    scroll_view:setTouchEnabled(false)
 
     self.m_lDungeonBtnUI = l_btn_ui
 end
@@ -297,29 +296,31 @@ end
 -------------------------------------
 function UI_BattleMenu:initCompetitionTab()
     local vars = self.vars
+    -- 메뉴 아이템 x축 간격
+    local interval_x = 210
 
     local l_btn_ui = {}
     local attr_open = g_attrTowerData:isContentOpen()
 
-    local pos_x = attr_open and 368 or 194
+    local pos_x = attr_open and interval_x*2 or interval_x
     local pos_y = 94
 
     -- 고대의 탑
-    local ui = UI_BattleMenuItem('ancient')
+    local ui = UI_BattleMenuItem_Competition('ancient')
     ui.root:setPosition(-pos_x, -94)
     vars['competitionMenu']:addChild(ui.root)
     table.insert(l_btn_ui, {['ui']=ui, ['x']=-pos_x, ['y']=-pos_y})
 
     -- 시험의 탑 (오픈되었을때만 메뉴에 추가)
     if (attr_open) then
-        local ui = UI_BattleMenuItem('attr_tower')
+        local ui = UI_BattleMenuItem_Competition('attr_tower')
         ui.root:setPosition(0, -94)
         vars['competitionMenu']:addChild(ui.root)
         table.insert(l_btn_ui, {['ui']=ui, ['x']=0, ['y']=-pos_y})
     end
 
     -- 콜로세움
-    local ui = UI_BattleMenuItem('colosseum')
+    local ui = UI_BattleMenuItem_Competition('colosseum')
     ui.root:setPosition(pos_x, -94)
     vars['competitionMenu']:addChild(ui.root)
     table.insert(l_btn_ui, {['ui']=ui, ['x']=pos_x, ['y']=-pos_y})

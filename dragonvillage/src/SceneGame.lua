@@ -579,6 +579,8 @@ function SceneGame:networkGameFinish(t_param, t_result_ref, next_func)
     local oid
     local send_score = false
     local attr
+    local multi_deck_mgr -- 멀티덱 모드
+
     local function success_cb(ret)
         -- 클리어 타입은 서버에서 안줌
         local is_success = (t_param['clear_type'] == 1) and true or false
@@ -615,8 +617,16 @@ function SceneGame:networkGameFinish(t_param, t_result_ref, next_func)
         else
             api_url = '/game/ancient/finish'
         end
+
+    -- 이벤트 황금 던전
     elseif (game_mode == GAME_MODE_EVENT_GOLD) then
         api_url = '/game/event_dungeon/finish'
+
+    -- 고대 유적 던전
+    elseif (game_mode == GAME_MODE_ANCIENT_RUIN) then
+        api_url = '/game/ruin/finish'
+        multi_deck_mgr = MultiDeckMgr(MULTI_DECK_MODE.ANCIENT_RUIN)
+         
     end
 
     local ui_network = UI_Network()
@@ -624,7 +634,13 @@ function SceneGame:networkGameFinish(t_param, t_result_ref, next_func)
     ui_network:setParam('uid', uid)
     ui_network:setParam('stage', self.m_stageID)
     ui_network:setParam('oid', oid)
-    ui_network:setParam('deck_name', t_param['deck_name'])
+    -- 멀티덱 사용한 경우 - 덱네임 2개 보냄 (상단, 하단)
+    if (multi_deck_mgr) then
+        ui_network:setParam('deck_name1', multi_deck_mgr:getDeckName('up'))
+        ui_network:setParam('deck_name2', multi_deck_mgr:getDeckName('down'))
+    else
+        ui_network:setParam('deck_name', t_param['deck_name'])
+    end
     ui_network:setParam('clear_type', t_param['clear_type'])
     ui_network:setParam('clear_wave', t_param['clear_wave'])
     ui_network:setParam('exp_rate', t_param['exp_rate'])
