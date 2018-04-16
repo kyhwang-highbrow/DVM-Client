@@ -8,7 +8,6 @@ UI_DragonRunes = class(PARENT,{
         m_listFilterSetID = 'number', -- 0번은 전체 1~8은 해당 세트만
         m_tableViewTD = 'UIC_TableViewTD',
         m_sortManagerRune = 'SortManager_Rune', -- 룬 정렬
-        m_sortListRuneSet = 'UIC_SortList', 
         m_equippedRuneObject = 'StructRuneObject',
         m_selectedRuneObject = 'StructRuneObject',
 
@@ -83,31 +82,9 @@ function UI_DragonRunes:initUI()
     self:setSelectedRuneObject(nil)
 
     self:init_dragonTableView()
-    self:initUI_runeSetFilter()
-end
 
--------------------------------------
--- function initUI_runeSetFilter
--------------------------------------
-function UI_DragonRunes:initUI_runeSetFilter()
-    local vars = self.vars
-
-
-    local uic_sort_list = MakeUICSortList_runeManageFilter(vars['setSortBtn'], vars['setSortLabel'])
-    self.m_sortListRuneSet = uic_sort_list
-
-    -- 버튼을 통해 정렬이 변경되었을 경우
-    local function sort_change_cb(sort_type)
-        self.m_listFilterSetID = sort_type
-        self:refreshTableViewList()
-  
-        -- 룬 개수 갱신
-        self:refreshRunesCount()
-    end
-    uic_sort_list:setSortChangeCB(sort_change_cb)
-
-    -- 전체를 선택하고 룬 갯수 입력해줌
-    uic_sort_list:setSelectSortType(0)
+    -- 룬 정렬 최초 전체 선택
+    self:refresh_runeSetFilter(0)
 end
 
 -------------------------------------
@@ -127,6 +104,9 @@ function UI_DragonRunes:initButton()
     vars['equipBtn']:registerScriptTapHandler(function() self:click_equipBtn() end)
     vars['selectEnhanceBtn']:registerScriptTapHandler(function() self:click_selectEnhance() end)
 
+    -- 룬 정렬
+    vars['setSortBtn']:registerScriptTapHandler(function() self:click_setSortBtn() end)
+    
     -- 모험 떠나기
     vars['adventureBtn']:registerScriptTapHandler(function() self:click_adventureBtn() end)
 
@@ -213,6 +193,23 @@ function UI_DragonRunes:refreshRecommendRune()
 	local rich_color = string.format('r_set_%s', t_rune['color'])
 	local gora_text = Str('이 드래곤이 좋아하는 능력치는 {@{1}}{2}{@SKILL_DESC_MOD}인 것 같다고라!', rich_color, stat)
 	vars['runeInfoLabel']:setString(gora_text)
+end
+
+
+-------------------------------------
+-- function refresh_runeSetFilter
+-------------------------------------
+function UI_DragonRunes:refresh_runeSetFilter(set_id)
+    local vars = self.vars
+    local table_rune_set = TableRuneSet()
+    local text = (set_id == 0) and Str('전체') or table_rune_set:makeRuneSetFullNameRichText(set_id)
+    vars['setSortLabel']:setString(text)
+
+    self.m_listFilterSetID = set_id
+    self:refreshTableViewList()
+
+    -- 룬 개수 갱신
+    self:refreshRunesCount()
 end
 
 -------------------------------------
@@ -425,13 +422,13 @@ end
 -- @brief 룬 개수 갱신
 -------------------------------------
 function UI_DragonRunes:refreshRunesCount()
-    if (not self.m_sortListRuneSet) then
+    if (not self.m_listFilterSetID) then
         return
     end
 
     local vars = self.vars
     local unequipped = true
-    local set_id = self.m_sortListRuneSet.m_selectSortType
+    local set_id = self.m_listFilterSetID
     for slot= 1, 6 do
         local l_item_list = g_runesData:getFilteredRuneList(unequipped, slot, set_id)
         local count = table.count(l_item_list)
@@ -912,6 +909,17 @@ function UI_DragonRunes:click_selectEnhance()
     end
 
     ui:setCloseCB(close_cb)
+end
+
+-------------------------------------
+-- function click_setSortBtn
+-- @brief 룬 정렬 버튼
+-------------------------------------
+function UI_DragonRunes:click_setSortBtn()
+    local ui = UI_RuneSetFilter()
+    ui:setCloseCB(function(set_id)
+        self:refresh_runeSetFilter(set_id)
+    end)
 end
 
 -------------------------------------

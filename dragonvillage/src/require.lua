@@ -947,6 +947,7 @@ local t_module = {
     'UI_RuneBulkSalePopup',
     'UI_EvolutionStoneCombine',
     'UI_EvolutionStoneCombineListItem',
+    'UI_RuneSetFilter',
 
 	-- UI : 각종 랭킹
     'UI_RecommendedDragonInfoPopup',

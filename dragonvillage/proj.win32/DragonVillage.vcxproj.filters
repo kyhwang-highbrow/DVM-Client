@@ -3400,6 +3400,9 @@
     <None Include="..\src\EffectGuard.lua">
       <Filter>lua\src</Filter>
     </None>
+    <None Include="..\src\UI_RuneSetFilter.lua">
+      <Filter>lua\UI</Filter> 	
+	</None>  
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Classes">
