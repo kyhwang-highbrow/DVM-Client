@@ -31,9 +31,6 @@ function AncientTowerScoreCalc:init(recorder, stage_id)
 
     self:setChallengingWeakGrade()
     self:calcFinalScore()
-
-    cclog('score calc')
-    ccdump(stage_id)
 end
 
 -------------------------------------
@@ -64,7 +61,6 @@ function AncientTowerScoreCalc:calcFinalScore()
 
     -- 최종 계산에서만 소수점 절삭
     self.m_final_score = math_floor(self.m_score / (weak_grade))
-    ccdump(self.m_final_score)
 end
 
 -------------------------------------
