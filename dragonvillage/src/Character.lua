@@ -290,6 +290,8 @@ end
 -- @param target_formation은 없어도 된다
 -------------------------------------
 function Character:getTargetListByType(target_type, target_count, target_formation, t_data)
+    local t_data = t_data or {}
+
 	if (target_type == '') then 
 		error('타겟 타입이 없네요..ㅠ 테이블 수정해주세요')
 	end
@@ -308,6 +310,25 @@ function Character:getTargetListByType(target_type, target_count, target_formati
 	local target_count = target_count
 
 	local t_ret = self.m_world:getTargetList(self, self.pos.x, self.pos.y, target_team, target_formation, target_rule, t_data)
+
+    -- 고대 유적 던전의 경우 아군의 일반 공격은 보스를 우선으로 공격하도록 처리
+    if (self.m_world.m_gameMode == GAME_MODE_ANCIENT_RUIN and self.m_bLeftFormation) then
+        if (t_data['skill_type'] and t_data['skill_type'] == 'basic') then
+            for i, v in ipairs(t_ret) do
+                v.m_sortValue = i
+            end
+
+            table.sort(t_ret, function(a, b)
+                if (a:isBoss() and not b:isBoss()) then
+                    return true
+                elseif (not a:isBoss() and b:isBoss()) then
+                    return false
+                else
+                    return (a.m_sortValue < b.m_sortValue)
+                end
+            end)
+        end
+    end
     	
 	if (target_count) and (type(target_count) == 'number') then
 		return table.getPartList(t_ret, target_count)

@@ -223,18 +223,7 @@ function FormationMgrDelegate:getTargetList(x, y, team_type, formation_type, rul
         t_ret = temp
     end
     ]]--
-
-    -- 고대 유적 던전의 경우 아군의 distance_line 타입은 보스를 우선으로 공격하도록 처리
-    --[[
-    if (game_mode == GAME_MODE_ANCIENT_RUIN) then
-        if (char and char.m_bLeftFormation) then
-            table.sort(t_ret, function(a, b)
-                if (a:isBoss() ~= b:isBoss()
-            end)
-        end
-    end
-    ]]--
-
+    
     return t_ret
 end
 
