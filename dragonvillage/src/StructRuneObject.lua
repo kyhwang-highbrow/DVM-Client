@@ -41,6 +41,7 @@ StructRuneObject = class({
 
         name = 'string',
 
+        is_ancient = 'boolean', -- 고대 룬 여부
         ---------------------------------------------
         owner_doid = 'doid', -- 룬을 장착 중인 드래곤 doid
     })
@@ -70,6 +71,8 @@ function StructRuneObject:init(data)
     self['slot'] = getDigit(rid, 10, 1)
     self['grade'] = getDigit(rid, 1, 1)
     self['name'] = TableItem:getItemName(rid)
+
+    self['is_ancient'] = (self['set_id'] > 8) and true or false
 
     local prefix = self:makeRunePrefix()
     if prefix then
@@ -267,6 +270,14 @@ function StructRuneObject:isEquippedRune()
     else
         return false
     end
+end
+
+-------------------------------------
+-- function isAncientRune
+-------------------------------------
+function StructRuneObject:isAncientRune()
+    return self['is_ancient']
+
 end
 
 -------------------------------------

@@ -112,6 +112,12 @@ end
 -- @brief 룬 숫자 아이콘 생성
 -------------------------------------
 function UI_RuneCard:makeRuneNumberIcon()
+    -- 고대룬은 숫자 아이콘 생성하지 않는다.
+    local is_ancient = self.m_runeData:isAncientRune()
+    if (is_ancient) then
+        return
+    end
+
 	local slot = self.m_runeData['slot']
 	local res = string.format('res/ui/icons/rune/rune_number_%.2d.png', slot)
     self:makeSprite('runeNumberNode', res, true) -- (lua_name, res, no_use_frames)
