@@ -48,6 +48,9 @@ function EffectHeal.st_move(owner, dt)
         owner:setDir(degree)
         ]]--
         owner:setTargetPos(owner.m_target.pos.x, owner.m_target.pos.y)
+
+        local degree = getDegree(owner.pos.x, owner.pos.y, owner.m_target.pos.x, owner.m_target.pos.y)
+        owner:setRotation(degree)
 --[[        
     elseif (owner.m_stateTimer >= 0.15) and (owner.m_aiParam > 0) then
 
