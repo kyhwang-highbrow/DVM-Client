@@ -242,7 +242,7 @@ function IDragonSkillManager:setSkillID(skill_type, skill_id, skill_lv, add_type
 	-- 스킬 desc 세팅
 	skill_indivisual_info:applySkillDesc()
 
-	-- 맵으로 저장
+    -- 맵으로 저장
 	self.m_mSkillInfoMap[skill_id] = skill_indivisual_info
 
     return skill_indivisual_info
@@ -280,8 +280,19 @@ function IDragonSkillManager:findSkillInfoByID(skill_id)
 		return
 	end
 
-    local skill_type = GetSkillTable(self.m_charType):getSkillType(skill_id)
-    if (not self.m_lSkillIndivisualInfo[skill_type]) then return end
+    local skill_type
+
+    --!! basic 스킬인데 해당 스킬 테이블의 chance_type은 basic이 아닌 경우 예외처리(기획에서 잘못 입력한 경우)
+    if (self.m_lSkillIndivisualInfo['basic'] and self.m_lSkillIndivisualInfo['basic']:getSkillID() == skill_id) then
+        skill_type = 'basic'
+    else
+        skill_type = GetSkillTable(self.m_charType):getSkillType(skill_id)
+    end
+
+    if (not self.m_lSkillIndivisualInfo[skill_type]) then
+        cclog('invalid skill : ' .. skill_id .. ' skill_type : ' .. skill_type)
+        return
+    end
     
     -- 하나의 스킬만을 가지는 스킬 타입
 	if isExistValue(skill_type, 'active', 'basic', 'leader') then
@@ -847,9 +858,11 @@ end
 function IDragonSkillManager:printSkillManager()
 
     -- 드래곤만 출력되도록 예외처리
+    --[[
     if (not isExistValue(self.m_charType, 'dragon', 'tamer')) then
         return
     end
+    ]]--
 
     cclog('########DragonSkillManager##############')
 	cclog('name : ' .. self.m_charTable['t_name'])

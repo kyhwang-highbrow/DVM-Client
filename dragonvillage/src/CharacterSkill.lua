@@ -9,20 +9,17 @@ function Character:doSkill(skill_id, x, y, t_data, t_skill_derived)
 
     local attr = self:getAttribute()
     local has_cc = self:hasStatusEffectToDisableSkill()
-	local t_skill = t_skill_derived or self:getSkillTable(skill_id)
-    local skill_indivisual_info = self:findSkillInfoByID(skill_id)
-
+	local skill_indivisual_info = self:findSkillInfoByID(skill_id)
+    if (not skill_indivisual_info) then
+        --self:printSkillManager()
+        error('ID '.. tostring(skill_id) ..' 에 해당하는 스킬 정보가 없습니다')
+    end
+    
     -- 스킬 테이블 체크
+    local t_skill = t_skill_derived or self:getSkillTable(skill_id)
     if (not t_skill) then
         error('ID '.. tostring(skill_id) ..' 에 해당하는 스킬 테이블이 없습니다')
     end
-    
-    --[[
-    if (not skill_indivisual_info) then
-        error('ID '.. tostring(skill_id) ..' 에 해당하는 스킬 정보가 없습니다')
-        return false
-    end
-    ]]--
     
     -- 스킬 사용 불가 상태
     local basic_skill_id = self:getSkillID('basic')
