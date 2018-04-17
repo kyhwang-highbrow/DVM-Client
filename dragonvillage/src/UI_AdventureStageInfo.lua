@@ -232,6 +232,10 @@ function UI_AdventureStageInfo:refresh()
             elseif isExistValue(monster_id, 136011, 136012, 136013, 136014, 136015, 136021, 136022, 136023, 136024, 136025) then
                 animator:setScale(0.7)
                 animator:setPositionX(-50)
+
+            -- 고대 유적 던전 보스
+            elseif (game_mode == GAME_MODE_ANCIENT_RUIN) then
+                animator:setScale(0.5)
             end
 
             do -- 보스 이름, 속성 아이콘

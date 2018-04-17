@@ -132,12 +132,12 @@ COLOR = {
     ['r_set_orange'] = cc.c3b(253, 166, 53),
     ['r_set_yellow'] = cc.c3b(253, 241, 53),
 
-    ['r_set_blackred'] = cc.c3b(255, 52, 52),
-    ['r_set_blackblue'] = cc.c3b(23, 253, 133),
-    ['r_set_blackyellow'] = cc.c3b(147, 253, 53),
-    ['r_set_blackwhite'] = cc.c3b(253, 166, 53),
-    ['r_set_blackgreen'] = cc.c3b(253, 241, 53),
-    ['r_set_blackpurple'] = cc.c3b(253, 241, 53),
+    ['r_set_blackred'] = cc.c3b(255, 132, 132),
+    ['r_set_blackblue'] = cc.c3b(88, 229, 255),
+    ['r_set_blackyellow'] = cc.c3b(255, 199, 90),
+    ['r_set_blackwhite'] = cc.c3b(255, 255, 255),
+    ['r_set_blackgreen'] = cc.c3b(250, 119, 255),
+    ['r_set_blackpurple'] = cc.c3b(170, 255, 107),
 
     -- 속성별
     ['earth'] = cc.c3b(88,234,102),

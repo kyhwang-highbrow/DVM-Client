@@ -70,6 +70,19 @@ function TableOption:getOptionDesc(option, val_1, val_2, val_3)
 end
 
 -------------------------------------
+-- function getOptionDescWithSkillForm
+-- @brief 스킬 설명과 같은 richLabel 칼라 적용
+-------------------------------------
+function TableOption:getOptionDescWithSkillForm(option, val_1, val_2, val_3)
+    if (self == THIS) then
+        self = THIS()
+    end
+
+    local t_desc = self:getValue(option, 't_desc')
+    return DragonSkillCore.getRichTemplate(Str(t_desc, val_1, val_2, val_3))
+end
+
+-------------------------------------
 -- function getLevelingValue
 -- @brief
 -------------------------------------

@@ -81,7 +81,7 @@ function TableRuneSet:makeRuneSetDescRichText(set_id)
     if (type(option) == 'number') then
         text = '{@rune_set}' .. Str('{1} {2}세트', name, need_equip) .. '\n' .. TableDragonSkill():getSkillDesc(option)
     else
-        text = '{@rune_set}' .. Str('{1} {2}세트', name, need_equip) .. '\n' .. TableOption:getOptionDesc(option, value)
+        text = '{@rune_set}' .. Str('{1} {2}세트', name, need_equip) .. '\n' .. TableOption:getOptionDescWithSkillForm(option, value)
     end
     
     return text
@@ -108,7 +108,7 @@ function TableRuneSet:makeRuneSetFullNameRichText(set_id)
     if (type(option) == 'number') then
         text = Str('{1}{2}{@DESC} ({3}세트): ', tag, name, need_equip)..TableDragonSkill():getSkillDesc(option)
     else
-        text = Str('{1}{2}{@DESC} ({3}세트): ', tag, name, need_equip)..TableOption:getOptionDesc(option, value)  
+        text = Str('{1}{2}{@DESC} ({3}세트): ', tag, name, need_equip)..TableOption:getOptionDescWithSkillForm(option, value)  
     end
 
     return text

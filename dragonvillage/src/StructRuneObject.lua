@@ -190,7 +190,7 @@ function StructRuneObject:makeRuneDescRichText(for_enhance)
     -- 유니크 옵션
     local text_ = self:getRuneOptionDesc(self['uopt'])
     if text_ then
-        text = text .. '\n{@&g;uopt}' .. text_
+        text = text .. '\n{@&apricot;uopt}' .. text_
     end
 
     -- 공백
