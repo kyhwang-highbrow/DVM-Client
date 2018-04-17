@@ -74,6 +74,10 @@ function UI_QuickPopupNew:init_dungeonBtn()
     if (not g_clanData:isClanGuest()) then
          table.insert(l_content, 'clan_raid')
     end
+    -- 고대 유적 던전은 열린 경우에만 노출 (악몽던전 앞에)
+    if (g_ancientRuinData:isOpenAncientRuin()) then
+        table.insert(l_content, 'ancient_ruin') 
+    end
 
     table.insert(l_content, 'nest_nightmare')
     table.insert(l_content, 'secret_relation')
