@@ -8,6 +8,7 @@ function Character:doSkill(skill_id, x, y, t_data, t_skill_derived)
 	local t_data = t_data or {}
 
     local attr = self:getAttribute()
+    local has_cc = self:hasStatusEffectToDisableSkill()
 	local t_skill = t_skill_derived or self:getSkillTable(skill_id)
     local skill_indivisual_info = self:findSkillInfoByID(skill_id)
 
@@ -16,16 +17,21 @@ function Character:doSkill(skill_id, x, y, t_data, t_skill_derived)
         error('ID '.. tostring(skill_id) ..' 에 해당하는 스킬 테이블이 없습니다')
     end
     
+    --[[
     if (not skill_indivisual_info) then
+        error('ID '.. tostring(skill_id) ..' 에 해당하는 스킬 정보가 없습니다')
         return false
     end
+    ]]--
     
     -- 스킬 사용 불가 상태
     local basic_skill_id = self:getSkillID('basic')
     if (basic_skill_id == skill_id) then
         -- 기본 공격이라면 통과시킴
-    elseif (self:hasStatusEffectToDisableSkill() and not skill_indivisual_info:isIgnoreCC()) then
-        return false
+    elseif (has_cc) then
+        if (not skill_indivisual_info or not skill_indivisual_info:isIgnoreCC()) then
+            return false
+        end
 	end
 
 	-- @ E.T.
