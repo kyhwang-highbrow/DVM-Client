@@ -7,15 +7,19 @@ function Coroutine(func, name)
 
     -- error 메세지를 핸들링하기 위해 func2 생성
     local function func2(dt)
-        local status, msg = xpcall(func, __G__TRACKBACK__)
-        if (not status) then
-            cclog('## Coroutine ERROR!!!')
-            if name then
-                cclog('===================================================')
-                cclog('## Coroutine 에러 : ' .. name)
-                cclog('===================================================')
+        if (CppFunctions:isIos()) then
+            func()
+        else
+            local status, msg = xpcall(func, __G__TRACKBACK__)
+            if (not status) then
+                cclog('## Coroutine ERROR!!!')
+                if name then
+                    cclog('===================================================')
+                    cclog('## Coroutine 에러 : ' .. name)
+                    cclog('===================================================')
+                end
+                error(msg)
             end
-            error(msg)
         end
     end
 
