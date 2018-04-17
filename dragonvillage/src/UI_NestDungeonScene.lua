@@ -283,8 +283,13 @@ function UI_NestDungeonScene:click_dungeonBtn(ui, data)
     -- 0.5초 후 실행
     vars['detailTableViewNode']:stopAllActions()
     cca.reserveFunc(vars['detailTableViewNode'], 0.25, function() self:makeNestModeTableView() end)
-	cca.reserveFunc(vars['dragonInfoBtn'], 0.5, function() vars['dragonInfoBtn']:setVisible(true) end)
-
+    
+    -- 고대 유적 던전 - 공략 드래곤 노출 X
+    if (self.m_dungeonType == NEST_DUNGEON_ANCIENT_RUIN) then
+    else
+        cca.reserveFunc(vars['dragonInfoBtn'], 0.5, function() vars['dragonInfoBtn']:setVisible(true) end)
+    end
+	
     do -- 사용 스테미너 얻어오기
         self.m_staminaType = g_nestDungeonData:getNestModeStaminaType(data['mode_id'])
         g_topUserInfo:setStaminaType(self.m_staminaType)

@@ -193,7 +193,16 @@ function UI_RecommendedDragonInfoPopup:makeTableView_dungeon()
 	local node = vars['dungeonNode']
 
 	local l_dungeon_list = g_nestDungeonData:getNestDungeonInfo()
-    
+
+    -- 고대 유적 던전 - 공략 드래곤 노출 X
+    for i, v in ipairs(l_dungeon_list) do
+        local mode = v['mode']
+        if (mode) and (mode == NEST_DUNGEON_ANCIENT_RUIN) then
+            table.remove(l_dungeon_list, i)
+            break
+        end
+    end
+
 	do -- 테이블 뷰 생성
         node:removeAllChildren()
 
