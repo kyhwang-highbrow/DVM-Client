@@ -143,6 +143,7 @@ function UI_InventorySelectSellItems:click_sellBtn()
         return
     end
 
+    local rune_oids
     local items
 
     local total_price = 0
