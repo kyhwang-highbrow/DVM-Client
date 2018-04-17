@@ -156,6 +156,8 @@ end
 -------------------------------------
 function FormationMgrDelegate:getTargetList(x, y, team_type, formation_type, rule_type, t_data)
     local formation_type = formation_type or ''
+    local char = t_data['self']
+    local game_mode = t_data['game_mode']
 
     local t_ret = {}
 
@@ -207,17 +209,31 @@ function FormationMgrDelegate:getTargetList(x, y, team_type, formation_type, rul
     end
 
     -- 적군 대상인 경우면 바디가 활성화된 대상만 가져옴
-    if (team_type == 'enemy') then
-        local ret = {}
+    --[[
+    if (char) then
+        local is_left = char.m_bLeftFormation
+        local temp = {}
         
-        for i, target in pairs(t_ret) do
-            if (target.enable_body) then
-                table.insert(ret, target)
+        for i, target in ipairs(t_ret) do
+            if (target.enable_body or is_left == target.m_bLeftFormation) then
+                table.insert(temp, target)
             end
         end
 
-        t_ret = ret
+        t_ret = temp
     end
+    ]]--
+
+    -- 고대 유적 던전의 경우 아군의 distance_line 타입은 보스를 우선으로 공격하도록 처리
+    --[[
+    if (game_mode == GAME_MODE_ANCIENT_RUIN) then
+        if (char and char.m_bLeftFormation) then
+            table.sort(t_ret, function(a, b)
+                if (a:isBoss() ~= b:isBoss()
+            end)
+        end
+    end
+    ]]--
 
     return t_ret
 end

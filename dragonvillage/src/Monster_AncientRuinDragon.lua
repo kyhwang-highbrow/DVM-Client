@@ -32,7 +32,7 @@ end
 -------------------------------------
 function Monster_AncientRuinDragon:initPhys(body)
     PARENT.initPhys(self, body)
-
+    --[[
     if (self.m_animator and self.m_animator.m_type == ANIMATOR_TYPE_SPINE) then
         if (not self.m_bCreateParts) then
             local t_monster = self:getCharTable()
@@ -79,6 +79,7 @@ function Monster_AncientRuinDragon:initPhys(body)
             self.m_bCreateParts = true
         end
     end
+    ]]--
 end
 
 -------------------------------------
@@ -317,9 +318,11 @@ end
 -- @param enabled
 -- @param release_appended
 -------------------------------------
+--[[
 function Monster_AncientRuinDragon:setEnableBody(enabled)
     self.enable_body = false
 end
+]]--
 
 -------------------------------------
 -- function doAppear

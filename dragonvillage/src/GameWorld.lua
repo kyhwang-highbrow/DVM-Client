@@ -1185,6 +1185,7 @@ function GameWorld:getTargetList(char, x, y, team_type, formation_type, rule_typ
 
     t_data['self'] = char
     t_data['team_type'] = team_type
+    t_data['game_mode'] = self.m_gameMode
 
     -- 팀 타입에 따른 델리게이트
     local for_mgr_delegate = FormationMgrDelegate()
