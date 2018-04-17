@@ -342,10 +342,20 @@ end
 function UI_CapsuleBox:click_buyBtn()
 	local struct_product = g_shopDataNew:getDailyCapsulePackage()
 	if (struct_product) then
-        local refresh_func = function()
+        local refresh_cb
+        local buy_cb
+
+        -- 캡슐 코인 갱신
+        refresh_cb = function()
             self:refresh()
         end
-        struct_product:buy(refresh_func)
+
+        -- 캡슐 코인 우편함 바로 보여줌
+        buy_cb = function()
+            UINavigator:goTo('mail_select', MAIL_SELECT_TYPE.CAPSULE_COIN, refresh_cb)
+        end
+
+        struct_product:buy(buy_cb)
     end
 end
 

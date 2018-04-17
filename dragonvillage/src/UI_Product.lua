@@ -227,8 +227,14 @@ function UI_Product:click_buyBtn()
                 self.m_cbBuy(ret)
             end
 
-            -- 아이템 획득 결과창
-            ItemObtainResult_Shop(ret)
+            -- 다이아 상품인 경우는 구매후 우편함 바로 보여줌
+            if (struct_product:getTabCategory() == 'cash') then
+                UINavigator:goTo('mail_select', MAIL_SELECT_TYPE.GOODS)
+
+            else
+                -- 아이템 획득 결과창
+                ItemObtainResult_Shop(ret)
+            end
         end
         
 		struct_product:buy(cb_func)
