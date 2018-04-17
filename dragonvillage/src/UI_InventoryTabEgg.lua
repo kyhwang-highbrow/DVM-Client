@@ -117,15 +117,17 @@ function UI_InventoryTabEgg:onChangeSelectedItem(ui, data)
     vars['hatcheryBtn']:setVisible(true)
     vars['hatcheryBtn']:registerScriptTapHandler(function() self:click_hatcheryBtn(data['egg_id']) end)
 
+    local egg_id = tonumber(data['egg_id'])
+
     do -- 아이템 이름
         vars['itemNameLabel']:setVisible(true)
-        local name = TableItem():getValue(data['egg_id'], 't_name')
+        local name = TableItem():getValue(egg_id, 't_name')
         vars['itemNameLabel']:setString(Str(name))
     end
 
     do -- 아이템 설명
         vars['itemDscLabel']:setVisible(true)
-        local egg_id = tonumber(data['egg_id'])
+        
         local desc = TableItem():getValue(egg_id, 't_desc')
         vars['itemDscLabel']:setString(Str(desc))
     end
