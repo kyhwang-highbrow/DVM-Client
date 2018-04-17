@@ -722,6 +722,7 @@ local t_module = {
     'UI_NestDungeonListItem',
     'UI_NestDungeonStageListItem',
     'UI_NightmareStageListItem',
+    'UI_AncientRuinStageListItem',
     'UI_SecretDungeonScene',
     'UI_SecretDungeonListItem',
     'UI_SecretDungeonStageListItem',

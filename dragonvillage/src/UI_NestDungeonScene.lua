@@ -173,6 +173,8 @@ function UI_NestDungeonScene:makeNestModeTableView()
 
     if (dungeon_mode == NEST_DUNGEON_NIGHTMARE) then
         table_view:setCellUIClass(UI_NightmareStageListItem, create_func)
+    elseif (dungeon_mode == NEST_DUNGEON_ANCIENT_RUIN) then
+        table_view:setCellUIClass(UI_AncientRuinStageListItem, create_func)
     else
         table_view:setCellUIClass(UI_NestDungeonStageListItem, create_func)
     end    

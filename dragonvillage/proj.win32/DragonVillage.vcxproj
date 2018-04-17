@@ -955,6 +955,7 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <None Include="..\src\UI_AdventureStageInfo.lua" />
     <None Include="..\src\UI_AdventureStageMissionInfo.lua" />
     <None Include="..\src\UI_AdvertisingPopup.lua" />
+    <None Include="..\src\UI_AncientRuinStageListItem.lua" />
     <None Include="..\src\UI_AncientTower.lua" />
     <None Include="..\src\UI_AncientTowerClanRankListItem.lua" />
     <None Include="..\src\UI_AncientTowerClanRewardListItem.lua" />
