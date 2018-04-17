@@ -301,7 +301,13 @@ function SkillIndicator:setHighlightEffect(l_collision)
     -- 새 충돌 정보로 이펙트 생성 정보 세팅
     -- TODO: 타겟 카운트에 따라 처리되어야함
     for _, collision in ipairs(l_collision) do
+        local body_key = collision:getBodyKey()
         local target = collision:getTarget()
+        
+        if (target.m_bUseBinding and target.m_parentChar) then
+            body_key = target.m_bodyKey
+            target = target.m_parentChar
+        end
 
         if (not map[target]) then
             map[target] = {}
@@ -311,7 +317,7 @@ function SkillIndicator:setHighlightEffect(l_collision)
             end
         end
 
-        map[target][collision:getBodyKey()] = 1
+        map[target][body_key] = 1
     end
 
     -- 이전 하이라이트 리스트의 이펙트 해제 정보 세팅

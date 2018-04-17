@@ -49,7 +49,7 @@ function Monster_AncientRuinDragon:initPhys(body)
                 body_part:init_monster(t_monster, monster_id, self:getTotalLevel())
                 body_part:initState()
 	            body_part:initFormation(body_size)
-                body_part:initPhys({0, 0, 25})
+                body_part:initPhys({body['x'], body['y'], body['size']})
 
                 -- 스텟 정보는 본체와 공유
                 do
@@ -79,15 +79,6 @@ function Monster_AncientRuinDragon:initPhys(body)
             self.m_bCreateParts = true
         end
     end
-end
-
--------------------------------------
--- function initCharacterBinding
--- @brief 바인딩 관련 초기값 지정(m_classDef은 반드시 설정되어야함)
--- @override
--------------------------------------
-function Monster_AncientRuinDragon:initCharacterBinding()
-    self.m_classDef = MonsterLua_Boss
 end
 
 -------------------------------------

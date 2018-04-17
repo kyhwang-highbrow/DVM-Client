@@ -2,10 +2,10 @@
 -- interface ICharacterBinding
 -------------------------------------
 ICharacterBinding = {
-    m_classDef      = '',
-
     m_parentChar    = 'Character',
     m_lChildChar    = 'table',
+
+    m_bodyKey       = 'number', -- 부모(m_parentChar)가 존재하는 경우 대응되는 부모의 body key
 }
 
 -------------------------------------
@@ -14,18 +14,9 @@ ICharacterBinding = {
 function ICharacterBinding:init()
     self.m_parentChar = nil
     self.m_lChildChar = {}
+    self.m_bodyKey = nil
 
     self.m_bUseBinding = true
-
-    self:initCharacterBinding()
-end
-
--------------------------------------
--- function initCharacterBinding
--- @brief 바인딩 관련 초기값 지정(m_classDef은 반드시 설정되어야함)
--- @override
--------------------------------------
-function ICharacterBinding:initCharacterBinding()
 end
 
 -------------------------------------
@@ -72,6 +63,9 @@ function ICharacterBinding:removeAllChildCharacter()
 
     self.m_lChildChar = {}
 end
+
+
+
 
 -------------------------------------
 -- function getCloneTable

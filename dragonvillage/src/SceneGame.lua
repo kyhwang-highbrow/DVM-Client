@@ -117,6 +117,9 @@ function SceneGame:init_gameMode(stage_id)
     elseif (self.m_gameMode == GAME_MODE_EVENT_GOLD) then
 		self.m_bgmName = 'bgm_dungeon_special'
 
+    elseif (self.m_gameMode == GAME_MODE_ANCIENT_RUIN) then
+		self.m_bgmName = 'bgm_dungeon_special'
+
     else
         self.m_bgmName = 'bgm_dungeon'
     end

@@ -103,22 +103,28 @@ function Dragon:initDragonSkillManager(t_dragon_data)
             error('invalid rune set skill : ' .. skill_id)
         end
         
-        cclog('rune set skill name : ' .. Str(t_skill['t_name']) .. '(' .. count .. ')')
+        --cclog('rune set skill name : ' .. Str(t_skill['t_name']) .. '(' .. count .. ')')
 
-        local skill_indivisual_info
+        local skill_indivisual_info = self:setSkillID(t_skill['chance_type'], skill_id, 1, 'new')
+        skill_indivisual_info:setToIgnoreCC(true)
 
-        if (skill_id == 500300) then
-            -- 특정 룬 세트(생존) 효과의 경우는 중첩시 별도 처리...(지속 시간 증가)
-            skill_indivisual_info = self:setSkillID(t_skill['chance_type'], skill_id, 1, 'new')
-            skill_indivisual_info:setToIgnoreCC(true)
-                
+        -- 고대룬 2셋트 효과들은 중첩을 별도로 처리
+        if (skill_id == 500200) then
+            -- 반격 세트는 중첩시 기절 시간 증가
             if (count > 1) then
                 skill_indivisual_info:addBuff('add_option_time_1', count, 'multi', true)
             end
-        else
-            for i = 1, count do
-                skill_indivisual_info = self:setSkillID(t_skill['chance_type'], skill_id, 1, 'new')
-                skill_indivisual_info:setToIgnoreCC(true)
+
+        elseif (skill_id == 500300) then
+            -- 생존 세트는 중첩시 무적 시간 증가
+            if (count > 1) then
+                skill_indivisual_info:addBuff('add_option_time_1', count, 'multi', true)
+            end
+
+        elseif (skill_id == 500400) then
+            -- 앙심 세트는 중첩시 드래그 스킬 재사용시간 추가 감소
+            if (count > 1) then
+                skill_indivisual_info:addBuff('add_option_value_1', count, 'multi', true)
             end
         end
     end

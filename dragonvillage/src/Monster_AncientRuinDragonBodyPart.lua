@@ -3,9 +3,7 @@ local PARENT = class(Monster, ICharacterBinding:getCloneTable())
 -------------------------------------
 -- class Monster_AncientRuinDragonBodyPart
 -------------------------------------
-Monster_AncientRuinDragonBodyPart = class(PARENT, {
-    m_bodyKey = 'number',
-})
+Monster_AncientRuinDragonBodyPart = class(PARENT, {})
 
 
 -------------------------------------
@@ -27,15 +25,6 @@ function Monster_AncientRuinDragonBodyPart:init_monster(t_monster, monster_id, l
     self:addDefCallback(function(attacker, defender, i_x, i_y, k, b)
         self:undergoAttack(attacker, defender, i_x, i_y, k or 0, b)
     end)
-end
-
--------------------------------------
--- function initCharacterBinding
--- @brief 바인딩 관련 초기값 지정(m_classDef은 반드시 설정되어야함)
--- @override
--------------------------------------
-function Monster_AncientRuinDragonBodyPart:initCharacterBinding()
-    self.m_classDef = Monster
 end
 
 -------------------------------------
@@ -80,6 +69,96 @@ function Monster_AncientRuinDragonBodyPart:setHighlight(highlightLevel)
     if (self.m_parentChar) then
         self.m_parentChar:setHighlight(highlightLevel)
     end
+end
+
+-------------------------------------
+-- function isExistTargetEffect
+-------------------------------------
+function Monster_AncientRuinDragonBodyPart:isExistTargetEffect(k)
+    local unit = self
+    local key = k
+
+    if (self.m_parentChar) then
+        unit = self.m_parentChar
+        key = self.m_bodyKey
+    end
+
+    return PARENT.isExistTargetEffect(unit, key)
+end
+
+-------------------------------------
+-- function setTargetEffect
+-------------------------------------
+function Monster_AncientRuinDragonBodyPart:setTargetEffect(animator, k)
+    local unit = self
+    local key = k
+
+    if (self.m_parentChar) then
+        unit = self.m_parentChar
+        key = self.m_bodyKey
+    end
+
+    PARENT.setTargetEffect(unit, animator, key)
+end
+
+-------------------------------------
+-- function removeTargetEffect
+-------------------------------------
+function Monster_AncientRuinDragonBodyPart:removeTargetEffect(k)
+    local unit = self
+    local key = k
+
+    if (self.m_parentChar) then
+        unit = self.m_parentChar
+        key = self.m_bodyKey
+    end
+
+    PARENT.removeTargetEffect(unit, key)
+end
+
+-------------------------------------
+-- function isExistTargetEffect
+-------------------------------------
+function Monster_AncientRuinDragonBodyPart:isExistNonTargetEffect(k)
+    local unit = self
+    local key = k
+
+    if (self.m_parentChar) then
+        unit = self.m_parentChar
+        key = self.m_bodyKey
+    end
+
+    return PARENT.isExistNonTargetEffect(unit, key)
+end
+
+-------------------------------------
+-- function setNonTargetEffect
+-------------------------------------
+function Monster_AncientRuinDragonBodyPart:setNonTargetEffect(animator, k)
+    local unit = self
+    local key = k
+
+    if (self.m_parentChar) then
+        unit = self.m_parentChar
+        key = self.m_bodyKey
+    end
+
+    PARENT.setNonTargetEffect(unit, animator, key)
+end
+
+-------------------------------------
+-- function removeNonTargetEffect
+-------------------------------------
+function Monster_AncientRuinDragonBodyPart:removeNonTargetEffect(k)
+    local unit = self
+    local key = k
+
+    if (self.m_parentChar) then
+        unit = self.m_parentChar
+        key = self.m_bodyKey
+    end
+
+    PARENT.removeNonTargetEffect(unit, key)
 end
 
 -------------------------------------
