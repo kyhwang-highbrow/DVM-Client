@@ -1124,7 +1124,13 @@ function UI_GameResultNew:startGame()
 		scene:runScene()
 	end
 
-    g_stageData:requestGameStart(self.m_stageID, deck_name, combat_power, finish_cb, fail_cb)
+    local game_mode = g_stageData:getGameMode(stage_id)
+    -- 고대 유적 던전 start call 예외 처리
+    if (game_mode == GAME_MODE_ANCIENT_RUIN) then
+        g_ancientRuinData:requestGameStart(self.m_stageID, deck_name, combat_power, finish_cb, fail_cb)
+    else
+        g_stageData:requestGameStart(self.m_stageID, deck_name, combat_power, finish_cb, fail_cb)
+    end
 end
 
 -------------------------------------
