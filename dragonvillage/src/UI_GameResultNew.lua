@@ -26,6 +26,9 @@ UI_GameResultNew = class(PARENT, {
         m_autoCount = 'boolean',
 
 		m_isClearMasterRoad = 'boolean',
+
+        m_content_open = 'boolean', -- 컨텐츠 오픈
+        m_scoreCalc = '', -- 스코어 
      })
 
 -------------------------------------
@@ -33,7 +36,7 @@ UI_GameResultNew = class(PARENT, {
 -- @param file_name
 -- @param body
 -------------------------------------
-function UI_GameResultNew:init(stage_id, is_success, time, gold, t_tamer_levelup_data, l_dragon_list, box_grade, l_drop_item_list, secret_dungeon)
+function UI_GameResultNew:init(stage_id, is_success, time, gold, t_tamer_levelup_data, l_dragon_list, box_grade, l_drop_item_list, secret_dungeon, content_open, score_calc)
     self.m_stageID = stage_id
     self.m_bSuccess = is_success
     self.m_time = time
@@ -44,6 +47,8 @@ function UI_GameResultNew:init(stage_id, is_success, time, gold, t_tamer_levelup
     self.m_secretDungeon = secret_dungeon
     self.m_staminaType = 'st'
     self.m_autoCount = false
+    self.m_content_open = content_open and content_open['open'] or false
+    self.m_scoreCalc = score_calc
 
     local vars = self:load('ingame_result.ui')
     UIManager:open(self, UIManager.POPUP)

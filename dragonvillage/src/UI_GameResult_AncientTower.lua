@@ -4,25 +4,19 @@ local PARENT = UI_GameResultNew
 -- class UI_GameResult_AncientTower
 -------------------------------------
 UI_GameResult_AncientTower = class(PARENT, {
-    m_ancientScoreCalc = 'AncientTowerScoreCalc',
-
     m_totalScore = 'cc.Label',
 
     m_scoreList = 'list',
     m_animationList = 'list',
-
-    m_attr_tower_open = 'boolean',
 })
 
 -------------------------------------
 -- function click_againBtn
 -------------------------------------
 function UI_GameResult_AncientTower:init(stage_id, is_success, time, gold, t_tamer_levelup_data, l_dragon_list, box_grade, l_drop_item_list, secret_dungeon, content_open, score_calc)
-    local vars = self.vars
-    self.m_ancientScoreCalc = score_calc
     self.m_staminaType = 'tower'
-    self.m_attr_tower_open = content_open['open'] or false
 
+    local vars = self.vars
     vars['againBtn']:setVisible(false)
     vars['quickBtn']:setVisible(false)
 end
@@ -46,7 +40,7 @@ end
 -------------------------------------
 function UI_GameResult_AncientTower:setAnimationData()
     local vars = self.vars
-    local score_calc = self.m_ancientScoreCalc
+    local score_calc = self.m_scoreCalc
 
     -- 스테이지 속성 보너스
     local stage_id = self.m_stageID
@@ -358,7 +352,7 @@ function UI_GameResult_AncientTower:direction_secretDungeon()
     end
 
     -- 시험의 탑 컨텐츠 오픈 팝업
-    if (self.m_attr_tower_open) then
+    if (self.m_content_open) then
        UI_ContentOpenPopup('attr_tower')
     end 
 
