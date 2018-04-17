@@ -303,12 +303,12 @@ function SkillIndicator:setHighlightEffect(l_collision)
     for _, collision in ipairs(l_collision) do
         local body_key = collision:getBodyKey()
         local target = collision:getTarget()
-        
+        --[[
         if (target.m_bUseBinding and target.m_parentChar) then
             body_key = target.m_bodyKey
             target = target.m_parentChar
         end
-
+        ]]--
         if (not map[target]) then
             map[target] = {}
 
