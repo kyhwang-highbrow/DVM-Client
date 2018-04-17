@@ -195,7 +195,7 @@ function GameWorld:se_on_dragon()
 
     --StatusEffectHelper:doStatusEffect(dragon_list[1], dragon_list, 'skill_cooldown_reduce', 'ally_all', 5, 10, 100, 15)
 
-    StatusEffectHelper:doStatusEffect(dragon_list[1], { dragon_list[1] }, 'stun', 'target', 1, 5, 100, 100)
+    StatusEffectHelper:doStatusEffect(dragon_list[1], dragon_list, 'stun', 'target', 1, 5, 100, 100)
     --StatusEffectHelper:doStatusEffect(dragon_list[1], dragon_list, 'barrier_protection_time', 'ally_all', 10, 9999, 100, 100)
     --StatusEffectHelper:doStatusEffect(dragon_list[1], dragon_list, 'accel_mana', 'ally_all', 5, 9999, 100, 100)
     --[[
