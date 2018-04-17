@@ -795,13 +795,15 @@ end
 -------------------------------------
 -- function updateBasicSkillTimer
 -------------------------------------
-function IDragonSkillManager:updateBasicSkillTimer(dt, reduced_cool)
+function IDragonSkillManager:updateBasicSkillTimer(dt, reduced_cool, has_cc)
     if (not self.m_lSkillIndivisualInfo) then return end
 
     for type, list in pairs(self.m_lSkillIndivisualInfo) do
-        if not isExistValue(type, 'active', 'basic', 'leader') then
+        if (not isExistValue(type, 'active', 'basic', 'leader')) then
             for _, v in pairs(list) do
-                v:update(dt, reduced_cool)
+                if (not has_cc or v:isIgnoreCC()) then
+                    v:update(dt, reduced_cool)
+                end
             end
         end
     end

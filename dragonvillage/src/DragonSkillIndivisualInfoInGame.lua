@@ -7,6 +7,7 @@ local PARENT = DragonSkillIndivisualInfo
 DragonSkillIndivisualInfoInGame = class(PARENT, {
         m_tOrgSkill = 'table',  -- 스킬 레벨까지 적용된 테이블(인게임에선 실시간 변경사항은 적용되지 않음)
 
+        m_bIgnoreCC = 'boolean',-- 스킬 사용 불가 상태효과를 무시하고 발동되는지 여부
         m_bDirtyBuff = 'boolean',
         m_lBuff = 'table',
 
@@ -25,6 +26,7 @@ DragonSkillIndivisualInfoInGame = class(PARENT, {
 function DragonSkillIndivisualInfoInGame:init(char_type, skill_type, skill_id, skill_level)
     self.m_className = 'DragonSkillIndivisualInfoInGame'
 
+    self.m_bIgnoreCC = false
     self.m_bDirtyBuff = false
     self.m_lBuff = {}
 
@@ -267,4 +269,18 @@ function DragonSkillIndivisualInfoInGame:removeBuff(column, value, action)
     end
 
     self.m_bDirtyBuff = true
+end
+
+-------------------------------------
+-- function setToIgnoreCC
+-------------------------------------
+function DragonSkillIndivisualInfoInGame:setToIgnoreCC(b)
+    self.m_bIgnoreCC = b
+end
+
+-------------------------------------
+-- function isIgnoreCC
+-------------------------------------
+function DragonSkillIndivisualInfoInGame:isIgnoreCC()
+    return self.m_bIgnoreCC
 end

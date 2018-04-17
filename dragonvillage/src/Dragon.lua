@@ -105,16 +105,20 @@ function Dragon:initDragonSkillManager(t_dragon_data)
         
         cclog('rune set skill name : ' .. Str(t_skill['t_name']) .. '(' .. count .. ')')
 
-        -- 특정 룬 세트(생존) 효과의 경우는 중첩시 별도 처리...(지속 시간 증가)
+        local skill_indivisual_info
+
         if (skill_id == 500300) then
-            local skill_indivisual_info = self:setSkillID(t_skill['chance_type'], skill_id, 1, 'new')
+            -- 특정 룬 세트(생존) 효과의 경우는 중첩시 별도 처리...(지속 시간 증가)
+            skill_indivisual_info = self:setSkillID(t_skill['chance_type'], skill_id, 1, 'new')
+            skill_indivisual_info:setToIgnoreCC(true)
                 
             if (count > 1) then
                 skill_indivisual_info:addBuff('add_option_time_1', count, 'multi', true)
             end
         else
             for i = 1, count do
-                self:setSkillID(t_skill['chance_type'], skill_id, 1, 'new')
+                skill_indivisual_info = self:setSkillID(t_skill['chance_type'], skill_id, 1, 'new')
+                skill_indivisual_info:setToIgnoreCC(true)
             end
         end
     end

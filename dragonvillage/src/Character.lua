@@ -491,6 +491,8 @@ end
 -------------------------------------
 function Character:checkGuard(attacker, defender)
     if (self.m_guard) then
+        -- 수호 스킬 효과
+
 		-- Event Carrier 세팅
 		local t_event = clone(EVENT_HIT_CARRIER)
 		t_event['attacker'] = attacker
@@ -597,6 +599,7 @@ function Character:undergoAttack(attacker, defender, i_x, i_y, body_key, no_even
     -- 수호(guard) 상태 체크
     if (attack_activity_carrier:isIgnoreAll()) then
         -- 수호 무시
+
     elseif (not is_guard and self:checkGuard(attacker, defender)) then
         return
     end
@@ -1980,11 +1983,6 @@ function Character:updateBasicSkillTimer(dt)
         return
     end
 
-    -- 스킬 사용 불가 상태효과가 있을 경우
-    if (self:hasStatusEffectToDisableSkill()) then
-        return
-    end
-
     -- 이미 스킬을 사용하기 위한 상태나 사용 중인 경우
     if (isExistValue(self.m_state, 'skillPrepare', 'skillAppear', 'skillIdle', 'delegate')) then
         return
@@ -1992,7 +1990,8 @@ function Character:updateBasicSkillTimer(dt)
 
     -- 쿨타임 감소를 적용하여 스킬별 쿨타임 갱신
     local cool_actu = self:getStat('cool_actu') or 0
-    PARENT.updateBasicSkillTimer(self, dt, cool_actu)
+    local has_cc = self:hasStatusEffectToDisableSkill()
+    PARENT.updateBasicSkillTimer(self, dt, cool_actu, has_cc)
     
     -- 특정 발동 조건을 가진 스킬들은 실시간으로 체크
     do
