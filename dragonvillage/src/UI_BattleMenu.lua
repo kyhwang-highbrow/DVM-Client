@@ -205,13 +205,14 @@ end
 function UI_BattleMenu:initAdventureTab()
     local vars = self.vars
     -- 메뉴 아이템 x축 간격
-    local interval_x = 210
+    local interval_x = 208
     local l_btn_ui = {}
+    local pos_y = 80
     -- 모험
     local ui = UI_BattleMenuItem_Adventure('adventure')
     ui.root:setPosition(-interval_x, -94)
     vars['adventureMenu']:addChild(ui.root)
-    table.insert(l_btn_ui, {['ui']=ui, ['x']=-interval_x, ['y']=-94})
+    table.insert(l_btn_ui, {['ui']=ui, ['x']=-interval_x, ['y']=-pos_y})
 
     -- tutorial 실행중이라면
     if TutorialManager.getInstance():isDoing() then
@@ -220,9 +221,9 @@ function UI_BattleMenu:initAdventureTab()
 
     -- 탐험
     local ui = UI_BattleMenuItem_Adventure('exploation')
-    ui.root:setPosition(interval_x, -94)
+    ui.root:setPosition(interval_x, -pos_y)
     vars['adventureMenu']:addChild(ui.root)
-    table.insert(l_btn_ui, {['ui']=ui, ['x']=interval_x, ['y']=-94})
+    table.insert(l_btn_ui, {['ui']=ui, ['x']=interval_x, ['y']=-pos_y})
 
     self.m_lAdventureBtnUI = l_btn_ui
 end
@@ -269,7 +270,7 @@ function UI_BattleMenu:initDungeonTab()
     scroll_node:addChild(scroll_view)
 
     -- 메뉴 아이템 시작점
-    local pos_y = -20
+    local pos_y = -6
     for idx, target in ipairs(l_item) do
         local ui = UI_BattleMenuItem_Dungeon(target)
         local pos_x = -size.width/2 + interval_x * (idx - 1)
@@ -297,31 +298,31 @@ end
 function UI_BattleMenu:initCompetitionTab()
     local vars = self.vars
     -- 메뉴 아이템 x축 간격
-    local interval_x = 210
+    local interval_x = 208
 
     local l_btn_ui = {}
     local attr_open = g_attrTowerData:isContentOpen()
 
     local pos_x = attr_open and interval_x*2 or interval_x
-    local pos_y = 94
+    local pos_y = 80
 
     -- 고대의 탑
     local ui = UI_BattleMenuItem_Competition('ancient')
-    ui.root:setPosition(-pos_x, -94)
+    ui.root:setPosition(-pos_x, -pos_y)
     vars['competitionMenu']:addChild(ui.root)
     table.insert(l_btn_ui, {['ui']=ui, ['x']=-pos_x, ['y']=-pos_y})
 
     -- 시험의 탑 (오픈되었을때만 메뉴에 추가)
     if (attr_open) then
         local ui = UI_BattleMenuItem_Competition('attr_tower')
-        ui.root:setPosition(0, -94)
+        ui.root:setPosition(0, -pos_y)
         vars['competitionMenu']:addChild(ui.root)
         table.insert(l_btn_ui, {['ui']=ui, ['x']=0, ['y']=-pos_y})
     end
 
     -- 콜로세움
     local ui = UI_BattleMenuItem_Competition('colosseum')
-    ui.root:setPosition(pos_x, -94)
+    ui.root:setPosition(pos_x, -pos_y)
     vars['competitionMenu']:addChild(ui.root)
     table.insert(l_btn_ui, {['ui']=ui, ['x']=pos_x, ['y']=-pos_y})
 
