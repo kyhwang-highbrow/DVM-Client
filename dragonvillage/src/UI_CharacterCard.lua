@@ -100,12 +100,20 @@ function UI_CharacterCard:refreshDragonInfo()
             local doid = t_dragon_data['id']
             local deck_name = g_deckData:getSelectedDeckName()
 
-            -- 클랜던전 예외처리
-            if (string.find(deck_name, 'clan_raid')) then
+            -- 클랜 던전 예외처리
+            if string.find(deck_name, 'clan_raid') then
                 local make_deck = true
                 local multi_deck_mgr = MultiDeckMgr(MULTI_DECK_MODE.CLAN_RAID, make_deck)
                 local is_setted, num = multi_deck_mgr:isSettedDragon(doid)
                 self:setTeamReadySpriteVisible(is_setted, num)
+
+            -- 고대 유적 던전 예외처리
+            elseif string.find(deck_name, 'ancient_ruin') then
+                local make_deck = true
+                local multi_deck_mgr = MultiDeckMgr(MULTI_DECK_MODE.ANCIENT_RUIN, make_deck)
+                local is_setted, num = multi_deck_mgr:isSettedDragon(doid)
+                self:setTeamReadySpriteVisible(is_setted, num)
+
             else
                 local is_setted = (g_deckData:isSettedDragon(doid) ~= false)
                 self:setReadySpriteVisible(is_setted)
