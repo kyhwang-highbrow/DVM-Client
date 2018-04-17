@@ -42,36 +42,42 @@ function EffectHeal.st_move(owner, dt)
         owner.m_aiParam = 800
         owner:setSpeed(1000)
         
-
+        --[[
         local degree = getDegree(owner.pos.x, owner.pos.y, owner.m_target.pos.x, owner.m_target.pos.y)
         degree = degree + math_random(-30, 30)
         owner:setDir(degree)
-
+        ]]--
+        owner:setTargetPos(owner.m_target.pos.x, owner.m_target.pos.y)
+--[[        
     elseif (owner.m_stateTimer >= 0.15) and (owner.m_aiParam > 0) then
 
         if owner.m_target then
-            owner.m_targetPosX, owner.m_targetPosY = owner.m_target:getCenterPos()
+            --owner.m_targetPosX, owner.m_targetPosY = owner.m_target:getCenterPos()
+            owner.m_targetPosX, owner.m_targetPosY = owner.m_target.pos.x, owner.m_target.pos.y
 
             local curr_degree = owner.movement_theta
             local dest_degree = getDegree(owner.pos.x, owner.pos.y, owner.m_targetPosX, owner.m_targetPosY)
-            local new_degree, gap = getRotationDegree(curr_degree, dest_degree, dt * owner.m_aiParam)
+            --local new_degree, gap = getRotationDegree(curr_degree, dest_degree, dt * owner.m_aiParam)
+            local new_degree = dest_degree
 
             owner:setDir(new_degree)
             owner:setRotation(new_degree)
 
             owner.m_aiParam = owner.m_aiParam + (dt * 2000)
         end
+]]--
     end
 
-    local distance = getDistance(owner.pos.x, owner.pos.y, owner.m_target.pos.x, owner.m_target.pos.y)
-
-    if (owner.m_stateTimer >= 1) or (distance <= 60) then
+    --local distance = getDistance(owner.pos.x, owner.pos.y, owner.m_target.pos.x, owner.m_target.pos.y)
+    --if (owner.m_stateTimer >= 1) or (distance <= 60) then
+    if (owner:isOverTargetPos(true)) then
         owner:changeState('dying')
     end
-
+    --[[
     local speed = owner.speed + (500 * dt)
     speed = math_min(speed, 2000)
     owner:setSpeed(speed)
+    ]]--
 end
 
 -------------------------------------

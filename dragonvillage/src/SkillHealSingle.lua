@@ -80,7 +80,8 @@ function SkillHealSingle:runHeal()
 
         self.m_world.m_physWorld:addObject(PHYS.EFFECT, effect_heal)
 
-        local worldNode = self.m_world:getMissileNode('bottom')
+        --local worldNode = self.m_world:getMissileNode('bottom')
+        local worldNode = self.m_world:getMissileNode()
         worldNode:addChild(effect_heal.m_rootNode, 0)
 
         self.m_world:addToUnitList(effect_heal)
