@@ -80,7 +80,8 @@ function UI_DragonUpgradeResult:refresh(dragon_object)
 			vars['starVisual']:changeAni(ani_name)
         end
         dragon_animator:setDragonAppearCB(cb)
-		dragon_animator:startDirecting()
+        local direct_result = true
+		dragon_animator:startDirecting(direct_result)
     end
 
     self:refresh_status(dragon_object)
