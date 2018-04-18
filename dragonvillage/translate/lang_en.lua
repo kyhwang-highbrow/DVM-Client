@@ -309,6 +309,7 @@ return {['180초 후 적 모두를 섬멸합니다. 이 효과는 저항하거�
 ['6등급 흡혈 5번 룬']='No. 5 of Grade 6 HP Absorption Rune',
 ['6등급 흡혈 6번 룬']='No. 6 of Grade 6 HP Absorption Rune',
 ['{1}{2}{@DESC} ({3}세트): ']='{1}{2}{@DESC} ({3} Set):',
+['{1}{2}{@DESC} ({3}세트)']='{1}{2}{@DESC} ({3} Set)',
 ['{1}초마다 마나 {2}개 획득']='Got {2} mana every {1} sec.',
 ['{1}초마다 자신을 공격하는 적에게 반격 (반격 피해는 생명력 및 방어력에 비례)']='Counterattack the attacking enemy every {1} sec. (Damage is proportional to HP and DEF)',
 ['{1}회 피해를 받으면 자신의 생명력을 {2}% 회복합니다.']='Recover {2}% of HP when hit {1} time(s).',
