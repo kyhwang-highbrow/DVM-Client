@@ -149,7 +149,9 @@ function UI_InventoryTabEvolutionStone:onChangeSelectedItem(ui, data)
     end
 
     -- 판매 버튼
-    if self.m_inventoryUI.m_selectSellItemsUI and (not self.m_inventoryUI.m_selectSellItemsUI.m_bActive) then
+    if self.m_inventoryUI.m_selectSellItemsUI and 
+       (not self.m_inventoryUI.m_selectSellItemsUI.m_bActive) and
+       (data['count'] > 0) then
         vars['sellBtn']:setVisible(true)
     end
     vars['sellBtn']:registerScriptTapHandler(function() self:sellBtn(data) end)
