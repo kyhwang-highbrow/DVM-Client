@@ -78,6 +78,19 @@ function UI_ItemInfoPopup:initUI()
     end
     vars['itemDscLabel']:setString(Str(desc))
 
+    -- 룬 세트 옵션 설명
+    if (type == 'rune') then
+        -- 임시 룬 오브젝트를 생성 (룬 세트 설명 함수를 사용하기 위해)
+        local _data = {}
+        _data['rid'] = self.m_itemID
+        local _struct_rune_obj = StructRuneObject(_data)
+        
+        -- 룬 세트 설명 출력
+        vars['itemDscNode2']:setVisible(true)
+        local str = _struct_rune_obj:makeRuneSetDescRichText() or ''
+        vars['itemDscLabel2']:setString(str)
+    end
+
     -- 하위 UI가 모두 opacity값을 적용되도록
     self:setOpacityChildren(true)
 
