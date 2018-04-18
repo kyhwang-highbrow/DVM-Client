@@ -834,6 +834,10 @@ function UI_TitleScene:workGetServerInfo()
                 if (ret['stage_list']) then
                     cclog('# 모험 스테이지 리스트')
                     g_adventureData:response_adventureInfo(ret['stage_list'])
+
+                    cclog('# 네스트 던전 리스트')
+                    local game_list = ret['stage_list']['stage_list']
+                    g_nestDungeonData:applyNestDungeonStageListWithCheckID(game_list)
                 end
 
                 if (ret['accesstime_info']) then

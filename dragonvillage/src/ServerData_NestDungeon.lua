@@ -424,6 +424,27 @@ function ServerData_NestDungeon:applyNestDungeonStageList(data)
 end
 
 -------------------------------------
+-- function applyNestDungeonStageListWithCheckID
+-- @brief 서버에서 전달받은 데이터를 클라이언트에 적용 (users/title에서 모험 stage와 함께 받은 경우)
+-------------------------------------
+function ServerData_NestDungeon:applyNestDungeonStageListWithCheckID(data)
+    -- 서버에서 줄여진 key명칭을 사용
+    local new_data = {}
+
+    for stage_id,v in pairs(data) do
+        local mode = getDigit(tonumber(stage_id), 100000, 2)
+        if (mode == GAME_MODE_NEST_DUNGEON or mode == GAME_MODE_ANCIENT_RUIN) then
+            new_data[stage_id] = {}
+            if v['cl_cnt'] then
+                new_data[stage_id]['clear_cnt'] = v['cl_cnt']
+            end
+        end
+    end
+
+    self.m_serverData:applyServerData(new_data, 'nest_dungeon_stage_list')
+end
+
+-------------------------------------
 -- function getNestDungeonStageClearInfo
 -- @brief
 -------------------------------------
