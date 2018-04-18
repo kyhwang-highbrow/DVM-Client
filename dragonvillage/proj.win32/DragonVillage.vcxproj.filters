@@ -3406,6 +3406,9 @@
     <None Include="..\src\UI_AncientRuinStageListItem.lua">
       <Filter>lua\UI</Filter>
     </None>
+    <None Include="..\src\SkillHealLine.lua">
+      <Filter>lua\src</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Classes">

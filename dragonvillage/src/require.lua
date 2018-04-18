@@ -575,6 +575,7 @@ local t_module = {
     'SkillScript_ClanRaidBossFinish',
 
     'SkillHealSingle',
+    'SkillHealLine',
     'SkillHealAround',
     'SkillHealAoERound',
     'SkillHealAoESquare_Height',

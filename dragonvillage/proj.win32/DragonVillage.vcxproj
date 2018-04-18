@@ -555,6 +555,7 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <None Include="..\src\SkillHealAoERound.lua" />
     <None Include="..\src\SkillHealAoESquare_Height.lua" />
     <None Include="..\src\SkillHealAoESquare_Width.lua" />
+    <None Include="..\src\SkillHealLine.lua" />
     <None Include="..\src\SkillHeartOfRuin.lua" />
     <None Include="..\src\SkillHelper.lua" />
     <None Include="..\src\SkillIndicatorMgr_ClanRaid.lua" />

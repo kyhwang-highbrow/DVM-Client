@@ -12,7 +12,13 @@ function Character:doSkill(skill_id, x, y, t_data, t_skill_derived)
 	local skill_indivisual_info = self:findSkillInfoByID(skill_id)
     if (not skill_indivisual_info) then
         --self:printSkillManager()
-        error('ID '.. tostring(skill_id) ..' 에 해당하는 스킬 정보가 없습니다')
+
+        -- TODO: 테스트를 위해 오류 메세지를 발생시킴.(특수한 경우가 아니면 나오면 안될 상황...)
+        if (isExistValue(skill_id, 250011, 250012, 250013, 250014, 250015)) then
+            return
+        else
+            error('ID '.. tostring(skill_id) ..' 에 해당하는 스킬 정보가 없습니다')
+        end
     end
     
     -- 스킬 테이블 체크
@@ -289,6 +295,10 @@ function Character:doSkillBySkillTable(t_skill, t_data)
 
 			elseif (skill_type == 'skill_heal_single') then
 				SkillHealSingle:makeSkillInstance(self, t_skill, t_data)
+				return true
+
+            elseif (skill_type == 'skill_heal_line') then
+				SkillHealLine:makeSkillInstance(self, t_skill, t_data)
 				return true
 
 			elseif (skill_type == 'skill_heal_around') then

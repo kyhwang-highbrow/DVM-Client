@@ -6,9 +6,6 @@ local PARENT = Skill
 SkillChainLightning = class(PARENT, {
 		m_lightningRes = '',
         
-		m_offsetX = 'number',
-        m_offsetY = 'number',
-
         m_lCollisionList = 'List',  -- 공격 가능한 타겟리스트의 숫자가 공격 대상의 수
         m_tEffectList = 'List',
 
