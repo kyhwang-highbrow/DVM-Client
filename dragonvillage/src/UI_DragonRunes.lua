@@ -202,7 +202,7 @@ end
 function UI_DragonRunes:refresh_runeSetFilter(set_id)
     local vars = self.vars
     local table_rune_set = TableRuneSet()
-    local text = (set_id == 0) and Str('전체') or table_rune_set:makeRuneSetFullNameRichText(set_id)
+    local text = (set_id == 0) and Str('전체') or table_rune_set:makeRuneSetNameRichText(set_id)
     vars['setSortLabel']:setString(text)
 
     self.m_listFilterSetID = set_id

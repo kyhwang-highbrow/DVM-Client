@@ -88,6 +88,31 @@ function TableRuneSet:makeRuneSetDescRichText(set_id)
 end
 
 -------------------------------------
+-- function makeRuneSetNameRichText
+-------------------------------------
+function TableRuneSet:makeRuneSetNameRichText(set_id)
+    if (self == THIS) then
+        self = THIS()
+    end
+
+    local t_table = self:get(set_id)
+
+    local name = Str(t_table['t_name'])
+    local need_equip = t_table['need_equip']
+
+    local tag = self:getRuneSetColorRichTag(set_id)
+    local text = ''
+
+    if (type(option) == 'number') then
+        text = Str('{1}{2}{@DESC} ({3}세트)', tag, name, need_equip)
+    else
+        text = Str('{1}{2}{@DESC} ({3}세트)', tag, name, need_equip)
+    end
+
+    return text
+end
+
+-------------------------------------
 -- function makeRuneSetFullNameRichText
 -------------------------------------
 function TableRuneSet:makeRuneSetFullNameRichText(set_id)
