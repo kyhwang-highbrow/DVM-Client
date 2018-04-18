@@ -81,12 +81,15 @@ function StatusEffectUnit_Dot_Damage:calculateDotDmg()
     damage_org = damage_org * CalcDamageRateDueToGameMode(self.m_owner)
 
     -- 속성 효과
+    --[[
 	local t_attr_effect = self.m_owner:checkAttributeCounter(self.m_caster)
 	if t_attr_effect['damage'] then
 		damage = damage_org * (1 + (t_attr_effect['damage'] / 100))
 	else
 		damage = damage_org
 	end
+    ]]--
+    damage = damage_org
 
     -- 최소 데미지는 1로 세팅
     damage = math_max(1, damage)
