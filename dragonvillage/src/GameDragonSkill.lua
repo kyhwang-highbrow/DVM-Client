@@ -140,8 +140,8 @@ function GameDragonSkill.st_playDragSkill(self, dt)
 
     if (self:getStep() == 0) then
         if (self:isBeginningStep()) then
-            -- 클랜 던전의 경우 배속 조절
-            if (world.m_gameMode == GAME_MODE_CLAN_RAID) then
+            -- 특정 던전의 경우 배속 조절
+            if (world.m_gameMode == GAME_MODE_CLAN_RAID or world.m_gameMode == GAME_MODE_ANCIENT_RUIN) then
                 world.m_gameTimeScale:set(1.33)
             end
 
@@ -305,8 +305,8 @@ function GameDragonSkill.st_playDragSkill(self, dt)
 
     elseif (self:getStep() == 6) then
         if (dragon.m_state ~= 'delegate') then
-            -- 클랜 던전의 경우 배속 조절
-            if (world.m_gameMode == GAME_MODE_CLAN_RAID) then
+            -- 특정 던전의 경우 배속 조절
+            if (world.m_gameMode == GAME_MODE_CLAN_RAID or world.m_gameMode == GAME_MODE_ANCIENT_RUIN) then
                 world.m_gameTimeScale:reset()
             end
 
