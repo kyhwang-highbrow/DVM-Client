@@ -62,7 +62,7 @@ function applicationDidEnterBackground()
 
     -- 백그라운드에서 30분간 있을 경우 재시작
     GAME_RESTART_TIME = os.time() + 1800
-    BACKGROUND_TIME = os.time() + 0.5
+    BACKGROUND_TIME = os.time() + 2
 
     if (g_accessTimeData) then
         g_accessTimeData:setRecordTime(false)
