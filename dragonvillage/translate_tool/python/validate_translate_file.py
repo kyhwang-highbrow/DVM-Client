@@ -9,33 +9,29 @@ import re
 import shutil
 
 ## globals ############################
-ROOT_PATH = '../translate'
+ROOT_PATH = '../../translate'
 TARGET_NAME = ''
-READ_FAIL_LIST = []
+INVALID_LIST = []
 #######################################
 
 ## define checkTranslateFile
 ## 번역 파일 읽음
-def checkTranslateFile(filename, string_option):
+def checkTranslateFile(filename):
     fr = None
     try:
-        print '\n### '+filename
+        INVALID_LIST.append('\n### File Name : {0}'.format(filename))
         file_path = os.path.join(ROOT_PATH, filename)
         fr = open(file_path, 'r')
-        validateNum(fr, string_option)
+        validateNum(fr)
     except:
-        READ_FAIL_LIST.append(filename)
-        print '\n### '+filename+'\n'+'read fail!!!'
         pass
 
 ## define validateNum
 ## 숫자 검증
-def validateNum(fr, string_option):
-    res_list = []
-    lines = fr.readlines()
+def validateNum(fr):
 
-    print '### Total Line : {0}'.format(len(lines))
-    print
+    lines = fr.readlines()
+    INVALID_LIST.append('\n### Total Line : {0}\n\n'.format(len(lines)))
 
     line_num = 0
     for line in lines:
@@ -55,33 +51,30 @@ def validateNum(fr, string_option):
                     # print new_list_1
                     # print new_list_2
                     # print line_num
-
-                    if (string_option) :
-                        invalid_str = '{0} line : '.format(line_num) + line.decode('utf-8')
-                    else :
-                        invalid_str = "{0} line : ".format(line_num) + ' '.join(
-                            str(e) for e in new_list_1) + ' -> ' + ' '.join(str(e) for e in new_list_2)
-
-                    res_list.append(invalid_str)
+                    invalid_str = '{0} line : '.format(line_num) + line
+                    INVALID_LIST.append(invalid_str)
                     break
-
-    for var in res_list:
-        try:
-            print var
-        except:
-            pass
-
     fr.close()
+
+## define makeTxtFile
+## txt 파일 생성
+def makeTxtFile():
+    cwd = os.getcwd() + "_translate_file.txt"
+    fw = open(cwd, "w")
+    for item in INVALID_LIST:
+        fw.write(item)
+    fw.close()
 
 ###################################
 # MAIN
 ###################################
 if __name__ == '__main__':
-    print 'validate_translate_file'
-    checkTranslateFile('lang_en.lua', True)
-    checkTranslateFile('lang_jp.lua', False)
-    checkTranslateFile('lang_zhtw.lua', False)
-
+    print '## validate_translate_file'
+    checkTranslateFile('lang_en.lua')
+    checkTranslateFile('lang_jp.lua')
+    checkTranslateFile('lang_zhtw.lua')
+    makeTxtFile()
+    print '## success'
 else:
     print '## I am being imported from another module'
     
