@@ -112,19 +112,22 @@ function Dragon:initDragonSkillManager(t_dragon_data)
         if (skill_id == 500200) then
             -- 반격 세트는 중첩시 기절 시간 증가
             if (count > 1) then
-                skill_indivisual_info:addBuff('add_option_time_1', count, 'multi', true)
+                local add_value = count - 1
+                skill_indivisual_info:addBuff('hit', add_value, 'add', true)
             end
 
         elseif (skill_id == 500300) then
             -- 생존 세트는 중첩시 무적 시간 증가
             if (count > 1) then
-                skill_indivisual_info:addBuff('add_option_time_1', count, 'multi', true)
+                local add_value = t_skill['add_option_time_1'] * (count - 1)
+                skill_indivisual_info:addBuff('add_option_time_1', add_value, 'add', true)
             end
 
         elseif (skill_id == 500400) then
             -- 앙심 세트는 중첩시 드래그 스킬 재사용시간 추가 감소
             if (count > 1) then
-                skill_indivisual_info:addBuff('add_option_value_1', count, 'multi', true)
+                local add_value = t_skill['add_option_value_1'] * (count - 1)
+                skill_indivisual_info:addBuff('add_option_value_1', add_value, 'add', true)
             end
         end
     end
