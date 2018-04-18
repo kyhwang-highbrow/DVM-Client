@@ -288,12 +288,21 @@ function GameState.update_start(self, dt)
             end
 
 			-- 테이머가 등장하며 카메라 줌
-			self.m_world.m_gameCamera:setAction({
-                pos_x = -CRITERIA_RESOLUTION_X/4,
-                pos_y = 0,
-                scale = 1.4,
-                time = 1
-            })
+            if (self.m_world.m_gameMode == GAME_MODE_ANCIENT_RUIN) then
+                self.m_world.m_gameCamera:setAction({
+                    pos_x = -CRITERIA_RESOLUTION_X/4,
+                    pos_y = 0,
+                    scale = 0.8,
+                    time = 1
+                })
+            else
+			    self.m_world.m_gameCamera:setAction({
+                    pos_x = -CRITERIA_RESOLUTION_X/4,
+                    pos_y = 0,
+                    scale = 1.4,
+                    time = 1
+                })
+            end
 
             --SoundMgr:playEffect('VOICE', 'vo_tamer_start')
         
