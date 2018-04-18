@@ -213,7 +213,7 @@ function DragonSkillIndivisualInfoInGame:applyBuff()
         local val = v['val']
 
         if (not m_multi[col]) then
-            m_multi[col] = 0
+            m_multi[col] = 1
         end
         if (not m_add[col]) then
             m_add[col] = 0
@@ -228,17 +228,17 @@ function DragonSkillIndivisualInfoInGame:applyBuff()
         end
     end
 
-    if (type(self.m_tOrgSkill[col]) == 'number') then
-        for col, _ in pairs(m_multi) do
-            local multi = m_multi[col]
-            local add = m_add[col]
+    for col, _ in pairs(m_multi) do
+        local multi = m_multi[col]
+        local add = m_add[col]
 
-            self.m_tSkill[col] = self.m_tOrgSkill[col] + (self.m_tOrgSkill[col] * multi) + add
+        if (type(self.m_tOrgSkill[col]) == 'number') then
+            self.m_tSkill[col] = self.m_tOrgSkill[col] * multi + add
+        else
+            cclog('failed to apply skill buff(skill id : ' .. self.m_skillID .. ', column : ' .. col .. ')')
         end
-    else
-        cclog('failed to apply skill buff(skill id : ' .. self.m_skillID .. ')')
     end
-
+    
     self.m_bDirtyBuff = false
 end
 

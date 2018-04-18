@@ -32,7 +32,9 @@ function CommonMissile_Guide:fireMissile()
     PARENT.fireMissile(self)
 
     -- 발사시 이펙트
-    self.m_world:addInstantEffect(self.m_fireRes, 'idle', self.m_attackPos.x, self.m_attackPos.y)
+    if (self.m_fireRes) then
+        self.m_world:addInstantEffect(self.m_fireRes, 'idle', self.m_attackPos.x, self.m_attackPos.y)
+    end
 end
 
 -------------------------------------
