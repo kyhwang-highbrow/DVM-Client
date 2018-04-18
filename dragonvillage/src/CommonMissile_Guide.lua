@@ -33,7 +33,11 @@ function CommonMissile_Guide:fireMissile()
 
     -- 발사시 이펙트
     if (self.m_fireRes) then
-        self.m_world:addInstantEffect(self.m_fireRes, 'idle', self.m_attackPos.x, self.m_attackPos.y)
+        local effect = self.m_world:addInstantEffect(self.m_fireRes, 'idle', self.m_attackPos.x, self.m_attackPos.y)
+
+        if (not self.m_owner.m_bLeftFormation) then
+            effect:setFlip(true)
+        end
     end
 end
 
