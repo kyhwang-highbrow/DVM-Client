@@ -51,7 +51,16 @@ function DragonSkillIndivisualInfoInGame:initRuntimeInfo()
 
     if (self.m_skillType == 'indie_time' or self.m_skillType == 'indie_time_short') then
         -- 특정 스킬 아이디는 적용 시키지 않음(팀보너스, 고대룬 세트 효과)
-        if (math_floor(skill_id / 100000) ~= 4 and math_floor(skill_id / 100000) ~= 5) then
+        local key = math_floor(skill_id / 100000)
+
+        if (key == 4) then
+            -- 팀보너스인 경우
+                    
+        elseif (key == 5) then
+            -- 고대룬 세트 효과인 경우
+            self.m_timer = t_skill['chance_value']
+
+        else
             -- indie_time 타입의 스킬은 해당 값만큼 먼저 기다리도록 초기값 설정
             self.m_timer = t_skill['chance_value'] * math_random(50, 100) / 100
         end
