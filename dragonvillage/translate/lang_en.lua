@@ -571,7 +571,7 @@ return {['UFO 크래시 발동 시 100% 확률로 마나를 1개 획득합니다
 ['3~5등급 방어형 드래곤 부화']='Grade 3 - 5 Defense Type\nDragon Hatched',
 ['3~5등급 지원형 드래곤 부화']='Grade 3 - 5 Support Type\nDragon Hatched',
 ['3~5등급 회복형 드래곤 부화']='Grade 3 - 5 Recovery Type\nDragon Hatched',
-['3~6등급 룬']='Grade 3 - 5 Rune',
+['3~6등급 룬']='Grade 3 - 6 Rune',
 ['3~6등급 룬 1개 획득']='Got a Grade 3 - 5 Rune',
 ['3~6등급 룬 1개를 무작위로 획득합니다.']='Get a random Grade 3 - 6 Rune.',
 ['3급 테이머']='3rd Grade Tamer',
