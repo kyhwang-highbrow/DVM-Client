@@ -4,12 +4,35 @@ local PARENT = CommonMissile
 -- class CommonMissile_Guide
 -------------------------------------
 CommonMissile_Guide = class(PARENT, {
+        m_fireRes = '',      -- 미사일 발사 시 이펙트 리소스
      })
 
 -------------------------------------
 -- function init
 -------------------------------------
 function CommonMissile_Guide:init(file_name, body)
+end
+
+-------------------------------------
+-- function initCommonMissile
+-------------------------------------
+function CommonMissile_Guide:initCommonMissile(owner, t_skill)
+	PARENT.initCommonMissile(self, owner, t_skill)
+	
+    if (t_skill['res_3'] and t_skill['res_3'] ~= '') then
+        local attr = owner:getAttributeForRes()
+	    self.m_fireRes = string.gsub(t_skill['res_3'], '@', attr)
+    end
+end
+
+-------------------------------------
+-- function fireMissile
+-------------------------------------
+function CommonMissile_Guide:fireMissile()
+    PARENT.fireMissile(self)
+
+    -- 발사시 이펙트
+    self.m_world:addInstantEffect(self.m_fireRes, 'idle', self.m_attackPos.x, self.m_attackPos.y)
 end
 
 -------------------------------------
