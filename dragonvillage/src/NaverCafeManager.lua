@@ -285,15 +285,15 @@ function NaverCafeManager:naverInitGlobalPlug(server, lang, isSaved)
     local NAVER_COMMUNITY_ID        = 1013702
     
     local NAVER_CHANNEL_KOREA       = 0
-    local NAVER_CHANNEL_AMERICA     = 1031345
-    local NAVER_CHANNEL_JAPAN       = 1031352
-    local NAVER_CHANNEL_ASIA_TH_TW  = 1031353
-    local NAVER_CHANNEL_ASIA_EN     = 1031441
+    local NAVER_CHANNEL_EN     = 1031345
+    local NAVER_CHANNEL_JA       = 1031352
+    local NAVER_CHANNEL_ZH_TW  = 1031353
+    --local NAVER_CHANNEL_ASIA_EN     = 1031441
 
     local NAVER_CHANNEL_CODE_KOREAN = 'ko'
     local NAVER_CHANNEL_CODE_ENGLISH = 'en'
-    local NAVER_CHANNEL_CODE_CHINESE_TRADITIONAL ='zh_TW'
     local NAVER_CHANNEL_CODE_JAPANESE = 'ja'
+    local NAVER_CHANNEL_CODE_CHINESE_TRADITIONAL ='zh_TW'
 
     --선택한서버와 언어에따라 플러그 채널을 강제 선택해줍니다. --김종환이사님
     local channel_id = 0
@@ -305,13 +305,13 @@ function NaverCafeManager:naverInitGlobalPlug(server, lang, isSaved)
         channel_code = NAVER_CHANNEL_CODE_KOREAN
 
     elseif server == SERVER_NAME.AMERICA then
-        channel_id = NAVER_CHANNEL_AMERICA
+        channel_id = NAVER_CHANNEL_EN
 
     elseif server == SERVER_NAME.JAPAN then
-        channel_id = NAVER_CHANNEL_JAPAN
+        channel_id = NAVER_CHANNEL_JA
 
     elseif server == SERVER_NAME.ASIA then
-        channel_id = NAVER_CHANNEL_ASIA_TH_TW  
+        channel_id = NAVER_CHANNEL_ZH_TW  
 
     elseif isSaved and isSaved > 0 then
         --이때는 sdk에 저장되어 있는값으로 그냥 사용하기 위해서 
