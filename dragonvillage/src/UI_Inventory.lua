@@ -145,6 +145,7 @@ function UI_Inventory:clearItemInfo()
     vars['locationBtn']:setVisible(false)
     vars['combineBtn']:setVisible(false)
     vars['useBtn']:setVisible(false)
+    vars['itemDscNode2']:setVisible(false)
 
     vars['itemNode']:removeAllChildren()
     vars['itemNode']:setVisible(false)

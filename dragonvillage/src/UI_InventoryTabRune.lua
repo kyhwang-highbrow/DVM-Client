@@ -184,6 +184,11 @@ function UI_InventoryTabRune:onChangeSelectedItem(ui, data)
     end
     vars['sellBtn']:registerScriptTapHandler(function() self:sellBtn(t_rune_data) end)
 
+    -- 룬 세트 효과
+    vars['itemDscNode2']:setVisible(true)
+    local str = t_rune_data:makeRuneSetDescRichText() or ''
+    vars['itemDscLabel2']:setString(str)
+
     self.m_selectedRuneObject = t_rune_data
 end
 
