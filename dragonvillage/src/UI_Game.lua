@@ -36,6 +36,9 @@ UI_Game = class(PARENT, {
 
         -- 시간 라벨
         m_timeLabel = '',
+
+        -- 일시 정지
+        m_pauseUI = '',
      })
 
 -------------------------------------
@@ -341,19 +344,29 @@ function UI_Game:click_pauseButton()
     if (game_mode == GAME_MODE_INTRO) then
         -- 인트로 스테이지에서는 백키를 동작시키지 않음
     elseif (game_mode == GAME_MODE_NEST_DUNGEON) then
-        UI_GamePause_NestDungeon(stage_id, gamekey, start_cb, end_cb)
+        self.m_pauseUI = UI_GamePause_NestDungeon(stage_id, gamekey, start_cb, end_cb)
     elseif (game_mode == GAME_MODE_SECRET_DUNGEON) then
-        UI_GamePause_SecretDungeon(stage_id, gamekey, start_cb, end_cb)
+        self.m_pauseUI = UI_GamePause_SecretDungeon(stage_id, gamekey, start_cb, end_cb)
     elseif (game_mode == GAME_MODE_ANCIENT_TOWER) then
-        UI_GamePause_AncientTower(stage_id, gamekey, start_cb, end_cb)
+        self.m_pauseUI = UI_GamePause_AncientTower(stage_id, gamekey, start_cb, end_cb)
     elseif (game_mode == GAME_MODE_COLOSSEUM) then
-        UI_GamePause_Colosseum(stage_id, gamekey, start_cb, end_cb)
+        self.m_pauseUI = UI_GamePause_Colosseum(stage_id, gamekey, start_cb, end_cb)
     elseif (game_mode == GAME_MODE_CLAN_RAID) then
-        UI_GamePause_ClanRaid(stage_id, gamekey, start_cb, end_cb)
+        self.m_pauseUI = UI_GamePause_ClanRaid(stage_id, gamekey, start_cb, end_cb)
     elseif (game_mode == GAME_MODE_EVENT_GOLD) then
-        UI_GamePause_EventGoldDungeon(stage_id, gamekey, start_cb, end_cb)
+        self.m_pauseUI = UI_GamePause_EventGoldDungeon(stage_id, gamekey, start_cb, end_cb)
     else
-        UI_GamePause(stage_id, gamekey, start_cb, end_cb)
+        self.m_pauseUI = UI_GamePause(stage_id, gamekey, start_cb, end_cb)
+    end
+end
+
+-------------------------------------
+-- function closePauseUI
+-------------------------------------
+function UI_Game:closePauseUI()
+    if (self.m_pauseUI) then
+        self.m_pauseUI:click_continueButton()
+        self.m_pauseUI = nil
     end
 end
 

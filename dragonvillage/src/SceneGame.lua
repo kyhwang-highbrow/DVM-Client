@@ -1136,16 +1136,19 @@ end
 -- function applicationDidEnterBackground
 -------------------------------------
 function SceneGame:applicationDidEnterBackground()
+    if (not self.m_bPause) and (self.m_gameWorld) and (not self.m_gameWorld:isFinished()) then
+        if (self.m_gameWorld.m_skillIndicatorMgr) then
+            self.m_gameWorld.m_skillIndicatorMgr:clear()
+        end
+        self.m_inGameUI:click_pauseButton()
+    end
 end
 
 -------------------------------------
 -- function applicationWillEnterForeground
 -------------------------------------
 function SceneGame:applicationWillEnterForeground()
-    if (not self.m_bPause) and (self.m_gameWorld) and (not self.m_gameWorld:isFinished()) then
-        if (self.m_gameWorld.m_skillIndicatorMgr) then
-            self.m_gameWorld.m_skillIndicatorMgr:clear()
-        end
-        self.m_inGameUI:click_pauseButton()
+    if (self.m_inGameUI) then
+        self.m_inGameUI:closePauseUI()
     end
 end

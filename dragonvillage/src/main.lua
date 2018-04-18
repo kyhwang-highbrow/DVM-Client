@@ -96,7 +96,7 @@ function applicationWillEnterForeground()
 
     if (g_gameScene) then
         -- 1초 이내에 돌아왔을 경우 skip
-        if (0 < BACKGROUND_TIME) and (BACKGROUND_TIME < os.time()) then
+        if (0 < BACKGROUND_TIME) and (os.time() < BACKGROUND_TIME) then
             g_gameScene:applicationWillEnterForeground()
         end
     end
