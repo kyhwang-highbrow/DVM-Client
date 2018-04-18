@@ -353,6 +353,12 @@ function SkillHelper:getValidSkillIdFromKey(unit, key)
             skill_id = skill_indivisual_info:getSkillID()
         end
 
+    elseif (key == 'skill_active') then
+        local skill_indivisual_info = unit:getSkillIndivisualInfo('active')
+        if (skill_indivisual_info) then
+            skill_id = skill_indivisual_info:getSkillID()
+        end
+
     elseif (temp) then
         -- key의 이름으로된 칼럼이 존재하는 경우 해당 값을 사용
         skill_id = temp
