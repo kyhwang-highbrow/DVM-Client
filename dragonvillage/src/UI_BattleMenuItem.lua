@@ -86,25 +86,29 @@ function UI_BattleMenuItem:refresh()
     -- noti를 관리
     local content_type = self.m_contentType
     local has_noti = false
+    -- 컨텐츠 별로 버튼 크기 달라지면서 노티 아이콘 위치 다름
+    local noti_pos 
 
     if (content_type == 'adventure') then
         local visible = g_hotTimeData:isHighlightHotTime()
         self.vars['battleHotSprite']:setVisible(visible)
-
+        
     elseif (content_type == 'exploation') then
         has_noti = g_highlightData:isHighlightExploration()
+        noti_pos = cc.p(190, -138)
 
     elseif (content_type == 'secret_relation') then
         has_noti = g_secretDungeonData:isSecretDungeonExist()
+        noti_pos = cc.p(90, -90)
 
     elseif (content_type == 'clan_raid') then
         has_noti = false
     end
 
     if (has_noti) then
-        if (not self.m_notiIcon) then
+        if (not self.m_notiIcon and noti_pos) then
             local noti_icon = IconHelper:getNotiIcon()
-            noti_icon:setPosition(125, -100)
+            noti_icon:setPosition(noti_pos)
             self.root:addChild(noti_icon)
             self.m_notiIcon = noti_icon
         end
