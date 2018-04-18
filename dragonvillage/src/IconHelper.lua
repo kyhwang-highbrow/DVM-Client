@@ -295,8 +295,8 @@ function IconHelper:getRuneIcon(slot, rarity, grade, set_id, lv, lock)
     end
     bg:addChild(rune_icon)
 
-    -- 룬문자 (set_id로 결정됨)
-    if slot and (0 < slot and slot <= 6) then
+    -- 룬문자 (set_id로 결정됨), 룬 데이터가 아니므로 세트 아이디로 고대 룬 구분
+    if slot and (0 < slot and slot <= 6) and (set_id < 9) then
         local alphabet_sprite = self:getIcon(string.format('res/ui/icons/rune/rune_number_%.2d.png', slot))
         if alphabet_sprite then
             alphabet_sprite:setDockPoint(CENTER_POINT)
