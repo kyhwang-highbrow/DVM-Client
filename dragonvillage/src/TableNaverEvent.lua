@@ -26,6 +26,10 @@ function TableNaverEvent:getOnTimeEventList()
         self = THIS()
     end
 
+    if (not self.m_orgTable) then
+        return {}
+    end
+    
     local l_ret = {}
     for i, t_event in pairs(self.m_orgTable) do
         -- 날짜 조건
