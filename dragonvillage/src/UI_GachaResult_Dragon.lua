@@ -1,4 +1,4 @@
-local PARENT = UI
+local PARENT = class(UI, ITopUserInfo_EventListener:getCloneTable())
 
 -------------------------------------
 -- class UI_GachaResult_Dragon
@@ -30,6 +30,15 @@ UI_GachaResult_Dragon = class(PARENT, {
         -- 마일리지
         m_added_mileage = 'number',
      })
+
+-------------------------------------
+-- function initParentVariable
+-- @brief 자식 클래스에서 반드시 구현할 것
+-------------------------------------
+function UI_GachaResult_Dragon:initParentVariable()
+    -- ITopUserInfo_EventListener의 맴버 변수들 설정
+    self.m_bVisible = false -- onFocus 용도로만 쓰임
+end
 
 -------------------------------------
 -- function init
@@ -605,7 +614,13 @@ function UI_GachaResult_Dragon:click_closeBtn()
     end
 end
 
-
+-------------------------------------
+-- function onFocus
+-- @brief 탑바가 Lobby UI에 포커싱 되었을 때
+-------------------------------------
+function UI_GachaResult_Dragon:onFocus()
+    self:refresh_wealth()
+end
 
 
 
