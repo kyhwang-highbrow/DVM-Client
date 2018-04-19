@@ -104,6 +104,9 @@ function UI_GameResult_AncientRuin:direction_start()
 
     -- 레벨업 연출 스킵
     self:doNextWork()
+
+    -- 테이머 경험치 연출
+    self:startLevelUpDirector()
 end
 -------------------------------------
 -- function direction_moveMenu
