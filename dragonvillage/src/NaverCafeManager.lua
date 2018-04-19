@@ -78,6 +78,11 @@ function NaverCafeManager:naverCafeGetChannelCode()
 
     elseif (channel_code == 'zh') then
         channel_code = 'zh_TW'
+
+    -- channel code가 없는 경우 처리
+    elseif (channel_code == nil) then
+        channel_code = 'en'
+        cclog('## not channel_code -> en')
     end
 
     return channel_code
@@ -150,7 +155,6 @@ function NaverCafeManager:naverCafeStartWithArticleByKey(article_key)
 
     local channel_code = self:naverCafeGetChannelCode()
     local article_id = t_data[channel_code]
-    --cclog('article id : ' .. tostring(article_id))
     if (not article_id) then
         article_id = t_data['en']
     end
@@ -187,11 +191,10 @@ end
 -------------------------------------
 function NaverCafeManager:onNaverCafeCallback(ret, info)
 	cclog('## naver cafe call back', ret, info)
-    
+
     -- onSdkStarted / info = nil
     -- 카페 plug open (앱 구동시는 아님. 띄울때마다 동작)
     if (ret == 'start') then
-        cclog('# channel_code : ' .. self:naverCafeGetChannelCode())
         return
 
     -- onSdkStopped / info = nil
@@ -248,6 +251,12 @@ end
 -- function naverCafeEvent
 -------------------------------------
 function NaverCafeManager:naverCafeEvent(cb_type, cb_info)
+    -- plug를 계정 생성 전에 하는 경우 문제 발생
+    if (not g_userData:get('uid')) then
+        cclog('## uid is nil')
+        return
+    end
+
     -- 활성 이벤트 체크
     local l_active_event = TableNaverEvent:getOnTimeEventList()
 
@@ -309,26 +318,36 @@ function NaverCafeManager:naverInitGlobalPlug(server, lang, isSaved)
     local NAVER_CHANNEL_CODE_CHINESE_TRADITIONAL ='zh_TW'
 
     --선택한서버와 언어에따라 플러그 채널을 강제 선택해줍니다. --김종환이사님
+    -- @Nullable
     local channel_id = 0
     local channel_code
 
-    --네이버 sdk버그 때문에 한국서버 한국어 사용자는 강제로 한국 커뮤니티로 자동 세팅한다.
-    if g_localData:isKoreaServer() and lang == 'ko' then
-        channel_id = 0
+    if (lang == 'en') then
+        channel_id = NAVER_CHANNEL_EN
+        channel_code = NAVER_CHANNEL_CODE_ENGLISH
+
+    elseif (lang == 'ja') then
+        channel_id = NAVER_CHANNEL_JA
+        channel_code = NAVER_CHANNEL_CODE_JAPANESE
+
+    elseif (lang == 'zh') then
+        channel_id = NAVER_CHANNEL_ZH_TW
+        channel_code = NAVER_CHANNEL_CODE_CHINESE_TRADITIONAL
+
+    elseif (lang == 'ko') then
+        channel_id = NAVER_CHANNEL_KOREA
         channel_code = NAVER_CHANNEL_CODE_KOREAN
 
-    elseif server == SERVER_NAME.AMERICA then
+    else
         channel_id = NAVER_CHANNEL_EN
+        channel_code = NAVER_CHANNEL_CODE_ENGLISH
 
-    elseif server == SERVER_NAME.JAPAN then
-        channel_id = NAVER_CHANNEL_JA
-
-    elseif server == SERVER_NAME.ASIA then
-        channel_id = NAVER_CHANNEL_ZH_TW  
-
-    elseif isSaved and isSaved > 0 then
-        --이때는 sdk에 저장되어 있는값으로 그냥 사용하기 위해서 
     end
+
+    -- 다음 패치에 적용
+    -- 이때는 sdk에 저장되어 있는값으로 그냥 사용하기 위해서
+    -- elseif isSaved and isSaved > 0 then
+    -- end
 
     cclog('NaverCafeManager:naverInitGlobalPlug')
     cclog('isSaved : ' .. (isSaved or 'not') )
@@ -338,7 +357,7 @@ function NaverCafeManager:naverInitGlobalPlug(server, lang, isSaved)
     cclog('channel_code : ' .. (channel_code or 'not') )
 
     PerpleSDK:naverCafeInitGlobalPlug(NAVER_NEO_ID_CONSUMER_KEY, NAVER_COMMUNITY_ID, channel_id)
-    if channel_code then        
+    if channel_code then
         PerpleSDK:naverCafeSetChannelCode(channel_code)
     end
 
