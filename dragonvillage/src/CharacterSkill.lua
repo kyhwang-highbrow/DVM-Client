@@ -17,7 +17,7 @@ function Character:doSkill(skill_id, x, y, t_data, t_skill_derived)
         if (isExistValue(skill_id, 250011, 250012, 250013, 250014, 250015)) then
             return
         else
-            error('ID '.. tostring(skill_id) ..' 에 해당하는 스킬 정보가 없습니다')
+            --error('ID '.. tostring(skill_id) ..' 에 해당하는 스킬 정보가 없습니다')
         end
     end
     
