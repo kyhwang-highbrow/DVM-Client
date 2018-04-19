@@ -70,7 +70,17 @@ function NaverCafeManager:naverCafeGetChannelCode()
         return 'ko'
     end
 
-    return PerpleSDK:naverCafeGetChannelCode()
+    local channel_code = PerpleSDK:naverCafeGetChannelCode()
+
+    -- 중국어는 ios와 aos가 다르게 넘어오는 것을 확인해서 보정 중
+    if (channel_code == 'zh_tw') then
+        channel_code = 'zh_TW'
+
+    elseif (channel_code == 'zh') then
+        channel_code = 'zh_TW'
+    end
+
+    return channel_code
 end
 
 -------------------------------------
@@ -140,7 +150,10 @@ function NaverCafeManager:naverCafeStartWithArticleByKey(article_key)
 
     local channel_code = self:naverCafeGetChannelCode()
     local article_id = t_data[channel_code]
-    cclog('article id : ' .. article_id)
+    --cclog('article id : ' .. tostring(article_id))
+    if (not article_id) then
+        article_id = t_data['en']
+    end
     
     -- 네이버 SDK 호출
     self:naverCafeStartWithArticle(article_id)
