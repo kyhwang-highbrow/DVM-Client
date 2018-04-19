@@ -132,9 +132,7 @@ end
 -- @brief 테이블 target_type 에 따른 랜덤한 타겟 선택 
 -------------------------------------
 function CommonMissile:getRandomTargetByRule()
-    local l_target = self.m_owner:getTargetListByType(self.m_targetType, nil , nil, {
-        skill_type = 'basic'
-    })
+    local l_target = self.m_owner:getTargetListByType(self.m_targetType, nil , nil, { skill_type = self.m_chanceType })
     local target = l_target[1]
 
 	if (not target) then
