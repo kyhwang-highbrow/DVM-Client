@@ -153,8 +153,13 @@ function UI_ShopDaily:init(is_popup)
 	self.m_uiName = 'UI_ShopDaily'
     self:checkPopupUI()
 
-    self.m_productList = g_shopDataNew:getProductList('daily')
+    local map_product = g_shopDataNew:getProductList('daily')
+    local l_product = table.MapToList(map_product)
+    table.sort(l_product, function(a, b) 
+        return a['product_id'] < b['product_id']
+    end)
 
+    self.m_productList = l_product
     self:initUI()
 	self:initButton()
     self:refresh()
