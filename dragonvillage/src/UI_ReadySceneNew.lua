@@ -423,7 +423,11 @@ function UI_ReadySceneNew:initUI()
         vars['clanRaidMenu']:setVisible(true)
         vars['cpNode2']:setVisible(false)
         vars['formationNode']:setPositionX(-230)
-        set_autobtn_off()
+
+        -- 클던만 연속전투 막음
+        if (self.m_gameMode == GAME_MODE_CLAN_RAID) then
+            set_autobtn_off()
+        end
     end
 
     -- 이벤트 골드 던전 예외처리
