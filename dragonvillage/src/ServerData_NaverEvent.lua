@@ -77,7 +77,7 @@ function ServerData_NaverEvent:request_naverEventReward(event_key, event_type, e
     -- 성공 콜백
     local function success_cb(ret)
         local l_item = ret['mail_item_info']
-        event_name = event_name or Str('이벤트')
+        event_name = Str(event_name) or Str('이벤트')
         local msg = Str('{@item_name}{1}\n{@default}보상이 우편함으로 전송되었습니다.', event_name)
         local ok_btn_cb = nil
         UI_ObtainPopup(l_item, msg, ok_btn_cb)

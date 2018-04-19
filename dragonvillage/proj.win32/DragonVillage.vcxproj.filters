@@ -3409,6 +3409,9 @@
     <None Include="..\src\SkillHealLine.lua">
       <Filter>lua\src</Filter>
     </None>
+    <None Include="..\src\ServerData_NaverEvent.lua">
+      <Filter>lua\src</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Classes">
