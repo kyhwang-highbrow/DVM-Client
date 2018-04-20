@@ -38,6 +38,9 @@ function SkillScript:do_script_shot(x, y, phys_group)
     local b, missile_launcher = self.m_owner:do_script_shot(t_skill, attr, phys_group, x, y, {script = self.m_scriptName})
     if (b and missile_launcher) then
         missile_launcher.m_activityCarrier = self.m_activityCarrier
+        missile_launcher.m_cbFunction = function(attacker, defender, x, y)
+		    self:onAttack(defender)
+	    end
     end
 end
 

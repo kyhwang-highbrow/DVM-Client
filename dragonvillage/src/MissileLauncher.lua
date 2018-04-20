@@ -20,6 +20,9 @@ MissileLauncher = class(PARENT, {
         m_tSoundIdxCache = 'table',
         m_missileDepth = 'number',
 
+        -- 피격시 콜백
+        m_cbFunction = 'function',
+
         m_objectKey = '',
         
         m_bUseOwnerPos = 'boolean',
@@ -216,7 +219,7 @@ function MissileLauncher.st_attack(owner, dt, pattern_idx)
             local offset = cache[4]
 
             if (owner.m_stateTimer >= time) then
-                owner:fireMissile(owner, data, owner.m_missileDepth, add_dir, offset, time)
+                owner:fireMissile(data, owner.m_missileDepth, add_dir, offset, time)
                 table.remove(owner.m_tAttackIdxCache, 1)
                 owner.m_missileDepth = owner.m_missileDepth - 1
             else
@@ -349,15 +352,15 @@ end
 -------------------------------------
 -- function fireMissile
 -------------------------------------
-function MissileLauncher:fireMissile(owner, attack_idx, depth, dir_add, offset_add, time)
+function MissileLauncher:fireMissile(attack_idx, depth, dir_add, offset_add, time)
 
     local attack_idx = attack_idx or 1
     local depth = depth or 0
     local dir_add = dir_add or 0
     local time = time or 0
 
-    if not owner.m_tAttackValueBase[attack_idx] then return end
-    local attack_value = owner.m_tAttackValueBase[attack_idx]
+    if (not self.m_tAttackValueBase[attack_idx]) then return end
+    local attack_value = self.m_tAttackValueBase[attack_idx]
 
     ---------------------------------------------------
     --    ex) attack_value
@@ -426,7 +429,7 @@ function MissileLauncher:fireMissile(owner, attack_idx, depth, dir_add, offset_a
             -- 카메라 기준이라면 캐릭터 위치를 받아오지 않는다.
             pos_x = offset_x
         else
-            pos_x = owner.pos.x + offset_x   
+            pos_x = self.pos.x + offset_x   
         end
 
         if (type(offset_y) == 'string' and offset_y == 'target') then
@@ -436,7 +439,7 @@ function MissileLauncher:fireMissile(owner, attack_idx, depth, dir_add, offset_a
             -- 카메라 기준이라면 캐릭터 위치를 받아오지 않는다.
             pos_y = offset_y
         else
-            pos_y = owner.pos.y + offset_y   
+            pos_y = self.pos.y + offset_y   
         end 
 
 	    if offset_add then
@@ -448,7 +451,7 @@ function MissileLauncher:fireMissile(owner, attack_idx, depth, dir_add, offset_a
 	    for i = 1, #attack_value.dir_array do
 		    local t_option = {}
 
-            t_option['owner'] =			    owner.m_owner
+            t_option['owner'] =			    self.m_owner
 		    t_option['movement'] =			attack_value.movement
 		    t_option['missile_res_name'] =	attack_value['res']
 		    t_option['dir'] =				attack_value.dir_array[i] + dir_add
@@ -462,7 +465,7 @@ function MissileLauncher:fireMissile(owner, attack_idx, depth, dir_add, offset_a
 		    t_option['h_limit_speed'] =		attack_value.h_limit_speed
 		    t_option['scale'] =				attack_value.scale
 		    t_option['physics_body'] =		physics_body
-		    t_option['attack_damage'] =		(not attack_value['nodamage']) and owner.m_activityCarrier:cloneForMissile()
+		    t_option['attack_damage'] =		(not attack_value['nodamage']) and self.m_activityCarrier:cloneForMissile()
 		    t_option['damage_rate'] =		damage_rate
 		    t_option['accel'] =				attack_value.accel
 		    t_option['accel_delay'] =		attack_value.accel_delay
@@ -507,6 +510,8 @@ function MissileLauncher:fireMissile(owner, attack_idx, depth, dir_add, offset_a
 		    t_option['add_script_dead'] =	attack_value['add_script_dead']
 		    t_option['add_script_relative'] =	attack_value['add_script_relative']
 
+            t_option['cbFunction'] =        self.m_cbFunction
+
 		    -- accel이 발사된 시간차와 상관없이 동시에 걸림
 		    if attack_value.accel_delay_fix then
 			    t_option['accel_delay'] = t_option['accel_delay'] or 0
@@ -535,8 +540,8 @@ function MissileLauncher:fireMissile(owner, attack_idx, depth, dir_add, offset_a
 		    if self.m_launcherOption then
 			    self:applyLauncherOption(t_option, target_idx, target)
 		    end
-
-		    self.m_world.m_missileFactory:makeMissile(t_option)
+            
+            self.m_world.m_missileFactory:makeMissile(t_option)
 	    end
     end
 

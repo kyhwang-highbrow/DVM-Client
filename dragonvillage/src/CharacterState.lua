@@ -227,9 +227,13 @@ function Character.st_attackDelay(owner, dt)
         owner:reserveSkill(skill_id)
         owner:calcAttackPeriod()
 		owner.m_isAddSkill = is_add_skill
+
+        if (owner.m_animator) then
+            owner.m_animator:setRotation(90)
+        end
         
         -- 캐스팅 게이지
-        if owner.m_castingNode then
+        if (owner.m_castingNode) then
             owner.m_castingNode:setVisible(false)
         end
 
@@ -470,6 +474,10 @@ end
 function Character.st_wait(owner, dt)
     if (owner.m_stateTimer == 0) then
         owner.speed = 0
+
+        if (owner.m_animator) then
+            owner.m_animator:setRotation(90)
+        end
 
         if (owner.m_castingNode) then
             owner.m_castingNode:setVisible(false)
