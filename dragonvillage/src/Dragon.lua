@@ -124,10 +124,10 @@ function Dragon:initDragonSkillManager(t_dragon_data)
             end
 
         elseif (skill_id == 500400) then
-            -- 앙심 세트는 중첩시 드래그 스킬 재사용시간 추가 감소
+            -- 앙심 세트는 중첩시 발동 확률 증가
             if (count > 1) then
-                local add_value = t_skill['add_option_value_1'] * (count - 1)
-                skill_indivisual_info:addBuff('add_option_value_1', add_value, 'add', true)
+                local add_value = t_skill['chance_value'] * (count - 1)
+                skill_indivisual_info:addBuff('chance_value', add_value, 'add', true)
             end
         end
     end
