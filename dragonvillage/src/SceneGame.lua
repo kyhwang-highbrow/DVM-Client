@@ -583,6 +583,7 @@ function SceneGame:networkGameFinish(t_param, t_result_ref, next_func)
     local send_score = false
     local attr
     local multi_deck_mgr -- 멀티덱 모드
+    local auto -- 온전한 연속 전투인지 판단
 
     local function success_cb(ret)
         -- 클리어 타입은 서버에서 안줌
@@ -599,14 +600,18 @@ function SceneGame:networkGameFinish(t_param, t_result_ref, next_func)
     local game_mode = self.m_gameMode
     if (game_mode == GAME_MODE_ADVENTURE) then
         api_url = '/game/stage/finish'
+
     elseif (game_mode == GAME_MODE_NEST_DUNGEON) then
         api_url = '/game/nest/finish'
+        auto = g_autoPlaySetting:getSequenceAutoPlay() and 1 or 0
+
     elseif (game_mode == GAME_MODE_SECRET_DUNGEON) then
         api_url = '/game/secret/finish'
 
         -- 던전 objectId
         local t_dungeon_info = g_secretDungeonData:getSelectedSecretDungeonInfo()
         oid = t_dungeon_info['id']
+
     elseif (game_mode == GAME_MODE_ANCIENT_TOWER) then
         send_score = true
 
@@ -629,7 +634,7 @@ function SceneGame:networkGameFinish(t_param, t_result_ref, next_func)
     elseif (game_mode == GAME_MODE_ANCIENT_RUIN) then
         api_url = '/game/ruin/finish'
         multi_deck_mgr = MultiDeckMgr(MULTI_DECK_MODE.ANCIENT_RUIN)
-         
+        auto = g_autoPlaySetting:getSequenceAutoPlay() and 1 or 0
     end
 
     local ui_network = UI_Network()
@@ -669,6 +674,11 @@ function SceneGame:networkGameFinish(t_param, t_result_ref, next_func)
 
     if (send_score) then
         ui_network:setParam('score', t_param['score'])
+    end
+
+    -- 온전한 연속 전투 로그를 위해 보냄
+    if (auto ~= nil) then
+        ui_network:setParam('auto', auto)
     end
 
     ui_network:setSuccessCB(success_cb)

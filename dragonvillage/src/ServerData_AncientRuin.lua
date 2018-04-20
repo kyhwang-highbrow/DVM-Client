@@ -77,6 +77,9 @@ function ServerData_AncientRuin:requestGameStart(stage_id, deck_name, combat_pow
 
         -- 스피드핵 방지 실제 플레이 시간 기록
         g_accessTimeData:startCheckTimer()
+
+        -- 온전한 연속 전투 검사
+        g_autoPlaySetting:setSequenceAutoPlay()
     end
 
     local multi_deck_mgr = MultiDeckMgr(MULTI_DECK_MODE.ANCIENT_RUIN)

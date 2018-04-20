@@ -3,9 +3,13 @@
 -------------------------------------
 ServerData_AutoPlaySetting = class({
         m_autoMode = 'string',              -- 콜로세움과 나머지를 구분
-        m_bAutoPlay = 'boolean',        -- 연속 모드
+        m_bAutoPlay = 'boolean',            -- 연속 모드
         m_autoPlayCnt = 'number',
 
+        -- 연속 전투 활성화된 상태에서 전투 시작 ~ 끝까지 아무 액션도 안취한 경우 true
+        -- 유저들의 온전한 연속 전투 로그를 남기기 위해 체크
+        m_bSequenceAutoPlay = 'boolean',   
+         
         m_bDirty = 'boolean',
     })
 
@@ -30,6 +34,7 @@ function ServerData_AutoPlaySetting:init()
 
     self.m_autoMode = AUTO_NORMAL
     self.m_bAutoPlay = false
+    self.m_bSequenceAutoPlay = false
     self.m_autoPlayCnt = 1
 end
 
@@ -94,6 +99,11 @@ function ServerData_AutoPlaySetting:setWithoutSaving(key, data)
     t_auto_play_setting[self.m_autoMode][key] = data
 
     self.m_bDirty = true
+
+    -- 연속 전투 활성화된 상태에서 자동전투 해제시 m_bSequenceAutoPlay : false
+    if (self.m_bSequenceAutoPlay) and (key == 'auto_mode') and (data == false) then
+        self.m_bSequenceAutoPlay = false
+    end
 end
 
 -------------------------------------
@@ -118,6 +128,11 @@ function ServerData_AutoPlaySetting:setAutoPlay(auto_play)
         -- 연속 전투가 활성화되면 자동모드도 같이 활성화시킴
         self:set('auto_mode', true)
     end
+
+    -- 연속 전투 활성화된 상태에서 해제시 m_bSequenceAutoPlay : false
+    if (self.m_bSequenceAutoPlay) and (auto_play == false) then
+        self.m_bSequenceAutoPlay = false
+    end
 end
 
 -------------------------------------
@@ -132,4 +147,20 @@ end
 -------------------------------------
 function ServerData_AutoPlaySetting:getAutoPlayCnt()
     return self.m_autoPlayCnt
+end
+
+-------------------------------------
+-- function setSequenceAutoPlay
+-- @brief 전투 시작시 호출
+-------------------------------------
+function ServerData_AutoPlaySetting:setSequenceAutoPlay()
+    self.m_bSequenceAutoPlay = (self.m_bAutoPlay) and true or false
+end
+
+-------------------------------------
+-- function getSequenceAutoPlay
+-- @brief 전투 종료시 호출
+-------------------------------------
+function ServerData_AutoPlaySetting:getSequenceAutoPlay()
+    return self.m_bSequenceAutoPlay
 end
