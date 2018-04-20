@@ -5,7 +5,7 @@ local L_DIR = {}
 
 do
     -- 순회할 각도 리스트 초기화
-    for i = 1, 12 do
+    for i = 1, 72 do
         table.insert(L_DIR, (i - 1) * 5)
     end
 end
