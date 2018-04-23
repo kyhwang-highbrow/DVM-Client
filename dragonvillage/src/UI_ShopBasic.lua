@@ -159,6 +159,16 @@ function UI_ShopDaily:init(is_popup)
         return a['product_id'] < b['product_id']
     end)
 
+    -- 경험치 부스터, 골드 부스터, 고급 소환권, 골드 패키지 순서여야함
+    -- 정렬 후 product_id 검사 - 맞지 않으면 에러 처리
+    local check_list = {90084, 90085, 90086, 90090}
+    for i, v in ipairs(l_product) do
+        local pid = v['product_id']
+        if (pid ~= check_list[i]) then
+            error('일일 상점 product_id 순서 확인 필요함')
+        end
+    end
+
     self.m_productList = l_product
     self:initUI()
 	self:initButton()
@@ -186,8 +196,17 @@ function UI_ShopBooster:init(is_popup)
         return a['product_id'] < b['product_id']
     end)
     
-    self.m_productList = l_ret
+    -- 경험치 부스터 1일, 골드 부스터 1일, 경험치 부스터 7일, 골드 부스터 7일 순서여야함
+    -- 정렬 후 product_id 검사 - 맞지 않으면 에러 처리
+    local check_list = {90084, 90085, 90091, 90092}
+    for i, v in ipairs(l_ret) do
+        local pid = v['product_id']
+        if (pid ~= check_list[i]) then
+            error('부스터 상점 product_id 순서 확인 필요함')
+        end
+    end
 
+    self.m_productList = l_ret
     self:initUI()
 	self:initButton()
     self:refresh()
