@@ -10,59 +10,87 @@ import shutil
 
 ## globals ############################
 ROOT_PATH = '../../translate'
-TARGET_NAME = ''
-INVALID_LIST = []
+INVALID_NUM_LIST = []
+INVALID_NEWLINE_LIST = []
+INVALID_COLOR_LIST = []
 #######################################
 
 ## define checkTranslateFile
 ## 번역 파일 읽음
 def checkTranslateFile(filename):
-    fr = None
-    try:
-        INVALID_LIST.append('\n### File Name : {0}'.format(filename))
-        file_path = os.path.join(ROOT_PATH, filename)
-        fr = open(file_path, 'r')
-        validateNum(fr)
-    except:
-        pass
+    file_path = os.path.join(ROOT_PATH, filename)
+    fr = open(file_path, 'r')
+
+    lines = fr.readlines()
+    line_num = 0
+    INVALID_NUM_LIST.append('\n###{0}\n'.format(filename))
+    INVALID_NEWLINE_LIST.append('\n###{0}\n'.format(filename))
+    INVALID_COLOR_LIST.append('\n###{0}\n'.format(filename))
+
+    for line in lines:
+        line_num = line_num + 1
+        validateNum(line, line_num)
+        validateLine(line, line_num)
+        vaildateColorTag(line, line_num)
+
+    fr.close()
 
 ## define validateNum
 ## 숫자 검증
-def validateNum(fr):
+def validateNum(line, line_num):
+    target = re.findall(r'\d+(?:[\.|\,]\d+)?', line.strip())
+    target_len = len(target)
+    # if (target_len % 2 == 1):
+        # res_list.append(idx)
+    if (target_len > 0 and target_len % 2 == 0):
+        new_list_1 = target[0:target_len/2]
+        new_list_2 = target[target_len/2:target_len]
+        new_list_1.sort()
+        new_list_2.sort()
+        for i in range(len(new_list_1)):
+            if (new_list_1[i] != new_list_2[i]):
+                # print target
+                # print new_list_1
+                # print new_list_2
+                # print line_num
+                invalid_str = '{0} line : '.format(line_num) + line
+                INVALID_NUM_LIST.append(invalid_str)
+                break
 
-    lines = fr.readlines()
-    INVALID_LIST.append('\n### Total Line : {0}\n\n'.format(len(lines)))
+## define validateLine
+## 개행문자 검증
+def validateLine(line, line_num):
+    target = line.count('\\n')
+    if (target > 0 and target % 2 == 1):
+            invalid_str = '{0} line : '.format(line_num) + line
+            INVALID_NEWLINE_LIST.append(invalid_str)
 
-    line_num = 0
-    for line in lines:
-        line_num = line_num + 1
-        target = re.findall(r'\d+(?:[\.|\,]\d+)?', line.strip())
-        target_len = len(target)
-        # if (target_len % 2 == 1):
-            # res_list.append(idx)
-        if (target_len > 0 and target_len % 2 == 0):
-            new_list_1 = target[0:target_len/2]
-            new_list_2 = target[target_len/2:target_len]
-            new_list_1.sort()
-            new_list_2.sort()
-            for i in range(len(new_list_1)):
-                if (new_list_1[i] != new_list_2[i]):
-                    # print target
-                    # print new_list_1
-                    # print new_list_2
-                    # print line_num
-                    invalid_str = '{0} line : '.format(line_num) + line
-                    INVALID_LIST.append(invalid_str)
-                    break
-    fr.close()
+## define vaildateColorTag
+## 리치라벨 칼라태그 검증
+def vaildateColorTag(line, line_num):
+    target = re.findall(r'{[@][\w\d\s+-/*]*}', line.strip())
+    target_len = len(target)
+    if (target_len > 0 and target_len % 2 == 1):
+        invalid_str = '{0} line : '.format(line_num) + line
+        INVALID_COLOR_LIST.append(invalid_str)
 
 ## define makeTxtFile
 ## txt 파일 생성
 def makeTxtFile():
     cwd = os.getcwd() + "_translate_file.txt"
     fw = open(cwd, "w")
-    for item in INVALID_LIST:
+    fw.write('\n\n\n1.CHECK NUMBER \n')
+    for item in INVALID_NUM_LIST:
         fw.write(item)
+
+    fw.write('\n\n\n2.CHECK NEWLINE \n')
+    for item in INVALID_NEWLINE_LIST:
+        fw.write(item)
+
+    fw.write('\n\n\n3.CHECK COLOR TAG \n')
+    for item in INVALID_COLOR_LIST:
+        fw.write(item)
+
     fw.close()
 
 ###################################
