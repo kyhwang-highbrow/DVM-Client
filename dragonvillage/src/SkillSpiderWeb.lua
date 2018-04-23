@@ -45,7 +45,6 @@ end
 function SkillSpiderWeb.st_appear(owner, dt)
 	if (owner.m_stateTimer == 0) then
 		owner.m_animator:addAniHandler(function()
-			--owner.m_targetChar.m_animator:setVisible(false)
 			owner:changeState('idle')
 			-- 상태효과
 			owner:dispatch(CON_SKILL_HIT, {l_target = {owner.m_targetChar}})
@@ -72,7 +71,11 @@ function SkillSpiderWeb.st_idle(owner, dt)
 			end 
 		end
 
-		if (not isExist) then
+		if (isExist) then
+            if (self.m_targetChar.m_animator) then
+                owner.m_targetChar.m_animator:setVisible(false)
+            end
+        else
 			owner:changeState('end')
 		end
 	end
@@ -87,6 +90,17 @@ function SkillSpiderWeb.st_disappear(owner, dt)
 		owner.m_animator:addAniHandler(function()
 			owner:changeState('dying')
 		end)
+    end
+end
+
+-------------------------------------
+-- function onDying
+-------------------------------------
+function SkillSpiderWeb:onDying()
+    PARENT.onDying(self)
+
+    if (not self.m_targetChar:isDead()) then
+        self.m_targetChar.m_animator:setVisible(true)
     end
 end
 
@@ -106,6 +120,21 @@ function SkillSpiderWeb:update(dt)
 	self:setPosition(self.m_targetChar.pos.x, self.m_targetChar.pos.y)
 
     return PARENT.update(self, dt)
+end
+
+-------------------------------------
+-- function setTemporaryPause
+-------------------------------------
+function SkillSpiderWeb:setTemporaryPause(pause)
+    local b = PARENT.setTemporaryPause(self, pause)
+    
+    if (self.m_state == 'idle') then
+        if (self.m_targetChar.m_animator) then
+            self.m_targetChar.m_animator:setVisible(not self.m_animator:isVisible())
+        end
+    end
+
+    return b
 end
 
 -------------------------------------
