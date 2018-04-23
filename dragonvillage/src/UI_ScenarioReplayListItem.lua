@@ -28,11 +28,15 @@ function UI_ScenarioReplayListItem:initUI(scenario_name)
         chapter = string.gsub(scenario_name, 'scen_', '')
         chapter = string.gsub(chapter, '_s', '')
         chapter = string.gsub(chapter, '_e', '')
-        chapter = string.gsub(chapter, '0', '')
         chapter = string.gsub(chapter, '_', '-')
 
         local str_sub = string.find(scenario_name, '_s') and Str('시작') or Str('종료')
-        local str_chpater = string.format('%s %s', chapter, str_sub)
+        local l_str = seperate(chapter, '-')
+        if (not l_str) then 
+            return
+        end
+
+        local str_chpater = string.format('%d-%d %s', tonumber(l_str[1]), tonumber(l_str[2]), str_sub)
         vars['chapterLabel']:setString(str_chpater)
     end
 
