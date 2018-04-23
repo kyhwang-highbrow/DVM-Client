@@ -28,6 +28,9 @@ function UI_Setting:init_gameTab()
     -- 시나리오 재생 설정
     self:init_scenarioPlayerSetting()
 
+    -- 시나리오 다시보기
+    vars['replayBtn']:registerScriptTapHandler(function() self:click_replayBtn() end)
+
 	-- 언어
 	self:init_language()
 end
@@ -221,4 +224,12 @@ function UI_Setting:click_languageBtn()
 	end
 
     UI_SelectLanguagePopup(change_lang)
+end
+
+-------------------------------------
+-- function click_replayBtn
+-- @brief
+-------------------------------------
+function UI_Setting:click_replayBtn()
+    UI_ScenarioReplay()
 end

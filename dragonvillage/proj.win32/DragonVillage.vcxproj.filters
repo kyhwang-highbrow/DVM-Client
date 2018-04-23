@@ -3412,6 +3412,12 @@
     <None Include="..\src\ServerData_NaverEvent.lua">
       <Filter>lua\src</Filter>
     </None>
+    <None Include="..\src\UI_ScenarioReplayListItem.lua">
+      <Filter>lua\UI</Filter>
+    </None>
+    <None Include="..\src\UI_ScenarioReplay.lua">
+      <Filter>lua\UI</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Classes">

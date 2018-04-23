@@ -1229,6 +1229,8 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <None Include="..\src\UI_ScenarioPlayer_util.lua" />
     <None Include="..\src\UI_ScenarioPlayer_Narrate.lua" />
     <None Include="..\src\UI_ScenarioPlayer_Talk.lua" />
+    <None Include="..\src\UI_ScenarioReplay.lua" />
+    <None Include="..\src\UI_ScenarioReplayListItem.lua" />
     <None Include="..\src\UI_SecretDungeonListItem.lua" />
     <None Include="..\src\UI_SelectLanguagePopup.lua" />
     <None Include="..\src\UI_SelectNickname.lua" />
