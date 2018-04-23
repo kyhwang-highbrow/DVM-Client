@@ -14,7 +14,7 @@ function UI_ScenarioReplay:init()
     UIManager:open(self, UIManager.SCENE)
 
     -- backkey 지정
-    g_currScene:pushBackKeyListener(self, function() self:click_closeBtn() end, 'UI_ScenarioReplay')
+    g_currScene:pushBackKeyListener(self, function() self:click_exitBtn() end, 'UI_ScenarioReplay')
 
     -- @UI_ACTION
     self:doActionReset()
@@ -137,7 +137,7 @@ end
 -------------------------------------
 -- function click_closeBtn
 -------------------------------------
-function UI_ScenarioReplay:click_closeBtn()
+function UI_ScenarioReplay:click_exitBtn()
     self:close()
 end
 
