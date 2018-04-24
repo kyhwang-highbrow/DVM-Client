@@ -33,7 +33,7 @@ function UI_ChatListItem_myMsg:init(chat_content)
     -- 메세지 높이가 배경 이미지보다 작을 경우 가운데 정렬
     if (label_height <= sprite_size['height']) then
         vars['chatLabel']:setDimensions(label_width, sprite_size['height'])
-        vars['chatLabel']:setAlignment(cc.TEXT_ALIGNMENT_RIGHT, cc.VERTICAL_TEXT_ALIGNMENT_CENTER)
+        vars['chatLabel']:setAlignment(cc.TEXT_ALIGNMENT_LEFT, cc.VERTICAL_TEXT_ALIGNMENT_CENTER)
     end
 
     -- 말풍선 이미지 크기 적용
