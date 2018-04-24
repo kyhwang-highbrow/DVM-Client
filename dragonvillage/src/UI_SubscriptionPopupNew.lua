@@ -116,6 +116,7 @@ end
 function UI_SubscriptionPopupNew:click_infoBtn()
     local ui = UI()
     ui:load('package_daily_dia_info.ui')
+    ui.vars['closeBtn']:registerScriptTapHandler(function() ui:close() end)
     UIManager:open(ui, UIManager.POPUP)
 
     -- backkey 지정
