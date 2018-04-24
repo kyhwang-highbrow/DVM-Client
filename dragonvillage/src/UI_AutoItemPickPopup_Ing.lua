@@ -88,6 +88,9 @@ function UI_AutoItemPickPopup_Ing:initButton()
 	vars['closeBtn']:registerScriptTapHandler(function() self:click_closeBtn() end)
     vars['marbleBtn']:registerScriptTapHandler(function() self:click_marbleBtn() end)
     vars['contractBtn']:registerScriptTapHandler(function() self:click_contractBtn() end)
+
+    -- 일일 획득량 설명 팝업
+    vars['infoBtn']:registerScriptTapHandler(function() self:click_infoBtn() end)
 end
 
 -------------------------------------
@@ -136,6 +139,19 @@ function UI_AutoItemPickPopup_Ing:click_buyBtn(struct_product)
         struct_product:buy(cb_func)
     end
     MakeSimplePopup(POPUP_TYPE.YES_NO, toast_msg, ok_btn_cb)
+end
+
+-------------------------------------
+-- function click_infoBtn
+-- @brief 일일 획득량 설명 팝업
+-------------------------------------
+function UI_AutoItemPickPopup_Ing:click_infoBtn()
+    local ui = UI()
+    ui:load('package_daily_dia_info.ui')
+    UIManager:open(ui, UIManager.POPUP)
+
+    -- backkey 지정
+	g_currScene:pushBackKeyListener(ui, function() ui:close() end, 'temp')
 end
 
 -------------------------------------

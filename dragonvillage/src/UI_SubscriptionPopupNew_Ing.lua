@@ -80,6 +80,9 @@ function UI_SubscriptionPopupNew_Ing:initButton()
     if vars['infoBtn'] then
         vars['infoBtn']:registerScriptTapHandler(function() self:click_infoBtn() end)
     end
+
+    -- 일일 획득량 설명 팝업
+    vars['infoBtn']:registerScriptTapHandler(function() self:click_infoBtn() end)
 end
 
 -------------------------------------
@@ -166,6 +169,19 @@ function UI_SubscriptionPopupNew_Ing:request_RefreshSubscriptionInfo()
     end
 
     g_subscriptionData:request_subscriptionInfo(cb_func, fail_cb)
+end
+
+-------------------------------------
+-- function click_infoBtn
+-- @brief 일일 획득량 설명 팝업
+-------------------------------------
+function UI_SubscriptionPopupNew_Ing:click_infoBtn()
+    local ui = UI()
+    ui:load('package_daily_dia_info.ui')
+    UIManager:open(ui, UIManager.POPUP)
+
+    -- backkey 지정
+	g_currScene:pushBackKeyListener(ui, function() ui:close() end, 'temp')
 end
 
 -------------------------------------
