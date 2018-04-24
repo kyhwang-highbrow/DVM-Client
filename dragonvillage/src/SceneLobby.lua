@@ -34,6 +34,9 @@ function SceneLobby:onEnter()
 	if (not self.m_bUseLoadingUI) then
         UI_Lobby()
 	end
+
+    -- 절전모드 활성화
+    SetSleepMode(true)
 end
 
 -------------------------------------

@@ -252,6 +252,9 @@ function SceneGame:onEnter()
     end
 
     self.m_resPreloadMgr = ResPreloadMgr()
+
+    -- 절전모드 설정
+    SetSleepMode(false)
 end
 
 -------------------------------------
@@ -265,6 +268,9 @@ function SceneGame:onExit()
     g_autoPlaySetting:save()
 
     PerpleScene.onExit(self)
+
+    -- 절전모드 설정
+    SetSleepMode(true)
 end
 
 -------------------------------------

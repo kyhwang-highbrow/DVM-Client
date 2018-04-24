@@ -56,6 +56,19 @@ function SceneGameIntro:onEnter()
 
     self.m_inGameUI = UI_Game(self)
     self.m_resPreloadMgr = ResPreloadMgr()
+
+    -- 절전모드 설정
+    SetSleepMode(false)
+end
+
+-------------------------------------
+-- function onExit
+-------------------------------------
+function SceneGameIntro:onExit()
+    PARENT.onExit(self)
+
+    -- 절전모드 설정
+    SetSleepMode(true)
 end
 
 -------------------------------------

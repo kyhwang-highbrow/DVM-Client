@@ -198,6 +198,7 @@ function SettingData:makeDefaultSettingData()
     root_table['bgm'] = true
     root_table['sfx'] = true
     root_table['fps'] = false
+    root_table['sleep_mode'] = true
 
     return root_table
 end
@@ -414,6 +415,13 @@ function SettingData:applySetting()
     -- 사운드 엔진
     local engine_mode = self:get('sound_module') or cc.SimpleAudioEngine:getInstance():getEngineMode()
     cc.SimpleAudioEngine:getInstance():setEngineMode(engine_mode)
+
+    -- 절전 모드
+    if (self:isSleepMode() == false) then
+        -- 절전 모드를 사용하지 않는 설정에서만 사용
+        -- 절전 모드를 사용하는 설정일 경우 다른 UI로 전환하거나 재시작 후 적용되어도 무방함
+        cc.Director:getInstance():setIdleTimerDisabled(true)
+    end
 end
 
 -------------------------------------
@@ -463,4 +471,25 @@ function SettingData:migration(local_data_instance)
 
     -- 저장 잠금 해제 (한 번에 모두 저장)
     local_data_instance:unlockSaveData()
+end
+
+-------------------------------------
+-- function isSleepMode
+-- @brief
+-------------------------------------
+function SettingData:isSleepMode()
+    local sleep_mode = self:get('sleep_mode')
+    if (sleep_mode == nil) then
+        return true
+    end
+
+    return sleep_mode
+end
+
+-------------------------------------
+-- function setSleepMode
+-- @brief
+-------------------------------------
+function SettingData:setSleepMode(sleep_mode)
+    self:applySettingData(sleep_mode, 'sleep_mode')
 end

@@ -315,3 +315,74 @@ function MakeResponseCB(t_error, confirm_cb)
     end
     return response_status_cb
 end
+
+-------------------------------------
+-- function SetSleepMode
+-- @brief 절전모드 설정 (일정시간 입력이 없으면 화면 꺼짐 기능)
+-------------------------------------
+function SetSleepMode(sleep_mode)
+
+    if g_settingData then
+        if (g_settingData:isSleepMode() == false) then
+            
+            -- 절전 모드를 사용하지 않는 설정에서만 사용
+            -- 절전 모드를 사용하는 설정일 경우 다른 UI로 전환하거나 재시작 후 적용되어도 무방함
+            cc.Director:getInstance():setIdleTimerDisabled(true)
+
+            return
+        end
+    end
+    
+    if IS_TEST_MODE() then
+        cclog('#############################################')
+        cclog('#############################################')
+        cclog('##')
+        cclog('## 절전모드 ' .. tostring(sleep_mode))
+        cclog('##')
+        cclog('#############################################')
+        cclog('#############################################')
+    end
+
+    if sleep_mode then
+	    cc.Director:getInstance():setIdleTimerDisabled(false)
+    else
+        cc.Director:getInstance():setIdleTimerDisabled(true)
+    end
+
+    -- 1. patch중에는 절전모드를 사용하지 않음
+    -- 2. title화면에서 '화면을 터치하세요.' 부분에서 다시 절전모드 활성화
+end
+
+-------------------------------------
+-- function SetSleepMode_After
+-- @brief 절전모드 설정 (일정시간 입력이 없으면 화면 꺼짐 기능)
+-------------------------------------
+function SetSleepMode_After(parent, seconds)
+    local parent = parent
+    local seconds = (seconds or 5)
+
+    if (not parent) then
+        return
+    end
+
+    local delegate = cc.Node:create()
+    parent:addChild(delegate)
+
+    local function func(node)
+        if IS_TEST_MODE() then
+            cclog('#############################################')
+            cclog('## 절전모드 활성화!! (5초 후)')
+            cclog('#############################################')
+        end
+        SetSleepMode(true)
+        node:removeFromParent(true)
+    end
+
+    if IS_TEST_MODE() then
+        cclog('#############################################')
+        cclog('## 절전모드 활성화!! 호출')
+        cclog('#############################################')
+    end
+    local action = cc.Sequence:create(cc.DelayTime:create(seconds), cc.CallFunc:create(func))
+    delegate:runAction(action)
+end

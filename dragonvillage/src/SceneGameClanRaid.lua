@@ -64,6 +64,19 @@ function SceneGameClanRaid:onEnter()
     
     self.m_inGameUI = UI_GameClanRaid(self)
     self.m_resPreloadMgr = ResPreloadMgr()
+
+    -- 절전모드 설정
+    SetSleepMode(false)
+end
+
+-------------------------------------
+-- function onExit
+-------------------------------------
+function SceneGameClanRaid:onExit()
+    PARENT.onExit(self)
+
+    -- 절전모드 설정
+    SetSleepMode(true)
 end
 
 -------------------------------------

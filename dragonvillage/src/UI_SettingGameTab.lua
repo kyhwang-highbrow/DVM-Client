@@ -25,6 +25,9 @@ function UI_Setting:init_gameTab()
     -- 푸시 on/off
     self:init_notification()
 
+    -- 절전모드 설정
+    self:init_sleepModeSetting()
+
     -- 시나리오 재생 설정
     self:init_scenarioPlayerSetting()
 
@@ -176,6 +179,36 @@ function UI_Setting:init_notification()
         end
         Network_platform_registerToken(game_push, pushToken)
         g_localData:applyLocalData(game_push, 'push_state')
+    end
+
+    radio_button:setChangeCB(change_cb)
+end
+
+-------------------------------------
+-- function init_sleepModeSetting
+-- @brief 절전모드 On/Off
+-------------------------------------
+function UI_Setting:init_sleepModeSetting()
+    local vars = self.vars
+
+    local radio_button = UIC_RadioButton()
+    radio_button:addButton('on', vars['sleepOnBtn'])
+    radio_button:addButton('off', vars['sleepOffBtn'])
+
+    if g_settingData:isSleepMode() then
+        radio_button:setSelectedButton('on')
+    else
+        radio_button:setSelectedButton('off')
+    end
+
+    local function change_cb(selected)
+        if (selected == 'on') then
+            g_settingData:setSleepMode(true)
+        elseif (selected == 'off') then
+            g_settingData:setSleepMode(false)
+        end
+
+        g_settingData:applySetting()
     end
 
     radio_button:setChangeCB(change_cb)

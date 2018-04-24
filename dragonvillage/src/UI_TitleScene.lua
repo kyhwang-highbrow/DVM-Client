@@ -1080,6 +1080,9 @@ function UI_TitleScene:workFinish()
 	self.m_stopWatch:stop()
     self.m_stopWatch:print()
     self.m_stopWatch = nil
+
+    -- 절전모드 설정
+    SetSleepMode_After(self.root)
 end
 function UI_TitleScene:workFinish_click()
     -- @analytics
