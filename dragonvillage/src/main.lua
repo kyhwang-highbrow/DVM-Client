@@ -86,7 +86,10 @@ function applicationWillEnterForeground()
     
     -- 백그라운드에서 일정 시간이 지난 후 들어오면 재시작
     if (0 < GAME_RESTART_TIME) and (GAME_RESTART_TIME < os.time()) then
-        CppFunctions:restart()
+        -- 2018-04-24 sgkim 절전모드 활성화를 작업하면서 프로그램팀과 논의하여
+        --                  일정시간(30분) 동안 앱이 백그라운드로 지난 후 돌아왔을 때 재시작 기능 off
+        --                   최신 단말의 메모리양이 늘어서 크게 문제가 되지 않는다고 판단함
+        --CppFunctions:restart()
         return
     end
 
