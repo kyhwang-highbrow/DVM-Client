@@ -15,6 +15,7 @@
     struct utsname u;
     uname(&u);
 
+    // iPhone
     if (!strcmp(u.machine, "iPhone1,1")) {
         return @"iPhone";
     } else if (!strcmp(u.machine, "iPhone1,2")) {
@@ -51,6 +52,17 @@
     } else if (!strcmp(u.machine, "iPhone9,2") ||
                !strcmp(u.machine, "iPhone9,4")) {
         return @"iPhone 7 Plus";
+    } else if (!strcmp(u.machine, "iPhone10,1") ||
+               !strcmp(u.machine, "iPhone10,4")) {
+        return @"iPhone 8";
+    } else if (!strcmp(u.machine, "iPhone10,2") ||
+               !strcmp(u.machine, "iPhone10,5")) {
+        return @"iPhone 8 Plus";
+    } else if (!strcmp(u.machine, "iPhone10,3") ||
+               !strcmp(u.machine, "iPhone10,6")) {
+        return @"iPhone X";
+
+    // iPad
     } else if (!strcmp(u.machine, "iPad1,1")) {
         return @"iPad";
     } else if (!strcmp(u.machine, "iPad2,1") ||
