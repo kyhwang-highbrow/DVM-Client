@@ -419,7 +419,7 @@ function SettingData:applySetting()
     -- 절전 모드
     if self:isSleepMode() then
         -- 현재 Scene이 GameScene일 경우 skip
-        if (not g_gameScene) or (g_currScene != g_gameScene) then
+        if (not g_gameScene) or (g_currScene ~= g_gameScene) then
             cc.Director:getInstance():setIdleTimerDisabled(false)
         end
     else
