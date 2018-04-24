@@ -9,9 +9,6 @@ UI_SelectLanguagePopup = class(PARENT, {
 
      })
 
--- Translate에서 텍스트 참조하기 위해 가져옴
-local t_lang_list = Translate:getLangStrTable()
-
 -------------------------------------
 -- function init
 -------------------------------------
@@ -51,6 +48,9 @@ function UI_SelectLanguagePopup:initButton()
 	-- radio btn
 	do
 		local radio_button = UIC_RadioButton()
+
+		-- Translate에서 텍스트 참조하기 위해 가져옴
+		local t_lang_list = Translate:getLangStrTable()
 
 		-- 언어별로 버튼 등록
 		for lang, text in pairs(t_lang_list) do
