@@ -94,3 +94,32 @@ function TableQuest:isLastQuest(qid)
     end
     return (self:get(qid + 1, true) == nil)
 end
+
+-------------------------------------
+-- function getTitleQuestMap
+-- @brief 해당 칭호를 얻기 위한 조건 맵 생성
+-------------------------------------
+function TableQuest:getTitleQuestMap()
+    if (self == THIS) then
+        self = THIS()
+    end
+    
+    local map_title_quest = {}
+
+    for qid, t_quest in pairs(self.m_orgTable) do
+        local title = t_quest['title']
+        if (title and title ~= '') then
+            local t_desc = t_quest['t_desc']
+            local clear_value = t_quest['clear_value']
+            local str_clear = Str(t_desc, comma_value(clear_value))
+            map_title_quest[title] = str_clear
+        end
+    end
+
+    --[[
+        ['10130']='50명의 친구에게 우정의 징표 받기';
+        ['10098']='드래곤과 500회 작별하기';
+    ]]--
+
+    return map_title_quest
+end

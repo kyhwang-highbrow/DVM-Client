@@ -6,7 +6,9 @@ local PARENT = UI
 UI_UserInfoDetailPopup_SetTitle = class(PARENT, {
 	m_lHoldingList = 'list',
     m_tableView = 'UIC_TableView',
-    m_currTitle = 'number'
+    m_currTitle = 'number',
+
+    m_titleQuestMap = '',
 })
 
 -------------------------------------
@@ -66,6 +68,9 @@ end
 function UI_UserInfoDetailPopup_SetTitle:makeTableView()
     local vars = self.vars
     local node = vars['listNode']
+
+    -- 칭호 획득 조건 
+    self.m_titleQuestMap = TableQuest:getTitleQuestMap()
 
 	-- 칭호 뭉치
 	local l_title = self:makeSortedTitleList()
@@ -157,14 +162,25 @@ function UI_UserInfoDetailPopup_SetTitle:makeCellUI(t_data)
     else
         vars['nothingSprite']:setVisible(true)
 
+        -- 2018.04.24 klee - 미보유 타이틀도 보여줌
+        --[[
         -- 미보유 타이틀은 글자수만큼의 ?로 대체
         local str_len = uc_len(title)
         title = string.rep('?', str_len)
+        ]]--
     end
     
     -- 칭호
     vars['titleLabel']:setString(title)
     
+    -- 획득 조건
+    local str_clear = self.m_titleQuestMap[title_id]
+    if (str_clear) then
+        vars['questLabel']:setString(str_clear)
+    else
+        vars['questLabel']:setString('')
+    end
+
     -- 선택 여부
     local is_use = (title_id == self.m_currTitle)
     vars['selectSprite']:setVisible(is_use)
