@@ -132,6 +132,10 @@ end
 function UI_ScenarioReplay:click_replayBtn(scenario_name)
     local ui = UI_ScenarioPlayer(scenario_name)
     ui:next()
+    -- 보고 온 후 타이틀 bgm 다시 재생
+    ui:setCloseCB(function()
+        SoundMgr:playBGM('bgm_lobby')
+    end)
 end
 
 -------------------------------------
