@@ -417,9 +417,12 @@ function SettingData:applySetting()
     cc.SimpleAudioEngine:getInstance():setEngineMode(engine_mode)
 
     -- 절전 모드
-    if (self:isSleepMode() == false) then
-        -- 절전 모드를 사용하지 않는 설정에서만 사용
-        -- 절전 모드를 사용하는 설정일 경우 다른 UI로 전환하거나 재시작 후 적용되어도 무방함
+    if self:isSleepMode() then
+        -- 현재 Scene이 GameScene일 경우 skip
+        if (not g_gameScene) or (g_currScene != g_gameScene) then
+            cc.Director:getInstance():setIdleTimerDisabled(false)
+        end
+    else
         cc.Director:getInstance():setIdleTimerDisabled(true)
     end
 end
