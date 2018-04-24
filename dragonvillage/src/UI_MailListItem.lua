@@ -4,7 +4,7 @@ local PARENT = class(UI, ITableViewCell:getCloneTable())
 -- class UI_MailListItem
 -------------------------------------
 UI_MailListItem = class(PARENT, {
-        m_mailData = 'table',
+        m_mailData = 'StructMail',
     })
 
 -------------------------------------
@@ -41,6 +41,12 @@ end
 -- function refresh
 -------------------------------------
 function UI_MailListItem:refresh()
+    local is_notice = self.m_mailData:isNotice()
+    if (is_notice) then
+        self:refreshNotice()
+        return
+    end
+    
     local vars = self.vars
     local t_text = self.m_mailData:getMailTitleAndContext()
 
@@ -55,6 +61,41 @@ function UI_MailListItem:refresh()
 
     -- 아이템 아이콘
     self:makeMailItemIcons(self.m_mailData)
+end
+
+-------------------------------------
+-- function refreshNotice
+-------------------------------------
+function UI_MailListItem:refreshNotice()
+    local vars = self.vars
+    local t_text = self.m_mailData:getMailTitleAndContext()
+
+    -- 우편 제목
+    vars['mailLabel']:setString(t_text['title'])
+    vars['mailLabel']:setPositionY(0)
+
+    -- 내용과 시간은 가림
+    vars['infoLabel']:setVisible(false)
+    vars['timeLabel']:setVisible(false)
+
+    vars['rewardNode']:removeAllChildren()
+
+    -- 보상 받은 경우 공지 보기만 가능
+    if (self.m_mailData:isReceivedNoticeReward()) then
+        vars['rewardBtn']:setVisible(false)
+        vars['openBtn']:setVisible(true)
+        vars['openBtn']:registerScriptTapHandler(function()
+            self.m_mailData:readNotice()
+        end)
+    
+        local icon = IconHelper:getIcon('res/ui/icons/item/dvm.png')
+        vars['rewardNode']:addChild(icon)
+
+    -- 보상 받지 않은 경우
+    else
+        -- 아이템 아이콘
+        self:makeMailItemIcons(self.m_mailData)
+    end
 end
 
 -------------------------------------

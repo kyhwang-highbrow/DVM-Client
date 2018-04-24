@@ -20,6 +20,11 @@ function MailHelper.getMailText(struct_mail)
             return MailHelper.makePureCustomMail(struct_mail)
         end
 
+        -- 공지사항 메일 전용
+        if (mail_type == 'notice') then
+            return MailHelper.makeNoticeMail(struct_mail)
+        end
+
 	    -- 테이블에 템플릿이 없다면 탈출
         t_template = table_template[mail_type]
 	    if (not t_template) then
@@ -109,6 +114,21 @@ function MailHelper.makeCustomValueMail(struct_mail, t_template)
     local title = Str(t_template['t_title'])
 	local content = Str(t_template['t_content'], t_custom['v1'], t_custom['v2'], t_custom['v3'], t_custom['v4'], t_custom['v5'])
 
+	return {title = title, content = content}
+end
+
+
+-------------------------------------
+-- function makeNoticeMail
+-- @brief 공지 메일 제목을 찾아온다.
+-------------------------------------
+function MailHelper.makeNoticeMail(struct_mail)
+    local t_custom = struct_mail:getCustom()
+    local lang = Translate:getGameLang()
+
+    local title = Str(t_custom['title_' .. lang])
+    local content = ""
+    
 	return {title = title, content = content}
 end
 

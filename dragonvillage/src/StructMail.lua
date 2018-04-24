@@ -168,11 +168,17 @@ end
 -- @brief 모두 받기 가능한 메일인지 검사
 -------------------------------------
 function StructMail:isMailCanReadAll()
+    -- 특정 타입의 메일 제외
+    if (self['mail_type'] == 'notice') then
+        return false
+    end
+
+    -- 아이템 있는지 확인
 	if (not self['items_list']) then
-		return
+		return false
 	end
 	if (not self['items_list'][1]) then
-		return
+		return false
 	end
 	local item_id = self['items_list'][1]['item_id']
 	return (TableItem:getItemTypeFromItemID(item_id) ~= nil)
@@ -308,4 +314,45 @@ function StructMail:readBoosterItem(cb_func)
     local msg_sub = str_msg_sub_1 .. '\n' .. str_msg_sub_2
 
     MakeSimplePopup2(POPUP_TYPE.YES_NO, msg, msg_sub, function() self:readMe(cb_func) end)
+end
+
+-------------------------------------
+-- function isNotice
+-------------------------------------
+function StructMail:isNotice()
+    return (self:getMailType() == 'notice')
+end
+
+-------------------------------------
+-- function isReceivedNoticeReward
+-------------------------------------
+function StructMail:isReceivedNoticeReward()
+    return (self:isNotice() and self['custom']['received'])
+end
+
+-------------------------------------
+-- function getNoticeArticleID
+-------------------------------------
+function StructMail:getNoticeArticleID()
+    if (not self['custom']) then
+        return
+    end
+    return self['custom']['article_id_' .. Translate:getGameLang()]
+end
+
+-------------------------------------
+-- function readNotice
+-- @brief 공지 읽기
+-------------------------------------
+function StructMail:readNotice(cb_func)
+    -- 공지 띄우기
+    local article_id = self:getNoticeArticleID()
+    if (article_id) then
+        NaverCafeManager:naverCafeStartWithArticle(article_id)
+    end
+
+    -- 보상 있으면 수령하기
+    if (not self:isReceivedNoticeReward()) then
+        self:readMe(cb_func)
+    end
 end

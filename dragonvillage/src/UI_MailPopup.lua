@@ -89,9 +89,9 @@ function UI_MailPopup:refresh(tab)
     -- 현재 탭의 메일이 없다면 이미지 출력
     vars['emptySprite']:setVisible(self.m_mTableView[tab]:getItemCount() == 0)
     
-    -- 아이템 탭은 모두받기 불가능
-    local can_real_all = (tab ~= 'item')
-    vars['rewardAllBtn']:setVisible(can_real_all)
+    -- 아이템 및 공지 탭 모두 받기 막음
+    local is_block_read_all = (tab == 'item') or (tab == 'notice')
+    vars['rewardAllBtn']:setVisible(not is_block_read_all)
 
     -- noti 갱신
     self:refresh_noti()
@@ -128,8 +128,7 @@ function UI_MailPopup:makeMailTableView(tab, node)
 	local create_cb_func = function(ui, data)
         -- 보상 버튼 등록
         local function click_rewardBtn()
-            local struct_mail = data
-            self:click_rewardBtn(struct_mail)
+            self:click_rewardBtn(ui, data)
         end
         ui.vars['rewardBtn']:registerScriptTapHandler(click_rewardBtn)
 	end
@@ -177,11 +176,16 @@ end
 -- function click_rewardBtn
 -- @brief 단일 보상 수령
 -------------------------------------
-function UI_MailPopup:click_rewardBtn(struct_mail)
+function UI_MailPopup:click_rewardBtn(ui, struct_mail)
     -- 읽고 난 후 콜백은 동일
-    local function success_cb()
-        -- 메일 삭제
-    	self.m_mTableView[self.m_currTab]:delItem(struct_mail:getMid())
+	local function success_cb()
+		if (struct_mail:isNotice()) then
+			ui:refreshNotice()
+		else
+			-- 메일 삭제
+			self.m_mTableView[self.m_currTab]:delItem(struct_mail:getMid())
+		end
+
         -- 우편함 갱신
         self:refresh()
         -- 더티 처리
@@ -211,9 +215,10 @@ function UI_MailPopup:check_readType(struct_mail, success_cb)
     elseif (struct_mail:isBooster()) then
         struct_mail:readBoosterItem(success_cb)
         
-    -- 룬 선택권?
-	-- 또 생기면... item_type을 가져와서 분기처리하거나 다른구조로 하자
-
+	-- 공지
+    elseif (struct_mail:isNotice()) then
+		struct_mail:readNotice(success_cb)
+		
     -- 나머지
     else
         struct_mail:readMe(success_cb)
