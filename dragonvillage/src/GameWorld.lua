@@ -1671,6 +1671,9 @@ end
 -------------------------------------
 function GameWorld:setGameFinish()
     self.m_bGameFinish = true
+
+    -- 절전모드 설정
+    SetSleepMode_After(self.m_worldLayer, 60) -- parent, seconds
 end
 
 -------------------------------------

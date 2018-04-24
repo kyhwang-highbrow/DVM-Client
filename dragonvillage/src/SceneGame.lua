@@ -17,6 +17,9 @@ SceneGame = class(PerpleScene, {
         m_scheduleNode = 'cc.Node',
         m_gameWorld = 'GameWorld',
 
+        -- 절전 모드 시간 계산을 위한 노드
+        m_sleepModeNode = 'cc.Node',
+
         -- 레이어 관련 변수
         m_containerLayer = 'cc.Node',   -- (UI, 화면 연출에 관여)
         m_viewLayer = 'cc.Node',
@@ -170,6 +173,10 @@ end
 -- @brief 레이어 초기화
 -------------------------------------
 function SceneGame:init_layer()
+
+    -- 일시정지 시 sleep mode를 관리하기 위한 코드
+    self.m_sleepModeNode = cc.Node:create()
+    self.m_scene:addChild(self.m_sleepModeNode)
 
     -- Scene에 최초로 add되는 레이어 (UI, 화면 연출에 관여)
     self.m_containerLayer = cc.Node:create()
@@ -415,6 +422,10 @@ function SceneGame:gamePause()
     end
 	
     doAllChildren(self.m_viewLayer, f_pause)
+
+    -- 절전모드 설정
+    self.m_sleepModeNode:stopAllActions()
+    SetSleepMode_After(self.m_sleepModeNode, 60) -- parent, seconds
 end
 
 -------------------------------------
@@ -430,6 +441,10 @@ function SceneGame:gameResume()
     end
 
     doAllChildren(self.m_viewLayer, f_resume)
+
+    -- 절전모드 설정
+    self.m_sleepModeNode:stopAllActions()
+    SetSleepMode(false)
 end
 
 -------------------------------------
