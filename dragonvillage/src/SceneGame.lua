@@ -424,7 +424,7 @@ function SceneGame:gamePause()
     doAllChildren(self.m_viewLayer, f_pause)
 
     -- 절전모드 설정
-    self.m_sleepModeNode:stopAllActions()
+    self.m_sleepModeNode:removeAllChildren()
     SetSleepMode_After(self.m_sleepModeNode, 60) -- parent, seconds
 end
 
@@ -443,7 +443,7 @@ function SceneGame:gameResume()
     doAllChildren(self.m_viewLayer, f_resume)
 
     -- 절전모드 설정
-    self.m_sleepModeNode:stopAllActions()
+    self.m_sleepModeNode:removeAllChildren()
     SetSleepMode(false)
 end
 
