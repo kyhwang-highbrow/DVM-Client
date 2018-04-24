@@ -2,46 +2,49 @@
 platform :ios, '9.0'
 
 target 'DragonVillageM iOS' do
-  # Uncomment this line if you're using Swift or would like to use dynamic frameworks
-  # use_frameworks!
+    # Uncomment this line if you're using Swift or would like to use dynamic frameworks
+    # use_frameworks!
 
-  # Pods for DragonVillageM iOS
+    # Pods for DragonVillageM iOS
 
-  # Pods for Firebase
-  pod 'Firebase/Core'
-  pod 'Firebase/Auth'
-  pod 'Firebase/Messaging'
+    # Pods for Firebase
+    pod 'Firebase/Core'
+    pod 'Firebase/Auth'
+    pod 'Firebase/Messaging'
 
-  # Pods for Google
-  pod 'GoogleSignIn'
+    ## SOCIAL
+    # Pods for Google
+    pod 'GoogleSignIn'
+    # Pods for Facebook
+    pod 'FBSDKCoreKit'
+    pod 'FBSDKShareKit'
+    pod 'FBSDKLoginKit'
+    # Pods for Twitter
+    pod 'TwitterKit'
 
-  # Pods for Facebook
-  pod 'FBSDKCoreKit'
-  pod 'FBSDKShareKit'
-  pod 'FBSDKLoginKit'
+    ## ADS
+    # Pods for AdMob
+    pod 'Google-Mobile-Ads-SDK'
+    pod 'GoogleMobileAdsMediationUnity'
+    pod 'GoogleMobileAdsMediationAdColony'
+    # Pods for UnityAds
+    pod 'UnityAds'
+    # Pods for AdColony
+    pod 'AdColony'
 
-  # Pods for Twitter
-  pod 'TwitterKit'
-
-  # Pods for IGAWorks
-  pod 'IgaworksCore'
-  pod 'AdBrix'
-
-  # Pods for Tapjoy
-  pod 'TapjoySDK'
-
-  # Pods for AdColony
-  pod 'AdColony'
-
-  # Pods for Adjust
-  pod 'Adjust'
-
+    ## STATISTIC
+    # Pods for IGAWorks
+    pod 'IgaworksCore'
+    pod 'AdBrix'
+    # Pods for Tapjoy
+    pod 'TapjoySDK'
+    # Pods for Adjust
+    pod 'Adjust'
 end
 
 target 'DragonVillageM Mac' do
-  # Uncomment this line if you're using Swift or would like to use dynamic frameworks
-  # use_frameworks!
+    # Uncomment this line if you're using Swift or would like to use dynamic frameworks
+    # use_frameworks!
 
-  # Pods for DragonVillageM Mac
-
+    # Pods for DragonVillageM Mac
 end
