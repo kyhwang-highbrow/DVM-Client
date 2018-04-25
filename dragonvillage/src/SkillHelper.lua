@@ -261,33 +261,41 @@ end
 -- @brief 드래곤 패시브 스킬 발동시 말풍선을 생성
 -------------------------------------
 function SkillHelper:makePassiveSkillSpeech(dragon, str)
+    local world = dragon.m_world
     local animatorWindow = MakeAnimator('res/ui/a2d/ingame_dragon_skill/ingame_dragon_skill.vrp')
     animatorWindow:setVisual('skill_gauge', 'bubble')
     animatorWindow:setRepeat(false)
-    animatorWindow:setPosition(0, 50)
-    dragon:getDragonSpeechNode():addChild(animatorWindow.m_node, 10)
+    world:addChild3(animatorWindow.m_node, DEPTH_DRAGON_SPEECH)
 
     local duration = animatorWindow:getDuration()
     animatorWindow:runAction(cc.Sequence:create(cc.DelayTime:create(duration), cc.RemoveSelf:create()))
 
+    animatorWindow:scheduleUpdate(function()
+        animatorWindow:setPosition(dragon.pos['x'], dragon.pos['y'] + 50)
+    end)
+
     -- 대사
     do
         local font_scale_x, font_scale_y = Translate:getFontScaleRate()
-        self.m_speechLabel = cc.Label:createWithTTF(Str(str), Translate:getFontPath(), 24, 2)
-        self.m_speechLabel:setAnchorPoint(cc.p(0.5, 0.5))
-	    self.m_speechLabel:setDockPoint(cc.p(0, 0))
-	    self.m_speechLabel:setColor(cc.c3b(255, 255, 255))
-        self.m_speechLabel:setScale(font_scale_x, font_scale_y)
-        self.m_speechLabel:enableOutline(cc.c4b(0, 0, 0, 255), 2)
-        self.m_speechLabel:setAlignment(cc.TEXT_ALIGNMENT_LEFT, cc.VERTICAL_TEXT_ALIGNMENT_TOP)
+        local speechLabel = cc.Label:createWithTTF(Str(str), Translate:getFontPath(), 24, 2)
+        speechLabel:setAnchorPoint(cc.p(0.5, 0.5))
+	    speechLabel:setDockPoint(cc.p(0, 0))
+	    speechLabel:setColor(cc.c3b(255, 255, 255))
+        speechLabel:setScale(font_scale_x, font_scale_y)
+        speechLabel:enableOutline(cc.c4b(0, 0, 0, 255), 2)
+        speechLabel:setAlignment(cc.TEXT_ALIGNMENT_LEFT, cc.VERTICAL_TEXT_ALIGNMENT_TOP)
 
-        local socketNode = animatorWindow.m_node:getSocketNode('skill_bubble')
-        socketNode:addChild(self.m_speechLabel, 1)
+        world:addChild3(speechLabel, DEPTH_DRAGON_SPEECH_TEXT)
 
-        local size = self.m_speechLabel:getContentSize()
+        speechLabel:runAction(cc.Sequence:create(cc.DelayTime:create(duration), cc.RemoveSelf:create()))
+
+        speechLabel:scheduleUpdateWithPriorityLua(function()
+            speechLabel:setPosition(dragon.pos['x'], dragon.pos['y'] + 98)
+        end, 0)
+
+        local size = speechLabel:getContentSize()
         if (size['width'] > 110) then
             animatorWindow:setScaleX(2)
-            self.m_speechLabel:setScaleX(0.5 * font_scale_x)
         end
         
     end

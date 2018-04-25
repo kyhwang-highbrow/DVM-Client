@@ -53,11 +53,12 @@ MAP_KEY_FUNC[KEY_LEFT_ARROW] = 'kill_one_dragon'
 MAP_KEY_FUNC[KEY_RIGHT_ARROW] = 'print_skill_info'
 
 -- 테스트
-MAP_KEY_FUNC[KEY_5] = 'pause_dragon_1'
-MAP_KEY_FUNC[KEY_6] = 'pause_dragon_2'
-MAP_KEY_FUNC[KEY_7] = 'pause_dragon_3'
-MAP_KEY_FUNC[KEY_8] = 'pause_dragon_4'
-MAP_KEY_FUNC[KEY_9] = 'pause_dragon_5'
+MAP_KEY_FUNC[KEY_5] = 'test_1'
+MAP_KEY_FUNC[KEY_6] = 'test_2'
+MAP_KEY_FUNC[KEY_7] = 'test_3'
+MAP_KEY_FUNC[KEY_8] = 'test_4'
+MAP_KEY_FUNC[KEY_9] = 'test_5'
+MAP_KEY_FUNC[KEY_0] = 'test_6'
 
 -------------------------------------
 -- function onKeyReleased
@@ -135,6 +136,7 @@ end
 -- @brief 강제로 wait 상태로 걸어버림
 -------------------------------------
 function GameWorld:force_wait()
+    cclog('force_wait')
     for i,v in ipairs(self:getEnemyList()) do
         v:setWaitState(true)
     end
@@ -195,9 +197,14 @@ function GameWorld:se_on_dragon()
 
     --StatusEffectHelper:doStatusEffect(dragon_list[1], dragon_list, 'skill_cooldown_reduce', 'ally_all', 5, 10, 100, 15)
 
-    StatusEffectHelper:doStatusEffect(dragon_list[1], dragon_list, 'stun', 'target', 1, 5, 100, 100)
+    --StatusEffectHelper:doStatusEffect(dragon_list[1], dragon_list, 'stun', 'target', 1, 5, 100, 100)
     --StatusEffectHelper:doStatusEffect(dragon_list[1], dragon_list, 'barrier_protection_time', 'ally_all', 10, 9999, 100, 100)
-    --StatusEffectHelper:doStatusEffect(dragon_list[1], dragon_list, 'accel_mana', 'ally_all', 5, 9999, 100, 100)
+    StatusEffectHelper:doStatusEffect(dragon_list[1], dragon_list, 'immortal', 'ally_all', 5, 9999, 100, 100)
+
+    for _, dragon in pairs(dragon_list) do
+        local damage = dragon.m_hp * 0.5
+        dragon:setDamage(nil, dragon, dragon.pos.x, dragon.pos.y, damage)
+    end
     --[[
     local temp = { 'atk_up', 'aspd_up', 'cri_chance_up', 'def_up', 'cri_avoid_up', 'avoid_up',  'hit_rate_up', 'hp_drain' }
 
@@ -531,63 +538,98 @@ function GameWorld:auto_info()
 end
 
 -------------------------------------
--- function pause_dragon_1
+-- function test_1
 -------------------------------------
-function GameWorld:pause_dragon_1()
-    local dragon = g_gameScene.m_gameWorld:getDragonList()[1]
-    if (dragon.m_bWaitState) then
-        dragon:setWaitState(false)
-    else
-        dragon:setWaitState(true)
+function GameWorld:test_1()
+    self.m_inGameUI.m_panelUI:toggleVisibility()
+end
+
+-------------------------------------
+-- function test_2
+-------------------------------------
+function GameWorld:test_2()
+    local b = not self.m_inGameUI.m_bVisible_ManaUI
+    self.m_inGameUI:toggleVisibility_ManaUI(b, true)
+
+    self.m_inGameUI.m_tamerUI:toggleVisibility()
+    self.m_inGameUI.vars['waveVisual']:setVisible(b)
+
+    for _, v in ipairs({'noticeBroadcastNode', 'noticeBroadcastLabel', 'chatBroadcastNode', 'chatBroadcastLabel'}) do
+        local node = self.m_inGameUI.vars[v]
+        node:setVisible(b)
     end
 end
 
 -------------------------------------
--- function pause_dragon_2
+-- function test_3
 -------------------------------------
-function GameWorld:pause_dragon_2()
-    local dragon = g_gameScene.m_gameWorld:getDragonList()[2]
-    if (dragon.m_bWaitState) then
-        dragon:setWaitState(false)
+function GameWorld:test_3()
+    if (not self.m_test or self.m_test >= 4) then
+        self.m_test = 1
     else
-        dragon:setWaitState(true)
+        self.m_test = self.m_test + 1
+    end
+
+    if (self.m_test == 1) then
+        for i, v in pairs(self.m_lUnitList) do
+            if (v.m_rootNode) then
+                v.m_rootNode:setVisible(false)
+            end
+        end
+    elseif (self.m_test == 2) then
+        for i, v in pairs(self.m_lUnitList) do
+            if (v.m_rootNode) then
+                v.m_rootNode:setVisible(true)
+            end
+        end
+
+        for i, v in pairs(self:getDragonList()) do
+            if (v.m_rootNode) then
+                v.m_rootNode:setVisible(false)
+            end
+        end
+    elseif (self.m_test == 3) then
+        for i, v in pairs(self.m_lUnitList) do
+            if (v.m_rootNode) then
+                v.m_rootNode:setVisible(true)
+            end
+        end
+
+        for i, v in pairs(self:getEnemyList()) do
+            if (v.m_rootNode) then
+                v.m_rootNode:setVisible(false)
+            end
+        end
+    else
+        for i, v in pairs(self.m_lUnitList) do
+            if (v.m_rootNode) then
+                v.m_rootNode:setVisible(true)
+            end
+        end
     end
 end
 
 -------------------------------------
--- function pause_dragon_3
+-- function test_4
 -------------------------------------
-function GameWorld:pause_dragon_3()
-    local dragon = g_gameScene.m_gameWorld:getDragonList()[3]
-    if (dragon.m_bWaitState) then
-        dragon:setWaitState(false)
-    else
-        dragon:setWaitState(true)
-    end
+function GameWorld:test_4()
+    self.m_bgNode:setVisible(not self.m_bgNode:isVisible())
 end
 
 -------------------------------------
--- function pause_dragon_4
+-- function test_5
 -------------------------------------
-function GameWorld:pause_dragon_4()
-    local dragon = g_gameScene.m_gameWorld:getDragonList()[4]
-    if (dragon.m_bWaitState) then
-        dragon:setWaitState(false)
-    else
-        dragon:setWaitState(true)
-    end
+function GameWorld:test_5()
+    self.m_unitStatusNode:setVisible(not self.m_unitStatusNode:isVisible())
+    self.m_unitInfoNode:setVisible(not self.m_unitInfoNode:isVisible())
+    self.m_dragonInfoNode:setVisible(not self.m_dragonInfoNode:isVisible())
 end
 
 -------------------------------------
--- function pause_dragon_5
+-- function test_6
 -------------------------------------
-function GameWorld:pause_dragon_5()
-    local dragon = g_gameScene.m_gameWorld:getDragonList()[5]
-    if (dragon.m_bWaitState) then
-        dragon:setWaitState(false)
-    else
-        dragon:setWaitState(true)
-    end
+function GameWorld:test_6()
+    self.m_gameNode3:setVisible(not self.m_gameNode3:isVisible())
 end
 
 -------------------------------------

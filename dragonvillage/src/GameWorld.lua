@@ -29,7 +29,6 @@ GameWorld = class(IEventDispatcher:getCloneClass(), IEventListener:getCloneTable
         m_enemySpeechNode = 'cc.Node',
 
         m_dragonInfoNode = 'cc.Node',
-        m_dragonSpeechNode = 'cc.Node',
 
         -- 드래곤의 잔상을 찍기 위한 배치노드
         m_mDragonRenderTextureBatchNode = 'map',
@@ -103,7 +102,27 @@ GameWorld = class(IEventDispatcher:getCloneClass(), IEventListener:getCloneTable
         m_myDragons = 'Dragons',
 
         m_bGameFinish = 'bool',
+
+        -- 테스트를 위한 임시 변수
+        m_test = 'number',
     })
+
+
+local counter = Counter()
+
+DEPTH_GUARD_EFFECT = counter:get()
+DEPTH_ITEM_GOLD = counter:get()
+DEPTH_INSTANT_EFFECT = counter:get()
+DEPTH_DAMAGE_EFFECT = counter:get()
+
+DEPTH_DAMAGE_FONT = counter:get()
+DEPTH_HEAL_FONT = counter:get()
+DEPTH_MISS_FONT = counter:get()
+DEPTH_BLOCK_FONT = counter:get()
+DEPTH_IMMUNE_FONT = counter:get()
+DEPTH_DRAGON_SPEECH = counter:get()
+DEPTH_DRAGON_SPEECH_TEXT = counter:get()
+DEPTH_PASSIVE_FONT = counter:get()
 
 -------------------------------------
 -- function init
@@ -174,10 +193,6 @@ function GameWorld:init(game_mode, stage_id, world_node, game_node1, game_node2,
     do -- 드래곤 공통 레이어
         self.m_dragonInfoNode = cc.Node:create()
         self.m_gameNode1:addChild(self.m_dragonInfoNode, INGAME_LAYER_Z_ORDER.DRAGON_INFO_LAYER)
-
-        self.m_dragonSpeechNode = cc.Node:create()
-        --self.m_gameNode1:addChild(self.m_dragonSpeechNode, INGAME_LAYER_Z_ORDER.DRAGON_SPEECH_LAYER)
-        self:addChild3(self.m_dragonSpeechNode, INGAME_LAYER_Z_ORDER.DRAGON_SPEECH_LAYER)
     end
     
     self.m_mDragonRenderTextureBatchNode = {}
@@ -461,31 +476,6 @@ function GameWorld:initTamer()
     self:addListener('dragon_summon', self)
 end
 
-
-local counter = Counter()
-
-DEPTH_MISSILE = counter:get()
-
-DEPTH_ITEM_GOLD = counter:get()
-DEPTH_ITEM_CHARGE = counter:get()
-
-DEPTH_GUARD_EFFECT = counter:get()
-DEPTH_DAMAGE_EFFECT = counter:get()
-DEPTH_INSTANT_EFFECT = counter:get()
-
-DEPTH_DAMAGE_FONT = counter:get()
-DEPTH_HEAL_FONT = counter:get()
-DEPTH_MISS_FONT = counter:get()
-DEPTH_BLOCK_FONT = counter:get()
-
-DEPTH_PASSIVE_FONT = counter:get()
-
-DEPTH_LUCKY_WING_MOTION_STREAK = counter:get()
-DEPTH_LUCKY_WING = counter:get()
-
-DEPTH_IMMUNE_FONT = counter:get()
-DEPTH_CRI_DODGE_FONT = counter:get()
-
 -------------------------------------
 -- function addChild2
 -------------------------------------
@@ -739,7 +729,7 @@ end
 function GameWorld:makePassiveStartEffect(char, str_map)
     local root_node = cc.Node:create()
     root_node:setPosition(char.pos.x, char.pos.y)
-    self:addChild2(root_node, DEPTH_PASSIVE_FONT)
+    self:addChild3(root_node, DEPTH_PASSIVE_FONT)
     
     do-- 이펙트 생성
         local effect = MakeAnimator('res/effect/effect_passive_common/effect_passive_common.vrp')
@@ -753,7 +743,8 @@ function GameWorld:makePassiveStartEffect(char, str_map)
     local node = cc.Node:create()
     root_node:addChild(node)
     node:setPositionY(80)
-    node:runAction(cc.MoveTo:create(3, cc.p(0, 160)))
+    --node:runAction(cc.MoveTo:create(3, cc.p(0, 160)))
+    node:runAction(cc.MoveTo:create(3, cc.p(0, 220)))
 
     -- 패시브명 label 생성
     local i = 1

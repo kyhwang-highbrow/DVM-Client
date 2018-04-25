@@ -115,6 +115,44 @@ function AnimatorHelper:makeMonsterAnimator(res_name, attr, evolution)
 end
 
 -------------------------------------
+-- function makeSpineAnimatorToUseResIntegrated
+-------------------------------------
+function AnimatorHelper:makeSpineAnimatorToUseResIntegrated(res_name, attr)
+    local spine_file_name
+    local atlas_file_name
+    local animator
+
+    -- spine(또는 json) 파일명을 얻음
+    do
+        local temp = string.gsub(res_name, '_@/', '_all/')
+        spine_file_name = string.gsub(temp, '_@', '')
+    end
+
+    -- atlas 파일명을 얻음
+    do
+        local temp = string.gsub(res_name, '_@/', '_all/')
+        atlas_file_name = string.gsub(temp, '@', attr)
+    end
+
+    if (string.match(spine_file_name, '%.spine')) then
+        animator = AnimatorSpine(spine_file_name, nil, atlas_file_name)
+    elseif (string.match(spine_file_name, '%.json')) then
+        animator = AnimatorSpine(spine_file_name, true, atlas_file_name)
+    end
+
+    if (animator.m_node) then
+        animator.m_node:setDockPoint(cc.p(0.5, 0.5))
+        animator.m_node:setAnchorPoint(cc.p(0.5, 0.5))
+        
+        animator.m_node:setMix('idle', 'attack', 0.1)
+        animator.m_node:setMix('idle', 'idle', 0.1)
+        animator.m_node:setMix('attack', 'idle', 0.1)
+    end
+
+    return animator
+end
+
+-------------------------------------
 -- function getDragonResName
 -------------------------------------
 function AnimatorHelper:getDragonResName(res_name, evolution, attr)

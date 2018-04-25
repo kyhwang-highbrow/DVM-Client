@@ -21,7 +21,6 @@ end
 -- function loadUI
 -------------------------------------
 function UI_IngameUnitInfo:loadUI()
-    --local vars = self:load('ingame_enemy_info.ui')
     local vars = self:load_useSpriteFrames('ingame_enemy_info.ui')
     return vars
 end
@@ -32,11 +31,11 @@ end
 function UI_IngameUnitInfo:load_useSpriteFrames(url, isPermanent)
     local keep_z_order = false
     local use_sprite_frames = true
-
+    --[[
     local file_name = 'ingame_cha_info'
     local res = string.format('res/ui/a2d/%s/%s.plist', file_name, file_name)
     cc.SpriteFrameCache:getInstance():addSpriteFrames(res)
-
+    ]]--
     return self:load(url, isPermanent, keep_z_order, use_sprite_frames)
 end
 

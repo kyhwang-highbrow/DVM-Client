@@ -8,17 +8,34 @@ AnimatorSpine = class(Animator, {
 -------------------------------------
 -- function init
 -------------------------------------
-function AnimatorSpine:init(file_name, is_json)
+function AnimatorSpine:init(file_name, is_json, atlas_file_name)
     local file_name_ = nil
+    local atlas_file_name_ = nil
 
     if is_json then
         file_name_ = string.gsub(file_name, '%.json', '')
+
+        if (atlas_file_name) then
+            atlas_file_name_ = string.gsub(atlas_file_name, '%.json', '')
+        end
     else
         file_name_ = string.gsub(file_name, '%.spine', '')
+
+        if (atlas_file_name) then
+            atlas_file_name_ = string.gsub(atlas_file_name, '%.spine', '')
+        end
+    end
+
+    if (not atlas_file_name_) then
+        atlas_file_name_ = file_name_
     end
 
     self.m_cacheName = file_name_ .. '.json'
-    self.m_node = sp.SkeletonAnimation:create(file_name_ .. '.json', file_name_ ..  '.atlas', 1)
+    self.m_node = sp.SkeletonAnimation:create(file_name_ .. '.json', atlas_file_name_ ..  '.atlas', 1)
+    if (not self.m_node) then
+        cclog('error file_name_ : ' .. file_name_)
+        cclog('error atlas_file_name_ : ' .. atlas_file_name_)
+    end
     self:changeAni('idle', true, true)
 
     self.m_type = ANIMATOR_TYPE_SPINE

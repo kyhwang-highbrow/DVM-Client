@@ -98,6 +98,7 @@ function ResourcePreloadMaker:getPreloadList_Common()
         'res/effect/effect_passive_common/effect_passive_common.vrp',
         'res/indicator/indicator_effect_target/indicator_effect_target.vrp',
         'res/ui/a2d/enemy_skill_speech/enemy_skill_speech.vrp',
+        'res/ui/a2d/ingame_cha_info/ingame_cha_info.vrp',
         'res/effect/effect_missile_charge/effect_missile_charge.vrp',
         'res/effect/effect_skillcasting_dragon/effect_skillcasting_dragon.vrp',
         'res/effect/effect_skillcasting/effect_skillcasting.vrp',

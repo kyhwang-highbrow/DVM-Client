@@ -147,6 +147,34 @@ function Monster_AncientRuinDragon:initFormation(body_size)
     self.m_animator:setFlip(false)
 end
 
+-------------------------------------
+-- function initAnimatorMonster
+-------------------------------------
+function Monster_AncientRuinDragon:initAnimatorMonster(file_name, attr, scale, size_type)
+    -- Animator 삭제
+    if self.m_animator then
+        if self.m_animator.m_node then
+            self.m_animator.m_node:removeFromParent(true)
+            self.m_animator.m_node = nil
+        end
+        self.m_animator = nil
+    end
+
+    -- Animator 생성
+    self.m_animator = AnimatorHelper:makeSpineAnimatorToUseResIntegrated(file_name, attr)
+    if (not self.m_animator.m_node) then return end
+
+    self.m_rootNode:addChild(self.m_animator.m_node)
+	if (scale) then
+		self.m_animator:setScale(scale)
+	end
+
+    -- 각종 쉐이더 효과 시 예외 처리할 슬롯 설정(Spine)
+    self:blockMatchingSlotShader('effect_')
+
+    -- 하이라이트 노드 설정
+    self:addHighlightNode(self.m_animator.m_node)
+end
 
 -------------------------------------
 -- function initState

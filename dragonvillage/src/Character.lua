@@ -73,7 +73,6 @@ Character = class(PARENT, {
         m_unitInfoNode = 'cc.Node',
         m_lockOnNode = 'cc.Node',       -- 인디케이터 선택 대상 표시를 위한 노드
         m_enemySpeechNode = 'cc.Node',
-        m_dragonSpeechNode = 'cc.Node',
 
         -- @hp UI
 		m_infoUI = '',
@@ -1300,7 +1299,7 @@ function Character:makeDamageEffect(x, y, dir, is_critical)
     local duration = effect:getDuration()
     effect:runAction(cc.Sequence:create(cc.DelayTime:create(duration), cc.RemoveSelf:create()))
   
-    self.m_world:addChild3(effect.m_node, DEPTH_DAMAGE_EFFECT)
+    self.m_world:addChild2(effect.m_node, DEPTH_DAMAGE_EFFECT)
 end
 
 -------------------------------------
@@ -1707,11 +1706,6 @@ function Character:release()
         self.m_enemySpeechNode = nil
     end
 
-    if (self.m_dragonSpeechNode) then
-        self.m_dragonSpeechNode:removeFromParent(true)
-        self.m_dragonSpeechNode = nil
-    end
-
     self.m_unitStatusIconNode = nil
     self.m_unitInfoNode = nil
 
@@ -1843,10 +1837,6 @@ function Character:setPosition(x, y)
 
     if (self.m_castingNode) then
         self.m_castingNode:setPosition(self.m_unitInfoOffset[1], self.m_unitInfoOffset[2])
-    end
-
-    if (self.m_dragonSpeechNode) then
-        self.m_dragonSpeechNode:setPosition(x, y)
     end
 
     if (self.m_enemySpeechNode) then
@@ -2998,21 +2988,6 @@ function Character:getAllInfomationString()
 	printLine('=======================================================')
 
     return str
-end
-
--------------------------------------
--- function getDragonSpeechNode
--------------------------------------
-function Character:getDragonSpeechNode()
-    if (not self.m_dragonSpeechNode) then
-        self.m_dragonSpeechNode = cc.Node:create()
-        self.m_world.m_dragonSpeechNode:addChild(self.m_dragonSpeechNode)
-        self.m_dragonSpeechNode:setPosition(self.pos.x, self.pos.y)
-
-        self:addHighlightNode(self.m_dragonSpeechNode)
-    end
-
-    return self.m_dragonSpeechNode
 end
 
 -------------------------------------
