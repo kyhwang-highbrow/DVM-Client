@@ -7,13 +7,13 @@ import os
 import sys
 import re
 import shutil
-try:
-  import progressbar
-except ImportError:
-  print "Trying to Install required module: progressbar\n"
-  os.system('python -m pip install progressbar')
-import progressbar
 import time
+try:
+    import progressbar
+except ImportError:
+    print "\nTrying to Install required module: progressbar"
+    print "\nType 'python -m pip install progressbar'"
+    sys.exit()
 
 ## globals ############################
 ROOT_PATH = '../../translate'
