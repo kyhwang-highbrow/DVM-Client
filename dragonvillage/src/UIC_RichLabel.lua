@@ -357,8 +357,15 @@ function UIC_RichLabel:makeContent_checkTextWidth(label, work_text, pos_x, idx_y
     --------------------------------------------------------------
     -- 단어 단위 개행
     --------------------------------------------------------------
-    --[[
-    if true then
+    local b_word_line_change = false
+    local game_lang = g_localData:getLang()
+
+    -- 유저가 선택한 언어가 영어일때만 단어 단위 개행
+    if (game_lang and game_lang == 'en') then
+        b_word_line_change = true
+    end
+
+    if b_word_line_change then
         local l_text = nil
 
         -- 공백' '으로 문자들을 분리
@@ -416,7 +423,7 @@ function UIC_RichLabel:makeContent_checkTextWidth(label, work_text, pos_x, idx_y
     -- 문자 단위 개행
     --------------------------------------------------------------
     else
-    --]]
+
         -- 한 글자라도 넘어가는 경우에는 즉시 리턴
         if (self.m_dimension['width'] < (pos_x + self.m_fontSize)) then
             label:setString('')
@@ -451,7 +458,7 @@ function UIC_RichLabel:makeContent_checkTextWidth(label, work_text, pos_x, idx_y
         work_text = remain_text
 
         return pos_x, idx_y, work_text, carriage_return
-    --end
+    end
 end
 
 -------------------------------------
