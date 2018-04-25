@@ -7,28 +7,61 @@ import os
 import sys
 import re
 import shutil
+try:
+  import progressbar
+except ImportError:
+  print "Trying to Install required module: progressbar\n"
+  os.system('python -m pip install progressbar')
+import progressbar
+import time
 
 ## globals ############################
 ROOT_PATH = '../../translate'
+MAKE_PATH = '../'
 INVALID_NUM_LIST = []
 INVALID_NEWLINE_LIST = []
 INVALID_COLOR_LIST = []
+
+IGNORE_NUM_DIC = {}
+IGNORE_NEWLINE_DIC = {}
 #######################################
+
+## define makeIgnoreList
+## 등록된 ignore list 딕셔너리로 만들어줌
+def makeIgnoreList():
+    file_path = os.path.join(os.getcwd(), 'ignore_list_num.txt')
+    fr = open(file_path, 'r')
+    lines = fr.readlines()
+    for line in lines:
+        IGNORE_NUM_DIC[line] = True
+    fr.close()
+
+    file_path = os.path.join(os.getcwd(), 'ignore_list_newline.txt')
+    fr = open(file_path, 'r')
+    lines = fr.readlines()
+    for line in lines:
+        IGNORE_NEWLINE_DIC[line] = True
+    fr.close()
 
 ## define checkTranslateFile
 ## 번역 파일 읽음
 def checkTranslateFile(filename):
     file_path = os.path.join(ROOT_PATH, filename)
     fr = open(file_path, 'r')
-
     lines = fr.readlines()
     line_num = 0
-    INVALID_NUM_LIST.append('\n###{0}\n'.format(filename))
-    INVALID_NEWLINE_LIST.append('\n###{0}\n'.format(filename))
-    INVALID_COLOR_LIST.append('\n###{0}\n'.format(filename))
+    INVALID_NUM_LIST.append('\n## {0}\n'.format(filename))
+    INVALID_NEWLINE_LIST.append('\n## {0}\n'.format(filename))
+    INVALID_COLOR_LIST.append('\n## {0}\n'.format(filename))
 
-    for line in lines:
+    print '## {0}'.format(filename)
+    line_max = len(lines)
+    progress = progressbar.ProgressBar()
+
+    for i in progress(range(line_max)):
+        line = lines[i]
         line_num = line_num + 1
+
         validateNum(line, line_num)
         validateLine(line, line_num)
         vaildateColorTag(line, line_num)
@@ -38,6 +71,16 @@ def checkTranslateFile(filename):
 ## define validateNum
 ## 숫자 검증
 def validateNum(line, line_num):
+    is_ignore = False
+    ignore_list = list(IGNORE_NUM_DIC.keys())
+    for ignore_str in ignore_list:
+        if line.find(ignore_str.strip()) != -1:
+            is_ignore = True
+            break
+
+    if is_ignore == True:
+        return
+
     target = re.findall(r'\d+(?:[\.|\,]\d+)?', line.strip())
     target_len = len(target)
     # if (target_len % 2 == 1):
@@ -60,6 +103,16 @@ def validateNum(line, line_num):
 ## define validateLine
 ## 개행문자 검증
 def validateLine(line, line_num):
+    is_ignore = False
+    ignore_list = list(IGNORE_NEWLINE_DIC.keys())
+    for ignore_str in ignore_list:
+        if line.find(ignore_str.strip()) != -1:
+            is_ignore = True
+            break
+
+    if is_ignore == True:
+        return
+
     target = line.count('\\n')
     if (target > 0 and target % 2 == 1):
             invalid_str = '{0} line : '.format(line_num) + line
@@ -77,17 +130,18 @@ def vaildateColorTag(line, line_num):
 ## define makeTxtFile
 ## txt 파일 생성
 def makeTxtFile():
-    cwd = os.getcwd() + "_translate_file.txt"
-    fw = open(cwd, "w")
-    fw.write('\n\n\n1.CHECK NUMBER \n')
+    file_path = os.path.join(MAKE_PATH, "validate_translate_file.txt")
+    fw = open(file_path, "w")
+
+    fw.write('\n\n1.CHECK NUMBER \n')
     for item in INVALID_NUM_LIST:
         fw.write(item)
 
-    fw.write('\n\n\n2.CHECK NEWLINE \n')
+    fw.write('\n\n2.CHECK NEWLINE \n')
     for item in INVALID_NEWLINE_LIST:
         fw.write(item)
 
-    fw.write('\n\n\n3.CHECK COLOR TAG \n')
+    fw.write('\n\n3.CHECK COLOR TAG \n')
     for item in INVALID_COLOR_LIST:
         fw.write(item)
 
@@ -98,6 +152,7 @@ def makeTxtFile():
 ###################################
 if __name__ == '__main__':
     print '## validate_translate_file'
+    makeIgnoreList()
     checkTranslateFile('lang_en.lua')
     checkTranslateFile('lang_jp.lua')
     checkTranslateFile('lang_zhtw.lua')
