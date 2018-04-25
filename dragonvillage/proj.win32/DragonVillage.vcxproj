@@ -398,6 +398,7 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <None Include="..\src\Monster_WorldOrderMachine.lua" />
     <None Include="..\src\MultiDeckMgr.lua" />
     <None Include="..\src\NaverCafeManager.lua" />
+    <None Include="..\src\NumberLabelWithSpriteFrame.lua" />
     <None Include="..\src\NumberLabel_Pumping.lua" />
     <None Include="..\src\NumberLoop.lua" />
     <None Include="..\src\PackageManager.lua" />

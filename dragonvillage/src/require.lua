@@ -186,6 +186,7 @@ local t_module = {
     'SecurityNumber',
     'ResPreloadMgr',
     'NumberLabel',
+    'NumberLabelWithSpriteFrame',
 	'NumberLabel_Pumping',
     'FpsMeter',
     'LevelupDirector',

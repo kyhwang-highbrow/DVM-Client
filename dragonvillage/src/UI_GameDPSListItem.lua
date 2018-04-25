@@ -16,7 +16,7 @@ UI_GameDPSListItem = class(PARENT, {
 -- function init
 -------------------------------------
 function UI_GameDPSListItem:init(dragon)
-	local vars = self:load('ingame_dps_info_item.ui') 
+    local vars = self:load('ingame_dps_info_item.ui', false, true, true)
 
 	self.m_dragonData = dragon
 	self.m_logKey = 'damage'
@@ -35,22 +35,20 @@ function UI_GameDPSListItem:initUI()
 	local dragon = self.m_dragonData
 
 	-- dragon icon
-	local ui = UI_DragonCard(dragon.m_tDragonInfo)
-
-    -- 버튼 막음 처리
-    ui.vars['clickBtn']:setEnabled(false)
-
-	vars['dragonNode']:addChild(ui.root)
-	
+    local sprite = IconHelper:getDragonIconFromTable(dragon.m_tDragonInfo, dragon.m_charTable)
+	if (sprite) then
+		vars['dragonNode']:addChild(sprite)
+	end
+    	
 	-- damage per sec
-	vars['dpsLabel'] = NumberLabel(vars['dpsLabel'], 0, COMMON_UI_ACTION_TIME)
+	vars['dpsLabel'] = NumberLabelWithSpriteFrame(vars['dpsLabel'], 0, cc.TEXT_ALIGNMENT_RIGHT)
 	
 	-- 누적 damage
-	vars['dpsGaugeLabel'] = NumberLabel_Pumping(vars['dpsGaugeLabel'], 0, COMMON_UI_ACTION_TIME)
+	vars['dpsGaugeLabel'] = NumberLabelWithSpriteFrame(vars['dpsGaugeLabel'], 0, cc.TEXT_ALIGNMENT_LEFT)
 
 	-- 게이지 초기화
-	vars['dpsGauge']:setPercentage(0)
-	vars['hpsGauge']:setPercentage(0)
+	vars['dpsGauge']:setScaleX(0)
+	vars['hpsGauge']:setScaleX(0)
 end
 
 -------------------------------------
@@ -67,17 +65,18 @@ function UI_GameDPSListItem:refresh()
 	-- 누적 수치
 	local log_recorder = dragon.m_charLogRecorder
 	local sum_value = math_floor(log_recorder:getLog(self.m_logKey))
-	vars['dpsGaugeLabel']:setNumber(sum_value)
+	vars['dpsGaugeLabel']:setNumber(sum_value, 0.5)
 	
 	-- 누적 수치의 비율
-	local percentage = (sum_value/self.m_bestValue) * 100
+	local percentage = sum_value / self.m_bestValue
 	local gauge_node = self:getGaugeNode(self.m_logKey)
-	gauge_node:runAction(cc.ProgressTo:create(COMMON_UI_ACTION_TIME, percentage))
+	local action = cc.Sequence:create(cc.DelayTime:create(0.2), cc.ScaleTo:create(0.5, percentage, 1))
+    gauge_node:runAction(cc.EaseIn:create(action, 2))
 	
 	-- per second
 	local lab_time = self.m_labTime
 	local xps = math_floor(sum_value/lab_time)
-	vars['dpsLabel']:setNumber(xps)
+	vars['dpsLabel']:setNumber(xps, 0.5)
 end
 
 -------------------------------------
@@ -110,14 +109,6 @@ function UI_GameDPSListItem:changeGauge(log_key)
 	-- 게이지 on/off
 	dps_gauge:setVisible(is_dps)
 	hps_gauae:setVisible(not is_dps)
-
-	-- 연출 예쁘게 하기 위해서 이전 게이지 값을 미리 설정한다.
-	if (is_dps) then
-		dps_gauge:setPercentage(hps_gauae:getPercentage())
-	else
-		hps_gauae:setPercentage(dps_gauge:getPercentage())
-
-	end
 end
 
 -------------------------------------
