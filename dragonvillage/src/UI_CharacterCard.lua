@@ -15,6 +15,7 @@ local PARENT = UI_Card
     lockSprite
     checkBoxSprite1
     checkBoxSprite2
+    itemCountLabel
 
     levelNode
 	reinforceNode
@@ -235,6 +236,40 @@ function UI_CharacterCard:setLevelText(level)
     self.m_charLevelNumber = level
 
     self:setNumberText(level, false)
+end
+
+-------------------------------------
+-- function setCountText
+-- @brief 수량 텍스트 지정
+-------------------------------------
+function UI_CharacterCard:setCountText(cnt)
+    local cnt = tonumber(cnt)
+    -- 1 이하는 표시 X
+    if (not cnt or cnt <= 1) then
+        return
+    end
+    local vars = self.vars
+
+     -- 폰트 지정
+    local font = Translate:getFontPath()
+
+    -- label 생성
+    local width = vars['clickBtn']:getContentSize()['width']
+    local label = cc.Label:createWithTTF(comma_value(cnt), font, 30, 0)
+    label:setAlignment(cc.TEXT_ALIGNMENT_RIGHT, cc.VERTICAL_TEXT_ALIGNMENT_CENTER)
+    label:setAnchorPoint(cc.p(1, 0))
+    label:setPosition(145, 20)
+    label:enableOutline(cc.c4b(0, 0, 0, 255), 3)
+
+    local lua_name = 'itemCountLabel'
+    if vars[lua_name] then
+        vars[lua_name]:removeFromParent()
+        vars[lua_name] = nil
+    end
+
+    vars['clickBtn']:addChild(label, 99)
+    self:setCardInfo(lua_name, label)
+    vars[lua_name] = label
 end
 
 -------------------------------------

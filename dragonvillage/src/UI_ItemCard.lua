@@ -94,6 +94,9 @@ function UI_ItemCard:init_dragonItem(t_item, t_sub_data)
     t_dragon_data['skill_3'] = 0
 
     local dragon_card = UI_DragonCard(StructDragonObject(t_dragon_data))
+    -- UI_ItemCard로 생성한 경우 UI_DragonCard도 수량 표시함
+    dragon_card:setCountText(self.m_itemCount)
+
     self.root = dragon_card.root
     self.vars = dragon_card.vars
     local vars = dragon_card.vars
@@ -111,6 +114,9 @@ function UI_ItemCard:init_slimeItem(t_item, t_sub_data)
     t_slime_data['grade'] = t_item['grade']
 
     local dragon_card = UI_DragonCard(StructSlimeObject(t_slime_data))
+    -- UI_ItemCard로 생성한 경우 UI_DragonCard도 수량 표시함
+    dragon_card:setCountText(self.m_itemCount)
+
     self.root = dragon_card.root
     self.vars = dragon_card.vars
     local vars = dragon_card.vars
