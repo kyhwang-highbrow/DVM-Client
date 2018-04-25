@@ -177,6 +177,7 @@ function GameState_Colosseum.update_success(self, dt)
     
     if (self.m_stateTimer == 0) then
         local world = self.m_world
+        world:setGameFinish()
 
         -- 모든 적들을 죽임
         world:removeAllEnemy()
@@ -219,6 +220,7 @@ function GameState_Colosseum.update_failure(self, dt)
 
     if (self:getStep() == 0) then
         if (self:isBeginningStep()) then
+            world:setGameFinish()
             if (world.m_tamer) then
                 world.m_tamer:changeState('dying')
             end
