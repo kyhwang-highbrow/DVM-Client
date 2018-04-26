@@ -147,12 +147,14 @@ function ServerData_Mail:makeMailMap(l_mail_list)
 
     local table_item = TableItem()
 
-	-- mail map 생성
+    -- mail map 생성
+    local is_mail = true
 	for i, t_mail in pairs(l_mail_list) do
 		local moid = t_mail['id']
 		local mail_type = t_mail['mail_type']
 		local category
-        
+        is_mail = true
+
         -- mail_type으로 구분 가능한 것을 미리 구분한다. 
         -- 'fp'와 'use_fp' and 'ret_fp'
 		if pl.stringx.endswith(mail_type, 'fp') then
@@ -161,6 +163,13 @@ function ServerData_Mail:makeMailMap(l_mail_list)
         -- 공지 메일
         elseif (mail_type == 'notice') then
             category = 'notice'
+
+            -- 게시글이 연동되지 않은 공지는 올리지 않는다
+            if t_mail['custom'] then
+                if (t_mail['custom']['article_id_' .. Translate:getGameLang()] == nil) then
+                    is_mail = false
+                end
+            end
 
 		-- 아이템에 따라 분류한다.
 		else
@@ -196,7 +205,9 @@ function ServerData_Mail:makeMailMap(l_mail_list)
 		end
 
         -- mail struct로 생성
-		self.m_mMailMap[category][moid] = StructMail(t_mail)
+        if (is_mail) then
+            self.m_mMailMap[category][moid] = StructMail(t_mail)
+        end
 	end
 end
 
