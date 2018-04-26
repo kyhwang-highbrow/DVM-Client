@@ -17,12 +17,12 @@ function LobbyMapFactory:createLobbyWorld(parent_node, ui_lobby)
     lobby_map:addLayer(self:makeLobbyLayer(4), 0.7) -- 하늘
     lobby_map:addLayer(self:makeLobbyLayer(3), 0.8) -- 마을
     lobby_map:addLayer(self:makeLobbyLayer(2), 0.9) -- 분수
-	lobby_map:addLayer(self:makeLobbyDecoLayer('blossom'), 1) -- 벚꽃
+	--lobby_map:addLayer(self:makeLobbyDecoLayer('blossom'), 1) -- 벚꽃
 
 	do -- 땅
 		local lobby_ground = self:makeLobbyLayer(1)
 		lobby_map:addLayer_lobbyGround(lobby_ground, 1, 1, ui_lobby)
-		self:makeLobbyDeco_onLayer(lobby_ground, 'wanted') -- 전단지
+		--self:makeLobbyDeco_onLayer(lobby_ground, 'wanted') -- 전단지
 	end
 
     lobby_map:addLayer(self:makeLobbyLayer(0), 1) -- 근경

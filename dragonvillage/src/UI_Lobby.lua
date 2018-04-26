@@ -73,7 +73,7 @@ function UI_Lobby:initUI()
     self:initLobbyWorldAdapter()
     g_topUserInfo:clearBroadcast()
 
-	self:initParticle()
+	--self:initParticle()
 end
 
 -------------------------------------
