@@ -82,20 +82,26 @@ function UI_MailListItem:refreshNotice()
 
     -- 보상 받은 경우 공지 보기만 가능
     if (self.m_mailData:isReceivedNoticeReward()) then
-        vars['rewardBtn']:setVisible(false)
-        vars['openBtn']:setVisible(true)
-        vars['openBtn']:registerScriptTapHandler(function()
-            self.m_mailData:readNotice()
-        end)
-    
-        local icon = IconHelper:getIcon('res/ui/icons/item/dvm.png')
-        vars['rewardNode']:addChild(icon)
+        self:setReceivedNotice()
 
-    -- 보상 받지 않은 경우
     else
-        -- 아이템 아이콘
+        -- 보상 받지 않은 경우
         self:makeMailItemIcons(self.m_mailData)
     end
+end
+
+-------------------------------------
+-- function setReceivedNotice
+-------------------------------------
+function UI_MailListItem:setReceivedNotice()
+    self.vars['rewardBtn']:setVisible(false)
+    self.vars['openBtn']:setVisible(true)
+    self.vars['openBtn']:registerScriptTapHandler(function()
+        self.m_mailData:readNotice()
+    end)
+
+    local icon = IconHelper:getIcon('res/ui/icons/item/dvm.png')
+    self.vars['rewardNode']:addChild(icon)
 end
 
 -------------------------------------
@@ -103,7 +109,7 @@ end
 -------------------------------------
 function UI_MailListItem:makeMailItemIcons(struct_mail)
     local l_item_list = struct_mail:getItemList()
-
+    
     for i,v in ipairs(l_item_list) do
         local item_id = v['item_id']
         local count = v['count']

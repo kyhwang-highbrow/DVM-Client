@@ -104,6 +104,37 @@ function ServerData_Mail:sortMailList(sort_target_list)
 end
 
 -------------------------------------
+-- function sortNoticeList
+-------------------------------------
+function ServerData_Mail:sortNoticeList(sort_target_list)
+    local sort_manager = SortManager()
+
+    -- 보상이 있는 순, 이후 순서는..?
+	sort_manager:setDefaultSortFunc(function(a, b) 
+            local a_data = a['data']
+            local b_data = b['data']
+
+            local a_value = a_data['custom']['received']
+            local b_value = b_data['custom']['received']
+
+            if (a_value == true) and (b_value == false) then
+                return false
+
+            elseif (a_value == false) and (b_value == true) then
+                return true
+
+            else
+                local a_value = a_data['expired_at']
+                local b_value = b_data['expired_at']
+                return a_value < b_value
+                
+            end
+	end)
+
+    sort_manager:sortExecution(sort_target_list)
+end
+
+-------------------------------------
 -- function makeMailMap
 -- @brief 
 -------------------------------------
@@ -181,62 +212,6 @@ function ServerData_Mail:request_mailList(finish_cb)
     local function success_cb(ret)
 		-- mail map을 생성한다.
         if ret['mails_list'] then
-            -- 공지 테스트
-            if (IS_TEST_MODE()) then
-                local notice_sample_has_reward = {
-                    ["id"] = "5555555555555",
-                    ["mail_type"] = "notice",
-                    ["expired_at"] = 1924841200000,
-                    ["custom"] = {
-                        ["article_id_ko"] = 37361,
-                        ["article_id_ja"] = 243,
-                        ["article_id_zh_TW"] = 422,
-                        ["article_id_en"] = 585,
-                         
-                        ["title_ko"] = "보상 받지 않은 우편 공지",
-                        ["title_ja"] = "",
-                        ["title_en"] = "",
-                        ["title_zh_TW"] = "",
-         
-                        ["received"] = false
-                    },
-                    ["items_list"] = {
-                        {
-                            ["oids"] ={},
-                            ["count"] = 1000,
-                            ["item_id"] = 700001
-                        }
-                    }
-                }
-                local notice_sample_received = {
-                    ["id"] = "444444444444",
-                    ["mail_type"] = "notice",
-                    ["expired_at"] = 1924841200000,
-                    ["custom"] = {                        
-                        ["article_id_ko"] = 37361,
-                        ["article_id_ja"] = 243,
-                        ["article_id_zh_TW"] = 422,
-                        ["article_id_en"] = 585,
-                                
-                        ["title_ko"] = "보상 받은 우편 공지",
-                        ["title_ja"] = "",
-                        ["title_en"] = "",
-                        ["title_zh_TW"] = "",
-         
-                        ["received"] = true
-                    },
-                    ["items_list"] = {
-                        {
-                            ["oids"] ={},
-                            ["count"] = 1000,
-                            ["item_id"] = 700001
-                        }
-                    }
-                }
-
-                table.insert(ret['mails_list'], notice_sample_has_reward)
-                table.insert(ret['mails_list'], notice_sample_received)
-            end
 			self:makeMailMap(ret['mails_list'])
         end
 

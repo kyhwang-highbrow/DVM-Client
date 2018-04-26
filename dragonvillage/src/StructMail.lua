@@ -230,6 +230,9 @@ end
 -- @brief 닉네임 변경권 확인 
 -------------------------------------
 function StructMail:isChangeNick()
+    if (not self:getItemList()[1]) then
+        return false
+    end
     local item_id = self:getItemList()[1]['item_id']
     local item_type = TableItem:getItemType(item_id)
     return (item_type == 'rename')
@@ -240,6 +243,9 @@ end
 -- @brief 고급소환권 확인 
 -------------------------------------
 function StructMail:isSummonTicket()
+    if (not self:getItemList()[1]) then
+        return false
+    end
     local item_id = self:getItemList()[1]['item_id']
     return (item_id == ITEM_ID_SUMMON_TICKET)
 end
@@ -256,6 +262,9 @@ end
 -- @brief 경험치 부스터 확인 
 -------------------------------------
 function StructMail:isExpBooster()
+    if (not self:getItemList()[1]) then
+        return false
+    end
     local item_id = self:getItemList()[1]['item_id']
     return (item_id == ITEM_ID_EXP_BOOSTER)
 end
@@ -265,6 +274,9 @@ end
 -- @brief 골드 부스터 확인 
 -------------------------------------
 function StructMail:isGoldBooster()
+    if (not self:getItemList()[1]) then
+        return false
+    end
     local item_id = self:getItemList()[1]['item_id']
     return (item_id == ITEM_ID_GOLD_BOOSTER)
 end
@@ -282,6 +294,9 @@ end
 -- @brief 선택권 확인 
 -------------------------------------
 function StructMail:isPick()
+    if (not self:getItemList()[1]) then
+        return false
+    end
     local item_id = self:getItemList()[1]['item_id']
     local item_type = TableItem:getItemType(item_id)
     return (item_type == 'pick')
@@ -327,7 +342,7 @@ end
 -- function isReceivedNoticeReward
 -------------------------------------
 function StructMail:isReceivedNoticeReward()
-    return (self:isNotice() and self['custom']['received'])
+    return (self:isNotice() and self['custom']['received']) or (table.count(self['items_list']) == 0)
 end
 
 -------------------------------------
@@ -353,6 +368,8 @@ function StructMail:readNotice(cb_func)
 
     -- 보상 있으면 수령하기
     if (not self:isReceivedNoticeReward()) then
+        -- 받은 것으로 처리해준다
+        self['custom']['received'] = true
         self:readMe(cb_func)
     end
 end

@@ -94,7 +94,7 @@ function UI_MailPopup:refresh(tab)
     vars['rewardAllBtn']:setVisible(not is_block_read_all)
 
     -- noti 갱신
-    self:refresh_noti()
+	self:refresh_noti()
 end
 
 -------------------------------------
@@ -140,8 +140,12 @@ function UI_MailPopup:makeMailTableView(tab, node)
     table_view:setDirection(cc.SCROLLVIEW_DIRECTION_VERTICAL)
     table_view:setItemList(t_item_list)
 
-    -- 정렬
-    g_mailData:sortMailList(table_view.m_itemList)
+	-- 정렬
+	if (tab == 'notice') then
+		g_mailData:sortNoticeList(table_view.m_itemList)
+	else
+		g_mailData:sortMailList(table_view.m_itemList)
+	end
 
     self.m_mTableView[tab] = table_view
 end
