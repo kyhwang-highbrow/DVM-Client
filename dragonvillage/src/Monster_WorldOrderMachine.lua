@@ -43,9 +43,13 @@ end
 -- function initAnimatorMonster
 -------------------------------------
 function Monster_WorldOrderMachine:initAnimatorMonster(file_name, attr, scale, size_type)
-    PARENT.initAnimatorMonster(self, file_name, attr, nil, size_type)
+    local b = PARENT.initAnimatorMonster(self, file_name, attr, nil, size_type)
+        
+    if (b) then
+        self:threeWonderMagic()
+    end
 
-    self:threeWonderMagic()
+    return b
 end
 
 -------------------------------------

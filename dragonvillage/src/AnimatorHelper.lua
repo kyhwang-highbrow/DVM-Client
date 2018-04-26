@@ -125,13 +125,17 @@ function AnimatorHelper:makeSpineAnimatorToUseResIntegrated(res_name, attr)
     -- spine(또는 json) 파일명을 얻음
     do
         local temp = string.gsub(res_name, '_@/', '_all/')
-        spine_file_name = string.gsub(temp, '_@', '')
+        spine_file_name = string.gsub(temp, '@', 'all')
     end
 
     -- atlas 파일명을 얻음
     do
-        local temp = string.gsub(res_name, '_@/', '_all/')
-        atlas_file_name = string.gsub(temp, '@', attr)
+        local path, file_name, extension = string.match(res_name, "(.-)([^//]-)(%.[^%.]+)$")
+        local temp1 = string.gsub(file_name, '@', attr)
+        local temp2 = string.gsub(path, '_@/', '_all/' .. temp1 .. '/')
+        local temp3 = string.gsub(file_name, '@', 'all')
+        atlas_file_name = temp2 .. temp3 .. extension
+        cclog('atlas_file_name : ' .. atlas_file_name)
     end
 
     if (string.match(spine_file_name, '%.spine')) then

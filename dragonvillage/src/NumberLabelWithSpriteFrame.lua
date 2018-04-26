@@ -108,9 +108,9 @@ function NumberLabelWithSpriteFrame:refresh(number)
         local res_name
 
         if (v == ',') then  -- comma
-            res_name = 'ingame_damage_comma.png'
+            res_name = 'ingame_btn_number_comma.png'
         else
-            res_name = 'ingame_damage_'.. v.. '.png'
+            res_name = 'ingame_btn_number_'.. v.. '.png'
         end
 
         if (sprite) then
@@ -121,7 +121,7 @@ function NumberLabelWithSpriteFrame:refresh(number)
 
             sprite:setDockPoint(dock_point)
 	        sprite:setAnchorPoint(CENTER_POINT)
-            sprite:setScale(0.3)
+            sprite:setScale(1)
             self.m_node:addChild(sprite)
 
             self.m_mSprNumber[i] = sprite
@@ -130,9 +130,9 @@ function NumberLabelWithSpriteFrame:refresh(number)
         sprite:setPosition(x_offset, 0)
 
         if (self.m_hAlignment == cc.TEXT_ALIGNMENT_RIGHT) then
-            x_offset = x_offset - (sprite:getContentSize()['width'] / 4)
+            x_offset = x_offset - (sprite:getContentSize()['width'] / 1.5)
         else
-            x_offset = x_offset + (sprite:getContentSize()['width'] / 4)
+            x_offset = x_offset + (sprite:getContentSize()['width'] / 1.5)
         end
     end
 end

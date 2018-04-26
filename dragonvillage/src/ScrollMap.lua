@@ -584,10 +584,3 @@ function ScrollMap:getAddMoveDistance(dt)
 
     return distance
 end
-
--------------------------------------
--- function getAddMoveCurDistance
--------------------------------------
-function ScrollMap:getAddMoveCurDistance()
-    return self.m_addMoveCurDistance
-end

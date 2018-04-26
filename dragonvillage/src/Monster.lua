@@ -125,18 +125,13 @@ end
 -- function initAnimatorMonster
 -------------------------------------
 function Monster:initAnimatorMonster(file_name, attr, scale, size_type)
-    -- Animator 삭제
-    if self.m_animator then
-        if self.m_animator.m_node then
-            self.m_animator.m_node:removeFromParent(true)
-            self.m_animator.m_node = nil
-        end
-        self.m_animator = nil
+    if (self.m_animator) then
+        return false
     end
 
     -- Animator 생성
     self.m_animator = AnimatorHelper:makeMonsterAnimator(file_name, attr)
-    if (not self.m_animator.m_node) then return end
+    if (not self.m_animator.m_node) then return false end
 
     self.m_rootNode:addChild(self.m_animator.m_node)
 	if (scale) then
@@ -171,6 +166,8 @@ function Monster:initAnimatorMonster(file_name, attr, scale, size_type)
         -- 하이라이트 노드 설정
         self:addHighlightNode(self.m_chargeEffect.m_node)
     end
+
+    return true
 end
 
 -------------------------------------
