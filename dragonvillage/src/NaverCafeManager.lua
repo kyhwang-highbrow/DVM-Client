@@ -271,18 +271,33 @@ function NaverCafeManager:naverCafeEvent(cb_type, cb_info)
     end
 
     -- 조건 충족 체크
+    local is_event_match
     for i, t_event in ipairs(l_active_event) do
         event_key = t_event['event_key']
         event_cond = t_event['cond_' .. channel_code]
+        is_event_match = true
 
-        -- 이벤트 수행 여부 확인
-        if (not g_naverEventData:isAlreadyDone(event_key))
-        and (cb_type == t_event['event_type'])
-        and ((cb_info == event_cond) or (cb_info == '')) then
-                    
-            -- (cb_info == '')
-            -- cb_type 중에서 join과 같이 별도의 info가 넘어오지 않는 경우 통과시키기 위한 처리
-            
+        -- 이미 클리어
+        if (g_naverEventData:isAlreadyDone(event_key)) then
+            is_event_match = false
+        end
+
+        -- 콜백 타입과 이벤트 타입 불일치
+        if (cb_type ~= t_event['event_type']) then
+            is_event_match = false
+        end
+
+        -- 조건 체크 안하는 이벤트 -> 통과
+        if (cb_type == 'join') then
+
+        -- 조건 체크 이벤트
+        else
+            if (cb_info ~= event_cond) then
+                is_event_match = false
+            end
+        end
+
+        if (is_event_match) then
             cclog('## naver cafe plug event request : ', event_key, cb_type, cb_info)
             local function finish_cb()
                 self:naverCafeStop()
@@ -290,6 +305,7 @@ function NaverCafeManager:naverCafeEvent(cb_type, cb_info)
             g_naverEventData:request_naverEventReward(event_key, cb_type, t_event['t_event_name'], finish_cb)
             break
         end
+
     end
     
 end
