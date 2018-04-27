@@ -203,10 +203,22 @@ end
 -- function naverCafeStartWithArticle
 -------------------------------------
 function NaverCafeManager:naverCafeStartWithArticle(article_id)
-    if (skip()) then
-        return
+    if (CppFunctions:isWin32()) then
+        local plug_url
+        local channel_code = self:naverCafeGetChannelCode()
+        if (channel_code == 'ko') then
+            plug_url = 'http://cafe.naver.com/dragonvillagemobile/' .. article_id
+        elseif (channel_code == 'en') then
+            plug_url = 'https://www.plug.game/DragonvillageMGlobal/1031345#/posts/' .. article_id
+        elseif (channel_code == 'ja') then
+            plug_url = 'https://www.plug.game/DragonvillageMGlobal/1031352#/posts/' .. article_id
+        elseif (channel_code == 'zh') then
+            plug_url = 'https://www.plug.game/DragonvillageMGlobal/1031353#/posts/' .. article_id
+        end
+        CppFunctions:openUrl(plug_url)
+    else
+        PerpleSDK:naverCafeStartWithArticle(article_id)
     end
-    PerpleSDK:naverCafeStartWithArticle(article_id)
 end
 
 -------------------------------------

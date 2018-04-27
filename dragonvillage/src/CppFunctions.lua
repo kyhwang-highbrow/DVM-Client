@@ -102,5 +102,13 @@ function CppFunctionsClass:getLocale()
     return getLocale()
 end
 
+-------------------------------------
+-- function openUrl
+-- @param string
+-------------------------------------
+function CppFunctionsClass:openUrl(url)
+    openUrl(url)
+end
+
 -- instance 생성
 CppFunctions = CppFunctionsClass()

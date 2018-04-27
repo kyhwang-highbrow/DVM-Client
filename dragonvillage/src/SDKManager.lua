@@ -121,7 +121,11 @@ end
 -- @brief 
 -------------------------------------
 function SDKManager:goToWeb(url)
-    self:sendEvent('app_gotoWeb', url)
+    if (CppFunctions:isWin32()) then
+        CppFunctions:openUrl(url)
+    else
+        self:sendEvent('app_gotoWeb', url)
+    end
 end
 
 -------------------------------------
