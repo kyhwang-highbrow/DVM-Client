@@ -211,6 +211,20 @@ function UIC_LabelTTF:setAlignment(text_alignment_h, text_alignment_v)
 end
 
 -------------------------------------
+-- function setVerticalAlignment
+-------------------------------------
+function UIC_LabelTTF:setVerticalAlignment(text_alignment_v)
+    return self.m_node:setVerticalAlignment(text_alignment_v)
+end
+
+-------------------------------------
+-- function setHorizontalAlignment
+-------------------------------------
+function UIC_LabelTTF:setHorizontalAlignment(text_alignment_h)
+    return self.m_node:setHorizontalAlignment(text_alignment_h)
+end
+
+-------------------------------------
 -- function getStringWidth
 -------------------------------------
 function UIC_LabelTTF:getStringWidth()

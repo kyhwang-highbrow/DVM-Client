@@ -29,6 +29,16 @@ end
 -------------------------------------
 function UI_MailListItem:initUI()
     local vars = self.vars
+
+    -- 공지의 경우
+    if (self.m_mailData:isNotice()) then
+        -- 중앙 정렬
+        vars['mailLabel']:setVerticalAlignment(cc.VERTICAL_TEXT_ALIGNMENT_CENTER)
+        -- 공백 없이 개행
+        vars['mailLabel']:setLineBreakWithoutSpace(true)
+        -- 사이즈 조절
+        vars['mailLabel']:setDimensions(800, 100)
+    end
 end
 
 -------------------------------------
