@@ -930,12 +930,6 @@ end
 -- function onTouchBegan
 -------------------------------------
 function UI_ReadySceneNew_Deck:onTouchBegan(touch, event)
-    if (self.m_currentTouchID < 0) then
-        self.m_currentTouchID = touch:getId()
-    else
-        return false
-    end
-
     local vars = self.m_uiReadyScene.vars
     local location = touch:getLocation()
 
@@ -976,6 +970,13 @@ function UI_ReadySceneNew_Deck:onTouchBegan(touch, event)
 
     if (not self.m_lDeckList[select_idx]) then
         --cclog('비어있는 슬롯 ' .. select_idx)
+        return false
+    end
+
+    -- 멀티 터치 블럭은 상단 코드에서 터치 관련 체크 끝난 후 맨 마지막에 처리!
+    if (self.m_currentTouchID < 0) then
+        self.m_currentTouchID = touch:getId()
+    else
         return false
     end
 
