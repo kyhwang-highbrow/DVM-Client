@@ -382,7 +382,7 @@ function StructMail:readNotice(cb_func)
             local l_item = ret['added_items'] or {}
             l_item = l_item['items_list']
             if (l_item) then
-                UI_ObtainPopup(l_item, Str('보상 획득'), nil)
+                UI_ObtainPopup(l_item, Str('공지는 꼭 확인하라골!'), nil)
             end
             if (cb_func) then
                 cb_func()

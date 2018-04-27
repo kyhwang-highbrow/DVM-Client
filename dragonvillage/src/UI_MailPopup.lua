@@ -163,7 +163,11 @@ function UI_MailPopup:click_renewBtn()
 			for tab, table_view in pairs(self.m_mTableView) do 
 				local t_item_list = g_mailData:getMailList(tab)
 				table_view:setItemList(t_item_list)
-				g_mailData:sortMailList(table_view.m_itemList)
+				if (tab == 'notice') then
+					g_mailData:sortNoticeList(table_view.m_itemList)
+				else
+					g_mailData:sortMailList(table_view.m_itemList)
+				end
 			end
             self:refresh()
 		end
