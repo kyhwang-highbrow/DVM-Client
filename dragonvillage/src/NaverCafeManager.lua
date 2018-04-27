@@ -149,16 +149,16 @@ function NaverCafeManager:setPluginInfoBtn(node, article_key)
 
     -- 테이블에 해당 값 확인
     local t_data = table_naver_article[article_key]
-    -- 등록된 atricle이 없다면 버튼 visible off
     if (not t_data) then
-        node:setVisible(false)
+        cclog('table_naver_article에서 ' .. article_key .. '값이 없습니다.')
         return
     end
 
     local channel_code = self:naverCafeGetChannelCode()
     local article_id = t_data[channel_code]
+    -- 연결된 채널코드에 article_id가 없다면 visible off
     if (not article_id) then
-        article_id = t_data['en']
+        node:setVisible(false)
     else
         node:registerScriptTapHandler(function() self:naverCafeStartWithArticle(article_id) end)
     end
