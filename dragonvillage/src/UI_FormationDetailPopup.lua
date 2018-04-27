@@ -203,15 +203,11 @@ end
 -- function click_closeBtn
 -------------------------------------
 function UI_FormationDetailPopup:click_closeBtn()
-	local function cb_func()
-		-- 강화로 이뤄지지 않은 경우 콜백 X
-        if (not self.m_isActivated) then 
-            self:setCloseCB(nil)
-        end
-		self:close()
-	end
-
-	self:doActionReverse(cb_func, 1, false)
+	-- 강화로 이뤄지지 않은 경우 콜백 X
+    if (not self.m_isActivated) then 
+        self:setCloseCB(nil)
+    end
+	self:close()
 end
 
 --@CHECK

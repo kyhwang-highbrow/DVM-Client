@@ -204,12 +204,7 @@ function UI_UserInfoDetailPopup_SetLeader:click_closeBtn()
 	    self.m_closeCB = nil
     end
 
-    local function finish_cb()
-        self:close()
-    end
-
-    -- @UI_ACTION
-    self:doActionReverse(finish_cb, 1, false)
+    self:close()
 end
 
 --@CHECK

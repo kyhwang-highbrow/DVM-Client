@@ -209,13 +209,9 @@ end
 -- function click_closeBtn
 -------------------------------------
 function UI_SkillEnhance:click_closeBtn()
-	local function cb_func()
-		-- 강화로 이뤄지지 않은 경우 콜백 X
-		self:setCloseCB(nil)
-		self:close()
-	end
-
-	self:doActionReverse(cb_func, 1, false)
+	-- 강화로 이뤄지지 않은 경우 콜백 X
+	self:setCloseCB(nil)
+	self:close()
 end
 
 --@CHECK
