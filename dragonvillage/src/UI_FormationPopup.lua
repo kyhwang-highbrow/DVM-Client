@@ -120,14 +120,11 @@ end
 -- function click_closeBtn
 -------------------------------------
 function UI_FormationPopup:click_closeBtn()
-	local function cb_func()
-		-- 저장된 closeCB를 인자와 함께 실행시키기 위한 트릭
-		self.m_closeCB(self.m_currFormation)
-		self.m_closeCB = nil
+	-- 저장된 closeCB를 인자와 함께 실행시키기 위한 트릭
+	self.m_closeCB(self.m_currFormation)
+	self.m_closeCB = nil
 
-		self:close()
-	end
-	self:doActionReverse(cb_func, 1/2, false)
+	self:close()
 end
 
 
