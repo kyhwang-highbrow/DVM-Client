@@ -335,7 +335,7 @@ function ScrollMap:setBg(res, attr)
                     res_low = string.gsub(res_low, '@', attr)
                     animation = string.gsub(animation, '@', attr)
                 end
-                if (isLowEndMode()) then
+                if (isLowEndMode() and not string.find(res, 'low_')) then
                     res = res_low
                 end
                 local real_offset_x = (data['pos_x'] or 0)

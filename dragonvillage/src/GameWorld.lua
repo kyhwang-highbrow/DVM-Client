@@ -444,6 +444,11 @@ function GameWorld:initBG(waveMgr)
         self.m_mapManager = AnimationMap(self.m_bgNode, bg_res)
 
     elseif (bg_type == 'default') then
+        -- 고대 유적 던전의 경우 저사양모드일 경우 map 데이터 변환
+        if (isLowEndMode() and self.m_gameMode == GAME_MODE_ANCIENT_RUIN) then
+            bg_res = string.gsub(bg_res, 'map_', 'map_low_')
+        end
+
         -- 고대의 탑, 시험의 탑 map 데이터 변환
         if (g_ancientTowerData:isAncientTowerStage(self.m_stageID)) then
             bg_res = g_attrTowerData:changeBgRes(bg_res)
