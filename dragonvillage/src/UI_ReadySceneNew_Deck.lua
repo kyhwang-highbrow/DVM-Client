@@ -28,7 +28,9 @@ UI_ReadySceneNew_Deck = class({
         m_selRadioButton = 'UIC_RadioButton',
         m_selTab = 'string',
 
-        m_gameMode = 'number'
+        m_gameMode = 'number',
+
+        m_currentTouchID = 'number',
     })
 
 local TOTAL_POS_CNT = 5
@@ -913,6 +915,7 @@ end
 -- @brief 터치 레이어 생성
 -------------------------------------
 function UI_ReadySceneNew_Deck:makeTouchLayer_formation(target_node)
+    self.m_currentTouchID = -1
     local listener = cc.EventListenerTouchOneByOne:create()
     listener:registerScriptHandler(function(touch, event) return self:onTouchBegan(touch, event) end, cc.Handler.EVENT_TOUCH_BEGAN)
     listener:registerScriptHandler(function(touch, event) return self:onTouchMoved(touch, event) end, cc.Handler.EVENT_TOUCH_MOVED)
@@ -927,6 +930,12 @@ end
 -- function onTouchBegan
 -------------------------------------
 function UI_ReadySceneNew_Deck:onTouchBegan(touch, event)
+    if (self.m_currentTouchID < 0) then
+        self.m_currentTouchID = touch:getId()
+    else
+        return false
+    end
+
     local vars = self.m_uiReadyScene.vars
     local location = touch:getLocation()
 
@@ -997,6 +1006,10 @@ end
 -- function onTouchMoved
 -------------------------------------
 function UI_ReadySceneNew_Deck:onTouchMoved(touch, event)
+    if (self.m_currentTouchID ~= touch:getId()) then
+        return
+    end
+
     self:moveSelectDragonCard(touch, event)
 end
 
@@ -1004,6 +1017,12 @@ end
 -- function onTouchEnded
 -------------------------------------
 function UI_ReadySceneNew_Deck:onTouchEnded(touch, event)
+    if (self.m_currentTouchID == touch:getId()) then
+        self.m_currentTouchID = -1
+    else
+        return
+    end
+
     self:moveSelectDragonCard(touch, event)
 
     local vars = self.m_uiReadyScene.vars
