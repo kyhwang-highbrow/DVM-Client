@@ -151,7 +151,7 @@ end
 -- function isHighlightMail
 -------------------------------------
 function ServerData_Highlight:isHighlightMail()
-    return (0 < self['new_mail'])
+    return (0 < self['new_mail']) or (0 < self['new_notice'])
 end
 
 -------------------------------------
