@@ -157,7 +157,7 @@ function NaverCafeManager:setPluginInfoBtn(node, article_key)
     local channel_code = self:naverCafeGetChannelCode()
     local article_id = t_data[channel_code]
     -- 연결된 채널코드에 article_id가 없다면 visible off
-    if (not article_id) then
+    if (not article_id or article_id == '') then
         node:setVisible(false)
     else
         node:registerScriptTapHandler(function() self:naverCafeStartWithArticle(article_id) end)
@@ -191,7 +191,7 @@ function NaverCafeManager:naverCafeStartWithArticleByKey(article_key)
 
     local channel_code = self:naverCafeGetChannelCode()
     local article_id = t_data[channel_code]
-    if (not article_id) then
+    if (not article_id or article_id == '') then
         article_id = t_data['en']
     end
     
