@@ -134,6 +134,19 @@ function UIHelper:reattachNode(new_parent, node, z_order)
 end
 
 -------------------------------------
+-- function attachNotiIcon
+-- @brief 받은 노드 우상단에 노티 아이콘을 붙인다
+-------------------------------------
+function UIHelper:attachNotiIcon(node, level)
+    local icon = IconHelper:getNotiIcon()
+    level = level or 1
+    icon:setDockPoint(cc.p(1, 1))
+    icon:setPosition(-5 * level, -5 * level)
+    node:addChild(icon)
+    return icon
+end
+
+-------------------------------------
 -- function autoNoti
 -- @brief 탭이나 버튼 등에 자동으로 노티를 붙여준다.
 -- @param category_bool_map : {항목 : true/false} 의 맵 
@@ -153,10 +166,7 @@ function UIHelper:autoNoti(category_bool_map, noti_ui_table, ui_key, vars)
             local parent = vars[category .. ui_key]
             KeepOrderOfArrival(parent)
 
-			local icon = IconHelper:getNotiIcon()
-			icon:setDockPoint(cc.p(1, 1))
-			icon:setPosition(-5, -5)
-			parent:addChild(icon)
+			local icon = self:attachNotiIcon(parent, 1)
 			noti_ui_table[category] = icon
 
 		-- 있으면 킴

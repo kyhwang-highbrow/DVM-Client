@@ -34,11 +34,6 @@ function StructMail:init(data)
             end
         end
 
-        -- 보상 없는 공지 -> 수령한 것으로 처리
-        if (data['mail_type'] == 'notice') and (table.count(data['items_list']) == 0) then
-            data['custom']['received'] = true
-        end
-
         self:applyTableData(data)
         
         self:setExpireRemainTime()
@@ -353,8 +348,15 @@ end
 -------------------------------------
 -- function isNoticeHasReward
 -------------------------------------
+function StructMail:isNoticeRead()
+    return (self:isNotice() and (self['custom']['received'] == true))
+end
+
+-------------------------------------
+-- function isNoticeHasReward
+-------------------------------------
 function StructMail:isNoticeHasReward()
-    return (self:isNotice() and (self['custom']['received'] == false) and self:hasItem())
+    return (not self:isNoticeRead() and self:hasItem())
 end
 
 -------------------------------------
@@ -378,8 +380,8 @@ function StructMail:readNotice(cb_func)
         NaverCafeManager:naverCafeStartWithArticle(article_id)
     end
 
-    -- 보상 있으면 수령하기
-    if (self:isNoticeHasReward()) then
+    -- 공지 읽기
+    if (not self:isNoticeRead()) then
         -- 받은 것으로 처리해준다
         self['custom']['received'] = true
 
@@ -393,7 +395,8 @@ function StructMail:readNotice(cb_func)
         local function finish_cb(ret)
             local l_item = ret['added_items'] or {}
             l_item = l_item['items_list']
-            if (l_item) then
+            -- 보상 있으면 보상 팝업
+            if (l_item) and (table.count(l_item) > 0) then
                 UI_ObtainPopup(l_item, Str('공지는 꼭 확인하라골!'), nil)
             end
             if (cb_func) then

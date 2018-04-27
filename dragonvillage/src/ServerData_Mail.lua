@@ -119,7 +119,7 @@ function ServerData_Mail:sortNoticeList(sort_target_list)
     local sort_manager = SortManager()
 
     -- 보상이 있는 순, 이후 최신 공지를 맨위에 올리도록 함
-	sort_manager:setDefaultSortFunc(function(a, b) 
+	sort_manager:addSortType('reward', nil, function(a, b) 
             local a_data = a['data']
             local b_data = b['data']
 
@@ -133,13 +133,19 @@ function ServerData_Mail:sortNoticeList(sort_target_list)
                 return true
 
             else
-                local a_value = a_data['expired_at']
-                local b_value = b_data['expired_at']
-                return a_value > b_value
-                
+                return nil
+
             end
 	end)
 
+    sort_manager:addSortType('date', nil, function(a, b)
+        local a_date = a['data']['custom']['start_date']
+        local b_date = b['data']['custom']['start_date']
+        return a_date > b_date
+    end)
+
+    sort_manager:pushSortOrder('date')
+    sort_manager:pushSortOrder('reward')
     sort_manager:sortExecution(sort_target_list)
 end
 

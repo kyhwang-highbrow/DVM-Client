@@ -5,6 +5,7 @@ local PARENT = class(UI, ITableViewCell:getCloneTable())
 -------------------------------------
 UI_MailListItem = class(PARENT, {
         m_mailData = 'StructMail',
+        m_noticeReadNotiIcon = 'cc.Sprite'
     })
 
 -------------------------------------
@@ -80,6 +81,16 @@ function UI_MailListItem:refreshNotice()
 
     vars['rewardNode']:removeAllChildren()
 
+    -- 읽은 공지
+    if (self.m_mailData:isNoticeRead()) then
+        if (self.m_noticeReadNotiIcon) then
+            self.m_noticeReadNotiIcon:removeFromParent()
+        end
+    -- 안읽은 공지 : 아이콘
+    else
+        self.m_noticeReadNotiIcon = UIHelper:attachNotiIcon(vars['swallowTouchMenu'], 2)
+    end
+
     -- 보상 있으면 보상 아이템 보여줌
     if (self.m_mailData:isNoticeHasReward()) then
         self:makeMailItemIcons(self.m_mailData)
@@ -97,7 +108,7 @@ function UI_MailListItem:setReceivedNotice()
     self.vars['rewardBtn']:setVisible(false)
     self.vars['openBtn']:setVisible(true)
     self.vars['openBtn']:registerScriptTapHandler(function()
-        self.m_mailData:readNotice()
+        self.m_mailData:readNotice(function() self:refreshNotice() end)
     end)
 
     local icon = IconHelper:getIcon('res/ui/icons/item/dvm.png')
