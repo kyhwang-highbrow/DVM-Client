@@ -156,7 +156,7 @@ function Monster_AncientRuinDragon:initAnimatorMonster(file_name, attr, scale, s
     end
 
     -- Animator 생성
-    self.m_animator = AnimatorHelper:makeSpineAnimatorToUseResIntegrated(file_name, attr)
+    self.m_animator = AnimatorHelper:makeMonsterAnimator(file_name, attr)
     if (not self.m_animator.m_node) then return false end
 
     self.m_rootNode:addChild(self.m_animator.m_node)

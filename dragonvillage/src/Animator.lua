@@ -706,6 +706,42 @@ function MakeAnimator(file_name, skip_error_msg)
     return animator
 end
 
+
+-------------------------------------
+-- function MakeAnimatorSpineToIntegrated
+-- @breif 하나의 json으로 모든 속성을 공유하는 spine animator를 생성
+-------------------------------------
+function MakeAnimatorSpineToIntegrated(file_name, attr)
+    local spine_file_name = file_name
+    local atlas_file_name
+    local animator = nil
+
+    -- atlas파일 이름을 얻는다
+    do
+        local path, file_name, extension = string.match(spine_file_name, "(.-)([^//]-)(%.[^%.]+)$")
+        local temp = string.gsub(file_name, '_all', '_' .. attr)
+
+        atlas_file_name = path .. temp .. '/' .. file_name .. extension
+        
+        cclog('atlas_file_name : ' .. atlas_file_name)
+    end
+
+    -- Spine
+    if (string.match(spine_file_name, '%.spine')) then
+        animator = AnimatorSpine(spine_file_name, nil, atlas_file_name)
+    -- Spine
+    elseif (string.match(spine_file_name, '%.json')) then
+        animator = AnimatorSpine(spine_file_name, true, atlas_file_name)
+    end
+    
+    if (animator.m_node) then
+        animator.m_node:setDockPoint(cc.p(0.5, 0.5))
+        animator.m_node:setAnchorPoint(cc.p(0.5, 0.5))
+    end
+
+    return animator
+end
+
 -------------------------------------
 -- function setLowEndMode
 -- @breif 저사양 모드 설정

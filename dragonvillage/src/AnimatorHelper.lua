@@ -6,7 +6,16 @@ AnimatorHelper = {}
 function AnimatorHelper:makeDragonAnimator(res_name, evolution, attr)
 
 	local res_name = self:getDragonResName(res_name, evolution, attr)
-	local animator = MakeAnimator(res_name)
+	local animator
+
+    -- 드래곤의 경우는 추후 적용
+    --[[
+    if (self:isIntegratedSpineResName(res_name)) then
+        animator = MakeAnimatorSpineToIntegrated(res_name, attr)
+    else
+    ]]--
+        animator = MakeAnimator(res_name)
+    --end
 
     if (not animator.m_node) then
         animator = MakeAnimator('res/character/dragon/godaeshinryong_light_03/godaeshinryong_light_03.spine')
@@ -99,55 +108,19 @@ end
 function AnimatorHelper:makeMonsterAnimator(res_name, attr, evolution)
 
     local res_name = self:getMonsterResName(res_name, attr, evolution)
-    local animator = MakeAnimator(res_name)
+    local animator
+
+    if (self:isIntegratedSpineResName(res_name)) then
+        animator = MakeAnimatorSpineToIntegrated(res_name, attr)
+    else
+        animator = MakeAnimator(res_name)
+    end
 
     if (not animator.m_node) then
         animator = MakeAnimator('res/character/dragon/developing_dragon/developing_dragon.spine')
     end
 
     if animator then
-        animator.m_node:setMix('idle', 'attack', 0.1)
-        animator.m_node:setMix('idle', 'idle', 0.1)
-        animator.m_node:setMix('attack', 'idle', 0.1)
-    end
-
-    return animator
-end
-
--------------------------------------
--- function makeSpineAnimatorToUseResIntegrated
--------------------------------------
-function AnimatorHelper:makeSpineAnimatorToUseResIntegrated(res_name, attr)
-    local spine_file_name
-    local atlas_file_name
-    local animator
-
-    -- spine(또는 json) 파일명을 얻음
-    do
-        local temp = string.gsub(res_name, '_@/', '_all/')
-        spine_file_name = string.gsub(temp, '@', 'all')
-    end
-
-    -- atlas 파일명을 얻음
-    do
-        local path, file_name, extension = string.match(res_name, "(.-)([^//]-)(%.[^%.]+)$")
-        local temp1 = string.gsub(file_name, '@', attr)
-        local temp2 = string.gsub(path, '_@/', '_all/' .. temp1 .. '/')
-        local temp3 = string.gsub(file_name, '@', 'all')
-        atlas_file_name = temp2 .. temp3 .. extension
-        cclog('atlas_file_name : ' .. atlas_file_name)
-    end
-
-    if (string.match(spine_file_name, '%.spine')) then
-        animator = AnimatorSpine(spine_file_name, nil, atlas_file_name)
-    elseif (string.match(spine_file_name, '%.json')) then
-        animator = AnimatorSpine(spine_file_name, true, atlas_file_name)
-    end
-
-    if (animator.m_node) then
-        animator.m_node:setDockPoint(cc.p(0.5, 0.5))
-        animator.m_node:setAnchorPoint(cc.p(0.5, 0.5))
-        
         animator.m_node:setMix('idle', 'attack', 0.1)
         animator.m_node:setMix('idle', 'idle', 0.1)
         animator.m_node:setMix('attack', 'idle', 0.1)
@@ -201,4 +174,17 @@ function AnimatorHelper:getTitleAnimator()
 
 	local animator = MakeAnimator(res)
 	return animator
+end
+
+
+-------------------------------------
+-- function isIntegratedSpineResName
+-- @brief 하나의 json으로 모든 속성이 공유되는 형태의 spine 리소스인지 검증
+-------------------------------------
+function AnimatorHelper:isIntegratedSpineResName(res_name)
+    if (string.find(res_name, '_all')) then
+        return true
+    end
+
+    return false
 end
