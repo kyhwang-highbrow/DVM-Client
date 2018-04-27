@@ -302,6 +302,13 @@ static int l_getMarketName(lua_State* L)
 	return 1;
 }
 
+static int l_openURL(lua_State *L)
+{
+    const char* pszUrl = lua_tostring(L, 1);
+    ShellExecuteA(NULL, "open", pszUrl, NULL, NULL, SW_SHOWNORMAL);
+    return 1;
+}
+
 extern int isInstalled(const char *packagename);
 static int l_isInstalled(lua_State* L)
 {
@@ -412,6 +419,7 @@ void AppDelegate::initLuaEngine()
 			{ "getMarketName", l_getMarketName },
             { "openFileDialog", l_openFileDialog },
 			{ "getIPAddress", l_getIPAddress },
+            { "openUrl", l_openURL },
 			{ NULL, NULL }
 	};
 
