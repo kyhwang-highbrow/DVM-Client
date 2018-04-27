@@ -80,13 +80,13 @@ function UI_MailListItem:refreshNotice()
 
     vars['rewardNode']:removeAllChildren()
 
-    -- 보상 받은 경우 공지 보기만 가능
-    if (self.m_mailData:isReceivedNoticeReward()) then
-        self:setReceivedNotice()
-
-    else
-        -- 보상 받지 않은 경우
+    -- 보상 있으면 보상 아이템 보여줌
+    if (self.m_mailData:isNoticeHasReward()) then
         self:makeMailItemIcons(self.m_mailData)
+        
+    -- 보상 이미 받았거나 없는 경우
+    else
+        self:setReceivedNotice()
     end
 end
 

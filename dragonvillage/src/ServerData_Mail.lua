@@ -48,8 +48,17 @@ end
 function ServerData_Mail:getNewMailMap()
     local t_ret = {}
     for _, category in pairs(self.m_lCategory) do
-        if (self:hasNewMail(category)) then
-            t_ret[category] = true
+        if (category == 'notice') then
+            for i, mail in pairs(self.m_mMailMap[category]) do
+                if (mail:isNoticeHasReward()) then
+                    t_ret[category] = true
+                    break
+                end
+            end
+        else
+            if (self:hasNewMail(category)) then
+                t_ret[category] = true
+            end
         end
     end
     return t_ret

@@ -337,6 +337,13 @@ function StructMail:readBoosterItem(cb_func)
 end
 
 -------------------------------------
+-- function hasItem
+-------------------------------------
+function StructMail:hasItem()
+    return (table.count(self['items_list']) > 0)
+end
+
+-------------------------------------
 -- function isNotice
 -------------------------------------
 function StructMail:isNotice()
@@ -344,10 +351,10 @@ function StructMail:isNotice()
 end
 
 -------------------------------------
--- function isReceivedNoticeReward
+-- function isNoticeHasReward
 -------------------------------------
-function StructMail:isReceivedNoticeReward()
-    return (self:isNotice() and self['custom']['received']) or (table.count(self['items_list']) == 0)
+function StructMail:isNoticeHasReward()
+    return (self:isNotice() and (self['custom']['received'] == false) and self:hasItem())
 end
 
 -------------------------------------
@@ -372,7 +379,7 @@ function StructMail:readNotice(cb_func)
     end
 
     -- 보상 있으면 수령하기
-    if (not self:isReceivedNoticeReward()) then
+    if (self:isNoticeHasReward()) then
         -- 받은 것으로 처리해준다
         self['custom']['received'] = true
 
