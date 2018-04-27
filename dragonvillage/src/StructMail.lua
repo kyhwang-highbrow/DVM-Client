@@ -370,6 +370,25 @@ function StructMail:readNotice(cb_func)
     if (not self:isReceivedNoticeReward()) then
         -- 받은 것으로 처리해준다
         self['custom']['received'] = true
-        self:readMe(cb_func)
+
+        -- readMe와 분리되어 유지보수편의성이 떨어지지만 공지는 특이하게 동작하므로 분리
+        local mail_id_list = {
+            self:getMid()
+        }
+        local mail_type_list = {
+            self:getMailType()
+        }
+        local function finish_cb(ret)
+            local l_item = ret['added_items'] or {}
+            l_item = l_item['items_list']
+            if (l_item) then
+                UI_ObtainPopup(l_item, Str('보상 획득'), nil)
+            end
+            if (cb_func) then
+                cb_func()
+            end
+        end
+    
+        g_mailData:request_mailRead(mail_id_list, mail_type_list, finish_cb)
     end
 end

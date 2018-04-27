@@ -109,7 +109,7 @@ end
 function ServerData_Mail:sortNoticeList(sort_target_list)
     local sort_manager = SortManager()
 
-    -- 보상이 있는 순, 이후 순서는..?
+    -- 보상이 있는 순, 이후 최신 공지를 맨위에 올리도록 함
 	sort_manager:setDefaultSortFunc(function(a, b) 
             local a_data = a['data']
             local b_data = b['data']
@@ -126,7 +126,7 @@ function ServerData_Mail:sortNoticeList(sort_target_list)
             else
                 local a_value = a_data['expired_at']
                 local b_value = b_data['expired_at']
-                return a_value < b_value
+                return a_value > b_value
                 
             end
 	end)
