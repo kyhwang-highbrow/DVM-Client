@@ -34,6 +34,11 @@ function StructMail:init(data)
             end
         end
 
+        -- 보상 없는 공지 -> 수령한 것으로 처리
+        if (data['mail_type'] == 'notice') and (table.count(data['items_list']) == 0) then
+            data['custom']['received'] = true
+        end
+
         self:applyTableData(data)
         
         self:setExpireRemainTime()
