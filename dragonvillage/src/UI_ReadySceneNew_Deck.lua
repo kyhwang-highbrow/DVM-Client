@@ -30,7 +30,7 @@ UI_ReadySceneNew_Deck = class({
 
         m_gameMode = 'number',
 
-        m_currentTouchID = 'number',
+        m_bSelectedTouch = 'boolean',
     })
 
 local TOTAL_POS_CNT = 5
@@ -915,7 +915,7 @@ end
 -- @brief 터치 레이어 생성
 -------------------------------------
 function UI_ReadySceneNew_Deck:makeTouchLayer_formation(target_node)
-    self.m_currentTouchID = -1
+    self.m_bSelectedTouch = false
     local listener = cc.EventListenerTouchOneByOne:create()
     listener:registerScriptHandler(function(touch, event) return self:onTouchBegan(touch, event) end, cc.Handler.EVENT_TOUCH_BEGAN)
     listener:registerScriptHandler(function(touch, event) return self:onTouchMoved(touch, event) end, cc.Handler.EVENT_TOUCH_MOVED)
@@ -974,8 +974,8 @@ function UI_ReadySceneNew_Deck:onTouchBegan(touch, event)
     end
 
     -- 멀티 터치 블럭은 상단 코드에서 터치 관련 체크 끝난 후 맨 마지막에 처리!
-    if (self.m_currentTouchID < 0) then
-        self.m_currentTouchID = touch:getId()
+    if (not self.m_bSelectedTouch) then
+        self.m_bSelectedTouch = true
     else
         return false
     end
@@ -1007,10 +1007,6 @@ end
 -- function onTouchMoved
 -------------------------------------
 function UI_ReadySceneNew_Deck:onTouchMoved(touch, event)
-    if (self.m_currentTouchID ~= touch:getId()) then
-        return
-    end
-
     self:moveSelectDragonCard(touch, event)
 end
 
@@ -1018,12 +1014,10 @@ end
 -- function onTouchEnded
 -------------------------------------
 function UI_ReadySceneNew_Deck:onTouchEnded(touch, event)
-    if (self.m_currentTouchID == touch:getId()) then
-        self.m_currentTouchID = -1
-    else
-        return
+    if (self.m_bSelectedTouch) then
+        self.m_bSelectedTouch = false
     end
-
+    
     self:moveSelectDragonCard(touch, event)
 
     local vars = self.m_uiReadyScene.vars
