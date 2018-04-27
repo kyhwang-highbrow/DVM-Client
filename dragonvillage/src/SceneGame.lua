@@ -616,6 +616,20 @@ function SceneGame:networkGameFinish(t_param, t_result_ref, next_func)
         end
     end
 
+    -- true를 리턴하면 자체적으로 처리를 완료했다는 뜻
+    local function response_status_cb(ret)
+        -- invalid season
+        if (ret['status'] == -1364) then
+            -- 로비로 이동
+            local function ok_cb()
+                UINavigator:goTo('lobby')
+            end 
+            MakeSimplePopup(POPUP_TYPE.OK, Str('시즌이 종료되었습니다.'), ok_cb)
+            return true
+        end
+        return false
+    end
+
     -- 모드별 API 주소 분기처리
     local api_url = ''
     local game_mode = self.m_gameMode
@@ -702,6 +716,7 @@ function SceneGame:networkGameFinish(t_param, t_result_ref, next_func)
         ui_network:setParam('auto', auto)
     end
 
+    ui_network:setResponseStatusCB(response_status_cb)
     ui_network:setSuccessCB(success_cb)
     ui_network:request()
 end
