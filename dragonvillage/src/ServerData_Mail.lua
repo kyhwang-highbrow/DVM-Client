@@ -49,8 +49,9 @@ function ServerData_Mail:getNewMailMap()
     local t_ret = {}
     for _, category in pairs(self.m_lCategory) do
         if (category == 'notice') then
+            -- 안 읽은 공지 있다면 알림 아이콘 표시
             for i, mail in pairs(self.m_mMailMap[category]) do
-                if (mail:isNoticeHasReward()) then
+                if (not mail:isNoticeRead()) then
                     t_ret[category] = true
                     break
                 end
