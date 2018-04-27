@@ -83,7 +83,10 @@ end
 -- @brief 일반 스킬 설명
 -------------------------------------
 function DragonSkillIndivisualInfo:getSkillDesc()
-    return DragonSkillCore.getSkillDescPure(self.m_tSkill)
+    -- 스킬 레벨이 반영되지 않은 테이블로 설명 표시
+    local t_skill = clone(GetSkillTable(self.m_charType):get(self.m_skillID))
+    DragonSkillCore.substituteSkillDesc(t_skill)
+    return DragonSkillCore.getSkillDescPure(t_skill)
 end
 
 -------------------------------------
