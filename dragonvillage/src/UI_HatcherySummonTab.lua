@@ -96,8 +96,7 @@ function UI_HatcherySummonTab:initUI()
     end
 
     -- 소환 확률 안내 (네이버 sdk 링크)
-    vars['infoBtn']:registerScriptTapHandler(function() self:click_infoBtn() end)
-    vars['infoBtn']:setVisible(false) -- 네이버 카페 SDK에서 체널과 게시글을 동시에 지정하는 기능이 없어서 보류 sgkim 2018-01-31
+    NaverCafeManager:setPluginInfoBtn(vars['plugInfoBtn'], 'summon_info')
 end
 
 
@@ -325,12 +324,4 @@ function UI_HatcherySummonTab:summonApiFinished()
 
     local fail_cb = nil
     g_hatcheryData:update_hatcheryInfo(finish_cb, fail_cb)
-end
-
--------------------------------------
--- function click_infoBtn
--- @brief 소환 확률 안내 (네이버 sdk 링크)
--------------------------------------
-function UI_HatcherySummonTab:click_infoBtn()
-    NaverCafeManager:naverCafeStartWithArticle('summon_info')
 end

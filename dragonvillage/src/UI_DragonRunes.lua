@@ -112,6 +112,9 @@ function UI_DragonRunes:initButton()
 
 	-- 룬 정보
 	vars['runeInfoBtn']:registerScriptTapHandler(function() self:click_runeInfoBtn() end)
+
+    -- 룬 안내 (네이버 sdk 링크)
+    NaverCafeManager:setPluginInfoBtn(vars['plugInfoBtn'], 'rune_help')
 end
 
 -------------------------------------

@@ -106,6 +106,9 @@ end
 -------------------------------------
 function UI_DragonReinforcement:initButton()
     local vars = self.vars
+    
+    -- 드래곤 강화 안내 (네이버 sdk 링크)
+    NaverCafeManager:setPluginInfoBtn(vars['plugInfoBtn'], 'd_reinforce_help')
 end
 
 -------------------------------------
@@ -726,7 +729,6 @@ function UI_DragonReinforcement:reinforceDirecting(item_ui, finish_cb)
     end
 
 end
-
 
 --@CHECK
 UI:checkCompileError(UI_DragonReinforcement)

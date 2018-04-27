@@ -124,6 +124,9 @@ function UI_ClanRaid:initButton()
     vars['bossInfoBtn']:registerScriptTapHandler(function() self:click_bossInfoBtn('info') end)
     vars['synastryInfoBtn']:registerScriptTapHandler(function() self:click_bossInfoBtn('synastry') end)
     vars['fbInfoBtn']:registerScriptTapHandler(function() self:click_bossInfoBtn('finalblow') end)
+
+    -- 클랜 던전 안내 (네이버 sdk 링크)
+    NaverCafeManager:setPluginInfoBtn(vars['plugInfoBtn'], 'clanraid_help')
 end
 
 -------------------------------------

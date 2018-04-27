@@ -77,6 +77,9 @@ end
 function UI_DragonSkillEnhance:initButton()
     local vars = self.vars
     vars['enhanceBtn']:registerScriptTapHandler(function() self:click_enhanceBtn() end)
+
+    -- 스킬 레벨업 안내 (네이버 sdk 링크)
+    NaverCafeManager:setPluginInfoBtn(vars['plugInfoBtn'], 'd_skill_levelup_help')
 end
 
 -------------------------------------

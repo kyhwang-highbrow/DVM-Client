@@ -148,7 +148,7 @@ local TableInfo_fromServer = {
         ['table_naver_event'] = {'table_naver_event', 'id'},
 
         -- 가방
-         ['table_inventory'] = {'table_inventory', 'lv'},
+        ['table_inventory'] = {'table_inventory', 'lv'},
     }
 
 -------------------------------------

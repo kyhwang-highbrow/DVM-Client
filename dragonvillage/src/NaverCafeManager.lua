@@ -129,6 +129,42 @@ function NaverCafeManager:naverCafeStartImageWrite(fileUri)
 end
 
 -------------------------------------
+-- function setPluginInfoBtn
+-- @brief 관리 용이하게 여기서 click_handler 등록, 글이 없다면 버튼 visible off
+-- @brief ex) NaverCafeManager:setPluginInfoBtn(vars['plugInfoBtn'], 'rune_help')
+-------------------------------------
+function NaverCafeManager:setPluginInfoBtn(node, article_key)
+    -- 파라미터 확인
+    if (not article_key) then
+        cclog('article_key가 nil입니다.')
+        return
+    end
+
+    -- 테이블 확인
+    local table_naver_article = TABLE:get('table_naver_article')
+    if (not table_naver_article) then
+        cclog('table_naver_article가 nil입니다.')
+        return
+    end
+
+    -- 테이블에 해당 값 확인
+    local t_data = table_naver_article[article_key]
+    if (not t_data) then
+        cclog('table_naver_article에서 ' .. article_key .. '값이 없습니다.')
+        return
+    end
+
+    local channel_code = self:naverCafeGetChannelCode()
+    local article_id = t_data[channel_code]
+    -- 글이 없다면 버튼 visible off
+    if (not article_id) then
+        node:setVisible(false)
+    else
+        node:registerScriptTapHandler(function() self:naverCafeStartWithArticle(article_id) end)
+    end
+end
+
+-------------------------------------
 -- function naverCafeStartWithArticleByKey
 -- @brief 네이버 카페에 특정게시글 보며 열기 
 -------------------------------------

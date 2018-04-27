@@ -88,6 +88,9 @@ end
 function UI_CapsuleBoxRewardList:initButton()
 	local vars = self.vars
 	vars['closeBtn']:registerScriptTapHandler(function() self:click_closeBtn() end)
+
+    -- 캡슐 뽑기 안내 (네이버 sdk 링크)
+    NaverCafeManager:setPluginInfoBtn(vars['plugInfoBtn'], 'capsule_box_help')
 end
 
 -------------------------------------
