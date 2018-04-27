@@ -266,10 +266,10 @@ function UI_Lobby:entryCoroutine()
 			end
 
             -- 카페 플러그 커뮤니티
-            if (is_show) then
-                cclog('# 카페 플러그 커뮤니티')
-                NaverCafeManager:naverCafeStart(0) -- 네이버 카페
-            end
+            -- if (is_show) then
+            --     cclog('# 카페 플러그 커뮤니티')
+            --     NaverCafeManager:naverCafeStart(0) -- 네이버 카페
+            -- end
 
             -- @ MASTER ROAD
             cclog('# 마스터의 길 확인 중')
