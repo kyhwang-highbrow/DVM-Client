@@ -53,6 +53,7 @@
 #define ADJUST_TOKKEN_ID            @"esjmkti8vim8"
 #define TWITTER_CUSTOMER_KEY        @"VCJ9gb6EjeIQO74rAbUl9B6aj"
 #define TWITTER_CUSTOMER_SECRET     @"D0kt613Jye142Efej1DxtvJguItaK5PtgvYyJfY34Pvqs1HCBH"
+#define ADMOB_APP_ID                @"ca-app-pub-9497777061019569~6778068791"
 
 // iTunes Connect App ID : 1281873988
 
@@ -100,12 +101,7 @@ static AppDelegate s_sharedApplication;
 
     // Use RootViewController manage CCEAGLView
     viewController = [[RootViewController alloc] initWithNibName:nil bundle:nil];
-
-    if ([[UIDevice currentDevice].systemVersion floatValue] < 7.0) {
-        viewController.wantsFullScreenLayout = YES;
-    } else {
-        viewController.extendedLayoutIncludesOpaqueBars = YES;
-    }
+    viewController.extendedLayoutIncludesOpaqueBars = YES;
     viewController.view = eaglView;
 
     // Set RootViewController to window
@@ -118,8 +114,6 @@ static AppDelegate s_sharedApplication;
     }
 
     [window makeKeyAndVisible];
-
-    [[UIApplication sharedApplication] setStatusBarHidden:YES];
 
     // IMPORTANT: Setting the GLView should be done after creating the RootViewController
     cocos2d::GLView *glview = cocos2d::GLView::createWithEAGLView(eaglView);
@@ -139,13 +133,13 @@ static AppDelegate s_sharedApplication;
     }
     [[PerpleSDK sharedInstance] initAdbrixWithAppKey:ADBRIX_APP_KEY hashKey:ADBRIX_HASH_KEY logLevel:0];
     [[PerpleSDK sharedInstance] initTapjoyWithAppKey:TAPJOY_SDK_KEY usePush:NO debug:isDebug];
-    [[PerpleSDK sharedInstance] initUnityAdsWithParentView:viewController gameId:UNITY_ADS_GAME_ID debug:isDebug];
-    [[PerpleSDK sharedInstance] initAdColonyWithParentView:viewController appId:ADCOLONY_APP_ID];
+    //[[PerpleSDK sharedInstance] initUnityAdsWithParentView:viewController gameId:UNITY_ADS_GAME_ID debug:isDebug];
+    //[[PerpleSDK sharedInstance] initAdColonyWithParentView:viewController appId:ADCOLONY_APP_ID];
     [[PerpleSDK sharedInstance] initNaverWithParentView:viewController isLandspape:YES clientId:NAVER_CAFE_CLIENT_ID clientSecret:NAVER_CAFE_CLIENT_SECRET cafeId:NAVER_CAFE_ID neoIdConsumerKey:NAVER_NEO_ID_CONSUMER_KEY communityId:NAVER_COMMUNITY_ID urlScheme:@"dvmNaverLogin"];
     [[PerpleSDK sharedInstance] initBilling];
     [[PerpleSDK sharedInstance] initAdjustWithAppKey:ADJUST_TOKKEN_ID secret:adjustSecretKey debug:isDebug];
+    [[PerpleSDK sharedInstance] initAdMobWithAppId:ADMOB_APP_ID debug:isDebug];
     [[PerpleSDK sharedInstance] application:application didFinishLaunchingWithOptions:launchOptions];
-
     cocos2d::Application::getInstance()->run();
 
     return YES;

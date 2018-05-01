@@ -64,6 +64,7 @@
 #define PERPLESDK_ERROR_BILLING_CHECKRECEIPT                "-1503"
 #define PERPLESDK_ERROR_BILLING_PURCHASEFINISH              "-1504"
 #define PERPLESDK_ERROR_BILLING_INVALIDPRODUCT              "-1505"
+#define PERPLESDK_ERROR_BILLING_REQUEST_FAIL                "-1506"
 
 #define PERPLESDK_ERROR_TAPJOY_NOTINITIALIZED               "-1600"
 #define PERPLESDK_ERROR_TAPJOY_NOTSETPLACEMENT              "-1601"
@@ -99,6 +100,7 @@
 @class PerpleAdColony;
 @class PerpleBilling;
 @class PerpleAdjust;
+@class PerpleAdMob;
 
 typedef void(^PerpleSDKCallback)(NSString *result, NSString *info);
 
@@ -119,6 +121,7 @@ typedef void(^PerpleSDKCallback)(NSString *result, NSString *info);
 @property (nonatomic, retain) PerpleAdColony *mAdColony;
 @property (nonatomic, retain) PerpleBilling *mBilling;
 @property (nonatomic, retain) PerpleAdjust *mAdjust;
+@property (nonatomic, retain) PerpleAdMob *mAdMob;
 
 @property (nonatomic, copy) NSString *mPlatformServerEncryptSecretKey;
 @property (nonatomic, copy) NSString *mPlatformServerEncryptAlgorithm;
@@ -243,6 +246,12 @@ typedef void(^PerpleSDKCallback)(NSString *result, NSString *info);
 - (void) adjustTrackEvent:(NSString *)eventKey;
 - (void) adjustTrackPayment:(NSString *)key price:(NSString *)price currency:(NSString *)currency;
 
+// @adMob
+- (void) adMobStart:(NSString *)adUnitIdList;
+- (void) adMobLoadRequest;
+- (void) adMobSetResultCallBack:(PerpleSDKCallback) callback;
+- (void) adMobShow:(NSString *)adUnitId;
+
 #pragma mark - Initialization
 
 // Initialization
@@ -259,7 +268,7 @@ typedef void(^PerpleSDKCallback)(NSString *result, NSString *info);
 - (BOOL) initAdColonyWithParentView:(UIViewController *)parentView appId:(NSString *)appId;
 - (BOOL) initBilling;
 - (BOOL) initAdjustWithAppKey:(NSString *)appKey secret:(NSArray *)secretKey debug:(BOOL)isDebug;
-
+- (BOOL) initAdMobWithAppId:(NSString *)appId adUnitID:(NSString*)adUnitId debug:(BOOL)isDebug;
 #pragma mark - Static methods
 
 + (id) sharedInstance;
@@ -291,7 +300,6 @@ typedef void(^PerpleSDKCallback)(NSString *result, NSString *info);
 - (void) applicationDidEnterBackground:(UIApplication *)application;
 - (BOOL) application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions;
 - (BOOL) application:(UIApplication *)application openURL:(NSURL *)url options:(NSDictionary<NSString *, id> *)options;
-- (BOOL) application:(UIApplication *)application openURL:(NSURL *)url sourceApplication:(NSString *)sourceApplication annotation:(id)annotation;
 - (BOOL) application:(UIApplication *)application continueUserActivity:(NSUserActivity *)userActivity restorationHandler:(void (^)(NSArray *restorableObjects))restorationHandler;
 // AppDelegate, Push notifications
 - (void) application:(UIApplication *)application didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken;
