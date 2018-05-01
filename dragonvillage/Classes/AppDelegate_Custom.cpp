@@ -304,8 +304,10 @@ static int l_getMarketName(lua_State* L)
 
 static int l_openURL(lua_State *L)
 {
+#if (CC_TARGET_PLATFORM == CC_PLATFORM_WIN32)
     const char* pszUrl = lua_tostring(L, 1);
     ShellExecuteA(NULL, "open", pszUrl, NULL, NULL, SW_SHOWNORMAL);
+#endif
     return 1;
 }
 
