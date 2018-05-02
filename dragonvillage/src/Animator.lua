@@ -711,17 +711,21 @@ end
 -- function MakeAnimatorSpineToIntegrated
 -- @breif 하나의 json으로 모든 속성을 공유하는 spine animator를 생성
 -------------------------------------
-function MakeAnimatorSpineToIntegrated(file_name, attr)
-    local spine_file_name = file_name
+function MakeAnimatorSpineToIntegrated(org_file_name, attr)
+    local spine_file_name
     local atlas_file_name
     local animator = nil
 
-    -- atlas파일 이름을 얻는다
+    -- spine 파일과 atlas 파일의 이름을 얻는다
     do
-        local path, file_name, extension = string.match(spine_file_name, "(.-)([^//]-)(%.[^%.]+)$")
-        local temp = string.gsub(file_name, '_all', '_' .. attr)
+        local path, file_name, extension = string.match(org_file_name, "(.-)([^//]-)(%.[^%.]+)$")
+        local add_path = string.gsub(file_name, '!', attr)
 
-        atlas_file_name = path .. temp .. '/' .. file_name .. extension
+        path = string.gsub(path, '!', 'all')
+        file_name = string.gsub(file_name, '!', 'all')
+        
+        spine_file_name = path .. file_name .. extension
+        atlas_file_name = path .. add_path .. '/' .. file_name .. extension
         
         cclog('atlas_file_name : ' .. atlas_file_name)
     end

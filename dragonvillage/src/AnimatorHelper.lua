@@ -182,7 +182,7 @@ end
 -- @brief 하나의 json으로 모든 속성이 공유되는 형태의 spine 리소스인지 검증
 -------------------------------------
 function AnimatorHelper:isIntegratedSpineResName(res_name)
-    if (string.find(res_name, '_all')) then
+    if (string.find(res_name, '!')) then
         return true
     end
 
