@@ -211,6 +211,13 @@ function UI_AdventureStageInfo:refresh()
 
         vars['bossNode']:removeAllChildren()
 
+        -- 앱업데이트 전 임시 처리... 고대 유적 보스의 경우 스파인 캐쉬를 날림
+        if (game_mode == GAME_MODE_ANCIENT_RUIN) then
+            if (SpineCacheManager) then
+                sp.SkeletonAnimation:removeCache('res/character/monster/boss_ancient_all/boss_ancient_all.json')
+            end
+        end
+
         if (monster_id) then
             local res, attr, evolution = TableMonster:getMonsterRes(monster_id)
             local animator = AnimatorHelper:makeMonsterAnimator(res, attr, evolution)
