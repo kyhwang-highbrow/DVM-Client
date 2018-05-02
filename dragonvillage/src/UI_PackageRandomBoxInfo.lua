@@ -14,6 +14,11 @@ function UI_PackageRandomBoxInfo:init(l_item)
     local vars = self:load('package_lucky_box_popup.ui')
     UIManager:open(self, UIManager.POPUP)
 
+    -- 확률 순으로 정렬
+    table.sort(l_item, function(a,b)
+        return a['pick_weight'] < b['pick_weight']
+    end)
+
     self.m_item_list = l_item
 
     -- backkey 지정

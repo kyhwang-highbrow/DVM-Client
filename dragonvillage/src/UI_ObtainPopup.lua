@@ -173,7 +173,7 @@ end
 -- @brief
 -- @param t_ret
 -------------------------------------
-function ItemObtainResult_Shop(t_ret)
+function ItemObtainResult_Shop(t_ret, show_all)
     if (not t_ret) then
         return
     end
@@ -204,7 +204,7 @@ function ItemObtainResult_Shop(t_ret)
         local item_type = TableItem:getItemType(item_id)
 
         -- 기본 재화 구매는 결과를 보여주지 않음
-        if (TableItem:getItemIDFromItemType(item_type)) then
+        if (TableItem:getItemIDFromItemType(item_type) and not show_all) then
             return
         end
 

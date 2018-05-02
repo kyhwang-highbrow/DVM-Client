@@ -199,8 +199,14 @@ function UI_Package_Bundle:click_buyBtn(struct_product)
             self.m_cbBuy(ret)
         end
 
+        -- 만원의 행복은 구입 즉시 지급되므로 기본재화들도 결과 보여줌
+        local show_all = false
+        if (self.m_package_name == 'package_lucky_box') then
+            show_all = true
+        end
+
         -- 아이템 획득 결과창
-        ItemObtainResult_Shop(ret)
+        ItemObtainResult_Shop(ret, show_all)
 
         -- 갱신이 필요한 상태일 경우
         if ret['need_refresh'] then
