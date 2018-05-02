@@ -602,6 +602,7 @@ function UIManager:onKeyReleased(keyCode, event)
     elseif (keyCode == KEY_B) then
         local b = g_broadcastManager:isEnable()
         if (b == true) then
+            g_topUserInfo:clearBroadcast()
             self:toastNotificationGreen('방송 비활성화')
         else
             self:toastNotificationGreen('방송 활성화')
