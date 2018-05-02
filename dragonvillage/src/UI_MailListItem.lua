@@ -98,7 +98,9 @@ function UI_MailListItem:refreshNotice()
         end
     -- 안읽은 공지 : 아이콘
     else
-        self.m_noticeReadNotiIcon = UIHelper:attachNotiIcon(vars['swallowTouchMenu'], 2)
+        -- 보상 버튼에 붙은 아이콘은 어차피 안보일테니까..
+        UIHelper:attachNotiIcon(vars['rewardBtn'])
+        self.m_noticeReadNotiIcon = UIHelper:attachNotiIcon(vars['openBtn'])
     end
 
     -- 보상 있으면 보상 아이템 보여줌
