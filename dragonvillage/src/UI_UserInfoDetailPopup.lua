@@ -464,6 +464,11 @@ function UI_UserInfoDetailPopup:click_titleChangeBtn()
         local curr_title_id = self.m_tUserInfo['tamer_title']
 
         ui:setCloseCB(function(title_id)
+            -- 선택하지 않은 경우 pass
+            if (title_id == nil) then
+                return
+            end
+
             if (curr_title_id ~= title_id) then
                 self.m_tUserInfo['tamer_title'] = title_id
                 self:refresh_title()
