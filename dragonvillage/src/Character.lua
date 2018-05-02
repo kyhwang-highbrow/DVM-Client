@@ -72,7 +72,10 @@ Character = class(PARENT, {
         -- @node UI
         m_unitInfoNode = 'cc.Node',
         m_lockOnNode = 'cc.Node',       -- 인디케이터 선택 대상 표시를 위한 노드
-        m_enemySpeechNode = 'cc.Node',
+        m_enemySpeechNode = 'cc.Node',  -- 캐스팅 연출을 위한 노드로 사용됨
+
+        m_passiveWindowNode = 'cc.Node',-- 겹쳐서 생성되는 걸 막기 위해 사용
+        m_passiveTextLabel = 'cc.Node',
 
         -- @hp UI
 		m_infoUI = '',

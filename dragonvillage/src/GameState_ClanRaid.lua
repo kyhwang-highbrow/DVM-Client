@@ -404,7 +404,7 @@ function GameState_ClanRaid:onEvent(event_name, t_event, ...)
 
         -- 이전 체력이 동일한지 검사
         local safed_hp = self.m_bossHp:get()
-        if (prev_hp ~= safed_hp) then
+        if (math_floor(prev_hp) ~= math_floor(safed_hp)) then
             -- 값이 동일하지 않을 경우 해킹인 것으로 간주해서 체력을 깍지 않음
             new_hp = safed_hp
         end
