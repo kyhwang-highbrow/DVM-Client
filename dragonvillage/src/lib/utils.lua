@@ -1041,6 +1041,23 @@ function listToCsv(list)
 end
 
 -------------------------------------
+-- function listToString
+-- @brief 리스트 항목을 sep으로 구분된 문자열로 변환
+-------------------------------------
+function listToString(list, sep)
+    local str = nil
+    for i,v in ipairs(list) do
+        if (str == nil) then
+            str = tostring(v)
+        else
+            str = str .. sep .. tostring(v)
+        end
+    end
+
+    return str
+end
+
+-------------------------------------
 -- function getDigit
 -- @brief id에서 특정 자릿수를 리턴
 -- @param id
