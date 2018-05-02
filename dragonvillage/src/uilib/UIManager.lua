@@ -598,6 +598,16 @@ function UIManager:onKeyReleased(keyCode, event)
 		end
 		PrintMemory()
 
+    -- 방송 비활성화
+    elseif (keyCode == KEY_B) then
+        local b = g_broadcastManager:isEnable()
+        if (b == true) then
+            self:toastNotificationGreen('방송 비활성화')
+        else
+            self:toastNotificationGreen('방송 활성화')
+        end
+        g_broadcastManager:setEnable(not b)
+
 	-- 로비 낮/밤 전환
     elseif (keyCode == KEY_D) then
 		USE_NIGHT = not USE_NIGHT

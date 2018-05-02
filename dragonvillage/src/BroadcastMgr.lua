@@ -243,6 +243,13 @@ function BroadcastMgr:setEnable(enable)
 end
 
 -------------------------------------
+-- function isEnable
+-------------------------------------
+function BroadcastMgr:isEnable()
+	return self.m_bEnableMessage
+end
+
+-------------------------------------
 -- function setEnableNotice
 -- @brief 공지 메세지 활성 지정
 -------------------------------------
