@@ -73,6 +73,8 @@ function UI_GameDPSPopup:initUI()
         node:setContentSize(cc.size(size.width, self.m_rootHeight))
         vars['dpsBtn']:setPositionY(vars['dpsBtn']:getPositionY() + self.m_rootHeight/multi)
         vars['dpsToggleNode']:setPositionY(vars['dpsToggleNode']:getPositionY() + self.m_rootHeight/multi)
+
+        vars['dpsToggleBtn']:setContentSize(cc.size(size.width, self.m_rootHeight))
     else
         self.m_rootHeight = node:getContentSize()['height']
     end
