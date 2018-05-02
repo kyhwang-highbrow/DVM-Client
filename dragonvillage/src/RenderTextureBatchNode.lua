@@ -16,7 +16,14 @@ end
 -- function init_fromRes
 -------------------------------------
 function RenderTextureBatchNode:init_fromRes(res, scale)
-    local animator = MakeAnimator(res)
+    local animator
+
+    if (AnimatorHelper:isIntegratedSpineResName(res)) then
+        animator = MakeAnimatorSpineToIntegrated(res)
+    else
+        animator = MakeAnimator(res)
+    end
+
     if scale then
         animator:setScale(scale)
     end

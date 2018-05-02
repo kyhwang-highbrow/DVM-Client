@@ -9,13 +9,11 @@ function AnimatorHelper:makeDragonAnimator(res_name, evolution, attr)
 	local animator
 
     -- 드래곤의 경우는 추후 적용
-    --[[
     if (self:isIntegratedSpineResName(res_name)) then
-        animator = MakeAnimatorSpineToIntegrated(res_name, attr)
+        animator = MakeAnimatorSpineToIntegrated(res_name)
     else
-    ]]--
         animator = MakeAnimator(res_name)
-    --end
+    end
 
     if (not animator.m_node) then
         animator = MakeAnimator('res/character/dragon/godaeshinryong_light_03/godaeshinryong_light_03.spine')
@@ -111,7 +109,7 @@ function AnimatorHelper:makeMonsterAnimator(res_name, attr, evolution)
     local animator
 
     if (self:isIntegratedSpineResName(res_name)) then
-        animator = MakeAnimatorSpineToIntegrated(res_name, attr)
+        animator = MakeAnimatorSpineToIntegrated(res_name)
     else
         animator = MakeAnimator(res_name)
     end
@@ -142,6 +140,8 @@ function AnimatorHelper:getDragonResName(res_name, evolution, attr)
 		res_name = string.gsub(res_name, '@', attr)
 	end
     
+    res_name = string.gsub(res_name, '!', 'all')
+    
     return res_name
 end
 
@@ -153,6 +153,9 @@ function AnimatorHelper:getMonsterResName(res_name, attr, evolution)
 		res_name = string.gsub(res_name, '#', '0' .. evolution)
 	end
     local res_name = string.gsub(res_name, '@', attr)
+
+    res_name = string.gsub(res_name, '!', 'all')
+
     return res_name
 end
 
@@ -182,7 +185,8 @@ end
 -- @brief 하나의 json으로 모든 속성이 공유되는 형태의 spine 리소스인지 검증
 -------------------------------------
 function AnimatorHelper:isIntegratedSpineResName(res_name)
-    if (string.find(res_name, '!')) then
+    local path, file_name, extension = string.match(res_name, "(.-)([^//]-)(%.[^%.]+)$")
+    if (pl.stringx.endswith(path, '_all/') or string.find(path, '_all_')) then
         return true
     end
 

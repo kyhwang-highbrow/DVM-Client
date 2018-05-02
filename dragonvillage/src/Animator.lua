@@ -711,7 +711,8 @@ end
 -- function MakeAnimatorSpineToIntegrated
 -- @breif 하나의 json으로 모든 속성을 공유하는 spine animator를 생성
 -------------------------------------
-function MakeAnimatorSpineToIntegrated(org_file_name, attr)
+function MakeAnimatorSpineToIntegrated(org_file_name)
+    -- org_file_name 예시 : res/character/dragon/abyssedge_all_03/abyssedge_water_03.spine
     local spine_file_name
     local atlas_file_name
     local animator = nil
@@ -719,15 +720,15 @@ function MakeAnimatorSpineToIntegrated(org_file_name, attr)
     -- spine 파일과 atlas 파일의 이름을 얻는다
     do
         local path, file_name, extension = string.match(org_file_name, "(.-)([^//]-)(%.[^%.]+)$")
-        local add_path = string.gsub(file_name, '!', attr)
+        local add_path = file_name
 
-        path = string.gsub(path, '!', 'all')
-        file_name = string.gsub(file_name, '!', 'all')
-        
+        -- 파일 이름은 속성 문자를 all로 대체시킴
+        for _, attr in pairs(T_ATTR_LIST) do
+            file_name = string.gsub(file_name, '_' .. attr, '_all')
+        end
+
         spine_file_name = path .. file_name .. extension
-        atlas_file_name = path .. add_path .. '/' .. file_name .. extension
-        
-        cclog('atlas_file_name : ' .. atlas_file_name)
+        atlas_file_name = path .. add_path .. '/' .. file_name
     end
 
     -- Spine
@@ -737,6 +738,8 @@ function MakeAnimatorSpineToIntegrated(org_file_name, attr)
     elseif (string.match(spine_file_name, '%.json')) then
         animator = AnimatorSpine(spine_file_name, true, atlas_file_name)
     end
+
+    animator.m_resName = org_file_name
     
     if (animator.m_node) then
         animator.m_node:setDockPoint(cc.p(0.5, 0.5))

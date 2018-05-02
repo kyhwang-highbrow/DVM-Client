@@ -193,7 +193,14 @@ function ResPreloadMgr:resCaching(res_name)
 
     -- spine
     elseif string.match(res_name, '%.spine') then
-		local animator = MakeAnimator(res_name)
+		local animator
+
+        if (AnimatorHelper:isIntegratedSpineResName(res_name)) then
+            animator = MakeAnimatorSpineToIntegrated(res_name)
+        else
+            animator = MakeAnimator(res_name)
+        end
+        
         if animator.m_node then
             b = true
         else
