@@ -21,8 +21,8 @@ function UI_GameEventGold:initUI()
     local vars = self.vars
     
     vars['clanRaidNode']:setVisible(true)
-    vars['autoStartVisual']:setVisible(false)
-    vars['autoStartButton']:setVisible(false)
+    vars['autoStartVisual']:setVisible(true)
+    vars['autoStartButton']:setVisible(true)
     vars['damageLabel']:setString('0')
 end
 
@@ -42,18 +42,6 @@ function UI_GameEventGold:init_timeUI(display_wave, time)
 
         self:setTime(time)
     end
-end
-
--------------------------------------
--- function setAutoPlayUI
--- @brief 연속 전투 정보 UI
--------------------------------------
-function UI_GameEventGold:setAutoPlayUI()
-    local vars = self.vars
-
-    vars['autoStartNode']:setVisible(false)
-    vars['autoStartNumberLabel']:setVisible(false)
-    vars['autoStartVisual']:setVisible(false)
 end
 
 -------------------------------------

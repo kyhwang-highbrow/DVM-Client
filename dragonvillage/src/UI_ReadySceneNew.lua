@@ -429,11 +429,6 @@ function UI_ReadySceneNew:initUI()
             set_autobtn_off()
         end
     end
-
-    -- 이벤트 골드 던전 예외처리
-    if (self.m_stageID == EVENT_GOLD_STAGE_ID) then
-        set_autobtn_off()
-    end
 end
 
 -------------------------------------

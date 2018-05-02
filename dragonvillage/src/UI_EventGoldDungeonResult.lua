@@ -8,6 +8,8 @@ UI_EventGoldDungeonResult = class(UI, {
         m_workIdx = 'number',
         m_lWorkList = 'list',
 
+        m_autoCount = 'boolean',
+
         m_data = '',
      })
 
@@ -19,6 +21,7 @@ function UI_EventGoldDungeonResult:init(stage_id, damage, t_data)
     self.m_stageID = stage_id
     self.m_damage = damage
     self.m_data = t_data
+    self.m_autoCount = false
 
     local vars = self:load('event_gold_dungeon_result.ui')
     UIManager:open(self, UIManager.POPUP)
@@ -228,6 +231,8 @@ function UI_EventGoldDungeonResult:direction_end()
 
     vars['energyNode']:setVisible(true)
     vars['btnMenu']:setVisible(true)
+
+    UI_GameResultNew.checkAutoPlay(self)
 end
 
 -------------------------------------
@@ -305,6 +310,7 @@ function UI_EventGoldDungeonResult:click_quickBtn()
     -- 충전 불가능한 형태의 입장권
 	if (stamina_cnt <= 0) then
         local msg = Str('입장권이 부족합니다.')
+        g_autoPlaySetting:setAutoPlay(false) -- 연속 전투 해제
         MakeSimplePopup(POPUP_TYPE.OK, msg)
         return
     end
@@ -342,6 +348,25 @@ function UI_EventGoldDungeonResult:click_screenBtn()
 
     local func_name = self.m_lWorkList[self.m_workIdx] .. '_click'
     if func_name and (self[func_name]) then
+        if (UI_GameResultNew.checkAutoPlayRelease(self)) then return end
         self[func_name](self)
     end
+end
+
+-------------------------------------
+-- function checkAutoPlayCondition
+-- @brief 이벤트 골드 던전은 연속 전투 멈추는 조건이 없음
+-------------------------------------
+function UI_EventGoldDungeonResult:checkAutoPlayCondition()
+    local auto_play_stop = false
+    local msg = nil
+	return auto_play_stop, msg
+end
+
+-------------------------------------
+-- function countAutoPlay
+-- @brief 연속 전투일 경우 재시작 하기전 카운트 해줌
+-------------------------------------
+function UI_EventGoldDungeonResult:countAutoPlay()
+    UI_GameResultNew.countAutoPlay(self)
 end
