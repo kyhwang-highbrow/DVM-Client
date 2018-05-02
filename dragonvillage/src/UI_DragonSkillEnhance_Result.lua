@@ -105,5 +105,5 @@ end
 -- function click_exitBtn
 -------------------------------------
 function UI_DragonSkillEnhance_Result:click_exitBtn()
-    self:closeWithAction()
+    self:close()
 end

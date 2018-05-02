@@ -19,7 +19,7 @@ function UI_DragonBoardPopup_Evaluate:init(did, my_rate, reveiw_func)
     UIManager:open(self, UIManager.POPUP)
 
     -- backkey 지정
-    g_currScene:pushBackKeyListener(self, function() self:closeWithAction() end, 'UI_DragonBoardPopup_Evaluate')
+    g_currScene:pushBackKeyListener(self, function() self:close() end, 'UI_DragonBoardPopup_Evaluate')
 
     -- @UI_ACTION
     self:doActionReset()
@@ -56,7 +56,7 @@ function UI_DragonBoardPopup_Evaluate:initButton()
 	end
 	vars['okBtn']:registerScriptTapHandler(function() self:click_okBtn() end)
 	vars['reviewBtn']:registerScriptTapHandler(function() self:click_reviewBtn() end)
-	vars['closeBtn']:registerScriptTapHandler(function() self:closeWithAction() end)
+	vars['closeBtn']:registerScriptTapHandler(function() self:close() end)
 end
 
 -------------------------------------
@@ -93,14 +93,14 @@ function UI_DragonBoardPopup_Evaluate:click_okBtn()
 	end
 	-- 현재 별점과 선택한 별점이 같을 시 -> 조용히 닫고 갱신하지 않음
 	if (self.m_targetRate == self.m_myRate) then
-		self:closeWithAction()
+		self:close()
 		return
 	end
 
 	local did = self.m_did
 	local rate = self.m_targetRate
 	local function cb_func(ret)
-		self:closeWithAction()
+		self:close()
 	end
 	g_boardData:request_rateBoard(did, rate, cb_func)
 end

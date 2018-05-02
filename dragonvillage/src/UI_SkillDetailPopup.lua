@@ -438,5 +438,5 @@ end
 -- function click_closeBtn
 -------------------------------------
 function UI_SkillDetailPopup:click_closeBtn()
-	self:closeWithAction()
+	self:close()
 end

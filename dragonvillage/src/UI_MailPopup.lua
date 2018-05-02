@@ -274,7 +274,7 @@ function UI_MailPopup:click_exitBtn()
     self.m_closeCB(self.m_dirty)
     self.m_closeCB = nil
 
-    self:closeWithAction()
+    self:close()
 end
 
 --@CHECK

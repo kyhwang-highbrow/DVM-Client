@@ -159,7 +159,7 @@ function UI_SubscriptionPopup_Ing:request_RefreshSubscriptionInfo()
     end
 
     local function fail_cb()
-        self:closeWithAction()
+        self:close()
     end
 
     g_subscriptionData:request_subscriptionInfo(cb_func, fail_cb)
@@ -169,7 +169,7 @@ end
 -- function click_closeBtn
 -------------------------------------
 function UI_SubscriptionPopup_Ing:click_closeBtn()
-    self:closeWithAction()
+    self:close()
 end
 
 

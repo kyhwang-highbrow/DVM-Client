@@ -18,7 +18,7 @@ function UI_DragonBoardPopup_Write:init(did)
     UIManager:open(self, UIManager.POPUP)
 
     -- backkey 지정
-    g_currScene:pushBackKeyListener(self, function() self:closeWithAction() end, 'UI_DragonBoardPopup_Write')
+    g_currScene:pushBackKeyListener(self, function() self:close() end, 'UI_DragonBoardPopup_Write')
 
     -- @UI_ACTION
     self:doActionReset()
@@ -54,7 +54,7 @@ end
 -------------------------------------
 function UI_DragonBoardPopup_Write:initButton()
 	local vars = self.vars
-	vars['closeBtn']:registerScriptTapHandler(function() self:closeWithAction() end)
+	vars['closeBtn']:registerScriptTapHandler(function() self:close() end)
 	vars['writeBtn']:registerScriptTapHandler(function() self:click_writeBtn() end)
 	vars['editBtn']:registerScriptTapHandler(function() self:click_editBtn() end)
 
@@ -131,7 +131,7 @@ function UI_DragonBoardPopup_Write:click_writeBtn()
 	if (is_valid) then
 		local did = self.m_did
 		local function cb_func()
-			self:closeWithAction()
+			self:close()
 		end
 		g_boardData:request_writeBoard(did, context, cb_func)
 	end

@@ -20,7 +20,7 @@ function UI_ReadyScene_LeaderPopup:init(l_doid, leader_idx)
     UIManager:open(self, UIManager.POPUP)
 
     -- backkey 지정
-    g_currScene:pushBackKeyListener(self, function() self:closeWithAction() end, 'UI_ReadyScene_LeaderPopup')
+    g_currScene:pushBackKeyListener(self, function() self:close() end, 'UI_ReadyScene_LeaderPopup')
 
     -- @UI_ACTION
     self:doActionReset()
@@ -49,7 +49,7 @@ end
 function UI_ReadyScene_LeaderPopup:initButton()
 	local vars = self.vars
 
-	vars['closeBtn']:registerScriptTapHandler(function() self:closeWithAction() end)
+	vars['closeBtn']:registerScriptTapHandler(function() self:close() end)
 end
 
 -------------------------------------
