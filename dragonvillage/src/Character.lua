@@ -985,6 +985,9 @@ function Character:undergoAttack(attacker, defender, i_x, i_y, body_key, no_even
             reflex_damage = math_max(reflex_damage, 1)
                 
             attacker_char:setDamage(nil, attacker_char, attacker_char.pos.x, attacker_char.pos.y, reflex_damage)
+
+            -- @LOG_CHAR : 공격자 데미지
+            self.m_charLogRecorder:recordLog('damage', reflex_damage)
         end
         
         -- 공격자 HP 흡수 처리
