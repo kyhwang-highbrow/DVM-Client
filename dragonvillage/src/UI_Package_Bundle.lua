@@ -8,12 +8,15 @@ UI_Package_Bundle = class(PARENT,{
         m_cbBuy = 'function',
         m_data = 'table',
         m_pids = 'table',
+
+        m_package_name = 'string',
     })
 
 -------------------------------------
 -- function init
 -------------------------------------
 function UI_Package_Bundle:init(package_name, is_popup)
+    self.m_package_name = package_name
     local vars = self:load(string.format('%s.ui', package_name))
     self.m_data = TablePackageBundle:getDataWithName(package_name) 
     self.m_pids = TablePackageBundle:getPidsWithName(package_name) 
@@ -61,6 +64,11 @@ function UI_Package_Bundle:initButton()
     if (vars['contractBtn']) then
         vars['contractBtn']:registerScriptTapHandler(function() self:click_infoBtn() end)
     end
+
+    -- 보상 보기
+    if (vars['rewardBtn']) then
+		vars['rewardBtn']:registerScriptTapHandler(function() self:click_rewardBtn() end)
+	end
 
     vars['closeBtn']:registerScriptTapHandler(function() self:click_closeBtn() end)
 end
@@ -205,6 +213,25 @@ function UI_Package_Bundle:click_buyBtn(struct_product)
 	end
 
 	struct_product:buy(cb_func)
+end
+
+-------------------------------------
+-- function click_rewardBtn
+-- @brief 보상 안내 = 상품 안내 팝업을 출력한다 
+-------------------------------------
+function UI_Package_Bundle:click_rewardBtn()
+	-- 대상 package ui 이름에 _popup을 붙인 것으로 통일
+    local res_name = string.format('%s.ui', self.m_package_name)
+	local reward_name = res_name:gsub('.ui', '_popup.ui')
+
+	-- 임시 ui 생성
+	local ui = UI()
+	ui:load(reward_name)
+	UIManager:open(ui, UIManager.POPUP)
+	g_currScene:pushBackKeyListener(ui, function() ui:close() end, 'UI_Package_Popup')
+	ui.vars['closeBtn']:registerScriptTapHandler(function()
+		ui:close()
+	end)
 end
 
 -------------------------------------
