@@ -56,6 +56,13 @@ end
 function SkillLaser_Darknix.st_disappear(owner, dt)
     if (owner.m_stateTimer == 0) then
         local function ani_handler()
+            if (owner.m_clearCount < owner.m_maxClearCount) then
+                owner:clearCollisionObjectList()
+                owner.m_clearCount = owner.m_clearCount + 1
+
+                owner:runAttack()
+            end
+
             owner:changeState('dying')
         end
 
