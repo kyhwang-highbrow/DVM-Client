@@ -220,18 +220,24 @@ end
 -- @brief 보상 안내 = 상품 안내 팝업을 출력한다 
 -------------------------------------
 function UI_Package_Bundle:click_rewardBtn()
-	-- 대상 package ui 이름에 _popup을 붙인 것으로 통일
-    local res_name = string.format('%s.ui', self.m_package_name)
-	local reward_name = res_name:gsub('.ui', '_popup.ui')
+    local package_name = self.m_package_name
+    local category 
 
-	-- 임시 ui 생성
-	local ui = UI()
-	ui:load(reward_name)
-	UIManager:open(ui, UIManager.POPUP)
-	g_currScene:pushBackKeyListener(ui, function() ui:close() end, 'UI_Package_Popup')
-	ui.vars['closeBtn']:registerScriptTapHandler(function()
-		ui:close()
-	end)
+    -- 만원의 행복
+    if (package_name == 'package_lucky_box') then
+        category = 'lucky'
+    end
+
+    -- 아이템 리스트 출력
+    if (category) then
+        local finish_cb = function(ret)
+            local l_item = ret[category]
+            if (l_item) then
+                UI_PackageRandomBoxInfo(l_item)
+            end
+        end
+        g_shopDataNew:request_randomBoxInfo(finish_cb)
+    end
 end
 
 -------------------------------------

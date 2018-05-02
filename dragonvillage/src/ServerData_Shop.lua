@@ -657,6 +657,34 @@ function ServerData_Shop:request_couponList(cb_func)
 end
 
 -------------------------------------
+-- function request_randomBoxInfo
+-- @breif 랜덤 박스에서 나올 수 있는 아이템 리스트
+-------------------------------------
+function ServerData_Shop:request_randomBoxInfo(cb_func)
+    -- 파라미터
+    local uid = g_userData:get('uid')
+
+    -- 콜백 함수
+    local function success_cb(ret)
+        if cb_func then
+            cb_func(ret)
+        end
+    end
+
+    -- 네트워크 통신
+    local ui_network = UI_Network()
+    ui_network:setUrl('/shop/randombox_info')
+    ui_network:setParam('uid', uid)
+    ui_network:setSuccessCB(success_cb)
+    ui_network:setFailCB(fail_cb)
+    ui_network:setRevocable(true)
+    ui_network:setReuse(false)
+    ui_network:request()
+
+    return ui_network
+end
+
+-------------------------------------
 -- function getTargetProduct
 -------------------------------------
 function ServerData_Shop:getTargetProduct(product_id)

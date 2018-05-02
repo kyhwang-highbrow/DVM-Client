@@ -828,6 +828,7 @@ local t_module = {
     'UI_SubscriptionDayListItem',
     'UI_SubscriptionDayListItemNew',
     'UI_ShopBasic',
+    'UI_PackageRandomBoxInfo',
 
 	-- UI : 모험
     'UI_AdventureSceneNew',
