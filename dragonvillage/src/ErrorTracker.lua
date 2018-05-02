@@ -342,6 +342,11 @@ function ErrorTracker:sendErrorLog(msg, success_cb)
         nick = tostring(g_localData:get('local', 'nick'))
     end
 
+    local curr_memory = collectgarbage('count') or 0
+    curr_memory = math.floor(curr_memory / 1024)
+    curr_memory = tonumber(curr_memory) or 0
+    local global_var = table.count(_G)
+
     -- 파라미터 셋팅
     local t_json = {
         ['id'] = HMAC('sha1', msg, CONSTANT['HMAC_KEY'], false), -- HMAC으로 고유ID 생성
@@ -355,6 +360,8 @@ function ErrorTracker:sendErrorLog(msg, success_cb)
         ['error_stack_header'] = self:getStackHeader(msg),
         
         ['device'] = device_str,
+        ['memory(MB)'] = curr_memory,
+        ['global_var'] = global_var,
 
         ['failed_res_list'] = self.m_lFailedResList,
         
