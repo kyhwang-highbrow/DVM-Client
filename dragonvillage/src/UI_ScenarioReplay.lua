@@ -40,6 +40,7 @@ end
 -- function initUI
 -------------------------------------
 function UI_ScenarioReplay:initUI()
+    cc.SpriteFrameCache:getInstance():addSpriteFrames('res/ui/a2d/sc_thumb/sc_thumb.plist')
     self:initTab()
 end
 
@@ -69,7 +70,6 @@ function UI_ScenarioReplay:onChangeTab(tab, first)
 
     -- 해당 챕터 시나리오 아이템 생성
     local l_scenario = self:getScenarioList(tab)
-
     local create_func = function(ui, data)
         local scenario_name = data
         ui.vars['replayMenu']:setSwallowTouch(false)

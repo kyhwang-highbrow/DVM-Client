@@ -57,17 +57,17 @@ function UI_ScenarioReplayListItem:initUI(scenario_name)
     end
 
     -- 배경 & 캐릭터 썸네일
-    local bg_path = (is_prologue) and 'res/ui/sc_thum/sc_0.png' or string.format('res/ui/sc_thum/sc_%d.png', chapter)
-    local bg_icon = cc.Sprite:create(bg_path)
-    if (bg_icon) then
+    local bg_path = (is_prologue) and 'sc_0.png' or string.format('sc_%d.png', chapter)
+    if (bg_path) then
+        local bg_icon = cc.Sprite:createWithSpriteFrameName(bg_path)
         bg_icon:setAnchorPoint(ZERO_POINT)
         bg_icon:setDockPoint(ZERO_POINT)
         vars['bgNode']:addChild(bg_icon)
     end
     
-    local char_path = (is_prologue) and '' or string.format('res/ui/sc_thum/sc_%d_%d.png', chapter, stage)
-    local char_icon = cc.Sprite:create(char_path)
-    if (char_icon) then
+    local char_path = (is_prologue) and '' or string.format('sc_%d_%d.png', chapter, stage)
+    if (char_path ~= '') then
+        local char_icon = cc.Sprite:createWithSpriteFrameName(char_path)
         char_icon:setAnchorPoint(ZERO_POINT)
         char_icon:setDockPoint(ZERO_POINT)
         vars['chaNode']:addChild(char_icon)
