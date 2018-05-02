@@ -95,6 +95,8 @@ function UI_DragonBoardPopup:refresh()
 	-- 카드
 	vars['dragonNode']:removeAllChildren()
 	local card = MakeSimpleDragonCard(did)
+    -- 등급 표시 X
+    card.vars['starNode']:setVisible(false)
 	vars['dragonNode']:addChild(card.root)
 
 	-- 평점
