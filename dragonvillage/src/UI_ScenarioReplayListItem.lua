@@ -19,24 +19,22 @@ end
 -------------------------------------
 function UI_ScenarioReplayListItem:initUI(scenario_name)
     local vars = self.vars
-    local chapter 
+    local is_prologue = string.find(scenario_name, 'prologue') and true or false
 
+    local str_chapter = string.gsub(scenario_name, 'scen_', '')
+    str_chapter = string.gsub(str_chapter, '_s', '')
+    str_chapter = string.gsub(str_chapter, '_e', '')
+    str_chapter = string.gsub(str_chapter, '_', '-')
+    l_str = seperate(str_chapter, '-')
+
+    local chapter = tonumber(l_str[1])
+    local stage = tonumber(l_str[2])
+    
     -- 챕터 & 스테이지
-    if string.find(scenario_name, 'prologue') then
+    if (is_prologue) then
         vars['chapterLabel']:setString('-')
     else
-        chapter = string.gsub(scenario_name, 'scen_', '')
-        chapter = string.gsub(chapter, '_s', '')
-        chapter = string.gsub(chapter, '_e', '')
-        chapter = string.gsub(chapter, '_', '-')
-
-        local str_sub = string.find(scenario_name, '_s') and Str('시작') or Str('종료')
-        local l_str = seperate(chapter, '-')
-        if (not l_str) then 
-            return
-        end
-
-        local str_chpater = string.format('%d-%d %s', tonumber(l_str[1]), tonumber(l_str[2]), str_sub)
+        local str_chpater = string.format('%d-%d', chapter, stage)
         vars['chapterLabel']:setString(str_chpater)
     end
 
@@ -53,20 +51,32 @@ function UI_ScenarioReplayListItem:initUI(scenario_name)
             end
         end
     end
-
     if (title) then
-        vars['titleLabel']:setString(title)
+        local str_sub = string.find(scenario_name, '_s') and ' I' or ' II'
+        vars['titleLabel']:setString(title .. str_sub)
+    end
+
+    -- 배경 & 캐릭터 썸네일
+    local bg_path = (is_prologue) and 'res/ui/sc_thum/sc_0.png' or string.format('res/ui/sc_thum/sc_%d.png', chapter)
+    local bg_icon = cc.Sprite:create(bg_path)
+    if (bg_icon) then
+        bg_icon:setAnchorPoint(ZERO_POINT)
+        bg_icon:setDockPoint(ZERO_POINT)
+        vars['bgNode']:addChild(bg_icon)
+    end
+    
+    local char_path = (is_prologue) and '' or string.format('res/ui/sc_thum/sc_%d_%d.png', chapter, stage)
+    local char_icon = cc.Sprite:create(char_path)
+    if (char_icon) then
+        char_icon:setAnchorPoint(ZERO_POINT)
+        char_icon:setDockPoint(ZERO_POINT)
+        vars['chaNode']:addChild(char_icon)
     end
 
     -- 잠금 (열려있는 스테이지의 시나리오만 볼 수 있음)
-    if (chapter) then
-        local l_str = seperate(chapter, '-')
-        if (not l_str) then 
-            return
-        end
-
+    if (not is_prologue) then
         -- 보통 난이도 stage_id 로 체크
-        local stage_id = string.format('111%02d%02d', tonumber(l_str[1]), tonumber(l_str[2]))
+        local stage_id = string.format('111%02d%02d', chapter, stage)
         local is_open = g_stageData:isOpenStage(stage_id)
         vars['lockSprite']:setVisible(not is_open)
         vars['replayBtn']:setEnabled(is_open)
