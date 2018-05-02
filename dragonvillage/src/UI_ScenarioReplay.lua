@@ -77,7 +77,8 @@ function UI_ScenarioReplay:onChangeTab(tab, first)
     end
 
     local table_view = UIC_TableViewTD(list_node)
-    table_view.m_cellSize = cc.size(600, 105)
+    local width = list_node:getContentSize()['width']
+    table_view.m_cellSize = cc.size(width/2, 105)
     table_view.m_nItemPerCell = 2
     table_view:setCellUIClass(UI_ScenarioReplayListItem, create_func)
     table_view:setItemList(l_scenario)
