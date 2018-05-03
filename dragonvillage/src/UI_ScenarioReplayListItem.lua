@@ -52,8 +52,12 @@ function UI_ScenarioReplayListItem:initUI(scenario_name)
         end
     end
     if (title) then
-        local str_sub = string.find(scenario_name, '_s') and ' I' or ' II'
-        vars['titleLabel']:setString(title .. str_sub)
+        if (is_prologue) then
+            vars['titleLabel']:setString(title)
+        else
+            local str_sub = string.find(scenario_name, '_s') and ' I' or ' II'
+            vars['titleLabel']:setString(title .. str_sub)
+        end
     end
 
     -- 배경 & 캐릭터 썸네일
