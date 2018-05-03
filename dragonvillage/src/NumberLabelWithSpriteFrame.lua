@@ -119,6 +119,11 @@ function NumberLabelWithSpriteFrame:refresh(number)
         else
             sprite = cc.Sprite:createWithSpriteFrameName(res_name)
 
+            if (not sprite) then
+                cc.SpriteFrameCache:getInstance():addSpriteFrames('res/ui/a2d/ingame_btn/ingame_btn.plist')
+                sprite = cc.Sprite:createWithSpriteFrameName(res_name)
+            end
+
             sprite:setDockPoint(dock_point)
 	        sprite:setAnchorPoint(CENTER_POINT)
             sprite:setScale(1)
