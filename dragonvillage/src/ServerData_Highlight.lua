@@ -151,7 +151,10 @@ end
 -- function isHighlightMail
 -------------------------------------
 function ServerData_Highlight:isHighlightMail()
-    return (0 < self['new_mail']) or (0 < self['new_notice'])
+    local new_mail = self['new_mail']
+    local new_notice = (self['new_notice'] - g_mailData.m_excludedNoticeCnt)
+
+    return (0 < new_mail) or (0 < new_notice)
 end
 
 -------------------------------------

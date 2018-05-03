@@ -816,6 +816,15 @@ function UI_TitleScene:workGetServerInfo()
         end
         if co:waitWork() then return end
 
+        -- 우편 받기
+        co:work()
+        self.m_loadingUI:showLoading(Str('지난 흔적을 찾는 중...') .. '(2)')
+        local ui_network = g_mailData:request_mailList(co.NEXT, fail_cb)
+        if ui_network then
+            ui_network:hideLoading()
+        end
+        if co:waitWork() then return end
+
 		-- /users/title : title 통합 api
 		co:work()
 		self.m_loadingUI:showLoading(Str('던전 정보를 확인 중...'))

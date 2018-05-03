@@ -125,7 +125,7 @@ end
 -- @brief 서버로부터 네스트던전 open정보를 받아옴
 -- @return ui_network
 -------------------------------------
-function ServerData_NestDungeon:requestNestDungeonInfo(cb_func)
+function ServerData_NestDungeon:requestNestDungeonInfo(cb_func, fail_cb)
     if (not self.m_bDirtyNestDungeonInfo) then
         if cb_func then
             cb_func()
@@ -166,6 +166,7 @@ function ServerData_NestDungeon:requestNestDungeonInfo(cb_func)
     ui_network:setParam('uid', uid)
     ui_network:setRevocable(true)
     ui_network:setSuccessCB(success_cb)
+    ui_network:setFailCB(fail_cb)
     ui_network:request()
 
     return ui_network

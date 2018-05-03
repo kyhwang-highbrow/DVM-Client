@@ -5,7 +5,8 @@ ServerData_Mail = class({
         m_serverData = 'ServerData',
 
 		m_mMailMap = 'table[mail_type] = map<mail>',
-		
+		m_excludedNoticeCnt = 'number', -- 표시에 제외될 공지 개수
+
 		m_lCategory = 'list',
     })
 
@@ -15,6 +16,7 @@ ServerData_Mail = class({
 function ServerData_Mail:init(server_data)
     self.m_serverData = server_data
 	self.m_lCategory = {'goods', 'st', 'friend', 'item', 'notice'}
+    self.m_excludedNoticeCnt = 0
 end
 
 -------------------------------------
@@ -30,6 +32,10 @@ end
 -- @brief 타입에 해당하는 메일 리스트를 가져온다.
 -------------------------------------
 function ServerData_Mail:getMailList(category)
+    if (not self.m_mMailMap) then
+        return {}
+    end
+
     return self.m_mMailMap[category]
 end
 
@@ -38,6 +44,10 @@ end
 -- @brief 메일이 있는지 검사한다.
 -------------------------------------
 function ServerData_Mail:hasNewMail(category)
+    if (not self.m_mMailMap) then
+        return false
+    end
+
     return (table.count(self.m_mMailMap[category]) > 0)
 end
 
@@ -163,6 +173,8 @@ function ServerData_Mail:makeMailMap(l_mail_list)
 
     local table_item = TableItem()
 
+    self.m_excludedNoticeCnt = 0
+
     -- mail map 생성
     local is_mail = true
 	for i, t_mail in pairs(l_mail_list) do
@@ -184,6 +196,7 @@ function ServerData_Mail:makeMailMap(l_mail_list)
             if t_mail['custom'] then
                 if (t_mail['custom']['article_id_' .. Translate:getGameLang()] == nil) then
                     is_mail = false
+                    self.m_excludedNoticeCnt = (self.m_excludedNoticeCnt + 1)
                 end
             end
 
@@ -231,7 +244,7 @@ end
 -- function request_mailList
 -- @brief 메일 리스트
 -------------------------------------
-function ServerData_Mail:request_mailList(finish_cb)
+function ServerData_Mail:request_mailList(finish_cb, fail_cb)
     -- 파라미터
     local uid = g_userData:get('uid')
 
@@ -240,6 +253,9 @@ function ServerData_Mail:request_mailList(finish_cb)
 		-- mail map을 생성한다.
         if ret['mails_list'] then
 			self:makeMailMap(ret['mails_list'])
+
+            -- 로비 노티 갱신
+		    g_highlightData:setDirty(true)
         end
 
         if finish_cb then
@@ -252,9 +268,12 @@ function ServerData_Mail:request_mailList(finish_cb)
     ui_network:setUrl('/users/mail_list')
     ui_network:setParam('uid', uid)
     ui_network:setSuccessCB(success_cb)
+    ui_network:setFailCB(fail_cb)
     ui_network:setRevocable(true)
     ui_network:setReuse(false)
     ui_network:request()
+
+    return ui_network
 end
 
 -------------------------------------
