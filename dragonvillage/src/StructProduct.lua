@@ -957,11 +957,15 @@ function StructProduct:isContain(item_type)
     local l_item_list_mail = ServerData_Item:parsePackageItemStr(self['mail_content'])
 
     local l_item_list = table.merge(l_item_list_product, l_item_list_mail)
-
     local table_item = TableItem()
 
     local item_id = TableItem:getItemIDFromItemType(item_type) or item_type
     for i,v in ipairs(l_item_list) do
+        -- 만원의 행복처럼 특수한 상품은 item_id가 오지 않음
+        if (v['item_id'] == nil) then
+            return false
+        end
+
         if (v['item_id'] == item_id) then
             return true
         elseif table_item:getValue(v['item_id'], 'type') == item_type then
