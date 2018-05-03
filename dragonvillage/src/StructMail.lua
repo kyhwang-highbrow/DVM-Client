@@ -366,7 +366,11 @@ function StructMail:getNoticeArticleID()
     if (not self['custom']) then
         return
     end
-    return self['custom']['article_id_' .. Translate:getGameLang()]
+    local channel_code = NaverCafeManager:naverCafeGetChannelCode()
+    if (channel_code == 'zh_TW') then
+        channel_code = 'zh'
+    end
+    return self['custom']['article_id_' .. channel_code]
 end
 
 -------------------------------------

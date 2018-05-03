@@ -194,7 +194,7 @@ function ServerData_Mail:makeMailMap(l_mail_list)
 
             -- 게시글이 연동되지 않은 공지는 올리지 않는다
             if t_mail['custom'] then
-                if (t_mail['custom']['article_id_' .. Translate:getGameLang()] == nil) then
+                if (StructMail.getNoticeArticleID(t_mail) == nil) then
                     is_mail = false
                     self.m_excludedNoticeCnt = (self.m_excludedNoticeCnt + 1)
                 end
