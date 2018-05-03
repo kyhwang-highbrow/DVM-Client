@@ -72,7 +72,7 @@ function SkillSpiderWeb.st_idle(owner, dt)
 		end
 
 		if (isExist) then
-            if (self.m_targetChar.m_animator) then
+            if (owner.m_targetChar.m_animator) then
                 owner.m_targetChar.m_animator:setVisible(false)
             end
         else
