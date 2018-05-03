@@ -571,6 +571,7 @@ function TutorialManager:releaseTutorial()
     -- tutorial 재생기 해제
     if (self.m_tutorialPlayer) then
         self.m_tutorialPlayer.root:removeFromParent()
+        self.m_tutorialPlayer.root = nil
         self.m_tutorialPlayer = nil
     end
 

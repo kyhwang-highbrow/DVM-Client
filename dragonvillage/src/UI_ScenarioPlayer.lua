@@ -150,6 +150,13 @@ end
 -- function showPage
 -------------------------------------
 function UI_ScenarioPlayer:showPage()
+
+    -- 2018-05-03 sgkim
+    -- 타이밍 이슈로 ui가 삭제된 후 showPage가 콜이 되는경우가 있음
+    if (self.root == nil) then
+        return
+    end
+
     local vars = self.vars
 
     do -- 이전 페이지에서 끊어줘야할 행동들
