@@ -313,7 +313,6 @@ function NaverCafeManager:naverCafeEvent(cb_type, cb_info)
     -- 타입에 따라 별도 처리
     if (cb_type == 'article') then
         local t_info = dkjson.decode(cb_info)
-        ccdump(t_info)
         cb_info = tonumber(t_info['menuId'])
     elseif isExistValue(cb_type, 'comment', 'article', 'vote') then
         cb_info = tonumber(cb_info)
@@ -351,7 +350,7 @@ function NaverCafeManager:naverCafeEvent(cb_type, cb_info)
             local function finish_cb()
                 self:naverCafeStop()
             end
-            g_naverEventData:request_naverEventReward(event_key, cb_type, t_event['t_event_name'], finish_cb)
+            g_naverEventData:request_naverEventReward(event_key, cb_type, TableNaverEvent.getEventName(t_event), finish_cb)
             break
         end
 

@@ -39,3 +39,15 @@ function TableNaverEvent:getOnTimeEventList()
     end 
     return l_ret
 end
+
+-------------------------------------
+-- function getEventName
+-- @breif 번역에 맞는 이벤트명 가져온다 .. 인스턴스 필요없는 유틸성 함수
+-------------------------------------
+function TableNaverEvent.getEventName(t_event)
+    if (Translate:isNeedTranslate()) then
+        return t_event['event_name_' .. NaverCafeManager:naverCafeGetChannelCode()]
+    else
+        return t_event['t_event_name']
+    end
+end
