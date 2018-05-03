@@ -1043,10 +1043,11 @@ end
 -------------------------------------
 -- function listToString
 -- @brief 리스트 항목을 sep으로 구분된 문자열로 변환
+-- @comment table도 가능
 -------------------------------------
 function listToString(list, sep)
     local str = nil
-    for i,v in ipairs(list) do
+    for i,v in pairs(list) do
         if (str == nil) then
             str = tostring(v)
         else
