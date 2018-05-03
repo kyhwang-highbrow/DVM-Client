@@ -148,10 +148,12 @@ end
 function UI_MailSelectPopup:setItemByID(item_id)
     for mail_type, item_mail_map in pairs(g_mailData.m_mMailMap) do
         for _, struct_mail in pairs(item_mail_map) do
-            local _item_id = struct_mail:getItemList()[1]['item_id']
-            if (_item_id == item_id) then
-                local id = struct_mail:getMid()
-                self.m_selectMap[id] = struct_mail
+            if (struct_mail:getItemList()[1]) then
+                local _item_id = struct_mail:getItemList()[1]['item_id']
+                if (_item_id == item_id) then
+                    local id = struct_mail:getMid()
+                    self.m_selectMap[id] = struct_mail
+                end
             end
         end
     end
