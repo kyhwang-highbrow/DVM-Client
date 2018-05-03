@@ -272,7 +272,6 @@ function NaverCafeManager:onNaverCafeCallback(ret, info)
 
     -- onPostedArticle / info = {menuId, imageCount, videoCount}
     elseif (ret == 'article') then
-        ccdump(info)
 
 	-- onPostedComment / info = articleId
 	elseif (ret == 'comment') then
@@ -313,7 +312,9 @@ function NaverCafeManager:naverCafeEvent(cb_type, cb_info)
     
     -- 타입에 따라 별도 처리
     if (cb_type == 'article') then
-        cb_info = tonumber(cb_info['menuId'])
+        local t_info = dkjson.decode(cb_info)
+        ccdump(t_info)
+        cb_info = tonumber(t_info['menuId'])
     elseif isExistValue(cb_type, 'comment', 'article', 'vote') then
         cb_info = tonumber(cb_info)
     end
