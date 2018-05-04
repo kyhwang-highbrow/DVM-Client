@@ -281,6 +281,12 @@ function ServerData_Staminas:staminaCharge(stage_id, finish_cb)
         return
     end
 
+    -- 이벤트던전 예외 처리 (충전불가)
+    if (stamina_type == 'event_st') then
+        MakeSimplePopup(POPUP_TYPE.OK, Str('입장권이 부족합니다.'))
+        return
+    end
+
     if (stamina_type == 'st') then
         MakeSimplePopup(POPUP_TYPE.YES_NO, Str('날개가 부족합니다.\n상점으로 이동하시겠습니까?'), function() g_shopDataNew:openShopPopup('st', finish_cb) end)
     else
