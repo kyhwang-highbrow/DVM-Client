@@ -272,6 +272,11 @@ function UI_EventGoldDungeonResult:startGame()
     local combat_power = g_deckData:getDeckCombatPower(deck_name)
 
 	local function finish_cb(game_key)
+        -- 연속 전투일 경우 횟수 증가
+		if (g_autoPlaySetting:isAutoPlay()) then
+			g_autoPlaySetting.m_autoPlayCnt = (g_autoPlaySetting.m_autoPlayCnt + 1)
+		end
+
 		local stage_name = 'stage_' .. stage_id
 		local scene = SceneGame(game_key, stage_id, stage_name, false)
 		scene:runScene()
