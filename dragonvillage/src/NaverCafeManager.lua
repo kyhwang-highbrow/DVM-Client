@@ -306,7 +306,7 @@ function NaverCafeManager:naverCafeEvent(cb_type, cb_info)
 
     -- 활성 이벤트 체크
     local l_active_event = TableNaverEvent:getOnTimeEventList()
-
+    
     local channel_code = self:naverCafeGetChannelCode()
     local event_key, event_cond = nil
     
@@ -314,7 +314,7 @@ function NaverCafeManager:naverCafeEvent(cb_type, cb_info)
     if (cb_type == 'article') then
         local t_info = dkjson.decode(cb_info)
         cb_info = tonumber(t_info['menuId'])
-    elseif isExistValue(cb_type, 'comment', 'article', 'vote') then
+    elseif isExistValue(cb_type, 'comment', 'vote') then
         cb_info = tonumber(cb_info)
     end
 
