@@ -40,17 +40,16 @@ function UI_ScenarioReplayListItem:initUI(scenario_name)
 
     -- 타이틀
     local title
-    if (TABLE:isFileExist('scenario/'..scenario_name, '.csv')) then
-        local t_data = TABLE:loadCSVTable('scenario/'..scenario_name, '.csv', nil, 'page')
-        for _, v in pairs(t_data) do
-            local effect = v['effect_1']
-            if string.find(effect, 'title') then
-                local l_str = TableClass:seperate(effect, ';')
-                title = Str(l_str[2])
-                break
-            end
+    local t_data = TABLE:loadCSVTable('scenario/'..scenario_name, '.csv', nil, 'page')
+    for _, v in pairs(t_data) do
+        local effect = v['effect_1']
+        if string.find(effect, 'title') then
+            local l_str = TableClass:seperate(effect, ';')
+            title = Str(l_str[2])
+            break
         end
     end
+    
     if (title) then
         if (is_prologue) then
             vars['titleLabel']:setString(title)

@@ -4,14 +4,19 @@ local PARENT = class(UI, ITopUserInfo_EventListener:getCloneTable(), ITabUI:getC
 -- class UI_ScenarioReplay
 -------------------------------------
 UI_ScenarioReplay = class(PARENT,{
+        m_map_table_view = '',
     })
+
+local PLIST_PATH = 'res/ui/a2d/sc_thumb/sc_thumb.plist'
 
 -------------------------------------
 -- function init
 -------------------------------------
 function UI_ScenarioReplay:init()
+    cc.SpriteFrameCache:getInstance():addSpriteFrames(PLIST_PATH)
     local vars = self:load('scenario_replay.ui')
     UIManager:open(self, UIManager.SCENE)
+    self.m_map_table_view = {}
 
     -- backkey 지정
     g_currScene:pushBackKeyListener(self, function() self:click_exitBtn() end, 'UI_ScenarioReplay')
@@ -40,7 +45,6 @@ end
 -- function initUI
 -------------------------------------
 function UI_ScenarioReplay:initUI()
-    cc.SpriteFrameCache:getInstance():addSpriteFrames('res/ui/a2d/sc_thumb/sc_thumb.plist')
     self:initTab()
 end
 
@@ -50,11 +54,13 @@ end
 function UI_ScenarioReplay:initTab()
     local vars = self.vars
     -- 프롤로그
-    self:addTabWithLabel('prologue', vars['prologueTabBtn'], vars['prologueTabLabel'])
+    self:addTabWithLabel('prologue', vars['prologueTabBtn'], vars['prologueTabLabel'], vars['prologueNode'])
+
     -- 1 ~ 12챕터 시나리오
     for idx = 1, 12 do
-        local key = string.format('chapter_%02d', idx)
-        self:addTabWithLabel(key, vars['chapterTabBtn'..idx], vars['chapterTabLabel'..idx])
+        local key = string.format('chapter_%d', idx)
+        local tar_node = self:getTargetNode(idx)
+        self:addTabWithLabel(key, vars['chapterTabBtn'..idx], vars['chapterTabLabel'..idx], tar_node)
     end
 
     self:setTab('prologue')
@@ -65,11 +71,41 @@ end
 -------------------------------------
 function UI_ScenarioReplay:onChangeTab(tab, first)
     local vars = self.vars
-    local list_node = vars['listNode']
-    list_node:removeAllChildren()
+    local list_node 
+    local chapter_no 
+
+    -- 노드 하나에 재생성하면 퍼포먼스가 안좋음
+    if (tab == 'prologue') then
+        list_node = vars['prologueNode']
+        chapter_no = 'prologue'
+    else
+        local idx = string.gsub(tab, 'chapter_', '')
+        list_node = self:getTargetNode(idx)
+        chapter_no = idx
+    end
+
+    -- 최초 진입 아닌경우 애니메이션만 재생
+    if (not first) then
+        local table_view = self.m_map_table_view[chapter_no]
+        if (table_view) then
+            local item_map = table_view.m_itemMap
+            for _, v in pairs(item_map) do
+                local ui = v['ui']
+                if (ui) then
+                    doAllChildren(ui.root, function(node) node:setCascadeOpacityEnabled(true) end)
+					ui.root:setOpacity(0)
+					local scale_to = cc.FadeIn:create(0.5)
+					local action = cc.EaseInOut:create(scale_to, 2)
+					ui.root:runAction(action)
+                end
+            end
+        end
+
+        return
+    end
 
     -- 해당 챕터 시나리오 아이템 생성
-    local l_scenario = self:getScenarioList(tab)
+    local l_scenario = self:getScenarioList(chapter_no)
     local create_func = function(ui, data)
         local scenario_name = data
         ui.vars['replayMenu']:setSwallowTouch(false)
@@ -81,7 +117,12 @@ function UI_ScenarioReplay:onChangeTab(tab, first)
     table_view.m_cellSize = cc.size(width/2, 105)
     table_view.m_nItemPerCell = 2
     table_view:setCellUIClass(UI_ScenarioReplayListItem, create_func)
+    table_view:setCellCreateInterval(0)
+	table_view:setCellCreateDirecting(CELL_CREATE_DIRECTING['fadein'])
+    table_view:setCellCreatePerTick(3)
     table_view:setItemList(l_scenario)
+
+    self.m_map_table_view[chapter_no] = table_view
 end
 
 -------------------------------------
@@ -97,16 +138,22 @@ function UI_ScenarioReplay:refresh()
 end
 
 -------------------------------------
--- function getScenarioList
--- @param : chapter - prologue or chapter_1 ~ chapter_12
+-- function getTargetNode
 -------------------------------------
-function UI_ScenarioReplay:getScenarioList(chapter)
+function UI_ScenarioReplay:getTargetNode(chapter_no)
+    local tar_node = self.vars['listNode'..chapter_no]
+    return tar_node
+end
+
+-------------------------------------
+-- function getScenarioList
+-------------------------------------
+function UI_ScenarioReplay:getScenarioList(chapter_no)
     local l_scenario = {}
-    if (chapter == 'prologue') then
+    if (chapter_no == 'prologue') then
         table.insert(l_scenario, 'scenario_prologue')
 
     else
-        local chapter_no = string.gsub(chapter, 'chapter_', '')
         local l_stage = {1, 4, 6, 7} -- 1, 4, 6, 7 스테이지만 시나리오 존재함
         for i, stage in ipairs(l_stage) do
 
@@ -143,6 +190,7 @@ end
 -- function click_closeBtn
 -------------------------------------
 function UI_ScenarioReplay:click_exitBtn()
+    cc.SpriteFrameCache:getInstance():removeSpriteFrameByName(PLIST_PATH)
     self:close()
 end
 
