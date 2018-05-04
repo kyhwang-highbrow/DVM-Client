@@ -135,9 +135,9 @@ function NumberLabelWithSpriteFrame:refresh(number)
         sprite:setPosition(x_offset, 0)
 
         if (self.m_hAlignment == cc.TEXT_ALIGNMENT_RIGHT) then
-            x_offset = x_offset - (sprite:getContentSize()['width'] / 1.5)
+            x_offset = x_offset - (sprite:getContentSize()['width'] / 1.3)
         else
-            x_offset = x_offset + (sprite:getContentSize()['width'] / 1.5)
+            x_offset = x_offset + (sprite:getContentSize()['width'] / 1.3)
         end
     end
 end
