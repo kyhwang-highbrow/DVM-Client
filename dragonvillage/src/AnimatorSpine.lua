@@ -2,7 +2,8 @@
 -- class AnimatorSpine
 -------------------------------------
 AnimatorSpine = class(Animator, {
-        m_cacheName = 'string', -- Spine 리소스 캐시에 사용되는 key값
+        m_cacheJsonName = 'string', -- Spine 리소스 캐시에 사용되는 key값
+        m_cacheAtlasName = 'string', -- Spine 리소스 캐시에 사용되는 key값
     })
 
 -------------------------------------
@@ -30,8 +31,9 @@ function AnimatorSpine:init(file_name, is_json, atlas_file_name)
         atlas_file_name_ = file_name_
     end
 
-    self.m_cacheName = file_name_ .. '.json'
-    self.m_node = sp.SkeletonAnimation:create(file_name_ .. '.json', atlas_file_name_ ..  '.atlas', 1)
+    self.m_cacheJsonName = file_name_ .. '.json'
+    self.m_cacheAtlasName = atlas_file_name_ .. '.atlas'
+    self.m_node = sp.SkeletonAnimation:create(self.m_cacheJsonName, self.m_cacheAtlasName, 1)
     if (not self.m_node) then
         cclog('error file_name_ : ' .. file_name_)
         cclog('error atlas_file_name_ : ' .. atlas_file_name_)

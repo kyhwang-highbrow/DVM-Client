@@ -32,6 +32,8 @@
 using namespace spine;
 USING_NS_CC;
 
+LuaSkeletonAnimation::TYPE_ATLAS_CACHE LuaSkeletonAnimation::s_atlas_cache;
+
 LuaSkeletonAnimation::LuaSkeletonAnimation(spSkeletonData* skeletonData)
     : spine::SkeletonAnimation(skeletonData)
 {
@@ -47,15 +49,31 @@ LuaSkeletonAnimation::~LuaSkeletonAnimation()
 LuaSkeletonAnimation* LuaSkeletonAnimation::createWithFile (const char* skeletonDataFile, const char* atlasFile, float scale)
 {
     spSkeletonData* skeletonData;
-    auto cache_iter = spine::SkeletonAnimation::s_skeleton_data_cache.find(skeletonDataFile);
+
+    std::string strSkeletonDataFile(skeletonDataFile);
+    std::string strAtlasFile(atlasFile);
+
+    auto cache_iter = spine::SkeletonAnimation::s_skeleton_data_cache.find(strSkeletonDataFile + strAtlasFile);
     if (cache_iter != spine::SkeletonAnimation::s_skeleton_data_cache.end())
     {
         skeletonData = cache_iter->second;
     }
     else
     {
-        spAtlas* atlas = spAtlas_createFromFile(atlasFile, 0);
-        CCASSERT(atlas, "Error reading atlas file.");
+        spAtlas* atlas;
+
+        auto cache_iter = s_atlas_cache.find(strAtlasFile);
+        if (cache_iter != s_atlas_cache.end())
+        {
+            atlas = cache_iter->second;
+        }
+        else
+        {
+            atlas = spAtlas_createFromFile(atlasFile, 0);
+            CCASSERT(atlas, "Error reading atlas file.");
+
+            s_atlas_cache.insert(TYPE_ATLAS_CACHE::value_type(strAtlasFile, atlas));
+        }
 
         spSkeletonJson* json = spSkeletonJson_create(atlas);
         json->scale = scale;
@@ -69,11 +87,48 @@ LuaSkeletonAnimation* LuaSkeletonAnimation::createWithFile (const char* skeleton
         CCASSERT(skeletonData, json->error ? json->error : "Error reading skeleton data file.");
         spSkeletonJson_dispose(json);
 
-        spine::SkeletonAnimation::s_skeleton_data_cache.insert(TYPE_SKELETON_DATA_CACHE::value_type(skeletonDataFile, skeletonData));
+        spine::SkeletonAnimation::s_skeleton_data_cache.insert(TYPE_SKELETON_DATA_CACHE::value_type(strSkeletonDataFile + strAtlasFile, skeletonData));
         //CCLOG("LuaSkeletonAnimation add cache : %s", skeletonDataFile);
     }
 
     LuaSkeletonAnimation* node = new (std::nothrow) LuaSkeletonAnimation(skeletonData);
 	node->autorelease();
 	return node;
+}
+
+void LuaSkeletonAnimation::removeCache(const std::string& skeletonDataFile, const std::string& atlasFile)
+{
+    std::string strSkeletonDataFile(skeletonDataFile);
+    std::string strAtlasFile(atlasFile);
+
+    {
+        auto cache_iter = spine::SkeletonAnimation::s_skeleton_data_cache.find(strSkeletonDataFile + strAtlasFile);
+        if (cache_iter != s_skeleton_data_cache.end())
+        {
+            spSkeletonData_dispose(cache_iter->second);
+            s_skeleton_data_cache.erase(cache_iter);
+        }
+    }
+
+    {
+        auto cache_iter = s_atlas_cache.find(strAtlasFile);
+        if (cache_iter != s_atlas_cache.end())
+        {
+            spAtlas_dispose(cache_iter->second);
+            s_atlas_cache.erase(cache_iter);
+        }
+    }
+}
+
+void LuaSkeletonAnimation::removeCacheAll()
+{
+    SkeletonAnimation::removeCacheAll();
+
+    for (auto cache_iter = s_atlas_cache.begin(); cache_iter != s_atlas_cache.end();)
+    {
+        spAtlas_dispose(cache_iter->second);
+        ++cache_iter;
+    }
+
+    s_atlas_cache.clear();
 }

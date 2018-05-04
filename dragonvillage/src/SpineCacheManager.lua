@@ -38,7 +38,11 @@ function SpineCacheManager:registerSpineAnimator(spine_animator)
         return
     end
 
-    local cache_name = spine_animator.m_cacheName
+    if (not spine_animator.m_cacheJsonName or not spine_animator.m_cacheAtlasName) then
+        return
+    end
+
+    local cache_name = spine_animator.m_cacheJsonName .. spine_animator.m_cacheAtlasName
     if (not cache_name) then
         return
     end
@@ -107,7 +111,13 @@ function SpineCacheManager:purgeSpineCacheData()
 
     for name,cnt in pairs(self.m_refCntMap) do
         if (cnt == 0) then
-            sp.SkeletonAnimation:removeCache(name)
+            local json_name, atlas_name = string.match(name, "(.+%.json)(.+%.atlas)$")
+            cclog('name : ' .. name)
+            cclog('json_name : ' .. json_name)
+            cclog('atlas_name : ' .. atlas_name)
+            
+            --sp.SkeletonAnimation:removeCache(name)
+            sp.SkeletonAnimation:removeCache(json_name, atlas_name)
             table.insert(t_remove_key, name)
             self.m_totalNumber = (self.m_totalNumber - 1)
         end

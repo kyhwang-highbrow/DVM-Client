@@ -721,11 +721,12 @@ function MakeAnimatorSpineToIntegrated(org_file_name)
     do
         local path, file_name, extension = string.match(org_file_name, "(.-)([^//]-)(%.[^%.]+)$")
         local add_path = file_name
-
+                
         -- 파일 이름은 속성 문자를 all로 대체시킴
         for _, attr in pairs(T_ATTR_LIST) do
             file_name = string.gsub(file_name, '_' .. attr, '_all')
         end
+        --file_name = string.match(path, "[^//]-([%a_]+)/$")
 
         spine_file_name = path .. file_name .. extension
         atlas_file_name = path .. add_path .. '/' .. file_name

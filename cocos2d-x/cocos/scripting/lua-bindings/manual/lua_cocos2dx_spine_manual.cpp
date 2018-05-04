@@ -655,6 +655,17 @@ int lua_cocos2dx_spine_SkeletonAnimation_removeCache(lua_State* tolua_S)
         spine::SkeletonAnimation::removeCache(arg0);
         return 0;
     }
+    else if (argc == 2)
+    {
+        std::string arg0;
+        std::string arg1;
+        ok &= luaval_to_std_string(tolua_S, 2, &arg0);
+        ok &= luaval_to_std_string(tolua_S, 3, &arg1);
+        if (!ok)
+            return 0;
+        LuaSkeletonAnimation::removeCache(arg0, arg1);
+        return 0;
+    }
     CCLOG("%s has wrong number of arguments: %d, was expecting %d\n ", "removeCache", argc, 1);
     return 0;
 #if COCOS2D_DEBUG >= 1
@@ -683,7 +694,7 @@ int lua_cocos2dx_spine_SkeletonAnimation_removeCacheAll(lua_State* tolua_S)
     {
         if (!ok)
             return 0;
-        spine::SkeletonAnimation::removeCacheAll();
+        LuaSkeletonAnimation::removeCacheAll();
         return 0;
     }
     CCLOG("%s has wrong number of arguments: %d, was expecting %d\n ", "removeCacheAll", argc, 0);

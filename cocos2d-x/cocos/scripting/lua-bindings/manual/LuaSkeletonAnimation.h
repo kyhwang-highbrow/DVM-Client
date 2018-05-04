@@ -30,6 +30,13 @@
 /// @cond
 class LuaSkeletonAnimation: public spine::SkeletonAnimation {
 public:
+    typedef std::map < std::string, spAtlas* > TYPE_ATLAS_CACHE;
+    static TYPE_ATLAS_CACHE s_atlas_cache;
+
+    static void removeCache(const std::string& skeletonDataFile, const std::string& atlasFile);
+    static void removeCacheAll();
+
+public:
 	static LuaSkeletonAnimation* createWithFile (const char* skeletonDataFile, const char* atlasFile, float scale = 1);
 
     LuaSkeletonAnimation(spSkeletonData* skeletonData);
