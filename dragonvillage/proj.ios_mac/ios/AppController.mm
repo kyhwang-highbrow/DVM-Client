@@ -133,8 +133,6 @@ static AppDelegate s_sharedApplication;
     }
     [[PerpleSDK sharedInstance] initAdbrixWithAppKey:ADBRIX_APP_KEY hashKey:ADBRIX_HASH_KEY logLevel:0];
     [[PerpleSDK sharedInstance] initTapjoyWithAppKey:TAPJOY_SDK_KEY usePush:NO debug:isDebug];
-    //[[PerpleSDK sharedInstance] initUnityAdsWithParentView:viewController gameId:UNITY_ADS_GAME_ID debug:isDebug];
-    //[[PerpleSDK sharedInstance] initAdColonyWithParentView:viewController appId:ADCOLONY_APP_ID];
     [[PerpleSDK sharedInstance] initNaverWithParentView:viewController isLandspape:YES clientId:NAVER_CAFE_CLIENT_ID clientSecret:NAVER_CAFE_CLIENT_SECRET cafeId:NAVER_CAFE_ID neoIdConsumerKey:NAVER_NEO_ID_CONSUMER_KEY communityId:NAVER_COMMUNITY_ID urlScheme:@"dvmNaverLogin"];
     [[PerpleSDK sharedInstance] initBilling];
     [[PerpleSDK sharedInstance] initAdjustWithAppKey:ADJUST_TOKKEN_ID secret:adjustSecretKey debug:isDebug];

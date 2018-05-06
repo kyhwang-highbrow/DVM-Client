@@ -86,6 +86,11 @@
 #define PERPLESDK_ERROR_TWITTER_NOTINITIALIZED              "-2000"
 #define PERPLESDK_ERROR_TWITTER_LOGIN                       "-2001"
 
+#define PERPLESDK_ERROR_ADMOB_NOTINITIALIZED                "-2100"
+#define PERPLESDK_ERROR_ADMOB_START                         "-2101"
+#define PERPLESDK_ERROR_ADMOB_INVALIDADUNITID               "-2102"
+#define PERPLESDK_ERROR_ADMOB_NOTLOADEDAD                   "-2103"
+
 #pragma mark -
 
 @class PerpleFirebase;
@@ -268,7 +273,7 @@ typedef void(^PerpleSDKCallback)(NSString *result, NSString *info);
 - (BOOL) initAdColonyWithParentView:(UIViewController *)parentView appId:(NSString *)appId;
 - (BOOL) initBilling;
 - (BOOL) initAdjustWithAppKey:(NSString *)appKey secret:(NSArray *)secretKey debug:(BOOL)isDebug;
-- (BOOL) initAdMobWithAppId:(NSString *)appId adUnitID:(NSString*)adUnitId debug:(BOOL)isDebug;
+- (BOOL) initAdMobWithAppId:(NSString *)appId debug:(BOOL)isDebug;
 #pragma mark - Static methods
 
 + (id) sharedInstance;
