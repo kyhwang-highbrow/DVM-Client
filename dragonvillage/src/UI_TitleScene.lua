@@ -305,7 +305,8 @@ function UI_TitleScene:setWorkList()
     if (isAndroid() or isIos()) then
         table.insert(self.m_lWorkList, 'workBillingSetup')        
         table.insert(self.m_lWorkList, 'workMarketInfoSetup')
-		table.insert(self.m_lWorkList, 'workNetworkUserInfo')
+        table.insert(self.m_lWorkList, 'workNetworkUserInfo')
+        table.insert(self.m_lWorkList, 'workPrepareAd')
     end
 
     table.insert(self.m_lWorkList, 'workSoundPreload')
@@ -1046,12 +1047,31 @@ end
 -- @brief 기본 유저 정보 통신
 -------------------------------------
 function UI_TitleScene:workNetworkUserInfo()
+    self.m_loadingUI:showLoading(Str('네트워크 통신 중...'))
+
 	local function success_cb()
 		self:doNextWork()
 	end
 	g_errorTracker:sendUserInfoLog(success_cb)
 end
 function UI_TitleScene:workNetworkUserInfo_click()
+end
+
+-------------------------------------
+-- function workPrepareAd
+-- @brief 광고 준비
+-------------------------------------
+function UI_TitleScene:workPrepareAd()
+    self.m_loadingUI:showLoading(Str('네트워크 통신 중...'))
+
+    if (USE_ADMOB_AD) then
+        AdManager:start()
+    else
+        AdsManager:start()    
+    end
+    self:doNextWork()
+end
+function UI_TitleScene:workPrepareAd_click()
 end
 
 -------------------------------------

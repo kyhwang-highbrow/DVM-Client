@@ -5,6 +5,7 @@ AD_TYPE = {
     NONE = 4,               -- 광고 없음(에러코드 처리) : 보상은 존재
 }
 
+USE_ADMOB_AD = false
 -------------------------------------
 -- table AdManager
 -- @brief 광고 SDK 매니져

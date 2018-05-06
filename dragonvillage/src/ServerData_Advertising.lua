@@ -1,10 +1,3 @@
-AD_TYPE = {
-    AUTO_ITEM_PICK = 1,     -- 광고 보기 보상 : 자동획득
-    RANDOM_BOX_LOBBY = 2,   -- 광고 보기 보상 : 랜덤박스 (로비 진입)
-    RANDOM_BOX_SHOP = 3,    -- 광고 보기 보상 : 랜덤박스 (상점 진입)
-    NONE = 4,               -- 광고 없음(에러코드 처리) : 보상은 존재
-}
-
 -------------------------------------
 -- class ServerData_Advertising
 -------------------------------------
@@ -108,6 +101,43 @@ function ServerData_Advertising:showAdv(ad_type, fnish_cb)
             end
         end
     end)
+end
+
+-------------------------------------
+-- function showAd
+-- @brief 광고 보기 (adMob)
+-------------------------------------
+function ServerData_Advertising:showAd(ad_type, finish_cb)
+    if (isWin32()) then 
+        self:request_adv_reward(ad_type, finish_cb)
+        return
+    end
+
+    self.m_is_fail = false
+    ShowLoading(Str('광고 정보 요청중'))
+
+    local function result_cb(ret, info)
+        HideLoading()
+
+        -- 광고 시청 완료 -> 보상 처리
+        if (ret == 'finish') then
+            self:request_adv_reward(ad_type, finish_cb)
+
+        -- 광고 시청 취소
+        elseif (ret == 'cancel') then
+
+        -- 광고 에러
+        elseif (ret == 'error') then
+            if (finish_cb) then
+                finish_cb()
+            end
+            
+            -- 앱이 백그라운드로 갔다 왔을 때, 불규칙하게 NOT_READY를 리턴하므로 보상을 지급하지 않기로 함
+            MakeSimplePopup(POPUP_TYPE.OK, Str('더 이상 시청 가능한 광고가 없거나, 광고 시청 종료전에 시청이 중단되어 보상 지급이 불가능합니다.'))
+        end
+    end
+
+    AdManager:showByAdType(ad_type, result_cb)
 end
 
 -------------------------------------

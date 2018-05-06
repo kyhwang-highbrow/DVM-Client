@@ -106,7 +106,11 @@ function UI_SubscriptionPopupNew:click_adBtn()
         self:close()
     end
 
-    g_advertisingData:showAdv(ad_type, finish_cb)
+    if (USE_ADMOB_AD) then
+        g_advertisingData:showAd(ad_type, finish_cb)
+    else
+        g_advertisingData:showAdv(ad_type, finish_cb)
+    end
 end
 
 -------------------------------------
