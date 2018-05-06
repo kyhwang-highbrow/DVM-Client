@@ -104,6 +104,10 @@ public class AppActivity extends Cocos2dxActivity{
     static final String ADJUST_TOKKEN_ID = "esjmkti8vim8";
     static final long[] ADJUST_SECRET_KEY = {1, 562501988, 1877997235, 662395286, 1781468312};
 
+    // @admob
+    static final String ADMOB_APP_ID = "ca-app-pub-9497777061019569~9623723983";
+
+    // others
     static final int RC_WRITE_STORAGE_PERMISSION    = 100;  // must be 8bit value
     static final int RC_APP_PERMISSION              = 101;  // must be 8bit value
 
@@ -157,17 +161,14 @@ public class AppActivity extends Cocos2dxActivity{
         // @tapjoy
         PerpleSDK.getInstance().initTapjoy(TAPJOY_SDK_KEY, "", isDebug);
 
-        // @unity-ads
-        PerpleSDK.getInstance().initUnityAds(UNITY_ADS_GAME_ID, isDebug);
-
-        // @adcolony
-        PerpleSDK.getInstance().initAdColony(ADCOLONY_APP_ID);
-
         // @naver-cafe
         PerpleSDK.getInstance().initNaverCafe(NAVER_CAFE_CLIENT_ID, NAVER_CAFE_CLIENT_SECRET, NAVER_CAFE_ID, NAVER_NEO_ID_CONSUMER_KEY, NAVER_COMMUNITY_ID);
 
         // @adjust
         PerpleSDK.getInstance().initAdjust(ADJUST_TOKKEN_ID, ADJUST_SECRET_KEY, isDebug);
+
+        // @admob
+        PerpleSDK.getInstance().initAdMob(ADMOB_APP_ID, isDebug);
     }
 
     @Override
