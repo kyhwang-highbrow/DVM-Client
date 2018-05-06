@@ -1041,11 +1041,11 @@ function listToCsv(list)
 end
 
 -------------------------------------
--- function listToString
+-- function tableToString
 -- @brief 리스트 항목을 sep으로 구분된 문자열로 변환
 -- @comment table도 가능
 -------------------------------------
-function listToString(list, sep)
+function tableToString(list, sep)
     local str = nil
     for i,v in pairs(list) do
         if (str == nil) then
