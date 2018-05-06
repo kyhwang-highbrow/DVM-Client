@@ -34,6 +34,7 @@ local t_module = {
     'Coroutine',
 	'LocalPushMgr',
     'Analytics',
+    'AdManager',
     'AdsManager',
     'NaverCafeManager',
 	'PerpleSocialManager',
