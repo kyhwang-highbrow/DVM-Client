@@ -11,9 +11,21 @@
 #define SERVER_DEV "DEV"
 
 #if (CC_TARGET_PLATFORM == CC_PLATFORM_IOS)
-#define TARGET_SERVER SERVER_LIVE
-#define IS_TEST_MODE false
+#define TARGET_SERVER SERVER_QA
+#define APP_VER 999
+#define USE_PATCH true
 #define USE_OBB false
+#define USE_LUA_EXT false
+#define IS_TEST_MODE true
+
+#elif (CC_TARGET_PLATFORM == CC_PLATFORM_WIN32)
+#define TARGET_SERVER SERVER_DEV
+#define APP_VER 0
+#define USE_PATCH false
+#define USE_OBB false
+#define USE_LUA_EXT true
+#define IS_TEST_MODE true
+
 #endif
 
 // TARGET SERVER는 NDK에서 넘겨준다. 없으면 'DEV'로 설정
@@ -21,12 +33,9 @@
 #define TARGET_SERVER SERVER_DEV
 #endif
 
-// 윈도우인 경우
-#if (CC_TARGET_PLATFORM == CC_PLATFORM_WIN32)
-#define USE_PATCH false
-#define USE_OBB false
-#define USE_LUA_EXT true
-#define IS_TEST_MODE true
+// APP_VER : app version, 0이면 config.json의 값을 사용하도록 함.
+#ifndef APP_VER
+#define APP_VER 0
 #endif
 
 // USE_PATCH : 패치 사용 여부
@@ -49,5 +58,8 @@
 #define IS_TEST_MODE false
 #endif
 
+// LUA_DEBUG
+#ifndef LUA_DEBUG
+#endif
 
 #endif

@@ -61,10 +61,25 @@ string* StringSplit(string strTarget, string strTok)
     return strResult;
 }
 
+/**
+ @brief : 앱버전 문자열을 반환한다.
+ */
+string GetAppVer()
+{
+#if APP_VER > 0
+    int major_ver = floor(APP_VER/100);
+    int minor_ver = floor((APP_VER - (major_ver * 100))/10);
+    int build_ver = APP_VER - (major_ver * 100) - (minor_ver * 10);
+    return to_string(major_ver) + "." + to_string(minor_ver) + "." + to_string(build_ver);
+#else
+    return ConfigParser::getInstance()->getAppVer();
+#endif
+}
+
 void AppDelegate::setPathForPatch()
 {
 	// 리소스 다운로드 경로
-    string app_ver = ConfigParser::getInstance()->getAppVer();
+    string app_ver = GetAppVer();
 	string res_path = SupportPatch::getExtensionPath();
     string patch_path = SupportPatch::getPatchPath(app_ver.c_str());
 
@@ -108,7 +123,7 @@ void AppDelegate::setPathForPatch()
     SupportPatch::makePath(writable_path + "network_dump/");
 
     { // 이전 버전 폴더 삭제
-        string app_ver = ConfigParser::getInstance()->getAppVer();
+        //string app_ver = GetAppVer();
         string* tok = StringSplit(app_ver, ".");
         int ver_major = (int)strtol(tok[0].c_str(), NULL, 10);
         int ver_minor = (int)strtol(tok[1].c_str(), NULL, 10);
@@ -216,9 +231,8 @@ static int l_getTargetServer(lua_State* L)
 
 static int l_getAppVer(lua_State* L)
 {
-    string app_ver = ConfigParser::getInstance()->getAppVer();
+    string app_ver = GetAppVer();
     lua_pushlstring(L, app_ver.c_str(), strlen(app_ver.c_str()));
-
 	return 1;
 }
 
