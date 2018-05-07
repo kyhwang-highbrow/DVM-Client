@@ -24,14 +24,6 @@ using namespace std;
 
 TOLUA_API int  tolua_PerpLua_open(lua_State* tolua_S);
 
-#if (CC_TARGET_PLATFORM == CC_PLATFORM_IOS) || (CC_TARGET_PLATFORM == CC_PLATFORM_MAC)
-static char s_marketName[16] = { "APPL" };
-#else
-static char s_marketName[16] = { "GOOG" };
-//static char s_marketName[16] = { "NSTORE" };
-#endif
-
-
 /**
 @brief : 문자열을 잘라주는 함수입니다.
 @strOrigin : 자를 데이터
@@ -310,12 +302,6 @@ static int l_isSameMd5(lua_State* L)
     return 1;
 }
 
-static int l_getMarketName(lua_State* L)
-{
-	lua_pushlstring(L, (const char*)s_marketName, strlen(s_marketName));
-	return 1;
-}
-
 static int l_openURL(lua_State *L)
 {
 #if (CC_TARGET_PLATFORM == CC_PLATFORM_WIN32)
@@ -432,7 +418,6 @@ void AppDelegate::initLuaEngine()
             { "getFreeMemory", l_getFreeMemory },
 			{ "unzip", l_unzip },
             { "unzipAsync", l_unzipAsync },
-			{ "getMarketName", l_getMarketName },
             { "openFileDialog", l_openFileDialog },
 			{ "getIPAddress", l_getIPAddress },
             { "openUrl", l_openURL },
