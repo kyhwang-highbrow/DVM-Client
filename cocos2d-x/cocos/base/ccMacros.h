@@ -36,7 +36,7 @@ THE SOFTWARE.
 #include "CCStdC.h"
 
 #ifndef CCASSERT
-#if COCOS2D_DEBUG > 0
+#if (COCOS2D_DEBUG > 0 || LUA_DEBUG > 0)
     #if CC_ENABLE_SCRIPT_BINDING
     extern bool CC_DLL cc_assert_script_compatible(const char *msg);
     #define CCASSERT(cond, msg) do {                              \
