@@ -42,6 +42,7 @@ L_SPECIAL_STATUS_TYPE_ONLY_ADD = {
 
 L_SPECIAL_STATUS_TYPE_ONLY_MULTI = {
     'final_dmg_rate',   -- 최종 피해량(기본 값 1)
+    'final_heal_rate',  -- 최종 치유량(기본 값 1)
 }
 
 -- 스텟 타입 체크를 위한 맵 생성

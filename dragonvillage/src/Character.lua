@@ -1596,6 +1596,12 @@ function Character:healAbs(caster, heal, b_make_effect, bFixed, skill_id)
         end
     end
 
+    -- 최종 치유량 증가
+    do
+        local final_heal_rate = attack_activity_carrier:getStat('final_heal_rate') or 1
+        heal = heal * final_heal_rate
+    end
+
     -- 최소 힐량 1로 표시
     heal = math_max(heal, 1)
 
