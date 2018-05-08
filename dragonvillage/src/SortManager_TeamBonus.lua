@@ -4,9 +4,10 @@ local PARENT = SortManager
 -- class SortManager_TeamBonus
 -- @breif 팀보너스 정렬
 -------------------------------------
-SortManager_TeamBonus = class(PARENT, {
-        m_map_recommend = 'map'
-    })
+SortManager_TeamBonus = class(PARENT, {})
+
+MAP_RECOMMEND_TEAMBONUS = {}
+TAG_TEAMBONUS_EMPTY = 0
 
 -------------------------------------
 -- function init
@@ -17,13 +18,14 @@ function SortManager_TeamBonus:init(b_recommend)
 
     -- 추천 배치 활성화 : 내 드래곤 리스트로 적용 가능한 팀보너스 체크
     if (b_recommend) then
-        self.m_map_recommend = {}
-        self.m_map_recommend[TEAMBONUS_EMPTY_TAG] = true
+        MAP_RECOMMEND_TEAMBONUS = {}
+        MAP_RECOMMEND_TEAMBONUS[TAG_TEAMBONUS_EMPTY] = true
+
         local l_my_dragon_list = g_dragonsData:getDragonsList()
         local l_teambonus_data = TeamBonusHelper:getTeamBonusDataFromDeck(l_my_dragon_list)
         for _, struct_teambonus in ipairs(l_teambonus_data) do
             local id = struct_teambonus:getID()
-            self.m_map_recommend[id] = true
+            MAP_RECOMMEND_TEAMBONUS[id] = true
         end
 
         self:addSortType('recommend', false, function(a, b, ascending) return self:sort_recommend(a, b, ascending) end)
@@ -66,8 +68,8 @@ function SortManager_TeamBonus:sort_recommend(a, b, ascending)
 
     local a_id = a_data:getID()
     local b_id = b_data:getID()
-    local a_value = self.m_map_recommend[a_id] and 99 or 0
-    local b_value = self.m_map_recommend[b_id] and 99 or 0
+    local a_value = MAP_RECOMMEND_TEAMBONUS[a_id] and 99 or 0
+    local b_value = MAP_RECOMMEND_TEAMBONUS[b_id] and 99 or 0
 
     if (a_value == b_value) then
         return nil
