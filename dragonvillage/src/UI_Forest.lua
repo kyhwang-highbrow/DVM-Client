@@ -50,7 +50,7 @@ function UI_Forest:initUI()
     self.m_territory = territory
     self.m_territory:setUI(self)
 	
-	self:initParticle()
+	--self:initParticle()
 end
 
 -------------------------------------
