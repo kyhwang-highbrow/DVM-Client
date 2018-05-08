@@ -1598,7 +1598,7 @@ function Character:healAbs(caster, heal, b_make_effect, bFixed, skill_id)
 
     -- 최종 치유량 증가
     do
-        local final_heal_rate = attack_activity_carrier:getStat('final_heal_rate') or 1
+        local final_heal_rate = self:getStat('final_heal_rate') or 1
         heal = heal * final_heal_rate
     end
 

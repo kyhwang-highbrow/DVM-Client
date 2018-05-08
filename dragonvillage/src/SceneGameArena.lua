@@ -30,8 +30,8 @@ end
 -- @brief 스테이지 ID와 게임 모드 저장
 -------------------------------------
 function SceneGameArena:init_gameMode()
-    self.m_stageID = COLOSSEUM_STAGE_ID
-    self.m_gameMode = GAME_MODE_COLOSSEUM
+    self.m_stageID = ARENA_STAGE_ID
+    self.m_gameMode = GAME_MODE_ARENA
     self.m_bgmName = 'bgm_colosseum'
 
     -- @E.T.
@@ -80,7 +80,7 @@ function SceneGameArena:prepare()
 
         -- 레이어 생성
         self:init_layer()
-        self.m_gameWorld = GameWorldColosseum(self.m_gameMode, self.m_stageID, self.m_worldLayer, self.m_gameNode1, self.m_gameNode2, self.m_gameNode3, self.m_inGameUI, self.m_bDevelopMode, self.m_bFriendMatch)
+        self.m_gameWorld = GameWorldArena(self.m_gameMode, self.m_stageID, self.m_worldLayer, self.m_gameNode1, self.m_gameNode2, self.m_gameNode3, self.m_inGameUI, self.m_bDevelopMode, self.m_bFriendMatch)
         self.m_gameWorld:initGame(self.m_stageName)
         
         -- 스크린 사이즈 초기화

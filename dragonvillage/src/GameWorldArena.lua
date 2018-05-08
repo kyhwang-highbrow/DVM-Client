@@ -26,7 +26,7 @@ end
 function GameWorldArena:createComponents()
     PARENT.createComponents(self)
 
-    self.m_gameState = GameState_Colosseum(self)
+    self.m_gameState = GameState_Arena(self)
     self.m_inGameUI:init_timeUI(false, self.m_gameState.m_limitTime)
 
     -- 타임 스케일 설정
@@ -51,7 +51,7 @@ function GameWorldArena:initGame(stage_name)
     self:createComponents()
 
     -- 웨이브 매니져 생성
-    self.m_waveMgr = WaveMgr_Colosseum(self, stage_name, self.m_stageID, self.m_bDevelopMode)
+    self.m_waveMgr = WaveMgr_Arena(self, stage_name, self.m_stageID, self.m_bDevelopMode)
         
 	-- 배경 생성
     self:initBG(self.m_waveMgr)

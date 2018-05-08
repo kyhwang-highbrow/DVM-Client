@@ -132,7 +132,7 @@ function BroadcastMgr:update(dt)
                 
                 -- 방송 표시
                 if (g_currScene) then
-                    if (g_currScene.m_sceneName == 'SceneGame' or g_currScene.m_sceneName == 'SceneGameColosseum') then
+                    if (isExistValue(g_currScene.m_sceneName, 'SceneGame', 'SceneGameColosseum', 'SceneGameArena')) then
                         if (g_currScene.m_inGameUI) then
                             g_currScene.m_inGameUI:noticeBroadcast(msg, alive_time)
                             b = true

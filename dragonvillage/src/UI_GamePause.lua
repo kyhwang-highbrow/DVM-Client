@@ -95,6 +95,9 @@ function UI_GamePause:init(stage_id, gamekey, start_cb, end_cb)
         if (stage_id == COLOSSEUM_STAGE_ID) then
             vars['contentsLabel']:setString(Str('콜로세움'))
 
+        elseif (stage_id == ARENA_STAGE_ID) then
+            vars['contentsLabel']:setString(Str('콜로세움'))
+
         elseif (game_mode == GAME_MODE_CLAN_RAID) then
             vars['contentsLabel']:setString(Str('클랜 던전'))
 

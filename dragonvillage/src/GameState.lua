@@ -1377,21 +1377,20 @@ function GameState:applyBuffByFightTime()
     local add_buff = self.m_tBuffInfoByFightTime['add_buff']
     local cur_buff = self.m_tBuffInfoByFightTime['cur_buff']
 
-    local str_buff_name = Str('피해량 증가')
-
     for type, value in pairs(add_buff) do
+        local status, action = TableOption():parseOptionKey(type)
+        local str_buff_name = TableOption():getValue(type, 't_name')
+        
         -- 아군 버프 적용(콜로세움일 경우만)
         if (world.m_gameMode == GAME_MODE_COLOSSEUM or world.m_gameMode == GAME_MODE_ARENA) then
             for i, v in ipairs(world.m_leftParticipants) do
                 if (v.m_statusCalc) then
-                    local status, action = TableOption:parseOptionKey(type)
                     v.m_statusCalc:addOption(action, status, value)
                     world:addPassiveStartEffect(v, str_buff_name)
                 end
             end
             for i, v in ipairs(world.m_leftNonparticipants) do
                 if (v.m_statusCalc) then
-                    local status, action = TableOption:parseOptionKey(type)
                     v.m_statusCalc:addOption(action, status, value)
                 end
             end
@@ -1401,14 +1400,12 @@ function GameState:applyBuffByFightTime()
         do
             for i, v in ipairs(world.m_rightParticipants) do
                 if (v.m_statusCalc) then
-                    local status, action = TableOption:parseOptionKey(type)
                     v.m_statusCalc:addOption(action, status, value)
                     world:addPassiveStartEffect(v, str_buff_name)
                 end
             end
             for i, v in ipairs(world.m_rightNonparticipants) do
                 if (v.m_statusCalc) then
-                    local status, action = TableOption:parseOptionKey(type)
                     v.m_statusCalc:addOption(action, status, value)
                 end
             end
