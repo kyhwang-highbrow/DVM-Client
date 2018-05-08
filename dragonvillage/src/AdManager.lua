@@ -19,17 +19,15 @@ AdManager = {
 local ADMOB_AD_UNIT_ID_TABLE
 if (CppFunctions:isAndroid()) then
     ADMOB_AD_UNIT_ID_TABLE = {
-        [AD_TYPE.AUTO_ITEM_PICK] = 'ca-app-pub-9497777061019569/2042688805',
-        [AD_TYPE.RANDOM_BOX_SHOP] = 'ca-app-pub-9497777061019569/2042688805',
-        [AD_TYPE.RANDOM_BOX_LOBBY] = 'ca-app-pub-9497777061019569/4566955961',
-        [AD_TYPE.NONE] = 'error',
+        [AD_TYPE.AUTO_ITEM_PICK] = 'ca-app-pub-9497777061019569/6433744394',
+        [AD_TYPE.RANDOM_BOX_SHOP] = 'ca-app-pub-9497777061019569/6433744394',
+        [AD_TYPE.RANDOM_BOX_LOBBY] = 'ca-app-pub-9497777061019569/1372989407',
     }
 elseif (CppFunctions:isIos()) then
     ADMOB_AD_UNIT_ID_TABLE = {
         [AD_TYPE.AUTO_ITEM_PICK] = 'ca-app-pub-9497777061019569/2042688805',
         [AD_TYPE.RANDOM_BOX_SHOP] = 'ca-app-pub-9497777061019569/2042688805',
         [AD_TYPE.RANDOM_BOX_LOBBY] = 'ca-app-pub-9497777061019569/4566955961',
-        [AD_TYPE.NONE] = 'error',
     }
 else
     ADMOB_AD_UNIT_ID_TABLE = {}
