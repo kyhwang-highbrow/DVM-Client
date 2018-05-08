@@ -2422,15 +2422,15 @@ int lua_cocos2dx_anb_AzVRP_setVisual(lua_State* tolua_S)
     int argc = 0;
     cocos2d::AzVRP* cobj = nullptr;
     bool ok  = true;
-#if COCOS2D_DEBUG >= 1
+#if (COCOS2D_DEBUG >= 1 || LUA_DEBUG >= 1)
     tolua_Error tolua_err;
 #endif
 
-#if COCOS2D_DEBUG >= 1
+#if (COCOS2D_DEBUG >= 1 || LUA_DEBUG >= 1)
     if (!tolua_isusertype(tolua_S,1,"cc.AzVRP",0,&tolua_err)) goto tolua_lerror;
 #endif
     cobj = (cocos2d::AzVRP*)tolua_tousertype(tolua_S,1,0);
-#if COCOS2D_DEBUG >= 1
+#if (COCOS2D_DEBUG >= 1 || LUA_DEBUG >= 1)
     if (!cobj)
     {
         tolua_error(tolua_S,"invalid 'cobj' in function 'lua_cocos2dx_anb_AzVRP_setVisual'", nullptr);
@@ -2481,7 +2481,7 @@ int lua_cocos2dx_anb_AzVRP_setVisual(lua_State* tolua_S)
     CCLOG("%s has wrong number of arguments: %d, was expecting %d \n", "setVisual",argc, 1);
     return 0;
 
-#if COCOS2D_DEBUG >= 1
+#if (COCOS2D_DEBUG >= 1 || LUA_DEBUG >= 1)
     tolua_lerror:
     tolua_error(tolua_S,"#ferror in function 'lua_cocos2dx_anb_AzVRP_setVisual'.",&tolua_err);
 #endif
