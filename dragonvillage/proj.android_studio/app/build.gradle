@@ -5,11 +5,11 @@ apply plugin: 'com.android.application'
 // task preBuild excuted before android build 
 preBuild {
     println '[task preBuild] do it before build'
-    println PROP_PACKAGE_NAME
-    println PROP_VERSION_CODE
-    println PROP_APPVER_DEV
-    println PROP_APPVER_QA
-    println PROP_APPVER_LIVE
+    println "Package name : " + PROP_PACKAGE_NAME
+    println "Version code : " + PROP_VERSION_CODE
+    println "App version DEV : " + PROP_APPVER_DEV
+    println "App version QA : " + PROP_APPVER_QA
+    println "App version LIVE : " + PROP_APPVER_LIVE
 }
 
 // task android build
@@ -64,6 +64,18 @@ android {
     // productFlavors or buildType 에 따른 개별적인 source 설정 가능
     // favors + buildType 가능
     sourceSets{
+        dev {
+            res.srcDirs = ["res/common", "res/dev"]
+        }
+        qa {
+            res.srcDirs = ["res/common", "res/qa"]
+        }
+        liveqa {
+            res.srcDirs = ["res/common", "res/liveqa"]
+        }
+        live {
+            res.srcDirs = ["res/common", "res/live"]
+        }
         market{
             assets.srcDir "../../../assets/100mb"
         }
@@ -72,7 +84,6 @@ android {
         }
         main {
             java.srcDir "./src"
-            res.srcDir "./res"
             manifest.srcFile "./AndroidManifest.xml"         
         }
     }
@@ -128,10 +139,13 @@ android {
         dev{
             dimension "server"
             versionName PROP_APPVER_DEV
+            applicationIdSuffix ".dev"
+            minSdkVersion 21 // native dex 사용하여 빌드 속도 높임
             signingConfig signingConfigs.keystore
             externalNativeBuild {
                 ndkBuild {
                     cppFlags.add("-DTARGET_SERVER=SERVER_DEV")
+                    cppFlags.add("-DAPP_VER=PROP_APPVERNUM_DEV")
                     cppFlags.add("-DUSE_LUA_EXT=false")
                     cppFlags.add("-DIS_TEST_MODE=true")
                 }
@@ -140,10 +154,26 @@ android {
         qa{
             dimension "server"
             versionName PROP_APPVER_QA
+            applicationIdSuffix ".qa"
             signingConfig signingConfigs.keystore
             externalNativeBuild {
                 ndkBuild {
                     cppFlags.add("-DTARGET_SERVER=SERVER_QA")
+                    cppFlags.add("-DAPP_VER=PROP_APPVERNUM_QA")
+                    cppFlags.add("-DUSE_LUA_EXT=false")
+                    cppFlags.add("-DIS_TEST_MODE=true")
+                }
+            }
+        }
+        liveqa{
+            dimension "server"
+            versionName PROP_APPVER_LIVE
+            applicationIdSuffix ".liveqa"
+            signingConfig signingConfigs.keystore
+            externalNativeBuild {
+                ndkBuild {
+                    cppFlags.add("-DTARGET_SERVER=SERVER_QA")
+                    cppFlags.add("-DAPP_VER=PROP_APPVERNUM_LIVE")
                     cppFlags.add("-DUSE_LUA_EXT=false")
                     cppFlags.add("-DIS_TEST_MODE=true")
                 }
@@ -152,12 +182,15 @@ android {
         live{
             dimension "server"
             versionName PROP_APPVER_LIVE
+            applicationIdSuffix ".kr"
             signingConfig signingConfigs.upload_keystore
             externalNativeBuild {
                 ndkBuild {
                     cppFlags.add("-DTARGET_SERVER=SERVER_LIVE")
+                    cppFlags.add("-DAPP_VER=PROP_APPVERNUM_LIVE")
                     cppFlags.add("-DUSE_LUA_EXT=false")
                     cppFlags.add("-DIS_TEST_MODE=false")
+                    cppFlags.add("-DLUA_DEBUG=1")
                 }
             }
         }
@@ -203,6 +236,7 @@ android {
             // signingConfig initialize
             signingConfig null
 
+            minifyEnabled false
             externalNativeBuild {
                 ndkBuild {
                     arguments 'NDK_DEBUG=1'
@@ -240,6 +274,9 @@ allprojects {
         }
     }
     dependencies {
+        // @multidex below Android api 21 (5.0 lolipop)
+        implementation 'com.android.support:multidex:1.0.3'
+
         // @cocos2d-x
         implementation project(':libcocos2dx')
 
@@ -248,9 +285,6 @@ allprojects {
 
         // @perplesdk
         implementation(name:'perplesdk', ext:'aar')
-
-        // @multidex below Android 6.0
-        implementation 'com.android.support:multidex:1.0.3'
 
         // @naver-cafe
         implementation(name: 'cafeSdk-3.2.0', ext: 'aar')

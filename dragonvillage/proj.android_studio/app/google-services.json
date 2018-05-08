@@ -8,6 +8,74 @@
   "client": [
     {
       "client_info": {
+        "mobilesdk_app_id": "1:983890984134:android:3748c8bb00a941bc",
+        "android_client_info": {
+          "package_name": "com.perplelab.dragonvillagem.dev"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "983890984134-si8rumar1lgk3ehb9rpl160lcv320b6p.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.perplelab.dragonvillagem.dev",
+            "certificate_hash": "0aa168b204a17a7b76506691844dedeec8bb7bf3"
+          }
+        },
+        {
+          "client_id": "983890984134-ei8hqf2c7fu4abqe8q4v7qc7o4pteg7c.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.perplelab.dragonvillagem.dev",
+            "certificate_hash": "c6ca19226a4aa8a18adfe92089ca09dc77242130"
+          }
+        },
+        {
+          "client_id": "983890984134-uu7uc4v5qf8jkmtd20nl69q2jtuj9075.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.perplelab.dragonvillagem.dev",
+            "certificate_hash": "0ff078a4b6689adb4ef6468f3be9323ce27d8db9"
+          }
+        },
+        {
+          "client_id": "983890984134-o06c22tcm2adt443s27arjn8m949p3kh.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCEHGL5Ks21LHlKcSYkzeOFAzQmAgSyhgQ"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "983890984134-o06c22tcm2adt443s27arjn8m949p3kh.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "983890984134-krrfuti1qgk3k09j87gobkq96322v48v.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.perplelab.dragonvillagem.kr",
+                "app_store_id": "1281873988"
+              }
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    },
+    {
+      "client_info": {
         "mobilesdk_app_id": "1:983890984134:android:b913a5f60540f02b",
         "android_client_info": {
           "package_name": "com.perplelab.dragonvillagem.kr"
@@ -68,6 +136,68 @@
               }
             }
           ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:983890984134:android:4180172e8e203c5d",
+        "android_client_info": {
+          "package_name": "com.perplelab.dragonvillagem.liveqa"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "983890984134-o06c22tcm2adt443s27arjn8m949p3kh.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCEHGL5Ks21LHlKcSYkzeOFAzQmAgSyhgQ"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:983890984134:android:973456b2f9bc114b",
+        "android_client_info": {
+          "package_name": "com.perplelab.dragonvillagem.qa"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "983890984134-o06c22tcm2adt443s27arjn8m949p3kh.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCEHGL5Ks21LHlKcSYkzeOFAzQmAgSyhgQ"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
         },
         "ads_service": {
           "status": 2
