@@ -21,6 +21,7 @@ end
 -------------------------------------
 function TableDrop:get(key, skip_error_msg)
     if (key == COLOSSEUM_STAGE_ID) then return end
+    if (key == ARENA_STAGE_ID) then return end
 
     return PARENT.get(self, key, skip_error_msg)
 end
@@ -57,6 +58,9 @@ function TableDrop:getStageStaminaType(stage_id)
     end
 
     if (stage_id == COLOSSEUM_STAGE_ID) then
+        return 'pvp', 1
+
+    elseif (stage_id == ARENA_STAGE_ID) then
         return 'pvp', 1
 
     elseif (stage_id == FRIEND_MATCH_STAGE_ID) then

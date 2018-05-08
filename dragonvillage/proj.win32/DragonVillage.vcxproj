@@ -331,6 +331,7 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <None Include="..\src\GameMana.lua" />
     <None Include="..\src\GameState_AncientRuin.lua" />
     <None Include="..\src\GameState_AncientTower.lua" />
+    <None Include="..\src\GameState_Arena.lua" />
     <None Include="..\src\GameState_ClanRaid.lua" />
     <None Include="..\src\GameState_Colosseum.lua" />
     <None Include="..\src\GameState_EventGold.lua" />
@@ -343,6 +344,7 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <None Include="..\src\GameState_NestDungeon_Tree.lua" />
     <None Include="..\src\GameState_SecretDungeon_Relation.lua" />
     <None Include="..\src\GameUnitGroup.lua" />
+    <None Include="..\src\GameWorldArena.lua" />
     <None Include="..\src\GameWorldColosseum.lua" />
     <None Include="..\src\GameWorldForDoubleTeam.lua" />
     <None Include="..\src\GameWorldForDoubleTeam_Unit.lua" />
@@ -454,6 +456,7 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <None Include="..\src\ResHelper.lua" />
     <None Include="..\src\ScenarioViewingHistory.lua" />
     <None Include="..\src\SceneForest.lua" />
+    <None Include="..\src\SceneGameArena.lua" />
     <None Include="..\src\SceneGameColosseum.lua" />
     <None Include="..\src\SceneGameIntro.lua" />
     <None Include="..\src\SceneGameClanRaid.lua" />
@@ -1068,10 +1071,12 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <None Include="..\src\UI_FriendMatchDeckSettings.lua" />
     <None Include="..\src\UI_FriendMatchReady.lua" />
     <None Include="..\src\UI_FriendMatchResult.lua" />
+    <None Include="..\src\UI_GameArena.lua" />
     <None Include="..\src\UI_GameClanRaid.lua" />
     <None Include="..\src\UI_GameDebug_InfoPopup.lua" />
     <None Include="..\src\UI_DragonGoodbyeResult.lua" />
     <None Include="..\src\UI_GameEventGold.lua" />
+    <None Include="..\src\UI_GamePause_Arena.lua" />
     <None Include="..\src\UI_GamePause_ClanRaid.lua" />
     <None Include="..\src\UI_GamePause_EventGoldDungeon.lua" />
     <None Include="..\src\UI_GameResult_AncientRuin.lua" />
@@ -1347,6 +1352,7 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <None Include="..\src\ValidationDragon.lua" />
     <None Include="..\src\WaveMgr.lua" />
     <None Include="..\src\WaveMgr_AncientTower.lua" />
+    <None Include="..\src\WaveMgr_Arena.lua" />
     <None Include="..\src\WaveMgr_ClanRaid.lua" />
     <None Include="..\src\WaveMgr_Colosseum.lua" />
     <None Include="..\src\WaveMgr_SecretRelation.lua" />

@@ -209,7 +209,7 @@ end
 -- @brief 상태이상 유발
 -------------------------------------
 function ActivityCarrier:insertStatusEffectRate(l_status_effect_struct)
-	for i = 1, 2 do 
+	for i = 1, 4 do 
 		local status_effect_struct = l_status_effect_struct[i]
 		if (status_effect_struct) and (status_effect_struct.m_type) then
 			local type = status_effect_struct.m_type

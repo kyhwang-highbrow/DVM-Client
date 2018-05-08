@@ -1381,7 +1381,7 @@ function GameState:applyBuffByFightTime()
 
     for type, value in pairs(add_buff) do
         -- 아군 버프 적용(콜로세움일 경우만)
-        if (world.m_gameMode == GAME_MODE_COLOSSEUM) then
+        if (world.m_gameMode == GAME_MODE_COLOSSEUM or world.m_gameMode == GAME_MODE_ARENA) then
             for i, v in ipairs(world.m_leftParticipants) do
                 if (v.m_statusCalc) then
                     local status, action = TableOption:parseOptionKey(type)

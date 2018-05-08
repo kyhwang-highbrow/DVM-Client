@@ -3427,6 +3427,24 @@
     <None Include="..\src\UI_PackageRandomBoxInfo.lua">
       <Filter>lua\UI</Filter>
     </None>
+    <None Include="..\src\GameState_Arena.lua">
+      <Filter>lua\src</Filter>
+    </None>
+    <None Include="..\src\GameWorldArena.lua">
+      <Filter>lua\src</Filter>
+    </None>
+    <None Include="..\src\SceneGameArena.lua">
+      <Filter>lua\src</Filter>
+    </None>
+    <None Include="..\src\UI_GameArena.lua">
+      <Filter>lua\src</Filter>
+    </None>
+    <None Include="..\src\UI_GamePause_Arena.lua">
+      <Filter>lua\src</Filter>
+    </None>
+    <None Include="..\src\WaveMgr_Arena.lua">
+      <Filter>lua\src</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Classes">

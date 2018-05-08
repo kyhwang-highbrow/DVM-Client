@@ -379,6 +379,7 @@ function StatusCalculator:applyStageBonus(stage_id, is_enemy)
     local t_info
 
     if (stage_id == COLOSSEUM_STAGE_ID) then
+    elseif (stage_id == ARENA_STAGE_ID) then
     else
         local t_info = TableStageData():getStageBuff(stage_id, is_enemy)
         if (not t_info) then return end
