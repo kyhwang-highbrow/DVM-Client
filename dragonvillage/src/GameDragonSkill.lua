@@ -464,7 +464,7 @@ function GameDragonSkill:makeSkillOpeningCut(dragon, cbEnd)
 
         local aniName = self:getDragonAniForCut(dragon)
         local res_name = dragon.m_animator.m_resName
-        local animator = MakeAnimator(res_name)
+        local animator = AnimatorHelper:makeDragonAnimator(res_name, dragon.m_evolutionLv, dragon:getAttribute())
         animator:changeAni(aniName, false)
         dragonNode:addChild(animator.m_node)
 
