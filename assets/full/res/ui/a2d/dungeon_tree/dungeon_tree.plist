@@ -4,183 +4,78 @@
     <dict>
         <key>frames</key>
         <dict>
-            <key>dungeon_tree_dark_icon.png</key>
+            <key>dungeon_tree_dark_list.png</key>
             <dict>
                 <key>aliases</key>
                 <array/>
                 <key>spriteOffset</key>
                 <string>{0,0}</string>
                 <key>spriteSize</key>
-                <string>{280,280}</string>
+                <string>{290,602}</string>
                 <key>spriteSourceSize</key>
-                <string>{280,280}</string>
+                <string>{290,602}</string>
                 <key>textureRect</key>
-                <string>{{1,273},{280,280}}</string>
+                <string>{{1,1},{290,602}}</string>
                 <key>textureRotated</key>
                 <false/>
             </dict>
-            <key>dungeon_tree_dark_reward.png</key>
+            <key>dungeon_tree_earth_list.png</key>
             <dict>
                 <key>aliases</key>
                 <array/>
                 <key>spriteOffset</key>
                 <string>{0,0}</string>
                 <key>spriteSize</key>
-                <string>{204,48}</string>
+                <string>{290,602}</string>
                 <key>spriteSourceSize</key>
-                <string>{204,48}</string>
+                <string>{290,602}</string>
                 <key>textureRect</key>
-                <string>{{565,579},{204,48}}</string>
+                <string>{{293,1},{290,602}}</string>
                 <key>textureRotated</key>
                 <false/>
             </dict>
-            <key>dungeon_tree_earth_icon.png</key>
+            <key>dungeon_tree_fire_list.png</key>
             <dict>
                 <key>aliases</key>
                 <array/>
                 <key>spriteOffset</key>
                 <string>{0,0}</string>
                 <key>spriteSize</key>
-                <string>{280,280}</string>
+                <string>{290,602}</string>
                 <key>spriteSourceSize</key>
-                <string>{280,280}</string>
+                <string>{290,602}</string>
                 <key>textureRect</key>
-                <string>{{283,273},{280,280}}</string>
+                <string>{{585,1},{290,602}}</string>
                 <key>textureRotated</key>
                 <false/>
             </dict>
-            <key>dungeon_tree_earth_reward.png</key>
+            <key>dungeon_tree_light_list.png</key>
             <dict>
                 <key>aliases</key>
                 <array/>
                 <key>spriteOffset</key>
                 <string>{0,0}</string>
                 <key>spriteSize</key>
-                <string>{204,48}</string>
+                <string>{290,602}</string>
                 <key>spriteSourceSize</key>
-                <string>{204,48}</string>
+                <string>{290,602}</string>
                 <key>textureRect</key>
-                <string>{{771,579},{204,48}}</string>
+                <string>{{1,605},{290,602}}</string>
                 <key>textureRotated</key>
                 <true/>
             </dict>
-            <key>dungeon_tree_fire_icon.png</key>
+            <key>dungeon_tree_water_list.png</key>
             <dict>
                 <key>aliases</key>
                 <array/>
                 <key>spriteOffset</key>
                 <string>{0,0}</string>
                 <key>spriteSize</key>
-                <string>{280,280}</string>
+                <string>{290,602}</string>
                 <key>spriteSourceSize</key>
-                <string>{280,280}</string>
+                <string>{290,602}</string>
                 <key>textureRect</key>
-                <string>{{565,297},{280,280}}</string>
-                <key>textureRotated</key>
-                <false/>
-            </dict>
-            <key>dungeon_tree_fire_reward.png</key>
-            <dict>
-                <key>aliases</key>
-                <array/>
-                <key>spriteOffset</key>
-                <string>{0,0}</string>
-                <key>spriteSize</key>
-                <string>{204,48}</string>
-                <key>spriteSourceSize</key>
-                <string>{204,48}</string>
-                <key>textureRect</key>
-                <string>{{821,579},{204,48}}</string>
-                <key>textureRotated</key>
-                <true/>
-            </dict>
-            <key>dungeon_tree_frame.png</key>
-            <dict>
-                <key>aliases</key>
-                <array/>
-                <key>spriteOffset</key>
-                <string>{0,0}</string>
-                <key>spriteSize</key>
-                <string>{270,580}</string>
-                <key>spriteSourceSize</key>
-                <string>{270,580}</string>
-                <key>textureRect</key>
-                <string>{{1,1},{270,580}}</string>
-                <key>textureRotated</key>
-                <true/>
-            </dict>
-            <key>dungeon_tree_frame_deco.png</key>
-            <dict>
-                <key>aliases</key>
-                <array/>
-                <key>spriteOffset</key>
-                <string>{0,0}</string>
-                <key>spriteSize</key>
-                <string>{294,294}</string>
-                <key>spriteSourceSize</key>
-                <string>{294,294}</string>
-                <key>textureRect</key>
-                <string>{{583,1},{294,294}}</string>
-                <key>textureRotated</key>
-                <false/>
-            </dict>
-            <key>dungeon_tree_light_icon.png</key>
-            <dict>
-                <key>aliases</key>
-                <array/>
-                <key>spriteOffset</key>
-                <string>{0,0}</string>
-                <key>spriteSize</key>
-                <string>{280,280}</string>
-                <key>spriteSourceSize</key>
-                <string>{280,280}</string>
-                <key>textureRect</key>
-                <string>{{1,555},{280,280}}</string>
-                <key>textureRotated</key>
-                <false/>
-            </dict>
-            <key>dungeon_tree_light_reward.png</key>
-            <dict>
-                <key>aliases</key>
-                <array/>
-                <key>spriteOffset</key>
-                <string>{0,0}</string>
-                <key>spriteSize</key>
-                <string>{204,48}</string>
-                <key>spriteSourceSize</key>
-                <string>{204,48}</string>
-                <key>textureRect</key>
-                <string>{{565,785},{204,48}}</string>
-                <key>textureRotated</key>
-                <false/>
-            </dict>
-            <key>dungeon_tree_water_icon.png</key>
-            <dict>
-                <key>aliases</key>
-                <array/>
-                <key>spriteOffset</key>
-                <string>{0,0}</string>
-                <key>spriteSize</key>
-                <string>{280,280}</string>
-                <key>spriteSourceSize</key>
-                <string>{280,280}</string>
-                <key>textureRect</key>
-                <string>{{283,555},{280,280}}</string>
-                <key>textureRotated</key>
-                <false/>
-            </dict>
-            <key>dungeon_tree_water_reward.png</key>
-            <dict>
-                <key>aliases</key>
-                <array/>
-                <key>spriteOffset</key>
-                <string>{0,0}</string>
-                <key>spriteSize</key>
-                <string>{204,48}</string>
-                <key>spriteSourceSize</key>
-                <string>{204,48}</string>
-                <key>textureRect</key>
-                <string>{{565,629},{204,48}}</string>
+                <string>{{877,1},{290,602}}</string>
                 <key>textureRotated</key>
                 <false/>
             </dict>
@@ -196,9 +91,9 @@
             <key>realTextureFileName</key>
             <string>dungeon_tree.png</string>
             <key>size</key>
-            <string>{878,836}</string>
+            <string>{1168,896}</string>
             <key>smartupdate</key>
-            <string>$TexturePacker:SmartUpdate:7549456cd97092d0f46fc2e2d6aa7c0c:1dfff4e07df7cd94264f49f829a8aa74:c770335eff9fa2388df7ffff2ec0e162$</string>
+            <string>$TexturePacker:SmartUpdate:88d2730630e4b47706a81f7b828cc97a:ed34b0debc53c4e46f1fe7ced8053a29:c770335eff9fa2388df7ffff2ec0e162$</string>
             <key>textureFileName</key>
             <string>dungeon_tree.png</string>
         </dict>

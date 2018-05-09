@@ -563,7 +563,7 @@
 				anchor_point = { 0.500000; 0.500000; };
 				relative_size_type = 0;
 				width = 400;
-				height = 120;
+				height = 130;
 				scale_x = 1.000000;
 				scale_y = 1.000000;
 				skew_x = 0.000000;
@@ -579,7 +579,7 @@
 				color = { 255; 255; 255; };
 				opacity = 255;
 				dimension_width = 400;
-				dimension_height = 120;
+				dimension_height = 130;
 				letter_spacing = 0.000000;
 				has_stroke = false;
 				stroke_type = 0;
@@ -603,7 +603,7 @@
 				anchor_point = { 0.500000; 0.500000; };
 				relative_size_type = 0;
 				width = 400;
-				height = 120;
+				height = 130;
 				scale_x = 1.000000;
 				scale_y = 1.000000;
 				skew_x = 0.000000;
@@ -619,7 +619,7 @@
 				color = { 255; 255; 255; };
 				opacity = 255;
 				dimension_width = 400;
-				dimension_height = 120;
+				dimension_height = 130;
 				letter_spacing = 0.000000;
 				has_stroke = false;
 				stroke_type = 0;

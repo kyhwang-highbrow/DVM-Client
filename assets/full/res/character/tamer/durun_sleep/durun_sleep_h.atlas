@@ -1,0 +1,118 @@
+
+durun_sleep_h.png
+size: 476,523
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+durun_sleep_bed_01
+  rotate: false
+  xy: 241, 52
+  size: 91, 181
+  orig: 91, 181
+  offset: 0, 0
+  index: -1
+durun_sleep_bed_02
+  rotate: false
+  xy: 2, 76
+  size: 237, 133
+  orig: 237, 133
+  offset: 0, 0
+  index: -1
+durun_sleep_bed_03
+  rotate: false
+  xy: 138, 418
+  size: 310, 103
+  orig: 310, 103
+  offset: 0, 0
+  index: -1
+durun_sleep_bed_04
+  rotate: false
+  xy: 138, 313
+  size: 310, 103
+  orig: 310, 103
+  offset: 0, 0
+  index: -1
+durun_sleep_bed_05
+  rotate: true
+  xy: 267, 6
+  size: 42, 96
+  orig: 42, 96
+  offset: 0, 0
+  index: -1
+durun_sleep_bed_06
+  rotate: true
+  xy: 172, 7
+  size: 43, 93
+  orig: 43, 93
+  offset: 0, 0
+  index: -1
+durun_sleep_bed_07
+  rotate: false
+  xy: 138, 235
+  size: 268, 76
+  orig: 268, 76
+  offset: 0, 0
+  index: -1
+durun_sleep_bed_08
+  rotate: true
+  xy: 365, 8
+  size: 40, 108
+  orig: 40, 108
+  offset: 0, 0
+  index: -1
+durun_sleep_bed_09
+  rotate: true
+  xy: 2, 211
+  size: 310, 134
+  orig: 310, 134
+  offset: 0, 0
+  index: -1
+durun_sleep_body_01
+  rotate: false
+  xy: 2, 2
+  size: 106, 72
+  orig: 106, 72
+  offset: 0, 0
+  index: -1
+durun_sleep_body_02
+  rotate: true
+  xy: 416, 153
+  size: 82, 58
+  orig: 82, 58
+  offset: 0, 0
+  index: -1
+durun_sleep_body_03
+  rotate: true
+  xy: 408, 237
+  size: 74, 64
+  orig: 74, 64
+  offset: 0, 0
+  index: -1
+durun_sleep_duvet_01
+  rotate: false
+  xy: 334, 50
+  size: 132, 79
+  orig: 132, 79
+  offset: 0, 0
+  index: -1
+durun_sleep_eff_01
+  rotate: true
+  xy: 138, 218
+  size: 15, 17
+  orig: 15, 17
+  offset: 0, 0
+  index: -1
+durun_sleep_head_01
+  rotate: false
+  xy: 110, 15
+  size: 60, 59
+  orig: 60, 59
+  offset: 0, 0
+  index: -1
+durun_sleep_pillow
+  rotate: true
+  xy: 334, 131
+  size: 102, 80
+  orig: 102, 80
+  offset: 0, 0
+  index: -1

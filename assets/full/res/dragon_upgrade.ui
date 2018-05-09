@@ -806,8 +806,8 @@
 			y = 26.000000;
 			dock_point = { 0.500000; 0.500000; };
 			anchor_point = { 0.500000; 0.500000; };
-			relative_size_type = 0;
-			width = 730;
+			relative_size_type = 2;
+			width = -550;
 			height = 534;
 			scale_x = 1.000000;
 			scale_y = 1.000000;
@@ -850,8 +850,8 @@
 				y = 0.000000;
 				dock_point = { 1.000000; 0.500000; };
 				anchor_point = { 1.000000; 0.500000; };
-				relative_size_type = 0;
-				width = 1114;
+				relative_size_type = 2;
+				width = -166;
 				height = 100;
 				scale_x = 1.000000;
 				scale_y = 1.000000;
@@ -891,9 +891,9 @@
 				};
 				type = 'Button';
 				ui_name = '';
-				x = -526.000000;
+				x = 114.000000;
 				y = -26.000000;
-				dock_point = { 0.500000; 0.500000; };
+				dock_point = { 0.000000; 0.500000; };
 				anchor_point = { 0.500000; 0.500000; };
 				relative_size_type = 0;
 				width = 90;
@@ -955,9 +955,9 @@
 				};
 				type = 'Button';
 				ui_name = '';
-				x = -526.000000;
+				x = 114.000000;
 				y = 26.000000;
-				dock_point = { 0.500000; 0.500000; };
+				dock_point = { 0.000000; 0.500000; };
 				anchor_point = { 0.500000; 0.500000; };
 				relative_size_type = 0;
 				width = 90;
@@ -979,9 +979,9 @@
 			{
 				type = 'Button';
 				ui_name = '';
-				x = -604.000000;
+				x = 36.000000;
 				y = 0.000000;
-				dock_point = { 0.500000; 0.500000; };
+				dock_point = { 0.000000; 0.500000; };
 				anchor_point = { 0.500000; 0.500000; };
 				relative_size_type = 0;
 				width = 62;
@@ -1005,8 +1005,8 @@
 			y = 0.000000;
 			dock_point = { 0.500000; 0.000000; };
 			anchor_point = { 0.500000; 0.000000; };
-			relative_size_type = 0;
-			width = 1280;
+			relative_size_type = 2;
+			width = 0;
 			height = 114;
 			scale_x = 1.000000;
 			scale_y = 1.000000;
@@ -1219,9 +1219,9 @@
 			};
 			type = 'Menu';
 			ui_name = 'right';
-			x = 370.000000;
+			x = -270.000000;
 			y = 26.000000;
-			dock_point = { 0.500000; 0.500000; };
+			dock_point = { 1.000000; 0.500000; };
 			anchor_point = { 0.500000; 0.500000; };
 			relative_size_type = 0;
 			width = 520;

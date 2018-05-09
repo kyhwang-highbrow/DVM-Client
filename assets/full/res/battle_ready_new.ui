@@ -16,8 +16,8 @@
 				relative_size_type = 0;
 				width = 100;
 				height = 100;
-				scale_x = 1.000000;
-				scale_y = 1.000000;
+				scale_x = 1.200000;
+				scale_y = 1.200000;
 				skew_x = 0.000000;
 				skew_y = 0.000000;
 				rotation = 0.000000;
@@ -28,13 +28,13 @@
 			{
 				type = 'LayerColor';
 				ui_name = '';
-				x = -1.000000;
+				x = 0.000000;
 				y = 0.000000;
 				dock_point = { 0.500000; 0.500000; };
 				anchor_point = { 0.500000; 0.500000; };
 				relative_size_type = 3;
 				width = 0;
-				height = 240;
+				height = 0;
 				scale_x = 1.000000;
 				scale_y = 1.000000;
 				skew_x = 0.000000;
@@ -70,29 +70,22 @@
 			{
 				[1] =
 				{
-					type = 'Scale9Sprite';
+					type = 'Node';
 					ui_name = '';
 					x = 0.000000;
-					y = 0.000000;
-					dock_point = { 0.500000; 0.500000; };
-					anchor_point = { 0.500000; 0.500000; };
-					relative_size_type = 3;
-					width = 0;
-					height = 0;
+					y = 152.000000;
+					dock_point = { 0.500000; 0.000000; };
+					anchor_point = { 0.500000; 0.000000; };
+					relative_size_type = 1;
+					width = 470;
+					height = -250;
 					scale_x = 1.000000;
 					scale_y = 1.000000;
 					skew_x = 0.000000;
 					skew_y = 0.000000;
 					rotation = 0.000000;
-					visible = false;
-					lua_name = '';
-					file_name = 'ui/frames/base_frame_0101.png';
-					color = { 255; 255; 255; };
-					opacity = 255;
-					center_rect_x = 0;
-					center_rect_y = 0;
-					center_rect_width = 0;
-					center_rect_height = 0;
+					visible = true;
+					lua_name = 'listView';
 				};
 				[2] =
 				{
@@ -102,28 +95,9 @@
 					y = 152.000000;
 					dock_point = { 0.500000; 0.000000; };
 					anchor_point = { 0.500000; 0.000000; };
-					relative_size_type = 0;
+					relative_size_type = 1;
 					width = 470;
-					height = 390;
-					scale_x = 1.000000;
-					scale_y = 1.000000;
-					skew_x = 0.000000;
-					skew_y = 0.000000;
-					rotation = 0.000000;
-					visible = true;
-					lua_name = 'listView';
-				};
-				[3] =
-				{
-					type = 'Node';
-					ui_name = '';
-					x = 0.000000;
-					y = 152.000000;
-					dock_point = { 0.500000; 0.000000; };
-					anchor_point = { 0.500000; 0.000000; };
-					relative_size_type = 0;
-					width = 470;
-					height = 390;
+					height = -250;
 					scale_x = 1.000000;
 					scale_y = 1.000000;
 					skew_x = 0.000000;
@@ -132,7 +106,7 @@
 					visible = false;
 					lua_name = 'listView2';
 				};
-				[4] =
+				[3] =
 				{
 					[1] =
 					{
@@ -332,7 +306,7 @@
 					dock_point = { 0.500000; 0.000000; };
 					anchor_point = { 0.500000; 0.500000; };
 					relative_size_type = 0;
-					width = 460;
+					width = 480;
 					height = 70;
 					scale_x = 1.000000;
 					scale_y = 1.000000;
@@ -347,13 +321,13 @@
 					disable = 'ui/buttons/main_btn_0102.png';
 					image_type = 1;
 				};
-				[5] =
+				[4] =
 				{
 					[1] =
 					{
 						type = 'Scale9Sprite';
 						ui_name = '';
-						x = 30.000000;
+						x = 24.000000;
 						y = 0.000000;
 						dock_point = { 0.000000; 0.500000; };
 						anchor_point = { 0.500000; 0.500000; };
@@ -379,7 +353,7 @@
 					{
 						type = 'Sprite';
 						ui_name = '';
-						x = 34.000000;
+						x = 28.000000;
 						y = 4.000000;
 						dock_point = { 0.000000; 0.500000; };
 						anchor_point = { 0.500000; 0.500000; };
@@ -405,12 +379,12 @@
 					{
 						type = 'LabelTTF';
 						ui_name = '';
-						x = 20.000000;
+						x = 17.000000;
 						y = 0.000000;
 						dock_point = { 0.500000; 0.500000; };
 						anchor_point = { 0.500000; 0.500000; };
 						relative_size_type = 0;
-						width = 164;
+						width = 109;
 						height = 60;
 						scale_x = 1.000000;
 						scale_y = 1.000000;
@@ -420,13 +394,13 @@
 						visible = true;
 						lua_name = '';
 						font_name = 'font/common_font_01.ttf';
-						font_size = 22;
+						font_size = 18;
 						text = '연속 전투';
 						h_alignment = 1;
 						v_alignment = 1;
 						color = { 240; 215; 159; };
 						opacity = 255;
-						dimension_width = 164;
+						dimension_width = 109;
 						dimension_height = 60;
 						letter_spacing = 0.000000;
 						has_stroke = false;
@@ -443,12 +417,12 @@
 					};
 					type = 'Button';
 					ui_name = '';
-					x = 110.000000;
+					x = 154.000000;
 					y = 98.000000;
 					dock_point = { 0.500000; 0.000000; };
 					anchor_point = { 0.500000; 0.500000; };
 					relative_size_type = 0;
-					width = 220;
+					width = 154;
 					height = 50;
 					scale_x = 1.000000;
 					scale_y = 1.000000;
@@ -463,7 +437,7 @@
 					disable = 'ui/buttons/base_btn_0102.png';
 					image_type = 1;
 				};
-				[6] =
+				[5] =
 				{
 					[1] =
 					{
@@ -474,7 +448,7 @@
 						dock_point = { 0.500000; 0.500000; };
 						anchor_point = { 0.500000; 0.500000; };
 						relative_size_type = 0;
-						width = 200;
+						width = 144;
 						height = 60;
 						scale_x = 1.000000;
 						scale_y = 1.000000;
@@ -484,13 +458,13 @@
 						visible = true;
 						lua_name = '';
 						font_name = 'font/common_font_01.ttf';
-						font_size = 22;
+						font_size = 18;
 						text = '드래곤 관리';
 						h_alignment = 1;
 						v_alignment = 1;
 						color = { 240; 215; 159; };
 						opacity = 255;
-						dimension_width = 200;
+						dimension_width = 144;
 						dimension_height = 60;
 						letter_spacing = 0.000000;
 						has_stroke = false;
@@ -505,14 +479,40 @@
 						shadow_direction = 0;
 						shadow_distance = 2.000000;
 					};
+					[2] =
+					{
+						type = 'Sprite';
+						ui_name = '';
+						x = 20.000000;
+						y = 0.000000;
+						dock_point = { 0.000000; 0.500000; };
+						anchor_point = { 0.500000; 0.500000; };
+						relative_size_type = 0;
+						width = 54;
+						height = 36;
+						scale_x = 0.800000;
+						scale_y = 0.800000;
+						skew_x = 0.000000;
+						skew_y = 0.000000;
+						rotation = 0.000000;
+						visible = false;
+						lua_name = '';
+						file_name = 'ui/buttons/ico_dragon_manage_0101.png';
+						color = { 255; 255; 255; };
+						opacity = 255;
+						flip_x = false;
+						flip_y = false;
+						src_blend = 770;
+						dest_blend = 771;
+					};
 					type = 'Button';
 					ui_name = '';
-					x = -110.000000;
+					x = 0.000000;
 					y = 98.000000;
 					dock_point = { 0.500000; 0.000000; };
 					anchor_point = { 0.500000; 0.500000; };
 					relative_size_type = 0;
-					width = 220;
+					width = 154;
 					height = 50;
 					scale_x = 1.000000;
 					scale_y = 1.000000;
@@ -521,6 +521,96 @@
 					rotation = 0.000000;
 					visible = true;
 					lua_name = 'manageBtn';
+					enable = true;
+					normal = 'ui/buttons/base_btn_0101.png';
+					selected = 'ui/buttons/base_btn_0102.png';
+					disable = '';
+					image_type = 1;
+				};
+				[6] =
+				{
+					[1] =
+					{
+						type = 'LabelTTF';
+						ui_name = '';
+						x = 18.000000;
+						y = 0.000000;
+						dock_point = { 0.500000; 0.500000; };
+						anchor_point = { 0.500000; 0.500000; };
+						relative_size_type = 0;
+						width = 118;
+						height = 60;
+						scale_x = 1.000000;
+						scale_y = 1.000000;
+						skew_x = 0.000000;
+						skew_y = 0.000000;
+						rotation = 0.000000;
+						visible = true;
+						lua_name = '';
+						font_name = 'font/common_font_01.ttf';
+						font_size = 18;
+						text = '팀 보너스';
+						h_alignment = 1;
+						v_alignment = 1;
+						color = { 240; 215; 159; };
+						opacity = 255;
+						dimension_width = 118;
+						dimension_height = 60;
+						letter_spacing = 0.000000;
+						has_stroke = false;
+						stroke_type = 0;
+						stroke_detail_level = 0;
+						is_sharp_text = true;
+						stroke_tickness = 2.000000;
+						stroke_color = { 85; 44; 25; };
+						has_shadow = false;
+						shadow_color = { 85; 44; 25; };
+						shadow_opacity = 150;
+						shadow_direction = 0;
+						shadow_distance = 2.000000;
+					};
+					[2] =
+					{
+						type = 'Sprite';
+						ui_name = '';
+						x = 20.000000;
+						y = 0.000000;
+						dock_point = { 0.000000; 0.500000; };
+						anchor_point = { 0.500000; 0.500000; };
+						relative_size_type = 0;
+						width = 54;
+						height = 36;
+						scale_x = 0.800000;
+						scale_y = 0.800000;
+						skew_x = 0.000000;
+						skew_y = 0.000000;
+						rotation = 0.000000;
+						visible = true;
+						lua_name = '';
+						file_name = 'ui/buttons/icon_team_bonus_0101.png';
+						color = { 255; 255; 255; };
+						opacity = 255;
+						flip_x = false;
+						flip_y = false;
+						src_blend = 770;
+						dest_blend = 771;
+					};
+					type = 'Button';
+					ui_name = '';
+					x = -154.000000;
+					y = 98.000000;
+					dock_point = { 0.500000; 0.000000; };
+					anchor_point = { 0.500000; 0.500000; };
+					relative_size_type = 0;
+					width = 154;
+					height = 50;
+					scale_x = 1.000000;
+					scale_y = 1.000000;
+					skew_x = 0.000000;
+					skew_y = 0.000000;
+					rotation = 0.000000;
+					visible = true;
+					lua_name = 'teamBonusBtn';
 					enable = true;
 					normal = 'ui/buttons/base_btn_0101.png';
 					selected = 'ui/buttons/base_btn_0102.png';
@@ -799,13 +889,13 @@
 				};
 				type = 'Menu';
 				ui_name = 'right';
-				x = 390.000000;
+				x = -10.000000;
 				y = -30.000000;
-				dock_point = { 0.500000; 0.500000; };
-				anchor_point = { 0.500000; 0.500000; };
-				relative_size_type = 0;
+				dock_point = { 1.000000; 0.500000; };
+				anchor_point = { 1.000000; 0.500000; };
+				relative_size_type = 1;
 				width = 480;
-				height = 640;
+				height = -80;
 				scale_x = 1.000000;
 				scale_y = 1.000000;
 				skew_x = 0.000000;
@@ -3709,8 +3799,8 @@
 					type = 'Menu';
 					ui_name = '';
 					x = 128.000000;
-					y = 263.000000;
-					dock_point = { 0.500000; 0.500000; };
+					y = -57.000000;
+					dock_point = { 0.500000; 1.000000; };
 					anchor_point = { 0.500000; 0.500000; };
 					relative_size_type = 0;
 					width = 500;
@@ -3729,9 +3819,9 @@
 				y = -30.000000;
 				dock_point = { 0.500000; 0.500000; };
 				anchor_point = { 0.500000; 0.500000; };
-				relative_size_type = 0;
-				width = 770;
-				height = 640;
+				relative_size_type = 3;
+				width = -510;
+				height = -80;
 				scale_x = 1.000000;
 				scale_y = 1.000000;
 				skew_x = 0.000000;

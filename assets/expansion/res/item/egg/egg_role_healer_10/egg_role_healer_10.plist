@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple Computer//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+    <dict>
+        <key>frames</key>
+        <dict>
+            <key>egg_role_healer_10_src.png</key>
+            <dict>
+                <key>aliases</key>
+                <array/>
+                <key>spriteOffset</key>
+                <string>{-1,5}</string>
+                <key>spriteSize</key>
+                <string>{549,438}</string>
+                <key>spriteSourceSize</key>
+                <string>{773,810}</string>
+                <key>textureRect</key>
+                <string>{{1,1},{549,438}}</string>
+                <key>textureRotated</key>
+                <true/>
+            </dict>
+        </dict>
+        <key>metadata</key>
+        <dict>
+            <key>format</key>
+            <integer>3</integer>
+            <key>pixelFormat</key>
+            <string>RGBA8888</string>
+            <key>premultiplyAlpha</key>
+            <false/>
+            <key>realTextureFileName</key>
+            <string>egg_role_healer_10.png</string>
+            <key>size</key>
+            <string>{512,1024}</string>
+            <key>smartupdate</key>
+            <string>$TexturePacker:SmartUpdate:7d169fe63e7d1e09ec106ae19b4d8701:572b272bb2b34409dc61e5c94dffae6c:1612e203f54a72b47dc13c0e53a72fd3$</string>
+            <key>textureFileName</key>
+            <string>egg_role_healer_10.png</string>
+        </dict>
+    </dict>
+</plist>

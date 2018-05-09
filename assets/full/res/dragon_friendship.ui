@@ -14,8 +14,8 @@
 			relative_size_type = 0;
 			width = 100;
 			height = 100;
-			scale_x = 1.000000;
-			scale_y = 1.000000;
+			scale_x = 1.200000;
+			scale_y = 1.200000;
 			skew_x = 0.000000;
 			skew_y = 0.000000;
 			rotation = 0.000000;
@@ -1089,65 +1089,6 @@
 		};
 		[3] =
 		{
-			type = 'Node';
-			ui_name = '';
-			x = -306.999939;
-			y = 0.000000;
-			dock_point = { 0.500000; 0.500000; };
-			anchor_point = { 0.500000; 0.500000; };
-			relative_size_type = 0;
-			width = 100;
-			height = 100;
-			scale_x = 1.000000;
-			scale_y = 1.000000;
-			skew_x = 0.000000;
-			skew_y = 0.000000;
-			rotation = 0.000000;
-			visible = true;
-			lua_name = 'dragonNode';
-		};
-		[4] =
-		{
-			type = 'LabelTTF';
-			ui_name = '';
-			x = -314.000000;
-			y = -200.000000;
-			dock_point = { 0.500000; 0.500000; };
-			anchor_point = { 0.500000; 0.500000; };
-			relative_size_type = 0;
-			width = 620;
-			height = 60;
-			scale_x = 0.980000;
-			scale_y = 1.000000;
-			skew_x = 0.000000;
-			skew_y = 0.000000;
-			rotation = 0.000000;
-			visible = true;
-			lua_name = 'conditionInfoLabel';
-			font_name = 'font/common_font_01.ttf';
-			font_size = 24;
-			text = 'conditionInfoLabel';
-			h_alignment = 1;
-			v_alignment = 2;
-			color = { 240; 215; 159; };
-			opacity = 255;
-			dimension_width = 620;
-			dimension_height = 60;
-			letter_spacing = 0.000000;
-			has_stroke = true;
-			stroke_type = 0;
-			stroke_detail_level = 0;
-			is_sharp_text = true;
-			stroke_tickness = 2.000000;
-			stroke_color = { 0; 0; 0; };
-			has_shadow = false;
-			shadow_color = { 0; 0; 0; };
-			shadow_opacity = 255;
-			shadow_direction = 0;
-			shadow_distance = 3.000000;
-		};
-		[5] =
-		{
 			[1] =
 			{
 				type = 'LayerColor';
@@ -1179,8 +1120,8 @@
 				y = 0.000000;
 				dock_point = { 1.000000; 0.500000; };
 				anchor_point = { 1.000000; 0.500000; };
-				relative_size_type = 0;
-				width = 1114;
+				relative_size_type = 2;
+				width = -166;
 				height = 100;
 				scale_x = 1.000000;
 				scale_y = 1.000000;
@@ -1220,9 +1161,9 @@
 				};
 				type = 'Button';
 				ui_name = '';
-				x = -526.000000;
+				x = 114.000000;
 				y = -26.000000;
-				dock_point = { 0.500000; 0.500000; };
+				dock_point = { 0.000000; 0.500000; };
 				anchor_point = { 0.500000; 0.500000; };
 				relative_size_type = 0;
 				width = 90;
@@ -1284,9 +1225,9 @@
 				};
 				type = 'Button';
 				ui_name = '';
-				x = -526.000000;
+				x = 114.000000;
 				y = 26.000000;
-				dock_point = { 0.500000; 0.500000; };
+				dock_point = { 0.000000; 0.500000; };
 				anchor_point = { 0.500000; 0.500000; };
 				relative_size_type = 0;
 				width = 90;
@@ -1308,9 +1249,9 @@
 			{
 				type = 'Button';
 				ui_name = '';
-				x = -604.000000;
+				x = 36.000000;
 				y = 0.000000;
-				dock_point = { 0.500000; 0.500000; };
+				dock_point = { 0.000000; 0.500000; };
 				anchor_point = { 0.500000; 0.500000; };
 				relative_size_type = 0;
 				width = 62;
@@ -1334,8 +1275,8 @@
 			y = 0.000000;
 			dock_point = { 0.500000; 0.000000; };
 			anchor_point = { 0.500000; 0.000000; };
-			relative_size_type = 0;
-			width = 1280;
+			relative_size_type = 2;
+			width = 0;
 			height = 114;
 			scale_x = 1.000000;
 			scale_y = 1.000000;
@@ -1345,16 +1286,75 @@
 			visible = true;
 			lua_name = '';
 		};
-		[6] =
+		[4] =
 		{
+			[1] =
+			{
+				type = 'Node';
+				ui_name = '';
+				x = 0.000000;
+				y = -48.000000;
+				dock_point = { 0.500000; 0.500000; };
+				anchor_point = { 0.500000; 0.500000; };
+				relative_size_type = 0;
+				width = 100;
+				height = 100;
+				scale_x = 1.000000;
+				scale_y = 1.000000;
+				skew_x = 0.000000;
+				skew_y = 0.000000;
+				rotation = 0.000000;
+				visible = true;
+				lua_name = 'dragonNode';
+			};
+			[2] =
+			{
+				type = 'LabelTTF';
+				ui_name = '';
+				x = 0.000000;
+				y = -248.000000;
+				dock_point = { 0.500000; 0.500000; };
+				anchor_point = { 0.500000; 0.500000; };
+				relative_size_type = 0;
+				width = 620;
+				height = 60;
+				scale_x = 0.980000;
+				scale_y = 1.000000;
+				skew_x = 0.000000;
+				skew_y = 0.000000;
+				rotation = 0.000000;
+				visible = true;
+				lua_name = 'conditionInfoLabel';
+				font_name = 'font/common_font_01.ttf';
+				font_size = 24;
+				text = 'conditionInfoLabel';
+				h_alignment = 1;
+				v_alignment = 2;
+				color = { 240; 215; 159; };
+				opacity = 255;
+				dimension_width = 620;
+				dimension_height = 60;
+				letter_spacing = 0.000000;
+				has_stroke = true;
+				stroke_type = 0;
+				stroke_detail_level = 0;
+				is_sharp_text = true;
+				stroke_tickness = 2.000000;
+				stroke_color = { 0; 0; 0; };
+				has_shadow = false;
+				shadow_color = { 0; 0; 0; };
+				shadow_opacity = 255;
+				shadow_direction = 0;
+				shadow_distance = 3.000000;
+			};
 			type = 'Menu';
 			ui_name = 'left';
 			x = -322.000000;
 			y = 48.000000;
 			dock_point = { 0.500000; 0.500000; };
 			anchor_point = { 0.500000; 0.500000; };
-			relative_size_type = 0;
-			width = 638;
+			relative_size_type = 2;
+			width = -642;
 			height = 588;
 			scale_x = 1.000000;
 			scale_y = 1.000000;
@@ -1364,7 +1364,7 @@
 			visible = true;
 			lua_name = '';
 		};
-		[7] =
+		[5] =
 		{
 			type = 'Visual';
 			ui_name = '';
@@ -1389,7 +1389,7 @@
 			color = { 255; 255; 255; };
 			opacity = 255;
 		};
-		[8] =
+		[6] =
 		{
 			type = 'ProgressTimer';
 			ui_name = '';
@@ -1419,7 +1419,7 @@
 			mid_point_y = 0.000000;
 			percentage = 100;
 		};
-		[9] =
+		[7] =
 		{
 			type = 'LabelTTF';
 			ui_name = 'rich';

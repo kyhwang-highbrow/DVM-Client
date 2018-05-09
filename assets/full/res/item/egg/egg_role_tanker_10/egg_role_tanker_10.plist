@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple Computer//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+    <dict>
+        <key>frames</key>
+        <dict>
+            <key>egg_role_tanker_10_src.png</key>
+            <dict>
+                <key>aliases</key>
+                <array/>
+                <key>spriteOffset</key>
+                <string>{-1,4}</string>
+                <key>spriteSize</key>
+                <string>{549,436}</string>
+                <key>spriteSourceSize</key>
+                <string>{773,810}</string>
+                <key>textureRect</key>
+                <string>{{1,1},{549,436}}</string>
+                <key>textureRotated</key>
+                <true/>
+            </dict>
+        </dict>
+        <key>metadata</key>
+        <dict>
+            <key>format</key>
+            <integer>3</integer>
+            <key>pixelFormat</key>
+            <string>RGBA8888</string>
+            <key>premultiplyAlpha</key>
+            <false/>
+            <key>realTextureFileName</key>
+            <string>egg_role_tanker_10.png</string>
+            <key>size</key>
+            <string>{512,1024}</string>
+            <key>smartupdate</key>
+            <string>$TexturePacker:SmartUpdate:b0c49dee3bbbf97729197a27c1143851:deda02fec903dcf76b715287dff0f5fc:eaec81f1d9db95566efcd3b27b099a55$</string>
+            <key>textureFileName</key>
+            <string>egg_role_tanker_10.png</string>
+        </dict>
+    </dict>
+</plist>

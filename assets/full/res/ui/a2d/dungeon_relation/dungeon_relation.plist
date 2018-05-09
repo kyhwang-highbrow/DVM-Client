@@ -4,48 +4,18 @@
     <dict>
         <key>frames</key>
         <dict>
-            <key>dungeon_relation_frame.png</key>
+            <key>dungeon_relation_list.png</key>
             <dict>
                 <key>aliases</key>
                 <array/>
                 <key>spriteOffset</key>
                 <string>{0,0}</string>
                 <key>spriteSize</key>
-                <string>{270,580}</string>
+                <string>{290,602}</string>
                 <key>spriteSourceSize</key>
-                <string>{270,580}</string>
+                <string>{290,602}</string>
                 <key>textureRect</key>
-                <string>{{1,1},{270,580}}</string>
-                <key>textureRotated</key>
-                <false/>
-            </dict>
-            <key>dungeon_relation_frame_deco.png</key>
-            <dict>
-                <key>aliases</key>
-                <array/>
-                <key>spriteOffset</key>
-                <string>{0,0}</string>
-                <key>spriteSize</key>
-                <string>{294,294}</string>
-                <key>spriteSourceSize</key>
-                <string>{294,294}</string>
-                <key>textureRect</key>
-                <string>{{273,1},{294,294}}</string>
-                <key>textureRotated</key>
-                <false/>
-            </dict>
-            <key>dungeon_relation_icon.png</key>
-            <dict>
-                <key>aliases</key>
-                <array/>
-                <key>spriteOffset</key>
-                <string>{0,0}</string>
-                <key>spriteSize</key>
-                <string>{280,280}</string>
-                <key>spriteSourceSize</key>
-                <string>{280,280}</string>
-                <key>textureRect</key>
-                <string>{{273,297},{280,280}}</string>
+                <string>{{1,1},{290,602}}</string>
                 <key>textureRotated</key>
                 <false/>
             </dict>
@@ -61,9 +31,9 @@
             <key>realTextureFileName</key>
             <string>dungeon_relation.png</string>
             <key>size</key>
-            <string>{568,582}</string>
+            <string>{292,604}</string>
             <key>smartupdate</key>
-            <string>$TexturePacker:SmartUpdate:df532895d5eaf92f3eee94d16bd43b5d:0bccac44977620bc362f77bad511d2e0:b1155e29581d9c3de21d14a68a82ff64$</string>
+            <string>$TexturePacker:SmartUpdate:b76c65b7f891d991813b7f6a45edca8f:6451e36be71b8ade0d497cee44ae4218:b1155e29581d9c3de21d14a68a82ff64$</string>
             <key>textureFileName</key>
             <string>dungeon_relation.png</string>
         </dict>

@@ -5,6 +5,54 @@
 	{
 		[1] =
 		{
+			type = 'Visual';
+			ui_name = '';
+			x = 0.000000;
+			y = 0.000000;
+			dock_point = { 0.500000; 0.500000; };
+			anchor_point = { 0.500000; 0.500000; };
+			relative_size_type = 0;
+			width = 0;
+			height = 0;
+			scale_x = 1.200000;
+			scale_y = 1.200000;
+			skew_x = 0.000000;
+			skew_y = 0.000000;
+			rotation = 0.000000;
+			visible = true;
+			lua_name = '';
+			file_name = 'bg/ui/master_road/master_road.vrp';
+			auto_play = true;
+			is_repeat = true;
+			visual_id = 'group;idle';
+			color = { 255; 255; 255; };
+			opacity = 255;
+		};
+		[2] =
+		{
+			type = 'LayerColor';
+			ui_name = '';
+			x = 0.000000;
+			y = 0.000000;
+			dock_point = { 0.500000; 0.500000; };
+			anchor_point = { 0.500000; 0.500000; };
+			relative_size_type = 3;
+			width = 0;
+			height = 0;
+			scale_x = 1.000000;
+			scale_y = 1.000000;
+			skew_x = 0.000000;
+			skew_y = 0.000000;
+			rotation = 0.000000;
+			visible = true;
+			lua_name = '';
+			color = { 0; 0; 0; };
+			opacity = 150;
+			src_blend = 770;
+			dest_blend = 771;
+		};
+		[3] =
+		{
 			[1] =
 			{
 				type = 'Scale9Sprite';
@@ -23,7 +71,7 @@
 				rotation = 0.000000;
 				visible = true;
 				lua_name = '';
-				file_name = 'ui/frames/base_frame_0101.png';
+				file_name = 'ui/frames/base_frame_0801.png';
 				color = { 255; 255; 255; };
 				opacity = 255;
 				center_rect_x = 0;
@@ -368,9 +416,9 @@
 				type = 'Menu';
 				ui_name = '';
 				x = -461.000000;
-				y = 0.000000;
-				dock_point = { 0.500000; 0.500000; };
-				anchor_point = { 0.500000; 0.500000; };
+				y = -20.000000;
+				dock_point = { 0.500000; 1.000000; };
+				anchor_point = { 0.500000; 1.000000; };
 				relative_size_type = 0;
 				width = 306;
 				height = 604;
@@ -402,7 +450,7 @@
 					rotation = 0.000000;
 					visible = true;
 					lua_name = '';
-					file_name = 'ui/icons/book/attr_fire.png';
+					file_name = 'ui/icons/book/attr_earth.png';
 					color = { 255; 255; 255; };
 					opacity = 255;
 					flip_x = false;
@@ -413,11 +461,11 @@
 				type = 'Button';
 				ui_name = '';
 				x = -210.000000;
-				y = -16.000000;
+				y = -48.000000;
 				dock_point = { 0.500000; 1.000000; };
-				anchor_point = { 0.500000; 1.000000; };
+				anchor_point = { 0.500000; 0.500000; };
 				relative_size_type = 0;
-				width = 110;
+				width = 120;
 				height = 64;
 				scale_x = 1.000000;
 				scale_y = 1.000000;
@@ -425,7 +473,7 @@
 				skew_y = 0.000000;
 				rotation = 0.000000;
 				visible = true;
-				lua_name = 'fireRadioBtn';
+				lua_name = 'earthRadioBtn';
 				enable = true;
 				normal = 'ui/buttons/base_btn_0101.png';
 				selected = 'ui/buttons/base_btn_0102.png';
@@ -463,11 +511,11 @@
 				type = 'Button';
 				ui_name = '';
 				x = -90.000000;
-				y = -16.000000;
+				y = -48.000000;
 				dock_point = { 0.500000; 1.000000; };
-				anchor_point = { 0.500000; 1.000000; };
+				anchor_point = { 0.500000; 0.500000; };
 				relative_size_type = 0;
-				width = 110;
+				width = 120;
 				height = 64;
 				scale_x = 1.000000;
 				scale_y = 1.000000;
@@ -502,7 +550,7 @@
 					rotation = 0.000000;
 					visible = true;
 					lua_name = '';
-					file_name = 'ui/icons/book/attr_earth.png';
+					file_name = 'ui/icons/book/attr_fire.png';
 					color = { 255; 255; 255; };
 					opacity = 255;
 					flip_x = false;
@@ -513,11 +561,11 @@
 				type = 'Button';
 				ui_name = '';
 				x = 30.000000;
-				y = -16.000000;
+				y = -48.000000;
 				dock_point = { 0.500000; 1.000000; };
-				anchor_point = { 0.500000; 1.000000; };
+				anchor_point = { 0.500000; 0.500000; };
 				relative_size_type = 0;
-				width = 110;
+				width = 120;
 				height = 64;
 				scale_x = 1.000000;
 				scale_y = 1.000000;
@@ -525,7 +573,7 @@
 				skew_y = 0.000000;
 				rotation = 0.000000;
 				visible = true;
-				lua_name = 'earthRadioBtn';
+				lua_name = 'fireRadioBtn';
 				enable = true;
 				normal = 'ui/buttons/base_btn_0101.png';
 				selected = 'ui/buttons/base_btn_0102.png';
@@ -563,11 +611,11 @@
 				type = 'Button';
 				ui_name = '';
 				x = 150.000000;
-				y = -16.000000;
+				y = -48.000000;
 				dock_point = { 0.500000; 1.000000; };
-				anchor_point = { 0.500000; 1.000000; };
+				anchor_point = { 0.500000; 0.500000; };
 				relative_size_type = 0;
-				width = 110;
+				width = 120;
 				height = 64;
 				scale_x = 1.000000;
 				scale_y = 1.000000;
@@ -613,11 +661,11 @@
 				type = 'Button';
 				ui_name = '';
 				x = 270.000000;
-				y = -16.000000;
+				y = -48.000000;
 				dock_point = { 0.500000; 1.000000; };
-				anchor_point = { 0.500000; 1.000000; };
+				anchor_point = { 0.500000; 0.500000; };
 				relative_size_type = 0;
-				width = 110;
+				width = 120;
 				height = 64;
 				scale_x = 1.000000;
 				scale_y = 1.000000;
@@ -703,9 +751,9 @@
 				type = 'Button';
 				ui_name = '';
 				x = 475.000000;
-				y = -16.000000;
+				y = -48.000000;
 				dock_point = { 0.500000; 1.000000; };
-				anchor_point = { 0.500000; 1.000000; };
+				anchor_point = { 0.500000; 0.500000; };
 				relative_size_type = 0;
 				width = 276;
 				height = 64;
@@ -726,13 +774,13 @@
 			{
 				type = 'Node';
 				ui_name = '';
-				x = 162.000000;
-				y = -34.000000;
-				dock_point = { 0.500000; 0.500000; };
-				anchor_point = { 0.500000; 0.500000; };
-				relative_size_type = 0;
+				x = 170.000000;
+				y = 10.000000;
+				dock_point = { 0.500000; 0.000000; };
+				anchor_point = { 0.500000; 0.000000; };
+				relative_size_type = 1;
 				width = 884;
-				height = 538;
+				height = -106;
 				scale_x = 1.000000;
 				scale_y = 1.000000;
 				skew_x = 0.000000;
@@ -806,9 +854,9 @@
 			y = -31.000000;
 			dock_point = { 0.500000; 0.500000; };
 			anchor_point = { 0.500000; 0.500000; };
-			relative_size_type = 0;
-			width = 1260;
-			height = 644;
+			relative_size_type = 3;
+			width = 0;
+			height = -76;
 			scale_x = 1.000000;
 			scale_y = 1.000000;
 			skew_x = 0.000000;

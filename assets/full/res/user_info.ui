@@ -14,8 +14,8 @@
 			relative_size_type = 0;
 			width = 1280;
 			height = 960;
-			scale_x = 1.000000;
-			scale_y = 1.000000;
+			scale_x = 1.200000;
+			scale_y = 1.200000;
 			skew_x = 0.000000;
 			skew_y = 0.000000;
 			rotation = 0.000000;
@@ -404,7 +404,7 @@
 				type = 'Menu';
 				ui_name = 'info';
 				x = -260.000000;
-				y = -80.000000;
+				y = -114.000000;
 				dock_point = { 0.500000; 1.000000; };
 				anchor_point = { 0.500000; 1.000000; };
 				relative_size_type = 0;
@@ -421,29 +421,6 @@
 			[2] =
 			{
 				[1] =
-				{
-					type = 'LayerColor';
-					ui_name = '';
-					x = 0.000000;
-					y = 0.000000;
-					dock_point = { 0.500000; 0.500000; };
-					anchor_point = { 0.500000; 0.500000; };
-					relative_size_type = 3;
-					width = 0;
-					height = 0;
-					scale_x = 1.000000;
-					scale_y = 1.000000;
-					skew_x = 0.000000;
-					skew_y = 0.000000;
-					rotation = 0.000000;
-					visible = false;
-					lua_name = '';
-					color = { 255; 255; 255; };
-					opacity = 50;
-					src_blend = 770;
-					dest_blend = 771;
-				};
-				[2] =
 				{
 					type = 'Node';
 					ui_name = '';
@@ -462,7 +439,7 @@
 					visible = true;
 					lua_name = 'dragonNode';
 				};
-				[3] =
+				[2] =
 				{
 					type = 'Node';
 					ui_name = '';
@@ -481,7 +458,7 @@
 					visible = true;
 					lua_name = 'tamerNode';
 				};
-				[4] =
+				[3] =
 				{
 					type = 'LabelTTF';
 					ui_name = '';
@@ -521,7 +498,7 @@
 					shadow_direction = 0;
 					shadow_distance = 2.000000;
 				};
-				[5] =
+				[4] =
 				{
 					type = 'LabelTTF';
 					ui_name = '';
@@ -561,7 +538,7 @@
 					shadow_direction = 0;
 					shadow_distance = 2.000000;
 				};
-				[6] =
+				[5] =
 				{
 					type = 'LabelTTF';
 					ui_name = '';
@@ -601,7 +578,7 @@
 					shadow_direction = 0;
 					shadow_distance = 2.000000;
 				};
-				[7] =
+				[6] =
 				{
 					type = 'LabelTTF';
 					ui_name = '';
@@ -647,9 +624,9 @@
 				y = 10.000000;
 				dock_point = { 0.500000; 0.000000; };
 				anchor_point = { 0.500000; 0.000000; };
-				relative_size_type = 0;
+				relative_size_type = 1;
 				width = 690;
-				height = 470;
+				height = -250;
 				scale_x = 1.000000;
 				scale_y = 1.000000;
 				skew_x = 0.000000;
@@ -760,9 +737,9 @@
 					y = 10.000000;
 					dock_point = { 0.500000; 0.000000; };
 					anchor_point = { 0.500000; 0.000000; };
-					relative_size_type = 0;
+					relative_size_type = 1;
 					width = 560;
-					height = 430;
+					height = -73;
 					scale_x = 1.000000;
 					scale_y = 1.000000;
 					skew_x = 0.000000;
@@ -773,13 +750,13 @@
 				};
 				type = 'Menu';
 				ui_name = 'history';
-				x = 320.000000;
-				y = -80.000000;
-				dock_point = { 0.500000; 1.000000; };
-				anchor_point = { 0.500000; 1.000000; };
-				relative_size_type = 0;
+				x = -20.000000;
+				y = 137.000000;
+				dock_point = { 1.000000; 0.000000; };
+				anchor_point = { 1.000000; 0.000000; };
+				relative_size_type = 1;
 				width = 600;
-				height = 503;
+				height = -260;
 				scale_x = 1.000000;
 				scale_y = 1.000000;
 				skew_x = 0.000000;
@@ -1391,10 +1368,10 @@
 				};
 				type = 'Menu';
 				ui_name = 'btn';
-				x = 320.000000;
+				x = -20.000000;
 				y = 10.000000;
-				dock_point = { 0.500000; 0.000000; };
-				anchor_point = { 0.500000; 0.000000; };
+				dock_point = { 1.000000; 0.000000; };
+				anchor_point = { 1.000000; 0.000000; };
 				relative_size_type = 0;
 				width = 600;
 				height = 120;
@@ -1412,9 +1389,9 @@
 			y = 0.000000;
 			dock_point = { 0.500000; 0.500000; };
 			anchor_point = { 0.500000; 0.500000; };
-			relative_size_type = 0;
-			width = 1280;
-			height = 720;
+			relative_size_type = 3;
+			width = 0;
+			height = 0;
 			scale_x = 1.000000;
 			scale_y = 1.000000;
 			skew_x = 0.000000;

@@ -23,7 +23,7 @@
 				rotation = 0.000000;
 				visible = true;
 				lua_name = '';
-				file_name = 'ui/frames/base_frame_0101.png';
+				file_name = 'ui/frames/base_frame_0801.png';
 				color = { 255; 255; 255; };
 				opacity = 255;
 				center_rect_x = 0;
@@ -375,7 +375,7 @@
 			{
 				type = 'Button';
 				ui_name = '';
-				x = -36.000000;
+				x = -24.000000;
 				y = -24.000000;
 				dock_point = { 1.000000; 1.000000; };
 				anchor_point = { 0.500000; 0.500000; };
@@ -402,7 +402,7 @@
 			dock_point = { 0.500000; 0.500000; };
 			anchor_point = { 0.500000; 0.500000; };
 			relative_size_type = 0;
-			width = 1300;
+			width = 1280;
 			height = 400;
 			scale_x = 1.000000;
 			scale_y = 1.000000;

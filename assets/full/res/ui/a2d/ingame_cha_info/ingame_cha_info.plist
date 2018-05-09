@@ -15,7 +15,7 @@
                 <key>spriteSourceSize</key>
                 <string>{26,26}</string>
                 <key>textureRect</key>
-                <string>{{1,1},{26,26}}</string>
+                <string>{{315,1},{26,26}}</string>
                 <key>textureRotated</key>
                 <false/>
             </dict>
@@ -30,7 +30,7 @@
                 <key>spriteSourceSize</key>
                 <string>{26,26}</string>
                 <key>textureRect</key>
-                <string>{{29,1},{26,26}}</string>
+                <string>{{343,1},{26,26}}</string>
                 <key>textureRotated</key>
                 <false/>
             </dict>
@@ -45,7 +45,7 @@
                 <key>spriteSourceSize</key>
                 <string>{26,26}</string>
                 <key>textureRect</key>
-                <string>{{57,1},{26,26}}</string>
+                <string>{{309,29},{26,26}}</string>
                 <key>textureRotated</key>
                 <false/>
             </dict>
@@ -60,7 +60,7 @@
                 <key>spriteSourceSize</key>
                 <string>{26,26}</string>
                 <key>textureRect</key>
-                <string>{{85,1},{26,26}}</string>
+                <string>{{337,29},{26,26}}</string>
                 <key>textureRotated</key>
                 <false/>
             </dict>
@@ -75,7 +75,7 @@
                 <key>spriteSourceSize</key>
                 <string>{26,26}</string>
                 <key>textureRect</key>
-                <string>{{113,1},{26,26}}</string>
+                <string>{{243,31},{26,26}}</string>
                 <key>textureRotated</key>
                 <false/>
             </dict>
@@ -90,7 +90,7 @@
                 <key>spriteSourceSize</key>
                 <string>{26,26}</string>
                 <key>textureRect</key>
-                <string>{{141,1},{26,26}}</string>
+                <string>{{271,31},{26,26}}</string>
                 <key>textureRotated</key>
                 <false/>
             </dict>
@@ -105,7 +105,7 @@
                 <key>spriteSourceSize</key>
                 <string>{70,10}</string>
                 <key>textureRect</key>
-                <string>{{169,1},{70,10}}</string>
+                <string>{{243,1},{70,10}}</string>
                 <key>textureRotated</key>
                 <false/>
             </dict>
@@ -120,7 +120,7 @@
                 <key>spriteSourceSize</key>
                 <string>{64,4}</string>
                 <key>textureRect</key>
-                <string>{{169,13},{64,4}}</string>
+                <string>{{243,13},{64,4}}</string>
                 <key>textureRotated</key>
                 <false/>
             </dict>
@@ -135,7 +135,7 @@
                 <key>spriteSourceSize</key>
                 <string>{64,4}</string>
                 <key>textureRect</key>
-                <string>{{169,19},{64,4}}</string>
+                <string>{{243,19},{64,4}}</string>
                 <key>textureRotated</key>
                 <false/>
             </dict>
@@ -150,7 +150,37 @@
                 <key>spriteSourceSize</key>
                 <string>{64,4}</string>
                 <key>textureRect</key>
-                <string>{{169,25},{64,4}}</string>
+                <string>{{243,25},{64,4}}</string>
+                <key>textureRotated</key>
+                <false/>
+            </dict>
+            <key>ingame_cha_info_skill_gg_atk.png</key>
+            <dict>
+                <key>aliases</key>
+                <array/>
+                <key>spriteOffset</key>
+                <string>{0,0}</string>
+                <key>spriteSize</key>
+                <string>{119,52}</string>
+                <key>spriteSourceSize</key>
+                <string>{119,52}</string>
+                <key>textureRect</key>
+                <string>{{1,1},{119,52}}</string>
+                <key>textureRotated</key>
+                <false/>
+            </dict>
+            <key>ingame_cha_info_skill_gg_heal.png</key>
+            <dict>
+                <key>aliases</key>
+                <array/>
+                <key>spriteOffset</key>
+                <string>{0,0}</string>
+                <key>spriteSize</key>
+                <string>{119,52}</string>
+                <key>spriteSourceSize</key>
+                <string>{119,52}</string>
+                <key>textureRect</key>
+                <string>{{122,1},{119,52}}</string>
                 <key>textureRotated</key>
                 <false/>
             </dict>
@@ -166,9 +196,9 @@
             <key>realTextureFileName</key>
             <string>ingame_cha_info.png</string>
             <key>size</key>
-            <string>{240,30}</string>
+            <string>{370,58}</string>
             <key>smartupdate</key>
-            <string>$TexturePacker:SmartUpdate:2d072901899eb893773978f161be42a0:e2c98cd8c4f5399cb00b64128f59622f:094b7db99b74d5910093ed99b6908546$</string>
+            <string>$TexturePacker:SmartUpdate:b09694c798db1180a267e417b2cecf2d:28c5126c4b52d5e522f0589db005fd8f:094b7db99b74d5910093ed99b6908546$</string>
             <key>textureFileName</key>
             <string>ingame_cha_info.png</string>
         </dict>

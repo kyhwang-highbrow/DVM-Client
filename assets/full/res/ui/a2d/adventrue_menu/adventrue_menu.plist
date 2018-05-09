@@ -15,7 +15,22 @@
                 <key>spriteSourceSize</key>
                 <string>{280,280}</string>
                 <key>textureRect</key>
-                <string>{{629,1},{280,280}}</string>
+                <string>{{1,1},{280,280}}</string>
+                <key>textureRotated</key>
+                <false/>
+            </dict>
+            <key>adventrue_menu_ancient_ruin.png</key>
+            <dict>
+                <key>aliases</key>
+                <array/>
+                <key>spriteOffset</key>
+                <string>{0,0}</string>
+                <key>spriteSize</key>
+                <string>{280,280}</string>
+                <key>spriteSourceSize</key>
+                <string>{280,280}</string>
+                <key>textureRect</key>
+                <string>{{283,1},{280,280}}</string>
                 <key>textureRotated</key>
                 <false/>
             </dict>
@@ -30,7 +45,7 @@
                 <key>spriteSourceSize</key>
                 <string>{280,280}</string>
                 <key>textureRect</key>
-                <string>{{1,941},{280,280}}</string>
+                <string>{{565,1},{280,280}}</string>
                 <key>textureRotated</key>
                 <false/>
             </dict>
@@ -45,7 +60,7 @@
                 <key>spriteSourceSize</key>
                 <string>{280,280}</string>
                 <key>textureRect</key>
-                <string>{{1,1223},{280,280}}</string>
+                <string>{{847,1},{280,280}}</string>
                 <key>textureRotated</key>
                 <false/>
             </dict>
@@ -60,7 +75,7 @@
                 <key>spriteSourceSize</key>
                 <string>{280,280}</string>
                 <key>textureRect</key>
-                <string>{{333,369},{280,280}}</string>
+                <string>{{1129,1},{280,280}}</string>
                 <key>textureRotated</key>
                 <false/>
             </dict>
@@ -75,7 +90,7 @@
                 <key>spriteSourceSize</key>
                 <string>{280,280}</string>
                 <key>textureRect</key>
-                <string>{{273,651},{280,280}}</string>
+                <string>{{1411,1},{280,280}}</string>
                 <key>textureRotated</key>
                 <false/>
             </dict>
@@ -90,7 +105,7 @@
                 <key>spriteSourceSize</key>
                 <string>{280,280}</string>
                 <key>textureRect</key>
-                <string>{{283,933},{280,280}}</string>
+                <string>{{1693,1},{280,280}}</string>
                 <key>textureRotated</key>
                 <false/>
             </dict>
@@ -105,37 +120,7 @@
                 <key>spriteSourceSize</key>
                 <string>{280,280}</string>
                 <key>textureRect</key>
-                <string>{{283,1215},{280,280}}</string>
-                <key>textureRotated</key>
-                <false/>
-            </dict>
-            <key>adventrue_menu_frame_0101.png</key>
-            <dict>
-                <key>aliases</key>
-                <array/>
-                <key>spriteOffset</key>
-                <string>{0,0}</string>
-                <key>spriteSize</key>
-                <string>{330,468}</string>
-                <key>spriteSourceSize</key>
-                <string>{330,468}</string>
-                <key>textureRect</key>
-                <string>{{1,1},{330,468}}</string>
-                <key>textureRotated</key>
-                <false/>
-            </dict>
-            <key>adventrue_menu_frame_0102.png</key>
-            <dict>
-                <key>aliases</key>
-                <array/>
-                <key>spriteOffset</key>
-                <string>{0,0}</string>
-                <key>spriteSize</key>
-                <string>{270,468}</string>
-                <key>spriteSourceSize</key>
-                <string>{270,468}</string>
-                <key>textureRect</key>
-                <string>{{1,471},{270,468}}</string>
+                <string>{{1,283},{280,280}}</string>
                 <key>textureRotated</key>
                 <false/>
             </dict>
@@ -150,24 +135,9 @@
                 <key>spriteSourceSize</key>
                 <string>{294,366}</string>
                 <key>textureRect</key>
-                <string>{{333,1},{294,366}}</string>
+                <string>{{1411,283},{294,366}}</string>
                 <key>textureRotated</key>
-                <false/>
-            </dict>
-            <key>adventrue_menu_frame_effect.png</key>
-            <dict>
-                <key>aliases</key>
-                <array/>
-                <key>spriteOffset</key>
-                <string>{0,0}</string>
-                <key>spriteSize</key>
-                <string>{230,105}</string>
-                <key>spriteSourceSize</key>
-                <string>{230,105}</string>
-                <key>textureRect</key>
-                <string>{{565,1411},{230,105}}</string>
-                <key>textureRotated</key>
-                <false/>
+                <true/>
             </dict>
             <key>adventrue_menu_nightmare.png</key>
             <dict>
@@ -180,7 +150,7 @@
                 <key>spriteSourceSize</key>
                 <string>{280,280}</string>
                 <key>textureRect</key>
-                <string>{{629,283},{280,280}}</string>
+                <string>{{283,283},{280,280}}</string>
                 <key>textureRotated</key>
                 <false/>
             </dict>
@@ -195,7 +165,7 @@
                 <key>spriteSourceSize</key>
                 <string>{280,280}</string>
                 <key>textureRect</key>
-                <string>{{615,565},{280,280}}</string>
+                <string>{{565,283},{280,280}}</string>
                 <key>textureRotated</key>
                 <false/>
             </dict>
@@ -210,7 +180,7 @@
                 <key>spriteSourceSize</key>
                 <string>{280,280}</string>
                 <key>textureRect</key>
-                <string>{{565,847},{280,280}}</string>
+                <string>{{847,283},{280,280}}</string>
                 <key>textureRotated</key>
                 <false/>
             </dict>
@@ -225,7 +195,7 @@
                 <key>spriteSourceSize</key>
                 <string>{280,280}</string>
                 <key>textureRect</key>
-                <string>{{565,1129},{280,280}}</string>
+                <string>{{1129,283},{280,280}}</string>
                 <key>textureRotated</key>
                 <false/>
             </dict>
@@ -241,9 +211,9 @@
             <key>realTextureFileName</key>
             <string>adventrue_menu.png</string>
             <key>size</key>
-            <string>{910,1517}</string>
+            <string>{1974,578}</string>
             <key>smartupdate</key>
-            <string>$TexturePacker:SmartUpdate:459129d174a9e0b8b01186d7674d5e60:b1093b7cf25c82de859d50e47bb09344:e23c63f4aa7f2934575771a40e784a5e$</string>
+            <string>$TexturePacker:SmartUpdate:8d8172c4be123cb99ff359567ff10141:c6d7ee45a1a64fe61c97975a257a30a6:e23c63f4aa7f2934575771a40e784a5e$</string>
             <key>textureFileName</key>
             <string>adventrue_menu.png</string>
         </dict>

@@ -27,7 +27,7 @@
 					lua_name = '';
 					font_name = 'font/common_font_01.ttf';
 					font_size = 60;
-					text = '100일 기념';
+					text = '글로벌 100일 기념';
 					h_alignment = 1;
 					v_alignment = 1;
 					color = { 175; 238; 238; };
@@ -330,7 +330,7 @@
 				};
 				type = 'Scale9Sprite';
 				ui_name = '';
-				x = 0.000000;
+				x = 100.000000;
 				y = -220.000000;
 				dock_point = { 0.500000; 0.500000; };
 				anchor_point = { 0.500000; 0.500000; };

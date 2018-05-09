@@ -7,41 +7,34 @@
 		{
 			[1] =
 			{
-				type = 'Sprite';
+				[1] =
+				{
+					type = 'Node';
+					ui_name = '';
+					x = -36.000000;
+					y = -80.000000;
+					dock_point = { 0.500000; 0.500000; };
+					anchor_point = { 0.500000; 0.500000; };
+					relative_size_type = 0;
+					width = 360;
+					height = 380;
+					scale_x = 1.000000;
+					scale_y = 1.000000;
+					skew_x = 0.000000;
+					skew_y = 0.000000;
+					rotation = 0.000000;
+					visible = true;
+					lua_name = 'tamerNode';
+				};
+				type = 'ClippingNode';
 				ui_name = '';
-				x = 0.000000;
+				x = -9.000000;
 				y = 0.000000;
 				dock_point = { 0.500000; 0.500000; };
 				anchor_point = { 0.500000; 0.500000; };
 				relative_size_type = 0;
-				width = 168;
-				height = 208;
-				scale_x = 1.000000;
-				scale_y = 1.000000;
-				skew_x = 0.000000;
-				skew_y = 0.000000;
-				rotation = 0.000000;
-				visible = false;
-				lua_name = 'selectSprite';
-				file_name = 'ui/buttons/tamer_profile_btn_0103.png';
-				color = { 255; 255; 255; };
-				opacity = 255;
-				flip_x = false;
-				flip_y = false;
-				src_blend = 770;
-				dest_blend = 771;
-			};
-			[2] =
-			{
-				type = 'Sprite';
-				ui_name = '';
-				x = 0.000000;
-				y = 0.000000;
-				dock_point = { 0.500000; 0.500000; };
-				anchor_point = { 0.500000; 0.500000; };
-				relative_size_type = 0;
-				width = 168;
-				height = 208;
+				width = 229;
+				height = 78;
 				scale_x = 1.000000;
 				scale_y = 1.000000;
 				skew_x = 0.000000;
@@ -49,65 +42,17 @@
 				rotation = 0.000000;
 				visible = true;
 				lua_name = '';
-				file_name = 'ui/buttons/tamer_profile_btn_0101.png';
-				color = { 255; 255; 255; };
-				opacity = 255;
-				flip_x = false;
-				flip_y = false;
-				src_blend = 770;
-				dest_blend = 771;
+				stencil_type = 0;
+				stencil_img = '';
+				alpha_threshold = 1.000000;
+				is_invert = false;
 			};
-			[3] =
-			{
-				type = 'Sprite';
-				ui_name = '';
-				x = 0.000000;
-				y = 0.000000;
-				dock_point = { 0.500000; 0.500000; };
-				anchor_point = { 0.500000; 0.500000; };
-				relative_size_type = 0;
-				width = 168;
-				height = 208;
-				scale_x = 1.000000;
-				scale_y = 1.000000;
-				skew_x = 0.000000;
-				skew_y = 0.000000;
-				rotation = 0.000000;
-				visible = false;
-				lua_name = 'useSprite';
-				file_name = 'ui/buttons/tamer_profile_btn_0102.png';
-				color = { 255; 255; 255; };
-				opacity = 255;
-				flip_x = false;
-				flip_y = false;
-				src_blend = 770;
-				dest_blend = 771;
-			};
-			[4] =
-			{
-				type = 'Node';
-				ui_name = '';
-				x = 0.000000;
-				y = 0.000000;
-				dock_point = { 0.500000; 0.500000; };
-				anchor_point = { 0.500000; 0.500000; };
-				relative_size_type = 0;
-				width = 168;
-				height = 208;
-				scale_x = 1.000000;
-				scale_y = 1.000000;
-				skew_x = 0.000000;
-				skew_y = 0.000000;
-				rotation = 0.000000;
-				visible = true;
-				lua_name = 'tamerNode';
-			};
-			[5] =
+			[2] =
 			{
 				type = 'LabelTTF';
 				ui_name = '';
-				x = 0.000000;
-				y = -60.000000;
+				x = 32.000000;
+				y = -19.000000;
 				dock_point = { 0.500000; 0.500000; };
 				anchor_point = { 0.500000; 0.500000; };
 				relative_size_type = 0;
@@ -123,14 +68,14 @@
 				font_name = 'font/common_font_01.ttf';
 				font_size = 26;
 				text = 'tamer';
-				h_alignment = 1;
+				h_alignment = 2;
 				v_alignment = 1;
 				color = { 255; 255; 255; };
 				opacity = 255;
 				dimension_width = 160;
 				dimension_height = 40;
 				letter_spacing = 0.000000;
-				has_stroke = true;
+				has_stroke = false;
 				stroke_type = 0;
 				stroke_detail_level = 0;
 				is_sharp_text = true;
@@ -142,12 +87,38 @@
 				shadow_direction = 0;
 				shadow_distance = 5.000000;
 			};
-			[6] =
+			[3] =
 			{
 				type = 'Sprite';
 				ui_name = '';
-				x = -26.000000;
-				y = -66.000000;
+				x = -104.000000;
+				y = -24.000000;
+				dock_point = { 0.500000; 0.500000; };
+				anchor_point = { 0.500000; 0.500000; };
+				relative_size_type = 0;
+				width = 40;
+				height = 31;
+				scale_x = 1.000000;
+				scale_y = 1.000000;
+				skew_x = 0.000000;
+				skew_y = 0.000000;
+				rotation = 0.000000;
+				visible = false;
+				lua_name = 'useSprite';
+				file_name = 'ui/buttons/check_btn_0201.png';
+				color = { 255; 255; 255; };
+				opacity = 255;
+				flip_x = false;
+				flip_y = false;
+				src_blend = 770;
+				dest_blend = 771;
+			};
+			[4] =
+			{
+				type = 'Sprite';
+				ui_name = '';
+				x = -36.000000;
+				y = -18.000000;
 				dock_point = { 1.000000; 1.000000; };
 				anchor_point = { 0.500000; 0.500000; };
 				relative_size_type = 0;
@@ -168,6 +139,32 @@
 				src_blend = 770;
 				dest_blend = 771;
 			};
+			[5] =
+			{
+				type = 'Sprite';
+				ui_name = '';
+				x = -106.000000;
+				y = -18.000000;
+				dock_point = { 0.500000; 0.500000; };
+				anchor_point = { 0.500000; 0.500000; };
+				relative_size_type = 0;
+				width = 68;
+				height = 83;
+				scale_x = 0.600000;
+				scale_y = 0.600000;
+				skew_x = 0.000000;
+				skew_y = 0.000000;
+				rotation = 0.000000;
+				visible = false;
+				lua_name = 'lockSprite';
+				file_name = 'ui/icons/lock_0101.png';
+				color = { 255; 255; 255; };
+				opacity = 255;
+				flip_x = false;
+				flip_y = false;
+				src_blend = 770;
+				dest_blend = 771;
+			};
 			type = 'Button';
 			ui_name = '';
 			x = 0.000000;
@@ -175,8 +172,8 @@
 			dock_point = { 0.500000; 0.500000; };
 			anchor_point = { 0.500000; 0.500000; };
 			relative_size_type = 0;
-			width = 168;
-			height = 208;
+			width = 262;
+			height = 92;
 			scale_x = 1.000000;
 			scale_y = 1.000000;
 			skew_x = 0.000000;
@@ -185,9 +182,9 @@
 			visible = true;
 			lua_name = 'tamerBtn';
 			enable = true;
-			normal = 'ui/temp/empty.png';
-			selected = '';
-			disable = '';
+			normal = 'ui/buttons/tamer_manage_0101.png';
+			selected = 'ui/buttons/tamer_manage_0101.png';
+			disable = 'ui/buttons/tamer_manage_0102.png';
 			image_type = 0;
 		};
 		type = 'Menu';
@@ -197,8 +194,8 @@
 		dock_point = { 0.500000; 0.500000; };
 		anchor_point = { 0.500000; 0.500000; };
 		relative_size_type = 0;
-		width = 168;
-		height = 208;
+		width = 262;
+		height = 92;
 		scale_x = 1.000000;
 		scale_y = 1.000000;
 		skew_x = 0.000000;

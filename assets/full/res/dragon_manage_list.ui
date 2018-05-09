@@ -14,8 +14,8 @@
 			relative_size_type = 0;
 			width = 0;
 			height = 0;
-			scale_x = 1.000000;
-			scale_y = 1.000000;
+			scale_x = 1.200000;
+			scale_y = 1.200000;
 			skew_x = 0.000000;
 			skew_y = 0.000000;
 			rotation = 0.000000;
@@ -662,7 +662,7 @@
 							skew_y = 0.000000;
 							rotation = 0.000000;
 							visible = true;
-							lua_name = 'attrSprite1';
+							lua_name = 'attrSprite3';
 							file_name = 'ui/icons/check_icon_0102.png';
 							color = { 255; 255; 255; };
 							opacity = 255;
@@ -713,7 +713,7 @@
 						rotation = 0.000000;
 						visible = true;
 						lua_name = '';
-						file_name = 'ui/icons/book/attr_fire.png';
+						file_name = 'ui/icons/book/attr_earth.png';
 						color = { 255; 255; 255; };
 						opacity = 255;
 						flip_x = false;
@@ -736,7 +736,7 @@
 					skew_y = 0.000000;
 					rotation = 0.000000;
 					visible = true;
-					lua_name = 'attrBtn1';
+					lua_name = 'attrBtn3';
 					enable = true;
 					normal = '';
 					selected = '';
@@ -866,7 +866,7 @@
 							skew_y = 0.000000;
 							rotation = 0.000000;
 							visible = true;
-							lua_name = 'attrSprite3';
+							lua_name = 'attrSprite1';
 							file_name = 'ui/icons/check_icon_0102.png';
 							color = { 255; 255; 255; };
 							opacity = 255;
@@ -917,7 +917,7 @@
 						rotation = 0.000000;
 						visible = true;
 						lua_name = '';
-						file_name = 'ui/icons/book/attr_earth.png';
+						file_name = 'ui/icons/book/attr_fire.png';
 						color = { 255; 255; 255; };
 						opacity = 255;
 						flip_x = false;
@@ -940,7 +940,7 @@
 					skew_y = 0.000000;
 					rotation = 0.000000;
 					visible = true;
-					lua_name = 'attrBtn3';
+					lua_name = 'attrBtn1';
 					enable = true;
 					normal = '';
 					selected = '';
@@ -2046,7 +2046,7 @@
 			dock_point = { 0.500000; 1.000000; };
 			anchor_point = { 0.500000; 1.000000; };
 			relative_size_type = 1;
-			width = 1300;
+			width = 1500;
 			height = -70;
 			scale_x = 1.000000;
 			scale_y = 1.000000;

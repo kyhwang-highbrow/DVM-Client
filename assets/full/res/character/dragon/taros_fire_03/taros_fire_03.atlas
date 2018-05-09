@@ -1,0 +1,216 @@
+
+taros_fire_03.png
+size: 745,1032
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+taros_fire_03_arm_01
+  rotate: false
+  xy: 258, 172
+  size: 158, 208
+  orig: 158, 208
+  offset: 0, 0
+  index: -1
+taros_fire_03_arm_02
+  rotate: false
+  xy: 258, 2
+  size: 183, 168
+  orig: 183, 168
+  offset: 0, 0
+  index: -1
+taros_fire_03_arm_03
+  rotate: true
+  xy: 615, 12
+  size: 43, 63
+  orig: 43, 63
+  offset: 0, 0
+  index: -1
+taros_fire_03_arm_04
+  rotate: false
+  xy: 418, 172
+  size: 158, 208
+  orig: 158, 208
+  offset: 0, 0
+  index: -1
+taros_fire_03_body_01
+  rotate: false
+  xy: 2, 696
+  size: 283, 334
+  orig: 283, 334
+  offset: 0, 0
+  index: -1
+taros_fire_03_body_02
+  rotate: true
+  xy: 443, 8
+  size: 162, 170
+  orig: 162, 170
+  offset: 0, 0
+  index: -1
+taros_fire_03_body_03
+  rotate: false
+  xy: 246, 502
+  size: 202, 184
+  orig: 202, 184
+  offset: 0, 0
+  index: -1
+taros_fire_03_body_04
+  rotate: true
+  xy: 2, 382
+  size: 312, 242
+  orig: 312, 242
+  offset: 0, 0
+  index: -1
+taros_fire_03_body_05
+  rotate: false
+  xy: 2, 112
+  size: 254, 268
+  orig: 254, 268
+  offset: 0, 0
+  index: -1
+taros_fire_03_claw
+  rotate: true
+  xy: 608, 428
+  size: 257, 45
+  orig: 257, 45
+  offset: 0, 0
+  index: -1
+taros_fire_03_effect_01
+  rotate: false
+  xy: 655, 441
+  size: 49, 46
+  orig: 49, 46
+  offset: 0, 0
+  index: -1
+taros_fire_03_effect_02
+  rotate: false
+  xy: 655, 489
+  size: 51, 47
+  orig: 51, 47
+  offset: 0, 0
+  index: -1
+taros_fire_03_effect_03
+  rotate: false
+  xy: 620, 850
+  size: 29, 31
+  orig: 29, 31
+  offset: 0, 0
+  index: -1
+taros_fire_03_effect_05
+  rotate: false
+  xy: 287, 688
+  size: 232, 141
+  orig: 232, 141
+  offset: 0, 0
+  index: -1
+taros_fire_03_effect_06
+  rotate: false
+  xy: 246, 382
+  size: 195, 118
+  orig: 195, 118
+  offset: 0, 0
+  index: -1
+taros_fire_03_effect_08
+  rotate: false
+  xy: 521, 687
+  size: 128, 142
+  orig: 128, 142
+  offset: 0, 0
+  index: -1
+taros_fire_03_effect_fi_01
+  rotate: false
+  xy: 450, 391
+  size: 147, 137
+  orig: 147, 137
+  offset: 0, 0
+  index: -1
+taros_fire_03_effect_fi_02
+  rotate: true
+  xy: 578, 229
+  size: 160, 137
+  orig: 160, 137
+  offset: 0, 0
+  index: -1
+taros_fire_03_effect_fi_03
+  rotate: true
+  xy: 2, 15
+  size: 95, 111
+  orig: 95, 111
+  offset: 0, 0
+  index: -1
+taros_fire_03_effect_fi_04
+  rotate: false
+  xy: 615, 57
+  size: 78, 87
+  orig: 78, 87
+  offset: 0, 0
+  index: -1
+taros_fire_03_effect_fire
+  rotate: false
+  xy: 450, 530
+  size: 156, 155
+  orig: 156, 155
+  offset: 0, 0
+  index: -1
+taros_fire_03_eye_01
+  rotate: false
+  xy: 729, 867
+  size: 14, 14
+  orig: 14, 14
+  offset: 0, 0
+  index: -1
+taros_fire_03_head_01
+  rotate: false
+  xy: 655, 538
+  size: 72, 77
+  orig: 72, 77
+  offset: 0, 0
+  index: -1
+taros_fire_03_head_02
+  rotate: true
+  xy: 620, 883
+  size: 147, 123
+  orig: 147, 123
+  offset: 0, 0
+  index: -1
+taros_fire_03_head_03
+  rotate: false
+  xy: 615, 146
+  size: 95, 81
+  orig: 95, 81
+  offset: 0, 0
+  index: -1
+taros_fire_03_light_01
+  rotate: false
+  xy: 651, 703
+  size: 58, 51
+  orig: 58, 51
+  offset: 0, 0
+  index: -1
+taros_fire_03_lighting_1
+  rotate: false
+  xy: 115, 37
+  size: 128, 73
+  orig: 128, 73
+  offset: 0, 0
+  index: -1
+taros_fire_03_lighting_2
+  rotate: true
+  xy: 651, 756
+  size: 125, 76
+  orig: 125, 76
+  offset: 0, 0
+  index: -1
+taros_fire_03_tail_01
+  rotate: false
+  xy: 287, 831
+  size: 331, 199
+  orig: 331, 199
+  offset: 0, 0
+  index: -1
+taros_fire_03_won
+  rotate: false
+  xy: 655, 617
+  size: 80, 84
+  orig: 80, 84
+  offset: 0, 0
+  index: -1

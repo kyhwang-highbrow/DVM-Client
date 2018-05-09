@@ -1,0 +1,76 @@
+
+effect_flame_throwing.png
+size: 960,238
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+!!!delete(headeff_02)3
+  rotate: true
+  xy: 907, 178
+  size: 58, 51
+  orig: 58, 51
+  offset: 0, 0
+  index: -1
+effect_boss_ancient_water_fire_1
+  rotate: false
+  xy: 360, 43
+  size: 145, 193
+  orig: 145, 193
+  offset: 0, 0
+  index: -1
+effect_boss_ancient_water_fire_3
+  rotate: true
+  xy: 215, 2
+  size: 234, 143
+  orig: 234, 143
+  offset: 0, 0
+  index: -1
+effect_boss_ancient_water_fire_4
+  rotate: false
+  xy: 507, 26
+  size: 97, 210
+  orig: 97, 210
+  offset: 0, 0
+  index: -1
+effect_boss_ancient_water_fire_5
+  rotate: true
+  xy: 606, 88
+  size: 148, 97
+  orig: 148, 97
+  offset: 0, 0
+  index: -1
+effect_boss_ancient_water_fire_6
+  rotate: false
+  xy: 772, 31
+  size: 158, 56
+  orig: 158, 56
+  offset: 0, 0
+  index: -1
+effect_boss_ancient_water_fire_7
+  rotate: false
+  xy: 606, 9
+  size: 164, 77
+  orig: 164, 77
+  offset: 0, 0
+  index: -1
+effect_boss_ancient_water_fire_8
+  rotate: false
+  xy: 705, 89
+  size: 94, 147
+  orig: 94, 147
+  offset: 0, 0
+  index: -1
+effect_boss_ancient_water_fire_9
+  rotate: false
+  xy: 801, 121
+  size: 104, 115
+  orig: 104, 115
+  offset: 0, 0
+  index: -1
+effect_boss_ancient_water_fire_fx_hit1
+  rotate: true
+  xy: 2, 24
+  size: 212, 211
+  orig: 212, 211
+  offset: 0, 0
+  index: -1

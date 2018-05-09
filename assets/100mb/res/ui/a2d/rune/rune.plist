@@ -15,9 +15,9 @@
                 <key>spriteSourceSize</key>
                 <string>{128,121}</string>
                 <key>textureRect</key>
-                <string>{{1,390},{128,121}}</string>
+                <string>{{420,1},{128,121}}</string>
                 <key>textureRotated</key>
-                <false/>
+                <true/>
             </dict>
             <key>rune_0201.png</key>
             <dict>
@@ -30,7 +30,7 @@
                 <key>spriteSourceSize</key>
                 <string>{121,121}</string>
                 <key>textureRect</key>
-                <string>{{131,390},{121,121}}</string>
+                <string>{{798,1},{121,121}}</string>
                 <key>textureRotated</key>
                 <false/>
             </dict>
@@ -45,9 +45,9 @@
                 <key>spriteSourceSize</key>
                 <string>{125,126}</string>
                 <key>textureRect</key>
-                <string>{{129,263},{125,126}}</string>
+                <string>{{671,1},{125,126}}</string>
                 <key>textureRotated</key>
-                <true/>
+                <false/>
             </dict>
             <key>rune_0401.png</key>
             <dict>
@@ -60,9 +60,9 @@
                 <key>spriteSourceSize</key>
                 <string>{135,132}</string>
                 <key>textureRect</key>
-                <string>{{1,1},{135,132}}</string>
+                <string>{{158,1},{135,132}}</string>
                 <key>textureRotated</key>
-                <false/>
+                <true/>
             </dict>
             <key>rune_0501.png</key>
             <dict>
@@ -75,7 +75,7 @@
                 <key>spriteSourceSize</key>
                 <string>{126,134}</string>
                 <key>textureRect</key>
-                <string>{{1,135},{126,134}}</string>
+                <string>{{292,1},{126,134}}</string>
                 <key>textureRotated</key>
                 <false/>
             </dict>
@@ -90,9 +90,24 @@
                 <key>spriteSourceSize</key>
                 <string>{126,126}</string>
                 <key>textureRect</key>
-                <string>{{129,135},{126,126}}</string>
+                <string>{{543,1},{126,126}}</string>
                 <key>textureRotated</key>
                 <false/>
+            </dict>
+            <key>rune_light_0101.png</key>
+            <dict>
+                <key>aliases</key>
+                <array/>
+                <key>spriteOffset</key>
+                <string>{0,0}</string>
+                <key>spriteSize</key>
+                <string>{149,155}</string>
+                <key>spriteSourceSize</key>
+                <string>{149,155}</string>
+                <key>textureRect</key>
+                <string>{{1,1},{149,155}}</string>
+                <key>textureRotated</key>
+                <true/>
             </dict>
         </dict>
         <key>metadata</key>
@@ -106,9 +121,9 @@
             <key>realTextureFileName</key>
             <string>rune.png</string>
             <key>size</key>
-            <string>{256,512}</string>
+            <string>{920,151}</string>
             <key>smartupdate</key>
-            <string>$TexturePacker:SmartUpdate:6d83936f2d58566583766abfad739641:731d9dc43ce71182dac60c2c56d12a11:58490f22039db182dd43674203b2cbbd$</string>
+            <string>$TexturePacker:SmartUpdate:2bb58a79c6c684fe6114902790e52535:bdff6e05ad174fd22982ee24c1caf6be:58490f22039db182dd43674203b2cbbd$</string>
             <key>textureFileName</key>
             <string>rune.png</string>
         </dict>

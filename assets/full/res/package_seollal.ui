@@ -143,7 +143,7 @@
 				lua_name = '';
 				font_name = 'font/common_font_01.ttf';
 				font_size = 60;
-				text = '설날 기념 패키지';
+				text = '스킬 슬라임 패키지';
 				h_alignment = 1;
 				v_alignment = 1;
 				color = { 255; 215; 0; };
@@ -406,7 +406,7 @@
 					lua_name = '';
 					font_name = 'font/common_font_01.ttf';
 					font_size = 22;
-					text = '스킬슬라임 1개';
+					text = '전설 스킬 슬라임 1개';
 					h_alignment = 1;
 					v_alignment = 1;
 					color = { 223; 153; 255; };
@@ -722,7 +722,7 @@
 					lua_name = '';
 					font_name = 'font/common_font_01.ttf';
 					font_size = 22;
-					text = '스킬슬라임 2개';
+					text = '전설 스킬 슬라임 2개';
 					h_alignment = 1;
 					v_alignment = 1;
 					color = { 223; 153; 255; };
@@ -1038,7 +1038,7 @@
 					lua_name = '';
 					font_name = 'font/common_font_01.ttf';
 					font_size = 22;
-					text = '스킬슬라임 5개';
+					text = '전설 스킬 슬라임 5개';
 					h_alignment = 1;
 					v_alignment = 1;
 					color = { 223; 153; 255; };

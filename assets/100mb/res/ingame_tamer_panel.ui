@@ -134,22 +134,45 @@
 			{
 				[1] =
 				{
-					type = 'Node';
+					[1] =
+					{
+						type = 'Node';
+						ui_name = '';
+						x = 2.000000;
+						y = -76.000000;
+						dock_point = { 0.500000; 0.500000; };
+						anchor_point = { 0.500000; 0.500000; };
+						relative_size_type = 0;
+						width = 360;
+						height = 380;
+						scale_x = 0.500000;
+						scale_y = 0.500000;
+						skew_x = 0.000000;
+						skew_y = 0.000000;
+						rotation = 0.000000;
+						visible = true;
+						lua_name = 'tamerNode';
+					};
+					type = 'ClippingNode';
 					ui_name = '';
 					x = 0.000000;
-					y = 9.999969;
+					y = 35.000000;
 					dock_point = { 0.500000; 0.500000; };
 					anchor_point = { 0.500000; 0.500000; };
 					relative_size_type = 0;
-					width = 328;
-					height = 278;
-					scale_x = 0.300000;
-					scale_y = 0.300000;
+					width = 44;
+					height = 115;
+					scale_x = 1.000000;
+					scale_y = 1.000000;
 					skew_x = 0.000000;
 					skew_y = 0.000000;
 					rotation = 0.000000;
 					visible = true;
-					lua_name = 'tamerNode';
+					lua_name = '';
+					stencil_type = 0;
+					stencil_img = '';
+					alpha_threshold = 1.000000;
+					is_invert = false;
 				};
 				type = 'Sprite';
 				ui_name = '';

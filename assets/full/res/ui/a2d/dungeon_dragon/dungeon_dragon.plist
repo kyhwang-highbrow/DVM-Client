@@ -4,215 +4,95 @@
     <dict>
         <key>frames</key>
         <dict>
-            <key>dungeon_dragon_dark_icon.png</key>
+            <key>dungeon_dragon_dark_list.png</key>
             <dict>
                 <key>aliases</key>
                 <array/>
                 <key>spriteOffset</key>
                 <string>{0,0}</string>
                 <key>spriteSize</key>
-                <string>{280,280}</string>
+                <string>{290,602}</string>
                 <key>spriteSourceSize</key>
-                <string>{280,280}</string>
+                <string>{290,602}</string>
                 <key>textureRect</key>
-                <string>{{273,1},{280,280}}</string>
+                <string>{{1,1},{290,602}}</string>
                 <key>textureRotated</key>
-                <false/>
+                <true/>
             </dict>
-            <key>dungeon_dragon_dark_reward.png</key>
+            <key>dungeon_dragon_earth_list.png</key>
             <dict>
                 <key>aliases</key>
                 <array/>
                 <key>spriteOffset</key>
                 <string>{0,0}</string>
                 <key>spriteSize</key>
-                <string>{204,48}</string>
+                <string>{290,602}</string>
                 <key>spriteSourceSize</key>
-                <string>{204,48}</string>
+                <string>{290,602}</string>
                 <key>textureRect</key>
-                <string>{{297,847},{204,48}}</string>
+                <string>{{605,1},{290,602}}</string>
                 <key>textureRotated</key>
-                <false/>
+                <true/>
             </dict>
-            <key>dungeon_dragon_earth_icon.png</key>
+            <key>dungeon_dragon_fire_list.png</key>
             <dict>
                 <key>aliases</key>
                 <array/>
                 <key>spriteOffset</key>
                 <string>{0,0}</string>
                 <key>spriteSize</key>
-                <string>{280,280}</string>
+                <string>{290,602}</string>
                 <key>spriteSourceSize</key>
-                <string>{280,280}</string>
+                <string>{290,602}</string>
                 <key>textureRect</key>
-                <string>{{273,283},{280,280}}</string>
+                <string>{{1209,1},{290,602}}</string>
                 <key>textureRotated</key>
-                <false/>
+                <true/>
             </dict>
-            <key>dungeon_dragon_earth_reward.png</key>
+            <key>dungeon_dragon_gem_list.png</key>
             <dict>
                 <key>aliases</key>
                 <array/>
                 <key>spriteOffset</key>
                 <string>{0,0}</string>
                 <key>spriteSize</key>
-                <string>{204,48}</string>
+                <string>{290,602}</string>
                 <key>spriteSourceSize</key>
-                <string>{204,48}</string>
+                <string>{290,602}</string>
                 <key>textureRect</key>
-                <string>{{1,879},{204,48}}</string>
+                <string>{{1,293},{290,602}}</string>
                 <key>textureRotated</key>
-                <false/>
+                <true/>
             </dict>
-            <key>dungeon_dragon_fire_icon.png</key>
+            <key>dungeon_dragon_light_list.png</key>
             <dict>
                 <key>aliases</key>
                 <array/>
                 <key>spriteOffset</key>
                 <string>{0,0}</string>
                 <key>spriteSize</key>
-                <string>{280,280}</string>
+                <string>{290,602}</string>
                 <key>spriteSourceSize</key>
-                <string>{280,280}</string>
+                <string>{290,602}</string>
                 <key>textureRect</key>
-                <string>{{297,565},{280,280}}</string>
+                <string>{{605,293},{290,602}}</string>
                 <key>textureRotated</key>
-                <false/>
+                <true/>
             </dict>
-            <key>dungeon_dragon_fire_reward.png</key>
+            <key>dungeon_dragon_water_list.png</key>
             <dict>
                 <key>aliases</key>
                 <array/>
                 <key>spriteOffset</key>
                 <string>{0,0}</string>
                 <key>spriteSize</key>
-                <string>{204,48}</string>
+                <string>{290,602}</string>
                 <key>spriteSourceSize</key>
-                <string>{204,48}</string>
+                <string>{290,602}</string>
                 <key>textureRect</key>
-                <string>{{503,847},{204,48}}</string>
+                <string>{{1209,293},{290,602}}</string>
                 <key>textureRotated</key>
-                <false/>
-            </dict>
-            <key>dungeon_dragon_frame.png</key>
-            <dict>
-                <key>aliases</key>
-                <array/>
-                <key>spriteOffset</key>
-                <string>{0,0}</string>
-                <key>spriteSize</key>
-                <string>{270,580}</string>
-                <key>spriteSourceSize</key>
-                <string>{270,580}</string>
-                <key>textureRect</key>
-                <string>{{1,1},{270,580}}</string>
-                <key>textureRotated</key>
-                <false/>
-            </dict>
-            <key>dungeon_dragon_frame_deco.png</key>
-            <dict>
-                <key>aliases</key>
-                <array/>
-                <key>spriteOffset</key>
-                <string>{0,0}</string>
-                <key>spriteSize</key>
-                <string>{294,294}</string>
-                <key>spriteSourceSize</key>
-                <string>{294,294}</string>
-                <key>textureRect</key>
-                <string>{{1,583},{294,294}}</string>
-                <key>textureRotated</key>
-                <false/>
-            </dict>
-            <key>dungeon_dragon_gem_icon.png</key>
-            <dict>
-                <key>aliases</key>
-                <array/>
-                <key>spriteOffset</key>
-                <string>{0,0}</string>
-                <key>spriteSize</key>
-                <string>{280,280}</string>
-                <key>spriteSourceSize</key>
-                <string>{280,280}</string>
-                <key>textureRect</key>
-                <string>{{555,1},{280,280}}</string>
-                <key>textureRotated</key>
-                <false/>
-            </dict>
-            <key>dungeon_dragon_gem_reward.png</key>
-            <dict>
-                <key>aliases</key>
-                <array/>
-                <key>spriteOffset</key>
-                <string>{0,0}</string>
-                <key>spriteSize</key>
-                <string>{204,48}</string>
-                <key>spriteSourceSize</key>
-                <string>{204,48}</string>
-                <key>textureRect</key>
-                <string>{{207,897},{204,48}}</string>
-                <key>textureRotated</key>
-                <false/>
-            </dict>
-            <key>dungeon_dragon_light_icon.png</key>
-            <dict>
-                <key>aliases</key>
-                <array/>
-                <key>spriteOffset</key>
-                <string>{0,0}</string>
-                <key>spriteSize</key>
-                <string>{280,280}</string>
-                <key>spriteSourceSize</key>
-                <string>{280,280}</string>
-                <key>textureRect</key>
-                <string>{{555,283},{280,280}}</string>
-                <key>textureRotated</key>
-                <false/>
-            </dict>
-            <key>dungeon_dragon_light_reward.png</key>
-            <dict>
-                <key>aliases</key>
-                <array/>
-                <key>spriteOffset</key>
-                <string>{0,0}</string>
-                <key>spriteSize</key>
-                <string>{204,48}</string>
-                <key>spriteSourceSize</key>
-                <string>{204,48}</string>
-                <key>textureRect</key>
-                <string>{{413,897},{204,48}}</string>
-                <key>textureRotated</key>
-                <false/>
-            </dict>
-            <key>dungeon_dragon_water_icon.png</key>
-            <dict>
-                <key>aliases</key>
-                <array/>
-                <key>spriteOffset</key>
-                <string>{0,0}</string>
-                <key>spriteSize</key>
-                <string>{280,280}</string>
-                <key>spriteSourceSize</key>
-                <string>{280,280}</string>
-                <key>textureRect</key>
-                <string>{{579,565},{280,280}}</string>
-                <key>textureRotated</key>
-                <false/>
-            </dict>
-            <key>dungeon_dragon_water_reward.png</key>
-            <dict>
-                <key>aliases</key>
-                <array/>
-                <key>spriteOffset</key>
-                <string>{0,0}</string>
-                <key>spriteSize</key>
-                <string>{204,48}</string>
-                <key>spriteSourceSize</key>
-                <string>{204,48}</string>
-                <key>textureRect</key>
-                <string>{{619,897},{204,48}}</string>
-                <key>textureRotated</key>
-                <false/>
+                <true/>
             </dict>
         </dict>
         <key>metadata</key>
@@ -226,9 +106,9 @@
             <key>realTextureFileName</key>
             <string>dungeon_dragon.png</string>
             <key>size</key>
-            <string>{860,946}</string>
+            <string>{1812,584}</string>
             <key>smartupdate</key>
-            <string>$TexturePacker:SmartUpdate:c7ff97e8417631d7abadb87ff3c13fb5:90b3389129ff726ef0bc69d32a97170f:bb3e413dbd8926e3c693cd96eb8edf87$</string>
+            <string>$TexturePacker:SmartUpdate:01669e212f92a6b2ca771e00194a0e8d:9d8d12ba666ec90075204c41986396e2:bb3e413dbd8926e3c693cd96eb8edf87$</string>
             <key>textureFileName</key>
             <string>dungeon_dragon.png</string>
         </dict>

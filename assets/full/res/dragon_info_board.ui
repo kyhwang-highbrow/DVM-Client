@@ -770,7 +770,7 @@
 				visible = true;
 				lua_name = 'equipmentBtn';
 				enable = true;
-				normal = 'ui/buttons/help_btn_0101.png';
+				normal = 'ui/buttons/42_setting_0101.png';
 				selected = '';
 				disable = '';
 				image_type = 0;

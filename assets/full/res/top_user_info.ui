@@ -123,12 +123,12 @@
 				};
 				type = 'Button';
 				ui_name = '';
-				x = 100.000000;
+				x = 66.000000;
 				y = 0.000000;
 				dock_point = { 0.000000; 0.500000; };
 				anchor_point = { 0.500000; 0.500000; };
 				relative_size_type = 0;
-				width = 200;
+				width = 133;
 				height = 70;
 				scale_x = 1.000000;
 				scale_y = 1.000000;
@@ -281,12 +281,12 @@
 				{
 					type = 'Scale9Sprite';
 					ui_name = '';
-					x = 0.000000;
+					x = -51.000000;
 					y = 0.000000;
 					dock_point = { 0.500000; 0.000000; };
 					anchor_point = { 0.500000; 0.000000; };
 					relative_size_type = 0;
-					width = 240;
+					width = 243;
 					height = 50;
 					scale_x = 1.000000;
 					scale_y = 1.000000;
@@ -307,12 +307,12 @@
 				{
 					type = 'LabelTTF';
 					ui_name = '';
-					x = -3.000000;
+					x = -41.000000;
 					y = 0.000000;
 					dock_point = { 0.500000; 0.500000; };
 					anchor_point = { 0.500000; 0.500000; };
 					relative_size_type = 0;
-					width = 150;
+					width = 123;
 					height = 60;
 					scale_x = 1.000000;
 					scale_y = 1.000000;
@@ -328,7 +328,7 @@
 					v_alignment = 1;
 					color = { 240; 215; 159; };
 					opacity = 255;
-					dimension_width = 150;
+					dimension_width = 123;
 					dimension_height = 60;
 					letter_spacing = 0.000000;
 					has_stroke = false;
@@ -373,8 +373,8 @@
 				{
 					type = 'Sprite';
 					ui_name = '';
-					x = -93.000000;
-					y = 0.000000;
+					x = -142.000000;
+					y = 2.000000;
 					dock_point = { 0.500000; 0.500000; };
 					anchor_point = { 0.500000; 0.500000; };
 					relative_size_type = 0;
@@ -399,8 +399,8 @@
 				{
 					type = 'Sprite';
 					ui_name = '';
-					x = -93.000000;
-					y = 0.000000;
+					x = -140.000000;
+					y = 1.000000;
 					dock_point = { 0.500000; 0.500000; };
 					anchor_point = { 0.500000; 0.500000; };
 					relative_size_type = 0;
@@ -423,19 +423,19 @@
 				};
 				type = 'Button';
 				ui_name = '';
-				x = 199.000000;
+				x = 249.000000;
 				y = -38.000000;
 				dock_point = { 0.000000; 1.000000; };
 				anchor_point = { 0.500000; 0.500000; };
 				relative_size_type = 0;
-				width = 240;
+				width = 140;
 				height = 50;
 				scale_x = 1.000000;
 				scale_y = 1.000000;
 				skew_x = 0.000000;
 				skew_y = 0.000000;
 				rotation = 0.000000;
-				visible = false;
+				visible = true;
 				lua_name = 'inventoryBtn';
 				enable = true;
 				normal = 'ui/temp/empty.png';
@@ -449,8 +449,8 @@
 			y = 0.000000;
 			dock_point = { 0.500000; 1.000000; };
 			anchor_point = { 0.500000; 1.000000; };
-			relative_size_type = 0;
-			width = 1280;
+			relative_size_type = 2;
+			width = 0;
 			height = 70;
 			scale_x = 1.000000;
 			scale_y = 1.000000;

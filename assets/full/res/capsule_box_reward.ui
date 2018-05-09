@@ -23,7 +23,7 @@
 				rotation = 0.000000;
 				visible = true;
 				lua_name = '';
-				file_name = 'ui/frames/base_frame_0101.png';
+				file_name = 'ui/frames/base_frame_0801.png';
 				color = { 255; 255; 255; };
 				opacity = 255;
 				center_rect_x = 0;
@@ -53,7 +53,7 @@
 					lua_name = '';
 					font_name = 'font/common_font_01.ttf';
 					font_size = 18;
-					text = '캡슐 뽑기 1등급 보상은 매 주 화요일, 토요일에 변경됩니다.';
+					text = '캡슐 뽑기 1등급 보상은 매 주 월요일, 화요일, 목요일, 토요일에 변경됩니다.';
 					h_alignment = 1;
 					v_alignment = 2;
 					color = { 255; 104; 32; };
@@ -116,7 +116,7 @@
 				type = 'Node';
 				ui_name = '';
 				x = 0.000000;
-				y = 7.000000;
+				y = 27.000000;
 				dock_point = { 0.500000; 0.000000; };
 				anchor_point = { 0.500000; 0.000000; };
 				relative_size_type = 0;
@@ -135,7 +135,7 @@
 				type = 'Node';
 				ui_name = '';
 				x = 0.000000;
-				y = -53.000000;
+				y = -39.000000;
 				dock_point = { 0.500000; 0.500000; };
 				anchor_point = { 0.500000; 0.500000; };
 				relative_size_type = 0;
@@ -234,7 +234,7 @@
 				type = 'Button';
 				ui_name = '';
 				x = -450.000000;
-				y = 124.000000;
+				y = 138.000000;
 				dock_point = { 0.500000; 0.500000; };
 				anchor_point = { 0.500000; 0.500000; };
 				relative_size_type = 0;
@@ -338,7 +338,7 @@
 				type = 'Button';
 				ui_name = '';
 				x = -270.000000;
-				y = 124.000000;
+				y = 138.000000;
 				dock_point = { 0.500000; 0.500000; };
 				anchor_point = { 0.500000; 0.500000; };
 				relative_size_type = 0;
@@ -442,7 +442,7 @@
 				type = 'Button';
 				ui_name = '';
 				x = -90.000000;
-				y = 124.000000;
+				y = 138.000000;
 				dock_point = { 0.500000; 0.500000; };
 				anchor_point = { 0.500000; 0.500000; };
 				relative_size_type = 0;
@@ -546,7 +546,7 @@
 				type = 'Button';
 				ui_name = '';
 				x = 90.000000;
-				y = 124.000000;
+				y = 138.000000;
 				dock_point = { 0.500000; 0.500000; };
 				anchor_point = { 0.500000; 0.500000; };
 				relative_size_type = 0;
@@ -650,7 +650,7 @@
 				type = 'Button';
 				ui_name = '';
 				x = 270.000000;
-				y = 124.000000;
+				y = 138.000000;
 				dock_point = { 0.500000; 0.500000; };
 				anchor_point = { 0.500000; 0.500000; };
 				relative_size_type = 0;
@@ -754,7 +754,7 @@
 				type = 'Button';
 				ui_name = '';
 				x = 450.000000;
-				y = 124.000000;
+				y = 138.000000;
 				dock_point = { 0.500000; 0.500000; };
 				anchor_point = { 0.500000; 0.500000; };
 				relative_size_type = 0;
@@ -777,7 +777,7 @@
 			{
 				type = 'Button';
 				ui_name = '';
-				x = -36.000000;
+				x = -24.000000;
 				y = -24.000000;
 				dock_point = { 1.000000; 1.000000; };
 				anchor_point = { 0.500000; 0.500000; };
@@ -802,7 +802,7 @@
 				type = 'LabelTTF';
 				ui_name = '';
 				x = 0.000000;
-				y = 200.000000;
+				y = 214.000000;
 				dock_point = { 0.500000; 0.500000; };
 				anchor_point = { 0.500000; 0.500000; };
 				relative_size_type = 0;
@@ -837,15 +837,65 @@
 				shadow_direction = 0;
 				shadow_distance = 5.000000;
 			};
+			[12] =
+			{
+				[1] =
+				{
+					type = 'Sprite';
+					ui_name = '';
+					x = 0.000000;
+					y = 0.000000;
+					dock_point = { 0.500000; 0.500000; };
+					anchor_point = { 0.500000; 0.500000; };
+					relative_size_type = 0;
+					width = 42;
+					height = 42;
+					scale_x = 1.000000;
+					scale_y = 1.000000;
+					skew_x = 0.000000;
+					skew_y = 0.000000;
+					rotation = 0.000000;
+					visible = true;
+					lua_name = '';
+					file_name = 'ui/buttons/42_help_0201.png';
+					color = { 255; 255; 255; };
+					opacity = 255;
+					flip_x = false;
+					flip_y = false;
+					src_blend = 770;
+					dest_blend = 771;
+				};
+				type = 'Button';
+				ui_name = '';
+				x = 134.000000;
+				y = 214.000000;
+				dock_point = { 0.500000; 0.500000; };
+				anchor_point = { 0.500000; 0.500000; };
+				relative_size_type = 0;
+				width = 60;
+				height = 60;
+				scale_x = 1.000000;
+				scale_y = 1.000000;
+				skew_x = 0.000000;
+				skew_y = 0.000000;
+				rotation = 0.000000;
+				visible = true;
+				lua_name = 'plugInfoBtn';
+				enable = true;
+				normal = '';
+				selected = '';
+				disable = '';
+				image_type = 0;
+			};
 			type = 'Menu';
 			ui_name = '';
 			x = 0.000000;
 			y = 0.000000;
 			dock_point = { 0.500000; 0.500000; };
 			anchor_point = { 0.500000; 0.500000; };
-			relative_size_type = 0;
-			width = 1300;
-			height = 500;
+			relative_size_type = 2;
+			width = 0;
+			height = 540;
 			scale_x = 1.000000;
 			scale_y = 1.000000;
 			skew_x = 0.000000;

@@ -1,0 +1,132 @@
+
+durun_sleep_l.png
+size: 982,398
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+durun_sleep_bed_01
+  rotate: true
+  xy: 570, 3
+  size: 91, 181
+  orig: 91, 181
+  offset: 0, 0
+  index: -1
+durun_sleep_bed_02
+  rotate: true
+  xy: 819, 159
+  size: 237, 133
+  orig: 237, 133
+  offset: 0, 0
+  index: -1
+durun_sleep_bed_03
+  rotate: true
+  xy: 274, 86
+  size: 310, 103
+  orig: 310, 103
+  offset: 0, 0
+  index: -1
+durun_sleep_bed_04
+  rotate: true
+  xy: 379, 86
+  size: 310, 103
+  orig: 310, 103
+  offset: 0, 0
+  index: -1
+durun_sleep_bed_05
+  rotate: false
+  xy: 938, 19
+  size: 42, 96
+  orig: 42, 96
+  offset: 0, 0
+  index: -1
+durun_sleep_bed_06
+  rotate: false
+  xy: 819, 2
+  size: 43, 93
+  orig: 43, 93
+  offset: 0, 0
+  index: -1
+durun_sleep_bed_07
+  rotate: false
+  xy: 300, 8
+  size: 268, 76
+  orig: 268, 76
+  offset: 0, 0
+  index: -1
+durun_sleep_bed_08
+  rotate: true
+  xy: 864, 117
+  size: 40, 108
+  orig: 40, 108
+  offset: 0, 0
+  index: -1
+durun_sleep_bed_09
+  rotate: true
+  xy: 2, 86
+  size: 310, 134
+  orig: 310, 134
+  offset: 0, 0
+  index: -1
+durun_sleep_bed_10
+  rotate: true
+  xy: 138, 86
+  size: 310, 134
+  orig: 310, 134
+  offset: 0, 0
+  index: -1
+durun_sleep_body_01
+  rotate: true
+  xy: 864, 9
+  size: 106, 72
+  orig: 106, 72
+  offset: 0, 0
+  index: -1
+durun_sleep_body_02
+  rotate: true
+  xy: 2, 2
+  size: 82, 58
+  orig: 82, 58
+  offset: 0, 0
+  index: -1
+durun_sleep_body_03
+  rotate: true
+  xy: 753, 20
+  size: 74, 64
+  orig: 74, 64
+  offset: 0, 0
+  index: -1
+durun_sleep_duvet_01
+  rotate: false
+  xy: 166, 5
+  size: 132, 79
+  orig: 132, 79
+  offset: 0, 0
+  index: -1
+durun_sleep_eff_01
+  rotate: true
+  xy: 753, 3
+  size: 15, 17
+  orig: 15, 17
+  offset: 0, 0
+  index: -1
+durun_sleep_head_01
+  rotate: true
+  xy: 786, 97
+  size: 60, 59
+  orig: 60, 59
+  offset: 0, 0
+  index: -1
+durun_sleep_mat
+  rotate: false
+  xy: 484, 96
+  size: 300, 300
+  orig: 300, 300
+  offset: 0, 0
+  index: -1
+durun_sleep_pillow
+  rotate: false
+  xy: 62, 4
+  size: 102, 80
+  orig: 102, 80
+  offset: 0, 0
+  index: -1

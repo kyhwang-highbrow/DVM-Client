@@ -1,0 +1,342 @@
+
+hades_water_02.png
+size: 2001,582
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+hades_water_02_arm_01
+  rotate: false
+  xy: 914, 19
+  size: 70, 113
+  orig: 70, 113
+  offset: 0, 0
+  index: -1
+hades_water_02_arm_02
+  rotate: false
+  xy: 1282, 118
+  size: 128, 102
+  orig: 128, 102
+  offset: 0, 0
+  index: -1
+hades_water_02_arm_05
+  rotate: true
+  xy: 1766, 116
+  size: 78, 88
+  orig: 78, 88
+  offset: 0, 0
+  index: -1
+hades_water_02_arm_06
+  rotate: true
+  xy: 1115, 2
+  size: 55, 51
+  orig: 55, 51
+  offset: 0, 0
+  index: -1
+hades_water_02_body_01
+  rotate: true
+  xy: 1139, 341
+  size: 239, 343
+  orig: 239, 343
+  offset: 0, 0
+  index: -1
+hades_water_02_dust
+  rotate: false
+  xy: 1766, 196
+  size: 114, 118
+  orig: 114, 118
+  offset: 0, 0
+  index: -1
+hades_water_02_effect_01
+  rotate: false
+  xy: 1768, 316
+  size: 117, 264
+  orig: 117, 264
+  offset: 0, 0
+  index: -1
+hades_water_02_effect_02
+  rotate: false
+  xy: 1887, 320
+  size: 101, 260
+  orig: 101, 260
+  offset: 0, 0
+  index: -1
+hades_water_02_effect_03
+  rotate: true
+  xy: 1139, 222
+  size: 117, 260
+  orig: 117, 260
+  offset: 0, 0
+  index: -1
+hades_water_02_effect_04
+  rotate: true
+  xy: 814, 202
+  size: 72, 221
+  orig: 72, 221
+  offset: 0, 0
+  index: -1
+hades_water_02_effect_05
+  rotate: false
+  xy: 1478, 180
+  size: 145, 144
+  orig: 145, 144
+  offset: 0, 0
+  index: -1
+hades_water_02_effect_06
+  rotate: false
+  xy: 1609, 2
+  size: 82, 77
+  orig: 82, 77
+  offset: 0, 0
+  index: -1
+hades_water_02_effect_07
+  rotate: true
+  xy: 1472, 19
+  size: 54, 107
+  orig: 54, 107
+  offset: 0, 0
+  index: -1
+hades_water_02_effect_09
+  rotate: false
+  xy: 1882, 114
+  size: 111, 107
+  orig: 111, 107
+  offset: 0, 0
+  index: -1
+hades_water_02_effect_10
+  rotate: false
+  xy: 1037, 179
+  size: 100, 95
+  orig: 100, 95
+  offset: 0, 0
+  index: -1
+hades_water_02_effect_11
+  rotate: false
+  xy: 986, 54
+  size: 122, 123
+  orig: 122, 123
+  offset: 0, 0
+  index: -1
+hades_water_02_effect_12
+  rotate: false
+  xy: 1390, 20
+  size: 80, 78
+  orig: 80, 78
+  offset: 0, 0
+  index: -1
+hades_water_02_effect_13
+  rotate: false
+  xy: 1753, 2
+  size: 67, 65
+  orig: 67, 65
+  offset: 0, 0
+  index: -1
+hades_water_02_effect_21
+  rotate: true
+  xy: 263, 8
+  size: 197, 113
+  orig: 197, 113
+  offset: 0, 0
+  index: -1
+hades_water_02_eye_01
+  rotate: true
+  xy: 782, 238
+  size: 29, 30
+  orig: 29, 30
+  offset: 0, 0
+  index: -1
+hades_water_02_finger_01
+  rotate: true
+  xy: 1220, 55
+  size: 67, 58
+  orig: 67, 58
+  offset: 0, 0
+  index: -1
+hades_water_02_finger_02
+  rotate: true
+  xy: 1754, 69
+  size: 45, 83
+  orig: 45, 83
+  offset: 0, 0
+  index: -1
+hades_water_02_finger_03
+  rotate: false
+  xy: 1822, 13
+  size: 76, 39
+  orig: 76, 39
+  offset: 0, 0
+  index: -1
+hades_water_02_finger_04
+  rotate: false
+  xy: 1921, 60
+  size: 64, 52
+  orig: 64, 52
+  offset: 0, 0
+  index: -1
+hades_water_02_finger_05
+  rotate: false
+  xy: 1228, 2
+  size: 39, 51
+  orig: 39, 51
+  offset: 0, 0
+  index: -1
+hades_water_02_fir
+  rotate: false
+  xy: 1625, 182
+  size: 139, 142
+  orig: 139, 142
+  offset: 0, 0
+  index: -1
+hades_water_02_flare
+  rotate: false
+  xy: 400, 136
+  size: 380, 131
+  orig: 380, 131
+  offset: 0, 0
+  index: -1
+hades_water_02_foot_01
+  rotate: true
+  xy: 1478, 75
+  size: 103, 129
+  orig: 103, 129
+  offset: 0, 0
+  index: -1
+hades_water_02_foot_02
+  rotate: true
+  xy: 1887, 223
+  size: 95, 112
+  orig: 95, 112
+  offset: 0, 0
+  index: -1
+hades_water_02_hair_01
+  rotate: true
+  xy: 1484, 326
+  size: 254, 282
+  orig: 254, 282
+  offset: 0, 0
+  index: -1
+hades_water_02_hand_01
+  rotate: true
+  xy: 1401, 225
+  size: 114, 75
+  orig: 114, 75
+  offset: 0, 0
+  index: -1
+hades_water_02_hand_02
+  rotate: false
+  xy: 1839, 54
+  size: 80, 58
+  orig: 80, 58
+  offset: 0, 0
+  index: -1
+hades_water_02_head_01
+  rotate: true
+  xy: 769, 19
+  size: 113, 143
+  orig: 113, 143
+  offset: 0, 0
+  index: -1
+hades_water_02_head_02
+  rotate: false
+  xy: 1412, 100
+  size: 64, 123
+  orig: 64, 123
+  offset: 0, 0
+  index: -1
+hades_water_02_head_03
+  rotate: false
+  xy: 1693, 9
+  size: 58, 70
+  orig: 58, 70
+  offset: 0, 0
+  index: -1
+hades_water_02_leg_01
+  rotate: true
+  xy: 1110, 59
+  size: 63, 108
+  orig: 63, 108
+  offset: 0, 0
+  index: -1
+hades_water_02_leg_02
+  rotate: true
+  xy: 1139, 124
+  size: 96, 141
+  orig: 96, 141
+  offset: 0, 0
+  index: -1
+hades_water_02_light_01
+  rotate: false
+  xy: 1168, 2
+  size: 58, 51
+  orig: 58, 51
+  offset: 0, 0
+  index: -1
+hades_water_02_lightdust
+  rotate: false
+  xy: 1625, 81
+  size: 127, 99
+  orig: 127, 99
+  offset: 0, 0
+  index: -1
+hades_water_02_pink
+  rotate: false
+  xy: 2, 207
+  size: 396, 373
+  orig: 396, 373
+  offset: 0, 0
+  index: -1
+hades_water_02_skill_01
+  rotate: false
+  xy: 591, 41
+  size: 176, 93
+  orig: 176, 93
+  offset: 0, 0
+  index: -1
+hades_water_02_skill_02
+  rotate: false
+  xy: 782, 134
+  size: 199, 66
+  orig: 199, 66
+  offset: 0, 0
+  index: -1
+hades_water_02_skill_03
+  rotate: false
+  xy: 986, 2
+  size: 127, 50
+  orig: 127, 50
+  offset: 0, 0
+  index: -1
+hades_water_02_tail_01
+  rotate: false
+  xy: 1280, 29
+  size: 108, 87
+  orig: 108, 87
+  offset: 0, 0
+  index: -1
+hades_water_02_tail_02
+  rotate: false
+  xy: 2, 2
+  size: 259, 203
+  orig: 259, 203
+  offset: 0, 0
+  index: -1
+hades_water_02_wing_01
+  rotate: true
+  xy: 378, 15
+  size: 119, 211
+  orig: 119, 211
+  offset: 0, 0
+  index: -1
+hades_water_02_wing_02
+  rotate: true
+  xy: 400, 269
+  size: 311, 412
+  orig: 311, 412
+  offset: 0, 0
+  index: -1
+hades_water_02_wing_03
+  rotate: false
+  xy: 814, 276
+  size: 323, 304
+  orig: 323, 304
+  offset: 0, 0
+  index: -1

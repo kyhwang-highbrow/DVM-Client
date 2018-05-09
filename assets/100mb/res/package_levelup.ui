@@ -562,7 +562,7 @@
 				lua_name = 'itemLabel1';
 				font_name = 'font/common_font_01.ttf';
 				font_size = 18;
-				text = '다이아 33,600개\n골드 100,000개\n날개 1,500개\n자수정 1,000개\n스킬 슬라임 3개';
+				text = '다이아 33,600개\n골드 100,000개\n날개 1,500개\n자수정 1,000개\n전설 스킬 슬라임 3개';
 				h_alignment = 1;
 				v_alignment = 1;
 				color = { 255; 255; 255; };

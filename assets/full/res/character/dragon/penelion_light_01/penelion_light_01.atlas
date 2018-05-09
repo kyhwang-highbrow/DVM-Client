@@ -1,0 +1,118 @@
+
+penelion_light_01.png
+size: 825,394
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+penelion_light_01_armour_01
+  rotate: true
+  xy: 770, 75
+  size: 57, 53
+  orig: 57, 53
+  offset: 0, 0
+  index: -1
+penelion_light_01_armour_02
+  rotate: true
+  xy: 759, 31
+  size: 42, 51
+  orig: 42, 51
+  offset: 0, 0
+  index: -1
+penelion_light_01_body_01
+  rotate: false
+  xy: 392, 77
+  size: 148, 152
+  orig: 148, 152
+  offset: 0, 0
+  index: -1
+penelion_light_01_effect_05
+  rotate: false
+  xy: 392, 231
+  size: 268, 161
+  orig: 268, 161
+  offset: 0, 0
+  index: -1
+penelion_light_01_effect_08
+  rotate: false
+  xy: 2, 4
+  size: 388, 388
+  orig: 388, 388
+  offset: 0, 0
+  index: -1
+penelion_light_01_hair_01
+  rotate: true
+  xy: 726, 194
+  size: 71, 89
+  orig: 71, 89
+  offset: 0, 0
+  index: -1
+penelion_light_01_hair_02
+  rotate: true
+  xy: 638, 92
+  size: 104, 75
+  orig: 104, 75
+  offset: 0, 0
+  index: -1
+penelion_light_01_hair_03
+  rotate: false
+  xy: 542, 113
+  size: 94, 116
+  orig: 94, 116
+  offset: 0, 0
+  index: -1
+penelion_light_01_head_01
+  rotate: true
+  xy: 726, 267
+  size: 125, 96
+  orig: 125, 96
+  offset: 0, 0
+  index: -1
+penelion_light_01_leg_01
+  rotate: true
+  xy: 663, 31
+  size: 58, 94
+  orig: 58, 94
+  offset: 0, 0
+  index: -1
+penelion_light_01_leg_02
+  rotate: false
+  xy: 609, 2
+  size: 52, 87
+  orig: 52, 87
+  offset: 0, 0
+  index: -1
+penelion_light_01_leg_03
+  rotate: false
+  xy: 542, 2
+  size: 65, 109
+  orig: 65, 109
+  offset: 0, 0
+  index: -1
+penelion_light_01_light
+  rotate: true
+  xy: 770, 134
+  size: 58, 51
+  orig: 58, 51
+  offset: 0, 0
+  index: -1
+penelion_light_01_tail_01
+  rotate: true
+  xy: 662, 198
+  size: 194, 62
+  orig: 194, 62
+  offset: 0, 0
+  index: -1
+penelion_light_01_wing_01
+  rotate: true
+  xy: 392, 8
+  size: 67, 111
+  orig: 67, 111
+  offset: 0, 0
+  index: -1
+penelion_light_01_wing_02
+  rotate: false
+  xy: 715, 91
+  size: 53, 101
+  orig: 53, 101
+  offset: 0, 0
+  index: -1

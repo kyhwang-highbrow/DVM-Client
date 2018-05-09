@@ -675,6 +675,58 @@
 				src_blend = 770;
 				dest_blend = 771;
 			};
+			[20] =
+			{
+				type = 'Sprite';
+				ui_name = '';
+				x = 54.000000;
+				y = 54.000000;
+				dock_point = { 0.500000; 0.500000; };
+				anchor_point = { 0.500000; 0.500000; };
+				relative_size_type = 0;
+				width = 30;
+				height = 30;
+				scale_x = 1.000000;
+				scale_y = 1.000000;
+				skew_x = 0.000000;
+				skew_y = 0.000000;
+				rotation = 0.000000;
+				visible = true;
+				lua_name = 'checkBoxSprite1';
+				file_name = 'ui/a2d/card/card_check_0101.png';
+				color = { 255; 255; 255; };
+				opacity = 255;
+				flip_x = false;
+				flip_y = false;
+				src_blend = 770;
+				dest_blend = 771;
+			};
+			[21] =
+			{
+				type = 'Sprite';
+				ui_name = '';
+				x = 56.000000;
+				y = 58.000000;
+				dock_point = { 0.500000; 0.500000; };
+				anchor_point = { 0.500000; 0.500000; };
+				relative_size_type = 0;
+				width = 36;
+				height = 27;
+				scale_x = 1.000000;
+				scale_y = 1.000000;
+				skew_x = 0.000000;
+				skew_y = 0.000000;
+				rotation = 0.000000;
+				visible = true;
+				lua_name = 'checkBoxSprite2';
+				file_name = 'ui/a2d/card/card_check_0102.png';
+				color = { 255; 255; 255; };
+				opacity = 255;
+				flip_x = false;
+				flip_y = false;
+				src_blend = 770;
+				dest_blend = 771;
+			};
 			type = 'Menu';
 			ui_name = '캐릭터 카드';
 			x = 0.000000;

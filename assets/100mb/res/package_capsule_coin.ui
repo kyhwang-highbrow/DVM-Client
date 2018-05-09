@@ -457,9 +457,9 @@
 				type = 'LabelTTF';
 				ui_name = '';
 				x = -271.000000;
-				y = 32.000000;
+				y = -20.000000;
 				dock_point = { 0.500000; 0.500000; };
-				anchor_point = { 0.500000; 1.000000; };
+				anchor_point = { 0.500000; 0.500000; };
 				relative_size_type = 0;
 				width = 280;
 				height = 100;
@@ -497,9 +497,9 @@
 				type = 'LabelTTF';
 				ui_name = '';
 				x = 13.000000;
-				y = 32.000000;
+				y = -20.000000;
 				dock_point = { 0.500000; 0.500000; };
-				anchor_point = { 0.500000; 1.000000; };
+				anchor_point = { 0.500000; 0.500000; };
 				relative_size_type = 0;
 				width = 280;
 				height = 100;
@@ -537,9 +537,9 @@
 				type = 'LabelTTF';
 				ui_name = '';
 				x = 305.000000;
-				y = 32.000000;
+				y = -20.000000;
 				dock_point = { 0.500000; 0.500000; };
-				anchor_point = { 0.500000; 1.000000; };
+				anchor_point = { 0.500000; 0.500000; };
 				relative_size_type = 0;
 				width = 280;
 				height = 100;

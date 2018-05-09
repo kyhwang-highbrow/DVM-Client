@@ -23,7 +23,7 @@
 				rotation = 0.000000;
 				visible = true;
 				lua_name = '';
-				file_name = 'ui/frames/base_frame_0101.png';
+				file_name = 'ui/frames/base_frame_0801.png';
 				color = { 255; 255; 255; };
 				opacity = 255;
 				center_rect_x = 0;
@@ -99,7 +99,7 @@
 			{
 				type = 'Button';
 				ui_name = '';
-				x = -36.000000;
+				x = -24.000000;
 				y = -24.000000;
 				dock_point = { 1.000000; 1.000000; };
 				anchor_point = { 0.500000; 0.500000; };
@@ -130,7 +130,7 @@
 					dock_point = { 0.500000; 0.500000; };
 					anchor_point = { 0.500000; 0.500000; };
 					relative_size_type = 0;
-					width = 822;
+					width = 1026;
 					height = 120;
 					scale_x = 1.000000;
 					scale_y = 1.000000;
@@ -146,7 +146,7 @@
 					v_alignment = 1;
 					color = { 0; 0; 0; };
 					opacity = 255;
-					dimension_width = 822;
+					dimension_width = 1026;
 					dimension_height = 120;
 					letter_spacing = 0.000000;
 					has_stroke = false;
@@ -166,12 +166,12 @@
 					type = 'LabelTTF';
 					ui_name = '';
 					x = 0.000000;
-					y = -10.000000;
+					y = -15.000000;
 					dock_point = { 0.500000; 0.500000; };
 					anchor_point = { 0.500000; 0.500000; };
 					relative_size_type = 0;
-					width = 814;
-					height = 41;
+					width = 1005;
+					height = 60;
 					scale_x = 1.000000;
 					scale_y = 1.000000;
 					skew_x = 0.000000;
@@ -180,14 +180,14 @@
 					visible = true;
 					lua_name = '';
 					font_name = 'font/common_font_01.ttf';
-					font_size = 26;
+					font_size = 24;
 					text = '오류 정보를 제출해주시면 쾌적한 드빌M 환경이 되도록 노력하겠다고라 :)';
 					h_alignment = 1;
 					v_alignment = 1;
 					color = { 0; 0; 0; };
 					opacity = 255;
-					dimension_width = 814;
-					dimension_height = 41;
+					dimension_width = 1005;
+					dimension_height = 60;
 					letter_spacing = 0.000000;
 					has_stroke = false;
 					stroke_type = 0;
@@ -208,7 +208,7 @@
 				dock_point = { 0.500000; 0.500000; };
 				anchor_point = { 0.500000; 0.500000; };
 				relative_size_type = 0;
-				width = 780;
+				width = 1050;
 				height = 140;
 				scale_x = 1.000000;
 				scale_y = 1.000000;
@@ -257,8 +257,8 @@
 			y = 0.000000;
 			dock_point = { 0.500000; 0.500000; };
 			anchor_point = { 0.500000; 0.500000; };
-			relative_size_type = 0;
-			width = 1300;
+			relative_size_type = 2;
+			width = 0;
 			height = 480;
 			scale_x = 1.000000;
 			scale_y = 1.000000;
