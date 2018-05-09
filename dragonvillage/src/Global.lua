@@ -41,6 +41,14 @@ function IS_LIVE_SERVER()
 end
 
 -------------------------------------
+-- function IS_QA_SERVER
+-------------------------------------
+function IS_QA_SERVER()
+    local target_server = CppFunctions:getTargetServer()
+    return (target_server == 'QA')
+end
+
+-------------------------------------
 -- function IS_ENABLE_ANALYTICS
 -- @brief 지표 수집 활성화 (true면 활성화, win32에서는 활성화할 경우 PerpleSDK 오류남)
 -------------------------------------
