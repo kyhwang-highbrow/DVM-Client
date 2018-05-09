@@ -109,11 +109,18 @@ end
 function SpineCacheManager:purgeSpineCacheData()
     local t_remove_key = {}
 
+    local appVerNum = getAppVerNum()
+
     for name,cnt in pairs(self.m_refCntMap) do
         if (cnt == 0) then
             local json_name, atlas_name = string.match(name, "(.+%.json)(.+%.atlas)$")
             
-            sp.SkeletonAnimation:removeCache(json_name, atlas_name)
+            -- 1.1.4 엔진 업데이트 분기처리
+            if (not isWin32() and appVerNum < 1001004) then
+                sp.SkeletonAnimation:removeCache(json_name)
+            else
+                sp.SkeletonAnimation:removeCache(json_name, atlas_name)
+            end
             table.insert(t_remove_key, name)
             self.m_totalNumber = (self.m_totalNumber - 1)
         end
