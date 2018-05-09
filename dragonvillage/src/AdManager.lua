@@ -1,8 +1,8 @@
 AD_TYPE = {
-    RANDOM_BOX_LOBBY = 1,   -- 광고 보기 보상 : 랜덤박스 (로비 진입)
-    RANDOM_BOX_SHOP = 2,    -- 광고 보기 보상 : 랜덤박스 (상점 진입)
-    AUTO_ITEM_PICK = 3,     -- 광고 보기 보상 : 자동획득
-    NONE = 4,               -- 광고 없음(에러코드 처리) : 보상은 존재
+    NONE = 0,               -- 광고 없음(에러코드 처리) : 보상은 존재
+    AUTO_ITEM_PICK = 1,     -- 광고 보기 보상 : 자동획득
+    RANDOM_BOX_LOBBY = 2,   -- 광고 보기 보상 : 랜덤박스 (로비 진입)
+    RANDOM_BOX_SHOP = 3,    -- 광고 보기 보상 : 랜덤박스 (상점 진입)
 }
 
 USE_ADMOB_AD = true
