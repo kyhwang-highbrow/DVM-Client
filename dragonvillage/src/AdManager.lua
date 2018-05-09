@@ -1,11 +1,11 @@
 AD_TYPE = {
-    AUTO_ITEM_PICK = 1,     -- 광고 보기 보상 : 자동획득
-    RANDOM_BOX_LOBBY = 2,   -- 광고 보기 보상 : 랜덤박스 (로비 진입)
-    RANDOM_BOX_SHOP = 3,    -- 광고 보기 보상 : 랜덤박스 (상점 진입)
+    RANDOM_BOX_LOBBY = 1,   -- 광고 보기 보상 : 랜덤박스 (로비 진입)
+    RANDOM_BOX_SHOP = 2,    -- 광고 보기 보상 : 랜덤박스 (상점 진입)
+    AUTO_ITEM_PICK = 3,     -- 광고 보기 보상 : 자동획득
     NONE = 4,               -- 광고 없음(에러코드 처리) : 보상은 존재
 }
 
-USE_ADMOB_AD = false
+USE_ADMOB_AD = true
 -------------------------------------
 -- table AdManager
 -- @brief 광고 SDK 매니져
@@ -37,7 +37,7 @@ end
 -- function result
 -------------------------------------
 function AdManager:result(ret, info)
-    cclog('Ad Callback - ret:' .. ret .. ', info:' .. info)
+    cclog('AdMob Callback - ret:' .. ret .. ', info:' .. info)
 
     -- 광고 load 완료
     if (ret == 'receive') then
