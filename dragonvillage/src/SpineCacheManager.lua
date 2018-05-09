@@ -128,13 +128,12 @@ function SpineCacheManager:purgeSpineCacheData()
 
     for _,name in ipairs(t_remove_key) do
         self.m_refCntMap[name] = nil
-        local _name = string.gsub(name, '.json', '.png')
+        local json_name, atlas_name = string.match(name, "(.+%.json)(.+%.atlas)$")
+        local _name = string.gsub(atlas_name, '.atlas', '.png')
+        
         local texture = cc.Director:getInstance():getTextureCache():getTextureForKey(_name)
-        if texture then
+        if (texture) then
             texture:release()
-            if (0 < texture:getReferenceCount()) then
-                cc.Director:getInstance():getTextureCache():removeTextureForKey(_name)
-            end
         end
     end
     --cc.Director:getInstance():getTextureCache():removeUnusedTextures() -- 패치 후 발생되는 크래시에 원인이라고 추측되어 주석 처리 2017-09-29
