@@ -139,8 +139,8 @@ android {
         dev{
             dimension "server"
             versionName PROP_APPVER_DEV
-            applicationIdSuffix ".dev"
-            minSdkVersion 21 // native dex 사용하여 빌드 속도 높임
+            applicationIdSuffix ".kr"
+            //minSdkVersion 21 // native dex 사용하여 빌드 속도 높임
             signingConfig signingConfigs.keystore
             externalNativeBuild {
                 ndkBuild {
@@ -154,7 +154,7 @@ android {
         qa{
             dimension "server"
             versionName PROP_APPVER_QA
-            applicationIdSuffix ".qa"
+            applicationIdSuffix ".kr"
             signingConfig signingConfigs.keystore
             externalNativeBuild {
                 ndkBuild {
@@ -168,7 +168,7 @@ android {
         liveqa{
             dimension "server"
             versionName PROP_APPVER_LIVE
-            applicationIdSuffix ".liveqa"
+            applicationIdSuffix ".kr"
             signingConfig signingConfigs.keystore
             externalNativeBuild {
                 ndkBuild {
