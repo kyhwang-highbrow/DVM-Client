@@ -3436,14 +3436,14 @@
     <None Include="..\src\SceneGameArena.lua">
       <Filter>lua\src</Filter>
     </None>
-    <None Include="..\src\UI_GameArena.lua">
-      <Filter>lua\src</Filter>
-    </None>
-    <None Include="..\src\UI_GamePause_Arena.lua">
-      <Filter>lua\src</Filter>
-    </None>
     <None Include="..\src\WaveMgr_Arena.lua">
       <Filter>lua\src</Filter>
+    </None>
+    <None Include="..\src\UI_GameArena.lua">
+      <Filter>lua\UI</Filter>
+    </None>
+    <None Include="..\src\UI_GamePause_Arena.lua">
+      <Filter>lua\UI</Filter>
     </None>
   </ItemGroup>
   <ItemGroup>

@@ -19,8 +19,8 @@ GameState_Arena = class(PARENT, {
 -- function init
 -------------------------------------
 function GameState_Arena:init(world)
-    -- 콜로세움은 제한시간 5분으로 고정
-    self.m_limitTime = 300
+    -- 콜로세움은 제한시간 3분으로 고정
+    self.m_limitTime = 180
 
     self.m_bgEffectStartTime = 0
 end

@@ -50,7 +50,7 @@ function SceneGameArena:onEnter()
     g_autoPlaySetting:setMode(AUTO_COLOSSEUM)
     g_autoPlaySetting:setAutoPlay(false)
     
-    self.m_inGameUI = UI_GameColosseum(self)
+    self.m_inGameUI = UI_GameArena(self)
     self.m_resPreloadMgr = ResPreloadMgr()
 
     -- 절전모드 설정

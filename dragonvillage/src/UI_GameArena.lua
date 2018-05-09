@@ -52,6 +52,10 @@ function UI_GameArena:initUI()
     -- 하단 패널
     vars['panelBgSprite']:setLocalZOrder(-1)
 
+    -- 자동 버튼 숨김
+    vars['autoButton']:setVisible(false)
+    vars['autoVisual']:setVisible(false)
+
     self:initManaUI()
 end
 
@@ -196,6 +200,13 @@ function UI_GameArena:setTime(sec)
     else
         vars['timeLabel']:setColor(cc.c3b(0, 255, 0))
     end
+end
+
+-------------------------------------
+-- function setAutoMode
+-- @brief 자동 모드 설정
+-------------------------------------
+function UI_GameArena:setAutoMode(b)
 end
 
 -------------------------------------

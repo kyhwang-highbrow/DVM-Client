@@ -241,7 +241,12 @@ function UI_ColosseumReady:click_startBtn()
                 -- 시작이 두번 되지 않도록 하기 위함
                 UI_BlockPopup()
 
-                local scene = SceneGameColosseum()
+                local scene
+                if (IS_ARENA_OPEN()) then
+                    scene = SceneGameArena()
+                else
+                    scene = SceneGameColosseum()
+                end
                 scene:runScene()
             end
 

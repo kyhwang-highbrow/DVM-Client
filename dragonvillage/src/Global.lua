@@ -25,6 +25,14 @@ function IS_TEST_MODE()
 end
 
 -------------------------------------
+-- function IS_ARENA_OPEN
+-- @brief 신규 콜로세움 적용 여부를 리턴
+-------------------------------------
+function IS_ARENA_OPEN()
+    return true
+end
+
+-------------------------------------
 -- function IS_LIVE_SERVER
 -------------------------------------
 function IS_LIVE_SERVER()

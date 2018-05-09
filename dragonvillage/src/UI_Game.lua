@@ -379,7 +379,20 @@ function UI_Game:click_autoButton()
     local world = self.m_gameScene.m_gameWorld
     if (not world) then return end
 
-    self:setAutoMode(not world:isAutoPlay())
+    local b = (not world:isAutoPlay())
+
+    -- 자동 모드 ON
+    if (b) then
+        world:getAuto():onStart()
+    else
+        world:getAuto():onEnd()
+    end
+
+    -- UI
+    self:setAutoMode(b)
+
+    -- 자동 여부 저장
+    g_autoPlaySetting:setWithoutSaving('auto_mode', b)
 end
 
 -------------------------------------
@@ -586,24 +599,20 @@ end
 -- @brief 자동 모드 설정
 -------------------------------------
 function UI_Game:setAutoMode(b)
-    local world = self.m_gameScene.m_gameWorld
-    if (not world) then return end
+    local vars = self.vars
 
-    if (world:isAutoPlay() == b) then return end
-       
+    if (b == vars['autoVisual']:isVisible()) then
+        return
+    end
+
     if (b) then
+        vars['autoVisual']:setVisible(true)
+
         UIManager:toastNotificationGreen(Str('자동전투 활성화'))
-
-        world:getAuto():onStart() 
-
-        g_autoPlaySetting:setWithoutSaving('auto_mode', true)
-
     else
+        vars['autoVisual']:setVisible(false)
+
         UIManager:toastNotificationGreen(Str('자동전투 비활성화'))
-
-        world:getAuto():onEnd()
-
-        g_autoPlaySetting:setWithoutSaving('auto_mode', false)
     end
 end
 
