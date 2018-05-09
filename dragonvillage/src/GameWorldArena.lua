@@ -302,6 +302,14 @@ function GameWorldArena:prepareAuto()
 end
 
 -------------------------------------
+-- function isPossibleControl
+-------------------------------------
+function GameWorldArena:isPossibleControl()
+    -- 항상 조작을 막기 위한 처리(드래곤 터치나 패널 조작)
+    return false
+end
+
+-------------------------------------
 -- function makeHeroDeck
 -------------------------------------
 function GameWorldArena:makeHeroDeck()

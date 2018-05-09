@@ -64,8 +64,19 @@ function GameAuto_Hero:doWork(dt)
         end
     end
 
-    if (not world:isPossibleControl()) then
-        return
+    -- 전투 중일 때에만
+    if (not world.m_gameState:isFight()) then
+        return false
+    end
+
+    -- 글로벌 쿨타임 중일 경우
+    if (world.m_gameCoolTime:isWaiting(GLOBAL_COOL_TIME.ACTIVE_SKILL)) then
+        return false
+    end
+
+    -- 액티브 스킬 연출 중일 경우
+    if (world.m_gameDragonSkill:isPlaying()) then
+        return false
     end
 
     PARENT.doWork(self, dt)
