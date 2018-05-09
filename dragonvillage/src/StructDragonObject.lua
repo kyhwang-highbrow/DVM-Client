@@ -649,7 +649,9 @@ function StructDragonObject:getDragonSortData()
         return self.m_sortData
     end
 
-    return g_dragonsData:getDragonsSortData(doid)
+    -- 생성되지 않았으면 생성한 후 return
+    self.m_sortData = g_dragonsData:getDragonsSortData(doid)
+    return self.m_sortData
 end
 
 -------------------------------------
