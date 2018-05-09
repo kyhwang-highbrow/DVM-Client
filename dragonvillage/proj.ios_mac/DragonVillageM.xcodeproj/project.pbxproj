@@ -83,9 +83,9 @@
 		3772F40A1FF4ECC300A9EF7A /* SDWebImageDownloaderOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 3772F3F61FF4ECC000A9EF7A /* SDWebImageDownloaderOperation.m */; };
 		3772F40B1FF4ECC300A9EF7A /* SDImageCache.m in Sources */ = {isa = PBXBuildFile; fileRef = 3772F3F81FF4ECC100A9EF7A /* SDImageCache.m */; };
 		3772F40C1FF4ECC300A9EF7A /* SDWebImageDownloader.m in Sources */ = {isa = PBXBuildFile; fileRef = 3772F3FA1FF4ECC100A9EF7A /* SDWebImageDownloader.m */; };
-		37A056A3208736EC007B20F5 /* res in Resources */ = {isa = PBXBuildFile; fileRef = 37A056A0208736EC007B20F5 /* res */; };
-		37A056A4208736EC007B20F5 /* data in Resources */ = {isa = PBXBuildFile; fileRef = 37A056A1208736EC007B20F5 /* data */; };
-		37A056A5208736EC007B20F5 /* src in Resources */ = {isa = PBXBuildFile; fileRef = 37A056A2208736EC007B20F5 /* src */; };
+		378B20B220A2B94A00D96D7F /* data_dat in Resources */ = {isa = PBXBuildFile; fileRef = 378B20AF20A2B94900D96D7F /* data_dat */; };
+		378B20B320A2B94A00D96D7F /* ps in Resources */ = {isa = PBXBuildFile; fileRef = 378B20B020A2B94900D96D7F /* ps */; };
+		378B20B420A2B94A00D96D7F /* res in Resources */ = {isa = PBXBuildFile; fileRef = 378B20B120A2B94900D96D7F /* res */; };
 		37A056BE2089ED77007B20F5 /* AVKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 37A056BD2089ED77007B20F5 /* AVKit.framework */; };
 		37AC8D54208B3F9200258021 /* libPerpleSDK.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 37AC8D51208B3F9200258021 /* libPerpleSDK.a */; };
 		37B3B4581FD67B0E003E172E /* SafariServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 37B3B4571FD67B0E003E172E /* SafariServices.framework */; };
@@ -442,9 +442,9 @@
 		3772F3FB1FF4ECC200A9EF7A /* SDWebImageCompat.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SDWebImageCompat.h; path = "../../libraries/perplesdk/external/naver-cafe-sdk/ios/external-lib/SDWebImage-3.8.2/SDWebImageCompat.h"; sourceTree = "<group>"; };
 		3772F3FC1FF4ECC200A9EF7A /* UIView+WebCacheOperation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "UIView+WebCacheOperation.h"; path = "../../libraries/perplesdk/external/naver-cafe-sdk/ios/external-lib/SDWebImage-3.8.2/UIView+WebCacheOperation.h"; sourceTree = "<group>"; };
 		3772F3FD1FF4ECC200A9EF7A /* SDWebImageManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SDWebImageManager.h; path = "../../libraries/perplesdk/external/naver-cafe-sdk/ios/external-lib/SDWebImage-3.8.2/SDWebImageManager.h"; sourceTree = "<group>"; };
-		37A056A0208736EC007B20F5 /* res */ = {isa = PBXFileReference; lastKnownFileType = folder; name = res; path = ../res; sourceTree = "<group>"; };
-		37A056A1208736EC007B20F5 /* data */ = {isa = PBXFileReference; lastKnownFileType = folder; name = data; path = ../data; sourceTree = "<group>"; };
-		37A056A2208736EC007B20F5 /* src */ = {isa = PBXFileReference; lastKnownFileType = folder; name = src; path = ../src; sourceTree = "<group>"; };
+		378B20AF20A2B94900D96D7F /* data_dat */ = {isa = PBXFileReference; lastKnownFileType = folder; name = data_dat; path = ../../assets/full/data_dat; sourceTree = "<group>"; };
+		378B20B020A2B94900D96D7F /* ps */ = {isa = PBXFileReference; lastKnownFileType = folder; name = ps; path = ../../assets/full/ps; sourceTree = "<group>"; };
+		378B20B120A2B94900D96D7F /* res */ = {isa = PBXFileReference; lastKnownFileType = folder; name = res; path = ../../assets/full/res; sourceTree = "<group>"; };
 		37A056BD2089ED77007B20F5 /* AVKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVKit.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS11.3.sdk/System/Library/Frameworks/AVKit.framework; sourceTree = DEVELOPER_DIR; };
 		37A056BF2089ED97007B20F5 /* PerpleSDK.xcworkspace */ = {isa = PBXFileReference; lastKnownFileType = wrapper.workspace; name = PerpleSDK.xcworkspace; path = ../../../perplesdk/sdk/proj.ios/PerpleSDK.xcworkspace; sourceTree = "<group>"; };
 		37AC8D3C208B321C00258021 /* libPods-PerpleSDK.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = "libPods-PerpleSDK.a"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -645,9 +645,9 @@
 		3746350A1F7B8BA0004F8387 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
-				37A056A1208736EC007B20F5 /* data */,
-				37A056A0208736EC007B20F5 /* res */,
-				37A056A2208736EC007B20F5 /* src */,
+				378B20AF20A2B94900D96D7F /* data_dat */,
+				378B20B020A2B94900D96D7F /* ps */,
+				378B20B120A2B94900D96D7F /* res */,
 				37B4B81C201EF8E3008B58E6 /* sound */,
 				37B4B81B201EF8E3008B58E6 /* translate */,
 				370B474D1F7CB5260072CA71 /* config.json */,
@@ -1217,24 +1217,24 @@
 				3772F3D61FF4EC8000A9EF7A /* include in Resources */,
 				370B47731F7CB6290072CA71 /* DeprecatedEnum.lua in Resources */,
 				370B47741F7CB6290072CA71 /* DeprecatedOpenglEnum.lua in Resources */,
+				378B20B320A2B94A00D96D7F /* ps in Resources */,
 				370B47751F7CB6290072CA71 /* DrawPrimitives.lua in Resources */,
 				370B47761F7CB6290072CA71 /* entry_main.lua in Resources */,
 				370B47771F7CB6290072CA71 /* entry_patch.lua in Resources */,
 				370B47781F7CB6290072CA71 /* extern.lua in Resources */,
 				370B47791F7CB6290072CA71 /* fixed_constant.lua in Resources */,
-				37A056A3208736EC007B20F5 /* res in Resources */,
 				370B477A1F7CB6290072CA71 /* GuiConstants.lua in Resources */,
-				37A056A5208736EC007B20F5 /* src in Resources */,
 				370B477B1F7CB6290072CA71 /* json.lua in Resources */,
 				3772F3BF1FF4EC4400A9EF7A /* NaverAuth.bundle in Resources */,
-				37A056A4208736EC007B20F5 /* data in Resources */,
 				370B477C1F7CB6290072CA71 /* luaj.lua in Resources */,
 				370B477D1F7CB6290072CA71 /* luaoc.lua in Resources */,
+				378B20B220A2B94A00D96D7F /* data_dat in Resources */,
 				370B477E1F7CB6290072CA71 /* Opengl.lua in Resources */,
 				370B477F1F7CB6290072CA71 /* OpenglConstants.lua in Resources */,
 				370B47801F7CB6290072CA71 /* StudioConstants.lua in Resources */,
 				3746350C1F7B8BCA004F8387 /* Images.xcassets in Resources */,
 				37B4B820201EF8E4008B58E6 /* translate in Resources */,
+				378B20B420A2B94A00D96D7F /* res in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

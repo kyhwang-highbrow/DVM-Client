@@ -11,12 +11,12 @@
 #define SERVER_DEV "DEV"
 
 #if (CC_TARGET_PLATFORM == CC_PLATFORM_IOS)
-#define TARGET_SERVER SERVER_QA
-#define APP_VER 999
+#define TARGET_SERVER SERVER_LIVE
+#define APP_VER 114
 #define USE_PATCH true
 #define USE_OBB false
 #define USE_LUA_EXT false
-#define IS_TEST_MODE true
+#define IS_TEST_MODE false
 
 #elif (CC_TARGET_PLATFORM == CC_PLATFORM_WIN32)
 #define TARGET_SERVER SERVER_DEV
