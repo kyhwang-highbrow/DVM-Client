@@ -117,18 +117,30 @@ function AdManager:showErrorPopup(error_info)
     
     local t_error = dkjson.decode(error_info)
     local code = t_error['code']
+
+    -- not init
     if (code == "-2100") then
-        msg = Str('not init')
+        msg = Str('광고 초기화가 되지 않았습니다.')
+
+    -- start error (deprecated)
     elseif (code == "-2101") then
-        msg = Str('start')
+        msg = Str('광고를 불러오는 과정에서 에러가 발생했습니다.')
+
+    -- no ad unit id : show 요청 받았으나 ad unit id가 없음
     elseif (code == "-2102") then
-        msg = Str('no ad unit id')
+        msg = Str('존재 하지 않는 광고 요청입니다.')
+
+    -- not loaded ad : 광고가 load되지 않음 
     elseif (code == "-2103") then
-        msg = Str('not loaded ad')
+        msg = Str('시청 가능한 광고가 없습니다. 잠시 후에 다시 시도해주세요.')
+
+    -- invalid ad unit id : show 요청 받았으나 ad unit id가 비정상
     elseif (code == "-2104") then
-        msg = Str('invalid ad unit id')
+        msg = Str('비정상 적인 광고 요청입니다.')
+
     else
-        cclog('admob error 구멍')
+        msg = Str('광고 시청 할 수 없습니다. 잠시 후에 다시 시도해주세요.')
+
     end
 
     MakeSimplePopup(POPUP_TYPE.OK, msg)
