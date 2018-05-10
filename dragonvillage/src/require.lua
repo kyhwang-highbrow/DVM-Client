@@ -101,6 +101,7 @@ local t_module = {
 	'StructCapsuleBox',
 	'StructCapsuleBoxReward',
     'StructTeamBonus',
+    'StructRandomShopItem',
 
 	-- ServerData
     'ServerData',
@@ -164,7 +165,8 @@ local t_module = {
     'ServerData_Season',
     'ServerData_NaverEvent',
     'ServerData_AncientRuin',
-    
+    'ServerData_RandomShop',
+
     -- Interface
     'IEventDispatcher',
 	'IEventListener',
@@ -834,6 +836,8 @@ local t_module = {
     'UI_SubscriptionDayListItemNew',
     'UI_ShopBasic',
     'UI_PackageRandomBoxInfo',
+    'UI_RandomShop',
+    'UI_RandomShopListItem',
 
 	-- UI : 모험
     'UI_AdventureSceneNew',

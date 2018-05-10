@@ -208,6 +208,9 @@ function ServerData:getInstance()
     -- 고대 유적 던전
     g_ancientRuinData = ServerData_AncientRuin(g_serverData)
     
+    -- 랜덤상점 
+    g_randomShopData = ServerData_RandomShop(g_serverData)
+
     return g_serverData
 end
 

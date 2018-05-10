@@ -1241,6 +1241,32 @@ function UINavigatorDefinition:goTo_shop_daily(...)
 end
 
 -------------------------------------
+-- function goTo_shop_random
+-- @brief 랜덤 상점으로 이동
+-- @usage UINavigatorDefinition:goTo('shop_random')
+-------------------------------------
+function UINavigatorDefinition:goTo_shop_random(...)
+    local args = {...}
+
+    -- 해당 UI가 열려있을 경우
+    local is_opend, idx, ui = self:findOpendUI('UI_RandomShop')
+    if (is_opend == true) then
+        self:closeUIList(idx)
+        return
+    end
+    
+    local function finish_cb()
+        local ui = UI_RandomShop()
+        if (buy_cb) then
+            ui:setBuyCB(buy_cb)
+        end
+    end
+
+     -- 서버에 상품정보 요청
+	g_randomShopData:request_shopInfo(finish_cb)
+end
+
+-------------------------------------
 -- function goTo_shop_booster
 -- @brief 부스터 상점으로 이동
 -- @usage UINavigatorDefinition:goTo('shop_booster')

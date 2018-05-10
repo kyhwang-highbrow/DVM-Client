@@ -3444,6 +3444,17 @@
     </None>
     <None Include="..\src\UI_GamePause_Arena.lua">
       <Filter>lua\UI</Filter>
+    <None Include="..\src\UI_RandomShop.lua">
+      <Filter>lua\UI</Filter>
+    </None>
+    <None Include="..\src\UI_RandomShopListItem.lua">
+      <Filter>lua\UI</Filter>
+    </None>
+    <None Include="..\src\ServerData_RandomShop.lua">
+      <Filter>lua\src</Filter>
+    </None>
+    <None Include="..\src\StructRandomShopItem.lua">
+      <Filter>lua\src</Filter>
     </None>
   </ItemGroup>
   <ItemGroup>
