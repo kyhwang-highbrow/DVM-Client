@@ -133,7 +133,8 @@ function SpineCacheManager:purgeSpineCacheData()
         
         local texture = cc.Director:getInstance():getTextureCache():getTextureForKey(_name)
         if (texture) then
-            if (texture:getReferenceCount() == 1) then
+            if (texture:getReferenceCount() > 1) then
+                texture:release()
                 cc.Director:getInstance():getTextureCache():removeTextureForKey(_name)
             else
                 texture:release()
