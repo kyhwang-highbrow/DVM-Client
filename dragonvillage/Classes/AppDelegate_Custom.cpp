@@ -58,7 +58,12 @@ string* StringSplit(string strTarget, string strTok)
  */
 string GetAppVer()
 {
-#if APP_VER > 0
+#if (CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID)
+    int major_ver = MAJOR_VER;
+    int minor_ver = MINOR_VER;
+    int build_ver = BUILD_VER;
+    return to_string(major_ver) + "." + to_string(minor_ver) + "." + to_string(build_ver);
+#elif (CC_TARGET_PLATFORM == CC_PLATFORM_IOS)
     int major_ver = floor(APP_VER/100);
     int minor_ver = floor((APP_VER - (major_ver * 100))/10);
     int build_ver = APP_VER - (major_ver * 100) - (minor_ver * 10);

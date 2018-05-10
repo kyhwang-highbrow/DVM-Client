@@ -5,14 +5,29 @@
 #define APP_NAME "DragonVillageM"
 #define ENTRY_LUA "entry_patch.lua"
 
-// SERVER LIST
+// DEFINE FOR GRADLE
+
+//SERVER LIST
 #define SERVER_LIVE "LIVE"
 #define SERVER_QA "QA"
 #define SERVER_DEV "DEV"
 
+//NUMBER
+#define NUM_0 = 0
+#define NUM_1 = 1
+#define NUM_2 = 2
+#define NUM_3 = 3
+#define NUM_4 = 4
+#define NUM_5 = 5
+#define NUM_6 = 6
+#define NUM_7 = 7
+#define NUM_8 = 8
+#define NUM_9 = 9
+
+// START
 #if (CC_TARGET_PLATFORM == CC_PLATFORM_IOS)
-#define TARGET_SERVER SERVER_LIVE
 #define APP_VER 114
+#define TARGET_SERVER SERVER_LIVE
 #define USE_PATCH true
 #define USE_OBB false
 #define USE_LUA_EXT false
@@ -20,7 +35,6 @@
 
 #elif (CC_TARGET_PLATFORM == CC_PLATFORM_WIN32)
 #define TARGET_SERVER SERVER_DEV
-#define APP_VER 0
 #define USE_PATCH false
 #define USE_OBB false
 #define USE_LUA_EXT true

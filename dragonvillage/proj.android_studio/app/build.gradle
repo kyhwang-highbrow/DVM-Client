@@ -159,7 +159,9 @@ android {
             externalNativeBuild {
                 ndkBuild {
                     cppFlags.add("-DTARGET_SERVER=SERVER_QA")
-                    cppFlags.add("-DAPP_VER=PROP_APPVERNUM_QA")
+                    cppFlags.add("-DMAJOR_VER=NUM_0")
+                    cppFlags.add("-DMINOR_VER=NUM_5")
+                    cppFlags.add("-DBUILD_VER=NUM_7")
                     cppFlags.add("-DUSE_LUA_EXT=false")
                     cppFlags.add("-DIS_TEST_MODE=true")
                 }
