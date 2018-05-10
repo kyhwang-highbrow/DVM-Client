@@ -100,7 +100,7 @@ function AdManager:show(ad_unit_id, result_cb)
         return
     end
 
-    --SoundMgr:stopBGM()
+    SoundMgr:stopBGM()
     self.callback = result_cb
     PerpleSDK:adMobShow(ad_unit_id)
 end
