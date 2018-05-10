@@ -118,9 +118,12 @@ function SpineCacheManager:purgeSpineCacheData()
             -- 1.1.4 엔진 업데이트 분기처리
             if (not IS_QA_SERVER() and not isWin32() and appVerNum < 1001004) then
                 sp.SkeletonAnimation:removeCache(json_name)
+
                 table.insert(t_remove_key, name)
             else
                 sp.SkeletonAnimation:removeCache(json_name, atlas_name)
+
+                table.insert(t_remove_key, name)
             end
             self.m_totalNumber = (self.m_totalNumber - 1)
         end
@@ -129,18 +132,18 @@ function SpineCacheManager:purgeSpineCacheData()
     for _,name in ipairs(t_remove_key) do
         self.m_refCntMap[name] = nil
         local json_name, atlas_name = string.match(name, "(.+%.json)(.+%.atlas)$")
-        local _name = string.gsub(atlas_name, '.atlas', '.png')
+        local png_name = string.gsub(atlas_name, '.atlas', '.png')
         
-        local texture = cc.Director:getInstance():getTextureCache():getTextureForKey(_name)
+        local texture = cc.Director:getInstance():getTextureCache():getTextureForKey(png_name)
         if (texture) then
             if (texture:getReferenceCount() > 1) then
                 texture:release()
-                cc.Director:getInstance():getTextureCache():removeTextureForKey(_name)
-            else
-                texture:release()
             end
+
+            cc.Director:getInstance():getTextureCache():removeTextureForKey(png_name)
         end
     end
+    
     --cc.Director:getInstance():getTextureCache():removeUnusedTextures() -- 패치 후 발생되는 크래시에 원인이라고 추측되어 주석 처리 2017-09-29
 
     self:onChange()
