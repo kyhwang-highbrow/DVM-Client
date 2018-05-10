@@ -139,13 +139,15 @@ android {
         dev{
             dimension "server"
             versionName PROP_APPVER_DEV
-            applicationIdSuffix ".kr"
+            applicationIdSuffix ".dev"
             //minSdkVersion 21 // native dex 사용하여 빌드 속도 높임
             signingConfig signingConfigs.keystore
             externalNativeBuild {
                 ndkBuild {
                     cppFlags.add("-DTARGET_SERVER=SERVER_DEV")
-                    cppFlags.add("-DAPP_VER=PROP_APPVERNUM_DEV")
+                    cppFlags.add("-DMAJOR_VER=NUM_0")
+                    cppFlags.add("-DMINOR_VER=NUM_5")
+                    cppFlags.add("-DBUILD_VER=NUM_6")
                     cppFlags.add("-DUSE_LUA_EXT=false")
                     cppFlags.add("-DIS_TEST_MODE=true")
                 }
@@ -175,7 +177,9 @@ android {
             externalNativeBuild {
                 ndkBuild {
                     cppFlags.add("-DTARGET_SERVER=SERVER_QA")
-                    cppFlags.add("-DAPP_VER=PROP_APPVERNUM_LIVE")
+                    cppFlags.add("-DMAJOR_VER=NUM_1")
+                    cppFlags.add("-DMINOR_VER=NUM_1")
+                    cppFlags.add("-DBUILD_VER=NUM_4")
                     cppFlags.add("-DUSE_LUA_EXT=false")
                     cppFlags.add("-DIS_TEST_MODE=true")
                 }
@@ -189,7 +193,9 @@ android {
             externalNativeBuild {
                 ndkBuild {
                     cppFlags.add("-DTARGET_SERVER=SERVER_LIVE")
-                    cppFlags.add("-DAPP_VER=PROP_APPVERNUM_LIVE")
+                    cppFlags.add("-DMAJOR_VER=NUM_1")
+                    cppFlags.add("-DMINOR_VER=NUM_1")
+                    cppFlags.add("-DBUILD_VER=NUM_4")
                     cppFlags.add("-DUSE_LUA_EXT=false")
                     cppFlags.add("-DIS_TEST_MODE=false")
                     cppFlags.add("-DLUA_DEBUG=1")
@@ -223,8 +229,8 @@ android {
         release {
             // signingConfig initialize
             signingConfig null
-
             minifyEnabled false
+
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.txt', 'proguard-project.txt'
 
             externalNativeBuild {
@@ -237,8 +243,9 @@ android {
         debug {
             // signingConfig initialize
             signingConfig null
-
             minifyEnabled false
+            debuggable true
+
             externalNativeBuild {
                 ndkBuild {
                     arguments 'NDK_DEBUG=1'
