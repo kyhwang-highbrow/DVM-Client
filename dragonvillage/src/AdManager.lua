@@ -52,6 +52,10 @@ function AdManager:result(ret, info)
 
     -- 광고 show 중단
     elseif (ret == 'cancel') then
+        SoundMgr:playPrevBGM()
+        PerpleSDK:adMobLoadRequest()
+        local msg = Str('광고 시청 도중 취소하셨습니다.')
+        MakeSimplePopup(POPUP_TYPE.OK, msg)
 
     -- 에러
     elseif (ret == 'error') then
@@ -96,7 +100,7 @@ function AdManager:show(ad_unit_id, result_cb)
         return
     end
 
-    SoundMgr:stopBGM()
+    --SoundMgr:stopBGM()
     self.callback = result_cb
     PerpleSDK:adMobShow(ad_unit_id)
 end
