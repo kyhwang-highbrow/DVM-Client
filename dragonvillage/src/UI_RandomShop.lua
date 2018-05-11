@@ -129,8 +129,8 @@ end
 -- function click_refreshBtn
 -------------------------------------
 function UI_RandomShop:click_refreshBtn()
+    -- 재화 부족
     if (not ConfirmPrice(NEED_REFRESH_TYPE, NEED_REFRESH_VALUE)) then
-        -- 재화 부족
         return
     end
 

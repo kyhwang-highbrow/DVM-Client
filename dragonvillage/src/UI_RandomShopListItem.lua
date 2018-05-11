@@ -116,6 +116,14 @@ end
 -- function refresh
 -------------------------------------
 function UI_RandomShopListItem:refresh()
+    local vars = self.vars
+    local struct_item = self.m_structItem
+
+    -- 구매 완료 한 상태면 
+    if (not struct_item:isBuyable()) then
+        vars['completeNode']:setVisible(true)
+        vars['blockBtn']:setVisible(true)
+    end
 end
 
 -------------------------------------
@@ -124,16 +132,25 @@ end
 function UI_RandomShopListItem:click_buyBtn(idx)
     local struct_item = self.m_structItem
     local l_price_type, l_final_price = struct_item:getPriceInofList()
+    local product_idx = struct_item:getProductIdx()
     local price = l_final_price[idx]
     local price_type = l_price_type[idx]
 
+    -- 재화 부족
     if (not ConfirmPrice(price_type, price)) then
-        -- 재화 부족
         return
+    end
+
+    local function cb_func(ret)
+        local data = ret['info']['products'][tostring(product_idx)]
+        self.m_structItem = StructRandomShopItem(data)
+        self.m_structItem['product_idx'] = product_idx
+        self:refresh()
     end
 
     local function ok_btn_cb()
         -- 구매 api 호출
+        g_randomShopData:request_buy(product_idx, price_type, cb_func)
     end
 
     local name = struct_item:getName()

@@ -411,6 +411,11 @@ function ServerData:networkCommonRespone(ret)
             self:applyServerData(ret['capsule_coin'], 'user', 'capsule_coin')
         end
 
+        -- 고대 주화
+        if ret['ancient'] then
+            self:applyServerData(ret['ancient'], 'user', 'ancient')
+        end
+
         -- 자동줍기 아이템
         if ret['auto_root'] then
             self:applyServerData(ret['auto_root'], 'user', 'auto_root')

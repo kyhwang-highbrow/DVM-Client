@@ -19,7 +19,7 @@ StructRandomShopItem = class(PARENT, {
 
         rune = 'StructRuneObject',
 
-        ui_priority = 'number',
+        product_idx = 'number',
     })
 
 local THIS = StructRandomShopItem
@@ -82,8 +82,7 @@ end
 -- @brief 구매 가능한지
 -------------------------------------
 function StructRandomShopItem:isBuyable()
-    
-    return true
+    return (self['stock'] > 0) and true or false
 end
 
 -------------------------------------
@@ -112,6 +111,13 @@ end
 -------------------------------------
 function StructRandomShopItem:getDesc()
     return TableItem:getItemDesc(self['item_id'])
+end
+
+-------------------------------------
+-- function getProductIdx
+-------------------------------------
+function StructRandomShopItem:getProductIdx()
+    return self['product_idx']
 end
 
 -------------------------------------

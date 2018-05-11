@@ -26,16 +26,16 @@ function ServerData_RandomShop:getProductList()
     if (self.m_productList) then
         for idx, v in pairs(self.m_productList) do
             local struct_item = StructRandomShopItem(v)
-            -- 서버에서 키를 우선순위로 넘겨줌
-            struct_item['ui_priority'] = tonumber(idx)
+            -- 서버에서 키를 상품 인덱스로 넘겨줌
+            struct_item['product_idx'] = tonumber(idx)
             table.insert(ret, struct_item)
         end
     end
 
     -- 우선순위 정렬
     table.sort(ret, function(a,b)
-        local a_priority = a['ui_priority'] or 99
-        local b_priority = b['ui_priority'] or 99
+        local a_priority = a['product_idx'] or 99
+        local b_priority = b['product_idx'] or 99
         return a_priority < b_priority
     end)
 
@@ -125,7 +125,7 @@ function ServerData_RandomShop:request_refreshInfo(cb_func, fail_cb)
         g_serverData:networkCommonRespone(ret)
 
         if (cb_func) then
-            cb_func()
+            cb_func(ret)
         end
     end
 
@@ -133,6 +133,40 @@ function ServerData_RandomShop:request_refreshInfo(cb_func, fail_cb)
     local ui_network = UI_Network()
     ui_network:setUrl('/shop/randomshop_refresh')
     ui_network:setParam('uid', uid)
+    ui_network:setSuccessCB(success_cb)
+    ui_network:setFailCB(fail_cb)
+    ui_network:setRevocable(true)
+    ui_network:setReuse(false)
+    ui_network:hideBGLayerColor()
+    ui_network:request()
+
+    return ui_network
+end
+
+-------------------------------------
+-- function request_refreshInfo
+-------------------------------------
+function ServerData_RandomShop:request_buy(index, price_type , cb_func, fail_cb)
+    -- 파라미터
+    local uid = g_userData:get('uid')
+
+    -- 콜백 함수
+    local function success_cb(ret)
+        self:response_shopInfo(ret)
+        -- 재화 갱신
+        g_serverData:networkCommonRespone(ret)
+
+        if (cb_func) then
+            cb_func(ret)
+        end
+    end
+
+    -- 네트워크 통신 UI 생성
+    local ui_network = UI_Network()
+    ui_network:setUrl('/shop/randomshop_buy')
+    ui_network:setParam('uid', uid)
+    ui_network:setParam('index', index)
+    ui_network:setParam('price_type', price_type)
     ui_network:setSuccessCB(success_cb)
     ui_network:setFailCB(fail_cb)
     ui_network:setRevocable(true)
