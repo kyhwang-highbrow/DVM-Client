@@ -147,7 +147,6 @@ end
 -------------------------------------
 function UI_ColosseumRewardInfoPopup:init_clanRewardTableView()
     local node = self.vars['clanRewardNode']
-    node:removeAllChildren()
 
     -- 고대의 탑 보상 정보만 빼온다.
     local l_item_list = {}
