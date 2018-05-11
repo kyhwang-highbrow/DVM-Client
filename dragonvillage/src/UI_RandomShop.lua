@@ -177,6 +177,10 @@ function UI_RandomShop:refresh_itemInfo()
         vars['buyBtn']:setVisible(false)
         vars['buyBtn1']:setVisible(false)
         vars['buyBtn2']:setVisible(false)
+
+        vars['saleNode']:setVisible(false)
+        vars['saleNode1']:setVisible(false)
+        vars['saleNode2']:setVisible(false)
     end
 end
 
@@ -195,6 +199,7 @@ function UI_RandomShop:setPirceInfo()
     -- 구매 가능한 재화 한개일 경우
     if (#l_price_type == 1) then
         vars['buyBtn']:setVisible(true)
+        vars['priceNode']:removeAllChildren()
 
         -- 구매 재화 아이콘
         local icon = IconHelper:getPriceIcon(l_price_type[1])
@@ -219,6 +224,10 @@ function UI_RandomShop:setPirceInfo()
     -- 구매 가능한 재화 여러개일 경우
     else
         vars['buyBtn']:setVisible(false)
+        for i = 1, 2 do
+            vars['saleNode'..i]:setVisible(false)
+            vars['priceNode'..i]:removeAllChildren()
+        end
 
         -- 구매 재화 아이콘
         for i, price_type in ipairs(l_price_type) do
