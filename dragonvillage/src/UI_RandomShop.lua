@@ -110,7 +110,7 @@ function UI_RandomShop:refresh_shopInfo()
     UIManager:blockBackKey(true)
 
     -- 해당 UI가 열린후 생성된 UI 모두 닫아줌
-    local is_opend, idx, ui = self:findOpendUI('UI_RandomShop')
+    local is_opend, idx, ui = UINavigatorDefinition:findOpendUI('UI_RandomShop')
     self:closeUIList(idx, false) -- param : idx, include_idx
 
     local finish_cb = function()
