@@ -154,3 +154,86 @@ function SkillIndicator_Cross:findCollisionEachLine(l_target, target_x, target_y
 	local end_y = target_y + (std_height * (math_pow(-1, idx)))
 	return SkillTargetFinder:findCollision_Bar(l_target, start_x, start_y, end_x, end_y, self.m_lineSize/2)
 end
+
+-------------------------------------
+-- function optimizeIndicatorData
+-- @brief 가장 많이 타겟팅할 수 있도록 인디케이터 정보를 설정
+-------------------------------------
+function SkillIndicator_Cross:optimizeIndicatorData(l_target, fixed_target)
+    local max_count = -1
+    local t_best = {}
+    
+    local setIndicator = function(target, x, y)
+        self.m_targetChar = target
+        self.m_targetPosX = x
+        self.m_targetPosY = y
+        self.m_critical = nil
+        self.m_bDirty = true
+
+        self:getTargetForHighlight() -- 타겟 리스트를 사용하지 않고 충돌리스트 수로 체크
+
+        local list = self.m_collisionList or {}
+        local count = #list
+
+        -- 반드시 포함되어야하는 타겟이 존재하는지 확인
+        if (fixed_target) then
+            if (not table.find(self.m_highlightList, fixed_target)) then
+                count = -1
+            end
+        end
+        
+        return count
+    end
+
+    local half_line_size = self.m_lineSize / 2
+    local cameraHomePosX, cameraHomePosY = self.m_world.m_gameCamera:getHomePos()
+    
+    local count_x = math_floor(CRITERIA_RESOLUTION_X / half_line_size) - 1
+    local count_y = math_floor(CRITERIA_RESOLUTION_Y / half_line_size) - 1
+    local center_x
+    local center_y
+
+    do
+        local target = l_target[1]
+        center_x = target['pos']['x']
+        center_y = target['pos']['y']
+    end
+
+    for i = 1, count_y do
+        for j = 1, count_x do
+            local x = j * half_line_size + cameraHomePosX
+            local y = i * half_line_size + cameraHomePosY - CRITERIA_RESOLUTION_Y / 2
+
+            local count = setIndicator(nil, x, y)
+            local distance = getDistance(x, y, center_x, center_y)
+
+            local b = false
+
+            if (max_count < count) then
+                max_count = count
+                b = true
+
+            elseif (max_count == count) then
+                if (t_best['distance'] > distance) then
+                    b = true
+                end
+            end
+
+            if (b) then
+                t_best = { 
+                    target = self.m_targetChar,
+                    x = x,
+                    y = y,
+                    distance = distance
+                }
+            end
+        end
+    end
+
+    if (max_count > 0) then
+        setIndicator(t_best['target'], t_best['x'], t_best['y'])
+        return true
+    end
+
+    return false
+end

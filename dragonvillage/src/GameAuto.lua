@@ -266,7 +266,8 @@ function GameAuto:doWork_skill(unit, priority)
     
     if (b) then
         -- 스킬 사용 처리
-        if (SkillHelper:setIndicatorDataByAuto(unit)) then
+        local l_target = SkillHelper:getTargetToUseActiveSkill(unit)
+        if (#l_target > 0) then
             self.m_world.m_gameActiveSkillMgr:addWork(unit)
         end
 

@@ -661,9 +661,9 @@ end
 -- function setIndicatorDataByAuto
 -- @brief l_target의 대상들을 가장 많이 피격할 수 있도록 인디케이터 정보를 세팅
 -------------------------------------
-function SkillIndicator:setIndicatorDataByAuto(l_target, fixed_target)
+function SkillIndicator:setIndicatorDataByAuto(l_target, target_count, fixed_target)
     -- 인디케이터 별로 정의된 최적의 위치정보로 설정
-    if (#l_target > 1 and self:optimizeIndicatorData(l_target, fixed_target)) then
+    if (#l_target > 1 and target_count > 1 and self:optimizeIndicatorData(l_target, fixed_target)) then
         return true
     end
 

@@ -320,16 +320,16 @@ function SkillHelper:makePassiveSkillSpeech(unit, str)
 end
 
 -------------------------------------
--- function prepareActiveSkillByAuto
--- @brief 해당 유닛의 자동 액티브 스킬을 위한 인디케이터 정보 설정
+-- function getTargetToUseActiveSkill
+-- @brief 해당 유닛의 액티브 스킬을 사용할 대상을 얻음
 -------------------------------------
-function SkillHelper:setIndicatorDataByAuto(unit)
+function SkillHelper:getTargetToUseActiveSkill(unit)
     local skill_indivisual_info = unit:getSkillIndivisualInfo('active')
-    if (not skill_indivisual_info) then return false end
+    if (not skill_indivisual_info) then return end
 
     local t_skill = skill_indivisual_info:getSkillTable()
     local target_type = t_skill['target_type']
-	local target_count = nil
+	local target_count = t_skill['target_count']
     local target_formation = t_skill['target_formation']
     local ai_division = t_skill['ai_division']
 
@@ -339,7 +339,7 @@ function SkillHelper:setIndicatorDataByAuto(unit)
 
     -- 공격형
     if (string.find(target_type, 'enemy')) then
-        l_target = unit:getTargetListByType(target_type, target_count, target_formation)
+        l_target = unit:getTargetListByType(target_type, nil, target_formation)
 
     else
         -- AI 대상으로 변경
@@ -349,15 +349,32 @@ function SkillHelper:setIndicatorDataByAuto(unit)
             error('invalid ai_division : ' .. ai_division)
         end
 
-        l_target = unit:getTargetListByType(target_type, target_count, target_formation)
+        l_target = unit:getTargetListByType(target_type, nil, target_formation)
         fixed_target = l_target[1]
     end
 
+    return l_target, fixed_target
+end
+
+-------------------------------------
+-- function setIndicatorDataByAuto
+-- @brief 해당 유닛의 자동 액티브 스킬을 위한 인디케이터 정보 설정
+-------------------------------------
+function SkillHelper:setIndicatorDataByAuto(unit)
+    local skill_indivisual_info = unit:getSkillIndivisualInfo('active')
+    if (not skill_indivisual_info) then return false end
+
+    local t_skill = skill_indivisual_info:getSkillTable()
+    local target_count = t_skill['target_count']
+    
+    -- 대상을 찾는다
+    local l_target, fixed_target = self:getTargetToUseActiveSkill(unit)
+     
     -- 대상을 못찾은 경우
     if (#l_target == 0) then return false end
 
     -- 인디케이터 정보를 설정
-    return unit.m_skillIndicator:setIndicatorDataByAuto(l_target, fixed_target)
+    return unit.m_skillIndicator:setIndicatorDataByAuto(l_target, target_count, fixed_target)
 end
 
 -------------------------------------
