@@ -170,6 +170,20 @@ function UI_RandomShop:refresh_itemInfo()
         end
     end
 
+    -- 할인 마크
+    local is_sale = struct_item:isSale()
+    vars['badgeNode']:removeAllChildren()
+    if (is_sale) then
+        local sale_value = struct_item:getSaleValue()
+        local path = string.format('ui/typo/ko/badge_discount_%d.png', sale_value)
+        local badge = cc.Sprite:create('res/' .. Translate:getTranslatedPath(path))
+        if (badge) then
+            badge:setAnchorPoint(CENTER_POINT)
+            badge:setDockPoint(CENTER_POINT)
+            vars['badgeNode']:addChild(badge)
+        end
+    end
+
     -- 구매가능한 상태면
     if (struct_item:isBuyable()) then
         self:setPirceInfo()
@@ -199,6 +213,7 @@ function UI_RandomShop:setPirceInfo()
     -- 구매 가능한 재화 한개일 경우
     if (#l_price_type == 1) then
         vars['buyBtn']:setVisible(true)
+        vars['saleNode']:setVisible(false)
         vars['priceNode']:removeAllChildren()
 
         -- 구매 재화 아이콘
