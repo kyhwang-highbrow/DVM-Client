@@ -316,10 +316,10 @@ function TargetRule_getTargetList_arena(org_list, t_data)
     local ai_type = t_data['ai_type']
     local all_invincibility = true
 
-    -- 체력이 낮은 순으로 2명을 찾음
+    -- 체력(절대값)이 낮은 순으로 2명을 찾음
     local low_hp_1, low_hp_2
     do
-        local temp = TargetRule_getTargetList_stat(org_list, 'hp_low', t_data)
+        local temp = TargetRule_getTargetList_stat(org_list, 'hpabs_low', t_data)
         low_hp_1 = temp[1]
         low_hp_2 = temp[2]
     end
@@ -468,6 +468,18 @@ function TargetRule_getTargetList_stat(org_list, stat_type, t_data)
                 if (a.m_isZombie) then a_stat = 1 end
                 if (b.m_isZombie) then b_stat = 1 end
             end
+
+			if (is_descending) then
+				return a_stat > b_stat
+			else
+				return a_stat < b_stat
+			end
+		end)
+
+    elseif (target_stat == 'hpabs') then
+        table.sort(t_ret, function(a, b)
+			local a_stat = a:getHp()
+			local b_stat = b:getHp()
 
 			if (is_descending) then
 				return a_stat > b_stat
