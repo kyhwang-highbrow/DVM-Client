@@ -52,6 +52,7 @@ function TargetRule_getTargetList(type, org_list, x, y, t_data)
     -- 모든 대상
     if (type == 'none') then                return TargetRule_getTargetList_none(org_list)
     elseif (type == 'random') then          return TargetRule_getTargetList_random(org_list)
+    elseif (type == 'arena') then           return TargetRule_getTargetList_arena(org_list, t_data)
     
     elseif (type == 'last_attack') then     return TargetRule_getTargetList_lastAttack(org_list, t_data)
     elseif (type == 'last_under_atk') then  return TargetRule_getTargetList_lastUnderAtk(org_list, t_data)
@@ -299,6 +300,134 @@ function TargetRule_getTargetList_random(org_list)
 
     for i, v in ipairs(t_random) do
         table.insert(t_ret, org_list[v])
+    end
+
+    return t_ret
+end
+
+-------------------------------------
+-- function TargetRule_getTargetList_arena
+-- @brief 아레나에서 드래그 스킬 사용시 타겟룰
+-------------------------------------
+function TargetRule_getTargetList_arena(org_list, t_data)
+    local t_ret = {}
+
+	local self_char = t_data['self']
+    local ai_type = t_data['ai_type']
+    local all_invincibility = true
+
+    -- 체력이 낮은 순으로 2명을 찾음
+    local low_hp_1, low_hp_2
+    do
+        local temp = TargetRule_getTargetList_stat(org_list, 'hp_low', t_data)
+        low_hp_1 = temp[1]
+        low_hp_2 = temp[2]
+    end
+
+    -- 최전방과 최후방 유닛을 찾음
+    local front = TargetRule_getTargetList_front(org_list)[1]
+    local back = TargetRule_getTargetList_back(org_list)[1]
+
+    -- 특정 직군 우선
+    local role
+    if (string.find(ai_type, 'role_')) then
+        role = string.gsub(ai_type, 'role_', '')
+    end
+
+    -- 해제 타입인 경우 모두 무적이라도 무시
+    if (ai_type ~= 'remove') then
+        all_invincibility = false
+    end
+    
+    -- 대상별로 우선순위를 계산
+    for i, v in ipairs(org_list) do
+        v.m_sortValue = 0
+        v.m_sortRandomIdx = nil
+
+        -- 남은 생명력이 가장 낮은 적(+2)
+        if (v == low_hp_1) then
+            v.m_sortValue = v.m_sortValue + 2
+
+        -- 남은 생명력이 가장 낮은 적(+1)
+        elseif (v == low_hp_2) then
+            v.m_sortValue = v.m_sortValue + 1
+        end
+
+        -- 속성
+        do
+            local t_attr_effect, attr_synastry = self_char:checkAttributeCounter(v)
+
+            -- 공격자 우세속성(+1)
+            if (attr_synastry == 1) then
+                -- 속성 공격 타입 : 공격자 우세속성 우선순위가 +3 으로 상승 
+                if (ai_type == 'attack_attr') then
+                    v.m_sortValue = v.m_sortValue + 3
+                else
+                    v.m_sortValue = v.m_sortValue + 1
+                end
+
+            -- 공격자 열세속성(-1)
+            elseif (attr_synastry == -1) then
+                v.m_sortValue = v.m_sortValue - 1
+            end
+        end
+
+        -- 최전방(+1)
+        if (v == front) then
+            v.m_sortValue = v.m_sortValue + 1
+
+        -- 최후방(-1)
+        elseif (v == back) then
+            v.m_sortValue = v.m_sortValue - 1
+        end
+
+        -- 방어력 감소(+2)
+        if (v:getStatusEffect('def_down')) then
+            v.m_sortValue = v.m_sortValue + 2
+        end
+
+        if (ai_type ~= 'remove') then
+            -- 수면, 반사, 보호막(-2)
+            if (v:getStatusEffect('sleep') or v:getStatusEffect('reflect') or v:isExistStatusEffectName('barrier_protection', 'barrier_protection_time')) then
+                v.m_sortValue = v.m_sortValue - 2
+            end
+
+            
+            local is_invincibility = v:isExistStatusEffectName('barrier_protection_time')
+            if (not is_invincibility) then
+                all_invincibility = false
+            end
+
+            -- 무적, 좀비(-5)
+            if (is_invincibility or v:isExistStatusEffectName('zombie')) then
+                v.m_sortValue = v.m_sortValue - 5
+            end
+        end
+
+        -- 특정 직군(+3)
+        if (role and role == v:getRole()) then
+            v.m_sortValue = v.m_sortValue + 3
+        end
+
+        -- 디버프 보유(+3)
+        if (ai_type == 'debuff' and v:hasHarmfulStatusEffect()) then
+            v.m_sortValue = v.m_sortValue + 3
+        end
+
+        table.insert(t_ret, v)
+    end
+
+    -- 모두 무적인 경우
+    if (all_invincibility) then
+        t_ret = {}
+    else
+        table.sort(t_ret, sortDescending)
+    end
+
+    if (t_ret[1]) then
+        local target = t_ret[1]
+        cclog('best sort value : ' .. target.m_sortValue)
+        cclog('name : ' .. target:getName())
     end
 
     return t_ret

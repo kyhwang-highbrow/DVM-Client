@@ -378,6 +378,56 @@ function SkillHelper:setIndicatorDataByAuto(unit)
 end
 
 -------------------------------------
+-- function setIndicatorDataByArena
+-- @brief 해당 유닛의 자동 액티브 스킬을 위한 인디케이터 정보 설정
+-------------------------------------
+function SkillHelper:setIndicatorDataByArena(unit)
+    local skill_indivisual_info = unit:getSkillIndivisualInfo('active')
+    if (not skill_indivisual_info) then return false end
+
+    local t_skill = skill_indivisual_info:getSkillTable()
+    local target_count = t_skill['target_count']
+    
+    -- 대상을 찾는다
+    local t_skill = skill_indivisual_info:getSkillTable()
+    local target_type = t_skill['target_type']
+	local target_count = t_skill['target_count']
+    local target_formation = t_skill['target_formation']
+    local ai_division = t_skill['ai_division']
+    local ai_type = t_skill['ai_type']
+
+    -- 대상을 찾는다
+    local l_target = {}
+    local fixed_target = nil
+
+    -- 공격형
+    if (string.find(target_type, 'enemy')) then
+        l_target = unit:getTargetListByType('enemy_arena', nil, target_formation, {
+            ai_type = ai_type
+        })
+        fixed_target = l_target[1]
+
+    -- 회복형
+    else
+        -- AI 대상으로 변경
+        target_type = SKILL_AI_ATTR_TARGET[ai_division]
+
+        if (not target_type) then
+            error('invalid ai_division : ' .. ai_division)
+        end
+
+        l_target = unit:getTargetListByType(target_type, nil, target_formation)
+        fixed_target = l_target[1]
+    end
+     
+    -- 대상을 못찾은 경우
+    if (#l_target == 0) then return false end
+
+    -- 인디케이터 정보를 설정
+    return unit.m_skillIndicator:setIndicatorDataByAuto(l_target, target_count, fixed_target)
+end
+
+-------------------------------------
 -- function getValidSkillIdFromKey
 -- @brief 해당 유닛이 가진 스킬 중 key 조건에 해당하는 스킬의 아이디 리스트를 반환
 -------------------------------------

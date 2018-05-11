@@ -146,7 +146,7 @@ end
 -------------------------------------
 function SkillIndicator_X:optimizeIndicatorData(l_target, fixed_target)
     local max_count = -1
-    local t_best = {}
+    local t_best
     
     local setIndicator = function(target, x, y)
         self.m_targetChar = target
@@ -199,7 +199,7 @@ function SkillIndicator_X:optimizeIndicatorData(l_target, fixed_target)
                 b = true
 
             elseif (max_count == count) then
-                if (t_best['distance'] > distance) then
+                if (t_best and t_best['distance'] > distance) then
                     b = true
                 end
             end
