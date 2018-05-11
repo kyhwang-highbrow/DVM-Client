@@ -12,7 +12,7 @@ UI_RandomShopListItem = class(PARENT, {
 -------------------------------------
 function UI_RandomShopListItem:init(data)
     self.m_structItem = data
-    local vars = self:load('shop_random_item_new.ui')
+    local vars = self:load('shop_random_item.ui')
 
     self:initUI()
     self:initButton()

@@ -16,7 +16,7 @@ local NEED_REFRESH_TYPE = 'cash'
 -- function init
 -------------------------------------
 function UI_RandomShop:init()
-    local vars = self:load('shop_random_new.ui')
+    local vars = self:load('shop_random.ui')
     UIManager:open(self, UIManager.SCENE)
 
     -- backkey 지정
@@ -210,7 +210,9 @@ function UI_RandomShop:setPirceInfo()
         -- 할인중이라면 원래 가격 표시
         if (is_sale) then
             local origin_price = l_origin_price[1]
+            local tar_x = vars['priceLabel']:getPositionX()
             vars['saleNode']:setVisible(true)
+            vars['saleNode']:setPositionX(tar_x)
             vars['saleLabel']:setString(comma_value(origin_price))
         end
 
