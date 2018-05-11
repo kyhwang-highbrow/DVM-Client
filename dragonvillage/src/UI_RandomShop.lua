@@ -38,7 +38,7 @@ end
 function UI_RandomShop:initParentVariable()
     -- ITopUserInfo_EventListener의 맴버 변수들 설정
     self.m_uiName = 'UI_RandomShop'
-    self.m_titleStr = Str('나르비 상점')
+    self.m_titleStr = Str('마녀의 상점')
     self.m_subCurrency = 'ancient' -- 고대주화 노출
     self.m_bUseExitBtn = true
 end
@@ -54,6 +54,16 @@ function UI_RandomShop:initUI()
         local icon = IconHelper:getPriceIcon(NEED_REFRESH_TYPE)
         vars['refreshPriceNode']:addChild(icon)
         vars['refreshPriceLabel']:setString(comma_value(NEED_REFRESH_VALUE))
+    end
+
+    do -- 나르비 테이머 추가
+        local res = 'res/character/npc/narvi/narvi.json'
+        vars['npcNode']:removeAllChildren(true)
+        local animator = MakeAnimator(res)
+        if (animator.m_node) then
+            animator:changeAni('idle', true)
+            vars['npcNode']:addChild(animator.m_node)
+        end
     end
 
     do -- 갱신시간
@@ -290,9 +300,15 @@ end
 -------------------------------------
 -- function click_selectItem
 -------------------------------------
-function UI_RandomShop:click_selectItem(ui) 
-    self.m_selectUI = ui
-    self.m_selectItem = ui.m_structItem
+function UI_RandomShop:click_selectItem(tar_ui)
+    for i,v in pairs(self.m_tableViewTD.m_itemList) do
+        local ui = v['ui'] or v['generated_ui']
+        ui.vars['selectSprite']:setVisible(false)
+    end
+
+    tar_ui.vars['selectSprite']:setVisible(true)
+    self.m_selectUI = tar_ui
+    self.m_selectItem = tar_ui.m_structItem
     self:refresh()
 end
 
