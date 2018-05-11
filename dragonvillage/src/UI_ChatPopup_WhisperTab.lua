@@ -69,18 +69,18 @@ function UI_ChatPopup_WhisperTab:click_enterBtn()
     end
 
     -- 비속어 필터링
-    if (not FilterMsg(msg)) then
-        vars['editBox_whisper']:setText('')
-        UIManager:toastNotificationRed(Str('사용할 수 없는 표현이 포함되어 있습니다.'))
-        return
+    local function proceed_func()
+        if g_chatManager:sendWhisperMsg(self.m_peerUserNickname, msg) then
+            vars['editBox_whisper']:setText('')
+        else
+            local msg = Str('[{1}]유저를 찾을 수 없습니다.', self.m_peerUserNickname)
+            UIManager:toastNotificationRed(msg)
+        end
     end
-
-    if g_chatManager:sendWhisperMsg(self.m_peerUserNickname, msg) then
+    local function cancel_func()
         vars['editBox_whisper']:setText('')
-    else
-        local msg = Str('[{1}]유저를 찾을 수 없습니다.', self.m_peerUserNickname)
-        UIManager:toastNotificationRed(msg)
     end
+    CheckBlockStr(msg, proceed_func, cancel_func)
 end
 
 -------------------------------------

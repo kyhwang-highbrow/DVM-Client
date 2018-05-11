@@ -62,17 +62,17 @@ function UI_ChatPopup_ClanTab:click_enterBtn()
     end
 
     -- 비속어 필터링
-    if (not FilterMsg(msg)) then
-        vars['clanEditBox']:setText('')
-        UIManager:toastNotificationRed(Str('사용할 수 없는 표현이 포함되어 있습니다.'))
-        return
+    local function proceed_func()
+        if g_chatManager:sendNormalMsg(msg) then
+            vars['clanEditBox']:setText('')
+        else
+            UIManager:toastNotificationRed(Str('메시지 전송에 실패하였습니다.'))
+        end
     end
-
-    if g_clanChatManager:sendNormalMsg(msg) then
+    local function cancel_func()
         vars['clanEditBox']:setText('')
-    else
-        UIManager:toastNotificationRed(Str('메시지 전송에 실패하였습니다.'))
     end
+    CheckBlockStr(msg, proceed_func, cancel_func)
 end
 
 -------------------------------------
