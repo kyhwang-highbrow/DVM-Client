@@ -662,7 +662,7 @@ function StructDragonObject:getStringData()
 	local rexp = self['reinforce']:getExp()
 
     -- [ 드래곤 정보 ]
-    -- did;lv;exp;eclv;rlv;rexp;evolution;grade;skill_0;skill_1;skill_2;skill_3
+    -- did;lv;exp;eclv;rlv;rexp;evolution;grade;skill_0;skill_1;skill_2;skill_3;transform
     local t1 = string.format('%d;%d;%d;%d;%d;%d;%d;%d;%d;%d;%d;%d', 
         self['did'],
         self['lv'],
@@ -675,7 +675,8 @@ function StructDragonObject:getStringData()
         self['skill_0'],
         self['skill_1'],
         self['skill_2'],
-        self['skill_3']
+        self['skill_3'],
+        self['transform']
     )
 
     -- [ 친밀도 정보 ]
