@@ -100,6 +100,13 @@ function StructRandomShopItem:getCount()
 end
 
 -------------------------------------
+-- function getItemID
+-------------------------------------
+function StructRandomShopItem:getItemID()
+    return self['item_id']
+end
+
+-------------------------------------
 -- function getName
 -------------------------------------
 function StructRandomShopItem:getName()
@@ -118,6 +125,13 @@ end
 -------------------------------------
 function StructRandomShopItem:getProductIdx()
     return self['product_idx']
+end
+
+-------------------------------------
+-- function getRuneData
+-------------------------------------
+function StructRandomShopItem:getRuneData()
+    return StructRuneObject(self['rune'])
 end
 
 -------------------------------------
@@ -162,9 +176,12 @@ function StructRandomShopItem:getCard()
 
     -- 룬인 경우 능력치 표시
     if (self:isRuneItem()) then
-        t_sub_data = StructRuneObject(self['rune'])
+        t_sub_data = self:getRuneData()
     end
 
     local item_card = UI_ItemCard(self['item_id'], self['count'], t_sub_data)
+    -- 터치 불가능하게 수정
+    item_card.vars['clickBtn']:setEnabled(false)
+
     return item_card
 end

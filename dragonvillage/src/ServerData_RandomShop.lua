@@ -56,7 +56,7 @@ function ServerData_RandomShop:getStatusText()
         -- 상품 갱신 가능
         self.m_bDirty = true
     else
-        str = Str('상품 교체까지 {1} 남음', datetime.makeTimeDesc(time, false, true))
+        str = Str('상품 교체까지 {1} 남음', datetime.makeTimeDesc(time, true, true))
     end
 
     return str
@@ -155,6 +155,9 @@ function ServerData_RandomShop:request_buy(index, price_type , cb_func, fail_cb)
         self:response_shopInfo(ret)
         -- 재화 갱신
         g_serverData:networkCommonRespone(ret)
+
+        -- 아이템 수령
+        g_serverData:networkCommonRespone_addedItems(ret)
 
         if (cb_func) then
             cb_func(ret)

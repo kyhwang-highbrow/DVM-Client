@@ -4,6 +4,10 @@ local PARENT = class(UI, ITopUserInfo_EventListener:getCloneTable())
 -- class UI_RandomShop
 -------------------------------------
 UI_RandomShop = class(PARENT,{
+        m_tableViewTD = '',
+
+        m_selectUI = 'UI_RandomShopListItem',
+        m_selectItem = 'StructRandomShopItem',
     })
 
 local NEED_REFRESH_VALUE = 50
@@ -12,7 +16,7 @@ local NEED_REFRESH_TYPE = 'cash'
 -- function init
 -------------------------------------
 function UI_RandomShop:init()
-    local vars = self:load('shop_random.ui')
+    local vars = self:load('shop_random_new.ui')
     UIManager:open(self, UIManager.SCENE)
 
     -- backkey 지정
@@ -48,8 +52,8 @@ function UI_RandomShop:initUI()
 
     do -- 새로고침
         local icon = IconHelper:getPriceIcon(NEED_REFRESH_TYPE)
-        vars['priceNode']:addChild(icon)
-        vars['priceLabel']:setString(comma_value(NEED_REFRESH_VALUE))
+        vars['refreshPriceNode']:addChild(icon)
+        vars['refreshPriceLabel']:setString(comma_value(NEED_REFRESH_VALUE))
     end
 
     do -- 갱신시간
@@ -73,6 +77,9 @@ end
 function UI_RandomShop:initButton()
     local vars = self.vars
     vars['refreshBtn']:registerScriptTapHandler(function() self:click_refreshBtn() end)
+    vars['buyBtn']:registerScriptTapHandler(function() self:click_buyBtn(1) end) -- 1번째 재화로 구매
+    vars['buyBtn1']:registerScriptTapHandler(function() self:click_buyBtn(1) end) -- 1번째 재화로 구매
+    vars['buyBtn2']:registerScriptTapHandler(function() self:click_buyBtn(2) end) -- 2번째 재화로 구매
 end
 
 -------------------------------------
@@ -82,21 +89,147 @@ function UI_RandomShop:initTableView()
     local vars = self.vars
     local node = vars['listNode']
     node:removeAllChildren()
-
+    
     local l_item_list = g_randomShopData:getProductList()
+    local first_item_data = l_item_list[1]
+
+    -- 상품 갱신되면 첫번째 아이템 선택되게
+    self.m_selectItem = StructRandomShopItem(first_item_data)
+
+    local function create_func(ui, data)
+        ui.vars['selectBtn']:registerScriptTapHandler(function() self:click_selectItem(ui) end)
+    end
 
     -- 테이블 뷰 인스턴스 생성
     table_view_td = UIC_TableViewTD(node)
-    table_view_td.m_cellSize = cc.size(305, 285)
-    table_view_td.m_nItemPerCell = 4
-	table_view_td:setCellUIClass(UI_RandomShopListItem)
+    table_view_td.m_cellSize = cc.size(305, 135)
+    table_view_td.m_nItemPerCell = 2
+	table_view_td:setCellUIClass(UI_RandomShopListItem, create_func)
     table_view_td:setItemList(l_item_list)
+    self.m_tableViewTD = table_view_td
 end
 
 -------------------------------------
 -- function refresh
 -------------------------------------
 function UI_RandomShop:refresh()
+    self:refresh_itemInfo()
+end
+
+-------------------------------------
+-- function refresh_itemInfo
+-- @brief 우측 선택된 아이템 정보 갱신
+-------------------------------------
+function UI_RandomShop:refresh_itemInfo()
+    local vars = self.vars
+    local struct_item = self.m_selectItem
+
+    do -- 이름
+        local name = struct_item:getName()
+        vars['itemNameLabel']:setString(name)
+    end
+
+    do -- 아이템 카드
+        vars['itemNode']:removeAllChildren()
+        local card = struct_item:getCard()
+        vars['itemNode']:addChild(card.root)
+    end
+
+    do -- 설명
+        local is_rune = struct_item:isRuneItem()
+        vars['itemDscLabel']:setVisible(not is_rune)
+        vars['runeDscLabel']:setVisible(is_rune)
+        vars['itemDscNode2']:setVisible(is_rune) -- 룬 세트 효과 노드
+
+        if (is_rune) then
+            local t_rune_data = struct_item:getRuneData()
+            local desc = t_rune_data:makeRuneDescRichText()
+            vars['runeDscLabel']:setString(desc)
+
+            -- 임시 룬 오브젝트를 생성 (룬 세트 설명 함수를 사용하기 위해)
+            local _data = {}
+            _data['rid'] = struct_item:getItemID()
+            local _struct_rune_obj = StructRuneObject(_data)
+        
+            -- 룬 세트 설명 출력
+            local str = _struct_rune_obj:makeRuneSetDescRichText() or ''
+            vars['itemDscLabel2']:setString(str)
+        else
+            local desc = struct_item:getDesc()
+            vars['itemDscLabel']:setString(desc)
+        end
+    end
+
+    -- 구매가능한 상태면
+    if (struct_item:isBuyable()) then
+        self:setPirceInfo()
+    else
+        vars['buyBtn']:setVisible(false)
+        vars['buyBtn1']:setVisible(false)
+        vars['buyBtn2']:setVisible(false)
+    end
+end
+
+-------------------------------------
+-- function setPirceInfo
+-- @brief 우측 선택된 아이템 판매 가격 정보 
+-------------------------------------
+function UI_RandomShop:setPirceInfo()
+    local vars = self.vars
+    local struct_item = self.m_selectItem
+    local is_sale = struct_item:isSale()
+
+    -- 가격 정보
+    local l_price_type, l_final_price, l_origin_price = struct_item:getPriceInofList()
+
+    -- 구매 가능한 재화 한개일 경우
+    if (#l_price_type == 1) then
+        vars['buyBtn']:setVisible(true)
+
+        -- 구매 재화 아이콘
+        local icon = IconHelper:getPriceIcon(l_price_type[1])
+        if (icon) then
+            vars['priceNode']:addChild(icon)
+        end
+        -- 최종 가격
+        local price = l_final_price[1]
+        vars['priceLabel']:setString(comma_value(price))
+        -- 가격 아이콘 및 라벨, 배경 조정
+		UIHelper:makePriceNodeVariable(nil,  vars['priceNode'], vars['priceLabel'])
+
+        -- 할인중이라면 원래 가격 표시
+        if (is_sale) then
+            local origin_price = l_origin_price[1]
+            vars['saleNode']:setVisible(true)
+            vars['saleLabel']:setString(comma_value(origin_price))
+        end
+
+    -- 구매 가능한 재화 여러개일 경우
+    else
+        vars['buyBtn']:setVisible(false)
+
+        -- 구매 재화 아이콘
+        for i, price_type in ipairs(l_price_type) do
+            vars['buyBtn'..i]:setVisible(true)
+
+            local icon = IconHelper:getPriceIcon(price_type)
+            if (icon) then
+                vars['priceNode'..i]:addChild(icon)
+            end
+        end
+        -- 최종 가격
+        for i, price in ipairs(l_final_price) do
+            vars['priceLabel'..i]:setString(comma_value(price))
+        end
+
+        -- 할인중이라면 원래 가격 표시
+        if (is_sale) then
+            for i, price in ipairs(l_origin_price) do
+                vars['saleNode'..i]:setVisible(true)
+                vars['saleLabel'..i]:setString(comma_value(price))
+            end
+        end
+    end
 end
 
 -------------------------------------
@@ -104,14 +237,16 @@ end
 -- @brief 무료 갱신 가능한 상태 : 클라에서 서버에 shopInfo 다시 호출
 -------------------------------------
 function UI_RandomShop:refresh_shopInfo()
+    -- 해당 UI가 열린후 생성된 UI 모두 닫아줌
+    local is_opend, idx, ui = UINavigatorDefinition:findOpendUI('UI_RandomShop')
+    if (is_opend) then
+        UINavigatorDefinition:closeUIList(idx, false) -- param : idx, include_idx
+    end
+    
     -- UI 블럭
     local block_ui = UI_BlockPopup()
     -- 백키 블럭 
     UIManager:blockBackKey(true)
-
-    -- 해당 UI가 열린후 생성된 UI 모두 닫아줌
-    local is_opend, idx, ui = UINavigatorDefinition:findOpendUI('UI_RandomShop')
-    UINavigatorDefinition:closeUIList(idx, false) -- param : idx, include_idx
 
     local finish_cb = function()
         self:initTableView()
@@ -119,6 +254,9 @@ function UI_RandomShop:refresh_shopInfo()
         block_ui:close()
         -- 백키 블럭 해제
         UIManager:blockBackKey(false)
+
+        local msg = Str('새로운 상품으로 교체되었습니다.')
+        UIManager:toastNotificationGreen(msg)
     end
 
     cclog('# 랜덤 상점 무료 갱신중')
@@ -137,12 +275,64 @@ function UI_RandomShop:click_refreshBtn()
     local function ok_btn_cb()
         local finish_cb = function()
             self:initTableView()
+
+            local msg = Str('새로운 상품으로 교체되었습니다.')
+            UIManager:toastNotificationGreen(msg)
         end
+
         g_randomShopData:request_refreshInfo(finish_cb)
     end
 
     local msg = Str('새로운 상품으로 교체하시겠습니까?')
     UI_ConfirmPopup(NEED_REFRESH_TYPE, NEED_REFRESH_VALUE, msg, ok_btn_cb)
+end
+
+-------------------------------------
+-- function click_selectItem
+-------------------------------------
+function UI_RandomShop:click_selectItem(ui) 
+    self.m_selectUI = ui
+    self.m_selectItem = ui.m_structItem
+    self:refresh()
+end
+
+-------------------------------------
+-- function click_buyBtn
+-------------------------------------
+function UI_RandomShop:click_buyBtn(idx)
+    local struct_item = self.m_selectItem
+    local l_price_type, l_final_price = struct_item:getPriceInofList()
+    local product_idx = struct_item:getProductIdx()
+    local price = l_final_price[idx]
+    local price_type = l_price_type[idx]
+
+    -- 재화 부족
+    if (not ConfirmPrice(price_type, price)) then
+        return
+    end
+
+    local function cb_func(ret)
+        -- 아이템 획득 결과창
+        ItemObtainResult_Shop(ret)
+
+        local data = ret['info']['products'][tostring(product_idx)]
+        local new_data = StructRandomShopItem(data)
+        self.m_selectItem = new_data
+        self.m_selectUI.m_structItem = new_data
+        self.m_selectUI:refresh()
+
+        self:refresh()
+    end
+
+    local function ok_btn_cb()
+        -- 구매 api 호출
+        g_randomShopData:request_buy(product_idx, price_type, cb_func)
+    end
+
+    local name = struct_item:getName()
+    local cnt = struct_item:getCount()
+    local msg = Str('{@item_name}"{1} x{2}"\n{@default}구매하시겠습니까?', name, cnt)
+    UI_ConfirmPopup(price_type, price, msg, ok_btn_cb)
 end
 
 -------------------------------------

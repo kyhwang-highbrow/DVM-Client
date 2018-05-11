@@ -90,6 +90,14 @@ function ConfirmPrice(price_type, price_value)
             MakeSimplePopup(POPUP_TYPE.OK, Str('우정포인트가 부족합니다.\n친구에게 우정포인트를 요청해보세요!'))
             return false
         end
+    elseif (price_type == 'ancient') then
+        local ancient = g_userData:get('ancient')
+
+        -- 재화가 충분히 있는지 체크
+        if (ancient < price_value) then
+            MakeSimplePopup(POPUP_TYPE.OK, Str('고대주화가 부족합니다.\n고대주화는 고대의 탑에서 획득할 수 있습니다.'))
+            return false
+        end
     end
 
     return true
