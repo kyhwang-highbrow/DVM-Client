@@ -335,7 +335,7 @@ function TargetRule_getTargetList_arena(org_list, t_data)
     end
 
     -- 해제 타입인 경우 모두 무적이라도 무시
-    if (ai_type ~= 'remove') then
+    if (ai_type == 'remove') then
         all_invincibility = false
     end
     
