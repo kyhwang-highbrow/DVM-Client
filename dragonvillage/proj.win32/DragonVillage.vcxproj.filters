@@ -3444,6 +3444,7 @@
     </None>
     <None Include="..\src\UI_GamePause_Arena.lua">
       <Filter>lua\UI</Filter>
+    </None>
     <None Include="..\src\UI_RandomShop.lua">
       <Filter>lua\UI</Filter>
     </None>
