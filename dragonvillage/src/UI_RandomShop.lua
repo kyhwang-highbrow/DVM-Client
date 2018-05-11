@@ -111,31 +111,18 @@ function UI_RandomShop:refresh_shopInfo()
 
     -- 해당 UI가 열린후 생성된 UI 모두 닫아줌
     local is_opend, idx, ui = UINavigatorDefinition:findOpendUI('UI_RandomShop')
-    self:closeUIList(idx, false) -- param : idx, include_idx
+    UINavigatorDefinition:closeUIList(idx, false) -- param : idx, include_idx
 
     local finish_cb = function()
+        self:initTableView()
         -- UI 블럭 해제
         block_ui:close()
         -- 백키 블럭 해제
         UIManager:blockBackKey(false)
     end
 
-    local function coroutine_function(dt)
-		local co = CoroutineHelper()
-        local fail_cb = function() 
-            co.ESCAPE()
-            finish_cb()
-        end
-
-        co:work()
-		cclog('# 랜덤 상점 무료 갱신중')
-		g_randomShopData:request_shopInfo(co.NEXT, fail_cb)
-		if co:waitWork() then return end
-        finish_cb()
-        co:close()
-    end
-
-    Coroutine(coroutine_function)
+    cclog('# 랜덤 상점 무료 갱신중')
+	g_randomShopData:request_shopInfo(finish_cb)
 end
 
 -------------------------------------
