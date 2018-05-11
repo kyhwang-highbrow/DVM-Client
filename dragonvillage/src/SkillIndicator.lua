@@ -668,7 +668,7 @@ function SkillIndicator:setIndicatorDataByAuto(l_target, target_count, fixed_tar
     end
 
     -- 최적의 대상을 얻고 그 대상을 기준으로 인디케이터 정보 설정
-    local target = self:getBestTargetForAuto(l_target)
+    local target = self:getBestTargetForAuto(l_target, fixed_target)
     if (target) then
         self:setIndicatorDataByChar(target)
         return true
@@ -681,7 +681,7 @@ end
 -- function optimizeIndicatorData
 -- @brief 가장 많이 타겟팅할 수 있도록 인디케이터 정보를 설정
 -------------------------------------
-function SkillIndicator:optimizeIndicatorData(l_target, exist_fixed_target)
+function SkillIndicator:optimizeIndicatorData(l_target, fixed_target)
     -- 자식 클래스에서 개별로 정의
     return false
 end
@@ -690,7 +690,7 @@ end
 -- function getBestTargetForAuto
 -- @brief l_target의 대상들 중에서 가장 많이 피격할 수 있는 경우의 대상을 가져옴
 -------------------------------------
-function SkillIndicator:getBestTargetForAuto(l_target)
+function SkillIndicator:getBestTargetForAuto(l_target, fixed_target)
     local max_count = -1
     local ret
 
@@ -700,6 +700,12 @@ function SkillIndicator:getBestTargetForAuto(l_target)
 
         local list = self.m_collisionList or {}
         local count = #list
+
+        if (fixed_target) then
+            if (not table.find(self.m_highlightList, fixed_target)) then
+                count = -1
+            end
+        end
         
         if (max_count < count) then
             max_count = count

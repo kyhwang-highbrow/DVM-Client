@@ -424,10 +424,15 @@ function TargetRule_getTargetList_arena(org_list, t_data)
         table.sort(t_ret, sortDescending)
     end
 
-    if (t_ret[1]) then
-        local target = t_ret[1]
-        cclog('best sort value : ' .. target.m_sortValue)
-        cclog('name : ' .. target:getName())
+    -- 로그
+    do
+        cclog('-------------------------------------------------------')
+        cclog('[ 아레나 공격 대상 선택 우선순위 계산 결과 ]')
+        for i, target in ipairs(t_ret) do
+            cclog('best sort value : ' .. target.m_sortValue)
+            cclog('name : ' .. target:getName())
+        end
+        cclog('-------------------------------------------------------')
     end
 
     return t_ret
