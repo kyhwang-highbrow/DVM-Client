@@ -130,6 +130,40 @@ function FilterMsg(str)
 end
 
 -------------------------------------
+-- function CheckBlockStr
+-- @brief 문자열 필터링
+-------------------------------------
+function CheckBlockStr(str, proceed_func, cancel_func)
+    local t_ban_word = TABLE:get('table_ban_word_chat')
+    if (not t_ban_word) then
+        if (proceed_func) then
+            proceed_func()
+        end
+        return
+    end
+
+    -- 모두 소문자로 변경
+    local lower_str = string.lower(str)
+
+    -- 금칙어 추출
+    local l_match_list = {}
+    for _, v in pairs(t_ban_word) do
+        if string.match(lower_str, string.lower(v['word'])) then
+            table.insert(l_match_list, v['word'])
+		end
+	end
+
+    -- match
+    if (table.count(l_match_list) == 0) then
+        if (proceed_func) then
+            proceed_func()
+        end
+    else
+        MakeSimplePopup(POPUP_TYPE.YES_NO, tableToString(l_match_list, ' '), proceed_func, cancel_func)
+    end
+end
+
+-------------------------------------
 -- function KeepOrderOfArrival
 -- @brief ZOrder가 같은 Node들이 뒤죽박죽 섞이는 것을 방지
 -------------------------------------
