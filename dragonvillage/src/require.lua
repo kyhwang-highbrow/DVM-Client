@@ -166,6 +166,7 @@ local t_module = {
     'ServerData_NaverEvent',
     'ServerData_AncientRuin',
     'ServerData_RandomShop',
+    'ServerData_Arena',
 
     -- Interface
     'IEventDispatcher',
@@ -890,6 +891,11 @@ local t_module = {
     'UI_ColosseumDeckSettings',
     'UI_2DDeck',
     'UI_3DDeck',
+
+    -- UI : 콜로세움 (ARENA)
+    'UI_Arena',
+    'UI_ArenaTabHistory',
+    'UI_ArenaTabRank',
 
     -- UI : 친선전
     'UI_FriendMatchReady',

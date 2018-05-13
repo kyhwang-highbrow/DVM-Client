@@ -1,10 +1,10 @@
 local PARENT = class(UI_IndivisualTab, ITabUI:getCloneTable())
 
 -------------------------------------
--- class UI_ArenaTabRank
--- @brief 개인, 클랜 랭킹 탭
+-- class UI_ArenaTabHistory
+-- @brief 아레나 기록 탭 (공격전, 방어전)
 -------------------------------------
-UI_ArenaTabRank = class(PARENT,{
+UI_ArenaTabHistory = class(PARENT,{
         vars = '',
         
         m_rankTableView = 'UIC_TableView',
@@ -15,9 +15,9 @@ UI_ArenaTabRank = class(PARENT,{
 
         m_hasMyClan = 'bool',
     })
-    
-UI_ArenaTabRank['PRSN'] = 'personalRanking'
-UI_ArenaTabRank['CLAN'] = 'clanRanking'
+
+UI_ArenaTabHistory['ATK'] = 'atk'
+UI_ArenaTabHistory['DEF'] = 'def'
 
 local OFFSET_GAP = 30 -- 한번에 보여주는 랭커 수
 local CLAN_OFFSET_GAP = 20
@@ -25,8 +25,8 @@ local CLAN_OFFSET_GAP = 20
 -------------------------------------
 -- function init
 -------------------------------------
-function UI_ArenaTabRank:init(owner_ui)
-    self.root = owner_ui.vars['rankingMenu'] -- root가 있어야 보임
+function UI_ArenaTabHistory:init(owner_ui)
+    self.root = owner_ui.vars['historyMenu'] -- root가 있어야 보임
     self.vars = owner_ui.vars
     self.m_rankOffset = 1
     self.m_clanRankOffset = 1
@@ -36,7 +36,7 @@ end
 -------------------------------------
 -- function onEnterTab
 -------------------------------------
-function UI_ArenaTabRank:onEnterTab(first)
+function UI_ArenaTabHistory:onEnterTab(first)
     if first then
         self:initUI()
         self:initTab()
@@ -46,35 +46,35 @@ end
 -------------------------------------
 -- function onExitTab
 -------------------------------------
-function UI_ArenaTabRank:onExitTab()
+function UI_ArenaTabHistory:onExitTab()
 end
 
 -------------------------------------
 -- function initUI
 -------------------------------------
-function UI_ArenaTabRank:initUI()
+function UI_ArenaTabHistory:initUI()
     local vars = self.vars
 end
 
 -------------------------------------
 -- function initTab
 -------------------------------------
-function UI_ArenaTabRank:initTab()
+function UI_ArenaTabHistory:initTab()
     local vars = self.vars
 
-    self:addTabAuto(UI_ArenaTabRank['PRSN'], vars, vars['rankNode'])
-    self:addTabAuto(UI_ArenaTabRank['CLAN'], vars, vars['clanRankNode'])
+    self:addTabAuto(UI_ArenaTabHistory['PRSN'], vars, vars['rankNode'])
+    self:addTabAuto(UI_ArenaTabHistory['CLAN'], vars, vars['clanRankNode'])
     
-    self:setTab(UI_ArenaTabRank['PRSN'])
+    self:setTab(UI_ArenaTabHistory['PRSN'])
 end
 
 -------------------------------------
 -- function onChangeTab
 -------------------------------------
-function UI_ArenaTabRank:onChangeTab(tab, first)
+function UI_ArenaTabHistory:onChangeTab(tab, first)
     local vars = self.vars
 
-    if (tab == UI_ArenaTabRank['CLAN']) then
+    if (tab == UI_ArenaTabHistory['CLAN']) then
         vars['myClanRankingListNode1']:setVisible(self.m_hasMyClan)
         vars['myClanRankingListNode2']:setVisible(not self.m_hasMyClan)
     end
@@ -83,9 +83,9 @@ function UI_ArenaTabRank:onChangeTab(tab, first)
         return
     end
 
-    if (tab == UI_ArenaTabRank['PRSN']) then
+    if (tab == UI_ArenaTabHistory['PRSN']) then
         self:request_rank()
-    elseif (tab == UI_ArenaTabRank['CLAN']) then
+    elseif (tab == UI_ArenaTabHistory['CLAN']) then
         self:request_clanRank()
     end
 end
@@ -93,7 +93,7 @@ end
 -------------------------------------
 -- function request_rank
 -------------------------------------
-function UI_ArenaTabRank:request_rank()
+function UI_ArenaTabHistory:request_rank()
     local function finish_cb()
         self.m_rankOffset = g_colosseumData.m_nGlobalOffset
         self:makeRankTableView()
@@ -105,7 +105,7 @@ end
 -------------------------------------
 -- function makeRankTableView
 -------------------------------------
-function UI_ArenaTabRank:makeRankTableView()
+function UI_ArenaTabHistory:makeRankTableView()
     local vars = self.vars
     local node = vars['rankingListNode']
     local my_node = vars['myRankingListNode']
@@ -191,7 +191,7 @@ end
 -------------------------------------
 -- function request_clanRank
 -------------------------------------
-function UI_ArenaTabRank:request_clanRank()
+function UI_ArenaTabHistory:request_clanRank()
     local rank_type = CLAN_RANK['CLSM']
     local offset = self.m_clanRankOffset
     local cb_func = function()
@@ -207,7 +207,7 @@ end
 -------------------------------------
 -- function makeTableViewRanking
 -------------------------------------
-function UI_ArenaTabRank:makeMyClanRankNode()
+function UI_ArenaTabHistory:makeMyClanRankNode()
     local vars = self.vars
     local info = g_clanRankData:getMyRankData(CLAN_RANK['CLSM'])
 
@@ -238,7 +238,7 @@ end
 -------------------------------------
 -- function makeTableViewRanking
 -------------------------------------
-function UI_ArenaTabRank:makeClanRankTableView()
+function UI_ArenaTabHistory:makeClanRankTableView()
     local vars = self.vars
 
 	do -- 테이블 뷰 생성

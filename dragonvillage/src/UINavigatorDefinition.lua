@@ -356,6 +356,50 @@ function UINavigatorDefinition:goTo_colosseum(...)
 end
 
 -------------------------------------
+-- function goTo_arena
+-- @brief 콜로세움으로 이동
+-- @usage UINavigatorDefinition:goTo('arena')
+-------------------------------------
+function UINavigatorDefinition:goTo_arena(...)
+    -- 해당 UI가 열려있을 경우
+    local is_opend, idx, ui = self:findOpendUI('UI_Arena')
+    if (is_opend == true) then
+        self:closeUIList(idx)
+        return
+    end
+
+    local function finish_cb()
+
+        -- 로비가 열려있을 경우
+        local is_opend, idx, ui = self:findOpendUI('UI_Lobby')
+        if (is_opend == true) then
+            self:closeUIList(idx)
+            local battle_menu_ui = UI_BattleMenu()
+            battle_menu_ui:setTab('competition') -- 전투 메뉴에서 tab의 이름이 'competition'이다.
+            battle_menu_ui:resetButtonsPosition()
+            UI_Arena()
+            return
+        end
+
+        do-- Scene으로 동작
+            local function close_cb()
+                UINavigatorDefinition:goTo('lobby')
+            end
+
+            local scene = SceneCommon(UI_Arena, close_cb)
+            scene:runScene()
+        end
+    end
+
+    local function fail_cb()
+
+    end
+
+    -- 정보 요청
+    g_arenaData:request_arenaInfo(finish_cb, fail_cb)
+end
+
+-------------------------------------
 -- function goTo_ancient
 -- @brief 고대의탑으로 이동
 -- @usage UINavigatorDefinition:goTo('ancient', stage_id)

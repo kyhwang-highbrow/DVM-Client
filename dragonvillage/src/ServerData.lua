@@ -211,6 +211,9 @@ function ServerData:getInstance()
     -- 랜덤상점 
     g_randomShopData = ServerData_RandomShop(g_serverData)
 
+    -- 콜로세움 (신규)
+    g_arenaData = ServerData_Arena(g_serverData)
+
     return g_serverData
 end
 

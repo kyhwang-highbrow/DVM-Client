@@ -3457,6 +3457,60 @@
     <None Include="..\src\StructRandomShopItem.lua">
       <Filter>lua\src</Filter>
     </None>
+    <None Include="..\src\UI_Arena.lua">
+      <Filter>lua\UI</Filter>
+    </None>
+    <None Include="..\src\UI_ArenaTabRank.lua">
+      <Filter>lua\UI</Filter>
+    </None>
+    <None Include="..\src\UI_ArenaTabHistory.lua">
+      <Filter>lua\UI</Filter>
+    </None>
+    <None Include="..\src\UI_ArenaRankingRewardPopup.lua">
+      <Filter>lua\UI</Filter>
+    </None>
+    <None Include="..\src\UI_TamerManagePopup_Arena.lua">
+      <Filter>lua\UI</Filter>
+    </None>
+    <None Include="..\src\UI_ArenaRewardInfoPopup.lua">
+      <Filter>lua\UI</Filter>
+    </None>
+    <None Include="..\src\UI_ArenaRankRewardItem.lua">
+      <Filter>lua\UI</Filter>
+    </None>
+    <None Include="..\src\UI_ArenaReady.lua">
+      <Filter>lua\UI</Filter>
+    </None>
+    <None Include="..\src\UI_ArenaResult.lua">
+      <Filter>lua\UI</Filter>
+    </None>
+    <None Include="..\src\UI_ArenaMatchRewardItem.lua">
+      <Filter>lua\UI</Filter>
+    </None>
+    <None Include="..\src\UI_ArenaRankInfoPopup.lua">
+      <Filter>lua\UI</Filter>
+    </None>
+    <None Include="..\src\UI_ArenaClanRankListItem.lua">
+      <Filter>lua\UI</Filter>
+    </None>
+    <None Include="..\src\UI_ArenaHistoryListItem.lua">
+      <Filter>lua\UI</Filter>
+    </None>
+    <None Include="..\src\UI_ArenaRankListItem.lua">
+      <Filter>lua\UI</Filter>
+    </None>
+    <None Include="..\src\UI_ArenaClanRankRewardItem.lua">
+      <Filter>lua\UI</Filter>
+    </None>
+    <None Include="..\src\UI_ArenaDeckSettings.lua">
+      <Filter>lua\UI</Filter>
+    </None>
+    <None Include="..\src\UI_ArenaAttackListItem.lua">
+      <Filter>lua\UI</Filter>
+    </None>
+    <None Include="..\src\ServerData_Arena.lua">
+      <Filter>lua\src</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Classes">

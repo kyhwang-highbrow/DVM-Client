@@ -17,12 +17,7 @@ UI_Arena = class(PARENT, {
 
 -- 탭 자동 등록을 위해 UI 네이밍과 맞춰줌  
 UI_Arena.RANKING = 'ranking'
-UI_Arena.RANKING_PERSONAL = 'personalRanking'
-UI_Arena.RANKING_CLAN = 'clanRanking'
-
 UI_Arena.HISTORY = 'history'
-UI_Arena.HISTORY_ATK = 'atk'
-UI_Arena.HISTORY_DEF = 'def'
 
 -------------------------------------
 -- function initParentVariable
@@ -295,53 +290,11 @@ function UI_Arena:onChangeTab(tab, first)
     end
 
     if (tab == UI_Arena.RANKING) then
-        self:init_rankingTab()
+        UI_ArenaTabRank(self)
 
     elseif (tab == UI_Arena.HISTORY) then
-        self:init_historyTab()
+        UI_ArenaTabHistory(self)
     end
-end
-
--------------------------------------
--- function init_rankingTab
--- @brief 개인 랭킹, 클랜 랭킹 탭
--------------------------------------
-function UI_Arena:init_rankingTab()
-    local vars = self.vars
-    self:addTabAuto(UI_Arena.RANKING_PERSONAL, vars, vars['rankNode'])
-    self:addTabAuto(UI_Arena.RANKING_CLAN, vars, vars['clanRankNode'])
-    self:setChangeTabCB(function(tab, first) self:onChangeRankTab(tab, first) end)
-
-    self:setTab(UI_Arena.RANKING_PERSONAL)
-end
-
--------------------------------------
--- function onChangeRankTab
--------------------------------------
-function UI_Arena:onChangeRankTab(tab, first)
-    PARENT.onChangeTab(self, tab, first)
-
-end
-
--------------------------------------
--- function init_historyTab
--- @brief 공격전, 방어전 기록 탭
--------------------------------------
-function UI_Arena:init_historyTab()
-    local vars = self.vars
-    self:addTabAuto(UI_Arena.HISTORY_ATK, vars, vars['atkListNode'])
-    self:addTabAuto(UI_Arena.HISTORY_DEF, vars, vars['defListNode'])
-    self:setChangeTabCB(function(tab, first) self:onChangeHistoryTab(tab, first) end)
-
-    self:setTab(UI_Arena.HISTORY_ATK)
-end
-
--------------------------------------
--- function onChangeHistoryTab
--------------------------------------
-function UI_Arena:onChangeHistoryTab(tab, first)
-    PARENT.onChangeTab(self, tab, first)
-
 end
 
 -------------------------------------
@@ -400,59 +353,6 @@ function UI_Arena:update(dt)
 
     end
 end
-
--------------------------------------
--- function request_matchHistory
--------------------------------------
-function UI_Arena:request_matchHistory()
-    local function finish_cb()
-        self:init_historyTableView()
-    end
-    g_colosseumData:request_colosseumDefHistory(finish_cb)
-end
-
--------------------------------------
--- function init_historyTableView
--- @brief
--------------------------------------
-function UI_Arena:init_historyTableView()
-    local vars = self.vars
-    local node = vars['defListNode']
-
-    node:removeAllChildren()
-
-    local l_item_list = g_colosseumData.m_matchHistory
-    
-    -- 생성 콜백
-    local function create_func(ui, data)
-    end
-
-    -- 테이블 뷰 인스턴스 생성
-    local table_view = UIC_TableView(node)
-    table_view.m_defaultCellSize = cc.size(720, 150 + 5)
-    table_view:setCellUIClass(UI_ArenaHistoryListItem, create_func)
-    table_view:setDirection(cc.SCROLLVIEW_DIRECTION_VERTICAL)
-    table_view:setItemList(l_item_list)
-
-    do-- 테이블 뷰 정렬
-        local function sort_func(a, b)
-            local a_data = a['data']
-            local b_data = b['data']
-
-            -- 매치 시간으로
-            local a_value = a_data.m_matchTime
-            local b_value = b_data.m_matchTime
-            --if (a_value ~= b_value) then
-                return a_value > b_value
-            --end
-        end
-
-        table.sort(table_view.m_itemList, sort_func)
-    end
-
-    table_view:makeDefaultEmptyDescLabel(Str('방어 내역이 없습니다.'))   
-end
-
 
 --@CHECK
 UI:checkCompileError(UI_Arena)
