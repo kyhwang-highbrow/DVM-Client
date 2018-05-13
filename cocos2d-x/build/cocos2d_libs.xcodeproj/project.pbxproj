@@ -1072,6 +1072,39 @@
 		37C899701F3B71E10092F159 /* AudioEngine.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 37C8994C1F3B700C0092F159 /* AudioEngine.cpp */; };
 		37D8E3D61A1F204E005E479B /* CCRotatePlate.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 37D8E3D41A1F1E94005E479B /* CCRotatePlate.cpp */; };
 		37D8E3D71A1F2062005E479B /* CCRotatePlate.h in Headers */ = {isa = PBXBuildFile; fileRef = 37D8E3D51A1F1E94005E479B /* CCRotatePlate.h */; };
+		37F4538F20A860660088399C /* libcrypto.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 37F4538D20A860660088399C /* libcrypto.a */; };
+		37F4539020A860660088399C /* libssl.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 37F4538E20A860660088399C /* libssl.a */; };
+		37F4539520A867BF0088399C /* CCPerpSpriter.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3770340B198F7B450091C231 /* CCPerpSpriter.cpp */; };
+		37F4539620A867D20088399C /* CCPerpSpriter.h in Headers */ = {isa = PBXBuildFile; fileRef = 3770340C198F7B450091C231 /* CCPerpSpriter.h */; };
+		37F4539720A867F80088399C /* CCPerpSCB.h in Headers */ = {isa = PBXBuildFile; fileRef = 3770340A198F7B450091C231 /* CCPerpSCB.h */; };
+		37F4539920A869FB0088399C /* libProtobuf.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 37F4539820A869FB0088399C /* libProtobuf.a */; };
+		37F4539A20A86BF20088399C /* CCRotatePlate.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 37D8E3D41A1F1E94005E479B /* CCRotatePlate.cpp */; };
+		37F4539B20A86BFA0088399C /* CCRotatePlate.h in Headers */ = {isa = PBXBuildFile; fileRef = 37D8E3D51A1F1E94005E479B /* CCRotatePlate.h */; };
+		37F4539C20A86C430088399C /* CCAzVRP.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 37703400198F7B020091C231 /* CCAzVRP.cpp */; };
+		37F4539D20A86C4D0088399C /* CCAzVRP.h in Headers */ = {isa = PBXBuildFile; fileRef = 37703401198F7B020091C231 /* CCAzVRP.h */; };
+		37F4539E20A86C790088399C /* AzBlend.h in Headers */ = {isa = PBXBuildFile; fileRef = 377033EC198F7B020091C231 /* AzBlend.h */; };
+		37F4539F20A86C790088399C /* AzDataDictionary.h in Headers */ = {isa = PBXBuildFile; fileRef = 377033EE198F7B020091C231 /* AzDataDictionary.h */; };
+		37F453A020A86C790088399C /* AzDataInfo.h in Headers */ = {isa = PBXBuildFile; fileRef = 377033EF198F7B020091C231 /* AzDataInfo.h */; };
+		37F453A120A86C790088399C /* AzDataTrip.h in Headers */ = {isa = PBXBuildFile; fileRef = 377033F1198F7B020091C231 /* AzDataTrip.h */; };
+		37F453A220A86C790088399C /* AzID.h in Headers */ = {isa = PBXBuildFile; fileRef = 377033F3198F7B020091C231 /* AzID.h */; };
+		37F453A320A86C790088399C /* azmodel.pb.h in Headers */ = {isa = PBXBuildFile; fileRef = 377033F5198F7B020091C231 /* azmodel.pb.h */; };
+		37F453A420A86C790088399C /* AzTM.h in Headers */ = {isa = PBXBuildFile; fileRef = 377033F8198F7B020091C231 /* AzTM.h */; };
+		37F453A520A86C790088399C /* azvisual.pb.h in Headers */ = {isa = PBXBuildFile; fileRef = 377033FA198F7B020091C231 /* azvisual.pb.h */; };
+		37F453A620A86C910088399C /* CCazVisual.h in Headers */ = {isa = PBXBuildFile; fileRef = 377033FF198F7B020091C231 /* CCazVisual.h */; };
+		37F453A720A86CD10088399C /* a2dLoader4x.h in Headers */ = {isa = PBXBuildFile; fileRef = 377033E7198F7B020091C231 /* a2dLoader4x.h */; };
+		37F453A820A86CD10088399C /* a2dToken4x.h in Headers */ = {isa = PBXBuildFile; fileRef = 377033E9198F7B020091C231 /* a2dToken4x.h */; };
+		37F453A920A86CD10088399C /* CCActionInterval3D.h in Headers */ = {isa = PBXBuildFile; fileRef = 377033FD198F7B020091C231 /* CCActionInterval3D.h */; };
+		37F453AA20A86CEE0088399C /* a2dLoader4x.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 377033E6198F7B020091C231 /* a2dLoader4x.cpp */; };
+		37F453AB20A86CEE0088399C /* a2dToken4x.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 377033E8198F7B020091C231 /* a2dToken4x.cpp */; };
+		37F453AC20A86CEE0088399C /* AzBlend.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 377033EB198F7B020091C231 /* AzBlend.cpp */; };
+		37F453AD20A86CEE0088399C /* AzDataDictionary.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 377033ED198F7B020091C231 /* AzDataDictionary.cpp */; };
+		37F453AE20A86CEE0088399C /* AzDataTrip.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 377033F0198F7B020091C231 /* AzDataTrip.cpp */; };
+		37F453AF20A86CEE0088399C /* AzID.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 377033F2198F7B020091C231 /* AzID.cpp */; };
+		37F453B020A86CEE0088399C /* azmodel.pb.cc in Sources */ = {isa = PBXBuildFile; fileRef = 377033F4198F7B020091C231 /* azmodel.pb.cc */; };
+		37F453B120A86CEE0088399C /* AzTM.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 377033F7198F7B020091C231 /* AzTM.cpp */; };
+		37F453B220A86CEE0088399C /* azvisual.pb.cc in Sources */ = {isa = PBXBuildFile; fileRef = 377033F9198F7B020091C231 /* azvisual.pb.cc */; };
+		37F453B320A86CEE0088399C /* CCActionInterval3D.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 377033FC198F7B020091C231 /* CCActionInterval3D.cpp */; };
+		37F453B420A86CEE0088399C /* CCazVisual.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 377033FE198F7B020091C231 /* CCazVisual.cpp */; };
 		3EA0FB6B191C841D00B170C8 /* UIVideoPlayer.h in Headers */ = {isa = PBXBuildFile; fileRef = 3EA0FB69191C841D00B170C8 /* UIVideoPlayer.h */; };
 		3EA0FB6C191C841D00B170C8 /* UIVideoPlayerIOS.mm in Sources */ = {isa = PBXBuildFile; fileRef = 3EA0FB6A191C841D00B170C8 /* UIVideoPlayerIOS.mm */; };
 		460E468118080832000CDD6D /* cocos-ext.h in Headers */ = {isa = PBXBuildFile; fileRef = 46A167D21807AF4D005B8026 /* cocos-ext.h */; };
@@ -2409,6 +2442,11 @@
 		37C8995C1F3B71520092F159 /* AudioPlayer.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = AudioPlayer.mm; sourceTree = "<group>"; };
 		37D8E3D41A1F1E94005E479B /* CCRotatePlate.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CCRotatePlate.cpp; sourceTree = "<group>"; };
 		37D8E3D51A1F1E94005E479B /* CCRotatePlate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CCRotatePlate.h; sourceTree = "<group>"; };
+		37F4538D20A860660088399C /* libcrypto.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libcrypto.a; path = ../external/openssl/prebuilt/mac/libcrypto.a; sourceTree = "<group>"; };
+		37F4538E20A860660088399C /* libssl.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libssl.a; path = ../external/openssl/prebuilt/mac/libssl.a; sourceTree = "<group>"; };
+		37F4539120A863960088399C /* libProtobuf.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libProtobuf.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		37F4539320A863C40088399C /* libcurl.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libcurl.a; path = ../external/curl/prebuilt/mac/libcurl.a; sourceTree = "<group>"; };
+		37F4539820A869FB0088399C /* libProtobuf.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libProtobuf.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		3EA0FB69191C841D00B170C8 /* UIVideoPlayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UIVideoPlayer.h; sourceTree = "<group>"; };
 		3EA0FB6A191C841D00B170C8 /* UIVideoPlayerIOS.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = UIVideoPlayerIOS.mm; sourceTree = "<group>"; };
 		46A15FCC1807A544005B8026 /* AUTHORS */ = {isa = PBXFileReference; lastKnownFileType = text; name = AUTHORS; path = ../AUTHORS; sourceTree = "<group>"; };
@@ -2951,13 +2989,16 @@
 			buildActionMask = 2147483647;
 			files = (
 				1A94D35116C2072800D79D09 /* Foundation.framework in Frameworks */,
-				1A570347180BD0850088DEC7 /* libglfw3.a in Frameworks */,
+				37F4538F20A860660088399C /* libcrypto.a in Frameworks */,
+				37F4539020A860660088399C /* libssl.a in Frameworks */,
+				1AAF5385180E35A3000584C8 /* libwebsockets.a in Frameworks */,
 				1A570361180BD1080088DEC7 /* libpng.a in Frameworks */,
 				1A57037B180BD1C90088DEC7 /* libjpeg.a in Frameworks */,
 				1A5703A1180BD22C0088DEC7 /* libtiff.a in Frameworks */,
 				1A5703B8180BD2780088DEC7 /* libwebp.a in Frameworks */,
 				1A57052B180BD31F0088DEC7 /* libfreetype.a in Frameworks */,
-				1AAF5385180E35A3000584C8 /* libwebsockets.a in Frameworks */,
+				37F4539920A869FB0088399C /* libProtobuf.a in Frameworks */,
+				1A570347180BD0850088DEC7 /* libglfw3.a in Frameworks */,
 				B3B12A5A17E7F44000026B4A /* libchipmunk Mac.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -3089,6 +3130,11 @@
 		1551A341158F2AB200E66CFE /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				37F4539820A869FB0088399C /* libProtobuf.a */,
+				37F4539320A863C40088399C /* libcurl.a */,
+				37F4539120A863960088399C /* libProtobuf.a */,
+				37F4538D20A860660088399C /* libcrypto.a */,
+				37F4538E20A860660088399C /* libssl.a */,
 				1551A342158F2AB200E66CFE /* Foundation.framework */,
 			);
 			name = Frameworks;
@@ -5073,6 +5119,22 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				37F453A720A86CD10088399C /* a2dLoader4x.h in Headers */,
+				37F453A820A86CD10088399C /* a2dToken4x.h in Headers */,
+				37F453A920A86CD10088399C /* CCActionInterval3D.h in Headers */,
+				37F453A620A86C910088399C /* CCazVisual.h in Headers */,
+				37F4539E20A86C790088399C /* AzBlend.h in Headers */,
+				37F4539F20A86C790088399C /* AzDataDictionary.h in Headers */,
+				37F453A020A86C790088399C /* AzDataInfo.h in Headers */,
+				37F453A120A86C790088399C /* AzDataTrip.h in Headers */,
+				37F453A220A86C790088399C /* AzID.h in Headers */,
+				37F453A320A86C790088399C /* azmodel.pb.h in Headers */,
+				37F453A420A86C790088399C /* AzTM.h in Headers */,
+				37F453A520A86C790088399C /* azvisual.pb.h in Headers */,
+				37F4539D20A86C4D0088399C /* CCAzVRP.h in Headers */,
+				37F4539B20A86BFA0088399C /* CCRotatePlate.h in Headers */,
+				37F4539720A867F80088399C /* CCPerpSCB.h in Headers */,
+				37F4539620A867D20088399C /* CCPerpSpriter.h in Headers */,
 				50ABBE9B1925AB6F00A911A9 /* CCRef.h in Headers */,
 				50ABBE851925AB6F00A911A9 /* ccFPSImages.h in Headers */,
 				5034CA39191D591100CE6051 /* ccShader_PositionColorLengthTexture.frag in Headers */,
@@ -6309,6 +6371,20 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				37F453AA20A86CEE0088399C /* a2dLoader4x.cpp in Sources */,
+				37F453AB20A86CEE0088399C /* a2dToken4x.cpp in Sources */,
+				37F453AC20A86CEE0088399C /* AzBlend.cpp in Sources */,
+				37F453AD20A86CEE0088399C /* AzDataDictionary.cpp in Sources */,
+				37F453AE20A86CEE0088399C /* AzDataTrip.cpp in Sources */,
+				37F453AF20A86CEE0088399C /* AzID.cpp in Sources */,
+				37F453B020A86CEE0088399C /* azmodel.pb.cc in Sources */,
+				37F453B120A86CEE0088399C /* AzTM.cpp in Sources */,
+				37F453B220A86CEE0088399C /* azvisual.pb.cc in Sources */,
+				37F453B320A86CEE0088399C /* CCActionInterval3D.cpp in Sources */,
+				37F453B420A86CEE0088399C /* CCazVisual.cpp in Sources */,
+				37F4539C20A86C430088399C /* CCAzVRP.cpp in Sources */,
+				37F4539A20A86BF20088399C /* CCRotatePlate.cpp in Sources */,
+				37F4539520A867BF0088399C /* CCPerpSpriter.cpp in Sources */,
 				378658811C31050D001DB2DC /* MeshAttachment.cpp in Sources */,
 				50ABBE2B1925AB6F00A911A9 /* ccCArray.cpp in Sources */,
 				1A01C68A18F57BE800EFE3A6 /* CCDeprecated.cpp in Sources */,
@@ -7363,7 +7439,7 @@
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = YES;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "../cocos/cocos2d-prefix.pch";
+				GCC_PREFIX_HEADER = "../cocos/platform/mac/cocos2d-prefix.pch";
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"$(inherited)",
 					CC_TARGET_OS_MAC,
@@ -7372,6 +7448,7 @@
 				HEADER_SEARCH_PATHS = "";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
+					"\"$(SRCROOT)/../external/openssl/prebuilt/mac\"",
 					"\"$(SRCROOT)/../external/glfw3/prebuilt/mac\"",
 					"\"$(SRCROOT)/../external/png/prebuilt/mac\"",
 					"\"$(SRCROOT)/../external/jpeg/prebuilt/mac\"",
@@ -7381,7 +7458,8 @@
 					"\"$(SRCROOT)/../external/websockets/prebuilt/mac\"",
 					"\"$(SRCROOT)/../external/protobuf/prebuilt/ios\"",
 				);
-				USER_HEADER_SEARCH_PATHS = "$(inherited) $(SRCROOT)/../external/png/include/mac $(SRCROOT)/../external/tiff/include/mac $(SRCROOT)/../external/webp/include/mac $(SRCROOT)/../external/jpeg/include/mac $(SRCROOT)/../external/freetype2/include/mac $(SRCROOT)/../external/websockets/include/mac $(SRCROOT)/../external/glfw3/include/mac $(SRCROOT)/../external/protobuf/include/ios";
+				USER_HEADER_SEARCH_PATHS = "$(inherited) $(SRCROOT)/../external/openssl/include/mac $(SRCROOT)/../external/png/include/mac $(SRCROOT)/../external/tiff/include/mac $(SRCROOT)/../external/webp/include/mac $(SRCROOT)/../external/jpeg/include/mac $(SRCROOT)/../external/freetype2/include/mac/freetype2 $(SRCROOT)/../external/websockets/include/mac $(SRCROOT)/../external/glfw3/include/mac $(SRCROOT)/../external/protobuf/include/ios";
+				VALID_ARCHS = "armv7 armv7s arm64 x86_64";
 			};
 			name = Debug;
 		};
@@ -7390,7 +7468,7 @@
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = YES;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "../cocos/cocos2d-prefix.pch";
+				GCC_PREFIX_HEADER = "../cocos/platform/mac/cocos2d-prefix.pch";
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"$(inherited)",
 					CC_KEYBOARD_SUPPORT,
@@ -7399,6 +7477,7 @@
 				HEADER_SEARCH_PATHS = "";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
+					"\"$(SRCROOT)/../external/openssl/prebuilt/mac\"",
 					"\"$(SRCROOT)/../external/glfw3/prebuilt/mac\"",
 					"\"$(SRCROOT)/../external/png/prebuilt/mac\"",
 					"\"$(SRCROOT)/../external/jpeg/prebuilt/mac\"",
@@ -7408,7 +7487,8 @@
 					"\"$(SRCROOT)/../external/websockets/prebuilt/mac\"",
 					"\"$(SRCROOT)/../external/protobuf/prebuilt/ios\"",
 				);
-				USER_HEADER_SEARCH_PATHS = "$(inherited) $(SRCROOT)/../external/png/include/mac $(SRCROOT)/../external/tiff/include/mac $(SRCROOT)/../external/webp/include/mac $(SRCROOT)/../external/jpeg/include/mac $(SRCROOT)/../external/freetype2/include/mac $(SRCROOT)/../external/websockets/include/mac $(SRCROOT)/../external/glfw3/include/mac $(SRCROOT)/../external/protobuf/include/ios";
+				USER_HEADER_SEARCH_PATHS = "$(inherited) $(SRCROOT)/../external/openssl/include/mac $(SRCROOT)/../external/png/include/mac $(SRCROOT)/../external/tiff/include/mac $(SRCROOT)/../external/webp/include/mac $(SRCROOT)/../external/jpeg/include/mac $(SRCROOT)/../external/freetype2/include/mac/freetype2 $(SRCROOT)/../external/websockets/include/mac $(SRCROOT)/../external/glfw3/include/mac $(SRCROOT)/../external/protobuf/include/ios";
+				VALID_ARCHS = "armv7 armv7s arm64 x86_64";
 			};
 			name = Release;
 		};
@@ -7418,6 +7498,7 @@
 				GCC_WARN_ABOUT_DEPRECATED_FUNCTIONS = NO;
 				HEADER_SEARCH_PATHS = "";
 				USER_HEADER_SEARCH_PATHS = "$(SRCROOT)/../external/chipmunk/include/chipmunk/";
+				VALID_ARCHS = "armv7 armv7s arm64 x86_64";
 			};
 			name = Debug;
 		};
@@ -7427,6 +7508,7 @@
 				GCC_WARN_ABOUT_DEPRECATED_FUNCTIONS = NO;
 				HEADER_SEARCH_PATHS = "";
 				USER_HEADER_SEARCH_PATHS = "$(SRCROOT)/../external/chipmunk/include/chipmunk/";
+				VALID_ARCHS = "armv7 armv7s arm64 x86_64";
 			};
 			name = Release;
 		};
@@ -7441,6 +7523,7 @@
 				GCC_WARN_UNUSED_VARIABLE = NO;
 				HEADER_SEARCH_PATHS = "$(SRCROOT)/../external/";
 				USER_HEADER_SEARCH_PATHS = "";
+				VALID_ARCHS = "armv7 armv7s arm64 x86_64";
 			};
 			name = Debug;
 		};
@@ -7455,6 +7538,7 @@
 				GCC_WARN_UNUSED_VARIABLE = NO;
 				HEADER_SEARCH_PATHS = "$(SRCROOT)/../external/";
 				USER_HEADER_SEARCH_PATHS = "";
+				VALID_ARCHS = "armv7 armv7s arm64 x86_64";
 			};
 			name = Release;
 		};
@@ -7471,6 +7555,7 @@
 					"$(inherited)",
 					"/Applications/Xcode\\ 2.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include",
 				);
+				VALID_ARCHS = "armv7 armv7s arm64";
 			};
 			name = Debug;
 		};
@@ -7481,6 +7566,7 @@
 					"$(inherited)",
 					"/Applications/Xcode\\ 2.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include",
 				);
+				VALID_ARCHS = "armv7 armv7s arm64";
 			};
 			name = Release;
 		};
@@ -7491,6 +7577,7 @@
 				GCC_PREPROCESSOR_DEFINITIONS = CC_TARGET_OS_MAC;
 				HEADER_SEARCH_PATHS = "";
 				USER_HEADER_SEARCH_PATHS = "$(inherited) $(SRCROOT)/../cocos/platform/mac";
+				VALID_ARCHS = "armv7 armv7s arm64 x86_64";
 			};
 			name = Debug;
 		};
@@ -7501,6 +7588,7 @@
 				GCC_PREPROCESSOR_DEFINITIONS = CC_TARGET_OS_MAC;
 				HEADER_SEARCH_PATHS = "";
 				USER_HEADER_SEARCH_PATHS = "$(inherited) $(SRCROOT)/../cocos/platform/mac";
+				VALID_ARCHS = "armv7 armv7s arm64 x86_64";
 			};
 			name = Release;
 		};
@@ -7516,6 +7604,7 @@
 				HEADER_SEARCH_PATHS = "";
 				LIBRARY_SEARCH_PATHS = "$(inherited)";
 				USER_HEADER_SEARCH_PATHS = "$(inherited) $(SRCROOT)/../cocos/platform/mac $(SRCROOT)/../cocos/platform/desktop $(SRCROOT)/../external/glfw3/include/mac";
+				VALID_ARCHS = "armv7 armv7s arm64 x86_64";
 			};
 			name = Debug;
 		};
@@ -7531,6 +7620,7 @@
 				HEADER_SEARCH_PATHS = "";
 				LIBRARY_SEARCH_PATHS = "$(inherited)";
 				USER_HEADER_SEARCH_PATHS = "$(inherited) $(SRCROOT)/../cocos/platform/mac $(SRCROOT)/../cocos/platform/desktop $(SRCROOT)/../external/glfw3/include/mac";
+				VALID_ARCHS = "armv7 armv7s arm64 x86_64";
 			};
 			name = Release;
 		};
@@ -7540,7 +7630,7 @@
 				ALWAYS_SEARCH_USER_PATHS = YES;
 				ARCHS = "$(ARCHS_STANDARD)";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "../cocos/cocos2d-prefix.pch";
+				GCC_PREFIX_HEADER = "../cocos/platform/ios/cocos2d-prefix.pch";
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"$(inherited)",
 					CC_TARGET_OS_IPHONE,
@@ -7574,7 +7664,7 @@
 				ALWAYS_SEARCH_USER_PATHS = YES;
 				ARCHS = "$(ARCHS_STANDARD)";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "../cocos/cocos2d-prefix.pch";
+				GCC_PREFIX_HEADER = "../cocos/platform/ios/cocos2d-prefix.pch";
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"$(inherited)",
 					CC_TARGET_OS_IPHONE,
