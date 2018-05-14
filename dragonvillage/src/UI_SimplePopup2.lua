@@ -20,7 +20,8 @@ function UI_SimplePopup2:init(popup_type, msg, submsg, ok_btn_cb, cancel_btn_cb,
     self.m_submsg = msg
     self.m_cbOKBtn = ok_btn_cb
     self.m_cbCancelBtn = cancel_btn_cb
-
+    self.m_uiName = 'UI_SimplePopup2'
+    
     local vars = self:load('popup_02.ui')
     UIManager:open(self, ui_z_order or UIManager.POPUP)
 

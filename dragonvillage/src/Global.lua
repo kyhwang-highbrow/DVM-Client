@@ -129,35 +129,18 @@ function FilterMsg(str)
     return true
 end
 
-local L_BAN_WORD
 -------------------------------------
 -- function CheckBlockStr
 -- @brief 문자열 필터링
 -------------------------------------
 function CheckBlockStr(str, proceed_func, cancel_func)
-    local stop_watch = Stopwatch()
-    stop_watch:start()
-    
-    -- 긴 문자열 순으로 나열한 리스트 생성
-    -- 폰에서는 테이블로 변환할때 정렬해버리자
-    if (not L_BAN_WORD) then
-        local t_ban_word = TABLE:get('table_ban_word_chat')
-        if (not t_ban_word) then
-            if (proceed_func) then
-                proceed_func()
-            end
-            return
+    -- 긴 문자열 순으로 나열된 테이블
+    local t_ban_word = TABLE:get('table_ban_word_chat')
+    if (not t_ban_word) then
+        if (proceed_func) then
+            proceed_func()
         end
-        stop_watch:record('init')
-    
-        L_BAN_WORD = {}
-        for _, v in pairs(t_ban_word) do
-            table.insert(L_BAN_WORD, v['word'])
-        end
-        table.sort(L_BAN_WORD, function(a, b)
-            return uc_len(tostring(a)) > uc_len(tostring(b))
-        end)
-        stop_watch:record('table sort')
+        return
     end
 
     -- 모두 소문자로 변경
@@ -165,7 +148,9 @@ function CheckBlockStr(str, proceed_func, cancel_func)
 
     -- 금칙어 추출
     local l_match_list = {}
-    for _, word in ipairs(L_BAN_WORD) do
+    local word = nil
+    for _, t_word in ipairs(t_ban_word) do
+        word = t_word['word']
         if string.match(lower_str, string.lower(word)) then
             table.insert(l_match_list, word)
             lower_str = string.gsub(lower_str, string.lower(word), '')
@@ -177,9 +162,6 @@ function CheckBlockStr(str, proceed_func, cancel_func)
         
 	end
     
-    stop_watch:record('find match')
-    stop_watch:stop()
-    stop_watch:print()
     -- match
     if (table.count(l_match_list) == 0) then
         if (proceed_func) then
@@ -191,7 +173,7 @@ function CheckBlockStr(str, proceed_func, cancel_func)
         for _, word in ipairs(l_match_list) do
             str = string.gsub(str, word, '{@RED}' .. word .. '{@WHITE}')
         end
-        local ban_word = '{@RED}' .. tableToString(l_match_list, ' ')
+        str = '{@WHITE}' .. str
         local warning = '{@DESC}' .. Str('금칙어가 포함되었습니다. 입력을 계속하시겠습니까?\n(욕설이나 부적절한 단어 사용이 확인되었을 시 제재를 받을 수 있습니다.)')
         MakeSimplePopup2(POPUP_TYPE.YES_NO, str, warning, proceed_func, cancel_func)
     end
