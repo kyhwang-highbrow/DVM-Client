@@ -295,6 +295,68 @@ function GameWorldArena:prepareAuto()
 end
 
 -------------------------------------
+-- function setBattleZone
+-- @brief 전투영역 설정
+-------------------------------------
+function GameWorldArena:setBattleZone(formation, immediately, is_right)
+
+    local rage = (70 * 5)
+
+    -- 실제 사각형 영역
+    local min_x = 0
+    local max_x = rage
+    local min_y = -(rage / 2)
+    local max_y = (rage / 2)
+
+    -- 드래곤의 포지션 영역 padding처리
+    local padding_x = 20
+    local padding_y = 56
+    min_x = (min_x + padding_x)
+    max_x = (max_x - padding_x)
+    min_y = (min_y + padding_y)
+    max_y = (max_y - padding_y)
+
+    -- offset 지정(카메라 역할)
+    local cameraHomePosX, cameraHomePosY = self.m_gameCamera:getHomePos()
+    local offset_x
+    local offset_y
+    local lUnitList
+
+    local x_start_offset = 150 + 85
+    if (is_right) then
+        offset_x = cameraHomePosX + (CRITERIA_RESOLUTION_X / 2) + x_start_offset
+        offset_y = cameraHomePosY + 30
+        lUnitList = self.m_rightParticipants
+    else
+        offset_x = cameraHomePosX + (CRITERIA_RESOLUTION_X / 2) - x_start_offset - rage
+        offset_y = cameraHomePosY + 30
+        lUnitList = self.m_leftParticipants
+    end
+    
+    min_x = (min_x + offset_x)
+    max_x = (max_x + offset_x)
+    min_y = (min_y + offset_y)
+    max_y = (max_y + offset_y)
+
+    local l_pos_list = TableFormationArena:getFormationPositionList(formation, min_x, max_x, min_y, max_y, is_right)
+
+    for _, unit in pairs(lUnitList) do
+        local pos_idx = unit:getPosIdx()
+        local pos_x = l_pos_list[pos_idx]['x']
+        local pos_y = l_pos_list[pos_idx]['y']
+        
+        unit:setOrgHomePos(pos_x, pos_y)
+
+        if immediately then
+            unit:setHomePos(pos_x, pos_y)
+            unit:setPosition(pos_x, pos_y)
+        else
+            unit:changeHomePos(pos_x, pos_y)
+        end
+    end
+end
+
+-------------------------------------
 -- function isPossibleControl
 -------------------------------------
 function GameWorldArena:isPossibleControl()
@@ -308,9 +370,9 @@ end
 function GameWorldArena:makeHeroDeck()
     -- 서버에 저장된 드래곤 덱 사용
     local is_friendMatch = g_gameScene.m_bFriendMatch
-    local user_info = (is_friendMatch) and g_friendMatchData.m_playerUserInfo or g_colosseumData.m_playerUserInfo
+    local user_info = (is_friendMatch) and g_friendMatchData.m_playerUserInfo or g_arenaData.m_playerUserInfo
 
-    local t_pvp_deck = user_info:getPvpAtkDeck()
+    local t_pvp_deck = user_info:getPvpDeck()
     local l_deck = user_info:getAtkDeck_dragonList(true)
     local formation = t_pvp_deck['formation']
     local formation_lv = t_pvp_deck['formationlv']
@@ -341,7 +403,7 @@ function GameWorldArena:makeHeroDeck()
                 self:addHero(hero)
 
                 -- 진형 버프 적용
-                hero.m_statusCalc:applyFormationBonus(formation, formation_lv, i)
+                hero.m_statusCalc:applyArenaFormationBonus(formation, formation_lv, i)
 
                 -- 스테이지 버프 적용
                 hero.m_statusCalc:applyStageBonus(self.m_stageID)
@@ -371,16 +433,16 @@ function GameWorldArena:makeEnemyDeck()
     local is_friendMatch = g_gameScene.m_bFriendMatch
 
     if (self.m_bDevelopMode) then
-        local user_info = (is_friendMatch) and g_friendMatchData.m_playerUserInfo or g_colosseumData.m_playerUserInfo
+        local user_info = (is_friendMatch) and g_friendMatchData.m_playerUserInfo or g_arenaData.m_playerUserInfo
         -- 개발모드에선 자신의 방어덱을 상대로 설정
-        t_pvp_deck = user_info:getPvpDefDeck()
-        l_deck = user_info:getDefDeck_dragonList(true)
+        t_pvp_deck = user_info:getPvpDeck()
+        l_deck = user_info:getAtkDeck_dragonList(true)
         getDragonObject = function(doid) return g_dragonsData:getDragonDataFromUid(doid) end
     else
         -- 상대방의 덱 정보를 얻어옴
-        local user_info =(is_friendMatch) and g_friendMatchData.m_matchInfo or g_colosseumData:getMatchUserInfo()
-        t_pvp_deck = user_info:getPvpDefDeck()
-        l_deck = user_info:getDefDeck_dragonList(true)
+        local user_info =(is_friendMatch) and g_friendMatchData.m_matchInfo or g_arenaData:getMatchUserInfo()
+        t_pvp_deck = user_info:getPvpDeck()
+        l_deck = user_info:getAtkDeck_dragonList(true)
         getDragonObject = function(doid) return user_info:getDragonObject(doid) end
     end
 
@@ -424,7 +486,7 @@ function GameWorldArena:makeEnemyDeck()
                 self:addEnemy(enemy, tonumber(i))
 
                 -- 진형 버프 적용
-                -- enemy.m_statusCalc:applyFormationBonus(formation, formation_lv, i)
+                enemy.m_statusCalc:applyArenaFormationBonus(formation, formation_lv, i)
 
                 -- 스테이지 버프 적용
                 enemy.m_statusCalc:applyStageBonus(self.m_stageID)

@@ -410,7 +410,7 @@ function GameState_Arena:makeResultUI(is_win)
 
         -- 1. 네트워크 통신
         func_network_game_finish = function()
-            g_colosseumData:request_colosseumFinish(is_win, func_ui_result)
+            g_arenaData:request_arenaFinish(is_win, func_ui_result)
         end
 
         -- 2. UI 생성

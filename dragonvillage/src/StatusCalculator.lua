@@ -346,6 +346,27 @@ function StatusCalculator:applyFormationBonus(formation, formation_lv, slot_idx)
 end
 
 -------------------------------------
+-- function applyArenaFormationBonus
+-- @brief 아레나 진형 버프 적용 (다른 status effect처럼 패시브 형태로 동작함)
+-------------------------------------
+function StatusCalculator:applyArenaFormationBonus(formation, formation_lv, slot_idx)
+    local l_buff = TableFormationArena:getBuffList(formation, formation_lv, slot_idx)
+
+    for i,v in ipairs(l_buff) do
+        local action = v['action']
+        local status = v['status']
+        local value = v['value']
+
+        if (action == 'multi') then
+            self:addFormationMulti(status, value)
+        elseif (action == 'add') then
+            self:addFormationAdd(status, value)
+        end
+        
+    end
+end
+
+-------------------------------------
 -- function applyFriendBuff
 -- @brief 친구 버프 적용
 -------------------------------------
