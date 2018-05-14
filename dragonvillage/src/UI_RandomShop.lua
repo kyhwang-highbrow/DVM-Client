@@ -111,12 +111,13 @@ function UI_RandomShop:initTableView()
     node:removeAllChildren()
     
     local l_item_list = g_randomShopData:getProductList()
-    local first_item_data = l_item_list[1]
-
-    -- 상품 갱신되면 첫번째 아이템 선택되게
-    self.m_selectItem = StructRandomShopItem(first_item_data)
-
     local function create_func(ui, data)
+        local struct_item = data
+        local product_idx = struct_item:getProductIdx()
+        -- 상품 갱신되면 첫번째 아이템 선택되게
+        if (tonumber(product_idx) == 1) then
+            self:click_selectItem(ui)
+        end
         ui.vars['selectBtn']:registerScriptTapHandler(function() self:click_selectItem(ui) end)
     end
 
@@ -133,7 +134,6 @@ end
 -- function refresh
 -------------------------------------
 function UI_RandomShop:refresh()
-    self:refresh_itemInfo()
 end
 
 -------------------------------------
@@ -296,6 +296,8 @@ function UI_RandomShop:refresh_shopInfo()
 
     local finish_cb = function()
         self:initTableView()
+        self:refresh_itemInfo()
+
         -- UI 블럭 해제
         block_ui:close()
         -- 백키 블럭 해제
@@ -341,13 +343,15 @@ end
 function UI_RandomShop:click_selectItem(tar_ui)
     for i,v in pairs(self.m_tableViewTD.m_itemList) do
         local ui = v['ui'] or v['generated_ui']
-        ui.vars['selectSprite']:setVisible(false)
+        if (ui) then
+            ui.vars['selectSprite']:setVisible(false)
+        end
     end
 
     tar_ui.vars['selectSprite']:setVisible(true)
     self.m_selectUI = tar_ui
     self.m_selectItem = tar_ui.m_structItem
-    self:refresh()
+    self:refresh_itemInfo()
 end
 
 -------------------------------------
