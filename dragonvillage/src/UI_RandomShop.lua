@@ -67,18 +67,28 @@ function UI_RandomShop:initUI()
     end
 
     do -- 갱신시간
-        local function update(dt)
-            if (g_randomShopData.m_bDirty) then
-                g_randomShopData.m_bDirty = false
-                self:refresh_shopInfo()
-                vars['timeLabel']:setString('')
-            else
-                local str = g_randomShopData:getStatusText()
-                vars['timeLabel']:setString(str)
-            end
-        end
-        self.root:scheduleUpdateWithPriorityLua(function(dt) update(dt) end, 0)
+        self:registerUpdate()
     end
+end
+
+-------------------------------------
+-- function registerUpdate
+-------------------------------------
+function UI_RandomShop:registerUpdate()
+    local vars = self.vars
+    local function update(dt)
+        if (g_randomShopData.m_bDirty) then
+            g_randomShopData.m_bDirty = false
+            self:refresh_shopInfo()
+            vars['timeLabel']:setString('')
+            -- 중복 호출 막기 위해 스케쥴러 해제
+            self.root:unscheduleUpdate()
+        else
+            local str = g_randomShopData:getStatusText()
+            vars['timeLabel']:setString(str)
+        end
+    end
+    self.root:scheduleUpdateWithPriorityLua(function(dt) update(dt) end, 0)
 end
 
 -------------------------------------
@@ -293,6 +303,8 @@ function UI_RandomShop:refresh_shopInfo()
 
         local msg = Str('새로운 상품으로 교체되었습니다.')
         UIManager:toastNotificationGreen(msg)
+
+        self:registerUpdate()
     end
 
     cclog('# 랜덤 상점 무료 갱신중')
