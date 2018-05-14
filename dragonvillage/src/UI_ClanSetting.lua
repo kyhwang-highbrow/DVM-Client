@@ -93,16 +93,6 @@ end
 function UI_ClanSetting:initEditBox()
     local vars = self.vars
 
-    local function check_text(str)
-        local is_ok_word, msg = FilterMsg(str)
-        if (is_ok_word) then
-            return true
-        else
-            MakeSimplePopup(POPUP_TYPE.OK, msg)
-            return false
-        end
-    end
-
     -- intro editBox handler 등록
 	local function intro_event_handler(event_name, p_sender)
         if (event_name == "began") then
@@ -119,11 +109,15 @@ function UI_ClanSetting:initEditBox()
                 str = ' '
             end
 
-            if (check_text(str)) then
-                vars['introduceLabel']:setString(str)
+			-- 비속어 필터링
+			local function proceed_func()
+				vars['introduceLabel']:setString(str)
                 self.m_clanIntroText = str
                 self.m_bChangedClanSet = true
-            end
+			end
+			local function cancel_func()
+			end
+			CheckBlockStr(str, proceed_func, cancel_func)
         end
     end
     vars['introduceEditBox']:registerScriptEditBoxHandler(intro_event_handler)
@@ -145,11 +139,15 @@ function UI_ClanSetting:initEditBox()
                 str = ' '
             end
 
-            if (check_text(str)) then
-                vars['noticeLabel']:setString(str)
+			-- 비속어 필터링
+			local function proceed_func()
+				vars['noticeLabel']:setString(str)
                 self.m_clanNoticeText = str
                 self.m_bChangedClanSet = true
-            end
+			end
+			local function cancel_func()
+			end
+			CheckBlockStr(str, proceed_func, cancel_func)
         end
     end
     vars['noticeEditBox']:registerScriptEditBoxHandler(notice_event_handler)

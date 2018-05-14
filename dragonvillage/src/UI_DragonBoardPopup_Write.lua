@@ -62,7 +62,7 @@ function UI_DragonBoardPopup_Write:initButton()
 	local function editBoxTextEventHandle(strEventName, pSender)
         if (strEventName == "return") then
 			-- @TODO 키보드 입력이 종료될 때 텍스트 검증을 한다.
-			local context, is_valid = self:validateEditText()
+			--local context, is_valid = self:validateEditText()
 
             -- editLabel에 글자를 찍어준다.
             -- vars['editLabel']:setString(context)
@@ -102,14 +102,6 @@ function UI_DragonBoardPopup_Write:validateEditText()
 
 	end
 
-    -- 비속어 필터링
-    if (not FilterMsg(context)) then
-        UIManager:toastNotificationRed(Str('사용할 수 없는 표현이 포함되어 있습니다.'))
-        context = ''
-        vars['editBox']:setText('')
-        is_valid = false
-    end
-
 	return context, is_valid
 end
 
@@ -127,13 +119,18 @@ end
 function UI_DragonBoardPopup_Write:click_writeBtn()
 	local vars = self.vars
 	local context, is_valid = self:validateEditText()
-
 	if (is_valid) then
-		local did = self.m_did
-		local function cb_func()
-			self:close()
+		-- 비속어 필터링
+		local function proceed_func()
+			local did = self.m_did
+			local function cb_func()
+				self:close()
+			end
+			g_boardData:request_writeBoard(did, context, cb_func)
 		end
-		g_boardData:request_writeBoard(did, context, cb_func)
+		local function cancel_func()
+		end
+		CheckBlockStr(context, proceed_func, cancel_func)
 	end
 end
 
