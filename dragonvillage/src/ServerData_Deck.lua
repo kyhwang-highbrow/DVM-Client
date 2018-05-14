@@ -62,8 +62,17 @@ end
 function ServerData_Deck:getDeck(type)
     type = type or self.m_selectedDeck or 'adv'
 
+    -- 콜로세움 (신규) 덱 예외처리
+    if (type == 'arena') then
+        if (not g_arenaData.m_playerUserInfo) then
+            return {}, self:adjustFormationName('default'), type, 1
+        end
+
+        local l_doid, formation, type, leader, tamer_id = g_arenaData.m_playerUserInfo:getDeck(type)
+        return l_doid, self:adjustFormationName(formation), type, leader, tamer_id
+
     -- 콜로세움 덱 예외처리
-    if (type == 'pvp_atk') or (type == 'pvp_def') then
+    elseif (type == 'pvp_atk') or (type == 'pvp_def') then
         if (not g_colosseumData.m_playerUserInfo) then
             return {}, self:adjustFormationName('default'), type, 1
         end

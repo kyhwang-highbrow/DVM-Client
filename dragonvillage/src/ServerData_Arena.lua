@@ -4,16 +4,13 @@
 ServerData_Arena = class({
         m_serverData = 'ServerData',
 
-        m_playerUserInfo = 'StructUserInfoColosseum',
-        m_playerUserInfoHighRecord = 'StructUserInfoColosseum',
+        m_playerUserInfo = 'StructUserInfoArena',
+        m_playerUserInfoHighRecord = 'StructUserInfoArena',
+
+        m_matchUserInfo = 'StructUserInfoArena',
 
         m_startTime = 'timestamp', -- 콜로세움 오픈 시간
         m_endTime = 'timestamp', -- 콜로세움 종료 시간
-
-        -- 공격전 대상 리스트 갱신 시간
-        m_refreshFreeTime = 'timestamp',
-
-        m_matchList = '',
 
         m_matchUserID = '',
         m_gameKey = 'number',
@@ -75,74 +72,23 @@ end
 -------------------------------------
 -- function response_arenaInfo
 -------------------------------------
-function ServerData_Arena:response_arenaInfo(ret)
-    
---    -- 주간 보상이 넘어왔을 경우
---    g_serverData:networkCommonRespone_addedItems(ret)
+function ServerData_Arena:response_arenaInfo(ret)    
+    -- 주간 보상이 넘어왔을 경우
+    g_serverData:networkCommonRespone_addedItems(ret)
 
---    self:refresh_matchList(ret['matchlist'])
+	self.m_bOpen = ret['open']
+    self.m_startTime = ret['start_time']
+    self.m_endTime = ret['end_time'] or ret['endtime']
 
---	self.m_bOpen = ret['open']
---    self.m_startTime = ret['start_time']
---    self.m_endTime = ret['end_time'] or ret['endtime']
+    self:refresh_playerUserInfo(ret['season'], ret['deck'])
+    self:refresh_playerUserInfo_highRecord(ret['hiseason'])
 
---    self:refresh_playerUserInfo(ret['season'], ret['deck'])
---    self:refresh_playerUserInfo_highRecord(ret['hiseason'])
+    -- 주간 보상
+    self:setRewardInfo(ret)
 
---    -- 공격전 대상 리스트 갱신 시간
---    self.m_refreshFreeTime = ret['refresh']
-
---    -- 주간 보상
---    self:setRewardInfo(ret)
-
---    -- 버프 발동 종료 시간
---    self.m_buffTime = ret['bufftime']
---    self.m_buffWin = ret['buffwin']
-end
-
--------------------------------------
--- function refresh_matchList
--------------------------------------
-function ServerData_Arena:refresh_matchList(l_match_list)
-    self.m_matchList = {}
-
-    for i, v in pairs(l_match_list) do
-
-		-- 서버에서 잘못된 데이터가 넘어오는 경우 클라에서 처리하지 않음
-		-- (여러 값들이 null로 오는 경우가 있음)
-        if v['uid'] then
-            local struct_user_info = StructUserInfoColosseum()
-
-            -- 기본 유저 정보
-            struct_user_info.m_uid = v['uid']
-            struct_user_info.m_nickname = v['nick']
-            struct_user_info.m_lv = v['lv']
-            struct_user_info.m_tamerID = v['tamer']
-            struct_user_info.m_leaderDragonObject = StructDragonObject(v['leader'])
-            struct_user_info.m_tier = v['tier']
-
-            -- 콜로세움 유저 정보
-            struct_user_info.m_rp = v['rp']
-            struct_user_info.m_matchResult = v['match']
-
-            struct_user_info:applyRunesDataList(v['runes']) --반드시 드래곤 설정 전에 룬을 설정해야함
-            struct_user_info:applyDragonsDataList(v['dragons'])
-            --v['match']
-
-            -- 덱 정보 (매치리스트에 넘어오는 덱은 해당 유저의 방어덱)
-            struct_user_info:applyPvpDefDeckData(v['deck'])
-
-            -- 클랜
-            if (v['clan_info']) then
-                local struct_clan = StructClan({})
-                struct_clan:applySimple(v['clan_info'])
-                struct_user_info:setStructClan(struct_clan)
-            end
-
-            local uid = v['uid']
-            self.m_matchList[uid] = struct_user_info
-        end
-    end
+    -- 버프 발동 종료 시간
+    self.m_buffTime = ret['bufftime']
+    self.m_buffWin = ret['buffwin']
 end
 
 -------------------------------------
@@ -154,10 +100,10 @@ function ServerData_Arena:isOpen()
 end
 
 -------------------------------------
--- function isOpenColosseum
+-- function isOpenArena
 -- @breif 콜로세움 오픈 여부
 -------------------------------------
-function ServerData_Arena:isOpenColosseum()
+function ServerData_Arena:isOpenArena()
     local curr_time = Timer:getServerTime()
     local start_time = (self.m_startTime / 1000)
     local end_time = (self.m_endTime / 1000)
@@ -182,7 +128,7 @@ end
 function ServerData_Arena:refresh_playerUserInfo(t_data, l_deck)
     if (not self.m_playerUserInfo) then
         -- 플레이어 유저 정보 생성
-        local struct_user_info = StructUserInfoColosseum()
+        local struct_user_info = StructUserInfoArena()
         struct_user_info.m_uid = g_userData:get('uid')
 		struct_user_info:setStructClan(g_clanData:getClanStruct())
         self.m_playerUserInfo = struct_user_info
@@ -194,18 +140,8 @@ function ServerData_Arena:refresh_playerUserInfo(t_data, l_deck)
 
     -- 덱 설정
     if l_deck then
-        for i,v in pairs(l_deck) do
-            local deck_name = v['deckName']
-            -- 공격 덱
-            if (deck_name == 'atk') then
-                self.m_playerUserInfo:applyPvpAtkDeckData(v)
-
-            -- 방어 덱
-            elseif (deck_name == 'def') then
-                self.m_playerUserInfo:applyPvpDefDeckData(v)
-
-            end
-        end
+        l_deck['deckName'] = 'arena' -- 서버 작업이 안되서 arena로 일딴 설정
+        self.m_playerUserInfo:applyPvpDeckData(l_deck)
     end
 end
 
@@ -216,7 +152,7 @@ end
 function ServerData_Arena:refresh_playerUserInfo_highRecord(t_data)
     if (not self.m_playerUserInfoHighRecord) then
         -- 플레이어 유저 정보 생성
-        local struct_user_info = StructUserInfoColosseum()
+        local struct_user_info = StructUserInfoArena()
         struct_user_info.m_uid = g_userData:get('uid')
         self.m_playerUserInfoHighRecord = struct_user_info
     end
@@ -264,30 +200,30 @@ function ServerData_Arena:_refresh_playerUserInfo(struct_user_info, t_data)
 end
 
 -------------------------------------
--- function getPlayerColosseumUserInfo
+-- function getPlayerArenaUserInfo
 -------------------------------------
-function ServerData_Arena:getPlayerColosseumUserInfo()
+function ServerData_Arena:getPlayerArenaUserInfo()
     return self.m_playerUserInfo
 end
 
 -------------------------------------
--- function getPlayerColosseumUserInfoHighRecord
+-- function getPlayerArenaUserInfoHighRecord
 -------------------------------------
-function ServerData_Arena:getPlayerColosseumUserInfoHighRecord()
+function ServerData_Arena:getPlayerArenaUserInfoHighRecord()
     return self.m_playerUserInfoHighRecord
 end
 
 -------------------------------------
--- function getColosseumStatusText
+-- function getArenaStatusText
 -------------------------------------
-function ServerData_Arena:getColosseumStatusText()
+function ServerData_Arena:getArenaStatusText()
     local curr_time = Timer:getServerTime()
 
     local start_time = (self.m_startTime / 1000)
     local end_time = (self.m_endTime / 1000)
 
     local str = ''
-    if (not self:isOpenColosseum()) then
+    if (not self:isOpenArena()) then
         local time = (start_time - curr_time)
         str = Str('{1} 남았습니다.', datetime.makeTimeDesc(time, true))
 
@@ -305,17 +241,6 @@ function ServerData_Arena:getColosseumStatusText()
     end
 
     return str
-end
-
--------------------------------------
--- function isFreeRefresh
--- @breif
--------------------------------------
-function ServerData_Arena:isFreeRefresh()
-    local curr_time = Timer:getServerTime()
-    local refresh_free_time = (self.m_refreshFreeTime / 1000)
-	
-	return (refresh_free_time < curr_time)
 end
 
 -------------------------------------
@@ -339,61 +264,49 @@ function ServerData_Arena:getRefreshStatusText()
 end
 
 -------------------------------------
--- function request_atkListRefresh
+-- function makeMatchUserInfo
 -------------------------------------
-function ServerData_Arena:request_atkListRefresh(finish_cb, fail_cb)
-    -- 유저 ID
-    local uid = g_userData:get('uid')
+function ServerData_Arena:makeMatchUserInfo(data)
+    local struct_user_info = StructUserInfoArena()
 
-    -- 성공 콜백
-    local function success_cb(ret)        
-        -- cash 정보를 갱신
-        g_serverData:networkCommonRespone(ret)
+    -- 기본 유저 정보
+    struct_user_info.m_uid = data['uid']
+    struct_user_info.m_nickname = data['nick']
+    struct_user_info.m_lv = data['lv']
+    struct_user_info.m_tamerID = data['tamer']
+    struct_user_info.m_leaderDragonObject = StructDragonObject(data['leader'])
+    struct_user_info.m_tier = data['tier']
 
-        -- 매치 리스트 갱신
-        self:refresh_matchList(ret['matchlist'])
+    -- 콜로세움 유저 정보
+    struct_user_info.m_rp = data['rp']
+    struct_user_info.m_matchResult = data['match']
 
-        -- 다음 무료 새로고침 가능한 시간
-        if ret['refresh'] then
-            self.m_refreshFreeTime = ret['refresh']
-        end
+    struct_user_info:applyRunesDataList(data['runes']) --반드시 드래곤 설정 전에 룬을 설정해야함
+    struct_user_info:applyDragonsDataList(data['dragons'])
 
-        if finish_cb then
-            finish_cb(ret)
-        end
+    -- 덱 정보 (매치리스트에 넘어오는 덱은 해당 유저의 방어덱)
+    struct_user_info:applyPvpDeckData(data['deck'])
 
-        -- 매치 리스트가 갱신이 되지 않았을 경우 안내 팝업
-        if ret['nomatch'] then
-            local msg = Str('더 이상 대전상대를 찾을 수 없습니다.\n잠시 후에 다시 시도해 주세요.')
-            local submsg = Str('(대전상대를 찾지 못하면 무료횟수 및 다이아가 소비되지 않습니다.)')
-            MakeSimplePopup2(POPUP_TYPE.OK, msg, submsg)
-        end
+    -- 클랜
+    if (data['clan_info']) then
+        local struct_clan = StructClan({})
+        struct_clan:applySimple(data['clan_info'])
+        struct_user_info:setStructClan(struct_clan)
     end
 
-    -- 네트워크 통신
-    local ui_network = UI_Network()
-    ui_network:setUrl('/game/pvp/refresh')
-    ui_network:setParam('uid', uid)
-    ui_network:setMethod('POST')
-    ui_network:setSuccessCB(success_cb)
-    ui_network:setFailCB(fail_cb)
-    ui_network:setRevocable(true)
-    ui_network:setReuse(false)
-    ui_network:request()
-
-    return ui_network
+    local uid = data['uid']
+    self.m_matchUserInfo = struct_user_info
 end
 
 -------------------------------------
 -- function getMatchUserInfo
 -------------------------------------
 function ServerData_Arena:getMatchUserInfo()
-    if (not self.m_matchUserID) then
+    if (not self.m_matchUserInfo) then
         return nil
     end
 
-    local uid = self.m_matchUserID
-    return self.m_matchList[uid]
+    return self.m_matchUserInfo
 end
 
 -------------------------------------
@@ -401,11 +314,6 @@ end
 -------------------------------------
 function ServerData_Arena:request_setDeck(deckname, formation, leader, l_edoid, tamer, finish_cb, fail_cb)
     local _deckname = deckname
-    if (deckname == 'pvp_atk') then
-        _deckname = 'atk'
-    elseif (deckname == 'pvp_def') then
-        _deckname = 'def'
-    end
 
     -- 유저 ID
     local uid = g_userData:get('uid')
@@ -413,7 +321,7 @@ function ServerData_Arena:request_setDeck(deckname, formation, leader, l_edoid, 
     -- 성공 콜백
     local function success_cb(ret)
         local t_data = nil
-        local l_deck = {ret['deck']} -- 변경한 덱 하나의 정보만 오기때문에 감싸준다
+        local l_deck = ret['deck']
         self:refresh_playerUserInfo(t_data, l_deck)
 
         if finish_cb then
@@ -449,15 +357,22 @@ end
 -------------------------------------
 -- function request_colosseumStart
 -------------------------------------
-function ServerData_Arena:request_colosseumStart(is_cash, vsuid, finish_cb, fail_cb)
+function ServerData_Arena:request_colosseumStart(is_cash, finish_cb, fail_cb)
     -- 유저 ID
     local uid = g_userData:get('uid')
 
     -- 공격자의 콜로세움 전투력 저장
-    local combat_power = g_colosseumData.m_playerUserInfo:getAtkDeckCombatPower(true)
+    local combat_power = g_arenaData.m_playerUserInfo:getDeckCombatPower(true)
     
     -- 성공 콜백
     local function success_cb(ret)
+        -- 상대방 정보 여기서 설정
+        if (ret['match_user']) then
+            self:makeMatchUserInfo(ret['match_user'])
+        else
+            error('콜로세움 상대방 정보 없음')
+        end
+
         -- @analytics
         Analytics:trackEvent(CUS_CATEGORY.PLAY, CUS_EVENT.TRY_COL, 1, '콜로세움')
 
@@ -477,10 +392,9 @@ function ServerData_Arena:request_colosseumStart(is_cash, vsuid, finish_cb, fail
 
     -- 네트워크 통신
     local ui_network = UI_Network()
-    ui_network:setUrl('/game/pvp/ladder/start')
+    ui_network:setUrl('/game/arena/start')
     ui_network:setParam('uid', uid)
     ui_network:setParam('is_cash', is_cash)
-    ui_network:setParam('vsuid', vsuid)
     ui_network:setParam('combat_power', combat_power)
     ui_network:setParam('token', self:makeDragonToken())
     ui_network:setParam('team_bonus', self:getTeamBonusIds())
@@ -538,7 +452,7 @@ function ServerData_Arena:request_colosseumFinish(is_win, finish_cb, fail_cb)
 
         if (season_data['win'] == 1) then
             -- @analytics
-            Analytics:firstTimeExperience('Colosseum_Win')
+            Analytics:firstTimeExperience('Arena_Win')
         end
 
         -- 변경 데이터
@@ -606,7 +520,7 @@ function ServerData_Arena:request_colosseumRank(offset, finish_cb, fail_cb)
         -- 유저 리스트 저장
         self.m_lGlobalRank = {}
         for i,v in pairs(ret['list']) do
-            local user_info = StructUserInfoColosseum:create_forRanking(v)
+            local user_info = StructUserInfoArena:create_forRanking(v)
             table.insert(self.m_lGlobalRank, user_info)
         end
         
@@ -642,7 +556,7 @@ function ServerData_Arena:request_colosseumDefHistory(finish_cb, fail_cb)
 
         self.m_matchHistory = {}
         for i,v in pairs(ret['history']) do
-            local user_info = StructUserInfoColosseum:create_forHistory(v)
+            local user_info = StructUserInfoArena:create_forHistory(v)
             table.insert(self.m_matchHistory, user_info)
         end
         
@@ -675,7 +589,7 @@ function ServerData_Arena:setRewardInfo(ret)
     -- 개인
     if (ret['lastinfo']) then
         -- 플레이어 유저 정보 생성
-        local struct_user_info = StructUserInfoColosseum()
+        local struct_user_info = StructUserInfoArena()
         struct_user_info.m_uid = g_userData:get('uid')
 
         self:_refresh_playerUserInfo(struct_user_info, ret['lastinfo'])
@@ -714,7 +628,7 @@ end
 function ServerData_Arena:getStraightBuffText()
     -- 연승 정보
     local straight = self.m_buffWin
-    local t_ret = TableColosseumBuff:getStraightBuffData(straight)
+    local t_ret = TableArenaBuff:getStraightBuffData(straight)
 
     local text = nil
     for i,v in ipairs(t_ret) do
@@ -763,10 +677,10 @@ function ServerData_Arena:getStraightTimeText()
 end
 
 -------------------------------------
--- function response_playerColosseumDeck
+-- function response_playerArenaDeck
 -- @comment 이아이는 짝꿍 request method가 없다
 -------------------------------------
-function ServerData_Arena:response_playerColosseumDeck(l_deck)
+function ServerData_Arena:response_playerArenaDeck(l_deck)
 	self:refresh_playerUserInfo(nil, l_deck)
 end
 
@@ -776,7 +690,7 @@ end
 function ServerData_Arena:makeDragonToken()
     local token = ''
 
-    local l_deck = g_colosseumData.m_playerUserInfo:getAtkDeck_dragonList(true)
+    local l_deck = self.m_playerUserInfo:getAtkDeck_dragonList(true)
 
     for i = 1, 5 do
         local t_dragon_data
@@ -817,7 +731,7 @@ end
 function ServerData_Arena:getTeamBonusIds()
     local ids = ''
 
-    local l_deck = g_colosseumData.m_playerUserInfo:getAtkDeck_dragonList(true)
+    local l_deck = self.m_playerUserInfo:getAtkDeck_dragonList(true)
     local l_teambonus = TeamBonusHelper:getTeamBonusDataFromDeck(l_deck)
     for _, struct_teambonus in ipairs(l_teambonus) do
         local id = tostring(struct_teambonus:getID() or '') 

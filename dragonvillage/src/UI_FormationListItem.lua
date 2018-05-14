@@ -8,14 +8,17 @@ local COMMON_UI_ACTION_TIME = 0.3
 UI_FormationListItem = class(PARENT,{
 		m_tFormationInfo = '',
 		m_formation = 'str',
-		m_isActivated = 'boolean'
+		m_isActivated = 'boolean',
+
+        m_bArenaMode = 'boolean',
     })
 
 -------------------------------------
 -- function init
 -------------------------------------
-function UI_FormationListItem:init(t_data)
+function UI_FormationListItem:init(t_data, b_arena)
     self:load('fomation_popup_item.ui')
+    self.m_bArenaMode = b_arena and b_arena or false
 
 	self:makeDataPretty(t_data)
 	self.m_isActivated = false
@@ -46,8 +49,7 @@ end
 -------------------------------------
 function UI_FormationListItem:refresh()
 	local vars = self.vars
-	
-	local table_formation = TableFormation()
+	local table_formation = self.m_bArenaMode and TableFormationArena() or TableFormation()
 	
 	local formation_type = self.m_formation
 	local formation_lv = self.m_tFormationInfo['formation_lv']
@@ -73,6 +75,11 @@ function UI_FormationListItem:refresh()
 	vars['maxSprite']:setVisible(false)
 	vars['enhanceBtn']:setVisible(false)
 	
+    -- 콜로세움 (신규) : 버프 없음.
+    if (self.m_bArenaMode) then
+        return
+    end
+
 	-- 최대 레벨
 	if (g_userData:get('lv') <= formation_lv and g_userData:get('lv') >= 70) then
 		vars['maxSprite']:setVisible(true)

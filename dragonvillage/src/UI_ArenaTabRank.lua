@@ -1,5 +1,7 @@
 local PARENT = class(UI_IndivisualTab, ITabUI:getCloneTable())
 
+-- g_colosseumData -> g_arenaData 변경 필요, 아직 서버 api 분리안됨
+
 -------------------------------------
 -- class UI_ArenaTabRank
 -- @brief 개인, 클랜 랭킹 탭
@@ -31,22 +33,8 @@ function UI_ArenaTabRank:init(owner_ui)
     self.m_rankOffset = 1
     self.m_clanRankOffset = 1
     self.m_hasMyClan = false
-end
 
--------------------------------------
--- function onEnterTab
--------------------------------------
-function UI_ArenaTabRank:onEnterTab(first)
-    if first then
-        self:initUI()
-        self:initTab()
-    end
-end
-
--------------------------------------
--- function onExitTab
--------------------------------------
-function UI_ArenaTabRank:onExitTab()
+    self:initUI()
 end
 
 -------------------------------------
@@ -54,6 +42,7 @@ end
 -------------------------------------
 function UI_ArenaTabRank:initUI()
     local vars = self.vars
+    self:initTab()
 end
 
 -------------------------------------
@@ -114,7 +103,7 @@ function UI_ArenaTabRank:makeRankTableView()
     my_node:removeAllChildren()
     
 	do-- 내 순위
-        local ui = UI_ColosseumRankListItem(g_colosseumData.m_playerUserInfo)
+        local ui = UI_ArenaRankListItem(g_colosseumData.m_playerUserInfo)
         my_node:addChild(ui.root)
 	end
 
@@ -155,7 +144,7 @@ function UI_ArenaTabRank:makeRankTableView()
     -- 테이블 뷰 인스턴스 생성
     local table_view = UIC_TableView(node)
     table_view.m_defaultCellSize = cc.size(720, 100 + 5)
-    table_view:setCellUIClass(UI_ColosseumRankListItem, create_func)
+    table_view:setCellUIClass(UI_ArenaRankListItem, create_func)
     table_view:setDirection(cc.SCROLLVIEW_DIRECTION_VERTICAL)
     table_view:setItemList(l_item_list)
 
@@ -218,7 +207,7 @@ function UI_ArenaTabRank:makeMyClanRankNode()
 
         local my_node = vars['myClanRankingListNode1']
         my_node:removeAllChildren()
-        local ui = UI_ColosseumClanRankListItem(info)
+        local ui = UI_ArenaRankListItem(info)
         my_node:addChild(ui.root)
 
         self.m_hasMyClan = true
@@ -289,7 +278,7 @@ function UI_ArenaTabRank:makeClanRankTableView()
         -- 테이블 뷰 인스턴스 생성
         local table_view = UIC_TableView(node)
         table_view.m_defaultCellSize = cc.size(720, 100 + 5)
-        table_view:setCellUIClass(UI_ColosseumClanRankListItem, create_func)
+        table_view:setCellUIClass(UI_ArenaRankListItem, create_func)
         table_view:setDirection(cc.SCROLLVIEW_DIRECTION_VERTICAL)
         table_view:setItemList(l_rank_list)
 

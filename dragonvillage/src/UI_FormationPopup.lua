@@ -8,14 +8,18 @@ local COMMON_UI_ACTION_TIME = 0.3
 UI_FormationPopup = class(PARENT,{
 		m_tableView = 'TableView',
 		m_currFormation = 'str',
+
+        m_bArenaMode = 'boolean',
     })
 
 -------------------------------------
 -- function init
 -------------------------------------
-function UI_FormationPopup:init(curr_formation_type)
+function UI_FormationPopup:init(curr_formation_type, b_arena)
     local vars = self:load('fomation_popup.ui')
     UIManager:open(self, UIManager.POPUP)
+
+    self.m_bArenaMode = b_arena and b_arena or false
 
     -- backkey 지정
     g_currScene:pushBackKeyListener(self, function() self:click_closeBtn() end, 'UI_FormationPopup')
@@ -62,10 +66,19 @@ function UI_FormationPopup:makeTableViewFormation()
 	local vars = self.vars
 	local node = vars['listNode']
 
-	local l_formation = g_formationData:getFormationInfoList()
+    local l_formation
+    if (self.m_bArenaMode) then
+        l_formation = g_formationArenaData:getFormationInfoList()
+    else
+        l_formation = g_formationData:getFormationInfoList()
+    end
 
 	do -- 테이블 뷰 생성
         node:removeAllChildren()
+
+        local function  make_cb_func(data)
+            return UI_FormationListItem(data, self.m_bArenaMode)
+        end 
 
 		-- 생성 콜백
 		local function create_cb_func(ui)
@@ -77,7 +90,7 @@ function UI_FormationPopup:makeTableViewFormation()
         -- 테이블 뷰 인스턴스 생성
         local table_view = UIC_TableView(node)
         table_view.m_defaultCellSize = cc.size(820, 125)
-        table_view:setCellUIClass(UI_FormationListItem, create_cb_func)
+        table_view:setCellUIClass(make_cb_func, create_cb_func)
         table_view:setDirection(cc.SCROLLVIEW_DIRECTION_VERTICAL)
         table_view:setItemList(l_formation)
 
@@ -110,9 +123,10 @@ function UI_FormationPopup:click_selectBtn(selected_ui)
 
 	for _, t_item in pairs(self.m_tableView.m_itemList) do
 		local ui = t_item['ui']
-
-		ui.m_isActivated = (formation_type == ui.m_formation)
-		ui:refresh()
+        if (ui) then
+            ui.m_isActivated = (formation_type == ui.m_formation)
+		    ui:refresh()
+        end
 	end
 end
 

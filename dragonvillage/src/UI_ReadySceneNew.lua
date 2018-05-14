@@ -156,6 +156,12 @@ function UI_ReadySceneNew:checkDeckProper()
         return
     end
 
+    -- 콜로세움 (신규) 별도 처리
+    if (self.m_stageID == ARENA_STAGE_ID) then
+        g_deckData:setSelectedDeck('arena')
+        return
+    end
+
 	local curr_mode = TableDrop():getValue(self.m_stageID, 'mode')
 
     -- 멀티덱 예외처리 (클랜 던전, 고대 유적 던전)
@@ -406,7 +412,7 @@ function UI_ReadySceneNew:initUI()
     end
 
 	-- 콜로세움 예외처리
-	if (self.m_stageID == COLOSSEUM_STAGE_ID or self.m_stageID == FRIEND_MATCH_STAGE_ID) then		
+	if (self.m_stageID == COLOSSEUM_STAGE_ID or self.m_stageID == FRIEND_MATCH_STAGE_ID or self.m_stageID == ARENA_STAGE_ID) then		
         vars['cpNode2']:setVisible(false)
         
 		-- 배경 아무거나 넣어준다
@@ -502,6 +508,9 @@ function UI_ReadySceneNew:refresh()
                 str = Str('콜로세움 준비')
             end
 
+        elseif (stage_id == ARENA_STAGE_ID) then
+            str = Str('콜로세움')
+
 	    elseif (stage_id == FRIEND_MATCH_STAGE_ID) then
             str = Str('친구대전 공격')
         end
@@ -555,7 +564,7 @@ function UI_ReadySceneNew:refresh_combatPower()
     local stage_id = self.m_stageID
     local game_mode = self.m_gameMode
 
-	if (stage_id == COLOSSEUM_STAGE_ID or stage_id == FRIEND_MATCH_STAGE_ID or game_mode == GAME_MODE_CLAN_RAID) then
+	if (stage_id == COLOSSEUM_STAGE_ID or stage_id == FRIEND_MATCH_STAGE_ID or game_mode == GAME_MODE_CLAN_RAID or stage_id == ARENA_STAGE_ID) then
 		vars['cp_Label']:setString('')
         vars['cp_Label2']:setString('')
 
@@ -651,10 +660,20 @@ function UI_ReadySceneNew:refresh_buffInfo()
 	end
 
 	-- 진형 버프
-	do
+    local b_arena = (self.m_stageID == ARENA_STAGE_ID and true or false)
+    -- 콜로세움 (신규) - 버프 없어서 이름 표시
+	if (b_arena) then
+        local l_formation = g_formationArenaData:getFormationInfoList()
+		local curr_formation = self.m_readySceneDeck.m_currFormation
+		local formation_data = l_formation[curr_formation]  
+        local formation_name = TableFormationArena():getFormationName(formation_data['formation'])
+        vars['fomationLabel']:setString(Str('진형 변경'))
+        vars['formationBuffLabel']:setString(formation_name)
+
+    else
 		local l_formation = g_formationData:getFormationInfoList()
 		local curr_formation = self.m_readySceneDeck.m_currFormation
-		local formation_data = l_formation[curr_formation]
+		local formation_data = l_formation[curr_formation]        
 		local formation_buff = TableFormation():getFormatioDesc(formation_data['formation'])
 
 		vars['formationBuffLabel']:setString(formation_buff)
@@ -1107,7 +1126,8 @@ end
 function UI_ReadySceneNew:click_fomationBtn()
 	-- m_readySceneDeck에서 현재 formation 받아와 전달
 	local curr_formation_type = self.m_readySceneDeck.m_currFormation
-    local ui = UI_FormationPopup(curr_formation_type)
+    local b_arena = (self.m_stageID == ARENA_STAGE_ID and true or false)
+    local ui = UI_FormationPopup(curr_formation_type, b_arena)
 	
 	-- 종료하면서 선택된 formation을 m_readySceneDeck으로 전달
 	local function close_cb(formation_type)
@@ -1301,6 +1321,9 @@ function UI_ReadySceneNew:getStageStaminaInfo()
 		cost_value = 1
     elseif (stage_id == FRIEND_MATCH_STAGE_ID) then
 		cost_type = 'fpvp'
+		cost_value = 1
+    elseif (stage_id == ARENA_STAGE_ID) then
+        cost_type = 'arena'
 		cost_value = 1
 	else
 		cost_type = 'st'

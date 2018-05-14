@@ -81,6 +81,7 @@ local t_module = {
     'StructUserInfoAncientTower',
     'StructUserInfoClan',
     'StructUserInfoClanRaid',
+    'StructUserInfoArena',
     'StructWaveRegenGroup',
     'StructCollisionData',
 	'StructBookData',
@@ -137,6 +138,7 @@ local t_module = {
     'ServerData_Highlight',
 	'ServerData_Ranking',
 	'ServerData_Formation',
+    'ServerData_FormationArena',
 	'ServerData_DragonBoard',
     'ServerData_Eggs',
     'ServerData_Hatchery',
@@ -303,6 +305,7 @@ local t_module = {
     'TableEvolutionInfo',
     'TableStatus',
     'TableFormation',
+    'TableFormationArena',
     'TableRuneSet',
     'TableRuneGrade',
     'TableRuneMoptStatus',
@@ -897,6 +900,8 @@ local t_module = {
     'UI_Arena',
     'UI_ArenaTabHistory',
     'UI_ArenaTabRank',
+    'UI_ArenaDeckSettings',
+    'UI_ArenaRankListItem',
 
     -- UI : 친선전
     'UI_FriendMatchReady',

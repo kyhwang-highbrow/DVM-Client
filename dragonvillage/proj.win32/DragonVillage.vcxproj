@@ -499,6 +499,7 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <None Include="..\src\ServerData_Exploration.lua" />
     <None Include="..\src\ServerData_Forest.lua" />
     <None Include="..\src\ServerData_Formation.lua" />
+    <None Include="..\src\ServerData_FormationArena.lua" />
     <None Include="..\src\ServerData_Friend.lua" />
     <None Include="..\src\ServerData_FriendMatch.lua" />
     <None Include="..\src\ServerData_Hatchery.lua" />
@@ -831,6 +832,7 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <None Include="..\src\Structure.lua" />
     <None Include="..\src\StructUserInfo.lua" />
     <None Include="..\src\StructUserInfoAncientTower.lua" />
+    <None Include="..\src\StructUserInfoArena.lua" />
     <None Include="..\src\StructUserInfoClan.lua" />
     <None Include="..\src\StructUserInfoClanRaid.lua" />
     <None Include="..\src\StructUserInfoColosseum.lua" />
@@ -859,6 +861,7 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <None Include="..\src\TableExplorationList.lua" />
     <None Include="..\src\TableForestStuffLevelInfo.lua" />
     <None Include="..\src\TableForestStuffType.lua" />
+    <None Include="..\src\TableFormationArena.lua" />
     <None Include="..\src\TableGoogleQuest.lua" />
     <None Include="..\src\TableHelp.lua" />
     <None Include="..\src\TableHighbrow.lua" />

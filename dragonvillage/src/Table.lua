@@ -41,6 +41,7 @@ local TableInfo = {
         status              = {'table_status',              'type',         false},
         status_effect       = {'table_status_effect',       'name',         false},
         formation           = {'table_formation',           'fmid',         false},
+        formation_arena     = {'table_arena_formation',     'fmid',         false},
         team_bonus          = {'table_team_bonus',          'id',           false},
         skill_sound         = {'table_skill_sound',         'sid',          false},
 

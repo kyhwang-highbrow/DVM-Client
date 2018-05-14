@@ -581,9 +581,20 @@ function UI_ReadyScene_Deck:checkChangeDeck(next_func)
     end
 
     if (b_change) then
+        -- 콜로세움 (신규) 전용 덱 처리
+        if (deckname == 'arena') then
+            local l_edoid = {}
+            l_edoid[1] = self.m_lDeckList[1]
+            l_edoid[2] = self.m_lDeckList[2]
+            l_edoid[3] = self.m_lDeckList[3]
+            l_edoid[4] = self.m_lDeckList[4]
+            l_edoid[5] = self.m_lDeckList[5]
+            local tamer_id = self.m_uiReadyScene:getCurrTamerID()
+            local fail_cb = nil
+            g_arenaData:request_setDeck(deckname, self.m_currFormation, self.m_currLeader, l_edoid, tamer_id, next_func, fail_cb)
 
-        -- pvp 전용 덱 처리
-        if (deckname == 'pvp_atk') or (deckname == 'pvp_def') then
+        -- 콜로세움 전용 덱 처리
+        elseif (deckname == 'pvp_atk') or (deckname == 'pvp_def') then
             local l_edoid = {}
             l_edoid[1] = self.m_lDeckList[1]
             l_edoid[2] = self.m_lDeckList[2]

@@ -61,7 +61,7 @@ function TableDrop:getStageStaminaType(stage_id)
         return 'pvp', 1
 
     elseif (stage_id == ARENA_STAGE_ID) then
-        return 'pvp', 1
+        return 'arena', 1
 
     elseif (stage_id == FRIEND_MATCH_STAGE_ID) then
         return 'fpvp', 1

@@ -154,12 +154,7 @@ function UI_ColosseumReadyForDev:click_startBtn()
     do
         UI_BlockPopup()
 
-        local scene
-        if (IS_ARENA_OPEN()) then
-            scene = SceneGameArena(nil, nil, nil, true)
-        else
-            scene = SceneGameColosseum(nil, nil, nil, true)
-        end
+        local scene = SceneGameColosseum(nil, nil, nil, true)
         scene:runScene()
     end
 end

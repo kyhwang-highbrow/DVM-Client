@@ -1,5 +1,7 @@
 local PARENT = class(UI_IndivisualTab, ITabUI:getCloneTable())
 
+-- g_colosseumData -> g_arenaData 변경 필요, 아직 서버 api 분리안됨
+
 -------------------------------------
 -- class UI_ArenaTabHistory
 -- @brief 아레나 기록 탭 (공격전, 방어전)
