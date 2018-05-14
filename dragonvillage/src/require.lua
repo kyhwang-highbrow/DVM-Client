@@ -198,6 +198,7 @@ local t_module = {
     'MapManager',
     'LocalData',
     'SettingData',
+    'ChatMacroData',
     'LobbyGuideData',
     'LobbyGuideAbstract',
     'LobbyGuide_CapsuleBox',
@@ -1095,6 +1096,7 @@ local t_module = {
     'UI_ChatListItem_myMsg',
     'UI_ChatListItem_systemMsg',
     'UI_ChatIgnoreListItem',
+    'UI_ChatMacroListItem',
 
 	-- UI : 설정
 	'UI_Setting',

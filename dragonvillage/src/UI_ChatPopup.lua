@@ -82,6 +82,7 @@ function UI_ChatPopup:initButton()
     vars['closeBtn']:registerScriptTapHandler(function() self:click_closeBtn() end)
     vars['enterBtn']:registerScriptTapHandler(function() self:click_enterBtn() end)
     vars['blockListBtn']:registerScriptTapHandler(function() self:click_blockListBtn() end)
+    vars['macroBtn']:registerScriptTapHandler(function() self:click_macroBtn() end)
 end
 
 -------------------------------------
@@ -138,11 +139,17 @@ end
 -- function click_blockListBtn
 -------------------------------------
 function UI_ChatPopup:click_blockListBtn()
-    local visible = (not self.vars['blockNode']:isVisible())
-    self.vars['blockNode']:setVisible(visible)
+    local vars = self.vars
+    local visible = (not vars['blockNode']:isVisible())
+    vars['blockNode']:setVisible(visible)
 
     if visible then
         self:refresh_blockUI()
+    end
+
+    -- 매크로리스트가 켜져있다면 꺼준다.
+    if (vars['macroNode']:isVisible()) then
+        vars['macroNode']:setVisible(false)
     end
 end
 
@@ -181,6 +188,52 @@ function UI_ChatPopup:refresh_blockUI()
         table_view:setItemList(l_item_list)
 
     end
+end
+
+-------------------------------------
+-- function click_macroBtn
+-------------------------------------
+function UI_ChatPopup:click_macroBtn()
+    local vars = self.vars
+    local visible = (not vars['macroNode']:isVisible())
+    vars['macroNode']:setVisible(visible)
+
+    if visible then
+        self:refresh_macroUI()
+    end
+
+    -- 차단 리스트가 켜져있다면 꺼준다
+    if (vars['blockNode']:isVisible()) then
+        vars['blockNode']:setVisible(false)
+    end
+end
+
+-------------------------------------
+-- function refresh_macroUI
+-------------------------------------
+function UI_ChatPopup:refresh_macroUI()
+    local vars = self.vars
+
+    local node = vars['macroListNode']
+    node:removeAllChildren()
+
+    local l_item_list = g_chatMacroData:getMacroTable()
+    local table_view
+
+    -- 생성 콜백
+    local function create_func(ui, data)
+        ui.vars['macroBtn']:registerScriptTapHandler(function()
+            local msg = ui.m_macro
+            g_chatManager:sendNormalMsg(msg)
+        end)
+    end
+
+    -- 테이블 뷰 인스턴스 생성
+    table_view = UIC_TableView(node)
+    table_view.m_defaultCellSize = cc.size(340, 64 + 3)
+    table_view:setCellUIClass(UI_ChatMacroListItem, create_func)
+    table_view:setDirection(cc.SCROLLVIEW_DIRECTION_VERTICAL)
+    table_view:setItemList(l_item_list)
 end
 
 -------------------------------------
@@ -258,6 +311,7 @@ end
 -------------------------------------
 function UI_ChatPopup:onDestroyUI()
     self.vars['blockNode']:setVisible(false)
+    self.vars['macroNode']:setVisible(false)
 end
 
 -------------------------------------

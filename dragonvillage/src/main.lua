@@ -188,7 +188,8 @@ local function main()
     local setting_data_instance = SettingData:getInstance()
     setting_data_instance:migration(LocalData:getInstance())
     LobbyGuideData:getInstance()
-
+    ChatMacroData:getInstance()
+    
     stopwatch:stop()
     stopwatch:print()
         
