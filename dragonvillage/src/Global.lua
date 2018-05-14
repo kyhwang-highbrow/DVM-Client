@@ -73,65 +73,78 @@ function PrintClassName(instance)
 end
 
 -------------------------------------
--- function IsValidText
--- @brief 문자열 필터링
--- @return bool true이면 유효한 text
---              false이면 사용할 수 없는 text
+-- function CheckNickName
+-- @brief 닉네임 검사
 -------------------------------------
-function IsValidText(str, is_name)
-	local t_word = TABLE:get('table_ban_word_naming')
-	if (not t_word) then
+function CheckNickName(str, proceed_func, cancel_func, is_clan)
+	local t_ban_word = TABLE:get('table_ban_word_chat')
+	if (not t_ban_word) then
+		if (proceed_func) then
+			proceed_func()
+		end
         return false
     end
 
-	local temp = string.gsub(str, '[%s%.,:;|/]', '')
+	local len = uc_len(str)
+	local MIN_NICK = 2
+	local MAX_NICK = 10
 
-	local words = {}
-	for _, v in pairs(t_word) do
-		local word = tostring(v.word)
-		local match = string.match(string.lower(temp), string.lower(word))
-		if match and (string.lower(match) == string.lower(word)) then
-			--cclog('IsValidText1 = ' .. word)
-			return false
+	-- 한글, 영어, 가나, 한자만 포함되었는지 확인
+	-- 글자수 확인
+	if (len < MIN_NICK) or (len > MAX_NICK) or (not ValidStrUtils:checkNickName_forGsp(str)) then
+		if (cancel_func) then
+			cancel_func()
 		end
-	end
-
-	if is_name then
-		if (not ValidStrUtils:checkNickName_forGsp(str)) then
-            return false
+	
+		local msg
+		if (is_clan) then
+			msg = Str('클랜 이름은 한글, 영어, 숫자를 사용하여 최소{1}자부터 최대 {2}자까지 생성할 수 있습니다. \n \n 특수문자, 한자, 비속어는 사용할 수 없으며, 중간에 띄어쓰기를 할 수 없습니다.', MIN_NICK, MAX_NICK)
+		else    
+	        msg = Str('닉네임은 한글, 영어, 숫자를 사용하여 최소{1}자부터 최대 {2}자까지 생성할 수 있습니다. \n \n 특수문자, 한자, 비속어는 사용할 수 없으며, 중간에 띄어쓰기를 할 수 없습니다.', MIN_NICK, MAX_NICK)
 		end
+        MakeSimplePopup(POPUP_TYPE.OK, msg)
+        return
 	end
-
-	return true
-end
-
--------------------------------------
--- function FilterMsg
--- @brief 문자열 필터링
--- @return bool true이면 유효한 text
--------------------------------------
-function FilterMsg(str)
-    local t_ban_word = TABLE:get('table_ban_word_chat')
-    if (not t_ban_word) then
-        return false
-    end
 
     -- 모두 소문자로 변경
     local lower_str = string.lower(str)
 
-    -- 금칙어 리스트에 포함되어있는지 확인
-    for _, v in pairs(t_ban_word) do
-		if string.match(lower_str, string.lower(v['word'])) then
-			return false, Str('사용할 수 없는 표현이 포함되어 있습니다.')
-		end
+    -- 금칙어 추출
+    local l_match_list = {}
+    local word = nil
+    for _, t_word in ipairs(t_ban_word) do
+        word = t_word['word']
+        if string.match(lower_str, string.lower(word)) then
+            table.insert(l_match_list, word)
+            lower_str = string.gsub(lower_str, string.lower(word), '')
+            
+            if (lower_str == '') then
+                break
+            end
+        end
+        
 	end
-
-    return true
+    
+    -- match
+    if (table.count(l_match_list) == 0) then
+        if (proceed_func) then
+            proceed_func()
+        end
+        return true
+    else
+        -- 금칙어 강조된 문장 생성
+        for _, word in ipairs(l_match_list) do
+            str = string.gsub(str, word, '{@RED}' .. word .. '{@WHITE}')
+        end
+        str = '{@WHITE}' .. str
+        local warning = '{@DESC}' .. Str('금칙어가 포함되었습니다. 입력을 계속하시겠습니까?\n(욕설이나 부적절한 단어 사용이 확인되었을 시 제재를 받을 수 있습니다.)')
+        MakeSimplePopup2(POPUP_TYPE.YES_NO, str, warning, proceed_func, cancel_func)
+    end
 end
 
 -------------------------------------
 -- function CheckBlockStr
--- @brief 문자열 필터링
+-- @brief 금칙어 검사
 -------------------------------------
 function CheckBlockStr(str, proceed_func, cancel_func)
     -- 긴 문자열 순으로 나열된 테이블

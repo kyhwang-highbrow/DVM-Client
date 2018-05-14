@@ -64,8 +64,16 @@ function UI_ClanGuestTabFound:initUI()
         -- editBox handler 등록
 	    local function editBoxTextEventHandle(strEventName, pSender)
             if (strEventName == "return") then
-                local editbox = pSender
-                self:clanNameCheck(editbox)
+				local editbox = pSender
+				local clan_name = editbox:getText()
+
+				local function proceed_func()
+				end
+				local function cancel_func()
+					editbox:setText('')
+				end
+				local is_clan = true
+				CheckNickName(clan_name, proceed_func, cancel_func, is_clan)
             end
         end
 
@@ -73,25 +81,6 @@ function UI_ClanGuestTabFound:initUI()
         vars['nameEditBox']:registerScriptEditBoxHandler(editBoxTextEventHandle)
     end
     
-end
-
--------------------------------------
--- function clanNameCheck
--------------------------------------
-function UI_ClanGuestTabFound:clanNameCheck(editbox)
-    local str = editbox:getText()
-	local len = uc_len(str)
-
-    local is_name = true
-    if (len < MIN_CLAN_NAME) or (len > MAX_CLAN_NAME) or (not IsValidText(str, is_name)) then
-        editbox:setText('')
-
-        local msg = Str('클랜 이름은 한글, 영어, 숫자를 사용하여 최소{1}자부터 최대 {2}자까지 생성할 수 있습니다. \n \n 특수문자, 한자, 비속어는 사용할 수 없으며, 중간에 띄어쓰기를 할 수 없습니다.', MIN_CLAN_NAME, MAX_CLAN_NAME)
-        MakeSimplePopup(POPUP_TYPE.OK, msg)
-        return false
-    end
-
-    return true
 end
 
 -------------------------------------
@@ -105,26 +94,28 @@ function UI_ClanGuestTabFound:click_foundBtn()
 
     local work_check_name
     local work_check_price
-    local wrok_request
+    local work_request
     local work_response
     local work_refresh
 
     -- 클랜명 검증
     work_check_name = function()
-        if self:clanNameCheck(editbox) then
-            work_check_price()
-        end
+		if (clan_name == '') then
+			UIManager:toastNotificationRed(Str('클랜 이름을 입력하세요.'))
+		else
+			work_check_price()
+		end
     end
 
     -- 클랜 창설 비용 확인
     work_check_price = function()
         local price_type, price_value = g_clanData:getClanCreatePriceInfo()
         local msg = Str('클랜을 창설하시겠습니까?')
-        MakeSimplePopup_Confirm(price_type, price_value, msg, wrok_request)
+        MakeSimplePopup_Confirm(price_type, price_value, msg, work_request)
     end
 
     -- 통신 요청
-    wrok_request = function()
+    work_request = function()
         g_clanData:request_clanCreate(work_response, nil, clan_name)
     end
     

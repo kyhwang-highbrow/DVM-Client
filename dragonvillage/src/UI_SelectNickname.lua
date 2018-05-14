@@ -1,8 +1,5 @@
 local PARENT = UI
 
-local MIN_NICK = 2
-local MAX_NICK = 10
-
 -------------------------------------
 -- class UI_SelectNickname
 -------------------------------------
@@ -57,16 +54,14 @@ function UI_SelectNickname:initEditBox()
         if (strEventName == "return") then
             local editbox = pSender
             local str = editbox:getText()
-			local len = uc_len(str)
-
-            local is_name = true
-            if (len < MIN_NICK) or (len > MAX_NICK) or (not IsValidText(str, is_name)) then
+			
+			-- 닉네임 검증
+			local function proceed_func()
+			end
+			local function cancel_func()
                 editbox:setText('')
-
-                local msg = Str('닉네임은 한글, 영어, 숫자를 사용하여 최소{1}자부터 최대 {2}자까지 생성할 수 있습니다. \n \n 특수문자, 한자, 비속어는 사용할 수 없으며, 중간에 띄어쓰기를 할 수 없습니다.', MIN_NICK, MAX_NICK)
-                MakeSimplePopup(POPUP_TYPE.OK, msg)
-                return
-            end
+			end
+			CheckNickName(str, proceed_func, cancel_func)
         end
     end
 
