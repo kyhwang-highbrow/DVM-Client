@@ -29,15 +29,16 @@ end
 function UI_ChatMacroListItem:initUI()
     local vars = self.vars
 
-    do -- 채팅 EditBox에서 입력 완료 후 바로 전송하기
-        local function editBoxTextEventHandle(strEventName,pSender)
-            if (strEventName == "return") then
-                self:click_editBtn()
-            end
+    self.root:setSwallowTouch(false)
+
+    -- 채팅 EditBox에서 입력 완료 후 바로 전송하기
+    local function editBoxTextEventHandle(strEventName,pSender)
+        if (strEventName == "return") then
+            self:click_editBtn()
         end
-        vars['editBox']:registerScriptEditBoxHandler(editBoxTextEventHandle)
-        vars['editBox']:setMaxLength(CHAT_MAX_MESSAGE_LENGTH) -- 글자 입력 제한 40자
     end
+    vars['editBox']:registerScriptEditBoxHandler(editBoxTextEventHandle)
+    vars['editBox']:setMaxLength(CHAT_MAX_MESSAGE_LENGTH) -- 글자 입력 제한 40자
 end
 
 -------------------------------------
@@ -52,7 +53,7 @@ end
 -------------------------------------
 function UI_ChatMacroListItem:initButton()
     local vars = self.vars
-
+    
     -- UI_ChatPopup에서 등록
     --vars['macroBtn']:registerScriptTapHandler(function() self:click_macroBtn() end)
 
@@ -74,7 +75,16 @@ end
 function UI_ChatMacroListItem:click_editBtn()
     local vars = self.vars
     
-    self.m_macro = vars['editBox']:getText()
+    local macro = vars['editBox']:getText()
+	macro = utf8_sub(macro, CHAT_MAX_MESSAGE_LENGTH)
+
+	local len = string.len(macro)
+    if (len <= 0) then
+		UIManager:toastNotificationRed(Str('메시지를 입력하세요.'))
+		return
+	end
+
+	self.m_macro = macro
     vars['editBox']:setText('')
 
     g_chatMacroData:setMacro(self.m_idx, self.m_macro)

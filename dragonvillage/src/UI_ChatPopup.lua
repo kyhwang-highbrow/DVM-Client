@@ -1,4 +1,5 @@
 local PARENT = class(UI, ITabUI:getCloneTable())
+local MACRO_INTERVAL = 3
 
 -------------------------------------
 -- class UI_ChatPopup
@@ -6,6 +7,7 @@ local PARENT = class(UI, ITabUI:getCloneTable())
 UI_ChatPopup = class(PARENT, {
         m_mTabUI = '',
         m_chatTableView = '',
+		m_prevMacroTime = 'timer',
      })
 
 -------------------------------------
@@ -22,6 +24,8 @@ function UI_ChatPopup:init()
     --self:addAction(vars['rootNode'], UI_ACTION_TYPE_LEFT, 0, 0.2)
     --self:doActionReset()
     --self:doAction(nil, false)
+
+	self.m_prevMacroTime = 0
 
     self:initUI()
     self:initButton()
@@ -104,6 +108,32 @@ end
 -- function click_enterBtn
 -------------------------------------
 function UI_ChatPopup:click_enterBtn()
+	local msg = self.vars['editBox']:getText()
+	self:sendMsg(msg)
+end
+
+-------------------------------------
+-- function click_macroListItem
+-------------------------------------
+function UI_ChatPopup:click_macroListItem(msg)
+	local curr_time = Timer:getServerTime()
+	
+	-- 매크로 성공
+	if (curr_time - self.m_prevMacroTime > MACRO_INTERVAL) then
+		self:sendMsg(msg)
+		self.m_prevMacroTime = curr_time
+
+	-- 매크로 쿨타임
+	else
+		local ramain_time = math_ceil(MACRO_INTERVAL - (curr_time - self.m_prevMacroTime) + 1)
+		UIManager:toastNotificationRed(Str('재사용까지 {1}초 남았습니다.', ramain_time))
+	end
+end
+
+-------------------------------------
+-- function sendMsg
+-------------------------------------
+function UI_ChatPopup:sendMsg(msg)
     -- 채팅 비활성화 시
     if (g_chatIgnoreList:isGlobalIgnore()) then
         UIManager:toastNotificationRed(Str('채팅이 비활성화 상태입니다.'))
@@ -112,9 +142,7 @@ function UI_ChatPopup:click_enterBtn()
 
     local vars = self.vars
 
-    local msg = vars['editBox']:getText()
-    msg = utf8_sub(msg, CHAT_MAX_MESSAGE_LENGTH)
-
+    local msg = utf8_sub(msg, CHAT_MAX_MESSAGE_LENGTH)
     local len = string.len(msg)
     if (len <= 0) then
         UIManager:toastNotificationRed(Str('메시지를 입력하세요.'))
@@ -224,7 +252,7 @@ function UI_ChatPopup:refresh_macroUI()
     local function create_func(ui, data)
         ui.vars['macroBtn']:registerScriptTapHandler(function()
             local msg = ui.m_macro
-            g_chatManager:sendNormalMsg(msg)
+            self:click_macroListItem(msg)
         end)
     end
 
