@@ -106,21 +106,24 @@ end
 
 -------------------------------------
 -- function click_enterBtn
+-- @brief 일반 채팅 전송
 -------------------------------------
 function UI_ChatPopup:click_enterBtn()
-	local msg = self.vars['editBox']:getText()
-	self:sendMsg(msg)
+	local edit_box = self.vars['editBox']
+	local msg = edit_box:getText()
+	self.sendMsg(msg, self.m_currTab, edit_box)
 end
 
 -------------------------------------
 -- function click_macroListItem
+-- @brief 매크로 채팅 전송
 -------------------------------------
 function UI_ChatPopup:click_macroListItem(msg)
 	local curr_time = Timer:getServerTime()
 	
 	-- 매크로 성공
 	if (curr_time - self.m_prevMacroTime > MACRO_INTERVAL) then
-		self:sendMsg(msg)
+		self.sendMsg(msg, self.m_currTab, nil, self.m_mTabUI['whisper'].m_peerUserNickname)
 		self.m_prevMacroTime = curr_time
 
 	-- 매크로 쿨타임
@@ -132,15 +135,18 @@ end
 
 -------------------------------------
 -- function sendMsg
+-- @param msg : 전송할 메세지
+-- @param tab : 현재 탭, 어느 곳에 메세지를 보낼 지 결정한다
+-- @param edit_box : 메세지를 지울 에딧박스 @Nullable
+-- @param whisper_nick : 귓말 보낼 유저 닉네임
+-- @comment 매크로 처리를 위해서 하나로 합침
 -------------------------------------
-function UI_ChatPopup:sendMsg(msg)
+function UI_ChatPopup.sendMsg(msg, tab, edit_box, whisper_nick)
     -- 채팅 비활성화 시
     if (g_chatIgnoreList:isGlobalIgnore()) then
         UIManager:toastNotificationRed(Str('채팅이 비활성화 상태입니다.'))
         return
     end
-
-    local vars = self.vars
 
     local msg = utf8_sub(msg, CHAT_MAX_MESSAGE_LENGTH)
     local len = string.len(msg)
@@ -151,14 +157,42 @@ function UI_ChatPopup:sendMsg(msg)
 
     -- 비속어 필터링
     local function proceed_func()
-        if g_chatManager:sendNormalMsg(msg) then
-            vars['editBox']:setText('')
+		-- 현재 탭에 따라 메세지 전송 분기 처리
+		local chat_ret = false
+		if (tab == 'general') then
+			chat_ret = g_chatManager:sendNormalMsg(msg)
+
+		elseif (tab == 'clan') then
+			chat_ret = g_clanChatManager:sendNormalMsg(msg)
+
+		elseif (tab == 'whisper') then
+			if (whisper_nick) then
+				chat_ret = g_chatManager:sendWhisperMsg(whisper_nick, msg)
+			else
+				UIManager:toastNotificationRed(Str('귓속말 상대방 닉네임을 입력하세요.'))
+				return
+			end
+
+		end
+
+        if (chat_ret) then
+			if (edit_box) then
+				edit_box:setText('')
+			end
         else
-            UIManager:toastNotificationRed(Str('메시지 전송에 실패하였습니다.'))
+			local msg
+			if (tab == 'whisper') then
+				msg = Str('[{1}]유저를 찾을 수 없습니다.', whisper_nick)
+			else
+				msg = Str('메시지 전송에 실패하였습니다.')
+			end
+            UIManager:toastNotificationRed(msg)
         end
     end
     local function cancel_func()
-        vars['editBox']:setText('')
+		if (edit_box) then
+			edit_box:setText('')
+		end
     end
     CheckBlockStr(msg, proceed_func, cancel_func)
 end

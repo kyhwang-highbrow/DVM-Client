@@ -44,35 +44,10 @@ end
 -- function click_enterBtn
 -------------------------------------
 function UI_ChatPopup_ClanTab:click_enterBtn()
-    -- 채팅 비활성화 시
-    if (g_chatIgnoreList:isGlobalIgnore()) then
-        UIManager:toastNotificationRed(Str('채팅이 비활성화 상태입니다.'))
-        return
-    end
-
-    local vars = self.vars
-
-    local msg = vars['clanEditBox']:getText()
-    msg = utf8_sub(msg, CHAT_MAX_MESSAGE_LENGTH)
-
-    local len = string.len(msg)
-    if (len <= 0) then
-        UIManager:toastNotificationRed(Str('메시지를 입력하세요.'))
-        return
-    end
-
-    -- 비속어 필터링
-    local function proceed_func()
-        if g_chatManager:sendNormalMsg(msg) then
-            vars['clanEditBox']:setText('')
-        else
-            UIManager:toastNotificationRed(Str('메시지 전송에 실패하였습니다.'))
-        end
-    end
-    local function cancel_func()
-        vars['clanEditBox']:setText('')
-    end
-    CheckBlockStr(msg, proceed_func, cancel_func)
+	local tab = 'clan'
+	local edit_box = self.vars['clanEditBox']
+    local msg = edit_box:getText()
+    UI_ChatPopup.sendMsg(msg, tab, edit_box)
 end
 
 -------------------------------------

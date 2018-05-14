@@ -48,39 +48,15 @@ end
 -- function click_enterBtn
 -------------------------------------
 function UI_ChatPopup_WhisperTab:click_enterBtn()
-    -- 채팅 비활성화 시
-    if (g_chatIgnoreList:isGlobalIgnore()) then
-        UIManager:toastNotificationRed(Str('채팅이 비활성화 상태입니다.'))
-        return
-    end
-
-    local vars = self.vars
-
     if (not self.m_peerUserNickname) or (self.m_peerUserNickname == '') then
         UIManager:toastNotificationRed(Str('귓속말 상대방 닉네임을 입력하세요.'))
         return
     end
-    
-    local msg = vars['editBox_whisper']:getText()
-    local len = string.len(msg)
-    if (len <= 0) then
-        UIManager:toastNotificationRed(Str('메시지를 입력하세요.'))
-        return
-    end
 
-    -- 비속어 필터링
-    local function proceed_func()
-        if g_chatManager:sendWhisperMsg(self.m_peerUserNickname, msg) then
-            vars['editBox_whisper']:setText('')
-        else
-            local msg = Str('[{1}]유저를 찾을 수 없습니다.', self.m_peerUserNickname)
-            UIManager:toastNotificationRed(msg)
-        end
-    end
-    local function cancel_func()
-        vars['editBox_whisper']:setText('')
-    end
-    CheckBlockStr(msg, proceed_func, cancel_func)
+	local tab = 'whisper'
+	local edit_box = self.vars['editBox_whisper']
+    local msg = edit_box:getText()
+    UI_ChatPopup.sendMsg(msg, tab, edit_box, self.m_peerUserNickname)
 end
 
 -------------------------------------
