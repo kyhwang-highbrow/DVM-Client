@@ -143,6 +143,7 @@ end
 function UI_RandomShop:refresh_itemInfo()
     local vars = self.vars
     local struct_item = self.m_selectItem
+    vars['rightMenu']:setVisible(true)
 
     do -- 이름
         local name = struct_item:getName()
@@ -379,7 +380,7 @@ function UI_RandomShop:click_buyBtn(idx)
         self.m_selectUI.m_structItem = new_data
         self.m_selectUI:refresh()
 
-        self:refresh()
+        self:refresh_itemInfo()
     end
 
     local function ok_btn_cb()
