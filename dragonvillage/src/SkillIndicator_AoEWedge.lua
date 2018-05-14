@@ -34,7 +34,7 @@ end
 -------------------------------------
 -- function onTouchMoved
 -------------------------------------
-function SkillIndicator_AoEWedge:onTouchMoved(x, y)
+function SkillIndicator_AoEWedge:onTouchMoved(x, y, is_virtual_test)
     if (not self.m_bDirty) then return end
     self.m_bDirty = false
 
@@ -49,13 +49,19 @@ function SkillIndicator_AoEWedge:onTouchMoved(x, y)
 		self.m_targetPosX = x
 		self.m_targetPosY = y
 	end
-	
-	-- 이펙트 조정
-	self.m_indicatorEffect:setRotation(dir)
 
-	-- 하이라이트 갱신
-	local l_collision = self:findCollision(pos_x, pos_y, dir)
-    self:setHighlightEffect(l_collision)
+    local l_collision = self:findCollision(pos_x, pos_y, dir)
+
+    if (is_virtual_test) then
+        self.m_collisionListByVirtualTest = l_collision
+	
+    else
+	    -- 이펙트 조정
+	    self.m_indicatorEffect:setRotation(dir)
+
+	    -- 하이라이트 갱신
+	    self:setHighlightEffect(l_collision)
+    end
 end
 
 -------------------------------------
@@ -102,32 +108,6 @@ function SkillIndicator_AoEWedge:optimizeIndicatorData(l_target, fixed_target)
     local max_count = -1
     local t_best = {}
     
-    local setIndicator = function(target, x, y)
-        self.m_targetChar = target
-        self.m_targetPosX = x
-        self.m_targetPosY = y
-        self.m_critical = nil
-        self.m_bDirty = true
-
-        self:getTargetForHighlight() -- 타겟 리스트를 사용하지 않고 충돌리스트 수로 체크
-
-        local list = self.m_collisionList or {}
-        local count = #list
-
-        if (not self.m_targetChar) then
-            self.m_targetChar = self.m_highlightList[1]
-        end
-
-        -- 반드시 포함되어야하는 타겟이 존재하는지 확인
-        if (fixed_target) then
-            if (not table.find(self.m_highlightList, fixed_target)) then
-                count = -1
-            end
-        end
-        
-        return count
-    end
-
     local x, y = self:getAttackPosition()
     local l_dir = {}
     local dir = 0
@@ -151,7 +131,7 @@ function SkillIndicator_AoEWedge:optimizeIndicatorData(l_target, fixed_target)
 
     for _, dir in ipairs(l_dir) do
         local pos = getPointFromAngleAndDistance(dir, self.m_skillRange)
-        local count = setIndicator(nil, x + pos['x'], y + pos['y'])
+        local count = self:getCollisionCountByVirtualTest(x + pos['x'], y + pos['y'], fixed_target)
 
         if (max_count < count) then
             max_count = count
@@ -167,7 +147,7 @@ function SkillIndicator_AoEWedge:optimizeIndicatorData(l_target, fixed_target)
     end
         
     if (max_count > 0) then
-        setIndicator(t_best['target'], t_best['x'], t_best['y'])
+        self:setIndicatorData(t_best['x'], t_best['y'])
         return true
     end
 

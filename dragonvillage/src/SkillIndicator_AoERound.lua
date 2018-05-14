@@ -16,14 +16,12 @@ end
 SkillIndicator_AoERound = class(PARENT, {
         m_indicatorAddEffect = '',
         m_range = 'num',            -- 반지름
-		m_isFixedOnTarget = 'bool', 
     })
 
 -------------------------------------
 -- function init
 -------------------------------------
-function SkillIndicator_AoERound:init(hero, t_skill, isFixedOnTarget)
-    self.m_isFixedOnTarget = isFixedOnTarget 
+function SkillIndicator_AoERound:init(hero, t_skill)
 end
 
 -------------------------------------
@@ -44,35 +42,28 @@ end
 -------------------------------------
 -- function onTouchMoved
 -------------------------------------
-function SkillIndicator_AoERound:onTouchMoved(x, y)
+function SkillIndicator_AoERound:onTouchMoved(x, y, is_virtual_test)
     if (not self.m_bDirty) then return end
     self.m_bDirty = false
 
     local touch_x, touch_y = x, y
     local pos_x, pos_y = self.m_indicatorRootNode:getPosition()
     
-	local l_collision = self:findCollision(touch_x, touch_y, self.m_range, self.m_isFixedOnTarget)
-    local collision = l_collision[1]
+	local l_collision = self:findCollision(touch_x, touch_y, self.m_range)
     
-    if self.m_isFixedOnTarget and collision then
-        self.m_targetChar = collision:getTarget()
-
-        local body = self.m_targetChar:getBody(collision:getBodyKey())
-               
-        touch_x = self.m_targetChar.pos.x + body['x']
-        touch_y = self.m_targetChar.pos.y + body['y']
-		-- 다시계산한다..!
-		l_collision = self:findCollision(touch_x, touch_y, self.m_range, self.m_isFixedOnTarget)
-    end
-
     self.m_targetPosX = touch_x
     self.m_targetPosY = touch_y
-	
-    -- 이펙트 위치
-	self:setIndicatorPosition(touch_x, touch_y, pos_x, pos_y)
 
-	-- 하이라이트 갱신
-    self:setHighlightEffect(l_collision)
+    if (is_virtual_test) then
+        self.m_collisionListByVirtualTest = l_collision
+
+    else
+	    -- 이펙트 위치
+	    self:setIndicatorPosition(touch_x, touch_y, pos_x, pos_y)
+
+	    -- 하이라이트 갱신
+        self:setHighlightEffect(l_collision)
+    end
 end
 
 -------------------------------------
@@ -145,19 +136,13 @@ end
 -------------------------------------
 -- function findCollision
 -------------------------------------
-function SkillIndicator_AoERound:findCollision(x, y, range, isFixedOnTarget)
+function SkillIndicator_AoERound:findCollision(x, y, range)
     local l_target = self:getProperTargetList()
 
 	local pos_x = x
 	local pos_y = y
 
-	local l_ret
-    
-	if isFixedOnTarget then
-        l_ret = SkillTargetFinder:findCollision_AoERound(l_target, pos_x, pos_y, range)
-	else
-		l_ret = SkillTargetFinder:findCollision_AoERound(l_target, pos_x, pos_y, range)
-    end
+	local l_ret = SkillTargetFinder:findCollision_AoERound(l_target, pos_x, pos_y, range)
 
     -- 타겟 수 만큼만 얻어옴
     l_ret = table.getPartList(l_ret, self.m_targetLimit)
@@ -173,28 +158,6 @@ function SkillIndicator_AoERound:optimizeIndicatorData(l_target, fixed_target)
     local max_count = -1
     local t_best = {}
     
-    local setIndicator = function(target, x, y)
-        self.m_targetChar = target
-        self.m_targetPosX = x
-        self.m_targetPosY = y
-        self.m_critical = nil
-        self.m_bDirty = true
-
-        self:getTargetForHighlight() -- 타겟 리스트를 사용하지 않고 충돌리스트 수로 체크
-
-        local list = self.m_collisionList or {}
-        local count = #list
-
-        -- 반드시 포함되어야하는 타겟이 존재하는지 확인
-        if (fixed_target) then
-            if (not table.find(self.m_highlightList, fixed_target)) then
-                count = -1
-            end
-        end
-        
-        return count
-    end
-
     -- 각도 리스트의 를 랜덤하게 한번 섞음
     L_DIR = randomShuffle(L_DIR)
 
@@ -207,7 +170,7 @@ function SkillIndicator_AoERound:optimizeIndicatorData(l_target, fixed_target)
 
             for _, dir in ipairs(L_DIR) do
                 local pos = getPointFromAngleAndDistance(dir, distance - 1)
-                local count = setIndicator(v, x + pos['x'], y + pos['y'])
+                local count = self:getCollisionCountByVirtualTest(x + pos['x'], y + pos['y'], fixed_target)
 
                 if (max_count < count) then
                     max_count = count
@@ -227,7 +190,7 @@ function SkillIndicator_AoERound:optimizeIndicatorData(l_target, fixed_target)
     end
 
     if (max_count > 0) then
-        setIndicator(t_best['target'], t_best['x'], t_best['y'])
+        self:setIndicatorData(t_best['x'], t_best['y'])
         return true
     end
 

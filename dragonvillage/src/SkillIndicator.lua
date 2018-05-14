@@ -51,6 +51,7 @@ SkillIndicator = class({
 
 		m_highlightList = '',
         m_collisionList = '',
+        m_collisionListByVirtualTest = '',
         
 		-- 인디케이터의 보너스 효과 레벨 관련
 		m_preBonusLevel = 'number',
@@ -213,7 +214,7 @@ end
 -------------------------------------
 -- function onTouchMoved
 -------------------------------------
-function SkillIndicator:onTouchMoved(x, y)
+function SkillIndicator:onTouchMoved(x, y, is_virtual_test)
 end
 
 -------------------------------------
@@ -417,6 +418,22 @@ end
 function SkillIndicator:initIndicatorEffect(indicator)
 	indicator:setColor(COLOR['gray'])
 	indicator:changeAni('idle', true)
+end
+
+-------------------------------------
+-- function setIndicatorData
+-------------------------------------
+function SkillIndicator:setIndicatorData(x, y)
+    local pos_x, pos_y = self:getAttackPosition()
+
+    local dir = getAdjustDegree(getDegree(pos_x, pos_y, x, y))
+    
+    self.m_targetDir = dir
+    self.m_targetPosX = x
+    self.m_targetPosY = y
+    self.m_targetChar = char
+    self.m_critical = nil
+    self.m_bDirty = true
 end
 
 -------------------------------------
@@ -637,7 +654,7 @@ end
 
 -------------------------------------
 -- function getTargetForHighlight
--- @brief 피격(하이라이트) 대상을 미리 얻어오기 위해 임시 추가
+-- @brief 현재 인디케이터 정보로부터 피격(하이라이트) 대상을 얻어옴
 -------------------------------------
 function SkillIndicator:getTargetForHighlight()
     local x, y
@@ -654,6 +671,27 @@ function SkillIndicator:getTargetForHighlight()
     self:onTouchMoved(x, y)
 
     local l_ret = self.m_highlightList or {}
+    return l_ret
+end
+
+-------------------------------------
+-- function getTargetForVirtualTest
+-------------------------------------
+function SkillIndicator:getTargetForVirtualTest()
+    local x, y
+    
+    if (self.m_targetPosX and self.m_targetPosY) then
+        x = self.m_targetPosX
+        y = self.m_targetPosY
+
+    else
+        cclog('getTargetForVirtualTest no target')
+        return {}
+    end
+
+    self:onTouchMoved(x, y, true)
+
+    local l_ret = SkillTargetFinder:getTargetFromCollisionList(self.m_collisionListByVirtualTest)
     return l_ret
 end
 
@@ -738,4 +776,31 @@ function SkillIndicator:isExistTarget()
     if (not self.m_highlightList) then return false end
 
     return (#self.m_highlightList > 0)
+end
+
+-------------------------------------
+-- function getCollisionCountByVirtualTest
+-------------------------------------
+function SkillIndicator:getCollisionCountByVirtualTest(x, y, fixed_target)
+    self.m_targetChar = target
+    self.m_targetPosX = x
+    self.m_targetPosY = y
+    self.m_critical = nil
+    self.m_bDirty = true
+
+    self.m_collisionListByVirtualTest = {}
+
+    local l_target = self:getTargetForVirtualTest() -- 타겟 리스트를 사용하지 않고 충돌리스트 수로 체크
+
+    local list = self.m_collisionListByVirtualTest or {}
+    local count = #list
+
+    -- 반드시 포함되어야하는 타겟이 존재하는지 확인
+    if (fixed_target) then
+        if (not table.find(l_target, fixed_target)) then
+            count = -1
+        end
+    end
+        
+    return count
 end

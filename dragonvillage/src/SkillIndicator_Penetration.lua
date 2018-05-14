@@ -45,7 +45,7 @@ end
 -------------------------------------
 -- function onTouchMoved
 -------------------------------------
-function SkillIndicator_Penetration:onTouchMoved(x, y)
+function SkillIndicator_Penetration:onTouchMoved(x, y, is_virtual_test)
     if (not self.m_bDirty) then return end
     self.m_bDirty = false
 
@@ -94,11 +94,16 @@ function SkillIndicator_Penetration:onTouchMoved(x, y)
 		end
 		self.m_indicatorAddEffect:setPosition(touch_x, touch_y)
 
-		-- 하이라이트 갱신
 		local l_collision = self:findCollision(l_attack_pos, l_dir)
         self.m_additionalInfo = l_dir
 
-		self:setHighlightEffect(l_collision)
+        if (is_virtual_test) then
+            self.m_collisionListByVirtualTest = l_collision
+
+        else
+            -- 하이라이트 갱신
+		    self:setHighlightEffect(l_collision)
+        end
 	end
 end
 

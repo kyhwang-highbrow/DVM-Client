@@ -24,7 +24,7 @@ end
 -------------------------------------
 -- function onTouchMoved
 -------------------------------------
-function SkillIndicator_LeafBlade:onTouchMoved(x, y)
+function SkillIndicator_LeafBlade:onTouchMoved(x, y, is_virtual_test)
     if (not self.m_bDirty) then return end
     self.m_bDirty = false
 
@@ -47,27 +47,32 @@ function SkillIndicator_LeafBlade:onTouchMoved(x, y)
 
     local l_collision = self:findCollision(tar_x, tar_y)
 
-    if (l_collision[1]) then
-        self.m_targetChar = l_collision[1]:getTarget()
-    end
+    if (is_virtual_test) then
+        self.m_collisionListByVirtualTest = l_collision
+        
+    else
+        if (l_collision[1]) then
+            self.m_targetChar = l_collision[1]:getTarget()
+        end
 	
-    -- 4-1. 베지어 곡선 이펙트 위치 갱신
-    self.m_indicatorBezierEffect1:refreshEffect(tar_x, tar_y, pos_x, pos_y, 1)
-	self.m_indicatorBezierEffect2:refreshEffect(tar_x, tar_y, pos_x, pos_y, -1)
+        -- 4-1. 베지어 곡선 이펙트 위치 갱신
+        self.m_indicatorBezierEffect1:refreshEffect(tar_x, tar_y, pos_x, pos_y, 1)
+	    self.m_indicatorBezierEffect2:refreshEffect(tar_x, tar_y, pos_x, pos_y, -1)
 
-	-- 4-2. 직선 이펙트 위치 갱신
-    self.m_indicatorLinearEffect1:refreshEffect(tar_x, tar_y, pos_x, pos_y, 1)
-	self.m_indicatorLinearEffect2:refreshEffect(tar_x, tar_y, pos_x, pos_y, -1)
+	    -- 4-2. 직선 이펙트 위치 갱신
+        self.m_indicatorLinearEffect1:refreshEffect(tar_x, tar_y, pos_x, pos_y, 1)
+	    self.m_indicatorLinearEffect2:refreshEffect(tar_x, tar_y, pos_x, pos_y, -1)
 
-	-- 4-3. 타겟에 찍히는 이펙트 위치 갱신
-    self.m_indicatorEffect:setPosition(tar_x - pos_x, tar_y - pos_y)
+	    -- 4-3. 타겟에 찍히는 이펙트 위치 갱신
+        self.m_indicatorEffect:setPosition(tar_x - pos_x, tar_y - pos_y)
 
-	-- 5. 메인 타겟 좌표 멤버 변수에 저장
-    self.m_targetPosX = tar_x
-    self.m_targetPosY = tar_y
+	    -- 5. 메인 타겟 좌표 멤버 변수에 저장
+        self.m_targetPosX = tar_x
+        self.m_targetPosY = tar_y
 
-	-- 6. 공격 대상 하이라이트 이펙트 관리
-	self:setHighlightEffect(l_collision)
+	    -- 6. 공격 대상 하이라이트 이펙트 관리
+	    self:setHighlightEffect(l_collision)
+    end
 end
 
 -------------------------------------

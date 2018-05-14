@@ -27,7 +27,7 @@ end
 -------------------------------------
 -- function onTouchMoved
 -------------------------------------
-function SkillIndicator_AoESquare:onTouchMoved(x, y)
+function SkillIndicator_AoESquare:onTouchMoved(x, y, is_virtual_test)
     if (not self.m_bDirty) then return end
     self.m_bDirty = false
 
@@ -38,11 +38,16 @@ function SkillIndicator_AoESquare:onTouchMoved(x, y)
     self.m_targetPosX = x
     self.m_targetPosY = y
 
-	-- 이펙트 위치 조정
-	self:setIndicatorPosition(x, y, pos_x, pos_y)
+    if (is_virtual_test) then
+        self.m_collisionListByVirtualTest = l_collision
 
-	-- 하이라이트 갱신
-    self:setHighlightEffect(l_collision)
+    else
+        -- 이펙트 위치 조정
+	    self:setIndicatorPosition(x, y, pos_x, pos_y)
+
+	    -- 하이라이트 갱신
+        self:setHighlightEffect(l_collision)
+    end
 end
 
 -------------------------------------

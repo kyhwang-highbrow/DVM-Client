@@ -238,3 +238,24 @@ function SkillTargetFinder:getCollisionFromTargetList(l_target, pos_x, pos_y, do
 
     return l_ret
 end
+
+-------------------------------------
+-- function getTargetFromCollisionList
+-- @brief 충돌 리스트로부터 해당 타겟들을 얻는다
+-------------------------------------
+function SkillTargetFinder:getTargetFromCollisionList(l_collision)
+    local l_target = l_target or {}
+    local l_ret = {}
+    local m_temp = {}
+
+    for _, collision in ipairs(l_collision) do
+        local target = collision:getTarget()
+        m_temp[target] = true
+    end
+
+    for target, _ in pairs(m_temp) do
+        table.insert(l_ret, target)
+    end
+
+    return l_ret
+end

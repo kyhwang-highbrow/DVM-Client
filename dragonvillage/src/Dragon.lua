@@ -421,8 +421,6 @@ function Dragon:initSkillIndicator()
 	-- 원형 범위
 	elseif (indicator_type == 'round') then
 		self.m_skillIndicator = SkillIndicator_AoERound(self, t_skill, false)
-	elseif (indicator_type == 'target_round') then
-		self.m_skillIndicator = SkillIndicator_AoERound(self, t_skill, true)
 
 	-- 원점 기준 원뿔형
 	elseif (indicator_type == 'wedge') then

@@ -36,7 +36,7 @@ end
 -------------------------------------
 -- function onTouchMoved
 -------------------------------------
-function SkillIndicator_Cross:onTouchMoved(x, y)
+function SkillIndicator_Cross:onTouchMoved(x, y, is_virtual_test)
     if (not self.m_bDirty) then return end
     self.m_bDirty = false
 
@@ -47,12 +47,17 @@ function SkillIndicator_Cross:onTouchMoved(x, y)
     self.m_targetPosX = x
     self.m_targetPosY = y
 
-    -- 이펙트 위치
-    self.m_indicatorEffect:setPosition(x - pos_x, y - pos_y)
-	self.m_indicatorAddEffect:setPosition(x - pos_x, y - pos_y)
+    if (is_virtual_test) then
+        self.m_collisionListByVirtualTest = l_collision
 
-	-- 하이라이트 갱신
-    self:setHighlightEffect(l_collision)
+    else
+        -- 이펙트 위치
+        self.m_indicatorEffect:setPosition(x - pos_x, y - pos_y)
+	    self.m_indicatorAddEffect:setPosition(x - pos_x, y - pos_y)
+
+	    -- 하이라이트 갱신
+        self:setHighlightEffect(l_collision)
+    end
 end
 
 -------------------------------------
@@ -162,34 +167,12 @@ end
 function SkillIndicator_Cross:optimizeIndicatorData(l_target, fixed_target)
     local max_count = -1
     local t_best
-    
-    local setIndicator = function(target, x, y)
-        self.m_targetChar = target
-        self.m_targetPosX = x
-        self.m_targetPosY = y
-        self.m_critical = nil
-        self.m_bDirty = true
 
-        self:getTargetForHighlight() -- 타겟 리스트를 사용하지 않고 충돌리스트 수로 체크
-
-        local list = self.m_collisionList or {}
-        local count = #list
-
-        -- 반드시 포함되어야하는 타겟이 존재하는지 확인
-        if (fixed_target) then
-            if (not table.find(self.m_highlightList, fixed_target)) then
-                count = -1
-            end
-        end
-        
-        return count
-    end
-
-    local half_line_size = self.m_lineSize / 2
+    local gap_size = self.m_lineSize / 4
     local cameraHomePosX, cameraHomePosY = self.m_world.m_gameCamera:getHomePos()
     
-    local count_x = math_floor(CRITERIA_RESOLUTION_X / half_line_size) - 1
-    local count_y = math_floor(CRITERIA_RESOLUTION_Y / half_line_size) - 1
+    local count_x = math_floor(CRITERIA_RESOLUTION_X / gap_size) - 1
+    local count_y = math_floor(CRITERIA_RESOLUTION_Y / gap_size) - 1
     local center_x
     local center_y
 
@@ -201,10 +184,10 @@ function SkillIndicator_Cross:optimizeIndicatorData(l_target, fixed_target)
 
     for i = 1, count_y do
         for j = 1, count_x do
-            local x = j * half_line_size + cameraHomePosX
-            local y = i * half_line_size + cameraHomePosY - CRITERIA_RESOLUTION_Y / 2
+            local x = j * gap_size + cameraHomePosX
+            local y = i * gap_size + cameraHomePosY - CRITERIA_RESOLUTION_Y / 2
 
-            local count = setIndicator(nil, x, y)
+            local count = self:getCollisionCountByVirtualTest(x, y, fixed_target)
             local distance = getDistance(x, y, center_x, center_y)
 
             local b = false
@@ -231,7 +214,7 @@ function SkillIndicator_Cross:optimizeIndicatorData(l_target, fixed_target)
     end
 
     if (max_count > 0) then
-        setIndicator(t_best['target'], t_best['x'], t_best['y'])
+        self:setIndicatorData(t_best['x'], t_best['y'])
         return true
     end
 
