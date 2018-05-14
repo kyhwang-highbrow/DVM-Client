@@ -68,10 +68,20 @@ function ChatMacroData:makeDefaultData()
         ['chat_macro'] = {}
     }
     local lang = Translate:getGameLang()
-    if (lang == 'ko') then
-        for i = 1, 10 do
-            table.insert(root_table['chat_macro'], {['idx'] = i, ['macro'] = '매크로_' .. i})
-        end
+	
+	local macro_ = ''
+
+	if (lang == 'ko') then
+		macro_ = '매크로'
+	elseif (lang == 'en') then
+		macro_ = 'macro'
+	elseif (lang == 'ja') then
+		macro_ = 'マクロ'
+	elseif (lang == 'zh') then
+		macro_ = '巨集'
+    end
+	for i = 1, 10 do
+        table.insert(root_table['chat_macro'], {['idx'] = i, ['macro'] = macro_ .. i})
     end
     return root_table
 end
