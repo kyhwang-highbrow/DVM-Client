@@ -1,6 +1,6 @@
 local PARENT = class(UI_IndivisualTab, ITabUI:getCloneTable())
 
--- g_colosseumData -> g_arenaData 변경 필요, 아직 서버 api 분리안됨
+-- g_arenaData -> g_arenaData 변경 필요, 아직 서버 api 분리안됨
 
 -------------------------------------
 -- class UI_ArenaTabRank
@@ -41,7 +41,6 @@ end
 -- function initUI
 -------------------------------------
 function UI_ArenaTabRank:initUI()
-    local vars = self.vars
     self:initTab()
 end
 
@@ -84,11 +83,11 @@ end
 -------------------------------------
 function UI_ArenaTabRank:request_rank()
     local function finish_cb()
-        self.m_rankOffset = g_colosseumData.m_nGlobalOffset
+        self.m_rankOffset = g_arenaData.m_nGlobalOffset
         self:makeRankTableView()
     end
     local offset = self.m_rankOffset
-    g_colosseumData:request_colosseumRank(offset, finish_cb)
+    g_arenaData:request_colosseumRank(offset, finish_cb)
 end
 
 -------------------------------------
@@ -103,11 +102,11 @@ function UI_ArenaTabRank:makeRankTableView()
     my_node:removeAllChildren()
     
 	do-- 내 순위
-        local ui = UI_ArenaRankListItem(g_colosseumData.m_playerUserInfo)
+        local ui = UI_ArenaRankListItem(g_arenaData.m_playerUserInfo)
         my_node:addChild(ui.root)
 	end
 
-    local l_item_list = g_colosseumData.m_lGlobalRank
+    local l_item_list = g_arenaData.m_lGlobalRank
 
     if (1 < self.m_rankOffset) then
         local prev_data = { m_tag = 'prev' }
@@ -126,7 +125,7 @@ function UI_ArenaTabRank:makeRankTableView()
 
     -- 다음 랭킹 보기
     local function click_nextBtn()
-        local add_offset = #g_colosseumData.m_lGlobalRank
+        local add_offset = #g_arenaData.m_lGlobalRank
         if (add_offset < OFFSET_GAP) then
             MakeSimplePopup(POPUP_TYPE.OK, Str('다음 랭킹이 존재하지 않습니다.'))
             return
@@ -181,7 +180,7 @@ end
 -- function request_clanRank
 -------------------------------------
 function UI_ArenaTabRank:request_clanRank()
-    local rank_type = CLAN_RANK['CLSM']
+    local rank_type = CLAN_RANK['AREN']
     local offset = self.m_clanRankOffset
     local cb_func = function()
         if (not self.m_clanRankTableView) then
@@ -198,7 +197,7 @@ end
 -------------------------------------
 function UI_ArenaTabRank:makeMyClanRankNode()
     local vars = self.vars
-    local info = g_clanRankData:getMyRankData(CLAN_RANK['CLSM'])
+    local info = g_clanRankData:getMyRankData(CLAN_RANK['AREN'])
 
     -- 자기 클랜이 있는 경우
     if (info) then
@@ -207,7 +206,7 @@ function UI_ArenaTabRank:makeMyClanRankNode()
 
         local my_node = vars['myClanRankingListNode1']
         my_node:removeAllChildren()
-        local ui = UI_ArenaRankListItem(info)
+        local ui = UI_ArenaClanRankListItem(info)
         my_node:addChild(ui.root)
 
         self.m_hasMyClan = true
@@ -234,7 +233,7 @@ function UI_ArenaTabRank:makeClanRankTableView()
         local node = vars['clanRankingListNode']
         node:removeAllChildren()
 	    
-        local l_rank_list = g_clanRankData:getRankData(CLAN_RANK['CLSM'])
+        local l_rank_list = g_clanRankData:getRankData(CLAN_RANK['AREN'])
         
         -- 이전 보기 추가
         if (1 < self.m_clanRankOffset) then
@@ -278,7 +277,7 @@ function UI_ArenaTabRank:makeClanRankTableView()
         -- 테이블 뷰 인스턴스 생성
         local table_view = UIC_TableView(node)
         table_view.m_defaultCellSize = cc.size(720, 100 + 5)
-        table_view:setCellUIClass(UI_ArenaRankListItem, create_func)
+        table_view:setCellUIClass(UI_ArenaClanRankListItem, create_func)
         table_view:setDirection(cc.SCROLLVIEW_DIRECTION_VERTICAL)
         table_view:setItemList(l_rank_list)
 

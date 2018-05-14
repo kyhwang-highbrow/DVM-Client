@@ -4,19 +4,19 @@ local PARENT = class(UI, IRankListItem:getCloneTable())
 -- class UI_ArenaAttackListItem
 -------------------------------------
 UI_ArenaAttackListItem = class(PARENT,{
-        m_structUserInfoColosseum = 'StructUserInfoColosseum',
+        m_structUserInfoArena = 'StructUserInfoArena',
     })
 
 -------------------------------------
 -- function init
 -------------------------------------
-function UI_ArenaAttackListItem:init(struct_user_info_colosseum)
-    self.m_structUserInfoColosseum = struct_user_info_colosseum
+function UI_ArenaAttackListItem:init(struct_user_info_arena)
+    self.m_structUserInfoArena = struct_user_info_arena
 
     local vars = self:load('colosseum_scene_atk_item.ui')
     vars['listMenu']:setSwallowTouch(false)
 
-    local info = struct_user_info_colosseum
+    local info = struct_user_info_arena
 
     -- 대표 드래곤 아이콘
     local icon = info:getLeaderDragonCard()
@@ -76,6 +76,5 @@ end
 -- function click_selectBtn
 -------------------------------------
 function UI_ArenaAttackListItem:click_selectBtn()
-    g_colosseumData.m_matchUserID = self.m_structUserInfoColosseum.m_uid
-    UI_ColosseumReady()
+    
 end

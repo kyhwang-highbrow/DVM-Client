@@ -902,6 +902,9 @@ local t_module = {
     'UI_ArenaTabRank',
     'UI_ArenaDeckSettings',
     'UI_ArenaRankListItem',
+    'UI_ArenaClanRankListItem',
+    'UI_ArenaResult',
+    'UI_ArenaAttackListItem',
 
     -- UI : 친선전
     'UI_FriendMatchReady',

@@ -12,19 +12,16 @@ ServerData_Arena = class({
         m_startTime = 'timestamp', -- 콜로세움 오픈 시간
         m_endTime = 'timestamp', -- 콜로세움 종료 시간
 
-        m_matchUserID = '',
         m_gameKey = 'number',
         m_nGlobalOffset = 'number', -- 랭킹
         m_lGlobalRank = 'list',
 
         -- 전투 히스토리 데이터
-        m_matchHistory = 'list',
-
+        m_matchAtkHistory = 'list',
+        m_matchDefHistory = 'list',
+        
         m_tSeasonRewardInfo = 'table',
         m_tClanRewardInfo = 'table',
-
-        m_buffTime = 'timestamp', -- 버프 유효 시간 (0일 경우 버프 발동 x, 값이 있을 경우 해당 시간까지 버프 적용)
-        m_buffWin = 'number', -- 연승버프에 사용되는 연승
 
         m_bOpen = 'boolean',
     })
@@ -37,6 +34,8 @@ function ServerData_Arena:init(server_data)
     self.m_bOpen = true
 	self.m_startTime = 0
 	self.m_endTime = 0
+    self.m_matchAtkHistory = {}
+    self.m_matchDefHistory = {}
 end
 
 -------------------------------------
@@ -85,10 +84,6 @@ function ServerData_Arena:response_arenaInfo(ret)
 
     -- 주간 보상
     self:setRewardInfo(ret)
-
-    -- 버프 발동 종료 시간
-    self.m_buffTime = ret['bufftime']
-    self.m_buffWin = ret['buffwin']
 end
 
 -------------------------------------
@@ -460,10 +455,6 @@ function ServerData_Arena:request_colosseumFinish(is_win, finish_cb, fail_cb)
         ret['added_rp'] = ret['point'] -- 실시간으로 변경된 값이 있을 수 있으므로 서버에서 넘어오는 값을 표기
         ret['added_honor'] = (g_userData:get('honor') - prev_honor)
 
-        -- 버프 발동 종료 시간
-        self.m_buffTime = ret['bufftime']
-        self.m_buffWin = ret['buffwin']
-
         if finish_cb then
             finish_cb(ret)
         end
@@ -486,10 +477,9 @@ function ServerData_Arena:request_colosseumFinish(is_win, finish_cb, fail_cb)
 
     -- 네트워크 통신
     local ui_network = UI_Network()
-    ui_network:setUrl('/game/pvp/ladder/finish')
+    ui_network:setUrl('/game/arena/finish')
     ui_network:setParam('uid', uid)
     ui_network:setParam('is_win', is_win and 1 or 0)
-    ui_network:setParam('vs_uid', self.m_matchUserID)
     ui_network:setParam('gamekey', self.m_gameKey)
     ui_network:setMethod('POST')
     ui_network:setSuccessCB(success_cb)
@@ -510,11 +500,6 @@ function ServerData_Arena:request_colosseumRank(offset, finish_cb, fail_cb)
 
     -- 콜백 함수
     local function success_cb(ret)
-        --[[
-        g_serverData:networkCommonRespone(ret)
-        self.m_myRank = ret['my_info']
-        --]]
-
         self.m_nGlobalOffset = ret['offset']
 
         -- 유저 리스트 저장
@@ -531,7 +516,7 @@ function ServerData_Arena:request_colosseumRank(offset, finish_cb, fail_cb)
 
     -- 네트워크 통신 UI 생성
     local ui_network = UI_Network()
-    ui_network:setUrl('/game/pvp/ranking')
+    ui_network:setUrl('/game/arena/ranking')
     ui_network:setParam('uid', uid)
     ui_network:setParam('offset', offset)
     ui_network:setParam('limit', 30)
@@ -545,19 +530,19 @@ function ServerData_Arena:request_colosseumRank(offset, finish_cb, fail_cb)
 end
 
 -------------------------------------
--- function request_colosseumDefHistory
+-- function request_colosseumHistory
 -------------------------------------
-function ServerData_Arena:request_colosseumDefHistory(finish_cb, fail_cb)
+function ServerData_Arena:request_colosseumHistory(type, finish_cb, fail_cb)
     -- 파라미터
     local uid = g_userData:get('uid')
 
     -- 콜백 함수
     local function success_cb(ret)
 
-        self.m_matchHistory = {}
+        local l_history = type == 'atk' and self.m_matchAtkHistory or self.m_matchDefHistory
         for i,v in pairs(ret['history']) do
             local user_info = StructUserInfoArena:create_forHistory(v)
-            table.insert(self.m_matchHistory, user_info)
+            table.insert(l_history, user_info)
         end
         
         if finish_cb then
@@ -567,8 +552,9 @@ function ServerData_Arena:request_colosseumDefHistory(finish_cb, fail_cb)
 
     -- 네트워크 통신 UI 생성
     local ui_network = UI_Network()
-    ui_network:setUrl('/game/pvp/history')
+    ui_network:setUrl('/game/arena/history')
     ui_network:setParam('uid', uid)
+    ui_network:setParam('type', type) -- atk 공격 기록 , def 방어 기록
     ui_network:setSuccessCB(success_cb)
     ui_network:setFailCB(fail_cb)
     ui_network:setRevocable(true)
@@ -608,72 +594,6 @@ function ServerData_Arena:setRewardInfo(ret)
         self.m_tClanRewardInfo['rank'] = StructClanRank(ret['last_clan_info'])
         self.m_tClanRewardInfo['reward_info'] = ret['reward_clan_info']
     end
-end
-
--------------------------------------
--- function getStraightBuffTitle
--- @brief 연승 버프 타이틀
--------------------------------------
-function ServerData_Arena:getStraightBuffTitle()
-    local wins = math_clamp(self.m_buffWin, 0, 10)
-    local step = math_floor(wins / 2)
-    local text = Str('연승 버프 {1}단계({2}연승)', step, wins)
-    return text
-end
-
--------------------------------------
--- function getStraightBuffText
--- @brief 연승 버프 텍스트
--------------------------------------
-function ServerData_Arena:getStraightBuffText()
-    -- 연승 정보
-    local straight = self.m_buffWin
-    local t_ret = TableArenaBuff:getStraightBuffData(straight)
-
-    local text = nil
-    for i,v in ipairs(t_ret) do
-        local option = v['option']
-        local value = v['value']
-        local desc = TableOption:getOptionDesc(option, value)
-
-        if (not text) then
-            text = desc
-        else
-            text = text .. ', ' .. desc
-        end
-    end
-
-    if (not text) then
-        return Str('연승 버프 없음')
-    end
-
-    return text
-end
-
--------------------------------------
--- function getStraightTimeText
--- @brief 연승 버프 시간 텍스트
--------------------------------------
-function ServerData_Arena:getStraightTimeText()
-    -- 연승 정보
-    local straight = self.m_buffWin
-
-    if (straight <= 1) then
-        return '', false
-    end
-
-
-    local curr_time = Timer:getServerTime()
-    local buff_time = (self.m_buffTime / 1000)
-
-    -- 시간 초과
-    if (buff_time <= curr_time) then
-        return '', false
-    end
-
-    
-    local time = (buff_time - curr_time)
-    return Str('{1} 남음', datetime.makeTimeDesc(time, true)), true
 end
 
 -------------------------------------

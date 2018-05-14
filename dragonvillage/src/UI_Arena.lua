@@ -124,18 +124,6 @@ function UI_Arena:initButton()
     vars['testModeBtn']:setVisible(false)
     vars['startBtn']:registerScriptTapHandler(function() self:click_startBtn() end)
     vars['rewardInfoBtn']:registerScriptTapHandler(function() self:click_rewardInfoBtn() end)
-
---    vars['rankDetailBtn']:registerScriptTapHandler(function() self:click_rankDetailBtn() end)
---    vars['defDeckBtn']:registerScriptTapHandler(function() self:click_defDeckBtn() end)
-
---    if (vars['testModeBtn']) then
---        if (IS_TEST_MODE()) then
---            vars['testModeBtn']:registerScriptTapHandler(function() self:click_testModeBtn() end)
---            vars['testModeBtn']:setVisible(true)
---        else
---            vars['testModeBtn']:setVisible(false)
---        end
---    end
 end
 
 -------------------------------------

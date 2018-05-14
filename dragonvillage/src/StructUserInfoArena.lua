@@ -110,7 +110,7 @@ function StructUserInfoArena:create_forHistory(t_data)
     user_info:applyDragonsDataList(t_data['dragons'])
 
     -- 공격 덱 저장
-    user_info:applyPvpAtkDeckData(t_data['deck'])
+    user_info:applyPvpDeckData(t_data['deck'])
 
     -- 매치 한 시간
     user_info.m_matchTime = t_data['match_at']
@@ -344,6 +344,11 @@ end
 -- @brief
 -------------------------------------
 function StructUserInfoArena:applyDragonsDataList(l_data)
+    for _, v in ipairs(l_data) do
+        if (v['id'] == nil) then -- 드래곤 오브젝트 아이디 안줌? 원기님한테 물어보기
+            v['id'] = tostring(v['updated_at'])
+        end
+    end
     PARENT.applyDragonsDataList(self, l_data)
 
     -- 룬 정보 연결

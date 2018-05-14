@@ -20,7 +20,7 @@ function UI_ArenaResult:init(is_win, t_data)
     self.m_isWin = is_win
     self.m_resultData = t_data
 
-    local vars = self:load('colosseum_result.ui')
+    local vars = self:load('arena_result.ui')
     UIManager:open(self, UIManager.POPUP)
 
     self:doActionReset()
@@ -78,8 +78,8 @@ function UI_ArenaResult:direction_showTamer()
     local is_win = self.m_isWin
     local vars = self.vars
 
-	local user_info = (is_friendMatch) and g_friendMatchData.m_playerUserInfo or g_colosseumData.m_playerUserInfo
-    local tamer_id = user_info:getAtkDeckTamerID()
+	local user_info = g_arenaData.m_playerUserInfo
+    local tamer_id = user_info:getDeckTamerID()
 
 	local t_tamer =  TableTamer():get(tamer_id)
     local tamer_node = vars['tamerNode']
@@ -197,7 +197,7 @@ function UI_ArenaResult:direction_end()
     local number_act = cc.CallFunc:create(function()
       
         -- 현재 점수
-        local rp = g_colosseumData.m_playerUserInfo.m_rp
+        local rp = g_arenaData.m_playerUserInfo.m_rp
         score_label1:setNumber(rp)
 
         -- 획득 점수
@@ -378,7 +378,7 @@ end
 -- @brief "확인" 버튼
 -------------------------------------
 function UI_ArenaResult:click_okBtn()
-	UINavigator:goTo('colosseum')
+	UINavigator:goTo('arena')
 end
 
 -------------------------------------
