@@ -56,7 +56,12 @@ function UI_FormationListItem:refresh()
 
 	-- 진형 이름
 	local formation_name = table_formation:getFormationName(formation_type)
-	local formation_str = string.format('Lv. %d %s', formation_lv, formation_name)
+	local formation_str
+    if (self.m_bArenaMode) then
+        formation_str = formation_name -- 콜로세움 (신규) 덱 이름만
+    else
+        formation_str = string.format('Lv. %d %s', formation_lv, formation_name)
+    end
 	vars['fomationLabel']:setString(formation_str)
 
 	-- 진형 효과
