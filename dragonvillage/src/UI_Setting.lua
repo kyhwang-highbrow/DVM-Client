@@ -72,9 +72,6 @@ end
 function UI_Setting:initButton()
     local vars = self.vars
     vars['closeBtn']:registerScriptTapHandler(function() self:click_closeBtn() end)
-
-    -- test 
-    vars['arenaTestBtn']:registerScriptTapHandler(function() UINavigator:goTo('arena') end)
 end
 
 -------------------------------------

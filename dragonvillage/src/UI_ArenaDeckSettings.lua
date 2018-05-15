@@ -15,6 +15,7 @@ local NEED_CASH = 50 -- 유료 입장 다이아 개수
 -------------------------------------
 function UI_ArenaDeckSettings:init(stage_id, sub_info)
     local vars = self.vars
+    self.m_historyID = sub_info
 
     -- 유료 입장권
     local icon = IconHelper:getItemIcon(ITEM_ID_CASH)
@@ -154,7 +155,13 @@ function UI_ArenaDeckSettings:click_startBtn()
                 end)
             end
 
-            g_arenaData:request_arenaStart(is_cash, cb)
+            -- 재도전, 복수전
+            if (self.m_historyID) then
+
+            -- 일반 매칭
+            else
+                g_arenaData:request_arenaStart(is_cash, cb)
+            end
         end
 
         -- 기본 입장권 부족시

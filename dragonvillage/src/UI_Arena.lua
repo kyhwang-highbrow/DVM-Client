@@ -156,10 +156,10 @@ function UI_Arena:refresh()
 	-- 주간 승수 보상
 	local curr_win = struct_user_info:getWinCnt()
 	local temp
-	if curr_win > 20 then
+	if curr_win > 40 then
 		temp = 4
 	else
-		temp = math_floor(curr_win/5)
+		temp = math_floor(curr_win/10)
 	end
 	vars['rewardVisual']:changeAni('reward_' .. temp, true)
 end

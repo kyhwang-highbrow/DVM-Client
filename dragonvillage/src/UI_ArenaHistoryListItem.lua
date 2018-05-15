@@ -68,11 +68,16 @@ function UI_ArenaHistoryListItem:initUI()
         vars['resultLabel']:setString(Str('패배'))
     end
 
-    -- 재도전, 복수전 (패배이고 도전가능한 상황일떄만 노출)
-    -- 1번 도전이라 되있는데 이부분 서버 작업 필요함
-
-    local str_retry = (self.m_type == 'atk') and Str('재도전') or Str('복수전')
-    vars['retryLabel']:setString(str_retry)
+    -- 재도전 (패배시에만 버튼 활성화)
+    if (self.m_type == 'atk') then
+        vars['retryBtn']:setVisible(user_info.m_matchResult ~= 1)
+        vars['retryLabel']:setString(Str('재도전'))
+    -- 복수전 (서버에서 주는 값으로 판단)
+    else
+        local b_revenge = user_info.m_history_revenge
+        vars['retryBtn']:setVisible(not b_revenge)
+        vars['retryLabel']:setString(Str('복수전'))
+    end
 
     do -- 시간
         local curr_time = Timer:getServerTime()
@@ -106,6 +111,9 @@ end
 -- @brief 복수전, 재도전
 -------------------------------------
 function UI_ArenaHistoryListItem:click_retryBtn()
+    local user_info = self.m_userInfo
+    local history_id = user_info.m_history_id
+    UI_ArenaDeckSettings(ARENA_STAGE_ID, history_id)
 end
 
 -------------------------------------
@@ -115,7 +123,8 @@ end
 function UI_ArenaHistoryListItem:click_deckBtn()
     local user_info = self.m_userInfo
     local uid = user_info.m_uid
+    local history_id = user_info.m_history_id
 
     -- 히스토리 저장될떄의 덱을 보여줌
-    RequestUserDeckInfoPopupNew(uid)
+    RequestUserDeckInfoPopupNew(uid, history_id)
 end

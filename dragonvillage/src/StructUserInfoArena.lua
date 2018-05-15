@@ -55,6 +55,9 @@ StructUserInfoArena = class(PARENT, {
 
         m_matchResult = 'number', -- -1:매치 전, 0:패, 1:승
         m_matchTime = 'timestamp',
+
+        m_history_revenge = 'boolean',
+        m_history_id = 'number',
     })
 
 -------------------------------------
@@ -101,6 +104,10 @@ function StructUserInfoArena:create_forHistory(t_data)
     user_info.m_rankPercent = t_data['rate']
     user_info.m_tier = t_data['tier']
     user_info.m_rp = t_data['rp']
+
+    -- 히스토리 전용 변수들
+    user_info.m_history_revenge = t_data['revenge'] -- 복수전 (재도전은 같은 히스토리를 업데이트 하므로 승패에 따라 버튼 활성화)
+    user_info.m_history_id = t_data['history_id']
 
     user_info.m_leaderDragonObject = StructDragonObject(t_data['leader'])
     

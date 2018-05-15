@@ -293,6 +293,22 @@ end
 -- @usage UINavigatorDefinition:goTo('colosseum')
 -------------------------------------
 function UINavigatorDefinition:goTo_colosseum(...)
+    -- 콜로세움 (신규)
+    if IS_ARENA_OPEN() then
+        self:goTo('arena')
+
+    -- 콜로세움 (예전)
+    else
+        self:goTo('colosseum_old')
+    end
+end
+
+-------------------------------------
+-- function goTo_colosseum
+-- @brief 콜로세움으로 이동
+-- @usage UINavigatorDefinition:goTo('colosseum_old')
+-------------------------------------
+function UINavigatorDefinition:goTo_colosseum_old(...)
     -- 해당 UI가 열려있을 경우
     local is_opend, idx, ui = self:findOpendUI('UI_Colosseum')
     if (is_opend == true) then
