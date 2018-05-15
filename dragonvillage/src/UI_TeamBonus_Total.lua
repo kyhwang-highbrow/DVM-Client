@@ -42,7 +42,7 @@ function UI_TeamBonus_Total:initTableView(only_my_team)
         local l_my_teambonus = TeamBonusHelper:getTeamBonusDataFromDeck(l_deck)
         if (#l_my_teambonus == 0) then
             local temp_data = {
-                id = TAG_TEAMBONUS_EMPTY,
+                id = TEAMBONUS_EMPTY_TAG,
                 skill_type = 'none',
             }
 
@@ -54,8 +54,6 @@ function UI_TeamBonus_Total:initTableView(only_my_team)
 
     -- 배치 기능 활성화 여부
     local b_recommend = self.m_owner_ui.m_bRecommend
-    local sort_mgr = SortManager_TeamBonus(b_recommend)
-
     local node = vars['allListNode']
     node:removeAllChildren()
 
@@ -75,5 +73,6 @@ function UI_TeamBonus_Total:initTableView(only_my_team)
     table_view:setDirection(cc.SCROLLVIEW_DIRECTION_VERTICAL)
     table_view:setItemList(l_teambonus)
 
+    local sort_mgr = SortManager_TeamBonus(b_recommend)
     sort_mgr:sortExecution(table_view.m_itemList)
 end

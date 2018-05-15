@@ -8,6 +8,7 @@ UI_TeamBonusListItem = class(PARENT, {
         m_bRecommend = 'boolean', -- 추천배치 가능한 모드
      })
 
+TEAMBONUS_EMPTY_TAG = 0
 -------------------------------------
 -- function init
 -------------------------------------
@@ -31,7 +32,7 @@ function UI_TeamBonusListItem:initUI()
     local id = struct_teambonus:getID()
 
     -- 적용중인 팀보너스 없을 경우 
-    if (id == TAG_TEAMBONUS_EMPTY) then
+    if (id == TEAMBONUS_EMPTY_TAG) then
         vars['emptySprite']:setVisible(true)
         return
     end
@@ -93,16 +94,17 @@ function UI_TeamBonusListItem:checkApplyCondition(l_card)
         return
     end
 
+    local vars = self.vars
+
     local struct_teambonus = self.m_data
     local id = struct_teambonus:getID()
+    local t_teambonus = TableTeamBonus():get(id)
 
-    -- SortManager_TeamBonus 에서 배치 가능한 드래곤 체크를 했다는 가정하에 다시 체크하지 않음
-    local is_recommend = MAP_RECOMMEND_TEAMBONUS[id]
-    if (not is_recommend) then 
+    local is_satisfied, l_dragon_list = TeamBonusHelper:isSatisfiedByMyDragons(t_teambonus)
+    if (not is_satisfied) then 
         return
     end
 
-    local t_teambonus = TableTeamBonus():get(id)
     local condition_type = t_teambonus['condition_type']
 
     -- 카드위에 드래곤 안올라간 경우 
@@ -118,8 +120,7 @@ function UI_TeamBonusListItem:checkApplyCondition(l_card)
             end
         end
     end
-
-    local vars = self.vars
+    
     vars['applyBtn']:setVisible(true)
     vars['applyBtn']:registerScriptTapHandler(function() self:click_applyBtn(l_dragon_list, t_teambonus) end)
 end
