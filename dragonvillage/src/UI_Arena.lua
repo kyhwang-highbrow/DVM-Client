@@ -56,6 +56,9 @@ function UI_Arena:init()
     self:initButton()
     self:refresh()
 
+    local test_1 = Str('재도전')
+    local test_2 = Str('복수전')
+
     -- 보상 안내 팝업
     local function finich_cb()
 --        local ui
@@ -175,7 +178,7 @@ end
 -- @brief 콜로세움 보상 정보 팝업
 -------------------------------------
 function UI_Arena:click_rewardInfoBtn()
---    UI_ArenaRewardInfoPopup()
+    UI_ArenaRewardInfoPopup()
 end
 
 -------------------------------------
