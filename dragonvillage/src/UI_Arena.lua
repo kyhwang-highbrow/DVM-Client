@@ -124,6 +124,7 @@ function UI_Arena:initButton()
     vars['testModeBtn']:setVisible(false)
     vars['startBtn']:registerScriptTapHandler(function() self:click_startBtn() end)
     vars['rewardInfoBtn']:registerScriptTapHandler(function() self:click_rewardInfoBtn() end)
+    vars['rankDetailBtn']:registerScriptTapHandler(function() self:click_rankDetailBtn() end)
 
     -- 콜로세움 안내 (네이버 sdk 링크)
     NaverCafeManager:setPluginInfoBtn(vars['plugInfoBtn'], 'arena_help')
@@ -199,7 +200,7 @@ function UI_Arena:click_testModeBtn()
         return
     end
 
-    UI_ArenaReadyForDev()
+    UI_ColosseumReadyForDev()
 end
 
 -------------------------------------

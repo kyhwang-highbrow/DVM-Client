@@ -3475,16 +3475,7 @@
     <None Include="..\src\UI_ArenaRewardInfoPopup.lua">
       <Filter>lua\UI</Filter>
     </None>
-    <None Include="..\src\UI_ArenaRankRewardItem.lua">
-      <Filter>lua\UI</Filter>
-    </None>
-    <None Include="..\src\UI_ArenaReady.lua">
-      <Filter>lua\UI</Filter>
-    </None>
     <None Include="..\src\UI_ArenaResult.lua">
-      <Filter>lua\UI</Filter>
-    </None>
-    <None Include="..\src\UI_ArenaMatchRewardItem.lua">
       <Filter>lua\UI</Filter>
     </None>
     <None Include="..\src\UI_ArenaRankInfoPopup.lua">
@@ -3503,9 +3494,6 @@
       <Filter>lua\UI</Filter>
     </None>
     <None Include="..\src\UI_ArenaDeckSettings.lua">
-      <Filter>lua\UI</Filter>
-    </None>
-    <None Include="..\src\UI_ArenaAttackListItem.lua">
       <Filter>lua\UI</Filter>
     </None>
     <None Include="..\src\ServerData_Arena.lua">

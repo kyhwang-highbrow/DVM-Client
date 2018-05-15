@@ -352,7 +352,7 @@ end
 -------------------------------------
 -- function request_arenaStart
 -------------------------------------
-function ServerData_Arena:request_arenaStart(is_cash, finish_cb, fail_cb)
+function ServerData_Arena:request_arenaStart(is_cash, history_id, finish_cb, fail_cb)
     -- 유저 ID
     local uid = g_userData:get('uid')
 
@@ -393,6 +393,9 @@ function ServerData_Arena:request_arenaStart(is_cash, finish_cb, fail_cb)
     ui_network:setParam('combat_power', combat_power)
     ui_network:setParam('token', self:makeDragonToken())
     ui_network:setParam('team_bonus', self:getTeamBonusIds())
+    if (history_id) then -- 복수전, 재도전
+        ui_network:setParam('history_id', history_id)
+    end
     ui_network:setMethod('POST')
     ui_network:setSuccessCB(success_cb)
     ui_network:setFailCB(fail_cb)
@@ -538,11 +541,18 @@ function ServerData_Arena:request_arenaHistory(type, finish_cb, fail_cb)
 
     -- 콜백 함수
     local function success_cb(ret)
-
-        local l_history = type == 'atk' and self.m_matchAtkHistory or self.m_matchDefHistory
-        for i,v in pairs(ret['history']) do
-            local user_info = StructUserInfoArena:create_forHistory(v)
-            table.insert(l_history, user_info)
+        if (type == 'atk') then
+            self.m_matchAtkHistory = {}
+            for i,v in pairs(ret['history']) do
+                local user_info = StructUserInfoArena:create_forHistory(v)
+                table.insert(self.m_matchAtkHistory, user_info)
+            end
+        else
+            self.m_matchDefHistory = {}
+            for i,v in pairs(ret['history']) do
+                local user_info = StructUserInfoArena:create_forHistory(v)
+                table.insert(self.m_matchDefHistory, user_info)
+            end
         end
         
         if finish_cb then

@@ -84,7 +84,7 @@ end
 -------------------------------------
 function UI_ClanTabRank:getRankType(rank_type)
     local param_rank_type = rank_type
-    if (IS_ARENA_OPEN()) and (rank_type == CLAN_RANK['CLSM']) then
+    if IS_ARENA_OPEN() and (rank_type == CLAN_RANK['CLSM']) then
         param_rank_type = CLAN_RANK['AREN']
     end
 

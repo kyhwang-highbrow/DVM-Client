@@ -981,17 +981,13 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <None Include="..\src\UI_AncientTowerRankListItem.lua" />
     <None Include="..\src\UI_AncientTowerRewardListItem.lua" />
     <None Include="..\src\UI_Arena.lua" />
-    <None Include="..\src\UI_ArenaAttackListItem.lua" />
     <None Include="..\src\UI_ArenaClanRankListItem.lua" />
     <None Include="..\src\UI_ArenaClanRankRewardItem.lua" />
     <None Include="..\src\UI_ArenaDeckSettings.lua" />
     <None Include="..\src\UI_ArenaHistoryListItem.lua" />
-    <None Include="..\src\UI_ArenaMatchRewardItem.lua" />
     <None Include="..\src\UI_ArenaRankInfoPopup.lua" />
     <None Include="..\src\UI_ArenaRankingRewardPopup.lua" />
     <None Include="..\src\UI_ArenaRankListItem.lua" />
-    <None Include="..\src\UI_ArenaRankRewardItem.lua" />
-    <None Include="..\src\UI_ArenaReady.lua" />
     <None Include="..\src\UI_ArenaResult.lua" />
     <None Include="..\src\UI_ArenaRewardInfoPopup.lua" />
     <None Include="..\src\UI_ArenaTabHistory.lua" />

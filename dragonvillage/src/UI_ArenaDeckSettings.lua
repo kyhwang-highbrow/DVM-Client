@@ -155,13 +155,8 @@ function UI_ArenaDeckSettings:click_startBtn()
                 end)
             end
 
-            -- 재도전, 복수전
-            if (self.m_historyID) then
-
-            -- 일반 매칭
-            else
-                g_arenaData:request_arenaStart(is_cash, cb)
-            end
+            -- self.m_historyID이 nil이 아닌 경우 재도전, 복수전
+            g_arenaData:request_arenaStart(is_cash, self.m_historyID, cb)
         end
 
         -- 기본 입장권 부족시
