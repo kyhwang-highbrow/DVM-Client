@@ -78,6 +78,20 @@ function UI_ClanTabRank:onChangeTab(tab, first)
 end
 
 -------------------------------------
+-- function getRankType
+-- @brief 신규 콜로세움 분기 처리 위해 api 호출시에만 체크
+-- @brief ui 네이밍도 엮여있어서 후에 자리잡으면 ui 네이밍 변경필요 (colosseum -> arena)
+-------------------------------------
+function UI_ClanTabRank:getRankType(rank_type)
+    local param_rank_type = rank_type
+    if (IS_ARENA_OPEN()) and (rank_type == CLAN_RANK['CLSM']) then
+        param_rank_type = CLAN_RANK['AREN']
+    end
+
+    return param_rank_type
+end
+
+-------------------------------------
 -- function request_clanRank
 -------------------------------------
 function UI_ClanTabRank:request_clanRank(first)
@@ -89,7 +103,9 @@ function UI_ClanTabRank:request_clanRank(first)
         end
         self:makeRankTableview(rank_type)
     end
-    g_clanRankData:request_getRank(rank_type, offset, cb_func)
+
+    local param_rank_type = self:getRankType(rank_type)
+    g_clanRankData:request_getRank(param_rank_type, offset, cb_func)
 end
 
 -------------------------------------
@@ -98,7 +114,9 @@ end
 function UI_ClanTabRank:makeRankTableview(tab)
 	local t_tab_data = self.m_mTabData[tab]
 	local node = t_tab_data['tab_node_list'][1]
-	local l_rank_list = g_clanRankData:getRankData(tab)
+
+    local param_rank_type = self:getRankType(tab)
+	local l_rank_list = g_clanRankData:getRankData(param_rank_type)
 
     -- 이전 보기 추가
     if (1 < self.m_mOffsetMap[tab]) then
@@ -197,7 +215,9 @@ end
 function UI_ClanTabRank:makeMyRank(tab)
     local node = self.vars['myNode']
     node:removeAllChildren()
-    local my_rank = g_clanRankData:getMyRankData(tab)
+
+    local param_rank_type = self:getRankType(tab)
+    local my_rank = g_clanRankData:getMyRankData(param_rank_type)
     local rank_type = self.m_currTab
     local ui = self.makeRankCell(my_rank, rank_type)
     node:addChild(ui.root)

@@ -115,5 +115,7 @@ end
 function UI_ArenaHistoryListItem:click_deckBtn()
     local user_info = self.m_userInfo
     local uid = user_info.m_uid
+
+    -- 히스토리 저장될떄의 덱을 보여줌
     RequestUserDeckInfoPopupNew(uid)
 end

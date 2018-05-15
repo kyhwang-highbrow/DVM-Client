@@ -433,15 +433,16 @@ end
 
 -------------------------------------
 -- function click_deckBtn
--- @brief 상대의 방어덱을 본다.. 왜 방어덱만?
+-- @brief 상대의 콜로세움 덱 UI
 -------------------------------------
 function UI_UserInfoDetailPopup:click_deckBtn()
     local uid = self.m_tUserInfo['uid']
-    local deck_name = 'def'
-    -- RequestUserDeckInfoPopup(uid, deck_name)
-
-    -- 콜로세움 (신규)
-    RequestUserDeckInfoPopupNew(uid)
+    if IS_ARENA_OPEN() then -- 콜로세움 (신규)
+        RequestUserDeckInfoPopupNew(uid)
+    else
+        local deck_name = 'def'
+        RequestUserDeckInfoPopup(uid, deck_name)
+    end
 end
 
 -------------------------------------

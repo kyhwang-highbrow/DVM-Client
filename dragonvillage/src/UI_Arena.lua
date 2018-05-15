@@ -124,6 +124,9 @@ function UI_Arena:initButton()
     vars['testModeBtn']:setVisible(false)
     vars['startBtn']:registerScriptTapHandler(function() self:click_startBtn() end)
     vars['rewardInfoBtn']:registerScriptTapHandler(function() self:click_rewardInfoBtn() end)
+
+    -- 콜로세움 안내 (네이버 sdk 링크)
+    NaverCafeManager:setPluginInfoBtn(vars['plugInfoBtn'], 'arena_help')
 end
 
 -------------------------------------

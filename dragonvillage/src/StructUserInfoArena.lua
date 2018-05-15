@@ -53,7 +53,6 @@ StructUserInfoArena = class(PARENT, {
         m_pvpDeck = 'table',
         m_pvpDeckCombatPower = 'number',
 
-
         m_matchResult = 'number', -- -1:매치 전, 0:패, 1:승
         m_matchTime = 'timestamp',
     })
@@ -256,22 +255,17 @@ function StructUserInfoArena:getRankText(detail)
         return Str('기록 없음')
     end
 
-    -- 자세히 출력 (순위와 퍼센트)
-    if detail then
-        if (not self.m_rankPercent) then
-            return Str('{1}위', comma_value(self.m_rank))
-        else
-            local percent_text = string.format('%.2f', self.m_rankPercent * 100)
-            local text = Str('{1}위 ({2}%)', comma_value(self.m_rank), percent_text)
-            return text
-        end
+    -- 비기너 티어는 순위 없음으로 표기
+    if (self.m_tier and self.m_tier == 'beginner') then
+        return '-'
+
+    -- 2000위 이하는 숫자 표기
+    elseif (self.m_rank <= 2000) then
+        return Str('{1}위', comma_value(self.m_rank))
+
+    -- 그 이상은 퍼센트 표기
     else
-        -- 100위 이상은 퍼센트로 표시
-        if self.m_rankPercent and (100 < self.m_rank) then
-            return string.format('%.2f%%', self.m_rankPercent * 100)
-        else
-            return Str('{1}위', comma_value(self.m_rank))
-        end
+        return string.format('%.2f%%', self.m_rankPercent * 100)
     end
 end
 

@@ -106,7 +106,7 @@ end
 -------------------------------------
 -- function RequestUserDeckInfoPopupNew
 -------------------------------------
-function RequestUserDeckInfoPopupNew(peer_uid)
+function RequestUserDeckInfoPopupNew(peer_uid, history_id)
     local uid = g_userData:get('uid')
     deck_name = (deck_name or 'def')
 
@@ -123,6 +123,9 @@ function RequestUserDeckInfoPopupNew(peer_uid)
     ui_network:setUrl('/game/arena/user_info')
     ui_network:setParam('uid', uid)
     ui_network:setParam('peer', peer_uid)
+    if (history_id) then
+        ui_network:setParam('oid', history_id)
+    end
     ui_network:setSuccessCB(success_cb)
     ui_network:setFailCB(fail_cb)
     ui_network:request()

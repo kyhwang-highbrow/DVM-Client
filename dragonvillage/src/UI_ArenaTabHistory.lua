@@ -89,7 +89,7 @@ function UI_ArenaTabHistory:init_atkTableView()
     -- 테이블 뷰 인스턴스 생성
     local table_view = UIC_TableView(node)
     table_view.m_defaultCellSize = cc.size(720, 150 + 5)
-    table_view:setCellUIClass(make_func, create_func)
+    table_view:setCellUIClass(make_func)
     table_view:setDirection(cc.SCROLLVIEW_DIRECTION_VERTICAL)
 
     local l_item_list = g_arenaData.m_matchAtkHistory
@@ -135,7 +135,7 @@ function UI_ArenaTabHistory:init_defTableView()
     -- 테이블 뷰 인스턴스 생성
     local table_view = UIC_TableView(node)
     table_view.m_defaultCellSize = cc.size(720, 150 + 5)
-    table_view:setCellUIClass(UI_ArenaHistoryListItem, create_func)
+    table_view:setCellUIClass(make_func)
     table_view:setDirection(cc.SCROLLVIEW_DIRECTION_VERTICAL)
 
     local l_item_list = g_arenaData.m_matchDefHistory
