@@ -147,6 +147,8 @@ function GameWorldArena:initTamer()
         self.m_tamer:setAnimatorScale(0.9)
         self.m_tamer:changeState('appear_colosseum')
         self.m_tamer.m_animator.m_node:pause()
+
+        self.m_tamer:addListener('hero_tamer_skill_gauge', self)
     end
     
     -- 적군 테이머 생성
@@ -274,6 +276,14 @@ function GameWorldArena:onEvent(event_name, t_event, ...)
         else
             self.m_inGameUI:setEnemyHpGauge(percentage)
         end
+
+    elseif (event_name == 'hero_tamer_skill_gauge') then
+        local cur = t_event['cur']
+        local max = t_event['max']
+
+        local percentage = (cur / max) * 100
+                
+        self.m_inGameUI:setHeroTamerGauge(percentage)
 
     elseif (event_name == 'enemy_tamer_skill_gauge') then
         local cur = t_event['cur']

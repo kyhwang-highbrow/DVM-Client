@@ -63,11 +63,12 @@ function Tamer:init_tamer(t_tamer_data, bLeftFormationend)
     self.m_attribute = t_tamer['attr']
     self.m_bLeftFormation = bLeftFormationend
 
-	-- pvp 스킬은 적군일때만 적용시킴
-    if (self.m_bLeftFormation) then
+	-- pvp 스킬은 적군일때만 적용시킴(콜로세움)
+    -- !! 아레나의 경우는 양팀 모두 적용
+    if (self.m_world.m_gameMode == GAME_MODE_COLOSSEUM and self.m_bLeftFormation) then
         self:setDragonSkillLevelList(t_tamer_data['skill_lv1'], t_tamer_data['skill_lv2'], t_tamer_data['skill_lv3'])
     else
-        self:setDragonSkillLevelList(t_tamer_data['skill_lv1'], t_tamer_data['skill_lv2'], t_tamer_data['skill_lv3'], t_tamer_data['skill_lv4'])    
+        self:setDragonSkillLevelList(t_tamer_data['skill_lv1'], t_tamer_data['skill_lv2'], t_tamer_data['skill_lv3'], t_tamer_data['skill_lv4'])
     end
 
 	self:initDragonSkillManager('tamer', t_tamer['tid'], nil, true)
@@ -409,18 +410,22 @@ end
 function Tamer:updateBasicSkillTimer(dt)
     PARENT.updateBasicSkillTimer(self, dt)
 
-    -- 콜로세움에서 적군 테이머만 사용됨
-    if (not self.m_bLeftFormation) then
-        if (self.m_lSkillIndivisualInfo['indie_time']) then
-            -- 기획적으로 indie_time스킬은 1개만을 사용하도록 한다.
-            local skill_info = table.getFirst(self.m_lSkillIndivisualInfo['indie_time'])
+    if (self.m_lSkillIndivisualInfo['indie_time']) then
+        -- 기획적으로 indie_time스킬은 1개만을 사용하도록 한다.
+        local skill_info = table.getFirst(self.m_lSkillIndivisualInfo['indie_time'])
 
-            -- 스킬 정보가 있을 경우 쿨타임 진행 정보를 확인한다.
-            if (skill_info) then
-                local max = skill_info.m_tSkill['chance_value']
-                local cur = max - skill_info.m_timer
+        -- 스킬 정보가 있을 경우 쿨타임 진행 정보를 확인한다.
+        if (skill_info) then
+            local max = skill_info.m_tSkill['chance_value']
+            local cur = max - skill_info.m_timer
 
-                local t_event = { ['cur'] = cur, ['max'] = max, ['run_skill'] = (cur == max) }
+            local t_event = { ['cur'] = cur, ['max'] = max, ['run_skill'] = (cur == max) }
+
+            if (self.m_bLeftFormation) then
+                cclog('left : ' .. cur .. ' / ' .. max)
+                self:dispatch('hero_tamer_skill_gauge', t_event)
+            else
+                cclog('right : ' .. cur .. ' / ' .. max)
                 self:dispatch('enemy_tamer_skill_gauge', t_event)
             end
         end

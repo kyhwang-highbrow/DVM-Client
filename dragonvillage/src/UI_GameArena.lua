@@ -4,6 +4,7 @@ local PARENT = UI_Game
 -- class UI_GameArena
 -------------------------------------
 UI_GameArena = class(PARENT, {
+    m_orgHeroTamerGaugeScaleX = 'number',
     m_orgEnemyTamerGaugeScaleX = 'number'
 })
 
@@ -28,7 +29,8 @@ end
 function UI_GameArena:initUI()
     local vars = self.vars
 
-    self.m_orgEnemyTamerGaugeScaleX = vars['tamerGauge']:getScaleX()
+    self.m_orgHeroTamerGaugeScaleX = vars['tamerGauge2']:getScaleX()
+    self.m_orgEnemyTamerGaugeScaleX = vars['tamerGauge1']:getScaleX()
 
     -- 2배속
     do
@@ -116,12 +118,21 @@ function UI_GameArena:getEnemyHpGaugePercentage()
 end
 
 -------------------------------------
+-- function setHeroTamerGauge
+-------------------------------------
+function UI_GameArena:setHeroTamerGauge(percentage)
+    local scaleX = percentage * self.m_orgHeroTamerGaugeScaleX / 100
+
+    self.vars['tamerGauge2']:setScaleX(scaleX)
+end
+
+-------------------------------------
 -- function setEnemyTamerGauge
 -------------------------------------
 function UI_GameArena:setEnemyTamerGauge(percentage)
     local scaleX = percentage * self.m_orgEnemyTamerGaugeScaleX / 100
 
-    self.vars['tamerGauge']:setScaleX(scaleX)
+    self.vars['tamerGauge1']:setScaleX(scaleX)
 end
 
 -------------------------------------
