@@ -62,10 +62,18 @@ function UI_DragonBoardPopup_Write:initButton()
 	local function editBoxTextEventHandle(strEventName, pSender)
         if (strEventName == "return") then
 			-- @TODO 키보드 입력이 종료될 때 텍스트 검증을 한다.
-			--local context, is_valid = self:validateEditText()
-
+			local context, is_valid = self:validateEditText()
+			if (is_valid) then
+				-- 비속어 필터링
+				local function proceed_func()
+				end
+				local function cancel_func()
+					vars['editBox']:setText('')
+				end
+				CheckBlockStr(context, proceed_func, cancel_func)
+			end
             -- editLabel에 글자를 찍어준다.
-            -- vars['editLabel']:setString(context)
+            -- 
         end
     end
     vars['editBox']:registerScriptEditBoxHandler(editBoxTextEventHandle)
@@ -117,21 +125,12 @@ end
 -- function click_writeBtn
 -------------------------------------
 function UI_DragonBoardPopup_Write:click_writeBtn()
-	local vars = self.vars
-	local context, is_valid = self:validateEditText()
-	if (is_valid) then
-		-- 비속어 필터링
-		local function proceed_func()
-			local did = self.m_did
-			local function cb_func()
-				self:close()
-			end
-			g_boardData:request_writeBoard(did, context, cb_func)
-		end
-		local function cancel_func()
-		end
-		CheckBlockStr(context, proceed_func, cancel_func)
+	local did = self.m_did
+	local context = self.vars['editBox']:getText()
+	local function cb_func()
+		self:close()
 	end
+	g_boardData:request_writeBoard(did, context, cb_func)
 end
 
 --@CHECK
