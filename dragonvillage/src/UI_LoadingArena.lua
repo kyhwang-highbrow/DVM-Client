@@ -3,7 +3,9 @@ local PARENT = UI
 -------------------------------------
 -- class UI_LoadingArena
 -------------------------------------
-UI_LoadingArena = class(PARENT,{})
+UI_LoadingArena = class(PARENT,{
+        m_lLoadingStrList = 'List<string>',
+    })
 
 -------------------------------------
 -- function init
@@ -12,6 +14,11 @@ function UI_LoadingArena:init(curr_scene)
 	self.m_uiName = 'UI_LoadingArena'
     
 	local vars = self:load('arena_loading.ui')
+
+    local guide_type = curr_scene.m_loadingGuideType
+	if (guide_type) then
+		self.m_lLoadingStrList = table.sortRandom(GetLoadingStrList())
+	end
     
 	self:initUI()
 end
@@ -139,9 +146,37 @@ function UI_LoadingArena:refresh()
 end
 
 -------------------------------------
+-- function setNextLoadingStr
+-------------------------------------
+function UI_LoadingArena:setNextLoadingStr()
+	if (not self.m_lLoadingStrList) then
+		return
+	end
+
+	local random_str = self.m_lLoadingStrList[1]
+	if (random_str) then
+		self.vars['loadingLabel']:setString(random_str)
+		table.remove(self.m_lLoadingStrList, 1)
+	end
+end
+
+-------------------------------------
 -- function setLoadingGauge
 -------------------------------------
 function UI_LoadingArena:setLoadingGauge(percent, is_not_use_label)
+    local vars = self.vars
+
+	vars['loadingGauge']:setPercentage(percent)
+	if (not is_not_use_label) then
+		self:setNextLoadingStr()
+	end
+end
+
+-------------------------------------
+-- function getLoadingGauge
+-------------------------------------
+function UI_LoadingArena:getLoadingGauge()
+	return self.vars['loadingGauge']:getPercentage()
 end
 
 --@CHECK
