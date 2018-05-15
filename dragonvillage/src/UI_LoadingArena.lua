@@ -82,10 +82,10 @@ function UI_LoadingArena:initUI()
         vars['userLabel1']:setString(user_info:getUserText())
 
         -- 클랜
-        local clan_name = struct_clan:getClanName()
+        local clan_name = struct_clan and struct_clan:getClanName() or ''
         vars['clanLabel1']:setString(clan_name)
 
-        local icon = struct_clan:makeClanMarkIcon()
+        local icon = struct_clan and struct_clan:makeClanMarkIcon()
         if (icon) then
             vars['markNode1']:addChild(icon)
         end
@@ -112,10 +112,10 @@ function UI_LoadingArena:initUI()
         vars['userLabel2']:setString(user_info:getUserText())
 
         -- 클랜
-        local clan_name = struct_clan:getClanName()
+        local clan_name = struct_clan and struct_clan:getClanName() or ''
         vars['clanLabel2']:setString(clan_name)
 
-        local icon = struct_clan:makeClanMarkIcon()
+        local icon = struct_clan and struct_clan:makeClanMarkIcon()
         if (icon) then
             vars['markNode2']:addChild(icon)
         end
