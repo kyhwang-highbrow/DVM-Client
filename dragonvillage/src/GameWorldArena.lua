@@ -373,7 +373,7 @@ function GameWorldArena:makeHeroDeck()
     local user_info = (is_friendMatch) and g_friendMatchData.m_playerUserInfo or g_arenaData.m_playerUserInfo
 
     local t_pvp_deck = user_info:getPvpDeck()
-    local l_deck = user_info:getAtkDeck_dragonList(true)
+    local l_deck = user_info:getDeck_dragonList(true)
     local formation = t_pvp_deck['formation']
     local formation_lv = t_pvp_deck['formationlv']
     local leader = t_pvp_deck['leader']
@@ -436,13 +436,13 @@ function GameWorldArena:makeEnemyDeck()
         local user_info = (is_friendMatch) and g_friendMatchData.m_playerUserInfo or g_arenaData.m_playerUserInfo
         -- 개발모드에선 자신의 방어덱을 상대로 설정
         t_pvp_deck = user_info:getPvpDeck()
-        l_deck = user_info:getAtkDeck_dragonList(true)
+        l_deck = user_info:getDeck_dragonList(true)
         getDragonObject = function(doid) return g_dragonsData:getDragonDataFromUid(doid) end
     else
         -- 상대방의 덱 정보를 얻어옴
         local user_info =(is_friendMatch) and g_friendMatchData.m_matchInfo or g_arenaData:getMatchUserInfo()
         t_pvp_deck = user_info:getPvpDeck()
-        l_deck = user_info:getAtkDeck_dragonList(true)
+        l_deck = user_info:getDeck_dragonList(true)
         getDragonObject = function(doid) return user_info:getDragonObject(doid) end
     end
 

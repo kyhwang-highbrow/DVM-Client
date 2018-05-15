@@ -12,7 +12,7 @@ UI_ArenaHistoryListItem = class(PARENT, {
 -------------------------------------
 function UI_ArenaHistoryListItem:init(struct_user_info)
     self.m_userInfo = struct_user_info
-    local vars = self:load('colosseum_scene_def_item.ui')
+    local vars = self:load('arena_scene_history_item.ui')
 
     self:initUI()
     self:initButton()
@@ -28,17 +28,14 @@ function UI_ArenaHistoryListItem:initUI()
     local user_info = self.m_userInfo
     local rank = user_info.m_rank
 
-    do -- 리더 드래곤 아이콘
-        local ui = user_info:getLeaderDragonCard()
-        if ui then
-            ui.root:setSwallowTouch(false)
-            vars['profileNode']:addChild(ui.root)
-            
-			ui.vars['clickBtn']:registerScriptTapHandler(function() 
-				local is_visit = true
-				UI_UserInfoDetailPopup:open(user_info, is_visit, nil)
-			end)
-        end
+    -- 코스튬 적용
+    local icon = user_info:getDeckTamerIcon()
+    if (icon) then
+        vars['profileNode']:addChild(icon)
+		vars['profileBtn']:registerScriptTapHandler(function() 
+			local is_visit = true
+			UI_UserInfoDetailPopup:open(user_info, is_visit, nil)
+		end)
     end
 
     -- 점수 표시
@@ -48,11 +45,11 @@ function UI_ArenaHistoryListItem:initUI()
     vars['userLabel']:setString(user_info:getUserText())
 
     -- 전투력 표시
-    local combat_power = user_info:getAtkDeckCombatPower()
+    local combat_power = user_info:getDeckCombatPower()
     vars['powerLabel']:setString(Str('전투력 : {1}', comma_value(combat_power)))
 
     -- 드래곤 리스트
-    local t_deck_dragon_list = user_info:getAtkDeck_dragonList()
+    local t_deck_dragon_list = user_info:getDeck_dragonList()
     for i,v in pairs(t_deck_dragon_list) do
         local icon = UI_DragonCard(v)
         icon.root:setSwallowTouch(false)

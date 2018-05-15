@@ -33,7 +33,7 @@ end
 -- function initUI
 -------------------------------------
 function UI_ArenaTabHistory:initUI()
---    self:initTab()
+    self:initTab()
 end
 
 -------------------------------------
@@ -89,10 +89,10 @@ function UI_ArenaTabHistory:init_atkTableView()
     -- 테이블 뷰 인스턴스 생성
     local table_view = UIC_TableView(node)
     table_view.m_defaultCellSize = cc.size(720, 150 + 5)
-    table_view:setCellUIClass(UI_ArenaAttackListItem, create_func)
+    table_view:setCellUIClass(UI_ArenaHistoryListItem, create_func)
     table_view:setDirection(cc.SCROLLVIEW_DIRECTION_VERTICAL)
 
-    local l_item_list = g_colosseumData.m_matchList
+    local l_item_list = g_arenaData.m_matchAtkHistory
     table_view:setItemList(l_item_list)
 
     -- 상대방 방어덱의 전투력이 낮은 순으로 정렬

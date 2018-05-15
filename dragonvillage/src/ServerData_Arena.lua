@@ -610,7 +610,7 @@ end
 function ServerData_Arena:makeDragonToken()
     local token = ''
 
-    local l_deck = self.m_playerUserInfo:getAtkDeck_dragonList(true)
+    local l_deck = self.m_playerUserInfo:getDeck_dragonList(true)
 
     for i = 1, 5 do
         local t_dragon_data
@@ -651,7 +651,7 @@ end
 function ServerData_Arena:getTeamBonusIds()
     local ids = ''
 
-    local l_deck = self.m_playerUserInfo:getAtkDeck_dragonList(true)
+    local l_deck = self.m_playerUserInfo:getDeck_dragonList(true)
     local l_teambonus = TeamBonusHelper:getTeamBonusDataFromDeck(l_deck)
     for _, struct_teambonus in ipairs(l_teambonus) do
         local id = tostring(struct_teambonus:getID() or '') 

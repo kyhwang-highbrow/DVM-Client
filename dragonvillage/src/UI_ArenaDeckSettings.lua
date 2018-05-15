@@ -65,7 +65,7 @@ end
 function UI_ArenaDeckSettings:click_startBtn()
 
     -- 콜로세움 공격 덱이 설정되었는지 여부 체크
-    local l_dragon_obj = g_arenaData.m_playerUserInfo:getAtkDeck_dragonList()
+    local l_dragon_obj = g_arenaData.m_playerUserInfo:getDeck_dragonList()
     if (table.count(l_dragon_obj) <= 0) then
         local function yes()
             self:click_deckBtn()
@@ -94,7 +94,6 @@ function UI_ArenaDeckSettings:click_startBtn()
         g_inventoryData:checkMaximumItems(start_game, manage_func)
     end
 
-
     start_game = function()
         -- 콜로세움 시작 요청
         local is_cash = false
@@ -103,8 +102,10 @@ function UI_ArenaDeckSettings:click_startBtn()
                 -- 시작이 두번 되지 않도록 하기 위함
                 UI_BlockPopup()
 
-                local scene = SceneGameArena()
-                scene:runScene()
+                self:checkChangeDeck(function()
+                    local scene = SceneGameArena()
+                    scene:runScene()
+                end)
             end
 
             g_arenaData:request_colosseumStart(is_cash, cb)

@@ -344,11 +344,6 @@ end
 -- @brief
 -------------------------------------
 function StructUserInfoArena:applyDragonsDataList(l_data)
-    for _, v in ipairs(l_data) do
-        if (v['id'] == nil) then -- 드래곤 오브젝트 아이디 안줌? 원기님한테 물어보기
-            v['id'] = tostring(v['updated_at'])
-        end
-    end
     PARENT.applyDragonsDataList(self, l_data)
 
     -- 룬 정보 연결
@@ -366,10 +361,10 @@ function StructUserInfoArena:applyPvpDeckData(t_data)
 end
 
 -------------------------------------
--- function getAtkDeck_dragonList
+-- function getDeck_dragonList
 -- @brief
 -------------------------------------
-function StructUserInfoArena:getAtkDeck_dragonList(use_doid)
+function StructUserInfoArena:getDeck_dragonList(use_doid)
     if (not self.m_pvpDeck) then
         return {}
     end
@@ -400,7 +395,7 @@ function StructUserInfoArena:getDeckCombatPower(force)
             return 0
         end
 
-        local t_deck_dragon_list = self:getAtkDeck_dragonList()
+        local t_deck_dragon_list = self:getDeck_dragonList()
         local formation_lv = self.m_pvpDeck['formationlv'] or 1
 
         -- 드래곤
@@ -453,7 +448,7 @@ function StructUserInfoArena:getDeck(type)
 
     -- 공격덱
     if (type == 'arena') then
-        local l_doid = self:getAtkDeck_dragonList(true)
+        local l_doid = self:getDeck_dragonList(true)
         local formation = 'attack'
         local leader = 0
         local formation_lv = 1
@@ -537,31 +532,25 @@ function StructUserInfoArena:getDeckTamerInfo()
 end
 
 -------------------------------------
--- function getAtkDeckTamerReadyIcon
--- @brief 공격덱 테이머 준비화면 아이콘
+-- function getDeckTamerIcon
+-- @return tamer_id number
 -------------------------------------
-function StructUserInfoArena:getAtkDeckTamerReadyIcon()
-    local tamer_info = self:getAtkDeckTamerInfo()
-    if (tamer_info) then
-        return self:makeTamerReadyIconWithCostume(tamer_info)
-    else
-        local tamer_id = self:getAtkDeckTamerID()
-        return self:makeTamerReadyIcon(tamer_id)
-    end
-end
+function StructUserInfoArena:getDeckTamerIcon()
+    local icon
+    local t_tamer_info = self:getPvpDeck()['tamerInfo']
+    if (t_tamer_info) then
+        local tid = t_tamer_info['tid']
+        local costume_id = t_tamer_info['costume']
 
--------------------------------------
--- function getDefDeckTamerReadyIcon
--- @brief 방어덱 테이머 준비화면 아이콘
--------------------------------------
-function StructUserInfoArena:getDefDeckTamerReadyIcon()
-    local tamer_info = self:getDefDeckTamerInfo()
-    if (tamer_info) then
-        return self:makeTamerReadyIconWithCostume(tamer_info)
-    else
-        local tamer_id = self:getDefDeckTamerID()
-        return self:makeTamerReadyIcon(tamer_id)
+        if (costume_id) then
+            icon = IconHelper:getTamerProfileIconWithCostumeID(costume_id)
+        else
+            local type = TableTamer:getTamerType(tid)
+            icon = IconHelper:getTamerProfileIcon(type)
+        end
     end
+
+    return icon
 end
 
 -------------------------------------

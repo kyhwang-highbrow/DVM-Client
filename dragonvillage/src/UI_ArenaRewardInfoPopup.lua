@@ -14,7 +14,7 @@ UI_ArenaRewardInfoPopup.CLAN = 'clanReward'
 -- function init
 -------------------------------------
 function UI_ArenaRewardInfoPopup:init()
-    local vars = self:load('colosseum_reward_popup.ui')
+    local vars = self:load('arena_reward_popup.ui')
     UIManager:open(self, UIManager.POPUP)
 
     -- backkey 지정

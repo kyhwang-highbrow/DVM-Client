@@ -68,7 +68,7 @@ function UI_ArenaReady:initUI()
         vars['formationNode1']:addChild(player_2d_deck.root)
         player_2d_deck:initUI()
 
-        local l_dragon_obj = g_colosseumData.m_playerUserInfo:getAtkDeck_dragonList()
+        local l_dragon_obj = g_colosseumData.m_playerUserInfo:getDeck_dragonList()
         local leader = t_pvp_deck and t_pvp_deck['leader'] or 0
         player_2d_deck:setDragonObjectList(l_dragon_obj, leader)
         self.m_player2DDeck = player_2d_deck
@@ -179,7 +179,7 @@ function UI_ArenaReady:click_deckBtn()
         local t_pvp_deck = g_colosseumData.m_playerUserInfo.m_pvpAtkDeck
 
         local player_2d_deck = self.m_player2DDeck
-        local l_dragon_obj = g_colosseumData.m_playerUserInfo:getAtkDeck_dragonList()
+        local l_dragon_obj = g_colosseumData.m_playerUserInfo:getDeck_dragonList()
         local leader = t_pvp_deck and t_pvp_deck['leader'] or 0
         player_2d_deck:setDragonObjectList(l_dragon_obj, leader)
 
@@ -203,7 +203,7 @@ end
 function UI_ArenaReady:click_startBtn()
 
     -- 콜로세움 공격 덱이 설정되었는지 여부 체크
-    local l_dragon_obj = g_colosseumData.m_playerUserInfo:getAtkDeck_dragonList()
+    local l_dragon_obj = g_colosseumData.m_playerUserInfo:getDeck_dragonList()
     if (table.count(l_dragon_obj) <= 0) then
         local function yes()
             self:click_deckBtn()
@@ -287,7 +287,7 @@ function UI_ArenaReady:click_teamBonusBtn(mine)
     local l_deck
     -- 내 덱
     if (mine) then
-        l_deck = g_colosseumData.m_playerUserInfo:getAtkDeck_dragonList()
+        l_deck = g_colosseumData.m_playerUserInfo:getDeck_dragonList()
     -- 상대 덱
     else
         l_deck = g_colosseumData:getMatchUserInfo():getDefDeck_dragonList()
