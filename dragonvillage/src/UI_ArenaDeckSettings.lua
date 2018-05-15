@@ -5,6 +5,7 @@ local PARENT = UI_ReadySceneNew
 -------------------------------------
 UI_ArenaDeckSettings = class(PARENT,{
         m_currTamerID = 'number',
+        m_historyID = 'number', -- nil이 아닌 경우 복수전, 재도전
     })
 
 local NEED_CASH = 50 -- 유료 입장 다이아 개수
@@ -14,6 +15,7 @@ local NEED_CASH = 50 -- 유료 입장 다이아 개수
 -------------------------------------
 function UI_ArenaDeckSettings:init(stage_id, sub_info)
     local vars = self.vars
+
     -- 유료 입장권
     local icon = IconHelper:getItemIcon(ITEM_ID_CASH)
     icon:setScale(0.5)
@@ -31,6 +33,7 @@ end
 function UI_ArenaDeckSettings:update_stamina(dt)    
     local vars = self.vars
     local is_enough = g_staminasData:checkStageStamina(ARENA_STAGE_ID)
+    local is_enough_ext = g_staminasData:hasStaminaCount('arena_ext', 1)
 
     -- 기본 입장권 없을 경우엔 유료 입장권 개수 보여줌
     vars['actingPowerNode']:setVisible(is_enough)
@@ -49,6 +52,9 @@ function UI_ArenaDeckSettings:update_stamina(dt)
         local str = Str('{1}/{2}', comma_value(st_ad), comma_value(max_cnt))
         vars['staminaExtLabel']:setString(str)
     end
+
+    -- 기본 입장권 & 유료 입장권 둘다 부족한 경우 - 시작 버튼 비활성화
+    vars['startBtn']:setEnabled(is_enough or is_enough_ext)
 end
 
 -------------------------------------
@@ -148,7 +154,7 @@ function UI_ArenaDeckSettings:click_startBtn()
                 end)
             end
 
-            g_arenaData:request_colosseumStart(is_cash, cb)
+            g_arenaData:request_arenaStart(is_cash, cb)
         end
 
         -- 기본 입장권 부족시
@@ -162,7 +168,7 @@ function UI_ArenaDeckSettings:click_startBtn()
 
             -- 유료 입장권 부족시 입장 불가 
             else
-                -- 버튼 비활성화로 막음
+                -- 스케쥴러에서 버튼 비활성화로 막음
             end
         else
             is_cash = false

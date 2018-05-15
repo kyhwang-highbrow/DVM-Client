@@ -245,7 +245,7 @@ function UI_ArenaReady:click_startBtn()
                 scene:runScene()
             end
 
-            g_colosseumData:request_colosseumStart(is_cash, g_colosseumData.m_matchUserID, cb)
+            g_colosseumData:request_arenaStart(is_cash, g_colosseumData.m_matchUserID, cb)
         end
 
         if (not g_staminasData:checkStageStamina(COLOSSEUM_STAGE_ID)) then

@@ -182,7 +182,7 @@ end
 -- @brief 출전 덱 설정 버튼
 -------------------------------------
 function UI_Arena:click_startBtn()
-    UI_ArenaDeckSettings(ARENA_STAGE_ID, 'atk')
+    UI_ArenaDeckSettings(ARENA_STAGE_ID)
 end
 
 -------------------------------------

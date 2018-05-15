@@ -350,9 +350,9 @@ function ServerData_Arena:request_setDeck(deckname, formation, leader, l_edoid, 
 end
 
 -------------------------------------
--- function request_colosseumStart
+-- function request_arenaStart
 -------------------------------------
-function ServerData_Arena:request_colosseumStart(is_cash, finish_cb, fail_cb)
+function ServerData_Arena:request_arenaStart(is_cash, finish_cb, fail_cb)
     -- 유저 ID
     local uid = g_userData:get('uid')
 
@@ -402,10 +402,10 @@ function ServerData_Arena:request_colosseumStart(is_cash, finish_cb, fail_cb)
 end
 
 -------------------------------------
--- function request_colosseumCancel
+-- function request_arenaCancel
 -- @brief 게임 중도 포기
 -------------------------------------
-function ServerData_Arena:request_colosseumCancel(gamekey, finish_cb)
+function ServerData_Arena:request_arenaCancel(gamekey, finish_cb)
     local uid = g_userData:get('uid')
 
     local function success_cb(ret)
@@ -418,16 +418,16 @@ function ServerData_Arena:request_colosseumCancel(gamekey, finish_cb)
     ui_network:setUrl('/game/stage/cancel')
     ui_network:setRevocable(true)
     ui_network:setParam('uid', uid)
-    ui_network:setParam('stage', 11) -- 콜로세움은 서버에서 stage를 11로 처리 중
+    ui_network:setParam('stage', 13) -- 콜로세움은 서버에서 stage를 11로 처리 중
     ui_network:setParam('gamekey', gamekey)
     ui_network:setSuccessCB(success_cb)
     ui_network:request()
 end
 
 -------------------------------------
--- function request_colosseumFinish
+-- function request_arenaFinish
 -------------------------------------
-function ServerData_Arena:request_colosseumFinish(is_win, finish_cb, fail_cb)
+function ServerData_Arena:request_arenaFinish(is_win, finish_cb, fail_cb)
     -- 유저 ID
     local uid = g_userData:get('uid')
 
@@ -491,9 +491,9 @@ function ServerData_Arena:request_colosseumFinish(is_win, finish_cb, fail_cb)
 end
 
 -------------------------------------
--- function request_colosseumRank
+-- function request_arenaRank
 -------------------------------------
-function ServerData_Arena:request_colosseumRank(offset, finish_cb, fail_cb)
+function ServerData_Arena:request_arenaRank(offset, finish_cb, fail_cb)
     -- 파라미터
     local uid = g_userData:get('uid')
     local offset = offset or 0
@@ -530,9 +530,9 @@ function ServerData_Arena:request_colosseumRank(offset, finish_cb, fail_cb)
 end
 
 -------------------------------------
--- function request_colosseumHistory
+-- function request_arenaHistory
 -------------------------------------
-function ServerData_Arena:request_colosseumHistory(type, finish_cb, fail_cb)
+function ServerData_Arena:request_arenaHistory(type, finish_cb, fail_cb)
     -- 파라미터
     local uid = g_userData:get('uid')
 

@@ -72,7 +72,7 @@ function UI_ArenaTabHistory:request_atkHistory()
         self:init_atkTableView()
     end
 
-    g_arenaData:request_colosseumHistory(UI_ArenaTabHistory['ATK'] , finish_cb)
+    g_arenaData:request_arenaHistory(UI_ArenaTabHistory['ATK'] , finish_cb)
 end
 
 -------------------------------------
@@ -83,13 +83,13 @@ function UI_ArenaTabHistory:init_atkTableView()
     node:removeAllChildren()
 
     local function make_func(data)
-        return UI_ArenaHistoryListItem(data, UI_ArenaTabHistory['ATK'] )
+        return UI_ArenaHistoryListItem(data, UI_ArenaTabHistory['ATK'])
     end
 
     -- 테이블 뷰 인스턴스 생성
     local table_view = UIC_TableView(node)
     table_view.m_defaultCellSize = cc.size(720, 150 + 5)
-    table_view:setCellUIClass(UI_ArenaHistoryListItem, create_func)
+    table_view:setCellUIClass(make_func, create_func)
     table_view:setDirection(cc.SCROLLVIEW_DIRECTION_VERTICAL)
 
     local l_item_list = g_arenaData.m_matchAtkHistory
@@ -97,15 +97,15 @@ function UI_ArenaTabHistory:init_atkTableView()
 
     -- 상대방 방어덱의 전투력이 낮은 순으로 정렬
     local function sort_func(a, b)
-        -- StructUserInfoColosseum
+        -- StructUserInfoArena
         local a_data = a['data']
         local b_data = b['data']
 
-        -- 리그 포인트를 얻어옴
-        local a_rp = a_data:getRP()
-        local b_rp = b_data:getRP()
+        -- 최근 매치한 순서로 가져옴
+        local a_match = a_data.m_matchTime
+        local b_match = b_data.m_matchTime
 
-        return a_rp < b_rp
+        return a_match > b_match
     end
     table.sort(table_view.m_itemList, sort_func)
 end
@@ -115,10 +115,10 @@ end
 -------------------------------------
 function UI_ArenaTabHistory:request_defHistory()
     local finish_cb = function()
-        self:init_atkTableView()
+        self:init_defTableView()
     end
 
-    g_arenaData:request_colosseumHistory(UI_ArenaTabHistory['DEF'], finish_cb)
+    g_arenaData:request_arenaHistory(UI_ArenaTabHistory['DEF'], finish_cb)
 end
 
 -------------------------------------
@@ -138,20 +138,20 @@ function UI_ArenaTabHistory:init_defTableView()
     table_view:setCellUIClass(UI_ArenaHistoryListItem, create_func)
     table_view:setDirection(cc.SCROLLVIEW_DIRECTION_VERTICAL)
 
-    local l_item_list = g_arenaData.m_matchAtkHistory
+    local l_item_list = g_arenaData.m_matchDefHistory
     table_view:setItemList(l_item_list)
 
     -- 상대방 방어덱의 전투력이 낮은 순으로 정렬
     local function sort_func(a, b)
-        -- StructUserInfoColosseum
+        -- StructUserInfoArena
         local a_data = a['data']
         local b_data = b['data']
 
-        -- 리그 포인트를 얻어옴
-        local a_rp = a_data:getRP()
-        local b_rp = b_data:getRP()
+        -- 최근 매치한 순서로 가져옴
+        local a_match = a_data.m_matchTime
+        local b_match = b_data.m_matchTime
 
-        return a_rp < b_rp
+        return a_match > b_match
     end
     table.sort(table_view.m_itemList, sort_func)
 end

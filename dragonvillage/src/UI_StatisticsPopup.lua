@@ -5,6 +5,7 @@ local PARENT = class(UI, ITabUI:getCloneTable())
 -------------------------------------
 UI_StatisticsPopup = class(PARENT, {
 		m_isColosseum = 'mode',
+        m_isArena = 'boolean',
 		m_bFriendMatch = 'boolean',
         m_isTestMode = 'boolean',
 
@@ -36,6 +37,7 @@ function UI_StatisticsPopup:init(world, is_test)
 
 	-- 멤버 변수 초기화
 	self.m_isColosseum = (world.m_gameMode == GAME_MODE_COLOSSEUM or world.m_gameMode == GAME_MODE_ARENA)
+    self.m_isArena = (world.m_gameMode == GAME_MODE_ARENA)
     self.m_bFriendMatch = (self.m_isColosseum) and world.m_bFriendMatch or false
     self.m_isTestMode = is_test
 
@@ -78,12 +80,18 @@ function UI_StatisticsPopup:initUI()
 		-- 유저 정보 출력
 		do
 			vars['userNode1']:setVisible(true)
-			local user_info = (is_friendMatch) and g_friendMatchData.m_playerUserInfo or g_colosseumData.m_playerUserInfo
+            local user_info 
+            if (self.m_isArena) then
+                user_info = g_arenaData.m_playerUserInfo
+            else
+                user_info = (is_friendMatch) and g_friendMatchData.m_playerUserInfo or g_colosseumData.m_playerUserInfo
+            end
+
             if (user_info) then
                 vars['name1']:setString(user_info.m_nickname)
 
                 local profile_icon
-                local tamer_info = user_info:getPvpAtkDeck()['tamerInfo']
+                local tamer_info = self.m_isArena and user_info:getPvpDeck()['tamerInfo'] or user_info:getPvpAtkDeck()['tamerInfo']
                 if (tamer_info) then
                     profile_icon = user_info:makeTamerReadyIconWithCostume(tamer_info)
                 else
@@ -99,13 +107,19 @@ function UI_StatisticsPopup:initUI()
 
 		-- 상대 정보 출력 (테스트모드에서는 출력하지 않음)
 		do
-			local user_info = (is_friendMatch) and g_friendMatchData.m_matchInfo or g_colosseumData:getMatchUserInfo()
+            local user_info 
+            if (self.m_isArena) then
+                user_info = g_arenaData:getMatchUserInfo()
+            else
+                user_info = (is_friendMatch) and g_friendMatchData.m_matchInfo or g_colosseumData:getMatchUserInfo()
+            end
+
             if (user_info) then
 			    vars['userNode2']:setVisible(true)
 			    vars['name2']:setString(user_info.m_nickname)
 
                 local profile_icon
-                local tamer_info = user_info:getPvpDefDeck()['tamerInfo']
+                local tamer_info = self.m_isArena and user_info:getPvpDeck()['tamerInfo'] or user_info:getPvpDefDeck()['tamerInfo']
                 if (tamer_info) then
                     profile_icon = user_info:makeTamerReadyIconWithCostume(tamer_info)
                 else
