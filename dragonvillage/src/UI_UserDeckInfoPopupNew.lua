@@ -76,7 +76,7 @@ function UI_UserDeckInfoPopupNew:refresh_dragons()
 
     local struct_user_info = self.m_structUserInfoArena
     local player_2d_deck = UI_2DDeck()
-    player_2d_deck:setDirection('left')
+    player_2d_deck:setDirection('right')
     vars['formationNode']:addChild(player_2d_deck.root)
     player_2d_deck:initUI()
 

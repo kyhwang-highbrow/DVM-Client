@@ -7,10 +7,48 @@ UI_ArenaDeckSettings = class(PARENT,{
         m_currTamerID = 'number',
     })
 
+local NEED_CASH = 50 -- 유료 입장 다이아 개수
+
 -------------------------------------
 -- function init
 -------------------------------------
 function UI_ArenaDeckSettings:init(stage_id, sub_info)
+    local vars = self.vars
+    -- 유료 입장권
+    local icon = IconHelper:getItemIcon(ITEM_ID_CASH)
+    icon:setScale(0.5)
+    vars['staminaExtNode']:addChild(icon)
+    vars['actingPowerExtLabel']:setString(NEED_CASH)
+
+    -- itemMenu에 입장권 체크하는 스케쥴러 등록
+    vars['itemMenu']:scheduleUpdateWithPriorityLua(function(dt) self:update_stamina(dt) end, 0.1)
+end
+
+-------------------------------------
+-- function update_stamina
+-- @brief
+-------------------------------------
+function UI_ArenaDeckSettings:update_stamina(dt)    
+    local vars = self.vars
+    local is_enough = g_staminasData:checkStageStamina(ARENA_STAGE_ID)
+
+    -- 기본 입장권 없을 경우엔 유료 입장권 개수 보여줌
+    vars['actingPowerNode']:setVisible(is_enough)
+    vars['actingPowerExtNode']:setVisible(not is_enough)
+    vars['timeLabel']:setVisible(not is_enough)
+    vars['staminaExtLabel']:setVisible(not is_enough)
+
+    if (not is_enough) then
+        local stamina_type = 'arena_ext'
+
+        local time_str = g_staminasData:getChargeRemainText(stamina_type)
+        vars['timeLabel']:setString(time_str)
+
+        local st_ad = g_staminasData:getStaminaCount(stamina_type)
+        local max_cnt = g_staminasData:getStaminaMaxCnt(stamina_type)
+        local str = Str('{1}/{2}', comma_value(st_ad), comma_value(max_cnt))
+        vars['staminaExtLabel']:setString(str)
+    end
 end
 
 -------------------------------------
@@ -103,6 +141,8 @@ function UI_ArenaDeckSettings:click_startBtn()
                 UI_BlockPopup()
 
                 self:checkChangeDeck(function()
+                    -- 스케쥴러 해제 (씬 이동하는 동안 입장권 모두 소모시 다이아로 바뀌는게 보기 안좋음)
+                    self.vars['itemMenu']:unscheduleUpdate()
                     local scene = SceneGameArena()
                     scene:runScene()
                 end)
@@ -111,11 +151,19 @@ function UI_ArenaDeckSettings:click_startBtn()
             g_arenaData:request_colosseumStart(is_cash, cb)
         end
 
+        -- 기본 입장권 부족시
         if (not g_staminasData:checkStageStamina(ARENA_STAGE_ID)) then
-            is_cash = true
-            local cash = 50
-            local msg = Str('입장권을 모두 소모하였습니다.\n{1}다이아몬드를 사용하여 진행하시겠습니까?', cash)
-            MakeSimplePopup_Confirm('cash', cash, msg, request)
+            -- 유료 입장권 체크
+            local is_enough, insufficient_num = g_staminasData:hasStaminaCount('arena_ext', 1)
+            if (is_enough) then
+                is_cash = true
+                local msg = Str('입장권을 모두 소모하였습니다.\n{1}다이아몬드를 사용하여 진행하시겠습니까?', NEED_CASH)
+                MakeSimplePopup_Confirm('cash', NEED_CASH, msg, request)
+
+            -- 유료 입장권 부족시 입장 불가 
+            else
+                -- 버튼 비활성화로 막음
+            end
         else
             is_cash = false
             request()

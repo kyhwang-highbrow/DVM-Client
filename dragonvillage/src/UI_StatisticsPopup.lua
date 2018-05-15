@@ -35,7 +35,7 @@ function UI_StatisticsPopup:init(world, is_test)
 	self:doAction(nil, false)
 
 	-- 멤버 변수 초기화
-	self.m_isColosseum = (world.m_gameMode == GAME_MODE_COLOSSEUM)
+	self.m_isColosseum = (world.m_gameMode == GAME_MODE_COLOSSEUM or world.m_gameMode == GAME_MODE_ARENA)
     self.m_bFriendMatch = (self.m_isColosseum) and world.m_bFriendMatch or false
     self.m_isTestMode = is_test
 

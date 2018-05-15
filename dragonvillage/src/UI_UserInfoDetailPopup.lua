@@ -438,7 +438,10 @@ end
 function UI_UserInfoDetailPopup:click_deckBtn()
     local uid = self.m_tUserInfo['uid']
     local deck_name = 'def'
-    RequestUserDeckInfoPopup(uid, deck_name)
+    -- RequestUserDeckInfoPopup(uid, deck_name)
+
+    -- 콜로세움 (신규)
+    RequestUserDeckInfoPopupNew(uid)
 end
 
 -------------------------------------

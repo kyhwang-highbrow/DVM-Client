@@ -12,7 +12,7 @@ UI_ArenaClanRankListItem = class(PARENT, {
 -------------------------------------
 function UI_ArenaClanRankListItem:init(stuct_data)
     self.m_stuctClanRank = stuct_data
-    local vars = self:load('colosseum_scene_ranking_item_clan.ui')
+    local vars = self:load('arena_scene_ranking_item_clan.ui')
 
     -- 다음 랭킹 보기 
     if (stuct_data == 'next') or (stuct_data == 'prev') then
