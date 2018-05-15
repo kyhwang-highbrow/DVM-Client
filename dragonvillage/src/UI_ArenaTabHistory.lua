@@ -42,8 +42,8 @@ end
 function UI_ArenaTabHistory:initTab()
     local vars = self.vars
 
-    self:addTabAuto(UI_ArenaTabHistory['ATK'], vars, vars['rankNode'])
-    self:addTabAuto(UI_ArenaTabHistory['DEF'], vars, vars['clanRankNode'])
+    self:addTabAuto(UI_ArenaTabHistory['ATK'], vars, vars['atkListNode'])
+    self:addTabAuto(UI_ArenaTabHistory['DEF'], vars, vars['defListNode'])
     
     self:setTab(UI_ArenaTabHistory['ATK'])
 end
@@ -72,7 +72,7 @@ function UI_ArenaTabHistory:request_atkHistory()
         self:init_atkTableView()
     end
 
-    g_arenaData:request_colosseumHistory('atk', finish_cb)
+    g_arenaData:request_colosseumHistory(UI_ArenaTabHistory['ATK'] , finish_cb)
 end
 
 -------------------------------------
@@ -82,8 +82,8 @@ function UI_ArenaTabHistory:init_atkTableView()
     local node = self.vars['atkListNode']
     node:removeAllChildren()
 
-    -- 생성 콜백
-    local function create_func(ui, data)
+    local function make_func(data)
+        return UI_ArenaHistoryListItem(data, UI_ArenaTabHistory['ATK'] )
     end
 
     -- 테이블 뷰 인스턴스 생성
@@ -114,10 +114,44 @@ end
 -- function request_defHistory
 -------------------------------------
 function UI_ArenaTabHistory:request_defHistory()
+    local finish_cb = function()
+        self:init_atkTableView()
+    end
+
+    g_arenaData:request_colosseumHistory(UI_ArenaTabHistory['DEF'], finish_cb)
 end
 
 -------------------------------------
 -- function init_defTableView
 -------------------------------------
 function UI_ArenaTabHistory:init_defTableView()
+    local node = self.vars['defListNode']
+    node:removeAllChildren()
+
+    local function make_func(data)
+        return UI_ArenaHistoryListItem(data, UI_ArenaTabHistory['DEF'])
+    end
+
+    -- 테이블 뷰 인스턴스 생성
+    local table_view = UIC_TableView(node)
+    table_view.m_defaultCellSize = cc.size(720, 150 + 5)
+    table_view:setCellUIClass(UI_ArenaHistoryListItem, create_func)
+    table_view:setDirection(cc.SCROLLVIEW_DIRECTION_VERTICAL)
+
+    local l_item_list = g_arenaData.m_matchAtkHistory
+    table_view:setItemList(l_item_list)
+
+    -- 상대방 방어덱의 전투력이 낮은 순으로 정렬
+    local function sort_func(a, b)
+        -- StructUserInfoColosseum
+        local a_data = a['data']
+        local b_data = b['data']
+
+        -- 리그 포인트를 얻어옴
+        local a_rp = a_data:getRP()
+        local b_rp = b_data:getRP()
+
+        return a_rp < b_rp
+    end
+    table.sort(table_view.m_itemList, sort_func)
 end

@@ -744,6 +744,7 @@ local t_module = {
     'UI_SimpleEditBoxPopup',
     'UI_FruitFeedPress',
     'UI_UserDeckInfoPopup',
+    'UI_UserDeckInfoPopupNew',
     'UI_BattleMenu',
     'UI_BattleMenuItem',
     'UI_BattleMenuItem_Adventure',

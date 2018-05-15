@@ -56,9 +56,6 @@ function UI_Arena:init()
     self:initButton()
     self:refresh()
 
-    local test_1 = Str('재도전')
-    local test_2 = Str('복수전')
-
     -- 보상 안내 팝업
     local function finich_cb()
 --        local ui
@@ -146,11 +143,10 @@ function UI_Arena:refresh()
         local tier_name = struct_user_info:getTierName()
         vars['tierLabel']:setString(tier_name)
 
-        -- 순위, 점수, 승률, 연승
+        -- 순위, 점수, 승률
         local str = struct_user_info:getRankText() .. '\n'
             .. struct_user_info:getRPText()  .. '\n'
             .. struct_user_info:getWinRateText()  .. '\n'
-            .. struct_user_info:getWinstreakText()
         vars['rankingLabel']:setString(str)
     end
 

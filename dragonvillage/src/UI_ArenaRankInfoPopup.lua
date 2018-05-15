@@ -64,7 +64,6 @@ function UI_ArenaRankInfoPopup:refresh()
         local str = struct_user_info:getRankText() .. '\n'
             .. struct_user_info:getRPText()  .. '\n'
             .. struct_user_info:getWinRateText()  .. '\n'
-            .. struct_user_info:getWinstreakText()
         vars['rankingLabel1']:setString(str)
     end
 
@@ -85,7 +84,6 @@ function UI_ArenaRankInfoPopup:refresh()
         local str = struct_user_info:getRankText() .. '\n'
             .. struct_user_info:getRPText()  .. '\n'
             .. struct_user_info:getWinRateText()  .. '\n'
-            .. struct_user_info:getWinstreakText()
         vars['rankingLabel2']:setString(str)
     end
 end

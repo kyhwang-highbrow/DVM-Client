@@ -5,13 +5,16 @@ local PARENT = class(UI, IRankListItem:getCloneTable())
 -------------------------------------
 UI_ArenaHistoryListItem = class(PARENT, {
         m_userInfo = '',
+        m_type = '', -- 'atk' or 'def' 공격기록, 방어기록
     })
 
 -------------------------------------
 -- function init
 -------------------------------------
-function UI_ArenaHistoryListItem:init(struct_user_info)
+function UI_ArenaHistoryListItem:init(struct_user_info, type)
     self.m_userInfo = struct_user_info
+    self.m_type = type 
+
     local vars = self:load('arena_scene_history_item.ui')
 
     self:initUI()
@@ -65,6 +68,12 @@ function UI_ArenaHistoryListItem:initUI()
         vars['resultLabel']:setString(Str('패배'))
     end
 
+    -- 재도전, 복수전 (패배이고 도전가능한 상황일떄만 노출)
+    -- 1번 도전이라 되있는데 이부분 서버 작업 필요함
+
+    local str_retry = (self.m_type == 'atk') and Str('재도전') or Str('복수전')
+    vars['retryLabel']:setString(str_retry)
+
     do -- 시간
         local curr_time = Timer:getServerTime()
         local match_time = (user_info.m_matchTime / 1000)
@@ -81,10 +90,30 @@ end
 -- function initButton
 -------------------------------------
 function UI_ArenaHistoryListItem:initButton()
+    local vars = self.vars
+    vars['retryBtn']:registerScriptTapHandler(function() self:click_retryBtn() end)
+    vars['deckBtn']:registerScriptTapHandler(function() self:click_deckBtn() end)
 end
 
 -------------------------------------
 -- function refresh
 -------------------------------------
 function UI_ArenaHistoryListItem:refresh()
+end
+
+-------------------------------------
+-- function click_retryBtn
+-- @brief 복수전, 재도전
+-------------------------------------
+function UI_ArenaHistoryListItem:click_retryBtn()
+end
+
+-------------------------------------
+-- function click_deckBtn
+-- @brief 덱 정보
+-------------------------------------
+function UI_ArenaHistoryListItem:click_deckBtn()
+    local user_info = self.m_userInfo
+    local uid = user_info.m_uid
+    RequestUserDeckInfoPopupNew(uid)
 end

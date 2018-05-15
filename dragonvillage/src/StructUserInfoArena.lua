@@ -129,12 +129,11 @@ function StructUserInfoArena:create_forHistory(t_data)
 end
 
 -------------------------------------
--- function create_forHistory
--- @brief 전투 기록
+-- function createUserInfo
+-- @brief 콜로세움 유저 인포
 -------------------------------------
-function StructUserInfoArena:create(t_data, deck_type)
+function StructUserInfoArena:createUserInfo(t_data)
     local user_info = StructUserInfoArena()
-
     user_info.m_uid = t_data['uid']
     user_info.m_nickname = t_data['nick']
     user_info.m_lv = t_data['lv']
@@ -148,13 +147,8 @@ function StructUserInfoArena:create(t_data, deck_type)
     -- 룬 & 드래곤 리스트 저장
     user_info:applyRunesDataList(t_data['runes']) --반드시 드래곤 설정 전에 룬을 설정해야함
     user_info:applyDragonsDataList(t_data['dragons'])
-
     -- 덱 저장
-    if (deck_type == 'atk') then
-        user_info:applyPvpAtkDeckData(t_data['deck'])
-    elseif (deck_type == 'def') then
-        user_info:applyPvpDefDeckData(t_data['deck'])
-    end
+    user_info:applyPvpDeckData(t_data['deck'])
 
     return user_info
 end
@@ -322,20 +316,6 @@ function StructUserInfoArena:getWinRateText()
     local sum = math_max(self.m_winCnt + self.m_loseCnt, 1)
     local win_rate_text = math_floor(self.m_winCnt / sum * 100)
     local text = Str('{1}승 {2}패 ({3}%)', self.m_winCnt, self.m_loseCnt, win_rate_text)
-    return text
-end
-
--------------------------------------
--- function getWinstreakText
--- @brief 연승
--------------------------------------
-function StructUserInfoArena:getWinstreakText()
-    if (not self.m_straight) then
-        return Str('기록 없음')
-    end
-
-    local straight = math_max(self.m_straight, 0)
-    local text = Str('{1}연승', comma_value(straight))
     return text
 end
 
@@ -551,6 +531,30 @@ function StructUserInfoArena:getDeckTamerIcon()
     end
 
     return icon
+end
+
+-------------------------------------
+-- function getDeckTamerSDAnimator
+-- @return tamer_id number
+-------------------------------------
+function StructUserInfoArena:getDeckTamerSDAnimator()
+    local animator
+    local t_tamer_info = self:getPvpDeck()['tamerInfo']
+    if (t_tamer_info) then
+        local tid = t_tamer_info['tid']
+        local costume_id = t_tamer_info['costume']
+
+        if (costume_id) then
+            local struct_costume = g_tamerCostumeData:getCostumeDataWithCostumeID(costume_id)
+            local sd_res = struct_costume:getResSD()
+            animator = MakeAnimator(sd_res)
+        else
+            local sd_res = TableTamer:getTamerResSD(tid)
+            animator = MakeAnimator(sd_res)
+        end
+    end
+
+    return animator
 end
 
 -------------------------------------
