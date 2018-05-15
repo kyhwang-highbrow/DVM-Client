@@ -11,7 +11,7 @@ UI_GameArena = class(PARENT, {
 -- function getUIFileName
 -------------------------------------
 function UI_GameArena:getUIFileName()
-    return 'colosseum_ingame.ui'
+    return 'arena_ingame.ui'
 end
 
 -------------------------------------

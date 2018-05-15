@@ -68,6 +68,14 @@ function SceneGameArena:onExit()
 end
 
 -------------------------------------
+-- function makeLoadingUI
+-- @brief scene전환 중 로딩화면 생성
+-------------------------------------
+function SceneGameArena:makeLoadingUI()
+    return UI_LoadingArena(self)
+end
+
+-------------------------------------
 -- function prepare
 -------------------------------------
 function SceneGameArena:prepare()

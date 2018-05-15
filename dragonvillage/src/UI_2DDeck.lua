@@ -5,13 +5,18 @@ local PARENT = UI
 -------------------------------------
 UI_2DDeck = class(PARENT,{
         m_direction = '',
+        m_bNoAction = 'boolean',
+        m_bArena = 'boolean',
     })
 
 -------------------------------------
 -- function init
 -------------------------------------
-function UI_2DDeck:init()
+function UI_2DDeck:init(no_action, is_arena)
     local vars = self:load('2d_deck.ui')
+
+    self.m_bNoAction = no_action or false
+    self.m_bArena = is_arena or false
 end
 
 -------------------------------------
@@ -119,7 +124,11 @@ function UI_2DDeck:setDragonObjectList(l_deck, leader)
             end
 
 		    -- 찰랑찰랑 하는 연출
-		    cca.uiReactionSlow(ui.root, DC_SCALE_ON_PLATE, DC_SCALE_ON_PLATE, DC_SCALE_PICK)
+            if (self.m_bNoAction) then
+                ui.root:setScale(DC_SCALE_ON_PLATE)
+            else
+		        cca.uiReactionSlow(ui.root, DC_SCALE_ON_PLATE, DC_SCALE_ON_PLATE, DC_SCALE_PICK)
+            end
 
 		    -- 설정된 드래곤 표시 없애기
 		    ui:setReadySpriteVisible(false)
@@ -144,7 +153,13 @@ end
 function UI_2DDeck:setFormation(formation)
     local formation = formation or 'attack'
     local interval = 110
-    local l_pos_list = TableFormation:getFormationPositionListNew(formation, interval)
+    local l_pos_list
+
+    if (self.m_bArena) then
+        l_pos_list = TableFormationArena:getFormationPositionListNew(formation, interval)
+    else
+        l_pos_list = TableFormation:getFormationPositionListNew(formation, interval)
+    end
 
 	-- 진형 위치 변경
 	self:actionForChangeDeck_Immediately(l_pos_list)
