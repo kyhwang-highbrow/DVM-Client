@@ -481,9 +481,12 @@ function TargetRule_getTargetList_stat(org_list, stat_type, t_data)
 			local a_stat = a:getHp()
 			local b_stat = b:getHp()
 
-			if (is_descending) then
+            if (is_descending) then
 				return a_stat > b_stat
 			else
+                if (a.m_isZombie) then a_stat = 9999999 end
+                if (b.m_isZombie) then b_stat = 9999999 end
+
 				return a_stat < b_stat
 			end
 		end)
