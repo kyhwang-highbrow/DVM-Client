@@ -89,6 +89,9 @@ function UI_DragonEvolution:initButton()
     vars['moveBtn1']:registerScriptTapHandler(function() self:click_evolutionStone(1) end)
     vars['moveBtn2']:registerScriptTapHandler(function() self:click_evolutionStone(2) end)
     vars['moveBtn3']:registerScriptTapHandler(function() self:click_evolutionStone(3) end)
+
+	vars['buyBtn']:registerScriptTapHandler(function() self:click_buyBtn() end)
+	cca.pickMePickMe(vars['buyBtn'], 10)
 end
 
 -------------------------------------
@@ -140,6 +143,9 @@ function UI_DragonEvolution:refresh()
 
     -- 능력치
     self:refresh_stats(t_dragon_data, t_dragon, is_max_evolution)
+
+	-- 패키지 구매 유도
+	vars['buyBtn']:setVisible(not self.m_bEnoughSvolutionStones)
 end
 
 -------------------------------------
@@ -545,6 +551,59 @@ function UI_DragonEvolution:click_combineBtn(i)
 
     local ui = UI_EvolutionStoneCombine(item_id, dragon_data)
     ui:setCloseCB(update_cb)
+end
+
+-------------------------------------
+-- function click_buyBtn
+-------------------------------------
+function UI_DragonEvolution:click_buyBtn()
+    local struct_dragon_object = self.m_selectDragonData
+    if (not struct_dragon_object) then
+        return
+    end
+
+    -- 드래곤 정보
+	local attr = struct_dragon_object:getAttr()
+	local rarity = struct_dragon_object:getRarity()
+	
+	local t_evolution_package_pid_table = {
+		['legend'] = {
+			['earth'] = 90070,
+			['water'] = 90071,
+			['fire'] = 90072,
+			['light'] = 90073,
+			['dark'] = 90074,
+		},
+		['hero'] = {
+			['earth'] = 90065,
+			['water'] = 90066,
+			['fire'] = 90067,
+			['light'] = 90068,
+			['dark'] = 90069,
+		},
+		['rare'] = {
+			['earth'] = 90065,
+			['water'] = 90066,
+			['fire'] = 90067,
+			['light'] = 90068,
+			['dark'] = 90069,
+		},
+	}
+
+	-- pid 찾아서 StructProduct 생성 후 UI 출력
+	local pid = t_evolution_package_pid_table[rarity][attr]
+	local struct_product = g_shopDataNew:getProduct('package', pid)
+	local ui = UI_Package(struct_product, true) -- is_popup
+
+	-- @mskim 익명 함수를 사용하여 가독성을 높이는 경우라고 생각..!
+	-- 구매 후 간이 우편함 출력
+	-- 간이 우편함 닫을 때 패키지UI 닫고 진화UI 갱신
+	ui:setBuyCB(function() 
+		UINavigator:goTo('mail_select', MAIL_SELECT_TYPE.EVOLUTION_PACK, function()
+			ui:close()
+			self:refresh()
+		end)
+	end)
 end
 
 --@CHECK

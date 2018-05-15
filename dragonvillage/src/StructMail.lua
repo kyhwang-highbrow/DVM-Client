@@ -282,6 +282,32 @@ function StructMail:isGoldBooster()
 end
 
 -------------------------------------
+-- function isEvolutionStone
+-- @brief 진화석 확인
+-------------------------------------
+function StructMail:isEvolutionStone()
+    if (not self:getItemList()[1]) then
+        return false
+    end
+    local item_id = self:getItemList()[1]['item_id']
+	local item_type = TableItem:getItemType(item_id)
+    return (item_type == 'evolution_stone')
+end
+
+-------------------------------------
+-- function isSlime
+-- @brief 슬라임 확인
+-------------------------------------
+function StructMail:isSlime()
+    if (not self:getItemList()[1]) then
+        return false
+    end
+    local item_id = self:getItemList()[1]['item_id']
+	local item_type = TableItem:getItemType(item_id)
+    return (item_type == 'slime')
+end
+
+-------------------------------------
 -- function readChangeNick
 -- @brief 닉네임 변경권을 읽는다
 -------------------------------------
