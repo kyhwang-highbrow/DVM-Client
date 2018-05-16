@@ -170,6 +170,10 @@
 		37F9991720A8852800048AC7 /* src in Resources */ = {isa = PBXBuildFile; fileRef = 37F9991220A8852700048AC7 /* src */; };
 		37F9991820A8852800048AC7 /* src in Resources */ = {isa = PBXBuildFile; fileRef = 37F9991220A8852700048AC7 /* src */; };
 		37F9991C20A8992200048AC7 /* images_mac.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 37F9991B20A8992200048AC7 /* images_mac.xcassets */; };
+		37F9993920AA886100048AC7 /* SimulatorApp.mm in Sources */ = {isa = PBXBuildFile; fileRef = 37F9993720AA886100048AC7 /* SimulatorApp.mm */; };
+		37F9993E20AA88C900048AC7 /* NSAppSheetAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 37F9993B20AA88C800048AC7 /* NSAppSheetAdditions.m */; };
+		37F9993F20AA88C900048AC7 /* WorkSpaceDialogController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 37F9993C20AA88C800048AC7 /* WorkSpaceDialogController.mm */; };
+		37F9994420AB3BBC00048AC7 /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 37F9994320AB3BBC00048AC7 /* MainMenu.xib */; };
 		37FB64B71F3AF73300378EE8 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 37FB64B61F3AF73200378EE8 /* GoogleService-Info.plist */; };
 		5023811817EBBCAC00990C9B /* AppController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 5023810817EBBCAC00990C9B /* AppController.mm */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		5023812417EBBCAC00990C9B /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 5023811417EBBCAC00990C9B /* main.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
@@ -541,6 +545,13 @@
 		37F9991120A8852700048AC7 /* data */ = {isa = PBXFileReference; lastKnownFileType = folder; name = data; path = ../data; sourceTree = "<group>"; };
 		37F9991220A8852700048AC7 /* src */ = {isa = PBXFileReference; lastKnownFileType = folder; name = src; path = ../src; sourceTree = "<group>"; };
 		37F9991B20A8992200048AC7 /* images_mac.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = images_mac.xcassets; path = mac/images_mac.xcassets; sourceTree = "<group>"; };
+		37F9993720AA886100048AC7 /* SimulatorApp.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = SimulatorApp.mm; sourceTree = "<group>"; };
+		37F9993820AA886100048AC7 /* SimulatorApp.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SimulatorApp.h; sourceTree = "<group>"; };
+		37F9993A20AA88C800048AC7 /* NSAppSheetAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NSAppSheetAdditions.h; sourceTree = "<group>"; };
+		37F9993B20AA88C800048AC7 /* NSAppSheetAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSAppSheetAdditions.m; sourceTree = "<group>"; };
+		37F9993C20AA88C800048AC7 /* WorkSpaceDialogController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = WorkSpaceDialogController.mm; sourceTree = "<group>"; };
+		37F9993D20AA88C900048AC7 /* WorkSpaceDialogController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WorkSpaceDialogController.h; sourceTree = "<group>"; };
+		37F9994320AB3BBC00048AC7 /* MainMenu.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MainMenu.xib; sourceTree = "<group>"; };
 		37FB64941F3AD0D000378EE8 /* DragonVillage.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = DragonVillage.entitlements; sourceTree = "<group>"; };
 		37FB64B61F3AF73200378EE8 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		4D0C6E3AB228D0562D12AD9F /* libPods-DragonVillageM Mac.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-DragonVillageM Mac.a"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -850,6 +861,13 @@
 				5023817217EBBE3400990C9B /* Icon.icns */,
 				5023817317EBBE3400990C9B /* Info.plist */,
 				5023817517EBBE3400990C9B /* Prefix.pch */,
+				37F9994320AB3BBC00048AC7 /* MainMenu.xib */,
+				37F9993820AA886100048AC7 /* SimulatorApp.h */,
+				37F9993720AA886100048AC7 /* SimulatorApp.mm */,
+				37F9993A20AA88C800048AC7 /* NSAppSheetAdditions.h */,
+				37F9993B20AA88C800048AC7 /* NSAppSheetAdditions.m */,
+				37F9993D20AA88C900048AC7 /* WorkSpaceDialogController.h */,
+				37F9993C20AA88C800048AC7 /* WorkSpaceDialogController.mm */,
 			);
 			path = mac;
 			sourceTree = "<group>";
@@ -1263,6 +1281,7 @@
 				37F998FE20A8845900048AC7 /* CocoStudio.lua in Resources */,
 				37F998FF20A8845900048AC7 /* Deprecated.lua in Resources */,
 				37F9990020A8845900048AC7 /* DeprecatedClass.lua in Resources */,
+				37F9994420AB3BBC00048AC7 /* MainMenu.xib in Resources */,
 				37F9990120A8845900048AC7 /* DeprecatedEnum.lua in Resources */,
 				37F9990220A8845900048AC7 /* DeprecatedOpenglEnum.lua in Resources */,
 				37F9991620A8852800048AC7 /* data in Resources */,
@@ -1421,10 +1440,13 @@
 			buildActionMask = 2147483647;
 			files = (
 				37F4537820A773D70088399C /* Runtime_ios-mac.mm in Sources */,
+				37F9993E20AA88C900048AC7 /* NSAppSheetAdditions.m in Sources */,
 				37F4536920A7126D0088399C /* PerpUtils.cpp in Sources */,
 				37F4536A20A7126D0088399C /* PerpLua.cpp in Sources */,
 				37F4536B20A7126D0088399C /* PerpSocial.cpp in Sources */,
+				37F9993920AA886100048AC7 /* SimulatorApp.mm in Sources */,
 				37F4537920A776A10088399C /* PerpSupportPatch.cpp in Sources */,
+				37F9993F20AA88C900048AC7 /* WorkSpaceDialogController.mm in Sources */,
 				37F4536C20A7126D0088399C /* PerpSupportLua.cpp in Sources */,
 				37F4536E20A7126D0088399C /* Runtime.cpp in Sources */,
 				37F4536F20A7126D0088399C /* VisibleRect.cpp in Sources */,

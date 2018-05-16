@@ -3,6 +3,12 @@
 #if (CC_TARGET_PLATFORM == CC_PLATFORM_WIN32)
 #include <sys/stat.h>
 #include <direct.h>
+#elif (CC_TARGET_PLATFORM == CC_PLATFORM_MAC)
+#include <sys/stat.h>
+#include <sys/types.h>
+#include <fcntl.h>
+#include <unistd.h>
+#include <dirent.h>
 #elif (CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID)
 #include <sys/stat.h>
 #include <sys/types.h>
@@ -195,6 +201,8 @@ void SupportPatch::makeDir(string dir)
 {
 #if (CC_TARGET_PLATFORM == CC_PLATFORM_WIN32)
 	mkdir(dir.c_str());
+#elif (CC_TARGET_PLATFORM == CC_PLATFORM_MAC)
+    mkdir(dir.c_str(), S_IRWXU);
 #elif (CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID || CC_TARGET_PLATFORM == CC_PLATFORM_IOS)
 	int ret = mkdir(dir.c_str(), 0777);
 	if (ret == 0) {
@@ -259,6 +267,8 @@ void SupportPatch::removeDir(string dir)
 	FindClose(di);
 
 	rmdir(dir.c_str());
+#elif (CC_TARGET_PLATFORM == CC_PLATFORM_MAC)
+    // something to do..
 #else
 	DIR *di;
 	struct dirent *ent;
@@ -319,17 +329,7 @@ string SupportPatch::getPatchPath(const char* ver)
 	return base;
 }
 
-#if (CC_TARGET_PLATFORM == CC_PLATFORM_WIN32)
-
 #include "md5.h"
-
-#elif (CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID)
-#include "md5.h"
-
-#elif (CC_TARGET_PLATFORM == CC_PLATFORM_IOS)
-#include "md5.h"
-
-#endif
 
 #define MD5_BUFFER_LENGTH		1024
 #define MD5_LENGTH				16

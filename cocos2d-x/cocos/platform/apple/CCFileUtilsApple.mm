@@ -471,10 +471,19 @@ FileUtils* FileUtils::getInstance()
 std::string FileUtilsApple::getWritablePath() const
 {
     // save to cache folder
+#if (CC_TARGET_PLATFORM == CC_PLATFORM_IOS)
     NSArray *paths = NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES);
     NSString *documentsDirectory = [paths objectAtIndex:0];
     std::string strRet = [documentsDirectory UTF8String];
     strRet.append("/");
+#elif (CC_TARGET_PLATFORM == CC_PLATFORM_MAC)
+    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES);
+    NSString *documentsDirectory = [paths objectAtIndex:0];
+    std::string strRet = [documentsDirectory UTF8String];
+    NSString *bundleName = [[NSBundle mainBundle] objectForInfoDictionaryKey:@"CFBundleName"];
+    NSString *appenStr = [NSString stringWithFormat:@"/%@/", bundleName];
+    strRet.append([appenStr UTF8String]);
+#endif
     return strRet;
 }
 

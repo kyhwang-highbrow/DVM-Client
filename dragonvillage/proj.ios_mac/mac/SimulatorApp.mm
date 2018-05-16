@@ -81,12 +81,16 @@ std::string getCurAppPath(void)
         }
     }
     g_nsAppDelegate =self;
-    AppDelegate app;
-    Application::getInstance()->run();
-    // After run, application needs to be terminated immediately.
-    [NSApp terminate: self];
+//    AppDelegate app;
+//    Application::getInstance()->run();
+//    // After run, application needs to be terminated immediately.
+//    [NSApp terminate: self];
 }
 
+void initAppController()
+{
+    g_nsAppDelegate = [AppController alloc];
+}
 
 #pragma mark -
 #pragma mark functions
@@ -133,10 +137,9 @@ void createSimulator(const char* viewName, float width, float height,bool isLand
         }
         g_screenSize.width = width;
         g_screenSize.height = height;
-        
+
         [g_nsAppDelegate createSimulator:[NSString stringWithUTF8String:viewName] viewWidth:width viewHeight:height factor:frameZoomFactor];
     }
-    
 }
 
 - (void) createViewMenu
@@ -338,5 +341,21 @@ void createSimulator(const char* viewName, float width, float height,bool isLand
     [self updateView];
 }
 
++ (NSString *)getJSONStringFromNSDictionary:(NSDictionary *)obj {
+    if (obj != nil) {
+        NSError *error;
+        NSData *data = [NSJSONSerialization dataWithJSONObject:obj
+                                                       options:0
+                                                         error:&error];
+        if (data != nil) {
+            NSString *result = [[NSString alloc] initWithData:data
+                                                     encoding:NSUTF8StringEncoding];
+            if (result != nil) {
+                return result;
+            }
+        }
+    }
+    return @"";
+}
 
 @end

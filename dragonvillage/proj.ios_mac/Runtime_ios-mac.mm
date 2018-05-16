@@ -9,9 +9,13 @@
 #include "cocos2d.h"
 #include "AppDelegate.h"
 
+#if (CC_TARGET_PLATFORM == CC_PLATFORM_IOS)
 #import "AppController.h"
 #import "RootViewController.h"
 #import "DeviceDetector.h"
+#elif (CC_TARGET_PLATFORM == CC_PLATFORM_MAC)
+#import "SimulatorApp.h"
+#endif
 
 using namespace std;
 using namespace cocos2d;
@@ -84,12 +88,20 @@ string getLocale()
 
 int isWifiConnected()
 {
+#if (CC_TARGET_PLATFORM == CC_PLATFORM_MAC)
+    return 1;
+#else
     return [AppController isWifiConnected];
+#endif
 }
 
 string getFreeMemory()
 {
+#if (CC_TARGET_PLATFORM == CC_PLATFORM_MAC)
+    return "0";
+#else
     return [[AppController getFreeMemory] UTF8String];
+#endif
 }
 
 string getAndroidID()
@@ -105,6 +117,22 @@ void sdkEventResult(const char *id, const char *result, const char *info)
 
 void sdkEvent(const char *id, const char *arg0, const char *arg1)
 {
+#if (CC_TARGET_PLATFORM == CC_PLATFORM_MAC)
+    if (strcmp(id, "app_deviceInfo") == 0) {
+        NSHost *host = [NSHost currentHost];
+        NSString *version = [[NSProcessInfo processInfo] operatingSystemVersionString];
+
+        NSDictionary *dict = @{ @"desc":@"MacOs",
+                                @"device":@"MacBook",
+                                @"name":[host localizedName],
+                                @"model":@"",
+                                @"localizedModel":@"",
+                                @"systemName":@"",
+                                @"systemVersion":version };
+        NSString *info = [AppController getJSONStringFromNSDictionary:dict];
+        sdkEventResult(id, "success", [info UTF8String]);
+    }
+#else
     if (strcmp(id, "app_restart") == 0) {
         // @todo
     } else if (strcmp(id, "app_terminate") == 0) {
@@ -165,6 +193,7 @@ void sdkEvent(const char *id, const char *arg0, const char *arg1)
         NSString *info = [AppController getJSONStringFromNSDictionary:dict];
         sdkEventResult(id, "success", [info UTF8String]);
     }
+#endif
 }
 
 // Fix iOS simulator link error

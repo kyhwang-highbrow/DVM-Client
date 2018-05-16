@@ -33,7 +33,15 @@
 #define USE_LUA_EXT false
 #define IS_TEST_MODE false
 
-#elif (CC_TARGET_PLATFORM == CC_PLATFORM_WIN32) || (CC_TARGET_PLATFORM == CC_PLATFORM_MAC)
+#elif (CC_TARGET_PLATFORM == CC_PLATFORM_WIN32)
+#define TARGET_SERVER SERVER_DEV
+#define USE_PATCH false
+#define USE_OBB false
+#define USE_LUA_EXT true
+#define IS_TEST_MODE true
+
+#elif (CC_TARGET_PLATFORM == CC_PLATFORM_MAC)
+#define APP_VER 999
 #define TARGET_SERVER SERVER_DEV
 #define USE_PATCH false
 #define USE_OBB false

@@ -291,4 +291,31 @@ void SimpleAudioEngine::stopAllEffects()
 {
     static_stopAllEffects();
 }
+
+// ios와 통일 시켜 빌드 에러를 막음 내부 구현은 나중에
+void SimpleAudioEngine::playVoice(const char* pszFilePath, bool bLoop)
+{
+}
+
+void SimpleAudioEngine::stopVoice(bool bReleaseData)
+{
+}
+
+void SimpleAudioEngine::playVibrate(long millisecond)
+{
+}
+
+void SimpleAudioEngine::cancelVibrate()
+{
+}
+
+void SimpleAudioEngine::setEngineMode(int mode)
+{
+}
+
+int SimpleAudioEngine::getEngineMode()
+{
+    return 0;
+}
+
 }

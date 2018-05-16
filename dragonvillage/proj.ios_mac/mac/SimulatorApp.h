@@ -48,5 +48,6 @@ void createSimulator(const char* viewName, float width, float height,bool isLand
 - (IBAction) onScreenZoomOut:(id)sender;
 - (IBAction) onRelaunch:(id)sender;
 
++ (NSString *)getJSONStringFromNSDictionary:(NSDictionary *)obj;
 
 @end

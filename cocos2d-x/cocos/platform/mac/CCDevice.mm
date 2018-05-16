@@ -244,6 +244,17 @@ Data Device::getTextureDataForText(const char * text, const FontDefinition& text
     
     return ret;
 }
+
+// ios 와 동일하게 맞춰 빌드 에러 방지. 구현은 나중에.
+void Device::setIdleTimerDisabled(bool disabled)
+{
+}
+
+bool Device::isIdleTimerDisabled()
+{
+    return false;
+}
+
 NS_CC_END
 
 #endif // CC_TARGET_PLATFORM == CC_PLATFORM_MAC

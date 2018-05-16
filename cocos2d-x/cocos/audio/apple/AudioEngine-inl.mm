@@ -29,7 +29,10 @@
 
 #include "audio/apple/AudioEngine-inl.h"
 
+#if CC_TARGET_PLATFORM == CC_PLATFORM_IOS
 #import <UIKit/UIKit.h>
+#endif
+
 #import <OpenAL/alc.h>
 #import <AVFoundation/AVFoundation.h>
 
