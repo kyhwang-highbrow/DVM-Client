@@ -75,7 +75,7 @@ function UI_ArenaHistoryListItem:initUI()
     -- 복수전 (서버에서 주는 값으로 판단)
     else
         local b_revenge = user_info.m_history_revenge
-        vars['retryBtn']:setVisible(not b_revenge)
+        vars['retryBtn']:setVisible(not b_revenge and user_info.m_matchResult ~= 1)
         vars['retryLabel']:setString(Str('복수전'))
     end
 
