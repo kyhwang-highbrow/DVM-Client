@@ -69,11 +69,9 @@ end
 -- function onChangeTab
 -------------------------------------
 function UI_ArenaRewardInfoPopup:onChangeTab(tab, first)
-    PARENT.onChangeTab(self, tab, first)
-
-    if (not first) then
-        return
-    end    
+    -- 탭할때마다 액션 
+    self:doActionReset()
+    self:doAction(nil, false)  
 end
 
 --@CHECK
