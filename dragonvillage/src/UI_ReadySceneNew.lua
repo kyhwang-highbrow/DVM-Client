@@ -1127,8 +1127,13 @@ function UI_ReadySceneNew:click_fomationBtn()
 	-- m_readySceneDeck에서 현재 formation 받아와 전달
 	local curr_formation_type = self.m_readySceneDeck.m_currFormation
     local b_arena = (self.m_stageID == ARENA_STAGE_ID and true or false)
-    local ui = UI_FormationPopup(curr_formation_type, b_arena)
-	
+    local ui
+	if (b_arena) then
+        ui = UI_FormationArenaPopup(curr_formation_type)
+    else
+        ui = UI_FormationPopup(curr_formation_type)
+    end
+
 	-- 종료하면서 선택된 formation을 m_readySceneDeck으로 전달
 	local function close_cb(formation_type)
         if formation_type then

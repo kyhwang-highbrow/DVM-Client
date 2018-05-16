@@ -770,6 +770,8 @@ local t_module = {
     'UI_MonsterInfoBoard',
 	'UI_FormationPopup',
 	'UI_FormationListItem',
+    'UI_FormationArenaPopup',
+	'UI_FormationArenaListItem',
     'UI_UserInfoMini',
     'UI_UserLevelUp',
     'UI_ContentLock',

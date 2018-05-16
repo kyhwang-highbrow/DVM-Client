@@ -3,19 +3,19 @@ local PARENT = class(UI, ITableViewCell:getCloneTable())
 local COMMON_UI_ACTION_TIME = 0.3
 
 -------------------------------------
--- class UI_FormationListItem
+-- class UI_FormationArenaListItem
 -------------------------------------
-UI_FormationListItem = class(PARENT,{
+UI_FormationArenaListItem = class(PARENT,{
 		m_tFormationInfo = '',
 		m_formation = 'str',
-		m_isActivated = 'boolean'
+		m_isActivated = 'boolean',
     })
 
 -------------------------------------
 -- function init
 -------------------------------------
-function UI_FormationListItem:init(t_data)
-    self:load('fomation_popup_item.ui')
+function UI_FormationArenaListItem:init(t_data)
+    self:load('fomation_arena_popup_item.ui')
 
 	self:makeDataPretty(t_data)
 	self.m_isActivated = false
@@ -27,14 +27,14 @@ end
 -------------------------------------
 -- function initUI
 -------------------------------------
-function UI_FormationListItem:initUI()
+function UI_FormationArenaListItem:initUI()
     local vars = self.vars
 end
 
 -------------------------------------
 -- function initButton
 -------------------------------------
-function UI_FormationListItem:initButton()
+function UI_FormationArenaListItem:initButton()
     local vars = self.vars
 
 	vars['enhanceBtn']:registerScriptTapHandler(function() self:click_enhanceBtn() end)
@@ -44,17 +44,18 @@ end
 -------------------------------------
 -- function refresh
 -------------------------------------
-function UI_FormationListItem:refresh()
+function UI_FormationArenaListItem:refresh()
 	local vars = self.vars
-	
-	local table_formation = TableFormation()
+	local table_formation = TableFormationArena()
 	
 	local formation_type = self.m_formation
 	local formation_lv = self.m_tFormationInfo['formation_lv']
 
+    ccdump(self.m_tFormationInfo)
+
 	-- 진형 이름
 	local formation_name = table_formation:getFormationName(formation_type)
-	local formation_str = string.format('Lv. %d %s', formation_lv, formation_name)
+	local formation_str = formation_name -- 콜로세움 (신규) 덱 이름만
 	vars['fomationLabel']:setString(formation_str)
 
 	-- 진형 효과
@@ -73,22 +74,13 @@ function UI_FormationListItem:refresh()
 	vars['maxSprite']:setVisible(false)
 	vars['enhanceBtn']:setVisible(false)
 	
-	-- 최대 레벨
-	if (g_userData:get('lv') <= formation_lv and g_userData:get('lv') >= 70) then
-		vars['maxSprite']:setVisible(true)
-
-	-- 강화가 가능한 상태
-	else
-		vars['enhanceBtn']:setVisible(true)
-        local price = self:getFormationEnhancePrice()
-        vars['priceLabel']:setString(comma_value(price))
-	end
+    -- 콜로세움 (신규) : 버프 없음.
 end
 
 -------------------------------------
 -- function getFormationEnhancePrice
 -------------------------------------
-function UI_FormationListItem:getFormationEnhancePrice()
+function UI_FormationArenaListItem:getFormationEnhancePrice()
 	local curr_formation_level = self.m_tFormationInfo['formation_lv']
 	local formation_level = self.m_tFormationInfo['formation_lv'] + 1
 
@@ -99,7 +91,7 @@ end
 -------------------------------------
 -- function click_detailBtn
 -------------------------------------
-function UI_FormationListItem:makeDataPretty(t_data)
+function UI_FormationArenaListItem:makeDataPretty(t_data)
 	self.m_tFormationInfo = t_data
 	self.m_formation = t_data['formation']
 end
@@ -107,7 +99,7 @@ end
 -------------------------------------
 -- function click_enhanceBtn
 -------------------------------------
-function UI_FormationListItem:click_enhanceBtn()
+function UI_FormationArenaListItem:click_enhanceBtn()
 	local function cb_func()
 		self:makeDataPretty(g_formationData:getFormationInfo(self.m_formation))
 		self:refresh()
@@ -118,4 +110,4 @@ function UI_FormationListItem:click_enhanceBtn()
 end
 
 --@CHECK
-UI:checkCompileError(UI_FormationListItem)
+UI:checkCompileError(UI_FormationArenaListItem)

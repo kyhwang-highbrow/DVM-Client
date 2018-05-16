@@ -3526,6 +3526,12 @@
     <None Include="..\src\TableArenaWinReward.lua">
       <Filter>lua\src</Filter>
     </None>
+    <None Include="..\src\UI_FormationArenaListItem.lua">
+      <Filter>lua\UI</Filter>
+    </None>
+    <None Include="..\src\UI_FormationArenaPopup.lua">
+      <Filter>lua\UI</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Classes">

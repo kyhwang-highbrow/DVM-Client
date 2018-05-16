@@ -108,7 +108,6 @@ end
 -------------------------------------
 function RequestUserDeckInfoPopupNew(peer_uid, history_id)
     local uid = g_userData:get('uid')
-    deck_name = (deck_name or 'def')
 
     local function success_cb(ret)
         local struct_user_info = StructUserInfoArena:createUserInfo(ret['pvpuser_info'])
