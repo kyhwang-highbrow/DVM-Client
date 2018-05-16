@@ -95,6 +95,9 @@ function UI_ArenaTabHistory:init_atkTableView()
     local l_item_list = g_arenaData.m_matchAtkHistory
     table_view:setItemList(l_item_list)
 
+    local msg = Str('공격전 기록이 없다고라')
+    table_view:makeDefaultEmptyMandragora(msg)
+
     -- 상대방 방어덱의 전투력이 낮은 순으로 정렬
     local function sort_func(a, b)
         -- StructUserInfoArena
@@ -140,6 +143,9 @@ function UI_ArenaTabHistory:init_defTableView()
 
     local l_item_list = g_arenaData.m_matchDefHistory
     table_view:setItemList(l_item_list)
+
+    local msg = Str('방어전 기록이 없다고라')
+    table_view:makeDefaultEmptyMandragora(msg)
 
     -- 상대방 방어덱의 전투력이 낮은 순으로 정렬
     local function sort_func(a, b)
