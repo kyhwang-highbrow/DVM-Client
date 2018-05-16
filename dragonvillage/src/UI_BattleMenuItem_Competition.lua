@@ -101,6 +101,8 @@ function UI_BattleMenuItem_Competition:initCompetitionRewardInfo(content_type)
 
 		local left_cnt = next_reward_info['win'] - win
 		text_2 = Str('{1}승 남음', left_cnt)
+
+        local text_3 = Str('{1}회 남음', left_cnt)
 	end
 
 	-- visible on
