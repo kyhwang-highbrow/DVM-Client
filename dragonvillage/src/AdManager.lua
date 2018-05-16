@@ -89,7 +89,7 @@ function AdManager:start(result_cb)
     -- @adMob
     PerpleSDK:adMobSetResultCallBack(_result_cb)
     PerpleSDK:adMobStart(l_ad_unit_id)
-    --PerpleSDK:adMobLoadRequest()
+    PerpleSDK:adMobLoadRequest()
 end
 
 -------------------------------------
