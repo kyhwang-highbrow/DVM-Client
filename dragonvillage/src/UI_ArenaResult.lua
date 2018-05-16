@@ -284,9 +284,11 @@ function UI_ArenaResult:direction_winReward()
 	g_currScene:pushBackKeyListener(ui, function() ui:close() end, 'temp')
 
 	if (table.count(t_data['mail_item_info']) == 1) then
-		-- 승수 표시
+		-- 판수 표시
 		local win = t_data['season']['win']
-		ui.vars['winLabel']:setString(Str('콜로세움 {1}승 달성!', win))
+        local lose = t_data['season']['lose']
+
+		ui.vars['winLabel']:setString(Str('콜로세움 {1}회 달성!', win + lose))
 
 		-- 보상 아이템 표기
 		local t_item = t_data['mail_item_info'][1]
