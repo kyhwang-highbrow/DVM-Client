@@ -43,7 +43,10 @@ function UI_FriendListItem:initButton()
     -- 친구 대전
     local pvp_node = vars['friendshipBtn']
     -- 콜로세움 (신규) 모드 친구 대전 불가
-    pvp_node:setVisible(false)
+    if IS_ARENA_OPEN() then
+        pvp_node:setVisible(false)
+    end
+    
     pvp_node:registerScriptTapHandler(function() self:click_friendshipBtn() end)
 end
 
@@ -63,7 +66,9 @@ function UI_FriendListItem:refresh()
         vars['sendBtn']:setVisible(true)
         vars['deleteBtn']:setVisible(false)
         -- 콜로세움 (신규) 모드 친구 대전 불가
-        vars['friendshipBtn']:setVisible(false)
+        if IS_ARENA_OPEN() then
+            vars['friendshipBtn']:setVisible(false)
+        end
     end
 
     local t_friend_info = self:getFriendInfo()
