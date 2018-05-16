@@ -271,6 +271,7 @@ function ServerData_Arena:makeMatchUserInfo(data)
     struct_user_info.m_tamerID = data['tamer']
     struct_user_info.m_leaderDragonObject = StructDragonObject(data['leader'])
     struct_user_info.m_tier = data['tier']
+    struct_user_info.m_rank = data['rank']
 
     -- 콜로세움 유저 정보
     struct_user_info.m_rp = data['rp']
