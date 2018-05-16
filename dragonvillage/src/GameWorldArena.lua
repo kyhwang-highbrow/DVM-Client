@@ -443,7 +443,7 @@ function GameWorldArena:makeEnemyDeck()
     local is_friendMatch = g_gameScene.m_bFriendMatch
 
     if (self.m_bDevelopMode) then
-        local user_info = (is_friendMatch) and g_friendMatchData.m_playerUserInfo or g_arenaData.m_playerUserInfo
+        local user_info = (is_friendMatch) and g_friendMatchData.m_playerUserInfo or g_arenaData:getMatchUserInfo()
         -- 개발모드에선 자신의 방어덱을 상대로 설정
         t_pvp_deck = user_info:getPvpDeck()
         l_deck = user_info:getDeck_dragonList(true)
