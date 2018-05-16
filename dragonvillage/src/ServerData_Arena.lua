@@ -385,6 +385,21 @@ function ServerData_Arena:request_arenaStart(is_cash, history_id, finish_cb, fai
         end
     end
 
+    -- true를 리턴하면 자체적으로 처리를 완료했다는 뜻
+    local function response_status_cb(ret)
+        if (ret['status'] == -1108) then
+            -- 비슷한 티어 매칭 상대가 없는 상태
+            -- 콜로세움 UI로 이동
+            local function ok_cb()
+                UINavigator:goTo('arena')
+            end 
+            MakeSimplePopup(POPUP_TYPE.OK, Str('현재 점수 구간 내의 대전 가능한 상대가 없습니다.\n다른 상대의 콜로세움 참여를 기다린 후에 다시 시도해 주세요.'), ok_cb)
+            return true
+        end
+
+        return false
+    end
+
     -- 네트워크 통신
     local ui_network = UI_Network()
     ui_network:setUrl('/game/arena/start')
@@ -398,6 +413,7 @@ function ServerData_Arena:request_arenaStart(is_cash, history_id, finish_cb, fai
     end
     ui_network:setMethod('POST')
     ui_network:setSuccessCB(success_cb)
+    ui_network:setResponseStatusCB(response_status_cb)
     ui_network:setFailCB(fail_cb)
     ui_network:setRevocable(true)
     ui_network:setReuse(false)
