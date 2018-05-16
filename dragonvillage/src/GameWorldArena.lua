@@ -443,11 +443,10 @@ function GameWorldArena:makeEnemyDeck()
     local is_friendMatch = g_gameScene.m_bFriendMatch
 
     if (self.m_bDevelopMode) then
-        local user_info = (is_friendMatch) and g_friendMatchData.m_playerUserInfo or g_arenaData:getMatchUserInfo()
-        -- 개발모드에선 자신의 방어덱을 상대로 설정
+        local user_info =(is_friendMatch) and g_friendMatchData.m_matchInfo or g_arenaData:getMatchUserInfo()
         t_pvp_deck = user_info:getPvpDeck()
         l_deck = user_info:getDeck_dragonList(true)
-        getDragonObject = function(doid) return g_dragonsData:getDragonDataFromUid(doid) end
+        getDragonObject = function(doid) return user_info:getDragonObject(doid) end
     else
         -- 상대방의 덱 정보를 얻어옴
         local user_info =(is_friendMatch) and g_friendMatchData.m_matchInfo or g_arenaData:getMatchUserInfo()
