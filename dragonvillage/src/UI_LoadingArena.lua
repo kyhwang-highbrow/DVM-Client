@@ -74,6 +74,13 @@ function UI_LoadingArena:initUI()
     do -- 플레이어 유저 정보
         local user_info = g_arenaData:getPlayerArenaUserInfo()
         local struct_clan = user_info:getStructClan()
+        local icon
+
+        -- 티어
+        icon = user_info:makeTierIcon(nil, 'small')
+        if (icon) then
+            vars['tierNode1']:addChild(icon)
+        end
 
         -- 랭킹
         vars['rankLabel1']:setString(user_info:getRankText(true))
@@ -85,7 +92,7 @@ function UI_LoadingArena:initUI()
         local clan_name = struct_clan and struct_clan:getClanName() or ''
         vars['clanLabel1']:setString(clan_name)
 
-        local icon = struct_clan and struct_clan:makeClanMarkIcon()
+        icon = struct_clan and struct_clan:makeClanMarkIcon()
         if (icon) then
             vars['markNode1']:addChild(icon)
         end
@@ -95,7 +102,7 @@ function UI_LoadingArena:initUI()
         vars['powerLabel1']:setString(Str('전투력 : {1}', str))
 
         -- 아이콘
-        local icon = user_info:getDeckTamerIcon()
+        icon = user_info:getDeckTamerIcon()
         if (icon) then
             vars['tamerNode1']:addChild(icon)
         end
@@ -104,6 +111,13 @@ function UI_LoadingArena:initUI()
     do -- 상대방 유저 정보
         local user_info = g_arenaData:getMatchUserInfo()
         local struct_clan = user_info:getStructClan()
+        local icon
+
+        -- 티어
+        icon = user_info:makeTierIcon(nil, 'small')
+        if (icon) then
+            vars['tierNode2']:addChild(icon)
+        end
 
         -- 랭킹
         vars['rankLabel2']:setString(user_info:getRankText(true))
@@ -115,7 +129,7 @@ function UI_LoadingArena:initUI()
         local clan_name = struct_clan and struct_clan:getClanName() or ''
         vars['clanLabel2']:setString(clan_name)
 
-        local icon = struct_clan and struct_clan:makeClanMarkIcon()
+        icon = struct_clan and struct_clan:makeClanMarkIcon()
         if (icon) then
             vars['markNode2']:addChild(icon)
         end
@@ -125,7 +139,7 @@ function UI_LoadingArena:initUI()
         vars['powerLabel2']:setString(Str('전투력 : {1}', str))
 
         -- 아이콘
-        local icon = user_info:getDeckTamerIcon()
+        icon = user_info:getDeckTamerIcon()
         if (icon) then
             vars['tamerNode2']:addChild(icon)
         end
