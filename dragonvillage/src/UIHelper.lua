@@ -182,6 +182,7 @@ end
 -------------------------------------
 function UIHelper:checkPrice(price_type, price)
     if (price_type == 'money') then
+		return true
 
     -- 다이아몬드 확인
     elseif (price_type == 'cash') then

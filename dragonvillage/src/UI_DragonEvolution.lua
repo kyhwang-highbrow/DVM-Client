@@ -1,10 +1,35 @@
 local PARENT = UI_DragonManage_Base
 
+local T_EVOLUTION_PACKAGE_ID_TABLE = {
+	['legend'] = {
+		['earth'] = 90070,
+		['water'] = 90071,
+		['fire'] = 90072,
+		['light'] = 90073,
+		['dark'] = 90074,
+	},
+	['hero'] = {
+		['earth'] = 90065,
+		['water'] = 90066,
+		['fire'] = 90067,
+		['light'] = 90068,
+		['dark'] = 90069,
+	},
+	['rare'] = {
+		['earth'] = 90065,
+		['water'] = 90066,
+		['fire'] = 90067,
+		['light'] = 90068,
+		['dark'] = 90069,
+	},
+}
+
 -------------------------------------
 -- class UI_DragonEvolution
 -------------------------------------
 UI_DragonEvolution = class(PARENT,{
         m_bEnoughSvolutionStones = 'boolean',
+		m_evolutionPackageStruct = 'StructProduct',
 
         m_itemID1 = '',
         m_itemID2 = '',
@@ -145,7 +170,7 @@ function UI_DragonEvolution:refresh()
     self:refresh_stats(t_dragon_data, t_dragon, is_max_evolution)
 
 	-- 패키지 구매 유도
-	vars['buyBtn']:setVisible(not self.m_bEnoughSvolutionStones)
+	vars['buyBtn']:setVisible(self:isPackageBuyable())
 end
 
 -------------------------------------
@@ -557,42 +582,7 @@ end
 -- function click_buyBtn
 -------------------------------------
 function UI_DragonEvolution:click_buyBtn()
-    local struct_dragon_object = self.m_selectDragonData
-    if (not struct_dragon_object) then
-        return
-    end
-
-    -- 드래곤 정보
-	local attr = struct_dragon_object:getAttr()
-	local rarity = struct_dragon_object:getRarity()
-	
-	local t_evolution_package_pid_table = {
-		['legend'] = {
-			['earth'] = 90070,
-			['water'] = 90071,
-			['fire'] = 90072,
-			['light'] = 90073,
-			['dark'] = 90074,
-		},
-		['hero'] = {
-			['earth'] = 90065,
-			['water'] = 90066,
-			['fire'] = 90067,
-			['light'] = 90068,
-			['dark'] = 90069,
-		},
-		['rare'] = {
-			['earth'] = 90065,
-			['water'] = 90066,
-			['fire'] = 90067,
-			['light'] = 90068,
-			['dark'] = 90069,
-		},
-	}
-
-	-- pid 찾아서 StructProduct 생성 후 UI 출력
-	local pid = t_evolution_package_pid_table[rarity][attr]
-	local struct_product = g_shopDataNew:getProduct('package', pid)
+	local struct_product = self.m_evolutionPackageStruct
 	local ui = UI_Package(struct_product, true) -- is_popup
 
 	-- @mskim 익명 함수를 사용하여 가독성을 높이는 경우라고 생각..!
@@ -606,5 +596,31 @@ function UI_DragonEvolution:click_buyBtn()
 	end)
 end
 
+-------------------------------------
+-- function isPackageBuyable
+-------------------------------------
+function UI_DragonEvolution:isPackageBuyable()
+	-- 진화석이 부족하지 않다면 패스
+	if (self.m_bEnoughSvolutionStones) then
+		return false
+	end
+
+    -- 드래곤 정보
+	local struct_dragon_object = self.m_selectDragonData
+    if (not struct_dragon_object) then
+        return
+    end
+
+	-- pid 찾아서 StructProduct 찾아서 구매 가능 여부 확인
+	local attr = struct_dragon_object:getAttr()
+	local rarity = struct_dragon_object:getRarity()
+	local pid = T_EVOLUTION_PACKAGE_ID_TABLE[rarity][attr]
+	local struct_product = g_shopDataNew:getProduct('package', pid)
+
+	-- 구매할때 쓰기 위해서 따로 저장
+	self.m_evolutionPackageStruct = struct_product
+
+	return struct_product:checkMaxBuyCount()
+end
 --@CHECK
 UI:checkCompileError(UI_DragonEvolution)

@@ -476,7 +476,7 @@ end
 -- function buy
 -------------------------------------
 function StructProduct:buy(cb_func)
-    if (not self:tryBuy()) then
+    if (not self:isBuyable()) then
         return
     end
 
@@ -900,11 +900,12 @@ end
 
 
 -------------------------------------
--- function tryBuy
+-- function isBuyable
 -------------------------------------
-function StructProduct:tryBuy()
+function StructProduct:isBuyable()
 	-- 구매 횟수 확인
 	if (not self:checkMaxBuyCount()) then
+		UIManager:toastNotificationRed(Str('구매 횟수를 초과했습니다.'))
 		return false
 	end
 
@@ -932,7 +933,6 @@ function StructProduct:checkMaxBuyCount()
 	
 	-- 구매 횟수 초과한 경우
 	if (buy_cnt >= max_buy_cnt) then
-		UIManager:toastNotificationRed(Str('구매 횟수를 초과했습니다.'))
 		return false	
 	end
 
