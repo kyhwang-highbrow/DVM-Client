@@ -163,14 +163,14 @@ end
 -- function init
 -------------------------------------
 function StructUserInfoArena:init()
-        self.m_winCnt = 0
-        self.m_loseCnt = 0
+    self.m_winCnt = 0
+    self.m_loseCnt = 0
 
-        self.m_rp = 0
-        self.m_rank = 0
-        self.m_rankPercent = nil
-        self.m_tier = 'beginner'
-        self.m_straight = 0
+    self.m_rp = 0
+    self.m_rank = 0
+    self.m_rankPercent = nil
+    self.m_tier = 'beginner'
+    self.m_straight = 0
 end
 
 -------------------------------------
@@ -359,15 +359,17 @@ function StructUserInfoArena:getDeck_dragonList(use_doid)
     end
 
     local t_deck = {}
-    for i,v in pairs(self.m_pvpDeck['deck']) do
-        local idx = tonumber(i)
-        local doid = v
+    if (self.m_pvpDeck['deck']) then
+        for i,v in pairs(self.m_pvpDeck['deck']) do
+            local idx = tonumber(i)
+            local doid = v
         
-        -- doid로 저장 혹은 오브젝트로 저장
-        if use_doid then
-            t_deck[idx] = doid
-        else
-            t_deck[idx] = self:getDragonObject(doid)
+            -- doid로 저장 혹은 오브젝트로 저장
+            if use_doid then
+                t_deck[idx] = doid
+            else
+                t_deck[idx] = self:getDragonObject(doid)
+            end
         end
     end
 
