@@ -28,6 +28,7 @@ function UI_Setting:init_devTab()
     vars['setUidBtn']:registerScriptTapHandler(function() self:click_setUidBtn() end)
     vars['popupCacheResetBtn']:registerScriptTapHandler(function() self:click_popupCacheResetBtn() end)
     vars['lobbyGuideResetBtn']:registerScriptTapHandler(function() self:click_lobbyGuideResetBtn() end)
+    vars['colosseumOldBtn']:registerScriptTapHandler(function() self:click_colosseumOldBtn() end)
     self:refresh_devTap()
 end
 
@@ -783,4 +784,12 @@ function UI_Setting:click_lobbyGuideResetBtn()
     g_settingData:clearDataList('lobby_guide_seen')
     LobbyGuideData:getInstance():clearLobbyGuideDataFile()
     UIManager:toastNotificationGreen('마을 도움말이 초기화되었습니다!')
+end
+
+-------------------------------------
+-- function click_colosseumOldBtn
+-- @brief 기존 콜로세움 진입
+-------------------------------------
+function UI_Setting:click_colosseumOldBtn()
+	UINavigator:goTo('colosseum_old')
 end
