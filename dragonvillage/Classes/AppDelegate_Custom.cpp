@@ -63,7 +63,7 @@ string GetAppVer()
     string minor_ver = MINOR_VER;
     string build_ver = BUILD_VER;
     return major_ver + "." + minor_ver + "." + build_ver;
-#elif (CC_TARGET_PLATFORM == CC_PLATFORM_IOS)
+#elif (CC_TARGET_PLATFORM == CC_PLATFORM_IOS) || (CC_TARGET_PLATFORM == CC_PLATFORM_MAC)
     int major_ver = floor(APP_VER/100);
     int minor_ver = floor((APP_VER - (major_ver * 100))/10);
     int build_ver = APP_VER - (major_ver * 100) - (minor_ver * 10);
@@ -141,14 +141,13 @@ void AppDelegate::setPathForPatch()
 
             String patch_path = StringUtils::format("patch_%d_%d_%d", major, minor, build);
             SupportPatch::removeDir(writable_path + patch_path.getCString());
-            //CCLOG(patch_path.getCString());
         }
     }
 }
 
 static int l_isWin32(lua_State* L)
 {
-#if (CC_TARGET_PLATFORM == CC_PLATFORM_WIN32)
+#if (CC_TARGET_PLATFORM == CC_PLATFORM_WIN32) || (CC_TARGET_PLATFORM == CC_PLATFORM_MAC)
 	lua_pushboolean(L, (int)1);
 #else
 	lua_pushboolean(L, (int)0);
@@ -169,6 +168,16 @@ static int l_isAndroid(lua_State* L)
 static int l_isIos(lua_State* L)
 {
 #if (CC_TARGET_PLATFORM == CC_PLATFORM_IOS)
+    lua_pushboolean(L, (int)1);
+#else
+    lua_pushboolean(L, (int)0);
+#endif
+    return 1;
+}
+
+static int l_isMac(lua_State* L)
+{
+#if (CC_TARGET_PLATFORM == CC_PLATFORM_MAC)
     lua_pushboolean(L, (int)1);
 #else
     lua_pushboolean(L, (int)0);
@@ -406,6 +415,7 @@ void AppDelegate::initLuaEngine()
 			{ "restart", l_restart },
 			{ "finishPatch", l_finishPatch },
 			{ "isWin32", l_isWin32 },
+            { "isMac", l_isMac },
             { "isAndroid", l_isAndroid },
             { "isIos", l_isIos },
 			{ "isTestMode", l_isTestMode },

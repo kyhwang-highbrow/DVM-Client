@@ -33,6 +33,13 @@ function CppFunctionsClass:isWin32()
 end
 
 -------------------------------------
+-- function isMac
+-------------------------------------
+function CppFunctionsClass:isMac()
+    return isMac()
+end
+
+-------------------------------------
 -- function isAndroid
 -------------------------------------
 function CppFunctionsClass:isAndroid()
