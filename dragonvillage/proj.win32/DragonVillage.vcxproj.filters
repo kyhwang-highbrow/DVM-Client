@@ -3523,6 +3523,9 @@
     <None Include="..\src\UI_UserDeckInfoPopupNew.lua">
       <Filter>lua\UI</Filter>
     </None>
+    <None Include="..\src\TableArenaWinReward.lua">
+      <Filter>lua\src</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Classes">

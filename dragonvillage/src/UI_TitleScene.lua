@@ -885,6 +885,11 @@ function UI_TitleScene:workGetServerInfo()
                     g_colosseumData:response_playerColosseumDeck(ret['pvpdeck_info'])
                 end
 
+                if (ret['arenadeck_info']) then
+                    cclog('# 콜로세움(신규) 공격덱 방어덱')
+                    g_arenaData:response_playerArenaDeck(ret['arenadeck_info'])
+                end
+
                 if (ret['season_info']) then
                     cclog('# 시즌 정보')
                     g_seasonData:applyInfo(ret['season_info'])

@@ -84,25 +84,48 @@ function UI_BattleMenuItem_Competition:initCompetitionRewardInfo(content_type)
 
 	-- 콜로세움
 	elseif (content_type == 'colosseum') then
-		-- 승수
-		local struct_user = g_colosseumData:getPlayerColosseumUserInfo()
-		local win = struct_user and struct_user:getWinCnt() or 0
 
-		-- 다음 승리 보상
-		local next_reward_info = TableColosseumWinReward:getNextReawardInfo(win)
-		if (not next_reward_info) then
-			return
-		end
+        -- 콜로세움 (신규) 판수 보상
+        if IS_ARENA_OPEN() then
+            -- 판수
+		    local struct_user = g_arenaData:getPlayerArenaUserInfo()
+		    local cnt = struct_user and struct_user:getWinCnt() + struct_user:getLoseCnt() or 0
 
-		t_item = next_reward_info['t_item']
+		    -- 다음 판수 보상
+		    local next_reward_info = TableArenaWinReward:getNextReawardInfo(cnt)
+		    if (not next_reward_info) then
+			    return
+		    end
+            ccdump(next_reward_info)
+		    t_item = next_reward_info['t_item']
 
-		local item_name = UIHelper:makeItemNamePlain(t_item)
-		text_1 = Str('{1} 획득까지', item_name)
+		    local item_name = UIHelper:makeItemNamePlain(t_item)
+		    text_1 = Str('{1} 획득까지', item_name)
 
-		local left_cnt = next_reward_info['win'] - win
-		text_2 = Str('{1}승 남음', left_cnt)
+		    local left_cnt = next_reward_info['play_cnt'] - cnt
+		    text_2 = Str('{1}회 남음', left_cnt)
 
-        local text_3 = Str('{1}회 남음', left_cnt)
+
+        -- 콜로세움 (기존) 승리 보상
+        else
+            -- 승수
+		    local struct_user = g_colosseumData:getPlayerColosseumUserInfo()
+		    local win = struct_user and struct_user:getWinCnt() or 0
+
+		    -- 다음 승리 보상
+		    local next_reward_info = TableColosseumWinReward:getNextReawardInfo(win)
+		    if (not next_reward_info) then
+			    return
+		    end
+
+		    t_item = next_reward_info['t_item']
+
+		    local item_name = UIHelper:makeItemNamePlain(t_item)
+		    text_1 = Str('{1} 획득까지', item_name)
+
+		    local left_cnt = next_reward_info['win'] - win
+		    text_2 = Str('{1}승 남음', left_cnt)
+        end
 	end
 
 	-- visible on

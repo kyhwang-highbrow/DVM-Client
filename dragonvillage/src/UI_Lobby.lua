@@ -197,8 +197,12 @@ function UI_Lobby:entryCoroutine()
 				end
 
 				cclog('# 콜로세움 정보 확인 중')
-				if (ret['pvp_info']) then
+				if (ret['pvp_info']) then -- 콜로세움 (기존) <-- 닫혀있음 안줌
 					g_colosseumData:setInfoForLobby(ret['pvp_info'])
+				end
+
+                if (ret['arena_info']) then -- 콜로세움 (신규) <-- 닫혀있음 안줌
+					g_arenaData:setInfoForLobby(ret['arena_info'])
 				end
 
 				co.NEXT()

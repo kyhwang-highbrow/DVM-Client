@@ -842,6 +842,7 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <None Include="..\src\SumRandom.lua" />
     <None Include="..\src\SwipeGesture.lua" />
     <None Include="..\src\Table.lua" />
+    <None Include="..\src\TableArenaWinReward.lua" />
     <None Include="..\src\TableCalendar.lua" />
     <None Include="..\src\TableClanMark.lua" />
     <None Include="..\src\TableClanMarkCustom.lua" />

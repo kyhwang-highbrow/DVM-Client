@@ -321,6 +321,14 @@ function StructUserInfoArena:getWinRateText()
 end
 
 -------------------------------------
+-- function getLoseCnt
+-- @brief 패수
+-------------------------------------
+function StructUserInfoArena:getLoseCnt()
+	return self.m_loseCnt
+end
+
+-------------------------------------
 -- function applyDragonsDataList
 -- @brief
 -------------------------------------

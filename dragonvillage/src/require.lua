@@ -346,6 +346,7 @@ local t_module = {
     'TableTeamBonus',
     'TableDragonTransform',
     'TableNaverEvent',
+    'TableArenaWinReward',
 
     -- Scene
     'SceneCommon',
