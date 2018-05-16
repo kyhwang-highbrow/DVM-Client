@@ -112,10 +112,7 @@ function UI_ArenaDeckSettings:click_startBtn()
     -- 콜로세움 공격 덱이 설정되었는지 여부 체크
     local l_dragon_obj = g_arenaData.m_playerUserInfo:getDeck_dragonList()
     if (table.count(l_dragon_obj) <= 0) then
-        local function yes()
-            self:click_deckBtn()
-        end
-        MakeSimplePopup(POPUP_TYPE.YES_NO, Str('콜로세움 출전 덱이 설정되지 않았습니다.\n출전 덱을 설정하시겠습니까?'), yes)
+        MakeSimplePopup(POPUP_TYPE.YES_NO, Str('콜로세움 덱이 설정되지 않았습니다.'))
         return
     end
 
