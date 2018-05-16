@@ -422,10 +422,8 @@ function Tamer:updateBasicSkillTimer(dt)
             local t_event = { ['cur'] = cur, ['max'] = max, ['run_skill'] = (cur == max) }
 
             if (self.m_bLeftFormation) then
-                cclog('left : ' .. cur .. ' / ' .. max)
                 self:dispatch('hero_tamer_skill_gauge', t_event)
             else
-                cclog('right : ' .. cur .. ' / ' .. max)
                 self:dispatch('enemy_tamer_skill_gauge', t_event)
             end
         end
