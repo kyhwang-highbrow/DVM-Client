@@ -96,7 +96,7 @@ function UI_BattleMenuItem_Competition:initCompetitionRewardInfo(content_type)
 		    if (not next_reward_info) then
 			    return
 		    end
-            ccdump(next_reward_info)
+
 		    t_item = next_reward_info['t_item']
 
 		    local item_name = UIHelper:makeItemNamePlain(t_item)
