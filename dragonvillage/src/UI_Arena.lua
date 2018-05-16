@@ -196,7 +196,7 @@ end
 function UI_Arena:click_testModeBtn()
     local combat_power = g_arenaData.m_playerUserInfo:getDefDeckCombatPower(true)
     if (combat_power == 0) then
-        MakeSimplePopup(POPUP_TYPE.OK, Str('콜로세움 방어 덱이 설정되지 않았습니다.'))
+        MakeSimplePopup(POPUP_TYPE.OK, Str('콜로세움 덱이 설정되지 않았습니다.'))
         return
     end
 

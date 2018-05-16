@@ -194,7 +194,7 @@ end
 local S_ERROR_STATUS = {
     -- not exist
     [-1101] = Str('존재하지 않는 사용자입니다.'), -- not exist user
-    [-1160] = Str('상대방의 방어덱이 없습니다.'), -- not exist deck
+    [-1160] = Str('상대방의 콜로세움 덱이 없습니다.'), -- not exist deck
 	[-1152] = Str('상품이 모두 소진되었습니다.'), -- not exist reward (캡슐 뽑기)
 
     -- not enough

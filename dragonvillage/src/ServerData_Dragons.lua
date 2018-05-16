@@ -855,7 +855,7 @@ function ServerData_Dragons:possibleMaterialDragon(doid)
             -- 방어 덱
             local l_pvp_def =struct_user_info:getDefDeck_dragonList(true) -- param : use_doid
             if table.find(l_pvp_def, doid) then
-                return false, Str('콜로세움 방어덱에 설정된 드래곤입니다.')
+                return false, Str('콜로세움 덱에 설정된 드래곤입니다.')
             end
         end
     end
