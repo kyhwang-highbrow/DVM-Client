@@ -170,7 +170,7 @@ function SkillIndicator_X:optimizeIndicatorData(l_target, fixed_target)
     for i = 1, count_y do
         for j = 1, count_x do
             local x = j * gap_size + cameraHomePosX
-            local y = i * gap_size + cameraHomePosY - CRITERIA_RESOLUTION_Y / 2
+            local y = i * gap_size + cameraHomePosY - CRITERIA_RESOLUTION_Y / 4
 
             local count = self:getCollisionCountByVirtualTest(x, y, fixed_target)
             local distance = getDistance(x, y, center_x, center_y)
