@@ -142,17 +142,17 @@ function UI_ArenaDeckSettings:click_startBtn()
             local function cb(ret)
                 -- 시작이 두번 되지 않도록 하기 위함
                 UI_BlockPopup()
-
-                self:checkChangeDeck(function()
-                    -- 스케쥴러 해제 (씬 이동하는 동안 입장권 모두 소모시 다이아로 바뀌는게 보기 안좋음)
-                    self.vars['itemMenu']:unscheduleUpdate()
-                    local scene = SceneGameArena()
-                    scene:runScene()
-                end)
+                -- 스케쥴러 해제 (씬 이동하는 동안 입장권 모두 소모시 다이아로 바뀌는게 보기 안좋음)
+                self.vars['itemMenu']:unscheduleUpdate()
+                local scene = SceneGameArena()
+                scene:runScene()
             end
 
-            -- self.m_historyID이 nil이 아닌 경우 재도전, 복수전
-            g_arenaData:request_arenaStart(is_cash, self.m_historyID, cb)
+            -- 덱 변경 확인후 api 요청
+            self:checkChangeDeck(function()
+                -- self.m_historyID이 nil이 아닌 경우 재도전, 복수전
+                g_arenaData:request_arenaStart(is_cash, self.m_historyID, cb)
+            end)
         end
 
         -- 기본 입장권 부족시
