@@ -106,7 +106,7 @@ end
 -------------------------------------
 -- function sortMailList
 -------------------------------------
-function ServerData_Mail:sortMailList(sort_target_list)
+function ServerData_Mail:sortMailList(sort_target_list, is_reverse)
     local sort_manager = SortManager()
 
     -- 시간 오름 차순 (얼마 안남은 것부터)
@@ -117,7 +117,11 @@ function ServerData_Mail:sortMailList(sort_target_list)
             local a_value = a_data['expired_at']
             local b_value = b_data['expired_at']
 
-            return a_value < b_value
+			if (is_reverse) then
+				return a_value > b_value
+			else
+				return a_value < b_value
+			end
 	end)
 
     sort_manager:sortExecution(sort_target_list)

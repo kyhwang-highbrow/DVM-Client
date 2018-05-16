@@ -94,8 +94,8 @@ function UI_MailSelectPopup:initUI()
         vars['titleLabel']:setVisible(false)
     end
     
-
     self:makeMailTableView()
+	self:customSorting()
 end
 
 -------------------------------------
@@ -217,9 +217,46 @@ function UI_MailSelectPopup:makeMailTableView()
     table_view:makeDefaultEmptyMandragora(Str('보유한 아이템이 없다고라.'))
 
     self.m_tableView = table_view
+end
 
-    -- 정렬
-    g_mailData:sortMailList(table_view.m_itemList)
+-------------------------------------
+-- function customSorting
+-------------------------------------
+function UI_MailSelectPopup:customSorting()
+	if (not self.m_tableView) then
+		return
+	end
+	
+	local mail_type = self.m_selectType
+	local item_list = self.m_tableView.m_itemList
+
+	-- 진화 패키지 구매시 : 최근 구매한 순 / 진화석-슬라임 순
+	if (mail_type == MAIL_SELECT_TYPE.EVOLUTION_PACK) then
+		local sort_manager = SortManager()
+
+		-- 시간 오름 차순 (얼마 안남은 것부터)
+		sort_manager:setDefaultSortFunc(function(a, b) 
+				local a_data = a['data']
+				local b_data = b['data']
+
+				local a_value = a_data['expired_at']
+				local b_value = b_data['expired_at']
+
+				if (a_data:isEvolutionStone() and (not b_data:isEvolutionStone())) then
+					return true
+				elseif ((not a_data:isEvolutionStone()) and b_data:isEvolutionStone()) then
+					return false
+				else
+					return a_value > b_value
+				end
+		end)
+
+		sort_manager:sortExecution(item_list)
+	else	
+		-- 정렬
+		g_mailData:sortMailList(item_list, true) -- is_reverse : 최근 받은 우편이 위로
+
+	end
 end
 
 -------------------------------------
