@@ -398,7 +398,7 @@ end
 function GameState_Arena:makeResultUI(is_win)
     if (self.m_world.m_bDevelopMode) then
         local t_data = { added_rp = 0, added_honor = 0 }
-        UI_ColosseumResult(is_win, t_data)
+        UI_ArenaResult(is_win, t_data)
 
     elseif (self.m_world.m_bFriendMatch) then
         UI_FriendMatchResult(is_win)
