@@ -63,8 +63,10 @@ function UI_Arena:init()
 
     -- 보상 안내 팝업
     local function finich_cb()
+        -- 입문자 보상 안내 팝업
+        self:showBegginerNoRewardPopup()
+
         local ui
-        
         local get_target_ui = function(t_info, is_clan)
             local tar_ui  
 
@@ -182,6 +184,29 @@ function UI_Arena:refresh()
 		temp = math_floor(curr_cnt/10)
 	end
 	vars['rewardVisual']:changeAni('reward_' .. temp, true)
+end
+
+-------------------------------------
+-- function showBegginerNoRewardPopup
+-- @brief 입문자 보상 안내 팝업
+-------------------------------------
+function UI_Arena:showBegginerNoRewardPopup()
+    local save_key = 'no_reward'
+    local is_view = g_settingData:get('arena_guide', save_key) or false
+    if (is_view) then
+        return
+    end
+
+    local struct_user_info = g_arenaData:getPlayerArenaUserInfo()
+    local tier = struct_user_info.m_tier
+    if (tier ~= 'beginner') then
+        return
+    end
+
+    local msg = Str('현재 입문자 등급입니다.')
+    local sub_msg = Str('콜로세움 시즌마다 10회 이상 전투를 진행해야 순위가 집계되고 시즌 보상을 받을 수 있습니다.')
+    MakeSimplePopup2(POPUP_TYPE.OK, msg, sub_msg)
+    g_settingData:applySettingData(true, 'arena_guide', save_key)
 end
 
 -------------------------------------
