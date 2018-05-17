@@ -10,7 +10,7 @@ UI_ArenaRankingRewardPopup = class(PARENT,{
 -- function init
 -------------------------------------
 function UI_ArenaRankingRewardPopup:init(t_info, is_clan)
-    local vars = self:load('colosseum_ranking_reward_popup.ui')
+    local vars = self:load('arena_ranking_reward_popup.ui')
     UIManager:open(self, UIManager.POPUP)
 
     -- backkey 지정
@@ -54,7 +54,7 @@ function UI_ArenaRankingRewardPopup:initUI(t_info, is_clan)
     vars['rankLabel']:setString(str_1)
     vars['rankRewardLabel']:setString(str_2)
 
-    -- 보상 정보 (UI상 1개의 자리만 배정되어있다 변경시 고탑 참고)
+    -- 보상 정보 (최대 2개로 가정)
     if (reward_info) then
         local reward_cnt = #reward_info
         for i = 1, reward_cnt do
@@ -63,13 +63,19 @@ function UI_ArenaRankingRewardPopup:initUI(t_info, is_clan)
             local item_cnt = item_data['count']
 
             local icon = IconHelper:getItemIcon(item_id, item_cnt)
-            vars['rewardNode']:addChild(icon)
-            vars['rewardLabel']:setString(comma_value(item_cnt))
+            vars['rewardIconNode'..i]:addChild(icon)
+            vars['rewardLabel'..i]:setString(comma_value(item_cnt))
 
             local item_type = TableItem:getItemType(item_id)
             if (item_type == 'relation_point') then
-                vars['rewardLabel']:setString('')
+                vars['rewardLabel'..i]:setString('')
             end
+        end
+
+        -- 노드 보상 갯수에 따른 위치 변경
+        if (reward_cnt == 2) then
+            vars['rewardNode1']:setPositionX(-55)
+            vars['rewardNode2']:setPositionX(55)
         end
     end
 end

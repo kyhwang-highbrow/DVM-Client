@@ -65,7 +65,7 @@ function UI_TopUserInfo:initGoodsUI()
         local ui = self.m_staminaInfo
         local x_pos_idx = 1
         ui.root:setDockPoint(cc.p(1, 0.5))
-        local pos_x = -258 - ((x_pos_idx-1) * 190)
+        local pos_x = -240 - ((x_pos_idx-1) * 180)
         ui.root:setPosition(pos_x, 0)
         self.vars['actionNode']:addChild(ui.root)
     end
@@ -208,7 +208,7 @@ function UI_TopUserInfo:changeOwnerUI(ui)
 
     -- 서브 재화
     self:setSubCurrency(ui.m_subCurrency)
-    
+        
     -- UI BGM 재생
     if (ui.m_uiBgm) then
         SoundMgr:playBGM(ui.m_uiBgm)
@@ -284,7 +284,7 @@ function UI_TopUserInfo:makeGoodsUI(goods_type, x_pos_idx)
 
     -- addChild, 위치 조정
     ui.root:setDockPoint(cc.p(1, 0.5))
-    local pos_x = -258 - ((x_pos_idx-1) * 190)
+    local pos_x = -240 - ((x_pos_idx-1) * 180)
     ui.root:setPosition(pos_x, 0)
     vars['actionNode']:addChild(ui.root)
 

@@ -29,7 +29,11 @@ end
 -- @brief 신규 콜로세움 적용 여부를 리턴
 -------------------------------------
 function IS_ARENA_OPEN()
-    return true
+    if g_seasonData then
+        return g_seasonData.m_bArenaOpen
+    end
+
+    return false
 end
 
 -------------------------------------

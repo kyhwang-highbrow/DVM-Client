@@ -24,6 +24,8 @@ ServerData_Arena = class({
         m_tClanRewardInfo = 'table',
 
         m_bOpen = 'boolean',
+
+        m_bLastPvpReward = 'boolean',
     })
 
 -------------------------------------
@@ -36,6 +38,9 @@ function ServerData_Arena:init(server_data)
 	self.m_endTime = 0
     self.m_matchAtkHistory = {}
     self.m_matchDefHistory = {}
+
+    -- 기존 콜로세움 보상 정보 FLAG (후에 삭제)
+    self.m_bLastPvpReward = false
 end
 
 -------------------------------------
@@ -595,6 +600,38 @@ end
 -- function setRewardInfo
 -------------------------------------
 function ServerData_Arena:setRewardInfo(ret)
+    -- 아레나 첫주차에만 오는 기존 콜로세움 보상 정보
+    if (ret['pvp_reward']) then
+        self.m_bLastPvpReward = true
+
+        -- 기존 콜로세움 - 개인 (첫주차만 받는다)
+        if (ret['pvp_lastinfo']) then
+            -- 플레이어 유저 정보 생성
+            local struct_user_info = StructUserInfoArena()
+            struct_user_info.m_uid = g_userData:get('uid')
+
+            self:_refresh_playerUserInfo(struct_user_info, ret['pvp_lastinfo'])
+
+            self.m_tSeasonRewardInfo = {}
+            self.m_tSeasonRewardInfo['rank'] = struct_user_info
+            self.m_tSeasonRewardInfo['reward_info'] =ret['pvp_reward_info']
+
+            -- @analytics
+            Analytics:trackGetGoodsWithRet(ret, '콜로세움(주간보상)')
+        end
+
+        -- 기존 콜로세움 - 클랜 (첫주차만 받는다)
+        if (ret['pvp_last_clan_info']) then
+            self.m_tClanRewardInfo = {}
+            self.m_tClanRewardInfo['rank'] = StructClanRank(ret['pvp_last_clan_info'])
+            self.m_tClanRewardInfo['reward_info'] = ret['pvp_reward_clan_info']
+        end
+
+        return
+    end
+
+
+    -- 아레나 시즌 보상 정보
     if (not ret['reward']) then
         return
     end
@@ -621,6 +658,7 @@ function ServerData_Arena:setRewardInfo(ret)
         self.m_tClanRewardInfo['rank'] = StructClanRank(ret['last_clan_info'])
         self.m_tClanRewardInfo['reward_info'] = ret['reward_clan_info']
     end
+
 end
 
 -------------------------------------

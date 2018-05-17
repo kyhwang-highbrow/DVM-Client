@@ -912,6 +912,7 @@ local t_module = {
     'UI_ArenaHistoryListItem',
     'UI_ArenaRewardInfoPopup',
     'UI_ArenaRankInfoPopup',
+    'UI_ArenaRankingRewardPopup',
 
     -- UI : 친선전
     'UI_FriendMatchReady',

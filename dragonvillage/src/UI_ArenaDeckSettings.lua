@@ -11,6 +11,30 @@ UI_ArenaDeckSettings = class(PARENT,{
 local NEED_CASH = 50 -- 유료 입장 다이아 개수
 
 -------------------------------------
+-- function initParentVariable
+-- @brief 자식 클래스에서 반드시 구현할 것
+-------------------------------------
+function UI_ArenaDeckSettings:initParentVariable()
+    -- ITopUserInfo_EventListener의 맴버 변수들 설정
+    self.m_uiName = 'UI_ArenaDeckSettings'
+    self.m_bVisible = true
+    --self.m_titleStr = nil -- refresh에서 스테이지명 설정
+    self.m_bUseExitBtn = true
+    self.m_subCurrency = 'honor'
+
+    -- 입장권 타입 설정
+    self.m_staminaType = TableDrop:getStageStaminaType(self.m_stageID)
+
+    
+	-- 들어온 경로에 따라 sound가 다름
+	if (self.m_gameMode == GAME_MODE_ADVENTURE) then
+		self.m_uiBgm = 'bgm_dungeon_ready'
+	else
+		self.m_uiBgm = 'bgm_lobby'
+	end
+end
+
+-------------------------------------
 -- function init
 -------------------------------------
 function UI_ArenaDeckSettings:init(stage_id, sub_info)

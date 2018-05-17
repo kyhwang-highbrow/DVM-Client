@@ -32,6 +32,11 @@ function UI_Arena:initParentVariable()
     self.m_bUseExitBtn = true
     self.m_subCurrency = 'honor'
     self.m_uiBgm = 'bgm_lobby'
+
+    -- 용맹훈장 추가
+    if (g_topUserInfo) then
+        g_topUserInfo:makeGoodsUI('valor', 5) 
+    end
 end
 
 -------------------------------------
@@ -58,33 +63,47 @@ function UI_Arena:init()
 
     -- 보상 안내 팝업
     local function finich_cb()
---        local ui
+        local ui
+        
+        local get_target_ui = function(t_info, is_clan)
+            local tar_ui  
 
---        -- 시즌 보상 팝업 (보상이 있다면)
---		if (g_arenaData.m_tSeasonRewardInfo) then
---            local t_info = g_arenaData.m_tSeasonRewardInfo
---            local is_clan = false
+            -- 기존 콜로세움 보상이라면 기존 UI 열자
+            if (g_arenaData.m_bLastPvpReward) then
+                tar_ui = UI_ColosseumRankingRewardPopup(t_info, is_clan)
 
---            ui = UI_ArenaRankingRewardPopup(t_info, is_clan)
+            -- 신규 콜로세움 보상
+            else
+                tar_ui = UI_ArenaRankingRewardPopup(t_info, is_clan)
+            end
 
---            g_arenaData.m_tSeasonRewardInfo = nil
---		end
+            return tar_ui
+        end
 
---        -- 클랜 보상 팝업 (보상이 있다면)
---        if (g_arenaData.m_tClanRewardInfo) then
---            local t_info = g_arenaData.m_tClanRewardInfo
---            local is_clan = true
+        -- 시즌 보상 팝업 (보상이 있다면)
+		if (g_arenaData.m_tSeasonRewardInfo) then
+            local t_info = g_arenaData.m_tSeasonRewardInfo
+            local is_clan = false
+            ui = get_target_ui(t_info, is_clan)
+            
+            g_arenaData.m_tSeasonRewardInfo = nil
+		end
 
---            if (ui) then
---                ui:setCloseCB(function()
---                    UI_ArenaRankingRewardPopup(t_info, is_clan)
---                end)
---            else
---                UI_ArenaRankingRewardPopup(t_info, is_clan)
---            end
+        -- 클랜 보상 팝업 (보상이 있다면)
+        if (g_arenaData.m_tClanRewardInfo) then
+            local t_info = g_arenaData.m_tClanRewardInfo
+            local is_clan = true
 
---            g_arenaData.m_tClanRewardInfo = nil
---        end
+            if (ui) then
+                ui:setCloseCB(function()
+                    ui = get_target_ui(t_info, is_clan)
+                end)
+            else
+                ui = get_target_ui(t_info, is_clan)
+            end
+
+            g_arenaData.m_tClanRewardInfo = nil
+        end
     end
 
     self:sceneFadeInAction(nil, finich_cb)
@@ -254,6 +273,15 @@ function UI_Arena:update(dt)
 
     local str = g_arenaData:getArenaStatusText()
     vars['timeLabel']:setString(str)
+end
+
+-------------------------------------
+-- function onDestroyUI
+-------------------------------------
+function UI_Arena:onDestroyUI()
+    if (g_topUserInfo) then
+        g_topUserInfo:deleteGoodsUI('valor') 
+    end
 end
 
 --@CHECK
