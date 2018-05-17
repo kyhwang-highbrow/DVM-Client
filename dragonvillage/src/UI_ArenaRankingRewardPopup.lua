@@ -57,6 +57,14 @@ function UI_ArenaRankingRewardPopup:initUI(t_info, is_clan)
     -- 보상 정보 (최대 2개로 가정)
     if (reward_info) then
         local reward_cnt = #reward_info
+        -- 보상 없는 경우 생김 (10판 미만인 유저들)
+        if (reward_cnt == 0) then
+            vars['rankRewardLabel']:setVisible(false)
+            vars['rewardNode1']:setVisible(false)
+            vars['rewardNode2']:setVisible(false)
+            return
+        end
+
         for i = 1, reward_cnt do
             local item_data = reward_info[i]
             local item_id = item_data['item_id']
