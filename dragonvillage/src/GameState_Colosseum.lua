@@ -32,8 +32,10 @@ function GameState_Colosseum:initBuffByFightTime()
     PARENT.initBuffByFightTime(self)
 
     -- 실제 버프 시간보다 이전에 연출되어야하는 것들을 처리하기 위한 하드코딩...
-    self.m_nextBuffTime = self.m_nextBuffTime - FURY_EFFECT_START_TIME_FROM_BUFF_TIME
-    self.m_nextBuffTime = math_max(self.m_nextBuffTime, 1)
+    if (self.m_nextBuffTime) then
+        self.m_nextBuffTime = self.m_nextBuffTime - FURY_EFFECT_START_TIME_FROM_BUFF_TIME
+        self.m_nextBuffTime = math_max(self.m_nextBuffTime, 1)
+    end
 end
 
 -------------------------------------
