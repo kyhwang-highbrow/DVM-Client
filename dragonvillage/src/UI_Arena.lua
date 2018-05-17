@@ -31,12 +31,8 @@ function UI_Arena:initParentVariable()
     self.m_bVisible = true
     self.m_bUseExitBtn = true
     self.m_subCurrency = 'honor'
+    self.m_addSubCurrency = 'valor'
     self.m_uiBgm = 'bgm_lobby'
-
-    -- 용맹훈장 추가
-    if (g_topUserInfo) then
-        g_topUserInfo:makeGoodsUI('valor', 5) 
-    end
 end
 
 -------------------------------------
@@ -298,15 +294,6 @@ function UI_Arena:update(dt)
 
     local str = g_arenaData:getArenaStatusText()
     vars['timeLabel']:setString(str)
-end
-
--------------------------------------
--- function onDestroyUI
--------------------------------------
-function UI_Arena:onDestroyUI()
-    if (g_topUserInfo) then
-        g_topUserInfo:deleteGoodsUI('valor') 
-    end
 end
 
 --@CHECK

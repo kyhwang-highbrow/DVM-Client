@@ -136,8 +136,8 @@ COLOR = {
     ['r_set_blackblue'] = cc.c3b(88, 229, 255),
     ['r_set_blackyellow'] = cc.c3b(255, 199, 90),
     ['r_set_blackwhite'] = cc.c3b(255, 255, 255),
-    ['r_set_blackgreen'] = cc.c3b(250, 119, 255),
-    ['r_set_blackpurple'] = cc.c3b(170, 255, 107),
+    ['r_set_blackgreen'] = cc.c3b(170, 255, 107),
+    ['r_set_blackpurple'] = cc.c3b(250, 119, 255),
 
     -- 속성별
     ['earth'] = cc.c3b(88,234,102),

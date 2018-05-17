@@ -12,6 +12,7 @@ UI_TopUserInfo = class(PARENT,{
         m_bShowInvenBtn = 'boolean',
 
         m_mAddedSubCurrency = 'table',
+        m_mAddedSubCurrency_2 = 'table',
 
         m_broadcastLabel = 'UIC_BroadcastLabel',
         m_chatBroadcastLabel = 'UIC_BroadcastLabel',
@@ -54,8 +55,8 @@ end
 -------------------------------------
 function UI_TopUserInfo:initGoodsUI()
     self.m_mGoodsInfo = {}
-    self.m_mAddedSubCurrency = {}
-
+    self.m_mAddedSubCurrency = {} -- 서브재화 1
+    self.m_mAddedSubCurrency_2 = {} -- 서브재화 2 (재화가 많아지면서 2개까지 표시되는 경우 있음)
     -- 붙박이 재화
     self:makeGoodsUI('gold', 2) -- param : goods_type, x_pos_idx
     self:makeGoodsUI('cash', 3) -- param : goods_type, x_pos_idx
@@ -208,7 +209,10 @@ function UI_TopUserInfo:changeOwnerUI(ui)
 
     -- 서브 재화
     self:setSubCurrency(ui.m_subCurrency)
-        
+    
+    -- 서브 재화 (추가로 표기하는 경우)
+    self:setAddSubCurrency(ui.m_addSubCurrency)
+
     -- UI BGM 재생
     if (ui.m_uiBgm) then
         SoundMgr:playBGM(ui.m_uiBgm)
@@ -271,6 +275,37 @@ function UI_TopUserInfo:setSubCurrency(subCurrency)
         ui.root:setVisible(k == goods_type)
     end
 end
+
+-------------------------------------
+-- function setAddSubCurrency
+-------------------------------------
+function UI_TopUserInfo:setAddSubCurrency(subCurrency)
+    if isExistValue(subCurrency, 'money', 'cash', 'gold', 'package', 'st') then
+        return
+    end
+
+    local goods_type = subCurrency
+
+    -- 추가 서브재화는 항상 있는게 아니므로 subCurrency가 ''이면 비지블 꺼줌
+    if subCurrency == '' then
+        for k, ui in pairs(self.m_mAddedSubCurrency_2) do
+            ui.root:setVisible(false)
+        end
+        return
+    end
+
+    -- 해당 타입의 ui가 생성되지 않았을 경우 생성
+    if (not self.m_mGoodsInfo[goods_type]) then
+        local ui = self:makeGoodsUI(goods_type, 5) -- param : goods_type, x_pos_idx
+        self.m_mAddedSubCurrency_2[goods_type] = ui
+    end
+
+    -- 현재 지정된 서브 재화만 visible true
+    for k, ui in pairs(self.m_mAddedSubCurrency_2) do
+        ui.root:setVisible(k == goods_type)
+    end
+end
+
 
 -------------------------------------
 -- function makeGoodsUI

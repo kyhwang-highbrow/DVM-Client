@@ -117,6 +117,11 @@ T_LINK_FUNC = {
         UINavigator:goTo('attr_tower')
     end,
 
+    -- 콜로세움 승리하기
+    ['col_win'] = function()
+        UINavigator:goTo('colosseum')
+    end,
+
     -- 콜로세움 플레이
     ['ply_clsm'] = function()
         UINavigator:goTo('colosseum')

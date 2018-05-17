@@ -11,6 +11,7 @@ ITopUserInfo_EventListener = {
 
 	m_staminaType = 'string', -- 보여줄 활동력 타입
     m_subCurrency = 'string', -- 서브 재화 (amethyst, fp)
+    m_addSubCurrency = 'string', -- 서브 재화
     m_bShowChatBtn = '',
 
     m_invenType = 'string', 
@@ -28,6 +29,7 @@ function ITopUserInfo_EventListener:init()
     self.m_titleStr = nil
 	self.m_staminaType = 'st'
     self.m_subCurrency = 'amethyst'
+    self.m_addSubCurrency = ''
     self.m_bShowChatBtn = true
     self.m_invenType = 'dragon'
     self.m_bShowInvenBtn = false

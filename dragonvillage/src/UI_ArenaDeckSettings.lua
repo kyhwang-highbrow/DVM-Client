@@ -21,6 +21,7 @@ function UI_ArenaDeckSettings:initParentVariable()
     --self.m_titleStr = nil -- refresh에서 스테이지명 설정
     self.m_bUseExitBtn = true
     self.m_subCurrency = 'honor'
+    self.m_addSubCurrency = 'valor'
 
     -- 입장권 타입 설정
     self.m_staminaType = TableDrop:getStageStaminaType(self.m_stageID)
