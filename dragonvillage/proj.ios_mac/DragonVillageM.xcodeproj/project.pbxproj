@@ -94,8 +94,6 @@
 		37B3B4641FD67B98003E172E /* WatchConnectivity.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 37B3B4631FD67B97003E172E /* WatchConnectivity.framework */; };
 		37B3B4661FD67BA9003E172E /* WebKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 37B3B4651FD67BA9003E172E /* WebKit.framework */; };
 		37B3B4681FD67BCD003E172E /* libz.1.2.5.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 37B3B4671FD67BCC003E172E /* libz.1.2.5.tbd */; };
-		37B4B820201EF8E4008B58E6 /* translate in Resources */ = {isa = PBXBuildFile; fileRef = 37B4B81B201EF8E3008B58E6 /* translate */; };
-		37B4B821201EF8E4008B58E6 /* sound in Resources */ = {isa = PBXBuildFile; fileRef = 37B4B81C201EF8E3008B58E6 /* sound */; };
 		37D8E3F11A304EB9005E479B /* PerpSocial.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 37D8E3EF1A304EB9005E479B /* PerpSocial.cpp */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		37E128B01B45380F00200C23 /* EventKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 37E128AF1B45380F00200C23 /* EventKit.framework */; };
 		37E128B41B45384000200C23 /* EventKitUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 37E128B31B45384000200C23 /* EventKitUI.framework */; };
@@ -139,8 +137,6 @@
 		37F4538020A838200088399C /* libluabindings Mac.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C03781B418BF654500FE4F13 /* libluabindings Mac.a */; };
 		37F64FA42084AD09005DF234 /* Cocos2dConstants.lua in Resources */ = {isa = PBXBuildFile; fileRef = 37F64FA32084AD09005DF234 /* Cocos2dConstants.lua */; };
 		37F998ED20A878EB00048AC7 /* libz.1.2.5.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 37F4534E20A6F5950088399C /* libz.1.2.5.tbd */; };
-		37F998F720A8845900048AC7 /* sound in Resources */ = {isa = PBXBuildFile; fileRef = 37B4B81C201EF8E3008B58E6 /* sound */; };
-		37F998F820A8845900048AC7 /* translate in Resources */ = {isa = PBXBuildFile; fileRef = 37B4B81B201EF8E3008B58E6 /* translate */; };
 		37F998F920A8845900048AC7 /* config.json in Resources */ = {isa = PBXBuildFile; fileRef = 370B474D1F7CB5260072CA71 /* config.json */; };
 		37F998FA20A8845900048AC7 /* AudioEngine.lua in Resources */ = {isa = PBXBuildFile; fileRef = 370B475B1F7CB5280072CA71 /* AudioEngine.lua */; };
 		37F998FB20A8845900048AC7 /* CCBReaderLoad.lua in Resources */ = {isa = PBXBuildFile; fileRef = 370B47611F7CB52A0072CA71 /* CCBReaderLoad.lua */; };
@@ -163,17 +159,19 @@
 		37F9990C20A8845900048AC7 /* Opengl.lua in Resources */ = {isa = PBXBuildFile; fileRef = 370B475D1F7CB5290072CA71 /* Opengl.lua */; };
 		37F9990D20A8845900048AC7 /* OpenglConstants.lua in Resources */ = {isa = PBXBuildFile; fileRef = 370B47601F7CB5290072CA71 /* OpenglConstants.lua */; };
 		37F9990E20A8845900048AC7 /* StudioConstants.lua in Resources */ = {isa = PBXBuildFile; fileRef = 370B475F1F7CB5290072CA71 /* StudioConstants.lua */; };
-		37F9991320A8852800048AC7 /* res in Resources */ = {isa = PBXBuildFile; fileRef = 37F9991020A8852700048AC7 /* res */; };
-		37F9991420A8852800048AC7 /* res in Resources */ = {isa = PBXBuildFile; fileRef = 37F9991020A8852700048AC7 /* res */; };
-		37F9991520A8852800048AC7 /* data in Resources */ = {isa = PBXBuildFile; fileRef = 37F9991120A8852700048AC7 /* data */; };
-		37F9991620A8852800048AC7 /* data in Resources */ = {isa = PBXBuildFile; fileRef = 37F9991120A8852700048AC7 /* data */; };
-		37F9991720A8852800048AC7 /* src in Resources */ = {isa = PBXBuildFile; fileRef = 37F9991220A8852700048AC7 /* src */; };
-		37F9991820A8852800048AC7 /* src in Resources */ = {isa = PBXBuildFile; fileRef = 37F9991220A8852700048AC7 /* src */; };
 		37F9991C20A8992200048AC7 /* images_mac.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 37F9991B20A8992200048AC7 /* images_mac.xcassets */; };
 		37F9993920AA886100048AC7 /* SimulatorApp.mm in Sources */ = {isa = PBXBuildFile; fileRef = 37F9993720AA886100048AC7 /* SimulatorApp.mm */; };
 		37F9993E20AA88C900048AC7 /* NSAppSheetAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 37F9993B20AA88C800048AC7 /* NSAppSheetAdditions.m */; };
 		37F9993F20AA88C900048AC7 /* WorkSpaceDialogController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 37F9993C20AA88C800048AC7 /* WorkSpaceDialogController.mm */; };
 		37F9994420AB3BBC00048AC7 /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 37F9994320AB3BBC00048AC7 /* MainMenu.xib */; };
+		37F9994B20AC50E100048AC7 /* WorkSpaceDialog.xib in Resources */ = {isa = PBXBuildFile; fileRef = 37F9994A20AC50E100048AC7 /* WorkSpaceDialog.xib */; };
+		37F9995020AC514800048AC7 /* ConsoleWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = 37F9994D20AC514700048AC7 /* ConsoleWindowController.m */; };
+		37F9995220AC514800048AC7 /* ConsoleWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 37F9994F20AC514800048AC7 /* ConsoleWindow.xib */; };
+		37F9995820ADBCEA00048AC7 /* translate in Resources */ = {isa = PBXBuildFile; fileRef = 37F9995320ADBCE900048AC7 /* translate */; };
+		37F9995920ADBCEA00048AC7 /* sound in Resources */ = {isa = PBXBuildFile; fileRef = 37F9995420ADBCE900048AC7 /* sound */; };
+		37F9995A20ADBCEA00048AC7 /* data_dat in Resources */ = {isa = PBXBuildFile; fileRef = 37F9995520ADBCEA00048AC7 /* data_dat */; };
+		37F9995B20ADBCEA00048AC7 /* ps in Resources */ = {isa = PBXBuildFile; fileRef = 37F9995620ADBCEA00048AC7 /* ps */; };
+		37F9995C20ADBCEA00048AC7 /* res in Resources */ = {isa = PBXBuildFile; fileRef = 37F9995720ADBCEA00048AC7 /* res */; };
 		37FB64B71F3AF73300378EE8 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 37FB64B61F3AF73200378EE8 /* GoogleService-Info.plist */; };
 		5023811817EBBCAC00990C9B /* AppController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 5023810817EBBCAC00990C9B /* AppController.mm */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		5023812417EBBCAC00990C9B /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 5023811417EBBCAC00990C9B /* main.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
@@ -499,8 +497,6 @@
 		37B3B4631FD67B97003E172E /* WatchConnectivity.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WatchConnectivity.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS11.2.sdk/System/Library/Frameworks/WatchConnectivity.framework; sourceTree = DEVELOPER_DIR; };
 		37B3B4651FD67BA9003E172E /* WebKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WebKit.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS11.2.sdk/System/Library/Frameworks/WebKit.framework; sourceTree = DEVELOPER_DIR; };
 		37B3B4671FD67BCC003E172E /* libz.1.2.5.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libz.1.2.5.tbd; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS11.2.sdk/usr/lib/libz.1.2.5.tbd; sourceTree = DEVELOPER_DIR; };
-		37B4B81B201EF8E3008B58E6 /* translate */ = {isa = PBXFileReference; lastKnownFileType = folder; name = translate; path = ../../assets/full/translate; sourceTree = "<group>"; };
-		37B4B81C201EF8E3008B58E6 /* sound */ = {isa = PBXFileReference; lastKnownFileType = folder; name = sound; path = ../../assets/full/sound; sourceTree = "<group>"; };
 		37D8E3EF1A304EB9005E479B /* PerpSocial.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = PerpSocial.cpp; path = ../Classes/PerpSocial.cpp; sourceTree = "<group>"; };
 		37D8E3F01A304EB9005E479B /* PerpSocial.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PerpSocial.h; path = ../Classes/PerpSocial.h; sourceTree = "<group>"; };
 		37E0007E1B26905C00F23F9E /* ja */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ja; path = ja.lproj/InfoPlist.strings; sourceTree = "<group>"; };
@@ -541,9 +537,6 @@
 		37F4537A20A780B10088399C /* libapple_crypto.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libapple_crypto.tbd; path = usr/lib/libapple_crypto.tbd; sourceTree = SDKROOT; };
 		37F4537D20A780EE0088399C /* libnanopb.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libnanopb.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		37F64FA32084AD09005DF234 /* Cocos2dConstants.lua */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = Cocos2dConstants.lua; path = ../../assets/full/Cocos2dConstants.lua; sourceTree = "<group>"; };
-		37F9991020A8852700048AC7 /* res */ = {isa = PBXFileReference; lastKnownFileType = folder; name = res; path = ../res; sourceTree = "<group>"; };
-		37F9991120A8852700048AC7 /* data */ = {isa = PBXFileReference; lastKnownFileType = folder; name = data; path = ../data; sourceTree = "<group>"; };
-		37F9991220A8852700048AC7 /* src */ = {isa = PBXFileReference; lastKnownFileType = folder; name = src; path = ../src; sourceTree = "<group>"; };
 		37F9991B20A8992200048AC7 /* images_mac.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = images_mac.xcassets; path = mac/images_mac.xcassets; sourceTree = "<group>"; };
 		37F9993720AA886100048AC7 /* SimulatorApp.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = SimulatorApp.mm; sourceTree = "<group>"; };
 		37F9993820AA886100048AC7 /* SimulatorApp.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SimulatorApp.h; sourceTree = "<group>"; };
@@ -552,6 +545,15 @@
 		37F9993C20AA88C800048AC7 /* WorkSpaceDialogController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = WorkSpaceDialogController.mm; sourceTree = "<group>"; };
 		37F9993D20AA88C900048AC7 /* WorkSpaceDialogController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WorkSpaceDialogController.h; sourceTree = "<group>"; };
 		37F9994320AB3BBC00048AC7 /* MainMenu.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MainMenu.xib; sourceTree = "<group>"; };
+		37F9994A20AC50E100048AC7 /* WorkSpaceDialog.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = WorkSpaceDialog.xib; sourceTree = "<group>"; };
+		37F9994C20AC514700048AC7 /* ConsoleWindowController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ConsoleWindowController.h; sourceTree = "<group>"; };
+		37F9994D20AC514700048AC7 /* ConsoleWindowController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ConsoleWindowController.m; sourceTree = "<group>"; };
+		37F9994F20AC514800048AC7 /* ConsoleWindow.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ConsoleWindow.xib; sourceTree = "<group>"; };
+		37F9995320ADBCE900048AC7 /* translate */ = {isa = PBXFileReference; lastKnownFileType = folder; name = translate; path = ../../assets/full/translate; sourceTree = "<group>"; };
+		37F9995420ADBCE900048AC7 /* sound */ = {isa = PBXFileReference; lastKnownFileType = folder; name = sound; path = ../../assets/full/sound; sourceTree = "<group>"; };
+		37F9995520ADBCEA00048AC7 /* data_dat */ = {isa = PBXFileReference; lastKnownFileType = folder; name = data_dat; path = ../../assets/full/data_dat; sourceTree = "<group>"; };
+		37F9995620ADBCEA00048AC7 /* ps */ = {isa = PBXFileReference; lastKnownFileType = folder; name = ps; path = ../../assets/full/ps; sourceTree = "<group>"; };
+		37F9995720ADBCEA00048AC7 /* res */ = {isa = PBXFileReference; lastKnownFileType = folder; name = res; path = ../../assets/full/res; sourceTree = "<group>"; };
 		37FB64941F3AD0D000378EE8 /* DragonVillage.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = DragonVillage.entitlements; sourceTree = "<group>"; };
 		37FB64B61F3AF73200378EE8 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		4D0C6E3AB228D0562D12AD9F /* libPods-DragonVillageM Mac.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-DragonVillageM Mac.a"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -706,11 +708,11 @@
 		3746350A1F7B8BA0004F8387 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
-				37F9991120A8852700048AC7 /* data */,
-				37F9991020A8852700048AC7 /* res */,
-				37F9991220A8852700048AC7 /* src */,
-				37B4B81C201EF8E3008B58E6 /* sound */,
-				37B4B81B201EF8E3008B58E6 /* translate */,
+				37F9995520ADBCEA00048AC7 /* data_dat */,
+				37F9995620ADBCEA00048AC7 /* ps */,
+				37F9995720ADBCEA00048AC7 /* res */,
+				37F9995420ADBCE900048AC7 /* sound */,
+				37F9995320ADBCE900048AC7 /* translate */,
 				370B474D1F7CB5260072CA71 /* config.json */,
 				370B475B1F7CB5280072CA71 /* AudioEngine.lua */,
 				370B47611F7CB52A0072CA71 /* CCBReaderLoad.lua */,
@@ -857,6 +859,9 @@
 		5023817117EBBE3400990C9B /* mac */ = {
 			isa = PBXGroup;
 			children = (
+				37F9994F20AC514800048AC7 /* ConsoleWindow.xib */,
+				37F9994C20AC514700048AC7 /* ConsoleWindowController.h */,
+				37F9994D20AC514700048AC7 /* ConsoleWindowController.m */,
 				C06E23C318CEF9740093C81A /* main.cpp */,
 				5023817217EBBE3400990C9B /* Icon.icns */,
 				5023817317EBBE3400990C9B /* Info.plist */,
@@ -866,6 +871,7 @@
 				37F9993720AA886100048AC7 /* SimulatorApp.mm */,
 				37F9993A20AA88C800048AC7 /* NSAppSheetAdditions.h */,
 				37F9993B20AA88C800048AC7 /* NSAppSheetAdditions.m */,
+				37F9994A20AC50E100048AC7 /* WorkSpaceDialog.xib */,
 				37F9993D20AA88C900048AC7 /* WorkSpaceDialogController.h */,
 				37F9993C20AA88C800048AC7 /* WorkSpaceDialogController.mm */,
 			);
@@ -1270,9 +1276,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				37F998F720A8845900048AC7 /* sound in Resources */,
-				37F9991420A8852800048AC7 /* res in Resources */,
-				37F998F820A8845900048AC7 /* translate in Resources */,
 				37F998F920A8845900048AC7 /* config.json in Resources */,
 				37F998FA20A8845900048AC7 /* AudioEngine.lua in Resources */,
 				37F998FB20A8845900048AC7 /* CCBReaderLoad.lua in Resources */,
@@ -1281,16 +1284,16 @@
 				37F998FE20A8845900048AC7 /* CocoStudio.lua in Resources */,
 				37F998FF20A8845900048AC7 /* Deprecated.lua in Resources */,
 				37F9990020A8845900048AC7 /* DeprecatedClass.lua in Resources */,
+				37F9994B20AC50E100048AC7 /* WorkSpaceDialog.xib in Resources */,
 				37F9994420AB3BBC00048AC7 /* MainMenu.xib in Resources */,
+				37F9995220AC514800048AC7 /* ConsoleWindow.xib in Resources */,
 				37F9990120A8845900048AC7 /* DeprecatedEnum.lua in Resources */,
 				37F9990220A8845900048AC7 /* DeprecatedOpenglEnum.lua in Resources */,
-				37F9991620A8852800048AC7 /* data in Resources */,
 				37F9990320A8845900048AC7 /* DrawPrimitives.lua in Resources */,
 				37F9990420A8845900048AC7 /* entry_main.lua in Resources */,
 				37F9990520A8845900048AC7 /* entry_patch.lua in Resources */,
 				37F9990620A8845900048AC7 /* extern.lua in Resources */,
 				37F9990720A8845900048AC7 /* fixed_constant.lua in Resources */,
-				37F9991820A8852800048AC7 /* src in Resources */,
 				37F9990820A8845900048AC7 /* GuiConstants.lua in Resources */,
 				37F9990920A8845900048AC7 /* json.lua in Resources */,
 				37F9990A20A8845900048AC7 /* luaj.lua in Resources */,
@@ -1312,7 +1315,7 @@
 				37FB64B71F3AF73300378EE8 /* GoogleService-Info.plist in Resources */,
 				3706F1761F680E9200777433 /* NaverCafeSDK.bundle in Resources */,
 				370B476B1F7CB6290072CA71 /* config.json in Resources */,
-				37B4B821201EF8E4008B58E6 /* sound in Resources */,
+				37F9995920ADBCEA00048AC7 /* sound in Resources */,
 				370B476C1F7CB6290072CA71 /* AudioEngine.lua in Resources */,
 				370B476D1F7CB6290072CA71 /* CCBReaderLoad.lua in Resources */,
 				370B476E1F7CB6290072CA71 /* Cocos2d.lua in Resources */,
@@ -1323,24 +1326,24 @@
 				3772F3D61FF4EC8000A9EF7A /* include in Resources */,
 				370B47731F7CB6290072CA71 /* DeprecatedEnum.lua in Resources */,
 				370B47741F7CB6290072CA71 /* DeprecatedOpenglEnum.lua in Resources */,
+				37F9995B20ADBCEA00048AC7 /* ps in Resources */,
 				370B47751F7CB6290072CA71 /* DrawPrimitives.lua in Resources */,
 				370B47761F7CB6290072CA71 /* entry_main.lua in Resources */,
 				370B47771F7CB6290072CA71 /* entry_patch.lua in Resources */,
 				370B47781F7CB6290072CA71 /* extern.lua in Resources */,
 				370B47791F7CB6290072CA71 /* fixed_constant.lua in Resources */,
-				37F9991320A8852800048AC7 /* res in Resources */,
 				370B477A1F7CB6290072CA71 /* GuiConstants.lua in Resources */,
-				37F9991720A8852800048AC7 /* src in Resources */,
 				370B477B1F7CB6290072CA71 /* json.lua in Resources */,
 				3772F3BF1FF4EC4400A9EF7A /* NaverAuth.bundle in Resources */,
-				37F9991520A8852800048AC7 /* data in Resources */,
 				370B477C1F7CB6290072CA71 /* luaj.lua in Resources */,
 				370B477D1F7CB6290072CA71 /* luaoc.lua in Resources */,
+				37F9995A20ADBCEA00048AC7 /* data_dat in Resources */,
 				370B477E1F7CB6290072CA71 /* Opengl.lua in Resources */,
 				370B477F1F7CB6290072CA71 /* OpenglConstants.lua in Resources */,
 				370B47801F7CB6290072CA71 /* StudioConstants.lua in Resources */,
 				3746350C1F7B8BCA004F8387 /* Images.xcassets in Resources */,
-				37B4B820201EF8E4008B58E6 /* translate in Resources */,
+				37F9995820ADBCEA00048AC7 /* translate in Resources */,
+				37F9995C20ADBCEA00048AC7 /* res in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1447,6 +1450,7 @@
 				37F9993920AA886100048AC7 /* SimulatorApp.mm in Sources */,
 				37F4537920A776A10088399C /* PerpSupportPatch.cpp in Sources */,
 				37F9993F20AA88C900048AC7 /* WorkSpaceDialogController.mm in Sources */,
+				37F9995020AC514800048AC7 /* ConsoleWindowController.m in Sources */,
 				37F4536C20A7126D0088399C /* PerpSupportLua.cpp in Sources */,
 				37F4536E20A7126D0088399C /* Runtime.cpp in Sources */,
 				37F4536F20A7126D0088399C /* VisibleRect.cpp in Sources */,
@@ -1597,6 +1601,8 @@
 				CLANG_CXX_LANGUAGE_STANDARD = "c++0x";
 				CLANG_CXX_LIBRARY = "libc++";
 				COMBINE_HIDPI_IMAGES = YES;
+				CONFIGURATION_BUILD_DIR = "$(SRCROOT)/../runtime_mac";
+				CONFIGURATION_TEMP_DIR = "$(PROJECT_TEMP_DIR)/$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)";
 				DEVELOPMENT_TEAM = "";
 				ENABLE_ON_DEMAND_RESOURCES = NO;
 				GCC_DYNAMIC_NO_PIC = NO;
@@ -1611,7 +1617,7 @@
 				HEADER_SEARCH_PATHS = "$(inherited)";
 				INFOPLIST_FILE = mac/Info.plist;
 				LIBRARY_SEARCH_PATHS = "$(inherited)";
-				MACOSX_DEPLOYMENT_TARGET = 10.13;
+				MACOSX_DEPLOYMENT_TARGET = 10.10;
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-image_base",
@@ -1624,6 +1630,7 @@
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SDKROOT = macosx;
 				SUPPORTED_PLATFORMS = macosx;
+				SYMROOT = runtime_mac;
 				USER_HEADER_SEARCH_PATHS = "$(inherited) $(SRCROOT)/../Classes/** $(SRCROOT)/../../cocos2d-x/cocos/platform/mac $(SRCROOT)/../../cocos2d-x/external/json $(SRCROOT)/../../cocos2d-x/external/glfw3/include/mac";
 				VALID_ARCHS = "armv7s armv7 arm64 x86_64";
 			};
@@ -1649,7 +1656,7 @@
 				HEADER_SEARCH_PATHS = "$(inherited)";
 				INFOPLIST_FILE = mac/Info.plist;
 				LIBRARY_SEARCH_PATHS = "$(inherited)";
-				MACOSX_DEPLOYMENT_TARGET = 10.13;
+				MACOSX_DEPLOYMENT_TARGET = 10.10;
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-image_base",
@@ -1661,6 +1668,7 @@
 				PRODUCT_NAME = DragonVillageM;
 				SDKROOT = macosx;
 				SUPPORTED_PLATFORMS = macosx;
+				SYMROOT = runtime_mac;
 				USER_HEADER_SEARCH_PATHS = "$(inherited) $(SRCROOT)/../Classes/** $(SRCROOT)/../../cocos2d-x/cocos/platform/mac $(SRCROOT)/../../cocos2d-x/external/json $(SRCROOT)/../../cocos2d-x/external/glfw3/include/mac";
 				VALID_ARCHS = "armv7s armv7 arm64 x86_64";
 			};
