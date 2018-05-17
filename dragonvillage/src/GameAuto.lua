@@ -38,6 +38,8 @@ GameAuto = class(IEventListener:getCloneClass(), {
         m_teamState = 'TEAM_STATE',
         m_totalHp = 'number',
         m_totalMaxHp = 'number',
+        
+        m_mUsedCount = 'table',         -- 드래그 스킬을 사용한 횟수
         m_mDebuffCount = 'table',       -- 아군들에게 현재 적용 중인 디버프별 수
 
         m_lUnitList = 'table',
@@ -62,6 +64,7 @@ function GameAuto:init(world, game_mana)
     self.m_teamState = 0
     self.m_totalHp = 0
     self.m_totalMaxHp = 0
+    self.m_mUsedCount = {}
     self.m_mDebuffCount = {}
 
     self.m_lUnitList = {}
@@ -84,6 +87,8 @@ function GameAuto:prepare(unit_list)
 
     -- 유닛별로 해당 유닛의 드래그 스킬의 AI 속성을 맵형태로 저장
     for i, unit in ipairs(self.m_lUnitList) do
+        self.m_mUsedCount[unit] = 0
+
         local skill_indivisual_info = unit:getSkillIndivisualInfo('active')
         if (skill_indivisual_info) then
             local t_skill = skill_indivisual_info:getSkillTable()
@@ -157,8 +162,8 @@ function GameAuto:doCheck()
     if (nextState ~= TEAM_STATE.DANGER) then
         if ((totalHp / totalMaxHp) < 0.6) then
             nextState = TEAM_STATE.DANGER
-        elseif (debuffUnitCount >= 2) then
-            nextState = TEAM_STATE.DEBUFF
+        --elseif (debuffUnitCount >= 2) then
+        --  nextState = TEAM_STATE.DEBUFF
         end
     end
 
@@ -208,9 +213,11 @@ function GameAuto:makeUnitListSortedByPriority(state)
                     end
                 end
             end
+
+            list[priority] = randomShuffle(list[priority])
         end
     end
-
+    
     return list
 end
 
@@ -224,7 +231,14 @@ function GameAuto:doWork(dt)
         local list = self.m_lUnitListPerPriority[self.m_curPriority]
         local count = #list
         if (count > 0) then
-            local list = randomShuffle(list)
+            -- 사용횟수를 고려하여 뽑음
+            if (true) then
+                table.sort(list, function(a, b)
+                    return self.m_mUsedCount[a] < self.m_mUsedCount[b]
+                end)
+            else
+                list = randomShuffle(list)
+            end
                
             -- 스킬 사용 가능한 랜덤한 대상을 선택
             for _, unit in ipairs(list) do
@@ -240,13 +254,13 @@ function GameAuto:doWork(dt)
         end
     end
 
-    local used = true
+    local do_next = true
     
     if (self.m_curUnit) then
-        used = self:doWork_skill(self.m_curUnit, self.m_curPriority)
+        do_next = self:doWork_skill(self.m_curUnit, self.m_curPriority)
     end
 
-    if (used) then
+    if (do_next) then
         self.m_curUnit = nil
 
         if (self.m_curPriority >= 4) then
@@ -263,43 +277,40 @@ end
 -------------------------------------
 function GameAuto:doWork_skill(unit, priority)
     local b, m_reason = unit:isPossibleActiveSkill()
-    
+
+    -------------------------------------
+    -- 스킬 사용 처리
     if (b) then
-        -- 스킬 사용 처리
         local l_target = SkillHelper:getTargetToUseActiveSkill(unit)
         if (#l_target > 0) then
             self.m_world.m_gameActiveSkillMgr:addWork(unit)
+
+            -- 사용 횟수 카운트 증가
+            self.m_mUsedCount[unit] = self.m_mUsedCount[unit] + 1
         end
 
-    elseif (self.m_teamState == TEAM_STATE.DANGER and self.m_gameMana:getCurrMana() > 3) then
+        return true
+    end
+
+    -------------------------------------
+    -- 스킬을 사용할 수 없는 경우 처리
+    if (self.m_teamState == TEAM_STATE.DANGER and self.m_gameMana:getCurrMana() > 3) then
         -- 위급상황에서 마나가 3이상일때 스킬 사용을 못하는 경우 랜덤 대상의 스킬을 대신 사용
         self.m_curUnit = self:getRandomSkillUnit()
-        return false
 
-    elseif (priority == 1) then
-        -- 1 순위 스킬의 경우
-        if (self.m_teamState == TEAM_STATE.DANGER) then
-            -- 위급 상태면 마나 부족과 쿨타임은 기다림
-            m_reason[REASON_TO_DO_NOT_USE_SKILL.MANA_LACK] = nil
-            m_reason[REASON_TO_DO_NOT_USE_SKILL.COOL_TIME] = nil
+        m_reason = {}
 
-            if (table.isEmpty(m_reason)) then
-                return false
-            end
-        else
-            -- 그외 상태면 마나 부족만 기다림
-            m_reason[REASON_TO_DO_NOT_USE_SKILL.MANA_LACK] = nil
-
-            if (table.isEmpty(m_reason)) then
-                return false
-            end
-        end
-    else
+    elseif (self.m_teamState == TEAM_STATE.DANGER and priority == 1) then
+        -- 위급상황에서 1순위 스킬의 경우 마나 부족과 쿨타임은 기다림
         m_reason[REASON_TO_DO_NOT_USE_SKILL.MANA_LACK] = nil
+        m_reason[REASON_TO_DO_NOT_USE_SKILL.COOL_TIME] = nil
+    else
+        -- 나머지 상황에선 마나 부족만 기다림
+        m_reason[REASON_TO_DO_NOT_USE_SKILL.MANA_LACK] = nil
+    end
 
-        if (table.isEmpty(m_reason)) then
-            return false
-        end
+    if (table.isEmpty(m_reason)) then
+        return false
     end
 
     return true
@@ -364,22 +375,46 @@ end
 -- @breif 스킬 사용 가능한 랜덤한 유닛을 가져옴
 -------------------------------------
 function GameAuto:getRandomSkillUnit()
-    local t_idx = {}
+    local idx
 
-    for i, unit in ipairs(self.m_lUnitList) do
-        local skill_indivisual_info = unit:getSkillIndivisualInfo('active')
-        if (skill_indivisual_info and unit:isPossibleActiveSkill()) then
-            table.insert(t_idx, i)
+    -- 사용횟수를 고려하여 뽑음
+    if (true) then
+        local l_temp = {}
+
+        for i, unit in ipairs(self.m_lUnitList) do
+            table.insert(l_temp, unit)
         end
+
+        table.sort(l_temp, function(a, b)
+            return self.m_mUsedCount[a] < self.m_mUsedCount[b]
+        end)
+
+        for i, unit in ipairs(l_temp) do
+            local skill_indivisual_info = unit:getSkillIndivisualInfo('active')
+            if (skill_indivisual_info and unit:isPossibleActiveSkill()) then
+                idx = i
+                break
+            end
+        end
+    else
+        local t_idx = {}
+
+        for i, unit in ipairs(self.m_lUnitList) do
+            local skill_indivisual_info = unit:getSkillIndivisualInfo('active')
+            if (skill_indivisual_info and unit:isPossibleActiveSkill()) then
+                table.insert(t_idx, i)
+            end
+        end
+
+        if (#t_idx > 1) then
+            t_idx = randomShuffle(t_idx)
+        end
+
+        idx = t_idx[1]
     end
 
-    if (#t_idx > 1) then
-        t_idx = randomShuffle(t_idx)
-    end
-    
-    local idx = t_idx[1]
     if (not idx) then return end
-    
+
     return self.m_lUnitList[idx]
 end
 
@@ -396,7 +431,8 @@ function GameAuto:printInfo()
     cclog('## SKILL COUNT PER PRIORITY ##')
     for i = 1, 4 do
         local list = self.m_lUnitListPerPriority[i]
-        cclog(string.format('- %d : %d', i, #list))
+        local count = (list and #list or 0)
+        cclog(string.format('- %d : %d', i, count))
     end
     cclog('=======================================================')
 end
