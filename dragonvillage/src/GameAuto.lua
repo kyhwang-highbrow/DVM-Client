@@ -375,7 +375,7 @@ end
 -- @breif 스킬 사용 가능한 랜덤한 유닛을 가져옴
 -------------------------------------
 function GameAuto:getRandomSkillUnit()
-    local idx
+    local ret
 
     -- 사용횟수를 고려하여 뽑음
     if (true) then
@@ -391,8 +391,9 @@ function GameAuto:getRandomSkillUnit()
 
         for i, unit in ipairs(l_temp) do
             local skill_indivisual_info = unit:getSkillIndivisualInfo('active')
-            if (skill_indivisual_info and unit:isPossibleActiveSkill()) then
-                idx = i
+            local b, m_reason = unit:isPossibleActiveSkill()
+            if (skill_indivisual_info and b) then
+                ret = unit
                 break
             end
         end
@@ -410,12 +411,13 @@ function GameAuto:getRandomSkillUnit()
             t_idx = randomShuffle(t_idx)
         end
 
-        idx = t_idx[1]
+        local idx = t_idx[1]
+        if (not idx) then return end
+
+        ret = self.m_lUnitList[idx]
     end
 
-    if (not idx) then return end
-
-    return self.m_lUnitList[idx]
+    return ret
 end
 
 -------------------------------------
