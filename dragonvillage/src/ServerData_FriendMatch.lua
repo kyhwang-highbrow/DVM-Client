@@ -20,6 +20,7 @@ end
 
 -------------------------------------
 -- function request_colosseumInfo
+-- @brief 콜로세움 (기존) 인포
 -------------------------------------
 function ServerData_FriendMatch:request_colosseumInfo(vsuid, finish_cb, fail_cb)
     -- 유저 ID
@@ -51,6 +52,39 @@ function ServerData_FriendMatch:request_colosseumInfo(vsuid, finish_cb, fail_cb)
 end
 
 -------------------------------------
+-- function request_arenaInfo
+-- @brief 콜로세움 (신규) 인포
+-------------------------------------
+function ServerData_FriendMatch:request_arenaInfo(vsuid, finish_cb, fail_cb)
+    -- 유저 ID
+    local uid = g_userData:get('uid')
+
+    -- 성공 콜백
+    local function success_cb(ret)
+        self:response_arenaInfo(ret)
+        self.m_matchUserID = vsuid
+
+        if finish_cb then
+            finish_cb(ret)
+        end
+    end
+
+    -- 네트워크 통신
+    local ui_network = UI_Network()
+    ui_network:setUrl('/game/arena/friendly')
+    ui_network:setParam('uid', uid)
+    ui_network:setParam('vsuid', vsuid)
+    ui_network:setMethod('POST')
+    ui_network:setSuccessCB(success_cb)
+    ui_network:setFailCB(fail_cb)
+    ui_network:setRevocable(true)
+    ui_network:setReuse(false)
+    ui_network:request()
+
+    return ui_network
+end
+
+-------------------------------------
 -- function request_setDeck
 -------------------------------------
 function ServerData_FriendMatch:request_setDeck(deckname, formation, leader, l_edoid, tamer, finish_cb, fail_cb)
@@ -64,8 +98,15 @@ function ServerData_FriendMatch:request_setDeck(deckname, formation, leader, l_e
     -- 성공 콜백
     local function success_cb(ret)
         local t_data = nil
-        local l_deck = {ret['deck']} -- 변경한 덱 하나의 정보만 오기때문에 감싸준다
-        self:refresh_playerUserInfo(l_deck)
+        local l_deck 
+
+        if IS_ARENA_OPEN then
+            l_deck = ret['deck']
+            self:refresh_playerUserInfo_Arena(l_deck)
+        else
+            l_deck = {ret['deck']}
+            self:refresh_playerUserInfo(l_deck)
+        end
 
         if finish_cb then
             finish_cb(ret)
@@ -138,6 +179,44 @@ function ServerData_FriendMatch:request_colosseumStart(is_cash, vsuid, finish_cb
 end
 
 -------------------------------------
+-- function request_arenaStart
+-------------------------------------
+function ServerData_FriendMatch:request_arenaStart(is_cash, vsuid, finish_cb, fail_cb)
+    -- 유저 ID
+    local uid = g_userData:get('uid')
+
+    -- 공격자의 콜로세움 전투력 저장
+    local combat_power = g_friendMatchData.m_playerUserInfo:getDeckCombatPower(true)
+    
+    -- 성공 콜백
+    local function success_cb(ret)
+        -- @analytics
+        Analytics:trackEvent(CUS_CATEGORY.PLAY, CUS_EVENT.TRY_COL, 1, '친구대전')
+
+        -- staminas, cash 동기화
+        g_serverData:networkCommonRespone(ret)
+
+        self.m_gameKey = ret['gamekey']
+
+        if finish_cb then
+            finish_cb(ret)
+        end
+    end
+
+    -- 네트워크 통신
+    local ui_network = UI_Network()
+    ui_network:setUrl('/game/arena/friendly/start')
+    ui_network:setParam('uid', uid)
+    ui_network:setParam('vsuid', vsuid)
+    ui_network:setParam('combat_power', combat_power)
+    ui_network:setMethod('POST')
+    ui_network:setSuccessCB(success_cb)
+    ui_network:setFailCB(fail_cb)
+    ui_network:setRevocable(true)
+    ui_network:setReuse(false)
+    ui_network:request()
+end
+-------------------------------------
 -- function response_colosseumInfo
 -------------------------------------
 function ServerData_FriendMatch:response_colosseumInfo(ret)
@@ -146,7 +225,15 @@ function ServerData_FriendMatch:response_colosseumInfo(ret)
 end
 
 -------------------------------------
--- function _refresh_playerUserInfo
+-- function response_arenaInfo
+-------------------------------------
+function ServerData_FriendMatch:response_arenaInfo(ret)
+    self:refresh_playerUserInfo_Arena(ret['deck'])
+    self:refresh_matchList_Arena(ret['match_info'])
+end
+
+-------------------------------------
+-- function refresh_playerUserInfo
 -------------------------------------
 function ServerData_FriendMatch:refresh_playerUserInfo(l_deck)
     self.m_playerUserInfo = {}
@@ -168,7 +255,25 @@ function ServerData_FriendMatch:refresh_playerUserInfo(l_deck)
             end
         end
     end
+end
 
+-------------------------------------
+-- function refresh_playerUserInfo_Arena
+-------------------------------------
+function ServerData_FriendMatch:refresh_playerUserInfo_Arena(l_deck)
+    self.m_playerUserInfo = {}
+
+    local struct_user_info = StructUserInfoArena()
+    struct_user_info.m_uid = g_userData:get('uid')
+    struct_user_info.m_nickname = g_userData:get('nick')
+    struct_user_info.m_lv = g_userData:get('lv')
+
+    self.m_playerUserInfo = struct_user_info
+
+    -- 덱 설정
+    if (l_deck) then
+        self.m_playerUserInfo:applyPvpDeckData(l_deck)
+    end
 end
 
 -------------------------------------
@@ -195,6 +300,35 @@ function ServerData_FriendMatch:refresh_matchList(match_info)
 
     -- 덱 정보 (매치리스트에 넘어오는 덱은 해당 유저의 방어덱)
     struct_user_info:applyPvpDefDeckData(match_info['deck'])
+
+    self.m_matchInfo = struct_user_info
+end
+
+-------------------------------------
+-- function refresh_matchList_Arena
+-------------------------------------
+function ServerData_FriendMatch:refresh_matchList_Arena(match_info)
+    self.m_matchInfo = {}
+    local struct_user_info = StructUserInfoArena()
+
+    -- 기본 유저 정보
+    struct_user_info.m_uid = match_info['uid']
+    struct_user_info.m_nickname = match_info['nick']
+    struct_user_info.m_lv = match_info['lv']
+    struct_user_info.m_tamerID = match_info['tamer']
+    struct_user_info.m_leaderDragonObject = StructDragonObject(match_info['leader'])
+    struct_user_info.m_tier = match_info['tier']
+    struct_user_info.m_rank = match_info['rank']
+
+    -- 콜로세움 유저 정보
+    struct_user_info.m_rp = match_info['rp']
+    struct_user_info.m_matchResult = match_info['match']
+
+    struct_user_info:applyRunesDataList(match_info['runes']) --반드시 드래곤 설정 전에 룬을 설정해야함
+    struct_user_info:applyDragonsDataList(match_info['dragons'])
+
+    -- 덱 정보 (매치리스트에 넘어오는 덱은 해당 유저의 방어덱)
+    struct_user_info:applyPvpDeckData(match_info['deck'])
 
     self.m_matchInfo = struct_user_info
 end

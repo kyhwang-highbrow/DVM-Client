@@ -1093,7 +1093,9 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <None Include="..\src\UI_FormationArenaPopup.lua" />
     <None Include="..\src\UI_FormationDetailPopup.lua" />
     <None Include="..\src\UI_FriendMatchDeckSettings.lua" />
+    <None Include="..\src\UI_FriendMatchDeckSettingsArena.lua" />
     <None Include="..\src\UI_FriendMatchReady.lua" />
+    <None Include="..\src\UI_FriendMatchReadyArena.lua" />
     <None Include="..\src\UI_FriendMatchResult.lua" />
     <None Include="..\src\UI_GameArena.lua" />
     <None Include="..\src\UI_GameClanRaid.lua" />

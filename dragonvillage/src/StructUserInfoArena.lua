@@ -436,9 +436,8 @@ end
 -------------------------------------
 function StructUserInfoArena:getDeck(type)
     local tamer_id = g_tamerData:getCurrTamerID()
-
     -- 공격덱
-    if (type == 'arena') then
+    if (type == 'fpvp_atk' or type == 'arena') then
         local l_doid = self:getDeck_dragonList(true)
         local formation = 'attack'
         local leader = 0
@@ -566,6 +565,19 @@ function StructUserInfoArena:getDeckTamerSDAnimator()
     end
 
     return animator
+end
+
+-------------------------------------
+-- function getDeckTamerReadyIcon
+-------------------------------------
+function StructUserInfoArena:getDeckTamerReadyIcon()
+    local tamer_info = self:getDeckTamerInfo()
+    if (tamer_info) then
+        return self:makeTamerReadyIconWithCostume(tamer_info)
+    else
+        local tamer_id = self:getDeckTamerID()
+        return self:makeTamerReadyIcon(tamer_id)
+    end
 end
 
 -------------------------------------

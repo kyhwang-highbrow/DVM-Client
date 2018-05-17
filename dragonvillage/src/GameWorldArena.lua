@@ -136,7 +136,7 @@ function GameWorldArena:initTamer()
 
     -- 아군 테이머 생성
     do
-        local user_info = g_arenaData.m_playerUserInfo
+        local user_info = (is_friendMatch) and g_friendMatchData.m_playerUserInfo or g_arenaData.m_playerUserInfo
         local tamer_id = user_info:getDeckTamerID()
         local t_tamer_data = clone(g_tamerData:getTamerServerInfo(tamer_id))
         local t_costume_data = g_tamerCostumeData:getCostumeDataWithTamerID(tamer_id)
@@ -153,7 +153,7 @@ function GameWorldArena:initTamer()
     
     -- 적군 테이머 생성
     do
-        local user_info = g_arenaData:getMatchUserInfo()
+        local user_info = (is_friendMatch) and g_friendMatchData.m_matchInfo or g_arenaData:getMatchUserInfo()
         local t_tamer_data = clone(user_info:getDeckTamerInfo())
 
         local costume_id = user_info:getDefDeckCostumeID()

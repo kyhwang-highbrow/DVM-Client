@@ -82,7 +82,7 @@ function UI_StatisticsPopup:initUI()
 			vars['userNode1']:setVisible(true)
             local user_info 
             if (self.m_isArena) then
-                user_info = g_arenaData.m_playerUserInfo
+                user_info = (is_friendMatch) and g_friendMatchData.m_playerUserInfo or g_arenaData:getPlayerArenaUserInfo()
             else
                 user_info = (is_friendMatch) and g_friendMatchData.m_playerUserInfo or g_colosseumData.m_playerUserInfo
             end
@@ -109,7 +109,7 @@ function UI_StatisticsPopup:initUI()
 		do
             local user_info 
             if (self.m_isArena) then
-                user_info = g_arenaData:getMatchUserInfo()
+                user_info = (is_friendMatch) and g_friendMatchData.m_matchInfo or g_arenaData:getMatchUserInfo()
             else
                 user_info = (is_friendMatch) and g_friendMatchData.m_matchInfo or g_colosseumData:getMatchUserInfo()
             end

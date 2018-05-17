@@ -916,8 +916,10 @@ local t_module = {
 
     -- UI : 친선전
     'UI_FriendMatchReady',
+    'UI_FriendMatchReadyArena',
     'UI_FriendMatchResult',
     'UI_FriendMatchDeckSettings',
+    'UI_FriendMatchDeckSettingsArena',
 
 	-- UI : 고대의 탑
     'UI_AncientTower',

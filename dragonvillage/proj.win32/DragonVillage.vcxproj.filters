@@ -3532,6 +3532,12 @@
     <None Include="..\src\UI_FormationArenaPopup.lua">
       <Filter>lua\UI</Filter>
     </None>
+    <None Include="..\src\UI_FriendMatchDeckSettingsArena.lua">
+      <Filter>lua\UI</Filter>
+    </None>
+    <None Include="..\src\UI_FriendMatchReadyArena.lua">
+      <Filter>lua\UI</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Classes">

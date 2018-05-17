@@ -5,6 +5,7 @@ local PARENT = UI
 -------------------------------------
 UI_LoadingArena = class(PARENT,{
         m_lLoadingStrList = 'List<string>',
+        m_bFriendMatch = 'boolean',
     })
 
 -------------------------------------
@@ -12,7 +13,7 @@ UI_LoadingArena = class(PARENT,{
 -------------------------------------
 function UI_LoadingArena:init(curr_scene)
 	self.m_uiName = 'UI_LoadingArena'
-    
+    self.m_bFriendMatch = curr_scene.m_bFriendMatch
 	local vars = self:load('arena_loading.ui')
 
     local guide_type = curr_scene.m_loadingGuideType
@@ -28,9 +29,10 @@ end
 -------------------------------------
 function UI_LoadingArena:initUI()
     local vars = self.vars
+    local is_friend_match = self.m_bFriendMatch
 
     do -- 플레이어 유저 덱
-        local user_info = g_arenaData:getPlayerArenaUserInfo()
+        local user_info = is_friend_match and g_friendMatchData.m_playerUserInfo or g_arenaData:getPlayerArenaUserInfo()
         local t_pvp_deck = user_info.m_pvpDeck
 
         local player_2d_deck = UI_2DDeck(true, true)
@@ -51,7 +53,7 @@ function UI_LoadingArena:initUI()
     end
 
     do -- 상대방 유저 덱
-        local user_info = g_arenaData:getMatchUserInfo()
+        local user_info = is_friend_match and g_friendMatchData.m_matchInfo or g_arenaData:getMatchUserInfo()
         local t_pvp_deck = user_info.m_pvpDeck
 
         local player_2d_deck = UI_2DDeck(true, true)
@@ -72,7 +74,7 @@ function UI_LoadingArena:initUI()
     end
     
     do -- 플레이어 유저 정보
-        local user_info = g_arenaData:getPlayerArenaUserInfo()
+        local user_info = is_friend_match and g_friendMatchData.m_playerUserInfo or g_arenaData:getPlayerArenaUserInfo()
         local struct_clan = user_info:getStructClan()
         local icon
 
@@ -109,7 +111,7 @@ function UI_LoadingArena:initUI()
     end
 
     do -- 상대방 유저 정보
-        local user_info = g_arenaData:getMatchUserInfo()
+         local user_info = is_friend_match and g_friendMatchData.m_matchInfo or g_arenaData:getMatchUserInfo()
         local struct_clan = user_info:getStructClan()
         local icon
 

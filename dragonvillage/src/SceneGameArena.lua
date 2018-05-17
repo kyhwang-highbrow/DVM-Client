@@ -21,7 +21,7 @@ function SceneGameArena:init(game_key, stage_id, stage_name, develop_mode, frien
     if (self.m_bFriendMatch) then
         g_deckData:setSelectedDeck('fpvp_atk')
     else
-        g_deckData:setSelectedDeck('pvp_atk')
+        g_deckData:setSelectedDeck('arena')
     end
 end
 
