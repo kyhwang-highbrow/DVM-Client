@@ -470,19 +470,17 @@ FileUtils* FileUtils::getInstance()
 
 std::string FileUtilsApple::getWritablePath() const
 {
-    // save to cache folder
 #if (CC_TARGET_PLATFORM == CC_PLATFORM_IOS)
+    // save to cache folder
     NSArray *paths = NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES);
     NSString *documentsDirectory = [paths objectAtIndex:0];
     std::string strRet = [documentsDirectory UTF8String];
     strRet.append("/");
 #elif (CC_TARGET_PLATFORM == CC_PLATFORM_MAC)
-    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES);
-    NSString *documentsDirectory = [paths objectAtIndex:0];
-    std::string strRet = [documentsDirectory UTF8String];
-    NSString *bundleName = [[NSBundle mainBundle] objectForInfoDictionaryKey:@"CFBundleName"];
-    NSString *appenStr = [NSString stringWithFormat:@"/%@/", bundleName];
-    strRet.append([appenStr UTF8String]);
+    // save to './runtime_mac/caches'
+    NSBundle *bundle = [NSBundle mainBundle];
+    NSString *bundleName = [NSString stringWithFormat:@"%@.app", [bundle objectForInfoDictionaryKey:@"CFBundleName"]];
+    std::string strRet = [[[bundle bundlePath] stringByReplacingOccurrencesOfString:bundleName withString:@"caches/"] UTF8String];
 #endif
     return strRet;
 }
@@ -558,11 +556,27 @@ std::string FileUtilsApple::getFullPathForDirectoryAndFilename(const std::string
 {
     if (directory[0] != '/')
     {
-        NSString* fullpath = [[NSBundle mainBundle] pathForResource:[NSString stringWithUTF8String:filename.c_str()]
+        NSString* fullPath;
+        // mskim 18.05.17
+#if (CC_TARGET_PLATFORM == CC_PLATFORM_IOS)
+        fullPath = [[NSBundle mainBundle] pathForResource:[NSString stringWithUTF8String:filename.c_str()]
                                                              ofType:nil
                                                         inDirectory:[NSString stringWithUTF8String:directory.c_str()]];
-        if (fullpath != nil) {
-            return [fullpath UTF8String];
+#elif (CC_TARGET_PLATFORM == CC_PLATFORM_MAC)
+        NSBundle *bundle = [NSBundle mainBundle];
+        NSString *path = [bundle bundlePath];
+        NSString *bundleName = [NSString stringWithFormat:@"%@.app", [bundle objectForInfoDictionaryKey:@"CFBundleName"]];
+        NSString *replaceStr = [NSString stringWithFormat:@"%@%@", [NSString stringWithUTF8String:directory.c_str()], [NSString stringWithUTF8String:filename.c_str()]];
+        fullPath = [path stringByReplacingOccurrencesOfString:bundleName withString:replaceStr];
+
+        // Search path is an absolute path.
+        if (![s_fileManager fileExistsAtPath:fullPath]) {
+            return "";
+        }
+#endif
+
+        if (fullPath != nil) {
+            return [fullPath UTF8String];
         }
     }
     else
