@@ -288,7 +288,7 @@ function UI_ArenaResult:direction_winReward()
 		local win = t_data['season']['win']
         local lose = t_data['season']['lose']
 
-		ui.vars['winLabel']:setString(Str('콜로세움 {1}회 달성!', win + lose))
+		ui.vars['winLabel']:setString(Str('콜로세움 {1}회 플레이', win + lose))
 
 		-- 보상 아이템 표기
 		local t_item = t_data['mail_item_info'][1]
