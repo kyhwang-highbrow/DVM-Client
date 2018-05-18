@@ -598,21 +598,21 @@ end
 -- function setAutoMode
 -- @brief 자동 모드 설정
 -------------------------------------
-function UI_Game:setAutoMode(b)
+function UI_Game:setAutoMode(b, no_noti)
     local vars = self.vars
-
-    if (b == vars['autoVisual']:isVisible()) then
-        return
-    end
 
     if (b) then
         vars['autoVisual']:setVisible(true)
 
-        UIManager:toastNotificationGreen(Str('자동전투 활성화'))
+        if (not no_noti) then
+            UIManager:toastNotificationGreen(Str('자동전투 활성화'))
+        end
     else
         vars['autoVisual']:setVisible(false)
 
-        UIManager:toastNotificationGreen(Str('자동전투 비활성화'))
+        if (not no_noti) then
+            UIManager:toastNotificationGreen(Str('자동전투 비활성화'))
+        end
     end
 end
 
