@@ -89,7 +89,7 @@ function GameAuto_Hero:onStart()
     PARENT.onStart(self)
     
     if (self.m_inGameUI) then
-        self.m_inGameUI:setAutoMode(true)
+        self.m_inGameUI:setAutoMode(true, true)
     end
 end
 
@@ -100,7 +100,7 @@ function GameAuto_Hero:onEnd()
     PARENT.onEnd(self)
 
     if (self.m_inGameUI) then
-        self.m_inGameUI:setAutoMode(false)
+        self.m_inGameUI:setAutoMode(false, true)
     end
 end
 
