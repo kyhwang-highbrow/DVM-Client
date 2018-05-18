@@ -114,7 +114,14 @@ function NumberLabelWithSpriteFrame:refresh(number)
         end
 
         if (sprite) then
-            sprite:setSpriteFrame(res_name)
+            local sprite_frame = cc.SpriteFrameCache:getInstance():getSpriteFrame(res_name)
+
+            if (not sprite_frame) then
+                cc.SpriteFrameCache:getInstance():addSpriteFrames('res/ui/a2d/ingame_btn/ingame_btn.plist')
+                sprite_frame = cc.SpriteFrameCache:getInstance():getSpriteFrame(res_name)
+            end
+
+            sprite:setSpriteFrame(sprite_frame)
             sprite:setVisible(true)
         else
             sprite = cc.Sprite:createWithSpriteFrameName(res_name)
