@@ -32,7 +32,7 @@ end
 -------------------------------------
 -- function refresh_buffInfo
 -------------------------------------
-function UI_ReadySceneNew:refresh_buffInfo()
+function UI_FriendMatchDeckSettingsArena:refresh_buffInfo()
     local vars = self.vars
 	
 	if (not self.m_readySceneDeck) then
@@ -67,12 +67,21 @@ function UI_ReadySceneNew:refresh_buffInfo()
 	end
 
 	-- 진형 버프
-    local l_formation = g_formationArenaData:getFormationInfoList()
-	local curr_formation = self.m_readySceneDeck.m_currFormation
-	local formation_data = l_formation[curr_formation]  
-    local formation_name = TableFormationArena():getFormationName(formation_data['formation'])
-    vars['fomationLabel']:setString(Str('진형 변경'))
-    vars['formationBuffLabel']:setString(formation_name)
+    if IS_ARENA_OPEN() then
+        local l_formation = g_formationArenaData:getFormationInfoList()
+	    local curr_formation = self.m_readySceneDeck.m_currFormation
+	    local formation_data = l_formation[curr_formation]  
+        local formation_name = TableFormationArena():getFormationName(formation_data['formation'])
+        vars['fomationLabel']:setString(Str('진형 변경'))
+        vars['formationBuffLabel']:setString(formation_name)
+    else
+        local l_formation = g_formationData:getFormationInfoList()
+		local curr_formation = self.m_readySceneDeck.m_currFormation
+		local formation_data = l_formation[curr_formation]        
+		local formation_buff = TableFormation():getFormatioDesc(formation_data['formation'])
+
+		vars['formationBuffLabel']:setString(formation_buff)
+    end
 end
 
 -------------------------------------
