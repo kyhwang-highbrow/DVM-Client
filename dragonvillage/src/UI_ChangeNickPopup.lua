@@ -1,5 +1,5 @@
 local PARENT = UI
-
+local MAX_NICK = 10
 -------------------------------------
 -- class UI_ChangeNickPopup
 -------------------------------------
