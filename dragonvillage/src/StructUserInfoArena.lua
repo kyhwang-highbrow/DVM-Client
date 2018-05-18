@@ -396,7 +396,7 @@ function StructUserInfoArena:getDeckCombatPower(force)
         end
 
         -- 진형
-        total_combat_power = total_combat_power + (formation_lv * g_constant:get('UI', 'FORMATION_LEVEL_COMBAT_POWER'))
+        --total_combat_power = total_combat_power + (formation_lv * g_constant:get('UI', 'FORMATION_LEVEL_COMBAT_POWER'))
 
         self.m_pvpDeckCombatPower = total_combat_power
     end
