@@ -285,6 +285,10 @@ function GameAuto:doWork_skill(unit, priority)
         if (#l_target > 0) then
             self.m_world.m_gameActiveSkillMgr:addWork(unit)
 
+            if (not self.m_mUsedCount[unit]) then
+                self.m_mUsedCount[unit] = 0
+            end
+
             -- 사용 횟수 카운트 증가
             self.m_mUsedCount[unit] = self.m_mUsedCount[unit] + 1
         end
@@ -383,6 +387,10 @@ function GameAuto:getRandomSkillUnit()
 
         for i, unit in ipairs(self.m_lUnitList) do
             table.insert(l_temp, unit)
+
+            if (not self.m_mUsedCount[unit]) then
+                self.m_mUsedCount[unit] = 0
+            end
         end
 
         table.sort(l_temp, function(a, b)
