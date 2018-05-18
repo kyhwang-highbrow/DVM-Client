@@ -84,6 +84,13 @@ function UI_UserDeckInfoPopupNew:refresh_dragons()
     local l_dragons = struct_user_info:getDeck_dragonList()
     local leader = t_pvp_deck and t_pvp_deck['leader'] or 0
     player_2d_deck:setDragonObjectList(l_dragons, leader)
+
+    -- 진형 설정
+    local formation = 'attack'
+    if t_pvp_deck then
+        formation = t_pvp_deck['formation'] or 'attack'
+    end
+    player_2d_deck:setFormation(formation)
 end
 
 -------------------------------------
