@@ -88,8 +88,8 @@ static AppDelegate s_sharedApplication;
     [[AVAudioSession sharedInstance] setCategory:AVAudioSessionCategoryAmbient error:nil];
 
     // Add the view controller's view to the window and display.
-    window = [[UIWindow alloc] initWithFrame: [[UIScreen mainScreen] bounds]];
-    CCEAGLView *eaglView = [CCEAGLView viewWithFrame:[window bounds]
+    _window = [[UIWindow alloc] initWithFrame: [[UIScreen mainScreen] bounds]];
+    CCEAGLView *eaglView = [CCEAGLView viewWithFrame:[_window bounds]
                                          pixelFormat:kEAGLColorFormatRGBA8
                                          depthFormat:GL_DEPTH24_STENCIL8_OES
                                   preserveBackbuffer:NO
@@ -107,13 +107,13 @@ static AppDelegate s_sharedApplication;
     // Set RootViewController to window
     if ([[UIDevice currentDevice].systemVersion floatValue] < 6.0) {
         // Warning: addSubView doesn't work on iOS6.
-        [window addSubview:viewController.view];
+        [_window addSubview:viewController.view];
     } else {
         // Use this method on iOS6.
-        [window setRootViewController:viewController];
+        [_window setRootViewController:viewController];
     }
 
-    [window makeKeyAndVisible];
+    [_window makeKeyAndVisible];
 
     // IMPORTANT: Setting the GLView should be done after creating the RootViewController
     cocos2d::GLView *glview = cocos2d::GLView::createWithEAGLView(eaglView);

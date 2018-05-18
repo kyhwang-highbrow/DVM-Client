@@ -30,7 +30,7 @@
 
 @interface AppController : NSObject <UIAccelerometerDelegate, UIAlertViewDelegate, UITextFieldDelegate, UIApplicationDelegate>
 {
-    UIWindow *window;
+    UIWindow *_window;
     RootViewController *viewController;
 }
 

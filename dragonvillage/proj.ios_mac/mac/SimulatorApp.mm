@@ -71,6 +71,30 @@ std::string getCurAppPath(void)
 
 - (void) applicationDidFinishLaunching:(NSNotification *)aNotification
 {
+#if (CC_TARGET_PLATFORM == CC_PLATFORM_MAC)
+    CCLOG("%s\n",Configuration::getInstance()->getInfo().c_str());
+
+    if (!ConfigParser::getInstance()->isInit())
+    {
+        FileUtils::getInstance()->addSearchPath("..");
+        ConfigParser::getInstance()->readConfig();
+    }
+
+    // create console window **MUST** before create opengl view
+    [self openConsoleWindow];
+
+    // create simulator
+    [self createSimulator];
+
+#endif
+    [self startup];
+}
+
+#pragma mark -
+#pragma mark functions
+
+- (void) startup
+{
     NSArray *args = [[NSProcessInfo processInfo] arguments];
 
     if (args!=nullptr && [args count]>=2) {
@@ -80,72 +104,94 @@ std::string getCurAppPath(void)
             g_resourcePath="";
         }
     }
+
     g_nsAppDelegate =self;
-//    AppDelegate app;
-//    Application::getInstance()->run();
-//    // After run, application needs to be terminated immediately.
-//    [NSApp terminate: self];
+    AppDelegate app;
+    Application::getInstance()->run();
+    // After run, application needs to be terminated immediately.
+    [NSApp terminate: self];
 }
 
-void initAppController()
-{
-    g_nsAppDelegate = [AppController alloc];
-}
-
-#pragma mark -
-#pragma mark functions
-
-- (void) createSimulator:(NSString*)viewName viewWidth:(float)width viewHeight:(float)height factor:(float)frameZoomFactor
+- (void) createSimulator
 {
     if (g_eglView)
     {
         return;
     }
     
-    if(!g_landscape)
-    {
-        float tmpvalue =width;
-        width = height;
-        height = tmpvalue;
-    }
-    
-    g_eglView = GLView::createWithRect([viewName cStringUsingEncoding:NSUTF8StringEncoding],cocos2d::Rect(0.0f,0.0f,width,height),frameZoomFactor);
+    std::string title = APP_NAME;
+    NSString *appName = [NSString stringWithUTF8String:title.c_str()];
+    cocos2d::Size viewSize = ConfigParser::getInstance()->getInitViewSize();
+    cocos2d::Rect rect = cocos2d::Rect(0.0f,0.0f,viewSize.width,viewSize.height);
+    float frameZoomFactor = 1.0f;
+
+    g_landscape = ConfigParser::getInstance()->isLandscape();
+    g_screenSize = viewSize;
+
+    // create opengl view
+    g_eglView = GLView::createWithRect([appName cStringUsingEncoding:NSUTF8StringEncoding], rect, frameZoomFactor);
+
     auto director = Director::getInstance();
     director->setOpenGLView(g_eglView);
 
-    window = glfwGetCocoaWindow(g_eglView->getWindow());
-    [NSApp setDelegate: self];
-    
+    _window = glfwGetCocoaWindow(g_eglView->getWindow());
+    [[NSApplication sharedApplication] setDelegate: self];
+    [_window center];
+
     [self createViewMenu];
     [self updateMenu];
-    [window center];
 
-    [window becomeFirstResponder];
-    [window makeKeyAndOrderFront:self];
+//    [_window becomeFirstResponder];
+//    [_window makeKeyAndOrderFront:self];
 }
 
-void createSimulator(const char* viewName, float width, float height,bool isLandscape,float frameZoomFactor)
+- (void) openConsoleWindow
 {
-    if(g_nsAppDelegate)
+    if (!_consoleController)
     {
-        g_landscape = isLandscape;
-        if(height > width)
-        {
-            float tmpvalue =width;
-            width = height;
-            height = tmpvalue;
-        }
-        g_screenSize.width = width;
-        g_screenSize.height = height;
+        _consoleController = [[ConsoleWindowController alloc] initWithWindowNibName:@"ConsoleWindow"];
+    }
+    [_consoleController.window orderFrontRegardless];
 
-        [g_nsAppDelegate createSimulator:[NSString stringWithUTF8String:viewName] viewWidth:width viewHeight:height factor:frameZoomFactor];
+    //set console pipe
+    _pipe = [NSPipe pipe] ;
+    _pipeReadHandle = [_pipe fileHandleForReading] ;
+
+    int outfd = [[_pipe fileHandleForWriting] fileDescriptor];
+    if (dup2(outfd, fileno(stderr)) != fileno(stderr) || dup2(outfd, fileno(stdout)) != fileno(stdout))
+    {
+        perror("Unable to redirect output");
+        //        [self showAlert:@"Unable to redirect output to console!" withTitle:@"player error"];
+    }
+    else
+    {
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleNotification:) name:NSFileHandleReadCompletionNotification object:_pipeReadHandle] ;
+        [_pipeReadHandle readInBackgroundAndNotify] ;
+    }
+}
+
+- (void)handleNotification:(NSNotification *)note
+{
+    //NSLog(@"Received notification: %@", note);
+    [_pipeReadHandle readInBackgroundAndNotify] ;
+    NSData *data = [[note userInfo] objectForKey:NSFileHandleNotificationDataItem];
+    NSString *str = [[[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding] autorelease];
+
+    if (str)
+    {
+        //show log to console
+        [_consoleController trace:str];
+        if(_fileHandle!=nil)
+        {
+            [_fileHandle writeData:[str dataUsingEncoding:NSUTF8StringEncoding]];
+        }
     }
 }
 
 - (void) createViewMenu
 {
     
-    NSMenu *submenu = [[[window menu] itemWithTitle:@"View"] submenu];
+    NSMenu *submenu = [[[_window menu] itemWithTitle:@"View"] submenu];
 
     for (int i = ConfigParser::getInstance()->getScreenSizeCount() - 1; i >= 0; --i)
     {
@@ -162,7 +208,7 @@ void createSimulator(const char* viewName, float width, float height,bool isLand
 - (void) updateMenu
 {
 
-    NSMenu *menuScreen = [[[window menu] itemWithTitle:@"View"] submenu];
+    NSMenu *menuScreen = [[[_window menu] itemWithTitle:@"View"] submenu];
     NSMenuItem *itemPortait = [menuScreen itemWithTitle:@"Portait"];
     NSMenuItem *itemLandscape = [menuScreen itemWithTitle:@"Landscape"];
     if (g_landscape)
@@ -266,12 +312,11 @@ void createSimulator(const char* viewName, float width, float height,bool isLand
 
 - (IBAction) onChangeProject:(id)sender
 {
-
     WorkSpaceDialogController *controller = [[WorkSpaceDialogController alloc] initWithWindowNibName:@"WorkSpaceDialog"];
-    [NSApp beginSheet:controller.window modalForWindow:window didEndBlock:^(NSInteger returnCode) {
-        if (returnCode == NSRunStoppedResponse)
+    [NSApp beginSheet:controller.window modalForWindow:_window didEndBlock:^(NSInteger returnCode) {
+        if (returnCode == NSModalResponseStop)
         {
-            CCLOG("1111");
+            CCLOG("return code : NSModalResponseStop");
         }
         [controller release];
     }];
