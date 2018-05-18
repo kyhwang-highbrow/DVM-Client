@@ -100,7 +100,7 @@ function ServerData_FriendMatch:request_setDeck(deckname, formation, leader, l_e
         local t_data = nil
         local l_deck 
 
-        if IS_ARENA_OPEN then
+        if IS_ARENA_OPEN() then
             l_deck = ret['deck']
             self:refresh_playerUserInfo_Arena(l_deck)
         else

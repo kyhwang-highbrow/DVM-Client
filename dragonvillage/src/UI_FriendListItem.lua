@@ -97,7 +97,7 @@ end
 function UI_FriendListItem:click_friendshipBtn()
     local vs_uid = self.m_friendUid
     
-    if IS_ARENA_OPEN then
+    if IS_ARENA_OPEN() then
         local function goto_ready()
             UI_FriendMatchReadyArena()
         end
