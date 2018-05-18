@@ -394,7 +394,7 @@ function TargetRule_getTargetList_arena(org_list, t_data)
 
             
             local is_invincibility = v:isExistStatusEffectName('barrier_protection_time')
-            if (not is_invincibility) then
+            if (not is_invincibility and not v.m_isZombie) then
                 all_invincibility = false
             end
 
