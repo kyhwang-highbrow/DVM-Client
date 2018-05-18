@@ -608,12 +608,17 @@ function UI_DragonEvolution:isPackageBuyable()
     -- 드래곤 정보
 	local struct_dragon_object = self.m_selectDragonData
     if (not struct_dragon_object) then
-        return
+        return false
     end
 
+	-- 2성 진화 가능한 드래곤 예외 처리..!
+	local rarity = struct_dragon_object:getRarity()
+	if (T_EVOLUTION_PACKAGE_ID_TABLE[rarity] == nil) then
+		return false
+	end
+	
 	-- pid 찾아서 StructProduct 찾아서 구매 가능 여부 확인
 	local attr = struct_dragon_object:getAttr()
-	local rarity = struct_dragon_object:getRarity()
 	local pid = T_EVOLUTION_PACKAGE_ID_TABLE[rarity][attr]
 	local struct_product = g_shopDataNew:getProduct('package', pid)
 
