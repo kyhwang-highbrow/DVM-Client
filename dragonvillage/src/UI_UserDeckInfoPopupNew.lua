@@ -90,7 +90,8 @@ function UI_UserDeckInfoPopupNew:refresh_dragons()
     if t_pvp_deck then
         formation = t_pvp_deck['formation'] or 'attack'
     end
-    player_2d_deck:setFormation(formation)
+    local force_arena = true -- 아레나 진형 체크
+    player_2d_deck:setFormation(formation, force_arena)
 end
 
 -------------------------------------

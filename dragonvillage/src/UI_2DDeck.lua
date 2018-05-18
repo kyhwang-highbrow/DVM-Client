@@ -150,12 +150,13 @@ end
 -------------------------------------
 -- function setFormation
 -------------------------------------
-function UI_2DDeck:setFormation(formation)
+function UI_2DDeck:setFormation(formation, force_arena)
+    local force_arena = force_arena or false
     local formation = formation or 'attack'
     local interval = 110
     local l_pos_list
 
-    if (self.m_bArena) then
+    if (self.m_bArena or force_arena) then
         l_pos_list = TableFormationArena:getFormationPositionListNew(formation, interval)
     else
         l_pos_list = TableFormation:getFormationPositionListNew(formation, interval)
