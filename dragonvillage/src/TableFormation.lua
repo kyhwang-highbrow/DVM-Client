@@ -62,7 +62,7 @@ function TableFormation:getFormationPositionListNew(formation, interval)
     if (self == TableFormation) then
         self = TableFormation()
     end
-    ccdump(formation)
+
 	-- @TODO
 	local formation = self:temp(formation)
     local t_table = self:get(formation)

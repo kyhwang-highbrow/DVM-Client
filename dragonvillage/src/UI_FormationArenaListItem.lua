@@ -51,8 +51,6 @@ function UI_FormationArenaListItem:refresh()
 	local formation_type = self.m_formation
 	local formation_lv = self.m_tFormationInfo['formation_lv']
 
-    ccdump(self.m_tFormationInfo)
-
 	-- 진형 이름
 	local formation_name = table_formation:getFormationName(formation_type)
 	local formation_str = formation_name -- 콜로세움 (신규) 덱 이름만
