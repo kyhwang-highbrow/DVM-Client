@@ -82,6 +82,8 @@ end
 -- function prepare
 -------------------------------------
 function GameAuto:prepare(unit_list)
+    local count = unit_list and #unit_list or 0
+    cclog('GameAuto:prepare : ' .. count)
     self.m_lUnitList = unit_list
     self.m_teamState = 0
 
@@ -399,8 +401,7 @@ function GameAuto:getRandomSkillUnit()
 
         for i, unit in ipairs(l_temp) do
             local skill_indivisual_info = unit:getSkillIndivisualInfo('active')
-            local b, m_reason = unit:isPossibleActiveSkill()
-            if (skill_indivisual_info and b) then
+            if (skill_indivisual_info and unit:isPossibleActiveSkill()) then
                 ret = unit
                 break
             end
