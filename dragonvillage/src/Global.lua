@@ -117,10 +117,10 @@ function CheckNickName(str, proceed_func, cancel_func, is_clan)
     local l_match_list = {}
     local word = nil
     for _, t_word in ipairs(t_ban_word) do
-        word = t_word['word']
-        if string.match(lower_str, string.lower(word)) then
+        word = string.lower(t_word['word'])
+        if string.match(lower_str, word) then
             table.insert(l_match_list, word)
-            lower_str = string.gsub(lower_str, string.lower(word), '')
+            lower_str = string.gsub(lower_str, word, '')
             
             if (lower_str == '') then
                 break
@@ -128,7 +128,7 @@ function CheckNickName(str, proceed_func, cancel_func, is_clan)
         end
         
 	end
-    
+
     -- match
     if (table.count(l_match_list) == 0) then
         if (proceed_func) then
@@ -136,13 +136,14 @@ function CheckNickName(str, proceed_func, cancel_func, is_clan)
         end
         return true
     else
-        -- 금칙어 강조된 문장 생성
+        -- 금칙어 강조된 문장 생성 (영어는 일단 소문자로 표현)
+		local ret_str = string.lower(str)
         for _, word in ipairs(l_match_list) do
-            str = string.gsub(str, word, '{@RED}' .. word .. '{@WHITE}')
+            ret_str = string.gsub(ret_str, word, '{@RED}' .. word .. '{@WHITE}')
         end
-        str = '{@WHITE}' .. str
+        ret_str = '{@WHITE}' .. ret_str
         local warning = '{@DESC}' .. Str('금칙어가 포함되었습니다. 입력을 계속하시겠습니까?\n(욕설이나 부적절한 단어 사용이 확인되었을 시 제재를 받을 수 있습니다.)')
-        MakeSimplePopup2(POPUP_TYPE.YES_NO, str, warning, proceed_func, cancel_func)
+        MakeSimplePopup2(POPUP_TYPE.YES_NO, ret_str, warning, proceed_func, cancel_func)
     end
 end
 
@@ -167,10 +168,10 @@ function CheckBlockStr(str, proceed_func, cancel_func)
     local l_match_list = {}
     local word = nil
     for _, t_word in ipairs(t_ban_word) do
-        word = t_word['word']
-        if string.match(lower_str, string.lower(word)) then
+        word = string.lower(t_word['word'])
+        if string.match(lower_str, word) then
             table.insert(l_match_list, word)
-            lower_str = string.gsub(lower_str, string.lower(word), '')
+            lower_str = string.gsub(lower_str, word, '')
             
             if (lower_str == '') then
                 break
@@ -186,13 +187,14 @@ function CheckBlockStr(str, proceed_func, cancel_func)
         end
         return true
     else
-        -- 금칙어 강조된 문장 생성
+        -- 금칙어 강조된 문장 생성 (영어는 일단 소문자로 표현)
+		local ret_str = string.lower(str)
         for _, word in ipairs(l_match_list) do
-            str = string.gsub(str, word, '{@RED}' .. word .. '{@WHITE}')
+            ret_str = string.gsub(ret_str, word, '{@RED}' .. word .. '{@WHITE}')
         end
-        str = '{@WHITE}' .. str
+        ret_str = '{@WHITE}' .. ret_str
         local warning = '{@DESC}' .. Str('금칙어가 포함되었습니다. 입력을 계속하시겠습니까?\n(욕설이나 부적절한 단어 사용이 확인되었을 시 제재를 받을 수 있습니다.)')
-        MakeSimplePopup2(POPUP_TYPE.YES_NO, str, warning, proceed_func, cancel_func)
+        MakeSimplePopup2(POPUP_TYPE.YES_NO, ret_str, warning, proceed_func, cancel_func)
     end
 end
 
