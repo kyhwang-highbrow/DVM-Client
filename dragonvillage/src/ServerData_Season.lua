@@ -28,7 +28,14 @@ function ServerData_Season:applyInfo(ret)
         self.m_clandungeonWeek = ret['clandungeon_week']
     end
 
-    if (ret['arena_open']) then
-        self.m_bArenaOpen = ret['arena_open']
+    if (ret['arena_week']) then
+        local server_name = g_localData:getServerName()
+        if (server_name == 'DEV') then
+            self.m_bArenaOpen = true
+        else
+            -- 주차 정보로 판단
+            -- open 여부로 판단하면 락타임일때 문제 생길 여지 있음.
+            self.m_bArenaOpen = (ret['arena_week'] >= 201821) and true or false
+        end
     end
 end
