@@ -131,6 +131,13 @@ void sdkEvent(const char *id, const char *arg0, const char *arg1)
                                 @"systemVersion":version };
         NSString *info = [AppController getJSONStringFromNSDictionary:dict];
         sdkEventResult(id, "success", [info UTF8String]);
+    } else if (strcmp(id, "clipboard_setText") == 0) {
+        NSString *_arg0 = [NSString stringWithUTF8String:arg0];
+        [[NSPasteboard generalPasteboard] clearContents];
+        [[NSPasteboard generalPasteboard] setString:_arg0 forType:NSStringPboardType];
+    } else if (strcmp(id, "app_gotoWeb") == 0) {
+        NSURL *url = [NSURL URLWithString:[NSString stringWithUTF8String:arg0]];
+        [[NSWorkspace sharedWorkspace] openURL:url];
     }
 #else
     if (strcmp(id, "app_restart") == 0) {
