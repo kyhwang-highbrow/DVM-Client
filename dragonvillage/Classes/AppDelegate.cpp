@@ -121,13 +121,9 @@ AppDelegate::~AppDelegate()
 
 bool AppDelegate::applicationDidFinishLaunching()
 {
-    FileUtils::getInstance()->addSearchPath("ps");
-    FileUtils::getInstance()->addSearchPath("src");
-    FileUtils::getInstance()->addSearchPath("res");
-    FileUtils::getInstance()->addSearchPath("..");
-
     if (!ConfigParser::getInstance()->isInit())
     {
+        FileUtils::getInstance()->addSearchPath("..");
         ConfigParser::getInstance()->readConfig();
     }
 
@@ -136,23 +132,22 @@ bool AppDelegate::applicationDidFinishLaunching()
     // Initialize director.
     auto director = Director::getInstance();
     auto glview = director->getOpenGLView();
-#if (CC_TARGET_PLATFORM == CC_PLATFORM_MAC)
+
     // MAC은 shimulatorApp applicationDidFinishLaunching에서 glview 생성
-#else
     if (!glview)
     {
         Size viewSize = ConfigParser::getInstance()->getInitViewSize();
         string title = APP_NAME;
-  #if (CC_TARGET_PLATFORM == CC_PLATFORM_WIN32)
+#if (CC_TARGET_PLATFORM == CC_PLATFORM_WIN32)
         extern void createSimulator(const char *viewName, float width, float height, bool isLandscape = true, float frameZoomFactor = 1.0f);
         bool isLandscape = ConfigParser::getInstance()->isLandscape();
         createSimulator(title.c_str(), viewSize.width, viewSize.height, isLandscape);
-  #else
+#else
         glview = GLView::createWithRect(title.c_str(), Rect(0,0,viewSize.width,viewSize.height));
         director->setOpenGLView(glview);
-  #endif // #if (CC_TARGET_PLATFORM == CC_PLATFORM_WIN32)
-    }
 #endif
+    }
+
 	// iOS와 Android에서는 화면 크기에 따라 640 또는 720으로 화면 넓이 지정함
 	glview = director->getOpenGLView();
 	Size frameSize = glview->getFrameSize();
@@ -199,28 +194,15 @@ bool AppDelegate::applicationDidFinishLaunching()
     else
         Director::getInstance()->getOpenGLView()->setDesignResolutionSize(shortLength, longLength, ResolutionPolicy::EXACT_FIT);
 
-
 #if (CC_TARGET_PLATFORM == CC_PLATFORM_WIN32 || CC_TARGET_PLATFORM == CC_PLATFORM_MAC)
 	Director::getInstance()->getOpenGLView()->setFrameZoomFactor(ConfigParser::getInstance()->getScale());
-#endif
 
-    // Turn on display FPS.
-    director->setDisplayStats(true);
-
-    // Set FPS. The default value is 1.0/60 if you don't call this.
-    director->setAnimationInterval(1.0 / 60);
-
-#if (CC_TARGET_PLATFORM == CC_PLATFORM_WIN32) || (CC_TARGET_PLATFORM == CC_PLATFORM_MAC)
-	auto listener = EventListenerKeyboard::create();
+    auto listener = EventListenerKeyboard::create();
 	listener->onKeyPressed = CC_CALLBACK_2(AppDelegate::onKeyPressed, this);
 	listener->onKeyReleased = CC_CALLBACK_2(AppDelegate::onKeyReleased, this);
 	director->getEventDispatcher()->addEventListenerWithFixedPriority(listener, 1);
-#endif
 
-	initLuaEngine();
-
-#if (CC_TARGET_PLATFORM == CC_PLATFORM_WIN32 || CC_TARGET_PLATFORM == CC_PLATFORM_MAC)
-	FileUtils::getInstance()->addSearchPath("..");
+    FileUtils::getInstance()->addSearchPath("..");
 	FileUtils::getInstance()->addSearchPath("../ps");
 	FileUtils::getInstance()->addSearchPath("../src");
 	FileUtils::getInstance()->addSearchPath("../res");
@@ -229,6 +211,13 @@ bool AppDelegate::applicationDidFinishLaunching()
     FileUtils::getInstance()->addSearchPath("src");
     FileUtils::getInstance()->addSearchPath("res");
 #endif
+
+    // Turn on display FPS.
+    director->setDisplayStats(true);
+    // Set FPS. The default value is 1.0/60 if you don't call this.
+    director->setAnimationInterval(1.0 / 60);
+
+    initLuaEngine();
 
     configChange();
     startLuaScript(ENTRY_LUA);
