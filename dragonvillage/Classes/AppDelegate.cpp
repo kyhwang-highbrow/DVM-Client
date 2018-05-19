@@ -210,7 +210,7 @@ bool AppDelegate::applicationDidFinishLaunching()
     // Set FPS. The default value is 1.0/60 if you don't call this.
     director->setAnimationInterval(1.0 / 60);
 
-#if (CC_TARGET_PLATFORM == CC_PLATFORM_WIN32)
+#if (CC_TARGET_PLATFORM == CC_PLATFORM_WIN32) || (CC_TARGET_PLATFORM == CC_PLATFORM_MAC)
 	auto listener = EventListenerKeyboard::create();
 	listener->onKeyPressed = CC_CALLBACK_2(AppDelegate::onKeyPressed, this);
 	listener->onKeyReleased = CC_CALLBACK_2(AppDelegate::onKeyReleased, this);
@@ -266,7 +266,7 @@ bool AppDelegate::startLuaScript(const char* filename)
 	return engine->executeScriptFile(filename);
 }
 
-#if (CC_TARGET_PLATFORM == CC_PLATFORM_WIN32)
+#if (CC_TARGET_PLATFORM == CC_PLATFORM_WIN32) || (CC_TARGET_PLATFORM == CC_PLATFORM_MAC)
 #include "glfw3native.h"
 
 // TAB 키를 누르면 resolution을 변경됨
@@ -298,10 +298,10 @@ void AppDelegate::onKeyPressed(EventKeyboard::KeyCode keyCode, Event* event)
 		glview->setViewName(simulatorScrSize.title);
 		wstring wstr = L"";
 		wstr.assign(simulatorScrSize.title.begin(), simulatorScrSize.title.end());
-
+#if (CC_TARGET_PLATFORM == CC_PLATFORM_WIN32)
 		HWND hWnd = glfwGetWin32Window(glview->getWindow());
 		SetWindowText(hWnd, wstr.c_str());
-
+#endif
 		glview->setFrameSize((float)width, (float)height);
 		glview->setDesignResolutionSize((float)width, (float)height, ResolutionPolicy::FIXED_WIDTH);
 		log("change resolution to %d,%d", width, height);

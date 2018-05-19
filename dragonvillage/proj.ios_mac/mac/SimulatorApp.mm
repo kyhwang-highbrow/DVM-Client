@@ -141,8 +141,8 @@ std::string getCurAppPath(void)
     [self createViewMenu];
     [self updateMenu];
 
-//    [_window becomeFirstResponder];
-//    [_window makeKeyAndOrderFront:self];
+    [_window becomeFirstResponder];
+    [_window makeKeyAndOrderFront:self];
 }
 
 - (void) openConsoleWindow
@@ -275,23 +275,32 @@ std::string getCurAppPath(void)
     //[window setTitle:[NSString stringWithFormat:@"quick-x-player (%0.0f%%)", projectConfig.getFrameScale() * 100]];
 }
 
+static void updateRelativeNode(Node* node)
+{
+    if (!node) return;
+
+    node->setRelativeSizeAndType(node->getRelativeSize(), node->getRelativeSizeType(), false);
+    node->setUpdateTransform();
+
+    auto& children = node->getChildren();
+    for (auto child = children.begin(); child != children.end(); ++child)
+    {
+        updateRelativeNode(*child);
+    }
+}
 
 - (void) updateView
 {
     auto policy = g_eglView->getResolutionPolicy();
-    auto designSize = g_eglView->getDesignResolutionSize();
-    
-    if (g_landscape)
-    {
-        g_eglView->setFrameSize(g_screenSize.width, g_screenSize.height);
-    }
-    else
-    {
-        g_eglView->setFrameSize(g_screenSize.height, g_screenSize.width);
-    }
-    
-    g_eglView->setDesignResolutionSize(designSize.width, designSize.height, policy);
-    
+
+    g_eglView->setFrameSize(g_screenSize.width, g_screenSize.height);
+    g_eglView->setDesignResolutionSize(g_screenSize.width, g_screenSize.height, policy);
+
+    auto engine = ScriptEngineManager::getInstance()->getScriptEngine();
+    engine->executeGlobalFunction("applicationDidChangeViewSize");
+
+    updateRelativeNode(Director::getInstance()->getRunningScene());
+
     [self updateMenu];
 }
 
