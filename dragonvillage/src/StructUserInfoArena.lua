@@ -267,12 +267,16 @@ function StructUserInfoArena:getRankText(detail)
         return '-'
 
     -- 100위 이하는 숫자 표기
-    elseif (self.m_rank <= 100) then
+    elseif (self.m_rank and self.m_rank <= 100) then
         return Str('{1}위', comma_value(self.m_rank))
 
     -- 그 이상은 퍼센트 표기
-    else
+    elseif (self.m_rankPercent) then
         return string.format('%.2f%%', self.m_rankPercent * 100)
+
+    -- 서버에서 rate 안오는 경우 일딴 하이픈 처리
+    else
+        return '-'
     end
 end
 
