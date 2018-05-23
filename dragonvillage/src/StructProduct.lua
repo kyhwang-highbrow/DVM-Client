@@ -108,7 +108,7 @@ end
 -------------------------------------
 -- function getEndDateStr
 -------------------------------------
-function StructProduct:getEndDateStr()
+function StructProduct:getEndDateStr(new_line)
     if (not self.m_endDate) then
         return ''
     end
@@ -131,7 +131,13 @@ function StructProduct:getEndDateStr()
     local cur_time =  Timer:getServerTime()
     local end_time = end_date['time']
     local time = (end_time - cur_time)
-    local msg = Str('판매 종료까지 {1} 남음', datetime.makeTimeDesc(time, false))
+
+    local msg
+    if (new_line) then
+        msg = Str('판매 종료까지\n{1} 남음', datetime.makeTimeDesc(time, false))
+    else
+        msg = Str('판매 종료까지 {1} 남음', datetime.makeTimeDesc(time, false))
+    end
 
     return msg
 end
