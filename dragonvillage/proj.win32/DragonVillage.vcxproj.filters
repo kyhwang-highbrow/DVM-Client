@@ -3538,6 +3538,9 @@
     <None Include="..\src\UI_FriendMatchReadyArena.lua">
       <Filter>lua\UI</Filter>
     </None>
+    <None Include="..\src\GameEnrageDirector.lua">
+      <Filter>lua\src</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Classes">

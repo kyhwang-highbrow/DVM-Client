@@ -413,6 +413,7 @@ local t_module = {
     'GameCamera',
     'GameTimeScale',
     'GameHighlightMgr',
+    'GameEnrageDirector',
     'DropItemMgr',
     'DropItemMgr_EventGold',
     'DropItemMgr_Intro',

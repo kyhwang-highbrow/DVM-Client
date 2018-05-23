@@ -356,7 +356,6 @@ function TargetRule_getTargetList_arena(org_list, t_data)
         -- 속성
         do
             local t_attr_effect, attr_synastry = v:checkAttributeCounter(self_char)
-
             -- 공격자 우세속성(+1)
             if (attr_synastry == 1) then
                 -- 속성 공격 타입 : 공격자 우세속성 우선순위가 +3 으로 상승 
@@ -425,7 +424,7 @@ function TargetRule_getTargetList_arena(org_list, t_data)
     end
 
     -- 로그
-    do
+    if (isWin32()) then
         cclog('-------------------------------------------------------')
         cclog('[ 아레나 공격 대상 선택 우선순위 계산 결과 ]')
         for i, target in ipairs(t_ret) do

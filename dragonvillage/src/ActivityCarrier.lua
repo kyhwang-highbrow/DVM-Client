@@ -31,6 +31,8 @@ ActivityCarrier = class({
         m_bIgnoreAll = 'bool',
 		m_bIgnoreDef = 'bool',
         m_bIgnoreAvoid = 'bool',
+        m_bIgnoreBarrier = 'bool',
+        m_bIgnoreRevive = 'bool',
         m_bDefiniteDeath = 'bool',  -- 피격 대상을 무조건 죽임
         
         m_realAttackType = 'str',
@@ -54,6 +56,8 @@ function ActivityCarrier:init()
     self.m_bIgnoreAll = false
 	self.m_bIgnoreDef = false
     self.m_bIgnoreAvoid = false
+    self.m_bIgnoreBarrier = false
+    self.m_bIgnoreRevive = false
     self.m_bDefiniteDeath = false
     self.m_tParam = {}
 end
@@ -423,6 +427,34 @@ end
 -------------------------------------
 function ActivityCarrier:isIgnoreAvoid()
 	return self.m_bIgnoreAvoid or self.m_bIgnoreAll
+end
+
+-------------------------------------
+-- function setIgnoreBarrier
+-------------------------------------
+function ActivityCarrier:setIgnoreBarrier(bool)
+	self.m_bIgnoreBarrier = bool
+end
+
+-------------------------------------
+-- function isIgnoreBarrier
+-------------------------------------
+function ActivityCarrier:isIgnoreBarrier()
+	return self.m_bIgnoreBarrier or self.m_bIgnoreAll
+end
+
+-------------------------------------
+-- function setIgnoreRevive
+-------------------------------------
+function ActivityCarrier:setIgnoreRevive(bool)
+	self.m_bIgnoreRevive = bool
+end
+
+-------------------------------------
+-- function isIgnoreRevive
+-------------------------------------
+function ActivityCarrier:isIgnoreRevive()
+	return self.m_bIgnoreRevive or self.m_bIgnoreAll
 end
 
 -------------------------------------

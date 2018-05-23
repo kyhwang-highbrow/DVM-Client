@@ -11,8 +11,9 @@ local FURY_EFFECT_START_TIME_FROM_BUFF_TIME = 4
 GameState_Arena = class(PARENT, {
         m_bWin = 'boolean',
 
-        m_bgEffect = '',            -- 배경 연출(광폭화)
-        m_bgEffectStartTime = '',   -- 배경 연출 시작 시간
+        -- 광폭화 배경 연출
+        m_tEnrageBgInfo = 'table',
+        m_enrageBgEffect = '',
     })
 
 -------------------------------------
@@ -21,20 +22,29 @@ GameState_Arena = class(PARENT, {
 function GameState_Arena:init(world)
     -- 콜로세움은 제한시간 3분으로 고정
     self.m_limitTime = 180
-
-    self.m_bgEffectStartTime = 0
 end
 
 -------------------------------------
--- function initBuffByFightTime
+-- function initEnrage
+-- @brief 광폭화 관련 초기화값 설정
 -------------------------------------
-function GameState_Arena:initBuffByFightTime()
-    PARENT.initBuffByFightTime(self)
+function GameState_Arena:initEnrage()
+    PARENT.initEnrage(self)
+
+    if (not self.m_bEnableEnrage) then return end
+
+    -- 배경 연출 정보 설정
+    do
+        local t_constant = g_constant:get('INGAME', 'FIGHT_BY_TIME_BUFF')
+        local t_info = t_constant['ARENA_BG_CHANGE_IDX']
+        
+        self.m_tEnrageBgInfo = t_info or {}
+    end
 
     -- 실제 버프 시간보다 이전에 연출되어야하는 것들을 처리하기 위한 하드코딩...
-    if (self.m_nextBuffTime) then
-        self.m_nextBuffTime = self.m_nextBuffTime - FURY_EFFECT_START_TIME_FROM_BUFF_TIME
-        self.m_nextBuffTime = math_max(self.m_nextBuffTime, 1)
+    for _, v in ipairs(self.m_tEnrageInfo) do
+        local time = v['time'] - FURY_EFFECT_START_TIME_FROM_BUFF_TIME
+        v['time'] = math_max(time, 1)
     end
 end
 
@@ -378,8 +388,8 @@ end
 function GameState_Arena:pause()
     PARENT.pause(self)
 
-    if (self.m_bgEffect) then
-        self.m_bgEffect.m_node:pause()
+    if (self.m_enrageBgEffect) then
+        self.m_enrageBgEffect.m_node:pause()
     end
 end
 
@@ -389,8 +399,8 @@ end
 function GameState_Arena:resume()
     PARENT.resume(self)
 
-    if (self.m_bgEffect) then
-        self.m_bgEffect.m_node:resume()
+    if (self.m_enrageBgEffect) then
+        self.m_enrageBgEffect.m_node:resume()
     end
 end
 
@@ -426,38 +436,42 @@ function GameState_Arena:makeResultUI(is_win)
     end
 end
 
-
 -------------------------------------
--- function applyBuffByFightTime
--- @brief 주기시간에 따른 추가 버프를 적용
+-- function applyEnrage
+-- @brief 광폭화 적용
 -------------------------------------
-function GameState_Arena:applyBuffByFightTime()
-    if (self.m_bgEffectStartTime == self.m_nextBuffTime) then return end
-    self.m_bgEffectStartTime = self.m_nextBuffTime
+function GameState_Arena:applyEnrage()
+    local t_info = table.remove(self.m_tEnrageInfo, 1)
+    if (not t_info) then return false end
 
     -- 연출 먼저 시작 후 중간에 버프 적용
-    if (not self.m_bgEffect) then
+    if (not self.m_enrageBgEffect) then
         local cameraHomePosX, cameraHomePosY = self.m_world.m_gameCamera:getHomePos()
 
-        self.m_bgEffect = MakeAnimator('res/bg/colosseum_2/colosseum_2.vrp')
-        self.m_bgEffect:setPosition(cameraHomePosX + (CRITERIA_RESOLUTION_X / 2), cameraHomePosY)
-        self.m_bgEffect:setDockPoint(cc.p(0.5, 0.5))
-		self.m_bgEffect:setAnchorPoint(cc.p(0.5, 0.5))
-        self.m_world.m_worldNode:addChild(self.m_bgEffect.m_node, WORLD_Z_ORDER.FRONT_EFFECT)
+        self.m_enrageBgEffect = MakeAnimator('res/bg/colosseum_2/colosseum_2.vrp')
+        self.m_enrageBgEffect:setPosition(cameraHomePosX + (CRITERIA_RESOLUTION_X / 2), cameraHomePosY)
+        self.m_enrageBgEffect:setDockPoint(cc.p(0.5, 0.5))
+		self.m_enrageBgEffect:setAnchorPoint(cc.p(0.5, 0.5))
+        self.m_world.m_worldNode:addChild(self.m_enrageBgEffect.m_node, WORLD_Z_ORDER.FRONT_EFFECT)
     end
 
-    self.m_bgEffect:changeAni('change', false)
-    self.m_bgEffect:runAction(cc.Sequence:create(cc.DelayTime:create(FURY_EFFECT_START_TIME_FROM_BUFF_TIME), cc.CallFunc:create(function()
+    self.m_enrageBgEffect:changeAni('change', false)
+    self.m_enrageBgEffect:runAction(cc.Sequence:create(cc.DelayTime:create(FURY_EFFECT_START_TIME_FROM_BUFF_TIME), cc.CallFunc:create(function()
         if (self:isFight()) then
-            PARENT.applyBuffByFightTime(self)
-
-            -- 실제 버프 시간보다 이전에 연출되어야하는 것들을 처리하기 위한 하드코딩...
-            self.m_nextBuffTime = self.m_nextBuffTime - FURY_EFFECT_START_TIME_FROM_BUFF_TIME
-            self.m_nextBuffTime = math_max(self.m_nextBuffTime, 1)
+            PARENT.applyEnrage(self, t_info)
         end
     end)))
 
     -- 배경 흔들림
-    local level = self.m_buffCount + 1
+    local level = 0
+
+    for i = #self.m_tEnrageBgInfo, 1, -1 do
+        local v = self.m_tEnrageBgInfo[i]
+        if (v == self.m_nAccumEnrage + 1) then
+            level = i
+            break
+        end
+    end
+
     self.m_world.m_mapManager:setDirecting('colosseum_fury_' .. level)
 end

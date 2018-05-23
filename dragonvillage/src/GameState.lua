@@ -54,13 +54,13 @@ GameState = class(PARENT, {
 
         m_lBossLabel = 'table',
         m_bossNode = '',
-
-        -- 전투 시간에 따른 버프 정보
-        m_bEnableByFightTime = 'boolean',
-        m_tBuffInfoByFightTime = 'table',
-        m_nextBuffTime = 'number',
-        m_buffCount = 'number',
-        m_maxBuffCount = 'number',
+        
+        -- 광폭화 정보
+        m_bEnableEnrage = 'boolean',
+        m_tEnrageInfo = 'table',
+        m_nAccumEnrage = 'number',  -- 현재까지 누적된 광폭화 카운트
+        m_mAccumEnrage = 'table',   -- 현재까지 누적된 광폭화 정보(중간에 난입하는 경우 누적된 광폭화 버프를 적용하기 위함)
+        m_enrageDirector = 'GameEnrageDirector',
     })
 
 -------------------------------------
@@ -80,10 +80,14 @@ function GameState:init(world)
     self.m_nAppearedEnemys = 0
 
 	self.m_bgmBoss = 'bgm_dungeon_boss'
-    self.m_bEnableByFightTime = false
+
+    self.m_bEnableEnrage = false
+    self.m_tEnrageInfo = {}
+    self.m_nAccumEnrage = 0
+    self.m_mAccumEnrage = {}
 
     self:initUI()
-    self:initBuffByFightTime()
+    self:initEnrage()
     self:initState()
 end
 
@@ -139,58 +143,49 @@ function GameState:initUI()
                 
     self.m_waveMaxNum = MakeAnimator('res/ui/a2d/ingame_text/ingame_text.vrp')
     self.m_waveNoti.m_node:bindVRP('max_number', self.m_waveMaxNum.m_node)
+
+    -- 광폭화 연출
+    self.m_enrageDirector = GameEnrageDirector()
 end
 
 -------------------------------------
--- function initBuffByFightTime
+-- function initEnrage
+-- @brief 광폭화 관련 초기화값 설정
 -------------------------------------
-function GameState:initBuffByFightTime()
-    self.m_tBuffInfoByFightTime = {}
-
+function GameState:initEnrage()
     local t_constant = g_constant:get('INGAME', 'FIGHT_BY_TIME_BUFF')
-    self.m_bEnableByFightTime = t_constant['ENABLE'] or false
-
-    if (not self.m_bEnableByFightTime) then return end
-
     local game_mode = self.m_world.m_gameMode
     local str_game_mode = IN_GAME_MODE[game_mode]
-
     local t_info = t_constant[str_game_mode] or t_constant['DEFAULT']
-    if (not t_info) then
-        self.m_bEnableByFightTime = false
-        return
-    end
-    
-    self.m_tBuffInfoByFightTime['start_time'] = t_info['START_TIME'] or 3
-    self.m_tBuffInfoByFightTime['random_time'] = t_info['RANDOM_TIME'] or 0
-    self.m_tBuffInfoByFightTime['interval_time'] = t_info['INTERVAL_TIME']
-    self.m_tBuffInfoByFightTime['cur_buff'] = {}   -- 현재까지 부여된 버프 정보
-    self.m_tBuffInfoByFightTime['add_buff'] = {}   -- 시간마다 부여될 버프 정보
 
-    local list = t_info['BUFF'] or {}
+    if (not t_info) then return end
+    if (not t_constant['ENABLE']) then return end
 
-    for i, v in ipairs(list) do
-        local l_str = seperate(v, ';')
-        local buff_type = l_str[1]
-        local buff_value = l_str[2]
+    self.m_bEnableEnrage = true
 
-        self.m_tBuffInfoByFightTime['add_buff'][buff_type] = buff_value
-    end
+    for time, l_str_buff in pairs(t_info) do
+        local data = {
+            time = time,
+            buff = {}
+        }
 
-    self.m_nextBuffTime = self.m_tBuffInfoByFightTime['start_time']
+        for _, str_buff in ipairs(l_str_buff) do
+            local l_str = seperate(str_buff, ';')
+            local buff_type = l_str[1]
+            local buff_value = l_str[2]
 
-    -- 랜덤 시간 적용
-    local random_time = self.m_tBuffInfoByFightTime['random_time']
-    if (random_time > 0) then
-        local random = math_random(1, random_time)
-        self.m_nextBuffTime = self.m_nextBuffTime + (random - random_time / 2)
-        self.m_nextBuffTime = math_max(self.m_nextBuffTime, 0)
+            data['buff'][buff_type] = buff_value
+        end
+
+        table.insert(self.m_tEnrageInfo, data)
     end
 
-    self.m_buffCount = 0
-    self.m_maxBuffCount = t_info['REPEAT_COUNT'] or 9999
-
-    --cclog('self.m_tBuffInfoByFightTime = ' .. luadump(self.m_tBuffInfoByFightTime))
+    -- 시간으로 소팅
+    if (#self.m_tEnrageInfo > 1) then
+        table.sort(self.m_tEnrageInfo, function(a, b)
+            return a['time'] < b['time']
+        end)
+    end
 end
 
 -------------------------------------
@@ -386,12 +381,8 @@ function GameState.update_fight(self, dt)
     end
 
     -- 전투 시간에 따른 버프
-    if (self.m_bEnableByFightTime) then
-        if (self.m_buffCount < self.m_maxBuffCount) then
-            if (self.m_nextBuffTime and self.m_fightTimer > self.m_nextBuffTime) then
-                self:applyBuffByFightTime()
-            end
-        end
+    if (self:checkEnrage()) then
+        self:applyEnrage()
     end
     
     -- 클리어 여부 체크
@@ -1368,16 +1359,33 @@ function GameState:getBossAnimator()
     return animator
 end
 
--------------------------------------
--- function applyBuffByFightTime
--- @brief 주기시간에 따른 추가 버프를 적용
--------------------------------------
-function GameState:applyBuffByFightTime()
-    local world = self.m_world
-    local add_buff = self.m_tBuffInfoByFightTime['add_buff']
-    local cur_buff = self.m_tBuffInfoByFightTime['cur_buff']
 
-    for type, value in pairs(add_buff) do
+-------------------------------------
+-- function checkEnrage
+-- @brief 광폭화 적용 여부 확인
+-------------------------------------
+function GameState:checkEnrage()
+    if (not self.m_bEnableEnrage) then return false end
+    if (table.isEmpty(self.m_tEnrageInfo)) then return false end
+
+    -- 적용 시간이 되었는지 체크
+    local t_info = self.m_tEnrageInfo[1]
+    if (self.m_fightTimer < t_info['time']) then return false end
+
+    return true
+end
+
+-------------------------------------
+-- function applyEnrage
+-- @brief 광폭화 적용
+-------------------------------------
+function GameState:applyEnrage(t_info)
+    local t_info = t_info or table.remove(self.m_tEnrageInfo, 1)
+    if (not t_info) then return false end
+
+    local world = self.m_world
+
+    for type, value in pairs(t_info['buff']) do
         local status, action = TableOption():parseOptionKey(type)
         local str_buff_name = TableOption():getValue(type, 't_name')
         
@@ -1411,58 +1419,39 @@ function GameState:applyBuffByFightTime()
             end
         end
 
-        -- 현재까지 누적 버프 수치를 합산
+        -- 광폭화 버프 누적 정보에 추가
         do
-            if (not cur_buff[type]) then
-                cur_buff[type] = 0
+            if (not self.m_mAccumEnrage[type]) then
+                self.m_mAccumEnrage[type] = 0
             end
 
-            cur_buff[type] = cur_buff[type] + value
+            self.m_mAccumEnrage[type] = self.m_mAccumEnrage[type] + value
         end
     end
-    self.m_buffCount = self.m_buffCount + 1
-     
-    -- 다음 버프 적용 시간 계산
-    local start_time = self.m_tBuffInfoByFightTime['start_time']
-    local random_time = self.m_tBuffInfoByFightTime['random_time']
-    local interval_time = self.m_tBuffInfoByFightTime['interval_time']
 
-    if (interval_time) then
-        self.m_nextBuffTime = start_time + interval_time * self.m_buffCount
+    -- 광폭화 버프 누적 카운트 갱신
+    self.m_nAccumEnrage = self.m_nAccumEnrage + 1
 
-        if (random_time > 0) then
-            local random = math_random(1, random_time)
-            self.m_nextBuffTime = self.m_nextBuffTime + (random - random_time / 2)
-            self.m_nextBuffTime = math_max(self.m_nextBuffTime, 0)
-        end
-    else
-        self.m_nextBuffTime = nil
+    -- 연출
+    if (self.m_enrageDirector) then
+        self.m_enrageDirector:doWork()
     end
 
-    -- 버프 연출
-    self:doDirectionForBuff()
+    return true
 end
 
-
 -------------------------------------
--- function applyAccumBuffByFightTime
--- @brief 현재까지의 누적 버프를 적용
+-- function applyAccumEnrage
+-- @brief 현재까지 누적된 광폭화 버프를 적용
 -------------------------------------
-function GameState:applyAccumBuffByFightTime(unit)
-    local cur_buff = self.m_tBuffInfoByFightTime['cur_buff']
-    if (not cur_buff) then return end
+function GameState:applyAccumEnrage(unit)
+    local accum_buff = self.m_mAccumEnrage
+    if (not accum_buff) then return end
 
-    for type, value in pairs(cur_buff) do
+    for type, value in pairs(accum_buff) do
         local status, action = TableOption:parseOptionKey(type)
         unit.m_statusCalc:addOption(action, status, value)
     end
-end
-
--------------------------------------
--- function doDirectionForBuff
--- @brief 버프 연출을 적용
--------------------------------------
-function GameState:doDirectionForBuff()
 end
 
 -------------------------------------

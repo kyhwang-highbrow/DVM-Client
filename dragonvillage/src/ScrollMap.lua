@@ -120,17 +120,12 @@ function ScrollMap:setDirecting(directing_type)
     -- [콜로세움 광폭화 연출용]
     elseif (string.find(self.m_bgDirectingType, 'colosseum_fury')) then
         local level = tonumber(string.match(self.m_bgDirectingType, '%d'))
-        local ani_idx
-
-        if (level == 1) then        ani_idx = 1
-        elseif (level == 3) then    ani_idx = 2
-        end
-
-        if (ani_idx) then
+        
+        if (level > 0) then
             local map_layer = self.m_tMapLayer[1]
-		    map_layer.m_animator:changeAni('appear_' .. ani_idx, false)
+		    map_layer.m_animator:changeAni('appear_' .. level, false)
             map_layer.m_animator:addAniHandler(function()
-                map_layer.m_animator:changeAni('idle_' .. ani_idx, true)
+                map_layer.m_animator:changeAni('idle_' .. level, true)
             end)
 		end
 

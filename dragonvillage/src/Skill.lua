@@ -135,6 +135,10 @@ function Skill:initActvityCarrier()
 	-- 방어 무시 -> 차후에 좀더 구조화 해서 늘려나감
 	if (self.m_powerIgnore == 'def') then 
 		self.m_activityCarrier:setIgnoreDef(true)
+    elseif (self.m_powerIgnore == 'barrier') then 
+		self.m_activityCarrier:setIgnoreBarrier(true)
+    elseif (self.m_powerIgnore == 'resurrect') then 
+		self.m_activityCarrier:setIgnoreRevive(true)
 	end
 end
 

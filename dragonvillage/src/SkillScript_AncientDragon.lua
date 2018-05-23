@@ -61,6 +61,12 @@ function SkillScript_AncientDragon:init_skill(script_name, duration)
     -- 게이지 생성
     if (not self.m_hpGaugeFrame) then
         self.m_hpGaugeFrame = cc.Sprite:createWithSpriteFrameName('ingame_cha_info_hp_gg_0101.png')
+
+        if (not self.m_hpGaugeFrame) then
+            cc.SpriteFrameCache:getInstance():addSpriteFrames('res/ui/a2d/ingame_cha_info/ingame_cha_info.plist')
+            self.m_hpGaugeFrame = cc.Sprite:createWithSpriteFrameName('ingame_cha_info_hp_gg_0101.png')
+        end
+
         self.m_hpGaugeFrame:setPosition(-35, -25)
         self.m_hpGaugeFrame:setAnchorPoint(cc.p(0, 0.5))
         self.m_hpGaugeFrame:setDockPoint(cc.p(0, 0.5))
@@ -68,6 +74,12 @@ function SkillScript_AncientDragon:init_skill(script_name, duration)
     end
     if (not self.m_hpGauge) then
         self.m_hpGauge = cc.Sprite:createWithSpriteFrameName('ingame_cha_info_hp_gg_0104.png')
+
+        if (not self.m_hpGaugeFrame) then
+            cc.SpriteFrameCache:getInstance():addSpriteFrames('res/ui/a2d/ingame_cha_info/ingame_cha_info.plist')
+            self.m_hpGauge = cc.Sprite:createWithSpriteFrameName('ingame_cha_info_hp_gg_0104.png')
+        end
+
         self.m_hpGauge:setPosition(-32, -25)
         self.m_hpGauge:setAnchorPoint(cc.p(0, 0.5))
         self.m_hpGauge:setDockPoint(cc.p(0, 0.5))

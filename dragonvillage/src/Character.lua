@@ -612,7 +612,7 @@ function Character:undergoAttack(attacker, defender, i_x, i_y, body_key, no_even
     end
     
     -- 무적 상태 체크
-    if (attack_activity_carrier:isIgnoreAll()) then
+    if (attack_activity_carrier:isIgnoreBarrier()) then
         -- 무적 무시
     elseif (self.m_isProtected) then
         self:makeShieldFont(i_x, i_y)
@@ -620,7 +620,7 @@ function Character:undergoAttack(attacker, defender, i_x, i_y, body_key, no_even
     end
 
     -- 수호(guard) 상태 체크
-    if (attack_activity_carrier:isIgnoreAll()) then
+    if (attack_activity_carrier:isIgnoreBarrier()) then
         -- 수호 무시
 
     elseif (not is_guard and self:checkGuard(attacker, defender)) then
@@ -924,7 +924,7 @@ function Character:undergoAttack(attacker, defender, i_x, i_y, body_key, no_even
     t_event['body_key'] = body_key
 	
 	-- 방어와 관련된 이벤트 처리후 데미지 계산
-	if (not attack_activity_carrier:isIgnoreAll()) then
+	if (not attack_activity_carrier:isIgnoreBarrier()) then
 		-- @EVENT 방어 이벤트
 		self:dispatch('hit_barrier', t_event)
 	
@@ -1136,10 +1136,16 @@ function Character:setDamage(attacker, defender, i_x, i_y, damage, t_info)
 		        
 		self:setHp(self.m_hp - damage, t_info['is_definite_death'])
 
-        -- 체력을 0으로 만들었을 시 로그
+        -- 체력을 0으로 만들었을 시
         if (prev_hp > 0 and self:isZeroHp()) then
             local damage = math_min(damage, self.m_hp)
             local attack_type = t_info['attack_type']
+
+            if (attacker) then
+                if (attacker.m_activityCarrier:isIgnoreRevive()) then
+                    self.m_bPossibleRevive = false
+                end
+            end
 
             -- @LOG : 보스 막타 타입
 		    if (self:isBoss()) then
