@@ -123,7 +123,7 @@ function SkillIndicator_AoEWedge:optimizeIndicatorData(l_target, fixed_target)
 
         table.insert(l_dir, getAdjustDegree(temp))
 
-        dir = dir + 2    
+        dir = dir + 1    
     end
 
     -- 각도 리스트를 한번 섞는다(랜덤한 위치로 사용되도록 하기 위함)

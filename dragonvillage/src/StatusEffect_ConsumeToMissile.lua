@@ -31,15 +31,7 @@ end
 -- @breif 미사일을 발사할 대상을 설정
 -------------------------------------
 function StatusEffect_ConsumeToMissile:init_statusEffect(caster, l_collision)
-    if (not l_collision) then
-        local l_target = self.m_owner:getTargetListByType('enemy_random')
-        local pos_x = caster.pos.x
-        local pos_y = caster.pos.y
-
-        l_collision = SkillTargetFinder:getCollisionFromTargetList(l_target, pos_x, pos_y, true)
-    end
-
-    self.m_lCollision = l_collision
+    self.m_lCollision = l_collision or {}
 end
 
 -------------------------------------

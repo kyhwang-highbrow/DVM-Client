@@ -16,6 +16,8 @@ UI_GameDPSListItem = class(PARENT, {
 -- function init
 -------------------------------------
 function UI_GameDPSListItem:init(dragon)
+    cc.SpriteFrameCache:getInstance():addSpriteFrames('res/ui/a2d/ingame_btn/ingame_btn.plist')
+
     local vars = self:load('ingame_dps_info_item.ui', false, true, true)
 
 	self.m_dragonData = dragon

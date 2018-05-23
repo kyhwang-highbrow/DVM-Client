@@ -355,7 +355,7 @@ function TargetRule_getTargetList_arena(org_list, t_data)
 
         -- 속성
         do
-            local t_attr_effect, attr_synastry = self_char:checkAttributeCounter(v)
+            local t_attr_effect, attr_synastry = v:checkAttributeCounter(self_char)
 
             -- 공격자 우세속성(+1)
             if (attr_synastry == 1) then
@@ -399,7 +399,7 @@ function TargetRule_getTargetList_arena(org_list, t_data)
             end
 
             -- 무적, 좀비(-5)
-            if (is_invincibility or v:isExistStatusEffectName('zombie')) then
+            if (is_invincibility or v.m_isZombie) then
                 v.m_sortValue = v.m_sortValue - 5
             end
         end

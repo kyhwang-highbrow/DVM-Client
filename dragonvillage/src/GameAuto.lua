@@ -82,8 +82,6 @@ end
 -- function prepare
 -------------------------------------
 function GameAuto:prepare(unit_list)
-    local count = unit_list and #unit_list or 0
-    cclog('GameAuto:prepare : ' .. count)
     self.m_lUnitList = unit_list
     self.m_teamState = 0
 

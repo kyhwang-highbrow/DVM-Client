@@ -434,6 +434,8 @@ function SkillIndicator:setIndicatorData(x, y)
     self.m_targetChar = char
     self.m_critical = nil
     self.m_bDirty = true
+
+    self:onTouchMoved(x, y)
 end
 
 -------------------------------------
@@ -455,6 +457,8 @@ function SkillIndicator:setIndicatorDataByChar(char)
     self.m_targetChar = char
     self.m_critical = nil
     self.m_bDirty = true
+
+    self:onTouchMoved(x, y)
 end
 
 -------------------------------------
@@ -700,9 +704,27 @@ end
 -- @brief l_target의 대상들을 가장 많이 피격할 수 있도록 인디케이터 정보를 세팅
 -------------------------------------
 function SkillIndicator:setIndicatorDataByAuto(l_target, target_count, fixed_target)
-    -- 인디케이터 별로 정의된 최적의 위치정보로 설정
-    if (#l_target > 1 and target_count > 1 and self:optimizeIndicatorData(l_target, fixed_target)) then
-        return true
+    local bPass = false
+
+    -- 스킬 피격 대상이 한명인 경우
+    if (target_count == 1) then
+        bPass = true
+
+    -- 대상이 하나이고 하나의 충돌영역만 가진 경우는 
+    elseif (#l_target == 1) then
+        local target = l_target[1]
+        local body_list = target:getBodyList()
+
+        if (#body_list == 1) then
+            bPass = true
+        end
+    end
+
+    if (not bPass) then
+        -- 최적의 위치를 찾아서 인디케이터 정보를 설정(확정 대상을 포함한 최대한 많은 대상)
+        if (self:optimizeIndicatorData(l_target, fixed_target)) then
+            return true
+        end
     end
 
     -- 최적의 대상을 얻고 그 대상을 기준으로 인디케이터 정보 설정
@@ -734,7 +756,6 @@ function SkillIndicator:getBestTargetForAuto(l_target, fixed_target)
 
     for _, target in ipairs(l_target) do
         self:setIndicatorDataByChar(target)
-        self:getTargetForHighlight() -- 타겟 리스트를 사용하지 않고 충돌리스트 수로 체크
 
         local list = self.m_collisionList or {}
         local count = #list
