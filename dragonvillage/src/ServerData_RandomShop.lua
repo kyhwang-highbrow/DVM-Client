@@ -9,6 +9,8 @@ ServerData_RandomShop = class({
         m_bDirty = 'boolean',
     })
 
+local REFRESH_TIME_SAVE_KEY = 'random_shop_expired'
+
 -------------------------------------
 -- function init
 -------------------------------------
@@ -80,11 +82,29 @@ function ServerData_RandomShop:response_shopInfo(ret)
     -- 갱신 시간
     if (ret['info'] and ret['info']['expired_at']) then
         self.m_refreshTime = ret['info']['expired_at']
+
+        -- 상점 하일라이트 노티 갱신을 위해 로컬 데이터로 저장 
+        g_settingData:applySettingData(self.m_refreshTime, REFRESH_TIME_SAVE_KEY)
     end
 
     -- 갱신 비용
     if (ret['refresh_price']) then
         self.m_refreshPrice = ret['refresh_price']
+    end
+end
+
+-------------------------------------
+-- function isHightlightShop
+-------------------------------------
+function ServerData_RandomShop:isHightlightShop()
+    local refresh_time = g_settingData:get(REFRESH_TIME_SAVE_KEY)
+    if (refresh_time) then
+        local curr_time = Timer:getServerTime()
+        local _refresh_time = (refresh_time / 1000)
+        return (curr_time > _refresh_time) 
+    else
+        -- 로컬에 저장된 값이 없다면 하일라이트 노티 켜줌 (진입 유도)
+        return true
     end
 end
 

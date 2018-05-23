@@ -407,7 +407,7 @@ function UI_Lobby:initButton()
     vars['ddayBtn']:registerScriptTapHandler(function() self:click_ddayBtn() end) -- 출석 이벤트탭 이동
     vars['dailyShopBtn']:registerScriptTapHandler(function() self:click_dailyShopBtn() end) -- 일일 상점
     vars['randomShopBtn']:registerScriptTapHandler(function() self:click_randomShopBtn() end) -- 랜덤 상점
-    vars['randomShopBtn']:setVisible(IS_TEST_MODE()) -- test
+    vars['randomShopBtn']:setVisible(true)
 
     do -- 기타 UI
         local etc_vars = self.m_etcExpendedUI.vars
@@ -1067,6 +1067,11 @@ function UI_Lobby:update(dt)
         vars['capsuleBoxNotiSprite']:setVisible(visible)
     end
     
+    -- 랜덤 상점 노티 (상품 갱신시)
+    do
+        vars['randomShopNotiSprite']:setVisible(g_randomShopData:isHightlightShop())
+    end
+
     -- 광고 (자동재화, 선물상자 정보)
     do
         -- 자동줍기
