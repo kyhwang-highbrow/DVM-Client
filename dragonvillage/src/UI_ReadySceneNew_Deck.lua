@@ -663,7 +663,7 @@ end
 -------------------------------------
 function UI_ReadySceneNew_Deck:checkChangeDeck(next_func)
     local l_deck, formation, deckname, leader, tamer_id = g_deckData:getDeck()
-    local b_arena = (self.m_uiReadyScene.m_stageID == ARENA_STAGE_ID and true or false)
+    local b_arena = self.m_uiReadyScene.m_bArena
 
     local formation_lv = b_arena and 1 or g_formationData:getFormationInfo(formation)['formation_lv']
     -- 최소 1명 출전 확인 (일단 콜로세움만)
@@ -911,7 +911,7 @@ function UI_ReadySceneNew_Deck:getRotatedPosList(formation)
 	local vars = self.m_uiReadyScene.vars
 	local formation = formation or self.m_currFormation
     local interval = 110
-    local b_arena = (self.m_uiReadyScene.m_stageID == ARENA_STAGE_ID and true or false)
+    local b_arena = self.m_uiReadyScene.m_bArena
     local t_table = b_arena and TableFormationArena() or TableFormation()
     local l_pos_list = t_table:getFormationPositionListNew(formation, interval)
 
@@ -1163,7 +1163,7 @@ function UI_ReadySceneNew_Deck:getDeckCombatPower()
         end
     end
 
-    local b_arena = (self.m_uiReadyScene.m_stageID == ARENA_STAGE_ID and true or false)
+    local b_arena = self.m_uiReadyScene.m_bArena
     -- 진형
     if (not b_arena) then
         local l_formation = g_formationData:getFormationInfoList()

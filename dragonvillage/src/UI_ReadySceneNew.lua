@@ -22,6 +22,7 @@ UI_ReadySceneNew = class(PARENT,{
         m_bWithFriend = 'boolean',
         m_bUseCash = 'boolean',
         m_gameMode = 'number',
+        m_bArena = 'boolean',
 
         -- 멀티덱 사용하는 경우 (클랜 던전, 고대 유적 던전)
         m_multiDeckMgr = 'MultiDeckMgr',
@@ -43,6 +44,12 @@ function UI_ReadySceneNew:init(stage_id, sub_info)
     -- 모험모드에서만 친구사용
     self.m_bWithFriend = (self.m_gameMode == GAME_MODE_ADVENTURE) and true or false
     self.m_bUseCash = false
+
+    -- 아레나모드 (콜로세움 진입, 친구대전 진입시)
+    self.m_bArena = false
+    if (stage_id == ARENA_STAGE_ID or stage_id == FRIEND_MATCH_STAGE_ID) then
+        self.m_bArena = true
+    end
 
     local vars = self:load('battle_ready_new.ui')
     UIManager:open(self, UIManager.SCENE)
@@ -660,9 +667,8 @@ function UI_ReadySceneNew:refresh_buffInfo()
 	end
 
 	-- 진형 버프
-    local b_arena = (self.m_stageID == ARENA_STAGE_ID and true or false)
     -- 콜로세움 (신규) - 버프 없어서 이름 표시
-	if (b_arena) then
+	if (self.m_bArena) then
         local l_formation = g_formationArenaData:getFormationInfoList()
 		local curr_formation = self.m_readySceneDeck.m_currFormation
 		local formation_data = l_formation[curr_formation]  
@@ -1126,9 +1132,8 @@ end
 function UI_ReadySceneNew:click_fomationBtn()
 	-- m_readySceneDeck에서 현재 formation 받아와 전달
 	local curr_formation_type = self.m_readySceneDeck.m_currFormation
-    local b_arena = (self.m_stageID == ARENA_STAGE_ID and true or false)
     local ui
-	if (b_arena) then
+	if (self.m_bArena) then
         ui = UI_FormationArenaPopup(curr_formation_type)
     else
         ui = UI_FormationPopup(curr_formation_type)

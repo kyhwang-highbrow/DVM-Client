@@ -62,10 +62,11 @@ function UI_FriendMatchReadyArena:initUI()
     -- 스태미나 갯수
     vars['actingPowerLabel']:setString('1')
 
+    local b_arena = true
     do -- 플레이어 유저 덱
         local t_pvp_deck = g_friendMatchData.m_playerUserInfo.m_pvpDeck
 
-        local player_2d_deck = UI_2DDeck()
+        local player_2d_deck = UI_2DDeck(nil, b_arena)
         player_2d_deck:setDirection('left')
         vars['formationNode1']:addChild(player_2d_deck.root)
         player_2d_deck:initUI()
@@ -86,7 +87,7 @@ function UI_FriendMatchReadyArena:initUI()
     do -- 상대방 유저 덱
         local t_pvp_deck = g_friendMatchData.m_matchInfo.m_pvpDeck
 
-        local player_2d_deck = UI_2DDeck()
+        local player_2d_deck = UI_2DDeck(nil, b_arena)
         player_2d_deck:setDirection('right')
         vars['formationNode2']:addChild(player_2d_deck.root)
         player_2d_deck:initUI()
