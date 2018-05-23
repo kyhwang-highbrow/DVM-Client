@@ -10,7 +10,6 @@ UI_RandomShop = class(PARENT,{
         m_selectItem = 'StructRandomShopItem',
     })
 
-local NEED_REFRESH_VALUE = 50
 local NEED_REFRESH_TYPE = 'cash'
 -------------------------------------
 -- function init
@@ -53,7 +52,7 @@ function UI_RandomShop:initUI()
     do -- 새로고침
         local icon = IconHelper:getPriceIcon(NEED_REFRESH_TYPE)
         vars['refreshPriceNode']:addChild(icon)
-        vars['refreshPriceLabel']:setString(comma_value(NEED_REFRESH_VALUE))
+        vars['refreshPriceLabel']:setString(comma_value(g_randomShopData.m_refreshPrice))
     end
 
     do -- 나르비 테이머 추가
@@ -319,7 +318,7 @@ end
 -------------------------------------
 function UI_RandomShop:click_refreshBtn()
     -- 재화 부족
-    if (not ConfirmPrice(NEED_REFRESH_TYPE, NEED_REFRESH_VALUE)) then
+    if (not ConfirmPrice(NEED_REFRESH_TYPE, g_randomShopData.m_refreshPrice)) then
         return
     end
 
@@ -335,7 +334,7 @@ function UI_RandomShop:click_refreshBtn()
     end
 
     local msg = Str('새로운 상품으로 교체하시겠습니까?')
-    UI_ConfirmPopup(NEED_REFRESH_TYPE, NEED_REFRESH_VALUE, msg, ok_btn_cb)
+    UI_ConfirmPopup(NEED_REFRESH_TYPE, g_randomShopData.m_refreshPrice, msg, ok_btn_cb)
 end
 
 -------------------------------------

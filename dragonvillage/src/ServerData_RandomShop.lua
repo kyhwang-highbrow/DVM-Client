@@ -5,6 +5,7 @@ ServerData_RandomShop = class({
         m_serverData = 'ServerData',
         m_productList = 'table',
         m_refreshTime = 'number',
+        m_refreshPrice = 'number',
         m_bDirty = 'boolean',
     })
 
@@ -13,6 +14,7 @@ ServerData_RandomShop = class({
 -------------------------------------
 function ServerData_RandomShop:init(server_data)
     self.m_serverData = server_data
+    self.m_refreshPrice = 100
     self.m_bDirty = false
 end
 
@@ -78,6 +80,11 @@ function ServerData_RandomShop:response_shopInfo(ret)
     -- 갱신 시간
     if (ret['info'] and ret['info']['expired_at']) then
         self.m_refreshTime = ret['info']['expired_at']
+    end
+
+    -- 갱신 비용
+    if (ret['refresh_price']) then
+        self.m_refreshPrice = ret['refresh_price']
     end
 end
 
