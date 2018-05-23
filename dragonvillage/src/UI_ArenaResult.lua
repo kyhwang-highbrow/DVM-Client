@@ -277,7 +277,7 @@ function UI_ArenaResult:direction_winReward()
 
 	-- 주간 승리 보상 (승수에 따라 고정 지급)
 	local ui = UI()
-	ui:load('colosseum_win_reward_popup.ui')
+	ui:load('arena_play_reward_popup.ui')
 	UIManager:open(ui, UIManager.POPUP)
 
 	-- backkey 지정
@@ -288,7 +288,7 @@ function UI_ArenaResult:direction_winReward()
 		local win = t_data['season']['win']
         local lose = t_data['season']['lose']
 
-		ui.vars['winLabel']:setString(Str('콜로세움 {1}회 플레이', win + lose))
+		ui.vars['playLabel']:setString(Str('콜로세움 {1}회 참여 보상', win + lose))
 
 		-- 보상 아이템 표기
 		local t_item = t_data['mail_item_info'][1]
@@ -309,7 +309,7 @@ function UI_ArenaResult:direction_winReward()
 			local pos_x = UIHelper:getCardPosX(total_cnt, idx)
 			card.root:setPositionX(pos_x)
 
-			ui.vars['winLabel']:setString(Str('콜로세움 주간 승리 보상'))
+			ui.vars['playLabel']:setString(Str('콜로세움 주간 참여 보상'))
 			ui.vars['rewardFrameNode']:setVisible(false)
 			ui.vars['rankRewardLabel']:setVisible(false)
 		end
