@@ -169,29 +169,51 @@ function UI_Product:refresh()
     do -- 구매 제한 설명 텍스트
         vars['maxBuyTermLabel']:setVisible(false)
 
-        -- 구매 제한 텍스트
-        local str = struct_product:getMaxBuyTermStr()
+        local full_str = ''
 
         -- 상품 설명
 	    local product_desc = struct_product:getDesc()
 
-        -- 상품 설명 + 구매 제한 텍스트 합침
-        if str and (str ~= '') then
-            local rich_str = product_desc
-            if rich_str and (rich_str ~= '') then
-                rich_str = rich_str .. '\n'
+        -- 기간 한정 텍스트
+        local period_str = struct_product:getEndDateStr()
+        if period_str and (period_str ~= '') then
+            if full_str == '' then
+                full_str = product_desc
+            end
+
+            if full_str and (full_str ~= '') then
+                full_str = full_str .. '\n'
+            end
+
+            -- 기간한정 텍스트 컬러 변경
+            local color_key = '{@yellow}'
+
+            full_str = full_str .. color_key .. period_str
+        end
+
+        -- 구매 제한 텍스트
+        local buy_term_str = struct_product:getMaxBuyTermStr()
+        if buy_term_str and (buy_term_str ~= '') then
+            if full_str == '' then
+                full_str = product_desc
+            end
+
+            if full_str and (full_str ~= '') then
+                full_str = full_str .. '\n'
             end
 
             -- 구매 가능/불가능 텍스트 컬러 변경
             local is_buy_all = struct_product:isBuyAll()
             local color_key = is_buy_all and '{@impossible}' or '{@available}'
 
-            rich_str = rich_str .. color_key .. str
-
-            vars['dscLabel']:setString(rich_str)
-        else
-            vars['dscLabel']:setString(product_desc)
+            full_str = full_str .. color_key .. buy_term_str
         end
+
+        if full_str == '' then
+            full_str = product_desc
+        end
+
+        vars['dscLabel']:setString(full_str)
     end
 
     -- 판매 가능 여부

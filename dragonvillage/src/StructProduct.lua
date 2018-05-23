@@ -17,6 +17,7 @@ StructProduct = class(PARENT, {
         icon = 'string',
         max_buy_count = 'number',
         max_buy_term = 'string',
+        max_buy_display = 'string',
         badge = 'string',
         lock = 'number',
         token = 'string',
@@ -130,7 +131,7 @@ function StructProduct:getEndDateStr()
     local cur_time =  Timer:getServerTime()
     local end_time = end_date['time']
     local time = (end_time - cur_time)
-    local msg = Str('판매 종료까지 {1} 남음', datetime.makeTimeDesc(time, true))
+    local msg = Str('판매 종료까지 {1} 남음', datetime.makeTimeDesc(time, false))
 
     return msg
 end
@@ -323,6 +324,13 @@ function StructProduct:getBuyCountDesc()
 
 	-- 구매 제한 term 체크
 	local buy_term = self['max_buy_term']
+    local buy_display = self['max_buy_display']
+
+    -- 구매 제한 표시 값이 존재하는 경우 그 값으로 치환
+    if (buy_display) and (buy_display ~= '') then
+        buy_term = buy_display
+    end
+
 	local term_str
 	if (buy_term == 'weekly') then
 		term_str = Str('주간')
@@ -982,9 +990,10 @@ end
 -------------------------------------
 function StructProduct:getMaxBuyTermStr()
     -- 구매 제한이 있지만 대체상품이 있는 경우 출력하지 않음
-    if (self:getDependency()) then
-        return ''
-    end
+    -- 구매 제한이 있다면 대체상품이 있더라도 출력으로 변경
+--    if (self:getDependency()) then
+--        return ''
+--    end
 
     -- 구매 제한 횟수가 설정되지 않으면 return
     local max_buy_cnt = tonumber(self['max_buy_count'])
@@ -993,6 +1002,13 @@ function StructProduct:getMaxBuyTermStr()
     end
 
 	local max_buy_term = self['max_buy_term']
+    local max_buy_display = self['max_buy_display']
+    -- 구매 제한 표시 값이 존재하는 경우 그 값으로 치환
+    if (max_buy_display) and (max_buy_display ~= '') then
+        ccdump(max_buy_display)
+        max_buy_term = max_buy_display
+    end
+
     local product_id = self['product_id']
     local buy_cnt = g_shopDataNew:getBuyCount(product_id)    
 
