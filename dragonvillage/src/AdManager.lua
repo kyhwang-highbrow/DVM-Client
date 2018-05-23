@@ -136,7 +136,8 @@ function AdManager:showErrorPopup(error_info)
 
     -- not loaded ad : 광고가 load되지 않음 
     elseif (code == "-2103") then
-        msg = Str('시청 가능한 광고가 없습니다. 잠시 후에 다시 시도해주세요.')
+        --msg = Str('시청 가능한 광고가 없습니다. 잠시 후에 다시 시도해주세요.')
+		msg = Str('광고를 불러오는 중입니다. 잠시 후에 다시 시도해주세요.')
 
     -- invalid ad unit id : show 요청 받았으나 ad unit id가 비정상
     elseif (code == "-2104") then
