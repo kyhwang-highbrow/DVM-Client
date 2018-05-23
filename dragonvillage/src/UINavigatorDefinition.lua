@@ -388,7 +388,7 @@ function UINavigatorDefinition:goTo_arena(...)
 
          -- 오픈 상태 여부 체크
         if (not g_arenaData:isOpenArena()) then
-            local msg = Str('콜로세움 오픈 전입니다.\n오픈까지 {1}', g_colosseumData:getColosseumStatusText())
+            local msg = Str('콜로세움 오픈 전입니다.\n오픈까지 {1}', g_arenaData:getArenaStatusText())
             MakeSimplePopup(POPUP_TYPE.OK, msg)
             return
 		end
