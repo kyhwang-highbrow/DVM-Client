@@ -386,6 +386,30 @@ function UINavigatorDefinition:goTo_arena(...)
 
     local function finish_cb()
 
+         -- 오픈 상태 여부 체크
+        if (not g_arenaData:isOpenArena()) then
+            local msg = Str('콜로세움 오픈 전입니다.\n오픈까지 {1}', g_colosseumData:getColosseumStatusText())
+            MakeSimplePopup(POPUP_TYPE.OK, msg)
+            return
+		end
+
+        -- 긴급하게 닫아야 할 경우 
+        if (not g_arenaData:isOpen()) then
+            local msg = Str('오픈시간이 아닙니다.')
+            MakeSimplePopup(POPUP_TYPE.OK, msg)
+            return
+		end
+
+        -- 전투 메뉴가 열려있을 경우
+        local is_opend, idx, ui = self:findOpendUI('UI_BattleMenu')
+        if (is_opend == true) then
+            self:closeUIList(idx)
+            ui:setTab('competition') -- 전투 메뉴에서 tab의 이름이 'adventure'이다.
+            ui:resetButtonsPosition()
+            UI_Arena()
+            return
+        end
+
         -- 로비가 열려있을 경우
         local is_opend, idx, ui = self:findOpendUI('UI_Lobby')
         if (is_opend == true) then
