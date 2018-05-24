@@ -125,7 +125,7 @@ function ServerData_FriendMatch:request_setDeck(deckname, formation, leader, l_e
 
         if IS_ARENA_OPEN() then
             l_deck = ret['deck']
-            self:refresh_playerUserInfo_Arena(l_deck)
+            self.m_playerUserInfo:applyPvpDeckData(l_deck)
         else
             l_deck = {ret['deck']}
             self:refresh_playerUserInfo(l_deck)
@@ -268,7 +268,7 @@ end
 -- function response_arenaInfo
 -------------------------------------
 function ServerData_FriendMatch:response_arenaInfo(ret)
-    self:refresh_playerUserInfo_Arena(ret['deck'])
+    self:refresh_playerUserInfo_Arena(ret['deck'], ret['myrank_info'])
     self:refresh_matchList_Arena(ret['match_info'])
 end
 
@@ -300,13 +300,21 @@ end
 -------------------------------------
 -- function refresh_playerUserInfo_Arena
 -------------------------------------
-function ServerData_FriendMatch:refresh_playerUserInfo_Arena(l_deck)
+function ServerData_FriendMatch:refresh_playerUserInfo_Arena(l_deck, my_info)
     self.m_playerUserInfo = {}
 
     local struct_user_info = StructUserInfoArena()
     struct_user_info.m_uid = g_userData:get('uid')
     struct_user_info.m_nickname = g_userData:get('nick')
     struct_user_info.m_lv = g_userData:get('lv')
+
+    -- 내 랭킹 정보도 세팅
+    if (my_info) then
+        struct_user_info.m_tamerID = my_info['tamer']
+        struct_user_info.m_tier = my_info['tier']
+        struct_user_info.m_rank = my_info['rank']
+        struct_user_info.m_rankPercent = my_info['rate']
+    end
 
     self.m_playerUserInfo = struct_user_info
 
