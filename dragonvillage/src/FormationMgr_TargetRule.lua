@@ -477,7 +477,7 @@ function TargetRule_getTargetList_arena_heal(org_list, t_data)
             end
 
             -- 받는 치유량 감소(-2)
-            if (v:isExistStatusEffectName('barrier_protection_time')) then
+            if (v:isExistStatusEffectName('recovery_dec')) then
                 v.m_sortValue = v.m_sortValue - 2
             end
 
