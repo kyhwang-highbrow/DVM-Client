@@ -23,6 +23,9 @@ function SceneGameArena:init(game_key, stage_id, stage_name, develop_mode, frien
     else
         g_deckData:setSelectedDeck('arena')
     end
+
+    -- 아레나 로딩은 상대방 덱을 확인하기 위해 5초간 유지
+    self.m_minLoadingTime = 5
 end
 
 -------------------------------------

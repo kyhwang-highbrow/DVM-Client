@@ -29,6 +29,7 @@ PerpleScene = class
     m_bUseLoadingUI = 'boolean',    -- LoadingUI 사용 여부(false일 경우 Prepare가 동작하지 않음)
 	m_loadingGuideType = 'string',
     m_loadingUIDuration = 'number', -- LoadingUI가 반드시 보여져야 하는 시간(nil일 경우 무시)
+    m_minLoadingTime = 'number', -- nil일 경우 즉시 이동, 숫자가 지정되면 해당 수치까지 대기
 }
 
 -------------------------------------
@@ -550,6 +551,16 @@ function replaceScene(target_scene)
                 dt = coroutine.yield()
                 co_timer = co_timer + dt
             until (is_break)
+        end
+        --------------------------------------------------------------------------
+
+        --------------------------------------------------------------------------
+        -- 로딩 최소 시간 보장
+        if target_scene.m_minLoadingTime then
+            repeat
+                dt = coroutine.yield()
+                co_timer = co_timer + dt
+            until (target_scene.m_minLoadingTime <= co_timer)
         end
         --------------------------------------------------------------------------
 
