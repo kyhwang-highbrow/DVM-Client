@@ -74,6 +74,11 @@ function Character:onEvent(event_name, t_event, ...)
         
         local target_string = event_name:sub(1, event_name:find('_'))
         self:onEvent_getStatusEffect(t_event, target_string, target)
+
+    elseif (event_name == 'teammate_dead') then
+        -- 부활 스킬을 별도로 처리하기 위함...
+        self:onEvent_teammateDead(event_name)
+
     else
         self:onEvent_common(event_name)
 
@@ -322,6 +327,50 @@ function Character:onEvent_useActiveSkill(event_name, t_event, owner)
         end
     end
 
+end
+
+-------------------------------------
+-- function onEvent_teammateDead
+-------------------------------------
+function Character:onEvent_teammateDead(event_name)
+    if (not self.m_statusCalc) then return end
+    if (not self.m_lSkillIndivisualInfo[event_name]) then
+        return
+    end
+
+    for i, v in pairs(self.m_lSkillIndivisualInfo[event_name]) do
+        if (v:isEndCoolTime()) then
+            -- 부활 스킬인지 체크
+            local is_resurrect = false
+            local b = true
+
+            for i = 1, 4 do
+                if (v.m_tSkill['add_option_type_' .. i] == 'resurrect') then
+                    is_resurrect = true
+                    break
+                end
+            end
+
+            if (is_resurrect) then
+                local l_dead = self.m_world:getDeadList(self)
+                if (#l_dead == 0) then
+                    b = false
+                end
+            end
+
+            if (b) then
+                local chance_value = v.m_tSkill['chance_value']
+                if ( (not chance_value) or (chance_value == '') ) then
+                    chance_value = 100
+                end
+
+                local rand = math_random(1, 100)
+                if (rand <= chance_value) then
+                    self:doSkill(v.m_skillID, 0, 0)
+                end
+            end
+        end
+    end
 end
 
 -------------------------------------

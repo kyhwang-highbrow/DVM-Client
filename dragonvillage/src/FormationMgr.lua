@@ -185,7 +185,7 @@ function FormationMgrDelegate:getTargetList(x, y, team_type, formation_type, rul
     elseif (rule_type == 'dead') then
         for i, v in ipairs(self.m_diedCharList) do
             -- 죽는 도중이 아닌 확실히 죽은 대상만 선별
-            if (v.m_bDead) then
+            if (v.m_bDead and v.m_bPossibleRevive) then
                 table.insert(t_ret, v)
             end
         end
