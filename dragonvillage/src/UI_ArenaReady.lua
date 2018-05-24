@@ -134,7 +134,7 @@ function UI_ArenaReady:initUI_userInfo()
         vars['userLabel1']:setString(user_info:getUserText())
 
         -- 전투력
-        local str = user_info:getDeckCombatPower()
+        local str = user_info:getDeckCombatPower(true)
         vars['powerLabel1']:setString(Str('전투력 : {1}', str))
 
         -- 아이콘
@@ -226,6 +226,8 @@ function UI_ArenaReady:click_deckBtn()
 
         local player_2d_deck = UI_2DDeck(true, true)
         player_2d_deck:setDirection('left')
+
+        vars['formationNode1']:removeAllChildren()
         vars['formationNode1']:addChild(player_2d_deck.root)
         player_2d_deck:initUI()
 
