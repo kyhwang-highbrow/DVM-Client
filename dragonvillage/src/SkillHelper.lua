@@ -409,7 +409,7 @@ function SkillHelper:setIndicatorDataByArena(unit)
 
     -- 회복형
     else
-        l_target = unit:getTargetListByType('enemy_arena_heal', nil, target_formation, {
+        l_target = unit:getTargetListByType('ally_arena_heal', nil, target_formation, {
             ai_type = ai_type
         })
         fixed_target = l_target[1]
