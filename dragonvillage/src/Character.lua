@@ -2778,6 +2778,14 @@ function Character:getHp()
 end
 
 -------------------------------------
+-- function getMaxHp
+-- @brief 현재 최대 HP 정보를 가져온다
+-------------------------------------
+function Character:getMaxHp()
+    return self.m_maxHp
+end
+
+-------------------------------------
 -- function getHpRate
 -- @brief 현재 HP 정보를 가져온다
 -------------------------------------

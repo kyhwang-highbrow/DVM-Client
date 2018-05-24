@@ -524,8 +524,11 @@ function TargetRule_getTargetList_effective_hp(org_list)
         -- 방어력에 따른 피해 감소율
         local reduction_ratio = CalcReductionRatio(v:getStat('def'))
 
+        -- 생명력 값을 얻음
+        local hp = v.m_isZombie and v:getMaxHp() or v:getHp()
+
         -- 유효 생명력 값을 얻음
-        local effective_hp = v:getHp() / (1 - reduction_ratio)
+        local effective_hp = hp / (1 - reduction_ratio)
 
         v.m_sortValue = effective_hp
 
