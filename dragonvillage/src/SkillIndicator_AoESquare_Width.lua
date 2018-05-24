@@ -139,8 +139,7 @@ end
 -- @brief 가장 많이 타겟팅할 수 있도록 인디케이터 정보를 설정
 -------------------------------------
 function SkillIndicator_AoESquare_Width:optimizeIndicatorDataByArena(l_target)
-    local max_value = -1
-    local t_best = {}
+    local t_best
         
     for _, v in ipairs(l_target) do
         for i, body in ipairs(v:getBodyList()) do
@@ -150,22 +149,33 @@ function SkillIndicator_AoESquare_Width:optimizeIndicatorDataByArena(l_target)
             local max_y = v.pos['y'] + body['y'] + body['size'] + skill_half - 1
 
             for _, y in ipairs({ min_y, max_y }) do
-                local value = self:getTotalSortValueByVirtualTest(v.pos['x'], y)
+                local value, count = self:getTotalSortValueByVirtualTest(v.pos['x'], y)
+                local b = false
 
-                if (max_value < value) then
-                    max_value = value
+                if (count > 0) then
+                    if (not t_best) then
+                        b = true
+                    elseif (t_best['value'] < value) then
+                        b = true
+                    elseif (t_best['value'] == value and t_best['count'] < count) then
+                        b = true
+                    end
+                end
 
+                if (b) then
                     t_best = { 
                         target = self.m_targetChar,
                         x = self.m_targetPosX,
-                        y = self.m_targetPosY
+                        y = self.m_targetPosY,
+                        value = value,
+                        count = count
                     }
                 end
             end
         end
     end
 
-    if (max_value > 0) then
+    if (t_best) then
         self:setIndicatorData(t_best['x'], t_best['y'])
         return true
     end

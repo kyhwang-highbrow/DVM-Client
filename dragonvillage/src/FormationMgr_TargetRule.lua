@@ -69,8 +69,8 @@ function TargetRule_getTargetList(type, org_list, x, y, t_data)
     -- 상태효과 관련
 	elseif pl.stringx.startswith(type, 'status') then
 		return TargetRule_getTargetList_status_effect(org_list, type)
-    
-	-- 스탯 관련
+
+    -- 스탯 관련
     elseif pl.stringx.startswith(type, 'def') or pl.stringx.startswith(type, 'atk') or pl.stringx.startswith(type, 'hp') or
            pl.stringx.startswith(type, 'aspd') or pl.stringx.startswith(type, 'avoid') or pl.stringx.startswith(type, 'cri') or
            pl.stringx.startswith(type, 'hit_rate') then
@@ -317,12 +317,13 @@ function TargetRule_getTargetList_arena_attack(org_list, t_data)
     local ai_type = t_data['ai_type']
     local all_invincibility = true
 
-    -- 체력(절대값)이 낮은 순으로 2명을 찾음
-    local low_hp_1, low_hp_2
+    -- 유효 생명력이 낮은 순으로 3명을 찾음
+    local low_hp_1, low_hp_2, low_hp_3
     do
-        local temp = TargetRule_getTargetList_stat(org_list, 'hpabs_low', t_data)
+        local temp = TargetRule_getTargetList_effective_hp(org_list)
         low_hp_1 = temp[1]
         low_hp_2 = temp[2]
+        low_hp_3 = temp[3]
     end
 
     -- 최전방과 최후방 유닛을 찾음
@@ -342,16 +343,19 @@ function TargetRule_getTargetList_arena_attack(org_list, t_data)
     
     -- 대상별로 우선순위를 계산
     for i, v in ipairs(org_list) do
-        -- 기본 값
-        v.m_sortValue = 10
+        v.m_sortValue = 0
         v.m_sortRandomIdx = nil
-
-        -- 남은 생명력이 가장 낮은 적(+2)
+                
+        -- 유효 생명력이 가장 낮은 적(+4)
         if (v == low_hp_1) then
+            v.m_sortValue = v.m_sortValue + 4
+
+        -- 유효 생명력이 두번째로 낮은 적(+2)
+        elseif (v == low_hp_2) then
             v.m_sortValue = v.m_sortValue + 2
 
-        -- 남은 생명력이 가장 낮은 적(+1)
-        elseif (v == low_hp_2) then
+        -- 유효 생명력이 세번째로 낮은 적(+1)
+        elseif (v == low_hp_3) then
             v.m_sortValue = v.m_sortValue + 1
         end
 
@@ -382,11 +386,6 @@ function TargetRule_getTargetList_arena_attack(org_list, t_data)
             v.m_sortValue = v.m_sortValue - 1
         end
 
-        -- 방어력 감소(+2)
-        if (v:getStatusEffect('def_down')) then
-            v.m_sortValue = v.m_sortValue + 2
-        end
-
         if (ai_type ~= 'remove') then
             -- 수면, 반사, 보호막(-2)
             if (v:getStatusEffect('sleep') or v:getStatusEffect('reflect') or v:isExistStatusEffectName('barrier_protection', 'barrier_protection_time')) then
@@ -405,9 +404,9 @@ function TargetRule_getTargetList_arena_attack(org_list, t_data)
             end
         end
 
-        -- 특정 직군(+3)
+        -- 특정 직군(+1)
         if (role and role == v:getRole()) then
-            v.m_sortValue = v.m_sortValue + 3
+            v.m_sortValue = v.m_sortValue + 1
         end
 
         -- 디버프 보유(+3)
@@ -454,17 +453,16 @@ function TargetRule_getTargetList_arena_heal(org_list, t_data)
 
     -- 대상별로 우선순위를 계산
     for i, v in ipairs(t_ret) do
-        -- 기본 값
-        v.m_sortValue = 10
+        v.m_sortValue = 0
         v.m_sortRandomIdx = nil
 
         if (not v:isMaxHp()) then
-            -- 남은 생명력이 가장 낮은 1순위(+5)
+            -- 남은 생명력이 가장 낮은 1순위(+7)
             if (i == 1) then
-                v.m_sortValue = v.m_sortValue + 5
-            -- 남은 생명력이 가장 낮은 2순위(+3)
+                v.m_sortValue = v.m_sortValue + 7
+            -- 남은 생명력이 가장 낮은 2순위(+4)
             elseif (i == 2) then
-                v.m_sortValue = v.m_sortValue + 3
+                v.m_sortValue = v.m_sortValue + 4
             -- 남은 생명력이 가장 낮은 3순위(+2)
             elseif (i == 3) then
                 v.m_sortValue = v.m_sortValue + 2
@@ -478,9 +476,9 @@ function TargetRule_getTargetList_arena_heal(org_list, t_data)
                 v.m_sortValue = v.m_sortValue - 2
             end
 
-            -- 좀비(-5)
+            -- 좀비(-10)
             if (v.m_isZombie) then
-                v.m_sortValue = v.m_sortValue - 5
+                v.m_sortValue = v.m_sortValue - 10
             end
         end
     end
@@ -497,6 +495,34 @@ function TargetRule_getTargetList_arena_heal(org_list, t_data)
         end
         cclog('-------------------------------------------------------')
     end
+
+    return t_ret
+end
+
+-------------------------------------
+-- function TargetRule_getTargetList_effective_hp
+-- @brief 유효 생명력이 낮은 순으로 정렬된 리스트를 얻음
+-- @param org_list : 전체 타겟 리스트
+-------------------------------------
+function TargetRule_getTargetList_effective_hp(org_list)
+    local t_ret = {}
+
+    for i, v in ipairs(org_list) do
+        v.m_sortValue = 0
+        v.m_sortRandomIdx = nil
+
+        -- 방어력에 따른 피해 감소율
+        local reduction_ratio = CalcReductionRatio(v:getStat('def'))
+
+        -- 유효 생명력 값을 얻음
+        local effective_hp = v:getHp() / (1 - reduction_ratio)
+
+        v.m_sortValue = effective_hp
+
+        table.insert(t_ret, v)
+    end
+
+    table.sort(t_ret, sortAscending)
 
     return t_ret
 end
@@ -535,21 +561,6 @@ function TargetRule_getTargetList_stat(org_list, stat_type, t_data)
 			if (is_descending) then
 				return a_stat > b_stat
 			else
-				return a_stat < b_stat
-			end
-		end)
-
-    elseif (target_stat == 'hpabs') then
-        table.sort(t_ret, function(a, b)
-			local a_stat = a:getHp()
-			local b_stat = b:getHp()
-
-            if (is_descending) then
-				return a_stat > b_stat
-			else
-                if (a.m_isZombie) then a_stat = 9999999 end
-                if (b.m_isZombie) then b_stat = 9999999 end
-
 				return a_stat < b_stat
 			end
 		end)

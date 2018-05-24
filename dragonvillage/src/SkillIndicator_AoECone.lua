@@ -209,8 +209,7 @@ end
 -- @brief 가장 많이 타겟팅할 수 있도록 인디케이터 정보를 설정
 -------------------------------------
 function SkillIndicator_AoECone:optimizeIndicatorDataByArena(l_target)
-    local max_value = -1
-    local t_best = {}
+    local t_best
     
     local pos_x, pos_y = self.m_indicatorRootNode:getPosition()
 
@@ -225,22 +224,33 @@ function SkillIndicator_AoECone:optimizeIndicatorDataByArena(l_target)
             for i = 0, 10 do
                 local dir = start_dir + i * add_dir
                 local pos = getPointFromAngleAndDistance(dir, distance)
-                local value = self:getTotalSortValueByVirtualTest(pos_x + pos['x'], pos_y + pos['y'])
+                local value, count = self:getTotalSortValueByVirtualTest(pos_x + pos['x'], pos_y + pos['y'])
+                local b = false
 
-                if (max_value < value) then
-                    max_value = value
+                if (count > 0) then
+                    if (not t_best) then
+                        b = true
+                    elseif (t_best['value'] < value) then
+                        b = true
+                    elseif (t_best['value'] == value and t_best['count'] < count) then
+                        b = true
+                    end
+                end
 
+                if (b) then
                     t_best = { 
                         target = self.m_targetChar,
                         x = self.m_targetPosX,
-                        y = self.m_targetPosY
+                        y = self.m_targetPosY,
+                        value = value,
+                        count = count
                     }
                 end
             end
         end
     end
 
-    if (max_value > 0) then
+    if (t_best) then
         self:setIndicatorData(t_best['x'], t_best['y'])
         return true
     end

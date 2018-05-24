@@ -11,6 +11,7 @@ end
 -------------------------------------
 -- function DamageCalc_P1
 -------------------------------------
+--[[
 function DamageCalc_P1(atk_dmg, def_pwr, is_debug)
     if (atk_dmg == 0 and def_pwr == 0) then return 0 end
 
@@ -50,6 +51,7 @@ function DamageCalc_P1(atk_dmg, def_pwr, is_debug)
 	
 	return damage, str
 end
+]]--
 
 -------------------------------------
 -- function DamageCalc_P2
@@ -69,7 +71,7 @@ function DamageCalc_P2(atk_dmg, def_pwr, is_debug, no_random)
     end
 
     -- 데미지 감소율
-    local reduction_ratio = def_pwr / (1200 + def_pwr)
+    local reduction_ratio = CalcReductionRatio(def_pwr)
 
     -- 모든 계수를 곱함
     local damage = rand * atk_dmg * (1 - reduction_ratio)
@@ -125,6 +127,14 @@ function HealCalc_M(atk_dmg, is_debug, no_random)
     return damage
 end
 
+-------------------------------------
+-- function CalcReductionRatio
+-- @brief 피해 감소율 계산
+-------------------------------------
+function CalcReductionRatio(def_pwr)
+    local reduction_ratio = def_pwr / (1200 + def_pwr)
+    return reduction_ratio
+end
 
 -------------------------------------
 -- function CalcAvoidChance

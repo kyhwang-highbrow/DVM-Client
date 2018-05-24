@@ -85,7 +85,7 @@ function GameActiveSkillMgr:doWork_dragon(t_data)
     else
         local b = false
 
-        if (self.m_world.m_gameMode == GAME_MODE_ARENA) then
+        if (self.m_world.m_gameMode == GAME_MODE_ARENA or self.m_world.m_gameMode == GAME_MODE_COLOSSEUM) then
             b = SkillHelper:setIndicatorDataByArena(unit)
         else
             b = SkillHelper:setIndicatorDataByAuto(unit)

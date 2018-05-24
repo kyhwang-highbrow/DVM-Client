@@ -722,7 +722,7 @@ function SkillIndicator:setIndicatorDataByAuto(l_target, target_count, fixed_tar
 
     if (not bPass) then
         -- 최적의 위치를 찾아서 인디케이터 정보를 설정(확정 대상을 포함한 최대한 많은 대상)
-        if (self.m_world.m_gameMode == GAME_MODE_ARENA) then
+        if (self.m_world.m_gameMode == GAME_MODE_ARENA or self.m_world.m_gameMode == GAME_MODE_COLOSSEUM) then
             if (self:optimizeIndicatorDataByArena(l_target)) then
                 return true
             end
@@ -858,6 +858,7 @@ function SkillIndicator:getTotalSortValueByVirtualTest(x, y)
     local l_target = self:getTargetForVirtualTest() -- 타겟 리스트를 사용하지 않고 충돌리스트 수로 체크
 
     local list = self.m_collisionListByVirtualTest or {}
+    local count = #list
     local total_sort_value = 0
 
     for _, v in ipairs(list) do
@@ -865,5 +866,5 @@ function SkillIndicator:getTotalSortValueByVirtualTest(x, y)
         total_sort_value = total_sort_value + target.m_sortValue
     end
 
-    return total_sort_value
+    return total_sort_value, count
 end
