@@ -9,6 +9,8 @@ UI_ArenaReady = class(PARENT,{
         m_historyID = 'number',
     })
 
+local NEED_CASH = 50 -- 유료 입장 다이아 개수
+
 -------------------------------------
 -- function init
 -------------------------------------
@@ -31,6 +33,14 @@ function UI_ArenaReady:init()
     self:initUI()
     self:initButton()
     self:refresh()
+
+    -- 유료 입장권
+    local icon = IconHelper:getItemIcon(ITEM_ID_CASH)
+    icon:setScale(0.5)
+    vars['staminaExtNode']:addChild(icon)
+    vars['actingPowerExtLabel']:setString(NEED_CASH)
+
+    self.root:scheduleUpdateWithPriorityLua(function(dt) self:update_stamina(dt) end, 0.1)
 end
 
 -------------------------------------
@@ -165,6 +175,37 @@ function UI_ArenaReady:initButton()
 end
 
 -------------------------------------
+-- function update_stamina
+-- @brief
+-------------------------------------
+function UI_ArenaReady:update_stamina(dt)    
+    local vars = self.vars
+    local is_enough = g_staminasData:checkStageStamina(ARENA_STAGE_ID)
+    local is_enough_ext = g_staminasData:hasStaminaCount('arena_ext', 1)
+
+    -- 기본 입장권 없을 경우엔 유료 입장권 개수 보여줌
+    vars['staminaNode']:setVisible(is_enough)
+    vars['actingPowerExtNode']:setVisible(not is_enough)
+    vars['timeLabel']:setVisible(not is_enough)
+    vars['staminaExtLabel']:setVisible(not is_enough)
+
+    if (not is_enough) then
+        local stamina_type = 'arena_ext'
+
+        local time_str = g_staminasData:getChargeRemainText(stamina_type)
+        vars['timeLabel']:setString(time_str)
+
+        local st_ad = g_staminasData:getStaminaCount(stamina_type)
+        local max_cnt = g_staminasData:getStaminaMaxCnt(stamina_type)
+        local str = Str('{1}/{2}', comma_value(st_ad), comma_value(max_cnt))
+        vars['staminaExtLabel']:setString(str)
+    end
+
+    -- 기본 입장권 & 유료 입장권 둘다 부족한 경우 - 시작 버튼 비활성화
+    vars['startBtn']:setEnabled(is_enough or is_enough_ext)
+end
+
+-------------------------------------
 -- function refresh
 -------------------------------------
 function UI_ArenaReady:refresh()
@@ -238,7 +279,8 @@ function UI_ArenaReady:click_startBtn()
             local function cb(ret)
                 -- 시작이 두번 되지 않도록 하기 위함
                 UI_BlockPopup()
-
+                -- 스케쥴러 해제 (씬 이동하는 동안 입장권 모두 소모시 다이아로 바뀌는게 보기 안좋음)
+                self.root:unscheduleUpdate()
                 local scene = SceneGameArena()
                 scene:runScene()
             end
