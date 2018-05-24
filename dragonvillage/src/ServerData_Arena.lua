@@ -387,6 +387,9 @@ function ServerData_Arena:request_arenaStart(is_cash, history_id, finish_cb, fai
         --vs_deck
         --vs_info
 
+        -- 실제 플레이 시간 로그를 위해 체크 타임 보냄
+        g_accessTimeData:startCheckTimer()
+
         if finish_cb then
             finish_cb(ret)
         end
@@ -453,7 +456,7 @@ end
 -------------------------------------
 -- function request_arenaFinish
 -------------------------------------
-function ServerData_Arena:request_arenaFinish(is_win, finish_cb, fail_cb)
+function ServerData_Arena:request_arenaFinish(is_win, play_time, finish_cb, fail_cb)
     -- 유저 ID
     local uid = g_userData:get('uid')
 
@@ -506,6 +509,8 @@ function ServerData_Arena:request_arenaFinish(is_win, finish_cb, fail_cb)
     ui_network:setUrl('/game/arena/finish')
     ui_network:setParam('uid', uid)
     ui_network:setParam('is_win', is_win and 1 or 0)
+    ui_network:setParam('clear_time', play_time)
+    ui_network:setParam('check_time', g_accessTimeData:getCheckTime())
     ui_network:setParam('gamekey', self.m_gameKey)
     ui_network:setMethod('POST')
     ui_network:setSuccessCB(success_cb)
