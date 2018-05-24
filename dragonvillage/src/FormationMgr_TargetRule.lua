@@ -414,6 +414,11 @@ function TargetRule_getTargetList_arena_attack(org_list, t_data)
             v.m_sortValue = v.m_sortValue + 3
         end
 
+        -- 우선 순위 최소값을 0으로 처리
+        if (v.m_sortValue < 0) then
+            v.m_sortValue = 0
+        end
+
         table.insert(t_ret, v)
     end
 
