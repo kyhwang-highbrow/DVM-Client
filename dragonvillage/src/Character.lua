@@ -1144,6 +1144,14 @@ function Character:setDamage(attacker, defender, i_x, i_y, damage, t_info)
             if (attacker) then
                 if (attacker.m_activityCarrier:isIgnoreRevive()) then
                     self.m_bPossibleRevive = false
+
+                    if (self:isDragon()) then
+                        -- 부활 불가 설명 표시
+                        local str_map = {}
+                        str_map[Str('부활 불가')] = 'bad'
+
+                        self.m_world:makePassiveStartEffect(self, str_map)
+                    end
                 end
             end
 
