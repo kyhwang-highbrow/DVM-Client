@@ -221,6 +221,17 @@ end
 
 local function setPropsForEditBox(node, data)
     setPropsForNode(node, data)
+
+    -- edit_box 데이터 검증
+    if (data.input_flag ~= 1) then
+        ccdump({['lua_name'] = data.lua_name, ['msg'] = 'edit box input flag를 확인해주세요. 기본값은 Initial_caps_all_character 입니다.'})
+        data.input_flag = 1
+    end
+    if (data.max_length == 0) then
+        --ccdump({['lua_name'] = data.lua_name, ['msg'] = 'editbox max_length가 0일 경우 ios에서는 입력이 불가합니다.(무한으로 처리X), 반면 안드로이드는 0부터 제한 없이 입력.'})
+        data.max_length = -1
+    end
+
     node:setInputMode(data.input_mode)
     node:setInputFlag(data.input_flag)
     node:setReturnType(data.return_type)
