@@ -402,13 +402,18 @@ function SkillHelper:setIndicatorDataByArena(unit)
 
     -- 공격형
     if (string.find(target_type, 'enemy')) then
-        l_target = unit:getTargetListByType('enemy_arena', nil, target_formation, {
+        l_target = unit:getTargetListByType('enemy_arena_attack', nil, target_formation, {
             ai_type = ai_type
         })
         fixed_target = l_target[1]
 
     -- 회복형
     else
+        l_target = unit:getTargetListByType('enemy_arena_heal', nil, target_formation, {
+            ai_type = ai_type
+        })
+        fixed_target = l_target[1]
+        --[[
         -- AI 대상으로 변경
         target_type = SKILL_AI_ATTR_TARGET[ai_division]
 
@@ -418,6 +423,7 @@ function SkillHelper:setIndicatorDataByArena(unit)
 
         l_target = unit:getTargetListByType(target_type, nil, target_formation)
         fixed_target = l_target[1]
+        ]]--
     end
      
     -- 대상을 못찾은 경우

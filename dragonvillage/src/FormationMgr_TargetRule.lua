@@ -52,7 +52,8 @@ function TargetRule_getTargetList(type, org_list, x, y, t_data)
     -- 모든 대상
     if (type == 'none') then                return TargetRule_getTargetList_none(org_list)
     elseif (type == 'random') then          return TargetRule_getTargetList_random(org_list)
-    elseif (type == 'arena') then           return TargetRule_getTargetList_arena(org_list, t_data)
+    elseif (type == 'arena_attack') then    return TargetRule_getTargetList_arena_attack(org_list, t_data)
+    elseif (type == 'arena_heal') then      return TargetRule_getTargetList_arena_heal(org_list, t_data)
     
     elseif (type == 'last_attack') then     return TargetRule_getTargetList_lastAttack(org_list, t_data)
     elseif (type == 'last_under_atk') then  return TargetRule_getTargetList_lastUnderAtk(org_list, t_data)
@@ -306,10 +307,10 @@ function TargetRule_getTargetList_random(org_list)
 end
 
 -------------------------------------
--- function TargetRule_getTargetList_arena
--- @brief 아레나에서 드래그 스킬 사용시 타겟룰
+-- function TargetRule_getTargetList_arena_attack
+-- @brief 아레나에서 공격 드래그 스킬 사용시 타겟룰
 -------------------------------------
-function TargetRule_getTargetList_arena(org_list, t_data)
+function TargetRule_getTargetList_arena_attack(org_list, t_data)
     local t_ret = {}
 
 	local self_char = t_data['self']
@@ -341,7 +342,8 @@ function TargetRule_getTargetList_arena(org_list, t_data)
     
     -- 대상별로 우선순위를 계산
     for i, v in ipairs(org_list) do
-        v.m_sortValue = 0
+        -- 기본 값
+        v.m_sortValue = 10
         v.m_sortRandomIdx = nil
 
         -- 남은 생명력이 가장 낮은 적(+2)
@@ -427,6 +429,68 @@ function TargetRule_getTargetList_arena(org_list, t_data)
     if (isWin32()) then
         cclog('-------------------------------------------------------')
         cclog('[ 아레나 공격 대상 선택 우선순위 계산 결과 ]')
+        for i, target in ipairs(t_ret) do
+            cclog('sort value : ' .. target.m_sortValue)
+            cclog('name : ' .. target:getName())
+        end
+        cclog('-------------------------------------------------------')
+    end
+
+    return t_ret
+end
+
+-------------------------------------
+-- function TargetRule_getTargetList_arena_heal
+-- @brief 아레나에서 회복 드래그 스킬 사용시 타겟룰
+-------------------------------------
+function TargetRule_getTargetList_arena_heal(org_list, t_data)
+    local t_ret = {}
+
+    local self_char = t_data['self']
+    local ai_type = t_data['ai_type']
+
+    -- 체력이 낮은 순으로 정렬시킴
+    t_ret = TargetRule_getTargetList_stat(org_list, 'hp_low', t_data)
+
+    -- 대상별로 우선순위를 계산
+    for i, v in ipairs(t_ret) do
+        -- 기본 값
+        v.m_sortValue = 10
+        v.m_sortRandomIdx = nil
+
+        if (not v:isMaxHp()) then
+            -- 남은 생명력이 가장 낮은 1순위(+5)
+            if (i == 1) then
+                v.m_sortValue = v.m_sortValue + 5
+            -- 남은 생명력이 가장 낮은 2순위(+3)
+            elseif (i == 2) then
+                v.m_sortValue = v.m_sortValue + 3
+            -- 남은 생명력이 가장 낮은 3순위(+2)
+            elseif (i == 3) then
+                v.m_sortValue = v.m_sortValue + 2
+            -- 남은 생명력이 가장 낮은 4순위(+1)
+            elseif (i == 4) then
+                v.m_sortValue = v.m_sortValue + 1
+            end
+
+            -- 받는 치유량 감소(-2)
+            if (v:isExistStatusEffectName('barrier_protection_time')) then
+                v.m_sortValue = v.m_sortValue - 2
+            end
+
+            -- 좀비(-5)
+            if (v.m_isZombie) then
+                v.m_sortValue = v.m_sortValue - 5
+            end
+        end
+    end
+
+    table.sort(t_ret, sortDescending)
+
+    -- 로그
+    if (isWin32()) then
+        cclog('-------------------------------------------------------')
+        cclog('[ 아레나 회복 대상 선택 우선순위 계산 결과 ]')
         for i, target in ipairs(t_ret) do
             cclog('sort value : ' .. target.m_sortValue)
             cclog('name : ' .. target:getName())

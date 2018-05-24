@@ -203,3 +203,47 @@ function SkillIndicator_AoECone:optimizeIndicatorData(l_target, fixed_target)
 
     return false
 end
+
+-------------------------------------
+-- function optimizeIndicatorDataByArena
+-- @brief 가장 많이 타겟팅할 수 있도록 인디케이터 정보를 설정
+-------------------------------------
+function SkillIndicator_AoECone:optimizeIndicatorDataByArena(l_target)
+    local max_value = -1
+    local t_best = {}
+    
+    local pos_x, pos_y = self.m_indicatorRootNode:getPosition()
+
+    for _, v in ipairs(l_target) do
+        for i, body in ipairs(v:getBodyList()) do
+            local x = v.pos['x'] + body['x']
+            local y = v.pos['y'] + body['y']
+            local distance = getDistance(pos_x, pos_y, x, y) - self.m_skillRadius - body['size']
+            local start_dir = getAdjustDegree(getDegree(pos_x, pos_y, x, y)) - (self.m_skillAngle / 2)
+            local add_dir = self.m_skillAngle / 10
+            
+            for i = 0, 10 do
+                local dir = start_dir + i * add_dir
+                local pos = getPointFromAngleAndDistance(dir, distance)
+                local value = self:getTotalSortValueByVirtualTest(pos_x + pos['x'], pos_y + pos['y'])
+
+                if (max_value < value) then
+                    max_value = value
+
+                    t_best = { 
+                        target = self.m_targetChar,
+                        x = self.m_targetPosX,
+                        y = self.m_targetPosY
+                    }
+                end
+            end
+        end
+    end
+
+    if (max_value > 0) then
+        self:setIndicatorData(t_best['x'], t_best['y'])
+        return true
+    end
+
+    return false
+end

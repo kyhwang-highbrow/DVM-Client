@@ -205,3 +205,64 @@ function SkillIndicator_X:optimizeIndicatorData(l_target, fixed_target)
 
     return false
 end
+
+-------------------------------------
+-- function optimizeIndicatorDataByArena
+-- @brief 가장 많이 타겟팅할 수 있도록 인디케이터 정보를 설정
+-------------------------------------
+function SkillIndicator_X:optimizeIndicatorDataByArena(l_target)
+    local max_value = -1
+    local t_best
+    
+    local gap_size = self.m_lineSize / 2
+    local cameraHomePosX, cameraHomePosY = self.m_world.m_gameCamera:getHomePos()
+    
+    local count_x = math_floor(CRITERIA_RESOLUTION_X / gap_size) - 1
+    local count_y = math_floor(CRITERIA_RESOLUTION_Y / gap_size) - 1
+    local center_x
+    local center_y
+
+    do
+        local target = l_target[1]
+        center_x = target['pos']['x']
+        center_y = target['pos']['y']
+    end
+
+    for i = 1, count_y do
+        for j = 1, count_x do
+            local x = j * gap_size + cameraHomePosX
+            local y = i * gap_size + cameraHomePosY - CRITERIA_RESOLUTION_Y / 2
+
+            local value = self:getTotalSortValueByVirtualTest(x, y)
+            local distance = getDistance(x, y, center_x, center_y)
+
+            local b = false
+
+            if (max_value < value) then
+                max_value = value
+                b = true
+
+            elseif (max_value == value) then
+                if (t_best and t_best['distance'] > distance) then
+                    b = true
+                end
+            end
+
+            if (b) then
+                t_best = { 
+                    target = self.m_targetChar,
+                    x = x,
+                    y = y,
+                    distance = distance
+                }
+            end
+        end
+    end
+
+    if (max_value > 0) then
+        self:setIndicatorData(t_best['x'], t_best['y'])
+        return true
+    end
+
+    return false
+end

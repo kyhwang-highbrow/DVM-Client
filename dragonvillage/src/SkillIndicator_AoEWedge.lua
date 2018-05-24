@@ -153,3 +153,55 @@ function SkillIndicator_AoEWedge:optimizeIndicatorData(l_target, fixed_target)
 
     return false
 end
+
+-------------------------------------
+-- function optimizeIndicatorDataByArena
+-- @brief 가장 많이 타겟팅할 수 있도록 인디케이터 정보를 설정
+-------------------------------------
+function SkillIndicator_AoEWedge:optimizeIndicatorDataByArena(l_target)
+    local max_value = -1
+    local t_best = {}
+    
+    local x, y = self:getAttackPosition()
+    local l_dir = {}
+    local dir = 0
+
+    while (dir < (self.m_indicatorAngleLimit * 2)) do
+        local temp
+
+        if (self.m_hero.m_bLeftFormation) then
+            temp = dir - self.m_indicatorAngleLimit
+        else
+            temp = dir + 180 - self.m_indicatorAngleLimit
+        end
+
+        table.insert(l_dir, getAdjustDegree(temp))
+
+        dir = dir + 1    
+    end
+
+    -- 각도 리스트를 한번 섞는다(랜덤한 위치로 사용되도록 하기 위함)
+    l_dir = randomShuffle(l_dir)
+
+    for _, dir in ipairs(l_dir) do
+        local pos = getPointFromAngleAndDistance(dir, self.m_skillRange)
+        local value = self:getTotalSortValueByVirtualTest(x + pos['x'], y + pos['y'])
+
+        if (max_value < value) then
+            max_value = value
+
+            t_best = { 
+                target = self.m_targetChar,
+                x = self.m_targetPosX,
+                y = self.m_targetPosY
+            }
+        end
+    end
+        
+    if (max_value > 0) then
+        self:setIndicatorData(t_best['x'], t_best['y'])
+        return true
+    end
+
+    return false
+end

@@ -722,8 +722,14 @@ function SkillIndicator:setIndicatorDataByAuto(l_target, target_count, fixed_tar
 
     if (not bPass) then
         -- 최적의 위치를 찾아서 인디케이터 정보를 설정(확정 대상을 포함한 최대한 많은 대상)
-        if (self:optimizeIndicatorData(l_target, fixed_target)) then
-            return true
+        if (self.m_world.m_gameMode == GAME_MODE_ARENA) then
+            if (self:optimizeIndicatorDataByArena(l_target)) then
+                return true
+            end
+        else
+            if (self:optimizeIndicatorData(l_target, fixed_target)) then
+                return true
+            end
         end
     end
 
@@ -742,6 +748,15 @@ end
 -- @brief 가장 많이 타겟팅할 수 있도록 인디케이터 정보를 설정
 -------------------------------------
 function SkillIndicator:optimizeIndicatorData(l_target, fixed_target)
+    -- 자식 클래스에서 개별로 정의
+    return false
+end
+
+-------------------------------------
+-- function optimizeIndicatorDataByArena
+-- @brief 가장 많이 타겟팅할 수 있도록 인디케이터 정보를 설정(아레나)
+-------------------------------------
+function SkillIndicator:optimizeIndicatorDataByArena(l_target)
     -- 자식 클래스에서 개별로 정의
     return false
 end
@@ -801,9 +816,10 @@ end
 
 -------------------------------------
 -- function getCollisionCountByVirtualTest
+-- @brief 인디케이터가 파라미터의 위치일때 선택될 피격지점 갯수를 리턴
 -------------------------------------
 function SkillIndicator:getCollisionCountByVirtualTest(x, y, fixed_target)
-    self.m_targetChar = target
+    self.m_targetChar = nil
     self.m_targetPosX = x
     self.m_targetPosY = y
     self.m_critical = nil
@@ -824,4 +840,30 @@ function SkillIndicator:getCollisionCountByVirtualTest(x, y, fixed_target)
     end
         
     return count
+end
+
+-------------------------------------
+-- function getTotalSortValueByVirtualTest
+-- @brief 인디케이터가 파라미터의 위치일때 선택될 피격지점들의 소팅값 합을 리턴
+-------------------------------------
+function SkillIndicator:getTotalSortValueByVirtualTest(x, y)
+    self.m_targetChar = nil
+    self.m_targetPosX = x
+    self.m_targetPosY = y
+    self.m_critical = nil
+    self.m_bDirty = true
+
+    self.m_collisionListByVirtualTest = {}
+
+    local l_target = self:getTargetForVirtualTest() -- 타겟 리스트를 사용하지 않고 충돌리스트 수로 체크
+
+    local list = self.m_collisionListByVirtualTest or {}
+    local total_sort_value = 0
+
+    for _, v in ipairs(list) do
+        local target = v:getTarget()
+        total_sort_value = total_sort_value + target.m_sortValue
+    end
+
+    return total_sort_value
 end

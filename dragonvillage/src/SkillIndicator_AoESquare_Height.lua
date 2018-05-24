@@ -126,3 +126,42 @@ function SkillIndicator_AoESquare_Height:optimizeIndicatorData(l_target, fixed_t
 
     return false
 end
+
+-------------------------------------
+-- function optimizeIndicatorDataByArena
+-- @brief 가장 많이 타겟팅할 수 있도록 인디케이터 정보를 설정
+-------------------------------------
+function SkillIndicator_AoESquare_Height:optimizeIndicatorDataByArena(l_target)
+    local max_value = -1
+    local t_best = {}
+
+    for _, v in ipairs(l_target) do
+        for i, body in ipairs(v:getBodyList()) do
+            local skill_half = self.m_skillWidth / 4
+
+            local min_x = v.pos['x'] + body['x'] - body['size'] - skill_half + 1
+            local max_x = v.pos['x'] + body['x'] + body['size'] + skill_half - 1
+
+            for _, x in ipairs({ min_x, max_x }) do
+                local value = self:getTotalSortValueByVirtualTest(x, v.pos['y'])
+
+                if (max_value < value) then
+                    max_value = value
+
+                    t_best = { 
+                        target = self.m_targetChar,
+                        x = self.m_targetPosX,
+                        y = self.m_targetPosY
+                    }
+                end
+            end
+        end
+    end
+
+    if (max_value > 0) then
+        self:setIndicatorData(t_best['x'], t_best['y'])
+        return true
+    end
+
+    return false
+end

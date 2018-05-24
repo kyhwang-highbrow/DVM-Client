@@ -17,7 +17,7 @@ GameEnrageDirector = class(PARENT, {
 -------------------------------------
 function GameEnrageDirector:init()
     self.m_count = 0
-    self.m_duration = 4.5
+    self.m_duration = 3
     
     local vars = self:load('ingame_enrage.ui')
 
@@ -25,7 +25,7 @@ function GameEnrageDirector:init()
     self.m_rightNode = vars['rightNode']
 
     local scr_size = cc.Director:getInstance():getWinSize()
-    self.root:setPosition(0, scr_size['height'] / 2 - 160)
+    self.root:setPosition(0, 0)
     g_gameScene.m_viewLayer:addChild(self.root)
 
     self.root:setVisible(false)
@@ -48,17 +48,23 @@ function GameEnrageDirector:doWork()
         local duration = self.m_duration
 
         if (self.m_rightNode) then
+            --[[
             local action = cc.EaseInOut:create(cc.MoveTo:create(duration, cc.p(-width/2, 0)), 0.2)
             self.m_rightNode:setPositionX(width/2)
             self.m_rightNode:stopAllActions()
             self.m_rightNode:runAction(action)
+            ]]--
+            self.m_rightNode:setPositionX(0)
         end
 
         if (self.m_leftNode) then
+            --[[
             local action = cc.EaseInOut:create(cc.MoveTo:create(duration, cc.p(width/2, 0)), 0.2)
             self.m_leftNode:setPositionX(-width/2)
             self.m_leftNode:stopAllActions()
             self.m_leftNode:runAction(action)
+            ]]--
+            self.m_rightNode:setPositionX(0)
         end
 
         self.root:runAction(cc.Sequence:create(cc.FadeIn:create(duration * 0.5 / 3), cc.DelayTime:create(duration * 2 / 3), cc.FadeOut:create(duration * 0.5 / 3)))

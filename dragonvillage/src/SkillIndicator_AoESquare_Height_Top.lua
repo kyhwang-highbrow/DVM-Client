@@ -94,3 +94,11 @@ end
 function SkillIndicator_AoESquare_Height_Top:optimizeIndicatorData(l_target, fixed_target)
     return SkillIndicator_AoESquare_Height.optimizeIndicatorData(self, l_target, fixed_target)
 end
+
+-------------------------------------
+-- function optimizeIndicatorDataByArena
+-- @brief 가장 많이 타겟팅할 수 있도록 인디케이터 정보를 설정
+-------------------------------------
+function SkillIndicator_AoESquare_Height_Top:optimizeIndicatorDataByArena(l_target)
+    return SkillIndicator_AoESquare_Height.optimizeIndicatorDataByArena(self, l_target)
+end

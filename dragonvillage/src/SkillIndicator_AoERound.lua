@@ -196,3 +196,46 @@ function SkillIndicator_AoERound:optimizeIndicatorData(l_target, fixed_target)
 
     return false
 end
+
+-------------------------------------
+-- function optimizeIndicatorDataByArena
+-- @brief 가장 많이 타겟팅할 수 있도록 인디케이터 정보를 설정
+-------------------------------------
+function SkillIndicator_AoERound:optimizeIndicatorDataByArena(l_target)
+    local max_value = -1
+    local t_best = {}
+    
+    -- 각도 리스트의 를 랜덤하게 한번 섞음
+    L_DIR = randomShuffle(L_DIR)
+
+    for _, v in ipairs(l_target) do
+        for i, body in ipairs(v:getBodyList()) do
+            local x = v.pos['x'] + body['x']
+            local y = v.pos['y'] + body['y']
+            local skill_half = self.m_range
+            local distance = body['size'] + skill_half
+
+            for _, dir in ipairs(L_DIR) do
+                local pos = getPointFromAngleAndDistance(dir, distance - 1)
+                local value = self:getTotalSortValueByVirtualTest(x + pos['x'], y + pos['y'])
+
+                if (max_value < value) then
+                    max_value = value
+
+                    t_best = { 
+                        target = self.m_targetChar,
+                        x = self.m_targetPosX,
+                        y = self.m_targetPosY
+                    }
+                end
+            end
+        end
+    end
+
+    if (max_value > 0) then
+        self:setIndicatorData(t_best['x'], t_best['y'])
+        return true
+    end
+
+    return false
+end
