@@ -191,7 +191,6 @@
 		50D7C97017EBBEEC005D0B91 /* IOKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 50D7C96F17EBBEEC005D0B91 /* IOKit.framework */; };
 		7D50CB851C04459600F8FE3E /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 5023811317EBBCAC00990C9B /* Info.plist */; };
 		C255B3C51A8FEAB100A270F8 /* libbox2d iOS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 15A8A42B1834BDA200142BE0 /* libbox2d iOS.a */; };
-		F19FF3784EFFF2A911B9126F /* libPods-DragonVillageM Mac.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 4D0C6E3AB228D0562D12AD9F /* libPods-DragonVillageM Mac.a */; };
 		F293B3CD15EB7BE500256477 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F293B3CC15EB7BE500256477 /* QuartzCore.framework */; };
 		F293B3D115EB7BE500256477 /* OpenAL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F293B3D015EB7BE500256477 /* OpenAL.framework */; };
 		F293B3D315EB7BE500256477 /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F293B3D215EB7BE500256477 /* AudioToolbox.framework */; };
@@ -611,7 +610,6 @@
 				15A8A4851834C73500142BE0 /* libCocosDenshion Mac.a in Frameworks */,
 				15A8A4821834C73500142BE0 /* libchipmunk Mac.a in Frameworks */,
 				37F4537F20A8047E0088399C /* libbox2d Mac.a in Frameworks */,
-				F19FF3784EFFF2A911B9126F /* libPods-DragonVillageM Mac.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
