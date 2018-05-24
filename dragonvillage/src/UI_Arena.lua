@@ -38,7 +38,7 @@ end
 -------------------------------------
 -- function init
 -------------------------------------
-function UI_Arena:init()
+function UI_Arena:init(sub_data)
     self.m_rankOffset = 1 -- 최상위 랭크를 받겠다는 뜻
     self.m_bClosedTag = false
 
@@ -165,7 +165,7 @@ function UI_Arena:refresh()
         vars['tierLabel']:setString(tier_name)
 
         -- 순위, 점수, 승률
-        local str = struct_user_info:getRankText() .. '\n'
+        local str = struct_user_info:getRankText(true) .. '\n'
             .. struct_user_info:getRPText()  .. '\n'
             .. struct_user_info:getWinRateText()  .. '\n'
         vars['rankingLabel']:setString(str)

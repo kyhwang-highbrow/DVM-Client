@@ -58,6 +58,8 @@ StructUserInfoArena = class(PARENT, {
 
         m_history_revenge = 'boolean',
         m_history_id = 'number',
+        m_retry_cnt = 'number', -- 재도전, 복수전 가능 회수
+        m_rerty_max_cnt = 'number', -- 재도전, 복수전 최대 가능 회수
     })
 
 -------------------------------------
@@ -123,6 +125,12 @@ function StructUserInfoArena:create_forHistory(t_data)
 
     -- 승패 결과
     user_info.m_matchResult = t_data['match']
+
+    -- 재도전, 복수전 가능 회수
+    user_info.m_retry_cnt = t_data['retry_cnt']
+
+    -- 재도전, 복수전 최대 가능 회수
+    user_info.m_rerty_max_cnt = t_data['max_cnt']
 
     -- 클랜
     if (t_data['clan_info']) then
@@ -266,13 +274,15 @@ function StructUserInfoArena:getRankText(detail)
     if (self.m_tier and self.m_tier == 'beginner') then
         return '-'
 
-    -- 100위 이하는 숫자 표기
-    elseif (self.m_rank and self.m_rank <= 100) then
-        return Str('{1}위', comma_value(self.m_rank))
+    -- 무조건 순위와 퍼센트 노출
+    elseif (self.m_rank and self.m_rankPercent) then
+        local rank_str = Str('{1}위', comma_value(self.m_rank))
 
-    -- 그 이상은 퍼센트 표기
-    elseif (self.m_rankPercent) then
-        return string.format('%.2f%%', self.m_rankPercent * 100)
+        if (detail) then
+            rank_str = rank_str .. string.format(' (%.1f%%)', self.m_rankPercent * 100)
+        end
+
+        return rank_str
 
     -- 서버에서 rate 안오는 경우 일딴 하이픈 처리
     else

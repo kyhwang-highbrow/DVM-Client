@@ -79,6 +79,16 @@ function UI_ArenaHistoryListItem:initUI()
         vars['retryLabel']:setString(Str('복수전'))
     end
 
+    -- 친선전 가능
+    local retry_cnt = user_info.m_retry_cnt
+    local retry_max_cnt = user_info.m_rerty_max_cnt
+    local is_available = (retry_cnt) and (retry_cnt > 0)
+    vars['friendlyBattleBtn']:setVisible(is_available)
+    if (is_available) then
+        local cnt_str = string.format('%d/%d', retry_cnt, retry_max_cnt)
+        vars['friendlyBattleNumberLabel']:setString(cnt_str)
+    end
+
     do -- 시간
         local curr_time = Timer:getServerTime()
         local match_time = (user_info.m_matchTime / 1000)
@@ -97,6 +107,7 @@ end
 function UI_ArenaHistoryListItem:initButton()
     local vars = self.vars
     vars['retryBtn']:registerScriptTapHandler(function() self:click_retryBtn() end)
+    vars['friendlyBattleBtn']:registerScriptTapHandler(function() self:click_friendlyBattleBtn() end)
     vars['deckBtn']:registerScriptTapHandler(function() self:click_deckBtn() end)
 end
 
@@ -111,9 +122,21 @@ end
 -- @brief 복수전, 재도전
 -------------------------------------
 function UI_ArenaHistoryListItem:click_retryBtn()
+    -- 현재 히스토리 유저데이터 강제로 매칭데이터로 만들어줌
+    g_arenaData.m_matchUserInfo = self.m_userInfo
+    UI_ArenaReady()
+end
+
+-------------------------------------
+-- function click_friendlyBattleBtn 
+-- @brief 복수전, 재도전에 대한 친선전
+-------------------------------------
+function UI_ArenaHistoryListItem:click_friendlyBattleBtn()
     local user_info = self.m_userInfo
+    local mode = (self.m_type == 'atk') and FRIEND_MATCH_MODE.RETRY or FRIEND_MATCH_MODE.REVENGE
     local history_id = user_info.m_history_id
-    UI_ArenaDeckSettings(ARENA_STAGE_ID, history_id)
+
+    g_friendMatchData:request_arenaInfo(mode, history_id)
 end
 
 -------------------------------------
@@ -125,6 +148,6 @@ function UI_ArenaHistoryListItem:click_deckBtn()
     local uid = user_info.m_uid
     local history_id = user_info.m_history_id
 
-    -- 히스토리 저장될떄의 덱을 보여줌
+    -- 히스토리 저장될때의 덱을 보여줌
     RequestUserDeckInfoPopupNew(uid, history_id)
 end

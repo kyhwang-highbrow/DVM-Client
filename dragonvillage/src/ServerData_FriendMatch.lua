@@ -3,6 +3,7 @@
 -------------------------------------
 ServerData_FriendMatch = class({
         m_serverData = 'ServerData',
+        m_mode = 'FRIEND_MATCH_MODE',
 
         m_matchUserID = 'string',
         m_playerUserInfo = 'StructUserInfoColosseum',
@@ -10,6 +11,14 @@ ServerData_FriendMatch = class({
 
         m_gameKey = 'number',
     })
+
+-- 공격덱은 모드 상관없이 동일함 : fpvp_atk
+FRIEND_MATCH_MODE = {
+    FRIEND = 1, -- 친구 대전 -- 상대 방어덱 : fpvp_atk, arena 순으로 체크
+    CLAN = 2, -- 클랜원 대전 -- 상대 방어덱 : fpvp_atk, arena 순으로 체크
+    RETRY = 3, -- 재도전 -- 상대 방어덱 : arena (history에 있는 덱)
+    REVENGE = 4, -- 복수전 -- 상대 방어덱 : arena (history에 있는 덱)
+}
 
 -------------------------------------
 -- function init
@@ -55,7 +64,7 @@ end
 -- function request_arenaInfo
 -- @brief 콜로세움 (신규) 인포
 -------------------------------------
-function ServerData_FriendMatch:request_arenaInfo(vsuid, finish_cb, fail_cb)
+function ServerData_FriendMatch:request_arenaInfo(mode, vsuid, finish_cb, fail_cb, sub_data)
     -- 유저 ID
     local uid = g_userData:get('uid')
 
@@ -64,16 +73,30 @@ function ServerData_FriendMatch:request_arenaInfo(vsuid, finish_cb, fail_cb)
         self:response_arenaInfo(ret)
         self.m_matchUserID = vsuid
 
-        if finish_cb then
-            finish_cb(ret)
-        end
+        -- 성공시 친선대전 모드별 진입
+        UI_FriendMatchReadyArena(mode, vsuid)
+    end
+
+    local map_api = {}
+    map_api[FRIEND_MATCH_MODE.FRIEND] = '/game/arena/friendly'
+    map_api[FRIEND_MATCH_MODE.CLAN] = '/game/arena/friendly_clan'
+    map_api[FRIEND_MATCH_MODE.RETRY] = '/game/arena/friendly_history' 
+    map_api[FRIEND_MATCH_MODE.REVENGE] = '/game/arena/friendly_history'
+
+    local tar_api = map_api[mode]
+    if (not tar_api) then 
+        return
     end
 
     -- 네트워크 통신
     local ui_network = UI_Network()
-    ui_network:setUrl('/game/arena/friendly')
+    ui_network:setUrl(tar_api)
     ui_network:setParam('uid', uid)
-    ui_network:setParam('vsuid', vsuid)
+    if (mode == FRIEND_MATCH_MODE.RETRY or mode == FRIEND_MATCH_MODE.REVENGE) then
+        ui_network:setParam('history_id', vsuid)
+    else
+        ui_network:setParam('vsuid', vsuid)
+    end
     ui_network:setMethod('POST')
     ui_network:setSuccessCB(success_cb)
     ui_network:setFailCB(fail_cb)
@@ -181,7 +204,7 @@ end
 -------------------------------------
 -- function request_arenaStart
 -------------------------------------
-function ServerData_FriendMatch:request_arenaStart(is_cash, vsuid, finish_cb, fail_cb)
+function ServerData_FriendMatch:request_arenaStart(mode, vsuid, finish_cb, fail_cb)
     -- 유저 ID
     local uid = g_userData:get('uid')
 
@@ -190,6 +213,8 @@ function ServerData_FriendMatch:request_arenaStart(is_cash, vsuid, finish_cb, fa
     
     -- 성공 콜백
     local function success_cb(ret)
+        self.m_mode = mode
+
         -- @analytics
         Analytics:trackEvent(CUS_CATEGORY.PLAY, CUS_EVENT.TRY_COL, 1, '친구대전')
 
@@ -203,11 +228,26 @@ function ServerData_FriendMatch:request_arenaStart(is_cash, vsuid, finish_cb, fa
         end
     end
 
+    local map_api = {}
+    map_api[FRIEND_MATCH_MODE.FRIEND] = '/game/arena/friendly/start'
+    map_api[FRIEND_MATCH_MODE.CLAN] = '/game/arena/friendly_clan_start'
+    map_api[FRIEND_MATCH_MODE.RETRY] = '/game/arena/friendly_history_start' 
+    map_api[FRIEND_MATCH_MODE.REVENGE] = '/game/arena/friendly_history_start'
+
+    local tar_api = map_api[mode]
+    if (not tar_api) then 
+        return
+    end
+
     -- 네트워크 통신
     local ui_network = UI_Network()
-    ui_network:setUrl('/game/arena/friendly/start')
+    ui_network:setUrl(tar_api)
     ui_network:setParam('uid', uid)
-    ui_network:setParam('vsuid', vsuid)
+    if (mode == FRIEND_MATCH_MODE.RETRY or mode == FRIEND_MATCH_MODE.REVENGE) then
+        ui_network:setParam('history_id', vsuid)
+    else
+        ui_network:setParam('vsuid', vsuid)
+    end
     ui_network:setParam('combat_power', combat_power)
     ui_network:setMethod('POST')
     ui_network:setSuccessCB(success_cb)

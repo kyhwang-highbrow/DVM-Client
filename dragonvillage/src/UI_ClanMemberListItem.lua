@@ -40,8 +40,8 @@ end
 function UI_ClanMemberListItem:initButton()
     local vars = self.vars
     vars['infoBtn']:registerScriptTapHandler(function() self:click_infoBtn() end)
+    vars['friendlyBattleBtn']:registerScriptTapHandler(function() self:click_friendlyBattleBtn() end)
 
-    
     do -- 클랜원 관리 버튼
         vars['adminBtn']:registerScriptTapHandler(function() self:click_adminBtn() end)
 
@@ -116,6 +116,10 @@ function UI_ClanMemberListItem:refresh()
             vars['adminBtn']:setVisible(false)
         end
     end
+
+    -- 나를 제외한 클랜원들에게 친선전 버튼 노출
+    local my_uid = g_userData:get('uid')
+    vars['friendlyBattleBtn']:setVisible(my_uid ~= user_info:getUid())
 end
 
 -------------------------------------
@@ -165,6 +169,18 @@ function UI_ClanMemberListItem:click_banishBtn()
     end
 
     work_ask()
+end
+
+-------------------------------------
+-- function click_friendlyBattleBtn 
+-- @brief 클랜원 친선전
+-------------------------------------
+function UI_ClanMemberListItem:click_friendlyBattleBtn()
+    local user_info = self.m_structUserInfo
+    local mode = FRIEND_MATCH_MODE.CLAN
+    local vs_uid = user_info:getUid() 
+
+    g_friendMatchData:request_arenaInfo(mode, vs_uid)
 end
 
 -------------------------------------

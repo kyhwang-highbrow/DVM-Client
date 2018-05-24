@@ -914,11 +914,13 @@ local t_module = {
     'UI_ArenaRewardInfoPopup',
     'UI_ArenaRankInfoPopup',
     'UI_ArenaRankingRewardPopup',
+    'UI_ArenaReady',
 
     -- UI : 친선전
     'UI_FriendMatchReady',
     'UI_FriendMatchReadyArena',
     'UI_FriendMatchResult',
+    'UI_FriendMatchResultArena',
     'UI_FriendMatchDeckSettings',
     'UI_FriendMatchDeckSettingsArena',
 

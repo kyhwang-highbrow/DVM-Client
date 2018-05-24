@@ -377,6 +377,9 @@ end
 -- @usage UINavigatorDefinition:goTo('arena')
 -------------------------------------
 function UINavigatorDefinition:goTo_arena(...)
+    local args = {...}
+    local sub_data = args[1]
+
     -- 해당 UI가 열려있을 경우
     local is_opend, idx, ui = self:findOpendUI('UI_Arena')
     if (is_opend == true) then
@@ -406,7 +409,7 @@ function UINavigatorDefinition:goTo_arena(...)
             self:closeUIList(idx)
             ui:setTab('competition') -- 전투 메뉴에서 tab의 이름이 'adventure'이다.
             ui:resetButtonsPosition()
-            UI_Arena()
+            UI_Arena(sub_data)
             return
         end
 
@@ -417,7 +420,7 @@ function UINavigatorDefinition:goTo_arena(...)
             local battle_menu_ui = UI_BattleMenu()
             battle_menu_ui:setTab('competition') -- 전투 메뉴에서 tab의 이름이 'competition'이다.
             battle_menu_ui:resetButtonsPosition()
-            UI_Arena()
+            UI_Arena(sub_data)
             return
         end
 
@@ -426,7 +429,7 @@ function UINavigatorDefinition:goTo_arena(...)
                 UINavigatorDefinition:goTo('lobby')
             end
 
-            local scene = SceneCommon(UI_Arena, close_cb)
+            local scene = SceneCommon(UI_Arena, close_cb, sub_data)
             scene:runScene()
         end
     end

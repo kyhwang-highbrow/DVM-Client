@@ -98,13 +98,10 @@ function UI_FriendListItem:click_friendshipBtn()
     local vs_uid = self.m_friendUid
     
     if IS_ARENA_OPEN() then
-        local function goto_ready()
-            UI_FriendMatchReadyArena()
-        end
-        g_friendMatchData:request_arenaInfo(vs_uid, goto_ready)
+        g_friendMatchData:request_arenaInfo(FRIEND_MATCH_MODE.FRIEND, vs_uid)
     else
         local function goto_ready()
-            UI_FriendMatchReady()
+            UI_FriendMatchReady(FRIEND_MATCH_MODE.FRIEND)
         end
         g_friendMatchData:request_colosseumInfo(vs_uid, goto_ready)
     end

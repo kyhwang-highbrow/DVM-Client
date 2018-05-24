@@ -4,20 +4,28 @@ local PARENT = class(UI, ITopUserInfo_EventListener:getCloneTable())
 -- class UI_FriendMatchReadyArena
 -------------------------------------
 UI_FriendMatchReadyArena = class(PARENT,{
+        m_mode = 'FRIEND_MATCH_MODE',
+        m_vsuid = '',
         m_player2DDeck = 'UI_2DDeck',
         m_bClosedTag = 'boolean', -- 시즌이 종료되어 처리를 했는지 여부
     })
 
+-- 친구 대전 제외한 친선전은 우정포인트 10 소모
+local NEED_TYPE = 'fp'
+local NEED_PRICE = 10
+
 -------------------------------------
 -- function init
 -------------------------------------
-function UI_FriendMatchReadyArena:init()
+function UI_FriendMatchReadyArena:init(mode, vsuid)
+    self.m_mode = mode or FRIEND_MATCH_MODE.FRIEND
+    self.m_vsuid = vsuid
     self.m_bClosedTag = nil
 
     -- 친선대전 공격덱 선택
     g_deckData:setSelectedDeck('fpvp_atk')
 
-    local vars = self:load('colosseum_ready.ui')
+    local vars = self:load('arena_ready.ui')
     UIManager:open(self, UIManager.SCENE)
 
     -- backkey 지정
@@ -41,11 +49,21 @@ function UI_FriendMatchReadyArena:initParentVariable()
     -- ITopUserInfo_EventListener의 맴버 변수들 설정
     self.m_uiName = 'UI_FriendMatchReadyArena'
     self.m_bVisible = true
-    self.m_titleStr = Str('친구대전')
+    self.m_titleStr = Str('친선전')
     self.m_bUseExitBtn = true
 
     -- 입장권 타입 설정
-    self.m_staminaType = 'fpvp'
+    local mode = self.m_mode
+    local map_staimina = {}
+    map_staimina[FRIEND_MATCH_MODE.FRIEND] = 'fpvp'
+    map_staimina[FRIEND_MATCH_MODE.CLAN] = 'st'
+    map_staimina[FRIEND_MATCH_MODE.RETRY] = 'arena'
+    map_staimina[FRIEND_MATCH_MODE.REVENGE] = 'arena'
+    local tar_stamina = map_staimina[mode]
+    self.m_staminaType = tar_stamina
+
+    -- 서브 재화 설정
+    self.m_subCurrency = NEED_TYPE
 end
 
 -------------------------------------
@@ -53,14 +71,29 @@ end
 -------------------------------------
 function UI_FriendMatchReadyArena:initUI()
     local vars = self.vars
+    local mode = self.m_mode
 
-    -- 스태미나 아이콘
-    local icon = IconHelper:getStaminaInboxIcon('fpvp')
+    -- 스태미나 아이콘 설정
+    local map_staimina_icon = {}
+    map_staimina_icon[FRIEND_MATCH_MODE.FRIEND] = 'res/ui/icons/inbox/inbox_staminas_fpvp.png'
+    map_staimina_icon[FRIEND_MATCH_MODE.CLAN] = 'res/ui/icons/inbox/inbox_fp.png'
+    map_staimina_icon[FRIEND_MATCH_MODE.RETRY] = 'res/ui/icons/inbox/inbox_fp.png'
+    map_staimina_icon[FRIEND_MATCH_MODE.REVENGE] = 'res/ui/icons/inbox/inbox_fp.png'
+
+    local icon_path = map_staimina_icon[mode]
+    local icon = IconHelper:getIcon(icon_path)
     vars['staminaNode']:removeAllChildren()
     vars['staminaNode']:addChild(icon)
 
-    -- 스태미나 갯수
-    vars['actingPowerLabel']:setString('1')
+    -- 스태미나 갯수 설정
+    local map_staimina_cnt = {}
+    map_staimina_cnt[FRIEND_MATCH_MODE.FRIEND] = '1'
+    map_staimina_cnt[FRIEND_MATCH_MODE.CLAN] = tostring(NEED_PRICE)
+    map_staimina_cnt[FRIEND_MATCH_MODE.RETRY] = tostring(NEED_PRICE)
+    map_staimina_cnt[FRIEND_MATCH_MODE.REVENGE] = tostring(NEED_PRICE)
+
+    local tar_stamina_cnt = map_staimina_cnt[mode]
+    vars['actingPowerLabel']:setString(tar_stamina_cnt)
 
     local b_arena = true
     do -- 플레이어 유저 덱
@@ -104,8 +137,8 @@ function UI_FriendMatchReadyArena:initUI()
         player_2d_deck:setFormation(formation)
     end
 
-    do -- 친구대전 보상 표시
-        vars['colosseumNode']:setVisible(false)
+    -- 친선대전만 보상 있음
+    if (mode == FRIEND_MATCH_MODE.FRIEND) then
         vars['friendshipNode']:setVisible(true)
     end
 
@@ -232,23 +265,29 @@ function UI_FriendMatchReadyArena:click_startBtn()
 
 
     start_game = function()
-        -- 친구대전 시작 요청
-        if (not g_staminasData:checkStageStamina(FRIEND_MATCH_STAGE_ID)) then
-            local function finish_cb()
+        local function cb(ret)
+            -- 시작이 두번 되지 않도록 하기 위함
+            UI_BlockPopup()
 
+            local friend_match = true
+            local scene = SceneGameArena(nil, nil, nil, nil, friend_match)
+            scene:runScene()
+        end
+
+        -- 친구대전일 경우 친구대전 스태미너 체크
+        if (self.m_mode == FRIEND_MATCH_MODE.FRIEND) then
+            if (not g_staminasData:checkStageStamina(FRIEND_MATCH_STAGE_ID)) then
+                g_staminasData:staminaCharge(FRIEND_MATCH_STAGE_ID, function() end)
+            else
+                g_friendMatchData:request_arenaStart(self.m_mode, g_friendMatchData.m_matchUserID, cb)
             end
-            g_staminasData:staminaCharge(FRIEND_MATCH_STAGE_ID, finish_cb)
+
+        -- 그외 우정포인트 체크
         else
-            local function cb(ret)
-                -- 시작이 두번 되지 않도록 하기 위함
-                UI_BlockPopup()
-
-                local friend_match = true
-                local scene = SceneGameArena(nil, nil, nil, nil, friend_match)
-                scene:runScene()
+            if (not ConfirmPrice(NEED_TYPE, NEED_PRICE)) then
+            else
+                g_friendMatchData:request_arenaStart(self.m_mode, self.m_vsuid, cb)
             end
-
-            g_friendMatchData:request_arenaStart(false, g_friendMatchData.m_matchUserID, cb)
         end
     end
 

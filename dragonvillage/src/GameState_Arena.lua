@@ -413,7 +413,7 @@ function GameState_Arena:makeResultUI(is_win)
         UI_ArenaResult(is_win, t_data)
 
     elseif (self.m_world.m_bFriendMatch) then
-        UI_FriendMatchResult(is_win)
+        UI_FriendMatchResultArena(is_win)
 
     else
         -- 작업 함수들

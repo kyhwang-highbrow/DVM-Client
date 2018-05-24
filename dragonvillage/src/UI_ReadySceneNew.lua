@@ -519,7 +519,7 @@ function UI_ReadySceneNew:refresh()
             str = Str('콜로세움')
 
 	    elseif (stage_id == FRIEND_MATCH_STAGE_ID) then
-            str = Str('친구대전 공격')
+            str = Str('친선전 공격')
         end
         self.m_titleStr = str
         g_topUserInfo:setTitleString(str)

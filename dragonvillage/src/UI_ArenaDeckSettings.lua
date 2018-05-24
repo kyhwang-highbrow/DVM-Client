@@ -4,8 +4,8 @@ local PARENT = UI_ReadySceneNew
 -- class UI_ArenaDeckSettings
 -------------------------------------
 UI_ArenaDeckSettings = class(PARENT,{
+        m_changeMode = 'boolean', -- true : 덱 변경만 가능, false : 덱변경 후 시작
         m_currTamerID = 'number',
-        m_historyID = 'number', -- nil이 아닌 경우 복수전, 재도전
     })
 
 local NEED_CASH = 50 -- 유료 입장 다이아 개수
@@ -40,16 +40,25 @@ end
 -------------------------------------
 function UI_ArenaDeckSettings:init(stage_id, sub_info)
     local vars = self.vars
-    self.m_historyID = sub_info
+    self.m_changeMode = sub_info or false -- 바로 시작인지 덱만 바꾸는 건지
 
-    -- 유료 입장권
-    local icon = IconHelper:getItemIcon(ITEM_ID_CASH)
-    icon:setScale(0.5)
-    vars['staminaExtNode']:addChild(icon)
-    vars['actingPowerExtLabel']:setString(NEED_CASH)
+    -- 덱 변경만 가능
+    if (self.m_changeMode) then
+        vars['actingPowerNode']:setVisible(false)
+        vars['startBtn']:registerScriptTapHandler(function() self:click_backBtn() end)
+        vars['startBtnLabel']:setPositionX(0)
+        vars['startBtnLabel']:setString(Str('변경 완료'))
 
     -- itemMenu에 입장권 체크하는 스케쥴러 등록
-    vars['itemMenu']:scheduleUpdateWithPriorityLua(function(dt) self:update_stamina(dt) end, 0.1)
+    else 
+        -- 유료 입장권
+        local icon = IconHelper:getItemIcon(ITEM_ID_CASH)
+        icon:setScale(0.5)
+        vars['staminaExtNode']:addChild(icon)
+        vars['actingPowerExtLabel']:setString(NEED_CASH)
+
+        vars['itemMenu']:scheduleUpdateWithPriorityLua(function(dt) self:update_stamina(dt) end, 0.1)
+    end
 end
 
 -------------------------------------
@@ -129,6 +138,13 @@ function UI_ArenaDeckSettings:click_tamerBtn()
 end
 
 -------------------------------------
+-- function click_backBtn
+-------------------------------------
+function UI_ArenaDeckSettings:click_backBtn()
+	self:click_exitBtn()
+end
+
+-------------------------------------
 -- function click_startBtn
 -- @brief 시작 버튼
 -------------------------------------
@@ -175,8 +191,7 @@ function UI_ArenaDeckSettings:click_startBtn()
 
             -- 덱 변경 확인후 api 요청
             self:checkChangeDeck(function()
-                -- self.m_historyID이 nil이 아닌 경우 재도전, 복수전
-                g_arenaData:request_arenaStart(is_cash, self.m_historyID, cb)
+                g_arenaData:request_arenaStart(is_cash, nil, cb)
             end)
         end
 
