@@ -316,15 +316,6 @@ static int l_isSameMd5(lua_State* L)
     return 1;
 }
 
-static int l_openURL(lua_State *L)
-{
-#if (CC_TARGET_PLATFORM == CC_PLATFORM_WIN32)
-    const char* pszUrl = lua_tostring(L, 1);
-    ShellExecuteA(NULL, "open", pszUrl, NULL, NULL, SW_SHOWNORMAL);
-#endif
-    return 1;
-}
-
 extern int isInstalled(const char *packagename);
 static int l_isInstalled(lua_State* L)
 {
@@ -435,7 +426,6 @@ void AppDelegate::initLuaEngine()
             { "unzipAsync", l_unzipAsync },
             { "openFileDialog", l_openFileDialog },
 			{ "getIPAddress", l_getIPAddress },
-            { "openUrl", l_openURL },
 			{ NULL, NULL }
 	};
 

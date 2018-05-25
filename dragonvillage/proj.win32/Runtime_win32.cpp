@@ -106,6 +106,10 @@ void sdkEvent(const char *id, const char *arg0, const char *arg1)
         }
         pDelegate->sdkEventHandler(id, ret.c_str(), info.c_str());
 	}
+    else if (strcmp(id, "app_gotoWeb") == 0)
+    {
+        ShellExecuteA(NULL, "open", arg0, NULL, NULL, SW_SHOWNORMAL);
+    }
     else
     {
         pDelegate->sdkEventHandler(id, "", "");
