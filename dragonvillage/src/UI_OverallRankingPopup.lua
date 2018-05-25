@@ -142,7 +142,7 @@ function UI_OverallRankingPopup:refresh()
 			vars['pvpTierNode']:addChild(icon)
        
         elseif (self.m_currTab == UI_OverallRankingPopup.COLLECTION) then
-            vars['scoreLabel'].m_label:runAction(cc.MoveTo:create(COMMON_UI_ACTION_TIME/2, cc.p(-165, 0)))
+            vars['scoreLabel'].m_label:runAction(cc.MoveTo:create(COMMON_UI_ACTION_TIME/2, cc.p(-185, 0)))
             local total_cnt = table.count(g_bookData:getBookList())
             vars['bookLabel']:setVisible(true)
             vars['bookLabel']:setString(Str('/{1}', total_cnt))
