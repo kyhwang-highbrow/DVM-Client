@@ -343,8 +343,10 @@ function TargetRule_getTargetList_arena_attack(org_list, t_data)
     
     -- 대상별로 우선순위를 계산
     for i, v in ipairs(org_list) do
-        v.m_sortValue = 0
+        v.m_sortValue = 1
         v.m_sortRandomIdx = nil
+
+        local is_invincibility = v:isExistStatusEffectName('barrier_protection_time')
                 
         -- 유효 생명력이 가장 낮은 적(+4)
         if (v == low_hp_1) then
@@ -388,12 +390,10 @@ function TargetRule_getTargetList_arena_attack(org_list, t_data)
 
         if (ai_type ~= 'remove') then
             -- 수면, 반사, 보호막(-2)
-            if (v:getStatusEffect('sleep') or v:getStatusEffect('reflect') or v:isExistStatusEffectName('barrier_protection', 'barrier_protection_time')) then
+            if (v:getStatusEffect('sleep') or v:getStatusEffect('reflect') or v:getStatusEffect('barrier_protection')) then
                 v.m_sortValue = v.m_sortValue - 2
             end
 
-            
-            local is_invincibility = v:isExistStatusEffectName('barrier_protection_time')
             if (not is_invincibility and not v.m_isZombie) then
                 all_invincibility = false
             end
@@ -414,10 +414,15 @@ function TargetRule_getTargetList_arena_attack(org_list, t_data)
             v.m_sortValue = v.m_sortValue + 3
         end
 
-        -- 우선 순위 최소값을 0으로 처리
-        if (v.m_sortValue < 0) then
-            v.m_sortValue = 0
-        end
+        -- 우선 순위 최소값 처리
+        v.m_sortValue = math_max(v.m_sortValue, 1)
+        
+        -- 좀비나 무적의 경우 강제로 0으로 처리
+        if (ai_type ~= 'remove') then
+            if (is_invincibility or v.m_isZombie) then
+                v.m_sortValue = 0
+            end
+        end 
 
         table.insert(t_ret, v)
     end
@@ -434,8 +439,7 @@ function TargetRule_getTargetList_arena_attack(org_list, t_data)
         cclog('-------------------------------------------------------')
         cclog('[ 아레나 공격 대상 선택 우선순위 계산 결과 ]')
         for i, target in ipairs(t_ret) do
-            cclog('sort value : ' .. target.m_sortValue)
-            cclog('name : ' .. target:getName())
+            cclog(target:getName() .. ' : ' .. target.m_sortValue)
         end
         cclog('-------------------------------------------------------')
     end
@@ -500,8 +504,7 @@ function TargetRule_getTargetList_arena_heal(org_list, t_data)
         cclog('-------------------------------------------------------')
         cclog('[ 아레나 회복 대상 선택 우선순위 계산 결과 ]')
         for i, target in ipairs(t_ret) do
-            cclog('sort value : ' .. target.m_sortValue)
-            cclog('name : ' .. target:getName())
+            cclog(target:getName() .. ' : ' .. target.m_sortValue)
         end
         cclog('-------------------------------------------------------')
     end
