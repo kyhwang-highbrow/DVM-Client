@@ -103,7 +103,6 @@ local t_module = {
 	'StructCapsuleBoxReward',
     'StructTeamBonus',
     'StructRandomShopItem',
-    'StructEventMatchCard',
 
 	-- ServerData
     'ServerData',
