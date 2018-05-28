@@ -215,7 +215,8 @@ function NaverCafeManager:naverCafeStartWithArticle(article_id)
         elseif (channel_code == 'zh') then
             plug_url = 'https://www.plug.game/DragonvillageMGlobal/1031353#/posts/' .. article_id
         end
-        CppFunctions:openUrl(plug_url)
+
+        SDKManager:goToWeb(plug_url)
     else
         PerpleSDK:naverCafeStartWithArticle(article_id)
     end
