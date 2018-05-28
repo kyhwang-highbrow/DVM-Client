@@ -103,6 +103,7 @@ local t_module = {
 	'StructCapsuleBoxReward',
     'StructTeamBonus',
     'StructRandomShopItem',
+    'StructEventMatchCard',
 
 	-- ServerData
     'ServerData',
@@ -209,6 +210,7 @@ local t_module = {
     'LobbyGuide_Colosseum',
     'LobbyGuide_AncientTower',
     'LobbyGuide_AttrTower',
+    'LobbyGuide_Arena',
     'ChatIgnoreList',
     'ScenarioViewingHistory',
 	'ConstantData',
@@ -880,6 +882,7 @@ local t_module = {
     'UI_LobbyGuideColosseum',
     'UI_LobbyGuideAncientTower',
     'UI_LobbyGuideAttrTower',
+    'UI_LobbyGuideArena',
 
 	-- UI : 콜로세움
     'UI_Colosseum',

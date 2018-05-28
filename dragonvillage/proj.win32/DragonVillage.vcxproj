@@ -370,6 +370,7 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <None Include="..\src\LobbyGuideData.lua" />
     <None Include="..\src\LobbyGuide_Adventure.lua" />
     <None Include="..\src\LobbyGuide_AncientTower.lua" />
+    <None Include="..\src\LobbyGuide_Arena.lua" />
     <None Include="..\src\LobbyGuide_AttrTower.lua" />
     <None Include="..\src\LobbyGuide_CapsuleBox.lua" />
     <None Include="..\src\LobbyGuide_Colosseum.lua" />
@@ -1120,6 +1121,7 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <None Include="..\src\UI_LoadingArena.lua" />
     <None Include="..\src\UI_LobbyGuideAdventure.lua" />
     <None Include="..\src\UI_LobbyGuideAncientTower.lua" />
+    <None Include="..\src\UI_LobbyGuideArena.lua" />
     <None Include="..\src\UI_LobbyGuideAttrTower.lua" />
     <None Include="..\src\UI_LobbyGuideColosseum.lua" />
     <None Include="..\src\UI_LobbyGuideWeeklyShop.lua" />

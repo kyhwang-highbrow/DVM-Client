@@ -3547,6 +3547,12 @@
     <None Include="..\src\UI_ArenaReady.lua">
       <Filter>lua\UI</Filter>
     </None>
+    <None Include="..\src\UI_LobbyGuideArena.lua">
+      <Filter>lua\UI</Filter>
+    </None>
+    <None Include="..\src\LobbyGuide_Arena.lua">
+      <Filter>lua\src</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Classes">
