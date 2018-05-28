@@ -123,6 +123,10 @@ function ServerData_Friend:request_invite(friend_uid, finish_cb)
         if finish_cb then
             finish_cb(ret)
         end
+
+        -- @ MASTER ROAD
+        local t_data = {clear_key = 'invt_frd'}
+        g_masterRoadData:updateMasterRoad(t_data)
     end
 
     -- 특정 상태 값을 처리하는 함수

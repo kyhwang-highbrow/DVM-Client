@@ -415,6 +415,7 @@ function ServerData_MasterRoad.checkClear(clear_type, clear_cond, t_data, raw_da
             -- 친밀도 과일 먹임 fruit
             -- 드래곤 레벨업 d_lvup
             -- 탐험 보내기 ply_epl
+            -- 친구 신청 하기 invt_frd
             return true
         end
 

@@ -32,7 +32,12 @@ function UI_FriendPopup:init()
 	self:initButton()
 	self:refresh()
 
-	self:initHighlight() 
+    self:initHighlight() 
+
+    -- 친구 UI 진입할 때마다도 확인해보자
+    -- @ MASTER ROAD
+    local t_data = {clear_key = 'make_frd'}
+    g_masterRoadData:updateMasterRoad(t_data)
 end
 
 -------------------------------------
