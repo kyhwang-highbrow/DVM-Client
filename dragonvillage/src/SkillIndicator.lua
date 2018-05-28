@@ -703,7 +703,7 @@ end
 -- function setIndicatorDataByAuto
 -- @brief l_target의 대상들을 가장 많이 피격할 수 있도록 인디케이터 정보를 세팅
 -------------------------------------
-function SkillIndicator:setIndicatorDataByAuto(l_target, target_count, fixed_target)
+function SkillIndicator:setIndicatorDataByAuto(l_target, target_count, fixed_target, is_arena)
     local bPass = false
 
     -- 스킬 피격 대상이 한명인 경우
@@ -722,7 +722,7 @@ function SkillIndicator:setIndicatorDataByAuto(l_target, target_count, fixed_tar
 
     if (not bPass) then
         -- 최적의 위치를 찾아서 인디케이터 정보를 설정(확정 대상을 포함한 최대한 많은 대상)
-        if (self.m_world.m_gameMode == GAME_MODE_ARENA or self.m_world.m_gameMode == GAME_MODE_COLOSSEUM) then
+        if (is_arena) then
             if (self:optimizeIndicatorDataByArena(l_target)) then
                 return true
             end

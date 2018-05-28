@@ -360,52 +360,30 @@ end
 -- function setIndicatorDataByAuto
 -- @brief 해당 유닛의 자동 액티브 스킬을 위한 인디케이터 정보 설정
 -------------------------------------
-function SkillHelper:setIndicatorDataByAuto(unit)
+function SkillHelper:setIndicatorDataByAuto(unit, is_arena)
     local skill_indivisual_info = unit:getSkillIndivisualInfo('active')
     if (not skill_indivisual_info) then return false end
 
-    local t_skill = skill_indivisual_info:getSkillTable()
-    local target_count = t_skill['target_count']
-    
-    -- 대상을 찾는다
-    local l_target, fixed_target = self:getTargetToUseActiveSkill(unit)
-     
-    -- 대상을 못찾은 경우
-    if (#l_target == 0) then return false end
-
-    -- 인디케이터 정보를 설정
-    return unit.m_skillIndicator:setIndicatorDataByAuto(l_target, target_count, fixed_target)
-end
-
--------------------------------------
--- function setIndicatorDataByArena
--- @brief 해당 유닛의 자동 액티브 스킬을 위한 인디케이터 정보 설정
--------------------------------------
-function SkillHelper:setIndicatorDataByArena(unit)
-    local skill_indivisual_info = unit:getSkillIndivisualInfo('active')
-    if (not skill_indivisual_info) then return false end
-
-    local t_skill = skill_indivisual_info:getSkillTable()
-    local target_count = t_skill['target_count']
-    
-    -- 대상을 찾는다
     local t_skill = skill_indivisual_info:getSkillTable()
     local target_type = t_skill['target_type']
-	local target_count = t_skill['target_count']
+    local target_count = t_skill['target_count']
     local target_formation = t_skill['target_formation']
-    local ai_division = t_skill['ai_division']
     local ai_type = t_skill['ai_type']
 
     -- 대상을 찾는다
     local l_target = {}
     local fixed_target = nil
-
+    
     -- 공격형
     if (string.find(target_type, 'enemy')) then
-        l_target = unit:getTargetListByType('enemy_arena_attack', nil, target_formation, {
-            ai_type = ai_type
-        })
-        fixed_target = l_target[1]
+        if (is_arena) then
+            l_target = unit:getTargetListByType('enemy_arena_attack', nil, target_formation, {
+                ai_type = ai_type
+            })
+            fixed_target = l_target[1]
+        else
+            l_target, fixed_target = self:getTargetToUseActiveSkill(unit)
+        end
 
     -- 회복형
     else
@@ -413,24 +391,16 @@ function SkillHelper:setIndicatorDataByArena(unit)
             ai_type = ai_type
         })
         fixed_target = l_target[1]
-        --[[
-        -- AI 대상으로 변경
-        target_type = SKILL_AI_ATTR_TARGET[ai_division]
 
-        if (not target_type) then
-            error('invalid ai_division : ' .. ai_division)
-        end
-
-        l_target = unit:getTargetListByType(target_type, nil, target_formation)
-        fixed_target = l_target[1]
-        ]]--
+        -- 회복형일 경우 모든 모드에서 아레나와 동일하게 처리
+        is_arena = true
     end
-     
+
     -- 대상을 못찾은 경우
     if (#l_target == 0) then return false end
 
     -- 인디케이터 정보를 설정
-    return unit.m_skillIndicator:setIndicatorDataByAuto(l_target, target_count, fixed_target)
+    return unit.m_skillIndicator:setIndicatorDataByAuto(l_target, target_count, fixed_target, is_arena)
 end
 
 -------------------------------------
