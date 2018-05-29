@@ -3583,6 +3583,15 @@
     <None Include="..\src\LobbyPopupData.lua">
       <Filter>lua\src</Filter>
     </None>
+    <None Include="..\src\UI_Package_Step02.lua">
+      <Filter>lua\UI</Filter>
+    </None>
+    <None Include="..\src\LobbyPopup_PackageStep.lua">
+      <Filter>lua\src</Filter>
+    </None>
+    <None Include="..\src\LobbyPopup_PackageStep2.lua">
+      <Filter>lua\src</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Classes">

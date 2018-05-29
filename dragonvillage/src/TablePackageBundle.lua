@@ -34,6 +34,20 @@ function TablePackageBundle:getTableViewMap()
             -- 우선 순위는 table_shop_list에서 가져옴
             local struct_product = l_item_list[tonumber(target_pid)]
             if (struct_product) then
+
+                ----------------------------------------------------------------------------------
+                -- @sgkim 2018-05-29
+                -- 단계별 패키지가 2개 이상 동시에 판매되면서 우선 순위 확인
+                if (v['t_name'] == 'package_step') or (v['t_name'] == 'package_step_02') then
+                    local valid_step_package = g_shopDataNew:getValidStepPackage()
+
+                    -- 현재 유효한 상품이 아닐 경우 맵에 추가하지 않음
+                    if (valid_step_package ~= v['t_name']) then
+                        --break -- 이 라인을 주석처리하면 두 패키지가 모두 노출됨
+                    end
+                end                
+                ----------------------------------------------------------------------------------
+
                 map[tostring(target_pid)] = struct_product
                 break
             end

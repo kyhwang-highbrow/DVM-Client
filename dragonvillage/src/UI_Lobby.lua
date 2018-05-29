@@ -372,7 +372,12 @@ function UI_Lobby:entryCoroutine_lobbyPopup(co)
                     local popup_key = pointer:getPopupKey()
                     if popup_key then
                         pointer:startGuide()
-                        show_func(popup_key)
+
+                        local is_view = g_settingData:get('event_full_popup', popup_key) or false
+                        -- 봤던 기록 없는 이벤트 풀팝업 띄워줌
+                        if (not is_view) then
+                            show_func(popup_key)
+                        end 
                     end
                 end
                 pointer = nil

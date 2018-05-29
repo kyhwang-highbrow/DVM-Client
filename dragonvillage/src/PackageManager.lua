@@ -36,6 +36,10 @@ function PackageManager:getTargetUI(package_name, is_popup)
     elseif (_package_name == 'package_step') then
         target_ui = UI_Package_Step(_package_name, is_popup)
 
+    -- 단계별 패키지 2 UI
+    elseif (_package_name == 'package_step_02') then
+        target_ui = UI_Package_Step02(_package_name, is_popup)
+
     -- 패키지 상품 묶음 UI 
     -- ### 단일 상품도 table_bundle_package에 등록
     elseif (TablePackageBundle:checkBundleWithName(_package_name)) then

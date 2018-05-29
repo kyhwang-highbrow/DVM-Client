@@ -792,3 +792,27 @@ function ServerData_Shop:setMarketPrice(market_data)
         self.m_dicMarketPrice[sku] = price
     end
 end
+
+
+-------------------------------------
+-- function getValidStepPackage
+-- @brief 단계별 패키지가 2개 이상 동시에 판매되면서 우선 순위 확인
+-- @sgkim 2018-05-29
+-------------------------------------
+function ServerData_Shop:getValidStepPackage()
+
+    -- 단계별 패키지 product id
+    local t_step_pids = {90077, 90078, 90079, 90080}
+
+    -- 1단계도 구매를 안했을 경우
+    if (self:getBuyCount(90077) == 0) then
+        return 'package_step_02'
+    end
+
+    -- 4단계까지 모두 구매했을 경우
+    if (self:getBuyCount(90080) > 0) then
+        return 'package_step_02'
+    end
+
+    return 'package_step'
+end
