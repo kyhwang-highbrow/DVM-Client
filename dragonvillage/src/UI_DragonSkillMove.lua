@@ -98,8 +98,8 @@ function UI_DragonSkillMove:getSkillMovePrice()
         100, 
         200,
         700,
-        1400,
-        2800
+        1000,
+        2000
     }
 
     local birth_grade = TableDragon:getBirthGrade(self.m_tar_dragon_data['did'])
