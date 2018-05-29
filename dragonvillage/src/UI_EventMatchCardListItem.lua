@@ -42,7 +42,7 @@ function UI_EventMatchCardListItem:initUI()
 
     -- 보상버튼
     vars['receiveBtn']:registerScriptTapHandler(function() 
-        g_eventMatchCardData:request_eventReward(step, function() self:refresh() end)
+        g_eventMatchCardData:request_productReward(step, function() self:refresh() end)
     end)
 
     vars['itemMenu']:setSwallowTouch(false)

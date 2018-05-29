@@ -42,7 +42,7 @@ function UI_EventMatchCardTimeListItem:initUI()
     end
 
     vars['receiveBtn']:registerScriptTapHandler(function() 
-        --g_accessTimeData:request_reward(step, function() finish_cb() end)
+        g_eventMatchCardData:request_timeReward(step, function() finish_cb() end)
     end)
 end
 
@@ -64,7 +64,7 @@ function UI_EventMatchCardTimeListItem:refresh()
     local cur_time = g_accessTimeData:getTime()
 
     -- 받은 보상인지
-    local is_get = g_accessTimeData:isGetReward(step)
+    local is_get = g_eventMatchCardData:isGetTicket(step)
     vars['checkSprite']:setVisible(is_get or need_time == 0)
     
     -- 버튼 활성화

@@ -32,9 +32,24 @@ function ServerData_EventMatchCard:networkCommonRespone(ret)
         self.m_cardGift = ret['card_gift']
     end
 
-    if (ret['reward']) then
-        self.m_productRecievedInfo = ret['reward']
+    if (ret['card_exchange']) then
+        self.m_productRecievedInfo = ret['card_exchange']
     end
+
+    if (ret['reward']) then
+        self.m_accessTimeRecievedInfo = ret['reward']
+    end
+end
+
+-------------------------------------
+-- function isGetTicket
+-- @brief 받은 보상인지 검사
+-------------------------------------
+function ServerData_EventMatchCard:isGetTicket(step)
+    local step = tostring(step) 
+    local reward_info = self.m_accessTimeRecievedInfo
+
+    return reward_info[step] and true or false
 end
 
 -------------------------------------
@@ -140,7 +155,7 @@ end
 -- function request_playFinish
 -- @brief 게임 종료
 -------------------------------------
-function ServerData_EventMatchCard:request_playFinish(l_grade, finish_cb, fail_cb)
+function ServerData_EventMatchCard:request_playFinish(str_grade, finish_cb, fail_cb)
     -- 유저 ID
     local uid = g_userData:get('uid')
 
@@ -157,7 +172,76 @@ function ServerData_EventMatchCard:request_playFinish(l_grade, finish_cb, fail_c
     local ui_network = UI_Network()
     ui_network:setUrl('/shop/match_card/finish')
     ui_network:setParam('uid', uid)
-    ui_network:setParam('grades', '1')
+    ui_network:setParam('grades', str_grade)
+    ui_network:setSuccessCB(success_cb)
+	ui_network:setFailCB(fail_cb)
+    ui_network:setRevocable(true)
+    ui_network:setReuse(false)
+    ui_network:request()
+
+    return ui_network
+end
+
+-------------------------------------
+-- function request_timeReward
+-- @brief 티켓 수령
+-------------------------------------
+function ServerData_EventMatchCard:request_timeReward(step, finish_cb, fail_cb)
+    -- 유저 ID
+    local uid = g_userData:get('uid')
+
+    -- 접속시간
+    local time = g_accessTimeData:getTime()
+
+    -- 콜백
+    local function success_cb(ret)
+        self:networkCommonRespone(ret)
+        
+        UIManager:toastNotificationGreen(Str('이용권을 획득하였습니다.'))
+
+        if finish_cb then
+            finish_cb(ret)
+        end
+    end
+
+    -- 네트워크 통신
+    local ui_network = UI_Network()
+    ui_network:setUrl('/shop/access_time')
+    ui_network:setParam('uid', uid)
+    ui_network:setParam('access_time', time)
+    ui_network:setParam('step', step)
+    ui_network:setSuccessCB(success_cb)
+	ui_network:setFailCB(fail_cb)
+    ui_network:setRevocable(true)
+    ui_network:setReuse(false)
+    ui_network:request()
+
+    return ui_network
+end
+
+-------------------------------------
+-- function request_productReward
+-- @brief 보상 교환
+-------------------------------------
+function ServerData_EventMatchCard:request_productReward(step, finish_cb, fail_cb)
+    -- 유저 ID
+    local uid = g_userData:get('uid')
+
+    -- 콜백
+    local function success_cb(ret)
+        self:networkCommonRespone(ret)
+        ItemObtainResult_Shop(ret)
+
+        if finish_cb then
+            finish_cb(ret)
+        end
+    end
+
+    -- 네트워크 통신
+    local ui_network = UI_Network()
+    ui_network:setUrl('/shop/match_card/exchange')
+    ui_network:setParam('uid', uid)
+    ui_network:setParam('step', step)
     ui_network:setSuccessCB(success_cb)
 	ui_network:setFailCB(fail_cb)
     ui_network:setRevocable(true)

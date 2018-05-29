@@ -11,17 +11,15 @@ MatchCardPlayer = class({
         m_pickCards = 'table', -- 현재 턴에 선택된 카드 정보
         m_pickBtns = 'table',
 
-
-
         m_randomDids = 'table', 
         m_mapRandomDragons = 'table', -- 카드에 표시되는 랜덤 드래곤 정보
      })
 
 local BOARD_CNT = 20
-local PLAY_CNT = 10
+local PLAY_CNT = 7
 
 -- 2개의 카드를 보여주는 시간
-local CARD_SHOW_DELAY = 1.0
+local CARD_SHOW_DELAY = 0.8
 
 MATCH_CARD_PLAY_STATE = {
     WAIT = 0,
@@ -170,13 +168,14 @@ function MatchCardPlayer:checkMatchingCard()
     else 
         card_1:changeState(MATCH_CARD_STATE.CLOSE)
         card_2:changeState(MATCH_CARD_STATE.CLOSE)
+        self.m_playCount = math_max(self.m_playCount - 1, 0)
+
     end
 
     self.m_state = MATCH_CARD_PLAY_STATE.WAIT
     self.m_pickCards = {}
     self.m_pickBtns = {}
-    self.m_playCount = math_max(self.m_playCount - 1, 0)
-
+    
     -- 남은 플레이 회수 없을 경우, 모두 다 맞춘 경우 종료
     if (self.m_playCount == 0 or self.m_successCount == PLAY_CNT) then
         self.m_state = MATCH_CARD_PLAY_STATE.FINISH
@@ -192,7 +191,14 @@ function MatchCardPlayer:showResult()
         UI_EventMatchCardResult(ret) 
     end
 
+    local str_grade = ''
+    for _, v in ipairs(self.m_successGrades) do
+        if str_grade == '' then
+            str_grade = v
+        else
+            str_grade = str_grade .. ',' .. v
+        end
+    end
 
-
-    g_eventMatchCardData:request_playFinish(self.m_successGrades, finish_func)
+    g_eventMatchCardData:request_playFinish(str_grade, finish_func)
 end

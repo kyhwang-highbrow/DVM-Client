@@ -4,6 +4,7 @@ local PARENT = UI
 -- class UI_EventMatchCardResult
 -------------------------------------
 UI_EventMatchCardResult = class(PARENT,{
+        m_rewardInfo = '',
     })
 
 -------------------------------------
@@ -11,6 +12,8 @@ UI_EventMatchCardResult = class(PARENT,{
 -------------------------------------
 function UI_EventMatchCardResult:init(data)
     local vars = self:load('event_match_card_result.ui')
+    self.m_rewardInfo = data['reward_info']
+
     UIManager:open(self, UIManager.POPUP)
 
     -- backkey 지정
@@ -31,6 +34,47 @@ end
 -------------------------------------
 function UI_EventMatchCardResult:initUI()
     local vars = self.vars
+    local reward_info =  self.m_rewardInfo
+    local total_cnt = table.count(reward_info)
+	for idx, t_item in ipairs(reward_info) do
+		local item_id = t_item['item_id']
+		local item_cnt = t_item['count']
+        local from = t_item['from']
+
+		local card = UI_ItemCard(item_id, item_cnt)
+		vars['dropRewardMenu']:addChild(card.root)
+
+        local scale = 0.65
+		local pos_x = UIHelper:getCardPosXWithScale(total_cnt, idx, scale + 0.1)
+		card.root:setPositionX(pos_x)
+        card.root:setScale(scale)
+
+        cca.uiReactionSlow(card.root, scale, scale, scale - 0.1)
+
+        local grade = string.find(from, 'grade_') and 
+                      string.gsub(from, 'grade_', '') or 1
+
+        self:setItemCardRarity(card, grade)
+	end
+end
+
+-------------------------------------
+-- function setItmeCardRarity()
+-------------------------------------
+function UI_EventMatchCardResult:setItemCardRarity(item_card, grade)
+    local grade = tonumber(grade)
+	if (grade > 3) then
+		local rarity_effect = MakeAnimator('res/ui/a2d/card_summon/card_summon.vrp')
+		if (grade == 5) then
+			rarity_effect:changeAni('summon_regend', true)
+		else
+			rarity_effect:changeAni('summon_hero', true)
+		end
+		rarity_effect:setScale(1.7)
+		rarity_effect:setAlpha(0)
+		item_card.root:addChild(rarity_effect.m_node)
+        rarity_effect.m_node:runAction(cc.FadeIn:create(0.2))
+	end
 end
 
 -------------------------------------

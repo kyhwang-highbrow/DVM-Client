@@ -30,12 +30,6 @@ end
 -------------------------------------
 function UI_EventMatchCard:initUI()
     local vars = self.vars
-    
-    local ticket = g_eventMatchCardData.m_ticket or 0
-    vars['number1']:setString(Str('보유 이용권 : {1}개', comma_value(ticket)))
-
-    local card_gift = g_eventMatchCardData.m_cardGift or 0
-    vars['number2']:setString(Str('보유 카드 : {1}개', comma_value(card_gift)))
 
     -- 접속 보상 정보
     local access_time_info = g_eventMatchCardData.m_accessTimeInfo
@@ -90,7 +84,7 @@ function UI_EventMatchCard:refresh()
     
     -- 오늘 접속 시간
     if (play_second >= (60 * 60)) then
---        vars['timeLabel']:setString(Str('완료'))
+        vars['timeLabel']:setString(Str('완료'))
     else
         -- 보상 리스트 갱신
         for i, ui in ipairs(self.m_productDataUI) do
@@ -99,8 +93,14 @@ function UI_EventMatchCard:refresh()
 
         local is_minute = true
         local play_min = g_accessTimeData:getTime(is_minute)
---        vars['timeLabel']:setString(Str('{1}분', play_min))
+        vars['timeLabel']:setString(Str('{1}분', play_min))
     end
+
+    local ticket = g_eventMatchCardData.m_ticket or 0
+    vars['number1']:setString(Str('보유 이용권 : {1}개', comma_value(ticket)))
+
+    local card_gift = g_eventMatchCardData.m_cardGift or 0
+    vars['number2']:setString(Str('보유 카드 : {1}개', comma_value(card_gift)))
 
     -- 게임 시작 버튼 활성화 / 비활성화
     local ticket = g_eventMatchCardData.m_ticket or 0

@@ -68,6 +68,10 @@ function UI_EventMatchCardPlay:update(dt)
         local play_cnt = self.m_player.m_playCount
         local str = Str('남은 기회 : {1}회', play_cnt)
         vars['playCountLabel']:setString(str)
+
+        local success_cnt = self.m_player.m_successCount
+        local str = Str('성공 : {1}회', success_cnt)
+        vars['matchCountLabel']:setString(str)
     end
 end
 
