@@ -103,6 +103,7 @@ local t_module = {
 	'StructCapsuleBoxReward',
     'StructTeamBonus',
     'StructRandomShopItem',
+    'StructEventMatchCard',
 
 	-- ServerData
     'ServerData',
@@ -169,6 +170,7 @@ local t_module = {
     'ServerData_AncientRuin',
     'ServerData_RandomShop',
     'ServerData_Arena',
+    'ServerData_EventMatchCard',
 
     -- Interface
     'IEventDispatcher',
@@ -261,6 +263,7 @@ local t_module = {
     'RenderTextureBatchNode',
     'AncientTowerScoreCalc',
 	'MultiDeckMgr',
+    'MatchCardPlayer',
 
 	'IconHelper',
     'ResHelper',
@@ -1105,6 +1108,8 @@ local t_module = {
 	'UI_DailyMisson_Clan',
     'UI_EventGoldDungeon',
     'UI_EventGoldDungeonListItem',
+    'UI_EventMatchCard',
+    'UI_EventMatchCardPlay',
 
 	-- UI : 연출
 	'DirectingCharacter',

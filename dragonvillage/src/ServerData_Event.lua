@@ -478,6 +478,13 @@ function ServerData_Event:openEventPopup(tab, close_cb)
             if co:waitWork() then return end
         end
 
+        --if (g_hotTimeData:isActiveEvent('event_match_card')) then
+        if true then -- test
+            co:work('# 카드 짝 맞추기 이벤트 정보 받는 중')
+            g_eventMatchCardData:request_eventInfo(co.NEXT, required_fail_cb)
+            if co:waitWork() then return end
+        end
+
         co:work('# 접속시간 저장 중')
         g_accessTimeData:request_saveTime(co.NEXT, co.ESCAPE)
         if co:waitWork() then return end

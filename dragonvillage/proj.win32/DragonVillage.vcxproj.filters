@@ -3553,6 +3553,21 @@
     <None Include="..\src\LobbyGuide_Arena.lua">
       <Filter>lua\src</Filter>
     </None>
+    <None Include="..\src\UI_EventMatchCardPlay.lua">
+      <Filter>lua\UI</Filter>
+    </None>
+    <None Include="..\src\UI_EventMatchCard.lua">
+      <Filter>lua\UI</Filter>
+    </None>
+    <None Include="..\src\MatchCardPlayer.lua">
+      <Filter>lua\src</Filter>
+    </None>
+    <None Include="..\src\StructEventMatchCard.lua">
+      <Filter>lua\src</Filter>
+    </None>
+    <None Include="..\src\ServerData_EventMatchCard.lua">
+      <Filter>lua\src</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Classes">

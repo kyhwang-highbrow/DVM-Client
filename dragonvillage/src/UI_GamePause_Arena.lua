@@ -17,7 +17,7 @@ function UI_GamePause_Arena:init(stage_id, gamekey, start_cb, end_cb)
     local vars = self.vars
 
     if (self.m_bFriendMatch) then
-        vars['contentsLabel']:setString(Str('친구대전'))
+        vars['contentsLabel']:setString(Str('친선전'))
     end
 end
 

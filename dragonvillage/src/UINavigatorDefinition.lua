@@ -1270,6 +1270,32 @@ function UINavigatorDefinition:goTo_event_gold_dungeon(...)
 end
 
 -------------------------------------
+-- function goTo_event_match_card
+-- @brief 카드 짝 맞추기 이벤트 탭으로 이동
+-- @usage UINavigatorDefinition:goTo('event_match_card')
+-------------------------------------
+function UINavigatorDefinition:goTo_event_match_card(...)
+    local args = {...}
+    local sub_menu = args[1]
+    local tar_dragon = args[2]
+
+    -- 해당 UI가 열려있을 경우
+    local is_opend, idx, ui = self:findOpendUI('UI_EventMatchCard')
+    if (is_opend == true) then
+        self:closeUIList(idx, false) -- param : idx, include_idx
+        return
+    end
+
+    do-- Scene으로 동작
+        local function close_cb()
+            UINavigatorDefinition:goTo('lobby')
+        end
+
+        g_eventData:openEventPopup('event_match_card', close_cb)
+    end
+end
+
+-------------------------------------
 -- function goTo_battle_ready
 -- @brief 전투 준비 화면으로 이동
 -- @usage UINavigatorDefinition:goTo('battle_ready')
