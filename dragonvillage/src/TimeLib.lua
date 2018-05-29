@@ -244,3 +244,13 @@ function TimeLib:parseTimeStr(str)
     local second = l_str[3]
     return hour, minute, second
 end
+
+-------------------------------------
+-- function getServerTimeZoneOffset
+-- @brief 서버의 타임존 offset을 초로 리턴
+-------------------------------------
+function TimeLib:getServerTimeZoneOffset()
+    local utc_hour = (self.m_utcHour or 0)
+    local offset = utc_hour * 60 * 60
+    return offset
+end

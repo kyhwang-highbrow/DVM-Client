@@ -286,17 +286,25 @@ function ServerData_Event:checkEventTime(start_date, end_date)
     local date_format = 'yyyy-mm-dd HH:MM:SS'
     local parser = pl.Date.Format(date_format)
 
+    
+    -- 단말기(local)의 타임존 (단위 : 초)
+    local timezone_local = datetime.getTimeZoneOffset()
+
+    -- 서버(server)의 타임존 (단위 : 초)
+    local timezone_server = Timer:getServerTimeZoneOffset()
+    local offset = (timezone_server - timezone_local)
+
     if (start_date ~= '') then
         local parse_start_date = parser:parse(start_date)
         if (parse_start_date) then
-            start_time = parse_start_date['time']
+            start_time = parse_start_date['time'] + offset -- <- 문자열로 된 날짜를 timestamp로 변환할 때 서버 타임존의 숫자로 보정
         end
     end
 
     if (end_date ~= '') then
         local parse_end_date = parser:parse(end_date)
         if (parse_end_date) then
-            end_time = parse_end_date['time']
+            end_time = parse_end_date['time'] + offset -- <- 문자열로 된 날짜를 timestamp로 변환할 때 서버 타임존의 숫자로 보정
         end
     end
 
