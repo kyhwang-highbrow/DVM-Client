@@ -783,6 +783,7 @@ end
 function UI_Setting:click_lobbyGuideResetBtn()
     g_settingData:clearDataList('lobby_guide_seen')
     LobbyGuideData:getInstance():clearLobbyGuideDataFile()
+    LobbyPopupData:getInstance():clearLobbyPopupDataFile()
     UIManager:toastNotificationGreen('마을 도움말이 초기화되었습니다!')
 end
 

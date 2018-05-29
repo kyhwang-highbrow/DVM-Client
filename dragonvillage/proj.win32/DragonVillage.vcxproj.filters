@@ -3577,6 +3577,12 @@
     <None Include="..\src\UI_EventMatchCardListItem.lua">
       <Filter>lua\UI</Filter>
     </None>
+    <None Include="..\src\LobbyPopupAbstract.lua">
+      <Filter>lua\src</Filter>
+    </None>
+    <None Include="..\src\LobbyPopupData.lua">
+      <Filter>lua\src</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Classes">

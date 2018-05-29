@@ -251,6 +251,9 @@ function UI_Lobby:entryCoroutine()
 
 		-- 강제 튜토리얼 진행 하는 동안 풀팝업, 마스터의 길, 구글 업적 일괄 체크, 막음
         if (not TutorialManager.getInstance():checkFullPopupBlock()) then
+            -- 로비 풀팝업 매니저
+            self:entryCoroutine_lobbyPopup(co)
+
             -- 풀팝업 출력 함수
             local function show_func(pid) 
                 co:work()
@@ -323,6 +326,60 @@ function UI_Lobby:entryCoroutine()
     Coroutine(coroutine_function, '로비 코루틴')
 end
 
+-------------------------------------
+-- function entryCoroutine_lobbyPopup
+-------------------------------------
+function UI_Lobby:entryCoroutine_lobbyPopup(co)
+    -- 로비 팝업
+    local t_table_lobby_popup = TABLE:get('table_lobby_popup')
+    local l_lobby_popup = {}
+    for i,v in pairs(t_table_lobby_popup) do
+        table.insert(l_lobby_popup, v)
+    end
+
+    -- priority가 낮으면 우선 노출
+    local function sort_func(a, b)
+        return a['priority'] < b['priority']
+    end
+    table.sort(l_lobby_popup, sort_func)
+
+    -- 풀팝업 출력 함수
+    local function show_func(pid) 
+        co:work()
+        local ui = UI_EventFullPopup(pid)
+        ui:setCloseCB(co.NEXT)
+        ui:openEventFullPopup()
+        if co:waitWork() then return end
+    end
+
+    for i,v in ipairs(l_lobby_popup) do
+        -- 해당 클래스가 load되어 있는지 확인
+        local lua_class = v['lua_class']
+        if package.loaded[lua_class] then
+
+            -- 해당 클래스 require통해서 얻어옴
+            local lobby_guide_class = require(lua_class)
+            if lobby_guide_class then
+
+                -- 인스턴스 생성
+                local pointer = lobby_guide_class(v)
+
+                -- 조건 확인
+                pointer:checkCondition()
+
+                -- 안내가 유효할 경우
+                if (pointer:isActiveGuide() == true) then
+                    local popup_key = pointer:getPopupKey()
+                    if popup_key then
+                        pointer:startGuide()
+                        show_func(popup_key)
+                    end
+                end
+                pointer = nil
+            end
+        end
+    end
+end
 
 -------------------------------------
 -- function initLobbyWorldAdapter

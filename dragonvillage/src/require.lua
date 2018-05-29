@@ -212,6 +212,8 @@ local t_module = {
     'LobbyGuide_AncientTower',
     'LobbyGuide_AttrTower',
     'LobbyGuide_Arena',
+    'LobbyPopupData',
+    'LobbyPopupAbstract',
     'ChatIgnoreList',
     'ScenarioViewingHistory',
 	'ConstantData',

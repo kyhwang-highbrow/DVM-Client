@@ -88,6 +88,7 @@ local TableInfo = {
 
 		table_pick_dragon = {'table_pick_dragon', 'itemid', false},
         table_lobby_guide = {'table_lobby_guide', 'key', false},
+        table_lobby_popup = {'table_lobby_popup', 'key', false},
     }
 
 -------------------------------------
