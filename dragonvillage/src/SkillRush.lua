@@ -58,6 +58,12 @@ function SkillRush:init_skill(hit, charge_res)
 		self.m_chargeEffect:setVisible(false)
 		self.m_chargeEffect:setScale(1.5)
 
+        self.m_chargeEffect.m_node:registerScriptHandler(function(event)
+            if (event == 'exit') then
+                self.m_chargeEffect = nil
+            end
+        end)
+
         if (self:isRightFormation()) then
             self.m_chargeEffect:setPositionX(100)
             self.m_chargeEffect:setFlip(true)
@@ -132,8 +138,7 @@ function SkillRush.st_charge(owner, dt)
 	-- 이동 완료 시 홈 좌표로 보내고 다음 연출 준비
 	elseif (char.m_isOnTheMove == false) then
 		-- 돌격 이펙트 삭제
-		owner.m_chargeEffect.m_node:removeFromParent(true)
-		owner.m_chargeEffect = nil
+		owner:releaseChargeEffect()
 
 		char.m_animator:setVisible(false)
 		char:setPosition(char.m_homePosX, char.m_homePosY)
@@ -178,10 +183,7 @@ end
 -------------------------------------
 function SkillRush:onStateDelegateExit()
 	-- 돌격 이펙트 삭제
-	if (self.m_chargeEffect) then
-		self.m_chargeEffect.m_node:removeFromParent(true)
-		self.m_chargeEffect = nil
-	end
+	self:releaseChargeEffect()
 
 	-- 캐릭터 스케일 원복
 	self.m_owner.m_animator:setScale(self.m_originScale)
@@ -224,6 +226,17 @@ function SkillRush:makeCrashPhsyObject()
     end, 0)
 
     self.m_physObject = missile
+end
+
+-------------------------------------
+-- function releaseChargeEffect
+-------------------------------------
+function SkillRush:releaseChargeEffect()
+    -- 돌격 이펙트 삭제
+	if (self.m_chargeEffect) then
+		self.m_chargeEffect.m_node:removeFromParent(true)
+		self.m_chargeEffect = nil
+	end
 end
 
 -------------------------------------
