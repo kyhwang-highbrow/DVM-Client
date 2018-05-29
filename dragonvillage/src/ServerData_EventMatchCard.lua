@@ -3,13 +3,67 @@
 -------------------------------------
 ServerData_EventMatchCard = class({
         m_boardInfo = 'table',
+        m_ticket = 'number', -- 입장권
+        m_cardGift = 'number', -- 아이템 교환권
         m_endTime = 'time',
+
+        m_accessTimeInfo = 'table', -- 접속 시간 보상 정보
+        m_accessTimeRecievedInfo = 'table', -- 받은 보상 정보
+
+        m_productInfo = 'table', -- 누적 교환 보상 정보
+        m_productRecievedInfo = 'table', -- 받은 보상 정보
     })
 
 -------------------------------------
 -- function init
 -------------------------------------
 function ServerData_EventMatchCard:init()
+end
+
+-------------------------------------
+-- function networkCommonRespone
+-------------------------------------
+function ServerData_EventMatchCard:networkCommonRespone(ret)
+    if (ret['card_play']) then
+        self.m_ticket = ret['card_play']
+    end
+
+    if (ret['card_gift']) then
+        self.m_cardGift = ret['card_gift']
+    end
+
+    if (ret['reward']) then
+        self.m_productRecievedInfo = ret['reward']
+    end
+end
+
+-------------------------------------
+-- function parseProductInfo
+-------------------------------------
+function ServerData_EventMatchCard:parseProductInfo(product_info)
+    self.m_productInfo = {}
+    if (product_info) then
+        local info = self.m_productInfo
+        local step = product_info['step']
+    
+        for i = 1, step do
+            local data = { step = i,
+                           max_buy_cnt = product_info['buy_count_'..i], 
+                           price = product_info['price_'..i], 
+                           reward = product_info['mail_content_'..i] }
+            table.insert(info, data)
+        end
+    end
+end
+
+-------------------------------------
+-- function getBuyCnt
+-- @brief 
+-------------------------------------
+function ServerData_EventMatchCard:getBuyCnt(step)
+    local step = tostring(step) 
+    local reward_info = self.m_productRecievedInfo
+    return reward_info[step] or 0
 end
 
 -------------------------------------
@@ -22,6 +76,17 @@ function ServerData_EventMatchCard:request_eventInfo(finish_cb, fail_cb)
 
     -- 콜백
     local function success_cb(ret)
+        self:networkCommonRespone(ret)
+        self.m_accessTimeInfo = ret['table_event_access_time']
+        -- 접속시 주는 입장권 UI에 표시 하기 위해 임시 데이터 넣어줌
+        local temp_data = {
+            step = 0,
+            time = 0
+        }
+        table.insert(self.m_accessTimeInfo, temp_data)
+
+        self:parseProductInfo(ret['table_event_product'][1])
+
         if finish_cb then
             finish_cb(ret)
         end
@@ -50,10 +115,11 @@ function ServerData_EventMatchCard:request_playStart(finish_cb, fail_cb)
 
     -- 콜백
     local function success_cb(ret)
+        self:networkCommonRespone(ret)
         self.m_boardInfo = ret['board']
 
         if finish_cb then
-            finish_cb()
+            finish_cb(ret)
         end
     end
 
@@ -71,54 +137,16 @@ function ServerData_EventMatchCard:request_playStart(finish_cb, fail_cb)
 end
 
 -------------------------------------
--- function request_diceRoll
--- @brief 이벤트 재화 사용
+-- function request_playFinish
+-- @brief 게임 종료
 -------------------------------------
-function ServerData_EventMatchCard:request_diceRoll(finish_cb)
+function ServerData_EventMatchCard:request_playFinish(l_grade, finish_cb, fail_cb)
     -- 유저 ID
     local uid = g_userData:get('uid')
-	
-    -- 추가 주사위 사용 여부 지정 (골드로 일일 5회)
-    local use_add_dice = false
-    local curr_dice = self.m_diceInfo:getCurrDice()
-    if (curr_dice <= 0) then -- 현재 주사위가 없을 경우
-        if (not self.m_diceInfo:useAllAddDice()) then -- 추가 주사위 일일 횟수가 남아있을 경우
-            use_add_dice = true
-        end
-    end
 
     -- 콜백
     local function success_cb(ret)
-        self.m_diceInfo:apply(ret['dice_info'])
-		g_serverData:networkCommonRespone(ret)
-        if finish_cb then
-            finish_cb(ret)
-        end
-    end
-
-    -- 네트워크 통신
-    local ui_network = UI_Network()
-    ui_network:setUrl('/shop/dice/roll')
-    ui_network:setParam('uid', uid)
-	ui_network:setParam('add_dice', use_add_dice)
-    ui_network:setSuccessCB(success_cb)
-    ui_network:setRevocable(true)
-    ui_network:setReuse(false)
-    ui_network:request()
-
-    return ui_network
-end
-
--------------------------------------
--- function request_diceReward
--- @brief 이벤트 재화 누적 보상
--------------------------------------
-function ServerData_EventMatchCard:request_diceReward(lap, finish_cb, fail_cb)
-    -- 유저 ID
-    local uid = g_userData:get('uid')
-
-    -- 콜백
-    local function success_cb(ret)                    
+        self:networkCommonRespone(ret)
 
         if finish_cb then
             finish_cb(ret)
@@ -127,11 +155,11 @@ function ServerData_EventMatchCard:request_diceReward(lap, finish_cb, fail_cb)
 
     -- 네트워크 통신
     local ui_network = UI_Network()
-    ui_network:setUrl('/shop/dice/reward')
+    ui_network:setUrl('/shop/match_card/finish')
     ui_network:setParam('uid', uid)
-    ui_network:setParam('lap', lap)
+    ui_network:setParam('grades', '1')
     ui_network:setSuccessCB(success_cb)
-    ui_network:setFailCB(fail_cb)
+	ui_network:setFailCB(fail_cb)
     ui_network:setRevocable(true)
     ui_network:setReuse(false)
     ui_network:request()

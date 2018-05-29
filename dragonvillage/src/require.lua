@@ -1110,6 +1110,9 @@ local t_module = {
     'UI_EventGoldDungeonListItem',
     'UI_EventMatchCard',
     'UI_EventMatchCardPlay',
+    'UI_EventMatchCardListItem',
+    'UI_EventMatchCardTimeListItem',
+    'UI_EventMatchCardResult',
 
 	-- UI : 연출
 	'DirectingCharacter',

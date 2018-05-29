@@ -66,6 +66,13 @@ function StructEventMatchCard:getPair()
 end
 
 -------------------------------------
+-- function getGrade
+-------------------------------------
+function StructEventMatchCard:getGrade()
+    return self['grade']
+end
+
+-------------------------------------
 -- function setState
 -------------------------------------
 function StructEventMatchCard:setState(state)
@@ -116,7 +123,7 @@ function StructEventMatchCard:setUI()
 
         local t_dragon_data = {}
         t_dragon_data['did'] = self.m_cardDid
-        t_dragon_data['evolution'] = grade
+        t_dragon_data['evolution'] = math_min(grade - 2, 3) -- (3,4,5로 들어옴) 
         t_dragon_data['grade'] = TableDragon():getBirthGrade(self.m_cardDid)
 
         local card = UI_DragonCard(StructDragonObject(t_dragon_data))
@@ -127,9 +134,9 @@ function StructEventMatchCard:setUI()
         card.root:setAnchorPoint(ZERO_POINT)
         
         local rarity_effect = MakeAnimator('res/ui/a2d/card_summon/card_summon.vrp')
-        -- 등급별 테두리 효과
-        if (grade > 1) then
-            local effect_name = grade == 3 and 'summon_regend' or 'summon_hero'
+        -- 등급별 테두리 효과 - 서버에서 3,4,5로 넘김
+        if (grade > 3) then
+            local effect_name = (grade == 5) and 'summon_regend' or 'summon_hero'
             rarity_effect:changeAni(effect_name, true)
             rarity_effect:setScale(1.7)
             card.root:addChild(rarity_effect.m_node)

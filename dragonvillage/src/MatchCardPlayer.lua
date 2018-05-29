@@ -3,13 +3,17 @@
 -------------------------------------
 MatchCardPlayer = class({	
         m_state = 'MATCH_CARD_PLAY_STATE', -- 플레이 상태
-        m_playCount = 'number', -- 플레이 카운트
+        m_playCount = 'number', -- 플레이 회수
+        m_successCount = 'number', -- 성공 회수
+        m_successGrades = 'table',
         
         m_totalCards = 'table', -- 전체 카드 정보
         m_pickCards = 'table', -- 현재 턴에 선택된 카드 정보
         m_pickBtns = 'table',
 
-        m_randomDids = 'table',
+
+
+        m_randomDids = 'table', 
         m_mapRandomDragons = 'table', -- 카드에 표시되는 랜덤 드래곤 정보
      })
 
@@ -31,6 +35,8 @@ MATCH_CARD_PLAY_STATE = {
 function MatchCardPlayer:init()
     self.m_state = MATCH_CARD_PLAY_STATE.WAIT
     self.m_playCount = PLAY_CNT
+    self.m_successCount = 0
+    self.m_successGrades = {}
 
     self.m_totalCards = {}
     self.m_pickCards = {}
@@ -157,6 +163,9 @@ function MatchCardPlayer:checkMatchingCard()
         btn_1:setEnabled(false)
         btn_2:setEnabled(false)
 
+        self.m_successCount = math_min(self.m_successCount + 1, PLAY_CNT)
+        table.insert(self.m_successGrades, card_1:getGrade())
+
     -- 짝 맞추기 실패
     else 
         card_1:changeState(MATCH_CARD_STATE.CLOSE)
@@ -168,8 +177,8 @@ function MatchCardPlayer:checkMatchingCard()
     self.m_pickBtns = {}
     self.m_playCount = math_max(self.m_playCount - 1, 0)
 
-    -- 남은 플레이 회수 없을 경우 종료
-    if (self.m_playCount == 0) then
+    -- 남은 플레이 회수 없을 경우, 모두 다 맞춘 경우 종료
+    if (self.m_playCount == 0 or self.m_successCount == PLAY_CNT) then
         self.m_state = MATCH_CARD_PLAY_STATE.FINISH
         self:showResult()
     end
@@ -179,6 +188,11 @@ end
 -- function showResult
 -------------------------------------
 function MatchCardPlayer:showResult()
-    -- 일딴 테스트를 위해 종료
-    UINavigator:goTo('event_match_card')
+    local finish_func = function(ret)
+        UI_EventMatchCardResult(ret) 
+    end
+
+
+
+    g_eventMatchCardData:request_playFinish(self.m_successGrades, finish_func)
 end
