@@ -191,6 +191,9 @@ T_LINK_FUNC = {
     ['make_frd'] = function()
         UINavigator:goTo('friend')
     end,
+    ['invt_frd'] = function()
+        UINavigator:goTo('friend', 'recommend')
+    end,
     -- 우정포인트 주고 받기
     ['send_fp'] = function()
         UINavigator:goTo('friend')

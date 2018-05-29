@@ -959,14 +959,18 @@ end
 -------------------------------------
 function UINavigatorDefinition:goTo_friend(...)
 	local args = {...}
+    local tab_name = args[1]
 
 	-- 로비 진입후 친구 팝업 뜨기 전까지의 받은 요청이 있을 수 있음, 진입시 하일라이트 정보 갱신!
 	g_highlightData:request_highlightInfo(function() 
 
 		-- 해당 UI가 열려있을 경우
-		local is_opend, idx, ui = self:findOpendUI('UI_FriendPopup')
+		local is_opend, idx, friend_ui = self:findOpendUI('UI_FriendPopup')
 		if (is_opend == true) then
-			self:closeUIList(idx, false) -- param : idx, include_idx
+            self:closeUIList(idx, false) -- param : idx, include_idx
+            if tab_name then
+                friend_ui:setTab(tab_name)
+            end
 			return
 		end
 
@@ -974,7 +978,10 @@ function UINavigatorDefinition:goTo_friend(...)
 		local is_opend, idx, ui = self:findOpendUI('UI_Lobby')
 		if (is_opend == true) then
 			self:closeUIList(idx)
-			UI_FriendPopup()
+            local friend_ui = UI_FriendPopup()
+            if tab_name then
+                friend_ui:setTab(tab_name)
+            end
 			return
 		end
 
