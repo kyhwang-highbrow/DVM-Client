@@ -17,7 +17,7 @@ local BOARD_CNT = 20
 local PLAY_CNT = 10
 
 -- 2개의 카드를 보여주는 시간
-local CARD_SHOW_DELAY = 0.8
+local CARD_SHOW_DELAY = 1.0
 
 MATCH_CARD_PLAY_STATE = {
     WAIT = 0,
@@ -66,8 +66,8 @@ end
 function MatchCardPlayer:makeRandomDragonData()
     local t_dragon = TableDragon().m_orgTable
     for _, v in pairs(t_dragon) do
-        local is_undering = (v['undering'] == 1)
-        local is_limit = (v['pick_weight'] == 0)
+        local is_undering = (v['underling'] == 1) 
+        local is_limit = (v['pick_weight'] == 0) 
 
         -- 자코 x, 한정 드래곤 x
         if (not is_undering) and (not is_limit) and (v['did']) then
