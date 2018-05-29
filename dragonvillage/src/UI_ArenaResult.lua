@@ -311,7 +311,7 @@ function UI_ArenaResult:direction_winReward()
 
 			ui.vars['playLabel']:setString(Str('콜로세움 주간 참여 보상'))
 			ui.vars['rewardFrameNode']:setVisible(false)
-			ui.vars['rankRewardLabel']:setVisible(false)
+			ui.vars['rewardLabel']:setVisible(false)
 		end
 
 	end
