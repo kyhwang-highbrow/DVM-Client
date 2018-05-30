@@ -135,7 +135,7 @@ function StructEventMatchCard:makeUI()
         local rarity_effect = MakeAnimator('res/ui/a2d/card_summon/card_summon.vrp')
         -- 등급별 테두리 효과 - 서버에서 3,4,5로 넘김
         if (grade > 3) then
-            local effect_name = (grade == 5) and 'summon_regend' or 'summon_hero'
+            local effect_name = (grade == 5) and 'summon_regend_2' or 'summon_hero'
             rarity_effect:changeAni(effect_name, true)
             rarity_effect:setScale(1.7)
             card.root:addChild(rarity_effect.m_node)
