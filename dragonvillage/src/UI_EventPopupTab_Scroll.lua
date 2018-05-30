@@ -80,6 +80,7 @@ function UI_EventPopupTab_Scroll:onEnterTab()
         repos_func(g_eventGoldDungeonData:hasReward())
 
     elseif (event_type == 'event_match_card') then
+        -- 카드 쌓아놓고 하위 보상은 교환하지 않는 경우가 생기므로 보상쪽 스크롤 하지 않음
         repos_func(false)
     end
 end

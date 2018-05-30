@@ -87,6 +87,22 @@ function ServerData_EventMatchCard:parseProductInfo(product_info)
 end
 
 -------------------------------------
+-- function setBoardInfo
+-------------------------------------
+function ServerData_EventMatchCard:setBoardInfo(board_info)
+    self.m_boardInfo = {}
+    for k, v in pairs(board_info) do
+        local data = {
+            slot = k,
+            pair = v['pair'],
+            grade = v['grade']
+        }
+
+        self.m_boardInfo[k] = data
+    end
+end
+
+-------------------------------------
 -- function getBuyCnt
 -- @brief 
 -------------------------------------
@@ -146,8 +162,8 @@ function ServerData_EventMatchCard:request_playStart(finish_cb, fail_cb)
     -- 콜백
     local function success_cb(ret)
         self:networkCommonRespone(ret)
-        self.m_boardInfo = ret['board']
-
+        self:setBoardInfo(ret['board'])
+        
         if finish_cb then
             finish_cb(ret)
         end

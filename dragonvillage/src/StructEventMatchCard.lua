@@ -11,6 +11,7 @@ StructEventMatchCard = class(PARENT, {
         m_state = '',
         m_cardDid = '',
 
+        slot = 'number',
         pair = 'number', 
         grade = 'number',
     })
@@ -104,7 +105,13 @@ function StructEventMatchCard:makeUI()
     self.m_node = cc.Node:create()
 
     do -- 카드 뒷면
-        local img = cc.Sprite:create('res/ui/icons/event_card_back_0101.png')
+        local slot = self['slot']
+        local img
+        if (slot%2 == 1) then
+            img = cc.Sprite:create('res/ui/icons/event_card_back_0101.png')
+        else
+            img = cc.Sprite:create('res/ui/icons/event_card_back_0102.png')
+        end
         img:setDockPoint(ZERO_POINT)
         img:setAnchorPoint(ZERO_POINT)
         self.m_node:addChild(img)
