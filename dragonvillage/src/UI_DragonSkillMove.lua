@@ -92,23 +92,23 @@ end
 -- function getSkillMovePrice
 -------------------------------------
 function UI_DragonSkillMove:getSkillMovePrice()
-	
-    -- 등급별 스킬 이전 가격
-    local move_cost = {
-        100, 
-        200,
-        700,
-        1000,
-        2000
-    }
-
     local birth_grade = TableDragon:getBirthGrade(self.m_tar_dragon_data['did'])
+    if (birth_grade < SKILL_MOVE_DRAGON_GRADE) then
+        return 0
+    end
+
+    local map_skill_move_price = g_dragonsData.m_mSkillMovePrice
+
+    local price = map_skill_move_price[tostring(birth_grade)]
+    if (not price) then
+        return 0
+    end
 
     -- 스킬 이전 할인 합산
     local dc_value = g_hotTimeData:getDiscountEventValue(HOTTIME_SALE_EVENT.SKILL_MOVE)
     local dc_rate = (100 - dc_value)/100
 
-	return math_floor(move_cost[birth_grade] * dc_rate)
+	return math_floor(price * dc_rate)
 end
 
 -------------------------------------

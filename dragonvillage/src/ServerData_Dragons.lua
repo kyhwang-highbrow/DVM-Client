@@ -15,6 +15,8 @@ ServerData_Dragons = class({
 
         m_dragonBestCombatPower = 'number', -- 개별 드래곤 최고 전투력
         m_bUpdatePower = 'boolean',
+
+        m_mSkillMovePrice = 'map',
     })
 
 SKILL_MOVE_DRAGON_GRADE = 4 -- 스킬 이전 가능한 드래곤 태생 등급 (4등급 이상부터 가능)
@@ -26,6 +28,7 @@ function ServerData_Dragons:init(server_data)
     self.m_serverData = server_data
     self.m_lSortData = {}
     self.m_mNumOfDragonsByDid = {}
+    self.m_mSkillMovePrice = {}
     self.m_bDirtyNumOfDragonsByDid = true
     self.m_dragonsCnt = 0
     self.m_dragonBestCombatPower = 0
@@ -1093,6 +1096,15 @@ function ServerData_Dragons:impossibleSkillEnhanceForever(doid)
 	end
 
     return false
+end
+
+-------------------------------------
+-- function setSkillMovePrice
+-- @brief 스킬 이전 비용 (서버에서 받도록 수정)
+-------------------------------------
+function ServerData_Dragons:setSkillMovePrice(ret)
+   self.m_mSkillMovePrice['4'] = ret['skillmove_price4'] or 1400
+   self.m_mSkillMovePrice['5'] = ret['skillmove_price5'] or 2800
 end
 
 -------------------------------------

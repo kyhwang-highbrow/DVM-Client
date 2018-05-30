@@ -204,6 +204,9 @@ function UI_Lobby:entryCoroutine()
                 if (ret['arena_info']) then -- 콜로세움 (신규) <-- 닫혀있음 안줌
 					g_arenaData:setInfoForLobby(ret['arena_info'])
 				end
+				
+                cclog('# 스킬 이전 가격 정보 받는 중')
+                g_dragonsData:setSkillMovePrice(ret)
 
 				co.NEXT()
 			end)
