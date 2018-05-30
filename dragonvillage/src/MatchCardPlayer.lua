@@ -69,9 +69,10 @@ function MatchCardPlayer:makeRandomDragonData()
     for _, v in pairs(t_dragon) do
         local is_undering = (v['underling'] == 1) 
         local is_limit = (v['pick_weight'] == 0) 
+        local is_test = (v['test'] == 0)
 
-        -- 자코 x, 한정 드래곤 x
-        if (not is_undering) and (not is_limit) and (v['did']) then
+        -- 자코 x, 한정 드래곤 x, 개발중인 드래곤 x
+        if (not is_undering) and (not is_limit) and (not is_test) and (v['did']) then
             table.insert(self.m_randomDids, v['did'])
         end
     end
