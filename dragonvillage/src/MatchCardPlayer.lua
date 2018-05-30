@@ -23,8 +23,9 @@ local CARD_SHOW_DELAY = 0.8
 
 MATCH_CARD_PLAY_STATE = {
     WAIT = 0,
-    PLAY = 1,
-    FINISH = 2,
+    OPEN_1 = 1,
+    OPEN_2 = 2,
+    FINISH = 3,
 }
 
 -------------------------------------
@@ -114,13 +115,17 @@ end
 function MatchCardPlayer:onClick(card_btn, struct_card)
     local play_state = self.m_state
 
-    -- 플레이 종료
-    if (play_state == MATCH_CARD_PLAY_STATE.FINISH) then
+    -- 플레이 종료 & 2장 오픈한 상태면
+    if (play_state == MATCH_CARD_PLAY_STATE.FINISH) or (play_state == MATCH_CARD_PLAY_STATE.OPEN_2) then
         return
     end
 
     if (play_state == MATCH_CARD_PLAY_STATE.WAIT) then
-        self.m_state = MATCH_CARD_PLAY_STATE.PLAY
+        self.m_state = MATCH_CARD_PLAY_STATE.OPEN_1
+    end
+
+    if (play_state == MATCH_CARD_PLAY_STATE.OPEN_1) then
+        self.m_state = MATCH_CARD_PLAY_STATE.OPEN_2
     end
 
     -- 선택한 카드 상태
@@ -131,17 +136,17 @@ function MatchCardPlayer:onClick(card_btn, struct_card)
         table.insert(self.m_pickBtns, card_btn)
 
     elseif (card_state == MATCH_CARD_STATE.OPEN) then
-        
     end
+    
+    card_btn:setEnabled(false)
 
     -- 짝 맞았는지 체크
     if (#self.m_pickCards == 2) then
-        local ui = UI_BlockPopup()
         local finish_cb = function()
+            self.m_state = MATCH_CARD_PLAY_STATE.WAIT
             self:checkMatchingCard()
-            ui:close()
         end
-        cca.reserveFunc(struct_card.m_node, CARD_SHOW_DELAY, finish_cb)
+        cca.reserveFunc(struct_card.m_node, CARD_SHOW_DELAY + 0.15, finish_cb)
     end
 end
 
@@ -152,10 +157,11 @@ function MatchCardPlayer:checkMatchingCard()
     local card_1 = self.m_pickCards[1]
     local card_2 = self.m_pickCards[2]
 
+    local btn_1 = self.m_pickBtns[1]
+    local btn_2 = self.m_pickBtns[2]
+
     -- 짝 맞추기 성공
     if (card_1:getPair() == card_2:getPair()) then
-        local btn_1 = self.m_pickBtns[1]
-        local btn_2 = self.m_pickBtns[2]
         btn_1:setEnabled(false)
         btn_2:setEnabled(false)
 
@@ -168,14 +174,15 @@ function MatchCardPlayer:checkMatchingCard()
 
     -- 짝 맞추기 실패
     else 
+        btn_1:setEnabled(true)
+        btn_2:setEnabled(true)
+
         card_1:changeState(MATCH_CARD_STATE.CLOSE)
         card_2:changeState(MATCH_CARD_STATE.CLOSE)
         self.m_playCount = math_max(self.m_playCount - 1, 0)
 
     end
 
-    self.m_state = MATCH_CARD_PLAY_STATE.WAIT
-    
     -- 남은 플레이 회수 없을 경우, 모두 다 맞춘 경우 종료
     if (self.m_playCount == 0 or self.m_successCount == BOARD_CNT/2) then
         local ui = UI_BlockPopup()

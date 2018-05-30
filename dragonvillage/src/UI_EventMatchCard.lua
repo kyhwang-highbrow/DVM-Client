@@ -88,6 +88,10 @@ function UI_EventMatchCard:refresh()
     -- 오늘 접속 시간
     if (play_second >= (60 * 60)) then
         vars['timeLabel']:setString(Str('완료'))
+    else
+        local is_minute = true
+        local play_min = g_accessTimeData:getTime(is_minute)
+        vars['timeLabel']:setString(Str('{1}분', play_min))
     end
 
     -- 보상 리스트 갱신
@@ -95,10 +99,6 @@ function UI_EventMatchCard:refresh()
         ui:refresh()
     end
 
-    local is_minute = true
-    local play_min = g_accessTimeData:getTime(is_minute)
-    vars['timeLabel']:setString(Str('{1}분', play_min))
-    
     local ticket = g_eventMatchCardData.m_ticket or 0
     vars['number1']:setString(Str('보유 이용권 : {1}개', comma_value(ticket)))
 

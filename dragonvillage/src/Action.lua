@@ -476,10 +476,6 @@ function cca.filpCard(front, back, duration, flip_cnt)
         local _func = function()
             if (flip_cnt < 1) then
                 cca.filpCard(back, front, duration, flip_cnt + 1)
-            else
-                -- 액션 모두 종료
-                back:stopAllActions()
-                front:stopAllActions()
             end
         end
         
