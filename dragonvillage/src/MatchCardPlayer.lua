@@ -177,9 +177,15 @@ function MatchCardPlayer:checkMatchingCard()
     
     -- 남은 플레이 회수 없을 경우, 모두 다 맞춘 경우 종료
     if (self.m_playCount == 0 or self.m_successCount == BOARD_CNT/2) then
+        local ui = UI_BlockPopup()
         self.m_state = MATCH_CARD_PLAY_STATE.FINISH
         local btn_1 = self.m_pickBtns[1]
-        cca.reserveFunc(btn_1, CARD_SHOW_DELAY, function() self:showResult() end)
+        local result_func = function()
+            ui:close()
+            self:showResult()
+        end
+        -- 딜레이 주고 결과 노출
+        cca.reserveFunc(btn_1, CARD_SHOW_DELAY, result_func)
     end
 
     self.m_pickCards = {}
