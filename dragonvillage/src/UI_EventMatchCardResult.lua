@@ -58,7 +58,7 @@ function UI_EventMatchCardResult:initUI()
 		local card = UI_ItemCard(item_id, item_cnt)
 		vars['dropRewardMenu']:addChild(card.root)
 
-        local scale = 0.65
+        local scale = (self.m_successCount == 10) and 0.55 or 0.65
 		local pos_x = UIHelper:getCardPosXWithScale(total_cnt, idx, scale + 0.1)
 		card.root:setPositionX(pos_x)
         card.root:setScale(scale)
