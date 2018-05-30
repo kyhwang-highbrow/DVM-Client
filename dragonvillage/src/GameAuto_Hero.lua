@@ -14,14 +14,18 @@ GameAuto_Hero = class(PARENT, {
 function GameAuto_Hero:init(world, game_mana, ui)
     self.m_inGameUI = ui
 
+    -- 전투 시작 시 자동모드 설정 처리
     local is_auto_mode = g_autoPlaySetting:get('auto_mode')
 
-    if (isExistValue(self.m_world.m_gameMode, GAME_MODE_ARENA)) then
+    if (self.m_world.m_gameMode == GAME_MODE_INTRO) then
+        -- 인트로에서는 비활성화시킴
+        is_auto_mode = false
+
+    elseif (isExistValue(self.m_world.m_gameMode, GAME_MODE_ARENA)) then
         -- 아레나 모드일 경우 강제로 자동모드를 활성화시킴    
         is_auto_mode = true
-    end
 
-    if (g_autoPlaySetting:isAutoPlay()) then
+    elseif (g_autoPlaySetting:isAutoPlay()) then
         -- 연속 전투가 활성화되어있다면 즉시 자동모드를 활성화시킴
         g_autoPlaySetting:setWithoutSaving('auto_mode', true)
 
@@ -29,9 +33,7 @@ function GameAuto_Hero:init(world, game_mana, ui)
     end
 
     if (is_auto_mode) then
-        if (self.m_world.m_gameMode ~= GAME_MODE_INTRO) then
-            self:onStart()
-        end
+        self:onStart()
     end
 end
 

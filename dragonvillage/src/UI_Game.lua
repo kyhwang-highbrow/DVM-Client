@@ -290,9 +290,18 @@ function UI_Game:click_autoStartButton()
     self.m_gameScene:gamePause()
 
     local function close_cb()
+        -- 자동모드 여부(연속전투 활성화시 같이 활성화 시킴)
+        local is_auto_mode = g_autoPlaySetting:get('auto_mode')
+
         -- 설정된 정보로 UI 변경
-        self:setAutoMode(g_autoPlaySetting:get('auto_mode'))
         self:setAutoPlayUI()
+        self:setAutoMode(is_auto_mode)
+
+        if (is_auto_mode) then
+            world:getAuto():onStart()
+        else
+            world:getAuto():onEnd()
+        end
 
         self.m_gameScene:gameResume()
     end
@@ -381,18 +390,18 @@ function UI_Game:click_autoButton()
 
     local b = (not world:isAutoPlay())
 
+    -- 자동 여부 저장
+    g_autoPlaySetting:setWithoutSaving('auto_mode', b)
+
+    -- UI
+    self:setAutoMode(b)
+
     -- 자동 모드 ON
     if (b) then
         world:getAuto():onStart()
     else
         world:getAuto():onEnd()
     end
-
-    -- UI
-    self:setAutoMode(b)
-
-    -- 자동 여부 저장
-    g_autoPlaySetting:setWithoutSaving('auto_mode', b)
 end
 
 -------------------------------------
@@ -600,6 +609,8 @@ end
 -------------------------------------
 function UI_Game:setAutoMode(b, no_noti)
     local vars = self.vars
+
+    if (b == vars['autoVisual']:isVisible()) then return end
 
     if (b) then
         vars['autoVisual']:setVisible(true)
