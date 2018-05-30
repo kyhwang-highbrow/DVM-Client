@@ -38,7 +38,7 @@ end
 -------------------------------------
 function UI_EventMatchCardResult:initUI()
     local vars = self.vars
-    local title_label = vars['titleLabel']
+    local title_label = vars['resultLabel']
     title_label:setString(Str('카드 짝 맞추기 {1}회 성공!', self.m_successCount))
     cca.uiReactionSlow(title_label)
 
