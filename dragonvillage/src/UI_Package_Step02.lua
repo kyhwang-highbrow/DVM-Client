@@ -104,6 +104,17 @@ function UI_Package_Step02:refresh(step)
         str = Str('전설 드래곤 선택권 획득 가능!')
     end
     vars['infoLabel']:setString(str)
+
+
+    -- 정보가 눈에 띄도록 흔들어줌
+    local action = cca.buttonShakeAction(0.8, 1) -- shake_level, delay_time
+    vars['infoNode']:stopAllActions()
+    vars['infoNode']:runAction(action)
+
+    -- 정보가 눈에 띄도록 흔들어줌 (전설 선택권 아이콘)
+    local action = cca.buttonShakeAction(1, 1) -- shake_level, delay_time
+    vars['iconSprite']:stopAllActions()
+    vars['iconSprite']:runAction(action)
 end
 
 -------------------------------------
