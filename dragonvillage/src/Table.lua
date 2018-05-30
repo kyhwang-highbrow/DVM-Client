@@ -87,7 +87,6 @@ local TableInfo = {
 		table_clan_mark_custom = {'table_clan_mark_custom', 'id', false},
 
 		table_pick_dragon = {'table_pick_dragon', 'itemid', false},
-        table_lobby_guide = {'table_lobby_guide', 'key', false},
     }
 
 -------------------------------------
@@ -153,6 +152,9 @@ local TableInfo_fromServer = {
 
         -- 마을 팝업
         ['table_lobby_popup'] = {'table_lobby_popup', 'key'},
+
+        -- 마을 가이드
+        ['table_lobby_guide'] = {'table_lobby_guide', 'key'},
     }
 
 -------------------------------------
