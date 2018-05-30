@@ -453,3 +453,41 @@ function cca.dropping(node, move_y, idx)
 
 	cca.runAction(node, action)
 end
+
+-------------------------------------
+-- function filpCard
+-- @brief 카드 뒤집기 액션, front, back : cc.Srpite
+-------------------------------------
+function cca.filpCard(front, back, duration, flip_cnt)
+    local flip_cnt = flip_cnt or 1
+    local camera = cc.OrbitCamera:create(duration/2, 1, 0, 0, 90 * 1, 0, 0)
+
+    local hide = function()
+        front:setVisible(false)
+    end
+
+    local func = function()
+        local _camera = cc.OrbitCamera:create(duration/2, 1, 0, 270, 90 * 1, 0, 0)
+
+        local _show = function()
+            back:setVisible(true)
+        end
+
+        local _func = function()
+            if (flip_cnt < 1) then
+                cca.filpCard(back, front, duration, flip_cnt + 1)
+            else
+                -- 액션 모두 종료
+                back:stopAllActions()
+                front:stopAllActions()
+            end
+        end
+        
+        local _action = cc.Sequence:create(cc.CallFunc:create(_show), _camera, cc.CallFunc:create(_func))
+
+        back:runAction(_action)
+    end
+
+    local action =  cc.Sequence:create(camera, cc.CallFunc:create(hide), cc.CallFunc:create(func))
+    front:runAction(action)
+end

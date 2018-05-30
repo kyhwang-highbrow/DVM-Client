@@ -4,20 +4,24 @@ local PARENT = UI
 -- class UI_EventMatchCardResult
 -------------------------------------
 UI_EventMatchCardResult = class(PARENT,{
+        m_successCount = 'number',
         m_rewardInfo = '',
     })
 
 -------------------------------------
 -- function init
 -------------------------------------
-function UI_EventMatchCardResult:init(data)
+function UI_EventMatchCardResult:init(data, success_cnt)
     local vars = self:load('event_match_card_result.ui')
-    self.m_rewardInfo = data['reward_info']
-
+    self.m_uiName = 'UI_EventMatchCardResult'
     UIManager:open(self, UIManager.POPUP)
-
+    -- 백키 블럭 해제
+    UIManager:blockBackKey(false)
     -- backkey 지정
     g_currScene:pushBackKeyListener(self, function() self:click_okBtn() end, 'UI_EventMatchCardResult')
+
+    self.m_rewardInfo = data['reward_info']
+    self.m_successCount = success_cnt
 
     -- @UI_ACTION
     --self:addAction(vars['rootNode'], UI_ACTION_TYPE_LEFT, 0, 0.2)
@@ -34,6 +38,10 @@ end
 -------------------------------------
 function UI_EventMatchCardResult:initUI()
     local vars = self.vars
+    local title_label = vars['titleLabel']
+    title_label:setString(Str('카드 짝 맞추기 {1}회 성공!', self.m_successCount))
+    cca.uiReactionSlow(title_label)
+
     local reward_info =  self.m_rewardInfo
     local total_cnt = table.count(reward_info)
 	for idx, t_item in ipairs(reward_info) do
@@ -52,7 +60,7 @@ function UI_EventMatchCardResult:initUI()
         cca.uiReactionSlow(card.root, scale, scale, scale - 0.1)
 
         local grade = string.find(from, 'grade_') and 
-                      string.gsub(from, 'grade_', '') or 1
+                      string.gsub(from, 'grade_', '') or 3
 
         self:setItemCardRarity(card, grade)
 	end

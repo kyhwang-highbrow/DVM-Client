@@ -54,12 +54,9 @@ function MatchCardPlayer:makeBoardData()
     local board_info = g_eventMatchCardData.m_boardInfo
     for i = 1, BOARD_CNT do
         local data = board_info[tostring(i)]
-        local struct_card = StructEventMatchCard(data)
-
         local pair = data['pair']
         local random_did = self:getRandomDragonID(pair)
-        struct_card:setCardDid(random_did)
-
+        local struct_card = StructEventMatchCard(data, random_did)
         table.insert(self.m_totalCards, struct_card)
     end
 end
@@ -161,7 +158,11 @@ function MatchCardPlayer:checkMatchingCard()
         btn_1:setEnabled(false)
         btn_2:setEnabled(false)
 
-        self.m_successCount = math_min(self.m_successCount + 1, PLAY_CNT)
+        local scale = btn_1:getScale()
+        cca.uiReactionSlow(btn_1, scale, scale, scale - 0.05)
+        cca.uiReactionSlow(btn_2, scale, scale, scale - 0.05)
+
+        self.m_successCount = math_min(self.m_successCount + 1, BOARD_CNT/2)
         table.insert(self.m_successGrades, card_1:getGrade())
 
     -- 짝 맞추기 실패
@@ -188,7 +189,7 @@ end
 -------------------------------------
 function MatchCardPlayer:showResult()
     local finish_func = function(ret)
-        UI_EventMatchCardResult(ret) 
+        UI_EventMatchCardResult(ret, self.m_successCount) 
     end
 
     local str_grade = ''

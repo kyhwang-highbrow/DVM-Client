@@ -5,6 +5,9 @@ local PARENT = Structure
 -------------------------------------
 StructEventMatchCard = class(PARENT, {
         m_node = 'cc.Node',
+        m_frontImg = 'cc.Sprite',
+        m_backImg = 'cc.Sprite',
+
         m_state = '',
         m_cardDid = '',
 
@@ -21,13 +24,14 @@ MATCH_CARD_STATE = {
 -------------------------------------
 -- function init
 -------------------------------------
-function StructEventMatchCard:init(data)
+function StructEventMatchCard:init(data, random_did)
     if (data) then
         self:applyTableData(data)
     end
 
     self.m_state = MATCH_CARD_STATE.CLOSE
-    self:setUI()
+    self.m_cardDid = random_did
+    self:makeUI()
 end
 
 -------------------------------------
@@ -36,7 +40,6 @@ end
 function StructEventMatchCard:applyTableData(data)
     -- 서버에서 key값을 줄여서 쓴 경우가 있어서 변환해준다
     local replacement = {}
---    replacement['atd_type'] = 'attendance_type'
 
     for i,v in pairs(data) do
         local key = replacement[i] and replacement[i] or i
@@ -95,32 +98,21 @@ function StructEventMatchCard:changeState(state)
 end
 
 -------------------------------------
--- function setDragon
+-- function makeUI
 -------------------------------------
-function StructEventMatchCard:setCardDid(did)
-    self.m_cardDid = did
-end
+function StructEventMatchCard:makeUI()
+    self.m_node = cc.Node:create()
 
--------------------------------------
--- function setUI
--------------------------------------
-function StructEventMatchCard:setUI()
-    if (not self.m_node) then
-        self.m_node = cc.Node:create()
-    end
-
-    self.m_node:removeAllChildren()
-
-    local state = self.m_state
-    if (state == MATCH_CARD_STATE.CLOSE) then
+    do -- 카드 뒷면
         local img = cc.Sprite:create('res/ui/icons/event_card_back_0101.png')
         img:setDockPoint(ZERO_POINT)
         img:setAnchorPoint(ZERO_POINT)
         self.m_node:addChild(img)
+        self.m_backImg = img
+    end
 
-    elseif (state == MATCH_CARD_STATE.OPEN) then
+    do -- 카드 앞면
         local grade = self['grade']
-
         local t_dragon_data = {}
         t_dragon_data['did'] = self.m_cardDid
         t_dragon_data['evolution'] = math_min(grade - 2, 3) -- (3,4,5로 들어옴) 
@@ -143,5 +135,29 @@ function StructEventMatchCard:setUI()
         end
 
         self.m_node:addChild(card.root)
+        self.m_frontImg = card.root
+    end
+
+    self.m_backImg:setVisible(true)
+    self.m_frontImg:setVisible(false)
+
+    -- 액션을 위해 앵커포인트 센터로 변경
+    changeAnchorPointWithOutTransPos(self.m_backImg, CENTER_POINT)
+    changeAnchorPointWithOutTransPos(self.m_frontImg, CENTER_POINT)
+end
+
+-------------------------------------
+-- function setUI
+-------------------------------------
+function StructEventMatchCard:setUI()
+    local state = self.m_state
+    cclog('setUI')
+    ccdump(state)
+    local action_delay = 0.3
+    if (state == MATCH_CARD_STATE.CLOSE) then
+        cca.filpCard(self.m_frontImg, self.m_backImg, action_delay)
+
+    elseif (state == MATCH_CARD_STATE.OPEN) then
+        cca.filpCard(self.m_backImg, self.m_frontImg, action_delay)
     end
 end

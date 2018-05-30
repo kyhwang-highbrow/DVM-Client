@@ -12,10 +12,11 @@ UI_EventMatchCardPlay = class(PARENT,{
 -------------------------------------
 function UI_EventMatchCardPlay:init()
     local vars = self:load('event_match_card_game.ui')
-    UIManager:open(self, UIManager.SCENE)
-
     self.m_uiName = 'UI_EventMatchCardPlay'
-
+    UIManager:open(self, UIManager.SCENE)
+    -- 백키 블럭
+    UIManager:blockBackKey(true)
+    
     -- backkey 지정
     g_currScene:pushBackKeyListener(self, function() self:close() end, 'UI_EventMatchCardPlay')
 
