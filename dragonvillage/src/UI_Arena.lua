@@ -200,7 +200,7 @@ function UI_Arena:showBegginerNoRewardPopup()
     end
 
     local msg = Str('현재 입문자 등급입니다.')
-    local sub_msg = Str('콜로세움 시즌마다 10회 이상 전투를 진행해야 순위가 집계되고 시즌 보상을 받을 수 있습니다.')
+    local sub_msg = Str('콜로세움 시즌마다 1회 이상 전투를 진행해야 순위가 집계되고 시즌 보상을 받을 수 있습니다.')
     MakeSimplePopup2(POPUP_TYPE.OK, msg, sub_msg)
     g_settingData:applySettingData(true, 'arena_guide', save_key)
 end
