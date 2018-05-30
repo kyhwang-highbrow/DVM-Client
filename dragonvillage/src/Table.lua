@@ -88,7 +88,6 @@ local TableInfo = {
 
 		table_pick_dragon = {'table_pick_dragon', 'itemid', false},
         table_lobby_guide = {'table_lobby_guide', 'key', false},
-        table_lobby_popup = {'table_lobby_popup', 'key', false},
     }
 
 -------------------------------------
@@ -151,6 +150,9 @@ local TableInfo_fromServer = {
 
         -- 가방
         ['table_inventory'] = {'table_inventory', 'lv'},
+
+        -- 마을 팝업
+        ['table_lobby_popup'] = {'table_lobby_popup', 'key'},
     }
 
 -------------------------------------
