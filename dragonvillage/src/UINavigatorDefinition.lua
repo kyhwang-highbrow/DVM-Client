@@ -1260,8 +1260,8 @@ function UINavigatorDefinition:goTo_event_gold_dungeon(...)
     local sub_menu = args[1]
     local tar_dragon = args[2]
 
-    -- 해당 UI가 열려있을 경우
-    local is_opend, idx, ui = self:findOpendUI('UI_EventGoldDungeon')
+    -- 이벤트 팝업이 열려있는 경우
+    local is_opend, idx, ui = self:findOpendUI('UI_EventPopup')
     if (is_opend == true) then
         self:closeUIList(idx, false) -- param : idx, include_idx
         return
@@ -1286,8 +1286,8 @@ function UINavigatorDefinition:goTo_event_match_card(...)
     local sub_menu = args[1]
     local tar_dragon = args[2]
 
-    -- 해당 UI가 열려있을 경우
-    local is_opend, idx, ui = self:findOpendUI('UI_EventMatchCard')
+    -- 이벤트 팝업이 열려있는 경우
+    local is_opend, idx, ui = self:findOpendUI('UI_EventPopup')
     if (is_opend == true) then
         self:closeUIList(idx, false) -- param : idx, include_idx
         return
