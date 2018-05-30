@@ -254,9 +254,6 @@ function UI_Lobby:entryCoroutine()
 
 		-- 강제 튜토리얼 진행 하는 동안 풀팝업, 마스터의 길, 구글 업적 일괄 체크, 막음
         if (not TutorialManager.getInstance():checkFullPopupBlock()) then
-            -- 로비 풀팝업 매니저
-            self:entryCoroutine_lobbyPopup(co)
-
             -- 풀팝업 출력 함수
             local function show_func(pid) 
                 co:work()
@@ -272,6 +269,10 @@ function UI_Lobby:entryCoroutine()
 			-- 지정된 풀팝업 리스트 (최초 로비 실행 시 출력)
             if (is_show) then
                 cclog('# 풀팝업 show')
+                
+                -- 로비 풀팝업 매니저
+                self:entryCoroutine_lobbyPopup(co)
+
                 g_fullPopupManager:show(FULL_POPUP_TYPE.LOBBY, show_func)
             end
             
