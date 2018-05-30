@@ -6,6 +6,7 @@ local PARENT = UI
 UI_EventMatchCardResult = class(PARENT,{
         m_successCount = 'number',
         m_rewardInfo = '',
+        m_getTicket = 'number',
     })
 
 -------------------------------------
@@ -21,6 +22,7 @@ function UI_EventMatchCardResult:init(data, success_cnt)
     g_currScene:pushBackKeyListener(self, function() self:click_okBtn() end, 'UI_EventMatchCardResult')
 
     self.m_rewardInfo = data['reward_info']
+    self.m_getTicket = data['match_cnt'] or 0
     self.m_successCount = success_cnt
 
     -- @UI_ACTION
@@ -41,6 +43,10 @@ function UI_EventMatchCardResult:initUI()
     local title_label = vars['resultLabel']
     title_label:setString(Str('카드 짝 맞추기 {1}회 성공!', self.m_successCount))
     cca.uiReactionSlow(title_label)
+
+    local sub_label = vars['cardLabel']
+    sub_label:setString(Str('카드 {1}개 획득!', self.m_getTicket))
+    cca.uiReactionSlow(sub_label)
 
     local reward_info =  self.m_rewardInfo
     local total_cnt = table.count(reward_info)

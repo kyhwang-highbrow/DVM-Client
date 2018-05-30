@@ -31,6 +31,9 @@ end
 function UI_EventMatchCard:initUI()
     local vars = self.vars
 
+    -- 남은 시간 
+    vars['limitTimeLabel']:setString(g_eventMatchCardData:getStatusText())
+
     -- 접속 보상 정보
     local access_time_info = g_eventMatchCardData.m_accessTimeInfo
     table.sort(access_time_info, function(a, b)
