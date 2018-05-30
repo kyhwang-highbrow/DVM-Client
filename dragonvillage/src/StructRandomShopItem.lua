@@ -147,7 +147,7 @@ function StructRandomShopItem:getPriceInofList()
     local is_sale = self:isSale()
     local sale_value = self:getSaleValue()
 
-    for i = 1, available_cnt do
+    for i = available_cnt, 1, -1 do
         local price = self['price_'..i]
         local pirce_type = self['price_type_'..i]
 
