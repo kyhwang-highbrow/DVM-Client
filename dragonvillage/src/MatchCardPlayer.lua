@@ -177,7 +177,7 @@ function MatchCardPlayer:checkMatchingCard()
     self.m_pickBtns = {}
     
     -- 남은 플레이 회수 없을 경우, 모두 다 맞춘 경우 종료
-    if (self.m_playCount == 0 or self.m_successCount == PLAY_CNT) then
+    if (self.m_playCount == 0 or self.m_successCount == BOARD_CNT/2) then
         self.m_state = MATCH_CARD_PLAY_STATE.FINISH
         self:showResult()
     end
