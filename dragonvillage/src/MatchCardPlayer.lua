@@ -159,8 +159,8 @@ function MatchCardPlayer:checkMatchingCard()
         btn_2:setEnabled(false)
 
         local scale = btn_1:getScale()
-        cca.uiReactionSlow(btn_1, scale, scale, scale - 0.05)
-        cca.uiReactionSlow(btn_2, scale, scale, scale - 0.05)
+        cca.uiReactionSlow(btn_1, scale, scale, scale - 0.1)
+        cca.uiReactionSlow(btn_2, scale, scale, scale - 0.1)
 
         self.m_successCount = math_min(self.m_successCount + 1, BOARD_CNT/2)
         table.insert(self.m_successGrades, card_1:getGrade())
@@ -174,14 +174,16 @@ function MatchCardPlayer:checkMatchingCard()
     end
 
     self.m_state = MATCH_CARD_PLAY_STATE.WAIT
-    self.m_pickCards = {}
-    self.m_pickBtns = {}
     
     -- 남은 플레이 회수 없을 경우, 모두 다 맞춘 경우 종료
     if (self.m_playCount == 0 or self.m_successCount == BOARD_CNT/2) then
         self.m_state = MATCH_CARD_PLAY_STATE.FINISH
-        self:showResult()
+        local btn_1 = self.m_pickBtns[1]
+        cca.reserveFunc(btn_1, CARD_SHOW_DELAY, function() self:showResult() end)
     end
+
+    self.m_pickCards = {}
+    self.m_pickBtns = {}
 end
 
 -------------------------------------

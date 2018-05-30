@@ -151,9 +151,8 @@ end
 -------------------------------------
 function StructEventMatchCard:setUI()
     local state = self.m_state
-    cclog('setUI')
-    ccdump(state)
-    local action_delay = 0.3
+
+    local action_delay = 0.2
     if (state == MATCH_CARD_STATE.CLOSE) then
         cca.filpCard(self.m_frontImg, self.m_backImg, action_delay)
 
