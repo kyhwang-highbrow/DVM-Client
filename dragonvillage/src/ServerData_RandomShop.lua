@@ -109,6 +109,26 @@ function ServerData_RandomShop:isHightlightShop()
 end
 
 -------------------------------------
+-- function getRefreshRemainTimeText
+-------------------------------------
+function ServerData_RandomShop:getRefreshRemainTimeText()
+    local remain_text = ''
+    if (not self:isHightlightShop()) then
+        local refresh_time = g_settingData:get(REFRESH_TIME_SAVE_KEY)
+        if (refresh_time) then
+            local curr_time = Timer:getServerTime()
+            local _refresh_time = (refresh_time / 1000)
+            local time = math_max(_refresh_time - curr_time, 0)
+            if (time > 0) then
+                return Str('{1} 남음', datetime.makeTimeDesc(time, true, true))
+            end
+        end
+    end
+
+    return remain_text
+end
+
+-------------------------------------
 -- function request_shopInfo
 -------------------------------------
 function ServerData_RandomShop:request_shopInfo(cb_func, fail_cb)

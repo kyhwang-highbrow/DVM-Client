@@ -3,6 +3,7 @@
     event_exchange : 수집 이벤트 (운영툴에서 event, event_open 역시 활성화 되있어야 함)
     event_dice : 주사위 이벤트
     event_gold_dungeon : 황금던전 이벤트
+    event_match_card : 카드 짝맞추기 이벤트
 
     dc_rune_50 : 룬 해제 50% 할인 이벤트
     dc_rune_100 : 룬 해제 무료 이벤트
@@ -77,7 +78,8 @@ end
 -------------------------------------
 -- function init_hotTimeType
 -------------------------------------
-function ServerData_HotTime:init_hotTimeType()self.m_hotTimeType = {}
+function ServerData_HotTime:init_hotTimeType()
+    self.m_hotTimeType = {}
 
     do
         local key = 'gold_1_5x'
@@ -268,6 +270,26 @@ function ServerData_HotTime:isActiveEvent(event_name)
         end
     end
     return false
+end
+
+-------------------------------------
+-- function getEventRemainTimeText
+-- @brief event 항목의 남은 시간 텍스트
+-------------------------------------
+function ServerData_HotTime:getEventRemainTimeText(event_name)
+	self:refreshActiveList()
+
+    for _, t in pairs(self.m_activeEventList) do
+        if (t['event'] == event_name) then
+            local curr_time = Timer:getServerTime()
+            local end_time = t['enddate']/1000
+            local time = (end_time - curr_time)
+
+            return (time > 0) and Str('{1} 남음', datetime.makeTimeDesc(time, true, true)) or ''
+        end
+    end
+
+    return nil
 end
 
 -------------------------------------

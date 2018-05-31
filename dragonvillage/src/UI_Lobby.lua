@@ -473,6 +473,7 @@ function UI_Lobby:initButton()
     vars['exchangeBtn']:registerScriptTapHandler(function() self:click_exchangeBtn() end) -- 교환이벤트
     vars['diceBtn']:registerScriptTapHandler(function() self:click_diceBtn() end) -- 주사위이벤트
     vars['goldDungeonBtn']:registerScriptTapHandler(function() self:click_goldDungeonBtn() end) -- 황금던전 이벤트
+    vars['matchCardBtn']:registerScriptTapHandler(function() self:click_matchCardBtn() end) -- 카드 짝 맞추기 이벤트
     vars['levelupBtn']:registerScriptTapHandler(function() self:click_lvUpPackBtn() end) -- 레벨업 패키지
     vars['adventureClearBtn']:registerScriptTapHandler(function() self:click_adventureClearBtn() end) -- 모험돌파 패키지
 	vars['capsuleBoxBtn']:registerScriptTapHandler(function() self:click_capsuleBoxBtn() end) -- 캡슐 뽑기 버튼
@@ -959,6 +960,17 @@ function UI_Lobby:click_goldDungeonBtn()
 end
 
 -------------------------------------
+-- function click_matchCardBtn
+-- @brief 카드 짝 맞추기 이벤트
+-------------------------------------
+function UI_Lobby:click_matchCardBtn()
+    if (not g_hotTimeData:isActiveEvent('event_match_card')) then
+        return
+    end
+    g_eventData:openEventPopup('event_match_card')
+end
+
+-------------------------------------
 -- function click_lvUpPackBtn
 -- @brief 레벨업 패키지 버튼
 -------------------------------------
@@ -1141,7 +1153,10 @@ function UI_Lobby:update(dt)
     
     -- 랜덤 상점 노티 (상품 갱신시)
     do
-        vars['randomShopNotiSprite']:setVisible(g_randomShopData:isHightlightShop())
+        local is_highlight = g_randomShopData:isHightlightShop()
+        vars['randomShopNotiSprite']:setVisible(is_highlight)
+        vars['randomShopLabel']:setVisible(not is_highlight)
+        vars['randomShopLabel']:setString(g_randomShopData:getRefreshRemainTimeText())
     end
 
     -- 광고 (자동재화, 선물상자 정보)
@@ -1194,6 +1209,21 @@ function UI_Lobby:update(dt)
         end
     end
 
+    -- 이벤트 남은 시간 표시
+    do
+        local map_check_event = {}
+        map_check_event['event_match_card'] = 'matchCardLabel'
+
+        for event_name, label_name in pairs(map_check_event) do
+            local remain_text = g_hotTimeData:getEventRemainTimeText(event_name)
+            local label = vars[label_name]
+            if (remain_text) and (label) then
+                label:setVisible(true)
+                label:setString(remain_text)
+            end
+        end
+    end
+    
     -- spine 캐시 정리 확인
     SpineCacheManager:getInstance():purgeSpineCacheData_checkNumber()
 end
@@ -1332,6 +1362,13 @@ function UI_Lobby:update_rightButtons()
         vars['goldDungeonBtn']:setVisible(false)
     end
 
+    -- 카드 짝 맞추기 버튼
+    if g_hotTimeData:isActiveEvent('event_match_card') then
+        vars['matchCardBtn']:setVisible(true)
+    else
+        vars['matchCardBtn']:setVisible(false)
+    end
+
 	-- 캡슐 신전 버튼
 	if (g_capsuleBoxData:isOpen()) then
 		vars['capsuleBoxBtn']:setVisible(true)
@@ -1367,6 +1404,7 @@ function UI_Lobby:update_rightButtons()
     table.insert(t_btn_name, 'adventureClearBtn')
     table.insert(t_btn_name, 'capsuleBoxBtn')
     table.insert(t_btn_name, 'goldDungeonBtn')
+    table.insert(t_btn_name, 'matchCardBtn')
     table.insert(t_btn_name, 'dailyShopBtn')
     table.insert(t_btn_name, 'randomShopBtn')
     table.insert(t_btn_name, 'eventBtn')
