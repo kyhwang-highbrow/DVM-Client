@@ -117,6 +117,11 @@ function UI_ClanMemberListItem:refresh()
         end
     end
 
+    -- 다른 클랜의 정보를 보는 경우 nil처리를 하였음
+    if (not vars['friendlyBattleBtn']) then
+        return
+    end
+
     -- 나를 제외한 클랜원들에게 친선전 버튼 노출
     local my_uid = g_userData:get('uid')
     vars['friendlyBattleBtn']:setVisible(my_uid ~= user_info:getUid())

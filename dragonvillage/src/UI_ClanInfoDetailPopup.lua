@@ -149,6 +149,10 @@ function UI_ClanInfoDetailPopup:init_TableView()
         ui.vars['adminBtn']:setVisible(false)
         ui.vars['adminBtn'] = nil
 
+        -- 친선전 버튼 visible off
+        ui.vars['friendlyBattleBtn']:setVisible(false)
+        ui.vars['friendlyBattleBtn'] = nil
+
         -- 출석 관련 노드 visible off
         ui.vars['attendanceNode']:setVisible(false)
     end
