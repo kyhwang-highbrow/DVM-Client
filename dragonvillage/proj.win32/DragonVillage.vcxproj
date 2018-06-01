@@ -261,7 +261,6 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <None Include="..\config.json" />
     <None Include="..\src\Action.lua" />
     <None Include="..\src\AdManager.lua" />
-    <None Include="..\src\AdsManager.lua" />
     <None Include="..\src\Analytics.lua" />
     <None Include="..\src\AncientTowerScoreCalc.lua" />
     <None Include="..\src\AnimationMap.lua" />

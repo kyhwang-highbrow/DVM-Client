@@ -172,10 +172,6 @@ local function main()
     PatchChecker:getInstance()
     stopwatch:record('PatchChecker:getInstance()')
 
-    -- 광고 프리로드
-    -- AdsManager:prepare()
-    -- stopwatch:record('AdsManager:prepare()')
-
     -- 설정 언어를 가져오기 위해 localData 불러옴
     LocalData:getInstance()
     stopwatch:record('LocalData:getInstance()')

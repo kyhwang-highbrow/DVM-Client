@@ -108,11 +108,7 @@ function UI_AdvertisingPopup:click_adBtn()
     local function finish_cb()
         self:close()
     end
-    if (USE_ADMOB_AD) then
-        g_advertisingData:showAd(ad_type, finish_cb)
-    else
-        g_advertisingData:showAdv(ad_type, finish_cb)
-    end
+    g_advertisingData:showAd(ad_type, finish_cb)
 end
 
 -------------------------------------

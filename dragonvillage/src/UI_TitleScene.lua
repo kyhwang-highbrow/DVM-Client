@@ -1069,11 +1069,7 @@ end
 function UI_TitleScene:workPrepareAd()
     self.m_loadingUI:showLoading(Str('네트워크 통신 중...'))
 
-    if (USE_ADMOB_AD) then
-        AdManager:start()
-    else
-        AdsManager:start()    
-    end
+    AdManager:start()
     self:doNextWork()
 end
 function UI_TitleScene:workPrepareAd_click()

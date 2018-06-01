@@ -2529,9 +2529,6 @@
     <None Include="..\src\AdManager.lua">
       <Filter>lua\src</Filter>
     </None>
-    <None Include="..\src\AdsManager.lua">
-      <Filter>lua\src</Filter>
-    </None>
     <None Include="..\src\ServerData_Advertising.lua">
       <Filter>lua\src</Filter>
     </None>

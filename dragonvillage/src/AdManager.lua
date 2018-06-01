@@ -5,7 +5,6 @@ AD_TYPE = {
     RANDOM_BOX_SHOP = 3,    -- 광고 보기 보상 : 랜덤박스 (상점 진입)
 }
 
-USE_ADMOB_AD = true
 -------------------------------------
 -- table AdManager
 -- @brief 광고 SDK 매니져
