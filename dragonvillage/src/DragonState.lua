@@ -112,6 +112,11 @@ function Dragon.st_skillAppear(owner, dt)
             end
         end
 
+        --
+        if (owner.m_world.m_gameMode == GAME_MODE_COLOSSEUM) then
+            owner:changeState('skillIdle')
+        end
+
         owner:nextStep()
     end
 end
@@ -144,10 +149,7 @@ function Dragon.st_skillIdle(owner, dt)
 
             local indicatorData = owner.m_skillIndicator:getIndicatorData()
                         
-            if (owner:doSkill(active_skill_id, x, y, indicatorData)) then
-                -- 스킬 쿹타임 시작
-                owner:startActiveSkillCoolTime()
-            end
+            owner:doSkill(active_skill_id, x, y, indicatorData)
 
             owner.m_animator:setEventHandler(nil)
             owner.m_bFinishAttack = true

@@ -106,8 +106,14 @@ function GameActiveSkillMgr:doWork_dragon(t_data)
         unit.m_skillIndicator.m_critical = 0
     end
 
-    -- 연출 시작
-    self.m_world.m_gameDragonSkill:doPlay(unit, not is_critical)
+    if (self.m_world.m_gameMode == GAME_MODE_COLOSSEUM) then
+        -- 드래곤 스킬 시작
+        unit:changeState('skillAppear')
+
+    else
+        -- 연출 시작
+        self.m_world.m_gameDragonSkill:doPlay(unit, not is_critical)
+    end
 
     return true
 end
