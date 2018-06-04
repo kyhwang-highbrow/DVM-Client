@@ -29,6 +29,7 @@ function UI_Setting:init_devTab()
     vars['popupCacheResetBtn']:registerScriptTapHandler(function() self:click_popupCacheResetBtn() end)
     vars['lobbyGuideResetBtn']:registerScriptTapHandler(function() self:click_lobbyGuideResetBtn() end)
     vars['colosseumOldBtn']:registerScriptTapHandler(function() self:click_colosseumOldBtn() end)
+    vars['colosseumTestBtn']:registerScriptTapHandler(function() self:click_colosseumTestBtn() end)
     self:refresh_devTap()
 end
 
@@ -654,6 +655,13 @@ function UI_Setting:refresh_devTap()
     else
         vars['soundModuleLabel']:setString('OFF')
     end
+
+    -- colosseum test
+    if g_settingData:get('colosseum_test_mode') then
+        vars['colosseumTestLabel']:setString('ON')
+    else
+        vars['colosseumTestLabel']:setString('OFF')
+    end
 end
 
 -------------------------------------
@@ -793,4 +801,15 @@ end
 -------------------------------------
 function UI_Setting:click_colosseumOldBtn()
 	UINavigator:goTo('colosseum_old')
+end
+
+-------------------------------------
+-- function click_colosseumTestBtn
+-- @brief 콜로세움 테스트 모드
+-------------------------------------
+function UI_Setting:click_colosseumTestBtn()
+	local value = g_settingData:get('colosseum_test_mode')
+    g_settingData:applySettingData(not value, 'colosseum_test_mode')
+    g_settingData:applySetting()
+    self:refresh_devTap()
 end

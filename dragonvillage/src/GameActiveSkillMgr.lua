@@ -106,7 +106,7 @@ function GameActiveSkillMgr:doWork_dragon(t_data)
         unit.m_skillIndicator.m_critical = 0
     end
 
-    if (self.m_world.m_gameMode == GAME_MODE_COLOSSEUM) then
+    if (PLAYER_VERSUS_MODE[self.m_world.m_gameMode] == 'pvp' and g_settingData:get('colosseum_test_mode')) then
         -- 드래곤 스킬 시작
         unit:changeState('skillAppear')
 

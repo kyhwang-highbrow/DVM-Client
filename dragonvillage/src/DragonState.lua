@@ -113,10 +113,12 @@ function Dragon.st_skillAppear(owner, dt)
         end
 
         --
-        if (owner.m_world.m_gameMode == GAME_MODE_COLOSSEUM) then
-            owner:changeState('skillIdle')
+        if (PLAYER_VERSUS_MODE[owner.m_world.m_gameMode] == 'pvp') then
+            if (g_settingData:get('colosseum_test_mode')) then
+                owner:changeState('skillIdle')
+            end
         end
-
+        
         owner:nextStep()
     end
 end

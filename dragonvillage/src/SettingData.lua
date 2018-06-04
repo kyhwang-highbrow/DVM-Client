@@ -192,6 +192,7 @@ function SettingData:makeDefaultSettingData()
 
     -- 테스트 모드 on/off (빌드 자체에서 테스트 모드가 막혀있으면 무시하는 값)
     root_table['test_mode'] = nil
+    root_table['colosseum_test_mode'] = nil
 
     -- 기본 설정 데이터
     root_table['lowResMode'] = false
@@ -452,6 +453,7 @@ function SettingData:migration(local_data_instance)
         'adventure_focus_stage',
         'scenario_playback_rules',
         'test_mode',
+        'colosseum_test_mode',
         'lowResMode',
         'bgm',
         'sfx',
