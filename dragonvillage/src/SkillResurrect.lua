@@ -26,6 +26,18 @@ function SkillResurrect:initSkillSize()
 end
 
 -------------------------------------
+-- function setSkillParams
+-- @brief 멤버변수 정의
+-------------------------------------
+function SkillResurrect:setSkillParams(owner, t_skill, t_data)
+    PARENT.setSkillParams(self, owner, t_skill, t_data)
+
+    if (self.m_targetChar) then
+        self.m_targetChar.m_resurrect = self
+    end
+end
+
+-------------------------------------
 -- function initState
 -------------------------------------
 function SkillResurrect:initState()

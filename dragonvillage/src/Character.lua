@@ -128,6 +128,9 @@ Character = class(PARENT, {
 		-- @TODO 수호 스킬 관련 .. 없애고 싶은데....
 		m_guard = 'SkillGuard',	-- guard 되고 있는 상태(damage hijack)
 
+        -- 부활 스킬 관련
+        m_resurrect = 'SkillResurrect',     -- resurrect 되고 있는 상태
+
 		-- @TODO 임시
         m_aiParam = '',
         m_aiParamNum = '',
@@ -184,6 +187,7 @@ function Character:init(file_name, body, ...)
 	self.m_isUseAfterImage = false
 
 	self.m_guard = false
+    self.m_resurrect = false
 
     self.m_posIdx = 0
     self.m_orgHomePosX = 0
@@ -1277,6 +1281,7 @@ end
 function Character:doRevive(heal, caster, is_abs)
     if (not self.m_bDead or not self.m_bPossibleRevive) then return end
     self.m_bDead = false
+    self.m_resurrect = false
 
     if (is_abs) then
         self:healAbs(caster, heal, true, true)
@@ -2879,8 +2884,16 @@ end
 -------------------------------------
 -- function isDead
 -------------------------------------
-function Character:isDead()
-    return (self.m_bDead or self.m_state == 'dying' or self.m_state == 'dead')
+function Character:isDead(no_dying)
+    if (self.m_resurrect) then
+        return false
+    end
+
+    if (not no_dying) then
+        if (self.m_state == 'dying') then return true end
+    end
+        
+    return (self.m_bDead or self.m_state == 'dead')
 end
 
 -------------------------------------

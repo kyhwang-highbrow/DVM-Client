@@ -185,9 +185,11 @@ function FormationMgrDelegate:getTargetList(x, y, team_type, formation_type, rul
     elseif (rule_type == 'dead') then
         for i, v in ipairs(self.m_diedCharList) do
             -- 죽는 도중이 아닌 확실히 죽은 대상만 선별
-            if (v.m_bDead and v.m_bPossibleRevive) then
+            if (v:isDead(true) and v.m_bPossibleRevive) then
                 table.insert(t_ret, v)
             end
+
+            t_ret = randomShuffle(t_ret)
         end
 
     -- 항목에 데이터가 없다면 전, 중, 후 구별을 하지 않고 모두를 타겟

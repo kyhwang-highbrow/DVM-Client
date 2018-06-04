@@ -76,8 +76,11 @@ function Character:onEvent(event_name, t_event, ...)
         self:onEvent_getStatusEffect(t_event, target_string, target)
 
     elseif (event_name == 'teammate_dead') then
+        local arg = {...}
+        local died_unit = arg[1]
+
         -- 부활 스킬을 별도로 처리하기 위함...
-        self:onEvent_teammateDead(event_name, t_event, unit)
+        self:onEvent_teammateDead(event_name, t_event, died_unit)
 
     else
         self:onEvent_common(event_name)
@@ -340,32 +343,35 @@ function Character:onEvent_teammateDead(event_name, t_event, unit)
 
     for i, v in pairs(self.m_lSkillIndivisualInfo[event_name]) do
         if (v:isEndCoolTime()) then
-            local is_resurrect = false
             local b = true
             local t_data = {}
 
-            -- 부활 스킬인지 체크
+            -- 부활 스킬인 경우 이벤트 주체 대상이 있고 죽었을 경우만 발동
             if (v.m_tSkill['skill_type'] == 'skill_resurrect') then
-                is_resurrect = true
-
-                t_data = {
-                    target = unit,
-                    target_list = { unit }
-                }
+                if (unit and unit:isDead()) then
+                    t_data = {
+                        target = unit,
+                        target_list = { unit }
+                    }
+                else
+                    b = false
+                end
             else
+                local has_resurrect = false
+
                 for i = 1, 4 do
                     if (v.m_tSkill['add_option_type_' .. i] == 'resurrect') then
-                        is_resurrect = true
+                        has_resurrect = true
                         break
                     end
                 end
-            end
 
-            -- 부활 스킬이면 죽은 대상이 없을 경우 발동되지 않도록 처리
-            if (is_resurrect) then
-                local l_dead = self.m_world:getDeadList(self)
-                if (#l_dead == 0) then
-                    b = false
+                -- 부활 상태효과를 가지고 있다면 죽은 대상이 없을 경우 발동되지 않도록 처리
+                if (has_resurrect) then
+                    local l_dead = self.m_world:getDeadList(self)
+                    if (#l_dead == 0) then
+                        b = false
+                    end
                 end
             end
 

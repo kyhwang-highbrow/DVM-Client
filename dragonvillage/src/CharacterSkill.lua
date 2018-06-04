@@ -80,7 +80,8 @@ function Character:doSkillBySkillTable(t_skill, t_data)
         if (b) then
             -- 텍스트
             if (self.m_charType == 'dragon') then
-                if (t_skill['sid'] == self.m_charTable['skill_1'] or t_skill['sid'] == self.m_charTable['skill_2']) then
+                --if (t_skill['sid'] == self.m_charTable['skill_1'] or t_skill['sid'] == self.m_charTable['skill_2']) then
+                if (isExistValue(t_skill['sid'], self.m_charTable['skill_1'], self.m_charTable['skill_2'], self.m_charTable['skill_3'])) then
                     self.m_world:addSkillSpeech(self, t_skill['t_name'])
                 end
             end
@@ -141,7 +142,8 @@ function Character:doSkillBySkillTable(t_skill, t_data)
 
             -- 텍스트
             if ( self.m_charType == 'dragon') then
-                if ( t_skill['sid'] == self.m_charTable['skill_1'] or t_skill['sid'] == self.m_charTable['skill_2']) then
+                if (isExistValue(t_skill['sid'], self.m_charTable['skill_1'], self.m_charTable['skill_2'], self.m_charTable['skill_3'])) then
+                --if ( t_skill['sid'] == self.m_charTable['skill_1'] or t_skill['sid'] == self.m_charTable['skill_2'] or t_skill['sid'] == self.m_charTable['skill_3']) then
                     self.m_world:addSkillSpeech(self, t_skill['t_name'])
                 end
             end
