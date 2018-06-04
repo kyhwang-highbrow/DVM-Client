@@ -22,6 +22,7 @@ StructClan = class(PARENT, {
 
         timestamp = 'number',
         mcnt = 'number',
+        joinlv = 'number', -- 지원 레벨
 
         m_structClanMark = 'StructClanMark',
         m_memberList = 'list[StructUserInfoCLan]',
