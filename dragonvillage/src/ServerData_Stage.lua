@@ -21,6 +21,10 @@ end
 -- function getGameMode
 -------------------------------------
 function ServerData_Stage:getGameMode(stage_id)
+    if (stage_id == ARENA_STAGE_ID) then
+        return GAME_MODE_ARENA
+    end
+
     local game_mode = getDigit(stage_id, 100000, 2)
     return game_mode
 end

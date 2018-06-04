@@ -7,6 +7,8 @@ UI_ArenaResult = class(UI, {
 
         m_workIdx = 'number',
         m_lWorkList = 'list',
+
+        m_autoCount = 'boolean',
      })
 
 local ACTION_MOVE_Y = 700
@@ -19,6 +21,7 @@ local ACTION_MOVE_Y = 700
 function UI_ArenaResult:init(is_win, t_data)
     self.m_isWin = is_win
     self.m_resultData = t_data
+    self.m_autoCount = false
 
     local vars = self:load('arena_result.ui')
     UIManager:open(self, UIManager.POPUP)
@@ -337,6 +340,8 @@ function UI_ArenaResult:direction_masterRoad()
 
     -- @ GOOGLE ACHIEVEMENT
     GoogleHelper.updateAchievement(t_data)
+    
+    UI_GameResultNew.checkAutoPlay(self)
 end
 
 -------------------------------------
@@ -380,7 +385,46 @@ end
 -- @brief "확인" 버튼
 -------------------------------------
 function UI_ArenaResult:click_okBtn()
+    
+
 	UINavigator:goTo('arena')
+end
+
+-------------------------------------
+-- function click_quickBtn
+-- @brief 바로재시작 버튼
+-------------------------------------
+function UI_ArenaResult:click_quickBtn()
+    local start_func = function()
+        self:startGame()
+    end
+
+    local cancel_func = function()
+        -- 자동 전투 off
+        g_autoPlaySetting:setAutoPlay(false)
+    end
+
+    -- 콜로세움에선 룬 획득, 드래곤 획득 없으므로 입장권만 체크
+    local need_cash = 50 -- 유료 입장 다이아 개수
+
+    -- 기본 입장권 부족시
+    if (not g_staminasData:checkStageStamina(ARENA_STAGE_ID)) then
+        -- 유료 입장권 체크
+        local is_enough, insufficient_num = g_staminasData:hasStaminaCount('arena_ext', 1)
+        if (is_enough) then
+            is_cash = true
+            local msg = Str('입장권을 모두 소모하였습니다.\n{1}다이아몬드를 사용하여 진행하시겠습니까?', need_cash)
+            MakeSimplePopup_Confirm('cash', need_cash, msg, start_func, cancel_func)
+
+        -- 유료 입장권도 부족시 입장 불가 
+        else
+            local msg = Str('입장권을 모두 소모하였습니다.')
+            MakeSimplePopup(POPUP_TYPE.OK, msg, cancel_func)
+        end
+    else
+        is_cash = false
+        start_func()
+    end
 end
 
 -------------------------------------
@@ -393,6 +437,54 @@ function UI_ArenaResult:click_screenBtn()
 
     local func_name = self.m_lWorkList[self.m_workIdx] .. '_click'
     if func_name and (self[func_name]) then
+        if (UI_GameResultNew.checkAutoPlayRelease(self)) then return end
         self[func_name](self)
     end
+end
+
+-------------------------------------
+-- function countAutoPlay
+-- @brief 연속 전투일 경우 재시작 하기전 카운트 해줌
+-------------------------------------
+function UI_ArenaResult:countAutoPlay()
+    UI_GameResultNew.countAutoPlay(self)
+end
+
+-------------------------------------
+-- function checkAutoPlayCondition
+-- @brief 콜로세움 연속 전투 멈추는 조건
+-------------------------------------
+function UI_ArenaResult:checkAutoPlayCondition()
+    local auto_play_stop = false
+    local msg = nil
+    
+    -- 패배 시 연속 전투 종료
+    if g_autoPlaySetting:get('stop_condition_lose') then
+        if (self.m_isWin == false) then
+            auto_play_stop = true
+            msg = Str('패배로 인해 연속 전투가 종료되었습니다.')
+        end
+    end
+
+	return auto_play_stop, msg
+end
+
+-------------------------------------
+-- function startGame
+-------------------------------------
+function UI_ArenaResult:startGame()
+    local function cb(ret)
+        -- 시작이 두번 되지 않도록 하기 위함
+        UI_BlockPopup()
+
+        -- 연속 전투일 경우 횟수 증가
+		if (g_autoPlaySetting:isAutoPlay()) then
+			g_autoPlaySetting.m_autoPlayCnt = (g_autoPlaySetting.m_autoPlayCnt + 1)
+		end
+
+        local scene = SceneGameArena()
+        scene:runScene()
+    end
+
+    g_arenaData:request_arenaStart(is_cash, nil, cb)
 end

@@ -37,6 +37,14 @@ function IS_ARENA_OPEN()
 end
 
 -------------------------------------
+-- function IS_ARENA_AUTOPLAY
+-- @brief 신규 콜로세움 연속전투 적용 여부를 리턴
+-------------------------------------
+function IS_ARENA_AUTOPLAY()
+    return IS_TEST_MODE()
+end
+
+-------------------------------------
 -- function IS_LIVE_SERVER
 -------------------------------------
 function IS_LIVE_SERVER()

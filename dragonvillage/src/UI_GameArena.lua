@@ -52,12 +52,20 @@ function UI_GameArena:initUI()
         end
     end
 
+     -- 연속 전투 정보
+    if (IS_ARENA_AUTOPLAY()) then
+        self:setAutoPlayUI()
+    end
+
     -- 하단 패널
     vars['panelBgSprite']:setLocalZOrder(-1)
 
     -- 자동 버튼 숨김
     vars['autoButton']:setVisible(false)
     vars['autoVisual']:setVisible(false)
+
+    -- 테스트 모드에서 연속전투 활성화
+    vars['autoStartButton']:setVisible(IS_ARENA_AUTOPLAY())
 
     self:initManaUI()
 end
@@ -137,12 +145,6 @@ function UI_GameArena:setEnemyTamerGauge(percentage)
 end
 
 -------------------------------------
--- function click_autoStartButton
--------------------------------------
-function UI_GameArena:click_autoStartButton()
-end
-
--------------------------------------
 -- function click_chatBtn
 -------------------------------------
 function UI_GameArena:click_chatBtn()
@@ -219,11 +221,4 @@ end
 -- @brief 자동 모드 설정
 -------------------------------------
 function UI_GameArena:setAutoMode(b)
-end
-
--------------------------------------
--- function setAutoPlayUI
--- @brief 연속 전투 정보 UI
--------------------------------------
-function UI_GameArena:setAutoPlayUI()
 end

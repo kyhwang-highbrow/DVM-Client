@@ -59,6 +59,13 @@ function UI_AutoPlaySettingPopup:initUI()
 	if (self.m_gameMode == GAME_MODE_ANCIENT_TOWER) then
 		vars['autoMenu4']:setVisible(true)
 		vars['autoMenu5']:setVisible(false)
+
+    -- 콜로세움 분기처리
+	elseif (self.m_gameMode == GAME_MODE_ARENA) then
+        vars['autoMenu2']:setVisible(false)
+		vars['autoMenu4']:setVisible(false)
+		vars['autoMenu5']:setVisible(false)
+
 	else
 		vars['autoMenu4']:setVisible(false)
 		vars['autoMenu5']:setVisible(true)
