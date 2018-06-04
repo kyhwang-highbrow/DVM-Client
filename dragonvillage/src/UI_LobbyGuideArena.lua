@@ -83,12 +83,12 @@ function UI_LobbyGuideArena:refresh()
     -- 주간 참여 보상
     local struct_user_info = g_arenaData:getPlayerArenaUserInfo()
     if struct_user_info then
-	    local cnt = struct_user and struct_user:getWinCnt() + struct_user:getLoseCnt() or 0
+	    local curr_cnt = struct_user_info:getWinCnt() + struct_user_info:getLoseCnt()
 	    local temp
-	    if cnt > 40 then
+	    if curr_cnt > 40 then
 		    temp = 4
 	    else
-		    temp = math_floor(cnt/5)
+		    temp = math_floor(curr_cnt/10)
 	    end
 	    vars['rewardVisual']:changeAni('reward_' .. temp, true)
     end
