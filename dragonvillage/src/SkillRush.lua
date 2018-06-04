@@ -186,7 +186,9 @@ function SkillRush:onStateDelegateExit()
 	self:releaseChargeEffect()
 
 	-- 캐릭터 스케일 원복
-	self.m_owner.m_animator:setScale(self.m_originScale)
+    if (self.m_owner.m_animator) then
+	    self.m_owner.m_animator:setScale(self.m_originScale)
+    end
 
 	-- 잔상 해제
 	self.m_owner:setAfterImage(false)

@@ -44,6 +44,10 @@ function Character:doSkill(skill_id, x, y, t_data, t_skill_derived)
         local skill_indivisual_info = self:findSkillInfoByID(skill_id)
         if (skill_indivisual_info) then
             skill_indivisual_info:startCoolTime()
+
+            if (skill_indivisual_info:getSkillType() == 'active') then
+                self:dispatch('set_global_cool_time_active')
+            end
         end
 
         return true
@@ -214,6 +218,10 @@ function Character:doSkillBySkillTable(t_skill, t_data)
 				
             elseif (skill_type == 'skill_heal_aoe_square_width') then
                 SkillHealAoESquare_Width:makeSkillInstance(self, t_skill, t_data)
+                return true
+
+            elseif (skill_type == 'skill_resurrect') then
+                SkillResurrect:makeSkillInstance(self, t_skill, t_data)
                 return true
 
 			elseif (skill_type == 'skill_aoe_square_width' or skill_type == 'skill_aoe_square_width_left') then

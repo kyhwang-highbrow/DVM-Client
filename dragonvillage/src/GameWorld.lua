@@ -1381,7 +1381,7 @@ function GameWorld:onEvent(event_name, t_event, ...)
 
         unit:dispatch('self_recovery', t_event, unit)
 
-        for _, fellow in pairs(unit:getFellowList(), unit) do
+        for _, fellow in pairs(unit:getFellowList()) do
 
             fellow:dispatch('ally_recovery', t_event, unit)
             if (unit ~= fellow) then
@@ -1414,7 +1414,7 @@ function GameWorld:onEvent(event_name, t_event, ...)
         local arg = {...}
         local unit = arg[1]
 
-        for _, fellow in pairs(unit:getFellowList(), unit) do
+        for _, fellow in pairs(unit:getFellowList()) do
 
             fellow:dispatch('ally_dead', t_event, unit)
             if (unit == fellow) then

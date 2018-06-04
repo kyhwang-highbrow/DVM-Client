@@ -1239,15 +1239,8 @@ end
 -- function doAttack
 -------------------------------------
 function Character:doAttack(skill_id, x, y)
-    local indicatorData
-
     local t_skill = self:getSkillTable(skill_id)
-
-    if (t_skill['chance_type'] == 'indie_time') then
-        indicatorData = {}
-    end
-
-    local b_run_skill = self:doSkill(skill_id, x, y, indicatorData)
+    local b_run_skill = self:doSkill(skill_id, x, y)
 
     -- 지정된 스킬이 발동되지 않았을 경우 또는 basic_turn, rate 인 경우 기본 스킬 발동
     if self.m_isAddSkill or (not b_run_skill) then
@@ -1281,11 +1274,15 @@ end
 -- function doRevive
 -- @brief 부할
 -------------------------------------
-function Character:doRevive(hp_rate, caster)
+function Character:doRevive(heal, caster, is_abs)
     if (not self.m_bDead or not self.m_bPossibleRevive) then return end
     self.m_bDead = false
 
-    self:healPercent(caster, hp_rate, true, true)
+    if (is_abs) then
+        self:healAbs(caster, heal, true, true)
+    else
+        self:healPercent(caster, heal, true, true)
+    end
     
     self.m_hpNode:setVisible(true)
 

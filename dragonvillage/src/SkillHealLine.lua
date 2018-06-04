@@ -118,9 +118,6 @@ end
 -- function findTarget
 -------------------------------------
 function SkillHealLine:findTarget()
-    local x = self.m_targetPos.x
-	local y = self.m_targetPos.y
-    
     if (self.m_chanceType == 'active') then
         return PARENT.findTarget(self)
     else

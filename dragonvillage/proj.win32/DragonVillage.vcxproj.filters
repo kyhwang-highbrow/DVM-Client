@@ -3589,6 +3589,9 @@
     <None Include="..\src\LobbyPopup_PackageStep2.lua">
       <Filter>lua\src</Filter>
     </None>
+    <None Include="..\src\SkillResurrect.lua">
+      <Filter>lua\src</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Classes">

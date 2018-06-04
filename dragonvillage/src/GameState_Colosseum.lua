@@ -21,7 +21,7 @@ GameState_Colosseum = class(PARENT, {
 -------------------------------------
 function GameState_Colosseum:init(world)
     -- 콜로세움은 제한시간 5분으로 고정
-    self.m_limitTime = 300
+    self.m_limitTime = 180
 end
 
 -------------------------------------
@@ -35,13 +35,15 @@ function GameState_Colosseum:initEnrage()
 
     -- 배경 연출 정보 설정
     do
-        self.m_tEnrageBgInfo = { 1, 3 }
+        local t_constant = g_constant:get('INGAME', 'FIGHT_BY_TIME_BUFF')
+        local t_info = t_constant['ARENA_BG_CHANGE_IDX']
+        
+        self.m_tEnrageBgInfo = t_info or {}
     end
     
     -- 실제 버프 시간보다 이전에 연출되어야하는 것들을 처리하기 위한 하드코딩...
     for _, v in ipairs(self.m_tEnrageInfo) do
-        local time = v['time']
-        time = time - FURY_EFFECT_START_TIME_FROM_BUFF_TIME
+        local time = v['time'] - FURY_EFFECT_START_TIME_FROM_BUFF_TIME
         v['time'] = math_max(time, 1)
     end
 end
@@ -439,6 +441,9 @@ end
 -- @brief 광폭화 적용
 -------------------------------------
 function GameState_Colosseum:applyEnrage()
+    local t_info = table.remove(self.m_tEnrageInfo, 1)
+    if (not t_info) then return false end
+
     -- 연출 먼저 시작 후 중간에 버프 적용
     if (not self.m_enrageBgEffect) then
         local cameraHomePosX, cameraHomePosY = self.m_world.m_gameCamera:getHomePos()

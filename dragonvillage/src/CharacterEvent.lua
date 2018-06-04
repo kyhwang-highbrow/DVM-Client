@@ -77,7 +77,7 @@ function Character:onEvent(event_name, t_event, ...)
 
     elseif (event_name == 'teammate_dead') then
         -- 부활 스킬을 별도로 처리하기 위함...
-        self:onEvent_teammateDead(event_name)
+        self:onEvent_teammateDead(event_name, t_event, unit)
 
     else
         self:onEvent_common(event_name)
@@ -332,7 +332,7 @@ end
 -------------------------------------
 -- function onEvent_teammateDead
 -------------------------------------
-function Character:onEvent_teammateDead(event_name)
+function Character:onEvent_teammateDead(event_name, t_event, unit)
     if (not self.m_statusCalc) then return end
     if (not self.m_lSkillIndivisualInfo[event_name]) then
         return
@@ -340,17 +340,28 @@ function Character:onEvent_teammateDead(event_name)
 
     for i, v in pairs(self.m_lSkillIndivisualInfo[event_name]) do
         if (v:isEndCoolTime()) then
-            -- 부활 스킬인지 체크
             local is_resurrect = false
             local b = true
+            local t_data = {}
 
-            for i = 1, 4 do
-                if (v.m_tSkill['add_option_type_' .. i] == 'resurrect') then
-                    is_resurrect = true
-                    break
+            -- 부활 스킬인지 체크
+            if (v.m_tSkill['skill_type'] == 'skill_resurrect') then
+                is_resurrect = true
+
+                t_data = {
+                    target = unit,
+                    target_list = { unit }
+                }
+            else
+                for i = 1, 4 do
+                    if (v.m_tSkill['add_option_type_' .. i] == 'resurrect') then
+                        is_resurrect = true
+                        break
+                    end
                 end
             end
 
+            -- 부활 스킬이면 죽은 대상이 없을 경우 발동되지 않도록 처리
             if (is_resurrect) then
                 local l_dead = self.m_world:getDeadList(self)
                 if (#l_dead == 0) then
@@ -366,7 +377,7 @@ function Character:onEvent_teammateDead(event_name)
 
                 local rand = math_random(1, 100)
                 if (rand <= chance_value) then
-                    self:doSkill(v.m_skillID, 0, 0)
+                    self:doSkill(v.m_skillID, 0, 0, t_data)
                 end
             end
         end

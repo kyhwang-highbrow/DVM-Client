@@ -339,8 +339,8 @@ end
 -- function doRevive
 -- @brief 부할
 -------------------------------------
-function Dragon:doRevive(hp_rate)
-    PARENT.doRevive(self, hp_rate)
+function Dragon:doRevive(hp_rate, caster, is_abs)
+    PARENT.doRevive(self, hp_rate, caster, is_abs)
 
     self:updateActiveSkillTimer(0)
 end
@@ -529,18 +529,6 @@ function Dragon:updateActiveSkillTimer(dt)
             self:dispatch('dragon_skill_gauge', t_event)
         end
     end
-end
-
--------------------------------------
--- function startActiveSkillCoolTime
--------------------------------------
-function Dragon:startActiveSkillCoolTime()
-    local skill_info = self.m_lSkillIndivisualInfo['active']
-    if (skill_info) then
-        skill_info:startCoolTime()
-    end
-
-    self:dispatch('set_global_cool_time_active')
 end
 
 -------------------------------------
