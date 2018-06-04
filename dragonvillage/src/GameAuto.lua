@@ -34,6 +34,7 @@ GameAuto = class(IEventListener:getCloneClass(), {
         m_world = 'GameWorld',
         m_gameMana = 'GameMana',
         m_bActive = 'boolean',
+        m_bFirstSkill = 'boolean',      -- 첫스킬 사용여부(true일 경우 위급상태로 바꾸지 않음)
 
         m_teamState = 'TEAM_STATE',
         m_totalHp = 'number',
@@ -60,6 +61,7 @@ function GameAuto:init(world, game_mana)
     self.m_world = world
     self.m_gameMana = game_mana
     self.m_bActive = false
+    self.m_bFirstSkill = true
 
     self.m_teamState = 0
     self.m_totalHp = 0
@@ -76,6 +78,10 @@ function GameAuto:init(world, game_mana)
 
     self.m_curPriority = 1
     self.m_curUnit = nil
+
+    if (PLAYER_VERSUS_MODE[self.m_world.m_gameMode] ~= 'pvp') then
+        self.m_bFirstSkill = false
+    end
 end
 
 -------------------------------------
@@ -167,6 +173,11 @@ function GameAuto:doCheck()
         end
     end
 
+    -- 첫 스킬 상태면 일반상태 유지
+    if (self.m_bFirstSkill) then
+        nextState = TEAM_STATE.NORMAL
+    end
+
     -- 상태가 갱신되었으면
     if (self.m_teamState ~= nextState) then
         self.m_teamState = nextState
@@ -183,6 +194,8 @@ function GameAuto:doCheck()
         -- 만약 1~4우선순위의 리스트가 하나도 없을 경우 모든 유닛으로 설정(우선 순위에 상관없이 모든 유닛 중 랜덤)
         if (count == 0) then
             self.m_lUnitListPerPriority = self:makeUnitListSortedByPriority(TEAM_STATE.NORMAL)
+
+            self.m_bFirstSkill = false
         end
     end
 
@@ -201,20 +214,32 @@ function GameAuto:makeUnitListSortedByPriority(state)
     for priority = 1, 4 do
         list[priority] = {}
 
-        local attr = PRIORITY_AI_ATTR[state][priority]
-        if (attr) then
+        -- 일반 상태일때 힐 스킬을 제외하고 분류해서 처리하지 않도록 막음
+        if (state == TEAM_STATE.NORMAL) then
+            -- 해당 AI 속성을 가지고 있는지 확인
             for _, unit in ipairs(self.m_lUnitList) do
-                if (not temp[unit]) then
-                    -- 해당 AI 속성을 가지고 있는지 확인
-                    if (self.m_mHoldingSkill[unit] and self.m_mHoldingSkill[unit][attr]) then
-                        table.insert(list[priority], unit)
-
-                        temp[unit] = true
-                    end
+                if (self.m_mHoldingSkill[unit] and not self.m_mHoldingSkill[unit][SKILL_AI_ATTR__HEAL]) then
+                    table.insert(list[priority], unit)
                 end
             end
 
             list[priority] = randomShuffle(list[priority])
+        else
+            local attr = PRIORITY_AI_ATTR[state][priority]
+            if (attr) then
+                for _, unit in ipairs(self.m_lUnitList) do
+                    if (not temp[unit]) then
+                        -- 해당 AI 속성을 가지고 있는지 확인
+                        if (self.m_mHoldingSkill[unit] and self.m_mHoldingSkill[unit][attr]) then
+                            table.insert(list[priority], unit)
+
+                            temp[unit] = true
+                        end
+                    end
+                end
+
+                list[priority] = randomShuffle(list[priority])
+            end
         end
     end
     
@@ -291,6 +316,8 @@ function GameAuto:doWork_skill(unit, priority)
 
             -- 사용 횟수 카운트 증가
             self.m_mUsedCount[unit] = self.m_mUsedCount[unit] + 1
+
+            self.m_bFirstSkill = false
         end
 
         return true
