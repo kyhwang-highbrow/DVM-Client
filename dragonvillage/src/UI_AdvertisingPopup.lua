@@ -53,9 +53,6 @@ end
 function UI_AdvertisingPopup:refresh()
     local vars = self.vars
     local ad_type = self.m_selType
-    if (ad_type == AD_TYPE.RANDOM_BOX_SHOP) then
-        ad_type = AD_TYPE.RANDOM_BOX_LOBBY
-    end
 
     vars['adMenu'..ad_type]:setVisible(true)
 

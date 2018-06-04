@@ -105,7 +105,7 @@ function UI_Product:initUI()
     -- 광고
     if (struct_product.price_type == 'advertising') then
         local function update(dt)
-            local msg, enable = g_advertisingData:getCoolTimeStatus(AD_TYPE.RANDOM_BOX_SHOP)
+            local msg, enable = g_advertisingData:getCoolTimeStatus(AD_TYPE.RANDOM_BOX_LOBBY)
             local visible = (not enable)
             vars['timeNode']:setVisible(visible)
             vars['timeLabel']:setVisible(visible)
@@ -242,7 +242,7 @@ function UI_Product:click_buyBtn()
         if (not g_advertisingData:getEnableShopAdv()) then
             return
         end
-        g_advertisingData:showAdvPopup(AD_TYPE.RANDOM_BOX_SHOP, function() self:refresh() end)
+        g_advertisingData:showAdvPopup(AD_TYPE.RANDOM_BOX_LOBBY, function() self:refresh() end)
 
 	else
         local function cb_func(ret)

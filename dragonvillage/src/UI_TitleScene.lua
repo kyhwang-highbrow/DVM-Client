@@ -900,6 +900,11 @@ function UI_TitleScene:workGetServerInfo()
                     g_naverEventData:response_naverEventInfo(ret['naver_info'])
                 end
 
+                if (ret['adv_info']) then
+                    cclog('# 광고 시청 정보')
+                    g_advertisingData:response_dailyAdvInfo(ret['adv_info'])
+                end
+
                 -- shop 관련
                 if (ret['shop_list']) then
                     cclog('# 상점 리스트')

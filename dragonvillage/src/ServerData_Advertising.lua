@@ -12,6 +12,8 @@ ServerData_Advertising = class({
 
         m_is_fail = 'boolean',
         m_adv_cool_time = 'number',
+
+        m_dailyAdInfo = 'table',
     })
 
 -------------------------------------
@@ -20,6 +22,7 @@ ServerData_Advertising = class({
 function ServerData_Advertising:init(server_data)
     self.m_serverData = server_data
     self.m_scheduleHandlerID = nil
+    self.m_dailyAdInfo = {}
 end
 
 -------------------------------------
@@ -43,7 +46,7 @@ function ServerData_Advertising:showAdvPopup(ad_type, finish_cb)
             show_popup()
         end
     
-    elseif (ad_type == AD_TYPE.RANDOM_BOX_LOBBY or ad_type == AD_TYPE.RANDOM_BOX_SHOP) then
+    elseif (ad_type == AD_TYPE.RANDOM_BOX_LOBBY) then
         -- 보상 정보 있다면 호출 x
         if (self.m_rewardList) then
             show_popup()
@@ -59,6 +62,7 @@ end
 -------------------------------------
 -- function showAd
 -- @brief 광고 보기 (adMob)
+-- @type 시간 제한
 -------------------------------------
 function ServerData_Advertising:showAd(ad_type, finish_cb)
     if (isWin32()) then 
@@ -118,7 +122,7 @@ function ServerData_Advertising:getCoolTimeStatus(ad_type)
     if (ad_type == AD_TYPE.AUTO_ITEM_PICK) then
         expired = g_autoItemPickData:getAutoItemPickExpired()
 
-    elseif (ad_type == AD_TYPE.RANDOM_BOX_LOBBY or ad_type == AD_TYPE.RANDOM_BOX_SHOP) then
+    elseif (ad_type == AD_TYPE.RANDOM_BOX_LOBBY) then
         expired = self.m_adv_cool_time
     end
 
@@ -180,10 +184,6 @@ function ServerData_Advertising:request_adv_reward(ad_type, finish_cb, fail_cb)
     local uid = g_userData:get('uid')
 
     local ad_type = ad_type
-    -- shop과 lobby가 분리됬지만 서버에는 같은 값으로 보내줘야함.
-    if (ad_type == AD_TYPE.RANDOM_BOX_SHOP) then
-        ad_type = AD_TYPE.RANDOM_BOX_LOBBY
-    end
 
     -- 성공 콜백
     local function success_cb(ret)
@@ -239,6 +239,106 @@ function ServerData_Advertising:showRewardResult(ret)
     end
 end
 
+-------------------------------------
+-- function showAd
+-- @brief 광고 보기 (adMob)
+-- @type 개수 제한
+-------------------------------------
+function ServerData_Advertising:showDailyAd(daily_ad_key, finish_cb)
+    if (isWin32()) then 
+        self:request_dailyAdShow(daily_ad_key, finish_cb)
+        return
+    end
+
+    ShowLoading(Str('광고 정보 요청중'))
+
+    local function result_cb(ret, info)
+        HideLoading()
+
+        -- 광고 시청 완료 -> 보상 처리
+        if (ret == 'finish') then
+            self:request_dailyAdShow(daily_ad_key, finish_cb)
+            
+        -- 광고 시청 취소
+        elseif (ret == 'cancel') then
+
+        -- 광고 에러
+        elseif (ret == 'error') then
+
+        end
+    end
+
+    AdManager:showByAdType(AD_TYPE.DAILY_AD, result_cb)
+end
+
+-------------------------------------
+-- function request_dailyAdInfo
+-------------------------------------
+function ServerData_Advertising:request_dailyAdInfo(finish_cb, fail_cb)
+    -- 유저 ID
+    local uid = g_userData:get('uid')
+
+    -- 성공 콜백
+    local function success_cb(ret)
+        self:response_dailyAdvInfo(ret['adv_info'])
+        if finish_cb then
+            finish_cb(ret)
+        end
+    end
+
+    -- 네트워크 통신
+    local ui_network = UI_Network()
+    ui_network:setUrl('/shop/adv_info')
+    ui_network:setParam('uid', uid)
+    ui_network:setSuccessCB(success_cb)
+    ui_network:setFailCB(fail_cb)
+    ui_network:setRevocable(true)
+    ui_network:setReuse(false)
+    ui_network:request()
+
+    return ui_network
+end
+
+-------------------------------------
+-- function response_dailyAdvInfo
+-------------------------------------
+function ServerData_Advertising:response_dailyAdvInfo(ret)
+    if (ret == nil) then
+        return
+    end
+
+    self.m_dailyAdvInfo = ret
+end
+
+-------------------------------------
+-- function request_dailyAdShow
+-------------------------------------
+function ServerData_Advertising:request_dailyAdShow(daily_ad_key, finish_cb, fail_cb)
+    -- 유저 ID
+    local uid = g_userData:get('uid')
+
+    local daily_ad_key = daily_ad_key
+
+    -- 성공 콜백
+    local function success_cb(ret)
+        if finish_cb then
+            finish_cb(ret)
+        end
+    end
+
+    -- 네트워크 통신
+    local ui_network = UI_Network()
+    ui_network:setUrl('/shop/adv_show')
+    ui_network:setParam('uid', uid)
+    ui_network:setParam('adv_key', daily_ad_key)
+    ui_network:setSuccessCB(success_cb)
+    ui_network:setFailCB(fail_cb)
+    ui_network:setRevocable(true)
+    ui_network:setReuse(false)
+    ui_network:request()
+
+    return ui_network
+end
 
 
 

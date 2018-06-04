@@ -86,6 +86,7 @@ function ServerData_Hatchery:request_summonFriendshipPoint(is_bundle, finish_cb,
     -- 유저 ID
     local uid = g_userData:get('uid')
     local is_bundle = is_bundle or false
+    local is_adv = is_adv or false
 
     -- 성공 콜백
     local function success_cb(ret)
@@ -112,6 +113,7 @@ function ServerData_Hatchery:request_summonFriendshipPoint(is_bundle, finish_cb,
     ui_network:setUrl('/shop/summon/fp')
     ui_network:setParam('uid', uid)
     ui_network:setParam('bundle', is_bundle)
+    ui_network:setParam('adv', is_adv)
     ui_network:setMethod('POST')
     ui_network:setSuccessCB(success_cb)
     ui_network:setFailCB(fail_cb)

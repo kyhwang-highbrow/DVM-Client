@@ -2,7 +2,13 @@ AD_TYPE = {
     NONE = 0,               -- 광고 없음(에러코드 처리) : 보상은 존재
     AUTO_ITEM_PICK = 1,     -- 광고 보기 보상 : 자동획득
     RANDOM_BOX_LOBBY = 2,   -- 광고 보기 보상 : 랜덤박스 (로비 진입)
-    RANDOM_BOX_SHOP = 3,    -- 광고 보기 보상 : 랜덤박스 (상점 진입)
+    DAILY_AD = 3,           -- 광고 보기 보상 : 
+}
+
+DAILY_AD_KEY = {
+    ['FOREST'] = 'forest_time',  -- 드래곤의 숲 시간 단축
+    ['EXPL'] = 'expl_time',    -- 모험 시간 단축
+    ['FSUMMON'] = 'fsummon'       -- 우정 뽑기
 }
 
 -------------------------------------
@@ -11,22 +17,20 @@ AD_TYPE = {
 -------------------------------------
 AdManager = {
     callback,
-    adcolonyZoneId,
-    tapjoyAdPlacementId,
 }
 
 local ADMOB_AD_UNIT_ID_TABLE
 if (CppFunctions:isAndroid()) then
     ADMOB_AD_UNIT_ID_TABLE = {
         [AD_TYPE.AUTO_ITEM_PICK] = 'ca-app-pub-9497777061019569/8284077763',
-        [AD_TYPE.RANDOM_BOX_SHOP] = 'ca-app-pub-9497777061019569/6433744394',
         [AD_TYPE.RANDOM_BOX_LOBBY] = 'ca-app-pub-9497777061019569/1372989407',
+        [AD_TYPE.DAILY_AD] = 'ca-app-pub-9497777061019569/6433744394',
     }
 elseif (CppFunctions:isIos()) then
     ADMOB_AD_UNIT_ID_TABLE = {
         [AD_TYPE.AUTO_ITEM_PICK] = 'ca-app-pub-9497777061019569/5295237757',
-        [AD_TYPE.RANDOM_BOX_SHOP] = 'ca-app-pub-9497777061019569/2042688805',
         [AD_TYPE.RANDOM_BOX_LOBBY] = 'ca-app-pub-9497777061019569/4566955961',
+        [AD_TYPE.DAILY_AD] = 'ca-app-pub-9497777061019569/2042688805',
     }
 else
     ADMOB_AD_UNIT_ID_TABLE = {}
