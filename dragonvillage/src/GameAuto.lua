@@ -61,7 +61,7 @@ function GameAuto:init(world, game_mana)
     self.m_world = world
     self.m_gameMana = game_mana
     self.m_bActive = false
-    self.m_bFirstSkill = true
+    self.m_bFirstSkill = false
 
     self.m_teamState = 0
     self.m_totalHp = 0
@@ -79,8 +79,8 @@ function GameAuto:init(world, game_mana)
     self.m_curPriority = 1
     self.m_curUnit = nil
 
-    if (PLAYER_VERSUS_MODE[self.m_world.m_gameMode] ~= 'pvp') then
-        self.m_bFirstSkill = false
+    if (PLAYER_VERSUS_MODE[self.m_world.m_gameMode] == 'pvp' and g_settingData:get('colosseum_test_mode')) then
+        self.m_bFirstSkill = true
     end
 end
 
@@ -215,7 +215,8 @@ function GameAuto:makeUnitListSortedByPriority(state)
         list[priority] = {}
 
         -- 일반 상태일때 힐 스킬을 제외하고 분류해서 처리하지 않도록 막음
-        if (state == TEAM_STATE.NORMAL) then
+        if ( PLAYER_VERSUS_MODE[self.m_world.m_gameMode] == 'pvp' and g_settingData:get('colosseum_test_mode') 
+            and state == TEAM_STATE.NORMAL ) then
             -- 해당 AI 속성을 가지고 있는지 확인
             for _, unit in ipairs(self.m_lUnitList) do
                 if (self.m_mHoldingSkill[unit] and not self.m_mHoldingSkill[unit][SKILL_AI_ATTR__HEAL]) then
