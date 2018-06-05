@@ -1149,7 +1149,7 @@ function Character:setDamage(attacker, defender, i_x, i_y, damage, t_info)
                 if (attacker.m_activityCarrier:isIgnoreRevive()) then
                     self.m_bPossibleRevive = false
 
-                    if (self:isDragon()) then
+                    if (PLAYER_VERSUS_MODE[self.m_world.m_gameMode] == 'pvp' and self:isDragon()) then
                         -- 부활 불가 설명 표시
                         local str_map = {}
                         str_map[Str('부활 불가')] = 'bad'
