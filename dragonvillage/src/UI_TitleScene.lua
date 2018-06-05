@@ -902,7 +902,7 @@ function UI_TitleScene:workGetServerInfo()
 
                 if (ret['adv_info']) then
                     cclog('# 광고 시청 정보')
-                    g_advertisingData:response_dailyAdvInfo(ret['adv_info'])
+                    g_advertisingData:response_dailyAdInfo(ret['adv_info'])
                 end
 
                 -- shop 관련
