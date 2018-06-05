@@ -39,7 +39,7 @@ end
 -------------------------------------
 function StatusEffectIcon:update(dt)
     -- 해당 상태효과가 종료 상태라면 삭제
-    if (self.m_statusEffect.m_state == 'end') then
+    if (isExistValue(self.m_statusEffect.m_state, 'end', 'dying')) then
         return true
     end
 
