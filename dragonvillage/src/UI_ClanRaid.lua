@@ -5,7 +5,6 @@ local PARENT = class(UI, ITopUserInfo_EventListener:getCloneTable(), ITabUI:getC
 -------------------------------------
 UI_ClanRaid = class(PARENT, {
         m_stageID = 'number',
-        m_remainHp = 'number',
         m_preRefreshTime = 'time',
      })
 
@@ -41,7 +40,8 @@ function UI_ClanRaid:init()
 
     local struct_raid = g_clanRaidData:getClanRaidStruct()
     self.m_stageID = struct_raid:getStageID()
-    self.m_remainHp = struct_raid:getHp()
+
+    g_clanRaidData:setBossStatus()
 
     -- backkey 지정
     g_currScene:pushBackKeyListener(self, function() self:click_exitBtn() end, 'UI_ClanRaid')
@@ -499,12 +499,10 @@ function UI_ClanRaid:click_readyBtn()
             -- 도전중인 클랜던전이 변경되었다면 다시 모두 갱신
             elseif (self.m_stageID ~= stage_id) then
                 self.m_stageID = stage_id
-                self.m_remainHp = hp
                 self:refresh(true)
 
-            -- HP가 변경되었다면 다시 모두 갱신
-            elseif (self.m_remainHp ~= hp) then
-                self.m_remainHp = hp
+            -- 보스 정보가 변경되었다면 다시 모두 갱신
+            elseif (not g_clanRaidData:checkBossStatus()) then
                 self:refresh(true)
                 self.m_preRefreshTime = 1
                 UIManager:toastNotificationGreen(Str('던전 정보가 갱신되었습니다.'))

@@ -1041,6 +1041,7 @@ function UI_ReadySceneNew:startGame(stage_id)
     local check_dragon_inven
     local check_item_inven
     local check_cash
+    local check_boss
     local start_game
 
     -- 덱 변경 유무 확인 후 저장
@@ -1072,7 +1073,7 @@ function UI_ReadySceneNew:startGame(stage_id)
 
             -- 활동력 체크 (소비 타입이 아니어서 여기서 체크)
             if (g_staminasData:checkStageStamina(stage_id)) then
-                start_game()
+                check_boss()
 
             -- 여의주 사용가능
             elseif (g_clanRaidData:isPossibleUseCash()) then
@@ -1085,6 +1086,21 @@ function UI_ReadySceneNew:startGame(stage_id)
         else
             start_game()
         end
+    end
+
+    check_boss = function()
+        -- 클랜던전 보스 정보 동기화
+        local finish_cb = function()
+            -- 보스 정보가 변경되었다면 다시 모두 갱신
+            if (not g_clanRaidData:checkBossStatus()) then
+                UIManager:toastNotificationGreen(Str('던전 정보가 갱신되었습니다.'))
+                UINavigator:goTo('clan_raid')
+            else
+                start_game()
+            end
+        end
+
+        g_clanRaidData:request_info(self.m_stageID, finish_cb)
     end
 
     -- 게임 시작

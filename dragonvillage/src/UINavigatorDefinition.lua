@@ -1134,6 +1134,7 @@ function UINavigatorDefinition:goTo_clan_raid(...)
     local is_opend, idx, ui = self:findOpendUI('UI_ClanRaid')
     if (is_opend == true) then
         self:closeUIList(idx)
+        ui:refresh(true)
         return
     end
         

@@ -23,6 +23,10 @@ ServerData_ClanRaid = class({
         -- 클랜 보상 정보
         m_tClanRewardInfo = 'table', 
 
+        -- 클랜던전 갱신
+        m_bossLv = 'number',
+        m_bossRemainHp = 'number',
+
         -- 오픈상태 
         m_bOpen = 'boolean',
     })
@@ -63,6 +67,32 @@ end
 -------------------------------------
 function ServerData_ClanRaid:getUseCashCnt()
     return USE_CASH_CNT
+end
+
+-------------------------------------
+-- function setBossStatus
+-- @brief 현재 진행중인 던전 보스의 레벨, 남은 체력 던전 갱신 체크를 위해 저장
+-------------------------------------
+function ServerData_ClanRaid:setBossStatus()
+    local struct_clan_raid = self.m_structClanRaid
+    self.m_bossLv = struct_clan_raid and struct_clan_raid:getLv() or 0
+    self.m_bossRemainHp = struct_clan_raid and struct_clan_raid:getHp() or 0
+end
+
+-------------------------------------
+-- function checkBossStatus
+-- @brief 가지고 있는 던전 정보와 진행중인 실제 던전 정보가 다른 경우 false 리턴
+-------------------------------------
+function ServerData_ClanRaid:checkBossStatus()
+    local hp = self.m_structClanRaid:getHp()
+    local lv = self.m_structClanRaid:getLv()
+
+    if (self.m_bossRemainHp ~= hp) or (self.m_bossLv ~= lv) then
+        self:setBossStatus()
+        return false
+    end
+
+    return true
 end
 
 -------------------------------------
