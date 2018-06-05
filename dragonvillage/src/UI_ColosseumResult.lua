@@ -378,7 +378,7 @@ end
 -- @brief "확인" 버튼
 -------------------------------------
 function UI_ColosseumResult:click_okBtn()
-	UINavigator:goTo('colosseum')
+	UINavigator:goTo('colosseum_old')
 end
 
 -------------------------------------
