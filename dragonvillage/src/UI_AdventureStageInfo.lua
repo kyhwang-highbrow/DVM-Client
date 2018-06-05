@@ -212,7 +212,8 @@ function UI_AdventureStageInfo:refresh()
         vars['bossNode']:removeAllChildren()
 
         -- 1.1.4 엔진 업데이트 분기처리
-        if (not IS_QA_SERVER() and not isWin32() and getAppVerNum() < 1001004) then
+        --if (not IS_QA_SERVER() and not isWin32() and getAppVerNum() < 1001004) then
+        if (false) then
             -- 고대 유적 보스의 경우 스파인 캐쉬를 날림
             if (game_mode == GAME_MODE_ANCIENT_RUIN) then
                 sp.SkeletonAnimation:removeCache('res/character/monster/boss_ancient_all/boss_ancient_all.json')

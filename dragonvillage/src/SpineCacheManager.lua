@@ -116,7 +116,8 @@ function SpineCacheManager:purgeSpineCacheData()
             local json_name, atlas_name = string.match(name, "(.+%.json)(.+%.atlas)$")
             
             -- 1.1.4 엔진 업데이트 분기처리
-            if (not IS_QA_SERVER() and not isWin32() and appVerNum < 1001004) then
+            --if (not IS_QA_SERVER() and not isWin32() and appVerNum < 1001004) then
+            if (false) then
                 sp.SkeletonAnimation:removeCache(json_name)
 
                 table.insert(t_remove_key, name)
