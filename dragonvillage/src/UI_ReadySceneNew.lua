@@ -428,10 +428,13 @@ function UI_ReadySceneNew:initUI()
         vars['bgNode']:addChild(animator.m_node)
 
         -- 테스트 모드일때 연속 전투 가능하게
-        if (IS_ARENA_AUTOPLAY() and self.m_stageID == ARENA_STAGE_ID) then
+        --[[ if (IS_ARENA_AUTOPLAY() and self.m_stageID == ARENA_STAGE_ID) then
         else
             set_autobtn_off()
         end
+        ]]--
+
+        set_autobtn_off()
 	end
 
     -- 멀티덱 예외처리 (클랜 던전, 고대 유적 던전)
