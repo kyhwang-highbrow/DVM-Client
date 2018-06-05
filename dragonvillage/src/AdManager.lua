@@ -6,8 +6,8 @@ AD_TYPE = {
 }
 
 DAILY_AD_KEY = {
-    ['FOREST'] = 'forest_time',  -- 드래곤의 숲 시간 단축
-    ['EXPL'] = 'expl_time',    -- 모험 시간 단축
+    ['FOREST'] = 'forest',  -- 드래곤의 숲 시간 단축
+    ['EXPLORE'] = 'explore',    -- 모험 시간 단축
     ['FSUMMON'] = 'fsummon'       -- 우정 뽑기
 }
 

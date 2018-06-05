@@ -63,6 +63,8 @@ end
 -- function initButton
 -------------------------------------
 function UI_Exploration:initButton()
+    self.vars['adBtn']:registerScriptTapHandler(function() self:click_adBtn() end)
+    self.vars['adBtn']:runAction(cca.buttonShakeAction(2, 2))
 end
 
 -------------------------------------
@@ -72,6 +74,9 @@ function UI_Exploration:refresh()
     for i,v in pairs(self.m_lLocationButtons) do
         v:refresh()
     end
+
+    -- 광고 보기 버튼 체크
+    self.vars['adBtn']:setVisible(g_advertisingData:isAllowToShow(DAILY_AD_KEY['EXPLORE']))
 end
 
 -------------------------------------
@@ -79,6 +84,29 @@ end
 -------------------------------------
 function UI_Exploration:click_exitBtn()
     self:close()
+end
+
+-------------------------------------
+-- function click_adBtn
+-------------------------------------
+function UI_Exploration:click_adBtn()
+    -- 현재 진행중인 탐험이 없다면
+    if (not g_explorationData:isExploring()) then
+        local msg = Str('진행중인 탐험 지역이 없습니다.')
+        UIManager:toastNotificationRed(msg)
+        return
+    end
+    
+    -- 탐험 광고 안내 팝업
+    local function ok_cb()
+        AdManager:showDailyAd(DAILY_AD_KEY['EXPLORE'], function()
+            g_explorationData:setDirty()
+            g_explorationData:request_explorationInfo(function() self:refresh() end)
+        end)
+    end
+    local msg = Str("동영상 광고를 보시면 탐험 시간이 단축됩니다.") .. '\n' .. Str("광고를 보시겠습니까?")
+    local submsg = Str("모든 탐험 중인 지역의 탐험 시간을 50% 단축합니다.") .. '\n' .. Str(" 광고시청은 1일 1회만 가능합니다.")
+    MakeSimplePopup2(POPUP_TYPE.OK, msg, submsg, ok_cb)
 end
 
 --@CHECK

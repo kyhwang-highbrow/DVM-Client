@@ -358,3 +358,11 @@ function ServerData_Exploration:getPushTimeList()
 
     return t_ret
 end
+
+-------------------------------------
+-- function isExploring
+-- @brief 탐험중인 지역이 있다면 true
+-------------------------------------
+function ServerData_Exploration:isExploring()
+    return table.count(self.m_myExplorationList) > 0
+end

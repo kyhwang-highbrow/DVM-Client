@@ -111,7 +111,7 @@ function UI_HatcherySummonTab:initUI()
     NaverCafeManager:setPluginInfoBtn(vars['plugInfoBtn'], 'summon_info')
 
     -- 광고 보기 버튼 체크
-    vars['summonNode_fp_ad']:setVisible(g_advertisingData:isAllowToShow(DAILY_AD_KEY['fsummon']))
+    vars['summonNode_fp_ad']:setVisible(g_advertisingData:isAllowToShow(DAILY_AD_KEY['FSUMMON']))
 end
 
 
@@ -254,7 +254,7 @@ function UI_HatcherySummonTab:click_friendSummonBtn(is_bundle, is_ad, t_egg_data
 
     -- 무료 뽑기는 광고 시청
     if (is_ad) then
-        AdManager:showDailyAd(DAILY_AD_KEY['fsummon'], function()
+        AdManager:showDailyAd(DAILY_AD_KEY['FSUMMON'], function()
             g_hatcheryData:request_summonFriendshipPoint(is_bundle, is_ad, finish_cb, fail_cb)
         end)
     else

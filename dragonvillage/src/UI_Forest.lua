@@ -86,6 +86,8 @@ function UI_Forest:refresh()
     self:refresh_cnt()
     self:refresh_happy()
     --self:refresh_noti()
+    -- 광고 보기 버튼 체크
+    self.vars['adBtn']:setVisible(g_advertisingData:isAllowToShow(DAILY_AD_KEY['FOREST']))
 end
 
 -------------------------------------
