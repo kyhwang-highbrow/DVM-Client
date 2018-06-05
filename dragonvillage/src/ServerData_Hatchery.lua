@@ -82,11 +82,11 @@ end
 -- function request_summonFriendshipPoint
 -- @breif
 -------------------------------------
-function ServerData_Hatchery:request_summonFriendshipPoint(is_bundle, finish_cb, fail_cb)
+function ServerData_Hatchery:request_summonFriendshipPoint(is_bundle, is_ad, finish_cb, fail_cb)
     -- 유저 ID
     local uid = g_userData:get('uid')
     local is_bundle = is_bundle or false
-    local is_adv = is_adv or false
+    local is_ad = is_ad or false
 
     -- 성공 콜백
     local function success_cb(ret)
@@ -113,7 +113,7 @@ function ServerData_Hatchery:request_summonFriendshipPoint(is_bundle, finish_cb,
     ui_network:setUrl('/shop/summon/fp')
     ui_network:setParam('uid', uid)
     ui_network:setParam('bundle', is_bundle)
-    ui_network:setParam('adv', is_adv)
+    ui_network:setParam('adv', is_ad)
     ui_network:setMethod('POST')
     ui_network:setSuccessCB(success_cb)
     ui_network:setFailCB(fail_cb)
@@ -369,6 +369,16 @@ function ServerData_Hatchery:getGachaList()
             ['bundle'] = false,
             ['price_type'] = 'fp',
             ['price'] = ServerData_Hatchery.FP__SUMMON_PRICE,
+        }
+        table.insert(l_item_list, t_data)
+
+        local t_data = {
+            ['name'] = Str('우정 부화'),
+            ['egg_id'] = 700003, 
+            ['egg_res'] = 'res/item/egg/egg_friendship/egg_friendship.vrp',
+            ['ui_type'] = 'fp_ad',
+            ['bundle'] = false,
+            ['is_ad'] = true,
         }
         table.insert(l_item_list, t_data)
     end

@@ -52,31 +52,43 @@ function UI_HatcherySummonTab:initUI()
         local ui_type = t_data['ui_type']
         vars['summonNode_' .. ui_type]:addChild(btn.root)
         
+        -- 광고 무료 뽑기
+        if (t_data['is_ad']) then
+            btn.vars['priceLabel']:setString(Str('광고 시청'))
+            btn.vars['priceLabel']:setAlignment(cc.TEXT_ALIGNMENT_CENTER, cc.VERTICAL_TEXT_ALIGNMENT_CENTER)
+            btn.vars['priceNode']:removeAllChildren()
+
+            btn.vars['countLabel']:setString(Str('무료 뽑기'))
+            btn.vars['countLabel']:setTextColor(COLOR['diff_normal'])
+
         -- 버튼 UI 설정
-
-        -- 가격
-        local price = t_data['price']
-        btn.vars['priceLabel']:setString(comma_value(price))
-
-        -- 가격 아이콘
-        local price_type = t_data['price_type']
-        local price_icon = IconHelper:getPriceIcon(price_type)
-        btn.vars['priceNode']:removeAllChildren()
-        btn.vars['priceNode']:addChild(price_icon)
-        
-        -- 뽑기 횟수 안내
-        local count_str
-        if (t_data['bundle']) then
-            count_str = Str('10 + 1회')
-            btn.vars['countLabel']:setTextColor(cc.c4b(255, 215, 0, 255))
         else
-            count_str = Str('1회')
+            -- 가격
+            local price = t_data['price']
+            btn.vars['priceLabel']:setString(comma_value(price))
+
+            -- 가격 아이콘
+            local price_type = t_data['price_type']
+            local price_icon = IconHelper:getPriceIcon(price_type)
+            btn.vars['priceNode']:removeAllChildren()
+            btn.vars['priceNode']:addChild(price_icon)
+            
+            -- 뽑기 횟수 안내
+            local count_str
+            if (t_data['bundle']) then
+                count_str = Str('10 + 1회')
+                btn.vars['countLabel']:setTextColor(cc.c4b(255, 215, 0, 255))
+            else
+                count_str = Str('1회')
+            end
+            btn.vars['countLabel']:setString(count_str)
         end
-        btn.vars['countLabel']:setString(count_str)
 
         -- 버튼 콜백
         btn.vars['summonBtn']:registerScriptTapHandler(function()
             self:requestSummon(t_data)
+
+            -- @tutorial 에서 갱신 시키는 목적
 			if (ui_type == 'cash11') then
 				local price = btn.vars['priceLabel']:getString()
 				price = tonumber(price)
@@ -97,6 +109,9 @@ function UI_HatcherySummonTab:initUI()
 
     -- 소환 확률 안내 (네이버 sdk 링크)
     NaverCafeManager:setPluginInfoBtn(vars['plugInfoBtn'], 'summon_info')
+
+    -- 광고 보기 버튼 체크
+    vars['summonNode_fp_ad']:setVisible(g_advertisingData:isAllowToShow(DAILY_AD_KEY['fsummon']))
 end
 
 
@@ -196,7 +211,7 @@ end
 -- function click_friendSummonBtn
 -- @brief 우정포인트 뽑기
 -------------------------------------
-function UI_HatcherySummonTab:click_friendSummonBtn(is_bundle, t_egg_data, old_ui)
+function UI_HatcherySummonTab:click_friendSummonBtn(is_bundle, is_ad, t_egg_data, old_ui)
     -- 드래곤 최대치 보유가 넘었는지 체크
     local summon_cnt = 1
     if (is_bundle == true) then
@@ -225,6 +240,11 @@ function UI_HatcherySummonTab:click_friendSummonBtn(is_bundle, t_egg_data, old_u
 
         local function close_cb()
             self:summonApiFinished()
+
+            if (is_ad) then
+                -- 광고 보기 버튼 체크
+                self.vars['summonNode_fp_ad']:setVisible(false)
+            end
         end
         ui:setCloseCB(close_cb)
     end
@@ -232,7 +252,14 @@ function UI_HatcherySummonTab:click_friendSummonBtn(is_bundle, t_egg_data, old_u
     local function fail_cb()
     end
 
-    g_hatcheryData:request_summonFriendshipPoint(is_bundle, finish_cb, fail_cb)
+    -- 무료 뽑기는 광고 시청
+    if (is_ad) then
+        AdManager:showDailyAd(DAILY_AD_KEY['fsummon'], function()
+            g_hatcheryData:request_summonFriendshipPoint(is_bundle, is_ad, finish_cb, fail_cb)
+        end)
+    else
+        g_hatcheryData:request_summonFriendshipPoint(is_bundle, is_ad, finish_cb, fail_cb)
+    end
 end
 
 -------------------------------------
@@ -242,6 +269,7 @@ function UI_HatcherySummonTab:requestSummon(t_egg_data, old_ui, is_again)
     local egg_id = t_egg_data['egg_id']
     local is_bundle = t_egg_data['bundle']
 	local is_sale = (t_egg_data['price_type'] == 'cash') and is_again
+    local is_ad = t_egg_data['is_ad']
 
     local function ok_btn_cb()
         if (egg_id == 700001) then
@@ -251,7 +279,7 @@ function UI_HatcherySummonTab:requestSummon(t_egg_data, old_ui, is_again)
             self:click_cashSummonBtn(is_bundle, is_sale, t_egg_data, old_ui)
 
         elseif (egg_id == 700003) then
-            self:click_friendSummonBtn(is_bundle, t_egg_data, old_ui)
+            self:click_friendSummonBtn(is_bundle, is_ad, t_egg_data, old_ui)
 
         else
             error('egg_id ' .. egg_id)

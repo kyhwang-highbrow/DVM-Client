@@ -117,6 +117,21 @@ function AdManager:showByAdType(ad_type, result_cb)
 end
 
 -------------------------------------
+-- function showDailyAd
+-------------------------------------
+function AdManager:showDailyAd(daily_ad_key, finish_cb)
+    local ad_unit_id = ADMOB_AD_UNIT_ID_TABLE[AD_TYPE.DAILY_AD]
+    local function result_cb()
+        g_advertisingData:request_dailyAdShow(daily_ad_key, function()
+            if (finish_cb) then
+                finish_cb()
+            end
+        end)
+    end
+    self:show(ad_unit_id, result_cb)
+end
+
+-------------------------------------
 -- function showErrorPopup
 -------------------------------------
 function AdManager:showErrorPopup(error_info)

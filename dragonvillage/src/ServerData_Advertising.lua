@@ -240,7 +240,7 @@ function ServerData_Advertising:showRewardResult(ret)
 end
 
 -------------------------------------
--- function showAd
+-- function showDailyAd
 -- @brief 광고 보기 (adMob)
 -- @type 개수 제한
 -------------------------------------
@@ -280,7 +280,7 @@ function ServerData_Advertising:request_dailyAdInfo(finish_cb, fail_cb)
 
     -- 성공 콜백
     local function success_cb(ret)
-        self:response_dailyAdvInfo(ret['adv_info'])
+        self:response_dailyAdInfo(ret['adv_info'])
         if finish_cb then
             finish_cb(ret)
         end
@@ -300,14 +300,14 @@ function ServerData_Advertising:request_dailyAdInfo(finish_cb, fail_cb)
 end
 
 -------------------------------------
--- function response_dailyAdvInfo
+-- function response_dailyAdInfo
 -------------------------------------
-function ServerData_Advertising:response_dailyAdvInfo(ret)
+function ServerData_Advertising:response_dailyAdInfo(ret)
     if (ret == nil) then
         return
     end
 
-    self.m_dailyAdvInfo = ret
+    self.m_dailyAdInfo = ret
 end
 
 -------------------------------------
@@ -339,6 +339,14 @@ function ServerData_Advertising:request_dailyAdShow(daily_ad_key, finish_cb, fai
 
     return ui_network
 end
+
+-------------------------------------
+-- function isAllowToShow
+-------------------------------------
+function ServerData_Advertising:isAllowToShow(ad_key)
+    return self.m_dailyAdInfo[ad_key] and (self.m_dailyAdInfo[ad_key] > 0)
+end
+
 
 
 
