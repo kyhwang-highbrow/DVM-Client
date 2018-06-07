@@ -85,10 +85,10 @@ function UI_LobbyGuideArena:refresh()
     if struct_user_info then
 	    local curr_cnt = struct_user_info:getWinCnt() + struct_user_info:getLoseCnt()
 	    local temp
-	    if curr_cnt > 40 then
+	    if curr_cnt > 20 then
 		    temp = 4
 	    else
-		    temp = math_floor(curr_cnt/10)
+		    temp = math_floor(curr_cnt/5)
 	    end
 	    vars['rewardVisual']:changeAni('reward_' .. temp, true)
     end
