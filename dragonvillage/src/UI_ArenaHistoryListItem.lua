@@ -124,6 +124,11 @@ end
 function UI_ArenaHistoryListItem:click_retryBtn()
     -- 현재 히스토리 유저데이터 강제로 매칭데이터로 만들어줌
     g_arenaData.m_matchUserInfo = self.m_userInfo
+    if (self.m_type == 'atk') then
+        g_arenaData.m_tempLogData['match_type'] = 'retry'
+    else
+        g_arenaData.m_tempLogData['match_type'] = 'revenge'
+    end
     UI_ArenaReady()
 end
 

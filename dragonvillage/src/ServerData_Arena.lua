@@ -26,6 +26,8 @@ ServerData_Arena = class({
         m_bOpen = 'boolean',
 
         m_bLastPvpReward = 'boolean',
+
+        m_tempLogData = 'table',
     })
 
 -------------------------------------
@@ -38,6 +40,7 @@ function ServerData_Arena:init(server_data)
 	self.m_endTime = 0
     self.m_matchAtkHistory = {}
     self.m_matchDefHistory = {}
+    self.m_tempLogData = {}
 
     -- 기존 콜로세움 보상 정보 FLAG (후에 삭제)
     self.m_bLastPvpReward = false
@@ -410,6 +413,9 @@ function ServerData_Arena:request_arenaStart(is_cash, history_id, finish_cb, fai
         return false
     end
 
+    -- Log를 위해 arena/finish에 던질 데이터들 임시 저장
+    self.m_tempLogData['is_cash'] = is_cash
+
     -- 네트워크 통신
     local ui_network = UI_Network()
     ui_network:setUrl('/game/arena/start')
@@ -512,6 +518,37 @@ function ServerData_Arena:request_arenaFinish(is_win, play_time, finish_cb, fail
     ui_network:setParam('clear_time', play_time)
     ui_network:setParam('check_time', g_accessTimeData:getCheckTime())
     ui_network:setParam('gamekey', self.m_gameKey)
+
+    -- 서버 Log를 위해 클라에서 넘기는 값들
+    do 
+        -- 다이아 사용 
+        local is_cash = self.m_tempLogData['is_cash'] or false
+        ui_network:setParam('is_cash', is_cash)
+
+        -- 전투 타입 (일반 매칭, 복수전, 재도전)
+        local match_type = self.m_tempLogData['match_type'] or 'random'
+        ui_network:setParam('match_type', fight_type)
+
+        -- 수동/자동
+        local is_auto = self.m_tempLogData['is_auto'] or false
+        ui_network:setParam('is_auto', is_auto)
+
+        -- 연속 전투
+        if (not is_auto) then
+            ui_network:setParam('is_continuous', false)
+        else
+            local is_continuous = g_autoPlaySetting:isAutoPlay() 
+            ui_network:setParam('is_continuous', is_continuous)
+        end
+        
+        -- 전투중 종료
+        local force_exit = self.m_tempLogData['force_exit'] or false
+        ui_network:setParam('force_exit', force_exit)
+        
+        -- 통신 후에는 삭제
+        self.m_tempLogData = {}
+    end
+
     ui_network:setMethod('POST')
     ui_network:setSuccessCB(success_cb)
     ui_network:setResponseStatusCB(response_status_cb)

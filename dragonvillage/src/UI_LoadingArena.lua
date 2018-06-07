@@ -268,6 +268,9 @@ function UI_LoadingArena:selectAuto(auto_mode)
 
     vars['btnNode']:setVisible(false)
     vars['loadingNode']:setVisible(true)
+
+    -- 서버 Log를 위해 임시저장
+    g_arenaData.m_tempLogData['is_auto'] = auto_mode
 end
 
 --@CHECK

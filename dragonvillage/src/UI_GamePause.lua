@@ -237,6 +237,11 @@ function UI_GamePause:confirmExit(exit_cb)
     local msg = Str('지금 퇴장하면 {@RED}패배로 처리{@default}됩니다.\n그래도 나가시겠습니까?')
 
     local function ok_cb()
+        -- 아레나인 경우 강제 종료 로그 남김
+        if (self.m_stageID == ARENA_STAGE_ID) then
+            g_arenaData.m_tempLogData['force_exit'] = true
+        end
+
         -- 멈춘 상태에서 바로 종료될시 어색하므로 resume 시키고 종료
         local world = g_gameScene.m_gameWorld
         world.m_gameState:changeState(GAME_STATE_FAILURE)
