@@ -54,7 +54,7 @@ function UI_HatcherySummonTab:initUI()
         
         -- 광고 무료 뽑기
         if (t_data['is_ad']) then
-            btn.vars['priceLabel']:setString(Str('광고 시청'))
+            btn.vars['priceLabel']:setString(Str('1일 1회'))
             btn.vars['priceLabel']:setAlignment(cc.TEXT_ALIGNMENT_CENTER, cc.VERTICAL_TEXT_ALIGNMENT_CENTER)
             btn.vars['priceNode']:removeAllChildren()
 
@@ -112,6 +112,7 @@ function UI_HatcherySummonTab:initUI()
 
     -- 광고 보기 버튼 체크
     vars['summonNode_fp_ad']:setVisible(g_advertisingData:isAllowToShow(DAILY_AD_KEY['FSUMMON']))
+    vars['summonNode_fp_ad']:runAction(cca.buttonShakeAction(2, 2))
 end
 
 
