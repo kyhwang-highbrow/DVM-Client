@@ -72,6 +72,13 @@ function UI_LoadingGuide:refresh()
 end
 
 -------------------------------------
+-- function prepare
+-------------------------------------
+function UI_LoadingGuide:prepare()
+    return true
+end
+
+-------------------------------------
 -- function setNextLoadingStr
 -------------------------------------
 function UI_LoadingGuide:setNextLoadingStr()

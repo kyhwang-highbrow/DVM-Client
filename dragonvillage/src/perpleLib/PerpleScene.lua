@@ -528,6 +528,18 @@ function replaceScene(target_scene)
         --------------------------------------------------------------------------
 
         --------------------------------------------------------------------------
+        do -- beforePrepareRes
+            local is_break
+
+            repeat
+                is_break = target_scene.m_loadingUI:prepare()
+                dt = coroutine.yield()
+                co_timer = co_timer + dt
+            until(is_break)
+        end
+        --------------------------------------------------------------------------
+
+        --------------------------------------------------------------------------
         do -- prepareRes
 			-- 로딩게이지 관련 준비
 			local total_cnt = #target_scene.m_lPrepareFunc

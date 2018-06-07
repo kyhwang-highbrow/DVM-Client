@@ -65,7 +65,8 @@ function Tamer:init_tamer(t_tamer_data, bLeftFormationend)
 
 	-- pvp 스킬은 적군일때만 적용시킴(콜로세움)
     -- !! 아레나의 경우는 양팀 모두 적용
-    if (self.m_world.m_gameMode == GAME_MODE_COLOSSEUM and self.m_bLeftFormation) then
+    --if (self.m_world.m_gameMode == GAME_MODE_COLOSSEUM and self.m_bLeftFormation) then
+    if (self.m_bLeftFormation) then
         self:setDragonSkillLevelList(t_tamer_data['skill_lv1'], t_tamer_data['skill_lv2'], t_tamer_data['skill_lv3'])
     else
         self:setDragonSkillLevelList(t_tamer_data['skill_lv1'], t_tamer_data['skill_lv2'], t_tamer_data['skill_lv3'], t_tamer_data['skill_lv4'])

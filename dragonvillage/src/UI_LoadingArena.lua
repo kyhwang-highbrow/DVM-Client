@@ -1,4 +1,5 @@
 local PARENT = UI
+local WAITING_TIME = 10
 
 -------------------------------------
 -- class UI_LoadingArena
@@ -6,6 +7,9 @@ local PARENT = UI
 UI_LoadingArena = class(PARENT,{
         m_lLoadingStrList = 'List<string>',
         m_bFriendMatch = 'boolean',
+
+        m_remainTimer = 'number',
+        m_bSelected = 'boolean',
     })
 
 -------------------------------------
@@ -14,6 +18,10 @@ UI_LoadingArena = class(PARENT,{
 function UI_LoadingArena:init(curr_scene)
 	self.m_uiName = 'UI_LoadingArena'
     self.m_bFriendMatch = curr_scene.m_bFriendMatch
+
+    self.m_remainTimer = WAITING_TIME
+    self.m_bSelected = false
+
 	local vars = self:load('arena_loading.ui')
 
     local guide_type = curr_scene.m_loadingGuideType
@@ -22,6 +30,10 @@ function UI_LoadingArena:init(curr_scene)
 	end
     
 	self:initUI()
+    self:initButton()
+
+    -- 자체적으로 업데이트를 돌린다.
+	self.root:scheduleUpdateWithPriorityLua(function(dt) self:update(dt) end, 0)
 end
 
 -------------------------------------
@@ -146,6 +158,14 @@ function UI_LoadingArena:initUI()
             vars['tamerNode2']:addChild(icon)
         end
     end
+
+    -- 연속 전투 상태 여부에 따라 버튼이나 로딩 게이지 표시
+    do
+        local is_autoplay = g_autoPlaySetting:isAutoPlay()
+    
+        vars['btnNode']:setVisible(not is_autoplay)
+        vars['loadingNode']:setVisible(is_autoplay)
+    end
 end
 
 -------------------------------------
@@ -153,12 +173,51 @@ end
 -- @brief 버튼 UI 초기화
 -------------------------------------
 function UI_LoadingArena:initButton()
+    local vars = self.vars
+
+    -- 수동 전투
+    vars['manualBtn']:registerScriptTapHandler(function()
+        self:selectAuto(false)
+    end)
+
+    -- 자동 전투
+    vars['autoBtn']:registerScriptTapHandler(function()
+        self:selectAuto(true)
+    end)
 end
 
 -------------------------------------
 -- function refresh
 -------------------------------------
 function UI_LoadingArena:refresh()
+end
+
+-------------------------------------
+-- function prepare
+-------------------------------------
+function UI_LoadingArena:prepare()
+    return self.m_bSelected
+end
+
+-------------------------------------
+-- function update
+-------------------------------------
+function UI_LoadingArena:update(dt)
+    if (self.m_bSelected) then return end
+
+    local prev = math_floor(self.m_remainTimer)
+    self.m_remainTimer = self.m_remainTimer - dt
+
+    local next = math_floor(self.m_remainTimer)
+
+    if (self.m_remainTimer <= 0) then
+        -- 타임아웃시 자동모드 강제 설정
+        self:selectAuto(true)
+
+    elseif (prev ~= next) then
+        local msg = Str('{1}초 후 전투가 시작됩니다.', next)
+        self.vars['countdownLabel']:setString(msg)
+    end
 end
 
 -------------------------------------
@@ -193,6 +252,22 @@ end
 -------------------------------------
 function UI_LoadingArena:getLoadingGauge()
 	return self.vars['loadingGauge']:getPercentage()
+end
+
+-------------------------------------
+-- function selectAuto
+-------------------------------------
+function UI_LoadingArena:selectAuto(auto_mode)
+    if (self.m_bSelected) then return end
+
+    local vars = self.vars
+
+    self.m_bSelected = true
+
+    g_autoPlaySetting:set('auto_mode', auto_mode)
+
+    vars['btnNode']:setVisible(false)
+    vars['loadingNode']:setVisible(true)
 end
 
 --@CHECK

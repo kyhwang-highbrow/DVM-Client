@@ -10,6 +10,8 @@ GameWorldArena = class(PARENT, {
         m_bFriendMatch = 'boolean',
         m_enemyDeckFormation = 'string',
         m_enemyDeckFormationLv = 'number',
+
+        m_bStartedAuto = 'boolean', -- 전투 시작시 자동 여부
     })
 
 -------------------------------------
@@ -18,6 +20,11 @@ GameWorldArena = class(PARENT, {
 function GameWorldArena:init(game_mode, stage_id, world_node, game_node1, game_node2, game_node3, ui, develop_mode, friend_match)
     self.m_lEnemyDragons = {}
     self.m_bFriendMatch = friend_match or false
+
+    self.m_bStartedAuto = g_autoPlaySetting:get('auto_mode') or false
+
+    cclog('연속전투 : ' .. luadump(g_autoPlaySetting:isAutoPlay()))
+    cclog('자동모드 : ' .. luadump(self.m_bStartedAuto))
 end
 
 -------------------------------------
@@ -371,7 +378,11 @@ end
 -------------------------------------
 function GameWorldArena:isPossibleControl()
     -- 항상 조작을 막기 위한 처리(드래곤 터치나 패널 조작)
-    return false
+    if (self.m_bStartedAuto) then
+        return false
+    else
+        return PARENT.isPossibleControl(self)
+    end
 end
 
 -------------------------------------

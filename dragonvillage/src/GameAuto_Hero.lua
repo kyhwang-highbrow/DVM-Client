@@ -21,10 +21,6 @@ function GameAuto_Hero:init(world, game_mana, ui)
         -- 인트로에서는 비활성화시킴
         is_auto_mode = false
 
-    elseif (isExistValue(self.m_world.m_gameMode, GAME_MODE_ARENA)) then
-        -- 아레나 모드일 경우 강제로 자동모드를 활성화시킴    
-        is_auto_mode = true
-
     elseif (g_autoPlaySetting:isAutoPlay()) then
         -- 연속 전투가 활성화되어있다면 즉시 자동모드를 활성화시킴
         g_autoPlaySetting:setWithoutSaving('auto_mode', true)

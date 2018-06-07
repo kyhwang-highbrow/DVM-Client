@@ -53,19 +53,19 @@ function UI_GameArena:initUI()
     end
 
      -- 연속 전투 정보
-    if (IS_ARENA_AUTOPLAY()) then
-        self:setAutoPlayUI()
-    end
+    self:setAutoPlayUI()
 
     -- 하단 패널
     vars['panelBgSprite']:setLocalZOrder(-1)
 
-    -- 자동 버튼 숨김
-    vars['autoButton']:setVisible(false)
-    vars['autoVisual']:setVisible(false)
+    -- 자동 버튼
+    local is_auto_mode = g_autoPlaySetting:get('auto_mode') or false
+    vars['autoButton']:setVisible(not is_auto_mode)
+    vars['autoVisual']:setVisible(is_auto_mode)
+    vars['autoLockSprite']:setVisible(not vars['autoButton']:isVisible())
 
     -- 테스트 모드에서 연속전투 활성화
-    vars['autoStartButton']:setVisible(IS_ARENA_AUTOPLAY())
+    vars['autoStartButton']:setVisible(is_auto_mode)
 
     self:initManaUI()
 end
@@ -84,6 +84,10 @@ function UI_GameArena:initTamerUI(hero_tamer, enemy_tamer)
             icon = IconHelper:makeTamerReadyIcon(hero_tamer.m_tamerID)
         end
         vars['tamerNode1']:addChild(icon, 1)
+
+        if (not hero_tamer.m_lSkillIndivisualInfo['indie_time']) then
+            vars['tamerGauge2']:setVisible(false)
+        end
     end
 
     do
@@ -214,11 +218,4 @@ function UI_GameArena:setTime(sec)
     else
         vars['timeLabel']:setColor(cc.c3b(0, 255, 0))
     end
-end
-
--------------------------------------
--- function setAutoMode
--- @brief 자동 모드 설정
--------------------------------------
-function UI_GameArena:setAutoMode(b)
 end
