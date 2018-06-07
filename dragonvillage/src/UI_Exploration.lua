@@ -105,7 +105,7 @@ function UI_Exploration:click_adBtn()
         end)
     end
     local msg = Str("동영상 광고를 보시면 탐험 시간이 단축됩니다.") .. '\n' .. Str("광고를 보시겠습니까?")
-    local submsg = Str("모든 탐험 중인 지역의 탐험 시간을 50% 단축합니다.") .. '\n' .. Str(" 광고시청은 1일 1회만 가능합니다.")
+    local submsg = Str("모든 탐험 중인 지역의 탐험 시간을 50% 단축합니다.") .. '\n' .. Str("광고시청은 1일 1회만 가능합니다.")
     MakeSimplePopup2(POPUP_TYPE.OK, msg, submsg, ok_cb)
 end
 

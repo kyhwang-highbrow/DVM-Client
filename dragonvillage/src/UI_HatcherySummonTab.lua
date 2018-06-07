@@ -58,7 +58,7 @@ function UI_HatcherySummonTab:initUI()
             btn.vars['priceLabel']:setAlignment(cc.TEXT_ALIGNMENT_CENTER, cc.VERTICAL_TEXT_ALIGNMENT_CENTER)
             btn.vars['priceNode']:removeAllChildren()
 
-            btn.vars['countLabel']:setString(Str('무료 뽑기'))
+            btn.vars['countLabel']:setString(Str('무료 소환'))
             btn.vars['countLabel']:setTextColor(COLOR['diff_normal'])
 
         -- 버튼 UI 설정

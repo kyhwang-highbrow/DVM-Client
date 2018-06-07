@@ -77,6 +77,9 @@ function UI_Forest:initButton()
     vars['levelupBtn']:registerScriptTapHandler(function() self:click_levelupBtn() end)
     vars['changeBtn']:registerScriptTapHandler(function() self:click_changeBtn() end)
     vars['helpBtn']:registerScriptTapHandler(function() self:click_helpBtn() end)
+
+    vars['adBtn']:registerScriptTapHandler(function() self:click_adBtn() end)
+    vars['adBtn']:runAction(cca.buttonShakeAction(2, 2))    
 end
 
 -------------------------------------
@@ -86,9 +89,9 @@ function UI_Forest:refresh()
     self:refresh_cnt()
     self:refresh_happy()
     --self:refresh_noti()
+
     -- 광고 보기 버튼 체크
     self.vars['adBtn']:setVisible(g_advertisingData:isAllowToShow(DAILY_AD_KEY['FOREST']))
-    self.vars['adBtn']:runAction(cca.buttonShakeAction(2, 2))
 end
 
 -------------------------------------
@@ -191,4 +194,26 @@ end
 -------------------------------------
 function UI_Forest:click_helpBtn()
     self.vars['helpNode']:runAction(cc.ToggleVisibility:create())
+end
+
+-------------------------------------
+-- function click_adBtn
+-------------------------------------
+function UI_Forest:click_adBtn()
+    -- 쿨타임 돌고 있는 stuff가 없다면
+    -- if (not g_explorationData:isExploring()) then
+    --     local msg = Str('생성 중인 오브젝트가 없습니다.')
+    --     UIManager:toastNotificationRed(msg)
+    --     return
+    -- end
+    
+    -- 탐험 광고 안내 팝업
+    local function ok_cb()
+        AdManager:showDailyAd(DAILY_AD_KEY['FOREST'], function()
+            ServerData_Forest:getInstance():request_myForestInfo(function() self:refresh() end)
+        end)
+    end
+    local msg = Str("동영상 광고를 보시면 오브젝트 쿨타임이 단축됩니다.") .. '\n' .. Str("광고를 보시겠습니까?")
+    local submsg = Str("모든 진행중인 오브젝트 쿨타임을 50% 단축합니다.") .. '\n' .. Str("광고시청은 1일 1회만 가능합니다.")
+    MakeSimplePopup2(POPUP_TYPE.OK, msg, submsg, ok_cb)
 end
