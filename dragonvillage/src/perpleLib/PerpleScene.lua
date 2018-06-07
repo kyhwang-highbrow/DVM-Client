@@ -511,6 +511,18 @@ function replaceScene(target_scene)
         --------------------------------------------------------------------------
 
         --------------------------------------------------------------------------
+        do -- beforePrepare
+            local is_break
+
+            repeat
+                is_break = target_scene.m_loadingUI:prepare()
+                dt = coroutine.yield()
+                co_timer = co_timer + dt
+            until(is_break)
+        end
+        --------------------------------------------------------------------------
+
+        --------------------------------------------------------------------------
         do -- prepare
             target_scene:prepare()
 			target_scene.m_loadingUI:setLoadingGauge(50)
@@ -524,18 +536,6 @@ function replaceScene(target_scene)
 
             dt = coroutine.yield()
             co_timer = co_timer + dt
-        end
-        --------------------------------------------------------------------------
-
-        --------------------------------------------------------------------------
-        do -- beforePrepareRes
-            local is_break
-
-            repeat
-                is_break = target_scene.m_loadingUI:prepare()
-                dt = coroutine.yield()
-                co_timer = co_timer + dt
-            until(is_break)
         end
         --------------------------------------------------------------------------
 

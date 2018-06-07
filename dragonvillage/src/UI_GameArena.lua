@@ -58,15 +58,6 @@ function UI_GameArena:initUI()
     -- 하단 패널
     vars['panelBgSprite']:setLocalZOrder(-1)
 
-    -- 자동 버튼
-    local is_auto_mode = g_autoPlaySetting:get('auto_mode') or false
-    vars['autoButton']:setVisible(not is_auto_mode)
-    vars['autoVisual']:setVisible(is_auto_mode)
-    vars['autoLockSprite']:setVisible(not vars['autoButton']:isVisible())
-
-    -- 테스트 모드에서 연속전투 활성화
-    vars['autoStartButton']:setVisible(is_auto_mode)
-
     self:initManaUI()
 end
 
@@ -100,6 +91,24 @@ function UI_GameArena:initTamerUI(hero_tamer, enemy_tamer)
         end
         vars['tamerNode2']:addChild(icon, 1)
     end
+end
+
+
+-------------------------------------
+-- function rockButton
+-------------------------------------
+function UI_GameArena:rockButton()
+    local vars = self.vars
+
+    -- 자동 버튼
+    local is_auto_mode = g_autoPlaySetting:get('auto_mode') or false
+    
+    vars['autoButton']:setVisible(not is_auto_mode)
+    vars['autoVisual']:setVisible(is_auto_mode)
+    vars['autoLockSprite']:setVisible(not vars['autoButton']:isVisible())
+
+    -- 자동 모드시 연속전투버튼 활성화
+    vars['autoStartButton']:setVisible(is_auto_mode)
 end
 
 -------------------------------------

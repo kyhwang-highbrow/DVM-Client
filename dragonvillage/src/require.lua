@@ -603,6 +603,8 @@ local t_module = {
     'SkillHealAoESquare_Width',
     'SkillResurrect',
 
+    'SkillTamerArena',
+
     -- SKILL INDICATOR
     'SkillIndicatorMgr',
     'SkillIndicatorMgr_Intro',

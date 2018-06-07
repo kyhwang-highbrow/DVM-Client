@@ -63,10 +63,8 @@ function Tamer:init_tamer(t_tamer_data, bLeftFormationend)
     self.m_attribute = t_tamer['attr']
     self.m_bLeftFormation = bLeftFormationend
 
-	-- pvp 스킬은 적군일때만 적용시킴(콜로세움)
-    -- !! 아레나의 경우는 양팀 모두 적용
-    --if (self.m_world.m_gameMode == GAME_MODE_COLOSSEUM and self.m_bLeftFormation) then
-    if (self.m_bLeftFormation) then
+	-- 아군 테이머의 4번째 스킬은 자동모드시에만 적용
+    if (self.m_bLeftFormation and not g_autoPlaySetting:get('auto_mode')) then
         self:setDragonSkillLevelList(t_tamer_data['skill_lv1'], t_tamer_data['skill_lv2'], t_tamer_data['skill_lv3'])
     else
         self:setDragonSkillLevelList(t_tamer_data['skill_lv1'], t_tamer_data['skill_lv2'], t_tamer_data['skill_lv3'], t_tamer_data['skill_lv4'])
@@ -117,8 +115,9 @@ function Tamer:initState()
 	self:addState('skillAppear', Tamer.st_skillAppear, 'i_idle', false)
     self:addState('skillIdle', Tamer.st_skillIdle, 'skill_2', false)
 	
+    self:addState('delegate', PARENT.st_delegate, 'i_idle', true)
     self:addState('wait', Tamer.st_wait, 'i_idle', true)
-    self:addState('move', Tamer.st_move, 'i_idle', true)
+    self:addState('move', PARENT.st_move, 'i_idle', true)
 
     self:addState('success_pose', Tamer.st_success_pose, 'i_idle', true, PRIORITY.SUCCESS_POSE)
     self:addState('success_move', Tamer.st_success_move, 'i_idle', true, PRIORITY.SUCCESS_POSE)
@@ -126,7 +125,7 @@ function Tamer:initState()
     self:addState('dying', Tamer.st_dying, 'i_dying', false, PRIORITY.DYING)
     self:addState('dead', Tamer.st_dead, nil, nil, PRIORITY.DEAD)
 
-    self:addState('comeback', Tamer.st_comeback, 'i_idle', true)
+    self:addState('comeback', Tamer.st_roam, 'i_idle', true)
 end
 
 -------------------------------------
@@ -223,6 +222,21 @@ function Tamer.st_dead(owner, dt)
     end
 
     return true
+end
+
+-------------------------------------
+-- function changeState
+-- @param state
+-- @param forced
+-- @return boolean
+-------------------------------------
+function Tamer:changeState(state, forced)
+    if (state == 'attackDelay') then
+        state = 'roam'
+    end
+    
+    local ret = PARENT.changeState(self, state, forced)
+    return ret
 end
 
 -------------------------------------
@@ -466,7 +480,8 @@ function Tamer:makeAttackDamageInstance()
 	activity_carrier:setActivityOwner(self)
 
     -- 속성 지정
-    activity_carrier.m_attribute = attributeStrToNum(self:getAttribute())
+    activity_carrier.m_attribute = ATTR_NONE
+    --activity_carrier.m_attribute = attributeStrToNum(self:getAttribute())
 
     -- 세부 능력치 지정
 	--activity_carrier:setStatuses(self.m_statusCalc)

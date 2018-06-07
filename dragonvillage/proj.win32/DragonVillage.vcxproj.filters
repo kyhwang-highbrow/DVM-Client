@@ -3592,6 +3592,9 @@
     <None Include="..\src\SkillResurrect.lua">
       <Filter>lua\src</Filter>
     </None>
+    <None Include="..\src\SkillTamerArena.lua">
+      <Filter>lua\src</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Classes">

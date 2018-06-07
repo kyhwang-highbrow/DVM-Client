@@ -23,8 +23,12 @@ function GameWorldArena:init(game_mode, stage_id, world_node, game_node1, game_n
 
     self.m_bStartedAuto = g_autoPlaySetting:get('auto_mode') or false
 
-    cclog('연속전투 : ' .. luadump(g_autoPlaySetting:isAutoPlay()))
-    cclog('자동모드 : ' .. luadump(self.m_bStartedAuto))
+    if (isWin32()) then
+        cclog('연속전투 : ' .. luadump(g_autoPlaySetting:isAutoPlay()))
+        cclog('자동모드 : ' .. luadump(self.m_bStartedAuto))
+    end
+
+    ui:rockButton()
 end
 
 -------------------------------------

@@ -518,11 +518,15 @@ end
 -------------------------------------
 function GameWorld:removeAllHero()
     for i,v in pairs(self.m_leftParticipants) do
+        v.m_resurrect = false
+
         if (not v:isDead()) then
             v:changeState('dying')
 
             local effect = self:addInstantEffect('res/effect/tamer_magic_1/tamer_magic_1.vrp', 'bomb', v.pos['x'], v.pos['y'])
-            effect:setScale(0.8)
+            if (effect) then
+                effect:setScale(0.8)
+            end
         end
     end
 
@@ -587,10 +591,12 @@ end
 function GameWorld:getDeadList(char)
     if (char) then
         local group_key = char['phys_key']
-        return self.m_mUnitGroup[group_key]:getDeadList()
-    else
-        return nil
+        if (self.m_mUnitGroup[group_key]) then
+            return self.m_mUnitGroup[group_key]:getDeadList()
+        end
     end
+
+    return nil
 end
 
 -------------------------------------

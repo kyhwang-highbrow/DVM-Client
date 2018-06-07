@@ -417,6 +417,10 @@ function Character:doSkillBySkillTable(t_skill, t_data)
             elseif (skill_type == 'skill_boss_clanraid_9') then
                 SkillScript_ClanRaidBossFinish:makeSkillInstance(self, t_skill, t_data)
                 return true
+
+            elseif (skill_type == 'skill_tamer_arena') then
+                SkillTamerArena:makeSkillInstance(self, t_skill, t_data)
+                return true
 			end
 
 			cclog('미구현 코드 스킬 : ' .. skill_type)
