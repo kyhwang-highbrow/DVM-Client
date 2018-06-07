@@ -52,8 +52,18 @@ end
 -------------------------------------
 function StatusEffect_AddDmgOneTime:onEnd()
     if (self.m_savedDmg > 0) then
-        self.m_activityCarrier:setAtkDmgStat(self.m_savedDmg)
-    
+        local dmg = self.m_savedDmg
+
+        -- 테이머의 경우는 약속성에게 추가피해를 줌
+        if (self.m_caster:getCharType() == 'tamer') then
+            local attr_synastry = getCounterAttribute(self.m_caster:getAttribute(), self.m_owner:getAttribute())
+            if (attr_synastry > 0) then
+                dmg = dmg * 1.2
+            end
+        end
+
+        self.m_activityCarrier:setAtkDmgStat(dmg)
+
         self.m_owner:undergoAttack(self, self.m_owner, self.m_owner.pos.x, self.m_owner.pos.y, 0, true)
 
         if (self.m_resAttackEffect) then
