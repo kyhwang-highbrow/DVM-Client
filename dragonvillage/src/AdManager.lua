@@ -11,6 +11,8 @@ DAILY_AD_KEY = {
     ['FSUMMON'] = 'fsummon'       -- 우정 뽑기
 }
 
+OFF_JUNE_ADD_ADS = true
+
 -------------------------------------
 -- table AdManager
 -- @brief 광고 SDK 매니져
@@ -120,11 +122,22 @@ end
 -- function showDailyAd
 -------------------------------------
 function AdManager:showDailyAd(daily_ad_key, finish_cb)
-    local ad_unit_id = ADMOB_AD_UNIT_ID_TABLE[AD_TYPE.DAILY_AD]
-    local function result_cb()
+    if (CppFunctions:isWin32()) then
         g_advertisingData:request_dailyAdShow(daily_ad_key, function()
             if (finish_cb) then
                 finish_cb()
+            end
+        end)
+        return
+    end
+
+    local ad_unit_id = ADMOB_AD_UNIT_ID_TABLE[AD_TYPE.DAILY_AD]
+    local function result_cb(ret, info)
+        g_advertisingData:request_dailyAdShow(daily_ad_key, function()
+            if (ret == 'finish') then
+                if (finish_cb) then
+                    finish_cb()
+                end
             end
         end)
     end

@@ -213,7 +213,7 @@ function UI_Forest:click_adBtn()
             ServerData_Forest:getInstance():request_myForestInfo(function() self:refresh() end)
         end)
     end
-    local msg = Str("동영상 광고를 보시면 오브젝트 쿨타임이 단축됩니다.") .. '\n' .. Str("광고를 보시겠습니까?")
-    local submsg = Str("모든 진행중인 오브젝트 쿨타임을 50% 단축합니다.") .. '\n' .. Str("광고시청은 1일 1회만 가능합니다.")
-    MakeSimplePopup2(POPUP_TYPE.OK, msg, submsg, ok_cb)
+    local msg = Str("동영상 광고를 보시면 보상 획득 시간이 단축됩니다.") .. '\n' .. Str("광고를 보시겠습니까?")
+    local submsg = Str("모든 진행중인 보상 획득 시간을 50% 단축합니다.") .. '\n' .. Str("보상 획득 시간 단축은 1일 1회 가능합니다.")
+    MakeSimplePopup2(POPUP_TYPE.YES_NO, msg, submsg, ok_cb)
 end

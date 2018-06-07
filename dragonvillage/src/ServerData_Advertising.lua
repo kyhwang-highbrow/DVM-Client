@@ -321,6 +321,7 @@ function ServerData_Advertising:request_dailyAdShow(daily_ad_key, finish_cb, fai
 
     -- 성공 콜백
     local function success_cb(ret)
+        self:response_dailyAdInfo(ret['adv_info'])
         if finish_cb then
             finish_cb(ret)
         end
@@ -330,7 +331,7 @@ function ServerData_Advertising:request_dailyAdShow(daily_ad_key, finish_cb, fai
     local ui_network = UI_Network()
     ui_network:setUrl('/shop/adv_show')
     ui_network:setParam('uid', uid)
-    ui_network:setParam('adv_key', daily_ad_key)
+    ui_network:setParam('type', daily_ad_key)
     ui_network:setSuccessCB(success_cb)
     ui_network:setFailCB(fail_cb)
     ui_network:setRevocable(true)
@@ -344,6 +345,10 @@ end
 -- function isAllowToShow
 -------------------------------------
 function ServerData_Advertising:isAllowToShow(ad_key)
+    if (OFF_JUNE_ADD_ADS) then
+        return false
+    end
+    
     return self.m_dailyAdInfo[ad_key] and (self.m_dailyAdInfo[ad_key] > 0)
 end
 

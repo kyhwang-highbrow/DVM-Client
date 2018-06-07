@@ -320,6 +320,17 @@ function UI_HatcherySummonTab:requestSummon(t_egg_data, old_ui, is_again)
 	elseif (TutorialManager.getInstance():isDoing()) then
 		ok_btn_cb()
 
+    elseif (is_ad) then
+        -- 탐험 광고 안내 팝업
+        local function ok_cb()
+            AdManager:showDailyAd(DAILY_AD_KEY['FSUMMON'], function()
+                ok_btn_cb()
+            end)
+        end
+        local msg = Str("동영상 광고를 보시면 무료 우정 소환이 가능합니다.") .. '\n' .. Str("광고를 보시겠습니까?")
+        local submsg = Str("무료 우정 소환은 1일 1회 가능합니다.")
+        MakeSimplePopup2(POPUP_TYPE.YES_NO, msg, submsg, ok_cb)
+
     else
         local msg = Str('"{1}" 진행하시겠습니까?', t_egg_data['name'])
         MakeSimplePopup_Confirm(item_key, item_value, msg, ok_btn_cb, cancel_btn_cb)
