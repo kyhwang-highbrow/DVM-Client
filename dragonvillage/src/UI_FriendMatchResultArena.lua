@@ -68,6 +68,7 @@ function UI_FriendMatchResultArena:initButton()
 	vars['statsBtn']:registerScriptTapHandler(function() self:click_statsBtn() end)
     vars['okBtn']:registerScriptTapHandler(function() self:click_okBtn() end)
     vars['skipBtn']:registerScriptTapHandler(function() self:click_screenBtn() end)
+    vars['homeBtn']:registerScriptTapHandler(function() self:click_homeBtn() end)
 end
 
 -------------------------------------
@@ -214,4 +215,16 @@ function UI_FriendMatchResultArena:click_screenBtn()
     if func_name and (self[func_name]) then
         self[func_name](self)
     end
+end
+
+-------------------------------------
+-- function click_homeBtn
+-------------------------------------
+function UI_FriendMatchResultArena:click_homeBtn()
+	-- 씬 전환을 두번 호출 하지 않도록 하기 위함
+	local block_ui = UI_BlockPopup()
+
+	local is_use_loading = true
+    local scene = SceneLobby(is_use_loading)
+    scene:runScene()
 end
