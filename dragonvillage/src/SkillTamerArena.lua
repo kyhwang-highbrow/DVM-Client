@@ -24,7 +24,10 @@ function SkillTamerArena:init_skill(res)
     -- 이펙트 생성
     if (not self.m_effect) then
         local animator = MakeAnimator(res)
-        animator:changeAni('idle', true)
+        animator:changeAni('appear', false)
+        animator:addAniHandler(function()
+            animator:changeAni('idle', true)
+        end)
         animator.m_node:setPosition(self.m_owner.pos.x, self.m_owner.pos.y)
 
         if (self:isRightFormation()) then
@@ -127,7 +130,11 @@ function SkillTamerArena.st_dying(owner, dt)
     owner:onDying()
 
     if (owner.m_effect) then
-        owner.m_effect:release()
+        owner.m_effect:changeAni('disappear', false)
+        
+        local duration = owner.m_effect:getDuration()
+        owner.m_effect:runAction(cc.Sequence:create(cc.DelayTime:create(duration), cc.RemoveSelf:create()))
+
         owner.m_effect = nil
     end
 
@@ -193,7 +200,11 @@ end
 -------------------------------------
 function SkillTamerArena:release()
     if (self.m_effect) then
-        self.m_effect:release()
+        self.m_effect:changeAni('disappear', false)
+        
+        local duration = self.m_effect:getDuration()
+        self.m_effect:runAction(cc.Sequence:create(cc.DelayTime:create(duration), cc.RemoveSelf:create()))
+
         self.m_effect = nil
     end
 
