@@ -210,7 +210,10 @@ function UI_Forest:click_adBtn()
     -- 탐험 광고 안내 팝업
     local function ok_cb()
         AdManager:showDailyAd(DAILY_AD_KEY['FOREST'], function()
-            ServerData_Forest:getInstance():request_myForestInfo(function() self:refresh() end)
+            ServerData_Forest:getInstance():request_myForestInfo(function() 
+                self:refresh()
+                self.m_territory:refreshStuffs() 
+            end)
         end)
     end
     local msg = Str("동영상 광고를 보시면 보상 획득 시간이 단축됩니다.") .. '\n' .. Str("광고를 보시겠습니까?")
