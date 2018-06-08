@@ -1,5 +1,5 @@
-return {['15회']='5 times',
-['5회']='15 times',
+return {['15회']='15 times',
+['5회']='5 times',
 ['{1}초 후 전투가 시작됩니다.']='Battle starts in {1} sec.',
 ['새 시즌까지 {time} 남았습니다.']='{time} until next season…',
 ['연속 전투시 자동 전투로 진행되며,\n전투 진행중 수동으로 전환 할 수 없습니다.']='All battles during Repeated Battle will be automated.\nYou cannot switch to manual battle during Repeated Battles.',
