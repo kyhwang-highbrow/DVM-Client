@@ -32,6 +32,9 @@ function UI_GameArena:initUI()
     self.m_orgHeroTamerGaugeScaleX = vars['tamerGauge2']:getScaleX()
     self.m_orgEnemyTamerGaugeScaleX = vars['tamerGauge1']:getScaleX()
 
+    self.vars['tamerGaugeVisual2']:setRepeat(false)
+    self.vars['tamerGaugeVisual1']:setRepeat(false)
+
     -- 2배속
     do
         vars['speedVisual']:setVisible(g_autoPlaySetting:get('quick_mode'))
@@ -146,6 +149,11 @@ function UI_GameArena:setHeroTamerGauge(percentage)
     local scaleX = percentage * self.m_orgHeroTamerGaugeScaleX / 100
 
     self.vars['tamerGauge2']:setScaleX(scaleX)
+
+    if (percentage >= 100) then
+        self.vars['tamerGaugeVisual1']:setVisible(true)
+        self.vars['tamerGaugeVisual1']:setVisual('group', 'pvp_tamer_gauge')
+    end
 end
 
 -------------------------------------
@@ -155,6 +163,11 @@ function UI_GameArena:setEnemyTamerGauge(percentage)
     local scaleX = percentage * self.m_orgEnemyTamerGaugeScaleX / 100
 
     self.vars['tamerGauge1']:setScaleX(scaleX)
+
+    if (percentage >= 100) then
+        self.vars['tamerGaugeVisual2']:setVisible(true)
+        self.vars['tamerGaugeVisual2']:setVisual('group', 'pvp_tamer_gauge')
+    end
 end
 
 -------------------------------------
