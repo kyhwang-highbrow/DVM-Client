@@ -65,7 +65,7 @@ function UI_AutoPlaySettingPopup:initUI()
         vars['autoMenu2']:setVisible(false)
 		vars['autoMenu4']:setVisible(false)
 		vars['autoMenu5']:setVisible(false)
-
+        vars['autoMenu6']:setVisible(true)
 	else
 		vars['autoMenu4']:setVisible(false)
 		vars['autoMenu5']:setVisible(true)
