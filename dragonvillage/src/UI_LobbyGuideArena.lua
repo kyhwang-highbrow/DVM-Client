@@ -78,7 +78,7 @@ function UI_LobbyGuideArena:refresh()
     vars['descLabel']:setString(Str('콜로세움'))
 
     -- 어려움 12-7
-    vars['npcSpeechLabel']:setString(Str('{@subject}콜로세움 40회{@default} 참여시 {@item_name}캡슐코인{@default}을 획득할 수 있어요!\n콜로세움에서 마스터의 실력을 보여주세요!'))
+    vars['npcSpeechLabel']:setString(Str('{@subject}콜로세움 20회{@default} 참여시 {@item_name}캡슐코인{@default}을 획득할 수 있어요!\n콜로세움에서 마스터의 실력을 보여주세요!'))
 
     -- 주간 참여 보상
     local struct_user_info = g_arenaData:getPlayerArenaUserInfo()
