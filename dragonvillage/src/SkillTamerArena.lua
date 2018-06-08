@@ -90,17 +90,16 @@ end
 function SkillTamerArena.st_move(owner, dt)
     if (owner.m_stateTimer == 0) then
         -- 사용자 이동
+        owner.m_owner:stopAllActions()
         owner.m_owner:resetMove()
-		owner.m_owner:setAfterImage(true)
+		--owner.m_owner:setMovingAfterImage(true)
 
         local target_pos = cc.p(owner.m_targetPos.x, owner.m_targetPos.y)
         local action = cc.MoveTo:create(0.5, target_pos)
-        --local action = cc.JumpTo:create(0.5, target_pos, 50, 1)
         local finich_cb = cc.CallFunc:create(function()
             owner:changeState('attack')
         end)
 
-        owner.m_owner:stopAllActions()
         owner.m_owner:runAction(cc.Sequence:create(action, finich_cb))
     end
 end
@@ -111,7 +110,7 @@ end
 function SkillTamerArena.st_attack(owner, dt)
     if (owner.m_stateTimer == 0) then
         -- 사용자 애니메이션
-        owner.m_owner:setAfterImage(false)
+        --owner.m_owner:setMovingAfterImage(false)
         owner.m_owner.m_animator:changeAni('i_summon', false)
         owner.m_owner.m_animator:addAniHandler(function()
             owner:changeState('dying')
@@ -119,7 +118,9 @@ function SkillTamerArena.st_attack(owner, dt)
 
 		-- 공격
 		owner:runAttack()
-		owner.m_world.m_shakeMgr:shakeBySpeed(owner.movement_theta, 1500)
+
+        -- 화면 쉐이킹
+        owner.m_world.m_shakeMgr:doShake(50, 50, 1)
     end
 end
 

@@ -147,7 +147,8 @@ end
 -- function update
 -------------------------------------
 function Tamer:update(dt)
-	if self.m_isUseMovingAfterImage then
+    -- 잔상
+	if (self.m_isUseMovingAfterImage) then
         self:updateMovingAfterImage(dt)
     end
 

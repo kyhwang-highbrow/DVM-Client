@@ -590,7 +590,7 @@ function Skill:onAttack(target_char, target_collision)
     -- 화면 쉐이킹
     if (self.m_chanceType == 'active') then
         self.m_world.m_shakeMgr:doShake(50, 50, 1)
-    else
+    elseif (self.m_owner:getCharType() ~= 'tamer') then
         self.m_world.m_shakeMgr:doShake(25, 25, 0.5)
     end
 
