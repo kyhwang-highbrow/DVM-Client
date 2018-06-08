@@ -102,7 +102,8 @@ function UI_ArenaDeckSettings:refresh_buffInfo_TamerBuff()
     local tamer_id = self:getCurrTamerID()
 	local t_tamer_data = g_tamerData:getTamerServerInfo(tamer_id)
 	local skill_mgr = MakeTamerSkillManager(t_tamer_data)
-	local skill_info = skill_mgr:getSkillIndivisualInfo_usingIdx(3)	-- 3번이 콜로세움 테이머 스킬
+	--local skill_info = skill_mgr:getSkillIndivisualInfo_usingIdx(3)	-- 3번이 콜로세움 테이머 스킬
+    local skill_info = skill_mgr:getSkillIndivisualInfo_usingIdx(2)	-- 2번이 패시브
 	local tamer_buff = skill_info:getSkillDesc()
 
 	vars['tamerBuffLabel']:setString(tamer_buff)
