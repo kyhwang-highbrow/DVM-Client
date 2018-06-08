@@ -594,7 +594,8 @@ function Character:undergoAttack(attacker, defender, i_x, i_y, body_key, no_even
     local is_bash = (attr_synastry == 1) and self:checkBash(attacker_char, t_attr_effect['bash'])
     local is_miss = (attr_synastry == -1) and self:checkMiss(attacker_char, t_attr_effect['miss'])
 
-    if (attack_activity_carrier:isIgnoreAll()) then
+    -- 모두 무시하는 경우나 공격자가 테이머인 경우 속성 효과를 적용하지 않음
+    if (attack_activity_carrier:isIgnoreAll() or attacker_char:getCharType() == 'tamer') then
         t_attr_effect = {}
         is_bash = false
         is_miss = false
