@@ -505,6 +505,7 @@ function TABLE:reloadForGame()
 
     TableDragonSkill:initGlobal()
     TableMonsterSkill:initGlobal()
+    TableTamerSkill:initGlobal()
     TableStatusEffect:initGlobal()
 end
 

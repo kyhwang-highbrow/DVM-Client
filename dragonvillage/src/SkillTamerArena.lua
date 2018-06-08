@@ -109,7 +109,7 @@ function SkillTamerArena.st_attack(owner, dt)
     if (owner.m_stateTimer == 0) then
         -- 사용자 애니메이션
         owner.m_owner:setAfterImage(false)
-        owner.m_owner.m_animator:changeAni('skill_2', false)
+        owner.m_owner.m_animator:changeAni('i_summon', false)
         owner.m_owner.m_animator:addAniHandler(function()
             owner:changeState('dying')
         end)
@@ -138,7 +138,6 @@ function SkillTamerArena.st_dying(owner, dt)
 
     -- 스킬 종료시 발동되는 status effect를 적용
     do
-        cclog('#l_target : ' .. #l_target)
 		owner:dispatch(CON_SKILL_END, {l_target = l_target})
     end
 
