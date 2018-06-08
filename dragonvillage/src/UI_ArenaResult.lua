@@ -317,13 +317,17 @@ function UI_ArenaResult:direction_winReward()
 			ui.vars['rewardFrameNode']:setVisible(false)
 			ui.vars['rewardLabel']:setVisible(false)
 		end
-
 	end
 
 	-- 버튼
 	ui.vars['okBtn']:registerScriptTapHandler(function() ui:close() end)
 
-	ui:setCloseCB(function() self:doNextWork() end)
+    -- 연속 전투 진행중이라면 그냥 바로 넘기자
+    if (g_autoPlaySetting:isAutoPlay()) then
+        self:doNextWork()
+    else
+        ui:setCloseCB(function() self:doNextWork() end)
+    end
 end
 -------------------------------------
 -- function direction_winReward
