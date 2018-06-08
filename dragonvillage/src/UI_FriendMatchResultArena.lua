@@ -51,6 +51,7 @@ function UI_FriendMatchResultArena:initUI()
     if (mode == FRIEND_MATCH_MODE.FRIEND) then
         vars['friendshipNode']:setVisible(true)
     else
+        vars['homeBtn']:setPositionY(0)
         vars['okBtn']:setPositionY(0)
         vars['statsBtn']:setPositionY(0)
     end
