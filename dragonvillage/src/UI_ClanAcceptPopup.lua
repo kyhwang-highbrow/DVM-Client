@@ -12,7 +12,7 @@ UI_ClanAcceptPopup = class(PARENT, {
 -- function init
 -------------------------------------
 function UI_ClanAcceptPopup:init()
-    local vars = self:load('clan_request.ui')
+    local vars = self:load('clan_request_new.ui')
     UIManager:open(self, UIManager.POPUP)
 
     self.m_uiName = 'UI_ClanAcceptPopup'

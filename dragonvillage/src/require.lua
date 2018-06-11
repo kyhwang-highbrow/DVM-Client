@@ -1150,6 +1150,7 @@ local t_module = {
     'UI_Clan',
     'UI_ClanMemberListItem',
     'UI_ClanTabInfo',
+    'UI_ClanTabMember',
     'UI_ClanTabRank',
     'UI_ClanGuest',
     'UI_ClanListItem',
@@ -1172,6 +1173,8 @@ local t_module = {
     'UI_ClanRaidRewardPopup',
     'UI_ClanRaidRankingRewardPopup',
     'UI_ClanRaidBossInfo',
+    'UI_ClanBoardListItem',
+    'UI_ClanBoardPopup_Write',
 
     -- Forest
     'SceneForest',

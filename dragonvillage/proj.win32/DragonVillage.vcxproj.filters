@@ -3595,6 +3595,15 @@
     <None Include="..\src\SkillTamerArena.lua">
       <Filter>lua\src</Filter>
     </None>
+    <None Include="..\src\UI_ClanBoardListItem.lua">
+      <Filter>lua\UI</Filter>
+    </None>
+    <None Include="..\src\UI_ClanBoardPopup_Write.lua">
+      <Filter>lua\UI</Filter>
+    </None>
+    <None Include="..\src\UI_ClanTabMember.lua">
+      <Filter>lua\UI</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Classes">

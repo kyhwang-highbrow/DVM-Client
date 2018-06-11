@@ -32,7 +32,17 @@ ServerData_Clan = class({
         m_bAttdRewardNoti = 'bool',
 
         m_clanExitTimeStamp = 'timestamp',
+
+        -- 클랜 게시판 정보 (StructClan에 포함시키지 않음)
+        m_clanBoardInfo = 'table',
     })
+
+-- 클랜 필수 참여 카테고리 (서버와 통일한 값)
+CLAN_NECESSARY_CATEGORY = {}
+CLAN_NECESSARY_CATEGORY['attendance'] = 1
+CLAN_NECESSARY_CATEGORY['clandungeon'] = 2
+CLAN_NECESSARY_CATEGORY['ancient'] = 3
+CLAN_NECESSARY_CATEGORY['arena'] = 4
 
 -------------------------------------
 -- function init
@@ -49,6 +59,8 @@ function ServerData_Clan:init(server_data)
 
     self.m_needClanInfoRefresh = true
     self.m_needClanSetting = false
+
+    self.m_clanBoardInfo = {}
 end
 
 -------------------------------------
@@ -136,6 +148,26 @@ function ServerData_Clan:request_clanInfo(finish_cb, fail_cb)
             self:response_clanGuestInfo(ret)
         end
 
+        -- 클랜 게시판 정보
+        if ret['clan_board'] then
+            self.m_clanBoardInfo = ret['clan_board']
+        end
+
+        -- 클랜던전 오픈시간 정보 (락타임일때 필요함)
+        if ret['dungeon_info'] then
+            if ret['dungeon_info']['open'] then
+                g_clanRaidData.m_bOpen = ret['dungeon_info']['open']
+            end
+
+            if ret['dungeon_info']['start_time'] then
+                g_clanRaidData.m_startTime = ret['dungeon_info']['start_time']
+            end
+
+            if ret['dungeon_info']['endtime'] then
+                g_clanRaidData.m_endTime = ret['dungeon_info']['endtime']
+            end
+        end
+
         -- 클랜에 소속된 경우 권한 ('master', 'manager', 'member')
         self.m_myMemberType = ret['clan_auth']
 
@@ -160,6 +192,12 @@ function ServerData_Clan:request_clanInfo(finish_cb, fail_cb)
                 for i,v in pairs(ret['join_user_list']) do
                     self:addRequestedJoinUser(v)
                 end
+            end
+        end
+
+        do -- 던전 정보 (로비에서 클랜던전 버튼에 보스 상태 표시 추가됨)
+            if ret['dungeon'] then
+                g_clanRaidData.m_structClanRaid = StructClanRaid(ret['dungeon'])
             end
         end
 
@@ -214,6 +252,32 @@ function ServerData_Clan:response_clanGuestInfo(ret)
         local struct_clan = StructClan(v)
         table.insert(self.m_lClanList, struct_clan)
     end
+end
+
+-------------------------------------
+-- function getNeedCategryNameWithIdx
+-------------------------------------
+function ServerData_Clan:getNeedCategryNameWithIdx(idx)
+    for name, v in pairs(CLAN_NECESSARY_CATEGORY) do
+        if (idx == v) then
+            return name
+        end
+    end
+
+    return nil
+end
+
+-------------------------------------
+-- function getNeedCategryIdxWithName
+-------------------------------------
+function ServerData_Clan:getNeedCategryIdxWithName(name)
+    for _name, v in pairs(CLAN_NECESSARY_CATEGORY) do
+        if (_name == name) then
+            return v
+        end
+    end
+
+    return nil
 end
 
 -------------------------------------
@@ -363,7 +427,7 @@ end
 -- function request_clanSetting
 -- @brief 클랜 관리(설정)
 -------------------------------------
-function ServerData_Clan:request_clanSetting(finish_cb, fail_cb, intro, notice, join, mark)
+function ServerData_Clan:request_clanSetting(finish_cb, fail_cb, intro, notice, join, mark, joinlv, l_category)
     if (not self.m_structClan) then
         return
     end
@@ -415,6 +479,14 @@ function ServerData_Clan:request_clanSetting(finish_cb, fail_cb, intro, notice, 
 
     if (mark ~= nil) then
         ui_network:setParam('mark', mark)
+    end
+
+    if (joinlv ~= nil) then
+        ui_network:setParam('joinlv', joinlv)
+    end
+
+    if (l_category ~= nil) then
+        ui_network:setParam('category', l_category)
     end
     ui_network:setMethod('POST')
     ui_network:setSuccessCB(success_cb)
@@ -983,6 +1055,112 @@ function ServerData_Clan:request_setAuthority(finish_cb, fail_cb, member_uid, au
     ui_network:setParam('clan_id', clan_object_id)
     ui_network:setParam('member_uid', member_uid)
     ui_network:setParam('auth', auth)
+    ui_network:setMethod('POST')
+    ui_network:setSuccessCB(success_cb)
+    ui_network:setFailCB(fail_cb)
+    ui_network:setResponseStatusCB(response_status_cb)
+    ui_network:setRevocable(true)
+    ui_network:setReuse(false)
+    ui_network:request()
+
+    return ui_network
+end
+
+-------------------------------------
+-- function request_writeBoard
+-- @brief 클랜 게시판 작성
+-------------------------------------
+function ServerData_Clan:request_writeBoard(finish_cb, fail_cb, review_str)
+    if (not self.m_structClan) then
+        return
+    end
+
+    -- 파라미터
+    local uid = g_userData:get('uid')
+    local clan_object_id = self.m_structClan:getClanObjectID()
+	local review_str = review_str
+
+    -- 성공 콜백
+    local function success_cb(ret)
+        if ret['clan'] then
+            self.m_structClan:applySetting(ret['clan'])
+        end
+
+        if ret['clan_board'] then
+            self.m_clanBoardInfo = ret['clan_board']
+        end
+
+        if finish_cb then
+            finish_cb(ret)
+        end
+    end
+
+    -- 응답 상태 처리 함수
+    local t_error = {
+        [-1103] = Str('클랜이 존재하지 않습니다.'), -- 클랜 없음
+        [-1285] = Str('권한이 없습니다.'), -- 권한이 없음
+    }
+    local response_status_cb = MakeResponseCB(t_error)
+    
+    -- 네트워크 통신
+    local ui_network = UI_Network()
+    ui_network:setUrl('/clans/board_write')
+    ui_network:setParam('uid', uid)
+    ui_network:setParam('clan_id', clan_object_id)
+    ui_network:setParam('text', review_str)
+    ui_network:setMethod('POST')
+    ui_network:setSuccessCB(success_cb)
+    ui_network:setFailCB(fail_cb)
+    ui_network:setResponseStatusCB(response_status_cb)
+    ui_network:setRevocable(true)
+    ui_network:setReuse(false)
+    ui_network:request()
+
+    return ui_network
+end
+
+-------------------------------------
+-- function request_deleteBoard
+-- @brief 클랜 게시판 삭제
+-------------------------------------
+function ServerData_Clan:request_deleteBoard(finish_cb, fail_cb, board_id)
+    if (not self.m_structClan) then
+        return
+    end
+
+    -- 파라미터
+    local uid = g_userData:get('uid')
+    local clan_object_id = self.m_structClan:getClanObjectID()
+	local review_str = review_str
+
+    -- 성공 콜백
+    local function success_cb(ret)
+        if ret['clan'] then
+            self.m_structClan:applySetting(ret['clan'])
+        end
+
+        if ret['clan_board'] then
+            self.m_clanBoardInfo = ret['clan_board']
+        end
+
+        if finish_cb then
+            finish_cb(ret)
+        end
+    end
+
+    -- 응답 상태 처리 함수
+    local t_error = {
+        [-1103] = Str('클랜이 존재하지 않습니다.'), -- 클랜 없음
+        [-1285] = Str('권한이 없습니다.'), -- 권한이 없음
+    }
+    local response_status_cb = MakeResponseCB(t_error)
+    
+    -- 네트워크 통신
+    local ui_network = UI_Network()
+    ui_network:setUrl('/clans/board_delete')
+    ui_network:setParam('uid', uid)
+    ui_network:setParam('clan_id', clan_object_id)
+    ui_network:setParam('board_id', board_id)
     ui_network:setMethod('POST')
     ui_network:setSuccessCB(success_cb)
     ui_network:setFailCB(fail_cb)

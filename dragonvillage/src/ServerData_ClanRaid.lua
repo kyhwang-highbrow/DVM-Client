@@ -107,6 +107,17 @@ function ServerData_ClanRaid:isOpenClanRaid()
 end
 
 -------------------------------------
+-- function isOpenClanRaid_OnlyTime
+-- @breif 던전 오픈 여부 (시간만 체크)
+-------------------------------------
+function ServerData_ClanRaid:isOpenClanRaid_OnlyTime()
+    local curr_time = Timer:getServerTime()
+    local start_time = (self.m_startTime / 1000)
+    local end_time = (self.m_endTime / 1000)
+	return (start_time <= curr_time) and (curr_time <= end_time)
+end
+
+-------------------------------------
 -- function isClanRaidStageID
 -------------------------------------
 function ServerData_ClanRaid:isClanRaidStageID(stage_id)

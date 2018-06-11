@@ -23,6 +23,7 @@ StructClan = class(PARENT, {
         timestamp = 'number',
         mcnt = 'number',
         joinlv = 'number', -- 지원 레벨
+        category = 'string', -- 필수 참여 컨텐츠 카테고리
 
         m_structClanMark = 'StructClanMark',
         m_memberList = 'list[StructUserInfoCLan]',
@@ -103,6 +104,13 @@ end
 -------------------------------------
 function StructClan:getMemberCnt()
     return self['member_cnt']
+end
+
+-------------------------------------
+-- function getJoinLv
+-------------------------------------
+function StructClan:getJoinLv()
+    return self['joinlv'] or 1
 end
 
 -------------------------------------

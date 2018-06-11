@@ -228,7 +228,7 @@ end
 -------------------------------------
 function UI_ClanTabRank.makeRankCell(t_data, rank_type)
 	local ui = class(UI, ITableViewCell:getCloneTable())()
-	local vars = ui:load('clan_rank_item.ui')
+	local vars = ui:load('clan_rank_item_new.ui')
     if (not t_data) then
         return ui
     end

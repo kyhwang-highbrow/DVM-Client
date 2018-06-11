@@ -32,7 +32,7 @@ function UI_ClanInfoDetailPopup:init(struct_clan)
 
     self.m_uiName = 'UI_ClanInfoDetailPopup'
 
-    local vars = self:load('clan_02.ui')
+    local vars = self:load('clan_02_new.ui')
     UIManager:open(self, UIManager.SCENE)
 
     -- backkey 지정
@@ -64,9 +64,21 @@ function UI_ClanInfoDetailPopup:initUI()
 
     self:initTab()
 
+    vars['raidBtn']:setVisible(false) -- 클랜던전 버튼 숨김
+    vars['noticeBtn']:setVisible(false) -- 공지사항 작성 버튼 숨김
+    vars['boardBtn']:setVisible(false) -- 게시판 작성 버튼 숨김
     vars['settingBtn']:setVisible(false) -- 클랜 관리 버튼 숨김
     vars['rankTabBtn']:setVisible(false) -- 랭킹 탭 숨김
     vars['requestMenu']:setVisible(false) -- 가입 승인 UI 숨김
+
+    do -- 게시판 노출하지 않음
+        vars['boardMenu']:setVisible(false)
+        vars['boardMenu2']:setVisible(true)
+        local msg = Str('같은 클랜원만 볼 수 있다고라!')
+        local mandragora = UIC_Factory:MakeTableViewEmptyMandragora(msg)
+        mandragora.root:setVisible(true)
+        vars['boardMenu2']:addChild(mandragora.root)
+    end
 end
 
 -------------------------------------
@@ -99,14 +111,14 @@ function UI_ClanInfoDetailPopup:refresh()
     vars['clanMasterLabel']:setString(struct_clan['master'])
 
     -- 맴버 수
-    vars['clanMemberLabel']:setString(Str('{1}/{2}', struct_clan['member_cnt'], 20))
+    vars['clanMemberLabel']:setString(Str('{1}', struct_clan['member_cnt']))
     
     -- 클랜 소개
     local str = struct_clan:getClanIntroText()
     vars['clanNoticeLabel']:setString(str)
 
     -- 출석
-    local str = Str('{1}/{2}', struct_clan:getLastAttd(), 20)
+    local str = Str('{1}', struct_clan:getLastAttd())
     vars['attendanceLabel']:setString(str)
 
     -- 가입 신청이 가능한 상태일 경우
@@ -116,8 +128,24 @@ function UI_ClanInfoDetailPopup:refresh()
         vars['requestBtn2']:setVisible(false)
     end
 
-    -- 클랜원 리스트
-    self:init_TableView()
+    -- 지원 레벨
+    local join_lv = struct_clan:getJoinLv()
+    vars['levelLabel']:setString(Str('{1}레벨 이상', join_lv))
+
+    -- 필수 참여 컨텐츠
+    for idx = 1, 4 do
+        local label = vars['contentLabel'..idx]
+        label:setColor(COLOR['dark_brown'])
+    end
+
+    local l_category = struct_clan['category']
+    for idx, v in ipairs(l_category) do
+        local idx = g_clanData:getNeedCategryIdxWithName(v)
+        local label = vars['contentLabel'..idx]
+
+        -- 선택된 필수 참여 컨텐츠
+        label:setColor(COLOR['GOLD'])
+    end
 end
 
 -------------------------------------
@@ -127,8 +155,12 @@ function UI_ClanInfoDetailPopup:initTab()
     local vars = self.vars
 
     -- 클랜 정보
-    local tab_ui = UI_ClanTabInfo(self, 'clan')
+    local tab_ui = UI_ClanTabInfo(self)
     self:addTabWithTabUIAndLabel('clan', vars['clanTabBtn'], vars['clanTabLabel'], tab_ui)
+
+    -- 클랜원 정보
+    local tab_ui = UI_ClanTabMember(self, 'guest')
+    self:addTabWithTabUIAndLabel('member', vars['memberTabBtn'], vars['memberTabLabel'], tab_ui)
 
     self:setTab('clan')
 end

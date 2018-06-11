@@ -4,10 +4,9 @@ local PARENT = class(UI, ITopUserInfo_EventListener:getCloneTable(), ITabUI:getC
 -- class UI_Clan
 -------------------------------------
 UI_Clan = class(PARENT, {
-        m_sortManager = '',
-        m_tableView = '',
      })
 
+local NOTICE_MAX_LENGTH = 200 
 -------------------------------------
 -- function initParentVariable
 -- @brief 자식 클래스에서 반드시 구현할 것
@@ -27,7 +26,7 @@ end
 -- function init
 -------------------------------------
 function UI_Clan:init()
-    local vars = self:load_keepZOrder('clan_02.ui')
+    local vars = self:load_keepZOrder('clan_02_new.ui')
     UIManager:open(self, UIManager.SCENE)
 
     self.m_uiName = 'UI_Clan'
@@ -96,15 +95,22 @@ function UI_Clan:click_exitBtn()
 end
 
 -------------------------------------
+-- function click_noticeBtn
+-- @brief 공지사항 변경
+-------------------------------------
+function UI_Clan:click_noticeBtn()
+    self.vars['noticeEditBox']:openKeyboard()
+end
+
+-------------------------------------
 -- function initUI
 -------------------------------------
 function UI_Clan:initUI()
     local vars = self.vars
-
     self:initTab()
-
-    -- 클랜 로비에서는 클랜던전 버튼 보여줌
-    vars['raidBtn']:setVisible(true)
+    self:initEditBox()
+    self:initRaidInfo()
+    self:initBoardTableView()
 end
 
 -------------------------------------
@@ -117,6 +123,187 @@ function UI_Clan:initButton()
     vars['rewardBtn']:registerScriptTapHandler(function() self:click_rewardBtn() end)
     vars['requestBtn']:registerScriptTapHandler(function() self:click_requestBtn() end)
     vars['raidBtn']:registerScriptTapHandler(function() self:click_raidBtn() end)
+    vars['noticeBtn']:registerScriptTapHandler(function() self:click_noticeBtn() end)
+    vars['boardBtn']:registerScriptTapHandler(function() self:click_boardBtn() end)
+end
+
+-------------------------------------
+-- function initEditBox
+-------------------------------------
+function UI_Clan:initEditBox()
+    local vars = self.vars
+
+    -- notice editBox handler 등록
+	local function notice_event_handler(event_name, p_sender)
+        if (event_name == "began") then
+            if (CppFunctions:isIos()) then
+                vars['clanNoticeLabel']:setString('')
+            end
+
+        elseif (event_name == "return") then
+            local editbox = p_sender
+            local str = editbox:getText()
+
+            -- 서버에서 ''을 nil과 같이 처리하기 때문에 임의로 공백을 부여
+            if (str == '') then
+                str = ' '
+            end
+
+			-- 비속어 필터링
+			local function proceed_func()
+                local finish_cb = function()
+                    vars['clanNoticeLabel']:setString(str)
+                end
+                
+                -- 이때 통신해서 저장
+                g_clanData:request_clanSetting(finish_cb, fail_cb, nil, str)
+			end
+			local function cancel_func()
+			end
+			CheckBlockStr(str, proceed_func, cancel_func)
+        end
+    end
+    vars['noticeEditBox']:registerScriptEditBoxHandler(notice_event_handler)
+    vars['noticeEditBox']:setMaxLength(NOTICE_MAX_LENGTH)
+end
+
+-------------------------------------
+-- function initTab
+-------------------------------------
+function UI_Clan:initTab()
+    local vars = self.vars
+
+    -- 클랜 정보
+    local tab_ui = UI_ClanTabInfo(self)
+    self:addTabWithTabUIAndLabel('clan', vars['clanTabBtn'], vars['clanTabLabel'], tab_ui)
+
+    -- 클랜원 정보
+    local tab_ui = UI_ClanTabMember(self)
+    self:addTabWithTabUIAndLabel('member', vars['memberTabBtn'], vars['memberTabLabel'], tab_ui)
+
+    -- 클랜 랭킹
+    local tab_ui = UI_ClanTabRank(self)
+    self:addTabWithTabUIAndLabel('rank', vars['rankTabBtn'], vars['rankTabLabel'], tab_ui)
+
+    self:setTab('clan')
+end
+
+-------------------------------------
+-- function initRaidInfo
+-------------------------------------
+function UI_Clan:initRaidInfo()
+    local vars = self.vars
+    local struct_raid = g_clanRaidData:getClanRaidStruct()
+
+    vars['raidLockSprite']:setVisible(struct_raid == nil)
+    vars['raidBtn']:setVisible(struct_raid ~= nil)
+
+    -- 정보 없으면 락타임이라 간주
+    if (not struct_raid) then
+        function update(dt)
+            if (g_clanRaidData.m_startTime == nil) then
+                return
+            end
+
+            if (not g_clanRaidData:isOpenClanRaid()) then
+                local msg = Str('클랜던전 오픈 전입니다.\n오픈까지 {1}', g_clanRaidData:getClanRaidStatusText())
+                vars['raidTimelabel']:setString(msg)
+
+            -- UI 진입된 상태에서 오픈되는 경우 - 인포 다시 호출
+            else
+                vars['raidTimelabel']:setString('')
+
+                -- 강제로 닫는 경우가 있어 일딴 갱신 안함 
+                --[[
+                self.root:unscheduleUpdate()
+
+                -- 클랜 던전 정보 갱신
+                local finish_cb = function()
+                    self:initRaidInfo()
+                end
+
+                -- 클랜 정보 요청
+                g_clanData:update_clanInfo(finish_cb, fail_cb)
+                ]]--
+            end
+        end
+
+        self.root:scheduleUpdateWithPriorityLua(function(dt) update(dt) end, 0)
+
+        return
+    end
+
+    local stage_id = struct_raid:getStageID()
+    local _, boss_mid = g_stageData:isBossStage(stage_id)
+
+    -- 보스 animator
+    local boss_node = vars['bossNode']
+    boss_node:removeAllChildren()
+
+    local l_monster = g_stageData:getMonsterIDList(stage_id)
+    for _, mid in ipairs(l_monster) do
+        local res, attr, evolution = TableMonster:getMonsterRes(mid)
+        animator = AnimatorHelper:makeMonsterAnimator(res, attr, evolution)
+        
+        if (animator) then
+            local zOrder = WORLD_Z_ORDER.BOSS
+            local idx = getDigit(mid, 10, 1)
+            if (idx == 1) and (mid == boss_mid) then
+                zOrder = WORLD_Z_ORDER.BOSS     
+            elseif (idx == 1) then
+                zOrder = WORLD_Z_ORDER.BOSS + 1
+            elseif (idx == 7) then
+                zOrder = WORLD_Z_ORDER.BOSS
+            else
+                zOrder = WORLD_Z_ORDER.BOSS + 1 + 7 - idx
+            end
+            boss_node:addChild(animator.m_node, zOrder)
+            animator:changeAni('idle', true)
+        end
+    end
+
+    -- 레벨, 이름
+    local is_rich_label = true
+    local name = struct_raid:getBossNameWithLv(is_rich_label)
+    vars['bossLevelLabel']:setString(name)
+
+    -- 체력 퍼센트
+    local tween_cb = function(number, label)
+        label:setString(string.format('%0.2f%%', number))
+    end
+
+    local hp_label = vars['bossHpLabel']
+    hp_label = NumberLabel(hp_label, 0, 0.3)
+    hp_label:setTweenCallback(tween_cb)
+
+    local rate = struct_raid:getHpRate()
+    hp_label:setNumber(rate, false)
+end
+
+-------------------------------------
+-- function initBoardTableView
+-------------------------------------
+function UI_Clan:initBoardTableView()
+    local OFFSET_GAP = 10
+    local node = self.vars['boardNode']
+	node:removeAllChildren(true)
+
+	local l_item_list = g_clanData.m_clanBoardInfo
+
+    local function make_func(data)
+        local ui = UI_ClanBoardListItem(self, data)
+        return ui
+    end
+
+    -- 테이블 뷰 인스턴스 생성
+    local table_view = UIC_TableView(node)
+	table_view:setUseVariableSize(true)    -- 가변 사이즈를 쓰기 위해서 선언
+	table_view.m_refreshDuration = 0
+    table_view.m_defaultCellSize = cc.size(625, 155)
+    table_view:setCellUIClass(make_func)
+    table_view:setDirection(cc.SCROLLVIEW_DIRECTION_VERTICAL)
+    table_view:setItemList(l_item_list, true)
+    table_view:makeDefaultEmptyDescLabel(Str('첫번째 게시글을 남겨주세요!'))
 end
 
 -------------------------------------
@@ -149,11 +336,11 @@ function UI_Clan:refresh()
     vars['clanNoticeLabel']:setString(clan_notice)
 
     -- 출석
-    local str = Str('{1}/{2}', struct_clan:getCurrAttd(), 20)
+    local str = Str('{1}', struct_clan:getCurrAttd())
     vars['attendanceLabel']:setString(str)
 
     -- 가입 승인 대기 수
-    local str = Str('{1}/{2}', g_clanData:getRequestedJoinUserCnt(), 20)
+    local str = Str('{1}', g_clanData:getRequestedJoinUserCnt())
     vars['requestLabel']:setString(str)
 
     -- 가입 승인
@@ -164,8 +351,24 @@ function UI_Clan:refresh()
         vars['requestMenu']:setVisible(false)
     end
 
-    -- 클랜원 리스트
-    self:init_TableView()
+    -- 지원 레벨
+    local join_lv = struct_clan:getJoinLv()
+    vars['levelLabel']:setString(Str('{1}레벨 이상', join_lv))
+
+    -- 필수 참여 컨텐츠
+    for idx = 1, 4 do
+        local label = vars['contentLabel'..idx]
+        label:setColor(COLOR['dark_brown'])
+    end
+
+    local l_category = struct_clan['category']
+    for idx, v in ipairs(l_category) do
+        local idx = g_clanData:getNeedCategryIdxWithName(v)
+        local label = vars['contentLabel'..idx]
+
+        -- 선택된 필수 참여 컨텐츠
+        label:setColor(COLOR['GOLD'])
+    end
 end
 
 -------------------------------------
@@ -183,24 +386,6 @@ function UI_Clan:refresh_memberCnt()
     -- 출석
     local str = Str('{1}/{2}', struct_clan:getCurrAttd(), 20)
     vars['attendanceLabel']:setString(str)
-end
-
-
--------------------------------------
--- function initTab
--------------------------------------
-function UI_Clan:initTab()
-    local vars = self.vars
-
-    -- 클랜 정보
-    local tab_ui = UI_ClanTabInfo(self, 'clan')
-    self:addTabWithTabUIAndLabel('clan', vars['clanTabBtn'], vars['clanTabLabel'], tab_ui)
-
-    -- 클랜 랭킹
-    local tab_ui = UI_ClanTabRank(self, 'rank')
-    self:addTabWithTabUIAndLabel('rank', vars['rankTabBtn'], vars['rankTabLabel'], tab_ui)
-
-    self:setTab('clan')
 end
 
 -------------------------------------
@@ -263,97 +448,15 @@ function UI_Clan:click_raidBtn()
 end
 
 -------------------------------------
--- function init_TableView
+-- function click_boardBtn
+-- @brief 게시판 글쓰기
 -------------------------------------
-function UI_Clan:init_TableView()
-    local node = self.vars['memberNode']
-    node:removeAllChildren()
-
-    local struct_clan = g_clanData:getClanStruct()
-    local l_item_list = struct_clan.m_memberList or {}
-
-    --[[
-    if (self.m_topRankOffset > 1) then
-        local prev_data = {m_rank = 'prev'}
-        l_item_list['prev'] = prev_data
-    end
-
-    if (#l_item_list > 0) then
-        local next_data = {m_rank = 'next'}
-        l_item_list['next'] = next_data
-    end
-    --]]
-
-    local function refresh_cb()
-        self:refresh_memberCnt()
-    end
-
-    -- 생성 콜백
-    local function create_func(ui, data)
-        ui:setRefreshCB(refresh_cb)
-    end
-
-    -- 테이블 뷰 인스턴스 생성
-    local table_view = UIC_TableView(node)
-    table_view.m_defaultCellSize = cc.size(1170, 120 + 5)
-    table_view:setCellUIClass(UI_ClanMemberListItem, create_func)
-    table_view:setDirection(cc.SCROLLVIEW_DIRECTION_VERTICAL)
-    table_view:setItemList(l_item_list)
-    self.m_tableView = table_view
-
-    -- 리스트가 비었을 때
-    --table_view:makeDefaultEmptyDescLabel('')
-
-    -- 정렬
-    self:init_memberSortMgr()
-end
-
--------------------------------------
--- function init_memberSortMgr
--- @brief 정렬 도우미
--------------------------------------
-function UI_Clan:init_memberSortMgr()
-    -- 정렬 매니저 생성
-    self.m_sortManager = SortManager_ClanMember()
-
-    -- 정렬 UI 생성
-    local vars = self.vars
-    local uic_sort_list = MakeUICSortList_clanMember(vars['sortSelectBtn'], vars['sortSelectLabel'], UIC_SORT_LIST_BOT_TO_TOP)
-    
-
-    -- 버튼을 통해 정렬이 변경되었을 경우
-    local function sort_change_cb(sort_type)
-        self.m_sortManager:pushSortOrder(sort_type)
-        self:apply_memberSort()
-    end
-    uic_sort_list:setSortChangeCB(sort_change_cb)
-
-    -- 오름차순/내림차순 버튼
-    vars['sortSelectOrderBtn']:registerScriptTapHandler(function()
-            local ascending = (not self.m_sortManager.m_defaultSortAscending)
-            self.m_sortManager:setAllAscending(ascending)
-            self:apply_memberSort()
-
-            vars['sortSelectOrderSprite']:stopAllActions()
-            if ascending then
-                vars['sortSelectOrderSprite']:runAction(cc.RotateTo:create(0.15, 180))
-            else
-                vars['sortSelectOrderSprite']:runAction(cc.RotateTo:create(0.15, 0))
-            end
-        end)
-
-    -- 첫 정렬 타입 지정
-    uic_sort_list:setSelectSortType('member_type')
-end
-
--------------------------------------
--- function apply_memberSort
--- @brief 테이블 뷰에 정렬 적용
--------------------------------------
-function UI_Clan:apply_memberSort()
-    local list = self.m_tableView.m_itemList
-    self.m_sortManager:sortExecution(list)
-    self.m_tableView:setDirtyItemList()
+function UI_Clan:click_boardBtn()
+	local ui = UI_ClanBoardPopup_Write()
+	local function close_cb()
+		self:initBoardTableView() 
+	end
+	ui:setCloseCB(close_cb)
 end
 
 --@CHECK

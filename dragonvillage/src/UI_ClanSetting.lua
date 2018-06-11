@@ -11,20 +11,24 @@ UI_ClanSetting = class(PARENT, {
         m_structClanMark = 'StructClanMark',
         m_clanAutoJoin = 'boolean',
         m_clanIntroText = 'string',
-        m_clanNoticeText = 'string',
+
+        m_joinLv = 'number',
 
         m_clanJoinRadioBtn = 'UIC_RadioBtn',
      })
 
 local STR_MAX_LENGTH = 30
+local JOIN_MAX_LV = 70
+
 -------------------------------------
 -- function init
 -------------------------------------
 function UI_ClanSetting:init()
-    local vars = self:load('clan_setting.ui')
+    local vars = self:load('clan_setting_new.ui')
     UIManager:open(self, UIManager.POPUP)
 
     self.m_uiName = 'UI_ClanSetting'
+    
     -- backkey 지정
     g_currScene:pushBackKeyListener(self, function() self:click_exitBtn() end, 'UI_ClanSetting')
 
@@ -35,7 +39,6 @@ function UI_ClanSetting:init()
     self:initUI()
     self:initButton()
     self:refresh()
-
     self:sceneFadeInAction()
 
     g_clanData.m_needClanSetting = false
@@ -67,7 +70,10 @@ end
 -------------------------------------
 function UI_ClanSetting:initUI()
     local vars = self.vars
-    
+
+    self:initJoinLv()
+    self:initNecessaryContents()
+    self:initSlideBar()
     self:initEditBox()
     self:initJoinRadioBtn()
 end
@@ -83,12 +89,21 @@ function UI_ClanSetting:initButton()
     vars['leaveBtn']:registerScriptTapHandler(function() self:click_leaveBtn() end)
     vars['markBtn']:registerScriptTapHandler(function() self:click_markBtn() end)
     vars['okBtn']:registerScriptTapHandler(function() self:click_okBtn() end)
-    vars['noticeChangeBtn']:registerScriptTapHandler(function() self:click_noticeChangeBtn() end)
+
+    vars['quantityBtn1']:registerScriptTapHandler(function() self:click_minusBtn() end)
+    vars['quantityBtn3']:registerScriptTapHandler(function() self:click_plusBtn() end)
+    vars['quantityBtn4']:registerScriptTapHandler(function() self:click_maxBtn() end)
+
     vars['introduceChangeBtn']:registerScriptTapHandler(function() self:click_introduceChangeBtn() end)
+
+    -- 필수 카테고리
+    for i = 1, 4 do
+        vars['contentBtn'..i]:registerScriptTapHandler(function() self:click_contentBtn(i) end)
+    end
 end
 
 -------------------------------------
--- function initButton
+-- function initEditBox
 -------------------------------------
 function UI_ClanSetting:initEditBox()
     local vars = self.vars
@@ -122,36 +137,35 @@ function UI_ClanSetting:initEditBox()
     end
     vars['introduceEditBox']:registerScriptEditBoxHandler(intro_event_handler)
     vars['introduceEditBox']:setMaxLength(STR_MAX_LENGTH)
+end
 
-    -- notice editBox handler 등록
-	local function notice_event_handler(event_name, p_sender)
-        if (event_name == "began") then
-            if (CppFunctions:isIos()) then
-                vars['noticeLabel']:setString('')
-            end
+-------------------------------------
+-- function initJoinLv
+-- @brief 지원 레벨
+-------------------------------------
+function UI_ClanSetting:initJoinLv()
+    local vars = self.vars
+    vars['quantityGuage']:setPercentage(0)
 
-        elseif (event_name == "return") then
-            local editbox = p_sender
-            local str = editbox:getText()
+    local struct_clan = g_clanData:getClanStruct()
+    local join_lv = struct_clan:getJoinLv()
+    self:setCurrCount(join_lv)
+end
 
-            -- 서버에서 ''을 nil과 같이 처리하기 때문에 임의로 공백을 부여
-            if (str == '') then
-                str = ' '
-            end
+-------------------------------------
+-- function initNecessaryContents
+-- @brief 필수 참여 컨텐츠
+-------------------------------------
+function UI_ClanSetting:initNecessaryContents()
+    local vars = self.vars
 
-			-- 비속어 필터링
-			local function proceed_func()
-				vars['noticeLabel']:setString(str)
-                self.m_clanNoticeText = str
-                self.m_bChangedClanSet = true
-			end
-			local function cancel_func()
-			end
-			CheckBlockStr(str, proceed_func, cancel_func)
-        end
+    local struct_clan = g_clanData:getClanStruct()
+    local l_category = struct_clan['category']
+    for i, v in ipairs(l_category) do
+        local idx = g_clanData:getNeedCategryIdxWithName(v)
+        local sprite = vars['contentSprite'..idx]
+        sprite:setVisible(true)
     end
-    vars['noticeEditBox']:registerScriptEditBoxHandler(notice_event_handler)
-    vars['noticeEditBox']:setMaxLength(STR_MAX_LENGTH)
 end
 
 -------------------------------------
@@ -177,6 +191,103 @@ function UI_ClanSetting:initJoinRadioBtn()
 end
 
 -------------------------------------
+-- function initSlideBar
+-- @brief 터치 레이어 생성
+-------------------------------------
+function UI_ClanSetting:initSlideBar()
+    local node = self.vars['sliderBar']
+
+    local listener = cc.EventListenerTouchOneByOne:create()
+    listener:registerScriptHandler(function(touch, event) return self:onTouchBegan(touch, event) end, cc.Handler.EVENT_TOUCH_BEGAN)
+    listener:registerScriptHandler(function(touch, event) return self:onTouchMoved(touch, event) end, cc.Handler.EVENT_TOUCH_MOVED)
+    listener:registerScriptHandler(function(touch, event) return self:onTouchEnded(touch, event) end, cc.Handler.EVENT_TOUCH_ENDED)
+    listener:registerScriptHandler(function(touch, event) return self:onTouchEnded(touch, event) end, cc.Handler.EVENT_TOUCH_CANCELLED)
+                
+    local eventDispatcher = node:getEventDispatcher()
+    eventDispatcher:addEventListenerWithSceneGraphPriority(listener, node)
+end
+
+
+-------------------------------------
+-- function onTouchBegan
+-------------------------------------
+function UI_ClanSetting:onTouchBegan(touch, event)
+    local vars = self.vars
+
+    local location = touch:getLocation()
+
+    -- 진형을 설정하는 영역을 벗어났는지 체크
+    local bounding_box = vars['quantityBtn2']:getBoundingBox()
+    local local_location = vars['quantityBtn2']:getParent():convertToNodeSpace(location)
+    local is_contain = cc.rectContainsPoint(bounding_box, local_location)
+
+    return is_contain
+end
+
+-------------------------------------
+-- function onTouchBegan
+-------------------------------------
+function UI_ClanSetting:onTouchMoved(touch, event)
+    local vars = self.vars
+
+    local location = touch:getLocation()
+
+    -- 진형을 설정하는 영역을 벗어났는지 체크
+    local bounding_box = vars['quantityBtn2']:getBoundingBox()
+    local local_location = vars['quantityBtn2']:getParent():convertToNodeSpace(location)
+
+    local content_size = vars['quantityBtn2']:getParent():getContentSize()
+
+    local x = math_clamp(local_location['x'], 0, content_size['width'])
+    local percentage = x / content_size['width']
+
+    vars['quantityBtn2']:stopAllActions()
+    vars['quantityBtn2']:setPositionX(x)
+
+    vars['quantityGuage']:stopAllActions()
+    vars['quantityGuage']:setPercentage(percentage * 100)
+
+    local count = math_floor(JOIN_MAX_LV * percentage)
+    local ignore_slider_bar = true
+    self:setCurrCount(count, ignore_slider_bar)
+end
+
+-------------------------------------
+-- function onTouchEnded
+-------------------------------------
+function UI_ClanSetting:onTouchEnded(touch, event)
+end
+
+-------------------------------------
+-- function setCurrCount
+-------------------------------------
+function UI_ClanSetting:setCurrCount(count, ignore_slider_bar)
+    local vars = self.vars
+    local count = math_clamp(count, 1, JOIN_MAX_LV)
+    
+    if (self.m_joinLv == count) then
+        return
+    end
+
+    self.m_joinLv = count
+    self.m_bChangedClanSet = true
+
+    -- 지원 레벨
+    vars['quantityLabel']:setString(comma_value(self.m_joinLv))
+
+    -- 퍼센트 지정
+    if (not ignore_slider_bar) then
+        local percentage = (self.m_joinLv / JOIN_MAX_LV) * 100
+        vars['quantityGuage']:stopAllActions()
+        vars['quantityGuage']:runAction(cc.ProgressTo:create(0.2, percentage))
+    
+        local pos_x = 230 * (self.m_joinLv / JOIN_MAX_LV)
+        vars['quantityBtn2']:stopAllActions()
+        vars['quantityBtn2']:runAction(cc.MoveTo:create(0.2, cc.p(pos_x, 0)))
+    end
+end
+
+-------------------------------------
 -- function refresh
 -------------------------------------
 function UI_ClanSetting:refresh()
@@ -199,10 +310,6 @@ function UI_ClanSetting:refresh()
     local clan_intro = struct_clan:getClanIntroText()
     vars['introduceLabel']:setString(clan_intro)
 
-    -- 클랜 공지사항
-    local clan_notice = struct_clan:getClanNoticeText()
-    vars['noticeLabel']:setString(clan_notice)
-
     -- 탈퇴 / 해체 버튼 처리
     self:refresh_auth()
 
@@ -211,7 +318,6 @@ function UI_ClanSetting:refresh()
     self.m_structClanMark = nil
     self.m_clanAutoJoin = nil
     self.m_clanIntroText = nil
-    self.m_clanNoticeText = nil
 end
 
 -------------------------------------
@@ -239,13 +345,9 @@ function UI_ClanSetting:refresh_auth()
     vars['disbandBtn']:setVisible(member_type == 'master')
     vars['leaveBtn']:setVisible(member_type ~= 'master')
 
-    -- 클랜 이름 변경은 나중에...
-    vars['namechangeBtn']:setVisible(false)
-
     -- 클랜 변경
     if (is_member) then
         local block_msg = Str('클랜원은 변경할 수 없습니다.')
-        vars['noticeChangeBtn']:setBlockMsg(block_msg)
         vars['introduceChangeBtn']:setBlockMsg(block_msg)
         vars['okBtn']:setBlockMsg(block_msg)
         vars['markBtn']:setBlockMsg(block_msg)
@@ -263,11 +365,24 @@ function UI_ClanSetting:click_introduceChangeBtn()
 end
 
 -------------------------------------
--- function click_noticeChangeBtn
--- @brief 공지사항 변경
+-- function click_minusBtn
 -------------------------------------
-function UI_ClanSetting:click_noticeChangeBtn()
-    self.vars['noticeEditBox']:openKeyboard()
+function UI_ClanSetting:click_minusBtn()
+    self:setCurrCount(self.m_joinLv - 1)
+end
+
+-------------------------------------
+-- function click_plusBtn
+-------------------------------------
+function UI_ClanSetting:click_plusBtn()
+    self:setCurrCount(self.m_joinLv + 1)
+end
+
+-------------------------------------
+-- function click_maxBtn
+-------------------------------------
+function UI_ClanSetting:click_maxBtn()
+    self:setCurrCount(JOIN_MAX_LV)
 end
 
 -------------------------------------
@@ -342,6 +457,20 @@ function UI_ClanSetting:click_leaveBtn()
 end
 
 -------------------------------------
+-- function click_contentBtn
+-- @brief 필수 참여 카테고리
+-------------------------------------
+function UI_ClanSetting:click_contentBtn(idx)
+    local vars = self.vars
+    local sprite = vars['contentSprite'..idx]
+    if (sprite) then
+        local visible = sprite:isVisible()
+        sprite:setVisible(not visible)
+        self.m_bChangedClanSet = true
+    end
+end
+
+-------------------------------------
 -- function click_markBtn
 -- @brief 클랜 마크
 -------------------------------------
@@ -384,11 +513,27 @@ function UI_ClanSetting:click_okBtn()
     local fail_cb = nil
 
     local intro = self.m_clanIntroText
-    local notice = self.m_clanNoticeText
+    local notice = nil -- 로비로 빠짐
     local join = self.m_clanAutoJoin
     local mark = self.m_structClanMark and self.m_structClanMark:tostring() or nil
+    local joinlv = self.m_joinLv
 
-    g_clanData:request_clanSetting(finish_cb, fail_cb, intro, notice, join, mark)
+    local l_category 
+    for idx = 1, 4 do
+        local sprite = self.vars['contentSprite'..idx]
+        if (sprite:isVisible()) then
+            local name = g_clanData:getNeedCategryNameWithIdx(idx)
+            if (name) then
+                if (l_category) then
+                    l_category = l_category .. ',' .. name
+                else
+                    l_category = name
+                end
+            end
+        end
+    end
+
+    g_clanData:request_clanSetting(finish_cb, fail_cb, intro, notice, join, mark, joinlv, l_category)
 end
 
 -------------------------------------
