@@ -112,6 +112,14 @@ function UI_GameArena:rockButton()
     vars['autoVisual']:setVisible(is_auto_mode)
     vars['autoLockSprite']:setVisible(not vars['autoButton']:isVisible())
 
+    -- 수동 모드시 스프라이트 변경 처리(아군 테이머 게이지 숨김)
+    if (not is_auto_mode) then
+        local sprite_frame = cc.SpriteFrameCache:getInstance():getSpriteFrame('ingame_gg_pvp_0101.png')
+        if (sprite_frame) then
+            vars['frameSprite']:setSpriteFrame(sprite_frame)
+        end
+    end
+
     -- 자동 모드시 연속전투버튼 활성화
     if (g_gameScene.m_bFriendMatch) then
         vars['autoStartButton']:setVisible(false)
