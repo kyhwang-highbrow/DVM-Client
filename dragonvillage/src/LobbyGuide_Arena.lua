@@ -33,10 +33,14 @@ function LobbyGuide_Arena:checkCustomCondition()
         return false
     end
 
-    -- 주간 승리 보상 40회를 채우지 않은 상태
+    -- 주간 참여 보상 20회를 채우지 않은 상태
     local struct_user_info = g_arenaData:getPlayerArenaUserInfo()
-    local cnt = struct_user and struct_user:getWinCnt() + struct_user:getLoseCnt() or 0
-    if (40 <= cnt) then
+    if (struct_user_info) then
+        local cnt = struct_user_info:getWinCnt() + struct_user_info:getLoseCnt()
+        if (20 <= cnt) then
+            return false
+        end
+    else
         return false
     end
 
