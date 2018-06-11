@@ -56,7 +56,9 @@ function UI_GameArena:initUI()
     end
 
      -- 연속 전투 정보
-    self:setAutoPlayUI()
+    if (not g_gameScene.m_bFriendMatch) then
+        self:setAutoPlayUI()
+    end
 
     -- 하단 패널
     vars['panelBgSprite']:setLocalZOrder(-1)
@@ -111,7 +113,11 @@ function UI_GameArena:rockButton()
     vars['autoLockSprite']:setVisible(not vars['autoButton']:isVisible())
 
     -- 자동 모드시 연속전투버튼 활성화
-    vars['autoStartButton']:setVisible(is_auto_mode)
+    if (g_gameScene.m_bFriendMatch) then
+        vars['autoStartButton']:setVisible(false)
+    else
+        vars['autoStartButton']:setVisible(is_auto_mode)
+    end
 end
 
 -------------------------------------
