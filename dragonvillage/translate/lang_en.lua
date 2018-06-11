@@ -1,7 +1,7 @@
 return {['누적 축구공']='Total Soccer Ball',
 ['누적 축구공 보상']='Total Reward for Soccer Ball',
 ['선물상자 교환에 사용한 축구공의 누적 사용량에 따라 보상을 획득할 수 있어요.']='You can get a reward according to the number of Soccer Ball used to exchange gift boxes.',
-['이계의 틈에서 날아온 정체 불명의 구체. 보고 있으면 왠지 발이 근질거린다.']='',
+['이계의 틈에서 날아온 정체 불명의 구체. 보고 있으면 왠지 발이 근질거린다.']='An unidentified sphere that flew in through the gap between the worlds. Just looking at it makes you want to kick it.',
 ['축구공']='Soccer Ball',
 ['축구공 이벤트']='Soccer Ball Event',
 ['축구공\n이벤트']='Soccer Ball\nEvent',
