@@ -737,3 +737,16 @@ end
 function ForestTerritory:getStuffObjectTable()
     return self.m_tStuffTable
 end
+
+-------------------------------------
+-- function isAllStuffHasReward
+-- @brief 오브젝트 테이블
+-------------------------------------
+function ForestTerritory:isAllStuffHasReward()
+    for _, stuff in pairs(self.m_tStuffTable) do
+        if (not stuff.m_hasReward) then
+            return false
+        end
+    end
+    return true
+end

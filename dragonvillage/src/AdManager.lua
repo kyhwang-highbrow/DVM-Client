@@ -2,16 +2,10 @@ AD_TYPE = {
     NONE = 0,               -- 광고 없음(에러코드 처리) : 보상은 존재
     AUTO_ITEM_PICK = 1,     -- 광고 보기 보상 : 자동획득
     RANDOM_BOX_LOBBY = 2,   -- 광고 보기 보상 : 랜덤박스 (로비 진입)
-    DAILY_AD = 3,           -- 광고 보기 보상 : 
+    FOREST = 3,
+    EXPLORE = 4,
+    FSUMMON = 5,
 }
-
-DAILY_AD_KEY = {
-    ['FOREST'] = 'forest',  -- 드래곤의 숲 시간 단축
-    ['EXPLORE'] = 'explore',    -- 모험 시간 단축
-    ['FSUMMON'] = 'fsummon'       -- 우정 뽑기
-}
-
-OFF_JUNE_ADD_ADS = true
 
 -------------------------------------
 -- table AdManager
@@ -26,13 +20,17 @@ if (CppFunctions:isAndroid()) then
     ADMOB_AD_UNIT_ID_TABLE = {
         [AD_TYPE.AUTO_ITEM_PICK] = 'ca-app-pub-9497777061019569/8284077763',
         [AD_TYPE.RANDOM_BOX_LOBBY] = 'ca-app-pub-9497777061019569/1372989407',
-        [AD_TYPE.DAILY_AD] = 'ca-app-pub-9497777061019569/6433744394',
+        [AD_TYPE.FOREST] = 'ca-app-pub-9497777061019569/7721594075',
+        [AD_TYPE.EXPLORE] = 'ca-app-pub-9497777061019569/7058963688',
+        [AD_TYPE.FSUMMON] = 'ca-app-pub-9497777061019569/7338450690',
     }
 elseif (CppFunctions:isIos()) then
     ADMOB_AD_UNIT_ID_TABLE = {
         [AD_TYPE.AUTO_ITEM_PICK] = 'ca-app-pub-9497777061019569/5295237757',
         [AD_TYPE.RANDOM_BOX_LOBBY] = 'ca-app-pub-9497777061019569/4566955961',
-        [AD_TYPE.DAILY_AD] = 'ca-app-pub-9497777061019569/2042688805',
+        [AD_TYPE.FOREST] = 'ca-app-pub-9497777061019569/1816066243',
+        [AD_TYPE.EXPLORE] = 'ca-app-pub-9497777061019569/1432922866',
+        [AD_TYPE.FSUMMON] = 'ca-app-pub-9497777061019569/4989024494',
     }
 else
     ADMOB_AD_UNIT_ID_TABLE = {}
@@ -90,7 +88,7 @@ function AdManager:start(result_cb)
 
     -- 광고 단위 ID 등록 리스트
     local l_ad_unit_id = tableToString(ADMOB_AD_UNIT_ID_TABLE, ';')
-    
+
     -- @adMob
     PerpleSDK:adMobSetResultCallBack(_result_cb)
     PerpleSDK:adMobStart(l_ad_unit_id)
@@ -120,20 +118,12 @@ end
 
 -------------------------------------
 -- function showDailyAd
+-- @breif 횟수 제한형 광고
 -------------------------------------
-function AdManager:showDailyAd(daily_ad_key, finish_cb)
-    if (CppFunctions:isWin32()) then
-        g_advertisingData:request_dailyAdShow(daily_ad_key, function()
-            if (finish_cb) then
-                finish_cb()
-            end
-        end)
-        return
-    end
-
-    local ad_unit_id = ADMOB_AD_UNIT_ID_TABLE[AD_TYPE.DAILY_AD]
+function AdManager:showDailyAd(ad_type, finish_cb)
+    local ad_unit_id = ADMOB_AD_UNIT_ID_TABLE[ad_type]
     local function result_cb(ret, info)
-        g_advertisingData:request_dailyAdShow(daily_ad_key, function()
+        g_advertisingData:request_dailyAdShow(ad_type, function()
             if (ret == 'finish') then
                 if (finish_cb) then
                     finish_cb()
@@ -141,6 +131,12 @@ function AdManager:showDailyAd(daily_ad_key, finish_cb)
             end
         end)
     end
+
+    if (CppFunctions:isWin32()) then
+        result_cb('finish')
+        return
+    end
+
     self:show(ad_unit_id, result_cb)
 end
 

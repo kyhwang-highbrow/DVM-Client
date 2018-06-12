@@ -170,6 +170,7 @@ function UI_GachaResult_Dragon:initEverything()
 	-- 고급 소환 / 우정 소환
 	else
 		local is_cash = (self.m_type == 'cash')
+		local is_ad = t_egg_data['is_ad']
 
 		do -- 아이콘
 			local price_icon
@@ -186,20 +187,30 @@ function UI_GachaResult_Dragon:initEverything()
 		do -- 가격
 			local price = t_egg_data['price']
 
-			-- 10% 할인
-			if (is_cash) then
-				price = price - (price * 0.1)
-			else
-				vars['saleSprite']:setVisible(false)
+			-- 광고 무료 소환
+			if (is_ad) then
+				vars['againBtn']:setVisible(false)
+
+			else 
+				-- 10% 할인
+				if (is_cash) then
+					price = price - (price * 0.1)
+				else
+					vars['saleSprite']:setVisible(false)
+				end
+				vars['priceLabel']:setString(comma_value(price))
 			end
-			vars['priceLabel']:setString(comma_value(price))
 		end
 
 		-- UI 연출 조정
 		do
 			-- 공통
-			self:registerOpenNode('againBtn')
 			self:registerOpenNode('inventoryBtn')
+
+			-- 광고인 경우 다시 소환 숨김
+			if (not is_ad) then
+				self:registerOpenNode('againBtn')
+			end
 
 			-- 마일리지
 			if (self.m_added_mileage > 0) then

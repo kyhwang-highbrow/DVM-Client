@@ -16,6 +16,14 @@ ServerData_Advertising = class({
         m_dailyAdInfo = 'table',
     })
 
+    
+-- 서버 키
+local DAILY_AD_KEY = {
+    [AD_TYPE.FOREST] = 'forest',  -- 드래곤의 숲 시간 단축
+    [AD_TYPE.EXPLORE] = 'explore',    -- 모험 시간 단축
+    [AD_TYPE.FSUMMON] = 'fsummon'       -- 우정 뽑기
+}
+
 -------------------------------------
 -- function init
 -------------------------------------
@@ -240,38 +248,6 @@ function ServerData_Advertising:showRewardResult(ret)
 end
 
 -------------------------------------
--- function showDailyAd
--- @brief 광고 보기 (adMob)
--- @type 개수 제한
--------------------------------------
-function ServerData_Advertising:showDailyAd(daily_ad_key, finish_cb)
-    if (isWin32()) then 
-        self:request_dailyAdShow(daily_ad_key, finish_cb)
-        return
-    end
-
-    ShowLoading(Str('광고 정보 요청중'))
-
-    local function result_cb(ret, info)
-        HideLoading()
-
-        -- 광고 시청 완료 -> 보상 처리
-        if (ret == 'finish') then
-            self:request_dailyAdShow(daily_ad_key, finish_cb)
-            
-        -- 광고 시청 취소
-        elseif (ret == 'cancel') then
-
-        -- 광고 에러
-        elseif (ret == 'error') then
-
-        end
-    end
-
-    AdManager:showByAdType(AD_TYPE.DAILY_AD, result_cb)
-end
-
--------------------------------------
 -- function request_dailyAdInfo
 -------------------------------------
 function ServerData_Advertising:request_dailyAdInfo(finish_cb, fail_cb)
@@ -313,11 +289,11 @@ end
 -------------------------------------
 -- function request_dailyAdShow
 -------------------------------------
-function ServerData_Advertising:request_dailyAdShow(daily_ad_key, finish_cb, fail_cb)
+function ServerData_Advertising:request_dailyAdShow(ad_type, finish_cb, fail_cb)
     -- 유저 ID
     local uid = g_userData:get('uid')
 
-    local daily_ad_key = daily_ad_key
+    local ad_key = DAILY_AD_KEY[ad_type]
 
     -- 성공 콜백
     local function success_cb(ret)
@@ -331,7 +307,7 @@ function ServerData_Advertising:request_dailyAdShow(daily_ad_key, finish_cb, fai
     local ui_network = UI_Network()
     ui_network:setUrl('/shop/adv_show')
     ui_network:setParam('uid', uid)
-    ui_network:setParam('type', daily_ad_key)
+    ui_network:setParam('type', ad_key)
     ui_network:setSuccessCB(success_cb)
     ui_network:setFailCB(fail_cb)
     ui_network:setRevocable(true)
@@ -344,11 +320,8 @@ end
 -------------------------------------
 -- function isAllowToShow
 -------------------------------------
-function ServerData_Advertising:isAllowToShow(ad_key)
-    if (OFF_JUNE_ADD_ADS) then
-        return false
-    end
-    
+function ServerData_Advertising:isAllowToShow(ad_type)
+    local ad_key = DAILY_AD_KEY[ad_type]
     return self.m_dailyAdInfo[ad_key] and (self.m_dailyAdInfo[ad_key] > 0)
 end
 

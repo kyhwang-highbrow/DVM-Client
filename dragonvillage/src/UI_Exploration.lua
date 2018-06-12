@@ -76,7 +76,7 @@ function UI_Exploration:refresh()
     end
 
     -- 광고 보기 버튼 체크
-    self.vars['adBtn']:setVisible(g_advertisingData:isAllowToShow(DAILY_AD_KEY['EXPLORE']))
+    self.vars['adBtn']:setVisible(g_advertisingData:isAllowToShow(AD_TYPE['EXPLORE']))
 end
 
 -------------------------------------
@@ -99,7 +99,7 @@ function UI_Exploration:click_adBtn()
     
     -- 탐험 광고 안내 팝업
     local function ok_cb()
-        AdManager:showDailyAd(DAILY_AD_KEY['EXPLORE'], function()
+        AdManager:showDailyAd(AD_TYPE['EXPLORE'], function()
             g_explorationData:setDirty()
             g_explorationData:request_explorationInfo(function() self:refresh() end)
         end)

@@ -91,7 +91,7 @@ function UI_Forest:refresh()
     --self:refresh_noti()
 
     -- 광고 보기 버튼 체크
-    self.vars['adBtn']:setVisible(g_advertisingData:isAllowToShow(DAILY_AD_KEY['FOREST']))
+    self.vars['adBtn']:setVisible(g_advertisingData:isAllowToShow(AD_TYPE['FOREST']))
 end
 
 -------------------------------------
@@ -201,15 +201,15 @@ end
 -------------------------------------
 function UI_Forest:click_adBtn()
     -- 쿨타임 돌고 있는 stuff가 없다면
-    -- if (not g_explorationData:isExploring()) then
-    --     local msg = Str('생성 중인 오브젝트가 없습니다.')
-    --     UIManager:toastNotificationRed(msg)
-    --     return
-    -- end
+    if (self.m_territory:isAllStuffHasReward()) then
+        local msg = Str('보상을 수령하고 광고를 시청하세요.')
+        UIManager:toastNotificationRed(msg)
+        return
+    end
     
     -- 탐험 광고 안내 팝업
     local function ok_cb()
-        AdManager:showDailyAd(DAILY_AD_KEY['FOREST'], function()
+        AdManager:showDailyAd(AD_TYPE['FOREST'], function()
             ServerData_Forest:getInstance():request_myForestInfo(function() 
                 self:refresh()
                 self.m_territory:refreshStuffs() 

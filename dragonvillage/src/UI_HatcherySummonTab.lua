@@ -111,7 +111,7 @@ function UI_HatcherySummonTab:initUI()
     NaverCafeManager:setPluginInfoBtn(vars['plugInfoBtn'], 'summon_info')
 
     -- 광고 보기 버튼 체크
-    vars['summonNode_fp_ad']:setVisible(g_advertisingData:isAllowToShow(DAILY_AD_KEY['FSUMMON']))
+    vars['summonNode_fp_ad']:setVisible(g_advertisingData:isAllowToShow(AD_TYPE['FSUMMON']))
     vars['summonNode_fp_ad']:runAction(cca.buttonShakeAction(2, 2))
 end
 
@@ -255,7 +255,7 @@ function UI_HatcherySummonTab:click_friendSummonBtn(is_bundle, is_ad, t_egg_data
 
     -- 무료 뽑기는 광고 시청
     if (is_ad) then
-        AdManager:showDailyAd(DAILY_AD_KEY['FSUMMON'], function()
+        AdManager:showDailyAd(AD_TYPE['FSUMMON'], function()
             g_hatcheryData:request_summonFriendshipPoint(is_bundle, is_ad, finish_cb, fail_cb)
         end)
     else
@@ -322,14 +322,9 @@ function UI_HatcherySummonTab:requestSummon(t_egg_data, old_ui, is_again)
 
     elseif (is_ad) then
         -- 탐험 광고 안내 팝업
-        local function ok_cb()
-            AdManager:showDailyAd(DAILY_AD_KEY['FSUMMON'], function()
-                ok_btn_cb()
-            end)
-        end
         local msg = Str("동영상 광고를 보시면 무료 우정 소환이 가능합니다.") .. '\n' .. Str("광고를 보시겠습니까?")
         local submsg = Str("무료 우정 소환은 1일 1회 가능합니다.")
-        MakeSimplePopup2(POPUP_TYPE.YES_NO, msg, submsg, ok_cb)
+        MakeSimplePopup2(POPUP_TYPE.YES_NO, msg, submsg, ok_btn_cb)
 
     else
         local msg = Str('"{1}" 진행하시겠습니까?', t_egg_data['name'])
