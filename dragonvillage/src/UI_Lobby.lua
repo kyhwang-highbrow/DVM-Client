@@ -386,6 +386,8 @@ function UI_Lobby:entryCoroutine_lobbyPopup(co)
                 end
                 pointer = nil
             end
+        else
+            cclog('## 클래스가 존재하지 않음 lua_class : ' .. tostring(lua_class))
         end
     end
 end

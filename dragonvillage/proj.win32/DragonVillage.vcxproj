@@ -383,6 +383,7 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <None Include="..\src\LobbyPopupData.lua" />
     <None Include="..\src\LobbyPopup_PackageStep.lua" />
     <None Include="..\src\LobbyPopup_PackageStep2.lua" />
+    <None Include="..\src\LobbyPopup_PackageStepOld.lua" />
     <None Include="..\src\LobbyShadow.lua" />
     <None Include="..\src\LobbyTamer.lua" />
     <None Include="..\src\LobbyTamerBot.lua" />

@@ -215,6 +215,7 @@ local t_module = {
     'LobbyPopupAbstract',
     'LobbyPopup_PackageStep',
     'LobbyPopup_PackageStep2',
+    'LobbyPopup_PackageStepOld',
     'ChatIgnoreList',
     'ScenarioViewingHistory',
 	'ConstantData',

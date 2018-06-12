@@ -3604,6 +3604,9 @@
     <None Include="..\src\UI_ClanTabMember.lua">
       <Filter>lua\UI</Filter>
     </None>
+    <None Include="..\src\LobbyPopup_PackageStepOld.lua">
+      <Filter>lua\src</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Classes">
