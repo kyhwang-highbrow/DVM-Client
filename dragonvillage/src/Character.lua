@@ -2894,7 +2894,7 @@ function Character:isDead(no_dying)
         if (self.m_state == 'dying') then return true end
     end
         
-    return (self.m_bDead or self.m_state == 'dead')
+    return (self.m_bDead)
 end
 
 -------------------------------------
