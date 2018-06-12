@@ -43,7 +43,7 @@ function TablePackageBundle:getTableViewMap()
 
                     -- 현재 유효한 상품이 아닐 경우 맵에 추가하지 않음
                     if (valid_step_package ~= v['t_name']) then
-                        break -- 이 라인을 주석처리하면 두 패키지가 모두 노출됨
+                        --break -- 이 라인을 주석처리하면 두 패키지가 모두 노출됨
                     end
                 end                
                 ----------------------------------------------------------------------------------
