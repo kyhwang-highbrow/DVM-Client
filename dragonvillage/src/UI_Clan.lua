@@ -358,7 +358,7 @@ function UI_Clan:refresh()
     -- 필수 참여 컨텐츠
     for idx = 1, 4 do
         local label = vars['contentLabel'..idx]
-        label:setColor(COLOR['dark_brown'])
+        label:setColor(COLOR['wood'])
     end
 
     local l_category = struct_clan['category']
