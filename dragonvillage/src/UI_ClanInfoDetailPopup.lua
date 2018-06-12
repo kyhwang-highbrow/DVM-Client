@@ -125,9 +125,9 @@ function UI_ClanInfoDetailPopup:refresh()
 
     -- 가입 신청이 가능한 상태일 경우
     if g_clanData:isCanJoinRequest(clan_object_id) then
-        vars['requestBtn2']:setVisible(true)
+        vars['requestNode']:setVisible(true)
     else
-        vars['requestBtn2']:setVisible(false)
+        vars['requestNode']:setVisible(false)
     end
 
     -- 지원 레벨
