@@ -12,7 +12,7 @@ UI_ClanListItem = class(PARENT, {
 -------------------------------------
 function UI_ClanListItem:init(data)
     self.m_structClan = data
-    local vars = self:load('clan_item_info.ui')
+    local vars = self:load('clan_item_info_new.ui')
 
     self:initUI()
     self:initButton()
@@ -50,6 +50,25 @@ function UI_ClanListItem:initUI()
     -- 클랜 소개
     local intro_text = struct_clan:getClanIntroText()
     vars['introduceLabel']:setString(intro_text)
+
+    -- 지원 레벨
+    local join_lv = struct_clan:getJoinLv()
+    vars['levelLabel']:setString(Str('{1}레벨 이상', join_lv))
+    
+    -- 필수 참여 컨텐츠
+    for idx = 1, 4 do
+        local label = vars['contentLabel'..idx]
+        label:setColor(COLOR['dark_brown'])
+    end
+
+    local l_category = struct_clan['category']
+    for idx, v in ipairs(l_category) do
+        local idx = g_clanData:getNeedCategryIdxWithName(v)
+        local label = vars['contentLabel'..idx]
+
+        -- 선택된 필수 참여 컨텐츠
+        label:setColor(COLOR['GOLD'])
+    end
 end
 
 -------------------------------------
