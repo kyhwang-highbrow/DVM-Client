@@ -71,6 +71,8 @@ function UI_ClanInfoDetailPopup:initUI()
     vars['rankTabBtn']:setVisible(false) -- 랭킹 탭 숨김
     vars['requestMenu']:setVisible(false) -- 가입 승인 UI 숨김
 
+    vars['requestNode']:setVisible(true) -- 가입 요청 노드
+
     do -- 게시판 노출하지 않음
         vars['boardMenu']:setVisible(false)
         vars['boardMenu2']:setVisible(true)
