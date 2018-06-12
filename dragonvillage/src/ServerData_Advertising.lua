@@ -14,6 +14,7 @@ ServerData_Advertising = class({
         m_adv_cool_time = 'number',
 
         m_dailyAdInfo = 'table',
+        m_reinitializeTime = 'timestamp',
     })
 
     
@@ -283,6 +284,7 @@ function ServerData_Advertising:response_dailyAdInfo(ret)
         return
     end
 
+    self:setReinitailzeTime()
     self.m_dailyAdInfo = ret
 end
 
@@ -321,10 +323,41 @@ end
 -- function isAllowToShow
 -------------------------------------
 function ServerData_Advertising:isAllowToShow(ad_type)
+    if (self:isExpiredAdInfo()) then
+        self:setReinitailzeTime()
+        self:reinitializeAdInfo()
+    end
+
     local ad_key = DAILY_AD_KEY[ad_type]
     return self.m_dailyAdInfo[ad_key] and (self.m_dailyAdInfo[ad_key] > 0)
 end
 
+-------------------------------------
+-- function isExpiredAdInfo
+-- @brief ad info가 만기되었는지 확인
+-------------------------------------
+function ServerData_Advertising:isExpiredAdInfo()
+    if (self.m_reinitializeTime < Timer:getServerTime()) then
+        return true
+    end
 
+    return false
+end
 
+-------------------------------------
+-- function reinitializeAdInfo
+-- @brief ad info 재초기화
+-------------------------------------
+function ServerData_Advertising:reinitializeAdInfo()
+    for key, _ in pairs(self.m_dailyAdInfo) do
+        self.m_dailyAdInfo[key] = 1
+    end
+end
 
+-------------------------------------
+-- function setReinitailzeTime
+-- @brief 다음 자정으로 재초기화 타임 저장
+-------------------------------------
+function ServerData_Advertising:setReinitailzeTime()
+    self.m_reinitializeTime = Timer:getServerTime_midnight()
+end
