@@ -30,6 +30,7 @@ function UI_Setting:init_devTab()
     vars['lobbyGuideResetBtn']:registerScriptTapHandler(function() self:click_lobbyGuideResetBtn() end)
     vars['colosseumOldBtn']:registerScriptTapHandler(function() self:click_colosseumOldBtn() end)
     vars['colosseumTestBtn']:registerScriptTapHandler(function() self:click_colosseumTestBtn() end)
+    vars['dailyInitBtn']:registerScriptTapHandler(function() self:click_dailyInitBtn() end)
     self:refresh_devTap()
 end
 
@@ -812,4 +813,31 @@ function UI_Setting:click_colosseumTestBtn()
     g_settingData:applySettingData(not value, 'colosseum_test_mode')
     g_settingData:applySetting()
     self:refresh_devTap()
+end
+
+-------------------------------------
+-- function click_dailyInitBtn
+-- @brief 일일 초기화 
+-------------------------------------
+function UI_Setting:click_dailyInitBtn()
+    -- 유저 ID
+    local uid = g_userData:get('uid')
+
+    -- 성공 콜백
+    local function success_cb(ret)
+        UIManager:toastNotificationGreen('초기화 성공~ 로비 재진입 또는 재시작 해주세요.')
+    end
+
+    -- 네트워크 통신
+    local ui_network = UI_Network()
+    ui_network:setUrl('/manage/init_user')
+    ui_network:setParam('uid', uid)
+    ui_network:setParam('type', 'daily')
+    ui_network:setMethod('POST')
+    ui_network:setSuccessCB(success_cb)
+    ui_network:setRevocable(true)
+    ui_network:setReuse(false)
+    ui_network:request()
+
+    return ui_network
 end
