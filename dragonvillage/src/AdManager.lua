@@ -123,13 +123,13 @@ end
 function AdManager:showDailyAd(ad_type, finish_cb)
     local ad_unit_id = ADMOB_AD_UNIT_ID_TABLE[ad_type]
     local function result_cb(ret, info)
-        g_advertisingData:request_dailyAdShow(ad_type, function()
-            if (ret == 'finish') then
+        if (ret == 'finish') then
+            g_advertisingData:request_dailyAdShow(ad_type, function()
                 if (finish_cb) then
                     finish_cb()
                 end
-            end
-        end)
+            end)
+        end
     end
 
     if (CppFunctions:isWin32()) then
