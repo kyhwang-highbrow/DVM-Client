@@ -123,16 +123,16 @@ function UI_ClanInfoDetailPopup:refresh()
     local str = Str('{1}', struct_clan:getLastAttd())
     vars['attendanceLabel']:setString(str)
 
+    -- 지원 레벨
+    local join_lv = struct_clan:getJoinLv()
+    vars['levelLabel']:setString(Str('{1}레벨 이상', join_lv))
+
     -- 가입 신청이 가능한 상태일 경우
-    if g_clanData:isCanJoinRequest(clan_object_id) then
+    if g_clanData:isCanJoinRequest(struct_clan) then
         vars['requestNode']:setVisible(true)
     else
         vars['requestNode']:setVisible(false)
     end
-
-    -- 지원 레벨
-    local join_lv = struct_clan:getJoinLv()
-    vars['levelLabel']:setString(Str('{1}레벨 이상', join_lv))
 
     -- 필수 참여 컨텐츠
     for idx = 1, 4 do

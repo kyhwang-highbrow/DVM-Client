@@ -788,17 +788,30 @@ end
 -- function isCanJoinRequest
 -- @brief clan_object_id클랜에 가입 신청이 가능한 상태인지 리턴
 -------------------------------------
-function ServerData_Clan:isCanJoinRequest(clan_object_id)
+function ServerData_Clan:isCanJoinRequest(struct_clan)
     -- 이미 클랜에 소속되어 있는 경우 x
     if self.m_structClan then
         return false
     end
 
     -- 이미 가입 신청을 요청한 클랜일 경우 x
+    local clan_object_id = struct_clan:getClanObjectID()
     if self:isRequestedJoin(clan_object_id) then
         return false
     end
 
+    -- 유저가 클랜 가입 레벨이 안된다면?
+    local user_lv = g_userData:get('lv')
+    if (user_lv < 15) then
+        return false
+    end
+
+    -- 유저 가입 조건도 체크
+    local join_lv = struct_clan:getJoinLv()
+    if (user_lv < join_lv) then
+        return false
+    end
+    
     return true
 end
 

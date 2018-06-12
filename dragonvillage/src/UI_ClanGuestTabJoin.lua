@@ -54,10 +54,9 @@ function UI_ClanGuestTabJoin:init_TableView()
 
     local l_item_list = {}
     -- 가입 신청이 가능한 클랜만 추출
-    for i,v in pairs(g_clanData.m_lClanList) do
-        local clan_object_id = v:getClanObjectID()
-        if g_clanData:isCanJoinRequest(clan_object_id) then
-            l_item_list[i] = v
+    for i, struct_clan in pairs(g_clanData.m_lClanList) do
+        if g_clanData:isCanJoinRequest(struct_clan) then
+            l_item_list[i] = struct_clan
         end
     end
 
