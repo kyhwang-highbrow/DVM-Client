@@ -7,6 +7,7 @@ Adjust = {
     EVENT = {
         FIRST_PURCHASE = 'vooktq',              --첫구매
         PURCHASE = '33qpix',                    --구매 통합
+        PURCHASE_USD = '2a7wxs',                --구매 (달러)
 
         CREATE_NICKNAME = 'kfwvim',             --닉네임 생성
         CREATE_NICKNAME_REPEAT = 'j878iw',      --닉네임 생성 unique아닌거(리세마라 체크용)
@@ -177,22 +178,29 @@ end
 -------------------------------------
 -- function purchase
 -------------------------------------
-function Analytics:purchase(productId, productName, price, token, first_buy)
+function Analytics:purchase(productId, productName, price_krw, price_usd, token, first_buy)
     if (not IS_ENABLE_ANALYTICS()) then return end
     
-    -- price는 KRW 가격으로만 받음 
-    local currencyCode = 'KRW'
+    local currency_code_krw = 'KRW'
+    local currency_code_usd = 'USD'
 
+    -- @adbrix
     Adbrix:buy(productId, price)
-    Tapjoy:trackPurchase(productName, currencyCode, price)
 
+    -- @tapjoy
+    Tapjoy:trackPurchase(productName, currency_code_krw, price_krw)
+
+    -- @adjust
+    do
     -- 첫 구매는 event로 지표를 남김 (token : vooktq)
     if first_buy then
         Adjust:trackEvent(Adjust.EVENT.FIRST_PURCHASE)
     end
-
-    -- 구매 내역은 payment로 지표를 남김 (token : 33qpix)
-    Adjust:adjustTrackPayment(Adjust.EVENT.PURCHASE, currencyCode, price)
+        -- dvm_purchase (token : 33qpix)
+        Adjust:adjustTrackPayment(Adjust.EVENT.PURCHASE, currency_code_krw, price_krw)
+        -- dvm_purchase_us (token : 2a7wxs)
+        Adjust:adjustTrackPayment(Adjust.EVENT.PURCHASE_USD, currency_code_usd, price_usd)
+    end
 end
 
 -------------------------------------

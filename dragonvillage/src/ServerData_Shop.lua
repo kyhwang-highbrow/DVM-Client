@@ -527,11 +527,12 @@ function ServerData_Shop:request_checkReceiptValidation(struct_product, validati
         -- 탭조이 매출은 모두 krw 가격으로 보냄
         if (struct_product) then
             local krw_price = struct_product['price'] -- getPrice() 함수 나중에 수정하기
+            local usd_price = struct_product['price_dollar']
             local token = struct_product['token']   --adjust용 토큰
             local first_buy = ret['first_buy']  --첫번째 결제인지
             local sum_money = ret['sum_money'] or 0   --누적 결제 금액
 
-            Analytics:purchase(product_id, sku, krw_price, token, first_buy)
+            Analytics:purchase(product_id, sku, krw_price, usd_price, token, first_buy)
             Analytics:trackGetGoodsWithRet(ret, string.format('상품 구매 : %d', product_id))
             --adjust 누적 금액
             Adjust:trackEventSumPrice(sum_money)
