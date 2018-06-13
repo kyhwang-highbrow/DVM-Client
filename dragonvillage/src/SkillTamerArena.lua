@@ -92,7 +92,7 @@ function SkillTamerArena.st_move(owner, dt)
         -- 사용자 이동
         owner.m_owner:stopAllActions()
         owner.m_owner:resetMove()
-		--owner.m_owner:setMovingAfterImage(true)
+        owner.m_owner.m_animator:changeAni('i_idle', true)
 
         local target_pos = cc.p(owner.m_targetPos.x, owner.m_targetPos.y)
         local action = cc.MoveTo:create(0.5, target_pos)
@@ -110,7 +110,6 @@ end
 function SkillTamerArena.st_attack(owner, dt)
     if (owner.m_stateTimer == 0) then
         -- 사용자 애니메이션
-        --owner.m_owner:setMovingAfterImage(false)
         owner.m_owner.m_animator:changeAni('i_summon', false)
         owner.m_owner.m_animator:addAniHandler(function()
             owner:changeState('dying')
