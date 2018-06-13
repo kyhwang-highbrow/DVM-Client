@@ -226,6 +226,15 @@ function SkillHelper:makeAiAttrMap(t_skill)
 end
 
 -------------------------------------
+-- function calcAiAtk
+-------------------------------------
+function SkillHelper:calcAiAtk(unit, t_skill)
+    -- 공격수치 공식 : 드래곤의 기본 공격력 x 드래그 스킬의 (power_rate x hit x (req_mana+1))
+    local aiAtk = unit:getBasicStat('atk') * t_skill['power_rate'] * t_skill['hit'] * (unit:getOriginSkillManaCost() + 1)
+    return aiAtk
+end
+
+-------------------------------------
 -- function printTargetNotExist
 -- @brief
 -------------------------------------

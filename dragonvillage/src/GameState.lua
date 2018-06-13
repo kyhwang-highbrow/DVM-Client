@@ -245,7 +245,7 @@ function GameState:updateFightTimer(dt)
         end
 
         -- 남은 제한 시간을 표시
-        time = self.m_limitTime - self.m_fightTimer
+        time = self:getRemainTime()
 	else
         -- 제한시간이 없을 경우 플레이 시간 표시
         time = self.m_fightTimer
@@ -1459,4 +1459,11 @@ end
 -------------------------------------
 function GameState:isTimeOut()
     return self.m_bTimeOut
+end
+
+-------------------------------------
+-- function getRemainTime
+-------------------------------------
+function GameState:getRemainTime()
+    return (self.m_limitTime - self.m_fightTimer)
 end

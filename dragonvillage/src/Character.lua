@@ -2760,6 +2760,19 @@ function Character:restore(restore_speed)
 end
 
 -------------------------------------
+-- function getBasicStat
+-- @brief 기본 스탯을 가져온다
+-------------------------------------
+function Character:getBasicStat(stat_type)
+	-- @TODO
+	if (self.m_charType == 'tamer') then
+		return 0
+	end
+
+    return self.m_statusCalc:getBasicStat(stat_type)
+end
+
+-------------------------------------
 -- function getStat
 -- @brief 최종 계산된 스탯을 가져온다
 -------------------------------------

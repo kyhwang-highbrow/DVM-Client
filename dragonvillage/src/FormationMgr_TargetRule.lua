@@ -422,7 +422,12 @@ function TargetRule_getTargetList_arena_attack(org_list, t_data)
             if (is_invincibility or v.m_isZombie) then
                 v.m_sortValue = 0
             end
-        end 
+        end
+
+        -- 수호 상태인 경우 강제로 1로 처리
+        if (v.m_guard) then
+            v.m_sortValue = 1
+        end
 
         table.insert(t_ret, v)
     end

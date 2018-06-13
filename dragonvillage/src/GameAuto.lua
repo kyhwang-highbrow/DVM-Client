@@ -34,7 +34,6 @@ GameAuto = class(IEventListener:getCloneClass(), {
         m_world = 'GameWorld',
         m_gameMana = 'GameMana',
         m_bActive = 'boolean',
-        m_bFirstSkill = 'boolean',      -- 첫스킬 사용여부(true일 경우 위급상태로 바꾸지 않음)
 
         m_teamState = 'TEAM_STATE',
         m_totalHp = 'number',
@@ -44,7 +43,8 @@ GameAuto = class(IEventListener:getCloneClass(), {
         m_mDebuffCount = 'table',       -- 아군들에게 현재 적용 중인 디버프별 수
 
         m_lUnitList = 'table',
-        m_mHoldingSkill = 'table',      -- 유닛별 보유중인 스킬 AI 속성 맵
+        m_mSkillAiAttr = 'table',       -- 유닛별 보유중인 스킬 AI 속성 맵
+        m_mSkillAiAtk = 'table',        -- 유닛별 보유중인 스킬 AI 공격수치
         m_lUnitListPerPriority = 'table',
 
         m_checkTimer = 'number',        -- 주기적으로 상태 체크를 위한 타이머
@@ -61,7 +61,6 @@ function GameAuto:init(world, game_mana)
     self.m_world = world
     self.m_gameMana = game_mana
     self.m_bActive = false
-    self.m_bFirstSkill = false
 
     self.m_teamState = 0
     self.m_totalHp = 0
@@ -70,7 +69,8 @@ function GameAuto:init(world, game_mana)
     self.m_mDebuffCount = {}
 
     self.m_lUnitList = {}
-    self.m_mHoldingSkill = {}
+    self.m_mSkillAiAttr = {}
+    self.m_mSkillAiAtk = {}
     self.m_lUnitListPerPriority = {}
 
     self.m_checkTimer = 0
@@ -78,10 +78,6 @@ function GameAuto:init(world, game_mana)
 
     self.m_curPriority = 1
     self.m_curUnit = nil
-
-    if (PLAYER_VERSUS_MODE[self.m_world.m_gameMode] == 'pvp' and g_settingData:get('colosseum_test_mode')) then
-        self.m_bFirstSkill = true
-    end
 end
 
 -------------------------------------
@@ -99,15 +95,29 @@ function GameAuto:prepare(unit_list)
         if (skill_indivisual_info) then
             local t_skill = skill_indivisual_info:getSkillTable()
             local aiAttr = t_skill['ai_division']
+
+            -- AI 속성
             if (aiAttr and aiAttr ~= '') then
-                self.m_mHoldingSkill[unit] = {}
-                self.m_mHoldingSkill[unit][aiAttr] = true
+                self.m_mSkillAiAttr[unit] = {}
+                self.m_mSkillAiAttr[unit][aiAttr] = true
             else
                 local t_aiAttr = SkillHelper:makeAiAttrMap(t_skill)
-                self.m_mHoldingSkill[unit] = t_aiAttr
+                self.m_mSkillAiAttr[unit] = t_aiAttr
             end
 
-            --cclog('self.m_mHoldingSkill[' .. unit.m_charTable['t_name'] ..'] = ' .. luadump(self.m_mHoldingSkill[unit]))
+            -- 공격 수치
+            do
+                local aiAtk = 0
+
+                if (PLAYER_VERSUS_MODE[self.m_world.m_gameMode] == 'pvp') then
+                    aiAtk = SkillHelper:calcAiAtk(unit, t_skill)
+                end
+
+                self.m_mSkillAiAtk[unit] = aiAtk
+            end
+
+            --cclog('self.m_mSkillAiAttr[' .. unit.m_charTable['t_name'] ..'] = ' .. luadump(self.m_mSkillAiAttr[unit]))
+            --cclog('self.m_mSkillAiAtk[' .. unit.m_charTable['t_name'] ..'] = ' .. self.m_mSkillAiAtk[unit])
         end
     end
 end
@@ -146,10 +156,11 @@ function GameAuto:doCheck()
     local nextState = TEAM_STATE.NORMAL
     local totalHp = 0
     local totalMaxHp = 0
+    local totalHpRate = 0
     local debuffUnitCount = 0
 
     for i, unit in ipairs(self.m_lUnitList) do
-        if (not unit.m_isZombie) then
+        if (not unit:isDead() and not unit.m_isZombie) then
             totalHp = totalHp + unit.m_hp
             totalMaxHp = totalMaxHp + unit.m_maxHp
 
@@ -165,17 +176,22 @@ function GameAuto:doCheck()
         end
     end
 
+    totalHpRate = totalHp / totalMaxHp
+
     if (nextState ~= TEAM_STATE.DANGER) then
-        if ((totalHp / totalMaxHp) < 0.6) then
+        if (totalHpRate < 0.6) then
             nextState = TEAM_STATE.DANGER
         --elseif (debuffUnitCount >= 2) then
         --  nextState = TEAM_STATE.DEBUFF
         end
     end
 
-    -- 첫 스킬 상태면 일반상태 유지
-    if (self.m_bFirstSkill) then
-        nextState = TEAM_STATE.NORMAL
+    -- pvp모드일 경우 
+    -- 남은 시간이 5초 이하이고 남은 아군의 전체 생명력이 100%가 아닐때 회복 스킬 우선 사용
+    if (PLAYER_VERSUS_MODE[self.m_world.m_gameMode] == 'pvp') then
+        if (self.m_world.m_gameState:getRemainTime() <= 5 and totalHpRate < 1) then
+            nextState = TEAM_STATE.DANGER
+        end
     end
 
     -- 상태가 갱신되었으면
@@ -194,8 +210,6 @@ function GameAuto:doCheck()
         -- 만약 1~4우선순위의 리스트가 하나도 없을 경우 모든 유닛으로 설정(우선 순위에 상관없이 모든 유닛 중 랜덤)
         if (count == 0) then
             self.m_lUnitListPerPriority = self:makeUnitListSortedByPriority(TEAM_STATE.NORMAL)
-
-            self.m_bFirstSkill = false
         end
     end
 
@@ -214,12 +228,11 @@ function GameAuto:makeUnitListSortedByPriority(state)
     for priority = 1, 4 do
         list[priority] = {}
 
-        -- 일반 상태일때 힐 스킬을 제외하고 분류해서 처리하지 않도록 막음
-        if ( PLAYER_VERSUS_MODE[self.m_world.m_gameMode] == 'pvp' and g_settingData:get('colosseum_test_mode') 
-            and state == TEAM_STATE.NORMAL ) then
+        -- pvp모드의 일반 상태일때 힐 스킬을 제외하고 분류해서 처리하지 않도록 막음
+        if ( PLAYER_VERSUS_MODE[self.m_world.m_gameMode] == 'pvp' and state == TEAM_STATE.NORMAL ) then
             -- 해당 AI 속성을 가지고 있는지 확인
             for _, unit in ipairs(self.m_lUnitList) do
-                if (self.m_mHoldingSkill[unit] and not self.m_mHoldingSkill[unit][SKILL_AI_ATTR__HEAL]) then
+                if (self.m_mSkillAiAttr[unit] and not self.m_mSkillAiAttr[unit][SKILL_AI_ATTR__HEAL]) then
                     table.insert(list[priority], unit)
                 end
             end
@@ -231,7 +244,7 @@ function GameAuto:makeUnitListSortedByPriority(state)
                 for _, unit in ipairs(self.m_lUnitList) do
                     if (not temp[unit]) then
                         -- 해당 AI 속성을 가지고 있는지 확인
-                        if (self.m_mHoldingSkill[unit] and self.m_mHoldingSkill[unit][attr]) then
+                        if (self.m_mSkillAiAttr[unit] and self.m_mSkillAiAttr[unit][attr]) then
                             table.insert(list[priority], unit)
 
                             temp[unit] = true
@@ -258,17 +271,33 @@ function GameAuto:doWork(dt)
         local count = #list
         if (count > 0) then
             -- 사용횟수를 고려하여 뽑음
-            if (true) then
-                table.sort(list, function(a, b)
+            table.sort(list, function(a, b)
+                if (self.m_mUsedCount[a] == self.m_mUsedCount[b]) then
+                    return self.m_mSkillAiAtk[a] > self.m_mSkillAiAtk[b]
+                else
                     return self.m_mUsedCount[a] < self.m_mUsedCount[b]
-                end)
-            else
-                list = randomShuffle(list)
-            end
-               
+                end
+            end)
+                           
             -- 스킬 사용 가능한 랜덤한 대상을 선택
             for _, unit in ipairs(list) do
-                if (unit:isPossibleActiveSkill()) then
+                local b, m_reason = unit:isPossibleActiveSkill()
+
+                if (PLAYER_VERSUS_MODE[self.m_world.m_gameMode] == 'pvp') then
+                    -- 콜로세움에서 쿨타임이 3초이하로 남은 경우는 기다림
+                    local skill_indivisual_info = unit:getSkillIndivisualInfo('active')
+                    if (skill_indivisual_info) then
+                        local timer = skill_indivisual_info:getCoolTimeForGauge()
+                        if (timer <= 3) then
+                            m_reason[REASON_TO_DO_NOT_USE_SKILL.COOL_TIME] = nil
+                        end
+                    end
+
+                    -- 마나 부족은 항상 기다림
+                    m_reason[REASON_TO_DO_NOT_USE_SKILL.MANA_LACK] = nil
+                end
+
+                if (table.isEmpty(m_reason)) then
                     self.m_curUnit = unit
                     break
                 end
@@ -317,8 +346,6 @@ function GameAuto:doWork_skill(unit, priority)
 
             -- 사용 횟수 카운트 증가
             self.m_mUsedCount[unit] = self.m_mUsedCount[unit] + 1
-
-            self.m_bFirstSkill = false
         end
 
         return true
@@ -326,19 +353,32 @@ function GameAuto:doWork_skill(unit, priority)
 
     -------------------------------------
     -- 스킬을 사용할 수 없는 경우 처리
-    if (self.m_teamState == TEAM_STATE.DANGER and self.m_gameMana:getCurrMana() > 3) then
-        -- 위급상황에서 마나가 3이상일때 스킬 사용을 못하는 경우 랜덤 대상의 스킬을 대신 사용
-        self.m_curUnit = self:getRandomSkillUnit()
+    if (PLAYER_VERSUS_MODE[self.m_world.m_gameMode] == 'pvp') then
+        if (self.m_teamState == TEAM_STATE.DANGER and self.m_gameMana:getCurrMana() > 3) then
+            -- 위급상황에서 마나가 3이상일때 스킬 사용을 못하는 경우 랜덤 대상의 스킬을 대신 사용
+            self.m_curUnit = self:getRandomSkillUnit()
 
-        m_reason = {}
-
-    elseif (self.m_teamState == TEAM_STATE.DANGER and priority == 1) then
-        -- 위급상황에서 1순위 스킬의 경우 마나 부족과 쿨타임은 기다림
-        m_reason[REASON_TO_DO_NOT_USE_SKILL.MANA_LACK] = nil
-        m_reason[REASON_TO_DO_NOT_USE_SKILL.COOL_TIME] = nil
+            m_reason = {}
+        else
+            -- 항상 마나 부족과 쿨타임은 기다림
+            m_reason[REASON_TO_DO_NOT_USE_SKILL.MANA_LACK] = nil
+            m_reason[REASON_TO_DO_NOT_USE_SKILL.COOL_TIME] = nil
+        end
     else
-        -- 나머지 상황에선 마나 부족만 기다림
-        m_reason[REASON_TO_DO_NOT_USE_SKILL.MANA_LACK] = nil
+        if (self.m_teamState == TEAM_STATE.DANGER and self.m_gameMana:getCurrMana() > 3) then
+            -- 위급상황에서 마나가 3이상일때 스킬 사용을 못하는 경우 랜덤 대상의 스킬을 대신 사용
+            self.m_curUnit = self:getRandomSkillUnit()
+
+            m_reason = {}
+
+        elseif (self.m_teamState == TEAM_STATE.DANGER and priority == 1) then
+            -- 위급상황에서 1순위 스킬의 경우 마나 부족과 쿨타임은 기다림
+            m_reason[REASON_TO_DO_NOT_USE_SKILL.MANA_LACK] = nil
+            m_reason[REASON_TO_DO_NOT_USE_SKILL.COOL_TIME] = nil
+        else
+            -- 나머지 상황에선 마나 부족만 기다림
+            m_reason[REASON_TO_DO_NOT_USE_SKILL.MANA_LACK] = nil
+        end
     end
 
     if (table.isEmpty(m_reason)) then
@@ -410,48 +450,28 @@ function GameAuto:getRandomSkillUnit()
     local ret
 
     -- 사용횟수를 고려하여 뽑음
-    if (true) then
-        local l_temp = {}
+    local l_temp = {}
 
-        for i, unit in ipairs(self.m_lUnitList) do
-            table.insert(l_temp, unit)
+    for i, unit in ipairs(self.m_lUnitList) do
+        table.insert(l_temp, unit)
 
-            if (not self.m_mUsedCount[unit]) then
-                self.m_mUsedCount[unit] = 0
-            end
+        if (not self.m_mUsedCount[unit]) then
+            self.m_mUsedCount[unit] = 0
         end
-
-        table.sort(l_temp, function(a, b)
-            return self.m_mUsedCount[a] < self.m_mUsedCount[b]
-        end)
-
-        for i, unit in ipairs(l_temp) do
-            local skill_indivisual_info = unit:getSkillIndivisualInfo('active')
-            if (skill_indivisual_info and unit:isPossibleActiveSkill()) then
-                ret = unit
-                break
-            end
-        end
-    else
-        local t_idx = {}
-
-        for i, unit in ipairs(self.m_lUnitList) do
-            local skill_indivisual_info = unit:getSkillIndivisualInfo('active')
-            if (skill_indivisual_info and unit:isPossibleActiveSkill()) then
-                table.insert(t_idx, i)
-            end
-        end
-
-        if (#t_idx > 1) then
-            t_idx = randomShuffle(t_idx)
-        end
-
-        local idx = t_idx[1]
-        if (not idx) then return end
-
-        ret = self.m_lUnitList[idx]
     end
 
+    table.sort(l_temp, function(a, b)
+        return self.m_mUsedCount[a] < self.m_mUsedCount[b]
+    end)
+
+    for i, unit in ipairs(l_temp) do
+        local skill_indivisual_info = unit:getSkillIndivisualInfo('active')
+        if (skill_indivisual_info and unit:isPossibleActiveSkill()) then
+            ret = unit
+            break
+        end
+    end
+    
     return ret
 end
 
@@ -462,7 +482,7 @@ function GameAuto:printInfo()
     cclog('-------------------------------------------------------')
     cclog('STATE = ' .. self.m_teamState)
     cclog('## SKILL ATTR PER UNIT ##')
-    for unit, v in pairs(self.m_mHoldingSkill) do
+    for unit, v in pairs(self.m_mSkillAiAttr) do
         cclog(string.format('- %s : %s', unit.m_charTable['t_name'], luadump(v)))
     end
     cclog('## SKILL COUNT PER PRIORITY ##')

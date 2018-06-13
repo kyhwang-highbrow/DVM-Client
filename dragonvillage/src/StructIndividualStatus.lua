@@ -53,6 +53,9 @@ StructIndividualStatus = class({
         m_buffAdd = '',
         ----------------------------------------------------
 
+        m_t1 = '',
+        m_bDirtyT1 = '',
+
         m_t2 = '',
         m_bDirtyT2 = '',
 
@@ -88,6 +91,9 @@ function StructIndividualStatus:init(status_name)
 
     self.m_passiveMulti = 0
     self.m_passiveAdd = 0
+
+    self.m_t1 = 0
+    self.m_bDirtyT1 = true
 
     self.m_t2 = 0
     self.m_bDirtyT2 = true
@@ -131,6 +137,17 @@ function StructIndividualStatus:setDirtyFinalStat()
 end
 
 -------------------------------------
+-- function getT1
+-------------------------------------
+function StructIndividualStatus:getT1()
+   if self.m_bDirtyT1 then
+    self:calcT1()
+   end
+
+   return self.m_t1
+end
+
+-------------------------------------
 -- function getT2
 -------------------------------------
 function StructIndividualStatus:getT2()
@@ -142,9 +159,9 @@ function StructIndividualStatus:getT2()
 end
 
 -------------------------------------
--- function calcT2
+-- function calcT1
 -------------------------------------
-function StructIndividualStatus:calcT2()
+function StructIndividualStatus:calcT1()
     -- 기본 능력치 연산 (드래곤 성장)
     local t0 = (self.m_baseStat +
                 self.m_lvStat + self.m_gradeStat + self.m_evolutionStat + self.m_eclvStat)
@@ -152,9 +169,20 @@ function StructIndividualStatus:calcT2()
 	-- 강화 능력치
 	local reinforce_multi = (self.m_reinforceMulti / 100)
     self.m_reinforceStat = (t0 * reinforce_multi)
-
+    
 	-- 강화 + 직군 + 친밀도 
 	local t1 = t0 + self.m_reinforceStat + self.m_roleStat + self.m_friendshipStat
+
+    self.m_t1 = t1
+
+    self.m_bDirtyT1 = false
+end
+
+-------------------------------------
+-- function calcT2
+-------------------------------------
+function StructIndividualStatus:calcT2()
+    local t1 = self:getT1()
 
     -- 룬 능력치
     local rune_multi = (self.m_runeMulti / 100)
@@ -183,11 +211,7 @@ end
 -- function getBasicStat
 -------------------------------------
 function StructIndividualStatus:getBasicStat()
-    local t1 = (self.m_baseStat +
-                self.m_lvStat + self.m_gradeStat + self.m_evolutionStat + self.m_eclvStat +
-                self.m_roleStat +
-                self.m_friendshipStat +
-                self.m_reinforceStat)
+    local t1 = self:getT1()
     return t1
 end
 
