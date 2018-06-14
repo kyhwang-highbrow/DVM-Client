@@ -70,8 +70,9 @@ function UI_ClanInfoDetailPopup:initUI()
     vars['settingBtn']:setVisible(false) -- 클랜 관리 버튼 숨김
     vars['rankTabBtn']:setVisible(false) -- 랭킹 탭 숨김
     vars['requestMenu']:setVisible(false) -- 가입 승인 UI 숨김
-
     vars['requestNode']:setVisible(true) -- 가입 요청 노드
+
+    vars['noticeLabel']:setString(Str('클랜 소개'))
 
     do -- 게시판 노출하지 않음
         vars['boardMenu']:setVisible(false)
