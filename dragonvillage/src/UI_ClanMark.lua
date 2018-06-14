@@ -10,6 +10,7 @@ UI_ClanMark = class(PARENT, {
         m_bChanged = 'boolean',
      })
 
+local MAX_MARK_CNT = 35
 -------------------------------------
 -- function init
 -------------------------------------
@@ -148,7 +149,7 @@ function UI_ClanMark:init_TableView()
             curr_idx = struct_clan_mark.m_symbolIdx
 
 			-- @custommark 이벤트 커스텀 클랜 마크
-			if (idx == 21) then
+			if (idx == MAX_MARK_CNT + 1) then
 				struct_clan_mark.m_customMark = data['res']
 
 			-- 일반 클랜 마크
@@ -235,7 +236,7 @@ function UI_ClanMark:getTableViewItemList()
 		local name = string.format('%s_%s', g_localData:getServerName(), g_clanData:getClanStruct():getClanName())
 		local path = TableClanMarkCustom:findCustomMarkRes(name)
 		if (path) then
-			table.insert(l_item_list, {['idx'] = 21, ['res'] = name})
+			table.insert(l_item_list, {['idx'] = MAX_MARK_CNT + 1, ['res'] = name})
 		end
 
     elseif (self.m_currTab == 'symbolColor1') then
@@ -263,7 +264,7 @@ function UI_ClanMark:click_listItem(ui, data)
         prev_idx = self.m_structClanMark.m_symbolIdx
 
 		-- @custommark 이벤트 커스텀 클랜 마크
-		if (idx == 21) then
+		if (idx == MAX_MARK_CNT + 1) then
 			self.m_structClanMark.m_customMark = data['res']
 		else
 			self.m_structClanMark.m_customMark = nil
