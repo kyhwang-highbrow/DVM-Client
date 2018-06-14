@@ -216,7 +216,7 @@ function SkillIndicatorMgr:onTouchEnded(touch, event)
             local location = touch:getLocation()
             local node_pos = self.m_touchNode:convertToNodeSpace(location)
 
-            self.m_world.m_gameActiveSkillMgr:addWork(unit, node_pos['x'], node_pos['y'], true)
+            self.m_world.m_gameActiveSkillMgr:addWork(unit, node_pos['x'], node_pos['y'], 'drag')
 
             self:clear()
         end
@@ -238,7 +238,7 @@ function SkillIndicatorMgr:onTouchEnded(touch, event)
             elseif (self.m_touchedHero.m_charType == 'dragon') then
                 local unit = self.m_touchedHero
 
-                self.m_world.m_gameActiveSkillMgr:addWork(unit, nil, nil, true)
+                self.m_world.m_gameActiveSkillMgr:addWork(unit, nil, nil, 'click')
             end
         end
 

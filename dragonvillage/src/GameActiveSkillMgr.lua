@@ -76,6 +76,7 @@ function GameActiveSkillMgr:doWork_dragon(t_data)
     local unit = t_data['unit']
     local pos_x = t_data['pos_x']
     local pos_y = t_data['pos_y']
+    local input_type = t_data['input_type']
 
     --cclog('GameActiveSkillMgr:doWork : ' .. unit:getName() .. '(' .. unit.phys_idx .. ')')
 
@@ -85,7 +86,7 @@ function GameActiveSkillMgr:doWork_dragon(t_data)
     else
         local is_arena = isExistValue(self.m_world.m_gameMode, GAME_MODE_ARENA, GAME_MODE_COLOSSEUM)
 
-        if (not SkillHelper:setIndicatorDataByAuto(unit, is_arena)) then
+        if (not SkillHelper:setIndicatorDataByAuto(unit, is_arena, input_type)) then
             return false
         end
     end
@@ -140,7 +141,7 @@ end
 -- function addWork
 -- @brief 액티브 스킬 사용 등록
 -------------------------------------
-function GameActiveSkillMgr:addWork(unit, pos_x, pos_y, is_touch_event)
+function GameActiveSkillMgr:addWork(unit, pos_x, pos_y, input_type)
     --cclog('GameActiveSkillMgr:addWork : ' .. unit:getName() .. '(' .. unit.phys_idx .. ')')
 
     local active_skill_id = unit:getSkillID('active')
@@ -172,7 +173,7 @@ function GameActiveSkillMgr:addWork(unit, pos_x, pos_y, is_touch_event)
         end
     end
         
-    local t_data = { unit = unit, pos_x = pos_x, pos_y = pos_y, priority = priority }
+    local t_data = { unit = unit, pos_x = pos_x, pos_y = pos_y, priority = priority, input_type = input_type }
     table.insert(self.m_lWork, t_data)
 
     -- 우선 순위대로 정렬
@@ -180,8 +181,8 @@ function GameActiveSkillMgr:addWork(unit, pos_x, pos_y, is_touch_event)
 
     self.m_mWork[unit] = t_data
 
-    -- 터치 이벤트로부터 등록된 경우 다음 프레임까지 멈춘 상태가 되도록 처리
-    if (is_touch_event) then
+    -- 유저 입력으로부터 등록된 경우 다음 프레임까지 멈춘 상태가 되도록 처리
+    if (input_type) then
         -- 일시 정지
         self.m_world:setTemporaryPause(true, nil, INGAME_PAUSE__NEXT_FRAME)
 

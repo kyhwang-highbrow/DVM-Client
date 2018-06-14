@@ -128,7 +128,7 @@ function SkillIndicatorMgr_Intro:onTouchEnded(touch, event)
             local location = touch:getLocation()
             local node_pos = self.m_touchNode:convertToNodeSpace(location)
 
-            self.m_world.m_gameActiveSkillMgr:addWork(unit, node_pos['x'], node_pos['y'], true)
+            self.m_world.m_gameActiveSkillMgr:addWork(unit, node_pos['x'], node_pos['y'], 'drag')
 
             self:clear()
 

@@ -369,7 +369,7 @@ end
 -- function setIndicatorDataByAuto
 -- @brief 해당 유닛의 자동 액티브 스킬을 위한 인디케이터 정보 설정
 -------------------------------------
-function SkillHelper:setIndicatorDataByAuto(unit, is_arena)
+function SkillHelper:setIndicatorDataByAuto(unit, is_arena, input_type)
     local skill_indivisual_info = unit:getSkillIndivisualInfo('active')
     if (not skill_indivisual_info) then return false end
 
@@ -387,7 +387,8 @@ function SkillHelper:setIndicatorDataByAuto(unit, is_arena)
     if (string.find(target_type, 'enemy')) then
         if (is_arena) then
             l_target = unit:getTargetListByType('enemy_arena_attack', nil, target_formation, {
-                ai_type = ai_type
+                ai_type = ai_type,
+                input_type = input_type
             })
             fixed_target = l_target[1]
         else
@@ -397,7 +398,8 @@ function SkillHelper:setIndicatorDataByAuto(unit, is_arena)
     -- 회복형
     else
         l_target = unit:getTargetListByType('ally_arena_heal', nil, target_formation, {
-            ai_type = ai_type
+            ai_type = ai_type,
+            input_type = input_type
         })
         fixed_target = l_target[1]
 

@@ -114,8 +114,6 @@ function SkillResurrect:doStatusEffect(start_con, l_target)
             l_target = l_target or self:findTarget()
         end
         
-        cclog('SkillResurrect:doStatusEffect count : ' .. #l_target)
-
         StatusEffectHelper:doStatusEffectByStruct(self.m_owner, l_target, lStatusEffect, nil, self.m_skillId, add_param)
     end
 end

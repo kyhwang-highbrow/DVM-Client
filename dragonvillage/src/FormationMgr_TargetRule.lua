@@ -315,6 +315,7 @@ function TargetRule_getTargetList_arena_attack(org_list, t_data)
 
 	local self_char = t_data['self']
     local ai_type = t_data['ai_type']
+    local input_type = t_data['input_type']
     local all_invincibility = true
 
     -- 유효 생명력이 낮은 순으로 3명을 찾음
@@ -433,7 +434,7 @@ function TargetRule_getTargetList_arena_attack(org_list, t_data)
     end
 
     -- 모두 무적인 경우
-    if (all_invincibility) then
+    if (all_invincibility and input_type ~= 'click') then
         t_ret = {}
     else
         table.sort(t_ret, sortDescending)
