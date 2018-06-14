@@ -744,7 +744,7 @@ end
 -------------------------------------
 function ForestTerritory:isAllStuffHasReward()
     for _, stuff in pairs(self.m_tStuffTable) do
-        if (not stuff.m_hasReward) then
+        if (not stuff.m_isLock) and (not stuff.m_hasReward) then
             return false
         end
     end
