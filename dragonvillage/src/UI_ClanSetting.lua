@@ -17,7 +17,7 @@ UI_ClanSetting = class(PARENT, {
         m_clanJoinRadioBtn = 'UIC_RadioBtn',
      })
 
-local STR_MAX_LENGTH = 30
+local STR_MAX_LENGTH = 70
 local JOIN_MAX_LV = 70
 
 -------------------------------------
