@@ -80,11 +80,8 @@ function ServerData_Advertising:showAd(ad_type, finish_cb)
     end
 
     self.m_is_fail = false
-    ShowLoading(Str('광고 정보 요청중'))
-
+    
     local function result_cb(ret, info)
-        HideLoading()
-
         -- 광고 시청 완료 -> 보상 처리
         if (ret == 'finish') then
             self:request_adv_reward(ad_type, finish_cb)
