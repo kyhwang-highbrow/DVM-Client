@@ -84,11 +84,16 @@ function UI_ClanMemberListItem:refresh()
     -- 마스터/부마스터 아이콘
     local member_type = user_info:getMemberType()
     vars['masterSprite']:setVisible(member_type ~= 'member')
+    vars['crownSprite']:setVisible(member_type ~= 'member')
 
     -- 멤버 타입 색상
     local color = user_info:getMemberTypeColor()
     vars['positionLabel']:setColor(color)
+    if (member_type ~= 'member') then
+        vars['positionLabel']:setPositionX(144)
+    end
     vars['masterSprite']:setColor(color)
+    vars['crownSprite']:setColor(color)
 
     -- 출석 여부
     local attended = user_info:isTodayAttendance()
