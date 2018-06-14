@@ -80,7 +80,6 @@ function UI_Package_Bundle:refresh()
     local vars = self.vars
     local l_item_list = g_shopDataNew:getProductList('package')
     local target_product = self.m_pids
-    
     if (not target_product) then
         return
     end
@@ -110,6 +109,25 @@ function UI_Package_Bundle:refresh()
         local struct_product = l_item_list[pid]
 
         setLabelString('itemLabel', idx, '')
+
+        -- 다이아 할인 풀팝업 전용 패키지 번들 - 추후 리팩토링 필요함
+        -- 패키지가 아니지만 묶음 처리로 체크를 위해 패키지 번들에 등록한 케이스 
+        if (self.m_package_name == 'event_dia_discount') then
+            local struct_product = g_shopDataNew:getTargetProduct(pid)
+            if (struct_product) then
+                local time_label = vars['timeLabel']
+                local end_date = struct_product:getEndDateStr()
+                if (end_date) and (time_label) then
+                    time_label:setString(end_date)
+                end 
+
+                local discount_value = 20
+                vars['bonusLabel1']:setString(Str('다이아 {1}% 보너스 상품 판매!', discount_value))
+                vars['bonusLabel2']:setString(Str('{1}%\n보너스', discount_value))
+            end
+
+            return
+        end
 
         -- 상품 정보가 없다면 구매제한을 넘겨 서버에서 준 정보가 없는 경우라 판단
         -- 월간 패키지, 주말 패키지는 구매제한 넘겨도 값을 주는데 다른 패키지는 주지 않음?

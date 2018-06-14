@@ -101,6 +101,21 @@ function PackageManager:isExist(package_name)
         end
     end
 
+    -- 패키지가 아니지만 풀팝업을 위해 패키지 번들에 추가한 케이스 (추후 리팩토링 필요) klee 2018-06-14
+    if (package_name == 'event_dia_discount') then
+        local target_product = TablePackageBundle:getPidsWithName(package_name)
+        local is_exist = false
+        for _, pid in ipairs(target_product) do
+            local struct_product = g_shopDataNew:getTargetProduct(tonumber(pid))
+            if (struct_product) and (struct_product:checkMaxBuyCount()) then
+                is_exist = true
+            end
+        end
+
+        return is_exist
+    end
+
+    -- 일반 패키지 검사
     local l_shop_list = g_shopDataNew:getProductList('package')
     local target_product = TablePackageBundle:getPidsWithName(package_name)
     local is_exist = false
@@ -114,7 +129,6 @@ function PackageManager:isExist(package_name)
             is_exist = true
         end
     end
-
 
     return is_exist
 end

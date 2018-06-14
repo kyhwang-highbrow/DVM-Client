@@ -37,15 +37,6 @@ function UI_EventPopupTab_Banner:init(owner, struct_event_popup_tab)
     if (link_btn) then
         link_btn:registerScriptTapHandler(function() self:click_bannerBtn() end)
     end
-
-    -- 다이아 할인 배너는 feature 값을 할인 값으로 가져옴
-    if (res == 'event_dia_discount.ui') then
-        local value = self.m_structBannerData['feature']
-        if (value and value ~= '') then
-            vars['bonusLabel1']:setString(Str('다이아 {1}% 보너스 상품 판매!', value))
-            vars['bonusLabel2']:setString(Str('{1}%\n보너스!', value))
-        end
-    end
 end
 
 -------------------------------------

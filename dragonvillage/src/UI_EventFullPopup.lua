@@ -71,8 +71,18 @@ function UI_EventFullPopup:initUI()
         end
 
     -- 패키지 상품 
-    elseif string.find(popup_key, 'package') then
-        
+    elseif string.find(popup_key, 'package') then     
+        local package_name = popup_key
+        local is_popup = false
+        ui = PackageManager:getTargetUI(package_name, is_popup)
+
+        if (not ui) then
+            -- 이벤트 프로덕트 정보 없을 경우 비활성화라고 생각하고 닫아줌 (주말 패키지)
+            self:close()
+        end
+
+    -- 다이아 할인 상품 풀팝업
+    elseif string.find(popup_key, 'event_dia_discount') then
         local package_name = popup_key
         local is_popup = false
         ui = PackageManager:getTargetUI(package_name, is_popup)
