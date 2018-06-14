@@ -364,5 +364,21 @@ end
 -- @brief 탐험중인 지역이 있다면 true
 -------------------------------------
 function ServerData_Exploration:isExploring()
-    return table.count(self.m_myExplorationList) > 0
+    -- 아예 탐험 중인게 하나도 없음
+    if (table.count(self.m_myExplorationList) == 0) then
+        return false
+    end
+
+    local end_time
+    local server_time = Timer:getServerTime()
+    for i, t_epr in pairs(self.m_myExplorationList) do
+        end_time = (t_epr['end_time'] / 1000)
+        if (end_time - server_time) > 0 then
+            -- 탐험 중이고 하나라도 남은 시간이 있는 경우
+            return true
+        end
+    end
+
+    -- 탐험 중이지만 하나도 남은 시간이 없는 경우
+    return false
 end
