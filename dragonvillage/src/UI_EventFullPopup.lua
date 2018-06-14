@@ -94,6 +94,12 @@ function UI_EventFullPopup:initUI()
         ui = UI_EventPopupTab_Banner(self, struct_data)
         is_btn_lock = false
 
+    -- 수집 이벤트 
+    elseif string.find(popup_key, 'event_exchange') then
+        local inner_ui = UI_ExchangeEvent()
+        local temp_struct_data = StructEventPopupTab({event_type = 'event_exchange'})
+        ui = UI_EventPopupTab_Scroll(self, temp_struct_data, inner_ui)
+
     end
 
     if (ui) and (ui.root) then
