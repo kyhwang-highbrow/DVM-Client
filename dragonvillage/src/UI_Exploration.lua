@@ -100,6 +100,7 @@ function UI_Exploration:click_adBtn()
     -- 탐험 광고 안내 팝업
     local function ok_cb()
         AdManager:showDailyAd(AD_TYPE['EXPLORE'], function()
+            UIManager:toastNotificationGreen(Str('광고 보상을 받았습니다.'))
             g_explorationData:setDirty()
             g_explorationData:request_explorationInfo(function() self:refresh() end)
         end)
