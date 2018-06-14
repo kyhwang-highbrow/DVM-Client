@@ -190,8 +190,10 @@ end
 
 local S_TIER_NAME_MAP = {}
 S_TIER_NAME_MAP['legend']   = Str('레전드')
+S_TIER_NAME_MAP['hero']     = Str('히어로')
 S_TIER_NAME_MAP['master']   = Str('마스터')
 S_TIER_NAME_MAP['diamond']  = Str('다이아')
+S_TIER_NAME_MAP['platinum'] = Str('플래티넘')
 S_TIER_NAME_MAP['gold']     = Str('골드')
 S_TIER_NAME_MAP['silver']   = Str('실버')
 S_TIER_NAME_MAP['bronze']   = Str('브론즈')
