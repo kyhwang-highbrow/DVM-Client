@@ -87,8 +87,8 @@ function GameWorldArena:initGame(stage_name)
     self:initActiveSkillCool(self:getEnemyList())
 
     -- 초기 마나 설정
-    self.m_mUnitGroup[PHYS.HERO]:getMana():addMana(START_MANA + 0.5)
-    self.m_mUnitGroup[PHYS.ENEMY]:getMana():addMana(START_MANA + 0.5)
+    self.m_mUnitGroup[PHYS.HERO]:getMana():addMana(START_MANA_COLOSSEUM)
+    self.m_mUnitGroup[PHYS.ENEMY]:getMana():addMana(START_MANA_COLOSSEUM)
 
     -- 진형 시스템 초기화
     self:setBattleZone(self.m_deckFormation, true)

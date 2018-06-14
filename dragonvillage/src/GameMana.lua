@@ -4,6 +4,7 @@ local security_key = math.random(-6758472,7637467)
 local ACCEL_VALUE = 1
 
 START_MANA = 2
+START_MANA_COLOSSEUM = 2.5
 MAX_MANA = 7
 
 -------------------------------------
