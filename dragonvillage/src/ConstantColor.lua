@@ -97,7 +97,7 @@ COLOR = {
     ['clan_name'] = cc.c3b(237, 114, 255),
     ['clan_master'] = cc.c3b(255, 177, 1),
     ['clan_manager'] = cc.c3b(178, 223, 226),
-    ['clan_member'] = cc.c3b(240, 215, 159),
+    ['clan_member'] = cc.c3b(145, 119, 96), 
     
     -- 유저 정보
     ['user_title'] = cc.c3b(255, 215, 0),
