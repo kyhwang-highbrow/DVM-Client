@@ -4,9 +4,12 @@ local PARENT = class(UI, ITopUserInfo_EventListener:getCloneTable(), ITabUI:getC
 -- class UI_Clan
 -------------------------------------
 UI_Clan = class(PARENT, {
+        m_offset = 'number',
+		m_tableView = 'UIC_TableView',
      })
 
 local NOTICE_MAX_LENGTH = 200 
+local OFFSET_GAP = 20
 -------------------------------------
 -- function initParentVariable
 -- @brief 자식 클래스에서 반드시 구현할 것
@@ -30,6 +33,8 @@ function UI_Clan:init()
     UIManager:open(self, UIManager.SCENE)
 
     self.m_uiName = 'UI_Clan'
+    self.m_offset = 0
+
     -- backkey 지정
     g_currScene:pushBackKeyListener(self, function() self:click_exitBtn() end, 'UI_Clan')
 
@@ -287,7 +292,7 @@ function UI_Clan:initBoardTableView()
     local node = self.vars['boardNode']
 	node:removeAllChildren(true)
 
-	local l_item_list = g_clanData.m_clanBoardInfo
+	local board_data = g_clanData.m_clanBoardInfo
 
     local function make_func(data)
         local ui = UI_ClanBoardListItem(self, data)
@@ -301,8 +306,41 @@ function UI_Clan:initBoardTableView()
     table_view.m_defaultCellSize = cc.size(620, 95)
     table_view:setCellUIClass(make_func)
     table_view:setDirection(cc.SCROLLVIEW_DIRECTION_VERTICAL)
-    table_view:setItemList(l_item_list, true)
+    table_view:setItemList(board_data, true)
     table_view:makeDefaultEmptyDescLabel(Str('첫번째 게시글을 남겨주세요!'))
+
+    -- 테이블 뷰 scroll end callback
+    local l_item_list = table.MapToList(board_data)
+	if (table.count(l_item_list) == OFFSET_GAP) then
+		table_view:setScrollEndCB(function() self:onScrollEnd() end)
+	end
+
+	self.m_tableView = table_view
+end
+
+-------------------------------------
+-- function onScrollEnd
+-- @brief 다음 OFFSET_GAP개 게시물을 가져온다.
+-------------------------------------
+function UI_Clan:onScrollEnd()
+	self.m_offset = self.m_offset + OFFSET_GAP
+
+	local function cb_func(t_ret)
+
+		-- 게시글이 있는 경우 추가
+		if (table.count(t_ret) > 0) then
+            local board_data = g_clanData.m_clanBoardInfo
+			self.m_tableView:mergeItemList(board_data)
+
+		-- 게시글이 없는 경우 콜백 해제
+		else
+			self.m_tableView:setScrollEndCB(nil)
+			self.m_tableView:setDirtyItemList()
+			UIManager:toastNotificationGreen(Str('게시글을 모두 불러왔습니다.'))
+		end
+	end
+    
+	g_clanData:request_boardList(self.m_offset, cb_func)
 end
 
 -------------------------------------
@@ -392,6 +430,22 @@ function UI_Clan:refresh_memberCnt()
     -- 출석
     local str = Str('{1}/{2}', struct_clan:getCurrAttd(), 20)
     vars['attendanceLabel']:setString(str)
+end
+
+-------------------------------------
+-- function requestBoard
+-- @brief 클랜 게시물을 다시 요청하고 초기화한다.
+-------------------------------------
+function UI_Clan:requestBoard()
+	self.m_offset = 0
+
+	local offset = self.m_offset
+
+	local function cb_func()
+		self:refresh()
+	end
+
+	g_boardData:request_dragonBoard(did, offset, order, cb_func)
 end
 
 -------------------------------------

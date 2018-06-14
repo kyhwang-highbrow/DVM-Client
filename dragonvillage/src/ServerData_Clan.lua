@@ -150,7 +150,7 @@ function ServerData_Clan:request_clanInfo(finish_cb, fail_cb)
 
         -- 클랜 게시판 정보
         if ret['clan_board'] then
-            self.m_clanBoardInfo = ret['clan_board']
+            self:makeBoardData(ret['clan_board'])
         end
 
         -- 클랜던전 오픈시간 정보 (락타임일때 필요함)
@@ -1012,6 +1012,16 @@ function ServerData_Clan:checkClanExitTime()
 end
 
 -------------------------------------
+-- function makeBoardData
+-------------------------------------
+function ServerData_Clan:makeBoardData(l_list)
+    for i, v in ipairs(l_list) do
+        local board_no = v['no']
+        self.m_clanBoardInfo[board_no] = v
+    end
+end
+
+-------------------------------------
 -- function request_setAuthority
 -- @brief 클랜원 권한 설정
 -------------------------------------
@@ -1100,7 +1110,7 @@ function ServerData_Clan:request_writeBoard(finish_cb, fail_cb, review_str)
         end
 
         if ret['clan_board'] then
-            self.m_clanBoardInfo = ret['clan_board']
+            self:makeBoardData(ret['clan_board'])
         end
 
         if finish_cb then
@@ -1151,9 +1161,11 @@ function ServerData_Clan:request_deleteBoard(finish_cb, fail_cb, board_id)
         if ret['clan'] then
             self.m_structClan:applySetting(ret['clan'])
         end
-
-        if ret['clan_board'] then
-            self.m_clanBoardInfo = ret['clan_board']
+        
+        for k, v in pairs(self.m_clanBoardInfo) do
+            if (v['id'] == board_id) then
+                self.m_clanBoardInfo[k] = nil
+            end
         end
 
         if finish_cb then
@@ -1183,6 +1195,39 @@ function ServerData_Clan:request_deleteBoard(finish_cb, fail_cb, board_id)
     ui_network:request()
 
     return ui_network
+end
+
+-------------------------------------
+-- function request_boardList
+-------------------------------------
+function ServerData_Clan:request_boardList(offset, cb_func)
+    -- 파라미터
+    local uid = g_userData:get('uid')
+    local clan_object_id = self.m_structClan:getClanObjectID()
+	local offset = offset
+
+    -- 콜백 함수
+    local function success_cb(ret)
+        if ret['clan_board'] then
+            self:makeBoardData(ret['clan_board'])
+        end
+
+		-- 콜백 실행
+		if (cb_func) then
+			cb_func(ret['clan_board'])
+		end
+    end
+
+    -- 네트워크 통신 UI 생성
+    local ui_network = UI_Network()
+    ui_network:setUrl('/clans/board_list')
+    ui_network:setParam('uid', uid)
+	ui_network:setParam('offset', offset)
+    ui_network:setParam('clan_id', clan_object_id)
+    ui_network:setSuccessCB(success_cb)
+    ui_network:setRevocable(false)
+    ui_network:setReuse(false)
+    ui_network:request()
 end
 
 -------------------------------------

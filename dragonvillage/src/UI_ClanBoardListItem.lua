@@ -124,9 +124,15 @@ end
 function UI_ClanBoardListItem:click_deleteBtn(cb_func)
 	local board_id = self.m_tBoard['id']
     local finish_cb = function()
-        self.m_owner:initBoardTableView()
+        local board_data = g_clanData.m_clanBoardInfo
+		self.m_owner.m_tableView:mergeItemList(board_data)
     end
-	g_clanData:request_deleteBoard(finish_cb, nil, board_id)
+
+    local ok_cb = function()
+        g_clanData:request_deleteBoard(finish_cb, nil, board_id)
+    end
+
+    MakeSimplePopup(POPUP_TYPE.YES_NO, Str('해당 게시글을 삭제하시겠습니까?'), ok_cb)
 end
 
 --@CHECK
