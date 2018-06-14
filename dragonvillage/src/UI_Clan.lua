@@ -335,6 +335,13 @@ function UI_Clan:refresh()
     local clan_notice = struct_clan:getClanNoticeText()
     vars['clanNoticeLabel']:setString(clan_notice)
 
+    local member_type = g_clanData:getMyMemberType()
+    if (member_type == 'master') or (member_type == 'manager') then
+        vars['noticeBtn']:setVisible(true)
+    else
+        vars['noticeBtn']:setVisible(false)
+    end
+
     -- 출석
     local str = Str('{1}', struct_clan:getCurrAttd())
     vars['attendanceLabel']:setString(str)

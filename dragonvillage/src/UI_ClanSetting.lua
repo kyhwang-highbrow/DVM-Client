@@ -345,12 +345,24 @@ function UI_ClanSetting:refresh_auth()
     vars['disbandBtn']:setVisible(member_type == 'master')
     vars['leaveBtn']:setVisible(member_type ~= 'master')
 
+    -- 지원 레벨 버튼
+    vars['sliderBar']:setVisible(member_type ~= 'member')
+    vars['quantityBtn1']:setVisible(member_type ~= 'member')
+    vars['quantityBtn2']:setVisible(member_type ~= 'member')
+    vars['quantityBtn3']:setVisible(member_type ~= 'member')
+    vars['quantityBtn4']:setVisible(member_type ~= 'member')
+
     -- 클랜 변경
     if (is_member) then
         local block_msg = Str('클랜원은 변경할 수 없습니다.')
         vars['introduceChangeBtn']:setBlockMsg(block_msg)
         vars['okBtn']:setBlockMsg(block_msg)
         vars['markBtn']:setBlockMsg(block_msg)
+        vars['markBtn']:setBlockMsg(block_msg)
+        vars['contentBtn1']:setBlockMsg(block_msg)
+        vars['contentBtn2']:setBlockMsg(block_msg)
+        vars['contentBtn3']:setBlockMsg(block_msg)
+        vars['contentBtn4']:setBlockMsg(block_msg)
         vars['joinTypeBtn1']:setEnabled(false)
         vars['joinTypeBtn2']:setEnabled(false)
     end
