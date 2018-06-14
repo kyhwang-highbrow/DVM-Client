@@ -113,7 +113,7 @@ function GameAuto:prepare(unit_list)
                     aiAtk = SkillHelper:calcAiAtk(unit, t_skill)
                 end
 
-                self.m_mSkillAiAtk[unit] = aiAtk
+                self.m_mSkillAiAtk[unit] = math_floor(aiAtk)
             end
 
             --cclog('self.m_mSkillAiAttr[' .. unit.m_charTable['t_name'] ..'] = ' .. luadump(self.m_mSkillAiAttr[unit]))
