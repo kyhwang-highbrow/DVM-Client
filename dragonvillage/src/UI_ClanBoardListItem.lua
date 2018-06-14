@@ -36,22 +36,11 @@ function UI_ClanBoardListItem:initUI()
 	local reviewer = string.format('Lv. %d %s', lv, nick)
 	vars['infoLabel']:setString(reviewer)
 
-	-- 테이머 아이콘 갱신 
-	local tid = t_data['tamer']
-	if (tid == 0) then
-		tid = 110002
-	end
-    -- 코스튬 적용
-    local icon
-    local costume_id = t_data['costume']
-    if (costume_id) then
-        icon = IconHelper:getTamerProfileIconWithCostumeID(costume_id)
-    else
-        local type = TableTamer:getTamerType(tid)
-        icon = IconHelper:getTamerProfileIcon(type)
-    end
-
+    -- 대표 드래곤 적용
     vars['profileNode']:removeAllChildren()
+    local t_dragon_data = self.m_tBoard['leader']
+    local card = UI_DragonCard(StructDragonObject(t_dragon_data))
+    local icon = card.root
     if (icon) then
         vars['profileNode']:addChild(icon)
     end

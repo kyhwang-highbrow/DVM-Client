@@ -284,7 +284,6 @@ end
 -- function initBoardTableView
 -------------------------------------
 function UI_Clan:initBoardTableView()
-    local OFFSET_GAP = 10
     local node = self.vars['boardNode']
 	node:removeAllChildren(true)
 
@@ -299,7 +298,7 @@ function UI_Clan:initBoardTableView()
     local table_view = UIC_TableView(node)
 	table_view:setUseVariableSize(true)    -- 가변 사이즈를 쓰기 위해서 선언
 	table_view.m_refreshDuration = 0
-    table_view.m_defaultCellSize = cc.size(625, 155)
+    table_view.m_defaultCellSize = cc.size(620, 95)
     table_view:setCellUIClass(make_func)
     table_view:setDirection(cc.SCROLLVIEW_DIRECTION_VERTICAL)
     table_view:setItemList(l_item_list, true)
