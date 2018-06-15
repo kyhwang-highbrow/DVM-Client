@@ -60,17 +60,17 @@ function UI_ClanBoardPopup_Write:initButton()
         if (strEventName == "return") then
 			-- @TODO 키보드 입력이 종료될 때 텍스트 검증을 한다.
 			local context, is_valid = self:validateEditText()
-			if (is_valid) then
-				-- 비속어 필터링
-				local function proceed_func()
-				end
-				local function cancel_func()
-					vars['editBox']:setText('')
-				end
-				CheckBlockStr(context, proceed_func, cancel_func)
+            if (not is_valid) then
+                return
+            end
+
+			-- 비속어 필터링
+			local function proceed_func()
 			end
-            -- editLabel에 글자를 찍어준다.
-            -- 
+			local function cancel_func()
+				vars['editBox']:setText('')
+			end
+			CheckBlockStr(context, proceed_func, cancel_func)
         end
     end
     vars['editBox']:registerScriptEditBoxHandler(editBoxTextEventHandle)
@@ -131,6 +131,12 @@ end
 -------------------------------------
 function UI_ClanBoardPopup_Write:click_writeBtn()
 	local context = self.vars['editBox']:getText()
+    local str_len = uc_len(context) 
+	if (str_len < BOARD_MIN_LENGTH) then
+		UIManager:toastNotificationGreen(Str('최소 2글자 이상 입력해주세요!'))
+        return
+    end
+
 	local function finish_cb()
 		self:close()
 	end
