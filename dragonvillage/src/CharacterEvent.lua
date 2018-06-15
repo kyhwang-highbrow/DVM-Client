@@ -348,7 +348,7 @@ function Character:onEvent_teammateDead(event_name, t_event, unit)
 
             -- 부활 스킬인 경우 이벤트 주체 대상이 있고 죽었을 경우만 발동
             if (v.m_tSkill['skill_type'] == 'skill_resurrect') then
-                if (unit and unit:isDead()) then
+                if (unit and unit:isDead() and unit.m_bPossibleRevive) then
                     t_data = {
                         target = unit,
                         target_list = { unit }
