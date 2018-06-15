@@ -60,7 +60,7 @@ function UI_ClanTabRank:initTab()
         self:addTabAuto(tab, vars, vars[tab .. 'Node'])
     end
 
-    self:setTab(CLAN_RANK['ANCT'])
+    self:setTab(CLAN_RANK['RAID'])
 end
 
 -------------------------------------
