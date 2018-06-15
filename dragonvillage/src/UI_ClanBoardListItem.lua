@@ -124,8 +124,9 @@ end
 function UI_ClanBoardListItem:click_deleteBtn(cb_func)
 	local board_id = self.m_tBoard['id']
     local finish_cb = function()
-        local board_data = g_clanData.m_clanBoardInfo
-		self.m_owner.m_tableView:mergeItemList(board_data)
+        -- 중간 데이터 꼬일 수 있음. 삭제하면 초기화
+        self.m_owner.m_offset = 0
+        self.m_owner:initBoardTableView()
     end
 
     local ok_cb = function()

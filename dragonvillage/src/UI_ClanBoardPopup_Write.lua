@@ -51,7 +51,7 @@ end
 -------------------------------------
 function UI_ClanBoardPopup_Write:initButton()
 	local vars = self.vars
-	vars['closeBtn']:registerScriptTapHandler(function() self:close() end)
+	vars['closeBtn']:registerScriptTapHandler(function() self:click_closeBtn() end)
 	vars['writeBtn']:registerScriptTapHandler(function() self:click_writeBtn() end)
 	vars['editBtn']:registerScriptTapHandler(function() self:click_editBtn() end)
 

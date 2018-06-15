@@ -296,6 +296,7 @@ function UI_Clan:initBoardTableView()
 
     local function make_func(data)
         local ui = UI_ClanBoardListItem(self, data)
+        ui.vars['container']:setSwallowTouch(false)
         return ui
     end
 
@@ -313,11 +314,21 @@ function UI_Clan:initBoardTableView()
     local l_item_list = table.MapToList(board_data)
 	if (table.count(l_item_list) == OFFSET_GAP) then
 		table_view:setScrollEndCB(function() self:onScrollEnd() end)
-	end
-
+	end        
 	self.m_tableView = table_view
+    self:sortBoardTalbeView()
 end
 
+-------------------------------------
+-- function sortBoardTalbeView
+-------------------------------------
+function UI_Clan:sortBoardTalbeView()
+    local function sort_func(a, b)
+        return a['data']['no'] < b['data']['no']
+    end
+    table.sort(self.m_tableView.m_itemList, sort_func)
+end
+            
 -------------------------------------
 -- function onScrollEnd
 -- @brief 다음 OFFSET_GAP개 게시물을 가져온다.
@@ -331,6 +342,7 @@ function UI_Clan:onScrollEnd()
 		if (table.count(t_ret) > 0) then
             local board_data = g_clanData.m_clanBoardInfo
 			self.m_tableView:mergeItemList(board_data)
+            self:sortBoardTalbeView()
 
 		-- 게시글이 없는 경우 콜백 해제
 		else
