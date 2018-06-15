@@ -303,8 +303,10 @@ function GameAuto:doWork(dt)
                 end
             end
 
-            if (not self.m_curUnit) then
-                self.m_curUnit = list[1]
+            if (PLAYER_VERSUS_MODE[self.m_world.m_gameMode] ~= 'pvp') then
+                if (not self.m_curUnit) then
+                    self.m_curUnit = list[1]
+                end
             end
         end
     end
