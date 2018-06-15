@@ -303,7 +303,14 @@ function GameAuto:doWork(dt)
                 end
             end
 
-            if (PLAYER_VERSUS_MODE[self.m_world.m_gameMode] ~= 'pvp') then
+            if (PLAYER_VERSUS_MODE[self.m_world.m_gameMode] == 'pvp') then
+                if (self.m_teamState == TEAM_STATE.DANGER) then
+                    if (not self.m_curUnit) then
+                        self.m_curUnit = list[1]
+                    end
+                end
+
+            else
                 if (not self.m_curUnit) then
                     self.m_curUnit = list[1]
                 end
