@@ -441,6 +441,7 @@ function TargetRule_getTargetList_arena_attack(org_list, t_data)
     end
 
     -- 로그
+    --[[
     if (isWin32()) then
         cclog('-------------------------------------------------------')
         cclog('[ 아레나 공격 대상 선택 우선순위 계산 결과 ]')
@@ -449,6 +450,7 @@ function TargetRule_getTargetList_arena_attack(org_list, t_data)
         end
         cclog('-------------------------------------------------------')
     end
+    ]]--
 
     return t_ret
 end
@@ -506,6 +508,7 @@ function TargetRule_getTargetList_arena_heal(org_list, t_data)
     table.sort(t_ret, sortDescending)
 
     -- 로그
+    --[[
     if (isWin32()) then
         cclog('-------------------------------------------------------')
         cclog('[ 아레나 회복 대상 선택 우선순위 계산 결과 ]')
@@ -514,6 +517,7 @@ function TargetRule_getTargetList_arena_heal(org_list, t_data)
         end
         cclog('-------------------------------------------------------')
     end
+    ]]--
 
     return t_ret
 end
@@ -568,7 +572,7 @@ function TargetRule_getTargetList_stat(org_list, stat_type, t_data)
 	-- 별도 로직이 필요한 정렬
 	if (target_stat == 'hp') then
         local team_type = t_data['team_type']
-        local is_ally = (team_type == 'ally')
+        local is_ally = (team_type == 'ally' or team_type == 'teammate')
 
 		table.sort(t_ret, function(a, b)
 			local a_stat = a:getHpRate()
@@ -800,52 +804,6 @@ function TargetRule_getTargetList_row(formation_type)
     local t_ret = {}
 
     for i,v in pairs(org_list) do
-        table.insert(t_ret, v)
-    end
-
-    return t_ret
-end
-
--------------------------------------
--- function TargetRule_getTargetList_hp_low
--- @brief 낮은 HP%
--------------------------------------
-function TargetRule_getTargetList_hp_low(org_list)
-    local t_ret = {}
-    local t_sort = {}
-
-    for i,v in pairs(org_list) do
-        v.m_sortValue = v:getHpRate()
-        v.m_sortRandomIdx = v.m_hp
-        table.insert(t_sort, v)
-    end
-
-    table.sort(t_sort, sortAscending)
-
-    for i,v in ipairs(t_sort) do
-        table.insert(t_ret, v)
-    end
-
-    return t_ret
-end
-
--------------------------------------
--- function TargetRule_getTargetList_hp_high
--- @brief 높은 HP%
--------------------------------------
-function TargetRule_getTargetList_hp_high(org_list)
-    local t_ret = {}
-    local t_sort = {}
-
-    for i,v in pairs(org_list) do
-        v.m_sortValue = v:getHpRate()
-        v.m_sortRandomIdx = v.m_hp
-        table.insert(t_sort, v)
-    end
-
-    table.sort(t_sort, sortDescending)
-
-    for i,v in ipairs(t_sort) do
         table.insert(t_ret, v)
     end
 
