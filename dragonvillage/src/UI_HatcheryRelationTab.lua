@@ -1,14 +1,20 @@
-local PARENT = UI_IndivisualTab
+local PARENT = class(UI_IndivisualTab, ITabUI:getCloneTable())
 
 -------------------------------------
 -- class UI_HatcheryRelationTab
 -------------------------------------
 UI_HatcheryRelationTab = class(PARENT,{
-        m_sortManagerDragon = 'SortManager_Dragon',
         m_uicSortList = 'UIC_SortList',
         m_tableViewTD = 'UIC_TableViewTD',
         m_selectedDid = '',
+        m_selectedRarity = '',
     })
+
+-- 탭 자동 등록을 위해 UI 네이밍과 맞춰줌  
+UI_HatcheryRelationTab['LEGEND'] = 'legend'
+UI_HatcheryRelationTab['HERO'] = 'hero'
+UI_HatcheryRelationTab['RARE'] = 'rare'
+UI_HatcheryRelationTab['COMMON'] = 'common'
 
 -------------------------------------
 -- function init
@@ -29,9 +35,9 @@ function UI_HatcheryRelationTab:onEnterTab(first)
 
     if first then
         self:initButton()
+        self:initTab()
         self:init_TableView()
-        self:init_dragonSortMgr()
-
+        
         -- 첫 아이템 클릭
         local t_item = self.m_tableViewTD.m_itemList[1]
         if t_item and t_item['data'] and t_item['data']['did'] then
@@ -56,8 +62,29 @@ function UI_HatcheryRelationTab:init_TableView()
     local list_table_node = self.vars['materialTableViewNode']
     list_table_node:removeAllChildren()
 
+    local table_dragon = TableDragon()
+
     -- 리스트 아이템 생성 콜백
+    local function make_func(data)
+        local did = data['did']
+        local t_dragon = table_dragon:exists(did) and table_dragon:get(did) or nil
+
+        -- 테스트 드래곤 제외
+        if (t_dragon and t_dragon['test'] == 1) then
+            return UI_HatcheryRelationItem(data)
+        else
+            local ui = UI_DragonReinforceItem('empty')
+            ui.root:setScale(0.81)
+            return ui
+        end
+    end
+
     local function create_func(ui, data)
+        local did = data['did']
+        if (not table_dragon:exists(did)) then
+            return
+        end
+
         ui.vars['clickBtn']:registerScriptTapHandler(function() self:click_dragonCard(data['did']) end)
         
         -- 선택되어있는 아이템일 경우
@@ -68,9 +95,9 @@ function UI_HatcheryRelationTab:init_TableView()
 
     -- 테이블뷰 생성
     local table_view_td = UIC_TableViewTD(list_table_node)
-    table_view_td.m_cellSize = cc.size(128 + 12, 166 + 12)
-    table_view_td.m_nItemPerCell = 4
-    table_view_td:setCellUIClass(UI_HatcheryRelationItem, create_func)
+    table_view_td.m_cellSize = cc.size(105 + 8, 135 + 8)
+    table_view_td.m_nItemPerCell = 5
+    table_view_td:setCellUIClass(make_func, create_func)
     self.m_tableViewTD = table_view_td
 
     -- 리스트가 비었을 때
@@ -79,31 +106,39 @@ function UI_HatcheryRelationTab:init_TableView()
     -- 재료로 사용 가능한 리스트를 얻어옴
     local l_dragon_list = self:getDragonList()
     table_view_td:setItemList(l_dragon_list)
+
+    -- did로 정렬
+    local function sort_func(a, b)
+        local a_did = a['data']['did']
+        local b_did = b['data']['did']
+        return a_did < b_did
+    end
+
+    table.sort(table_view_td.m_itemList, sort_func)
 end
 
 -------------------------------------
 -- function getDragonList
 -------------------------------------
 function UI_HatcheryRelationTab:getDragonList()
+    local rarity = self.m_selectedRarity
+    if (not rarity) then
+        return
+    end
+
     local table_dragon = TableDragon()
 
     local function condition_func(t_table)
+        if (t_table['rarity'] ~= rarity) then
+            return false
+        end
+        -- 인연 포인트 값 없을 경우 제외
         if (not t_table['relation_point']) then
             return false
         end
-        
-        local relation_point = tonumber(t_table['relation_point'])
-        if (not relation_point) then
-            return false
-        end
-
-        if (relation_point <= 0) then
-            return false
-        end
-
-        local did = t_table['did']
-        local cur_rpoint = g_bookData:getRelationPoint(did)
-        if (cur_rpoint <= 0) then
+        -- 자코 제외
+        local is_undering = (t_table['underling'] == 1)
+        if (is_undering) then
             return false
         end
 
@@ -111,8 +146,22 @@ function UI_HatcheryRelationTab:getDragonList()
     end
 
     local l_dragon_list = table_dragon:filterTable_condition(condition_func)
-
     local t_ret = {}
+    local t_check = {}
+    for i,v in pairs(l_dragon_list) do
+        local check_id = getDigit(v['did'], 10, 5)
+        if (not t_check[check_id]) then
+            t_check[check_id] = true
+            -- 없는 속성도 테이블 뷰에 표시하기 위해 속성 검사후 임의로 데이터 넣어줌
+            for _i = 1, 5 do
+                local _did = check_id * 10 + _i
+                if (not table_dragon:exists(_did)) then
+                    table.insert(l_dragon_list, {did = _did, birthgrade = 1})
+                end
+            end
+        end
+    end
+    
     for i,v in pairs(l_dragon_list) do
         local t_data = {}
         t_data['did'] = v['did']
@@ -124,55 +173,11 @@ function UI_HatcheryRelationTab:getDragonList()
 end
 
 -------------------------------------
--- function init_dragonSortMgr
--- @brief 정렬 도우미
--------------------------------------
-function UI_HatcheryRelationTab:init_dragonSortMgr()
-    -- 정렬 매니저 생성
-    self.m_sortManagerDragon = SortManager_Dragon()
-
-    -- 정렬 UI 생성
-    local vars = self.vars
-	local is_simple_mode = true
-    local uic_sort_list = MakeUICSortList_dragonManage(vars['sortSelectBtn'], vars['sortSelectLabel'], UIC_SORT_LIST_TOP_TO_BOT, is_simple_mode)
-    self.m_uicSortList = uic_sort_list
-    
-    -- 버튼을 통해 정렬이 변경되었을 경우
-    local function sort_change_cb(sort_type)
-        self.m_sortManagerDragon:pushSortOrder(sort_type)
-        self:apply_dragonSort()
-        --self:save_dragonSortInfo()
-    end
-    uic_sort_list:setSortChangeCB(sort_change_cb)
-
-    -- 오름차순/내림차순 버튼
-    vars['sortSelectOrderBtn']:registerScriptTapHandler(function()
-            local ascending = (not self.m_sortManagerDragon.m_defaultSortAscending)
-            self.m_sortManagerDragon:setAllAscending(ascending)
-            self:apply_dragonSort()
-            --self:save_dragonSortInfo()
-
-            vars['sortSelectOrderSprite']:stopAllActions()
-            if ascending then
-                vars['sortSelectOrderSprite']:runAction(cc.RotateTo:create(0.15, 180))
-            else
-                vars['sortSelectOrderSprite']:runAction(cc.RotateTo:create(0.15, 0))
-            end
-        end)
-
-    -- 세이브데이터에 있는 정렬 값을 적용
-    --self:apply_dragonSort_saveData()
-	uic_sort_list:setSelectSortType('rarity')
-    self:apply_dragonSort()
-end
-
--------------------------------------
 -- function apply_dragonSort
 -- @brief 테이블 뷰에 정렬 적용
 -------------------------------------
 function UI_HatcheryRelationTab:apply_dragonSort()
     local list = self.m_tableViewTD.m_itemList
-    self.m_sortManagerDragon:sortExecution(list)
     self.m_tableViewTD:setDirtyItemList()
 end
 
@@ -282,6 +287,29 @@ end
 function UI_HatcheryRelationTab:initButton()
     local vars = self.vars
     vars['summonBtn']:registerScriptTapHandler(function() self:click_summonBtn() end)
+end
+
+-------------------------------------
+-- function initTab
+-- @brief
+-------------------------------------
+function UI_HatcheryRelationTab:initTab()
+    local vars = self.vars
+    self:addTabAuto(UI_HatcheryRelationTab['LEGEND'], vars)
+    self:addTabAuto(UI_HatcheryRelationTab['HERO'], vars)
+    self:addTabAuto(UI_HatcheryRelationTab['RARE'], vars)
+    self:addTabAuto(UI_HatcheryRelationTab['COMMON'], vars)
+    self:setChangeTabCB(function(tab, first) self:onChangeTab(tab, first) end)
+
+    self:setTab(UI_HatcheryRelationTab['LEGEND'])
+end
+
+-------------------------------------
+-- function onChangeTab
+-------------------------------------
+function UI_HatcheryRelationTab:onChangeTab(tab, first)
+    self.m_selectedRarity = tab
+    self:init_TableView()
 end
 
 -------------------------------------
