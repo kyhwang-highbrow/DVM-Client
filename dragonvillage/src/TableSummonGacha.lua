@@ -68,3 +68,24 @@ function TableSummonGacha:getUIPriority(egg_id)
     local ui_priority = self:getValue(tonumber(egg_id), 'ui_priority')
     return ui_priority or -1
 end
+
+
+-------------------------------------
+-- function getSummonEggList
+-- @brief 소환 가능한 알 리스트 (ui_priority -1 제외)
+-------------------------------------
+function TableSummonGacha:getSummonEggList()
+    if (self == THIS) then
+        self = THIS()
+    end
+
+    local egg_list = {}
+
+    for i, v in pairs(self.m_orgTable) do
+        if (v['ui_priority'] and v['ui_priority'] >= 0) then 
+            table.insert(egg_list, v)
+        end
+    end
+
+    return egg_list
+end

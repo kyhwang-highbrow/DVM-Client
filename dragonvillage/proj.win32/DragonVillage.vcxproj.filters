@@ -3607,6 +3607,12 @@
     <None Include="..\src\LobbyPopup_PackageStepOld.lua">
       <Filter>lua\src</Filter>
     </None>
+    <None Include="..\src\UI_BookEggListItem.lua">
+      <Filter>lua\UI</Filter>
+    </None>
+    <None Include="..\src\UI_BookEgg.lua">
+      <Filter>lua\UI</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Classes">
