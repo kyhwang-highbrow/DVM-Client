@@ -74,7 +74,6 @@ function UI_HatcheryRelationTab:init_TableView()
             return UI_HatcheryRelationItem(data)
         else
             local ui = UI_DragonReinforceItem('empty')
-            ui.root:setScale(0.81)
             return ui
         end
     end
