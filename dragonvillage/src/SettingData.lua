@@ -106,6 +106,10 @@ function SettingData:makeDefaultSettingData()
         t_data['type_2'] = true
         t_data['type_3'] = true
         t_data['type_4'] = true
+        t_data['rarity_1'] = true
+        t_data['rarity_2'] = true
+        t_data['rarity_3'] = true
+        t_data['rarity_4'] = true
         root_table['option_dragon_select'] = t_data
     end
 

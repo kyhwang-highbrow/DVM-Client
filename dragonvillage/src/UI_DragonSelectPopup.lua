@@ -70,6 +70,12 @@ function UI_DragonSelectPopup:initButton()
         vars['attrBtn'..idx] = UIC_CheckBox(vars['attrBtn'..idx].m_node, vars['attrSprite'..idx], active)
         vars['attrBtn'..idx]:registerScriptTapHandler(function() self:click_checkBox() end)
     end
+    -- 희귀도
+    for idx = 1, 4 do
+        local active = g_settingData:get('option_dragon_select', 'rarity_'..idx)
+        vars['rarityBtn'..idx] = UIC_CheckBox(vars['rarityBtn'..idx].m_node, vars['raritySprite'..idx], active)
+        vars['rarityBtn'..idx]:registerScriptTapHandler(function() self:click_checkBox() end)
+    end
     -- 역할
     for idx = 1, 4 do
         local active = g_settingData:get('option_dragon_select', 'type_'..idx)
@@ -256,6 +262,12 @@ function UI_DragonSelectPopup:getDragonList()
     l_attr['earth'] = vars['attrBtn3']:isChecked()
     l_attr['light'] = vars['attrBtn4']:isChecked()
     l_attr['dark'] = vars['attrBtn5']:isChecked()
+    -- 희귀도
+    local l_rarity = {}
+    l_rarity['legend'] = vars['rarityBtn1']:isChecked()
+    l_rarity['hero'] = vars['rarityBtn2']:isChecked()
+    l_rarity['rare'] = vars['rarityBtn3']:isChecked()
+    l_rarity['common'] = vars['rarityBtn4']:isChecked()
     -- 역할
     local l_role = {}
     l_role['tanker'] = vars['typeBtn1']:isChecked()
@@ -268,19 +280,22 @@ function UI_DragonSelectPopup:getDragonList()
     for i,v in pairs(l_dragon) do
         local did = v['did']
         local grade = v['grade']
-        local attr 
+        local attr
+        local rarity 
         local role 
 
         -- 슬라임 추가
         if table_slime:isSlimeID(did) then
             attr = table_slime:getValue(did, 'attr')
             role = table_slime:getValue(did, 'role')
+            rarity = table_slime:getValue(did, 'rarity')
         else
             attr = table_dragon:getValue(did, 'attr')
             role = table_dragon:getValue(did, 'role')
+            rarity = table_dragon:getValue(did, 'rarity')
         end
 
-        if (l_stars[grade] and l_attr[attr] and l_role[role]) then
+        if (l_stars[grade] and l_attr[attr] and l_role[role] and l_rarity[rarity]) then
             l_ret_list[i] = v
         end
     end
@@ -331,6 +346,10 @@ function UI_DragonSelectPopup:onClose()
         -- 속성
         for idx = 1, 5 do
             g_settingData:applySettingData(vars['attrBtn'..idx]:isChecked(), 'option_dragon_select', 'attr_'..idx)
+        end
+        -- 희귀도
+        for idx = 1, 4 do
+            g_settingData:applySettingData(vars['rarityBtn'..idx]:isChecked(), 'option_dragon_select', 'rarity_'..idx)
         end
         -- 역할
         for idx = 1, 4 do
