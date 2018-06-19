@@ -25,9 +25,11 @@ function UI_BookEggListItem:initUI()
     local vars = self.vars
     local t_data = self.m_eggInfo
 
-    -- 알 카드
     local egg_id = t_data['item_id']
-    local ui = UI_ItemCard(tonumber(egg_id))
+    local count = g_eggsData:getEggCount(egg_id) 
+
+    -- 알 카드
+    local ui = UI_ItemCard(tonumber(egg_id), count)
     vars['eggNode']:addChild(ui.root)
 
     -- 알 이름
@@ -39,7 +41,7 @@ function UI_BookEggListItem:initUI()
     vars['eggInfoLabel']:setString(desc)
 
     -- 이동 버튼 활성화/비활성화
-    local is_exist = (g_eggsData:getEggCount(egg_id) > 0)
+    local is_exist = (count > 0)
     vars['moveBtn']:setEnabled(is_exist)
 end
 
@@ -55,7 +57,6 @@ end
 -------------------------------------
 function UI_BookEggListItem:refresh()
 	local vars = self.vars
-	
 end
 
 --@CHECK
