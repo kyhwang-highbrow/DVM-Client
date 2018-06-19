@@ -1024,30 +1024,13 @@ function convertToAnoterNodeSpace(node, target_node)
 end
 
 -------------------------------------
--- function listToScv
--- @brief 리스트 항목을 comma separated value 형태의 문자열로 변환
--------------------------------------
-function listToCsv(list)
-    local str = nil
-    for i,v in ipairs(list) do
-        if (str == nil) then
-            str = tostring(v)
-        else
-            str = str .. ',' .. tostring(v)
-        end
-    end
-
-    return str
-end
-
--------------------------------------
--- function tableToString
+-- function listToString
 -- @brief 리스트 항목을 sep으로 구분된 문자열로 변환
--- @comment table도 가능
 -------------------------------------
-function tableToString(list, sep)
+function listToString(list, sep)
     local str = nil
-    for i,v in pairs(list) do
+
+    for i,v in ipairs(list) do
         if (str == nil) then
             str = tostring(v)
         else
@@ -1056,6 +1039,14 @@ function tableToString(list, sep)
     end
 
     return str
+end
+
+-------------------------------------
+-- function listToCsv
+-- @brief 리스트 항목을 comma separated value 형태의 문자열로 변환
+-------------------------------------
+function listToCsv(list)
+    return listToString(list, ',')
 end
 
 -------------------------------------
