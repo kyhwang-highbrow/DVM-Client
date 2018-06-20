@@ -52,8 +52,12 @@ end
 function LobbyWorldAdapter:init_lobbyMap()
     local parent_node = self.m_lobbyWolrdParentNode
 
-    local lobby_map = LobbyMapFactory:createLobbyWorld(parent_node, self.m_lobbyUI)
-    self.m_lobbyMap = lobby_map
+    
+    if USE_CLAN_LOBBY then
+        self.m_lobbyMap = LobbyMapFactory:createClanLobbyWorld(parent_node, self.m_lobbyUI)
+    else
+        self.m_lobbyMap = LobbyMapFactory:createLobbyWorld(parent_node, self.m_lobbyUI)
+    end
     
     if (not self.m_lobbyManager) then
         return
@@ -65,7 +69,7 @@ function LobbyWorldAdapter:init_lobbyMap()
     
     local t_data = {}
     if (not self.m_lobbyManager.m_playerUserInfo) then -- 위치 랜덤으로 지정 (처음에만)
-        t_data['x'], t_data['y'] = lobby_map:getRandomSpot()
+        t_data['x'], t_data['y'] = self.m_lobbyMap:getRandomSpot()
     end
     self.m_chatClientSocket:changeUserInfo(t_data)
 
@@ -73,14 +77,14 @@ function LobbyWorldAdapter:init_lobbyMap()
     local struct_user_info = self.m_lobbyManager.m_playerUserInfo
     local leader_dragon = g_dragonsData:getLeaderDragon()
     struct_user_info.m_leaderDragonObject = StructDragonObject(leader_dragon)
-    local tamer_bot = lobby_map:makeLobbyTamerBot(struct_user_info)
+    local tamer_bot = self.m_lobbyMap:makeLobbyTamerBot(struct_user_info)
 
     -- 첫 위치 지정
     local x, y = struct_user_info:getPosition()
     tamer_bot:setPosition(x, y)
 
      -- 이벤트 리스터 등록
-    lobby_map:addListener('LobbyMap_CHARACTER_MOVE', self)
+    self.m_lobbyMap:addListener('LobbyMap_CHARACTER_MOVE', self)
 end
 
 -------------------------------------

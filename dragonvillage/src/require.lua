@@ -704,6 +704,7 @@ local t_module = {
     'LobbyMapSpotMgr',
     'LobbyMap',
     'LobbyMapFactory',
+    'LobbyMapFactory_clan',
     'LobbyWorldAdapter',
     'LobbyCharacter',
     'LobbyTamer',
