@@ -498,10 +498,7 @@ function StructProduct:buy(cb_func)
 	-- 단일 구매의 경우 nil로 처리하여 request_buy 내부에서 1로 치환
 	local function ok_cb(count)
         local function finish_cb(ret)
-
-			-- 로비 노티 갱신
-			g_highlightData:setDirty(true)
-
+            
             -- 상품 리스트 갱신이 필요할 경우
             if (g_shopDataNew.m_bDirty == true) then
                 ret['need_refresh'] = true
@@ -509,6 +506,9 @@ function StructProduct:buy(cb_func)
                     if (cb_func) then
 				        cb_func(ret)
 			        end
+
+                    -- 로비 노티 갱신
+			        g_highlightData:setDirty(true)
                 end
                 g_shopDataNew:request_shopInfo(info_refresh_cb)
             else
@@ -516,6 +516,9 @@ function StructProduct:buy(cb_func)
                 if (cb_func) then
 				    cb_func(ret)
 			    end
+
+                -- 로비 노티 갱신
+			    g_highlightData:setDirty(true)
             end
         end
 
