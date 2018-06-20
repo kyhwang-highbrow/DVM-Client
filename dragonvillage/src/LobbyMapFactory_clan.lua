@@ -1,4 +1,4 @@
-USE_CLAN_LOBBY = true
+USE_CLAN_LOBBY = false
 
 -------------------------------------
 -- function createClanLobbyWorld
