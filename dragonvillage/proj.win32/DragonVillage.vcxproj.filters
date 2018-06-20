@@ -3613,6 +3613,9 @@
     <None Include="..\src\UI_BookEgg.lua">
       <Filter>lua\UI</Filter>
     </None>
+    <None Include="..\src\LobbyMapFactory_clan.lua">
+      <Filter>lua\src</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Classes">
