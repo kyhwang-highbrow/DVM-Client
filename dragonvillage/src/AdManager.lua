@@ -87,7 +87,7 @@ function AdManager:start(result_cb)
     end
 
     -- 광고 단위 ID 등록 리스트
-    local l_ad_unit_id = tableToString(ADMOB_AD_UNIT_ID_TABLE, ';')
+    local l_ad_unit_id = listToString(ADMOB_AD_UNIT_ID_TABLE, ';')
 
     -- @adMob
     PerpleSDK:adMobSetResultCallBack(_result_cb)
