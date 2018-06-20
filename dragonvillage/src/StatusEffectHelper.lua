@@ -143,8 +143,14 @@ end
 -- @brief 별도의 타겟을 받아와서 외부에서 상태효과 구조체 생성하여 상태효과 시전
 -------------------------------------
 function StatusEffectHelper:doStatusEffectByStruct(caster, l_skill_target, l_status_effect_struct, cb_invoke, skill_id, add_param)
+    
     -- 시전자가 사망했을 경우 리턴
-    if (caster:isDead()) then return end
+    if (caster:isDead()) then
+        local ignore_caster_dead = add_param and add_param['ignore_caster_dead'] or false
+        if (not ignore_caster_dead) then
+            return
+        end
+    end
 
     local cb_invoke = cb_invoke or function() end
 

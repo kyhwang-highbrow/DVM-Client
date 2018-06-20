@@ -495,6 +495,9 @@ function Skill:doStatusEffect(start_con, l_target)
             l_target = l_target or self:findTarget()
         end
 
+        -- 시전자 사망 여부에 상관없이 적용시키도록 한다
+        add_param['ignore_caster_dead'] = true
+
         StatusEffectHelper:doStatusEffectByStruct(self.m_owner, l_target, lStatusEffect, nil, self.m_skillId, add_param)
     end
 end
