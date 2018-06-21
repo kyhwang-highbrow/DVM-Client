@@ -52,7 +52,6 @@ function GameWorldForDoubleTeam:createComponents()
 
     -- 글로벌 쿨타임
     self.m_gameCoolTime = GameCoolTime(self)
-    self:addListener('set_global_cool_time_passive', self.m_gameCoolTime)
     self:addListener('set_global_cool_time_active', self.m_gameCoolTime)
 
     -- 유닛 그룹별 관리자 생성

@@ -1,8 +1,7 @@
 local PARENT = IEventListener:getCloneClass()
 
 GLOBAL_COOL_TIME = {
-    PASSIVE_SKILL = 1,
-    ACTIVE_SKILL = 2
+    ACTIVE_SKILL = 1
 }
 
 -------------------------------------
@@ -23,11 +22,9 @@ function GameCoolTime:init(world)
     self.m_world = world
 
     self.m_mStartTime = {}
-    self.m_mStartTime[GLOBAL_COOL_TIME.PASSIVE_SKILL] = g_constant:get('INGAME', 'SKILL_GLOBAL_COOLTIME')
     self.m_mStartTime[GLOBAL_COOL_TIME.ACTIVE_SKILL] = g_constant:get('INGAME', 'SKILL_GLOBAL_COOLTIME')
     
     self.m_mRemainTimer = {}
-    self.m_mRemainTimer[GLOBAL_COOL_TIME.PASSIVE_SKILL] = 0
     self.m_mRemainTimer[GLOBAL_COOL_TIME.ACTIVE_SKILL] = 0
 end
 
@@ -58,10 +55,7 @@ function GameCoolTime:onEvent(event_name, t_event, ...)
     local arg = {...}
     local add_time = arg[1] or 0
 
-    if (event_name == 'set_global_cool_time_passive') then
-        self.m_mRemainTimer[GLOBAL_COOL_TIME.PASSIVE_SKILL] = self.m_mStartTime[GLOBAL_COOL_TIME.PASSIVE_SKILL] + add_time
-
-    elseif (event_name == 'set_global_cool_time_active') then
+    if (event_name == 'set_global_cool_time_active') then
         self.m_mRemainTimer[GLOBAL_COOL_TIME.ACTIVE_SKILL] = self.m_mStartTime[GLOBAL_COOL_TIME.ACTIVE_SKILL] + add_time
 
     end

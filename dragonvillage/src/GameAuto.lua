@@ -4,8 +4,7 @@ local WORK_INTERVAL_TIME = 0.5
 -- AI에서 구분하는 현재 상태
 local TEAM_STATE = {
     NORMAL  = 1,
-    DEBUFF  = 2,
-    DANGER  = 3,
+    DANGER  = 2,
 }
 
 -- 상태별 우선순위 AI 속성
@@ -14,12 +13,6 @@ PRIORITY_AI_ATTR[TEAM_STATE.NORMAL] = {}
 PRIORITY_AI_ATTR[TEAM_STATE.NORMAL][1] = SKILL_AI_ATTR__BUFF
 PRIORITY_AI_ATTR[TEAM_STATE.NORMAL][2] = SKILL_AI_ATTR__DEBUFF
 PRIORITY_AI_ATTR[TEAM_STATE.NORMAL][3] = SKILL_AI_ATTR__ATTACK
-
-PRIORITY_AI_ATTR[TEAM_STATE.DEBUFF] = {}
-PRIORITY_AI_ATTR[TEAM_STATE.DEBUFF][1] = SKILL_AI_ATTR__DISPELL
-PRIORITY_AI_ATTR[TEAM_STATE.DEBUFF][2] = SKILL_AI_ATTR__BUFF
-PRIORITY_AI_ATTR[TEAM_STATE.DEBUFF][3] = SKILL_AI_ATTR__DEBUFF
-PRIORITY_AI_ATTR[TEAM_STATE.DEBUFF][4] = SKILL_AI_ATTR__ATTACK
 
 PRIORITY_AI_ATTR[TEAM_STATE.DANGER] = {}
 PRIORITY_AI_ATTR[TEAM_STATE.DANGER][1] = SKILL_AI_ATTR__HEAL
@@ -181,8 +174,6 @@ function GameAuto:doCheck()
     if (nextState ~= TEAM_STATE.DANGER) then
         if (totalHpRate < 0.6) then
             nextState = TEAM_STATE.DANGER
-        --elseif (debuffUnitCount >= 2) then
-        --  nextState = TEAM_STATE.DEBUFF
         end
     end
 
@@ -309,7 +300,6 @@ function GameAuto:doWork(dt)
                         self.m_curUnit = list[1]
                     end
                 end
-
             else
                 if (not self.m_curUnit) then
                     self.m_curUnit = list[1]

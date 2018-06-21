@@ -366,7 +366,6 @@ function GameWorld:bindHero(hero)
     self.m_mUnitGroup[group_key]:joinUnit(hero)
 
     -- 이벤트
-    hero:addListener('set_global_cool_time_passive', self.m_gameCoolTime)
     hero:addListener('set_global_cool_time_active', self.m_gameCoolTime)
     
     -- 월드에서 중계되는 이벤트
@@ -437,7 +436,6 @@ function GameWorld:bindEnemy(enemy)
     enemy:addListener('enemy_appear_done', self.m_gameState)
 
     if (enemy.m_charType == 'dragon') then
-        enemy:addListener('set_global_cool_time_passive', self.m_gameCoolTime)
         enemy:addListener('set_global_cool_time_active', self.m_gameCoolTime)
         enemy:addListener('dragon_active_skill', self)
     end

@@ -56,8 +56,9 @@ function GameAuto_Hero:doWork(dt)
     if (world.m_skillIndicatorMgr:isControlling()) then
         -- 같은 팀이 이미 조작 중인 경우만 막음 처리
         local hero = world.m_skillIndicatorMgr:getControllingHero()
+        local controlling_group = hero:getPhysGroup()
         
-        if (self.m_group == hero:getPhysGroup()) then
+        if (self.m_group == controlling_group) then
             return
         end
     end
