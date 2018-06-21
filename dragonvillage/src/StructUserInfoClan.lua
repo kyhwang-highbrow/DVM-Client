@@ -7,6 +7,7 @@ local PARENT = StructUserInfo
 StructUserInfoClan = class(PARENT, {
         m_bTodayAttendance = 'boolean', -- 오늘 출석 여부
         m_memberType = 'string',
+        m_dungeonInfo = '',
 
         m_lastActiveTime = 'number', -- 최종 활동 시간
         m_lastAcitvePastTime = 'number', -- 현재 시간 - 최종 활동 시간
@@ -46,6 +47,7 @@ function StructUserInfoClan:create(t_data)
     if t_info then
         user_info.m_bTodayAttendance = t_info['attendance']
         user_info.m_memberType = t_info['clan_auth']
+        user_info.m_dungeonInfo = self:makeDungeonInfo(t_info)
     end
 
     return user_info
@@ -168,4 +170,99 @@ end
 -------------------------------------
 function StructUserInfoClan:getLastActiveTime()
     return self.m_lastActiveTime
+end
+
+-------------------------------------
+-- function makeDungeonInfo
+-- @breif 클랜원의 던전 플레이 정보
+-------------------------------------
+function StructUserInfoClan:makeDungeonInfo(data)
+    local t_dungeon = {}
+    -- 콜로세움 플레이 정보
+    t_dungeon['arena_play'] = data['arena_play'] or 0
+    t_dungeon['arena_score'] = data['arena_score'] or 0
+    t_dungeon['arena_tier'] = data['arena_tier'] or 'beginner'
+    t_dungeon['arena_rate'] = data['arena_rate'] or 0
+    t_dungeon['arena_rank'] = data['arena_rank'] or 0
+
+    -- 고대의탑 플레이 정보
+    t_dungeon['ancient_score'] = data['ancient_score'] or 0
+    t_dungeon['ancient_stage'] = data['ancient_stage'] or 1
+
+    -- 클랜던전 플레이 정보
+    t_dungeon['clandungeon_play'] = data['clandungeon_play'] or 0
+    t_dungeon['clandungeon_score'] = data['clandungeon_score'] or 0
+
+    return t_dungeon
+end
+
+-------------------------------------
+-- function getArenaPlayText
+-------------------------------------
+function StructUserInfoClan:getArenaPlayText()
+    local t_dungeon = self.m_dungeonInfo
+    if (not t_dungeon) then 
+        return ''
+    end
+
+    local user_info = StructUserInfoArena()
+    user_info.m_tier = t_dungeon['arena_tier']
+    user_info.m_rank = t_dungeon['arena_rank']
+    user_info.m_rankPercent = t_dungeon['arena_rate']
+
+    local param_1 = Str('콜로세움')
+    local param_2 = user_info:getTierName(t_dungeon['arena_tier'])
+    local param_3 = user_info:getRankText(true)
+    local param_4 = user_info:getRPText()
+
+    -- 번역 추출 안하기 위해 기존 문구 조합으로
+    local str = string.format('{@dark_brown}%s : {@apricot}%s / %s / %s', param_1, param_2, param_3, param_4)
+    return str
+end
+
+-------------------------------------
+-- function getClanDungeonPlayText
+-------------------------------------
+function StructUserInfoClan:getClanDungeonPlayText()
+    local t_dungeon = self.m_dungeonInfo
+    if (not t_dungeon) then 
+        return ''
+    end
+
+    local param_1 = Str('고대의 탑')
+    local param_2 = Str('{1}점', comma_value(t_dungeon['ancient_score']))
+    local param_3 = Str('{1}층', comma_value(t_dungeon['ancient_stage']%100))
+
+    -- 번역 추출 안하기 위해 기존 문구 조합으로
+    local str = string.format('{@dark_brown}%s : {@apricot}%s / %s', param_1, param_2, param_3)
+    return str
+end
+
+-------------------------------------
+-- function getAncientPlayText
+-------------------------------------
+function StructUserInfoClan:getAncientPlayText()
+    local t_dungeon = self.m_dungeonInfo
+    if (not t_dungeon) then 
+        return ''
+    end
+
+    local param_1 = Str('클랜던전')
+    local param_2 = Str('{1}점', comma_value(t_dungeon['clandungeon_score']))
+    local param_3 = Str('{1}회', comma_value(t_dungeon['clandungeon_play']))
+
+    -- 번역 추출 안하기 위해 기존 문구 조합으로
+    local str = string.format('{@dark_brown}%s : {@apricot}%s / %s', param_1, param_2, param_3)
+    return str
+end
+
+-------------------------------------
+-- function getDungeonPlayText
+-------------------------------------
+function StructUserInfoClan:getDungeonPlayText()
+    local param_1 = self:getClanDungeonPlayText()
+    local param_2 = self:getAncientPlayText()
+    local param_3 = self:getArenaPlayText()
+
+    return string.format('%s\n%s\n%s', param_1, param_2, param_3)
 end

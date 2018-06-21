@@ -8,6 +8,7 @@ UI_ClanMemberListItem = class(PARENT, {
         m_refreshCB = 'function',
      })
 
+local DUNGEON_INFO_SHOW_ONLY_MANAGER = true
 -------------------------------------
 -- function init
 -------------------------------------
@@ -120,6 +121,15 @@ function UI_ClanMemberListItem:refresh()
         else
             vars['adminBtn']:setVisible(false)
         end
+    end
+
+    -- 던전 정보
+    local play_text = user_info:getDungeonPlayText()
+    vars['playInfoLabel']:setString(play_text)
+    if (DUNGEON_INFO_SHOW_ONLY_MANAGER) then
+        vars['playInfoNode']:setVisible((my_member_type == 'master') or (my_member_type == 'manager'))
+    else
+        vars['playInfoNode']:setVisible(true)
     end
 
     -- 다른 클랜의 정보를 보는 경우 nil처리를 하였음
