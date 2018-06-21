@@ -1,0 +1,111 @@
+local PARENT = class(UI, ITableViewCell:getCloneTable())
+
+-------------------------------------
+-- class UI_BookDragonCard_Bundle
+-------------------------------------
+UI_BookDragonCard_Bundle = class(PARENT,{
+    	m_data = '',
+        m_owner_ui = '',
+    })
+
+-------------------------------------
+-- function init
+-------------------------------------
+function UI_BookDragonCard_Bundle:init(data, owner_ui)
+    self:load('book_item.ui')
+    self.m_data = data
+    self.m_owner_ui = owner_ui
+
+    self:initUI()
+    self:initButton()
+end
+
+-------------------------------------
+-- function initUI
+-------------------------------------
+function UI_BookDragonCard_Bundle:initUI()
+    local vars = self.vars
+    local data = self.m_data
+    local did = data['did']
+
+    local is_limit = (data['pick_weight'] == 0)
+    local is_cardpack = false
+    local is_undering = (data['underling'] == 1)
+    local is_slime = TableSlime:isSlimeID(did)
+    local table_char = getCharTable(did)
+    local t_char = table_char:get(did)
+
+    -- 드래곤 & 슬라임 이름
+    local name_label = vars['nameLabel']
+    name_label:setString(Str(t_char['t_name']))
+
+    -- 드래곤 & 슬라임 설명
+    local desc = ''
+    if (is_slime) then
+        local type = t_char['material_type']
+        if (type == 'exp') then
+            desc = '{@LIGHTGREEN}'.. Str('경험치 슬라임')
+
+        elseif (type == 'upgrade') then
+            desc = '{@LIGHTGREEN}'.. Str('승급 슬라임')
+
+        elseif (type == 'skill') then
+            desc = '{@LIGHTGREEN}'.. Str('스킬 슬라임')
+        end
+
+    elseif (is_limit) then
+        desc = '{@purple}'.. Str('한정 드래곤')
+
+    elseif (is_cardpack) then
+        desc = '{@purple}'.. Str('카드팩 드래곤')
+
+    else
+        name_label:setPositionY(46)
+    end
+
+    vars['dscLabel']:setString(desc)
+
+    -- 해치 정보만 받아온 상태에서 진화도만 수정하여 해츨링, 성룡 데이터 생성해줌
+    local l_dragon = {}
+
+    local data_hatch = clone(data)
+    table.insert(l_dragon, data_hatch)
+
+    if (not is_undering and not is_slime) then
+        local data_hatchling = clone(data)
+        data_hatchling['evolution'] = 2
+        table.insert(l_dragon, data_hatchling)
+
+        local data_adult = clone(data)
+        data_adult['grade'] = data['grade'] + 1
+        data_adult['evolution'] = 3
+        table.insert(l_dragon, data_adult)
+    end
+
+    for i, _data in ipairs(l_dragon) do
+        local node = vars['dragonNode'..i]
+        if (node) then
+            local card = UI_BookDragonCard(_data)
+            card.root:setSwallowTouch(false)
+            UI_Book.cellCreateCB(card, _data, self.m_owner_ui)
+            node:addChild(card.root)
+        end
+    end
+end
+
+-------------------------------------
+-- function initButton
+-------------------------------------
+function UI_BookDragonCard_Bundle:initButton()
+    local vars = self.vars
+end
+
+-------------------------------------
+-- function refresh
+-------------------------------------
+function UI_BookDragonCard_Bundle:refresh()
+	local vars = self.vars
+end
+
+--@CHECK
+UI:checkCompileError(UI_BookDragonCard_Bundle)

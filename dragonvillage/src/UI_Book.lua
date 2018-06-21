@@ -142,7 +142,8 @@ end
 -------------------------------------
 function UI_Book:makeSortManager()
     local sort_manager = SortManager_Dragon()
-	
+	sort_manager:addPreSortType('object_type_book', false, function(a, b, ascending) return sort_manager:sort_object_type_book(a, b, ascending) end)
+
 	-- did 순, 등급 순, 진화도 순으로 정렬
     sort_manager:pushSortOrder('did')
     sort_manager:pushSortOrder('grade')
@@ -166,7 +167,8 @@ function UI_Book:onChangeOption()
 		return
 	end
 
-    local l_item_list = g_bookData:getBookList(role_option, attr_option)
+    local only_hatch = true
+    local l_item_list = g_bookData:getBookList(role_option, attr_option, only_hatch)
 
     -- 리스트 머지 (조건에 맞는 항목만 노출)
     self.m_tableViewTD:mergeItemList(l_item_list)
@@ -185,24 +187,18 @@ function UI_Book:init_TableViewTD()
     local node = self.vars['dragonListNode']
 
     local l_item_list = {}
-
-	-- cell_size 지정
-    local item_size = 150
-    local item_scale = 0.75
-    local cell_size = cc.size(item_size*item_scale + 12, item_size*item_scale + 12)
-
 	local table_view_td
 
     -- 리스트 아이템 생성 콜백
-    local function create_func(ui, data)
-        self.cellCreateCB(ui, data, self)
+    local function make_func(data)
+        return UI_BookDragonCard_Bundle(data, self)
     end
 
     -- 테이블 뷰 인스턴스 생성
     table_view_td = UIC_TableViewTD(node)
-    table_view_td.m_cellSize = cell_size
-    table_view_td.m_nItemPerCell = 8
-	table_view_td:setCellUIClass(UI_BookDragonCard, create_func)
+    table_view_td.m_cellSize = cc.size(340 + 6, 160 + 6)
+    table_view_td.m_nItemPerCell = 3
+	table_view_td:setCellUIClass(make_func)
     table_view_td:setItemList(l_item_list)
 	
 	table_view_td:setCellCreateInterval(0)
@@ -222,9 +218,6 @@ function UI_Book.cellCreateCB(ui, data, book_ui)
 	local did = data['did']
 	local grade = data['grade']
 	local evolution = data['evolution']
-
-    -- scale 조정
-	ui.root:setScale(0.8)
 
 	-- 수집 여부에 따른 음영 처리
 	if (not g_bookData:isExist(data)) then

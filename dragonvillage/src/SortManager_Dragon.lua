@@ -117,6 +117,28 @@ function SortManager_Dragon:sort_object_type(a, b, ascending)
     end
 end
 
+-------------------------------------
+-- function sort_object_type_book
+-- @brief 도감 정렬 조건 추가 - 오브젝트 타입 (슬라임 뒤로)
+-------------------------------------
+function SortManager_Dragon:sort_object_type_book(a, b, ascending)
+    local a_data = a['data']
+    local b_data = b['data']
+
+    local a_value = self.m_mObjectTypeSortLevel[a_data['bookType']]
+    local b_value = self.m_mObjectTypeSortLevel[b_data['bookType']]
+
+    -- 같을 경우 리턴
+    if (a_value == b_value) then
+        return nil
+    end
+
+    -- 오름차순 or 내림차순
+    if ascending then return a_value < b_value
+    else              return a_value > b_value
+    end
+end
+
 
 -------------------------------------
 -- function sort_did

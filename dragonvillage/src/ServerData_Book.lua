@@ -31,9 +31,10 @@ end
 -------------------------------------
 -- function getBookList
 -------------------------------------
-function ServerData_Book:getBookList(role_type, attr_type)
+function ServerData_Book:getBookList(role_type, attr_type, only_hatch)
     local role_type = (role_type or 'all')
     local attr_type = (attr_type or 'all')
+    local only_hatch = (only_hatch or false) -- 해치 정보만 받음 (도감 묶음 UI에 필요)
 
     local l_ret = {}
 
@@ -63,7 +64,8 @@ function ServerData_Book:getBookList(role_type, attr_type)
 
 			-- 진화도를 만들어준다.
 			else
-				for i = 1, 3 do
+                local max_cnt = only_hatch and 1 or 3
+				for i = 1, max_cnt do
 					local t_dragon = clone(v)
 					local grade_factor = (i == 3) and 1 or 0
 					t_dragon['evolution'] = i

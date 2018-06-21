@@ -1021,6 +1021,7 @@ local t_module = {
 	'UI_BookDetailPopup',
     'UI_BookEgg',
     'UI_BookEggListItem',
+    'UI_BookDragonCard_Bundle',
 
     -- UI : 친구 시스템 관련
     'UI_FriendPopup',
