@@ -74,7 +74,7 @@ function LobbyMapFactory:makeClanLobbyLayer(idx)
 		animator:setAnchorPoint(CENTER_POINT)
 		animator:setPositionX(300)
 		if (res_name == 'clan_lobby_indoor_02_right') then
-			--animator:setAlpha(0.5)
+			animator:setAlpha(0.5)
 		end
 		node:addChild(animator.m_node)
 	end

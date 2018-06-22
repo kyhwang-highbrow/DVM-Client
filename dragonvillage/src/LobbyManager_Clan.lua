@@ -200,7 +200,7 @@ function LobbyManager_Clan:onEvent_CHANGE_USER_INFO(t_event)
         self.m_playerUserInfo:syncSUser(server_user)
     end
 
-    self:dispatch('LobbyManager_Clan_UPDATE_USER', self.m_playerUserInfo)
+    self:dispatch('LobbyManager_UPDATE_USER', self.m_playerUserInfo)
 end
 
 -------------------------------------
@@ -282,7 +282,7 @@ function LobbyManager_Clan:receiveData_S_CHAT_NORMAL_MSG(msg)
         if json then
             --cclogf('from:%s(%s), msg = %s', json['uid'], json['nickname'], json['message'])
 
-            self:dispatch('LobbyManager_Clan_CHAT_NORMAL_MSG', json)
+            self:dispatch('LobbyManager_CHAT_NORMAL_MSG', json)
         end
     end
 end
@@ -306,7 +306,7 @@ function LobbyManager_Clan:receiveData_S_CHARACTER_MOVE(msg)
         struct_user_info.m_tamerPosY = y
         
         -- 이벤트
-        self:dispatch('LobbyManager_Clan_CHARACTER_MOVE', struct_user_info)
+        self:dispatch('LobbyManager_CHARACTER_MOVE', struct_user_info)
     end
 end
 
@@ -434,7 +434,7 @@ function LobbyManager_Clan:addUser(server_user)
 
     -- 새로운 유저
     if is_new_user then
-        self:dispatch('LobbyManager_Clan_ADD_USER', struct_user_info)
+        self:dispatch('LobbyManager_ADD_USER', struct_user_info)
     end
 end
 
@@ -446,7 +446,7 @@ function LobbyManager_Clan:removeUser(uid)
     local struct_user_info = self.m_userInfoList[uid]
 
     if struct_user_info then
-        self:dispatch('LobbyManager_Clan_REMOVE_USER', struct_user_info)
+        self:dispatch('LobbyManager_REMOVE_USER', struct_user_info)
         self.m_userInfoList[uid] = nil
     end
 end
@@ -460,7 +460,7 @@ function LobbyManager_Clan:updateUser(uid, server_user)
 
     if struct_user_info then
         struct_user_info:syncSUser(server_user)
-        self:dispatch('LobbyManager_Clan_UPDATE_USER', struct_user_info)
+        self:dispatch('LobbyManager_UPDATE_USER', struct_user_info)
     end
 end
 

@@ -736,23 +736,30 @@ function LobbyMap:updateUserTamerActionArea()
     -- 현재 로비 타입
     local cur_lobby = g_lobbyChangeMgr:getLobbyType()
 
-    -- 마을 -> 클랜 로비
     if (cur_lobby == LOBBY_TYPE.NORMAL) then
-        -- 클랜 미가입시 입장 불가
-        if (g_clanData:isClanGuest()) then
-            return
-        end
-
+        -- 마을 -> 클랜 로비
         local clan_lobby_spot_pos = self.m_clanLobbySpotPos
+
         if (user_x <= clan_lobby_spot_pos[1] and user_y >= clan_lobby_spot_pos[2]) then
+            -- 클랜 미가입시 입장 불가
+            if (g_clanData:isClanGuest()) then
+                return
+            end
+
             g_lobbyChangeMgr:changeTypeAndGotoLobby(LOBBY_TYPE.CLAN)
         end
 
-    -- 클랜 로비 -> 마을 
-    else
+    elseif (cur_lobby == LOBBY_TYPE.CLAN) then
+        -- 클랜 로비 -> 마을 
         local lobby_spot_pos = self.m_lobbySpotPos
         if (user_x >= lobby_spot_pos[1] and user_y >= lobby_spot_pos[2]) then
             g_lobbyChangeMgr:changeTypeAndGotoLobby(LOBBY_TYPE.NORMAL)
+        end
+
+        if (user_x >= 170 and user_x <= 1200) then
+            
+        else
+
         end
     end
 end
