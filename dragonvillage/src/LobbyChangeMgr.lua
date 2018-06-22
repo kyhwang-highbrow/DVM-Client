@@ -16,7 +16,20 @@ LobbyChangeMgr = class({
 -------------------------------------
 function LobbyChangeMgr:init()
     self.m_bEntering = false
-    self.m_curType = (g_settingData and g_settingData:get('lobby_type')) or LOBBY_TYPE.NORMAL
+
+    -- 로컬에 저장된 경우
+    if (g_settingData:get('lobby_type')) then
+        self.m_curType = g_settingData:get('lobby_type')
+    else
+        -- 저장되지 않은 경우
+        -- 클랜 미가입시 마을 기본
+        if (g_clanData:isClanGuest()) then
+            self.m_curType = LOBBY_TYPE.NORMAL
+        -- 클랜 가입시 클랜 로비 기본
+        else
+            self.m_curType = LOBBY_TYPE.CLAN
+        end
+    end
 end
 
 -------------------------------------
