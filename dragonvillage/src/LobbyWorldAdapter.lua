@@ -51,9 +51,9 @@ end
 -------------------------------------
 function LobbyWorldAdapter:init_lobbyMap()
     local parent_node = self.m_lobbyWolrdParentNode
+    local lobby_type = g_lobbyChangeMgr:getLobbyType()
 
-    
-    if USE_CLAN_LOBBY then
+    if (lobby_type == LOBBY_TYPE.CLAN) then
         self.m_lobbyMap = LobbyMapFactory:createClanLobbyWorld(parent_node, self.m_lobbyUI)
     else
         self.m_lobbyMap = LobbyMapFactory:createLobbyWorld(parent_node, self.m_lobbyUI)
@@ -80,7 +80,16 @@ function LobbyWorldAdapter:init_lobbyMap()
     local tamer_bot = self.m_lobbyMap:makeLobbyTamerBot(struct_user_info)
 
     -- 첫 위치 지정
-    local x, y = struct_user_info:getPosition()
+    local is_lobby_change = g_lobbyChangeMgr:getLobbyEntering()
+    local x, y
+
+    -- 로비가 바뀐 경우 진입점에 가까운 곳에 위치시킴
+    if (is_lobby_change) then
+        g_lobbyChangeMgr.m_bEntering = false
+        x, y = self.m_lobbyMap:getEntrySpot()
+    else
+        x, y = struct_user_info:getPosition()
+    end
     tamer_bot:setPosition(x, y)
 
      -- 이벤트 리스터 등록

@@ -283,6 +283,7 @@ function LobbyMap:update(dt)
     end
 
     self:updateUserTamerArea()
+    self:updateUserTamerActionArea()
 end
 
 -------------------------------------
@@ -679,7 +680,6 @@ end
 -- @brief 유저의 테이머와 상대위치가 특정 거리 이내로 들어온 테이머 봇을 체크
 -------------------------------------
 function LobbyMap:updateUserTamerArea()
-    
     local target_list
 
     -- 유저가 이동하였을 경우 전체 테이머들을 대상
@@ -722,9 +722,39 @@ function LobbyMap:updateUserTamerArea()
         end
     end
 
-
     self.m_bUserPosDirty = false
     self.m_lChangedPosTamers = {}
+end
+
+-------------------------------------
+-- function updateUserTamerActionArea
+-- @brief 유저의 테이머가 특정 위치에 도착하면 Action 발생
+-------------------------------------
+function LobbyMap:updateUserTamerActionArea()
+    -- 유저 테이머의 위치
+    local user_x, user_y = self.m_targetTamer.m_rootNode:getPosition()
+    -- 현재 로비 타입
+    local cur_lobby = g_lobbyChangeMgr:getLobbyType()
+
+    -- 마을 -> 클랜 로비
+    if (cur_lobby == LOBBY_TYPE.NORMAL) then
+        -- 클랜 미가입시 입장 불가
+        if (g_clanData:isClanGuest()) then
+            return
+        end
+
+        local clan_lobby_spot_pos = self.m_clanLobbySpotPos
+        if (user_x <= clan_lobby_spot_pos[1] and user_y >= clan_lobby_spot_pos[2]) then
+            g_lobbyChangeMgr:changeTypeAndGotoLobby(LOBBY_TYPE.CLAN)
+        end
+
+    -- 클랜 로비 -> 마을 
+    else
+        local lobby_spot_pos = self.m_lobbySpotPos
+        if (user_x >= lobby_spot_pos[1] and user_y >= lobby_spot_pos[2]) then
+            g_lobbyChangeMgr:changeTypeAndGotoLobby(LOBBY_TYPE.NORMAL)
+        end
+    end
 end
 
 -------------------------------------

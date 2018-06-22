@@ -420,6 +420,8 @@ function UI_ClanSetting:click_disbandBtn()
     popup_func = function()
         local msg = Str('클랜이 해체되었습니다.')
         MakeSimplePopup(POPUP_TYPE.OK, msg, finish_cb)
+
+        g_lobbyChangeMgr:changeTypeAndGotoLobby(LOBBY_TYPE.NORMAL)
     end
 
     finish_cb = function(ret)
@@ -456,6 +458,8 @@ function UI_ClanSetting:click_leaveBtn()
     popup_func = function()
         local msg = Str('클랜에서 탈퇴하였습니다.')
         MakeSimplePopup(POPUP_TYPE.OK, msg, finish_cb)
+
+        g_lobbyChangeMgr:changeTypeAndGotoLobby(LOBBY_TYPE.NORMAL)
     end
 
     finish_cb = function(ret)

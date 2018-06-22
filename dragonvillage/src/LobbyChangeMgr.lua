@@ -1,0 +1,125 @@
+LOBBY_TYPE = {
+    NORMAL = 1,
+    CLAN = 2,
+}
+
+-------------------------------------
+-- class LobbyChangeMgr
+-------------------------------------
+LobbyChangeMgr = class({
+        m_bEntering = 'boolean', -- 로비 변경 후 최초 진입인가
+        m_curType = 'LOBBY_TYPE',
+    })
+
+-------------------------------------
+-- function init
+-------------------------------------
+function LobbyChangeMgr:init()
+    self.m_bEntering = false
+    self.m_curType = (g_settingData and g_settingData:get('lobby_type')) or LOBBY_TYPE.NORMAL
+end
+
+-------------------------------------
+-- function getInstance
+-------------------------------------
+function LobbyChangeMgr:getInstance()
+    if g_lobbyChangeMgr then
+        return g_lobbyChangeMgr
+    end
+
+    g_lobbyChangeMgr = LobbyChangeMgr()
+
+    return g_lobbyChangeMgr
+end
+
+-------------------------------------
+-- function getLobbyType
+-------------------------------------
+function LobbyChangeMgr:getLobbyType()
+    return self.m_curType
+end
+
+-------------------------------------
+-- function getLobbyEntering
+-------------------------------------
+function LobbyChangeMgr:getLobbyEntering()
+    return self.m_bEntering
+end
+
+-------------------------------------
+-- function getChatClientSocket
+-- @brief 로비별 연결될 채팅 서버
+-------------------------------------
+function LobbyChangeMgr:getChatClientSocket()
+    local type = self.m_curType
+
+    if (type == LOBBY_TYPE.NORMAL) then
+        return g_chatClientSocket
+
+    elseif (type == LOBBY_TYPE.CLAN) then
+        return g_clanChatClientSocket
+    end
+end
+
+-------------------------------------
+-- function getLobbyManager
+-- @brief 로비별 연결될 로비 매니저
+-------------------------------------
+function LobbyChangeMgr:getLobbyManager()
+    local type = self.m_curType
+
+    if (type == LOBBY_TYPE.NORMAL) then
+        return g_lobbyManager
+
+    elseif (type == LOBBY_TYPE.CLAN) then
+        return g_clanLobbyManager
+    end
+end
+
+-------------------------------------
+-- function changeTypeAndGotoLobby
+-- @brief 로비 타입 변경후 변경된 로비 진입
+-------------------------------------
+function LobbyChangeMgr:changeTypeAndGotoLobby(type)
+    if (self.m_curType == type) then
+        return
+    end
+
+    self:changeType(type)
+    self.m_bEntering = true
+
+    UI_BlockPopup()
+
+    local use_loading = true
+    local scene = SceneLobby(use_loading)
+    scene:runScene()
+end
+
+-------------------------------------
+-- function changeType
+-------------------------------------
+function LobbyChangeMgr:changeType(type)
+    local invalid = true
+    for _, _type in pairs(LOBBY_TYPE) do
+        if (type == _type) then
+            invalid = false
+            break
+        end
+    end
+
+    if (invalid) then
+        error('정의되지 않은 LOBBY_TYPE : '..type)
+    end
+
+    if (type == LOBBY_TYPE.CLAN) then
+        -- 클랜 미가입시 강제로 변경
+        if (g_clanData:isClanGuest()) then
+            type = LOBBY_TYPE.NORMAL
+        end
+    end
+
+    self.m_curType = type
+
+    -- 로컬에 저장
+    g_settingData:applySettingData(type, 'lobby_type')
+end

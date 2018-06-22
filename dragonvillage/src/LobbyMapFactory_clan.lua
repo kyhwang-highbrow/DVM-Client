@@ -1,5 +1,3 @@
-USE_CLAN_LOBBY = false
-
 -------------------------------------
 -- function createClanLobbyWorld
 -------------------------------------
@@ -143,25 +141,31 @@ function LobbyMapFactory:makeClanLobbyObjectLayer(object_type)
     node:setDockPoint(CENTER_POINT)
     node:setAnchorPoint(CENTER_POINT)
 
+    local test_ani = {'dede', 'blank', 'durun', 'goni', 'kesaths', 'mokoji', 'nuri'}
+
 	if (object_type == 'bed_b') then
 		for i = 1, 4 do
-			local animator = MakeAnimator('res/character/tamer/durun_sleep/durun_sleep_l.spine')
+			local animator = MakeAnimator('res/character/tamer/tamer_sleep_l/tamer_sleep_l.spine')
 			animator:setPosition(L_BACK_BED[i], 50)
+            animator:changeAni(test_ani[math_random(1, 7)], true)
 			node:addChild(animator.m_node)
 
-			local animator = MakeAnimator('res/character/tamer/dede_sleep/dede_sleep_h.spine')
+			local animator = MakeAnimator('res/character/tamer/tamer_sleep_h/tamer_sleep_h.spine')
 			animator:setPosition(L_BACK_BED[i], 50)
+            animator:changeAni(test_ani[math_random(1, 7)], true)
 			node:addChild(animator.m_node)
 		end
 
 	elseif (object_type == 'bed_f') then
 		for i = 1, 6 do
-			local animator = MakeAnimator('res/character/tamer/dede_sleep/dede_sleep_l.spine')
+			local animator = MakeAnimator('res/character/tamer/tamer_sleep_l/tamer_sleep_l.spine')
 			animator:setPosition(L_FRONT_BED[i], -320)
+            animator:changeAni(test_ani[math_random(1, 7)], true)
 			node:addChild(animator.m_node)
 
-			local animator = MakeAnimator('res/character/tamer/durun_sleep/durun_sleep_h.spine')
+			local animator = MakeAnimator('res/character/tamer/tamer_sleep_h/tamer_sleep_h.spine')
 			animator:setPosition(L_FRONT_BED[i], -320)
+            animator:changeAni(test_ani[math_random(1, 7)], true)
 			node:addChild(animator.m_node)
 		end
 

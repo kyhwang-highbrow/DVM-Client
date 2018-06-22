@@ -3619,6 +3619,9 @@
     <None Include="..\src\UI_BookDragonCard_Bundle.lua">
       <Filter>lua\UI</Filter>
     </None>
+    <None Include="..\src\LobbyChangeMgr.lua">
+      <Filter>lua\src</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Classes">

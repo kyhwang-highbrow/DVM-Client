@@ -5,6 +5,9 @@
 LobbyMapSpotMgr = {
         m_lSpotPos = 'list',
         m_mapUsedSpotPos = 'table',
+
+        m_lobbySpotPos = 'table',
+        m_clanLobbySpotPos = 'table',
     }
 
 -------------------------------------
@@ -34,6 +37,9 @@ function LobbyMapSpotMgr:init()
     self.m_lSpotPos[20] = {1792, -214}
 
     self.m_mapUsedSpotPos = {}
+
+    self.m_lobbySpotPos = {2300, -220} -- 클랜로비 -> 마을 진입점
+    self.m_clanLobbySpotPos = {-1740, -220} -- 마을 -> 클랜로비 진입점
 end
 
 -------------------------------------
@@ -73,7 +79,6 @@ end
 -- @breif 정해진 spot에 한 key만 해당 위치를 가질 수 있도록
 -------------------------------------
 function LobbyMapSpotMgr:getRandomSpot(key)
-
     -- 임시로 사용
     if (not key) then
         local spot_cnt = #self.m_lSpotPos
@@ -106,6 +111,27 @@ function LobbyMapSpotMgr:getRandomSpot(key)
     self.m_mapUsedSpotPos[key] = ret_pos
 
     return ret_pos
+end
+
+-------------------------------------
+-- function getEntrySpot
+-- @breif 로비 전환시 진입 포지션 
+-------------------------------------
+function LobbyMapSpotMgr:getEntrySpot()
+    local lobby_type = g_lobbyChangeMgr:getLobbyType()
+    local x, y
+
+    local random_range = 60
+    if (lobby_type == LOBBY_TYPE.NORMAL) then
+        x = self.m_clanLobbySpotPos[1] + (random_range + 50) 
+        y = self.m_clanLobbySpotPos[2] + math_random(-random_range, random_range)
+
+    elseif (lobby_type == LOBBY_TYPE.CLAN) then
+        x = self.m_lobbySpotPos[1] - (random_range + 250) 
+        y = self.m_lobbySpotPos[2] + math_random(-random_range, random_range)
+    end
+
+    return x, y
 end
 
 -------------------------------------

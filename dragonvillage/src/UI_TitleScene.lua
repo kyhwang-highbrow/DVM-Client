@@ -179,6 +179,9 @@ function UI_TitleScene:initChatClientSocket_Clan()
     local t_data = self:makeUserDataForChatSocket()
     chat_client_socket:setUserInfo(t_data)
 
+    -- 전역 변수로 설정
+    g_clanChatClientSocket = chat_client_socket
+
     do -- 클랜 로비 매니저 생성
         LobbyManager_Clan:initInstance()
         g_clanLobbyManager:setChatClientSocket(chat_client_socket)
@@ -444,6 +447,9 @@ function UI_TitleScene:workLoading()
         co:yield()
 
         ScenarioViewingHistory:getInstance()
+        co:yield()
+
+        LobbyChangeMgr:getInstance()
         co:yield()
 
         -- 다음 work로 이동
