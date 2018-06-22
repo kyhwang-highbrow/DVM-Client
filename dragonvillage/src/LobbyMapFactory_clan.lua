@@ -8,7 +8,6 @@ function LobbyMapFactory:createClanLobbyWorld(parent_node, ui_lobby)
 	self:chcekDayOrNight()
 
     local lobby_map = LobbyMap(parent_node)
-    self.m_lobbyMap = lobby_map
 	lobby_map:setContainerSize(1800*2+1200, 960)
 
 	lobby_map:addLayer(self:makeClanLobbyLayer(5), 0.9) -- outdoor 호수 하늘

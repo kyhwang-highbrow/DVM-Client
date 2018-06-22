@@ -11,7 +11,6 @@ function LobbyMapFactory:createLobbyWorld(parent_node, ui_lobby)
 	self:chcekDayOrNight()
 
     local lobby_map = LobbyMap(parent_node)
-    self.m_lobbyMap = lobby_map
     lobby_map:setContainerSize(1280*3, 960)
     
     lobby_map:addLayer(self:makeLobbyLayer(4), 0.7) -- 하늘
