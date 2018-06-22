@@ -28,8 +28,7 @@ function UI_BookDragonCard_Bundle:initUI()
     local data = self.m_data
     local did = data['did']
     local is_slime = TableSlime:isSlimeID(did)
-
-    local is_cardpack = is_slime and false or (data['c_coupon'] > 0) -- 카드팩 드래곤인지
+    local is_cardpack = data['c_coupon'] and (data['c_coupon'] > 0) or false -- 카드팩 드래곤인지
     local is_limit = (data['pick_weight'] == 0) -- 한정 드래곤인지
     local is_undering = is_slime and false or (data['underling'] == 1) -- 자코인지
     local table_char = getCharTable(did)
