@@ -208,6 +208,7 @@ function StructUserInfoClan:getArenaPlayText()
     local user_info = StructUserInfoArena()
     user_info.m_tier = t_dungeon['arena_tier']
     user_info.m_rank = t_dungeon['arena_rank']
+    user_info.m_rp = t_dungeon['arena_score']
     user_info.m_rankPercent = t_dungeon['arena_rate']
 
     local param_1 = Str('콜로세움')
