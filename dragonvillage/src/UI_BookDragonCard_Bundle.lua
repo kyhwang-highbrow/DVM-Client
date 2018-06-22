@@ -27,11 +27,11 @@ function UI_BookDragonCard_Bundle:initUI()
     local vars = self.vars
     local data = self.m_data
     local did = data['did']
-
-    local is_limit = (data['pick_weight'] == 0)
-    local is_cardpack = false
-    local is_undering = (data['underling'] == 1)
     local is_slime = TableSlime:isSlimeID(did)
+
+    local is_cardpack = is_slime and false or (data['c_coupon'] > 0) -- 카드팩 드래곤인지
+    local is_limit = (data['pick_weight'] == 0) -- 한정 드래곤인지
+    local is_undering = is_slime and false or (data['underling'] == 1) -- 자코인지
     local table_char = getCharTable(did)
     local t_char = table_char:get(did)
 
@@ -52,12 +52,12 @@ function UI_BookDragonCard_Bundle:initUI()
         elseif (type == 'skill') then
             desc = '{@LIGHTGREEN}'.. Str('스킬 슬라임')
         end
+    
+    elseif (is_cardpack) then
+        desc = '{@purple}'.. Str('카드팩 드래곤')
 
     elseif (is_limit) then
         desc = '{@purple}'.. Str('한정 드래곤')
-
-    elseif (is_cardpack) then
-        desc = '{@purple}'.. Str('카드팩 드래곤')
 
     else
         name_label:setPositionY(46)
