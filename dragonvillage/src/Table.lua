@@ -331,6 +331,17 @@ function TABLE:loadTableFile(filename, extension)
         end
     end
 
+    -- lua stand alone에서 사용할 경우
+    if (not content) then
+        local path = filename .. extension
+        if LuaBridge:isFileExist(path) then
+            local filePath = LuaBridge:fullPathForFilename(path)
+            if (filePath ~= path) then
+                content = LuaBridge:getStringFromFile(filePath)
+            end
+        end
+    end
+
     return content
 end
 
