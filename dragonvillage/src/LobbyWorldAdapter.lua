@@ -53,11 +53,7 @@ function LobbyWorldAdapter:init_lobbyMap()
     local parent_node = self.m_lobbyWolrdParentNode
     local lobby_type = g_lobbyChangeMgr:getLobbyType()
 
-    if (lobby_type == LOBBY_TYPE.CLAN) then
-        self.m_lobbyMap = LobbyMapFactory:createClanLobbyWorld(parent_node, self.m_lobbyUI)
-    else
-        self.m_lobbyMap = LobbyMapFactory:createLobbyWorld(parent_node, self.m_lobbyUI)
-    end
+    self.m_lobbyMap = g_lobbyChangeMgr:getLobbyMap(parent_node, self.m_lobbyUI)
     
     if (not self.m_lobbyManager) then
         return
@@ -123,7 +119,6 @@ end
 -- function onEvent
 -------------------------------------
 function LobbyWorldAdapter:onEvent(event_name, t_event, ...)
-
     -- 유저 입장
     if (event_name == 'LobbyManager_ADD_USER') then
         local struct_user_info = t_event
@@ -132,12 +127,14 @@ function LobbyWorldAdapter:onEvent(event_name, t_event, ...)
         -- 첫 위치 지정
         local x, y = struct_user_info:getPosition()
         tamer_bot:setPosition(x, y)
+        self.m_lobbyMap:updateLobbyObject(struct_user_info)
 
     -- 유저 퇴장
     elseif (event_name == 'LobbyManager_REMOVE_USER') then
         local struct_user_info = t_event
         local uid = struct_user_info:getUid()
         self.m_lobbyMap:removeLobbyTamer(uid)
+        self.m_lobbyMap:updateLobbyObject(struct_user_info)
 
     -- 유저 이동
     elseif (event_name == 'LobbyManager_CHARACTER_MOVE') then

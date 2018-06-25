@@ -18,6 +18,10 @@ LobbyManager_Clan = class(PARENT, {
         m_lobbyChannelName = 'string',
         m_playerUserInfo = 'StructUserInfo',
         m_userInfoList = 'StructUserInfo(List)',
+
+        -- 접속 여부에 따라 달라지는 침대 (위, 아래 20명)
+        m_bedResList = 'list',
+        m_mapMemberBedRes = 'map',
     })
 
 -------------------------------------
@@ -37,6 +41,7 @@ end
 -- @brief 생성자
 -------------------------------------
 function LobbyManager_Clan:init()
+    
 end
 
 -------------------------------------
@@ -142,8 +147,103 @@ function LobbyManager_Clan:requestCharacterMove(x, y)
 end
 
 
+-------------------------------------
+-- function clearBedRes
+-- @brief 침대 리소스 제어를 위해 리스트로 관리
+-------------------------------------
+function LobbyManager_Clan:clearBedRes()
+    self.m_bedResList = {}
+end
 
+-------------------------------------
+-- function addBedRes
+-- @brief 침대 리소스 제어를 위해 리스트로 관리
+-------------------------------------
+function LobbyManager_Clan:addBedRes(res)
+    table.insert(self.m_bedResList, res)
+end
 
+-------------------------------------
+-- function applyBedRes
+-- @brief 클랜원들에게 침대 리소스 할당
+-------------------------------------
+function LobbyManager_Clan:applyBedRes()
+    self.m_mapMemberBedRes = {}
+
+    local struct_clan = g_clanData.m_structClan
+    if (not struct_clan) then
+        return
+    end
+
+    local map_member = struct_clan.m_memberList
+    if (not map_member) then
+        return
+    end
+
+    -- 랜덤하게 배치 시키기 위함
+    randomShuffle(self.m_bedResList)
+
+    for _, res in ipairs(self.m_bedResList) do
+        for uid, member in pairs(map_member) do
+            if (not self.m_mapMemberBedRes[uid]) then
+                self.m_mapMemberBedRes[uid] = res
+                break
+            end
+        end
+    end
+
+    self:changeBedRes()
+end
+    
+-------------------------------------
+-- function changeBedRes
+-- @brief 클랜원 접속을 체크하여 침대 리소스 변경
+-------------------------------------
+function LobbyManager_Clan:changeBedRes()
+    local struct_clan = g_clanData.m_structClan
+    if (not struct_clan) then
+        return
+    end
+
+    local map_member = struct_clan.m_memberList
+    if (not map_member) then
+        return
+    end
+    
+    local l_connect_user = self.m_userInfoList
+    local player_uid = g_userData:get('uid')
+    for uid, member in pairs(map_member) do
+        local is_connect = false
+        -- 채팅서버 접속 체크
+        for _uid, user in pairs(l_connect_user) do
+            if (uid == _uid) then 
+                is_connect = true
+            end
+        end
+        -- 본인은 항상 접속해있음
+        if (uid == player_uid) then
+            is_connect = true
+        end
+
+        local tar_res = self.m_mapMemberBedRes[uid]
+        if (not tar_res) then
+            break
+        end
+
+        -- 접속중이면 빈침대 
+        if (is_connect) then 
+            tar_res:changeAni('blank', true)
+
+        -- 미접속시 대표 테이머 누워있음
+        else 
+            local tid = member.m_tamerID
+            local tamer_type = TableTamer:getTamerType(tid)
+            if (tamer_type) then
+                tar_res:changeAni(tamer_type, true)
+            end
+        end
+    end
+end
 
 
 
@@ -446,8 +546,8 @@ function LobbyManager_Clan:removeUser(uid)
     local struct_user_info = self.m_userInfoList[uid]
 
     if struct_user_info then
-        self:dispatch('LobbyManager_REMOVE_USER', struct_user_info)
         self.m_userInfoList[uid] = nil
+        self:dispatch('LobbyManager_REMOVE_USER', struct_user_info)
     end
 end
 

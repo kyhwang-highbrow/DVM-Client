@@ -389,9 +389,7 @@ function ServerData_User:request_changeNick(mid, code, nick, cb_func)
         self:applyServerData(nick, 'nick')
 
         -- 채팅 서버에 변경사항 적용
-        if g_chatClientSocket then
-            g_chatClientSocket:globalUpdatePlayerUserInfo()
-        end
+        g_lobbyChangeMgr:globalUpdatePlayerUserInfo()
 
 		if (cb_func) then
 			cb_func(ret)
@@ -466,9 +464,7 @@ function ServerData_User:request_setTitle(title_id, cb_func)
         self:applyServerData(ret['tamer_title'], 'tamer_title')
 
         -- 채팅 서버에 변경사항 적용
-        if g_chatClientSocket then
-            g_chatClientSocket:globalUpdatePlayerUserInfo()
-        end
+        g_lobbyChangeMgr:globalUpdatePlayerUserInfo()
 
         if (cb_func) then
             cb_func()

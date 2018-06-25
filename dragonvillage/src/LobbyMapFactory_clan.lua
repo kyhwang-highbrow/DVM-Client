@@ -4,6 +4,7 @@
 function LobbyMapFactory:createClanLobbyWorld(parent_node, ui_lobby)
 
 	self:chcekDayOrNight()
+    g_clanLobbyManager:clearBedRes()
 
     local lobby_map = LobbyMap(parent_node)
 	lobby_map:setContainerSize(1800*2+1200, 960)
@@ -26,6 +27,7 @@ function LobbyMapFactory:createClanLobbyWorld(parent_node, ui_lobby)
 	lobby_map.getGroundRange = function()
 		return -2400, 2400, -300, -80
 	end
+    g_clanLobbyManager:applyBedRes() 
 
     return lobby_map
 end
@@ -141,32 +143,34 @@ function LobbyMapFactory:makeClanLobbyObjectLayer(object_type)
     node:setDockPoint(CENTER_POINT)
     node:setAnchorPoint(CENTER_POINT)
 
-    local test_ani = {'dede', 'blank', 'durun', 'goni', 'kesaths', 'mokoji', 'nuri'}
-
 	if (object_type == 'bed_b') then
 		for i = 1, 4 do
 			local animator = MakeAnimator('res/character/tamer/tamer_sleep_l/tamer_sleep_l.spine')
 			animator:setPosition(L_BACK_BED[i], 50)
-            animator:changeAni(test_ani[math_random(1, 7)], true)
+            animator:changeAni('blank', true)
 			node:addChild(animator.m_node)
+            g_clanLobbyManager:addBedRes(animator)
 
 			local animator = MakeAnimator('res/character/tamer/tamer_sleep_h/tamer_sleep_h.spine')
 			animator:setPosition(L_BACK_BED[i], 50)
-            animator:changeAni(test_ani[math_random(1, 7)], true)
+            animator:changeAni('blank', true)
 			node:addChild(animator.m_node)
+            g_clanLobbyManager:addBedRes(animator)
 		end
 
 	elseif (object_type == 'bed_f') then
 		for i = 1, 6 do
 			local animator = MakeAnimator('res/character/tamer/tamer_sleep_l/tamer_sleep_l.spine')
 			animator:setPosition(L_FRONT_BED[i], -320)
-            animator:changeAni(test_ani[math_random(1, 7)], true)
+            animator:changeAni('blank', true)
 			node:addChild(animator.m_node)
+            g_clanLobbyManager:addBedRes(animator)
 
 			local animator = MakeAnimator('res/character/tamer/tamer_sleep_h/tamer_sleep_h.spine')
 			animator:setPosition(L_FRONT_BED[i], -320)
-            animator:changeAni(test_ani[math_random(1, 7)], true)
+            animator:changeAni('blank', true)
 			node:addChild(animator.m_node)
+            g_clanLobbyManager:addBedRes(animator)
 		end
 
 	elseif (object_type == 'food') then

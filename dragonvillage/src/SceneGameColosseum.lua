@@ -210,9 +210,7 @@ function SceneGameColosseum:networkGameFinish_response_user_info(ret, t_result_r
             g_userData:applyServerData(ret['lv'], 'lv')
 
             -- 채팅 서버에 변경사항 적용
-            if g_chatClientSocket then
-                g_chatClientSocket:globalUpdatePlayerUserInfo()
-            end
+            g_lobbyChangeMgr:globalUpdatePlayerUserInfo()
         end
 
         if ret['exp'] then

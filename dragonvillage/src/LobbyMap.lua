@@ -538,6 +538,19 @@ function LobbyMap:updateLobbyTamer(uid, struct_user_info)
 end
 
 -------------------------------------
+-- function updateLobbyObject
+-- @breif 유저의 입장, 퇴장때 로비 월드에 배치된 오브젝트가 갱신되야 하는 경우
+-------------------------------------
+function LobbyMap:updateLobbyObject(struct_user_info)
+    local type = g_lobbyChangeMgr:getLobbyType()
+    if (type == LOBBY_TYPE.CLAN) then
+        
+
+        g_clanLobbyManager:changeBedRes()
+    end
+end
+
+-------------------------------------
 -- function addLobbyDragon
 -------------------------------------
 function LobbyMap:addLobbyDragon(tamer, is_bot, struct_user_info)
@@ -754,12 +767,6 @@ function LobbyMap:updateUserTamerActionArea()
         local lobby_spot_pos = self.m_lobbySpotPos
         if (user_x >= lobby_spot_pos[1] and user_y >= lobby_spot_pos[2]) then
             g_lobbyChangeMgr:changeTypeAndGotoLobby(LOBBY_TYPE.NORMAL)
-        end
-
-        if (user_x >= 170 and user_x <= 1200) then
-            
-        else
-
         end
     end
 end

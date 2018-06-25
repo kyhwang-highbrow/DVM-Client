@@ -932,6 +932,11 @@ function UI_TitleScene:workGetServerInfo()
                     g_capsuleBoxData:response_capsuleBoxInfo(ret['capsulebox_info'])
                 end
 
+                do -- 클랜 정보 (클랜 로비가 들어가면서 추가)
+                    cclog('# 클랜 정보')
+                    g_clanData:applyClanInfo_Title(ret)
+                end
+
                 co.NEXT()
 			end)
 			ui_network:setFailCB(fail_cb)

@@ -350,9 +350,7 @@ function UI_DragonTransformChange:request_transform_change()
 			g_userData:applyServerData(ret['leaders'], 'leaders')
 
             -- 채팅 서버에 변경사항 적용
-            if g_chatClientSocket then
-                g_chatClientSocket:globalUpdatePlayerUserInfo()
-            end
+            g_lobbyChangeMgr:globalUpdatePlayerUserInfo()
 		end
 
         local new_struct_dragon_data = StructDragonObject(ret['dragon'])

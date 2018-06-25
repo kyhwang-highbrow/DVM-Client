@@ -221,7 +221,7 @@ function ServerData_TamerCostume:request_costumeSelect(cid, tid, cb_func)
         if g_chatClientSocket then
             local tamer_id = tonumber(tid)
             if (tamer_id == g_tamerData:getCurrTamerID()) then
-                g_chatClientSocket:globalUpdatePlayerUserInfo()
+                g_lobbyChangeMgr:globalUpdatePlayerUserInfo()
             end
         end
 

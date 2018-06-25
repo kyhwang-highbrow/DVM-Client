@@ -283,9 +283,7 @@ function ServerData_Dragons:applyDragonData(t_dragon_data)
     -- 채팅 서버의 리더 드래곤 정보 갱신 체크용
     if self:isLeaderDragon(doid) then
         -- 채팅 서버에 변경사항 적용
-        if g_chatClientSocket then
-            g_chatClientSocket:globalUpdatePlayerUserInfo()
-        end
+        g_lobbyChangeMgr:globalUpdatePlayerUserInfo()
     end
 
     self:setLastChangeTimeStamp()
@@ -422,9 +420,7 @@ function ServerData_Dragons:request_setLeaderDragon(type, doid, cb_func)
 			g_userData:applyServerData(ret['leaders'], 'leaders')
 
             -- 채팅 서버에 변경사항 적용
-            if g_chatClientSocket then
-                g_chatClientSocket:globalUpdatePlayerUserInfo()
-            end
+            g_lobbyChangeMgr:globalUpdatePlayerUserInfo()
 		end
 
 		-- 개별 콜백 함수

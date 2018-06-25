@@ -123,6 +123,17 @@ function ServerData_Clan:isNeedClanSetting()
 end
 
 -------------------------------------
+-- function applyClanInfo_Title
+-- @brief
+-------------------------------------
+function ServerData_Clan:applyClanInfo_Title(ret)
+    if (ret['clan'] and ret['clan_members'])then
+        self.m_structClan = StructClan(ret['clan'])
+        self.m_structClan:setMembersData(ret['clan_members'])
+    end
+end
+
+-------------------------------------
 -- function request_clanInfo
 -- @brief
 -------------------------------------
@@ -216,7 +227,7 @@ function ServerData_Clan:request_clanInfo(finish_cb, fail_cb)
 
         -- 채팅 서버에 변경사항 적용
         if prev_need_clan_info_refresh and g_chatClientSocket then
-            g_chatClientSocket:globalUpdatePlayerUserInfo()
+            g_lobbyChangeMgr:globalUpdatePlayerUserInfo()
         end
     end
 

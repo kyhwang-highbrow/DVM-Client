@@ -90,6 +90,36 @@ function LobbyChangeMgr:getLobbyManager()
 end
 
 -------------------------------------
+-- function getLobbyMap
+-- @brief 로비별 로비맵 생성
+-------------------------------------
+function LobbyChangeMgr:getLobbyMap(parent_node, lobby_ui)
+    local type = self.m_curType
+    local lobby_map
+
+    if (type == LOBBY_TYPE.NORMAL) then
+        lobby_map = LobbyMapFactory:createLobbyWorld(parent_node, lobby_ui)
+
+    elseif (type == LOBBY_TYPE.CLAN) then
+        lobby_map = LobbyMapFactory:createClanLobbyWorld(parent_node, lobby_ui)
+    end
+
+    return lobby_map
+end
+
+-------------------------------------
+-- function globalUpdatePlayerUserInfo
+-- @brief 채팅 서버에 변경사항 적용
+-------------------------------------
+function LobbyChangeMgr:globalUpdatePlayerUserInfo()
+    local type = self.m_curType
+    local chat_client_socket = self:getChatClientSocket()
+    if chat_client_socket then
+        chat_client_socket:globalUpdatePlayerUserInfo()
+    end
+end
+
+-------------------------------------
 -- function changeTypeAndGotoLobby
 -- @brief 로비 타입 변경후 변경된 로비 진입
 -------------------------------------
