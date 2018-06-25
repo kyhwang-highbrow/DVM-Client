@@ -3628,6 +3628,9 @@
     <None Include="..\src\UI_DragonChanceUp.lua">
       <Filter>lua\UI</Filter>
     </None>
+    <None Include="..\src\UI_Package_Select_Radio.lua">
+      <Filter>lua\UI</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Classes">

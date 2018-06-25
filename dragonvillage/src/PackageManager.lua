@@ -40,6 +40,13 @@ function PackageManager:getTargetUI(package_name, is_popup)
     elseif (_package_name == 'package_step_02') then
         target_ui = UI_Package_Step02(_package_name, is_popup)
 
+    -- 스타터 지원 패키지 UI - 구조가 다른 패키지와 비슷한듯 하면서 상이하다
+    elseif (_package_name == 'package_starter_2') then
+        target_ui = UI_Package_Bundle(_package_name, is_popup)
+        target_ui.click_buyBtn = function()
+            UI_Package_Select_Radio(_package_name, true)
+        end
+
     -- 패키지 상품 묶음 UI 
     -- ### 단일 상품도 table_bundle_package에 등록
     elseif (TablePackageBundle:checkBundleWithName(_package_name)) then
