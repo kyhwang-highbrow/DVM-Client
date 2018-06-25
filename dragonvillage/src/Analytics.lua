@@ -178,11 +178,8 @@ end
 -------------------------------------
 -- function purchase
 -------------------------------------
-function Analytics:purchase(productId, productName, price_krw, price_usd, token, first_buy)
+function Analytics:purchase(productId, productName, price_krw, price_usd, first_buy)
     if (not IS_ENABLE_ANALYTICS()) then return end
-    
-    local currency_code_krw = 'KRW'
-    local currency_code_usd = 'USD'
 
     -- @adbrix
     Adbrix:buy(productId, price)
@@ -198,10 +195,10 @@ function Analytics:purchase(productId, productName, price_krw, price_usd, token,
     end
         -- payment event 는 revenue를 통합 관리하므로 동일한 것을 2개 이상 보내면 안된다.
         -- dvm_purchase (token : 33qpix)
-        -- Adjust:adjustTrackPayment(Adjust.EVENT.PURCHASE, currency_code_krw, price_krw)
+        -- Adjust:adjustTrackPayment(Adjust.EVENT.PURCHASE, 'KRW', price_krw)
 
         -- dvm_purchase_us (token : 2a7wxs)
-        Adjust:adjustTrackPayment(Adjust.EVENT.PURCHASE_USD, currency_code_usd, price_usd)
+        Adjust:adjustTrackPayment(Adjust.EVENT.PURCHASE_USD, 'USD', price_usd)
     end
 end
 
