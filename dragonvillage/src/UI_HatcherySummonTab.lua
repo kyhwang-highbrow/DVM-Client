@@ -113,10 +113,38 @@ function UI_HatcherySummonTab:initUI()
     -- 광고 보기 버튼 체크
     vars['summonNode_fp_ad']:setVisible(g_advertisingData:isAllowToShow(AD_TYPE['FSUMMON']))
     vars['summonNode_fp_ad']:runAction(cca.buttonShakeAction(2, 2))
+
+    self:setChanceUpDragons()
 end
 
 
+-------------------------------------
+-- function setChanceUpDragons
+-- @brief 확률업 드래곤 
+-------------------------------------
+function UI_HatcherySummonTab:setChanceUpDragons()
+    local vars = self.vars
+    local map_target_dragons = g_eventData:getChanceUpDragons()
+    if (not map_target_dragons) then
+        return
+    end
 
+    local total_cnt = #table.MapToList(map_target_dragons)
+    local idx = 0
+    for k, did in pairs(map_target_dragons) do
+        idx = idx + 1
+        local name = TableDragon:getChanceUpDragonName(did)
+        vars['dragonNameLabel'..idx]:setString(name)
+
+        local animator = UIC_DragonAnimator()
+        vars['dragonNode'..idx]:addChild(animator.m_node)
+
+        if (total_cnt == 1) then
+            vars['dragonNode'..idx]:setPositionX(130)
+        end
+        animator:setDragonAnimator(did, 3) -- 성룡으로 노출
+    end
+end
 
 -------------------------------------
 -- function click_eventSummonBtn

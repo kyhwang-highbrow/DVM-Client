@@ -369,8 +369,30 @@ function TableDragon:getStarAniName(did, evolution)
     end
 end
 
+-------------------------------------
+-- function getChanceUpDragonName
+-------------------------------------
+function TableDragon:getChanceUpDragonName(did)
+    if (self == THIS) then
+        self = THIS()
+    end
 
+    local attr = self:getDragonAttr(did)
+    local name = self:getDragonName(did)
+    return string.format('{@%s}%s (%s)', attr, name, dragonAttributeName(attr))
+end
 
+-------------------------------------
+-- function getChanceUpDragonBgPath
+-------------------------------------
+function TableDragon:getChanceUpDragonBgPath(did)
+    if (self == THIS) then
+        self = THIS()
+    end
+
+    local attr = self:getDragonAttr(did)
+    return string.format('res/ui/event/bg_chance_up_%s_0101.png', attr)
+end
 
 
 

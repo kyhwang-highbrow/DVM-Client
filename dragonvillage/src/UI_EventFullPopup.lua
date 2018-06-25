@@ -49,6 +49,10 @@ function UI_EventFullPopup:initUI()
         local event_data = { banner = l_str[2], url = l_str[3] or ''}
         local struct_data = StructEventPopupTab(event_data)
         ui = UI_EventPopupTab_Banner(self, struct_data)
+
+    -- 확률업 드래곤 배너
+    elseif (popup_key == 'dragon_chance_up') then
+        ui = UI_DragonChanceUp()
         
 	-- Daily Mission
 	elseif string.find(popup_key, 'daily_mission') then

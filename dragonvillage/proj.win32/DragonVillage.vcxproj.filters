@@ -3622,6 +3622,12 @@
     <None Include="..\src\LobbyChangeMgr.lua">
       <Filter>lua\src</Filter>
     </None>
+    <None Include="..\src\UI_DragonChanceUpListItem.lua">
+      <Filter>lua\UI</Filter>
+    </None>
+    <None Include="..\src\UI_DragonChanceUp.lua">
+      <Filter>lua\UI</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Classes">

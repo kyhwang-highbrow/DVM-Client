@@ -59,6 +59,9 @@ function ServerData_Hatchery:request_hatcheryInfo(finish_cb, fail_cb)
 
         self:setHacheryInfoTable(ret)
 
+        -- 확률업 드래곤 정보 갱신
+        g_eventData:applyChanceUpDragons(ret)
+
         if finish_cb then
             finish_cb(ret)
         end

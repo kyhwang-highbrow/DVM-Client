@@ -131,6 +131,15 @@ function UIHelper:getCardPosXWithScale(total_cnt, idx, scale)
 end
 
 -------------------------------------
+-- function getNodePosXWithScale
+-------------------------------------
+function UIHelper:getNodePosXWithScale(total_cnt, idx, width, scale)
+    local scale = scale or 1
+    local node_size =  width * scale
+	return -(node_size/2 * (total_cnt - 1)) + (node_size * (idx - 1))
+end
+
+-------------------------------------
 -- function reattachNode
 -- @brief 노드를 떼어서 새로운 부모에게 붙인다.
 -------------------------------------

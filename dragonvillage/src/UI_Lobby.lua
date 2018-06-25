@@ -208,6 +208,9 @@ function UI_Lobby:entryCoroutine()
                 cclog('# 스킬 이전 가격 정보 받는 중')
                 g_dragonsData:setSkillMovePrice(ret)
 
+                cclog('# 확률업 드래곤 정보 받는 중')
+                g_eventData:applyChanceUpDragons(ret)
+
 				co.NEXT()
 			end)
 			ui_network:setFailCB(required_fail_cb)

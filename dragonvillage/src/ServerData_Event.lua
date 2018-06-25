@@ -5,6 +5,8 @@ ServerData_Event = class({
         m_serverData = 'ServerData',
         m_eventList = 'list',
 
+        m_mapChanceUpDragons = 'map',
+
         m_bDirty = 'boolean',
     })
 
@@ -575,4 +577,22 @@ function ServerData_Event:response_eventList(ret, finish_cb)
     if finish_cb then
         finish_cb(ret)
     end
+end
+
+-------------------------------------
+-- function applyChanceUpDragons
+-- @brief 확률업 드래곤 
+-------------------------------------
+function ServerData_Event:applyChanceUpDragons(ret)
+    if (ret['chance_up']) then
+        self.m_mapChanceUpDragons = {}
+        self.m_mapChanceUpDragons = ret['chance_up']
+    end
+end
+
+-------------------------------------
+-- function getChanceUpDragons
+-------------------------------------
+function ServerData_Event:getChanceUpDragons()
+    return self.m_mapChanceUpDragons
 end

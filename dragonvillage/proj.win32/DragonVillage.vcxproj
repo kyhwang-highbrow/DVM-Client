@@ -1076,6 +1076,8 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <None Include="..\src\UI_CouponPopup_Confirm.lua" />
     <None Include="..\src\UI_DailyMisson_Clan.lua" />
     <None Include="..\src\UI_DiceEvent.lua" />
+    <None Include="..\src\UI_DragonChanceUp.lua" />
+    <None Include="..\src\UI_DragonChanceUpListItem.lua" />
     <None Include="..\src\UI_DragonChangeResult.lua" />
     <None Include="..\src\UI_DragonDiaryPopup.lua" />
     <None Include="..\src\UI_DragonGuideListItem.lua" />

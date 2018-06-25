@@ -207,6 +207,10 @@ function UI_EventPopup:makeEventPopupTab(tab)
     elseif (string.find(tab, 'banner')) then
         ui = UI_EventPopupTab_Banner(self, struct_event_popup_tab)
 
+    -- 소환 확률업
+    elseif (tab == 'dragon_chance_up') then
+        ui = UI_DragonChanceUp()
+
     -- 업데이트 공지 
     elseif (tab == 'notice') then
         ui = UI_EventPopupTab_Notice(self, struct_event_popup_tab)
