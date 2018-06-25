@@ -56,6 +56,13 @@ function UI_DragonChanceUp:initButton()
 end
 
 -------------------------------------
+-- function onEnterTab
+-- @brief
+-------------------------------------
+function UI_DragonChanceUp:onEnterTab()
+end
+
+-------------------------------------
 -- function refresh
 -------------------------------------
 function UI_DragonChanceUp:refresh()
