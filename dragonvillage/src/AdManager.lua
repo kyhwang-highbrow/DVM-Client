@@ -16,9 +16,9 @@ AdManager = {
 }
 
 local ADMOB_AD_UNIT_ID_TABLE
-local ADMOB_APP_AD_UNIT_ID -- app luanching 시 사용
+local ADMOB_APP_AD_UNIT_ID -- app launching 시 사용
 if (CppFunctions:isAndroid()) then
-    ADMOB_APP_AD_UNIT_ID = 'ca-app-pub-9497777061019569/6433744394' -- app luanching 시 사용
+    ADMOB_APP_AD_UNIT_ID = 'ca-app-pub-9497777061019569/6433744394'
     ADMOB_AD_UNIT_ID_TABLE = {
         [AD_TYPE.AUTO_ITEM_PICK] = 'ca-app-pub-9497777061019569/8284077763',
         [AD_TYPE.RANDOM_BOX_LOBBY] = 'ca-app-pub-9497777061019569/1372989407',
