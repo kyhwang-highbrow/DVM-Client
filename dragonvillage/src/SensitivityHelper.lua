@@ -26,7 +26,7 @@ function SensitivityHelper:doActionBubbleText(parent, did, flv, case_type, custo
 	-- 채팅
 	if (case_type == 'chat_tamer') then
 		pos_y = 330
-		delay_time = 1.5
+		delay_time = 4.5
 
 	-- 로비
 	elseif pl.stringx.startswith(case_type, 'lobby_') then

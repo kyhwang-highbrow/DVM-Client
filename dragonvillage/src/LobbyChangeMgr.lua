@@ -108,6 +108,24 @@ function LobbyChangeMgr:getLobbyMap(parent_node, lobby_ui)
 end
 
 -------------------------------------
+-- function getTamerBaseScale
+-- @brief 로비별 테이머 기본 스케일
+-------------------------------------
+function LobbyChangeMgr:getTamerBaseScale()
+    local type = self.m_curType
+    local base_scale
+
+    if (type == LOBBY_TYPE.NORMAL) then
+        base_scale = 1.0
+
+    elseif (type == LOBBY_TYPE.CLAN) then
+        base_scale = 0.85
+    end
+
+    return base_scale
+end
+
+-------------------------------------
 -- function globalUpdatePlayerUserInfo
 -- @brief 채팅 서버에 변경사항 적용
 -------------------------------------
