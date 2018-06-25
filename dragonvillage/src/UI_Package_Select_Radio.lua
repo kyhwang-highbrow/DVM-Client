@@ -10,7 +10,7 @@ UI_Package_Select_Radio = class(UI ,{
     m_package_name = 'string',
 
     m_radioBtn = 'UIC_RadioBtn',
-    m_radioIdx = 'number',
+    m_selectPid = 'number',
 })
 
 -------------------------------------
@@ -58,7 +58,7 @@ function UI_Package_Select_Radio:initButton()
     -- radio button 선언
     local radio_button = UIC_RadioButton()
     radio_button:setChangeCB(function(pid)
-        self.m_radioIdx = pid
+        self.m_selectPid = pid
     end)
     self.m_radioBtn = radio_button
 
@@ -165,10 +165,11 @@ function UI_Package_Select_Radio:click_buyBtn()
 		end
 	end
 
-    local l_item_list = g_shopDataNew:getProductList('package')
-    local struct_product = l_item_list[self.m_radioIdx]
-    cclog(self.m_radioIdx)
+    local t_struct_product = g_shopDataNew:getProductList('package')
+    local struct_product = t_struct_product[self.m_selectPid]
+    cclog(self.m_selectPid)
     ccdump(struct_product)
+    ccdisplay('구매는 작업 중입니다~')
 	--struct_product:buy(cb_func)
 end
 
