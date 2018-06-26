@@ -44,7 +44,8 @@ function PackageManager:getTargetUI(package_name, is_popup)
     elseif (_package_name == 'package_starter_2') then
         target_ui = UI_Package_Bundle(_package_name, is_popup)
         target_ui.click_buyBtn = function()
-            UI_Package_Select_Radio(_package_name, true)
+            local ui = UI_Package_Select_Radio(_package_name, true)
+            ui:setBuyCB(function() target_ui:refresh() end)
         end
 
     -- 패키지 상품 묶음 UI 
@@ -58,7 +59,7 @@ function PackageManager:getTargetUI(package_name, is_popup)
 
     return target_ui
 end
-
+--[[
 -------------------------------------
 -- function goToTargetUI
 -- @brief 해당 패키지 상품 UI
@@ -80,7 +81,7 @@ function PackageManager:goToTargetUI(product_id)
         local ui = PackageManager:getTargetUI(struct_product, is_popup)
     end
 end
-
+]]
 -------------------------------------
 -- function isExist
 -- @brief 묶음 UI에서 상품정보가 하나라도 있는지 (모두 구매해서 없거나, 기간이 자니서 없거나 하는 경우)
@@ -145,30 +146,51 @@ end
 -- @brief 번들 패키지일 경우 모두 구매했는지 체크
 -------------------------------------
 function PackageManager:isBuyAll(package_name)
-    local l_shop_list = g_shopDataNew:getProductList('package')
-    local target_product = TablePackageBundle:getPidsWithName(package_name)
+    local l_product_list = g_shopDataNew:getProductList('package')
+    local l_pid_list = TablePackageBundle:getPidsWithName(package_name)
     local is_buy_all = false
 
-    if (not target_product) then
+    if (not l_pid_list) then
         return is_buy_all
     end
+    
+    if (TablePackageBundle:isSelectOnePackage(package_name)) then
+        for _, pid in ipairs(l_pid_list) do
+            local data = l_product_list[tonumber(pid)]
+            if (data) then
+                local buy_cnt = g_shopDataNew:getBuyCount(pid)
+                local max_buy_cnt = data['max_buy_count']
+                if (buy_cnt >= max_buy_cnt) then
+                    is_buy_all = true
+                    break
+                end
 
-    for _, pid in ipairs(target_product) do
-        local data = l_shop_list[tonumber(pid)]
-        if (data) then
-            local buy_cnt = g_shopDataNew:getBuyCount(pid)
-            local max_buy_cnt = data['max_buy_count']
-            if (buy_cnt == '' or max_buy_cnt == '') then
-                is_buy_all = false
-                break
-            end
-            if (buy_cnt >= max_buy_cnt) then
-                is_buy_all = true
+            -- struct_product가 없다면 구매한것으로 봄
             else
-                is_buy_all = false
+                is_buy_all = true
                 break
             end
         end
+
+    else
+        for _, pid in ipairs(l_pid_list) do
+            local data = l_product_list[tonumber(pid)]
+            if (data) then
+                local buy_cnt = g_shopDataNew:getBuyCount(pid)
+                local max_buy_cnt = data['max_buy_count']
+                if (buy_cnt == '' or max_buy_cnt == '') then
+                    is_buy_all = false
+                    break
+                end
+                if (buy_cnt >= max_buy_cnt) then
+                    is_buy_all = true
+                else
+                    is_buy_all = false
+                    break
+                end
+            end
+        end
+
     end
 
     return is_buy_all

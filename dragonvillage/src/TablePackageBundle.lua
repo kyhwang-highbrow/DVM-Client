@@ -148,7 +148,7 @@ function TablePackageBundle:getPidsWithName(package_name)
 end
 
 -------------------------------------
--- function getPackageNameWithPid
+-- function getPids
 -------------------------------------
 function TablePackageBundle:getPids(pid)
     if (self == THIS) then
@@ -163,4 +163,38 @@ function TablePackageBundle:getPids(pid)
     end
 
     return nil
+end
+
+-------------------------------------
+-- function isSelectOnePackage
+-------------------------------------
+function TablePackageBundle:isSelectOnePackage(package_name)
+    if (self == THIS) then
+        self = THIS()
+    end
+
+    for _, v in pairs(self.m_orgTable) do        
+        if (v['t_name'] == package_name) then
+            return (v['select_one'] == 1)
+        end
+    end
+
+    return false
+end
+
+-------------------------------------
+-- function getLimitedLV
+-------------------------------------
+function TablePackageBundle:getLimitedLV(package_name)
+    if (self == THIS) then
+        self = THIS()
+    end
+
+    for _, v in pairs(self.m_orgTable) do        
+        if (v['t_name'] == package_name) then
+            return v['limit_lv']
+        end
+    end
+
+    return false
 end

@@ -63,18 +63,14 @@ function UI_Package_Select_Radio:initButton()
     self.m_radioBtn = radio_button
 
     -- 버튼 등록
-    local prime_pid
-    local i = 1
-	for pid, _ in pairs(self.m_pids) do
+    local num_pid, btn, sprite
+    for i, pid in pairs(self.m_pids) do
+        local num_pid = tonumber(pid)
 		local btn = vars['selectBtn' .. i]
         local sprite = vars['selectSprite' .. i]
-        radio_button:addButton(pid, btn, sprite)
-        if (not prime_pid) then
-            prime_pid = pid
-        end
-        i = i + 1
+        radio_button:addButton(num_pid, btn, sprite)
     end
-    radio_button:setSelectedButton(prime_pid)
+    radio_button:setSelectedButton(tonumber(self.m_pids[1]))
 end
 
 -------------------------------------
@@ -154,23 +150,12 @@ function UI_Package_Select_Radio:click_buyBtn()
 
         -- 아이템 획득 결과창
         ItemObtainResult_Shop(ret)
-
-        -- 갱신이 필요한 상태일 경우
-        if ret['need_refresh'] then
-            self:refresh()
-            g_eventData.m_bDirty = true
-
-        elseif (self.m_isPopup == true) then
-            self:close()
-		end
+        self:close()
 	end
 
     local t_struct_product = g_shopDataNew:getProductList('package')
     local struct_product = t_struct_product[self.m_selectPid]
-    cclog(self.m_selectPid)
-    ccdump(struct_product)
-    ccdisplay('구매는 작업 중입니다~')
-	--struct_product:buy(cb_func)
+    struct_product:buy(cb_func)
 end
 
 -------------------------------------

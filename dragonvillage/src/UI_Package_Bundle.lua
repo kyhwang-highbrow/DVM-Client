@@ -158,26 +158,39 @@ function UI_Package_Bundle:refresh()
                 setLabelString('itemLabel', idx, full_str)
             end
 
-            -- 구매 제한
-            local str = struct_product:getMaxBuyTermStr()
-
-            -- 구매 가능/불가능 텍스트 컬러 변경
-            local is_buy_all = struct_product:isBuyAll()
-            local color_key = is_buy_all and '{@impossible}' or '{@available}'
-            local rich_str = color_key .. str
-            setLabelString('buyLabel', idx, rich_str)
-
-	        -- 가격
-	        local price = struct_product:getPriceStr()
+            -- 가격
+            local price = struct_product:getPriceStr()
             setLabelString('priceLabel', idx, price)
+            
+            -- 구매 제한
+            if (TablePackageBundle:isSelectOnePackage(self.m_package_name)) then
+                local is_buy = PackageManager:isBuyAll(self.m_package_name)
+                local str
+                if (is_buy) then
+                    str = '{@available}' .. Str('구매 가능')
+                    setLabelString('buyLabel', idx, str)
+                end
+                
+                -- 구매 완료 표시
+                vars['completeNode']:setVisible(is_buy)    
+                vars['buyBtn']:setEnabled(not is_buy)
+            else
+                -- 구매 가능/불가능 텍스트 컬러 변경
+                local str = struct_product:getMaxBuyTermStr()
+                local is_buy_all = struct_product:isBuyAll()
+                local color_key = is_buy_all and '{@impossible}' or '{@available}'
+                local rich_str = color_key .. str
+                setLabelString('buyLabel', idx, rich_str)
 
-			-- 구매 완료 표시
-			if (vars['completeNode' .. idx]) then
-				vars['completeNode' .. idx]:setVisible(struct_product:isBuyAll())
-
-			elseif (idx == 1) and (vars['completeNode']) then   
-                vars['completeNode']:setVisible(struct_product:isBuyAll())
+                -- 구매 완료 표시
+                if (vars['completeNode' .. idx]) then
+                    vars['completeNode' .. idx]:setVisible(struct_product:isBuyAll())
+    
+                elseif (idx == 1) and (vars['completeNode']) then   
+                    vars['completeNode']:setVisible(struct_product:isBuyAll())    
+                end
             end
+            
 
             -- 즉시 구매라면
             if (self.m_data['is_detail'] == 0) then
