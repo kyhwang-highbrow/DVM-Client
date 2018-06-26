@@ -136,13 +136,12 @@ function UI_HatcherySummonTab:setChanceUpDragons()
         local name = TableDragon:getChanceUpDragonName(did)
         vars['dragonNameLabel'..idx]:setString(name)
 
-        local animator = UIC_DragonAnimator()
+        local animator = AnimatorHelper:makeDragonAnimator_usingDid(did, 3)
         vars['dragonNode'..idx]:addChild(animator.m_node)
 
         if (total_cnt == 1) then
             vars['dragonNode'..idx]:setPositionX(130)
         end
-        animator:setDragonAnimator(did, 3) -- 성룡으로 노출
     end
 end
 

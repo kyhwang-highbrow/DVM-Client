@@ -16,7 +16,7 @@ function UI_DragonChanceUp:init()
         return
     end
 
-    self:load('event_full_chanceup.ui')
+    self:load('event_chanceup.ui')
 
     self.m_map_target_dragons = map_target_dragons
 

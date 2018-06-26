@@ -11,7 +11,7 @@ UI_DragonChanceUpListItem = class(PARENT,{
 -- function init
 -------------------------------------
 function UI_DragonChanceUpListItem:init(did)
-    self:load('event_full_chanceup_item.ui')
+    self:load('event_chanceup_item.ui')
     self.m_did = did
 
     self:initUI()
