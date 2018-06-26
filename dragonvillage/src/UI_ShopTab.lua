@@ -8,6 +8,7 @@ UI_ShopTab = class(PARENT,{
         m_cbBuy = 'func',
     })
 
+local ANCIENT_SHOP_END_KEY = 'ancient_shop_end' 
 -------------------------------------
 -- function init
 -------------------------------------
@@ -59,6 +60,14 @@ function UI_ShopTab:init_TableView()
 		self:dietPackageItemTable(l_item_list) -- 테이블 자체를 함수에서 조작한다
 	end
 
+    -- 고대주화 종료 안내 리스트 아이템 생성 (정렬 때문에 StructProduct로 임시 생성)
+    if (tab_name == 'ancient') then
+        local data = StructProduct()
+        data['m_uiPriority'] = -1
+        data['t_desc'] = ANCIENT_SHOP_END_KEY
+		table.insert(l_item_list, data)
+	end
+
     local ui_class = UI_Product
     local item_per_cell = 3
     local interval = 2
@@ -74,15 +83,32 @@ function UI_ShopTab:init_TableView()
         cell_height = 288
     end
 
+    local function make_cb_func(data)
+        -- 고대주화 종료 안내
+        if (data['t_desc'] and data['t_desc'] == ANCIENT_SHOP_END_KEY) then
+            local ui = class(UI, ITableViewCell:getCloneTable())()
+	        local ui_vars = ui:load('shop_list_01_notice.ui')
+            -- 고대주화 종료 안내 (네이버 sdk 링크)
+            NaverCafeManager:setPluginInfoBtn(ui_vars['plugBtn'], ANCIENT_SHOP_END_KEY)
+            return ui
+        else
+            return ui_class(data)
+        end
+    end
+
     -- 생성 콜백
 	local function create_cb_func(ui, data)
+        -- 고대주화 종료 안내
+        if (data['t_desc'] and data['t_desc'] == ANCIENT_SHOP_END_KEY) then
+            return
+        end
         ui:setBuyCB(self.m_cbBuy)
 	end    
 
     -- 테이블 뷰 인스턴스 생성
     local table_view_td = UIC_TableViewTD(list_table_node)
     table_view_td.m_cellSize = cc.size((cell_width + interval), (cell_height + interval))
-    table_view_td:setCellUIClass(ui_class, create_cb_func)
+    table_view_td:setCellUIClass(make_cb_func, create_cb_func)
     table_view_td:setDirection(cc.SCROLLVIEW_DIRECTION_VERTICAL)
     table_view_td.m_nItemPerCell = item_per_cell
 	--table_view_td:setAlignCenter(true)
