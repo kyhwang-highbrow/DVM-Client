@@ -49,7 +49,11 @@ end
 -- function getLobbyType
 -------------------------------------
 function LobbyChangeMgr:getLobbyType()
-    return self.m_curType
+    local cur_type = self.m_curType
+    -- 로비 타입 가져올때 유효한 타입인지 체크
+    self:checkType(cur_type)
+
+    return cur_type
 end
 
 -------------------------------------
@@ -146,7 +150,7 @@ function LobbyChangeMgr:changeTypeAndGotoLobby(type)
         return
     end
 
-    self:changeType(type)
+    self:checkType(type)
     self.m_bEntering = true
 
     UI_BlockPopup()
@@ -157,9 +161,9 @@ function LobbyChangeMgr:changeTypeAndGotoLobby(type)
 end
 
 -------------------------------------
--- function changeType
+-- function checkType
 -------------------------------------
-function LobbyChangeMgr:changeType(type)
+function LobbyChangeMgr:checkType(type)
     local invalid = true
     for _, _type in pairs(LOBBY_TYPE) do
         if (type == _type) then
