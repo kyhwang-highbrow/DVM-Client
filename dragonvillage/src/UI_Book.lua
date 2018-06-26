@@ -142,9 +142,11 @@ end
 -------------------------------------
 function UI_Book:makeSortManager()
     local sort_manager = SortManager_Dragon()
+
+    -- 자코랑 슬라임은 아래로 내림
 	sort_manager:addPreSortType('object_type_book', false, function(a, b, ascending) return sort_manager:sort_object_type_book(a, b, ascending) end)
 
-	-- did 순, 등급 순, 진화도 순으로 정렬
+    -- did 순, 등급 순, 진화도 순으로 정렬
     sort_manager:pushSortOrder('did')
     sort_manager:pushSortOrder('grade')
 	sort_manager:pushSortOrder('evolution')
@@ -196,7 +198,7 @@ function UI_Book:init_TableViewTD()
 
     -- 테이블 뷰 인스턴스 생성
     table_view_td = UIC_TableViewTD(node)
-    table_view_td.m_cellSize = cc.size(340 + 6, 160 + 6)
+    table_view_td.m_cellSize = cc.size(330 + 6, 160 + 6)
     table_view_td.m_nItemPerCell = 3
 	table_view_td:setCellUIClass(make_func)
     table_view_td:setItemList(l_item_list)

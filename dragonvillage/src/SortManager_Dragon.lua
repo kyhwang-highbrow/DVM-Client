@@ -22,6 +22,7 @@ function SortManager_Dragon:init()
     -- 오브젝트 타입별 레벨
     self.m_mObjectTypeSortLevel = {}
     self.m_mObjectTypeSortLevel['dragon'] = 100
+    self.m_mObjectTypeSortLevel['undering'] = 2
     self.m_mObjectTypeSortLevel['slime'] = 1
 
     -- 속성별 정렬 레벨
@@ -125,8 +126,11 @@ function SortManager_Dragon:sort_object_type_book(a, b, ascending)
     local a_data = a['data']
     local b_data = b['data']
 
-    local a_value = self.m_mObjectTypeSortLevel[a_data['bookType']]
-    local b_value = self.m_mObjectTypeSortLevel[b_data['bookType']]
+    local a_book_type = TableDragon:isUnderling(a_data['did']) and 'undering' or a_data['bookType']
+    local b_book_type = TableDragon:isUnderling(b_data['did']) and 'undering' or b_data['bookType']
+
+    local a_value = self.m_mObjectTypeSortLevel[a_book_type]
+    local b_value = self.m_mObjectTypeSortLevel[b_book_type]
 
     -- 같을 경우 리턴
     if (a_value == b_value) then
