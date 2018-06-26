@@ -56,7 +56,7 @@ end
 function SkillAoERound:initState()
 	self:setCommonState(self)
     self:addState('start', PARENT.st_appear, 'appear', false)
-    self:addState('attack', SkillAoERound.st_attack, 'idle', true)
+    self:addState('attack', SkillAoERound.st_attack, 'idle', false)
 	self:addState('disappear', PARENT.st_disappear, 'disappear', false)
 end
 
