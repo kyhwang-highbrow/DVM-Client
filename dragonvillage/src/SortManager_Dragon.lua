@@ -126,11 +126,18 @@ function SortManager_Dragon:sort_object_type_book(a, b, ascending)
     local a_data = a['data']
     local b_data = b['data']
 
-    local a_book_type = TableDragon:isUnderling(a_data['did']) and 'undering' or a_data['bookType']
-    local b_book_type = TableDragon:isUnderling(b_data['did']) and 'undering' or b_data['bookType']
+    local table_dragon = TableDragon()
+    local get_book_type = function(data)
+        local did = data['did']
+        local book_type = data['bookType']
+        if (table_dragon:exists(did) and table_dragon:isUnderling(did)) then
+            book_type = 'undering'
+        end
+        return book_type
+    end
 
-    local a_value = self.m_mObjectTypeSortLevel[a_book_type]
-    local b_value = self.m_mObjectTypeSortLevel[b_book_type]
+    local a_value = self.m_mObjectTypeSortLevel[get_book_type(a_data)]
+    local b_value = self.m_mObjectTypeSortLevel[get_book_type(b_data)]
 
     -- 같을 경우 리턴
     if (a_value == b_value) then
