@@ -92,7 +92,9 @@ function UI_Shop_Popup_Reinforce:init_TableView()
 	local function create_cb_func(ui, data)
         ui:setBuyCB(function() 
             ui:refresh()
-            UINavigator:goTo('mail_select', MAIL_SELECT_TYPE.ITEM, function() self:refresh_relation() end)
+            if (data['price_type'] == 'money') then
+                UINavigator:goTo('mail_select', MAIL_SELECT_TYPE.ITEM, function() self:refresh_relation() end)
+            end
         end)
 	end    
 
