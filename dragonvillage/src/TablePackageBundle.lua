@@ -49,9 +49,24 @@ function TablePackageBundle:getTableViewMap()
                 ----------------------------------------------------------------------------------
 
                 map[tostring(target_pid)] = struct_product
+        
+                -- 레벨 제한
+                if (v['buyable_from_lv'] ~= '') or (v['buyable_to_lv'] ~= '') then
+                    local user_lv = g_userData:get('lv')
+                    local from_lv = v['buyable_from_lv'] ~= '' and v['buyable_from_lv'] or 1
+                    local to_lv = v['buyable_to_lv'] ~= '' and v['buyable_to_lv'] or 100
+
+                    -- from_lv ~ to_lv 사이에 있는지 체크 없다면 삭제
+                    if (from_lv <= user_lv) and (user_lv <= to_lv) then
+                    else
+                        map[tostring(target_pid)] = nil
+                    end
+                end
+
                 break
             end
         end
+
     end
 
     return map
