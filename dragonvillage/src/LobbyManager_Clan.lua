@@ -180,11 +180,14 @@ function LobbyManager_Clan:applyBedRes()
         return
     end
 
-    -- 랜덤하게 배치 시키기 위함
-    randomShuffle(self.m_bedResList)
+    local l_member = table.MapToList(map_member)
+    table.sort(l_member, function(a, b)
+        return a.m_lastActiveTime > b.m_lastActiveTime
+    end)
 
-    for _, res in ipairs(self.m_bedResList) do
-        for uid, member in pairs(map_member) do
+    for i, res in ipairs(self.m_bedResList) do
+        for _i, member in ipairs(l_member) do
+            local uid = member.m_uid
             if (not self.m_mapMemberBedRes[uid]) then
                 self.m_mapMemberBedRes[uid] = res
                 break
