@@ -35,7 +35,7 @@ function UI_Shop_Popup_Reinforce:init(struct_dragon)
     local vars = self:load_keepZOrder('shop_reinforce.ui')
     UIManager:open(self, UIManager.SCENE)
 
-    g_currScene:pushBackKeyListener(self, function() self:click_closeBtn() end, 'UI_ShopBooster')
+    g_currScene:pushBackKeyListener(self, function() self:click_exitBtn() end, 'UI_ShopBooster')
 
     self.m_category = 'reinforce'
     self.m_selectDragonData = struct_dragon
@@ -142,9 +142,9 @@ function UI_Shop_Popup_Reinforce:sortProduct()
 end
 
 -------------------------------------
--- function click_closeBtn
+-- function click_exitBtn
 -------------------------------------
-function UI_Shop_Popup_Reinforce:click_closeBtn()
+function UI_Shop_Popup_Reinforce:click_exitBtn()
     self:close()
 end
 
