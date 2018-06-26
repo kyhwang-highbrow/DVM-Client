@@ -21,6 +21,11 @@ function UI_Shop_Popup_Reinforce:initParentVariable()
     self.m_bVisible = true
     self.m_titleStr = Str('강화 상점')
     self.m_bUseExitBtn = true
+
+    if (g_topUserInfo) then
+        g_topUserInfo:makeGoodsUI('topaz', 4)
+        g_topUserInfo:makeGoodsUI('clancoin', 5) 
+    end
 end
 
 -------------------------------------
@@ -143,7 +148,16 @@ function UI_Shop_Popup_Reinforce:click_closeBtn()
     self:close()
 end
 
-
+-------------------------------------
+-- function onDestroyUI
+-------------------------------------
+function UI_Shop_Popup_Reinforce:onDestroyUI()
+    if (g_topUserInfo) then
+        g_topUserInfo:deleteGoodsUI('clancoin')
+        g_topUserInfo:deleteGoodsUI('topaz') 
+        g_topUserInfo:makeGoodsUI('amethyst', 4)
+    end
+end
 
 
 
@@ -286,9 +300,10 @@ function UI_Shop_Popup_Reinforce:refresh_relation()
 			-- 카드 생성
 			local ui = UI_DragonReinforceItem('dragon', struct_dragon)
 			vars['relationNode' .. i]:addChild(ui.root)
+            ui:disable()
 
 			-- 연출
-			cca.fruitReact(ui.m_card.root, i)
+			--cca.fruitReact(ui.m_card.root, i)
 
 		-- 없으면 빈아이콘 생성
 		else
@@ -310,9 +325,10 @@ function UI_Shop_Popup_Reinforce:refresh_relation()
 		-- 카드 생성
 		local ui = UI_DragonReinforceItem('item', t_item)
 		vars['relationNode6']:addChild(ui.root)
+        ui:disable()
 
 		-- 연출
-		cca.fruitReact(ui.m_card.root, 6)
+		--cca.fruitReact(ui.m_card.root, 6)
 	end
 
 end

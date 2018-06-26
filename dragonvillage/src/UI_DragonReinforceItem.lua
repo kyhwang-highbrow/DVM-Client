@@ -95,3 +95,11 @@ function UI_DragonReinforceItem:refresh()
 	end
 	vars['relationLabel']:setString(string.format('{@w}%s', comma_value(point)))
 end
+
+-------------------------------------
+-- function disable
+-- @brief
+-------------------------------------
+function UI_DragonReinforceItem:disable()
+	self.vars['clickBtn']:setEnabled(false)
+end

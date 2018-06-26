@@ -242,7 +242,8 @@ function IconHelper:getItemIcon(item_id, t_sub_data)
     elseif (item_type == 'reinforce_point') then
         local item_cnt = t_sub_data or 0
         local card = UI_ItemCard(item_id, item_cnt)
-         
+		card.vars['clickBtn']:setEnabled(false)
+
         sprite = card.root
 
     -- 기타 아이템 아이콘 생성
