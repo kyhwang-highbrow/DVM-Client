@@ -109,6 +109,10 @@ function UI_DragonReinforcement:initButton()
     
     -- 드래곤 강화 안내 (네이버 sdk 링크)
     NaverCafeManager:setPluginInfoBtn(vars['plugInfoBtn'], 'd_reinforce_help')
+	vars['reinforceShopBtn']:registerScriptTapHandler(function() 
+		local ui = UI_Shop_Popup_Reinforce(self.m_selectDragonData) 
+		ui:setCloseCB(function() self:refresh_relation() end)
+	end)
 end
 
 -------------------------------------

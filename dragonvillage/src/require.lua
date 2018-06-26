@@ -866,6 +866,7 @@ local t_module = {
     'UI_PackageRandomBoxInfo',
     'UI_RandomShop',
     'UI_RandomShopListItem',
+	'UI_Shop_Popup_Reinforce',
 
 	-- UI : 모험
     'UI_AdventureSceneNew',
