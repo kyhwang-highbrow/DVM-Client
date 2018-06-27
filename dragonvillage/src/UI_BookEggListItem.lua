@@ -34,11 +34,11 @@ function UI_BookEggListItem:initUI()
 
     -- 알 이름
     local name = TableItem():getValue(egg_id, 't_name')
-    vars['eggNameLabel']:setString(name)
+    vars['eggNameLabel']:setString(Str(name))
 
     -- 알 설명
     local desc = TableItem():getValue(egg_id, 't_desc')
-    vars['eggInfoLabel']:setString(desc)
+    vars['eggInfoLabel']:setString(Str(desc))
 
     -- 이동 버튼 활성화/비활성화
     local is_exist = (count > 0)
