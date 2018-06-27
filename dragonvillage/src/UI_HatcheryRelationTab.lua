@@ -146,7 +146,7 @@ function UI_HatcheryRelationTab:getDragonList()
         -- 아이리스 출시때 삭제 
         -- 2018.06.27 klee
         local check_id = getDigit(t_table['did'], 10, 5)
-        if (check_id == 12087) then
+        if (check_id == 12087 or check_id == 12085) then
             return false
         end
         
