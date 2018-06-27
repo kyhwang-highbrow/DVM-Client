@@ -141,6 +141,15 @@ function UI_HatcheryRelationTab:getDragonList()
             return false
         end
 
+        -- 아이리스처럼 모든 속성이 Test인 경우 
+        -- 이거 하나때문에 for문 돌려서 모든 속성 체크하는건 비효율적인거 같아 하드코딩 
+        -- 아이리스 출시때 삭제 
+        -- 2018.06.27 klee
+        local check_id = getDigit(t_table['did'], 10, 5)
+        if (check_id == 12087) then
+            return false
+        end
+        
         return true
     end
 
