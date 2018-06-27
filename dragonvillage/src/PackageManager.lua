@@ -195,3 +195,22 @@ function PackageManager:isBuyAll(package_name)
 
     return is_buy_all
 end
+
+-------------------------------------
+-- function isBuyable
+-------------------------------------
+function PackageManager:isBuyable(package_name)
+	-- 모두 구매
+	if (self:isBuyAll(package_name)) then
+		cclog('self:isBuyAll(package_name)')
+		return false
+
+	-- 레벨 제한 걸림
+	elseif (not TablePackageBundle:isBuyableLv(package_name, g_userData:get('lv'))) then
+		cclog('TablePackageBundle:isBuyableLv(package_name, g_userData:get)')
+		return false
+	end
+
+	-- 모두 통과하면 구매 가능
+	return true
+end

@@ -207,9 +207,12 @@ function ServerData_Event:getEventFullPopupList()
                     visible = false
                 end
                 
-            -- 패키지인 경우 모두 구매시 노출시키지 않음.
-            elseif (string.find(event_type, 'package')) and (PackageManager:isBuyAll(event_type)) then
-                visible = false
+            -- 패키지인 경우 구매 불가한 경우 노출시키지 않음.
+            elseif (string.find(event_type, 'package')) then
+				cclog(event_type)
+				if (not PackageManager:isBuyable(event_type)) then
+					visible = false
+				end
 
             -- banner type인 경우 resource, url까지 등록
             elseif (event_type == 'banner') then

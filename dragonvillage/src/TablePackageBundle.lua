@@ -198,16 +198,31 @@ function TablePackageBundle:isSelectOnePackage(package_name)
 end
 
 -------------------------------------
--- function getLimitedLV
+-- function isBuyableLv
 -------------------------------------
-function TablePackageBundle:getLimitedLV(package_name)
+function TablePackageBundle:isBuyableLv(package_name, user_lv)
     if (self == THIS) then
         self = THIS()
     end
 
+	if (not user_lv) then
+		return false
+	end
+
     for _, v in pairs(self.m_orgTable) do        
         if (v['t_name'] == package_name) then
-            return v['limit_lv']
+            -- 레벨 제한
+            if (v['buyable_from_lv'] ~= '') or (v['buyable_to_lv'] ~= '') then
+                local from_lv = v['buyable_from_lv'] ~= '' and v['buyable_from_lv'] or 1
+                local to_lv = v['buyable_to_lv'] ~= '' and v['buyable_to_lv'] or 100
+
+                -- from_lv ~ to_lv 사이에 있는지
+                return (from_lv <= user_lv) and (user_lv <= to_lv)
+
+			-- 레벨 제한 명시 하지 않은 경우
+			else
+				return true
+            end
         end
     end
 
