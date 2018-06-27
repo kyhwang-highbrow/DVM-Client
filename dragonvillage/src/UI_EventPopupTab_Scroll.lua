@@ -47,7 +47,7 @@ function UI_EventPopupTab_Scroll:init(owner, struct_event_popup_tab, inner_ui)
     self.m_originPosY = size.height - target_size.height
 
     -- inner_ui에서 컨테이너 컨트롤 가능하도록
-    if (self.m_eventType == 'event_dice') then
+    if (self.m_eventType == 'event_dice' or self.m_eventType == 'event_mandraquest') then
         inner_ui:setContainerAndPosY(container_node, self.m_originPosY)
         inner_ui:refresh()
     end

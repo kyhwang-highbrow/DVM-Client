@@ -17,6 +17,9 @@ LobbyMap = class(PARENT, {
         m_cbMoveEnd = 'function',
 
         m_lobbyIndicator = 'Animator',
+        m_locationGuideRight = 'Animator',
+        m_locationGuideLeft = 'Animator',
+
         m_lLobbyTamer = 'list',
         m_lLobbyTamerBotOnly = 'list',
 		m_lobbyTamerUser = 'Tamer',
@@ -73,6 +76,9 @@ function LobbyMap:addLayer_lobbyGround(node, perspective_ratio, perspective_rati
     self.m_lobbyIndicator:changeAni('idle', true)
     node:addChild(self.m_lobbyIndicator.m_node, self:makeLobbyMapZorder(LobbyMap.Z_ORDER_TYPE_INDICATOR))
 
+    -- 로케이션 가이드 UI
+    self:makeGuideUI()
+
 	-- 크리스마스 트리
 	--self.m_tree = MakeAnimator('res/lobby/lobby_layer_01_center_tree/lobby_layer_01_center_tree.vrp')
 	--self.m_tree.m_node:setPosition(235, 145)
@@ -95,6 +101,38 @@ function LobbyMap:makeTouchLayer(target_node)
     eventDispatcher:addEventListenerWithSceneGraphPriority(listener, target_node)
 
     target_node:scheduleUpdateWithPriorityLua(function(dt) return self:update(dt) end, 0)
+end
+
+-------------------------------------
+-- function makeGuideUI
+-------------------------------------
+function LobbyMap:makeGuideUI()    
+    -- 오른쪽 가이드
+    do
+        local pos_x = self.m_lobbySpotPos[1] - 50
+        local pos_y = self.m_lobbySpotPos[2] + 150
+
+        local guide_animator = MakeAnimator('res/ui/a2d/lobby/lobby.vrp')
+        guide_animator:setVisible(false)
+        guide_animator:changeAni('arrow_right', true)
+        guide_animator:setPosition(pos_x, pos_y)
+        self.m_groudNode:addChild(guide_animator.m_node, 9990000)
+
+        self.m_locationGuideRight = guide_animator
+    end
+    -- 왼쪽 가이드
+    do
+        local pos_x = self.m_clanLobbySpotPos[1]
+        local pos_y = self.m_clanLobbySpotPos[2] + 150
+
+        local guide_animator = MakeAnimator('res/ui/a2d/lobby/lobby.vrp')
+        guide_animator:setVisible(false)
+        guide_animator:changeAni('arrow_left', true)
+        guide_animator:setPosition(pos_x, pos_y)
+        self.m_groudNode:addChild(guide_animator.m_node, 9990000)
+
+        self.m_locationGuideLeft = guide_animator
+    end
 end
 
 -------------------------------------
@@ -545,8 +583,6 @@ end
 function LobbyMap:updateLobbyObject(struct_user_info)
     local type = g_lobbyChangeMgr:getLobbyType()
     if (type == LOBBY_TYPE.CLAN) then
-        
-
         g_clanLobbyManager:changeBedRes()
     end
 end
@@ -747,28 +783,62 @@ end
 function LobbyMap:updateUserTamerActionArea()
     -- 유저 테이머의 위치
     local user_x, user_y = self.m_targetTamer.m_rootNode:getPosition()
-    -- 현재 로비 타입
-    local cur_lobby = g_lobbyChangeMgr:getLobbyType()
+    local location_guide_area = 700
 
+    -- 로비 이동
+    local cur_lobby = g_lobbyChangeMgr:getLobbyType() -- 현재 로비 타입
+    -- 마을 -> 클랜 로비
     if (cur_lobby == LOBBY_TYPE.NORMAL) then
-        -- 마을 -> 클랜 로비
+        -- 클랜 미가입시 체크 안함
+        if (g_clanData:isClanGuest()) then
+            return
+        end
+
         local clan_lobby_spot_pos = self.m_clanLobbySpotPos
 
-        if (user_x <= clan_lobby_spot_pos[1] and user_y >= clan_lobby_spot_pos[2]) then
-            -- 클랜 미가입시 입장 불가
-            if (g_clanData:isClanGuest()) then
-                return
-            end
+        -- 가이드 액션 
+        local visible = (user_x <= clan_lobby_spot_pos[1] + location_guide_area) 
+        self:showLocationGuideUI(LOBBY_TYPE.CLAN, visible)
 
+        if (user_x <= clan_lobby_spot_pos[1] and user_y >= clan_lobby_spot_pos[2]) then
+            -- 현재 붙어있는 채팅서버 테이머 위치 랜덤으로
+            g_lobbyManager:requestCharacterMove(self:getRandomSpot())
             g_lobbyChangeMgr:changeTypeAndGotoLobby(LOBBY_TYPE.CLAN)
         end
 
+    -- 클랜 로비 -> 마을 
     elseif (cur_lobby == LOBBY_TYPE.CLAN) then
-        -- 클랜 로비 -> 마을 
         local lobby_spot_pos = self.m_lobbySpotPos
+
+        -- 가이드 액션 
+        local visible = (user_x >= lobby_spot_pos[1] - location_guide_area)
+        self:showLocationGuideUI(LOBBY_TYPE.NORMAL, visible)
+
         if (user_x >= lobby_spot_pos[1] and user_y >= lobby_spot_pos[2]) then
+            -- 현재 붙어있는 채팅서버 테이머 위치 랜덤으로
+            g_clanLobbyManager:requestCharacterMove(self:getRandomSpot())
             g_lobbyChangeMgr:changeTypeAndGotoLobby(LOBBY_TYPE.NORMAL)
+           
         end
+    end
+end
+
+-------------------------------------
+-- function showLocationGuideUI
+-- @brief 유저의 테이머가 특정 위치에 도착하면 화살표 표시
+-------------------------------------
+function LobbyMap:showLocationGuideUI(type, visible)
+    if (not self.m_locationGuideRight or not self.m_locationGuideLeft) then
+        return
+    end
+
+    if (type == LOBBY_TYPE.CLAN) then
+        self.m_locationGuideRight:setVisible(false)
+        self.m_locationGuideLeft:setVisible(visible)
+
+    elseif (type == LOBBY_TYPE.NORMAL) then
+        self.m_locationGuideLeft:setVisible(false)
+        self.m_locationGuideRight:setVisible(visible)
     end
 end
 

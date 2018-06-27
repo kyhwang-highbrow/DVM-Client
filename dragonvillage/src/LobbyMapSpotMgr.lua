@@ -38,7 +38,7 @@ function LobbyMapSpotMgr:init()
 
     self.m_mapUsedSpotPos = {}
 
-    self.m_lobbySpotPos = {2300, -220} -- 클랜로비 -> 마을 진입점
+    self.m_lobbySpotPos = {2200, -220} -- 클랜로비 -> 마을 진입점
     self.m_clanLobbySpotPos = {-1740, -220} -- 마을 -> 클랜로비 진입점
 end
 

@@ -220,6 +220,9 @@ function ServerData:getInstance()
     -- 콜로세움 (신규)
     g_arenaData = ServerData_Arena(g_serverData)
 
+    -- 만드라고라의 모험 이벤트
+    g_mandragoraQuest = ServerData_EventMandragoraQuest(g_serverData)
+
     return g_serverData
 end
 

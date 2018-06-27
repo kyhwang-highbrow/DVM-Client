@@ -502,6 +502,7 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <None Include="..\src\ServerData_Event.lua" />
     <None Include="..\src\ServerData_EventDice.lua" />
     <None Include="..\src\ServerData_EventGoldDungeon.lua" />
+    <None Include="..\src\ServerData_EventMandragoraQuest.lua" />
     <None Include="..\src\ServerData_EventMatchCard.lua" />
     <None Include="..\src\ServerData_EvolutionStone.lua" />
     <None Include="..\src\ServerData_Exchange.lua" />
@@ -821,6 +822,7 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <None Include="..\src\StructDailyMission.lua" />
     <None Include="..\src\StructDragonObject.lua" />
     <None Include="..\src\StructEventDiceInfo.lua" />
+    <None Include="..\src\StructEventMandragoraQuest.lua" />
     <None Include="..\src\StructEventMatchCard.lua" />
     <None Include="..\src\StructEventPopupTab.lua" />
     <None Include="..\src\StructExchangeProductData.lua" />
@@ -1096,6 +1098,8 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <None Include="..\src\UI_EventGoldDungeon.lua" />
     <None Include="..\src\UI_EventGoldDungeonListItem.lua" />
     <None Include="..\src\UI_EventGoldDungeonResult.lua" />
+    <None Include="..\src\UI_EventMandragoraQuest.lua" />
+    <None Include="..\src\UI_EventMandragoraQuestListItem.lua" />
     <None Include="..\src\UI_EventMatchCard.lua" />
     <None Include="..\src\UI_EventMatchCardListItem.lua" />
     <None Include="..\src\UI_EventMatchCardPlay.lua" />

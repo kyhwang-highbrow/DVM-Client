@@ -236,6 +236,11 @@ function UI_EventPopup:makeEventPopupTab(tab)
         local inner_ui = UI_EventMatchCard()
         ui = UI_EventPopupTab_Scroll(self, struct_event_popup_tab, inner_ui)
 
+    -- 만드라고라의 모험 이벤트
+    elseif (tab =='event_mandraquest') then
+        local inner_ui = UI_EventMandragoraQuest()
+        ui = UI_EventPopupTab_Scroll(self, struct_event_popup_tab, inner_ui)
+
 	-- Daily Mission
 	elseif (tab == 'daily_mission') then
 		local key = struct_event_popup_tab.m_eventData['event_id']

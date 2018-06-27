@@ -155,6 +155,9 @@ local TableInfo_fromServer = {
 
         -- 마을 가이드
         ['table_lobby_guide'] = {'table_lobby_guide', 'key'},
+
+        -- 만드라고라의 모험
+        ['table_mandragora_quest_event'] = {'table_mandragora_quest_event', 'qid'},
     }
 
 -------------------------------------

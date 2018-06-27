@@ -245,6 +245,12 @@ function UI_Lobby:entryCoroutine()
             if co:waitWork() then return end
         end
 
+        if (g_hotTimeData:isActiveEvent('event_mandraquest')) then
+            co:work('# 만드라고라의 모험 이벤트 정보 받는 중')
+            g_mandragoraQuest:request_questInfo(co.NEXT, required_fail_cb)
+            if co:waitWork() then return end
+        end
+
         -- 네스트 던전 정보 갱신이 필요한 경우 (고대 유적 던전 오픈과 같은 케이스)
         -- requestNestDungeonInfo 내부에서 m_bDirtyNestDungeonInfo가 false인 경우는 통신하지 않으므로 추가
         co:work('# 네스트 정보 갱신 중')
@@ -478,6 +484,7 @@ function UI_Lobby:initButton()
     vars['diceBtn']:registerScriptTapHandler(function() self:click_diceBtn() end) -- 주사위이벤트
     vars['goldDungeonBtn']:registerScriptTapHandler(function() self:click_goldDungeonBtn() end) -- 황금던전 이벤트
     vars['matchCardBtn']:registerScriptTapHandler(function() self:click_matchCardBtn() end) -- 카드 짝 맞추기 이벤트
+    vars['mandragoraBtn']:registerScriptTapHandler(function() self:click_mandragoraBtn() end) -- 만드라고라의 모험 이벤트
     vars['levelupBtn']:registerScriptTapHandler(function() self:click_lvUpPackBtn() end) -- 레벨업 패키지
     vars['adventureClearBtn']:registerScriptTapHandler(function() self:click_adventureClearBtn() end) -- 모험돌파 패키지
 	vars['capsuleBoxBtn']:registerScriptTapHandler(function() self:click_capsuleBoxBtn() end) -- 캡슐 뽑기 버튼
@@ -975,6 +982,17 @@ function UI_Lobby:click_matchCardBtn()
 end
 
 -------------------------------------
+-- function click_mandragoraBtn 
+-- @brief 만드라고라의 모험 이벤트
+-------------------------------------
+function UI_Lobby:click_mandragoraBtn()
+    if (not g_hotTimeData:isActiveEvent('event_mandraquest')) then
+        return
+    end
+    g_eventData:openEventPopup('event_mandraquest')
+end
+
+-------------------------------------
 -- function click_lvUpPackBtn
 -- @brief 레벨업 패키지 버튼
 -------------------------------------
@@ -1373,6 +1391,13 @@ function UI_Lobby:update_rightButtons()
         vars['matchCardBtn']:setVisible(false)
     end
 
+    -- 만드라고라의 모험 버튼
+    if g_hotTimeData:isActiveEvent('event_mandraquest') then
+        vars['mandragoraBtn']:setVisible(true)
+    else
+        vars['mandragoraBtn']:setVisible(false)
+    end
+
 	-- 캡슐 신전 버튼
 	if (g_capsuleBoxData:isOpen()) then
 		vars['capsuleBoxBtn']:setVisible(true)
@@ -1409,6 +1434,7 @@ function UI_Lobby:update_rightButtons()
     table.insert(t_btn_name, 'capsuleBoxBtn')
     table.insert(t_btn_name, 'goldDungeonBtn')
     table.insert(t_btn_name, 'matchCardBtn')
+    table.insert(t_btn_name, 'mandragoraBtn')
     table.insert(t_btn_name, 'dailyShopBtn')
     table.insert(t_btn_name, 'randomShopBtn')
     table.insert(t_btn_name, 'eventBtn')

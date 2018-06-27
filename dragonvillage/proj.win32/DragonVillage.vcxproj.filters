@@ -3634,6 +3634,18 @@
     <None Include="..\src\UI_Shop_Popup_Reinforce.lua">
       <Filter>lua\UI</Filter>
     </None>
+    <None Include="..\src\UI_EventMandragoraQuest.lua">
+      <Filter>lua\UI</Filter>
+    </None>
+    <None Include="..\src\UI_EventMandragoraQuestListItem.lua">
+      <Filter>lua\UI</Filter>
+    </None>
+    <None Include="..\src\ServerData_EventMandragoraQuest.lua">
+      <Filter>lua\src</Filter>
+    </None>
+    <None Include="..\src\StructEventMandragoraQuest.lua">
+      <Filter>lua\src</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Classes">

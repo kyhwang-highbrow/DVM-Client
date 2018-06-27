@@ -103,6 +103,7 @@ local t_module = {
     'StructTeamBonus',
     'StructRandomShopItem',
     'StructEventMatchCard',
+    'StructEventMandragoraQuest',
 
 	-- ServerData
     'ServerData',
@@ -170,6 +171,7 @@ local t_module = {
     'ServerData_RandomShop',
     'ServerData_Arena',
     'ServerData_EventMatchCard',
+    'ServerData_EventMandragoraQuest',
 
     -- Interface
     'IEventDispatcher',
@@ -1130,6 +1132,8 @@ local t_module = {
     'UI_EventMatchCardListItem',
     'UI_EventMatchCardTimeListItem',
     'UI_EventMatchCardResult',
+    'UI_EventMandragoraQuest',
+    'UI_EventMandragoraQuestListItem',
 
 	-- UI : 연출
 	'DirectingCharacter',
