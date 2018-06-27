@@ -165,11 +165,11 @@ function UI_Package_Bundle:refresh()
             -- 구매 제한
             if (TablePackageBundle:isSelectOnePackage(self.m_package_name)) then
                 local is_buy = PackageManager:isBuyAll(self.m_package_name)
-                local str
-                if (is_buy == false) then
-                    str = '{@available}' .. Str('구매 가능')
+				if (is_buy) then
+					vars['buyLabel']:setString('')
+                else
+					vars['buyLabel']:setString('{@available}' .. Str('구매 가능'))
                 end
-                setLabelString('buyLabel', idx, str)
 
                 -- 구매 완료 표시
                 vars['completeNode']:setVisible(is_buy)    
