@@ -94,5 +94,10 @@ function StructEventMandragoraQuest:getQuestStateText()
     local curr_cnt = is_curr_qid and curr_quest_info['cur_value'] or 0
     local clear_cnt = t_info['clear_value_1']
 
+    -- 고대의 탑은 clear_value가 층수를 의미함.. 지금 구조에선 회수 변경 불가
+    if (t_info['key'] == 'clr_tower') then
+        clear_cnt = 1
+    end
+
     return Str(t_desc, clear_cnt) .. ' ' .. Str('({1}/{2})', curr_cnt, clear_cnt)
 end
