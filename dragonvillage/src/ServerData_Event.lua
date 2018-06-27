@@ -209,7 +209,6 @@ function ServerData_Event:getEventFullPopupList()
                 
             -- 패키지인 경우 구매 불가한 경우 노출시키지 않음.
             elseif (string.find(event_type, 'package')) then
-				cclog(event_type)
 				if (not PackageManager:isBuyable(event_type)) then
 					visible = false
 				end
