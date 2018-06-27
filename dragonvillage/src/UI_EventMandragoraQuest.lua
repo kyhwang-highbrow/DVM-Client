@@ -175,7 +175,16 @@ function UI_EventMandragoraQuest:click_eventBtn()
     confirm_popup_func_2 = function()
         local msg = Str('!!경고!!\n담당 직원이 직접 확인하지 않을 경우 선물을 받으실수 없습니다!')
         local sub_msg = Str('직원이 아닌 경우 취소 버튼을 눌러주세요.')
-        MakeSimplePopup2(POPUP_TYPE.YES_NO, msg, sub_msg, request_reward)
+        local popup = MakeSimplePopup2(POPUP_TYPE.YES_NO, msg, sub_msg, request_reward)
+        local vars = popup.vars
+        vars['okBtn']:setEnabled(false)
+        vars['cancelBtn']:setEnabled(false)
+
+        local delay_time = 1.0
+        cca.reserveFunc(popup.root, delay_time, function()
+            vars['okBtn']:setEnabled(true)
+            vars['cancelBtn']:setEnabled(true)
+        end)
     end
 
     request_reward = function()
