@@ -151,8 +151,8 @@ function ServerData_EventMandragoraQuest:request_questInfo(finish_cb, fail_cb)
 
     -- 콜백
     local function success_cb(ret)
-        self:networkCommonRespone(ret)
         self:parseProductInfo(ret['mission_event_product'][1])
+        self:networkCommonRespone(ret)
         
         if finish_cb then
             finish_cb(ret)
