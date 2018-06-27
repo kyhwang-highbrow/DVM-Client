@@ -123,6 +123,9 @@ function UI_DragonReinforcement:refresh()
 	self:refresh_reinforceInfo()
 	self:refresh_stats()
 	self:refresh_relation()
+
+	-- 강화 포인트 상점 버튼 갱신
+	self.vars['reinforceShopBtn']:setVisible(self.m_selectDragonData:getRarity() == 'legend')
 end
 
 -------------------------------------
