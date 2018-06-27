@@ -21,6 +21,8 @@ function UI_BookEgg:init()
     self:doActionReset()
     self:doAction(nil, false)
 
+	self.m_uiName = 'UI_BookEgg'
+
     self:initUI()
     self:initButton()
     self:refresh()

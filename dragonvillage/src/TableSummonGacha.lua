@@ -82,7 +82,8 @@ function TableSummonGacha:getSummonEggList()
     local egg_list = {}
 
     for i, v in pairs(self.m_orgTable) do
-        if (v['ui_priority'] and v['ui_priority'] >= 0) then 
+        if (v['hide_at_egg_book'] == 1) then
+		else
             table.insert(egg_list, v)
         end
     end
