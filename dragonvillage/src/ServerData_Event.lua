@@ -296,7 +296,7 @@ function ServerData_Event:checkEventTime(start_date, end_date)
 
     -- 서버(server)의 타임존 (단위 : 초)
     local timezone_server = Timer:getServerTimeZoneOffset()
-    local offset = (timezone_server - timezone_local)
+    local offset = (timezone_local - timezone_server)
 
     if (start_date ~= '') then
         local parse_start_date = parser:parse(start_date)
