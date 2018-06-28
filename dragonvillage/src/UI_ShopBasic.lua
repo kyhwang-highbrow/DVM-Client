@@ -199,14 +199,16 @@ function UI_ShopBooster:init(is_popup)
     -- 경험치 부스터 1일, 골드 부스터 1일, 경험치 부스터 7일, 골드 부스터 7일 순서여야함
     -- 정렬 후 product_id 검사 - 맞지 않으면 에러 처리
     local check_list = {90084, 90085, 90091, 90092}
+    local _l_ret = {}
+
     for i, v in ipairs(l_ret) do
         local pid = v['product_id']
-        if (pid ~= check_list[i]) then
-            error('부스터 상점 product_id 순서 확인 필요함')
+        if (pid == check_list[i]) then
+            table.insert(_l_ret, v)
         end
     end
 
-    self.m_productList = l_ret
+    self.m_productList = _l_ret
     self:initUI()
 	self:initButton()
     self:refresh()
