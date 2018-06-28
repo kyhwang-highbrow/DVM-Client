@@ -557,7 +557,7 @@ function UI_BookDetailPopup:click_nextBtn(is_next)
 	local book_data
 	for i, t_item in pairs(self.m_lBookList) do
 		book_data = t_item['data']
-		if (did == book_data['did']) and (evolution == book_data['evolution']) then
+		if (did == book_data['did']) then
 			self.m_bookIdx = i
 			break
 		end
