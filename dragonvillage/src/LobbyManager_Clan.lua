@@ -212,7 +212,15 @@ function LobbyManager_Clan:changeBedRes()
     if (not map_member) then
         return
     end
-    
+    -- 리소스 생성되지 않은 경우 pass
+    if (self.m_mapMemberBedRes == nil) then
+        return
+    end
+    -- 채팅서버에서 유저리스트 받지 않은 경우 pass
+    if (self.m_userInfoList == nil) then
+        return
+    end
+
     local l_connect_user = self.m_userInfoList
     local player_uid = g_userData:get('uid')
     for uid, member in pairs(map_member) do
@@ -365,6 +373,7 @@ function LobbyManager_Clan:receiveData_S_LOBBY_CHANGE_CHANNEL(msg)
         
         local user_list = self:getProtobuf('session').SLobbyUserList():Parse(r['user'])
         self:setUserList(user_list['user'] or {})
+        self:changeBedRes()
     else
 
     end
