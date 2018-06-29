@@ -68,14 +68,15 @@ function UI_HatcheryRelationTab:init_TableView()
     local function make_func(data)
         local did = data['did']
         local t_dragon = table_dragon:exists(did) and table_dragon:get(did) or nil
-
-        -- 테스트 드래곤 제외
-        if (t_dragon and t_dragon['test'] == 1) then
-            return UI_HatcheryRelationItem(data)
-        else
-            local ui = UI_DragonReinforceItem('empty')
-            return ui
+        -- 존재하지 않는 드래곤 빈 UI
+        if (not t_dragon) then
+            return UI_DragonReinforceItem('empty')
         end
+        -- test 드래곤 빈 UI
+        if (t_dragon['test'] == 0) then
+            return UI_DragonReinforceItem('empty')
+        end
+        return UI_HatcheryRelationItem(data)
     end
 
     local function create_func(ui, data)
@@ -106,14 +107,25 @@ function UI_HatcheryRelationTab:init_TableView()
     local l_dragon_list = self:getDragonList()
     table_view_td:setItemList(l_dragon_list)
 
-    -- did로 정렬
-    local function sort_func(a, b)
-        local a_did = a['data']['did']
-        local b_did = b['data']['did']
-        return a_did < b_did
-    end
+    -- did와 속성으로 정렬 (더미 데이터가 있으므로 sortmanager 사용하지 않음)
+    table.sort(table_view_td.m_itemList, function(a, b)
+        local a_data = a['data']
+        local b_data = b['data']
 
-    table.sort(table_view_td.m_itemList, sort_func)
+        local a_did = getDigit(a_data['did'], 10, 5)
+        local b_did = getDigit(b_data['did'], 10, 5)
+
+        -- 없는 드래곤까지 임시로 생성한 케이스라 한자리수로 비교
+        local a_attr = a_data['did'] % 10
+        local b_attr = b_data['did'] % 10
+
+        -- 같을 경우 리턴 속성순으로
+        if (a_did == b_did) then
+            return a_attr < b_attr
+        end
+
+        return a_did > b_did
+    end)
 end
 
 -------------------------------------
@@ -126,6 +138,22 @@ function UI_HatcheryRelationTab:getDragonList()
     end
 
     local table_dragon = TableDragon()
+
+    -- 모든 속성이 테스트인 경우 리스트에서 제외
+    local function check_all_test(did)
+        local is_all_test = true
+        local check_id = getDigit(did, 10, 5)
+        for i = 1, 5 do
+            local _did = check_id * 10 + i
+            local t_dragon = table_dragon:exists(_did) and table_dragon:get(_did) or nil
+            if (t_dragon and t_dragon['test'] == 1) then
+                is_all_test = false
+                break
+            end
+        end
+
+        return is_all_test
+    end
 
     local function condition_func(t_table)
         if (t_table['rarity'] ~= rarity) then
@@ -141,12 +169,8 @@ function UI_HatcheryRelationTab:getDragonList()
             return false
         end
 
-        -- 아이리스처럼 모든 속성이 Test인 경우 
-        -- 이거 하나때문에 for문 돌려서 모든 속성 체크하는건 비효율적인거 같아 하드코딩 
-        -- 아이리스 출시때 삭제 
-        -- 2018.06.27 klee
-        local check_id = getDigit(t_table['did'], 10, 5)
-        if (check_id == 12087 or check_id == 12085) then
+        local is_all_test = check_all_test(t_table['did'])
+        if (is_all_test) then
             return false
         end
         
