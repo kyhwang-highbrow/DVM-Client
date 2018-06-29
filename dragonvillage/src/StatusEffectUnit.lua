@@ -25,7 +25,9 @@ StatusEffectUnit = class({
         m_lStatusAbs = 'table',     -- 적용된 스텟 정보
 
         m_tParam = 'table',         -- 추가 정보들을 저장하기 위한 맵형태의 테이블
+
         m_bExceptInDie = 'bool',    -- conditional_buff처럼 즉시 제거에 제외되어야 하는 케이스들이 있다.
+        m_bJustTransferred = 'bool',-- 방금 전이된 효과인지 여부
     })
 
 -------------------------------------
@@ -74,6 +76,7 @@ function StatusEffectUnit:init(name, owner, caster, skill_id, value, source, dur
     end
 
     self.m_bExceptInDie = false
+    self.m_bJustTransferred = self.m_tParam['just_transferred'] or false
 end
 
 -------------------------------------
@@ -87,6 +90,7 @@ function StatusEffectUnit:update(dt, modified_dt)
     end
     
     self.m_keepTimer = self.m_keepTimer + dt
+    self.m_bJustTransferred = false
 
     -- 즉시 종료해야하는지 확인
     do

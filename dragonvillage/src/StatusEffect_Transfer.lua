@@ -73,13 +73,16 @@ function StatusEffect_Transfer:onApplyOverlab(unit)
         local type = status_effect:getTypeName()
                         
         for _, v in ipairs(list) do
-            if (v ~= unit) then
+            if (v ~= unit and not v.m_bJustTransferred) then
                 local caster = v:getCaster()
                 local value = v:getValue()
                 local source = v:getSource()
                 local duration = v:getDuration()
                 local skill_id = v:getSkillId()
                 local add_param = v.m_tParam
+
+                -- 전이된 효과가 다시 전이되는 걸 막기 위함
+                add_param['just_transferred'] = true
 
                 StatusEffectHelper:invokeStatusEffect(caster, target, type, value, source, rate, duration, skill_id, add_param)
             end
