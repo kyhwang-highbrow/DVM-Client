@@ -20,12 +20,9 @@ function UI_Shop_Popup_Reinforce:initParentVariable()
     self.m_uiName = 'UI_Shop_Popup_Reinforce'
     self.m_bVisible = true
     self.m_titleStr = Str('강화 상점')
+    self.m_subCurrency = 'topaz'
+    self.m_addSubCurrency = 'clancoin'
     self.m_bUseExitBtn = true
-
-    if (g_topUserInfo) then
-        g_topUserInfo:makeGoodsUI('topaz', 4)
-        g_topUserInfo:makeGoodsUI('clancoin', 5) 
-    end
 end
 
 -------------------------------------
@@ -148,16 +145,6 @@ function UI_Shop_Popup_Reinforce:click_exitBtn()
     self:close()
 end
 
--------------------------------------
--- function onDestroyUI
--------------------------------------
-function UI_Shop_Popup_Reinforce:onDestroyUI()
-    if (g_topUserInfo) then
-        g_topUserInfo:deleteGoodsUI('clancoin')
-        g_topUserInfo:deleteGoodsUI('topaz') 
-        g_topUserInfo:makeGoodsUI('amethyst', 4)
-    end
-end
 
 
 
