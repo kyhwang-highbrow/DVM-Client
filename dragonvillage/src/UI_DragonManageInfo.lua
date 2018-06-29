@@ -486,6 +486,16 @@ end
 -- @brief 친밀도 버튼
 -------------------------------------
 function UI_DragonManageInfo:click_friendshipBtn()
+    local doid = self.m_selectDragonOID
+
+    do -- 최대 친밀도인지 확인
+        local upgradeable, msg = g_dragonsData:impossibleFriendshipForever(doid)
+        if (upgradeable) then
+            UIManager:toastNotificationRed(msg)
+            return
+        end
+    end
+
     self:openSubManageUI(UI_DragonFriendship)
 end
 

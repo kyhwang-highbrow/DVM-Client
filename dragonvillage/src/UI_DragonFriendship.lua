@@ -214,7 +214,16 @@ end
 -- @breif 하단 리스트뷰에 노출될 드래곤 리스트
 -------------------------------------
 function UI_DragonFriendship:getDragonList()
-    return g_dragonsData:getDragonsList()
+    local dragon_dic = g_dragonsData:getDragonListWithSlime()
+
+    -- 친밀도 레벨업 불가능한 드래곤 제외
+    for oid, v in pairs(dragon_dic) do
+        if (g_dragonsData:impossibleFriendshipForever(oid)) then
+            dragon_dic[oid] = nil
+        end
+    end
+
+    return dragon_dic
 end
 
 -------------------------------------

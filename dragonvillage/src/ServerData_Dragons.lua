@@ -988,6 +988,31 @@ function ServerData_Dragons:impossibleUpgradeForever(doid)
 end
 
 -------------------------------------
+-- function impossibleFriendshipForever
+-- @brief
+-------------------------------------
+function ServerData_Dragons:impossibleFriendshipForever(doid)
+    local t_dragon_data = self:getDragonObject(doid)
+    if (not t_dragon_data) then
+        return true
+    end
+
+    if (t_dragon_data.m_objectType == 'slime') then
+        return true, Str('슬라임은 친밀도를 올릴 수 없습니다.')
+    end
+
+    if (not t_dragon_data['friendship']) then
+        return true, ''
+    end
+
+    if (t_dragon_data['friendship']['flv'] == 9) then
+        return true, Str('더 이상 친밀도를 올릴 수 없습니다.')
+    end
+    
+    return false
+end
+
+-------------------------------------
 -- function possibleDragonEvolution
 -- @brief 진화 가능 여부
 -------------------------------------
