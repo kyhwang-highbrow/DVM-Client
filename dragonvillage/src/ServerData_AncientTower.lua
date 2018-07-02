@@ -285,7 +285,18 @@ function ServerData_AncientTower:makeAcientTower_stageList()
     local function condition_func(t_table)
         local stage_id = t_table['stage']
         local game_mode = g_stageData:getGameMode(stage_id)
-        return (game_mode == GAME_MODE_ANCIENT_TOWER)
+
+        if (game_mode ~= GAME_MODE_ANCIENT_TOWER) then
+            return false
+        end
+
+        -- 고대의탑 시험의탑 스테이지 구분하려 했으나 클리어 데이터 초기화하지 않는 이상 서버 작업 어려움
+        -- 계속 공용으로 쓰기로 함
+        if (stage_id > ANCIENT_TOWER_STAGE_ID_FINISH) then
+            return false
+        end
+
+        return true
     end
 
     -- 테이블에서 조건에 맞는 테이블만 리턴

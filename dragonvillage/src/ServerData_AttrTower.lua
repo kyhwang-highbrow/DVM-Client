@@ -1,4 +1,6 @@
 ATTR_TOWER_OPEN_FLOOR = 40
+ATTR_TOWER_EXTEND_OPEN_FLOOR = 200
+ATTR_TOWER_STAGE_ID_FINISH = 1401100
 
 -------------------------------------
 -- class ServerData_AttrTower
@@ -74,6 +76,14 @@ function ServerData_AttrTower:isContentOpen()
 end
 
 -------------------------------------
+-- function isExtendOpen
+-- @brief 시험의 탑 100층 오픈 여부
+-------------------------------------
+function ServerData_AttrTower:isExtendOpen()
+    return true
+end
+
+-------------------------------------
 -- function getNextStageID
 -- @brief
 -------------------------------------
@@ -118,7 +128,7 @@ end
 -- function isAttrTowerStage
 -------------------------------------
 function ServerData_AttrTower:isAttrTowerStage(stage_id)
-    if (stage_id > ANCIENT_TOWER_STAGE_ID_START) and (stage_id <= ANCIENT_TOWER_STAGE_ID_FINISH) then
+    if (stage_id > ANCIENT_TOWER_STAGE_ID_START) and (stage_id <= ATTR_TOWER_STAGE_ID_FINISH) then
         return true
     end
     return false
@@ -175,9 +185,8 @@ function ServerData_AttrTower:request_attrTowerInfo(attr, stage, finish_cb, fail
             self.m_clearStageID = ret['clear_stage']
             self.m_clearFloor = (ret['clear_stage'] % ANCIENT_TOWER_STAGE_ID_START)
 
-            -- 스테이지는 고대의 탑 스테이지 그대로 사용함!!
             if (not self.m_lStage) then
-                self.m_lStage = g_ancientTowerData:makeAcientTower_stageList()
+                self.m_lStage = self:makeAttrTower_stageList()
                 self.m_nStage = table.count(self.m_lStage)
             end
         end
@@ -262,7 +271,18 @@ function ServerData_AttrTower:makeAttrTower_stageList()
     local function condition_func(t_table)
         local stage_id = t_table['stage']
         local game_mode = g_stageData:getGameMode(stage_id)
-        return (game_mode == GAME_MODE_ANCIENT_TOWER)
+
+        if (game_mode ~= GAME_MODE_ANCIENT_TOWER) then
+            return false
+        end
+
+        -- 고대의탑 시험의탑 스테이지 구분하려 했으나 클리어 데이터 초기화하지 않는 이상 서버 작업 어려움
+        -- 계속 공용으로 쓰기로 함
+        if (stage_id > ATTR_TOWER_STAGE_ID_FINISH) then
+            return false
+        end
+
+        return true
     end
 
     -- 테이블에서 조건에 맞는 테이블만 리턴
@@ -351,7 +371,7 @@ function ServerData_AttrTower:getChallengingFloorWithAttr(attr)
     end
 
     local floor = self.m_subMenuInfo[attr] % ANCIENT_TOWER_STAGE_ID_START
-    floor = (floor >= 50) and 'clear' or floor + 1
+    floor = (floor >= ATTR_TOWER_STAGE_ID_FINISH % 100) and 'clear' or floor + 1
     return floor
 end
 

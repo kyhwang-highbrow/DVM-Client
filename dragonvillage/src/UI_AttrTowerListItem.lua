@@ -34,12 +34,11 @@ function UI_AttrTowerListItem:initUI(t_data)
 
     -- 층 수 표시
     vars['floorLabel']:setString(Str('{1}층', floor))
-
     -- 클리어시 보상 표시
     local t_info = TABLE:get('anc_floor_reward')[stage_id]
     if (t_info) then
         local attr = g_attrTowerData:getSelAttr()
-        local l_str = (floor > clear_floor) and seperate(t_info['reward_first_'..attr], ';') or seperate(t_info['reward_repeat'], ';')
+        local l_str = (floor > clear_floor) and seperate(t_info['reward_first_'..attr], ';') or seperate(t_info['reward_repeat_'..attr], ';')
         local item_type = l_str[1]
         local item_id = TableItem:getItemIDFromItemType(item_type) or tonumber(item_type)
         local item_count = tonumber(l_str[2])
