@@ -147,6 +147,19 @@ function UIC_DragonAnimator:click_dragonButton(idle_motion)
             self.m_animator:addAniHandler(ani_handler)
 
             idle_motion = true
+
+            -- 변신 애니인 경우 추가 이펙트 표시
+            if (ani == 'change') then
+                local effect = MakeAnimator('res/effect/effect_change_iris/effect_change_iris.vrp')
+                if (effect.m_node) then
+                    effect:changeAni('idle', false)
+                    self.m_animator:addChild(effect.m_node)
+
+                    -- 재생 후 삭제
+                    local duration = effect:getDuration()
+                    effect.m_node:runAction(cc.Sequence:create(cc.DelayTime:create(duration), cc.RemoveSelf:create()))
+                end
+            end
         end
 
         prev_ani = ani
