@@ -216,7 +216,9 @@ function UI_LoadingArena:update(dt)
 
     elseif (prev ~= next) then
         local msg = Str('{1}초 후 전투가 시작됩니다.', next)
-        self.vars['countdownLabel']:setString(msg)
+        local label = self.vars['countdownLabel']
+        label:setString(msg)
+        cca.uiReactionSlow(label)
     end
 end
 
