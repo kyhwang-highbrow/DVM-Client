@@ -37,10 +37,13 @@ function StatusEffect_SkillModify:initFromTable(t_status_effect, target_char)
 
                 while (l_skill_key[idx]) do
                     local key = l_skill_key[idx]
-                    local skill_id = SkillHelper:getValidSkillIdFromKey(self.m_owner, key)
+                    local skill_id, metamorphosis_skill_id = SkillHelper:getValidSkillIdFromKey(self.m_owner, key)
 
                     if (self.m_owner:findSkillInfoByID(skill_id)) then
                         table.insert(l_skill_id, skill_id)
+                    end
+                    if (self.m_owner:findSkillInfoByID(metamorphosis_skill_id)) then
+                        table.insert(l_skill_id, metamorphosis_skill_id)
                     end
 
                     idx = idx + 1

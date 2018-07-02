@@ -149,7 +149,7 @@ function Dragon.st_skillIdle(owner, dt)
                 x = -x
             end
 
-            local indicatorData = owner.m_skillIndicator:getIndicatorData()
+            local indicatorData = owner:getSkillIndicator():getIndicatorData()
                         
             owner:doSkill(active_skill_id, x, y, indicatorData)
 

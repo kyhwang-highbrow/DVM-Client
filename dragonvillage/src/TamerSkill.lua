@@ -78,7 +78,7 @@ end
 -- function resetActiveSkillCool
 -------------------------------------
 function Tamer:resetActiveSkillCool()
-    local skill_indivisual_info = self:getLevelingSkillByType('active')
+    local skill_indivisual_info = self:getSkillIndivisualInfo('active')
     if (not skill_indivisual_info) then return end
 
     skill_indivisual_info:resetCoolTime()
@@ -90,7 +90,7 @@ end
 -- function isEndActiveSkillCool
 -------------------------------------
 function Tamer:isEndActiveSkillCool()
-    local skill_indivisual_info = self:getLevelingSkillByType('active')
+    local skill_indivisual_info = self:getSkillIndivisualInfo('active')
     if (not skill_indivisual_info) then return end
 
     return skill_indivisual_info:isEndCoolTime()

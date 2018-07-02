@@ -80,8 +80,9 @@ function Character:doSkillBySkillTable(t_skill, t_data)
         if (b) then
             -- 텍스트
             if (self.m_charType == 'dragon') then
-                --if (t_skill['sid'] == self.m_charTable['skill_1'] or t_skill['sid'] == self.m_charTable['skill_2']) then
-                if (isExistValue(t_skill['sid'], self.m_charTable['skill_1'], self.m_charTable['skill_2'], self.m_charTable['skill_3'])) then
+                local skill_indivisual_info = self:findSkillInfoByID(t_skill['sid'])
+                if (not isExistValue(skill_indivisual_info:getSkillType(), 'basic', 'active', 'leader')) then
+                --if (isExistValue(t_skill['sid'], self.m_charTable['skill_1'], self.m_charTable['skill_2'], self.m_charTable['skill_3'])) then
                     self.m_world:addSkillSpeech(self, t_skill['t_name'])
                 end
             end
@@ -142,8 +143,9 @@ function Character:doSkillBySkillTable(t_skill, t_data)
 
             -- 텍스트
             if ( self.m_charType == 'dragon') then
-                if (isExistValue(t_skill['sid'], self.m_charTable['skill_1'], self.m_charTable['skill_2'], self.m_charTable['skill_3'])) then
-                --if ( t_skill['sid'] == self.m_charTable['skill_1'] or t_skill['sid'] == self.m_charTable['skill_2'] or t_skill['sid'] == self.m_charTable['skill_3']) then
+                local skill_indivisual_info = self:findSkillInfoByID(t_skill['sid'])
+                if (not isExistValue(skill_indivisual_info:getSkillType(), 'basic', 'active', 'leader')) then
+                --if (isExistValue(t_skill['sid'], self.m_charTable['skill_1'], self.m_charTable['skill_2'], self.m_charTable['skill_3'])) then
                     self.m_world:addSkillSpeech(self, t_skill['t_name'])
                 end
             end
@@ -406,6 +408,10 @@ function Character:doSkillBySkillTable(t_skill, t_data)
                 SkillRandom:makeSkillInstance(self, t_skill, t_data)
                 return true
 
+            elseif (skill_type == 'skill_metamorphosis') then
+                SkillMetamorphosis:makeSkillInstance(self, t_skill, t_data)
+                return true
+
             elseif (skill_type == 'skill_boss_ancient_ruin') then
                 SkillScript_AncientDragon:makeSkillInstance(self, t_skill, t_data)
                 return true
@@ -525,7 +531,7 @@ end
 function Character:doSkill_passive()
     if (self.m_bActivePassive) then return end
 
-    local l_passive = self.m_lSkillIndivisualInfo['passive']
+    local l_passive = self:getSkillIndivisualInfo('passive')
     if (l_passive) then
         for i, skill_info in ipairs(l_passive) do
             local skill_id = skill_info.m_skillID
@@ -541,8 +547,8 @@ end
 -- @brief 리더 버프 실행
 -------------------------------------
 function Character:doSkill_leader()
-    local leader_skill_info = self.m_lSkillIndivisualInfo['leader']
-	if (leader_skill_info) then
+    local leader_skill_info = self:getSkillIndivisualInfo('leader')
+    if (leader_skill_info) then
 		local skill_id = leader_skill_info.m_skillID
         self:doSkill(skill_id, 0, 0)
 	end

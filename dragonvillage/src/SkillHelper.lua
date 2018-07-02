@@ -411,43 +411,132 @@ function SkillHelper:setIndicatorDataByAuto(unit, is_arena, input_type)
     if (#l_target == 0) then return false end
 
     -- 인디케이터 정보를 설정
-    return unit.m_skillIndicator:setIndicatorDataByAuto(l_target, target_count, fixed_target, is_arena)
+    return unit:getSkillIndicator():setIndicatorDataByAuto(l_target, target_count, fixed_target, is_arena)
 end
 
 -------------------------------------
 -- function getValidSkillIdFromKey
 -- @brief 해당 유닛이 가진 스킬 중 key 조건에 해당하는 스킬의 아이디 리스트를 반환
+-- !!18/06/27 
+-- 스킬 아이디값이 아닌 경우는 char table의 아이디의 스킬을 기준으로 조건을 체크하고
+-- 변신 전후 스킬 아이디를 모두 반환
 -------------------------------------
 function SkillHelper:getValidSkillIdFromKey(unit, key)
     local skill_id
+    local metamorphosis_skill_id
     local char_table = unit:getCharTable()
     local temp = char_table[key]
 
     -- 특수한 조건을 먼저 검사
     if (string.find(key, 'req_mana_')) then
         -- 필요 마나 수에 해당하는 스킬만 가져옴(액티브만 해당)
-        local req_mana = tonumber(string.match(key, '%d'))
-        local skill_indivisual_info = unit:getSkillIndivisualInfo('active')
-
-        if (unit:isDragon() and unit:getOriginSkillManaCost() == req_mana and skill_indivisual_info) then
-            skill_id = skill_indivisual_info:getSkillID()
-        end
-
-    elseif (key == 'skill_active') then
-        local skill_indivisual_info = unit:getSkillIndivisualInfo('active')
+        local skill_indivisual_info = unit:findSkillInfoByID(char_table['skill_active'])
         if (skill_indivisual_info) then
-            skill_id = skill_indivisual_info:getSkillID()
+            local req_mana = tonumber(string.match(key, '%d'))
+            if (unit:isDragon() and unit:getOriginSkillManaCost() == req_mana) then
+                skill_id = skill_indivisual_info:getSkillID()
+                metamorphosis_skill_id = skill_indivisual_info.m_tSkill['metamorphosis']
+            end
         end
 
     elseif (temp) then
         -- key의 이름으로된 칼럼이 존재하는 경우 해당 값을 사용
         skill_id = temp
 
+        local skill_indivisual_info = unit:findSkillInfoByID(skill_id)
+        if (skill_indivisual_info) then
+            metamorphosis_skill_id = skill_indivisual_info.m_tSkill['metamorphosis']
+        end
     else
         -- 그 이외에는 key값이 스킬 아이디로 사용된 것으로 처리
         skill_id = tonumber(key)
 
     end
 
-    return skill_id
+    return skill_id, metamorphosis_skill_id
+end
+
+-------------------------------------
+-- function makeIndicator
+-- @brief 인디케이터를 생성
+-------------------------------------
+function SkillHelper:makeIndicator(unit, t_skill)
+    local indicator_type = t_skill['indicator']
+    local indicator
+		
+	-- 타겟형(아군)
+	if (indicator_type == 'target_ally') then
+		indicator = SkillIndicator_Target(unit, t_skill, false)
+
+	-- 타겟형(적군)
+	elseif (indicator_type == 'target') then
+		indicator = SkillIndicator_Target(unit, t_skill, true)
+
+	-- 원형 범위
+	elseif (indicator_type == 'round') then
+		indicator = SkillIndicator_AoERound(unit, t_skill, false)
+
+	-- 원점 기준 원뿔형
+	elseif (indicator_type == 'wedge') then
+		indicator = SkillIndicator_AoEWedge(unit, t_skill)
+
+	-- 부채꼴 범위
+	elseif (indicator_type == 'target_cone') then
+		indicator = SkillIndicator_AoECone(unit, t_skill)
+
+	-- 레이저
+	elseif (indicator_type == 'bar') then
+		indicator = SkillIndicator_Laser(unit, t_skill)
+	
+	-- 세로로 긴 직사각형
+    elseif (indicator_type == 'square_height' or indicator_type == 'square_height_bottom') then
+		indicator = SkillIndicator_AoESquare_Height(unit, t_skill)
+
+    elseif (indicator_type == 'square_height_top') then
+        indicator = SkillIndicator_AoESquare_Height_Top(unit, t_skill)
+
+    elseif (indicator_type == 'square_height_touch') then
+        indicator = SkillIndicator_AoESquare_Height_Touch(unit, t_skill)
+	
+    -- 굵은 가로형 직사각형
+    elseif (indicator_type == 'square_width' or indicator_type == 'square_width_left') then
+		indicator = SkillIndicator_AoESquare_Width(unit, t_skill, true)
+    
+    -- 굵은 가로형 직사각형(오른쪽 기준)
+    elseif (indicator_type == 'square_width_right') then
+        indicator = SkillIndicator_AoESquare_Width_Right(unit, t_skill, true)
+
+    -- 굵은 가로형 직사각형(터치 기준)
+    elseif (indicator_type == 'square_width_touch') then
+        indicator = SkillIndicator_AoESquare_Width_Touch(unit, t_skill, true)
+    
+	-- 여러 다발의 관통형
+	elseif (indicator_type == 'penetration') then
+		indicator = SkillIndicator_Penetration(unit, t_skill)
+
+	------------------ 특수한 인디케이터들 ------------------
+
+	-- 리프블레이드 (리프드래곤)
+	elseif (indicator_type == 'curve_twin') then
+		indicator = SkillIndicator_LeafBlade(unit, t_skill)
+
+	-- 볼테스X (볼테스X)
+	elseif (indicator_type == 'voltes_x') then
+		indicator = SkillIndicator_X(unit, t_skill, true)
+
+	-- 여러다발의 직사각형 (원더)
+    elseif (indicator_type == 'square_multi') then
+		indicator = SkillIndicator_AoESquare_Multi(unit, t_skill)
+
+    elseif (indicator_type == 'cross') then
+        indicator = SkillIndicator_Cross(unit, t_skill)
+	-- 미정의 인디케이터
+	else
+		indicator = SkillIndicator_Target(unit, t_skill, false)
+		cclog('###############################################')
+		cclog('## 인디케이터 정의 되지 않은 스킬 : ' .. indicator_type)
+		cclog('###############################################')
+	end
+
+    return indicator
 end

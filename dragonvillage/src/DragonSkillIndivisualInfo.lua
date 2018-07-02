@@ -11,6 +11,8 @@ DragonSkillIndivisualInfo = class({
         m_skillLevel = 'number',
         m_skillType = 'string',
 		m_tAddedValue = 'table',
+
+        m_metamorphosisSkillInfo = 'DragonSkillIndivisualInfo',
     })
 
 -------------------------------------
@@ -25,6 +27,7 @@ function DragonSkillIndivisualInfo:init(char_type, skill_type, skill_id, skill_l
     self.m_skillLevel = (skill_level or 1)
 
 	self.m_tAddedValue = nil
+    self.m_metamorphosisSkillInfo = nil
 end
 
 -------------------------------------
@@ -319,4 +322,16 @@ function DragonSkillIndivisualInfo:getSkillTypeForUI()
     end
 
     return self.m_skillType
+end
+
+-------------------------------------
+-- function getMetamorphosisSkillId
+-------------------------------------
+function DragonSkillIndivisualInfo:getMetamorphosisSkillId()
+    local skill_id = self.m_tSkill['metamorphosis']
+    if (not skill_id or skill_id == '' or skill_id == 0) then
+        return nil
+    end
+
+    return skill_id
 end

@@ -71,7 +71,7 @@ function UIC_DragonAnimator:setDragonAnimator(did, evolution, flv)
     -- 랜덤 에니메이션 리스트 생성
     self.m_randomAnimationList = {}
     for i,ani in ipairs(self.m_animator:getVisualList()) do
-        if isExistValue(ani, 'attack', 'pose_1', 'pose_2') then
+        if isExistValue(ani, 'attack', 'pose_1', 'pose_2', 'change') then
             table.insert(self.m_randomAnimationList, ani)
         end
     end
@@ -117,9 +117,20 @@ function UIC_DragonAnimator:click_dragonButton(idle_motion)
     local idle_index = 0
     local idle_repeat = 2
     local random_index = 0
+    local prev_ani
     local ani_handler
     ani_handler = function()
         local ani
+
+        -- 변신 애니인 경우
+        if (prev_ani == 'change') then
+            if (self.m_animator.m_aniAddName) then
+                self.m_animator:setAniAddName()
+            else
+                self.m_animator:setAniAddName('_d')
+            end
+        end
+
         if (idle_motion) then
             idle_index = (idle_index) % idle_repeat + 1
             ani = 'idle'
@@ -137,6 +148,8 @@ function UIC_DragonAnimator:click_dragonButton(idle_motion)
 
             idle_motion = true
         end
+
+        prev_ani = ani
     end
 
     ani_handler()

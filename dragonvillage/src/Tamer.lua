@@ -11,8 +11,6 @@ Tamer = class(PARENT, {
         m_tamerID = '',    -- 드래곤의 고유 ID
         m_costumeData = 'StructTamerCostume', -- 코스튬 데이터 추가
 
-        m_skillIndicator = '',
-
         m_barrier = '',
 
         m_bWaitState = 'boolean',
@@ -426,9 +424,10 @@ end
 function Tamer:updateBasicSkillTimer(dt)
     PARENT.updateBasicSkillTimer(self, dt)
 
-    if (self.m_lSkillIndivisualInfo['indie_time']) then
+    local list = self:getSkillIndivisualInfo('indie_time')
+    if (list) then
         -- 기획적으로 indie_time스킬은 1개만을 사용하도록 한다.
-        local skill_info = table.getFirst(self.m_lSkillIndivisualInfo['indie_time'])
+        local skill_info = table.getFirst(list)
 
         -- 스킬 정보가 있을 경우 쿨타임 진행 정보를 확인한다.
         if (skill_info) then

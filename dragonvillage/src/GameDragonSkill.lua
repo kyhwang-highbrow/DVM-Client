@@ -231,7 +231,7 @@ function GameDragonSkill.st_playDragSkill(self, dt)
                 local t_dragon_skill = TableDragonSkill():get(active_skill_id)
 
                 if (t_dragon_skill['skill_type'] == 'skill_laser_zet') then
-                    local indicatorData = dragon.m_skillIndicator:getIndicatorData()
+                    local indicatorData = dragon:getSkillIndicator():getIndicatorData()
                     local dir = indicatorData['dir']
 
                     if (dragon.m_bLeftFormation) then
@@ -373,7 +373,7 @@ function GameDragonSkill.st_playTamerSkill(self, dt)
 		    local move_pos_y = cameraHomePosY + 200
 
             -- 스킬 이름 말풍선
-            local skill_indivisual_info = tamer:getLevelingSkillByType('active')
+            local skill_indivisual_info = tamer:getSkillIndivisualInfo('active')
             local t_skill = skill_indivisual_info.m_tSkill
 		    SkillHelper:makePassiveSkillSpeech(tamer, t_skill['t_name'])
 
@@ -400,7 +400,7 @@ function GameDragonSkill.st_playTamerSkill(self, dt)
             if (self.m_bSkipMode) then
                 self:nextStep()
             else
-                local skill_indivisual_info = tamer:getLevelingSkillByType('active')
+                local skill_indivisual_info = tamer:getSkillIndivisualInfo('active')
                 local t_skill = skill_indivisual_info.m_tSkill
 		        local res_1 = t_skill['res_1']	-- 전화면 컷씬 리소스
 		        local res_2 = t_skill['res_2']	-- 스킬 발동 리소스
@@ -473,6 +473,11 @@ function GameDragonSkill:makeSkillOpeningCut(dragon, cbEnd)
         local aniName = self:getDragonAniForCut(dragon)
         local res_name = dragon.m_animator.m_resName
         local animator = AnimatorHelper:makeDragonAnimator(res_name, dragon.m_evolutionLv, dragon:getAttribute())
+
+        if (dragon.m_bMetamorphosis) then
+            animator:setAniAddName('_d')
+        end
+
         animator:changeAni(aniName, false)
         dragonNode:addChild(animator.m_node)
 
@@ -509,30 +514,6 @@ function GameDragonSkill:makeSkillDesc(dragon, delayTime)
 
     local name = active_skill_info:getSkillName()
 	local desc = active_skill_info:getSkillDesc()
-
-    --[[
-    -- 현재 skill_info 스킬아이디와 드래곤의 액티브스킬 아이디를 비교하여 다르다면
-    -- 스킬 강화 된것으로 보고 강화되기전 스킬을 꺼내온다.
-    local curr_skill_id = active_skill_info:getSkillID()
-    local active_skill_id = dragon.m_charTable['skill_active']
-    if (curr_skill_id ~= active_skill_id) then
-        local old_skill_info = dragon:getSkillInfoByID(active_skill_id)
-        -- 강화 되기 전 스킬 정보를 가져왔을 경우
-        if (old_skill_info) then
-            -- 이름
-            local old_skill_name = old_skill_info:getSkillName()
-            if (old_skill_name) then
-                name = string.format('%s (%s)', old_skill_name, name)
-            end
-
-            -- 설명
-            local old_skill_desc = old_skill_info:getSkillDesc()
-            if (old_skill_desc) then
-                desc = string.format('%s \n %s', old_skill_desc, desc)
-            end
-        end
-    end
-    ]]--
 
     self.m_skillNameLabel:setString(name)
     --self.m_skillDescLabel:setString(desc)

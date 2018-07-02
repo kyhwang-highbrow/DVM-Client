@@ -7,8 +7,6 @@ Dragon = class(PARENT, {
         -- 기본 정보
         m_dragonID = '',			-- 드래곤 테이블 ID (did)
         m_tDragonInfo = 'table',	-- 유저가 보유한 드래곤 정보
-		
-		m_skillIndicator = '',
 
         m_skillOffsetX = 'number',
         m_skillOffsetY = 'number',
@@ -67,16 +65,14 @@ function Dragon:init_dragon(dragon_id, t_dragon_data, t_dragon, bLeftFormation, 
 
 	-- 각종 init 함수 실행
 	do
+        self:initAnimatorDragon(t_dragon['res'], evolution, attr, scale)
 		self:setDragonSkillLevelList(t_dragon_data['skill_0'], t_dragon_data['skill_1'], t_dragon_data['skill_2'], t_dragon_data['skill_3'])
 		self:initDragonSkillManager(t_dragon_data)
 		self:initStatus(t_dragon, lv, grade, evolution, doid, eclv)
     
-		self:initAnimatorDragon(t_dragon['res'], evolution, attr, scale)
 		self:makeCastingNode()
 		self:initTriggerListener()
 		self:initLogRecorder(doid or dragon_id)
-		
-		self:initSkillIndicator()
 	end
     
 	-- 피격 처리
@@ -145,7 +141,7 @@ function Dragon:setStatusCalc(status_calc)
 
     -- 스킬 마나 지정
     do
-        local skill_indivisual_info = self:getLevelingSkillByType('active')
+        local skill_indivisual_info = self:getSkillIndivisualInfo('active')
         if (not skill_indivisual_info) then return end
 
         local t_skill = skill_indivisual_info.m_tSkill
@@ -398,103 +394,12 @@ function Dragon:makeCastingNode()
 end
 
 -------------------------------------
--- function initSkillIndicator
--- @brief 스킬 인디케이터 초기화
--------------------------------------
-function Dragon:initSkillIndicator()
-    local skill_indivisual_info = self:getLevelingSkillByType('active')
-    if (not skill_indivisual_info) then return end
-
-    local t_char = self.m_charTable
-    local t_skill = skill_indivisual_info.m_tSkill
-
-	local indicator_type = t_skill['indicator']
-		
-	-- 타겟형(아군)
-	if (indicator_type == 'target_ally') then
-		self.m_skillIndicator = SkillIndicator_Target(self, t_skill, false)
-
-	-- 타겟형(적군)
-	elseif (indicator_type == 'target') then
-		self.m_skillIndicator = SkillIndicator_Target(self, t_skill, true)
-
-	-- 원형 범위
-	elseif (indicator_type == 'round') then
-		self.m_skillIndicator = SkillIndicator_AoERound(self, t_skill, false)
-
-	-- 원점 기준 원뿔형
-	elseif (indicator_type == 'wedge') then
-		self.m_skillIndicator = SkillIndicator_AoEWedge(self, t_skill)
-
-	-- 부채꼴 범위
-	elseif (indicator_type == 'target_cone') then
-		self.m_skillIndicator = SkillIndicator_AoECone(self, t_skill)
-
-	-- 레이저
-	elseif (indicator_type == 'bar') then
-		self.m_skillIndicator = SkillIndicator_Laser(self, t_skill)
-	
-	-- 세로로 긴 직사각형
-    elseif (indicator_type == 'square_height' or indicator_type == 'square_height_bottom') then
-		self.m_skillIndicator = SkillIndicator_AoESquare_Height(self, t_skill)
-
-    elseif (indicator_type == 'square_height_top') then
-        self.m_skillIndicator = SkillIndicator_AoESquare_Height_Top(self, t_skill)
-
-    elseif (indicator_type == 'square_height_touch') then
-        self.m_skillIndicator = SkillIndicator_AoESquare_Height_Touch(self, t_skill)
-	
-    -- 굵은 가로형 직사각형
-    elseif (indicator_type == 'square_width' or indicator_type == 'square_width_left') then
-		self.m_skillIndicator = SkillIndicator_AoESquare_Width(self, t_skill, true)
-    
-    -- 굵은 가로형 직사각형(오른쪽 기준)
-    elseif (indicator_type == 'square_width_right') then
-        self.m_skillIndicator = SkillIndicator_AoESquare_Width_Right(self, t_skill, true)
-
-    -- 굵은 가로형 직사각형(터치 기준)
-    elseif (indicator_type == 'square_width_touch') then
-        self.m_skillIndicator = SkillIndicator_AoESquare_Width_Touch(self, t_skill, true)
-    
-	-- 여러 다발의 관통형
-	elseif (indicator_type == 'penetration') then
-		self.m_skillIndicator = SkillIndicator_Penetration(self, t_skill)
-
-	------------------ 특수한 인디케이터들 ------------------
-
-	-- 리프블레이드 (리프드래곤)
-	elseif (indicator_type == 'curve_twin') then
-		self.m_skillIndicator = SkillIndicator_LeafBlade(self, t_skill)
-
-	-- 볼테스X (볼테스X)
-	elseif (indicator_type == 'voltes_x') then
-		self.m_skillIndicator = SkillIndicator_X(self, t_skill, true)
-
-	-- 여러다발의 직사각형 (원더)
-    elseif (indicator_type == 'square_multi') then
-		self.m_skillIndicator = SkillIndicator_AoESquare_Multi(self, t_skill)
-
-    elseif (indicator_type == 'cross') then
-        self.m_skillIndicator = SkillIndicator_Cross(self, t_skill)
-	-- 미정의 인디케이터
-	else
-		self.m_skillIndicator = SkillIndicator_Target(self, t_skill, false)
-		cclog('###############################################')
-		cclog('## 인디케이터 정의 되지 않은 스킬 : ' .. indicator_type)
-		cclog('###############################################')
-        return
-	end
-end
-
--------------------------------------
 -- function initActiveSkillCool
 -- @brief 드래그 쿨타임은 세팅
 -------------------------------------
 function Dragon:initActiveSkillCool(sec)
-    if (not self.m_lSkillIndivisualInfo) then return end
-
     local sec = sec or 0
-    local skill_info = self.m_lSkillIndivisualInfo['active']
+    local skill_info = self:getSkillIndivisualInfo('active')
 
     if (skill_info) then
         skill_info.m_timer = sec
@@ -516,7 +421,7 @@ function Dragon:updateActiveSkillTimer(dt)
 
     -- 드래그 스킬 게이지 갱신
     if (self.m_bLeftFormation) then
-        local skill_info = self:getLevelingSkillByType('active')
+        local skill_info = self:getSkillIndivisualInfo('active')
         if (skill_info) then
             local timer, percentage = skill_info:getCoolTimeForGauge()
             local t_event = clone(EVENT_DRAGON_SKILL_GAUGE)
@@ -535,7 +440,7 @@ end
 -- function isEndActiveSkillCool
 -------------------------------------
 function Dragon:isEndActiveSkillCool()
-    local skill_info = self.m_lSkillIndivisualInfo['active']
+    local skill_info = self:getSkillIndivisualInfo('active')
     if (skill_info and not skill_info:isEndCoolTime()) then
         return false
     end
@@ -562,7 +467,7 @@ function Dragon:isPossibleActiveSkill(map_except)
         end
 	end
 
-    if (not self.m_skillIndicator) then
+    if (not self:getSkillIndicator()) then
         if (not map_except[REASON_TO_DO_NOT_USE_SKILL.NO_INDICATOR]) then
             b = false
             m_reason[REASON_TO_DO_NOT_USE_SKILL.NO_INDICATOR] = true
@@ -754,13 +659,23 @@ function Dragon:getSizeType()
 end
 
 -------------------------------------
+-- function getSkillIndicator
+-------------------------------------
+function Dragon:getSkillIndicator()
+    local skill_info = self:getSkillIndivisualInfo('active')
+    if (skill_info) then
+        return skill_info.m_indicator
+    end
+end
+
+-------------------------------------
 -- function updateDebugingInfo
 -- @brief 인게임 정보 출력용 업데이트
 -------------------------------------
 function Dragon:updateDebugingInfo()
     -- 화면에 드래그 쿨타임 표시
 	if (g_constant:get('DEBUG', 'DISPLAY_ENEMY_MANA_COOLDOWN')) then 
-        local skill_info = self.m_lSkillIndivisualInfo['active']
+        local skill_info = self:getSkillIndivisualInfo('active')
         if (skill_info and not skill_info:isEndCoolTime()) then
             local cool_time = skill_info:getCoolTimeForGauge()
             self.m_infoUI.m_label:setString(string.format('%d', cool_time))

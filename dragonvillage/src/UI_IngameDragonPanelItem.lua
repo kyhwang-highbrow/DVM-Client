@@ -42,6 +42,7 @@ function UI_IngameDragonPanelItem:init(world, dragon, dragon_idx)
 	local vars = self:load('ingame_panel.ui', false, true, true)
 
     dragon:addListener('character_set_hp', self)
+    dragon:addListener('character_metamorphosis', self)
     dragon:addListener('dragon_skill_gauge', self)
     dragon:addListener('touch_began', self)
     dragon:addListener('dragon_mana_reduce', self)
@@ -49,6 +50,7 @@ function UI_IngameDragonPanelItem:init(world, dragon, dragon_idx)
     
     self:refreshHP(dragon:getHpRate())
     self:refreshManaCost(dragon:getSkillManaCost())
+    self:refreshSkill()
     self:refreshSkillGauge(0)
 
     self:initUI()
@@ -95,7 +97,7 @@ function UI_IngameDragonPanelItem:initUI()
 		    vars['dragonNode']:addChild(sprite)
 	    end
     end
-
+    
     do -- 드래그 스킬 아이콘
         local skill_icon
 
@@ -207,6 +209,9 @@ function UI_IngameDragonPanelItem:onEvent(event_name, t_event, ...)
     if (event_name == 'character_set_hp') then
         self:refreshHP(t_event['hp_rate'])
 
+    elseif (event_name == 'character_metamorphosis') then
+        self:refreshSkill()
+
     -- 드래곤 드래그 스킬 게이지 변경 Event
     elseif (event_name == 'dragon_skill_gauge') then
         self:refreshSkillGauge(t_event['cool_time'], t_event['percentage'], t_event['enough_mana'])
@@ -258,6 +263,96 @@ function UI_IngameDragonPanelItem:refreshManaCost(mana_cost)
                 icon:setAnchorPoint(cc.p(0.5, 0.5))
                 vars['manaNode']:addChild(icon)
             end
+        end
+    end
+end
+
+-------------------------------------
+-- function refreshSkill
+-- @brief 드래곤 드래그 스킬 갱신
+-------------------------------------
+function UI_IngameDragonPanelItem:refreshSkill()
+    if (not self.m_bHaveActive) then return end
+
+    local vars = self.vars
+
+    local dragon = self.m_dragon
+    local skill_id = dragon:getSkillID('active')
+    local t_skill = dragon:getSkillTable(skill_id)
+
+    self.m_bAttackSkill = SkillHelper:isEnemyTargetingType(t_skill)
+
+    local str_target = (self.m_bAttackSkill and 'atk' or 'heal')
+
+    vars['skillFullVisual1']:changeAni('dragon_full_' .. str_target .. '_idle_1', true)
+    vars['skillFullVisual2']:changeAni('dragon_full_' .. str_target .. '_idle_2', true)
+
+    do -- 드래그 스킬 아이콘
+        local skill_icon
+
+        if (t_skill) then
+            skill_icon = IconHelper:getSkillIcon('dragon', skill_id)
+			
+		-- 액티브 스킬이 없는 케이스
+        else
+            skill_icon = cc.Sprite:create('res/ui/icons/skill/skill_empty.png')
+			
+        end
+
+        skill_icon:setDockPoint(CENTER_POINT)
+        skill_icon:setAnchorPoint(CENTER_POINT)
+        vars['skillNode']:removeAllChildren()
+        vars['skillNode']:addChild(skill_icon)
+    end
+    
+
+    -- 인디케이터 아이콘
+    if (t_skill) then
+        local indicator_type = t_skill['indicator']
+        local rotate = 0
+
+        if (pl.stringx.endswith(indicator_type, '_right')) then
+            indicator_type = string.gsub(indicator_type, '_right', '')
+            rotate = 180
+        elseif (pl.stringx.endswith(indicator_type, '_top')) then
+            indicator_type = string.gsub(indicator_type, '_top', '')
+            rotate = 180
+        elseif (pl.stringx.endswith(indicator_type, '_touch')) then
+            indicator_type = string.gsub(indicator_type, '_touch', '')
+        end
+        
+        local res = 'ingame_panel_indicater_' .. str_target .. '_' .. indicator_type .. '.png'
+        local icon = cc.Sprite:createWithSpriteFrameName(res)
+        if (not icon) then
+            cc.SpriteFrameCache:getInstance():addSpriteFrames('res/ui/a2d/ingame_panel/ingame_panel.plist')
+            icon = cc.Sprite:createWithSpriteFrameName(res)
+        end
+
+        if (icon) then
+            icon:setDockPoint(CENTER_POINT)
+            icon:setAnchorPoint(CENTER_POINT)
+            icon:setRotation(rotate)
+            vars['indicaterNode']:removeAllChildren()
+            vars['indicaterNode']:addChild(icon)
+        end
+    end
+
+    -- 대상 수
+    if (t_skill) then
+        local target_count = t_skill['target_count']
+        target_count = math_min(target_count, 7)
+        local res = 'ingame_panel_target_' .. str_target .. '_' .. target_count .. '.png'
+        local icon = cc.Sprite:createWithSpriteFrameName(res)
+        if (not icon) then
+            cc.SpriteFrameCache:getInstance():addSpriteFrames('res/ui/a2d/ingame_panel/ingame_panel.plist')
+            icon = cc.Sprite:createWithSpriteFrameName(res)
+        end
+
+        if (icon) then
+            icon:setDockPoint(CENTER_POINT)
+            icon:setAnchorPoint(CENTER_POINT)
+            vars['targetNode']:removeAllChildren()
+            vars['targetNode']:addChild(icon)
         end
     end
 end

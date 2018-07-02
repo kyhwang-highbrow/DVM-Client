@@ -62,7 +62,7 @@ function SkillIndicatorMgr_Intro:onTouchBegan(touch, event)
             self.m_firstTouchUIPos = world.m_inGameUI.root:convertToNodeSpace(location)
         
             self.m_touchedHero = select_hero
-            self.m_touchedHero.m_skillIndicator:setIndicatorTouchPos(node_pos['x'], node_pos['y'])
+            self.m_touchedHero:getSkillIndicator():setIndicatorTouchPos(node_pos['x'], node_pos['y'])
         end
 
         if (self.m_animatorGuide) then
@@ -86,7 +86,7 @@ end
 -------------------------------------
 function SkillIndicatorMgr_Intro:onTouchEnded(touch, event)
     if (self.m_selectHero) then
-        if (not self.m_selectHero.m_skillIndicator:isExistTarget()) then
+        if (not self.m_selectHero:getSkillIndicator():isExistTarget()) then
             -- 대상이 하나도 없을 경우 취소 처리
             self:clear(true)
 
@@ -98,7 +98,7 @@ function SkillIndicatorMgr_Intro:onTouchEnded(touch, event)
         else
             -- 스마트 드래곤의 힐 스킬은 무조건 번개고룡을 포함시킨다
             if (self.m_selectHero:getCharId() == 120431) then
-                local indicator = self.m_selectHero.m_skillIndicator
+                local indicator = self.m_selectHero:getSkillIndicator()
                 local is_exist = false
 
                 for _, v in ipairs(indicator.m_highlightList) do

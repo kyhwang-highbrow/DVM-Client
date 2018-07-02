@@ -7,15 +7,19 @@ IDragonSkillManager = {
         -- [external variable]
         m_charType = 'string',
         m_charID = 'number',
-        m_openSkillCount = 'number',
-        m_dragonSkillLevel = 'table', --드래곤일 경우에만 사용, 스킬 레벨 지정
+        m_dragonSkillLevel = 'table',   -- 드래곤일 경우에만 사용, 스킬 레벨 지정
 		m_evolutionLv = 'number',
+        m_bHasMetamorphosisSkill = 'boolean',   -- 변신 스킬 보유 여부
+        m_bMetamorphosis = 'boolean',   -- 변신 여부
 
         -- [internal variable]
         m_charTable = 'table',
 
         m_lSkillIndivisualInfo = 'list',
 		m_mSkillInfoMap = 'map',			-- 외부 접근용 맵테이블 key : skill_id
+
+        m_mSkillInfoMapBeforeMetamorphosis = 'map', 
+        m_mSkillInfoMapAfterMetamorphosis = 'map',
 
         m_lReserveTurnSkillID = 'table',
         m_mReserveTurnSkillID = 'table',
@@ -29,6 +33,8 @@ IDragonSkillManager = {
 -------------------------------------
 function IDragonSkillManager:init()
     self.m_bInGameMode = false
+    self.m_bHasMetamorphosis = false
+    self.m_bMetamorphosis = false
 
     self.m_lReserveTurnSkillID = {}
     self.m_mReserveTurnSkillID = {}
@@ -46,12 +52,14 @@ function IDragonSkillManager:initDragonSkillManager(char_type, char_id, evolutio
     self.m_bInGameMode = b_ingame_mode or false
     self.m_charType = char_type
     self.m_charID = char_id
-    self.m_openSkillCount = open_skill_count
 	self.m_mSkillInfoMap = {}
+    self.m_mSkillInfoMapBeforeMetamorphosis = {}
+    self.m_mSkillInfoMapAfterMetamorphosis = {}
 
 
     -- 캐릭터 테이블 저장
     local table_dragon = TABLE:get(self.m_charType)
+    local table_skill = GetSkillTable(self.m_charType)
     local t_character = table_dragon[char_id]
     self.m_charTable = t_character
 	self.m_evolutionLv = evolution_lv
@@ -75,9 +83,24 @@ function IDragonSkillManager:initDragonSkillManager(char_type, char_id, evolutio
 		self.m_dragonSkillLevel['Leader'] = skill_lv
     end
 
+    -- 변신 스킬 지정
+    if (t_character['skill_metamorphosis']) and (t_character['skill_metamorphosis'] ~= '') then
+        local skill_id = t_character['skill_metamorphosis']
+		local skill_type = table_skill:getSkillType(skill_id)
+		if skill_type and skill_id then
+            local skill_indivisual_info = self:setSkillID(skill_type, skill_id, 1, 'new')
+
+            -- 전투 시작 후 즉시 변신되도록 함
+            if (self.m_bInGameMode) then
+                skill_indivisual_info:resetCoolTime()
+            end
+
+            self.m_bHasMetamorphosisSkill = true
+        end
+    end
+
     -- 캐릭터 등급에 따라 루프를 돌며 스킬을 초기화 한다.
     -- 스킬 타입 별로 나중에 추가한것으로 덮어 씌운다.
-	local table_skill = GetSkillTable(self.m_charType)
     for i = 1, 9 do
         local skill_id = t_character['skill_' .. i]
 		local skill_type = table_skill:getSkillType(skill_id)
@@ -175,28 +198,35 @@ function IDragonSkillManager:setSkillID(skill_type, skill_id, skill_lv, add_type
         return
     end
 
-    -- game_mode 체크
-    if (g_gameScene and g_gameScene.m_gameWorld) then
+    -- skill info 생성
+    local skill_indivisual_info
+
+    if (self.m_bInGameMode) then
         local t_skill = GetSkillTable(self.m_charType):get(skill_id)
+
+        -- game_mode 체크
         local game_mode = t_skill['game_mode']
         if (game_mode and game_mode ~= '') then
             if (game_mode ~= PLAYER_VERSUS_MODE[g_gameScene.m_gameWorld.m_gameMode]) then
                 return
             end
         end
+
+        skill_indivisual_info = DragonSkillIndivisualInfoInGame(self.m_charType, skill_type, skill_id, skill_lv)
+
+        if (skill_type == 'active') then
+            -- indicator 생성
+            local indicator = t_skill['indicator']
+            if (indicator and indicator ~= '') then
+                skill_indivisual_info.m_indicator = SkillHelper:makeIndicator(self, t_skill)
+            end
+        end
+    else
+        skill_indivisual_info = DragonSkillIndivisualInfo(self.m_charType, skill_type, skill_id, skill_lv)
     end
 
     if (self.m_lSkillIndivisualInfo[skill_type] == nil) then
         self.m_lSkillIndivisualInfo[skill_type] = {}
-    end
-
-	-- skill info 생성
-    local skill_indivisual_info
-
-    if (self.m_bInGameMode) then
-        skill_indivisual_info = DragonSkillIndivisualInfoInGame(self.m_charType, skill_type, skill_id, skill_lv)
-    else
-        skill_indivisual_info = DragonSkillIndivisualInfo(self.m_charType, skill_type, skill_id, skill_lv)
     end
 
 	-- skill 입력 및 덮어씌우기
@@ -206,7 +236,10 @@ function IDragonSkillManager:setSkillID(skill_type, skill_id, skill_lv, add_type
 	if (skill_type == 'active') then
 		-- 덮어씌우기전에 임시로 저장해둔다
 		old_skill_info = self.m_lSkillIndivisualInfo[skill_type]
-		self.m_lSkillIndivisualInfo[skill_type] = skill_indivisual_info
+
+        if (add_type ~= 'new') then
+		    self.m_lSkillIndivisualInfo[skill_type] = skill_indivisual_info
+        end
 
 	-- 기본공격 및 리더버프는 강화 불가
 	elseif isExistValue(skill_type, 'basic', 'leader') then
@@ -225,10 +258,15 @@ function IDragonSkillManager:setSkillID(skill_type, skill_id, skill_lv, add_type
 		-- 성룡 스킬이고 skill_1, skill_2를 가리킨다면 찾아서 바꿔줘야한다.
 		elseif isExistValue(add_type, 'skill_1', 'skill_2') then
 			local old_skill_id = self.m_charTable[add_type]
-			local skill_info, idx = self:findSkillInfoByID(old_skill_id)
-			old_skill_info = skill_info
-			self.m_lSkillIndivisualInfo[skill_type][idx] = skill_indivisual_info
-			
+            
+            old_skill_info = self:findSkillInfoByID(old_skill_id)
+
+            for idx, skill_info in ipairs(self.m_lSkillIndivisualInfo[skill_type]) do
+		        if (old_skill_id == skill_info:getSkillID()) then
+                    self.m_lSkillIndivisualInfo[skill_type][idx] = skill_indivisual_info
+                    break
+                end
+            end
 		end
 
         if (self.m_bInGameMode) then
@@ -236,7 +274,7 @@ function IDragonSkillManager:setSkillID(skill_type, skill_id, skill_lv, add_type
         end
     end
 
-    -- 스킬 레벨 적용
+    -- 스킬 레벨 적용(old_skill_info의 레벨업된 부분을 적용)
     skill_indivisual_info:applySkillLevel(old_skill_info)
 
 	-- 스킬 desc 세팅
@@ -244,6 +282,23 @@ function IDragonSkillManager:setSkillID(skill_type, skill_id, skill_lv, add_type
 
     -- 맵으로 저장
 	self.m_mSkillInfoMap[skill_id] = skill_indivisual_info
+
+    -- 변신시 변경되는 스킬이 존재한다면 스킬을 추가함
+    local metamorphosis_skill_id = skill_indivisual_info:getMetamorphosisSkillId()
+    if (metamorphosis_skill_id) then
+        local t_metamorphosis_skill = GetSkillTable(self.m_charType):get(metamorphosis_skill_id)
+        local metamorphosis_skill_type = t_metamorphosis_skill['chance_type']
+        local metamorphosis_skill_indivisual_info = self:setSkillID(metamorphosis_skill_type, metamorphosis_skill_id, skill_lv, 'new')
+
+        skill_indivisual_info.m_metamorphosisSkillInfo = metamorphosis_skill_indivisual_info
+
+        self.m_mSkillInfoMapBeforeMetamorphosis[skill_id] = skill_indivisual_info
+        self.m_mSkillInfoMapAfterMetamorphosis[metamorphosis_skill_id] = metamorphosis_skill_indivisual_info
+        
+        if (self.m_bInGameMode) then
+            metamorphosis_skill_indivisual_info:setEnabled(false)
+        end
+    end
 
     return skill_indivisual_info
 end
@@ -269,6 +324,8 @@ function IDragonSkillManager:unsetSkillID(skill_id)
     end
 
     self.m_mSkillInfoMap[skill_id] = nil
+    self.m_mSkillInfoMapBeforeMetamorphosis[skill_id] = nil
+    self.m_mSkillInfoMapAfterMetamorphosis[skill_id] = nil
 end
 
 -------------------------------------
@@ -280,33 +337,7 @@ function IDragonSkillManager:findSkillInfoByID(skill_id)
 		return
 	end
 
-    local skill_type
-
-    --!! basic 스킬인데 해당 스킬 테이블의 chance_type은 basic이 아닌 경우 예외처리(기획에서 잘못 입력한 경우)
-    if (self.m_lSkillIndivisualInfo['basic'] and self.m_lSkillIndivisualInfo['basic']:getSkillID() == skill_id) then
-        skill_type = 'basic'
-    else
-        skill_type = GetSkillTable(self.m_charType):getSkillType(skill_id)
-    end
-
-    if (not self.m_lSkillIndivisualInfo[skill_type]) then
-        cclog('invalid skill : ' .. skill_id .. ' skill_type : ' .. skill_type)
-        return
-    end
-    
-    -- 하나의 스킬만을 가지는 스킬 타입
-	if isExistValue(skill_type, 'active', 'basic', 'leader') then
-        local skill_info = self.m_lSkillIndivisualInfo[skill_type]
-        if (skill_id == skill_info:getSkillID()) then
-            return skill_info
-        end
-    else
-	    for i, skill_info in pairs(self.m_lSkillIndivisualInfo[skill_type]) do
-		    if (skill_id == skill_info:getSkillID()) then
-			    return skill_info, i
-		    end		
-	    end
-    end
+    return self.m_mSkillInfoMap[skill_id]
 end
 
 -------------------------------------
@@ -419,10 +450,14 @@ function IDragonSkillManager:getSkillIndivisualInfo_usingIdx(idx)
     end
 
     -- 이미 skill_individual_info가 있는 경우
-	local skill_indivisual_info = self:getSkillInfoByID(skill_id)
+	local skill_indivisual_info = self:findSkillInfoByID(skill_id)
 	if (skill_indivisual_info) then
-		return skill_indivisual_info
-
+        -- 변신 중이라면 변신 스킬 정보를 리턴해줌
+        if (self.m_bMetamorphosis and skill_indivisual_info.m_metamorphosisSkillInfo) then
+            return skill_indivisual_info.m_metamorphosisSkillInfo
+        else
+            return skill_indivisual_info
+        end
 	else
 		-- UI용 skill_info 계산
 		if (skill_type and skill_id ~= 0 and skill_id ~= '') then
@@ -543,37 +578,93 @@ function IDragonSkillManager:makeSkillIcon_usingIndex_NoLv(idx)
 end
 
 -------------------------------------
--- function getSkillInfoByID
+-- function getDragonSkillTriggerList
 -------------------------------------
-function IDragonSkillManager:getSkillInfoByID(skill_id)
-    return self.m_mSkillInfoMap[skill_id]
-end
-
--------------------------------------
--- function getLevelingSkill
--- @param Skill type
--- @brief 타입으로 찾아 레벨링된 스킬 테이블 반환
--------------------------------------
-function IDragonSkillManager:getLevelingSkillByType(skill_type)
-	return self.m_lSkillIndivisualInfo[skill_type]
-end
-
--------------------------------------
--- function getLevelingSkill
--- @param Skill id 
--- @brief id로 찾아 레벨링된 스킬 테이블 반환
--------------------------------------
-function IDragonSkillManager:getLevelingSkillById(skill_id)
-	local skill_info = self.m_mSkillInfoMap[skill_id]
-	if (skill_info) then
-		return skill_info.m_tSkill
+function IDragonSkillManager:getDragonSkillTriggerList()
+    local map = {}
+    
+    for skill_type, v in pairs(self.m_lSkillIndivisualInfo) do
+		-- 트리거로 처리되지 않는 스킬 타입 제외
+		if (not isExistValue(skill_type, 'active', 'basic', 'leader')) then
+			-- 존재 여부는 갯수로 체크
+			if (table.count(v) > 0) then
+                if (skill_type == 'hp_rate_per_short') then
+                    skill_type = 'under_self_hp'
+                end
+                
+                map[skill_type] = true
+			end
+		end
 	end
+
+    local list = table.MapToList(map)
+    return list
+end
+
+-------------------------------------
+-- function skillMetamorphosis
+-------------------------------------
+function IDragonSkillManager:skillMetamorphosis(b)
+    if (self.m_bMetamorphosis == b) then return end
+
+    local b1 = (not b)
+    local b2 = (b)
+
+    -- 변신 전 스킬
+    for skill_id, v in pairs(self.m_mSkillInfoMapBeforeMetamorphosis) do
+        local skill_type = v:getSkillType()
+
+        if (b1) then
+            if (isExistValue(skill_type, 'active', 'basic', 'leader')) then
+                self.m_lSkillIndivisualInfo[skill_type] = v
+            end
+        end
+
+        if (self.m_bInGameMode) then
+            -- 변신 전후 스킬이 발동 조건이 같다면 쿨타임 공유 처리
+            local metamorphosis_skill_info = v.m_metamorphosisSkillInfo
+            if (metamorphosis_skill_info) then
+                local metamorphosis_skill_type = metamorphosis_skill_info:getSkillType()
+
+                if (skill_type == metamorphosis_skill_type) then
+                    if (b1) then
+                        v:syncRuntimeInfo(metamorphosis_skill_info)
+                    elseif (b2) then
+                        metamorphosis_skill_info:syncRuntimeInfo(v)
+                    end
+                end
+            end
+
+            -- 스킬 활성화 및 비활성화
+            v:setEnabled(b1)
+        end
+    end
+
+    -- 변신 후 스킬
+    for skill_id, v in pairs(self.m_mSkillInfoMapAfterMetamorphosis) do
+        if (b2) then
+            local skill_type = v:getSkillType()
+
+            if (isExistValue(skill_type, 'active', 'basic', 'leader')) then
+                self.m_lSkillIndivisualInfo[skill_type] = v
+            end
+        end
+
+        if (self.m_bInGameMode) then
+            v:setEnabled(b2)
+        end
+    end
+
+    self.m_bMetamorphosis = b
 end
 
 
-
-
-
+-------------------------------------
+-- function hasMetamorphosisSkill
+-------------------------------------
+function IDragonSkillManager:hasMetamorphosisSkill()
+    return self.m_bHasMetamorphosisSkill
+end
 
 
 

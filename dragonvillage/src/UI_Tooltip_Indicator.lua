@@ -64,7 +64,7 @@ function UI_Tooltip_Indicator:init_data(char)
     local curr_skill_id = self.m_skillInfo:getSkillID()
     local active_skill_id = char.m_charTable['skill_active']
     if (curr_skill_id ~= active_skill_id) then
-        self.m_oldSkillInfo = char:getSkillInfoByID(active_skill_id)
+        self.m_oldSkillInfo = char:findSkillInfoByID(active_skill_id)
     end
 end
 

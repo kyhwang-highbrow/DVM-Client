@@ -11,6 +11,7 @@ UI_IngameDragonInfo = class(PARENT, {})
 function UI_IngameDragonInfo:init(unit)
     unit:addListener('dragon_skill_gauge', self)
     unit:addListener('character_dead', self)
+    unit:addListener('character_metamorphosis', self)
 end
 
 -------------------------------------
@@ -92,5 +93,17 @@ function UI_IngameDragonInfo:onEvent(event_name, t_event, ...)
     -- 드래곤 사망 시
     elseif (event_name == 'character_dead') then
         vars['gaugeVisual']:setVisible(false)
+
+    -- 드래곤 변신
+    elseif (event_name == 'character_metamorphosis') then
+        local skill_id = self.m_owner:getSkillID('active')
+        local t_skill = self.m_owner:getSkillTable(skill_id)
+        if (t_skill) then
+            if (SkillHelper:isEnemyTargetingType(t_skill)) then
+                vars['gaugeVisual']:changeAni('gg_full_atk', true)
+            else
+                vars['gaugeVisual']:changeAni('gg_full_heal', true)
+            end
+        end
     end
 end

@@ -15,7 +15,7 @@ function SkillIndicatorMgr_ClanRaid:update(dt)
             self:closeSkillToolTip()
         else
             -- 인디케이터 충돌 정보를 매프레임 체크해야한다...
-            self.m_selectHero.m_skillIndicator.m_bDirty = true
+            self.m_selectHero:getSkillIndicator().m_bDirty = true
         end
 
     elseif (not self.m_world.m_gameState:isFight()) then
@@ -33,15 +33,16 @@ function SkillIndicatorMgr_ClanRaid:setSelectHero(hero)
     if (hero) then
         SoundMgr:playEffect('UI', 'ui_drag_ready')
 
-        hero.m_skillIndicator:changeSIState(SI_STATE_READY)
-        hero.m_skillIndicator:changeSIState(SI_STATE_APPEAR)
-        hero.m_skillIndicator:setIndicatorTouchPos(self.m_firstTouchPos['x'], self.m_firstTouchPos['y'])
-        hero.m_skillIndicator:update()
+        local skill_indicator = hero:getSkillIndicator()
+        skill_indicator:changeSIState(SI_STATE_READY)
+        skill_indicator:changeSIState(SI_STATE_APPEAR)
+        skill_indicator:setIndicatorTouchPos(self.m_firstTouchPos['x'], self.m_firstTouchPos['y'])
+        skill_indicator:update()
 
         self.m_selectHero = hero
     else
         if (self.m_selectHero) then
-            self.m_selectHero.m_skillIndicator:changeSIState(SI_STATE_DISAPPEAR)
+            self.m_selectHero:getSkillIndicator():changeSIState(SI_STATE_DISAPPEAR)
             self.m_selectHero = nil
         end
     end

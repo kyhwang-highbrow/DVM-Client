@@ -32,6 +32,7 @@ Character = class(PARENT, {
         m_bActive = 'boolean',
         m_bDead = 'boolean',
         m_bInvincibility = 'boolean',   -- 무적 상태 여부
+        m_bMetamorphosis = 'boolean',   -- 변신 상태 여부
 		        
         -- @ for FormationMgr
         m_bLeftFormation = 'boolean',   -- 왼쪽 진형일 경우 true, 오른쪽 진형일 경우 false
@@ -241,6 +242,28 @@ function Character:initWorld(game_world)
         self.m_lockOnNode = cc.Node:create()
         self.m_world.m_lockOnNode:addChild(self.m_lockOnNode)
     end
+end
+
+-------------------------------------
+-- function undergoMetamorphosis
+-- @brief 애니메이션과 스킬셋을 변경
+-------------------------------------
+function Character:undergoMetamorphosis(b)
+    if (self.m_bMetamorphosis == b) then return end
+
+    -- 애니메이션 변경
+    if (self.m_animator) then
+        if (b) then
+            self.m_animator:setAniAddName('_d')
+        else
+            self.m_animator:setAniAddName()
+        end
+    end
+
+    -- 스킬 변경
+    self:changeSkillSetByMetamorphosis(b)
+
+    self:dispatch('character_metamorphosis', {}, self)
 end
 
 -------------------------------------
@@ -1230,7 +1253,8 @@ function Character:getSkillTable(skill_id)
         return nil
     end
 
-	local t_skill = self:getLevelingSkillById(skill_id)
+    local skill_indivisual_info = self:findSkillInfoByID(skill_id)
+	local t_skill = skill_indivisual_info:getSkillTable()
 
     if (not t_skill and self.m_charType == 'monster') then
         t_skill = TableMonsterSkill():get(skill_id)
@@ -2036,8 +2060,10 @@ function Character:updateBasicSkillTimer(dt)
     -- 특정 발동 조건을 가진 스킬들은 실시간으로 체크
     do
         -- indie_time_short 타입 스킬
-        if (self.m_lSkillIndivisualInfo['indie_time_short']) then
-            for i, v in pairs(self.m_lSkillIndivisualInfo['indie_time_short']) do
+        do
+            local list = self:getSkillIndivisualInfo('indie_time_short') or {}
+
+            for i, v in pairs(list) do
                 if (v:isEndCoolTime()) then
                     self:doSkill(v.m_skillID, 0, 0)
                 end
@@ -2045,8 +2071,10 @@ function Character:updateBasicSkillTimer(dt)
         end
 
         -- hp_rate_short 타입 스킬
-        if (self.m_lSkillIndivisualInfo['hp_rate_short']) then
-            for i, v in pairs(self.m_lSkillIndivisualInfo['hp_rate_short']) do
+        do
+            local list = self:getSkillIndivisualInfo('hp_rate_short') or {}
+        
+            for i, v in pairs(list) do
                 if (v:isEndCoolTime()) then
                     local hp_rate = self.m_hpRatio * 100
                     if (hp_rate <= v.m_hpRate) then

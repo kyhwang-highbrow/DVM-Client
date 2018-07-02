@@ -135,7 +135,10 @@ function Monster_ClanRaidBoss:onChangedAttackableGroup()
         local l_remove_skill_id = { 250011, 250012, 250013, 250014, 250015 }
 
         for _, skill_id in ipairs(l_remove_skill_id) do
-            self:unsetSkillID(skill_id)
+            --self:unsetSkillID(skill_id)
+
+            local skill_indivisual_info = self:findSkillInfoByID(skill_id)
+            skill_indivisual_info:setEnabled(false)
         end
     end
 end

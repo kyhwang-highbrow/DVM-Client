@@ -1,0 +1,77 @@
+local PARENT = class(Skill, IStateDelegate:getCloneTable())
+
+-------------------------------------
+-- class SkillMetamorphosis
+-------------------------------------
+SkillMetamorphosis = class(PARENT, {
+	})
+
+-------------------------------------
+-- function init
+-- @param file_name
+-- @param body
+-------------------------------------
+function SkillMetamorphosis:init(file_name, body, ...)
+end
+
+-------------------------------------
+-- function initState
+-------------------------------------
+function SkillMetamorphosis:initState()
+	self:setCommonState(self)
+    self:addState('start', SkillMetamorphosis.st_idle, nil, false)
+end
+
+-------------------------------------
+-- function st_idle
+-------------------------------------
+function SkillMetamorphosis.st_idle(owner, dt)
+	if (owner.m_stateTimer == 0) then
+        local dragon = owner.m_owner
+
+        if (dragon.m_animator) then
+            dragon.m_animator:changeAni('change', false)
+        end
+
+        dragon:addAniHandler(function()
+            dragon:undergoMetamorphosis(not dragon.m_bMetamorphosis)
+
+            owner:changeState('dying')
+        end)
+	end
+end
+
+
+-------------------------------------
+-- function metamorphose
+-------------------------------------
+function SkillMetamorphosis:metamorphose()
+    
+end
+
+-------------------------------------
+-- function makeSkillInstance
+-------------------------------------
+function SkillMetamorphosis:makeSkillInstance(owner, t_skill, t_data)
+	-- 변수 선언부
+	------------------------------------------------------
+		
+	-- 인스턴스 생성부
+	------------------------------------------------------
+	-- 1. 스킬 생성
+    local skill = SkillMetamorphosis()
+
+	-- 2. 초기화 관련 함수
+	skill:setSkillParams(owner, t_skill, t_data)
+    skill:init_skill()
+	skill:initState()
+
+	-- 3. state 시작 
+    skill:changeState('delay')
+
+    -- 4. Physics, Node, GameMgr에 등록
+    local world = skill.m_owner.m_world
+    local missileNode = world:getMissileNode('bottom')
+    missileNode:addChild(skill.m_rootNode, 0)
+    world:addToSkillList(skill)
+end

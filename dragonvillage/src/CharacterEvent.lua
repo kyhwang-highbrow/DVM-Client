@@ -5,19 +5,12 @@
 function Character:initTriggerListener()
 	-- @TODO dragonskillmanager를 다중 상속함을 가정....
 
-	for skill_type, t_individual_info in pairs(self.m_lSkillIndivisualInfo) do
-		-- 이벤트 처리 할 가능성이 없는 스킬 타입 제외
-		if not isExistValue(skill_type, 'active', 'basic', 'leader') then
-			-- 존재 여부는 갯수로 체크
-			if (table.count(t_individual_info) > 0) then
-                if (skill_type == 'hp_rate_per_short') then
-                    skill_type = 'under_self_hp'
-                end
-                
-                self:addListener(skill_type, self)
-			end
-		end
-	end
+    -- 설정된 드래곤 스킬 정보로부터 등록이 필요한 이벤트 리스트를 얻어와서 등록
+    local l_trigger = self:getDragonSkillTriggerList()
+
+    for _, trigger in ipairs(l_trigger) do
+        self:addListener(trigger, self)
+    end
 
 	-- 기본적으로 등록되어야 할 이벤트들
 	self:addListener('stat_changed', self)
@@ -92,12 +85,14 @@ end
 -- function onEvent_underAtkRate
 -------------------------------------
 function Character:onEvent_underAtkRate()
-    if (not self.m_lSkillIndivisualInfo['under_atk_rate']) then return end
+    local list = self:getSkillIndivisualInfo('under_atk_rate')
+
+    if (not list) then return end
     if (not self.m_statusCalc) then return end
 
 	local sum_random = SumRandom()
 
-    for i,v in pairs(self.m_lSkillIndivisualInfo['under_atk_rate']) do
+    for i,v in pairs(list) do
         if (v:isEndCoolTime()) then
             local rate = v.m_tSkill['chance_value']
             local skill_id = v.m_skillID
@@ -119,10 +114,12 @@ end
 -- function onEvent_underAtkTurn
 -------------------------------------
 function Character:onEvent_underAtkTurn()
-    if (not self.m_lSkillIndivisualInfo['under_atk_turn']) then return end
+    local list = self:getSkillIndivisualInfo('under_atk_turn')
+
+    if (not list) then return end
     if (not self.m_statusCalc) then return end
 
-	for i, v in pairs(self.m_lSkillIndivisualInfo['under_atk_turn']) do
+	for i, v in pairs(list) do
         if (v:isEndCoolTime()) then
             v.m_turnCount = v.m_turnCount + 1
 
@@ -141,8 +138,10 @@ function Character:onEvent_underSelfHp(hp, max_hp)
 
     local percentage = (hp / max_hp) * 100
 
-    if (self.m_lSkillIndivisualInfo['under_self_hp']) then
-        for i, v in pairs(self.m_lSkillIndivisualInfo['under_self_hp']) do
+    do
+        local list = self:getSkillIndivisualInfo('under_self_hp') or {}
+
+        for i, v in pairs(list) do
             if (v:isEndCoolTime()) then
                 if (percentage <= v.m_tSkill['chance_value']) then
                     self:doSkill(v.m_skillID, 0, 0)
@@ -151,8 +150,10 @@ function Character:onEvent_underSelfHp(hp, max_hp)
         end
     end
 
-    if (self.m_lSkillIndivisualInfo['hp_rate_per_short']) then
-        for i, v in pairs(self.m_lSkillIndivisualInfo['hp_rate_per_short']) do
+    do
+        local list = self:getSkillIndivisualInfo('hp_rate_per_short') or {}
+
+        for i, v in pairs(list) do
             if (v:isEndCoolTime()) then
                 if (percentage <= v.m_hpRate) then
                     v.m_hpRate = math_max(v.m_hpRate - v.m_tSkill['chance_value'], 0)
@@ -168,12 +169,14 @@ end
 -- function onEvent_underAllyHp
 -------------------------------------
 function Character:onEvent_underAllyHp(hp, max_hp)
-    if (not self.m_lSkillIndivisualInfo['under_ally_hp']) then return end
+    local list = self:getSkillIndivisualInfo('under_ally_hp')
+
+    if (not list) then return end
     if (not self.m_statusCalc) then return end
 
     local percentage = (hp / max_hp) * 100
 
-    for i, v in pairs(self.m_lSkillIndivisualInfo['under_ally_hp']) do
+    for i, v in pairs(list) do
         if (v:isEndCoolTime()) then
             if (percentage <= v.m_tSkill['chance_value']) then
                 self:doSkill(v.m_skillID, 0, 0)
@@ -186,12 +189,14 @@ end
 -- function onEvent_underTeammateHp
 -------------------------------------
 function Character:onEvent_underTeammateHp(hp, max_hp)
-    if (not self.m_lSkillIndivisualInfo['under_teammate_hp']) then return end
+    local list = self:getSkillIndivisualInfo('under_teammate_hp')
+
+    if (not list) then return end
     if (not self.m_statusCalc) then return end
 
     local percentage = (hp / max_hp) * 100
 
-    for i, v in pairs(self.m_lSkillIndivisualInfo['under_teammate_hp']) do
+    for i, v in pairs(list) do
         if (v:isEndCoolTime()) then
             if (percentage <= v.m_tSkill['chance_value']) then
                 self:doSkill(v.m_skillID, 0, 0)
@@ -244,10 +249,12 @@ end
 -- function onEvent_dead
 -------------------------------------
 function Character:onEvent_dead(t_event)
-    if (not self.m_lSkillIndivisualInfo['dead']) then return end
+    local list = self:getSkillIndivisualInfo('dead')
+
+    if (not list) then return end
     if (not self.m_statusCalc) then return end
 
-    for i, v in pairs(self.m_lSkillIndivisualInfo['dead']) do
+    for i, v in pairs(list) do
         if (v:isEndCoolTime()) then
             local chance_value = v.m_tSkill['chance_value']
             if ( (not chance_value) or (chance_value == '') ) then
@@ -267,13 +274,13 @@ end
 -------------------------------------
 function Character:onEvent_getStatusEffect(t_event, target_str, target_char)
     local status_effect_name = target_str .. 'get_' .. 'status_effect'
+    local list = self:getSkillIndivisualInfo(status_effect_name)
 
-    if (not self.m_lSkillIndivisualInfo[status_effect_name]) then return end
+    if (not list) then return end
     if (not self.m_statusCalc) then return end
 
-    for i, v in pairs(self.m_lSkillIndivisualInfo[status_effect_name]) do
+    for i, v in pairs(list) do
         if (v:isEndCoolTime()) then
-
             local status_effect = v.m_tSkill['chance_value']
             local l_se = pl.stringx.split(status_effect, ';')
             local col, name = l_se[1], l_se[2]
@@ -289,9 +296,12 @@ end
 -- function onEvent_lastAttack
 -------------------------------------
 function Character:onEvent_lastAttack(event_name, t_event)
+    local list = self:getSkillIndivisualInfo(event_name)
+
+    if (not list) then return end
     if (not self.m_statusCalc) then return end
-    if (not self.m_lSkillIndivisualInfo[event_name]) then return end
-    for i, v in pairs(self.m_lSkillIndivisualInfo[event_name]) do
+    
+    for i, v in pairs(list) do
         if (v:isEndCoolTime()) then
             local chance_value = v.m_tSkill['chance_value']
             if ( (not chance_value) or (chance_value == '') ) then
@@ -311,11 +321,12 @@ end
 -- function onEvent_useActiveSkill
 -------------------------------------
 function Character:onEvent_useActiveSkill(event_name, t_event, owner)
+    local list = self:getSkillIndivisualInfo(event_name)
 
+    if (not list) then return end
     if (not self.m_statusCalc) then return end
-    if (not self.m_lSkillIndivisualInfo[event_name]) then return end
-
-    for i, v in pairs(self.m_lSkillIndivisualInfo[event_name]) do
+    
+    for i, v in pairs(list) do
         if (v:isEndCoolTime()) then
             if (self.m_bLeftFormation == owner.m_bLeftFormation) then
                 local chance_value = tonumber(v.m_tSkill['chance_value'])
@@ -336,12 +347,12 @@ end
 -- function onEvent_teammateDead
 -------------------------------------
 function Character:onEvent_teammateDead(event_name, t_event, unit)
-    if (not self.m_statusCalc) then return end
-    if (not self.m_lSkillIndivisualInfo[event_name]) then
-        return
-    end
+    local list = self:getSkillIndivisualInfo(event_name)
 
-    for i, v in pairs(self.m_lSkillIndivisualInfo[event_name]) do
+    if (not list) then return end
+    if (not self.m_statusCalc) then return end
+    
+    for i, v in pairs(list) do
         if (v:isEndCoolTime()) then
             local b = true
             local t_data = {}
@@ -394,12 +405,12 @@ end
 -- function onEvent_common
 -------------------------------------
 function Character:onEvent_common(event_name)
-    if (not self.m_statusCalc) then return end
-    if (not self.m_lSkillIndivisualInfo[event_name]) then
-        return
-    end
+    local list = self:getSkillIndivisualInfo(event_name)
 
-    for i, v in pairs(self.m_lSkillIndivisualInfo[event_name]) do
+    if (not list) then return end
+    if (not self.m_statusCalc) then return end
+    
+    for i, v in pairs(list) do
         if (v:isEndCoolTime()) then
             local chance_value = v.m_tSkill['chance_value']
             if ( (not chance_value) or (chance_value == '') ) then

@@ -23,6 +23,7 @@ Animator = class({
 
         m_aniMap = 'map',
         m_aniAttr = 'string',
+        m_aniAddName = 'string',
 
         m_bUseSchedule = 'boolean',
 
@@ -272,7 +273,39 @@ function Animator:getAniNameAttr(ani, attr)
 	end
 end
 
+-------------------------------------
+-- function setAniAddName
+-------------------------------------
+function Animator:setAniAddName(add_name)
+    self.m_aniAddName = add_name
+end
 
+-------------------------------------
+-- function getAniAddName
+-------------------------------------
+function Animator:getAniAddName(ani)
+    if (not ani) then 
+		return 
+	end
+    if (not self.m_aniMap) then
+		local l_ani = self:getVisualList()
+		self.m_aniMap = {}
+		for i,v in pairs(l_ani) do
+			self.m_aniMap[v] = true
+		end
+	end
+
+    if (not self.m_aniAddName) then
+		return ani
+	end
+
+    local key = ani .. self.m_aniAddName
+	if self.m_aniMap[key] then
+		return key
+	else
+		return ani
+	end
+end
 
 -------------------------------------------------------------------------------------
 -------------------------------------------------------------------------------------

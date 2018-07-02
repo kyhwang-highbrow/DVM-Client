@@ -32,14 +32,14 @@ MAP_KEY_FUNC[KEY_RIGHT_BRACKET] = 'game_speed_up'
 
 MAP_KEY_FUNC[KEY_F1] = 'set_invincible'
 MAP_KEY_FUNC[KEY_F2] = 'set_physbox'
-MAP_KEY_FUNC[KEY_F3] = 'add_dmg_yellow_font'
+MAP_KEY_FUNC[KEY_F3] = 'show_total_dps_hps'
 
 MAP_KEY_FUNC[KEY_A] = 'pause_on_off_auto'
 
 MAP_KEY_FUNC[KEY_1] = 'tamer_active_skill'
 MAP_KEY_FUNC[KEY_2] = 'print_tamer_skill'
 MAP_KEY_FUNC[KEY_3] = 'print_total_damage_to_hero'
-MAP_KEY_FUNC[KEY_4] = 'reload_skill_sound_table'
+MAP_KEY_FUNC[KEY_4] = 'auto_info'
 
 MAP_KEY_FUNC[KEY_G] = 'do_dragon_passive_1'
 MAP_KEY_FUNC[KEY_H] = 'do_dragon_passive_2'
@@ -195,16 +195,20 @@ function GameWorld:se_on_dragon()
 	local dragon_list = self:getDragonList()
     local enemy_list = self:getEnemyList()
 
+    --StatusEffectHelper:doStatusEffect(dragon_list[1], { dragon_list[1] }, 'stun', 'target', 1, 10, 100, 100)
+
     --StatusEffectHelper:doStatusEffect(dragon_list[1], dragon_list, 'skill_cooldown_reduce', 'ally_all', 5, 10, 100, 15)
 
-    --StatusEffectHelper:doStatusEffect(dragon_list[1], dragon_list, 'stun', 'target', 1, 5, 100, 100)
+    --StatusEffectHelper:doStatusEffect(dragon_list[1], dragon_list, 'stun', 'ally_all', 5, 5, 100, 100)
     --StatusEffectHelper:doStatusEffect(dragon_list[1], dragon_list, 'barrier_protection_time', 'ally_all', 10, 9999, 100, 100)
-    StatusEffectHelper:doStatusEffect(dragon_list[1], dragon_list, 'immortal', 'ally_all', 5, 9999, 100, 100)
+    --StatusEffectHelper:doStatusEffect(dragon_list[1], dragon_list, 'immortal', 'ally_all', 5, 9999, 100, 100)
 
+    
     for _, dragon in pairs(dragon_list) do
-        local damage = dragon.m_hp * 0.5
+        local damage = dragon.m_hp * 0.4
         dragon:setDamage(nil, dragon, dragon.pos.x, dragon.pos.y, damage)
     end
+    
     --[[
     local temp = { 'atk_up', 'aspd_up', 'cri_chance_up', 'def_up', 'cri_avoid_up', 'avoid_up',  'hit_rate_up', 'hp_drain' }
 
@@ -223,7 +227,8 @@ end
 -------------------------------------
 function GameWorld:se_on_monster()
     for i,v in ipairs(self:getEnemyList()) do
-        StatusEffectHelper:doStatusEffect(v, { v }, 'stun', 'target', 5, 5, 100, 100)
+        --StatusEffectHelper:doStatusEffect(v, { v }, 'stun', 'target', 5, 5, 100, 100)
+        StatusEffectHelper:doStatusEffect(v, { v }, 'barrier_protection_time', 'ally_all', 5, 5, 100, 100)
     end
 end
 
@@ -294,9 +299,15 @@ end
 -------------------------------------
 function GameWorld:kill_dragon()
     --self:removeAllHero()
+    local count = 0
     for i, v in ipairs(self:getDragonList()) do
         if (not v:isDead()) then
             v:doDie()
+            count = count + 1
+        end
+
+        if (count >= 2) then
+            break
         end
     end
 end
@@ -319,12 +330,24 @@ end
 -- @brief 
 -------------------------------------
 function GameWorld:pause_on_off_auto()
+    --[[
     local auto = self:getAuto()
     if (auto:isActive()) then
         auto:onEnd()
     else
         auto:onStart()
     end
+    ]]--
+    local sum = 0
+
+    for i, v in ipairs(self:getDragonList()) do
+        local log_recorder = v.m_charLogRecorder
+        local sum_value = log_recorder:getLog('damage')
+
+        sum = sum + sum_value
+    end
+
+    cclog('sum : ' .. sum)
 end
 
 -------------------------------------
@@ -475,10 +498,18 @@ function GameWorld:set_physbox()
 end
 
 -------------------------------------
--- function add_dmg_yellow_font
+-- function show_total_dps_hps
 -- @brief
 -------------------------------------
-function GameWorld:add_dmg_yellow_font()
+function GameWorld:show_total_dps_hps()
+    local total_damage = 0
+
+    for i, v in ipairs(self:getDragonList()) do
+        local damage = v.m_charLogRecorder:getLog('damage')
+        total_damage = total_damage + damage
+    end
+
+    cclog('TOTAL DAMAGE : ' .. total_damage)
 end
 
 -------------------------------------
@@ -534,14 +565,16 @@ end
 -- function auto_info
 -------------------------------------
 function GameWorld:auto_info()
-    self.m_shakeMgr:doShake(500, 500, 1)
+    self:getAuto():printInfo()
 end
 
 -------------------------------------
 -- function test_1
 -------------------------------------
 function GameWorld:test_1()
-    self.m_inGameUI.m_panelUI:toggleVisibility()
+    --self.m_inGameUI.m_panelUI:toggleVisibility()
+    local node = self.m_inGameUI.vars['dpsInfoNode']
+    node:setVisible(not node:isVisible())
 end
 
 -------------------------------------

@@ -146,8 +146,9 @@ function SkillIndicatorMgr:onTouchBegan(touch, event)
         if (select_hero:isPossibleActiveSkill()) then
             self.m_touchedHero = select_hero
 
-            if(select_hero.m_skillIndicator) then
-                select_hero.m_skillIndicator:setIndicatorTouchPos(node_pos['x'], node_pos['y'])
+            local skill_indicator = select_hero:getSkillIndicator()
+            if(skill_indicator) then
+                skill_indicator:setIndicatorTouchPos(node_pos['x'], node_pos['y'])
             end
         end
 
@@ -177,8 +178,9 @@ function SkillIndicatorMgr:onTouchMoved(touch, event)
     local distance = getDistance(self.m_firstTouchUIPos['x'], self.m_firstTouchUIPos['y'], ui_pos['x'], ui_pos['y'])
 
     -- 인디케이터 위치 업데이트
-    if (hero.m_skillIndicator) then
-        hero.m_skillIndicator:setIndicatorTouchPos(node_pos['x'], node_pos['y'])
+    local skill_indicator = hero:getSkillIndicator()
+    if (skill_indicator) then
+        skill_indicator:setIndicatorTouchPos(node_pos['x'], node_pos['y'])
 
         if (not self:isControlling() and self.m_world:isPossibleControl()) then
             if (distance >= 50) then
@@ -202,7 +204,7 @@ function SkillIndicatorMgr:onTouchEnded(touch, event)
             -- 스킬 사용 주체 대상이 이미 죽었을 경우 취소 처리
             self:clear()
 
-        elseif (not self.m_selectHero.m_skillIndicator:isExistTarget()) then
+        elseif (not self.m_selectHero:getSkillIndicator():isExistTarget()) then
             -- 대상이 하나도 없을 경우 취소 처리
             self:clear()
               
@@ -292,10 +294,11 @@ function SkillIndicatorMgr:setSelectHero(hero)
 
         hero:changeState('skillPrepare')
 
-        hero.m_skillIndicator:changeSIState(SI_STATE_READY)
-        hero.m_skillIndicator:changeSIState(SI_STATE_APPEAR)
-        hero.m_skillIndicator:setIndicatorTouchPos(self.m_firstTouchPos['x'], self.m_firstTouchPos['y'])
-        hero.m_skillIndicator:update()
+        local skill_indicator = hero:getSkillIndicator()
+        skill_indicator:changeSIState(SI_STATE_READY)
+        skill_indicator:changeSIState(SI_STATE_APPEAR)
+        skill_indicator:setIndicatorTouchPos(self.m_firstTouchPos['x'], self.m_firstTouchPos['y'])
+        skill_indicator:update()
 
         -- 일시정지
         self:setPauseMode(true, hero)
@@ -306,7 +309,7 @@ function SkillIndicatorMgr:setSelectHero(hero)
         self.m_selectHero = hero
     else
         if (self.m_selectHero) then
-            self.m_selectHero.m_skillIndicator:changeSIState(SI_STATE_DISAPPEAR)
+            self.m_selectHero:getSkillIndicator():changeSIState(SI_STATE_DISAPPEAR)
             
             if (self.m_selectHero.m_state == 'skillPrepare') then
                 self.m_selectHero:changeState('attackDelay', true)

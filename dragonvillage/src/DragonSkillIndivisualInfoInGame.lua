@@ -7,6 +7,7 @@ local PARENT = DragonSkillIndivisualInfo
 DragonSkillIndivisualInfoInGame = class(PARENT, {
         m_tOrgSkill = 'table',  -- 스킬 레벨까지 적용된 테이블(인게임에선 실시간 변경사항은 적용되지 않음)
 
+        m_bEnabled = 'boolean',
         m_bIgnoreCC = 'boolean',-- 스킬 사용 불가 상태효과를 무시하고 발동되는지 여부
         m_bDirtyBuff = 'boolean',
         m_lBuff = 'table',
@@ -18,6 +19,8 @@ DragonSkillIndivisualInfoInGame = class(PARENT, {
 
         m_recentReducedCoolRate = 'number', -- 현재 감소된 쿨타임 %에 따른 dt 배율(여러번 연산되는걸 막기 위해 임시 저장 용도)
         m_reducedCoolPercentage = 'number', -- 감소될 쿨타임 %
+
+        m_indicator = 'SkillIndicator',
     })
 
 -------------------------------------
@@ -26,6 +29,7 @@ DragonSkillIndivisualInfoInGame = class(PARENT, {
 function DragonSkillIndivisualInfoInGame:init(char_type, skill_type, skill_id, skill_level)
     self.m_className = 'DragonSkillIndivisualInfoInGame'
 
+    self.m_bEnabled = true
     self.m_bIgnoreCC = false
     self.m_bDirtyBuff = false
     self.m_lBuff = {}
@@ -79,6 +83,18 @@ function DragonSkillIndivisualInfoInGame:initRuntimeInfo()
 end
 
 -------------------------------------
+-- function syncRuntimeInfo
+-- @brief 인게임 진행에 관련된 정보들을 파라미터의 것과 동기화
+-- @param skill_indivisual_info : DragonSkillIndivisualInfoInGame
+-------------------------------------
+function DragonSkillIndivisualInfoInGame:syncRuntimeInfo(skill_indivisual_info)
+    self.m_turnCount = skill_indivisual_info.m_turnCount
+    self.m_timer = skill_indivisual_info.m_timer
+    self.m_cooldownTimer = skill_indivisual_info.m_cooldownTimer
+    self.m_hpRate = skill_indivisual_info.m_hpRate
+end
+
+-------------------------------------
 -- function applySkillLevel
 -------------------------------------
 function DragonSkillIndivisualInfoInGame:applySkillLevel(old_skill_info)
@@ -94,6 +110,8 @@ end
 -- function update
 -------------------------------------
 function DragonSkillIndivisualInfoInGame:update(dt, reduced_cool)
+    if (not self.m_bEnabled) then return end
+
     -- 쿨타임 감소 % 적용(모든 패시브 쿨감 + 특정 스킬 쿨감)
     local reduced_cool = reduced_cool + self.m_reducedCoolPercentage
     if (reduced_cool and reduced_cool ~= 0) then
@@ -173,6 +191,8 @@ end
 -- function isEndCoolTime
 -------------------------------------
 function DragonSkillIndivisualInfoInGame:isEndCoolTime()
+    if (not self.m_bEnabled) then return end
+
     if (self.m_skillType == 'indie_time' or self.m_skillType == 'indie_time_short') then
         return (self.m_cooldownTimer == 0 and self.m_timer == 0)
     else
@@ -282,6 +302,13 @@ function DragonSkillIndivisualInfoInGame:removeBuff(column, value, action)
     end
 
     self.m_bDirtyBuff = true
+end
+
+-------------------------------------
+-- function setEnabled
+-------------------------------------
+function DragonSkillIndivisualInfoInGame:setEnabled(b)
+    self.m_bEnabled = b
 end
 
 -------------------------------------

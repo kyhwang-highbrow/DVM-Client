@@ -35,10 +35,13 @@ function StatusEffect_SkillCoolReduce:initFromTable(t_status_effect, target_char
 
             while (l_skill_key[idx]) do
                 local key = l_skill_key[idx]
-                local skill_id = SkillHelper:getValidSkillIdFromKey(self.m_owner, key)
+                local skill_id, metamorphosis_skill_id = SkillHelper:getValidSkillIdFromKey(self.m_owner, key)
                 
                 if (self.m_owner:findSkillInfoByID(skill_id)) then
                     table.insert(self.m_lSkillId, tonumber(skill_id))
+                end
+                if (self.m_owner:findSkillInfoByID(metamorphosis_skill_id)) then
+                    table.insert(self.m_lSkillId, tonumber(metamorphosis_skill_id))
                 end
 
                 idx = idx + 1

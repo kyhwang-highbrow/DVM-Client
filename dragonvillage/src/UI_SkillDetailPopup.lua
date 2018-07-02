@@ -86,6 +86,25 @@ function UI_SkillDetailPopup:initUI()
 	end
 
 	-- 만든 스킬 아이콘들을 radio button으로 래핑한다.
+
+    -- 변신 스킬을 보유 중이면 변신 관련 UI를 표시
+    if (self.m_skillMgr:hasMetamorphosisSkill()) then
+        vars['swapBtn']:setVisible(true)
+        vars['swapBtn']:registerScriptTapHandler(function()
+            local is_metamorphosis = vars['swapSprit2']:isVisible()
+            is_metamorphosis = (not is_metamorphosis)
+            
+            self.m_skillMgr:changeSkillSetByMetamorphosis(is_metamorphosis)
+
+            local focus_idx = self.m_skillRadioBtn.m_selectedButton
+
+            -- refresh
+            self:initUI()
+            self:makeSkillRadioBtn(focus_idx)
+        end)
+
+        vars['swapLabel']:setVisible(true)
+    end
 end
 
 -------------------------------------
@@ -205,6 +224,20 @@ function UI_SkillDetailPopup:refresh(idx)
         vars['lockNode']:setVisible(true)
         local evo_str = evolutionName(idx)
         vars['lockLabel']:setString(Str('{1} 단계에서 해제', evo_str))
+    end
+
+    -- 변신
+    if (self.m_skillMgr:hasMetamorphosisSkill()) then
+        vars['swapSprit1']:setVisible(not self.m_skillMgr.m_bMetamorphosis)
+        vars['swapSprit2']:setVisible(self.m_skillMgr.m_bMetamorphosis)
+
+        if (self.m_skillMgr.m_bMetamorphosis) then
+            vars['swapLabel']:setString(Str('변신 후 스킬'))
+            vars['swapLabel']:setColor(COLOR['cyan'])
+        else
+            vars['swapLabel']:setString(Str('변신 전 스킬'))
+            vars['swapLabel']:setColor(COLOR['apricot'])
+        end
     end
 end
 

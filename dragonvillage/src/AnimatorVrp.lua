@@ -47,6 +47,12 @@ function AnimatorVrp:changeAni(animation_name, loop, checking)
         end
     end
 
+    if (self.m_aniAddName) then
+        if animation_name then
+            animation_name = self:getAniAddName(animation_name)
+        end
+    end
+
     if (not checking) then
         if animation_name then
             if (not self.m_node:setVisual('group', animation_name)) then

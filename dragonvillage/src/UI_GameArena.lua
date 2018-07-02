@@ -81,7 +81,7 @@ function UI_GameArena:initTamerUI(hero_tamer, enemy_tamer)
         end
         vars['tamerNode1']:addChild(icon, 1)
 
-        if (not hero_tamer.m_lSkillIndivisualInfo['indie_time']) then
+        if (not hero_tamer:getSkillIndivisualInfo('indie_time')) then
             vars['tamerGauge2']:setVisible(false)
         end
     end

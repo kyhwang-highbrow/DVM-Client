@@ -593,6 +593,7 @@ local t_module = {
 	'SkillEnumrate_Penetration',
     'SkillBind',
     'SkillRandom',
+    'SkillMetamorphosis',
     'SkillLaserBomb',
     'SkillScript',
     'SkillScript_AncientDragon',

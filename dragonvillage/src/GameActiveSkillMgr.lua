@@ -77,12 +77,13 @@ function GameActiveSkillMgr:doWork_dragon(t_data)
     local pos_x = t_data['pos_x']
     local pos_y = t_data['pos_y']
     local input_type = t_data['input_type']
+    local skill_indicator = unit:getSkillIndicator()
 
     --cclog('GameActiveSkillMgr:doWork : ' .. unit:getName() .. '(' .. unit.phys_idx .. ')')
 
     -- 스킬 사용 위치 설정
     if (pos_x and pos_y) then
-        unit.m_skillIndicator:setIndicatorTouchPos(pos_x, pos_y)
+        skill_indicator:setIndicatorTouchPos(pos_x, pos_y)
     else
         local is_arena = isExistValue(self.m_world.m_gameMode, GAME_MODE_ARENA, GAME_MODE_COLOSSEUM)
 
@@ -102,9 +103,9 @@ function GameActiveSkillMgr:doWork_dragon(t_data)
     local is_critical = (math_random(1, 1000) <= (final_critical_chance * 10))
 
     if (is_critical) then
-        unit.m_skillIndicator.m_critical = 1
+        skill_indicator.m_critical = 1
     else
-        unit.m_skillIndicator.m_critical = 0
+        skill_indicator.m_critical = 0
     end
 
     if (PLAYER_VERSUS_MODE[self.m_world.m_gameMode] == 'pvp' and g_settingData:get('colosseum_test_mode')) then
@@ -128,7 +129,7 @@ function GameActiveSkillMgr:doWork_tamer(t_data)
 
     local unit = t_data['unit']
 
-    local skill_indivisual_info = unit:getLevelingSkillByType('active')
+    local skill_indivisual_info = unit:getSkillIndivisualInfo('active')
     if (not skill_indivisual_info) then return false end
     
     -- 연출 시작
@@ -163,7 +164,7 @@ function GameActiveSkillMgr:addWork(unit, pos_x, pos_y, input_type)
     if (unit:getCharType() == 'tamer') then
         priority = ACTIVE_SKILL_PRIORITY.TAMER
     else
-        local skill_indivisual_info = unit:getLevelingSkillByType('active')
+        local skill_indivisual_info = unit:getSkillIndivisualInfo('active')
         local t_skill = skill_indivisual_info.m_tSkill
 
         if (string.find(t_skill['target_type'], 'ally')) then
