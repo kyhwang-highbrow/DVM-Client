@@ -33,7 +33,7 @@ IDragonSkillManager = {
 -------------------------------------
 function IDragonSkillManager:init()
     self.m_bInGameMode = false
-    self.m_bHasMetamorphosis = false
+    self.m_bHasMetamorphosisSkill = false
     self.m_bMetamorphosis = false
 
     self.m_lReserveTurnSkillID = {}
@@ -602,9 +602,9 @@ function IDragonSkillManager:getDragonSkillTriggerList()
 end
 
 -------------------------------------
--- function skillMetamorphosis
+-- function changeSkillSetByMetamorphosis
 -------------------------------------
-function IDragonSkillManager:skillMetamorphosis(b)
+function IDragonSkillManager:changeSkillSetByMetamorphosis(b)
     if (self.m_bMetamorphosis == b) then return end
 
     local b1 = (not b)
