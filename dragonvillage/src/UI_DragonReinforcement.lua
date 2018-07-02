@@ -6,6 +6,7 @@ local PARENT = UI_DragonManage_Base
 UI_DragonReinforcement = class(PARENT,{
 		m_isDragon = 'bool', -- true / false
 		m_reinforceEffect = 'Animator',
+        m_oriGold = 'number',
     })
 
 -------------------------------------
@@ -30,6 +31,7 @@ function UI_DragonReinforcement:init(doid)
     -- backkey 지정
     g_currScene:pushBackKeyListener(self, function() self:close() end, 'UI_DragonReinforcement')
 
+    self.m_oriGold = g_userData:get('gold') -- 통신 실패할 경우 원복할 골드
     self:sceneFadeInAction()
     self:initUI()
     self:initButton()
@@ -485,7 +487,7 @@ function UI_DragonReinforcement:click_reinforce(rid, ui)
 
         -- 서버와 통신
         co:work()
-        self:request_reinforce(rid, 1, co.NEXT)
+        self:request_reinforce(rid, 1, co.NEXT, co.ESCAPE)
         if co:waitWork() then return end
 
         -- 필요한것들 갱신
@@ -595,7 +597,7 @@ function UI_DragonReinforcement:press_reinforce(rid, ui, btn)
 
 		-- 서버와 통신
         co:work()
-        self:request_reinforce(rid, rcnt, co.NEXT)
+        self:request_reinforce(rid, rcnt, co.NEXT, co.ESCAPE)
         if co:waitWork() then return end
 
         -- 필요한것들 갱신
@@ -618,12 +620,63 @@ function UI_DragonReinforcement:press_reinforce(rid, ui, btn)
 end
 
 -------------------------------------
+-- function refresh_fail
+-- @brief 통신 실패하거나 에러코드 뱉은 경우 기존 데이터로 갱신
+-------------------------------------
+function UI_DragonReinforcement:refresh_fail(rid, rcnt)
+    local t_dragon_data = self.m_selectDragonData
+
+    local error_msg = Str('일시적인 오류입니다.\n잠시 후에 다시 시도 해주세요.')
+    MakeSimplePopup(POPUP_TYPE.OK, error_msg)
+
+    -- 강화된 드래곤 데이터 갱신
+    local curr_exp = t_dragon_data:getReinforceObject()['exp']
+    t_dragon_data:getReinforceObject()['exp'] = curr_exp - rcnt
+
+    local curr_relation_point
+    local relation
+
+    -- 사용된 인연포인트 갱신
+	if (self.m_isDragon) then
+		curr_relation_point = g_bookData:getBookData(rid):getRelation()
+        relation = curr_relation_point + rcnt
+
+        local struct_book = g_bookData:getBookData(rid)
+		struct_book:setRelation(relation)
+	else
+		curr_relation_point = g_userData:getReinforcePoint(rid)
+        relation = curr_relation_point + rcnt
+
+        g_userData:applyServerData(relation, 'reinforce_point', tostring(rid))
+	end
+
+    -- 사용된 골드 갱신
+    g_userData:applyServerData(self.m_oriGold , 'gold')
+
+    self:refresh()
+end
+
+-------------------------------------
 -- function request_reinforce
 -- @brief
 -------------------------------------
-function UI_DragonReinforcement:request_reinforce(rid, rcnt, cb_func)
+function UI_DragonReinforcement:request_reinforce(rid, rcnt, cb_func, fail_cb)
     local uid = g_userData:get('uid')
     local doid = self.m_selectDragonOID
+
+    -- 에러코드 처리
+    local function response_status_cb(ret)
+        self:refresh_fail(rid, rcnt)
+        return true
+    end
+
+    -- 통신실패 처리
+    local function response_fail_cb(ret)
+        self:refresh_fail(rid, rcnt)
+        if (fail_cb) then
+            fail_cb()
+        end
+    end
 
     local function success_cb(ret)
 		-- @analytics
@@ -635,6 +688,9 @@ function UI_DragonReinforcement:request_reinforce(rid, rcnt, cb_func)
 		-- 골드 갱신
 		g_serverData:networkCommonRespone(ret)
 		
+        -- 통신 실패할 경우 원복할 골드
+        self.m_oriGold = g_userData:get('gold') 
+
 		-- 인연포인트 (전체 갱신)
 		if (ret['relation']) then
 			g_bookData:applyRelationPoints(ret['relation'])
@@ -664,7 +720,9 @@ function UI_DragonReinforcement:request_reinforce(rid, rcnt, cb_func)
     ui_network:setParam('rid', rid)
 	ui_network:hideLoading()
     ui_network:setRevocable(true)
+    ui_network:setResponseStatusCB(response_status_cb)
     ui_network:setSuccessCB(function(ret) success_cb(ret) end)
+    ui_network:setFailCB(response_fail_cb)
     ui_network:request()
 end
 
