@@ -55,6 +55,7 @@ end
 function UI_QuestPopup:initTab()
     local vars = self.vars
     self:addTabAuto(TableQuest.DAILY, vars, vars['dailyListNode'])
+	self:addTabAuto(TableQuest.SPECIAL, vars, vars['specialListNode'])
     self:addTabAuto(TableQuest.CHALLENGE, vars, vars['challengeListNode'])
     self:setTab(TableQuest.DAILY)
 

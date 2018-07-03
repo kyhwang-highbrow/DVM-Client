@@ -6,6 +6,7 @@ local PARENT = TableClass
 TableQuest = class(PARENT, {
 		------------Quest type-----------------------
 		CHALLENGE = 'challenge',
+		SPECIAL = 'special',
 		DAILY = 'daily',
     })
 
