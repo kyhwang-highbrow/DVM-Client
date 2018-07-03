@@ -241,7 +241,8 @@ function UI_IngameDragonPanelItem:refreshHP(hp_ratio)
     local scale = self.m_hpRatio
 
     -- 체력바 가감 연출
-    vars['hpGauge']:setScaleX(scale)
+    --vars['hpGauge']:setScaleX(scale)
+    vars['dragonHpGauge']:setPercentage(self.m_hpRatio * 100)
 end
 
 -------------------------------------
