@@ -276,8 +276,9 @@ function ServerData_Quest:requestQuestReward(quest, cb_func)
         end
 
         if (cb_func) then
-            -- 업적 : 마지막 퀘스트인지 체크하여 아니라면 다음 qid로 진행
-            if (quest['quest_type'] == TableQuest.CHALLENGE) then
+            -- 업적, 스페셜 : 마지막 퀘스트인지 체크하여 아니라면 다음 qid로 진행
+            if (quest['quest_type'] == TableQuest.CHALLENGE) 
+			or (quest['quest_type'] == TableQuest.SPECIAL) then
                 if (not self.m_tableQuest:isLastQuest(qid)) then
                     qid = qid + 1
                 end
