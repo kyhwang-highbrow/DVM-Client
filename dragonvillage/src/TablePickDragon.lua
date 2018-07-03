@@ -43,7 +43,7 @@ function TablePickDragon:getDragonList(item_id, map_released)
 		
                 if (t_dragon['test'] == 2) then
 			        b = true
-		        elseif (t_dragon['test'] == 1 and map_released[did]) then
+		        elseif (t_dragon['test'] == 1 and map_released[tostring(did)]) then
                     b = true
                 end
 
@@ -68,7 +68,7 @@ function TablePickDragon:getDragonList(item_id, map_released)
 		-- test 체크
 		if (t_dragon['test'] == 0) then
 			b = false
-        elseif (t_dragon['test'] == 1 and not map_released[t_dragon['did']]) then
+        elseif (t_dragon['test'] == 1 and not map_released[tostring(t_dragon['did'])]) then
             b = false
 		end
 

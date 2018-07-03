@@ -54,7 +54,7 @@ function TableDragon:getSameTypeDragonList(did, map_released)
 		
         if (v['test'] == 2) then
 			b = true
-		elseif (v['test'] == 1 and map_released[v['did']]) then
+		elseif (v['test'] == 1 and map_released[tostring(v['did'])]) then
             b = true
         end
 

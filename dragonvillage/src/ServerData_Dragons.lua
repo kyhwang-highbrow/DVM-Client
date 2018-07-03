@@ -1137,13 +1137,12 @@ end
 function ServerData_Dragons:isReleasedDragon(did)
     if (not did) then return false end
 
-    local did = tonumber(did)
-    local t_dragon = TableDragon():get(did)
+    local t_dragon = TableDragon():get(tonumber(did))
 
     if (t_dragon['test'] == 2) then
         return true
 
-    elseif (t_dragon['test'] == 1 and self.m_mReleasedDragonsByDid[did]) then
+    elseif (t_dragon['test'] == 1 and self.m_mReleasedDragonsByDid[tostring(did)]) then
         return true
     end
 
@@ -1155,9 +1154,11 @@ end
 -- @brief 출시 드래곤 정보
 -------------------------------------
 function ServerData_Dragons:setReleasedDragons(ret)
-   self.m_mReleasedDragonsByDid['120871'] = true
-   self.m_mReleasedDragonsByDid['120872'] = true
-   self.m_mReleasedDragonsByDid['120874'] = true
+    local list = ret['new_dragons'] or {}
+
+    for _, did in pairs(list) do
+        self.m_mReleasedDragonsByDid[tostring(did)] = true
+    end
 end
 
 -------------------------------------
