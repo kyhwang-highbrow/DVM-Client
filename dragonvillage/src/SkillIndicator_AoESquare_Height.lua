@@ -96,7 +96,7 @@ function SkillIndicator_AoESquare_Height:optimizeIndicatorData(l_target, fixed_t
         
     for _, v in ipairs(l_target) do
         for i, body in ipairs(v:getBodyList()) do
-            local skill_half = self.m_skillWidth / 4
+            local skill_half = self.m_skillWidth / 2
 
             local min_x = v.pos['x'] + body['x'] - body['size'] - skill_half + 1
             local max_x = v.pos['x'] + body['x'] + body['size'] + skill_half - 1
@@ -136,7 +136,7 @@ function SkillIndicator_AoESquare_Height:optimizeIndicatorDataByArena(l_target)
 
     for _, v in ipairs(l_target) do
         for i, body in ipairs(v:getBodyList()) do
-            local skill_half = self.m_skillWidth / 4
+            local skill_half = self.m_skillWidth / 2
 
             local min_x = v.pos['x'] + body['x'] - body['size'] - skill_half + 1
             local max_x = v.pos['x'] + body['x'] + body['size'] + skill_half - 1
