@@ -609,3 +609,10 @@ end
 function Tamer:getZOrder()
     return WORLD_Z_ORDER.TAMER
 end
+
+-------------------------------------
+-- function getSkillIndicator
+-------------------------------------
+function Tamer:getSkillIndicator()
+    return nil
+end

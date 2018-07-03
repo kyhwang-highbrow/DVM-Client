@@ -39,7 +39,7 @@ function UI_IngameDragonPanelItem:init(world, dragon, dragon_idx)
         self.m_bAttackSkill = SkillHelper:isEnemyTargetingType(t_skill)
     end
 
-	local vars = self:load('ingame_panel.ui', false, true, true)
+	local vars = self:load('ingame_panel_new.ui', false, true, true)
 
     dragon:addListener('character_set_hp', self)
     dragon:addListener('character_metamorphosis', self)
@@ -97,7 +97,7 @@ function UI_IngameDragonPanelItem:initUI()
 		    vars['dragonNode']:addChild(sprite)
 	    end
     end
-    
+    --[[
     do -- 드래그 스킬 아이콘
         local skill_icon
 
@@ -114,7 +114,7 @@ function UI_IngameDragonPanelItem:initUI()
         skill_icon:setAnchorPoint(CENTER_POINT)
         vars['skillNode']:addChild(skill_icon)
     end
-    
+    ]]--
 
     -- 인디케이터 아이콘
     if (t_skill) then
@@ -210,7 +210,7 @@ function UI_IngameDragonPanelItem:onEvent(event_name, t_event, ...)
         self:refreshHP(t_event['hp_rate'])
 
     elseif (event_name == 'character_metamorphosis') then
-        self:refreshSkill()
+        self:refreshSkill(t_event['metamorphosis'])
 
     -- 드래곤 드래그 스킬 게이지 변경 Event
     elseif (event_name == 'dragon_skill_gauge') then
@@ -271,11 +271,12 @@ end
 -- function refreshSkill
 -- @brief 드래곤 드래그 스킬 갱신
 -------------------------------------
-function UI_IngameDragonPanelItem:refreshSkill()
+function UI_IngameDragonPanelItem:refreshSkill(metamorphosis)
     if (not self.m_bHaveActive) then return end
 
     local vars = self.vars
 
+    local metamorphosis = metamorphosis or false
     local dragon = self.m_dragon
     local skill_id = dragon:getSkillID('active')
     local t_skill = dragon:getSkillTable(skill_id)
@@ -287,6 +288,8 @@ function UI_IngameDragonPanelItem:refreshSkill()
     vars['skillFullVisual1']:changeAni('dragon_full_' .. str_target .. '_idle_1', true)
     vars['skillFullVisual2']:changeAni('dragon_full_' .. str_target .. '_idle_2', true)
 
+    vars['swapSprite']:setVisible(metamorphosis)
+    --[[
     do -- 드래그 스킬 아이콘
         local skill_icon
 
@@ -304,7 +307,7 @@ function UI_IngameDragonPanelItem:refreshSkill()
         vars['skillNode']:removeAllChildren()
         vars['skillNode']:addChild(skill_icon)
     end
-    
+    ]]--
 
     -- 인디케이터 아이콘
     if (t_skill) then

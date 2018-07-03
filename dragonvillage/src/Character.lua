@@ -263,7 +263,7 @@ function Character:undergoMetamorphosis(b)
     -- 스킬 변경
     self:changeSkillSetByMetamorphosis(b)
 
-    self:dispatch('character_metamorphosis', {}, self)
+    self:dispatch('character_metamorphosis', { metamorphosis = b }, self)
 end
 
 -------------------------------------

@@ -20,7 +20,7 @@ function UI_IngameTamerPanelItem:init(world, tamer)
     self.m_world = world
     self.m_tamer = tamer
     
-    local vars = self:load('ingame_tamer_panel.ui', false, true, true)
+    local vars = self:load('ingame_tamer_panel_new.ui', false, true, true)
     self.m_bVisible = true
     self.m_menuPosX = vars['panelMenu']:getPositionX()
     self.m_menuPosY = vars['panelMenu']:getPositionY()
@@ -55,7 +55,7 @@ function UI_IngameTamerPanelItem:initUI()
             vars['tamerNode']:addChild(icon)
         end
     end
-
+    --[[
 	do -- 테이머 스킬 아이콘
         local skill_indivisual_info = tamer:getSkillIndivisualInfo('active')
         local t_skill = skill_indivisual_info:getSkillTable()
@@ -70,6 +70,7 @@ function UI_IngameTamerPanelItem:initUI()
 		    end
         end
 	end
+    ]]--
 end
 
 -------------------------------------
@@ -127,7 +128,8 @@ function UI_IngameTamerPanelItem:onTouchBegan(t_event)
     local vars = self.vars
 
     local location = t_event['location']
-    local node = vars['tamerSkillNode1']
+    --local node = vars['tamerSkillNode1']
+    local node = vars['tamerSkilllLockSprite']
 
     local node_pos = node:convertToNodeSpace(location)
     local size = node:getContentSize()
@@ -147,8 +149,9 @@ function UI_IngameTamerPanelItem:onTouchEnded(t_event)
     local vars = self.vars
 
     local location = t_event['location']
-    local node = vars['tamerSkillNode1']
-
+    --local node = vars['tamerSkillNode1']
+    local node = vars['tamerSkilllLockSprite']
+    
     local node_pos = node:convertToNodeSpace(location)
     local size = node:getContentSize()
     local half_size = (size['width'] / 2)
