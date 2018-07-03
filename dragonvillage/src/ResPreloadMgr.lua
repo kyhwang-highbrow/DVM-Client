@@ -386,34 +386,43 @@ function ResPreloadMgr:getPreloadList_Dragon(t_dragon_data)
     -- 스킬 테이블에서 해당 드래곤의 스킬들 res를 가져온다.
     local t_skillIdx = { 'Leader', 'Basic', 0, 1, 2, 3 }
 
-	for _, idx in pairs(t_skillIdx) do
-        local skill_indivisual_info = skill_mgr:getSkillIndivisualInfo_usingIdx(idx)
-        if (skill_indivisual_info) then
-            local t_skill = skill_indivisual_info:getSkillTable()
+    local func_register_skill_res = function(t_skill)
+        if t_skill['skill_form'] == 'script' then
+            self:countSkillResListFromScript(ret, t_skill['skill_type'], attr)
+        else
+            for i = 1, 3 do
+                if (t_skill['res_' .. i] ~= '') then
+                    local res_name = string.gsub(t_skill['res_' .. i], '@', attr)
+                    table.insert(ret, res_name)
+                end
+            end
+        end
             
-            if t_skill['skill_form'] == 'script' then
-                self:countSkillResListFromScript(ret, t_skill['skill_type'], attr)
-            else
-                for i = 1, 3 do
-                    if (t_skill['res_' .. i] ~= '') then
-                        local res_name = string.gsub(t_skill['res_' .. i], '@', attr)
+        -- 스킬에서 사용되는 상태효과의 res를 가져온다.
+        for i = 1, 4 do
+            local type = t_skill['add_option_type_' .. i]
+            if (type and type ~= '') then
+                local t_status_effect = TableStatusEffect():get(type)
+                if (t_status_effect) then
+                    if (t_status_effect['res'] ~= '') then
+                        local res_name = string.gsub(t_status_effect['res'], '@', attr)
                         table.insert(ret, res_name)
                     end
                 end
             end
-            
-            -- 스킬에서 사용되는 상태효과의 res를 가져온다.
-            for i = 1, 4 do
-                local type = t_skill['add_option_type_' .. i]
-                if (type and type ~= '') then
-                    local t_status_effect = TableStatusEffect():get(type)
-                    if (t_status_effect) then
-                        if (t_status_effect['res'] ~= '') then
-                            local res_name = string.gsub(t_status_effect['res'], '@', attr)
-                            table.insert(ret, res_name)
-                        end
-                    end
-                end
+        end
+    end
+
+	for _, idx in pairs(t_skillIdx) do
+        local skill_indivisual_info = skill_mgr:getSkillIndivisualInfo_usingIdx(idx)
+        if (skill_indivisual_info) then
+            local t_skill = skill_indivisual_info:getSkillTable()
+            func_register_skill_res(t_skill)
+
+            -- 변신 후 스킬이 존재한다면 추가
+            if (skill_indivisual_info.m_metamorphosisSkillInfo) then
+                local t_metamorphosis_skill = skill_indivisual_info.m_metamorphosisSkillInfo:getSkillTable()
+                func_register_skill_res(t_metamorphosis_skill)
             end
         end
     end
