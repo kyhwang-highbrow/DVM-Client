@@ -41,6 +41,7 @@ function UI_PackagePopup:initParentVariable()
     self.m_titleStr = Str('패키지')
     self.m_bUseExitBtn = true
     self.m_subCurrency = 'amethyst'
+    self.m_addSubCurrency = 'fp'
 end
 
 -------------------------------------

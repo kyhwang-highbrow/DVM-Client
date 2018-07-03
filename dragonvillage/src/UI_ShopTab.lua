@@ -4,6 +4,7 @@ local PARENT = UI_IndivisualTab
 -- class UI_ShopTab
 -------------------------------------
 UI_ShopTab = class(PARENT,{
+        m_owner_ui = 'UI_Shop',
         m_tableView = 'UIC_TableView',
         m_cbBuy = 'func',
     })
@@ -13,6 +14,7 @@ local ANCIENT_SHOP_END_KEY = 'ancient_shop_end'
 -- function init
 -------------------------------------
 function UI_ShopTab:init(owner_ui)
+    self.m_owner_ui = owner_ui
 end
 
 -------------------------------------
@@ -26,6 +28,10 @@ function UI_ShopTab:onEnterTab(first)
     local sub_currency = self.m_tabName
     if (self.m_tabName == 'st') then
         sub_currency = 'amethyst'
+    end
+
+    if (self.m_owner_ui) then
+        self.m_owner_ui.m_subCurrency = sub_currency
     end
     g_topUserInfo:setSubCurrency(sub_currency)
 end

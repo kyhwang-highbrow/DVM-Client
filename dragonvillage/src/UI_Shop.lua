@@ -38,11 +38,8 @@ function UI_Shop:initParentVariable()
     self.m_uiName = 'UI_Shop'
     self.m_titleStr = Str('상점')
     self.m_bUseExitBtn = true
-
-    -- 상점에서 우정포인트 추가
-    if (g_topUserInfo) then
-        g_topUserInfo:makeGoodsUI('fp', 5) 
-    end
+    self.m_subCurrency = 'amethyst'
+    self.m_addSubCurrency = 'fp'
 end
 
 -------------------------------------
@@ -123,13 +120,4 @@ function UI_Shop:buyResult(ret)
 	self:refresh()
 
     self:setTab(self.m_currTab, true)
-end
-
--------------------------------------
--- function onDestroyUI
--------------------------------------
-function UI_Shop:onDestroyUI()
-    if (g_topUserInfo) then
-        g_topUserInfo:deleteGoodsUI('fp') 
-    end
 end
