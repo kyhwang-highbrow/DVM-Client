@@ -26,6 +26,7 @@ ServerData_AttrTower = class({
         m_playerUserInfo = 'StructUserInfoAncientTower', -- 내 랭킹 정보
 
         m_subMenuInfo = 'table', -- 서브 메뉴 정보
+        m_bExtendFloor = 'boolean', -- 100층까지 확장되었는지
     })
 
 -------------------------------------
@@ -34,6 +35,7 @@ ServerData_AttrTower = class({
 function ServerData_AttrTower:init(server_data)
     self.m_serverData = server_data
     self.m_nStage = 0
+    self.m_bExtendFloor = false
 end
 
 -------------------------------------
@@ -170,6 +172,11 @@ function ServerData_AttrTower:request_attrTowerInfo(attr, stage, finish_cb, fail
         local menu_info = ret['stage_info']
         if (menu_info) then
             self.m_subMenuInfo = menu_info
+
+            -- 100층 확장 여부
+            if (menu_info['extended']) then
+                self.m_bExtendFloor = (menu_info['extended'] == 1) and true or false
+            end
         end
 
         -- 시험의 탑 층 정보
@@ -371,8 +378,16 @@ function ServerData_AttrTower:getChallengingFloorWithAttr(attr)
     end
 
     local floor = self.m_subMenuInfo[attr] % ANCIENT_TOWER_STAGE_ID_START
-    floor = (floor >= ATTR_TOWER_STAGE_ID_FINISH % 100) and 'clear' or floor + 1
+    floor = (floor >= self:getMaxFloor()) and 'clear' or floor + 1
     return floor
+end
+
+-------------------------------------
+-- function getMaxFloor
+-- @brief 속성 탑 최대층 반환
+-------------------------------------
+function ServerData_AttrTower:getMaxFloor(attr)
+    return (self.m_bExtendFloor) and 100 or 50
 end
 
 -------------------------------------

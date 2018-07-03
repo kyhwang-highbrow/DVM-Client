@@ -83,8 +83,9 @@ function UI_AttrTowerMenuItem:show_gauge_effect()
     local label = vars['gaugeLabel']
 
     local challenge_floor = g_attrTowerData:getChallengingFloorWithAttr(attr)
-    -- test 
-    challenge_floor = challenge_floor == 'clear' and 50 or challenge_floor
+    local max_floor = g_attrTowerData:getMaxFloor()
+
+    challenge_floor = challenge_floor == 'clear' and max_floor or challenge_floor
 
     local max_y = 290
 
@@ -92,7 +93,7 @@ function UI_AttrTowerMenuItem:show_gauge_effect()
     local gauge_act = function(target)
         local time = 1.0
         
-        local pos = cc.p(0, max_y/50 * challenge_floor)
+        local pos = cc.p(0, max_y/max_floor * challenge_floor)
         local delay = cc.DelayTime:create(0.3)
         local move = cc.MoveBy:create(time, pos)
         local ease_move = cc.EaseInOut:create(move, 2)
