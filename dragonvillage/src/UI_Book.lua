@@ -146,10 +146,14 @@ function UI_Book:makeSortManager()
     -- 자코랑 슬라임은 아래로 내림
 	sort_manager:addPreSortType('object_type_book', false, function(a, b, ascending) return sort_manager:sort_object_type_book(a, b, ascending) end)
 
-    -- did 순, 등급 순, 진화도 순으로 정렬
-    sort_manager:pushSortOrder('did')
+    -- 타입 순 정렬 추가
+    sort_manager:addSortType('dragon_type', false, function(a, b, ascending) return sort_manager:sort_dragon_type(a, b, ascending) end)
+
+    -- 등급, 타입, did, 진화도 순으로 정렬
+    sort_manager:pushSortOrder('evolution')
+	sort_manager:pushSortOrder('did')
+    sort_manager:pushSortOrder('dragon_type')
     sort_manager:pushSortOrder('grade')
-	sort_manager:pushSortOrder('evolution')
 
     self.m_sortManager = sort_manager
 end

@@ -11,6 +11,7 @@ SortManager_Dragon = class(PARENT, {
         m_mRaritySortLevel = 'map',
         m_mAttrSortLevel = 'map',
         m_mRoleSortLevel = 'map',
+        m_mTypeSortLevel = 'map',
     })
 
 -------------------------------------
@@ -24,6 +25,13 @@ function SortManager_Dragon:init()
     self.m_mObjectTypeSortLevel['dragon'] = 100
     self.m_mObjectTypeSortLevel['undering'] = 2
     self.m_mObjectTypeSortLevel['slime'] = 1
+
+    -- 드래곤 타입별 레벨 (한정, 카드팩, 이벤트)
+    self.m_mTypeSortLevel = {}
+    self.m_mTypeSortLevel['limited'] = 1
+    self.m_mTypeSortLevel['cardpack'] = 2
+    self.m_mTypeSortLevel['event'] = 3
+    self.m_mTypeSortLevel['none'] = 4
 
     -- 속성별 정렬 레벨
     self.m_mAttrSortLevel = {}
@@ -493,6 +501,29 @@ function SortManager_Dragon:sort_doid(a, b, ascending)
         return a_value < b_value
     else
         return a_value > b_value
+    end
+end
+
+-------------------------------------
+-- function sort_dragon_type
+-- @brief 한정, 카드팩, 이벤트 드래곤 순으로 정렬
+-------------------------------------
+function SortManager_Dragon:sort_dragon_type(a, b, ascending)
+    local a_data = a['data']
+    local b_data = b['data']
+
+    local a_value = a['data']['category']
+    local b_value = b['data']['category']
+
+    local a_order = self.m_mTypeSortLevel[a_value] or 99
+    local b_order = self.m_mTypeSortLevel[b_value] or 99
+
+    -- 같을 경우 리턴
+    if (a_value == b_value) then return nil end
+
+    -- 오름차순 or 내림차순
+    if ascending then return a_value > b_value
+    else              return a_value < b_value
     end
 end
 
