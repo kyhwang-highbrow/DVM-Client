@@ -79,8 +79,6 @@ function TableDragon:initIllustratedDragonList()
         return
     end
 
-    -- 드래곤 테이블에서 test값이 1인 드래곤만 추출
-    --self.m_lIllustratedDragonList = self:filterList('test', 1)
     self.m_lIllustratedDragonList = self:filterList('none', nil)
 
     -- did순으로 정렬
@@ -126,7 +124,6 @@ end
 -- function getRandomRow
 -------------------------------------
 function TableDragon:getRandomRow()
-    --local l_list = self:filterList('test', 1)
     local l_list = self:filterList('none', nil)
 
     local cnt = table.count(l_list)
