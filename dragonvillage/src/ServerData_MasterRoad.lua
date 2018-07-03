@@ -68,7 +68,7 @@ end
 -- function getRoadIdx
 -------------------------------------
 function ServerData_MasterRoad:getRoadIdx(rid)
-    return math_max(1, rid - 10000)
+    return math_max(1, rid - TableMasterRoad():getRoadIdxStandard(rid))
 end
 
 -------------------------------------
@@ -144,7 +144,7 @@ end
 -------------------------------------
 function ServerData_MasterRoad:isClearAllRoad()
     local last_road = TableMasterRoad:getLastRoad()
-    local focus_road = self.m_focusRoad
+    local focus_road = self.m_focusRoad 
 
     return (last_road < focus_road)
 end
@@ -422,7 +422,7 @@ function ServerData_MasterRoad.checkClear(clear_type, clear_cond, t_data, raw_da
     -- clear_key를 넘기지 않음 -> 인게임 클리어 타입
     else
         -- stage clear
-        if (clear_type == 'clr_stg') and (t_data['is_success'] == true) then
+        if (pl.stringx.startswith(clear_type, 'clr_')) and (t_data['is_success'] == true) then
             local stage_id = t_data['stage_id']
             return (stage_id == clear_cond)
 

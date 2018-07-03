@@ -86,10 +86,24 @@ end
 
 
 T_LINK_FUNC = {
-    -- stage clear
+    -- stage clear / condition : stage_id
     ['clr_stg'] = function(condition)
-        local stage_id = condition
-        UINavigator:goTo('adventure', stage_id)
+        UINavigator:goTo('adventure', condition)
+    end,
+
+    -- ancient clear / condition : stage_id
+    ['clr_tower'] = function(condition)
+        UINavigator:goTo('ancient', condition)
+    end,
+
+    -- stage clear / condition : stage_id
+    ['clr_nm'] = function(condition)
+        UINavigator:goTo('nestdungeon', condition)
+    end,
+
+    -- stage clear / condition : stage_id
+    ['clr_ruin'] = function(condition)
+        UINavigator:goTo('ancient_ruin', condition)
     end,
 
     -- 모험 플레이

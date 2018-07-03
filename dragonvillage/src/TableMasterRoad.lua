@@ -50,13 +50,15 @@ end
 -- function getSortedList
 -- @brief mid를 기준으로 정렬된 리스트 반환
 -------------------------------------
-function TableMasterRoad:getSortedList()
+function TableMasterRoad:getSortedList(curr_rid)
     if (self == THIS) then
         self = THIS()
     end
 
-	local t_road_table = self.m_orgTable
-	local l_road_list = table.MapToList(t_road_table)
+    local t_road = self:get(curr_rid)
+    local road_type = t_road['road_type']
+    local l_road_list = self:filterList('road_type', road_type)
+    
 	table.sort(l_road_list, function(a, b) 
 		local a_id = (a['rid'])
 		local b_id = (b['rid'])
@@ -74,6 +76,9 @@ function TableMasterRoad:getLastRoad()
     if (TableMasterRoad.last_road) then
         return TableMasterRoad.last_road
     else
+        if (self == THIS) then
+            self = THIS()
+        end
         return self:findLastRoad()
     end
 end
@@ -95,4 +100,48 @@ function TableMasterRoad:findLastRoad()
     until (t_master_road == nil)
 
     return rid - 1
+end
+
+-------------------------------------
+-- function getTitleStr
+-------------------------------------
+function TableMasterRoad:getTitleStr(t_road)
+    if (not t_road) then
+        return ''
+    end
+
+    if (t_road['road_type'] == 'normal') then
+        return Str('마스터의 길')
+    elseif (t_road['road_type'] == 'expert') then
+        return Str('마스터의 길 (상급)')
+    else
+        return 'something wrong'
+    end
+end
+
+-------------------------------------
+-- function getDescStr
+-------------------------------------
+function TableMasterRoad:getDescStr(t_road)
+    if (not t_road) then
+        return ''
+    end
+
+    return Str(t_road['t_desc'], t_road['desc_1'], t_road['desc_2'], t_road['desc_3'])
+end
+
+-------------------------------------
+-- function getRoadIdxStandard
+-------------------------------------
+function TableMasterRoad:getRoadIdxStandard(rid)
+    if (self == THIS) then
+        self = THIS()
+    end
+
+    local road_type = self:getValue(rid, 'road_type')
+    if (road_type == 'normal') then
+        return 10000
+    elseif (road_type == 'expert') then
+        return 10114
+    end
 end

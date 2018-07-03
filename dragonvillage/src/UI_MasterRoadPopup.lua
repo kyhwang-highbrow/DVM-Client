@@ -108,10 +108,6 @@ function UI_MasterRoadPopup:refresh(t_data, b_force)
         vars['npcNode']:addChild(animator.m_node)
     end
 
-	-- npc 이름
-	local npc_name = Str(t_data['t_name'])
-	vars['npcNameLabel']:setString(npc_name)
-
 	-- npc 대화
 	local npc_speech = Str(t_data['t_speech'])
 	vars['npcSpeechLabel']:setString(npc_speech)
@@ -136,7 +132,7 @@ function UI_MasterRoadPopup:refresh(t_data, b_force)
     local reward_state = g_masterRoadData:getRewardState(t_data['rid'])
     vars['rewardBtn']:setVisible(reward_state == 'has_reward')
     vars['completeSprite']:setVisible(reward_state == 'already_done')
-    vars['questLinkBtn']:setVisible((reward_state == 'not_yet') and (t_data['rid'] == g_masterRoadData:getFocusRoad()))
+    vars['questLinkBtn']:setVisible(true)--(reward_state == 'not_yet') and (t_data['rid'] == g_masterRoadData:getFocusRoad()))
 end
 
 -------------------------------------
@@ -145,7 +141,8 @@ end
 function UI_MasterRoadPopup:makeRoadTableView()
 	local node = self.vars['listNode']
 
-	local l_road_list = TableMasterRoad():getSortedList()
+    local curr_rid = g_masterRoadData:getDisplayRoad()
+	local l_road_list = TableMasterRoad():getSortedList(curr_rid)
 
     -- 생성 후 동작
 	local function after_create_func(ui, t_data)
@@ -155,7 +152,7 @@ function UI_MasterRoadPopup:makeRoadTableView()
 		end)
 
         -- 최초 선택 : ui를 얻어오기 위해 생성 콜백에도 붙임
-		if (t_data['rid'] == g_masterRoadData:getDisplayRoad()) then
+		if (t_data['rid'] == curr_rid) then
 			self:selectCell(ui, t_data)
 
             -- 보상 받을 cell이 생성된 후에 보상 버튼 활성화
@@ -180,8 +177,7 @@ function UI_MasterRoadPopup:makeRoadTableView()
             -- 강제로 호출해서 최초에 보이지 않는 cell idx로 이동시킬 position을 가져올수 있도록 한다.
             self.m_tableView:update(0)
 
-            local rid = g_masterRoadData:getDisplayRoad()
-            local curr_idx = g_masterRoadData:getRoadIdx(rid)
+            local curr_idx = g_masterRoadData:getRoadIdx(curr_rid)
             local t_cell = self.m_tableView:getItem(curr_idx)
             self:selectCell(nil, t_cell['data'], true)
         end

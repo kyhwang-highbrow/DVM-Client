@@ -45,8 +45,8 @@ function UIC_LobbyGuide:refresh()
         local t_road = TableMasterRoad():get(rid)
 
         -- 마스터의 길 제목, 내용 텍스트 표시
-		local title = Str('마스터의 길')
-        local desc = Str(t_road['t_desc'], t_road['desc_1'], t_road['desc_2'], t_road['desc_3'])
+		local title = TableMasterRoad:getTitleStr(t_road)
+        local desc = TableMasterRoad:getDescStr(t_road)
         self.m_titleLabel:setString(title)
         self.m_descLabel:setString(desc)
 
