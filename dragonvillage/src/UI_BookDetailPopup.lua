@@ -320,7 +320,7 @@ function UI_BookDetailPopup:addSameTypeDragon(t_dragon)
         local _target_list = target_list
         target_list = {}
         for i,v in pairs(_target_list) do
-            if (v['test'] == 1) then
+            if (g_dragonsData:isReleasedDragon(v['did'])) then
                 table.insert(target_list, v)
             end
         end

@@ -17,6 +17,8 @@ ServerData_Dragons = class({
         m_bUpdatePower = 'boolean',
 
         m_mSkillMovePrice = 'map',
+
+        m_mReleasedDragonsByDid = 'map', -- 출시된 드래곤
     })
 
 SKILL_MOVE_DRAGON_GRADE = 4 -- 스킬 이전 가능한 드래곤 태생 등급 (4등급 이상부터 가능)
@@ -29,6 +31,7 @@ function ServerData_Dragons:init(server_data)
     self.m_lSortData = {}
     self.m_mNumOfDragonsByDid = {}
     self.m_mSkillMovePrice = {}
+    self.m_mReleasedDragonsByDid = {}
     self.m_bDirtyNumOfDragonsByDid = true
     self.m_dragonsCnt = 0
     self.m_dragonBestCombatPower = 0
@@ -1126,6 +1129,35 @@ end
 function ServerData_Dragons:setSkillMovePrice(ret)
    self.m_mSkillMovePrice['4'] = ret['skillmove_price4'] or 1400
    self.m_mSkillMovePrice['5'] = ret['skillmove_price5'] or 2800
+end
+
+-------------------------------------
+-- function isReleasedDragon
+-------------------------------------
+function ServerData_Dragons:isReleasedDragon(did)
+    if (not did) then return false end
+
+    local did = tonumber(did)
+    local t_dragon = TableDragon():get(did)
+
+    if (t_dragon['test'] == 2) then
+        return true
+
+    elseif (t_dragon['test'] == 1 and self.m_mReleasedDragonsByDid[did]) then
+        return true
+    end
+
+    return false
+end
+
+-------------------------------------
+-- function setReleasedDragons
+-- @brief 출시 드래곤 정보
+-------------------------------------
+function ServerData_Dragons:setReleasedDragons(ret)
+   self.m_mReleasedDragonsByDid['120871'] = true
+   self.m_mReleasedDragonsByDid['120872'] = true
+   self.m_mReleasedDragonsByDid['120874'] = true
 end
 
 -------------------------------------

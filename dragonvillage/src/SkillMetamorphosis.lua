@@ -54,14 +54,6 @@ function SkillMetamorphosis.st_idle(owner, dt)
     owner:setPosition(dragon.pos['x'], dragon.pos['y'])
 end
 
-
--------------------------------------
--- function metamorphose
--------------------------------------
-function SkillMetamorphosis:metamorphose()
-    
-end
-
 -------------------------------------
 -- function makeSkillInstance
 -------------------------------------

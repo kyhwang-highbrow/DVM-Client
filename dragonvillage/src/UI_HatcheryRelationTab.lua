@@ -73,7 +73,7 @@ function UI_HatcheryRelationTab:init_TableView()
             return UI_DragonReinforceItem('empty')
         end
         -- test 드래곤 빈 UI
-        if (t_dragon['test'] == 0) then
+        if (not g_dragonsData:isReleasedDragon(t_dragon['did'])) then
             return UI_DragonReinforceItem('empty')
         end
         return UI_HatcheryRelationItem(data)
@@ -146,7 +146,7 @@ function UI_HatcheryRelationTab:getDragonList()
         for i = 1, 5 do
             local _did = check_id * 10 + i
             local t_dragon = table_dragon:exists(_did) and table_dragon:get(_did) or nil
-            if (t_dragon and t_dragon['test'] == 1) then
+            if (t_dragon and g_dragonsData:isReleasedDragon(t_dragon['did'])) then
                 is_all_test = false
                 break
             end

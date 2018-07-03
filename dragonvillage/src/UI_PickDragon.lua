@@ -36,7 +36,7 @@ function UI_PickDragon:init(mid, item_id, cb_func)
 	
 	self.m_mid = mid
 	self.m_finishCB= cb_func
-	self.m_orgDragonList = TablePickDragon:getDragonList(item_id)
+	self.m_orgDragonList = TablePickDragon:getDragonList(item_id, g_dragonsData.m_mReleasedDragonsByDid)
 
     self:initUI()
     self:initButton()

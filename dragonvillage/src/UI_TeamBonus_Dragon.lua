@@ -205,7 +205,7 @@ function UI_TeamBonus_Dragon:getDragonList(role_type, attr_type)
 
     for i, v in pairs(table_dragon.m_orgTable) do
         -- 개발 중인 드래곤은 도감에 나타내지 않는다.
-        if (v['test'] == 0) then
+        if (not g_dragonsData:isReleasedDragon(v['did'])) then
 		
         -- 직업군, 속성 걸러내기
 		elseif (role_type ~= 'all') and (role_type ~= v['role']) then

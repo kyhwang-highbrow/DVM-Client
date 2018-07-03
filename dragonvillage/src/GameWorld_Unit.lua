@@ -57,11 +57,6 @@ function GameWorld:makeDragonNew(t_dragon_data, bRightFormation, status_calc)
 
     local dragon_id = t_dragon_data['did']
 
-    do -- 구현된 드래곤 인지 확인, 구현되지 않은 드래곤일 경우 치환
-        dragon_id = TableDragon:getImplementedDid(dragon_id)
-        t_dragon_data['did'] = dragon_id
-    end
-
     -- 테이블의 드래곤 정보
     local table_dragon = TABLE:get('dragon')
     local t_dragon = table_dragon[dragon_id]

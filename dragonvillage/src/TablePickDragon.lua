@@ -19,11 +19,12 @@ end
 -------------------------------------
 -- function getDragonList
 -------------------------------------
-function TablePickDragon:getDragonList(item_id)
+function TablePickDragon:getDragonList(item_id, map_released)
 	if (self == THIS) then
         self = THIS()
     end
 
+    local map_released = map_released or {}
 	local t_condition = self:get(item_id)
 
 	local l_ret = {}
@@ -36,9 +37,20 @@ function TablePickDragon:getDragonList(item_id)
 		local l_did = plSplit(did_str, ',')
 		for _, did  in ipairs(l_did) do
 			t_dragon = table_dragon:get(tonumber(did))
-			if (t_dragon) and (t_dragon['test'] == 1) then
-				table.insert(l_ret, t_dragon)
-			end
+			
+            if (t_dragon) then
+                local b = false
+		
+                if (t_dragon['test'] == 2) then
+			        b = true
+		        elseif (t_dragon['test'] == 1 and map_released[did]) then
+                    b = true
+                end
+
+                if (b) then
+				    table.insert(l_ret, t_dragon)
+			    end
+            end
 		end
 		return l_ret
 	end
@@ -56,6 +68,8 @@ function TablePickDragon:getDragonList(item_id)
 		-- test 체크
 		if (t_dragon['test'] == 0) then
 			b = false
+        elseif (t_dragon['test'] == 1 and not map_released[t_dragon['did']]) then
+            b = false
 		end
 
 		-- 한정/카드 체크

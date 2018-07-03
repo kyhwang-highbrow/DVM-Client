@@ -73,7 +73,7 @@ function RemoveUnreleasedRes:findTargetDragon(table_dragon, file_name)
     local l_dragon_list = table_dragon:filterList('type', dragon_type)
     for i, t_dragon in ipairs(l_dragon_list) do
         if (t_dragon['attr'] == attr) then
-            return (t_dragon['test'] == 1)
+            return (t_dragon['test'] ~= 0)
         end
     end
 

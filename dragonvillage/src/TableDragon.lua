@@ -39,19 +39,28 @@ end
 -------------------------------------
 -- function getSameTypeDragonList
 -------------------------------------
-function TableDragon:getSameTypeDragonList(did)
+function TableDragon:getSameTypeDragonList(did, map_released)
 	if (self == THIS) then
         self = THIS()
     end
 
+    local map_released = map_released or {}
 	local d_type = self:getValue(did, 'type')
     local list = self:filterList('type', d_type)
 	
 	local l_dragon = {}
 	for i, v in ipairs(list) do
-		if (v['test'] == 1) then
-			table.insert(l_dragon, v)
-		end
+        local b = false
+		
+        if (v['test'] == 2) then
+			b = true
+		elseif (v['test'] == 1 and map_released[v['did']]) then
+            b = true
+        end
+
+        if (b) then
+            table.insert(l_dragon, v)
+        end
 	end
 
 	table.sort(l_dragon, function(a, b)
@@ -142,28 +151,6 @@ function TableDragon:getRelationPoint(did)
     end
     local relation_point = self:getValue(did, 'relation_point')
     return relation_point
-end
-
--------------------------------------
--- function getImplementedDid
--------------------------------------
-function TableDragon:getImplementedDid(did)
-    -- 기존에 개발 중인 드래곤은 파워드래곤으로 나오게 하던 부분
-    -- LIVE 환경으로 변경되면서 제거함
-    if true then
-        return did
-    end
-
-    if (self == THIS) then
-        self = THIS()
-    end
-
-    local value = self:getValue(did, 'test')
-    if (value == 1) then
-        return did
-    else
-        return 120011 -- 파워드래곤
-    end
 end
 
 -------------------------------------

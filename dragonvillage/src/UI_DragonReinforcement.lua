@@ -270,7 +270,7 @@ function UI_DragonReinforcement:refresh_relation()
 	-- 인연포인트 표시하기 위한 t_dragon 리스트 생성
     local vars = self.vars
     local did = t_dragon_data['did']
-	local list = TableDragon:getSameTypeDragonList(did)
+	local list = TableDragon:getSameTypeDragonList(did, g_dragonsData.m_mReleasedDragonsByDid)
 	local t_ret = {}
 	for i, v in ipairs(list) do
 		local did = v['did']

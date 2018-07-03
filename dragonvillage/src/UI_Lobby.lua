@@ -211,6 +211,9 @@ function UI_Lobby:entryCoroutine()
                 cclog('# 확률업 드래곤 정보 받는 중')
                 g_eventData:applyChanceUpDragons(ret)
 
+                cclog('# 출시 드래곤 정보 받는 중')
+                g_dragonsData:setReleasedDragons(ret)
+
 				co.NEXT()
 			end)
 			ui_network:setFailCB(required_fail_cb)
