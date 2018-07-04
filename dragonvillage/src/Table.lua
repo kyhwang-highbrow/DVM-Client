@@ -27,7 +27,6 @@ local TableInfo = {
         tamer_costume       = {'table_tamer_costume',       'cid',          false},
         drop                = {'table_drop',                'stage',        false},
         stage_data          = {'table_stage_data',          'stage',        false},
-        stage_data_new      = {'table_stage_data_new',      'stage',        false},
         stage_desc          = {'table_stage_desc',          'stage',        false},
         secret_dungeon      = {'table_secret_dungeon',      'stage',        false},
         dragon_exp          = {'table_dragon_exp',          'eid',          false},
