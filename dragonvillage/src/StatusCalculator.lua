@@ -408,7 +408,14 @@ function StatusCalculator:applyStageBonus(stage_id, is_enemy)
         local t_char = self.m_charTable[self.m_chapterID]
 
         for i, v in ipairs(t_info) do
-            if (v['condition_type'] == 'all' or v['condition_value'] == t_char[v['condition_type']]) then
+            local condition_type = v['condition_type']
+            local condition_value = v['condition_value']
+
+            if (condition_type == 'did' or condition_type == 'mid') then
+                condition_value = tonumber(condition_value)
+            end
+
+            if (v['condition_type'] == 'all' or condition_value == t_char[condition_type]) then
                 local buff_type = v['buff_type']
                 local buff_value = v['buff_value']
 
