@@ -138,7 +138,9 @@ function Monster_ClanRaidBoss:onChangedAttackableGroup()
             --self:unsetSkillID(skill_id)
 
             local skill_indivisual_info = self:findSkillInfoByID(skill_id)
-            skill_indivisual_info:setEnabled(false)
+            if (skill_indivisual_info) then
+                skill_indivisual_info:setEnabled(false)
+            end
         end
     end
 end
