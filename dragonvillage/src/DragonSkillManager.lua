@@ -597,7 +597,12 @@ function IDragonSkillManager:getDragonSkillTriggerList()
 		end
 	end
 
-    local list = table.MapToList(map)
+    local list = {}
+
+    for key, _ in pairs(map) do
+        table.insert(list, key)
+    end
+
     return list
 end
 
