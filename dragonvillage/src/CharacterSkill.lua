@@ -202,6 +202,10 @@ function Character:doSkillBySkillTable(t_skill, t_data)
             elseif (skill_type == 'skill_aoe_round_hide') then
 				SkillAoERound_Hide:makeSkillInstance(self, t_skill, t_data)
 				return true
+
+            elseif (skill_type == 'skill_aoe_round_melee') then
+				SkillAoERound_Melee:makeSkillInstance(self, t_skill, t_data)
+				return true
 	
 			elseif (skill_type == 'skill_aoe_square_height' or skill_type == 'skill_aoe_square_height_bottom') then
                 -- 설정된 인디케이터에 맞춰지도록 처리

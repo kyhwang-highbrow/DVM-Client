@@ -3649,6 +3649,9 @@
     <None Include="..\src\StructEventMandragoraQuest.lua">
       <Filter>lua\src</Filter>
     </None>
+    <None Include="..\src\SkillAoeRound_Melee.lua">
+      <Filter>lua\src</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Classes">
