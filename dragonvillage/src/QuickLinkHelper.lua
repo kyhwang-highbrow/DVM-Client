@@ -402,5 +402,24 @@ T_LINK_FUNC = {
         UINavigator:goTo('hatchery', 'combine')
     end,
 
+
+	-- 스페셜 퀘스트
+	['d_sklvup_sq'] = function()
+        UINavigator:goTo('dragon_manage', 'skill_enc')
+    end,
+    ['ply_clsm_sq'] = function()
+        UINavigator:goTo('colosseum')
+    end,
+	['ply_cldg_sq'] = function()
+        UINavigator:goTo('clan_raid')
+    end,
+	['d_rlvup_sq'] = function()
+        UINavigator:goTo('dragon_manage', 'reinforce')
+    end,
+
     -- 바로가기 키를 띄우지 않을 것들
+	--[[
+	r_6grcnt_sq : 6성 룬 획득
+	d_lvmax_sq : 6성 60레벨 드래곤
+	]]
 }

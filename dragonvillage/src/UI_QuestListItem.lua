@@ -46,9 +46,9 @@ end
 function UI_QuestListItem:initButton()
     local vars = self.vars
 
+	-- quest popup 변수를 받기 위해서 생성 후 등록
 	--vars['questLinkBtn']:registerScriptTapHandler(function() self:click_questLinkBtn() end)
     --vars['rewardBtn']:registerScriptTapHandler(function() self:click_rewardBtn() end)
-	-- vars['rewardBtn']은 list item 생성시에 등록함
 end
 
 -------------------------------------
