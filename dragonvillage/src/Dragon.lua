@@ -113,7 +113,7 @@ function Dragon:initDragonSkillManager(t_dragon_data)
             end
 
         elseif (skill_id == 500300) then
-            -- 생존 세트는 중첩시 무적 시간 증가
+            -- 생존 세트는 중첩시 무적 시간 증가(수식이 사용되지 않았다고 가정)
             if (count > 1) then
                 local add_value = t_skill['add_option_time_1'] * (count - 1)
                 skill_indivisual_info:addBuff('add_option_time_1', add_value, 'add', true)

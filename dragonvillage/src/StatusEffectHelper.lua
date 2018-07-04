@@ -209,7 +209,7 @@ function StatusEffectHelper:invokeStatusEffect(caster, target_char, status_effec
     local status_effect = target_char:getStatusEffect(status_effect_type, true)
     local status_effect_category = t_status_effect['category']
 	local status_effect_group = t_status_effect['type']
-    local duration = tonumber(duration) or tonumber(t_status_effect['duration'])
+    local duration = duration or t_status_effect['duration']
     local world = target_char.m_world
     local skip_resistance_font = false
 
@@ -272,6 +272,13 @@ function StatusEffectHelper:invokeStatusEffect(caster, target_char, status_effec
         status_effect_value = status_effect_value(caster, target_char, add_param)
     else
         status_effect_value = tonumber(status_effect_value)
+    end
+
+    -- 지속시간값(duration)이 수식인 경우 수식을 계산
+    if (type(duration) == 'function') then
+        duration = duration(caster, target_char, add_param)
+    else
+        duration = tonumber(duration)
     end
 
     if (not status_effect) then

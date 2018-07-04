@@ -14,7 +14,11 @@ local l_columnToUseEquation = {
     'add_option_value_1',
     'add_option_value_2',
     'add_option_value_3',
-    'add_option_value_4'
+    'add_option_value_4',
+    'add_option_time_1',
+    'add_option_time_2',
+    'add_option_time_3',
+    'add_option_time_4'
 }
 
 -------------------------------------
