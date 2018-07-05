@@ -426,8 +426,8 @@ end
 -- function click_ancientShopBtn
 -------------------------------------
 function UI_AncientTowerRank:click_ancientShopBtn()
-    local ui_shop_popup = UI_Shop()
-    ui_shop_popup:setTab('ancient')
+    -- 마녀의 상점으로 변경
+    UINavigator:goTo('shop_random')
 end
 
 -------------------------------------
