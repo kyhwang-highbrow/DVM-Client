@@ -9,6 +9,7 @@ StatusEffectEdgeDirector = class({
 
         m_curCount = 'number',
         m_maxCount = 'number',
+        m_iCurEdge = 'number',
 
         m_lEdgeAnimator = 'table',
         m_lStartPos = 'table',
@@ -25,6 +26,7 @@ function StatusEffectEdgeDirector:init(bLeftFormation, type, root_node, res_edge
 
     self.m_curCount = 0
     self.m_maxCount = max_count
+    self.m_iCurEdge = 1
 
     self.m_lEdgeAnimator = {}
 
@@ -50,8 +52,7 @@ function StatusEffectEdgeDirector:addEdge()
     local animator = MakeAnimator(self.m_resEdge)
     if (not animator) then return end
 
-    local new_idx = self.m_curCount + 1
-    local pos = self.m_lStartPos[new_idx]
+    local pos = self.m_lStartPos[self.m_iCurEdge]
     if (pos) then
         animator:setPosition(pos['x'], pos['y'])
     end
@@ -75,6 +76,11 @@ function StatusEffectEdgeDirector:addEdge()
     end
 
     self.m_curCount = self.m_curCount + 1
+    self.m_iCurEdge = self.m_iCurEdge + 1
+
+    if (self.m_iCurEdge > self.m_maxCount) then
+        self.m_iCurEdge = 1
+    end
 end
 
 
@@ -84,7 +90,8 @@ end
 function StatusEffectEdgeDirector:removeEdge()
     if (self.m_curCount <= 0) then return end
     
-    local animator = table.remove(self.m_lEdgeAnimator, self.m_curCount)
+    --local animator = table.remove(self.m_lEdgeAnimator, self.m_curCount)
+    local animator = table.remove(self.m_lEdgeAnimator, 1)
     if (animator) then
         animator:release()
 
