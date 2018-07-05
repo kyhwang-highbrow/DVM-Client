@@ -321,6 +321,8 @@ bool LabelTextFormatter::createStringSprites(Label *theLabel)
     Vec2 letterPosition;
     const auto& kernings = theLabel->_horizontalKernings;
 
+    CCASSERT(kernings, (theLabel->_originalUTF8String).c_str());
+
     float clipTop = 0;
     float clipBottom = 0;
     int lineIndex = 0;
