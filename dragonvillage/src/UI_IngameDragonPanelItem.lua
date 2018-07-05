@@ -185,6 +185,7 @@ function UI_IngameDragonPanelItem:refresh()
     local vars = self.vars
 
     vars['dieSprite']:setVisible(self.m_dragon:isDead())
+    vars['cooltimeLabel']:setVisible(not self.m_dragon:isDead())
 
     if (self.m_bEnabled == vars['skillFullVisual1']:isVisible()) then return end
 
