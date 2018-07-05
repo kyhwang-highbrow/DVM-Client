@@ -56,16 +56,18 @@ function StatusEffect_ManaReduce:onStart()
     -- 해당 드래곤의 마나를 reduceValue(add_option_value_1)만큼 감소시킨다.
     self.m_isInCondition = true
 
-    local originValue = self.m_owner:getOriginSkillManaCost()
+    if (self.m_owner:getStatusEffectCountBySubject('mana_reduce') == 1) then
+        local originValue = self.m_owner:getOriginSkillManaCost()
 
-    local new_mana_cost = originValue - self.m_reduceValue
-    new_mana_cost = math_max(new_mana_cost, 1)
+        local new_mana_cost = originValue - self.m_reduceValue
+        new_mana_cost = math_max(new_mana_cost, 1)
         
-    self.m_owner:setSkillManaCost(new_mana_cost)
+        self.m_owner:setSkillManaCost(new_mana_cost)
                 
-    local t_event = {}
-    t_event['value'] = new_mana_cost
-    self.m_owner:dispatch('dragon_mana_reduce', t_event)
+        local t_event = {}
+        t_event['value'] = new_mana_cost
+        self.m_owner:dispatch('dragon_mana_reduce', t_event)
+    end
 end
 
 -------------------------------------
@@ -74,13 +76,15 @@ end
 function StatusEffect_ManaReduce:onEnd()
     if (not self.m_isInCondition) then return end
 
-    local originValue = self.m_owner:getOriginSkillManaCost()
+    if (self.m_owner:getStatusEffectCountBySubject('mana_reduce') <= 1) then
+        local originValue = self.m_owner:getOriginSkillManaCost()
 
-    self.m_owner:setSkillManaCost(originValue)
+        self.m_owner:setSkillManaCost(originValue)
 
-    local t_event = {}
-    t_event['value'] = originValue
-    self.m_owner:dispatch('dragon_mana_reduce_finish', t_event)
+        local t_event = {}
+        t_event['value'] = originValue
+        self.m_owner:dispatch('dragon_mana_reduce_finish', t_event)
+    end
 end
 
 -------------------------------------

@@ -10,7 +10,8 @@ ICharacterStatusEffect = {
     m_lStatusIcon = 'table',
     m_mStatusIcon = 'table',
 
-    m_mStatusEffectGroggy = 'table',    -- 그로기 효과를 가진 status effect
+    m_mStatusEffectGroggy = 'table',-- 그로기 효과를 가진 status effect
+    m_mStatusEffectCntPerSubject = 'table',   -- status effect 수(table_status_effect의 type명을 키로 사용)
     
     m_isGroggy      = 'boolean',    -- 그로기(행동 불가 상태)
     m_isSilence     = 'boolean',    -- 침묵 (스킬 사용 불가 상태)
@@ -31,6 +32,7 @@ function ICharacterStatusEffect:init()
 	self.m_mStatusIcon = {}
 
     self.m_mStatusEffectGroggy = {}
+    self.m_mStatusEffectCntPerSubject = {}
     
     self.m_isGroggy = false
     self.m_isSilence = false
@@ -158,6 +160,16 @@ function ICharacterStatusEffect:insertStatusEffect(status_effect)
     else
         self.m_mStatusEffect[effect_name] = status_effect
     end
+
+    -- 카운트 갱신
+    do
+        local subject = status_effect.m_statusEffectTable['type']
+        if (not self.m_mStatusEffectCntPerSubject[subject]) then
+            self.m_mStatusEffectCntPerSubject[subject] = 0
+        end
+
+        self.m_mStatusEffectCntPerSubject[subject] = self.m_mStatusEffectCntPerSubject[subject] + 1
+    end
 end
 
 -------------------------------------
@@ -171,6 +183,17 @@ function ICharacterStatusEffect:removeStatusEffect(status_effect)
         self.m_mHiddenStatusEffect[effect_name] = nil
     else
 	    self.m_mStatusEffect[effect_name] = nil
+    end
+
+    -- 카운트 갱신
+    do
+        local subject = status_effect.m_statusEffectTable['type']
+        local count = self.m_mStatusEffectCntPerSubject[subject]
+
+        count = count - 1
+        count = math_max(count, 0)
+    
+        self.m_mStatusEffectCntPerSubject[subject] = count
     end
 end
 
@@ -238,6 +261,14 @@ function ICharacterStatusEffect:getStatusEffectCount(column, value)
         ]]--
     end
 
+    return count
+end
+
+-------------------------------------
+-- function getStatusEffectCountBySubject
+-------------------------------------
+function ICharacterStatusEffect:getStatusEffectCountBySubject(subject)
+    local count = self.m_mStatusEffectCntPerSubject[subject] or 0
     return count
 end
 
