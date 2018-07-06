@@ -5,7 +5,7 @@ local PARENT = SkillAoERound
 -------------------------------------
 SkillAoERound_Melee = class(PARENT, {})
 
-local MOVE_SPEED = 1500
+local MOVE_SPEED = 3000
 
 -------------------------------------
 -- function init
