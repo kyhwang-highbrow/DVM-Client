@@ -172,7 +172,7 @@ android {
         liveqa{
             dimension "server"
             versionName PROP_APPVER_LIVE
-            applicationIdSuffix ".kr"
+            applicationIdSuffix ".qa"
             signingConfig signingConfigs.keystore
             externalNativeBuild {
                 ndkBuild {
