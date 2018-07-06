@@ -117,9 +117,13 @@ function UI_Package_Bundle:refresh()
             if (struct_product) then
                 local time_label = vars['timeLabel']
                 local end_date = struct_product:getEndDateStr()
-                if (end_date) and (time_label) then
-                    time_label:setString(end_date)
-                end 
+                if (time_label) then
+                    if (end_date) then
+                        time_label:setString(end_date)
+                    else    
+                        time_label:setString('')
+                    end
+                end
 
                 local discount_value = 20
                 vars['bonusLabel1']:setString(Str('다이아 {1}% 보너스 상품 판매!', discount_value))
@@ -143,9 +147,13 @@ function UI_Package_Bundle:refresh()
             -- 판매종료시간 있는 경우 표시
             local time_label = vars['timeLabel']
             local end_date = struct_product:getEndDateStr()
-            if (end_date) and (time_label) then
-                time_label:setString(end_date)
-            end 
+            if (time_label) then
+                if (end_date) then
+                    time_label:setString(end_date)
+                else    
+                    time_label:setString('')
+                end
+            end
 
             -- 구성품 t_desc 표시
             if (self.m_data['use_desc'] == 1) then

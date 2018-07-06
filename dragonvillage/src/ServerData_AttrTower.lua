@@ -100,7 +100,10 @@ function ServerData_AttrTower:getNextStageID(stage_id)
     if t_drop then
         local next_stage = stage_id + 1
         if (not self.m_bExtendFloor) then
-            next_stage = (next_stage > ATTR_TOWER_STAGE_ID_WAIT) and ATTR_TOWER_STAGE_ID_WAIT or next_stage
+            if (self.m_clearFloorTotalCnt == ATTR_TOWER_EXTEND_OPEN_FLOOR - 1) then
+            else
+                next_stage = (next_stage > ATTR_TOWER_STAGE_ID_WAIT) and ATTR_TOWER_STAGE_ID_WAIT or next_stage
+            end
         end
         
         return next_stage
@@ -210,11 +213,8 @@ function ServerData_AttrTower:request_attrTowerInfo(attr, stage, finish_cb, fail
             -- 최종 클리어한 스테이지 
             self.m_clearStageID = ret['clear_stage']
             self.m_clearFloor = (ret['clear_stage'] % ANCIENT_TOWER_STAGE_ID_START)
-
-            if (not self.m_lStage) then
-                self.m_lStage = self:makeAttrTower_stageList()
-                self.m_nStage = table.count(self.m_lStage)
-            end
+            self.m_lStage = self:makeAttrTower_stageList()
+            self.m_nStage = table.count(self.m_lStage)
         end
 
         if finish_cb then
@@ -306,8 +306,12 @@ function ServerData_AttrTower:makeAttrTower_stageList()
             return false
         end
 
+        if (self.m_bExtendFloor) then
+            return true
+        end
+
         -- 확장되지 않은 경우 중간층까지만
-        if (not self.m_bExtendFloor and stage_id > ATTR_TOWER_STAGE_ID_WAIT) then
+        if (stage_id > ATTR_TOWER_STAGE_ID_WAIT) then
             return false
         end
 

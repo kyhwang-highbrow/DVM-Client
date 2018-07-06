@@ -94,9 +94,13 @@ function UI_Package:refresh()
     -- 판매종료시간 있는 경우 표시
     local time_label = vars['timeLabel']
     local end_date = struct_product:getEndDateStr()
-    if (end_date) and (time_label) then
-        time_label:setString(end_date)
-    end 
+    if (time_label) then
+        if (end_date) then
+            time_label:setString(end_date)
+        else    
+            time_label:setString('')
+        end
+    end
 end
 
 -------------------------------------
