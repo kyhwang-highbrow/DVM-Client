@@ -63,7 +63,9 @@ function ServerData_AncientTower:getNextStageID(stage_id)
     local t_drop = table_drop:get(stage_id + 1)
 
     if t_drop then
-        return stage_id + 1
+        local next_stage = stage_id + 1
+        next_stage = (next_stage > ANCIENT_TOWER_STAGE_ID_FINISH) and ANCIENT_TOWER_STAGE_ID_FINISH or next_stage
+        return next_stage
     else
         return stage_id
     end

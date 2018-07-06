@@ -1,5 +1,7 @@
 ATTR_TOWER_OPEN_FLOOR = 40
 ATTR_TOWER_EXTEND_OPEN_FLOOR = 200
+
+ATTR_TOWER_STAGE_ID_WAIT = 1401050
 ATTR_TOWER_STAGE_ID_FINISH = 1401100
 
 -------------------------------------
@@ -16,6 +18,7 @@ ServerData_AttrTower = class({
 
         m_challengingFloor = 'number', -- 현재 진행중인 층    
         m_clearFloor = 'number', -- 최종 클리어한 층
+        m_clearFloorTotalCnt = 'number', -- 5개 속성탑 클리어한 층의 합
 
         m_lStage = 'table',
         m_nStage = 'number',
@@ -36,6 +39,7 @@ function ServerData_AttrTower:init(server_data)
     self.m_serverData = server_data
     self.m_nStage = 0
     self.m_bExtendFloor = false
+    self.m_clearFloorTotalCnt = 0
 end
 
 -------------------------------------
@@ -94,7 +98,12 @@ function ServerData_AttrTower:getNextStageID(stage_id)
     local t_drop = table_drop:get(stage_id + 1)
 
     if t_drop then
-        return stage_id + 1
+        local next_stage = stage_id + 1
+        if (not self.m_bExtendFloor) then
+            next_stage = (next_stage > ATTR_TOWER_STAGE_ID_WAIT) and ATTR_TOWER_STAGE_ID_WAIT or next_stage
+        end
+        
+        return next_stage
     else
         return stage_id
     end
@@ -177,6 +186,16 @@ function ServerData_AttrTower:request_attrTowerInfo(attr, stage, finish_cb, fail
             if (menu_info['extended']) then
                 self.m_bExtendFloor = (menu_info['extended'] == 1) and true or false
             end
+
+            -- 클리어한 층수 계산
+            self.m_clearFloorTotalCnt = 0
+            local l_attr = getAttrTextList()
+            for _, attr in ipairs(l_attr) do
+                local clear_floor = menu_info[attr]
+                if (clear_floor) then
+                    self.m_clearFloorTotalCnt = self.m_clearFloorTotalCnt + (clear_floor % 1000)
+                end
+            end
         end
 
         -- 시험의 탑 층 정보
@@ -215,6 +234,10 @@ function ServerData_AttrTower:request_attrTowerInfo(attr, stage, finish_cb, fail
     
     -- 선택한 스테이지
     if (stage) then
+        if (stage > ATTR_TOWER_STAGE_ID_WAIT and not self.m_bExtendFloor) then
+            stage = ATTR_TOWER_STAGE_ID_WAIT
+        end
+
         ui_network:setParam('stage', stage)
     end
 
@@ -283,9 +306,8 @@ function ServerData_AttrTower:makeAttrTower_stageList()
             return false
         end
 
-        -- 고대의탑 시험의탑 스테이지 구분하려 했으나 클리어 데이터 초기화하지 않는 이상 서버 작업 어려움
-        -- 계속 공용으로 쓰기로 함
-        if (stage_id > ATTR_TOWER_STAGE_ID_FINISH) then
+        -- 확장되지 않은 경우 중간층까지만
+        if (not self.m_bExtendFloor and stage_id > ATTR_TOWER_STAGE_ID_WAIT) then
             return false
         end
 
@@ -387,7 +409,7 @@ end
 -- @brief 속성 탑 최대층 반환
 -------------------------------------
 function ServerData_AttrTower:getMaxFloor(attr)
-    return (self.m_bExtendFloor) and 100 or 50
+    return (self.m_bExtendFloor) and ATTR_TOWER_STAGE_ID_FINISH % 1000 or ATTR_TOWER_STAGE_ID_WAIT % 1000
 end
 
 -------------------------------------
