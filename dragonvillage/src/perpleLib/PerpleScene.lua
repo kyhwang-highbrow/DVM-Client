@@ -289,7 +289,7 @@ function PerpleScene:onEnter()
     self:initBroadcast()
 
     -- Watermark
-    self:makeWatermark()
+    --self:makeWatermark()
 
     -- TimeScale
     cc.Director:getInstance():getScheduler():setTimeScale(1)
@@ -306,8 +306,6 @@ function PerpleScene:onEnter()
 		end
     end
     self.m_scene:scheduleUpdateWithPriorityLua(update, 0)
-	-- @kms 멤버 함수와 로컬 함수의 속도차이..?
-    -- self.m_scene:scheduleUpdateWithPriorityLua(function(dt) self:update(dt) end, 0)
 
     -- 플레이 시간 기록
     if (g_accessTimeData) then
@@ -332,16 +330,6 @@ function PerpleScene:onExit()
     end
 
     --cclog('PerpleScene:onExit()')
-end
-
--------------------------------------
--- function update
--------------------------------------
-function PerpleScene:update(dt)
-	-- @TEST 실시간 디버깅 정보 출력
-	if (g_constant and g_constant:get('DEBUG', 'DISPLAY_DEBUG_INFO')) then
-		UIManager:updateDebugUI(dt)
-	end
 end
 
 -------------------------------------
@@ -402,37 +390,35 @@ function PerpleScene:initBroadcast()
     g_broadcastManager:setEnable(true)
     g_broadcastManager:setEnableNotice(true) -- 운영 공지는 항상 활성화
 end
-
+--[[
 -------------------------------------
 -- function makeWatermark
 -- @brief 워터마크 표시
 -------------------------------------
 function PerpleScene:makeWatermark()
-    if false then
-        -- 메세지 지정
-        local msg = '본 게임은 외부 제작업체 \n\'XXX\'에 제공 된 테스트 버전 입니다.'
+    -- 메세지 지정
+    local msg = '본 게임은 외부 제작업체 \n\'XXX\'에 제공 된 테스트 버전 입니다.'
 
-        -- 폰트 지정
-        local font = Translate:getFontPath()
+    -- 폰트 지정
+    local font = Translate:getFontPath()
 
-        -- 위치 지정
-        local visibleSize = cc.Director:getInstance():getVisibleSize()
-        local pos_x = visibleSize.width * 0.5
-        local pos_y = visibleSize.height * 0.15
+    -- 위치 지정
+    local visibleSize = cc.Director:getInstance():getVisibleSize()
+    local pos_x = visibleSize.width * 0.5
+    local pos_y = visibleSize.height * 0.15
 
-        -- label 생성
-        local label = cc.Label:createWithTTF(msg, font, 30, 0)
-        label:setAlignment(cc.TEXT_ALIGNMENT_CENTER, cc.VERTICAL_TEXT_ALIGNMENT_CENTER)
-        label:setAnchorPoint(cc.p(0.5, 0.5))
-        label:setPosition(pos_x, pos_y)
-        label:enableOutline(cc.c4b(0, 0, 0, 255), 3)
-        self.m_scene:addChild(label, 99999 + 1)
+    -- label 생성
+    local label = cc.Label:createWithTTF(msg, font, 30, 0)
+    label:setAlignment(cc.TEXT_ALIGNMENT_CENTER, cc.VERTICAL_TEXT_ALIGNMENT_CENTER)
+    label:setAnchorPoint(cc.p(0.5, 0.5))
+    label:setPosition(pos_x, pos_y)
+    label:enableOutline(cc.c4b(0, 0, 0, 255), 3)
+    self.m_scene:addChild(label, 99999 + 1)
 
-        -- 1초 후 투명해지도록 액션 실행
-        label:runAction(cc.Sequence:create(cc.DelayTime:create(1), cc.FadeTo:create(0.5, 80)))
-    end
+    -- 1초 후 투명해지도록 액션 실행
+    label:runAction(cc.Sequence:create(cc.DelayTime:create(1), cc.FadeTo:create(0.5, 80)))
 end
-
+]]
 -------------------------------------
 -- function blockBackkey
 -------------------------------------
