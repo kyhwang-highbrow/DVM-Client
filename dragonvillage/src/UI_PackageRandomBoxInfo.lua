@@ -80,7 +80,7 @@ function UI_PackageRandomBoxInfo.makeCellUI(t_data)
 
     -- 이름
     local name = TableItem:getItemName(item_id)
-    local full_name = string.format('%s x%s', name, comma_value(count))
+    local full_name = string.format('%s', name) .. ' '..Str('{1}개', comma_value(count))
     vars['itemLabel']:setString(full_name)
     
     -- 설명 
