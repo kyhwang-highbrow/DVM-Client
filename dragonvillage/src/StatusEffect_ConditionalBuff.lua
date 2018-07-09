@@ -123,7 +123,7 @@ end
 function StatusEffect_ConditionalBuff.st_start(owner, dt)
     if (owner.m_stateTimer == 0) then
         -- 에니메이션이 0프레임일 경우 즉시 상태를 변경
-        local duration = owner.m_animator:getDuration()
+        local duration = owner.m_animator and owner.m_animator:getDuration() or 0
         if (duration == 0) then
             owner:changeState('idle')
         else
