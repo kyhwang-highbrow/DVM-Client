@@ -11,6 +11,7 @@ PASSIVE_CHANCE_TYPE = {}
 PASSIVE_CHANCE_TYPE['wave_boss'] = {'change_wave'}
 PASSIVE_CHANCE_TYPE['non_debuff'] = {'get_debuff', 'release_debuff'}
 PASSIVE_CHANCE_TYPE['over_hp_rate'] = {'character_set_hp'}
+PASSIVE_CHANCE_TYPE['under_hp_rate'] = {'character_set_hp'}
 PASSIVE_CHANCE_TYPE['alive'] = {'character_dead', 'character_revive'} 
 
 -- 조건부 leader/passive 버프의 조건을 검사하는 함수.
@@ -46,6 +47,27 @@ PASSIVE_CONDITION_FUNC['over_hp_rate'] = function(status_effect, t_event)
     if (not chance_value or chance_value == '') then return false end
     
     return ( hp_rate * 100 >= chance_value )
+end
+
+PASSIVE_CONDITION_FUNC['under_hp_rate'] = function(status_effect, t_event)
+    -- 체력이 일정% 이하일 경우 true, 아니면 false
+    -- t_event : EVENT_CHANGE_HP_CARRIER
+
+    local t_status_effect = status_effect.m_statusEffectTable
+
+    if (not t_event) then
+        local owner = status_effect.m_owner
+        t_event = { hp_rate = owner:getHpRate() }
+    end
+
+    local hp_rate = t_event['hp_rate']
+    if (not hp_rate) then return false end
+
+    
+    local chance_value = t_status_effect['val_2']
+    if (not chance_value or chance_value == '') then return false end
+    
+    return ( hp_rate * 100 <= chance_value )
 end
 
 PASSIVE_CONDITION_FUNC['alive'] = function(status_effect)
