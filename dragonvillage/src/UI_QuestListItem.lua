@@ -195,5 +195,7 @@ function UI_QuestListItem:click_questLinkBtn(ui_quest_popup)
 	QuickLinkHelper.quickLink(clear_type)
 
     -- 퀘스트 팝업은 꺼버린다.
-    ui_quest_popup:close()
+    if (ui_quest_popup and ui_quest_popup.closed == false) then
+        ui_quest_popup:close()
+    end
 end
