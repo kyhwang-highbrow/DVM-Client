@@ -80,8 +80,7 @@ function Character:doSkillBySkillTable(t_skill, t_data)
         if (b) then
             -- 텍스트
             if (self.m_charType == 'dragon') then
-                local skill_indivisual_info = self:findSkillInfoByID(t_skill['sid'])
-                if (not isExistValue(skill_indivisual_info:getSkillType(), 'basic', 'active', 'leader')) then
+                if (not isExistValue(t_skill['chance_type'], 'basic', 'active', 'leader')) then
                 --if (isExistValue(t_skill['sid'], self.m_charTable['skill_1'], self.m_charTable['skill_2'], self.m_charTable['skill_3'])) then
                     self.m_world:addSkillSpeech(self, t_skill['t_name'])
                 end
@@ -143,8 +142,7 @@ function Character:doSkillBySkillTable(t_skill, t_data)
 
             -- 텍스트
             if ( self.m_charType == 'dragon') then
-                local skill_indivisual_info = self:findSkillInfoByID(t_skill['sid'])
-                if (not isExistValue(skill_indivisual_info:getSkillType(), 'basic', 'active', 'leader')) then
+                if (not isExistValue(t_skill['chance_type'], 'basic', 'active', 'leader')) then
                 --if (isExistValue(t_skill['sid'], self.m_charTable['skill_1'], self.m_charTable['skill_2'], self.m_charTable['skill_3'])) then
                     self.m_world:addSkillSpeech(self, t_skill['t_name'])
                 end
