@@ -742,7 +742,19 @@ function SceneViewer:MakeAnimator(res_name)
     local org_res = res_name
 
     -- 기본 이름으로 검색
-    local animator = MakeAnimator(res_name)
+    local animator
+
+    -- 애니메이션 파일 공통으로 사용하는 스파인 리소스인 경우
+    if (AnimatorHelper:isIntegratedSpineResName(res_name) and pl.stringx.endswith(res_name, '.atlas')) then
+        local path, file_name, extension = string.match(res_name, "(.-)([^//]-)(%.[^%.]+)$")
+        local path_length = string.len(path)
+        res_name = string.sub(path, 1, path_length - 1) .. '.spine'
+
+        animator = MakeAnimatorSpineToIntegrated(res_name)
+    else
+        animator = MakeAnimator(res_name)
+    end
+
     if animator and animator.m_node then
         return animator
     end
