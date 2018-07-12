@@ -27,6 +27,10 @@ function UI_PickDragon:init(mid, item_id, cb_func)
     UIManager:open(self, UIManager.POPUP)
     self.m_uiName = 'UI_PickDragon'
 
+    if (item_id == 700306) then
+        vars['titleLabel']:setString(Str('영웅 드래곤 선택권'))
+    end
+
     -- backkey 지정
     g_currScene:pushBackKeyListener(self, function() self:click_closeBtn() end, 'UI_PickDragon')
 
