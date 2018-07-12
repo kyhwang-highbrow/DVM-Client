@@ -118,7 +118,7 @@ function UI_MasterRoadPopup:refresh(t_data, b_force)
     vars['titleNumLabel']:setString(num_str)
 
 	-- 목표
-	local desc = Str(t_data['t_desc'], t_data['desc_1'], t_data['desc_2'], t_data['desc_3'])
+	local desc = TableMasterRoad:getDescStr(t_data)
 	vars['descLabel']:setString(desc)
 
     -- 스페셜 목표 선택할 경우 프레임 이펙트

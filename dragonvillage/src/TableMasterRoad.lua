@@ -127,7 +127,19 @@ function TableMasterRoad:getDescStr(t_road)
         return ''
     end
 
-    return Str(t_road['t_desc'], t_road['desc_1'], t_road['desc_2'], t_road['desc_3'])
+	-- 번역 안되는 부분 수정 (임시 조치)
+	local desc_1 = t_road['desc_1']
+	if (Translate:isNeedTranslate()) then
+		if (string.find(t_road['desc_1'], '어려움')) then
+			desc_1 = string.gsub(t_road['desc_1'], '어려움', Str('어려움'))
+
+		elseif (string.find(t_road['desc_1'], '지옥')) then
+			desc_1 = string.gsub(t_road['desc_1'], '지옥', Str('지옥'))
+
+		end	
+	end
+
+    return Str(t_road['t_desc'], desc_1, t_road['desc_2'], t_road['desc_3'])
 end
 
 -------------------------------------
