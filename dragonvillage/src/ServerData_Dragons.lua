@@ -1138,6 +1138,7 @@ function ServerData_Dragons:isReleasedDragon(did)
     if (not did) then return false end
 
     local t_dragon = TableDragon():get(tonumber(did))
+    if (not t_dragon) then return false end
 
     if (t_dragon['test'] == 2) then
         return true

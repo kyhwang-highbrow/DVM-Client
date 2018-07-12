@@ -19,7 +19,9 @@ function TeamBonusHelper:getAllTeamBonusDataFromDeck(l_deck)
     -- 모든 팀보너스를 위한 StructTeamBonus 생성
     for _, v in pairs(table_teambonus.m_orgTable) do
         local teambonus_data = StructTeamBonus(v)
-        table.insert(l_teambonus_data, teambonus_data)
+        if (self:isReleased(teambonus_data)) then
+            table.insert(l_teambonus_data, teambonus_data)
+        end
     end
 
     for _, v in pairs(l_deck) do
@@ -54,10 +56,13 @@ function TeamBonusHelper:getTeamBonusDataFromDid(did)
     local l_ret = {}
     
     -- 모든 팀보너스를 검사
-    for _, teambonus_data in pairs(table_teambonus.m_orgTable) do
-        local is_satisfy = self:checkConditionFromDid(teambonus_data, did)
+    for _, t_teambonus in pairs(table_teambonus.m_orgTable) do
+        local is_satisfy = self:checkConditionFromDid(t_teambonus, did)
         if (is_satisfy) then
-            table.insert(l_ret, StructTeamBonus(teambonus_data))
+            local teambonus_data = StructTeamBonus(t_teambonus)
+            if (self:isReleased(teambonus_data)) then
+                table.insert(l_ret, teambonus_data)
+            end
         end
     end
 
@@ -564,4 +569,60 @@ function TeamBonusHelper:applyTeamBonusToDragonInGame(teambonus_data, dragon)
             end
         end
     end
+end
+
+-------------------------------------
+-- function isReleased
+-- @brief 출시된 팀보너스인지 검사
+-- @param teambonus_data : StructTeamBonus 객체
+-------------------------------------
+function TeamBonusHelper:isReleased(teambonus_data)
+    local tid = teambonus_data:getID()
+    local t_teambonus = TableTeamBonus():get(tid)
+    if (not t_teambonus) then return false end
+
+    local type = t_teambonus['condition_type']
+
+    -- did값을 사용하는 조건만 검사
+    if (type == 'did_attr' or type == 'did_attr_same' or type == 'did') then
+
+        for i = 1, MAX_CONDITION_COUNT do
+            local is_satisfy = false
+            local condition = t_teambonus['condition_' .. i]
+
+            if (condition and condition ~= '') then
+                -- DID와 속성 체크
+                if (type == 'did_attr' or type == 'did_attr_same') then
+                    local b = false
+
+                    for i = 1, 5 do
+                        local did = condition + i
+                        if (g_dragonsData and g_dragonsData:isReleasedDragon(did)) then
+                            b = true
+                            break
+                        end
+                    end
+
+                    if (b) then
+                        is_satisfy = true
+                    end
+
+                -- DID 체크
+                elseif (type == 'did') then
+                    local did = condition
+                    if (g_dragonsData and g_dragonsData:isReleasedDragon(did)) then
+                        is_satisfy = true
+                    end
+                end
+            else
+                break
+            end
+
+            if (not is_satisfy) then
+                return false
+            end
+        end
+    end
+
+    return true
 end
