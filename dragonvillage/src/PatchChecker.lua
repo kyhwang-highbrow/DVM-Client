@@ -39,6 +39,11 @@ function PatchChecker:addPatchInfo(t_param)
     if t_param and g_patchData then
 		t_param['app_ver'] = self.m_app_version
 		t_param['patch_ver'] = g_patchData:get('patch_ver')
+
+        if (LIVE_SERVER_CONNECT) then
+            t_param['app_ver'] = LIVE_SERVER_APP_VER
+		    t_param['patch_ver'] = LIVE_SERVER_PATCH_VER
+        end
     end
 end
 
@@ -53,6 +58,8 @@ function PatchChecker:isUpdated(ret, pass_func)
     local recommend = ret['new_version'] -- 권장 업데이트는 에러코드가 아님 (get_patch_info)
 
     if (not status) then return false end
+
+    if (LIVE_SERVER_CONNECT) then return false end -- 라이브 접속 허용시 업데이트 체크 안함
 
     local update = NEED_UPDATE_STATUS[status]
     if (update) then

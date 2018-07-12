@@ -1,5 +1,11 @@
 URL = {}
 
+-- 점검중 라이브 접속이 필요한 경우 아래 앱버전, 패치버전을 라이브 버전과 같게 수정한 후 true로 변경
+-- 라이브 접속은 꼭 필요한 경우에만!
+LIVE_SERVER_CONNECT = false 
+LIVE_SERVER_APP_VER = '1.1.4'
+LIVE_SERVER_PATCH_VER = '29'
+
 -- Game server 
 URL['SERVER_DEV'] = 'http://dv-test.perplelab.com:9003'
 URL['SERVER_QA'] = 'http://dv-qa.perplelab.com:9003'
@@ -19,6 +25,10 @@ function SetApiUrl(url)
 
 	-- 해당 부분에 강제 접속할 게임 서버 주소 입력
     URL[key] = url
+    
+    if (LIVE_SERVER_CONNECT) then
+        URL[key] = URL['SERVER_LIVE'] 
+    end
 end
 
 
