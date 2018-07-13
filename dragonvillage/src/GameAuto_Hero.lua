@@ -152,9 +152,9 @@ end
 -------------------------------------
 -- function refreshUnitListSortedByPriority
 -- @brief 연속전투 옵션 중 쫄작 기능 변경 시 호출하여 스킬 사용 우선 순위 리스트 변경함
+-- @comment 인게임 중 변경 시에만 호출 됨
 -------------------------------------
 function GameAuto_Hero:refreshUnitListSortedByPriority()
-	--local state = 1
-	self.m_lUnitListPerPriority = self:makeUnitListSortedByPriority(self.m_teamState)
-	--self.m_teamState = 0
+	local state = (self.m_teamState == 0) and 1 or self.m_teamState
+	self.m_lUnitListPerPriority = self:makeUnitListSortedByPriority(state)
 end
