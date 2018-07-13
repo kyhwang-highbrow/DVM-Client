@@ -211,6 +211,11 @@ function UI_Forest:click_adBtn()
     local function ok_cb()
         AdManager:showDailyAd(AD_TYPE['FOREST'], function()
             ServerData_Forest:getInstance():request_myForestInfo(function()
+				-- ui 닫은 후 콜백 동작하는 경우 예외처리
+				if (self:isClosed()) then
+					return
+				end
+
                 UIManager:toastNotificationGreen(Str('광고 보상을 받았습니다.'))
                 self:refresh()
                 self.m_territory:refreshStuffs() 

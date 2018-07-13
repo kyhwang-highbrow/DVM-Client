@@ -154,6 +154,10 @@ end
 function UI_BookDetailPopup:refresh_rate()
     local did = self.m_tDragon['did']
     local function cb_func(ret)
+		-- ui 닫은 후 콜백 동작하는 경우 예외처리
+		if (self:isClosed()) then
+			return
+		end
         local rate = ret['rate']
 	    self.vars['recommandLabel']:setString(string.format('%.1f', rate))
     end
