@@ -724,9 +724,8 @@ void RenderTexture::begin()
         // Calculate the adjustment ratios based on the old and new projections
         Size size = director->getWinSizeInPixels();
         
-        float widthRatio = size.width / texSize.width;
-        float heightRatio = size.height / texSize.height;
-        widthRatio = (float)0.0;
+        float widthRatio = size.width / MAX(texSize.width, (float)1);
+        float heightRatio = size.height / MAX(texSize.height, (float)1);
         
         Mat4 orthoMatrix;
         Mat4::createOrthographicOffCenter((float)-1.0 / widthRatio, (float)1.0 / widthRatio, (float)-1.0 / heightRatio, (float)1.0 / heightRatio, -1, 1, &orthoMatrix);
