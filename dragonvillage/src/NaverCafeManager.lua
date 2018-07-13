@@ -300,7 +300,7 @@ end
 -------------------------------------
 function NaverCafeManager:naverCafeEvent(cb_type, cb_info)
     -- plug를 계정 생성 전에 하는 경우 문제 발생
-    if (not g_userData:get('uid')) then
+    if (not g_userData) or (not g_userData:get('uid')) then
         cclog('## uid is nil')
         return
     end
