@@ -171,6 +171,10 @@ function UI_IngameDragonPanelItem:update(dt, possible)
     elseif (not self.m_dragon:isPossibleActiveSkill()) then
         possible = false
         
+	-- 쫄작 중 6성 아닌 드래곤(not farmer)은 스킬 사용 연출 막음
+	elseif (self.m_world:isDragonFarming() and not self.m_dragon:isFarmer()) then
+		possible = false
+
     end
 
     self.m_bEnabled = possible

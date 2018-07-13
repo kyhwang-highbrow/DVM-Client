@@ -614,6 +614,16 @@ function Dragon:getGrade()
 end
 
 -------------------------------------
+-- function isFarmer
+-------------------------------------
+function Dragon:isFarmer()
+    if (not self.m_tDragonInfo) then 
+		return false 
+	end
+	return self.m_tDragonInfo:isFarmer()
+end
+
+-------------------------------------
 -- function getTotalLevel
 -------------------------------------
 function Dragon:getTotalLevel()

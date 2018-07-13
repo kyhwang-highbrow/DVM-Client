@@ -350,6 +350,11 @@ function GameAuto:doWork_skill(unit, priority)
         return true
     end
 
+	-- 쫄작 중에는 스킬 사용 못하면 넘김
+	if (self.m_world:isDragonFarming()) then
+		return true
+	end
+
     -------------------------------------
     -- 스킬을 사용할 수 없는 경우 처리
     if (PLAYER_VERSUS_MODE[self.m_world.m_gameMode] == 'pvp') then
@@ -482,7 +487,7 @@ function GameAuto:printInfo()
     cclog('STATE = ' .. self.m_teamState)
     cclog('## SKILL ATTR PER UNIT ##')
     for unit, v in pairs(self.m_mSkillAiAttr) do
-        cclog(string.format('- %s : %s', unit.m_charTable['t_name'], luadump(v)))
+        cclog(string.format('- %s : %s', unit:getName(), luadump(v)))
     end
     cclog('## SKILL COUNT PER PRIORITY ##')
     for i = 1, 4 do

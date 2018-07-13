@@ -1,4 +1,4 @@
-local PARENT = class(UI, ITabUI:getCloneTable())
+local PARENT = class(UI, ITabUI:getCloneTable(), IEventDispatcher:getCloneTable())
 
 -------------------------------------
 -- class UI_AutoPlaySettingPopup
@@ -59,6 +59,7 @@ function UI_AutoPlaySettingPopup:initUI()
 	if (self.m_gameMode == GAME_MODE_ANCIENT_TOWER) then
 		vars['autoMenu4']:setVisible(true)
 		vars['autoMenu5']:setVisible(false)
+		vars['autoMenu3']:setVisible(false)
 
     -- 콜로세움 분기처리
 	elseif (self.m_gameMode == GAME_MODE_ARENA) then
@@ -66,9 +67,15 @@ function UI_AutoPlaySettingPopup:initUI()
 		vars['autoMenu4']:setVisible(false)
 		vars['autoMenu5']:setVisible(false)
         vars['autoMenu6']:setVisible(true)
+		vars['autoMenu3']:setVisible(false)
+
 	else
 		vars['autoMenu4']:setVisible(false)
 		vars['autoMenu5']:setVisible(true)
+
+		-- 쫄작(farming) 기능
+		vars['autoMenu3']:setVisible(self.m_gameMode == GAME_MODE_ADVENTURE)
+
 	end
 end
 
@@ -91,6 +98,10 @@ function UI_AutoPlaySettingPopup:initButton(t_user_info)
     vars['autoStartBtn4'] = UIC_CheckBox(vars['autoStartBtn4'].m_node, vars['autoStartSprite4'], false)
     vars['autoStartBtn5'] = UIC_CheckBox(vars['autoStartBtn5'].m_node, vars['autoStartSprite5'], false)  
 
+	-- farming
+	vars['autoStartBtn3']:setActionType(UIC_Button.ACTION_TYPE_WITHOUT_SCAILING)
+	vars['autoStartBtn3'] = UIC_CheckBox(vars['autoStartBtn3'].m_node, vars['autoStartSprite3'], false)
+
 	-- main
     vars['autoStartOnBtn'] = UIC_CheckBox(vars['autoStartOnBtn'].m_node, vars['autoStartOnSprite'], false)
     vars['autoStartOnBtn']:registerScriptTapHandler(function() self:click_autoStartOnBtn() end)
@@ -110,6 +121,9 @@ function UI_AutoPlaySettingPopup:refresh(t_user_info)
 	-- tower
     vars['autoStartBtn4']:setChecked(g_autoPlaySetting:get('tower_next_floor'))
     vars['autoStartBtn5']:setChecked(g_autoPlaySetting:get('stop_condition_find_rel_dungeon'))
+	
+	-- farming
+	vars['autoStartBtn3']:setChecked(g_autoPlaySetting:get('dragon_farming_mode'))
 	 
     vars['autoStartOnBtn']:setChecked(g_autoPlaySetting:isAutoPlay())
 end
@@ -128,8 +142,15 @@ function UI_AutoPlaySettingPopup:close()
     g_autoPlaySetting:set('tower_next_floor', vars['autoStartBtn4']:isChecked())
     g_autoPlaySetting:set('stop_condition_find_rel_dungeon', vars['autoStartBtn5']:isChecked())
 
-    g_autoPlaySetting:setAutoPlay(vars['autoStartOnBtn']:isChecked())
+	-- farming
+	g_autoPlaySetting:set('dragon_farming_mode', vars['autoStartBtn3']:isChecked())
+    
+	g_autoPlaySetting:setAutoPlay(vars['autoStartOnBtn']:isChecked())
 
+	if (g_gameScene) then
+		g_gameScene:getGameWorld():dispatch('farming_changed')
+	end
+	
     PARENT.close(self)
 end
 

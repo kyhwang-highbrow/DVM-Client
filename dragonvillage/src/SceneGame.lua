@@ -1196,3 +1196,10 @@ function SceneGame:applicationWillEnterForeground()
         self.m_inGameUI:closePauseUI()
     end
 end
+
+-------------------------------------
+-- function getGameWorld
+-------------------------------------
+function SceneGame:getGameWorld()
+    return self.m_gameWorld
+end

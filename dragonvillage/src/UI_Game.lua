@@ -298,9 +298,9 @@ function UI_Game:click_autoStartButton()
         self:setAutoMode(is_auto_mode)
 
         if (is_auto_mode) then
-            world:getAuto():onStart()
+			world:dispatch('auto_start')
         else
-            world:getAuto():onEnd()
+			world:dispatch('auto_end')
         end
 
         self.m_gameScene:gameResume()
@@ -311,6 +311,7 @@ function UI_Game:click_autoStartButton()
     -- 바로 해제
     if (is_auto) then
         g_autoPlaySetting:setAutoPlay(false)
+		world:dispatch('farming_changed')
         close_cb()
     else
 		local game_mode = self.m_gameScene.m_gameMode

@@ -540,6 +540,14 @@ function StructDragonObject:setLock(b)
 end
 
 -------------------------------------
+-- function isFarmer
+-- @breif 쫄작가능 드래곤 (dragon farming -> farmer)
+-------------------------------------
+function StructDragonObject:isFarmer()
+    return (self['grade'] >= 6)
+end
+
+-------------------------------------
 -- function isPossibleTransformChange
 -- @breif
 -------------------------------------

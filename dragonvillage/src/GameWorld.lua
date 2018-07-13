@@ -1687,6 +1687,13 @@ function GameWorld:isAutoPlay()
 end
 
 -------------------------------------
+-- function isDragonFarming
+-------------------------------------
+function GameWorld:isDragonFarming()
+    return (g_autoPlaySetting:isFarmingOptionOn() and (self.m_gameMode == GAME_MODE_ADVENTURE))
+end
+
+-------------------------------------
 -- function isPause
 -------------------------------------
 function GameWorld:isPause()

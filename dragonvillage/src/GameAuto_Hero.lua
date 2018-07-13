@@ -116,5 +116,45 @@ function GameAuto_Hero:onEvent(event_name, t_event, ...)
     elseif (event_name == 'hero_active_skill') then
         self:setWorkTimer()
 
+	elseif (event_name == 'farming_changed') then
+		self:refreshUnitListSortedByPriority()
+
     end
+end
+
+-------------------------------------
+-- function makeUnitListSortedByPriority
+-- @brief state 상태에서의 우선순위별 해당하는 스킬 보유자 리스트를 만듬
+-------------------------------------
+function GameAuto_Hero:makeUnitListSortedByPriority(state)
+    local list = PARENT.makeUnitListSortedByPriority(self, state)
+
+	-- 모험모드 및 쫄작 옵션 체크
+	if (not self.m_world:isDragonFarming()) then
+		return list
+	end
+
+    local new_list = {}
+
+	-- 쫄작(farming) 시 쫄작기사(farmer)가 아니면 제외시킴
+	for priority, l_unit in ipairs(list) do
+		new_list[priority] = {}
+		for _, unit in ipairs(l_unit) do 
+			if (unit:isFarmer()) then
+				table.insert(new_list[priority], unit)
+			end
+		end
+	end
+
+    return new_list
+end
+
+-------------------------------------
+-- function refreshUnitListSortedByPriority
+-- @brief 연속전투 옵션 중 쫄작 기능 변경 시 호출하여 스킬 사용 우선 순위 리스트 변경함
+-------------------------------------
+function GameAuto_Hero:refreshUnitListSortedByPriority()
+	--local state = 1
+	self.m_lUnitListPerPriority = self:makeUnitListSortedByPriority(self.m_teamState)
+	--self.m_teamState = 0
 end

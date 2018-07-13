@@ -51,6 +51,9 @@ function ServerData_AutoPlaySetting:setDefaultSetting(mode, t_auto_play_setting)
         ['stop_condition_find_rel_dungeon'] = true,
 		-- 고대의탑 / 시험의탑 다음 층 도전
 		['tower_next_floor'] = false,
+		
+		-- 쫄작시 6성 드래곤만 스킬 사용
+        ['dragon_farming_mode'] = false,
 
 	    -- 자동 모드 사용
         ['auto_mode'] = false,
@@ -163,4 +166,12 @@ end
 -------------------------------------
 function ServerData_AutoPlaySetting:getSequenceAutoPlay()
     return self.m_bSequenceAutoPlay
+end
+
+-------------------------------------
+-- function isFarmingOptionOn
+-- @brief 연속 전투 시에만 활성화
+-------------------------------------
+function ServerData_AutoPlaySetting:isFarmingOptionOn()
+    return (self.m_bAutoPlay and self:get('dragon_farming_mode'))
 end
