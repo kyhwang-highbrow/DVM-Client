@@ -192,15 +192,18 @@ function UI_DragonBoardPopup:makeAttrOptionRadioBtn()
 	local did_source = math_floor(did / 10) * 10
 	self.m_didSource = did_source
 
-	local table_char = getCharTable(did)
+	local table_char, is_slime = getCharTable(did)
 
 	for i = 1, 5 do
 		local t_char = table_char:get(did_source + i)
 		local attr = attributeNumToStr(i)
 		local attr_btn = vars[attr .. 'RadioBtn']
 		-- 드래곤이 있다면 버튼 등록
-		if (t_char and g_dragonsData:isReleasedDragon(t_char['did'])) then
-			radio_button:addButton(attr, attr_btn)
+		if (t_char) then
+			if (is_slime) or g_dragonsData:isReleasedDragon(t_char['did']) then
+				radio_button:addButton(attr, attr_btn)
+			end
+
 		-- 드래곤이 없다면 버튼 enabled false 및 음영처리 
 		else
 			attr_btn:setEnabled(false)
