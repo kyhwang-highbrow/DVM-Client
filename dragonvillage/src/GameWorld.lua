@@ -700,7 +700,7 @@ function GameWorld:updateAfter(dt)
     -- 스킬 이름
     do
         for char, v in pairs(self.m_mSkillSpeech) do
-            if (not char:isDead()) then
+            if (not char:isDead(true)) then
                 SkillHelper:makePassiveSkillSpeech(char, v)
             end
         end
