@@ -507,6 +507,14 @@ function ICharacterStatusEffect:hasStatusEffectToDisableBehavior()
 end
 
 -------------------------------------
+-- function hasStatusEffectToResurrect
+-- @breif 부활 상태효과가 있는지 검사한다.
+-------------------------------------
+function ICharacterStatusEffect:hasStatusEffectToResurrect()
+    return self:isExistStatusEffect('type', 'resurrect_time')
+end
+
+-------------------------------------
 -- function setSilence
 -- @brief 특정 상태효과 면역 체크
 -------------------------------------
