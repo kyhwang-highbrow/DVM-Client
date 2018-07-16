@@ -348,6 +348,12 @@ function UI_HatcherySummonTab:requestSummon(t_egg_data, old_ui, is_again)
 		ok_btn_cb()
 
     elseif (is_ad) then
+		-- admob 계정 문제로 광고 게재 제한되어 막음
+		if (true) then
+			AdManager:makePopupAdInactive()
+			return
+		end
+
         -- 탐험 광고 안내 팝업
         local msg = Str("동영상 광고를 보시면 무료 우정 소환이 가능합니다.") .. '\n' .. Str("광고를 보시겠습니까?")
         local submsg = Str("무료 우정 소환은 1일 1회 가능합니다.")

@@ -100,6 +100,12 @@ end
 -- function click_adBtn
 -------------------------------------
 function UI_SubscriptionPopupNew:click_adBtn()
+	-- admob 계정 문제로 광고 게재 제한되어 막음
+	if (true) then
+		AdManager:makePopupAdInactive()
+		return
+	end
+
     local ad_type = AD_TYPE.AUTO_ITEM_PICK
 
     local function finish_cb()

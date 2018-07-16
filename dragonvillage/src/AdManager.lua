@@ -82,6 +82,11 @@ function AdManager:start(result_cb)
         return
     end
 
+	-- admob 계정 문제로 광고 게재 제한되어 막음
+	if (true) then
+		return
+	end
+
     self.callback = result_cb
 
     local function _result_cb(ret, info)
@@ -181,4 +186,34 @@ function AdManager:showErrorPopup(error_info)
     end
 
     MakeSimplePopup(POPUP_TYPE.OK, msg)
+end
+
+
+
+-------------------------------------
+-- function makePopupAdInactive
+-------------------------------------
+function AdManager:makePopupAdInactive()
+	local msg, sub_msg
+	local lang = Translate:getGameLang()
+	
+	if (lang == 'ko') then
+		msg = '동영상 광고 일시 중지 안내'
+		sub_msg = '동영상 광고 송출에 장애가 있어 문제를 처리 중입니다.\n여러분의 양해를 부탁드립니다.'
+
+	elseif (lang == 'zh') then
+		msg = '影片廣告暫時終止公告'
+		sub_msg = '正在處理影片廣告輸出時所發生的問題。如造成不便，敬請見諒。'
+
+	elseif (lang == 'ja') then
+		msg = '動画広告の一時中止のお知らせ'
+		sub_msg = 'ただいま動画広告に関する不具合を処理中です。\n皆様のご了承をお願い致します。'
+
+	else
+		msg = 'Ad Viewing Temporarily Unavailable'
+		sub_msg = 'Ad viewing is currently not available due to technical problems.\nThank you for your understanding.'
+
+	end
+
+	MakeSimplePopup2(POPUP_TYPE.OK, msg, sub_msg)
 end

@@ -90,6 +90,12 @@ end
 -- function click_adBtn
 -------------------------------------
 function UI_Exploration:click_adBtn()
+	-- admob 계정 문제로 광고 게재 제한되어 막음
+	if (true) then
+		AdManager:makePopupAdInactive()
+		return
+	end
+
     -- 현재 진행중인 탐험이 없다면
     if (not g_explorationData:isExploring()) then
         local msg = Str('진행중인 탐험 지역이 없습니다.')

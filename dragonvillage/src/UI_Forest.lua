@@ -200,6 +200,12 @@ end
 -- function click_adBtn
 -------------------------------------
 function UI_Forest:click_adBtn()
+	-- admob 계정 문제로 광고 게재 제한되어 막음
+	if (true) then
+		AdManager:makePopupAdInactive()
+		return
+	end
+
     -- 쿨타임 돌고 있는 stuff가 없다면
     if (self.m_territory:isAllStuffHasReward()) then
         local msg = Str('보상을 수령하고 광고를 시청하세요.')
