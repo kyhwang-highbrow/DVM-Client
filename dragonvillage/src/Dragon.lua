@@ -336,9 +336,11 @@ end
 -- @brief 부할
 -------------------------------------
 function Dragon:doRevive(hp_rate, caster, is_abs)
-    PARENT.doRevive(self, hp_rate, caster, is_abs)
+    local b = PARENT.doRevive(self, hp_rate, caster, is_abs)
 
     self:updateActiveSkillTimer(0)
+
+    return b
 end
 
 -------------------------------------

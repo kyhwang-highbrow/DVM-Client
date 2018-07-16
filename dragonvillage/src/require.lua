@@ -505,6 +505,7 @@ local t_module = {
     'StatusEffectUnit_Dot_Damage',
     'StatusEffectUnit_Dot_Heal',
     'StatusEffectUnit_ConditionalBuff',
+    'StatusEffectUnit_ResurrectByTime',
 
     'StatusEffect_AddDmgOneTime',
 	'StatusEffect_Sleep',

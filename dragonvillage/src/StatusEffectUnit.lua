@@ -101,14 +101,15 @@ function StatusEffectUnit:update(dt, modified_dt)
                 -- 시전자가 자기 자신이면 유지
             elseif (self.m_caster and self.m_caster:isDead()) then
                 -- 시전자가 자기 자신이 아니고 죽었다면 해제(적군만 해당)
-                if(self.m_bExceptInDie) then
-                else
+                if (not self.m_bExceptInDie) then
                     return true
                 end
             end
         elseif (self.m_owner and self.m_owner:isDead()) then
             -- 대상자가 죽었다면 해제(리더스킬 및 패시브 스킬 제외)
-            return true
+            if (not self.m_bExceptInDie) then
+                return true
+            end
         end
     end
     

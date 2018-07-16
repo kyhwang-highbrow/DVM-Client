@@ -341,6 +341,10 @@ function StatusEffectHelper:makeStatusEffectInstance(caster, target_char, status
     elseif (status_effect_group == 'resurrect') then
         status_effect = StatusEffect_Resurrect(res)
 
+    elseif (status_effect_group == 'resurrect_time') then
+        status_effect = StatusEffect(res)
+        status_effect:setOverlabClass(StatusEffectUnit_ResurrectByTime)
+
     ---------- 좀비 ------------
     elseif (status_effect_group == 'zombie') then
         status_effect = StatusEffect_Zombie(res)

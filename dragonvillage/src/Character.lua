@@ -1304,7 +1304,7 @@ end
 -- @brief 부할
 -------------------------------------
 function Character:doRevive(heal, caster, is_abs)
-    if (not self.m_bDead or not self.m_bPossibleRevive) then return end
+    if (not self.m_bDead or not self.m_bPossibleRevive) then return false end
     self.m_bDead = false
     self.m_resurrect = false
 
@@ -1325,6 +1325,8 @@ function Character:doRevive(heal, caster, is_abs)
     end
 
     self:dispatch('character_revive', {}, self)
+
+    return true
 end
 
 -------------------------------------

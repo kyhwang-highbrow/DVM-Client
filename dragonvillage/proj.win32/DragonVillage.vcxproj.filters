@@ -3652,6 +3652,9 @@
     <None Include="..\src\SkillAoERound_Melee.lua">
       <Filter>lua\src</Filter>
     </None>
+    <None Include="..\src\StatusEffectUnit_ResurrectByTime.lua">
+      <Filter>lua\src</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Classes">
