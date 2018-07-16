@@ -179,6 +179,7 @@ function IDragonSkillManager:initSkillIDList()
         local l_skill_info = {}
         l_skill_info['basic'] = false
         l_skill_info['active'] = false
+        l_skill_info['leader'] = false
         
         self.m_mSkillInfoList[v] = l_skill_info
     end

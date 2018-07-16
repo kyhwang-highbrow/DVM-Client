@@ -100,7 +100,9 @@ function StatusEffectUnit:update(dt, modified_dt)
             if (self.m_owner == self.m_caster) then
                 -- 시전자가 자기 자신이면 유지
             elseif (self.m_caster and self.m_caster:isDead()) then
-                -- 시전자가 자기 자신이 아니고 죽었다면 해제(적군만 해당)
+                -- 시전자가 자기 자신이 아니고 죽었다면 해제
+                -- !! 다른 대상에게 버프나 디버프를 주는 패시브 스킬의 상태효과인 경우에 해당됨(헌재까진 해당되는 드래곤은 없음)
+                -- !! 시전자가 죽으면 해제시키고 부활시 다시 적용시키는건 고려하지 않았음(현재는 적군에만 해당되기 때문)
                 if (not self.m_bExceptInDie) then
                     return true
                 end
