@@ -289,6 +289,14 @@ function UIHelper:checkPrice(price_type, price)
             return false
         end
 
+    -- 용맹훈장 확인
+    elseif (price_type == 'valor') then
+        local valor = g_userData:get(price_type)
+        if (valor < price) then
+            MakeSimplePopup(POPUP_TYPE.OK, Str('용맹훈장이 부족합니다.'))
+            return false
+        end
+
     else
         error('price_type : ' .. price_type)
     end
