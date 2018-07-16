@@ -52,7 +52,7 @@ end
 function SkillAoEWedge:initState()
 	self:setCommonState(self)
     self:addState('start', SkillAoEWedge.st_appear, 'appear', false)
-    self:addState('attack', SkillAoEWedge.st_attack, 'idle', true)
+    self:addState('attack', SkillAoEWedge.st_attack, 'idle', false)
 	self:addState('disappear', SkillAoEWedge.st_disappear, 'disappear', false)
 end
 
