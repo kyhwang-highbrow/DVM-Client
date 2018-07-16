@@ -280,6 +280,8 @@ function PatchCore:st_requestPatchInfo()
         patch_data:setApkExtensionInfo(ret['apk_expantion'])
         patch_data:save()
 
+		-- 광고 비활성화 처리 : 혹시 필요한 경우가 있을까봐 추가
+		LocalData:getInstance():applyLocalData(ret['ad_inactive'], 'ad_inactive')
         -- 앱 검수 중인지 확인
         LocalData:getInstance():applyLocalData(ret['in_app_review'], 'in_app_review')
         LocalData:getInstance():saveLocalDataFile()

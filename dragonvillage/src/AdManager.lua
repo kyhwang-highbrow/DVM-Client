@@ -188,7 +188,12 @@ function AdManager:showErrorPopup(error_info)
     MakeSimplePopup(POPUP_TYPE.OK, msg)
 end
 
-
+-------------------------------------
+-- function isAdInactive
+-------------------------------------
+function AdManager:isAdInactive()
+	return g_localData:isAdInactive()
+end
 
 -------------------------------------
 -- function makePopupAdInactive

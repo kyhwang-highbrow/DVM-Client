@@ -348,8 +348,8 @@ function UI_HatcherySummonTab:requestSummon(t_egg_data, old_ui, is_again)
 		ok_btn_cb()
 
     elseif (is_ad) then
-		-- admob 계정 문제로 광고 게재 제한되어 막음
-		if (true) then
+		-- 광고 비활성화 시
+		if (AdManager:isAdInactive()) then
 			AdManager:makePopupAdInactive()
 			return
 		end

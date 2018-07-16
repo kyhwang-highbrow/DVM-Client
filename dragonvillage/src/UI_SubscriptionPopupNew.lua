@@ -100,8 +100,8 @@ end
 -- function click_adBtn
 -------------------------------------
 function UI_SubscriptionPopupNew:click_adBtn()
-	-- admob 계정 문제로 광고 게재 제한되어 막음
-	if (true) then
+	-- 광고 비활성화 시
+	if (AdManager:isAdInactive()) then
 		AdManager:makePopupAdInactive()
 		return
 	end

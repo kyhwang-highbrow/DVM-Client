@@ -237,6 +237,14 @@ function LocalData:isGuestAccount()
 end
 
 -------------------------------------
+-- function isAdInactive
+-- @breif
+-------------------------------------
+function LocalData:isAdInactive()
+	return self:get('ad_inactive')
+end
+
+-------------------------------------
 -- function isInAppReview
 -- @breif
 -------------------------------------

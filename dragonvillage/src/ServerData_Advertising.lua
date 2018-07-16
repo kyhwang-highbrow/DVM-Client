@@ -39,8 +39,8 @@ end
 -- @brief 광고 보기 팝업 노출
 -------------------------------------
 function ServerData_Advertising:showAdvPopup(ad_type, finish_cb)
-	-- admob 계정 문제로 광고 게재 제한되어 막음
-	if (true) then
+	-- 광고 비활성화 시
+	if (AdManager:isAdInactive()) then
 		AdManager:makePopupAdInactive()
 		return
 	end
@@ -126,7 +126,7 @@ end
 -- @brief 다음 광고 보기까지 쿨타임 정보
 -------------------------------------
 function ServerData_Advertising:getCoolTimeStatus(ad_type)
-    local msg = ''--Str('획득 가능')
+    local msg = Str('획득 가능')
     local enable = true
 
     -- 남은 시간
