@@ -872,6 +872,7 @@ local t_module = {
     'UI_RandomShop',
     'UI_RandomShopListItem',
 	'UI_Shop_Popup_Reinforce',
+    'UI_Shop_Popup_SkillSlime',
 
 	-- UI : 모험
     'UI_AdventureSceneNew',

@@ -78,6 +78,9 @@ function UI_DragonSkillEnhance:initButton()
     local vars = self.vars
     vars['enhanceBtn']:registerScriptTapHandler(function() self:click_enhanceBtn() end)
 
+    -- 스킬 슬라임 상점
+    vars['skillSlimShopBtn']:registerScriptTapHandler(function() self:click_skillSlimeShopBtn() end)
+
     -- 스킬 레벨업 안내 (네이버 sdk 링크)
     NaverCafeManager:setPluginInfoBtn(vars['plugInfoBtn'], 'd_skill_levelup_help')
 end
@@ -588,6 +591,17 @@ function UI_DragonSkillEnhance:click_enhanceBtn()
     ui_network:setRevocable(true)
     ui_network:setSuccessCB(function(ret) success_cb(ret) end)
     ui_network:request()
+end
+
+-------------------------------------
+-- function click_skillSlimeShopBtn
+-- @brief 스킬 슬라임 상점
+-------------------------------------
+function UI_DragonSkillEnhance:click_skillSlimeShopBtn()
+    local ui = UI_Shop_Popup_SkillSlime(self.m_selectDragonData) 
+	ui:setCloseCB(function() 
+        self:refresh() 
+    end)
 end
 
 --@CHECK
