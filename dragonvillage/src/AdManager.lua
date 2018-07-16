@@ -81,9 +81,8 @@ function AdManager:start(result_cb)
     if (CppFunctions:isWin32()) then 
         return
     end
-
-	-- admob 계정 문제로 광고 게재 제한되어 막음
-	if (true) then
+	-- 광고 비활성화 시
+	if (AdManager:isAdInactive()) then
 		return
 	end
 
