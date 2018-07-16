@@ -415,6 +415,22 @@ function UI_CharacterCard:setHighlightSpriteVisible(visible)
 end
 
 -------------------------------------
+-- function setHighlightSpriteVisibleWithNoAction
+-- @brief highlight 표시
+-- @external call
+-------------------------------------
+function UI_CharacterCard:setHighlightSpriteVisibleWithNoAction(visible)
+    local res = 'card_cha_frame_select.png'
+    local lua_name = 'selectSprite'
+
+    if self.vars[lua_name] then
+        self.vars[lua_name]:setVisible(visible)
+    elseif (visible) then
+        self:makeSprite(lua_name, res)
+    end
+end
+
+-------------------------------------
 -- function setNewSpriteVisible
 -- @brief 신규 드래곤 표시
 -- @external call

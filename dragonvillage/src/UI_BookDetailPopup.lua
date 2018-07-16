@@ -24,6 +24,8 @@ UI_BookDetailPopup = class(PARENT,{
         m_originDid = 'number',
 
         m_showTeamBonus = 'boolean',
+        m_mapAttrBtnUI = 'map',
+        m_mapEvolutionBtnUI = 'map',
     })
 
 -------------------------------------
@@ -53,7 +55,6 @@ function UI_BookDetailPopup:init(t_dragon, is_popup)
 	self.m_pressTimer = 0
 
     self:initUI()
-    self:initTab()
     self:initButton()
     self:refresh()
 end
@@ -64,17 +65,6 @@ end
 function UI_BookDetailPopup:initUI()
     self.m_dragonAnimator = UIC_DragonAnimator()
     self.vars['dragonNode']:addChild(self.m_dragonAnimator.m_node)
-end
-
--------------------------------------
--- function initTab
--------------------------------------
-function UI_BookDetailPopup:initTab()
-    local vars = self.vars
-	for i = 1, 3 do 
-        self:addTabWithLabel(i, vars['evolutionTabBtn' .. i], vars['evolutionTabLabel' .. i], nil)
-	end
-    self:setTab(self.m_evolution)
 end
 
 -------------------------------------
@@ -138,11 +128,9 @@ function UI_BookDetailPopup:refresh_exception()
 
 	local underling = (self.m_tDragon['underling'] == 1)
 	local is_slime = (self.m_tDragon['bookType'] == 'slime')
-
-	-- 진화 버튼
-	for i = 1, 3 do
-		self.vars['evolutionTabBtn' .. i]:setVisible(not (underling or is_slime))
-	end
+    
+    -- 진화 단계 선택 메뉴
+    vars['evolutionMenu']:setVisible(not (underling or is_slime)) 
 
     -- 팀 보너스 버튼
     self.vars['teamBonusBtn']:setVisible(not is_slime and self.m_showTeamBonus)
@@ -216,31 +204,6 @@ function UI_BookDetailPopup:refresh_lvBtnState()
 end
 
 -------------------------------------
--- function onChangeTab
--------------------------------------
-function UI_BookDetailPopup:onChangeTab(tab, first)
-	local t_dragon = self.m_tDragon
-	if (not t_dragon) then
-		return
-	end
-
-	-- evolution 세팅
-	self.m_evolution = tab
-
-    -- grade를 초기화 시킨다.
-    self.m_grade = self.m_tDragon['birthgrade']
-
-	-- refresh
-	self:onChangeEvolution()
-	self:onChangeGrade()
-    self:onChangeLV()
-	self:calculateStat()
-
-    -- 진화 버튼 클릭시 
-    self:addSameTypeDragon(t_dragon)
-end
-
--------------------------------------
 -- function onChangeDragon
 -------------------------------------
 function UI_BookDetailPopup:onChangeDragon()
@@ -294,7 +257,57 @@ function UI_BookDetailPopup:onChangeDragon()
         vars['storyLabel']:setString(Str(story_str))
     end
 
+        for i = 1, 3 do 
+        local node = vars['dragonCardNode'..i]
+        if (node) then
+            node:removeAllChildren()
+        end
+	end
+
+    self:addSameEvolutionDragon(t_dragon) -- 드래곤 진화 단계 선택 (evolution)
     self:addSameTypeDragon(t_dragon)
+end
+
+-------------------------------------
+-- function addSameEvolutionDragon
+-- @brief 해치, 해츨링, 성룡 드래곤 표시
+-------------------------------------
+function UI_BookDetailPopup:addSameEvolutionDragon()
+    local vars = self.vars
+    self.m_mapEvolutionBtnUI = {}
+
+    local underling = (self.m_tDragon['underling'] == 1)
+	local is_slime = (self.m_tDragon['bookType'] == 'slime')
+    local is_dragon = not (underling or is_slime)
+
+    if (is_dragon) then
+        for i = 1, 3 do 
+            local node = vars['dragonCardNode'..i]
+            if (node) then
+                local data = clone(self.m_tDragon)
+                data['evolution'] = i
+
+                local card = UI_BookDragonCard(data)
+                card.root:setSwallowTouch(false)
+                node:addChild(card.root)
+
+                -- 수집 여부에 따른 음영 처리
+	            if (not g_bookData:isExist(data)) then
+		            card:setShadowSpriteVisible(true)
+	            end
+
+                -- 등급 표시 안함
+                card.vars['starNode']:setVisible(false)
+                -- 선택한 카드 표시
+                card:setHighlightSpriteVisibleWithNoAction(i == self.m_evolution)
+                -- 진화 단계 선택 
+                card.vars['clickBtn']:registerScriptTapHandler(function()
+                    self:click_evolutionBtn(i)
+                end)
+                self.m_mapEvolutionBtnUI[i] = card
+            end
+	    end
+    end
 end
 
 -------------------------------------
@@ -305,9 +318,18 @@ function UI_BookDetailPopup:addSameTypeDragon(t_dragon)
     local vars = self.vars
 
     local l_attr = getAttrTextList()
+    self.m_mapAttrBtnUI = {}
+
     for _, attr in ipairs(l_attr) do
-        vars['emptyNode_'..attr]:setVisible(true)
-        vars['dragonCardNode_'..attr]:removeAllChildren()
+        local node = vars[attr..'Node']
+        node:removeAllChildren()
+
+        local ui = UI()
+        ui:load('book_detail_popup_attr_btn.ui')
+        node:addChild(ui.root)
+        ui.vars[attr..'Sprite']:setVisible(true)
+        ui.vars['disableSprite']:setVisible(true)
+        self.m_mapAttrBtnUI[attr] = ui
     end
 
     local type = t_dragon['type']
@@ -336,26 +358,20 @@ function UI_BookDetailPopup:addSameTypeDragon(t_dragon)
         
         local t_data = v
         local attr = t_data['attr']
-        vars['emptyNode_'..attr]:setVisible(true)
-        
-        if (t_data) then
-            local node = vars['dragonCardNode_'..attr]
-            local card_data = self:makeDragonData(t_data)
-            local dragon_card = UI_BookDragonCard(card_data)
-            local is_select = (t_data['did'] == t_dragon['did'])
             
-            -- 선택된 카드 프레임 추가
-            if (is_select) then
-                local sel_img = cc.Sprite:create('res/ui/frames/temp/dragon_select_frame.png')
-                sel_img:setDockPoint(CENTER_POINT)
-                sel_img:setAnchorPoint(CENTER_POINT)
-                dragon_card.root:addChild(sel_img)
+        if (t_data) then
+            local ui = self.m_mapAttrBtnUI[attr]
+            ui.vars[attr..'Sprite']:setVisible(true)
+            ui.vars['disableSprite']:setVisible(false)
+
+            if (self.m_tDragon['attr'] == attr) then
+                ui.vars['selectSprite']:setVisible(true)
             end
 
-            dragon_card.vars['clickBtn']:registerScriptTapHandler(function() self:click_sameTypeCard(t_data) end)
-            node:addChild(dragon_card.root)
-
-            vars['emptyNode_'..attr]:setVisible(false)
+            -- 존재하는 속성만 클릭 핸들러 등록
+            ui.vars['attrBtn']:registerScriptTapHandler(function()
+                self:click_sameTypeCard(t_data)
+            end)
         end
     end
 end
@@ -582,7 +598,7 @@ function UI_BookDetailPopup:click_nextBtn(is_next)
 
         -- 인덱스 이동간에 진화도가 바뀐다면 탭도 변경해준다
         if (new_t_dragon['evolution'] ~= evolution) then
-            self:setTab(new_t_dragon['evolution'])
+            self.m_evolution = new_t_dragon['evolution']
         end
 	end
 
@@ -691,6 +707,10 @@ function UI_BookDetailPopup:click_evolutionBtn(evolution)
 	if (not t_dragon) then
 		return
 	end
+
+    for k, card in pairs(self.m_mapEvolutionBtnUI) do
+        card:setHighlightSpriteVisibleWithNoAction(k == evolution)
+    end
 
 	-- evolution 세팅
 	self.m_evolution = evolution
