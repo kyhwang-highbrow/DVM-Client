@@ -213,7 +213,7 @@ function EquationHelper:setEquationParamOnMapForSkill(target_map, skill_entity)
     -- 아군 중 가장 적은 체력의 비율값을 얻음
     local l_ally = skill_entity.m_owner:getTargetListByType('ally_hp_low')
     if (l_ally[1]) then
-        target_map[EV_ALLY_MIN_HP_RATE] = l_ally[1]:getHpRate() * 100
+        target_map[EV_ALLY_MIN_HP_RATE] = l_ally[1]:getHpRate()
     end
 end
 
@@ -238,7 +238,7 @@ function EquationHelper:setEquationParamOnMapForStatusEffect(target_map, status_
 
     local l_ally = status_effect_entity.m_owner:getTargetListByType('ally_hp_low')
     if (l_ally[1]) then
-        target_map[EV_ALLY_MIN_HP_RATE] = l_ally[1]:getHpRate() * 100
+        target_map[EV_ALLY_MIN_HP_RATE] = l_ally[1]:getHpRate()
     end
 end
 
