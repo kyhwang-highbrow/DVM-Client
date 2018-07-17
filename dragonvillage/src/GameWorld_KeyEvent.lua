@@ -37,7 +37,7 @@ MAP_KEY_FUNC[KEY_F3] = 'show_total_dps_hps'
 MAP_KEY_FUNC[KEY_A] = 'pause_on_off_auto'
 
 MAP_KEY_FUNC[KEY_1] = 'tamer_active_skill'
-MAP_KEY_FUNC[KEY_2] = 'print_tamer_skill'
+MAP_KEY_FUNC[KEY_2] = 'print_dragon_skill'
 MAP_KEY_FUNC[KEY_3] = 'print_total_damage_to_hero'
 MAP_KEY_FUNC[KEY_4] = 'auto_info'
 
@@ -306,7 +306,7 @@ function GameWorld:kill_dragon()
             count = count + 1
         end
 
-        if (count >= 2) then
+        if (count >= 1) then
             break
         end
     end
@@ -375,12 +375,12 @@ function GameWorld:tamer_active_skill()
 end
 
 -------------------------------------
--- function print_tamer_skill
--- @brief 테이머 스킬 보기
+-- function print_dragon_skill
+-- @brief 드래곤 스킬 보기
 -------------------------------------
-function GameWorld:print_tamer_skill()
-    if (self.m_tamer) then
-        self.m_tamer:printSkillManager()
+function GameWorld:print_dragon_skill()
+    for i, v in ipairs(self:getDragonList()) do
+        v:printSkillManager()
     end
 end
 
@@ -542,7 +542,7 @@ end
 
 -------------------------------------
 -- function print_skill_info
--- @brief 아군들의 보유 스킬 정보를 로그로 표시
+-- @brief 보유 스킬 정보를 로그로 표시
 -------------------------------------
 function GameWorld:print_skill_info()
     for i, hero in ipairs(self:getDragonList()) do
