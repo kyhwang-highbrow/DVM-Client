@@ -33,6 +33,7 @@ ServerData_ClanRaid = class({
 
 local USE_CASH_LIMIT = 1 -- 하루 최대 여의주 사용 입장횟수
 local USE_CASH_CNT = 200
+local BOSS_GOLD_REWARD = 150000 -- 보스 처치시 받는 골드 고정
 
 -------------------------------------
 -- function init
@@ -93,6 +94,20 @@ function ServerData_ClanRaid:checkBossStatus()
     end
 
     return true
+end
+
+-------------------------------------
+-- function getTotalGoldReward
+-- @brief 보스 처치 골드 누적량 (서버에서 따로 받지 않음, 클라에서 레벨로 계산)
+-------------------------------------
+function ServerData_ClanRaid:getTotalGoldReward()
+    local struct_clan_raid = self.m_structClanRaid
+    if (not struct_clan_raid) then
+        return 0
+    end
+
+    local curr_lv = struct_clan_raid:getLv()
+    return math_max(0, curr_lv - 1) * BOSS_GOLD_REWARD
 end
 
 -------------------------------------

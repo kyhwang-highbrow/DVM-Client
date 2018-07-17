@@ -7,6 +7,7 @@ MultiDeckMgr = class({
 
         -- 메인 (수동으로 전투가 가능한) 덱 (up or down) - 로컬에 저장
         m_main_deck = 'string',
+        m_sub_data = '',
 
         -- 덱 map (임시 저장)
 		m_tDeckMap_1 = 'map', -- 인게임 상단덱 (1공격대)
@@ -25,8 +26,9 @@ MULTI_DECK_MODE = {
 -------------------------------------
 -- function init
 -------------------------------------
-function MultiDeckMgr:init(deck_mode, make_deck)
+function MultiDeckMgr:init(deck_mode, make_deck, sub_data)
 	self.m_mode = deck_mode
+    self.m_sub_data = sub_data
 
     -- 메인덱은 로컬에 저장
     self.m_main_deck = g_settingData:get(self.m_mode, 'main_deck') or 'up'
@@ -129,7 +131,17 @@ end
 -------------------------------------
 function MultiDeckMgr:getDeckName(pos)
     local pos = pos or 'up' -- or 'down'
-    local deck_name = self.m_mode .. '_' .. pos
+    local deck_name
+    if (self.m_sub_data) then
+        deck_name = self.m_mode .. '_' .. self.m_sub_data
+    end
+
+    if (deck_name) then
+        deck_name = deck_name.. '_' .. pos
+    else
+        deck_name = self.m_mode .. '_' .. pos
+    end
+
     return deck_name
 end
 

@@ -382,7 +382,8 @@ function UI_ReadySceneNew:initMultiDeckMode()
 
     -- @ 클랜 던전
     if (self.m_gameMode == GAME_MODE_CLAN_RAID) then
-        self.m_multiDeckMgr = MultiDeckMgr(MULTI_DECK_MODE.CLAN_RAID, make_deck)
+        local attr = TableStageData:getStageAttr(self.m_stageID) 
+        self.m_multiDeckMgr = MultiDeckMgr(MULTI_DECK_MODE.CLAN_RAID, make_deck, attr)
 
     -- @ 고대 유적 던전
     elseif (self.m_gameMode == GAME_MODE_ANCIENT_RUIN) then
@@ -444,6 +445,33 @@ function UI_ReadySceneNew:initUI()
         -- 클던만 연속전투 막음
         if (self.m_gameMode == GAME_MODE_CLAN_RAID) then
             set_autobtn_off()
+
+            -- 보스 정보 추가
+            local struct_raid = g_clanRaidData:getClanRaidStruct()
+            if (not struct_raid) then
+                return
+            end
+
+            vars['bossInfoMenu']:setVisible(true)
+
+            local is_rich_label = true
+            local name = struct_raid:getBossNameWithLv(is_rich_label)
+            vars['bossNameLabel']:setString(name)
+
+            local rate = struct_raid:getHpRate()
+            vars['bossHpLabel']:setString(string.format('%0.2f%%', rate))
+
+            local stage_id = struct_raid:getStageID()
+            local _, boss_mid = g_stageData:isBossStage(stage_id)
+            local l_monster = g_stageData:getMonsterIDList(stage_id)
+            for _, v in ipairs(l_monster) do
+                if (v == boss_mid) then
+                    local ui = UI_MonsterCustomCard(v)
+                    ui.vars['clickBtn']:setEnabled(false)
+                    vars['bossNode']:addChild(ui.root)
+                    break
+                end
+            end
         end
     end
 end
@@ -1070,15 +1098,24 @@ function UI_ReadySceneNew:startGame(stage_id)
 
         -- 클랜던전 여의주 사용
         if (g_clanRaidData:isClanRaidStageID(stage_id)) then
-
+            local struct_raid = g_clanRaidData:getClanRaidStruct()
+            
             -- 활동력 체크 (소비 타입이 아니어서 여기서 체크)
             if (g_staminasData:checkStageStamina(stage_id)) then
                 check_boss()
 
+            -- 진행중인 유저 체크 추가 (덱 준비화면은 진행 여부 상관없이 진입 가능하게 수정됨)
+            elseif (struct_raid and struct_raid:getState() == CLAN_RAID_STATE.CHALLENGE) then
+                local msg = Str('이미 클랜 던전에 입장한 유저가 있습니다.')
+                local refresh_cb = function()
+                    g_clanRaidData:request_info(self.m_stageID)
+                end
+                MakeSimplePopup(POPUP_TYPE.OK, msg, refresh_cb)
+
             -- 여의주 사용가능
             elseif (g_clanRaidData:isPossibleUseCash()) then
                 local cash_cnt = g_clanRaidData:getUseCashCnt()
-                self:askCashPlay(cash_cnt, start_game)
+                self:askCashPlay(cash_cnt, check_boss)
 
             else
                 UIManager:toastNotificationRed(Str('더이상 던전에 입장할 수 없습니다.'))

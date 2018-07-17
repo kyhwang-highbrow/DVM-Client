@@ -6,13 +6,15 @@ local PARENT = class(UI, ITopUserInfo_EventListener:getCloneTable(), ITabUI:getC
 UI_ClanRaid = class(PARENT, {
         m_stageID = 'number',
         m_preRefreshTime = 'time',
+
+        m_contributionTab = '',
      })
 
-local TAB_TOTAL = 1 -- 누적 기여도
-local TAB_CURRENT = 2 -- 현재 기여도
+local TAB_CLAN_CONTRIBUTION = 'clan_contribution' -- 클랜 기여도 
+local TAB_CLAN_RANK = 'clan_rank' -- 클랜 랭킹
 
-local RENEW_INTERVAL = 5
-local SHOW_NEXT_LEVEL_LIMIT = 4 
+local RENEW_INTERVAL = 3  -- 갱신 호출 시간 제한
+local SHOW_NEXT_LEVEL_LIMIT = 4 -- 다음 4레벨 보스까지 미리 볼 수 있음
 
 -------------------------------------
 -- function initParentVariable
@@ -33,7 +35,7 @@ end
 -- function init
 -------------------------------------
 function UI_ClanRaid:init()
-    local vars = self:load_keepZOrder('clan_raid_scene.ui')
+    local vars = self:load_keepZOrder('clan_raid_scene_new.ui')
     UIManager:open(self, UIManager.SCENE)
 
     self.m_preRefreshTime = 0
@@ -116,7 +118,6 @@ function UI_ClanRaid:initButton()
     local vars = self.vars
     vars['prevBtn']:registerScriptTapHandler(function() self:click_prevBtn() end)
     vars['nextBtn']:registerScriptTapHandler(function() self:click_nextBtn() end)
-    vars['rankBtn']:registerScriptTapHandler(function() self:click_rankBtn() end)
     vars['rewardBtn']:registerScriptTapHandler(function() self:click_rewardBtn() end)
     vars['readyBtn']:registerScriptTapHandler(function() self:click_readyBtn() end)
     
@@ -134,9 +135,10 @@ end
 -------------------------------------
 function UI_ClanRaid:initTab()
     local vars = self.vars
-    self:addTabWithLabel(TAB_TOTAL, vars['damageTabBtn1'], vars['damageTabLabel1'], vars['damageTabNode1'])
-    self:addTabWithLabel(TAB_CURRENT, vars['damageTabBtn2'], vars['damageTabLabel2'], vars['damageTabNode2'])
-    self:setTab(TAB_TOTAL)
+    self:addTabWithLabel(TAB_CLAN_CONTRIBUTION, vars['contributionTabBtn'], vars['contributionTabLabel'], vars['contributionTabMenu'])
+    self:addTabWithLabel(TAB_CLAN_RANK, vars['clanRankTabBtn'], vars['clanRankTabLabel'], vars['clanRankTabMenu'])
+
+    self:setTab(TAB_CLAN_CONTRIBUTION)
     self:setChangeTabCB(function(tab, first) self:onChangeTab(tab, first) end)
 end
 
@@ -144,74 +146,26 @@ end
 -- function onChangeTab
 -------------------------------------
 function UI_ClanRaid:onChangeTab(tab, first)
-    if (not first) then return end
+    -- 클랜 랭킹은 클릭할때마다 갱신
+    if (tab == TAB_CLAN_RANK) then
+        UI_ClanRaidTabRank(self)
+    end
 end
 
 -------------------------------------
 -- function refresh
 -------------------------------------
-function UI_ClanRaid:refresh(first)
-    if (first) then
-        self:initTotalTabTableView()
+function UI_ClanRaid:refresh(force)
+    if (force) then
+        self.m_contributionTab = UI_ClanRaidTabContribution(self)
     end
 
-    self:initCurrentTabTableView()
+    if (self.m_contributionTab) then
+        self.m_contributionTab:initTableViewCurrentRank()
+    end
+
     self:initRaidInfo()
     self:refreshBtn()
-end
-
--------------------------------------
--- function initTotalTabTableView
--- @brief 누적 기여도 테이블 뷰 
--------------------------------------
-function UI_ClanRaid:initTotalTabTableView()
-    local vars = self.vars
-    local struct_raid = g_clanRaidData:getClanRaidStruct()
-
-    local node = vars['damageTabNode1']
-    node:removeAllChildren()
-
-    -- cell size 정의
-	local width = node:getContentSize()['width']
-	local height = 50 + 2
-
-    -- 테이블 뷰 인스턴스 생성
-    local l_rank_list = g_clanRaidData:getRankList()
-    local table_view = UIC_TableView(node)
-    table_view.m_defaultCellSize = cc.size(width, height)
-    table_view:setCellUIClass(UI_ClanRaidRankListItem)
-	table_view:setDirection(cc.SCROLLVIEW_DIRECTION_VERTICAL)
-    table_view:setItemList(l_rank_list)
-
-    local msg = Str('참여한 유저가 없습니다.')
-    table_view:makeDefaultEmptyDescLabel(msg)
-end
-
--------------------------------------
--- function initCurrentTabTableView
--- @brief 현재 기여도 테이블 뷰 
--------------------------------------
-function UI_ClanRaid:initCurrentTabTableView()
-    local vars = self.vars
-    local struct_raid = g_clanRaidData:getClanRaidStruct()
-
-    local node = vars['damageTabNode2']
-    node:removeAllChildren()
-
-    -- cell size 정의
-	local width = node:getContentSize()['width']
-	local height = 50 + 2
-
-    -- 테이블 뷰 인스턴스 생성
-    local l_rank_list = struct_raid:getRankList()
-    local table_view = UIC_TableView(node)
-    table_view.m_defaultCellSize = cc.size(width, height)
-    table_view:setCellUIClass(UI_ClanRaidRankListItem)
-	table_view:setDirection(cc.SCROLLVIEW_DIRECTION_VERTICAL)
-    table_view:setItemList(l_rank_list)
-
-    local msg = Str('참여한 유저가 없습니다.')
-    table_view:makeDefaultEmptyDescLabel(msg)
 end
 
 -------------------------------------
@@ -227,6 +181,13 @@ function UI_ClanRaid:initRaidInfo()
     -- 종료 시간
     local status_text = g_clanRaidData:getClanRaidStatusText()
     vars['timeLabel']:setString(status_text)
+
+    -- 골드 누적 보상 표시
+    local boss_lv = struct_raid:getBossLv()
+    vars['bossRewardLvLabel']:setString(boss_lv)
+
+    local total_reward = g_clanRaidData:getTotalGoldReward()
+    vars['bossRewardLabel']:setString(comma_value(total_reward))
 
     -- 보스 animator
     local boss_node = vars['bossNode']
@@ -255,7 +216,6 @@ function UI_ClanRaid:initRaidInfo()
             if (state == CLAN_RAID_STATE.CLEAR) then
                 animator:setAnimationPause(true)
                 animator.m_node:setColor(COLOR['deep_gray']) 
-                --animator:setBaseShader(SHADER_GRAY)
             else
                 animator:changeAni('idle', true)
             end
@@ -337,8 +297,8 @@ function UI_ClanRaid:initRaidInfo()
 end
 
 -------------------------------------
--- function showDungeonStatus
--- @brief 전 상태에 따른 UI 변경
+-- function showDungeonStateUI
+-- @brief 던전 상태에 따른 UI 변경
 -------------------------------------
 function UI_ClanRaid:showDungeonStateUI()
     local vars = self.vars
@@ -385,13 +345,12 @@ function UI_ClanRaid:showDungeonStateUI()
     -- 클리어한 상태
     elseif (state == CLAN_RAID_STATE.CLEAR) then
         noti_visual:changeAni('clear', true)
-
         noti_visual.m_node:setScale(1.3)
-        local act1 = cc.EaseInOut:create(cc.ScaleTo:create(0.1, 0.95), 2)
-        local act2 = cc.EaseInOut:create(cc.ScaleTo:create(0.1, 1.0), 2)
-        local action = cc.Sequence:create(act1, act2)
-        noti_visual:runAction(action)
+
     end
+
+    -- 파이널 블로우에서 보상 문구 노출
+    vars['bossRewardInfoNode']:setVisible(state == CLAN_RAID_STATE.FINALBLOW)
 end
 
 -------------------------------------
@@ -453,20 +412,6 @@ function UI_ClanRaid:click_nextBtn()
 end
 
 -------------------------------------
--- function click_rankBtn
--- @brief 클랜 던전 랭킹 (클랜)
--------------------------------------
-function UI_ClanRaid:click_rankBtn()
-    local rank_type = CLAN_RANK['RAID']
-    local offset = 1
-    local cb_func = function()
-        UI_ClanRaidRankPopup()
-    end
-
-    g_clanRankData:request_getRank(rank_type, offset, cb_func)
-end
-
--------------------------------------
 -- function click_rewardBtn
 -- @brief 클랜 던전 보상
 -------------------------------------
@@ -495,6 +440,10 @@ function UI_ClanRaid:click_readyBtn()
             -- 플레이중인 유저가 있다면
             if (state == CLAN_RAID_STATE.CHALLENGE) then
                 self:showDungeonStateUI()
+
+                -- 덱 준비화면은 진입가능하게 수정
+                self.m_preRefreshTime = 0
+                UI_ReadySceneNew(self.m_stageID) 
 
             -- 도전중인 클랜던전이 변경되었다면 다시 모두 갱신
             elseif (self.m_stageID ~= stage_id) then

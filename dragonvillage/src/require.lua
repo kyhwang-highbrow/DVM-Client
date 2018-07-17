@@ -1191,6 +1191,8 @@ local t_module = {
     'UI_ClanRaidRewardPopup',
     'UI_ClanRaidRankingRewardPopup',
     'UI_ClanRaidBossInfo',
+    'UI_ClanRaidTabRank',
+    'UI_ClanRaidTabContribution',
     'UI_ClanBoardListItem',
     'UI_ClanBoardPopup_Write',
 

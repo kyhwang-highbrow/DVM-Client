@@ -3658,6 +3658,12 @@
     <None Include="..\src\UI_Shop_Popup_SkillSlime.lua">
       <Filter>lua\UI</Filter>
     </None>
+    <None Include="..\src\UI_ClanRaidTabContribution.lua">
+      <Filter>lua\UI</Filter>
+    </None>
+    <None Include="..\src\UI_ClanRaidTabRank.lua">
+      <Filter>lua\UI</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Classes">
