@@ -1043,7 +1043,7 @@ function IDragonSkillManager:printSkillInfo()
                 for _, skill_indivisual_info in pairs(v) do
                     local t_skill = GetSkillTable(self.m_charType):get(skill_indivisual_info.m_skillID)
                     
-                    cclog(t_skill['t_name'] .. ' - ' .. skill_indivisual_info.m_skillID .. ' cooldown : ' .. skill_indivisual_info.m_cooldownTimer)
+                    cclog(t_skill['t_name'] .. ' - ' .. skill_indivisual_info.m_skillID .. ' cooldown : ' .. skill_indivisual_info.m_cooldownTimer .. ' timer : ' .. skill_indivisual_info.m_timer)
                 end
             end
         end
