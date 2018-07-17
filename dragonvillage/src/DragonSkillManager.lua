@@ -456,13 +456,28 @@ function IDragonSkillManager:getSkillKeyList()
 end
 
 -------------------------------------
--- function makeIndividualInfo
+-- function makeIndividualInfoForUI
 -------------------------------------
-function IDragonSkillManager:makeIndividualInfo(skill_type, skill_id, skill_lv)
-	local skill_indivisual_info = DragonSkillIndivisualInfo(self.m_charType, skill_type, skill_id, skill_lv)
-	skill_indivisual_info:applySkillLevel()
-	skill_indivisual_info:applySkillDesc()
+function IDragonSkillManager:makeIndividualInfoForUI(skill_type, skill_id, skill_lv)
+    local skill_indivisual_info
 
+    if (self.m_bMetamorphosis) then
+        local t_skill = GetSkillTable(self.m_charType):get(skill_id)
+        local metamorphosis_skill_id = t_skill['metamorphosis']
+        if (not metamorphosis_skill_id or metamorphosis_skill_id == '' or metamorphosis_skill_id == 0) then
+        else
+            local t_metamorphosis_skill = GetSkillTable(self.m_charType):get(metamorphosis_skill_id)
+
+            skill_id = metamorphosis_skill_id
+            skill_type = t_metamorphosis_skill['chance_type']
+        end
+    end
+
+    local skill_indivisual_info = DragonSkillIndivisualInfo(self.m_charType, skill_type, skill_id, skill_lv)
+
+    skill_indivisual_info:applySkillLevel()
+	skill_indivisual_info:applySkillDesc()
+    
 	return skill_indivisual_info
 end
 
@@ -517,7 +532,7 @@ function IDragonSkillManager:getSkillIndivisualInfo_usingIdx(idx)
 		-- UI용 skill_info 계산
 		if (skill_type and skill_id ~= 0 and skill_id ~= '') then
 			local skill_lv = self:getSkillLevel(idx)
-			return self:makeIndividualInfo(skill_type, skill_id, skill_lv)
+			return self:makeIndividualInfoForUI(skill_type, skill_id, skill_lv)
 		end
 	end
 end

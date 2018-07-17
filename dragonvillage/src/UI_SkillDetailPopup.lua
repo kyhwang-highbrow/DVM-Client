@@ -438,7 +438,7 @@ function UI_SkillDetailPopup:click_skillLvBtn(is_next)
 	local skill_type = before_info:getSkillType()
 	local skill_id = before_info:getSkillID()
 	local skill_lv = self.m_currLV
-	local new_info = self.m_skillMgr:makeIndividualInfo(skill_type, skill_id, skill_lv)
+	local new_info = self.m_skillMgr:makeIndividualInfoForUI(skill_type, skill_id, skill_lv)
 
 	do -- 레벨 표시
         vars['skillEnhanceLabel']:setString(string.format('Lv. %d / %d', self.m_currLV, self.m_maxLV))
