@@ -44,7 +44,7 @@ function DragonSkillCore.applySkillLevel(char_type, t_skill, skill_lv)
 
                         else
                             if (t_modify['modify'] ~= modify) then
-                                error('modify타입이 다르게 사용되었습니다. slid : ' .. v)
+                                error('modify타입이 다르게 사용되었습니다. slid : ' .. skill_id)
                             end
                         
                             if (modify == 'exchange') then
