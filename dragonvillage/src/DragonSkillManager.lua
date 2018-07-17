@@ -222,7 +222,13 @@ function IDragonSkillManager:setSkillID(skill_type, skill_id, skill_lv, add_type
     elseif (isExistValue(skill_type, 'active', 'basic', 'leader')) then
         -- 특정 스킬들은 변신 후 스킬이 설정이 안된 경우 기본 스킬을 가져옴
         self.m_mSkillInfoList[SKILL_SET.METAMORPHOSIS][skill_type] = skill_indivisual_info
-        
+
+    else
+        if (self.m_mSkillInfoList[SKILL_SET.METAMORPHOSIS][skill_type] == nil) then
+            self.m_mSkillInfoList[SKILL_SET.METAMORPHOSIS][skill_type] = {}
+        end
+
+        table.insert(self.m_mSkillInfoList[SKILL_SET.METAMORPHOSIS][skill_type], skill_indivisual_info)
     end
 
     return skill_indivisual_info
@@ -670,6 +676,8 @@ function IDragonSkillManager:changeSkillSetByMetamorphosis(b)
     end
 
     local syncRuntimeInfo = function(skill_info)
+        if (not skill_info) then return end
+
         local metamorphosis_skill_info = skill_info.m_metamorphosisSkillInfo
         if (not metamorphosis_skill_info) then return end
 
