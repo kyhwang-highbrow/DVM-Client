@@ -104,12 +104,11 @@ end
 -- @brief 보스 처치 골드 누적량 (서버에서 따로 받지 않음, 클라에서 레벨로 계산)
 -------------------------------------
 function ServerData_ClanRaid:getTotalGoldReward()
-    local struct_clan_raid = self.m_structClanRaid
-    if (not struct_clan_raid) then
+    if (not self.m_challenge_stageID) then
         return 0
     end
 
-    local curr_lv = struct_clan_raid:getLv()
+    local curr_lv = self.m_challenge_stageID % 1000
     return math_max(0, curr_lv - 1) * BOSS_GOLD_REWARD
 end
 

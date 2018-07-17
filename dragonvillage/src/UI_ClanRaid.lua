@@ -183,8 +183,8 @@ function UI_ClanRaid:initRaidInfo()
     vars['timeLabel']:setString(status_text)
 
     -- 골드 누적 보상 표시
-    local boss_lv = struct_raid:getBossLv()
-    vars['bossRewardLvLabel']:setString(boss_lv)
+    local boss_lv = g_clanRaidData.m_challenge_stageID % 1000 -- 현재 진행중인 레벨
+    vars['bossRewardLvLabel']:setString(string.format('Lv.%d', boss_lv))
 
     local total_reward = g_clanRaidData:getTotalGoldReward()
     vars['bossRewardLabel']:setString(comma_value(total_reward))

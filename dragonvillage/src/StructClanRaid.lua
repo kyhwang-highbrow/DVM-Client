@@ -155,14 +155,6 @@ function StructClanRaid:getBossMid()
 end
 
 -------------------------------------
--- function getBossLv
--------------------------------------
-function StructClanRaid:getBossLv()
-    local lv = self:getLv()
-    return string.format('Lv.%s', lv)
-end
-
--------------------------------------
 -- function getBossNameWithLv
 -------------------------------------
 function StructClanRaid:getBossNameWithLv(is_richlabel)
