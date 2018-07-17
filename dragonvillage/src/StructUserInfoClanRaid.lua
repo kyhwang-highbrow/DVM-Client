@@ -122,3 +122,35 @@ function StructUserInfoClanRaid:getContributionText()
     local text = (self.m_contribution == 100) and '100%' or string.format('%.2f%%', self.m_contribution)
     return text
 end
+
+-------------------------------------
+-- function getRewardContributionText
+-- @brief 실제 보상에 적용되는 기여도 (max 8%)
+-------------------------------------
+function StructUserInfoClanRaid:getRewardContributionText()
+    local map_contribution = g_clanRaidData.m_mapRewardContribution
+    local t_contribution = map_contribution[self.m_uid]
+    if (not t_contribution) then
+        return '0'
+    end
+
+    local contribution = t_contribution['ratio_cur'] * 100
+    local text = (contribution == 100) and '100%' or string.format('%.2f%%', contribution)
+    return text
+end
+
+-------------------------------------
+-- function getRewardText
+-- @brief 보상 받을 클랜코인
+-------------------------------------
+function StructUserInfoClanRaid:getRewardText()
+    local map_contribution = g_clanRaidData.m_mapRewardContribution
+    local t_contribution = map_contribution[self.m_uid]
+    if (not t_contribution) then
+        return '0'
+    end
+
+    local clan_coin = t_contribution['reward_clan_info_cur']
+    return comma_value(clan_coin)
+end
+

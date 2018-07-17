@@ -105,7 +105,26 @@ end
 -- @brief 누적 기여도에 따른 보상 
 -------------------------------------
 function UI_ClanRaidTabContribution:initTableViewTotalReward()
+        local vars = self.m_owner_ui.vars
+    local struct_raid = g_clanRaidData:getClanRaidStruct()
 
+    local node = vars['contributionTabNode2']
+    node:removeAllChildren()
+
+    -- cell size 정의
+	local width = node:getContentSize()['width']
+	local height = 50 + 2
+
+    -- 테이블 뷰 인스턴스 생성
+    local l_rank_list = g_clanRaidData:getRankList()
+    local table_view = UIC_TableView(node)
+    table_view.m_defaultCellSize = cc.size(width, height)
+    table_view:setCellUIClass(self.makeTotalRewardCell)
+	table_view:setDirection(cc.SCROLLVIEW_DIRECTION_VERTICAL)
+    table_view:setItemList(l_rank_list)
+
+    local msg = Str('참여한 유저가 없습니다.')
+    table_view:makeDefaultEmptyDescLabel(msg)
 end
 
 -------------------------------------
@@ -136,7 +155,7 @@ function UI_ClanRaidTabContribution:initTableViewCurrentRank()
 end
 
 -------------------------------------
--- function makeRankCell
+-- function makeTotalRankCell
 -------------------------------------
 function UI_ClanRaidTabContribution.makeTotalRankCell(t_data)
 	local ui = class(UI, ITableViewCell:getCloneTable())()
@@ -156,6 +175,52 @@ function UI_ClanRaidTabContribution.makeTotalRankCell(t_data)
 
     -- 기여도 
     vars['percentLabel']:setString(t_rank_info:getContributionText())
+
+    -- 순위  
+    local rank = t_rank_info.m_rank
+    vars['rankNode']:removeAllChildren()
+
+    if (rank <= 3) then
+        vars['rankLabel']:setString('')
+        local path = string.format('res/ui/icons/rank/clan_raid_02%02d.png', rank)
+        local icon = cc.Sprite:create(path)
+
+        if (icon) then
+            icon:setAnchorPoint(ZERO_POINT)
+            icon:setDockPoint(ZERO_POINT)
+            vars['rankNode']:addChild(icon)
+        end
+    else
+        vars['rankLabel']:setString(t_rank_info:getRankText())
+    end
+
+    return ui
+end
+
+-------------------------------------
+-- function makeTotalRewardCell
+-------------------------------------
+function UI_ClanRaidTabContribution.makeTotalRewardCell(t_data)
+	local ui = class(UI, ITableViewCell:getCloneTable())()
+	local vars = ui:load('clan_raid_scene_item_02.ui')
+    if (not t_data) then
+        return ui
+    end
+
+    local t_rank_info = t_data
+
+    -- 유저 정보 표시 
+    vars['levelLabel']:setString(t_rank_info:getLvText())
+    vars['nameLabel']:setString(t_rank_info:getUserText())
+
+    -- 기여도 
+    vars['percentLabel']:setString(t_rank_info:getContributionText())
+
+    -- 보상 기여도
+    vars['rewardPercentLabel']:setString(t_rank_info:getRewardContributionText())
+
+    -- 보상받을 클랜코인
+    vars['rewardLabel']:setString(t_rank_info:getRewardText())
 
     -- 순위  
     local rank = t_rank_info.m_rank
