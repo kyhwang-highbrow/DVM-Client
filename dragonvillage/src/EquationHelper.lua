@@ -6,7 +6,7 @@ EquationHelper = {}
 EV_HIT_TARGET_COUNT = 'hit_target_count'
 EV_BOSS_RARITY = 'boss_rarity'
 EV_DIED_ALLY_COUNT = 'died_ally_count'
-EV_ALLY_MIN_HP = 'ally_min_hp'
+EV_ALLY_MIN_HP_RATE = 'ally_min_hp_rate'
 
 -------------------------------------
 -- function addFunctionsForEquation
@@ -145,13 +145,13 @@ function EquationHelper:addEquationFromTable(table_name, key, column, source)
         ' local hit_target_count = 0' ..
         ' local boss_rarity = 5' ..
         ' local died_ally_count = 0' ..
-        ' local ally_min_hp = 0' ..
+        ' local ally_min_hp_rate = 0' ..
 
         ' if (add_param) then' ..
         ' hit_target_count = add_param[EV_HIT_TARGET_COUNT] or hit_target_count' ..
         ' boss_rarity = add_param[EV_BOSS_RARITY] or boss_rarity' ..
         ' died_ally_count = add_param[EV_DIED_ALLY_COUNT] or died_ally_count' ..
-        ' ally_min_hp = add_param[EV_ALLY_MIN_HP] or ally_min_hp' ..
+        ' ally_min_hp_rate = add_param[EV_ALLY_MIN_HP_RATE] or ally_min_hp_rate' ..
         ' end' ..
 
         ' local ret = ' .. source .. 
@@ -213,7 +213,7 @@ function EquationHelper:setEquationParamOnMapForSkill(target_map, skill_entity)
     -- 아군 중 가장 적은 체력의 비율값을 얻음
     local l_ally = skill_entity.m_owner:getTargetListByType('ally_hp_low')
     if (l_ally[1]) then
-        target_map[EV_ALLY_MIN_HP] = l_ally[1]:getHpRate() * 100
+        target_map[EV_ALLY_MIN_HP_RATE] = l_ally[1]:getHpRate() * 100
     end
 end
 
@@ -238,7 +238,7 @@ function EquationHelper:setEquationParamOnMapForStatusEffect(target_map, status_
 
     local l_ally = status_effect_entity.m_owner:getTargetListByType('ally_hp_low')
     if (l_ally[1]) then
-        target_map[EV_ALLY_MIN_HP] = l_ally[1]:getHpRate() * 100
+        target_map[EV_ALLY_MIN_HP_RATE] = l_ally[1]:getHpRate() * 100
     end
 end
 
