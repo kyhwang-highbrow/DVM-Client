@@ -330,7 +330,7 @@ function IDragonSkillManager:unsetSkillID(skill_id)
                 else
                     for i, skill_info in ipairs(v) do
                         if (skill_info:getSkillID() == skill_id) then
-                            table.remove(l_skill_info, i)
+                            table.remove(v, i)
                             break
                         end
                     end

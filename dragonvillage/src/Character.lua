@@ -1253,12 +1253,16 @@ function Character:getSkillTable(skill_id)
         return nil
     end
 
-    local skill_indivisual_info = self:findSkillInfoByID(skill_id)
-	local t_skill = skill_indivisual_info:getSkillTable()
+    local t_skill
 
-    if (not t_skill and self.m_charType == 'monster') then
-        t_skill = TableMonsterSkill():get(skill_id)
-        --error('skill_id = ' .. skill_id)
+    local skill_indivisual_info = self:findSkillInfoByID(skill_id)
+    if (skill_indivisual_info) then
+	    t_skill = skill_indivisual_info:getSkillTable()
+
+        if (not t_skill and self.m_charType == 'monster') then
+            t_skill = TableMonsterSkill():get(skill_id)
+            --error('skill_id = ' .. skill_id)
+        end
     end
 
     return t_skill
