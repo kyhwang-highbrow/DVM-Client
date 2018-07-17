@@ -430,14 +430,20 @@ function SkillHelper:getValidSkillIdFromKey(unit, key)
     -- 특수한 조건을 먼저 검사
     if (string.find(key, 'req_mana_')) then
         -- 필요 마나 수에 해당하는 스킬만 가져옴(액티브만 해당)
-        --local skill_indivisual_info = unit:getSkillIndivisualInfo('active')
-        local skill_indivisual_info = unit:getActiveSkillIndivisualInfoBeforeMetamorphosis()
+        local skill_indivisual_info = unit:getSkillIndivisualInfo('active')
         if (skill_indivisual_info) then
             local req_mana = tonumber(string.match(key, '%d'))
             if (unit:isDragon() and unit:getOriginSkillManaCost() == req_mana) then
                 skill_id = skill_indivisual_info:getSkillID()
                 metamorphosis_skill_id = skill_indivisual_info.m_tSkill['metamorphosis']
             end
+        end
+
+    elseif (key == 'skill_active') then
+        local skill_indivisual_info = unit:getSkillIndivisualInfo('active')
+        if (skill_indivisual_info) then
+            skill_id = skill_indivisual_info:getSkillID()
+            metamorphosis_skill_id = skill_indivisual_info.m_tSkill['metamorphosis']
         end
 
     elseif (temp) then
