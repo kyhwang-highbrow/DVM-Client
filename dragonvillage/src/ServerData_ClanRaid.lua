@@ -29,6 +29,9 @@ ServerData_ClanRaid = class({
 
         -- 오픈상태 
         m_bOpen = 'boolean',
+
+        -- 보상에 적용되는 실제 기여도 (서버에서 넘겨줌)
+        m_mapRewardContribution = 'map',
     })
 
 local USE_CASH_LIMIT = 1 -- 하루 최대 여의주 사용 입장횟수
@@ -289,6 +292,12 @@ function ServerData_ClanRaid:request_info(stage_id, cb_func)
             end
         end
         
+        -- 실제 보상에 적용되는 기여도 정보
+        self.m_mapRewardContribution = {}
+        if (ret['cweek_info']) then
+            self.m_mapRewardContribution = ret['cweek_info']
+        end 
+
         -- 클랜 던전 정보
         if (ret['dungeon']) then
             self.m_structClanRaid = StructClanRaid(ret['dungeon'])
@@ -338,7 +347,8 @@ function ServerData_ClanRaid:requestGameStart(stage_id, deck_name, combat_power,
         g_accessTimeData:startCheckTimer()
     end
 
-    local multi_deck_mgr = MultiDeckMgr(MULTI_DECK_MODE.CLAN_RAID)
+    local attr = TableStageData:getStageAttr(stage_id) 
+    local multi_deck_mgr = MultiDeckMgr(MULTI_DECK_MODE.CLAN_RAID, nil, attr)
     local deck_name1 = multi_deck_mgr:getDeckName('up')
     local deck_name2 = multi_deck_mgr:getDeckName('down')
 

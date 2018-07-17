@@ -19,7 +19,8 @@ function GameWorldForDoubleTeam:init()
     local sel_deck
 
     if (self.m_gameMode == GAME_MODE_CLAN_RAID) then
-        local multi_deck_mgr = MultiDeckMgr(MULTI_DECK_MODE.CLAN_RAID)
+        local attr = TableStageData:getStageAttr(self.m_stageID) 
+        local multi_deck_mgr = MultiDeckMgr(MULTI_DECK_MODE.CLAN_RAID, nil, attr)
         sel_deck = multi_deck_mgr:getMainDeck()
 
     elseif (self.m_gameMode == GAME_MODE_ANCIENT_RUIN) then

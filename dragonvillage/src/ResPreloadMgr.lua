@@ -279,7 +279,8 @@ function ResPreloadMgr:makeResListForDoubleTeam(game_mode)
     local g_data
 
     if (game_mode == GAME_MODE_CLAN_RAID) then
-        g_data = MultiDeckMgr(MULTI_DECK_MODE.CLAN_RAID)
+        local attr = TableStageData:getStageAttr(self.m_stageId) 
+        g_data = MultiDeckMgr(MULTI_DECK_MODE.CLAN_RAID, nil, attr)
 
     elseif (game_mode == GAME_MODE_ANCIENT_RUIN) then
         g_data = MultiDeckMgr(MULTI_DECK_MODE.ANCIENT_RUIN)
