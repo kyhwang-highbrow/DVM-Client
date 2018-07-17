@@ -140,11 +140,14 @@ function EquationHelper:addEquationFromTable(table_name, key, column, source)
         ' return skill_target and skill_target:getStatusEffectCount(column, name) or 0' ..
         ' end' ..
 
+        ' local ALLY_MIN_HP_RATE = function()' ..
+        ' return GET_ALLY_MIN_HP_RATE(owner)' ..
+        ' end' ..
+
         -- 추가 정보
         ' local hit_target_count = 0' ..
         ' local boss_rarity = 5' ..
         ' local died_ally_count = 0' ..
-        ' local ally_min_hp_rate = GET_ALLY_MIN_HP_RATE(owner)' ..
 
         ' if (add_param) then' ..
         ' hit_target_count = add_param[EV_HIT_TARGET_COUNT] or hit_target_count' ..
@@ -241,11 +244,13 @@ function CON(con_expression)
 end
 
 function GET_ALLY_MIN_HP_RATE(unit)
-    local l_ally = unit:getTargetListByType('ally_hp_low')
     local ally_min_hp_rate = 0
 
-    if (l_ally[1]) then
-        ally_min_hp_rate = l_ally[1]:getHpRate()
+    if (isInstanceOf(unit, Character)) then
+        local l_ally = unit:getTargetListByType('ally_hp_low')
+        if (l_ally[1]) then
+            ally_min_hp_rate = l_ally[1]:getHpRate()
+        end
     end
 
     return ally_min_hp_rate
