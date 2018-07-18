@@ -69,6 +69,43 @@ function UI_ClanRaidRewardPopup:onChangeTab(tab, first)
     -- 탭할때마다 액션 
     self:doActionReset()
     self:doAction(nil, false)
+
+    if (first and tab == TAB_REWARD_SEASON) then
+        self:initSeasonReward()
+    end
+end
+
+-------------------------------------
+-- function initSeasonReward
+-------------------------------------
+function UI_ClanRaidRewardPopup:initSeasonReward()
+    local vars = self.vars
+
+    -- 시즌 클랜 코인 보상 개수 
+    local t_clan_coin_max = {
+        2000,
+        1800,
+        1700,
+        1600,
+        1400,
+        1200,
+        1000,
+        800
+    }
+
+    -- 개인 보상 최대 퍼센트
+    local personal_max_percent = 0.08
+
+    for i, cnt in ipairs(t_clan_coin_max) do
+        if (vars['clancoinLabel'..i]) then
+            vars['clancoinLabel'..i]:setString(Str('{1}개', comma_value(cnt)))
+        end
+        
+        local personal_cnt = math_floor(cnt * personal_max_percent)
+        if (vars['personalLabel'..i]) then
+            vars['personalLabel'..i]:setString(Str('{1}개', comma_value(personal_cnt)))
+        end
+    end
 end
 
 -------------------------------------

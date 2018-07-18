@@ -36,7 +36,7 @@ ServerData_ClanRaid = class({
 
 local USE_CASH_LIMIT = 1 -- 하루 최대 여의주 사용 입장횟수
 local USE_CASH_CNT = 200
-local BOSS_GOLD_REWARD = 150000 -- 보스 처치시 받는 골드 고정
+local BOSS_GOLD_REWARD = 100000 -- 보스 처치시 받는 골드 고정
 
 -------------------------------------
 -- function init
