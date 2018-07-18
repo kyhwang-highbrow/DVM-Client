@@ -690,6 +690,17 @@ function IDragonSkillManager:changeSkillSetByMetamorphosis(b)
         self.m_lSkillInfo = self.m_mSkillInfoList[SKILL_SET.BASE]
     end
 
+    local setEnabled = function(skill_info, b)
+        if (not skill_info) then return end
+
+        -- 변신 스킬이 존재할 경우 변신 상태에 맞게 스킬 활성화 및 비활성화 처리
+        local metamorphosis_skill_info = skill_info.m_metamorphosisSkillInfo
+        if (metamorphosis_skill_info) then
+            skill_info:setEnabled(not b)
+            metamorphosis_skill_info:setEnabled(b)
+        end
+    end
+
     local syncRuntimeInfo = function(skill_info)
         if (not skill_info) then return end
 
@@ -713,9 +724,11 @@ function IDragonSkillManager:changeSkillSetByMetamorphosis(b)
     if (self.m_bInGameMode) then
         for skill_type, v in pairs(self.m_mSkillInfoList[SKILL_SET.BASE]) do
             if (isExistValue(skill_type, 'active', 'basic', 'leader')) then
+                setEnabled(v, b)
                 syncRuntimeInfo(v)
             else
                 for _, skill_info in ipairs(v) do
+                    setEnabled(v, b)
                     syncRuntimeInfo(skill_info)
                 end
             end

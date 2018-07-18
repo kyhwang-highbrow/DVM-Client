@@ -33,4 +33,5 @@ REASON_TO_DO_NOT_USE_SKILL = {
     NO_MANA         = 5,
     STATUS_EFFECT   = 6,
     USING_SKILL     = 7,
+    NO_ENABLE       = 8,
 }

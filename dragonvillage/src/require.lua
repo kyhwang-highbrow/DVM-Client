@@ -104,6 +104,7 @@ local t_module = {
     'StructRandomShopItem',
     'StructEventMatchCard',
     'StructEventMandragoraQuest',
+    'StructAiSkillInfo',
 
 	-- ServerData
     'ServerData',

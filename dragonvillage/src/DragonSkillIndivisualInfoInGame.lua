@@ -312,6 +312,13 @@ function DragonSkillIndivisualInfoInGame:setEnabled(b)
 end
 
 -------------------------------------
+-- function setEnabled
+-------------------------------------
+function DragonSkillIndivisualInfoInGame:isEnabled()
+    return self.m_bEnabled
+end
+
+-------------------------------------
 -- function setToIgnoreCC
 -------------------------------------
 function DragonSkillIndivisualInfoInGame:setToIgnoreCC(b)

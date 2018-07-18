@@ -117,17 +117,17 @@ function GameAuto_Hero:onEvent(event_name, t_event, ...)
         self:setWorkTimer()
 
 	elseif (event_name == 'farming_changed') then
-		self:refreshUnitListSortedByPriority()
+		self:refreshSkillInfoListSortedByPriority()
 
     end
 end
 
 -------------------------------------
--- function makeUnitListSortedByPriority
--- @brief state 상태에서의 우선순위별 해당하는 스킬 보유자 리스트를 만듬
+-- function makeSkillInfoListSortedByPriority
+-- @brief state 상태에서의 우선순위별 해당하는 스킬 정보 리스트를 만듬
 -------------------------------------
-function GameAuto_Hero:makeUnitListSortedByPriority(state)
-    local list = PARENT.makeUnitListSortedByPriority(self, state)
+function GameAuto_Hero:makeSkillInfoListSortedByPriority(state)
+    local list = PARENT.makeSkillInfoListSortedByPriority(self, state)
 
 	-- 모험모드 및 쫄작 옵션 체크
 	if (not self.m_world:isDragonFarming()) then
@@ -137,11 +137,13 @@ function GameAuto_Hero:makeUnitListSortedByPriority(state)
     local new_list = {}
 
 	-- 쫄작(farming) 시 쫄작기사(farmer)가 아니면 제외시킴
-	for priority, l_unit in ipairs(list) do
+	for priority, l_skill in ipairs(list) do
 		new_list[priority] = {}
-		for _, unit in ipairs(l_unit) do 
+
+		for _, struct_skill_info in ipairs(l_skill) do
+            local unit = struct_skill_info.m_unit
 			if (unit:isFarmer()) then
-				table.insert(new_list[priority], unit)
+				table.insert(new_list[priority], struct_skill_info)
 			end
 		end
 	end
@@ -150,11 +152,11 @@ function GameAuto_Hero:makeUnitListSortedByPriority(state)
 end
 
 -------------------------------------
--- function refreshUnitListSortedByPriority
+-- function refreshSkillInfoListSortedByPriority
 -- @brief 연속전투 옵션 중 쫄작 기능 변경 시 호출하여 스킬 사용 우선 순위 리스트 변경함
 -- @comment 인게임 중 변경 시에만 호출 됨
 -------------------------------------
-function GameAuto_Hero:refreshUnitListSortedByPriority()
+function GameAuto_Hero:refreshSkillInfoListSortedByPriority()
 	local state = (self.m_teamState == 0) and 1 or self.m_teamState
-	self.m_lUnitListPerPriority = self:makeUnitListSortedByPriority(state)
+	self.m_lSkillInfoListPerPriority = self:makeSkillInfoListSortedByPriority(state)
 end

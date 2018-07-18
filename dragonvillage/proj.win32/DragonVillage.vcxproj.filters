@@ -3664,6 +3664,9 @@
     <None Include="..\src\UI_ClanRaidTabRank.lua">
       <Filter>lua\UI</Filter>
     </None>
+    <None Include="..\src\StructAiSkillInfo.lua">
+      <Filter>lua\src</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Classes">
