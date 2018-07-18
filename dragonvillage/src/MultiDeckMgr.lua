@@ -132,6 +132,7 @@ end
 function MultiDeckMgr:getDeckName(pos)
     local pos = pos or 'up' -- or 'down'
     local deck_name
+    -- 클랜던전 속성별 덱 추가
     if (self.m_sub_data) then
         deck_name = self.m_mode .. '_' .. self.m_sub_data
     end
@@ -258,10 +259,10 @@ function MultiDeckMgr:checkSameDidAnoterDeck(sel_pos, doid)
 end
 
 -------------------------------------
--- function cehckDeckCondition
+-- function checkDeckCondition
 -- @brief 상단덱 하단덱 출전 조건 체크
 -------------------------------------
-function MultiDeckMgr:cehckDeckCondition()
+function MultiDeckMgr:checkDeckCondition()
     local toast_func = function(pos)
         local team_name = self:getTeamName(pos)
         local msg = Str('{1}에 최소 1명 이상은 출전시켜야 합니다', team_name)
@@ -289,4 +290,37 @@ function MultiDeckMgr:cehckDeckCondition()
     end
     
     return true
+end
+
+-------------------------------------
+-- function checkMultiDeckWithName
+-- @brief 덱네임으로 멀티덱인지 검사
+-------------------------------------
+function CheckMultiDeckWithName(deck_name)
+    local is_multi_deck = false
+    local multi_deck_mgr
+
+    -- 속성별 덱 검사
+    local function check_attr_deck(_deck_name)
+        local l_attr = getAttrTextList()
+        for _, attr in ipairs(l_attr) do
+            if string.find(_deck_name, attr) then
+                return attr
+            end
+        end
+        return nil
+    end
+
+    -- 멀티 덱 검사
+    for _, mode in pairs(MULTI_DECK_MODE) do
+        if string.find(deck_name, mode) then
+            is_multi_deck = true
+            local make_deck = true
+            local sub_data = check_attr_deck(deck_name)
+            multi_deck_mgr = MultiDeckMgr(mode, make_deck, sub_data)
+            break
+        end
+    end
+
+    return is_multi_deck, multi_deck_mgr
 end
