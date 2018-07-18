@@ -1030,7 +1030,7 @@ function UI_ReadySceneNew:check_startCondition(stage_id)
         stamina_charge = false
 
         -- 상단, 하단 덱 모두 체크
-        if (not multi_deck_mgr:cehckDeckCondition()) then
+        if (not multi_deck_mgr:checkDeckCondition()) then
             return false
         end
 
