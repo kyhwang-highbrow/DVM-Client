@@ -180,7 +180,8 @@ function UI_ClanRaidTabRank.makeRankCell(t_data)
     
     -- 등수 
     local clan_rank = struct_clan_rank:getRank()
-    vars['rankLabel']:setString(string.format('%d', clan_rank))
+    local rank = clan_rank < 0 and '-' or string.format('%d', clan_rank)
+    vars['rankLabel']:setString(rank)
     
     -- 내클랜
     if (struct_clan_rank:isMyClan()) then
