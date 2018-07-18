@@ -184,6 +184,9 @@ function UI_DragonSkillEnhance:refresh()
 	self:refresh_skillIcon()
     self:refresh_dragonMaterialTableView()
     self:refresh_dragonSkillMoveTableView()
+
+    -- 스킬 슬라임 상점 버튼 갱신
+	self.vars['skillSlimShopBtn']:setVisible(self.m_selectDragonData:getRarity() == 'legend')
 end
 
 -------------------------------------
