@@ -91,11 +91,6 @@ function IDragonSkillManager:initDragonSkillManager(char_type, char_id, evolutio
 		if skill_type and skill_id then
             local skill_indivisual_info = self:setSkillID(skill_type, skill_id, 1, 'new')
 
-            -- 전투 시작 후 즉시 변신되도록 함
-            if (self.m_bInGameMode) then
-                skill_indivisual_info:resetCoolTime()
-            end
-
             self.m_bHasMetamorphosisSkill = true
         end
     end
