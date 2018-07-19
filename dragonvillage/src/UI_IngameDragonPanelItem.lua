@@ -294,7 +294,15 @@ function UI_IngameDragonPanelItem:refreshSkill(metamorphosis)
     vars['skillFullVisual1']:changeAni('dragon_full_' .. str_target .. '_idle_1', true)
     vars['skillFullVisual2']:changeAni('dragon_full_' .. str_target .. '_idle_2', true)
 
-    vars['swapSprite']:setVisible(metamorphosis)
+    --vars['swapSprite']:setVisible(metamorphosis)
+
+    do -- 드래곤 아이콘
+	    local sprite = IconHelper:getDragonIconFromTable(dragon.m_tDragonInfo, dragon.m_charTable, metamorphosis)
+	    if (sprite) then
+            vars['dragonNode']:removeAllChildren()
+		    vars['dragonNode']:addChild(sprite)
+	    end
+    end
     --[[
     do -- 드래그 스킬 아이콘
         local skill_icon

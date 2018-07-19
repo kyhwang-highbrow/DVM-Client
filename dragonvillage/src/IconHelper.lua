@@ -37,10 +37,16 @@ end
 -------------------------------------
 -- function getHeroIcon
 -------------------------------------
-function IconHelper:getHeroIcon(res_name, evolution, attr)
+function IconHelper:getHeroIcon(res_name, evolution, attr, is_metamorphosis)
     local res_name = res_name
-	res_name = string.gsub(res_name, '#', '0' .. evolution)
+
+    if (is_metamorphosis) then
+        res_name = string.gsub(res_name, '#', 'dragon_0' .. evolution)
+    else
+        res_name = string.gsub(res_name, '#', '0' .. evolution)
+    end
 	res_name = string.gsub(res_name, '@', attr)
+    
     local sprite = self:getIcon(res_name)
     return sprite
 end
@@ -64,11 +70,11 @@ end
 -- function getDragonIconFromTable
 -- @breif 테이블을 받아서 드래곤 아이콘 생성
 -------------------------------------
-function IconHelper:getDragonIconFromTable(t_dragon_data, t_dragon)
+function IconHelper:getDragonIconFromTable(t_dragon_data, t_dragon, is_metamorphosis)
     local res = t_dragon['icon']
     local evolution = t_dragon_data['evolution']
     local attr = t_dragon['attr']
-	local sprite = IconHelper:getHeroIcon(res, evolution, attr)
+	local sprite = IconHelper:getHeroIcon(res, evolution, attr, is_metamorphosis)
     return sprite
 end
 
