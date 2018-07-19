@@ -10,6 +10,7 @@ UI_ShopTab = class(PARENT,{
     })
 
 local ANCIENT_SHOP_END_KEY = 'ancient_shop_end' 
+local VALOR_SHOP_COSTUME_KEY = 'valor_costume'
 -------------------------------------
 -- function init
 -------------------------------------
@@ -66,11 +67,11 @@ function UI_ShopTab:init_TableView()
 		self:dietPackageItemTable(l_item_list) -- 테이블 자체를 함수에서 조작한다
 	end
 
-    -- 고대주화 종료 안내 리스트 아이템 생성 (정렬 때문에 StructProduct로 임시 생성)
-    if (tab_name == 'ancient') then
+    -- 용맹훈장 코스튬 아이템 생성 (정렬 때문에 StructProduct로 임시 생성)
+    if (tab_name == 'valor') then
         local data = StructProduct()
         data['m_uiPriority'] = -1
-        data['t_desc'] = ANCIENT_SHOP_END_KEY
+        data['t_desc'] = VALOR_SHOP_COSTUME_KEY
 		table.insert(l_item_list, data)
 	end
 
@@ -90,12 +91,13 @@ function UI_ShopTab:init_TableView()
     end
 
     local function make_cb_func(data)
-        -- 고대주화 종료 안내
-        if (data['t_desc'] and data['t_desc'] == ANCIENT_SHOP_END_KEY) then
+        -- 용맹훈장 코스튬 아이템 안내
+        if (data['t_desc'] and data['t_desc'] == VALOR_SHOP_COSTUME_KEY) then
             local ui = class(UI, ITableViewCell:getCloneTable())()
-	        local ui_vars = ui:load('shop_list_01_notice.ui')
-            -- 고대주화 종료 안내 (네이버 sdk 링크)
-            NaverCafeManager:setPluginInfoBtn(ui_vars['plugBtn'], ANCIENT_SHOP_END_KEY)
+	        local ui_vars = ui:load('shop_list_01_valor_costume.ui')
+            ui_vars['buyBtn']:setEnabled(false)
+            -- 용맹훈장 코스튬 아이템 안내 (네이버 sdk 링크)
+            -- NaverCafeManager:setPluginInfoBtn(ui_vars['plugBtn'], VALOR_SHOP_COSTUME_KEY)
             return ui
         else
             return ui_class(data)
@@ -104,8 +106,8 @@ function UI_ShopTab:init_TableView()
 
     -- 생성 콜백
 	local function create_cb_func(ui, data)
-        -- 고대주화 종료 안내
-        if (data['t_desc'] and data['t_desc'] == ANCIENT_SHOP_END_KEY) then
+        -- 용맹훈장 코스튬 아이템 안내
+        if (data['t_desc'] and data['t_desc'] == VALOR_SHOP_COSTUME_KEY) then
             return
         end
         ui:setBuyCB(self.m_cbBuy)
