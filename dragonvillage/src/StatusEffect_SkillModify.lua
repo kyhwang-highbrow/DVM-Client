@@ -27,7 +27,7 @@ function StatusEffect_SkillModify:initFromTable(t_status_effect, target_char)
         local str = t_status_effect['val_' .. i]
         if (str and str ~= '') then
             --cclog('val_' .. i .. ' : ' .. str)
-            local param = pl.stringx.split(str, ';')
+            local param = pl.stringx.split(tostring(str), ';')
             local l_skill_id = {}
 
             -- 첫번째 인자는 스킬 아이디 or table_dragon의 칼럼명(이 경우 테이블 참조해서 스킬 아이디를 가져옴)
