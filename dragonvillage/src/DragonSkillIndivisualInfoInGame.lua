@@ -64,6 +64,10 @@ function DragonSkillIndivisualInfoInGame:initRuntimeInfo()
             -- 고대룬 세트 효과인 경우
             self.m_timer = t_skill['chance_value']
 
+        elseif (t_skill['skill_type'] == 'skill_metamorphosis') then
+            -- 변신 스킬의 경우
+            self.m_timer = t_skill['chance_value']
+
         else
             -- indie_time 타입의 스킬은 해당 값만큼 먼저 기다리도록 초기값 설정
             self.m_timer = t_skill['chance_value'] * math_random(50, 100) / 100
