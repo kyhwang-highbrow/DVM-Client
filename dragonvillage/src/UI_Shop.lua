@@ -6,7 +6,7 @@ local PARENT = class(UI, ITopUserInfo_EventListener:getCloneTable(), ITabUI:getC
 UI_Shop = class(PARENT, {
      })
 
-local IS_OPEN_VALOR_SHOP = true -- 용맹 훈장 상점 노출 여부 (임시)
+local IS_OPEN_VALOR_SHOP = false -- 용맹 훈장 상점 노출 여부 (임시)
 -------------------------------------
 -- function init
 -------------------------------------
