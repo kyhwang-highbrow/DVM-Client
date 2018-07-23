@@ -1165,6 +1165,12 @@ function SceneGame:startIngameScenario(scenario_type, cb_func)
     if scenario_name then
         local ui = g_scenarioViewingHistory:playScenario(scenario_name)
         if ui then
+			
+			-- 자동 전투 중 시나리오 플레이된다면 해제시켜줌
+			if (g_autoPlaySetting:isAutoPlay()) then
+				self.m_inGameUI:click_autoStartButton()
+			end
+
             self.m_containerLayer:setVisible(false)
             ui:setCloseCB(start)
             ui:next()
