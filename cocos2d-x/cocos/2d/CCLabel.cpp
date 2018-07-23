@@ -255,8 +255,6 @@ Label::Label(FontAtlas *atlas /* = nullptr */, TextHAlignment hAlignment /* = Te
 , _labelWidth(0)
 , _labelHeight(0)
 , _labelDimensions(Size::ZERO)
-, _hAlignment(hAlignment)
-, _vAlignment(vAlignment)
 , _horizontalKernings(nullptr)
 , _additionalKerning(0.0f)
 , _fontAtlas(atlas)
@@ -285,6 +283,8 @@ Label::Label(FontAtlas *atlas /* = nullptr */, TextHAlignment hAlignment /* = Te
 {
     setAnchorPoint(Vec2::ANCHOR_MIDDLE);
     reset();
+    _hAlignment = hAlignment;
+    _vAlignment = vAlignment;
 
 #if CC_ENABLE_CACHE_TEXTURE_DATA
     auto toBackgroundListener = EventListenerCustom::create(EVENT_COME_TO_BACKGROUND, [this](EventCustom* event){
@@ -297,41 +297,61 @@ Label::Label(FontAtlas *atlas /* = nullptr */, TextHAlignment hAlignment /* = Te
     });
     _eventDispatcher->addEventListenerWithSceneGraphPriority(toBackgroundListener, this);
 #endif
-    auto purgeTextureListener = EventListenerCustom::create(FontAtlas::EVENT_PURGE_TEXTURES, [this](EventCustom* event){
+
+    _purgeTextureListener = EventListenerCustom::create(FontAtlas::CMD_PURGE_FONTATLAS, [this](EventCustom* event){
         if (_fontAtlas && _currentLabelType == LabelType::TTF && event->getUserData() == _fontAtlas)
         {
-            alignText();
+            if (_fontAtlas)
+            {
+                _batchNodes.clear();
+                _batchNodes.push_back(this);
+                FontAtlasCache::releaseFontAtlas(_fontAtlas);
+            }
         }
     });
-    _eventDispatcher->addEventListenerWithSceneGraphPriority(purgeTextureListener, this);
+    _eventDispatcher->addEventListenerWithFixedPriority(_purgeTextureListener, 1);
+
+    _resetTextureListener = EventListenerCustom::create(FontAtlas::CMD_RESET_FONTATLAS, [this](EventCustom* event){
+        if (_fontAtlas && _currentLabelType == LabelType::TTF && event->getUserData() == _fontAtlas)
+        {
+            _fontAtlas = nullptr;
+
+            this->setTTFConfig(_fontConfig);
+
+            updateContent();
+        }
+    });
+    _eventDispatcher->addEventListenerWithFixedPriority(_resetTextureListener, 2);
 }
 
 Label::~Label()
 {
-    delete [] _horizontalKernings;
+    delete[] _horizontalKernings;
 
     if (_fontAtlas)
     {
+        Node::removeAllChildrenWithCleanup(true);    
+        CC_SAFE_RELEASE_NULL(_reusedLetter);
+        _batchNodes.clear();
         FontAtlasCache::releaseFontAtlas(_fontAtlas);
     }
+    _eventDispatcher->removeEventListener(_purgeTextureListener);
+    _eventDispatcher->removeEventListener(_resetTextureListener);
+
+    _textSprite = nullptr;
+    _shadowNode = nullptr;
 
     deleteCustomStroke();
-
-    CC_SAFE_RELEASE_NULL(_reusedLetter);
 }
 
 void Label::reset()
 {
-    TTFConfig temp;
-    _fontConfig = temp;
-
-    _systemFontDirty = false;
-    _systemFont = "Helvetica";
-    _systemFontSize = 12;
-
+    Node::removeAllChildrenWithCleanup(true);
+    _textSprite = nullptr;
+    _shadowNode = nullptr;
+    CC_SAFE_RELEASE_NULL(_reusedLetter);
     _batchNodes.clear();
     _batchNodes.push_back(this);
-
     if (_fontAtlas)
     {
         FontAtlasCache::releaseFontAtlas(_fontAtlas);
@@ -340,21 +360,48 @@ void Label::reset()
 
     _currentLabelType = LabelType::STRING_TEXTURE;
     _currLabelEffect = LabelEffect::NORMAL;
-    _shadowBlurRadius = 0;
+    _contentDirty = false;
+    _currNumLines = 0;
+    _currentUTF16String.clear();
+    _originalUTF8String.clear();
+    
+    TTFConfig temp;
+    _fontConfig = temp;
+    _systemFontDirty = false;
+    _systemFont = "Helvetica";
+    _systemFontSize = 12;
+    
+    if (_horizontalKernings)
+    {
+        delete[] _horizontalKernings;
+        _horizontalKernings = nullptr;
+    }
 
-    Node::removeAllChildrenWithCleanup(true);
-    _textSprite = nullptr;
-    _shadowNode = nullptr;
-
-    CC_SAFE_RELEASE_NULL(_reusedLetter);
+    _additionalKerning = 0.f;
+    _commonLineHeight = 0.f;
+    _maxLineWidth = 0.f;
+    _labelDimensions.width = 0.f;
+    _labelDimensions.height = 0.f;
+    _labelWidth = 0.f;
+    _labelHeight = 0.f;
+    _lineBreakWithoutSpaces = false;
+    _hAlignment = TextHAlignment::LEFT;
+    _vAlignment = TextVAlignment::TOP;
 
     _textColor = Color4B::WHITE;
     _textColorF = Color4F::WHITE;
     setColor(Color3B::WHITE);
 
+    _shadowDirty = false;
     _shadowEnabled = false;
+    _shadowBlurRadius = 0;
+
     _clipEnabled = false;
     _blendFuncDirty = false;
+
+    deleteCustomStroke();
+    _strokeType = StrokeType::NORMAL;
+    _strokeSize = 0.f;
 }
 
 void Label::updateShaderProgram()
@@ -390,16 +437,18 @@ void Label::updateShaderProgram()
 
 void Label::setFontAtlas(FontAtlas* atlas,bool distanceFieldEnabled /* = false */, bool useA8Shader /* = false */)
 {
-    if (atlas == _fontAtlas)
-    {
-        FontAtlasCache::releaseFontAtlas(atlas);
-        return;
-    }
+    if (atlas)
+        _systemFontDirty = false;
 
+    if (atlas == _fontAtlas)
+        return;
+
+    CC_SAFE_RETAIN(atlas);
     if (_fontAtlas)
     {
+        _batchNodes.clear();
+        _batchNodes.push_back(this);
         FontAtlasCache::releaseFontAtlas(_fontAtlas);
-        _fontAtlas = nullptr;
     }
 
     _fontAtlas = atlas;
@@ -428,8 +477,8 @@ void Label::setFontAtlas(FontAtlas* atlas,bool distanceFieldEnabled /* = false *
 
     if (_fontAtlas)
     {
-        _commonLineHeight = _fontAtlas->getCommonLineHeight();
-        _contentDirty = true;
+        setCommonLineHeight(_fontAtlas->getCommonLineHeight());
+        _systemFontDirty = false;
     }
     _useDistanceField = distanceFieldEnabled;
     _useA8Shader = useA8Shader;
@@ -1063,7 +1112,7 @@ void Label::updateFont()
     {
         _batchNodes.clear();
         _batchNodes.push_back(this);
-
+        CC_SAFE_RELEASE_NULL(_reusedLetter);
         FontAtlasCache::releaseFontAtlas(_fontAtlas);
         _fontAtlas = nullptr;
     }
@@ -1236,6 +1285,15 @@ Sprite * Label::getLetter(int letterIndex)
 int Label::getCommonLineHeight() const
 {
     return _textSprite ? 0 : _commonLineHeight;
+}
+
+void Label::setCommonLineHeight(float height)
+{
+    if (_commonLineHeight != height)
+    {
+        _commonLineHeight = height;
+        _contentDirty = true;
+    }
 }
 
 void Label::computeStringNumLines()

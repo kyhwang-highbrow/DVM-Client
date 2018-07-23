@@ -220,7 +220,8 @@ public:
     bool isClipMarginEnabled() const { return _clipEnabled; }
     // font related stuff
     int getCommonLineHeight() const;
-    
+    void setCommonLineHeight(float height);
+
     // string related stuff
     int getStringNumLines() const { return _currNumLines;}
     int getStringLength() const;
@@ -431,6 +432,12 @@ protected:
     int _strokeDetailLevel;
     Vec2 _strokeOriginPos;
     bool _isBlendEquation;
+
+    // createStringSprites 에서 발생하는 크래시를 수정하기 위하여
+    // v.3.17의 purge event 코드 merge함
+    // @mskim, 2018 07
+    EventListenerCustom* _purgeTextureListener;
+    EventListenerCustom* _resetTextureListener;
 
 private:
     CC_DISALLOW_COPY_AND_ASSIGN(Label);

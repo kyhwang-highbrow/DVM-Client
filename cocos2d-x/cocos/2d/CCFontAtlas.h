@@ -38,6 +38,7 @@ class Font;
 class Texture2D;
 class EventCustom;
 class EventListenerCustom;
+class FontFreeType;
 
 struct FontLetterDefinition
 {
@@ -74,7 +75,9 @@ class CC_DLL FontAtlas : public Ref
 public:
     static const int CacheTextureWidth;
     static const int CacheTextureHeight;
-    static const char* EVENT_PURGE_TEXTURES;
+    static const char* CMD_PURGE_FONTATLAS;
+    static const char* CMD_RESET_FONTATLAS;
+
     /**
      * @js ctor
      */
@@ -125,13 +128,15 @@ public:
      */
      void setAliasTexParameters();
 
-private:
-
-    void relaseTextures();
+protected:
+    void reset();
+    void reinit();
+    void releaseTextures();
     std::unordered_map<ssize_t, Texture2D*> _atlasTextures;
     std::unordered_map<unsigned short, FontLetterDefinition> _fontLetterDefinitions;
     float _commonLineHeight;
     Font * _font;
+    FontFreeType* _fontFreeType;
 
     // Dynamic GlyphCollection related stuff
     int _currentPage;
