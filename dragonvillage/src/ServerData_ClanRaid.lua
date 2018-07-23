@@ -176,7 +176,11 @@ function ServerData_ClanRaid:getClanRaidStatusText()
     local str = ''
     if (not self:isOpenClanRaid()) then
         local time = (start_time - curr_time)
-        str = Str('{1} 남았습니다.', datetime.makeTimeDesc(time, true))
+        if (time < 0) then
+            str = Str('오픈시간이 아닙니다.')
+        else
+            str = Str('{1} 남았습니다.', datetime.makeTimeDesc(time, true))
+        end
 
     elseif (curr_time < start_time) then
         local time = (start_time - curr_time)
