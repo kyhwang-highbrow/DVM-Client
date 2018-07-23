@@ -503,7 +503,7 @@ function GameAuto:getRandomSkill()
     local l_temp = {}
 
     for i, unit in ipairs(self.m_lUnitList) do
-        if (unit:isPossibleActiveSkill()) then
+        if (unit:isDragon() and unit:isPossibleActiveSkill()) then
             table.insert(l_temp, unit)
 
             if (not self.m_mUsedCount[unit]) then
