@@ -186,10 +186,7 @@ function UI_DragonSkillEnhance:refresh()
     self:refresh_dragonSkillMoveTableView()
 
     -- 스킬 슬라임 상점 버튼 갱신
-	-- self.vars['skillSlimShopBtn']:setVisible(self.m_selectDragonData:getRarity() == 'legend')
-
-    -- 월요일 업데이트에는 노출하지 않음
-    self.vars['skillSlimShopBtn']:setVisible(false)
+	self.vars['skillSlimShopBtn']:setVisible(self.m_selectDragonData:getRarity() == 'legend')
 end
 
 -------------------------------------

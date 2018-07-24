@@ -6,7 +6,6 @@ local PARENT = class(UI, ITopUserInfo_EventListener:getCloneTable(), ITabUI:getC
 UI_Shop = class(PARENT, {
      })
 
-local IS_OPEN_VALOR_SHOP = false -- 용맹 훈장 상점 노출 여부 (임시)
 -------------------------------------
 -- function init
 -------------------------------------
@@ -54,27 +53,11 @@ end
 -------------------------------------
 function UI_Shop:initTab()
     local vars = self.vars
-    if IS_OPEN_VALOR_SHOP then
-        local l_shop = {'st', 'gold', 'cash', 'amethyst', 'topaz', 'mileage', 'honor', 'valor', 'clancoin'}
-        for _, tab in pairs(l_shop) do
-            self:addTabWithTabUIAuto(tab, vars, UI_ShopTab(self, tab))
-        end
-    else
-        local l_shop = {'st', 'gold', 'cash', 'amethyst', 'topaz', 'mileage', 'honor', 'clancoin'}
-        for _, tab in pairs(l_shop) do
-            self:addTabWithTabUIAuto(tab, vars, UI_ShopTab(self, tab))
-        end
-
-        -- 용맹 훈장 상점 노출X - 임시로 처리
-        vars['valorTabBtn']:setVisible(false)
-        local l_repos = {'amethyst', 'clancoin', 'st', 'gold'}
-        for _, tab in pairs(l_repos) do
-            local btn = vars[tab..'TabBtn']
-            local ori_y = btn:getPositionY()
-            btn:setPositionY(ori_y + 60)
-        end
+    local l_shop = {'st', 'gold', 'cash', 'amethyst', 'topaz', 'mileage', 'honor', 'valor', 'clancoin'}
+    for _, tab in pairs(l_shop) do
+        self:addTabWithTabUIAuto(tab, vars, UI_ShopTab(self, tab))
     end
-    
+ 
     self:setTab('cash')
 end
 
