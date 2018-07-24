@@ -546,7 +546,7 @@ function GameAuto:printInfo()
 
     cclog('## SKILL COUNT PER PRIORITY ##')
     for i = 1, 4 do
-        local list = self.m_lUnitListPerPriority[i]
+        local list = self.m_lSkillInfoListPerPriority[i]
         local count = (list and #list or 0)
         cclog(string.format('- %d : %d', i, count))
     end
