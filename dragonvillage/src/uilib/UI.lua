@@ -475,6 +475,13 @@ function UI:setOpacityChildren(b)
 end
 
 -------------------------------------
+-- function setVisible
+-------------------------------------
+function UI:setVisible(b)
+    self.root:setVisible(b)
+end
+
+-------------------------------------
 -- function initUI
 -- @brief 순수가상함수
 -------------------------------------

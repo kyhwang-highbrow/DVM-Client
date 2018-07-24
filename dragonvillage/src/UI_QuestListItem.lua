@@ -168,6 +168,7 @@ end
 -- function click_rewardBtn
 -------------------------------------
 function UI_QuestListItem:click_rewardBtn(ui_quest_popup)
+	ui_quest_popup:setBlock(true)
 	local cb_function = function(t_quest_data)
 		-- 우편함으로 전송
 		local toast_msg = Str('보상이 우편함으로 전송되었습니다.')
@@ -181,6 +182,7 @@ function UI_QuestListItem:click_rewardBtn(ui_quest_popup)
 		-- 갱신
 		self:refresh(t_quest_data)
 		ui_quest_popup:refresh(t_quest_data)
+		ui_quest_popup:setBlock(false)
 	end
 
 	g_questData:requestQuestReward(self.m_questData, cb_function)

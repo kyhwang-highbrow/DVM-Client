@@ -6,6 +6,7 @@ local PARENT = class(UI, ITopUserInfo_EventListener:getCloneTable(), ITabUI:getC
 UI_QuestPopup = class(PARENT, {
         m_tableView = 'UIC_TableView',
         m_allClearQuestCell = 'UI_QuestListItem',
+		m_blockUI = 'UI_BlockPopup',
     })
 
 -------------------------------------
@@ -47,6 +48,10 @@ end
 -- function initUI
 -------------------------------------
 function UI_QuestPopup:initUI()
+	-- block UI
+	self.m_blockUI = UI_BlockPopup()
+	self.m_blockUI:setVisible(false)
+	g_currScene:removeBackKeyListener(self.m_blockUI)
 end
 
 -------------------------------------
@@ -215,6 +220,13 @@ function UI_QuestPopup:cellCreateCB(ui, data)
 		ui:click_questLinkBtn(self)
 	end
 	ui.vars['questLinkBtn']:registerScriptTapHandler(click_questLinkBtn)
+end
+
+-------------------------------------
+-- function setBlock
+-------------------------------------
+function UI_QuestPopup:setBlock(b)
+    self.m_blockUI:setVisible(b)
 end
 
 --@CHECK
