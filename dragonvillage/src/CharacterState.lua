@@ -10,7 +10,7 @@ function Character:initState()
     
     self:addState('dying', Character.st_dying, 'idle', false, PRIORITY.DYING)
     self:addState('dead', Character.st_dead, nil, nil, PRIORITY.DEAD)
-    self:addState('revive', Character.st_revive, 'pose_1', false)
+    self:addState('revive', Character.st_revive, 'idle', false)
 
     self:addState('delegate', Character.st_delegate, 'idle', true)
     self:addState('wait', Character.st_wait, 'idle', true)
@@ -105,9 +105,7 @@ function Character.st_revive(owner, dt)
             owner.m_animator:runAction(cc.FadeTo:create(0.5, 255))
         end
         
-        owner:addAniHandler(function()
-            owner:changeState('attackDelay')
-        end)
+        owner:changeState('attackDelay')
     end
 end
 
