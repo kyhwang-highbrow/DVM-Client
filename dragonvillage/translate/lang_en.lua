@@ -1,5 +1,5 @@
 return {['보상 15개\n(입장권 사용 시)']='Reward X15\n(Upon ticket usage)',
-['보스를 직접 처치한 클랜원은 골드 100,000개와 클랜코인 3개가 추가 지급되며, 입장권 사용으로 처치 시 ★5 랭크 보상이 주어집니다.']='Clan member who defeated the boss will get extra 100,000 Gold and 3 Clan Coins. If a ticket has been used to defeat the boss, a ★5 rank reward will be given.',
+['보스를 직접 처치한 클랜원은 골드 100,000개와 클랜코인 3개가 추가 지급되며,\n입장권 사용으로 처치 시 ★5 랭크 보상이 주어집니다.']='Clan member who defeated the boss will get extra 100,000 Gold and 3 Clan Coins.\nIf a ticket has been used to defeat the boss, a ★5 rank reward will be given.',
 ['용맹 코스튬 세트']='Valor Costume Set',
 ['절대적인 전설의 알, 신화의 알, 초월의 알, 환상의 알에서 획득 할 수 있습니다.']='Can be acquired from Absolute Legendary Eggs, Mythical Eggs, Eternal Eggs, and Fantasy Eggs.',
 ['최강의 테이머에게 주어지는\n특별 코스튬 세트']='A special costume set\nonly for the best tamers',
