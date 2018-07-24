@@ -468,11 +468,6 @@ void Label::setFontAtlas(FontAtlas* atlas,bool distanceFieldEnabled /* = false *
         _reusedLetter->setOpacityModifyRGB(_isOpacityModifyRGB);            
         _reusedLetter->retain();
         _reusedLetter->setAnchorPoint(Vec2::ANCHOR_TOP_LEFT);
-        _reusedLetter->setBatchNode(this);
-    }
-    else
-    {
-        _reusedLetter->setTexture(_fontAtlas->getTexture(0));
     }
 
     if (_fontAtlas)
@@ -663,18 +658,30 @@ void Label::alignText()
         batchNode->getTextureAtlas()->removeAllQuads();
     }
     _fontAtlas->prepareLetterDefinitions(_currentUTF16String);
-    auto textures = _fontAtlas->getTextures();
-    if (textures.size() > _batchNodes.size())
+    auto& textures = _fontAtlas->getTextures();
+    auto size = textures.size();
+    if (size > static_cast<size_t>(_batchNodes.size()))
     {
-        for (auto index = _batchNodes.size(); index < textures.size(); ++index)
+        for (auto index = static_cast<size_t>(_batchNodes.size()); index < size; ++index)
         {
-            auto batchNode = SpriteBatchNode::createWithTexture(textures[index]);
-            batchNode->setAnchorPoint(Vec2::ANCHOR_TOP_LEFT);
-            batchNode->setPosition(Vec2::ZERO);
-            Node::addChild(batchNode,0,Node::INVALID_TAG);
-            _batchNodes.push_back(batchNode);
+            auto batchNode = SpriteBatchNode::createWithTexture(textures.at(index));
+            if (batchNode)
+            {
+                _isOpacityModifyRGB = batchNode->getTexture()->hasPremultipliedAlpha();
+                batchNode->setAnchorPoint(Vec2::ANCHOR_TOP_LEFT);
+                batchNode->setPosition(Vec2::ZERO);
+                Node::addChild(batchNode, 0, Node::INVALID_TAG);
+                _batchNodes.push_back(batchNode);
+            }
         }
     }
+    if (_batchNodes.empty())
+    {
+        return;
+    }
+
+    _reusedLetter->setBatchNode(_batchNodes.at(0));
+
     LabelTextFormatter::createStringSprites(this);
 
     _stringWidth = _contentSize.width;
@@ -704,7 +711,7 @@ void Label::alignText()
                 uvRect.origin.x    = _lettersInfo[tag].def.U;
                 uvRect.origin.y    = _lettersInfo[tag].def.V;
 
-                letterSprite->setTexture(textures[_lettersInfo[tag].def.textureID]);
+                letterSprite->setTexture(textures.at(_lettersInfo[tag].def.textureID));
                 letterSprite->setTextureRect(uvRect);
             }          
         }
