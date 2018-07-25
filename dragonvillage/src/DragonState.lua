@@ -260,11 +260,6 @@ end
 -- @return boolean
 -------------------------------------
 function Dragon:changeState(state, forced)
-    -- 승리 모션 중일 경우는 상태전환을 막음
-    if (isExistValue(state, 'success_pose', 'success_move')) then
-        return false
-    end
-
     if (self.m_bWaitState) then
         if (not isExistValue(state, 'dying', 'dead')) then
             return PARENT.changeState(self, 'wait', true)
