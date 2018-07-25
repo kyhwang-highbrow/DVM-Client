@@ -3,6 +3,7 @@ return {['보상 15개\n(입장권 사용 시)']='Reward X15\n(Upon ticket usage
 ['용맹 코스튬 세트']='Valor Costume Set',
 ['절대적인 전설의 알, 신화의 알, 초월의 알, 환상의 알에서 획득 할 수 있습니다.']='Can be acquired from Absolute Legendary Eggs, Mythical Eggs, Eternal Eggs, and Fantasy Eggs.',
 ['최강의 테이머에게 주어지는\n특별 코스튬 세트']='A special costume set\nonly for the best tamers',
+['긍지높은 일족']='Pride High Clan',
 [' 빛의 거목']='Massive Light Tree',
 ['\"{1}\" 진행하시겠습니까?']='{1} Continue?',
 ['\"언어 설정\"은 준비 중입니다.']='“Languages” is currently in preparation.',
