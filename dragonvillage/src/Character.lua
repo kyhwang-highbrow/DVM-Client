@@ -1312,21 +1312,32 @@ function Character:doRevive(heal, caster, is_abs)
     self.m_bDead = false
     self.m_resurrect = false
 
-    if (is_abs) then
-        self:healAbs(caster, heal, true, true)
-    else
-        self:healPercent(caster, heal, true, true)
-    end
-    
-    self.m_hpNode:setVisible(true)
-
-    self:changeState('revive', true)
-
+    -- 유닛 리스트에 재등록
     if (self.m_bLeftFormation) then
         self.m_world:addHero(self)
     else
         self.m_world:addEnemy(self)
     end
+
+    -- 체력 회복
+    if (is_abs) then
+        self:healAbs(caster, heal, true, true)
+    else
+        self:healPercent(caster, heal, true, true)
+    end
+      
+    -- 이미지 표시
+    if (self.m_animator) then
+        self.m_animator:setRotation(90)
+        self.m_animator:runAction(cc.FadeTo:create(0.5, 255))
+    end
+    self.m_hpNode:setVisible(true)
+
+    -- 홈 위치로 즉시 이동시킴
+    self:setPosition(self.m_homePosX, self.m_homePosY)
+
+    -- 공격 상태로 전환
+    self:changeState('attackDelay', true)
 
     self:dispatch('character_revive', {}, self)
 
