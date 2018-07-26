@@ -142,6 +142,11 @@ function UI_Arena:initButton()
     vars['startBtn']:registerScriptTapHandler(function() self:click_startBtn() end)
     vars['rewardInfoBtn']:registerScriptTapHandler(function() self:click_rewardInfoBtn() end)
     vars['rankDetailBtn']:registerScriptTapHandler(function() self:click_rankDetailBtn() end)
+	
+	do
+		vars['valorShopBtn']:registerScriptTapHandler(function() self:click_valorShopBtn() end)
+		vars['valorShopLabel']:setString(Str('용맹훈장') .. '\n' .. Str('상점'))
+	end
 
     -- 콜로세움 안내 (네이버 sdk 링크)
     NaverCafeManager:setPluginInfoBtn(vars['plugInfoBtn'], 'arena_help')
@@ -241,6 +246,13 @@ function UI_Arena:click_testModeBtn()
     end
 
     UI_ColosseumReadyForDev()
+end
+
+-------------------------------------
+-- function click_valorShopBtn
+-------------------------------------
+function UI_Arena:click_valorShopBtn()
+	 UINavigator:goTo('shop', 'valor')
 end
 
 -------------------------------------

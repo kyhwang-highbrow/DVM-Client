@@ -164,14 +164,20 @@ end
 -- @usage UINavigatorDefinition:goTo('shop')
 -------------------------------------
 function UINavigatorDefinition:goTo_shop(...)
+    local args = {...}
+    local tab_name = args[1]
+
     -- 해당 UI가 열려있을 경우
     local is_opend, idx, ui = self:findOpendUI('UI_Shop')
     if (is_opend == true) then
         self:closeUIList(idx)
+		if tab_name then
+            ui:setTab(tab_name)
+        end
         return
     end
 
-    g_shopDataNew:openShopPopup()
+    g_shopDataNew:openShopPopup(tab_name)
 end
 
 -------------------------------------
