@@ -64,6 +64,27 @@ function UI_ClanInfoDetailPopup:initUI()
 
     self:initTab()
 
+    -- 스크롤 가능하게 공지 라벨 생성
+    do
+        -- rich_label 생성
+        local node = vars['scrollNode']
+        local node_size = node:getContentSize()
+
+	    local rich_label = UIC_RichLabel()
+	    rich_label:setDimension(node_size['width'], node_size['height'])
+	    rich_label:setFontSize(24)
+	    rich_label:setAlignment(cc.TEXT_ALIGNMENT_LEFT, cc.VERTICAL_TEXT_ALIGNMENT_TOP)
+	    rich_label:enableOutline(cc.c4b(0, 0, 0, 127), 1.5)
+        rich_label:setDefualtColor(COLOR['white'])
+
+	    -- scroll label  생성
+	    local scroll_label = UIC_ScrollLabel:create(rich_label)
+	    scroll_label:setDockPoint(cc.p(0, 1))
+	    scroll_label:setAnchorPoint(cc.p(0, 1))
+        node:addChild(scroll_label.m_node)
+        self.vars['clanNoticeLabel'] = scroll_label
+    end
+
     vars['raidBtn']:setVisible(false) -- 클랜던전 버튼 숨김
     vars['noticeBtn']:setVisible(false) -- 공지사항 작성 버튼 숨김
     vars['boardBtn']:setVisible(false) -- 게시판 작성 버튼 숨김
