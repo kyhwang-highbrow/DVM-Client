@@ -255,6 +255,29 @@ function UI_TopUserInfo:setEnabledBraodCast(enable)
 end
 
 -------------------------------------
+-- function checkSubCurrencyPosition
+-- @brief 같은 서브 재화 UI 위치가 바뀌는 경우 삭제 (visible off X)
+-------------------------------------
+function UI_TopUserInfo:checkSubCurrencyPosition(mode, goods_type)
+    if (not mode) or (not goods_type) then
+        return
+    end
+
+    local check_tar_currency 
+    if (mode == 'sub_currency_1') then
+        check_tar_currency = self.m_mAddedSubCurrency_2
+
+    elseif (mode == 'sub_currency_2') then
+        check_tar_currency = self.m_mAddedSubCurrency
+    end
+
+    if (check_tar_currency) and (check_tar_currency[goods_type])then
+        check_tar_currency[goods_type] = nil
+        self:deleteGoodsUI(goods_type)
+    end
+end
+
+-------------------------------------
 -- function setSubCurrency
 -------------------------------------
 function UI_TopUserInfo:setSubCurrency(subCurrency)
@@ -263,6 +286,7 @@ function UI_TopUserInfo:setSubCurrency(subCurrency)
     end
 
     local goods_type = subCurrency
+    self:checkSubCurrencyPosition('sub_currency_1', goods_type)
 
     -- 해당 타입의 ui가 생성되지 않았을 경우 생성
     if (not self.m_mGoodsInfo[goods_type]) then
@@ -285,6 +309,7 @@ function UI_TopUserInfo:setAddSubCurrency(subCurrency)
     end
 
     local goods_type = subCurrency
+    self:checkSubCurrencyPosition('sub_currency_2', goods_type)
 
     -- 추가 서브재화는 항상 있는게 아니므로 subCurrency가 ''이면 비지블 꺼줌
     if subCurrency == '' then
