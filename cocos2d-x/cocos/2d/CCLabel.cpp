@@ -265,6 +265,7 @@ Label::Label(FontAtlas *atlas /* = nullptr */, TextHAlignment hAlignment /* = Te
 , _uniformEffectColor(0)
 , _currNumLines(-1)
 , _textSprite(nullptr)
+, _shadowNode(nullptr)
 , _contentDirty(false)
 , _shadowDirty(false)
 , _compatibleMode(false)
@@ -301,12 +302,9 @@ Label::Label(FontAtlas *atlas /* = nullptr */, TextHAlignment hAlignment /* = Te
     _purgeTextureListener = EventListenerCustom::create(FontAtlas::CMD_PURGE_FONTATLAS, [this](EventCustom* event){
         if (_fontAtlas && _currentLabelType == LabelType::TTF && event->getUserData() == _fontAtlas)
         {
-            if (_fontAtlas)
-            {
-                _batchNodes.clear();
-                _batchNodes.push_back(this);
-                FontAtlasCache::releaseFontAtlas(_fontAtlas);
-            }
+            _batchNodes.clear();
+            _batchNodes.push_back(this);
+            FontAtlasCache::releaseFontAtlas(_fontAtlas);
         }
     });
     _eventDispatcher->addEventListenerWithFixedPriority(_purgeTextureListener, 1);
@@ -315,9 +313,7 @@ Label::Label(FontAtlas *atlas /* = nullptr */, TextHAlignment hAlignment /* = Te
         if (_fontAtlas && _currentLabelType == LabelType::TTF && event->getUserData() == _fontAtlas)
         {
             _fontAtlas = nullptr;
-
             this->setTTFConfig(_fontConfig);
-
             updateContent();
         }
     });
@@ -338,17 +334,17 @@ Label::~Label()
     _eventDispatcher->removeEventListener(_purgeTextureListener);
     _eventDispatcher->removeEventListener(_resetTextureListener);
 
-    _textSprite = nullptr;
-    _shadowNode = nullptr;
+    CC_SAFE_RELEASE_NULL(_textSprite);
+    CC_SAFE_RELEASE_NULL(_shadowNode);
 
     deleteCustomStroke();
 }
 
 void Label::reset()
 {
+    CC_SAFE_RELEASE_NULL(_textSprite);
+    CC_SAFE_RELEASE_NULL(_shadowNode);
     Node::removeAllChildrenWithCleanup(true);
-    _textSprite = nullptr;
-    _shadowNode = nullptr;
     CC_SAFE_RELEASE_NULL(_reusedLetter);
     _batchNodes.clear();
     _batchNodes.push_back(this);
@@ -464,7 +460,7 @@ void Label::setFontAtlas(FontAtlas* atlas,bool distanceFieldEnabled /* = false *
 
     if (_reusedLetter == nullptr)
     {
-        _reusedLetter = Sprite::createWithTexture(_fontAtlas->getTexture(0));
+        _reusedLetter = Sprite::create();
         _reusedLetter->setOpacityModifyRGB(_isOpacityModifyRGB);            
         _reusedLetter->retain();
         _reusedLetter->setAnchorPoint(Vec2::ANCHOR_TOP_LEFT);
@@ -890,12 +886,7 @@ void Label::disableEffect()
     updateShaderProgram();
     _contentDirty = true;
     _shadowEnabled = false;
-    if (_shadowNode)
-    {
-        Node::removeChild(_shadowNode,true);
-        _shadowNode = nullptr;
-    }
-
+    CC_SAFE_RELEASE_NULL(_shadowNode);
     if (isCustomStrokeActivated())
     {
         deleteCustomStroke();
@@ -1011,8 +1002,7 @@ void Label::createSpriteWithFontDefinition()
         _textSprite->setBlendFunc(_blendFunc);
     }
 
-    Node::addChild(_textSprite,0,Node::INVALID_TAG);
-
+    _textSprite->retain();
     _textSprite->updateDisplayedColor(_displayedColor);
     _textSprite->updateDisplayedOpacity(_displayedOpacity);
 }
@@ -1049,16 +1039,8 @@ void Label::updateContent()
         computeHorizontalKernings(_currentUTF16String);
     }
 
-    if (_textSprite)
-    {
-        Node::removeChild(_textSprite,true);
-        _textSprite = nullptr;
-        if (_shadowNode)
-        {
-            Node::removeChild(_shadowNode,true);
-            _shadowNode = nullptr;
-        }
-    }
+    CC_SAFE_RELEASE_NULL(_textSprite);
+    CC_SAFE_RELEASE_NULL(_shadowNode);
 
     if (_fontAtlas)
     {
@@ -1148,7 +1130,8 @@ void Label::drawTextSprite(Renderer *renderer, bool parentTransformUpdated)
             _shadowNode->setColor(_shadowColor);
             _shadowNode->setOpacity(_shadowOpacity * _displayedOpacity);
             _shadowNode->setPosition(_shadowOffset.width, _shadowOffset.height);
-            Node::addChild(_shadowNode,0,Node::INVALID_TAG);
+
+            _shadowNode->retain();
         }
     }
     if (_shadowNode)

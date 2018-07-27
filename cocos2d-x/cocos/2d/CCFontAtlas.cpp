@@ -85,6 +85,8 @@ void FontAtlas::reinit()
         _currentPageData = nullptr;
     }
 
+    auto texture = new (std::nothrow) Texture2D;
+
     _currentPageDataSize = CacheTextureWidth * CacheTextureHeight;
 
     auto outlineSize = _fontFreeType->getOutlineSize();
@@ -97,8 +99,8 @@ void FontAtlas::reinit()
     memset(_currentPageData, 0, _currentPageDataSize);
 
     auto pixelFormat = outlineSize > 0 ? Texture2D::PixelFormat::AI88 : Texture2D::PixelFormat::A8;
-    auto texture = new (std::nothrow) Texture2D;
     texture->initWithData(_currentPageData, _currentPageDataSize, pixelFormat, CacheTextureWidth, CacheTextureHeight, Size(CacheTextureWidth, CacheTextureHeight));
+
     addTexture(texture, 0);
     texture->release();
 }
