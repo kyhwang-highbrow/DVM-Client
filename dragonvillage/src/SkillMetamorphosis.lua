@@ -3,7 +3,9 @@ local PARENT = class(Skill, IStateDelegate:getCloneTable())
 -------------------------------------
 -- class SkillMetamorphosis
 -------------------------------------
-SkillMetamorphosis = class(PARENT, {})
+SkillMetamorphosis = class(PARENT, {
+    m_duration = 'number'
+})
 
 -------------------------------------
 -- function init
@@ -11,6 +13,7 @@ SkillMetamorphosis = class(PARENT, {})
 -- @param body
 -------------------------------------
 function SkillMetamorphosis:init(file_name, body, ...)
+    self.m_duration = 0
 end
 
 -------------------------------------
@@ -39,16 +42,14 @@ function SkillMetamorphosis.st_idle(owner, dt)
 	if (owner.m_stateTimer == 0) then
         if (dragon.m_animator) then
             dragon.m_animator:changeAni('change', false)
-            dragon:addAniHandler(function()
-                dragon:undergoMetamorphosis(not dragon.m_bMetamorphosis)
 
-                owner:changeState('dying')
-            end)
-        else
-            dragon:undergoMetamorphosis(not dragon.m_bMetamorphosis)
-
-            owner:changeState('dying')
+            owner.m_duration = dragon.m_animator:getDuration()
         end
+
+    elseif (owner.m_stateTimer > owner.m_duration) then
+        dragon:undergoMetamorphosis(not dragon.m_bMetamorphosis)
+
+        owner:changeState('dying')
 	end
 
     owner:setPosition(dragon.pos['x'], dragon.pos['y'])
