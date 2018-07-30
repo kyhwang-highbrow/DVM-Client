@@ -82,10 +82,7 @@ FontAtlas * FontAtlasCache::getFontAtlasTTF(const TTFConfig & config)
         }
     }
     else
-    {
-        _atlasMap[atlasName]->retain();
         return _atlasMap[atlasName];
-    }
 
     return nullptr;
 }
@@ -110,11 +107,8 @@ FontAtlas * FontAtlasCache::getFontAtlasFNT(const std::string& fontFileName, con
         }
     }
     else
-    {
-        _atlasMap[atlasName]->retain();
         return _atlasMap[atlasName];
-    }
-    
+
     return nullptr;
 }
 
@@ -138,10 +132,7 @@ FontAtlas * FontAtlasCache::getFontAtlasCharMap(const std::string& plistFile)
         }
     }
     else
-    {
-        _atlasMap[atlasName]->retain();
         return _atlasMap[atlasName];
-    }
 
     return nullptr;
 }
@@ -168,10 +159,7 @@ FontAtlas * FontAtlasCache::getFontAtlasCharMap(Texture2D* texture, int itemWidt
         }
     }
     else
-    {
-        _atlasMap[atlasName]->retain();
         return _atlasMap[atlasName];
-    }
 
     return nullptr;
 }
@@ -196,10 +184,7 @@ FontAtlas * FontAtlasCache::getFontAtlasCharMap(const std::string& charMapFile, 
         }
     }
     else
-    {
-        _atlasMap[atlasName]->retain();
         return _atlasMap[atlasName];
-    }
 
     return nullptr;
 }
