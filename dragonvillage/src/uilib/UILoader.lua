@@ -333,8 +333,13 @@ local function loadNode(ui, data, vars, parent, keep_z_order, use_sprite_frames)
         if (type == 'LabelSystemFont') then
             data.font_name = ''
         else
-            data.font_name = 'font/' .. Translate:getFontName()
-            --data.font_name = 'font/krlangs'
+			-- ui 파일에서 지정된 폰트 사용
+			if (data.ui_name == 'fontFix') then
+				
+			-- std 언어 이외는 font 변경
+			elseif (Translate:isNeedTranslate()) then
+				data.font_name = 'font/' .. Translate:getFontName()
+			end
         end
     end
 
