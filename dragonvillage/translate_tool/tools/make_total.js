@@ -12,7 +12,7 @@ if( isDebug )
     //tools/make_total.js test_onlyscenario 1s3m5A7rl4JHngXFknMd3MTkbf0vVaAIPoRx3GPHJvoo en;jp;zhtw 1
     sheetName = "test_onlyingame";
     spreadsheet_id = "1s3m5A7rl4JHngXFknMd3MTkbf0vVaAIPoRx3GPHJvoo";
-    localeList = "en;jp;zhtw";
+    localeList = "en;jp;zhtw;th";
     isScenario = false;
 }
 
