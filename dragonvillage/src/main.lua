@@ -190,9 +190,12 @@ local function main()
     stopwatch:stop()
     stopwatch:print()
         
+	-- fallback font 설정
+	cc.Label:setDefaultFallbackFontTTF('res/font/common_font_01.ttf', 'res/font/common_font_01_th.ttf')
     cc.Label:setDefaultFallbackFontTTF('res/font/common_font_01_ja.ttf', 'res/font/common_font_01.ttf')
-    cc.Label:setDefaultFallbackFontTTF('res/font/common_font_01_cn.ttf', 'res/font/common_font_01.ttf')
-    
+    cc.Label:setDefaultFallbackFontTTF('res/font/common_font_01_cn.ttc', 'res/font/common_font_01.ttf')
+    cc.Label:setDefaultFallbackFontTTF('res/font/common_font_01_th.ttf', 'res/font/common_font_01.ttf')
+
     if DV_SCENE_ACTIVE then
         SceneDV():runScene()
     else

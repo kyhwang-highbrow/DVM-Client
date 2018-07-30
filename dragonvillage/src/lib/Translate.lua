@@ -8,13 +8,14 @@ Translate = {
     m_gameLang = nil,
 }
 
+-- key는 영어 정식 명칭, value 는 ISO 639의 Alpha-2 표기를 따른다.
 local LANG = {
 	['KOREAN'] = 'ko',
 	['JAPANESE'] = 'ja',
 	['CHINESE'] = 'zh',
 	['ENGLISH'] = 'en',
-
-	['KOREAN_OLD'] = 'kr',
+	['THAI'] = 'th',
+	['SPANISH'] = 'es',
 }
 -------------------------------------
 -- function init
@@ -45,13 +46,6 @@ function Translate:init()
 		g_localData:setLang(self.m_gameLang)
 	end
 
-	-- @mskim 1/15일에만 동작 시킬 예정
-	-- 현재 한국 라이브 유저들의 설정 일괄 변환 의도
-	if (self.m_gameLang == LANG['KOREAN_OLD']) then
-		g_localData:setLang(LANG['KOREAN'])
-		self.m_gameLang = LANG['KOREAN']
-	end
-
 	-- 한국어가 아닌 경우 언어 모듈 로드
 	if (self.m_gameLang ~= self.m_stdLang) then
 		self:load(self.m_gameLang)
@@ -79,6 +73,12 @@ function Translate:load(lang)
 
 	elseif (lang == LANG['CHINESE']) then
         self.m_mLangMap = require 'translate/lang_zhtw'
+
+	elseif (lang == LANG['THAI']) then
+        self.m_mLangMap = require 'translate/lang_th'
+
+	elseif (lang == LANG['SPANISH']) then
+        self.m_mLangMap = require 'translate/lang_es'
 
 	-- 한국어는 m_mLangMap을 생성하지 않는다
 	elseif (lang == LANG['KOREAN']) then
@@ -236,7 +236,9 @@ function Translate:getLangStrTable()
 		['ko'] = '한국어', 
 		['en'] = 'English', 
 		['ja'] = '日本語', 
-		['zh'] = '中文(繁體)'
+		['zh'] = '中文(繁體)',
+		['th'] = 'ภาษาไทย',
+		['es'] = 'español',
 	}
 end
 
@@ -251,6 +253,8 @@ function Translate:getFontName()
         ret = 'common_font_01_ja.ttf'
     elseif (game_lang == LANG['CHINESE']) then
         ret = 'common_font_01_cn.ttc'
+	elseif (game_lang == LANG['THAI']) then
+        ret = 'common_font_01_th.ttf'
     end
 
     return ret
@@ -276,6 +280,8 @@ function Translate:getFontScaleRate()
     elseif (game_lang == LANG['CHINESE']) then
         retX = 0.88
         retY = 0.98
+	elseif (game_lang == LANG['THAI']) then
+        retX = 0.88
     end
 
     return retX, retY
