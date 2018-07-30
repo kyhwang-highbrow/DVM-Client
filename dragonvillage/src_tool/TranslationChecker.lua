@@ -25,6 +25,9 @@ function TranslationChecker:run(target_path)
     print ('## try to load chinese(taiwan) lua ...')
     require '../translate/lang_zhtw'
 
+    print ('## try to load thai lua ...')
+    require '../translate/lang_th'
+
     print ('## perfect !')
 end
 
