@@ -4,6 +4,7 @@ local PARENT = class(Skill, IStateDelegate:getCloneTable())
 -- class SkillMetamorphosis
 -------------------------------------
 SkillMetamorphosis = class(PARENT, {
+    m_bUseMetamorphosis = 'boolean',
     m_duration = 'number'
 })
 
@@ -13,6 +14,7 @@ SkillMetamorphosis = class(PARENT, {
 -- @param body
 -------------------------------------
 function SkillMetamorphosis:init(file_name, body, ...)
+    self.m_bUseMetamorphosis = false
     self.m_duration = 0
 end
 
@@ -34,6 +36,20 @@ function SkillMetamorphosis:initState()
 end
 
 -------------------------------------
+-- function update
+-------------------------------------
+function SkillMetamorphosis:update(dt)
+    -- 스킬 멈춤 여부 체크
+    if (self.m_state ~= 'dying') then
+	    if (self.m_owner:checkToStopSkill()) then
+            self:changeState('dying', true)
+        end
+    end
+
+    return PARENT.update(self, dt)
+end
+
+-------------------------------------
 -- function st_idle
 -------------------------------------
 function SkillMetamorphosis.st_idle(owner, dt)
@@ -42,17 +58,38 @@ function SkillMetamorphosis.st_idle(owner, dt)
 	if (owner.m_stateTimer == 0) then
         if (dragon.m_animator) then
             dragon.m_animator:changeAni('change', false)
-
+            
             owner.m_duration = dragon.m_animator:getDuration()
         end
 
     elseif (owner.m_stateTimer > owner.m_duration) then
+        owner.m_bUseMetamorphosis = true
+
         dragon:undergoMetamorphosis(not dragon.m_bMetamorphosis)
+
+        if (dragon.m_animator) then
+            dragon.m_animator:changeAni('idle', true)
+        end
 
         owner:changeState('dying')
 	end
 
     owner:setPosition(dragon.pos['x'], dragon.pos['y'])
+end
+
+-------------------------------------
+-- function onDying
+-- @breif Skill class에 붙을 경우 st_dying 에서 자동으로 동작
+-------------------------------------
+function SkillMetamorphosis:onDying()
+    PARENT.onDying(self)
+
+    -- 변신이 되기 전에 스킬이 종료될 경우 변신 처리
+    if (not self.m_bUseMetamorphosis) then
+        self.m_bUseMetamorphosis = true
+
+        self.m_owner:undergoMetamorphosis(not self.m_owner.m_bMetamorphosis)
+    end
 end
 
 -------------------------------------

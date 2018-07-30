@@ -151,6 +151,18 @@ function Character:onEvent_underSelfHp(hp, max_hp)
     end
 
     do
+        local list = self:getSkillIndivisualInfo('under_self_hp_alive') or {}
+
+        for i, v in pairs(list) do
+            if (v:isEndCoolTime()) then
+                if (not self:isZeroHp() and percentage <= v.m_tSkill['chance_value']) then
+                    self:doSkill(v.m_skillID, 0, 0)
+                end
+            end
+        end
+    end
+
+    do
         local list = self:getSkillIndivisualInfo('hp_rate_per_short') or {}
 
         for i, v in pairs(list) do

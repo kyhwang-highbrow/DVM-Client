@@ -655,6 +655,8 @@ function IDragonSkillManager:getDragonSkillTriggerList()
 			if (table.count(v) > 0) then
                 if (skill_type == 'hp_rate_per_short') then
                     skill_type = 'under_self_hp'
+                elseif (skill_type == 'under_self_hp_alive') then
+                    skill_type = 'under_self_hp'
                 end
                 
                 map[skill_type] = true

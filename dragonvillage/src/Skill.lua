@@ -250,15 +250,6 @@ end
 -- function update
 -------------------------------------
 function Skill:update(dt)
-    -- 스킬 멈춤 여부 체크
-    if (isInstanceOf(self, IStateDelegate)) then
-        if (self.m_state ~= 'dying') then
-	        if (self.m_owner:checkToStopSkill()) then
-                self:changeState('dying', true)
-            end
-        end
-    end
-
     -- 사운드 업데이트
     self:updateSkillSound(dt)
 

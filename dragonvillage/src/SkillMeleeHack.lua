@@ -48,19 +48,6 @@ function SkillMeleeHack:initState(attack_ani)
 end
 
 -------------------------------------
--- function update
--------------------------------------
-function SkillMeleeHack:update(dt)
-    local char = self.m_owner
-
-    if (char:isDead()) then
-        self:changeState('dying')
-    end
-
-    return PARENT.update(self, dt)
-end
-
--------------------------------------
 -- function st_move
 -------------------------------------
 function SkillMeleeHack.st_move(owner, dt)
