@@ -223,6 +223,8 @@ void Menu::onExit()
         }
     }
 
+    _parentSlideNodes.clear();
+
     Layer::onExit();
 }
 
