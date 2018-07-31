@@ -1,4 +1,4 @@
-local MAX_FRIEND_CNT    = 20 -- 최대 친구 수
+local MAX_FRIEND_CNT    = 25 -- 최대 친구 수 (sgkim 2018.07.31 최대 친구 수 20에서 25로 변경)
 local MAX_REQUEST_CNT   = 30 -- 하루 최대 보낼 수 있는 요청
 local MAX_RESPONSE_CNT  = 30 -- 하루 최대 받을 수 있는 요청
 local MAX_BYE_CNT       = 3  -- 하루 최대 삭제할 수 있는 친구 수
