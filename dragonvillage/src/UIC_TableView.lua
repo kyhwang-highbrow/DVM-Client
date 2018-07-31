@@ -1093,9 +1093,9 @@ function UIC_TableView:makeItemUI(data)
 	if (ui:getCellSize() == nil) then
 		ui:setCellSize(self.m_defaultCellSize)
 	end
-    cclog('be cell ui : ' .. ui.root:getReferenceCount())
+
     self.m_scrollView:addChild(ui.root)
-    cclog('af cell ui : ' .. ui.root:getReferenceCount())
+
     if self.m_cellUICreateCB then
         self.m_cellUICreateCB(ui, data)
     end
