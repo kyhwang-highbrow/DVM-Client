@@ -185,8 +185,10 @@ function UI_DragonSkillEnhance:refresh()
     self:refresh_dragonMaterialTableView()
     self:refresh_dragonSkillMoveTableView()
 
-    -- 스킬 슬라임 상점 버튼 갱신
-	vars['skillSlimShopBtn']:setVisible(false)--self.m_selectDragonData:getRarity() == 'legend')
+    -- 스킬 슬라임 상점 버튼 갱신 (전설 등급 드래곤만 상점 노출)
+    local shop_visible = (self.m_selectDragonData:getRarity() == 'legend')
+	vars['skillSlimShopBtn']:setVisible(shop_visible)
+    vars['skillSlimShopBtn']:setAutoShake(shop_visible) -- 버튼 흔들기효과 (눈에 더 띄게)
 end
 
 -------------------------------------

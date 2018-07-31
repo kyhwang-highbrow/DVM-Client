@@ -127,7 +127,9 @@ function UI_DragonReinforcement:refresh()
 	self:refresh_relation()
 
 	-- 강화 포인트 상점 버튼 갱신
-	self.vars['reinforceShopBtn']:setVisible(self.m_selectDragonData:getRarity() == 'legend')
+    local shop_visible = (self.m_selectDragonData:getRarity() == 'legend')
+	self.vars['reinforceShopBtn']:setVisible(shop_visible)
+    self.vars['reinforceShopBtn']:setAutoShake(shop_visible) -- 버튼 흔들기효과 (눈에 더 띄게)
 end
 
 -------------------------------------
