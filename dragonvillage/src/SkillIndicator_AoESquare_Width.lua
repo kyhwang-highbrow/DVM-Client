@@ -78,11 +78,25 @@ function SkillIndicator_AoESquare_Width:findCollision(x, y)
     if (#l_ret > 1) then
         if (self.m_hero.m_bLeftFormation) then
             table.sort(l_ret, function(a, b)
-                return a:getPosX() < b:getPosX()
+                local x_a = a:getPosX()
+                local x_b = b:getPosX()
+
+                if (x_a == x_b) then
+                    return a:getDistance() < b:getDistance()
+                else
+                    return x_a < x_b
+                end
             end)
         else
             table.sort(l_ret, function(a, b)
-                return a:getPosX() > b:getPosX()
+                local x_a = a:getPosX()
+                local x_b = b:getPosX()
+
+                if (x_a == x_b) then
+                    return a:getDistance() < b:getDistance()
+                else
+                    return x_a > x_b
+                end
             end)
         end
     end

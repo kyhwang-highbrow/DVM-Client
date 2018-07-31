@@ -77,7 +77,14 @@ function SkillIndicator_AoESquare_Height_Top:findCollision(x, y)
     -- y값이 큰 순으로 정렬
     if (#l_ret > 1) then
         table.sort(l_ret, function(a, b)
-            return a:getPosY() > b:getPosY()
+            local y_a = a:getPosY()
+            local y_b = b:getPosY()
+
+            if (y_a == y_b) then
+                return a:getDistance() < b:getDistance()
+            else
+                return y_a > y_b
+            end
         end)
     end
 
