@@ -9,7 +9,6 @@ CELL_CREATE_DIRECTING['fadein'] = 1
 -- class UIC_TableView
 -------------------------------------
 UIC_TableView = class(PARENT, {
-        m_tableViewNode = 'parent',
         m_scrollView = 'cc.ScrollView',
         m_itemList = '',
         m_itemMap = '',
@@ -68,7 +67,6 @@ UIC_TableView = class(PARENT, {
 -- function init
 -------------------------------------
 function UIC_TableView:init(node)
-    self.m_tableViewNode = node
     self.m_refreshDuration = 0.5
 
     -- 기본값 설정
@@ -1095,9 +1093,9 @@ function UIC_TableView:makeItemUI(data)
 	if (ui:getCellSize() == nil) then
 		ui:setCellSize(self.m_defaultCellSize)
 	end
-
+    cclog('be cell ui : ' .. ui.root:getReferenceCount())
     self.m_scrollView:addChild(ui.root)
-
+    cclog('af cell ui : ' .. ui.root:getReferenceCount())
     if self.m_cellUICreateCB then
         self.m_cellUICreateCB(ui, data)
     end
@@ -1347,8 +1345,9 @@ end
 -- @breif
 -------------------------------------
 function UIC_TableView:makeDefaultEmptyDescLabel(text)
+    cclog('makeDefaultEmptyDescLabel')
     local label = UIC_Factory:MakeTableViewDescLabelTTF(self.m_scrollView, text)
-    self.m_tableViewNode:addChild(label.m_node)
+    self.m_node:addChild(label.m_node)
     self:setEmptyDescLabel(label)
 end
 
@@ -1360,7 +1359,7 @@ function UIC_TableView:makeDefaultEmptyMandragora(text, scale)
     local scale = scale or 1
     local ui = UIC_Factory:MakeTableViewEmptyMandragora(text)
     ui.root:setScale(scale)
-    self.m_tableViewNode:addChild(ui.root)
+    self.m_node:addChild(ui.root)
 
     self.m_emptyUI = ui
 end
@@ -1485,4 +1484,15 @@ end
 -------------------------------------
 function UIC_TableView:setAlignCenter(b)
     self.m_bAlignCenterInInsufficient = b
+end
+
+-------------------------------------
+-- function destroy
+-- @brief 갯수 부족시 가운데 정렬
+-------------------------------------
+function UIC_TableView:destroy()
+    for i, v in self.m_itemList do
+        self:delItem(i)
+    end
+    self.m_itemList = nil
 end

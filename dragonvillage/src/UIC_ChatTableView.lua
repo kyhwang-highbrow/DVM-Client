@@ -4,7 +4,6 @@ local PARENT = UIC_Node
 -- class UIC_ChatTableView
 -------------------------------------
 UIC_ChatTableView = class(PARENT, {
-        m_tableViewNode = 'parent',
         m_scrollView = 'cc.ScrollView',
         m_itemList = '',
         m_itemMap = '',
@@ -45,7 +44,6 @@ UIC_ChatTableView = class(PARENT, {
 -- function init
 -------------------------------------
 function UIC_ChatTableView:init(node)
-    self.m_tableViewNode = node
     self.m_refreshDuration = 0.5
 
     -- 기본값 설정
@@ -1051,7 +1049,7 @@ end
 -------------------------------------
 function UIC_ChatTableView:makeDefaultEmptyDescLabel(text)
     local label = UIC_Factory:MakeTableViewDescLabelTTF(self.m_scrollView, text)
-    self.m_tableViewNode:addChild(label.m_node)
+    self.m_node:addChild(label.m_node)
     self:setEmptyDescLabel(label)
 end
 

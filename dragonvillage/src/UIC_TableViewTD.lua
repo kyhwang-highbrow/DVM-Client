@@ -4,7 +4,6 @@ local PARENT = UIC_Node
 -- class UIC_TableViewTD
 -------------------------------------
 UIC_TableViewTD = class(PARENT, {
-        m_tableViewNode = 'parent',
         m_scrollView = 'cc.ScrollView',
         m_itemList = '',
         m_itemMap = '',
@@ -53,7 +52,7 @@ UIC_TableViewTD = class(PARENT, {
 -- function init
 -------------------------------------
 function UIC_TableViewTD:init(node)
-    self.m_tableViewNode = node
+    self.m_node = node
     self.m_refreshDuration = 0.5
 
     -- retain된 item들을 release하기 위해
@@ -1077,7 +1076,7 @@ end
 -------------------------------------
 function UIC_TableViewTD:makeDefaultEmptyDescLabel(text)
     local label = UIC_Factory:MakeTableViewDescLabelTTF(self.m_scrollView, text)
-    self.m_tableViewNode:addChild(label.m_node)
+    self.m_node:addChild(label.m_node)
     self:setEmptyDescLabel(label)
 end
 
@@ -1089,7 +1088,7 @@ function UIC_TableViewTD:makeDefaultEmptyMandragora(text, scale)
     local scale = scale or 1
     local ui = UIC_Factory:MakeTableViewEmptyMandragora(text)
     ui.root:setScale(scale)
-    self.m_tableViewNode:addChild(ui.root)
+    self.m_node:addChild(ui.root)
 
     self.m_emptyUI = ui
 end
