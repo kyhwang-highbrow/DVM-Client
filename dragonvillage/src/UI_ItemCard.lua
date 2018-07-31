@@ -1,9 +1,12 @@
-local PARENT = class(UI, ITableViewCell:getCloneTable())
+local PARENT = ITableViewCell:getCloneClass()
 
 -------------------------------------
 -- class UI_ItemCard
 -------------------------------------
 UI_ItemCard = class(PARENT, {
+        root = '',
+        vars = '',
+    
         m_itemID = 'number',
         m_itemCount = 'number',
         m_tSubData = 'number',
@@ -57,8 +60,11 @@ end
 function UI_ItemCard:init_commonItem(t_item, t_sub_data)
     local item_id = self.m_itemID
 	local count = self.m_itemCount
-
-    local vars = self:load('icon_item_item.ui')
+    
+    local temp_ui = UI()
+    local vars = temp_ui:load('icon_item_item.ui')
+    self.root = temp_ui.root
+    self.vars = vars
 
     local icon = IconHelper:getItemIcon(item_id, t_sub_data)
     vars['stoneNode']:addChild(icon)
@@ -128,7 +134,10 @@ end
 function UI_ItemCard:init_runeItem(t_item, t_sub_data)
     local item_id = self.m_itemID
 
-    local vars = self:load('icon_item_item.ui')
+    local temp_ui = UI()
+    local vars = temp_ui:load('icon_item_item.ui')
+    self.root = temp_ui.root
+    self.vars = vars
 
     local icon = IconHelper:getItemIcon(item_id, t_sub_data)
     vars['stoneNode']:addChild(icon)
