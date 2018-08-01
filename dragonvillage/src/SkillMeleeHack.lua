@@ -48,6 +48,20 @@ function SkillMeleeHack:initState(attack_ani)
 end
 
 -------------------------------------
+-- function update
+-------------------------------------
+function SkillMeleeHack:update(dt)
+    -- 스킬 멈춤 여부 체크
+    if (self.m_state ~= 'dying') then
+	    if (self.m_owner:isDead()) then
+            self:changeState('dying')
+        end
+    end
+
+    return PARENT.update(self, dt)
+end
+
+-------------------------------------
 -- function st_move
 -------------------------------------
 function SkillMeleeHack.st_move(owner, dt)
