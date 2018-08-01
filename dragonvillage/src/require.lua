@@ -886,14 +886,10 @@ local t_module = {
     'UI_ChapterSelectListItem',
 
 	-- UI : 모험 준비
-	'UI_ReadyScene',
-    'UI_ReadyScene_Deck',
-    'UI_ReadyScene_Select',
-	'UI_ReadyScene_LeaderPopup',
-
     'UI_ReadySceneNew',
     'UI_ReadySceneNew_Deck',
     'UI_ReadySceneNew_Select',
+    'UI_ReadyScene_LeaderPopup',
 	
 	-- UI : 전투 통계
 	'UI_StatisticsPopup',
@@ -926,7 +922,6 @@ local t_module = {
     'UI_ColosseumHistoryListItem',
     'UI_ColosseumDeckSettings',
     'UI_2DDeck',
-    'UI_3DDeck',
 
     -- UI : 콜로세움 (ARENA)
     'UI_Arena',
