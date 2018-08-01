@@ -431,7 +431,7 @@ end
 function slack_api(msg)
     -- 파라미터 셋팅
     local t_data = {}
-    t_data['token'] = 'xoxp-4049551466-60623372247-67908400245-53f29cbca3'
+    t_data['token'] = 'xoxp-4049551466-58528144482-409940306166-79d561e763e94b36a6ca49a54bb9cd7d'
     t_data['channel'] = 'C1RUT070B'
     t_data['text'] = msg
     t_data['username'] = 'DVM ERROR BOT'
