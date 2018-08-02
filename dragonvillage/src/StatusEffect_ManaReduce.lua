@@ -101,7 +101,7 @@ end
 
 
 -------------------------------------
--- function isCountShield
+-- function hasCount
 -------------------------------------
 function StatusEffect_ManaReduce:hasCount()
     local t_status_effect = self.m_statusEffectTable

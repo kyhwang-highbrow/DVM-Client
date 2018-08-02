@@ -183,8 +183,10 @@ function DragonSkillIndivisualInfoInGame:startCoolTime(is_used)
         self.m_cooldownTimer = tonumber(self.m_tSkill['cooldown'])
     end
 
-    if (isExistValue(self.m_chanceValueType, CHANCE_VALUE_TYPE.COUNT, CHANCE_VALUE_TYPE.TIMER)) then
+    if (self.m_chanceValueType ==  CHANCE_VALUE_TYPE.COUNT) then
         self.m_curChanceValue = 0
+    elseif (self.m_chanceValueType ==  CHANCE_VALUE_TYPE.TIMER) then
+        self.m_curChanceValue = self:getChanceValue()
     end
 
     if (is_used) then

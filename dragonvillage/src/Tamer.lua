@@ -432,7 +432,7 @@ function Tamer:updateBasicSkillTimer(dt)
         -- 스킬 정보가 있을 경우 쿨타임 진행 정보를 확인한다.
         if (skill_info) then
             local max = skill_info:getChanceValue()
-            local cur = max - skill_info.m_timer
+            local cur = max - skill_info.m_curChanceValue
 
             local t_event = { ['cur'] = cur, ['max'] = max, ['run_skill'] = (cur == max) }
 
