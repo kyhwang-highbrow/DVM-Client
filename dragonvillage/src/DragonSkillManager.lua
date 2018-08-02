@@ -354,7 +354,7 @@ function IDragonSkillManager:makeSkillIndivisualInfo(skill_type, skill_id, skill
             end
         end
 
-        skill_indivisual_info = DragonSkillIndivisualInfoInGame(self.m_charType, skill_type, skill_id, skill_lv)
+        skill_indivisual_info = DragonSkillIndivisualInfoInGame(self.m_charType, skill_type, skill_id, skill_lv, self)
 
         if (skill_type == 'active') then
             -- indicator 생성
@@ -653,9 +653,7 @@ function IDragonSkillManager:getDragonSkillTriggerList()
 		if (not isExistValue(skill_type, 'active', 'basic', 'leader')) then
 			-- 존재 여부는 갯수로 체크
 			if (table.count(v) > 0) then
-                if (skill_type == 'hp_rate_per_short') then
-                    skill_type = 'under_self_hp'
-                elseif (skill_type == 'under_self_hp_alive') then
+                if (skill_type == 'under_self_hp_alive') then
                     skill_type = 'under_self_hp'
                 end
                 
@@ -764,7 +762,7 @@ function IDragonSkillManager:checkSkillRate(skill_type)
 
         for i,v in pairs(self.m_lSkillInfo[skill_type]) do
             if (v:isEndCoolTime()) then
-                local rate = v.m_tSkill['chance_value']
+                local rate = v:getChanceValue()
                 local skill_id = v.m_skillID
                 sum_random:addItem(rate, skill_id)
             end
@@ -792,9 +790,9 @@ function IDragonSkillManager:checkSkillTurn(skill_type)
 	if (table.count(t_skill_info) > 0) then
         for i,v in pairs(t_skill_info) do
             if (v:isEndCoolTime() and not self.m_mReserveTurnSkillID[v.m_skillID]) then
-                v.m_turnCount = (v.m_turnCount + 1)
+                v.m_curChanceValue = v.m_curChanceValue + 1
 
-                if (v.m_tSkill['chance_value'] <= v.m_turnCount) then
+                if (v:getChanceValue() <= v.m_curChanceValue) then
                     table.insert(self.m_lReserveTurnSkillID, v.m_skillID)
 
                     self.m_mReserveTurnSkillID[v.m_skillID] = true
@@ -811,29 +809,6 @@ function IDragonSkillManager:checkSkillTurn(skill_type)
     end
     
 	return nil
-end
-
--------------------------------------
--- function getHpRateSkillID
--------------------------------------
-function IDragonSkillManager:getHpRateSkillID(hp_rate)
-    local skill_type = 'hp_rate'
-	local t_skill_info = self.m_lSkillInfo[skill_type]
-    if (not t_skill_info) then return end
-
-    local hp_rate = hp_rate * 100
-
-    if (table.count(t_skill_info) > 0) then
-        for i,v in pairs(t_skill_info) do
-            if (v:isEndCoolTime()) then
-                if (hp_rate <= v.m_hpRate) then
-                    return v.m_skillID
-                end
-            end
-        end
-    end
-
-    return nil
 end
 
 -------------------------------------
@@ -857,7 +832,7 @@ end
 -- function getHpRatePerSkillID
 -------------------------------------
 function IDragonSkillManager:getHpRatePerSkillID(hp_rate)
-    local skill_type = 'hp_rate_per'
+    local skill_type = 'hp_rate'
 	local t_skill_info = self.m_lSkillInfo[skill_type]
     if (not t_skill_info) then return end
 
@@ -865,9 +840,7 @@ function IDragonSkillManager:getHpRatePerSkillID(hp_rate)
 
     if (table.count(t_skill_info) > 0) then
         for i,v in pairs(t_skill_info) do
-            if (hp_rate <= v.m_hpRate) then
-                v.m_hpRate = math_max(v.m_hpRate - v.m_tSkill['chance_value'], 0)
-
+            if (hp_rate <= v:getChanceValue()) then
                 -- 이미 스킬이 예약된 상태라면 연속으로 사용하지 않도록 막음
                 if (v:isEndCoolTime() and not self.m_mReserveHpRatePerSkillID[v.m_skillID]) then
                     table.insert(self.m_lReserveHpRatePerSkillID, v.m_skillID)
@@ -935,16 +908,11 @@ function IDragonSkillManager:getInterceptableSkillID(tParam)
     local tParam = tParam or {}
     local skill_id = nil
 
-    -- hp_rate_per류 스킬
+    -- hp_rate류 스킬
     if (not skill_id and tParam['hp_rate']) then
         skill_id = self:getHpRatePerSkillID(tParam['hp_rate'])
     end
-
-    -- hp_rate류 스킬
-    if (not skill_id and tParam['hp_rate']) then
-        skill_id = self:getHpRateSkillID(tParam['hp_rate'])
-    end
-
+    
     -- indie_time류 스킬
     if (not skill_id) then
         skill_id = self:getBasicTimeAttackSkillID()
@@ -1068,7 +1036,7 @@ function IDragonSkillManager:printSkillInfo()
                 for _, skill_indivisual_info in pairs(v) do
                     local t_skill = GetSkillTable(self.m_charType):get(skill_indivisual_info.m_skillID)
                     
-                    cclog(t_skill['t_name'] .. ' - ' .. skill_indivisual_info.m_skillID .. ' cooldown : ' .. skill_indivisual_info.m_cooldownTimer .. ' timer : ' .. skill_indivisual_info.m_timer)
+                    cclog(t_skill['t_name'] .. ' - ' .. skill_indivisual_info.m_skillID .. ' cooldown : ' .. skill_indivisual_info.m_cooldownTimer .. ' cur chance value : ' .. skill_indivisual_info.m_curChanceValue)
                 end
             end
         end

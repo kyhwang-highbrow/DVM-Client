@@ -26,24 +26,31 @@ function Character:doSkill(skill_id, x, y, t_data, t_skill_derived)
     if (not t_skill) then
         error('ID '.. tostring(skill_id) ..' 에 해당하는 스킬 테이블이 없습니다')
     end
-    
+
+    -- 현재 프레임에서 이미 사용된 스킬인지 여부
+    if (self.m_mUsedSkillIdInFrame[skill_id]) then
+        return false
+    end
+    self.m_mUsedSkillIdInFrame[skill_id] = true
+
     -- 스킬 사용 불가 상태
     local basic_skill_id = self:getSkillID('basic')
     if (basic_skill_id == skill_id) then
         -- 기본 공격이라면 통과시킴
     elseif (has_cc) then
         if (not skill_indivisual_info or not skill_indivisual_info:isIgnoreCC()) then
+            skill_indivisual_info:onBeStoppedInCC()
             return false
         end
 	end
 
-	-- @ E.T.
+    -- @ E.T.
     g_errorTracker:appendSkillHistory(skill_id, self:getName())
 
     if (self:doSkillBySkillTable(t_skill, t_data)) then
         local skill_indivisual_info = self:findSkillInfoByID(skill_id)
         if (skill_indivisual_info) then
-            skill_indivisual_info:startCoolTime()
+            skill_indivisual_info:startCoolTime(true)
 
             if (skill_indivisual_info:getSkillType() == 'active') then
                 self:dispatch('set_global_cool_time_active')
@@ -99,7 +106,6 @@ function Character:doSkillBySkillTable(t_skill, t_data)
 
 		local skill_type = t_skill['skill_type']
 		local chance_type = t_skill['chance_type']
-		local chance_value = t_skill['chance_value']
         
 		-- [패시브]
 		if (chance_type == 'leader' or chance_type == 'passive') then
@@ -143,7 +149,6 @@ function Character:doSkillBySkillTable(t_skill, t_data)
             -- 텍스트
             if ( self.m_charType == 'dragon') then
                 if (not isExistValue(t_skill['chance_type'], 'basic', 'active', 'leader')) then
-                --if (isExistValue(t_skill['sid'], self.m_charTable['skill_1'], self.m_charTable['skill_2'], self.m_charTable['skill_3'])) then
                     self.m_world:addSkillSpeech(self, t_skill['t_name'])
                 end
             end

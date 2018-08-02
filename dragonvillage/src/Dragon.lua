@@ -404,8 +404,7 @@ function Dragon:initActiveSkillCool(sec)
     local skill_info = self:getSkillIndivisualInfo('active')
 
     if (skill_info) then
-        skill_info.m_timer = sec
-        skill_info.m_cooldownTimer = sec
+        skill_info:setCoolTime(sec)
     end
 end
 

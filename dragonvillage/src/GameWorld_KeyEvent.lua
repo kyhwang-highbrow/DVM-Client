@@ -203,9 +203,8 @@ function GameWorld:se_on_dragon()
     --StatusEffectHelper:doStatusEffect(dragon_list[1], dragon_list, 'barrier_protection_time', 'ally_all', 10, 9999, 100, 100)
     --StatusEffectHelper:doStatusEffect(dragon_list[1], dragon_list, 'immortal', 'ally_all', 5, 9999, 100, 100)
 
-    
     for _, dragon in pairs(dragon_list) do
-        local damage = dragon.m_hp * 0.4
+        local damage = dragon:getMaxHp() * 0.6
         dragon:setDamage(nil, dragon, dragon.pos.x, dragon.pos.y, damage)
     end
     

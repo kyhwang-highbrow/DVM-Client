@@ -3,6 +3,7 @@ local PARENT = TableClass
 -- 수식을 사용할 수 있는 칼럼 리스트
 local l_columnToUseEquation = {
     'power_source',
+    'chance_value',
     'add_option_rate_1',
     'add_option_rate_2',
     'add_option_rate_3',
@@ -144,7 +145,7 @@ function TableDragonSkill:makeFunctions()
     if (self.m_orgTable) then
         for i, column in ipairs(l_columnToUseEquation) do
             for sid, v in pairs(self.m_orgTable) do
-                if (v[column]) then
+                if (v[column] and v[column] ~= '') then
                     if (string.find(column, 'source')) then
                         local source = SkillHelper:getValid(v[column], 'atk')
                         if (source ~= 'atk') then
@@ -159,7 +160,7 @@ function TableDragonSkill:makeFunctions()
 
                     elseif (string.find(column, 'value')) then
                         local value = SkillHelper:getValid(v[column], 0)
-                        if (type(value) == 'string') then
+                        if (type(value) == 'string' and not string.find(value, ';')) then
                             EquationHelper:addEquationFromTable(self.m_tableName, sid, column, value)
                         end
                     end

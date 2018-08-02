@@ -1,10 +1,17 @@
 local PARENT = DragonSkillIndivisualInfo
 
+local CHANCE_VALUE_TYPE = {
+    COUNT   = 1,
+    TIMER   = 2,
+    HP_RATE = 3
+}
+
 -------------------------------------
 -- class DragonSkillIndivisualInfoInGame
 -- @TODO Individual로 수정 예정
 -------------------------------------
 DragonSkillIndivisualInfoInGame = class(PARENT, {
+        m_owner = 'Character',
         m_tOrgSkill = 'table',  -- 스킬 레벨까지 적용된 테이블(인게임에선 실시간 변경사항은 적용되지 않음)
 
         m_bEnabled = 'boolean',
@@ -12,35 +19,42 @@ DragonSkillIndivisualInfoInGame = class(PARENT, {
         m_bDirtyBuff = 'boolean',
         m_lBuff = 'table',
 
-        m_turnCount = 'number', -- 턴 공격 횟수 저장용
-        m_timer = 'number',     -- 타임 공격 저장용
-        m_cooldownTimer = 'number', -- 쿨타임 시간 저장용
-        m_hpRate = 'number',    -- 체력 조건 저장용
+        m_cooldownTimer = 'number',     -- 현재 남은 쿨타임 시간
+        m_chanceValueType = 'number',   -- 스킬 발동 조건값 타입(CHANCE_VALUE_TYPE)
+        m_curChanceValue = 'number',    -- 스킬 발동을 위한 현재 값
 
         m_recentReducedCoolRate = 'number', -- 현재 감소된 쿨타임 %에 따른 dt 배율(여러번 연산되는걸 막기 위해 임시 저장 용도)
         m_reducedCoolPercentage = 'number', -- 감소될 쿨타임 %
 
         m_indicator = 'SkillIndicator',
+
+        m_usedCount = 'number',         -- 실제 스킬 발동 횟수
+        m_triedCount = 'number',        -- cc기 등으로 발동 안된 경우도 포함한 발동 횟수
     })
 
 -------------------------------------
 -- function init
 -------------------------------------
-function DragonSkillIndivisualInfoInGame:init(char_type, skill_type, skill_id, skill_level)
+function DragonSkillIndivisualInfoInGame:init(char_type, skill_type, skill_id, skill_level, owner)
     self.m_className = 'DragonSkillIndivisualInfoInGame'
+
+    self.m_owner = owner
 
     self.m_bEnabled = true
     self.m_bIgnoreCC = false
     self.m_bDirtyBuff = false
     self.m_lBuff = {}
 
-    self.m_turnCount = 0
-    self.m_timer = 0
     self.m_cooldownTimer = 0
-    self.m_hpRate = 100
+    
+    self.m_chanceValueType = CHANCE_VALUE_TYPE.COUNT
+    self.m_curChanceValue = 0
 
     self.m_recentReducedCoolRate = 1
     self.m_reducedCoolPercentage = 0
+
+    self.m_usedCount = 0
+    self.m_triedCount = 0
 
     self:initRuntimeInfo()
 end
@@ -54,35 +68,28 @@ function DragonSkillIndivisualInfoInGame:initRuntimeInfo()
     local t_skill = self.m_tSkill or GetSkillTable(self.m_charType):get(skill_id)
 
     if (self.m_skillType == 'indie_time' or self.m_skillType == 'indie_time_short') then
-        -- 특정 스킬 아이디는 적용 시키지 않음(팀보너스, 고대룬 세트 효과)
-        local key = math_floor(skill_id / 100000)
+        self.m_chanceValueType = CHANCE_VALUE_TYPE.TIMER
 
-        if (key == 4) then
+        -- 특정 스킬 아이디는 적용 시키지 않음(팀보너스, 고대룬 세트 효과)
+        if (SkillHelper:isTeamBonusSkill(skill_id)) then
             -- 팀보너스인 경우
                     
-        elseif (key == 5) then
+        elseif (SkillHelper:isAncientRuneSetSkill(skill_id)) then
             -- 고대룬 세트 효과인 경우
-            self.m_timer = t_skill['chance_value']
+            self.m_curChanceValue = self:getChanceValue()
 
         elseif (t_skill['skill_type'] == 'skill_metamorphosis') then
             -- 변신 스킬의 경우
-            self.m_timer = t_skill['chance_value']
+            self.m_curChanceValue = self:getChanceValue()
 
         else
             -- indie_time 타입의 스킬은 해당 값만큼 먼저 기다리도록 초기값 설정
-            self.m_timer = t_skill['chance_value'] * math_random(50, 100) / 100
+            self.m_curChanceValue = self:getChanceValue() * math_random(50, 100) / 100
         end
 
-    elseif (self.m_skillType == 'hp_rate' or self.m_skillType == 'hp_rate_short') then
-        self.m_hpRate = t_skill['chance_value']
-    
-    elseif (self.m_skillType == 'hp_rate_per' or self.m_skillType == 'hp_rate_per_short') then
-        -- hp_rate_per 타입의 스킬은 초기 조건 설정
-        self.m_hpRate = 100 - t_skill['chance_value']
-
-        if (self.m_hpRate <= 0 and self.m_hpRate >= 100) then
-            error('hp_rate_per skill error : invalid chance_value(' .. t_skill['chance_value'] .. ')')
-        end
+    elseif (string.find(self.m_skillType, 'hp_rate')) then
+        -- 체력 비율의 경우는 curChanceValue값은 사용되지 않음(현재 체력 비율값을 사용)
+        self.m_chanceValueType = CHANCE_VALUE_TYPE.HP_RATE
     end
 end
 
@@ -92,10 +99,13 @@ end
 -- @param skill_indivisual_info : DragonSkillIndivisualInfoInGame
 -------------------------------------
 function DragonSkillIndivisualInfoInGame:syncRuntimeInfo(skill_indivisual_info)
-    self.m_turnCount = skill_indivisual_info.m_turnCount
-    self.m_timer = skill_indivisual_info.m_timer
     self.m_cooldownTimer = skill_indivisual_info.m_cooldownTimer
-    self.m_hpRate = skill_indivisual_info.m_hpRate
+    
+    if (self.m_chanceValueType == skill_indivisual_info.m_chanceValueType) then
+        self.m_curChanceValue = skill_indivisual_info.m_curChanceValue
+    else
+        error('invalid chance value type : ' .. self.m_skillID)
+    end
 end
 
 -------------------------------------
@@ -143,11 +153,13 @@ end
 -------------------------------------
 function DragonSkillIndivisualInfoInGame:updateTimer(dt)
     -- indie_time 타이머
-    if (self.m_timer > 0) then
-        self.m_timer = self.m_timer - dt
+    if (self.m_chanceValueType == CHANCE_VALUE_TYPE.TIMER) then
+        if (self.m_curChanceValue > 0) then
+            self.m_curChanceValue = self.m_curChanceValue - dt
 
-        if (self.m_timer <= 0) then
-            self.m_timer = 0
+            if (self.m_curChanceValue <= 0) then
+                self.m_curChanceValue = 0
+            end
         end
     end
     
@@ -164,18 +176,21 @@ end
 -------------------------------------
 -- function startCoolTime
 -------------------------------------
-function DragonSkillIndivisualInfoInGame:startCoolTime()
+function DragonSkillIndivisualInfoInGame:startCoolTime(is_used)
     if (not self.m_tSkill['cooldown'] or self.m_tSkill['cooldown'] == '') then
         self.m_cooldownTimer = 0
     else
         self.m_cooldownTimer = tonumber(self.m_tSkill['cooldown'])
     end
 
-    if (self.m_skillType == 'indie_time' or self.m_skillType == 'indie_time_short') then
-        self.m_timer = self.m_tSkill['chance_value']
+    if (isExistValue(self.m_chanceValueType, CHANCE_VALUE_TYPE.COUNT, CHANCE_VALUE_TYPE.TIMER)) then
+        self.m_curChanceValue = 0
     end
 
-    self.m_turnCount = 0
+    if (is_used) then
+        self.m_usedCount = self.m_usedCount + 1
+        self.m_triedCount = self.m_triedCount + 1
+    end
 end
 
 
@@ -184,11 +199,9 @@ end
 -- @brief 캐스팅을 시작하면 cooldown을 제외한 나머지만 시작시킴
 -------------------------------------
 function DragonSkillIndivisualInfoInGame:startCoolTimeByCasting()
-    if (self.m_skillType == 'indie_time' or self.m_skillType == 'indie_time_short') then
-        self.m_timer = self.m_tSkill['chance_value']
+    if (isExistValue(self.m_chanceValueType, CHANCE_VALUE_TYPE.COUNT, CHANCE_VALUE_TYPE.TIMER)) then
+        self.m_curChanceValue = 0
     end
-
-    self.m_turnCount = 0
 end
 
 -------------------------------------
@@ -197,8 +210,8 @@ end
 function DragonSkillIndivisualInfoInGame:isEndCoolTime()
     if (not self.m_bEnabled) then return end
 
-    if (self.m_skillType == 'indie_time' or self.m_skillType == 'indie_time_short') then
-        return (self.m_cooldownTimer == 0 and self.m_timer == 0)
+    if (self.m_chanceValueType == CHANCE_VALUE_TYPE.TIMER) then
+        return (self.m_cooldownTimer == 0 and self.m_curChanceValue == 0)
     else
         return (self.m_cooldownTimer == 0)
     end
@@ -226,9 +239,34 @@ end
 -- function resetCoolTime
 -------------------------------------
 function DragonSkillIndivisualInfoInGame:resetCoolTime()
-    self.m_timer = 0
     self.m_cooldownTimer = 0
-    self.m_turnCount = 0
+
+    if (isExistValue(self.m_chanceValueType, CHANCE_VALUE_TYPE.COUNT, CHANCE_VALUE_TYPE.TIMER)) then
+        self.m_curChanceValue = 0
+    end
+end
+
+-------------------------------------
+-- function resetCoolTime
+-------------------------------------
+function DragonSkillIndivisualInfoInGame:setCoolTime(sec)
+    self.m_cooldownTimer = sec
+
+    if (self.m_chanceValueType == CHANCE_VALUE_TYPE.TIMER) then
+        self.m_curChanceValue = sec
+    end
+end
+
+-------------------------------------
+-- function adjustCurCoolTime
+-- @brief 현재 남은 쿨타임을 파라미터의 비율로 조정
+-------------------------------------
+function DragonSkillIndivisualInfoInGame:adjustCurCoolTime(rate)
+    self.m_cooldownTimer = self.m_cooldownTimer * rate
+
+    if (self.m_chanceValueType == CHANCE_VALUE_TYPE.TIMER) then
+        self.m_curChanceValue = self.m_curChanceValue * rate
+    end
 end
 
 -------------------------------------
@@ -334,4 +372,44 @@ end
 -------------------------------------
 function DragonSkillIndivisualInfoInGame:isIgnoreCC()
     return self.m_bIgnoreCC
+end
+
+-------------------------------------
+-- function getChanceValue
+-------------------------------------
+function DragonSkillIndivisualInfoInGame:getChanceValue()
+    local t_skill = self.m_tSkill or GetSkillTable(self.m_charType):get(self.m_skillID)
+    local chance_value = t_skill['chance_value']
+
+    -- 발동 조건값(chance_value)이 수식인 경우 수식을 계산
+    if (type(chance_value) == 'function') then
+        chance_value = chance_value(self.m_owner, nil, nil, self.m_skillID)
+    else
+        chance_value = chance_value
+    end
+
+    return chance_value
+end
+
+-------------------------------------
+-- function getUsedCount
+-------------------------------------
+function DragonSkillIndivisualInfoInGame:getUsedCount()
+    return self.m_usedCount
+end
+
+-------------------------------------
+-- function getTriedCount
+-------------------------------------
+function DragonSkillIndivisualInfoInGame:getTriedCount()
+    return self.m_triedCount
+end
+
+-------------------------------------
+-- function onBeStoppedInCC
+-- @brief 스킬이 발동되어야했지만 cc기로 인해 스킬 사용이 막혔을 때 호출됨
+-------------------------------------
+function DragonSkillIndivisualInfoInGame:onBeStoppedInCC()
+    self.m_triedCount = self.m_triedCount + 1
+    cclog('onBeStoppedInCC : ' .. self.m_triedCount)
 end

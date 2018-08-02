@@ -301,7 +301,7 @@ function ActivityCarrier:getAtkDmg(target)
     local atk_dmg
 
     if (type(self.m_atkDmgStat) == 'function') then
-        atk_dmg = self.m_atkDmgStat(self, target, self.m_tParam)
+        atk_dmg = self.m_atkDmgStat(self, target, self.m_tParam, self.m_skillId)
 
     elseif (type(self.m_atkDmgStat) == 'number') then
         atk_dmg = self.m_atkDmgStat

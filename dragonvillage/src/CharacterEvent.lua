@@ -94,7 +94,7 @@ function Character:onEvent_underAtkRate()
 
     for i,v in pairs(list) do
         if (v:isEndCoolTime()) then
-            local rate = v.m_tSkill['chance_value']
+            local rate = v:getChanceValue()
             local skill_id = v.m_skillID
             sum_random:addItem(rate, skill_id)
         end
@@ -121,9 +121,9 @@ function Character:onEvent_underAtkTurn()
 
 	for i, v in pairs(list) do
         if (v:isEndCoolTime()) then
-            v.m_turnCount = v.m_turnCount + 1
+            v.m_curChanceValue = v.m_curChanceValue + 1
 
-            if (v.m_turnCount >= v.m_tSkill['chance_value']) then
+            if (v.m_curChanceValue >= v:getChanceValue()) then
                 self:doSkill(v.m_skillID, 0, 0)
             end
         end
@@ -143,33 +143,19 @@ function Character:onEvent_underSelfHp(hp, max_hp)
 
         for i, v in pairs(list) do
             if (v:isEndCoolTime()) then
-                if (percentage <= v.m_tSkill['chance_value']) then
+                if (percentage <= v:getChanceValue()) then
                     self:doSkill(v.m_skillID, 0, 0)
                 end
             end
         end
     end
 
-    do
+    if (not self:isZeroHp()) then
         local list = self:getSkillIndivisualInfo('under_self_hp_alive') or {}
 
         for i, v in pairs(list) do
             if (v:isEndCoolTime()) then
-                if (not self:isZeroHp() and percentage <= v.m_tSkill['chance_value']) then
-                    self:doSkill(v.m_skillID, 0, 0)
-                end
-            end
-        end
-    end
-
-    do
-        local list = self:getSkillIndivisualInfo('hp_rate_per_short') or {}
-
-        for i, v in pairs(list) do
-            if (v:isEndCoolTime()) then
-                if (percentage <= v.m_hpRate) then
-                    v.m_hpRate = math_max(v.m_hpRate - v.m_tSkill['chance_value'], 0)
-
+                if (percentage <= v:getChanceValue()) then
                     self:doSkill(v.m_skillID, 0, 0)
                 end
             end
@@ -190,7 +176,7 @@ function Character:onEvent_underAllyHp(hp, max_hp)
 
     for i, v in pairs(list) do
         if (v:isEndCoolTime()) then
-            if (percentage <= v.m_tSkill['chance_value']) then
+            if (percentage <= v:getChanceValue()) then
                 self:doSkill(v.m_skillID, 0, 0)
             end
         end
@@ -210,7 +196,7 @@ function Character:onEvent_underTeammateHp(hp, max_hp)
 
     for i, v in pairs(list) do
         if (v:isEndCoolTime()) then
-            if (percentage <= v.m_tSkill['chance_value']) then
+            if (percentage <= v:getChanceValue()) then
                 self:doSkill(v.m_skillID, 0, 0)
             end
         end
@@ -268,7 +254,7 @@ function Character:onEvent_dead(t_event)
 
     for i, v in pairs(list) do
         if (v:isEndCoolTime()) then
-            local chance_value = v.m_tSkill['chance_value']
+            local chance_value = v:getChanceValue()
             if ( (not chance_value) or (chance_value == '') ) then
                 chance_value = 100
             end
@@ -293,7 +279,7 @@ function Character:onEvent_getStatusEffect(t_event, target_str, target_char)
 
     for i, v in pairs(list) do
         if (v:isEndCoolTime()) then
-            local status_effect = v.m_tSkill['chance_value']
+            local status_effect = v:getChanceValue()
             local l_se = pl.stringx.split(status_effect, ';')
             local col, name = l_se[1], l_se[2]
             if (name == t_event[col]) then
@@ -315,7 +301,7 @@ function Character:onEvent_lastAttack(event_name, t_event)
     
     for i, v in pairs(list) do
         if (v:isEndCoolTime()) then
-            local chance_value = v.m_tSkill['chance_value']
+            local chance_value = v:getChanceValue()
             if ( (not chance_value) or (chance_value == '') ) then
                 chance_value = 100
             end
@@ -341,7 +327,7 @@ function Character:onEvent_useActiveSkill(event_name, t_event, owner)
     for i, v in pairs(list) do
         if (v:isEndCoolTime()) then
             if (self.m_bLeftFormation == owner.m_bLeftFormation) then
-                local chance_value = tonumber(v.m_tSkill['chance_value'])
+                local chance_value = v:getChanceValue()
                 if ( (not chance_value) or (chance_value == '') ) then
                     chance_value = 1
                 end
@@ -399,7 +385,7 @@ function Character:onEvent_teammateDead(event_name, t_event, unit)
             end
 
             if (b) then
-                local chance_value = v.m_tSkill['chance_value']
+                local chance_value = v:getChanceValue()
                 if ( (not chance_value) or (chance_value == '') ) then
                     chance_value = 100
                 end
@@ -424,7 +410,7 @@ function Character:onEvent_common(event_name)
     
     for i, v in pairs(list) do
         if (v:isEndCoolTime()) then
-            local chance_value = v.m_tSkill['chance_value']
+            local chance_value = v:getChanceValue()
             if ( (not chance_value) or (chance_value == '') ) then
                 chance_value = 100
             end

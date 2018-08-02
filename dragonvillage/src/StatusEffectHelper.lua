@@ -233,7 +233,7 @@ function StatusEffectHelper:invokeStatusEffect(caster, target_char, status_effec
     end
 
     -- status_effect_rate 검사
-    if (self:checkRate(caster, target_char, status_effect_rate, add_param)) then
+    if (self:checkRate(caster, target_char, status_effect_rate, add_param, skill_id)) then
         if (world.m_gameMode == GAME_MODE_INTRO) then
             -- 튜토리얼 전투에서는 확률에 걸리지 않아도 넘어가도록 처리
         else
@@ -269,14 +269,14 @@ function StatusEffectHelper:invokeStatusEffect(caster, target_char, status_effec
 
     -- 적용값(status_effect_value)이 수식인 경우 수식을 계산
     if (type(status_effect_value) == 'function') then
-        status_effect_value = status_effect_value(caster, target_char, add_param)
+        status_effect_value = status_effect_value(caster, target_char, add_param, skill_id)
     else
         status_effect_value = tonumber(status_effect_value)
     end
 
     -- 지속시간값(duration)이 수식인 경우 수식을 계산
     if (type(duration) == 'function') then
-        duration = duration(caster, target_char, add_param)
+        duration = duration(caster, target_char, add_param, skill_id)
     else
         duration = tonumber(duration)
     end
@@ -476,11 +476,11 @@ end
 -------------------------------------
 -- function checkRate
 -------------------------------------
-function StatusEffectHelper:checkRate(caster, target_char, status_effect_rate, add_param)
+function StatusEffectHelper:checkRate(caster, target_char, status_effect_rate, add_param, skill_id)
     local rate
 
     if (type(status_effect_rate) == 'function') then
-        rate = status_effect_rate(caster, target_char, add_param)
+        rate = status_effect_rate(caster, target_char, add_param, skill_id)
     else
         rate = tonumber(status_effect_rate or 100)
     end

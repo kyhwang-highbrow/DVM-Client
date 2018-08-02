@@ -49,6 +49,9 @@ Character = class(PARENT, {
         m_bFinishAnimation = 'boolean',     -- 'attack'에니메이션 재생 완료 여부
         m_bFirstAttack = 'boolean',         -- 최초의 공격일 경우
 
+        -- 현재 프레임에서 사용된 스킬(이벤트들이 중첩되면서 연속으로 사용되는 스킬을 방지하기 위함. 매프레임마다 초기화시킴)
+        m_mUsedSkillIdInFrame = 'map',
+
         -- @ 예약된 skill 정보
         m_reservedSkillId = 'number',
         m_reservedSkillCastTime = 'number',
@@ -207,6 +210,8 @@ function Character:init(file_name, body, ...)
 
     self.m_bPossibleRevive = false
     self.m_bUseBinding = false
+
+    self.m_mUsedSkillIdInFrame = {}
 
     self.m_mTargetEffect = {}
     self.m_mNonTargetEffect = {}
@@ -1993,6 +1998,8 @@ end
 -- function update
 -------------------------------------
 function Character:update(dt)
+    self.m_mUsedSkillIdInFrame = {}
+
     -- 경직 중일 경우
     if (self.m_isSpasticity) then
         self.m_delaySpasticity = self.m_delaySpasticity - dt
@@ -2094,7 +2101,7 @@ function Character:updateBasicSkillTimer(dt)
             for i, v in pairs(list) do
                 if (v:isEndCoolTime()) then
                     local hp_rate = self.m_hpRatio * 100
-                    if (hp_rate <= v.m_hpRate) then
+                    if (hp_rate <= v:getChanceValue()) then
                         self:doSkill(v.m_skillID, 0, 0)
                     end
                 end

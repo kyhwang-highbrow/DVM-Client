@@ -50,7 +50,7 @@ function Tamer:doSkill(skill_id)
     local chance_type = t_skill['chance_type']
 
     -- 쿨타임 적용
-    skill_indivisual_info:startCoolTime()
+    skill_indivisual_info:startCoolTime(true)
 
 	-- 타겟 확인
 	if (not self.m_targetChar) then

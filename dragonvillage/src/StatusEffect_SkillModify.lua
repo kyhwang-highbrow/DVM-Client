@@ -79,8 +79,7 @@ function StatusEffect_SkillModify:onApplyOverlab(unit)
             if (skill_indivisual_info) then
                 -- 남은 쿨타임 시간 변경
                 if (cooltime_rate ~= 1) then
-                    skill_indivisual_info.m_timer = skill_indivisual_info.m_timer * cooltime_rate
-                    skill_indivisual_info.m_cooldownTimer = skill_indivisual_info.m_cooldownTimer * cooltime_rate
+                    skill_indivisual_info:adjustCurCoolTime(cooltime_rate)
                 end
 
                 -- 스킬 테이블 변경

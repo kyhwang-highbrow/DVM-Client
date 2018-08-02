@@ -26,8 +26,7 @@ function EquationHelper:addEquationFromTable(table_name, key, column, source)
         key = '\'' .. key .. '\''
     end
 
-    local func = pl.utils.load(
-        'EQUATION_FUNC[\'' .. table_name .. '\'][' .. key .. '][\'' .. column ..'\'] = function(owner, target, add_param)' ..
+    local str_param = 
         ' local atk = owner:getStat(\'atk\')' ..
         ' local def = owner:getStat(\'def\')' ..
         ' local hp = owner:getHp()' ..
@@ -45,25 +44,6 @@ function EquationHelper:addEquationFromTable(table_name, key, column, source)
         ' local grade = owner:getGrade()' ..
         ' local total_level = owner:getTotalLevel()' ..
         
-        ' local buff_atk = owner:getBuffStat(\'atk\')' ..
-        ' buff_atk = math_max(buff_atk, 0)' ..
-        ' local buff_def = owner:getBuffStat(\'def\')' ..
-        ' buff_def = math_max(buff_def, 0)' ..
-        ' local buff_hp = owner:getBuffStat(\'hp\')' ..
-        ' buff_hp = math_max(buff_hp, 0)' ..
-        ' local buff_aspd = owner:getBuffStat(\'aspd\')' ..
-        ' buff_aspd = math_max(buff_aspd, 0)' ..
-        ' local buff_cri_chance = owner:getBuffStat(\'cri_chance\')' ..
-        ' buff_cri_chance = math_max(buff_cri_chance, 0)' ..
-        ' local buff_cri_dmg = owner:getBuffStat(\'cri_dmg\')' ..
-        ' buff_cri_dmg = math_max(buff_cri_dmg, 0)' ..
-        ' local buff_cri_avoid = owner:getBuffStat(\'cri_avoid\')' ..
-        ' buff_cri_avoid = math_max(buff_cri_avoid, 0)' ..
-        ' local buff_hit_rate = owner:getBuffStat(\'hit_rate\')' ..
-        ' buff_hit_rate = math_max(buff_hit_rate, 0)' ..
-        ' local buff_avoid = owner:getBuffStat(\'avoid\')' ..
-        ' buff_avoid = math_max(buff_avoid, 0)' ..
-
         ' local target_atk = target and target:getStat(\'atk\') or 0' ..
         ' local target_def = target and target:getStat(\'def\') or 0' ..
         ' local target_hp = target and target:getHp() or 0' ..
@@ -80,25 +60,6 @@ function EquationHelper:addEquationFromTable(table_name, key, column, source)
         ' local target_rarity = target and target:getRarity() or 0' ..
         ' local target_grade = target and target:getGrade()' ..
         ' local target_total_level = target and target:getTotalLevel()' ..
-            
-
-        ' local skill_target = owner:getTargetChar()' ..
-        ' local skill_target_atk = skill_target and skill_target:getStat(\'atk\') or 0' ..
-        ' local skill_target_def = skill_target and skill_target:getStat(\'def\') or 0' ..
-        ' local skill_target_hp = skill_target and skill_target:getHp() or 0' ..
-        ' local skill_target_max_hp = skill_target and skill_target:getStat(\'hp\') or 0' ..
-        ' local skill_target_hp_rate = skill_target and skill_target:getHpRate() or 0' ..
-        ' local skill_target_aspd = skill_target and skill_target:getStat(\'aspd\') or 0' ..
-        ' local skill_target_cri_chance = skill_target and skill_target:getStat(\'cri_chance\') or 0' ..
-        ' local skill_target_cri_dmg = skill_target and skill_target:getStat(\'cri_dmg\') or 0' ..
-        ' local skill_target_cri_avoid = skill_target and skill_target:getStat(\'cri_avoid\') or 0' ..
-        ' local skill_target_hit_rate = skill_target and skill_target:getStat(\'hit_rate\') or 0' ..
-        ' local skill_target_avoid = skill_target and skill_target:getStat(\'avoid\') or 0' ..
-        ' local skill_target_attr = skill_target and skill_target:getAttribute()' ..
-        ' local skill_target_role = skill_target and skill_target:getRole()' ..
-        ' local skill_target_rarity = skill_target and skill_target:getRarity() or 0' ..
-        ' local skill_target_grade = skill_target and skill_target:getGrade()' ..
-        ' local skill_target_total_level = skill_target and skill_target:getTotalLevel()' ..
             
         ' local STATUSEFFECT = function(name, column)' ..
         ' if (column) then' ..
@@ -118,16 +79,6 @@ function EquationHelper:addEquationFromTable(table_name, key, column, source)
         ' end' ..
         ' end' ..
 
-        ' local SKILL_TARGET_STATUSEFFECT = function(name, column)' ..
-        ' if (column) then' ..
-        ' local b = skill_target and skill_target:isExistStatusEffect(column, name) or false' ..
-        ' return (b and 1 or 0)' ..
-        ' else' ..
-        ' local b = skill_target and skill_target:isExistStatusEffectName(name) or false' ..
-        ' return (b and 1 or 0)' ..
-        ' end' ..
-        ' end' ..
-
         ' local STATUSEFFECT_COUNT = function(name, column)' ..
         ' return owner:getStatusEffectCount(column, name)' ..
         ' end' ..
@@ -136,15 +87,11 @@ function EquationHelper:addEquationFromTable(table_name, key, column, source)
         ' return target and target:getStatusEffectCount(column, name) or 0' ..
         ' end' ..
 
-        ' local SKILL_TARGET_STATUSEFFECT_COUNT = function(name, column)' ..
-        ' return skill_target and skill_target:getStatusEffectCount(column, name) or 0' ..
-        ' end' ..
-
         ' local ALLY_MIN_HP_RATE = function()' ..
         ' return GET_ALLY_MIN_HP_RATE(owner)' ..
         ' end' ..
 
-        -- 추가 정보
+        -- 외부 환경 정보
         ' local hit_target_count = 0' ..
         ' local boss_rarity = 5' ..
         ' local died_ally_count = 0' ..
@@ -153,8 +100,86 @@ function EquationHelper:addEquationFromTable(table_name, key, column, source)
         ' hit_target_count = add_param[EV_HIT_TARGET_COUNT] or hit_target_count' ..
         ' boss_rarity = add_param[EV_BOSS_RARITY] or boss_rarity' ..
         ' died_ally_count = add_param[EV_DIED_ALLY_COUNT] or died_ally_count' ..
-        ' end' ..
+        ' end'
 
+    -- 함수 내용이 너무 커질 경우 사용된 변수명에 따라 별도로 추가해야할듯하다...
+    local str_add_param = ''
+
+    if (string.find(source, 'skill_target')) then
+        str_add_param = str_add_param ..
+        ' local skill_target = owner:getTargetChar()' ..
+        ' local skill_target_atk = skill_target and skill_target:getStat(\'atk\') or 0' ..
+        ' local skill_target_def = skill_target and skill_target:getStat(\'def\') or 0' ..
+        ' local skill_target_hp = skill_target and skill_target:getHp() or 0' ..
+        ' local skill_target_max_hp = skill_target and skill_target:getStat(\'hp\') or 0' ..
+        ' local skill_target_hp_rate = skill_target and skill_target:getHpRate() or 0' ..
+        ' local skill_target_aspd = skill_target and skill_target:getStat(\'aspd\') or 0' ..
+        ' local skill_target_cri_chance = skill_target and skill_target:getStat(\'cri_chance\') or 0' ..
+        ' local skill_target_cri_dmg = skill_target and skill_target:getStat(\'cri_dmg\') or 0' ..
+        ' local skill_target_cri_avoid = skill_target and skill_target:getStat(\'cri_avoid\') or 0' ..
+        ' local skill_target_hit_rate = skill_target and skill_target:getStat(\'hit_rate\') or 0' ..
+        ' local skill_target_avoid = skill_target and skill_target:getStat(\'avoid\') or 0' ..
+        ' local skill_target_attr = skill_target and skill_target:getAttribute()' ..
+        ' local skill_target_role = skill_target and skill_target:getRole()' ..
+        ' local skill_target_rarity = skill_target and skill_target:getRarity() or 0' ..
+        ' local skill_target_grade = skill_target and skill_target:getGrade()' ..
+        ' local skill_target_total_level = skill_target and skill_target:getTotalLevel()' ..
+        ' local SKILL_TARGET_STATUSEFFECT = function(name, column)' ..
+        '   if (column) then' ..
+        '       local b = skill_target and skill_target:isExistStatusEffect(column, name) or false' ..
+        '       return (b and 1 or 0)' ..
+        '   else' ..
+        '       local b = skill_target and skill_target:isExistStatusEffectName(name) or false' ..
+        '       return (b and 1 or 0)' ..
+        '   end' ..
+        ' end' ..
+        ' local SKILL_TARGET_STATUSEFFECT_COUNT = function(name, column)' ..
+        '   return skill_target and skill_target:getStatusEffectCount(column, name) or 0' ..
+        ' end'
+    end
+
+    if (string.find(source, 'buff_')) then
+        str_add_param = str_add_param ..
+        ' local buff_atk = owner:getBuffStat(\'atk\')' ..
+        ' buff_atk = math_max(buff_atk, 0)' ..
+        ' local buff_def = owner:getBuffStat(\'def\')' ..
+        ' buff_def = math_max(buff_def, 0)' ..
+        ' local buff_hp = owner:getBuffStat(\'hp\')' ..
+        ' buff_hp = math_max(buff_hp, 0)' ..
+        ' local buff_aspd = owner:getBuffStat(\'aspd\')' ..
+        ' buff_aspd = math_max(buff_aspd, 0)' ..
+        ' local buff_cri_chance = owner:getBuffStat(\'cri_chance\')' ..
+        ' buff_cri_chance = math_max(buff_cri_chance, 0)' ..
+        ' local buff_cri_dmg = owner:getBuffStat(\'cri_dmg\')' ..
+        ' buff_cri_dmg = math_max(buff_cri_dmg, 0)' ..
+        ' local buff_cri_avoid = owner:getBuffStat(\'cri_avoid\')' ..
+        ' buff_cri_avoid = math_max(buff_cri_avoid, 0)' ..
+        ' local buff_hit_rate = owner:getBuffStat(\'hit_rate\')' ..
+        ' buff_hit_rate = math_max(buff_hit_rate, 0)' ..
+        ' local buff_avoid = owner:getBuffStat(\'avoid\')' ..
+        ' buff_avoid = math_max(buff_avoid, 0)'
+    end
+
+    -- 해당 스킬 사용 횟수 정보
+    if (string.find(source, 'skill_used_count') or string.find(source, 'skill_tried_count')) then
+        str_add_param = str_add_param .. 
+        ' local skill_used_count = 0' ..
+        ' local skill_tried_count = 0' ..
+
+        ' if (skill_id) then' ..
+        ' local skill_info = owner:findSkillInfoByID(skill_id)' ..
+        ' if (skill_info) then' ..
+        ' skill_used_count = skill_info:getUsedCount()' ..
+        ' skill_tried_count = skill_info:getTriedCount()' ..
+        ' end' .. 
+        ' end'
+    end
+
+
+    local func = pl.utils.load(
+        'EQUATION_FUNC[\'' .. table_name .. '\'][' .. key .. '][\'' .. column ..'\'] = function(owner, target, add_param, skill_id)' ..
+        str_param ..
+        str_add_param .. 
         ' local ret = ' .. source .. 
         ' return ret' ..
         ' end'

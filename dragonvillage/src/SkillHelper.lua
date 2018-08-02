@@ -547,3 +547,19 @@ function SkillHelper:makeIndicator(unit, t_skill)
 
     return indicator
 end
+
+-------------------------------------
+-- function isTeamBonusSkill
+-------------------------------------
+function SkillHelper:isTeamBonusSkill(skill_id)
+    local key = math_floor(skill_id / 100000)
+    return (key == 4)
+end
+
+-------------------------------------
+-- function isAncientRuneSetSkill
+-------------------------------------
+function SkillHelper:isAncientRuneSetSkill(skill_id)
+    local key = math_floor(skill_id / 100000)
+    return (key == 5)
+end
