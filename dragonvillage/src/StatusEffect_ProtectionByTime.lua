@@ -40,10 +40,12 @@ end
 -------------------------------------
 function StatusEffect_ProtectionByTime:onApplyOverlab(unit)
     if (self.m_bIsKeeppedHp and not self.m_owner:isDead()) then
-        local hp_rate = unit:getValue() / 100
-        local max_hp = self.m_owner:getMaxHp()
-
-        self.m_owner:setHp(max_hp * hp_rate, true)
+        -- value로 설정된 값을 최소 체력 비율값으로 사용
+        local min_hp_rate = unit:getValue() / 100
+        if (min_hp_rate > self.m_owner:getHpRate()) then
+            local max_hp = self.m_owner:getMaxHp()
+            self.m_owner:setHp(max_hp * min_hp_rate, true)
+        end
     end
 end
 
