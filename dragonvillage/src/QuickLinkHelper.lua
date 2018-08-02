@@ -121,6 +121,20 @@ T_LINK_FUNC = {
         UINavigator:goTo('ancient')
     end,
 
+    -- 고대의 탑 또는 시험의 탑 {1}회 플레이
+    ['ply_tower_ext'] = function()
+        -- 시험의 탑이 오픈되었을 경우 시험의 탑으로 이동
+        if g_attrTowerData then
+            if g_attrTowerData:isContentOpen() then
+                UINavigator:goTo('attr_tower')
+                return
+            end
+        end
+        
+        -- 시험의 탑이 오픈되지 않았거나 정보가 없을 경우 고대의 탑으로 이동
+        UINavigator:goTo('ancient')
+    end,
+
     -- 시험의 탑 플레이
     ['ply_attr_tower'] = function()
         UINavigator:goTo('attr_tower')
@@ -168,6 +182,20 @@ T_LINK_FUNC = {
     
     -- 악몽던전 클리어
     ['clr_nm'] = function()
+        UINavigator:goTo('nest_nightmare')
+    end,
+
+    -- 악몽던전 또는 고대 유적 던전 {1}회 플레이
+    ['ply_nm_ruin'] = function()
+        -- 고대 유적 던전이 오픈되었을 경우 고대 유적 던전으로 이동
+        if g_ancientRuinData then
+            if g_ancientRuinData:isOpenAncientRuin() then
+                UINavigator:goTo('ancient_ruin')
+                return
+            end
+        end
+
+        -- 고대 유적 던전이 오픈되지 않았거나 정보가 없을 경우 악몽던전으로 이동
         UINavigator:goTo('nest_nightmare')
     end,
 
