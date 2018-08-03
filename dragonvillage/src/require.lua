@@ -360,6 +360,7 @@ local t_module = {
     'TableDragonTransform',
     'TableNaverEvent',
     'TableArenaWinReward',
+    'TableCollectionReward',
 
     -- Scene
     'SceneCommon',

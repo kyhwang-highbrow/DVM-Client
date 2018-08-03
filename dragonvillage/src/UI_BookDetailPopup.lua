@@ -205,6 +205,65 @@ function UI_BookDetailPopup:refresh_lvBtnState()
 end
 
 -------------------------------------
+-- function refresh_collectionState
+-- @brief 도감작. 드래곤 최초 획득 보상 관련 UI 갱신
+-------------------------------------
+function UI_BookDetailPopup:refresh_collectionState()
+    local vars = self.vars
+
+    -- node 정리
+    for i=1, MAX_DRAGON_EVOLUTION do
+        vars['rewardNode' .. i]:removeAllChildren()
+    end
+
+	local t_dragon = self.m_tDragon
+	if (not t_dragon) then
+		return
+	end
+
+    local did = self.m_tDragon['did']
+    local evolution = self.m_evolution
+    local target_evolution = nil
+
+    -- 몬스터는 표기 제외 (진화가 가능한지)
+    if TableDragon:isUnderling(did) then
+        return
+    end
+
+    -- 현재 선택된 진화단계가 획득이 되지 않았을 경우
+    if (not g_bookData:isExist_byDidAndEvolution(did, evolution)) then
+        target_evolution = evolution
+    end
+
+    -- 낮은 진화 단계부터 획득 가능한 단계를 검색
+    if (not target_evolution) then
+        for i=1, MAX_DRAGON_EVOLUTION do
+            if (not g_bookData:isExist_byDidAndEvolution(did, i)) then
+                target_evolution = i
+                break
+            end
+        end
+    end
+
+    -- 모든 진화 단계를 획득하였을 경우 함수 종료
+    if (not target_evolution) then
+        return
+    end
+
+    -- UI 생성
+    -- langLabel : 획득보상 
+    -- rewardLabel : 드래곤의 희귀도와 진화 단계에 따른 획득 가능한 다이아의 개수.
+    local ui = UI()
+    ui:load('book_detail_popup_reward.ui')
+    vars['rewardNode' .. target_evolution]:addChild(ui.root)
+    local birthgrade = self.m_tDragon['birthgrade']
+    local reward_dia = TableCollectionReward:getCollectionReward(birthgrade, target_evolution) or 0
+    ui.vars['rewardLabel']:setString(comma_value(reward_dia))
+    ui:doActionReset()
+    ui:doAction()
+end
+
+-------------------------------------
 -- function onChangeDragon
 -------------------------------------
 function UI_BookDetailPopup:onChangeDragon()
@@ -436,6 +495,8 @@ function UI_BookDetailPopup:onChangeEvolution()
 
 	end
 
+    -- 도감작. 드래곤 최초 획득 보상 관련 UI 갱신
+    self:refresh_collectionState()
 end
 
 -------------------------------------
