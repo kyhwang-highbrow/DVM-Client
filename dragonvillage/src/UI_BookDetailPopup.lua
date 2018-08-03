@@ -32,6 +32,7 @@ UI_BookDetailPopup = class(PARENT,{
 -- function init
 -------------------------------------
 function UI_BookDetailPopup:init(t_dragon, is_popup)
+    self.m_uiName = 'UI_BookDetailPopup'
     local vars = self:load('book_detail_popup.ui')
     local is_popup = is_popup or false
     local mode = is_popup and UIManager.POPUP or UIManager.SCENE

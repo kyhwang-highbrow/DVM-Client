@@ -156,7 +156,8 @@ function UI_DragonManageInfo:initButton()
 		vars['assessBtn']:registerScriptTapHandler(function() self:click_assessBtn() end)
 
         -- 도감
-        vars['bookBtn']:registerScriptTapHandler(function() self:click_bookBtn() end)
+        vars['bookBtn1']:registerScriptTapHandler(function() self:click_bookBtn() end)
+        vars['bookBtn2']:registerScriptTapHandler(function() self:click_bookBtn() end)
 
 		-- 조합
 		vars['combineBtn']:registerScriptTapHandler(function() self:click_combineBtn() end)
@@ -197,6 +198,9 @@ function UI_DragonManageInfo:refresh()
 
     -- 리더 드래곤 여부 표시
     self:refresh_leaderDragon(t_dragon_data)
+
+    -- 도감작 (해치, 해츨링, 성룡의 도감을 채워서 다이아를 받는 행위) 상태 갱신
+    self:refresh_bookSprite(t_dragon_data)
 
     -- 진화/승급/스킬강화 알림 - 개발 하다가 중단 
     --self:refresh_buttonNoti()
@@ -407,6 +411,23 @@ function UI_DragonManageInfo:refresh_leaderDragon(t_dragon_data)
         end
     end
 end
+
+-------------------------------------
+-- function refresh_bookSprite
+-- @brief 도감작 (해치, 해츨링, 성룡의 도감을 채워서 다이아를 받는 행위) 상태 갱신
+-------------------------------------
+function UI_DragonManageInfo:refresh_bookSprite(t_dragon_data)
+    local vars = self.vars
+    local did = t_dragon_data['did']
+    
+    -- is_exist가 true이면 해당 did의 해치, 해츨링, 성룡으 도감작이 끝난 상태
+    local is_exist = g_bookData:isExist_all(did)
+    
+    -- 상태에 따라 버튼 종류 구분 (bookBtn2가 도감작이 남아있는 경우 체크 아이콘 표시)
+    vars['bookBtn1']:setVisible(is_exist)
+    vars['bookBtn2']:setVisible(not is_exist)
+end
+
 
 -------------------------------------
 -- function click_exitBtn

@@ -213,14 +213,52 @@ end
 -------------------------------------
 function ServerData_Book:isExist(t_dragon_data)
 	local did = t_dragon_data['did']
+    local evolution = t_dragon_data['evolution']
+    local ret_val = self:isExist_byDidAndEvolution(did, evolution)
+	return ret_val
+end
+
+-------------------------------------
+-- function isExist_byDidAndEvolution
+-- @brief 도감에 표시 여부 .. reward_info 를 활용한다.
+-------------------------------------
+function ServerData_Book:isExist_byDidAndEvolution(did, evolution)
 	local t_info = self.m_tBookReward[tostring(did)]
 
 	if (not t_info) then
 		return false
 	end
-	local evolution = t_dragon_data['evolution']
+
+    -- 0 or nil : 획득하지 않은 드래곤
+    -- 1 : 보상 수령 가능한 드래곤
+    -- 2 : 보상까지 수령한 드래곤
 	local reward_type = t_info['evo_' .. evolution] or 0
 	return (reward_type >= 1)
+end
+
+-------------------------------------
+-- function isExist_all
+-- @brief 모든 진화 단계를 다 수집했는지 여부
+-------------------------------------
+function ServerData_Book:isExist_all(did)
+	local t_info = self.m_tBookReward[tostring(did)]
+
+	if (not t_info) then
+		return false
+	end
+
+    for i=1, MAX_DRAGON_EVOLUTION do
+
+        -- 0 or nil : 획득하지 않은 드래곤
+        -- 1 : 보상 수령 가능한 드래곤
+        -- 2 : 보상까지 수령한 드래곤
+        local state_num = t_info['evo_' .. i]
+        if (not state_num) or (state_num <= 0) then
+            return false
+        end
+    end
+
+    return true
 end
 
 -------------------------------------
