@@ -430,7 +430,7 @@ void TextureCache::removeUnusedTextures()
         Texture2D *tex = it->second;
         if( tex->getReferenceCount() == 1 ) {
             // CCLOG("cocos2d: TextureCache: removing unused texture: %s", it->first.c_str());
-
+    
             tex->release();
             _textures.erase(it++);
         } else {
@@ -516,7 +516,6 @@ std::string TextureCache::getCachedTextureInfo() const
 
         memset(buftmp,0,sizeof(buftmp));
 
-
         Texture2D* tex = it->second;
         unsigned int bpp = tex->getBitsPerPixelForFormat();
         // Each texture takes up width * height * bytesPerPixel bytes.
@@ -531,15 +530,35 @@ std::string TextureCache::getCachedTextureInfo() const
                (long)tex->getPixelsHigh(),
                (long)bpp,
                (long)bytes / 1024);
-        
         buffer += buftmp;
     }
 
-    snprintf(buftmp, sizeof(buftmp)-1, "TextureCache dumpDebugInfo: %ld textures, for %lu KB (%.2f MB)\n", (long)count, (long)totalBytes / 1024, totalBytes / (1024.0f*1024.0f));
+    snprintf(buftmp, sizeof(buftmp)-1, "TextureCache dumpDebugInfo: %ld textures, for %lu KB (%.2f MB)", (long)count, (long)totalBytes / 1024, totalBytes / (1024.0f*1024.0f));
     buffer += buftmp;
 
     return buffer;
 }
+
+#if COCOS2D_DEBUG > 0
+void TextureCache::dumpDebugInfo(bool isPrintList)
+{
+    unsigned int count = 0;
+    unsigned int totalBytes = 0;
+    for( auto it = _textures.begin(); it != _textures.end(); ++it ) {
+        Texture2D* tex = it->second;
+        unsigned int bpp = tex->getBitsPerPixelForFormat();
+        // Each texture takes up width * height * bytesPerPixel bytes.
+        auto bytes = tex->getPixelsWide() * tex->getPixelsHigh() * bpp / 8;
+        totalBytes += bytes;
+        count++;
+
+        if (isPrintList)
+            CCLOG("%s, rc = %u", it->first.c_str(), tex->getReferenceCount());
+    }
+
+    CCLOG("TextureCache dumpDebugInfo: %ld textures, for %lu KB (%.2f MB)", (long)count, (long)totalBytes / 1024, totalBytes / (1024.0f*1024.0f));
+}
+#endif
 
 #if CC_ENABLE_CACHE_TEXTURE_DATA
 

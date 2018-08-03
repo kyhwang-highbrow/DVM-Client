@@ -177,6 +177,9 @@ public:
     //called by director, please do not called outside
     void waitForQuit();
 
+#if COCOS2D_DEBUG > 0
+    void dumpDebugInfo(bool isPrintList);
+#endif
 private:
     void addImageAsyncCallBack(float dt);
     void loadImage();

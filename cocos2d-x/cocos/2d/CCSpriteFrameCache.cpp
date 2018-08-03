@@ -379,7 +379,9 @@ void SpriteFrameCache::removeUnusedSpriteFrames()
     }
 
     _spriteFrames.erase(toRemoveFrames);
-    
+
+
+
     // XXX. Since we don't know the .plist file that originated the frame, we must remove all .plist from the cache
     if( removed )
     {
@@ -481,6 +483,19 @@ SpriteFrame* SpriteFrameCache::getSpriteFrameByName(const std::string& name)
     }
     return frame;
 }
+
+#if COCOS2D_DEBUG > 0
+void SpriteFrameCache::dumpDebugInfo(bool isPrintList)
+{
+    if (isPrintList) {
+        for (auto iter = _spriteFrames.begin(); iter != _spriteFrames.end(); ++iter)
+        {
+            CCLOG("SpriteFrameCache : left frame - %s", iter->first.c_str());
+        }
+    }
+    CCLOG("SpriteFrameCache: left frame count : %zd", _spriteFrames.size());
+}
+#endif
 
 NS_CC_END
 

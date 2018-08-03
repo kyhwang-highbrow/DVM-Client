@@ -689,12 +689,18 @@ void Director::purgeCachedData(void)
     {
         SpriteFrameCache::getInstance()->removeUnusedSpriteFrames();
         _textureCache->removeUnusedTextures();
-
-        // Note: some tests such as ActionsTest are leaking refcounted textures
-        // There should be no test textures left in the cache
-        //CCLOG("%s\n", _textureCache->getCachedTextureInfo().c_str());
     }
     FileUtils::getInstance()->purgeCachedEntries();
+
+    // to debug memory leak @mskim
+//    {
+//        CCLOG("\n");
+//        CCLOG("#### Director::purgeCachedData(void) ####");
+//        SpriteFrameCache::getInstance()->dumpDebugInfo(false);
+//        _textureCache->dumpDebugInfo(false);
+//        Ref::printLeaks(); // set CC_USE_MEM_LEAK_DETECTION 1
+//        CCLOG("\n");
+//    }
 }
 
 float Director::getZEye(void) const
