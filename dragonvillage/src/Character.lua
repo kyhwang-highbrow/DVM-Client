@@ -1770,34 +1770,30 @@ function Character:release()
 
     if (self.m_unitStatusIconNode) then
         self.m_unitStatusIconNode:removeFromParent(true)
+        self.m_unitStatusIconNode = nil    
     end
-
     if (self.m_unitInfoNode) then
         self.m_unitInfoNode:removeFromParent(true)
+        self.m_unitInfoNode = nil    
     end
-
     if (self.m_lockOnNode) then
         self.m_lockOnNode:removeFromParent(true)
+        self.m_lockOnNode = nil
     end
-
     if (self.m_enemySpeechNode) then
         self.m_enemySpeechNode:removeFromParent(true)
         self.m_enemySpeechNode = nil
     end
 
-    self.m_unitStatusIconNode = nil
-    self.m_unitInfoNode = nil
-
     self.m_hpNode = nil
     self.m_hpGauge = nil
-
     self.m_castingNode = nil
     self.m_castingGauge = nil
 
     -- 이벤트 해제
 	self:release_EventDispatcher()
     self:release_EventListener()
-
+    
     PARENT.release(self)
 end
 

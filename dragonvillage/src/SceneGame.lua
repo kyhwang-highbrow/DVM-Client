@@ -268,12 +268,14 @@ end
 -- function onExit
 -------------------------------------
 function SceneGame:onExit()
-	g_gameScene = nil
+    -- retain 된 Entity 들 해제 위하여 호출
+    self:getGameWorld():cleanupUnit()
+    self:getGameWorld():cleanupSkill()
+    self:getGameWorld():cleanupItem()
 
     ScriptCache:clear()
-
     g_autoPlaySetting:save()
-
+	g_gameScene = nil
     PerpleScene.onExit(self)
 
     -- 절전모드 설정
