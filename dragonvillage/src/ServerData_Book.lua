@@ -247,7 +247,12 @@ function ServerData_Book:isExist_all(did)
 		return false
 	end
 
-    for i=1, MAX_DRAGON_EVOLUTION do
+    local max_evolution = MAX_DRAGON_EVOLUTION
+    if TableDragon:isUnderling(did) then
+        max_evolution = 1
+    end
+
+    for i=1, max_evolution do
 
         -- 0 or nil : 획득하지 않은 드래곤
         -- 1 : 보상 수령 가능한 드래곤
