@@ -17,30 +17,30 @@ end
 function GameState_AncientRuin:makeResultUI(is_success)
     self.m_world:setGameFinish()
 
-    -- ÀÛ¾÷ ÇÔ¼öµé
+    -- ì‘ì—… í•¨ìˆ˜ë“¤
     local func_network_game_finish
     local func_ui_result
 
-    -- UI¿¬Ãâ¿¡ ÇÊ¿äÇÑ Å×ÀÌºíµé
+    -- UIì—°ì¶œì— í•„ìš”í•œ í…Œì´ë¸”ë“¤
     local t_result_ref = {}
     t_result_ref['user_levelup_data'] = {}
     t_result_ref['dragon_levelu_data_list'] = {}
     t_result_ref['drop_reward_list'] = {}
     t_result_ref['secret_dungeon'] = nil
 
-    -- 1. ³×Æ®¿öÅ© Åë½Å
+    -- 1. ë„¤íŠ¸ì›Œí¬ í†µì‹ 
     func_network_game_finish = function()
         local t_param = self:makeGameFinishParam(is_success)
         g_gameScene:networkGameFinish(t_param, t_result_ref, func_ui_result)
     end
 
-    -- 2. UI »ı¼º
+    -- 2. UI ìƒì„±
     func_ui_result = function()
         local world = self.m_world
         local stage_id = world.m_stageID
         local game_mode = world.m_gameMode
 
-		-- GameState´Â Adventure¸ğµå¸¦ ±âº»À¸·Î ÇÑ´Ù. ´Ù¸¥ ¸ğµå´Â »ó¼ÓÀ» ¹Ş¾Æ¼­ Ã³¸®ÇÑ´Ù.
+		-- GameStateëŠ” Adventureëª¨ë“œë¥¼ ê¸°ë³¸ìœ¼ë¡œ í•œë‹¤. ë‹¤ë¥¸ ëª¨ë“œëŠ” ìƒì†ì„ ë°›ì•„ì„œ ì²˜ë¦¬í•œë‹¤.
         local ui = UI_GameResult_AncientRuin(stage_id,
             is_success,
             self.m_fightTimer,
@@ -55,6 +55,6 @@ function GameState_AncientRuin:makeResultUI(is_success)
         ui:setHotTimeInfo(l_hottime)
     end
 
-    -- ÃÖÃÊ ½ÇÇà
+    -- ìµœì´ˆ ì‹¤í–‰
     func_network_game_finish()
 end

@@ -71,7 +71,7 @@ end
 
 -------------------------------------
 -- function getOptionDescWithSkillForm
--- @brief ½ΊΕ³ Ό³Έν°ϊ °°ΐΊ richLabel Δ®¶σ ΐϋΏλ
+-- @brief μ¤ν‚¬ μ„¤λª…κ³Ό κ°™μ€ richLabel μΉΌλΌ μ μ©
 -------------------------------------
 function TableOption:getOptionDescWithSkillForm(option, val_1, val_2, val_3)
     if (self == THIS) then

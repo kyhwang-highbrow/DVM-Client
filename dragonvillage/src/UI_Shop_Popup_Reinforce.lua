@@ -13,13 +13,13 @@ UI_Shop_Popup_Reinforce = class(PARENT,{
 
 -------------------------------------
 -- function initParentVariable
--- @brief ÀÚ½Ä Å¬·¡½º¿¡¼­ ¹İµå½Ã ±¸ÇöÇÒ °Í
+-- @brief ìì‹ í´ë˜ìŠ¤ì—ì„œ ë°˜ë“œì‹œ êµ¬í˜„í•  ê²ƒ
 -------------------------------------
 function UI_Shop_Popup_Reinforce:initParentVariable()
-    -- ITopUserInfo_EventListenerÀÇ ¸É¹ö º¯¼öµé ¼³Á¤
+    -- ITopUserInfo_EventListenerì˜ ë§´ë²„ ë³€ìˆ˜ë“¤ ì„¤ì •
     self.m_uiName = 'UI_Shop_Popup_Reinforce'
     self.m_bVisible = true
-    self.m_titleStr = Str('°­È­ »óÁ¡')
+    self.m_titleStr = Str('ê°•í™” ìƒì ')
     self.m_subCurrency = 'topaz'
     self.m_addSubCurrency = 'clancoin'
     self.m_bUseExitBtn = true
@@ -72,7 +72,7 @@ end
 function UI_Shop_Popup_Reinforce:init_TableView()
     local list_table_node = self.vars['tableViewNode']
 
-    -- Àç·á·Î »ç¿ë °¡´ÉÇÑ ¸®½ºÆ®¸¦ ¾ò¾î¿È
+    -- ì¬ë£Œë¡œ ì‚¬ìš© ê°€ëŠ¥í•œ ë¦¬ìŠ¤íŠ¸ë¥¼ ì–»ì–´ì˜´
     local l_item_list = g_shopDataNew:getProductList(self.m_category)
 
     local ui_class = UI_Product
@@ -81,7 +81,7 @@ function UI_Shop_Popup_Reinforce:init_TableView()
     local cell_width = 334
     local cell_height = 316
 
-    -- ÅÇ¿¡¼­ »óÇ° °³¼ö°¡ 7°³ ÀÌ»óÀÌ µÇ¸é 4ÁÙ·Î ³ëÃâ
+    -- íƒ­ì—ì„œ ìƒí’ˆ ê°œìˆ˜ê°€ 7ê°œ ì´ìƒì´ ë˜ë©´ 4ì¤„ë¡œ ë…¸ì¶œ
     if (7 <= table.count(l_item_list)) then
         ui_class = UI_ProductSmall
         item_per_cell = 4
@@ -90,7 +90,7 @@ function UI_Shop_Popup_Reinforce:init_TableView()
         cell_height = 288
     end
 
-    -- »ı¼º Äİ¹é
+    -- ìƒì„± ì½œë°±
 	local function create_cb_func(ui, data)
         ui:setBuyCB(function() 
             ui:refresh()
@@ -100,7 +100,7 @@ function UI_Shop_Popup_Reinforce:init_TableView()
         end)
 	end    
 
-    -- Å×ÀÌºí ºä ÀÎ½ºÅÏ½º »ı¼º
+    -- í…Œì´ë¸” ë·° ì¸ìŠ¤í„´ìŠ¤ ìƒì„±
     local table_view_td = UIC_TableViewTD(list_table_node)
     table_view_td.m_cellSize = cc.size((cell_width + interval), (cell_height + interval))
     table_view_td:setCellUIClass(UI_ProductSmall, create_cb_func)
@@ -108,7 +108,7 @@ function UI_Shop_Popup_Reinforce:init_TableView()
     table_view_td.m_nItemPerCell = item_per_cell
 	--table_view_td:setAlignCenter(true)
 
-    -- ¸®½ºÆ®°¡ ºñ¾úÀ» ¶§
+    -- ë¦¬ìŠ¤íŠ¸ê°€ ë¹„ì—ˆì„ ë•Œ
     table_view_td:makeDefaultEmptyDescLabel('')
 
     table_view_td:setItemList(l_item_list)
@@ -119,19 +119,19 @@ end
 
 -------------------------------------
 -- function sortProduct
--- @brief »óÇ° Á¤·Ä
+-- @brief ìƒí’ˆ ì •ë ¬
 -------------------------------------
 function UI_Shop_Popup_Reinforce:sortProduct()
     local function sort_func(a, b)
         local a_data = a['data']
         local b_data = b['data']
 
-        -- UI ¿ì¼±¼øÀ§ ´ë·Î Á¤·Ä
+        -- UI ìš°ì„ ìˆœìœ„ ëŒ€ë¡œ ì •ë ¬
         if (a_data:getUIPriority() ~= b_data:getUIPriority()) then
             return a_data:getUIPriority() > b_data:getUIPriority()
         end
 
-        -- ¿ì¼±¼øÀ§°¡ µ¿ÀÏÇÒ °æ¿ì »óÇ° ID°¡ ³·Àº ¼ø¼­´ë·Î Á¤·Ä
+        -- ìš°ì„ ìˆœìœ„ê°€ ë™ì¼í•  ê²½ìš° ìƒí’ˆ IDê°€ ë‚®ì€ ìˆœì„œëŒ€ë¡œ ì •ë ¬
         return a_data['product_id'] < b_data['product_id']
     end
 
@@ -154,7 +154,7 @@ end
 
 -------------------------------------
 -- function refresh_dragonInfo
--- @brief µå·¡°ï Á¤º¸
+-- @brief ë“œë˜ê³¤ ì •ë³´
 -------------------------------------
 function UI_Shop_Popup_Reinforce:refresh_dragonInfo()
     local t_dragon_data = self.m_selectDragonData
@@ -166,39 +166,39 @@ function UI_Shop_Popup_Reinforce:refresh_dragonInfo()
     local vars = self.vars
     local did = t_dragon_data['did']
 
-    -- ¹è°æ
+    -- ë°°ê²½
     local attr = TableDragon:getDragonAttr(did)
     vars['bgNode']:removeAllChildren()
     local animator = ResHelper:getUIDragonBG(attr, 'idle')
     vars['bgNode']:addChild(animator.m_node)
 
-    -- µå·¡°ï Å×ÀÌºí
+    -- ë“œë˜ê³¤ í…Œì´ë¸”
     local table_dragon = TABLE:get('dragon')
     local t_dragon = table_dragon[t_dragon_data['did']]
 
-    do -- µå·¡°ï ÀÌ¸§
+    do -- ë“œë˜ê³¤ ì´ë¦„
         vars['dragonNameLabel']:setString(t_dragon_data:getDragonNameWithEclv())
     end
 
-    do -- µå·¡°ï ¼Ó¼º
+    do -- ë“œë˜ê³¤ ì†ì„±
         local attr = t_dragon_data:getAttr()
         vars['attrNode']:removeAllChildren()
         local icon = IconHelper:getAttributeIcon(attr)
         vars['attrNode']:addChild(icon)
     end
 
-    do -- µå·¡°ï ¿ªÇÒ(role)
+    do -- ë“œë˜ê³¤ ì—­í• (role)
         local role_type = t_dragon_data:getRole()
         vars['typeLabel']:setString(dragonRoleTypeName(role_type))
     end
 	
-	do -- µå·¡°ï µî±Ş
+	do -- ë“œë˜ê³¤ ë“±ê¸‰
         vars['starNode']:removeAllChildren()
         local star_icon = IconHelper:getDragonGradeIcon(t_dragon_data, 2)
         vars['starNode']:addChild(star_icon)
     end
 
-    do -- µå·¡°ï ¸®¼Ò½º
+    do -- ë“œë˜ê³¤ ë¦¬ì†ŒìŠ¤
         local evolution = t_dragon_data['evolution']
         vars['dragonNode']:removeAllChildren()
         local animator = AnimatorHelper:makeDragonAnimator(t_dragon['res'], evolution, t_dragon['attr'])
@@ -211,7 +211,7 @@ function UI_Shop_Popup_Reinforce:refresh_dragonInfo()
 end
 -------------------------------------
 -- function refresh_reinforceInfo
--- @brief µå·¡°ï Á¤º¸
+-- @brief ë“œë˜ê³¤ ì •ë³´
 -------------------------------------
 function UI_Shop_Popup_Reinforce:refresh_reinforceInfo()
     local t_dragon_data = self.m_selectDragonData
@@ -223,13 +223,13 @@ function UI_Shop_Popup_Reinforce:refresh_reinforceInfo()
     local vars = self.vars
     local did = t_dragon_data['did']
 
-	-- µå·¡°ï °­È­ ·¹º§
+	-- ë“œë˜ê³¤ ê°•í™” ë ˆë²¨
 	vars['reinforceNode']:removeAllChildren()
 	local rlv = t_dragon_data:getRlv()
     local icon = IconHelper:getDragonReinforceIcon(rlv)
     vars['reinforceNode']:addChild(icon)
 
-	-- Ç®°­È­½Ã ¿¹¿ÜÃ³¸®
+	-- í’€ê°•í™”ì‹œ ì˜ˆì™¸ì²˜ë¦¬
 	if (t_dragon_data:isMaxRlv()) then
 		vars['expGauge']:setPercentage(100)
 		vars['expLabel']:setString('MAX')
@@ -237,12 +237,12 @@ function UI_Shop_Popup_Reinforce:refresh_reinforceInfo()
 		return
 	end
 
-	-- ÇöÀç °æÇèÄ¡ / ÃÑ °æÇèÄ¡
+	-- í˜„ì¬ ê²½í—˜ì¹˜ / ì´ ê²½í—˜ì¹˜
 	local rexp = t_dragon_data:getRexp()
 	local max_rexp = TableDragonReinforce:getCurrMaxExp(did, rlv)
 	vars['expLabel']:setString(string.format('%d / %d exp', rexp, max_rexp))
 	
-	-- °æÇèÄ¡ °ÔÀÌÁö
+	-- ê²½í—˜ì¹˜ ê²Œì´ì§€
 	vars['expGauge']:runAction(cc.ProgressTo:create(0.2, (rexp / max_rexp * 100)))
 end
 
@@ -256,7 +256,7 @@ function UI_Shop_Popup_Reinforce:refresh_relation()
         return
     end
 	
-	-- ÀÎ¿¬Æ÷ÀÎÆ® Ç¥½ÃÇÏ±â À§ÇÑ t_dragon ¸®½ºÆ® »ı¼º
+	-- ì¸ì—°í¬ì¸íŠ¸ í‘œì‹œí•˜ê¸° ìœ„í•œ t_dragon ë¦¬ìŠ¤íŠ¸ ìƒì„±
     local vars = self.vars
     local did = t_dragon_data['did']
 	local list = TableDragon:getSameTypeDragonList(did, g_dragonsData.m_mReleasedDragonsByDid)
@@ -267,32 +267,32 @@ function UI_Shop_Popup_Reinforce:refresh_relation()
 		t_ret[idx] = v
 	end
 
-	-- ¼ø¼­´ë·Î Âï¾îÁØ´Ù.
+	-- ìˆœì„œëŒ€ë¡œ ì°ì–´ì¤€ë‹¤.
 	for i = 1, 5 do
 		vars['relationNode' .. i]:removeAllChildren(true)
 
 		local t_dragon = t_ret[i]
 
-		-- ÀÎ¿¬Æ÷ÀÎÆ® Ä«µå »ı¼º
+		-- ì¸ì—°í¬ì¸íŠ¸ ì¹´ë“œ ìƒì„±
 		if (t_dragon) then
 			local rid = t_dragon['did']
 
-			-- µ¥ÀÌÅÍ
+			-- ë°ì´í„°
 			local t_data = {
 				['did'] = rid,
 				['grade'] = t_dragon['birthgrade']
 			}
 			local struct_dragon = StructDragonObject(t_data)
 
-			-- Ä«µå »ı¼º
+			-- ì¹´ë“œ ìƒì„±
 			local ui = UI_DragonReinforceItem('dragon', struct_dragon)
 			vars['relationNode' .. i]:addChild(ui.root)
             ui:disable()
 
-			-- ¿¬Ãâ
+			-- ì—°ì¶œ
 			--cca.fruitReact(ui.m_card.root, i)
 
-		-- ¾øÀ¸¸é ºó¾ÆÀÌÄÜ »ı¼º
+		-- ì—†ìœ¼ë©´ ë¹ˆì•„ì´ì½˜ ìƒì„±
 		else
 			local ui = UI_DragonReinforceItem('empty')
 			vars['relationNode' .. i]:addChild(ui.root)
@@ -300,21 +300,21 @@ function UI_Shop_Popup_Reinforce:refresh_relation()
 		end
 	end
 
-	-- °­È­ Æ÷ÀÎÆ® »ı¼º
+	-- ê°•í™” í¬ì¸íŠ¸ ìƒì„±
 	do 
 		vars['relationNode6']:removeAllChildren(true)
 
-		-- µ¥ÀÌÅÍ
+		-- ë°ì´í„°
 		local grade = t_dragon_data:getBirthGrade()
 		local item_id = 760000 + grade
 		local t_item = TableItem():get(item_id)
 
-		-- Ä«µå »ı¼º
+		-- ì¹´ë“œ ìƒì„±
 		local ui = UI_DragonReinforceItem('item', t_item)
 		vars['relationNode6']:addChild(ui.root)
         ui:disable()
 
-		-- ¿¬Ãâ
+		-- ì—°ì¶œ
 		--cca.fruitReact(ui.m_card.root, 6)
 	end
 

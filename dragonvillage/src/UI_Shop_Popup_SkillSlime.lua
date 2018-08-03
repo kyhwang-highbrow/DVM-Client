@@ -13,13 +13,13 @@ UI_Shop_Popup_SkillSlime = class(PARENT,{
 
 -------------------------------------
 -- function initParentVariable
--- @brief ÀÚ½Ä Å¬·¡½º¿¡¼­ ¹İµå½Ã ±¸ÇöÇÒ °Í
+-- @brief ìì‹ í´ë˜ìŠ¤ì—ì„œ ë°˜ë“œì‹œ êµ¬í˜„í•  ê²ƒ
 -------------------------------------
 function UI_Shop_Popup_SkillSlime:initParentVariable()
-    -- ITopUserInfo_EventListenerÀÇ ¸É¹ö º¯¼öµé ¼³Á¤
+    -- ITopUserInfo_EventListenerì˜ ë§´ë²„ ë³€ìˆ˜ë“¤ ì„¤ì •
     self.m_uiName = 'UI_Shop_Popup_SkillSlime'
     self.m_bVisible = true
-    self.m_titleStr = Str('½ºÅ³ ·¹º§¾÷')
+    self.m_titleStr = Str('ìŠ¤í‚¬ ë ˆë²¨ì—…')
     self.m_subCurrency = 'topaz'
     self.m_addSubCurrency = 'clancoin'
     self.m_bUseExitBtn = true
@@ -69,7 +69,7 @@ end
 function UI_Shop_Popup_SkillSlime:init_TableView()
     local list_table_node = self.vars['tableViewNode']
 
-    -- Àç·á·Î »ç¿ë °¡´ÉÇÑ ¸®½ºÆ®¸¦ ¾ò¾î¿È
+    -- ì¬ë£Œë¡œ ì‚¬ìš© ê°€ëŠ¥í•œ ë¦¬ìŠ¤íŠ¸ë¥¼ ì–»ì–´ì˜´
     local l_item_list = g_shopDataNew:getProductList(self.m_category)
 
     local ui_class = UI_Product
@@ -78,7 +78,7 @@ function UI_Shop_Popup_SkillSlime:init_TableView()
     local cell_width = 334
     local cell_height = 316
 
-    -- ÅÇ¿¡¼­ »óÇ° °³¼ö°¡ 6°³ ÀÌ»óÀÌ µÇ¸é 4ÁÙ·Î ³ëÃâ
+    -- íƒ­ì—ì„œ ìƒí’ˆ ê°œìˆ˜ê°€ 6ê°œ ì´ìƒì´ ë˜ë©´ 4ì¤„ë¡œ ë…¸ì¶œ
     if (6 <= table.count(l_item_list)) then
         ui_class = UI_ProductSmall
         item_per_cell = 4
@@ -87,7 +87,7 @@ function UI_Shop_Popup_SkillSlime:init_TableView()
         cell_height = 288
     end
 
-    -- »ı¼º Äİ¹é
+    -- ìƒì„± ì½œë°±
 	local function create_cb_func(ui, data)
         ui:setBuyCB(function() 
             ui:refresh()
@@ -97,14 +97,14 @@ function UI_Shop_Popup_SkillSlime:init_TableView()
         end)
 	end    
 
-    -- Å×ÀÌºí ºä ÀÎ½ºÅÏ½º »ı¼º
+    -- í…Œì´ë¸” ë·° ì¸ìŠ¤í„´ìŠ¤ ìƒì„±
     local table_view_td = UIC_TableViewTD(list_table_node)
     table_view_td.m_cellSize = cc.size((cell_width + interval), (cell_height + interval))
     table_view_td:setCellUIClass(UI_ProductSmall, create_cb_func)
     table_view_td:setDirection(cc.SCROLLVIEW_DIRECTION_VERTICAL)
     table_view_td.m_nItemPerCell = item_per_cell
 
-    -- ¸®½ºÆ®°¡ ºñ¾úÀ» ¶§
+    -- ë¦¬ìŠ¤íŠ¸ê°€ ë¹„ì—ˆì„ ë•Œ
     table_view_td:makeDefaultEmptyDescLabel('')
 
     table_view_td:setItemList(l_item_list)
@@ -115,19 +115,19 @@ end
 
 -------------------------------------
 -- function sortProduct
--- @brief »óÇ° Á¤·Ä
+-- @brief ìƒí’ˆ ì •ë ¬
 -------------------------------------
 function UI_Shop_Popup_SkillSlime:sortProduct()
     local function sort_func(a, b)
         local a_data = a['data']
         local b_data = b['data']
 
-        -- UI ¿ì¼±¼øÀ§ ´ë·Î Á¤·Ä
+        -- UI ìš°ì„ ìˆœìœ„ ëŒ€ë¡œ ì •ë ¬
         if (a_data:getUIPriority() ~= b_data:getUIPriority()) then
             return a_data:getUIPriority() > b_data:getUIPriority()
         end
 
-        -- ¿ì¼±¼øÀ§°¡ µ¿ÀÏÇÒ °æ¿ì »óÇ° ID°¡ ³·Àº ¼ø¼­´ë·Î Á¤·Ä
+        -- ìš°ì„ ìˆœìœ„ê°€ ë™ì¼í•  ê²½ìš° ìƒí’ˆ IDê°€ ë‚®ì€ ìˆœì„œëŒ€ë¡œ ì •ë ¬
         return a_data['product_id'] < b_data['product_id']
     end
 
@@ -150,7 +150,7 @@ end
 
 -------------------------------------
 -- function refresh_dragonInfo
--- @brief µå·¡°ï Á¤º¸
+-- @brief ë“œë˜ê³¤ ì •ë³´
 -------------------------------------
 function UI_Shop_Popup_SkillSlime:refresh_dragonInfo()
     local t_dragon_data = self.m_selectDragonData
@@ -162,39 +162,39 @@ function UI_Shop_Popup_SkillSlime:refresh_dragonInfo()
     local vars = self.vars
     local did = t_dragon_data['did']
 
-    -- ¹è°æ
+    -- ë°°ê²½
     local attr = TableDragon:getDragonAttr(did)
     vars['bgNode']:removeAllChildren()
     local animator = ResHelper:getUIDragonBG(attr, 'idle')
     vars['bgNode']:addChild(animator.m_node)
 
-    -- µå·¡°ï Å×ÀÌºí
+    -- ë“œë˜ê³¤ í…Œì´ë¸”
     local table_dragon = TABLE:get('dragon')
     local t_dragon = table_dragon[t_dragon_data['did']]
 
-    do -- µå·¡°ï ÀÌ¸§
+    do -- ë“œë˜ê³¤ ì´ë¦„
         vars['dragonNameLabel']:setString(t_dragon_data:getDragonNameWithEclv())
     end
 
-    do -- µå·¡°ï ¼Ó¼º
+    do -- ë“œë˜ê³¤ ì†ì„±
         local attr = t_dragon_data:getAttr()
         vars['attrNode']:removeAllChildren()
         local icon = IconHelper:getAttributeIcon(attr)
         vars['attrNode']:addChild(icon)
     end
 
-    do -- µå·¡°ï ¿ªÇÒ(role)
+    do -- ë“œë˜ê³¤ ì—­í• (role)
         local role_type = t_dragon_data:getRole()
         vars['typeLabel']:setString(dragonRoleTypeName(role_type))
     end
 	
-	do -- µå·¡°ï µî±Ş
+	do -- ë“œë˜ê³¤ ë“±ê¸‰
         vars['starNode']:removeAllChildren()
         local star_icon = IconHelper:getDragonGradeIcon(t_dragon_data, 2)
         vars['starNode']:addChild(star_icon)
     end
 
-    do -- µå·¡°ï ¸®¼Ò½º
+    do -- ë“œë˜ê³¤ ë¦¬ì†ŒìŠ¤
         local evolution = t_dragon_data['evolution']
         vars['dragonNode']:removeAllChildren()
         local animator = AnimatorHelper:makeDragonAnimator(t_dragon['res'], evolution, t_dragon['attr'])
@@ -221,7 +221,7 @@ function UI_Shop_Popup_SkillSlime:refresh_skillIcon()
 		local skill_node = vars['skillNode' .. i]
 		skill_node:removeAllChildren()
             
-		-- ½ºÅ³ ¾ÆÀÌÄÜ »ı¼º
+		-- ìŠ¤í‚¬ ì•„ì´ì½˜ ìƒì„±
 		if l_skill_icon[i] then
 			skill_node:addChild(l_skill_icon[i].root)
             l_skill_icon[i].vars['clickBtn']:setActionType(UIC_Button.ACTION_TYPE_WITHOUT_SCAILING)
@@ -229,7 +229,7 @@ function UI_Shop_Popup_SkillSlime:refresh_skillIcon()
 				UI_SkillDetailPopup(t_dragon_data, i)
 			end)
 
-		-- ºñ¾îÀÖ´Â ½ºÅ³ ¾ÆÀÌÄÜ »ı¼º
+		-- ë¹„ì–´ìˆëŠ” ìŠ¤í‚¬ ì•„ì´ì½˜ ìƒì„±
 		else
 			local empty_skill_icon = IconHelper:getEmptySkillCard()
 			skill_node:addChild(empty_skill_icon)
