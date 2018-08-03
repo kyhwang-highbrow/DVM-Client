@@ -36,7 +36,8 @@ function IEventDispatcher:removeListener(event_name, listener)
     if (not listener) then return end
 
     if (not self.m_lEventListener[event_name]) then
-        error('removeListener no event_name : ' .. event_name)
+        cclog('removeListener no event_name : ' .. event_name)
+        return
     end
     self.m_lEventListener[event_name][listener] = nil
 
