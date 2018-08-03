@@ -1174,6 +1174,10 @@ function Character:setDamage(attacker, defender, i_x, i_y, damage, t_info)
             local damage = math_min(damage, self.m_hp)
             local attack_type = t_info['attack_type']
 
+            -- 좀비 스킬 발동 이벤트
+            self:dispatch('zombie')
+
+            -- 공격이 부활 불가 효과가 있는 경우
             if (attacker) then
                 if (attacker.m_activityCarrier:isIgnoreRevive()) then
                     self.m_bPossibleRevive = false
