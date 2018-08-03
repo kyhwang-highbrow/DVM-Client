@@ -425,16 +425,6 @@ function SetSleepMode(sleep_mode)
             return
         end
     end
-    
-    if IS_TEST_MODE() then
-        cclog('#############################################')
-        cclog('#############################################')
-        cclog('##')
-        cclog('## 절전모드 ' .. tostring(sleep_mode))
-        cclog('##')
-        cclog('#############################################')
-        cclog('#############################################')
-    end
 
     if sleep_mode then
 	    cc.Director:getInstance():setIdleTimerDisabled(false)
