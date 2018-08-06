@@ -776,8 +776,6 @@ function StructDragonObject:getStringData()
         end
     end
 
-    cclog('token : ' .. t1 .. ';' .. t2 .. ';' .. t3 .. ';' .. t4)
-
-    -- t1 + t2 + t3 + t4 + t5
+    -- t1 + t2 + t3 + t4
     return t1 .. ';' .. t2 .. ';' .. t3 .. ';' .. t4
 end
