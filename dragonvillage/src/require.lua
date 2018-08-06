@@ -1050,6 +1050,7 @@ local t_module = {
     'UI_DragonManageInfo',
     'UI_DragonLevelUp',
     'UI_DragonLevelUpHelper',
+    'UI_DragonMastery', -- 특성
     'UI_DragonUpgrade',
 	'UI_DragonSkillEnhance',
     'UI_DragonEvolution',

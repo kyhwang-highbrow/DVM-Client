@@ -113,6 +113,9 @@ function UI_DragonManageInfo:initButton()
         -- 레벨업
         vars['levelupBtn']:registerScriptTapHandler(function() self:click_levelupBtn() end)
 
+        -- 특성
+        vars['masteryBtn']:registerScriptTapHandler(function() self:click_masteryBtn() end)
+
         -- 승급
         vars['upgradeBtn']:registerScriptTapHandler(function() self:click_upgradeBtn() end)
 
@@ -489,6 +492,14 @@ function UI_DragonManageInfo:click_levelupBtn()
     end
 
     self:openSubManageUI(UI_DragonLevelUp)
+end
+
+-------------------------------------
+-- function click_masteryBtn
+-- @brief 특성 버튼
+-------------------------------------
+function UI_DragonManageInfo:click_masteryBtn()
+    self:openSubManageUI(UI_DragonMastery)
 end
 
 -------------------------------------
