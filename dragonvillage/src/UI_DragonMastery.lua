@@ -53,6 +53,22 @@ function UI_DragonMastery:initUI()
     local vars = self.vars
     self:init_dragonTableView()
     self:initStatusUI()
+
+
+    do -- 아모르의 서
+        local table_item = TableItem()
+        local item_id = ITEM_ID_AMOR
+        do -- 아이템 이름
+            local name = Str(table_item:getValue(item_id, 't_name'))
+            vars['amorNameLabel']:setString(name)
+        end
+
+        do -- 아모르의 서 아이콘
+            vars['amorItemNode']:removeAllChildren()
+            local item_icon = IconHelper:getItemIcon(item_id)
+            vars['amorItemNode']:addChild(item_icon)
+        end
+    end
 end
 
 -------------------------------------
@@ -87,12 +103,16 @@ end
 -------------------------------------
 function UI_DragonMastery:initButton()
     local vars = self.vars
+    vars['masteryLvUpBtn']:registerScriptTapHandler(function() self:click_masteryLvUpBtn() end)
+    vars['amorBtn']:registerScriptTapHandler(function() self:click_amorBtn() end)
 end
 
 -------------------------------------
 -- function refresh
 -------------------------------------
 function UI_DragonMastery:refresh()
+    self:refresh_dragonInfo()
+    self:refresh_masteryInfo()
 end
 
 -------------------------------------
@@ -100,14 +120,94 @@ end
 -- @brief 드래곤 정보
 -------------------------------------
 function UI_DragonMastery:refresh_dragonInfo()
-    local t_dragon_data = self.m_selectDragonData
-
-    if (not t_dragon_data) then
+    local dragon_obj = self:getSelectDragonObj() -- StructDragonObject
+    
+    if (not dragon_obj) then
         return
     end
 
     local vars = self.vars
+
+    -- 배경
+    local attr = dragon_obj:getAttr()
+    if self:checkVarsKey('bgNode', attr) then    
+        vars['bgNode']:removeAllChildren()
+        local animator = ResHelper:getUIDragonBG(attr, 'idle')
+        vars['bgNode']:addChild(animator.m_node)
+    end
+
+    do -- 드래곤 이름
+        vars['dragonNameLabel']:setString(dragon_obj:getDragonNameWithEclv())
+    end
+
+    do -- 드래곤 속성
+        local attr = dragon_obj:getAttr()
+        vars['attrNode']:removeAllChildren()
+        local icon = IconHelper:getAttributeIcon(attr)
+        vars['attrNode']:addChild(icon)
+    end
+
+    do -- 드래곤 역할(role)
+        local role_type = dragon_obj:getRole()
+        vars['typeLabel']:setString(dragonRoleTypeName(role_type))
+    end
+
+    do -- 드래곤 현재 정보 카드
+        vars['dragonIconNode1']:removeAllChildren()
+        local dragon_card = UI_DragonCard(dragon_obj)
+        vars['dragonIconNode1']:addChild(dragon_card.root)
+    end
 end
+
+-------------------------------------
+-- function refresh_masteryInfo
+-- @brief 특성 정보
+-------------------------------------
+function UI_DragonMastery:refresh_masteryInfo()
+    local dragon_obj = self:getSelectDragonObj() -- StructDragonObject
+    
+    if (not dragon_obj) then
+        return
+    end
+
+    local vars = self.vars
+
+    -- 아모르의 서
+    local req_count = 10 -- 임시로 하드코딩
+    local own_count = g_userData:get('amor') or 0
+    local str = Str('{1} / {2}', own_count, req_count)
+    if (req_count <= own_count) then
+        str = '{@possible}' .. str
+    else
+        str = '{@impossible}' .. str
+    end
+    vars['amorNumberLabel']:setString(str)
+
+
+    -- 특성 레벨
+    local mastery_lv = tonumber(dragon_obj['mastery_lv']) or 0
+    if (mastery_lv <= 0) then
+        vars['startNormalLvMenu']:setVisible(true)
+        vars['startMasteryLvMenu']:setVisible(false)
+
+        -- UI에 박혀있어서 설정할 필요가 없음
+        -- vars['normalLvLabel1']:setString('60')
+        -- vars['normalLvLabel2']:setString('1')
+    else
+        vars['startNormalLvMenu']:setVisible(false)
+        vars['startMasteryLvMenu']:setVisible(true)
+
+        vars['masteryLvLabel1']:setString(tostring(mastery_lv))
+        vars['masteryLvLabel2']:setString(tostring(mastery_lv + 1))
+    end
+
+
+    -- 특성 포인트(남은 것)
+    local mastery_point = tonumber(dragon_obj['mastery_point']) or 0
+    vars['skillPointLabel1']:setString(tostring(mastery_point))
+    vars['skillPointLabel2']:setString(tostring(mastery_point + 1))
+end
+
 
 -------------------------------------
 -- function getDragonList
@@ -178,6 +278,31 @@ end
 function UI_DragonMastery:createMtrlDragonCardCB(ui, data)
 end
 
+-------------------------------------
+-- function click_masteryLvUpBtn
+-- @brief 특성 레벨업 버튼
+-------------------------------------
+function UI_DragonMastery:click_masteryLvUpBtn()
+    local possible = false
+    local msg = '(테스트)레벨업 불가로 처리 중'
+
+    if (not possible) then
+        UIManager:toastNotificationRed(msg)
+        local vars = self.vars
+
+        cca.uiImpossibleAction(vars['amorBtn'])
+        cca.uiImpossibleAction(vars['dragonIconNode2'])
+        return
+    end
+end
+
+-------------------------------------
+-- function click_amorBtn
+-- @brief 특성 레벨업 버튼
+-------------------------------------
+function UI_DragonMastery:click_amorBtn()
+    UI_ItemInfoPopup(ITEM_ID_AMOR)
+end
 
 --@CHECK
 UI:checkCompileError(UI_DragonMastery)

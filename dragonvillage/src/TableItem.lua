@@ -11,6 +11,8 @@ local THIS = TableItem
 ITEM_ID_CASH = 700001
 ITEM_ID_GOLD = 700002
 ITEM_ID_AMET = 700007
+ITEM_ID_AMOR = 700014 -- 아모르의 서 (드래곤 특성 레벨업에 사용)
+ITEM_ID_OBLIVION = 700015 -- 망각의 서 (드래곤 특성 스킬 초기화에 사용)
 ITEM_ID_ST = 700101
 
 ITEM_ID_EVENT = 700202
