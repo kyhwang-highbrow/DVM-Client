@@ -760,9 +760,24 @@ function MakeDragonStatusCalculator_fromDragonDataTable(t_dragon_data)
         end
     end
 
-    -- TODO: 특성(mastery)
+    -- 특성(mastery)
     do
-        
+        local l_add_status, l_multi_status = t_dragon_data:getMasterySkillStatus()
+        for stat_type,value in pairs(l_add_status) do
+            local indivisual_status = status_calc.m_lStatusList[stat_type]
+
+            -- 지원하지 않는 능력치 타입
+            if (not indivisual_status) then
+                cclog('error!! stat_type : ' .. stat_type)
+            else
+                indivisual_status:addMasteryAdd(value)
+            end
+        end
+
+        for stat_type,value in pairs(l_multi_status) do
+            local indivisual_status = status_calc.m_lStatusList[stat_type]
+            indivisual_status:addMasteryMulti(value)
+        end
     end
 
     return status_calc

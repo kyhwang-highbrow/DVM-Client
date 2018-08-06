@@ -18,6 +18,7 @@ local TableInfo = {
         dragon_type         = {'table_dragon_type',         'type',         false},
         dragon_skill        = {'table_dragon_skill',        'sid',          false},
 		dragon_skill_modify = {'table_dragon_skill_modify', 'slid',         false},
+        mastery_skill       = {'table_mastery_skill',       'msid',         false},
         table_dragon_combine= {'table_dragon_combine',      'did',          false},
         monster				= {'table_monster',             'mid',          false},
         monster_hit_pos		= {'table_monster_hit_pos',     'mid',          false},

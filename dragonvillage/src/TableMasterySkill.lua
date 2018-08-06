@@ -37,14 +37,10 @@ function TableMasterySkill:getMasterySkillStatus(mastery_id, lv)
 
     local lv = lv or 1
     local t_table = self:get(mastery_id)
-    local option = t_table['option']
-
-    local table_option = TableOption()
-
-    local stat_type = table_option:getValue(option, 'status')
-    local action = table_option:getValue(option, 'action')
-    local game_mode = table_option:getValue(option, 'game_mode')
     
+    local option = t_table['option']
     local value = lv * t_table['add_value']
-    return stat_type, action, value, game_mode
+    local game_mode = t_table['game_mode']
+
+    return option, value, game_mode
 end

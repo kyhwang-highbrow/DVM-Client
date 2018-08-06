@@ -18,10 +18,7 @@ StructDragonObject = class({
         friendship = '',
         reinforce = 'number', -- 강화 단계
         transform = 'number',-- 외형 변환
-        mastery_lv = 'number',-- 특성 레벨
-        mastery_point = 'number', -- 특성 포인트(남은 것)
-        mastery_skills = 'table', -- 특성 스킬별 레벨
-
+        
 		rlv = '',	-- 타인의 리더 드래곤 아이콘용 강화 레벨
 
 		lock = 'boolean', -- 잠금
@@ -32,6 +29,10 @@ StructDragonObject = class({
         skill_1 = 'number',
         skill_2 = 'number',
         skill_3 = 'number',
+
+        mastery_lv = 'number',-- 특성 레벨
+        mastery_point = 'number', -- 특성 포인트(남은 것)
+        mastery_skills = 'table', -- 특성 스킬별 레벨
 
         -- 리더 설정 정보
         leader = '',
@@ -66,7 +67,7 @@ function StructDragonObject:init(data)
     self.eclv = 0
     self.rlv = 0
     self.m_mRuneObjects = nil
-	  
+  
     if data then
         self:applyTableData(data)
     end
@@ -251,6 +252,54 @@ function StructDragonObject:getRuneSetSkill()
     local rune_set_obj = self:getStructRuneSetObject()
     local m_skill_id = rune_set_obj:getRuneSetSkill()
     return m_skill_id
+end
+
+-------------------------------------
+-- function getMasterySkillStatus
+-- @breif
+-------------------------------------
+function StructDragonObject:getMasterySkillStatus(game_mode)
+    local mastery_skills = self['mastery_skills'] or {}
+    
+    local table_option = TableOption()
+    local table_mastery_skill = TableMasterySkill()
+    
+    local l_add_status = {}
+    local l_multi_status = {}
+    
+    -- 특성 스킬 능력치 합산
+    for mastery_id, lv in pairs(mastery_skills) do
+        local option, value, _game_mode = table_mastery_skill:getMasterySkillStatus(tonumber(mastery_id), lv)
+
+        if (not game_mode or game_mode == _game_mode) then
+            local stat_type = table_option:getValue(option, 'status')
+            local action = table_option:getValue(option, 'action')
+
+            if (stat_type) then
+                if (action == 'add') then
+                    if (not l_add_status[stat_type]) then
+                        l_add_status[stat_type] = 0
+                    end
+                    l_add_status[stat_type] = l_add_status[stat_type] + value
+
+                elseif (action == 'multi') then
+                    if (not l_multi_status[stat_type]) then
+                        l_multi_status[stat_type] = 0
+                    end
+                    l_multi_status[stat_type] = l_multi_status[stat_type] + value
+
+                else
+                    error('# action : ' .. action)
+
+                end
+            end
+        end
+    end
+
+    --cclog('l_add_status : ' .. luadump(l_add_status))
+    --cclog('l_multi_status : ' .. luadump(l_multi_status))
+    
+    return l_add_status, l_multi_status
 end
 
 -------------------------------------
