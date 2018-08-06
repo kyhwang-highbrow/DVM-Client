@@ -607,6 +607,22 @@ function UI_Lobby:update_highlight()
 
 		-- 클랜
 		vars['clanNotiSprite']:setVisible(g_clanData:isHighlightClan())
+
+        do -- 황금 던전
+            local is_highlight_red = ServerData_EventGoldDungeon:getInstance():isHighlightRed_gd()
+            local is_highlight_yel = ServerData_EventGoldDungeon:getInstance():isHighlightYellow_gd()
+
+            if is_highlight_red then
+                vars['goldDungeonNotiRed']:setVisible(true)
+                vars['goldDungeonNotiYellow']:setVisible(false)
+            elseif is_highlight_yel then
+                vars['goldDungeonNotiRed']:setVisible(false)
+                vars['goldDungeonNotiYellow']:setVisible(true)
+            else
+                vars['goldDungeonNotiRed']:setVisible(false)
+                vars['goldDungeonNotiYellow']:setVisible(false)
+            end
+        end
     end
 
     g_highlightData:request_highlightInfo(highlight_func)
@@ -1237,7 +1253,8 @@ function UI_Lobby:update(dt)
     -- 이벤트 남은 시간 표시
     do
         local map_check_event = {}
-        map_check_event['event_match_card'] = 'matchCardLabel'
+        map_check_event['event_match_card'] = 'matchCardLabel' -- 카드 짝 맞추기
+        map_check_event['event_gold_dungeon'] = 'goldDungeonLabel' -- 황금 던전 (골드라고라 던전)
 
         for event_name, label_name in pairs(map_check_event) do
             local remain_text = g_hotTimeData:getEventRemainTimeText(event_name)

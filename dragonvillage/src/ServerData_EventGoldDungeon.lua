@@ -1,5 +1,6 @@
 -------------------------------------
 -- class ServerData_EventGoldDungeon
+-- @instance g_eventGoldDungeonData
 -------------------------------------
 ServerData_EventGoldDungeon = class({
         m_stamina = 'number', -- 입장권
@@ -20,10 +21,21 @@ function ServerData_EventGoldDungeon:init()
 end
 
 -------------------------------------
+-- function getInstance
+-------------------------------------
+function ServerData_EventGoldDungeon:getInstance()
+    if (not g_eventGoldDungeonData) then
+        g_eventGoldDungeonData = ServerData_EventGoldDungeon()
+    end
+
+    return g_eventGoldDungeonData
+end
+
+-------------------------------------
 -- function getStaminaCount
 -------------------------------------
 function ServerData_EventGoldDungeon:getStaminaCount()
-    return self.m_stamina
+    return self.m_stamina or 0
 end
 
 -------------------------------------
@@ -51,7 +63,7 @@ end
 -- function getStaminaInfo
 -------------------------------------
 function ServerData_EventGoldDungeon:getStaminaInfo()
-    return self.m_staminaDropInfo
+    return self.m_staminaDropInfo or {}
 end
 
 -------------------------------------
@@ -59,6 +71,14 @@ end
 -- @brief 받아야 할 보상이 있는지 (누적 보상)
 -------------------------------------
 function ServerData_EventGoldDungeon:hasReward()
+    if (not self.m_productInfo) then
+        return false
+    end
+
+    if (not self.m_rewardInfo) then
+        return false
+    end
+
     local event_info = self.m_productInfo
     local reward_info = self.m_rewardInfo
 
@@ -220,4 +240,69 @@ function ServerData_EventGoldDungeon:request_clearReward(step, finish_cb, fail_c
     ui_network:request()
 
     return ui_network
+end
+
+-------------------------------------
+-- function isHighlightRed_gd
+-- @brief 빨간 느낌표 아이콘 출력 여부
+-------------------------------------
+function ServerData_EventGoldDungeon:isHighlightRed_gd()
+    -- 황금 날개(입장권)가 있을 경우 (1개 이상)
+    if (self:getStaminaCount() > 0) then
+        return true
+    end
+
+    -- 획득 가능한 누적 보상이 있을 경우
+    if (self:hasReward() == true) then
+        return true
+    end
+
+    return false
+end
+
+-------------------------------------
+-- function isHighlightYellow_gd
+-- @brief 노란 느낌표 아이콘 출력 여부
+-------------------------------------
+function ServerData_EventGoldDungeon:isHighlightYellow_gd()
+    -- 획득 가능한 입장권이 있을 경우
+
+    local t_stamina_info = self:getStaminaInfo()
+
+    -- 데이터 구조
+    -- ['dungeon']={
+    --         ['ticket']=0;
+    --         ['play']=0;
+    --         ['max_ticket']=1;
+    --         ['max_play']=10;
+    -- };
+    -- ['ancient']={
+    --         ['ticket']=0;
+    --         ['play']=0;
+    --         ['max_ticket']=1;
+    --         ['max_play']=5;
+    -- };
+    -- ['adv']={
+    --         ['ticket']=0;
+    --         ['play']=0;
+    --         ['max_ticket']=1;
+    --         ['max_play']=15;
+    -- };
+    -- ['pvp']={
+    --         ['ticket']=0;
+    --         ['play']=0;
+    --         ['max_ticket']=1;
+    --         ['max_play']=10;
+    -- };
+
+    for i,v in pairs(t_stamina_info) do
+        local ticket = (v['ticket'] or 0)
+        local max_ticket = (v['max_ticket'] or 0)
+
+        if (ticket < max_ticket) then
+            return true
+        end
+    end
+
+    return false
 end
