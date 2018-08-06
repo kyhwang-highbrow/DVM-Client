@@ -1345,7 +1345,6 @@ end
 -- @breif
 -------------------------------------
 function UIC_TableView:makeDefaultEmptyDescLabel(text)
-    cclog('makeDefaultEmptyDescLabel')
     local label = UIC_Factory:MakeTableViewDescLabelTTF(self.m_scrollView, text)
     self.m_node:addChild(label.m_node)
     self:setEmptyDescLabel(label)
