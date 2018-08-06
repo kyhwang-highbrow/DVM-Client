@@ -768,22 +768,16 @@ function StructDragonObject:getStringData()
 
     -- [ 특성 스킬 정보 ]
     -- mastery_id:mastery_lv
-    local t5 = ''
+    -- !!룬정보 뒤에 추가되는데 특성 스킬이 없을 경우 마지막에 ;이 안붙도록 해야함
     do
-        local is_first = true
-
         local mastery_skills = self['mastery_skills'] or {}
         for mastery_id, mastery_lv in pairs(mastery_skills) do
-            if (not is_first) then
-                t5 = t5 .. ';'
-            end
-
-            t5 = t5 .. mastery_id .. ':' .. mastery_lv
-
-            is_first = false
+            t4 = t4 .. ';' .. mastery_id .. ':' .. mastery_lv
         end
     end
 
+    cclog('token : ' .. t1 .. ';' .. t2 .. ';' .. t3 .. ';' .. t4)
+
     -- t1 + t2 + t3 + t4 + t5
-    return t1 .. ';' .. t2 .. ';' .. t3 .. ';' .. t4 .. ';' .. t5
+    return t1 .. ';' .. t2 .. ';' .. t3 .. ';' .. t4
 end
