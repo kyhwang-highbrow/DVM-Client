@@ -145,6 +145,21 @@ end
 -------------------------------------
 function UI_EventGoldDungeon:click_dungeonBtn()
     UI_ReadySceneNew(EVENT_GOLD_STAGE_ID)
+
+
+    -- 전투 준비 화면에서 1일 1회 황금 던전 설명 팝업 띄움
+    local save_key = 'event_gold_dungeon'
+    local is_view = g_settingData:get('event_full_popup', save_key) or false
+    if (is_view == true) then
+        return
+    end
+
+    local function cb_func()
+        g_settingData:applySettingData(true, 'event_full_popup', save_key)
+    end
+
+    local ui = UI_EventGoldDungeonPopup()
+    ui:setCloseCB(cb_func)
 end
 
 -------------------------------------
