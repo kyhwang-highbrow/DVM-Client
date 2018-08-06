@@ -779,3 +779,26 @@ function StructDragonObject:getStringData()
     -- t1 + t2 + t3 + t4
     return t1 .. ';' .. t2 .. ';' .. t3 .. ';' .. t4
 end
+
+-------------------------------------
+-- function isMaxGradeAndLv()
+-- @brief 최대 등급, 최대 레벨인지 확인 (6성 60레벨)
+--        특성 시스템 활성 조건이기도 함
+-- @return boolean
+-------------------------------------
+function StructDragonObject:isMaxGradeAndLv()
+    local max_grade = MAX_DRAGON_GRADE
+
+    -- 최대 등급보다 현재 등급이 낮을 경우 false
+    if (self:getGrade() < max_grade) then
+        return false
+    end
+
+    local max_lv = dragonMaxLevel(max_grade)
+    -- 최대 레벨보다 현재 레벨이 낮을 경우 false
+    if (self:getLv() < max_lv) then
+        return false
+    end
+
+    return true
+end

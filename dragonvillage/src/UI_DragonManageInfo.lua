@@ -252,6 +252,9 @@ function UI_DragonManageInfo:refresh_buttonState()
 
         -- 팀 보너스 
         vars['teamBonusBtn']:setVisible(not is_slime_object)
+
+        -- 특성 버튼, 레벨업 버튼 노출 상태 갱신
+        self:refresh_buttonState_masteryBtn()
     end
 
     -- 룬 버튼
@@ -300,6 +303,37 @@ function UI_DragonManageInfo:refresh_buttonState()
 	
     -- 드래곤 개발 API
     self.m_dragonInfoBoardUI.vars['equipmentBtn']:setEnabled(not is_slime_object)
+end
+
+-------------------------------------
+-- function refresh_buttonState_masteryBtn
+-- @breif 레벨업 버튼, 특성 버튼 상태 갱신
+-------------------------------------
+function UI_DragonManageInfo:refresh_buttonState_masteryBtn()
+    local vars = self.vars
+    local is_slime_object = self.m_bSlimeObject
+
+    -- 6성 60레벨 드래곤은 레벨업 버튼 대신 특성 버튼이 활성
+    local levelupBtn_visible = false
+    local masteryBtn_visible = false
+
+    -- 슬라임일 경우 레벨업 버튼 노출
+    if is_slime_object then
+        levelupBtn_visible = true
+    else
+        -- StructDragonObject or StructSlimeObject
+        local dragon_obj = self:getSelectDragonObj()
+        if (not dragon_obj) then
+            levelupBtn_visible = true
+        elseif dragon_obj:isMaxGradeAndLv() then
+            masteryBtn_visible = true
+        else
+            levelupBtn_visible = true
+        end
+    end
+
+    vars['masteryBtn']:setVisible(masteryBtn_visible)
+    vars['levelupBtn']:setVisible(levelupBtn_visible)
 end
 
 -------------------------------------

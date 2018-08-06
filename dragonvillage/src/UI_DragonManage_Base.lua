@@ -648,5 +648,17 @@ function UI_DragonManage_Base:apply_mtrlDragonSort()
     sort_func(self.m_skillmoveTableViewTD)
 end
 
+-------------------------------------
+-- function getSelectDragonObj
+-- @brief 현재 선택되어 있는 드래곤(StructDragonObject or StructSlimeObject)
+-- @return StructDragonObject or StructSlimeObject
+-------------------------------------
+function UI_DragonManage_Base:getSelectDragonObj()
+
+    -- 함수가 호출되는 시점에 따라 nill이 리턴될 수 있음
+    return self.m_selectDragonData
+end
+
+
 --@CHECK
 UI:checkCompileError(UI_DragonManage_Base)

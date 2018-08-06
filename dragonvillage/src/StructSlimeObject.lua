@@ -1,6 +1,6 @@
 -------------------------------------
 -- class StructSlimeObject
--- @instance dragon_obj
+-- @instance slime_obj
 -------------------------------------
 StructSlimeObject = class({
         m_objectType = '',
