@@ -362,6 +362,7 @@ local t_module = {
     'TableNaverEvent',
     'TableArenaWinReward',
     'TableCollectionReward',
+    'TableMastery', -- 특성 테이블
 
     -- Scene
     'SceneCommon',

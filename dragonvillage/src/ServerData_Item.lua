@@ -191,3 +191,24 @@ function ServerData_Item:parseAddedItems(added_items)
 
     return t_item_id_cnt, t_iten_type_cnt
 end
+
+-------------------------------------
+-- function getItemCountFromPackageItemString
+-- @brief 'amor;1,gold;10000'와 같은 아이템 정의 문자열에서 특정 아이템의 수량을 리턴
+-------------------------------------
+function ServerData_Item:getItemCountFromPackageItemString(package_item_str, item_id)
+    local l_item_list = self:parsePackageItemStr(package_item_str)
+    
+    -- item_id가 아닌 item_type이 넘어왔을 경우
+    if (type(item_id) == 'string') then
+        item_id = TableItem:getItemIDFromItemType(item_id)
+    end
+
+    for i,v in pairs(l_item_list) do
+        if (v['item_id'] == item_id) then
+            return (v['count'] or 0)
+        end
+    end
+
+    return 0
+end

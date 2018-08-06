@@ -3685,6 +3685,9 @@
     <None Include="..\src\UI_DragonMastery.lua">
       <Filter>lua\UI</Filter>
     </None>
+    <None Include="..\src\TableMastery.lua">
+      <Filter>lua\src</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Classes">

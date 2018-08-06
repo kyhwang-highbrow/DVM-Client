@@ -46,6 +46,8 @@ ITEM_ID_MAP['event'] = 700202
 ITEM_ID_MAP['ancient'] = 700010
 ITEM_ID_MAP['clancoin'] = 700011
 ITEM_ID_MAP['capsule_coin'] = 700012
+ITEM_ID_MAP['amor'] = 700014
+ITEM_ID_MAP['oblivion'] = 700015
 
 ITEM_ID_MAP['stamina'] = 700101
 ITEM_ID_MAP['staminas_st'] = 700101

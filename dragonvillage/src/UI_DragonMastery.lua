@@ -172,18 +172,6 @@ function UI_DragonMastery:refresh_masteryInfo()
 
     local vars = self.vars
 
-    -- 아모르의 서
-    local req_count = 10 -- 임시로 하드코딩
-    local own_count = g_userData:get('amor') or 0
-    local str = Str('{1} / {2}', own_count, req_count)
-    if (req_count <= own_count) then
-        str = '{@possible}' .. str
-    else
-        str = '{@impossible}' .. str
-    end
-    vars['amorNumberLabel']:setString(str)
-
-
     -- 특성 레벨
     local mastery_lv = tonumber(dragon_obj['mastery_lv']) or 0
     if (mastery_lv <= 0) then
@@ -206,6 +194,18 @@ function UI_DragonMastery:refresh_masteryInfo()
     local mastery_point = tonumber(dragon_obj['mastery_point']) or 0
     vars['skillPointLabel1']:setString(tostring(mastery_point))
     vars['skillPointLabel2']:setString(tostring(mastery_point + 1))
+
+    -- 아모르의 서
+    local rarity_str = dragon_obj:getRarity()
+    local req_count = TableMastery:getRequiredAmorQuantity(rarity_str, mastery_lv + 1)
+    local own_count = g_userData:get('amor') or 0
+    local str = Str('{1} / {2}', own_count, req_count)
+    if (req_count <= own_count) then
+        str = '{@possible}' .. str
+    else
+        str = '{@impossible}' .. str
+    end
+    vars['amorNumberLabel']:setString(str)
 end
 
 
