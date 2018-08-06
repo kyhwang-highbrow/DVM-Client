@@ -890,6 +890,7 @@ xcopy /Y /Q "$(EngineRoot)external\websockets\prebuilt\win32\*.*" "$(OutDir)"</C
     <None Include="..\src\TableHighbrow.lua" />
     <None Include="..\src\TableLoadingGuide.lua" />
     <None Include="..\src\TableMasterRoad.lua" />
+    <None Include="..\src\TableMasterySkill.lua" />
     <None Include="..\src\TableNaverEvent.lua" />
     <None Include="..\src\TablePackageBundle.lua" />
     <None Include="..\src\TablePickDragon.lua" />

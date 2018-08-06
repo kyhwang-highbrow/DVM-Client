@@ -690,15 +690,25 @@ function Character:undergoAttack(attacker, defender, i_x, i_y, body_key, no_even
         -- 스킬 계수 및 추가 공격력 적용
 		atk_dmg = atk_dmg * power_rate + power_add
         
-        -- 드래그 스킬 추가 공격력 적용
+        -- 스킬 타입별 추가 공격력 적용
+        local basic_dmg = 0
         local drag_dmg = 0
-        if (attack_type == 'active') then
+
+        if (real_attack_type == 'basic') then
+            -- 일반 공격 추가 공격력 적용
+            local basic_dmg_rate = attack_activity_carrier:getStat('basic_dmg') / 100
+            basic_dmg = atk_dmg * basic_dmg_rate
+
+            atk_dmg = atk_dmg + basic_dmg
+
+        elseif (attack_type == 'active') then
+            -- 드래그 스킬 추가 공격력 적용
             local drag_dmg_rate = attack_activity_carrier:getStat('drag_dmg') / 100
             drag_dmg = atk_dmg * drag_dmg_rate
+
+            atk_dmg = atk_dmg + drag_dmg
         end
-        atk_dmg = atk_dmg + drag_dmg
-
-
+        
         --------------------------------------------------------------
         -- 방어력 계산(def_pwr)
         --------------------------------------------------------------

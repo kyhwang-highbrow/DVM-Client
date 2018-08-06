@@ -38,6 +38,9 @@ L_SPECIAL_STATUS_TYPE_ONLY_ADD = {
     'reflex_normal',    -- 일반 데미지 +{1}% 반사
     'reflex_skill',     -- 스킬 데미지 +{2}% 반사
     'pierce',           -- 방어력 관통 +{1}% 만큼 적의 방어력의 옵션 수치 %를 삭감.
+
+    -- 특성이 추가되면서 추가된 능력치
+    'basic_dmg',        -- 일반 공격 데미지 +{1}% 만큼 증가
 }
 
 L_SPECIAL_STATUS_TYPE_ONLY_MULTI = {
@@ -755,6 +758,11 @@ function MakeDragonStatusCalculator_fromDragonDataTable(t_dragon_data)
             local indivisual_status = status_calc.m_lStatusList[stat_type]
             indivisual_status:setRuneMulti(value)
         end
+    end
+
+    -- TODO: 특성(mastery)
+    do
+        
     end
 
     return status_calc

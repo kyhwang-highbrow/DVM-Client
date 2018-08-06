@@ -358,6 +358,7 @@ local t_module = {
 	'TablePickDragon',
     'TableTeamBonus',
     'TableDragonTransform',
+    'TableMasterySkill',
     'TableNaverEvent',
     'TableArenaWinReward',
     'TableCollectionReward',

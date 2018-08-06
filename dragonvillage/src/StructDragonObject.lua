@@ -17,9 +17,11 @@ StructDragonObject = class({
         eclv = 'number', -- 초월 단계
         friendship = '',
         reinforce = 'number', -- 강화 단계
-        transform = 'number', -- 외형 변환
-        mastery_lv = 'number',
-        mastery_point = 'number',
+        transform = 'number',-- 외형 변환
+        mastery_lv = 'number',-- 특성 레벨
+        mastery_point = 'number', -- 특성 포인트(남은 것)
+        mastery_skills = 'table', -- 특성 스킬별 레벨
+
 		rlv = '',	-- 타인의 리더 드래곤 아이콘용 강화 레벨
 
 		lock = 'boolean', -- 잠금

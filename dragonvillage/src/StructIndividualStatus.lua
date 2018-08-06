@@ -39,6 +39,10 @@ StructIndividualStatus = class({
 
         m_passiveMulti = '',    -- 패시브 곱연산
         m_passiveAdd = '',      -- 패시브 합연산
+
+        m_masteryMulti = '',    -- 특성 곱연산
+        m_masteryAdd = '',      -- 특성 합연산
+
         ----------------------------------------------------
 
         ----------------------------------------------------
@@ -91,6 +95,9 @@ function StructIndividualStatus:init(status_name)
 
     self.m_passiveMulti = 0
     self.m_passiveAdd = 0
+
+    self.m_masteryMulti = 0
+    self.m_masteryAdd = 0
 
     self.m_t1 = 0
     self.m_bDirtyT1 = true
@@ -189,9 +196,12 @@ function StructIndividualStatus:calcT2()
     
     -- 패시브 능력치
     local passive_multi = (self.m_passiveMulti / 100)
+
+    -- 특성 능력치
+    local mastery_multi = (self.m_masteryMulti / 100)
     
     -- 능력치 연산
-    local t2 = t1 + (t1 * (rune_multi + passive_multi)) + self.m_runeAdd + self.m_passiveAdd
+    local t2 = t1 + (t1 * (rune_multi + passive_multi + mastery_multi)) + self.m_runeAdd + self.m_passiveAdd + self.m_masteryAdd
 
     self.m_t2 = t2
 
@@ -328,6 +338,22 @@ end
 -------------------------------------
 function StructIndividualStatus:addPassiveAdd(value)
     self.m_passiveAdd = (self.m_passiveAdd + value)
+    self:setDirtyT2()
+end
+
+-------------------------------------
+-- function addMasteryMulti
+-------------------------------------
+function StructIndividualStatus:addMasteryMulti(value)
+    self.m_masteryMulti = (self.m_masteryMulti + value)
+    self:setDirtyT2()
+end
+
+-------------------------------------
+-- function addMasteryAdd
+-------------------------------------
+function StructIndividualStatus:addMasteryAdd(value)
+    self.m_masteryAdd = (self.m_masteryAdd + value)
     self:setDirtyT2()
 end
 

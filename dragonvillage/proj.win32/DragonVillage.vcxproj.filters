@@ -3676,6 +3676,9 @@
     <None Include="..\src\TableCollectionReward.lua">
       <Filter>lua\src</Filter>
     </None>
+    <None Include="..\src\TableMasterySkill.lua">
+      <Filter>lua\src</Filter>
+    </None>
     <None Include="..\src\UI_EventGoldDungeonPopup.lua">
       <Filter>lua\UI</Filter>
     </None>
