@@ -271,7 +271,7 @@ function StructDragonObject:getMasterySkillStatus(game_mode)
     for mastery_id, lv in pairs(mastery_skills) do
         local option, value, _game_mode = table_mastery_skill:getMasterySkillStatus(tonumber(mastery_id), lv)
 
-        if (not game_mode or game_mode == _game_mode) then
+        if (not _game_mode or _game_mode == game_mode) then
             local stat_type = table_option:getValue(option, 'status')
             local action = table_option:getValue(option, 'action')
 
@@ -743,24 +743,47 @@ function StructDragonObject:getStringData()
     -- flv;fexp;fatk;fhp;fdef
     local t2 = self['friendship']:getStringData()
 
+    -- [ 특성 레벨 ]
+    local t3 = self['mastery_lv']
+
     -- [ 룬 정보 ]
     -- rid:lv:rarity:mopt:uopt:sopt_1:sopt_2:sopt_3:sopt_4
-    local is_first = true
-    local t3 = ''
+    local t4 = ''
+    do
+        local is_first = true
 
-    for i = 1, 6 do
-        if (not is_first) then
-            t3 = t3 .. ';'
+        for i = 1, 6 do
+            if (not is_first) then
+                t4 = t4 .. ';'
+            end
+
+            local rune = self:getRuneObjectBySlot(i)
+            if (rune) then
+                t4 = t4 .. rune:getStringData()
+            end
+
+            is_first = false
+	    end
+    end
+
+    -- [ 특성 스킬 정보 ]
+    -- mastery_id:mastery_lv
+    local t5 = ''
+    do
+        local is_first = true
+
+        local mastery_skills = self['mastery_skills'] or {}
+        for mastery_id, mastery_lv in pairs(mastery_skills) do
+            if (not is_first) then
+                t5 = t5 .. ';'
+            end
+
+            t5 = t5 .. mastery_id .. ':' .. mastery_lv
+
+            is_first = false
         end
+    end
 
-        local rune = self:getRuneObjectBySlot(i)
-        if (rune) then
-            t3 = t3 .. rune:getStringData()
-        end
-
-        is_first = false
-	end
-
-    -- t1 + t2 + t3
-    return t1 .. ';' .. t2 .. ';' .. t3
+    -- t1 + t2 + t3 + t4 + t5
+    return t1 .. ';' .. t2 .. ';' .. t3 .. ';' .. t4 .. ';' .. t5
 end
