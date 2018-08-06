@@ -93,6 +93,7 @@ end
 function UI_EventGoldDungeon:initButton()
     local vars = self.vars
     vars['dungeonBtn']:registerScriptTapHandler(function() self:click_dungeonBtn() end)
+    vars['dungeonInfoBtn']:registerScriptTapHandler(function() self:click_dungeonInfoBtn() end)
 end
 
 -------------------------------------
@@ -144,4 +145,12 @@ end
 -------------------------------------
 function UI_EventGoldDungeon:click_dungeonBtn()
     UI_ReadySceneNew(EVENT_GOLD_STAGE_ID)
+end
+
+-------------------------------------
+-- function click_dungeonInfoBtn
+-- @brief 황금 던전 설명 팝업
+-------------------------------------
+function UI_EventGoldDungeon:click_dungeonInfoBtn()
+    UI_EventGoldDungeonPopup()
 end

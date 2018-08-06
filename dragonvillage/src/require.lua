@@ -1129,6 +1129,7 @@ local t_module = {
 	'UI_DailyMisson_Clan',
     'UI_EventGoldDungeon',
     'UI_EventGoldDungeonListItem',
+    'UI_EventGoldDungeonPopup',
     'UI_EventMatchCard',
     'UI_EventMatchCardPlay',
     'UI_EventMatchCardListItem',
