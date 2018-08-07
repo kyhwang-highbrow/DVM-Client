@@ -216,7 +216,7 @@ UIC_TableViewCell = class(ITableViewCell:getCloneTable())
 -------------------------------------
 function UIC_TableViewCell:init()
     -- root 생성
-    self.root = cc.Node:create()
+    self.root = cc.Menu:create()
     self.root:setDockPoint(cc.p(0.5, 0.5))
     self.root:setAnchorPoint(cc.p(0.5, 0.5))
 

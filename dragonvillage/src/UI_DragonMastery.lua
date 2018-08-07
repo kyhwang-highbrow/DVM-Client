@@ -69,6 +69,20 @@ function UI_DragonMastery:initUI()
             vars['amorItemNode']:addChild(item_icon)
         end
     end
+
+    -- 특성 보드
+    -- 테이블 뷰 인스턴스 생성
+    -- 생성 콜백
+    local function create_func(ui, data)
+        local _ui = UI_DragonMasteryBoard()
+        ui.root:addChild(_ui.root)
+    end
+    
+    local table_view = UIC_TableView(vars['masterySkillViewNode'])
+    table_view.m_defaultCellSize = cc.size(505, 1092)
+    table_view:setCellUIClass(UIC_TableViewCell, create_func)
+    table_view:setDirection(cc.SCROLLVIEW_DIRECTION_VERTICAL)
+    table_view:setItemList({1}) -- 하나만 사용하기 위해 임시로 추가
 end
 
 -------------------------------------
@@ -77,7 +91,7 @@ end
 function UI_DragonMastery:initTab()
     local vars = self.vars
     self:addTabAuto(UI_DragonMastery.TAB_LVUP, vars, vars['masteryLvUpMenu'])
-    self:addTabAuto(UI_DragonMastery.TAB_SKILL, vars, vars['masterySkillMenu'])
+    self:addTabAuto(UI_DragonMastery.TAB_SKILL, vars, vars['masterySkillMenu'], vars['masterySkillViewNode'])
     self:setTab(UI_DragonMastery.TAB_LVUP)
 
 	self:setChangeTabCB(function(tab, first) self:onChangeTab(tab, first) end)
