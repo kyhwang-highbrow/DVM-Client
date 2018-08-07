@@ -435,7 +435,7 @@ end
 -------------------------------------
 function UI_DragonInfoBoard:click_detailBtn()
     local vars = self.vars
-    vars['detailNode']:runAction(cc.ToggleVisibility:create())
+    vars['detailNode1']:runAction(cc.ToggleVisibility:create())
     vars['detailNode2']:runAction(cc.ToggleVisibility:create())
 
     -- gauge action

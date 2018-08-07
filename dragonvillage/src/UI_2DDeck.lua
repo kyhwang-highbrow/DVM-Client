@@ -98,6 +98,7 @@ function UI_2DDeck:setDragonObjectList(l_deck, leader)
                 -- 틀어진 방향 원래대로 복구 (레벨, 강화표시)
                 local l_recover = {}
                 table.insert(l_recover, ui.vars['reinforceNode'])
+                table.insert(l_recover, ui.vars['masteryNode'])
 
                 -- 레벨 Sprite 노드로 분리되있지 않고 개별로 addChild 되서 따로 처리해줘야함
                 local level_sprite_0 = ui.vars['numberSprite0']
