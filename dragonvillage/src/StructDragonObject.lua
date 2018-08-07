@@ -263,6 +263,14 @@ function StructDragonObject:getMasteryLevel()
 end
 
 -------------------------------------
+-- function getMasteryPoint
+-- @breif 특성 스킬 포인트 (남은것)
+-------------------------------------
+function StructDragonObject:getMasteryPoint()
+    return self['mastery_point'] or 0
+end
+
+-------------------------------------
 -- function getMasterySkillStatus
 -- @breif
 -------------------------------------

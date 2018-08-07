@@ -90,6 +90,9 @@ function UI_DragonMastery:initUI()
     table_view:setCellUIClass(UIC_TableViewCell, create_func)
     table_view:setDirection(cc.SCROLLVIEW_DIRECTION_VERTICAL)
     table_view:setItemList({1}) -- 하나만 사용하기 위해 임시로 추가
+
+    -- 모든 특성 스킬은 포인트 1개를 사용
+    vars['useSkillPointLabel']:setString('1')
 end
 
 -------------------------------------
@@ -126,6 +129,7 @@ function UI_DragonMastery:initButton()
     local vars = self.vars
     vars['masteryLvUpBtn']:registerScriptTapHandler(function() self:click_masteryLvUpBtn() end)
     vars['amorBtn']:registerScriptTapHandler(function() self:click_amorBtn() end)
+    vars['skillEnhanceBtn']:registerScriptTapHandler(function() self:click_skillEnhanceBtn() end)
 end
 
 -------------------------------------
@@ -259,6 +263,12 @@ function UI_DragonMastery:refresh_skillInfo(tier, index)
     vars['skillNode']:removeAllChildren()
     local ui = UI_DragonMasterySkillCard(mastery_skill_id, mastery_skill_lv)
     vars['skillNode']:addChild(ui.root)
+
+    do -- 특성 스킬 포인트
+        local mastery_point = dragon_obj:getMasteryPoint()
+        vars['afterNumberLabel1']:setString(tostring(mastery_point))
+        vars['afterNumberLabel2']:setString(tostring(math_max(mastery_point - 1, 0)))
+    end
 end
 
 
@@ -358,11 +368,115 @@ function UI_DragonMastery:click_amorBtn()
 end
 
 -------------------------------------
+-- function click_skillEnhanceBtn
+-- @brief 특성 스킬 강화
+-------------------------------------
+function UI_DragonMastery:click_skillEnhanceBtn()
+    local dragon_obj = self:getSelectDragonObj() -- StructDragonObject
+    
+    if (not dragon_obj) then
+        return
+    end
+
+    local tier, index = self.m_masteryBoardUI:getSelectedTierAndIndex()
+    local rarity_str = dragon_obj:getRarity()
+    local role_str = dragon_obj:getRole()
+    local mastery_skill_id = TableMasterySkill:makeMasterySkillID(rarity_str, role_str, tier, index)
+
+    local doid = dragon_obj['doid']
+    local mastery_id = mastery_skill_id
+
+    local function cb_func(ret)
+        self:refresh()
+    end
+    local function fail_cb()
+    end
+
+    self:request_mastery_skillup(doid, mastery_id, cb_func, fail_cb)
+end
+
+-------------------------------------
 -- function onChange_selectedSkill
 -- @brief 선택된 특성 스킬이 변경되었을 경우
 -------------------------------------
 function UI_DragonMastery:onChange_selectedSkill(tier, index)
     self:refresh_skillInfo(tier, index)
+end
+
+
+-------------------------------------
+-- function request_mastery_skillup
+-- @brief
+-------------------------------------
+function UI_DragonMastery:request_mastery_skillup(doid, mastery_id, cb_func, fail_cb)
+    local uid = g_userData:get('uid')
+    local doid = self.m_selectDragonOID
+
+    --[[
+    -- 에러코드 처리
+    local function response_status_cb(ret)
+        self:refresh_fail(rid, rcnt)
+        return true
+    end
+
+    -- 통신실패 처리
+    local function response_fail_cb(ret)
+        self:refresh_fail(rid, rcnt)
+        if (fail_cb) then
+            fail_cb()
+        end
+    end
+    --]]
+
+    local function success_cb(ret)
+		-- @analytics
+        --Analytics:firstTimeExperience('dragon reinforcement')
+
+		-- 드래곤 갱신
+		g_dragonsData:applyDragonData(ret['modified_dragon'])
+
+		-- 골드 갱신
+		g_serverData:networkCommonRespone(ret)
+
+        self:refresh_dragonIndivisual(doid)
+		
+        -- 통신 실패할 경우 원복할 골드
+        --self.m_oriGold = g_userData:get('gold') 
+
+		-- 인연포인트 (전체 갱신)
+		--if (ret['relation']) then
+		--	g_bookData:applyRelationPoints(ret['relation'])
+		--end
+
+		-- 드래곤 관리 UI 갱신
+		--self.m_bChangeDragonList = true
+
+		-- 강화 레벨업 시 결과화면
+        --[[
+		if (ret['is_rlevelup']) then
+			local ui = UI_DragonReinforceResult(ret['dragon'])
+			ui:setCloseCB(function()
+				self:refresh_dragonIndivisual(doid)
+			end)
+		end
+        --]]
+
+		if (cb_func) then
+			cb_func()
+		end
+    end
+
+    local ui_network = UI_Network()
+    ui_network:setUrl('/dragons/mastery_skillup')
+    ui_network:setParam('uid', uid)
+    ui_network:setParam('doid', doid)
+    ui_network:setParam('mastery_id', mastery_id)
+	--ui_network:hideLoading()
+    ui_network:setRevocable(true)
+    --ui_network:setResponseStatusCB(response_status_cb)
+    ui_network:setSuccessCB(function(ret) success_cb(ret) end)
+    --ui_network:setFailCB(response_fail_cb)
+    ui_network:request()
 end
 
 --@CHECK

@@ -62,6 +62,8 @@ function UI_DragonMasteryBoard:refresh(dragon_obj)
             self:refreshMasterySkillUI(tier, index, dragon_obj)
         end
     end
+
+    self:setSelectedMasterySkill(self.m_selectedTier, self.m_selectedIndex)
 end
 
 -------------------------------------
@@ -167,4 +169,12 @@ end
 -------------------------------------
 function UI_DragonMasteryBoard:setMasterySkillSelectCB(func)
     self.m_masterySkillSelectCB = func
+end
+
+-------------------------------------
+-- function getSelectedTierAndIndex
+-- @brief 현재 선택된 tier와 index 리턴
+-------------------------------------
+function UI_DragonMasteryBoard:getSelectedTierAndIndex()
+    return self.m_selectedTier, self.m_selectedIndex
 end

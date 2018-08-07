@@ -27,6 +27,8 @@ function TableMastery:getRequiredAmorQuantity(dragon_rarity, mastery_lv)
     end
 
     local key
+    -- 특성 레벨은 10이 최대
+    local mastery_lv = math_min(mastery_lv, 10)
 
     if (dragon_rarity == 'common') then
         key = 1000
