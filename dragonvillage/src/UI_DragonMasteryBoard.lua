@@ -91,7 +91,7 @@ function UI_DragonMasteryBoard:refreshMasterySkillUI(tier, index, dragon_obj)
     _vars['skillNode']:addChild(icon.root)
 
     -- 스킬 설명
-    local desc = TableMasterySkill:getMasterySkillOptionDesc(mastery_skill_id, math_max(mastery_skill_lv, 1))
+    local desc = TableMasterySkill:getMasterySkillOptionDesc(mastery_skill_id, math_max(mastery_skill_lv, 1), true)
     _vars['skillInfoLabel']:setString(desc or '')
 end
 

@@ -5,6 +5,12 @@ local PARENT = UI_DragonManage_Base
 -------------------------------------
 UI_DragonMastery = class(PARENT,{
         m_masteryBoardUI = 'UI_DragonMasteryBoard',
+
+        -- skill lv 미리보기 용
+		m_currIdx = 'number',
+		m_currLV = 'number',
+		m_maxLV = 'number',
+		m_numberLoop = 'NumberLoop',
     })
 
 UI_DragonMastery.TAB_LVUP = 'mastery' -- 특성 레벨업
@@ -90,9 +96,6 @@ function UI_DragonMastery:initUI()
     table_view:setCellUIClass(UIC_TableViewCell, create_func)
     table_view:setDirection(cc.SCROLLVIEW_DIRECTION_VERTICAL)
     table_view:setItemList({1}) -- 하나만 사용하기 위해 임시로 추가
-
-    -- 모든 특성 스킬은 포인트 1개를 사용
-    vars['useSkillPointLabel']:setString('1')
 end
 
 -------------------------------------
@@ -130,6 +133,10 @@ function UI_DragonMastery:initButton()
     vars['masteryLvUpBtn']:registerScriptTapHandler(function() self:click_masteryLvUpBtn() end)
     vars['amorBtn']:registerScriptTapHandler(function() self:click_amorBtn() end)
     vars['skillEnhanceBtn']:registerScriptTapHandler(function() self:click_skillEnhanceBtn() end)
+
+    -- 특성 스킬 미리보기 관련
+    vars['minusBtn']:registerScriptTapHandler(function() self:click_skillLvBtn(false) end)
+    vars['plusBtn']:registerScriptTapHandler(function() self:click_skillLvBtn(true) end)
 end
 
 -------------------------------------
@@ -264,10 +271,72 @@ function UI_DragonMastery:refresh_skillInfo(tier, index)
     local ui = UI_DragonMasterySkillCard(mastery_skill_id, mastery_skill_lv)
     vars['skillNode']:addChild(ui.root)
 
+    -- 특성 스킬 설명 
+    local desc = TableMasterySkill:getMasterySkillOptionDesc(mastery_skill_id, math_max(mastery_skill_lv, 1), true)
+    vars['skillInfoLabel1']:setString(desc or '')
+
+	do -- 스킬 레벨 미리보기용 변수
+		self.m_currIdx = mastery_skill_lv
+		self.m_currLV = math_max(1, mastery_skill_lv)
+		self.m_maxLV = TableMasterySkill:getMaxMasteryLV(tier)
+		self.m_numberLoop = NumberLoop(self.m_maxLV)
+		self.m_numberLoop:setCurr(self.m_currLV)
+		self:toggleButton()
+	end
+
     do -- 특성 스킬 포인트
-        local mastery_point = dragon_obj:getMasteryPoint()
-        vars['afterNumberLabel1']:setString(tostring(mastery_point))
-        vars['afterNumberLabel2']:setString(tostring(math_max(mastery_point - 1, 0)))
+        local req_count = 1
+        local own_count = dragon_obj:getMasteryPoint()
+        local str = Str('{1} / {2}', own_count, req_count)
+        if (req_count <= own_count) then
+            str = '{@possible}' .. str
+        else
+            str = '{@impossible}' .. str
+        end
+        vars['useSkillPointLabel']:setString(str)
+    end
+end
+
+-------------------------------------
+-- function toggleButton
+-------------------------------------
+function UI_DragonMastery:toggleButton()
+	local vars = self.vars
+
+	-- 레벨에 따라 + 또는 - 버튼 false
+	vars['minusBtn']:setEnabled(true)
+	vars['plusBtn']:setEnabled(true)
+
+	if (self.m_currLV >= self.m_maxLV) then
+		vars['plusBtn']:setEnabled(false)
+    end
+
+	if (self.m_currLV <= 1) then
+		vars['minusBtn']:setEnabled(false)
+	end
+
+    do -- 레벨 표시
+        vars['skillNumberLabel']:setString(string.format('%d / %d', self.m_currLV, self.m_maxLV))
+        vars['skillNumberLabel']:setColor(COLOR['DEEPGRAY'])
+        vars['nowNode']:setVisible(false)
+
+        if (self.m_currIdx == self.m_currLV) then
+            vars['skillNumberLabel']:setColor(COLOR['CURR_LV'])
+            vars['nowNode']:setVisible(true)
+        end
+    end
+
+    -- 특성 스킬 설명 
+    local mastery_skill_id = self:getCurrMasterySkillID()
+
+    if (self.m_currIdx == self.m_currLV) then
+        vars['skillInfoLabel1']:setColor(COLOR['WHITE'])
+        local desc = TableMasterySkill:getMasterySkillOptionDesc(mastery_skill_id, math_max(self.m_currLV, 1), true)
+        vars['skillInfoLabel1']:setString(desc or '')
+    else
+        vars['skillInfoLabel1']:setColor(COLOR['DEEPGRAY'])
+        local desc = TableMasterySkill:getMasterySkillOptionDesc(mastery_skill_id, math_max(self.m_currLV, 1), false)
+        vars['skillInfoLabel1']:setString(desc or '')
     end
 end
 
@@ -403,6 +472,26 @@ function UI_DragonMastery:onChange_selectedSkill(tier, index)
     self:refresh_skillInfo(tier, index)
 end
 
+-------------------------------------
+-- function getCurrMasterySkillID
+-- @brief
+-------------------------------------
+function UI_DragonMastery:getCurrMasterySkillID()
+    local dragon_obj = self:getSelectDragonObj() -- StructDragonObject
+    
+    if (not dragon_obj) then
+        return
+    end
+
+    local tier, index = self.m_masteryBoardUI:getSelectedTierAndIndex()
+    local rarity_str = dragon_obj:getRarity()
+    local role_str = dragon_obj:getRole()
+    local mastery_skill_id = TableMasterySkill:makeMasterySkillID(rarity_str, role_str, tier, index)
+
+    return mastery_skill_id
+end
+
+
 
 -------------------------------------
 -- function request_mastery_skillup
@@ -477,6 +566,21 @@ function UI_DragonMastery:request_mastery_skillup(doid, mastery_id, cb_func, fai
     ui_network:setSuccessCB(function(ret) success_cb(ret) end)
     --ui_network:setFailCB(response_fail_cb)
     ui_network:request()
+end
+
+-------------------------------------
+-- function click_skillLvBtn
+-------------------------------------
+function UI_DragonMastery:click_skillLvBtn(is_next)
+	local vars = self.vars
+	
+	if (is_next) then
+		self.m_currLV = self.m_numberLoop:next()
+	else
+		self.m_currLV = self.m_numberLoop:prev()
+	end
+
+	self:toggleButton()
 end
 
 --@CHECK

@@ -91,7 +91,7 @@ end
 -- function getMasterySkillOptionDesc
 --
 -------------------------------------
-function TableMasterySkill:getMasterySkillOptionDesc(mastery_skill_id, mastery_skill_lv)
+function TableMasterySkill:getMasterySkillOptionDesc(mastery_skill_id, mastery_skill_lv, is_rich)
     if (self == THIS) then
         self = THIS()
     end
@@ -100,5 +100,24 @@ function TableMasterySkill:getMasterySkillOptionDesc(mastery_skill_id, mastery_s
     local value = self:getValue(mastery_skill_id, 'add_value') * mastery_skill_lv
 
     local desc = TableOption:getOptionDesc(option, value)
+
+    if is_rich then
+        desc = DragonSkillCore.getRichTemplateMod(desc)
+    end
+
     return desc
+end
+
+-------------------------------------
+-- function getMaxMasteryLV
+--
+-------------------------------------
+function TableMasterySkill:getMaxMasteryLV(tier)
+    if (tier <= 3) then
+        return 3
+    elseif (tier == 4) then
+        return 1
+    else
+        error('tier : ' .. tier)
+    end
 end
