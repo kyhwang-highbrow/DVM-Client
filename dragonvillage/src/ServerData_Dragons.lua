@@ -1123,6 +1123,26 @@ function ServerData_Dragons:impossibleSkillEnhanceForever(doid)
 end
 
 -------------------------------------
+-- function possibleDragonMasteryLevelUp
+-- @brief 특성 레벨업 가능 여부
+-------------------------------------
+function ServerData_Dragons:possibleDragonMasteryLevelUp(doid)
+	local dragon_obj = self:getDragonObject(doid)
+
+    if (not dragon_obj) then
+        return false
+    end
+
+    local mastery_level = dragon_obj:getMasteryLevel()
+    if (10 <= mastery_level) then
+        local msg = Str('최대 특성 레벨의 드래곤입니다.')
+        return false, msg
+    end
+
+    return true
+end
+
+-------------------------------------
 -- function setSkillMovePrice
 -- @brief 스킬 이전 비용 (서버에서 받도록 수정)
 -------------------------------------

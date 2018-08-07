@@ -6,6 +6,10 @@ local PARENT = UI_DragonManage_Base
 UI_DragonMastery = class(PARENT,{
         m_masteryBoardUI = 'UI_DragonMasteryBoard',
 
+        -- 재료
+        m_selectedMtrl = '',
+        m_selectedUI = '',
+
         -- skill lv 미리보기 용
 		m_currIdx = 'number',
 		m_currLV = 'number',
@@ -50,7 +54,7 @@ function UI_DragonMastery:init(doid)
 
     -- 정렬 도우미
     self:init_dragonSortMgr()
-	--self:init_mtrDragonSortMgr(true) -- slime_first
+	self:init_mtrDragonSortMgr(true) -- slime_first
 end
 
 -------------------------------------
@@ -103,7 +107,7 @@ end
 -------------------------------------
 function UI_DragonMastery:initTab()
     local vars = self.vars
-    self:addTabAuto(UI_DragonMastery.TAB_LVUP, vars, vars['masteryLvUpMenu'])
+    self:addTabAuto(UI_DragonMastery.TAB_LVUP, vars, vars['masteryLvUpMenu'], vars['masteryLvUpRightMenu'])
     self:addTabAuto(UI_DragonMastery.TAB_SKILL, vars, vars['masterySkillMenu'], vars['masterySkillViewNode'])
     self:setTab(UI_DragonMastery.TAB_LVUP)
 
@@ -143,8 +147,27 @@ end
 -- function refresh
 -------------------------------------
 function UI_DragonMastery:refresh()
+    local dragon_obj = self:getSelectDragonObj() -- StructDragonObject
+
+    if (not dragon_obj) then
+        return
+    end
+
+    
+    do -- 재료 중에서 선택된 드래곤 항목들 정리
+        if (self.m_selectedMtrl) then
+            self.m_selectedMtrl = nil
+        end
+
+        if (self.m_selectedUI) then
+            self.m_selectedUI:setCheckSpriteVisible(false)
+            self.m_selectedUI = nil
+        end
+    end
+
     self:refresh_dragonInfo()
     self:refresh_masteryInfo()
+    self:refresh_dragonMaterialTableView()
 
     if self.m_masteryBoardUI then
         local dragon_obj = self:getSelectDragonObj() -- StructDragonObject
@@ -365,13 +388,88 @@ end
 -- @override
 -------------------------------------
 function UI_DragonMastery:getDragonMaterialList(doid)
+    local dragon_dic = g_dragonsData:getDragonsList()
+
+    local dragon_obj = g_dragonsData:getDragonDataFromUid(doid) -- StructDragonObject
+
+    -- 자기 자신 드래곤 제외
+    dragon_dic[doid] = nil
+
+    -- 특성 조건이 되지 않는 드래곤 제거 (희귀도, 속성)
+    for oid, v in pairs(dragon_dic) do
+
+        -- 희귀도가 다르면 제거
+        if (dragon_obj:getRarity() ~= v:getRarity()) then
+            dragon_dic[oid] = nil
+
+        -- 속성이 다르면 제거
+        elseif (dragon_obj:getAttr() ~= v:getAttr()) then
+            dragon_dic[oid] = nil
+        end
+    end
+
+    return dragon_dic
 end
 
 -------------------------------------
 -- function click_dragonMaterial
 -- @override
 -------------------------------------
-function UI_DragonMastery:click_dragonMaterial(t_dragon_data)
+function UI_DragonMastery:click_dragonMaterial(data)
+    local doid = data['id']
+
+    -- 선택된 드래곤이 특성 레벨업이 가능한지
+    local dragon_obj = self:getSelectDragonObj() -- StructDragonObject
+    local possible, noti_str = g_dragonsData:possibleDragonMasteryLevelUp(dragon_obj['id'])
+    if (not possible) then
+        UIManager:toastNotificationRed(noti_str)
+        return
+    end
+
+    -- 재료로 사용 가능한 드래곤 검증
+    local possible, noti_str = g_dragonsData:possibleMaterialDragon(doid)
+    if (not possible) then
+        UIManager:toastNotificationRed(noti_str)
+        return
+    end
+
+
+    local list_item = self.m_mtrlTableViewTD:getItem(doid)
+    local list_item_ui = list_item['ui']
+
+    local function set_ui()
+		-- 재료 경고
+        g_dragonsData:dragonMaterialWarning(doid, function()
+			if (self.m_selectedUI) then
+				self.m_selectedUI:setCheckSpriteVisible(false)
+			end
+
+			self.m_selectedMtrl = data['id']
+			self.m_selectedUI = list_item_ui
+			list_item_ui:setCheckSpriteVisible(true)
+		end)
+    end
+
+
+    -- 선택된 재료가 있는 경우
+    if self.m_selectedMtrl then
+		-- 선택된 재료와 클릭한 재료가 같음 
+		if (doid == self.m_selectedMtrl) then
+			--> 해제 처리
+			self.m_selectedMtrl = nil
+            self.m_selectedUI = nil
+			list_item_ui:setCheckSpriteVisible(false)
+
+		-- 선택 클릭 다름
+		else
+			--> @TODO 해제 및 다시 선택
+            set_ui()
+		end
+
+	-- 선택된 재료가 없는 경우
+    else
+		set_ui()
+	end
 end
 
 -------------------------------------
@@ -408,6 +506,31 @@ end
 -- @brief 재료 카드 만든 후..
 -------------------------------------
 function UI_DragonMastery:createMtrlDragonCardCB(ui, data)
+    if (not ui) then
+        return
+    end
+
+    -- 선택한 드래곤이 레벨업 가능한지 판단
+    local doid = self.m_selectDragonOID
+    if (not g_dragonsData:possibleDragonSkillEnhance(doid)) then
+        ui:setShadowSpriteVisible(true)
+        return
+    end
+
+    -- 재료 드래곤이 재료 가능한지 판별
+    doid = data['id']
+    if (data:getObjectType() == 'dragon') then
+        if (not g_dragonsData:possibleMaterialDragon(doid)) then
+            ui:setShadowSpriteVisible(true)
+            return
+        end
+
+    elseif (data:getObjectType() == 'slime') then
+        if (not g_slimesData:possibleMaterialSlime(doid, 'skill')) then
+            ui:setShadowSpriteVisible(true)
+            return
+        end
+    end
 end
 
 -------------------------------------
