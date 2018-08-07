@@ -71,7 +71,7 @@ function TableMasterySkill:makeMasterySkillID(dragon_rarity_str, dragon_role_str
         dragon_rarity = 4
     end
 
-    -- roleID°¡ ±âÁ¸¿¡ »ç¿ëÇÏ´ø °Í°ú ´Ù¸§
+    -- roleIDê°€ ê¸°ì¡´ì— ì‚¬ìš©í•˜ë˜ ê²ƒê³¼ ë‹¤ë¦„
     local dragon_role = 0
     if (dragon_role_str == 'tanker') then
         dragon_role = 1

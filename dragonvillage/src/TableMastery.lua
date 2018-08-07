@@ -19,7 +19,7 @@ end
 
 -------------------------------------
 -- function getRequiredAmorQuantity
--- @brief Æ¯¼º ·¹º§¾÷¿¡ ÇÊ¿äÇÑ ¾Æ¸ğ¸£ ¼ö·® È¹µæ
+-- @brief íŠ¹ì„± ë ˆë²¨ì—…ì— í•„ìš”í•œ ì•„ëª¨ë¥´ ìˆ˜ëŸ‰ íšë“
 -------------------------------------
 function TableMastery:getRequiredAmorQuantity(dragon_rarity, mastery_lv)
     if (self == THIS) then
