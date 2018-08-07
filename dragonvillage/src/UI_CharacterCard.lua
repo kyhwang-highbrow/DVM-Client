@@ -229,7 +229,7 @@ function UI_CharacterCard:refresh_masteryIcon()
 	if (mastery_level == 0) then
 		return
 	end
-	local res = string.format('card_cha_mastery_%d.png', mastery_level)
+	local res = string.format('card_cha_mastery_%.2d.png', mastery_level)
     if (self.m_masteryIconRes == res) then
         return
     end

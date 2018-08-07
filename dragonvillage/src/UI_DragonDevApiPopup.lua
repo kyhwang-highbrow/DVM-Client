@@ -77,6 +77,9 @@ function UI_DragonDevApiPopup:initUI()
     self.m_skillMaxLv1 = TableDragonSkillModify:getMaxLV(t_dragon['skill_1'])
     self.m_skillMaxLv2 = TableDragonSkillModify:getMaxLV(t_dragon['skill_2'])
     self.m_skillMaxLv3 = TableDragonSkillModify:getMaxLV(t_dragon['skill_3'])
+
+    -- 친밀도는 아직 개발이 안되어서 off
+    vars['friendshipMenu']:setVisible(false)
 end
 
 -------------------------------------
@@ -128,9 +131,37 @@ function UI_DragonDevApiPopup:initButton()
     vars['skillDownBtn3']:registerScriptTapHandler(function() self.m_skill3 = math_clamp(self.m_skill3 - 1, 0, self.m_skillMaxLv3) self:networkSkillLevel(3) end)
     vars['skillMaxBtn3']:registerScriptTapHandler(function() self.m_skill3 = self.m_skillMaxLv3 self:networkSkillLevel(3) end)
 
+    -- 특성
+    vars['masteryEraseBtn']:registerScriptTapHandler(function() self:click_masteryBtn('erase') end)
+    vars['masteryUpBtn']:registerScriptTapHandler(function() self:click_masteryBtn('lvup') end)
+    vars['masteryResetBtn']:registerScriptTapHandler(function() self:click_masteryBtn('reset') end)
+
     vars['applyBtn']:registerScriptTapHandler(function() self:click_closeBtn() end)
 
     vars['closeBtn']:registerScriptTapHandler(function() self:click_closeBtn() end)
+end
+
+-------------------------------------
+-- function click_masteryBtn
+-- @brief 특성 조정
+-------------------------------------
+function UI_DragonDevApiPopup:click_masteryBtn(action)
+    local function success_cb(ret)
+        if ret and ret['modified_dragon'] then
+            g_dragonsData:applyDragonData(ret['modified_dragon'])
+            self:refresh()
+            self.m_bChangeSkill = true -- 드래곤 관리창에서 갱신을 위해 설정
+        end
+    end
+
+    local uid = g_userData:get('uid')
+    local ui_network = UI_Network()
+    ui_network:setUrl('/manage/dragon_mastery_' .. action)
+    ui_network:setRevocable(true)
+    ui_network:setParam('uid', uid)
+    ui_network:setParam('doid', self.m_dragonObjectID)
+    ui_network:setSuccessCB(success_cb)
+    ui_network:request()
 end
 
 -------------------------------------
@@ -148,6 +179,11 @@ function UI_DragonDevApiPopup:refresh()
     vars['skillLabel1']:setString('스킬 1 레벨 : ' .. self.m_skill1)
     vars['skillLabel2']:setString('스킬 2 레벨 : ' .. self.m_skill2)
     vars['skillLabel3']:setString('스킬 3 레벨 : ' .. self.m_skill3)
+
+    do -- 특성
+        local dragon_obj = g_dragonsData:getDragonDataFromUid(self.m_dragonObjectID)
+        vars['masteryLabel']:setString('특성 : ' .. dragon_obj:getMasteryLevel())
+    end
 end
 
 -------------------------------------
