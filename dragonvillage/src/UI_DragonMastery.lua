@@ -4,6 +4,7 @@ local PARENT = UI_DragonManage_Base
 -- class UI_DragonMastery
 -------------------------------------
 UI_DragonMastery = class(PARENT,{
+        m_masteryBoardUI = 'UI_DragonMasteryBoard',
     })
 
 UI_DragonMastery.TAB_LVUP = 'mastery' -- 특성 레벨업
@@ -54,7 +55,6 @@ function UI_DragonMastery:initUI()
     self:init_dragonTableView()
     self:initStatusUI()
 
-
     do -- 아모르의 서
         local table_item = TableItem()
         local item_id = ITEM_ID_AMOR
@@ -74,8 +74,15 @@ function UI_DragonMastery:initUI()
     -- 테이블 뷰 인스턴스 생성
     -- 생성 콜백
     local function create_func(ui, data)
-        local _ui = UI_DragonMasteryBoard()
+        self.m_masteryBoardUI = UI_DragonMasteryBoard()
+        local _ui = self.m_masteryBoardUI
         ui.root:addChild(_ui.root)
+
+        local dragon_obj = self:getSelectDragonObj() -- StructDragonObject
+        self.m_masteryBoardUI:refresh(dragon_obj)
+
+        self.m_masteryBoardUI:setMasterySkillSelectCB(function(tier, index) self:onChange_selectedSkill(tier, index) end)
+        self.m_masteryBoardUI:setSelectedMasterySkill(1, 1) -- 첫 스킬로 선택되도록
     end
     
     local table_view = UIC_TableView(vars['masterySkillViewNode'])
@@ -127,7 +134,11 @@ end
 function UI_DragonMastery:refresh()
     self:refresh_dragonInfo()
     self:refresh_masteryInfo()
-    self:refresh_skillInfo()
+
+    if self.m_masteryBoardUI then
+        local dragon_obj = self:getSelectDragonObj() -- StructDragonObject
+        self.m_masteryBoardUI:refresh(dragon_obj)
+    end
 end
 
 -------------------------------------
@@ -227,16 +238,26 @@ end
 -- function refresh_skillInfo
 -- @brief 특성 스킬 정보 (오른쪽 탭)
 -------------------------------------
-function UI_DragonMastery:refresh_skillInfo()
+function UI_DragonMastery:refresh_skillInfo(tier, index)
     local dragon_obj = self:getSelectDragonObj() -- StructDragonObject
     
     if (not dragon_obj) then
         return
     end
 
+    local rarity_str = dragon_obj:getRarity()
+    local role_str = dragon_obj:getRole()
+
     local vars = self.vars
 
-    local ui = UI_DragonMasterySkillCard(110101, 5)
+    -- 특성 스킬 ID
+    local mastery_skill_id = TableMasterySkill:makeMasterySkillID(rarity_str, role_str, tier, index)
+
+    -- 특성 스킬 LV
+    local mastery_skill_lv = dragon_obj:getMasterySkilLevel(mastery_skill_id)
+
+    vars['skillNode']:removeAllChildren()
+    local ui = UI_DragonMasterySkillCard(mastery_skill_id, mastery_skill_lv)
     vars['skillNode']:addChild(ui.root)
 end
 
@@ -334,6 +355,14 @@ end
 -------------------------------------
 function UI_DragonMastery:click_amorBtn()
     UI_ItemInfoPopup(ITEM_ID_AMOR)
+end
+
+-------------------------------------
+-- function onChange_selectedSkill
+-- @brief 선택된 특성 스킬이 변경되었을 경우
+-------------------------------------
+function UI_DragonMastery:onChange_selectedSkill(tier, index)
+    self:refresh_skillInfo(tier, index)
 end
 
 --@CHECK

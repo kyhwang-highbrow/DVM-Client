@@ -792,7 +792,7 @@ function StructDragonObject:getStringData()
 end
 
 -------------------------------------
--- function isMaxGradeAndLv()
+-- function isMaxGradeAndLv
 -- @brief 최대 등급, 최대 레벨인지 확인 (6성 60레벨)
 --        특성 시스템 활성 조건이기도 함
 -- @return boolean
@@ -812,4 +812,29 @@ function StructDragonObject:isMaxGradeAndLv()
     end
 
     return true
+end
+
+-------------------------------------
+-- function getMasterySkilLevel
+-- @brief 특성 스킬 아이디로 레벨
+-- @return number
+-------------------------------------
+function StructDragonObject:getMasterySkilLevel(mastery_skill_id)
+    if (not self['mastery_skills']) then
+        return 0
+    end
+
+    -- mastery_skill_id가 number type일 경우
+    local mastery_skill_lv = self['mastery_skills'][mastery_skill_id]
+    if mastery_skill_lv then
+        return mastery_skill_lv
+    end
+
+    -- mastery_skill_id가 string type일 경우
+    mastery_skill_lv = self['mastery_skills'][tostring(mastery_skill_id)]
+    if mastery_skill_lv then
+        return mastery_skill_lv
+    end
+
+    return 0
 end

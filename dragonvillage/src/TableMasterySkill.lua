@@ -48,3 +48,41 @@ function TableMasterySkill:getMasterySkillStatus(mastery_id, lv)
 
     return option, value, game_mode
 end
+
+-------------------------------------
+-- function makeMasterySkillID
+--
+-------------------------------------
+function TableMasterySkill:makeMasterySkillID(dragon_rarity_str, dragon_role_str, mastery_skill_tier, mastery_skill_index)
+    -- 110101
+    -- 1xxxxx dragon_rarity
+    --  1xxxx dragon_role
+    --   01xx mastery_skill_tier
+    --     01 mastery_skill_index
+
+    local dragon_rarity = 0
+    if (dragon_rarity_str == 'common') then
+        dragon_rarity = 1
+    elseif (dragon_rarity_str == 'rare') then
+        dragon_rarity = 2
+    elseif (dragon_rarity_str == 'hero') then
+        dragon_rarity = 3
+    elseif (dragon_rarity_str == 'legend') then
+        dragon_rarity = 4
+    end
+
+    -- roleID가 기존에 사용하던 것과 다름
+    local dragon_role = 0
+    if (dragon_role_str == 'tanker') then
+        dragon_role = 1
+    elseif (dragon_role_str == 'dealer') then
+        dragon_role = 2
+    elseif (dragon_role_str == 'supporter') then
+        dragon_role = 3
+    elseif (dragon_role_str == 'healer') then
+        dragon_role = 4
+    end
+
+    local mastery_skill_id = (100000 * dragon_rarity) + (10000 * dragon_role) + (100 * mastery_skill_tier) + (mastery_skill_index)
+    return mastery_skill_id
+end
