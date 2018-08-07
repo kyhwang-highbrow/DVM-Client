@@ -163,6 +163,16 @@ function IconHelper:getDragonReinforceIcon(rlv)
 end
 
 -------------------------------------
+-- function getDragonMasteryIcon
+-- @brief 드래곤 특성 레벨 아이콘
+-------------------------------------
+function IconHelper:getDragonMasteryIcon(mastery_level)
+    local res = string.format('res/ui/icons/mastery/mastery_level_%.2d.png', mastery_level)
+    local sprite = self:getIcon(res)
+	return sprite
+end
+
+-------------------------------------
 -- function getItemIcon
 -- @brief item테이블의 item id로 아이콘 생성
 -------------------------------------

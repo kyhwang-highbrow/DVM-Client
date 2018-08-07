@@ -88,6 +88,15 @@ function UI_DragonInfoBoard:refresh(t_dragon_data)
 		end
 	end
 
+    do -- 드래곤 특성
+		vars['masteryNode']:removeAllChildren()
+		if (t_dragon_data:getMasteryLevel() > 0) then
+			local mastery_level = t_dragon_data:getMasteryLevel()
+			local icon = IconHelper:getDragonMasteryIcon(mastery_level)
+			vars['masteryNode']:addChild(icon)
+		end
+	end
+
     do -- 레벨
         local lv = (t_dragon_data['lv'] or 1)
         local grade = (t_dragon_data:getGrade() or 1)
