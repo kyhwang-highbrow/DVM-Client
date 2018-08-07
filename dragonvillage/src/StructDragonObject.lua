@@ -255,6 +255,14 @@ function StructDragonObject:getRuneSetSkill()
 end
 
 -------------------------------------
+-- function getMasteryLevel
+-- @breif 특성 레벨
+-------------------------------------
+function StructDragonObject:getMasteryLevel()
+    return self['mastery_lv'] or 0
+end
+
+-------------------------------------
 -- function getMasterySkillStatus
 -- @breif
 -------------------------------------
