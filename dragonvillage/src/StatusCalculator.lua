@@ -502,6 +502,42 @@ function StatusCalculator:addPassiveMulti(stat_type, value)
 end
 
 -------------------------------------
+-- function addMasteryAdd
+-- @brief
+-------------------------------------
+function StatusCalculator:addMasteryAdd(stat_type, value)
+    local indivisual_status = self.m_lStatusList[stat_type]
+    if (not indivisual_status) then
+        error('stat_type : ' .. stat_type)
+    end
+
+    -- 특정 타입의 스텟들은 무조건 곱연산
+    if (M_SPECIAL_STATUS_TYPE_ONLY_MULTI[stat_type]) then
+        indivisual_status:addMasteryMulti(value)
+    else
+        indivisual_status:addMasteryAdd(value)
+    end
+end
+
+-------------------------------------
+-- function addMasteryMulti
+-- @brief
+-------------------------------------
+function StatusCalculator:addMasteryMulti(stat_type, value)
+    local indivisual_status = self.m_lStatusList[stat_type]
+    if (not indivisual_status) then
+        error('stat_type : ' .. stat_type)
+    end
+
+    -- 특정 타입의 스텟들은 무조건 합연산
+    if (M_SPECIAL_STATUS_TYPE_ONLY_ADD[stat_type]) then
+        indivisual_status:addMasteryAdd(value)
+    else
+        indivisual_status:addMasteryMulti(value)
+    end
+end
+
+-------------------------------------
 -- function addFormationAdd
 -- @brief
 -------------------------------------
@@ -688,7 +724,7 @@ end
 -- function MakeOwnDragonStatusCalculator
 -- @brief
 -------------------------------------
-function MakeOwnDragonStatusCalculator(doid, t_adjust_dragon_data)
+function MakeOwnDragonStatusCalculator(doid, t_adjust_dragon_data, game_mode)
     local t_dragon_data = g_dragonsData:getDragonDataFromUid(doid)
 
     if (not t_dragon_data) then
@@ -704,7 +740,7 @@ function MakeOwnDragonStatusCalculator(doid, t_adjust_dragon_data)
         end
     end
 
-    local status_calc = MakeDragonStatusCalculator_fromDragonDataTable(t_dragon_data)
+    local status_calc = MakeDragonStatusCalculator_fromDragonDataTable(t_dragon_data, game_mode)
 
     return status_calc
 end
@@ -713,7 +749,7 @@ end
 -- function MakeDragonStatusCalculator_fromDragonDataTable
 -- @brief
 -------------------------------------
-function MakeDragonStatusCalculator_fromDragonDataTable(t_dragon_data)
+function MakeDragonStatusCalculator_fromDragonDataTable(t_dragon_data, game_mode)
     local dragon_id = t_dragon_data['did']
     local lv = t_dragon_data['lv']
     local grade = t_dragon_data['grade']
@@ -746,9 +782,8 @@ function MakeDragonStatusCalculator_fromDragonDataTable(t_dragon_data)
         for stat_type,value in pairs(l_add_status) do
             local indivisual_status = status_calc.m_lStatusList[stat_type]
 
-            -- 지원하지 않는 능력치 타입
-            if (not indivisual_status) then
-                cclog('error!! stat_type : ' .. stat_type)
+            if (M_SPECIAL_STATUS_TYPE_ONLY_MULTI[stat_type]) then
+                indivisual_status:setRuneMulti(value)
             else
                 indivisual_status:setRuneAdd(value)
             end
@@ -756,27 +791,25 @@ function MakeDragonStatusCalculator_fromDragonDataTable(t_dragon_data)
 
         for stat_type,value in pairs(l_multi_status) do
             local indivisual_status = status_calc.m_lStatusList[stat_type]
-            indivisual_status:setRuneMulti(value)
+
+            if (M_SPECIAL_STATUS_TYPE_ONLY_ADD[stat_type]) then
+                indivisual_status:setRuneAdd(value)
+            else
+                indivisual_status:setRuneMulti(value)
+            end
         end
     end
 
     -- 특성(mastery)
     do
-        local l_add_status, l_multi_status = t_dragon_data:getMasterySkillStatus()
+        local l_add_status, l_multi_status = t_dragon_data:getMasterySkillStatus(game_mode)
+        
         for stat_type,value in pairs(l_add_status) do
-            local indivisual_status = status_calc.m_lStatusList[stat_type]
-
-            -- 지원하지 않는 능력치 타입
-            if (not indivisual_status) then
-                cclog('error!! stat_type : ' .. stat_type)
-            else
-                indivisual_status:addMasteryAdd(value)
-            end
+            status_calc:addMasteryAdd(stat_type, value)
         end
 
         for stat_type,value in pairs(l_multi_status) do
-            local indivisual_status = status_calc.m_lStatusList[stat_type]
-            indivisual_status:addMasteryMulti(value)
+            status_calc:addMasteryMulti(stat_type, value)
         end
     end
 

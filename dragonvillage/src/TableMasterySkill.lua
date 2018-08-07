@@ -40,7 +40,7 @@ function TableMasterySkill:getMasterySkillStatus(mastery_id, lv)
     
     local option = t_table['option']
     local value = lv * t_table['add_value']
-    local game_mode = t_table['game_mode']
+    local game_mode = t_table['mode']
 
     if (game_mode == '') then
         game_mode = nil
