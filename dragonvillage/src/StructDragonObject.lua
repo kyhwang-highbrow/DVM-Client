@@ -771,10 +771,21 @@ function StructDragonObject:getStringData()
     -- !!룬정보 뒤에 추가되는데 특성 스킬이 없을 경우 마지막에 ;이 안붙도록 해야함
     do
         local mastery_skills = self['mastery_skills'] or {}
+        
+        -- id 순으로 정렬
+        local t_sorted = {}
         for mastery_id, mastery_lv in pairs(mastery_skills) do
+            table.insert(t_sorted, tonumber(mastery_id))
+        end
+        table.sort(t_sorted, function(a, b) return a < b end)
+
+        for _, mastery_id in ipairs(t_sorted) do
+            local mastery_lv = mastery_skills[tostring(mastery_id)]
             t4 = t4 .. ';' .. mastery_id .. ':' .. mastery_lv
         end
     end
+
+    --cclog('token : ' .. t1 .. ';' .. t2 .. ';' .. t3 .. ';' .. t4)
 
     -- t1 + t2 + t3 + t4
     return t1 .. ';' .. t2 .. ';' .. t3 .. ';' .. t4
