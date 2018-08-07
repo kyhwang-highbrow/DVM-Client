@@ -71,11 +71,11 @@ function TableMasterySkill:makeMasterySkillID(dragon_rarity_str, dragon_role_str
         dragon_rarity = 4
     end
 
-    -- roleID가 기존에 사용하던 것과 다름
+    -- roleID
     local dragon_role = 0
-    if (dragon_role_str == 'tanker') then
+    if (dragon_role_str == 'dealer') then
         dragon_role = 1
-    elseif (dragon_role_str == 'dealer') then
+    elseif (dragon_role_str == 'tanker') then
         dragon_role = 2
     elseif (dragon_role_str == 'supporter') then
         dragon_role = 3
@@ -85,4 +85,20 @@ function TableMasterySkill:makeMasterySkillID(dragon_rarity_str, dragon_role_str
 
     local mastery_skill_id = (100000 * dragon_rarity) + (10000 * dragon_role) + (100 * mastery_skill_tier) + (mastery_skill_index)
     return mastery_skill_id
+end
+
+-------------------------------------
+-- function getMasterySkillOptionDesc
+--
+-------------------------------------
+function TableMasterySkill:getMasterySkillOptionDesc(mastery_skill_id, mastery_skill_lv)
+    if (self == THIS) then
+        self = THIS()
+    end
+
+    local option = self:getValue(mastery_skill_id, 'option')
+    local value = self:getValue(mastery_skill_id, 'add_value') * mastery_skill_lv
+
+    local desc = TableOption:getOptionDesc(option, value)
+    return desc
 end
