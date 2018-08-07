@@ -113,6 +113,7 @@ end
 function UI_DragonMastery:refresh()
     self:refresh_dragonInfo()
     self:refresh_masteryInfo()
+    self:refresh_skillInfo()
 end
 
 -------------------------------------
@@ -206,6 +207,23 @@ function UI_DragonMastery:refresh_masteryInfo()
         str = '{@impossible}' .. str
     end
     vars['amorNumberLabel']:setString(str)
+end
+
+-------------------------------------
+-- function refresh_skillInfo
+-- @brief 특성 스킬 정보 (오른쪽 탭)
+-------------------------------------
+function UI_DragonMastery:refresh_skillInfo()
+    local dragon_obj = self:getSelectDragonObj() -- StructDragonObject
+    
+    if (not dragon_obj) then
+        return
+    end
+
+    local vars = self.vars
+
+    local ui = UI_DragonMasterySkillCard(110101, 5)
+    vars['skillNode']:addChild(ui.root)
 end
 
 
