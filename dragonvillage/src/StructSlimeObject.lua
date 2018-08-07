@@ -337,3 +337,11 @@ end
 function StructSlimeObject:getRuneObjectList()
     return {}
 end
+
+-------------------------------------
+-- function getMasteryLevel
+-- @breif 특성 레벨
+-------------------------------------
+function StructSlimeObject:getMasteryLevel()
+    return 0
+end
