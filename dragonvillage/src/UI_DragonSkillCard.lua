@@ -135,7 +135,7 @@ function UI_DragonSkillCard:setSimple()
     vars['clickBtn']:addChild(vars['lockSprite'])
 
     -- lv label 위치 조정
-    vars['levelLabel']:setPosition(0, -30)
+    vars['levelLabel']:setPosition(0, 10)
     vars['levelLabel']:setScale(1.5)
 
     -- 스킬 아이콘 및 버튼 위치 조정
