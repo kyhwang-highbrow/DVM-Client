@@ -1,4 +1,4 @@
--- ¾Ë¶÷ 
+-- ì•ŒëžŒ 
 local PARENT = UIC_Node
 
 -------------------------------------
@@ -52,8 +52,8 @@ function UIC_AlarmClockIcon:runAction()
         local sequence = cc.Sequence:create(start_action, end_action)
         idle = sequence
     end
-    local disappear = cc.EaseElasticOut:create(cc.ScaleTo:create(0.5, 0, 0), 0.3)
-    local delay = cc.DelayTime:create(1)
+    local disappear = cc.ScaleTo:create(0.1, 0, 0)--cc.EaseElasticOut:create(cc.ScaleTo:create(0.5, 0, 0), 0.3)
+    local delay = cc.DelayTime:create(5)
     local sequence = cc.Sequence:create(appear, idle, disappear, delay)
     
     node:runAction(cc.RepeatForever:create(sequence))
