@@ -1797,6 +1797,7 @@ function Character:release()
 
     self.m_hpNode = nil
     self.m_hpGauge = nil
+    self.m_hpGauge2 = nil
     self.m_castingNode = nil
     self.m_castingGauge = nil
 
