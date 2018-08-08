@@ -19,7 +19,7 @@ function UI_Shop_Popup_SkillSlime:initParentVariable()
     -- ITopUserInfo_EventListener의 맴버 변수들 설정
     self.m_uiName = 'UI_Shop_Popup_SkillSlime'
     self.m_bVisible = true
-    self.m_titleStr = Str('스킬 레벨업')
+    self.m_titleStr = Str('스킬 슬라임 상점')
     self.m_subCurrency = 'topaz'
     self.m_addSubCurrency = 'clancoin'
     self.m_bUseExitBtn = true
